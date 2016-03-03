@@ -237,7 +237,7 @@ class PrintTRSTemplates extends PrintCommon {
             // bordes cabecera de celda
             $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // color de fondo 2
             $this->SetXY($x+15,$y); // restore cursor position
-            $this->SetFont('Helvetica','B',10); // bold 10px
+            $this->SetFont($this->getFontName(),'B',10); // bold 10px
             $this->Cell(15,6,'',	'LTR',0,'L',true); // dorsal
             $this->Cell(10,6,'',	'TR',0,'L',true); // celo
             if ($wide) {
@@ -252,7 +252,7 @@ class PrintTRSTemplates extends PrintCommon {
             // titulos cabecera de celda ( no hay datos para pintar )
             $this->SetXY($x+15,$y); // restore cursor position
             $this->SetTextColor(0,0,0); // negro
-            $this->SetFont('Helvetica','I',8); // italic 8px
+            $this->SetFont($this->getFontName(),'I',8); // italic 8px
             $this->Cell(15,4,_('Dorsal'),	'',0,'L',false); // display order
             $this->Cell(10,4,_('Heat'),	'',0,'L',false);
             if ($wide) {

@@ -75,7 +75,7 @@ class Print_Podium extends PrintCommon {
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // gris
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg2')); // negro
 		$this->ac_SetDrawColor("0x000000"); // line color
-		$this->SetFont('Helvetica','B',11); // bold 11px
+		$this->SetFont($this->getFontName(),'B',11); // bold 11px
 		$this->Cell(140,6,_("Journey").": {$this->jornada->Nombre}",0,0,'L',true);
 		$this->Cell(135,6,_("Date").": {$this->jornada->Fecha}",0,0,'R',true);
 		$this->ln(10); // TODO: write jornada / fecha / grado
@@ -91,13 +91,13 @@ class Print_Podium extends PrintCommon {
 		$this->SetX(10); // first page has 3 extra header lines
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// first row of table header
-		$this->SetFont('Helvetica','BI',12); // default font
+		$this->SetFont($this->getFontName(),'BI',12); // default font
 		$this->Cell(115,6,Mangas::$manga_modes[$mode][0],0,0,'L',true);
 		$this->Cell(59,6,$tm1,0,0,'C',true);
 		$this->Cell(59,6,$tm2,0,0,'C',true);
 		$this->Cell(42,6,_('Score'),0,0,'C',true);
 		$this->ln();
-		$this->SetFont('Helvetica','',8); // default font
+		$this->SetFont($this->getFontName(),'',8); // default font
 		// datos del participante
 		$this->Cell(10,6,_('Dorsal'),0,0,'C',true); 	// dorsal
 		$this->Cell(25,6,_('Name'),0,0,'C',true);	// nombre (20,y
@@ -159,9 +159,9 @@ class Print_Podium extends PrintCommon {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// datos del participante
 		$this->Cell(10,6,$row['Dorsal'],0,0,'R',true); 	// dorsal
-		$this->SetFont('Helvetica','B',9); // bold font
+		$this->SetFont($this->getFontName(),'B',9); // bold font
 		$this->Cell(25,6,$row['Nombre'],0,0,'L',true);	// nombre (20,y
-		$this->SetFont('Helvetica','',9); // default font
+		$this->SetFont($this->getFontName(),'',9); // default font
 		$this->Cell(15,6,$row['Licencia'],0,0,'C',true);	// licencia
 		if (Jornadas::hasGrades($this->jornada)) {
 			$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',true);	// categoria/grado
@@ -192,9 +192,9 @@ class Print_Podium extends PrintCommon {
 		$this->Cell(12,6,$tiempo,0,0,'C',true);	// Tiempo
 		$this->Cell(12,6,$penal,0,0,'C',true);	// Penalizacion
 		$this->Cell(10,6,$row['Calificacion'],0,0,'C',true);	// Calificacion
-		$this->SetFont('Helvetica','B',9); // default font
+		$this->SetFont($this->getFontName(),'B',9); // default font
 		$this->Cell(8,6,$puesto,0,0,'R',true);	// Puesto
-		$this->SetFont('Helvetica','',9); // default font
+		$this->SetFont($this->getFontName(),'',9); // default font
 		// lineas rojas
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->Line(10    ,$y,10,    $y+6);

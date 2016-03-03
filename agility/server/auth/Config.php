@@ -68,6 +68,7 @@ define('AC_PDF_HDRBG2','#808080');
 define('AC_PDF_ROWCOLOR1','#ffffff');
 define('AC_PDF_ROWCOLOR2','#e0ebff');
 define('AC_PDF_LINECOLOR','#808080');
+define('AC_PDF_FONTFAMILY','DejaVu');
 
 /** personalizacion del tablet **/
 define('AC_TABLET_BEEP',"0");		// habilitar señal sonora al pulsar tecla (1) o deshabilita (0)
@@ -210,6 +211,7 @@ Class Config {
 		$this->config['pdf_rowcolor1'] =	AC_PDF_ROWCOLOR1;
 		$this->config['pdf_rowcolor2'] =	AC_PDF_ROWCOLOR2;
 		$this->config['pdf_linecolor'] =	AC_PDF_LINECOLOR;
+		$this->config['pdf_fontfamily'] =	AC_PDF_FONTFAMILY;
 		
 		// personalizacion del tablet
 		$this->config['tablet_beep'] =		AC_TABLET_BEEP;
@@ -383,6 +385,7 @@ Class Config {
 		$data['pdf_rowcolor1'] =	AC_PDF_ROWCOLOR1;
 		$data['pdf_rowcolor2'] =	AC_PDF_ROWCOLOR2;
 		$data['pdf_linecolor'] =	AC_PDF_LINECOLOR;
+		$data['pdf_fontfamiliy'] =	AC_PDF_FONTFAMILY;
 		// tablet
 		$this->config['tablet_beep'] =	AC_TABLET_BEEP;
 		$this->config['tablet_dnd'] =	AC_TABLET_DND;
@@ -448,6 +451,7 @@ Class Config {
 		$data=testAndSet($data,'pdf_rowcolor1','s',AC_PDF_ROWCOLOR1);
 		$data=testAndSet($data,'pdf_rowcolor2','s',AC_PDF_ROWCOLOR2);
 		$data=testAndSet($data,'pdf_linecolor','s',AC_PDF_LINECOLOR);
+		$data=testAndSet($data,'pdf_fontfamily','s',AC_PDF_FONTFAMILY);
 		
 		// tablet
 		$data['tablet_beep']=http_request('tablet_beep','s',AC_TABLET_BEEP);

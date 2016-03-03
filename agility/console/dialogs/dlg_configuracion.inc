@@ -122,6 +122,14 @@ $config =Config::getInstance();
 		
 		<div title="<?php _e('Reports'); ?>" style="padding:10px">
 			<h3><?php _e('PDF forms and reports generation'); ?></h3>
+			<label for="pdf_fontfamiliy"><?php _e('Font family'); ?></label>
+			<select id="pdf_fontfamily" name="pdf_fontfamily">
+				<option value="DejaVu" selected="selected">DejaVu (UTF-8)</option>
+				<option value="Free" selected="selected">GNU Free (UTF-8)</option>
+				<option value="Courier">Courier (iso-latin1)</option>
+				<option value="Helvetica">Helvetica (iso-latin1)</option>
+				<option value="Times">Times (iso-latin1)</option>
+			</select><br />
 			<label for="pdf_journeys"><?php _e('Show journey info when printing catalog'); ?></label>
 			<input type="hidden" name="pdf_journeys" value="0"/>
 			<input id="pdf_journeys" name="pdf_journeys" type="checkbox" value="1"/><br />

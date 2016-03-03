@@ -62,8 +62,10 @@ class ResultadosByEquipos4 extends PrintCommon {
 	/**
 	 * Constructor
      * @param {integer} $prueba Prueba ID
-     * @param {integer} $jornada Jormada ID
+     * @param {integer} $jornada
      * @param {integer} $manga Manga ID
+     * @param {object} $resultados
+     * @param {integer} $mode
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$manga,$resultados,$mode) {
@@ -84,7 +86,7 @@ class ResultadosByEquipos4 extends PrintCommon {
         // Si es la primera hoja pintamos datos tecnicos de la manga
         if ($this->PageNo()!=1) return;
 
-        $this->SetFont('Helvetica','B',9); // bold 9px
+        $this->SetFont($this->getFontName(),'B',9); // bold 9px
         $jobj=new Jueces("print_resultadosEquipos3");
         $juez1=$jobj->selectByID($this->manga->Juez1);
         $juez2=$jobj->selectByID($this->manga->Juez2);
@@ -148,9 +150,9 @@ class ResultadosByEquipos4 extends PrintCommon {
             $this->SetX(22);
             $this->ac_row($id,8);
             $this->Cell(6,3,$perro['Dorsal'],'LTBR',0,'L',true);
-            $this->SetFont('Helvetica','B',8);
+            $this->SetFont($this->getFontName(),'B',8);
             $this->Cell(13,3,$perro['Nombre'],'LTBR',0,'C',true);
-            $this->SetFont('Helvetica','',7);
+            $this->SetFont($this->getFontName(),'',7);
             $this->Cell(28,3,$perro['NombreGuia'],'LTBR',0,'R',true);
             $this->Ln(3);
             // sumamos faltas, tocados y rehuses
@@ -192,7 +194,7 @@ class ResultadosByEquipos4 extends PrintCommon {
 
         $this->ac_SetFillColor("#c0c0c0"); // light gray
         $this->SetXY(71,7+$y+1);
-        $this->SetFont('Helvetica','I',8); // italic 8px
+        $this->SetFont($this->getFontName(),'I',8); // italic 8px
         $this->Cell(15,2.5,_("Flt"),0,0,'L',false);
         $this->Cell(15,2.5,_("Ref"),0,0,'L',false);
         $this->Cell(15,2.5,_("Tch"),0,'L',false);
@@ -202,7 +204,7 @@ class ResultadosByEquipos4 extends PrintCommon {
         $this->Cell(26,2.5,_("Penaliz"),0,0,'L',false);
 
         $this->SetXY(71,6+$y+1);
-        $this->SetFont('Helvetica','B',10); // italic 8px
+        $this->SetFont($this->getFontName(),'B',10); // italic 8px
         $this->Cell(15,7,$team['Faltas'],0,0,'R',false);
         $this->Cell(15,7,$team['Rehuses'],0,0,'R',false);
         $this->Cell(15,7,$team['Tocados'],0,0,'R',false);

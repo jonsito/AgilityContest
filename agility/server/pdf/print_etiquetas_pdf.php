@@ -94,10 +94,10 @@ class Etiquetas_PDF extends PrintCommon {
 		$y17=  $top+ $height * $idx + 17;
 		$ynext=$top+ $height * ($idx+1);
 		
-		$this->SetFont('Helvetica','B',24); // bold 11px
+		$this->SetFont($this->getFontName(),'B',24); // bold 11px
 		$this->setXY($left,$y1-1);
 		$this->Cell(20,17,$row['Dorsal'],'L',0,'C',false);
-		$this->SetFont('Helvetica','I',8); // font for prueba,name
+		$this->SetFont($this->getFontName(),'I',8); // font for prueba,name
 		
 		// caja izquierda (35,y,35,15)
 		$this->SetXY($left+22,$y1); // margins are 10mm each
@@ -118,10 +118,10 @@ class Etiquetas_PDF extends PrintCommon {
 		$this->SetXY($left+36,$y9); 
 		$this->Cell(38,5,$this->jornada->Fecha,0,0,'L',false);
         // licencia
-        $this->SetFont('Helvetica','',5); // font for licencia
+        $this->SetFont($this->getFontName(),'',5); // font for licencia
         $this->SetXY($left+36,$y12);
         $this->Cell(38,5,$this->serialno,0,0,'L',false);
-        $this->SetFont('Helvetica','I',8); // font for prueba,name
+        $this->SetFont($this->getFontName(),'I',8); // font for prueba,name
 
 		//Perro (45,y+10,38,7) right
 		$this->SetXY($left+36,$y10); 
@@ -135,7 +135,7 @@ class Etiquetas_PDF extends PrintCommon {
 		$this->SetXY($left+75,$y8); 
 		$this->Cell(20,8,$tipo,'L',0,'L',false);
 
-		$this->SetFont('Helvetica','',12); // font size for results data
+		$this->SetFont($this->getFontName(),'',12); // font size for results data
 		//Cat (105,y,12,8) center
 		$this->SetXY($left+95,$y1); 
 		$this->Cell(12,7,$row['Categoria'],'L',0,'C',false);
@@ -156,17 +156,17 @@ class Etiquetas_PDF extends PrintCommon {
 		$this->Cell(24,8,$row['C2'],'L',0,'C',false);
 		
 		//Puesto1 (159,y,15,8) center
-		$this->SetFont('Helvetica','B',20); // font size for results data
+		$this->SetFont($this->getFontName(),'B',20); // font size for results data
 		$this->ac_Cell($left+148.5,$y1,13,7,"/",'','C',false);
-		$this->SetFont('Helvetica','',10); // font size for results data
+		$this->SetFont($this->getFontName(),'',10); // font size for results data
 		$this->ac_Cell($left+148,$y1,13,7,"",'LBR','C',false);
 		$this->ac_Cell($left+148,$y0,13,7,"{$row['Puesto1']}º",'','L',false);
 		$this->ac_Cell($left+148,$y2,13,7,"${row['Participantes']}",'','R',false);
 
 		//Puesto2 (159,y+8,15,9) center
-		$this->SetFont('Helvetica','B',20); // font size for results data
+		$this->SetFont($this->getFontName(),'B',20); // font size for results data
 		$this->ac_Cell($left+148.5,$y8,13,8,"/",'','C',false);
-		$this->SetFont('Helvetica','',10); // font size for results data
+		$this->SetFont($this->getFontName(),'',10); // font size for results data
 		$this->ac_Cell($left+148,$y8,13,8,"",'LR','C',false);
 		$this->ac_Cell($left+148,$y7,13,8,"{$row['Puesto2']}º",'','L',false);
 		$this->ac_Cell($left+148,$y9,13,8,"${row['Participantes']}",'','R',false);
@@ -177,7 +177,7 @@ class Etiquetas_PDF extends PrintCommon {
 		
 		// en el margen izquierdo de las etiquetas
 		// ponemos info de perro guia y club
-		$this->SetFont('Helvetica','B',10); // font size for results data
+		$this->SetFont($this->getFontName(),'B',10); // font size for results data
 		$this->SetXY($left+170,$y1);
 		$this->Cell(25,5,$row['Nombre'],'',0,'L',false);
 		$this->SetXY($left+170,$y5);
@@ -190,7 +190,7 @@ class Etiquetas_PDF extends PrintCommon {
 		$this->myLogger->enter();
 		$this->SetFillColor(224,235,255); // azul merle
 		$this->SetTextColor(0,0,0); // negro
-		$this->SetFont('Helvetica','',8); // default font	
+		$this->SetFont($this->getFontName(),'',8); // default font
 		$lc=$this->config->getEnv('pdf_linecolor');
 		$labels=($this->config->getEnv('pdf_labelheight')==17)?16:13;
 		$this->ac_SetDrawColor($lc);

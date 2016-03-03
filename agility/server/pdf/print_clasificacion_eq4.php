@@ -150,7 +150,7 @@ class PrintClasificacionEq4 extends PrintCommon {
 
     function print_datosMangas() {
         $this->setXY(10,40);
-        $this->SetFont('Helvetica','B',9); // bold 9px
+        $this->SetFont($this->getFontName(),'B',9); // bold 9px
 
         $jobj=new Jueces("print_Clasificaciones_eq4");
         $juez1=$jobj->selectByID($this->manga1->Juez1);
@@ -160,9 +160,9 @@ class PrintClasificacionEq4 extends PrintCommon {
         if ($this->manga2!=null)
             $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->getCatString($this->categoria);
 
-        $this->SetFont('Helvetica','B',11); // bold 9px
+        $this->SetFont($this->getFontName(),'B',11); // bold 9px
         $this->Cell(80,5,_("Journey").": {$this->jornada->Nombre}",0,0,'',false);
-        $this->SetFont('Helvetica','B',9); // bold 9px
+        $this->SetFont($this->getFontName(),'B',9); // bold 9px
         $this->Cell(20,5,_("Judge")." 1:","LT",0,'L',false);
         $n=$juez1['Nombre'];
         $this->Cell(75,5,($n==="-- Sin asignar --")?"":$n,"T",0,'L',false);
@@ -171,9 +171,9 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->Cell(80,5,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
         $this->Ln();
         $trs=$this->trs1;
-        $this->SetFont('Helvetica','B',11); // bold 9px
+        $this->SetFont($this->getFontName(),'B',11); // bold 9px
         $this->Cell(80,5,_("Date").": {$this->jornada->Fecha}",0,0,'',false);
-        $this->SetFont('Helvetica','B',9); // bold 9px
+        $this->SetFont($this->getFontName(),'B',9); // bold 9px
         $this->Cell(70,5,$tm1,"LTB",0,'L',false);
         $this->Cell(25,5,_("Dist").".: {$trs['dist']}m","LTB",0,'L',false);
         $this->Cell(25,5,_("Obst").".: {$trs['obst']}","LTB",0,'L',false);
@@ -184,9 +184,9 @@ class PrintClasificacionEq4 extends PrintCommon {
         if ($this->trs2==null) { $this->Ln(); return; }
         $trs=$this->trs2;
         $ronda=$this->getGradoString(intval($this->manga1->Tipo));
-        $this->SetFont('Helvetica','B',11); // bold 9px
+        $this->SetFont($this->getFontName(),'B',11); // bold 9px
         $this->Cell(80,5,_("Round").": $ronda - {$this->getCatString($this->categoria)}",0,0,'',false);
-        $this->SetFont('Helvetica','B',9); // bold 9px
+        $this->SetFont($this->getFontName(),'B',9); // bold 9px
         $this->Cell(70,5,$tm2,"LTB",0,'L',false);
         $this->Cell(25,5,_("Dist").".: {$trs['dist']}m","LTB",0,'L',false);
         $this->Cell(25,5,_("Obst").".: {$trs['obst']}","LTB",0,'L',false);
@@ -199,7 +199,7 @@ class PrintClasificacionEq4 extends PrintCommon {
     // on second and consecutive pages print a short description to avoid sheet missorder
     function print_datosMangas2() {
         $this->SetXY(35,15);
-        $this->SetFont('Helvetica','B',11); // bold 9px
+        $this->SetFont($this->getFontName(),'B',11); // bold 9px
         $this->Cell(80,7,"{$this->jornada->Nombre}",0,0,'',false);
         $this->SetXY(35,20);
         $this->Cell(80,7,"{$this->jornada->Fecha}",0,0,'',false);
@@ -246,9 +246,9 @@ class PrintClasificacionEq4 extends PrintCommon {
             $this->SetX(22);
             $this->ac_row($id,8);
             $this->Cell(6,3,$perro['Dorsal'],'LTBR',0,'L',true);
-            $this->SetFont('Helvetica','B',8);
+            $this->SetFont($this->getFontName(),'B',8);
             $this->Cell(13,3,$perro['Nombre'],'LTBR',0,'C',true);
-            $this->SetFont('Helvetica','',7);
+            $this->SetFont($this->getFontName(),'',7);
             $this->Cell(28,3,$perro['NombreGuia'],'LTBR',0,'R',true);
             $this->Ln(3);
         }
@@ -302,7 +302,7 @@ class PrintClasificacionEq4 extends PrintCommon {
 
         $this->SetXY(70,8+$y);
         // manga 1
-        $this->SetFont('Helvetica','I',7); // italic 7px
+        $this->SetFont($this->getFontName(),'I',7); // italic 7px
         $this->Cell(12.5,2.5,_("Flt"),0,0,'L',false);
         $this->Cell(12.5,2.5,_("Ref"),0,0,'L',false);
         $this->Cell(12.5,2.5,_("Elim"),0,0,'L',false);
@@ -310,7 +310,7 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->Cell(20,2.5,_("Time"),0,0,'L',false);
         $this->Cell(20,2.5,_("Penaliz"),0,0,'L',false);
         // manga 2
-        $this->SetFont('Helvetica','I',8); // italic 8px
+        $this->SetFont($this->getFontName(),'I',8); // italic 8px
         $this->Cell(12.5,2.5,_("Flt"),0,0,'L',false);
         $this->Cell(12.5,2.5,_("Ref"),0,0,'L',false);
         $this->Cell(12.5,2.5,_("Elim"),0,0,'L',false);
@@ -324,7 +324,7 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->SetXY(70,9+$y);
         $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2'));
         // manga 1
-        $this->SetFont('Helvetica','B',9); // italic 8px
+        $this->SetFont($this->getFontName(),'B',9); // italic 8px
         $this->Cell(12.5,6,$team['F1'],0,0,'R',false);
         $this->Cell(12.5,6,$team['R1'],0,0,'R',false);
         $this->Cell(12.5,6,$team['E1'],0,0,'R',false);
@@ -341,7 +341,7 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->Cell(18,6,number_format($team['P2'],$this->timeResolution),0,0,'R',false);
         $this->SetXY(248,8+$y); $this->Cell(2,6,"",0,0,'R',true); $this->SetXY(250,9+$y); // barra separadora
         // final
-        $this->SetFont('Helvetica','BI',10); // italic 8px
+        $this->SetFont($this->getFontName(),'BI',10); // italic 8px
         $this->Cell(17,6,number_format($team['Tiempo'],$this->timeResolution),0,0,'R',false);
         $this->Cell(18,6,number_format($team['Penalizacion'],$this->timeResolution),0,0,'R',false);
 	}
