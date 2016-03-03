@@ -410,7 +410,7 @@ class PrintEstadisticas extends PrintCommon {
 		if ($alturas==3) {
 			$this->SetFont($this->getFontName(),'B',9);
 			// $this->cell( width, height, data, borders, where, align, fill)
-			$this->cell(30,7,'','LRB',0,'L',true);
+			$this->cell(35,7,'','LRB',0,'L',true);
 			$this->cell(30,7,$this->federation->getCategory('L'),'TRB',0,'C',true);
 			$this->cell(30,7,$this->federation->getCategory('M'),'TRB',0,'C',true);
 			$this->cell(30,7,$this->federation->getCategory('S'),'TRB',0,'C',true);
@@ -418,7 +418,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // pre-agility
-			$this->cell(30,7,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
+			$this->cell(35,7,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
 			$this->ac_row(0,9);
 			$this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
@@ -427,7 +427,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // grado I
-			$this->cell(30,7,$this->federation->getGrade('GI'),'LRB',0,'L',true);
+			$this->cell(35,7,$this->federation->getGrade('GI'),'LRB',0,'L',true);
 			$this->ac_row(1,9);
 			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
@@ -436,7 +436,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado II
-			$this->cell(30,7,$this->federation->getGrade('GII'),'LRB',0,'L',true);
+			$this->cell(35,7,$this->federation->getGrade('GII'),'LRB',0,'L',true);
 			$this->ac_row(2,9);
 			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
@@ -445,7 +445,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado III
-			$this->cell(30,7,$this->federation->getGrade('GIII'),'LRB',0,'L',true);
+			$this->cell(35,7,$this->federation->getGrade('GIII'),'LRB',0,'L',true);
 			$this->ac_row(3,9);
 			$this->cell(30,7,$data[$name]['GIII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GIII']['M'],'RB',0,'C',true);
@@ -454,7 +454,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // Total
-			$this->cell(30,7,_('Total'),'LRB',0,'L',true);
+			$this->cell(35,7,_('Total'),'LRB',0,'L',true);
 			$this->ac_row(4,9);
 			$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
@@ -465,7 +465,7 @@ class PrintEstadisticas extends PrintCommon {
 		if ($alturas==4) {
 			$this->SetFont($this->getFontName(),'B',9);
 			// $this->cell( width, height, data, borders, where, align, fill)
-			$this->cell(30,7,'','LRB',0,'L',true);
+			$this->cell(35,7,'','LRB',0,'L',true);
 			$this->cell(30,7,$this->federation->getCategory('L'),'TRB',0,'C',true);
 			$this->cell(30,7,$this->federation->getCategory('M'),'TRB',0,'C',true);
 			$this->cell(30,7,$this->federation->getCategory('S'),'TRB',0,'C',true);
@@ -474,7 +474,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // pre-agility
-			$this->cell(30,7,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
+			$this->cell(35,7,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
 			$this->ac_row(0,9);
 			$this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
@@ -484,7 +484,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // grado I
-			$this->cell(30,7,$this->federation->getGrade('GI'),'LRB',0,'L',true);
+			$this->cell(35,7,$this->federation->getGrade('GI'),'LRB',0,'L',true);
 			$this->ac_row(1,9);
 			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
@@ -494,7 +494,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado II
-			$this->cell(30,7,$this->federation->getGrade('GII'),'LRB',0,'L',true);
+			$this->cell(35,7,$this->federation->getGrade('GII'),'LRB',0,'L',true);
 			$this->ac_row(2,9);
 			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
@@ -504,7 +504,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // Total
-			$this->cell(30,7,_('Total'),'LRB',0,'L',true);
+			$this->cell(35,7,_('Total'),'LRB',0,'L',true);
 			$this->ac_row(3,9);
 			$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
