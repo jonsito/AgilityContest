@@ -76,6 +76,11 @@ class UCA extends Federations {
             parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
             return;
         }
+        if ($perro['Penalizacion']>=400)  { // tiene manga pendiente de salir
+            $perro['Penalizacion']=400.0;
+            $perro['Calificacion'] = "";
+            $perro['CShort'] = "";
+        }
         if ($perro['Penalizacion']>=200)  { // no presentado: no puntua
             $perro['Penalizacion']=200.0;
             $perro['Calificacion'] = _("Not Present");

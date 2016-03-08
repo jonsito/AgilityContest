@@ -158,7 +158,12 @@ class Federations {
      * @param {array} $puestocat puesto en funcion de la categoria
      */
     public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
-        if ($perro['Penalizacion']>=200)  {
+        if ($perro['Penalizacion']>=400)  { // pending
+            $perro['Penalizacion']=400.0;
+            $perro['Calificacion'] = "-";
+            $perro['CShort'] = "-";
+        }
+        else if ($perro['Penalizacion']>=200)  {
             $perro['Penalizacion']=200.0;
             $perro['Calificacion'] = _("Not Present");
             $perro['CShort'] = _("N.P.");

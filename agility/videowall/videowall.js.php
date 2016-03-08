@@ -407,6 +407,7 @@ function vwc_evalResultados(items) {
 		if (dat.Penalizacion>=26.0) dat.Calificacion="<?php _e('N.C.');?>";
 		if (dat.Penalizacion>=100.0) dat.Calificacion="<?php _e('Elim');?>";
 		if (dat.Penalizacion>=200.0) dat.Calificacion="<?php _e('N.P.');?>";
+		if (dat.Penalizacion>=400.0) dat.Calificacion="-";
 		// evaluamos posicion
 		var results=$('#vw_parciales-datagrid').datagrid('getData')['rows'];
 		if (typeof(results)==="undefined") return; // no data yet

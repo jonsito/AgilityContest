@@ -84,7 +84,12 @@ class RFEC extends Federations {
         if ($perro['Penalizacion']==0.0) $pt1++; // 2 puntos por cero
         // puntos a los 5 primeros por manga/categoria si no estan eliminados
         if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<100) && ($puestocat[$cat]<=5) ) $pt1+= $ptsmanga[$puestocat[$cat]-1];
-        if ($perro['Penalizacion']>=200)  {
+        if ($perro['Penalizacion']>=400)  {
+            $perro['Penalizacion']=400.0;
+            $perro['Calificacion'] = "-";
+            $perro['CShort'] = "-";
+        }
+        else if ($perro['Penalizacion']>=200)  {
             $perro['Penalizacion']=200.0;
             $perro['Calificacion'] = _("Not Present");
             $perro['CShort'] = _("N.P.");

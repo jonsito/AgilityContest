@@ -92,7 +92,7 @@ class Clasificaciones extends DBObject {
                 'N1' => $item['NoPresentado'],
 				'T1' => floatval($item['Tiempo']),
 				'V1' => $item['Velocidad'],
-				'P1' => $item['Penalizacion'],
+				'P1' => intval($item['Penalizacion']),
 				'C1' => $item['CShort'],
                 'Puesto1' => $item['Puesto'], // puesto conjunto
                 'Pcat1' => $item['Pcat'], // puesto por categoria
@@ -102,14 +102,14 @@ class Clasificaciones extends DBObject {
                 'E2' => 0,
                 'N2' => 0,
 				'T2' => 0,
-				'P2' => 0,
+				'P2' => 400,
 				'V2' => 0,
 				'C2' => '',
                 'Puesto2' => 0,
                 'Pcat2' => 0,
 				// datos globales
 				'Tiempo' => $item['Tiempo'],
-				'Penalizacion' => $item['Penalizacion'],
+				'Penalizacion' => intval($item['Penalizacion']) + 400,
 				'Calificacion' => $item['CShort'],
 				'Puntos' => '', // to be evaluated
                 'Puesto' => 0, // to be evaluated
@@ -142,7 +142,7 @@ class Clasificaciones extends DBObject {
 						'N1' => 0,
 						'T1' => 0,
 						'V1' => 0,
-						'P1' => 0,
+						'P1' => 400,
 						'C1' => '',
 						'Puesto1' => 0, // puesto conjunto
 						'Pcat1' => 0, // puesto por categoria
@@ -156,7 +156,7 @@ class Clasificaciones extends DBObject {
                 $final[$item['Perro']]['N2'] = $item['NoPresentado'];
 				$final[$item['Perro']]['T2'] = floatval($item['Tiempo']);
 				$final[$item['Perro']]['V2'] = $item['Velocidad'];
-				$final[$item['Perro']]['P2'] = $item['Penalizacion'];
+				$final[$item['Perro']]['P2'] = intval($item['Penalizacion']);
 				$final[$item['Perro']]['C2'] = $item['CShort'];
                 $final[$item['Perro']]['Puesto2'] = $item['Puesto'];
                 $final[$item['Perro']]['Pcat2'] = $item['Pcat'];
@@ -171,13 +171,12 @@ class Clasificaciones extends DBObject {
 		$final2=array();
 		foreach($final as $item) array_push($final2,$item);
 		$final=$final2;
-		
+
 		// re-ordenamos los datos en base a la puntuacion 
 		usort($final, function($a, $b) {
 			if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
 			return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
 		});
-
 		// calculamos campo "Puesto", "Calificacion" y Puntos
         $puestocat=array( 'C'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
         $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria

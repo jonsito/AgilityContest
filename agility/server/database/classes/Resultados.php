@@ -634,8 +634,5 @@ class Resultados extends DBObject {
         });
         return $teams;
     }
-
-
-
 }
 ?>

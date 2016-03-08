@@ -215,7 +215,7 @@ class Eventos extends DBObject {
      * @return array|null
      */
 	function getEvents($data) { 
-		$this->myLogger->enter();
+		// $this->myLogger->enter();
 		
 		// Close the session prematurely to avoid usleep() from locking other requests
 		// notice that cannot call http_request after this item
@@ -262,7 +262,7 @@ class Eventos extends DBObject {
 		}
 		// if no new events (timeout) create an empty result
 		if ($res===null) $res=array( 'total'=>0, 'rows'=>array(), 'TimeStamp' => $current );
-		$this->myLogger->leave();
+		// $this->myLogger->leave();
 		return $res;
 	}
 
@@ -273,8 +273,8 @@ class Eventos extends DBObject {
      * available events for session $data['Session'] with id greater than $data['ID']
      */
 	function listEvents($data) {
+		// $this->myLogger->enter();
 		if ($data['Session']<=0) return $this->error("No Session ID specified");
-		$this->myLogger->enter();
 		$extra="";
 		if ($data['Type']!=="") $extra=" AND ( Type = {$data['Type']} )";
 		$result=$this->__select(
@@ -284,7 +284,7 @@ class Eventos extends DBObject {
 				/* ORDER BY */ "ID",
 				/* LIMIT */ ""
 		);
-		$this->myLogger->leave();
+		//$this->myLogger->leave();
 		return $result;
 	}
 	
