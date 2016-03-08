@@ -44,8 +44,15 @@ function formatNoPresentado(val,row,idx) { return (row.NoPresentado==0)?"":'<?ph
 
 /* formaters para el frm_clasificaciones */
 function formatPuestoFinal(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=200)?"-":val)+'</span>'; }
-function formatPuestoFinalBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=200)?"-":val)+'</span>'; }
-function formatPenalizacionFinal(val,row,idx) { return (row.P2>=400)?"-":toFixedT(parseFloat(val),ac_config.numdecs); }
+function formatPuestoFinalBig(val,row,idx) {
+    return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=400)?"-":val)+'</span>';
+}
+function formatPenalizacionFinal(val,row,idx) {
+    var p=row.Penalizacion;
+    if (p>=800) return "-";
+    if (p>=400) return p-400;
+    return toFixedT(parseFloat(val),ac_config.numdecs);
+}
 
 function formatV1(val,row,idx) { return (row.P1>=200)?"-":toFixedT(parseFloat(val),1); }
 function formatTP(val,p,idx) {

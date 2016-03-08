@@ -108,15 +108,15 @@ class RFEC extends Federations {
             $perro['CShort'] = _("Good");
         }
         else if ($perro['Penalizacion']>=6)	{
-            $perro['Calificacion'] = _("Very good")." - ".$pt1;
+            $perro['Calificacion'] = _("V.G.")." - ".$pt1;
             $perro['CShort'] = _("V.G.");
         }
         else if ($perro['Penalizacion']>0)	{
-            $perro['Calificacion'] = _("Excellent")." - ".$pt1;
+            $perro['Calificacion'] = _("Exc")." - ".$pt1;
             $perro['CShort'] = _("Exc");
         }
         else if ($perro['Penalizacion']==0)	{
-            $perro['Calificacion'] = _("Excellent")." - ".$pt1;
+            $perro['Calificacion'] = _("Exc")." - ".$pt1;
             $perro['CShort'] = _("Exc");
         }
     }
