@@ -124,11 +124,11 @@ class RSCE extends Federations {
         // si llegamos aqui tenemos los 10 primeros perros una prueba selectiva en grado 3 con un perro no mestizo que ha sacado excelente :-)
         $pt1=$pts[$puestocat[$perro['Categoria']]-1];
         if ($perro['Penalizacion']>0)	{
-            $perro['Calificacion'] = _("Excellent")." - $pt1";
+            $perro['Calificacion'] = _("Exc")." - $pt1";
             $perro['CShort'] = _("Exc");
         }
         if ($perro['Penalizacion']==0)	{
-            $perro['Calificacion'] = _("Exc. (p)")." - $pt1";
+            $perro['Calificacion'] = _("Exc")." (p) - $pt1";
             $perro['CShort'] = _("Ex P");
         }
     }
