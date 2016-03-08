@@ -43,7 +43,7 @@ class ResultadosByManga extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos	=array(  9,		18,		15,		30,		20,		15,		   6,      6,    6,       12,     7,    12,      20,			12 );
+	protected $pos	=array(  8,		17,		15,		30,		20,		15,		   6,      6,    6,       12,     7,    12,      23,			11 );
 	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
 
 	
@@ -144,7 +144,7 @@ class ResultadosByManga extends PrintCommon {
 			}
 			// properly format special fields
 
-			$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
+			$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}";
 			$veloc= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],1);
 			$tiempo= ($row['Penalizacion']>=200)?"-":number_format($row['Tiempo'],$this->timeResolution);
 			$penal=number_format($row['Penalizacion'],$this->timeResolution);
