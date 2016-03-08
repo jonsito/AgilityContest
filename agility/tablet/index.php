@@ -90,6 +90,11 @@ loadConfiguration();
 getLicenseInfo();
 getFederationInfo();
 
+var tablet_config = {
+	'StartStopMode': 0, // 0:stop, 1:start, -1:auto
+	'DataEntryEnabled':0 // 0: roundSelection enabled 1:dataEntry enabled
+};
+
 function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({

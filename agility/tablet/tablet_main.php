@@ -341,7 +341,7 @@ $config =Config::getInstance();
             var np=parseInt($('#tdialog-NoPresentado').val());
             $('#tdialog-EliminadoStr').val((el==0)?"":"EL");
             $('#tdialog-NoPresentadoStr').val((np==0)?"":"NP");
-            $('#tdialog-StartStopBtn').val("Start");
+            setStartStopMode(0);
             tablet_putEvent('llamada',
                     { // setup initial data for event,
                         'TimeStamp'     : Date.now() - startDate,

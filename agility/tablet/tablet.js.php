@@ -35,9 +35,22 @@ function tandasStyler(val,row,idx) {
  * @param {boolean} flag true if activate; false on deactivate
  */
 function setDataEntryEnabled(flag) {
+	tablet_config.DataEntryEnabled=flag;
 	$('#tdialog-fieldset').prop('disabled',!flag);
 	if (flag) $('#tablet-layout').layout('collapse','west');
 	else $('#tablet-layout').layout('expand','west');
+}
+
+function setStartStopMode(mode) {
+	var ssb=$('#tdialog-StartStopBtn');
+	tablet_config.StartStopMode=mode;
+	if (mode<0) ssb.val("Auto"); // mark running in auto mode
+	if (mode==0) ssb.val("Start"); // mark stopped (ready)
+	if (mode>0) ssb.val("Stop"); // mark running in manual mode
+}
+
+function getStartStopMode() {
+	return tablet_config.StartStopMode;
 }
 
 /******************* funciones de manejo del panel de entrada de resultados del tablet *****************/
@@ -340,7 +353,7 @@ var myCounter = new Countdown({
 			case 1: /* do nothing */ return;
 			case 2: /* start crono */
 				tablet_putEvent('start',{ 'Value' : time } );
-				$('#tdialog-StartStopBtn').val("Stop");
+				setStartStopMode(1);
 				break;
 			case 3: /* eliminado */
 				$('#tdialog-Eliminado').val(0); //make sure that tablet sees not eliminado
@@ -362,22 +375,19 @@ function tablet_reconocimiento() {
 
 function tablet_startstop() {
 	var time = Date.now() - startDate;
-	var ssb=$('#tdialog-StartStopBtn').val();
-	if ( ssb==='Auto' ) return;  // crono auto started. ignore
-	if ( ssb === "Start" ) {
-		tablet_putEvent('start',{ 'Value' : time } );
-	} else {
-		tablet_putEvent('stop',{ 'Value' : time } );
-	}
+	var ssb=getStartStopMode();
+	if (ssb<0) return; // crono auto started: ignore
+	if (ssb==0) tablet_putEvent('start',{ 'Value' : time } );
+	if (ssb>0) tablet_putEvent('stop',{ 'Value' : time } );
 	doBeep();
 	return false;
 }
 
 function tablet_salida() { // 15 seconds countdown
 	var time = Date.now() - startDate;
-	var ssb=$('#tdialog-StartStopBtn').val();
-	if ( ssb==='Auto' ) return; // crono auto started. ignore
-	if ( ssb==='Stop' ) return; // crono manual started. ignore
+	var ssb=getStartStopMode();
+	if (ssb<0) return; // crono auto started. ignore
+	if (ssb>0) return; // crono manual started. ignore
 	tablet_putEvent('salida',{ 'Value' : time } );
 	doBeep();
 	return false;
@@ -682,7 +692,6 @@ function bindKeysToTablet() {
 
 function tablet_processEvents(id,evt) {
 	var tbox=$('#tdialog-Tiempo');
-	var ssb=$('#tdialog-StartStopBtn');
 	var crm=$('#cronometro');
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
@@ -703,27 +712,27 @@ function tablet_processEvents(id,evt) {
 		if (need_resetChrono()) {
 			tablet_cronometro('stop');
 			tablet_cronometro('reset');
-			ssb.val('Start');
+			setStartStopMode(0); // mark ready to start
 		}
 		return;
 	case 'salida': // orden de salida
 		myCounter.start();
 		return;
 	case 'start': // arranque manual del cronometro
-		if (ssb.val()==="Auto") return;		// si crono automatico, ignora
-		ssb.val("Stop");
+		if (getStartStopMode()<0) return;		// si crono automatico, ignora
+		setStartStopMode(1); // mark running in manual mode
 		myCounter.stop();
 		crm.Chrono('stop',time);
 		crm.Chrono('reset');
 		crm.Chrono('start',time);
 		return;
 	case 'stop': // parada manual del cronometro
-		ssb.val("Start");
+		setStartStopMode(0); // mark stopped
 		tablet_cronometro('stop',time);
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
 		myCounter.stop();
-		ssb.val('Auto');
+		setStartStopMode(-1); // mark automatic crono
 		// si esta parado, arranca en modo automatico
 		if (!crm.Chrono('started')) {
 			crm.Chrono('stop',time);
@@ -757,7 +766,7 @@ function tablet_processEvents(id,evt) {
 		setTimeout(function(){crm.Chrono('resume');},5000);
 		return;
     case 'crono_stop':	// parada crono electronico
-		ssb.val("Start");
+		setStartStopMode(0); // mark chrono stopped
 		crm.Chrono('stop',time);
 		console.log("tiempo final: "+crm.Chrono('getValue'));
 		return;
@@ -766,7 +775,7 @@ function tablet_processEvents(id,evt) {
 		tablet_cronometro('stop',time);
 		tablet_cronometro('reset');
 		tbox.removeClass('blink');
-		ssb.val("Start");
+		setStartStopMode(0); // mark chrono stopped
 		return;
 	case 'crono_dat':	// datos desde el crono electronico
 		tablet_updateChronoData(event);
