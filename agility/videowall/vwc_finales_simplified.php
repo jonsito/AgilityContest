@@ -136,6 +136,22 @@ Modelo simplificado de resultados finales
 
 <script type="text/javascript">
 
+    // change row heignt and font size to fit at 1920x1080
+    $("<style>")
+        .prop("type", "text/css")
+        .html("\
+            .datagrid-cell {\
+                height: 61px;\
+                line-height: 61px;\
+                font-size: 1.6em;\
+            }\
+            \
+            .datagrid-header .datagrid-cell {\
+                height: auto;\
+                line-height: 15px;\
+            }")
+        .appendTo("head");
+
     // create a Chronometer instance
     $('#cronometro').Chrono( {
         seconds_sel: '#vwls_timestamp',

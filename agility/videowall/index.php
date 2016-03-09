@@ -98,7 +98,8 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 		.datagrid-body .datagrid-group {
 			background-color: <?php echo $config->getEnv("vw_hdrbg3"); ?>;
 			color: <?php echo $config->getEnv("vw_hdrfg3"); ?>;
-			height:40px; line-height: 40px;
+			height:40px;
+			line-height: 40px;
 		}
 
 		.datagrid-body .datagrid-group .datagrid-group-title {
