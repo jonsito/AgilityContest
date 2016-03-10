@@ -288,6 +288,7 @@ function vw_accept() {
 	workingData.nombreSesion=s.Nombre;
 	initWorkingData(s.ID);
 	ac_config.vwc_simplified=0;
+	ac_config.vw_combined=0;
 	var page="'/agility/console/frm_notavailable.php";
 	var n=parseInt($('#selvw-Vista').val());
 	switch (n){
@@ -314,12 +315,15 @@ function vw_accept() {
         break;
 	case 7: // pantalla combinada ( Resultados parciales )
 			page="/agility/videowall/vwc_parciales.php";
+			ac_config.vw_combined=1;
 		break;
 	case 8: // pantalla comobinada ( Clasificacion final )
 		page="/agility/videowall/vwc_finales.php";
+		ac_config.vw_combined=1;
 		break;
 	case 9: // pantalla comobinada simplificada ( Clasificacion final )
 		page="/agility/videowall/vwc_finales_simplified.php";
+		ac_config.vw_combined=1;
 		ac_config.vwc_simplified=1;
 		break;
 	}

@@ -143,7 +143,7 @@ Modelo simplificado de resultados finales
             .datagrid-cell {\
                 height: 61px;\
                 line-height: 61px;\
-                font-size: 1.6em;\
+                font-size: 1.7em;\
             }\
             \
             .datagrid-header .datagrid-cell {\

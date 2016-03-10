@@ -180,17 +180,13 @@ function vwc_updateDataInfo(evt,data) {
 	$('#vwcp_header-NombreTanda').html(infotanda);
 
 	// update footer
-	var logo=ac_fedInfo[workingData.federation].Logo;
-	var logo2=ac_fedInfo[workingData.federation].ParentLogo;
-	var url=ac_fedInfo[workingData.federation].WebURL;
-	var url2=ac_fedInfo[workingData.federation].ParentWebURL;
-	var fname=(ac_config.vwc_simplified==0)?"vw_footer.php":"vw_footer_simplified.php";
+	var fname=(ac_config.vw_combined==0)?"vw_footer.php":"vwc_footer.php";
 	$('#vw_footer-footerData').load("/agility/videowall/"+fname,{},function(response,status,xhr){
 		if (ac_config.vwc_simplified==0) {
-			$('#vw_footer-logoFederation').attr('src',logo);
-			$('#vw_footer-urlFederation').attr('href',url);
-			$('#vw_footer-logoFederation2').attr('src',logo2);
-			$('#vw_footer-urlFederation2').attr('href',url2);
+			$('#vw_footer-logoFederation').attr('src',ac_fedInfo[workingData.federation].Logo);
+			$('#vw_footer-urlFederation').attr('href',ac_fedInfo[workingData.federation].WebURL);
+			$('#vw_footer-logoFederation2').attr('src',ac_fedInfo[workingData.federation].ParentLogo);
+			$('#vw_footer-urlFederation2').attr('href',ac_fedInfo[workingData.federation].ParentWebURL);
 		}
 	});
 }
