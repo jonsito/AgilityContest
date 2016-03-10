@@ -94,7 +94,6 @@ if ($file) {
             url_s3.attr('href',urls_s[(3+i)%urls_s.length]);
             url_s4.attr('href',urls_s[(4+i)%urls_s.length]);
             // set up images and alternate names
-            console.log(JSON.stringify(logos_g));
             img_g0.attr('src', "/agility/images/supporters/"+logos_g[(0+i)%logos_g.length]).attr('alt',sponsors_g[(0+i)%sponsors_g.length]);
             img_g1.attr('src', "/agility/images/supporters/"+logos_g[(1+i)%logos_g.length]).attr('alt',sponsors_g[(1+i)%sponsors_g.length]);
             img_g2.attr('src', "/agility/images/supporters/"+logos_g[(2+i)%logos_g.length]).attr('alt',sponsors_g[(2+i)%sponsors_g.length]);
