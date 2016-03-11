@@ -84,10 +84,10 @@ class PrintTandas extends PrintCommon {
 		$this->myLogger->enter();
 		$this->ac_header(1,10);
 		$this->setX(10);
-		$this->Cell(75,7,_("Activity"),'TLBR',0,'L',true);
+		$this->Cell(80,7,_("Activity"),'TLBR',0,'L',true);
 		$this->Cell(25,7,_("Ring"),'TLB',0,'C',true);
 		$this->Cell(15,7,"# "._("Competitors"),'TLB',0,'C',true);
-		$this->Cell(60,7,_("Comments"),'TLB',0,'R',true);
+		$this->Cell(55,7,_("Comments"),'TLB',0,'R',true);
 		$this->Cell(15,7,_("Time")." (*)",'TLBR',0,'C',true);
 		$this->Ln();
 		$this->myLogger->leave();
@@ -112,7 +112,7 @@ class PrintTandas extends PrintCommon {
 			// imprimimos nombre de la tanda
 			$this->ac_row($rowcount,8);
 			$this->SetFont($this->getFontName(),'B',8);
-			$this->Cell(65,7,$row['Nombre'],'LBR',0,'R',true); // nombre en negritas
+			$this->Cell(70,7,$row['Nombre'],'LBR',0,'R',true); // nombre en negritas
 			$this->SetFont($this->getFontName(),'',8);
 			$this->Cell(25,7,$row['NombreSesion'],'LBR',0,'R',true);
 			if ($row['Tipo']!=0) {
@@ -133,7 +133,7 @@ class PrintTandas extends PrintCommon {
 			} else {
 				$this->Cell(15,7,"----",'LBR',0,'C',true);
 			}
-			$this->Cell(60,7,$row['Comentario'],'LB',0,'C',true);
+			$this->Cell(55,7,$row['Comentario'],'LB',0,'C',true);
 			$this->Cell(15,7,$row['Horario'],'LBR',0,'C',true);
 			$rowcount++;
 			$this->Ln(7);
