@@ -177,7 +177,13 @@ class RSCE extends Federations {
             $perro['Calificacion'] = ($perro['Penalizacion']==0.0)?'Punto':'';
             return;
         }
-        if ($m1->TRS_L_Factor==0) {  // SI TRS_L_Factor es 0 tenemos puntuacion para individual
+        switch($perro['Categoria']){
+            case 'L': $tipo=$m1->TRS_L_Tipo; $factor=$m1->TRS_L_Factor; $unit=$m1->TRS_L_Unit; break;
+            case 'M': $tipo=$m1->TRS_M_Tipo; $factor=$m1->TRS_M_Factor; $unit=$m1->TRS_M_Unit; break;
+            case 'S': $tipo=$m1->TRS_S_Tipo; $factor=$m1->TRS_S_Factor; $unit=$m1->TRS_S_Unit; break;
+            default: return; // invalid; do not evaluate
+        }
+        if ( ($tipo==1) && ($factor==0)) {  // SI TRS_L_Factor es 0 tenemos puntuacion para individual
             // manga 1 - puntuan los 10 primeros en cada manga con excelente
             $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
             if (intval($m1->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
@@ -201,7 +207,7 @@ class RSCE extends Federations {
             // finalmente componemos el string a presentar
             $perro['Calificacion']= /* $str=strval($pt1)."-".strval($pt2)."-" . */ strval($pfin);
         }
-        if ( ($m1->TRS_L_Factor==10) && ($m1->TRS_L_Unit=='%') ) {  // SI TRS_L_Factor es +10% tenemos clasificacion por equipos
+        if ( ($tipo==1) && ($factor==10) && ($unit=='%') ) {  // SI TRS_L_Factor es +10% tenemos clasificacion por equipos
             // solo puntua conjunta si el perro tiene doble excelente
             $ptsteam=array("20","16","12","8","7","6","4","3","2","1"); // puntuacion manga conjunta equipos
             $pteam=" ";
