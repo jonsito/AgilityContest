@@ -32,7 +32,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     color: <?php echo $config->getEnv('vw_hdrfg1')?>;
     font-weight: bold;
     font-style: italic;
-    font-size:1.8em;
+    font-size:1.7em;
 }
 
 .pb_floatingfooter {
@@ -43,7 +43,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     color: <?php echo $config->getEnv('vw_hdrfg3')?>;
     font-weight: bold;
     font-style: italic;
-    font-size:1.8em;
+    font-size:1.7em;
 }
 /************************** Elementos de la tabla de inscritos a la prueba ************/
 
