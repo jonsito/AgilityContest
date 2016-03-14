@@ -29,7 +29,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- Presentacion del orden de salida de la jornada -->
 <div id="pb_ordensalida-window">
 	<div id="pb_ordensalida-layout" style="width:100%">
-		<div id="pb_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:10%;" class="pb_floatingheader">
+		<div id="pb_ordensalida-Cabecera" style="height:15%;" class="pb_floatingheader"
+             data-options="
+                region:'north',
+                split:true,
+                title:'<?php _e('Round selection');?>',
+                collapsed:false,
+                onCollapse:function(){
+                	setTimeout(function(){
+				    	var top = $('#pb_ordensalida-layout').layout('panel','expandNorth');
+				    	var round = $('#pb_enumerateMangas').combogrid('getText');
+					    top.panel('setTitle','<?php _e('Starting order');?>: '+round);
+				    },0);
+                }
+                ">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateOrdenSalida();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
             </a>
@@ -54,6 +67,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 // fire autorefresh if configured
 var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) setInterval(pb_updateOrdenSalida,1000*rtime);
+
+// in a mobile device, increase north window height
+if (isMobileDevice()) {
+    $('#pb_ordensalida-Cabecera').css('height','90%');
+}
 
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update starting order"); ?>');
 $('#pb_ordensalida-layout').layout({fit:true});
@@ -118,6 +136,7 @@ $('#pb_enumerateMangas').combogrid({
             Sesion: 1, // defaults to "-- sin asignar --"
             ID:  row.ID // Tanda ID
         });
+        $('#pb_ordensalida-layout').layout('collapse','north');
     }
 });
 
