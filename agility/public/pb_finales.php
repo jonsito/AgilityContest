@@ -31,7 +31,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="pb_finales-window">
     <div id="pb_finales-layout" style="width:100%">
-        <div id="pb_finales-Cabecera" data-options="region:'north',split:false" style="height:20%" class="pb_floatingheader">
+        <div id="pb_finales-Cabecera" style="height:20%" class="pb_floatingheader"
+             data-options="
+                region:'north',
+                split:true,
+                title:'<?php _e('Final scores');?>',
+                collapsed:false,
+                onCollapse:function(){
+                	setTimeout(function(){
+				    	var top = $('#pb_finales-layout').layout('panel','expandNorth');
+				    	var round = $('#pb_enumerateFinales').combogrid('getText');
+					    top.panel('setTitle','<?php _e('Final scores');?>: '+round);
+				    },0);
+                }
+            ">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateFinales();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
             </a>
@@ -123,6 +136,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) setInterval(pb_updateFinales,1000*rtime);
 
+// in a mobile device, increase north window height
+if (isMobileDevice()) {
+    $('#pb_finales-Cabecera').css('height','90%');
+}
+
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update scores"); ?>');
 
 $('#pb_enumerateFinales').combogrid({
@@ -157,6 +175,7 @@ $('#pb_enumerateFinales').combogrid({
 	},
 	onChange:function(value){
 		pb_updateFinales();
+        $('#pb_finales-layout').layout('collapse','north');
 	}
 });
 
