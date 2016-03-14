@@ -216,7 +216,7 @@ class Pruebas extends DBObject {
 							Pruebas.Observaciones AS Observaciones, $limit as UserLimit",
 				/* FROM */ "Pruebas,Clubes",
 				/* WHERE */ $where,
-				/* ORDER BY */ "Nombre ASC",
+				/* ORDER BY */ "ID DESC",
 				/* LIMIT */ ""
 		);
         // parse result and add inscriptions count
