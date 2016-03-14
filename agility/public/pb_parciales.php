@@ -31,7 +31,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="pb_parciales-window">
     <div id="pb_parciales-layout" style="width:100%">
-        <div id="pb_parciales-Cabecera" data-options="region:'north',split:false" style="height:20%;" class="pb_floatingheader">
+        <div id="pb_parciales-Cabecera"  style="height:20%;" class="pb_floatingheader"
+             data-options="
+                region:'north',
+                split:true,
+                title:'<?php _e('Partial scores');?>',
+                collapsed:false,
+                onCollapse:function(){
+                	setTimeout(function(){
+				    	var top = $('#pb_parciales-layout').layout('panel','expandNorth');
+				    	var round = $('#pb_enumerateParciales').combogrid('getText');
+					    top.panel('setTitle','<?php _e('Partial scores');?>: '+round);
+				    },0);
+                }
+                ">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateParciales();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
             </a>
@@ -78,6 +91,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) setInterval(pb_updateParciales,1000*rtime);
 
+// in a mobile device, increase north window height
+if (isMobileDevice()) {
+    $('#pb_parciales-Cabecera').css('height','90%');
+}
+
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update partial scores table"); ?>');
 $('#pb_parciales-layout').layout({fit:true});
 
@@ -111,6 +129,7 @@ $('#pb_enumerateParciales').combogrid({
 	},
 	onChange:function(value){
 		pb_updateParciales();
+        $('#pb_parciales-layout').layout('collapse','north');
 	}
 });
 
@@ -179,7 +198,7 @@ $('#pb_parciales-datagrid').datagrid({
         { field:'PTiempo',		hidden:true },
         { field:'Velocidad',	width:'4%', align:'right', title: '<?php _e('Vel'); ?>.', formatter:formatVelocidad},
         { field:'Penalizacion',	width:'6%%', align:'right', title: '<?php _e('Penal'); ?>.', formatter:formatPenalizacion},
-        { field:'Calificacion',	width:'7%', align:'center',title: '<?php _e('Calification'); ?>'},
+        { field:'Calificacion',	width:'8%', align:'center',title: '<?php _e('Calification'); ?>'},
         { field:'Puesto',		width:'4%', align:'center',  title: '<?php _e('Position'); ?>', formatter:formatPuestoBig},
         { field:'CShort',       hidden:true}
     ]],
