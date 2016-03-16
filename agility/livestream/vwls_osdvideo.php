@@ -2,9 +2,9 @@
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
-require_once(__DIR__."/../server/tools.php");
-require_once(__DIR__."/../server/auth/Config.php");
-require_once(__DIR__."/../server/auth/AuthManager.php");
+require_once(__DIR__ . "/../server/tools.php");
+require_once(__DIR__ . "/../server/auth/Config.php");
+require_once(__DIR__ . "/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Videowall::livestream");
 if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.php"); return 0;}

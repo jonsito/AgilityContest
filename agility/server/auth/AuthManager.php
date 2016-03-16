@@ -39,6 +39,7 @@ define ("ENABLE_VIDEOWALL",16); // permite acceso desde videomarcador
 define ("ENABLE_PUBLIC",32);    // permite acceso publico web
 define ("ENABLE_CHRONO",64);    // permite gestion desde cronometro
 define ("ENABLE_ULIMIT",128);    // permite numero de inscripciones ilimitadas
+define ("ENABLE_LIVESTREAM",256);    // permite funciones de live-streaming y chroma-key
 
 // datos de registro
 define('AC_PUBKEY_FILE' , __DIR__."/AgilityContest_puk.pem");

@@ -29,9 +29,9 @@ if( ! function_exists('password_verify')) {
 if ( intval($config->getEnv('restricted'))!=0) {
     die("Access other than public directory is not allowed");
 }
-$am=new AuthManager("VideoWall");
-if (!$am->allowed(ENABLE_VIDEOWALL)) {
-	die("Current license has no permissions to handle videowall related functions");
+$am=new AuthManager("LiveStream");
+if (!$am->allowed(ENABLE_LIVESTREAM)) {
+	die("Current license has no permissions to handle livestream related functions");
 }
 // tool to perform automatic upgrades in database when needed
 require_once(__DIR__."/../server/upgradeVersion.php");
@@ -182,18 +182,18 @@ function myLlamadaRowStyler(idx,row) {
     	<div class="fitem">
        		<label for="Vista"><?php _e('Select View'); ?>:</label>
        		<select id="selvw-Vista" name="Vista" style="width:200px">
-                <optgroup label="<?php _e('Video Wall');?> ">
+                <optgroup label="<?php _e('Embedded Video');?> ">
                     <!-- videowall -->
-                    <option value="0"><?php _e('Starting order'); ?></option>
-                    <option value="1"><?php _e('Call to ring'); ?></option>
-                    <option value="2"><?php _e('Partial scores'); ?></option>
+					<option value="0"><?php _e('Live Stream'); ?></option>
+					<option value="1"><?php _e('Partial scores'); ?></option>
+					<option value="2"><?php _e('Starting order'); ?></option>
                 </optgroup>
-				<optgroup label="<?php _e('Combo view');?> ">
-					<option value="7"><?php _e('Call to ring '); ?> / <?php _e('Partial scores'); ?></option>
-					<option value="8"><?php _e('Call to ring '); ?> / <?php _e('Final scores'); ?></option>
-					<option value="9"><?php _e('Call'); ?> / <?php _e('Final'); ?> (<?php _e('simplified'); ?>)</option>
-					<option value="3"><?php _e('Combo view (old-style)'); ?></option>
-				</optgroup>
+                <optgroup label="<?php _e('Chroma Key');?> ">
+                    <!-- livestream -->
+                    <option value="3"><?php _e('On Screen Display'); ?></option>
+                    <option value="4"><?php _e('Partial scores'); ?></option>
+                    <option value="5"><?php _e('Starting order'); ?></option>
+                </optgroup>
        		</select>
     	</div>
     	
@@ -281,42 +281,57 @@ function vw_accept() {
 	workingData.sesion=s.ID;
 	workingData.nombreSesion=s.Nombre;
 	initWorkingData(s.ID);
-	ac_config.vwc_simplified=0;
 	ac_config.vw_combined=0;
 	var page="'/agility/console/frm_notavailable.php";
 	var n=parseInt($('#selvw-Vista').val());
-	switch (n){
-	case 0: // Ordenes de Salida
-		page="/agility/videowall/vw_ordensalida.php";
-		break;
-	case 1: // Llamada a pista
-		page="/agility/videowall/vw_llamada.php";
-		break;
-	case 2: // Resultados Parciales
-		page="/agility/videowall/vw_parciales.php";
-		break;
-    case 3: // Vista Combinada (legacy style)
-        page="/agility/videowall/vwc_oldstyle.php";
-        break;
-	case 7: // pantalla combinada ( Resultados parciales )
-			page="/agility/videowall/vwc_parciales.php";
+	switch (n) {
+		case 0: // Ordenes de Salida
+			page = "/agility/videowall/vwls_osdvideo.php?combined=1";
 			ac_config.vw_combined=1;
-		break;
-	case 8: // pantalla comobinada ( Clasificacion final )
-		page="/agility/videowall/vwc_finales.php";
-		ac_config.vw_combined=1;
-		break;
-	case 9: // pantalla comobinada simplificada ( Clasificacion final )
-		page="/agility/videowall/vwc_finales_simplified.php";
-		ac_config.vw_combined=1;
-		ac_config.vwc_simplified=1;
-		break;
+			break;
+		case 1: // Llamada a pista
+			page = "/agility/videowall/vwls_parciales.php?combined=1";
+			ac_config.vw_combined=1;
+			break;
+		case 2: // Resultados Parciales
+			page = "/agility/videowall/vwls_ordensalida.php?combined=1";
+			ac_config.vw_combined=1;
+			break;
+		case 3: // Live Stream OSD
+			page = "/agility/videowall/vwls_osdvideo.php?combined=0";
+			ac_config.vw_combined=0;
+			break;
+		case 4: // resultados parciales con livestream
+			page = "/agility/videowall/vwls_parciales.php?combined=0";
+			ac_config.vw_combined=0;
+			break;
+		case 5: // Resultados Parciales
+			page = "/agility/videowall/vwls_ordensalida.php?combined=0";
+			ac_config.vw_combined=0;
+			break;
 	}
 	$('#selvw-dialog').dialog('close');
 	$('#vw_contenido').load(	
 			page,
 			function(response,status,xhr){
-				if (status=='error') $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+				if (status=='error') {
+					$('#vw_contenido').load('/agility/console/frm_notavailable.php');
+					return;
+				}
+				if (ac_config.vw_combined==0) return; // do not embedd video, just declare chroma key
+				var bg=workingData.datosSesion.Background;
+				var ls1=workingData.datosSesion.LiveStream;
+				var ls2=workingData.datosSesion.LiveStream2;
+				var ls3=workingData.datosSesion.LiveStream3;
+				if ( bg !== '' ) $('#vwls_video').attr('poster', bg);
+				if ( ls1!== '' ) $('#vwls_videomp4').attr('src', ls1); else $('#vwls_videomp4').remove();
+				if ( ls2!== '' ) $('#vwls_videoogv').attr('src', ls2); else $('#vwls_videoogv').remove();
+				if ( ls3!== '' ) $('#vwls_videowebm').attr('src', ls3); else $('#vwls_videowebm').remove();
+				// if LiveStream is present load and play assigned session's livestream url
+				var video=$('#vwls_video')[0];
+				if (!video) return; // no video tag found
+				video.load();
+				video.play();
 			}
 		);
 }

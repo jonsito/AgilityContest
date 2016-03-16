@@ -97,8 +97,6 @@ $config =Config::getInstance();
 			<h3><?php _e('Video wall configurable parameters'); ?></h3>
 			<label for="vw_polltime"><?php _e('Refresh period (seg.)'); ?></label>
 			<input id="vw_polltime" name="vw_polltime" type="text" size="2" value="5"/><br />
-			<label for="vw_alpha"><?php _e('Transparency level for OnScreenDisplay'); ?></label>
-			<input id="vw_alpha" name="vw_alpha" type="text" size="3" value="0.5"/> (0.0-1.0)<br />
 			<label for="vw_hdrbg1"><?php _e('Background color for main header'); ?></label>
 			<input id="vw_hdrbg1" name="vw_hdrbg1" type="color" value="#0000ff"/><br />
 			<label for="vw_hdrfg1"><?php _e('Text color for main header'); ?></label>
@@ -118,6 +116,13 @@ $config =Config::getInstance();
 			<input id="vw_rowcolor1" name="vw_rowcolor1" type="color" value="#e0e0e0"/><br />
 			<label for="vw_rowcolor2"><?php _e('Background color for tables odd rows'); ?></label>
 			<input id="vw_rowcolor2" name="vw_rowcolor2" type="color" value="#c0c0c0"/><br />
+
+			<h3><?php _e('Live Stream configurable parameters'); ?></h3>
+			<label for="vw_alpha"><?php _e('Transparency level for OnScreenDisplay'); ?></label>
+			<input id="vw_alpha" name="vw_alpha" type="text" size="3" value="0.5"/> (0.0-1.0)<br />
+			<label for="vw_chromakey"><?php _e('Color for Chroma Keyer'); ?></label>
+			<input id="vw_chromakey" name="vw_chromakey" type="color" value="#00ff00"/><br />
+
 		</div>
 		
 		<div title="<?php _e('Reports'); ?>" style="padding:10px">
