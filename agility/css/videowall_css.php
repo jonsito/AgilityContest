@@ -45,6 +45,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     text-align: left;
     background-color: transparent;
     color: white;
+    z-index: 2;
 }
 
 /* datos de tiempo */
@@ -52,23 +53,33 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     text-align: center;
     background-color: transparent;
     color: white;
+    z-index: 2;
 }
 
 /* datos de F/T/R */
 .vwls_data {
     text-align: center;
     color: white;
+    z-index: 2;
 }
 
 .vwls_logo {
+    z-index: 1;
     background-color: transparent;
 }
 
 
-.vwls_fondo {
+.vwls_fondo_combined {
     background-color: rgba(127,127,127,<?php echo $config->getEnv('vw_alpha')?>);
     border: 3px solid black;
     border-radius: 10px;
+}
+
+.vwls_fondo_chromakey {
+    background-color: rgb(127,127,127);
+    border: 3px solid black;
+    border-radius: 10px;
+    z-index: 0;
 }
 
 #vwls_video {

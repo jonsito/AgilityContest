@@ -87,14 +87,6 @@ require_once(__DIR__."/../server/upgradeVersion.php");
             border: 0px none transparent;
         }
 
-        .datagrid_vw-class {
-            background:transparent;
-            filter:alpha(opacity=60);
-            -moz-opacity:0.6;
-            opacity:0.6;
-            border: 1px solid black;
-        }
-
 		.datagrid-body .datagrid-group {
 			background-color: <?php echo $config->getEnv("vw_hdrbg3"); ?>;
 			color: <?php echo $config->getEnv("vw_hdrfg3"); ?>;

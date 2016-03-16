@@ -7,7 +7,8 @@ require_once(__DIR__ . "/../server/auth/Config.php");
 require_once(__DIR__ . "/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Videowall::parciales");
-if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.php"); return 0;}
+if ( ! $am->allowed(ENABLE_LIVESTREAM)) { include_once("unregistered.php"); return 0;}
+$combined=http_request("combined","i",0);
 ?>
 <!--
 vwls_ordensalida.inc
@@ -32,14 +33,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
     <div id="vw_parent-layout" class="easyui-layout" style="width:100%;height:auto;">
 
-        <!-- imagen de fondo -->
-        <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
-               poster="/agility/server/getRandomImage.php">
-            <!-- http://guest:@192.168.122.168/videostream.cgi -->
-            <source id="vwls_videomp4" src="" type='video/mp4'/>
-            <source id="vwls_videoogv" src="" type='video/ogg'/>
-            <source id="vwls_videowebm" src="" type='video/webm'/>
-        </video>
+        <?php if ($combined==1) { ?>
+            <!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
+            <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted"
+                   loop="loop" poster="/agility/server/getRandomImage.php" style="width=100%;height:auto">
+                <!-- http://guest:@192.168.122.168/videostream.cgi -->
+                <source id="vwls_videomp4" src="" type='video/mp4'/>
+                <source id="vwls_videoogv" src="" type='video/ogg'/>
+                <source id="vwls_videowebm" src="" type='video/webm'/>
+            </video>
+        <?php } else { ?>
+            <img src="/agility/server/getChromaKeyImage.php" style="z-index:-1;" />
+        <?php } ?>
+
         <div data-options="region:'east',split:false,border:false" style="width:5%;background-color:transparent;"></div>
         <div data-options="region:'west',split:false,border:false" style="width:30%;background-color:transparent;"></div>
         <div data-options="region:'center',border:false" style="background-color:transparent;">

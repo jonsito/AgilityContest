@@ -50,7 +50,7 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 	content="This program is free software; you can redistribute it and/or modify it under the terms of the 
 		GNU General Public License as published by the Free Software Foundation; either version 2 of the License, 
 		or (at your option) any later version." />
-<title>AgilityContest (VideoWall)</title>
+<title>AgilityContest (LiveStream)</title>
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
@@ -85,14 +85,6 @@ require_once(__DIR__."/../server/upgradeVersion.php");
             text-decoration: none;
             outline: none;
             border: 0px none transparent;
-        }
-
-        .datagrid_vw-class {
-            background:transparent;
-            filter:alpha(opacity=60);
-            -moz-opacity:0.6;
-            opacity:0.6;
-            border: 1px solid black;
         }
 
 		.datagrid-body .datagrid-group {
@@ -286,27 +278,27 @@ function vw_accept() {
 	var n=parseInt($('#selvw-Vista').val());
 	switch (n) {
 		case 0: // Ordenes de Salida
-			page = "/agility/videowall/vwls_osdvideo.php?combined=1";
+			page = "/agility/livestream/vwls_osdvideo.php?combined=1";
 			ac_config.vw_combined=1;
 			break;
 		case 1: // Llamada a pista
-			page = "/agility/videowall/vwls_parciales.php?combined=1";
+			page = "/agility/livestream/vwls_parciales.php?combined=1";
 			ac_config.vw_combined=1;
 			break;
 		case 2: // Resultados Parciales
-			page = "/agility/videowall/vwls_ordensalida.php?combined=1";
+			page = "/agility/livestream/vwls_ordensalida.php?combined=1";
 			ac_config.vw_combined=1;
 			break;
 		case 3: // Live Stream OSD
-			page = "/agility/videowall/vwls_osdvideo.php?combined=0";
+			page = "/agility/livestream/vwls_osdvideo.php?combined=0";
 			ac_config.vw_combined=0;
 			break;
 		case 4: // resultados parciales con livestream
-			page = "/agility/videowall/vwls_parciales.php?combined=0";
+			page = "/agility/livestream/vwls_parciales.php?combined=0";
 			ac_config.vw_combined=0;
 			break;
 		case 5: // Resultados Parciales
-			page = "/agility/videowall/vwls_ordensalida.php?combined=0";
+			page = "/agility/livestream/vwls_ordensalida.php?combined=0";
 			ac_config.vw_combined=0;
 			break;
 	}

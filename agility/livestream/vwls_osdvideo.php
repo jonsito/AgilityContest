@@ -7,7 +7,8 @@ require_once(__DIR__ . "/../server/auth/Config.php");
 require_once(__DIR__ . "/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Videowall::livestream");
-if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.php"); return 0;}
+if ( ! $am->allowed(ENABLE_LIVESTREAM)) { include_once("unregistered.php"); return 0;}
+$combined=http_request("combined","i",0);
 ?>
 <!--
 livestream.inc
@@ -28,9 +29,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 <!-- Pantalla liveStream -->
-<div id="vwls_LiveStream-window" style="padding:0px">
-	<div id="vwls_LiveStream" class="easyui-panel"
+<div id="vwls_LiveStream-window" style="padding:0px;height:auto;">
+	<div id="vwls_LiveStream" class="easyui-panel" style="overflow-x:hidden;overflow-y:hidden"
 		data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false,resizable:true">
+<?php if ($combined==1) { ?>
 		<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
             <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted"
                    loop="loop" poster="/agility/server/getRandomImage.php" style="width=100%;height:auto">
@@ -39,11 +41,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <source id="vwls_videoogv" src="" type='video/ogg'/>
                 <source id="vwls_videowebm" src="" type='video/webm'/>
             </video>
-		<div id="vwls_common" style="display:inline-block;width:100%">
+<?php } else { ?>
+		<img src="/agility/server/getChromaKeyImage.php" style="z-index:-1;" />
+<?php } ?>
+		<div id="vwls_common" style="display:inline-block;width:100%;">
 			<!-- Recuadro de decoracion resultados -->
-			<span class="vwls_fondo" id="vwls_Resultados">&nbsp;</span>
+			<span class="vwls_fondo<?php echo ($combined==1)?'_combined':'_chromakey';?>" id="vwls_Resultados">&nbsp;</span>
 			<!-- Recuadro de informacion de la manga -->
-            <span class="vwls_fondo" id="vwls_InfoManga">&nbsp;</span>
+            <span class="vwls_fondo<?php echo ($combined==1)?'_combined':'_chromakey';?>" id="vwls_InfoManga">&nbsp;</span>
 
 			<!-- datos de resultados -->
 			<span class="vwls_dlabel" id="vwls_FaltasLbl"><?php _e('F'); ?>:</span>
@@ -67,7 +72,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span style="display:none" id="vwls_Perro">0</span>
 			<div id="vwls_competitorInfo">
 				<!-- recuadro de decoracion de datos del competidor en pist -->
-				<span class="vwls_fondo" id="vwls_Datos">&nbsp;</span>
+
+				<span class="vwls_fondo<?php echo ($combined==1)?'_combined':'_chromakey';?>" id="vwls_Datos">&nbsp;</span>
 				<!-- logogipo -->
 				<img id="vwls_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="vwls_logo"/>
 				<span class="vwls_label" id="vwls_Dorsal"><?php _e('Dorsal'); ?></span>
@@ -120,9 +126,6 @@ $('#vwls_LiveStream-window').window({
 // layout
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 
-doLayout(layout,"#vwls_Resultados",		720,	10,		65,	    110	);
-doLayout(layout,"#vwls_Datos",			15,		400,	635,	35	);
-doLayout(layout,"#vwls_InfoManga",		15,	    10,	    260,	20	);
 
 doLayout(layout,"#vwls_FaltasLbl",		735,	15,		20,		20	);
 doLayout(layout,"#vwls_Faltas",			760,	15,		15,		20	);
@@ -145,6 +148,10 @@ doLayout(layout,"#vwls_Categoria",		510,	400,	140,	25	);
 doLayout(layout,"#vwls_Celo",			600,	400,	50,		25	);
 
 doLayout(layout,"#vwls_Manga",			25, 	10,	    250,	15	);
+
+doLayout(layout,"#vwls_Resultados",		720,	10,		65,	    110	);
+doLayout(layout,"#vwls_Datos",			15,		400,	635,	35	);
+doLayout(layout,"#vwls_InfoManga",		15,	    10,	    260,	20	);
 
 jQuery('#vwls_common').fitText(0.02);
 
