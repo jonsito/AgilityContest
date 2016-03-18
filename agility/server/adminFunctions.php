@@ -239,14 +239,16 @@ class Admin extends DBObject {
 	public function restore() {
         // we need root database access to re-create tables
         $rconn=DBConnection::getRootConnection();
-        if ($rconn->connect_error) throw new Exception("Cannot perform upgrade process: database::dbConnect()");
+        if ($rconn->connect_error)
+			throw new Exception("Cannot perform upgrade process: database::dbConnect()");
 		session_start();
 		unset($_SESSION['progress']);
 		session_write_close();
 		// phase 1: retrieve file from http request
         $data=$this->retrieveDBFile();
         // phase 2: verify received file
-		// TODO: make sure that this is a correct AgilityContest Database file
+		if (strpos(substr($data,0,25),"-- AgilityContest")===FALSE)
+			throw new Exception("Provided file is not an AgilityContest backup file");
         // phase 3: delete all tables and structures from database
         $this->dropAllTables($rconn);
         // phase 4: parse sql file and populate tables into database

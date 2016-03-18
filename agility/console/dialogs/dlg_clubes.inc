@@ -24,7 +24,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  <!-- FORMULARIO DE SELECCION DE LOGO -->
  <div id="clubes-logo-dialog" style="width:400px;height:250px;padding:10px">
  	<div style="width=100%">
-		<input type="file" name="logoPreview" value="" id="clubes-logo-filePreview" 
+		<input type="file" name="logoPreview" value="" id="clubes-logo-filePreview" accept="image/*"
 			class="required borrowerImageFile" data-errormsg="PhotoUploadErrorMsg" onchange="setLogoPreview(this);">
 		<hr />
 	</div>
