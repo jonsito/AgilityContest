@@ -157,8 +157,8 @@ $config =Config::getInstance();
             		{ field:'Grado2',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'G-II   ' },
             		{ field:'Grado3',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'G-III  ' },
             		{ field:'Open',			width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Open   ' },
-            		{ field:'Equipos3',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Eq. 3x4' },
-            		{ field:'Equipos4',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Eq. 4x4' },
+            		{ field:'Equipos3',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Eq. Best' },
+            		{ field:'Equipos4',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Eq. Comb' },
             		{ field:'KO',			width:8, sortable:false, formatter:	formatOk,	   align:'center', title: 'K.O.   ' },
             		{ field:'Especial',	    width:8, sortable:false, formatter:	formatOk,	align:'center', title: '<?php _e('Special'); ?>'},
             	    { field:'Observaciones',hidden:true }, // texto para el caso de Manga especial

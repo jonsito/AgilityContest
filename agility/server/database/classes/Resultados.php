@@ -577,10 +577,10 @@ class Resultados extends DBObject {
      * @param {array} resultados de la manga ordenados por participante
      * @param {int} prueba PruebaID
      * @param {int} jornada JornadaID
-     * @param {int} $tmode 3 o 4
+     * @param {int} $mindogs minimun number of dogs on a team
      * @return {array} datos de equipos de la manga ordenados por resultados de equipo
      */
-    static function getTeamResults($resultados,$prueba,$jornada,$tmode=3) {
+    static function getTeamResults($resultados,$prueba,$jornada,$mindogs=4) {
         // Datos de equipos de la jornada. obtenemos prueba y jornada del primer elemento del array
         $m=new Equipos("getTeamResults",$prueba,$jornada);
         $teams=$m->getTeamsByJornada();
@@ -600,23 +600,24 @@ class Resultados extends DBObject {
             $equipo=&$equipos[$teamid];
             array_push($equipo['Resultados'],$result);
             // suma el tiempo y penalizaciones de los tres/cuatro primeros
-            if (count($equipo['Resultados'])<=$tmode) {
+            if (count($equipo['Resultados'])<=$mindogs) {
                 $equipo['Tiempo']+=floatval($result['Tiempo']);
                 $equipo['Penalizacion']+=floatval($result['Penalizacion']);
             }
         }
 
-        // rastrea los equipos con menos de tres participantes y marca los que faltan
+        // rastrea los equipos con menos de $mindogs participantes y marca los que faltan
         // no presentados
         $teams=array();
         foreach($equipos as &$equipo) {
             switch(count($equipo['Resultados'])){
                 case 0: continue; // ignore team
+					break;
                 case 1: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
                 // no break
-                case 2: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
+                case 2: if ($mindogs==3) $equipo['Penalizacion']+=200.0; // add pending "No presentado"
                 // no break;
-                case 3: if ($tmode==4) $equipo['Penalizacion']+=200.0; // add pending "No presentado"
+                case 3: if ($mindogs==4) $equipo['Penalizacion']+=200.0; // add pending "No presentado"
                 // no break;
                 case 4:
                     array_push($teams,$equipo); // add team to result to remove unused/empty teams

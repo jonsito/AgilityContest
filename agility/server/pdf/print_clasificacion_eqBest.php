@@ -1,6 +1,6 @@
 <?php
 /*
-print_clasificacion_eq3.php
+print_clasificacion_eqBest.php
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -76,7 +76,7 @@ class PrintClasificacionEq3 extends PrintCommon {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas,$results,$mode) {
-		parent::__construct('Landscape',"print_clasificacion_eq3",$prueba,$jornada);
+		parent::__construct('Landscape',"print_clasificacion_eqBest",$prueba,$jornada);
 		$dbobj=new DBObject("print_clasificacion");
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=null;
@@ -123,7 +123,7 @@ class PrintClasificacionEq3 extends PrintCommon {
                 return ($a['P']==$b['P'])? ($a['T']-$b['T']): ($a['P']-$b['P']);
             });
             // compose manga team's result
-            for ($n=0;$n<3;$n++) {
+            for ($n=0;$n<$this->getMinDogs();$n++) {
                 // TODO: si no hay participantes en el equipo, ignora
                 if (array_key_exists($n,$team['Resultados1'])) {
                     $team['P1']+=$team['Resultados1'][$n]['P'];
@@ -234,7 +234,7 @@ class PrintClasificacionEq3 extends PrintCommon {
 		$this->Cell(15,8,strval(1+$teamcount)." -",'LT',0,'C',true); // imprime puesto del equipo
 		$x=$this->getX();
 		$y=$this->getY();
-		for ($n=0;$n<4;$n++) {
+		for ($n=0;$n<$this->getMinDogs();$n++) {
 			if ($logos[$n]==="null.png") {
 				$this->SetX($x+10*$n);
 				$this->Cell(10,8,"",'T',0,'C',true);
@@ -406,7 +406,7 @@ class PrintClasificacionEq3 extends PrintCommon {
             $this->printTeamInformation($teamcount,$numrows,$equipo);
             $this->writeTableHeader();
             // print team header/data
-            for ($n=0;$n<4;$n++) {
+            for ($n=0;$n<4;$n++) { // allways use 4 cells regardless mindogs
                 // con independencia de los perros del equipo imprimiremos siempre 4 columnas
                 $row=$this->defaultPerro;
                 if (array_key_exists($n,$equipo['Perros'])) $row=$equipo['Perros'][$n];
@@ -443,7 +443,7 @@ try {
 	$pdf = new PrintClasificacionEq3($prueba,$jornada,$mangas,$resultados,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("print_clasificacion_eq3.pdf","D"); // "D" means open download dialog
+	$pdf->Output("print_clasificacion_eqBest.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());

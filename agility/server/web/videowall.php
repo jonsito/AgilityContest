@@ -108,16 +108,16 @@ class VideoWall {
 	}
 
     function isTeam() {
-        if (intval($this->jornada['Equipos3'])==1) return true;
-        if (intval($this->jornada['Equipos4'])==1) return true;
+        if (intval($this->jornada['Equipos3'])!=0) return true;
+        if (intval($this->jornada['Equipos4'])!=0) return true;
         return false;
     }
 
     function hasGrades() {
-        if (intval($this->jornada['Equipos3'])==1) return false;
-        if (intval($this->jornada['Equipos4'])==1) return false;
-        if (intval($this->jornada['Open'])==1) return false;
-        if (intval($this->jornada['KO'])==1) return false;
+        if (intval($this->jornada['Equipos3'])!=0) return false;
+        if (intval($this->jornada['Equipos4'])!=0) return false;
+        if (intval($this->jornada['Open'])!=0) return false;
+        if (intval($this->jornada['KO'])!=0) return false;
         return true;
     }
 

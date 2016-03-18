@@ -196,6 +196,24 @@ class PrintCommon extends FPDF {
 		// $this->myLogger->trace("Time resolution is ".$this->timeResolution);
 	}
 
+	// return the minimum nomber of dogs for team on this journey
+	function getMinDogs() {
+		$mindogs=1;
+			switch(intval($this->jornada->Equipos3)) {
+				case 1:	return 3; // old style 3 best of 4
+				case 2:	return 2; // 2 best of 3
+				case 3: return 3; // 3 best of 4
+				default: break;
+			}
+			switch(intval($this->jornada->Equipos4)) {
+				case 1:	return 4; // old style 4 combined
+				case 2:	return 2; // 2 combined
+				case 3: return 3; // 3 combined
+				case 4: return 4; // 4 combined
+				default: break;
+			}
+		return $mindogs;
+	}
 
 	function getCatString($cat) {
 		$catstr=$this->federation->get('IndexedModeStrings');

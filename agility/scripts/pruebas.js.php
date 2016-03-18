@@ -238,13 +238,24 @@ function saveJornada(){
     $('#jornadas-Grado1').val( $('#jornadas-Grado1').is(':checked')?'1':'0');
     $('#jornadas-Grado2').val( $('#jornadas-Grado2').is(':checked')?'1':'0');
     $('#jornadas-Grado3').val( $('#jornadas-Grado3').is(':checked')?'1':'0');
-    $('#jornadas-Open').val( $('#jornadas-Open').is(':checked')?'1':'0');    
+    $('#jornadas-Open').val( $('#jornadas-Open').is(':checked')?'1':'0');
+    var eq3=$('#jornadas-Equipos3');
+    var eq4=$('#jornadas-Equipos4');
     if ($('#jornadas-EquiposChk').is(':checked')) {
-        $('#jornadas-Equipos3').val( ($('#jornadas-MangasEquipos').val()==1)?'1':'0');
-        $('#jornadas-Equipos4').val( ($('#jornadas-MangasEquipos').val()==2)?'1':'0');
+        var val=$('#jornadas-MangasEquipos').val();
+        switch (parseInt(val)) {
+            case 1: /* old 3best */     eq3.val(3); eq4.val(0); break;
+            case 2: /* old 4combined */ eq3.val(0); eq4.val(4); break;
+            case 3: /* 2 best of 3 */   eq3.val(2); eq4.val(0); break;
+            case 4: /* 3 best of 4 */   eq3.val(3); eq4.val(0); break;
+            case 5: /* 2 combined */    eq3.val(0); eq4.val(2); break;
+            case 6: /* 3 combined */    eq3.val(0); eq4.val(3); break;
+            case 7: /* 4 combined */    eq3.val(0); eq4.val(4); break;
+            default: eq3.val(0); eq4.val(0); break;
+        }
     } else {
-    	$('#jornadas-Equipos3').val(0);
-    	$('#jornadas-Equipos4').val(0);
+        eq3.val(0);
+        eq4.val(0);
     }
     $('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?'1':'0');
     $('#jornadas-Especial').val( $('#jornadas-Especial').is(':checked')?'1':'0');
@@ -288,6 +299,9 @@ function saveJornada(){
  * 0x0080, 'Equipos4',
  * 0x0100, 'KO',
  * 0x0200, 'Especial'
+ * 0x0400, 'eq 2of3'
+ * 0x0800, 'eq 2combined'
+ * 0x1000, 'eq 3combined'
  */
 function checkPrueba(id,mask) {
 	var pruebas=0;
@@ -307,7 +321,7 @@ function checkPrueba(id,mask) {
 
 	if ( $('#jornadas-EquiposChk').is(':checked') ) {
 		$('#jornadas-MangasEquipos').prop('disabled',false);
-		pruebas |= 0x00C0; // eq3:64 eq4:128
+        pruebas |= 0x1CC0; // eq3o4:64 eq4c:128 eq2o3:1024 eq2c:2048 eq3c:4096
 	} else {
 		$('#jornadas-MangasEquipos').prop('disabled','disabled');
 	}
@@ -323,14 +337,14 @@ function checkPrueba(id,mask) {
 	// si no hay prueba seleccionada no hacer nada
 	if (pruebas==0) return;
 	// si estamos seleccionando una prueba ko/open/equipos, no permitir ninguna otra
-	if ( (mask & 0x01E0) != 0 ) {
+	if ( (mask & 0x1DE0) != 0 ) {
 		if (mask!=pruebas) {
 			$.messager.alert('<?php _e('Error'); ?>','<?php _e('KO, Open, or team rounds must be declared in a separate journey'); ?>','error');
 			$(id).prop('checked',false);
 			if (id==='#jornadas-EquiposChk') $('#jornadas-MangasEquipos').prop('disabled','disabled');
 		}
 	} else {
-		if ( (pruebas & 0x01E0) != 0 ) {
+		if ( (pruebas & 0x1DE0) != 0 ) {
 			$.messager.alert('<?php _e('Error'); ?>','<?php _e('You cannot add additional rounds when KO,Open or team rounds are already declared in a journey'); ?>','error');
 			$(id).prop('checked',false);
 			if (id==='#jornadas-PreAgilityChk') $('#jornadas-MangasPreAgility').prop('disabled','disabled');

@@ -36,7 +36,10 @@ class Jornadas extends DBObject {
 		/* 8 */ array(128,	'Equipos ( 4 conjunta )'),
 		/* 9 */ array(256,	'Ronda K.O.'),
 		/*10 */ array(512,	'Manga especial'),
-		/*11 */ array(24,	'Grado II y III conjunta')
+		/*11 */ array(24,	'Grado II y III conjunta'),
+		/*12 */ array(1024,	'Equipos ( 2 mejores )'),
+		/*13 */ array(2048,	'Equipos ( 2 conjunta )'),
+		/*14 */ array(4096,	'Equipos ( 3 conjunta )')
 	);
 	
 	protected $prueba; // id de prueba
@@ -419,11 +422,17 @@ class Jornadas extends DBObject {
 									) );
 		}
 		if ($row->Equipos3!=0) {
+			switch($row->Equipos3) {
+				case 1: /* 3 best of 4 (compatibility mode)  */ $idx=7; break;
+				case 2: /* 2 best of 3	*/ $idx=12; break;
+				case 3: /* 3 best of 4  */ $idx=7; break;
+				default: $idx=7; break;
+			}
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,8); // 'Agility Equipos (3 mejores)'
 			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,13); // 'Jumping Equipos (3 mejores)'
 			array_push($data,array( 
-									"Rondas" => Jornadas::$tipo_ronda[7][0],
-									"Nombre" => Jornadas::$tipo_ronda[7][1], 
+									"Rondas" => Jornadas::$tipo_ronda[$idx][0],
+									"Nombre" => Jornadas::$tipo_ronda[$idx][1],
 									"Manga1" => $manga1['ID'],
 									"Manga2" => $manga2['ID'],
 									"NombreManga1" => 'Agility Eq.',
@@ -437,11 +446,18 @@ class Jornadas extends DBObject {
 									) );
 		}
 		if ($row->Equipos4!=0) {
+			switch($row->Equipos4) {
+				case 1: /* 4 combined (compatibility mode)  */ $idx=8; break;
+				case 2: /* 2 combined	*/ $idx=12; break;
+				case 3: /* 3 combined  */ $idx=13; break;
+				case 4: /* 4 combined  */ $idx=8; break;
+				default: $idx=8; break;
+			}
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,9); // 'Agility Equipos (conjunta)'
 			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,14); // 'Jumping Equipos (conjunta)'
 			array_push($data,array( 
-									"Rondas" => Jornadas::$tipo_ronda[8][0],
-									"Nombre" => Jornadas::$tipo_ronda[8][1],
+									"Rondas" => Jornadas::$tipo_ronda[$idx][0],
+									"Nombre" => Jornadas::$tipo_ronda[$idx][1],
 									"Manga1" => $manga1['ID'],
 									"Manga2" => $manga2['ID'],
 									"NombreManga1" => 'Agility Eq.',
@@ -473,6 +489,7 @@ class Jornadas extends DBObject {
 									) );
 		}
 		if ($row->Especial!=0) {
+			// TODO: $row->Special should indicante number of rounds. Current and default is 1
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,16); // 'Manga especial'
 			$manga2= null;
 			array_push($data,array( 

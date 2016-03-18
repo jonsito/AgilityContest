@@ -118,12 +118,12 @@ function formatTeamResults( name,value , rows ) {
     var logos="";
     // var width=($('#header-combinadaFlag').text()==='true')?500:1000;
     var width= 0.9 * parseInt($(name).css('width').replace('px',''));
-    var tmode=(isJornadaEq3()?3:4);
+    var mindogs=getMinDogsByTeam();
     function addLogo(logo) {
         if (logos.indexOf(logo)>=0) return;
         logos = logos + '&nbsp;<img height="40px" src="/agility/images/logos/'+ logo + '"/>';
     }
-    for (var n=0;n<tmode;n++) {
+    for (var n=0;n<mindogs;n++) {
         if ( typeof(rows[n])==='undefined') {
             penal+=200.0;
             addLogo('null.png');
@@ -152,8 +152,8 @@ function formatTeamResultsConsole( value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
     var time=0.0;
     var penal=0.0;
-    var tmode=(isJornadaEq3()?3:4);
-    for (var n=0;n<tmode;n++) {
+    var mindogs=getMinDogsByTeam();
+    for (var n=0;n<mindogs;n++) {
         if ( typeof(rows[n])==='undefined') {
             penal+=200.0;
         } else {
@@ -172,7 +172,7 @@ function formatTeamResultsConsole( value , rows ) {
 
 function formatTeamClasificaciones(value,rows) {
     var logos="";
-    var tmode=(isJornadaEq3()?3:4);
+    var mindogs=getMinDogsByTeam();
     function sortResults(a,b) {
         return (a.penal== b.penal)? (a.time - b.time) : (a.penal - b.penal);
     }
@@ -197,8 +197,8 @@ function formatTeamClasificaciones(value,rows) {
     // ordenamos ahora las matrices de resultados
     (manga1.perros).sort(sortResults);
     (manga2.perros).sort(sortResults);
-    // y sumamos los tres/cuatro primeros ( 3Mejores/Conjunta ) resultados
-    for (n=0;n<tmode;n++) {
+    // y sumamos los dos/tres/cuatro primeros ( en funcion del tipo de competicion de equipos ) resultados
+    for (n=0;n<mindogs;n++) {
         manga1.time +=parseFloat(manga1.perros[n].time);
         manga1.penal +=parseFloat(manga1.perros[n].penal);
         manga2.time +=parseFloat(manga2.perros[n].time);
@@ -219,7 +219,8 @@ function formatTeamClasificaciones(value,rows) {
 }
 
 function formatTeamClasificacionesConsole(value,rows) {
-    var tmode=(isJornadaEq3()?3:4);
+
+    var mindogs=getMinDogsByTeam();
     function sortResults(a,b) {
         return (a.penal== b.penal)? (a.time - b.time) : (a.penal - b.penal);
     }
@@ -239,7 +240,7 @@ function formatTeamClasificacionesConsole(value,rows) {
     (manga1.perros).sort(sortResults);
     (manga2.perros).sort(sortResults);
     // y sumamos los tres/cuatro primeros ( 3Mejores/Conjunta ) resultados
-    for (n=0;n<tmode;n++) {
+    for (n=0;n<mindogs;n++) {
         manga1.time +=parseFloat(manga1.perros[n].time);
         manga1.penal +=parseFloat(manga1.perros[n].penal);
         manga2.time +=parseFloat(manga2.perros[n].time);

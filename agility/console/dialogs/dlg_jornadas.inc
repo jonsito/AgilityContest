@@ -86,14 +86,18 @@ $config =Config::getInstance();
             </div>
     
              <div class="fitem">
-            	<input type="hidden" id="jornadas-Equipos3" name="Equipos3" value="1">
-            	<input type="hidden" id="jornadas-Equipos4" name="Equipos4" value="2">
+            	<input type="hidden" id="jornadas-Equipos3" name="Equipos3" value="4">
+            	<input type="hidden" id="jornadas-Equipos4" name="Equipos4" value="7">
                 <label for="jornadas-EquiposChk" style="width:150px" ><?php _e('Teams'); ?></label>
                 <input id="jornadas-EquiposChk" name="EquiposChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x00C0)"/>
                 <select id="jornadas-MangasEquipos" name="MangasEquipos" style="width:130px">
-                <option value="1"><?php _e('3 best of 4'); ?></option>
-                <option value="2"><?php _e('4 combined'); ?></option>
+                    <!-- reserve values 1,2 for backward compatibility -->
+                    <option value="3"><?php _e('2 best of 3'); ?></option>
+                    <option value="4"><?php _e('3 best of 4'); ?></option>
+                    <option value="5"><?php _e('2 combined'); ?></option>
+                    <option value="6"><?php _e('3 combined'); ?></option>
+                    <option value="7"><?php _e('4 combined'); ?></option>
                 </select>
             </div>
             
@@ -154,20 +158,21 @@ $config =Config::getInstance();
             	$('#jornadas-Grado3').prop('disabled','disabled');
                 $('#jornadas-Grado3').prop('checked',false);
             }
-            if (data.Equipos3==1) {
+            if (data.Equipos3!=0) {
                 $('#jornadas-EquiposChk').prop('checked',true);
-                $('#jornadas-MangasEquipos').prop('value',64);
+                $('#jornadas-MangasEquipos').prop('value',(data.Equipos3==2)?3:4); // 0:noteam 1:3of4 2:2of3 3:3of4
             	$('#jornadas-MangasEquipos').prop('disabled',false);
-            } else if (data.Equipos4==1) {
+            } else if (data.Equipos4!=0) {
+                var val=data.Equipos4; // 0:noteam 1:4combined 2:2combined 3:3combined 4:4combined
                 $('#jornadas-EquiposChk').prop('checked',true);
             	$('#jornadas-MangasEquipos').prop('disabled',false);
-                $('#jornadas-MangasEquipos').prop('value',128);
+                $('#jornadas-MangasEquipos').prop('value',(val==1)?7:(val==2)?5:(val==3)?6:7);
             } else {
                 $('#jornadas-EquiposChk').prop('checked',false);
             	$('#jornadas-MangasEquipos').prop('disabled','disabled');
             }
-            $('#jornadas-Equipos3').prop('checked',(data.Equipos3 == 1));
-            $('#jornadas-Equipos4').prop('checked',(data.Equipos4 == 1));
+            $('#jornadas-Equipos3').prop('checked',(data.Equipos3 != 0));
+            $('#jornadas-Equipos4').prop('checked',(data.Equipos4 != 0));
             $('#jornadas-Open').prop('checked',(data.Open == 1));
             $('#jornadas-KO').prop('checked',(data.KO == 1));
             $('#jornadas-Especial').prop('checked',(data.Especial == 1));

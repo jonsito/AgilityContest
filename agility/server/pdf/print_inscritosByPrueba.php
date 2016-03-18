@@ -554,8 +554,19 @@ class PrintEstadisticas extends PrintCommon {
 			$this->printTableHeader($est,$name,$jornada['Nombre']);
 			// check for Open/Team/Ko
 			$flag="";
-			if ($jornada['Equipos3']!=0) $flag=_("Team 3");
-			if ($jornada['Equipos4']!=0) $flag=_("Team 4");
+			switch(intval($jornada['Equipos3'])) {
+				case 1:$flag=_("3 Best"); break; // old style
+				case 2:$flag=_("2 Best"); break;
+				case 3:$flag=_("3 Best"); break;
+				default: break;
+			}
+			switch(intval($jornada['Equipos4'])) {
+				case 1:$flag=_("Team 4"); break; // old style
+				case 2:$flag=_("Team 2"); break;
+				case 3:$flag=_("Team 3"); break;
+				case 4:$flag=_("Team 4"); break;
+				default: break;
+			}
 			if ($jornada['Open']!=0) /* $flag=_("Open"); */ $flag=" "; // print space in Open journeys
 			if ($jornada['KO']!=0) $flag=_("K.O.");
 			if ($flag==="")

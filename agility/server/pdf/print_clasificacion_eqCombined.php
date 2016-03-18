@@ -69,7 +69,7 @@ class PrintClasificacionEq4 extends PrintCommon {
      * @throws Exception
      */
     function __construct($prueba,$jornada,$mangas,$results,$mode) {
-        parent::__construct('Landscape',"print_clasificacion_eq4",$prueba,$jornada);
+        parent::__construct('Landscape',"print_clasificacion_eqCombined",$prueba,$jornada);
         $dbobj=new DBObject("print_clasificacion");
         $this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
         $this->manga2=null;
@@ -124,7 +124,7 @@ class PrintClasificacionEq4 extends PrintCommon {
         // Evaluate results and penalization by adding first 4 entries
         foreach($this->equipos as &$team) {
             // compose manga team's result. no need to sort
-            for ($n=0;$n<4;$n++) {
+            for ($n=0;$n<$this->getMinDogs();$n++) {
                 // TODO: si no hay participantes en el equipo, ignora
                 if (array_key_exists($n,$team['Resultados1'])) {
                     $team['P1']+=$team['Resultados1'][$n]['P'];
@@ -257,7 +257,7 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->ac_header(1,14);
         $this->Cell(215,14,"","LTBR",0,'C',true);
         $x=70;
-        for ($n=0;$n<4;$n++) {
+        for ($n=0;$n<$this->getMinDogs();$n++) {
             if ($logos[$n]==="null.png") {
                 $this->SetX($x+5*$n);
                 $this->Cell(5,5,"",'T',0,'C',true);
@@ -394,7 +394,7 @@ try {
     $pdf = new PrintClasificacionEq4($prueba,$jornada,$mangas,$resultados,$mode);
     $pdf->AliasNbPages();
     $pdf->composeTable();
-    $pdf->Output("print_clasificacion_eq4.pdf","D"); // "D" means open download dialog
+    $pdf->Output("print_clasificacion_eqCombined.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
     do_log($e->getMessage());
     die ($e->getMessage());

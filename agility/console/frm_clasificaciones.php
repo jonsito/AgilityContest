@@ -35,10 +35,10 @@ $('#seljornada-window').window({
 			return;
 		}
 		page="/agility/console/frm_clasificaciones2.php";
-		if (workingData.datosJornada.Equipos3==1) page="/agility/console/frm_clasificaciones_eq3.php";
-		if (workingData.datosJornada.Equipos4==1) page="/agility/console/frm_clasificaciones_eq3.php"; // 4 & 3 are the same frame
-		if (workingData.datosJornada.Open==1) page="/agility/console/frm_clasificaciones2.php";
-		if (workingData.datosJornada.KO==1) page="/agility/console/resultados_ko.php";
+		if (workingData.datosJornada.Equipos3!=0) page="/agility/console/frm_clasificaciones_eq3.php";
+		if (workingData.datosJornada.Equipos4!=0) page="/agility/console/frm_clasificaciones_eq3.php"; // 4 & 3 are the same frame
+		if (workingData.datosJornada.Open!=0) page="/agility/console/frm_clasificaciones2.php";
+		if (workingData.datosJornada.KO!=0) page="/agility/console/resultados_ko.php";
 		loadContents(page,'<?php _e('Results & Scores');?>');
 	} 
 }).window('open');

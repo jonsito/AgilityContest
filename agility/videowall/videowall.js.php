@@ -94,10 +94,10 @@ function vw_formatResultadosDatagrid(evt,data) {
     var team=false;
 	var hasGrades=true;
     var dg=$('#vw_parciales-datagrid');
-    if (parseInt(data.Jornada.Equipos3)==1) { team=true; hasGrades=false; }
-    if (parseInt(data.Jornada.Equipos4)==1) { team=true; hasGrades=false; }
-	if (parseInt(data.Jornada.Open)==1) { hasGrades=false; }
-	if (parseInt(data.Jornada.KO)==1) { hasGrades=false; }
+    if (parseInt(data.Jornada.Equipos3)!=0) { team=true; hasGrades=false; }
+    if (parseInt(data.Jornada.Equipos4)!=0) { team=true; hasGrades=false; }
+	if (parseInt(data.Jornada.Open)!=0) { hasGrades=false; }
+	if (parseInt(data.Jornada.KO)!=0) { hasGrades=false; }
 
     // clear datagrid as data no longer valid
     if (team){

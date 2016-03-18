@@ -264,15 +264,18 @@ class Clasificaciones extends DBObject {
 				$c1=$this->combina( $r1->getResultados($mode), $r3->getResultados($mode));
 				$c2=$this->combina( $r2->getResultados($mode), $r4->getResultados($mode));
 				return $this->evalFinal($idmangas,$c1,$c2,$mode);
+			case 0x0400: // equipos 2 mejores de 3
 			case 0x0040: // equipos 3 mejores de 4
-                $r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility Equipos 3
-                $r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping Equipos 3
+                $r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility Equipos best
+                $r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping Equipos best
                 $c1=$r1->getResultados($mode);
                 $c2=$r2->getResultados($mode);
                 return $this->evalFinal($idmangas,$c1,$c2,$mode);
+			case 0x0800: // equipos 2 conjunta
+			case 0x1000: // equipos 3 conjunta
 			case 0x0080: // equipos 4 conjunta
-                $r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility Equipos 4
-                $r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping Equipos 4
+                $r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility Equipos combined
+                $r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping Equipos combined
                 $c1=$r1->getResultados($mode);
                 $c2=$r2->getResultados($mode);
                 return $this->evalFinal($idmangas,$c1,$c2,$mode);

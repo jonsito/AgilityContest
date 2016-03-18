@@ -493,8 +493,21 @@ class OrdenSalida extends DBObject {
         // FASE 2: ahora invertimos el orden de los equipos en funcion del resultado
         if (intval($this->jornada['Equipos3'])==0 ) return;
         $this->myLogger->trace("invirtiendo orden de equipos");
-        $tmode=($this->jornada['Equipos4']!=0)?4:3;
-        $res=Resultados::getTeamResults($res['rows'],$this->prueba['ID'],$this->jornada['ID'],$tmode);
+		$mindogs=0;
+		switch(intval($this->jornada['Equipos3'])) {
+			case 1:$mindogs=3; break; // old style 3 best of 4
+			case 2:$mindogs=2; break; // 2 besto of 3
+			case 3:$mindogs=3; break; // 3 best of 4
+			default: break;
+		}
+		switch(intval($this->jornada['Equipos4'])) {
+			case 1:$mindogs=4; break; // old style 4 combined
+			case 2:$mindogs=2; break; // 2 combined
+			case 3:$mindogs=3; break; // 3 combined
+			case 4:$mindogs=4; break; // 4 combined
+			default: break;
+		}
+        $res=Resultados::getTeamResults($res['rows'],$this->prueba['ID'],$this->jornada['ID'],$mindogs);
         $size= count($res);
         // recorremos los resultados en orden inverso generando el nuevo orden de equipos
         $ordenequipos=$this->getOrdenEquipos();

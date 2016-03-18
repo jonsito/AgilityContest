@@ -405,8 +405,8 @@ function clasificaciones_printEtiquetas(flag,start,list) {
 function clasificaciones_printClasificacion() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='/agility/server/pdf/print_clasificacion.php';
-    if (isJornadaEq3()) url='/agility/server/pdf/print_clasificacion_eq3.php';
-    if (isJornadaEq4()) url='/agility/server/pdf/print_clasificacion_eq4.php';
+    if (isJornadaEq3()) url='/agility/server/pdf/print_clasificacion_eqBest.php';
+    if (isJornadaEq4()) url='/agility/server/pdf/print_clasificacion_eqCombined.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	if (ronda==null) {
         $.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");

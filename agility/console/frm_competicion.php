@@ -41,23 +41,23 @@ $('#seljornada-window').window({
         // default page and dialogs
 		page="/agility/console/frm_competicion2.php?tipo=std";
         var dialogs={'t':'#ordentandas-dialog','s':'#ordensalida-dialog','c':'#competicion-dialog','r':'#resultadosmanga-dialog'};
-		if (workingData.datosJornada.Equipos3==1) {
+		if (workingData.datosJornada.Equipos3!=0) {
 			page="/agility/console/frm_competicion2.php?tipo=eq3";
 			extra=" ( <?php _e('Teams 3');?> )";
             // use default dialogs
 		}
-		if (workingData.datosJornada.Equipos4==1) {
+		if (workingData.datosJornada.Equipos4!=0) {
 			page="/agility/console/frm_competicion2.php?tipo=eq4";
 			extra=" ( <?php _e('Teams 4');?> )";
             // use default dialogs
 		}
-		if (workingData.datosJornada.Open==1) {
+		if (workingData.datosJornada.Open!=0) {
 			// an Open Contest is like a normal with no Grades but only categories
 			page="/agility/console/frm_competicion2.php?tipo=open";
 			extra=" ( <?php _e('Open');?> )";
 			// use default dialogs
 		}
-		if (workingData.datosJornada.KO==1) {
+		if (workingData.datosJornada.KO!=0) { // number shows how many rounds for series
 			page="/agility/console/frm_competicion_ko.php";
 			extra=" ( <?php _e('K.O. Rounds');?> )";
 			dialogs= {};

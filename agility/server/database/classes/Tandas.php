@@ -57,12 +57,12 @@ class Tandas extends DBObject {
 			15	=> array('Tipo'=>15,	'TipoManga'=> 7,	'Nombre'=>'Agility Large',			'Categoria'=>'L',	'Grado'=>'-'), // Open
 			16	=> array('Tipo'=>16,	'TipoManga'=> 7,	'Nombre'=>'Agility Medium',			'Categoria'=>'M',	'Grado'=>'-'), // Open
 			17	=> array('Tipo'=>17,	'TipoManga'=> 7,	'Nombre'=>'Agility Small',			'Categoria'=>'S',	'Grado'=>'-'), // Open
-			18	=> array('Tipo'=>18,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Large',	'Categoria'=>'L',	'Grado'=>'-'),
-			19	=> array('Tipo'=>19,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Medium',	'Categoria'=>'M',	'Grado'=>'-'),
-			20	=> array('Tipo'=>20,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Small',	'Categoria'=>'S',	'Grado'=>'-'),
+			18	=> array('Tipo'=>18,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. Large',		'Categoria'=>'L',	'Grado'=>'-'), // team best
+			19	=> array('Tipo'=>19,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. Medium',		'Categoria'=>'M',	'Grado'=>'-'), // team best
+			20	=> array('Tipo'=>20,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. Small',		'Categoria'=>'S',	'Grado'=>'-'), // team best
         	// en jornadas por equipos conjunta tres alturas se mezclan categorias M y S
-			21	=> array('Tipo'=>21,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Large',	'Categoria'=>'L',	'Grado'=>'-'),
-			22	=> array('Tipo'=>22,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Med/Small','Categoria'=>'MS',	'Grado'=>'-'),
+			21	=> array('Tipo'=>21,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos Large',		'Categoria'=>'L',	'Grado'=>'-'), // team combined
+			22	=> array('Tipo'=>22,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos Med/Small',	'Categoria'=>'MS',	'Grado'=>'-'), // team combined
 			23	=> array('Tipo'=>23,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Large',		'Categoria'=>'L',	'Grado'=>'GII'),
 			24	=> array('Tipo'=>24,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Medium',		'Categoria'=>'M',	'Grado'=>'GII'),
 			25	=> array('Tipo'=>25,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Small',		'Categoria'=>'S',	'Grado'=>'GII'),
@@ -72,12 +72,12 @@ class Tandas extends DBObject {
 			29	=> array('Tipo'=>29,	'TipoManga'=> 12,	'Nombre'=>'Jumping Large',			'Categoria'=>'L',	'Grado'=>'-'), // Open
 			30	=> array('Tipo'=>30,	'TipoManga'=> 12,	'Nombre'=>'Jumping Medium',			'Categoria'=>'M',	'Grado'=>'-'), // Open
 			31	=> array('Tipo'=>31,	'TipoManga'=> 12,	'Nombre'=>'Jumping Small',			'Categoria'=>'S',	'Grado'=>'-'), // Open
-			32	=> array('Tipo'=>32,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. 3 Large',	'Categoria'=>'L',	'Grado'=>'-'),
-			33	=> array('Tipo'=>33,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. 3 Medium',	'Categoria'=>'M',	'Grado'=>'-'),
-			34	=> array('Tipo'=>34,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. 3 Small',	'Categoria'=>'S',	'Grado'=>'-'),
+			32	=> array('Tipo'=>32,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. Large',		'Categoria'=>'L',	'Grado'=>'-'), // team best
+			33	=> array('Tipo'=>33,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. Medium',		'Categoria'=>'M',	'Grado'=>'-'), // team best
+			34	=> array('Tipo'=>34,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. Small',		'Categoria'=>'S',	'Grado'=>'-'), // team best
 			// en jornadas por equipos conjunta 3 alturas se mezclan categorias M y S
-			35	=> array('Tipo'=>35,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos 4 Large',	'Categoria'=>'L',	'Grado'=>'-'),
-			36	=> array('Tipo'=>36,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos 4 Med/Small','Categoria'=>'MS',	'Grado'=>'-'),
+			35	=> array('Tipo'=>35,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos Large',		'Categoria'=>'L',	'Grado'=>'-'), // team combined
+			36	=> array('Tipo'=>36,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos Med/Small',	'Categoria'=>'MS',	'Grado'=>'-'), // team combined
 			// en las rondas KO, los perros compiten todos contra todos
 			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'Nombre'=>'Manga K.O.',				'Categoria'=>'-LMST','Grado'=>'-'),
 			38	=> array('Tipo'=>38,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Large',	'Categoria'=>'L',	'Grado'=>'-'),
@@ -90,17 +90,17 @@ class Tandas extends DBObject {
 			43	=> array('Tipo'=>43,	'TipoManga'=> 5,	'Nombre'=>'Agility GII Tiny',		'Categoria'=>'T',	'Grado'=>'GII'),
 			44	=> array('Tipo'=>44,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Tiny',		'Categoria'=>'T',	'Grado'=>'GIII'), // no existe
 			45	=> array('Tipo'=>45,	'TipoManga'=> 7,	'Nombre'=>'Agility Tiny',			'Categoria'=>'T',	'Grado'=>'-'), // Open
-			46	=> array('Tipo'=>46,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Tiny',		'Categoria'=>'T',	'Grado'=>'-'),
+			46	=> array('Tipo'=>46,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. Tiny',		'Categoria'=>'T',	'Grado'=>'-'), // team best
 			// en equipos4  cuatro alturas  agrupamos por LM y ST
-			47	=> array('Tipo'=>47,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Large/Medium',	'Categoria'=>'LM',	'Grado'=>'-'),
-			48	=> array('Tipo'=>48,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Small/Tiny','Categoria'=>'ST',		'Grado'=>'-'),
-			49	=> array('Tipo'=>49,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Tiny',		'Categoria'=>'T',		'Grado'=>'GII'),
-			50	=> array('Tipo'=>50,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Tiny',		'Categoria'=>'T',		'Grado'=>'GIII'), // no existe
-			51	=> array('Tipo'=>51,	'TipoManga'=> 12,	'Nombre'=>'Jumping Tiny',			'Categoria'=>'T',		'Grado'=>'-'), // Open
-			52	=> array('Tipo'=>52,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. 3 Tiny',		'Categoria'=>'T',		'Grado'=>'-'),
-			53	=> array('Tipo'=>53,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos 4 Large/Medium',	'Categoria'=>'LM',	'Grado'=>'-'),
-			54	=> array('Tipo'=>54,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos 4 Small/Tiny','Categoria'=>'ST',		'Grado'=>'-'),
-			55	=> array('Tipo'=>55,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Tiny',	'Categoria'=>'T',		'Grado'=>'-'),
+			47	=> array('Tipo'=>47,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos Large/Medium','Categoria'=>'LM',	'Grado'=>'-'), // team combined
+			48	=> array('Tipo'=>48,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos Small/Tiny',	'Categoria'=>'ST',	'Grado'=>'-'), // team combined
+			49	=> array('Tipo'=>49,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Tiny',		'Categoria'=>'T',	'Grado'=>'GII'),
+			50	=> array('Tipo'=>50,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Tiny',		'Categoria'=>'T',	'Grado'=>'GIII'), // no existe
+			51	=> array('Tipo'=>51,	'TipoManga'=> 12,	'Nombre'=>'Jumping Tiny',			'Categoria'=>'T',	'Grado'=>'-'), // Open
+			52	=> array('Tipo'=>52,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. Tiny',		'Categoria'=>'T',	'Grado'=>'-'), // team best
+			53	=> array('Tipo'=>53,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos Large/Medium','Categoria'=>'LM',	'Grado'=>'-'), // team combined
+			54	=> array('Tipo'=>54,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos Small/Tiny',	'Categoria'=>'ST',	'Grado'=>'-'), // team combined
+			55	=> array('Tipo'=>55,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Tiny',	'Categoria'=>'T',	'Grado'=>'-'),
 	);
 
 	/**

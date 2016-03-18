@@ -200,6 +200,15 @@ class Updater {
         }
     }
 
+    function upgradeTeams() {
+        $cmds= array(
+            "UPDATE `Jornadas` SET `Equipos3`=3 WHERE (`Equipos3`=1);",
+            "UPDATE `Jornadas` SET `Equipos4`=4 WHERE (`Equipos4`=1);"
+        );
+        foreach ($cmds as $query) { $this->conn->query($query); }
+        return 0;
+    }
+
     // clear (if any) Application Upgrade request
     function removeUpdateMark() {
         $f=__DIR__."/../../logs/do_upgrade";
@@ -243,6 +252,7 @@ try {
     $upg->addColumnUnlessExists("Perros","Genero","varchar(16)");
     $upg->addColumnUnlessExists("Provincias","Pais","varchar(2)","ES");
     $upg->updateInscripciones();
+    $upg->upgradeTeams();
     $upg->setTRStoFloat();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
