@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE JUECES -->
-<div  style="width:975px;height:550px">   
+<div  style="width:100%;height:550px">
     <!-- DECLARACION DE LA TABLA DE JUECES -->
     <table id="jueces-datagrid">  </table>
 </div> 

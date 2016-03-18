@@ -33,9 +33,10 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 ?>
+<div  style="width:100%;height:550px">
 
 <!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->
-<div id="inscripciones-infolayout" class="easyui-layout" data-options="fit:true,border:true" style="padding:10px">
+<div id="inscripciones-infolayout" class="easyui-layout" data-options="fit:true,border:true" style="padding:10px;">
 	
 	<!-- PANEL IZQUIERDO: DATOS DE LA PRUEBA -->
 	<div data-options="region:'west',title:'<?php _e('Contests data');?>',split:true,collapsed:false,collapsible:false"
@@ -73,6 +74,8 @@ $config =Config::getInstance();
         style="height:80%;">
         <table id="inscripciones-datagrid"></table>
     </div>
+</div>
+
 </div>
 
 <!-- BARRA DE TAREAS DE LA TABLA DE INSCRIPCIONES -->
