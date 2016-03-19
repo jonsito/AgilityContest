@@ -90,7 +90,7 @@ $config =Config::getInstance();
             	<input type="hidden" id="jornadas-Equipos4" name="Equipos4" value="7">
                 <label for="jornadas-EquiposChk" style="width:150px" ><?php _e('Teams'); ?></label>
                 <input id="jornadas-EquiposChk" name="EquiposChk" class="easyui-checkbox" 
-                	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x00C0)"/>
+                	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x1CC0)"/>
                 <select id="jornadas-MangasEquipos" name="MangasEquipos" style="width:140px">
                     <!-- reserve values 1,2 for backward compatibility -->
                     <option value="3"><?php _e('2 best of 3'); ?></option>
