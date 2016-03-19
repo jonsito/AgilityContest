@@ -123,7 +123,7 @@ class PrintClasificacionEq3 extends PrintCommon {
                 return ($a['P']==$b['P'])? ($a['T']-$b['T']): ($a['P']-$b['P']);
             });
             // compose manga team's result
-            for ($n=0;$n<$this->getMinDogs();$n++) {
+            for ($n=0;$n<$this->getMinDogs();$n++) { // sum up to mindogs() results to get final team result
                 // TODO: si no hay participantes en el equipo, ignora
                 if (array_key_exists($n,$team['Resultados1'])) {
                     $team['P1']+=$team['Resultados1'][$n]['P'];
@@ -179,7 +179,7 @@ class PrintClasificacionEq3 extends PrintCommon {
 		$this->Ln();
 		if ($this->trs2==null) { $this->Ln(); return; }
 		$trs=$this->trs2;
-		$ronda=$this->getGradoString(intval($this->manga1->Tipo));
+		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
 		$this->SetFont($this->getFontName(),'B',11); // bold 9px
 		$this->Cell(80,5,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
 		$this->SetFont($this->getFontName(),'B',9); // bold 9px
@@ -305,54 +305,63 @@ class PrintClasificacionEq3 extends PrintCommon {
 	function writeCell($idx,$row,$team) {
 		$wide=$this->federation->get('WideLicense');
         $this->ac_row($idx,8);
-		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-		// fomateamos datos
-		$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
-		$penal=number_format($row['Penalizacion'],$this->timeResolution);
-		$v1= ($row['P1']>=200)?"-":number_format($row['V1'],1);
-		$t1= ($row['P1']>=200)?"-":number_format($row['T1'],$this->timeResolution);
-		$p1=number_format($row['P1'],$this->timeResolution);
-		$v2= ($row['P2']>=200)?"-":number_format($row['V2'],1);
-		$t2= ($row['P2']>=200)?"-":number_format($row['T2'],$this->timeResolution);
-		$p2=number_format($row['P2'],$this->timeResolution);
-		
-		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-
-		$this->SetFont($this->getFontName(),'',8); // default font
-		// datos del participante
-		$this->Cell(8,4,$row['Dorsal'],'L',0,'L',true); 	// dorsal
-		$this->SetFont($this->getFontName(),'B',8); // Display Nombre in bold typeface
-		$this->Cell(20,4,$row['Nombre'],0,0,'L',true);	// nombre (20,y
-		$this->SetFont($this->getFontName(),'',($wide)?6:8); // default font for licencia
-		$this->Cell(($wide)?28:13,4,$row['Licencia'],0,0,'C',true);	// licencia
-        $this->SetFont($this->getFontName(),'',8); // default font
-		$this->Cell(8,4,"{$row['Categoria']}",0,0,'C',true);	// categoria/grado
-		$this->Cell(30,4,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
-		$this->Cell(16,4,$row['NombreClub'],0,0,'R',true);	// nombreClub
-		// manga 1
-		$this->Cell(5,4,$row['F1'],'L',0,'C',true);	// 1- Faltas+Tocados
-		$this->Cell(5,4,$row['R1'],0,0,'C',true);	// 1- Rehuses
-		$this->Cell(10,4,$t1,0,0,'C',true);	// 1- Tiempo
-		$this->Cell(7,4,$v1,0,0,'C',true);	// 1- Velocidad
-		$this->Cell(10,4,$p1,0,0,'C',true);	// 1- Penalizacion
-		$this->Cell(10,4,$row['C1'],0,0,'C',true);	// 1- calificacion
-		// manga 2
-		if ($this->manga2!=null) {
-			$this->Cell(5,4,$row['F2'],'L',0,'C',true);	// 2- Faltas+Tocados
-			$this->Cell(5,4,$row['R2'],0,0,'C',true);	// 2- Rehuses
-			$this->Cell(10,4,$t2,0,0,'C',true);	// 2- Tiempo
-			$this->Cell(7,4,$v2,0,0,'C',true);	// 2- Velocidad
-			$this->Cell(10,4,$p2,0,0,'C',true);	// 2- Penalizacion
-			$this->Cell(10,4,$row['C2'],0,0,'C',true);	// 2- calificacion
+		if ( ($row==$this->defaultPerro) && ($idx>=$this->getMinDogs() ) ){
+			// no dogs, and no dog to show as "no inscrito"
+			$this->Cell(($wide)?238:223,4,'',0,0,'',false);
 		} else {
-			$this->Cell(47,4,'','L',0,'C',true);	// espacio en blanco
+			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+			// fomateamos datos
+			$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
+			$penal=number_format($row['Penalizacion'],$this->timeResolution);
+			$v1= ($row['P1']>=200)?"-":number_format($row['V1'],1);
+			$t1= ($row['P1']>=200)?"-":number_format($row['T1'],$this->timeResolution);
+			$p1=number_format($row['P1'],$this->timeResolution);
+			$v2= ($row['P2']>=200)?"-":number_format($row['V2'],1);
+			$t2= ($row['P2']>=200)?"-":number_format($row['T2'],$this->timeResolution);
+			$p2=number_format($row['P2'],$this->timeResolution);
+
+			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+
+			$this->SetFont($this->getFontName(),'',8); // default font
+			// datos del participante
+			$this->Cell(8,4,$row['Dorsal'],'L',0,'L',true); 	// dorsal
+			$this->SetFont($this->getFontName(),'B',8); // Display Nombre in bold typeface
+			$this->Cell(20,4,$row['Nombre'],0,0,'L',true);	// nombre (20,y
+			$this->SetFont($this->getFontName(),'',($wide)?6:8); // default font for licencia
+			$this->Cell(($wide)?28:13,4,$row['Licencia'],0,0,'C',true);	// licencia
+			$this->SetFont($this->getFontName(),'',8); // default font
+			$this->Cell(8,4,"{$row['Categoria']}",0,0,'C',true);	// categoria/grado
+			$this->Cell(30,4,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
+			$this->Cell(16,4,$row['NombreClub'],0,0,'R',true);	// nombreClub
+			// manga 1
+			if ($this->manga1!=null) {
+				$this->Cell(5,4,$row['F1'],'L',0,'C',true);	// 1- Faltas+Tocados
+				$this->Cell(5,4,$row['R1'],0,0,'C',true);	// 1- Rehuses
+				$this->Cell(10,4,$t1,0,0,'C',true);	// 1- Tiempo
+				$this->Cell(7,4,$v1,0,0,'C',true);	// 1- Velocidad
+				$this->Cell(10,4,$p1,0,0,'C',true);	// 1- Penalizacion
+				$this->Cell(10,4,$row['C1'],0,0,'C',true);	// 1- calificacion
+			} else {
+				$this->Cell(47,4,'','L',0,'C',true);	// espacio en blanco
+			}
+			// manga 2
+			if ($this->manga2!=null) {
+				$this->Cell(5,4,$row['F2'],'L',0,'C',true);	// 2- Faltas+Tocados
+				$this->Cell(5,4,$row['R2'],0,0,'C',true);	// 2- Rehuses
+				$this->Cell(10,4,$t2,0,0,'C',true);	// 2- Tiempo
+				$this->Cell(7,4,$v2,0,0,'C',true);	// 2- Velocidad
+				$this->Cell(10,4,$p2,0,0,'C',true);	// 2- Penalizacion
+				$this->Cell(10,4,$row['C2'],0,0,'C',true);	// 2- calificacion
+			} else {
+				$this->Cell(47,4,'','L',0,'C',true);	// espacio en blanco
+			}
+			// global
+			$this->Cell(9,4,number_format($row['Tiempo'],$this->timeResolution),'L',0,'C',true);	// Tiempo
+			$this->Cell(9,4,number_format($penal,$this->timeResolution),0,0,'C',true);	// Penalizacion
+			$this->Cell(9,4,$row['Calificacion'],0,0,'C',true);	// Calificacion
+			$this->SetFont($this->getFontName(),'B',8); // mark "puesto" in bold typeface
+			$this->Cell(7,4,$puesto,'R',0,'C',true);	// Puesto
 		}
-		// global
-		$this->Cell(9,4,number_format($row['Tiempo'],$this->timeResolution),'L',0,'C',true);	// Tiempo
-		$this->Cell(9,4,number_format($penal,$this->timeResolution),0,0,'C',true);	// Penalizacion
-		$this->Cell(9,4,$row['Calificacion'],0,0,'C',true);	// Calificacion
-		$this->SetFont($this->getFontName(),'B',8); // mark "puesto" in bold typeface
-		$this->Cell(7,4,$puesto,'R',0,'C',true);	// Puesto
         // equipos
         $this->ac_header(2,8);
         switch($idx){

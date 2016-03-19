@@ -1,6 +1,6 @@
 <?php
 /*
-print_equiposByJornada.php
+print_clasificacion_eqCombined.php
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -121,7 +121,7 @@ class PrintClasificacionEq4 extends PrintCommon {
             array_push($equipo['Resultados2'],array( 'T' => $result['T2'], 'P'=> $result['P2']));
             array_push($equipo['Perros'],$result);
         }
-        // Evaluate results and penalization by adding first 4 entries
+        // Evaluate results and penalization by adding first mindogs entries
         foreach($this->equipos as &$team) {
             // compose manga team's result. no need to sort
             for ($n=0;$n<$this->getMinDogs();$n++) {
@@ -183,7 +183,7 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->Ln();
         if ($this->trs2==null) { $this->Ln(); return; }
         $trs=$this->trs2;
-        $ronda=$this->getGradoString(intval($this->manga1->Tipo));
+        $ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
         $this->SetFont($this->getFontName(),'B',11); // bold 9px
         $this->Cell(80,5,_("Round").": $ronda - {$this->getCatString($this->categoria)}",0,0,'',false);
         $this->SetFont($this->getFontName(),'B',9); // bold 9px

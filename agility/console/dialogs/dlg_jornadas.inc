@@ -91,7 +91,7 @@ $config =Config::getInstance();
                 <label for="jornadas-EquiposChk" style="width:150px" ><?php _e('Teams'); ?></label>
                 <input id="jornadas-EquiposChk" name="EquiposChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x00C0)"/>
-                <select id="jornadas-MangasEquipos" name="MangasEquipos" style="width:130px">
+                <select id="jornadas-MangasEquipos" name="MangasEquipos" style="width:140px">
                     <!-- reserve values 1,2 for backward compatibility -->
                     <option value="3"><?php _e('2 best of 3'); ?></option>
                     <option value="4"><?php _e('3 best of 4'); ?></option>
