@@ -137,7 +137,7 @@ function insertInscripcion(dg) {
 		$('#new_inscripcion-progressbar').progressbar('setValue', (100.0*(index+1)/size).toFixed(2));
 		$.ajax({
 			cache: false,
-			timeout: 10000, // 10 segundos
+			timeout: 20000, // 20 segundos
 			type:'GET',
 			url:"/agility/server/database/inscripcionFunctions.php",
 			dataType:'json',
@@ -178,7 +178,7 @@ function reorderInscripciones(idprueba) {
     $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Re-ordering Dorsals");?>'});
 	$.ajax({
         cache: false,
-        timeout: 10000, // 10 segundos
+        timeout: 60000, // 60 segundos
 		type:'GET',
 		url:"/agility/server/database/inscripcionFunctions.php",
 		dataType:'json',
@@ -193,7 +193,11 @@ function reorderInscripciones(idprueba) {
 				$('#inscripciones-datagrid').datagrid('reload');
 			}
             $.messager.progress('close');
-        }
+        },
+		error:function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+			$.messager.progress('close');
+		}
 	});
 }
 

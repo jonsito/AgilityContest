@@ -47,7 +47,7 @@ require_once(__DIR__."/classes/Inscripciones.php");
 		if ($result===null) 
 			throw new Exception($inscripciones->errormsg);
 		if ($result==="")
-			echo json_encode(array('success'=>true,'insert_id'=>$inscripciones->insertid,'affected_rows'=>$inscripciones->conn->affected_rows));
+			echo json_encode(array('success'=>true,'insert_id'=>$inscripciones->insertid,'affected_rows'=>0));
 		else echo json_encode($result);
 	} catch (Exception $e) {
 		do_log($e->getMessage());

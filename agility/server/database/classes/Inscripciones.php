@@ -388,6 +388,7 @@ class Inscripciones extends DBObject {
 	 */
 	function reorder() {
 		$this->myLogger->enter();
+		$timeout=ini_get('max_execution_time');
 		// ordenamos los perros por club, categoria grado
 		$inscritos=$this->__select(
 				"Perro,Nombre,NombreClub,Categoria,Grado",
@@ -415,7 +416,9 @@ class Inscripciones extends DBObject {
 		$dorsal=1;
 		$len=count($inscritos['rows']);
 		
-		for($n=0;$n<$len;$n++,$dorsal++) { 
+		for($n=0;$n<$len;$n++,$dorsal++) {
+			// avoid php to be killed on very slow systems
+			set_time_limit($timeout);
 			// actualizamos las tabla de inscripciones y resultados
 			$dorsal1=$dorsal; $dorsal2=$dorsal;
 			$perro1=$inscritos['rows'][$n]['Perro']; $perro2=$perro1;
