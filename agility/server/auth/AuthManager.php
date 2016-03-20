@@ -42,7 +42,6 @@ define ("ENABLE_ULIMIT",128);    // permite numero de inscripciones ilimitadas
 define ("ENABLE_LIVESTREAM",256);    // permite funciones de live-streaming y chroma-key
 
 // datos de registro
-define('AC_PUBKEY_FILE' , __DIR__."/AgilityContest_puk.pem");
 define('AC_REGINFO_FILE' , __DIR__."/registration.info");
 define('AC_REGINFO_FILE_BACKUP' , __DIR__."/registration.info.old");
 define('AC_REGINFO_FILE_DEFAULT' , __DIR__."/registration.info.default");
@@ -56,7 +55,32 @@ class AuthManager {
 	protected $mySessionMgr;
     protected $myGateKeeper=null;
 	protected $registrationInfo=null;
-	
+
+	private static $pk=
+	"MIIEIjANBgkqhkiG9w0BAQEFAAOCBA8AMIIECgKCBAEAzgeD27TXHKde3iNMtQSq\n".
+	"yAFoeZYVOoPPjGQkFcNamxfGR8rFmgvGrJn28u2bq1dVnIduF9Lj4sPMt9cs/rT+\n".
+	"IOnFD3uACZbqku+e39gyrKyu7aZ2t+XTR4IUFKhGYuwr1TRmb/46iXJF7V7ZU9ci\n".
+	"q5/A7vCU8XJ9IyInd52yFeSgZdVl4TB/+qqlVJNiyvfpxwHakx/qM+JqjsgXoS+B\n".
+	"6Xr9ZChtTh5gljGMxmLQlLLnScwZ7Ku7pnYkZnP/Nb2jT0gaNHBM1af1mpdwpDRD\n".
+	"3igilVchrydcknKoF1LRbApgoIbLbzX9QufiJbfKA3ZWtB4c6YL8sSbgIgeHDguS\n".
+	"i0obvVFESynMs4WKYtzIIJZEw3G7jXtVHPLoJ56udAT0Moxw6oiVhdGvSejKz/Ik\n".
+	"95uPYRMOnlOle+y18UVduHuudKPqoCKFmnub+z8eVLm/aP1SHBpo1l87tDM3w3aT\n".
+	"tHwkmAGhQn+udRMCrb0f897XlR7ReNdwppBLLmLR5sdWpAIjpNatw4N2YJG3uehf\n".
+	"rHYwlIYovjHVZUbz8D0NxUVJHXv99QB9f37D6D40aiYSA5YnHgkKCq9dkSHeq7GU\n".
+	"79fzrCEUihx2d2Nn7tLC3rR/45XI5WU7T61R0N6PPAl8slrOOEnYBs5YlSLH8Sdt\n".
+	"Pi4f2+65qK8jVM1fTly4YOvsuA8mPtimTAgMBa0ys0I9RLezwmlbQbXoYwrx7avC\n".
+	"SjAe7o3i8g8uGEW+WTPsT87KZdJKRrlr48lMTnonuAbU59phK+b8IAVS3q6rHOyc\n".
+	"uwtPRofqBh9Qok3PYYf0Tobc3R8OKi8cX1rXjPGodxFQfcINIAlmLEJxWyMJlM8l\n".
+	"rD33czqk2Opx1kYmjkU7zn1x046w0IaUgZqrBCO6K0qMsrfV0VfHf4lAn3WGDY+h\n".
+	"2oZlQqmExBcEdLu2aeNwTAq8G1zwS4atF62r2uR4ZEBJNxWfM32kDHKDEEg8selk\n".
+	"iD8lxxyGvUgc0/6EboY2JoN0n8QTJbJzC57cqYhYSxh7FekAGZ+xAxA5Ujy+e16H\n".
+	"MBKVhRbAj5+Dk803kvej+F6mOx69VekeEVr3C0xlzMslI7wvXY+IZHD+EgLgTFaO\n".
+	"TY5ilQ7AjX4id7cXiUHvPpkYsxr9A+ImM3JzdjFkWaKAwmPK6rTbtxA4j86dMktF\n".
+	"bKuGHf0lnGPLLNIVrBYfUXa+rdvBlxuZ6dLDaHoq3+3AH0s+5+b3HJCYLY/VMSgV\n".
+	"qwCr9Xj8P28JFYziX0aic/0O7Q5Hkp39I7PikB4EJB73NUaYd/UK8EJ1c5zSz2tI\n".
+	"LHN0iN/VSKutDHrfZ0om7krDSEyY6TZ/rVDewnFQmbIiIORgig7mjH0EXBUiXBJF\n".
+	"VQIDAQAB\n";
+
 	function __construct($file) {
 		$config=Config::getInstance();
 		$this->myLogger=new Logger($file,$config->getEnv("debug_level"));
@@ -101,7 +125,8 @@ class AuthManager {
 	}
 	
 	function checkRegistrationInfo( $file = AC_REGINFO_FILE ) {
-		$fp=fopen (AC_PUBKEY_FILE,"rb"); $pub_key=fread ($fp,8192); fclose($fp);
+		$pub_key="-----BEGIN PUBLIC KEY-----\n".AuthManager::$pk."-----END PUBLIC KEY-----\n";
+		if (md5($pub_key)!="ff430f62f2e112d176110b704b256542") return null;
 		$fp=fopen ($file,"rb"); $data=fread ($fp,8192); fclose($fp);
 		$key=openssl_get_publickey($pub_key);
 		if (!$key) { /* echo "Cannot get public key";*/	return null; }
