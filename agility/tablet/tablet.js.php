@@ -715,7 +715,7 @@ function tablet_processEvents(id,evt) {
 			setStartStopMode(0); // mark ready to start
 		}
 		return;
-	case 'salida': // orden de salida
+	case 'salida': // orden de salida (15 segundos)
 		myCounter.start();
 		return;
 	case 'start': // arranque manual del cronometro
@@ -732,28 +732,38 @@ function tablet_processEvents(id,evt) {
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
 		myCounter.stop();
-		setStartStopMode(-1); // mark automatic crono
 		// si esta parado, arranca en modo automatico
 		if (!crm.Chrono('started')) {
+			setStartStopMode(-1); // mark automatic crono
 			crm.Chrono('stop',time);
 			crm.Chrono('reset');
 			crm.Chrono('start',time);
 			return
 		}
-		// si no resync, resetea el crono y vuelve a contar
+		// when "resync" mode is configured, every start event
+		// resets and start chronometer
 		if (ac_config.crono_resync==="0") {
+			setStartStopMode(-1); // mark automatic crono
 			crm.Chrono('reset');
 			crm.Chrono('start',time);
-		} else {
+			return;
+		}
+		// TODO: fix resync event to properly change from manual to auto mode
+		/*
+		else {
+			// when resync mode is on, we should retain elapsed time and go to auto mode
 			// send restart event. Use event queue to avoid blocking event parsing
 			setTimeout(
 				function() {
-					tablet_putEvent("crono_restart",{'stop':(Date.now()-startDate), 'start':time } );
+					var stopTime=(Date.now()-startDate)
+					tablet_putEvent("crono_restart",{'stop':stopTime, 'start':time } );
+					console.log("Stop Time:"+stopTime+" StartTime:"+time);
 				}
 			,0);
 		}
+		*/
 		return;
-	case 'crono_restart': // paso de tiempo intermedio a manual
+	case 'crono_restart': // paso de tiempo manual a automatico
 		crm.Chrono('resync',event['stop'],event['start']);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico

@@ -89,8 +89,8 @@ $config =Config::getInstance();
             <input id="tcd3" type="radio" name="tablet_countdown" value="3"/><?php _e('Eliminate team'); ?><br />
 
 			<label for="crono_resync"><?php _e('On sensor detection when manual chrono is active'); ?></label>
-			<input id="crs1" type="radio" name="crono_resync" value="0"  checked="checked"/><?php _e('Restart counter from zero'); ?>
-			<input id="crs2" type="radio" name="crono_resync" value="1"/><?php _e('Continue with manual chrono count'); ?>
+			<input id="crs1" type="radio" name="crono_resync" value="0"  checked="checked"/><?php _e('Start electronic chrono'); ?>
+			<input id="crs2" type="radio" name="crono_resync" value="1"/><?php _e('Continue with manual chrono'); ?>
 		</div>
 		
 		<div title="<?php _e('VideoWall'); ?>" style="padding:10px">

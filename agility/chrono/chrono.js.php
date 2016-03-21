@@ -72,7 +72,17 @@ var c_llamada = new Countdown({
 		$('#chrono_Tiempo').html(dta);
 	}, // callback for each second
     // onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink">-out-</span>'); } // final action
-    onCounterEnd: function(){ /* empty: let the tablet do the work */    }
+    onCounterEnd: function(){
+    	/* start automatic chronometer.
+    	    IMPORTANT NOTICE:
+    	    This order is conflicting with start manual cronometer from tablet
+    	    So the golden rule is:
+    	    - IF using electronic chronometer
+    	    - THEN make sure tablet&crono options has "what to do when 15sec countdown goes to zero"
+    	      IS SET TO "eliminated" or "do nothing"
+    	 */
+		chrono_sensor('crono_start',{},5000); // 5 seconds salvaguard to skip start jump
+	}
 });
 
 var c_reconocimiento = new Countdown({
@@ -328,6 +338,10 @@ function bindKeysToChrono() {
 				$("#chrono_NoPresentado").html(val);
 				$('#chrono_NoPreseentadoLbl').html((val==0)?'':'<span class="blink"><?php _e('NoPr');?>.</span>');
 				chrono_putEvent('crono_dat',{'Faltas':-1,'Tocados':-1,'Rehuses':-1,'NoPresentado':val,'Eliminado':-1});
+				break;
+			// arranque parada del crono
+			case 71: // 'G' -> Start 15 seconds countdown
+				chrono_sensor('salida',{},1000);
 				break;
 			// arranque parada del crono
             case 8: // 'Del' -> chrono reset

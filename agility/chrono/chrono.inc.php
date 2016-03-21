@@ -99,6 +99,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			   data-options="iconCls: 'icon-undo'" onclick="chrono_sensor('crono_reset',{},1000)"><?php _e('Reset'); ?></a>
 		</span>
 		<span style="float:right;padding:5px;">
+   			<a id="chrono-countDownBtn" href="#" class="easyui-linkbutton"
+			   data-options="iconCls: 'icon-whistle'" onclick="chrono_sensor('salida',{},1000)"><?php _e('CountDown'); ?></a>
    			<a id="chrono-startBtn" href="#" class="easyui-linkbutton"
 			   data-options="iconCls: 'icon-on'" onclick="chrono_sensor('crono_start',{},2000)"><?php _e('Begin'); ?></a>
    			<a id="chrono-intBtn" href="#" class="easyui-linkbutton"
@@ -154,6 +156,7 @@ addTooltip($('#chrono-intBtn').linkbutton(),"<?php _e('Mark intermediate time');
 addTooltip($('#chrono-stopBtn').linkbutton(),"<?php _e('Stop chronometer');?>");
 addTooltip($('#chrono-errorBtn').linkbutton(),"<?php _e('Simulate chrono sensors alignment failure');?>");
 addTooltip($('#chrono-resetBtn').linkbutton(),"<?php _e('Reset chronometer. Set count to zero');?>");
+addTooltip($('#chrono-countDownBtn').linkbutton(),"<?php _e('Start 15 seconds countdown');?>");
 
 // layout
 var layout= {'cols':800, 'rows':300}; // declare base datagrid as A5 sheet
