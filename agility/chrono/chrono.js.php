@@ -97,7 +97,7 @@ var c_reconocimiento = new Countdown({
 	},
     onUpdateStatus: function(tsec){
 		var sec=tsec/10; // remove tenths of seconds
-    	var time=sprintf('%02d:%02d', Math.floor(sec/60),sec%60);
+    	var time=sprintf((ac_config.numdecs==2)?'%02d:%02d':'%02d:%03d', Math.floor(sec/60),sec%60);
     	$('#chrono_Tiempo').html( time );
     }, // callback for each tenth of second
     onCounterEnd: function(){ /* empty */    }
@@ -172,7 +172,7 @@ function c_clearData(event) {
 	$('#chrono_Faltas').html("0");
 	$('#chrono_Tocados').html("0");
 	$('#chrono_Rehuses').html("0");
-	$('#chrono_Tiempo').html((ac_config.numdecs==2)?"00.00":"00.000");
+	$('#chrono_Tiempo').html((parseInt(ac_config.numdecs)==2)?"00.00":"00.000");
 }
 
 function c_showData(data) {
@@ -502,6 +502,9 @@ function chrono_processEvents(id,evt) {
     case 'info':	// click on user defined tandas
         return;
 	case 'camera': // video source for live stream has changed
+		return;
+	case 'reconfig': // reload configuration from server
+		loadConfiguration();
 		return;
 	default:
 		alert("Unknow Event type: "+event['Type']);

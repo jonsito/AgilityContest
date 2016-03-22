@@ -262,6 +262,7 @@ var eventHandler= {
 		vwls_showOSD(0); // apaga el OSD
 	},
 	'camera':	null, // change video source
+	'reconfig':	function(event) { loadConfiguration(); }, // reload configuration from server
 	'info':	null // click on user defined tandas
 };
 

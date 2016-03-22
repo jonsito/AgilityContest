@@ -448,6 +448,7 @@ Modelo simplificado de resultados finales
             crm.Chrono('reset', time);
         },
         'camera':	null, // change video source
+        'reconfig':	function(event,time) { loadConfiguration(); }, // reload configuration from server
         'info': null // click on user defined tandas
     };
 </script>

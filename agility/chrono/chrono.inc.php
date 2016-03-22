@@ -185,7 +185,7 @@ doLayout(layout,"#chrono_Manual",		600,	30,	    55, 	10	);
 doLayout(layout,"#chrono_Intermedio",	580,	40,	    75, 	10	);
 doLayout(layout,"#chrono_Reconocimiento",455,	160,	215, 	10	);
 doLayout(layout,"#chrono_Error",		560,	170,    115, 	10	);
-doLayout(layout,"#chrono_Tiempo",		10,		100,	665, 	90	);
+doLayout(layout,"#chrono_Tiempo",		5,		100,	665, 	90	);
 
 doLayout(layout,"#chrono_Logo",			10,		215,	80,		55	);
 doLayout(layout,"#chrono_Dorsal",		100,	225,	100,	25	);

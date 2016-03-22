@@ -806,6 +806,9 @@ function tablet_processEvents(id,evt) {
 		return;
 	case 'camera': // video source for live stream has changed
 		return;
+	case 'reconfig':	// reload configuration from server
+		loadConfiguration();
+		return;
 	default:
 		alert("Unknow Event type: "+event['Type']);
 		return;
