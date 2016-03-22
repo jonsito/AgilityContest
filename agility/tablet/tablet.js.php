@@ -673,9 +673,9 @@ function bindKeysToTablet() {
 			case 69:	tablet_elim(); break; // 'E' -> eliminado
 			case 78:	tablet_np(); break; // 'N' -> no presentado
 			// arranque parada del crono
-			case 80:	tablet_resetchrono(); break; // 'P' -> chrono (P)reset
+			case 36:	tablet_resetchrono(); break; // 'Inicio' -> chrono (P)reset
 			case 83:	tablet_startstop();	break; // 'S' -> chrono start/Stop
-			case 66:	tablet_salida();	break; // 'B' -> 15 seconds countdown
+			case 71:	tablet_salida();	break; // 'G' - (go) > 15 seconds countdown
 			// aceptar cancelar
 			case 13:	tablet_accept(); break; // 'Enter' -> Accept
             // use click event to make sure focus is properly set
