@@ -486,13 +486,11 @@ function chrono_processEvents(id,evt) {
 		c_updateDataFromChrono(event);
 		return;
 	case 'crono_rec': // reconocimiento de pista
-		// si crono esta activo, ignorar
-		if (cra.Chrono('started')) return;
-		if (c_reconocimiento.val()!==0) c_reconocimiento.stop();
-		else {
-			c_reconocimiento.reset(event['start']);
-			c_reconocimiento.start();
-		}
+		// si crono esta activo,si el valor es cero, parar
+		if (cra.Chrono('started')) c_reconocimiento.stop();
+		if (parseInt(event['start'])!=0)  return;
+		c_reconocimiento.reset(event['start']);
+		c_reconocimiento.start();
 		return;
 	case 'cancelar': // operador pulsa cancelar en tablet
 		c_clearData(event);
