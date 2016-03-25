@@ -245,7 +245,7 @@ $('#public-Jornada').combogrid({
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerate';
 		param.Prueba=workingData.prueba;
-		param.AllowClosed=0;
+		param.AllowClosed=1;
 		param.HideUnassigned=1;
 		return true;
 	}
