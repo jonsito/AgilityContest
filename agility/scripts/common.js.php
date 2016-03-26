@@ -67,7 +67,7 @@ function toFixedT(value,numdecs) {
 
 	// this code works fine, but doesn't always returns desired decimal numbers
 	// that is : toFixedT( 2.1 , 2) returns '2.1' instead of '2.10'
-	switch (numdecs) {
+	switch (parseInt(numdecs)) {
 		case 0: return parseInt(value);
 		case 1: return Number(value.toString().match(/^\d+(?:\.\d{0,1})?/))
 		case 2: return Number(value.toString().match(/^\d+(?:\.\d{0,2})?/))

@@ -329,8 +329,8 @@ function vwls_evalPuesto(trs,trm,time) {
 		else pt=time-trs;
 		var pf=pt+pr;
 		var str='';
-		if (pf>=200) str='<span class="blink"><?php _e('NoPr');?>.</span>'; // no presentado
-		else if (pf>=100) str='<span class="blink"><?php _e('Elim');?>.</span>'; // eliminado
+		if (pf>=200) str='<span class="blink" style="color:red;"><?php _e('NoPr');?>.</span>'; // no presentado
+		else if (pf>=100) str='<span class="blink" style="color:red;"><?php _e('Elim');?>.</span>'; // eliminado
 		else str= Number(pf.toFixed(ac_config.numdecs)).toString();
 		$('#vwls_Puesto').html(str);
 	},0);
