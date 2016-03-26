@@ -113,9 +113,10 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
 	
 	function printTeamInfo($rowcount,$index,$team,$members) {
         // evaluate logos
-        $logos=array('null.png','null.png','null.png','null.png');
+        $nullpng=getIconPath($this->federation->get('Name'),'null.png');
+        $logos=array($nullpng,$nullpng,$nullpng,$nullpng);
         if ($team['Nombre']==="-- Sin asignar --") {
-            $logos[0]='agilitycontest.png';
+            $logos[0]=getIconPath($this->federation->get('Name'),'agilitycontest.png');
         } else {
             $count=0;
             foreach($members as $miembro) {

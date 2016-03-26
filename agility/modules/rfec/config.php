@@ -58,7 +58,8 @@ class RFEC extends Federations {
                 "ST"=>"Small/Toy",
                 "MS"=>"Medium/Small",
                 "LMS" => 'Conjunta LMS',
-                "LMST",'Conjunta LMST'
+                "LMST" => 'Conjunta LMST',
+                "-LMST" => ''
             )
         );
     }
