@@ -38,7 +38,7 @@ class PrintCatalogo extends PrintCommon {
 	protected $inscritos;
 	protected $jornadas;
 	
-	protected $width = array( 45,20,15,20,30,5,5,5,5,5,5,5,5); // anchos predefinidos de las celdas
+	protected $width = array( 45,18,15,22,30,5,5,5,5,5,5,5,5); // anchos predefinidos de las celdas
 	protected $cellHeader = array( 'J1','J2','J3','J4','J5','J6','J7','J8');
 	
 	/**

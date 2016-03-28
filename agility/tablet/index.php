@@ -92,7 +92,8 @@ getFederationInfo();
 
 var tablet_config = {
 	'StartStopMode': 0, // 0:stop, 1:start, -1:auto
-	'DataEntryEnabled':0 // 0: roundSelection enabled 1:dataEntry enabled
+	'DataEntryEnabled':0, // 0: roundSelection enabled 1:dataEntry enabled
+	'CourseWalk':0 // 0 reconocimiento de pista parado else time
 };
 
 function initialize() {

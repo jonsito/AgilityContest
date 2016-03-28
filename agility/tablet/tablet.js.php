@@ -364,10 +364,12 @@ var myCounter = new Countdown({
 });
 
 function tablet_reconocimiento() {
+	var time= (tablet_config.CourseWalk==0)?60 * parseInt(ac_config.crono_rectime):0;
+	tablet_config.CourseWalk=time;
 	tablet_putEvent('crono_rec',{
 		'Session': workingData.sesion,
 		'Value' : Date.now() - startDate,
-		'start' : 60 * parseInt(ac_config.crono_rectime)
+		'start' : time
 	} );
 	doBeep();
 	return false;

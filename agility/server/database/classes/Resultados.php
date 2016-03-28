@@ -518,7 +518,7 @@ class Resultados extends DBObject {
 
             // anyadimos nombre del equipo
             $dequipos=$this->getDatosEquipos();
-            $eqinfo=$dequipos[]=$dequipos[$table[$idx]['Equipo']];
+            $eqinfo=$dequipos[$table[$idx]['Equipo']];
             $table[$idx]['NombreEquipo']=$eqinfo['Nombre'];
             // anyadimos logotipo del club
             $table[$idx]['LogoClub']=$clubes->getLogoName('NombreClub',$table[$idx]['NombreClub']);
