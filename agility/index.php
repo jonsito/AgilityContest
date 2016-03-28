@@ -49,7 +49,7 @@ require_once(__DIR__. "/server/upgradeVersion.php");
 		GNU General Public License as published by the Free Software Foundation; either version 2 of the License, 
 		or (at your option) any later version." />
 <!-- try to disable zoom in tablet on double click -->
-<meta content='width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no;' name='viewport' />
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=0.5, user-scalable=yes"/>
 <title>AgilityContest (Public)</title>
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
@@ -134,6 +134,15 @@ function myRowStyler(idx,row) {
     .datagrid-body .datagrid-group .datagrid-group-expander {
         margin-top:7px;
     }
+
+	/* tip for fix data size in smartphones ----------- */
+	@media only screen and (max-width: 760px) {
+
+		.datagrid-cell {
+			font-size:0.75em;
+		}
+
+	}
 
 </style>
 
