@@ -255,13 +255,13 @@ function tablet_np(sendEvent) {
 		tablet_putEvent(
 			'datos',
 			{
-				'NoPresentado'	:	tdnp.val(),
-				'Faltas'		:	tdflt.val(),
-				'Tocados'		:	tdtoc.val(),
-				'Rehuses'		:	tdreh.val(),
-				'Tiempo'		:	tdtime.val(),
-				'TIntermedio'	:	tdtint.val(),
-				'Eliminado'		:	tde.val()
+				'NoPresentado'	:	(n==0)?1:0,
+				'Faltas'		:	0,
+				'Tocados'		:	0,
+				'Rehuses'		:	0,
+				'Tiempo'		:	0,
+				'TIntermedio'	:	0,
+				'Eliminado'		:	0
 			}
 		);
 	}
@@ -279,7 +279,7 @@ function tablet_elim(sendEvent) {
 	if (n==0) {
 		tde.val(1);
 		tdestr.val("EL");
-		// si eliminado, poner nopresentado y tiempo a cero, conservar lo demas
+		// si eliminado, poner nopresentado a cero, conservar lo demas
 		tdnp.val(0);
 		$('#tdialog-NoPresentadoStr').val("");
 		tdtime.val(0);
@@ -292,10 +292,10 @@ function tablet_elim(sendEvent) {
 		tablet_putEvent(
 			'datos',
 			{
-				'NoPresentado'	:	tdnp.val(),
+				'NoPresentado'	:	0,
 				'Tiempo'		:	tdtime.val(),
 				'TIntermedio'	:	tdtint.val(),
-				'Eliminado'		:	tde.val()
+				'Eliminado'		:	(n==0)?1:0
 			}
 		);
 	}
@@ -364,10 +364,12 @@ var myCounter = new Countdown({
 });
 
 function tablet_reconocimiento() {
+	var time= (tablet_config.CourseWalk==0)?60 * parseInt(ac_config.crono_rectime):0;
+	tablet_config.CourseWalk=time;
 	tablet_putEvent('crono_rec',{
 		'Session': workingData.sesion,
 		'Value' : Date.now() - startDate,
-		'start' : 60 * parseInt(ac_config.crono_rectime)
+		'start' : time
 	} );
 	doBeep();
 	return false;

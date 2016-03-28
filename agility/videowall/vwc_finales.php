@@ -212,7 +212,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         interval: 50,
         showMode: 2,
         onUpdate: function(elapsed,running,pause) {
-            var time=parseFloat(elapsed/1000);
+            var time=parseFloat(elapsed/1000.0);
             $('#vwls_Tiempo').html(toFixedT(time,(running)?1:ac_config.numdecs));
             vwcf_evalPuesto();
             return true;
@@ -437,7 +437,6 @@ Pantalla de de visualizacion combinada llamada/parciales
             var crm = $('#cronometro');
             if (!crm.Chrono('started')) return;	// si crono no esta activo, ignorar
             crm.Chrono('pause', time);
-            vwcf_evalPuesto();
             setTimeout(function () {
                 crm.Chrono('resume');
             }, 5000);

@@ -107,7 +107,7 @@ class Admin extends DBObject {
 		$dbhost=$this->dbhost;
 		$dbuser=$this->dbuser;
 		$dbpass=$this->dbpass;
-		
+		set_time_limit(0); // some windozes are too slow dumping databases
 		$cmd="mysqldump"; // unix
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			$path=str_replace("\\apache\\bin\\httpd.exe","",PHP_BINARY);
