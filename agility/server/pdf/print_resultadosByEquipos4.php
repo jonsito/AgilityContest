@@ -40,6 +40,8 @@ class ResultadosByEquipos4 extends PrintCommon {
     protected $equipos; // lista de equipos
     protected $mode; // modo de la manga
     protected $eqmgr; // objeto "Equipos"
+    protected $mindogs; // to evaluate NotPresent count
+
     protected $defaultPerro = array( // participante por defecto para garantizar que haya 4perros/equipo
         'Dorsal' => '-',
         'Perro' => 0,
@@ -89,6 +91,7 @@ class ResultadosByEquipos4 extends PrintCommon {
         }
         $this->equipos=Resultados::getTeamResults($resultados['rows'],$prueba,$jornada,$mindogs);
         $this->eqmgr=new Equipos("print_resultadosByEquipos4",$prueba,$jornada);
+        $this->mindogs=mindogs;
 	}
 	
 	// Cabecera de página
@@ -175,7 +178,7 @@ class ResultadosByEquipos4 extends PrintCommon {
             $team['Eliminados']+=$perro['Eliminado'];
             $team['NoPresentados']+=$perro['NoPresentado'];
         }
-        $team['NoPresentados'] += 4-count($members);
+        for($n=count($members);$n<$this->mindogs;$n++) $team['NoPresentados']++;
 
         // caja de datos del equipo
         $this->SetXY(70,$y);
