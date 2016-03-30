@@ -44,6 +44,9 @@ echo -n "Restore config..."
     cp ${INSTDIR}.old/agility/server/auth/config.ini ${INSTDIR}/agility/server/auth
 [ -f ${INSTDIR}.old/agility/server/auth/registration.info ] && \
     cp ${INSTDIR}.old/agility/server/auth/registration.info ${INSTDIR}/agility/server/auth
+# restore restricted mode from system.ini
+sed -i '/restricted/d' ${INSTDIR}/agility/server/auth/system.ini
+grep 'restricted' ${INSTDIR}.old/agility/server/auth/system.ini >> ${INSTDIR}/agility/server/auth/system.ini
 echo "Done."
 
 # fix permissions
