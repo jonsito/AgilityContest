@@ -1,15 +1,15 @@
 #!/bin/bash
 #
 # Script to deploy from AgilityContest git tree to install dir
+# clone from http://github.com/jonsito/AgilityContest.git
 BASEDIR=`dirname $0`/..
 INSTDIR=${1:=/var/www/html/AgilityContest}
 
 #for UBUNTU
-OWNER=root
-GROUP=www-data
-# for FEDORA
-#OWNER=${USER}
-#GROUP=apache
+#OWNER=root
+#GROUP=www-data
+OWNER=${USER}
+GROUP=apache
 
 # some checks
 echo -n "Check..."
