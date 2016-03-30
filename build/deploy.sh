@@ -2,9 +2,13 @@
 #
 # Script to deploy from AgilityContest git tree to install dir
 BASEDIR=`dirname $0`/..
-INSTDIR=${1:/var/www/html/AgilityContest}
-OWNER=root
-GROUP=www-data
+INSTDIR=${1:=/var/www/html/AgilityContest}
+
+#for UBUNTU
+#OWNER=root
+#GROUP=www-data
+OWNER=jantonio
+GROUP=apache
 
 # some checks
 echo -n "Check..."
@@ -16,19 +20,19 @@ echo "Done."
 # rotate last install
 echo -n "Backup..."
 rm -rf ${INSTDIR}.old
-mv ${INSTDIR} ${INSTDIR.old}
+mv ${INSTDIR} ${INSTDIR}.old
 mkdir ${INSTDIR}
 echo "Done."
 
 # copy files
 echo -n "Copying..."
-( cd ${BASEDIR}; tar cfBp * ) | ( cd ${INSTDIR}; tar xfBp - )
+( cd ${BASEDIR}; tar cfBp - * ) | ( cd ${INSTDIR}; tar xfBp - )
 echo "Done."
 
 # directories to preserve ( copy from backup )
 echo "Preserve directories..."
 [ -d ${INSTDIR}.old/agility/images/supporters ] && \
-    find ${INSTDIR}.old/agility/images/supporters -type d -exec cp -r {} ${INSTDIR}/agility/images/supporters \;
+    ( cd ${INSTDIR}.old/agility/images/supporters; tar cfBp - * ) | ( cd ${INSTDIR}/agility/images/supporters; tar xfBp - )
 echo "Done."
 
 # files to preserve (backup and restore)
@@ -44,12 +48,10 @@ echo "Done."
 # fix permissions
 echo "Setting perms..."
 find ${INSTDIR} -type d -exec chmod 775 {} \;
-find ${INSTDIR} -type d -exec chmod 664 {} \;
+find ${INSTDIR} -type f -exec chmod 664 {} \;
 chown -R ${OWNER}.${GROUP} ${INSTDIR}
 chmod g+s ${INSTDIR}/logs ${INSTDIR}/agility/images/logos ${INSTDIR}/agility/server/auth
 echo "Done."
 
 echo "That's all folks"
-
-
-# otherwise replace
+exit 0
