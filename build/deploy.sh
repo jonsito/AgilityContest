@@ -5,10 +5,11 @@ BASEDIR=`dirname $0`/..
 INSTDIR=${1:=/var/www/html/AgilityContest}
 
 #for UBUNTU
-#OWNER=root
-#GROUP=www-data
-OWNER=jantonio
-GROUP=apache
+OWNER=root
+GROUP=www-data
+# for FEDORA
+#OWNER=${USER}
+#GROUP=apache
 
 # some checks
 echo -n "Check..."
