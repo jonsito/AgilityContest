@@ -46,12 +46,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 }
             ">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateFinales();" href="#" style="float:left">
-                <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
+                <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="40" />
             </a>
-            <span style="float:left;padding:10px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
+            <span style="float:left;padding:5px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
             <span style="float:right" id="pb_header-texto">
                 <?php _e('Final scores'); ?><br/>
-                <label for="pb_enumerateFinales" style="font-size:0.7em"><?php _e('Series'); ?>:</label>
+                <label for="pb_enumerateFinales" style="font-size:1.2vw"><?php _e('Series'); ?>:</label>
 		        <select id="pb_enumerateFinales" style="width:200px"></select>
             </span>
             <!-- Datos de TRS y TRM -->

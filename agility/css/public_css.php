@@ -27,12 +27,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .pb_floatingheader {
     margin-top:0px;
     margin-bottom:0px;
-    padding:5px;
+    padding:5px 5px 0px 5px;
     background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
     color: <?php echo $config->getEnv('vw_hdrfg1')?>;
     font-weight: bold;
     font-style: italic;
-    font-size:1.7em;
+    font-size:1.5vw;
 }
 
 .pb_floatingfooter {
@@ -43,7 +43,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     color: <?php echo $config->getEnv('vw_hdrfg3')?>;
     font-weight: bold;
     font-style: italic;
-    font-size:1.7em;
+    font-size:1.5vw;
 }
 /************************** Elementos de la tabla de inscritos a la prueba ************/
 
@@ -61,7 +61,7 @@ td.pb_club {
 /*************** cabecera de ventana de resultados ************ */
 .pb_trs {
     width:100%;
-    padding:5px;
+    padding:0px 5px 5px 5px;
     background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
     color: <?php echo $config->getEnv('vw_hdrfg1')?>;
     font-weight: bold;
@@ -70,11 +70,11 @@ td.pb_club {
 }
 .pb_trs th {
     text-align:left;
-    font-size: 18px;
+    font-size: 1.1vw;
 }
 .pb_trs td {
     text-align:right;
-    font-size: 12px;
+    font-size: 1.0vw;
 }
 
 /************** datos de las tablas de clasificaciones por equipos */
