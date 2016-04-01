@@ -77,6 +77,18 @@ td.pb_club {
     font-size: 1.0vw;
 }
 
+/* tip for fix data size in smartphones ----------- */
+@media only screen and (max-width: 760px) {
+    .pb_trs th {
+        text-align:left;
+        font-size: 1.4vw;
+    }
+    .pb_trs td {
+        text-align:right;
+        font-size: 1.3vw;
+    }
+}
+
 /************** datos de las tablas de clasificaciones por equipos */
 .pb_equipos3 {
     border-width:0px;
