@@ -279,8 +279,8 @@ class Jornadas extends DBObject {
         $j=$this->__getObject("Jornadas",$id);
         if (intval($perms)!=0) $res=$am->allowed($perms); // check against user provided check access
         // else check against jornada-dependent access permissions
-        else if (intval($j->Equipos3)!=0) $res=$am->allowed(ENABLE_TEAM3);
-        else if (intval($j->Equipos4)!=0) $res=$am->allowed(ENABLE_TEAM4);
+        else if (intval($j->Equipos3)!=0) $res=$am->allowed(ENABLE_TEAMS);
+        else if (intval($j->Equipos4)!=0) $res=$am->allowed(ENABLE_TEAMS);
         else if (intval($j->KO)!=0) $res=$am->allowed(ENABLE_KO);
         else $res=true;
         if (!$res) {

@@ -26,14 +26,14 @@ require_once("dialogs/dlg_ordensalida.inc");
 require_once("dialogs/dlg_competicion.inc");
 switch(http_request("tipo","s","std")) {
     case "eq3":
-        if ( ! $am->allowed(ENABLE_TEAM3)) {
+        if ( ! $am->allowed(ENABLE_TEAMS)) {
             require_once("unregistered.html");
             return 0;
         }
         require_once("dialogs/dlg_resultados_eq3.inc");
         break;
     case "eq4":
-        if ( ! $am->allowed(ENABLE_TEAM4)) {
+        if ( ! $am->allowed(ENABLE_TEAMS)) {
             require_once("unregistered.html");
             return 0;
         }

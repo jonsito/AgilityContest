@@ -25,8 +25,9 @@ require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
-require_once(__DIR__."/../database/classes/Dogs.php");;
-require_once(__DIR__."/../database/classes/Clubes.php");;
+require_once(__DIR__."/../../modules/Federations.php");
+require_once(__DIR__."/../database/classes/Dogs.php");
+require_once(__DIR__."/../database/classes/Clubes.php");
 require_once(__DIR__."/../database/classes/Guias.php");
 
 define ('IMPORT_LOG',__DIR__."/../../../logs/import.log");
@@ -36,10 +37,17 @@ class DogReader {
     public $errormsg;
     protected $myLogger;
     protected $federation;
+    protected $myAuthMgr;
+    protected $fromfile;
+    protected $tofile;
 
     public function __construct($fed) {
+        $this->federation = Federations::getFederation($fed);
+        $this->myAuthMgr= new AuthManager("importExcel(dogs)");
         $this->myConfig=Config::getInstance();
         $this->myLogger= new Logger("importExcel(dogs)",$this->myConfig->getEnv("debug_level"));
+        if (! $this->myAuthMgr->allowed(ENABLE_IMPORT) )
+            throw new Exception ("ImportExcel(dogs): Feature disabled: program not registered");
     }
 
     public function retrieveExcelFile() {
@@ -96,6 +104,7 @@ class DogReader {
 try {
 	// 	Creamos generador de documento
     $fed=http_request("Federation","i",-1);
+    if ($fed<0) throw new Exception("ImportExcel(dogs): invalid Federation ID: $fed");
     $op=http_request("Operation","s","");
     $dr=new DogReader($fed);
     $result="";

@@ -85,8 +85,8 @@ function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); }
 
 // permisos de ejecucion
 const access_perms = {
-    ENABLE_TEAM3    :1,  // permite gestionar pruebas de equipos 3
-    ENABLE_TEAM4    :2,  // permite gestionar pruebas de equipos 4
+    ENABLE_IMPORT   :1,  // permite importar datos desde Excel
+    ENABLE_TEAMS    :2,  // permite gestionar pruebas de equipos
     ENABLE_KO       :4,  // permite gestionar pruebas K.O
     ENABLE_SPECIAL  :8,  // permite gestionar pruebas de mangas multiples
     ENABLE_VIDEOWALL:16, // permite acceso desde videomarcador

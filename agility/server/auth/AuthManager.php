@@ -31,15 +31,15 @@ define ("PERMS_NONE",5);
 define ("PERMS_CHRONO",6);
 
 // permisos de ejecucion
-define ("ENABLE_TEAM3",1);  // permite gestionar pruebas de equipos 3
-define ("ENABLE_TEAM4",2);  // permite gestionar pruebas de equipos 4
-define ("ENABLE_KO",4);     // permite gestionar pruebas K.O
-define ("ENABLE_SPECIAL",8);// permite gestionar pruebas de mangas multiples
+define ("ENABLE_IMPORT",1);		// permite importar datos desde ficheros excel
+define ("ENABLE_TEAMS",2);		// permite gestionar pruebas de equipos 4
+define ("ENABLE_KO",4);			// permite gestionar pruebas K.O
+define ("ENABLE_SPECIAL",8);	// permite gestionar pruebas de mangas multiples
 define ("ENABLE_VIDEOWALL",16); // permite acceso desde videomarcador
 define ("ENABLE_PUBLIC",32);    // permite acceso publico web
 define ("ENABLE_CHRONO",64);    // permite gestion desde cronometro
-define ("ENABLE_ULIMIT",128);    // permite numero de inscripciones ilimitadas
-define ("ENABLE_LIVESTREAM",256);    // permite funciones de live-streaming y chroma-key
+define ("ENABLE_ULIMIT",128);   // permite numero de inscripciones ilimitadas
+define ("ENABLE_LIVESTREAM",256);// permite funciones de live-streaming y chroma-key
 
 // datos de registro
 define('AC_REGINFO_FILE' , __DIR__."/registration.info");
