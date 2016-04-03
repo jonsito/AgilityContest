@@ -29,8 +29,10 @@ require_once(__DIR__."/../../modules/Federations.php");
 require_once(__DIR__."/../database/classes/Dogs.php");
 require_once(__DIR__."/../database/classes/Clubes.php");
 require_once(__DIR__."/../database/classes/Guias.php");
+require_once __DIR__.'/Spout/Autoloader/autoload.php';
+use Box\Spout\Reader\ReaderFactory;
+use Box\Spout\Common\Type;
 
-define ('IMPORT_LOG',__DIR__."/../../../logs/import.log");
 define ('IMPORT_LOG',__DIR__."/../../../logs/import.log");
 
 class DogReader {
@@ -71,42 +73,78 @@ class DogReader {
         return 0;
     }
 
+    private function validateHeader($header) {
+
+    }
+
+    private function createTemporaryTable() {
+
+    }
+
+    private function storeRow($row) {
+
+    }
+
     public function validateFile() {
         // open temporary file
         $reader = ReaderFactory::create(Type::XLSX);
         $reader->open($this->tmpfile);
         // if there are only one sheet assume it is what we are looking for
-        // else look for a sheet amed _("Dogs")
-
-        // check that every required field is present
-        // add optional ( as from pèrroGuiaClub DB view ) and generated fields ( dog/handler/club ID )
-        // create temporary field with every fields sorted as we want to
+        if (count($reader->getSheets())>1) {
+            // else look for a sheet named _("Dogs")
+            foreach ($reader->getSheetIterator() as $sheet) {
+                $name = $sheet->getName();
+                if ($name=="Dogs" || (name==_("Dogs")) ) break;
+            }
+            // arriving here means "Dogs" page not found
+            throw new Exception ("No sheet named 'Dogs' found in excel file");
+        } else {
+            $sheet=$reader->getCurrentSheet();
+        }
+        // OK: now parse sheet
+        $index=0;
+        foreach ($sheet->getRowIterator() as $row) {
+            // first line must contain field names
+            if ($index==0) {
+                // check that every required field is present
+                $this->validateHeader($row); // throw exception on fail
+                // create temporary table in database to store and analyze Excel data
+                $this->createTemporaryTable(); // throw exception when an import is already running
+            }
+            // dump excel data into temporary database table
+            $this->storeRow($row);
+        }
+        // fine. we can start parsing data in DB database table
+        return 0;
     }
 
     public function parse($line) {
+        return 0;
+    }
+
+    public function parseLine() {
+        $line= array();
+        // compose item with data received from browser
+        return $this->parse($line);
     }
 
     public function initParser($index=0) {
         $line= array();
         // read first line from excel file
         // use it to simulate data from browser
-        return parseLine($line);
+        return $this->parse($line);
     }
 
-    public function parseLine() {
-        $line= array();
-        // compose item with data received from browser
-        return parse($line);
-    }
 
     public function skipLine() {
         // ignore data: advance cursor index
         $index=http_request("index","i",0);
-        return initParser($index+1);
+        return $this->initParser($index+1);
     }
 
     public function cancelImport() {
         // remove temporary files, do not perform import
+        return 0;
     }
 }
 
@@ -138,7 +176,8 @@ try {
         case "cancel":
             // user has cancelled import file: clear and return temporary data
             $result = $dr->cancelImport();
-        default: throw new Exception("excel_import(dogs): invalid operation '$oper' requested");
+            break;
+        default: throw new Exception("excel_import(dogs): invalid operation '$op' requested");
     }
     if ($result===null)
         throw new Exception($dr->errormsg);
