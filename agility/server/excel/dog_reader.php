@@ -31,6 +31,7 @@ require_once(__DIR__."/../database/classes/Clubes.php");
 require_once(__DIR__."/../database/classes/Guias.php");
 
 define ('IMPORT_LOG',__DIR__."/../../../logs/import.log");
+define ('IMPORT_LOG',__DIR__."/../../../logs/import.log");
 
 class DogReader {
 
@@ -38,8 +39,7 @@ class DogReader {
     protected $myLogger;
     protected $federation;
     protected $myAuthMgr;
-    protected $fromfile;
-    protected $tofile;
+    protected $tmpfile;
 
     public function __construct($fed) {
         $this->federation = Federations::getFederation($fed);
@@ -48,6 +48,7 @@ class DogReader {
         $this->myLogger= new Logger("importExcel(dogs)",$this->myConfig->getEnv("debug_level"));
         if (! $this->myAuthMgr->allowed(ENABLE_IMPORT) )
             throw new Exception ("ImportExcel(dogs): Feature disabled: program not registered");
+        $this->tmpfile=tempnam_sfx(__DIR__."/../../../logs","import","xlsx");
     }
 
     public function retrieveExcelFile() {
@@ -62,12 +63,21 @@ class DogReader {
         // mimetype for excel file is be stored at $matches[1]: and should be checked
         // $type=$matches[1]; // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', or whatever. Not really used
         $this->myLogger->leave();
-        return base64_decode( $matches[2] ); // decodes received data
+        $contents= base64_decode( $matches[2] ); // decodes received data
         // phase 2 store it into temporary file
+        $file=fopen($this->tmpfile,"wb");
+        fwrite($file,$contents);
+        fclose($file);
+        return 0;
     }
 
     public function validateFile() {
-        // read first line of temporary file
+        // open temporary file
+        $reader = ReaderFactory::create(Type::XLSX);
+        $reader->open($this->tmpfile);
+        // if there are only one sheet assume it is what we are looking for
+        // else look for a sheet amed _("Dogs")
+
         // check that every required field is present
         // add optional ( as from pèrroGuiaClub DB view ) and generated fields ( dog/handler/club ID )
         // create temporary field with every fields sorted as we want to

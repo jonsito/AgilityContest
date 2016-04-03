@@ -29,6 +29,12 @@ class Reader extends AbstractReader
     /** @var string Encoding of the CSV file to be read */
     protected $encoding = EncodingHelper::ENCODING_UTF8;
 
+    /** @var string Defines the End of line */
+    protected $endOfLineCharacter = "\n";
+
+    /** @var string */
+    protected $autoDetectLineEndings;
+
     /**
      * Sets the field delimiter for the CSV.
      * Needs to be called before opening the reader.
@@ -69,6 +75,29 @@ class Reader extends AbstractReader
     }
 
     /**
+     * Sets the EOL for the CSV.
+     * Needs to be called before opening the reader.
+     *
+     * @param string $endOfLineCharacter used to properly get lines from the CSV file.
+     * @return Reader
+     */
+    public function setEndOfLineCharacter($endOfLineCharacter)
+    {
+        $this->endOfLineCharacter = $endOfLineCharacter;
+        return $this;
+    }
+
+    /**
+     * Returns whether stream wrappers are supported
+     *
+     * @return bool
+     */
+    protected function doesSupportStreamWrapper()
+    {
+        return true;
+    }
+
+    /**
      * Opens the file at the given path to make it ready to be read.
      * If setEncoding() was not called, it assumes that the file is encoded in UTF-8.
      *
@@ -78,6 +107,9 @@ class Reader extends AbstractReader
      */
     protected function openReader($filePath)
     {
+        $this->autoDetectLineEndings = ini_get('auto_detect_line_endings');
+        ini_set('auto_detect_line_endings', '1');
+
         $this->filePointer = $this->globalFunctionsHelper->fopen($filePath, 'r');
         if (!$this->filePointer) {
             throw new IOException("Could not open file $filePath for reading.");
@@ -88,6 +120,7 @@ class Reader extends AbstractReader
             $this->fieldDelimiter,
             $this->fieldEnclosure,
             $this->encoding,
+            $this->endOfLineCharacter,
             $this->globalFunctionsHelper
         );
     }
@@ -113,5 +146,7 @@ class Reader extends AbstractReader
         if ($this->filePointer) {
             $this->globalFunctionsHelper->fclose($this->filePointer);
         }
+
+        ini_set('auto_detect_line_endings', $this->autoDetectLineEndings);
     }
 }

@@ -241,6 +241,24 @@ function getIconPath($fedname,$name) {
 }
 
 /**
+ * Create a temporary file and return their name
+ * @param {string} $path Directory where file should be created
+ * @param {string} $prefix File base name
+ * @param {string} $suffix File extension
+ * @return string fill path name
+ */
+function tempnam_sfx($path, $prefix="tmp_",$suffix="") {
+	do	{
+		$file = $path."/".$prefix.mt_rand().$suffix;
+		if ($suffix!=="") $file=$file.".".$suffix;
+		$fp = @fopen($file, 'x');
+	}
+	while(!$fp);
+	fclose($fp);
+	return $file;
+}
+
+/**
  * Clase para enumerar los interfaces de red del servidor
  */
 class networkInterfaces {
