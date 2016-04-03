@@ -26,6 +26,7 @@ require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/../../modules/Federations.php");
+require_once(__DIR__."/../database/classes/DBObject.php");
 require_once(__DIR__."/../database/classes/Dogs.php");
 require_once(__DIR__."/../database/classes/Clubes.php");
 require_once(__DIR__."/../database/classes/Guias.php");
@@ -42,6 +43,8 @@ class DogReader {
     protected $federation;
     protected $myAuthMgr;
     protected $tmpfile;
+    protected $fieldList;
+    protected $myDBObject;
 
     public function __construct($fed) {
         $this->federation = Federations::getFederation($fed);
@@ -51,6 +54,26 @@ class DogReader {
         if (! $this->myAuthMgr->allowed(ENABLE_IMPORT) )
             throw new Exception ("ImportExcel(dogs): Feature disabled: program not registered");
         $this->tmpfile=tempnam_sfx(__DIR__."/../../../logs","import","xlsx");
+        $this->myDBObject= new DBObject("ImportExcel(dogs)");
+        $this->fieldList=array (
+            // name => index, required (1:true 0:false-to-evaluate -1:optional), default
+            // dog related data
+            'DogID' =>      array (  -2,  0,  " Perro int(4) NOT NULL DEFAULT 0, "), // to be filled by importer
+            'Dog'   =>      array (  -3,  1,  " `Nombre` varchar(255) NOT NULL, "), // Dog name
+            'LongName' =>   array (  -4,  -1, " `NombreLargo` varchar(255) DEFAULT NULL, "), // dog pedigree long name
+            'Gender' =>     array (  -5,  -1, " `Genero` varchar(16) DEFAULT NULL, "), // M, F, Male/Female
+            'Breed' =>      array (  -6,  -1, " `Raza` varchar(255) DEFAULT NULL, "), // dog breed, optional
+            'License' =>    array (  -7,  -1, " `Licencia` varchar(255) DEFAULT '--------', "), // dog license. required for A2-A3; else optional
+            'KC_ID' =>      array (  -8,  -1, " `LOE_RRC` varchar(255) DEFAULT NULL, "), // LOE_RRC kennel club dog id
+            'Category' =>   array (  -9,   1, " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
+            'Grade' =>      array (  -10,  1, " `Grado` varchar(16) DEFAULT '-', "), // required
+            // handler related data
+            'HandlerID' =>  array (  -11,  0, " `Guia` int(4) NOT NULL DEFAULT 1, "),  // optional, to be evaluated by importer
+            'Handler' =>    array (  -12,  1, " `NombreGuia` varchar(255) NOT NULL, "), // Handler's name. Required
+            // club related data
+            'ClubID' =>     array (  -13,  0, " `Club` int(4) NOT NULL DEFAULT 1, "),  // optional, to be evaluated by importer
+            'Club' =>       array (  -14,  1, " `NombreClub`varchar(255) NOT NULL,")  // Club's Name. required
+        );
     }
 
     public function retrieveExcelFile() {
@@ -74,15 +97,48 @@ class DogReader {
     }
 
     private function validateHeader($header) {
-
+        for($index=0;$index<count($header);$index++) {
+            foreach ($this->fieldList as $key =>$val) {
+                if ( ($header[$index]==$key) || (_($header[$index])==$key) ) {
+                    // key found: store index
+                    $this->fieldList[$key][0]=$index;
+                    break;
+                }
+            }
+            // arriving here means an unexpected field has been found
+            // notify and ignore
+            $this->myLogger->notice("excelImport(dogs)::validateHeader(): unexpected field '$header' found. Ignore' ");
+        }
+        // now check for required and not declared fields
+        foreach ($this->fieldList as $key =>$val) {
+            if ( ($val[0]<0) && ($val[1]>0) )
+                throw new Exception ("ExcelImport(dogs)::required field '$key' not found in Excel header");
+        }
+        return 0;
     }
 
     private function createTemporaryTable() {
-
+        // try to create and populate a database table with provided fields
+        $str="CREATE TABLE ImportTable (";
+        foreach ($this->fieldList as $val) {
+            if ($val[0]<0) continue; // field not provided
+            $str .=$val[2];
+        }
+        $str .=" Index int(4) UNIQUE NOT NULL "; // to get an unique id in database
+        $str .=");";
+        $res=$this->myDBObject->query($str);
+        if (!$res) {
+            $error=$this->myDBObject->conn->error;
+            throw new Exception("ImportExcel(dogs)::createTemporaryTable(): Error creating temporary table: '$error'");
+        }
+        return 0;
     }
 
-    private function storeRow($row) {
-
+    private function storeRow($index,$row) {
+        // for each row
+        // evaluate evaluate cell name
+        // compose insert sequence
+        // insert data into temporary table
     }
 
     public function validateFile() {
@@ -110,11 +166,16 @@ class DogReader {
                 $this->validateHeader($row); // throw exception on fail
                 // create temporary table in database to store and analyze Excel data
                 $this->createTemporaryTable(); // throw exception when an import is already running
+                $index++;
+                continue; // jump to first row with data
             }
             // dump excel data into temporary database table
-            $this->storeRow($row);
+            $this->storeRow($index,$row);
+            $index++;
         }
         // fine. we can start parsing data in DB database table
+        $reader->close();
+        unlink($this->tmpfile);
         return 0;
     }
 
