@@ -262,3 +262,32 @@ function saveDog(){
         }
     });
 }
+
+/**
+ * Llamada al servidor para importar datos de perros
+ * desde el fichero excel seleccionado
+ */
+function perros_excelImport() {
+    alert("TODO: write :-( ")
+}
+
+/**
+ * Pregunta al usuario si quiere importar o exportar a excel la lista de perros
+ */
+function importExportDogs() {
+    $.messager.radio(
+        '<?php _e("Import/Export"); ?>',
+        '<?php _e("Import/Export dog data from/to Excel file"); ?>:',
+        {
+            0:'*<?php _e("Create Excel file with current search/sort criteria"); ?>',
+            1:'<?php _e("Update database with imported data from Excel file"); ?>'
+        },
+        function(r){
+            if (!r) return false;
+            switch(parseInt(r)){
+                case 0: print_listaPerros('excel'); break;
+                case 1: $('#perros-excel-dialog').dialog('open');
+            }
+        }).window('resize',{width:550});
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}

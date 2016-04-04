@@ -214,6 +214,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             	$('#clubes-logo-preview').attr('src', $('#clubes-Logo').attr('src'));
             }
         } );
+
         $('#clubes-dialog').dialog( {
             closed:true,
             modal:true,

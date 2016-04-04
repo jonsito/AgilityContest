@@ -21,6 +21,27 @@ require_once(__DIR__ . "/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
+<!-- Ventana de seleccion de fichero para importacion de datos excel -->
+<div id="perros-excel-dialog" style="width:500px;height:200px;padding:10px; display=none;">
+	<div style="width=100%">
+		<p>
+			<?php _e("Select Excel file to retrieve Dog data from");?><br />
+			<?php _e("Press return to start, or cancel to abort import"); ?>
+		</p>
+		<input type="file" name="perros-excel" value="" id="perros-excel-fileSelect"
+			   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ">
+		<hr />
+	</div>
+</div>
+
+<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+<div id="perros-excel-buttons">
+	<a id="perros-excel-okBtn" href="#" class="easyui-linkbutton"
+	   data-options="iconCls: 'icon-ok'" onclick="perros_excelImport()"><?php _e('Import'); ?></a>
+	<a id="perros-excel-cancelBtn" href="#" class="easyui-linkbutton"
+	   data-options="iconCls: 'icon-cancel'" onclick="$('#perros-excel-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+</div>
+
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE PERROS -->
 <div style="width:100%;height:550px;">
     <!-- DECLARACION DE LA TABLA -->
@@ -43,8 +64,8 @@ $config =Config::getInstance();
    	</span>
    	<span style="float:right;padding:5px">
    		<a id="perros-excelBtn" href="#" class="easyui-linkbutton"
-		   data-options="iconCls:'icon-db_backup'"
-		   onclick="print_listaPerros('excel')"><?php _e('Export'); ?></a>
+		   data-options="iconCls:'icon-db_restore'"
+		   onclick="importExportDogs()"><?php _e('Import/Export'); ?></a>
    		<a id="perros-printBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-print'"
 		   onclick="print_listaPerros('pdf')"><?php _e('Print'); ?></a>
@@ -65,7 +86,14 @@ $config =Config::getInstance();
 <script type="text/javascript">
         
         // tell jquery to convert declared elements to jquery easyui Objects
-        
+		$('#perros-excel-dialog').dialog( {
+			title:'<?php _e('Excel import'); ?>',
+			closed:true,
+			modal:true,
+			buttons:'#perros-excel-buttons',
+			iconCls:'icon-table'
+		} );
+
         // datos de la tabla de perros
         // - tabla
         $('#perros-datagrid').datagrid({
@@ -121,8 +149,10 @@ $config =Config::getInstance();
 		addTooltip($('#perros-newBtn').linkbutton(),'<?php _e("Insert new dog <br/>into database"); ?>');
 		addTooltip($('#perros-editBtn').linkbutton(),'<?php _e("Modify data on selected dog"); ?>');
 		addTooltip($('#perros-delBtn').linkbutton(),'<?php _e("Remove selected dog from database"); ?>');
-		addTooltip($('#perros-excelBtn').linkbutton(),'<?php _e("Create Excel file with current search/sort criteria"); ?>');
+		addTooltip($('#perros-excelBtn').linkbutton(),'<?php _e("Import/Export dog data from/to Excel file"); ?>');
 		addTooltip($('#perros-printBtn').linkbutton(),'<?php _e("Print dog list with current search/sort criteria"); ?>');
         addTooltip($('#perros-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update list"); ?>');
         addTooltip($('#perros-datagrid-search'),'<?php _e("Look into database for dogs matching search criteria"); ?>');
+		addTooltip($('#perros-excel-okBtn').linkbutton(),'<?php _e("Import dog data from selected Excel file"); ?>');
+		addTooltip($('#perros-excel-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 </script>
