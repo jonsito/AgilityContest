@@ -63,21 +63,21 @@ class DogReader {
         $this->fieldList=array (
             // name => index, required (1:true 0:false-to-evaluate -1:optional), default
             // dog related data
-            'DogID' =>      array (  -2,  0,  "i", " `Perro` int(4) NOT NULL DEFAULT 0, "), // to be filled by importer
-            'Name'   =>      array (  -3,  1,  "s", " `Nombre` varchar(255) NOT NULL, "), // Dog name
-            'LongName' =>   array (  -4,  -1, "s", " `NombreLargo` varchar(255) DEFAULT NULL, "), // dog pedigree long name
-            'Gender' =>     array (  -5,  -1, "s", " `Genero` varchar(16) DEFAULT NULL, "), // M, F, Male/Female
-            'Breed' =>      array (  -6,  -1, "s", " `Raza` varchar(255) DEFAULT NULL, "), // dog breed, optional
-            'License' =>    array (  -7,  -1, "s", " `Licencia` varchar(255) DEFAULT '--------', "), // dog license. required for A2-A3; else optional
-            'KC_ID' =>      array (  -8,  -1, "s", " `LOE_RRC` varchar(255) DEFAULT NULL, "), // LOE_RRC kennel club dog id
-            'Cat' =>        array (  -9,   1, "s", " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
-            'Grad' =>       array (  -10,  1, "s", " `Grado` varchar(16) DEFAULT '-', "), // required
+            'DogID' =>      array (  -2,  0,  "i", "Perro",     " `Perro` int(4) NOT NULL DEFAULT 0, "), // to be filled by importer
+            'Name'   =>      array (  -3,  1,  "s","Nombre",    " `Nombre` varchar(255) NOT NULL, "), // Dog name
+            'LongName' =>   array (  -4,  -1, "s", "NombreLargo"," `NombreLargo` varchar(255) DEFAULT NULL, "), // dog pedigree long name
+            'Gender' =>     array (  -5,  -1, "s", "Genero",    " `Genero` varchar(16) DEFAULT NULL, "), // M, F, Male/Female
+            'Breed' =>      array (  -6,  -1, "s", "Raza",      " `Raza` varchar(255) DEFAULT NULL, "), // dog breed, optional
+            'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '--------', "), // dog license. required for A2-A3; else optional
+            'KC_ID' =>      array (  -8,  -1, "s", "LOE_RRC",   " `LOE_RRC` varchar(255) DEFAULT NULL, "), // LOE_RRC kennel club dog id
+            'Cat' =>        array (  -9,   1, "s", "Categoria", " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
+            'Grad' =>       array (  -10,  1, "s", "Grado",     " `Grado` varchar(16) DEFAULT '-', "), // required
             // handler related data
-            'HandlerID' =>  array (  -11,  0, "i", " `Guia` int(4) NOT NULL DEFAULT 1, "),  // to be evaluated by importer
-            'Handler' =>    array (  -12,  1, "s", " `NombreGuia` varchar(255) NOT NULL, "), // Handler's name. Required
+            'HandlerID' =>  array (  -11,  0, "i", "Guia",      " `Guia` int(4) NOT NULL DEFAULT 1, "),  // to be evaluated by importer
+            'Handler' =>    array (  -12,  1, "s", "NombreGuia"," `NombreGuia` varchar(255) NOT NULL, "), // Handler's name. Required
             // club related data
-            'ClubID' =>     array (  -13,  0, "i", " `Club` int(4) NOT NULL DEFAULT 1, "),  // to be evaluated by importer
-            'Club' =>       array (  -14,  1, "s", " `NombreClub` varchar(255) NOT NULL,")  // Club's Name. required
+            'ClubID' =>     array (  -13,  0, "i", "Club",      " `Club` int(4) NOT NULL DEFAULT 1, "),  // to be evaluated by importer
+            'Club' =>       array (  -14,  1, "s", "NombreClub"," `NombreClub` varchar(255) NOT NULL,")  // Club's Name. required
         );
     }
 
@@ -121,24 +121,29 @@ class DogReader {
     }
 
     private function createTemporaryTable() {
-        // try to create and populate a database table with provided fields
+        // To create database we need root DB access
+        $rconn=DBConnection::getRootConnection();
+        if ($rconn->connect_error)
+            throw new Exception("Cannot perform import process: database::dbConnect()");
         // $str="DELETE FROM TABLE {$this->tablename} IF EXISTS";
-        $str="CREATE TABLE IF NOT EXISTS {$this->tablename} (";
+        $str="CREATE TABLE {$this->tablename} (";
         foreach ($this->fieldList as $val) {
             if ($val[0]<0) continue; // field not provided
-            $str .=$val[3];
+            $str .=$val[4];
         }
         $str .=" ID int(4) UNIQUE NOT NULL "; // to get an unique id in database
         $str .=");";
-        $res=$this->myDBObject->query($str);
+        $res=$rconn->query($str);
         if (!$res) {
-            $error=$this->myDBObject->conn->error;
-            throw new Exception("ImportExcel(dogs)::createTemporaryTable(): Error creating temporary table: '$error'");
+            $error=$rconn->error;
+            $str="ImportExcel(dogs)::createTemporaryTable(): Error creating temporary table: '$error'";
+            $this->myLogger->error($str);
+            throw new Exception($str);
         }
         return 0;
     }
 
-    private function populateTable($index,$row) {
+    private function storeRow($index,$row) {
         // compose insert sequence
         $str1= "INSERT INTO {$this->tablename} (";
         $str2= "ID ) VALUES (";
@@ -146,8 +151,11 @@ class DogReader {
         // notice that
         foreach ($this->fieldList as $key => $val) {
             if ($val[0]<0) continue; // field not provided or to be evaluated by importer
-            $str1 .= "{$key}, ";
-            if ($val[2]=="s")$str2 .= " '{$row[$val[0]]}', "; // string
+            $str1 .= "{$val[3]}, ";
+            if ($val[2]=="s") { // string
+                $a=mysqli_real_escape_string($this->myDBObject->conn,$row[$val[0]]);
+                $str2.="'{$a}', ";
+            }
             else $str2 .= " {$row[$val[0]]}, "; // integer
         }
         $str ="$str1 $str2 {$index} );"; // compose insert string
@@ -160,11 +168,17 @@ class DogReader {
     }
 
     public function dropTable() {
+        // To create database we need root DB access
+        $rconn=DBConnection::getRootConnection();
+        if ($rconn->connect_error)
+            throw new Exception("Cannot perform import process: database::dbConnect()");
         $str="DROP Table IF EXISTS {$this->tablename};";
-        $res=$this->myDBObject->query($str);
+        $res=$rconn->query($str);
         if (!$res) {
-            $error=$this->myDBObject->conn->error;
-            throw new Exception("ImportExcel(dogs)::dropTable(): Error deleting table {$this->tablename}: ".$this->myDBObject->conn->error);
+            $error=$rconn->error;
+            $str="ImportExcel(dogs)::dropTable(): Error deleting temporary table: '$error'";
+            $this->myLogger->error($str);
+            throw new Exception($str);
         }
         return 0;
     }
@@ -197,19 +211,18 @@ class DogReader {
         }
         // OK: now parse sheet
         $index=0;
-        $stmt=null;
         foreach ($sheet->getRowIterator() as $row) {
             // first line must contain field names
             if ($index==0) {
                 // check that every required field is present
                 $this->validateHeader($row); // throw exception on fail
                 // create temporary table in database to store and analyze Excel data
-                $stmt=$this->createTemporaryTable(); // throw exception when an import is already running
+                $this->createTemporaryTable(); // throw exception when an import is already running
                 $index++;
                 continue; // jump to first row with data
             }
             // dump excel data into temporary database table
-            $this->storeRow($index,$stmt,$row);
+            $this->storeRow($index,$row);
             $index++;
         }
         // fine. we can start parsing data in DB database table

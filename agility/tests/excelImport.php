@@ -9,7 +9,7 @@ require_once __DIR__.'/../server/excel/dog_reader.php';
 
 echo "before class";
 $dr=new DogReader(0);
-// $dr->dropTable();
+$dr->dropTable();
 echo "before validate";
 $dr->validateFile("inscriptionlist.xlsx");
 echo "after validate";
