@@ -307,8 +307,9 @@ function perros_importHandleResult(data) {
     }
     switch (data.operation){
         case "upload":
-            pb.progressbar('setValue','<?php _e("Checking Excel File");?>');
+            pb.progressbar('setValue','<?php _e("Checking Excel File");?> : '); // beware ' : ' sequence
             perros_importSendTask({'Operation':'check','Filename':data.filename});
+            setTimeout(perros_importSendTask({'Operation':'progress'}),500);
             break;
         case "check":
             pb.progressbar('setValue','<?php _e("Starting data import");?>');
@@ -321,6 +322,14 @@ function perros_importHandleResult(data) {
         case "ignore":
             break;
         case "cancel":
+            break;
+        case "progress": // receive progress status from server
+            // iterate until "Done." received
+            if (data.status==="Done.") return;
+            var val=pb.progressbar('getValue');
+            var str=val.substring(0,val.indexOf(' : '));
+            pb.progressbar('setValue',str+" : "+data.status);
+            setTimeout(perros_importSendTask({'Operation':'progress'}),500);
             break;
         case "close":
             dlg.dialog('close');

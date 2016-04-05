@@ -43,7 +43,6 @@ class DogReader {
     protected $myLogger;
     protected $federation;
     protected $myAuthMgr;
-    protected $tmpfile;
     protected $tablename;
     protected $fieldList;
     protected $myDBObject;
@@ -57,7 +56,6 @@ class DogReader {
             if (! $this->myAuthMgr->allowed(ENABLE_IMPORT) )
                 throw new Exception ("ImportExcel(dogs): Feature disabled: program not registered");
         }
-        $this->tmpfile=tempnam_sfx(__DIR__."/../../../logs","import","xlsx");
         $this->tablename= TABLE_NAME;
         $this->myDBObject= new DBObject("ImportExcel(dogs)");
         $this->fieldList=array (
@@ -81,6 +79,13 @@ class DogReader {
         );
     }
 
+    public function saveStatus($str){
+        $f=fopen(IMPORT_LOG,"a"); // open for append-only
+        if (!$f) { $this->myLogger->error("fopen() cannot create file: ".IMPORT_LOG); return;}
+        fwrite($f,"$str\n");
+        fclose($f);
+    }
+
     public function retrieveExcelFile() {
         // phase 1 retrieve data from browser
         $this->myLogger->enter();
@@ -95,10 +100,11 @@ class DogReader {
         $this->myLogger->leave();
         $contents= base64_decode( $matches[2] ); // decodes received data
         // phase 2 store it into temporary file
-        $file=fopen($this->tmpfile,"wb");
+        $tmpfile=tempnam_sfx(__DIR__."/../../../logs","import","xlsx");
+        $file=fopen($tmpfile,"wb");
         fwrite($file,$contents);
         fclose($file);
-        return array("operation"=>"upload","success"=>true,"filename"=>$this->tmpfile);
+        return array("operation"=>"upload","success"=>true,"filename"=>$tmpfile);
     }
 
     private function validateHeader($header) {
@@ -190,11 +196,11 @@ class DogReader {
         return $count;
     }
 
-    public function validateFile( $filename=null) {
-        $file=($filename==null)?$this->tmpfile:$filename;
+    public function validateFile( $filename,$droptable=true) {
+        unlink(IMPORT_LOG);
         // open temporary file
         $reader = ReaderFactory::create(Type::XLSX);
-        $reader->open($file);
+        $reader->open($filename);
         // if there are only one sheet assume it is what we are looking for
         if ($this->sheetCount($reader)>1) {
             $sheet=null;
@@ -211,23 +217,28 @@ class DogReader {
         }
         // OK: now parse sheet
         $index=0;
+        $timeout=ini_get('max_execution_time');
         foreach ($sheet->getRowIterator() as $row) {
             // first line must contain field names
             if ($index==0) {
                 // check that every required field is present
                 $this->validateHeader($row); // throw exception on fail
                 // create temporary table in database to store and analyze Excel data
+                if ($droptable) $this->dropTable();
                 $this->createTemporaryTable(); // throw exception when an import is already running
                 $index++;
                 continue; // jump to first row with data
             }
             // dump excel data into temporary database table
+            set_time_limit($timeout); // avoid php to be killed on very slow systems
+            $this->saveStatus("#$index");
             $this->storeRow($index,$row);
             $index++;
         }
+        $this->saveStatus("Done.");
         // fine. we can start parsing data in DB database table
         $reader->close();
-        if ($filename==null) unlink($file); // remove temporary file if no named file provided
+        unlink($filename); // remove temporary file if no named file provided
         return 0;
     }
 
@@ -269,13 +280,19 @@ class DogReader {
 
 // skip web server parsing when running in local (CommandLineInterpreter - cli ) mode
 if (php_sapi_name() != "cli" ) {
-
+    $op=http_request("Operation","s","");
+    if ($op==='progress') {
+        // retrieve last line of progress file
+        $lines=file(IMPORT_LOG,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        echo json_encode( array( 'operation'=>'progress','success'=>true, 'status' => strval($lines[count($lines)-1]) ) );
+        return;
+    }
     // Consultamos la base de datos
     try {
         // 	Creamos generador de documento
         $fed=http_request("Federation","i",-1);
         if ($fed<0) throw new Exception("ImportExcel(dogs): invalid Federation ID: $fed");
-        $op=http_request("Operation","s","");
+
         $dr=new DogReader($fed);
         $result="";
         switch ($op) {
@@ -286,7 +303,8 @@ if (php_sapi_name() != "cli" ) {
             case "check":
                 // check that received file matches PerroGuiaClub format
                 // and store in temporary database table
-                $result = $dr->validateFile(http_request("Filename","s",null));
+                $file=http_request("Filename","s",null);
+                $result = $dr->validateFile($file);
                 break;
             case "open":
                 // start analysis
