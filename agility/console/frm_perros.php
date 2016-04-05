@@ -22,15 +22,18 @@ $config =Config::getInstance();
 ?>
 
 <!-- Ventana de seleccion de fichero para importacion de datos excel -->
-<div id="perros-excel-dialog" style="width:500px;height:200px;padding:10px; display=none;">
+<div id="perros-excel-dialog" style="width:500px;height:auto;padding:10px; display=none;">
 	<div style="width=100%">
 		<p>
 			<?php _e("Select Excel file to retrieve Dog data from");?><br />
 			<?php _e("Press return to start, or cancel to abort import"); ?>
 		</p>
 		<input type="file" name="perros-excel" value="" id="perros-excel-fileSelect"
-			   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ">
-		<hr />
+			   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this)">
+		<input id="perros-excelData" type="hidden" name="excelData" value="">
+		<br /><hr />
+		<span style="float:left"><?php _e('Import status'); ?>:	</span>
+		<span id="perros-excel-progressbar" style="float:right;text-align:center;"></span>
 	</div>
 </div>
 
@@ -65,7 +68,7 @@ $config =Config::getInstance();
    	<span style="float:right;padding:5px">
    		<a id="perros-excelBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-db_restore'"
-		   onclick="importExportDogs()"><?php _e('Import/Export'); ?></a>
+		   onclick="perros_importExportDogs()"><?php _e('Import/Export'); ?></a>
    		<a id="perros-printBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-print'"
 		   onclick="print_listaPerros('pdf')"><?php _e('Print'); ?></a>
@@ -93,6 +96,13 @@ $config =Config::getInstance();
 			buttons:'#perros-excel-buttons',
 			iconCls:'icon-table'
 		} );
+
+		$('#perros-excel-progressbar').progressbar({
+			width: '70%',
+			value: 0,
+			//text: '{value} '+'<?php _e("entries"); ?>'
+			text: '{value}'
+		});
 
         // datos de la tabla de perros
         // - tabla

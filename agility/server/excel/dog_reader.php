@@ -88,7 +88,7 @@ class DogReader {
         $data=http_request("Data","s",null);
         if (!$data) return array("errorMsg" => "importExcel(dogs)::download(): No data to import has been received");
         if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
-            return array("errorMsg" => "importExcel(dogs)::download() Invalid received data format");
+            return array("operation"=>"upload","errorMsg" => "importExcel(dogs)::download() Invalid received data format");
         }
         // mimetype for excel file is be stored at $matches[1]: and should be checked
         // $type=$matches[1]; // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', or whatever. Not really used
@@ -98,7 +98,7 @@ class DogReader {
         $file=fopen($this->tmpfile,"wb");
         fwrite($file,$contents);
         fclose($file);
-        return 0;
+        return array("operation"=>"upload","success"=>true,"filename"=>$this->tmpfile);
     }
 
     private function validateHeader($header) {
@@ -259,6 +259,11 @@ class DogReader {
         // remove temporary files, do not perform import
         return 0;
     }
+
+    public function endParser() {
+        // successfull import done. cleanup and return
+        return 0;
+    }
 }
 
 
@@ -274,35 +279,44 @@ if (php_sapi_name() != "cli" ) {
         $dr=new DogReader($fed);
         $result="";
         switch ($op) {
-            case "open":
+            case "upload":
                 // download excel file from browser
-                $dr->retrieveExcelFile();
+                $result = $dr->retrieveExcelFile();
+                break;
+            case "check":
                 // check that received file matches PerroGuiaClub format
-                $dr->validateFile();
-                // create working file and start parsing
+                // and store in temporary database table
+                $result = $dr->validateFile(http_request("Filename","s",null));
+                break;
+            case "open":
+                // start analysis
                 $result = $dr->initParser();
                 break;
             case "accept":
                 // a new line has been accepted from user: insert and update temporary excel file
                 $result = $dr->parseLine();
                 break;
-            case "skip":
+            case "ignore":
                 // received entry has been refused by user: remove and update temporary excel file
                 $result = $dr->skipLine();
                 break;
-            case "cancel":
+            case "abort":
                 // user has cancelled import file: clear and return temporary data
                 $result = $dr->cancelImport();
                 break;
+            case "close":
+                // end of import. clear and return;
+                $result = $dr->endParser();
+                break;
             default: throw new Exception("excel_import(dogs): invalid operation '$op' requested");
         }
-        if ($result===null)
+        if ($result===null)                     // null on error
             throw new Exception($dr->errormsg);
-        if ($result==="") // return result when "done" or "cancelled"
-            echo json_encode(array('success'=>true));
-        else echo json_encode($result);
+        if ( ($result==="") || ($result===0) )  // empty or zero on success
+            echo json_encode(array('operation'=> $op, 'success'=>true));
+        else echo json_encode($result);         // else return data already has been set
     } catch (Exception $e) {
         do_log($e->getMessage());
-        echo json_encode(array('errorMsg'=>$e->getMessage()));
+        echo json_encode(array("operation"=>$op, 'errorMsg'=>$e->getMessage()));
     }
 }
