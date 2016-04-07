@@ -33,7 +33,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 
 #mysidebar ul {
-	border: 0px solid;
+	border: 0 solid;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -220,4 +220,19 @@ img.mainpage{
 	width: 300px;
 }
 
+/* some decoration for file and backup buttons */
+
+input.icon_button {
+    background-color: rgba(240,240,240,128); /* make the button transparent */
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 4px 4px;  /* equivalent to 'top left' */
+    border: 1px solid lightblue;           /* assuming we don't want any borders */
+	border-radius: 4px;
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 24px;           /* make this the size of your image */
+    padding-left: 24px;     /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+}
 /* @end */
+
+input.i

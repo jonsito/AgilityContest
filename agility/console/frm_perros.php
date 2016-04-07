@@ -25,15 +25,24 @@ $config =Config::getInstance();
 <div id="perros-excel-dialog" style="width:500px;height:auto;padding:10px; display=none;">
 	<div style="width=100%">
 		<p>
+			<?php _e("Database backup is recommended before import");?> &nbsp; &nbsp;
+			<input type="button" class="icon_button icon-db_backup" name="<?php _e('Backup');?>" value="<?php _e('Backup');?>" onClick="backupDatabase();"/>
+		</p>
+		<hr />
+		<p>
 			<?php _e("Select Excel file to retrieve Dog data from");?><br />
 			<?php _e("Press return to start, or cancel to abort import"); ?>
-		</p>
-		<input type="file" name="perros-excel" value="" id="perros-excel-fileSelect"
+			<br />&nbsp;<br />
+			<input type="file" name="perros-excel" value="" id="perros-excel-fileSelect"
+				   class="icon_button icon-search"
 			   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this)">
-		<input id="perros-excelData" type="hidden" name="excelData" value="">
-		<br /><hr />
-		<span style="float:left"><?php _e('Import status'); ?>:	</span>
-		<span id="perros-excel-progressbar" style="float:right;text-align:center;"></span>
+			<input id="perros-excelData" type="hidden" name="excelData" value="">
+			<br />&nbsp;<br />
+			</p>
+		<p>
+			<span style="float:left"><?php _e('Import status'); ?>:	</span>
+			<span id="perros-excel-progressbar" style="float:right;text-align:center;"></span>
+		</p>
 	</div>
 </div>
 

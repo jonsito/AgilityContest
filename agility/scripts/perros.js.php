@@ -347,9 +347,14 @@ function perros_importHandleResult(data) {
  * desde el fichero excel seleccionado
  */
 function perros_excelImport() {
+    var data=$('#perros-excelData').val();
     var dlg=$('#perros-excel-dialog');
-    $('#perros-excel-progressbar').progressbar('setValue','Upload');
-    return perros_importSendTask({ Operation: 'upload', Data: $('#perros-excelData').val() });
+    if (data=="") {
+        $.messager.alert("<?php _e('Error');?>","<?php _e('No import file selected');?>",'error');
+    } else {
+        $('#perros-excel-progressbar').progressbar('setValue','Upload');
+        return perros_importSendTask({ Operation: 'upload', Data: $('#perros-excelData').val() });
+    }
 }
 
 // retrieve excel file for imput file button and store into a temporary variable
