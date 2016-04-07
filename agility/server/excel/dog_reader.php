@@ -158,11 +158,26 @@ class DogReader {
         foreach ($this->fieldList as $key => $val) {
             if ($val[0]<0) continue; // field not provided or to be evaluated by importer
             $str1 .= "{$val[3]}, ";
-            if ($val[2]=="s") { // string
-                $a=mysqli_real_escape_string($this->myDBObject->conn,$row[$val[0]]);
-                $str2.="'{$a}', ";
+            switch ($val[2]) {
+                case "s": // string
+                    $a=mysqli_real_escape_string($this->myDBObject->conn,$row[$val[0]]);
+                    $str2.="'{$a}', ";
+                    break;
+                case "i":
+                    $a=intval($row[$val[0]]);
+                    $str2 .= " {$a}, "; // integer
+                    break;
+                case "b":
+                    $a=($row[$val[0]])?1:0;
+                    $str2 .= " {$a}, "; // boolean as 1/0
+                    break;
+                case "f":
+                    $a=floatval($row[$val[0]]);
+                    $str2 .= " {$a}, "; // float
+                    break;
+                default:
+                    $str2 .= " {$row[$val[0]]}, "; // store "as is" DANGEROUS
             }
-            else $str2 .= " {$row[$val[0]]}, "; // integer
         }
         $str ="$str1 $str2 {$index} );"; // compose insert string
         $res=$this->myDBObject->query($str);
@@ -242,8 +257,28 @@ class DogReader {
         return 0;
     }
 
-    public function parse($line) {
-        return 0;
+    /**
+     * @return {array} data to be evaluated
+     */
+    private function parse() {
+        $res=$this->myDBObject->_select(
+            /* SELECT */ "*",
+            /* FROM   */ TABLE_NAME,
+            /* WHERE  */ "( Club = 0) || ( Guia = 0 ) || ( Perro = 0 )",
+            /* ORDER BY */ "Club ASC, Guia ASC, Perro ASC",
+            /* LIMIT */  ""
+        );
+        if ($res['total']==0) return 0; // no more items to evaluate
+        foreach ($res['rows'] as $item ) {
+            $found=false;
+            // if club==0 try to locate club ID. on fail ask user
+            if ($item['Club']==0) $found=$this->findAndSetClub($item);
+            // if handler== 0 try to locate handler ID. on fail or missmatch ask user
+            else if ($item['Handler']==0) $found=$this->findAndSetHandler($item);
+            // if dog == 0 try to locate dog ID. On fail or misssmatch ask user
+            else $found=$this->findAndSetDog($item);
+            if (!is_bool($found)) return $found; // neither true nor false: ask user
+        }
     }
 
     public function parseLine() {
