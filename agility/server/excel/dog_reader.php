@@ -27,9 +27,6 @@ require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/../../modules/Federations.php");
 require_once(__DIR__."/../database/classes/DBObject.php");
-require_once(__DIR__."/../database/classes/Dogs.php");
-require_once(__DIR__."/../database/classes/Clubes.php");
-require_once(__DIR__."/../database/classes/Guias.php");
 require_once __DIR__.'/Spout/Autoloader/autoload.php';
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;
@@ -257,6 +254,32 @@ class DogReader {
         return 0;
     }
 
+    private function findAndSetClub($item) {
+        $a=$item['NombreClub'];
+        // TODO: search and handle also club's longnames
+        // $search=$this->myDBObject->__selectAsArray("*","Clubes","( Nombre LIKE '%$a%') OR ( NombreLargo LIKE '%$a%')");
+        $search=$this->myDBObject->__selectAsArray("*","Clubes","( Nombre LIKE '%$a%')");
+        if ( !is_array($search) ) return "findAndSetClub(): Invalid search term: '$a'"; // invalid search. mark error
+        if (count($search)==0) return false; // no search result; ask user to select or create as new
+        if (count($search)>1) return $search; // more than 1 compatible item found. Ask user to choose
+        if ( $search['Federations'] & (1<<$this->federation->get('ID')) == 0 ) return $search; // federation missmatch. ask user to fix
+        // arriving here means match found. So replace all instances with found data and return to continue import
+        $t=TABLE_NAME;
+        $i=$search[0]['ID'];
+        $n=$search[0]['Nombre'];
+        $str="UPDATE $t SET Club=$i, Nombre='$n' WHERE (Nombre LIKE '%$a%')";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "findAndSetClub(): update club '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
+        return true; // tell parent item found. proceed with next
+    }
+
+    private function findAndSetHandler($item) {
+
+    }
+    private function findAndSetDog($item) {
+
+    }
+
     /**
      * @return {array} data to be evaluated
      */
@@ -270,15 +293,22 @@ class DogReader {
         );
         if ($res['total']==0) return 0; // no more items to evaluate
         foreach ($res['rows'] as $item ) {
-            $found=false;
+            $found=null;
             // if club==0 try to locate club ID. on fail ask user
             if ($item['Club']==0) $found=$this->findAndSetClub($item);
             // if handler== 0 try to locate handler ID. on fail or missmatch ask user
             else if ($item['Handler']==0) $found=$this->findAndSetHandler($item);
             // if dog == 0 try to locate dog ID. On fail or misssmatch ask user
             else $found=$this->findAndSetDog($item);
-            if (!is_bool($found)) return $found; // neither true nor false: ask user
+            if (is_string($found)) throw new Exception("import parse: $found");
+            if (is_bool($found)) {
+                if ($found==true) continue; // insertion ok. proceed with next
+                else $found=array(); // item not found: create a default item
+            }
+            return array('search' => $item, 'found' => $found);
         }
+        // arriving here means no more items to analyze. So tell user to proccedd with import
+        return "";
     }
 
     public function parseLine() {
