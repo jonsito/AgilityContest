@@ -265,19 +265,52 @@ class DogReader {
         if ( $search['Federations'] & (1<<$this->federation->get('ID')) == 0 ) return $search; // federation missmatch. ask user to fix
         // arriving here means match found. So replace all instances with found data and return to continue import
         $t=TABLE_NAME;
-        $i=$search[0]['ID'];
-        $n=$search[0]['Nombre'];
-        $str="UPDATE $t SET Club=$i, Nombre='$n' WHERE (Nombre LIKE '%$a%')";
+        $i=$search[0]['ID']; // Club ID
+        $n=$search[0]['Nombre']; // Club Name
+        $str="UPDATE $t SET Club=$i, NombreClub='$n' WHERE (NombreClub LIKE '%$a%')";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetClub(): update club '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
         return true; // tell parent item found. proceed with next
     }
 
     private function findAndSetHandler($item) {
-
+        // notice that arriving here means all clubs has been parsed and analyzed
+        $a=$item['NombreGuia'];
+        $f=$this->federation->get('ID');
+        $search=$this->myDBObject->__selectAsArray("*","Guias","( Nombre LIKE '%$a%') AND ( Federation = $f ) ");
+        if ( !is_array($search) ) return "findAndSetHandler(): Invalid search term: '$a'"; // invalid search. mark error
+        if (count($search)==0) return false; // no search result; ask user to select or create as new
+        if (count($search)>1) return $search; // more than 1 compatible item found. Ask user to choose
+        if ( $search['Club'] != $item['Club']) return $search; // Club missmatch. ask user to fix
+        // arriving here means match found. So replace all instances with found data and return to continue import
+        $t=TABLE_NAME;
+        $i=$search[0]['ID']; // id del guia
+        $n=$search[0]['Nombre']; // nombre del guia
+        $str="UPDATE $t SET Guia=$i, NombreGuia='$n' WHERE (NombreGuia LIKE '%$a%')";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
+        return true; // tell parent item found. proceed with next
     }
-    private function findAndSetDog($item) {
 
+    private function findAndSetDog($item) {
+        // notice that arriving here means all clubs and handlers has been parsed and analyzed
+        // TODO: search and handle also dog's long (pedigree) name
+        $a=$item['Nombre'];
+        $f=$this->federation->get('ID');
+        $search=$this->myDBObject->__selectAsArray("*","Perros","( Nombre LIKE '%$a%') AND ( Federation = $f ) ");
+        if ( !is_array($search) ) return "findAndSetHandler(): Invalid search term: '$a'"; // invalid search. mark error
+        if (count($search)==0) return false; // no search result; ask user to select or create as new
+        if (count($search)>1) return $search; // more than 1 compatible item found. Ask user to choose
+        if ( $search['Guia'] != $item['Guia']) return $search; // handler missmatch. ask user to fix
+        // TODO: evaluate all declared dog properties against found in database. if collission ask user
+        // arriving here means match found. So replace all instances with found data and return to continue import
+        $t=TABLE_NAME;
+        $i=$search[0]['ID']; // dog ID
+        $n=$search[0]['Nombre']; // dog Name
+        $str="UPDATE $t SET Perro=$i, Nombre='$n' WHERE (Nombre LIKE '%$a%')";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "findAndSetDog(): update dog '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
+        return true; // tell parent item found. proceed with next
     }
 
     /**
