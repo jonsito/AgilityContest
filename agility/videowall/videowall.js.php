@@ -53,7 +53,7 @@ function vw_updateWorkingData(evt,callback) {
 			Jornada:workingData.datosJornada,
 			Manga:workingData.datosManga,
 			Tanda:workingData.datosTanda,
-			Sesion:workingData.datosSesion,
+			Sesion:workingData.datosSesion
 		};
 		setTimeout(callback(evt,data),0);
 	}
@@ -138,7 +138,7 @@ function vw_updateDataInfo(evt,data) {
 
     // this should be done in callback, as content is window dependent
     // actualiza informacion de manga
-    var infomanga=(typeof(data.Manga.Nombre)==='undefined')?'':data.Manga.Nombre;
+    var infomanga=(typeof(data.Tanda.Nombre)==='undefined')?'':data.Tanda.Nombre;
     $('#vwls_Manga').html(infomanga);
 
     // update footer
@@ -199,6 +199,11 @@ function vwls_showOSD(val) {
 function vwls_showCompetitorInfo(val) {
 	if (val==0) $('#vwls_competitorInfo').css('display','none');
 	else $('#vwls_competitorInfo').css('display','initial');
+}
+
+function vwls_showResultsInfo(val) {
+	if (val==0) $('#vwls_resultadosInfo').css('display','none');
+	else $('#vwls_resultadosInfo').css('display','initial');
 }
 
 function vwls_updateData(data) {
