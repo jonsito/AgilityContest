@@ -41,7 +41,7 @@ color: white;
 
 /* El dorsal un poco mas grande */
 .vwls_dorsal {
-    font-size:1.4vw;
+    font-size:1.5vw;
 }
 
 /* labels de F/T/R */
@@ -57,6 +57,7 @@ color: white;
     text-align: center;
     background-color: transparent;
     color: white;
+    font-size:1.2vw;
     z-index: 2;
 }
 
@@ -76,7 +77,7 @@ color: white;
 .vwls_fondo_combined {
     background-color: rgba(127,127,127,<?php echo $config->getEnv('vw_alpha')?>);
     border: 3px solid black;
-    border-radius: 12px;
+    border-radius: 15px;
 }
 
 .vwls_fondo_chromakey {

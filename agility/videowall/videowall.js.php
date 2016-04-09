@@ -202,8 +202,9 @@ function vwls_showCompetitorInfo(val) {
 }
 
 function vwls_showResultsInfo(val) {
-	if (val==0) $('#vwls_resultadosInfo').css('display','none');
-	else $('#vwls_resultadosInfo').css('display','initial');
+	var disp=(val==0)?'none':'initial';
+	if (parseInt(ac_config.vw_dataposition)==0) disp='none';
+	$('#vwls_resultadosInfo').css('display',disp);
 }
 
 function vwls_updateData(data) {

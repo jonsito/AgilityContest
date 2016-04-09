@@ -122,6 +122,13 @@ $config =Config::getInstance();
 			<input id="vw_alpha" name="vw_alpha" type="text" size="3" value="0.5"/> (0.0-1.0)<br />
 			<label for="vw_chromakey"><?php _e('Color for Chroma Keyer'); ?></label>
 			<input id="vw_chromakey" name="vw_chromakey" type="color" value="#00ff00"/><br />
+			<label for="vw_dataposition"><?php _e('Timming data screen location'); ?></label>
+			<select id="vw_dataposition" name="vw_dataposition">
+				<option value="0"><?php _e('Not visible');?></option>
+				<option value="1" selected="selected"><?php _e('Upper left corner');?></option>
+				<option value="2"><?php _e('Lower left corner');?></option>
+				<option value="3"><?php _e('Next to competitor info');?></option>
+			</select><br />
 
 		</div>
 		
@@ -130,7 +137,7 @@ $config =Config::getInstance();
 			<label for="pdf_fontfamiliy"><?php _e('Font family'); ?></label>
 			<select id="pdf_fontfamily" name="pdf_fontfamily">
 				<option value="DejaVu" selected="selected">DejaVu (UTF-8)</option>
-				<option value="Free" selected="selected">GNU Free (UTF-8)</option>
+				<option value="Free">GNU Free (UTF-8)</option>
 				<option value="Courier">Courier (iso-latin1)</option>
 				<option value="Helvetica">Helvetica (iso-latin1)</option>
 				<option value="Times">Times (iso-latin1)</option>

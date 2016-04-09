@@ -56,6 +56,7 @@ define('AC_VW_ROWCOLOR1','#ffffff');
 define('AC_VW_ROWCOLOR2','#e0ebff');
 define('AC_VW_ALPHA',0.5);
 define('AC_VW_CRHOMAKEY','#00ff00');
+define('AC_VW_DATAPOSITION',1); // 0:hidden 1:top/right 2:down/rignt 3:down/center
 
 /** generacion de PDF's **/
 define('AC_PDF_TOPMARGIN', 10.0); // margen superior etiquetas
@@ -193,6 +194,7 @@ Class Config {
 		$this->config['vw_polltime'] =	AC_VW_POLLTIME;
 		$this->config['vw_alpha'] =		AC_VW_ALPHA;
 		$this->config['vw_chromakey'] =	AC_VW_CRHOMAKEY;
+		$this->config['vw_dataposition'] =	AC_VW_DATAPOSITION;
 		$this->config['vw_hdrfg1'] =	AC_VW_HDRFG1;
 		$this->config['vw_hdrbg1'] =	AC_VW_HDRBG1;
         $this->config['vw_hdrfg2'] =	AC_VW_HDRFG2;
@@ -368,6 +370,7 @@ Class Config {
 		$data['vw_polltime'] =	AC_VW_POLLTIME;
 		$data['vw_alpha'] =		AC_VW_ALPHA;
 		$data['vw_chromakey'] =	AC_VW_CRHOMAKEY;
+		$data['vw_dataposition'] =	AC_VW_DATAPOSITION;
 		$data['vw_hdrfg1'] =	AC_VW_HDRFG1;
 		$data['vw_hdrbg1'] =	AC_VW_HDRBG1;
         $data['vw_hdrfg2'] =	AC_VW_HDRFG2;
@@ -429,11 +432,14 @@ Class Config {
 		$data=testAndSet($data,'easyui_rowcolor1','s',AC_EASYUI_ROWCOLOR1);
 		$data=testAndSet($data,'easyui_rowcolor2','s',AC_EASYUI_ROWCOLOR2);
 		$data=testAndSet($data,'easyui_rowcolor3','s',AC_EASYUI_ROWCOLOR3);
-		
-		// configuracion del videowall
+
+		// configuracion del live stream
 		$data=testAndSet($data,'vw_polltime','i',AC_VW_POLLTIME);
 		$data=testAndSet($data,'vw_alpha','f',AC_VW_ALPHA);
 		$data=testAndSet($data,'vw_chromakey','s',AC_VW_CRHOMAKEY);
+		$data=testAndSet($data,'vw_dataposition','i',AC_VW_DATAPOSITION);
+
+		// configuracion del videowall
 		$data=testAndSet($data,'vw_hdrfg1','s',AC_VW_HDRFG1);
 		$data=testAndSet($data,'vw_hdrbg1','s',AC_VW_HDRBG1);
         $data=testAndSet($data,'vw_hdrfg2','s',AC_VW_HDRFG2);

@@ -130,34 +130,67 @@ $('#vwls_LiveStream-window').window({
 // layout
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 
-// data for results box
-doLayout(layout,"#vwls_FaltasLbl",		750,	15,		12,		15	);
-doLayout(layout,"#vwls_Faltas",			762,	15,		10,		15	);
-doLayout(layout,"#vwls_TocadosLbl",		750,	30,		12,		15	);
-doLayout(layout,"#vwls_Tocados",		762,	30,		10,		15	);
-doLayout(layout,"#vwls_RehusesLbl",		750,	45,	    12,		15	);
-doLayout(layout,"#vwls_Rehuses",		762,	45,	    10,		15	);
-doLayout(layout,"#vwls_Tiempo",			745,	60,     30,		15	);
-doLayout(layout,"#vwls_EliminadoLbl",	745,	75,     30,		15	);
-doLayout(layout,"#vwls_NoPresentadoLbl",745,	75,     30,		15	);
+// layout for results box
+switch (parseInt(ac_config.vw_dataposition)) {
+	case 1: // upper left corner
+		doLayout(layout,"#vwls_Resultados",		740,	10,		40,		85 ); // background box
+		doLayout(layout,"#vwls_FaltasLbl",		750,	15,		12,		15	);
+		doLayout(layout,"#vwls_Faltas",			762,	15,		10,		15	);
+		doLayout(layout,"#vwls_TocadosLbl",		750,	30,		12,		15	);
+		doLayout(layout,"#vwls_Tocados",		762,	30,		10,		15	);
+		doLayout(layout,"#vwls_RehusesLbl",		750,	45,	    12,		15	);
+		doLayout(layout,"#vwls_Rehuses",		762,	45,	    10,		15	);
+		doLayout(layout,"#vwls_Tiempo",			742,	60,     35,		15	);
+		doLayout(layout,"#vwls_EliminadoLbl",	745,	75,     30,		15	);
+		doLayout(layout,"#vwls_NoPresentadoLbl",745,	75,     30,		15	);
+		// fix font size to allow miliseconds
+		$("#vwls_Tiempo").css('font-size','1.1vw');
+		$("#vwls_EliminadoLbl").css('font-size','1.1vw');
+		$("#vwls_NoPresentadoLbl").css('font-size','1.1vw');
+		break;
+	case 2: // lower left corner
+		doLayout(layout,"#vwls_Resultados",		690,	410,	90,	30 ); // background box
+		doLayout(layout,"#vwls_FaltasLbl",		700,	412,	10,		15	);
+		doLayout(layout,"#vwls_Faltas",			710,	412,	10,		15	);
+		doLayout(layout,"#vwls_TocadosLbl",		725,	412,	10,		15	);
+		doLayout(layout,"#vwls_Tocados",		735,	412,	10,		15	);
+		doLayout(layout,"#vwls_RehusesLbl",		750,	412,    10,		15	);
+		doLayout(layout,"#vwls_Rehuses",		760,	412,    10,		15	);
+		doLayout(layout,"#vwls_Tiempo",			735,	425,    35,		15	);
+		doLayout(layout,"#vwls_EliminadoLbl",	700,	425,    30,		15	);
+		doLayout(layout,"#vwls_NoPresentadoLbl",700,	425,    30,		15	);
+		break;
+	case 3: // lower centered next to competitors data
+		doLayout(layout,"#vwls_Resultados",		405,	410,	90,	30 ); // background box
+		doLayout(layout,"#vwls_FaltasLbl",		415,	412,	10,		15	);
+		doLayout(layout,"#vwls_Faltas",			425,	412,	10,		15	);
+		doLayout(layout,"#vwls_TocadosLbl",		440,	412,	10,		15	);
+		doLayout(layout,"#vwls_Tocados",		450,	412,	10,		15	);
+		doLayout(layout,"#vwls_RehusesLbl",		465,	412,    10,		15	);
+		doLayout(layout,"#vwls_Rehuses",		475,	412,    10,		15	);
+		doLayout(layout,"#vwls_Tiempo",			450,	425,    35,		15	);
+		doLayout(layout,"#vwls_EliminadoLbl",	415,	425,    30,		15	);
+		doLayout(layout,"#vwls_NoPresentadoLbl",415,	425,    30,		15	);
+		break;
+	default: vwls_showResultsInfo(0) // desactiva visualizacion de resultados
+		break;
+}
 
 // data for competitor box
+doLayout(layout,"#vwls_Datos",			10,410,390,30 ); // background box
 doLayout(layout,"#vwls_Logo",			50,		365,	70,		70	);
-doLayout(layout,"#vwls_Dorsal",			25,		415,	110,	50	);
+doLayout(layout,"#vwls_Dorsal",			20,		416,	110,	50	);
 doLayout(layout,"#vwls_Nombre",			125,	412,	225,	20	);
 doLayout(layout,"#vwls_NombreGuia",		125,	425,	140,	20	);
 doLayout(layout,"#vwls_NombreClub",		265,	425,	135,	20	);
+doLayout(layout,"#vwls_Celo",			360,	412,	40,		20	);
 // doLayout(layout,"#vwls_Grado",			400,	415,	100,	20	); // already shown in infomanga
 // doLayout(layout,"#vwls_Categoria",		510,	412,	140,	20	); // already shown in infomanga
-doLayout(layout,"#vwls_Celo",			360,	412,	40,		20	);
 
 // data for infomanga box
-doLayout(layout,"#vwls_Manga",			20, 	14,	    140,	15	);
+doLayout(layout,"#vwls_InfoManga",		15,10,165,20 ); // transparent boxes for infomanga
+doLayout(layout,"#vwls_Manga",			20, 	14,	    155,	15	);
 
-// transparent boxes
-doLayout(layout,"#vwls_Resultados",		740,	10,		40,	    85	);
-doLayout(layout,"#vwls_Datos",			10,		410,	390,	30	);
-doLayout(layout,"#vwls_InfoManga",		15,	    10,	    165,	20	);
 
 var eventHandler= {
 	'null': null,// null event: no action taken
