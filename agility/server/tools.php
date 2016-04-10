@@ -69,6 +69,11 @@ function hex2rgb($hex) {
    return $rgb; // returns an array with the rgb values
 }
 
+function is_color($str) {
+	if (preg_match('/^#[a-f0-9]{6}$/i', $str)) return true;
+	if (preg_match('/^#[a-f0-9]{3}$/i', $str)) return true;
+}
+
 // check if we are using HTTPS.
 // notice this may fail on extrange servers when https is not by mean of port 443
 function is_https(){

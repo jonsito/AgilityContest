@@ -105,6 +105,82 @@ Class Config {
 		"de-DE" => Array('de_DE','de','de_DE.UTF-8','ger','german','german.1252')
 	);
 
+	public static $config_options = array (
+		/* name  => type system default */
+
+		// version, logging y depuracion
+		'debug_level' 		=> array(	'i',	false,	AC_DEBUG_LEVEL),
+		'register_events'	=> array(	'b',	false,	AC_REGISTER_EVENTS),
+		'reset_events'		=> array(	'b',	false,	AC_RESET_EVENTS),
+		'event_printer'		=> array(	's',	false,	AC_EVENT_PRINTER),
+		'wide_printer'		=> array(	'b',	false,	AC_WIDE_PRINTER),
+		// Internacionalizacion. Idiomas
+		'lang'				=> array(	's',	false,	AC_LANG),
+		'accept_lang'		=> array(	'b',	false,	AC_ACCEPT_LANG),
+		'proximity_alert'	=> array(	'i',	false,	AC_PROXIMITY_ALERT),
+		// variables del sistema.
+		// just declared, no neccesarily real value
+		'restricted'		=> array(	'i',	true,	0),
+		'version_name'		=> array(	's',	true,	"0.0.0"),
+		'version_date'		=> array(	's',	true,	"20150101_0000"),
+		'database_name'		=> array(	's',	true,	"agility"),
+		'database_host'		=> array(	's',	true,	"localhost"),
+		'database_user'		=> array(	's',	true,	"user"),
+		'database_pass'		=> array(	's',	true,	"password"),
+		'program_name'		=> array(	's',	true,	"Agilitycontest"),
+		'author'			=> array(	's',	true,	"Juan Antonio Martinez"),
+		'email'				=> array(	's',	true,	"juansgaviota@gmail.com"),
+		'license'			=> array(	's',	true,	"GPL"),
+		// entorno grafico
+		'easyui_theme'		=> array(	's',	false,	AC_EASYUI_THEME),
+		'easyui_bgcolor'	=> array(	'c',	false,	AC_EASYUI_BGCOLOR),
+		'easyui_hdrcolor'	=> array(	'c',	false,	AC_EASYUI_HDRCOLOR),
+		'easyui_opcolor'	=> array(	'c',	false,	AC_EASYUI_OPCOLOR),
+		'easyui_rowcolor1'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR1),
+		'easyui_rowcolor2'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR2),
+		'easyui_rowcolor3'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR3),
+		// configuracion del videowall
+		'vw_polltime'		=> array(	'i',	true,	AC_VW_POLLTIME),
+		'vw_alpha'			=> array(	'f',	true,	AC_VW_ALPHA),
+		'vw_chromakey'		=> array(	'c',	true,	AC_VW_CRHOMAKEY),
+		'vw_dataposition'	=> array(	'i',	true,	AC_VW_DATAPOSITION),
+		'vw_hdrfg1'			=> array(	'c',	true,	AC_VW_HDRFG1),
+		'vw_hdrbg1'			=> array(	'c',	true,	AC_VW_HDRBG1),
+		'vw_hdrfg2'			=> array(	'c',	true,	AC_VW_HDRFG2),
+		'vw_hdrbg2'			=> array(	'c',	true,	AC_VW_HDRBG2),
+		'vw_hdrfg3'			=> array(	'c',	true,	AC_VW_HDRFG3),
+		'vw_hdrbg3'			=> array(	'c',	true,	AC_VW_HDRBG3),
+		'vw_rowcolor1'		=> array(	'c',	true,	AC_VW_ROWCOLOR1),
+		'vw_rowcolor2'		=> array(	'c',	true,	AC_VW_ROWCOLOR2),
+		// generacion de PDF's
+		'pdf_topmargin'		=> array(	'f',	true,	AC_PDF_TOPMARGIN),
+		'pdf_leftmargin'	=> array(	'f',	true,	AC_PDF_LEFTMARGIN),
+		'pdf_labelheight'	=> array(	'f',	true,	AC_PDF_LABELHEIGHT),
+		'pdf_journeys'		=> array(	'b',	true,	AC_PDF_JOURNEYS),
+		'pdf_hdrfg1'		=> array(	'c',	true,	AC_PDF_HDRFG1),
+		'pdf_hdrbg1'		=> array(	'c',	true,	AC_PDF_HDRBG1),
+		'pdf_hdrfg2'		=> array(	'c',	true,	AC_PDF_HDRFG2),
+		'pdf_hdrbg2'		=> array(	'c',	true,	AC_PDF_HDRBG2),
+		'pdf_rowcolor1'		=> array(	'c',	true,	AC_PDF_ROWCOLOR1),
+		'pdf_rowcolor2'		=> array(	'c',	true,	AC_PDF_ROWCOLOR2),
+		'pdf_linecolor'		=> array(	'c',	true,	AC_PDF_LINECOLOR),
+		'pdf_fontfamily'	=> array(	's',	true,	AC_PDF_FONTFAMILY),
+		// personalizacion del tablet
+		'tablet_beep'		=> array(	'b',	true,	AC_TABLET_BEEP),
+		'tablet_dnd'		=> array(	'b',	true,	AC_TABLET_DND),
+		'tablet_chrono'		=> array(	'b',	true,	AC_TABLET_CHRONO),
+		'tablet_next'		=> array(	'b',	true,	AC_TABLET_NEXT),
+		'tablet_countdown'	=> array(	'i',	true,	AC_TABLET_COUNTDOWN),
+		'tablet_keyboard'	=> array(	'b',	true,	AC_TABLET_KEYBOARD),
+		// acceso web
+		'web_refreshtime'	=> array(	'i',	true,	AC_WEB_REFRESHTIME),
+		// personalizacion del crono
+		'crono_resync'		=> array(	'b',	true,	AC_CRONO_RESYNC),
+		'crono_miliseconds'	=> array(	'b',	true,	AC_CRONO_MILISECONDS),
+		'crono_intermediate'=> array(	'b',	true,	AC_CRONO_INTERMEDIATE),
+		'crono_rectime'		=> array(	'b',	true,	AC_CRONO_RECTIME)
+	);
+
 	// singleton pattern
 	private static $instance=null;   
 	public static function getInstance() {
@@ -153,87 +229,10 @@ Class Config {
 
 	private function __construct() {
 
-		/** cargamos los valores por defecto **/
-
-        // General
-		// version, logging y depuracion
-		$this->config['debug_level'] =		AC_DEBUG_LEVEL;
-        $this->config['register_events'] =	AC_REGISTER_EVENTS;
-		$this->config['reset_events'] =		AC_RESET_EVENTS;
-		$this->config['event_printer'] =	AC_EVENT_PRINTER;
-		$this->config['wide_printer'] =		AC_WIDE_PRINTER;
-
-		// Internacionalizacion. Idiomas
-		$this->config['lang'] =	AC_LANG;
-		$this->config['accept_lang'] =	AC_ACCEPT_LANG;
-        $this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
-
-		// variables del sistema.
-        // just declared, no neccesarily real value
-        $this->config['restricted']     =	0;
-        $this->config['version_name']   =	"0.0";
-        $this->config['version_date']   =	"20150101_0000";
-		$this->config['database_name']  =	"agility";
-		$this->config['database_host']  =	"localhost";
-		$this->config['database_user']  =	"user";
-		$this->config['database_pass']  = 	"password";
-        $this->config['program_name']   = 	"Agilitycontest";
-        $this->config['author'] = 	"Juan Antonio Martinez";
-        $this->config['email'] = 	"juansgaviota@gmail.com";
-        $this->config['license'] = 	"GPL";
-
-		// entorno grafico
-		$this->config['easyui_theme'] = 	AC_EASYUI_THEME;
-		$this->config['easyui_bgcolor'] =	AC_EASYUI_BGCOLOR;
-		$this->config['easyui_hdrcolor'] =	AC_EASYUI_HDRCOLOR;
-		$this->config['easyui_opcolor'] =	AC_EASYUI_OPCOLOR;
-		$this->config['easyui_rowcolor1'] =	AC_EASYUI_ROWCOLOR1;
-		$this->config['easyui_rowcolor2'] =	AC_EASYUI_ROWCOLOR2;
-		$this->config['easyui_rowcolor3'] =	AC_EASYUI_ROWCOLOR3;
-		// configuracion del videowall
-		$this->config['vw_polltime'] =	AC_VW_POLLTIME;
-		$this->config['vw_alpha'] =		AC_VW_ALPHA;
-		$this->config['vw_chromakey'] =	AC_VW_CRHOMAKEY;
-		$this->config['vw_dataposition'] =	AC_VW_DATAPOSITION;
-		$this->config['vw_hdrfg1'] =	AC_VW_HDRFG1;
-		$this->config['vw_hdrbg1'] =	AC_VW_HDRBG1;
-        $this->config['vw_hdrfg2'] =	AC_VW_HDRFG2;
-        $this->config['vw_hdrbg2'] =	AC_VW_HDRBG2;
-        $this->config['vw_hdrfg3'] =	AC_VW_HDRFG3;
-        $this->config['vw_hdrbg3'] =	AC_VW_HDRBG3;
-		$this->config['vw_rowcolor1'] =	AC_VW_ROWCOLOR1;
-		$this->config['vw_rowcolor2'] =	AC_VW_ROWCOLOR2;
-		// generacion de PDF's
-		$this->config['pdf_topmargin'] = AC_PDF_TOPMARGIN;
-		$this->config['pdf_leftmargin'] = AC_PDF_LEFTMARGIN;
-		$this->config['pdf_labelheight'] = AC_PDF_LABELHEIGHT;
-		$this->config['pdf_journeys'] = AC_PDF_JOURNEYS;
-		$this->config['pdf_hdrfg1'] =	AC_PDF_HDRFG1;
-		$this->config['pdf_hdrbg1'] =	AC_PDF_HDRBG1;
-		$this->config['pdf_hdrfg2'] =	AC_PDF_HDRFG2;
-		$this->config['pdf_hdrbg2'] =	AC_PDF_HDRBG2;
-		$this->config['pdf_rowcolor1'] =	AC_PDF_ROWCOLOR1;
-		$this->config['pdf_rowcolor2'] =	AC_PDF_ROWCOLOR2;
-		$this->config['pdf_linecolor'] =	AC_PDF_LINECOLOR;
-		$this->config['pdf_fontfamily'] =	AC_PDF_FONTFAMILY;
-		
-		// personalizacion del tablet
-		$this->config['tablet_beep'] =		AC_TABLET_BEEP;
-		$this->config['tablet_dnd'] =		AC_TABLET_DND;
-		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
-		$this->config['tablet_next'] =		AC_TABLET_NEXT;
-		$this->config['tablet_countdown'] =	AC_TABLET_COUNTDOWN;
-		$this->config['tablet_keyboard'] =	AC_TABLET_KEYBOARD;
-
-		// acceso web
-		$this->config['web_refreshtime'] =	AC_WEB_REFRESHTIME;
-
-		// personalizacion del crono
-		$this->config['crono_resync'] =			AC_CRONO_RESYNC;
-		$this->config['crono_miliseconds'] =	AC_CRONO_MILISECONDS;
-		$this->config['crono_intermediate'] =	AC_CRONO_INTERMEDIATE;
-		$this->config['crono_rectime'] =	AC_CRONO_RECTIME;
-
+		// cargamos los valores por defecto
+		foreach(Config::$config_options as $key => $info) {
+			$this->config[$key]=$info[2];
+		}
 		// leemos fichero de sistema
 		$sys=parse_ini_file(AC_SYSTEM_FILE,false); // false: don't parse subsections
 		// leemos ahora el fichero de configuracion
@@ -346,152 +345,33 @@ Class Config {
 	}
 	
 	function defaultConfig() {
+		// cargamos los valores por defecto
 		$data=array();
+		foreach(Config::$config_options as $key => $info) {
+			// no cargamos los datos de sistema
+			if ($info[1]==false) $data[$key]=$info[2];
+		}
 
-		// due to some extrange int/string interactions,
-		// use $this->config to store numeric data instead of direct $data store
-
-		$this->config['debug_level'] =		AC_DEBUG_LEVEL;
-        $this->config['register_events'] =	AC_REGISTER_EVENTS;
-        $this->config['reset_events'] =		AC_RESET_EVENTS;
-		$this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
-		$this->config['event_printer'] =	AC_EVENT_PRINTER;
-		$this->config['wide_printer'] =		AC_WIDE_PRINTER;
-		
-		// configuracion de la consola
-		$data['easyui_theme'] = 	AC_EASYUI_THEME;
-		$data['easyui_bgcolor'] =	AC_EASYUI_BGCOLOR;
-		$data['easyui_hdrcolor'] =	AC_EASYUI_HDRCOLOR;
-		$data['easyui_opcolor'] =	AC_EASYUI_OPCOLOR;
-		$data['easyui_rowcolor1'] =	AC_EASYUI_ROWCOLOR1;
-		$data['easyui_rowcolor2'] =	AC_EASYUI_ROWCOLOR2;
-		$data['easyui_rowcolor3'] =	AC_EASYUI_ROWCOLOR3;
-		// configuracion del videowall
-		$data['vw_polltime'] =	AC_VW_POLLTIME;
-		$data['vw_alpha'] =		AC_VW_ALPHA;
-		$data['vw_chromakey'] =	AC_VW_CRHOMAKEY;
-		$data['vw_dataposition'] =	AC_VW_DATAPOSITION;
-		$data['vw_hdrfg1'] =	AC_VW_HDRFG1;
-		$data['vw_hdrbg1'] =	AC_VW_HDRBG1;
-        $data['vw_hdrfg2'] =	AC_VW_HDRFG2;
-        $data['vw_hdrbg2'] =	AC_VW_HDRBG2;
-        $data['vw_hdrfg3'] =	AC_VW_HDRFG3;
-        $data['vw_hdrbg3'] =	AC_VW_HDRBG3;
-		$data['vw_rowcolor1'] =	AC_VW_ROWCOLOR1;
-		$data['vw_rowcolor2'] =	AC_VW_ROWCOLOR2;
-		// generacion de PDF's
-		$data['pdf_topmargin'] = AC_PDF_TOPMARGIN;
-		$data['pdf_leftmargin'] = AC_PDF_LEFTMARGIN;
-		$data['pdf_labelheight'] = AC_PDF_LABELHEIGHT;
-		$data['pdf_journeys'] = AC_PDF_JOURNEYS;
-		$data['pdf_hdrfg1'] =	AC_PDF_HDRFG1;
-		$data['pdf_hdrbg1'] =	AC_PDF_HDRBG1;
-		$data['pdf_hdrfg2'] =	AC_PDF_HDRFG2;
-		$data['pdf_hdrbg2'] =	AC_PDF_HDRBG2;
-		$data['pdf_rowcolor1'] =	AC_PDF_ROWCOLOR1;
-		$data['pdf_rowcolor2'] =	AC_PDF_ROWCOLOR2;
-		$data['pdf_linecolor'] =	AC_PDF_LINECOLOR;
-		$data['pdf_fontfamiliy'] =	AC_PDF_FONTFAMILY;
-		// tablet
-		$this->config['tablet_beep'] =	AC_TABLET_BEEP;
-		$this->config['tablet_dnd'] =	AC_TABLET_DND;
-		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
-		$this->config['tablet_next'] =	AC_TABLET_NEXT;
-		$this->config['tablet_countdown'] =	AC_TABLET_COUNTDOWN;
-		$this->config['tablet_keyboard'] =	AC_TABLET_KEYBOARD;
-		// crono
-		$this->config['crono_resync'] =	AC_CRONO_RESYNC;
-		$this->config['crono_miliseconds'] =	AC_CRONO_MILISECONDS;
-		$this->config['crono_intermediate'] =	AC_CRONO_INTERMEDIATE;
-		$this->config['crono_rectime'] =	AC_CRONO_RECTIME;
-		// web
-		$this->config['web_refreshtime'] =	AC_WEB_REFRESHTIME;
-		// Internacionalizacion. Idiomas
-		$data['lang'] =	AC_LANG;
-		$data['accept_lang'] =	AC_ACCEPT_LANG;
-		$res=array_merge($this->config,$data);
-		$result=$this->write_ini_file($res,AC_CONFIG_FILE);
+		$result=$this->write_ini_file($data,AC_CONFIG_FILE);
 		if ($result===FALSE) {
 			$msg="Error al generar el fichero de configuracion";
 			$this->do_log($msg);
 			return $msg;
 		}
-		$this->config=$res;
-		return $res;
+		$this->config=array_merge($this->config,$data);
+		return $data;
 	}
 	
 	public function saveConfig() {
-		// TODO: uniformize elements to use testAndSet
 		$data=array();
-		
-		// entorno grafico
-		$data=testAndSet($data,'easyui_theme','s',AC_EASYUI_THEME);
-		$data=testAndSet($data,'easyui_bgcolor','s',AC_EASYUI_BGCOLOR);
-		$data=testAndSet($data,'easyui_hdrcolor','s',AC_EASYUI_HDRCOLOR);
-		$data=testAndSet($data,'easyui_opcolor','s',AC_EASYUI_OPCOLOR);
-		$data=testAndSet($data,'easyui_rowcolor1','s',AC_EASYUI_ROWCOLOR1);
-		$data=testAndSet($data,'easyui_rowcolor2','s',AC_EASYUI_ROWCOLOR2);
-		$data=testAndSet($data,'easyui_rowcolor3','s',AC_EASYUI_ROWCOLOR3);
-
-		// configuracion del live stream
-		$data=testAndSet($data,'vw_polltime','i',AC_VW_POLLTIME);
-		$data=testAndSet($data,'vw_alpha','f',AC_VW_ALPHA);
-		$data=testAndSet($data,'vw_chromakey','s',AC_VW_CRHOMAKEY);
-		$data=testAndSet($data,'vw_dataposition','i',AC_VW_DATAPOSITION);
-
-		// configuracion del videowall
-		$data=testAndSet($data,'vw_hdrfg1','s',AC_VW_HDRFG1);
-		$data=testAndSet($data,'vw_hdrbg1','s',AC_VW_HDRBG1);
-        $data=testAndSet($data,'vw_hdrfg2','s',AC_VW_HDRFG2);
-        $data=testAndSet($data,'vw_hdrbg2','s',AC_VW_HDRBG2);
-        $data=testAndSet($data,'vw_hdrfg3','s',AC_VW_HDRFG3);
-        $data=testAndSet($data,'vw_hdrbg3','s',AC_VW_HDRBG3);
-		$data=testAndSet($data,'vw_rowcolor1','s',AC_VW_ROWCOLOR1);
-		$data=testAndSet($data,'vw_rowcolor2','s',AC_VW_ROWCOLOR2);
-		
-		// generacion de PDF's
-		$data=testAndSet($data,'pdf_topmargin','f',AC_PDF_TOPMARGIN);
-		$data=testAndSet($data,'pdf_leftmargin','f',AC_PDF_LEFTMARGIN);
-		$data=testAndSet($data,'pdf_labelheight','f',AC_PDF_LABELHEIGHT);
-		$data['pdf_journeys']=http_request('pdf_journeys','i',AC_PDF_JOURNEYS);
-		$data=testAndSet($data,'pdf_hdrfg1','s',AC_PDF_HDRFG1);
-		$data=testAndSet($data,'pdf_hdrbg1','s',AC_PDF_HDRBG1);
-		$data=testAndSet($data,'pdf_hdrfg2','s',AC_PDF_HDRFG2);
-		$data=testAndSet($data,'pdf_hdrbg2','s',AC_PDF_HDRBG2);
-		$data=testAndSet($data,'pdf_rowcolor1','s',AC_PDF_ROWCOLOR1);
-		$data=testAndSet($data,'pdf_rowcolor2','s',AC_PDF_ROWCOLOR2);
-		$data=testAndSet($data,'pdf_linecolor','s',AC_PDF_LINECOLOR);
-		$data=testAndSet($data,'pdf_fontfamily','s',AC_PDF_FONTFAMILY);
-		
-		// tablet
-		$data['tablet_beep']=http_request('tablet_beep','s',AC_TABLET_BEEP);
-		$data['tablet_dnd']=http_request('tablet_dnd','s',AC_TABLET_DND);
-		$data['tablet_chrono']=http_request('tablet_chrono','s',AC_TABLET_CHRONO);
-		$data['tablet_next']=http_request('tablet_chrono','s',AC_TABLET_NEXT);
-		$data['tablet_countdown']=http_request('tablet_countdown','i',AC_TABLET_COUNTDOWN);
-		$data['tablet_keyboard']=http_request('tablet_keyboard','i',AC_TABLET_KEYBOARD);
-
-		// crono
-		$data['crono_resync']=http_request('crono_resync','s',AC_CRONO_RESYNC);
-		$data['crono_miliseconds']=http_request('crono_miliseconds','s',AC_CRONO_MILISECONDS);
-		$data['crono_intermediate']=http_request('crono_intermediate','s',AC_CRONO_INTERMEDIATE);
-		$data['crono_rectime']=http_request('crono_rectime','s',AC_CRONO_RECTIME);
-
-		// web
-		$data['web_refreshtime']=http_request('web_refreshtime','s',AC_WEB_REFRESHTIME);
-
-		// Sistema
-		$data=testAndSet($data,'lang','s',AC_LANG);
-		$data=testAndSet($data,'accept_lang','i',AC_ACCEPT_LANG);
-		$data=testAndSet($data,'debug_level','i',AC_DEBUG_LEVEL);
-        $data['register_events']=http_request('register_events','s',AC_REGISTER_EVENTS);
-        $data['reset_events']=http_request('reset_events','s',AC_RESET_EVENTS);
-        $data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
-		$data=testAndSet($data,'event_printer','s',AC_EVENT_PRINTER);
-		$data['wide_printer']=http_request('wide_printer','s',AC_WIDE_PRINTER);
-
-		// notice that "ip_address" parameter is also received from console. just ignore it
-
+		// notice that "ip_address" inputbox and "save" "restore" config buttons
+		// are also received from console. just ignore it
+		// search valid keys from http received parameters
+		foreach(Config::$config_options as $key => $info) {
+			if ($info[1]==true) continue; // ignoramos configuracion de sistema
+			$mode=($info[0]=='c')?'s':$info[0];
+			$data=testAndSet($data,$key,$mode,$info[2]);
+		}
 		// finally write file:
 		$res=array_merge($this->config,$data);
 		// $this->do_log("CronoResync is: {$data['crono_resync']}");
@@ -523,6 +403,62 @@ Class Config {
 	}
 
 	public function restoreConfig() {
+		// phase 1 retrieve data from browser
+		// extraemos los datos de registro
+		$data=http_request("Data","s",null);
+		if (!$data) return array("errorMsg" => "restoreConfig()::download(): No data to import has been received");
+		if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
+			return array("errorMsg" => "restoreConfig()::download() cannot handle data received from browser");
+		}
+		// mimetype for excel file is be stored at $matches[1]: and should be checked
+		// $type=$matches[1]; // 'text/plain', or whatever. Not really used
+		$contents= base64_decode( $matches[2] ); // decodes received data
+		// phase 2 store it into temporary file
+		$tmpfile=tempnam_sfx(__DIR__."/../../../logs","import","xlsx");
+		$file=fopen($tmpfile,"wb");
+		fwrite($file,$contents);
+		fclose($file);
+		$res=parse_ini_file($tmpfile,false); // don't parse subsections
+		if (!$res) {
+			return array("errorMsg" => "restoreConfig()::download() Received data is not a '.ini' file");
+		}
+		// phase 3 analyze data. skip internal vars, ignore unknown ones
+		$result=array(); // create result string arrray to send to browser
+		$data=array(); // create array to store valid entries
+		foreach($res as $key => $value) {
+			$key=strtolower($key);
+			// si no existe se ignora
+			if (!array_key_exists($key,Config::$config_options)) {
+				array_push($result,"$key: Unknown. Ignored");
+				continue;
+			}
+			// si es de sistema se ignora
+			if (Config::$config_options[$key][1]==true) {
+				array_push($result,"$key: Forbidden. Ignored");
+				continue;
+			}
+			// check format
+			$type="";
+			switch(Config::$config_options[$key][0]) {
+				case 'i': if (is_int($value)) $type="int"; 		break;
+				case 'b': if (is_bool($value)) $type="bool";	break;
+				case 's': if (is_string($value)) $type="string";break;
+				case 'c': if (is_color($value)) $type="color";	break;
+				case 'f': if (is_float($value)) $type="float";	break;
+			}
+			if ($type=="") {
+				array_push($result,"$key: Invalid format. Ignored");
+				continue;
+			}
+			// arriving here means data is valid
+			array_push($result,"$key: ($type) $value Accepted");
+			array_push($key,$value);
+		}
+		// finally write file:
+		$res=array_merge($this->config,$data);
+		// $this->do_log("CronoResync is: {$data['crono_resync']}");
+		$result=$this->write_ini_file($res,AC_CONFIG_FILE);
+		if ($result===FALSE) return array("errorMsg" => "restoreConfig()::save() error saving .ini file");
 		return "ok";
 	}
 }
