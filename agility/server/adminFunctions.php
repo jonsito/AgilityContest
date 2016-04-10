@@ -331,8 +331,19 @@ try {
 			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg="Cannot retrieve license information"; break;
 		case "register":
 			$am->access(PERMS_ADMIN); $result=$am->registerApp(); if ($result==null) $adm->errormsg="Cannot import license data"; break;
-		case "loadConfig": 
-			$config=Config::getInstance(); $result=$config->loadConfig(); break;
+		case "loadConfig": // send configuration to browser
+			$config=Config::getInstance();
+			$result=$config->loadConfig();
+			break;
+		case "backupConfig": // generate and download a "config.ini" file
+			$config=Config::getInstance();
+			$result=$config->backupConfig();
+			break;
+		case "restoreConfig": // receive, analyze and save configuration from file
+			$am->access(PERMS_ADMIN);
+			$config=Config::getInstance();
+			$result=$config->RestoreConfig();
+			break;
 		case "saveConfig": 
 			$am->access(PERMS_ADMIN);
 			$config=Config::getInstance();

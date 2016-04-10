@@ -55,6 +55,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
 	 */
 	function __construct($prueba) {
 		parent::__construct("clasifications.xlsx");
+		setcookie('fileDownload','true',time()+30,"/"); // tell browser to hide "downloading" message box
         $p=new Pruebas("excel_Clasificaciones");
         $res=$p->selectByID($prueba);
         if (!is_array($res)){

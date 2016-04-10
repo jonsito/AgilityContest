@@ -499,6 +499,32 @@ Class Config {
 		if ($result===FALSE) return "Error al generar el fichero de configuracion";
 		return "";
 	}
+
+	public function backupConfig() {
+		$f=date("Ymd_Hi");
+		$fd=fopen(AC_CONFIG_FILE,"r");
+		if (!$fd) {
+			setcookie('fileDownload','false',time()+30,"/");
+			header("Cache-Control", "no-cache, no-store, must-revalidate");
+		} else {
+			$fsize = filesize(AC_CONFIG_FILE);
+			setcookie('fileDownload','true',time()+30,"/");
+			header("Content-type: text/plain");
+			header("Content-Disposition: attachment; filename=config_$f.ini");
+			header("Content-length: $fsize");
+			header("Cache-control: private"); //use this to open files directly
+			while(!feof($fd)) {
+				$buffer = fread($fd, 2048);
+				echo $buffer;
+			}
+			fclose ($fd);
+		}
+		return "ok";
+	}
+
+	public function restoreConfig() {
+		return "ok";
+	}
 }
 
 ?>

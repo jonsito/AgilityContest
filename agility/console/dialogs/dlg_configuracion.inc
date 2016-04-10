@@ -28,8 +28,6 @@ $config =Config::getInstance();
 	<form id="config-form" name="configuracion" class="easyui-form">
 	<div id="config-tabs" class="easyui-tabs" data-options="tabPosition:'left'" style="width:100%;height:auto">
 		<input id="config-Operation" type="hidden" name="Operation" value="saveConfig"/>
-		<!-- TODO: Los parametros de la base de datos solo se deben presentar en el primer arranque -->
-
 		<div title="<?php _e('Desktop'); ?>" style="padding:10px">
 			<h3><?php _e('Desktop look and feel'); ?></h3>
 			<label for="config_theme"><?php _e('Dekstop theme'); ?></label>
@@ -189,7 +187,7 @@ $config =Config::getInstance();
 			</select><br />
 		</div>
 				
-		<div title="<?php _e('System'); ?>" style="padding:10px">
+		<div title="<?php _e('General'); ?>" style="padding:10px">
 			<h3><?php _e('General configuration'); ?></h3>
 			<label for="config_lang"><?php _e('Default language'); ?></label>
 			<select id="config_lang" name="lang">
@@ -241,10 +239,23 @@ $config =Config::getInstance();
 			<label for="crono_milis" style="width:130px;margin-top:5px;">
 				<input type="radio" id="crono_milis" name="crono_miliseconds" value="1"/><?php _e('millis'); ?>
 			</label><br />
+		</div>
+
+		<div title="<?php _e('System'); ?>" style="padding:10px">
 			<h3><?php _e('Additional server information'); ?></h3>
 			<label for="ip_address"><?php _e('IP address(es)'); ?></label>
 			<input id="ip_address" name="ip_address" type="text" readonly="readonly" size="45"
 				   value="<?php $a=new networkInterfaces(); echo implode(", ",$a->get_interfaces());?>" />
+			<br />
+			<h3><?php _e('Save and Restore configuration'); ?></h3>
+			<label for="config_backup"><?php _e('Download configuration to file'); ?></label>
+			<input type="button" class="icon_button icon-db_backup" id="config_backup" name="config_backup" value="<?php _e('Backup');?>" onclick="backupConfig();">
+			<br/>
+			<label for="config_restore"><?php _e('Restore configuration from file'); ?></label>
+			<input type="button" class="icon_button icon-db_restore" id="config_restore" name="config_restore" value="<?php _e('Restore');?>" onclick="restoreConfig();">
+			<input type="file" class="icon_button icon-search "id="config_restoreFile"
+				   name="restoreFile" accept=".ini,text/plain" required="required" style="width:365px;" value="<?php _e('Search');?>" onchange="selectConfigFile(this)">
+			<input id="config_restoreData" type="hidden" name="config_restoreData" value="">
 		</div>
 	</div>
 	</form>
@@ -320,6 +331,9 @@ $config =Config::getInstance();
 		});
 	}
 
+	/**
+	 * perform a configuration factory reset
+	 */
 	function defaultConfig() {
 		$.messager.confirm('<?php _e("Confirm"); ?>','<?php _e("Restore factory default values. Sure?"); ?>',function(r){
 			if (r) {
@@ -327,8 +341,45 @@ $config =Config::getInstance();
 			}
 		});
 	}
-	
+
+	/**
+	 * discard config changes and restore browser configuration from server config
+	 */
 	function loadConfig() {
 		$('#config-form').form('load','/agility/server/adminFunctions.php?Operation=loadConfig');
 	}
+
+	/**
+	 * Download a backup of configuration file
+	 */
+	function backupConfig() {
+		$.fileDownload(
+			'/agility/server/adminFunctions.php',
+			{
+				httpMethod: 'GET',
+				data: {
+					Operation: 'backupConfig'
+				},
+				preparingMessageHtml:'<?php _e("Downloading configuration, please wait"); ?> ...',
+				failMessageHtml:'<?php _e("There was a problem in configuration download. Please try again"); ?>'
+			}
+		);
+		return false; //this is critical to stop the click event which will trigger a normal file download!
+	}
+
+	/**
+	 * Upload and store configuration file
+	 */
+	function restoreConfig() {
+
+	}
+
+	/**
+	 * Load configuration file from client and store in browser
+	 * @param input
+	 */
+	function loadConfigFile(input) {
+
+	}
+
 </script>

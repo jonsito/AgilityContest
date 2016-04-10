@@ -49,6 +49,7 @@ class Excel_Inscripciones extends XLSX_Writer {
 	 */
 	function __construct($prueba) {
 		parent::__construct("inscriptionlist.xlsx");
+		setcookie('fileDownload','true',time()+30,"/"); // tell browser to hide "downloading" message box
         $p=new Pruebas("excel_Inscripciones");
         $res=$p->selectByID($prueba);
         if (!is_array($res)){
