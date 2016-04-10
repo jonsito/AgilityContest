@@ -153,9 +153,9 @@ Class Config {
 		'vw_rowcolor1'		=> array(	'c',	false,	AC_VW_ROWCOLOR1),
 		'vw_rowcolor2'		=> array(	'c',	false,	AC_VW_ROWCOLOR2),
 		// generacion de PDF's
-		'pdf_topmargin'		=> array(	'f',	false,	AC_PDF_TOPMARGIN),
-		'pdf_leftmargin'	=> array(	'f',	false,	AC_PDF_LEFTMARGIN),
-		'pdf_labelheight'	=> array(	'f',	false,	AC_PDF_LABELHEIGHT),
+		'pdf_topmargin'		=> array(	'i',	false,	AC_PDF_TOPMARGIN),
+		'pdf_leftmargin'	=> array(	'i',	false,	AC_PDF_LEFTMARGIN),
+		'pdf_labelheight'	=> array(	'i',	false,	AC_PDF_LABELHEIGHT),
 		'pdf_journeys'		=> array(	'b',	false,	AC_PDF_JOURNEYS),
 		'pdf_hdrfg1'		=> array(	'c',	false,	AC_PDF_HDRFG1),
 		'pdf_hdrbg1'		=> array(	'c',	false,	AC_PDF_HDRBG1),
