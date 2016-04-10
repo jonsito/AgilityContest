@@ -123,10 +123,10 @@ Class Config {
 		'restricted'		=> array(	'i',	true,	0),
 		'version_name'		=> array(	's',	true,	"0.0.0"),
 		'version_date'		=> array(	's',	true,	"20150101_0000"),
-		'database_name'		=> array(	's',	true,	"agility"),
-		'database_host'		=> array(	's',	true,	"localhost"),
+		'database_name'		=> array(	's',	true,	"name"),
+		'database_host'		=> array(	's',	true,	"host"),
 		'database_user'		=> array(	's',	true,	"user"),
-		'database_pass'		=> array(	's',	true,	"password"),
+		'database_pass'		=> array(	's',	true,	"pass"),
 		'program_name'		=> array(	's',	true,	"Agilitycontest"),
 		'author'			=> array(	's',	true,	"Juan Antonio Martinez"),
 		'email'				=> array(	's',	true,	"juansgaviota@gmail.com"),
@@ -140,45 +140,45 @@ Class Config {
 		'easyui_rowcolor2'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR2),
 		'easyui_rowcolor3'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR3),
 		// configuracion del videowall
-		'vw_polltime'		=> array(	'i',	true,	AC_VW_POLLTIME),
-		'vw_alpha'			=> array(	'f',	true,	AC_VW_ALPHA),
-		'vw_chromakey'		=> array(	'c',	true,	AC_VW_CRHOMAKEY),
-		'vw_dataposition'	=> array(	'i',	true,	AC_VW_DATAPOSITION),
-		'vw_hdrfg1'			=> array(	'c',	true,	AC_VW_HDRFG1),
-		'vw_hdrbg1'			=> array(	'c',	true,	AC_VW_HDRBG1),
-		'vw_hdrfg2'			=> array(	'c',	true,	AC_VW_HDRFG2),
-		'vw_hdrbg2'			=> array(	'c',	true,	AC_VW_HDRBG2),
-		'vw_hdrfg3'			=> array(	'c',	true,	AC_VW_HDRFG3),
-		'vw_hdrbg3'			=> array(	'c',	true,	AC_VW_HDRBG3),
-		'vw_rowcolor1'		=> array(	'c',	true,	AC_VW_ROWCOLOR1),
-		'vw_rowcolor2'		=> array(	'c',	true,	AC_VW_ROWCOLOR2),
+		'vw_polltime'		=> array(	'i',	false,	AC_VW_POLLTIME),
+		'vw_alpha'			=> array(	'f',	false,	AC_VW_ALPHA),
+		'vw_chromakey'		=> array(	'c',	false,	AC_VW_CRHOMAKEY),
+		'vw_dataposition'	=> array(	'i',	false,	AC_VW_DATAPOSITION),
+		'vw_hdrfg1'			=> array(	'c',	false,	AC_VW_HDRFG1),
+		'vw_hdrbg1'			=> array(	'c',	false,	AC_VW_HDRBG1),
+		'vw_hdrfg2'			=> array(	'c',	false,	AC_VW_HDRFG2),
+		'vw_hdrbg2'			=> array(	'c',	false,	AC_VW_HDRBG2),
+		'vw_hdrfg3'			=> array(	'c',	false,	AC_VW_HDRFG3),
+		'vw_hdrbg3'			=> array(	'c',	false,	AC_VW_HDRBG3),
+		'vw_rowcolor1'		=> array(	'c',	false,	AC_VW_ROWCOLOR1),
+		'vw_rowcolor2'		=> array(	'c',	false,	AC_VW_ROWCOLOR2),
 		// generacion de PDF's
-		'pdf_topmargin'		=> array(	'f',	true,	AC_PDF_TOPMARGIN),
-		'pdf_leftmargin'	=> array(	'f',	true,	AC_PDF_LEFTMARGIN),
-		'pdf_labelheight'	=> array(	'f',	true,	AC_PDF_LABELHEIGHT),
-		'pdf_journeys'		=> array(	'b',	true,	AC_PDF_JOURNEYS),
-		'pdf_hdrfg1'		=> array(	'c',	true,	AC_PDF_HDRFG1),
-		'pdf_hdrbg1'		=> array(	'c',	true,	AC_PDF_HDRBG1),
-		'pdf_hdrfg2'		=> array(	'c',	true,	AC_PDF_HDRFG2),
-		'pdf_hdrbg2'		=> array(	'c',	true,	AC_PDF_HDRBG2),
-		'pdf_rowcolor1'		=> array(	'c',	true,	AC_PDF_ROWCOLOR1),
-		'pdf_rowcolor2'		=> array(	'c',	true,	AC_PDF_ROWCOLOR2),
-		'pdf_linecolor'		=> array(	'c',	true,	AC_PDF_LINECOLOR),
-		'pdf_fontfamily'	=> array(	's',	true,	AC_PDF_FONTFAMILY),
+		'pdf_topmargin'		=> array(	'f',	false,	AC_PDF_TOPMARGIN),
+		'pdf_leftmargin'	=> array(	'f',	false,	AC_PDF_LEFTMARGIN),
+		'pdf_labelheight'	=> array(	'f',	false,	AC_PDF_LABELHEIGHT),
+		'pdf_journeys'		=> array(	'b',	false,	AC_PDF_JOURNEYS),
+		'pdf_hdrfg1'		=> array(	'c',	false,	AC_PDF_HDRFG1),
+		'pdf_hdrbg1'		=> array(	'c',	false,	AC_PDF_HDRBG1),
+		'pdf_hdrfg2'		=> array(	'c',	false,	AC_PDF_HDRFG2),
+		'pdf_hdrbg2'		=> array(	'c',	false,	AC_PDF_HDRBG2),
+		'pdf_rowcolor1'		=> array(	'c',	false,	AC_PDF_ROWCOLOR1),
+		'pdf_rowcolor2'		=> array(	'c',	false,	AC_PDF_ROWCOLOR2),
+		'pdf_linecolor'		=> array(	'c',	false,	AC_PDF_LINECOLOR),
+		'pdf_fontfamily'	=> array(	's',	false,	AC_PDF_FONTFAMILY),
 		// personalizacion del tablet
-		'tablet_beep'		=> array(	'b',	true,	AC_TABLET_BEEP),
-		'tablet_dnd'		=> array(	'b',	true,	AC_TABLET_DND),
-		'tablet_chrono'		=> array(	'b',	true,	AC_TABLET_CHRONO),
-		'tablet_next'		=> array(	'b',	true,	AC_TABLET_NEXT),
-		'tablet_countdown'	=> array(	'i',	true,	AC_TABLET_COUNTDOWN),
-		'tablet_keyboard'	=> array(	'b',	true,	AC_TABLET_KEYBOARD),
+		'tablet_beep'		=> array(	'b',	false,	AC_TABLET_BEEP),
+		'tablet_dnd'		=> array(	'b',	false,	AC_TABLET_DND),
+		'tablet_chrono'		=> array(	'b',	false,	AC_TABLET_CHRONO),
+		'tablet_next'		=> array(	'b',	false,	AC_TABLET_NEXT),
+		'tablet_countdown'	=> array(	'i',	false,	AC_TABLET_COUNTDOWN),
+		'tablet_keyboard'	=> array(	'b',	false,	AC_TABLET_KEYBOARD),
 		// acceso web
-		'web_refreshtime'	=> array(	'i',	true,	AC_WEB_REFRESHTIME),
+		'web_refreshtime'	=> array(	'i',	false,	AC_WEB_REFRESHTIME),
 		// personalizacion del crono
-		'crono_resync'		=> array(	'b',	true,	AC_CRONO_RESYNC),
-		'crono_miliseconds'	=> array(	'b',	true,	AC_CRONO_MILISECONDS),
-		'crono_intermediate'=> array(	'b',	true,	AC_CRONO_INTERMEDIATE),
-		'crono_rectime'		=> array(	'b',	true,	AC_CRONO_RECTIME)
+		'crono_resync'		=> array(	'b',	false,	AC_CRONO_RESYNC),
+		'crono_miliseconds'	=> array(	'b',	false,	AC_CRONO_MILISECONDS),
+		'crono_intermediate'=> array(	'b',	false,	AC_CRONO_INTERMEDIATE),
+		'crono_rectime'		=> array(	'i',	false,	AC_CRONO_RECTIME)
 	);
 
 	// singleton pattern
@@ -297,25 +297,12 @@ Class Config {
 					for($i=0;$i<count($elem);$i++) {
 						$content .= $key."[] = \"".$elem[$i]."\"\n";
 					}
-				} else if($elem=="") {
-					$content .= $key." = \n";
+				} else if ($elem==="") { // beware === to avoid conflict with "0" and "false" values
+					$content .= $key." = \n"; // empty vars
+				} else if (Config::$config_options[$key][1]==true) {
+					continue; // skip system constants
 				} else {
-					// skip system constants
-					switch ($key) {
-					case "restricted": break;
-					case "program_name": break;
-					case "author": break;
-					case "email": break;
-					case "license": break;
-					case "version_name": break;
-					case "version_date": break;
-					case "database_name": break;
-					case "database_host": break;
-					case "database_user": break;
-					case "database_pass": break;
-					default: $content .= $key." = \"".$elem."\"\n"; break;
-					}
-
+					$content .= $key." = \"$elem\"\n";
 				}
 			}
 		}
@@ -363,18 +350,20 @@ Class Config {
 	}
 	
 	public function saveConfig() {
+		do_log("hola mundo \n");
 		$data=array();
 		// notice that "ip_address" inputbox and "save" "restore" config buttons
 		// are also received from console. just ignore it
 		// search valid keys from http received parameters
 		foreach(Config::$config_options as $key => $info) {
 			if ($info[1]==true) continue; // ignoramos configuracion de sistema
-			$mode=($info[0]=='c')?'s':$info[0];
-			$data=testAndSet($data,$key,$mode,$info[2]);
+			$type=$info[0];
+			if ($info[0]=="c") $type="s";
+			if ($info[0]=="b") $type="i";
+			if (isset($_REQUEST[$key]))	$data[$key]=http_request($key,$type,$info[2]);
 		}
 		// finally write file:
 		$res=array_merge($this->config,$data);
-		// $this->do_log("CronoResync is: {$data['crono_resync']}");
 		$result=$this->write_ini_file($res,AC_CONFIG_FILE);
 		if ($result===FALSE) return "Error al generar el fichero de configuracion";
 		return "";
@@ -440,26 +429,28 @@ Class Config {
 			// check format
 			$type="";
 			switch(Config::$config_options[$key][0]) {
-				case 'i': if (is_int($value)) $type="int"; 		break;
-				case 'b': if (is_bool($value)) $type="bool";	break;
 				case 's': if (is_string($value)) $type="string";break;
 				case 'c': if (is_color($value)) $type="color";	break;
-				case 'f': if (is_float($value)) $type="float";	break;
+				case 'f': // trick to detect if an string contains a float
+					$floatVal = floatval($value);
+					if($floatVal && intval($floatVal) != $floatVal) $type="float";
+					break;
+				case 'i': if ( is_numeric($value) && (strpos($value,'.')==false) )$type="int"; break;
+				case 'b': if (($value=="1") || ($value=="0")) $type="bool";	break;
 			}
 			if ($type=="") {
 				array_push($result,"$key: Invalid format. Ignored");
 				continue;
 			}
 			// arriving here means data is valid
-			array_push($result,"$key: ($type) $value Accepted");
-			array_push($key,$value);
+			// array_push($result,"$key: ($type) $value Accepted");
+			$data[$key]=$value;
 		}
 		// finally write file:
 		$res=array_merge($this->config,$data);
-		// $this->do_log("CronoResync is: {$data['crono_resync']}");
-		$result=$this->write_ini_file($res,AC_CONFIG_FILE);
-		if ($result===FALSE) return array("errorMsg" => "restoreConfig()::save() error saving .ini file");
-		return "ok";
+		$wres=$this->write_ini_file($res,AC_CONFIG_FILE);
+		if ($wres===FALSE) return array("errorMsg" => "restoreConfig()::save() error saving .ini file");
+		return array('data'=>join('<br />',$result));
 	}
 }
 

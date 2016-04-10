@@ -123,8 +123,8 @@ $config =Config::getInstance();
 			<label for="vw_dataposition"><?php _e('Timming data screen location'); ?></label>
 			<select id="vw_dataposition" name="vw_dataposition">
 				<option value="0"><?php _e('Not visible');?></option>
-				<option value="1" selected="selected"><?php _e('Upper left corner');?></option>
-				<option value="2"><?php _e('Lower left corner');?></option>
+				<option value="1" selected="selected"><?php _e('Upper right corner');?></option>
+				<option value="2"><?php _e('Lower right corner');?></option>
 				<option value="3"><?php _e('Next to competitor info');?></option>
 			</select><br />
 
@@ -132,7 +132,7 @@ $config =Config::getInstance();
 		
 		<div title="<?php _e('Reports'); ?>" style="padding:10px">
 			<h3><?php _e('PDF forms and reports generation'); ?></h3>
-			<label for="pdf_fontfamiliy"><?php _e('Font family'); ?></label>
+			<label for="pdf_fontfamily"><?php _e('Font family'); ?></label>
 			<select id="pdf_fontfamily" name="pdf_fontfamily">
 				<option value="DejaVu" selected="selected">DejaVu (UTF-8)</option>
 				<option value="Free">GNU Free (UTF-8)</option>
@@ -177,13 +177,14 @@ $config =Config::getInstance();
 		<div title="<?php _e('Internet'); ?>" style="padding:10px">
 		<h3><?php _e('Public access from internet'); ?></h3>
 			<label for="web_refreshtime"><?php _e('Data auto-refresh interval'); ?></label>
+			<input type="hidden" name="web_refreshtime" value="0"/> <!-- trick for select with value 0 -->
 			<select id="web_refreshtime" name="web_refreshtime">
 				<option value="0" selected="selected"><?php _e('No refresh'); ?></option>
+				<option value="30">30 sec.</option>
 				<option value="45">45 sec.</option>
 				<option value="60">1 min.</option>
 				<option value="90">1,5 min.</option>
-				<option value="90">2 min.</option>
-				<option value="300">5 min.</option>
+				<option value="120">2 min.</option>
 			</select><br />
 		</div>
 				
@@ -253,7 +254,7 @@ $config =Config::getInstance();
 			<br/>
 			<label for="config_restore"><?php _e('Restore configuration from file'); ?></label>
 			<input type="button" class="icon_button icon-db_restore" id="config_restore" name="config_restore" value="<?php _e('Restore');?>" onclick="restoreConfig();">
-			<input type="file" class="icon_button icon-search "id="config_restoreFile"
+			<input type="file" class="icon_button icon-search" id="config_restoreFile"
 				   name="restoreFile" accept=".ini,text/plain" required="required" style="width:365px;" value="<?php _e('Search');?>" onchange="loadConfigFile(this)">
 			<input id="config_restoreData" type="hidden" name="config_restoreData" value="">
 		</div>
@@ -386,11 +387,14 @@ $config =Config::getInstance();
 				if (res.errorMsg){
 					$.messager.show({ width:300, height:150, title: '<?php _e('Restore configuration from file error'); ?><br />', msg: res.errorMsg });
 				}
-				$.messager.alert('<?php _e("Restore"); ?>',
-					'<?php _e("Configuration file successfully restored"); ?>'+" <br />"+
-					'<?php _e("You should close session and reload page"); ?> '+
-					'<?php _e("for changes to become active"); ?>',
-					"info");
+				$.messager.alert({
+					title: '<?php _e("Restore"); ?>',
+					msg: '<?php _e("Configuration file successfully restored"); ?> <br />'+
+					'<?php _e("You should close session and reload page"); ?> <br/>' +
+					'<?php _e("for changes to become active"); ?><br/><hr/><br/>'+res.data,
+					icon: "info",
+					width: 400
+				});
 				loadConfiguration();
 			},
 			error: function(XMLHttpRequest,textStatus,errorThrown) {

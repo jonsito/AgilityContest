@@ -343,6 +343,8 @@ try {
 			$am->access(PERMS_ADMIN);
 			$config=Config::getInstance();
 			$result=$config->RestoreConfig();
+			$ev=new Eventos("RestoreConfig",1,$am);
+			$ev->reconfigure();
 			break;
 		case "saveConfig": 
 			$am->access(PERMS_ADMIN);
