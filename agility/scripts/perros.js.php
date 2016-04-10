@@ -290,7 +290,6 @@ function perros_importSendTask(params) {
             dlg.dialog('close');
         }
     });
-
 }
 
 /**
@@ -348,7 +347,6 @@ function perros_importHandleResult(data) {
  */
 function perros_excelImport() {
     var data=$('#perros-excelData').val();
-    var dlg=$('#perros-excel-dialog');
     if (data=="") {
         $.messager.alert("<?php _e('Error');?>","<?php _e('No import file selected');?>",'error');
     } else {

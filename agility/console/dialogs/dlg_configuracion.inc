@@ -254,7 +254,7 @@ $config =Config::getInstance();
 			<label for="config_restore"><?php _e('Restore configuration from file'); ?></label>
 			<input type="button" class="icon_button icon-db_restore" id="config_restore" name="config_restore" value="<?php _e('Restore');?>" onclick="restoreConfig();">
 			<input type="file" class="icon_button icon-search "id="config_restoreFile"
-				   name="restoreFile" accept=".ini,text/plain" required="required" style="width:365px;" value="<?php _e('Search');?>" onchange="selectConfigFile(this)">
+				   name="restoreFile" accept=".ini,text/plain" required="required" style="width:365px;" value="<?php _e('Search');?>" onchange="loadConfigFile(this)">
 			<input id="config_restoreData" type="hidden" name="config_restoreData" value="">
 		</div>
 	</div>
@@ -371,7 +371,32 @@ $config =Config::getInstance();
 	 * Upload and store configuration file
 	 */
 	function restoreConfig() {
-
+		var data=$('#config_restoreData').val();
+		if (data=="") {
+			$.messager.alert("<?php _e('Error');?>","<?php _e('No config file selected');?>",'error');
+			return false;
+		}
+		$.ajax({
+			type:'POST', // use post to send file
+			url:"/agility/server/adminFunctions.php",
+			dataType:'json',
+			data: { Operation: 'restoreConfig', Data: data },
+			contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+			success: function(res) {
+				if (res.errorMsg){
+					$.messager.show({ width:300, height:150, title: '<?php _e('Restore configuration from file error'); ?><br />', msg: res.errorMsg });
+				}
+				$.messager.alert('<?php _e("Restore"); ?>',
+					'<?php _e("Configuration file successfully restored"); ?>'+" <br />"+
+					'<?php _e("You should close session and reload page"); ?> '+
+					'<?php _e("for changes to become active"); ?>',
+					"info");
+				loadConfiguration();
+			},
+			error: function(XMLHttpRequest,textStatus,errorThrown) {
+				$.messager.alert("Restore configuration from file error","Error: "+textStatus + " "+ errorThrown,'error' );
+			}
+		});
 	}
 
 	/**
@@ -379,7 +404,13 @@ $config =Config::getInstance();
 	 * @param input
 	 */
 	function loadConfigFile(input) {
-
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#config_restoreData').val(e.target.result);
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
 	}
 
 </script>
