@@ -161,7 +161,7 @@ Modelo simplificado de resultados finales
         onUpdate: function(elapsed,running,pause) {
             var time=parseFloat(elapsed/1000);
             $('#vwls_Tiempo').html(toFixedT(time,(running)?1:ac_config.numdecs));
-            vwcf_evalPuesto();
+            vwcf_evalPenalizacion();
             return true;
         },
         onBeforePause:function() { $('#vwls_Tiempo').addClass('blink'); return true; },
@@ -355,7 +355,7 @@ Modelo simplificado de resultados finales
         },
         'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
             vwls_updateData(event);
-            vwcf_evalPuesto();
+            vwcf_evalPenalizacion();
         },
         'llamada': function (event, time) {    // llamada a pista
             var crm=$('#cronometro');
@@ -368,7 +368,7 @@ Modelo simplificado de resultados finales
         },
         'salida': function (event, time) {     // orden de salida
             myCounter.start();
-            vwcf_evalPuesto();
+            vwcf_evalPenalizacion();
         },
         'start': function (event, time) {      // start crono manual
             // si crono automatico, ignora
@@ -380,7 +380,7 @@ Modelo simplificado de resultados finales
             crm.Chrono('stop', time);
             crm.Chrono('reset');
             crm.Chrono('start', time);
-            vwcf_evalPuesto();
+            vwcf_evalPenalizacion();
         },
         'stop': function (event, time) {      // stop crono manual
             $('#vwls_StartStopFlag').text("Start");
@@ -397,7 +397,7 @@ Modelo simplificado de resultados finales
                 crm.Chrono('stop', time);
                 crm.Chrono('reset');
                 crm.Chrono('start', time);
-                vwcf_evalPuesto();
+                vwcf_evalPenalizacion();
                 return
             }
             if (ac_config.crono_resync === "0") {
@@ -412,7 +412,7 @@ Modelo simplificado de resultados finales
             var crm = $('#cronometro');
             if (!crm.Chrono('started')) return;	// si crono no esta activo, ignorar
             crm.Chrono('pause', time);
-            vwcf_evalPuesto();
+            vwcf_evalPenalizacion();
             setTimeout(function () {
                 crm.Chrono('resume');
             }, 5000);
@@ -427,11 +427,11 @@ Modelo simplificado de resultados finales
             $('#vwls_StartStopFlag').text("Start");
             crm.Chrono('stop', time);
             crm.Chrono('reset', time);
-            vwcf_evalPuesto();
+            vwcf_evalPenalizacion();
         },
         'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
             vwls_updateChronoData(event);
-            vwcf_evalPuesto();
+            vwcf_evalPenalizacion();
         },
         'crono_error': null, // fallo en los sensores de paso
         'aceptar': function (event,time) { // operador pulsa aceptar

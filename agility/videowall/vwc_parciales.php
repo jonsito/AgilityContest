@@ -135,7 +135,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         onUpdate: function(elapsed,running,pause) {
             var time=parseFloat(elapsed/1000);
             $('#vwls_Tiempo').html(toFixedT(time,(running)?1:ac_config.numdecs));
-            vwcp_evalPuesto();
+            vwcp_evalPenalizacion();
             return true;
         },
         onBeforePause:function() { $('#vwls_Tiempo').addClass('blink'); return true; },
@@ -378,7 +378,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
             vwls_updateData(event);
-            vwcp_evalPuesto();
+            vwcp_evalPenalizacion();
         },
         'llamada': function (event, time) {    // llamada a pista
             var crm=$('#cronometro');
@@ -391,7 +391,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         'salida': function (event, time) {     // orden de salida
             myCounter.start();
-            vwcp_evalPuesto();
+            vwcp_evalPenalizacion();
         },
         'start': function (event, time) {      // start crono manual
             // si crono automatico, ignora
@@ -403,7 +403,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             crm.Chrono('stop', time);
             crm.Chrono('reset');
             crm.Chrono('start', time);
-            vwcp_evalPuesto();
+            vwcp_evalPenalizacion();
         },
         'stop': function (event, time) {      // stop crono manual
             $('#vwls_StartStopFlag').text("Start");
@@ -420,7 +420,7 @@ Pantalla de de visualizacion combinada llamada/parciales
                 crm.Chrono('stop', time);
                 crm.Chrono('reset');
                 crm.Chrono('start', time);
-                vwcp_evalPuesto();
+                vwcp_evalPenalizacion();
                 return
             }
             if (ac_config.crono_resync === "0") {
@@ -435,7 +435,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             var crm = $('#cronometro');
             if (!crm.Chrono('started')) return;	// si crono no esta activo, ignorar
             crm.Chrono('pause', time);
-            vwcp_evalPuesto();
+            vwcp_evalPenalizacion();
             setTimeout(function () {
                 crm.Chrono('resume');
             }, 5000);
@@ -450,11 +450,11 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwls_StartStopFlag').text("Start");
             crm.Chrono('stop', time);
             crm.Chrono('reset', time);
-            vwcf_evalPuesto();
+            vwcf_evalPenalizacion();
         },
         'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
             vwls_updateChronoData(event);
-            vwcp_evalPuesto();
+            vwcp_evalPenalizacion();
         },
         'crono_error': null, // fallo en los sensores de paso
         'aceptar': function (event,time) { // operador pulsa aceptar

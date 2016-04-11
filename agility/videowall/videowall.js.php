@@ -251,8 +251,10 @@ function vwls_showData(data) {
 			success: function(res){
 				$('#vwls_Logo').attr("src","/agility/images/logos/"+res['LogoClub']);
 				$('#vwls_Dorsal').html(dorsal );
+				$('#vwls_Perro').html(res["ID"]);
 				$('#vwls_Nombre').html(res["Nombre"]);
 				$('#vwls_NombreGuia').html(res["NombreGuia"]);
+				$('#vwls_Cat').html(res["Categoria"]);
                 $('#vwls_Categoria').html(toLongCategoria(res["Categoria"],res['Federation']));
                 // hide "Grado" Information if not applicable
                 $('#vwls_Grado').html(hasGradosByJornada(workingData.datosJornada)?res["NombreGrado"]:"");
@@ -284,6 +286,34 @@ function vwls_showData(data) {
 		$('#vwls_NoPresentadoLbl').html((n==0)?'':'<span class="blink" style="color:red"><?php _e('NoPr');?>.</span>');
 	}
 	vwls_tiempo.html(data["Tiempo"]);
+}
+
+/**
+ * evaluate and display position for this dog
+ * @param flag: true:evaluate, false:clear
+ */
+function vwls_displayPuesto(flag,tiempo) {
+	// use text() instead of html() to skip every non-data items
+	var f=parseFloat($('#vwls_Faltas').text());
+	var t=parseFloat($('#vwls_Tocados').text());
+	var r=parseFloat($('#vwls_Rehuses').text());
+	var n=parseFloat($('#vwls_NoPresentado').text());
+	var e=parseFloat($('#vwls_Eliminado').text());
+	var penal=tiempo+1000*(5*f+5*t+5*r+100*e+200*n);
+	var datos = {
+		'Perro': $('#vwls_Perro').text(),
+		'Categoria': $('#vwls_Cat').text(),
+		'Penalizacion': penal
+	};
+	if (!flag) {
+		$('#vwls_PuestoLbl').html('');
+	} else {
+		getPuesto(datos,function(dat,res){
+			// remember received penal is 1000*P_recorrido + P_tiempo
+			if (parseFloat(res.penalizacion)>100000) return; // eliminado, no presentado o pendiente
+			$('#vwls_PuestoLbl').html('- '+res.puesto+' -');
+		});
+	}
 }
 
 var myCounter = new Countdown({  
@@ -319,7 +349,7 @@ function vw_updateLlamada(evt,data) {
 /**
  * each time that "datos" or "chrono_int" arrives, evaluate position of current team
  */
-function vwls_evalPuesto(trs,trm,time) {
+function vwc_evalPenalizacion(trs,trm,time) {
 	// use set timeout to make sure data are already refreshed
 	setTimeout(function(){
 		// phase 1 retrieve results
@@ -342,17 +372,17 @@ function vwls_evalPuesto(trs,trm,time) {
 	},0);
 }
 
-function vwcp_evalPuesto() {
+function vwcp_evalPenalizacion() {
     var time=parseFloat($('#vwls_Tiempo').text());
     var trs=parseFloat($('#vwcp_parciales-TRS').text());
     var trm=parseFloat($('#vwcp_parciales-TRM').text());
     if (isNaN(trs)) trs=0;
     if (isNaN(trm)) trm=0;
     if (isNaN(time)) time=0;
-    vwls_evalPuesto(trs,trm,time);
+    vwc_evalPenalizacion(trs,trm,time);
 }
 
-function vwcf_evalPuesto () {
+function vwcf_evalPenalizacion () {
 	var trs=0;
 	var trm=0;
     var time=parseFloat($('#vwls_Tiempo').text());
@@ -367,7 +397,7 @@ function vwcf_evalPuesto () {
 	if (isNaN(trs)) trs=0;
 	if (isNaN(trm)) trm=0;
 	if (isNaN(time)) time=0;
-	vwls_evalPuesto(trs,trm,time);
+	vwc_evalPenalizacion(trs,trm,time);
 }
 
 /**
@@ -470,7 +500,7 @@ function vwcp_updateLlamada(evt,data) {
 
 			// evaluamos velocidad, penalización, calificacion y puesto
 			vwc_evalResultados(dat['before']);
-			vwcp_evalPuesto(); // repaint penalization
+			vwcp_evalPenalizacion(); // repaint penalization
 			// rellenamos ventana de ultimos resultados
 			$('#vwcp_ultimos-datagrid').datagrid('loadData',dat['before']).datagrid('scrollTo',0);
 		}
@@ -556,7 +586,7 @@ function vwcf_updateLlamada(evt,data) {
 			$('#vwls_NoPresentado').html(n);
 			$('#vwls_NoPresentadoLbl').html((n==0)?'':'<span class="blink" style="color:red"><?php _e('NoPr');?>.</span>');
 			// rellenamos ventana de ultimos resultados
-			vwcf_evalPuesto(); // repaint penalization
+			vwcf_evalPenalizacion(); // repaint penalization
 			// dado que necesitamos tener la clasificacion con los perros de la tabla "before",
 			// lo que vamos a hacer es calcular dicha tabla aquí, en lugar de desde el evento "aceptar"
 			vwcf_updateFinales(evt, data, vwcf_evalBefore);

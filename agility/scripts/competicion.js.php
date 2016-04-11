@@ -355,6 +355,7 @@ function getMangaMode(fed,recorrido,categoria) {
     }
     switch(categoria) {
         case '-':
+        case 'LMST':
         case '-LMST':return ac_fedInfo[f].Modes[2][0]; // common for all categories; just use first mode (standard )
         case 'L':return ac_fedInfo[f].Modes[rec][0];
         case 'M':return ac_fedInfo[f].Modes[rec][1];
@@ -833,6 +834,47 @@ function competicionKeyEventHandler(evt) {
 		}
 	}
 	return true; // to allow follow key binding chain
+}
+
+/**
+ * Evaluate puesto for given perro
+ * @param {object} resultado
+ * @param {function} callback(resultado,puesto)
+ * @returns {boolean}
+ */
+function getPuesto(resultado,callback) {
+    var idperro=parseInt(resultado.Perro); // stupid javascript
+    var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,resultado.Categoria);
+    if (mode==-1) {
+        $.messager.alert('<?php _e('Error'); ?>','<?php _e('Internal error: invalid Federation/Course/Category combination'); ?>','error');
+        return false;
+    }
+    console.log("perro:"+idperro+" categoria:"+resultado.Categoria+" mode:"+mode);
+    $.ajax({
+        type:'GET',
+        url:"/agility/server/database/resultadosFunctions.php",
+        dataType:'json',
+        data: {
+            Operation:	'getPuesto',
+            Prueba:		workingData.prueba,
+            Jornada:	workingData.jornada,
+            Manga:		workingData.manga,
+            Perro:      resultado.Perro,
+            Mode:       mode,
+            Penalizacion: resultado.Penalizacion
+        },
+        success: function(datos) {
+            if (datos.errorMsg) {
+                $.messager.alert('<?php _e('Error'); ?>',datos.errorMsg,'error');
+                return false;
+            }
+            if (datos.success==true) {
+                callback(resultado,datos);
+                return false;
+            }
+        }
+    });
+    return false;
 }
 
 /** 

@@ -780,7 +780,6 @@ function tablet_processEvents(id,evt) {
     case 'crono_stop':	// parada crono electronico
 		setStartStopMode(0); // mark chrono stopped
 		crm.Chrono('stop',time);
-		console.log("tiempo final: "+crm.Chrono('getValue'));
 		return;
 	case 'crono_reset': // puesta a cero incondicional
 		myCounter.stop();

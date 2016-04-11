@@ -71,6 +71,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<span style="display:none" id="vwls_Eliminado">0</span>
 				<span class="vwls_dtime" id="vwls_NoPresentadoLbl"></span>
 				<span style="display:none" id="vwls_NoPresentado">0</span>
+				<span class="vwls_dtime" id="vwls_PuestoLbl"></span>
 				<span style="display:none" id="vwls_Puesto"></span>
 				<span style="display:none" id="vwls_timestamp"></span>
 			</div>
@@ -89,6 +90,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<span class="vwls_label" id="vwls_Grado" style="display:none"><?php _e('Grade'); ?></span>
 				<span class="vwls_label" id="vwls_Celo"><?php _e('Heat'); ?></span>
 				<span style="display:none" id="vwls_Perro">0</span>
+				<span style="display:none" id="vwls_Cat">-</span>
 			</div>
 		</div>
 	</div>
@@ -143,10 +145,12 @@ switch (parseInt(ac_config.vw_dataposition)) {
 		doLayout(layout,"#vwls_Tiempo",			742,	60,     35,		15	);
 		doLayout(layout,"#vwls_EliminadoLbl",	745,	75,     30,		15	);
 		doLayout(layout,"#vwls_NoPresentadoLbl",745,	75,     30,		15	);
+		doLayout(layout,"#vwls_PuestoLbl"		,745,	75,     30,		15	);
 		// fix font size to allow miliseconds
 		$("#vwls_Tiempo").css('font-size','1.1vw');
 		$("#vwls_EliminadoLbl").css('font-size','1.1vw');
 		$("#vwls_NoPresentadoLbl").css('font-size','1.1vw');
+		$("#vwls_PuestoLbl").css('font-size','1.1vw');
 		break;
 	case 2: // lower left corner
 		doLayout(layout,"#vwls_Resultados",		690,	410,	90,	30 ); // background box
@@ -159,6 +163,7 @@ switch (parseInt(ac_config.vw_dataposition)) {
 		doLayout(layout,"#vwls_Tiempo",			735,	425,    35,		15	);
 		doLayout(layout,"#vwls_EliminadoLbl",	700,	425,    30,		15	);
 		doLayout(layout,"#vwls_NoPresentadoLbl",700,	425,    30,		15	);
+		doLayout(layout,"#vwls_PuestoLbl",		700,	425,    30,		15	);
 		break;
 	case 3: // lower centered next to competitors data
 		doLayout(layout,"#vwls_Resultados",		405,	410,	90,	30 ); // background box
@@ -171,13 +176,14 @@ switch (parseInt(ac_config.vw_dataposition)) {
 		doLayout(layout,"#vwls_Tiempo",			450,	425,    35,		15	);
 		doLayout(layout,"#vwls_EliminadoLbl",	415,	425,    30,		15	);
 		doLayout(layout,"#vwls_NoPresentadoLbl",415,	425,    30,		15	);
+		doLayout(layout,"#vwls_PuestoLbl",		415,	425,    30,		15	);
 		break;
 	default: vwls_showResultsInfo(0) // desactiva visualizacion de resultados
 		break;
 }
 
 // data for competitor box
-doLayout(layout,"#vwls_Datos",			10,410,390,30 ); // background box
+doLayout(layout,"#vwls_Datos",			10,		410,	390,	30 ); // background box
 doLayout(layout,"#vwls_Logo",			50,		365,	70,		70	);
 doLayout(layout,"#vwls_Dorsal",			20,		416,	110,	50	);
 doLayout(layout,"#vwls_Nombre",			125,	412,	225,	20	);
@@ -188,7 +194,7 @@ doLayout(layout,"#vwls_Celo",			360,	412,	40,		20	);
 // doLayout(layout,"#vwls_Categoria",		510,	412,	140,	20	); // already shown in infomanga
 
 // data for infomanga box
-doLayout(layout,"#vwls_InfoManga",		15,10,165,20 ); // transparent boxes for infomanga
+doLayout(layout,"#vwls_InfoManga",		15,		10,		165,	20 ); // transparent boxes for infomanga
 doLayout(layout,"#vwls_Manga",			20, 	14,	    155,	15	);
 
 
@@ -199,8 +205,8 @@ var eventHandler= {
 		vwls_showOSD(0); 	// activa visualizacion de OSD
 	},
 	'open': function(event,time){ // operator select tanda
-		vwls_showCompetitorInfo(0) // desactiva visualizacion de datos del competidor
-		vwls_showResultsInfo(0) // desactiva visualizacion de resultados
+		vwls_showCompetitorInfo(0); // desactiva visualizacion de datos del competidor
+		vwls_showResultsInfo(0); // desactiva visualizacion de resultados
 		vw_updateWorkingData(event,function(e,d){
 			vw_updateDataInfo(e,d);
 		});
@@ -210,7 +216,7 @@ var eventHandler= {
 	},
 	'datos': function(event,time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
-        vwcp_evalPuesto();
+        vwcp_evalPenalizacion();
 	},
 	'llamada': function(event,time) {    // llamada a pista
 		var crm=$('#cronometro');
@@ -218,17 +224,19 @@ var eventHandler= {
 		crm.Chrono('stop',time);
 		crm.Chrono('reset',time);
 		vwls_showOSD(1); 	// activa visualizacion de OSD
-		vwls_showCompetitorInfo(1) // activa visualizacion de datos del competidor
-		vwls_showResultsInfo(0) // desactiva visualizacion de resultados
+		vwls_showCompetitorInfo(1); // activa visualizacion de datos del competidor
+		vwls_showResultsInfo(0); // desactiva visualizacion de resultados
 		vwls_showData(event);
 	},
 	'salida': function(event,time){     // orden de salida
-		vwls_showResultsInfo(1) // activa visualizacion de datos del competidor
+		vwls_displayPuesto(false,0); // clear puesto
+		vwls_showResultsInfo(1); // activa visualizacion de datos del competidor
 		myCounter.start();
 	},
 	'start': function(event,time) {      // start crono manual
-		vwls_showCompetitorInfo(1) // muestra datos del competidor
-		vwls_showResultsInfo(1) // activa visualizacion de resultados
+		vwls_displayPuesto(false,0); // clear puesto
+		vwls_showCompetitorInfo(1); // muestra datos del competidor
+		vwls_showResultsInfo(1); // activa visualizacion de resultados
 		// si crono automatico, ignora
 		var ssf=$('#vwls_StartStopFlag');
 		if (ssf.text()==="Auto") return;
@@ -240,15 +248,17 @@ var eventHandler= {
 		crm.Chrono('start',time);
 	},
 	'stop': function(event,time){      // stop crono manual
+		var crm=$('#cronometro');
 		$('#vwls_StartStopFlag').text("Start");
 		myCounter.stop();
-		$('#cronometro').Chrono('stop',time);
-		vwls_showCompetitorInfo(1) // muestra los datos del competidor
+		crm.Chrono('stop',time);
+		vwls_displayPuesto(true,crm.Chrono('getValue')/1000);
 	},
 	// nada que hacer aqui: el crono automatico se procesa en el tablet
 	'crono_start':  function(event,time){ // arranque crono automatico
-		vwls_showCompetitorInfo(1) // muestra datos del competidor
-		vwls_showResultsInfo(1) // activa visualizacion de resultados
+		vwls_displayPuesto(false,0);
+		vwls_showCompetitorInfo(1); // muestra datos del competidor
+		vwls_showResultsInfo(1); // activa visualizacion de resultados
 		var crm=$('#cronometro');
 		myCounter.stop();
 		$('#vwls_StartStopFlag').text('Auto');
@@ -271,12 +281,14 @@ var eventHandler= {
 		var crm=$('#cronometro');
 		if (!crm.Chrono('started')) return;	// si crono no esta activo, ignorar
 		crm.Chrono('pause',time);
-        vwcp_evalPuesto();
+        vwcp_evalPenalizacion();
         setTimeout(function(){crm.Chrono('resume');},5000);
 	},
 	'crono_stop':  function(event,time){	// parada crono electronico
+		var crm=$('#cronometro');
 		$('#vwls_StartStopFlag').text("Start");
-		$('#cronometro').Chrono('stop',time);
+		crm.Chrono('stop',time);
+		vwls_displayPuesto(true,crm.Chrono('getValue')/1000);
 	},
 	'crono_reset':  function(event,time){	// puesta a cero del crono electronico
 		var crm=$('#cronometro');
@@ -284,11 +296,12 @@ var eventHandler= {
 		$('#vwls_StartStopFlag').text("Start");
 		crm.Chrono('stop',time);
 		crm.Chrono('reset',time);
-		vwcf_evalPuesto();
+		vwls_displayPuesto(false,0);
+		vwcf_evalPenalizacion();
 	},
 	'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
 		vwls_updateChronoData(event);
-        vwcp_evalPuesto();
+        vwcp_evalPenalizacion();
 	},
 	'crono_error':  null, // fallo en los sensores de paso
 	'aceptar':	function(event,time){ // operador pulsa aceptar
@@ -300,8 +313,8 @@ var eventHandler= {
 		myCounter.stop();
 		crm.Chrono('stop',time);
 		crm.Chrono('reset',time);
-		vwls_showCompetitorInfo(0) //oculta datos del competidor
-		vwls_showResultsInfo(0) // oculta visualizacion de resultados
+		vwls_showCompetitorInfo(0); //oculta datos del competidor
+		vwls_showResultsInfo(0); // oculta visualizacion de resultados
 	},
 	'camera':	null, // change video source
 	'reconfig':	function(event) { loadConfiguration(); }, // reload configuration from server

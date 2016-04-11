@@ -443,8 +443,63 @@ class Resultados extends DBObject {
 	}
 
 	/**
+	 * Evalua el puesto en que ha quedado un perro determinado
+	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8 L+M+S+T
+	 * @param {integer} $perro Dog ID
+	 * @param penal dog penalization ( not yet stored into database 1000*PR+Tiempo)
+	 *@return {array} requested data or error
+	 */
+	function getPuesto($mode,$perro,$penal) {
+		$idmanga=$this->IDManga;
+
+		// FASE 0: en funcion del tipo de recorrido y modo pedido
+		// ajustamos el criterio de busqueda de la tabla de resultados
+		$where="(Manga=$idmanga) AND (Pendiente=0) ";
+		$cat="";
+		switch ($mode) {
+			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
+			case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
+			case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
+			case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
+			case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
+			case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
+			case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
+			case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
+			case 8: /* L+M+S+T */	break; // no check categoria
+			default:
+				$this->myLogger->leave();
+				return $this->error("modo de recorrido desconocido:$mode");
+		}
+		// FASE 1: recogemos resultados ordenados por 1000*precorrido+tiempo
+		$res=$this->__select(
+			"Dorsal,Perro , 1000*( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) + Tiempo AS Penal",
+			"Resultados",
+			"$where $cat",
+			"Penal ASC",
+			"");
+		if (!is_array($res)){
+			$this->myLogger->leave();
+			return $this->error($this->conn->error);
+		}
+		// fase 2: buscamos el puesto en el que ha quedado el perro
+		$table=$res['rows'];
+		$count=$res['total'];
+		for ($n=0;$n<$count;$n++) {
+			$this->myLogger->trace("Mode:$mode Dorsal:{$table[$n]['Dorsal']} Dog:{$table[$n]['Perro']} Penal:{$table[$n]['Penal']} ($penal)");
+		}
+		for ($n=0;$n<$count;$n++) {
+			if ($table[$n]['Penal']<$penal) continue;
+			// Compose and return response
+			return array( 'success'=>true,'puesto'=>1+$n,'penalizacion'=>$penal);
+		}
+		// dog not found. assume last
+		$this->myLogger->trace("Dog $perro not found evaluating puesto");
+		return array( 'success'=>true,'puesto'=>$count,'penalizacion'=>400000);
+	}
+
+	/**
 	 * Presenta una tabla ordenada segun los resultados de la manga
-	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS.
+	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8 L+M+S+T
 	 *@return {array} requested data or error
 	 */
 	function getResultados($mode) {
@@ -476,10 +531,12 @@ class Resultados extends DBObject {
 				"$where $cat",
 				" PRecorrido ASC, Tiempo ASC", 
 				"");
-		if (!is_array($res))
+		if (!is_array($res)){
+			$this->myLogger->leave();
 			return $this->error($this->conn->error);
+		}
+
 		$table=$res['rows'];
-		$this->myLogger->leave();
 		// FASE 2: evaluamos TRS Y TRM
 		$tdata=$this->evalTRS($mode,$table); // array( 'dist' 'obst' 'trs' 'trm', 'vel')
 		$res['trs']=$tdata; // store trs data into result

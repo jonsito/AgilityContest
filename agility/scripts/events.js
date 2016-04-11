@@ -119,7 +119,7 @@ function waitForEvents(sesID,evtID,timestamp,callback){
 				ac_eventHandlers[name]=500; // mark callback's eventhandler to be called every 500 msecs
 			}
 			if (ac_eventHandlers[name]<0) { // callback's event handler marked to stop polling
-				console.log("Closing event handler: "+name);
+				// console.log("Closing event handler: "+name);
 				return;
 			}
 			// re-queue event

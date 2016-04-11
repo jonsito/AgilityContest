@@ -195,7 +195,7 @@ function reorderInscripciones(idprueba) {
             $.messager.progress('close');
         },
 		error:function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
+            // console.log(textStatus, errorThrown);
 			$.messager.progress('close');
 		}
 	});

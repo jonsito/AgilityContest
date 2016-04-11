@@ -32,6 +32,7 @@ try {
 	$idperro=http_request("Perro","i",0);
 	$dorsal=http_request("Dorsal","i",0);
 	$mode=http_request("Mode","i",0);
+	$penal=http_request("Penalizacion","f",400000.0);
 	if ($operation===null) throw new Exception("Call to resultadosFunction without 'Operation' requested");
 	if ($mangaID==0) throw new Exception("Call to resultadosFunction without 'Manga' provided");
 	$resultados= new Resultados("resultadosFunctions",$pruebaID,$mangaID);
@@ -44,6 +45,7 @@ try {
 		case "reset": $result=$resultados->reset(); break;
 		case "getPendientes": $result=$resultados->getPendientes($mode); break;
 		case "getResultados": $result=$resultados->getResultados($mode); break;
+		case "getPuesto": $result=$resultados->getPuesto($mode,$idperro,$penal); break;
 		case "getTRS": $result=$resultados->getTRS($mode); break;
 		case "bestTimes": $result=$resultados->bestTimes($mode); break;
 		default: throw new Exception("resultadosFunctions:: invalid operation: $operation provided");
