@@ -175,6 +175,35 @@ function c_clearData(event) {
 	$('#chrono_Tiempo').html((parseInt(ac_config.numdecs)==2)?"00.00":"00.000");
 }
 
+/**
+ * evaluate and display position for this dog
+ * @param {boolean} flag: true:evaluate, false:clear
+ * @param {float} tiempo datatime from chronometer
+ */
+function c_displayPuesto(flag,tiempo) {
+	// use text() instead of html() to skip every non-data items
+	var f=parseFloat($('#chrono_Faltas').text());
+	var t=parseFloat($('#chrono_Tocados').text());
+	var r=parseFloat($('#chrono_Rehuses').text());
+	var n=parseFloat($('#chrono_NoPresentado').text());
+	var e=parseFloat($('#chrono_Eliminado').text());
+	var penal=tiempo+1000*(5*f+5*t+5*r+100*e+200*n);
+	var datos = {
+		'Perro': $('#chrono_Perro').text(),
+		'Categoria': $('#chrono_Cat').text(),
+		'Penalizacion': penal
+	};
+	if (!flag) {
+		$('#chrono_PuestoLbl').html('');
+	} else {
+		getPuesto(datos,function(dat,res){
+			// remember received penal is 1000*P_recorrido + P_tiempo
+			if (parseFloat(res.penalizacion)>=100000) return; // eliminado, no presentado o pendiente
+			$('#chrono_PuestoLbl').html('- '+res.puesto+' -');
+		});
+	}
+}
+
 function c_showData(data) {
 	var perro=$('#chrono_Perro').html();
 	var dorsal=data['Dorsal'];
@@ -196,6 +225,8 @@ function c_showData(data) {
 				$('#chrono_Logo').attr("src","/agility/images/logos/"+res['LogoClub']);
 				$('#chrono_Dorsal').html("<?php _e('Dors');?>: "+dorsal );
 				$('#chrono_Nombre').html(res["Nombre"]);
+				$('#chrono_Perro').html(res["ID"]);
+				$('#chrono_Cat').html(res["Categoria"]);
 				$('#chrono_NombreGuia').html("<?php _e('Hndlr');?>: "+res["NombreGuia"]);
 				$('#chrono_Categoria').html("<?php _e('Cat');?>: "+toLongCategoria(res["Categoria"],res['Federation']));
 				// hide "Grado" Information if not applicable
@@ -400,7 +431,8 @@ function chrono_processEvents(id,evt) {
 	case 'open': // operator select tanda:
 		// update working data. when done update header
 	 	setupWorkingData(event['Pru'],event['Jor'],(event['Mng']>0)?event['Mng']:1,c_updateHeader);
-		// actualizar datos de prueba, jornada, manga y logotipo del club
+		// remove puesto info as no sense here
+		c_displayPuesto(false,0); // clear puesto
 		return;
 	case 'close': // no more dogs in tabla
 		c_clearData(event);
@@ -419,9 +451,11 @@ function chrono_processEvents(id,evt) {
 		return;
 	case 'salida': // orden de salida
         crm.text('').removeClass('blink');
+		c_displayPuesto(false,0); // clear puesto
 		c_llamada.start();
 		return;
 	case 'start': // arranque manual del cronometro
+		c_displayPuesto(false,0); // clear puesto
 		if (ssf.text()==="Auto") return; // si crono automatico, ignora
 		c_llamada.stop();
 		c_reconocimiento.stop();
@@ -436,8 +470,10 @@ function chrono_processEvents(id,evt) {
 		c_reconocimiento.stop();// also, not really needed, but...
 		ssf.text("Start");
 		cra.Chrono('stop',time);
+		c_displayPuesto(true,cra.Chrono('getValue')/1000);
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
+		c_displayPuesto(false,0);
 		ssf.text('Auto');
 		// si esta parado, arranca en modo automatico
 		if (!cra.Chrono('started')) {
@@ -467,6 +503,7 @@ function chrono_processEvents(id,evt) {
 		cre.text('').removeClass('blink'); // clear 'Sensor Error' mark
 		cra.Chrono('stop',time);
 		cra.Chrono('reset');
+		c_displayPuesto(false,0);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
 		if (!cra.Chrono('started')) return;		// si crono no esta activo, ignorar
@@ -481,6 +518,7 @@ function chrono_processEvents(id,evt) {
     case 'crono_stop':	// parada crono electronico
 		ssf.text("Start");
 		cra.Chrono('stop',time);
+		c_displayPuesto(true,cra.Chrono('getValue')/1000);
 		return;
 	case 'crono_dat': // operador pulsa botonera del crono
 		c_updateDataFromChrono(event);

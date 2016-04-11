@@ -54,6 +54,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span id="chrono_Eliminado" style="display:none">0</span>
 			<span class="chrono_data" id="chrono_NoPresentadoLbl"></span>
 			<span id="chrono_NoPresentado" style="display:none">0</span>
+			<span class="chrono_data" id="chrono_PuestoLbl"></span>
+			<span style="display:none" id="chrono_Puesto"></span>
 			<!-- Cronometro -->
 			<span class="chrono_flags" id="chrono_Manual"></span>
 			<span class="chrono_flags" id="chrono_Intermedio"></span>
@@ -71,6 +73,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span class="chrono_info" id="chrono_Celo"><?php _e('Heat');?></span>
     		<span id="chrono_timestamp" style="display:none"></span>
 			<span id="chrono_Perro" style="display:none" ></span>
+			<span id="chrono_Cat" style="display:none" ></span>
 		</div>
 	</div>
 
@@ -177,9 +180,10 @@ doLayout(layout,"#chrono_RehusesLbl",	700,	150,	50,		25	);
 doLayout(layout,"#chrono_Faltas",		750,	100,	35,		25	);
 doLayout(layout,"#chrono_Tocados",		750,	125,	35,		25	);
 doLayout(layout,"#chrono_Rehuses",		750,	150,	35,		25	);
-// same location for elim and np
+// same location for elim, np and puesto
 doLayout(layout,"#chrono_EliminadoLbl",	700,	175,	85,		25	);
 doLayout(layout,"#chrono_NoPresentadoLbl",	700,	175,	85,		25	);
+doLayout(layout,"#chrono_PuestoLbl",	700,	175,	85,		25	);
 
 doLayout(layout,"#chrono_Manual",		600,	30,	    55, 	10	);
 doLayout(layout,"#chrono_Intermedio",	580,	40,	    75, 	10	);

@@ -290,7 +290,8 @@ function vwls_showData(data) {
 
 /**
  * evaluate and display position for this dog
- * @param flag: true:evaluate, false:clear
+ * @param {boolean} flag: true:evaluate, false:clear
+ * @param {float} tiempo datatime from chronometer
  */
 function vwls_displayPuesto(flag,tiempo) {
 	// use text() instead of html() to skip every non-data items
@@ -310,7 +311,7 @@ function vwls_displayPuesto(flag,tiempo) {
 	} else {
 		getPuesto(datos,function(dat,res){
 			// remember received penal is 1000*P_recorrido + P_tiempo
-			if (parseFloat(res.penalizacion)>100000) return; // eliminado, no presentado o pendiente
+			if (parseFloat(res.penalizacion)>=100000) return; // eliminado, no presentado o pendiente
 			$('#vwls_PuestoLbl').html('- '+res.puesto+' -');
 		});
 	}

@@ -838,18 +838,18 @@ function competicionKeyEventHandler(evt) {
 
 /**
  * Evaluate puesto for given perro
- * @param {object} resultado
+ * @param {object} datos
  * @param {function} callback(resultado,puesto)
  * @returns {boolean}
  */
-function getPuesto(resultado,callback) {
-    var idperro=parseInt(resultado.Perro); // stupid javascript
-    var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,resultado.Categoria);
+function getPuesto(datos,callback) {
+    var idperro=parseInt(datos.Perro); // stupid javascript
+    var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,datos.Categoria);
     if (mode==-1) {
         $.messager.alert('<?php _e('Error'); ?>','<?php _e('Internal error: invalid Federation/Course/Category combination'); ?>','error');
         return false;
     }
-    console.log("perro:"+idperro+" categoria:"+resultado.Categoria+" mode:"+mode);
+    // console.log("perro:"+idperro+" categoria:"+datos.Categoria+" mode:"+mode);
     $.ajax({
         type:'GET',
         url:"/agility/server/database/resultadosFunctions.php",
@@ -859,17 +859,17 @@ function getPuesto(resultado,callback) {
             Prueba:		workingData.prueba,
             Jornada:	workingData.jornada,
             Manga:		workingData.manga,
-            Perro:      resultado.Perro,
+            Perro:      datos.Perro,
             Mode:       mode,
-            Penalizacion: resultado.Penalizacion
+            Penalizacion: datos.Penalizacion
         },
-        success: function(datos) {
-            if (datos.errorMsg) {
-                $.messager.alert('<?php _e('Error'); ?>',datos.errorMsg,'error');
+        success: function(result) {
+            if (result.errorMsg) {
+                $.messager.alert('<?php _e('Error'); ?>',result.errorMsg,'error');
                 return false;
             }
-            if (datos.success==true) {
-                callback(resultado,datos);
+            if (result.success==true) {
+                callback(datos,result);
                 return false;
             }
         }
