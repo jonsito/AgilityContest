@@ -835,14 +835,54 @@ function competicionKeyEventHandler(evt) {
 	}
 	return true; // to allow follow key binding chain
 }
+/**
+ * Evaluate puesto for given perro in final scores
+ * Notice that the dog data for current round is not yet stored
+ * @param {object} datos (idPerro, penalization on current round)
+ * @param {function} callback(resultado,puesto)
+ * @returns {boolean}
+ */
+function getPuestoFinal(datos,callback) {
+    var idperro=parseInt(datos.Perro); // stupid javascript
+    var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,datos.Categoria);
+    if (mode==-1) {
+        $.messager.alert('<?php _e('Error'); ?>','<?php _e('Internal error: invalid Federation/Course/Category combination'); ?>','error');
+        return false;
+    }
+    // console.log("perro:"+idperro+" categoria:"+datos.Categoria+" mode:"+mode);
+    $.ajax({
+        type:'GET',
+        url:"/agility/server/database/clasificacionesFunctions.php",
+        dataType:'json',
+        data: {
+            Operation:	'getPuesto',
+            Prueba:		workingData.prueba,
+            Jornada:	workingData.jornada,
+            Perro:      datos.Perro,
+            Mode:       mode,
+            Penalizacion: datos.Penalizacion
+        },
+        success: function(result) {
+            if (result.errorMsg) {
+                $.messager.alert('<?php _e('Error'); ?>',result.errorMsg,'error');
+                return false;
+            }
+            if (result.success==true) {
+                callback(datos,result);
+                return false;
+            }
+        }
+    });
+    return false;
+}
 
 /**
- * Evaluate puesto for given perro
+ * Evaluate puesto for given perro in current round
  * @param {object} datos
  * @param {function} callback(resultado,puesto)
  * @returns {boolean}
  */
-function getPuesto(datos,callback) {
+function getPuestoParcial(datos,callback) {
     var idperro=parseInt(datos.Perro); // stupid javascript
     var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,datos.Categoria);
     if (mode==-1) {

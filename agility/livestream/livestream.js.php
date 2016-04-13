@@ -128,7 +128,7 @@ function vwls_displayPuesto(flag,tiempo) {
 	if (!flag) {
 		$('#vwls_PuestoLbl').html('');
 	} else {
-		getPuesto(datos,function(dat,res){
+		getPuestoFinal(datos,function(dat,res){
 			// remember received penal is 1000*P_recorrido + P_tiempo
 			if (parseFloat(res.penalizacion)>=100000) return; // eliminado, no presentado o pendiente
 			$('#vwls_PuestoLbl').html('- '+res.puesto+' -');

@@ -446,7 +446,7 @@ class Resultados extends DBObject {
 	 * Evalua el puesto en que ha quedado un perro determinado
 	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8 L+M+S+T
 	 * @param {integer} $perro Dog ID
-	 * @param penal dog penalization ( not yet stored into database 1000*PR+Tiempo)
+	 * @param {float} penal dog penalization ( not yet stored into database 1000*PR+Tiempo)
 	 *@return {array} requested data or error
 	 */
 	function getPuesto($mode,$perro,$penal) {

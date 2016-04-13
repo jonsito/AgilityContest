@@ -42,10 +42,10 @@ try {
 		case "update": $am->access(PERMS_ASSISTANT); $result=$resultados->update($idperro); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$resultados->delete($idperro); break;
 		case "select": $result=$resultados->select($idperro); break;
-		case "reset": $result=$resultados->reset(); break;
+		case "reset": $am->access(PERMS_OPERATOR); $result=$resultados->reset(); break;
 		case "getPendientes": $result=$resultados->getPendientes($mode); break;
 		case "getResultados": $result=$resultados->getResultados($mode); break;
-		case "getPuesto": $result=$resultados->getPuesto($mode,$idperro,$penal); break;
+		case "getPuesto": $result=$resultados->getPuesto($mode,$idperro,$penal);
 		case "getTRS": $result=$resultados->getTRS($mode); break;
 		case "bestTimes": $result=$resultados->bestTimes($mode); break;
 		default: throw new Exception("resultadosFunctions:: invalid operation: $operation provided");

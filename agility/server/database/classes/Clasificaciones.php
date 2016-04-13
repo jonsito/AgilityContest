@@ -290,5 +290,65 @@ class Clasificaciones extends DBObject {
         // arriving here means error
         return null;
 	}
+
+	/**
+	 * Evalua el puesto en que ha quedado un perro determinado en la clasificacion final
+	 * hay que tener en cuenta que en esta clasificacion, el perro en cuestion todavia
+	 * no tiene los datos de (al menos) una manga almacenados, con lo que si nos lo encontramos,
+	 * habrá que quitar "1 pendiente" y substituirlo por los datos que tenemos
+	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8 L+M+S+T
+	 *@param {integer} $perro Dog ID
+	 *@param {float} penal dog penalization ( not yet stored into database 1000*PR+Tiempo)
+	 *@return {array} requested data or error
+	 */
+	function getPuestoFinal($mode,$perro,$penal) {
+		$jornada=$this->jornada->ID;
+
+		// FASE 0: en funcion del tipo de recorrido y modo pedido
+		// ajustamos el criterio de busqueda de la tabla de resultados
+		$where="(Jornada=$jornada) AND (SUM(Pendiente)>0) ";
+		$cat="";
+		switch ($mode) {
+			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
+			case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
+			case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
+			case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
+			case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
+			case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
+			case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
+			case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
+			case 8: /* L+M+S+T */	break; // no check categoria
+			default:
+				$this->myLogger->leave();
+				return $this->error("modo de recorrido desconocido:$mode");
+		}
+		// FASE 1: recogemos resultados ordenados por 1000*precorrido+tiempo
+		$res=$this->__select(
+			"Dorsal,Perro , 1000*( 5*SUM(Faltas) + 5*SUM(Rehuses) + 5*SUM(Tocados) + 100*SUM(Eliminado) + 200*SUM(NoPresentado)+ 400*SUM(Pendiente) ) + SUM(Tiempo) AS Penal",
+			"Resultados",
+			"$where $cat GROUP BY Perro",
+			"Penal ASC",
+			"");
+		if (!is_array($res)){
+			$this->myLogger->leave();
+			return $this->error($this->conn->error);
+		}
+		// fase 2: buscamos el puesto en el que ha quedado el perro
+		$table=$res['rows'];
+		$count=$res['total'];
+		for ($n=0;$n<$count;$n++) {
+			// si el perro es el que estamos buscando, le quitamos un "pendiente"
+			if ($table[$n]['Perro']==$perro) {
+				if ($table[$n]['Penal']>=400000) $table[$n]['Penal']-=400000;
+				else $this->myLogger->notice("Dog $perro has no result(s) pending. getPuesto() may not be accurate");
+			}
+			if ($table[$n]['Penal']<$penal) continue;
+			// Compose and return response
+			return array( 'success'=>true,'puesto'=>1+$n,'penalizacion'=>$penal);
+		}
+		// dog not found. assume last
+		$this->myLogger->trace("Dog $perro not found evaluating puesto");
+		return array( 'success'=>true,'puesto'=>$count,'penalizacion'=>400000);
+	}
 }
 ?>
