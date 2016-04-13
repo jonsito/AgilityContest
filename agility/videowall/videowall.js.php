@@ -21,6 +21,15 @@ require_once(__DIR__."/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
+var myCounter = new Countdown({
+	seconds:15,  // number of seconds to count down
+	onUpdateStatus: function(tsec){
+		$('#vwls_Tiempo').html(toFixedT((tsec/10),1));
+	}, // callback for each tenth of second
+	// onCounterEnd: function(){  $('#vwls_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
+	onCounterEnd: function(){ /* let the tablet to tell us what to do */ }
+});
+
 /**
  * Presenta el logo en pantalla
  * @param {int} val nombre delo logo
@@ -316,15 +325,6 @@ function vwls_displayPuesto(flag,tiempo) {
 		});
 	}
 }
-
-var myCounter = new Countdown({  
-    seconds:15,  // number of seconds to count down
-    onUpdateStatus: function(tsec){
-		$('#vwls_Tiempo').html(toFixedT((tsec/10),1));
-	}, // callback for each tenth of second
-    // onCounterEnd: function(){  $('#vwls_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
-    onCounterEnd: function(){ /* let the tablet to tell us what to do */ }
-});
 
 /**
  * Actualiza el datagrid de llamada a pista con los datos recibidos
@@ -762,10 +762,20 @@ function vw_updateOrdenSalida(evt,data) {
     });
 }
 
-function vw_autoscroll(id,target) {
-    $(id).animate({
-        scrollTop: $(target).offset().top
-    }, 1000);
+function vw_autoscroll(dg,pos) {
+	var pTime=parseInt(ac_config.vw_polltime); // seconds
+	if (pTime==0) { // autoscroll. stay on top
+		dg.datagrid('scrollTo',0);
+		return;
+	}
+	var size=dg.datagrid('getRows').length;
+	setTimeout(function(){
+		dg.datagrid('scrollTo',pos);
+		if ( pos==(size-1)) pos=0; // at end: go to beging
+		else pos+=10;
+		if (pos>=size) pos=size-1; // next to end: pos at end
+		vw_autoscroll(dg,pos);
+	},1000*pTime);
 }
 
 /**

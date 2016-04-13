@@ -93,7 +93,7 @@ $config =Config::getInstance();
 		
 		<div title="<?php _e('VideoWall'); ?>" style="padding:10px">
 			<h3><?php _e('Video wall configurable parameters'); ?></h3>
-			<label for="vw_polltime"><?php _e('Refresh period (seg.)'); ?></label>
+			<label for="vw_polltime"><?php _e('AutoScroll period (seg.)'); ?></label>
 			<input id="vw_polltime" name="vw_polltime" type="text" size="2" value="5"/><br />
 			<label for="vw_hdrbg1"><?php _e('Background color for main header'); ?></label>
 			<input id="vw_hdrbg1" name="vw_hdrbg1" type="color" value="#0000ff"/><br />

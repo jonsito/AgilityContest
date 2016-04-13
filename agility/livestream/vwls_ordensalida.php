@@ -68,9 +68,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 </div>
 
                 <div id="vw_tabla" data-options="region:'center'">
-                    <a href="#vwls_bottom" id="vwls_top"></a>
                     <table id="vw_ordensalida-datagrid"></table>
-                    <a href="#vwls_top" id="vwls_bottom"></a>
                 </div>
 
                 <div id="vw_ordensalida-footer" data-options="region:'south',split:false" class="vw_floatingfooter"
@@ -162,7 +160,7 @@ $('#vw_ordensalida-datagrid').datagrid({
         }
         mySelf.datagrid('fitColumns'); // expand to max width
         // and start autoscroll
-        vw_autoscroll('#vw_tabla','#vwls_bottom');
+        vw_autoscroll(mySelf,0);
     }
 });
 

@@ -66,6 +66,7 @@
 				stopTime=startTime;
 				pauseTime=startTime;
 				running = true;
+				paused = false;
 				run_chrono();
 			}
 			if (config.triggerEvents) $(config.target).trigger('chronostart');
@@ -80,6 +81,7 @@
 				if(typeof timestamp === 'undefined') stopTime=Date.now();
 				else stopTime=timestamp;
 				running = false;
+				paused = false;
 			}
             if (config.triggerEvents) $(config.target).trigger('chronostop');
 		},
@@ -156,10 +158,7 @@
 			config.minutes	= config.minutes % 60;
 			config.days		= Math.floor(config.hours / 24);
 			config.hours    = config.hours % 24;
-			view_chrono(elapsed);
-			return;
-		}
-		if (running ) {
+		} else if (running ) {
 			elapsed		= now-localTime; // use localTime to evaluate time lapse
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);
@@ -169,8 +168,7 @@
 			config.minutes	= config.minutes % 60;
 			config.days		= Math.floor(config.hours / 24);
 			config.hours    = config.hours % 24;
-			if (!paused) setTimeout(run_chrono,config.interval);
-			view_chrono(elapsed);
+			setTimeout(run_chrono,config.interval);
 		} else { // chrono stopped; show data at least once
 			elapsed		= stopTime-startTime; // use real startTime instead of localTime
 			config.mseconds	= elapsed % 1000;
@@ -181,8 +179,8 @@
 			config.minutes	= config.minutes % 60;
 			config.days		= Math.floor(config.hours / 24);
 			config.hours    = config.hours % 24;
-			view_chrono(elapsed);
 		}
+		view_chrono(elapsed);
 	}
 	
 	function view_chrono(elapsed){
