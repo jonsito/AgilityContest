@@ -153,7 +153,7 @@ $('#vw_parciales-datagrid').datagrid({
         { field:'Equipo',		hidden:true },
         { field:'NombreEquipo',	hidden:true },
         { field:'Dorsal',		width:'5%', align:'center', title: '<?php _e('Dorsal'); ?>'},
-        { field:'LogoClub',		width:'5%', align:'center', title: '', formatter:formatLogoVideoWall},
+        { field:'LogoClub',		width:'5%', align:'center', title: '', formatter:vwls_formatLogoLiveStream},
         { field:'Licencia',		width:'5%%', align:'center',  title: '<?php _e('License'); ?>'},
         { field:'Nombre',		width:'10%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
         { field:'NombreGuia',	width:'15%', align:'right', title: '<?php _e('Handler'); ?>' },

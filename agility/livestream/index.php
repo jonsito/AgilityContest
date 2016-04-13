@@ -69,6 +69,7 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/livestream/livestream.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/videowall/videowall.js.php" type="text/javascript" charset="utf-8" > </script>
 
 

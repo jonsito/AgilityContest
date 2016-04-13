@@ -216,7 +216,6 @@ var eventHandler= {
 	},
 	'datos': function(event,time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
-        vwcp_evalPenalizacion();
 	},
 	'llamada': function(event,time) {    // llamada a pista
 		var crm=$('#cronometro');
@@ -281,7 +280,6 @@ var eventHandler= {
 		var crm=$('#cronometro');
 		if (!crm.Chrono('started')) return;	// si crono no esta activo, ignorar
 		crm.Chrono('pause',time);
-        vwcp_evalPenalizacion();
         setTimeout(function(){crm.Chrono('resume');},5000);
 	},
 	'crono_stop':  function(event,time){	// parada crono electronico
@@ -297,11 +295,9 @@ var eventHandler= {
 		crm.Chrono('stop',time);
 		crm.Chrono('reset',time);
 		vwls_displayPuesto(false,0);
-		vwcf_evalPenalizacion();
 	},
 	'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
 		vwls_updateChronoData(event);
-        vwcp_evalPenalizacion();
 	},
 	'crono_error':  null, // fallo en los sensores de paso
 	'aceptar':	function(event,time){ // operador pulsa aceptar
