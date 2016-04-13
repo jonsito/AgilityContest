@@ -234,6 +234,47 @@ function vw_updateLlamada(evt,data) {
 }
 
 /**
+ * evaluate position in hall of fame (partial results)
+ * When chrono stops this script is invoked instead of vwcp_evalPenalization()
+ * Do not evaluate trs/trm. just iterate on datagrid results to find position
+ * @param {boolean} flag display on/off
+ * @param {float} time measured from chrono (do not read html dom content)
+ */
+function vwcp_displayPuesto(flag,time) {
+    // if requested, turn off data
+    if (!flag) { $('#vwls_Puesto').html(''); return; }
+    // use set timeout to make sure data are already refreshed
+    setTimeout(function(){
+        // phase 1 retrieve results
+        // use text() instead of html() avoid extra html code
+        var f=parseInt($('#vwls_Faltas').text());
+        var t=parseInt($('#vwls_Tocados').text());
+        var r=parseInt($('#vwls_Rehuses').text());
+        var e=parseInt($('#vwls_Eliminado').text());
+        var n=parseInt($('#vwls_NoPresentado').text());
+        var penal=1000.0*(5*f+5*t+5*r+100*e+200*n)+time;
+        // phase 2: iterate result table to find position
+        var str="";
+        if (penal>=200000)  str='<span class="blink" style="color:red;"><?php _e('NoPr');?>.</span>'; // no presentado
+        else if (penal>=100000) str='<span class="blink" style="color:red;"><?php _e('Elim');?>.</span>'; // eliminado
+        else { // evaluamos posicion
+            var results=$('#vw_parciales-datagrid').datagrid('getData')['rows'];
+            if (typeof(results)!=="undefined") { // no data: ignore
+                for (var i=0; i<results.length;i++) {
+                    var rp=parseFloat(1000*results[i]['PRecorrido'])+parseFloat(results[i]['Tiempo']);
+                    if (rp<penal) continue;
+                    str="- "+Number(i+1).toString()+" -";
+                    break;
+                }
+                // if at end set as last dog
+                if (str=="") str="- "+Number(i+1).toString()+" -";
+            }
+        }
+        $('#vwls_Puesto').html(str);
+    },0);
+}
+
+/**
  * each time that "datos" or "chrono_int" arrives, evaluate position of current team
  */
 function vwc_evalPenalizacion(trs,trm,time) {
@@ -353,7 +394,7 @@ function vwcp_updateLlamada(evt,data) {
 		url: "/agility/server/web/videowall.php",
 		data: {
 			Operation: 'window',
-			Before: 4,
+			Before: 3,
 			After: 15,
 			Perro: parseInt(evt['Dog']),
 			Session: workingData.sesion
