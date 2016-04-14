@@ -238,32 +238,38 @@ function vw_updateLlamada(evt,data) {
  * When chrono stops this script is invoked instead of vwcf_evalPenalization()
  * Do not evaluate trs/trm. just iterate on datagrid results to find position
  * @param {boolean} flag display on/off
- * @param {float} tiempo measured from chrono (do not read html dom content)
+ * @param {float} time measured from chrono (do not read html dom content)
  */
-function vwcf_displayPuesto(flag,tiempo) {
-	vwcf_evalPenalizacion();
-/*
+function vwcf_displayPuesto(flag,time) {
 	// if requested, turn off data
-	if (!flag) { $('#vwls_Puesto').html(''); return; }
-	// execute with setTimeout(0) to assure dom data is right
+	var perro=$('#vwls_Perro').text();
+	if (!flag || (perro==0) ) { $('#vwls_Puesto').html(''); return; }
+	// use set timeout to make sure data are already refreshed
 	setTimeout(function(){
-		// use text() instead of html() to skip every non-data items
-		var f=parseFloat($('#vwls_Faltas').text());
-		var t=parseFloat($('#vwls_Tocados').text());
-		var r=parseFloat($('#vwls_Rehuses').text());
-		var n=parseFloat($('#vwls_NoPresentado').text());
-		var e=parseFloat($('#vwls_Eliminado').text());
-		var penal=parseFloat(tiempo)+1000*(5*f+5*t+5*r+100*e+200*n);
-		var datos = {
-			'Perro': $('#vwls_Perro').text(),
-			'Categoria': $('#vwls_Categoria').text(),
-			'Penalizacion': penal
+		// phase 1 retrieve results
+		// use text() instead of html() avoid extra html code
+		var datos= {
+			'Perro':	perro,
+			'Categoria':$('#vwls_Categoria').text(),
+			'Grado':	$('#vwls_Grado').text(),
+			'Faltas':	$('#vwls_Faltas').text(),
+			'Tocados':	$('#vwls_Tocados').text(),
+			'Rehuses':	$('#vwls_Rehuses').text(),
+			'Eliminado':$('#vwls_Eliminado').text(),
+			'NoPresentado':$('#vwls_NoPresentado').text(),
+			'Tiempo':	time
 		};
-		getPuestoFinal(datos,function(dat,res){
-			$('#vwls_Puesto').html('- '+res.puesto+' -');
+		// phase 2: do not call server if eliminado or not presentado
+		if (datos.NoPresentado=="1") {
+			$('#vwls_Puesto').html('<span class="blink" style="color:red;"><?php _e('NoPr');?>.</span>');// no presentado
+			return;
+		}
+		// on eliminado, do not blink error, as we don't know data on the other round.
+		// phase 3: call server to evaluate partial result position
+		getPuestoFinal(datos,function(data,resultados){
+			$('#vwls_Puesto').html('- '+Number(resultados.puesto).toString()+' -');
 		});
 	},0);
-*/
 }
 
 /**
@@ -275,13 +281,14 @@ function vwcf_displayPuesto(flag,tiempo) {
  */
 function vwcp_displayPuesto(flag,time) {
     // if requested, turn off data
-    if (!flag) { $('#vwls_Puesto').html(''); return; }
+    var perro=$('#vwls_Perro').text();
+    if (!flag || (perro==0) ) { $('#vwls_Puesto').html(''); return; }
     // use set timeout to make sure data are already refreshed
     setTimeout(function(){
         // phase 1 retrieve results
         // use text() instead of html() avoid extra html code
 		var datos= {
-            'Perro':	$('#vwls_Perro').text(),
+            'Perro':	perro,
             'Categoria':$('#vwls_Categoria').text(),
             'Grado':	$('#vwls_Grado').text(),
 			'Faltas':	$('#vwls_Faltas').text(),
@@ -300,7 +307,7 @@ function vwcp_displayPuesto(flag,time) {
 			$('#vwls_Puesto').html('<span class="blink" style="color:red;"><?php _e('Elim');?>.</span>');// eliminado
 			return;
 		}
-        // phase 2: call server to evaluate partial result position
+        // phase 3: call server to evaluate partial result position
 		getPuestoParcial(datos,function(data,resultados){
 			$('#vwls_Puesto').html('- '+Number(resultados.puesto).toString()+' -');
 		});

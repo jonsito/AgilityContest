@@ -112,26 +112,30 @@ function vwls_showData(data) {
  * @param {boolean} flag: true:evaluate, false:clear
  * @param {float} tiempo datatime from chronometer
  */
-function vwls_displayPuesto(flag,tiempo) {
-	// use text() instead of html() to skip every non-data items
-	var f=parseFloat($('#vwls_Faltas').text());
-	var t=parseFloat($('#vwls_Tocados').text());
-	var r=parseFloat($('#vwls_Rehuses').text());
-	var n=parseFloat($('#vwls_NoPresentado').text());
-	var e=parseFloat($('#vwls_Eliminado').text());
-	var penal=tiempo+1000*(5*f+5*t+5*r+100*e+200*n);
-	var datos = {
-		'Perro': $('#vwls_Perro').text(),
-		'Categoria': $('#vwls_Cat').text(),
-		'Penalizacion': penal
-	};
-	if (!flag) {
-		$('#vwls_PuestoLbl').html('');
-	} else {
-		getPuestoFinal(datos,function(dat,res){
-			// remember received penal is 1000*P_recorrido + P_tiempo
-			if (parseFloat(res.penalizacion)>=100000) return; // eliminado, no presentado o pendiente
-			$('#vwls_PuestoLbl').html('- '+res.puesto+' -');
+function vwls_displayPuesto(flag,time) {
+	// if requested, turn off data
+	var perro=$('#vwls_Perro').text();
+	if (!flag || (perro==0) ) { $('#vwls_PuestoLbl').html(''); return; }
+	// use set timeout to make sure data are already refreshed
+	setTimeout(function(){
+		// phase 1 retrieve results
+		// use text() instead of html() avoid extra html code
+		var datos= {
+			'Perro':	perro,
+			'Categoria':$('#vwls_Cat').text(),
+			'Grado':	$('#vwls_Grado').text(),
+			'Faltas':	$('#vwls_Faltas').text(),
+			'Tocados':	$('#vwls_Tocados').text(),
+			'Rehuses':	$('#vwls_Rehuses').text(),
+			'Eliminado':$('#vwls_Eliminado').text(),
+			'NoPresentado':$('#vwls_NoPresentado').text(),
+			'Tiempo':	time
+		};
+		// phase 2: do not call server if eliminado or not presentado. Also don't display anything (already done)
+		if ( (datos.NoPresentado=="1") || (datos.Eliminado=="1")) { $('#vwls_PuestoLbl').html(''); return; }
+		// phase 3: call server to evaluate partial result position
+		getPuestoFinal(datos,function(data,resultados){
+			$('#vwls_PuestoLbl').html('- '+Number(resultados.puesto).toString()+' -');
 		});
-	}
+	},0);
 }

@@ -443,18 +443,25 @@ class Resultados extends DBObject {
 	}
 
 	/**
-	 * Evalua el puesto en que ha quedado un perro determinado
+	 * Compone un array de tiempo/penalizaciones anyadiendo el perro que le indicamos
+     * Se utiliza para obtener el puesto de un perro cuando todavia NO ha sido insertado en la base de datos
+     * Si perro es null entonces no se anyade nada
 	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8 L+M+S+T
-	 * @param {array} { perro,faltas,tocados,rehuses,eliminado,nopresentado,tiempo }
-	 *@return {array} requested data or error
+	 *@param {array} { perro,faltas,tocados,rehuses,eliminado,nopresentado,tiempo }
+	 *@return {array} dog data with penal/time ordered
 	 */
-	function getPuesto($mode,$perro) {
+	function getPenalizaciones($mode,$perro=null) {
 		$this->myLogger->enter();
 		$idmanga=$this->IDManga;
-		$idperro=intval($perro['Perro']);
-		// FASE 0: en funcion del tipo de recorrido y modo pedido
-		// ajustamos el criterio de busqueda de la tabla de resultados
-		$where="(Manga=$idmanga) AND (Pendiente=0) AND (Perro!=$idperro)";
+
+        // FASE 0: en funcion del tipo de recorrido y modo pedido
+        $idperro=0;
+        $where="(Manga=$idmanga) AND (Pendiente=0) ";
+        if ($perro!=null) {
+            $idperro=intval($perro['Perro']);
+            // ajustamos el criterio de busqueda de la tabla de resultados
+            $where="(Manga=$idmanga) AND (Pendiente=0) AND (Perro!=$idperro)";
+        }
 		$cat="";
 		switch ($mode) {
 			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
@@ -482,33 +489,30 @@ class Resultados extends DBObject {
 		$table=&$res['rows']; // reference copy to economize memory and time
 		$size=$res['total'];
 
-		// FASE 2: insertamos datos de nuestro perro.
-		// Dado que el array anterior ya esta ordenado,
-		// el metodo mas rapido es el de insercion directa
-		$myPerro=array(
-			'Perro' => $idperro,
-			'Tiempo' => $perro['Tiempo'],
-			'PRecorrido' => 5*$perro['Faltas'] + 5*$perro['Rehuses'] + 5*$perro['Tocados'] + 100*$perro['Eliminado'] + 200*$perro['NoPresentado'],
-			'PTiempo' => 0.0,
-			'Penalizacion' => 0.0,
-		);
-		for ($n=0;$n<$size;$n++) {
-			$this->myLogger->trace("Index:$n Perro:{$table[$n]['Perro']} PRecorrido:{$table[$n]['PRecorrido']} Tiempo:{$table[$n]['Tiempo']}");
-			if ($table[$n]['PRecorrido']<$myPerro['PRecorrido']) continue;
-			if ($table[$n]['PRecorrido']==$myPerro['PRecorrido']) {
-				if ($table[$n]['Tiempo']<$myPerro['Tiempo']) continue;
-			}
-			// arriving here means need to insert $myPerro at index $n
-
-			$this->myLogger->trace("Inserting at Index:$n Perro:{$myPerro['Perro']} PRecorrido:{$myPerro['PRecorrido']} Tiempo:{$myPerro['Tiempo']}");
-			array_splice( $table, $n, 0, array($myPerro) ); // notice the "array(myPerro)" closure to preserva myPerro as a single element
-			$size++;
-			break;
-		}
+		// FASE 2: si es necesario insertamos datos de nuestro perro.
+		// Dado que el array anterior ya esta ordenado,el metodo mas rapido es el de insercion directa
+        if ($idperro!=0) {
+            $myPerro=array(
+                'Perro' => $idperro,
+                'Tiempo' => $perro['Tiempo'],
+                'PRecorrido' => 5*$perro['Faltas'] + 5*$perro['Rehuses'] + 5*$perro['Tocados'] + 100*$perro['Eliminado'] + 200*$perro['NoPresentado'],
+                'PTiempo' => 0.0,
+                'Penalizacion' => 0.0,
+            );
+            for ($n=0;$n<$size;$n++) {
+                if ($table[$n]['PRecorrido']<$myPerro['PRecorrido']) continue;
+                if ($table[$n]['PRecorrido']==$myPerro['PRecorrido']) {
+                    if ($table[$n]['Tiempo']<$myPerro['Tiempo']) continue;
+                }
+                // arriving here means need to insert $myPerro at index $n
+                array_splice( $table, $n, 0, array($myPerro) ); // notice the "array(myPerro)" closure to preserva myPerro as a single element
+                $size++;
+                break;
+            }
+        }
 
 		// FASE 3: evaluamos TRS Y TRM
 		$tdata=$this->evalTRS($mode,$table); // array( 'dist' 'obst' 'trs' 'trm', 'vel')
-		$res['trs']=$tdata; // store trs data into result
 		$trs=$tdata['trs'];
 		$trm=$tdata['trm'];
 
@@ -539,6 +543,29 @@ class Resultados extends DBObject {
 			return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
 		});
 
+		// FASE 5 finalmente componemos datos del array a retornar
+		$result=array(
+			'rows' => $table,
+			'total' => count($table),
+			'manga' => $this->getDatosManga(),
+			'trs' => $tdata
+		);
+		$this->myLogger->leave();
+		return $result;
+	}
+
+    /**
+     * Obtiene el puesto de un perro cuando todavia NO ha sido insertado en la base de datos
+     *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8 L+M+S+T
+     *@param {array} { perro,faltas,tocados,rehuses,eliminado,nopresentado,tiempo }
+     *@return {array} dog data with penal/time ordered
+     */
+	function getPuesto($mode,$perro) {
+		$res=$this->getPenalizaciones($mode,$perro);
+		if (!is_array($res)) return $res;
+		$table=$res['rows'];
+		$size=$res['total'];
+		$idperro=$perro['Perro'];
 		// FASE 5: buscamos el puesto en el que finalmente ha quedado $myPerro y lo retornamos
 		for ($idx=0;$idx<$size;$idx++ ){
 			if ($table[$idx]['Perro']!=$idperro) continue;

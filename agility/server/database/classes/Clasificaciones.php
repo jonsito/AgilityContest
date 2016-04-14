@@ -28,7 +28,6 @@ class Clasificaciones extends DBObject {
 	protected $jornada;
 	protected $ronda;
 	protected $mangas;
-	protected $mode;
 
 	/**
 	 * Constructor
@@ -102,8 +101,8 @@ class Clasificaciones extends DBObject {
                 'E2' => 0,
                 'N2' => 0,
 				'T2' => 0,
-				'P2' => 400,
 				'V2' => 0,
+				'P2' => 400,
 				'C2' => '',
                 'Puesto2' => 0,
                 'Pcat2' => 0,
@@ -218,7 +217,77 @@ class Clasificaciones extends DBObject {
         $result['jueces']=array($c1['manga']->NombreJuez1,$c1['manga']->NombreJuez2);
 		return $result;
 	}
-	
+
+	/**
+	 * genera la tabla de resultados finales y evalua el orden de clasificacion
+	 * @param {array} $c1 clasificacion primera manga
+	 * @param {array} $c2 clasificacion segunda manga
+	 * @param {integer} $mode Modo 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
+	 */
+	function evalPenalizacionFinal($idmangas,$c1,$c2,$mode) {
+		$this->myLogger->enter();
+		$m1=$this->__getObject("Mangas",$idmangas[0]);
+		$m2=$this->__getObject("Mangas",$idmangas[1]);
+		$final=array(); // puesto,dorsal, nombre, licencia,categoria,grado, nombreguia, nombreclub,
+		// F1,R1,T1,V1,P1,C1,F2,R2,T2,V2,P2,C2, Penalizacion,Calificacion
+		// Procesamos la primera manga y generamos una segunda manga "fake"
+		foreach($c1['rows'] as $item) {
+			$participante=array(
+				// datos del participante
+				'Participantes' => count($c1['rows']),
+				'Perro' => $item['Perro'],
+				// datos manga 1
+				'T1' => floatval($item['Tiempo']),
+				'P1' => $item['Penalizacion'],
+				// datos fake manga 2 ( to be filled if so )
+				'T2' => 0,
+				'P2' => 400,
+				// datos globales
+				'Tiempo' => $item['Tiempo'],
+				'Penalizacion' => $item['Penalizacion'] + 400
+			);
+			$final[$item['Perro']]=$participante;
+		}
+		if ($c2!=null) { // Procesamos la segunda manga
+			foreach($c2['rows'] as $item) {
+				if (!isset($final[$item['Perro']])) {
+					$this->myLogger->notice("El perro con ID:{$item['Perro']} no tiene datos en la primera manga.");
+					$final[$item['Perro']]= array( // generamos datos de primera manga vacios
+						// datos del participante
+						'Participantes' => count($c2['rows']),
+						'Perro' => $item['Perro'],
+						// datos manga 1
+						'T1' => 0,
+						'P1' => 400
+					);
+				}
+				$final[$item['Perro']]['T2'] = floatval($item['Tiempo']);
+				$final[$item['Perro']]['P2'] = $item['Penalizacion'];
+				$final[$item['Perro']]['Tiempo'] = $final[$item['Perro']]['T1'] + $final[$item['Perro']]['T2'];
+				$final[$item['Perro']]['Penalizacion'] = $final[$item['Perro']]['P1'] + $final[$item['Perro']]['P2'];
+			}
+		}
+		// una vez ordenados, el índice perro ya no tiene sentido, con lo que vamos a eliminarlo
+		// y reconstruir el array
+		$final2=array();
+		foreach($final as $item) array_push($final2,$item);
+		$final=$final2;
+
+		// re-ordenamos los datos en base a la puntuacion
+		usort($final, function($a, $b) {
+			if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
+			return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
+		});
+
+		// Esto es (casi) todo, amigos
+		$result=array();
+		$result['total']=count($final);
+		$result['rows']=$final;
+		$result['trs1']=$c1['trs'];
+		$result['trs2']=$c2['trs'];
+		return $result;
+	}
+
 	/**
 	 * mezcla los arrays de resultados de dos categorias en uno solo
 	 * @param {array} $c1 array['trs'=> datos de trs,'manga' => datos de la manga,'rows' =>resultados]
@@ -297,15 +366,45 @@ class Clasificaciones extends DBObject {
 	 * no tiene los datos de (al menos) una manga almacenados, con lo que si nos lo encontramos,
 	 * habrá que quitar "1 pendiente" y substituirlo por los datos que tenemos
 	 *
-	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8 L+M+S+T
-	 *@param {integer} $perro Dog ID
-	 *@param {float} penal dog penalization ( not yet stored into database 1000*PR+Tiempo)
+     * Esta funcion no tiene en cuenta pruebas por equipos ni ko. simplemente considera las dos primeras
+     * mangas (o solo la primera, si no hay manga hermana
+     *
+	 *@param {integer} $mode Modo 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
+	 *@param {array} $perro datos del perro (Perro,Faltas,Tocados,Rehuses,Eliminado,NoPresentado,Tiempo,IDManga)
 	 *@return {array} requested data or error
 	 */
-	function getPuestoFinal($mode,$perro,$penal) {
-		// dog not found. assume last
-		$this->myLogger->trace("getPuestoFinal() not yet implemented");
-		return array( 'success'=>true,'puesto'=>0,'penalizacion'=>400000);
+	function getPuestoFinal($mode,$perro) {
+		$result=null;
+		$myManga=$perro['Manga'];
+        // buscamos la manga hermana
+        $mng=new Mangas("getPuestoFinal",$this->jornada->ID);
+        $hermanas=$mng->getHermanas($myManga);
+        $id1=intval($hermanas[0]->ID);
+        $id2=0;
+        $r1= new Resultados("Clasificaciones::Preagility 1",$this->prueba->ID,$id1);
+        $c1=$r1->getPenalizaciones($mode,($myManga==$id1)?$perro:null);
+        $c2=null;
+        if($hermanas[1]!=null) {
+            $id2=intval($hermanas[1]->ID);
+            $r2= new Resultados("Clasificaciones::Preagility 1",$this->prueba->ID,$id2);
+            $c2=$r2->getPenalizaciones($mode,($myManga==$id2)?$perro:null);
+        }
+        $result= $this->evalPenalizacionFinal(array($id1,$id2),$c1,$c2,$mode);
+
+		if($result==null) return null; // null result -> error
+		if (!is_array($result)) return $result;
+
+		// iterate result to find our dog
+		$table=$result['rows'];
+		$size=$result['total'];
+		$idperro=$perro['Perro'];
+		// buscamos el puesto en el que finalmente ha quedado $myPerro y lo retornamos
+		for ($idx=0;$idx<$size;$idx++ ){
+			if ($table[$idx]['Perro']!=$idperro) continue;
+			return array( 'success'=>true,'puesto'=>(1+$idx),'penalizacion'=>$table[$idx]['Penalizacion']);
+		}
+		//arriving here means error: perro not found
+		return $this->error("Perro:$idperro not found in clasificaciones::getPuesto()");
 	}
 }
 ?>
