@@ -881,33 +881,30 @@ function getPuestoFinal(datos,callback) {
 
 /**
  * Evaluate puesto for given perro in current round
- * @param {object} datos
+ * @param {object} datos Perro,Faltas,Tocados,Rehuses,Eliminado,NoPresentado,Tiempo
  * @param {function} callback(resultado,puesto)
  * @returns {boolean}
  */
 function getPuestoParcial(datos,callback) {
-    return false; // TODO: need to enterely rewrite server side code. so disable until done
-/*
     var idperro=parseInt(datos.Perro); // stupid javascript
     var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,datos.Categoria);
     if (mode==-1) {
         $.messager.alert('<?php _e('Error'); ?>','<?php _e('Internal error: invalid Federation/Course/Category combination'); ?>','error');
         return false;
     }
+    var param= {
+        Operation:	'getPuesto',
+        Prueba:		workingData.prueba,
+        Jornada:	workingData.jornada,
+        Manga:		workingData.manga,
+        Mode:       mode
+    };
     // console.log("perro:"+idperro+" categoria:"+datos.Categoria+" mode:"+mode);
     $.ajax({
         type:'GET',
         url:"/agility/server/database/resultadosFunctions.php",
         dataType:'json',
-        data: {
-            Operation:	'getPuesto',
-            Prueba:		workingData.prueba,
-            Jornada:	workingData.jornada,
-            Manga:		workingData.manga,
-            Perro:      datos.Perro,
-            Mode:       mode,
-            Penalizacion: datos.Penalizacion
-        },
+        data: $.extend({},param,datos),
         success: function(result) {
             if (result.errorMsg) {
                 $.messager.alert('<?php _e('Error'); ?>',result.errorMsg,'error');
@@ -920,7 +917,6 @@ function getPuestoParcial(datos,callback) {
         }
     });
     return false;
-*/
 }
 
 /** 

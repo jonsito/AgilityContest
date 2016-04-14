@@ -135,7 +135,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         onUpdate: function(elapsed,running,paused) {
             var time=parseFloat(elapsed/1000);
             $('#vwls_Tiempo').html(toFixedT(time,(running)?1:ac_config.numdecs));
-            // if (!running && !paused) return true; // do not update on stop
+            if (!running && !paused) return true; // do not update on stop
             vwcp_evalPenalizacion();
             return true;
         },

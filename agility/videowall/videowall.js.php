@@ -274,40 +274,37 @@ function vwcf_displayPuesto(flag,tiempo) {
  * @param {float} time measured from chrono (do not read html dom content)
  */
 function vwcp_displayPuesto(flag,time) {
-	vwcp_evalPenalizacion();
-/*
     // if requested, turn off data
     if (!flag) { $('#vwls_Puesto').html(''); return; }
     // use set timeout to make sure data are already refreshed
     setTimeout(function(){
         // phase 1 retrieve results
         // use text() instead of html() avoid extra html code
-        var f=parseInt($('#vwls_Faltas').text());
-        var t=parseInt($('#vwls_Tocados').text());
-        var r=parseInt($('#vwls_Rehuses').text());
-        var e=parseInt($('#vwls_Eliminado').text());
-        var n=parseInt($('#vwls_NoPresentado').text());
-        var penal=1000.0*(5*f+5*t+5*r+100*e+200*n)+parseFloat(time);
-        // phase 2: iterate result table to find position
-        var str="";
-        if (penal>=200000)  str='<span class="blink" style="color:red;"><?php _e('NoPr');?>.</span>'; // no presentado
-        else if (penal>=100000) str='<span class="blink" style="color:red;"><?php _e('Elim');?>.</span>'; // eliminado
-        else { // evaluamos posicion
-            var results=$('#vw_parciales-datagrid').datagrid('getData')['rows'];
-            if (typeof(results)!=="undefined") { // no data: ignore
-                for (var i=0; i<results.length;i++) {
-                    var rp=parseFloat(1000*results[i]['PRecorrido'])+parseFloat(results[i]['Tiempo']);
-                    if (rp<penal) continue;
-                    str="- "+Number(i+1).toString()+" -";
-                    break;
-                }
-                // if at end set as last dog
-                if (str=="") str="- "+Number(i+1).toString()+" -";
-            }
-        }
-        $('#vwls_Puesto').html(str);
+		var datos= {
+            'Perro':	$('#vwls_Perro').text(),
+            'Categoria':$('#vwls_Categoria').text(),
+            'Grado':	$('#vwls_Grado').text(),
+			'Faltas':	$('#vwls_Faltas').text(),
+			'Tocados':	$('#vwls_Tocados').text(),
+			'Rehuses':	$('#vwls_Rehuses').text(),
+			'Eliminado':$('#vwls_Eliminado').text(),
+			'NoPresentado':$('#vwls_NoPresentado').text(),
+			'Tiempo':	time
+		};
+		// phase 2: do not call server if eliminado or not presentado
+		if (datos.NoPresentado=="1") {
+			$('#vwls_Puesto').html('<span class="blink" style="color:red;"><?php _e('NoPr');?>.</span>');// no presentado
+			return;
+		}
+		if (datos.Eliminado=="1") {
+			$('#vwls_Puesto').html('<span class="blink" style="color:red;"><?php _e('Elim');?>.</span>');// eliminado
+			return;
+		}
+        // phase 2: call server to evaluate partial result position
+		getPuestoParcial(datos,function(data,resultados){
+			$('#vwls_Puesto').html('- '+Number(resultados.puesto).toString()+' -');
+		});
     },0);
-*/
 }
 
 /**
