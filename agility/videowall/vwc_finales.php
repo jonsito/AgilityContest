@@ -90,8 +90,8 @@ Pantalla de de visualizacion combinada llamada/parciales
                 </tr>
                 <tr>
                     <!--
-                    <th data-options="field:'Perro',		hidden:true " ></th>
-                     -->
+                    <th data-options="field:'Perro',hidden:true " ></th>
+                    -->
                     <th data-options="field:'LogoClub',		width:20, align:'left',formatter:formatLogo" > &nbsp;</th>
                     <th data-options="field:'Dorsal',		width:20, align:'left'" > <?php _e('Dors'); ?>.</th>
                     <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
@@ -211,9 +211,10 @@ Pantalla de de visualizacion combinada llamada/parciales
         auto: false,
         interval: 50,
         showMode: 2,
-        onUpdate: function(elapsed,running,pause) {
+        onUpdate: function(elapsed,running,paused) {
             var time=parseFloat(elapsed/1000.0);
             $('#vwls_Tiempo').html(toFixedT(time,(running)?1:ac_config.numdecs));
+            // if (!running && !paused) return true; // do not update penalization on stop
             vwcf_evalPenalizacion();
             return true;
         },
@@ -393,7 +394,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         'salida': function (event, time) {     // orden de salida
             myCounter.start();
-            vwcf_evalPenalizacion();
+            vwcf_displayPuesto(false,0);
         },
         'start': function (event, time) {      // start crono manual
             // si crono automatico, ignora
@@ -405,15 +406,18 @@ Pantalla de de visualizacion combinada llamada/parciales
             crm.Chrono('stop', time);
             crm.Chrono('reset');
             crm.Chrono('start', time);
-            vwcf_evalPenalizacion();
+            vwcf_displayPuesto(false,0);
         },
         'stop': function (event, time) {      // stop crono manual
+            var crm= $('#cronometro');
             $('#vwls_StartStopFlag').text("Start");
             myCounter.stop();
-            $('#cronometro').Chrono('stop', time);
+            crm.Chrono('stop', time);
+            vwcf_displayPuesto(true,crm.Chrono('getValue')/1000);
         },
         // nada que hacer aqui: el crono automatico se procesa en el tablet
         'crono_start': function (event, time) { // arranque crono automatico
+            vwcf_displayPuesto(false,0);
             var crm = $('#cronometro');
             myCounter.stop();
             $('#vwls_StartStopFlag').text('Auto');
@@ -442,8 +446,10 @@ Pantalla de de visualizacion combinada llamada/parciales
             }, 5000);
         },
         'crono_stop': function (event, time) {	// parada crono electronico
+            var crm= $('#cronometro');
             $('#vwls_StartStopFlag').text("Start");
-            $('#cronometro').Chrono('stop', time);
+            crm.Chrono('stop', time);
+            vwcf_displayPuesto(true,crm.Chrono('getValue')/1000);
         },
         'crono_reset': function (event, time) {	// puesta a cero del crono electronico
             var crm = $('#cronometro');
@@ -451,7 +457,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwls_StartStopFlag').text("Start");
             crm.Chrono('stop', time);
             crm.Chrono('reset', time);
-            vwcf_evalPenalizacion();
+            vwcf_displayPuesto(false,0);
         },
         'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
             vwls_updateChronoData(event);

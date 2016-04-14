@@ -45,7 +45,7 @@ try {
 		case "getPuesto":
 			$idperro=http_request("Perro","i",0);
 			$penal=http_request("Penalizacion","f",400000.0);
-			$result=$c->getPuesto($mode,$idperro,$penal);
+			$result=$c->getPuestoFinal($mode,$idperro,$penal);
 			break;
 	}
 	if ($result===null) throw new Exception($c->errormsg);

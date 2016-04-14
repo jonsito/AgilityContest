@@ -843,6 +843,8 @@ function competicionKeyEventHandler(evt) {
  * @returns {boolean}
  */
 function getPuestoFinal(datos,callback) {
+    return false;// TODO: need to enterely rewrite server side code. so disable until done
+/*
     var idperro=parseInt(datos.Perro); // stupid javascript
     var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,datos.Categoria);
     if (mode==-1) {
@@ -874,6 +876,7 @@ function getPuestoFinal(datos,callback) {
         }
     });
     return false;
+*/
 }
 
 /**
@@ -883,6 +886,8 @@ function getPuestoFinal(datos,callback) {
  * @returns {boolean}
  */
 function getPuestoParcial(datos,callback) {
+    return false; // TODO: need to enterely rewrite server side code. so disable until done
+/*
     var idperro=parseInt(datos.Perro); // stupid javascript
     var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,datos.Categoria);
     if (mode==-1) {
@@ -915,6 +920,7 @@ function getPuestoParcial(datos,callback) {
         }
     });
     return false;
+*/
 }
 
 /** 

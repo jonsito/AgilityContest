@@ -234,6 +234,39 @@ function vw_updateLlamada(evt,data) {
 }
 
 /**
+ * evaluate position in hall of fame (final results)
+ * When chrono stops this script is invoked instead of vwcf_evalPenalization()
+ * Do not evaluate trs/trm. just iterate on datagrid results to find position
+ * @param {boolean} flag display on/off
+ * @param {float} tiempo measured from chrono (do not read html dom content)
+ */
+function vwcf_displayPuesto(flag,tiempo) {
+	vwcf_evalPenalizacion();
+/*
+	// if requested, turn off data
+	if (!flag) { $('#vwls_Puesto').html(''); return; }
+	// execute with setTimeout(0) to assure dom data is right
+	setTimeout(function(){
+		// use text() instead of html() to skip every non-data items
+		var f=parseFloat($('#vwls_Faltas').text());
+		var t=parseFloat($('#vwls_Tocados').text());
+		var r=parseFloat($('#vwls_Rehuses').text());
+		var n=parseFloat($('#vwls_NoPresentado').text());
+		var e=parseFloat($('#vwls_Eliminado').text());
+		var penal=parseFloat(tiempo)+1000*(5*f+5*t+5*r+100*e+200*n);
+		var datos = {
+			'Perro': $('#vwls_Perro').text(),
+			'Categoria': $('#vwls_Categoria').text(),
+			'Penalizacion': penal
+		};
+		getPuestoFinal(datos,function(dat,res){
+			$('#vwls_Puesto').html('- '+res.puesto+' -');
+		});
+	},0);
+*/
+}
+
+/**
  * evaluate position in hall of fame (partial results)
  * When chrono stops this script is invoked instead of vwcp_evalPenalization()
  * Do not evaluate trs/trm. just iterate on datagrid results to find position
@@ -241,6 +274,8 @@ function vw_updateLlamada(evt,data) {
  * @param {float} time measured from chrono (do not read html dom content)
  */
 function vwcp_displayPuesto(flag,time) {
+	vwcp_evalPenalizacion();
+/*
     // if requested, turn off data
     if (!flag) { $('#vwls_Puesto').html(''); return; }
     // use set timeout to make sure data are already refreshed
@@ -252,7 +287,7 @@ function vwcp_displayPuesto(flag,time) {
         var r=parseInt($('#vwls_Rehuses').text());
         var e=parseInt($('#vwls_Eliminado').text());
         var n=parseInt($('#vwls_NoPresentado').text());
-        var penal=1000.0*(5*f+5*t+5*r+100*e+200*n)+time;
+        var penal=1000.0*(5*f+5*t+5*r+100*e+200*n)+parseFloat(time);
         // phase 2: iterate result table to find position
         var str="";
         if (penal>=200000)  str='<span class="blink" style="color:red;"><?php _e('NoPr');?>.</span>'; // no presentado
@@ -272,6 +307,7 @@ function vwcp_displayPuesto(flag,time) {
         }
         $('#vwls_Puesto').html(str);
     },0);
+*/
 }
 
 /**
@@ -407,6 +443,9 @@ function vwcp_updateLlamada(evt,data) {
 			$("#vwls_Numero").html(current['Orden']);
 
 			$("#vwls_Logo").attr('src','/agility/images/logos/'+current['Logo']);
+			$("#vwls_Perro").html(current['Perro']);
+			$("#vwls_Categoria").html(current['Categoria']);
+			$("#vwls_Grado").html(current['Grado']);
 			$("#vwls_Dorsal").html(current['Dorsal']);
 			$("#vwls_Nombre").html(current['Nombre']);
 			var celo=(current['Celo']!=0)?'<span class="blink"><?php _e("Heat");?></span>':"&nbsp";
@@ -495,6 +534,9 @@ function vwcf_updateLlamada(evt,data) {
 			// TODO: obtener datos de manga hermana y presentarlos
 			$("#vwls_Numero").html(current['Orden']);
 			$("#vwls_Logo").attr('src', '/agility/images/logos/' + current['Logo']);
+			$("#vwls_Perro").html(current['Perro']);
+			$("#vwls_Categoria").html(current['Categoria']);
+			$("#vwls_Grado").html(current['Grado']);
 			$("#vwls_Dorsal").html(current['Dorsal']);
 			$("#vwls_Nombre").html(current['Nombre']);
 			var celo = (current['Celo'] != 0) ? '<span class="blink"><?php _e("Heat");?></span>' : "&nbsp";

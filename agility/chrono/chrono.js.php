@@ -181,27 +181,31 @@ function c_clearData(event) {
  * @param {float} tiempo datatime from chronometer
  */
 function c_displayPuesto(flag,tiempo) {
-	// use text() instead of html() to skip every non-data items
-	var f=parseFloat($('#chrono_Faltas').text());
-	var t=parseFloat($('#chrono_Tocados').text());
-	var r=parseFloat($('#chrono_Rehuses').text());
-	var n=parseFloat($('#chrono_NoPresentado').text());
-	var e=parseFloat($('#chrono_Eliminado').text());
-	var penal=tiempo+1000*(5*f+5*t+5*r+100*e+200*n);
-	var datos = {
-		'Perro': $('#chrono_Perro').text(),
-		'Categoria': $('#chrono_Cat').text(),
-		'Penalizacion': penal
-	};
-	if (!flag) {
+	if ( !flag) {
 		$('#chrono_PuestoLbl').html('');
-	} else {
+		return false;
+	}
+	// execute with setTimeout(0) to assure dom data is right
+	setTimeout(function(){
+		// use text() instead of html() to skip every non-data items
+		var f=parseFloat($('#chrono_Faltas').text());
+		var t=parseFloat($('#chrono_Tocados').text());
+		var r=parseFloat($('#chrono_Rehuses').text());
+		var n=parseFloat($('#chrono_NoPresentado').text());
+		var e=parseFloat($('#chrono_Eliminado').text());
+		var penal=tiempo+1000*(5*f+5*t+5*r+100*e+200*n);
+		var datos = {
+			'Perro': $('#chrono_Perro').text(),
+			'Categoria': $('#chrono_Cat').text(),
+			'Penalizacion': penal
+		};
 		getPuestoFinal(datos,function(dat,res){
 			// remember received penal is 1000*P_recorrido + P_tiempo
 			if (parseFloat(res.penalizacion)>=100000) return; // eliminado, no presentado o pendiente
 			$('#chrono_PuestoLbl').html('- '+res.puesto+' -');
 		});
-	}
+
+	},0);
 }
 
 function c_showData(data) {

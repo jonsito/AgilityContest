@@ -45,7 +45,7 @@ try {
 		case "reset": $am->access(PERMS_OPERATOR); $result=$resultados->reset(); break;
 		case "getPendientes": $result=$resultados->getPendientes($mode); break;
 		case "getResultados": $result=$resultados->getResultados($mode); break;
-		case "getPuesto": $result=$resultados->getPuesto($mode,$idperro,$penal);
+		case "getPuesto": $result=$resultados->getPuesto($mode,$idperro,$penal); break;
 		case "getTRS": $result=$resultados->getTRS($mode); break;
 		case "bestTimes": $result=$resultados->bestTimes($mode); break;
 		default: throw new Exception("resultadosFunctions:: invalid operation: $operation provided");
