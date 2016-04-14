@@ -121,6 +121,26 @@ class PrintCommon extends FPDF {
 		parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
 	}
 
+	function SetFont($family,$style,$size=0) {
+		// not sure why, but seems that UTF fonts are bigger than latin1 fonts
+		// so analyze and reduce size when required
+		switch (strlower($family)) { // alllow any combination of upper/lower case
+			case "dejavu": if ($size>1) $size--; // no break;
+			case "free": if ($size>0) $size--; break;
+		}
+		parent::SetFont($family,$style,$size);
+	}
+
+	function SetFontSize($size) {
+		// not sure why, but seems that UTF fonts are bigger than latin1 fonts
+		// so analyze and reduce size when required
+		switch (strtolower($this->FontFamily)) { // fpdf stores font family in lowercase
+			case "dejavu": if ($size>1) $size--; // no break;
+			case "free": if ($size>0) $size--; break;
+		}
+		parent::SetFontSize($size);
+	}
+
 	function installFonts($font) {
 		$this->useUTF8=true;
 		switch($font) {
