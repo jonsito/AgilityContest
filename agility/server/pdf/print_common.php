@@ -124,7 +124,7 @@ class PrintCommon extends FPDF {
 	function SetFont($family,$style,$size=0) {
 		// not sure why, but seems that UTF fonts are bigger than latin1 fonts
 		// so analyze and reduce size when required
-		switch (strlower($family)) { // alllow any combination of upper/lower case
+		switch (strtolower($family)) { // alllow any combination of upper/lower case
 			case "dejavu": if ($size>1) $size--; // no break;
 			case "free": if ($size>0) $size--; break;
 		}
