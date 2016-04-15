@@ -7,10 +7,10 @@ INSTDIR=${1:=/var/www/html/AgilityContest}
 WEBDIR=${INSTDIR}/..
 
 #for UBUNTU
-#OWNER=root
-#GROUP=www-data
-OWNER=${USER}
-GROUP=apache
+OWNER=root
+GROUP=www-data
+#OWNER=${USER}
+#GROUP=apache
 
 # some checks
 echo -n "Check..."
@@ -54,10 +54,12 @@ echo "Done."
 echo "Setting perms..."
 find ${INSTDIR} -type d -exec chmod 775 {} \;
 find ${INSTDIR} -type f -exec chmod 664 {} \;
-chown -R ${OWNER}.${GROUP} ${INSTDIR}
-chmod g+s ${INSTDIR}/logs ${INSTDIR}/agility/images/logos ${INSTDIR}/agility/server/auth
+sudo chown -R ${OWNER}:${GROUP} ${INSTDIR}
+sudo chmod g+s ${INSTDIR}/logs ${INSTDIR}/agility/images/logos ${INSTDIR}/agility/server/auth
+
 #finally move web contents to their proper location
-mv ${INSTDIR}/web/* ${WEBDIR}
+echo "Installing web files...."
+(cd ${INSTDIR}/web; tar cfBp - *) | (cd ${WEBDIR}; tar xfBp -)
 echo "Done."
 
 echo "That's all folks"
