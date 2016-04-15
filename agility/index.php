@@ -155,7 +155,7 @@ function myRowStyler(idx,row) {
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
 <div id="public-dialog" style="width:400px;height:200px;padding:10px" class="easyui-dialog"
-	data-options="title: <?php _e('Select contest, journey and view');?>,iconCls: 'icon-list',buttons: '#public-Buttons',collapsible:false, minimizable:false,
+	data-options="title: '<?php _e("Select contest, journey and view");?>',iconCls: 'icon-list',buttons: '#public-Buttons',collapsible:false, minimizable:false,
 		maximizable:false, closable:true, closed:false, shadow:true, modal:true">
 	<form id="public-form">       		
     	<div class="fitem">

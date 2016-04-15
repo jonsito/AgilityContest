@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-04-13 12:29+0200\n"
-"PO-Revision-Date: 2016-04-13 12:30+0200\n"
+"POT-Creation-Date: 2016-04-15 09:46+0200\n"
+"PO-Revision-Date: 2016-04-15 09:47+0200\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -60,7 +60,7 @@ msgstr "R"
 #: livestream/vwls_osdvideo.php:85 livestream/vwls_parciales.php:155
 #: public/pb_inscripciones.php:96 public/pb_inscripciones_equipos.php:152
 #: public/pb_ordensalida.php:174 public/pb_parciales.php:185
-#: public/pb_parciales_eq3.php:188 scripts/competicion.js.php:1279
+#: public/pb_parciales_eq3.php:188 scripts/competicion.js.php:1316
 #: scripts/printer.js.php:211 server/pdf/print_clasificacion.php:163
 #: server/pdf/print_clasificacion_eqBest.php:269
 #: server/pdf/print_clasificacion_excel.php:158
@@ -77,16 +77,16 @@ msgstr "R"
 #: tablet/tablet_main.php:265 tablet/tablet_main.php:386
 #: videowall/vw_llamada.php:97 videowall/vw_ordensalida.php:99
 #: videowall/vw_parciales.php:123 videowall/vwc_finales.php:131
-#: videowall/vwc_finales.php:285 videowall/vwc_finales_simplified.php:95
-#: videowall/vwc_finales_simplified.php:286 videowall/vwc_oldstyle.php:186
-#: videowall/vwc_parciales.php:85 videowall/vwc_parciales.php:250
+#: videowall/vwc_finales.php:286 videowall/vwc_finales_simplified.php:95
+#: videowall/vwc_finales_simplified.php:287 videowall/vwc_oldstyle.php:186
+#: videowall/vwc_parciales.php:85 videowall/vwc_parciales.php:251
 #: console/dialogs/dlg_competicion.inc:108
 #: console/dialogs/dlg_ordensalida.inc:150
 msgid "Dorsal"
 msgstr "Dorsal"
 
 #: chrono/chrono.inc.php:68 console/frm_equipos.php:69
-#: scripts/competicion.js.php:1279 scripts/printer.js.php:211
+#: scripts/competicion.js.php:1316 scripts/printer.js.php:211
 #: console/dialogs/dlg_chperros.inc:148
 #: console/dialogs/dlg_newInscripcion.inc:150
 msgid "Dog"
@@ -100,7 +100,7 @@ msgstr "Perro"
 #: public/pb_finales_eq3.php:103 public/pb_inscripciones.php:103
 #: public/pb_inscripciones_equipos.php:159 public/pb_ordensalida.php:178
 #: public/pb_parciales.php:189 public/pb_parciales_eq3.php:192
-#: scripts/competicion.js.php:1279 scripts/printer.js.php:211
+#: scripts/competicion.js.php:1316 scripts/printer.js.php:211
 #: server/pdf/print_clasificacion.php:171
 #: server/pdf/print_clasificacion_eqBest.php:273
 #: server/pdf/print_clasificacion_excel.php:163
@@ -119,13 +119,13 @@ msgstr "Perro"
 #: videowall/vw_llamada.php:101 videowall/vw_ordensalida.php:103
 #: videowall/vw_parciales.php:127 videowall/vwc_finales.php:99
 #: videowall/vwc_finales.php:133 videowall/vwc_finales.php:174
-#: videowall/vwc_finales.php:288 videowall/vwc_finales_simplified.php:97
-#: videowall/vwc_finales_simplified.php:221
-#: videowall/vwc_finales_simplified.php:252
-#: videowall/vwc_finales_simplified.php:288 videowall/vwc_oldstyle.php:133
+#: videowall/vwc_finales.php:289 videowall/vwc_finales_simplified.php:97
+#: videowall/vwc_finales_simplified.php:222
+#: videowall/vwc_finales_simplified.php:253
+#: videowall/vwc_finales_simplified.php:289 videowall/vwc_oldstyle.php:133
 #: videowall/vwc_oldstyle.php:189 videowall/vwc_parciales.php:87
-#: videowall/vwc_parciales.php:195 videowall/vwc_parciales.php:253
-#: videowall/vwc_parciales.php:302 console/dialogs/dlg_chperros.inc:151
+#: videowall/vwc_parciales.php:196 videowall/vwc_parciales.php:254
+#: videowall/vwc_parciales.php:303 console/dialogs/dlg_chperros.inc:151
 #: console/dialogs/dlg_competicion.inc:110
 #: console/dialogs/dlg_editInscripcion.inc:46
 #: console/dialogs/dlg_newInscripcion.inc:154
@@ -136,7 +136,7 @@ msgstr "Perro"
 msgid "Handler"
 msgstr "Gu&iacute;a"
 
-#: chrono/chrono.inc.php:70 chrono/chrono.js.php:166 chrono/chrono.js.php:246
+#: chrono/chrono.inc.php:70 chrono/chrono.js.php:166 chrono/chrono.js.php:259
 #: console/frm_clasificaciones2.php:87 console/frm_clasificaciones_eq3.php:87
 #: console/frm_equipos.php:84 console/frm_equipos.php:225
 #: console/frm_guias.php:93 console/frm_inscripciones.php:78
@@ -147,18 +147,18 @@ msgstr "Gu&iacute;a"
 #: public/pb_finales_eq3.php:104 public/pb_inscripciones.php:104
 #: public/pb_inscripciones_equipos.php:160 public/pb_ordensalida.php:179
 #: public/pb_parciales.php:190 public/pb_parciales_eq3.php:193
-#: scripts/competicion.js.php:1279 server/excel/common_writer.php:113
+#: scripts/competicion.js.php:1316 server/excel/common_writer.php:113
 #: server/pdf/print_clasificacion_excel.php:101
-#: server/pdf/print_clasificacion_excel.php:164 server/pdf/print_common.php:168
+#: server/pdf/print_clasificacion_excel.php:164 server/pdf/print_common.php:188
 #: server/pdf/print_listaPerros.php:60 tablet/index.php:229
 #: tablet/tablet_main.php:82 tablet/tablet_main.php:269
 #: videowall/vw_llamada.php:102 videowall/vw_ordensalida.php:104
 #: videowall/vw_parciales.php:128 videowall/vwc_finales.php:100
 #: videowall/vwc_finales.php:134 videowall/vwc_finales.php:175
-#: videowall/vwc_finales.php:289 videowall/vwc_finales_simplified.php:98
+#: videowall/vwc_finales.php:290 videowall/vwc_finales_simplified.php:98
 #: videowall/vwc_oldstyle.php:134 videowall/vwc_oldstyle.php:190
-#: videowall/vwc_parciales.php:88 videowall/vwc_parciales.php:196
-#: videowall/vwc_parciales.php:254 videowall/vwc_parciales.php:303
+#: videowall/vwc_parciales.php:88 videowall/vwc_parciales.php:197
+#: videowall/vwc_parciales.php:255 videowall/vwc_parciales.php:304
 #: console/dialogs/dlg_chguias.inc:114 console/dialogs/dlg_chperros.inc:152
 #: console/dialogs/dlg_competicion.inc:111
 #: console/dialogs/dlg_editInscripcion.inc:48 console/dialogs/dlg_guias.inc:45
@@ -200,7 +200,7 @@ msgstr "Categor&iacute;a"
 #: videowall/vw_ordensalida.php:106 videowall/vw_parciales.php:130
 #: videowall/vwc_finales.php:136 videowall/vwc_finales_simplified.php:100
 #: videowall/vwc_oldstyle.php:136 videowall/vwc_parciales.php:90
-#: videowall/vwc_parciales.php:198 videowall/vwc_parciales.php:305
+#: videowall/vwc_parciales.php:199 videowall/vwc_parciales.php:306
 #: console/dialogs/dlg_chperros.inc:78 console/dialogs/dlg_chperros.inc:150
 #: console/dialogs/dlg_editInscripcion.inc:44
 #: console/dialogs/dlg_jornadas.inc:65 console/dialogs/dlg_jornadas.inc:71
@@ -209,7 +209,7 @@ msgstr "Categor&iacute;a"
 msgid "Grade"
 msgstr "Grado"
 
-#: chrono/chrono.inc.php:73 chrono/chrono.js.php:249
+#: chrono/chrono.inc.php:73 chrono/chrono.js.php:262
 #: console/frm_equipos.php:228 console/frm_inscripciones2.php:200
 #: livestream/vwls_ordensalida.php:141 livestream/vwls_osdvideo.php:91
 #: public/pb_inscripciones.php:107 public/pb_inscripciones_equipos.php:163
@@ -220,12 +220,12 @@ msgstr "Grado"
 #: server/pdf/print_inscritosByPrueba.php:746
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_ordenDeSalida.php:176
 #: server/pdf/print_trsTemplates.php:257 tablet/tablet_main.php:88
-#: tablet/tablet_main.php:267 videowall/videowall.js.php:485
-#: videowall/videowall.js.php:573 videowall/vw_llamada.php:105
+#: tablet/tablet_main.php:267 videowall/videowall.js.php:455
+#: videowall/videowall.js.php:546 videowall/vw_llamada.php:105
 #: videowall/vw_ordensalida.php:107 videowall/vwc_finales.php:137
-#: videowall/vwc_finales.php:291 videowall/vwc_finales_simplified.php:101
-#: videowall/vwc_finales_simplified.php:291 videowall/vwc_oldstyle.php:192
-#: videowall/vwc_parciales.php:91 videowall/vwc_parciales.php:256
+#: videowall/vwc_finales.php:292 videowall/vwc_finales_simplified.php:101
+#: videowall/vwc_finales_simplified.php:292 videowall/vwc_oldstyle.php:192
+#: videowall/vwc_parciales.php:91 videowall/vwc_parciales.php:257
 #: console/dialogs/dlg_editInscripcion.inc:66
 #: console/dialogs/dlg_newInscripcion.inc:75
 #: console/dialogs/dlg_ordensalida.inc:156
@@ -266,11 +266,12 @@ msgstr "Eliminado"
 #: scripts/common.js.php:459 scripts/common.js.php:471
 #: scripts/common.js.php:483 scripts/common.js.php:498
 #: scripts/competicion.js.php:515 scripts/competicion.js.php:544
-#: scripts/competicion.js.php:849 scripts/competicion.js.php:868
-#: scripts/competicion.js.php:890 scripts/competicion.js.php:1070
-#: scripts/competicion.js.php:1084 scripts/competicion.js.php:1181
-#: scripts/competicion.js.php:1185 scripts/competicion.js.php:1298
-#: scripts/competicion.js.php:1355 scripts/equipos.js.php:70
+#: scripts/competicion.js.php:848 scripts/competicion.js.php:866
+#: scripts/competicion.js.php:887 scripts/competicion.js.php:905
+#: scripts/competicion.js.php:927 scripts/competicion.js.php:1107
+#: scripts/competicion.js.php:1121 scripts/competicion.js.php:1218
+#: scripts/competicion.js.php:1222 scripts/competicion.js.php:1335
+#: scripts/competicion.js.php:1392 scripts/equipos.js.php:70
 #: scripts/equipos.js.php:123 scripts/equipos.js.php:312
 #: scripts/guias.js.php:87 scripts/guias.js.php:158 scripts/guias.js.php:181
 #: scripts/guias.js.php:209 scripts/guias.js.php:239
@@ -353,33 +354,35 @@ msgstr "Reset del cron&oacute;metro. Poner contadores a cero"
 msgid "Start 15 seconds countdown"
 msgstr "Iniciar cuenta atras de 15 segundos"
 
-#: chrono/chrono.js.php:133 chrono/chrono.js.php:264 chrono/chrono.js.php:363
+#: chrono/chrono.js.php:133 chrono/chrono.js.php:210 chrono/chrono.js.php:277
+#: chrono/chrono.js.php:376 livestream/livestream.js.php:100
 #: modules/Federations.php:174 modules/rfec/config.php:101
 #: modules/uca/config.php:93 scripts/competicion.js.php:42
 #: server/pdf/print_clasificacion_eqCombined.php:308
 #: server/pdf/print_clasificacion_eqCombined.php:316
 #: server/pdf/print_entradaDeDatos.php:252
 #: server/pdf/print_resultadosByEquipos4.php:217 tablet/tablet_main.php:103
-#: videowall/videowall.js.php:230 videowall/videowall.js.php:290
-#: videowall/videowall.js.php:370 videowall/videowall.js.php:441
-#: videowall/videowall.js.php:497 videowall/videowall.js.php:585
+#: videowall/videowall.js.php:202 videowall/videowall.js.php:307
+#: videowall/videowall.js.php:337 videowall/videowall.js.php:408
+#: videowall/videowall.js.php:467 videowall/videowall.js.php:558
 #: console/dialogs/dlg_competicion.inc:125
 msgid "Elim"
 msgstr "Elim"
 
-#: chrono/chrono.js.php:138 chrono/chrono.js.php:269 chrono/chrono.js.php:370
-#: videowall/videowall.js.php:235 videowall/videowall.js.php:295
-#: videowall/videowall.js.php:369 videowall/videowall.js.php:500
-#: videowall/videowall.js.php:588
+#: chrono/chrono.js.php:138 chrono/chrono.js.php:206 chrono/chrono.js.php:282
+#: chrono/chrono.js.php:383 livestream/livestream.js.php:105
+#: videowall/videowall.js.php:207 videowall/videowall.js.php:264
+#: videowall/videowall.js.php:303 videowall/videowall.js.php:336
+#: videowall/videowall.js.php:470 videowall/videowall.js.php:561
 msgid "NoPr"
 msgstr "NoPr"
 
-#: chrono/chrono.js.php:149 chrono/chrono.js.php:226
+#: chrono/chrono.js.php:149 chrono/chrono.js.php:239
 #: console/frm_clasificaciones2.php:81 console/frm_clasificaciones_eq3.php:81
 #: public/pb_finales.php:97 public/pb_finales_eq3.php:96
 #: videowall/vwc_finales.php:96 videowall/vwc_finales.php:171
-#: videowall/vwc_finales_simplified.php:219
-#: videowall/vwc_finales_simplified.php:250
+#: videowall/vwc_finales_simplified.php:220
+#: videowall/vwc_finales_simplified.php:251
 msgid "Dors"
 msgstr "Dors"
 
@@ -396,7 +399,7 @@ msgstr "Dors"
 #: console/frm_paises.php:136 console/frm_paises.php:221
 #: console/frm_perros.php:144 console/frm_pruebas.php:151
 #: console/frm_registration.php:48 index.php:207 index.php:240
-#: livestream/index.php:240 livestream/vwls_ordensalida.php:134
+#: livestream/index.php:241 livestream/vwls_ordensalida.php:134
 #: livestream/vwls_osdvideo.php:86 livestream/vwls_parciales.php:158
 #: public/pb_finales.php:99 public/pb_finales_eq3.php:100
 #: public/pb_inscripciones.php:98 public/pb_inscripciones_equipos.php:154
@@ -422,14 +425,14 @@ msgstr "Dors"
 #: videowall/index.php:239 videowall/vw_llamada.php:99
 #: videowall/vw_ordensalida.php:100 videowall/vw_parciales.php:126
 #: videowall/vwc_finales.php:97 videowall/vwc_finales.php:132
-#: videowall/vwc_finales.php:172 videowall/vwc_finales.php:287
+#: videowall/vwc_finales.php:172 videowall/vwc_finales.php:288
 #: videowall/vwc_finales_simplified.php:96
-#: videowall/vwc_finales_simplified.php:220
-#: videowall/vwc_finales_simplified.php:251
-#: videowall/vwc_finales_simplified.php:287 videowall/vwc_oldstyle.php:132
+#: videowall/vwc_finales_simplified.php:221
+#: videowall/vwc_finales_simplified.php:252
+#: videowall/vwc_finales_simplified.php:288 videowall/vwc_oldstyle.php:132
 #: videowall/vwc_oldstyle.php:188 videowall/vwc_parciales.php:86
-#: videowall/vwc_parciales.php:194 videowall/vwc_parciales.php:252
-#: videowall/vwc_parciales.php:301 console/dialogs/dlg_chguias.inc:38
+#: videowall/vwc_parciales.php:195 videowall/vwc_parciales.php:253
+#: videowall/vwc_parciales.php:302 console/dialogs/dlg_chguias.inc:38
 #: console/dialogs/dlg_chguias.inc:112 console/dialogs/dlg_chperros.inc:38
 #: console/dialogs/dlg_clubes.inc:51 console/dialogs/dlg_competicion.inc:109
 #: console/dialogs/dlg_editInscripcion.inc:38
@@ -448,11 +451,11 @@ msgstr "Dors"
 msgid "Name"
 msgstr "Nombre"
 
-#: chrono/chrono.js.php:151 chrono/chrono.js.php:230
+#: chrono/chrono.js.php:151 chrono/chrono.js.php:243
 msgid "Hndlr"
 msgstr "Gu&iacute;a"
 
-#: chrono/chrono.js.php:152 chrono/chrono.js.php:231
+#: chrono/chrono.js.php:152 chrono/chrono.js.php:244
 #: console/frm_clasificaciones2.php:84 console/frm_clasificaciones_eq3.php:84
 #: console/frm_equipos.php:141 console/frm_equipos.php:222
 #: console/frm_equipos.php:293 console/frm_guias.php:149
@@ -472,7 +475,7 @@ msgstr "Gu&iacute;a"
 #: tablet/tablet_main.php:270 videowall/vw_llamada.php:103
 #: videowall/vw_parciales.php:129 videowall/vwc_finales.php:98
 #: videowall/vwc_finales.php:173 videowall/vwc_oldstyle.php:135
-#: videowall/vwc_parciales.php:197 videowall/vwc_parciales.php:304
+#: videowall/vwc_parciales.php:198 videowall/vwc_parciales.php:305
 #: console/dialogs/dlg_chperros.inc:149 console/dialogs/dlg_competicion.inc:112
 #: console/dialogs/dlg_newInscripcion.inc:152
 #: console/dialogs/dlg_ordensalida.inc:91
@@ -487,29 +490,29 @@ msgstr "Cat"
 msgid "Grad"
 msgstr "Grd"
 
-#: chrono/chrono.js.php:158 chrono/chrono.js.php:238 console/frm_equipos.php:89
+#: chrono/chrono.js.php:158 chrono/chrono.js.php:251 console/frm_equipos.php:89
 #: livestream/vwls_ordensalida.php:132 public/pb_inscripciones_equipos.php:91
 #: public/pb_ordensalida.php:173 scripts/competicion.js.php:166
 #: tablet/tablet_main.php:264 videowall/vw_ordensalida.php:98
-#: videowall/vwc_finales.php:290 videowall/vwc_oldstyle.php:191
-#: videowall/vwc_parciales.php:255 console/dialogs/dlg_ordensalida.inc:149
+#: videowall/vwc_finales.php:291 videowall/vwc_oldstyle.php:191
+#: videowall/vwc_parciales.php:256 console/dialogs/dlg_ordensalida.inc:149
 msgid "Team"
 msgstr "Equipo"
 
-#: chrono/chrono.js.php:162 chrono/chrono.js.php:242 console/frm_clubes.php:102
+#: chrono/chrono.js.php:162 chrono/chrono.js.php:255 console/frm_clubes.php:102
 #: console/frm_jueces.php:89 console/frm_paises.php:80
-#: modules/Federations.php:129 server/pdf/print_common.php:168
+#: modules/Federations.php:129 server/pdf/print_common.php:188
 #: server/pdf/print_listaPerros.php:60 console/dialogs/dlg_clubes.inc:76
 #: console/dialogs/dlg_clubes.inc:173 console/dialogs/dlg_jueces.inc:48
 #: console/dialogs/dlg_jueces.inc:114
 msgid "Country"
 msgstr "Pa&iacute;s"
 
-#: chrono/chrono.js.php:463
+#: chrono/chrono.js.php:476
 msgid "Manual"
 msgstr "Manual"
 
-#: chrono/chrono.js.php:514
+#: chrono/chrono.js.php:527
 msgid "Sensor failure"
 msgstr "Fallo de sensores"
 
@@ -525,7 +528,7 @@ msgstr "Ring"
 #: chrono/index.php:109 console/frm_equipos.php:98
 #: console/frm_inscripciones.php:41 console/frm_login.php:59
 #: console/frm_logout.php:35 console/frm_myAdmin.php:65
-#: livestream/index.php:198 tablet/tablet_main.php:58 videowall/index.php:197
+#: livestream/index.php:199 tablet/tablet_main.php:58 videowall/index.php:197
 #: console/dialogs/dlg_clubes.inc:138
 #: console/dialogs/dlg_editInscripcion.inc:90
 #: console/dialogs/dlg_ordentandas.inc:79
@@ -547,7 +550,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/frm_equipos.php:227 console/frm_equipos.php:294
 #: console/frm_guias.php:96 console/frm_inscripciones2.php:60
 #: console/frm_paises.php:139 console/frm_pruebas.php:97
-#: console/frm_pruebas.php:151 index.php:240 livestream/index.php:241
+#: console/frm_pruebas.php:151 index.php:240 livestream/index.php:242
 #: livestream/vwls_ordensalida.php:142 public/pb_inscripciones_equipos.php:93
 #: public/pb_inscripciones_equipos.php:162 public/pb_programa.php:106
 #: server/excel/common_writer.php:113 server/pdf/print_entradaDeDatos.php:232
@@ -595,8 +598,8 @@ msgstr "Debe seleccionar un ring v&aacute;lido"
 #: server/pdf/print_resultadosByEquipos4.php:109
 #: server/pdf/print_resultadosByEquipos4.php:112
 #: server/pdf/print_resultadosByManga.php:79
-#: server/pdf/print_resultadosByManga.php:82 videowall/videowall.js.php:625
-#: videowall/videowall.js.php:626 videowall/vw_parciales.php:48
+#: server/pdf/print_resultadosByManga.php:82 videowall/videowall.js.php:598
+#: videowall/videowall.js.php:599 videowall/vw_parciales.php:48
 #: videowall/vw_parciales.php:49
 msgid "Judge"
 msgstr "Juez"
@@ -843,7 +846,7 @@ msgstr "Versi&oacute;n"
 #: server/pdf/print_clasificacion.php:95
 #: server/pdf/print_clasificacion_eqBest.php:171
 #: server/pdf/print_clasificacion_eqCombined.php:175
-#: server/pdf/print_clasificacion_excel.php:105 server/pdf/print_common.php:289
+#: server/pdf/print_clasificacion_excel.php:105 server/pdf/print_common.php:309
 #: server/pdf/print_podium.php:80 server/pdf/print_trsTemplates.php:80
 #: console/dialogs/dlg_jornadas.inc:41
 msgid "Date"
@@ -1067,7 +1070,7 @@ msgid "Organizing Club"
 msgstr "Club anfitri&oacute;n"
 
 #: console/frm_clasificaciones2.php:41 console/frm_clasificaciones_eq3.php:41
-#: index.php:166 public/public.js.php:54 scripts/competicion.js.php:1094
+#: index.php:166 public/public.js.php:54 scripts/competicion.js.php:1131
 #: scripts/equipos.js.php:73 scripts/equipos.js.php:126
 #: server/excel/common_writer.php:65 server/excel/common_writer.php:138
 #: server/pdf/print_clasificacion.php:84
@@ -1077,11 +1080,11 @@ msgstr "Club anfitri&oacute;n"
 #: server/pdf/print_inscritosByPrueba.php:780
 #: server/pdf/print_ordenTandas.php:66 server/pdf/print_podium.php:79
 #: server/pdf/print_trsTemplates.php:70 server/pdf/print_trsTemplates.php:80
-#: tablet/index.php:163 videowall/videowall.js.php:138
-#: videowall/vwc_finales.php:43 videowall/vwc_finales.php:361
+#: tablet/index.php:163 videowall/videowall.js.php:126
+#: videowall/vwc_finales.php:43 videowall/vwc_finales.php:362
 #: videowall/vwc_finales_simplified.php:46
-#: videowall/vwc_finales_simplified.php:336 videowall/vwc_parciales.php:43
-#: videowall/vwc_parciales.php:358
+#: videowall/vwc_finales_simplified.php:337 videowall/vwc_parciales.php:43
+#: videowall/vwc_parciales.php:359
 msgid "Journey"
 msgstr "Jornada"
 
@@ -1103,8 +1106,8 @@ msgstr "Jornada"
 #: videowall/vwc_finales_simplified.php:52
 #: videowall/vwc_finales_simplified.php:59
 #: videowall/vwc_finales_simplified.php:67
-#: videowall/vwc_finales_simplified.php:214
 #: videowall/vwc_finales_simplified.php:215
+#: videowall/vwc_finales_simplified.php:216
 #: console/dialogs/inforesultados.inc:32 console/dialogs/inforesultados.inc:83
 msgid "Round"
 msgstr "Manga"
@@ -1189,13 +1192,13 @@ msgstr "Tmp"
 #: server/pdf/print_clasificacion_excel.php:134
 #: server/pdf/print_clasificacion_excel.php:143 server/pdf/print_podium.php:116
 #: server/pdf/print_podium.php:124 server/pdf/print_resultadosByEquipos.php:97
-#: server/pdf/print_resultadosByManga.php:63 videowall/videowall.js.php:671
-#: videowall/videowall.js.php:686 videowall/vw_parciales.php:59
+#: server/pdf/print_resultadosByManga.php:63 videowall/videowall.js.php:644
+#: videowall/videowall.js.php:659 videowall/vw_parciales.php:59
 #: videowall/vw_parciales.php:137 videowall/vwc_finales.php:70
 #: videowall/vwc_finales.php:78 videowall/vwc_finales_simplified.php:64
 #: videowall/vwc_finales_simplified.php:72 videowall/vwc_oldstyle.php:67
 #: videowall/vwc_oldstyle.php:143 videowall/vwc_parciales.php:70
-#: videowall/vwc_parciales.php:205 videowall/vwc_parciales.php:312
+#: videowall/vwc_parciales.php:206 videowall/vwc_parciales.php:313
 #: console/dialogs/dlg_resultadosManga.inc:49
 #: console/dialogs/dlg_resultadosManga.inc:58
 #: console/dialogs/dlg_resultadosManga.inc:67
@@ -1235,11 +1238,11 @@ msgstr "Vel"
 #: server/pdf/print_resultadosByManga.php:63 videowall/vw_parciales.php:138
 #: videowall/vwc_finales.php:106 videowall/vwc_finales.php:113
 #: videowall/vwc_finales.php:181 videowall/vwc_finales.php:188
-#: videowall/vwc_finales_simplified.php:223
-#: videowall/vwc_finales_simplified.php:226
-#: videowall/vwc_finales_simplified.php:255
-#: videowall/vwc_finales_simplified.php:258 videowall/vwc_oldstyle.php:144
-#: videowall/vwc_parciales.php:206 videowall/vwc_parciales.php:313
+#: videowall/vwc_finales_simplified.php:224
+#: videowall/vwc_finales_simplified.php:227
+#: videowall/vwc_finales_simplified.php:256
+#: videowall/vwc_finales_simplified.php:259 videowall/vwc_oldstyle.php:144
+#: videowall/vwc_parciales.php:207 videowall/vwc_parciales.php:314
 #: console/dialogs/dlg_resultadosManga.inc:137
 #: console/dialogs/dlg_resultados_eq3.inc:143
 #: console/dialogs/dlg_resultados_eq4.inc:143
@@ -1291,13 +1294,13 @@ msgstr "Cal"
 #: videowall/vw_parciales.php:135 videowall/vwc_finales.php:105
 #: videowall/vwc_finales.php:112 videowall/vwc_finales.php:115
 #: videowall/vwc_finales.php:180 videowall/vwc_finales.php:187
-#: videowall/vwc_finales.php:190 videowall/vwc_finales_simplified.php:222
-#: videowall/vwc_finales_simplified.php:225
-#: videowall/vwc_finales_simplified.php:228
-#: videowall/vwc_finales_simplified.php:254
-#: videowall/vwc_finales_simplified.php:257
-#: videowall/vwc_finales_simplified.php:260 videowall/vwc_oldstyle.php:141
-#: videowall/vwc_parciales.php:203 videowall/vwc_parciales.php:310
+#: videowall/vwc_finales.php:190 videowall/vwc_finales_simplified.php:223
+#: videowall/vwc_finales_simplified.php:226
+#: videowall/vwc_finales_simplified.php:229
+#: videowall/vwc_finales_simplified.php:255
+#: videowall/vwc_finales_simplified.php:258
+#: videowall/vwc_finales_simplified.php:261 videowall/vwc_oldstyle.php:141
+#: videowall/vwc_parciales.php:204 videowall/vwc_parciales.php:311
 #: console/dialogs/dlg_competicion.inc:116 console/dialogs/dlg_jornadas.inc:45
 #: console/dialogs/dlg_resultadosManga.inc:134
 #: console/dialogs/dlg_resultados_eq3.inc:140
@@ -1318,8 +1321,8 @@ msgstr "Tiempo"
 #: server/pdf/print_clasificacion_excel.php:178 server/pdf/print_podium.php:132
 #: server/pdf/print_resultadosByEquipos.php:243
 #: server/pdf/print_resultadosByEquipos4.php:220 videowall/vwc_finales.php:116
-#: videowall/vwc_finales.php:191 videowall/vwc_finales_simplified.php:229
-#: videowall/vwc_finales_simplified.php:261
+#: videowall/vwc_finales.php:191 videowall/vwc_finales_simplified.php:230
+#: videowall/vwc_finales_simplified.php:262
 msgid "Penaliz"
 msgstr "Penal"
 
@@ -1426,7 +1429,7 @@ msgstr "Lista de dorsales a imprimir separada por comas"
 
 #: console/frm_clasificaciones2.php:242 console/frm_clasificaciones_eq3.php:242
 #: public/pb_finales.php:215 public/pb_finales_eq3.php:212
-#: videowall/vwc_finales.php:249 videowall/vwc_finales_simplified.php:202
+#: videowall/vwc_finales.php:250 videowall/vwc_finales_simplified.php:203
 #: console/dialogs/dlg_resultadosManga.inc:114
 #: console/dialogs/dlg_resultados_eq3.inc:114
 #: console/dialogs/dlg_resultados_eq4.inc:114
@@ -1588,8 +1591,8 @@ msgstr "LOE/RRC"
 #: server/pdf/print_entradaDeDatos.php:310
 #: server/pdf/print_inscritosByPrueba.php:124 videowall/vw_llamada.php:98
 #: videowall/vw_ordensalida.php:102 videowall/vw_parciales.php:125
-#: videowall/vwc_finales.php:286 videowall/vwc_oldstyle.php:187
-#: videowall/vwc_parciales.php:251 console/dialogs/dlg_editInscripcion.inc:40
+#: videowall/vwc_finales.php:287 videowall/vwc_oldstyle.php:187
+#: videowall/vwc_parciales.php:252 console/dialogs/dlg_editInscripcion.inc:40
 #: console/dialogs/dlg_ordensalida.inc:152
 msgid "License"
 msgstr "Licencia"
@@ -1658,21 +1661,21 @@ msgstr "Datos de la manga"
 msgid "Planning"
 msgstr "Programa"
 
-#: console/frm_competicion2.php:73 index.php:173 livestream/index.php:182
-#: livestream/index.php:188 livestream/vwls_ordensalida.php:62
+#: console/frm_competicion2.php:73 index.php:173 livestream/index.php:183
+#: livestream/index.php:189 livestream/vwls_ordensalida.php:62
 #: public/pb_ordensalida.php:42 public/pb_ordensalida.php:51
-#: scripts/competicion.js.php:1101 server/pdf/print_ordenDeSalida.php:88
+#: scripts/competicion.js.php:1138 server/pdf/print_ordenDeSalida.php:88
 #: server/pdf/print_ordenSalidaEquipos4.php:88 videowall/index.php:179
 #: videowall/vw_ordensalida.php:36
 msgid "Starting order"
 msgstr "Orden de salida"
 
-#: console/frm_competicion2.php:76 scripts/competicion.js.php:1108
+#: console/frm_competicion2.php:76 scripts/competicion.js.php:1145
 #: server/pdf/print_entradaDeDatos.php:76 server/pdf/print_trsTemplates.php:77
 msgid "Data entry"
 msgstr "Introducci&oacute;n de datos"
 
-#: console/frm_competicion2.php:79 scripts/competicion.js.php:1114
+#: console/frm_competicion2.php:79 scripts/competicion.js.php:1151
 msgid "Round results"
 msgstr "Resultados de la manga"
 
@@ -2556,22 +2559,26 @@ msgstr "Informaci&oacute;n de registro"
 msgid "About"
 msgstr "Acerca de"
 
+#: index.php:158
+msgid "Select contest, journey and view"
+msgstr "Selecciona la prueba, jornada y vista"
+
 #: index.php:162 public/public.js.php:54 server/excel/common_writer.php:63
 #: server/excel/common_writer.php:117
 #: server/pdf/print_clasificacion_excel.php:99 tablet/index.php:159
-#: videowall/videowall.js.php:138 videowall/vwc_finales.php:42
-#: videowall/vwc_finales.php:259 videowall/vwc_finales.php:309
-#: videowall/vwc_finales.php:360 videowall/vwc_finales_simplified.php:45
-#: videowall/vwc_finales_simplified.php:206
-#: videowall/vwc_finales_simplified.php:301
-#: videowall/vwc_finales_simplified.php:335 videowall/vwc_oldstyle.php:210
-#: videowall/vwc_parciales.php:42 videowall/vwc_parciales.php:216
-#: videowall/vwc_parciales.php:274 videowall/vwc_parciales.php:321
-#: videowall/vwc_parciales.php:357
+#: videowall/videowall.js.php:126 videowall/vwc_finales.php:42
+#: videowall/vwc_finales.php:260 videowall/vwc_finales.php:310
+#: videowall/vwc_finales.php:361 videowall/vwc_finales_simplified.php:45
+#: videowall/vwc_finales_simplified.php:207
+#: videowall/vwc_finales_simplified.php:302
+#: videowall/vwc_finales_simplified.php:336 videowall/vwc_oldstyle.php:210
+#: videowall/vwc_parciales.php:42 videowall/vwc_parciales.php:217
+#: videowall/vwc_parciales.php:275 videowall/vwc_parciales.php:322
+#: videowall/vwc_parciales.php:358
 msgid "Contest"
 msgstr "Prueba"
 
-#: index.php:170 livestream/index.php:176 videowall/index.php:175
+#: index.php:170 livestream/index.php:177 videowall/index.php:175
 msgid "Select View"
 msgstr "Selecciona vista"
 
@@ -2580,7 +2587,7 @@ msgstr "Selecciona vista"
 msgid "Inscription list"
 msgstr "Listado de inscritos"
 
-#: index.php:174 livestream/index.php:181 livestream/index.php:187
+#: index.php:174 livestream/index.php:182 livestream/index.php:188
 #: livestream/vwls_parciales.php:62 public/pb_parciales.php:38
 #: public/pb_parciales.php:44 public/pb_parciales.php:54
 #: public/pb_parciales_eq3.php:38 public/pb_parciales_eq3.php:44
@@ -2598,7 +2605,7 @@ msgstr "Clasificaci&oacute;n parcial"
 #: server/pdf/print_clasificacion_eqCombined.php:212
 #: server/pdf/print_clasificacion_eqCombined.php:280 videowall/index.php:185
 #: videowall/vwc_finales.php:51 videowall/vwc_finales.php:89
-#: videowall/vwc_finales_simplified.php:216
+#: videowall/vwc_finales_simplified.php:217
 msgid "Final scores"
 msgstr "Clasificaci&oacute;n final"
 
@@ -2610,35 +2617,35 @@ msgstr "Programa de la jornada"
 msgid "You should select contest, journey and view to continue"
 msgstr "Debe seleccionar prueba, jornada y vista para continuar"
 
-#: livestream/index.php:172 videowall/index.php:171
+#: livestream/index.php:173 videowall/index.php:171
 msgid "Select Session/Ring"
 msgstr "Selecciona Ring"
 
-#: livestream/index.php:178
+#: livestream/index.php:179
 msgid "Embedded Video"
 msgstr "Video insertado"
 
-#: livestream/index.php:180
+#: livestream/index.php:181
 msgid "Live Stream"
 msgstr "Video en directo"
 
-#: livestream/index.php:184
+#: livestream/index.php:185
 msgid "Chroma Key"
 msgstr "Chroma Key"
 
-#: livestream/index.php:186
+#: livestream/index.php:187
 msgid "On Screen Display"
 msgstr "Datos en pantalla (O.S.D.)"
 
-#: livestream/index.php:209 videowall/index.php:208
+#: livestream/index.php:210 videowall/index.php:208
 msgid "View to deploy"
 msgstr "Vista a desplegar"
 
-#: livestream/index.php:222 videowall/index.php:221
+#: livestream/index.php:223 videowall/index.php:221
 msgid "Use selected as working session"
 msgstr "Trabajar con el la sesi&oacute;n seleccionada"
 
-#: livestream/index.php:266 videowall/index.php:265
+#: livestream/index.php:267 videowall/index.php:265
 msgid "You should select a valid session"
 msgstr "Debe seleccionar una sesi&oacute;n v&aacute;lida"
 
@@ -2676,8 +2683,8 @@ msgstr "Cabecera"
 #: public/pb_parciales.php:62 public/pb_parciales_eq3.php:62
 #: videowall/vw_ordensalida.php:39 videowall/vw_ordensalida.php:138
 #: videowall/vw_parciales.php:41 videowall/vw_parciales.php:163
-#: videowall/vwc_finales.php:362 videowall/vwc_finales_simplified.php:337
-#: videowall/vwc_oldstyle.php:219 videowall/vwc_parciales.php:359
+#: videowall/vwc_finales.php:363 videowall/vwc_finales_simplified.php:338
+#: videowall/vwc_oldstyle.php:219 videowall/vwc_parciales.php:360
 msgid "No round selected"
 msgstr "No se ha indicado ninguna manga"
 
@@ -2698,8 +2705,8 @@ msgstr "Categ"
 #: server/pdf/print_clasificacion_eqCombined.php:191
 #: server/pdf/print_clasificacion_excel.php:129
 #: server/pdf/print_clasificacion_excel.php:138
-#: server/pdf/print_trsTemplates.php:127 videowall/videowall.js.php:667
-#: videowall/videowall.js.php:682 videowall/vw_parciales.php:55
+#: server/pdf/print_trsTemplates.php:127 videowall/videowall.js.php:640
+#: videowall/videowall.js.php:655 videowall/vw_parciales.php:55
 #: videowall/vwc_finales.php:66 videowall/vwc_finales.php:74
 #: videowall/vwc_finales_simplified.php:60
 #: videowall/vwc_finales_simplified.php:68 videowall/vwc_oldstyle.php:63
@@ -2715,8 +2722,8 @@ msgstr "Dist"
 #: server/pdf/print_clasificacion_eqCombined.php:192
 #: server/pdf/print_clasificacion_excel.php:130
 #: server/pdf/print_clasificacion_excel.php:139
-#: server/pdf/print_trsTemplates.php:127 videowall/videowall.js.php:668
-#: videowall/videowall.js.php:683 videowall/vw_parciales.php:56
+#: server/pdf/print_trsTemplates.php:127 videowall/videowall.js.php:641
+#: videowall/videowall.js.php:656 videowall/vw_parciales.php:56
 #: videowall/vwc_finales.php:67 videowall/vwc_finales.php:75
 #: videowall/vwc_finales_simplified.php:61
 #: videowall/vwc_finales_simplified.php:69 videowall/vwc_oldstyle.php:64
@@ -2760,7 +2767,7 @@ msgid "MCT"
 msgstr "TRM"
 
 #: livestream/vwls_parciales.php:139 videowall/vw_parciales.php:107
-#: videowall/vwc_oldstyle.php:113 videowall/vwc_parciales.php:179
+#: videowall/vwc_oldstyle.php:113 videowall/vwc_parciales.php:180
 msgid "Updating round results"
 msgstr "Actualizando resultados de la manga"
 
@@ -2774,7 +2781,7 @@ msgstr "Actualizando resultados de la manga"
 #: server/pdf/print_entradaDeDatosEquipos4.php:169
 #: server/pdf/print_trsTemplates.php:277 tablet/tablet_main.php:90
 #: videowall/vw_parciales.php:131 videowall/vwc_oldstyle.php:137
-#: videowall/vwc_parciales.php:199 videowall/vwc_parciales.php:306
+#: videowall/vwc_parciales.php:200 videowall/vwc_parciales.php:307
 #: console/dialogs/dlg_resultadosManga.inc:130
 #: console/dialogs/dlg_resultados_eq3.inc:136
 #: console/dialogs/dlg_resultados_eq4.inc:136
@@ -2791,7 +2798,7 @@ msgstr "Faltas"
 #: server/pdf/print_entradaDeDatosEquipos4.php:170
 #: server/pdf/print_trsTemplates.php:278 tablet/tablet_main.php:94
 #: videowall/vw_parciales.php:132 videowall/vwc_oldstyle.php:138
-#: videowall/vwc_parciales.php:200 videowall/vwc_parciales.php:307
+#: videowall/vwc_parciales.php:201 videowall/vwc_parciales.php:308
 #: console/dialogs/dlg_resultadosManga.inc:131
 #: console/dialogs/dlg_resultados_eq3.inc:137
 #: console/dialogs/dlg_resultados_eq4.inc:137
@@ -2805,7 +2812,7 @@ msgstr "Reh&uacute;ses"
 #: server/pdf/print_entradaDeDatosEquipos4.php:171
 #: server/pdf/print_trsTemplates.php:279 tablet/tablet_main.php:92
 #: videowall/vw_parciales.php:133 videowall/vwc_oldstyle.php:139
-#: videowall/vwc_parciales.php:201 videowall/vwc_parciales.php:308
+#: videowall/vwc_parciales.php:202 videowall/vwc_parciales.php:309
 #: console/dialogs/dlg_resultadosManga.inc:132
 #: console/dialogs/dlg_resultados_eq3.inc:138
 #: console/dialogs/dlg_resultados_eq4.inc:138
@@ -2815,8 +2822,8 @@ msgstr "Tocados"
 #: livestream/vwls_parciales.php:171 public/pb_parciales.php:201
 #: public/pb_parciales_eq3.php:204 server/pdf/print_resultadosByEquipos.php:97
 #: server/pdf/print_resultadosByManga.php:63 videowall/vw_parciales.php:139
-#: videowall/vwc_oldstyle.php:145 videowall/vwc_parciales.php:207
-#: videowall/vwc_parciales.php:314 console/dialogs/dlg_resultadosManga.inc:138
+#: videowall/vwc_oldstyle.php:145 videowall/vwc_parciales.php:208
+#: videowall/vwc_parciales.php:315 console/dialogs/dlg_resultadosManga.inc:138
 #: console/dialogs/dlg_resultados_eq3.inc:144
 #: console/dialogs/dlg_resultados_eq4.inc:144
 msgid "Calification"
@@ -2830,9 +2837,9 @@ msgstr "Calificaci&oacute;n"
 #: server/pdf/print_resultadosByEquipos.php:97
 #: server/pdf/print_resultadosByManga.php:63 videowall/vw_parciales.php:140
 #: videowall/vwc_finales.php:118 videowall/vwc_finales.php:193
-#: videowall/vwc_finales_simplified.php:230
-#: videowall/vwc_finales_simplified.php:262 videowall/vwc_oldstyle.php:146
-#: videowall/vwc_parciales.php:208 videowall/vwc_parciales.php:315
+#: videowall/vwc_finales_simplified.php:231
+#: videowall/vwc_finales_simplified.php:263 videowall/vwc_oldstyle.php:146
+#: videowall/vwc_parciales.php:209 videowall/vwc_parciales.php:316
 #: console/dialogs/dlg_resultadosManga.inc:125
 #: console/dialogs/dlg_resultados_eq3.inc:131
 #: console/dialogs/dlg_resultados_eq4.inc:131
@@ -2859,7 +2866,7 @@ msgstr "No Presentado"
 #: server/pdf/print_clasificacion_eqCombined.php:309
 #: server/pdf/print_clasificacion_eqCombined.php:317
 #: server/pdf/print_entradaDeDatos.php:253
-#: server/pdf/print_resultadosByEquipos4.php:218 videowall/videowall.js.php:442
+#: server/pdf/print_resultadosByEquipos4.php:218 videowall/videowall.js.php:409
 #: console/dialogs/dlg_competicion.inc:126
 msgid "N.P."
 msgstr "N.P."
@@ -2870,14 +2877,14 @@ msgid "Not Clasified"
 msgstr "No Clasificado"
 
 #: modules/Federations.php:178 modules/rfec/config.php:105
-#: modules/uca/config.php:97 videowall/videowall.js.php:440
+#: modules/uca/config.php:97 videowall/videowall.js.php:407
 msgid "N.C."
 msgstr "N.C."
 
 #: modules/Federations.php:181 modules/Federations.php:182
 #: modules/rfec/config.php:108 modules/rfec/config.php:109
 #: modules/uca/config.php:100 modules/uca/config.php:101
-#: videowall/videowall.js.php:439
+#: videowall/videowall.js.php:406
 msgid "Good"
 msgstr "Bien"
 
@@ -2887,7 +2894,7 @@ msgstr "Muy bien"
 
 #: modules/Federations.php:186 modules/rfec/config.php:112
 #: modules/rfec/config.php:113 modules/uca/config.php:105
-#: videowall/videowall.js.php:438
+#: videowall/videowall.js.php:405
 msgid "V.G."
 msgstr "M.B."
 
@@ -2901,7 +2908,7 @@ msgstr "Excelente"
 #: modules/rfec/config.php:121 modules/rsce/config.php:128
 #: modules/rsce/config.php:129 modules/rsce/config.php:132
 #: modules/uca/config.php:109 modules/uca/config.php:113
-#: videowall/videowall.js.php:437
+#: videowall/videowall.js.php:404
 msgid "Exc"
 msgstr "Exc"
 
@@ -2910,7 +2917,7 @@ msgid "Excellent (p)"
 msgstr "Excelente (p)"
 
 #: modules/Federations.php:194 modules/rsce/config.php:133
-#: videowall/videowall.js.php:436
+#: videowall/videowall.js.php:403
 msgid "Ex P"
 msgstr "Ex P"
 
@@ -3045,17 +3052,17 @@ msgstr "Velocidad"
 #: server/pdf/print_clasificacion.php:156
 #: server/pdf/print_clasificacion_eqBest.php:261
 #: server/pdf/print_clasificacion_excel.php:152 videowall/vwc_finales.php:86
-#: videowall/vwc_finales_simplified.php:213
+#: videowall/vwc_finales_simplified.php:214
 msgid "Competitor data"
 msgstr "Datos del participante"
 
 #: public/pb_finales.php:111 public/pb_finales.php:118
 #: videowall/vwc_finales.php:107 videowall/vwc_finales.php:114
 #: videowall/vwc_finales.php:182 videowall/vwc_finales.php:189
-#: videowall/vwc_finales_simplified.php:224
-#: videowall/vwc_finales_simplified.php:227
-#: videowall/vwc_finales_simplified.php:256
-#: videowall/vwc_finales_simplified.php:259
+#: videowall/vwc_finales_simplified.php:225
+#: videowall/vwc_finales_simplified.php:228
+#: videowall/vwc_finales_simplified.php:257
+#: videowall/vwc_finales_simplified.php:260
 msgid "Pos"
 msgstr "Pos"
 
@@ -3433,7 +3440,7 @@ msgstr "Esta entrada no se puede borrar"
 msgid "Countries cannot be deleted"
 msgstr "No se pueden borrar pa&iacute;ses de la base de datos"
 
-#: scripts/clubes.js.php:218 scripts/competicion.js.php:999
+#: scripts/clubes.js.php:218 scripts/competicion.js.php:1036
 #: scripts/guias.js.php:80 scripts/guias.js.php:151 scripts/jueces.js.php:113
 #: scripts/perros.js.php:105 scripts/perros.js.php:169
 #: scripts/pruebas.js.php:130 scripts/sesiones.js.php:103
@@ -3576,48 +3583,49 @@ msgstr "No encontrado"
 msgid "Cannot find dog with dorsal"
 msgstr "No encuentro al perro con dorsal"
 
-#: scripts/competicion.js.php:849 scripts/competicion.js.php:890
+#: scripts/competicion.js.php:848 scripts/competicion.js.php:887
+#: scripts/competicion.js.php:927
 msgid "Internal error: invalid Federation/Course/Category combination"
 msgstr ""
 "Error interno: combinaci&oacute;n de Federacion/Recorrido/Categor&iacute;a "
 "inv&aacute;lida"
 
-#: scripts/competicion.js.php:999
+#: scripts/competicion.js.php:1036
 msgid "Every changes done till now will be lost<br />Continue?"
 msgstr "Se perder&aacute;n todos los ajustes hechos hasta ahora<br/>Continuar?"
 
-#: scripts/competicion.js.php:1084
+#: scripts/competicion.js.php:1121
 msgid "There is no round selected"
 msgstr "No se ha indicado ninguna manga"
 
-#: scripts/competicion.js.php:1181
+#: scripts/competicion.js.php:1218
 msgid "No defined journey"
 msgstr "No hay jornada declarada"
 
-#: scripts/competicion.js.php:1185
+#: scripts/competicion.js.php:1222
 msgid "Requested federation module is not installed"
 msgstr ""
 "El m&oacute;dulo para la federaci&oacute;n solicitada no est&aacute; "
 "instalado"
 
-#: scripts/competicion.js.php:1278
+#: scripts/competicion.js.php:1315
 msgid "<strong>These dogs are pending to provide course data in round"
 msgstr ""
 "<strong>Hay perros pendientes de introducci&oacute;n de datos en la manga"
 
-#: scripts/competicion.js.php:1298 scripts/competicion.js.php:1355
+#: scripts/competicion.js.php:1335 scripts/competicion.js.php:1392
 msgid "There is no selected round for this journey"
 msgstr "No hay ninguna manga seleccionada en la jornada"
 
-#: scripts/competicion.js.php:1318 scripts/competicion.js.php:1340
+#: scripts/competicion.js.php:1355 scripts/competicion.js.php:1377
 msgid "Verify OK"
 msgstr "Verificaci&oacute;n correcta"
 
-#: scripts/competicion.js.php:1318 scripts/competicion.js.php:1340
+#: scripts/competicion.js.php:1355 scripts/competicion.js.php:1377
 msgid "No dogs found without their course results"
 msgstr "No se han encontrado perros sin datos de la manga"
 
-#: scripts/competicion.js.php:1342
+#: scripts/competicion.js.php:1379
 msgid "Verify Error"
 msgstr "Error al verificar"
 
@@ -4239,11 +4247,11 @@ msgstr "Cl Equipos"
 msgid "Flt"
 msgstr "Flt"
 
-#: server/pdf/print_common.php:291
+#: server/pdf/print_common.php:311
 msgid "Page"
 msgstr "P&aacute;gina"
 
-#: server/pdf/print_common.php:295
+#: server/pdf/print_common.php:315
 msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
 
@@ -4492,7 +4500,7 @@ msgid "Video Wall"
 msgstr "Video-Marcadores"
 
 #: videowall/index.php:180 videowall/vw_llamada.php:37
-#: videowall/vwc_finales.php:47 videowall/vwc_finales_simplified.php:279
+#: videowall/vwc_finales.php:47 videowall/vwc_finales_simplified.php:280
 #: videowall/vwc_oldstyle.php:46 videowall/vwc_parciales.php:47
 msgid "Call to ring"
 msgstr "Llamada a pista"
@@ -4526,12 +4534,12 @@ msgid "Current license does not allow handling of videowall operations"
 msgstr ""
 "La licencia actual no permite las operaciones de manejo de video-marcadores"
 
-#: videowall/videowall.js.php:722
+#: videowall/videowall.js.php:695
 msgid "No data yet"
 msgstr "No hay datos todav&iacute;a"
 
 #: videowall/vw_llamada.php:84 videowall/vwc_oldstyle.php:174
-#: videowall/vwc_parciales.php:238
+#: videowall/vwc_parciales.php:239
 msgid "Updating list of teams to be called to ring"
 msgstr "Actualizando orden de llamada a pista"
 
