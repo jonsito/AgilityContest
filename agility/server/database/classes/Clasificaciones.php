@@ -392,12 +392,15 @@ class Clasificaciones extends DBObject {
         $result= $this->evalPenalizacionFinal(array($id1,$id2),$c1,$c2,$mode);
 
 		if($result==null) return null; // null result -> error
-		if (!is_array($result)) return $result;
+		if (!is_array($result)) {
+			$this->myLogger->error($result);
+			return $result;
+		}
 
 		// iterate result to find our dog
 		$table=$result['rows'];
 		$size=$result['total'];
-		$idperro=$perro['Perro'];
+		$idperro=intval($perro['Perro']);
 		// buscamos el puesto en el que finalmente ha quedado $myPerro y lo retornamos
 		for ($idx=0;$idx<$size;$idx++ ){
 			if ($table[$idx]['Perro']!=$idperro) continue;

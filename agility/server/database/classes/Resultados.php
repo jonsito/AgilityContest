@@ -499,16 +499,22 @@ class Resultados extends DBObject {
                 'PTiempo' => 0.0,
                 'Penalizacion' => 0.0,
             );
-            for ($n=0;$n<$size;$n++) {
-                if ($table[$n]['PRecorrido']<$myPerro['PRecorrido']) continue;
-                if ($table[$n]['PRecorrido']==$myPerro['PRecorrido']) {
-                    if ($table[$n]['Tiempo']<$myPerro['Tiempo']) continue;
-                }
-                // arriving here means need to insert $myPerro at index $n
-                array_splice( $table, $n, 0, array($myPerro) ); // notice the "array(myPerro)" closure to preserva myPerro as a single element
-                $size++;
-                break;
-            }
+			// on empty table directly insert perro
+			if ($size==0) {
+				array_push($table,$myPerro);
+				$size++;
+			} else {
+				for ($n=0;$n<$size;$n++) {
+					if ($table[$n]['PRecorrido']<$myPerro['PRecorrido']) continue;
+					if ($table[$n]['PRecorrido']==$myPerro['PRecorrido']) {
+						if ($table[$n]['Tiempo']<$myPerro['Tiempo']) continue;
+					}
+					// arriving here means need to insert $myPerro at index $n
+					array_splice( $table, $n, 0, array($myPerro) ); // notice the "array(myPerro)" closure to preserva myPerro as a single element
+					$size++;
+					break;
+				}
+			}
         }
 
 		// FASE 3: evaluamos TRS Y TRM
