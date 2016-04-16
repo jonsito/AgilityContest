@@ -121,7 +121,7 @@ class PrintCommon extends FPDF {
 		parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
 	}
 
-	function SetFont($family,$style,$size=0) {
+	function SetFont($family,$style='',$size=0) {
 		// not sure why, but seems that UTF fonts are bigger than latin1 fonts
 		// so analyze and reduce size when required
 		switch (strtolower($family)) { // alllow any combination of upper/lower case
