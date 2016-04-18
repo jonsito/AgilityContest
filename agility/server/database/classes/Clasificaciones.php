@@ -401,6 +401,10 @@ class Clasificaciones extends DBObject {
 		$table=$result['rows'];
 		$size=$result['total'];
 		$idperro=intval($perro['Perro']);
+		// en el caso de que todavia no haya clasificaciones, la tabla esta vacia y nuestro perro va el primero :-)
+		if ($size==0) {
+			return array( 'success'=>true,'puesto'=>1,'penalizacion'=>0 /* no easy way to evaluate */);
+		}
 		// buscamos el puesto en el que finalmente ha quedado $myPerro y lo retornamos
 		for ($idx=0;$idx<$size;$idx++ ){
 			if ($table[$idx]['Perro']!=$idperro) continue;

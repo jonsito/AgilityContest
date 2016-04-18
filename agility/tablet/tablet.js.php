@@ -672,8 +672,8 @@ function bindKeysToTablet() {
 				if (e.ctrlKey) tablet_down('#tdialog-Tocados',true);
 				else 	tablet_up('#tdialog-Tocados',true);
 				break;
-			case 69:	tablet_elim(); break; // 'E' -> eliminado
-			case 78:	tablet_np(); break; // 'N' -> no presentado
+			case 69:	tablet_elim(true); break; // 'E' -> eliminado
+			case 78:	tablet_np(true); break; // 'N' -> no presentado
 			// arranque parada del crono
 			case 36:	tablet_resetchrono(); break; // 'Inicio' -> chrono (P)reset
 			case 83:	tablet_startstop();	break; // 'S' -> chrono start/Stop
