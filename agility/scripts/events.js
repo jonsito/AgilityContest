@@ -97,9 +97,10 @@ function waitForEvents(sesID,evtID,timestamp,callback){
 			var response= parseEvent(data);
 			var timestamp= response['TimeStamp'];
 			$.each(response['rows'],function(key,value){
-				evtID=value['ID']; // store last evt id
+				var evtID=value['ID']; // store last evt id
 				if (value['Type']==='reconfig') setTimeout(loadConfiguration,0);
 				else callback(evtID,value['Data']);
+				return false;
 			});
 			// re-queue event
 			setTimeout(function(){ waitForEvents(sesID,evtID,timestamp,callback);},1000);
