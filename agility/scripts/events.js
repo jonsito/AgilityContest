@@ -59,7 +59,10 @@ function startEventMgr(sesID,callback) {
 		cache: false,
 		dataType: 'json',
 		success: function(response){
-			if ( parseInt(response['total'])!=0) {
+			if (typeof(response['errorMsg'])!=="undefined") {
+				console.log(response['errorMsg']);
+				setTimeout(function(){ startEventMgr(sesID,callback);},timeout );
+			} else if ( parseInt(response['total'])!=0) {
 				var row=response['rows'][0];
 				var evtID=row['ID'];
 				initWorkingData(row['Session']);

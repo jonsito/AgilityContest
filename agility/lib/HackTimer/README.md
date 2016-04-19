@@ -7,19 +7,23 @@ Place script reference to **HackTimer.js** (or HackTimer.min.js) before any othe
 # NPM
 Command: `npm install hacktimer --reg https://www.myget.org/F/hack-timer/npm`
 
+Latest version is 1.1.0
+
 Registry URL: https://www.myget.org/F/hack-timer/npm
 
 # Bower
 Command: `bower install hacktimer`
 
-Registry: https://www.myget.org
+Latest version is 1.1.0
+
+Registry: https://www.myget.org/F/hack-timer/bower/
 
 You can specify bower registry in file `.bowerrc` in your working directory
 ```json
 {
   "registry": {
       "search": [
-          "https://www.myget.org",
+          "https://www.myget.org/F/hack-timer/bower/",
           "https://bower.herokuapp.com"
       ]
   }
