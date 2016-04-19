@@ -15,17 +15,6 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-var ac_eventHandlers = {};
-
-/**
- * As Function.name is not (yet) standard, use this ad-hoc method to obtain function name
- */
-function getFunctionName(fn) {
-	 var f = typeof fn == 'function';
-	 var s = f && ((fn.name && ['', fn.name]) || fn.toString().match(/function ([^\(]+)/));
-	 return (!f && 'not a function') || (s && s[1] || 'anonymous'); 
-}
-
 function parseEvent(data) {
 	// var response= eval('(' + data + ')' );
 	var response= JSON.parse(data);
@@ -70,27 +59,23 @@ function startEventMgr(sesID,callback) {
 		cache: false,
 		dataType: 'json',
 		success: function(response){
-			if ( response['total']!=0) {
+			if ( parseInt(response['total'])!=0) {
 				var row=response['rows'][0];
 				var evtID=row['ID'];
-				var name=getFunctionName(callback);
 				initWorkingData(row['Session']);
-				ac_eventHandlers[name]=500; // recall getEvents() every 500 msecs
 				setTimeout(function(){ waitForEvents(sesID,evtID,0,callback);},0);
 			} else {
 				setTimeout(function(){ startEventMgr(sesID,callback);},timeout );
 			}
+			return false;
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
 			alert("error: "+textStatus + " "+ errorThrown );
 			setTimeout(function(){  startEventMgr(sesID,callback);},timeout );
+			return false;
 		}
 	});
-}
-
-function stopEventMgr(callback) {
-	var name=getFunctionName(callback);
-	ac_eventHandlers[name]=-1; // mark stop polling on this callback
+	return false;
 }
 
 function waitForEvents(sesID,evtID,timestamp,callback){
@@ -113,21 +98,15 @@ function waitForEvents(sesID,evtID,timestamp,callback){
 				if (value['Type']==='reconfig') setTimeout(loadConfiguration,0);
 				else callback(evtID,value['Data']);
 			});
-			// analyze event handler list to get poll time
-			var name=getFunctionName(callback);
-			if (typeof(ac_eventHandlers[name])==="undefined"){
-				ac_eventHandlers[name]=500; // mark callback's eventhandler to be called every 500 msecs
-			}
-			if (ac_eventHandlers[name]<0) { // callback's event handler marked to stop polling
-				// console.log("Closing event handler: "+name);
-				return;
-			}
 			// re-queue event
-			setTimeout(function(){ waitForEvents(sesID,evtID,timestamp,callback);},ac_eventHandlers[name]);
+			setTimeout(function(){ waitForEvents(sesID,evtID,timestamp,callback);},1000);
+			return false;
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
 			// alert("error: "+textStatus + " "+ errorThrown );
 			setTimeout(function(){ waitForEvents(sesID,evtID,timestamp,callback);},5000); // retry in 5 seconds
+			return false;
 		}
 	});
+	return false;
 }
