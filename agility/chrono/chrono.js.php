@@ -127,6 +127,8 @@ function c_updateData(data) {
 	if (data["Tocados"]!=-1) $('#chrono_Tocados').html(data["Tocados"]);
 	if (data["Rehuses"]!=-1) $('#chrono_Rehuses').html(data["Rehuses"]);
 	// if (data["Tiempo"]!=-1) $('#chrono_Tiempo').html(data["Tiempo"]);
+	// on update hide puesto
+	$('#chrono_PuestoLbl').html('');
 	var e=parseInt(data["Eliminado"]);
 	if (e>=0) {
 		$('#chrono_Eliminado').html(e);
@@ -201,12 +203,16 @@ function c_displayPuesto(flag,time) {
 			'NoPresentado':$('#chrono_NoPresentado').text(),
 			'Tiempo':	time
 		};
-		// phase 2: do not call server if eliminado or not presentado
-		if (datos.NoPresentado=="1") {
+		// phase 2: do not call server if no perro or eliminado or not presentado
+		if (datos.Perro=="" || parseInt(datos.Perro)<=0) {
+			$('#chrono_PuestoLbl').html('');
+			return;
+		}
+		if (parseInt(datos.NoPresentado)==1) {
 			$('#chrono_PuestoLbl').html('<span class="blink" style="color:red;"><?php _e('NoPr');?>.</span>');// no presentado
 			return;
 		}
-		if (datos.Eliminado=="1") {
+		if (parseInt(datos.Eliminado)==1) {
 			$('#chrono_PuestoLbl').html('<span class="blink" style="color:red;"><?php _e('Elim');?>.</span>');// eliminado
 			return;
 		}
@@ -271,6 +277,7 @@ function c_showData(data) {
 	$('#chrono_Tocados').html(data["Tocados"]);
 	$('#chrono_Rehuses').html(data["Rehuses"]);
 	$('#chrono_Tiempo').html(data["Tiempo"]);
+	$('#chrono_PuestoLbl').html(''); // solo se muestra puesto al final
 	var e=parseInt(data["Eliminado"]);
 	if (e>=0) {
 		$('#chrono_Eliminado').html(e);
