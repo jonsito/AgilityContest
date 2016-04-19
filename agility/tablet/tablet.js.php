@@ -88,14 +88,6 @@ function tablet_putEvent(type,data){
 	});
 }
 
-function need_resetChrono(data) {
-	if (! isJornadaEq4()) return true;
-	// en equipos4 resetea si cambio de equipo
-	var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
-	if ($('#tdialog-Club').html()!==eq) return false;
-	return true;
-}
-
 function tablet_updateSession(row) {
 	// update sesion info in database
 	var data = {
@@ -710,14 +702,13 @@ function tablet_processEvents(id,evt) {
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		return;
 	case 'llamada':	// llamada a pista
-		// todo: en 4 conjunta solo para crono si cambio de equipo
-		if (need_resetChrono()) {
-			tablet_cronometro('stop');
-			tablet_cronometro('reset');
-			setStartStopMode(0); // mark ready to start
-		}
+		// sometimes operator press "Enter" to update user data when dog is already in the ring
+		// so let preserve chrono status
 		return;
 	case 'salida': // orden de salida (15 segundos)
+		tablet_cronometro('stop');
+		tablet_cronometro('reset');
+		setStartStopMode(0); // mark ready to start
 		myCounter.start();
 		return;
 	case 'start': // arranque manual del cronometro
