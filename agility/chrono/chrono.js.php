@@ -461,12 +461,6 @@ function chrono_processEvents(id,evt) {
 		c_updateData(event);
 		return;
 	case 'llamada':	// llamada a pista
-        crm.text('').removeClass('blink');
-		// todo: en 4 conjunta solo para crono si cambio de equipo
-		if (need_resetChrono()) {
-			cra.Chrono('stop',time);
-			cra.Chrono('reset');
-		}
 		c_showData(event);
 		return;
 	case 'salida': // orden de salida

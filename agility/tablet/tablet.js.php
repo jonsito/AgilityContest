@@ -504,12 +504,6 @@ function tablet_accept() {
 			'Eliminado': row.Eliminado
 		}
 	);
-	// en jornadas por equipos 4 el crono sigue contando entre perro y perro
-	// por ello no reseteamos el crono en el cambio de equipo
-	if ( ! isJornadaEq4()) {
-		tablet_cronometro('stop');
-		tablet_cronometro('reset');
-	}
 	// check "accept" behaviour in config. If 'tablet_next' = false, just return to round selection
 	if (ac_config.tablet_next==="0") { // no go to next row entry
 		setDataEntryEnabled(false);
@@ -712,12 +706,19 @@ function tablet_processEvents(id,evt) {
 		myCounter.start();
 		return;
 	case 'start': // arranque manual del cronometro
-		if (getStartStopMode()<0) return;		// si crono automatico, ignora
-		setStartStopMode(1); // mark running in manual mode
 		myCounter.stop();
-		crm.Chrono('stop',time);
-		crm.Chrono('reset');
-		crm.Chrono('start',time);
+		switch(getStartStopMode()) {
+			case -1: // crono auto: ignore
+				break;
+			case 1: // crono manual arrancado: vuelve a contar
+				crm.Chrono('stop',time);
+				crm.Chrono('reset');
+				// no break;
+			case 0: // crono parado:arranca
+				setStartStopMode(1); // mark running in manual mode
+				crm.Chrono('start',time);
+				break;
+		}
 		return;
 	case 'stop': // parada manual del cronometro
 		setStartStopMode(0); // mark stopped
@@ -725,36 +726,32 @@ function tablet_processEvents(id,evt) {
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
 		myCounter.stop();
-		// si esta parado, arranca en modo automatico
-		if (!crm.Chrono('started')) {
-			setStartStopMode(-1); // mark automatic crono
-			crm.Chrono('stop',time);
-			crm.Chrono('reset');
-			crm.Chrono('start',time);
-			return
-		}
-		// when "resync" mode is configured, every start event
-		// resets and start chronometer
-		if (ac_config.crono_resync==="0") {
-			setStartStopMode(-1); // mark automatic crono
-			crm.Chrono('reset');
-			crm.Chrono('start',time);
-			return;
-		}
-		// TODO: fix resync event to properly change from manual to auto mode
-		/*
-		else {
-			// when resync mode is on, we should retain elapsed time and go to auto mode
-			// send restart event. Use event queue to avoid blocking event parsing
-			setTimeout(
-				function() {
-					var stopTime=(Date.now()-startDate)
-					tablet_putEvent("crono_restart",{'stop':stopTime, 'start':time } );
-					console.log("Stop Time:"+stopTime+" StartTime:"+time);
+		switch( getStartStopMode() ) {
+			case 1: // crono arrancado manual: resync with provided time
+				if (parseInt(ac_config.crono_resync) !== 0) {
+					// TODO: fix resync event to properly change from manual to auto mode
+					// when resync mode is on, we should retain elapsed time and go to auto mode
+					// send restart event. Use event queue to avoid blocking event parsing
+					/*
+					 setTimeout(
+					 function() {
+						var stopTime=(Date.now()-startDate)
+					 	tablet_putEvent("crono_restart",{'stop':stopTime, 'start':time } );
+					 	console.log("Stop Time:"+stopTime+" StartTime:"+time);
+					 	},0);
+					 }
+					 */
+					return;
 				}
-			,0);
+				// no break
+			case -1: // crono arrancado automatico: restart
+				crm.Chrono('stop',time);
+				// no break
+			case 0: // crono parado
+				setStartStopMode(-1); // mark automatic crono start
+				crm.Chrono('reset');
+				crm.Chrono('start',time);
 		}
-		*/
 		return;
 	case 'crono_restart': // paso de tiempo manual a automatico
 		crm.Chrono('resync',event['stop'],event['start']);
