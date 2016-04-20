@@ -115,7 +115,7 @@ $('#vw_parciales-window').window({
 	collapsed:false,
 	resizable:true,
 	onOpen: function() {
-        startEventMgr(workingData.sesion,videowall_eventManager);
+        startEventMgr();
 	}
 });
 

@@ -38,78 +38,83 @@ function parseEvent(data) {
 	return response; 
 }
 
+$(function(evtID,timestamp){
+	function waitForEvents(evtID,timestamp){
+
+		function handleSuccess(data,status,jqXHR){
+			var response= parseEvent(data);
+			var timestamp= response.TimeStamp;
+			var lastID=evtID;
+			for (var n=0;n<parseInt(response.total);n++) {
+				var row=response.rows[n];
+				lastID=row['ID'];// store last evt id
+				if (row['Type']==='reconfig') setTimeout(loadConfiguration,0);
+				else workingData.datosSesion.callback(lastID,row['Data']);
+			}
+			// re-queue event
+			setTimeout(function(){ waitForEvents(lastID,timestamp);},1000);
+		}
+
+		function handleError(data,status,jqXHR) {
+			console.log(status);
+			setTimeout(function(){ waitForEvents(evtID,timestamp);},5000); // retry in 5 seconds
+		}
+
+		$.ajax({
+			type: "GET",
+			url: "/agility/server/database/eventFunctions.php",
+			data: {
+				'Operation' : 'getEvents',
+				'ID'		: evtID,
+				'Session'	: workingData.sesion,
+				'TimeStamp' : timestamp
+			},
+			async: true,
+			cache: false,
+			success: handleSuccess,
+			error: handleError
+		});
+	}
+
+	waitForEvents(evtID,timestamp);
+});
+
+
 /** 
  * Call "connect" to retrieve last "open" event for provided session ID
  * fill working data with received info
  * If no response wait two seconds and try again
- * On sucess invoke                                                                                                                                                                                                                            
- * @param sesID
- * @param callback
+ * On sucess invoke
  */
-function startEventMgr(sesID,callback) {
-	var timeout=2000;
+function startEventMgr() {
 	$.ajax({
 		type: "GET",
 		url: "/agility/server/database/eventFunctions.php",
 		data: {
 			'Operation' : 'connect',
-			'Session'	: sesID
+			'Session'	: workingData.sesion
 		},
 		async: true,
 		cache: false,
 		dataType: 'json',
-		success: function(response){
+		success: function(response) {
+			var timeout=5000;
 			if (typeof(response['errorMsg'])!=="undefined") {
 				console.log(response['errorMsg']);
-				setTimeout(function(){ startEventMgr(sesID,callback);},timeout );
-			} else if ( parseInt(response['total'])!=0) {
+				setTimeout(function(){ startEventMgr();},timeout );
+				return;
+			}
+			if ( parseInt(response['total'])!=0) {
 				var row=response['rows'][0];
 				var evtID=row['ID'];
-				initWorkingData(row['Session']);
-				setTimeout(function(){ waitForEvents(sesID,evtID,0,callback);},0);
+				setTimeout(function(){ waitForEvents(evtID,0);},0);
 			} else {
-				setTimeout(function(){ startEventMgr(sesID,callback);},timeout );
+				setTimeout(function(){ startEventMgr(); },timeout );
 			}
-			return false;
 		},
-		error: function(XMLHttpRequest,textStatus,errorThrown) {
+		error: function (XMLHttpRequest,textStatus,errorThrown) {
 			alert("error: "+textStatus + " "+ errorThrown );
-			setTimeout(function(){  startEventMgr(sesID,callback);},timeout );
-			return false;
-		}
-	});
-	return false;
-}
-
-function waitForEvents(sesID,evtID,timestamp,callback){
-	$.ajax({
-		type: "GET",
-		url: "/agility/server/database/eventFunctions.php",
-		data: {
-			'Operation' : 'getEvents',
-			'ID'		: evtID,
-			'Session'	: sesID,
-			'TimeStamp' : timestamp
-		},
-		async: true,
-		cache: false,
-		success: function(data){
-			var response= parseEvent(data);
-			var timestamp= response['TimeStamp'];
-			$.each(response['rows'],function(key,value){
-				var evtID=value['ID']; // store last evt id
-				if (value['Type']==='reconfig') setTimeout(loadConfiguration,0);
-				else callback(evtID,value['Data']);
-				return false;
-			});
-			// re-queue event
-			setTimeout(function(){ waitForEvents(sesID,evtID,timestamp,callback);},1000);
-			return false;
-		},
-		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			// alert("error: "+textStatus + " "+ errorThrown );
-			setTimeout(function(){ waitForEvents(sesID,evtID,timestamp,callback);},5000); // retry in 5 seconds
-			return false;
+			setTimeout(function(){ startEventMgr(); },5000 );
 		}
 	});
 	return false;

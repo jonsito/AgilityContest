@@ -58,7 +58,7 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <link rel="stylesheet" type="text/css" href="/agility/css/livestream_css.php" />
 <link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
 <script src="/agility/lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" ></script>
-<script src="/agility/lib/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
@@ -274,7 +274,7 @@ function vw_accept() {
 	// store selected data into global structure
 	workingData.sesion=s.ID;
 	workingData.nombreSesion=s.Nombre;
-	initWorkingData(s.ID);
+	initWorkingData(s.ID,videowall_eventManager);
 	ac_config.vw_combined=0;
 	var page="'/agility/console/frm_notavailable.php";
 	var n=parseInt($('#selvw-Vista').val());

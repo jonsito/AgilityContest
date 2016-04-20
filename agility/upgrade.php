@@ -311,7 +311,7 @@ echo '
                 background-size:50% 100%;
             }
         </style>
-        <script src="/agility/lib/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8" > </script>
+        <script src="/agility/lib/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8" > </script>
         <script type="text/javascript" charset="utf-8">
             jQuery.fn.putCursorAtEnd = function() {
                 return this.each(function() {

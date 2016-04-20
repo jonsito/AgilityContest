@@ -678,7 +678,7 @@ function bindKeysToTablet() {
 	});
 }
 
-function tablet_processEvents(id,evt) {
+function tablet_eventManager(id,evt) {
 	var tbox=$('#tdialog-Tiempo');
 	var crm=$('#cronometro');
 	var event=parseEvent(evt); // remember that event was coded in DB as an string

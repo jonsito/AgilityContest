@@ -156,7 +156,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         collapsed:false,
         resizable:true,
         onOpen: function() {
-            startEventMgr(workingData.sesion,videowall_eventManager);
+            startEventMgr();
         }
     });
 

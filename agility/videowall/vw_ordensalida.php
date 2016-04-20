@@ -62,7 +62,7 @@ $('#vw_ordensalida-window').window({
     resizable:true,
     callback: null,
     onOpen: function() {
-        startEventMgr(workingData.sesion,videowall_eventManager);
+        startEventMgr();
     }
 });
 

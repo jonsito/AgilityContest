@@ -591,18 +591,20 @@ function setTanda(data) {
 function setSesion(data) {
 	workingData.sesion = 0;
 	workingData.nombreSesion = "";
-	workingData.datosTSesion = {};
+	workingData.datosSesion = {};
 	if (typeof(data) === 'undefined') return;
 	workingData.sesion = data.ID;
 	workingData.nombreSesion = data.Nombre;
 	workingData.datosSesion =data;
 }
+
 var workingData = {};
 /**
  * @param {int} id SessionID
+ * @param {function} callback method to handle events
  * Initialize working data information object
  */
-function initWorkingData(id) {
+function initWorkingData(id,callback) {
 	workingData.logoChanged=false;
 	workingData.perro= 0; // IDPerro del perro en edicion
 	workingData.guia= 0; // ID del guia en edicion
@@ -626,7 +628,8 @@ function initWorkingData(id) {
 	if (typeof(workingData.datosManga)==="undefined") workingData.datosManga= {}; // last selected jornada data
 	if (typeof(workingData.datosTanda)==="undefined") workingData.datosTanda= {}; // last selected jornada data
     if (typeof(workingData.datosRonda)==="undefined") workingData.datosRonda= {}; // last selected ronda (grade, manga1, manga2)
-    if (typeof(workingData.teamsByJornada)==="undefined") workingData.teamsByJornada= {}; // last selected ronda (grade, manga1, manga2)
+	if (typeof(workingData.teamsByJornada)==="undefined") workingData.teamsByJornada= {}; // last selected ronda (grade, manga1, manga2)
+	if (typeof(workingData.datosSesion)==="undefined") workingData.datosSesion= {}; // running ring session
 	if (typeof(id)!=="undefined") {
 		$.ajax({
 			url: '/agility/server/database/sessionFunctions.php',
@@ -649,6 +652,8 @@ function initWorkingData(id) {
 				workingData.sesion	= data.ID;
 				workingData.nombreSesion	= data.Nombre;
 				workingData.datosSesion = data;
+				// if provided store event manager for this session
+				if (typeof(callback)!=="undefined") workingData.datosSesion.callback=callback;
 			},
 			error: function(msg){ alert("error setting workingData: "+msg);}
 		});

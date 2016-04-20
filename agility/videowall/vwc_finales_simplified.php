@@ -182,7 +182,7 @@ Modelo simplificado de resultados finales
         collapsed:false,
         resizable:true,
         onOpen: function() {
-            startEventMgr(workingData.sesion,videowall_eventManager);
+            startEventMgr();
         }
     });
 

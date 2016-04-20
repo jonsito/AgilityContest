@@ -143,7 +143,7 @@ $('#chrono_Screen-dialog').dialog({
 	maximizable:false,
 	maximized:true,
 	onOpen: function() {
-		startEventMgr(workingData.sesion,chrono_processEvents);
+		startEventMgr();
 		bindKeysToChrono();
 	},
 	buttons:'#chrono-simButtons'

@@ -434,7 +434,7 @@ function bindKeysToChrono() {
 	});
 }
 
-function chrono_processEvents(id,evt) {
+function chrono_eventManager(id,evt) {
 	var cra=$('#cronoauto');
 	var crm=$('#chrono_Manual'); // Texto "manual"
 	var cre=$('#chrono_Error');  // Textro "comprobar sensores"

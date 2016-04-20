@@ -171,7 +171,7 @@ function chrono_accept() {
 		return;
 	}
 	// store selected data into global structure
-	initWorkingData(sid); // TODO: replace with proper setupWorkingData call
+	initWorkingData(sid,chrono_eventManager);
 	var page='/agility/chrono/chrono.inc.php';
 	$('#chrono-dialog').dialog('close');
 	$('#chrono-contenido').load(	

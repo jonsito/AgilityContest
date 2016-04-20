@@ -89,7 +89,7 @@ $('#vw_combinada-window').window({
     collapsed:false,
     resizable:true,
     onOpen: function() {
-        startEventMgr(workingData.sesion,videowall_eventManager);
+        startEventMgr();
     }
 });
 

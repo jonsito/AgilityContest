@@ -64,7 +64,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/tablet.css" />
 <script src="/agility/lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
 <script src="/agility/lib/jquery-easyui-1.4.2/locale/easyui-lang-<?php echo substr($config->getEnv('lang'),0,2);?>.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
@@ -344,13 +344,12 @@ function tablet_acceptSelectJornada() {
         	    	"info",
         	    	function() {
         	    	   	initAuthInfo(data);
-        	    	   	initWorkingData(s.ID);
+        	    	   	initWorkingData(s.ID,tablet_eventManager); // synchronous ajax call inside :-(
         	    	   	// los demas valores se actualizan en la linea anterior
-        	    		workingData.nombreSesion=s.Nombre;
         	    		workingData.nombrePrueba=p.Nombre;
+						workingData.datosPrueba=p;
+						workingData.nombreJornada=j.Nombre;
                         workingData.datosJornada=j;
-                        workingData.datosSesion=s;
-        	    		workingData.nombreJornada=j.Nombre;
                         // jornadas "normales", equipos3 y Open comparten el mismo fichero
         	    		var page="/agility/tablet/tablet_main.php";
         	    		if (workingData.datosJornada.Equipos4==1) {
@@ -366,7 +365,7 @@ function tablet_acceptSelectJornada() {
         	    				function(response,status,xhr){
         	    					if (status=='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
         	        	    		// start event manager
-        	        	    		startEventMgr(workingData.sesion,tablet_processEvents);
+        	        	    		startEventMgr();
 									setDataEntryEnabled(false);
                                     $('#tablet-layout').layout('panel','west').panel('setTitle',p.Nombre+" - "+ j.Nombre);
 									$('#tdialog-InfoLbl').html(p.Nombre + ' - ' + j.Nombre);
