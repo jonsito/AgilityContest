@@ -72,8 +72,6 @@ function vw_updateWorkingData(evt,callback) {
             setJornada(data.Jornada);
             setManga(data.Manga);
 			setTanda(data.Tanda);
-			workingData.sesion=data.Sesion.ID;
-			workingData.datosSesion=data.Sesion;
             // and finally invoke callback
             if ( typeof(callback)==='function' ) callback(evt,data);
         }
