@@ -448,7 +448,7 @@ function fillPending(dg,idx) {
 	for (var n=(idx==0)?0:-1;n<6;n++) {
 		if ( typeof(data[idx+n])==='undefined') continue;
 		var row=data[idx+n];
-		rows.push({'Num':idx+n+1,'Dorsal':row.Dorsal,'Nombre':row.Nombre,'Guia':row.NombreGuia});
+		rows.push({'Num':idx+n+1,'Dorsal':row.Dorsal,'Nombre':row.Nombre,'Guia':row.NombreGuia,'Club':row.NombreClub});
 	}
 	$('#tdialog-tnext').datagrid('loadData',rows);
 	$('#tdialog-tnext').datagrid('selectRow',(idx==0)?0:1);
@@ -608,9 +608,16 @@ function tablet_editByDorsal() {
 	$.messager.alert("No selection",'<?php _e("There is no selected round");?>',"error");
 	drs.val('---- <?php _e("Dorsal"); ?> ----');
 }
+
 function bindKeysToTablet() {
-	if (isMobileDevice()) return; // disable key handling on tablet/mobile phone
-	if (parseInt(ac_config.tablet_keyboard)==0) return; // on keyboard disabled, ignore
+
+	// disable key handling on tablet/mobile phone
+	if (isMobileDevice()) return;
+	// when round selection panel is open, just return to normal key binding
+	if( $('#tablet-layout').layout('panel','west').panel('options').collapsed==false) return true;
+	// if configuration states keyboard disabled, ignore
+	if (parseInt(ac_config.tablet_keyboard)==0) return false;
+
 	// parse keypress event on every  button
 	$(document).keydown(function(e) {
 		// on round selection window focused, ignore

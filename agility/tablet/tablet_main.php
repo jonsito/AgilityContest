@@ -383,8 +383,9 @@ $config =Config::getInstance();
         columns:[[
             { field:'Num',	width:'10%', align:'right',	title: '<?php _e('Num');?>' },
             { field:'Dorsal',width:'15%', align:'right',	title: '<?php _e('Dorsal');?>' },
-            { field:'Nombre',width:'25%', align:'right',	title: '<?php _e('Name');?>' },
-            { field:'Guia',	width:'50%', align:'right',	title: '<?php _e('Handler');?>' }
+            { field:'Nombre',width:'20%', align:'right',	title: '<?php _e('Name');?>' },
+            { field:'Guia',	width:'35%', align:'right',	title: '<?php _e('Handler');?>' },
+            { field:'Club',	width:'20%', align:'right',	title: '<?php _e('Club');?>' }
         ]],
         onDblClickRow: function(index,row) {
             $('#tablet-datagrid-search').val(row.Dorsal);
@@ -404,27 +405,27 @@ $config =Config::getInstance();
     doLayout(dg,"#tdialog-RehuseUpBtn",		170,	5,		30,		75	);
     doLayout(dg,"#tdialog-RehuseDownBtn",	145,	5,		15,		20	);
     doLayout(dg,"#tdialog-TocadoUpBtn",		5,		85,     30,		20	);
-    doLayout(dg,"#tdialog-TocadoDownBtn",	45,		85,     15,		20	);
-    doLayout(dg,"#tdialog-SalidaBtn",		145,	85,		15,		13	);
-    doLayout(dg,"#tdialog-ResetBtn",		145,	102,	15,		13	);
-    doLayout(dg,"#tdialog-StartStopBtn",	174,	88,		22,		22	);
+    doLayout(dg,"#tdialog-TocadoDownBtn",	42,		85,     15,		20	);
+    doLayout(dg,"#tdialog-SalidaBtn",		147,	88,		15,		20	);
+    doLayout(dg,"#tdialog-ResetBtn",		60,	    87,	    15,		15	);
+    doLayout(dg,"#tdialog-StartStopBtn",	174,	87,		22,		22	);
     doLayout(dg,"#tdialog-AcceptBtn",		170,	115,	30,		25	);
-    doLayout(dg,"#tdialog-CancelBtn",		145,	120,	15,		20	);
+    doLayout(dg,"#tdialog-CancelBtn",		147,	117,	15,		20	);
     doLayout(dg,"#tdialog-NoPresentadoBtn",	70,		5,		27,		20	);
     doLayout(dg,"#tdialog-EliminadoBtn",	108,	5,		27,		20	);
-    doLayout(dg,"#tdialog-Next",	        5,	    110,	65,		30	);
-    doLayout(dg,"#tdialog-1",				75,		80,		20,		15	);
-    doLayout(dg,"#tdialog-2",				95,		80,		20,		15	);
-    doLayout(dg,"#tdialog-3",				115,	80,		20,		15	);
-    doLayout(dg,"#tdialog-4",				75,		95,		20,		15	);
-    doLayout(dg,"#tdialog-5",				95,		95,		20,		15	);
-    doLayout(dg,"#tdialog-6",				115,	95,		20,		15	);
-    doLayout(dg,"#tdialog-7",				75,		110,	20,		15	);
-    doLayout(dg,"#tdialog-8",				95,		110,	20,		15	);
-    doLayout(dg,"#tdialog-9",				115,	110,	20,		15	);
-    doLayout(dg,"#tdialog-Del",				115,	125,	20,		15	);
-    doLayout(dg,"#tdialog-0",				95,		125,	20,		15	);
-    doLayout(dg,"#tdialog-Dot",				75,		125,	20,		15	);
+    doLayout(dg,"#tdialog-Next",	        5,	    110,	70,		30	);
+    doLayout(dg,"#tdialog-1",				80,		80,		20,		15	);
+    doLayout(dg,"#tdialog-2",				100,	80,		20,		15	);
+    doLayout(dg,"#tdialog-3",				120,	80,		20,		15	);
+    doLayout(dg,"#tdialog-4",				80,		95,		20,		15	);
+    doLayout(dg,"#tdialog-5",				100,	95,		20,		15	);
+    doLayout(dg,"#tdialog-6",				120,	95,		20,		15	);
+    doLayout(dg,"#tdialog-7",				80,		110,	20,		15	);
+    doLayout(dg,"#tdialog-8",				100,	110,	20,		15	);
+    doLayout(dg,"#tdialog-9",				120,	110,	20,		15	);
+    doLayout(dg,"#tdialog-Del",				120,	125,	20,		15	);
+    doLayout(dg,"#tdialog-0",				100,	125,	20,		15	);
+    doLayout(dg,"#tdialog-Dot",				80,		125,	20,		15	);
     doLayout(dg,"#tdialog-DorsalLbl",		53,		38,		10,		7	);
     doLayout(dg,"#tdialog-Dorsal",			65,		37,		18,		7	);
     doLayout(dg,"#tdialog-NombreLbl",		85,	    38,		20,		7   );
