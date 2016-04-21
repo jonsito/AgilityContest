@@ -442,16 +442,11 @@ function tablet_cancel() {
 	});
 }
 
+/* dg round selection datagrid, idx row index */
 function fillPending(dg,idx) {
-	var data=dg.datagrid('getRows');
-	var rows=[];
-	for (var n=(idx==0)?0:-1;n<6;n++) {
-		if ( typeof(data[idx+n])==='undefined') continue;
-		var row=data[idx+n];
-		rows.push({'Num':idx+n+1,'Dorsal':row.Dorsal,'Nombre':row.Nombre,'Guia':row.NombreGuia,'Club':row.NombreClub});
-	}
-	$('#tdialog-tnext').datagrid('loadData',rows);
-	$('#tdialog-tnext').datagrid('selectRow',(idx==0)?0:1);
+	var dg2=$('#tdialog-tnext');
+	dg2.datagrid('scrollTo',idx);
+	dg2.datagrid('selectRow',idx);
 	$('#tdialog-NumberLbl').html('<p>'+(idx+1)+'</p>');
 }
 

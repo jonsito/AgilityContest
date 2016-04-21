@@ -247,8 +247,10 @@ $config =Config::getInstance();
             autoRowHeight: false,
             remote:true,
             idField:'Dorsal',
+            /*
             view: scrollview,
             pageSize: 20,
+            */
             columns:[[
                 { field:'Parent',		width:0, hidden:true }, // self reference to row index
                 { field:'Prueba',		width:0, hidden:true }, // extra field to be used on form load/save
@@ -295,6 +297,8 @@ $config =Config::getInstance();
             onLoadSuccess:function(data){
                 if (!data.total) return; // subgrid returns an empty array. Do nothing
                 mySelf.datagrid('options').numRows=data.total; // store total number of rows
+                // populate data entry datagrid with loaded data
+                $('#tdialog-tnext').datagrid('loadData',mySelf.datagrid('getRows'));
                 // show/hide team name
                 if (isTeamByJornada(workingData.datosJornada) ) mySelf.datagrid('showColumn','NombreEquipo');
                 else  mySelf.datagrid('hideColumn','NombreEquipo');
@@ -375,17 +379,17 @@ $config =Config::getInstance();
     // creamos la tabla de proximos a salir
     $('#tdialog-tnext').datagrid({
         pagination: false,
-        rownumbers: false,
+        rownumbers: true,
         fit:true,
         fitColumns: true,
         singleSelect: true,
         autoRowHeight: true,
         columns:[[
-            { field:'Num',	width:'10%', align:'right',	title: '<?php _e('Num');?>' },
-            { field:'Dorsal',width:'15%', align:'right',	title: '<?php _e('Dorsal');?>' },
-            { field:'Nombre',width:'20%', align:'right',	title: '<?php _e('Name');?>' },
-            { field:'Guia',	width:'35%', align:'right',	title: '<?php _e('Handler');?>' },
-            { field:'Club',	width:'20%', align:'right',	title: '<?php _e('Club');?>' }
+            /*{ field:'Num',	width:'10%', align:'right',	title: '<?php _e('Num');?>' },*/
+            { field:'Dorsal',width:'10%', align:'right',	title: '<?php _e('Dorsal');?>' },
+            { field:'Nombre',width:'25%', align:'right',	title: '<?php _e('Name');?>' },
+            { field:'NombreGuia',	width:'35%', align:'right',	title: '<?php _e('Handler');?>' },
+            { field:'NombreClub',	width:'20%', align:'right',	title: '<?php _e('Club');?>' }
         ]],
         onDblClickRow: function(index,row) {
             $('#tablet-datagrid-search').val(row.Dorsal);
