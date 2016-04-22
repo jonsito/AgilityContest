@@ -225,7 +225,6 @@ $config =Config::getInstance();
         var mySelfstr='#tablet-datagrid-'+row.ID;
         var mySelf=$(mySelfstr);
         mySelf.datagrid({
-            numRows: 0, // added by JAMC to store number of dogs
             method: 'get',
             url: '/agility/server/database/tandasFunctions.php',
             queryParams: {
@@ -247,10 +246,6 @@ $config =Config::getInstance();
             autoRowHeight: false,
             remote:true,
             idField:'Dorsal',
-            /*
-            view: scrollview,
-            pageSize: 20,
-            */
             columns:[[
                 { field:'Parent',		width:0, hidden:true }, // self reference to row index
                 { field:'Prueba',		width:0, hidden:true }, // extra field to be used on form load/save
@@ -289,16 +284,15 @@ $config =Config::getInstance();
                 data.RowIndex=idx; // store row index
                 $('#tdialog-form').form('load',data);
                 setDataEntryEnabled(true);
-                fillPending(mySelf,data.RowIndex);
+                tablet_markSelectedDog(data.RowIndex);
             },
             onResize:function(){
                 tbt_dg.datagrid('fixDetailRowHeight',index);
             },
             onLoadSuccess:function(data){
                 if (!data.total) return; // subgrid returns an empty array. Do nothing
-                mySelf.datagrid('options').numRows=data.total; // store total number of rows
                 // populate data entry datagrid with loaded data
-                $('#tdialog-tnext').datagrid('loadData',mySelf.datagrid('getRows'));
+                $('#tdialog-tnext').datagrid('loadData',data.rows);
                 // show/hide team name
                 if (isTeamByJornada(workingData.datosJornada) ) mySelf.datagrid('showColumn','NombreEquipo');
                 else  mySelf.datagrid('hideColumn','NombreEquipo');

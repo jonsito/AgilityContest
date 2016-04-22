@@ -432,8 +432,8 @@ function tablet_cancel() {
 			dg.datagrid('scrollTo',{
 				index : idx,
 				callback: function(index) {
-					tablet_cronometro('stop');
-					tablet_cronometro('reset');
+					// tablet_cronometro('stop');
+					// tablet_cronometro('reset');
 					setDataEntryEnabled(false);
 					dg.datagrid('refreshRow',idx);
 				}
@@ -443,7 +443,7 @@ function tablet_cancel() {
 }
 
 /* dg round selection datagrid, idx row index */
-function fillPending(dg,idx) {
+function tablet_markSelectedDog(idx) {
 	var dg2=$('#tdialog-tnext');
 	dg2.datagrid('scrollTo',idx);
 	dg2.datagrid('selectRow',idx);
@@ -505,27 +505,26 @@ function tablet_accept() {
 		dg.datagrid('refreshRow',rowindex);
 		return false;
 	}
-	// seleccionamos fila siguiente
-	var res=nextRow(dg,row,rowindex,function(index,data) {
-		// alert ("index:"+index+" data:"+JSON.stringify(data));
-		if (index<0) return false; // no selection
-		if (data==null) { // at end of rows. should not occurs
-			dg.datagrid('scrollTo',rowindex);
-			setDataEntryEnabled(false);
-			return false;
-		}
-		data.Session=workingData.sesion;
-		data.RowIndex=index; // not really used, but....
-		data.Parent=dgname; // store datagrid reference
-		$('#tdialog-form').form('load',data);
-		fillPending(dg,parseInt(data.RowIndex));
-	});
-	if (res==false) { // at end of list
+
+	// go to next row (if available)
+	rowindex++; // 0..len-1
+	if ( rowindex >= dg.datagrid('getRows').length) {
+		// at end. Close panel and return
 		var time = Date.now() - startDate;
 		setDataEntryEnabled(false);
-		dg.datagrid('refreshRow',rowindex);
+		dg.datagrid('refreshRow',rowindex-1);
 		dg.datagrid('unselectAll');
 		tablet_putEvent('close',{ 'Value' : time } );
+	} else {
+		// not at end scrollTo, markSelected and update dataentry panel
+		dg.datagrid('scrollTo',rowindex);
+		dg.datagrid('selectRow',rowindex);
+		var data=dg.datagrid('getSelected');
+		data.Session=workingData.sesion;
+		data.RowIndex=rowindex;
+		data.Parent=dgname;
+		$('#tdialog-form').form('load',data);
+		tablet_markSelectedDog(parseInt(data.RowIndex));
 	}
 	return false; // prevent follow onClick event chain
 }
@@ -591,7 +590,7 @@ function tablet_editByDorsal() {
 					data.RowIndex = index; // not really used, but....
 					data.Parent = dgname; // store datagrid reference
 					$('#tdialog-form').form('load', data);
-					fillPending(dg2,parseInt(data.RowIndex));
+					tablet_markSelectedDog(parseInt(data.RowIndex));
 					setDataEntryEnabled(true);
 				}
 			});
