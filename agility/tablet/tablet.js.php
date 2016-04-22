@@ -538,6 +538,7 @@ function tablet_accept() {
  * @param cb(page) what to do if Dorsal found in tanda
  */
 function loadDorsalPage(tanda,dg,dorsal,cb) {
+    doBeep();
 	$.ajax({
 		type:	'GET',
 		url:	"/agility/server/database/tandasFunctions.php",
@@ -571,6 +572,7 @@ function tablet_editByDorsal() {
 	var drs=$('#tablet-datagrid-search');
 	var rows=dg.datagrid('getRows');
 	var dorsal=parseInt(drs.val());
+    doBeep();
 	drs.blur();// remove focus to hide tooltip
 	// si no hay tandas activas muestra error e ignora
 	for (i=0,len=rows.length;i<len;i++) {

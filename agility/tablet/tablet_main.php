@@ -72,7 +72,7 @@ $config =Config::getInstance();
                         <input id="tdialog-Del" type="button" value="." class="tablet_numbers" onclick="tablet_dot();">
                         <input id="tdialog-Dot" type="button" value="Del" class="tablet_numbers" onclick="tablet_del();">
                         <label id="tdialog-InfoLbl" for="tdialog-InfoLbl" class="tablet_infoheader">Informacion de prueba, jornada y manga</label>
-                        <label id="tdialog-NumberLbl" for="tdialog-NumberLbl" class="tablet_infoheader"><p>Num</p></label>
+                        <label id="tdialog-NumberLbl" for="tdialog-NumberLbl" class="tablet_infoheader"><br/>Num<br/></label>
                         <label id="tdialog-DorsalLbl" for="tdialog-Dorsal" class="tablet_info">Dorsal</label>
                         <input id="tdialog-Dorsal" type="text" readonly="readonly" name="<?php _e('Dorsal');?>" class="tablet_info"/>
                         <label id="tdialog-NombreLbl" for="tdialog-Nombre" class="tablet_info"><?php _e('Name'); ?></label>
@@ -118,7 +118,7 @@ $config =Config::getInstance();
 <div id="tablet-toolbar" style="width:100%;display:inline-block">
     <span style="float:left">
         <a id="tablet-reloadBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');"><?php _e('Refresh'); ?></a>
+           data-options="iconCls:'icon-reload'" onclick="doBeep();$('#tablet-datagrid').datagrid('reload');"><?php _e('Refresh'); ?></a>
    		<input id="tablet-datagrid-search" type="text" value="---- Dorsal ----" class="search_textfield"
             onchange="tablet_editByDorsal();"/>
     </span>
