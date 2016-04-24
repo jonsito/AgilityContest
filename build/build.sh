@@ -23,7 +23,7 @@ BUILD_DIR=/home/jantonio/work/agility/build
 EXTRA_DIR=/home/jantonio/work/agility/extra-pkgs
 CONF_DIR=${BASE_DIR}/extras
 NSIS=${BASE_DIR}/build/AgilityContest.nsi
-XAMPP=xampp-portable-win32-5.6.12-0-VC11.zip
+XAMPP=xampp-portable-win32-5.6.20-0-VC11.zip
 DROPBOX=${HOME}/Dropbox/Public/AgilityContest
 
 # make sure that build dir exists and is clean
@@ -33,7 +33,7 @@ rm -rf ${BUILD_DIR}/*
 #retrieve xampp from server if not exists
 if [ ! -f ${EXTRA_DIR}/${XAMPP} ]; then
     echo "Download xampp from server ..."
-    (cd ${EXTRA_DIR}; wget http://sourceforge.net/projects/xampp/files/XAMPP%20Windows/5.6.12/xampp-portable-win32-5.6.12-0-VC11.zip )
+    (cd ${EXTRA_DIR}; wget http://sourceforge.net/projects/xampp/files/XAMPP%20Windows/5.6.20/xampp-portable-win32-5.6.20-0-VC11.zip )
     if [ $? -ne 0 ]; then
         echo "Cannot download xampp. Aborting"
         exit 1

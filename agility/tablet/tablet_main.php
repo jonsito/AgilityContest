@@ -72,7 +72,7 @@ $config =Config::getInstance();
                         <input id="tdialog-Del" type="button" value="." class="tablet_numbers" onclick="tablet_dot();">
                         <input id="tdialog-Dot" type="button" value="Del" class="tablet_numbers" onclick="tablet_del();">
                         <label id="tdialog-InfoLbl" for="tdialog-InfoLbl" class="tablet_infoheader">Informacion de prueba, jornada y manga</label>
-                        <label id="tdialog-NumberLbl" for="tdialog-NumberLbl" class="tablet_infoheader"><p>Num</p></label>
+                        <label id="tdialog-NumberLbl" for="tdialog-NumberLbl" class="tablet_infoheader"><br/>Num<br/></label>
                         <label id="tdialog-DorsalLbl" for="tdialog-Dorsal" class="tablet_info">Dorsal</label>
                         <input id="tdialog-Dorsal" type="text" readonly="readonly" name="<?php _e('Dorsal');?>" class="tablet_info"/>
                         <label id="tdialog-NombreLbl" for="tdialog-Nombre" class="tablet_info"><?php _e('Name'); ?></label>
@@ -118,7 +118,7 @@ $config =Config::getInstance();
 <div id="tablet-toolbar" style="width:100%;display:inline-block">
     <span style="float:left">
         <a id="tablet-reloadBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');"><?php _e('Refresh'); ?></a>
+           data-options="iconCls:'icon-reload'" onclick="doBeep();$('#tablet-datagrid').datagrid('reload');"><?php _e('Refresh'); ?></a>
    		<input id="tablet-datagrid-search" type="text" value="---- Dorsal ----" class="search_textfield"
             onchange="tablet_editByDorsal();"/>
     </span>
@@ -225,7 +225,6 @@ $config =Config::getInstance();
         var mySelfstr='#tablet-datagrid-'+row.ID;
         var mySelf=$(mySelfstr);
         mySelf.datagrid({
-            numRows: 0, // added by JAMC to store number of dogs
             method: 'get',
             url: '/agility/server/database/tandasFunctions.php',
             queryParams: {
@@ -247,8 +246,6 @@ $config =Config::getInstance();
             autoRowHeight: false,
             remote:true,
             idField:'Dorsal',
-            view: scrollview,
-            pageSize: 20,
             columns:[[
                 { field:'Parent',		width:0, hidden:true }, // self reference to row index
                 { field:'Prueba',		width:0, hidden:true }, // extra field to be used on form load/save
@@ -287,14 +284,15 @@ $config =Config::getInstance();
                 data.RowIndex=idx; // store row index
                 $('#tdialog-form').form('load',data);
                 setDataEntryEnabled(true);
-                fillPending(mySelf,data.RowIndex);
+                tablet_markSelectedDog(data.RowIndex);
             },
             onResize:function(){
                 tbt_dg.datagrid('fixDetailRowHeight',index);
             },
             onLoadSuccess:function(data){
                 if (!data.total) return; // subgrid returns an empty array. Do nothing
-                mySelf.datagrid('options').numRows=data.total; // store total number of rows
+                // populate data entry datagrid with loaded data
+                $('#tdialog-tnext').datagrid('loadData',data.rows);
                 // show/hide team name
                 if (isTeamByJornada(workingData.datosJornada) ) mySelf.datagrid('showColumn','NombreEquipo');
                 else  mySelf.datagrid('hideColumn','NombreEquipo');
@@ -375,16 +373,17 @@ $config =Config::getInstance();
     // creamos la tabla de proximos a salir
     $('#tdialog-tnext').datagrid({
         pagination: false,
-        rownumbers: false,
+        rownumbers: true,
         fit:true,
         fitColumns: true,
         singleSelect: true,
         autoRowHeight: true,
         columns:[[
-            { field:'Num',	width:'10%', align:'right',	title: '<?php _e('Num');?>' },
-            { field:'Dorsal',width:'15%', align:'right',	title: '<?php _e('Dorsal');?>' },
+            /*{ field:'Num',	width:'10%', align:'right',	title: '<?php _e('Num');?>' },*/
+            { field:'Dorsal',width:'10%', align:'right',	title: '<?php _e('Dorsal');?>' },
             { field:'Nombre',width:'25%', align:'right',	title: '<?php _e('Name');?>' },
-            { field:'Guia',	width:'50%', align:'right',	title: '<?php _e('Handler');?>' }
+            { field:'NombreGuia',	width:'35%', align:'right',	title: '<?php _e('Handler');?>' },
+            { field:'NombreClub',	width:'20%', align:'right',	title: '<?php _e('Club');?>' }
         ]],
         onDblClickRow: function(index,row) {
             $('#tablet-datagrid-search').val(row.Dorsal);
@@ -404,27 +403,27 @@ $config =Config::getInstance();
     doLayout(dg,"#tdialog-RehuseUpBtn",		170,	5,		30,		75	);
     doLayout(dg,"#tdialog-RehuseDownBtn",	145,	5,		15,		20	);
     doLayout(dg,"#tdialog-TocadoUpBtn",		5,		85,     30,		20	);
-    doLayout(dg,"#tdialog-TocadoDownBtn",	45,		85,     15,		20	);
-    doLayout(dg,"#tdialog-SalidaBtn",		145,	85,		15,		13	);
-    doLayout(dg,"#tdialog-ResetBtn",		145,	102,	15,		13	);
-    doLayout(dg,"#tdialog-StartStopBtn",	174,	88,		22,		22	);
+    doLayout(dg,"#tdialog-TocadoDownBtn",	42,		85,     15,		20	);
+    doLayout(dg,"#tdialog-SalidaBtn",		147,	88,		15,		20	);
+    doLayout(dg,"#tdialog-ResetBtn",		60,	    87,	    15,		15	);
+    doLayout(dg,"#tdialog-StartStopBtn",	174,	87,		22,		22	);
     doLayout(dg,"#tdialog-AcceptBtn",		170,	115,	30,		25	);
-    doLayout(dg,"#tdialog-CancelBtn",		145,	120,	15,		20	);
+    doLayout(dg,"#tdialog-CancelBtn",		147,	117,	15,		20	);
     doLayout(dg,"#tdialog-NoPresentadoBtn",	70,		5,		27,		20	);
     doLayout(dg,"#tdialog-EliminadoBtn",	108,	5,		27,		20	);
-    doLayout(dg,"#tdialog-Next",	        5,	    110,	65,		30	);
-    doLayout(dg,"#tdialog-1",				75,		80,		20,		15	);
-    doLayout(dg,"#tdialog-2",				95,		80,		20,		15	);
-    doLayout(dg,"#tdialog-3",				115,	80,		20,		15	);
-    doLayout(dg,"#tdialog-4",				75,		95,		20,		15	);
-    doLayout(dg,"#tdialog-5",				95,		95,		20,		15	);
-    doLayout(dg,"#tdialog-6",				115,	95,		20,		15	);
-    doLayout(dg,"#tdialog-7",				75,		110,	20,		15	);
-    doLayout(dg,"#tdialog-8",				95,		110,	20,		15	);
-    doLayout(dg,"#tdialog-9",				115,	110,	20,		15	);
-    doLayout(dg,"#tdialog-Del",				115,	125,	20,		15	);
-    doLayout(dg,"#tdialog-0",				95,		125,	20,		15	);
-    doLayout(dg,"#tdialog-Dot",				75,		125,	20,		15	);
+    doLayout(dg,"#tdialog-Next",	        5,	    110,	70,		30	);
+    doLayout(dg,"#tdialog-1",				80,		80,		20,		15	);
+    doLayout(dg,"#tdialog-2",				100,	80,		20,		15	);
+    doLayout(dg,"#tdialog-3",				120,	80,		20,		15	);
+    doLayout(dg,"#tdialog-4",				80,		95,		20,		15	);
+    doLayout(dg,"#tdialog-5",				100,	95,		20,		15	);
+    doLayout(dg,"#tdialog-6",				120,	95,		20,		15	);
+    doLayout(dg,"#tdialog-7",				80,		110,	20,		15	);
+    doLayout(dg,"#tdialog-8",				100,	110,	20,		15	);
+    doLayout(dg,"#tdialog-9",				120,	110,	20,		15	);
+    doLayout(dg,"#tdialog-Del",				120,	125,	20,		15	);
+    doLayout(dg,"#tdialog-0",				100,	125,	20,		15	);
+    doLayout(dg,"#tdialog-Dot",				80,		125,	20,		15	);
     doLayout(dg,"#tdialog-DorsalLbl",		53,		38,		10,		7	);
     doLayout(dg,"#tdialog-Dorsal",			65,		37,		18,		7	);
     doLayout(dg,"#tdialog-NombreLbl",		85,	    38,		20,		7   );

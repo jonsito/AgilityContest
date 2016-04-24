@@ -432,8 +432,8 @@ function tablet_cancel() {
 			dg.datagrid('scrollTo',{
 				index : idx,
 				callback: function(index) {
-					tablet_cronometro('stop');
-					tablet_cronometro('reset');
+					// tablet_cronometro('stop');
+					// tablet_cronometro('reset');
 					setDataEntryEnabled(false);
 					dg.datagrid('refreshRow',idx);
 				}
@@ -442,16 +442,11 @@ function tablet_cancel() {
 	});
 }
 
-function fillPending(dg,idx) {
-	var data=dg.datagrid('getRows');
-	var rows=[];
-	for (var n=(idx==0)?0:-1;n<6;n++) {
-		if ( typeof(data[idx+n])==='undefined') continue;
-		var row=data[idx+n];
-		rows.push({'Num':idx+n+1,'Dorsal':row.Dorsal,'Nombre':row.Nombre,'Guia':row.NombreGuia});
-	}
-	$('#tdialog-tnext').datagrid('loadData',rows);
-	$('#tdialog-tnext').datagrid('selectRow',(idx==0)?0:1);
+/* dg round selection datagrid, idx row index */
+function tablet_markSelectedDog(idx) {
+	var dg2=$('#tdialog-tnext');
+	dg2.datagrid('scrollTo',idx);
+	dg2.datagrid('selectRow',idx);
 	$('#tdialog-NumberLbl').html('<p>'+(idx+1)+'</p>');
 }
 
@@ -510,27 +505,26 @@ function tablet_accept() {
 		dg.datagrid('refreshRow',rowindex);
 		return false;
 	}
-	// seleccionamos fila siguiente
-	var res=nextRow(dg,row,rowindex,function(index,data) {
-		// alert ("index:"+index+" data:"+JSON.stringify(data));
-		if (index<0) return false; // no selection
-		if (data==null) { // at end of rows. should not occurs
-			dg.datagrid('scrollTo',rowindex);
-			setDataEntryEnabled(false);
-			return false;
-		}
-		data.Session=workingData.sesion;
-		data.RowIndex=index; // not really used, but....
-		data.Parent=dgname; // store datagrid reference
-		$('#tdialog-form').form('load',data);
-		fillPending(dg,parseInt(data.RowIndex));
-	});
-	if (res==false) { // at end of list
+
+	// go to next row (if available)
+	rowindex++; // 0..len-1
+	if ( rowindex >= dg.datagrid('getRows').length) {
+		// at end. Close panel and return
 		var time = Date.now() - startDate;
 		setDataEntryEnabled(false);
-		dg.datagrid('refreshRow',rowindex);
+		dg.datagrid('refreshRow',rowindex-1);
 		dg.datagrid('unselectAll');
 		tablet_putEvent('close',{ 'Value' : time } );
+	} else {
+		// not at end scrollTo, markSelected and update dataentry panel
+		dg.datagrid('scrollTo',rowindex);
+		dg.datagrid('selectRow',rowindex);
+		var data=dg.datagrid('getSelected');
+		data.Session=workingData.sesion;
+		data.RowIndex=rowindex;
+		data.Parent=dgname;
+		$('#tdialog-form').form('load',data);
+		tablet_markSelectedDog(parseInt(data.RowIndex));
 	}
 	return false; // prevent follow onClick event chain
 }
@@ -544,6 +538,7 @@ function tablet_accept() {
  * @param cb(page) what to do if Dorsal found in tanda
  */
 function loadDorsalPage(tanda,dg,dorsal,cb) {
+    doBeep();
 	$.ajax({
 		type:	'GET',
 		url:	"/agility/server/database/tandasFunctions.php",
@@ -577,6 +572,7 @@ function tablet_editByDorsal() {
 	var drs=$('#tablet-datagrid-search');
 	var rows=dg.datagrid('getRows');
 	var dorsal=parseInt(drs.val());
+    doBeep();
 	drs.blur();// remove focus to hide tooltip
 	// si no hay tandas activas muestra error e ignora
 	for (i=0,len=rows.length;i<len;i++) {
@@ -596,7 +592,7 @@ function tablet_editByDorsal() {
 					data.RowIndex = index; // not really used, but....
 					data.Parent = dgname; // store datagrid reference
 					$('#tdialog-form').form('load', data);
-					fillPending(dg2,parseInt(data.RowIndex));
+					tablet_markSelectedDog(parseInt(data.RowIndex));
 					setDataEntryEnabled(true);
 				}
 			});
@@ -608,9 +604,16 @@ function tablet_editByDorsal() {
 	$.messager.alert("No selection",'<?php _e("There is no selected round");?>',"error");
 	drs.val('---- <?php _e("Dorsal"); ?> ----');
 }
+
 function bindKeysToTablet() {
-	if (isMobileDevice()) return; // disable key handling on tablet/mobile phone
-	if (parseInt(ac_config.tablet_keyboard)==0) return; // on keyboard disabled, ignore
+
+	// disable key handling on tablet/mobile phone
+	if (isMobileDevice()) return;
+	// when round selection panel is open, just return to normal key binding
+	if( $('#tablet-layout').layout('panel','west').panel('options').collapsed==false) return true;
+	// if configuration states keyboard disabled, ignore
+	if (parseInt(ac_config.tablet_keyboard)==0) return false;
+
 	// parse keypress event on every  button
 	$(document).keydown(function(e) {
 		// on round selection window focused, ignore
