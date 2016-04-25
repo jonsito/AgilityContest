@@ -224,7 +224,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 	Para depuracion usamos php_include()
 	 -->
 <div id="myimport">
-	<div id="importflag"></div> <!-- "" (empty) or "ready" -->
+	<div id="importflag" style="display:none"></div> <!-- "" (empty) or "ready" -->
 	<div id="importclubes" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
 	<div id="importhandlers" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
 	<div id="importdogs" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
