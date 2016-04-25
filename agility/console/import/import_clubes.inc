@@ -21,142 +21,158 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  $config =Config::getInstance();
  ?>
 
- <!-- FORMULARIO DE SELECCION DE LOGO -->
- <div id="clubes-logo-dialog" style="width:400px;height:250px;padding:10px">
- 	<div style="width=100%">
-		<input type="file" name="logoPreview" value="" id="clubes-logo-filePreview" accept="image/*"
-			class="required borrowerImageFile" data-errormsg="PhotoUploadErrorMsg" onchange="setLogoPreview(this);">
-		<hr />
-	</div>
-	<div style="display:table;margin: 0 auto">
-		<img id="clubes-logo-preview" alt="vista preliminar del logotipo" width="120px" height="120px" src=""/>
-	</div>
-</div>
 
-<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-<div id="clubes-logo-buttons">
-    <a id="clubes-logo-okBtn" href="#" class="easyui-linkbutton" 
-      	data-options="iconCls: 'icon-ok'" onclick="acceptLogoPreview()"><?php _e('Update'); ?></a>
-    <a id="clubes-logo-cancelBtn" href="#" class="easyui-linkbutton" 
-       	data-options="iconCls: 'icon-cancel'" onclick="$('#clubes-logo-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
-</div>
-
-<!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE CLUBES -->
- <div id="clubes-dialog" style="width:550px;height:600px;padding:10px 20px">
+<!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE importclubes -->
+ <div id="importclubes-dialog" style="width:550px;height:600px;padding:10px 20px">
     <div class="ftitle">
-    <?php _e('Club information'); ?>
+        <?php _e('Club information'); ?>
     </div>
-    <form id="clubes-form" method="get" novalidate>
+     <form id="importclubes-header">
+         <div class="fitem">
+             <label for="inportclubes-Search"><?php _e('Search'); ?>: </label>
+             <select id="importclubes-Search" name="Search" style="width:250px"></select>&nbsp;
+             <a id="importcluibes-clearBtn" href="#" class="easyui-linkbutton"
+                data-options="iconCls: 'icon-clear'"><?php _e('Clear'); ?></a>
+         </div>
+     </form>
+     <hr/>
+    <form id="importclubes-form" method="get" novalidate>
         <div class="fitem">
-            <label for="clubes-Nombre"><?php _e('Name'); ?>:</label>
-            <input id="clubes-Nombre" name="Nombre"	type="text" style="width:350px"/>
-            <input id="clubes-ID" name="ID" type="hidden" /> <!-- used to allow operator change club name -->
-            <input id="clubes-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
+            <label for="importclubes-Nombre"><?php _e('Name'); ?>:</label>
+            <input id="importclubes-Nombre" name="Nombre"	type="text" style="width:350px"/>
+            <input id="importclubes-ID" name="ID" type="hidden" /> <!-- used to allow operator change club name -->
+            <input id="importclubes-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
+            <input id="importclubes-Logo" name="Logo" type="hidden" value="none.png" /> <!-- logo is not shown here -->
         </div>
         <div class="fitem">
-            <label for="clubes-Direccion1"><?php _e('Address'); ?> 1</label>
-            <input id="clubes-Direccion1" name="Direccion1" type="text" style="width:350px"/>
+            <label for="importclubes-Direccion1"><?php _e('Address'); ?> 1</label>
+            <input id="importclubes-Direccion1" name="Direccion1" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Direccion2"><?php _e('Address'); ?> 2</label>
-            <input id="clubes-Direccion2" name="Direccion2" type="text" style="width:350px"/>
+            <label for="importclubes-Direccion2"><?php _e('Address'); ?> 2</label>
+            <input id="importclubes-Direccion2" name="Direccion2" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Provincia"><?php _e('Province'); ?></label>
-            <select id="clubes-Provincia" name="Provincia" style="width:175px"></select>
-            <a href="#" onClick="$('#clubes-logo-dialog').dialog('open');">
-    	        <img id="clubes-Logo"
-    	           	alt="rsce"
-    	          	name="Logo" 
-    	           	src=""
-    	           	width="120" style="float:right;margin-right:20px"/>
-            </a>
+            <label for="importclubes-Provincia"><?php _e('Province'); ?></label>
+            <select id="importclubes-Provincia" name="Provincia" style="width:175px"></select>
         </div>
         <div class="fitem">
-            <label for="clubes-Pais"><?php _e('Country'); ?></label>
-            <select id="clubes-Pais" name="Pais" class="easyui-validatebox" style="width:175px"></select>
+            <label for="importclubes-Pais"><?php _e('Country'); ?></label>
+            <select id="importclubes-Pais" name="Pais" class="easyui-validatebox" style="width:175px"></select>
         </div>
         <div class="fitem">
-            <label for="clubes-Contacto1"><?php _e('Contact'); ?> 1</label>
-            <input id="clubes-Contacto1" name="Contacto1" type="text" style="width:175px"/>
+            <label for="importclubes-Contacto1"><?php _e('Contact'); ?> 1</label>
+            <input id="importclubes-Contacto1" name="Contacto1" type="text" style="width:175px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Contacto2"><?php _e('Contact'); ?> 2</label>
-            <input id="clubes-Contacto2" name="Contacto2" type="text" style="width:175px"/>
+            <label for="importclubes-Contacto2"><?php _e('Contact'); ?> 2</label>
+            <input id="importclubes-Contacto2" name="Contacto2" type="text" style="width:175px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Contacto3"><?php _e('Contact'); ?> 3</label>
-            <input id="clubes-Contacto3" name="Contacto3" type="text" style="width:175px"/>
+            <label for="importclubes-Contacto3"><?php _e('Contact'); ?> 3</label>
+            <input id="importclubes-Contacto3" name="Contacto3" type="text" style="width:175px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-GPS"><?php _e('GPS coordinates'); ?></label>
-            <input id="clubes-GPS" name="GPS" type="text" style="width:250px"/>
+            <label for="importclubes-GPS"><?php _e('GPS coordinates'); ?></label>
+            <input id="importclubes-GPS" name="GPS" type="text" style="width:250px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-RSCE" style="text-align:right;"><?php _e('RSCE'); ?></label>
-            <input id="clubes-RSCE" type="checkbox" value="1" name="RSCE"/>
-            <label for="clubes-RFEC" style="text-align:right;"><?php _e('RFEC'); ?></label>
-            <input id="clubes-RFEC" type="checkbox" value="2" name="RFEC"/>
-            <label for="clubes-UCA" style="text-align:right;"><?php _e('UCA'); ?></label>
-            <input id="clubes-UCA" type="checkbox" value="4" name="UCA"/>
-            <input id="clubes-Federations" name="Federations" type="hidden"/>
+            <label for="importclubes-RSCE" style="text-align:right;"><?php _e('RSCE'); ?></label>
+            <input id="importclubes-RSCE" type="checkbox" value="1" name="RSCE"/>
+            <label for="importclubes-RFEC" style="text-align:right;"><?php _e('RFEC'); ?></label>
+            <input id="importclubes-RFEC" type="checkbox" value="2" name="RFEC"/>
+            <label for="importclubes-UCA" style="text-align:right;"><?php _e('UCA'); ?></label>
+            <input id="importclubes-UCA" type="checkbox" value="4" name="UCA"/>
+            <input id="importclubes-Federations" name="Federations" type="hidden"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Web"><?php _e('Web page'); ?></label>
-            <input id="clubes-Web" name="Web" type="text" style="width:350px"/>
+            <label for="importclubes-Web"><?php _e('Web page'); ?></label>
+            <input id="importclubes-Web" name="Web" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Email"><?php _e('Electronic mail'); ?>:</label>
-            <input id="clubes-Email" name="Email" type="text" style="width:350px"/>
+            <label for="importclubes-Email"><?php _e('Electronic mail'); ?>:</label>
+            <input id="importclubes-Email" name="Email" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Facebook"><?php _e('Facebook account'); ?>:</label>
-            <input id="clubes-Facebook" name="Facebook" type="text" style="width:350px"/>
+            <label for="importclubes-Facebook"><?php _e('Facebook account'); ?>:</label>
+            <input id="importclubes-Facebook" name="Facebook" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Google"><?php _e('Google+ account'); ?>:</label>
-            <input id="clubes-Google" name="Google" type="text" style="width:350px"/>
+            <label for="importclubes-Google"><?php _e('Google+ account'); ?>:</label>
+            <input id="importclubes-Google" name="Google" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Twitter"><?php _e('Twitter account'); ?>:</label>
-            <input id="clubes-Twitter" name="Twitter" type="text" style="width:350px"/>
+            <label for="importclubes-Twitter"><?php _e('Twitter account'); ?>:</label>
+            <input id="importclubes-Twitter" name="Twitter" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Observaciones"><?php _e('Comments'); ?>:</label>
-            <textarea id="clubes-Observaciones" name="Observaciones" style="height:50px;width:350px"></textarea>
+            <label for="importclubes-Observaciones"><?php _e('Comments'); ?>:</label>
+            <textarea id="importclubes-Observaciones" name="Observaciones" style="height:50px;width:350px"></textarea>
         </div>
         <div class="fitem">
-            <label for="clubes-Baja"><?php _e('Unsubscribed'); ?>:</label>
-            <input id="clubes-Baja" name="Baja" class="easyui-checkbox" type="checkbox" value="1" />
+            <label for="importclubes-Baja"><?php _e('Unsubscribed'); ?>:</label>
+            <input id="importclubes-Baja" name="Baja" class="easyui-checkbox" type="checkbox" value="1" />
         </div>
 	</form>  
 </div>  
         
-<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-<div id="clubes-dlg-buttons">
-    <a id="clubes-okBtn" href="#" class="easyui-linkbutton" 
-      	data-options="iconCls: 'icon-ok'" onclick="saveClub()"><?php _e('Accept'); ?></a>
-    <a id="clubes-cancelBtn" href="#" class="easyui-linkbutton" 
-       	data-options="iconCls:'icon-cancel'" onclick="$('#clubes-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+<!-- BOTONES DE IMPORTAR / SELECCIONAR / IGNORAR DEL CUADRO DE DIALOGO -->
+<div id="importclubes-dlg-buttons">
+    <span style="float:left">
+        <a id="importclubes-newBtn" href="#" class="easyui-linkbutton"
+            data-options="iconCls: 'icon-new'" onclick="importClubesAsNew();"><?php _e('New'); ?></a>
+    </span>
+    <span style="float:right">
+        <a id="importclubes-selectBtn" href="#" class="easyui-linkbutton"
+            data-options="iconCls: 'icon-ok'" onclick="importClubesAsSelected();"><?php _e('Select'); ?></a>
+        <a id="importclubes-ignoreBtn" href="#" class="easyui-linkbutton"
+            data-options="iconCls:'icon-cancel'" onclick="importClubesIgnore();"><?php _e('Ignore'); ?></a>
+    </span>
 </div>
     
 <script type="text/javascript">
         // - declaracion del formulario
-        $('#clubes-form').form();
+        $('#importclubes-form').form();
         // - botones
-    	addTooltip($('#clubes-okBtn').linkbutton(),'<?php _e("Register data on new club. Update database"); ?>');
-    	addTooltip($('#clubes-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
-    	addTooltip($('#clubes-logo-okBtn').linkbutton(),'<?php _e("Validate logo. Store and update database"); ?>');
-    	addTooltip($('#clubes-logo-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
-    	addTooltip($('#clubes-logo-filePreview'),'<?php _e("Choosen image should be of type <em>.png</em>"); ?>'+", <br />"+
-                                                       '<?php _e( "150x150 pixel size and transparent background"); ?>');
-    	addTooltip($('#clubes-Logo'),'<?php _e("Press on image to change club logo"); ?>');
+    	addTooltip($('#importclubes-newBtn').linkbutton(),'<?php _e("Import as new club with provided data"); ?>');
+    	addTooltip($('#importclubes-selectBtn').linkbutton(),'<?php _e("Use selected existing club and updata club info"); ?>');
+    	addTooltip($('#importclubes-ignoreokBtn').linkbutton(),'<?php _e("Ignore entry. do not import into database"); ?>');
+        addTooltip($('#importclubes-clearBtn').linkbutton(),'<?php _e("Clear club search and reset data to import"); ?>');
+        $('#importclubes-clearBtn').bind('click',function() {
+            $('#importclubes-header').form('clear'); // empty form
+            $('#importclubes-form').form('reset'); // restore to initial values
+        });
 
-        // load default image on club dialog
-        $('#clubes-Logo').attr('src',"/agility/server/database/clubFunctions.php?Operation=getlogo&Nombre=rsce&Federation="+workingData.federation);
+        // combogrid de seleccion de clubes/paises
+        $('#importclubes-Search').combogrid({
+            panelWidth: 350,
+            panelHeight: 200,
+            delay: 500,
+            idField: 'ID',
+            textField: 'Nombre',
+            url: '/agility/server/database/clubFunctions.php',
+            queryParams: { Operation:'enumerate', Federation: workingData.federation },
+            method: 'get',
+            mode: 'remote',
+            columns: [[
+                {field:'ID',hidden:'true'},
+                {field:'Nombre',title:'<?php _e('Club name'); ?>',width:'60%',align:'left'},
+                {field:'Provincia',title:'<?php _e('Province'); ?>',width:'25%',align:'right'}
+                {field:'Pais',title:'<?php _e('Country'); ?>',width:'15%',align:'right'}
+            ]],
+            multiple: false,
+            fitColumns: true,
+            singleSelect: true,
+            selectOnNavigation: false ,
+            onSelect: function(index,row) {
+                var idclub=row.ID;
+                if (!idclub) return;
+                $('#importclubes-form').form('load','/agility/server/database/clubFunctions.php?Operation=selectbyid&ID='+idclub); // load form with json retrieved data
+            }
+        });
 
         // despliegue del selector de paises
-        $('#clubes-Pais').combogrid({
+        $('#importclubes-Pais').combogrid({
             panelWidth: 250,
             panelHeight: 200,
             idField: 'ID',
@@ -176,12 +192,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             fitColumns: true,
             selectOnNavigation: false,
             onChange: function(newvalue,oldvalue) {
-                $('#clubes-Provincia').combogrid('grid').datagrid('load',{Operation:'select',Country:newvalue});
+                $('#importclubes-Provincia').combogrid('grid').datagrid('load',{Operation:'select',Country:newvalue});
             }
         });
 
     	// despliegue del selector de provincias
-        $('#clubes-Provincia').combogrid({
+        $('#importclubes-Provincia').combogrid({
 			panelWidth: 300,
 			panelHeight: 200,
 			idField: 'Provincia',
@@ -203,30 +219,30 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			selectOnNavigation: false
         });
 
-        $('#clubes-logo-dialog').dialog( {
+        $('#importclubes-logo-dialog').dialog( {
             title:'<?php _e('New logo'); ?>',
             closed:true,
             modal:true,
-            buttons:'#clubes-logo-buttons',
+            buttons:'#importclubes-logo-buttons',
             iconCls:'icon-palette',
             onOpen: function() {
-            	$('#clubes-logo-filePreview').val('');
-            	$('#clubes-logo-preview').attr('src', $('#clubes-Logo').attr('src'));
+            	$('#importclubes-logo-filePreview').val('');
+            	$('#importclubes-logo-preview').attr('src', $('#importclubes-Logo').attr('src'));
             }
         } );
 
-        $('#clubes-dialog').dialog( {
+        $('#importclubes-dialog').dialog( {
             closed:true,
             modal:true,
-            buttons:'#clubes-dlg-buttons',
+            buttons:'#importclubes-dlg-buttons',
             iconCls:'icon-flag'
         } );
         // Add "Esc" key to abor editing and close dialog
-        $('#clubes-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
-        	if (e.keyCode == 27){ $('#clubes-dialog').dialog('close');
+        $('#importclubes-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+        	if (e.keyCode == 27){ $('#importclubes-dialog').dialog('close');
         	}
         });
         // validadores
-        $('#clubes-Nombre').validatebox({required:true,validType:'length[1,255]'});
-        $('#clubes-Email').validatebox({required:false,validType:'email'}); 
+        $('#importclubes-Nombre').validatebox({required:true,validType:'length[1,255]'});
+        $('#importclubes-Email').validatebox({required:false,validType:'email'});
 </script>

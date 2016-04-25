@@ -33,7 +33,7 @@ $config =Config::getInstance();
         	</div>
         </form>
         <hr/>
-        <form id="chperros-form" method="get" novalidate>
+        <form id="chperros-form" method="get" novalidate="novalidate">
             <div class="fitem">
                 <label for="chperros-Nombre"><?php _e('Name'); ?>:</label>
                 <input id="chperros-ID" name="ID" type="hidden" /> <!-- dog id -->

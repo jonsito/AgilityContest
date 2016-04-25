@@ -213,12 +213,13 @@ class Clubes extends DBObject {
 		if ($id<=0) return $this->error("Invalid Club ID:$id");
 		// make query
 		$obj=$this->__getObject("Clubes",$id);
-		if (!is_object($obj))	return $this->error("No Dog found with ID=$id");
+		if (!is_object($obj))	return $this->error("No Club found with ID=$id");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
 		return $data;
 	}
+
 	/** 
 	 * return a dupla ID Nombre,Provincia list according select and federation criteria
 	 * return data if success; null on error

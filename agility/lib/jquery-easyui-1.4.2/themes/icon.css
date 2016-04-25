@@ -152,6 +152,9 @@
 .icon-alert{
     background:url('icons/alert.png') no-repeat center center;
 }
+.icon-new{
+    background:url('icons/new.png') no-repeat center center;
+}
 /* end added icons */
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;

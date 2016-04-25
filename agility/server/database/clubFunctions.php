@@ -37,6 +37,7 @@ require_once(__DIR__."/classes/Clubes.php");
 			case "update": $am->access(PERMS_OPERATOR); $result=$clubes->update($idclub); break;
 			case "delete": $am->access(PERMS_OPERATOR); $result=$clubes->delete($idclub); break;
 			case "select": $result=$clubes->select(); break;
+			case "selectbyid": $result=$clubes->selectByID($idclub); break;
 			case "enumerate": $result=$clubes->enumerate(); break;
             case "countries": $c=new Country(); $result=$c->enumerate(); break;
 			case "getlogo": // not a json function; just return an image 
