@@ -327,6 +327,22 @@ function loadContents(page,title,slaves) {
 }
 
 /**
+ * Load (if required pages and scripts associated with data importing from excel
+ */
+function loadImportPages() {
+	if ($('#importflag').html() != "") return false; // already loaded
+	$('#importclubes').panel('refresh', '/agility/console/import/import_clubes.inc');
+	/*
+	$('#importhandlers').panel('refresh', '/agility/console/import/import_handlers.inc');
+	$('#importdogs').panel('refresh', '/agility/console/import/import_dogs.inc');
+	$('#importinscriptions').panel('refresh', '/agility/console/import/import_inscriptions.inc');
+	$('#importcontest').panel('refresh', '/agility/console/import/import_contest.inc');
+	*/
+	$('#importflag').html("ready"); // mark as ready
+	return true;
+}
+
+/**
  * Poor's man javascript implementation of php's replaceAll()
  */
 function replaceAll(find,replace,from) {

@@ -380,8 +380,13 @@ function perros_importExportDogs() {
         function(r){
             if (!r) return false;
             switch(parseInt(r)){
-                case 0: print_listaPerros('excel'); break;
-                case 1: $('#perros-excel-dialog').dialog('open');
+                case 0:
+                    print_listaPerros('excel');
+                    break;
+                case 1:
+                    loadImportPages(); // make sure dialogs and scripts are loaded into page
+                    $('#perros-excel-dialog').dialog('open');
+                    break;
             }
         }).window('resize',{width:550});
     return false; //this is critical to stop the click event which will trigger a normal file download!

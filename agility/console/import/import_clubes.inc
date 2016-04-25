@@ -25,7 +25,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE importclubes -->
  <div id="importclubes-dialog" style="width:550px;height:600px;padding:10px 20px">
     <div class="ftitle">
-        <?php _e('Club information'); ?>
+        <?php _e('Club data Import'); ?>
     </div>
      <form id="importclubes-header">
          <div class="fitem">
@@ -156,9 +156,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             mode: 'remote',
             columns: [[
                 {field:'ID',hidden:'true'},
-                {field:'Nombre',title:'<?php _e('Club name'); ?>',width:'60%',align:'left'},
-                {field:'Provincia',title:'<?php _e('Province'); ?>',width:'25%',align:'right'}
-                {field:'Pais',title:'<?php _e('Country'); ?>',width:'15%',align:'right'}
+                {field:'Nombre',    title:'<?php _e("Club name"); ?>',  width:'60%',align:'left'},
+                {field:'Provincia', title:'<?php _e("Province"); ?>',   width:'25%',align:'right'},
+                {field:'Pais',      title:'<?php _e("Country"); ?>',    width:'15%',align:'right'}
             ]],
             multiple: false,
             fitColumns: true,
@@ -186,7 +186,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             required: true,
             columns: [[
                 {field:'ID',title:'ID',width:10,align:'right'},
-                {field:'Country',title:'<?php _e('Country'); ?>',width:40,align:'right'}
+                {field:'Country',title:'<?php _e("Country"); ?>',width:40,align:'right'}
             ]],
             multiple: false,
             fitColumns: true,
@@ -211,25 +211,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			mode: 'remote',
 			required: true,
 			columns: [[
-    			{field:'Provincia',title:'<?php _e('Province'); ?>',width:20,align:'right'},
-    			{field:'Comunidad',title:'<?php _e('Region/State'); ?>',width:40,align:'right'}
+    			{field:'Provincia',title:'<?php _e("Province"); ?>',width:20,align:'right'},
+    			{field:'Comunidad',title:'<?php _e("Region/State"); ?>',width:40,align:'right'}
 			]],
 			multiple: false,
 			fitColumns: true,
 			selectOnNavigation: false
         });
-
-        $('#importclubes-logo-dialog').dialog( {
-            title:'<?php _e('New logo'); ?>',
-            closed:true,
-            modal:true,
-            buttons:'#importclubes-logo-buttons',
-            iconCls:'icon-palette',
-            onOpen: function() {
-            	$('#importclubes-logo-filePreview').val('');
-            	$('#importclubes-logo-preview').attr('src', $('#importclubes-Logo').attr('src'));
-            }
-        } );
 
         $('#importclubes-dialog').dialog( {
             closed:true,
@@ -237,11 +225,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             buttons:'#importclubes-dlg-buttons',
             iconCls:'icon-flag'
         } );
+
         // Add "Esc" key to abor editing and close dialog
         $('#importclubes-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
         	if (e.keyCode == 27){ $('#importclubes-dialog').dialog('close');
         	}
         });
+
         // validadores
         $('#importclubes-Nombre').validatebox({required:true,validType:'length[1,255]'});
         $('#importclubes-Email').validatebox({required:false,validType:'email'});
