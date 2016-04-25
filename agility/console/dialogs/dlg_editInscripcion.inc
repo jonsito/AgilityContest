@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
-<div id="edit_inscripcion-dialog" style="width:500px;height:475px;padding:5px">
+<div id="edit_inscripcion-dialog" style="width:550px;height:475px;padding:5px">
 	<div class="easyui-panel" data-options="fit:true">
 		<div class="dialog_forms">
         <form id="edit_inscripcion-form" method="get" novalidate="novalidate">
@@ -195,11 +195,11 @@ $config =Config::getInstance();
 	doLayout(dg,"#edit_inscripcion-J7lbl",			4,	7,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-J8",				3,	8,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-J8lbl",			4,	8,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-Celolbl",		3,	10,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-Celo2",			4,	10,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-Pagadolbl",		3,	11,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-Pagado",			4,	11,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-PagadoEuro",		5,	11,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-Celolbl",		4,	10,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-Celo2",			5,	10,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-Pagadolbl",		4,	11,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-Pagado",			5,	11,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-PagadoEuro",		6,	11,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-Observacioneslbl",0,	11,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-Observaciones",	0,	12,	6,	1	);
+	doLayout(dg,"#edit_inscripcion-Observaciones",	0,	12,	7,	1	);
     </script>
