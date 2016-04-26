@@ -58,9 +58,10 @@ class DogReader {
         $this->fieldList=array (
             // name => index, required (1:true 0:false-to-evaluate -1:optional), default
             // dog related data
-            'DogID' =>      array (  -2,  0,  "i", "Perro",     " `Perro` int(4) NOT NULL DEFAULT 0, "), // to be filled by importer
+            // 'ID' =>      array (  -1,  0,  "i", "ID",        " `ID` int(4) UNIQUE NOT NULL, "), // automatically added
+            'DogID' =>      array (  -2,  0,  "i", "DogID",     " `DogID` int(4) NOT NULL DEFAULT 0, "), // to be filled by importer
             'Name'   =>      array (  -3,  1,  "s","Nombre",    " `Nombre` varchar(255) NOT NULL, "), // Dog name
-            'LongName' =>   array (  -4,  -1, "s", "NombreLargo"," `NombreLargo` varchar(255) DEFAULT NULL, "), // dog pedigree long name
+            'LongName' =>   array (  -4,  -1, "s", "NombreLargo","`NombreLargo` varchar(255) DEFAULT NULL, "), // dog pedigree long name
             'Gender' =>     array (  -5,  -1, "s", "Genero",    " `Genero` varchar(16) DEFAULT NULL, "), // M, F, Male/Female
             'Breed' =>      array (  -6,  -1, "s", "Raza",      " `Raza` varchar(255) DEFAULT NULL, "), // dog breed, optional
             'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '--------', "), // dog license. required for A2-A3; else optional
@@ -68,17 +69,20 @@ class DogReader {
             'Cat' =>        array (  -9,   1, "s", "Categoria", " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
             'Grad' =>       array (  -10,  1, "s", "Grado",     " `Grado` varchar(16) DEFAULT '-', "), // required
             // handler related data
-            'HandlerID' =>  array (  -11,  0, "i", "Guia",      " `Guia` int(4) NOT NULL DEFAULT 1, "),  // to be evaluated by importer
+            'HandlerID' =>  array (  -11,  0, "i", "HandlerID", " `HandlerID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
             'Handler' =>    array (  -12,  1, "s", "NombreGuia"," `NombreGuia` varchar(255) NOT NULL, "), // Handler's name. Required
             // club related data
-            'ClubID' =>     array (  -13,  0, "i", "Club",      " `Club` int(4) NOT NULL DEFAULT 1, "),  // to be evaluated by importer
+            'ClubID' =>     array (  -13,  0, "i", "ClubID",    " `ClubID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
             'Club' =>       array (  -14,  1, "s", "NombreClub"," `NombreClub` varchar(255) NOT NULL,")  // Club's Name. required
         );
     }
 
     public function saveStatus($str){
         $f=fopen(IMPORT_LOG,"a"); // open for append-only
-        if (!$f) { $this->myLogger->error("fopen() cannot create file: ".IMPORT_LOG); return;}
+        if (!$f) {
+            $this->myLogger->error("fopen() cannot create file: ".IMPORT_LOG);
+            return;
+        }
         fwrite($f,"$str\n");
         fclose($f);
     }
@@ -114,8 +118,7 @@ class DogReader {
                 }
             }
         }
-        // iterate header fields
-        // now check for required and not declared fields
+        // now check for required but not declared fields
         foreach ($this->fieldList as $key =>$val) {
             if ( ($val[0]<0) && ($val[1]>0) )
                 throw new Exception ("ExcelImport(dogs)::required field '$key' => ".json_encode($val)." not found in Excel header");
@@ -130,8 +133,8 @@ class DogReader {
             throw new Exception("Cannot perform import process: database::dbConnect()");
         // $str="DELETE FROM TABLE {$this->tablename} IF EXISTS";
         $str="CREATE TABLE {$this->tablename} (";
-        foreach ($this->fieldList as $val) {
-            if ($val[0]<0) continue; // field not provided
+        foreach ($this->fieldList as $key => $val) {
+            if ( ($val[1]!=0) && ($val[0]<0) ) continue; // field neither required nor provided
             $str .=$val[4];
         }
         $str .=" ID int(4) UNIQUE NOT NULL "; // to get an unique id in database
@@ -153,8 +156,8 @@ class DogReader {
         // for each row evaluate field name and get content from provided row
         // notice that
         foreach ($this->fieldList as $key => $val) {
-            if ($val[0]<0) continue; // field not provided or to be evaluated by importer
-            $str1 .= "{$val[3]}, ";
+            if ( ($val[0]<0) || ($val[1]==0)) continue; // field not provided or to be evaluated by importer
+            $str1 .= "{$val[3]}, "; // add field name
             switch ($val[2]) {
                 case "s": // string
                     $a=mysqli_real_escape_string($this->myDBObject->conn,$row[$val[0]]);
@@ -255,6 +258,7 @@ class DogReader {
     }
 
     private function findAndSetClub($item) {
+        $this->myLogger->enter();
         $a=$item['NombreClub'];
         // TODO: search and handle also club's longnames
         // $search=$this->myDBObject->__selectAsArray("*","Clubes","( Nombre LIKE '%$a%') OR ( NombreLargo LIKE '%$a%')");
@@ -267,13 +271,15 @@ class DogReader {
         $t=TABLE_NAME;
         $i=$search[0]['ID']; // Club ID
         $n=$search[0]['Nombre']; // Club Name
-        $str="UPDATE $t SET Club=$i, NombreClub='$n' WHERE (NombreClub LIKE '%$a%')";
+        $this->myLogger->trace("Found club '$a' => Name:$n ID:$i");
+        $str="UPDATE $t SET ClubID=$i, NombreClub='$n' WHERE (NombreClub LIKE '%$a%')";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetClub(): update club '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
         return true; // tell parent item found. proceed with next
     }
 
     private function findAndSetHandler($item) {
+        $this->myLogger->enter();
         // notice that arriving here means all clubs has been parsed and analyzed
         $a=$item['NombreGuia'];
         $f=$this->federation->get('ID');
@@ -286,13 +292,14 @@ class DogReader {
         $t=TABLE_NAME;
         $i=$search[0]['ID']; // id del guia
         $n=$search[0]['Nombre']; // nombre del guia
-        $str="UPDATE $t SET Guia=$i, NombreGuia='$n' WHERE (NombreGuia LIKE '%$a%')";
+        $str="UPDATE $t SET HandlerID=$i, NombreGuia='$n' WHERE (NombreGuia LIKE '%$a%')";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
         return true; // tell parent item found. proceed with next
     }
 
     private function findAndSetDog($item) {
+        $this->myLogger->enter();
         // notice that arriving here means all clubs and handlers has been parsed and analyzed
         // TODO: search and handle also dog's long (pedigree) name
         $a=$item['Nombre'];
@@ -307,7 +314,7 @@ class DogReader {
         $t=TABLE_NAME;
         $i=$search[0]['ID']; // dog ID
         $n=$search[0]['Nombre']; // dog Name
-        $str="UPDATE $t SET Perro=$i, Nombre='$n' WHERE (Nombre LIKE '%$a%')";
+        $str="UPDATE $t SET DogID=$i, Nombre='$n' WHERE (Nombre LIKE '%$a%')";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetDog(): update dog '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
         return true; // tell parent item found. proceed with next
@@ -317,20 +324,20 @@ class DogReader {
      * @return {array} data to be evaluated
      */
     private function parse() {
-        $res=$this->myDBObject->_select(
+        $res=$this->myDBObject->__select(
             /* SELECT */ "*",
             /* FROM   */ TABLE_NAME,
-            /* WHERE  */ "( Club = 0) || ( Guia = 0 ) || ( Perro = 0 )",
-            /* ORDER BY */ "Club ASC, Guia ASC, Perro ASC",
+            /* WHERE  */ "( ClubID = 0) || ( HandlerID = 0 ) || ( DogID = 0 )",
+            /* ORDER BY */ "ClubID ASC, HandlerID ASC, DogID ASC",
             /* LIMIT */  ""
         );
         if ($res['total']==0) return 0; // no more items to evaluate
         foreach ($res['rows'] as $item ) {
             $found=null;
             // if club==0 try to locate club ID. on fail ask user
-            if ($item['Club']==0) $found=$this->findAndSetClub($item);
+            if ($item['ClubID']==0) $found=$this->findAndSetClub($item);
             // if handler== 0 try to locate handler ID. on fail or missmatch ask user
-            else if ($item['Handler']==0) $found=$this->findAndSetHandler($item);
+            else if ($item['HandlerID']==0) $found=$this->findAndSetHandler($item);
             // if dog == 0 try to locate dog ID. On fail or misssmatch ask user
             else $found=$this->findAndSetDog($item);
             if (is_string($found)) throw new Exception("import parse: $found");
@@ -382,6 +389,9 @@ if (php_sapi_name() != "cli" ) {
     if ($op==='progress') {
         // retrieve last line of progress file
         $lines=file(IMPORT_LOG,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if (!$lines) {
+            echo json_encode( array( 'operation'=>'progress','success'=>false, 'status' => "Error reading progress file" ) );
+        }
         echo json_encode( array( 'operation'=>'progress','success'=>true, 'status' => strval($lines[count($lines)-1]) ) );
         return;
     }
