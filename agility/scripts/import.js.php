@@ -71,15 +71,30 @@ function perros_importHandleResult(data) {
             break;
         case "check":
             pb.progressbar('setValue','<?php _e("Starting data import");?>');
-            perros_importSendTask({'Operation':'open'});
+            perros_importSendTask({'Operation':'parse'});
             break;
-        case "open":
+        case "parse": // analyze next line
+            if (data.success=='ok') { // if success==true parse again
+                perros_importSendTask({'Operation':'parse'});
+            }
+            if (data.success=='done') { // file parsed: start import
+                perros_importSendTask({'Operation':'import'});
+            }
+            // empty data: ask user to add new value
+            // single data: data missmatch. ask user to fix
+            // multiple data: ask user to choose and fix values
             break;
-        case "accept":
+        case "accept": // accept changes for current line
+            break; 
+        case "ignore": // ignore changes for current line
             break;
-        case "ignore":
+        case "abort": // cancel transaction
             break;
-        case "cancel":
+        case "import": // import finished. Tell server to cleanup
+            perros_importSendTask({'Operation':'close'});
+            break;
+        case "close": 
+            dlg.dialog('close');
             break;
         case "progress": // receive progress status from server
             // iterate until "Done." received
@@ -88,9 +103,6 @@ function perros_importHandleResult(data) {
             var str=val.substring(0,val.indexOf(' : '));
             pb.progressbar('setValue',str+" : "+data.status);
             setTimeout(perros_importSendTask({'Operation':'progress'}),500);
-            break;
-        case "close":
-            dlg.dialog('close');
             break;
         default:
             $.messager.alert("Excel import error","Invalid operation received from server: "+data.operation );

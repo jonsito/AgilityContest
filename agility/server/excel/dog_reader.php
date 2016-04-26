@@ -250,7 +250,7 @@ class DogReader {
             $this->storeRow($index,$row);
             $index++;
         }
-        $this->saveStatus("Done.");
+        $this->saveStatus("Read Excel Done.");
         // fine. we can start parsing data in DB database table
         $reader->close();
         unlink($filename); // remove temporary file if no named file provided
@@ -261,16 +261,17 @@ class DogReader {
         $this->myLogger->enter();
         $a=$item['NombreClub'];
         // TODO: search and handle also club's longnames
+        $this->saveStatus("Importing club '$a'");
         // $search=$this->myDBObject->__selectAsArray("*","Clubes","( Nombre LIKE '%$a%') OR ( NombreLargo LIKE '%$a%')");
-        $search=$this->myDBObject->__selectAsArray("*","Clubes","( Nombre LIKE '%$a%')");
+        $search=$this->myDBObject->__select("*","Clubes","( Nombre LIKE '%$a%')","","");
         if ( !is_array($search) ) return "findAndSetClub(): Invalid search term: '$a'"; // invalid search. mark error
-        if (count($search)==0) return false; // no search result; ask user to select or create as new
-        if (count($search)>1) return $search; // more than 1 compatible item found. Ask user to choose
-        if ( $search['Federations'] & (1<<$this->federation->get('ID')) == 0 ) return $search; // federation missmatch. ask user to fix
+        if ($search['total']==0) return false; // no search result; ask user to select or create as new
+        if ($search['total']>1) return $search; // more than 1 compatible item found. Ask user to choose
+        if ($search['rows'][0]['Federations'] & (1<<$this->federation->get('ID')) == 0 ) return $search; // federation missmatch. ask user to fix
         // arriving here means match found. So replace all instances with found data and return to continue import
         $t=TABLE_NAME;
-        $i=$search[0]['ID']; // Club ID
-        $n=$search[0]['Nombre']; // Club Name
+        $i=$search['rows'][0]['ID']; // Club ID
+        $n=$search['rows'][0]['Nombre']; // Club Name
         $this->myLogger->trace("Found club '$a' => Name:$n ID:$i");
         $str="UPDATE $t SET ClubID=$i, NombreClub='$n' WHERE (NombreClub LIKE '%$a%')";
         $res=$this->myDBObject->query($str);
@@ -282,20 +283,25 @@ class DogReader {
         $this->myLogger->enter();
         // notice that arriving here means all clubs has been parsed and analyzed
         $a=$item['NombreGuia'];
+        $this->saveStatus("Importing handler '$a'");
         $f=$this->federation->get('ID');
-        $search=$this->myDBObject->__selectAsArray("*","Guias","( Nombre LIKE '%$a%') AND ( Federation = $f ) ");
+        $search=$this->myDBObject->__select("*","Guias","( Nombre LIKE '%$a%' ) AND ( Federation = $f ) ","","");
         if ( !is_array($search) ) return "findAndSetHandler(): Invalid search term: '$a'"; // invalid search. mark error
-        if (count($search)==0) return false; // no search result; ask user to select or create as new
-        if (count($search)>1) return $search; // more than 1 compatible item found. Ask user to choose
-        if ( $search['Club'] != $item['Club']) return $search; // Club missmatch. ask user to fix
-        // arriving here means match found. So replace all instances with found data and return to continue import
-        $t=TABLE_NAME;
-        $i=$search[0]['ID']; // id del guia
-        $n=$search[0]['Nombre']; // nombre del guia
-        $str="UPDATE $t SET HandlerID=$i, NombreGuia='$n' WHERE (NombreGuia LIKE '%$a%')";
-        $res=$this->myDBObject->query($str);
-        if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
-        return true; // tell parent item found. proceed with next
+        if ($search['total']==0) return false; // no search result; ask user to select or create as new
+        for ($index=0;$index<$search['total'];$index++) {
+            // find right entry. if not found ask user
+            if ($search['rows'][$index]['Club']!=$item['ClubID']) continue;
+            // arriving here means match found. So replace all instances with found data and return to continue import
+            $t=TABLE_NAME;
+            $i=$search['rows'][$index]['ID']; // id del guia
+            $n=$search['rows'][$index]['Nombre']; // nombre del guia
+            $str="UPDATE $t SET HandlerID=$i, NombreGuia='$n' WHERE (NombreGuia LIKE '%$a%')";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
+            return true; // tell parent item found. proceed with next
+        }
+        // arriving here means item(s) found, but none compatible. Ask user
+        return $search;
     }
 
     private function findAndSetDog($item) {
@@ -303,27 +309,31 @@ class DogReader {
         // notice that arriving here means all clubs and handlers has been parsed and analyzed
         // TODO: search and handle also dog's long (pedigree) name
         $a=$item['Nombre'];
+        $this->saveStatus("Importing dog '$a'");
         $f=$this->federation->get('ID');
-        $search=$this->myDBObject->__selectAsArray("*","Perros","( Nombre LIKE '%$a%') AND ( Federation = $f ) ");
-        if ( !is_array($search) ) return "findAndSetHandler(): Invalid search term: '$a'"; // invalid search. mark error
-        if (count($search)==0) return false; // no search result; ask user to select or create as new
-        if (count($search)>1) return $search; // more than 1 compatible item found. Ask user to choose
-        if ( $search['Guia'] != $item['Guia']) return $search; // handler missmatch. ask user to fix
-        // TODO: evaluate all declared dog properties against found in database. if collission ask user
-        // arriving here means match found. So replace all instances with found data and return to continue import
-        $t=TABLE_NAME;
-        $i=$search[0]['ID']; // dog ID
-        $n=$search[0]['Nombre']; // dog Name
-        $str="UPDATE $t SET DogID=$i, Nombre='$n' WHERE (Nombre LIKE '%$a%')";
-        $res=$this->myDBObject->query($str);
-        if (!$res) return "findAndSetDog(): update dog '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
-        return true; // tell parent item found. proceed with next
+        $search=$this->myDBObject->__select("*","Perros","( Nombre LIKE '%$a%') AND ( Federation = $f ) ","","");
+        if ( !is_array($search) ) return "findAndSetDog(): Invalid search term: '$a'"; // invalid search. mark error
+        if ($search['total']==0) return false; // no search result; ask user to select or create as new
+        for ($index=0;$index<$search['total'];$index++) {
+            // find right entry. if not found ask user
+            if ($search['rows'][$index]['Guia']!=$item['HandlerID']) continue;
+            // arriving here means match found. So replace all instances with found data and return to continue import
+            $t=TABLE_NAME;
+            $i=$search['rows'][$index]['ID']; // id del guia
+            $n=$search['rows'][$index]['Nombre']; // nombre del guia
+            $str="UPDATE $t SET DogID=$i, Nombre='$n' WHERE (Nombre LIKE '%$a%')";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "findAndSetDog(): update dog '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
+            return true; // tell parent item found. proceed with next
+        }
+        // arriving here means item(s) found, but none compatible. Ask user
+        return $search;
     }
 
     /**
      * @return {array} data to be evaluated
      */
-    private function parse() {
+    public function parse() {
         $res=$this->myDBObject->__select(
             /* SELECT */ "*",
             /* FROM   */ TABLE_NAME,
@@ -331,7 +341,6 @@ class DogReader {
             /* ORDER BY */ "ClubID ASC, HandlerID ASC, DogID ASC",
             /* LIMIT */  ""
         );
-        if ($res['total']==0) return 0; // no more items to evaluate
         foreach ($res['rows'] as $item ) {
             $found=null;
             // if club==0 try to locate club ID. on fail ask user
@@ -342,42 +351,39 @@ class DogReader {
             else $found=$this->findAndSetDog($item);
             if (is_string($found)) throw new Exception("import parse: $found");
             if (is_bool($found)) {
-                if ($found==true) continue; // insertion ok. proceed with next
-                else $found=array(); // item not found: create a default item
+                if ($found==true) // item found and match: notify and return
+                    return array('operation'=> 'parse', 'success'=> 'ok', 'search' => $item, 'found' => $found['rows']);
+                else // item not found: create a default item
+                    return array('operation'=> 'parse', 'success'=> 'fail', 'search' => $item, 'found' => array());
             }
-            return array('search' => $item, 'found' => $found);
+            return array('operation'=> 'parse', 'success'=> 'fail', 'search' => $item, 'found' => $found['rows']);
         }
         // arriving here means no more items to analyze. So tell user to proccedd with import
-        return "";
+        return array('operation'=> 'parse', 'success'=> 'done');
     }
 
-    public function parseLine() {
-        $line= array();
-        // compose item with data received from browser
-        return $this->parse($line);
+    public function processEntry() {
+        return 0;
     }
 
-    public function initParser($index=0) {
-        $line= array();
-        // read first line from excel file
-        // use it to simulate data from browser
-        return $this->parse($line);
+    public function ignoreEntry() {
+        return 0;
     }
 
+    public function beginImport() {
+        // start import process
+        $this->saveStatus("Begin importing analyzed data");
+        // TODO: here comes import process
+        return array( 'operation'=>'import','success'=>'ok');
+    }
 
-    public function skipLine() {
-        // ignore data: advance cursor index
-        $index=http_request("index","i",0);
-        return $this->initParser($index+1);
+    public function endImport() {
+        $this->saveStatus("Done.");
+        return array( 'operation'=>'close','success'=>'ok');
     }
 
     public function cancelImport() {
         // remove temporary files, do not perform import
-        return 0;
-    }
-
-    public function endParser() {
-        // successfull import done. cleanup and return
         return 0;
     }
 }
@@ -390,16 +396,17 @@ if (php_sapi_name() != "cli" ) {
         // retrieve last line of progress file
         $lines=file(IMPORT_LOG,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if (!$lines) {
-            echo json_encode( array( 'operation'=>'progress','success'=>false, 'status' => "Error reading progress file" ) );
+            echo json_encode( array( 'operation'=>'progress','success'=>'fail', 'status' => "Error reading progress file" ) );
+        } else {
+            echo json_encode( array( 'operation'=>'progress','success'=>'ok', 'status' => strval($lines[count($lines)-1]) ) );
         }
-        echo json_encode( array( 'operation'=>'progress','success'=>true, 'status' => strval($lines[count($lines)-1]) ) );
         return;
     }
     // Consultamos la base de datos
     try {
         // 	Creamos generador de documento
         $fed=http_request("Federation","i",-1);
-        if ($fed<0) throw new Exception("ImportExcel(dogs): invalid Federation ID: $fed");
+        if ($fed<0) throw new Exception("dog_reader::ImportExcel(): invalid Federation ID: $fed");
 
         $dr=new DogReader($fed);
         $result="";
@@ -414,35 +421,39 @@ if (php_sapi_name() != "cli" ) {
                 $file=http_request("Filename","s",null);
                 $result = $dr->validateFile($file);
                 break;
-            case "open":
+            case "parse":
                 // start analysis
-                $result = $dr->initParser();
+                $result = $dr->parse();
                 break;
             case "accept":
                 // a new line has been accepted from user: insert and update temporary excel file
-                $result = $dr->parseLine();
+                $result = $dr->processEntry();
                 break;
             case "ignore":
                 // received entry has been refused by user: remove and update temporary excel file
-                $result = $dr->skipLine();
+                $result = $dr->ignoreEntry();
                 break;
             case "abort":
                 // user has cancelled import file: clear and return temporary data
                 $result = $dr->cancelImport();
                 break;
+            case "import":
+                // every entries have been corrected and have proper entry ID's: start importing
+                $result = $dr->beginImport();
+                break;
             case "close":
                 // end of import. clear and return;
-                $result = $dr->endParser();
+                $result = $dr->endImport();
                 break;
             default: throw new Exception("excel_import(dogs): invalid operation '$op' requested");
         }
         if ($result===null)                     // null on error
             throw new Exception($dr->errormsg);
         if ( ($result==="") || ($result===0) )  // empty or zero on success
-            echo json_encode(array('operation'=> $op, 'success'=>true));
+            echo json_encode(array('operation'=> $op, 'success'=>'ok'));
         else echo json_encode($result);         // else return data already has been set
     } catch (Exception $e) {
         do_log($e->getMessage());
-        echo json_encode(array("operation"=>$op, 'errorMsg'=>$e->getMessage()));
+        echo json_encode(array("operation"=>$op, 'success'=>'fail', 'errorMsg'=>$e->getMessage()));
     }
 }
