@@ -330,7 +330,18 @@ function loadContents(page,title,slaves) {
  * Load (if required pages and scripts associated with data importing from excel
  */
 function loadImportPages() {
-	if ($('#importflag').html() != "") return false; // already loaded
+	var import_flag=$('#importflag');
+	if (import_flag.html() != "") return false; // already loaded
+
+	// load javascript files for import operations
+	var fileref=document.createElement('script');
+	if (typeof(fileref)!=="undefined") {
+		fileref.setAttribute("type","text/javascript");
+		fileref.setAttribute("src", "/agility/scripts/import.js.php");
+		document.getElementsByTagName("head")[0].appendChild(fileref); // append at the end of head
+	}
+
+	// load html pages
 	$('#importclubes').panel('refresh', '/agility/console/import/import_clubes.inc');
 	/*
 	$('#importhandlers').panel('refresh', '/agility/console/import/import_handlers.inc');
@@ -338,7 +349,7 @@ function loadImportPages() {
 	$('#importinscriptions').panel('refresh', '/agility/console/import/import_inscriptions.inc');
 	$('#importcontest').panel('refresh', '/agility/console/import/import_contest.inc');
 	*/
-	$('#importflag').html("ready"); // mark as ready
+	import_flag.html("ready"); // mark as ready
 	return true;
 }
 
