@@ -741,7 +741,7 @@ class PrintInscritosByJornada extends PrintCommon {
 		usort($inscritos['rows'],function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
         $this->inscritos=$inscritos['rows'];
         $this->jornadas=$jornadas['rows'];
-		$this->setPageName("inscritosByPrueba.pdf");
+		$this->setPageName("inscritosByJornada.pdf");
 		$this->cellHeader=
 			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,_('Cat'),_('Grado'),_('Heat'),_('Comments'));
         $this->JName="";
