@@ -128,6 +128,65 @@ function toASCII($string) {
 }
 
 /**
+ * Try to obtain dog gender with provided data
+ * @param {string} $gender user provided gender
+ * @return 'M':male 'F':female '':cannot decide
+ */
+function parseGender($gender) {
+	static $female = array('h','f','hembra','perra','female','bitch','chienne','gossa','cadela','cagna','hundin');
+	static $male = array('m','macho','male','dog','chien','gos','cao','cane','hund');
+	if (is_null($gender)) return '-';
+	$gender=strtolower(trim(utf8_decode($gender)));
+	if ($gender==="") return '-';
+	if (in_array($gender,$female)) return 'H';
+	if (in_array($gender,$male)) return 'M';
+	// perhaps should try to detect here if first letter is m/h/f
+	return '-';
+}
+
+/**
+ * Try to obtain dog grade according provided string
+ * @param {string} $cat user provided category
+ * @return L,M,S,T,- detected category
+ */
+function parseCategory($cat) {
+	static $l = array('l','large','standard','std','60','6');
+	static $m = array('m','medium','midi','mid','med','50','5');
+	static $s = array('s','small','mini','min','40','4');
+	static $t = array('t','enano','tiny','toy','30','3','20','2'); // include junior as toy
+	if (is_null($cat)) return '-';
+	$cat=strtolower(trim(utf8_decode($cat)));
+	if ($cat==="") return '-';
+	if (in_array($cat,$l)) return 'L';
+	if (in_array($cat,$m)) return 'M';
+	if (in_array($cat,$s)) return 'S';
+	if (in_array($cat,$t)) return 'T';
+	// perhaps should try to detect here if first letter is m/h/f
+	return '-';
+}
+
+/**
+ * Try to deduce grade based on provided string
+ * @param {string} $grad provided user string
+ * @return string found grade or '-' if cannot decide
+ */
+function parseGrade($grad) {
+	if (is_null($grad)) return '-';
+	$grad=strtolower(trim(utf8_decode($grad)));
+	if ($grad==="") return '-';
+	if (strpos($grad,'pre')!==false) return 'P.A.';
+	if (strpos($grad,'p.a')!==false) return 'P.A.';
+	if (strpos($grad,'0')!==false) return 'P.A.';
+	if (strpos($grad,'iii')!==false) return 'GIII';
+	if (strpos($grad,'ii')!==false) return 'GII';
+	if (strpos($grad,'i')!==false) return 'GI'; // cuidado con el orden de estos tres ultimos
+	if (strpos($grad,'3')!==false) return 'GIII';
+	if (strpos($grad,'2')!==false) return 'GII';
+	if (strpos($grad,'1')!==false) return 'GI';
+	return '-';
+}
+
+/**
  * get a variable from _REQUEST array
  * @param {string} $name variable name
  * @param {string} $type default type (i,s,b)
