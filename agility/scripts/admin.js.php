@@ -122,7 +122,7 @@ function restoreDatabase(){
                                     '<?php _e("Database restore success<br />Press Accept to re-init application"); ?>',
                                     "info",
                                     function(){window.location.reload();} // reload application main page
-                                ).window('resize',{width:300});;
+                                ).window('resize',{width:350});
                             }
                             $.messager.progress('close');
                         },

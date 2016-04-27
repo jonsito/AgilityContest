@@ -110,9 +110,10 @@ function escapeString($str) {
 
 function toBoolean($var) {
 	if (is_null($var)) return false;
-	if (is_string($var)) $var=strtolower($var);
+	if (is_bool($var)) return $var;
+	if (is_string($var)) $var=strtolower(trim($var));
 	$t=array (1,true,"1","t","true","on","s","si","y","yes","ja","oui");
-	foreach($t as $item) { if ($var===$item) return true; }
+	if ( in_array($var,$t) ) return true;
 	return false;
 }
 
@@ -175,6 +176,7 @@ function parseGrade($grad) {
 	$grad=strtolower(trim(utf8_decode($grad)));
 	if ($grad==="") return '-';
 	if (strpos($grad,'pre')!==false) return 'P.A.';
+	if (strpos($grad,'pa')!==false) return 'P.A.';
 	if (strpos($grad,'p.a')!==false) return 'P.A.';
 	if (strpos($grad,'0')!==false) return 'P.A.';
 	if (strpos($grad,'iii')!==false) return 'GIII';

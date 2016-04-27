@@ -158,25 +158,29 @@ class DogReader {
         foreach ($this->fieldList as $key => $val) {
             if ( ($val[0]<0) || ($val[1]==0)) continue; // field not provided or to be evaluated by importer
             $str1 .= "{$val[3]}, "; // add field name
+            $item=$row[$val[0]];
+            if ($key==='Grad') $item=parseGrade($item);
+            if ($key==='Cat') $item=parseCategory($item);
+            if ($key==='Gender') $item=parseGender($item);
             switch ($val[2]) {
                 case "s": // string
-                    $a=mysqli_real_escape_string($this->myDBObject->conn,$row[$val[0]]);
+                    $a=mysqli_real_escape_string($this->myDBObject->conn,$item);
                     $str2.="'{$a}', ";
                     break;
                 case "i":
-                    $a=intval($row[$val[0]]);
+                    $a=intval($item);
                     $str2 .= " {$a}, "; // integer
                     break;
                 case "b":
-                    $a=($row[$val[0]])?1:0;
+                    $a=(toBoolean($item))?1:0;
                     $str2 .= " {$a}, "; // boolean as 1/0
                     break;
                 case "f":
-                    $a=floatval($row[$val[0]]);
+                    $a=floatval($item);
                     $str2 .= " {$a}, "; // float
                     break;
                 default:
-                    $str2 .= " {$row[$val[0]]}, "; // store "as is" DANGEROUS
+                    $str2 .= " {$item}, "; // store "as is" DANGEROUS
             }
         }
         $str ="$str1 $str2 {$index} );"; // compose insert string
