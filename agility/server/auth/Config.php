@@ -70,7 +70,7 @@ define('AC_PDF_HDRBG2','#808080');
 define('AC_PDF_ROWCOLOR1','#ffffff');
 define('AC_PDF_ROWCOLOR2','#e0ebff');
 define('AC_PDF_LINECOLOR','#808080');
-define('AC_PDF_FONTFAMILY','DejaVu');
+define('AC_PDF_FONTFAMILY','Helvetica');
 
 /** personalizacion del tablet **/
 define('AC_TABLET_BEEP',"0");		// habilitar señal sonora al pulsar tecla (1) o deshabilita (0)
@@ -79,6 +79,7 @@ define('AC_TABLET_CHRONO',"0");		// habilita mostrar crono en tablet (1) o no (0
 define('AC_TABLET_NEXT',"0");		// acept vuelve a menu (0) o pasa al siguiente (1)
 define('AC_TABLET_COUNTDOWN',"1");	// accion tras cuenta de 15 segundos 1:nada 2:crono 3:eliminado
 define('AC_TABLET_KEYBOARD',"1");	// habilita el uso de teclas en en el tablet si portatil/notebook
+define('AC_TABLET_DBLCLICK',"1");	// accion al hacer doble click en listado de manga 0:cancel&go 1:accept&go 
 
 /** configuracion del sistema de acceso por internet */
 define('AC_WEB_REFRESHTIME',"0");	// periodo de refresco en pantallas live
@@ -172,6 +173,7 @@ Class Config {
 		'tablet_next'		=> array(	'b',	false,	AC_TABLET_NEXT),
 		'tablet_countdown'	=> array(	'i',	false,	AC_TABLET_COUNTDOWN),
 		'tablet_keyboard'	=> array(	'b',	false,	AC_TABLET_KEYBOARD),
+		'tablet_dblclick'	=> array(	'i',	false,	AC_TABLET_DBLCLICK),
 		// acceso web
 		'web_refreshtime'	=> array(	'i',	false,	AC_WEB_REFRESHTIME),
 		// personalizacion del crono

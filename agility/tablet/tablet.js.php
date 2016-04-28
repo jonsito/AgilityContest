@@ -35,10 +35,7 @@ function tandasStyler(val,row,idx) {
  * @param {boolean} flag true if activate; false on deactivate
  */
 function setDataEntryEnabled(flag) {
-	tablet_config.DataEntryEnabled=flag;
-	$('#tdialog-fieldset').prop('disabled',!flag);
-	if (flag) $('#tablet-layout').layout('collapse','west');
-	else $('#tablet-layout').layout('expand','west');
+	$('#tablet-layout').layout( (flag)?'collapse':'expand','west');
 }
 
 function setStartStopMode(mode) {
@@ -464,17 +461,17 @@ function nextRow(dg,row,index, cb){
 	return true;
 }
 
-function tablet_accept() {
-	doBeep();
-	// save results
-	tablet_updateResultados(0); // mark as result no longer pendiente
-	// retrieve original data from parent datagrid
-	var dgname = $('#tdialog-Parent').val();
-	var dg = $(dgname);
+/**
+ * 
+ * @param {object} dg selected round list datagrid
+ * @return current row index
+ */
+function tablet_save(dg) {
+	tablet_updateResultados(0); // mark as result no longer pending
 	var row = dg.datagrid('getSelected');
 	if (!row) { // !no row selected!!. should mark error
 		console.log("INTERNAL ERROR tablet_accept(): no selected row");
-		return false;
+		return -1;
 	}
 
 	// send back data to parent tablet datagrid form
@@ -499,13 +496,26 @@ function tablet_accept() {
 			'Eliminado': row.Eliminado
 		}
 	);
+	return rowindex;
+}
+
+function tablet_accept() {
+	doBeep();
+	// retrieve parent datagrid to update results
+	var dgname = $('#tdialog-Parent').val();
+	var dg = $(dgname);
+	
+	// save current data and send "accept" event
+	var rowindex=tablet_save(dg);
+	if (rowindex<0) return false;
+	
 	// check "accept" behaviour in config. If 'tablet_next' = false, just return to round selection
 	if (ac_config.tablet_next==="0") { // no go to next row entry
 		setDataEntryEnabled(false);
 		dg.datagrid('refreshRow',rowindex);
 		return false;
 	}
-
+	
 	// go to next row (if available)
 	rowindex++; // 0..len-1
 	if ( rowindex >= dg.datagrid('getRows').length) {
@@ -533,11 +543,10 @@ function tablet_accept() {
  * retrieve from server data row on provided dorsal
  * call to callback(idx,row) provided function
  * @param {object} tanda current selected tanda
- * @param {object} dg datagrid for current selected tanda
+ * @param {object} dgname datagrid nams for current selected tanda
  * @param {int} dorsal Dog dorsal to search for
- * @param cb(page) what to do if Dorsal found in tanda
  */
-function loadDorsalPage(tanda,dg,dorsal,cb) {
+function tablet_gotoDorsal(tanda,dgname,dorsal) {
     doBeep();
 	$.ajax({
 		type:	'GET',
@@ -558,7 +567,15 @@ function loadDorsalPage(tanda,dg,dorsal,cb) {
 				$('#tablet-datagrid-search').val('---- <?php _e("Dorsal"); ?> ----');
 				return false;
 			}
-			cb(idx);
+			dg=$(dgname);
+			dg.datagrid('selectRow', idx);
+			dg.datagrid('scrollTo', idx);
+			var data = dg.datagrid('getRows')[idx];
+			data.Session = workingData.sesion;
+			data.Parent = dgname; // store datagrid reference
+			$('#tdialog-form').form('load', data);
+			tablet_markSelectedDog(parseInt(idx));
+			setDataEntryEnabled(true);
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
 			alert("error: "+textStatus + " "+ errorThrown );
@@ -580,23 +597,7 @@ function tablet_editByDorsal() {
 		if (rows[i].expanded==0) continue;
 		// obtenemos el datagrid y buscamos el dorsal
 		var dgname='#tablet-datagrid-'+rows[i].ID;
-		var dg2=$(dgname);
-		loadDorsalPage(rows[i],dg2,dorsal,function(idx){
-			dg2.datagrid('scrollTo', {
-				index: idx, // to make sure extra rows are loaded
-				callback: function (index) {
-					if (index < 0) return false; // no selection
-					dg2.datagrid('selectRow', index);
-					var data = dg2.datagrid('getRows')[index];
-					data.Session = workingData.sesion;
-					data.RowIndex = index; // not really used, but....
-					data.Parent = dgname; // store datagrid reference
-					$('#tdialog-form').form('load', data);
-					tablet_markSelectedDog(parseInt(data.RowIndex));
-					setDataEntryEnabled(true);
-				}
-			});
-		});
+		tablet_gotoDorsal(rows[i],dgname,dorsal);
 		drs.val('---- <?php _e("Dorsal"); ?> ----');
 		return false;
 	}

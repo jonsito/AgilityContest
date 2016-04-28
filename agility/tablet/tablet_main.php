@@ -23,7 +23,7 @@ $config =Config::getInstance();
 
 <div id="tablet-window" style="margin:0;padding:0">
     <div id="tablet-layout">
-        <div data-options="region:'west',split:true" title="<?php _e('Activities on this journey');?>" style="width:40%;">
+        <div data-options="region:'west',split:true,minWidth:50" title="<?php _e('Activities on this journey');?>" style="width:40%;">
             <!-- Tabla desplegable para la entrada de datos desde el tablet -->
             <table id="tablet-datagrid" style="margin:0;padding:0;"></table>
         </div>
@@ -147,6 +147,24 @@ $config =Config::getInstance();
     });
 
     $('#tablet-layout').layout({fit:true});
+    $('#tablet-layout').layout('panel','west').panel({
+        onExpand: function() {
+            tablet_config.DataEntryEnabled=false;
+            $('#tdialog-fieldset').prop('disabled',true);
+            // retrieve original data from parent datagrid
+            var dgname=$('#tdialog-Parent').val();
+            var dg=$(dgname);
+            // refresh layout
+            var h=dg.datagrid('getPanel').panel('options').height;
+            var w=dg.datagrid('getPanel').panel('options').width;
+            setTimeout(function() {dg.datagrid('resize',{height:h,width:w})},0);
+        },
+        onCollapse: function () {
+            tablet_config.DataEntryEnabled=true;
+            $('#tdialog-fieldset').prop('disabled',false);
+        }
+    });
+
 
     $('#tablet-datagrid').datagrid({
         // propiedades del panel asociado
@@ -386,6 +404,14 @@ $config =Config::getInstance();
             { field:'NombreClub',	width:'20%', align:'right',	title: '<?php _e('Club');?>' }
         ]],
         onDblClickRow: function(index,row) {
+            // check for store before change dog
+            if (parseInt(ac_config.tablet_dblclick)==1){
+                // retrieve parent datagrid to update results
+                var dgname = $('#tdialog-Parent').val();
+                var dg = $(dgname);
+                tablet_save(dg);
+            }
+            // and go to selected dog
             $('#tablet-datagrid-search').val(row.Dorsal);
             tablet_editByDorsal();
         }
