@@ -67,14 +67,10 @@ cp ${BUILD_DIR}/xampp/php/php.ini  ${BUILD_DIR}/xampp/php/php.ini.orig
 sed -i "s/;extension=php_openssl.dll/extension=php_openssl.dll/g" ${BUILD_DIR}/xampp/php/php.ini
 
 # fix options for mysql
+# notice that in 5.6.20 cannot simply add options at the end, so must provide our own
+# personalized copy of my.ini
 echo "Setting up mysql/my.ini ..."
-cp ${BUILD_DIR}/xampp/mysql/my-default.ini  ${BUILD_DIR}/xampp/mysql/my.ini
-# default my.ini is empty and only has section [mysqld]. So it's safe to append at eof
-cat <<__EOF >>${BUILD_DIR}/xampp/mysql/my.ini
-lower_case_table_names = 1
-key_buffer_size = 16M
-explicit_defaults_for_timestamp = 1
-__EOF
+cp ${BASE_DIR}/build/mysql/ac_my.ini  ${BUILD_DIR}/xampp/mysql/my.ini
 unix2dos ${BUILD_DIR}/xampp/mysql/my.ini
 
 # ok. time to add AgilityContest files
