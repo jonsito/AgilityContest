@@ -337,7 +337,7 @@ function loadImportPages() {
 	var fileref=document.createElement('script');
 	if (typeof(fileref)!=="undefined") {
 		fileref.setAttribute("type","text/javascript");
-		fileref.setAttribute("src", "/agility/scripts/import.js.php");
+		fileref.setAttribute("src", "/agility/console/import/import.js.php");
 		document.getElementsByTagName("head")[0].appendChild(fileref); // append at the end of head
 	}
 

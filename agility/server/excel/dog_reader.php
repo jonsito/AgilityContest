@@ -180,7 +180,9 @@ class DogReader {
                     $str2 .= " {$a}, "; // float
                     break;
                 default:
-                    $str2 .= " {$item}, "; // store "as is" DANGEROUS
+                    // escape to avoid sql injection issues
+                    $a=mysqli_real_escape_string($this->myDBObject->conn,$item);
+                    $str2 .= " {$a}, ";
             }
         }
         $str ="$str1 $str2 {$index} );"; // compose insert string

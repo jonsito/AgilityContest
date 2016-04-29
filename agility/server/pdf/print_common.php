@@ -73,12 +73,13 @@ class PrintCommon extends FPDF {
 
 	function AddPage($orientation='', $size='', $rotation=0) {
 		parent::AddPage($orientation,$size,$rotation);
+	}
+
+	function _endpage()	{
 		if ( ($this->regInfo==null) || ($this->regInfo['Serial']==="00000000") ) {
 			$img=getIconPath(0,'unregistered.png');
 			$mx=190;$my=270;
-			if($orientation=='') $orientation = $this->DefOrientation;
-			else $orientation = strtoupper($orientation[0]);
-			if ($orientation=='L') {$mx=270;$my=190;}
+			if ($this->DefOrientation=='L') {$mx=270;$my=190;}
 			for($x=10;$x<$mx;$x+=30) {
 				for ($y=20;$y<$my;$y+=30) {
 					$this->Rotate(60,$x,$y);
@@ -87,9 +88,6 @@ class PrintCommon extends FPDF {
 				}
 			}
 		}
-	}
-
-	function _endpage()	{
 		if($this->angle!=0)	{
 			$this->angle=0;
 			$this->_out('Q');

@@ -28,8 +28,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <?php _e('Club data Import'); ?>
     </div>
      <form id="importclubes-header">
+         <p id="importclubes_header-Text"> </p> <!-- to be filled -->
          <div class="fitem">
-             <label for="inportclubes-Search"><?php _e('Search'); ?>: </label>
+             <label for="importclubes-Search"><?php _e('Search'); ?>: </label>
              <select id="importclubes-Search" name="Search" style="width:250px"></select>&nbsp;
              <a id="importcluibes-clearBtn" href="#" class="easyui-linkbutton"
                 data-options="iconCls: 'icon-clear'"><?php _e('Clear'); ?></a>
@@ -120,13 +121,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="importclubes-dlg-buttons">
     <span style="float:left">
         <a id="importclubes-newBtn" href="#" class="easyui-linkbutton"
-            data-options="iconCls: 'icon-new'" onclick="importClubesAsNew();"><?php _e('New'); ?></a>
+            data-options="iconCls: 'icon-new'" onclick="importClubes('new');"><?php _e('New'); ?></a>
     </span>
     <span style="float:right">
         <a id="importclubes-selectBtn" href="#" class="easyui-linkbutton"
-            data-options="iconCls: 'icon-ok'" onclick="importClubesAsSelected();"><?php _e('Select'); ?></a>
+            data-options="iconCls: 'icon-ok'" onclick="importClubes('select');"><?php _e('Select'); ?></a>
         <a id="importclubes-ignoreBtn" href="#" class="easyui-linkbutton"
-            data-options="iconCls:'icon-cancel'" onclick="importClubesIgnore();"><?php _e('Ignore'); ?></a>
+            data-options="iconCls:'icon-cancel'" onclick="importClubes('ignore');"><?php _e('Ignore'); ?></a>
     </span>
 </div>
     
@@ -137,11 +138,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	addTooltip($('#importclubes-newBtn').linkbutton(),'<?php _e("Import as new club with provided data"); ?>');
     	addTooltip($('#importclubes-selectBtn').linkbutton(),'<?php _e("Use selected existing club and updata club info"); ?>');
     	addTooltip($('#importclubes-ignoreokBtn').linkbutton(),'<?php _e("Ignore entry. do not import into database"); ?>');
-        addTooltip($('#importclubes-clearBtn').linkbutton(),'<?php _e("Clear club search and reset data to import"); ?>');
-        $('#importclubes-clearBtn').bind('click',function() {
-            $('#importclubes-header').form('clear'); // empty form
-            $('#importclubes-form').form('reset'); // restore to initial values
-        });
+        addTooltip($('#importclubes-clearBtn')
+            .linkbutton(),'<?php _e("Clear club search and reset data to import"); ?>')
+            .bind('click',function() {
+                $('#importclubes-header').form('clear'); // empty form
+                $('#importclubes-form').form('reset'); // restore to initial values
+            });
 
         // combogrid de seleccion de clubes/paises
         $('#importclubes-Search').combogrid({

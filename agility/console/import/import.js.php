@@ -16,12 +16,63 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 <?php
-require_once(__DIR__."/../server/auth/Config.php");
-require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+require_once(__DIR__ . "/../../server/tools.php");
 $config =Config::getInstance();
 ?>
 
 /*************************************** importacion de perros desde fichero excel **************************/
+
+/**
+ * Respond to user actions when required
+ * @param {string} action 'new', 'select', 'ignore'
+ */
+function import_clubes(action) {
+
+    // close dialog and return;
+    return false;
+}
+
+/**
+ * prepare importclubes-dialog to ask for action when club not found
+ * @param {object} search data to search for
+ * @param {object} found not used; empty object
+ * @returns {boolean} true or false according result
+ */
+function clubNotFound(search,found) {
+    var msg1="<?php _e('Club');?> ";
+    var msg2=" <?php _e('Not found in database');?> <br/>";
+    var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
+    var msg=msg1+search.Club+msg2+msg3;
+    $("#importclubes_header-Text").html(msg);
+    $("$importclubes-dialog").dialog('open');
+    return false;
+}
+
+function handlerNotFound(search,found) {
+    var msg1="<?php _e('Handler');?> ";
+    var msg2=" <?php _e('Not found in database');?> <br/>";
+    var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
+    var msg=msg1+search.Club+msg2+msg3;
+    $("#importhandlers_header-Text").html(msg);
+    $("$importhandlers-dialog").dialog('open');
+}
+
+function dogNotFound(search,found) {
+    var msg1="<?php _e('Dog');?> ";
+    var msg2=" <?php _e('Not found in database');?> <br/>";
+    var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
+    var msg=msg1+search.Club+msg2+msg3;
+    $("#importdogs_header-Text").html(msg);
+    $("$importdogs-dialog").dialog('open');
+}
+
+function clubMissmatch(search,found) { }
+function handlerMissmatch(search,found) { }
+function dogMissmatch(search,found) { }
+function clubMustChoose(search,found) { }
+function handlerMustChoose(search,found) { }
+function dogMustChoose(search,found) { }
 
 /**
  * Send command to excel importer
@@ -53,8 +104,10 @@ function perros_importSendTask(params) {
 
 /**
  * Parse response to sendTask
+ *
+ * This code acts as a state machine, sending and receive messages from server
  * @param data received response from server
- * @returns {boolean}
+ * @returns {boolean} false on fail; otherwise true
  */
 function perros_importHandleResult(data) {
     var dlg=$('#perros-excel-dialog');
@@ -77,12 +130,19 @@ function perros_importHandleResult(data) {
             if (data.success=='ok') { // if success==true parse again
                 perros_importSendTask({'Operation':'parse'});
             }
-            if (data.success=='done') { // file parsed: start import
+            if (data.success=='fail') { // user action required. study cases
+                var funcs=array();
+                if (parseInt(data.search.ClubID)==0) funcs= {clubNotFound,handlerNotFound,dogNotFound};
+                else if (parseInt(data.search.HandlerID)==0) funcs= {clubMissmatch,handlerMissmatch,dogMissmatch};
+                else funcs= {clubMustChoose,handlerMustChoose,dogMustChoose};
+                var len=data.success.length;
+                if (len==0) funcs[0](data.search,data.success);         // item not found: ask user to select existing or create new one
+                else if (len==1) funcs[1](data.search,data.success);    // item found, but data missmatch. ask user to fix
+                else funcs[2](data.search,data.success);                // several compatible items found. ask user to decide
+            }
+            if (data.success=='done') { // file parsed: start real import procedure
                 perros_importSendTask({'Operation':'import'});
             }
-            // empty data: ask user to add new value
-            // single data: data missmatch. ask user to fix
-            // multiple data: ask user to choose and fix values
             break;
         case "accept": // accept changes for current line
             break; 
@@ -108,7 +168,6 @@ function perros_importHandleResult(data) {
             $.messager.alert("Excel import error","Invalid operation received from server: "+data.operation );
             dlg.dialog('close');
     }
-
     return false;
 }
 
