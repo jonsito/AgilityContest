@@ -610,8 +610,6 @@ function bindKeysToTablet() {
 
 	// disable key handling on tablet/mobile phone
 	if (isMobileDevice()) return;
-	// when round selection panel is open, just return to normal key binding
-	if( $('#tablet-layout').layout('panel','west').panel('options').collapsed==false) return true;
 	// if configuration states keyboard disabled, ignore
 	if (parseInt(ac_config.tablet_keyboard)==0) return false;
 
