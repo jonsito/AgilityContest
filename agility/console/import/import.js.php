@@ -81,6 +81,7 @@ function dogMustChoose(search,found) { }
 function perros_importSendTask(params) {
     var dlg=$('#perros-excel-dialog');
     params.Federation=workingData.federation;
+    console.log("send: "+params.Operation);
     $.ajax({
         type:'POST', // use post to send file
         url:"/agility/server/excel/dog_reader.php",
@@ -116,6 +117,7 @@ function perros_importHandleResult(data) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
         dlg.dialog('close');
     }
+    console.log("recv: "+data.operation);
     switch (data.operation){
         case "upload":
             pb.progressbar('setValue','<?php _e("Checking Excel File");?> : '); // beware ' : ' sequence

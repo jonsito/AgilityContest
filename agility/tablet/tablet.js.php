@@ -623,23 +623,23 @@ function bindKeysToTablet() {
 			case 48:    /* 0 */
 			case 96:	/* numpad 0 */ tablet_add(0); break;
 			case 49:    /* 1 */
-			case 97:	/* numpad 0 */	tablet_add(1); break;
+			case 97:	/* numpad 1 */	tablet_add(1); break;
 			case 50:    /* 2 */
-			case 98:	/* numpad 0 */	tablet_add(2); break;
+			case 98:	/* numpad 2 */	tablet_add(2); break;
 			case 51:    /* 3 */
-			case 99:	/* numpad 0 */	tablet_add(3); break;
+			case 99:	/* numpad 3 */	tablet_add(3); break;
 			case 52:    /* 4 */
-			case 100:	/* numpad 0 */	tablet_add(4); break;
+			case 100:	/* numpad 4 */	tablet_add(4); break;
 			case 53:    /* 5 */
-			case 101:	/* numpad 0 */	tablet_add(5); break;
+			case 101:	/* numpad 5 */	tablet_add(5); break;
 			case 54:    /* 6 */
-			case 102:	/* numpad 0 */	tablet_add(6); break;
+			case 102:	/* numpad 6 */	tablet_add(6); break;
 			case 55:    /* 7 */
-			case 103:	/* numpad 0 */	tablet_add(7); break;
+			case 103:	/* numpad 7 */	tablet_add(7); break;
 			case 56:    /* 8 */
-			case 104:	/* numpad 0 */	tablet_add(8); break;
+			case 104:	/* numpad 8 */	tablet_add(8); break;
 			case 57:    /* 9 */
-			case 105:	/* numpad 0 */	tablet_add(9); break;
+			case 105:	/* numpad 9 */	tablet_add(9); break;
 			case 8:		/* del */
 			case 46:	/* numpad supr */	tablet_del(); break;
 			case 190:    /* dot */
