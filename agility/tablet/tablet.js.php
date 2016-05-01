@@ -617,6 +617,7 @@ function bindKeysToTablet() {
 	$(document).keydown(function(e) {
 		// on round selection window focused, ignore
 		if ($('#tdialog-fieldset').prop('disabled')) return true;
+		doBeep();
 		switch(e.which) {
 			/* you can check keycodes at http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes */
 			// numbers (querty/keypad)
