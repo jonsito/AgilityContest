@@ -219,7 +219,7 @@ class PrintClasificacionEq3 extends PrintCommon {
         // evaluate logos
         $logos=array('null.png','null.png','null.png','null.png');
         if ($team['Nombre']==="-- Sin asignar --") {
-            $logos[0]='agilitycontest.png';
+            $logos[0]=getIconPath($this->federation->get('Name'),"agilitycontest.png");
         } else {
             $count=0;
             for ($n=0;$n<count($team['Perros']);$n++) {

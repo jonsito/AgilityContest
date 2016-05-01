@@ -109,7 +109,7 @@ class OrdenSalidaEquipos4 extends PrintCommon {
         // evaluate logos
         $logos=array('null.png','null.png','null.png','null.png');
         if ($team['Nombre']==="-- Sin asignar --") {
-            $logos[0]='agilitycontest.png';
+            $logos[0]=getIconPath($this->federation->get('Name'),"agilitycontest.png");
         } else {
             $count=0;
             foreach($members as $miembro) {
