@@ -33,8 +33,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
          <div class="fitem">
              <label for="importclubes-Search"><?php _e('Search'); ?>: </label>
              <select id="importclubes-Search" name="Search" style="width:250px"></select>&nbsp;
-             <a id="importcluibes-clearBtn" href="#" class="easyui-linkbutton"
-                data-options="iconCls: 'icon-clear'"><?php _e('Clear'); ?></a>
+             <a id="importclubes-clearBtn" href="#" class="easyui-linkbutton"
+                data-options="iconCls: 'icon-brush'"><?php _e('Clear'); ?></a>
          </div>
      </form>
      <hr/>
@@ -119,7 +119,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>  
         
 <!-- BOTONES DE IMPORTAR / SELECCIONAR / IGNORAR DEL CUADRO DE DIALOGO -->
-<div id="importclubes-dlg-buttons">
+<div id="importclubes-dlg-buttons" style="display:inline-block">
     <span style="float:left">
         <a id="importclubes-newBtn" href="#" class="easyui-linkbutton"
             data-options="iconCls: 'icon-new'" onclick="importClubes('new');"><?php _e('New'); ?></a>
@@ -134,22 +134,24 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     
 <script type="text/javascript">
 
-        $('#importclubes-dialog').dialog({
-            closed: true,
-            buttons: '#importclubes-dlg-buttons',
-        });
+        $('#importclubes-dialog').dialog( {
+            closed:true,
+            modal:true,
+            buttons:'#importclubes-dlg-buttons',
+            iconCls:'icon-flag'
+        } );
+
         // - declaracion del formulario
         $('#importclubes-form').form();
         // - botones
     	addTooltip($('#importclubes-newBtn').linkbutton(),'<?php _e("Import as new club with provided data"); ?>');
     	addTooltip($('#importclubes-selectBtn').linkbutton(),'<?php _e("Use selected existing club and updata club info"); ?>');
-    	addTooltip($('#importclubes-ignoreokBtn').linkbutton(),'<?php _e("Ignore entry. do not import into database"); ?>');
-        addTooltip($('#importclubes-clearBtn')
-            .linkbutton(),'<?php _e("Clear club search and reset data to import"); ?>')
-            .bind('click',function() {
-                $('#importclubes-header').form('clear'); // empty form
-                $('#importclubes-form').form('reset'); // restore to initial values
-            });
+    	addTooltip($('#importclubes-ignoreBtn').linkbutton(),'<?php _e("Ignore entry. do not import into database"); ?>');
+        addTooltip($('#importclubes-clearBtn').linkbutton(),'<?php _e("Clear club search and reset data to import"); ?>')
+        $('#importclubes-clearBtn').linkbutton().bind('click',function() {
+            $('#importclubes-header').form('clear'); // empty form
+            $('#importclubes-form').form('reset'); // restore to initial values
+        });
 
         // combogrid de seleccion de clubes/paises
         $('#importclubes-Search').combogrid({
@@ -226,13 +228,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			fitColumns: true,
 			selectOnNavigation: false
         });
-
-        $('#importclubes-dialog').dialog( {
-            closed:true,
-            modal:true,
-            buttons:'#importclubes-dlg-buttons',
-            iconCls:'icon-flag'
-        } );
 
         // validadores
         $('#importclubes-Nombre').validatebox({required:true,validType:'length[1,255]'});

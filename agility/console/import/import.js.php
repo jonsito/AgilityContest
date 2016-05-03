@@ -44,9 +44,9 @@ function clubNotFound(search,found) {
     var msg1="<?php _e('Club');?> ";
     var msg2=" <?php _e('Not found in database');?> <br/>";
     var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
-    var msg=msg1+search.Club+msg2+msg3;
+    var msg=msg1+search.NombreClub+msg2+msg3;
     $("#importclubes_header-Text").html(msg);
-    $("#importclubes-dialog").dialog('open');
+    $("#importclubes-dialog").dialog('setTitle',"<?php _e('Club not found')?>").dialog('open');
     return false;
 }
 
@@ -54,18 +54,18 @@ function handlerNotFound(search,found) {
     var msg1="<?php _e('Handler');?> ";
     var msg2=" <?php _e('Not found in database');?> <br/>";
     var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
-    var msg=msg1+search.Club+msg2+msg3;
+    var msg=msg1+search.NombreGuia+msg2+msg3;
     $("#importhandlers_header-Text").html(msg);
-    $("#importhandlers-dialog").dialog('open');
+    $("#importhandlers-dialog").dialog('setTitle',"<?php _e('Handler not found')?>").dialog('open');
 }
 
 function dogNotFound(search,found) {
     var msg1="<?php _e('Dog');?> ";
     var msg2=" <?php _e('Not found in database');?> <br/>";
     var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
-    var msg=msg1+search.Club+msg2+msg3;
+    var msg=msg1+search.Nombre+msg2+msg3;
     $("#importdogs_header-Text").html(msg);
-    $("#importdogs-dialog").dialog('open');
+    $("#importdogs-dialog").dialog('setTitle',"<?php _e('Dog not found')?>").dialog('open');
 }
 
 function clubMissmatch(search,found) { }
