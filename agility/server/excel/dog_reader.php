@@ -90,6 +90,7 @@ class DogReader {
     public function retrieveExcelFile() {
         // phase 1 retrieve data from browser
         $this->myLogger->enter();
+        $this->saveStatus("Loading file...");
         // extraemos los datos de registro
         $data=http_request("Data","s",null);
         if (!$data) return array("errorMsg" => "importExcel(dogs)::download(): No data to import has been received");
@@ -109,6 +110,7 @@ class DogReader {
     }
 
     private function validateHeader($header) {
+        $this->saveStatus("Validating header...");
         // search required fields in header and store index when found
         foreach ($this->fieldList as $field =>&$data) {
             for($index=0; $index<count($header); $index++) {
@@ -127,6 +129,7 @@ class DogReader {
     }
 
     private function createTemporaryTable() {
+        $this->saveStatus("Creating temporary table...");
         // To create database we need root DB access
         $rconn=DBConnection::getRootConnection();
         if ($rconn->connect_error)
@@ -218,6 +221,7 @@ class DogReader {
     }
 
     public function validateFile( $filename,$droptable=true) {
+        $this->saveStatus("Validating received file...");
         unlink(IMPORT_LOG);
         // open temporary file
         $reader = ReaderFactory::create(Type::XLSX);
@@ -357,7 +361,7 @@ class DogReader {
             else $found=$this->findAndSetDog($item);
             if (is_string($found)) throw new Exception("import parse: $found");
             if (is_bool($found)) {
-                if ($found==true) // item found and match: notify and return
+                if ($found===true) // item found and match: notify and return
                     return array('operation'=> 'parse', 'success'=> 'ok', 'search' => $item, 'found' => $found['rows']);
                 else // item not found: create a default item
                     return array('operation'=> 'parse', 'success'=> 'fail', 'search' => $item, 'found' => array());

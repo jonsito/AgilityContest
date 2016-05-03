@@ -27,7 +27,7 @@ $config =Config::getInstance();
  * Respond to user actions when required
  * @param {string} action 'new', 'select', 'ignore'
  */
-function import_clubes(action) {
+function importClubes(action) {
 
     // close dialog and return;
     return false;
@@ -40,12 +40,13 @@ function import_clubes(action) {
  * @returns {boolean} true or false according result
  */
 function clubNotFound(search,found) {
+    console.log("club not found: "+JSON.stringify(search));
     var msg1="<?php _e('Club');?> ";
     var msg2=" <?php _e('Not found in database');?> <br/>";
     var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
     var msg=msg1+search.Club+msg2+msg3;
     $("#importclubes_header-Text").html(msg);
-    $("$importclubes-dialog").dialog('open');
+    $("#importclubes-dialog").dialog('open');
     return false;
 }
 
@@ -55,7 +56,7 @@ function handlerNotFound(search,found) {
     var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
     var msg=msg1+search.Club+msg2+msg3;
     $("#importhandlers_header-Text").html(msg);
-    $("$importhandlers-dialog").dialog('open');
+    $("#importhandlers-dialog").dialog('open');
 }
 
 function dogNotFound(search,found) {
@@ -64,7 +65,7 @@ function dogNotFound(search,found) {
     var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
     var msg=msg1+search.Club+msg2+msg3;
     $("#importdogs_header-Text").html(msg);
-    $("$importdogs-dialog").dialog('open');
+    $("#importdogs-dialog").dialog('open');
 }
 
 function clubMissmatch(search,found) { }
@@ -81,7 +82,7 @@ function dogMustChoose(search,found) { }
 function perros_importSendTask(params) {
     var dlg=$('#perros-excel-dialog');
     params.Federation=workingData.federation;
-    console.log("send: "+params.Operation);
+    if (params.Operation!='progress') console.log("send: "+params.Operation);
     $.ajax({
         type:'POST', // use post to send file
         url:"/agility/server/excel/dog_reader.php",
@@ -117,7 +118,7 @@ function perros_importHandleResult(data) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
         dlg.dialog('close');
     }
-    console.log("recv: "+data.operation);
+    if (data.operation!='progress') console.log("recv: "+data.operation);
     switch (data.operation){
         case "upload":
             pb.progressbar('setValue','<?php _e("Checking Excel File");?> : '); // beware ' : ' sequence
@@ -133,14 +134,15 @@ function perros_importHandleResult(data) {
                 perros_importSendTask({'Operation':'parse'});
             }
             if (data.success=='fail') { // user action required. study cases
-                var funcs=array();
-                if (parseInt(data.search.ClubID)==0) funcs= {clubNotFound,handlerNotFound,dogNotFound};
-                else if (parseInt(data.search.HandlerID)==0) funcs= {clubMissmatch,handlerMissmatch,dogMissmatch};
-                else funcs= {clubMustChoose,handlerMustChoose,dogMustChoose};
-                var len=data.success.length;
-                if (len==0) funcs[0](data.search,data.success);         // item not found: ask user to select existing or create new one
-                else if (len==1) funcs[1](data.search,data.success);    // item found, but data missmatch. ask user to fix
-                else funcs[2](data.search,data.success);                // several compatible items found. ask user to decide
+                var funcs={};
+                if (parseInt(data.search.ClubID)==0) funcs= {'notf': clubNotFound,'miss':clubMissmatch,'multi':clubMustChoose};
+                else if (parseInt(data.search.HandlerID)==0) funcs= {'notf':handlerNotFound,'miss':handlerMissmatch,'multi':handlerMustChoose};
+                else funcs= {'notf':dogNotFound,'miss':dogMissmatch,'multi':dogMustChoose};
+
+                var len=data.found.length;
+                if (len==0) funcs.notf(data.search,data.success);         // item not found: ask user to select existing or create new one
+                else if (len==1) funcs.miss(data.search,data.success);    // item found, but data missmatch. ask user to fix
+                else funcs.multi(data.search,data.success);                // several compatible items found. ask user to decide
             }
             if (data.success=='done') { // file parsed: start real import procedure
                 perros_importSendTask({'Operation':'import'});

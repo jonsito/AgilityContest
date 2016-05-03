@@ -23,7 +23,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE importclubes -->
- <div id="importclubes-dialog" style="width:550px;height:600px;padding:10px 20px">
+ <div id="importclubes-dialog" style="width:550px;height:600px;padding:10px 20px" >
+
     <div class="ftitle">
         <?php _e('Club data Import'); ?>
     </div>
@@ -132,6 +133,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
     
 <script type="text/javascript">
+
+        $('#importclubes-dialog').dialog({
+            closed: true,
+            buttons: '#importclubes-dlg-buttons',
+        });
         // - declaracion del formulario
         $('#importclubes-form').form();
         // - botones
@@ -227,12 +233,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             buttons:'#importclubes-dlg-buttons',
             iconCls:'icon-flag'
         } );
-
-        // Add "Esc" key to abor editing and close dialog
-        $('#importclubes-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
-        	if (e.keyCode == 27){ $('#importclubes-dialog').dialog('close');
-        	}
-        });
 
         // validadores
         $('#importclubes-Nombre').validatebox({required:true,validType:'length[1,255]'});
