@@ -40,40 +40,90 @@ function importClubes(action) {
  * @returns {boolean} true or false according result
  */
 function clubNotFound(search,found) {
-    console.log("club not found: "+JSON.stringify(search));
-    var msg1="<?php _e('Club');?> ";
-    var msg2=" <?php _e('Not found in database');?> <br/>";
+    var msg1="<?php _e('Club');?> '";
+    var msg2="' <?php _e('not found in database');?> <br/>";
     var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
     var msg=msg1+search.NombreClub+msg2+msg3;
     $("#importclubes_header-Text").html(msg);
-    $("#importclubes-dialog").dialog('setTitle',"<?php _e('Club not found')?>").dialog('open');
+    $("#importclubes-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
+    return false;
+}
+function clubMissmatch(search,found) {
+    var msg1="<?php _e('Club');?> '";
+    var msg2="' <?php _e('data missmatch (*) with existing one in database');?> <br/>";
+    var msg3=" <?php _e('Please enter right values and accept or create new entry');?>";
+    var msg=msg1+search.NombreClub+msg2+msg3;
+    $("#importclubes_header-Text").html(msg);
+    $("#importclubes-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
+    return false;
+}
+function clubMustChoose(search,found) {
+    var msg1="<?php _e('Club');?> '";
+    var msg2="' <?php _e('provided data are compatible with');?> <br/>";
+    var msg3=" <?php _e('more than one existing in database');?> <br/>";
+    var msg4=" <?php _e('Please select right one or create new entry');?>";
+    var msg=msg1+search.NombreClub+msg2+msg3+msg4;
+    $("#importclubes_header-Text").html(msg);
+    $("#importclubes-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
     return false;
 }
 
 function handlerNotFound(search,found) {
-    var msg1="<?php _e('Handler');?> ";
-    var msg2=" <?php _e('Not found in database');?> <br/>";
+    var msg1="<?php _e('Handler');?> '";
+    var msg2="' <?php _e('not found in database');?> <br/>";
     var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
     var msg=msg1+search.NombreGuia+msg2+msg3;
     $("#importhandlers_header-Text").html(msg);
-    $("#importhandlers-dialog").dialog('setTitle',"<?php _e('Handler not found')?>").dialog('open');
+    $("#importhandlers-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
+}
+function handlerMissmatch(search,found) {
+    var msg1="<?php _e('Handler');?> '";
+    var msg2="' <?php _e('data missmatch (*) with existing one in database');?> <br/>";
+    var msg3=" <?php _e('Please enter right values and accept or create new entry');?>";
+    var msg=msg1+search.NombreClub+msg2+msg3;
+    $("#importhandlers_header-Text").html(msg);
+    $("#importhandlers-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
+    return false;
+}
+function handlerMustChoose(search,found) {
+    var msg1="<?php _e('Handler');?> '";
+    var msg2="' <?php _e('provided data are compatible with');?> <br/>";
+    var msg3=" <?php _e('more than one existing in database');?> <br/>";
+    var msg4=" <?php _e('Please select right one or create new entry');?>";
+    var msg=msg1+search.NombreClub+msg2+msg3+msg4;
+    $("#importhandlers_header-Text").html(msg);
+    $("#importhandlers-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
+    return false;
 }
 
 function dogNotFound(search,found) {
-    var msg1="<?php _e('Dog');?> ";
-    var msg2=" <?php _e('Not found in database');?> <br/>";
+    var msg1="<?php _e('Dog');?> '";
+    var msg2="' <?php _e('not found in database');?> <br/>";
     var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
     var msg=msg1+search.Nombre+msg2+msg3;
     $("#importdogs_header-Text").html(msg);
-    $("#importdogs-dialog").dialog('setTitle',"<?php _e('Dog not found')?>").dialog('open');
+    $("#importdogs-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
+}
+function dogMissmatch(search,found) {
+    var msg1="<?php _e('Dog');?> '";
+    var msg2="' <?php _e('data missmatch (*) with existing one in database');?> <br/>";
+    var msg3=" <?php _e('Please enter right values and accept or create new entry');?>";
+    var msg=msg1+search.NombreClub+msg2+msg3;
+    $("#importdogs_header-Text").html(msg);
+    $("#importdogs-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
+    return false;
 }
 
-function clubMissmatch(search,found) { }
-function handlerMissmatch(search,found) { }
-function dogMissmatch(search,found) { }
-function clubMustChoose(search,found) { }
-function handlerMustChoose(search,found) { }
-function dogMustChoose(search,found) { }
+function dogMustChoose(search,found) {
+    var msg1="<?php _e('Dog');?> '";
+    var msg2="' <?php _e('provided data are compatible with');?> ";
+    var msg3=" <?php _e('more than one existing in database');?> <br/>";
+    var msg4=" <?php _e('Please select right one or create new entry');?>";
+    var msg=msg1+search.NombreClub+msg2+msg3+msg4;
+    $("#importdogs_header-Text").html(msg);
+    $("#importdogs-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
+    return false;
+}
 
 /**
  * Send command to excel importer
