@@ -70,7 +70,7 @@ sed -i "s/;extension=php_openssl.dll/extension=php_openssl.dll/g" ${BUILD_DIR}/x
 # notice that in 5.6.20 cannot simply add options at the end, so must provide our own
 # personalized copy of my.ini
 echo "Setting up mysql/my.ini ..."
-cp ${BASE_DIR}/build/mysql/ac_my.ini  ${BUILD_DIR}/xampp/mysql/my.ini
+cp ${BASE_DIR}/build/ac_my.ini  ${BUILD_DIR}/xampp/mysql/my.ini
 unix2dos ${BUILD_DIR}/xampp/mysql/my.ini
 
 # ok. time to add AgilityContest files
@@ -87,9 +87,10 @@ unix2dos ${BUILD_DIR}/settings_de.bat
 mkdir -p ${BUILD_DIR}/docs
 if [ -d ${DROPBOX} ]; then
     echo "Adding a bit of documentation ..."
-    cp ${DROPBOX}/{AgilityContest_despliegue.pdf,ReferenciasPegatinas.txt,AgilityContest-1000x800.png,Tarifas_2016.pdf,AgilityContest_doc.zip} ${BUILD_DIR}/docs
+    for i in AgilityContest_despliegue.pdf ReferenciasPegatinas.txt AgilityContest-1000x800.png Tarifas_2016.pdf ac_obs_livestreaming.pdf; do
+    cp ${DROPBOX}/${i} ${BUILD_DIR}/docs
+    done
     cp ${BASE_DIR}/README* ${BUILD_DIR}/docs
-    (cd ${BUILD_DIR}/docs; unzip AgilityContest_doc.zip)
 fi
 
 # and finally invoke makensis
