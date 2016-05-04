@@ -122,13 +122,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="importclubes-dlg-buttons" style="display:inline-block">
     <span style="float:left">
         <a id="importclubes-newBtn" href="#" class="easyui-linkbutton"
-            data-options="iconCls: 'icon-new'" onclick="importClubes('new');"><?php _e('New'); ?></a>
+            data-options="iconCls: 'icon-new'" onclick="importAction('clubs','create');"><?php _e('New'); ?></a>
     </span>
     <span style="float:right">
         <a id="importclubes-selectBtn" href="#" class="easyui-linkbutton"
-            data-options="iconCls: 'icon-ok'" onclick="importClubes('select');"><?php _e('Select'); ?></a>
+            data-options="iconCls: 'icon-ok'" onclick="importAction('clubs','update');"><?php _e('Select'); ?></a>
         <a id="importclubes-ignoreBtn" href="#" class="easyui-linkbutton"
-            data-options="iconCls:'icon-cancel'" onclick="importClubes('ignore');"><?php _e('Ignore'); ?></a>
+            data-options="iconCls:'icon-cancel'" onclick="importAction('clubs','ignore');"><?php _e('Ignore'); ?></a>
     </span>
 </div>
     

@@ -21,17 +21,14 @@ require_once(__DIR__ . "/../../server/tools.php");
 $config =Config::getInstance();
 ?>
 
-/*************************************** importacion de perros desde fichero excel **************************/
-
-/**
- * Respond to user actions when required
- * @param {string} action 'new', 'select', 'ignore'
+/*
+variables used to store import status
  */
-function importClubes(action) {
+var ac_import = {
+    'progress_status': "running"
+};
 
-    // close dialog and return;
-    return false;
-}
+/*************************************** importacion de perros desde fichero excel **************************/
 
 /**
  * prepare importclubes-dialog to ask for action when club not found
@@ -173,7 +170,8 @@ function perros_importHandleResult(data) {
         case "upload":
             pb.progressbar('setValue','<?php _e("Checking Excel File");?> : '); // beware ' : ' sequence
             perros_importSendTask({'Operation':'check','Filename':data.filename});
-            setTimeout(perros_importSendTask({'Operation':'progress'}),500);
+            ac_import.progress_status="running";
+            setTimeout(perros_importSendTask({'Operation':'progress'}),1000);
             break;
         case "check":
             pb.progressbar('setValue','<?php _e("Starting data import");?>');
@@ -185,6 +183,7 @@ function perros_importHandleResult(data) {
             }
             if (data.success=='fail') { // user action required. study cases
                 var funcs={};
+                ac_import.progress_status='paused'; // tell progress monitor to pause
                 if (parseInt(data.search.ClubID)==0) funcs= {'notf': clubNotFound,'miss':clubMissmatch,'multi':clubMustChoose};
                 else if (parseInt(data.search.HandlerID)==0) funcs= {'notf':handlerNotFound,'miss':handlerMissmatch,'multi':handlerMustChoose};
                 else funcs= {'notf':dogNotFound,'miss':dogMissmatch,'multi':dogMustChoose};
@@ -198,16 +197,24 @@ function perros_importHandleResult(data) {
                 perros_importSendTask({'Operation':'import'});
             }
             break;
-        case "accept": // accept changes for current line
-            break; 
-        case "ignore": // ignore changes for current line
+        case "create": // create a new entry with provided data for current line
+            // no break;
+        case "update": // accept changes to existing entry for current line
+            // no break;
+        case "ignore": // ignore data from excel file in current line
+            // continue parsing
+            setTimeout(function() { perros_importSendTask({'Operation':'parse'}); },0);
+            // re-start progress monitoring
+            ac_import.progress_status="running";
+            setTimeout(function() { perros_importSendTask({'Operation':'progress'}); },1000);
             break;
         case "abort": // cancel transaction
             break;
         case "import": // import finished. Tell server to cleanup
             perros_importSendTask({'Operation':'close'});
             break;
-        case "close": 
+        case "close":
+            ac_import.progress_status="paused";
             dlg.dialog('close');
             break;
         case "progress": // receive progress status from server
@@ -216,12 +223,45 @@ function perros_importHandleResult(data) {
             var val=pb.progressbar('getValue');
             var str=val.substring(0,val.indexOf(' : '));
             pb.progressbar('setValue',str+" : "+data.status);
-            setTimeout(perros_importSendTask({'Operation':'progress'}),500);
+            if (ac_import.progress_status==='running') setTimeout(perros_importSendTask({'Operation':'progress'}),1000);
             break;
         default:
             $.messager.alert("Excel import error","Invalid operation received from server: "+data.operation );
             dlg.dialog('close');
     }
+    return false;
+}
+
+/**
+ * Respond to user actions when required
+ * @param {string} item dialog class 'clubs', 'handlers', 'dogs'
+ * @param {string} action 'create', 'update', 'ignore'
+ */
+function importAction(item,action) {
+
+    // close dialog
+    var label="#import"+item+"-dialog";
+    $(label).dialog('close');
+
+    // ask server to perform proper action
+    // to be revisited
+    $.ajax({
+        type:'POST', // use post to send file
+        url:"/agility/server/excel/dog_reader.php",
+        dataType:'json',
+        data: {
+            Item: item,
+            Operation: action,
+            Federation: workingData.federation
+            // add received and parsed data
+        },
+        success: function(res) {
+            setTimeout (function() {perros_importHandleResult(res);},0);
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+        }
+    });
+    // return false to dont't propagate event chain
     return false;
 }
 

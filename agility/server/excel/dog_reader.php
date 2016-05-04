@@ -372,12 +372,25 @@ class DogReader {
         return array('operation'=> 'parse', 'success'=> 'done');
     }
 
-    public function processEntry() {
-        return 0;
+    public function createEntry() {
+        // add a new entry into database
+        
+        // tell client to continue parse
+        return array('operation'=> 'create', 'success'=> 'done');
+    }    
+    
+    public function updateEntry() {
+        // update existing entry from database
+
+        // tell client to continue parse
+        return array('operation'=> 'update', 'success'=> 'done');
     }
 
     public function ignoreEntry() {
-        return 0;
+        // ignore entry from imported table
+
+        // tell client to continue parse
+        return array('operation'=> 'ignore', 'success'=> 'done');
     }
 
     public function beginImport() {
@@ -435,9 +448,13 @@ if (php_sapi_name() != "cli" ) {
                 // start analysis
                 $result = $dr->parse();
                 break;
-            case "accept":
+            case "create":
                 // a new line has been accepted from user: insert and update temporary excel file
-                $result = $dr->processEntry();
+                $result = $dr->createEntry();
+                break;            
+            case "update":
+                // a new line has been accepted from user: insert and update temporary excel file
+                $result = $dr->updateEntry();
                 break;
             case "ignore":
                 // received entry has been refused by user: remove and update temporary excel file
