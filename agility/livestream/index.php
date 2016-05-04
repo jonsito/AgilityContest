@@ -288,12 +288,12 @@ function vw_accept() {
 		case 1: // Orden de salida
 			page = "/agility/livestream/vwls_parciales.php?combined=1";
 			ac_config.vw_combined=1;
-			title +="( Starting order )";
+			title +="( Partial scores )";
 			break;
 		case 2: // Resultados Parciales
 			page = "/agility/livestream/vwls_ordensalida.php?combined=1";
 			ac_config.vw_combined=1;
-			title +="( Partial scores )";
+			title +="( Starting order )";
 			break;
 		case 3: // Live Stream OSD
 			page = "/agility/livestream/vwls_osdvideo.php?combined=0";
@@ -303,12 +303,12 @@ function vw_accept() {
 		case 4: // resultados parciales con livestream
 			page = "/agility/livestream/vwls_parciales.php?combined=0";
 			ac_config.vw_combined=0;
-			title +="( Starting order )";
+			title +="( Partial scores )";
 			break;
 		case 5: // Resultados Parciales
 			page = "/agility/livestream/vwls_ordensalida.php?combined=0";
 			ac_config.vw_combined=0;
-			title +="( Partial scores )";
+			title +="( Starting order )";
 			break;
 	}
 	$('#selvw-dialog').dialog('close');
