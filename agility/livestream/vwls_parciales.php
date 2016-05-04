@@ -50,7 +50,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div data-options="region:'west',split:false,border:false" style="width:30%;background-color:transparent;"></div>
         <div data-options="region:'center',border:false" style="background-color:transparent;">
         <!-- ventana interior -->
-            <div id="vw_parciales-layout">
+            <div id="vwls_common" style="display:inline-block;width:100%;height:auto">
                 <div id="vw_parciales-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader"
                       style="height:170px;font-size:1.0em;" >
                     <span style="float:left;background:rgba(255,255,255,0.5);">
@@ -104,7 +104,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <script type="text/javascript">
 
 $('#vw_parent-layout').layout({fit:true});
-$('#vw_parciales-layout').layout({fit:true});
+$('#vwls_common').layout({fit:true});
 
 $('#vw_parciales-window').window({
 	fit:true,
@@ -185,6 +185,7 @@ $('#vw_parciales-datagrid').datagrid({
 var eventHandler= {
     'null': null,// null event: no action taken
     'init': function(event) { // operator starts tablet application
+        vwls_keyBindings(); // capture space keyboard to enable/disable OSD
         vw_updateWorkingData(event,function(e,d){
             vw_updateWorkingData(event,function(e,d){
                 vw_updateDataInfo(e,d);
