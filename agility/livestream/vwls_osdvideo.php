@@ -202,9 +202,12 @@ var eventHandler= {
 	'null': null,// null event: no action taken
 	'init': function(event,time) { // operator starts tablet application
 		setupWorkingData(event['Pru'],event['Jor'],(event['Mng']>0)?event['Mng']:1); // use shortname to ensure data exists
-		vwls_showOSD(0); 	// activa visualizacion de OSD
+		vwls_enableOSD(0); 	// activa visualizacion de OSD
+		vwls_keyBindings(); // capture <space> to show/hide osd
 	},
 	'open': function(event,time){ // operator select tanda
+		vwls_enableOSD(1); 	// activa visualizacion de OSD
+		vwls_showRoundInfo(1); // activa visualizacion de datos de la manga
 		vwls_showCompetitorInfo(0); // desactiva visualizacion de datos del competidor
 		vwls_showResultsInfo(0); // desactiva visualizacion de resultados
 		vw_updateWorkingData(event,function(e,d){
@@ -212,7 +215,7 @@ var eventHandler= {
 		});
 	},
 	'close': function(event,time){ // no more dogs in tabla
-		vwls_showOSD(0); // apaga el OSD
+		vwls_enableOSD(0); // apaga el OSD
 	},
 	'datos': function(event,time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
@@ -222,7 +225,8 @@ var eventHandler= {
 		myCounter.stop();
 		crm.Chrono('stop',time);
 		crm.Chrono('reset',time);
-		vwls_showOSD(1); 	// activa visualizacion de OSD
+		vwls_enableOSD(1); 	// activa visualizacion de OSD
+		vwls_showRoundInfo(1); // activa visualizacion de datos de la manga
 		vwls_showCompetitorInfo(1); // activa visualizacion de datos del competidor
 		vwls_showResultsInfo(0); // desactiva visualizacion de resultados
 		vwls_showData(event);
@@ -309,6 +313,7 @@ var eventHandler= {
 		myCounter.stop();
 		crm.Chrono('stop',time);
 		crm.Chrono('reset',time);
+		vwls_showRoundInfo(1); // activa visualizacion de datos de la manga
 		vwls_showCompetitorInfo(0); //oculta datos del competidor
 		vwls_showResultsInfo(0); // oculta visualizacion de resultados
 	},

@@ -34,9 +34,22 @@ function vwls_formatLogoLiveStream(val,row,idx) {
     return '<img height="30" alt="'+val+'" src="/agility/images/logos/'+val+'"/>';
 }
 
-function vwls_showOSD(val) {
-	if (val==0) $('#vwls_common').css('display','none');
-	else $('#vwls_common').css('display','initial');
+function vwls_enableOSD(val) {
+	var title=document.title;
+	var str="-"
+	if (val==0) {
+		str=" - OSD:OFF";
+		$('#vwls_common').css('display','none');
+	} else {
+		str=" - OSD:ON";
+		$('#vwls_common').css('display','initial');
+	}
+	document.title=title.replace(/ -.*/,"")+str;
+}
+
+function vwls_showRoundInfo(val) {
+	if (val==0) $('#vwls_mangasInfo').css('display','none');
+	else $('#vwls_mangasInfo').css('display','initial');
 }
 
 function vwls_showCompetitorInfo(val) {
@@ -48,6 +61,17 @@ function vwls_showResultsInfo(val) {
 	var disp=(val==0)?'none':'initial';
 	if (parseInt(ac_config.vw_dataposition)==0) disp='none';
 	$('#vwls_resultadosInfo').css('display',disp);
+}
+
+function vwls_keyBindings() {
+	// capture <space> key to switch OSD on/off
+	$(document).keydown(function(e) {
+		if (e.which != 32) return true; // not space
+		var div=$('#vwls_common');
+		var state=div.css('display');
+		setTimeout(function(){vwls_enableOSD( (state==='none')?1:0);},0 );
+		return true; // to allow continue event chain
+	});
 }
 
 function vwls_showData(data) {
