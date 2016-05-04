@@ -278,36 +278,44 @@ function vw_accept() {
 	ac_config.vw_combined=0;
 	var page="'/agility/console/frm_notavailable.php";
 	var n=parseInt($('#selvw-Vista').val());
+	var title="AgilityContest LiveStream ";
 	switch (n) {
-		case 0: // Ordenes de Salida
+		case 0: // Embedded OSD
 			page = "/agility/livestream/vwls_osdvideo.php?combined=1";
 			ac_config.vw_combined=1;
+			title +="( Overlay )";
 			break;
-		case 1: // Llamada a pista
+		case 1: // Orden de salida
 			page = "/agility/livestream/vwls_parciales.php?combined=1";
 			ac_config.vw_combined=1;
+			title +="( Starting order )";
 			break;
 		case 2: // Resultados Parciales
 			page = "/agility/livestream/vwls_ordensalida.php?combined=1";
 			ac_config.vw_combined=1;
+			title +="( Partial scores )";
 			break;
 		case 3: // Live Stream OSD
 			page = "/agility/livestream/vwls_osdvideo.php?combined=0";
 			ac_config.vw_combined=0;
+			title +="( Overlay )";
 			break;
 		case 4: // resultados parciales con livestream
 			page = "/agility/livestream/vwls_parciales.php?combined=0";
 			ac_config.vw_combined=0;
+			title +="( Starting order )";
 			break;
 		case 5: // Resultados Parciales
 			page = "/agility/livestream/vwls_ordensalida.php?combined=0";
 			ac_config.vw_combined=0;
+			title +="( Partial scores )";
 			break;
 	}
 	$('#selvw-dialog').dialog('close');
 	$('#vw_contenido').load(	
 			page,
 			function(response,status,xhr){
+				document.title=title;
 				if (status=='error') {
 					$('#vw_contenido').load('/agility/console/frm_notavailable.php');
 					return;

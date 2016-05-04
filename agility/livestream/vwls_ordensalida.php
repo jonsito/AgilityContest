@@ -168,6 +168,7 @@ var eventHandler= {
     'null': null,// null event: no action taken
     'init': function(event) { // operator starts tablet application
         vwls_keyBindings(); // capture keyboard
+        vwls_enableOSD(1);
         vw_updateWorkingData(event,function(evt,data){
             vw_updateDataInfo(evt,data);
             $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");

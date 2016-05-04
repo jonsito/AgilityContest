@@ -186,6 +186,7 @@ var eventHandler= {
     'null': null,// null event: no action taken
     'init': function(event) { // operator starts tablet application
         vwls_keyBindings(); // capture space keyboard to enable/disable OSD
+        vwls_enableOSD(1);
         vw_updateWorkingData(event,function(e,d){
             vw_updateWorkingData(event,function(e,d){
                 vw_updateDataInfo(e,d);
