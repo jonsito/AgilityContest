@@ -77,6 +77,7 @@ $config =Config::getInstance();
                         <input id="tdialog-Dorsal" type="text" readonly="readonly" name="<?php _e('Dorsal');?>" class="tablet_info"/>
                         <label id="tdialog-NombreLbl" for="tdialog-Nombre" class="tablet_info"><?php _e('Name'); ?></label>
                         <input id="tdialog-Nombre" type="text" readonly="readonly" name="Nombre" class="tablet_info"/>
+                        <input id="tdialog-NombreLargo" name="NombreLargo" type="hidden">
                         <label id="tdialog-GuiaLbl" for="tdialog-Guia" class="tablet_info"><?php _e('Handler'); ?></label>
                         <input id="tdialog-Guia" type="text" readonly="readonly" name="NombreGuia" class="tablet_info"/>
                         <label id="tdialog-ClubLbl" for="tdialog-Club" class="tablet_info"><?php _e('Club'); ?></label>
@@ -279,6 +280,7 @@ $config =Config::getInstance();
                 { field:'NombreEquipo',	width:20, align:'center',	title: '<?php _e('Team');?>' },
                 { field:'Dorsal',		width:10, align:'center',	title: '<?php _e('Dorsal');?>', styler:checkPending },
                 { field:'Nombre',		width:20, align:'left',		title: '<?php _e('Name');?>', formatter:formatBold},
+                { field:'NombreLargo',	width:0, hidden:true },
                 { field:'Celo',			width:8, align:'center',	title: '<?php _e('Heat');?>', formatter:formatCelo},
                 { field:'NombreGuia',	width:35, align:'right',	title: '<?php _e('Handler');?>' },
                 { field:'NombreClub',	width:25, align:'right',	title: '<?php _e('Club');?>' },
@@ -368,7 +370,15 @@ $config =Config::getInstance();
                         'Eliminado'		: el,
                         'Celo'			: $('#tdialog-Celo').val(),
                         'Dorsal'		: $('#tdialog-Dorsal').val(),
-                        'Value'         : 0
+                        'Value'         : 0,
+                        // include additional textual info
+                        'Nombre'        : $('#tdialog-Nombre').val(),
+                        'NombreLargo'   : $('#tdialog-NombreLargo').val(),
+                        'NombreGuia'    : $('#tdialog-Guia').val(),
+                        'NombreClub'    : $('#tdialog-Club').val(),
+                        'NombreEquipo'  : $('#tdialog-NombreEquipo').val(),
+                        'Categoria'     : $('#tdialog-Categoria').val(),
+                        'Grado'         : $('#tdialog-Grado').val()
                     }
             ) ;
         }

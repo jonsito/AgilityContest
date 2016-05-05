@@ -110,13 +110,12 @@ function tablet_updateSession(row) {
 		success: function() {
 			data.Session=	data.ID;
 			data.Operation=	'putEvent';
+			data.NombrePrueba= workingData.datosPrueba.Nombre;
+			data.NombreJornada= workingData.datosJornada.Nombre;
+			data.NombreManga= row.Nombre;
+			data.NombreRing= workingData.datosSesion.Nombre;
 			// send proper event
-			if (parseInt(row.Manga)==0) { //user defined tanda
-				data.Nombre= row.Nombre;
-				tablet_putEvent('info',data);
-			} else {
-				tablet_putEvent('open',data);
-			}
+			tablet_putEvent( (parseInt(row.Manga)==0)?'info':'open',data);
 		}
 	});
 }

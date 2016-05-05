@@ -92,7 +92,7 @@ class Eventos extends DBObject {
      * @param {array} data dataset of key:value pairs to store in "data" field
 	 * @return {string} "" if ok; null on error
 	 */
-	function putEvent($data) {
+	function putEvent(&$data) {
 		$this->myLogger->enter();
 		$sid=$this->sessionID;
 		// si el evento es "init" y el flag reset_events está a 1 borramos el historico de eventos antes de reinsertar
@@ -106,7 +106,15 @@ class Eventos extends DBObject {
 			case 'null':			// null event: no action taken
 			case 'init':			// operator starts tablet application
 			case 'login':			// operador hace login en el sistema
+				break;
+			case 'info':           // user definded manga: no dogs
 			case 'open':			// operator selects tanda on tablet
+				$data['NombrePrueba']	= http_request('NombrePrueba',"s","");
+				$data['NombreJornada']	= http_request('NombreJornada',"s","");
+				$data['NombreManga']	= http_request('NombreManga',"s","");
+				$data['NombreRing']		= http_request('NombreRing',"s","");
+				// add additional parameters to event data
+				break;
 			case 'close':			// no more dogs in tanda
 				break;
 			// eventos de crono manual
@@ -130,10 +138,18 @@ class Eventos extends DBObject {
 				break;
 			// entrada de datos, dato siguiente, cancelar operacion
 			case 'llamada':		// operador abre panel de entrada de datos
+				// retrieve additional textual data
+				$data['Nombre']		= http_request('Nombre',"s","");
+                $data['NombreLargo']= http_request('NombreLargo',"s","");
+                $data['NombreGuia']	= http_request('NombreGuia',"s","");
+                $data['NombreClub']	= http_request('NombreClub',"s","");
+                $data['NombreEquipo']=http_request('NombreEquipo',"s","");
+                $data['Categoria']	= http_request('Categoria',"s","-");
+                $data['Grado']		= http_request('Grado',"s","-");
+				break;
 			case 'datos':			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 			case 'aceptar':		// grabar datos finales
 			case 'cancelar':		// restaurar datos originales
-			case 'info':           // value: message
 				break;
 			// eventos de cambio de camara para videomarcadores
 			// el campo data contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
