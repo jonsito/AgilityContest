@@ -99,7 +99,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                         -->
                         <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
                         <th data-options="field:'Licencia',		width:15, align:'center'" > <?php _e('Lic'); ?>.</th>
-                        <th data-options="field:'Categoria',	width:15, align:'center'" > <?php _e('Cat'); ?>.</th>
+                        <th data-options="field:'Categoria',	width:15, align:'center',formatter:formatCategoria" > <?php _e('Cat'); ?>.</th>
                         <th data-options="field:'NombreGuia',	width:50, align:'right'" > <?php _e('Handler'); ?></th>
                         <th data-options="field:'NombreClub',	width:45, align:'right'" > <?php _e('Club'); ?></th>
                         <th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>

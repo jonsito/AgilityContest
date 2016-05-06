@@ -17,15 +17,32 @@ class RFEC extends Federations {
             'International' => 0,
             'WideLicense' => true, // some federations need extra print space to show license ID
             'Recorridos' => array('Common course',"Standard + Medium / Small + Toy","Separate courses"),
+            'ListaGradosShort' => array(
+                '-' => 'Sin especificar',
+                'Baja' => 'Baja',
+                'GI' => 'G1',
+                'GII'=> 'G2',
+                'GIII' => 'G3',
+                'P.A.' => 'G0',
+                'P.B.' => 'P.B.', // "perro en blanco"
+                'Ret.' => 'Ret.'
+            ),
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
                 'GI' => 'Promocion (G1)',
                 'GII'=> 'Competicion (G2)',
-                // 'GIII' => 'Grado III',
+                // 'GIII' => 'Grado 3',
                 'P.A.' => 'Iniciacion (G0)',
                 'P.B.' => 'Perro en Blanco',
                 'Baja' => 'Baja temporal ',
                 'Ret.' => 'Retirado'
+            ),
+            'ListaCategoriasShort' => array (
+                '-' => '-',
+                'L' => 'L - 60',
+                'M' => 'M - 50',
+                'S' => 'S - 40',
+                'T' => 'T - 30'
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',

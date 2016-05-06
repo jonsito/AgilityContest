@@ -32,7 +32,18 @@ $config =Config::getInstance();
 function formatBold(val,row,idx) { return '<span style="font-weight:bold">'+val+'</span>'; }
 function formatBoldBig(val,row,idx) { return '<span style="font-weight:bold;font-size:1.5em;">'+val+'</span>'; }
 function formatBorder(val,row,idx) { return 'border-left: 1px solid #000;'; }
-
+function formatGrado(val,row,idx) {
+    var fed=workingData.federation;
+    if (typeof (ac_fedInfo[fed]) === "undefined") return val;
+    if (typeof (ac_fedInfo[fed].ListaGradosShort[val]) === "undefined") return val;
+    return ac_fedInfo[fed].ListaGradosShort[val];
+}
+function formatCategoria(val,row,idx) {
+    var fed=workingData.federation;
+    if (typeof (ac_fedInfo[fed]) === "undefined") return val;
+    if (typeof (ac_fedInfo[fed].ListaCategoriasShort[val]) === "undefined") return val;
+    return ac_fedInfo[fed].ListaCategoriasShort[val];
+}
 /* formatters para el datagrid dlg_resultadosManga */
 function formatPuesto(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
 function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
@@ -70,7 +81,13 @@ function formatTF(val,row,idx) {
 	return (row.Penalizacion>=200)?"-":toFixedT(t,ac_config.numdecs);
 }
 function formatCatGrad(val,row,idx) {
-    return row.Categoria+"/"+row.Grado; // TODO: skip grade when not required
+    var hasGrade=true;
+    if (isJornadaEq3()) hasGrade=false;
+    if (isJornadaEq4()) hasGrade=false;
+    if (isJornadaOpen()) hasGrade=false;
+    if (!hasGrade) return formatCategoria(val,row,idx);
+    // return formatCategoria(row.Categoria,row.idx)+"/"+formatGrado(row.Grado,row,idx);
+    return row.Categoria+"/"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(
 }
 /**
  * Return short name for requested federation. Use to format datagrid cell

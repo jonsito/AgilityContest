@@ -100,8 +100,8 @@ $('#vw_llamada-datagrid').datagrid({
         { field:'Raza',		    width:'10%', align:'center', title: '<?php _e('Breed'); ?>'},
         { field:'NombreGuia',	width:'22%', align:'right', title: '<?php _e('Handler'); ?>',formatter:formatLlamadaGuia },
         { field:'NombreClub',	width:'10%', align:'right', title: '<?php _e('Club'); ?>' },
-        { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.' },
-        { field:'Grado',	    width:'4%', align:'center', title: '<?php _e('Grade'); ?>' },
+        { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.',formatter:formatCategoria },
+        { field:'Grado',	    width:'4%', align:'center', title: '<?php _e('Grade'); ?>', formatter:formatGrado },
         { field:'Celo',	        width:'4%', align:'center', title: '<?php _e('Heat'); ?>.',formatter:formatCelo },
         { field:'Observaciones',width:'8%', align:'center', title: '<?php _e('Comments'); ?>' }
     ]],

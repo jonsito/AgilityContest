@@ -146,8 +146,8 @@ $config =Config::getInstance();
 			{field:'ID',hidden:'true'},
 			{field:'Federation',hidden:'true'},
 			{field:'Nombre',title:'<?php _e('Dog'); ?>',width:20,align:'right'},
-			{field:'Categoria',title:'<?php _e('Cat'); ?>.',width:10,align:'center'},
-			{field:'Grado',title:'<?php _e('Grade'); ?>',width:10,align:'center'},
+			{field:'Categoria',title:'<?php _e('Cat'); ?>.',width:10,align:'center',formatter:formatCategoria},
+			{field:'Grado',title:'<?php _e('Grade'); ?>',width:10,align:'center',formatter:formatGrado},
 			{field:'NombreGuia',title:'<?php _e('Handler'); ?>',width:40,align:'right'},
 			{field:'NombreClub',title:'<?php _e('Club'); ?>',width:20,align:'right'}
 		]],

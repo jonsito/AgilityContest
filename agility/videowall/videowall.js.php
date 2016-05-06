@@ -82,13 +82,13 @@ function vw_updateWorkingData(evt,callback) {
  * Al recibir 'init' ajustamos el modo de visualización de la pantalla
  * de resultados parciales/finales para individual o equipos
  * y si la prueba es open o no (grados)
+ * @param {object} dg Datagrid al que aplicar la modificacion
  * @param {object} evt Evento recibido. Debe ser de tipo init
  * @param data informacion de la prueba,jornada, my manga
  */
-function vw_formatResultadosDatagrid(evt,data) {
+function vw_formatResultadosDatagrid(dg,evt,data) {
     var team=false;
 	var hasGrades=true;
-    var dg=$('#vw_parciales-datagrid');
     if (parseInt(data.Jornada.Equipos3)!=0) { team=true; hasGrades=false; }
     if (parseInt(data.Jornada.Equipos4)!=0) { team=true; hasGrades=false; }
 	if (parseInt(data.Jornada.Open)!=0) { hasGrades=false; }

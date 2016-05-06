@@ -195,8 +195,8 @@ Pantalla de de visualizacion combinada llamada/parciales
             { field:'Nombre',		width:'12%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
             { field:'NombreGuia',	width:'17%', align:'right', title: '<?php _e('Handler'); ?>' },
             { field:'NombreClub',	width:'14%', align:'right', title: '<?php _e('Club'); ?>' },
-            { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.' },
-            { field:'Grado',	    width:'4%', align:'center', title: '<?php _e('Grade'); ?>' },
+            { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.' , formatter:formatCategoria},
+            { field:'Grado',	    width:'4%', align:'center', title: '<?php _e('Grade'); ?>', formatter:formatGrado },
             { field:'Faltas',		width:'4%', align:'center', title: '<?php _e('Faults'); ?>'},
             { field:'Rehuses',		width:'4%', align:'center', title: '<?php _e('Refusals'); ?>'},
             { field:'Tocados',		width:'4%', align:'center', title: '<?php _e('Touchs'); ?>'},
@@ -297,13 +297,13 @@ Pantalla de de visualizacion combinada llamada/parciales
             { field:'Equipo',		hidden:true },
             { field:'NombreEquipo',	hidden:true },
             // { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
-            { field:'Logo',		width:'8%', align:'center', title: '', formatter:formatLogo},
+            { field:'LogoClub',		width:'8%', align:'center', title: '', formatter:formatLogo},
             // { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
             { field:'Nombre',		width:'8%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
             { field:'NombreGuia',	width:'16%', align:'right', title: '<?php _e('Handler'); ?>' },
             { field:'NombreClub',	width:'13%', align:'right', title: '<?php _e('Club'); ?>' },
-            { field:'Categoria',	width:'3%', align:'center', title: '<?php _e('Cat'); ?>.' },
-            { field:'Grado',	    width:'3%', align:'center', title: '<?php _e('Grade'); ?>' },
+            { field:'Categoria',	width:'3%', align:'center', title: '<?php _e('Cat'); ?>.', formatter:formatCategoria},
+            { field:'Grado',	    width:'3%', align:'center', title: '<?php _e('Grade'); ?>', formatter:formatGrado },
             { field:'Faltas',		width:'4%', align:'center', title: '<?php _e('Faults'); ?>'},
             { field:'Rehuses',		width:'4%', align:'center', title: '<?php _e('Refusals'); ?>'},
             { field:'Tocados',		width:'4%', align:'center', title: '<?php _e('Touchs'); ?>'},
@@ -360,14 +360,16 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwcp_header-NombreRonda').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
-                vw_formatResultadosDatagrid(e,d);
+                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d);
+                vw_formatResultadosDatagrid($('#vwcp_ultimos-datagrid'),e,d);
                 vwcp_updateLlamada(e,d);
             });
         },
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
-                vw_formatResultadosDatagrid(e,d); // not really needed, but usefull for debugging
+                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d);
+                vw_formatResultadosDatagrid($('#vwcp_ultimos-datagrid'),e,d);
                 vwcp_updateLlamada(e,d);
                 vwcp_updateParciales(e,d);
             });

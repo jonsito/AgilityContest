@@ -17,15 +17,32 @@ class INTL4 extends Federations {
             'International' => 1,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'Recorridos' => array('Common course',"Standard + Medium / Small + Toy","Separate courses"),
+            'ListaGradosShort' => array(
+                '-' => 'Sin especificar',
+                'Baja' => 'Out',
+                'GI' => 'A1',
+                'GII'=> 'A2',
+                'GIII' => 'A3', //  invalid for 2-grades contests
+                'P.A.' => 'A0',
+                'P.B.' => 'T.d.', // "Test dog"
+                'Ret.' => 'Ret.'
+            ),
             'ListaGrados'    => array (
                 '-' => 'Not specified ',
                 'GI' => 'Grade I',
                 'GII'=> 'Grade II',
                 // 'GIII' => 'Grade III', // no existe
                 'P.A.' => 'Grade 0',
-                'P.B.' => 'Trial dog',
+                'P.B.' => 'Test dog',
                 'Baja' => 'Temporary out',
                 'Ret.' => 'Retired'
+            ),
+            'ListaCategoriasShort' => array (
+                '-' => '-',
+                'L' => 'Large',
+                'M' => 'Medium',
+                'S' => 'Small',
+                'T' => 'Toy'
             ),
             'ListaCategorias' => array (
                 '-' => 'Not especified',

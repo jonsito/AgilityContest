@@ -150,7 +150,7 @@ $('#ordensalida-datagrid').datagrid({
 		{ field:'Dorsal',		width:15, sortable:false,	align:'center',  title: '<?php _e('Dorsal'); ?>'},
 		{ field:'Nombre',		width:25, sortable:false,	align:'left',  title: '<?php _e('Name'); ?>',formatter:formatBold},
 		{ field:'Licencia',		width:15, sortable:false,   align:'right', title: '<?php _e('License'); ?>' },
-		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: '<?php _e('Cat'); ?>.' },
+		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: '<?php _e('Cat'); ?>.' ,formatter:formatCategoria},
 		{ field:'NombreGuia',	width:50, sortable:false,   align:'right', title: '<?php _e('Handler'); ?>' },
 		{ field:'NombreClub',	width:30, sortable:false,   align:'right', title: '<?php _e('Club'); ?>' },
 		{ field:'Celo',		    width:10, sortable:false, formatter: formatCelo,	align:'center', title:'<?php _e('Heat'); ?>'}

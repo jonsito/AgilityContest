@@ -17,15 +17,32 @@ class UCA extends Federations {
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'Recorridos' => array('Common course',"60 + 50 / 40 + 30","Separate courses"),
+            'ListaGradosShort' => array(
+                '-' => 'Sin especificar',
+                'Baja' => 'Baja',
+                'GI' => 'G1',
+                'GII'=> 'G2',
+                'GIII' => 'G3', // invalid in UCA federation
+                'P.A.' => 'G0',
+                'P.B.' => 'P.B.', // "perro en blanco"
+                'Ret.' => 'Ret.'
+            ),
             'ListaGrados'    => array (
                 '-' => ' ',
                 'Baja' => 'Baja temporal',
-                'GI' => 'Grado I',
-                'GII'=> 'Grado II',
-                // 'GIII' => 'Grado III', // no existe
+                'GI' => 'Grado 1',
+                'GII'=> 'Grado 2',
+                // 'GIII' => 'Grado 3', // no existe
                 'P.A.' => 'Grado 0',
                 'P.B.' => 'Perro en Blanco',
                 'Ret.' => 'Retirado',
+            ),
+            'ListaCategoriasShort' => array (
+                '-' => '-',
+                'L' => '60',
+                'M' => '50',
+                'S' => '40',
+                'T' => '30'
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',

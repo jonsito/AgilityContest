@@ -102,8 +102,8 @@ $('#vw_ordensalida-datagrid').datagrid({
         { field:'Licencia',		width:'5%', align:'center',	title: '<?php _e('License'); ?>'},
         { field:'NombreGuia',	width:'17%', align:'right',	title: '<?php _e('Handler'); ?>' },
         { field:'NombreClub',	width:'13%', align:'right',	title: '<?php _e('Club'); ?>' },
-        { field:'Categoria',	width:'4%', align:'center',	title: '<?php _e('Category'); ?>' },
-        { field:'Grado',		width:'4%', align:'center',	title: '<?php _e('Grade'); ?>' },
+        { field:'Categoria',	width:'4%', align:'center',	title: '<?php _e('Category'); ?>',formatter:formatCategoria },
+        { field:'Grado',		width:'4%', align:'center',	title: '<?php _e('Grade'); ?>', formatter:formatGrado },
         { field:'Celo',			width:'4%', align:'center',	title: '<?php _e('Heat'); ?>', formatter:formatCelo },
         { field:'Observaciones',width:'12%', align:'left',	title: '<?php _e('Comments'); ?>', hidden:true }
     ]],

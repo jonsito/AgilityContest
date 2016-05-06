@@ -221,8 +221,8 @@ $config =Config::getInstance();
             		{ field:'Nombre',	width:30, sortable:true,	title: '<?php _e('Name'); ?>' },
 					{ field:'NombreLargo',hidden:true},
 					{ field:'Genero',	hidden:true},
-            		{ field:'Categoria',width:15, sortable:false,	title: '<?php _e('Cat.'); ?>' },
-            		{ field:'Grado',	width:25, sortable:false,   title: '<?php _e('Grade'); ?>' },
+            		{ field:'Categoria',width:15, sortable:false,	title: '<?php _e('Cat.'); ?>',formatter:formatCategoria },
+            		{ field:'Grado',	width:25, sortable:false,   title: '<?php _e('Grade'); ?>',formatter:formatGrado },
             		{ field:'Raza',		width:25, sortable:false,   title: '<?php _e('Breed'); ?>' },
             		{ field:'LOE_RRC',	width:25, sortable:true,    title: '<?php _e('KC id'); ?>' },
             		{ field:'Licencia',	width:25, sortable:true,    title: '<?php _e('License'); ?>' }

@@ -109,7 +109,7 @@ $('#competicion-datagrid').datagrid({
         { field:'Nombre',		width:20, align:'left',  title: '<?php _e('Name'); ?>',formatter:formatBold},
         { field:'NombreGuia',	width:40, align:'right', title: '<?php _e('Handler'); ?>' },
         { field:'NombreClub',	width:30, align:'right', title: '<?php _e('Club'); ?>' },
-      	{ field:'Categoria',	width:10, align:'center',title: '<?php _e('Cat'); ?>.' },
+      	{ field:'Categoria',	width:10, align:'center',title: '<?php _e('Cat'); ?>.',formatter:formatCategoria },
       	{ field:'Faltas',		width:7, align:'right', title: '<?php _e('Flt'); ?>.',	editor:'numberbox' },
       	{ field:'Rehuses',		width:7, align:'right', title: '<?php _e('Ref'); ?>.',	editor:'numberbox' },
       	{ field:'Tocados',		width:7, align:'right', title: '<?php _e('Tch.'); ?>.',	editor:'numberbox' },

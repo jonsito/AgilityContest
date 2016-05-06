@@ -177,8 +177,8 @@ $('#pb_ordensalida-datagrid').datagrid({
         { field:'Licencia',		width:'5%', align:'center',	title: '<?php _e('License'); ?>'},
         { field:'NombreGuia',	width:'23%', align:'right',	title: '<?php _e('Handler'); ?>' },
         { field:'NombreClub',	width:'19%', align:'right',	title: '<?php _e('Club'); ?>' },
-        { field:'Categoria',	width:'4%', align:'center',	title: '<?php _e('Cat'); ?>.' },
-        { field:'Grado',		width:'4%', align:'center',	title: '<?php _e('Grade'); ?>' },
+        { field:'Categoria',	width:'4%', align:'center',	title: '<?php _e('Cat'); ?>.',formatter:formatCategoria },
+        { field:'Grado',		width:'4%', align:'center',	title: '<?php _e('Grade'); ?>', formatter:formatGrado },
         { field:'Celo',			width:'4%', align:'center',	title: '<?php _e('Heat'); ?>', formatter:formatCelo },
         { field:'Observaciones',width:0, hidden:true }
     ]],

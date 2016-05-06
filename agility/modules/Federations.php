@@ -37,6 +37,17 @@ class Federations {
         'International' => 0,
         'WideLicense' => false, // some federations need extra print space to show license ID
         'Recorridos' => array('Common course','Standard / Midi + Mini','Separate courses'),
+        'ListaGradosShort' => array(
+            '-' => 'Sin especificar',
+            'Baja' => 'Baja',
+            'GI' => 'GI',
+            'GII'=> 'GII',
+            'GIII' => 'GIII',
+            'P.A.' => 'P.A.',
+            'P.B.' => 'P.B',
+            'Ret.' => 'Ret.'
+            
+        ),
         'ListaGrados'    => array (
             '-' => 'Sin especificar',
             'Baja' => 'Baja temporal',
@@ -45,7 +56,14 @@ class Federations {
             'GIII' => 'Grado III',
             'P.A.' => 'Pre-Agility',
             'P.B.' => 'Perro en Blanco',
-            'Ret.' => 'Retirado',
+            'Ret.' => 'Retirado'
+        ),
+        'ListaCategoriasShort' => array (
+            '-' => '-',
+            'L' => 'Large',
+            'M' => 'Medium',
+            'S' => 'Small',
+            'T' => 'Tiny'
         ),
         'ListaCategorias' => array (
             '-' => 'Sin especificar',

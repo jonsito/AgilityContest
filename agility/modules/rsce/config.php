@@ -17,6 +17,16 @@ class RSCE extends Federations {
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'Recorridos' => array('Common course',"Standard / Midi + Mini","Separate courses"),
+            'ListaGradosShort' => array(
+                '-' => 'Sin especificar',
+                'Baja' => 'Out',
+                'GI' => 'GI',
+                'GII'=> 'GII',
+                'GIII' => 'GIII',
+                'P.A.' => 'P.A.',
+                'P.B.' => 'P.B.', // "perro en blanco"
+                'Ret.' => 'Ret.'
+            ),
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
                 'GI' => 'Grado I',
@@ -26,6 +36,13 @@ class RSCE extends Federations {
                 'P.B.' => 'Perro en Blanco',
                 'Baja' => 'Baja temporal',
                 'Ret.' => 'Retirado',
+            ),
+            'ListaCategoriasShort' => array (
+                '-' => '-',
+                'L' => 'Std',
+                'M' => 'Midi',
+                'S' => 'Mini',
+                // 'T' => 'Toy' // no existe
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',

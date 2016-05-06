@@ -338,7 +338,8 @@ Modelo simplificado de resultados finales
             $('#vwcf_header-infomanga').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d); // fix header
-                vw_formatResultadosDatagrid(e,d); // fix team/logos/cat/grade presentation
+                vw_formatResultadosDatagrid($('#vwcf_clasificacion-datagrid'),e,d); // fix team/logos/cat/grade presentation
+                vw_formatResultadosDatagrid($('#vwcf_ultimos-datagrid'),e,d); // fix team/logos/cat/grade presentation
                 vwcf_updateLlamada(e,d);
             });
         },

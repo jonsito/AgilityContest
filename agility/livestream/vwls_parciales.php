@@ -158,8 +158,8 @@ $('#vw_parciales-datagrid').datagrid({
         { field:'Nombre',		width:'10%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
         { field:'NombreGuia',	width:'15%', align:'right', title: '<?php _e('Handler'); ?>' },
         { field:'NombreClub',	width:'12%', align:'right', title: '<?php _e('Club'); ?>' },
-        { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.' },
-        { field:'Grado',	    width:'4%', align:'center', title: '<?php _e('Grade'); ?>' },
+        { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.' ,formatter:formatCategoria},
+        { field:'Grado',	    width:'4%', align:'center', title: '<?php _e('Grade'); ?>',formatter:formatGrado },
         { field:'Faltas',		width:'4%', align:'center', title: '<?php _e('Faults'); ?>'},
         { field:'Rehuses',		width:'4%', align:'center', title: '<?php _e('Refusals'); ?>'},
         { field:'Tocados',		width:'4%', align:'center', title: '<?php _e('Touchs'); ?>'},
@@ -190,7 +190,7 @@ var eventHandler= {
         vw_updateWorkingData(event,function(e,d){
             vw_updateWorkingData(event,function(e,d){
                 vw_updateDataInfo(e,d);
-                vw_formatResultadosDatagrid(e,d);
+                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d);
                 vw_updateLlamada(e,d);
             });
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
@@ -200,7 +200,7 @@ var eventHandler= {
     'open': function(event){ // operator select tanda
         vw_updateWorkingData(event,function(e,d){
             vw_updateDataInfo(e,d);
-            vw_formatResultadosDatagrid(e,d); // not really needed but ease debugging
+            vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d); // not really needed but ease debugging
             vw_updateParciales(e,d);
         });
     },
