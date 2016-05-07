@@ -181,7 +181,7 @@ function event_parser(id,event) {
  * Notice that due to async nature of http requests, a dirty trick is needed
  * to wait for host polling to finish. this should be revisited in a later revision
  *
- * @param {int} ring ring number to search their sessionID for
+ * @param {int} ring Ring number (1..4) to search their sessionID for
  * @returns {boolean} true when server and session found. otherwise false
  */
 function findServer(ring) {
