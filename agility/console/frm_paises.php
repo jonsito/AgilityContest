@@ -89,7 +89,7 @@ $config =Config::getInstance();
 				{ field:'Web',			hidden:true},
 				{ field:'Email',		hidden:true},
 				{ field:'Federations',	hidden:true},
-				{ field:'Logo',			width:'20%', sortable:false,    title: '', formatter: format_countryFlag },
+				{ field:'LogoClub',			width:'20%', sortable:false,    title: '', formatter: format_countryFlag },
 				//{ field:'Observaciones',width:2, sortable:true,    title: 'Observaciones' },
 				{ field:'Baja',			hidden:true }
 			]],

@@ -280,7 +280,7 @@ Modelo simplificado de resultados finales
             { field:'Licencia',     width:'100%',align:'center', title: '<span class="vws_theader"><?php _e("Call to ring"); ?></span>', colspan:11}
             ],[
             { field:'Orden',		width:'10%', align:'center', title: '#', formatter:formatOrdenLlamadaPista},
-            { field:'Logo', 		width:'10%', align:'center', title: '', formatter:formatLogo},
+            { field:'LogoClub', 		width:'10%', align:'center', title: '', formatter:formatLogo},
             { field:'Manga',		hidden:true },
             { field:'Perro',		hidden:true },
             { field:'Equipo',		hidden:true },

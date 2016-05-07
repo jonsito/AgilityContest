@@ -192,7 +192,7 @@ class Clubes extends DBObject {
 		$where="1";
 		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR (Provincia LIKE '%$search%') OR (Pais LIKE '%$search%') ) ";
 		$result=$this->__select(
-				/* SELECT */ "*",
+				/* SELECT */ "*, Logo AS LogoClub",
 				/* FROM */ "Clubes",
 				/* WHERE */ "$fedstr AND $where",
 				/* ORDER BY */ $sort,

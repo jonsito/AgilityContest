@@ -112,7 +112,8 @@ $config =Config::getInstance();
 				{ field:'F3',			width:fnames[2].Width, align:'center', title:fnames[2].Title, hidden:fnames[2].Hidden, formatter:clubes_Fed3 },
 				{ field:'F4',			width:fnames[3].Width, align:'center', title:fnames[3].Title, hidden:fnames[3].Hidden, formatter:clubes_Fed4 },
 				{ field:'F5',			width:fnames[4].Width, align:'center', title:fnames[4].Title, hidden:fnames[4].Hidden, formatter:clubes_Fed5 },
-				// { field:'Logo',		width:2, sortable:true,    title: 'Logo club' },
+				// { field:'Logo',		width:2, sortable:true,    title: 'Logo club' }, // to be removed in a rewrite
+				// { field:'LogoClub',		width:2, sortable:true,    title: 'Logo club' },
 				//{ field:'Observaciones',width:2, sortable:true,    title: 'Observaciones' },
 				{ field:'Baja',			width:2, sortable:true,    align: 'center', title: '<?php _e('Out'); ?>', formatter:clubesBaja }
 			]],

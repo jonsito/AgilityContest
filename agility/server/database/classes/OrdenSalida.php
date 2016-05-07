@@ -342,7 +342,7 @@ class OrdenSalida extends DBObject {
 	function getData($teamView=false) {
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
 		$rs= $this->__select(
-			"Resultados.*,Equipos.Nombre AS NombreEquipo,PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS Logo",
+			"Resultados.*,Equipos.Nombre AS NombreEquipo,PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS LogoClub",
 			"Resultados,Equipos,PerroGuiaClub",
 			"(Manga={$this->manga['ID']}) AND (Resultados.Equipo=Equipos.ID) AND (Resultados.Perro=PerroGuiaClub.ID)",
 			"",

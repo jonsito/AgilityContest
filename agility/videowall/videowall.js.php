@@ -444,7 +444,7 @@ function vwcp_updateLlamada(evt,data) {
 			// rellenamos ventana de datos del perro en pista
 			$("#vwls_Numero").html(current['Orden']);
 
-			$("#vwls_Logo").attr('src','/agility/images/logos/'+current['Logo']);
+			$("#vwls_Logo").attr('src','/agility/images/logos/'+current['LogoClub']);
 			$("#vwls_Perro").html(current['Perro']);
 			$("#vwls_Categoria").html(current['Categoria']);
 			$("#vwls_Grado").html(current['Grado']);
@@ -535,7 +535,7 @@ function vwcf_updateLlamada(evt,data) {
 			var current=dat['current'][0];
 			// TODO: obtener datos de manga hermana y presentarlos
 			$("#vwls_Numero").html(current['Orden']);
-			$("#vwls_Logo").attr('src', '/agility/images/logos/' + current['Logo']);
+			$("#vwls_Logo").attr('src', '/agility/images/logos/' + current['LogoClub']);
 			$("#vwls_Perro").html(current['Perro']);
 			$("#vwls_Categoria").html(current['Categoria']);
 			$("#vwls_Grado").html(current['Grado']);

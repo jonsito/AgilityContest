@@ -448,14 +448,14 @@ class Tandas extends DBObject {
                 $perro['Tanda']=$tanda['Nombre'];
                 $perro['ID']=$tanda['ID']; // replace resultadoID por tandaID TODO: revise why
                 if ($pendientes==0) { // include all
-                    $perro['Logo']=$club->getLogoName('NombreClub',$perro['NombreClub']);
+                    $perro['LogoClub']=$club->getLogoName('NombreClub',$perro['NombreClub']);
                     array_push($rows,$perro);
                     continue;
                 }
                 if ($perro['Pendiente']==0) continue; // not pendiente: skip
                 if ($count > 0) {  // not yet at count: insert
                     $count--;
-                    $perro['Logo']=$club->getLogoName('NombreClub',$perro['NombreClub']);
+                    $perro['LogoClub']=$club->getLogoName('NombreClub',$perro['NombreClub']);
                     array_push($rows,$perro);
                     continue;
                 }

@@ -179,7 +179,7 @@ $('#vw_llamada-datagrid').datagrid({
     autoRowHeight: true,
     columns:[[
         { field:'Orden',		width:'5%', align:'center', title: '#', formatter:formatOrdenLlamadaPista},
-        { field:'Logo', 		width:'10%', align:'center', title: '', formatter:formatLogo},
+        { field:'LogoClub', 	width:'10%', align:'center', title: '', formatter:formatLogo},
         { field:'Manga',		hidden:true },
         { field:'Perro',		hidden:true },
         { field:'Equipo',		hidden:true },
