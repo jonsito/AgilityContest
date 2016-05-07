@@ -223,8 +223,8 @@ function findServer(ring) {
 			var data = JSON.parse(res.getBody('utf8'));
 			// this code assumes that first returned row matches ring 1, second ring 2 and so
 			workingData.hostname=hostaddr;
-			workingData.sessionID=parseInt(data['rows'][workingData.ring-1]['ID']);
-			console.log("SessionID for ring:"+workingData.ring+" is:"+workingData.sessionID);
+			workingData.sessionID=parseInt(data['rows'][ring-1]['ID']);
+			console.log("SessionID for ring:"+ring+" is:"+workingData.sessionID);
 			return true;
 		} catch (err) {
 			console.log("Host: "+hostname+" Error: "+err);
@@ -369,7 +369,7 @@ function startEventMgr() {
 
 // if server address not declared try to locate server. on fail exit
 if (workingData.hostname==='0.0.0.0') {
-	if (!findServer()) process.exit(1);
+	if (!findServer(workingData.ring)) process.exit(1);
 }
 // start event manager
 startEventMgr();
