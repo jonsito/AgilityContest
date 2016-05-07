@@ -19,14 +19,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 * browser-less implementation of AgilityContest event protocol parser
 *
 * Requires nodejs >=4
-* npm modules ("npm install") http jsdom jquery querystring
+* Required npm modules http querystring os ip
 */
 /***************************************************************************************************************/
 var querystring = require('querystring');
 var http = require('http');
-var jsdom = require('jsdom');
-document= jsdom.jsdom(""); // empty document
-var $=require('jquery')(document.defaultView);
+
+var workingData = {
+	// hostname and sessionID.
+	hostname: '0.0.0.0', // set to '0.0.0.0' to let the app find server by itself
+	sessionID: 2,
+	// variables to store start timestamp mark
+	cronomanual: 0,
+	cronoauto: 0,
+	// method to handle received events
+	callback: event_parser
+};
 
 var eventHandler= {
 	'null': null,// null event: no action taken
@@ -158,17 +166,99 @@ function event_parser(id,event) {
 	if (typeof(eventHandler[event['Type']])==="function") eventHandler[event['Type']](event,time);
 }
 
-var workingData = {
-    // hostname and sessionID. AC server search protocol should be used instead of hardwiring
-    hostname: 'localhost',
-	sessionID: 2,
-    // variables to store start timestamp mark
-    cronomanual: 0,
-    cronoauto: 0,
-    // method to handle received events
-    callback: event_parser
-};
+/**
+ * This function explores network trying to locate an AgilityContest server
+ * When found, deduce desired sesion ID and set up working data parameters
+ *
+ * Notice that due to async nature of http requests, a dirty trick is needed
+ * to wait for host polling to finish. this should be revisited in a later revision
+ *
+ * @returns {boolean} true when server and session found. otherwise false
+ */
+function findServer() {
+	var addresses = []; // to be evaluated
 
+	// locate any non local interface ipaddress/mask
+	// take care on multiple interfaced hosts
+	function getInterfaces() {
+		var os = require('os');
+		var interfaces = os.networkInterfaces();
+		for (var k in interfaces) {
+			for (var k2 in interfaces[k]) {
+				var address = interfaces[k][k2];
+				if (address.family === 'IPv4' && !address.internal) {
+					addresses.push(address);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Try to connect AgilityContest server.
+	 * on success retrieve Session ID and update working Data
+	 * @param hostaddr IP address of host to check
+	 * @return true on success; otherwise false
+     */
+	function connectServer(hostaddr){
+
+		var postData =querystring.stringify({
+			'Operation' : 'selectring'
+		});
+		var options= {
+			protocol: 'http:',
+			hostname: hostaddr,
+			port: 80,
+			path: '/agility/server/database/sessionFunctions.php',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+				'Content-Length': postData.length
+			}
+		};
+
+		function handleSuccess(data) {
+			console.log("Received response at host:"+hostaddr);
+		}
+		function handleError(data) {
+            console.log("Error at host:"+hostaddr);
+		}
+		console.log("Looking for server at:"+hostaddr);
+		var req = http.request(options,function(res){
+			res.setEncoding('utf8');
+			res.on('data', handleSuccess);
+			res.on('end', function() { /* empty */  });
+		});
+		req.on('error',handleError);
+		// write data to request body
+		req.write(postData);
+		req.end();
+	}
+
+	getInterfaces(); // retrieve network interface information
+	var ip=require('ip');
+	for (var item in addresses) { // iterate on every ip/mask found
+		var ipaddr=addresses[item].address;
+		var mask=addresses[item].netmask;
+		var start=ip.toLong(ip.subnet(ipaddr,mask).firstAddress);
+		var stop=ip.toLong(ip.subnet(ipaddr,mask).lastAddress);
+		for (var n=start;n<=stop;n++) {
+			var hostname=ip.fromLong(n).toString();
+			if (connectServer(hostname) ) return true;
+		}
+	}
+	// arriving here means server not found. Notify and return
+	console.log("Cannot locate server. exiting");
+	return false;
+}
+
+
+/**
+ * This function call to server and waits for events to be returned ( or empty data on timeout )
+ * When one or several events are received iterate on them by calling callback function declared
+ * in workingData structure
+ * @param evtID Last received event ID
+ * @param timestamp last timestamp mark received from server
+ */
 function waitForEvents(evtID,timestamp){
 
     var postData = querystring.stringify({
@@ -218,7 +308,6 @@ function waitForEvents(evtID,timestamp){
     // write data to request body
     req.write(postData);
     req.end();
-    return false;
 }
 
 /**
@@ -278,5 +367,9 @@ function startEventMgr() {
 	return false;
 }
 
+// if server address not declared try to locate server. on fail exit
+if (workingData.hostname==='0.0.0.0') {
+	if (!findServer()) process.exit(1);
+}
 // start event manager
 startEventMgr(); // use hard-wired session ID 2 ( ring 1 )
