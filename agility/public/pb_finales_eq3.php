@@ -218,7 +218,7 @@ $('#pb_resultados-datagrid').datagrid({
     rowStyler:myRowStyler,
     view: gview,
     groupField: 'NombreEquipo',
-    groupFormatter: formatTeamClasificaciones
+    groupFormatter: formatPbTeamClasificaciones
 });
 
 </script>

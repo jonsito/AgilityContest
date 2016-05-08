@@ -187,7 +187,7 @@ function formatTeamResultsConsole( value , rows ) {
         '</div>';
 }
 
-function formatTeamClasificaciones(value,rows) {
+function formatTeamClasificaciones(dgname,value,rows) {
     var logos="";
     var mindogs=getMinDogsByTeam();
     function sortResults(a,b) {
@@ -224,8 +224,9 @@ function formatTeamClasificaciones(value,rows) {
     // el resultado final es la suma de las mangas
     var time=manga1.time+manga2.time;
     var penal=manga1.penal+manga2.penal;
+    var width= 0.9 * parseInt($(dgname).css('width').replace('px',''));
     // !Por fin! componemos una tabla html como respuesta
-    return '<div class="pb_equipos3">'+
+    return '<div class="vw_equipos3" style="width:'+Math.round(width)+'px">'+
         '<span style="width:10%;text-align:left;">'+logos+'</span>'+
         '<span style="width:20%;text-align:left;"> Eq: '+value+'</span>' +
         '<span > T1: '+toFixedT((manga1.time),ac_config.numdecs)+' - P1: '+toFixedT((manga1.penal),ac_config.numdecs)+'</span>'+
@@ -235,8 +236,10 @@ function formatTeamClasificaciones(value,rows) {
         '</div>';
 }
 
-function formatTeamClasificacionesConsole(value,rows) {
+function formatVwTeamClasificaciones(value,rows) { return formatTeamClasificaciones('#vwcf_clasificacion-datagrid',value,rows); }
+function formatPbTeamClasificaciones(value,rows) { return formatTeamClasificaciones('#pb_resultados-datagrid',value,rows); }
 
+function formatTeamClasificacionesConsole(value,rows) {
     var mindogs=getMinDogsByTeam();
     function sortResults(a,b) {
         return (a.penal== b.penal)? (a.time - b.time) : (a.penal - b.penal);

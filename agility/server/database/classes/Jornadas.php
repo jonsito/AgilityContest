@@ -657,12 +657,14 @@ class Jornadas extends DBObject {
 			/* Pre-Agility siempre tiene recorrido comun para todas las categorias */
 			$m1=Jornadas::__searchManga(1,$mangas); // PA-1
 			$m2=Jornadas::__searchManga(2,$mangas); // PA-2
-			array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,2,$m1['Recorrido'],($heights==3)?4:8,$m1,$m2));
+			// array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,2,$m1['Recorrido'],($heights==3)?4:8,$m1,$m2));
+			Jornadas::__compose($data, $prueba, $jornadaid, 2, $m1, $m2);
 		} else if ($jornada['PreAgility']!=0) {
 			// $dbobj->myLogger->trace("Procesando mangas de preagility-1");
 			/* Pre-Agility siempre tiene recorrido comun para todas las categorias */
 			$m1=Jornadas::__searchManga(1,$mangas); // PA-1
-			array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,1,$m1['Recorrido'],($heights==3)?4:8,$m1,null));
+			// array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,1,$m1['Recorrido'],($heights==3)?4:8,$m1,null));
+			Jornadas::__compose($data, $prueba, $jornadaid, 1, $m1, null);
 		}
 		if ($jornada['Grado1']!=0) {  // Jornadas::tiporonda=3
 			$m1 = Jornadas::__searchManga(3, $mangas); // Agility 1 Grado I

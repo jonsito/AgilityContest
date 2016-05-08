@@ -80,14 +80,14 @@ function vw_updateWorkingData(evt,callback) {
 
 /**
  * Al recibir 'init' ajustamos el modo de visualización de la pantalla
- * de resultados parciales/finales para individual o equipos
+ * de resultados parciales para individual o equipos
  * y si la prueba es open o no (grados)
  * @param {object} dg Datagrid al que aplicar la modificacion
  * @param {object} evt Evento recibido. Debe ser de tipo init
- * @param data informacion de la prueba,jornada, my manga
- * @param flag true: ajustar groupview ( in 'ultimos' datagrid no poner vista de grupo
+ * @param {object} data informacion de la prueba,jornada, my manga
+ * @param {function} formatter: function to call for group formatter, or null
  */
-function vw_formatResultadosDatagrid(dg,evt,data,flag) {
+function vw_formatResultadosDatagrid(dg,evt,data,formatter) {
     var team=false;
 	var hasGrades=true;
     if (parseInt(data.Jornada.Equipos3)!=0) { team=true; hasGrades=false; }
@@ -97,17 +97,42 @@ function vw_formatResultadosDatagrid(dg,evt,data,flag) {
 
     // clear datagrid as data no longer valid
     if (team){
-        if (flag) dg.datagrid({ view: gview, groupField: 'NombreEquipo', groupFormatter: formatVwTeamResults });
+        if (formatter) dg.datagrid({ view: gview, groupField: 'NombreEquipo', groupFormatter: formatter });
         dg.datagrid('hideColumn',"LogoClub");
         dg.datagrid('hideColumn',"Grado");
     } else {
-        if (flag) dg.datagrid({view:$.fn.datagrid.defaults.view});
+        if (formatter) dg.datagrid({view:$.fn.datagrid.defaults.view});
         dg.datagrid('showColumn',"LogoClub");
 		if (hasGrades)	dg.datagrid('showColumn',"Grado");
 		else dg.datagrid('hideColumn',"Grado");
     }
     dg.datagrid('loadData', {"total":0,"rows":[]});
     dg.datagrid('fitColumns');
+}
+
+/**
+ * Al recibir 'init' ajustamos el modo de visualización de la pantalla
+ * de resultados finales para individual o equipos
+ * los videowalls de clasificaciones finales no tienen campo "grado"
+ * @param {object} dg Datagrid al que aplicar la modificacion
+ * @param {object} evt Evento recibido. Debe ser de tipo init
+ * @param {object} data informacion de la prueba,jornada, my manga
+ * @param {function} formatter: function to call for group formatter, or null
+ */
+function vw_formatClasificacionesDatagrid(dg,evt,data,formatter) {
+	var team=false;
+	if (parseInt(data.Jornada.Equipos3)!=0) { team=true; }
+	if (parseInt(data.Jornada.Equipos4)!=0) { team=true;  }
+	// clear datagrid as data no longer valid
+	if (team){
+		if (formatter) dg.datagrid({ view: gview, groupField: 'NombreEquipo', groupFormatter: formatter });
+		dg.datagrid('hideColumn',"LogoClub");
+	} else {
+		if (formatter) dg.datagrid({view:$.fn.datagrid.defaults.view});
+		dg.datagrid('showColumn',"LogoClub");
+	}
+	dg.datagrid('loadData', {"total":0,"rows":[]});
+	dg.datagrid('fitColumns');
 }
 
 /**

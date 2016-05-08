@@ -363,14 +363,16 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwcf_header-infomanga').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d); // fix header
-                vw_formatResultadosDatagrid($('#vwcf_clasificacion-datagrid'),e,d,true); // fix team/logos/cat/grade presentation
-                vw_formatResultadosDatagrid($('#vwcf_ultimos-datagrid'),e,d,false); // fix team/logos/cat/grade presentation on lasts teams
+                vw_formatClasificacionesDatagrid($('#vwcf_clasificacion-datagrid'),e,d,formatVwTeamClasificaciones); // fix team/logos/cat/grade presentation
+                vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation on lasts teams
                 vwcf_updateLlamada(e,d);
             });
         },
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
+                vw_formatClasificacionesDatagrid($('#vwcf_clasificacion-datagrid'),e,d,formatVwTeamClasificaciones); // fix team/logos/cat/grade presentation
+                vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation on lasts teams
                 vwcf_updateLlamada(e,d);
             });
         },

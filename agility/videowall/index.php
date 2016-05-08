@@ -56,6 +56,7 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
+<link rel="stylesheet" type="text/css" href="/agility/css/public_css.php" />
 <script src="/agility/lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" ></script>
 <script src="/agility/lib/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>

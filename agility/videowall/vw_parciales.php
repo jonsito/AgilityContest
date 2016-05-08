@@ -156,7 +156,7 @@ var eventHandler= {
         vw_updateWorkingData(event,function(e,d){
             vw_updateWorkingData(event,function(e,d){
                 vw_updateDataInfo(e,d);
-                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,true);
+                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults);
                 vw_updateLlamada(e,d);
             });
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
