@@ -430,6 +430,11 @@ function Countdown(options) {
 	this.val = function(secs) {
 		if (typeof(secs) !== 'undefined') count=secs*10;
 		return count;
+	};
+
+	// get running status
+	this.started = function() {
+		return (count>0)?true:false;
 	}
 }
 

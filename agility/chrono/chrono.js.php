@@ -97,7 +97,7 @@ var c_reconocimiento = new Countdown({
 	},
     onUpdateStatus: function(tsec){
 		var sec=tsec/10; // remove tenths of seconds
-    	var time=sprintf((ac_config.numdecs==2)?'%02d:%02d':'%02d:%03d', Math.floor(sec/60),sec%60);
+    	var time=sprintf('%02d:%02d', Math.floor(sec/60),sec%60);
     	$('#chrono_Tiempo').html( time );
     }, // callback for each tenth of second
     onCounterEnd: function(){ /* empty */    }
@@ -308,9 +308,11 @@ function chrono_button(item) {
 }
 
 function chrono_rec() {
+	var val=1;
+	if (c_reconocimiento.started()) val=0;
 	var data= {
 		'Value' : Date.now() - startDate,
-		'start' : 60 * parseInt(ac_config.crono_rectime)
+		'start' : val * 60 * parseInt(ac_config.crono_rectime)
 	};
 	chrono_putEvent('crono_rec',data);
 	doBeep();
@@ -538,11 +540,15 @@ function chrono_eventManager(id,evt) {
 		c_updateDataFromChrono(event);
 		return;
 	case 'crono_rec': // reconocimiento de pista
-		// si crono esta activo,si el valor es cero, parar
+		// si crono esta activo, ignora
 		if (cra.Chrono('started')) c_reconocimiento.stop();
-		if (parseInt(event['start'])!=0)  return;
-		c_reconocimiento.reset(event['start']);
-		c_reconocimiento.start();
+		// si no, vemos si hay que arrancar o parar
+		if (parseInt(event['start'])!=0)  { // arrancar crono
+			c_reconocimiento.reset(event['start']);
+			c_reconocimiento.start();
+		} else {
+			c_reconocimiento.stop();
+		}
 		return;
 	case 'cancelar': // operador pulsa cancelar en tablet
 		c_clearData(event);

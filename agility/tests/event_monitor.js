@@ -40,6 +40,7 @@ var workingData = {
 	// variables to store start timestamp mark
 	cronomanual: 0,
 	cronoauto: 0,
+	coursewalk: 0,
 	// method to handle received events
 	callback: event_parser
 };
@@ -56,7 +57,8 @@ var eventHandler= {
 		console.log("    Round   : "+ event.NombreManga);
 		console.log("    Ring    : "+ event.NombreRing);
         workingData.cronomanual=0;
-        workingData.cronoauto=0;
+		workingData.cronoauto=0;
+		workingData.coursewalk=0;
 	},
 	'close': function(event,time){ // no more dogs in tabla
 		console.log(event['Type'] + " - Operator ends tablet session");
@@ -126,7 +128,8 @@ var eventHandler= {
 	'crono_reset':  function(event,time){	// puesta a cero del crono electronico
 		console.log(event['Type'] + "- Reset all counters");
         workingData.cronomanual=0;
-        workingData.cronoauto=0;
+		workingData.cronoauto=0;
+		workingData.coursewalk=0;
 	},
 	'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
 		console.log(event['Type'] + " - Competitor data from electronic chronometer");
@@ -138,8 +141,26 @@ var eventHandler= {
 		console.log("    Interm. time : "+ event.TInt);
 		console.log("    Time         : "+ event.Tim);
 	},
+	'crono_rec':  function(event,time) { // course walk
+		var val=event.start;
+		if (val==0) {
+			var elapsed=(parseInt(event.Value)-workingData.coursewalk)/1000;
+			workingData.coursewalk=0;
+			console.log(event['Type'] + " - Course walk stop");
+            console.log("    Timestamp value:"+event.Value);
+			console.log("    Elapsed time: "+elapsed+" secs.");
+		} else {
+			workingData.coursewalk=parseInt(event.Value);
+			console.log(event['Type'] + " - Course walk start");
+            console.log("    Timestamp value:"+event.Value);
+			console.log("    Remaining Time: "+val+" secs");
+		}
+	},
 	'crono_error':  function(event,time) { // fallo en los sensores de paso
-		console.log(event['Type'] + " - Chronometer reports sensor error");
+		var val=parseInt(event.Value);
+		console.log(event['Type'] + " - Chronometer notifies ensor error event:"+val);
+        if (val==1) console.log("    Sensor status: Failed");
+        else console.log("    Sensor status: OK");
 	},
 	'aceptar':	function(event,time){ // operador pulsa aceptar
 		console.log(event['Type'] + " - Assistant console operator accepts competitor result");
