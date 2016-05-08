@@ -360,16 +360,16 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwcp_header-NombreRonda').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
-                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d);
-                vw_formatResultadosDatagrid($('#vwcp_ultimos-datagrid'),e,d);
+                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,true);
+                vw_formatResultadosDatagrid($('#vwcp_ultimos-datagrid'),e,d,false);
                 vwcp_updateLlamada(e,d);
             });
         },
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
-                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d);
-                vw_formatResultadosDatagrid($('#vwcp_ultimos-datagrid'),e,d);
+                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,true);
+                vw_formatResultadosDatagrid($('#vwcp_ultimos-datagrid'),e,d,false);
                 vwcp_updateLlamada(e,d);
                 vwcp_updateParciales(e,d);
             });

@@ -85,8 +85,9 @@ function vw_updateWorkingData(evt,callback) {
  * @param {object} dg Datagrid al que aplicar la modificacion
  * @param {object} evt Evento recibido. Debe ser de tipo init
  * @param data informacion de la prueba,jornada, my manga
+ * @param flag true: ajustar groupview ( in 'ultimos' datagrid no poner vista de grupo
  */
-function vw_formatResultadosDatagrid(dg,evt,data) {
+function vw_formatResultadosDatagrid(dg,evt,data,flag) {
     var team=false;
 	var hasGrades=true;
     if (parseInt(data.Jornada.Equipos3)!=0) { team=true; hasGrades=false; }
@@ -96,15 +97,11 @@ function vw_formatResultadosDatagrid(dg,evt,data) {
 
     // clear datagrid as data no longer valid
     if (team){
-        dg.datagrid({
-            view: gview,
-            groupField: 'NombreEquipo',
-            groupFormatter: formatVwTeamResults
-        });
+        if (flag) dg.datagrid({ view: gview, groupField: 'NombreEquipo', groupFormatter: formatVwTeamResults });
         dg.datagrid('hideColumn',"LogoClub");
         dg.datagrid('hideColumn',"Grado");
     } else {
-        dg.datagrid({view:$.fn.datagrid.defaults.view});
+        if (flag) dg.datagrid({view:$.fn.datagrid.defaults.view});
         dg.datagrid('showColumn',"LogoClub");
 		if (hasGrades)	dg.datagrid('showColumn',"Grado");
 		else dg.datagrid('hideColumn',"Grado");
@@ -125,8 +122,8 @@ function vw_updateDataInfo(evt,data) {
     $('#vw_header-infoprueba').html(infoprueba);
     $('#vw_header-ring').html(data.Sesion.Nombre);
 	// on international competitions, use federation Organizer logo
-	var logo='/agility/images/logos/'+data.Club.Logo;
-	if ( (data.Club.logo==="") || isInternational(data.Prueba.RSCE)) {
+	var logo='/agility/images/logos/'+data.Club.Logo; // dont use "LogoClub" as direct translation from db
+	if ( (data.Club.Logo==="") || isInternational(data.Prueba.RSCE)) {
 		logo=ac_fedInfo[data.Prueba.RSCE].OrganizerLogo
 	}
 	$('#vw_header-logo').attr('src',logo);
@@ -162,7 +159,7 @@ function vwc_updateDataInfo(evt,data) {
 	$('#vwc_header-ring').html(data.Sesion.Nombre);
 	// on international competitions, use federation Organizer logo
 	var logo='/agility/images/logos/'+data.Club.Logo;
-	if ( (data.Club.logo==="") || isInternational(data.Prueba.RSCE)) {
+	if ( (data.Club.Logo==="") || isInternational(data.Prueba.RSCE)) {
 		logo=ac_fedInfo[data.Prueba.RSCE].OrganizerLogo
 	}
 	$('#vwc_header-logo').attr('src',logo);

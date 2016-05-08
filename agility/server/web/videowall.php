@@ -197,7 +197,7 @@ class VideoWall {
             'Prueba' => $this->prueba['ID'],
             'Jornada' => $this->jornada['ID'],
             'Manga' => $this->mangaid,
-            'Logo' => 'empty.png',
+            'LogoClub' => 'empty.png',
             'Orden' => "",
             'Dorsal' => 0,
             'Perro' => 0,

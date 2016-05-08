@@ -338,15 +338,14 @@ Modelo simplificado de resultados finales
             $('#vwcf_header-infomanga').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d); // fix header
-                vw_formatResultadosDatagrid($('#vwcf_clasificacion-datagrid'),e,d); // fix team/logos/cat/grade presentation
-                vw_formatResultadosDatagrid($('#vwcf_ultimos-datagrid'),e,d); // fix team/logos/cat/grade presentation
+                vw_formatResultadosDatagrid($('#vwcf_clasificacion-datagrid'),e,d,true); // fix team/logos/cat/grade presentation
+                vw_formatResultadosDatagrid($('#vwcf_ultimos-datagrid'),e,d,false); // fix team/logos/cat/grade presentation for last teams
                 vwcf_updateLlamada(e,d);
             });
         },
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
-                /* vw_updateFinales(e,d); */ // required to be done at updateLlamada
                 vwcf_updateLlamada(e,d);
             });
         },

@@ -156,7 +156,7 @@ var eventHandler= {
         vw_updateWorkingData(event,function(e,d){
             vw_updateWorkingData(event,function(e,d){
                 vw_updateDataInfo(e,d);
-                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d);
+                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,true);
                 vw_updateLlamada(e,d);
             });
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
@@ -166,7 +166,6 @@ var eventHandler= {
     'open': function(event){ // operator select tanda
         vw_updateWorkingData(event,function(e,d){
             vw_updateDataInfo(e,d);
-            vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d); // TODO: remove when debug get done
             vw_updateParciales(e,d);
         });
     },
