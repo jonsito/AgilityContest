@@ -608,7 +608,7 @@ class Jornadas extends DBObject {
 
 	static function __compose(&$data,$prueba,$jornadaid,$tiporonda,$m1,$m2){
 		$heights=intval(Federations::getFederation( intval($prueba['RSCE']) )->get('Heights'));
-		switch($m1['Recorrido']){ // should be the same than $m2['Recorrido']
+		switch(intval($m1['Recorrido'])){ // should be the same than $m2['Recorrido']
 			case 0: // separado
 				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],0,$m1,$m2)); // large
 				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],1,$m1,$m2)); // medium
@@ -650,20 +650,17 @@ class Jornadas extends DBObject {
 		$jornada=$dbobj->__getArray("Jornadas",$jornadaid);
 		$prueba=$dbobj->__getArray("pruebas",$jornada['Prueba']);
 		$mangas=$dbobj->__select("*","Mangas","(Jornada=$jornadaid)","TIPO ASC","")['rows'];
-		$heights=intval(Federations::getFederation( intval($prueba['RSCE']) )->get('Heights'));
 		$data=array();
 		if ($jornada['PreAgility2']!=0) {
 			// $dbobj->myLogger->trace("Procesando mangas de preagility-2");
 			/* Pre-Agility siempre tiene recorrido comun para todas las categorias */
 			$m1=Jornadas::__searchManga(1,$mangas); // PA-1
 			$m2=Jornadas::__searchManga(2,$mangas); // PA-2
-			// array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,2,$m1['Recorrido'],($heights==3)?4:8,$m1,$m2));
 			Jornadas::__compose($data, $prueba, $jornadaid, 2, $m1, $m2);
 		} else if ($jornada['PreAgility']!=0) {
 			// $dbobj->myLogger->trace("Procesando mangas de preagility-1");
 			/* Pre-Agility siempre tiene recorrido comun para todas las categorias */
 			$m1=Jornadas::__searchManga(1,$mangas); // PA-1
-			// array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,1,$m1['Recorrido'],($heights==3)?4:8,$m1,null));
 			Jornadas::__compose($data, $prueba, $jornadaid, 1, $m1, null);
 		}
 		if ($jornada['Grado1']!=0) {  // Jornadas::tiporonda=3

@@ -80,19 +80,22 @@ class VideoWall {
         // retrieve rounds for this journey
         if ($mangaid!=0){
             $rondas=Jornadas::enumerateRondasByJornada($jornadaid)['rows'];
-            $this->myLogger->trace("RONDAS:\n".json_encode($rondas));
             foreach($rondas as $ronda) {
+                $cat=Tandas::$tipo_tanda[$this->tandatype]['Categoria'];
+                $this->myLogger->trace("MangaID {$this->mangaid} Cat: $cat Ronda: ".json_encode($ronda));
                 if ($ronda['Manga1']==$this->mangaid) {
-                    $cat=Tandas::$tipo_tanda[$this->tandatype]['Categoria'];
-                    if (strpos($ronda['Categoria'],$cat)===false) continue;
-                    $this->ronda=$ronda;
-                    break;
+                    foreach( str_split($cat) as $c) {
+                        if (strpos($ronda['Categoria'],$c)===false) continue;
+                        $this->ronda=$ronda;
+                        break;
+                    }
                 }
                 if ($ronda['Manga2']==$this->mangaid){
-                    $cat=Tandas::$tipo_tanda[$this->tandatype]['Categoria'];
-                    if (strpos($ronda['Categoria'],$cat)===false) continue;
-                    $this->ronda=$ronda;
-                    break;
+                    foreach( str_split($cat) as $c) {
+                        if (strpos($ronda['Categoria'],$c)===false) continue;
+                        $this->ronda=$ronda;
+                        break;
+                    }
                 }
             }
         }
