@@ -77,6 +77,10 @@ function toFixedT(value,numdecs) {
 	}
 }
 
+function toPercent(val,percent) {
+	return Math.round( parseFloat(val)*parseFloat(percent)/100.0);
+}
+
 /**
  * Set text of 'header' field on main window
  * @param {string} msg text to be shown

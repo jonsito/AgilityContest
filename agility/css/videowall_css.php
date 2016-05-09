@@ -164,7 +164,7 @@ td.vw_club {
 
 .vw_equipos3 span {
     vertical-align:top;
-    display:table-cell;
+    display:inline-block;
 }
 
 /************* estilos de la tabla de inscripciones por equipos */
