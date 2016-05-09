@@ -150,21 +150,21 @@ function formatTeamResults( name,value , rows ) {
             addLogo(rows[n].LogoClub);
         }
     }
-    var width=toPercent($(name).datagrid('getPanel').panel('options').width,95);
+    var width=toPercent($(name).datagrid('getPanel').panel('options').width,90);
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
     var result= '<div class="vw_equipos3" style="width:'+width+'px">'+
-    '<span style="width:'+toPercent(width,30)+'px;text-align:left;">'+logos+'</span>'+
-    '<span style="width:'+toPercent(width,35)+'px;text-align:left;">'+value+'</span>' +
-    '<span style="width:'+toPercent(width,15)+'px;text-align:right;">T: '+toFixedT(time,ac_config.numdecs)+'</span>' +
-    '<span style="width:'+toPercent(width,15)+'px;text-align:right;">P:'+toFixedT(penal,ac_config.numdecs)+'</span>'+
-    '<span style="width:'+toPercent(width,05)+'px;text-align:right;font-size:1.5em;">'+(workingData.teamCounter++)+'</span>'+
+    '<span style="width:'+toPercent(width,20)+'px;text-align:left;">'+logos+'</span>'+
+    '<span style="width:'+toPercent(width,45)+'px;text-align:right;">'+value+'</span>' +
+    '<span style="width:'+toPercent(width,10)+'px;text-align:right;">T: '+toFixedT(time,ac_config.numdecs)+'</span>' +
+    '<span style="width:'+toPercent(width,10)+'px;text-align:right;">P:'+toFixedT(penal,ac_config.numdecs)+'</span>'+
+    '<span style="width:'+toPercent(width,15)+'px;text-align:right;">'+(workingData.teamCounter++)+'</span>'+
     '</div>';
     // console.log(result);
     return result;
 }
 
-function formatVwTeamResults(value,rows) { return formatTeamResults('#vw_parciales-data',value,rows); }
-function formatPbTeamResults(value,rows) { return formatTeamResults('#pb_parciales-data',value,rows); }
+function formatVwTeamResults(value,rows) { return formatTeamResults('#vw_parciales-datagrid',value,rows); }
+function formatPbTeamResults(value,rows) { return formatTeamResults('#pb_parciales-datagrid',value,rows); }
 
 function formatTeamResultsConsole( value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
