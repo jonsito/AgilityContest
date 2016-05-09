@@ -223,7 +223,7 @@ var eventHandler= {
             vw_updateLlamada(e,d);
         });
     },
-    'open': function(event){ // operator select tanda
+    'open': function(event){ // operator select tandax
         vw_updateWorkingData(event,function(e,d){
             vw_updateDataInfo(e,d);
             vw_updateParciales(e,d);

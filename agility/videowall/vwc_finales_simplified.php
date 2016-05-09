@@ -203,6 +203,8 @@ Modelo simplificado de resultados finales
         loadMsg: "<?php _e('Updating round scores');?>...",
         rowStyler:myRowStyler,
         onBeforeLoad: function (param) {
+            // make sure team counter is reset
+            workingData.teamCounter=1;
             // do not update until 'open' received
             if( $('#vwcf_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
             return true;
@@ -343,7 +345,7 @@ Modelo simplificado de resultados finales
                 vwcf_updateLlamada(e,d);
             });
         },
-        'open': function (event, time) { // operator select tanda
+        'open': function (event, time) { // operator select tandax
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
                 vw_formatClasificacionesDatagrid($('#vwcf_clasificacion-datagrid'),e,d,formatVwTeamClasificaciones); // fix team/logos/cat/grade presentation

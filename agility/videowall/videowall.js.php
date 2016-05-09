@@ -52,8 +52,10 @@ function vw_updateWorkingData(evt,callback) {
 			Tanda:workingData.datosTanda,
 			Sesion:workingData.datosSesion
 		};
-		setTimeout(callback(evt,data),0);
+		if ( typeof(callback)==='function' ) setTimeout(callback(evt,data),0);
+		return;
 	}
+	// data change: reset team counter
     $.ajax( {
         type: "GET",
         dataType: 'json',
@@ -679,6 +681,7 @@ function vwcf_updateFinales(evt,data,callback) {
 				$('#vwcf_finales-Velocidad2').html('<?php _e('Vel');?>: ' + dat['trs2'].vel + 'm/s');
 			}
 			// rellena tabla de clasificaciones
+			workingData.teamCounter=1;
 			$('#vwcf_clasificacion-datagrid').datagrid('loadData',dat);
 			if (typeof(callback)==='function') callback(dat);
 		}

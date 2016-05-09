@@ -163,7 +163,7 @@ var eventHandler= {
             $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
         });
     },
-    'open': function(event){ // operator select tanda
+    'open': function(event){ // operator select tandac
         vw_updateWorkingData(event,function(e,d){
             vw_updateDataInfo(e,d);
             vw_updateParciales(e,d);

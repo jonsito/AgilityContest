@@ -256,6 +256,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         autoRowHeight:true, // let the formatters decide the size
         rowStyler:myRowStyler,
         onBeforeLoad: function (param) {
+            workingData.teamCounter=1; // reset team counter
             // do not update until 'open' received
             if( $('#vwcf_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
             return true;
@@ -368,7 +369,7 @@ Pantalla de de visualizacion combinada llamada/parciales
                 vwcf_updateLlamada(e,d);
             });
         },
-        'open': function (event, time) { // operator select tanda
+        'open': function (event, time) { // operator select tandaxx
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
                 vw_formatClasificacionesDatagrid($('#vwcf_clasificacion-datagrid'),e,d,formatVwTeamClasificaciones); // fix team/logos/cat/grade presentation
