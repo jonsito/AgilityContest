@@ -227,7 +227,7 @@ $config =Config::getInstance();
             dg.datagrid('options').expandedRow=idx;
             // update session dataassistant
             tablet_updateSession(row);
-            if (row.Tipo!=0) tablet_showPerrosByTanda(idx,row);
+            if (row.Tipo!=0) setTimeout( function(){tablet_showPerrosByTanda(idx,row)},0);
         },
         onCollapseRow: function(idx,row) {
             row.expanded=0;
