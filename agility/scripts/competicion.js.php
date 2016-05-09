@@ -152,15 +152,13 @@ function formatTeamResults( name,value , rows ) {
     }
     var width=toPercent($(name).datagrid('getPanel').panel('options').width,90);
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
-    var result= '<div class="vw_equipos3" style="width:'+width+'px">'+
+    return '<div class="vw_equipos3" style="width:'+width+'px">'+
     '<span style="width:'+toPercent(width,20)+'px;text-align:left;">'+logos+'</span>'+
     '<span style="width:'+toPercent(width,45)+'px;text-align:right;">'+value+'</span>' +
     '<span style="width:'+toPercent(width,10)+'px;text-align:right;">T: '+toFixedT(time,ac_config.numdecs)+'</span>' +
     '<span style="width:'+toPercent(width,10)+'px;text-align:right;">P:'+toFixedT(penal,ac_config.numdecs)+'</span>'+
-    '<span style="width:'+toPercent(width,15)+'px;text-align:right;">'+(workingData.teamCounter++)+'</span>'+
+    '<span style="width:'+toPercent(width,15)+'px;text-align:right;">'+(workingData.teamCounter++)+'&nbsp;</span>'+
     '</div>';
-    // console.log(result);
-    return result;
 }
 
 function formatVwTeamResults(value,rows) { return formatTeamResults('#vw_parciales-datagrid',value,rows); }
@@ -225,20 +223,19 @@ function formatTeamClasificaciones(dgname,value,rows) {
     // el resultado final es la suma de las mangas
     var time=manga1.time+manga2.time;
     var penal=manga1.penal+manga2.penal;
-    var str= sprintf(" %20s -- T1:%03.3f P1:%03.3f -- T2:%03.3f P2:%03.3f -- Tiempo: %03.3f Penal:%03.3f ",
-        value,
-        toFixedT((manga1.time),ac_config.numdecs),toFixedT((manga1.penal),ac_config.numdecs),
-        toFixedT((manga2.time),ac_config.numdecs),toFixedT((manga2.penal),ac_config.numdecs),
-        toFixedT(time,ac_config.numdecs),toFixedT(penal,ac_config.numdecs)
+    var m1="T1: "+toFixedT((manga1.time),ac_config.numdecs)+" -- P1: "+toFixedT((manga1.penal),ac_config.numdecs);
+    var m2="T2: "+toFixedT((manga2.time),ac_config.numdecs)+" -- P2: "+toFixedT((manga2.penal),ac_config.numdecs);
+    var mf="<?php _e('Time');?>: "+toFixedT(time,ac_config.numdecs)+" -- <?php _e('Penal');?>: "+toFixedT(penal,ac_config.numdecs);
 
-    );
-    var width=toPercent($(dgname).datagrid('getPanel').panel('options').width,80);
-    console.log("Width:"+width);
-    // !Por fin! componemos una tabla html como respuesta
-    return '<div class="vw_equipos3" style="width:'+width+'">'+
-        '<span>'+logos+'</span>'+
-        '<span><pre style="font-family:monospaced;">'+str+'</pre></span>' +
-        '<span style="text-align:right;font-size:1.5em">&nbsp;'+(workingData.teamCounter++)+'</span>'+
+    var width=toPercent($(dgname).datagrid('getPanel').panel('options').width,90); // let expand button to exist
+    // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
+    return '<div class="vw_equipos3" style="width:'+width+'px">'+
+        '<span style="width:'+toPercent(width,15)+'px;text-align:left;">'+logos+'</span>'+
+        '<span style="width:'+toPercent(width,20)+'px;text-align:left;">'+value+'</span>' +
+        '<span style="width:'+toPercent(width,15)+'px;text-align:left;">'+m1+'</span>' +
+        '<span style="width:'+toPercent(width,15)+'px;text-align:left;">'+m2+'</span>'+
+        '<span style="width:'+toPercent(width,25)+'px;text-align:right;">'+mf+'</span>'+
+        '<span style="width:'+toPercent(width,10)+'px;text-align:right;font-size:1.25vw;">'+(workingData.teamCounter++)+'&nbsp;</span>'+
         '</div>';
 }
 
