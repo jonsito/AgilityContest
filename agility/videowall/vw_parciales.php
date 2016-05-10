@@ -166,6 +166,7 @@ var eventHandler= {
     'open': function(event){ // operator select tandac
         vw_updateWorkingData(event,function(e,d){
             vw_updateDataInfo(e,d);
+            vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults);
             vw_updateParciales(e,d);
         });
     },

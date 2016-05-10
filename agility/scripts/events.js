@@ -38,7 +38,7 @@ function parseEvent(data) {
 	return response; 
 }
 
-$(function(evtID,timestamp){
+// $(function(evtID,timestamp){
 	function waitForEvents(evtID,timestamp){
 
 		function handleSuccess(data,status,jqXHR){
@@ -75,10 +75,8 @@ $(function(evtID,timestamp){
 			error: handleError
 		});
 	}
-
-	waitForEvents(evtID,timestamp);
-});
-
+	// waitForEvents(evtID,timestamp);
+// });
 
 /** 
  * Call "connect" to retrieve last "open" event for provided session ID
