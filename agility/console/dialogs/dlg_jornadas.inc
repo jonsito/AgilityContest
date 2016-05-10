@@ -42,7 +42,7 @@ $config =Config::getInstance();
                 <select id="jornadas-Fecha" name="Fecha" class="easyui-datebox" style="width:250px;text-align:right"></select>
             </div>
             <div class="fitem">
-                <label for="jornadas-Hora"><?php _e('Time'); ?></label>
+                <label for="jornadas-Hora"><?php _e('Hour'); ?></label>
                 <input id="jornadas-Hora" name="Hora" class="easyui-timespinner" style="width:250px;text-align:right"/>
             </div>
             <div class="fitem">

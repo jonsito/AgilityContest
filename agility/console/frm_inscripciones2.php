@@ -135,7 +135,7 @@ $('#inscripciones-jornadas').datagrid({
       	    { field:'Numero',		width:10, sortable:false,	align:'center', title: '#'},
 			{ field:'Nombre',		width:60, sortable:false,   align:'right',  title: '<?php _e('Name/Comment');?>',formatter:formatBold },
 			{ field:'Fecha',		width:30, sortable:false,	align:'right',  title: '<?php _e('Date');?>: ' },
-			{ field:'Hora',			width:25, sortable:false,	align:'right',  title: '<?php _e('Time');?>:  ' },
+			{ field:'Hora',			width:25, sortable:false,	align:'right',  title: '<?php _e('Hour');?>:  ' },
 			{ field:'Grado1',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-I  ');?>' },
 			{ field:'Grado2',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-II ');?>' },
 			{ field:'Grado3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-III');?>' },

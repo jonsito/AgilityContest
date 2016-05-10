@@ -130,7 +130,7 @@ class XLSX_Writer {
 
         // anyadimos ahora informacion de las jornadas
         $this->myWriter->addRow(array(""));
-        $jrdHdr=array("",_utf('Name'),_utf('Date'),_utf('Time'),_utf('Closed'),"" /*_utf('Special round')*/);
+        $jrdHdr=array("",_utf('Name'),_utf('Date'),_utf('Hour'),_utf('Closed'),"" /*_utf('Special round')*/);
         $this->myWriter->addRowWithStyle($jrdHdr, $this->rowHeaderStyle);
         foreach ($jornadas as $jornada) {
             if ($jornada['Nombre']==='-- Sin asignar --') continue; // skip empty journeys

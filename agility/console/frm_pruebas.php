@@ -150,7 +150,7 @@ $config =Config::getInstance();
             	    { field:'Numero',		width:4, sortable:true,		align:'center', title: '#'},
             		{ field:'Nombre',		width:20, sortable:false,   title: '<?php _e('Name'); ?>'+'/'+'<?php _e('Comments'); ?>',formatter:formatBold },
             		{ field:'Fecha',		width:12, sortable:true,	title: '<?php _e('Date'); ?>' },
-            		{ field:'Hora',			width:10, sortable:false,	title: '<?php _e('Time'); ?>' },
+            		{ field:'Hora',			width:10, sortable:false,	title: '<?php _e('Hour'); ?>' },
             		{ field:'PreAgility',	width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'P.A. -1' },
             		{ field:'PreAgility2',	width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'P.A. -2' },
             		{ field:'Grado1',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'G-I    ' },
