@@ -46,8 +46,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <script type="text/javascript">
 
 // fire autorefresh if configured
-var rtime=parseInt(ac_config.web_refreshtime);
-if (rtime!=0) setInterval(pb_updateInscripciones_eq3,1000*rtime);
+// var rtime=parseInt(ac_config.web_refreshtime);
+// if (rtime!=0) setInterval(pb_updateInscripciones_eq3,1000*rtime);
 
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update inscription list"); ?>');
 $('#pb_inscripciones-layout').layout({fit:true});
@@ -68,7 +68,8 @@ $('#pb_inscripciones-window').window({
         pb_setFooterInfo();
 	},
 	onClose: function() { 
-		clearInterval($(this).window.defaults.callback);
+        // do not auto-refresh in inscriptions
+		// clearInterval($(this).window.defaults.callback);
 	}
 });
 
@@ -116,9 +117,12 @@ $('#pb_inscripciones_eq3-datagrid').datagrid({
         showInscripcionesByTeam(idx,row);
     },
     onLoadSuccess: function(data) {
+        function fireUp(index) {
+            setTimeout(function() {dg.datagrid('expandRow',index);},1000*index);
+        }
         var dg = $('#pb_inscripciones_eq3-datagrid');
         var count = dg.datagrid('getRows').length;
-        for(var i=0; i<count; i++){ dg.datagrid('expandRow',i); }
+        for(var i=0; i<count; i++) fireUp(i);
     }
 });
 
