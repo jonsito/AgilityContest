@@ -37,8 +37,7 @@ class PublicWeb
     protected $mode;
     protected $club;
 
-    function __construct($pruebaid, $jornadaid, $mangaid, $mode)
-    {
+    function __construct($pruebaid, $jornadaid, $mangaid, $mode) {
         $this->config = Config::getInstance();
         $this->myLogger = new Logger("PublicWeb.php", $this->config->getEnv("debug_level"));
         $this->myDBObject = new DBObject("PublicWeb"); // also is a dbobject. used to retrieve logos
@@ -55,8 +54,7 @@ class PublicWeb
         $this->myLogger->info("prueba:{$this->prueba['ID']} jornada:{$this->jornada['ID']} manga:{$this->mangaid} mode:$mode");
     }
 
-    function publicweb_infodata()
-    {
+    function publicweb_infodata() {
         $res = array(
             'Prueba' => $this->prueba,
             'Jornada' => $this->jornada,
@@ -64,6 +62,14 @@ class PublicWeb
             'Club' => $this->club // club organizador
         );
         echo json_encode($res);
+    }
+
+    /** deploy a contest->journeys->series->rounds tree */
+    function publicweb_deploy() {
+        // retrieve contest data
+        // retrieve journeys for this contest
+        // retrieve series for each journey
+        // retrieve rounds for each series
     }
 }
 
@@ -75,10 +81,13 @@ $jornada = http_request("Jornada","i",0);
 $manga = http_request("Manga","i",0);
 $mode = http_request("Mode","i",0); // used on access from public
 
-$vw=new PublicWeb($prueba,$jornada,$manga,$mode);
+$pb=new PublicWeb($prueba,$jornada,$manga,$mode);
 try {
-    if($operacion==="infodata") $vw->publicweb_infodata();
-    else throw new Exception("public.php: operacion invalida:'$operacion'");
+    switch ($operacion) {
+        case "infodata": $pb->publicweb_infodata(); break;
+        case "deploy":   $pb->publicweb_deploy(); break;
+        default:throw new Exception("public.php: operacion invalida:'$operacion'"); break;
+    }
 } catch (Exception $e) {
 	echo "<p>Error:<br />".$e->getMessage()."</p>";
 }

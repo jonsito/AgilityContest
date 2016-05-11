@@ -134,7 +134,7 @@ require_once(__DIR__. "/server/upgradeVersion.php");
 </head>
 <body class="easyui-layout" data-options="fit:true">
 
-    <div id="menu_panel" data-options="region:'west',width:500,split=false">
+    <div id="menu_panel" data-options="title:'Menu',region:'west',split:true" style="width:80%">
         <div style="float:right;padding:2%">
         <h2>Seguimiento de datos en en l&iacute;nea</h2>
         <dl class="menu_enum">
@@ -201,7 +201,7 @@ require_once(__DIR__. "/server/upgradeVersion.php");
         </div>
     </div>
 
-    <div id="data_panel" data-options="region:'center'">
+    <div id="data_panel" data-options="title:'Data',region:'center'">
     </div>
 
 </body>
