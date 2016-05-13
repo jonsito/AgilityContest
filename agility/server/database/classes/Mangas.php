@@ -96,7 +96,7 @@ class Mangas extends DBObject {
 	
 	/**
 	 * inserta una manga en la jornada
-	 * @param {integer} $tipo ID del tipo manga (tabla 'Tipo_Manga')
+	 * @param {integer} $tipo ID del tipo manga (tabla 'Mangas::Tipo_Manga')
 	 * @param {string} $grado valor asociado al grado de la manga de la ID dada
 	 * @return {string} empty on success, else error 
 	 */
@@ -320,12 +320,16 @@ class Mangas extends DBObject {
 	function selectByJornada() {
 		$this->myLogger->enter();
 		$result=$this->__select(
-			/* SELECT */"Mangas.ID AS ID, Mangas.Tipo AS Tipo, Mangas.Recorrido AS Recorrido,Tipo_Manga.Grado AS Grado, Tipo_Manga.Descripcion AS Descripcion",
-			/* FROM */ "Mangas,Tipo_Manga",
-			/* WHERE */ "( ( Jornada = {$this->jornada} ) AND ( Mangas.Tipo = Tipo_Manga.ID ) )",
-			/* ORDER */ "Descripcion ASC",
+			/* SELECT */"ID,Tipo,Recorrido,Grado",
+			/* FROM */ "Mangas",
+			/* WHERE */ "(Jornada = {$this->jornada} )",
+			/* ORDER */ "Tipo ASC",
 			/* LIMIT */ ""
 		);
+		foreach ( $result['rows'] as &$item) {
+			// merge information on Mangas::Tipo_Manga without using database Tipo_Manga table (to allow i18n)
+			$item['Descripcion']=Mangas::$tipo_manga[$item['Tipo']][1];
+		}
 		$this->myLogger->leave();
 		return $result;
 	}

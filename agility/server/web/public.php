@@ -66,8 +66,11 @@ class PublicWeb
 
     /** deploy a contest->journeys->series->rounds tree */
     function publicweb_deploy() {
+        $result=array();
         // retrieve contest data
+        $result['Prueba']=$this->prueba;
         // retrieve journeys for this contest
+        $result['Jornadas']=$this->myDBObject->__select("*","Jornadas","(Prueba={$this->prueba['ID']}","","" );
         // retrieve series for each journey
         // retrieve rounds for each series
     }
