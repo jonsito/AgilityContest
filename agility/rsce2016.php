@@ -33,6 +33,7 @@ if (!$am->allowed(ENABLE_PUBLIC)) {
 }
 // tool to perform automatic upgrades in database when needed
 require_once(__DIR__. "/server/upgradeVersion.php");
+require_once(__DIR__. "/server/web/public.php");
 
 ?>
 
@@ -117,6 +118,7 @@ require_once(__DIR__. "/server/upgradeVersion.php");
             height: 100%;
         }
         #menu_panel {
+            /* background should be extracted from contest poster information */
             background: #000000 url("background.jpg") no-repeat bottom left;
             background-size: 100% 100%;
             width: 100%;
@@ -137,67 +139,40 @@ require_once(__DIR__. "/server/upgradeVersion.php");
     <div id="menu_panel" data-options="title:'Menu',region:'west',split:true" style="width:80%">
         <div style="float:right;padding:2%">
         <h2>Seguimiento de datos en en l&iacute;nea</h2>
-        <dl class="menu_enum">
-            <dt>Trofeo Interclubes RSCE</dt>
-            <dd>
-                <ol>
-                    <li>Inscripciones</li>
-                    <li>Orden de salida
-                        <ul>
-                            <li>Standard</li>
-                            <li>Midi</li>
-                            <li>Mini</li>
-                        </ul>
-                    </li>
-                    <li>Resultados parciales
-                        <ul>
-                            <li>Agility Standard</li>
-                            <li>Agility Midi-Mini</li>
-                            <li>Jumping Standard</li>
-                            <li>Jumping Midi-Mini</li>
-                        </ul>
-                    </li>
-                    <li>Clasificaci&oacute;n final
-                        <ul>
-                            <li>Standard</li>
-                            <li>Midi-Mini</li>
-                        </ul>
-                    </li>
-                </ol>
-            </dd>
-            <br/>
-            <dt>Campeonato en Espa&ntilde;a RSCE</dt>
-            <dd>
-                <ol>
-
-                    <li>Inscripciones</li>
-                    <li>Orden de salida
-                        <ul>
-                            <li>Standard</li>
-                            <li>Midi</li>
-                            <li>Mini</li>
-                        </ul>
-                    </li>
-                    <li>Resultados parciales
-                        <ul>
-                            <li>Agility Standard</li>
-                            <li>Agility Midi</li>
-                            <li>Agility Mini</li>
-                            <li>Jumping Standard</li>
-                            <li>Jumping Midi</li>
-                            <li>Jumping Mini</li>
-                        </ul>
-                    </li>
-                    <li>Clasificaci&oacute;n final
-                        <ul>
-                            <li>Standard</li>
-                            <li>Midi</li>
-                            <li>Mini</li>
-                        </ul>
-                    </li>
-                </ol>
-            </dd>
-        </dl>
+            <?php
+            $pb=new PublicWeb(18);
+            $ptree=$pb->publicweb_deploy();
+            echon("<h2>{$ptree['Prueba']['Nombre']}</h2>");
+            echon('<dl class="menu_enum">');
+            foreach ($ptree['Jornadas'] as $jornada) {
+                if ($jornada['Nombre']==='-- Sin asignar --') continue;
+                echon( "<dt>{$jornada['Nombre']}</dt>");
+                echon("<dd><ol>");
+                echon("<li>"._("Timetable")."</li>");
+                echon("<li>"._("Inscriptions")."</li>");
+                echon("<li>"._("Starting order")."</li>");
+                echon("<ul>");
+                foreach ($jornada['Tandas'] as $tanda ){
+                    if ($tanda['TipoManga']==0) continue; // skip user defined tandas
+                    echon ("<ul>".$tanda['Nombre']."</ul>");
+                }
+                echon("</ul>");
+                echon("<li>"._("Partial scores")."</li>");
+                echon("<ul>");
+                foreach ($jornada['Mangas'] as $manga ){
+                    echon ("<ul>".$manga['Nombre']."</ul>");
+                }
+                echon("</ul>");
+                echon("<li>"._("Final scores")."</li>");
+                echon("<ul>");
+                foreach ($jornada['Series'] as $serie ){
+                    echon ("<ul>".$serie['Nombre']."</ul>");
+                }
+                echon("</ul>");
+                echon("</ol></dd>");
+            }
+            echon('</dl>');
+            ?>
         </div>
     </div>
 

@@ -41,7 +41,7 @@ function pb_getHeaderInfo() {
     $.ajax( {
         type: "GET",
         dataType: 'json',
-        url: "/agility/server/web/public.php",
+        url: "/agility/server/web/publicFunctions.php",
         data: {
             Operation: 'infodata',
             Prueba: workingData.prueba,

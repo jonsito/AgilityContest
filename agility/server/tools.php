@@ -42,6 +42,9 @@ if( ! function_exists('_utf')) {
 	}
 }
 
+/* add a new line in echo sentence */
+function echon($str) { echo $str . "\n"; }
+
 /* disable send compressed data to client from apache */
 function disable_gzip() {
 	@ini_set('zlib.output_compression', 'Off');

@@ -37,7 +37,7 @@ class PublicWeb
     protected $mode;
     protected $club;
 
-    function __construct($pruebaid, $jornadaid, $mangaid, $mode) {
+    function __construct($pruebaid, $jornadaid=0, $mangaid=0, $mode=0) {
         $this->config = Config::getInstance();
         $this->myLogger = new Logger("PublicWeb.php", $this->config->getEnv("debug_level"));
         $this->myDBObject = new DBObject("PublicWeb"); // also is a dbobject. used to retrieve logos
@@ -61,7 +61,7 @@ class PublicWeb
             'Manga' => ($this->manga == null) ? array() : $this->manga,
             'Club' => $this->club // club organizador
         );
-        echo json_encode($res);
+        return $res;
     }
 
     /** deploy a contest->journeys->series->rounds tree */
@@ -70,28 +70,17 @@ class PublicWeb
         // retrieve contest data
         $result['Prueba']=$this->prueba;
         // retrieve journeys for this contest
-        $result['Jornadas']=$this->myDBObject->__select("*","Jornadas","(Prueba={$this->prueba['ID']}","","" );
-        // retrieve series for each journey
-        // retrieve rounds for each series
+        $result['Jornadas']=$this->myDBObject->__select("*","Jornadas","(Prueba={$this->prueba['ID']})","","" )['rows'];
+        foreach($result['Jornadas'] as &$jornada) {
+            // retrieve rounds for each series
+            $jornada['Mangas']=Jornadas::enumerateMangasByJornada($jornada['ID'])['rows'];
+            // retrieve series for each journey
+            $tnd=new Tandas("publicweb_deploy",$this->prueba['ID'],$jornada['ID']);
+            $jornada['Tandas']=$tnd->getTandas(0)['rows']; // incluye user defined rounds ( to display timetable )
+            // retrieve final results index for each series
+            $jornada['Series']=Jornadas::enumerateRondasByJornada($jornada['ID'])['rows'];
+        }
+        return $result;
     }
 }
-
-$operacion = http_request("Operation","s",null);
-$pendientes = http_request("Pendientes","i",10);
-// on session==0, use this elements as IDentifiers
-$prueba = http_request("Prueba","i",0);
-$jornada = http_request("Jornada","i",0);
-$manga = http_request("Manga","i",0);
-$mode = http_request("Mode","i",0); // used on access from public
-
-$pb=new PublicWeb($prueba,$jornada,$manga,$mode);
-try {
-    switch ($operacion) {
-        case "infodata": $pb->publicweb_infodata(); break;
-        case "deploy":   $pb->publicweb_deploy(); break;
-        default:throw new Exception("public.php: operacion invalida:'$operacion'"); break;
-    }
-} catch (Exception $e) {
-	echo "<p>Error:<br />".$e->getMessage()."</p>";
-}
-return 0;
+?>
