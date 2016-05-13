@@ -109,6 +109,22 @@ require_once(__DIR__. "/server/web/public.php");
             if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
         }
 
+        function loadInscriptions(prueba,jornada) {
+
+        }
+        function loadTimeTable(prueba,jornada) {
+
+        }
+        function loadOrdenSalida(prueba,jornada,tanda) {
+
+        }
+        function loadPartialScores(prueba,jornada,manga) {
+
+        }
+        function loadFinalScores(prueba,jornada,serie) {
+
+        }
+
     </script>
 
     <style type="text/css">
@@ -140,36 +156,42 @@ require_once(__DIR__. "/server/web/public.php");
         <div style="float:right;padding:2%">
         <h2>Seguimiento de datos en en l&iacute;nea</h2>
             <?php
-            $pb=new PublicWeb(18);
+            $pruebaID=18;
+            $pb=new PublicWeb($pruebaID);
             $ptree=$pb->publicweb_deploy();
             echon("<h2>{$ptree['Prueba']['Nombre']}</h2>");
             echon('<dl class="menu_enum">');
             foreach ($ptree['Jornadas'] as $jornada) {
                 if ($jornada['Nombre']==='-- Sin asignar --') continue;
                 echon( "<dt>{$jornada['Nombre']}</dt>");
-                echon("<dd><ol>");
-                echon("<li>"._("Timetable")."</li>");
-                echon("<li>"._("Inscriptions")."</li>");
-                echon("<li>"._("Starting order")."</li>");
-                echon("<ul>");
-                foreach ($jornada['Tandas'] as $tanda ){
-                    if ($tanda['TipoManga']==0) continue; // skip user defined tandas
-                    echon ("<ul>".$tanda['Nombre']."</ul>");
-                }
-                echon("</ul>");
-                echon("<li>"._("Partial scores")."</li>");
-                echon("<ul>");
-                foreach ($jornada['Mangas'] as $manga ){
-                    echon ("<ul>".$manga['Nombre']."</ul>");
-                }
-                echon("</ul>");
-                echon("<li>"._("Final scores")."</li>");
-                echon("<ul>");
-                foreach ($jornada['Series'] as $serie ){
-                    echon ("<ul>".$serie['Nombre']."</ul>");
-                }
-                echon("</ul>");
-                echon("</ol></dd>");
+                echon("<dd>");
+                    echon("<ol>");
+                        echon('<li><a href="javascript:loadTimeTable('.$pruebaID.','.$jornada['ID'].')">o</a> '._("Timetable")."</li>");
+                        echon('<li><a href="javascript:loadInscriptions('.$pruebaID.','.$jornada['ID'].')">o</a> '._("Inscriptions")."</li>");
+                        echon('<li>'._("Starting order"));
+                            echon('<ul style="list-style:none">');
+                            foreach ($jornada['Tandas'] as $tanda ){
+                                if ($tanda['TipoManga']==0) continue; // skip user defined tandas
+                                echon ('<li><a href="javascript:loadTimeTable('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">o</a> '.$tanda['Nombre']."</li>");
+                            }
+                            echon("</ul>");
+                        echon("</li>");
+                        echon("<li>"._("Partial scores"));
+                            echon('<ul style="list-style:none">');
+                            foreach ($jornada['Mangas'] as $manga ){
+                                echon ('<li><a href="javascript:loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['ID'].')">o</a> '.$manga['Nombre']."</li>");
+                            }
+                            echon("</ul>");
+                        echon("</li>");
+                        echon("<li>"._("Final scores"));
+                            echon('<ul style="list-style:none">');
+                            foreach ($jornada['Series'] as $serie ){
+                                echon ('<li><a href="javascript:loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$serie['ID'].')">o</a> '.$serie['Nombre']."</li>");
+                            }
+                            echon("</ul>");
+                        echon("</li>");
+                    echon("</ol>");
+                echon("</dd>");
             }
             echon('</dl>');
             ?>
