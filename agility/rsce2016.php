@@ -35,6 +35,9 @@ if (!$am->allowed(ENABLE_PUBLIC)) {
 require_once(__DIR__. "/server/upgradeVersion.php");
 require_once(__DIR__. "/server/web/public.php");
 
+$pruebaID=18;
+$pb=new PublicWeb($pruebaID);
+$ptree=$pb->publicweb_deploy();
 ?>
 
 <!DOCTYPE html>
@@ -109,11 +112,34 @@ require_once(__DIR__. "/server/web/public.php");
             if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
         }
 
-        function loadInscriptions(prueba,jornada) {
+        function pb_collapseMenu() {
+            var p=$('#pb_layout');
+            $('#pb_layout').layout('panel','west').panel('options').width='1%';
+            $('#pb_layout').layout('collapse','west');
+            $('#pb_layout').layout('panel','east').panel('options').width='98%';
+            $('#pb_layout').layout('expand','east').panel('expand');
+        }
+        function pb_expandMenu() {
+            var p=$('#pb_layout');
+            $('#pb_layout').layout('panel','west').panel('options').width='1%';
+            $('#pb_layout').layout('collapse','west');
+            $('#pb_layout').layout('panel','east').panel('options').width='40%';
+            $('#pb_layout').layout('expand','east');
 
         }
+        function loadInscriptions(prueba,jornada) {
+            var p=<?php echo json_encode($ptree['Prueba']); ?>;
+            var j=<?php echo json_encode($ptree['Jornadas']); ?>;
+            setPrueba(p);
+            for(var n=0;n<j.length;j++) {
+                if ( parseInt(j[n]['ID'])!==jornada) continue;
+                setJornada(j[n]);
+                break;
+            }
+            pb_collapseMenu();
+        }
         function loadTimeTable(prueba,jornada) {
-
+            pb_expandMenu();
         }
         function loadOrdenSalida(prueba,jornada,tanda) {
 
@@ -133,6 +159,14 @@ require_once(__DIR__. "/server/web/public.php");
             padding:0;
             height: 100%;
         }
+        #poster_panel {
+            /* background should be extracted from contest poster information */
+            background: #000000 url("poster.jpg") no-repeat bottom left;
+            background-size: 100% 100%;
+            width: 100%;
+            height: auto;
+            min-height:100%;
+        }
         #menu_panel {
             /* background should be extracted from contest poster information */
             background: #000000 url("background.jpg") no-repeat bottom left;
@@ -150,15 +184,18 @@ require_once(__DIR__. "/server/web/public.php");
         }
     </style>
 </head>
-<body class="easyui-layout" data-options="fit:true">
+<body id="body">
 
-    <div id="menu_panel" data-options="title:'Menu',region:'west',split:true" style="width:80%">
+<div id="pb_layout">
+
+<div id="poster_panel" data-options="region:'west',split:false" style="width:40%">
+    <!-- render here contest poster image as declared in database -->
+</div>
+
+<div id="menu_panel" data-options="region:'center'">
         <div style="float:right;padding:2%">
         <h2>Seguimiento de datos en en l&iacute;nea</h2>
             <?php
-            $pruebaID=18;
-            $pb=new PublicWeb($pruebaID);
-            $ptree=$pb->publicweb_deploy();
             echon("<h2>{$ptree['Prueba']['Nombre']}</h2>");
             echon('<dl class="menu_enum">');
             foreach ($ptree['Jornadas'] as $jornada) {
@@ -198,8 +235,13 @@ require_once(__DIR__. "/server/web/public.php");
         </div>
     </div>
 
-    <div id="data_panel" data-options="title:'Data',region:'center'">
+    <div id="data_panel" data-options="region:'east',split:true,collapsed:true" style="width:20%">
+        <!-- to be replaced on mouse click to load proper page -->
+        <div id="contenido"></div>
     </div>
-
+</div>
+<script type="text/javascript">
+    $('#pb_layout').layout({fit:true});
+</script>
 </body>
 </html>
