@@ -6,11 +6,12 @@ BASEDIR=`dirname $0`/..
 INSTDIR=${1:=/var/www/html/AgilityContest}
 WEBDIR=${INSTDIR}/..
 
-#for UBUNTU
-OWNER=root
-GROUP=www-data
-#OWNER=${USER}
-#GROUP=apache
+# for UBUNTU
+#OWNER=root
+#GROUP=www-data
+# for Fedora/RedHat (sudo to proper user before running)
+OWNER=${USER}
+GROUP=apache
 
 # some checks
 echo -n "Check..."
@@ -46,8 +47,10 @@ echo -n "Restore config..."
 [ -f ${INSTDIR}.old/agility/server/auth/registration.info ] && \
     cp ${INSTDIR}.old/agility/server/auth/registration.info ${INSTDIR}/agility/server/auth
 # restore restricted mode from system.ini
-sed -i '/restricted/d' ${INSTDIR}/agility/server/auth/system.ini
-grep 'restricted' ${INSTDIR}.old/agility/server/auth/system.ini >> ${INSTDIR}/agility/server/auth/system.ini
+if [ -f ${INSTDIR}.old/agility/server/auth/system.ini ]; then
+	sed -i '/restricted/d' ${INSTDIR}/agility/server/auth/system.ini
+	grep 'restricted' ${INSTDIR}.old/agility/server/auth/system.ini >> ${INSTDIR}/agility/server/auth/system.ini
+fi
 echo "Done."
 
 # fix permissions
