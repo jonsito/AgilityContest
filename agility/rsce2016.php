@@ -135,16 +135,29 @@ $ptree=$pb->publicweb_deploy();
             var p=<?php echo json_encode($ptree['Prueba']); ?>;
             var j=<?php echo json_encode($ptree['Jornadas']); ?>;
             setPrueba(p);
-            for(var n=0;n<j.length;j++) {
+            for(var n=0;n<j.length;n++) {
                 if ( parseInt(j[n]['ID'])!==jornada) continue;
                 setJornada(j[n]);
                 break;
             }
             pb_collapseMenu(true);
+            var page="/agility/public/pbmenu_inscripciones.php";
+            if (isJornadaEq3() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
+            if (isJornadaEq4() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
+            $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
         function loadTimeTable(prueba,jornada) {
-            pb_expandMenu(true);
+            var p=<?php echo json_encode($ptree['Prueba']); ?>;
+            var j=<?php echo json_encode($ptree['Jornadas']); ?>;
+            setPrueba(p);
+            for(var n=0;n<j.length;n++) {
+                if ( parseInt(j[n]['ID'])!==jornada) continue;
+                setJornada(j[n]);
+                break;
+            }
+            pb_collapseMenu(true);
+            $('#pb_layout').layout('panel','east').panel('refresh',"/agility/public/pbmenu_programa.php");
         }
 
         function loadOrdenSalida(prueba,jornada,tanda) {
@@ -231,7 +244,7 @@ $ptree=$pb->publicweb_deploy();
                         echon("<li>"._("Final scores"));
                             echon('<ul style="list-style:none">');
                             foreach ($jornada['Series'] as $serie ){
-                                echon ('<li><a href="javascript:loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$serie['ID'].')">o</a> '.$serie['Nombre']."</li>");
+                                echon ('<li><a href="javascript:loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$serie['Rondas'].')">o</a> '.$serie['Nombre']."</li>");
                             }
                             echon("</ul>");
                         echon("</li>");
@@ -245,7 +258,7 @@ $ptree=$pb->publicweb_deploy();
 
     <div id="data_panel" data-options="region:'east',split:true,collapsed:true" style="width:20%">
         <!-- to be replaced on mouse click to load proper page -->
-        <div id="contenido"></div>
+        <div id="public-contenido">&nbsp;</div>
     </div>
 </div>
 <script type="text/javascript">

@@ -26,7 +26,7 @@ require_once(__DIR__ . "/../database/classes/Inscripciones.php");
 
 class PublicWeb
 {
-    protected $myLogger;
+    public $myLogger; // public to allow debugging
     protected $myDBObject;
     protected $prueba;
     protected $jornada;
