@@ -71,6 +71,7 @@ class VideoWall {
         $this->jornada=$this->myDBObject->__getArray("Jornadas",$jornadaid);
         if ($mangaid!=0) {
             $this->manga=$this->myDBObject->__getArray("Mangas",$mangaid);
+            $this->manga['Manga']=$mangaid; // manga['ID'] contains extra info and should not be used
             $this->mangaid=$mangaid;
         }
         if ($tandaid!=0) {

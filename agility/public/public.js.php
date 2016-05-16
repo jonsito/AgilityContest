@@ -134,14 +134,7 @@ function pb_updatePrograma() {
  * Actualiza los datos de TRS y TRM de la fila especificada
  * Rellena tambien el datagrid de resultados parciales
  */
-function pb_updateParciales() {
-    // obtenemos la manga seleccionada. if no selection return
-    var row=$('#pb_enumerateParciales').combogrid('grid').datagrid('getSelected');
-    if (!row) return;
-    workingData.manga=row.Manga;
-    workingData.datosManga=row;
-    workingData.tanda=0; // fake tanda. use manga+mode to evaluate results
-    workingData.mode=row.Mode;
+function pb_updateParciales2(mode) {
     // en lugar de invocar al datagrid, lo que vamos a hacer es
     // una peticion ajax, para obtener a la vez los datos tecnicos de la manga
     // y de los jueces
@@ -151,15 +144,15 @@ function pb_updateParciales() {
         dataType:'json',
         data: {
             Operation:	'getResultados',
-            Prueba:		row.Prueba,
-            Jornada:	row.Jornada,
-            Manga:		row.Manga,
-            Mode:       row.Mode
+            Prueba:		workingData.prueba,
+            Jornada:	workingData.jornada,
+            Manga:		workingData.manga,
+            Mode:       parseInt(mode)
         },
         success: function(dat) {
             // informacion de la manga
             // use html() instead of text() to handle html special chars
-            $('#pb_parciales-NombreManga').html(row.Nombre);
+            $('#pb_parciales-NombreManga').html(workingData.nombreManga);
             $('#pb_parciales-Juez1').html((dat['manga'].Juez1<=1)?"":'<?php _e('Judge');?> 1: ' + dat['manga'].NombreJuez1);
             $('#pb_parciales-Juez2').html((dat['manga'].Juez2<=1)?"":'<?php _e('Judge');?> 2: ' + dat['manga'].NombreJuez2);
             // datos de TRS
@@ -173,6 +166,14 @@ function pb_updateParciales() {
             $('#pb_parciales-datagrid').datagrid('loadData',dat);
         }
     });
+}
+
+function pb_updateParciales() {
+    // obtenemos la manga seleccionada. if no selection return
+    var row=$('#pb_enumerateParciales').combogrid('grid').datagrid('getSelected');
+    if (!row) return;
+    setManga(row);
+    pb_updateParciales2(row.Mode);
 }
 
 /**

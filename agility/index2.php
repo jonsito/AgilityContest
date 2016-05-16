@@ -181,8 +181,21 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             $('#pb_layout').layout('panel','east').panel('refresh',"/agility/public/pbmenu_ordensalida.php");
         }
 
-        function pbmenu_loadPartialScores(prueba,jornada,manga) {
-
+        function pbmenu_loadPartialScores(prueba,jornada,manga,mode) {
+            pbmenu_getAndSet(prueba,jornada);
+            // evaluate tanda by looking at tandaID
+            var mangas=workingData.datosJornada.Mangas;
+            for (var n=0; n<mangas.length;n++) {
+                if ( parseInt(mangas[n]['Manga'])!==manga ) continue; // do not use ID
+                if ( parseInt(mangas[n]['Mode'])!==mode ) continue; // check mode
+                setManga(mangas[n]);
+                break;
+            }
+            pb_collapseMenu(true);
+            var page="/agility/public/pbmenu_parciales.php";
+            if (isJornadaEq3() ) page="/agility/public/pbmenu_parciales_eq3.php";
+            if (isJornadaEq4() ) page="/agility/public/pbmenu_parciales_eq3.php";
+            $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
         function pbmenu_loadFinalScores(prueba,jornada,serie) {
@@ -260,7 +273,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                         echon("<li>"._("Partial scores"));
                             echon('<ul>');
                             foreach ($jornada['Mangas'] as $manga ){
-                                echon ('<li><a href="javascript:pbmenu_loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['ID'].')">'.$manga['Nombre']."</a> </li>");
+                                echon ('<li><a href="javascript:pbmenu_loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['Manga'].','.$manga['Mode'].')">'.$manga['Nombre']."</a> </li>");
                             }
                             echon("</ul>");
                         echon("</li>");

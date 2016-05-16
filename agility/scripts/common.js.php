@@ -603,7 +603,7 @@ function setFederation(f) {
  * @param {object} data prueba data
  */
 function setPrueba(data) {
-	workingData.prueba=Number(data.ID);
+	workingData.prueba=parseInt(data.ID);
 	workingData.nombrePrueba=data.Nombre;
 	workingData.datosPrueba=data;
 	setFederation(data.RSCE);
@@ -620,7 +620,7 @@ function setJornada(data) {
 	workingData.nombreJornada="";
 	workingData.datosJornada={};
 	if (typeof(data) === 'undefined') return;
-	workingData.jornada=Number(data.ID);
+	workingData.jornada=parseInt(data.ID);
 	workingData.nombreJornada=data.Nombre;
 	workingData.datosJornada=data;
 }
@@ -630,7 +630,7 @@ function setManga(data) {
 	workingData.nombreManga = "";
 	workingData.datosManga = {};
     if (typeof(data) === 'undefined') return;
-    workingData.manga = data.ID;
+    workingData.manga = parseInt(data.Manga); // do not use data.ID as contains extra info
     workingData.nombreManga = data.Nombre;
     workingData.datosManga = data
 }
