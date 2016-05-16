@@ -112,21 +112,25 @@ $ptree=$pb->publicweb_deploy();
             if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
         }
 
-        function pb_collapseMenu() {
+        function pb_collapseMenu(flag) {
             var p=$('#pb_layout');
-            $('#pb_layout').layout('panel','west').panel('options').width='1%';
-            $('#pb_layout').layout('collapse','west');
+            if (flag) {
+                $('#pb_layout').layout('panel','west').panel('options').width='1%';
+                $('#pb_layout').layout('collapse','west');
+            }
             $('#pb_layout').layout('panel','east').panel('options').width='98%';
-            $('#pb_layout').layout('expand','east').panel('expand');
-        }
-        function pb_expandMenu() {
-            var p=$('#pb_layout');
-            $('#pb_layout').layout('panel','west').panel('options').width='1%';
-            $('#pb_layout').layout('collapse','west');
-            $('#pb_layout').layout('panel','east').panel('options').width='40%';
             $('#pb_layout').layout('expand','east');
-
         }
+        function pb_expandMenu(flag) {
+            var p=$('#pb_layout');
+            if (flag) {
+                $('#pb_layout').layout('panel','west').panel('options').width='1%';
+                $('#pb_layout').layout('collapse','west');
+            }
+            $('#pb_layout').layout('panel','east').panel('options').width='60%';
+            $('#pb_layout').layout('expand','east');
+        }
+
         function loadInscriptions(prueba,jornada) {
             var p=<?php echo json_encode($ptree['Prueba']); ?>;
             var j=<?php echo json_encode($ptree['Jornadas']); ?>;
@@ -136,17 +140,21 @@ $ptree=$pb->publicweb_deploy();
                 setJornada(j[n]);
                 break;
             }
-            pb_collapseMenu();
+            pb_collapseMenu(true);
         }
+
         function loadTimeTable(prueba,jornada) {
-            pb_expandMenu();
+            pb_expandMenu(true);
         }
+
         function loadOrdenSalida(prueba,jornada,tanda) {
 
         }
+
         function loadPartialScores(prueba,jornada,manga) {
 
         }
+
         function loadFinalScores(prueba,jornada,serie) {
 
         }
@@ -241,7 +249,13 @@ $ptree=$pb->publicweb_deploy();
     </div>
 </div>
 <script type="text/javascript">
+    // define the layout structure
     $('#pb_layout').layout({fit:true});
+    // once closed do not allow expand poster window. instead expand menu
+    $('#pb_layout').layout('panel','west').panel({
+        onBeforeExpand: function() { setTimeout(pb_expandMenu(false),0); return false; }
+    });
+
 </script>
 </body>
 </html>
