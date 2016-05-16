@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-05-10 12:15+0200\n"
-"PO-Revision-Date: 2016-05-10 12:15+0200\n"
-"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2016-05-16 19:56+0200\n"
+"PO-Revision-Date: 2016-05-16 19:57+0200\n"
+"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -58,9 +58,11 @@ msgstr "R"
 #: chrono/chrono.inc.php:67 console/frm_equipos.php:219
 #: console/frm_inscripciones2.php:193 livestream/vwls_ordensalida.php:133
 #: livestream/vwls_osdvideo.php:85 livestream/vwls_parciales.php:155
-#: public/pb_inscripciones.php:96 public/pb_inscripciones_equipos.php:152
+#: public/pb_inscripciones.php:100 public/pb_inscripciones_equipos.php:156
 #: public/pb_ordensalida.php:174 public/pb_parciales.php:185
-#: public/pb_parciales_eq3.php:188 scripts/competicion.js.php:1339
+#: public/pb_parciales_eq3.php:188 public/pbmenu_inscripciones.php:92
+#: public/pbmenu_inscripciones_equipos.php:147
+#: public/pbmenu_ordensalida.php:111 scripts/competicion.js.php:1339
 #: scripts/printer.js.php:211 server/pdf/print_clasificacion.php:163
 #: server/pdf/print_clasificacion_eqBest.php:269
 #: server/pdf/print_clasificacion_excel.php:158
@@ -101,11 +103,13 @@ msgstr "Perro"
 #: console/import/import.js.php:86 console/import/import_perros.inc.php:151
 #: livestream/vwls_ordensalida.php:137 livestream/vwls_osdvideo.php:87
 #: livestream/vwls_parciales.php:159 public/pb_finales.php:103
-#: public/pb_finales_eq3.php:103 public/pb_inscripciones.php:103
-#: public/pb_inscripciones_equipos.php:159 public/pb_ordensalida.php:178
+#: public/pb_finales_eq3.php:103 public/pb_inscripciones.php:107
+#: public/pb_inscripciones_equipos.php:163 public/pb_ordensalida.php:178
 #: public/pb_parciales.php:189 public/pb_parciales_eq3.php:192
-#: scripts/competicion.js.php:1339 scripts/printer.js.php:211
-#: server/pdf/print_clasificacion.php:171
+#: public/pbmenu_inscripciones.php:99
+#: public/pbmenu_inscripciones_equipos.php:154
+#: public/pbmenu_ordensalida.php:115 scripts/competicion.js.php:1339
+#: scripts/printer.js.php:211 server/pdf/print_clasificacion.php:171
 #: server/pdf/print_clasificacion_eqBest.php:273
 #: server/pdf/print_clasificacion_excel.php:163
 #: server/pdf/print_entradaDeDatos.php:159
@@ -151,9 +155,11 @@ msgstr "Gu&iacute;a"
 #: livestream/vwls_ordensalida.php:138 livestream/vwls_osdvideo.php:88
 #: livestream/vwls_parciales.php:160 modules/Federations.php:147
 #: public/pb_finales.php:104 public/pb_finales_eq3.php:104
-#: public/pb_inscripciones.php:104 public/pb_inscripciones_equipos.php:160
+#: public/pb_inscripciones.php:108 public/pb_inscripciones_equipos.php:164
 #: public/pb_ordensalida.php:179 public/pb_parciales.php:190
-#: public/pb_parciales_eq3.php:193 scripts/competicion.js.php:1339
+#: public/pb_parciales_eq3.php:193 public/pbmenu_inscripciones.php:100
+#: public/pbmenu_inscripciones_equipos.php:155
+#: public/pbmenu_ordensalida.php:116 scripts/competicion.js.php:1339
 #: server/excel/common_writer.php:113
 #: server/pdf/print_clasificacion_excel.php:101
 #: server/pdf/print_clasificacion_excel.php:164 server/pdf/print_common.php:186
@@ -199,8 +205,11 @@ msgstr "Categor&iacute;a"
 #: console/frm_perros.php:151 console/import/import_perros.inc.php:78
 #: console/import/import_perros.inc.php:150 livestream/vwls_ordensalida.php:140
 #: livestream/vwls_osdvideo.php:90 livestream/vwls_parciales.php:162
-#: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:158
+#: public/pb_inscripciones.php:106 public/pb_inscripciones_equipos.php:162
 #: public/pb_ordensalida.php:181 public/pb_parciales.php:192
+#: public/pbmenu_inscripciones.php:98
+#: public/pbmenu_inscripciones_equipos.php:153
+#: public/pbmenu_ordensalida.php:118
 #: server/pdf/print_clasificacion_excel.php:162
 #: server/pdf/print_inscritosByPrueba.php:125
 #: server/pdf/print_resultadosByManga.php:61
@@ -221,8 +230,10 @@ msgstr "Grado"
 #: chrono/chrono.inc.php:73 chrono/chrono.js.php:268
 #: console/frm_equipos.php:228 console/frm_inscripciones2.php:200
 #: livestream/vwls_ordensalida.php:141 livestream/vwls_osdvideo.php:91
-#: public/pb_inscripciones.php:107 public/pb_inscripciones_equipos.php:163
-#: public/pb_ordensalida.php:182 server/pdf/print_entradaDeDatos.php:152
+#: public/pb_inscripciones.php:111 public/pb_inscripciones_equipos.php:167
+#: public/pb_ordensalida.php:182 public/pbmenu_inscripciones.php:103
+#: public/pbmenu_inscripciones_equipos.php:158
+#: public/pbmenu_ordensalida.php:119 server/pdf/print_entradaDeDatos.php:152
 #: server/pdf/print_entradaDeDatos.php:231
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:608
@@ -413,9 +424,11 @@ msgstr "Dors"
 #: livestream/index.php:241 livestream/vwls_ordensalida.php:134
 #: livestream/vwls_osdvideo.php:86 livestream/vwls_parciales.php:158
 #: public/pb_finales.php:99 public/pb_finales_eq3.php:100
-#: public/pb_inscripciones.php:98 public/pb_inscripciones_equipos.php:154
+#: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:158
 #: public/pb_ordensalida.php:175 public/pb_parciales.php:188
-#: public/pb_parciales_eq3.php:191 server/excel/common_writer.php:113
+#: public/pb_parciales_eq3.php:191 public/pbmenu_inscripciones.php:94
+#: public/pbmenu_inscripciones_equipos.php:149
+#: public/pbmenu_ordensalida.php:112 server/excel/common_writer.php:113
 #: server/excel/common_writer.php:133 server/pdf/print_clasificacion.php:164
 #: server/pdf/print_clasificacion_eqBest.php:270
 #: server/pdf/print_clasificacion_excel.php:159
@@ -473,10 +486,13 @@ msgstr "Gu&iacute;a"
 #: console/frm_inscripciones2.php:196 console/frm_perros.php:150
 #: console/import/import_perros.inc.php:149 livestream/vwls_parciales.php:161
 #: public/pb_finales.php:101 public/pb_finales_eq3.php:102
-#: public/pb_inscripciones.php:101 public/pb_inscripciones_equipos.php:92
-#: public/pb_inscripciones_equipos.php:157 public/pb_ordensalida.php:180
+#: public/pb_inscripciones.php:105 public/pb_inscripciones_equipos.php:93
+#: public/pb_inscripciones_equipos.php:161 public/pb_ordensalida.php:180
 #: public/pb_parciales.php:191 public/pb_parciales_eq3.php:194
-#: server/pdf/print_clasificacion.php:169
+#: public/pbmenu_inscripciones.php:97
+#: public/pbmenu_inscripciones_equipos.php:84
+#: public/pbmenu_inscripciones_equipos.php:152
+#: public/pbmenu_ordensalida.php:117 server/pdf/print_clasificacion.php:169
 #: server/pdf/print_clasificacion_eqBest.php:272
 #: server/pdf/print_inscritosByPrueba.php:125
 #: server/pdf/print_inscritosByPrueba.php:608
@@ -502,8 +518,9 @@ msgid "Grad"
 msgstr "Grd"
 
 #: chrono/chrono.js.php:160 chrono/chrono.js.php:257 console/frm_equipos.php:89
-#: livestream/vwls_ordensalida.php:132 public/pb_inscripciones_equipos.php:91
-#: public/pb_ordensalida.php:173 scripts/competicion.js.php:182
+#: livestream/vwls_ordensalida.php:132 public/pb_inscripciones_equipos.php:92
+#: public/pb_ordensalida.php:173 public/pbmenu_inscripciones_equipos.php:83
+#: public/pbmenu_ordensalida.php:110 scripts/competicion.js.php:182
 #: tablet/tablet_main.php:280 videowall/vw_ordensalida.php:98
 #: videowall/vwc_finales.php:292 videowall/vwc_oldstyle.php:191
 #: videowall/vwc_parciales.php:256 console/dialogs/dlg_ordensalida.inc:149
@@ -566,8 +583,10 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/frm_pruebas.php:151 console/import/import_clubes.inc.php:111
 #: console/import/import_handlers.inc.php:55 index.php:240
 #: livestream/index.php:242 livestream/vwls_ordensalida.php:142
-#: public/pb_inscripciones_equipos.php:93
-#: public/pb_inscripciones_equipos.php:162 public/pb_programa.php:106
+#: public/pb_inscripciones_equipos.php:94
+#: public/pb_inscripciones_equipos.php:166 public/pb_programa.php:102
+#: public/pbmenu_inscripciones_equipos.php:85
+#: public/pbmenu_inscripciones_equipos.php:157 public/pbmenu_programa.php:102
 #: server/excel/common_writer.php:113 server/pdf/print_entradaDeDatos.php:232
 #: server/pdf/print_entradaDeDatos.php:313
 #: server/pdf/print_equiposByJornada.php:84
@@ -599,8 +618,8 @@ msgstr "Debe seleccionar un ring v&aacute;lido"
 #: public/pb_finales_eq3.php:61 public/pb_finales_eq3.php:62
 #: public/pb_parciales.php:63 public/pb_parciales.php:64
 #: public/pb_parciales_eq3.php:63 public/pb_parciales_eq3.php:64
-#: public/public.js.php:159 public/public.js.php:160 public/public.js.php:202
-#: public/public.js.php:203 server/excel/scores_writer.php:94
+#: public/public.js.php:163 public/public.js.php:164 public/public.js.php:206
+#: public/public.js.php:207 server/excel/scores_writer.php:94
 #: server/pdf/print_clasificacion.php:86 server/pdf/print_clasificacion.php:89
 #: server/pdf/print_clasificacion_eqBest.php:162
 #: server/pdf/print_clasificacion_eqBest.php:165
@@ -630,8 +649,8 @@ msgstr "Recorridos"
 #: console/dialogs/infomanga.php:79 public/pb_finales.php:67
 #: public/pb_finales.php:75 public/pb_finales_eq3.php:66
 #: public/pb_finales_eq3.php:74 public/pb_parciales.php:70
-#: public/pb_parciales_eq3.php:70 public/public.js.php:162
-#: public/public.js.php:206 public/public.js.php:221
+#: public/pb_parciales_eq3.php:70 public/public.js.php:166
+#: public/public.js.php:210 public/public.js.php:225
 #: server/pdf/print_resultadosByEquipos.php:121
 #: server/pdf/print_resultadosByEquipos4.php:116
 #: server/pdf/print_resultadosByManga.php:86
@@ -658,8 +677,8 @@ msgstr "Distancia"
 #: console/dialogs/infomanga.php:80 public/pb_finales.php:68
 #: public/pb_finales.php:76 public/pb_finales_eq3.php:67
 #: public/pb_finales_eq3.php:75 public/pb_parciales.php:71
-#: public/pb_parciales_eq3.php:71 public/public.js.php:163
-#: public/public.js.php:207 public/public.js.php:222
+#: public/pb_parciales_eq3.php:71 public/public.js.php:167
+#: public/public.js.php:211 public/public.js.php:226
 #: server/pdf/print_resultadosByEquipos.php:123
 #: server/pdf/print_resultadosByEquipos4.php:118
 #: server/pdf/print_resultadosByManga.php:88
@@ -931,7 +950,7 @@ msgstr "Borrar usuario"
 #: console/frm_inscripciones2.php:93 console/frm_jueces.php:42
 #: console/frm_paises.php:35 console/frm_perros.php:75
 #: console/frm_pruebas.php:42 scripts/common.js.php:852
-#: scripts/common.js.php:864 scripts/equipos.js.php:28 server/tools.php:204
+#: scripts/common.js.php:864 scripts/equipos.js.php:28 server/tools.php:207
 #: console/dialogs/dlg_newInscripcion.inc:34
 msgid "-- Search --"
 msgstr "-- Buscar --"
@@ -1148,8 +1167,9 @@ msgstr "Clasificaci&oacute;n"
 #: console/frm_clasificaciones2.php:83 console/frm_clasificaciones_eq3.php:83
 #: console/frm_equipos.php:221 console/frm_inscripciones2.php:195
 #: console/frm_perros.php:149 public/pb_finales.php:100
-#: public/pb_finales_eq3.php:101 public/pb_inscripciones.php:100
-#: public/pb_inscripciones_equipos.php:156
+#: public/pb_finales_eq3.php:101 public/pb_inscripciones.php:104
+#: public/pb_inscripciones_equipos.php:160 public/pbmenu_inscripciones.php:96
+#: public/pbmenu_inscripciones_equipos.php:151
 #: server/pdf/print_clasificacion.php:165
 #: server/pdf/print_clasificacion_eqBest.php:271
 #: server/pdf/print_entradaDeDatos.php:156
@@ -1276,14 +1296,13 @@ msgid "Cal"
 msgstr "Cal"
 
 #: console/frm_clasificaciones2.php:100 console/frm_clasificaciones_eq3.php:100
-#: console/frm_inscripciones2.php:138 console/frm_pruebas.php:153
 #: livestream/vwls_parciales.php:167 public/pb_finales.php:107
 #: public/pb_finales.php:114 public/pb_finales.php:119
 #: public/pb_finales_eq3.php:107 public/pb_finales_eq3.php:113
 #: public/pb_finales_eq3.php:117 public/pb_parciales.php:197
 #: public/pb_parciales_eq3.php:200 scripts/competicion.js.php:183
 #: scripts/competicion.js.php:228 scripts/competicion.js.php:281
-#: server/excel/common_writer.php:133 server/pdf/print_clasificacion.php:176
+#: server/pdf/print_clasificacion.php:176
 #: server/pdf/print_clasificacion.php:184
 #: server/pdf/print_clasificacion.php:192
 #: server/pdf/print_clasificacion_eqBest.php:278
@@ -1308,11 +1327,11 @@ msgstr "Cal"
 #: server/pdf/print_resultadosByEquipos4.php:219
 #: server/pdf/print_resultadosByManga.php:63
 #: server/pdf/print_trsTemplates.php:283 tablet/tablet_main.php:97
-#: tablet/tablet_main.php:206 tablet/tablet_main.php:292
-#: videowall/vw_parciales.php:135 videowall/vwc_finales.php:105
-#: videowall/vwc_finales.php:112 videowall/vwc_finales.php:115
-#: videowall/vwc_finales.php:180 videowall/vwc_finales.php:187
-#: videowall/vwc_finales.php:190 videowall/vwc_finales_simplified.php:225
+#: tablet/tablet_main.php:292 videowall/vw_parciales.php:135
+#: videowall/vwc_finales.php:105 videowall/vwc_finales.php:112
+#: videowall/vwc_finales.php:115 videowall/vwc_finales.php:180
+#: videowall/vwc_finales.php:187 videowall/vwc_finales.php:190
+#: videowall/vwc_finales_simplified.php:225
 #: videowall/vwc_finales_simplified.php:228
 #: videowall/vwc_finales_simplified.php:231
 #: videowall/vwc_finales_simplified.php:257
@@ -1591,8 +1610,10 @@ msgstr "Cat."
 #: console/frm_clubes.php:262 console/frm_guias.php:151
 #: console/frm_paises.php:226 console/frm_perros.php:147
 #: console/import/import_perros.inc.php:59 livestream/vwls_ordensalida.php:135
-#: public/pb_inscripciones.php:99 public/pb_inscripciones_equipos.php:155
-#: public/pb_ordensalida.php:176 server/pdf/print_equiposByJornada.php:84
+#: public/pb_inscripciones.php:103 public/pb_inscripciones_equipos.php:159
+#: public/pb_ordensalida.php:176 public/pbmenu_inscripciones.php:95
+#: public/pbmenu_inscripciones_equipos.php:150
+#: public/pbmenu_ordensalida.php:113 server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:122
 #: server/pdf/print_ordenDeSalida.php:72 videowall/vw_llamada.php:100
 #: videowall/vw_ordensalida.php:101 console/dialogs/dlg_chperros.inc:59
@@ -1609,6 +1630,7 @@ msgstr "LOE/RRC"
 #: console/frm_paises.php:228 livestream/vwls_ordensalida.php:136
 #: livestream/vwls_parciales.php:157 public/pb_ordensalida.php:177
 #: public/pb_parciales.php:187 public/pb_parciales_eq3.php:190
+#: public/pbmenu_ordensalida.php:114
 #: server/pdf/print_clasificacion_excel.php:160
 #: server/pdf/print_entradaDeDatos.php:228
 #: server/pdf/print_entradaDeDatos.php:310
@@ -1687,6 +1709,7 @@ msgstr "Programa"
 #: console/frm_competicion2.php:73 index.php:173 livestream/index.php:183
 #: livestream/index.php:189 livestream/vwls_ordensalida.php:62
 #: public/pb_ordensalida.php:42 public/pb_ordensalida.php:51
+#: public/pbmenu_ordensalida.php:39 rsce2016.php:252
 #: scripts/competicion.js.php:1161 server/pdf/print_ordenDeSalida.php:88
 #: server/pdf/print_ordenSalidaEquipos4.php:88 videowall/index.php:180
 #: videowall/vw_ordensalida.php:36
@@ -1943,6 +1966,12 @@ msgstr "Actualizando datos de la jornada"
 #: console/frm_inscripciones2.php:136 tablet/index.php:277
 msgid "Name/Comment"
 msgstr "Nombre/Observaciones"
+
+#: console/frm_inscripciones2.php:138 console/frm_pruebas.php:153
+#: server/excel/common_writer.php:133 tablet/tablet_main.php:206
+#: console/dialogs/dlg_jornadas.inc:45
+msgid "Hour"
+msgstr "Hora"
 
 #: console/frm_inscripciones2.php:139
 msgid "G-I  "
@@ -2727,9 +2756,9 @@ msgstr "Gu&iacute;as"
 msgid "Dogs Database Management"
 msgstr "Gesti&oacute;n de datos de Perros"
 
-#: console/index.php:181 public/pb_programa.php:105
-#: server/excel/dog_reader.php:235 server/excel/dog_writer.php:65
-#: console/dialogs/dlg_configuracion.inc:242
+#: console/index.php:181 public/pb_programa.php:101
+#: public/pbmenu_programa.php:101 server/excel/dog_reader.php:235
+#: server/excel/dog_writer.php:65 console/dialogs/dlg_configuracion.inc:242
 msgid "Dogs"
 msgstr "Perros"
 
@@ -2831,7 +2860,8 @@ msgid "Select View"
 msgstr "Selecciona vista"
 
 #: index.php:172 public/pb_inscripciones.php:35
-#: public/pb_inscripciones_equipos.php:35
+#: public/pb_inscripciones_equipos.php:35 public/pbmenu_inscripciones.php:35
+#: public/pbmenu_inscripciones_equipos.php:35
 msgid "Inscription list"
 msgstr "Listado de inscritos"
 
@@ -2839,7 +2869,7 @@ msgstr "Listado de inscritos"
 #: livestream/vwls_parciales.php:62 public/pb_parciales.php:38
 #: public/pb_parciales.php:44 public/pb_parciales.php:54
 #: public/pb_parciales_eq3.php:38 public/pb_parciales_eq3.php:44
-#: public/pb_parciales_eq3.php:54 videowall/index.php:182
+#: public/pb_parciales_eq3.php:54 rsce2016.php:260 videowall/index.php:182
 #: videowall/index.php:185 videowall/vw_parciales.php:38
 #: videowall/vwc_oldstyle.php:48 videowall/vwc_parciales.php:51
 msgid "Partial scores"
@@ -2848,7 +2878,8 @@ msgstr "Clasificaci&oacute;n parcial"
 #: index.php:175 public/pb_finales.php:38 public/pb_finales.php:44
 #: public/pb_finales.php:53 public/pb_finales.php:91
 #: public/pb_finales_eq3.php:43 public/pb_finales_eq3.php:52
-#: public/pb_finales_eq3.php:90 server/pdf/print_clasificacion.php:133
+#: public/pb_finales_eq3.php:90 rsce2016.php:267
+#: server/pdf/print_clasificacion.php:133
 #: server/pdf/print_clasificacion_eqBest.php:208
 #: server/pdf/print_clasificacion_eqCombined.php:212
 #: server/pdf/print_clasificacion_eqCombined.php:280 videowall/index.php:186
@@ -2916,7 +2947,9 @@ msgstr ""
 #: public/pb_finales_eq3.php:50 public/pb_inscripciones.php:34
 #: public/pb_inscripciones_equipos.php:34 public/pb_ordensalida.php:49
 #: public/pb_parciales.php:52 public/pb_parciales_eq3.php:52
-#: public/pb_programa.php:36 videowall/vw_llamada.php:35
+#: public/pb_programa.php:36 public/pbmenu_inscripciones.php:34
+#: public/pbmenu_inscripciones_equipos.php:34 public/pbmenu_ordensalida.php:37
+#: public/pbmenu_programa.php:36 videowall/vw_llamada.php:35
 #: videowall/vw_llamada.php:119 videowall/vw_llamada.php:128
 #: videowall/vw_ordensalida.php:34 videowall/vw_ordensalida.php:114
 #: videowall/vw_parciales.php:35 videowall/vw_parciales.php:148
@@ -2937,7 +2970,8 @@ msgid "No round selected"
 msgstr "No se ha indicado ninguna manga"
 
 #: livestream/vwls_ordensalida.php:112 public/pb_ordensalida.php:153
-#: videowall/vw_ordensalida.php:78 console/dialogs/dlg_ordensalida.inc:139
+#: public/pbmenu_ordensalida.php:90 videowall/vw_ordensalida.php:78
+#: console/dialogs/dlg_ordensalida.inc:139
 msgid "Updating starting order"
 msgstr "Actualizando orden de salida"
 
@@ -3273,21 +3307,21 @@ msgstr "Datos de la manga"
 #: public/pb_finales.php:69 public/pb_finales.php:77
 #: public/pb_finales_eq3.php:68 public/pb_finales_eq3.php:76
 #: public/pb_parciales.php:72 public/pb_parciales_eq3.php:72
-#: public/public.js.php:164 public/public.js.php:208 public/public.js.php:223
+#: public/public.js.php:168 public/public.js.php:212 public/public.js.php:227
 msgid "Standard C. Time"
 msgstr "T. R. Standard"
 
 #: public/pb_finales.php:70 public/pb_finales.php:78
 #: public/pb_finales_eq3.php:69 public/pb_finales_eq3.php:77
 #: public/pb_parciales.php:73 public/pb_parciales_eq3.php:73
-#: public/public.js.php:165 public/public.js.php:209 public/public.js.php:224
+#: public/public.js.php:169 public/public.js.php:213 public/public.js.php:228
 msgid "Maximum C. Time"
 msgstr "T. R. M&aacute;ximo"
 
 #: public/pb_finales.php:71 public/pb_finales.php:79
 #: public/pb_finales_eq3.php:70 public/pb_finales_eq3.php:78
 #: public/pb_parciales.php:74 public/pb_parciales_eq3.php:74
-#: public/public.js.php:166 public/public.js.php:210 public/public.js.php:225
+#: public/public.js.php:170 public/public.js.php:214 public/public.js.php:229
 #: server/pdf/print_clasificacion_excel.php:168
 #: server/pdf/print_clasificacion_excel.php:174
 #: server/pdf/print_resultadosByEquipos.php:129
@@ -3324,11 +3358,15 @@ msgid "Available scores"
 msgstr "Resultados disponibles"
 
 #: public/pb_inscripciones.php:52 public/pb_inscripciones_equipos.php:52
+#: public/pbmenu_inscripciones.php:49
+#: public/pbmenu_inscripciones_equipos.php:48
 msgid "Update inscription list"
 msgstr "Actualizar listado de inscritos"
 
-#: public/pb_inscripciones.php:79 public/pb_inscripciones_equipos.php:80
-#: public/pb_inscripciones_equipos.php:136
+#: public/pb_inscripciones.php:83 public/pb_inscripciones_equipos.php:81
+#: public/pb_inscripciones_equipos.php:140 public/pbmenu_inscripciones.php:75
+#: public/pbmenu_inscripciones_equipos.php:72
+#: public/pbmenu_inscripciones_equipos.php:131
 msgid "Updating inscriptions"
 msgstr "Actualizando inscripciones"
 
@@ -3336,7 +3374,8 @@ msgstr "Actualizando inscripciones"
 msgid "Round selection"
 msgstr "Seleccion de manga"
 
-#: public/pb_ordensalida.php:76 tablet/tablet_main.php:256
+#: public/pb_ordensalida.php:76 public/pbmenu_ordensalida.php:59
+#: tablet/tablet_main.php:256
 msgid "Update starting order"
 msgstr "Actualizando orden de salida"
 
@@ -3361,29 +3400,32 @@ msgstr "Actualizando resultados de la manga"
 msgid "Touch"
 msgstr "Tocado"
 
-#: public/pb_programa.php:37
+#: public/pb_programa.php:37 public/pbmenu_programa.php:37
 msgid "Journey activities info"
 msgstr "Programa de la jornada"
 
-#: public/pb_programa.php:54
+#: public/pb_programa.php:50 public/pbmenu_programa.php:50
 msgid "Update schedule info on this journey"
 msgstr "Actualizar programa de la jornada"
 
-#: public/pb_programa.php:90
+#: public/pb_programa.php:86 public/pbmenu_programa.php:86
 msgid "Updating schedule time on this journey"
 msgstr "Actualizando el programa de la jornada"
 
-#: public/pb_programa.php:101 console/dialogs/dlg_ordentandas.inc:67
+#: public/pb_programa.php:97 public/pbmenu_programa.php:97 rsce2016.php:250
+#: console/dialogs/dlg_ordentandas.inc:67
 #: console/dialogs/dlg_ordentandas.inc:136
 msgid "Timetable"
 msgstr "Horario"
 
-#: public/pb_programa.php:102 server/pdf/print_ordenTandas.php:87
-#: tablet/tablet_main.php:207 console/dialogs/dlg_ordentandas.inc:133
+#: public/pb_programa.php:98 public/pbmenu_programa.php:98
+#: server/pdf/print_ordenTandas.php:87 tablet/tablet_main.php:207
+#: console/dialogs/dlg_ordentandas.inc:133
 msgid "Activity"
 msgstr "Actividad"
 
-#: public/pb_programa.php:104 console/dialogs/dlg_ordentandas.inc:63
+#: public/pb_programa.php:100 public/pbmenu_programa.php:100
+#: console/dialogs/dlg_ordentandas.inc:63
 #: console/dialogs/dlg_ordentandas.inc:135
 msgid "Session - Ring"
 msgstr "Sesi&oacute;n - Ring"
@@ -3393,6 +3435,15 @@ msgid "Current license does not allow public (internet) access operations"
 msgstr ""
 "La licencia actual no permite las operaciones de consulta y acceso p&uacute;"
 "blico"
+
+#: rsce2016.php:241
+msgid "Online information"
+msgstr "Informaci&oacute;n en l&iacute;nea"
+
+#: rsce2016.php:251 server/excel/dog_reader.php:236
+#: server/excel/inscription_writer.php:95
+msgid "Inscriptions"
+msgstr "Inscripciones"
 
 #: scripts/admin.js.php:30
 msgid "Invalid user"
@@ -4415,10 +4466,6 @@ msgstr "Datos de la aplicaci&oacute;n"
 msgid "License Info"
 msgstr "Datos de Licencia"
 
-#: server/excel/dog_reader.php:236 server/excel/inscription_writer.php:95
-msgid "Inscriptions"
-msgstr "Inscripciones"
-
 #: server/excel/dog_writer.php:85
 msgid "Dog Listing"
 msgstr "Listado de perros"
@@ -5408,10 +5455,6 @@ msgstr "Registrar un nuevo club en la base de datos"
 #: console/dialogs/dlg_jornadas.inc:26
 msgid "Journey information"
 msgstr "Informaci&oacute;n de la jornada"
-
-#: console/dialogs/dlg_jornadas.inc:45
-msgid "Hour"
-msgstr "Hora"
 
 #: console/dialogs/dlg_jornadas.inc:49
 msgid "Rounds on this journey"

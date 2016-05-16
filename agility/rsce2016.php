@@ -35,9 +35,11 @@ if (!$am->allowed(ENABLE_PUBLIC)) {
 require_once(__DIR__. "/server/upgradeVersion.php");
 require_once(__DIR__. "/server/web/public.php");
 
-$pruebaID=18;
+$pruebaID=http_request("Prueba","i",18);
 $pb=new PublicWeb($pruebaID);
 $ptree=$pb->publicweb_deploy();
+$poster=$ptree['Prueba']['Cartel'];
+if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
 ?>
 
 <!DOCTYPE html>
@@ -197,7 +199,7 @@ $ptree=$pb->publicweb_deploy();
         }
         #poster_panel {
             /* background should be extracted from contest poster information */
-            background: #000000 url("poster.jpg") no-repeat bottom left;
+            background: #000000 url("<?php echo $poster;?>") no-repeat bottom left;
             background-size: 100% 100%;
             width: 100%;
             height: auto;
@@ -236,7 +238,7 @@ $ptree=$pb->publicweb_deploy();
 </div>
 
 <div id="menu_panel" data-options="region:'center'">
-        <h2>Seguimiento de datos en en l&iacute;nea</h2>
+        <h1><?php _e("Online information"); ?></h1>
             <?php
             echon("<h2>{$ptree['Prueba']['Nombre']}</h2>");
             echon('<dl class="menu_enum">');
