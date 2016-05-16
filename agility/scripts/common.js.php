@@ -640,7 +640,7 @@ function setTanda(data) {
 	workingData.nombreTanda = "";
 	workingData.datosTanda = {};
 	if (typeof(data) === 'undefined') return;
-	workingData.tanda = data.ID;
+	workingData.tanda = parseInt(data.ID);
 	workingData.nombreTanda = data.Nombre;
 	workingData.datosTanda =data;
 }

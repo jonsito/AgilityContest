@@ -76,19 +76,23 @@ function pb_setFooterInfo() {
     });
 }
 
-/**
- * Imprime el orden de salida de la prueba y jornada seleccionada por el usuario
- */
-function pb_updateOrdenSalida() {
-    var row=$('#pb_enumerateMangas').combogrid('grid').datagrid('getSelected');
-    if (!row) return;
+function pb_updateOrdenSalida2(id) {
     $('#pb_ordensalida-datagrid').datagrid('reload',{
         Operation: 'getDataByTanda',
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
         Sesion: 1, // defaults to "-- sin asignar --"
-        ID:  row.ID // Tanda ID
+        ID:  id // Tanda ID
     });
+}
+
+/**
+ * Imprime el orden de salida de la prueba y jornada seleccionada por el usuario
+ * ejecutada desde la ventana con combogrid
+ */
+function pb_updateOrdenSalida() {
+    var row=$('#pb_enumerateMangas').combogrid('grid').datagrid('getSelected');
+    if (row) pb_updateOrdenSalida2(row.ID);
 }
 
 /**

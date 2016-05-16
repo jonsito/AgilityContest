@@ -122,6 +122,8 @@ $ptree=$pb->publicweb_deploy();
             $('#pb_layout').layout('expand','east');
         }
         function pb_expandMenu(flag) {
+            // clear any pending periodic refresh
+            workingData.doRefresh=false;
             var p=$('#pb_layout');
             if (flag) {
                 $('#pb_layout').layout('panel','west').panel('options').width='1%';
@@ -131,7 +133,7 @@ $ptree=$pb->publicweb_deploy();
             $('#pb_layout').layout('expand','east');
         }
 
-        function loadInscriptions(prueba,jornada) {
+        function pbmenu_getAndSet(prueba,jornada) {
             var p=<?php echo json_encode($ptree['Prueba']); ?>;
             var j=<?php echo json_encode($ptree['Jornadas']); ?>;
             setPrueba(p);
@@ -140,6 +142,10 @@ $ptree=$pb->publicweb_deploy();
                 setJornada(j[n]);
                 break;
             }
+        }
+        
+        function pbmenu_loadInscriptions(prueba,jornada) {
+            pbmenu_getAndSet(prueba,jornada);
             pb_collapseMenu(true);
             var page="/agility/public/pbmenu_inscripciones.php";
             if (isJornadaEq3() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
@@ -147,7 +153,7 @@ $ptree=$pb->publicweb_deploy();
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
-        function loadTimeTable(prueba,jornada) {
+        function pbmenu_loadTimeTable(prueba,jornada) {
             var p=<?php echo json_encode($ptree['Prueba']); ?>;
             var j=<?php echo json_encode($ptree['Jornadas']); ?>;
             setPrueba(p);
@@ -160,15 +166,24 @@ $ptree=$pb->publicweb_deploy();
             $('#pb_layout').layout('panel','east').panel('refresh',"/agility/public/pbmenu_programa.php");
         }
 
-        function loadOrdenSalida(prueba,jornada,tanda) {
+        function pbmenu_loadStartingOrder(prueba,jornada,tanda) {
+            pbmenu_getAndSet(prueba,jornada);
+            // evaluate tanda by looking at tandaID
+            var tandas=workingData.datosJornada.Tandas;
+            for (var n=0; n<tandas.length;n++) {
+                if ( parseInt(tandas[n]['ID'])!==tanda ) continue;
+                setTanda(tandas[n]);
+                break;
+            }
+            pb_collapseMenu(true);
+            $('#pb_layout').layout('panel','east').panel('refresh',"/agility/public/pbmenu_ordensalida.php");
+        }
+
+        function pbmenu_loadPartialScores(prueba,jornada,manga) {
 
         }
 
-        function loadPartialScores(prueba,jornada,manga) {
-
-        }
-
-        function loadFinalScores(prueba,jornada,serie) {
+        function pbmenu_loadFinalScores(prueba,jornada,serie) {
 
         }
 
@@ -230,27 +245,27 @@ $ptree=$pb->publicweb_deploy();
                 echon( "<dt>{$jornada['Nombre']}</dt>");
                 echon("<dd>");
                     echon("<ol>");
-                        echon('<li><a href="javascript:loadTimeTable('.$pruebaID.','.$jornada['ID'].')">'._("Timetable")."</a> </li>");
-                        echon('<li><a href="javascript:loadInscriptions('.$pruebaID.','.$jornada['ID'].')">'._("Inscriptions")."</a> </li>");
+                        echon('<li><a href="javascript:pbmenu_loadTimeTable('.$pruebaID.','.$jornada['ID'].')">'._("Timetable")."</a> </li>");
+                        echon('<li><a href="javascript:pbmenu_loadInscriptions('.$pruebaID.','.$jornada['ID'].')">'._("Inscriptions")."</a> </li>");
                         echon('<li>'._("Starting order"));
                             echon('<ul>');
                             foreach ($jornada['Tandas'] as $tanda ){
                                 if ($tanda['TipoManga']==0) continue; // skip user defined tandas
-                                echon ('<li><a href="javascript:loadTimeTable('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">'.$tanda['Nombre']."</a> </li>");
+                                echon ('<li><a href="javascript:pbmenu_loadStartingOrder('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">'.$tanda['Nombre']."</a> </li>");
                             }
                             echon("</ul>");
                         echon("</li>");
                         echon("<li>"._("Partial scores"));
                             echon('<ul>');
                             foreach ($jornada['Mangas'] as $manga ){
-                                echon ('<li><a href="javascript:loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['ID'].')">'.$manga['Nombre']."</a> </li>");
+                                echon ('<li><a href="javascript:pbmenu_loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['ID'].')">'.$manga['Nombre']."</a> </li>");
                             }
                             echon("</ul>");
                         echon("</li>");
                         echon("<li>"._("Final scores"));
                             echon('<ul>');
                             foreach ($jornada['Series'] as $serie ){
-                                echon ('<li><a href="javascript:loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$serie['Rondas'].')">'.$serie['Nombre']."</a> </li>");
+                                echon ('<li><a href="javascript:pbmenu_loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$serie['Rondas'].')">'.$serie['Nombre']."</a> </li>");
                             }
                             echon("</ul>");
                         echon("</li>");
