@@ -70,7 +70,7 @@ class PublicWeb
         // retrieve contest data
         $result['Prueba']=$this->prueba;
         // retrieve journeys for this contest
-        $result['Jornadas']=$this->myDBObject->__select("*","Jornadas","(Prueba={$this->prueba['ID']})","","" )['rows'];
+        $result['Jornadas']=$this->myDBObject->__select("*","Jornadas","(Prueba={$this->prueba['ID']}) AND (Nombre != '-- Sin asignar --') ","","" )['rows'];
         foreach($result['Jornadas'] as &$jornada) {
             // retrieve rounds for each series
             $jornada['Mangas']=Jornadas::enumerateMangasByJornada($jornada['ID'])['rows'];

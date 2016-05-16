@@ -194,15 +194,22 @@ $ptree=$pb->publicweb_deploy();
             background-size: 100% 100%;
             width: 100%;
             height: auto;
-            min-height:100%;
         }
         .menu_enum dt {
             font-size: 1.4vw;
             font-weight: bold;
         }
         .menu_enum dd {
+            /* to avoid double <dd><ol> indentation */
+            margin: 0;
+            list-style: inside;
+            padding-left: 0;
             font-size: 1.2vw;
         }
+        .menu_enum dd a {
+            text-decoration: none; /* remove underline in <a></a> elements */
+        }
+
     </style>
 </head>
 <body id="body">
@@ -214,7 +221,6 @@ $ptree=$pb->publicweb_deploy();
 </div>
 
 <div id="menu_panel" data-options="region:'center'">
-        <div style="float:right;padding:2%">
         <h2>Seguimiento de datos en en l&iacute;nea</h2>
             <?php
             echon("<h2>{$ptree['Prueba']['Nombre']}</h2>");
@@ -224,27 +230,27 @@ $ptree=$pb->publicweb_deploy();
                 echon( "<dt>{$jornada['Nombre']}</dt>");
                 echon("<dd>");
                     echon("<ol>");
-                        echon('<li><a href="javascript:loadTimeTable('.$pruebaID.','.$jornada['ID'].')">o</a> '._("Timetable")."</li>");
-                        echon('<li><a href="javascript:loadInscriptions('.$pruebaID.','.$jornada['ID'].')">o</a> '._("Inscriptions")."</li>");
+                        echon('<li><a href="javascript:loadTimeTable('.$pruebaID.','.$jornada['ID'].')">'._("Timetable")."</a> </li>");
+                        echon('<li><a href="javascript:loadInscriptions('.$pruebaID.','.$jornada['ID'].')">'._("Inscriptions")."</a> </li>");
                         echon('<li>'._("Starting order"));
-                            echon('<ul style="list-style:none">');
+                            echon('<ul>');
                             foreach ($jornada['Tandas'] as $tanda ){
                                 if ($tanda['TipoManga']==0) continue; // skip user defined tandas
-                                echon ('<li><a href="javascript:loadTimeTable('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">o</a> '.$tanda['Nombre']."</li>");
+                                echon ('<li><a href="javascript:loadTimeTable('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">'.$tanda['Nombre']."</a> </li>");
                             }
                             echon("</ul>");
                         echon("</li>");
                         echon("<li>"._("Partial scores"));
-                            echon('<ul style="list-style:none">');
+                            echon('<ul>');
                             foreach ($jornada['Mangas'] as $manga ){
-                                echon ('<li><a href="javascript:loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['ID'].')">o</a> '.$manga['Nombre']."</li>");
+                                echon ('<li><a href="javascript:loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['ID'].')">'.$manga['Nombre']."</a> </li>");
                             }
                             echon("</ul>");
                         echon("</li>");
                         echon("<li>"._("Final scores"));
-                            echon('<ul style="list-style:none">');
+                            echon('<ul>');
                             foreach ($jornada['Series'] as $serie ){
-                                echon ('<li><a href="javascript:loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$serie['Rondas'].')">o</a> '.$serie['Nombre']."</li>");
+                                echon ('<li><a href="javascript:loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$serie['Rondas'].')">'.$serie['Nombre']."</a> </li>");
                             }
                             echon("</ul>");
                         echon("</li>");
@@ -253,7 +259,6 @@ $ptree=$pb->publicweb_deploy();
             }
             echon('</dl>');
             ?>
-        </div>
     </div>
 
     <div id="data_panel" data-options="region:'east',split:true,collapsed:true" style="width:20%">
