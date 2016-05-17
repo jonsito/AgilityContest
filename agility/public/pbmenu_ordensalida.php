@@ -145,12 +145,11 @@ var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) {
     
     function update() {
-        if (workingData.doRefresh==false) return;
         pb_updateOrdenSalida2(workingData.tanda);
-        setTimeout(update,1000*rtime);
+        workingData.timeout=setTimeout(update,1000*rtime);
     }
     
-    workingData.doRefresh=true;
+    if (workingData.timeout!=null) clearTimeout(workingData.timeout);
     update();
 }
 

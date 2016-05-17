@@ -87,6 +87,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         loadConfiguration();
         getLicenseInfo();
         getFederationInfo();
+        workingData.timeout=null;
 
         /* not really needed for public access, but stay here for compatibility */
         function initialize() {
@@ -124,8 +125,6 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             $('#pb_layout').layout('expand','east');
         }
         function pb_expandMenu(flag) {
-            // clear any pending periodic refresh
-            workingData.doRefresh=false;
             var p=$('#pb_layout');
             if (flag) {
                 $('#pb_layout').layout('panel','west').panel('options').width='1%';
@@ -191,6 +190,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                 setManga(mangas[n]);
                 break;
             }
+            workingData.teamCounter=1;
             pb_collapseMenu(true);
             var page="/agility/public/pbmenu_parciales.php";
             if (isJornadaEq3() ) page="/agility/public/pbmenu_parciales_eq3.php";
@@ -240,6 +240,29 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             text-decoration: none; /* remove underline in <a></a> elements */
         }
 
+        /* ajuste de las cabeceras de los datagrid groupview */
+        .datagrid-body .datagrid-group {
+            background-color: <?php echo $config->getEnv('vw_hdrbg2'); ?>;
+            height:40px;
+            line-height: 40px;
+        }
+        .datagrid-body .datagrid-group .datagrid-group-title {
+            height:40px;
+            line-height: 40px;
+            font-weight: bold;
+        }
+        .datagrid-body .datagrid-group .datagrid-group-expander {
+            margin-top:0px;
+        }
+
+        /* tip for fix data size in smartphones ----------- */
+        @media only screen and (max-width: 760px) {
+
+            .datagrid-cell {
+                font-size:0.75em;
+            }
+
+        }
     </style>
 </head>
 <body id="body">

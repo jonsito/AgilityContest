@@ -46,7 +46,7 @@ function formatCategoria(val,row,idx) {
 }
 /* formatters para el datagrid dlg_resultadosManga */
 function formatPuesto(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
-function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
+function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5.em;font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
 function formatVelocidad(val,row,idx) { return (row.Penalizacion>=200)?"-":toFixedT(parseFloat(val),1); }
 function formatTiempo(val,row,idx) { return (row.Penalizacion>=200)?"-":toFixedT(parseFloat(val),ac_config.numdecs); }
 function formatPenalizacion(val,row,idx) { return toFixedT(parseFloat(val),ac_config.numdecs); }
@@ -157,7 +157,7 @@ function formatTeamResults( name,value , rows ) {
     '<span style="width:'+toPercent(width,45)+'px;text-align:right;">'+value+'</span>' +
     '<span style="width:'+toPercent(width,10)+'px;text-align:right;">T: '+toFixedT(time,ac_config.numdecs)+'</span>' +
     '<span style="width:'+toPercent(width,10)+'px;text-align:right;">P:'+toFixedT(penal,ac_config.numdecs)+'</span>'+
-    '<span style="width:'+toPercent(width,15)+'px;text-align:right;">'+(workingData.teamCounter++)+'&nbsp;</span>'+
+    '<span style="width:'+toPercent(width,10)+'px;text-align:right;">'+(workingData.teamCounter++)+'</span>'+
     '</div>';
 }
 
@@ -182,7 +182,7 @@ function formatTeamResultsConsole( value , rows ) {
         '<span style="width:35%;text-align:left;"><?php _e('Team'); ?>: '+value+'</span>' +
         '<span style="width:25%;text-align:right;"><?php _e('Time'); ?>: '+toFixedT(time,ac_config.numdecs)+'</span>' +
         '<span style="width:25%;text-align:right;"><?php _e('Penal'); ?>.:'+toFixedT(penal,ac_config.numdecs)+'</span>'+
-        '<span style="width:15%;text-align:right;font-size:1.5em">'+(workingData.teamCounter++)+'</span>'+
+        '<span style="width:10%;text-align:right;font-size:1.5em">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
 }
 
@@ -235,7 +235,7 @@ function formatTeamClasificaciones(dgname,value,rows) {
         '<span style="width:'+toPercent(width,15)+'px;text-align:left;">'+m1+'</span>' +
         '<span style="width:'+toPercent(width,15)+'px;text-align:left;">'+m2+'</span>'+
         '<span style="width:'+toPercent(width,25)+'px;text-align:right;">'+mf+'</span>'+
-        '<span style="width:'+toPercent(width,10)+'px;text-align:right;font-size:1.25vw;">'+(workingData.teamCounter++)+'&nbsp;</span>'+
+        '<span style="width:'+toPercent(width,5)+'px;text-align:right;font-size:1.25vw;">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
 }
 
