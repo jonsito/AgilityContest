@@ -256,10 +256,10 @@ $config =Config::getInstance();
             	    { field:'ID',		width:15, sortable:true,	title: 'ID' },
             		{ field:'Nombre',	width:30, sortable:true,	title: '<?php _e('Name'); ?>',formatter:formatBold },
 					{ field:'NombreLargo',hidden:true},
-					{ field:'Genero',	hidden:true},
             		{ field:'Categoria',width:15, sortable:false,	title: '<?php _e('Cat.'); ?>' ,formatter:formatCategoria},
-            		{ field:'Grado',	width:25, sortable:false,   title: '<?php _e('Grade'); ?>', formatter:formatGrado },
+            		{ field:'Grado',	width:15, sortable:false,   title: '<?php _e('Grade'); ?>', formatter:formatGrado },
             		{ field:'Raza',		width:25, sortable:false,   title: '<?php _e('Breed'); ?>' },
+					{ field:'Genero',	width:10, sortable:false,   title: '<?php _e('Gender'); ?>' },
             		{ field:'LOE_RRC',	width:25, sortable:true,    title: '<?php _e('KC id'); ?>' },
             		{ field:'Licencia',	width:25, sortable:true,    title: '<?php _e('License'); ?>' }
             	]],
