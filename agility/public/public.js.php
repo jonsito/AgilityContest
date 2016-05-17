@@ -179,12 +179,7 @@ function pb_updateParciales() {
 /**
  * Actualiza datos de la clasificacion general
  */
-function pb_updateFinales() {
-	var ronda=$('#pb_enumerateFinales').combogrid('grid').datagrid('getSelected');
-	if (ronda==null) {
-    	// $.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
-    	return; // no way to know which ronda is selected
-	}
+function pb_updateFinales2(ronda) {
     // do not call pb_doResults cause expected json data
 	$.ajax({
 		type:'GET',
@@ -234,4 +229,13 @@ function pb_updateFinales() {
             $('#pb_resultados-datagrid').datagrid('loadData',dat);
 		}
 	});
+}
+
+function pb_updateFinales() {
+    var ronda=$('#pb_enumerateFinales').combogrid('grid').datagrid('getSelected');
+    if (ronda==null) {
+        // $.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+        return; // no way to know which ronda is selected
+    }
+    pb_updateFinales2(ronda);
 }

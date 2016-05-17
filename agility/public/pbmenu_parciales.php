@@ -46,7 +46,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <table class="pb_trs">
                 <thead>
                 <tr>
-                    <th id="pb_parciales-NombreManga" colspan="2">(<?php _e('No round selected'); ?>)</th>
+                    <th id="pb_parciales-NombreManga" colspan="2" style="display:none">(<?php _e('No round selected'); ?>)</th>
                     <th id="pb_parciales-Juez1" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 1:</th>
                     <th id="pb_parciales-Juez2" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 2:</th>
                 </tr>

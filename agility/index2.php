@@ -46,7 +46,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>XXVI Campeonato en Espa&ntilde;a de Agility R.S.C.E.</title>
+    <title><?php echo $ptree['Prueba']['Nombre'] . " - " . _("Web access"); ?> </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="application-name" content="Agility Contest" />
     <meta name="copyright" content="© 2013-2015 Juan Antonio Martinez" />
@@ -118,25 +118,25 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         function pb_collapseMenu(flag) {
             var p=$('#pb_layout');
             if (flag) {
-                $('#pb_layout').layout('panel','west').panel('options').width='1%';
-                $('#pb_layout').layout('collapse','west');
+                p.layout('panel','west').panel('options').width='1%';
+                p.layout('collapse','west');
             }
-            $('#pb_layout').layout('panel','east').panel('options').width='98%';
-            $('#pb_layout').layout('expand','east');
+            p.layout('panel','east').panel('options').width='98%';
+            p.layout('expand','east');
         }
         function pb_expandMenu(flag) {
             var p=$('#pb_layout');
             if (flag) {
-                $('#pb_layout').layout('panel','west').panel('options').width='1%';
-                $('#pb_layout').layout('collapse','west');
+                p.layout('panel','west').panel('options').width='1%';
+                p.layout('collapse','west');
             }
-            $('#pb_layout').layout('panel','east').panel('options').width='60%';
-            $('#pb_layout').layout('expand','east');
+            p.layout('panel','east').panel('options').width='60%';
+            p.layout('expand','east');
         }
 
         function pbmenu_getAndSet(prueba,jornada) {
-            var p=<?php echo json_encode($ptree['Prueba']); ?>;
-            var j=<?php echo json_encode($ptree['Jornadas']); ?>;
+            var p=<?php echo json_encode($ptree['Prueba'],JSON_PRETTY_PRINT); ?>;
+            var j=<?php echo json_encode($ptree['Jornadas'],JSON_PRETTY_PRINT); ?>;
             setPrueba(p);
             for(var n=0;n<j.length;n++) {
                 if ( parseInt(j[n]['ID'])!==jornada) continue;
@@ -199,7 +199,14 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         }
 
         function pbmenu_loadFinalScores(prueba,jornada,serie) {
-
+            pbmenu_getAndSet(prueba,jornada);
+            workingData.datosRonda=workingData.datosJornada.Series[serie];
+            workingData.teamCounter=1;
+            pb_collapseMenu(true);
+            var page="/agility/public/pbmenu_finales.php";
+            if (isJornadaEq3() ) page="/agility/public/pbmenu_finales_eq3.php";
+            if (isJornadaEq4() ) page="/agility/public/pbmenu_finales_eq3.php";
+            $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
     </script>
@@ -302,8 +309,9 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                         echon("</li>");
                         echon("<li>"._("Final scores"));
                             echon('<ul>');
-                            foreach ($jornada['Series'] as $serie ){
-                                echon ('<li><a href="javascript:pbmenu_loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$serie['Rondas'].')">'.$serie['Nombre']."</a> </li>");
+                            for ($n=0;$n<count($jornada['Series']);$n++) {
+                                $serie=$jornada['Series'][$n];
+                                echon ('<li><a href="javascript:pbmenu_loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$n.')">'.$serie['Nombre']."</a> </li>");
                             }
                             echon("</ul>");
                         echon("</li>");
