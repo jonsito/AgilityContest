@@ -1,9 +1,9 @@
--- AgilityContest Version: 2.2.1 Revision: 20160429_2201
+-- AgilityContest Version: 2.2.1 Revision: 20160517_1130
 -- MySQL dump 10.15  Distrib 10.0.23-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: agility
 -- ------------------------------------------------------
--- Server version	10.0.23-MariaDB-log
+-- Server version	10.0.23-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -501,7 +501,7 @@ CREATE TABLE `equipos` (
   KEY `Equipos_Jornada` (`Jornada`),
   CONSTRAINT `Equipos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Equipos_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=234 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -727,7 +727,15 @@ INSERT INTO `equipos` VALUES
 (230,18,138,'L','Indoor 2','','BEGIN,END',0),
 (231,18,138,'MS','Indoor 3','','BEGIN,END',0),
 (232,18,138,'L','Eslón 1','','BEGIN,END',0),
-(233,18,138,'MS','Eslón 2','','BEGIN,END',0);
+(233,18,138,'MS','Eslón 2','','BEGIN,END',0),
+(234,19,145,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 19 JORNADA 145 - Default Team','BEGIN,END',1),
+(235,19,146,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 19 JORNADA 146 - Default Team','BEGIN,END',1),
+(236,19,147,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 19 JORNADA 147 - Default Team','BEGIN,END',1),
+(237,19,148,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 19 JORNADA 148 - Default Team','BEGIN,END',1),
+(238,19,149,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 19 JORNADA 149 - Default Team','BEGIN,END',1),
+(239,19,150,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 19 JORNADA 150 - Default Team','BEGIN,END',1),
+(240,19,151,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 19 JORNADA 151 - Default Team','BEGIN,END',1),
+(241,19,152,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 19 JORNADA 152 - Default Team','BEGIN,END',1);
 /*!40000 ALTER TABLE `equipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5032,7 +5040,7 @@ CREATE TABLE `jornadas` (
   PRIMARY KEY (`ID`),
   KEY `Jornadas_Prueba` (`Prueba`),
   CONSTRAINT `Jornadas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5177,7 +5185,15 @@ INSERT INTO `jornadas` VALUES
 (141,18,5,0,210,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
 (142,18,6,0,211,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
 (143,18,7,0,212,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
-(144,18,8,0,213,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'','');
+(144,18,8,0,213,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
+(145,19,1,0,234,'Trofeo Interclubes','2016-05-21','08:30:00',0,0,0,0,3,0,0,0,0,0,0,'(sin especificar)',''),
+(146,19,2,0,235,'XXVI Campeonato RSCE','2016-05-22','08:30:00',0,0,0,1,0,0,0,0,0,0,0,'(sin especificar)',''),
+(147,19,3,0,236,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
+(148,19,4,0,237,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
+(149,19,5,0,238,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
+(150,19,6,0,239,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
+(151,19,7,0,240,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
+(152,19,8,0,241,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'','');
 /*!40000 ALTER TABLE `jornadas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5202,7 +5218,7 @@ CREATE TABLE `jueces` (
   `Observaciones` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Jueces_Nombre` (`Nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5250,7 +5266,8 @@ INSERT INTO `jueces` VALUES
 (38,'Roberto Iñigo','','','ES','',0,1,'',1,''),
 (39,'Jose Luis Gimenez Mori','','','ES','',0,0,'',6,''),
 (40,'Iban Cubedo','','','ES','',0,1,'',1,''),
-(41,'Emilio José Pedrazuela Colliga','','','ES','',0,1,'',1,'');
+(41,'Emilio José Pedrazuela Colliga','','','ES','',0,1,'',1,''),
+(42,'Tamás Tráj','','','HU','',1,0,'',1,'');
 /*!40000 ALTER TABLE `jueces` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5315,7 +5332,7 @@ CREATE TABLE `mangas` (
   CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez1`) REFERENCES `jueces` (`ID`) ON UPDATE CASCADE,
   CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Juez2`) REFERENCES `jueces` (`ID`) ON UPDATE CASCADE,
   CONSTRAINT `Mangas_ibfk_5` FOREIGN KEY (`Jornada`) REFERENCES `jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=188 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=192 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5502,7 +5519,11 @@ INSERT INTO `mangas` VALUES
 (184,138,8,'-',1,190,21,154,17,154,17,0,0,0,48,'s',1,50,'%',0,40,'s',1,50,'%',0,0,'s',1,0,'%',0,0,'s',0,0,'s',2,30,'','BEGIN,400,575,8,1748,593,229,220,361,970,589,95,370,517,971,577,639,602,103,51,394,561,598,78,391,603,365,414,348,412,389,691,31,393,45,43,601,986,987,633,397,68,380,1546,627,330,386,995,498,692,398,588,587,1068,1679,427,407,1681,594,994,440,505,342,413,253,408,1572,560,314,1562,519,274,516,1566,312,584,241,END','BEGIN,207,227,230,217,232,221,226,214,222,220,223,225,229,219,233,228,215,218,224,231,216,END'),
 (185,138,13,'-',1,175,20,168,22,168,22,0,0,6,4,'m',1,50,'%',0,38,'s',1,50,'%',0,38,'s',1,50,'%',0,0,'s',0,0,'s',2,30,'','BEGIN,692,370,391,633,691,274,601,995,440,577,594,517,68,95,8,1068,43,427,589,986,241,414,1681,78,498,1572,1679,994,31,348,603,312,342,1546,253,397,519,220,408,413,365,575,560,412,639,361,516,1562,987,51,1748,398,627,587,561,598,314,1566,103,602,389,45,394,584,970,386,407,400,588,330,593,971,393,380,505,229,END','BEGIN,225,214,220,230,223,226,222,232,221,227,217,229,224,231,215,218,228,219,233,216,207,END'),
 (186,139,7,'-',0,198,22,182,21,175,19,0,0,6,3.9,'m',0,75,'s',0,46,'s',0,70,'s',0,46,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,601,593,31,394,604,361,381,598,574,397,971,633,589,380,43,1546,591,8,622,410,1748,393,603,365,643,229,57,103,45,220,78,51,575,970,71,987,627,602,691,423,68,517,400,389,391,519,1068,588,398,995,407,253,350,274,516,241,505,498,427,408,386,587,692,1562,1572,330,1566,584,1072,342,413,312,314,END','BEGIN,208,END'),
-(187,139,12,'-',0,172,21,179,19,190,22,0,0,0,40,'s',0,60,'s',0,44,'s',0,66,'s',0,43,'s',0,78,'s',0,0,'s',0,0,'s',2,30,'','BEGIN,312,413,587,643,622,43,391,427,423,397,604,45,361,31,380,987,381,71,1566,103,516,995,386,408,1072,633,1068,68,575,601,393,1748,1572,574,274,400,8,589,410,220,57,350,517,394,398,970,498,253,591,584,602,971,342,1562,603,593,588,598,407,519,389,1546,692,691,51,78,365,330,314,627,505,241,229,END','BEGIN,208,END');
+(187,139,12,'-',0,172,21,179,19,190,22,0,0,0,40,'s',0,60,'s',0,44,'s',0,66,'s',0,43,'s',0,78,'s',0,0,'s',0,0,'s',2,30,'','BEGIN,312,413,587,643,622,43,391,427,423,397,604,45,361,31,380,987,381,71,1566,103,516,995,386,408,1072,633,1068,68,575,601,393,1748,1572,574,274,400,8,589,410,220,57,350,517,394,398,970,498,253,591,584,602,971,342,1562,603,593,588,598,407,519,389,1546,692,691,51,78,365,330,314,627,505,241,229,END','BEGIN,208,END'),
+(188,145,8,'-',1,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,0,'%',0,0,'s',0,0,'s',2,42,'','BEGIN,END','BEGIN,234,END'),
+(189,145,13,'-',1,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,0,'%',0,0,'s',0,0,'s',2,42,'','BEGIN,END','BEGIN,234,END'),
+(190,146,7,'-',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',0,0,'s',42,2,'','BEGIN,END','BEGIN,235,END'),
+(191,146,12,'-',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',0,0,'s',42,2,'','BEGIN,END','BEGIN,235,END');
 /*!40000 ALTER TABLE `mangas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -7529,7 +7550,7 @@ CREATE TABLE `pruebas` (
   PRIMARY KEY (`ID`),
   KEY `Pruebas_Club` (`Club`),
   CONSTRAINT `Pruebas_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `clubes` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -7555,7 +7576,8 @@ INSERT INTO `pruebas` VALUES
 (15,NULL,'Cuádruple Xanastur',80,'Centro Ecuestre El Asturcón','','','',0,0,0),
 (16,NULL,'I Open Xanastur',80,'Centro Ecuestre El Asturcón','','','',0,0,0),
 (17,NULL,'Selectiva Valencia 16-17 Abril',90,'Campo Municipal de El Puig de Santa Maria','','','',0,1,0),
-(18,NULL,'Trofeo CAM 2016',35,'','','','',0,0,0);
+(18,NULL,'Trofeo CAM 2016',35,'','','https://dl.dropboxusercontent.com/u/72813204/agility/Eslon/trofeo_cam_2016.jpg','',0,0,0),
+(19,NULL,'C.E. RSCE 2016',106,'Institucion Ferial de Madrid (IFEMA)','','https://dl.dropboxusercontent.com/u/72813204/agility/RSCE2016/poster.jpg','',0,0,0);
 /*!40000 ALTER TABLE `pruebas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -14719,7 +14741,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=662 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=663 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -14737,7 +14759,7 @@ INSERT INTO `sesiones` VALUES
 (586,'Console','laura - ',9,'436IpDkMT7snmw1U',0,0,0,0,'',NULL,NULL,NULL,'2016-03-27 07:09:43'),
 (604,'Console','jantonio - ',7,'x7AWJ1sCB2Ilm39E',0,0,0,0,'',NULL,NULL,NULL,'2016-04-17 06:24:12'),
 (657,'Console','operator - Operador de consola',4,'LwqNHzt5pus26ibl',0,0,0,0,'',NULL,NULL,NULL,'2016-05-01 06:35:33'),
-(661,'Console','admin - Administrador de la aplicacion',3,'mc19sO2SFokfxqZD',0,0,0,0,'',NULL,NULL,NULL,'2016-05-02 06:29:09');
+(662,'Console','admin - Administrador de la aplicacion',3,'rycY8KHbBPZ0gQRC',0,0,0,0,'',NULL,NULL,NULL,'2016-05-17 09:31:44');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -14767,7 +14789,7 @@ CREATE TABLE `tandas` (
   CONSTRAINT `Tandas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Tandas_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Tandas_ibfk_3` FOREIGN KEY (`Sesion`) REFERENCES `sesiones` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=546 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=558 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -15298,7 +15320,19 @@ INSERT INTO `tandas` VALUES
 (542,18,139,2,3,'Agility Small','S','-',NULL,17,NULL),
 (543,18,139,2,4,'Jumping Large','L','-',NULL,29,NULL),
 (544,18,139,2,5,'Jumping Medium','M','-',NULL,30,NULL),
-(545,18,139,2,6,'Jumping Small','S','-',NULL,31,NULL);
+(545,18,139,2,6,'Jumping Small','S','-',NULL,31,NULL),
+(546,19,145,2,1,'Agility Eq. Large','L','-',NULL,18,NULL),
+(547,19,145,2,2,'Agility Eq. Medium','M','-',NULL,19,NULL),
+(548,19,145,2,3,'Agility Eq. Small','S','-',NULL,20,NULL),
+(549,19,145,2,4,'Jumping Eq. Large','L','-',NULL,32,NULL),
+(550,19,145,2,5,'Jumping Eq. Medium','M','-',NULL,33,NULL),
+(551,19,145,2,6,'Jumping Eq. Small','S','-',NULL,34,NULL),
+(552,19,146,2,1,'Agility Large','L','-',NULL,15,NULL),
+(553,19,146,2,2,'Agility Medium','M','-',NULL,16,NULL),
+(554,19,146,2,3,'Agility Small','S','-',NULL,17,NULL),
+(555,19,146,2,4,'Jumping Large','L','-',NULL,29,NULL),
+(556,19,146,2,5,'Jumping Medium','M','-',NULL,30,NULL),
+(557,19,146,2,6,'Jumping Small','S','-',NULL,31,NULL);
 /*!40000 ALTER TABLE `tandas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -15445,7 +15479,8 @@ INSERT INTO `versionhistory` VALUES
 ('20160319_0943','2016-03-21 09:57:53'),
 ('20160321_1957','2016-03-23 22:51:30'),
 ('20160415_0948','2016-04-16 01:18:57'),
-('20160429_2201','2016-04-29 21:52:53');
+('20160429_2201','2016-04-29 21:52:53'),
+('20160517_1130','2016-05-17 09:31:35');
 /*!40000 ALTER TABLE `versionhistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
