@@ -109,7 +109,7 @@ class EquiposByJornada extends PrintCommon {
         } else {
             $count=0;
             foreach($team['Perros'] as $miembro) {
-                $logo=getIconPath($fed,$miembro['Logo']);
+                $logo=getIconPath($fed,$miembro['LogoClub']);
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
