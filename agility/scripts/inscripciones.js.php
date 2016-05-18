@@ -202,6 +202,51 @@ function reorderInscripciones(idprueba) {
 }
 
 /**
+ * cambia el dorsal
+ * @param idprueba ID de la prueba
+ */
+function setDorsal() {
+	var row = $('#inscripciones-datagrid').datagrid('getSelected');
+	if (!row) {
+		$.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no inscription(s) selected"); ?>',"warning");
+		return; // no hay ninguna inscripcion seleccionada. retornar
+	}
+	$.messager.prompt(
+		'<?php _e("Set dorsal"); ?>',
+		'<?php _e("Please type new dorsal<br />If already assigned, <br/>dorsals will be swapped"); ?>',
+		function(r) {
+			if (!r || isNaN(parseInt(r))) return;
+			$.messager.progress({title:'<?php _e("Set dorsal"); ?>',text:'<?php _e("Setting new dorsal...");?>'});
+			$.ajax({
+				cache: false,
+				timeout: 60000, // 60 segundos
+				type:'GET',
+				url:"/agility/server/database/inscripcionFunctions.php",
+				dataType:'json',
+				data: {
+					Prueba: row.Prueba,
+					Perro: row.Perro,
+					Dorsal: row.Dorsal,
+					NewDorsal: parseInt(r),
+					Operation: 'setdorsal'
+				},
+				success: function(data) {
+					if(data.errorMsg) {
+						$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: data.errorMsg });
+					} else {
+						$('#inscripciones-datagrid').datagrid('reload');
+					}
+					$.messager.progress('close');
+				},
+				error:function(jqXHR, textStatus, errorThrown) {
+					// console.log(textStatus, errorThrown);
+					$.messager.progress('close');
+				}
+			});
+		}
+	);
+}
+/**
  * Comprueba si un participante se puede o no inscribir en una jornada
  * @param {object} jornada, datos de la jornada
  */

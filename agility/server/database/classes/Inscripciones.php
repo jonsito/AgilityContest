@@ -382,7 +382,31 @@ class Inscripciones extends DBObject {
         $this->myLogger->leave();
         return $lista;
 	}
-			
+
+	/*
+	 * Change dorsal number for provided dog
+	 * If dorsal is already assigned, swap dorsal with affected dog
+	 */
+	function setDorsal($perro,$curdorsal,$newdorsal){
+		$this->myLogger->enter();
+		if ( ($perro<=0) || ($newdorsal<=0))
+			return $this->error("setDorsal(): invalid dogID:$perro or dorsal:$newdorsal requested");
+		$this->myLogger->leave();
+		$cmds= array(
+			// preserve old dorsal if exists
+			"UPDATE Inscripciones SET Dorsal=0 WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal={$newdorsal} )",
+			"UPDATE Resultados SET Dorsal=0 WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal={$newdorsal} )",
+			// set new dorsal
+			"UPDATE Inscripciones SET Dorsal=$newdorsal WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal={$curdorsal} )",
+			"UPDATE Resultados SET Dorsal=$newdorsal WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal={$curdorsal} )",
+			// swap old dorsal
+			"UPDATE Inscripciones SET Dorsal=$curdorsal WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal=0 )",
+			"UPDATE Resultados SET Dorsal=$curdorsal WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal=0 )"
+		);
+		foreach ($cmds as $query) { $this->conn->query($query); }
+		return "";
+	}
+
 	/*
 	 * Reorder dorsales by mean of club,categoria,grado,nombre
 	 */

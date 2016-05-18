@@ -88,8 +88,11 @@ $config =Config::getInstance();
    			data-options="iconCls:'icon-edit'"
    			onclick="editInscripcion('#inscripciones-datagrid')"><?php _e('Edit'); ?></a>
    		<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-trash'"
-   			onclick="deleteInscripcion('#inscripciones-datagrid')"><?php _e('Delete'); ?></a>
+		   data-options="iconCls:'icon-trash'"
+		   onclick="deleteInscripcion('#inscripciones-datagrid')"><?php _e('Delete'); ?></a>
+		<a id="inscripciones-setBtn" href="#" class="easyui-linkbutton"
+		   data-options="iconCls:'icon-order'"
+		   onclick="setDorsal()"><?php _e('Set dorsal'); ?></a>
    		<input id="inscripciones-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"	/>
 		<span id="inscripciones-readonly" class="blink" style="color:red">Read Only</span>
    	</span>
@@ -226,6 +229,7 @@ addKeyHandler('#inscripciones-datagrid',null,newInscripcion,editInscripcion,dele
 addTooltip($('#inscripciones-newBtn').linkbutton(),'<?php _e("Register new inscriptions");?>');
 addTooltip($('#inscripciones-editBtn').linkbutton(),'<?php _e("Modify selected inscription");?>');
 addTooltip($('#inscripciones-delBtn').linkbutton(),'<?php _e("Remove selected inscription from database");?>');
+addTooltip($('#inscripciones-setBtn').linkbutton(),'<?php _e("Change dorsal number for selected inscription");?>');
 addTooltip($('#inscripciones-reorderBtn').linkbutton(),'<?php _e("Reassign dorsals ordering by Club,Category,Grade, and Name");?>');
 addTooltip($('#inscripciones-teamBtn').linkbutton(),'<?php _e("Open Team handling window for selected journey");?>');
 addTooltip($('#inscripciones-printBtn').linkbutton(),'<?php _e("Print inscriptions list on this contest");?>');
