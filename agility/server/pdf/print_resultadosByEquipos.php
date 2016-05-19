@@ -145,7 +145,7 @@ class ResultadosByEquipos3 extends PrintCommon {
             $miembros=$this->eqmgr->getPerrosByTeam($team['ID']);
             $count=0;
             for ($n=0;$n<count($miembros);$n++) {
-                $logo=getIconPath($this->federation->get('Name'),$miembros[$n]['Logo']);
+                $logo=getIconPath($this->federation->get('Name'),$miembros[$n]['LogoClub']);
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }

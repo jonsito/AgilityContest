@@ -165,11 +165,10 @@ var gview = $.extend({}, groupview, {
     onBeforeRender: function(target, rows){
         var state = $.data(target, 'datagrid');
         var opts = state.options;
-        var tmode = isJornadaEq3()?3:4;
+        var tmode = getMinDogsByTeam();
         var indexedGroups= {};
         var groups = [];
         var sortOrder=opts.sortOrder=='asc'?1:-1;
-
         initCss();
 
         for(var i=0; i<rows.length; i++){
@@ -198,8 +197,9 @@ var gview = $.extend({}, groupview, {
             // take care on "no presentados". Use loop to allow team members excess
             var ap= a.p;
             var bp= b.p;
-            for (var n= a.rows.length;n<tmode;n++) ap+=200;
-            for (var n= b.rows.length;n<tmode;n++) bp+=200;
+            // elim:100 np:200 undeclared:400
+            for (var n= a.rows.length;n<tmode;n++) ap+=400;
+            for (n= b.rows.length;n<tmode;n++) bp+=400;
             if (ap!=bp) return sortOrder*(ap> bp?1:-1);
             // on equal penalization compare time
             return sortOrder*(a.t> b.t?1:-1);
@@ -207,7 +207,7 @@ var gview = $.extend({}, groupview, {
 
         var index = 0;
         var newRows = [];
-        for(var i=0; i<groups.length; i++){
+        for(i=0; i<groups.length; i++){
             var group = groups[i];
             group.startIndex = index;
             index += group.rows.length;

@@ -54,7 +54,7 @@ class PrintClasificacionEq4 extends PrintCommon {
         'F2' => 0, 'T2' => 0, 'R2' => 0, 'P2' => 0, 'V2' => 0, 'C2' => '',
         'Tiempo' => '0.0',
         'Velocidad' => '0.0',
-        'Penalizacion' => 400.0,
+        'Penalizacion' => 800.0,
         'Calificacion' => '-',
         'CShort' => '-',
         'Puesto' => '-'
@@ -129,12 +129,12 @@ class PrintClasificacionEq4 extends PrintCommon {
                 if (array_key_exists($n,$team['Resultados1'])) {
                     $team['P1']+=$team['Resultados1'][$n]['P'];
                     $team['T1']+=$team['Resultados1'][$n]['T'];
-                } else  $team['P1']+=200.0;
+                } else  $team['P1']+=400.0; // perro no existente (no marcado como NP )
                 if ($this->manga2!=null) {
                     if (array_key_exists($n,$team['Resultados2'])) {
                         $team['P2']+=$team['Resultados2'][$n]['P'];
                         $team['T2']+=$team['Resultados2'][$n]['T'];
-                    } else  $team['P2']+=200.0;
+                    } else  $team['P2']+=400.0; // perro no existente ( no marcado como NP )
                 }
             }
             // and evaluate final team's results

@@ -142,7 +142,7 @@ function formatTeamResults( name,value , rows ) {
     }
     for (var n=0;n<mindogs;n++) {
         if ( typeof(rows[n])==='undefined') {
-            penal+=200.0;
+            penal+=400.0;
             addLogo('null.png');
         } else {
             penal+=parseFloat(rows[n].Penalizacion);
@@ -171,7 +171,7 @@ function formatTeamResultsConsole( value , rows ) {
     var mindogs=getMinDogsByTeam();
     for (var n=0;n<mindogs;n++) {
         if ( typeof(rows[n])==='undefined') {
-            penal+=200.0;
+            penal+=400.0;
         } else {
             penal+=parseFloat(rows[n].Penalizacion);
             time+=parseFloat(rows[n].Tiempo);
@@ -201,8 +201,8 @@ function formatTeamClasificaciones(dgname,value,rows) {
     var manga2={ time:0.0, penal:0.0, perros:[] };
     for (var n=0;n<4;n++) {
         if (typeof(rows[n]) === 'undefined') {
-            manga1.perros[n] = {time: parseFloat(0.0), penal: parseFloat(200.0)};
-            manga2.perros[n] = {time: parseFloat(0.0), penal: parseFloat(200.0)};
+            manga1.perros[n] = {time: parseFloat(0.0), penal: parseFloat(400.0)};
+            manga2.perros[n] = {time: parseFloat(0.0), penal: parseFloat(400.0)};
             addLogo('null.png');
         } else {
             manga1.perros[n] = {time: parseFloat(rows[n].T1), penal: parseFloat(rows[n].P1)};
@@ -252,8 +252,8 @@ function formatTeamClasificacionesConsole(value,rows) {
     var manga2={ time:0.0, penal:0.0, perros:[] };
     for (var n=0;n<4;n++) {
         if (typeof(rows[n]) === 'undefined') {
-            manga1.perros[n] = {time: parseFloat(0.0), penal: parseFloat(200.0)};
-            manga2.perros[n] = {time: parseFloat(0.0), penal: parseFloat(200.0)};
+            manga1.perros[n] = {time: parseFloat(0.0), penal: parseFloat(400.0)};
+            manga2.perros[n] = {time: parseFloat(0.0), penal: parseFloat(400.0)};
         } else {
             manga1.perros[n] = {time: parseFloat(rows[n].T1), penal: parseFloat(rows[n].P1)};
             manga2.perros[n] = {time: parseFloat(rows[n].T2), penal: parseFloat(rows[n].P2)};

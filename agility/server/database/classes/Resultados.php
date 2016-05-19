@@ -758,11 +758,11 @@ class Resultados extends DBObject {
             switch(count($equipo['Resultados'])){
                 case 0: continue; // ignore team
 					break;
-                case 1: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
+                case 1: $equipo['Penalizacion']+=400.0; // required team member undeclared
                 // no break
-                case 2: if ($mindogs==3) $equipo['Penalizacion']+=200.0; // add pending "No presentado"
+                case 2: if ($mindogs==3) $equipo['Penalizacion']+=400.0; // required team member undeclared
                 // no break;
-                case 3: if ($mindogs==4) $equipo['Penalizacion']+=200.0; // add pending "No presentado"
+                case 3: if ($mindogs==4) $equipo['Penalizacion']+=400.0; // required team member undeclared
                 // no break;
                 case 4:
                     array_push($teams,$equipo); // add team to result to remove unused/empty teams

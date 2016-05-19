@@ -61,7 +61,7 @@ class PrintClasificacionEq3 extends PrintCommon {
         'F2' => 0, 'T2' => 0, 'R2' => 0, 'P2' => 0, 'V2' => 0, 'C2' => '',
         'Tiempo' => '0.0',
         'Velocidad' => '0.0',
-        'Penalizacion' => 400.0,
+        'Penalizacion' => 800.0,
         'Calificacion' => '-',
         'CShort' => '-',
         'Puesto' => '-'
@@ -128,11 +128,11 @@ class PrintClasificacionEq3 extends PrintCommon {
                 if (array_key_exists($n,$team['Resultados1'])) {
                     $team['P1']+=$team['Resultados1'][$n]['P'];
                     $team['T1']+=$team['Resultados1'][$n]['T'];
-                } else  $team['P1']+=200.0;
+                } else  $team['P1']+=400.0; // falta perro (no ha salido, y no esta marcado como NP)
                 if (array_key_exists($n,$team['Resultados2'])) {
                     $team['P2']+=$team['Resultados2'][$n]['P'];
                     $team['T2']+=$team['Resultados2'][$n]['T'];
-                } else  $team['P2']+=200.0;
+                } else  $team['P2']+=400.0; // falta perro ( no ha salido y no figura como NP)
             }
             // and evaluate final team's results
             $team['Penalizacion']=$team['P1']+$team['P2'];
@@ -446,10 +446,10 @@ try {
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
 	$c= new Clasificaciones("print_clasificacion_pdf",$prueba,$jornada);
-	$resultados=$c->clasificacionFinal($rondas,$mangas,$mode);
+	$cfinal=$c->clasificacionFinal($rondas,$mangas,$mode);
 
 	// Creamos generador de documento
-	$pdf = new PrintClasificacionEq3($prueba,$jornada,$mangas,$resultados,$mode);
+	$pdf = new PrintClasificacionEq3($prueba,$jornada,$mangas,$cfinal,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("print_clasificacion_eqBest.pdf","D"); // "D" means open download dialog
