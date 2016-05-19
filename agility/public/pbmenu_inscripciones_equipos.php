@@ -108,12 +108,14 @@ $('#pb_inscripciones_eq3-datagrid').datagrid({
         showInscripcionesByTeam(idx,row);
     },
     onLoadSuccess: function(data) {
+        /*
         function fireUp(index) {
             setTimeout(function() {dg.datagrid('expandRow',index);},1000*index);
         }
         var dg = $('#pb_inscripciones_eq3-datagrid');
         var count = dg.datagrid('getRows').length;
         for(var i=0; i<count; i++) fireUp(i);
+        */
     }
 });
 
