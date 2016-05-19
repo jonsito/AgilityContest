@@ -514,6 +514,10 @@ class Resultados extends DBObject {
 					$size++;
 					break;
 				}
+				if ($n>=$size) { // perro at last position. insert. Notice that Elim/NP should not arrive here as method not invoked
+					array_push($table,$myPerro);
+					$size++;
+				}
 			}
         }
 

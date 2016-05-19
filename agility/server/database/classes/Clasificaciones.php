@@ -381,12 +381,12 @@ class Clasificaciones extends DBObject {
         $hermanas=$mng->getHermanas($myManga);
         $id1=intval($hermanas[0]->ID);
         $id2=0;
-        $r1= new Resultados("Clasificaciones::Preagility 1",$this->prueba->ID,$id1);
+        $r1= new Resultados("Clasificaciones::getPuestoFinal",$this->prueba->ID,$id1);
         $c1=$r1->getPenalizaciones($mode,($myManga==$id1)?$perro:null);
         $c2=null;
         if($hermanas[1]!=null) {
             $id2=intval($hermanas[1]->ID);
-            $r2= new Resultados("Clasificaciones::Preagility 1",$this->prueba->ID,$id2);
+            $r2= new Resultados("Clasificaciones::getPuestoFinal",$this->prueba->ID,$id2);
             $c2=$r2->getPenalizaciones($mode,($myManga==$id2)?$perro:null);
         }
         $result= $this->evalPenalizacionFinal(array($id1,$id2),$c1,$c2,$mode);
