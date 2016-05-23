@@ -139,6 +139,7 @@ class Eventos extends DBObject {
 			// entrada de datos, dato siguiente, cancelar operacion
 			case 'llamada':		// operador abre panel de entrada de datos
 				// retrieve additional textual data
+				$data['Numero']		= http_request('Numero',"i",0);
 				$data['Nombre']		= http_request('Nombre',"s","");
                 $data['NombreLargo']= http_request('NombreLargo',"s","");
                 $data['NombreGuia']	= http_request('NombreGuia',"s","");

@@ -80,9 +80,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<div id="vwls_competitorInfo">
 				<!-- recuadro de decoracion de datos del competidor en pist -->
 				<span class="vwls_fondo<?php echo ($combined==1)?'_combined':'_chromakey';?>" id="vwls_Datos">&nbsp;</span>
+				<!-- call to ring order number (first:1) -->
+				<span class="vwls_label vwls_dorsal" id="vwls_Numero"><?php _e('Number'); ?></span>
 				<!-- logogipo -->
 				<img id="vwls_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="70" height="70" class="vwls_logo"/>
-				<span class="vwls_label vwls_dorsal" id="vwls_Dorsal"><?php _e('Dorsal'); ?></span>
+				<span class="vwls_label" id="vwls_Dorsal"><?php _e('Dorsal'); ?></span>
 				<span class="vwls_label" id="vwls_Nombre"><?php _e('Name'); ?></span>
 				<span class="vwls_label" id="vwls_NombreGuia"><?php _e('Handler'); ?></span>
 				<span class="vwls_label" id="vwls_NombreClub"><?php _e('Club'); ?></span>
@@ -184,9 +186,10 @@ switch (parseInt(ac_config.vw_dataposition)) {
 
 // data for competitor box
 doLayout(layout,"#vwls_Datos",			10,		410,	390,	30 ); // background box
+doLayout(layout,"#vwls_Numero",			20,		416,	30,		50	);
 doLayout(layout,"#vwls_Logo",			50,		365,	70,		70	);
-doLayout(layout,"#vwls_Dorsal",			20,		416,	110,	50	);
-doLayout(layout,"#vwls_Nombre",			125,	412,	225,	20	);
+doLayout(layout,"#vwls_Dorsal",			125,	412,	25,		20	);
+doLayout(layout,"#vwls_Nombre",			150,	412,	200,	20	);
 doLayout(layout,"#vwls_NombreGuia",		125,	425,	140,	20	);
 doLayout(layout,"#vwls_NombreClub",		265,	425,	135,	20	);
 doLayout(layout,"#vwls_Celo",			360,	412,	40,		20	);

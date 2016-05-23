@@ -572,6 +572,7 @@ function tablet_gotoDorsal(tanda,dgname,dorsal) {
 			var data = dg.datagrid('getRows')[idx];
 			data.Session = workingData.sesion;
 			data.Parent = dgname; // store datagrid reference
+			data.RowIndex=idx;
 			$('#tdialog-form').form('load', data);
 			tablet_markSelectedDog(parseInt(idx));
 			setDataEntryEnabled(true);

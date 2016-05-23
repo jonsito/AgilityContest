@@ -372,6 +372,7 @@ $config =Config::getInstance();
                         'Dorsal'		: $('#tdialog-Dorsal').val(),
                         'Value'         : 0,
                         // include additional textual info
+                        'Numero'        : 1+parseInt($('#tdialog-RowIndex').val()),
                         'Nombre'        : $('#tdialog-Nombre').val(),
                         'NombreLargo'   : $('#tdialog-NombreLargo').val(),
                         'NombreGuia'    : $('#tdialog-Guia').val(),

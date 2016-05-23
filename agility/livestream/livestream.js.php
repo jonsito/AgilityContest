@@ -78,6 +78,7 @@ function vwls_showData(data) {
 	var perro=$('#vwls_Perro').html();
 	var vwls_tiempo=$('#vwls_Tiempo');
 	var dorsal=data['Dorsal'];
+	var numero=data['Numero'];
 	var celo=parseInt(data['Celo']);
 	if (perro!==data['Perro']) {
 		// if datos del participante han cambiado actualiza
@@ -92,6 +93,7 @@ function vwls_showData(data) {
 			cache: false,
 			dataType: 'json',
 			success: function(res){
+				$('#vwls_Numero').html(numero);
 				$('#vwls_Logo').attr("src","/agility/images/logos/"+res['LogoClub']);
 				$('#vwls_Dorsal').html(dorsal );
 				$('#vwls_Perro').html(res["ID"]);
