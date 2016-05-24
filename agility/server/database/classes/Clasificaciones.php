@@ -21,6 +21,7 @@ require_once("DBObject.php");
 require_once("Pruebas.php");
 require_once("Jornadas.php");
 require_once("Mangas.php");
+require_once("Equipos.php");
 require_once("Resultados.php");
 
 class Clasificaciones extends DBObject {
@@ -60,9 +61,8 @@ class Clasificaciones extends DBObject {
 	 * genera la tabla de resultados finales y evalua el orden de clasificacion
 	 * @param {array} $c1 clasificacion primera manga
 	 * @param {array} $c2 clasificacion segunda manga
-	 * @param {integer} $mode Modo 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
 	 */
-	function evalFinal($idmangas,$c1,$c2,$mode) {
+	function evalFinal($idmangas,$c1,$c2) {
 		$this->myLogger->enter();
 		$m1=$this->__getObject("Mangas",$idmangas[0]);
 		$m2=$this->__getObject("Mangas",$idmangas[1]);
@@ -218,13 +218,73 @@ class Clasificaciones extends DBObject {
 		return $result;
 	}
 
+    /**
+     * Evalua el resultado de una competicion por equipos
+     * @param {array} $r1 datos de la manga 1
+     * @param {array} $r2 datos de la manga 2
+     */
+	function evalFinalEquipos($r1,$r2,$mindogs,$maxdogs) {
+        // Datos de equipos de la jornada
+        $eobj=new Equipos("evalFinalEquipos",$this->prueba->ID,$this->jornada->ID);
+        $tbj=$eobj->getTeamsByJornada();
+        // reindexamos equipos por ID y aniadimos campos para evaluar clasificacion
+        $teams=array();
+        foreach ($tbj as $equipo) {
+            $r=array_merge($equipo,array('count1'=>0,'count2'=>0,'penal1'=>0,'penal2'=>0,'Tiempo'=>0,'Penalizacion'=>0));
+            $teams[$equipo['ID']]=$r;
+        }
+        // procesamos manga 1. Se asume que los resultados ya vienen ordenados por puesto,
+        // de manera que se contabilizan solo los mindogs primeros perros de cada equipo
+        if ($r1!=null) foreach($r1 as $resultado) {
+            $eq=$resultado['Equipo'];
+            if (!array_key_exists($eq,$teams)) {
+                $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:1 Equipo:$eq no existe");
+                continue;
+            }
+            if ($teams[$eq]['count1']>=$mindogs) continue;
+            $teams[$eq]['count1']++;
+            $teams[$eq]['tiempo1']+=$resultado['T1'];
+            $teams[$eq]['penal1']+=$resultado['P1'];
+            $teams[$eq]['Tiempo']+=$resultado['T1'];
+            $teams[$eq]['Penalizacion']+=$resultado['P1'];
+        }
+        // procesamos manga 2
+        if ($r2!=null) foreach($r2 as $resultado) {
+            $eq=$resultado['Equipo'];
+            if (!array_key_exists($eq,$teams)) {
+                $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:2 Equipo:$eq no existe");
+                continue;
+            }
+            if ($teams[$eq]['count2']>=$mindogs) continue;
+            $teams[$eq]['count2']++;
+            $teams[$eq]['tiempo2']+=$resultado['T1'];
+            $teams[$eq]['penal2']+=$resultado['P1'];
+            $teams[$eq]['Tiempo']+=$resultado['T1'];
+            $teams[$eq]['Penalizacion']+=$resultado['P1'];
+        }
+        // rellenamos huecos hasta completar mindogs
+        foreach ($teams as &$team ) {
+            // 100:Eliminado 200:NoPresentado 400:Pendiente
+            for($n=$team['C1'];$n<$mindogs;$n++) $team['Penalización']+=400;
+            for($n=$team['C2'];$n<$mindogs;$n++) $team['Penalización']+=400;
+        }
+        // eliminamos el indice del array
+        $final=array_values($teams);
+        // re-ordenamos los datos en base a la puntuacion
+        usort($final, function($a, $b) {
+            if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
+            return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
+        });
+        // retornamos resultado
+	}
+
 	/**
 	 * genera la tabla de resultados finales y evalua el orden de clasificacion
 	 * @param {array} $c1 clasificacion primera manga
 	 * @param {array} $c2 clasificacion segunda manga
 	 * @param {integer} $mode Modo 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
 	 */
-	function evalPenalizacionFinal($idmangas,$c1,$c2,$mode) {
+	function evalPenalizacionFinal($idmangas,$c1,$c2) {
 		$this->myLogger->enter();
 		$m1=$this->__getObject("Mangas",$idmangas[0]);
 		$m2=$this->__getObject("Mangas",$idmangas[1]);
@@ -300,12 +360,65 @@ class Clasificaciones extends DBObject {
 		$res['rows']=array_merge($c1['rows'],$c2['rows']); // la informacion de 'puesto' se ignorará...
 		return $res;	
 	}
-	
+
+	/**
+	 * Evalua las clasificaciones finales por equipos
+	 * @param {integer} $rondas bitfield Jornadas::$tipo_ronda
+	 * @param {array[{integer}]} $idmangas array con los ID's de las mangas a evaluar
+	 * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T
+	 *
+	 * Retorna varios arrays:
+	 * - datos de las mangas
+	 * - clasificacion final individual
+	 * - clasificacion final por equipos
+	 */
+	function clasificacionFinalEquipos($rondas,$idmangas,$mode) {
+		// vamos a ver que tipo de clasificacion nos estan pidiendo
+		switch ($rondas) {
+			case 0x0002: // pre-agility a dos vueltas
+			case 0x0004: // Grado I
+			case 0x0008: // Grado II
+			case 0x0010: // Grado III
+			case 0x0020: // Open
+			case 0x0018: // Conjunta GII - GIII
+			case 0x0100: // ronda KO 1..8 vueltas
+			case 0x0200: // manga especial (una vuelta)
+				$this->errormsg= "ClasificacionEquipos(): choosen series ($rondas) is not a Team Serie";
+				return null;
+			case 0x0400: // equipos 2 mejores de 3
+                $mindogs=2;$maxdogs=3;break;
+			case 0x0040: // equipos 3 mejores de 4
+                $mindogs=3;$maxdogs=4;break;
+			case 0x0800: // equipos 2 conjunta
+                $mindogs=2;$maxdogs=2;break;
+			case 0x1000: // equipos 3 conjunta
+                $mindogs=3;$maxdogs=3;break;
+			case 0x0080: // equipos 4 conjunta
+                $mindogs=4;$maxdogs=4;break;
+            default:
+                // arriving here means error
+                $this->errormsg= "ClasificacionEquipos(): Unknown series type ($rondas)";
+                return null;
+		}
+        $r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility Equipos
+        $r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping Equipos
+        $c1=$r1->getResultados($mode);
+        $c2=$r2->getResultados($mode);
+        $res= $this->evalFinal($idmangas,$c1,$c2);
+        $result=array();
+        $result['individual']=$res['rows'];
+        $result['trs']=$res['trs'];
+        $result['jueces']=$res['jueces'];
+        $result['teams']=evalFinalEquipos($c1,$c2,$mindogs,$maxdogs);
+        $result['total']=count($result['teams']);
+        return $result;
+	}
+
 	/**
 	 * Evalua las clasificaciones en funcion de los datos pedidos
 	 * @param {integer} $rondas bitfield Jornadas::$tipo_ronda
 	 * @param {array[{integer}]} $idmangas array con los ID's de las mangas a evaluar
-	 * @param {integer} $mode Modo 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
+	 * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T
 	 */
 	function clasificacionFinal($rondas,$idmangas,$mode) {
 		// vamos a ver que tipo de clasificacion nos estan pidiendo
@@ -313,7 +426,7 @@ class Clasificaciones extends DBObject {
 			case 0x0001: // pre-agility a una vuelta
 				$r1= new Resultados("Clasificaciones::Preagility 1",$this->prueba->ID,$idmangas[0]);
 				$c1=$r1->getResultados($mode);
-				return $this->evalFinal($idmangas,$c1,null,$mode);
+				return $this->evalFinal($idmangas,$c1,null);
 			case 0x0002: // pre-agility a dos vueltas
 			case 0x0004: // Grado I
 			case 0x0008: // Grado II
@@ -323,7 +436,7 @@ class Clasificaciones extends DBObject {
 				$r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping
 				$c1=$r1->getResultados($mode);
 				$c2=$r2->getResultados($mode);
-				return $this->evalFinal($idmangas,$c1,$c2,$mode);
+				return $this->evalFinal($idmangas,$c1,$c2);
 				break;
 			case 0x0018: // Conjunta GII - GIII
 				$r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility GII
@@ -332,14 +445,14 @@ class Clasificaciones extends DBObject {
 				$r4=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[3]}",$this->prueba->ID,$idmangas[3]); // Jumping GIII
 				$c1=$this->combina( $r1->getResultados($mode), $r3->getResultados($mode));
 				$c2=$this->combina( $r2->getResultados($mode), $r4->getResultados($mode));
-				return $this->evalFinal($idmangas,$c1,$c2,$mode);
+				return $this->evalFinal($idmangas,$c1,$c2);
 			case 0x0400: // equipos 2 mejores de 3
 			case 0x0040: // equipos 3 mejores de 4
                 $r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility Equipos best
                 $r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping Equipos best
                 $c1=$r1->getResultados($mode);
                 $c2=$r2->getResultados($mode);
-                return $this->evalFinal($idmangas,$c1,$c2,$mode);
+                return $this->evalFinal($idmangas,$c1,$c2);
 			case 0x0800: // equipos 2 conjunta
 			case 0x1000: // equipos 3 conjunta
 			case 0x0080: // equipos 4 conjunta
@@ -347,14 +460,14 @@ class Clasificaciones extends DBObject {
                 $r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping Equipos combined
                 $c1=$r1->getResultados($mode);
                 $c2=$r2->getResultados($mode);
-                return $this->evalFinal($idmangas,$c1,$c2,$mode);
+                return $this->evalFinal($idmangas,$c1,$c2);
 			case 0x0100: // ronda KO 1..8 vueltas
 				$this->errormsg= "Clasificaciones:: Ronda $rondas is not yet supported";
 				return null;
 			case 0x0200: // manga especial (una vuelta)
 				$r1= new Resultados("Clasificaciones::Manga Especial",$this->prueba->ID,$idmangas[0]);
 				$c1=$r1->getResultados($mode);
-				return $this->evalFinal($idmangas,$c1,null,$mode);
+				return $this->evalFinal($idmangas,$c1,null);
 		}
         // arriving here means error
         return null;
@@ -369,7 +482,7 @@ class Clasificaciones extends DBObject {
      * Esta funcion no tiene en cuenta pruebas por equipos ni ko. simplemente considera las dos primeras
      * mangas (o solo la primera, si no hay manga hermana
      *
-	 *@param {integer} $mode Modo 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
+	 *@param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T
 	 *@param {array} $perro datos del perro (Perro,Faltas,Tocados,Rehuses,Eliminado,NoPresentado,Tiempo,IDManga)
 	 *@return {array} requested data or error
 	 */
@@ -389,7 +502,7 @@ class Clasificaciones extends DBObject {
             $r2= new Resultados("Clasificaciones::getPuestoFinal",$this->prueba->ID,$id2);
             $c2=$r2->getPenalizaciones($mode,($myManga==$id2)?$perro:null);
         }
-        $result= $this->evalPenalizacionFinal(array($id1,$id2),$c1,$c2,$mode);
+        $result= $this->evalPenalizacionFinal(array($id1,$id2),$c1,$c2);
 
 		if($result==null) return null; // null result -> error
 		if (!is_array($result)) {

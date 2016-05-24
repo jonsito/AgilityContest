@@ -25,10 +25,10 @@ try {
 	$prueba=http_request("Prueba","i",0);
 	$jornada=http_request("Jornada","i",0);
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
-    $op=http_request("Operation","s","clasificacionFinal");
+    $op=http_request("Operation","s","clasificacionIndividual");
 	$c= new Clasificaciones("clasificacionesFunctions",$prueba,$jornada);
 	switch($op) {
-		case "clasificacionFinal":
+		case "clasificacionIndividual":
 			$mangas=array();
 			$rondas=http_request("Rondas","i","0"); // bitfield of 512:Esp 256:KO 128:Eq4 64:Eq3 32:Opn 16:G3 8:G2 4:G1 2:Pre2 1:Pre1
 			$mangas[0]=http_request("Manga1","i",0); // single manga
@@ -41,6 +41,20 @@ try {
 			$mangas[7]=http_request("Manga8","i",0);
 			$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
 			$result=$c->clasificacionFinal($rondas,$mangas,$mode);
+			break;
+		case "clasificacionEquipos":
+			$mangas=array();
+			$rondas=http_request("Rondas","i","0"); // bitfield of 512:Esp 256:KO 128:Eq4 64:Eq3 32:Opn 16:G3 8:G2 4:G1 2:Pre2 1:Pre1
+			$mangas[0]=http_request("Manga1","i",0); // single manga
+			$mangas[1]=http_request("Manga2","i",0); // mangas a dos vueltas
+			$mangas[2]=http_request("Manga3","i",0);
+			$mangas[3]=http_request("Manga4","i",0); // 1,2:GII 3,4:GIII
+			$mangas[4]=http_request("Manga5","i",0);
+			$mangas[5]=http_request("Manga6","i",0);
+			$mangas[6]=http_request("Manga7","i",0);
+			$mangas[7]=http_request("Manga8","i",0);
+			$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
+			$result=$c->clasificacionFinalEquipos($rondas,$mangas,$mode);
 			break;
 		case "getPuesto":
 			$data=array(
