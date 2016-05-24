@@ -1,6 +1,6 @@
 <?php
 /*
-print_clasificacion_eqBest.php
+print_clasificacion_equipos.php
 
 Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -39,7 +39,7 @@ require_once(__DIR__.'/../database/classes/Equipos.php');
 require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 require_once(__DIR__."/print_common.php");
 
-class PrintClasificacionEq3 extends PrintCommon {
+class PrintClasificacionTeam extends PrintCommon {
 	
 	protected $manga1;
 	protected $manga2;
@@ -77,71 +77,33 @@ class PrintClasificacionEq3 extends PrintCommon {
 	 */
 	function __construct($prueba,$jornada,$mangas,$results,$mode) {
 		parent::__construct('Landscape',"print_clasificacion_eqBest",$prueba,$jornada);
-		$dbobj=new DBObject("print_clasificacion");
-		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
+		$dbobj=new DBObject("print_clasificacionEquipos");
+		$this->manga1=null;
 		$this->manga2=null;
-		if ($mangas[1]!=0) $this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
-		$this->resultados=$results['rows'];
-		$this->trs1=$results['trs1'];
+		$this->trs1=null;
 		$this->trs2=null;
-		if ($mangas[1]!=0) $this->trs2=$results['trs2'];
+		if ($mangas[0]!=0) {
+			$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
+			$this->trs1=$results['trs1'];
+		}
+		if ($mangas[1]!=0) {
+			$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
+			$this->trs2=$results['trs2'];
+		}
 		$this->categoria=$this->getModeString(intval($mode));
-
-        // Datos de equipos de la jornada
-        $m=new Equipos("print_clasificacion_Equipos3",$prueba,$jornada);
-        $teams=$m->getTeamsByJornada();
-        // reindexamos por ID y anyadimos un campo extra con el array de resultados de cada manga
-        $this->equipos=array();
-        foreach ($teams as &$equipo) {
-            $equipo['Resultados1']=array();
-            $equipo['T1']=0.0;
-            $equipo['P1']=0.0;
-            $equipo['Resultados2']=array();
-            $equipo['T2']=0.0;
-            $equipo['P2']=0.0;
-            $equipo['Tiempo']=0.0;
-            $equipo['Penalizacion']=0.0;
-            $equipo['Perros']=array();
-            $this->equipos[$equipo['ID']]=$equipo;
-        }
-        // now fill team members array.
-        foreach($this->resultados as &$result) {
-            $teamid=&$result['Equipo'];
-            $equipo=&$this->equipos[$teamid];
-            array_push($equipo['Resultados1'],array( 'T' => $result['T1'], 'P'=> $result['P1']));
-            array_push($equipo['Resultados2'],array( 'T' => $result['T2'], 'P'=> $result['P2']));
-            array_push($equipo['Perros'],$result);
-        }
-        // sort results on each manga
-        // and evaluate results and penalization by adding first 3 results
-        foreach($this->equipos as &$team) {
-            // finally sort equipos by result instead of id
-            usort($team['Resultados1'],function($a,$b){
-                return ($a['P']==$b['P'])? ($a['T']-$b['T']): ($a['P']-$b['P']);
-            });
-            usort($team['Resultados2'],function($a,$b){
-                return ($a['P']==$b['P'])? ($a['T']-$b['T']): ($a['P']-$b['P']);
-            });
-            // compose manga team's result
-            for ($n=0;$n<$this->getMinDogs();$n++) { // sum up to mindogs() results to get final team result
-                // TODO: si no hay participantes en el equipo, ignora
-                if (array_key_exists($n,$team['Resultados1'])) {
-                    $team['P1']+=$team['Resultados1'][$n]['P'];
-                    $team['T1']+=$team['Resultados1'][$n]['T'];
-                } else  $team['P1']+=400.0; // falta perro (no ha salido, y no esta marcado como NP)
-                if (array_key_exists($n,$team['Resultados2'])) {
-                    $team['P2']+=$team['Resultados2'][$n]['P'];
-                    $team['T2']+=$team['Resultados2'][$n]['T'];
-                } else  $team['P2']+=400.0; // falta perro ( no ha salido y no figura como NP)
-            }
-            // and evaluate final team's results
-            $team['Penalizacion']=$team['P1']+$team['P2'];
-            $team['Tiempo']=$team['T1']+$team['T2'];
-        }
-        // finalmente ordenamos los equipos en funcion de la clasificacion
-        usort($this->equipos,function($a,$b){
-            return ($a['Penalizacion']==$b['Penalizacion'])? ($a['Tiempo']-$b['Tiempo']): ($a['Penalizacion']-$b['Penalizacion']);
-        });
+		$this->equipos=$results['equipos']; // recuerda que YA viene indexado por puesto
+		// insertamos perros dentro de cada equipo.
+		// para ello vamos a crear un array indexado por teamID
+		$teams=array();
+		foreach ($this->equipos as &$equipo) {
+			$equipo['Perros']=array();
+			$teams[$equipo['ID']]=$equipo;
+		}
+		// iteramos los perros insertandolos en el equipo. Recuerda que los perros ya vienen ordenados
+		foreach($results['individual'] as &$perro) {
+			array_push($teams[$perro['Equipo']]['Perros'],$perro);
+		}
+        $this->equipos=$teams;
 	}
 	
 	function print_datosMangas() {
@@ -402,6 +364,7 @@ class PrintClasificacionEq3 extends PrintCommon {
         $teamcount=0;
 
         foreach($this->equipos as $equipo) {
+
             $numrows=4; // no space for 5 teams/page
             // $numrows=($this->PageNo()==1)?4:4;
             // si el equipo no tiene participantes es que la categoria no es válida: skip
@@ -446,13 +409,13 @@ try {
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
 	$c= new Clasificaciones("print_clasificacion_pdf",$prueba,$jornada);
-	$cfinal=$c->clasificacionFinal($rondas,$mangas,$mode);
+	$cfinal=$c->clasificacionFinalEquipos($rondas,$mangas,$mode);
 
 	// Creamos generador de documento
-	$pdf = new PrintClasificacionEq3($prueba,$jornada,$mangas,$cfinal,$mode);
+	$pdf = new PrintClasificacionTeam($prueba,$jornada,$mangas,$cfinal,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("print_clasificacion_eqBest.pdf","D"); // "D" means open download dialog
+	$pdf->Output("print_clasificacion_team.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());

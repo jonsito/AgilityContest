@@ -230,43 +230,43 @@ class Clasificaciones extends DBObject {
         // reindexamos equipos por ID y aniadimos campos para evaluar clasificacion
         $teams=array();
         foreach ($tbj as $equipo) {
-            $r=array_merge($equipo,array('count1'=>0,'count2'=>0,'penal1'=>0,'penal2'=>0,'Tiempo'=>0,'Penalizacion'=>0));
+            $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Tiempo'=>0,'Penalizacion'=>0));
             $teams[$equipo['ID']]=$r;
         }
         // procesamos manga 1. Se asume que los resultados ya vienen ordenados por puesto,
         // de manera que se contabilizan solo los mindogs primeros perros de cada equipo
-        if ($r1!=null) foreach($r1 as $resultado) {
+        if ($r1!=null) foreach($r1['rows'] as $resultado) {
             $eq=$resultado['Equipo'];
             if (!array_key_exists($eq,$teams)) {
                 $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:1 Equipo:$eq no existe");
                 continue;
             }
-            if ($teams[$eq]['count1']>=$mindogs) continue;
-            $teams[$eq]['count1']++;
-            $teams[$eq]['tiempo1']+=$resultado['T1'];
-            $teams[$eq]['penal1']+=$resultado['P1'];
-            $teams[$eq]['Tiempo']+=$resultado['T1'];
-            $teams[$eq]['Penalizacion']+=$resultado['P1'];
+            if ($teams[$eq]['C1']>=$mindogs) continue;
+            $teams[$eq]['C1']++;
+            $teams[$eq]['T1']+=$resultado['Tiempo'];
+            $teams[$eq]['P1']+=$resultado['Penalizacion'];
+            $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
+            $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
         }
         // procesamos manga 2
-        if ($r2!=null) foreach($r2 as $resultado) {
+        if ($r2!=null) foreach($r2['rows'] as $resultado) {
             $eq=$resultado['Equipo'];
             if (!array_key_exists($eq,$teams)) {
                 $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:2 Equipo:$eq no existe");
                 continue;
             }
-            if ($teams[$eq]['count2']>=$mindogs) continue;
-            $teams[$eq]['count2']++;
-            $teams[$eq]['tiempo2']+=$resultado['T1'];
-            $teams[$eq]['penal2']+=$resultado['P1'];
-            $teams[$eq]['Tiempo']+=$resultado['T1'];
-            $teams[$eq]['Penalizacion']+=$resultado['P1'];
+            if ($teams[$eq]['C2']>=$mindogs) continue;
+            $teams[$eq]['C2']++;
+            $teams[$eq]['T2']+=$resultado['Tiempo'];
+            $teams[$eq]['P2']+=$resultado['Penalizacion'];
+            $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
+            $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
         }
         // rellenamos huecos hasta completar mindogs
         foreach ($teams as &$team ) {
             // 100:Eliminado 200:NoPresentado 400:Pendiente
-            for($n=$team['C1'];$n<$mindogs;$n++) $team['Penalización']+=400;
-            for($n=$team['C2'];$n<$mindogs;$n++) $team['Penalización']+=400;
+            for($n=$team['C1'];$n<$mindogs;$n++) { $team['P1']+=400; $team['Penalizacion']+=400; }
+            for($n=$team['C2'];$n<$mindogs;$n++) { $team['P2']+=400; $team['Penalizacion']+=400; }
         }
         // eliminamos el indice del array
         $final=array_values($teams);
@@ -276,6 +276,7 @@ class Clasificaciones extends DBObject {
             return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
         });
         // retornamos resultado
+        return $final;
 	}
 
 	/**
@@ -407,10 +408,11 @@ class Clasificaciones extends DBObject {
         $res= $this->evalFinal($idmangas,$c1,$c2);
         $result=array();
         $result['individual']=$res['rows'];
-        $result['trs']=$res['trs'];
+        $result['trs1']=$res['trs2'];
+        $result['trs2']=$res['trs1'];
         $result['jueces']=$res['jueces'];
-        $result['teams']=evalFinalEquipos($c1,$c2,$mindogs,$maxdogs);
-        $result['total']=count($result['teams']);
+        $result['equipos']=$this->evalFinalEquipos($c1,$c2,$mindogs,$maxdogs);
+        $result['total']=count($result['equipos']);
         return $result;
 	}
 
