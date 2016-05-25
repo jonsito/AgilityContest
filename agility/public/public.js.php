@@ -242,15 +242,16 @@ function pb_updateFinales() {
     pb_updateFinales2(ronda);
 }
 
-function pb_showClasificacionesByTeam(parent,idx,row) {
-    var dgname=parent + "-" + row.ID;
-    $(dgname).datagrid({
+function pb_showClasificacionesByTeam(idx,row) {
+    var parent="#pb_resultados-datagrid";
+    var mySelf=parent + "-" + row.ID;
+    $(mySelf).datagrid({
         fit:true,
         pagination: false,
         rownumbers: false,
         fitColumns: true,
         singleSelect: true,
-        height:'auto',
+        autoRowHeight:true,
         columns: [[
             {field:'Perro',		hidden:true },
             {field:'Equipo',	hidden:true },
@@ -283,23 +284,21 @@ function pb_showClasificacionesByTeam(parent,idx,row) {
         onResize:function(){
             $(parent).datagrid('fixDetailRowHeight',idx);
         },
-        onLoadSuccess:function(data){
-            setTimeout(function(){
-                $(parent).datagrid('fixDetailRowHeight',idx);
-            },0);
+        onLoad:function(data){
+            setTimeout(function(){ $(parent).datagrid('fixDetailRowHeight',idx); },0);
         }
     });
     // populate datagrid
-    var data=[];
-    for(var n=0; n<workingData.individual.length;n++) {
-        var competitor=workingData.individual[n];
-        if (competitor['Equipo']!=row.ID) continue;
-        // $(dgname).datagrid('appendRow',competitor);
-        data.push(competitor);
-    }
+   
     setTimeout(function(){
-        $(dgname).datagrid('loadData',{'total':0,'rows':data});
+        var data=[];
+        for(var n=0; n<workingData.individual.length;n++) {
+            var competitor=workingData.individual[n];
+            if (competitor['Equipo']!=row.ID) continue;
+            // $(dgname).datagrid('appendRow',competitor);
+            data.push(competitor);
+        }
+        $(mySelf).datagrid('loadData',data);
         $(parent).datagrid('fixDetailRowHeight',idx);
     },0);
-
 }

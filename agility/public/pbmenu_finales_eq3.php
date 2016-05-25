@@ -137,10 +137,11 @@ $('#pb_resultados-datagrid').datagrid({
     // especificamos un formateador especial para desplegar la tabla de perros por equipos
     detailFormatter:function(idx,row){
         var dgname="pb_resultados-datagrid-" + replaceAll(' ','_',row.ID);
-        return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';
+        // return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';
+        return '<table id="'+dgname+'"></table>';
     },
     onExpandRow: function(idx,row) {
-        pb_showClasificacionesByTeam("#pb_resultados-datagrid",idx,row);
+        pb_showClasificacionesByTeam(idx,row);
     }
 });
 
@@ -151,7 +152,7 @@ if (rtime!=0) {
 
     function update() {
         pb_updateFinales2(workingData.datosRonda);
-        workingData.timeout=setTimeout(update,1000*rtime);
+        // workingData.timeout=setTimeout(update,1000*rtime);
     }
 
     if (workingData.timeout!=null) clearTimeout(workingData.timeout);
