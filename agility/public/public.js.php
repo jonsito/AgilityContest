@@ -243,14 +243,14 @@ function pb_updateFinales() {
 }
 
 function pb_showClasificacionesByTeam(parent,idx,row) {
-    var dgname=parent + "-" + replaceAll(' ','_',row.ID);
+    var dgname=parent + "-" + row.ID;
     $(dgname).datagrid({
         fit:true,
         pagination: false,
         rownumbers: false,
         fitColumns: true,
         singleSelect: true,
-        height: 'auto',
+        height:'auto',
         columns: [[
             {field:'Perro',		hidden:true },
             {field:'Equipo',	hidden:true },
@@ -297,7 +297,9 @@ function pb_showClasificacionesByTeam(parent,idx,row) {
         // $(dgname).datagrid('appendRow',competitor);
         data.push(competitor);
     }
-    $(dgname).datagrid('loadData',{'total':0,'rows':data});
-    $(parent).datagrid('fixDetailRowHeight',idx);
+    setTimeout(function(){
+        $(dgname).datagrid('loadData',{'total':0,'rows':data});
+        $(parent).datagrid('fixDetailRowHeight',idx);
+    },0);
 
 }

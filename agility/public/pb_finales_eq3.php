@@ -150,16 +150,12 @@ $('#pb_finales-window').window({
         pb_getHeaderInfo();
         // update footer info
         pb_setFooterInfo();
-		// call once and then fire as timed task
-		pb_updateFinales();
-		$(this).window.defaults.callback = setInterval(pb_updateFinales,60000);
-	},
-	onClose: function() { 
-		clearInterval($(this).window.defaults.callback);
 	}
 });
 
 $('#pb_resultados-datagrid').datagrid({
+    // added by JAMC
+    expandedCount: 0,
     // propiedades del panel asociado
     fit: true,
     border: false,
@@ -192,8 +188,8 @@ $('#pb_resultados-datagrid').datagrid({
     ]],
     // especificamos un formateador especial para desplegar la tabla de perros por equipos
     detailFormatter:function(idx,row){
-        var dgname="pb_resultados-datagrid-" + replaceAll(' ','_',row.ID);
-        return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';
+        var dgname="pb_resultados-datagrid-" + row.ID;
+        return '<div style="padding:10px"><table id="'+dgname+'"></table></div>';
     },
     onExpandRow: function(idx,row) {
         pb_showClasificacionesByTeam("#pb_resultados-datagrid",idx,row);
@@ -205,7 +201,7 @@ var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) {
     function update() {
         pb_updateFinales();
-        workingData.timeout=setTimeout(update,1000*rtime);
+        /* workingData.timeout=setTimeout(update,1000*rtime); */
     }
     if (workingData.timeout!=null) clearTimeout(workingData.timeout);
     update();

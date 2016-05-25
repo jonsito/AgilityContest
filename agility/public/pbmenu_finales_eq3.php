@@ -100,11 +100,6 @@ $('#pb_finales-panel').panel({
         pb_getHeaderInfo();
         // update footer info
         pb_setFooterInfo();
-		// call once and then fire as timed task
-		pb_updateFinales2(workingData.datosRonda);
-	},
-	onClose: function() { 
-		clearInterval($(this).window.defaults.callback);
 	}
 });
 
