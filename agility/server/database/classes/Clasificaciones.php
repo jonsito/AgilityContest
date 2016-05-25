@@ -223,13 +223,17 @@ class Clasificaciones extends DBObject {
      * @param {array} $r1 datos de la manga 1
      * @param {array} $r2 datos de la manga 2
      */
-	function evalFinalEquipos($r1,$r2,$mindogs,$maxdogs) {
+	function evalFinalEquipos($r1,$r2,$mindogs,$mode) {
         // Datos de equipos de la jornada
         $eobj=new Equipos("evalFinalEquipos",$this->prueba->ID,$this->jornada->ID);
         $tbj=$eobj->getTeamsByJornada();
         // reindexamos equipos por ID y aniadimos campos para evaluar clasificacion
         $teams=array();
         foreach ($tbj as $equipo) {
+            if ($equipo['Nombre']==="-- Sin asignar --") continue;
+            // comprobamos la categoria. si no coincide tiramos el equipo
+            $modes=array("L","M","S","MS","LMS","T","LM","ST","LMST");
+            if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
             $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Tiempo'=>0,'Penalizacion'=>0));
             $teams[$equipo['ID']]=$r;
         }
@@ -411,7 +415,7 @@ class Clasificaciones extends DBObject {
         $result['trs1']=$res['trs2'];
         $result['trs2']=$res['trs1'];
         $result['jueces']=$res['jueces'];
-        $result['equipos']=$this->evalFinalEquipos($c1,$c2,$mindogs,$maxdogs);
+        $result['equipos']=$this->evalFinalEquipos($c1,$c2,$mindogs,$mode);
         $result['total']=count($result['equipos']);
         return $result;
 	}

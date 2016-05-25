@@ -328,6 +328,20 @@ function tempnam_sfx($path, $prefix="tmp_",$suffix="") {
 }
 
 /**
+ * Check if any of provided categories in $from are included in valid ones in $to
+ * @param {string} $from categories to check
+ * @param {string} $to valid categories
+ * return {boolean} true or false
+ */
+function category_match($from,$to="-LMST") {
+	if (strpos($to,"-")!==false) return true; // "-" matches any
+	$a_arr = str_split($from);
+    $r_arr = str_split($to);
+    $common = implode(array_unique(array_intersect($a_arr, $r_arr)));
+	return ($common==="")?false:true;
+}
+
+/**
  * Clase para enumerar los interfaces de red del servidor
  */
 class networkInterfaces {

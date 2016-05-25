@@ -185,7 +185,8 @@ function pb_updateFinales2(ronda) {
 		type:'GET',
 		url:"/agility/server/database/clasificacionesFunctions.php",
 		dataType:'json',
-		data: {	
+		data: {
+            Operation:'clasificacionEquipos',
 			Prueba:	ronda.Prueba,
 			Jornada:ronda.Jornada,
 			Manga1:	ronda.Manga1,
@@ -194,6 +195,7 @@ function pb_updateFinales2(ronda) {
 			Mode: 	ronda.Mode
 		},
 		success: function(dat) {
+            workingData.individual=dat.individual;
             // nombres de las mangas
             $('#pb_finales-NombreRonda').html(ronda.Nombre);
             $('#pb_resultados_thead_m1').html(ronda.NombreManga1);
@@ -226,7 +228,7 @@ function pb_updateFinales2(ronda) {
             }
             // clasificaciones
             workingData.teamCounter=1; // reset team's puesto counter
-            $('#pb_resultados-datagrid').datagrid('loadData',dat);
+            $('#pb_resultados-datagrid').datagrid('loadData',dat.equipos);
 		}
 	});
 }
@@ -238,4 +240,64 @@ function pb_updateFinales() {
         return; // no way to know which ronda is selected
     }
     pb_updateFinales2(ronda);
+}
+
+function pb_showClasificacionesByTeam(parent,idx,row) {
+    var dgname=parent + "-" + replaceAll(' ','_',row.ID);
+    $(dgname).datagrid({
+        fit:true,
+        pagination: false,
+        rownumbers: false,
+        fitColumns: true,
+        singleSelect: true,
+        height: 'auto',
+        columns: [[
+            {field:'Perro',		hidden:true },
+            {field:'Equipo',	hidden:true },
+            {field:'Dorsal',	width:20, align:'left',     title:"<?php _e('Dors'); ?>" },
+            {field:'LogoClub',	hidden:true },
+            {field:'Nombre',	width:35, align:'center',   title:"<?php _e('Name'); ?>",   formatter:formatBold},
+            {field:'Licencia',	width:15, align:'center',   title:"<?php _e('Lic'); ?>." },
+            {field:'Categoria',	width:15, align:'center',   title:"<?php _e('Cat'); ?>.",   formatter:formatCategoria },
+            {field:'NombreGuia',width:50, align:'right',    title:"<?php _e('Handler'); ?>" },
+            {field:'NombreClub',width:45, align:'right',    title:"<?php _e('Club'); ?>" },
+            {field:'F1',		width:15, align:'center',   title:"<?php _e('F/T'); ?>",    styler:formatBorder },
+            {field:'R1',		width:15, align:'center',   title:"R." },
+            {field:'T1',		width:25, align:'right',    title:"<?php _e('Time'); ?>.",  formatter:formatT1 },
+            {field:'V1',		width:15, align:'right',    title:"<?php _e('Vel'); ?>.",   formatter:formatV1 },
+            {field:'P1',		width:20, align:'right',    title:"<?php _e('Penal'); ?>.", formatter:formatP1},
+            {field:'C1',		width:25, align:'center',   title:"<?php _e('Cal'); ?>."},
+            {field:'F2',		width:15, align:'center',   title:"<?php _e('F/T'); ?>",    styler:formatBorder },
+            {field:'R2',		width:15, align:'center',   title:" <?php _e('R'); ?>." },
+            {field:'T2',		width:25, align:'right',    title:"<?php _e('Time'); ?>.",  formatter:formatT2 },
+            {field:'V2',		width:15, align:'right',    title:"<?php _e('Vel'); ?>.",   formatter:formatV2 },
+            {field:'P2',		width:20, align:'right',    title:"<?php _e('Penal'); ?>.", formatter:formatP2 },
+            {field:'C2',		width:25, align:'center',   title:"<?php _e('Cal'); ?>." },
+            {field:'Tiempo',	width:25, align:'right',    title:"<?php _e('Time'); ?>",   formatter:formatTF,styler:formatBorder },
+            {field:'Penalizacion',width:25,align:'right',   title:"<?php _e('Penaliz'); ?>.",formatter:formatPenalizacionFinal },
+            {field:'Calificacion',width:20,align:'center',  title:"<?php _e('Calif'); ?>." },
+            {field:'Puesto',	width:15, align:'center',   title:"<?php _e('Position'); ?>",formatter:formatBold }
+        ]],
+        // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+        rowStyler:myRowStyler,
+        onResize:function(){
+            $(parent).datagrid('fixDetailRowHeight',idx);
+        },
+        onLoadSuccess:function(data){
+            setTimeout(function(){
+                $(parent).datagrid('fixDetailRowHeight',idx);
+            },0);
+        }
+    });
+    // populate datagrid
+    var data=[];
+    for(var n=0; n<workingData.individual.length;n++) {
+        var competitor=workingData.individual[n];
+        if (competitor['Equipo']!=row.ID) continue;
+        // $(dgname).datagrid('appendRow',competitor);
+        data.push(competitor);
+    }
+    $(dgname).datagrid('loadData',{'total':0,'rows':data});
+    $(parent).datagrid('fixDetailRowHeight',idx);
+
 }

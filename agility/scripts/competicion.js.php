@@ -58,6 +58,7 @@ function formatPuestoFinal(val,row,idx) { return '<span style="font-weight:bold"
 function formatPuestoFinalBig(val,row,idx) {
     return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=400)?"-":val)+'</span>';
 }
+
 function formatPenalizacionFinal(val,row,idx) {
     var p=row.Penalizacion;
     if (p>=800) return "-";
@@ -71,6 +72,7 @@ function formatTP(val,p,idx) {
     if (p>=200) return '0';
     return toFixedT(parseFloat(val),ac_config.numdecs);
 }
+
 function formatT1(val,row,idx) { return formatTP(val,row.P1,idx); }
 function formatP1(val,row,idx) { return formatTP(val,row.P1,idx); }
 function formatV2(val,row,idx) { return (row.P2>=200)?"-":toFixedT(parseFloat(val),1); }
@@ -80,6 +82,7 @@ function formatTF(val,row,idx) {
 	var t=parseFloat(row.T1)+parseFloat(row.T2);
 	return (row.Penalizacion>=200)?"-":toFixedT(t,ac_config.numdecs);
 }
+
 function formatCatGrad(val,row,idx) {
     var hasGrade=true;
     if (isJornadaEq3()) hasGrade=false;
@@ -89,6 +92,7 @@ function formatCatGrad(val,row,idx) {
     // return formatCategoria(row.Categoria,row.idx)+"/"+formatGrado(row.Grado,row,idx);
     return row.Categoria+"/"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(
 }
+
 /**
  * Return short name for requested federation. Use to format datagrid cell
  * @param {int} val Federation ID
@@ -116,10 +120,14 @@ function formatDorsal(val,row,idx) { return '<span style="font-size:1.5em;font-w
 
 function formatOrdenLlamadaPista(val,row,idx) { if (val<=0) return ""; return '<span style="font-weight:bold;font-size:1.5em;">'+val+'</span>'; }
 function formatLlamadaGuia(val,row,idx) { if (row.Orden>0) return val; return '<span style="font-weight:bold;font-size:1.4em;">'+val+'</span>'; }
+
 function formatLogo(val,row,idx) {
     // TODO: no idea why idx:0 has no logo declared
     if (typeof(val)==='undefined') return '<img width="40" height="40" alt="empty.png" src="/agility/images/logos/empty.png"/>';
     return '<img width="40" height="40" alt="'+val+'" src="/agility/images/logos/'+val+'"/>';
+}
+function formatTeamLogos(val,row,idx) {
+    return "logo logo logo logo";
 }
 
 /* comodity function to set up round SCT unit based on SCT type */

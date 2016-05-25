@@ -76,6 +76,7 @@ require_once(__DIR__. "/server/upgradeVersion.php");
 loadConfiguration();
 getLicenseInfo();
 getFederationInfo();
+workingData.timeout=null;
 
 /* not really needed for public access, but stay here for compatibility */
 function initialize() {

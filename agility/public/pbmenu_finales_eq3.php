@@ -68,46 +68,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </table>
         </div>
         <div id="pb_tabla" data-options="region:'center'">
-                <table id="pb_resultados-datagrid">
-                    <thead>
-                    <tr>
-                        <th colspan="6"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
-                        <th colspan="6"> <span class="main_theader" id="pb_resultados_thead_m1"><?php _e('Round'); ?> 1</span></th>
-                        <th colspan="6"> <span class="main_theader" id="pb_resultados_thead_m2"><?php _e('Round'); ?> 2</span></th>
-                        <th colspan="4"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
-                    </tr>
-                    <tr>
-                        <!--
-                        <th data-options="field:'Perro',		hidden:true " ></th>
-                        -->
-                        <th data-options="field:'Dorsal',		width:20, align:'left'" > <?php _e('Dors'); ?>.</th>
-                        <!--
-                        <th data-options="field:'LogoClub',		hidden:true" ></th>
-                        -->
-                        <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
-                        <th data-options="field:'Licencia',		width:15, align:'center'" > <?php _e('Lic'); ?>.</th>
-                        <th data-options="field:'Categoria',	width:15, align:'center',formatter:formatCategoria" > <?php _e('Cat'); ?>.</th>
-                        <th data-options="field:'NombreGuia',	width:50, align:'right'" > <?php _e('Handler'); ?></th>
-                        <th data-options="field:'NombreClub',	width:45, align:'right'" > <?php _e('Club'); ?></th>
-                        <th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
-                        <th data-options="field:'R1',			width:15, align:'center'"> R.</th>
-                        <th data-options="field:'T1',			width:25, align:'right',formatter:formatT1"> <?php _e('Time'); ?>.</th>
-                        <th data-options="field:'V1',			width:15, align:'right',formatter:formatV1"> <?php _e('Vel'); ?>.</th>
-                        <th data-options="field:'P1',			width:20, align:'right',formatter:formatP1"> <?php _e('Penal'); ?>.</th>
-                        <th data-options="field:'C1',			width:25, align:'center'"> <?php _e('Cal'); ?>.</th>
-                        <th data-options="field:'F2',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
-                        <th data-options="field:'R2',			width:15, align:'center'"> <?php _e('R'); ?>.</th>
-                        <th data-options="field:'T2',			width:25, align:'right',formatter:formatT2"> <?php _e('Time'); ?>.</th>
-                        <th data-options="field:'V2',			width:15, align:'right',formatter:formatV2"> <?php _e('Vel'); ?>.</th>
-                        <th data-options="field:'P2',			width:20, align:'right',formatter:formatP2"> <?php _e('Penal'); ?>.</th>
-                        <th data-options="field:'C2',			width:25, align:'center'"> <?php _e('Cal'); ?>.</th>
-                        <th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
-                        <th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
-                        <th data-options="field:'Calificacion',	width:20, align:'center'" > <?php _e('Calif'); ?>.</th>
-                        <th data-options="field:'Puesto',		width:15, align:'center',formatter:formatBold" > <?php _e('Position'); ?> </th>
-                    </tr>
-                    </thead>
-                </table>
+                <table id="pb_resultados-datagrid"></table>
         </div>
         <div id="pb_finales-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>
@@ -152,19 +113,40 @@ $('#pb_resultados-datagrid').datagrid({
     fit: true,
     border: false,
     closable: false,
-    collapsible: false,
+    collapsible: true,
     collapsed: false,
     // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
-    loadMsg:  "<?php _e('Updating round scores');?>...",
+    loadMsg:  "<?php _e('Updating final scores');?>...",
     // propiedades del datagrid
     pagination: false,
-    rownumbers: false,
+    rownumbers: true,
     fitColumns: true,
     singleSelect: true,
+    idField: 'ID',
     rowStyler:myRowStyler,
-    view: gview,
-    groupField: 'NombreEquipo',
-    groupFormatter: formatPbTeamClasificaciones
+    view:detailview,
+    columns:[[
+        { field:'ID',			hidden:true }, // ID del equipo
+        { field:'Prueba',		hidden:true }, // ID de la prueba
+        { field:'Jornada',		hidden:true }, // ID de la jornada
+        { field:'Logo',		    width:'15%', sortable:false,  title: '',formatter:formatTeamLogos },
+        { field:'Nombre',		width:'20%', sortable:false,  title: '<?php _e('Team'); ?>' },
+        { field:'Categorias',	width:'5%', sortable:false,   title: '<?php _e('Cat'); ?>' },
+        { field:'T1',		    width:'7%', sortable:false,   title: '<?php _e('Time'); ?> 1'},
+        { field:'P1',		    width:'7%', sortable:false,   title: '<?php _e('Penal'); ?> 1' },
+        { field:'T2',		    width:'7%', sortable:false,   title: '<?php _e('Time'); ?> 2'},
+        { field:'P2',		    width:'7%', sortable:false,   title: '<?php _e('Penal'); ?> 2' },
+        { field:'Tiempo',		width:'10%', sortable:false,  title: '<?php _e('Time'); ?>',formatter:formatBold },
+        { field:'Penalizacion',	width:'10%', sortable:false,  title: '<?php _e('Penalization'); ?>',formatter:formatBold }
+    ]],
+    // especificamos un formateador especial para desplegar la tabla de perros por equipos
+    detailFormatter:function(idx,row){
+        var dgname="pb_resultados-datagrid-" + replaceAll(' ','_',row.ID);
+        return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';
+    },
+    onExpandRow: function(idx,row) {
+        pb_showClasificacionesByTeam("#pb_resultados-datagrid",idx,row);
+    }
 });
 
 // fire autorefresh if configured
