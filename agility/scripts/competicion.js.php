@@ -126,6 +126,7 @@ function formatLogo(val,row,idx) {
     if (typeof(val)==='undefined') return '<img width="40" height="40" alt="empty.png" src="/agility/images/logos/empty.png"/>';
     return '<img width="40" height="40" alt="'+val+'" src="/agility/images/logos/'+val+'"/>';
 }
+
 function formatTeamLogos(val,row,idx) {
     return "logo logo logo logo";
 }

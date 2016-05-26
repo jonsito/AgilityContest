@@ -68,7 +68,31 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </table>
         </div>
         <div id="pb_tabla" data-options="region:'center'">
-                <table id="pb_finales-datagrid"></table>
+            <table id="pb_finales-datagrid">
+                <thead>
+                <tr>
+                    <th colspan="3"> <span class="main_theader"><?php _e('Team data'); ?></span></th>
+                    <th colspan="2"> <span class="main_theader" id="pb_resultados_thead_m1"><?php _e('Round'); ?> 1</span></th>
+                    <th colspan="2"> <span class="main_theader" id="pb_resultados_thead_m2"><?php _e('Round'); ?> 2</span></th>
+                    <th colspan="2"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
+                </tr>
+                <tr> <!--
+                        <th data-options="field:'ID',			hidden:true"></th>
+                        <th data-options="field:'Prueba',		hidden:true"></th>
+                        <th data-options="field:'Jornada',		hidden:true"></th>
+                        -->
+                    <th data-options="field:'Logo',		    width:'23%', sortable:false, formatter:formatTeamLogos">&nbsp</th>
+                    <th data-options="field:'Nombre',		width:'16.5%', sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
+                    <th data-options="field:'Categorias',	width:'4%', sortable:false"><?php _e('Cat'); ?></th>
+                    <th data-options="field:'T1',		    align:'center', width:'9.5%', sortable:false"><?php _e('Time'); ?> 1</th>
+                    <th data-options="field:'P1',		    align:'center',width:'10%', sortable:false"><?php _e('Penal'); ?> 1</th>
+                    <th data-options="field:'T2',		    align:'center',width:'9.5%', sortable:false"><?php _e('Time'); ?> 2</th>
+                    <th data-options="field:'P2',		    align:'center',width:'10%', sortable:false"><?php _e('Penal'); ?> 2</th>
+                    <th data-options="field:'Tiempo',		align:'center',width:'9%', sortable:false,formatter:formatBold"><?php _e('Time'); ?></th>
+                    <th data-options="field:'Penalizacion',	align:'center',width:'8.5%', sortable:false,formatter:formatBold"><?php _e('Penalization'); ?></th>
+                </tr>
+                </thead>
+            </table>
         </div>
         <div id="pb_finales-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>
@@ -122,20 +146,7 @@ $('#pb_finales-datagrid').datagrid({
     idField: 'ID',
     view:detailview,
     pageSize: 500, // enought bit to make it senseless
-    columns:[[
-        { field:'ID',			hidden:true }, // ID del equipo
-        { field:'Prueba',		hidden:true }, // ID de la prueba
-        { field:'Jornada',		hidden:true }, // ID de la jornada
-        { field:'Logo',		    width:'25%', sortable:false,  title: '',formatter:formatTeamLogos },
-        { field:'Nombre',		width:'20%', sortable:false,  title: '<?php _e('Team'); ?>',formatter:formatBold },
-        { field:'Categorias',	width:'5%', sortable:false,   title: '<?php _e('Cat'); ?>' },
-        { field:'T1',		    width:'7%', sortable:false,   title: '<?php _e('Time'); ?> 1'},
-        { field:'P1',		    width:'7%', sortable:false,   title: '<?php _e('Penal'); ?> 1' },
-        { field:'T2',		    width:'7%', sortable:false,   title: '<?php _e('Time'); ?> 2'},
-        { field:'P2',		    width:'7%', sortable:false,   title: '<?php _e('Penal'); ?> 2' },
-        { field:'Tiempo',		width:'10%', sortable:false,  title: '<?php _e('Time'); ?>',formatter:formatBold },
-        { field:'Penalizacion',	width:'10%', sortable:false,  title: '<?php _e('Penalization'); ?>',formatter:formatBold }
-    ]],
+    // columns declared at html section to show additional headers
     rowStyler:myRowStyler,
     // especificamos un formateador especial para desplegar la tabla de perros por equipos
     detailFormatter:function(idx,row){
