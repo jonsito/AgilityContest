@@ -288,9 +288,10 @@ function getOrderString($sort,$order,$def) {
  * On invalid path or not provided,search into iconpath
  * @param $fedname ( federation 'Name' -not ID- )
  * @param $name (icon path or name )
+ * @return full path name to load image from (server side)
  */
 function getIconPath($fedname,$name) {
-	static $icontable = array();
+	static $iconPathTable = array();
 	$fedname=strtolower($fedname);
 	$name=basename($name); // to avoid sniffing extract name from path and force use own iconpaths
 	$iconpath=array(
@@ -299,10 +300,10 @@ function getIconPath($fedname,$name) {
 		__DIR__."/../images/supporters", // where to store supporters logos
 		__DIR__."/../modules/$fedname", // federation logos
 	);
-	if (array_key_exists("$fedname - $name",$icontable)) return $icontable["$fedname - $name"];
+	if (array_key_exists("$fedname - $name",$iconPathTable)) return $iconPathTable["$fedname - $name"];
 	foreach ($iconpath as $path) {
 		if (!file_exists("$path/$name")) continue;
-		$icontable["$fedname - $name"]="$path/$name";
+		$iconPathTable["$fedname - $name"]="$path/$name";
 		return "$path/$name";
 	}
 	// arriving here means not found. Use enterprise logo :-)
