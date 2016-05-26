@@ -300,7 +300,6 @@ function pb_showClasificacionesByTeam(idx,row) {
             $(parent).datagrid('fixDetailRowHeight',idx);
         },
         onLoadSuccess:function(data){
-            console.log(JSON.stringify(data));
             setTimeout(function(){ $(parent).datagrid('fixDetailRowHeight',idx); },0);
         }
     });

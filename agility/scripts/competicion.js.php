@@ -128,7 +128,20 @@ function formatLogo(val,row,idx) {
 }
 
 function formatTeamLogos(val,row,idx) {
-    return "logo logo logo logo";
+    var logos=[];
+    if (typeof (workingData.individual) === 'undefined' ) return "logo logo logo logo";
+    for(var n=0; n<workingData.individual.length;n++) {
+        var competitor=workingData.individual[n];
+        if (competitor['Equipo']!=row.ID) continue;
+        if ($.inArray(competitor['LogoClub'],logos)<0) logos.push(competitor['LogoClub']);
+        if (logos.length>=4) break; // TODO: replace with maxdogs
+    }
+    var str="";
+    var fed=workingData.federation;
+    for (n=0;n<logos.length;n++) {
+        str +='<img src="/agility/images/logos/getLogo.php?Fed='+fed+'&Logo='+logos[n]+'" width="30" height="30" alt="'+logos[n]+'"/>\n';
+    }
+    return str;
 }
 
 /* comodity function to set up round SCT unit based on SCT type */
