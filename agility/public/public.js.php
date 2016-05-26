@@ -228,7 +228,7 @@ function pb_updateFinales2(ronda) {
             }
             // clasificaciones
             workingData.teamCounter=1; // reset team's puesto counter
-            $('#pb_resultados-datagrid').datagrid('loadData',dat.equipos);
+            $('#pb_finales-datagrid').datagrid('loadData',dat.equipos);
 		}
 	});
 }
@@ -243,62 +243,66 @@ function pb_updateFinales() {
 }
 
 function pb_showClasificacionesByTeam(idx,row) {
-    var parent="#pb_resultados-datagrid";
-    var mySelf=parent + "-" + row.ID;
+
+    var parent="#pb_finales-datagrid";
+    var mySelf="#pb_finales-datagrid-"+parseInt(row.ID);
+    // retrieve datagrid contents
+    var datos=[];
+    for(var n=0; n<workingData.individual.length;n++) {
+        var competitor=workingData.individual[n];
+        if (competitor['Equipo']!=row.ID) continue;
+        datos.push(competitor);
+    }
+    // deploy datagrid
     $(mySelf).datagrid({
-        fit:true,
+        fit:false,
         pagination: false,
         rownumbers: false,
         fitColumns: true,
         singleSelect: true,
-        autoRowHeight:true,
-        columns: [[
+        width: '100%',
+        height: 'auto',
+        remote:false,
+        idField: 'Perro',
+        data: datos,
+        columns: [[                
             {field:'Perro',		hidden:true },
             {field:'Equipo',	hidden:true },
-            {field:'Dorsal',	width:20, align:'left',     title:"<?php _e('Dors'); ?>" },
+            {field:'Dorsal',	width:'3%', align:'left',     title:"<?php _e('Dors'); ?>" },
             {field:'LogoClub',	hidden:true },
-            {field:'Nombre',	width:35, align:'center',   title:"<?php _e('Name'); ?>",   formatter:formatBold},
-            {field:'Licencia',	width:15, align:'center',   title:"<?php _e('Lic'); ?>." },
-            {field:'Categoria',	width:15, align:'center',   title:"<?php _e('Cat'); ?>.",   formatter:formatCategoria },
-            {field:'NombreGuia',width:50, align:'right',    title:"<?php _e('Handler'); ?>" },
-            {field:'NombreClub',width:45, align:'right',    title:"<?php _e('Club'); ?>" },
-            {field:'F1',		width:15, align:'center',   title:"<?php _e('F/T'); ?>",    styler:formatBorder },
-            {field:'R1',		width:15, align:'center',   title:"R." },
-            {field:'T1',		width:25, align:'right',    title:"<?php _e('Time'); ?>.",  formatter:formatT1 },
-            {field:'V1',		width:15, align:'right',    title:"<?php _e('Vel'); ?>.",   formatter:formatV1 },
-            {field:'P1',		width:20, align:'right',    title:"<?php _e('Penal'); ?>.", formatter:formatP1},
-            {field:'C1',		width:25, align:'center',   title:"<?php _e('Cal'); ?>."},
-            {field:'F2',		width:15, align:'center',   title:"<?php _e('F/T'); ?>",    styler:formatBorder },
-            {field:'R2',		width:15, align:'center',   title:" <?php _e('R'); ?>." },
-            {field:'T2',		width:25, align:'right',    title:"<?php _e('Time'); ?>.",  formatter:formatT2 },
-            {field:'V2',		width:15, align:'right',    title:"<?php _e('Vel'); ?>.",   formatter:formatV2 },
-            {field:'P2',		width:20, align:'right',    title:"<?php _e('Penal'); ?>.", formatter:formatP2 },
-            {field:'C2',		width:25, align:'center',   title:"<?php _e('Cal'); ?>." },
-            {field:'Tiempo',	width:25, align:'right',    title:"<?php _e('Time'); ?>",   formatter:formatTF,styler:formatBorder },
-            {field:'Penalizacion',width:25,align:'right',   title:"<?php _e('Penaliz'); ?>.",formatter:formatPenalizacionFinal },
-            {field:'Calificacion',width:20,align:'center',  title:"<?php _e('Calif'); ?>." },
-            {field:'Puesto',	width:15, align:'center',   title:"<?php _e('Position'); ?>",formatter:formatBold }
+            {field:'Nombre',	width:'9%', align:'center',   title:"<?php _e('Name'); ?>",   formatter:formatBold},
+            {field:'Licencia',	width:'4%', align:'center',   title:"<?php _e('Lic'); ?>." },
+            {field:'Categoria',	width:'4%', align:'center',   title:"<?php _e('Cat'); ?>.",   formatter:formatCategoria },
+            {field:'Grado',	hidden:true },
+            {field:'NombreEquipo',hidden:true },
+            {field:'NombreGuia',width:'13%', align:'right',    title:"<?php _e('Handler'); ?>" },
+            {field:'NombreClub',width:'12%', align:'right',    title:"<?php _e('Club'); ?>" },
+            {field:'F1',		width:'2%', align:'center',   title:"<?php _e('F/T'); ?>",    styler:formatBorder },
+            {field:'R1',		width:'2%', align:'center',   title:"R." },
+            {field:'T1',		width:'5%', align:'right',    title:"<?php _e('Time'); ?>.",  formatter:formatT1 },
+            {field:'V1',		width:'3%', align:'right',    title:"<?php _e('Vel'); ?>.",   formatter:formatV1 },
+            {field:'P1',		width:'5%', align:'right',    title:"<?php _e('Penal'); ?>.", formatter:formatP1},
+            {field:'C1',		width:'3%', align:'center',   title:"<?php _e('Cal'); ?>."},
+            {field:'F2',		width:'2%', align:'center',   title:"<?php _e('F/T'); ?>",    styler:formatBorder },
+            {field:'R2',		width:'2%', align:'center',   title:" <?php _e('R'); ?>." },
+            {field:'T2',		width:'5%', align:'right',    title:"<?php _e('Time'); ?>.",  formatter:formatT2 },
+            {field:'V2',		width:'3%', align:'right',    title:"<?php _e('Vel'); ?>.",   formatter:formatV2 },
+            {field:'P2',		width:'5%', align:'right',    title:"<?php _e('Penal'); ?>.", formatter:formatP2 },
+            {field:'C2',		width:'3%', align:'center',   title:"<?php _e('Cal'); ?>." },
+            {field:'Tiempo',	width:'4%', align:'right',    title:"<?php _e('Time'); ?>",   formatter:formatTF,styler:formatBorder },
+            {field:'Penalizacion',width:'5%',align:'right',   title:"<?php _e('Penaliz'); ?>.",formatter:formatPenalizacionFinal },
+            {field:'Calificacion',width:'3%',align:'center',  title:"<?php _e('Calif'); ?>." },
+            {field:'Puesto',	width:'3%', align:'center',   title:"<?php _e('Position'); ?>",formatter:formatBold }
         ]],
         // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
         rowStyler:myRowStyler,
         onResize:function(){
             $(parent).datagrid('fixDetailRowHeight',idx);
         },
-        onLoad:function(data){
+        onLoadSuccess:function(data){
+            console.log(JSON.stringify(data));
             setTimeout(function(){ $(parent).datagrid('fixDetailRowHeight',idx); },0);
         }
     });
-    // populate datagrid
-   
-    setTimeout(function(){
-        var data=[];
-        for(var n=0; n<workingData.individual.length;n++) {
-            var competitor=workingData.individual[n];
-            if (competitor['Equipo']!=row.ID) continue;
-            // $(dgname).datagrid('appendRow',competitor);
-            data.push(competitor);
-        }
-        $(mySelf).datagrid('loadData',data);
-        $(parent).datagrid('fixDetailRowHeight',idx);
-    },0);
+    $(parent).datagrid('fixDetailRowHeight',idx);
 }

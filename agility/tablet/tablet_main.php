@@ -231,7 +231,7 @@ $config =Config::getInstance();
         },
         onCollapseRow: function(idx,row) {
             row.expanded=0;
-            var dg="tablet-datagrid-" + parseInt(row.ID);
+            var dg="#tablet-datagrid-" + parseInt(row.ID);
             $(dg).remove();
             doBeep();
         }

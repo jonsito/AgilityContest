@@ -248,7 +248,6 @@ function formatTeamClasificaciones(dgname,value,rows) {
 }
 
 function formatVwTeamClasificaciones(value,rows) { return formatTeamClasificaciones('#vwcf_clasificacion-datagrid',value,rows); }
-function formatPbTeamClasificaciones(value,rows) { return formatTeamClasificaciones('#pb_resultados-datagrid',value,rows); }
 
 function formatTeamClasificacionesConsole(value,rows) {
     var mindogs=getMinDogsByTeam();

@@ -68,7 +68,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </table>
         </div>
         <div id="pb_tabla" data-options="region:'center'">
-                <table id="pb_resultados-datagrid"></table>
+                <table id="pb_finales-datagrid"></table>
         </div>
         <div id="pb_finales-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>
@@ -103,29 +103,31 @@ $('#pb_finales-panel').panel({
 	}
 });
 
-$('#pb_resultados-datagrid').datagrid({
+$('#pb_finales-datagrid').datagrid({
     // propiedades del panel asociado
-    fit: true,
+    fit: false,
     border: false,
     closable: false,
-    collapsible: true,
+    collapsible: false,
     collapsed: false,
     // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
     loadMsg:  "<?php _e('Updating final scores');?>...",
     // propiedades del datagrid
+    width:'100%',
     pagination: false,
     rownumbers: true,
     fitColumns: true,
     singleSelect: true,
+    autoRowHeight: false,
     idField: 'ID',
-    rowStyler:myRowStyler,
     view:detailview,
+    pageSize: 500, // enought bit to make it senseless
     columns:[[
         { field:'ID',			hidden:true }, // ID del equipo
         { field:'Prueba',		hidden:true }, // ID de la prueba
         { field:'Jornada',		hidden:true }, // ID de la jornada
-        { field:'Logo',		    width:'15%', sortable:false,  title: '',formatter:formatTeamLogos },
-        { field:'Nombre',		width:'20%', sortable:false,  title: '<?php _e('Team'); ?>' },
+        { field:'Logo',		    width:'25%', sortable:false,  title: '',formatter:formatTeamLogos },
+        { field:'Nombre',		width:'20%', sortable:false,  title: '<?php _e('Team'); ?>',formatter:formatBold },
         { field:'Categorias',	width:'5%', sortable:false,   title: '<?php _e('Cat'); ?>' },
         { field:'T1',		    width:'7%', sortable:false,   title: '<?php _e('Time'); ?> 1'},
         { field:'P1',		    width:'7%', sortable:false,   title: '<?php _e('Penal'); ?> 1' },
@@ -134,14 +136,18 @@ $('#pb_resultados-datagrid').datagrid({
         { field:'Tiempo',		width:'10%', sortable:false,  title: '<?php _e('Time'); ?>',formatter:formatBold },
         { field:'Penalizacion',	width:'10%', sortable:false,  title: '<?php _e('Penalization'); ?>',formatter:formatBold }
     ]],
+    rowStyler:myRowStyler,
     // especificamos un formateador especial para desplegar la tabla de perros por equipos
     detailFormatter:function(idx,row){
-        var dgname="pb_resultados-datagrid-" + replaceAll(' ','_',row.ID);
-        // return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';
-        return '<table id="'+dgname+'"></table>';
+        var dgname="pb_finales-datagrid-"+parseInt(row.ID);
+        return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';
     },
     onExpandRow: function(idx,row) {
         pb_showClasificacionesByTeam(idx,row);
+    },
+    onCollapseRow: function(idx,row) {
+        var dg="#pb_finales-datagrid-" + parseInt(row.ID);
+        $(dg).remove();
     }
 });
 

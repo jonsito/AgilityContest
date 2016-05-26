@@ -82,7 +82,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </table>
         </div>
         <div id="pb_tabla" data-options="region:'center'">
-                <table id="pb_resultados-datagrid">
+                <table id="pb_finales-datagrid">
                     <thead>
                     <tr>
                         <th colspan="8"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
@@ -203,7 +203,7 @@ $('#pb_finales-window').window({
 	}
 });
 
-$('#pb_resultados-datagrid').datagrid({
+$('#pb_finales-datagrid').datagrid({
 	// propiedades del panel asociado
 	fit: true,
 	border: false,
