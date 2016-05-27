@@ -153,8 +153,9 @@ function isTeamByJornada(jornada) {
 }
 
 function isJornadaOpen() { return (workingData.datosJornada.Open!=0); }
-function isJornadaEq3() { return (workingData.datosJornada.Equipos3!=0); }
-function isJornadaEq4() { return (workingData.datosJornada.Equipos4!=0); }
+function isJornadaEqMejores() { return (workingData.datosJornada.Equipos3!=0); }
+function isJornadaEqConjunta() { return (workingData.datosJornada.Equipos4!=0); }
+function isJornadaEquipos() { return ( isJornadaEqMejores() || isJornadaEqConjunta() ); }
 function getMinDogsByTeam() {
 	var mindogs=4;
 	switch(parseInt(workingData.datosJornada.Equipos3)) {

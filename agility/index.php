@@ -136,6 +136,19 @@ function myRowStyler(idx,row) {
         margin-top:7px;
     }
 
+    /* used in team partial/final scores */
+    #pb_tabla .datagrid-row {
+        height:40px;
+        line-height: 40px;
+    }
+    #pb_tabla .datagrid-row .datagrid-cell {
+        height:35px;
+    }
+    #pb_tabla .datagrid-row-detail .datagrid-row {
+        height:25px;
+        line-height: 25px;
+    }
+
 	/* tip for fix data size in smartphones ----------- */
 	@media only screen and (max-width: 760px) {
 
@@ -280,21 +293,20 @@ function public_acceptSelection() {
     var page='/agility/console/frm_notavailable.php';
 	switch (o){
 	case 'inscritos':
-        if (isJornadaEq3() ) page="/agility/public/pb_inscripciones_equipos.php";
-        else if (isJornadaEq4() ) page="/agility/public/pb_inscripciones_equipos.php";
+        if (isJornadaEqMejores() ) page="/agility/public/pb_inscripciones_equipos.php";
+        else if (isJornadaEqConjunta() ) page="/agility/public/pb_inscripciones_equipos.php";
         else page="/agility/public/pb_inscripciones.php";
 		break;
 	case 'ordensalida':
 		page="/agility/public/pb_ordensalida.php";
 		break;
 	case 'parciales':
-        if (isJornadaEq3() ) page="/agility/public/pb_parciales_eq3.php";
-        else if (isJornadaEq4() ) page="/agility/public/pb_parciales_eq4.php";
+        if (isJornadaEqMejores() ) page="/agility/public/pb_parciales_eq3.php";
+        else if (isJornadaEqConjunta() ) page="/agility/public/pb_parciales_eq4.php";
         else page="/agility/public/pb_parciales.php";
 		break;
 	case 'clasificaciones':
-        if (isJornadaEq3() ) page="/agility/public/pb_finales_eq3.php";
-        else if (isJornadaEq4() ) page="/agility/public/pb_finales_eq4.php";
+        if (isJornadaEquipos() ) page="/agility/public/pb_finales_equipos.php";
         else page="/agility/public/pb_finales.php";
         break;
     case 'programa':

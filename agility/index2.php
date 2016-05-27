@@ -149,8 +149,8 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             pbmenu_getAndSet(prueba,jornada);
             pb_collapseMenu(true);
             var page="/agility/public/pbmenu_inscripciones.php";
-            if (isJornadaEq3() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
-            if (isJornadaEq4() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
+            if (isJornadaEqMejores() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
+            if (isJornadaEqConjunta() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
@@ -193,8 +193,8 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             workingData.teamCounter=1;
             pb_collapseMenu(true);
             var page="/agility/public/pbmenu_parciales.php";
-            if (isJornadaEq3() ) page="/agility/public/pbmenu_parciales_eq3.php";
-            if (isJornadaEq4() ) page="/agility/public/pbmenu_parciales_eq3.php";
+            if (isJornadaEqMejores() ) page="/agility/public/pbmenu_parciales_eq3.php";
+            if (isJornadaEqConjunta() ) page="/agility/public/pbmenu_parciales_eq3.php";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
@@ -204,8 +204,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             workingData.teamCounter=1;
             pb_collapseMenu(true);
             var page="/agility/public/pbmenu_finales.php";
-            if (isJornadaEq3() ) page="/agility/public/pbmenu_finales_eq3.php";
-            if (isJornadaEq4() ) page="/agility/public/pbmenu_finales_eq3.php";
+            if (isJornadaEquipos() ) page="/agility/public/pbmenu_finales_equipos.php";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
@@ -260,6 +259,19 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         }
         .datagrid-body .datagrid-group .datagrid-group-expander {
             margin-top:0px;
+        }
+        
+        /* used in team partial/final scores */
+        #pb_tabla .datagrid-row {
+            height:40px;
+            line-height: 40px;
+        }
+        #pb_tabla .datagrid-row .datagrid-cell {
+            height:35px;
+        }
+        #pb_tabla .datagrid-row-detail .datagrid-row {
+            height:25px;
+            line-height: 25px;
         }
 
         /* tip for fix data size in smartphones ----------- */

@@ -10,7 +10,7 @@ $am = new AuthManager("Public::finales");
 if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.php"); return 0;}
 ?>
 <!--
-pb_parciales.inc
+pb_finales.php
 
 Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -27,11 +27,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 
-<!-- Presentacion de resultados parciales -->
+<!-- Presentacion de clasificacion final -->
 
 <div id="pb_finales-window">
     <div id="pb_finales-layout" style="width:100%">
-        <div id="pb_finales-Cabecera" style="height:20%" class="pb_floatingheader"
+        <div id="pb_finales-Cabecera" style="height:20%;" class="pb_floatingheader"
              data-options="
                 region:'north',
                 split:true,
@@ -132,19 +132,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
-// fire autorefresh if configured
-var rtime=parseInt(ac_config.web_refreshtime);
-if (rtime!=0) setInterval(pb_updateFinales,1000*rtime);
-
 // in a mobile device, increase north window height
 if (isMobileDevice()) {
     $('#pb_finales-Cabecera').css('height','90%');
 }
 
-addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update scores"); ?>');
-
 $('#pb_enumerateFinales').combogrid({
-	panelWidth: 200,
+	panelWidth: 250,
 	panelHeight: 150,
 	idField: 'Nombre',
 	textField: 'Nombre',
@@ -179,6 +173,8 @@ $('#pb_enumerateFinales').combogrid({
 	}
 });
 
+addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update scores"); ?>');
+
 $('#pb_finales-layout').layout({fit:true});
 $('#pb_finales-window').window({
 	fit:true,
@@ -194,12 +190,6 @@ $('#pb_finales-window').window({
         pb_getHeaderInfo();
         // update footer info
         pb_setFooterInfo();
-		// call once and then fire as timed task
-		pb_updateFinales();
-		$(this).window.defaults.callback = setInterval(pb_updateFinales,60000);
-	},
-	onClose: function() { 
-		clearInterval($(this).window.defaults.callback);
 	}
 });
 
@@ -212,12 +202,25 @@ $('#pb_finales-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	// no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
-	loadMsg: "<?php _e('Updating round scores');?>...",
+	loadMsg: "<?php _e('Updating final scores');?>...",
+    width:'100%',
 	pagination: false,
 	rownumbers: false,
 	fitColumns: true,
 	singleSelect: true,
-    autoRowHeight:true, // let the formatters decide the size
-	rowStyler:myRowStyler
+    rowStyler:myRowStyler,
+    autoRowHeight:true
 });
+
+// fire autorefresh if configured
+var rtime=parseInt(ac_config.web_refreshtime);
+if (rtime!=0) {
+    function update() {
+        pb_updateFinales();
+        /* workingData.timeout=setTimeout(update,1000*rtime); */
+    }
+    if (workingData.timeout!=null) clearTimeout(workingData.timeout);
+    update();
+}
+
 </script>

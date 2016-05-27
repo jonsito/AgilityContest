@@ -54,7 +54,7 @@ function chrono_putEvent(type,dat){
 }
 
 function need_resetChrono(data) {
-	if (! isJornadaEq4()) return true;
+	if (! isJornadaEqConjunta()) return true;
 	// en equipos4 resetea si cambio de equipo
 	var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
 	if ($('#chrono_NombreClub').html()!==eq) return false;

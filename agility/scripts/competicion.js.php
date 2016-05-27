@@ -85,8 +85,8 @@ function formatTF(val,row,idx) {
 
 function formatCatGrad(val,row,idx) {
     var hasGrade=true;
-    if (isJornadaEq3()) hasGrade=false;
-    if (isJornadaEq4()) hasGrade=false;
+    if (isJornadaEqMejores()) hasGrade=false;
+    if (isJornadaEqConjunta()) hasGrade=false;
     if (isJornadaOpen()) hasGrade=false;
     if (!hasGrade) return formatCategoria(val,row,idx);
     // return formatCategoria(row.Categoria,row.idx)+"/"+formatGrado(row.Grado,row,idx);
@@ -1178,7 +1178,7 @@ function competicionDialog(name) {
     }
     title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
     if (name==='ordensalida') {
-        var display= (isJornadaEq3() || isJornadaEq4())?"inline-block":"none";
+        var display= (isJornadaEqMejores() || isJornadaEqConjunta())?"inline-block":"none";
         $('#ordensalida-dialog').dialog('open').dialog('setTitle',' <?php _e("Starting order"); ?>'+": "+title);
         $('#ordensalida-eqBtn').css('display',display);
         // cargamos ventana de orden de salida

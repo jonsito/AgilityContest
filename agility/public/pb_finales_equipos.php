@@ -31,10 +31,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="pb_finales-window">
     <div id="pb_finales-layout" style="width:100%">
-        <div id="pb_finales-Cabecera"  style="height:20%;" class="pb_floatingheader"
+        <div id="pb_finales-Cabecera" style="height:20%;" class="pb_floatingheader"
              data-options="
                 region:'north',
                 split:true,
+                title:'<?php _e('Final scores');?>',
                 collapsed:false,
                 onCollapse:function(){
                 	setTimeout(function(){
@@ -45,12 +46,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 }
                 ">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateFinales();" href="#" style="float:left">
-                <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
+                <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="40" />
             </a>
-            <span style="float:left;padding:10px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
+            <span style="float:left;padding:5px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
             <span style="float:right" id="pb_header-texto">
                 <?php _e('Final scores'); ?><br/>
-                <label for="pb_enumerateFinales" style="font-size:0.7em"><?php _e('Series'); ?>:</label>
+                <label for="pb_enumerateFinales" style="font-size:1.2vw"><?php _e('Series'); ?>:</label>
 		        <select id="pb_enumerateFinales" style="width:200px"></select>
             </span>
             <!-- Datos de TRS y TRM -->
@@ -114,8 +115,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div> <!-- finales-window -->
 
 <script type="text/javascript">
-
-
+    
 // in a mobile device, increase north window height
 if (isMobileDevice()) {
     $('#pb_finales-Cabecera').css('height','90%');
@@ -124,7 +124,7 @@ if (isMobileDevice()) {
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update scores"); ?>');
 
 $('#pb_enumerateFinales').combogrid({
-	panelWidth: 300,
+	panelWidth: 250,
 	panelHeight: 150,
 	idField: 'Nombre',
 	textField: 'Nombre',
@@ -179,25 +179,24 @@ $('#pb_finales-window').window({
 
 $('#pb_finales-datagrid').datagrid({
     // propiedades del panel asociado
-    fit: false,
+    fit: true,
     border: false,
     closable: false,
     collapsible: false,
     collapsed: false,
+    // propiedades del datagrid
     // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
     loadMsg:  "<?php _e('Updating final scores');?>...",
-    // propiedades del datagrid
     width:'100%',
     pagination: false,
     rownumbers: true,
     fitColumns: true,
     singleSelect: true,
-    autoRowHeight: false,
+    rowStyler:myRowStyler,
+    autoRowHeight:false, // let the formatters decide the size
     idField: 'ID',
     view:detailview,
-    pageSize: 500, // enought bit to make it senseless
-    // columns declared at html section to show additional headers
-    rowStyler:myRowStyler,
+    pageSize: 500, // enought big to make it senseless
     // especificamos un formateador especial para desplegar la tabla de perros por equipos
     detailFormatter:function(idx,row){
         var dgname="pb_finales-datagrid-"+parseInt(row.ID);

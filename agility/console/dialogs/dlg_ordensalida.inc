@@ -170,7 +170,7 @@ $('#ordensalida-datagrid').datagrid({
     onDragEnter: function(dst,src) {
         var from=":"+src.Equipo+":"+src.Categoria+":"+src.Celo+":";
         var to=":"+dst.Equipo+":"+dst.Categoria+":"+dst.Celo+":";
-        if (isJornadaEq4()) {
+        if (isJornadaEqConjunta()) {
             // en jornadas por equipos conjunta, no hay que tener en cuenta ni categoria ni celo
             from=":"+src.Equipo+":";
             to=":"+dst.Equipo+":";

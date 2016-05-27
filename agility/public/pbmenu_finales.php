@@ -26,8 +26,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-
-<!-- Presentacion de resultados parciales -->
+<!-- Presentacion de clasificacion final -->
 
 <div id="pb_finales-panel">
     <div id="pb_finales-layout" style="width:100%">
@@ -141,9 +140,6 @@ $('#pb_finales-panel').panel({
         pb_getHeaderInfo();
         // update footer info
         pb_setFooterInfo();
-		// call once and then fire as timed task
-		pb_updateFinales2(workingData.datosRonda);
-
 	}
 });
 
@@ -162,19 +158,18 @@ $('#pb_finales-datagrid').datagrid({
 	fitColumns: true,
 	singleSelect: true,
     autoRowHeight:true, // let the formatters decide the size
-	rowStyler:myRowStyler
+	rowStyler:myRowStyler,
+    autoRowHeight:true
 });
 
 // fire autorefresh if configured
 setTimeout(function(){ $('#pb_enumerateFinales').text(workingData.datosRonda.Nombre)},0);
 var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) {
-
     function update() {
         pb_updateFinales2(workingData.datosRonda);
         workingData.timeout=setTimeout(update,1000*rtime);
     }
-
     if (workingData.timeout!=null) clearTimeout(workingData.timeout);
     update();
 }

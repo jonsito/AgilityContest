@@ -186,7 +186,7 @@ function pb_updateFinales2(ronda) {
 		url:"/agility/server/database/clasificacionesFunctions.php",
 		dataType:'json',
 		data: {
-            Operation:'clasificacionEquipos',
+            Operation: (isJornadaEquipos())?'clasificacionEquipos':'clasificacionIndividual',
 			Prueba:	ronda.Prueba,
 			Jornada:ronda.Jornada,
 			Manga1:	ronda.Manga1,
@@ -227,8 +227,13 @@ function pb_updateFinales2(ronda) {
                 $('#pb_finales-Velocidad2').html('<?php _e('Speed');?>: ' + dat['trs2'].vel + 'm/s');
             }
             // clasificaciones
-            workingData.teamCounter=1; // reset team's puesto counter
-            $('#pb_finales-datagrid').datagrid('loadData',dat.equipos);
+            if ( isJornadaEquipos() ) {
+                $('#pb_finales-datagrid').datagrid('loadData',dat.equipos);
+            } else {
+                $('#pb_finales-datagrid').datagrid('loadData',dat.rows);
+            }
+            
+            
 		}
 	});
 }

@@ -83,7 +83,7 @@ function print_ordenTandas() {
  */
 function print_ordenSalida() {
     var url='/agility/server/pdf/print_ordenDeSalida.php';
-    if (isJornadaEq4()) url='/agility/server/pdf/print_ordenSalidaEquipos4.php';
+    if (isJornadaEqConjunta()) url='/agility/server/pdf/print_ordenSalidaEquipos4.php';
     $.fileDownload(
         url,
         {
@@ -273,7 +273,7 @@ function print_commonDesarrollo(def) {
     $.messager.radio(
         '<?php _e('Print form'); ?>',
         '<?php _e('Select document type to be generated'); ?>:',
-        isJornadaEq4()?options4:options,
+        isJornadaEqConjunta()?options4:options,
         function(r){
             if (!r) return false;
             if (!checkCanPrint(r)) return false;
@@ -302,8 +302,8 @@ function print_commonDesarrollo(def) {
 function clasificaciones_printPodium() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='/agility/server/pdf/print_podium.php';
-    if (isJornadaEq3()) url='/agility/server/pdf/print_podium_eq3.php';
-    if (isJornadaEq4()) url='/agility/server/pdf/print_podium_eq4.php';
+    if (isJornadaEqMejores()) url='/agility/server/pdf/print_podium_eq3.php';
+    if (isJornadaEqConjunta()) url='/agility/server/pdf/print_podium_eq4.php';
 	if (ronda==null) {
     	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");
     	return false; // no way to know which ronda is selected
@@ -405,8 +405,8 @@ function clasificaciones_printEtiquetas(flag,start,list) {
 function clasificaciones_printClasificacion() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='/agility/server/pdf/print_clasificacion.php';
-    if (isJornadaEq3()) url='/agility/server/pdf/print_clasificacion_equipos.php';
-    if (isJornadaEq4()) url='/agility/server/pdf/print_clasificacion_equipos.php';
+    if (isJornadaEqMejores()) url='/agility/server/pdf/print_clasificacion_equipos.php';
+    if (isJornadaEqConjunta()) url='/agility/server/pdf/print_clasificacion_equipos.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	if (ronda==null) {
         $.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");
