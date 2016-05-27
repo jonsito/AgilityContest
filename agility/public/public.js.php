@@ -195,7 +195,6 @@ function pb_updateFinales2(ronda) {
 			Mode: 	ronda.Mode
 		},
 		success: function(dat) {
-            workingData.individual=dat.individual;
             // nombres de las mangas
             $('#pb_finales-NombreRonda').html(ronda.Nombre);
             $('#pb_resultados_thead_m1').html(ronda.NombreManga1);
@@ -227,13 +226,15 @@ function pb_updateFinales2(ronda) {
                 $('#pb_finales-Velocidad2').html('<?php _e('Speed');?>: ' + dat['trs2'].vel + 'm/s');
             }
             // clasificaciones
+            var dg=$('#pb_finales-datagrid');
             if ( isJornadaEquipos() ) {
-                $('#pb_finales-datagrid').datagrid('loadData',dat.equipos);
+                workingData.individual=dat.individual;
+                dg.datagrid('options').expandCount = 0;
+                dg.datagrid('loadData',dat.equipos);
             } else {
-                $('#pb_finales-datagrid').datagrid('loadData',dat.rows);
+                workingData.individual=dat.rows;
+                dg.datagrid('loadData',dat.rows);
             }
-            
-            
 		}
 	});
 }

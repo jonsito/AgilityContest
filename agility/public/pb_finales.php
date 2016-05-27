@@ -194,6 +194,7 @@ $('#pb_finales-window').window({
 });
 
 $('#pb_finales-datagrid').datagrid({
+    expandCount: 0,
 	// propiedades del panel asociado
 	fit: true,
 	border: false,
@@ -217,7 +218,7 @@ var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) {
     function update() {
         pb_updateFinales();
-        /* workingData.timeout=setTimeout(update,1000*rtime); */
+        workingData.timeout=setTimeout(update,1000*rtime);
     }
     if (workingData.timeout!=null) clearTimeout(workingData.timeout);
     update();

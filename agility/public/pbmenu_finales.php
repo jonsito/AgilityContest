@@ -144,6 +144,7 @@ $('#pb_finales-panel').panel({
 });
 
 $('#pb_finales-datagrid').datagrid({
+    expandCount: 0,
 	// propiedades del panel asociado
 	fit: true,
 	border: false,

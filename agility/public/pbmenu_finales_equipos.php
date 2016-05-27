@@ -128,6 +128,7 @@ $('#pb_finales-panel').panel({
 });
 
 $('#pb_finales-datagrid').datagrid({
+    expandCount: 0,
     // propiedades del panel asociado
     fit: false,
     border: false,
@@ -154,9 +155,11 @@ $('#pb_finales-datagrid').datagrid({
         return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';
     },
     onExpandRow: function(idx,row) {
+        $(this).datagrid('options').expandCount++;
         pb_showClasificacionesByTeam(idx,row);
     },
     onCollapseRow: function(idx,row) {
+        $(this).datagrid('options').expandCount--;
         var dg="#pb_finales-datagrid-" + parseInt(row.ID);
         $(dg).remove();
     }
@@ -168,8 +171,8 @@ var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) {
 
     function update() {
-        pb_updateFinales2(workingData.datosRonda);
-        // workingData.timeout=setTimeout(update,1000*rtime);
+        if ( $('#pb_finales-datagrid').datagrid('options').expandCount <= 0 )pb_updateFinales2(workingData.datosRonda);
+        workingData.timeout=setTimeout(update,1000*rtime);
     }
 
     if (workingData.timeout!=null) clearTimeout(workingData.timeout);
