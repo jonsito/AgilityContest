@@ -81,8 +81,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                         <th data-options="field:'Prueba',		hidden:true"></th>
                         <th data-options="field:'Jornada',		hidden:true"></th>
                         -->
-                    <th data-options="field:'Logo',		    width:'23%', sortable:false, formatter:formatTeamLogos">&nbsp</th>
-                    <th data-options="field:'Nombre',		width:'16.5%', sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
+                    <th data-options="field:'Logo',		    width:'19%', sortable:false, formatter:formatTeamLogos">&nbsp</th>
+                    <th data-options="field:'Nombre',		width:'20.5%', sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
                     <th data-options="field:'Categorias',	width:'4%', sortable:false"><?php _e('Cat'); ?></th>
                     <th data-options="field:'T1',		    align:'center', width:'9.5%', sortable:false"><?php _e('Time'); ?> 1</th>
                     <th data-options="field:'P1',		    align:'center',width:'10%', sortable:false"><?php _e('Penal'); ?> 1</th>
@@ -156,7 +156,7 @@ $('#pb_finales-datagrid').datagrid({
     },
     onExpandRow: function(idx,row) {
         $(this).datagrid('options').expandCount++;
-        pb_showClasificacionesByTeam(idx,row);
+        showClasificacionesByTeam("#pb_finales-datagrid",idx,row);
     },
     onCollapseRow: function(idx,row) {
         $(this).datagrid('options').expandCount--;

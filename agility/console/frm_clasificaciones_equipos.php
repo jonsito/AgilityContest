@@ -69,39 +69,26 @@ $config =Config::getInstance();
 	<table id="resultados-datagrid">
 		<thead>
 			<tr>
-				<th colspan="7"> <span class="main_theader"><?php _e("Competitors data"); ?></span></th>
-			    <th colspan="6"> <span class="main_theader" id="resultados_thead_m1"><?php _e('Round'); ?> 1</span></th>
-			    <th colspan="6"> <span class="main_theader" id="resultados_thead_m2"><?php _e('Round'); ?> 2</span></th>
-			    <th colspan="4"> <span class="main_theader"><?php _e('Score'); ?></span></th>
-		    </tr>
-		    <tr>
-				<!--
-                <th data-options="field:'Perro',		hidden:true " ></th>
+				<th colspan="3"> <span class="main_theader"><?php _e('Team data'); ?></span></th>
+				<th colspan="2"> <span class="main_theader" id="resultados_thead_m1"><?php _e('Round'); ?> 1</span></th>
+				<th colspan="2"> <span class="main_theader" id="resultados_thead_m2"><?php _e('Round'); ?> 2</span></th>
+				<th colspan="2"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
+			</tr>
+			<tr> <!--
+                <th data-options="field:'ID',			hidden:true"></th>
+                <th data-options="field:'Prueba',		hidden:true"></th>
+                <th data-options="field:'Jornada',		hidden:true"></th>
                  -->
-				<th data-options="field:'Dorsal',		width:20, align:'left'" ><?php _e('Dors'); ?>.</th>
-				<th data-options="field:'Nombre',		width:35, align:'left',formatter:formatBold" ><?php _e('Name'); ?></th>
-				<th data-options="field:'Licencia',		width:15, align:'center'" ><?php _e('Lic'); ?>.</th>
-				<th data-options="field:'Categoria',	width:15, align:'center',formatter:formatCategoria" ><?php _e('Cat'); ?>.</th>
-				<th data-options="field:'Grado',		width:15, align:'center',formatter:formatGrado" ><?php _e('Grd'); ?>.</th>
-				<th data-options="field:'NombreGuia',	width:50, align:'right'" ><?php _e('Handler'); ?></th>
-				<th data-options="field:'NombreClub',	width:45, align:'right'" ><?php _e('Club'); ?></th>
-				<th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"><?php _e('F/T'); ?></th>
-				<th data-options="field:'R1',			width:15, align:'center'"><?php _e('R'); ?>.</th>
-				<th data-options="field:'T1',			width:25, align:'right',formatter:formatT1"><?php _e('Tim'); ?>.</th>
-				<th data-options="field:'V1',			width:15, align:'right',formatter:formatV1"><?php _e('Vel'); ?>.</th>
-				<th data-options="field:'P1',			width:20, align:'right',formatter:formatP1"><?php _e('Penal'); ?>.</th>
-				<th data-options="field:'C1',			width:25, align:'center'"><?php _e('Cal'); ?>.</th>
-				<th data-options="field:'F2',			width:15, align:'center',styler:formatBorder"><?php _e('F/T'); ?></th>
-				<th data-options="field:'R2',			width:15, align:'center'"><?php _e('R'); ?>.</th>
-				<th data-options="field:'T2',			width:25, align:'right',formatter:formatT2"><?php _e('Tim'); ?>.</th>
-				<th data-options="field:'V2',			width:15, align:'right',formatter:formatV2"><?php _e('Vel'); ?>.</th>
-				<th data-options="field:'P2',			width:20, align:'right',formatter:formatP2"><?php _e('Penal'); ?>.</th>
-				<th data-options="field:'C2',			width:25, align:'center'"><?php _e('Cal'); ?>.</th>
-				<th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
-				<th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" ><?php _e('Penaliz'); ?>.</th>
-				<th data-options="field:'Calificacion',	width:20, align:'center'" ><?php _e('Calif'); ?>.</th>
-				<th data-options="field:'Puesto',		width:15, align:'center',formatter:formatPuestoFinal" ><?php _e('Place'); ?></th>
-	    	</tr>
+				<th data-options="field:'ID',		    width:'19%', sortable:false,formatter:formatTeamLogos">&nbsp</th>
+				<th data-options="field:'Nombre',		width:'20.5%', sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
+				<th data-options="field:'Categorias',	width:'4%', sortable:false"><?php _e('Cat'); ?></th>
+				<th data-options="field:'T1',		    align:'center', width:'9.5%', sortable:false"><?php _e('Time'); ?> 1</th>
+				<th data-options="field:'P1',		    align:'center',width:'10%', sortable:false"><?php _e('Penal'); ?> 1</th>
+				<th data-options="field:'T2',		    align:'center',width:'9.5%', sortable:false"><?php _e('Time'); ?> 2</th>
+				<th data-options="field:'P2',		    align:'center',width:'10%', sortable:false"><?php _e('Penal'); ?> 2</th>
+				<th data-options="field:'Tiempo',		align:'center',width:'9%', sortable:false,formatter:formatBold"><?php _e('Time'); ?></th>
+				<th data-options="field:'Penalizacion',	align:'center',width:'8.5%', sortable:false,formatter:formatBold"><?php _e('Penalization'); ?></th>
+			</tr>
 		</thead>
 	</table>
 </div>
@@ -245,13 +232,22 @@ $('#resultados-datagrid').datagrid({
 	fitColumns: true,
 	singleSelect: true,
 	rowStyler:myRowStyler,
-    view: gview,
-    groupField: 'NombreEquipo',
-    groupFormatter: formatTeamClasificacionesConsole,
-    onBeforeLoad: function(param) {
-        workingData.teamCounter=1; // reset team's puesto counter
-        return true;
-    }
+	view:detailview,
+	pageSize: 500, // enought big to make it senseless
+	// especificamos un formateador especial para desplegar la tabla de perros por equipos
+	detailFormatter:function(idx,row){
+		var dgname="resultados-datagrid-"+parseInt(row.ID);
+		return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';
+	},
+	onExpandRow: function(idx,row) {
+		$(this).datagrid('options').expandCount++;
+		showClasificacionesByTeam('#resultados-datagrid',idx,row);
+	},
+	onCollapseRow: function(idx,row) {
+		$(this).datagrid('options').expandCount--;
+		var dg="#resultados-datagrid-" + parseInt(row.ID);
+		$(dg).remove();
+	}
 });
 
 </script>
