@@ -30,85 +30,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="pb_finales-panel">
     <div id="pb_finales-layout" style="width:100%">
-        <div id="pb_finales-Cabecera" style="height:20%" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
-
+        <div id="pb_finales-Cabecera" style="height:20%;" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="updateFinales(workingData.datosRonda);" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="40" />
             </a>
             <span style="float:left;padding:5px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
             <span style="float:right" id="pb_header-texto">
                 <?php _e('Final scores'); ?><br/>
-		        <span id="pb_enumerateFinales" style="width:200px"></span>
+		        <span id="enumerateFinales" style="width:200px"></span>
             </span>
             <!-- Datos de TRS y TRM -->
-            <table class="pb_trs">
-                <tbody>
-                <tr>
-                    <th id="pb_finales-NombreRonda" colspan="2" style="display:none">(<?php _e('No round selected'); ?>)</th>
-                    <th id="pb_finales-Juez1" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 1:</th>
-                    <th id="pb_finales-Juez2" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 2:</th>
-                </tr>
-                <tr style="text-align:right">
-                    <td id="pb_finales-Ronda1"><?php _e('Data info for round'); ?> 1:</td>
-                    <td id="pb_finales-Distancia1"><?php _e('Distance'); ?>:</td>
-                    <td id="pb_finales-Obstaculos1"><?php _e('Obstacles'); ?>:</td>
-                    <td id="pb_finales-TRS1"><?php _e('Standard C. Time'); ?>:</td>
-                    <td id="pb_finales-TRM1"><?php _e('Maximum C. Time'); ?>:</td>
-                    <td id="pb_finales-Velocidad1"><?php _e('Speed'); ?>:</td>
-                </tr>
-                <tr style="text-align:right">
-                    <td id="pb_finales-Ronda2"><?php _e('Data info for round'); ?> 2:</td>
-                    <td id="pb_finales-Distancia2"><?php _e('Distance'); ?>:</td>
-                    <td id="pb_finales-Obstaculos2"><?php _e('Obstacles'); ?>:</td>
-                    <td id="pb_finales-TRS2"><?php _e('Standard C. Time'); ?>:</td>
-                    <td id="pb_finales-TRM2"><?php _e('Maximum C. Time'); ?>:</td>
-                    <td id="pb_finales-Velocidad2"><?php _e('Speed'); ?>:</td>
-                </tr>
-                </tbody>
-            </table>
+            <?php include(__DIR__."/../console/templates/final_rounds_data.inc.php"); ?>
         </div>
-        <div id="team_table" data-options="region:'center'">
-                <table id="pb_finales-datagrid">
-                    <thead>
-                    <tr>
-                        <th colspan="8"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
-                        <th colspan="7"> <span class="main_theader" id="finales_roundname_m1"><?php _e('Round'); ?> 1</span></th>
-                        <th colspan="7"> <span class="main_theader" id="finales_roundname_m2"><?php _e('Round'); ?> 2</span></th>
-                        <th colspan="4"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
-                    </tr>
-                    <tr>
-                        <!--
-                        <th data-options="field:'Perro',		hidden:true " ></th>
-                         -->
-                        <th data-options="field:'Dorsal',		width:20, align:'left'" > <?php _e('Dors'); ?>.</th>
-                        <th data-options="field:'LogoClub',		width:20, align:'left',formatter:formatLogoPublic" > &nbsp;</th>
-                        <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
-                        <th data-options="field:'Licencia',		width:15, align:'center'" > <?php _e('Lic'); ?>.</th>
-                        <th data-options="field:'Categoria',	width:15, align:'center',formatter:formatCategoria" > <?php _e('Cat'); ?>.</th>
-                        <th data-options="field:'Grado',		width:15, align:'center', formatter:formatGrado" > <?php _e('Grd'); ?>.</th>
-                        <th data-options="field:'NombreGuia',	width:50, align:'right'" > <?php _e('Handler'); ?></th>
-                        <th data-options="field:'NombreClub',	width:45, align:'right'" > <?php _e('Club'); ?></th>
-                        <th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
-                        <th data-options="field:'R1',			width:15, align:'center'"> <?php _e('R'); ?>.</th>
-                        <th data-options="field:'T1',			width:25, align:'right',formatter:formatT1"> <?php _e('Time'); ?>.</th>
-                        <th data-options="field:'V1',			width:16, align:'right',formatter:formatV1"> <?php _e('Vel'); ?>.</th>
-                        <th data-options="field:'P1',			width:21, align:'right',formatter:formatP1"> <?php _e('Penal'); ?>.</th>
-                        <th data-options="field:'C1',			width:23, align:'center'"> <?php _e('Cal'); ?>.</th>
-                        <th data-options="field:'Puesto1',		width:15, align:'center'"> <?php _e('Pos'); ?>.</th>
-                        <th data-options="field:'F2',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
-                        <th data-options="field:'R2',			width:15, align:'center'"> <?php _e('R'); ?>.</th>
-                        <th data-options="field:'T2',			width:25, align:'right',formatter:formatT2"> <?php _e('Time'); ?>.</th>
-                        <th data-options="field:'V2',			width:16, align:'right',formatter:formatV2"> <?php _e('Vel'); ?>.</th>
-                        <th data-options="field:'P2',			width:21, align:'right',formatter:formatP2"> <?php _e('Penal'); ?>.</th>
-                        <th data-options="field:'C2',			width:23, align:'center'"> <?php _e('Cal'); ?>.</th>
-                        <th data-options="field:'Puesto2',		width:15, align:'center'"> <?php _e('Pos'); ?>.</th>
-                        <th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
-                        <th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
-                        <th data-options="field:'Calificacion',	width:20, align:'center'" > <?php _e('Calif'); ?>.</th>
-                        <th data-options="field:'Puesto',		width:15, align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
-                    </tr>
-                    </thead>
-                </table>
+        <div id="pb_table" data-options="region:'center'">
+            <div class="scores_table">
+                <?php include(__DIR__."/../console/templates/final_individual.inc.php"); ?>
+            </div>
         </div>
         <div id="pb_finales-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>
@@ -143,36 +80,15 @@ $('#pb_finales-panel').panel({
 	}
 });
 
-$('#pb_finales-datagrid').datagrid({
-    expandCount: 0,
-	// propiedades del panel asociado
-	fit: true,
-	border: false,
-	closable: false,
-	collapsible: false,
-	collapsed: false,
-	// propiedades del datagrid
-	// no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
-	loadMsg: "<?php _e('Updating round scores');?>...",
-	pagination: false,
-	rownumbers: false,
-	fitColumns: true,
-	singleSelect: true,
-    autoRowHeight:true, // let the formatters decide the size
-	rowStyler:myRowStyler,
-    autoRowHeight:true
-});
-
 // fire autorefresh if configured
-setTimeout(function(){ $('#enumerateFinales').text(workingData.datosRonda.Nombre)},0);
-var rtime=parseInt(ac_config.web_refreshtime);
-if (rtime!=0) {
-    function update() {
-        updateFinales(workingData.datosRonda);
-        workingData.timeout=setTimeout(update,1000*rtime);
-    }
-    if (workingData.timeout!=null) clearTimeout(workingData.timeout);
-    update();
+function pbmenu_updateFinalesIndividual() {
+    var rtime=parseInt(ac_config.web_refreshtime);
+    updateFinales(workingData.datosRonda);
+    if (rtime!=0) workingData.timeout=setTimeout(pbmenu_updateFinalesIndividual,1000*rtime);
 }
+
+setTimeout(function(){ $('#enumerateFinales').text(workingData.datosRonda.Nombre)},0);
+if (workingData.timeout!=null) clearTimeout(workingData.timeout);
+pbmenu_updateFinalesIndividual();
 
 </script>

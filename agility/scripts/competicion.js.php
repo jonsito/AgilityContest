@@ -90,7 +90,7 @@ function formatCatGrad(val,row,idx) {
     if (isJornadaOpen()) hasGrade=false;
     if (!hasGrade) return formatCategoria(val,row,idx);
     // return formatCategoria(row.Categoria,row.idx)+"/"+formatGrado(row.Grado,row,idx);
-    return row.Categoria+"/"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(
+    return row.Categoria+"-"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(
 }
 
 /**

@@ -61,3 +61,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 .datagrid-body tr:nth-child(even) {background: #CCC; }
 .datagrid-body tr:nth-child(odd) {background: #EEE; }
+
+/* used in partial/final scores */
+.scores_table .datagrid-row {
+    height:40px;
+    line-height: 40px;
+}
+.scores_table .datagrid-row .datagrid-cell {
+    height:35px;
+}
+.scores_table .datagrid-row-detail .datagrid-row {
+    height:25px;
+    line-height: 25px;
+}

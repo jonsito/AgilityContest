@@ -137,19 +137,6 @@ function myRowStyler(idx,row) {
         margin-top:7px;
     }
 
-    /* used in team partial/final scores */
-    #team_table .datagrid-row {
-        height:40px;
-        line-height: 40px;
-    }
-    #team_table .datagrid-row .datagrid-cell {
-        height:35px;
-    }
-    #team_table .datagrid-row-detail .datagrid-row {
-        height:25px;
-        line-height: 25px;
-    }
-
 	/* tip for fix data size in smartphones ----------- */
 	@media only screen and (max-width: 760px) {
 

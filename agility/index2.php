@@ -218,7 +218,6 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             height: 100%;
         }
         #poster_panel {
-            /* background should be extracted from contest poster information */
             background: #000000 url("<?php echo $poster;?>") no-repeat bottom left;
             background-size: 100% 100%;
             width: 100%;
@@ -262,22 +261,8 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             margin-top:0px;
         }
         
-        /* used in team partial/final scores */
-        #team_table .datagrid-row {
-            height:40px;
-            line-height: 40px;
-        }
-        #team_table .datagrid-row .datagrid-cell {
-            height:35px;
-        }
-        #team_table .datagrid-row-detail .datagrid-row {
-            height:25px;
-            line-height: 25px;
-        }
-
         /* tip for fix data size in smartphones ----------- */
         @media only screen and (max-width: 760px) {
-
             .datagrid-cell {
                 font-size:0.75em;
             }

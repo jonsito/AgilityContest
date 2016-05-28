@@ -194,7 +194,8 @@ function updateFinales(ronda) {
                 workingData.individual=dat.individual;
                 dg.datagrid('options').expandCount = 0;
                 dg.datagrid('loadData',dat.equipos);
-            } else {var dg=$('#finales_individual-datagrid');
+            } else {
+                var dg=$('#finales_individual-datagrid');
                 workingData.individual=dat.rows;
                 dg.datagrid('loadData',dat.rows);
             }

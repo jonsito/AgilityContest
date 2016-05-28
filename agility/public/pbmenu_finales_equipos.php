@@ -6,7 +6,7 @@ require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
-$am = new AuthManager("Public::finales_eq3");
+$am = new AuthManager("Public::finales_equipos");
 if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.php"); return 0;}
 ?>
 <!--
@@ -31,9 +31,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="pb_finales-panel">
     <div id="pb_finales-layout" style="width:100%">
-        <div id="pb_finales-Cabecera"  style="height:20%;" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
+        <div id="pb_finales-Cabecera" style="height:20%;" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="updateFinales(workingData.datosRonda);" href="#" style="float:left">
-                <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
+                <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="40" />
             </a>
             <span style="float:left;padding:5px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
             <span style="float:right" id="pb_header-texto">
@@ -41,34 +41,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <span id="enumerateFinales" style="width:200px"></span>
             </span>
             <!-- Datos de TRS y TRM -->
-            <table class="pb_trs">
-                <tbody>
-                <tr>
-                    <th id="finales-NombreRonda" colspan="2" style="display:none">(<?php _e('No round selected'); ?>)</th>
-                    <th id="finales-Juez1" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 1:</th>
-                    <th id="finales-Juez2" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 2:</th>
-                </tr>
-                <tr style="text-align:right">
-                    <td id="finales-Ronda1"><?php _e('Data info for round'); ?> 1:</td>
-                    <td id="finales-Distancia1"><?php _e('Distance'); ?>:</td>
-                    <td id="finales-Obstaculos1"><?php _e('Obstacles'); ?>:</td>
-                    <td id="finales-TRS1"><?php _e('Standard C. Time'); ?>:</td>
-                    <td id="finales-TRM1"><?php _e('Maximum C. Time'); ?>:</td>
-                    <td id="finales-Velocidad1"><?php _e('Speed'); ?>:</td>
-                </tr>
-                <tr style="text-align:right">
-                    <td id="finales-Ronda2"><?php _e('Data info for round'); ?> 2:</td>
-                    <td id="finales-Distancia2"><?php _e('Distance'); ?>:</td>
-                    <td id="finales-Obstaculos2"><?php _e('Obstacles'); ?>:</td>
-                    <td id="finales-TRS2"><?php _e('Standard C. Time'); ?>:</td>
-                    <td id="finales-TRM2"><?php _e('Maximum C. Time'); ?>:</td>
-                    <td id="finales-Velocidad2"><?php _e('Speed'); ?>:</td>
-                </tr>
-                </tbody>
-            </table>
+            <?php include(__DIR__."/../console/templates/final_rounds_data.inc.php"); ?>
         </div>
         <div id="pb_table" data-options="region:'center'">
-            <div id="team_table">
+            <div class="scores_table">
                 <?php include(__DIR__."/../console/templates/final_teams.inc.php"); ?>
             </div>
         </div>
@@ -106,19 +82,16 @@ $('#pb_finales-panel').panel({
 });
 
 // fire autorefresh if configured
-setTimeout(function(){ $('#enumerateFinales').text(workingData.datosRonda.Nombre)},0);
-var rtime=parseInt(ac_config.web_refreshtime);
-if (rtime!=0) {
-
-    function update() {
-        if ( $('#finales_equipos-datagrid').datagrid('options').expandCount <= 0 ){
-            updateFinales(workingData.datosRonda);
-        }
-        workingData.timeout=setTimeout(update,1000*rtime);
+function pbmenu_updateFinalesEquipos() {
+    var rtime=parseInt(ac_config.web_refreshtime);
+    if ( $('#finales_equipos-datagrid').datagrid('options').expandCount <= 0 ){
+        updateFinales(workingData.datosRonda);
     }
-
-    if (workingData.timeout!=null) clearTimeout(workingData.timeout);
-    update();
+    if (rtime!=0) workingData.timeout=setTimeout(pbmenu_updateFinalesEquipos,1000*rtime);
 }
+
+setTimeout(function(){ $('#enumerateFinales').text(workingData.datosRonda.Nombre)},0);
+if (workingData.timeout!=null) clearTimeout(workingData.timeout);
+pbmenu_updateFinalesEquipos();
 
 </script>

@@ -47,13 +47,13 @@ $config =Config::getInstance();
         rownumbers: true,
         fitColumns: true,
         singleSelect: true,
+        rowStyler:myRowStyler,
         autoRowHeight: false,
         idField: 'ID',
-        view:detailview,
         pageSize: 500, // enought bit to make it senseless
         // columns declared at html section to show additional headers
-        rowStyler:myRowStyler,
         // especificamos un formateador especial para desplegar la tabla de perros por equipos
+        view:detailview,
         detailFormatter:function(idx,row){
             var dgname="finales_equipos-datagrid-"+parseInt(row.ID);
             return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';
