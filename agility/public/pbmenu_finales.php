@@ -32,7 +32,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     <div id="pb_finales-layout" style="width:100%">
         <div id="pb_finales-Cabecera" style="height:20%" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
 
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateFinales2(workingData.datosRonda);" href="#" style="float:left">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateFinales(workingData.datosRonda);" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="40" />
             </a>
             <span style="float:left;padding:5px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
@@ -67,13 +67,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 </tbody>
             </table>
         </div>
-        <div id="pb_tabla" data-options="region:'center'">
+        <div id="team_table" data-options="region:'center'">
                 <table id="pb_finales-datagrid">
                     <thead>
                     <tr>
                         <th colspan="8"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
-                        <th colspan="7"> <span class="main_theader" id="pb_resultados_thead_m1"><?php _e('Round'); ?> 1</span></th>
-                        <th colspan="7"> <span class="main_theader" id="pb_resultados_thead_m2"><?php _e('Round'); ?> 2</span></th>
+                        <th colspan="7"> <span class="main_theader" id="finales_roundname_m1"><?php _e('Round'); ?> 1</span></th>
+                        <th colspan="7"> <span class="main_theader" id="finales_roundname_m2"><?php _e('Round'); ?> 2</span></th>
                         <th colspan="4"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
                     </tr>
                     <tr>
@@ -164,11 +164,11 @@ $('#pb_finales-datagrid').datagrid({
 });
 
 // fire autorefresh if configured
-setTimeout(function(){ $('#pb_enumerateFinales').text(workingData.datosRonda.Nombre)},0);
+setTimeout(function(){ $('#enumerateFinales').text(workingData.datosRonda.Nombre)},0);
 var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) {
     function update() {
-        pb_updateFinales2(workingData.datosRonda);
+        updateFinales(workingData.datosRonda);
         workingData.timeout=setTimeout(update,1000*rtime);
     }
     if (workingData.timeout!=null) clearTimeout(workingData.timeout);

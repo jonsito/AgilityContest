@@ -33,7 +33,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     <div id="pb_parciales-layout" style="width:100%">
         <div id="pb_parciales-Cabecera"  style="height:15%;" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
             
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateParciales2(workingData.datosManga.Mode);" href="#" style="float:left">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateParciales(workingData.datosManga);" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="40" />
             </a>
             <span id="header-combinadaFlag" style="display:none">false</span> <!--indicador de combinada-->
@@ -163,7 +163,7 @@ var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) {
 
     function update() {
-        pb_updateParciales2(workingData.datosManga.Mode);
+        updateParciales(workingData.datosManga.Mode);
         workingData.timeout= setTimeout(update,1000*rtime);
     }
 

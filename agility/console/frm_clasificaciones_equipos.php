@@ -70,8 +70,8 @@ $config =Config::getInstance();
 		<thead>
 			<tr>
 				<th colspan="3"> <span class="main_theader"><?php _e('Team data'); ?></span></th>
-				<th colspan="2"> <span class="main_theader" id="resultados_thead_m1"><?php _e('Round'); ?> 1</span></th>
-				<th colspan="2"> <span class="main_theader" id="resultados_thead_m2"><?php _e('Round'); ?> 2</span></th>
+				<th colspan="2"> <span class="main_theader" id="finales_roundname_m1"><?php _e('Round'); ?> 1</span></th>
+				<th colspan="2"> <span class="main_theader" id="finales_roundname_m2"><?php _e('Round'); ?> 2</span></th>
 				<th colspan="2"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
 			</tr>
 			<tr> <!--

@@ -1349,8 +1349,8 @@ function resultados_doSelectRonda(row) {
 			Mode: mode
 		},
 		success: function(dat) {
-			$('#resultados_thead_m1').text(row.NombreManga1);
-			$('#resultados_thead_m2').text(row.NombreManga2);
+			$('#finales_roundname_m1').text(row.NombreManga1);
+			$('#finales_roundname_m2').text(row.NombreManga2);
             var dg=$('#resultados-datagrid');
             if ( isJornadaEquipos() ) {
                 workingData.individual=dat.individual;
@@ -1461,8 +1461,8 @@ function reloadClasificaciones() {
 			Mode: mode
 		},
 		success: function(dat) {
-			$('#resultados_thead_m1').text(ronda.NombreManga1);
-			$('#resultados_thead_m2').text(ronda.NombreManga2);
+			$('#finales_roundname_m1').text(ronda.NombreManga1);
+			$('#finales_roundname_m2').text(ronda.NombreManga2);
             var dg=$('#resultados-datagrid');
             if ( isJornadaEquipos() ) {
                 workingData.individual=dat.individual;
@@ -1473,66 +1473,4 @@ function reloadClasificaciones() {
             }
 		}
 	});
-}
-
-function showClasificacionesByTeam(parent,idx,row) {
-    var mySelf=parent+"-"+parseInt(row.ID);
-    // retrieve datagrid contents
-    var datos=[];
-    for(var n=0; n<workingData.individual.length;n++) {
-        var competitor=workingData.individual[n];
-        if (competitor['Equipo']!=row.ID) continue;
-        datos.push(competitor);
-    }
-    // deploy datagrid
-    $(mySelf).datagrid({
-        fit:false,
-        pagination: false,
-        rownumbers: false,
-        fitColumns: true,
-        singleSelect: true,
-        width: '100%',
-        height: 'auto',
-        remote:false,
-        idField: 'Perro',
-        data: datos,
-        columns: [[
-            {field:'Perro',		hidden:true },
-            {field:'Equipo',	hidden:true },
-            {field:'Dorsal',	width:'3%', align:'left',     title:"<?php _e('Dors'); ?>" },
-            {field:'LogoClub',	hidden:true },
-            {field:'Nombre',	width:'9%', align:'center',   title:"<?php _e('Name'); ?>",   formatter:formatBold},
-            {field:'Licencia',	width:'4%', align:'center',   title:"<?php _e('Lic'); ?>." },
-            {field:'Categoria',	width:'4%', align:'center',   title:"<?php _e('Cat'); ?>.",   formatter:formatCategoria },
-            {field:'Grado',	hidden:true },
-            {field:'NombreEquipo',hidden:true },
-            {field:'NombreGuia',width:'13%', align:'right',    title:"<?php _e('Handler'); ?>" },
-            {field:'NombreClub',width:'12%', align:'right',    title:"<?php _e('Club'); ?>" },
-            {field:'F1',		width:'2%', align:'center',   title:"<?php _e('F/T'); ?>",    styler:formatBorder },
-            {field:'R1',		width:'2%', align:'center',   title:"R." },
-            {field:'T1',		width:'5%', align:'right',    title:"<?php _e('Time'); ?>.",  formatter:formatT1 },
-            {field:'V1',		width:'3%', align:'right',    title:"<?php _e('Vel'); ?>.",   formatter:formatV1 },
-            {field:'P1',		width:'5%', align:'right',    title:"<?php _e('Penal'); ?>.", formatter:formatP1},
-            {field:'C1',		width:'3%', align:'center',   title:"<?php _e('Cal'); ?>."},
-            {field:'F2',		width:'2%', align:'center',   title:"<?php _e('F/T'); ?>",    styler:formatBorder },
-            {field:'R2',		width:'2%', align:'center',   title:" <?php _e('R'); ?>." },
-            {field:'T2',		width:'5%', align:'right',    title:"<?php _e('Time'); ?>.",  formatter:formatT2 },
-            {field:'V2',		width:'3%', align:'right',    title:"<?php _e('Vel'); ?>.",   formatter:formatV2 },
-            {field:'P2',		width:'5%', align:'right',    title:"<?php _e('Penal'); ?>.", formatter:formatP2 },
-            {field:'C2',		width:'3%', align:'center',   title:"<?php _e('Cal'); ?>." },
-            {field:'Tiempo',	width:'4%', align:'right',    title:"<?php _e('Time'); ?>",   formatter:formatTF,styler:formatBorder },
-            {field:'Penalizacion',width:'5%',align:'right',   title:"<?php _e('Penaliz'); ?>.",formatter:formatPenalizacionFinal },
-            {field:'Calificacion',width:'3%',align:'center',  title:"<?php _e('Calif'); ?>." },
-            {field:'Puesto',	width:'3%', align:'center',   title:"<?php _e('Position'); ?>",formatter:formatBold }
-        ]],
-        // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-        rowStyler:myRowStyler,
-        onResize:function(){
-            $(parent).datagrid('fixDetailRowHeight',idx);
-        },
-        onLoadSuccess:function(data){
-            setTimeout(function(){ $(parent).datagrid('fixDetailRowHeight',idx); },0);
-        }
-    });
-    $(parent).datagrid('fixDetailRowHeight',idx);
 }

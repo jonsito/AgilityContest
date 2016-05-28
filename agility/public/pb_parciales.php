@@ -45,7 +45,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				    },0);
                 }
                 ">
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateParciales();" href="#" style="float:left">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateParciales();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
             </a>
             <span id="header-combinadaFlag" style="display:none">false</span> <!--indicador de combinada-->
@@ -89,7 +89,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 // fire autorefresh if configured
 var rtime=parseInt(ac_config.web_refreshtime);
-if (rtime!=0) setInterval(pb_updateParciales,1000*rtime);
+if (rtime!=0) setInterval(updateParciales,1000*rtime);
 
 // in a mobile device, increase north window height
 if (isMobileDevice()) {
@@ -128,7 +128,7 @@ $('#pb_enumerateParciales').combogrid({
 		return true;
 	},
 	onChange:function(value){
-		pb_updateParciales();
+		updateParciales();
         $('#pb_parciales-layout').layout('collapse','north');
 	}
 });

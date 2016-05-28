@@ -79,6 +79,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
     <script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
     <script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
     <script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
+    <script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
     <script src="/agility/public/public.js.php" type="text/javascript" charset="utf-8" > </script>
 
     <script type="text/javascript" charset="utf-8">
@@ -262,14 +263,14 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         }
         
         /* used in team partial/final scores */
-        #pb_tabla .datagrid-row {
+        #team_table .datagrid-row {
             height:40px;
             line-height: 40px;
         }
-        #pb_tabla .datagrid-row .datagrid-cell {
+        #team_table .datagrid-row .datagrid-cell {
             height:35px;
         }
-        #pb_tabla .datagrid-row-detail .datagrid-row {
+        #team_table .datagrid-row-detail .datagrid-row {
             height:25px;
             line-height: 25px;
         }

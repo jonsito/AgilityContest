@@ -53,7 +53,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <select id="pb_enumerateMangas" style="width:200px"></select>
             </span>
 		</div>
-		<div id="pb_tabla" data-options="region:'center'">
+		<div id="team_table" data-options="region:'center'">
 			<table id="pb_ordensalida-datagrid"></table>
 		</div>
         <div id="pb_ordensalida-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">

@@ -36,7 +36,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		    <span style="float:left;padding:10px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
 			<span style="float:right" id="pb_header-texto"><?php _e('Journey activities info'); ?></span>
 		</div>
-		<div id="pb_tabla" data-options="region:'center'">
+		<div id="team_table" data-options="region:'center'">
             <table id="pb_programa-datagrid"></table>
 		</div>
         <div id="pb_programa-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">
