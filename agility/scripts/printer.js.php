@@ -330,8 +330,6 @@ function clasificaciones_printPodium() {
  * Imprime los resultados finales separados por categoria y grado, tal y como pide la RSCE
  */
 function clasificaciones_printCanina() {
-	// Client-side excel conversion
-	// $('#resultados-datagrid').datagrid('toExcel',"clasificaciones.xls");
 	
 	// Server-side excel generation
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');

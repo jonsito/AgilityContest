@@ -21,19 +21,6 @@ require_once(__DIR__."/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
-/**
- * Presenta el logo en pantalla
- * @param {int} val nombre delo logo
- * @param {Object} row datos de la fila
- * @param {int} idx indice de la fila
- * @returns {string} texto html a imprimir
- */
-function vwls_formatLogoLiveStream(val,row,idx) {
-    // TODO: no idea why idx:0 has no logo declared
-    if (typeof(val)==='undefined') return '<img height="30" alt="empty.png" src="/agility/images/logos/empty.png"/>';
-    return '<img height="30" alt="'+val+'" src="/agility/images/logos/'+val+'"/>';
-}
-
 function vwls_enableOSD(val) {
 	var title=document.title;
 	var str="-"

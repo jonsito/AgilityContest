@@ -1,5 +1,5 @@
 /*
- sesiones.js
+ sesiones.js.php
 
 Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 

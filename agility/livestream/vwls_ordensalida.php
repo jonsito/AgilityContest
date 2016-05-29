@@ -128,7 +128,7 @@ $('#vw_ordensalida-datagrid').datagrid({
         { field:'Pendiente',	width:0, hidden:true },
         { field:'Tanda',		width:0, hidden:true },
         { field:'Equipo',		width:0, hidden:true },
-        { field:'LogoClub',     width:'5%', align:'center',	title: '',formatter: vwls_formatLogoLiveStream },
+        { field:'LogoClub',     width:'5%', align:'center',	title: '',formatter: formatLogo },
         { field:'NombreEquipo',	width:'12%', align:'center',title: '<?php _e('Team'); ?>',hidden:true},
         { field:'Dorsal',		width:'5%', align:'center',	title: '<?php _e('Dorsal'); ?>', styler:checkPending },
         { field:'Nombre',		width:'15%', align:'left',	title: '<?php _e('Name'); ?>', formatter: formatBoldBig},

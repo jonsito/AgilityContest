@@ -29,28 +29,28 @@ $config =Config::getInstance();
 			<table>
 			<tr>
 				<td colspan="2">
-					<label for="Nombre"><?php _e('Title'); ?>:</label><br />
+					<label for="resultados-info-nombre"><?php _e('Title'); ?>:</label><br />
 					<input id="resultados-info-nombre" type="text" class="result_forms" readonly="readonly" name="Nombre" size="30"/>
 				</td>
 			</tr>
 			<tr>
-				<td><label for="NombreClub"><?php _e('Organizing Club'); ?>:</label></td>
+				<td><label for="resultados-info-club"><?php _e('Organizing Club'); ?>:</label></td>
 				<td><input id="resultados-info-club" type="text" class="result_forms" readonly="readonly" name="NombreClub"/></td>
 			</tr>
 			<tr>
-				<td><label for="Jornada"><?php _e('Journey'); ?>:</label></td>
+				<td><label for="resultados-info-jornada"><?php _e('Journey'); ?>:</label></td>
 				<td><input id="resultados-info-jornada" type="text" class="result_forms" readonly="readonly" name="Jornada"/></td>
 			</tr>
 			<tr>
-				<td><label for="Fecha"><?php _e('Date'); ?>:</label></td>
+				<td><label for="resultados-info-fecha"><?php _e('Date'); ?>:</label></td>
 				<td><input id="resultados-info-fecha" type="text" class="result_forms" readonly="readonly" name="Fecha"/></td>
 			</tr>
 			<tr>
-				<td><label for="Ronda"><?php _e('Round'); ?>:</label></td>
+				<td><label for="resultados-info-ronda"><?php _e('Round'); ?>:</label></td>
 				<td><select id="resultados-info-ronda" name="Ronda" class="result_forms" style="width:150px"></select></td>
 			</tr>
 			<tr>
-				<td><label for="Observaciones"><?php _e('Comments'); ?>:</label></td>
+				<td><label for="resultados-info-observaciones"><?php _e('Comments'); ?>:</label></td>
 				<td><input id="resultados-info-observaciones" type="text" class="result_forms" readonly="readonly" name="Observaciones"/></td>
 			</tr>
 			</table>
@@ -66,44 +66,8 @@ $config =Config::getInstance();
 </div> <!-- panel de informacion -->
 
 <div id="resultados-data" style="width:100%;height:400px">
-	<table id="resultados-datagrid">
-		<thead>
-			<tr>
-				<th colspan="7"> <span class="main_theader"><?php _e("Competitors data"); ?></span></th>
-			    <th colspan="6"> <span class="main_theader" id="finales_roundname_m1"><?php _e('Round'); ?> 1</span></th>
-			    <th colspan="6"> <span class="main_theader" id="finales_roundname_m2"><?php _e('Round'); ?> 2</span></th>
-			    <th colspan="4"> <span class="main_theader"><?php _e('Score'); ?></span></th>
-		    </tr>
-		    <tr>
-		    	<!-- 
-	    		<th data-options="field:'Perro',		hidden:true " ></th>
-	     		-->
-	    		<th data-options="field:'Dorsal',		width:20, align:'left'" ><?php _e('Dors'); ?>.</th>
-	    		<th data-options="field:'Nombre',		width:35, align:'left',formatter:formatBold" ><?php _e('Name'); ?></th>
-	   			<th data-options="field:'Licencia',		width:15, align:'center'" ><?php _e('Lic'); ?>.</th>
-	   			<th data-options="field:'Categoria',	width:15, align:'center',formatter:formatCategoria" ><?php _e('Cat'); ?>.</th>
-	   			<th data-options="field:'Grado',		width:15, align:'center',formatter:formatGrado" ><?php _e('Grd'); ?>.</th>
-	    		<th data-options="field:'NombreGuia',	width:50, align:'right'" ><?php _e('Handler'); ?></th>
-	    		<th data-options="field:'NombreClub',	width:45, align:'right'" ><?php _e('Club'); ?></th>
-	  			<th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"><?php _e('F/T'); ?></th>
-	  			<th data-options="field:'R1',			width:15, align:'center'"><?php _e('R'); ?>.</th>
-	  			<th data-options="field:'T1',			width:25, align:'right',formatter:formatT1"><?php _e('Tim'); ?>.</th>
-	   			<th data-options="field:'V1',			width:15, align:'right',formatter:formatV1"><?php _e('Vel'); ?>.</th>
-	   			<th data-options="field:'P1',			width:20, align:'right',formatter:formatP1"><?php _e('Penal'); ?>.</th>
-	   			<th data-options="field:'C1',			width:25, align:'center'"><?php _e('Cal'); ?>.</th>
-	   			<th data-options="field:'F2',			width:15, align:'center',styler:formatBorder"><?php _e('F/T'); ?></th>
-	  			<th data-options="field:'R2',			width:15, align:'center'"><?php _e('R'); ?>.</th>
-	   			<th data-options="field:'T2',			width:25, align:'right',formatter:formatT2"><?php _e('Tim'); ?>.</th>
-	    		<th data-options="field:'V2',			width:15, align:'right',formatter:formatV2"><?php _e('Vel'); ?>.</th>
-	    		<th data-options="field:'P2',			width:20, align:'right',formatter:formatP2"><?php _e('Penal'); ?>.</th>
-	    		<th data-options="field:'C2',			width:25, align:'center'"><?php _e('Cal'); ?>.</th>
-	    		<th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
-	    		<th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" ><?php _e('Penaliz'); ?>.</th>
-	    		<th data-options="field:'Calificacion',	width:20, align:'center'" ><?php _e('Calif'); ?>.</th>
-	    		<th data-options="field:'Puesto',		width:15, align:'center',formatter:formatPuestoFinal" ><?php _e('Place'); ?></th>
-	    	</tr>
-		</thead>
-	</table>
+	<!-- tabla con las clasificaciones -->
+	<?php include(__DIR__."/templates/final_individual.inc.php"); ?>
 </div>
 
 <div id="resultados-toolbar" style="width:100%;display:inline-block">
@@ -229,22 +193,7 @@ addTooltip($('#resultados-printDlgBtn').linkbutton(),'<?php _e("Print data in se
 addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in labels sheet"); ?>');
 addTooltip($('#r_prlistLbl'),'<?php _e("Comma separated list of dorsals to be printed"); ?>');
 
-$('#resultados-datagrid').datagrid({
-	// propiedades del panel asociado
-	fit: true,
-	border: false,
-	closable: false,
-	collapsible: false,
-	collapsed: false,
-	// propiedades del datagrid
-	toolbar:'#resultados-toolbar',
-	// no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
-	loadMsg: "<?php _e('Updating round scores');?>...",
-	pagination: false,
-	rownumbers: false,
-	fitColumns: true,
-	singleSelect: true,
-	rowStyler:myRowStyler
-});
-addSimpleKeyHandler('#resultados-datagrid',null);
+// amyadimos toolbar y keyhandler al datagrid de clasificaciones
+$('#finales_individual-datagrid').datagrid({toolbar: '#resultados-toolbar'});
+addSimpleKeyHandler('#finales_individual-datagrid',null);
 </script>

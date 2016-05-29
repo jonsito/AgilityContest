@@ -7,7 +7,7 @@ $config =Config::getInstance();
 <table id="finales_individual-datagrid">
     <thead>
     <tr>
-        <th colspan="8"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
+        <th colspan="7"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
         <th colspan="7"> <span class="main_theader" id="finales_roundname_m1"><?php _e('Round'); ?> 1</span></th>
         <th colspan="7"> <span class="main_theader" id="finales_roundname_m2"><?php _e('Round'); ?> 2</span></th>
         <th colspan="4"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
@@ -17,7 +17,7 @@ $config =Config::getInstance();
         <th data-options="field:'Perro',		hidden:true " ></th>
          -->
         <th data-options="field:'Dorsal',		width:'3%', align:'left'" > <?php _e('Dors'); ?>.</th>
-        <th data-options="field:'LogoClub',		width:'3%', align:'left',formatter:formatLogoPublic" > &nbsp;</th>
+        <th data-options="field:'LogoClub',		width:'3%', align:'left',formatter:formatLogo" > &nbsp;</th>
         <th data-options="field:'Nombre',		width:'7%', align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
         <th data-options="field:'Licencia',		width:'4%', align:'center'" > <?php _e('Lic'); ?>.</th>
         <th data-options="field:'Categoria',	width:'5%', align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
