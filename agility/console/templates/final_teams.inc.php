@@ -19,13 +19,13 @@ $config =Config::getInstance();
          -->
         <th data-options="field:'Logo',		    width:'19%', sortable:false, formatter:formatTeamLogos">&nbsp</th>
         <th data-options="field:'Nombre',		width:'20.5%', sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
-        <th data-options="field:'Categorias',	width:'4%', sortable:false"><?php _e('Cat'); ?></th>
+        <th data-options="field:'Categorias',	width:'4%', sortable:false, formatter:formatCategoria"><?php _e('Cat'); ?></th>
         <th data-options="field:'T1',		    align:'center', width:'9.5%', sortable:false"><?php _e('Time'); ?> 1</th>
         <th data-options="field:'P1',		    align:'center',width:'10%', sortable:false"><?php _e('Penal'); ?> 1</th>
         <th data-options="field:'T2',		    align:'center',width:'9.5%', sortable:false"><?php _e('Time'); ?> 2</th>
         <th data-options="field:'P2',		    align:'center',width:'10%', sortable:false"><?php _e('Penal'); ?> 2</th>
-        <th data-options="field:'Tiempo',		align:'center',width:'9%', sortable:false,formatter:formatBold"><?php _e('Time'); ?></th>
-        <th data-options="field:'Penalizacion',	align:'center',width:'8.5%', sortable:false,formatter:formatBold"><?php _e('Penalization'); ?></th>
+        <th data-options="field:'Tiempo',		align:'center',width:'8.5%', sortable:false,formatter:formatBold"><?php _e('Time'); ?></th>
+        <th data-options="field:'Penalizacion',	align:'center',width:'9%', sortable:false,formatter:formatBold"><?php _e('Penalization'); ?></th>
     </tr>
     </thead>
 </table>
@@ -34,7 +34,7 @@ $config =Config::getInstance();
     $('#finales_equipos-datagrid').datagrid({
         expandCount: 0,
         // propiedades del panel asociado
-        fit: false,
+        fit: false, // do not set to true to take care on extra elements in panel
         border: false,
         closable: false,
         collapsible: false,
@@ -42,7 +42,7 @@ $config =Config::getInstance();
         // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
         loadMsg:  "<?php _e('Updating final scores');?>...",
         // propiedades del datagrid
-        width:'100%',
+        width:'99%',
         pagination: false,
         rownumbers: true,
         fitColumns: true,

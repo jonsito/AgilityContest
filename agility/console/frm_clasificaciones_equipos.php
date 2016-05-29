@@ -29,28 +29,28 @@ $config =Config::getInstance();
 			<table>
 			<tr>
 				<td colspan="2">
-					<label for="Nombre"><?php _e('Title'); ?>:</label><br />
+					<label for="resultados-info-nombre"><?php _e('Title'); ?>:</label><br />
 					<input id="resultados-info-nombre" type="text" class="result_forms" readonly="readonly" name="Nombre" size="30"/>
 				</td>
 			</tr>
 			<tr>
-				<td><label for="NombreClub"><?php _e('Organizing Club'); ?>:</label></td>
+				<td><label for="resultados-info-club"><?php _e('Organizing Club'); ?>:</label></td>
 				<td><input id="resultados-info-club" type="text" class="result_forms" readonly="readonly" name="NombreClub"/></td>
 			</tr>
 			<tr>
-				<td><label for="Jornada"><?php _e('Journey'); ?>:</label></td>
+				<td><label for="resultados-info-jornada"><?php _e('Journey'); ?>:</label></td>
 				<td><input id="resultados-info-jornada" type="text" class="result_forms" readonly="readonly" name="Jornada"/></td>
 			</tr>
 			<tr>
-				<td><label for="Fecha"><?php _e('Date'); ?>:</label></td>
+				<td><label for="resultados-info-fecha"><?php _e('Date'); ?>:</label></td>
 				<td><input id="resultados-info-fecha" type="text" class="result_forms" readonly="readonly" name="Fecha"/></td>
 			</tr>
 			<tr>
-				<td><label for="Ronda"><?php _e('Round'); ?>:</label></td>
+				<td><label for="resultados-info-ronda""><?php _e('Round'); ?>:</label></td>
 				<td><select id="resultados-info-ronda" name="Ronda" class="result_forms" style="width:150px"></select></td>
 			</tr>
 			<tr>
-				<td><label for="Observaciones"><?php _e('Comments'); ?>:</label></td>
+				<td><label for="resultados-info-observaciones"><?php _e('Comments'); ?>:</label></td>
 				<td><input id="resultados-info-observaciones" type="text" class="result_forms" readonly="readonly" name="Observaciones"/></td>
 			</tr>
 			</table>
@@ -66,31 +66,8 @@ $config =Config::getInstance();
 </div> <!-- panel de informacion -->
 
 <div id="resultados-data" style="width:100%;height:400px">
-	<table id="resultados-datagrid">
-		<thead>
-			<tr>
-				<th colspan="3"> <span class="main_theader"><?php _e('Team data'); ?></span></th>
-				<th colspan="2"> <span class="main_theader" id="finales_roundname_m1"><?php _e('Round'); ?> 1</span></th>
-				<th colspan="2"> <span class="main_theader" id="finales_roundname_m2"><?php _e('Round'); ?> 2</span></th>
-				<th colspan="2"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
-			</tr>
-			<tr> <!--
-                <th data-options="field:'ID',			hidden:true"></th>
-                <th data-options="field:'Prueba',		hidden:true"></th>
-                <th data-options="field:'Jornada',		hidden:true"></th>
-                 -->
-				<th data-options="field:'ID',		    width:'19%', sortable:false,formatter:formatTeamLogos">&nbsp</th>
-				<th data-options="field:'Nombre',		width:'20.5%', sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
-				<th data-options="field:'Categorias',	width:'4%', sortable:false"><?php _e('Cat'); ?></th>
-				<th data-options="field:'T1',		    align:'center', width:'9.5%', sortable:false"><?php _e('Time'); ?> 1</th>
-				<th data-options="field:'P1',		    align:'center',width:'10%', sortable:false"><?php _e('Penal'); ?> 1</th>
-				<th data-options="field:'T2',		    align:'center',width:'9.5%', sortable:false"><?php _e('Time'); ?> 2</th>
-				<th data-options="field:'P2',		    align:'center',width:'10%', sortable:false"><?php _e('Penal'); ?> 2</th>
-				<th data-options="field:'Tiempo',		align:'center',width:'9%', sortable:false,formatter:formatBold"><?php _e('Time'); ?></th>
-				<th data-options="field:'Penalizacion',	align:'center',width:'8.5%', sortable:false,formatter:formatBold"><?php _e('Penalization'); ?></th>
-			</tr>
-		</thead>
-	</table>
+	<!-- tabla con las clasificaciones -->
+	<?php include(__DIR__."/templates/final_teams.inc.php"); ?>
 </div>
 
 <div id="resultados-toolbar" style="width:100%;display:inline-block">
@@ -215,39 +192,7 @@ addTooltip($('#resultados-printBtn').linkbutton(),'<?php _e("Print scores on cur
 addTooltip($('#resultados-printDlgBtn').linkbutton(),'<?php _e("Print data in selected format"); ?>');
 addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in labels sheet"); ?>');
 addTooltip($('#r_prlistLbl'),'<?php _e("Comma separated list of dorsals to be printed"); ?>');
-
-$('#resultados-datagrid').datagrid({
-	// propiedades del panel asociado
-	fit: true,
-	border: false,
-	closable: false,
-	collapsible: false,
-	collapsed: false,
-	// propiedades del datagrid
-	toolbar:'#resultados-toolbar',
-	// no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
-    loadMsg: "<?php _e('Updating round scores');?>...",
-	pagination: false,
-	rownumbers: false,
-	fitColumns: true,
-	singleSelect: true,
-	rowStyler:myRowStyler,
-	view:detailview,
-	pageSize: 500, // enought big to make it senseless
-	// especificamos un formateador especial para desplegar la tabla de perros por equipos
-	detailFormatter:function(idx,row){
-		var dgname="resultados-datagrid-"+parseInt(row.ID);
-		return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';
-	},
-	onExpandRow: function(idx,row) {
-		$(this).datagrid('options').expandCount++;
-		showClasificacionesByTeam('#resultados-datagrid',idx,row);
-	},
-	onCollapseRow: function(idx,row) {
-		$(this).datagrid('options').expandCount--;
-		var dg="#resultados-datagrid-" + parseInt(row.ID);
-		$(dg).remove();
-	}
-});
-
+// amyadimos toolbar y keyhandler al datagrid de clasificaciones
+$('#finales_equipos-datagrid').datagrid({toolbar: '#resultados-toolbar'});
+addSimpleKeyHandler('#finales_equipos-datagrid',null);
 </script>
