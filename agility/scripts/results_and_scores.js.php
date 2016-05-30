@@ -134,7 +134,7 @@ function updateParciales(row) {
 /**
  * Actualiza datos de la clasificacion general
  */
-function updateFinales(ronda) {
+function updateFinales(ronda,callback) {
     if (typeof(ronda)==="undefined") {
         ronda=$('#enumerateFinales').combogrid('grid').datagrid('getSelected');
         if (ronda==null) {
@@ -199,6 +199,8 @@ function updateFinales(ronda) {
                 workingData.individual=dat.rows;
                 dg.datagrid('loadData',dat.rows);
             }
+            // if defined, invoke callback
+            if (typeof(callback)==='function') callback(dat);
         }
     });
 }

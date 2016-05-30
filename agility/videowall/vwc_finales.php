@@ -59,35 +59,13 @@ Pantalla de de visualizacion combinada llamada/parciales
         <div data-options="region:'center',border:false" class="vwc_top"><!-- Espacio vacio -->&nbsp;</div>
         <div data-options="region:'east'" style="width:65%;"> <!-- CLASIFICACION FINAL -->
             <!-- Datos de TRS y TRM -->
-            <table class="vw_trs">
-                <tbody>
-                <tr style="text-align:left">
-                    <td id="vwcf_finales-Manga1" colspan="2"><?php _e('Round'); ?> 1:</td>
-                    <td id="vwcf_finales-Distancia1"><?php _e('Dist'); ?>:</td>
-                    <td id="vwcf_finales-Obstaculos1"><?php _e('Obst'); ?>:</td>
-                    <td ><?php _e('SCT'); ?>: <span id="vwcf_finales-TRS1"></span>s.</td>
-                    <td ><?php _e('MCT'); ?>: <span id="vwcf_finales-TRM1"></span>s.</td>
-                    <td id="vwcf_finales-Velocidad1"><?php _e('Vel'); ?>:</td>
-                </tr>
-                <tr style="text-align:left">
-                    <td id="vwcf_finales-Manga2" colspan="2"><?php _e('Round'); ?> 2:</td>
-                    <td id="vwcf_finales-Distancia2"><?php _e('Dist'); ?>:</td>
-                    <td id="vwcf_finales-Obstaculos2"><?php _e('Obst'); ?>:</td>
-                    <td ><?php _e('SCT'); ?>: <span id="vwcf_finales-TRS2"></span>s.</td>
-                    <td ><?php _e('MCT'); ?>: <span id="vwcf_finales-TRM2"></span>s.</td>
-                    <td id="vwcf_finales-Velocidad2"><?php _e('Vel'); ?>:</td>
-                </tr>
-                </tbody>
-            </table>
-            <!--
-            tablas de clasificaciones. Inicialmente vacia
-            se espera al "open" para decidir si se visualiza el template de individual
-            o de equipos
-            -->
-            <div id="vwcf_individual-table" class="scores_table" style="display:none">
+            <?php include_once(__DIR__."/../console/templates/final_rounds_data.inc.php"); ?>
+            <!-- datagrid para clasificacion individual -->
+            <div id="vwcf_individual-table" class="scores_table" style="display:none;width:100%">
                 <?php include_once(__DIR__."/../console/templates/final_individual.inc.php"); ?>
             </div>
-            <div id="vwcf_equipos-table" class="scores_table" style="display:none">
+            <!-- datagrid para clasificacion por equipos -->
+            <div id="vwcf_equipos-table" class="scores_table" style="display:none;width:100%">
                 <?php include_once(__DIR__."/../console/templates/final_teams.inc.php"); ?>
             </div>
             
@@ -214,7 +192,7 @@ Pantalla de de visualizacion combinada llamada/parciales
     $('#finales_individual-datagrid').datagrid({
         onBeforeLoad: function (param) {
             // do not update until 'open' received
-            if( $('#vwcf_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
+            if( $('#vwc_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
             return true;
         },
         onLoadSuccess: function(data) {
@@ -225,7 +203,7 @@ Pantalla de de visualizacion combinada llamada/parciales
     $('#finales_equipos-datagrid').datagrid({
         onBeforeLoad: function (param) {
             // do not update until 'open' received
-            if( $('#vwcf_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
+            if( $('#vwc_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
             return true;
         },
         onLoadSuccess: function(data) {
@@ -337,7 +315,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwcf_header-infomanga').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d); // fix header
-                vw_setIndividualOrTeamView(d); // fix individual or team view for final results
+                vw_setFinalIndividualOrTeamView(d); // fix individual or team view for final results
                 vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation on lasts teams
                 vwcf_updateLlamada(e,d);
             });
@@ -345,7 +323,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         'open': function (event, time) { // operator select tandaxx
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
-                vw_setIndividualOrTeamView(d); // fix individual or team view for final results
+                vw_setFinalIndividualOrTeamView(d); // fix individual or team view for final results
                 vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation on lasts teams
                 vwcf_updateLlamada(e,d);
             });

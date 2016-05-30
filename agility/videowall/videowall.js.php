@@ -112,21 +112,21 @@ function vw_formatResultadosDatagrid(dg,evt,data,formatter) {
     dg.datagrid('fitColumns');
 }
 
-function vw_setIndividualOrTeamView(data) {
+function vw_setFinalIndividualOrTeamView(data) {
 	var team=false;
 	if (parseInt(data.Jornada.Equipos3)!=0) { team=true; }
 	if (parseInt(data.Jornada.Equipos4)!=0) { team=true;  }
 	// limpiamos tablas
-	$("#finales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]});
-	$("#finales_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]});
 	// activamos la visualizacion de la tabla correcta
 	if (team) {
 		$("#vwcf_individual-table").css("display","none");
 		$("#vwcf_equipos-table").css("display","inherit");
+		$("#finales_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]});
 		$("#finales_equipos-datagrid").datagrid('fitColumns');
 	} else {
 		$("#vwcf_individual-table").css("display","inherit");
 		$("#vwcf_equipos-table").css("display","none");
+		$("#finales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]});
 		$("#finales_individual-datagrid").datagrid('fitColumns');
 	}
 }
@@ -602,7 +602,7 @@ function vwcf_updateLlamada(evt,data) {
 			vwcf_evalPenalizacion(); // repaint penalization
 			// dado que necesitamos tener la clasificacion con los perros de la tabla "before",
 			// lo que vamos a hacer es calcular dicha tabla aquí, en lugar de desde el evento "aceptar"
-			vwcf_updateFinales(evt, data, vwcf_evalBefore);
+			updateFinales(data.Ronda, vwcf_evalBefore);
 		}
 	});
 }
@@ -647,62 +647,6 @@ function vw_updateParciales(evt,data) {
             $('#vw_parciales-datagrid').datagrid('loadData',dat);
         }
     });
-}
-
-/**
- * Actualiza datos de la clasificacion general
- * @param {object} evt event
- * @param {object} data system status data info
- * @param {function} callback what to do when data loaded
- */
-function vwcf_updateFinales(evt,data,callback) {
-	$.ajax({
-		type:'GET',
-		url:"/agility/server/database/clasificacionesFunctions.php",
-		dataType:'json',
-		data: {
-			Prueba:	data.Prueba.ID,
-			Jornada:data.Jornada.ID,
-			Manga1:	data.Ronda.Manga1,
-			Manga2:	data.Ronda.Manga2,
-			Rondas: data.Ronda.Rondas,
-			Mode: 	data.Ronda.Mode
-		},
-		success: function(dat) {
-			// nombres de las mangas
-			$('#vwcf_header-NombreTanda').html(data.Tanda.Nombre);
-			$('#vwcf_header-NombreRonda').html(data.Ronda.Nombre);
-			$('#vwcf_finales_thead_m1').html(data.Ronda.NombreManga1);
-			$('#vwcf_finales_thead_m2').html(data.Ronda.NombreManga2);
-			// datos de trs manga 1
-			$('#vwcf_finales-Manga1').html(data.Ronda.NombreManga1);
-			$('#vwcf_finales-Distancia1').html('<?php _e('Dist');?>: ' + dat['trs1'].dist + 'm.');
-			$('#vwcf_finales-Obstaculos1').html('<?php _e('Obst');?>: ' + dat['trs1'].obst);
-			$('#vwcf_finales-TRS1').html(dat['trs1'].trs);
-			$('#vwcf_finales-TRM1').html(dat['trs1'].trm);
-			$('#vwcf_finales-Velocidad1').html('<?php _e('Vel');?>: ' + dat['trs1'].vel + 'm/s');
-			// datos de trs manga 2
-			if (data.Ronda.Manga2==0) { // single round
-				$('#vwcf_finales-Manga2').html("");
-				$('#vwcf_finales-Distancia2').html("");
-				$('#vwcf_finales-Obstaculos2').html("");
-				$('#vwcf_finales-TRS2').html("");
-				$('#vwcf_finales-TRM2').html("");
-				$('#vwcf_finales-Velocidad2').html("");
-			} else {
-				$('#vwcf_finales-Manga2').html(data.Ronda.NombreManga2);
-				$('#vwcf_finales-Distancia2').html('<?php _e('Dist');?>: ' + dat['trs2'].dist + 'm.');
-				$('#vwcf_finales-Obstaculos2').html('<?php _e('Obst');?>: ' + dat['trs2'].obst);
-				$('#vwcf_finales-TRS2').html(dat['trs2'].trs);
-				$('#vwcf_finales-TRM2').html(dat['trs2'].trm);
-				$('#vwcf_finales-Velocidad2').html('<?php _e('Vel');?>: ' + dat['trs2'].vel + 'm/s');
-			}
-			// rellena tabla de clasificaciones
-			workingData.teamCounter=1;
-			$('#vwcf_clasificacion-datagrid').datagrid('loadData',dat);
-			if (typeof(callback)==='function') callback(dat);
-		}
-	});
 }
 
 /**
