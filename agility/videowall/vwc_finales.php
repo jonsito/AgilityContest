@@ -57,7 +57,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             <table id="vwc_llamada-datagrid" class="vwc_top"></table>
         </div>
         <div data-options="region:'center',border:false" class="vwc_top"><!-- Espacio vacio -->&nbsp;</div>
-        <div data-options="region:'east'" style="width:65%;"> <!-- RESULTADOS PARCIALES -->
+        <div data-options="region:'east'" style="width:65%;"> <!-- CLASIFICACION FINAL -->
             <!-- Datos de TRS y TRM -->
             <table class="vw_trs">
                 <tbody>
@@ -79,46 +79,18 @@ Pantalla de de visualizacion combinada llamada/parciales
                 </tr>
                 </tbody>
             </table>
-            <!-- tabla de clasificaciones -->
-            <table id="vwcf_clasificacion-datagrid">
-                <thead>
-                <tr>
-                    <th colspan="6"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
-                    <th colspan="3"> <span class="main_theader" id="vwcf_finales_thead_m1"><?php _e('Round'); ?> 1</span></th>
-                    <th colspan="3"> <span class="main_theader" id="vwcf_finales_thead_m2"><?php _e('Round'); ?> 2</span></th>
-                    <th colspan="4"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
-                </tr>
-                <tr>
-                    <!--
-                    <th data-options="field:'Perro',hidden:true " ></th>
-                    -->
-                    <th data-options="field:'LogoClub',		width:20, align:'left',formatter:formatLogo" > &nbsp;</th>
-                    <th data-options="field:'Dorsal',		width:20, align:'left'" > <?php _e('Dors'); ?>.</th>
-                    <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
-                    <th data-options="field:'Categoria',	width:15, align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
-                    <th data-options="field:'NombreGuia',	width:50, align:'right'" > <?php _e('Handler'); ?></th>
-                    <th data-options="field:'NombreClub',	width:45, align:'right'" > <?php _e('Club'); ?></th>
-                    <!--
-                    <th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
-                    <th data-options="field:'R1',			width:15, align:'center'"> <?php _e('R'); ?>.</th>
-                    -->
-                    <th data-options="field:'T1',			width:25, align:'right',formatter:formatT1,styler:formatBorder"> <?php _e('Time'); ?>.</th>
-                    <th data-options="field:'P1',			width:20, align:'right',formatter:formatP1"> <?php _e('Penal'); ?>.</th>
-                    <th data-options="field:'Puesto1',		width:15, align:'center'"> <?php _e('Pos'); ?>.</th>
-                    <!--
-                    <th data-options="field:'F2',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
-                    <th data-options="field:'R2',			width:15, align:'center'"> <?php _e('R'); ?>.</th>
-                    -->
-                    <th data-options="field:'T2',			width:25, align:'right',formatter:formatT2,styler:formatBorder"> <?php _e('Time'); ?>.</th>
-                    <th data-options="field:'P2',			width:20, align:'right',formatter:formatP2"> <?php _e('Penal'); ?>.</th>
-                    <th data-options="field:'Puesto2',		width:15, align:'center'"> <?php _e('Pos'); ?>.</th>
-                    <th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
-                    <th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
-                    <th data-options="field:'Calificacion',	width:20, align:'center'" > <?php _e('Calif'); ?>.</th>
-                    <th data-options="field:'Puesto',		width:15, align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
-                </tr>
-                </thead>
-            </table>
+            <!--
+            tablas de clasificaciones. Inicialmente vacia
+            se espera al "open" para decidir si se visualiza el template de individual
+            o de equipos
+            -->
+            <div id="vwcf_individual-table" class="scores_table" style="display:none">
+                <?php include_once(__DIR__."/../console/templates/final_individual.inc.php"); ?>
+            </div>
+            <div id="vwcf_equipos-table" class="scores_table" style="display:none">
+                <?php include_once(__DIR__."/../console/templates/final_teams.inc.php"); ?>
+            </div>
+            
         </div>
         <div data-options="region:'south',border:false" style="height:25%;">
             <div id="vwcf-layout2">
@@ -239,32 +211,33 @@ Pantalla de de visualizacion combinada llamada/parciales
         }
     });
 
-    $('#vwcf_clasificacion-datagrid').datagrid({
-        // propiedades del panel asociado
-        fit: true,
-        border: false,
-        closable: false,
-        collapsible: false,
-        collapsed: false,
-        // propiedades del datagrid
-        loadMsg: "<?php _e('Updating round scores');?>...",
-        // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
-        pagination: false,
-        rownumbers: false,
-        fitColumns: true,
-        singleSelect: true,
-        autoRowHeight:true, // let the formatters decide the size
-        rowStyler:myRowStyler,
+    $('#finales_individual-datagrid').datagrid({
         onBeforeLoad: function (param) {
-            workingData.teamCounter=1; // reset team counter
             // do not update until 'open' received
             if( $('#vwcf_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
             return true;
         },
         onLoadSuccess: function(data) {
-            $('#vwcf_clasificacion-datagrid').datagrid('scrollTo',0); // point to first result
+            $('#finales_individual-datagrid').datagrid('scrollTo',0); // point to first result
         }
     });
+
+    $('#finales_equipos-datagrid').datagrid({
+        onBeforeLoad: function (param) {
+            // do not update until 'open' received
+            if( $('#vwcf_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
+            return true;
+        },
+        onLoadSuccess: function(data) {
+            var dg
+            $(this).datagrid('scrollTo',0); // point to first result
+            // expand 3 first rows
+            $(this).datagrid('expandRow',0);
+            $(this).datagrid('expandRow',1);
+            $(this).datagrid('expandRow',2);
+        }
+    });
+
 
     $('#vwc_llamada-datagrid').datagrid({
         // propiedades del panel asociado
@@ -364,7 +337,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwcf_header-infomanga').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d); // fix header
-                vw_formatClasificacionesDatagrid($('#vwcf_clasificacion-datagrid'),e,d,formatVwTeamClasificaciones); // fix team/logos/cat/grade presentation
+                vw_setIndividualOrTeamView(d); // fix individual or team view for final results
                 vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation on lasts teams
                 vwcf_updateLlamada(e,d);
             });
@@ -372,7 +345,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         'open': function (event, time) { // operator select tandaxx
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
-                vw_formatClasificacionesDatagrid($('#vwcf_clasificacion-datagrid'),e,d,formatVwTeamClasificaciones); // fix team/logos/cat/grade presentation
+                vw_setIndividualOrTeamView(d); // fix individual or team view for final results
                 vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation on lasts teams
                 vwcf_updateLlamada(e,d);
             });

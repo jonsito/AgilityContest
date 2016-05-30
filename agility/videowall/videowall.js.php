@@ -112,6 +112,25 @@ function vw_formatResultadosDatagrid(dg,evt,data,formatter) {
     dg.datagrid('fitColumns');
 }
 
+function vw_setIndividualOrTeamView(data) {
+	var team=false;
+	if (parseInt(data.Jornada.Equipos3)!=0) { team=true; }
+	if (parseInt(data.Jornada.Equipos4)!=0) { team=true;  }
+	// limpiamos tablas
+	$("#finales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]});
+	$("#finales_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]});
+	// activamos la visualizacion de la tabla correcta
+	if (team) {
+		$("#vwcf_individual-table").css("display","none");
+		$("#vwcf_equipos-table").css("display","inherit");
+		$("#finales_equipos-datagrid").datagrid('fitColumns');
+	} else {
+		$("#vwcf_individual-table").css("display","inherit");
+		$("#vwcf_equipos-table").css("display","none");
+		$("#finales_individual-datagrid").datagrid('fitColumns');
+	}
+}
+
 /**
  * Al recibir 'init' ajustamos el modo de visualización de la pantalla
  * de resultados finales para individual o equipos
@@ -127,8 +146,6 @@ function vw_formatClasificacionesDatagrid(dg,evt,data,formatter) {
 	if (parseInt(data.Jornada.Equipos4)!=0) { team=true;  }
 	// clear datagrid as data no longer valid
 	if (team){
-		if (formatter) dg.datagrid({ view: gview, groupField: 'NombreEquipo', groupFormatter: formatter });
-		dg.datagrid('hideColumn',"LogoClub");
 	} else {
 		if (formatter) dg.datagrid({view:$.fn.datagrid.defaults.view});
 		dg.datagrid('showColumn',"LogoClub");
