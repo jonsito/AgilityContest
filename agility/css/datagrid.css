@@ -44,6 +44,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     width:120px;
 }
 
+/*
 .datagrid-row-over td{
 	background:#D0E5F5;
 }
@@ -58,7 +59,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .datagrid-cell-rownumber{
     width:40px;
 }
-
+*/
 .datagrid-body tr:nth-child(even) {background: #CCC; }
 .datagrid-body tr:nth-child(odd) {background: #EEE; }
 

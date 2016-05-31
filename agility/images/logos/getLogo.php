@@ -22,11 +22,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/../../server/tools.php");
 require_once(__DIR__."/../../modules/Federations.php");
 
-$fed=http_request("Fed","i" ,"0" );
+$fed=http_request("Fed","i" ,http_request("Federation","i",0) );
 $logo=http_request("Logo","s","null.png");
 $fedname=Federations::getFederation(intval($fed))->get('Name');
 $iconpath=getIconPath($fedname,$logo);
 $image = imagecreatefromstring(file_get_contents($iconpath));
+imagealphablending($image, false); // preserve transparency
+imagesavealpha($image, true);
 header('Content-Type: image/png');
 imagepng($image);
 imagedestroy($image);

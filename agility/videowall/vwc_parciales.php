@@ -359,7 +359,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwcp_header-infojornada').html('<?php _e("Journey"); ?>');
             $('#vwcp_header-NombreRonda').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
-                vwc_updateDataInfo(e,d);
+                vwc_updateHeaderAndFooter(e,d);
                 vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults);
                 vw_formatResultadosDatagrid($('#vwcp_ultimos-datagrid'),e,d,null);
                 vwcp_updateLlamada(e,d);
@@ -367,7 +367,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
-                vwc_updateDataInfo(e,d);
+                vwc_updateHeaderAndFooter(e,d);
                 vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults);
                 vw_formatResultadosDatagrid($('#vwcp_ultimos-datagrid'),e,d,null);
                 vwcp_updateLlamada(e,d);

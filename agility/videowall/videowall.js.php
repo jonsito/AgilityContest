@@ -196,24 +196,27 @@ function vw_updateDataInfo(evt,data) {
  * @param {object} evt received 'init' event
  * @param {object} data data associated with event
  */
-function vwc_updateDataInfo(evt,data) {
+function vwc_updateHeaderAndFooter(evt,data) {
 	// update header
 	$('#vwc_header-infoprueba').html(data.Prueba.Nombre);
 	$('#vwc_header-infojornada').html(data.Jornada.Nombre);
 	$('#vwc_header-ring').html(data.Sesion.Nombre);
 	// on international competitions, use federation Organizer logo
-	var logo='/agility/images/logos/'+data.Club.Logo;
-	if ( (data.Club.Logo==="") || isInternational(data.Prueba.RSCE)) {
-		logo=ac_fedInfo[data.Prueba.RSCE].OrganizerLogo
+	var logo=data.Club.Logo;
+	var fed=data.Prueba.RSCE;
+	if ( (logo==="") || isInternational(fed)) {
+		logo=ac_fedInfo[fed].OrganizerLogo; // remember that absolute path is provided here
+		$('#vwc_header-logo').attr('src',logo);
+	} else {
+		$('#vwc_header-logo').attr('src','/agility/images/logos/getLogo.php?Fed='+fed+'&Logo='+logo);
 	}
-	$('#vwc_header-logo').attr('src',logo);
 
 	// this should be done in callback, as content is window dependent
 	// actualiza informacion de manga
 	var infotanda=(typeof(data.Tanda.Nombre)==='undefined')?'':data.Tanda.Nombre;
-	var infomanga=(typeof(data.Manga.Nombre)==='undefined')?'':data.Manga.Nombre;
-	$('#vwcp_header-NombreRonda').html(infomanga);
-	$('#vwcp_header-NombreTanda').html(infotanda);
+	var inforonda=(typeof(data.Manga.Nombre)==='undefined')?'':data.Ronda.Nombre;
+	$('#vwc_header-NombreTanda').html(infotanda);
+	$('#vwc_header-NombreRonda').html(inforonda);
 
 	// update footer
 	var fname=(ac_config.vw_combined==0)?"vw_footer.php":"vwc_footer.php";
@@ -548,6 +551,8 @@ function vwcf_updateLlamada(evt,data) {
 		},
 		success: function(dat,status,jqxhr) {
 			function vwcf_evalBefore(res) {
+                // take care on team rounds
+                if (typeof(res['rows'])==="undefined") res['rows']=res['individual'];
 				var count = 0; // to track when before fill gets complete
 				// iterate on results and fill "before" data
 				for (var n = 0; n < res['rows'].length; n++) {

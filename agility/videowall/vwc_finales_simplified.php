@@ -339,7 +339,7 @@ Modelo simplificado de resultados finales
             $('#vwcf_header-infojornada').html('<?php _e("Journey"); ?>');
             $('#vwcf_header-infomanga').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
-                vwc_updateDataInfo(e,d); // fix header
+                vwc_updateHeaderAndFooter(e,d); // fix header
                 vw_formatClasificacionesDatagrid($('#vwcf_clasificacion-datagrid'),e,d,formatVwTeamClasificaciones); // fix team/logos/cat/grade presentation
                 vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation for last teams
                 vwcf_updateLlamada(e,d);
@@ -347,7 +347,7 @@ Modelo simplificado de resultados finales
         },
         'open': function (event, time) { // operator select tandax
             vw_updateWorkingData(event,function(e,d){
-                vwc_updateDataInfo(e,d);
+                vwc_updateHeaderAndFooter(e,d);
                 vw_formatClasificacionesDatagrid($('#vwcf_clasificacion-datagrid'),e,d,formatVwTeamClasificaciones); // fix team/logos/cat/grade presentation
                 vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation for last teams
                 vwcf_updateLlamada(e,d);

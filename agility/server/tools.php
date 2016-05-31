@@ -266,6 +266,19 @@ function getInnerString($str,$from="",$to="") {
 		return substr($str,$ini,$len);
 }
 
+function startsWith($haystack, $needle) {
+	$length = strlen($needle);
+	return (substr($haystack, 0, $length) === $needle);
+}
+
+function endsWith($haystack, $needle) {
+	$length = strlen($needle);
+	if ($length == 0) {
+		return true;
+	}
+	return (substr($haystack, -$length) === $needle);
+}
+
 /**
  * Compose a valid ORDER sentence by mean of received comma-separaqted strings
  * from easyui sort & order http requests

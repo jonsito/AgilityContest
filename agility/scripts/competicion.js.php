@@ -1072,12 +1072,14 @@ function resultados_doSelectRonda(row) {
 			Mode: mode
 		},
 		success: function(dat) {
-			$('#finales_roundname_m1').text(row.NombreManga1);
-			$('#finales_roundname_m2').text(row.NombreManga2);
             if ( isJornadaEquipos() ) {
+                $('#finales_equipos_roundname_m1').text(row.Manga1.Nombre);
+                $('#finales_equipos_roundname_m2').text(row.Manga2.Nombre);
                 workingData.individual=dat.individual;
                 $('#finales_equipos-datagrid').datagrid('loadData',dat.equipos);
             } else {
+                $('#finales_individual_roundname_m1').text(row.Manga1.Nombre);
+                $('#finales_individual_roundname_m2').text(row.Manga2.Nombre);
                 workingData.individual=dat.rows;
                 $('#finales_individual-datagrid').datagrid('loadData',dat.rows);
             }
@@ -1183,12 +1185,14 @@ function reloadClasificaciones() {
 			Mode: mode
 		},
 		success: function(dat) {
-			$('#finales_roundname_m1').text(ronda.NombreManga1);
-			$('#finales_roundname_m2').text(ronda.NombreManga2);
             if ( isJornadaEquipos() ) {
+                $('#finales_equipos_roundname_m1').text(ronda.NombreManga1);
+                $('#finales_equipos_roundname_m2').text(ronda.NombreManga2);
                 workingData.individual=dat.individual;
                 $('#finales_equipos-datagrid').datagrid('loadData',dat.equipos);
             } else {
+                $('#finales_individual_roundname_m1').text(ronda.NombreManga1);
+                $('#finales_individual_roundname_m2').text(ronda.NombreManga2);
                 workingData.individual=dat.rows;
                 $('#finales_individual-datagrid').datagrid('loadData',dat.rows);
             }

@@ -45,11 +45,11 @@ Pantalla de de visualizacion combinada llamada/parciales
                 <span id="vwc_header-ring" style="text-align:right"><?php _e('Ring'); ?></span>
                 <span id="vwc_header-calltoring" style="text-align:left">
                     <?php _e('Call to ring'); ?> -
-                    <span id="vwcf_header-NombreTanda"><?php _e('Round');?></span>
+                    <span id="vwc_header-NombreTanda"><?php _e('Round');?></span>
                 </span>
-                <span id="vwcf_header-finalscores" style="text-align:right">
+                <span id="vwc_header-finalscores" style="text-align:right">
                     <?php _e('Final scores'); ?> -
-                    <span id="vwcf_header-NombreRonda"><?php _e('Series');?></span>
+                    <span id="vwc_header-NombreRonda"><?php _e('Series');?></span>
                 </span>
             </div>
         </div>
@@ -57,9 +57,9 @@ Pantalla de de visualizacion combinada llamada/parciales
             <table id="vwc_llamada-datagrid" class="vwc_top"></table>
         </div>
         <div data-options="region:'center',border:false" class="vwc_top"><!-- Espacio vacio -->&nbsp;</div>
-        <div data-options="region:'east'" style="width:65%;"> <!-- CLASIFICACION FINAL -->
+        <div data-options="region:'east'" style="width:65%"> <!-- CLASIFICACION FINAL -->
             <!-- Datos de TRS y TRM -->
-            <?php include_once(__DIR__."/../console/templates/final_rounds_data.inc.php"); ?>
+            <?php $size="m"; include_once(__DIR__."/../console/templates/final_rounds_data.inc.php"); ?>
             <!-- datagrid para clasificacion individual -->
             <div id="vwcf_individual-table" class="scores_table" style="display:none;width:100%">
                 <?php include_once(__DIR__."/../console/templates/final_individual.inc.php"); ?>
@@ -68,7 +68,6 @@ Pantalla de de visualizacion combinada llamada/parciales
             <div id="vwcf_equipos-table" class="scores_table" style="display:none;width:100%">
                 <?php include_once(__DIR__."/../console/templates/final_teams.inc.php"); ?>
             </div>
-            
         </div>
         <div data-options="region:'south',border:false" style="height:25%;">
             <div id="vwcf-layout2">
@@ -209,10 +208,9 @@ Pantalla de de visualizacion combinada llamada/parciales
         onLoadSuccess: function(data) {
             var dg
             $(this).datagrid('scrollTo',0); // point to first result
-            // expand 3 first rows
+            // expand 2 first rows
             $(this).datagrid('expandRow',0);
             $(this).datagrid('expandRow',1);
-            $(this).datagrid('expandRow',2);
         }
     });
 
@@ -286,7 +284,7 @@ Pantalla de de visualizacion combinada llamada/parciales
     doLayout(layout,"#vwc_header-infojornada",	120,	35,	1760,	25	);
     doLayout(layout,"#vwc_header-ring",     	120,	35,	1760,	25	);
     doLayout(layout,"#vwc_header-calltoring",	120,	65,	5800,	25	);
-    doLayout(layout,"#vwcf_header-finalscores",700,	65,	1180,	25	);
+    doLayout(layout,"#vwc_header-finalscores",700,	65,	1180,	25	);
     // livedata elements layout
     var liveLayout = {'rows':200,'cols':1900};
     doLayout(liveLayout,"#vwls_Numero",	        0,	    25,	    70,	    150	);
@@ -314,7 +312,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwcf_header-infojornada').html('<?php _e("Journey"); ?>');
             $('#vwcf_header-infomanga').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
-                vwc_updateDataInfo(e,d); // fix header
+                vwc_updateHeaderAndFooter(e,d); // fix header
                 vw_setFinalIndividualOrTeamView(d); // fix individual or team view for final results
                 vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation on lasts teams
                 vwcf_updateLlamada(e,d);
@@ -322,7 +320,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         'open': function (event, time) { // operator select tandaxx
             vw_updateWorkingData(event,function(e,d){
-                vwc_updateDataInfo(e,d);
+                vwc_updateHeaderAndFooter(e,d);
                 vw_setFinalIndividualOrTeamView(d); // fix individual or team view for final results
                 vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation on lasts teams
                 vwcf_updateLlamada(e,d);

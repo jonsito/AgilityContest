@@ -119,11 +119,11 @@ function updateParciales(row) {
             $('#parciales-Juez1').html((dat['manga'].Juez1<=1)?"":'<?php _e('Judge');?> 1: ' + dat['manga'].NombreJuez1);
             $('#parciales-Juez2').html((dat['manga'].Juez2<=1)?"":'<?php _e('Judge');?> 2: ' + dat['manga'].NombreJuez2);
             // datos de TRS
-            $('#parciales-Distancia').html('<?php _e('Distance');?>: ' + dat['trs'].dist + 'm.');
-            $('#parciales-Obstaculos').html('<?php _e('Obstacles');?>: ' + dat['trs'].obst);
-            $('#parciales-TRS').html('<?php _e('Standard C. Time');?>: ' + dat['trs'].trs + 's.');
-            $('#parciales-TRM').html('<?php _e('Maximum C. Time');?>: ' + dat['trs'].trm + 's.');
-            $('#parciales-Velocidad').html('<?php _e('Speed');?>: ' + dat['trs'].vel + 'm/s');
+            $('#parciales-Distancia').html('<?php _e('Dist');?>: ' + dat['trs'].dist + 'm.');
+            $('#parciales-Obstaculos').html('<?php _e('Obst');?>: ' + dat['trs'].obst);
+            $('#parciales-TRS').html('<?php _e('S.C.T.');?>: ' + dat['trs'].trs + 's.');
+            $('#parciales-TRM').html('<?php _e('M.C.T');?>: ' + dat['trs'].trm + 's.');
+            $('#parciales-Velocidad').html('<?php _e('Vel');?>: ' + dat['trs'].vel + 'm/s');
             // actualizar datagrid
             workingData.teamCounter=1; // reset team's puesto counter
             $('#parciales-datagrid').datagrid('loadData',dat);
@@ -159,18 +159,16 @@ function updateFinales(ronda,callback) {
         success: function(dat) {
             // nombres de las mangas
             $('#finales-NombreRonda').html(ronda.Nombre);
-            $('#finales_roundname_m1').html(ronda.NombreManga1);
-            $('#finales_roundname_m2').html(ronda.NombreManga2);
             // datos de los jueces
             $('#finales-Juez1').html((dat['jueces'][0]=="-- Sin asignar --")?"":'<?php _e('Judge');?> 1: ' + dat['jueces'][0]);
             $('#finales-Juez2').html((dat['jueces'][1]=="-- Sin asignar --")?"":'<?php _e('Judge');?> 2: ' + dat['jueces'][1]);
             // datos de trs manga 1
             $('#finales-Ronda1').html(ronda.NombreManga1);
-            $('#finales-Distancia1').html('<?php _e('Distance');?>: ' + dat['trs1'].dist + 'm.');
-            $('#finales-Obstaculos1').html('<?php _e('Obstacles');?>: ' + dat['trs1'].obst);
-            $('#finales-TRS1').html('<?php _e('Standard C. Time');?>: ' + dat['trs1'].trs + 's.');
-            $('#finales-TRM1').html('<?php _e('Maximum C. Time');?>: ' + dat['trs1'].trm + 's.');
-            $('#finales-Velocidad1').html('<?php _e('Speed');?>: ' + dat['trs1'].vel + 'm/s');
+            $('#finales-Distancia1').html('<?php _e('Dist');?>: ' + dat['trs1'].dist + 'm.');
+            $('#finales-Obstaculos1').html('<?php _e('Obst');?>: ' + dat['trs1'].obst);
+            $('#finales-TRS1').html('<?php _e('S.C.T.');?>: ' + dat['trs1'].trs + 's.');
+            $('#finales-TRM1').html('<?php _e('M.C.T.');?>: ' + dat['trs1'].trm + 's.');
+            $('#finales-Velocidad1').html('<?php _e('Vel');?>: ' + dat['trs1'].vel + 'm/s');
             // datos de trs manga 2
             if (ronda.Manga2==0) { // single round
                 $('#finales-Ronda2').html("");
@@ -181,20 +179,24 @@ function updateFinales(ronda,callback) {
                 $('#finales-Velocidad2').html("");
             } else {
                 $('#finales-Ronda2').html(ronda.NombreManga2);
-                $('#finales-Distancia2').html('<?php _e('Distance');?>: ' + dat['trs2'].dist + 'm.');
-                $('#finales-Obstaculos2').html('<?php _e('Obstacles');?>: ' + dat['trs2'].obst);
-                $('#finales-TRS2').html('<?php _e('Standard C. Time');?>: ' + dat['trs2'].trs + 's.');
-                $('#finales-TRM2').html('<?php _e('Maximum C. Time');?>: ' + dat['trs2'].trm + 's.');
-                $('#finales-Velocidad2').html('<?php _e('Speed');?>: ' + dat['trs2'].vel + 'm/s');
+                $('#finales-Distancia2').html('<?php _e('Dist');?>: ' + dat['trs2'].dist + 'm.');
+                $('#finales-Obstaculos2').html('<?php _e('Obst');?>: ' + dat['trs2'].obst);
+                $('#finales-TRS2').html('<?php _e('S.C.T.');?>: ' + dat['trs2'].trs + 's.');
+                $('#finales-TRM2').html('<?php _e('M.C.T.');?>: ' + dat['trs2'].trm + 's.');
+                $('#finales-Velocidad2').html('<?php _e('Vel');?>: ' + dat['trs2'].vel + 'm/s');
             }
             // clasificaciones
 
             if ( isJornadaEquipos() ) {
+                $('#finales_equipos_roundname_m1').html(ronda.NombreManga1);
+                $('#finales_equipos_roundname_m2').html(ronda.NombreManga2);
                 var dg=$('#finales_equipos-datagrid');
                 workingData.individual=dat.individual;
                 dg.datagrid('options').expandCount = 0;
                 dg.datagrid('loadData',dat.equipos);
             } else {
+                $('#finales_individual_roundname_m1').html(ronda.NombreManga1);
+                $('#finales_individual_roundname_m2').html(ronda.NombreManga2);
                 var dg=$('#finales_individual-datagrid');
                 workingData.individual=dat.rows;
                 dg.datagrid('loadData',dat.rows);
