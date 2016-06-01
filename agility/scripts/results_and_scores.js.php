@@ -49,9 +49,9 @@ function showClasificacionesByTeam(parent,idx,row) {
         columns: [[
             {field:'Perro',		hidden:true },
             {field:'Equipo',	hidden:true },
-            {field:'Dorsal',	width:'3%', align:'left',     title:"<?php _e('Dors'); ?>" },
+            {field:'Dorsal',	width:'4%', align:'left',     title:"<?php _e('Dors'); ?>" },
             {field:'LogoClub',	hidden:true },
-            {field:'Nombre',	width:'9%', align:'center',   title:"<?php _e('Name'); ?>",   formatter:formatBold},
+            {field:'Nombre',	width:'8%', align:'center',   title:"<?php _e('Name'); ?>",   formatter:formatBold},
             {field:'Licencia',	width:'4%', align:'center',   title:"<?php _e('Lic'); ?>." },
             {field:'Categoria',	width:'4%', align:'center',   title:"<?php _e('Cat'); ?>.",   formatter:formatCategoria },
             {field:'Grado',	hidden:true },

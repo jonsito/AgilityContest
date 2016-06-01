@@ -206,11 +206,12 @@ Pantalla de de visualizacion combinada llamada/parciales
             return true;
         },
         onLoadSuccess: function(data) {
-            var dg
-            $(this).datagrid('scrollTo',0); // point to first result
-            // expand 2 first rows
-            $(this).datagrid('expandRow',0);
-            $(this).datagrid('expandRow',1);
+            if (data.total==0) return; // no data yet
+            var dg=$('#finales_equipos-datagrid');
+            dg.datagrid('expandRow',0); // expand 2 first rows
+            dg.datagrid('expandRow',1);
+            dg.datagrid('scrollTo',0); // point to first result
+            dg.datagrid('fixDetailRowHeight');
         }
     });
 
