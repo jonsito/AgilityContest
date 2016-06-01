@@ -90,7 +90,6 @@ require_once(__DIR__."/../server/upgradeVersion.php");
             outline: none;
             border: 0px none transparent;
         }
-
 		.datagrid-body .datagrid-group {
 			background-color: <?php echo $config->getEnv("vw_hdrbg3"); ?>;
 			color: <?php echo $config->getEnv("vw_hdrfg3"); ?>;
@@ -107,7 +106,6 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 		.datagrid-body .datagrid-group .datagrid-group-expander {
 			margin-top:7px;
 		}
-
     </style>
 
 <script type="text/javascript" charset="utf-8">
@@ -134,8 +132,7 @@ function initialize() {
  * @return {string} proper row style for given idx
  */
 function myRowStyler(idx,row) {
-	var height=(ac_config.vwc_simplified==0)?40:50;
-	var res="height:"+height+"px;line-height:"+height+"px;background-color:";
+	var res="background-color:";
 	var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
     var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
