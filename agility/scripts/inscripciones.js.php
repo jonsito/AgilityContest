@@ -68,8 +68,8 @@ function saveInscripcion(close) {
             	$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
             } else {
             	// on save done refresh related data/combo grids and close dialog
-            	$('#inscripciones-datagrid').datagrid('reload');
-            	if (close) $('#edit_inscripcion-dialog').dialog('close');
+            	if (!close) $('#inscripciones-datagrid').datagrid('reload');
+            	else $('#edit_inscripcion-dialog').dialog('close');
             }
         }
     });

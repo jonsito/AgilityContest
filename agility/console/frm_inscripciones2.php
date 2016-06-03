@@ -179,6 +179,7 @@ $('#inscripciones-datagrid').datagrid({
     pageSize: 50,
     multiSort: true,
     remoteSort: true,
+	idField: 'ID',
 	url: '/agility/server/database/inscripcionFunctions.php?Operation=inscritos&Prueba='+workingData.prueba,
 	method: 'get',
 	loadMsg: '<?php _e('Updating inscriptions data');?>'+'....',
