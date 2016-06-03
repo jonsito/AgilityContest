@@ -26,7 +26,7 @@ $config =Config::getInstance();
 	<div class="easyui-panel" data-options="fit:true">
 		<div class="dialog_forms">
         <form id="edit_inscripcion-form" method="get" novalidate="novalidate">
-        	<input id="edit_inscripcion-ID" type="hidden" name="ID"/>
+			<input id="edit_inscripcion-ID" type="hidden" name="ID"/>
         	<input id="edit_inscripcion-Prueba" type="hidden" name="Prueba"/>
         	<input id="edit_inscripcion-Jornadas" type="hidden" name="Jornadas"/>
         	<input id="edit_inscripcion-Operation" type="hidden" name="Operation" value="update"/>
@@ -47,20 +47,28 @@ $config =Config::getInstance();
             <input id="edit_inscripcion-NombreGuia" name="NombreGuia" type="text" disabled="disabled"/>
             <label id="edit_inscripcion-NombreClublbl" for="edit_inscripcion-NombreClub"><?php _e('Club'); ?>: </label>
            	<input id="edit_inscripcion-NombreClub" name="NombreClub" type="text" disabled="disabled" />
+			<input type="hidden" name="J1" value="0"/> <!-- stupid form handling of val==0 -->
            	<input id="edit_inscripcion-J1" 		name="J1" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
            	<label id="edit_inscripcion-J1lbl" 		for="edit_inscripcion-J1">J1</label>
+			<input type="hidden" name="J2" value="0"/>
             <input id="edit_inscripcion-J2" 		name="J2" class="easyui-checkbox" type="checkbox" value="2" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J2lbl" 		for="edit_inscripcion-J2">J2</label>
+			<input type="hidden" name="J3" value="0"/>
             <input id="edit_inscripcion-J3"			name="J3" class="easyui-checkbox" type="checkbox" value="4" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J3lbl"		for="edit_inscripcion-J3">J3</label>
+			<input type="hidden" name="J4" value="0"/>
             <input id="edit_inscripcion-J4"			name="J4" class="easyui-checkbox" type="checkbox" value="8" onclick="doMoney(this);"/>
  	        <label id="edit_inscripcion-J4lbl"		for="edit_inscripcion-J4">J4</label>
+			<input type="hidden" name="J5" value="0"/>
             <input id="edit_inscripcion-J5"			name="J5" class="easyui-checkbox" type="checkbox" value="16" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J5lbl" 		for="edit_inscripcion-J5">J5</label>
+			<input type="hidden" name="J6" value="0"/>
             <input id="edit_inscripcion-J6" 		name="J6" class="easyui-checkbox" type="checkbox" value="32" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J6lbl" 		for="edit_inscripcion-J6">J6</label>
+			<input type="hidden" name="J7" value="0"/>
             <input id="edit_inscripcion-J7" 		name="J7" class="easyui-checkbox" type="checkbox" value="64" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J7lbl" 		for="edit_inscripcion-J7">J7</label>
+			<input type="hidden" name="J8" value="0"/>
             <input id="edit_inscripcion-J8" 		name="J8" class="easyui-checkbox" type="checkbox" value="128" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J8lbl" 		for="edit_inscripcion-J8">J8</label>
             <label id="edit_inscripcion-Celolbl"	for="edit_inscripcion-Celo2"><?php _e('Heat'); ?>:</label>
@@ -98,7 +106,18 @@ $config =Config::getInstance();
     	closed:true,
     	modal:true,
     	buttons:'#edit_inscripcion-dlg-buttons',
-    	title:'<?php _e('Edit inscription'); ?>'
+    	title:'<?php _e('Edit inscription'); ?>',
+		onClose:function() {
+			// update row and scroll to it
+			var form=$('#edit_inscripcion-form').form();
+			var dg=$('#inscripciones-datagrid');
+			var id=$('#edit_inscripcion-ID').val();
+			var idx=dg.datagrid('getRowIndex',id);
+			if (idx<0) return;
+			var frm=formToObject(form);
+			dg.datagrid('updateRow',{ index:idx , row:frm } );
+			dg.datagrid('scrollTo',idx);
+		}
     });
     
     // declaracion del formulario
