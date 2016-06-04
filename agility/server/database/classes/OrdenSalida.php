@@ -426,23 +426,65 @@ class OrdenSalida extends DBObject {
 		$result["rows"] = $p6;
 		return $result;
 	}
-	
+
+	/**
+	 * Separa los perros de la lista en funcion del modo,
+	 * manteniendo el orden.
+	 * Se utiliza para poder ajustar el orden de salida por categorias
+	 * @param {string} $lista lista original de la base de datos
+	 * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST
+	 * @return {array} 0:original 1:included 2:excluded
+	 */
+	function  splitPerrosByMode($lista,$mode) {
+		// cogemos todos los perros de la manga
+		$res=$this->__select("*","Resultados","Manga={$this->manga}","","");
+		$listaperros=array();
+		// indexamos en función del perroID
+		foreach ($res['rows'] as $perro) {
+			$listaperros[$perro['Perro']]=$perro;
+		}
+		// split de los datos originales
+		$ordenperros=explode(",",getInnerString($lista,"BEGIN,",",END"));
+		// clasificamos los perros por categorias
+		$listas=array( 0=>array(),1=>array(),2=>array());
+		foreach($ordenperros as $perro) {
+			array_push($listas[0],$perro);
+			if (mode_match($listaperros[$perro]['Categoria'],$mode)) array_push($listas[1],$perro);
+			else array_push($listas[2],$perro);
+		}
+		// retornamos el array de strings
+		return array(implode(",",$listas[0]),implode(",",$listas[1]),implode(",",$listas[2]));
+	}
+
+	function splitEquiposByMode($lista,$mode) {
+
+	}
+
 	/**
 	 * Reordena el orden de salida de una manga al azar
 	 * @param  	{int} $jornada ID de jornada
 	 * @param	{int} $manga ID de manga
 	 * @return {string} nuevo orden de salida
 	 */
-	function random() {
+	function random($mode=8) {
 		// fase 1 aleatorizamos la manga
 		$orden=$this->getOrden();
 		$this->myLogger->debug("OrdenSalida::Random() Manga:{$this->manga['ID']} Orden inicial: \n$orden");
+		// buscamos los perros de la categoria seleccionada
+		$listas=$this->splitPerrosByMode($orden,$mode);
+		if ($listas[1]!=="") { // si hay datos, reordena; si no no hagas nada
+			$str2 = implode(",",aleatorio(explode(",", $listas[1])));
+			$str="BEGIN,{$listas[2]},$str2,END";
+			$this->setOrden($str);
+		}
+		/*
 		$str=getInnerString($orden,"BEGIN,",",END");
 		if ($str!=="") { // si hay datos, reordena; si no no hagas nada
 			$str2 = implode(",",aleatorio(explode(",", $str)));
 			$str="BEGIN,$str2,END";
 			$this->setOrden($str);
 		}
+		*/
 		$orden=$this->getOrden();
 		$this->myLogger->debug("OrdenSalida::Random() Manga:{$this->manga['ID']} Orden final: \n$orden");
 
@@ -531,7 +573,7 @@ class OrdenSalida extends DBObject {
 	 * pone el mismo orden de salida que la manga hermana
 	 * @return {string} nuevo orden de salida; null on error
 	 */
-	function sameorder() {
+	function sameorder($mode=8) {
 		$this->myLogger->enter();
 
 		// fase 1: buscamos la "manga hermana"
@@ -552,7 +594,7 @@ class OrdenSalida extends DBObject {
 	 * Calcula el orden de salida de una manga en funcion del orden inverso al resultado de su manga "hermana"
 	 * @return {string} nuevo orden de salida; null on error
 	 */
-	function reverse() {
+	function reverse($mode=8) {
 		$this->myLogger->enter();
 		// fase 1: buscamos la "manga hermana"
 		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada['ID']);

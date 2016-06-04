@@ -355,6 +355,20 @@ function category_match($from,$to="-LMST") {
 	return ($common==="")?false:true;
 }
 
+function mode_match($cat,$mode) {
+	switch ($mode) {
+		case 0: return category_match($cat,"L");
+		case 1: return category_match($cat,"M");
+		case 2: return category_match($cat,"S");
+		case 3: return category_match($cat,"MS");
+		case 4: return category_match($cat,"LMS");
+		case 5: return category_match($cat,"T");
+		case 6: return category_match($cat,"LM");
+		case 7: return category_match($cat,"ST");
+		case 8: return category_match($cat,"LMST");
+	}
+	return false; // invalid mode
+}
 /**
  * Clase para enumerar los interfaces de red del servidor
  */
