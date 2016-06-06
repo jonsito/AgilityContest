@@ -26,8 +26,9 @@ require_once(__DIR__."/Clubes.php");
 require_once(__DIR__."/Jueces.php");
 
 class Resultados extends DBObject {
-	protected $IDManga; // ID de la manga
-	protected $IDJornada; // ID de la jornada
+    protected $IDPrueba; // ID de la manga
+    protected $IDJornada; // ID de la jornada
+    protected $IDManga; // ID de la manga
 	protected $dmanga=null; // datos de la manga
 	protected $djornada=null;  // datos de la jornada
 	protected $dequipos=null; // datos de los equipos
@@ -77,11 +78,11 @@ class Resultados extends DBObject {
 
 	function getDatosEquipos() {
         if ($this->dequipos!=null) return $this->dequipos;
-        if ($this->IDJornada==0) $this->getDatosJornada();
-        $eqobj=new Equipos("Resultados",$this->IDPrueba,$this->IDJornada);
+        $eqobj=new Equipos("Resultados",$this->getDatosPrueba()->ID,$this->getDatosJornada()->ID);
         $teams=$eqobj->getTeamsByJornada();
-        $this->dequipos=array(); // reindex teams by ID
-        foreach($teams as $team) $this->dequipos[$team['ID']]=$team;
+        $res=array(); // reindex teams by ID
+        foreach($teams as $team) $res[$team['ID']]=$team;
+        $this->dequipos=$res;
         return $this->dequipos;
     }
 
@@ -710,7 +711,48 @@ class Resultados extends DBObject {
 	}
 	
 	function getResultadosEquipos($mode) {
-		
+		// obtenemos resultados individuales
+		$resultados=$this->getResultados($mode);
+		// obtenemos los equipos de la jornada cuya categoria coincide con la buscada
+		$teams=array();
+		foreach ($this->getDatosEquipos() as $equipo) {
+			if ($equipo['Nombre']==="-- Sin asignar --") continue;
+			// comprobamos la categoria. si no coincide tiramos el equipo
+			$modes=array("L","M","S","MS","LMS","T","LM","ST","LMST");
+			if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
+			$r=array_merge($equipo,array('Count'=>0,'Tiempo'=>0,'Penalizacion'=>0));
+			$teams[$equipo['ID']]=$r;
+		}
+        // procesamos manga Se asume que los resultados ya vienen ordenados por puesto,
+        $mindogs=Jornadas::getTeamDogs($this->getDatosJornada())[0]; // get mindogs
+        // de manera que se contabilizan solo los mindogs primeros perros de cada equipo
+        foreach($resultados['rows'] as $resultado) {
+            $eq=$resultado['Equipo'];
+            if (!array_key_exists($eq,$teams)) {
+                $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->IDPrueba} Jornada:{$this->IDJornada} Manga:1 Equipo:$eq no existe");
+                continue;
+            }
+            if ($teams[$eq]['Count']>=$mindogs) continue;
+            $teams[$eq]['Count']++;
+            $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
+            $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
+        }
+        // rellenamos huecos hasta completar mindogs
+        foreach ($teams as &$team ) {
+            // 100:Eliminado 200:NoPresentado 400:Pendiente
+            for($n=$team['Count'];$n<$mindogs;$n++) { $team['Penalizacion']+=400; }
+        }
+        // eliminamos el indice del array
+        $equipos=array_values($teams);
+        // re-ordenamos los datos en base a la puntuacion
+        usort($equipos, function($a, $b) {
+            if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
+            return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
+        });
+        // retornamos resultado
+        $resultados['individual']=$resultados['rows'];
+        $resultados['equipos']=$equipos;
+        return $resultados;
 	}
 	
 	function getTRS($mode) {

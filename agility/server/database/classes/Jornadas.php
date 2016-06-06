@@ -732,5 +732,35 @@ class Jornadas extends DBObject {
 		}
 		return $flag;
 	}
+
+	/**
+	 * Evalua en numero minimo y maximo de perros por jornada
+	 * @param $jobj objeto/array de tipo jornada
+	 * @return array (mindogs,maxdogs)
+	 */
+	static function getTeamDogs($jornada) {
+		$eq3=0;$eq4=0;
+		if (is_object($jornada)) {
+			$eq3=$jornada->Equipos3;
+			$eq4=$jornada->Equipos4;
+		}
+		if (is_array($jornada)) {
+			$eq3=$jornada['Equipos3'];
+			$eq4=$jornada['Equipos4'];
+		}
+		switch ($eq3) {
+			case 1: return array(3,4); // old style 3 mejores de cuatro
+			case 2: return array(2,3); // 2 best of 3
+			case 3: return array(3,4); // 3 best of 4
+		}
+		switch($eq4) {
+			case 1: return array(4,4); // old style 4 conjunta
+			case 2: return array(2,2); // 2 conjunta
+			case 3: return array(3,3); // 3 conjunta
+			case 4: return array(4,4); // 4 conjunta
+		}
+		// arriving here means no team journey or invalid team mode
+		return array(1,1);
+	}
 }
 ?>
