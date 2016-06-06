@@ -22,10 +22,10 @@ require_once("OrdenSalida.php");
 
 class Equipos extends DBObject {
 
-	protected $pruebaID;
-	protected $jornadaID;
-    protected $teamsByJornada;
-    protected $defaultTeam;
+	protected $pruebaID=0;
+	protected $jornadaID=0;
+    protected $teamsByJornada=null;
+    protected $defaultTeam=null;
 	
 	/**
 	 * Constructor

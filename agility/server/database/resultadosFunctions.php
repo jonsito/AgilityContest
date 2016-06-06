@@ -27,7 +27,7 @@ try {
 	$resultados=null;
 	$operation=http_request("Operation","s",null);
 	$pruebaID=http_request("Prueba","i",0);
-	$JornadaID=http_request("Jornada","i",0);
+	$jornadaID=http_request("Jornada","i",0);
 	$mangaID=http_request("Manga","i",0);
 	$idperro=http_request("Perro","i",0);
 	$mode=http_request("Mode","i",0);
@@ -43,6 +43,7 @@ try {
 		case "reset": $am->access(PERMS_OPERATOR); $result=$resultados->reset(); break;
 		case "getPendientes": $result=$resultados->getPendientes($mode); break;
 		case "getResultados":$result=$resultados->getResultados($mode); break;
+		case "getResultadosEquipos":$result=$resultados->getResultadosEquipos($mode); break;
 		case "getPuesto":
 			$data=array(
 				'Perro' => $idperro,
