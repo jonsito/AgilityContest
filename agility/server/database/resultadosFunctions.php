@@ -43,6 +43,7 @@ try {
 		case "reset": $am->access(PERMS_OPERATOR); $result=$resultados->reset(); break;
 		case "getPendientes": $result=$resultados->getPendientes($mode); break;
 		case "getResultados":$result=$resultados->getResultados($mode); break;
+		case "getResultadosEquipos":$result=$resultados->getResultadosEquipos($mode); break;
 		case "getPuesto":
 			$data=array(
 				'Perro' => $idperro,

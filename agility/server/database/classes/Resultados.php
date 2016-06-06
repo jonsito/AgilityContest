@@ -709,6 +709,10 @@ class Resultados extends DBObject {
 		return $res;
 	}
 	
+	function getResultadosEquipos($mode) {
+		
+	}
+	
 	function getTRS($mode) {
 		$this->myLogger->enter();
 		$trs=$this->getResultados($mode)['trs'];
