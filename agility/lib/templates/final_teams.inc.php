@@ -1,6 +1,6 @@
 <?php
-require_once(__DIR__."/../../server/tools.php");
-require_once(__DIR__."/../../server/auth/Config.php");
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 

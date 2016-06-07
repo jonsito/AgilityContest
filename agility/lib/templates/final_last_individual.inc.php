@@ -1,21 +1,16 @@
 <?php
-require_once(__DIR__."/../../server/tools.php");
-require_once(__DIR__."/../../server/auth/Config.php");
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
-<table id="finales_individual-datagrid">
+<table id="finales_ultimos_individual-datagrid">
     <thead>
-    <tr>
-        <th colspan="7"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
-        <th colspan="7"> <span class="main_theader" id="finales_individual_roundname_m1"><?php _e('Round'); ?> 1</span></th>
-        <th colspan="7"> <span class="main_theader" id="finales_individual_roundname_m2"><?php _e('Round'); ?> 2</span></th>
-        <th colspan="4"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
-    </tr>
     <tr>
         <!--
         <th data-options="field:'Perro',		hidden:true " ></th>
          -->
+        <th data-options="field:'Orden',		width:20, align:'center',formatter:formatOrdenLlamadaPista" >#</th>
         <th data-options="field:'Dorsal',		width:'3%', align:'left'" > <?php _e('Dors'); ?>.</th>
         <th data-options="field:'LogoClub',		width:'3%', align:'left',formatter:formatLogo" > &nbsp;</th>
         <th data-options="field:'Nombre',		width:'7%', align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
@@ -50,7 +45,7 @@ $config =Config::getInstance();
 
 <script type="text/javascript">
 
-    $('#finales_individual-datagrid').datagrid({
+    $('#finales_ultimos_individual-datagrid').datagrid({
         expandCount: 0,
         // propiedades del panel asociado
         fit: false, // set to false as we used thead to declare columns, and they have their own width

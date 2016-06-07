@@ -67,7 +67,7 @@ $config =Config::getInstance();
 
 <div id="resultados-data" class="scores_table" style="width:100%;height:400px">
 	<!-- tabla con las clasificaciones -->
-	<?php include(__DIR__."/templates/final_teams.inc.php"); ?>
+	<?php include(__DIR__ . "/../lib/templates/final_teams.inc.php"); ?>
 </div>
 
 <div id="resultados-toolbar" style="width:100%;display:inline-block">
