@@ -63,7 +63,7 @@ $config =Config::getInstance();
             Prueba: workingData.prueba,
             Jornada: workingData.jornada,
             Manga: workingData.manga,
-            Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
+            Mode: workingData.datosManga.Mode,
             Operation: 'getResultados'
         },
         loadMsg:  "<?php _e('Updating partial scores');?> ...",

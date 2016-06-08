@@ -195,8 +195,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             workingData.teamCounter=1;
             pb_collapseMenu(true);
             var page="/agility/public/pbmenu_parciales.php";
-            if (isJornadaEqMejores() ) page="/agility/public/pbmenu_parciales_eq3.php";
-            if (isJornadaEqConjunta() ) page="/agility/public/pbmenu_parciales_eq3.php";
+            if (isJornadaEquipos() ) page="/agility/public/pbmenu_parciales_eq3.php";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 

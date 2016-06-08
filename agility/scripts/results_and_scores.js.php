@@ -123,7 +123,7 @@ function updateParciales(row) {
             $('#parciales-Distancia').html('<?php _e('Dist');?>: ' + dat['trs'].dist + 'm.');
             $('#parciales-Obstaculos').html('<?php _e('Obst');?>: ' + dat['trs'].obst);
             $('#parciales-TRS').html('<?php _e('S.C.T.');?>: ' + dat['trs'].trs + 's.');
-            $('#parciales-TRM').html('<?php _e('M.C.T');?>: ' + dat['trs'].trm + 's.');
+            $('#parciales-TRM').html('<?php _e('M.C.T.');?>: ' + dat['trs'].trm + 's.');
             $('#parciales-Velocidad').html('<?php _e('Vel');?>: ' + dat['trs'].vel + 'm/s');
             // actualizar datagrid
             if ( isJornadaEquipos() ) {
