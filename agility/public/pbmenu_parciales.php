@@ -40,34 +40,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <span style="float:left;padding:5px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
             <span style="float:right;padding:5px" id="pb_header-texto">
                 <?php _e('Partial scores'); ?><br/>
-                <span id="pb_enumerateParciales" style="width:200px"></span>
+                <span id="enumerateParciales" style="width:200px"></span>
             </span><br/>
             <!-- Datos de TRS y TRM -->
-            <table class="pb_trs">
-                <thead>
-                <tr>
-                    <th id="pb_parciales-NombreManga" colspan="2" style="display:none">(<?php _e('No round selected'); ?>)</th>
-                    <th id="pb_parciales-Juez1" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 1:</th>
-                    <th id="pb_parciales-Juez2" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 2:</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr style="text-align:right">
-                    <td><?php _e('Round data info'); ?>:</td>
-                    <td id="pb_parciales-Distancia"><?php _e('Distance'); ?>:</td>
-                    <td id="pb_parciales-Obstaculos"><?php _e('Obstacles'); ?>:</td>
-                    <td id="pb_parciales-TRS"><?php _e('Standard C. Time'); ?>:</td>
-                    <td id="pb_parciales-TRM"><?php _e('Maximum C. Time'); ?>:</td>
-                    <td id="pb_parciales-Velocidad"><?php _e('Speed'); ?>:</td>
-                </tr>
-                </tbody>
-            </table>
+            <?php include_once(__DIR__."/../lib/templates/parcial_round_data.inc.php");?>
+        </div>
+        <div id="pb_parciales-data" data-options="region:'center'" >
+            <div class="scores_table">
+                <?php include_once(__DIR__."/../lib/templates/parcial_individual.inc.php");?>
+            </div>
         </div>
         <div id="pb_parciales-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>
-        </div>
-        <div id="pb_parciales-data" data-options="region:'center'" >
-            <table id="pb_parciales-datagrid"></table>
         </div>
     </div>
 </div> <!-- pb_parciales-window -->
@@ -98,59 +82,7 @@ $('#pb_parciales-panel').panel({
 	}
 });
 
-$('#pb_parciales-datagrid').datagrid({
-    // propiedades del panel asociado
-    fit: true,
-    border: false,
-    closable: false,
-    collapsible: false,
-    collapsed: false,
-    // propiedades del datagrid
-    method: 'get',
-    url: '/agility/server/database/resultadosFunctions.php',
-    queryParams: {
-        Prueba: workingData.prueba,
-        Jornada: workingData.jornada,
-        Manga: workingData.manga,
-        Mode: workingData.datosManga.Mode,
-        Operation: 'getResultados'
-    },
-    loadMsg:  "<?php _e('Updating partial scores');?> ...",
-    pagination: false,
-    rownumbers: false,
-    fitColumns: true,
-    singleSelect: true,
-    autoRowHeight: true,
-    // view: gview,
-    groupField: 'NombreEquipo',
-    groupFormatter: formatPbTeamResults,
-    columns:[[
-        { field:'Manga',		hidden:true },
-        { field:'Perro',		hidden:true },
-        { field:'Raza',		    hidden:true },
-        { field:'Equipo',		hidden:true },
-        { field:'NombreEquipo',	hidden:true },
-        { field:'Dorsal',		width:'5%', align:'center', title: '<?php _e('Dorsal'); ?>'},
-        { field:'LogoClub',		width:'5%', align:'center', title: '', formatter:formatLogo },
-        { field:'Licencia',		width:'5%%', align:'center',  title: '<?php _e('License'); ?>'},
-        { field:'Nombre',		width:'10%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBoldBig},
-        { field:'NombreGuia',	width:'15%', align:'right', title: '<?php _e('Handler'); ?>' },
-        { field:'NombreClub',	width:'12%', align:'right', title: '<?php _e('Club'); ?>' },
-        { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.',formatter:formatCategoria },
-        { field:'Grado',	    width:'4%', align:'center', title: '<?php _e('Grade'); ?>', formatter:formatGrado },
-        { field:'Faltas',		width:'4%', align:'center', title: '<?php _e('Fault'); ?>'},
-        { field:'Rehuses',		width:'4%', align:'center', title: '<?php _e('Refusal'); ?>'},
-        { field:'Tocados',		width:'4%', align:'center', title: '<?php _e('Touch'); ?>'},
-        { field:'PRecorrido',	hidden:true },
-        { field:'Tiempo',		width:'6%', align:'right', title: '<?php _e('Time'); ?>', formatter:formatTiempo},
-        { field:'PTiempo',		hidden:true },
-        { field:'Velocidad',	width:'4%', align:'right', title: '<?php _e('Vel'); ?>.', formatter:formatVelocidad},
-        { field:'Penalizacion',	width:'6%%', align:'right', title: '<?php _e('Penal'); ?>.', formatter:formatPenalizacion},
-        { field:'Calificacion',	width:'8%', align:'center',title: '<?php _e('Calification'); ?>'},
-        { field:'Puesto',		width:'4%', align:'center',  title: '<?php _e('Position'); ?>', formatter:formatPuestoBig},
-        { field:'CShort',       hidden:true}
-    ]],
-    rowStyler:myRowStyler,
+$('#parciales_individual-datagrid').datagrid({
     onBeforeLoad: function(param) { // do not load if no manga selected
         if (workingData.manga==0) return false; // do not try to load if not variable initialized
         return true;
@@ -158,15 +90,13 @@ $('#pb_parciales-datagrid').datagrid({
 });
 
 // fire autorefresh if configured
-setTimeout(function(){ $('#pb_enumerateParciales').text(workingData.nombreManga)},0);
+setTimeout(function(){ $('#enumerateParciales').text(workingData.nombreManga)},0);
 var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) {
-
     function update() {
         updateParciales(workingData.datosManga.Mode);
         workingData.timeout= setTimeout(update,1000*rtime);
     }
-
     if (workingData.timeout!=null) clearTimeout(workingData.timeout);
     update();
 }

@@ -93,6 +93,7 @@ function showClasificacionesByTeam(parent,idx,row) {
  * Rellena tambien el datagrid de resultados parciales
  */
 function updateParciales(row) {
+    // si no nos pasan parametro, leemos el valor del combogrid
     if (typeof (row) === "undefined") {
         row=$('#enumerateParciales').combogrid('grid').datagrid('getSelected');
         if (!row) return;
@@ -106,11 +107,11 @@ function updateParciales(row) {
         url:"/agility/server/database/resultadosFunctions.php",
         dataType:'json',
         data: {
-            Operation:	'getResultados',
+            Operation:	(isJornadaEquipos())?'getResultadosEquipos':'getResultados',
             Prueba:		workingData.prueba,
             Jornada:	workingData.jornada,
             Manga:		workingData.manga,
-            Mode:       parseInt(row.Mode)
+            Mode:       parseInt(workingData.datosManga.Mode)
         },
         success: function(dat) {
             // informacion de la manga
@@ -125,8 +126,16 @@ function updateParciales(row) {
             $('#parciales-TRM').html('<?php _e('M.C.T');?>: ' + dat['trs'].trm + 's.');
             $('#parciales-Velocidad').html('<?php _e('Vel');?>: ' + dat['trs'].vel + 'm/s');
             // actualizar datagrid
-            workingData.teamCounter=1; // reset team's puesto counter
-            $('#parciales-datagrid').datagrid('loadData',dat);
+            if ( isJornadaEquipos() ) {
+                var dg=$('#parciales_equipos-datagrid');
+                workingData.individual=dat.individual;
+                dg.datagrid('options').expandCount = 0;
+                dg.datagrid('loadData',dat.equipos);
+            } else {
+                var dg=$('#parciales_individual-datagrid');
+                workingData.individual=dat.rows;
+                dg.datagrid('loadData',dat.rows);
+            }
         }
     });
 }
