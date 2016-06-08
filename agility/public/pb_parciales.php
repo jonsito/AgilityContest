@@ -40,7 +40,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 onCollapse:function(){
                 	setTimeout(function(){
 				    	var top = $('#pb_parciales-layout').layout('panel','expandNorth');
-				    	var round = $('#pb_enumerateParciales').combogrid('getText');
+				    	var round = $('#enumerateParciales').combogrid('getText');
 					    top.panel('setTitle','<?php _e('Partial scores');?>: '+round);
 				    },0);
                 }
