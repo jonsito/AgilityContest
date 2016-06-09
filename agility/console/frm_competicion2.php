@@ -39,6 +39,13 @@ switch(http_request("tipo","s","std")) {
         }
         require_once("dialogs/dlg_resultados_eq4.inc");
         break;
+    case "ko":
+        if ( ! $am->allowed(ENABLE_KO)) {
+            require_once("unregistered.html");
+            return 0;
+        }
+        require_once("dialogs/dlg_resultados_ko.inc");
+        break;
     case "std":
     case "open":
     default:
