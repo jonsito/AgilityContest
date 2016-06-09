@@ -51,7 +51,7 @@ $config =Config::getInstance();
         rowStyler:myRowStyler,
         autoRowHeight: false,
         idField: 'ID',
-        pageSize: 500, // enought bit to make it senseless
+        pageSize: 1000, // enought bit to make it senseless
         // columns declared at html section to show additional headers
         // especificamos un formateador especial para desplegar la tabla de perros por equipos
         view:detailview,
@@ -61,7 +61,7 @@ $config =Config::getInstance();
         },
         onExpandRow: function(idx,row) {
             $(this).datagrid('options').expandCount++;
-            showClasificacionesByTeam("#finales_equipos-datagrid",idx,row);
+            showFinalScoresByTeam("#finales_equipos-datagrid",idx,row);
         },
         onCollapseRow: function(idx,row) {
             $(this).datagrid('options').expandCount--;

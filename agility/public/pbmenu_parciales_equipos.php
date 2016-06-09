@@ -6,37 +6,37 @@ require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
-$am = new AuthManager("Public::parciales");
+$am = new AuthManager("Public::parciales_eq3");
 if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.php"); return 0;}
 ?>
 
 <!--
-pb_parciales.inc
+pbmenu_parciales_eq3.php
 
 Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
-This program is free software; you can redistribute it and/or modify it under the terms 
-of the GNU General Public License as published by the Free Software Foundation; 
+This program is free software; you can redistribute it and/or modify it under the terms
+of the GNU General Public License as published by the Free Software Foundation;
 either version 2 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
-without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along with this program; 
+You should have received a copy of the GNU General Public License along with this program;
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-<!-- Presentacion de resultados parciales -->
+<!-- Presentacion de resultados parciales en pruebas por equipos (3 mejores de cuatro)  -->
 
 <div id="pb_parciales-panel">
     <div id="pb_parciales-layout" style="width:100%">
         <div id="pb_parciales-Cabecera"  style="height:15%;" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
-            
+
             <a id="pb_header-link" class="easyui-linkbutton" onClick="updateParciales(workingData.datosManga);" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="40" />
             </a>
-            <span id="header-combinadaFlag" style="display:none">false</span> <!--indicador de combinada-->
+            <span id="header-combinadaFlag" style="display:none">false</span> <!--indicador de combinada:false-->
             <span style="float:left;padding:5px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
             <span style="float:right;padding:5px" id="pb_header-texto">
                 <?php _e('Partial scores'); ?><br/>
@@ -47,7 +47,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         </div>
         <div id="pb_parciales-data" data-options="region:'center'" >
             <div class="scores_table">
-                <?php include_once(__DIR__."/../lib/templates/parcial_individual.inc.php");?>
+                <?php include_once(__DIR__."/../lib/templates/parcial_teams.inc.php");?>
             </div>
         </div>
         <div id="pb_parciales-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">
@@ -58,7 +58,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
-// in a mobile device, increase north window height
 if (isMobileDevice()) {
     $('#pb_parciales-Cabecera').css('height','90%');
 }
@@ -74,6 +73,7 @@ $('#pb_parciales-panel').panel({
 	collapsible:false,
 	collapsed:false,
 	resizable:true,
+	// 1 minute poll is enouth for this, as no expected changes during a session
 	onOpen: function() {
         // update header
         pb_getHeaderInfo();
@@ -82,23 +82,20 @@ $('#pb_parciales-panel').panel({
 	}
 });
 
-$('#parciales_individual-datagrid').datagrid({
-    onBeforeLoad: function(param) { // do not load if no manga selected
-        if (workingData.manga==0) return false; // do not try to load if not variable initialized
-        return true;
-    }
-});
 
 // fire autorefresh if configured
-setTimeout(function(){ $('#enumerateParciales').text(workingData.nombreManga)},0);
-var rtime=parseInt(ac_config.web_refreshtime);
-if (rtime!=0) {
-    function update() {
+function pbmenu_updateParcialesEquipos() {
+    var rtime=parseInt(ac_config.web_refreshtime);
+    var options=$('#parciales_equipos-datagrid').datagrid('options');
+    if ( options.expandCount <= 0 ){
+        options.expandCount=0;
         updateParciales(workingData.datosManga);
-        workingData.timeout= setTimeout(update,1000*rtime);
     }
-    if (workingData.timeout!=null) clearTimeout(workingData.timeout);
-    update();
+    if (rtime!=0) workingData.timeout=setTimeout(pbmenu_updateParcialesEquipos,1000*rtime);
 }
+
+setTimeout(function(){ $('#enumerateParciales').text(workingData.datosManga.Nombre)},0);
+if (workingData.timeout!=null) clearTimeout(workingData.timeout);
+pbmenu_updateParcialesEquipos();
     
 </script>

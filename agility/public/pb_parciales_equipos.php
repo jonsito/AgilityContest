@@ -45,7 +45,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				    },0);
                 }
             ">
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateParciales(workingData.datosManga.Mode);" href="#" style="float:left">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateParciales(/* empty */);" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
             </a>
             <span id="header-combinadaFlag" style="display:none">false</span> <!--indicador de combinada:false-->
@@ -107,11 +107,8 @@ $('#enumerateParciales').combogrid({
 		param.ID= workingData.jornada;
 		return true;
 	},
-    onOpen: function() {
-        updateParciales(workingData.datosManga.Mode); // notice no results will still be reported. just to update header info
-    },
 	onChange:function(value){
-		updateParciales();
+		updateParciales(/* empty to get round from combogrid data */);
         $('#pb_parciales-layout').layout('collapse','north');
 	}
 });
@@ -142,13 +139,17 @@ $('#parciales_equipos-datagrid').datagrid({
 });
 
 // fire autorefresh if configured
-var rtime=parseInt(ac_config.web_refreshtime);
-if (rtime!=0) {
-    function update() {
-        updateParciales(workingData.datosManga.Mode);
-        workingData.timeout= setTimeout(update,1000*rtime);
-    }
-    if (workingData.timeout!=null) clearTimeout(workingData.timeout);
-    update();
+function pb_updateParcialesEquipos() {
+	var rtime=parseInt(ac_config.web_refreshtime);
+	var options=$('#parciales_equipos-datagrid').datagrid('options');
+	if ( options.expandCount <= 0 ){
+		options.expandCount=0;
+		updateParciales(/* empty to retrieve data from combogrid */);
+	}
+	if (rtime!=0) workingData.timeout=setTimeout(pb_updateParcialesEquipos,1000*rtime);
 }
+
+if (workingData.timeout!=null) clearTimeout(workingData.timeout);
+pb_updateParcialesEquipos();
+	
 </script>

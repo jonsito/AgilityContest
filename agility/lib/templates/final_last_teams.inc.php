@@ -55,7 +55,7 @@ $config =Config::getInstance();
         },
         onExpandRow: function(idx,row) {
             $(this).datagrid('options').expandCount++;
-            showClasificacionesByTeam("#finales_ultimos_equipos-datagrid",idx,row);
+            showFinalScoresByTeam("#finales_ultimos_equipos-datagrid",idx,row);
         },
         onCollapseRow: function(idx,row) {
             $(this).datagrid('options').expandCount--;

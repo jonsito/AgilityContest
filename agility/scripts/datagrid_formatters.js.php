@@ -38,7 +38,10 @@ function formatCategoria(val,row,idx) {
     if (typeof (ac_fedInfo[fed].ListaCategoriasShort[val]) === "undefined") return val;
     return ac_fedInfo[fed].ListaCategoriasShort[val];
 }
-/* formatters para el datagrid dlg_resultadosManga */
+
+
+/* formatters para datagrid de resultados */
+function formatFaltasTocados(val,row,idx) { return parseInt(row.Faltas)+parseInt(row.Tocados); }
 function formatPuesto(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
 function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5.em;font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
 function formatVelocidad(val,row,idx) { return (row.Penalizacion>=200)?"-":toFixedT(parseFloat(val),1); }
@@ -79,9 +82,9 @@ function formatTF(val,row,idx) {
 
 function formatCatGrad(val,row,idx) {
     var hasGrade=true;
-    if (isJornadaEqMejores()) hasGrade=false;
-    if (isJornadaEqConjunta()) hasGrade=false;
+    if (isJornadaEquipos()) hasGrade=false;
     if (isJornadaOpen()) hasGrade=false;
+    if (isJornadaKO()) hasGrade=false;
     if (!hasGrade) return formatCategoria(val,row,idx);
     // return formatCategoria(row.Categoria,row.idx)+"/"+formatGrado(row.Grado,row,idx);
     return row.Categoria+"-"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(

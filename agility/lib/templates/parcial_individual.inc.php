@@ -25,7 +25,7 @@ $config =Config::getInstance();
         -->
         <th data-options="field:'NombreGuia',	width:'18%', align:'right'" > <?php _e('Handler'); ?></th>
         <th data-options="field:'NombreClub',	width:'16%', align:'right'" > <?php _e('Club'); ?></th>
-        <th data-options="field:'Faltas',		width:'4%', align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
+        <th data-options="field:'Faltas',		width:'4%', align:'center',formatter:formatFaltasTocados,styler:formatBorder"> <?php _e('F/T'); ?></th>
         <!--
         <th data-options="field:'Tocados',	hidden:true ">/th>
         -->

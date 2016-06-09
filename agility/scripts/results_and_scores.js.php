@@ -25,14 +25,23 @@ $config =Config::getInstance();
  * Funciones relacionadas presentacion de resultados y clasificaciones
  */
 
-function showClasificacionesByTeam(parent,idx,row) {
+
+/**
+ * Muestra clasificacion final de los miembros de un equipo
+ * @param parent datagrid de datos de equipos
+ * @param idx indice de la fila del equipo asociado
+ * @param row contendido de la fila del equipo asociado
+ */
+function showFinalScoresByTeam(parent,idx,row) {
     var mySelf=parent+"-"+parseInt(row.ID);
     // retrieve datagrid contents
+    var maxdogs=getMaxDogsByTeam();
     var datos=[];
     for(var n=0; n<workingData.individual.length;n++) {
         var competitor=workingData.individual[n];
         if (competitor['Equipo']!=row.ID) continue;
         datos.push(competitor);
+        if (datos.length>=maxdogs) break; // to speedup parsing data
     }
     // deploy datagrid
     $(mySelf).datagrid({
@@ -87,6 +96,67 @@ function showClasificacionesByTeam(parent,idx,row) {
     $(parent).datagrid('fixDetailRowHeight',idx);
 }
 
+/**
+ * Muestra clasificacion parcial de los miembros de un equipo
+ * @param parent datagrid de datos de equipos
+ * @param idx indice de la fila del equipo asociado
+ * @param row contendido de la fila del equipo asociado
+ */
+function showPartialScoresByTeam(parent,idx,row) {
+    var mySelf=parent+"-"+parseInt(row.ID);
+    // retrieve datagrid contents
+    var datos=[];
+    var maxdogs=getMaxDogsByTeam();
+    for(var n=0; n<workingData.individual.length;n++) {
+        var competitor=workingData.individual[n];
+        if (competitor['Equipo']!=row.ID) continue;
+        datos.push(competitor);
+        if (datos.lenght>=maxdogs) break; // to speedup parse data
+    }
+    // deploy datagrid
+    $(mySelf).datagrid({
+        fit:false,
+        pagination: false,
+        rownumbers: false,
+        fitColumns: true,
+        singleSelect: true,
+        width: '99%',
+        height: 'auto',
+        remote:false,
+        idField: 'Perro',
+        data: datos,
+        columns: [[
+            {field:'Perro',		    hidden:true },
+            {field:'Equipo',	    hidden:true },
+            {field:'Dorsal',	    width:'4%', align:'left',   title:"<?php _e('Dorsal'); ?>" },
+            {field:'LogoClub',	    hidden:true },
+            {field:'Nombre',	    width:'10%', align:'center', title:"<?php _e('Name'); ?>",   formatter:formatBold},
+            {field:'Licencia',	    width:'6%', align:'center', title:"<?php _e('Lic'); ?>." },
+            {field:'Categoria',	    width:'6%', align:'center', title:"<?php _e('Cat'); ?>.",   formatter:formatCatGrad },
+            {field:'Grado',	        hidden:true },
+            {field:'NombreEquipo',  hidden:true },
+            {field:'NombreGuia',    width:'18%',align:'right',  title:"<?php _e('Handler'); ?>" },
+            {field:'NombreClub',    width:'14%',align:'right',  title:"<?php _e('Club'); ?>" },
+            {field:'Faltas',		width:'4%', align:'center', title:"<?php _e('F/T'); ?>",    formatter:formatFaltasTocados,styler:formatBorder },
+            {field:'Tocados',       hidden:true },
+            {field:'Rehuses',		width:'4%', align:'center', title:"R." },
+            {field:'Tiempo',		width:'6%', align:'right',  title:"<?php _e('Time'); ?>.",  formatter:formatTiempo },
+            {field:'Velocidad',		width:'6%', align:'right',  title:"<?php _e('Vel'); ?>.",   formatter:formatVelocidad },
+            {field:'Penalizacion',	width:'6%', align:'right',  title:"<?php _e('Penal'); ?>.", formatter:formatPenalizacion,styler:formatBorder},
+            {field:'Calificacion',  width:'10%', align:'center', title:"<?php _e('Calif'); ?>." },
+            {field:'Puesto',	    width:'6%', align:'center', title:"<?php _e('Position'); ?>",formatter:formatBold }
+        ]],
+        // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+        rowStyler:myRowStyler,
+        onResize:function(){
+            $(parent).datagrid('fixDetailRowHeight',idx);
+        },
+        onLoadSuccess:function(data){
+            setTimeout(function(){ $(parent).datagrid('fixDetailRowHeight',idx); },0);
+        }
+    });
+    $(parent).datagrid('fixDetailRowHeight',idx);
+}
 
 /**
  * Actualiza los datos de TRS y TRM de la fila especificada

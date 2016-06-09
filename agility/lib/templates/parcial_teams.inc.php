@@ -11,11 +11,11 @@ $config =Config::getInstance();
          <th data-options="field:'Prueba',		hidden:true"></th>
          <th data-options="field:'Jornada',		hidden:true"></th>
          -->
-        <th data-options="field:'Logo',		    width:'19%', sortable:false, formatter:formatTeamLogos">&nbsp</th>
-        <th data-options="field:'Nombre',		width:'20.5%', sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
-        <th data-options="field:'Categorias',	width:'4%', sortable:false, formatter:formatCategoria"><?php _e('Cat'); ?></th>
-        <th data-options="field:'Tiempo',		align:'center',width:'8.5%', sortable:false,formatter:formatBold"><?php _e('Time'); ?></th>
-        <th data-options="field:'Penalizacion',	align:'center',width:'9%', sortable:false,formatter:formatBold"><?php _e('Penalization'); ?></th>
+        <th data-options="field:'Logo',		    width:'20%', sortable:false, formatter:formatTeamLogos">&nbsp</th>
+        <th data-options="field:'Nombre',		width:'43%', sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
+        <th data-options="field:'Categorias',	width:'5%', sortable:false, formatter:formatCategoria"><?php _e('Cat'); ?></th>
+        <th data-options="field:'Tiempo',		align:'center',width:'15%', sortable:false,formatter:formatBold"><?php _e('Time'); ?></th>
+        <th data-options="field:'Penalizacion',	align:'center',width:'15%', sortable:false,formatter:formatBold"><?php _e('Penalization'); ?></th>
     </tr>
     </thead>
 </table>
@@ -30,10 +30,10 @@ $config =Config::getInstance();
         collapsible: false,
         collapsed: false,
         // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
-        loadMsg:  "<?php _e('Updating final scores');?>...",
+        loadMsg:  "<?php _e('Updating partial scores');?>...",
         // propiedades del datagrid
-        width:'99%',
-        height:1080, // enought big to assure overflow
+        width:'99%', // let space to expand/collapse and row number bars to avoid horizontal scroll
+        // height:1080, // enought big to assure overflow
         pagination: false,
         rownumbers: true,
         fitColumns: true,
@@ -51,7 +51,7 @@ $config =Config::getInstance();
         },
         onExpandRow: function(idx,row) {
             $(this).datagrid('options').expandCount++;
-            showResultadosByTeam("#parciales_equipos-datagrid",idx,row);
+            showPartialScoresByTeam("#parciales_equipos-datagrid",idx,row);
         },
         onCollapseRow: function(idx,row) {
             $(this).datagrid('options').expandCount--;

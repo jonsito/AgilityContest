@@ -282,16 +282,14 @@ function public_acceptSelection() {
     var page='/agility/console/frm_notavailable.php';
 	switch (o){
 	case 'inscritos':
-        if (isJornadaEqMejores() ) page="/agility/public/pb_inscripciones_equipos.php";
-        else if (isJornadaEqConjunta() ) page="/agility/public/pb_inscripciones_equipos.php";
+        if (isJornadaEquipos() ) page="/agility/public/pb_inscripciones_equipos.php";
         else page="/agility/public/pb_inscripciones.php";
 		break;
 	case 'ordensalida':
 		page="/agility/public/pb_ordensalida.php";
 		break;
 	case 'parciales':
-        if (isJornadaEqMejores() ) page="/agility/public/pb_parciales_eq3.php";
-        else if (isJornadaEqConjunta() ) page="/agility/public/pb_parciales_eq4.php";
+        if (isJornadaEquipos() ) page="/agility/public/pb_parciales_equipos.php";
         else page="/agility/public/pb_parciales.php";
 		break;
 	case 'clasificaciones':

@@ -153,9 +153,11 @@ function isTeamByJornada(jornada) {
 }
 
 function isJornadaOpen() { return (workingData.datosJornada.Open!=0); }
+function isJornadaKO() { return (workingData.datosJornada.KO!=0); }
 function isJornadaEqMejores() { return (workingData.datosJornada.Equipos3!=0); }
 function isJornadaEqConjunta() { return (workingData.datosJornada.Equipos4!=0); }
 function isJornadaEquipos() { return ( isJornadaEqMejores() || isJornadaEqConjunta() ); }
+
 function getMinDogsByTeam() {
 	var mindogs=4;
 	switch(parseInt(workingData.datosJornada.Equipos3)) {
@@ -172,6 +174,24 @@ function getMinDogsByTeam() {
 		default: break;
 	}
 	return mindogs;
+}
+
+function getMaxDogsByTeam() {
+	var maxdogs=4;
+	switch(parseInt(workingData.datosJornada.Equipos3)) {
+		case 1:	return 4; // old style 3 best of 4
+		case 2:	return 3; // 2 best of 3
+		case 3: return 4; // 3 best of 4
+		default: break;
+	}
+	switch(parseInt(workingData.datosJornada.Equipos4)) {
+		case 1:	return 4; // old style 4 combined
+		case 2:	return 2; // 2 combined
+		case 3: return 3; // 3 combined
+		case 4: return 4; // 4 combined
+		default: break;
+	}
+	return maxdogs;
 }
 
 function fedName(fed) {

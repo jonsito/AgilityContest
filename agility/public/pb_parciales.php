@@ -45,7 +45,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				    },0);
                 }
                 ">
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateParciales();" href="#" style="float:left">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateParciales(/*empty*/);" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
             </a>
             <span id="header-combinadaFlag" style="display:none">false</span> <!--indicador de combinada-->
@@ -108,7 +108,7 @@ $('#enumerateParciales').combogrid({
 		return true;
 	},
 	onChange:function(value){
-		updateParciales();
+		updateParciales(/* empty to force combogrid load */);
         $('#pb_parciales-layout').layout('collapse','north');
 	}
 });
@@ -138,15 +138,15 @@ $('#parciales_individual-datagrid').datagrid({
     }
 });
 
+
 // fire autorefresh if configured
-var rtime=parseInt(ac_config.web_refreshtime);
-if (rtime!=0) {
-    function update() {
-        updateParciales(workingData.datosManga.Mode);
-        workingData.timeout= setTimeout(update,1000*rtime);
-    }
-    if (workingData.timeout!=null) clearTimeout(workingData.timeout);
-    update();
+function pb_updateParcialesIndividual() {
+	var rtime=parseInt(ac_config.web_refreshtime);
+	updateParciales(/* empty to retrieve data from combogrid */);
+	if (rtime!=0) workingData.timeout=setTimeout(pb_updateParcialesIndividual,1000*rtime);
 }
+if (workingData.timeout!=null) clearTimeout(workingData.timeout);
+pb_updateParcialesIndividual();
+
 
 </script>

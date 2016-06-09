@@ -135,7 +135,9 @@ $('#pb_finales-window').window({
 // fire autorefresh if configured
 function pb_updateFinalesEquipos() {
     var rtime=parseInt(ac_config.web_refreshtime);
-    if ( $('#finales_equipos-datagrid').datagrid('options').expandCount <= 0 ){
+	var options=$('#finales_equipos-datagrid').datagrid('options');
+    if ( options.expandCount <= 0 ){
+		options.expandCount=0;
         updateFinales();
     }
     if (rtime!=0) workingData.timeout=setTimeout(pb_updateFinalesEquipos,1000*rtime);
