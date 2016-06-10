@@ -187,6 +187,7 @@ function consoleReloadParcial(val,fill) {
             Mode: mode
         },
         success: function(dat) {
+            // update TRS data
             var suffix='L';
             switch (mode) {
                 case 0: case 4: case 6: case 8: suffix='L'; break;
@@ -200,9 +201,18 @@ function consoleReloadParcial(val,fill) {
             $('#rm_TRM_'+suffix).val(dat['trs'].trm);
             var vel=(''+dat['trs'].vel).replace('&asymp;','\u2248');
             $('#rm_VEL_'+suffix).val(vel);
-            if (fill) {
-                if (isJornadaEquipos()) $('#parciales_equipos-datagrid').datagrid('loadData',dat);
-                else $('#parciales_individual-datagrid').datagrid('loadData',dat);
+
+            // actualizar datagrid
+            if (!fill) return;
+            if ( isJornadaEquipos() ) {
+                var dg=$('#parciales_equipos-datagrid');
+                workingData.individual=dat.individual;
+                dg.datagrid('options').expandCount = 0;
+                dg.datagrid('loadData',dat.equipos);
+            } else {
+                var dg=$('#parciales_individual-datagrid');
+                workingData.individual=dat.rows;
+                dg.datagrid('loadData',dat.rows);
             }
         }
     });
