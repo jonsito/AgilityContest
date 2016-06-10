@@ -214,7 +214,7 @@ var eventHandler= {
 		vwls_showCompetitorInfo(0); // desactiva visualizacion de datos del competidor
 		vwls_showResultsInfo(0); // desactiva visualizacion de resultados
 		vw_updateWorkingData(event,function(e,d){
-			vw_updateDataInfo(e,d);
+			vw_updateHeaderAndFooter(e,d);
 		});
 	},
 	'close': function(event,time){ // no more dogs in tabla

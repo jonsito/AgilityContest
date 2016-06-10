@@ -141,7 +141,7 @@ function vw_formatClasificacionesDatagrid(dg,evt,data,formatter) {
  * @param {object} evt received 'init' event
  * @param {object} data data associated with event
  */
-function vw_updateDataInfo(evt,data) {
+function vw_updateHeaderAndFooter(evt,data) {
     // update header
     var infoprueba='<?php _e('Contest'); ?>'+': ' + data.Prueba.Nombre+' <br />'+'<?php _e('Journey'); ?>'+': '+ data.Jornada.Nombre;
     $('#vw_header-infoprueba').html(infoprueba);
@@ -159,7 +159,7 @@ function vw_updateDataInfo(evt,data) {
     $('#vwls_Manga').html(infomanga);
 
     // update footer
-	var logo=ac_fedInfo[workingData.federation].Logo;
+	logo=ac_fedInfo[workingData.federation].Logo;
 	var logo2=ac_fedInfo[workingData.federation].ParentLogo;
 	var url=ac_fedInfo[workingData.federation].WebURL;
 	var url2=ac_fedInfo[workingData.federation].ParentWebURL;

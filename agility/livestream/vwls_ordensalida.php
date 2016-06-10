@@ -170,7 +170,7 @@ var eventHandler= {
         vwls_keyBindings(); // capture keyboard
         vwls_enableOSD(1);
         vw_updateWorkingData(event,function(evt,data){
-            vw_updateDataInfo(evt,data);
+            vw_updateHeaderAndFooter(evt,data);
             $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
             // clear datagrid
             $('#vw_ordensalida-datagrid').datagrid('loadData', {"total":0,"rows":[]});
@@ -178,7 +178,7 @@ var eventHandler= {
     },
     'open': function(event){ // operator select tanda
         vw_updateWorkingData(event,function(evt,data){
-            vw_updateDataInfo(evt,data);
+            vw_updateHeaderAndFooter(evt,data);
             vw_updateOrdenSalida(evt,data);
         });
     },

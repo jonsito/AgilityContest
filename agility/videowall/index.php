@@ -138,13 +138,6 @@ function myRowStyler(idx,row) {
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
-function myTransparentRowStyler(idx,row) {
-    var res="background-color:";
-    var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
-    var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
-    if ( (idx&0x01)==0) { return res+c1+";opacity:0.9"; }
-    else { return res+c2+";opacity:0.9"; }
-}
 /* same as above, but tracks tanda and team information */
 function myLlamadaRowStyler(idx,row) {
 	var height=(ac_config.vwc_simplified==0)?40:50;

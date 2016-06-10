@@ -155,7 +155,7 @@ var eventHandler= {
     'init': function(event) { // operator starts tablet application
         vw_updateWorkingData(event,function(e,d){
             vw_updateWorkingData(event,function(e,d){
-                vw_updateDataInfo(e,d);
+                vw_updateHeaderAndFooter(e,d);
                 vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults);
                 vw_updateLlamada(e,d);
             });
@@ -165,7 +165,7 @@ var eventHandler= {
     },
     'open': function(event){ // operator select tandac
         vw_updateWorkingData(event,function(e,d){
-            vw_updateDataInfo(e,d);
+            vw_updateHeaderAndFooter(e,d);
             vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults);
             vw_updateParciales(e,d);
         });

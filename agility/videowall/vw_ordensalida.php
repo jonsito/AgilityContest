@@ -134,7 +134,7 @@ $('#vw_ordensalida-datagrid').datagrid({
         'null': null,// null event: no action taken
         'init': function(event) { // operator starts tablet application
             vw_updateWorkingData(event,function(evt,data){
-                vw_updateDataInfo(evt,data);
+                vw_updateHeaderAndFooter(evt,data);
                 $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
                 // clear datagrid
                 $('#vw_ordensalida-datagrid').datagrid('loadData', {"total":0,"rows":[]});
@@ -142,7 +142,7 @@ $('#vw_ordensalida-datagrid').datagrid({
         },
         'open': function(event){ // operator select tanda
             vw_updateWorkingData(event,function(evt,data){
-                vw_updateDataInfo(evt,data);
+                vw_updateHeaderAndFooter(evt,data);
                 vw_updateOrdenSalida(evt,data);
             });
         },

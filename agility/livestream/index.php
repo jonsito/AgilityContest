@@ -60,7 +60,8 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <script src="/agility/lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" ></script>
 <script src="/agility/lib/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.js" type="text/javascript" charset="utf-8" > </script>
+	<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
+	<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
@@ -68,7 +69,8 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <script src="/agility/lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
+	<script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
+	<script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/livestream/livestream.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/videowall/videowall.js.php" type="text/javascript" charset="utf-8" > </script>
@@ -110,6 +112,14 @@ require_once(__DIR__."/../server/upgradeVersion.php");
     </style>
 
 <script type="text/javascript" charset="utf-8">
+
+function myTransparentRowStyler(idx,row) {
+	var res="background-color:";
+	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
+	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
+	if ( (idx&0x01)==0) { return res+c1+";opacity:0.9"; }
+	else { return res+c2+";opacity:0.9"; }
+}
 
 function initialize() {
 	// make sure that every ajax call provides sessionKey

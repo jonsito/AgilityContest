@@ -218,14 +218,14 @@ var eventHandler= {
         $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
         $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
         vw_updateWorkingData(event,function(e,d){
-            vw_updateDataInfo(e,d);
+            vw_updateHeaderAndFooter(e,d);
             vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults);
             vw_updateLlamada(e,d);
         });
     },
     'open': function(event){ // operator select tandax
         vw_updateWorkingData(event,function(e,d){
-            vw_updateDataInfo(e,d);
+            vw_updateHeaderAndFooter(e,d);
             vw_updateParciales(e,d);
             vw_updateLlamada(e,d);
         });

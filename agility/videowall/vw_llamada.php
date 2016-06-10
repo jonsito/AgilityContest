@@ -126,12 +126,12 @@ var eventHandler= {
     'init': function(event) { // operator starts tablet application
         vw_updateWorkingData(event,function(e,d){
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
-            vw_updateDataInfo(e,d);
+            vw_updateHeaderAndFooter(e,d);
         });
     },
     'open': function(event){ // operator select tanda
         vw_updateWorkingData(event,function(e,d){
-            vw_updateDataInfo(e,d);
+            vw_updateHeaderAndFooter(e,d);
             vw_updateLlamada(e,d);
         });
     },

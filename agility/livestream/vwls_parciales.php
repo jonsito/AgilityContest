@@ -145,10 +145,8 @@ var eventHandler= {
         vwls_enableOSD(1);
         vw_updateWorkingData(event,function(e,d){
             vw_updateWorkingData(event,function(e,d){
-                vw_updateDataInfo(e,d);
+                vw_updateHeaderAndFooter(e,d);
                 setParcialIndividualOrTeamView(d); // fix individual or team view for final results
-                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults);
-                vw_updateLlamada(e,d);
             });
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
             $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
@@ -156,10 +154,10 @@ var eventHandler= {
     },
     'open': function(event){ // operator select tanda
         vw_updateWorkingData(event,function(e,d){
-            vw_updateDataInfo(e,d);
+            vw_updateHeaderAndFooter(e,d);
             setParcialIndividualOrTeamView(d); // fix individual or team view for final results
-            vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults); // not really needed but ease debugging
-            vw_updateParciales(e,d);
+            updateParciales(d);
+            //vw_updateParciales(e,d);
         });
     },
     'close': null,      // no more dogs in tanda
@@ -178,7 +176,8 @@ var eventHandler= {
     'crono_dat':  null, // datos provenientes de crono
     'aceptar':	function(event){ // operador pulsa aceptar
         vw_updateWorkingData(event,function(e,d){
-            vw_updateParciales(e,d);
+            updateParciales(d);
+            // vw_updateParciales(e,d);
         });
     },
     'cancelar': null, // operador pulsa cancelar
