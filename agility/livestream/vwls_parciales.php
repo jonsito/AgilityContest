@@ -53,44 +53,35 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <div id="vwls_common" style="display:inline-block;width:100%;height:auto">
                 <div id="vw_parciales-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader"
                       style="height:170px;font-size:1.0em;" >
+                    <!-- cabecera. Informacion de la manga -->
                     <span style="float:left;background:rgba(255,255,255,0.5);">
                         <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="75"/>
                     </span>
-                    <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Header'); ?></span>
+                    <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Contest'); ?></span>
 
                     <div style="float:right;padding:10px;text-align:right;">
-                    <span id="vw_header-texto"><?php _e('Partial scores'); ?></span>&nbsp;-&nbsp;
-                    <span id="vw_header-ring"><?php _e('Ring'); ?></span>
-                    <br />
-                    <span id="vw_header-infomanga" style="width:200px">(<?php _e('No round selected'); ?>)</span>
-                </div>
-                    <!-- Datos de TRS y TRM -->
-                <table class="vw_trs">
-                    <thead>
-                    <tr>
-                        <th id="vw_parciales-NombreManga" colspan="3">&nbsp;</th>
-                        <th id="vw_parciales-Juez1" colspan="4" style="text-align:center"><?php _e('Judge'); ?> 1:</th>
-                        <th id="vw_parciales-Juez2" colspan="4" style="text-align:center"><?php _e('Judge'); ?> 2:</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr style="text-align:right">
-                        <td><?php _e('Round data'); ?></td>
-                        <td><?php _e('Dist'); ?>:</td><td id="vw_parciales-Distancia" style="text-align:left;">&nbsp;</td>
-                        <td><?php _e('Obst'); ?>:</td><td id="vw_parciales-Obstaculos" style="text-align:left;">&nbsp;</td>
-                        <td><?php _e('SCT'); ?>:</td><td id="vw_parciales-TRS" style="text-align:left;">&nbsp;</td>
-                        <td><?php _e('MCT'); ?>:</td><td id="vw_parciales-TRM" style="text-align:left;">&nbsp;</td>
-                        <td><?php _e('Vel'); ?>:</td><td id="vw_parciales-Velocidad" style="text-align:left;">&nbsp;</td>
-                    </tr>
-                    </tbody>
-                </table>
-
+                        <span id="vw_header-texto"><?php _e('Partial scores'); ?></span>&nbsp;-&nbsp;
+                        <span id="vw_header-ring"><?php _e('Ring'); ?></span>
+                        <br />
+                        <span id="vw_header-infomanga" style="width:200px">(<?php _e('No round selected'); ?>)</span>
+                    </div>
+                    <!-- datos de TRS y TRM -->
+                    <div id="vw_parciales_trs-data">
+                        <?php include_once(__DIR__."/../lib/templates/parcial_round_data.inc.php"); ?>
+                    </div>
                 </div>
 
+                <!-- tabla de datos: se cargan la de individual y de equipos, y en runtime se selecciona una u otra -->
                 <div id="vw_parciales-data" data-options="region:'center'" style="background-color:transparent;">
-                    <table id="vw_parciales-datagrid"></table>
+                    <div id="parciales_individual-table" style="display:none">
+                        <?php include_once(__DIR__."/../lib/templates/parcial_individual.inc.php"); ?>
+                    </div>
+                    <div id="parciales_equipos-table" style="display:none">
+                        <?php include_once(__DIR__."/../lib/templates/parcial_teams.inc.php"); ?>
+                    </div>
                 </div>
 
+                <!-- Pie de pagina -->
                 <div id="vw_parciales-footer" data-options="region:'south',split:false" class="vw_floatingfooter"
                     style="font-size:1.2em;">
                     <span id="vw_footer-footerData"></span>
@@ -119,66 +110,31 @@ $('#vw_parciales-window').window({
 	}
 });
 
-$('#vw_parciales-datagrid').datagrid({
-    // propiedades del panel asociado
-    fit: true,
-    border: false,
-    closable: false,
-    collapsible: false,
-    collapsed: false,
-    // propiedades del datagrid
-    method: 'get',
-    url: '/agility/server/database/resultadosFunctions.php',
-    queryParams: {
-        Prueba: workingData.prueba,
-        Jornada: workingData.jornada,
-        Manga: workingData.manga,
-        Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
-        Operation: 'getResultados'
-    },
-    loadMsg: "<?php _e('Updating round results');?> ...",
-    pagination: false,
-    rownumbers: false,
-    fitColumns: true,
-    singleSelect: true,
-    autoRowHeight: true,
-    // view: gview,
-    // groupField: 'NombreEquipo',
-    // groupFormatter: formatVwTeamResults,
-    // toolbar: '#resultadosmanga-toolbar',
-    columns:[[
-        { field:'Manga',		hidden:true },
-        { field:'Perro',		hidden:true },
-        { field:'Raza',		    hidden:true },
-        { field:'Equipo',		hidden:true },
-        { field:'NombreEquipo',	hidden:true },
-        { field:'Dorsal',		width:'5%', align:'center', title: '<?php _e('Dorsal'); ?>'},
-        { field:'LogoClub',		width:'5%', align:'center', title: '', formatter:formatLogo},
-        { field:'Licencia',		width:'5%%', align:'center',  title: '<?php _e('License'); ?>'},
-        { field:'Nombre',		width:'10%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
-        { field:'NombreGuia',	width:'15%', align:'right', title: '<?php _e('Handler'); ?>' },
-        { field:'NombreClub',	width:'12%', align:'right', title: '<?php _e('Club'); ?>' },
-        { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.' ,formatter:formatCategoria},
-        { field:'Grado',	    width:'4%', align:'center', title: '<?php _e('Grade'); ?>',formatter:formatGrado },
-        { field:'Faltas',		width:'4%', align:'center', title: '<?php _e('Faults'); ?>'},
-        { field:'Rehuses',		width:'4%', align:'center', title: '<?php _e('Refusals'); ?>'},
-        { field:'Tocados',		width:'4%', align:'center', title: '<?php _e('Touchs'); ?>'},
-        { field:'PRecorrido',	hidden:true },
-        { field:'Tiempo',		width:'6%', align:'right', title: '<?php _e('Time'); ?>', formatter:formatTiempo},
-        { field:'PTiempo',		hidden:true },
-        { field:'Velocidad',	width:'4%', align:'right', title: '<?php _e('Vel'); ?>.', formatter:formatVelocidad},
-        { field:'Penalizacion',	width:'6%%', align:'right', title: '<?php _e('Penal'); ?>.', formatter:formatPenalizacion},
-        { field:'Calificacion',	width:'7%', align:'center',title: '<?php _e('Calification'); ?>'},
-        { field:'Puesto',		width:'4%', align:'center',  title: '<?php _e('Position'); ?>', formatter:formatPuestoBig},
-        { field:'CShort',       hidden:true}
-    ]],
+$('#parciales_individual-datagrid').datagrid({
     rowStyler:myTransparentRowStyler,
-    onBeforeLoad: function(param) {
-        // make sure team counter is reset
-        workingData.teamCounter=1;
+    onBeforeLoad: function (param) {
         // do not update until 'open' received
-        if( $('#vw_header-infoprueba').html()==='<?php _e('Header'); ?>') return false;
+        if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
         return true;
+    },
+    onLoadSuccess: function(data) {
+        $('#parciales_individual-datagrid').datagrid('scrollTo',0); // point to first result
+    }
+});
+
+$('#parciales_equipos-datagrid').datagrid({
+    rowStyler:myTransparentRowStyler,
+    onBeforeLoad: function (param) {
+        // do not update until 'open' received
+        if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
+        return true;
+    },
+    onLoadSuccess: function(data) {
+        if (data.total==0) return; // no data yet
+        var dg=$('#parciales_equipos-datagrid');
+        dg.datagrid('expandRow',0); // expand first row
+        dg.datagrid('scrollTo',0); // point to first result
+        dg.datagrid('fixDetailRowHeight');
     }
 });
 
@@ -190,6 +146,7 @@ var eventHandler= {
         vw_updateWorkingData(event,function(e,d){
             vw_updateWorkingData(event,function(e,d){
                 vw_updateDataInfo(e,d);
+                setParcialIndividualOrTeamView(d); // fix individual or team view for final results
                 vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults);
                 vw_updateLlamada(e,d);
             });
@@ -200,6 +157,7 @@ var eventHandler= {
     'open': function(event){ // operator select tanda
         vw_updateWorkingData(event,function(e,d){
             vw_updateDataInfo(e,d);
+            setParcialIndividualOrTeamView(d); // fix individual or team view for final results
             vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults); // not really needed but ease debugging
             vw_updateParciales(e,d);
         });

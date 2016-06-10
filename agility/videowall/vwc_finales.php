@@ -61,11 +61,11 @@ Pantalla de de visualizacion combinada llamada/parciales
             <!-- Datos de TRS y TRM -->
             <?php $size="m"; include_once(__DIR__ . "/../lib/templates/final_rounds_data.inc.php"); ?>
             <!-- datagrid para clasificacion individual -->
-            <div id="vwcf_individual-table" class="scores_table" style="display:none;width:100%">
+            <div id="finales_individual-table" class="scores_table" style="display:none;width:100%">
                 <?php include_once(__DIR__ . "/../lib/templates/final_individual.inc.php"); ?>
             </div>
             <!-- datagrid para clasificacion por equipos -->
-            <div id="vwcf_equipos-table" class="scores_table" style="display:none;width:100%">
+            <div id="finales_equipos-table" class="scores_table" style="display:none;width:100%">
                 <?php include_once(__DIR__ . "/../lib/templates/final_teams.inc.php"); ?>
             </div>
         </div>
@@ -314,7 +314,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwcf_header-infomanga').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateHeaderAndFooter(e,d); // fix header
-                vw_setFinalIndividualOrTeamView(d); // fix individual or team view for final results
+                setFinalIndividualOrTeamView(d); // fix individual or team view for final results
                 vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation on lasts teams
                 vwcf_updateLlamada(e,d);
             });
@@ -322,7 +322,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         'open': function (event, time) { // operator select tandaxx
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateHeaderAndFooter(e,d);
-                vw_setFinalIndividualOrTeamView(d); // fix individual or team view for final results
+                setFinalIndividualOrTeamView(d); // fix individual or team view for final results
                 vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation on lasts teams
                 vwcf_updateLlamada(e,d);
             });

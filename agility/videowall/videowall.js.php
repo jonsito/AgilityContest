@@ -112,25 +112,6 @@ function vw_formatResultadosDatagrid(dg,evt,data,formatter) {
     dg.datagrid('fitColumns');
 }
 
-function vw_setFinalIndividualOrTeamView(data) {
-	var team=false;
-	if (parseInt(data.Jornada.Equipos3)!=0) { team=true; }
-	if (parseInt(data.Jornada.Equipos4)!=0) { team=true;  }
-	// limpiamos tablas
-	// activamos la visualizacion de la tabla correcta
-	if (team) {
-		$("#vwcf_individual-table").css("display","none");
-		$("#vwcf_equipos-table").css("display","inherit");
-		$("#finales_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]});
-		$("#finales_equipos-datagrid").datagrid('fitColumns');
-	} else {
-		$("#vwcf_individual-table").css("display","inherit");
-		$("#vwcf_equipos-table").css("display","none");
-		$("#finales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]});
-		$("#finales_individual-datagrid").datagrid('fitColumns');
-	}
-}
-
 /**
  * Al recibir 'init' ajustamos el modo de visualización de la pantalla
  * de resultados finales para individual o equipos

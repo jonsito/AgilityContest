@@ -345,3 +345,42 @@ function updateFinales(ronda,callback) {
         }
     });
 }
+
+
+function setFinalIndividualOrTeamView(data) {
+    var team=false;
+    if (parseInt(data.Jornada.Equipos3)!=0) { team=true; }
+    if (parseInt(data.Jornada.Equipos4)!=0) { team=true;  }
+    // limpiamos tablas
+    // activamos la visualizacion de la tabla correcta
+    if (team) {
+        $("#finales_individual-table").css("display","none");
+        $("#finales_equipos-table").css("display","inherit");
+        $("#finales_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]});
+        $("#finales_equipos-datagrid").datagrid('fitColumns');
+    } else {
+        $("#finales_individual-table").css("display","inherit");
+        $("#finales_equipos-table").css("display","none");
+        $("#finales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]});
+        $("#finales_individual-datagrid").datagrid('fitColumns');
+    }
+}
+
+function setParcialIndividualOrTeamView(data) {
+    var team=false;
+    if (parseInt(data.Jornada.Equipos3)!=0) { team=true; }
+    if (parseInt(data.Jornada.Equipos4)!=0) { team=true;  }
+    // limpiamos tablas
+    // activamos la visualizacion de la tabla correcta
+    if (team) {
+        $("#parciales_individual-table").css("display","none");
+        $("#parciales_equipos-table").css("display","inherit");
+        $("#parciales_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]});
+        $("#parciales_equipos-datagrid").datagrid('fitColumns');
+    } else {
+        $("#parciales_individual-table").css("display","inherit");
+        $("#parciales_equipos-table").css("display","none");
+        $("#parciales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]});
+        $("#parciales_individual-datagrid").datagrid('fitColumns');
+    }
+}
