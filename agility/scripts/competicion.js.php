@@ -681,53 +681,6 @@ function getPuestoParcial(datos,callback) {
     return false;
 }
 
-/** 
- * actualiza los datos de TRS y TRM de la fila especificada
- * Si se le indica, rellena tambien el datagrid re resultados parciales
- * @param {int} val 0:L 1:M 2:S 3:T
- * @param {boolean} fill true to fill resultados datagrid; else false
- */
-function reloadParcial(val,fill) {
-	var value=parseInt(val); // stupid javascript!!
-	var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,value);
-	if (mode==-1) {
-		$.messager.alert('<?php _e('Error'); ?>','<?php _e('Internal error: invalid Federation/Course/Category combination'); ?>','error');
-		return;
-	}
-    workingData.teamCounter=1; // reset team's puesto counter
-	// reload resultados
-	// en lugar de invocar al datagrid, lo que vamos a hacer es
-	// una peticion ajax, para obtener a la vez los datos tecnicos de la manga
-	$.ajax({
-		type:'GET',
-		url:"/agility/server/database/resultadosFunctions.php",
-		dataType:'json',
-		data: {
-			Operation:	'getResultados',
-			Prueba:		workingData.prueba,
-			Jornada:	workingData.jornada,
-			Manga:		workingData.manga,
-			Mode: mode
-		},
-		success: function(dat) {
-			var suffix='L';
-			switch (mode) {
-			case 0: case 4: case 6: case 8: suffix='L'; break;
-			case 1: case 3: suffix='M'; break;
-			case 2: case 7: suffix='S'; break;
-			case 5: suffix='T'; break;
-			}
-			$('#rm_DIST_'+suffix).val(dat['trs'].dist);
-			$('#rm_OBST_'+suffix).val(dat['trs'].obst);
-			$('#rm_TRS_'+suffix).val(dat['trs'].trs);
-			$('#rm_TRM_'+suffix).val(dat['trs'].trm);
-            var vel=(''+dat['trs'].vel).replace('&asymp;','\u2248');
-			$('#rm_VEL_'+suffix).val(vel);
-			if (fill) $('#resultadosmanga-datagrid').datagrid('loadData',dat);
-		}
-	});
-}
-
 /**
  * Inicializa ventana de resultados ajustando textos segun federacion/recorrido
  * Borra datagrid previa
@@ -744,7 +697,8 @@ function setupResultadosWindow(recorrido) {
     $('#resultadosmanga-SmallBtn').prop('checked',false);
     $('#resultadosmanga-TinyBtn').prop('checked',false);
     // cargamos ventana inicial de resultados con una pantalla vacia
-    $('#resultadosmanga-datagrid').datagrid('loadData',{total:0, rows:{}});
+    if (isJornadaEquipos()) $('#parciales_equipos-datagrid').datagrid('loadData',{total:0, rows:{}});
+    else $('#parciales_individual-datagrid').datagrid('loadData',{total:0, rows:{}});
     // actualizamos la informacion del panel de informacion de trs/trm
     var infomanga=ac_fedInfo[fed].InfoManga[parseInt(recorrido)];
     // visibilidad
@@ -921,10 +875,10 @@ function competicionDialog(name) {
         // marcamos la primera opcion como seleccionada
         $('#resultadosmanga-LargeBtn').prop('checked','checked');
         // refrescamos datos de TRS y TRM
-        if (howManyHeights(workingData.datosPrueba.RSCE)==4) reloadParcial(3,false);
-        reloadParcial(2,false);
-        reloadParcial(1,false);
-        reloadParcial(0,true); // pintamos el datagrid con los datos de categoria "large"
+        if (howManyHeights(workingData.datosPrueba.RSCE)==4) consoleReloadParcial(3,false);
+        consoleReloadParcial(2,false);
+        consoleReloadParcial(1,false);
+        consoleReloadParcial(0,true); // pintamos el datagrid con los datos de categoria "large"
     }
 }
 

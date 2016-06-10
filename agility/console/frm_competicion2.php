@@ -26,18 +26,12 @@ require_once("dialogs/dlg_ordensalida.inc");
 require_once("dialogs/dlg_competicion.inc");
 switch(http_request("tipo","s","std")) {
     case "eq3":
-        if ( ! $am->allowed(ENABLE_TEAMS)) {
-            require_once("unregistered.html");
-            return 0;
-        }
-        require_once("dialogs/dlg_resultados_eq3.inc");
-        break;
     case "eq4":
         if ( ! $am->allowed(ENABLE_TEAMS)) {
             require_once("unregistered.html");
             return 0;
         }
-        require_once("dialogs/dlg_resultados_eq4.inc");
+        require_once("dialogs/dlg_resultados_equipos.inc");
         break;
     case "ko":
         if ( ! $am->allowed(ENABLE_KO)) {
@@ -49,7 +43,7 @@ switch(http_request("tipo","s","std")) {
     case "std":
     case "open":
     default:
-        require_once("dialogs/dlg_resultadosManga.inc");
+        require_once("dialogs/dlg_resultados_individual.inc");
         break;
 }
 ?>

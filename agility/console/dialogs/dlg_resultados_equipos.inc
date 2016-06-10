@@ -1,5 +1,5 @@
 <!-- 
-dlg_resultadosManga.inc
+dlg_resultados_equipos.inc
 
 Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -28,7 +28,7 @@ $config =Config::getInstance();
 	<div id="resultadosmanga-toolbar">
 		<span style="float:right;padding:5px">
 		   	<a id="resultadosmanga-reloadBtn" href="#" class="easyui-linkbutton" 
-		   		data-options="iconCls:'icon-reload'" onclick="reloadParcial($('input:radio[name=rRecorrido]:checked').val(),true)"><?php _e('Update'); ?></a>
+		   		data-options="iconCls:'icon-reload'" onclick="consoleReloadParcial($('input:radio[name=rRecorrido]:checked').val(),true)"><?php _e('Update'); ?></a>
 		   	<br />
 	   		<a id="resultadosmanga-printBtn" href="#" class="easyui-linkbutton" 
 	   			data-options="iconCls:'icon-print'" onclick="checkAndPrintParcial($('input:radio[name=rRecorrido]:checked').val())"><?php _e('Print'); ?></a>
@@ -40,7 +40,7 @@ $config =Config::getInstance();
 			<table style="float:left;">
 				<tr><th colspan="6"><?php _e('Technical data on selected round'); ?></th></tr>
 				<tr id="resultadosmanga-LargeRow">
-					<td><input type="radio" name="rRecorrido" id="resultadosmanga-LargeBtn" value="0" onclick="reloadParcial(0,true)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-LargeBtn" value="0" onclick="consoleReloadParcial(0,true)"></td>
 					<th id="resultadosmanga-LargeLbl" style="width:150px">Large</th>
 					<td><?php _e('Distance'); ?>  <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_L"></td>
 					<td><?php _e('Obstacles'); ?> <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_L"></td>
@@ -49,7 +49,7 @@ $config =Config::getInstance();
 					<td><?php _e('Vel'); ?>. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_L"></td>
 				</tr>
 				<tr id="resultadosmanga-MediumRow">
-					<td><input type="radio" name="rRecorrido" id="resultadosmanga-MediumBtn" value="1" onclick="reloadParcial(1,true)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-MediumBtn" value="1" onclick="consoleReloadParcial(1,true)"></td>
 					<th id="resultadosmanga-MediumLbl">Medium</th>
 					<td><?php _e('Distance'); ?>  <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_M"></td>
 					<td><?php _e('Obstacles'); ?> <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_M"></td>
@@ -58,7 +58,7 @@ $config =Config::getInstance();
 					<td><?php _e('Vel'); ?>. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_M"></td>
 				</tr>
 				<tr id="resultadosmanga-SmallRow">
-					<td><input type="radio" name="rRecorrido" id="resultadosmanga-SmallBtn" value="2" onclick="reloadParcial(2,true)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-SmallBtn" value="2" onclick="consoleReloadParcial(2,true)"></td>
 					<th id="resultadosmanga-SmallLbl">Small</th>
 					<td><?php _e('Distance'); ?>  <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_S"></td>
 					<td><?php _e('Obstacles'); ?> <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_S"></td>
@@ -67,7 +67,7 @@ $config =Config::getInstance();
 					<td><?php _e('Vel'); ?>. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_S"></td>
 				</tr>
 				<tr id="resultadosmanga-TinyRow">
-					<td><input type="radio" name="rRecorrido" id="resultadosmanga-TinyBtn" value="3" onclick="reloadParcial(3,true)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-TinyBtn" value="3" onclick="consoleReloadParcial(3,true)"></td>
 					<th id="resultadosmanga-TinyLbl">Tiny</th>
 					<td><?php _e('Distance'); ?>  <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_T"></td>
 					<td><?php _e('Obstacles'); ?> <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_T"></td>

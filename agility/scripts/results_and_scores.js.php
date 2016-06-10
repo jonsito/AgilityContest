@@ -159,6 +159,56 @@ function showPartialScoresByTeam(parent,idx,row) {
 }
 
 /**
+ * Actualizacion de resultados parciales en consola
+ * Actualiza los datos de TRS y TRM de la fila especificada
+ * Si se le indica, rellena tambien el datagrid re resultados parciales
+ * @param {int} val 0:L 1:M 2:S 3:T
+ * @param {boolean} fill true to fill resultados datagrid; else false
+ */
+function consoleReloadParcial(val,fill) {
+    var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,parseInt(val));
+    if (mode==-1) {
+        $.messager.alert('<?php _e('Error'); ?>','<?php _e('Internal error: invalid Federation/Course/Category combination'); ?>','error');
+        return;
+    }
+    workingData.teamCounter=1; // reset team's puesto counter
+    // reload resultados
+    // en lugar de invocar al datagrid, lo que vamos a hacer es
+    // una peticion ajax, para obtener a la vez los datos tecnicos de la manga
+    $.ajax({
+        type:'GET',
+        url:"/agility/server/database/resultadosFunctions.php",
+        dataType:'json',
+        data: {
+            Operation:	(isJornadaEquipos())?'getResultadosEquipos':'getResultados',
+            Prueba:		workingData.prueba,
+            Jornada:	workingData.jornada,
+            Manga:		workingData.manga,
+            Mode: mode
+        },
+        success: function(dat) {
+            var suffix='L';
+            switch (mode) {
+                case 0: case 4: case 6: case 8: suffix='L'; break;
+                case 1: case 3: suffix='M'; break;
+                case 2: case 7: suffix='S'; break;
+                case 5: suffix='T'; break;
+            }
+            $('#rm_DIST_'+suffix).val(dat['trs'].dist);
+            $('#rm_OBST_'+suffix).val(dat['trs'].obst);
+            $('#rm_TRS_'+suffix).val(dat['trs'].trs);
+            $('#rm_TRM_'+suffix).val(dat['trs'].trm);
+            var vel=(''+dat['trs'].vel).replace('&asymp;','\u2248');
+            $('#rm_VEL_'+suffix).val(vel);
+            if (fill) {
+                if (isJornadaEquipos()) $('#parciales_equipos-datagrid').datagrid('loadData',dat);
+                else $('#parciales_individual-datagrid').datagrid('loadData',dat);
+            }
+        }
+    });
+}
+
+/**
  * Actualiza los datos de TRS y TRM de la fila especificada
  * Rellena tambien el datagrid de resultados parciales
  */

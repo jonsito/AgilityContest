@@ -72,7 +72,7 @@ $config =Config::getInstance();
         fitColumns: true,
         singleSelect: true,
         autoRowHeight: false,
-        idField: 'NombreEquipo',
+        idField: 'Perro',
         rowStyler:myRowStyler
     });
 </script>
