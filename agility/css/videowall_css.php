@@ -33,12 +33,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .vw_floatingheader {
     margin-top:0px;
     margin-bottom:0px;
-    padding:10px;
+    padding:5px;
     background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
     color: <?php echo $config->getEnv('vw_hdrfg1')?>;
     font-weight: bold;
     font-style: italic;
-    font-size:1.8em;
+    font-size:1.4vw;
 }
 
 .vw_floatingfooter {
@@ -50,7 +50,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     color: <?php echo $config->getEnv('vw_hdrfg3')?>;
     font-weight: bold;
     font-style: italic;
-    font-size:1.8em;
+    font-size:1.4vw;
 }
 
 /************* nueva generacion de vistas combinadas **************/

@@ -50,6 +50,7 @@ $config =Config::getInstance();
 
 <script type="text/javascript">
     $('#parciales_individual-datagrid').datagrid({
+        expandCount: 0,
         // propiedades del panel asociado
         fit: false, // parent is a fake div, so donn't ask to fit parent width: let fitcolumns do the job
         border: false,
@@ -57,16 +58,9 @@ $config =Config::getInstance();
         collapsible: false,
         collapsed: false,
         // propiedades del datagrid
-        method: 'get',
-        url: '/agility/server/database/resultadosFunctions.php',
-        queryParams: {
-            Prueba: workingData.prueba,
-            Jornada: workingData.jornada,
-            Manga: workingData.manga,
-            Mode: workingData.datosManga.Mode,
-            Operation: 'getResultados'
-        },
+        // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
         loadMsg:  "<?php _e('Updating partial scores');?> ...",
+        width:'100%',
         pagination: false,
         rownumbers: false,
         fitColumns: true,

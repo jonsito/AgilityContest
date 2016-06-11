@@ -29,11 +29,11 @@ $config =Config::getInstance();
         closable: false,
         collapsible: false,
         collapsed: false,
+        // propiedades del datagrid
         // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
         loadMsg:  "<?php _e('Updating partial scores');?>...",
-        // propiedades del datagrid
-        width:'99%', // let space to expand/collapse and row number bars to avoid horizontal scroll
-        // height:1080, // enought big to assure overflow
+        width:'100%', // let space to expand/collapse and row number bars to avoid horizontal scroll
+        height:2048, // enought big to assure overflow
         pagination: false,
         rownumbers: true,
         fitColumns: true,
@@ -41,7 +41,7 @@ $config =Config::getInstance();
         rowStyler:myRowStyler,
         autoRowHeight: false,
         idField: 'ID',
-        pageSize: 500, // enought bit to make it senseless
+        pageSize: 1000, // enought bit to make it senseless
         // columns declared at html section to show additional headers
         // especificamos un formateador especial para desplegar la tabla de perros por equipos
         view:detailview,

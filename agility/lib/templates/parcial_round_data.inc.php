@@ -7,11 +7,14 @@ $config =Config::getInstance();
     <table class="pb_trs">
         <tbody>
         <tr>
-            <th id="parciales-NombreManga" colspan="1" style="display:none">(<?php _e('No round selected'); ?>)</th>
-            <th id="parciales-Juez1" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 1:</th>
-            <th id="parciales-Juez2" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 2:</th>
+            <th colspan="1">
+                <span id="parciales-NombreManga" colspan="1" style="display:none">(<?php _e('No round selected'); ?>)</span>
+                &nbsp;
+            </th>
+            <th id="parciales-Juez1" colspan="2" style="text-align:left"><?php _e('Judge'); ?> 1:</th>
+            <th id="parciales-Juez2" colspan="2" style="text-align:right"><?php _e('Judge'); ?> 2:</th>
         </tr>
-        <tr style="text-align:right">
+        <tr style="text-align:center">
             <td id="parciales-Distancia"><?php _e('Dist'); ?>:</td>
             <td id="parciales-Obstaculos"><?php _e('Obst'); ?>:</td>
             <td id="parciales-TRS"><?php _e('S.C.T.'); ?>:</td>

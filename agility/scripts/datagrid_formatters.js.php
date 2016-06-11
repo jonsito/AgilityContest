@@ -197,29 +197,6 @@ function formatTeamResults( name,value , rows ) {
 }
 
 function formatVwTeamResults(value,rows) { return formatTeamResults('#vw_parciales-datagrid',value,rows); }
-function formatPbTeamResults(value,rows) { return formatTeamResults('#pb_parciales-datagrid',value,rows); }
-
-function formatTeamResultsConsole( value , rows ) {
-    // todo: check eq3 or eq4 contest and eval time and penalization
-    var time=0.0;
-    var penal=0.0;
-    var mindogs=getMinDogsByTeam();
-    for (var n=0;n<mindogs;n++) {
-        if ( typeof(rows[n])==='undefined') {
-            penal+=400.0;
-        } else {
-            penal+=parseFloat(rows[n].Penalizacion);
-            time+=parseFloat(rows[n].Tiempo);
-        }
-    }
-    // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
-    return '<div class="vw_equipos3" style="width:640px">'+
-        '<span style="width:35%;text-align:left;"><?php _e('Team'); ?>: '+value+'</span>' +
-        '<span style="width:25%;text-align:right;"><?php _e('Time'); ?>: '+toFixedT(time,ac_config.numdecs)+'</span>' +
-        '<span style="width:25%;text-align:right;"><?php _e('Penal'); ?>.:'+toFixedT(penal,ac_config.numdecs)+'</span>'+
-        '<span style="width:10%;text-align:right;font-size:1.5em">'+(workingData.teamCounter++)+'</span>'+
-        '</div>';
-}
 
 function formatTeamClasificaciones(dgname,value,rows) {
     var logos="";

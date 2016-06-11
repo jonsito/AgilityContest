@@ -155,6 +155,7 @@ function showPartialScoresByTeam(parent,idx,row) {
             setTimeout(function(){ $(parent).datagrid('fixDetailRowHeight',idx); },0);
         }
     });
+    $(mySelf).datagrid('fitColumns');
     $(parent).datagrid('fixDetailRowHeight',idx);
 }
 
@@ -228,6 +229,10 @@ function updateParciales(row) {
         row=$('#enumerateParciales').combogrid('grid').datagrid('getSelected');
         if (!row) return;
         setManga(row);
+    } else {
+        // informacion de la manga ya definida: ajusta textos
+        var cats=getMangaModeString(row.Prueba.RSCE,row.Manga.Recorrido,row.Tanda.Categoria);
+        $('#vw_header-infomanga').html(row.Manga.Nombre + " - " + cats);
     }
     // en lugar de invocar al datagrid, lo que vamos a hacer es
     // una peticion ajax, para obtener a la vez los datos tecnicos de la manga
@@ -244,7 +249,6 @@ function updateParciales(row) {
             Mode:       parseInt(workingData.datosManga.Mode)
         },
         success: function(dat) {
-            // informacion de la manga
             // use html() instead of text() to handle html special chars
             $('#parciales-NombreManga').html(workingData.nombreManga);
             $('#parciales-Juez1').html((dat['manga'].Juez1<=1)?"":'<?php _e('Judge');?> 1: ' + dat['manga'].NombreJuez1);

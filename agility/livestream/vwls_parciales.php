@@ -52,31 +52,39 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <!-- ventana interior -->
             <div id="vwls_common" style="display:inline-block;width:100%;height:auto">
                 <div id="vw_parciales-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader"
-                      style="height:170px;font-size:1.0em;" >
-                    <!-- cabecera. Informacion de la manga -->
-                    <span style="float:left;background:rgba(255,255,255,0.5);">
-                        <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="75"/>
-                    </span>
-                    <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Contest'); ?></span>
-
-                    <div style="float:right;padding:10px;text-align:right;">
-                        <span id="vw_header-texto"><?php _e('Partial scores'); ?></span>&nbsp;-&nbsp;
-                        <span id="vw_header-ring"><?php _e('Ring'); ?></span>
-                        <br />
-                        <span id="vw_header-infomanga" style="width:200px">(<?php _e('No round selected'); ?>)</span>
-                    </div>
-                    <!-- datos de TRS y TRM -->
-                    <div id="vw_parciales_trs-data">
-                        <?php include_once(__DIR__."/../lib/templates/parcial_round_data.inc.php"); ?>
-                    </div>
+                      style="height:120px;font-size:1.0em;" >
+                    <table width="100%">
+                        <tr>
+                            <td rowspan="2">
+                                <span style="float:left;background:rgba(255,255,255,0.5);"> <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="100"/> </span>
+                            </td>
+                            <td align="left">
+                                <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Contest'); ?></span>
+                            </td>
+                            <td align="right">
+                                <span id="vw_header-texto"><?php _e('Partial scores'); ?></span>&nbsp;-&nbsp;
+                                <span id="vw_header-ring"><?php _e('Ring'); ?></span>
+                                <br />
+                                <span id="vw_header-infomanga" style="width:200px">(<?php _e('No round selected'); ?>)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right" id="vw_parciales_trs-data">
+                                <?php include_once(__DIR__."/../lib/templates/parcial_round_data.inc.php"); ?>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
                 <!-- tabla de datos: se cargan la de individual y de equipos, y en runtime se selecciona una u otra -->
                 <div id="vw_parciales-data" data-options="region:'center'" style="background-color:transparent;">
-                    <div id="parciales_individual-table" style="display:none">
+
+                    <!-- datagrid para resultados individuales -->
+                    <div id="parciales_individual-table" class="scores_table" style="display:none;width:100%">
                         <?php include_once(__DIR__."/../lib/templates/parcial_individual.inc.php"); ?>
                     </div>
-                    <div id="parciales_equipos-table" style="display:none">
+                    <!-- datagrid para resultados por equipos -->
+                    <div id="parciales_equipos-table" class="scores_table" style="display:none;width:100%">
                         <?php include_once(__DIR__."/../lib/templates/parcial_teams.inc.php"); ?>
                     </div>
                 </div>
@@ -111,6 +119,7 @@ $('#vw_parciales-window').window({
 });
 
 $('#parciales_individual-datagrid').datagrid({
+    scrollbarSize:0,
     rowStyler:myTransparentRowStyler,
     onBeforeLoad: function (param) {
         // do not update until 'open' received
@@ -123,6 +132,7 @@ $('#parciales_individual-datagrid').datagrid({
 });
 
 $('#parciales_equipos-datagrid').datagrid({
+    scrollbarSize:0,
     rowStyler:myTransparentRowStyler,
     onBeforeLoad: function (param) {
         // do not update until 'open' received
@@ -144,10 +154,8 @@ var eventHandler= {
         vwls_keyBindings(); // capture space keyboard to enable/disable OSD
         vwls_enableOSD(1);
         vw_updateWorkingData(event,function(e,d){
-            vw_updateWorkingData(event,function(e,d){
-                vw_updateHeaderAndFooter(e,d);
-                setParcialIndividualOrTeamView(d); // fix individual or team view for final results
-            });
+            vw_updateHeaderAndFooter(e,d);
+            setParcialIndividualOrTeamView(d); // fix individual or team view for final results
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
             $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
         });
@@ -157,7 +165,6 @@ var eventHandler= {
             vw_updateHeaderAndFooter(e,d);
             setParcialIndividualOrTeamView(d); // fix individual or team view for final results
             updateParciales(d);
-            //vw_updateParciales(e,d);
         });
     },
     'close': null,      // no more dogs in tanda
@@ -177,7 +184,6 @@ var eventHandler= {
     'aceptar':	function(event){ // operador pulsa aceptar
         vw_updateWorkingData(event,function(e,d){
             updateParciales(d);
-            // vw_updateParciales(e,d);
         });
     },
     'cancelar': null, // operador pulsa cancelar
