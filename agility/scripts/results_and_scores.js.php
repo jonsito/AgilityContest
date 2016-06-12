@@ -120,7 +120,7 @@ function showPartialScoresByTeam(parent,idx,row) {
         rownumbers: false,
         fitColumns: true,
         singleSelect: true,
-        width: '99%',
+        width: '100%',
         height: 'auto',
         remote:false,
         idField: 'Perro',
@@ -155,7 +155,6 @@ function showPartialScoresByTeam(parent,idx,row) {
             setTimeout(function(){ $(parent).datagrid('fixDetailRowHeight',idx); },0);
         }
     });
-    $(mySelf).datagrid('fitColumns');
     $(parent).datagrid('fixDetailRowHeight',idx);
 }
 

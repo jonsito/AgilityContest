@@ -11,11 +11,11 @@ $config =Config::getInstance();
          <th data-options="field:'Prueba',		hidden:true"></th>
          <th data-options="field:'Jornada',		hidden:true"></th>
          -->
-        <th data-options="field:'Logo',		    width:'20%', sortable:false, formatter:formatTeamLogos">&nbsp</th>
-        <th data-options="field:'Nombre',		width:'43%', sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
-        <th data-options="field:'Categorias',	width:'5%', sortable:false, formatter:formatCategoria"><?php _e('Cat'); ?></th>
-        <th data-options="field:'Tiempo',		align:'center',width:'15%', sortable:false,formatter:formatBold"><?php _e('Time'); ?></th>
-        <th data-options="field:'Penalizacion',	align:'center',width:'15%', sortable:false,formatter:formatBold"><?php _e('Penalization'); ?></th>
+        <th data-options="field:'Logo',		    width:20, sortable:false, formatter:formatTeamLogos">&nbsp</th>
+        <th data-options="field:'Nombre',		width:43, sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
+        <th data-options="field:'Categorias',	width:5, sortable:false, formatter:formatCategoria"><?php _e('Cat'); ?></th>
+        <th data-options="field:'Tiempo',		width:15, sortable:false,align:'center',formatter:formatBold"><?php _e('Time'); ?></th>
+        <th data-options="field:'Penalizacion',	width:15, sortable:false,align:'center',formatter:formatBold"><?php _e('Penalization'); ?></th>
     </tr>
     </thead>
 </table>
