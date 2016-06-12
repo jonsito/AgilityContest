@@ -134,6 +134,20 @@ function getMangaMode(fed,recorrido,categoria) {
     return -1;
 }
 
+function getModeString(fed,mode) {
+    var f=parseInt(fed);
+    var m=parseInt(mode);
+    if (typeof (ac_fedInfo[f]) === "undefined") {
+        $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid or undefined Federation'); ?>', title: 'Error'});
+        return 'Undefined';
+    }
+    if (typeof (ac_fedInfo[f].IndexedModes[m]) === "undefined") {
+        $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid course mode'); ?>', title: 'Error'});
+        return 'Undefined';
+    }
+    return ac_fedInfo[f].IndexedModes[m];
+}
+
 /**
  * Obtiene el texto asociado al modo de visualizacion de una manga determinada en funcion de la prueba, tipo de recorrido y categorias
  * @param {int} federation ID

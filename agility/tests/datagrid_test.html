@@ -9,6 +9,111 @@
 <link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/demo/demo.css">
 <script type="text/javascript" src="../lib/jquery-1.12.3.min.js"></script>
 <script type="text/javascript" src="../lib/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+		/*
+		(function($){
+			function fitColumns(target){
+				var state = $.data(target, 'datagrid');
+				var opts = state.options;
+				var dc = state.dc;
+				var header = dc.view2.children('div.datagrid-header');
+				dc.body2.css('overflow-x', '');
+				var rownumberWidth = opts.rownumbers ? dc.header1.find('.datagrid-header-rownumber').parent().outerWidth() : 0;
+
+				setGroupWidth();
+				setPercentWidth();
+				fillWidth();
+				setGroupWidth(true);
+
+				if (header.width() >= header.find('table').width()){
+					dc.body2.css('overflow-x', 'hidden');
+				}
+
+				function fillWidth(){
+					if (!opts.fitColumns){return;}
+					if (!state.leftWidth){state.leftWidth = 0;}
+
+					var fieldWidths = 0;
+					var cc = [];
+					var fields = $(target).datagrid('getColumnFields', false);
+					for(var i=0; i<fields.length; i++){
+						var col = $(target).datagrid('getColumnOption', fields[i]);
+						if (canResize(col)){
+							fieldWidths += col.width;
+							cc.push({field:col.field, col:col, addingWidth:0});
+						}
+					}
+					if (!fieldWidths){return;}
+					cc[cc.length-1].addingWidth -= state.leftWidth;
+
+					var headerInner = header.children('div.datagrid-header-inner').show();
+					var leftWidth = header.width() - header.find('table').width() - opts.scrollbarSize + state.leftWidth;
+					var rate = leftWidth / fieldWidths;
+					if (!opts.showHeader){headerInner.hide();}
+					for(var i=0; i<cc.length; i++){
+						var c = cc[i];
+						var width = parseInt(c.col.width * rate);
+						c.addingWidth += width;
+						leftWidth -= width;
+					}
+					cc[cc.length-1].addingWidth += leftWidth;
+					for(var i=0; i<cc.length; i++){
+						var c = cc[i];
+						if (c.col.boxWidth + c.addingWidth > 0){
+							c.col.boxWidth += c.addingWidth;
+							c.col.width += c.addingWidth;
+						}
+					}
+					state.leftWidth = leftWidth;
+
+					// fixColumnSize(target);
+					$(target).datagrid('fixColumnSize');
+				}
+				function setPercentWidth(){
+					var changed = false;
+					var fields = $(target).datagrid('getColumnFields',true).concat($(target).datagrid('getColumnFields',false));
+					$.map(fields, function(field){
+						var col = $(target).datagrid('getColumnOption', field);
+						if (String(col.width||'').indexOf('%') >= 0){
+							var width = $.parser.parseValue('width',col.width,dc.view,opts.scrollbarSize+rownumberWidth) - col.deltaWidth;
+							if (width > 0){
+								col.boxWidth = width;
+								changed = true;
+							}
+						}
+					});
+					if (changed){
+						// fixColumnSize(target);
+						$(target).datagrid('fixColumnSize');
+					}
+				}
+				function setGroupWidth(fit){
+					var groups = dc.header1.add(dc.header2).find('.datagrid-cell-group');
+					if (groups.length){
+						groups.each(function(){
+							$(this)._outerWidth(fit ? $(this).parent().width() : 10);
+						});
+						if (fit){
+							setBodySize(target);
+						}
+					}
+				}
+				function canResize(col){
+					if (String(col.width||'').indexOf('%') >= 0){return false;}
+					if (!col.hidden && !col.checkbox && !col.auto && !col.fixed){return true;}
+				}
+			}
+
+			$.extend($.fn.datagrid.methods, {
+				fitColumns: function(jq){
+					return jq.each(function(){
+						fitColumns(this);
+					});
+				}
+			});
+		})(jQuery);
+		*/
+	</script>
 </head>
 <body>
 

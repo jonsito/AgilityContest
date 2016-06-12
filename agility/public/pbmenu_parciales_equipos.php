@@ -33,7 +33,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     <div id="pb_parciales-layout" style="width:100%">
         <div id="pb_parciales-Cabecera"  style="height:15%;" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
 
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateParciales(workingData.datosManga);" href="#" style="float:left">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateParciales(workingData.datosManga.Mode,workingData.datosManga);" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="40" />
             </a>
             <span id="header-combinadaFlag" style="display:none">false</span> <!--indicador de combinada:false-->
@@ -89,7 +89,7 @@ function pbmenu_updateParcialesEquipos() {
     var options=$('#parciales_equipos-datagrid').datagrid('options');
     if ( options.expandCount <= 0 ){
         options.expandCount=0;
-        updateParciales(workingData.datosManga);
+        updateParciales(workingData.datosManga.Mode,workingData.datosManga);
     }
     if (rtime!=0) workingData.timeout=setTimeout(pbmenu_updateParcialesEquipos,1000*rtime);
 }
