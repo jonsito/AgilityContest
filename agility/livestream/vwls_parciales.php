@@ -132,7 +132,6 @@ $('#parciales_individual-datagrid').datagrid({
 });
 
 $('#parciales_equipos-datagrid').datagrid({
-    scrollbarSize:0,
     rowStyler:myTransparentRowStyler,
     onBeforeLoad: function (param) {
         // do not update until 'open' received

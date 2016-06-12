@@ -223,14 +223,17 @@ function consoleReloadParcial(val,fill) {
  * Rellena tambien el datagrid de resultados parciales
  */
 function updateParciales(row) {
+    var mode=0;
     // si no nos pasan parametro, leemos el valor del combogrid
     if (typeof (row) === "undefined") {
         row=$('#enumerateParciales').combogrid('grid').datagrid('getSelected');
         if (!row) return;
         setManga(row);
+        mode=row.Mode;
     } else {
-        // informacion de la manga ya definida: ajusta textos
+        // informacion de la manga ya definida: ajusta texto y modo
         var cats=getMangaModeString(row.Prueba.RSCE,row.Manga.Recorrido,row.Tanda.Categoria);
+        mode=getMangaMode(row.Prueba.RSCE,row.Manga.Recorrido,row.Tanda.Categoria);
         $('#vw_header-infomanga').html(row.Manga.Nombre + " - " + cats);
     }
     // en lugar de invocar al datagrid, lo que vamos a hacer es
@@ -245,7 +248,7 @@ function updateParciales(row) {
             Prueba:		workingData.prueba,
             Jornada:	workingData.jornada,
             Manga:		workingData.manga,
-            Mode:       parseInt(workingData.datosManga.Mode)
+            Mode:       parseInt(mode)
         },
         success: function(dat) {
             // use html() instead of text() to handle html special chars

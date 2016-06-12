@@ -192,7 +192,6 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                 setManga(mangas[n]);
                 break;
             }
-            workingData.teamCounter=1;
             pb_collapseMenu(true);
             var page="/agility/public/pbmenu_parciales.php";
             if (isJornadaEquipos() ) page="/agility/public/pbmenu_parciales_equipos.php";
@@ -202,7 +201,6 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         function pbmenu_loadFinalScores(prueba,jornada,serie) {
             pbmenu_getAndSet(prueba,jornada);
             workingData.datosRonda=workingData.datosJornada.Series[serie];
-            workingData.teamCounter=1;
             pb_collapseMenu(true);
             var page="/agility/public/pbmenu_finales.php";
             if (isJornadaEquipos() ) page="/agility/public/pbmenu_finales_equipos.php";
