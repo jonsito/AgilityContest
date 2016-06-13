@@ -39,11 +39,12 @@ var myCounter = new Countdown({
 function vw_updateWorkingData(evt,callback) {
 	// TODO: do not call server if no change from current data
 	var flag=true;
-	if (workingData.prueba!=evt.Prueba) flag=false;
-	if (workingData.jornada!=evt.Jornada) flag=false;
-	if (workingData.manga!=evt.Manga) flag=false;
-	if (workingData.tanda!=evt.Tanda) flag=false;
-	if (workingData.sesion!=evt.Sesion) flag=false;
+	if (evt.Type==="init") flag=false; // on init force  reload
+	else if (workingData.prueba!=evt.Prueba) flag=false;
+	else if (workingData.jornada!=evt.Jornada) flag=false;
+	else if (workingData.manga!=evt.Manga) flag=false;
+	else if (workingData.tanda!=evt.Tanda) flag=false;
+	else if  (workingData.sesion!=evt.Sesion) flag=false;
 	if (flag) {
 		var data={
 			Prueba:workingData.datosPrueba,
@@ -192,20 +193,23 @@ function vwc_updateHeaderAndFooter(evt,data) {
 		$('#vwc_header-logo').attr('src','/agility/images/logos/getLogo.php?Fed='+fed+'&Logo='+logo);
 	}
 
-	// buscamos los textos de la cabecera. Dependiendo de si es parcial o final
-	// ronda o serie no estaran definidos... pero jquery se hace cargo y lo detecta
-	// Tanda para la llamada a pista
-	var infotanda=(typeof(data.Tanda.Nombre)==='undefined')?'':data.Tanda.Nombre;
-	$('#vwc_header-NombreTanda').html(infotanda);
-	// Ronda para la clasificacion final ( i.e: Grado1 )
-	var inforonda=(typeof(data.Ronda.Nombre)==='undefined')?'':data.Ronda.Nombre;
-	$('#vwc_header-NombreRonda').html(inforonda);
-	// Series para la clasificacion parcial ( i.e: Agility-Grado1 )
-	var infomanga=(typeof(data.Manga.Nombre)==='undefined')?'':data.Manga.Nombre;
-	$('#vwc_header-NombreManga').html(infomanga);
-	// modestring para la categoria
-	var modestr=getModeString(data.Prueba.RSCE,data.Ronda.Mode);
-	$('#vwc_header-ModeString').html(modestr);
+	// on "init just initialize contest, logo and footer: no round yet
+	if (evt.Type!=="init") {
+		// buscamos los textos de la cabecera. Dependiendo de si es parcial o final
+		// ronda o serie no estaran definidos... pero jquery se hace cargo y lo detecta
+		// Tanda para la llamada a pista
+		var infotanda=(typeof(data.Tanda.Nombre)==='undefined')?'':data.Tanda.Nombre;
+		$('#vwc_header-NombreTanda').html(infotanda);
+		// Ronda para la clasificacion final ( i.e: Grado1 )
+		var inforonda=(typeof(data.Ronda.Nombre)==='undefined')?'':data.Ronda.Nombre;
+		$('#vwc_header-NombreRonda').html(inforonda);
+		// Series para la clasificacion parcial ( i.e: Agility-Grado1 )
+		var infomanga=(typeof(data.Manga.Nombre)==='undefined')?'':data.Manga.Nombre;
+		$('#vwc_header-NombreManga').html(infomanga);
+		// modestring para la categoria
+		var modestr=getModeString(data.Prueba.RSCE,data.Ronda.Mode);
+		$('#vwc_header-ModeString').html(modestr);
+	}
 
 	// update footer
 	var fname=(ac_config.vw_combined==0)?"vw_footer.php":"vwc_footer.php";
@@ -222,12 +226,11 @@ function vwc_updateHeaderAndFooter(evt,data) {
 function vwls_updateData(data) {
     // some versions of Safari and Chrome doesn't properly take care on html dom changes
     // so stupid .hide().show(0) is needed to take care on this
-	if ( (data["Faltas"]!=-1) || (data["Tocados"]!=-1)) {
-		var ft=0;
-		if (data["Faltas"]!=-1) ft+=parseInt(data["Faltas"]);
-		if (data["Tocados"]!=-1) ft+=parseInt(data["Tocados"]);
-		$('#vwls_FaltasTocados').html(ft).hide().show(0);
-	}
+	var flt=$('#vwls_Faltas');
+	var toc=$('#vwls_Tocados');
+	if (data["Faltas"]!=-1) 	flt.html(data["Faltas"]);
+	if (data["Tocados"]!=-1) 	toc.html(data["Tocados"]);
+	$('#vwls_FaltasTocados').html(parseInt(flt.html())+parseInt(toc.html())).hide().show(0);
 	if (data["Rehuses"]!=-1) 	$('#vwls_Rehuses').html(data["Rehuses"]).hide().show(0);
 	if (data["Tiempo"]!=-1) 	$('#vwls_Tiempo').html(data["Tiempo"]).hide().show(0);
 	if (data["TIntermedio"]!=-1)$("#vwls_TIntermedio").html(data['TIntermedio']);
@@ -287,8 +290,8 @@ function vwcf_displayPuesto(flag,time) {
 			'Perro':	perro,
 			'Categoria':$('#vwls_Categoria').text(),
 			'Grado':	$('#vwls_Grado').text(),
-			'Faltas':	$('#vwls_FaltasTocados').text(),
-			'Tocados':	"0",
+			'Faltas':	$('#vwls_Faltas').text(),
+			'Tocados':	$('#vwls_Tocados').text(),
 			'Rehuses':	$('#vwls_Rehuses').text(),
 			'Eliminado':$('#vwls_Eliminado').text(),
 			'NoPresentado':$('#vwls_NoPresentado').text(),
@@ -326,8 +329,8 @@ function vwcp_displayPuesto(flag,time) {
             'Perro':	perro,
             'Categoria':$('#vwls_Categoria').text(),
             'Grado':	$('#vwls_Grado').text(),
-			'Faltas':	$('#vwls_FaltasTocados').text(),
-			'Tocados':	"0",
+			'Faltas':	$('#vwls_Faltas').text(),
+			'Tocados':	$('#vwls_Tocados').text(),
 			'Rehuses':	$('#vwls_Rehuses').text(),
 			'Eliminado':$('#vwls_Eliminado').text(),
 			'NoPresentado':$('#vwls_NoPresentado').text(),
@@ -356,8 +359,8 @@ function vwc_evalPenalizacion(trs,trm,time) {
 	// use set timeout to make sure data are already refreshed
 	setTimeout(function(){
 		// phase 1 retrieve results
-		var f=parseInt($('#vwls_FaltasTocados').html());
-		var t=0;
+		var f=parseInt($('#vwls_Faltas').html());
+		var t=parseInt($('#vwls_Tocados').html());
 		var r=parseInt($('#vwls_Rehuses').html());
 		var e=parseInt($('#vwls_Eliminado').html());
 		var n=parseInt($('#vwls_NoPresentado').html());
@@ -491,6 +494,8 @@ function vwcp_updateLlamada(evt,data) {
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(current['NombreGuia']);
 			$("#vwls_NombreClub").html(current['NombreClub']);
+			$("#vwls_Faltas").html(current['Faltas']);
+			$("#vwls_Tocados").html(current['Tocados']);
 			$("#vwls_FaltasTocados").html(parseInt(current['Faltas'])+parseInt(current['Tocados']));
 			$("#vwls_Rehuses").html(current['Rehuses']);
 			$("#vwls_Puesto").html(current['Puesto']);
@@ -583,6 +588,8 @@ function vwcf_updateLlamada(evt,data) {
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(current['NombreGuia']);
 			$("#vwls_NombreClub").html(current['NombreClub']);
+			$("#vwls_Faltas").html(current['Faltas']);
+			$("#vwls_Tocados").html(current['Tocados']);
 			$("#vwls_FaltasTocados").html(parseInt(current['Faltas'])+parseInt(current['Tocados']));
 			$("#vwls_Rehuses").html(current['Rehuses']);
 			$("#vwls_Puesto").html(current['Puesto']);

@@ -100,6 +100,8 @@ Modelo simplificado de resultados finales
                         <span class="vwc_dlabel" id="vwls_Grado" style="display:none"><?php _e('Grade'); ?></span>
                         <span class="vwc_dlabel" id="vwls_Celo"><?php _e('Heat'); ?></span>
                         <!-- datos de resultados -->
+                        <span style=="display:none"  id="vwls_Faltas">0</span>
+                        <span style=="display:none"  id="vwls_Tocados">0</span>
                         <span class="vwc_dlabel" id="vwls_FaltasTocadosLbl"><?php _e('F/T'); ?>:</span>
                         <span class="vwc_data"  id="vwls_FaltasTocados">0</span>
                         <span class="vwc_dlabel" id="vwls_RehusesLbl"><?php _e('R'); ?>:</span>

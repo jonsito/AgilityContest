@@ -86,6 +86,8 @@ Pantalla de de visualizacion combinada llamada/parciales
                         <span class="vwc_label" id="vwls_Grado" style="display:none"><?php _e('Grade'); ?></span>
                         <span class="vwc_label" id="vwls_Celo"><?php _e('Heat'); ?></span>
                         <!-- datos de resultados -->
+                        <span style="display:none"  id="vwls_Faltas">0</span>
+                        <span style="display:none"  id="vwls_Tocados">0</span>
                         <span class="vwc_dlabel" id="vwls_FaltasTocadosLbl"><?php _e('F/T'); ?>:</span>
                         <span class="vwc_data"  id="vwls_FaltasTocados">0</span>
                         <span class="vwc_dlabel" id="vwls_RehusesLbl"><?php _e('R'); ?>:</span>
@@ -285,7 +287,7 @@ Pantalla de de visualizacion combinada llamada/parciales
     doLayout(liveLayout,"#vwls_Dorsal",	        230,	10,	    80, 	100	);
     doLayout(liveLayout,"#vwls_Nombre",	        335,    10,	    415,	100	);
     doLayout(liveLayout,"#vwls_Celo",	        800,    10,	    100,	100	);
-    doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    570,	100	);
+    doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    460,	100	);
     doLayout(liveLayout,"#vwls_NombreClub",	    700,	100,    400,	100	);
     // doLayout(liveLayout,"#vwls_Categoria",	    0,	    0,	100,	100	);
     // doLayout(liveLayout,"#vwls_Grado",	        0,	    0,	100,	100	);
@@ -301,9 +303,6 @@ Pantalla de de visualizacion combinada llamada/parciales
     var eventHandler= {
         'null': null,// null event: no action taken
         'init': function (event, time) { // operator starts tablet application
-            $('#vwcp_header-infoprueba').html('<?php _e("Contest"); ?>');
-            $('#vwcp_header-infojornada').html('<?php _e("Journey"); ?>');
-            $('#vwcp_header-NombreRonda').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateHeaderAndFooter(e,d);
                 setParcialIndividualOrTeamView(d); // fix individual or team view for final results

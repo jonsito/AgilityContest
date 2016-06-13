@@ -58,6 +58,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<!-- Recuadro de decoracion resultados -->
 				<span class="vwls_fondo<?php echo ($combined==1)?'_combined':'_chromakey';?>" id="vwls_Resultados">&nbsp;</span>
 				<!-- datos de resultados -->
+				<span style="display:none"  id="vwls_Faltas">0</span>
+				<span style="display:none"  id="vwls_Tocados">0</span>
 				<span class="vwls_dlabel" id="vwls_FaltasTocadosLbl"><?php _e('F/T'); ?>:</span>
 				<span class="vwls_data"  id="vwls_FaltasTocados">0</span>
 				<span class="vwls_dlabel" id="vwls_RehusesLbl"><?php _e('R'); ?>:</span>
