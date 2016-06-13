@@ -45,11 +45,12 @@ Pantalla de de visualizacion combinada llamada/parciales
                 <span id="vwc_header-ring" style="text-align:right"><?php _e('Ring'); ?></span>
                 <span id="vwc_header-calltoring" style="text-align:left">
                     <?php _e('Call to ring'); ?> -
-                    <span id="vwc_header-NombreTanda"><?php _e('Round');?></span>
+                    <span id="vwc_header-NombreTanda">&nbsp;</span>
                 </span>
                 <span id="vwc_header-finalscores" style="text-align:right">
                     <?php _e('Final scores'); ?> -
-                    <span id="vwc_header-NombreRonda"><?php _e('Series');?></span>
+                    <span id="vwc_header-NombreRonda">&nbsp;</span>
+                    <!-- <span id="vwc_header-ModeString">&nbsp;</span> -->
                 </span>
             </div>
         </div>
@@ -85,12 +86,10 @@ Pantalla de de visualizacion combinada llamada/parciales
                         <span class="vwc_label" id="vwls_Grado" style="display:none"><?php _e('Grade'); ?></span>
                         <span class="vwc_label" id="vwls_Celo"><?php _e('Heat'); ?></span>
                         <!-- datos de resultados -->
-                        <span class="vwc_dlabel" id="vwls_FaltasLbl"><?php _e('F'); ?>:</span>
-                        <span class="vwc_data"  id="vwls_Faltas">0</span>
+                        <span class="vwc_dlabel" id="vwls_FaltasTocadosLbl"><?php _e('F/T'); ?>:</span>
+                        <span class="vwc_data"  id="vwls_FaltasTocados">0</span>
                         <span class="vwc_dlabel" id="vwls_RehusesLbl"><?php _e('R'); ?>:</span>
                         <span class="vwc_data"  id="vwls_Rehuses">0</span>
-                        <span class="vwc_dlabel" id="vwls_TocadosLbl"><?php _e('T'); ?>:</span>
-                        <span class="vwc_data"  id="vwls_Tocados">0</span>
                         <!-- Informacion de cronometro -->
                         <span class="vwc_dtime"  id="vwls_Tiempo">00.000</span>
                         <span style="display:none" id="vwls_TIntermedio">00.000</span>
@@ -293,16 +292,16 @@ Pantalla de de visualizacion combinada llamada/parciales
     doLayout(liveLayout,"#vwls_Dorsal",	        230,	10,	    80, 	100	);
     doLayout(liveLayout,"#vwls_Nombre",	        335,    10,	    415,	100	);
     doLayout(liveLayout,"#vwls_Celo",	        800,    10,	    100,	100	);
-    doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    370,	100	);
-    doLayout(liveLayout,"#vwls_NombreClub",	    600,	100,    300,	100	);
+    doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    470,	100	);
+    doLayout(liveLayout,"#vwls_NombreClub",	    700,	100,    400,	100	);
     // doLayout(liveLayout,"#vwls_Categoria",	    0,	    0,	100,	100	);
     // doLayout(liveLayout,"#vwls_Grado",	        0,	    0,	100,	100	);
-    doLayout(liveLayout,"#vwls_FaltasLbl",	    900,	25,     100,	150	);
-    doLayout(liveLayout,"#vwls_Faltas",	        1000,	25,     100,	150	);
-    doLayout(liveLayout,"#vwls_RehusesLbl",	    1100,	25,	    100,	150	);
-    doLayout(liveLayout,"#vwls_Rehuses",	    1200,	25,	    100,	150	);
-    doLayout(liveLayout,"#vwls_TocadosLbl",	    1300,	25,	    100,	150	);
-    doLayout(liveLayout,"#vwls_Tocados",	    1400,	25,	    100,	150	);
+    // doLayout(liveLayout,"#vwls_TocadosLbl",	    900,	25,     100,	150	);
+    // doLayout(liveLayout,"#vwls_Tocados",	        1000,	25,     100,	150	);
+    doLayout(liveLayout,"#vwls_FaltasTocadosLbl", 1100,	25,	    100,	150	);
+    doLayout(liveLayout,"#vwls_FaltasTocados",	1200,	25,	    100,	150	);
+    doLayout(liveLayout,"#vwls_RehusesLbl",	    1300,	25,	    100,	150	);
+    doLayout(liveLayout,"#vwls_Rehuses",	    1400,	25,	    100,	150	);
     doLayout(liveLayout,"#vwls_Tiempo",	        1500,	25, 	200,	150	);
     doLayout(liveLayout,"#vwls_Puesto",	        1700,	25, 	200,	150	);
 

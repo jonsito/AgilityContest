@@ -100,12 +100,10 @@ Modelo simplificado de resultados finales
                         <span class="vwc_dlabel" id="vwls_Grado" style="display:none"><?php _e('Grade'); ?></span>
                         <span class="vwc_dlabel" id="vwls_Celo"><?php _e('Heat'); ?></span>
                         <!-- datos de resultados -->
-                        <span class="vwc_dlabel" id="vwls_FaltasLbl"><?php _e('F'); ?>:</span>
-                        <span class="vwc_data"  id="vwls_Faltas">0</span>
+                        <span class="vwc_dlabel" id="vwls_FaltasTocadosLbl"><?php _e('F/T'); ?>:</span>
+                        <span class="vwc_data"  id="vwls_FaltasTocados">0</span>
                         <span class="vwc_dlabel" id="vwls_RehusesLbl"><?php _e('R'); ?>:</span>
                         <span class="vwc_data"  id="vwls_Rehuses">0</span>
-                        <span class="vwc_dlabel" id="vwls_TocadosLbl"><?php _e('T'); ?>:</span>
-                        <span class="vwc_data"  id="vwls_Tocados">0</span>
                         <!-- Informacion de cronometro -->
                         <span class="vwc_dtime"  id="vwls_Tiempo">00.000</span>
                         <span style="display:none" id="vwls_TIntermedio">00.000</span>
@@ -318,17 +316,17 @@ Modelo simplificado de resultados finales
     doLayout(liveLayout,"#vwls_Logo",	        100,	10,	    100,	180	);
     doLayout(liveLayout,"#vwls_Dorsal",	        220,	25,	    80, 	150	);
     doLayout(liveLayout,"#vwls_Nombre",	        320,    25,	    350,	150	);
-    doLayout(liveLayout,"#vwls_NombreGuia",	    670,	25,     450,	150	);
-    doLayout(liveLayout,"#vwls_Celo",	        1120,   25,	    80,	150	);
+    doLayout(liveLayout,"#vwls_NombreGuia",	    670,	25,     550,	150	);
+    doLayout(liveLayout,"#vwls_Celo",	        1220,   25,	    180,	150	);
     // doLayout(liveLayout,"#vwls_NombreClub",	    600,	100,    300,	100	);
     // doLayout(liveLayout,"#vwls_Categoria",	    0,	    0,	100,	100	);
     // doLayout(liveLayout,"#vwls_Grado",	        0,	    0,	100,	100	);
-    doLayout(liveLayout,"#vwls_FaltasLbl",	    1200,	25,     50,	    150	);
-    doLayout(liveLayout,"#vwls_Faltas",	        1250,	25,     50,	    150	);
-    doLayout(liveLayout,"#vwls_RehusesLbl",	    1300,	25,	    50,	    150	);
-    doLayout(liveLayout,"#vwls_Rehuses",	    1350,	25,	    50,	    150	);
-    doLayout(liveLayout,"#vwls_TocadosLbl",	    1400,	25,	    50,	    150	);
-    doLayout(liveLayout,"#vwls_Tocados",	    1450,	25,	    50,	    150	);
+    // doLayout(liveLayout,"#vwls_TocadosLbl",	    1200,	25,     50,	    150	);
+    // doLayout(liveLayout,"#vwls_Tocados",	        1250,	25,     50,	    150	);
+    doLayout(liveLayout,"#vwls_FaltasTocadosLbl",	    1300,	25,	    50,	    150	);
+    doLayout(liveLayout,"#vwls_FaltasTocados",	    1350,	25,	    50,	    150	);
+    doLayout(liveLayout,"#vwls_RehusesLbl",	    1400,	25,	    50,	    150	);
+    doLayout(liveLayout,"#vwls_Rehuses",	    1450,	25,	    50,	    150	);
     doLayout(liveLayout,"#vwls_Tiempo",	        1500,	25, 	200,	150	);
     doLayout(liveLayout,"#vwls_Puesto",	        1700,	25, 	200,	150	);
 

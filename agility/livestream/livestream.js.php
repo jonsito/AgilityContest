@@ -103,8 +103,8 @@ function vwls_showData(data) {
 		});
 	}
 	// actualiza resultados del participante
-	$('#vwls_Faltas').html(data["Faltas"]);
-	$('#vwls_Tocados').html(data["Tocados"]);
+	$('#vwls_FaltasTocados').html( parseInt(data["Faltas"]) + parseInt(data["Tocados"]) );
+	// $('#vwls_Tocados').html(data["Tocados"]);
 	$('#vwls_Rehuses').html(data["Rehuses"]);
 	$('#vwls_TIntermedio').html(data["TIntermedio"]);
 	var e=parseInt(data["Eliminado"]);
@@ -137,8 +137,9 @@ function vwls_displayPuesto(flag,time) {
 			'Perro':	perro,
 			'Categoria':$('#vwls_Cat').text(),
 			'Grado':	$('#vwls_Grado').text(),
-			'Faltas':	$('#vwls_Faltas').text(),
-			'Tocados':	$('#vwls_Tocados').text(),
+			'Faltas':	$('#vwls_FaltasTocados').text(),
+			// 'Tocados':	$('#vwls_Tocados').text(),
+			'Tocados':	"0",
 			'Rehuses':	$('#vwls_Rehuses').text(),
 			'Eliminado':$('#vwls_Eliminado').text(),
 			'NoPresentado':$('#vwls_NoPresentado').text(),

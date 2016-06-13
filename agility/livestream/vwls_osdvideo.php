@@ -58,10 +58,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<!-- Recuadro de decoracion resultados -->
 				<span class="vwls_fondo<?php echo ($combined==1)?'_combined':'_chromakey';?>" id="vwls_Resultados">&nbsp;</span>
 				<!-- datos de resultados -->
-				<span class="vwls_dlabel" id="vwls_FaltasLbl"><?php _e('F'); ?>:</span>
-				<span class="vwls_data"  id="vwls_Faltas">0</span>
-				<span class="vwls_dlabel" id="vwls_TocadosLbl"><?php _e('T'); ?>:</span>
-				<span class="vwls_data"  id="vwls_Tocados">0</span>
+				<span class="vwls_dlabel" id="vwls_FaltasTocadosLbl"><?php _e('F/T'); ?>:</span>
+				<span class="vwls_data"  id="vwls_FaltasTocados">0</span>
 				<span class="vwls_dlabel" id="vwls_RehusesLbl"><?php _e('R'); ?>:</span>
 				<span class="vwls_data"  id="vwls_Rehuses">0</span>
 				<!-- <span class="vwls_dlabel" id="vwls_TiempoLbl">Time</span> -->
@@ -138,12 +136,12 @@ var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 switch (parseInt(ac_config.vw_dataposition)) {
 	case 1: // upper left corner
 		doLayout(layout,"#vwls_Resultados",		740,	10,		40,		85 ); // background box
-		doLayout(layout,"#vwls_FaltasLbl",		750,	15,		12,		15	);
-		doLayout(layout,"#vwls_Faltas",			762,	15,		10,		15	);
-		doLayout(layout,"#vwls_TocadosLbl",		750,	30,		12,		15	);
-		doLayout(layout,"#vwls_Tocados",		762,	30,		10,		15	);
-		doLayout(layout,"#vwls_RehusesLbl",		750,	45,	    12,		15	);
-		doLayout(layout,"#vwls_Rehuses",		762,	45,	    10,		15	);
+		doLayout(layout,"#vwls_FaltasTocadosLbl",750,	15,		12,		15	);
+		doLayout(layout,"#vwls_FaltasTocados",	762,	15,		10,		15	);
+		doLayout(layout,"#vwls_RehusesLbl",		750,	30,		12,		15	);
+		doLayout(layout,"#vwls_Rehuses",		762,	30,		10,		15	);
+		// doLayout(layout,"#vwls_TocadosLbl",	750,	45,	    12,		15	);
+		// doLayout(layout,"#vwls_Tocados",		762,	45,	    10,		15	);
 		doLayout(layout,"#vwls_Tiempo",			742,	60,     35,		15	);
 		doLayout(layout,"#vwls_EliminadoLbl",	745,	75,     30,		15	);
 		doLayout(layout,"#vwls_NoPresentadoLbl",745,	75,     30,		15	);
@@ -156,12 +154,12 @@ switch (parseInt(ac_config.vw_dataposition)) {
 		break;
 	case 2: // lower left corner
 		doLayout(layout,"#vwls_Resultados",		690,	410,	90,	30 ); // background box
-		doLayout(layout,"#vwls_FaltasLbl",		700,	412,	10,		15	);
-		doLayout(layout,"#vwls_Faltas",			710,	412,	10,		15	);
-		doLayout(layout,"#vwls_TocadosLbl",		725,	412,	10,		15	);
-		doLayout(layout,"#vwls_Tocados",		735,	412,	10,		15	);
-		doLayout(layout,"#vwls_RehusesLbl",		750,	412,    10,		15	);
-		doLayout(layout,"#vwls_Rehuses",		760,	412,    10,		15	);
+		doLayout(layout,"#vwls_FaltasTocadosLbl",700,	412,	10,		15	);
+		doLayout(layout,"#vwls_FaltasTocados",	710,	412,	10,		15	);
+		doLayout(layout,"#vwls_RehusesLbl",		725,	412,	10,		15	);
+		doLayout(layout,"#vwls_Rehuses",		735,	412,	10,		15	);
+		// doLayout(layout,"#vwls_TocadosLbl",		750,	412,    10,		15	);
+		// doLayout(layout,"#vwls_Tocados",		760,	412,    10,		15	);
 		doLayout(layout,"#vwls_Tiempo",			735,	425,    35,		15	);
 		doLayout(layout,"#vwls_EliminadoLbl",	700,	425,    30,		15	);
 		doLayout(layout,"#vwls_NoPresentadoLbl",700,	425,    30,		15	);
@@ -169,12 +167,12 @@ switch (parseInt(ac_config.vw_dataposition)) {
 		break;
 	case 3: // lower centered next to competitors data
 		doLayout(layout,"#vwls_Resultados",		405,	410,	90,	30 ); // background box
-		doLayout(layout,"#vwls_FaltasLbl",		415,	412,	10,		15	);
-		doLayout(layout,"#vwls_Faltas",			425,	412,	10,		15	);
-		doLayout(layout,"#vwls_TocadosLbl",		440,	412,	10,		15	);
-		doLayout(layout,"#vwls_Tocados",		450,	412,	10,		15	);
-		doLayout(layout,"#vwls_RehusesLbl",		465,	412,    10,		15	);
-		doLayout(layout,"#vwls_Rehuses",		475,	412,    10,		15	);
+		doLayout(layout,"#vwls_FaltasTocadosLbl",415,	412,	10,		15	);
+		doLayout(layout,"#vwls_FaltasTocados",			425,	412,	10,		15	);
+		doLayout(layout,"#vwls_RehusesLbl",		440,	412,	10,		15	);
+		doLayout(layout,"#vwls_Rehuses",		450,	412,	10,		15	);
+		// doLayout(layout,"#vwls_TocadosLbl",	465,	412,    10,		15	);
+		// doLayout(layout,"#vwls_Tocados",		475,	412,    10,		15	);
 		doLayout(layout,"#vwls_Tiempo",			450,	425,    35,		15	);
 		doLayout(layout,"#vwls_EliminadoLbl",	415,	425,    30,		15	);
 		doLayout(layout,"#vwls_NoPresentadoLbl",415,	425,    30,		15	);
