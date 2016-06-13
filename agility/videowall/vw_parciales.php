@@ -103,6 +103,7 @@ var eventHandler= {
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
             setParcialIndividualOrTeamView(d); // fix individual or team view for final results
+            clearParcialRoundInformation();
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
             $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
         });
@@ -111,7 +112,7 @@ var eventHandler= {
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
             setParcialIndividualOrTeamView(d); // fix individual or team view for final results
-            updateParciales(d.Mode,d);
+            updateParciales(d.Ronda.Mode,d);
         });
     },
     'close': null,    // no more dogs in tanda
@@ -130,7 +131,7 @@ var eventHandler= {
     'crono_dat':    null, // datos desde crono electronico
     'aceptar':	function(event){ // operador pulsa aceptar
         vw_updateWorkingData(event,function(e,d){
-            updateParciales(d.Mode,d);
+            updateParciales(d.Ronda.Mode,d);
         });
     },
     'cancelar': null, // operador pulsa cancelar

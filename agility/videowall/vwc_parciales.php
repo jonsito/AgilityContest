@@ -59,20 +59,15 @@ Pantalla de de visualizacion combinada llamada/parciales
         <div data-options="region:'center',border:false" class="vwc_top"><!-- Espacio vacio -->&nbsp;</div>
         <div id="vw_parciales-data" data-options="region:'east'" style="width:55%;"> <!-- RESULTADOS PARCIALES -->
             <!-- Datos de TRS y TRM -->
-            <table class="vw_trs">
-                <tbody>
-                <tr style="text-align:right">
-                    <td><?php _e('Data'); ?>:</td>
-                    <td><?php _e('Dist'); ?>:</td><td id="vwcp_parciales-Distancia" style="text-align:left;">&nbsp;</td>
-                    <td><?php _e('Obst'); ?>:</td><td id="vwcp_parciales-Obstaculos" style="text-align:left;">&nbsp;</td>
-                    <td><?php _e('SCT'); ?>:</td><td id="vwcp_parciales-TRS" style="text-align:left;">&nbsp;</td>
-                    <td><?php _e('MCT'); ?>:</td><td id="vwcp_parciales-TRM" style="text-align:left;">&nbsp;</td>
-                    <td><?php _e('Vel'); ?>:</td><td id="vwcp_parciales-Velocidad" style="text-align:left;">&nbsp;</td>
-                </tr>
-                </tbody>
-            </table>
-            <!-- tabla de resultados -->
-            <table id="vw_parciales-datagrid"></table>
+            <?php include_once(__DIR__ . "/../lib/templates/parcial_round_data.inc.php"); ?>
+            <!-- datagrid para clasificacion individual -->
+            <div id="parciales_individual-table" class="scores_table" style="display:none;width:100%">
+                <?php include_once(__DIR__ . "/../lib/templates/parcial_individual.inc.php"); ?>
+            </div>
+            <!-- datagrid para clasificacion por equipos -->
+            <div id="parciales_equipos-table" class="scores_table" style="display:none;width:100%">
+                <?php include_once(__DIR__ . "/../lib/templates/parcial_teams.inc.php"); ?>
+            </div>
         </div>
         <div data-options="region:'south',border:false" style="height:25%;">
             <div id="vwcp-layout2">
@@ -160,62 +155,14 @@ Pantalla de de visualizacion combinada llamada/parciales
         }
     });
 
-    $('#vw_parciales-datagrid').datagrid({
-        // propiedades del panel asociado
-        fit: true,
-        border: false,
-        closable: false,
-        collapsible: false,
-        collapsed: false,
-        // propiedades del datagrid
-        method: 'get',
-        url: '/agility/server/database/resultadosFunctions.php',
-        queryParams: {
-            Prueba: workingData.prueba,
-            Jornada: workingData.jornada,
-            Manga: workingData.manga,
-            Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
-            Operation: 'getResultados'
-        },
-        loadMsg: "<?php _e('Updating round results');?> ...",
-        pagination: false,
-        rownumbers: false,
-        fitColumns: true,
-        singleSelect: true,
-        autoRowHeight: true,
-        columns:[[
-            { field:'Manga',		hidden:true },
-            { field:'Perro',		hidden:true },
-            { field:'Raza',		    hidden:true },
-            { field:'Equipo',		hidden:true },
-            { field:'NombreEquipo',	hidden:true },
-            // { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
-            { field:'LogoClub',		width:'8%', align:'center', title: '', formatter:formatLogo},
-            // { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
-            { field:'Nombre',		width:'12%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
-            { field:'NombreGuia',	width:'17%', align:'right', title: '<?php _e('Handler'); ?>' },
-            { field:'NombreClub',	width:'14%', align:'right', title: '<?php _e('Club'); ?>' },
-            { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.' , formatter:formatCategoria},
-            { field:'Grado',	    width:'4%', align:'center', title: '<?php _e('Grade'); ?>', formatter:formatGrado },
-            { field:'Faltas',		width:'4%', align:'center', title: '<?php _e('Faults'); ?>'},
-            { field:'Rehuses',		width:'4%', align:'center', title: '<?php _e('Refusals'); ?>'},
-            { field:'Tocados',		width:'4%', align:'center', title: '<?php _e('Touchs'); ?>'},
-            { field:'PRecorrido',	hidden:true },
-            { field:'Tiempo',		width:'6%', align:'right', title: '<?php _e('Time'); ?>', formatter:formatTiempo},
-            { field:'PTiempo',		hidden:true },
-            { field:'Velocidad',	width:'4%', align:'right', title: '<?php _e('Vel'); ?>.', formatter:formatVelocidad},
-            { field:'Penalizacion',	width:'6%', align:'right', title: '<?php _e('Penal'); ?>.', formatter:formatPenalizacion},
-            { field:'Calificacion',	width:'11%', align:'center',title: '<?php _e('Calification'); ?>'},
-            { field:'Puesto',		width:'4%', align:'center',  title: '<?php _e('Position'); ?>', formatter:formatPuesto},
-            { field:'CShort',       hidden:true}
-        ]],
-        rowStyler:myRowStyler,
-        onBeforeLoad: function(param) {
-            // make sure team counter is reset
-            workingData.teamCounter=1;
+    $('#parciales_individual-datagrid').datagrid({
+        onBeforeLoad: function (param) {
             // do not update until 'open' received
-            if( $('#vwcp_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
+            if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
             return true;
+        },
+        onLoadSuccess: function(data) {
+            $('#parciales_individual-datagrid').datagrid('scrollTo',0); // point to first result
         }
     });
 
@@ -360,7 +307,8 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwcp_header-NombreRonda').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateHeaderAndFooter(e,d);
-                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults);
+                setParcialIndividualOrTeamView(d); // fix individual or team view for final results
+                clearParcialRoundInformation();
                 vw_formatResultadosDatagrid($('#vwcp_ultimos-datagrid'),e,d,null);
                 vwcp_updateLlamada(e,d);
             });
@@ -368,10 +316,10 @@ Pantalla de de visualizacion combinada llamada/parciales
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateHeaderAndFooter(e,d);
-                vw_formatResultadosDatagrid($('#vw_parciales-datagrid'),e,d,formatVwTeamResults);
+                setParcialIndividualOrTeamView(d); // fix individual or team view for final results
+                updateParciales(d.Ronda.Mode,d);
                 vw_formatResultadosDatagrid($('#vwcp_ultimos-datagrid'),e,d,null);
                 vwcp_updateLlamada(e,d);
-                vwcp_updateParciales(e,d);
             });
         },
         'close': function (event, time) { // no more dogs in tanda
@@ -469,8 +417,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             myCounter.stop();
             $('#cronometro').Chrono('stop', time);  // nos aseguramos de que los cronos esten parados
             vw_updateWorkingData(event,function(e,d){
-                vwcp_updateParciales(e,d);
-                // TODO: check if last item in queue and clear queue
+                updateParciales(d.Ronda.Mode,d);
             });
         },
         'cancelar': function (event,time) {  // operador pulsa cancelar

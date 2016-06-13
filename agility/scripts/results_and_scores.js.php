@@ -27,6 +27,39 @@ $config =Config::getInstance();
 
 
 /**
+ * Limpia datos de jueces, trs y trm.
+ * Se usa en los eventos "init" para borrar informacion previa
+ */
+function clearParcialRoundInformation() {
+    $('#parciales-NombreManga').html("<?php _e('No round selected'); ?>");
+    $('#parciales-Juez1').html("<?php _e('Judge'); ?> 1:");
+    $('#parciales-Juez2').html("<?php _e('Judge'); ?> 2:");
+    $('#parciales-Distancia').html("<?php _e('Dist'); ?>:");
+    $('#parciales-Obstaculos').html("<?php _e('Obst'); ?>:");
+    $('#parciales-TRS').html("<?php _e('S.C.T.'); ?>:");
+    $('#parciales-TRM').html("<?php _e('M.C.T.'); ?>:");
+    $('#parciales-Velocidad').html("<?php _e('Vel'); ?>:");
+}
+
+function clearFinalRoundInformation() {
+    $('#finales-NombreRonda').html("<?php _e('No round selected'); ?>");
+    $('#finales-Juez1').html("<?php _e('Judge'); ?> 1:");
+    $('#finales-Juez2').html("<?php _e('Judge'); ?> 2:");
+    $('#finales-Ronda1').html("<?php _e('Data info for round'); ?> 1:");
+    $('#finales-Distancia1').html("<?php _e('Dist'); ?>:");
+    $('#finales-Obstaculos1').html("<?php _e('Obst'); ?>:");
+    $('#inales-TRS1').html("<?php _e('S.C.T.'); ?>:");
+    $('#finales-TRM1').html("<?php _e('M.C.T.'); ?>:");
+    $('#finales-Velocidad1').html("<?php _e('Vel'); ?>:");
+    $('#finales-Ronda2').html("<?php _e('Data info for round'); ?> 2:");
+    $('#finales-Distancia2').html("><?php _e('Dist'); ?>:");
+    $('#finales-Obstaculos2').html("<?php _e('Obst'); ?>:");
+    $('#finales-TRS2').html("<?php _e('S.C.T.'); ?>:");
+    $('#finales-TRM2').html("<?php _e('M.C.T.'); ?>:");
+    $('#finales-Velocidad2').html("<?php _e('Vel'); ?>:");
+}
+
+/**
  * Muestra clasificacion final de los miembros de un equipo
  * @param parent datagrid de datos de equipos
  * @param idx indice de la fila del equipo asociado

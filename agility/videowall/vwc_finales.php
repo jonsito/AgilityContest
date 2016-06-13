@@ -59,7 +59,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         <div data-options="region:'center',border:false" class="vwc_top"><!-- Espacio vacio -->&nbsp;</div>
         <div data-options="region:'east'" style="width:65%"> <!-- CLASIFICACION FINAL -->
             <!-- Datos de TRS y TRM -->
-            <?php $size="m"; include_once(__DIR__ . "/../lib/templates/final_rounds_data.inc.php"); ?>
+            <?php include_once(__DIR__ . "/../lib/templates/final_rounds_data.inc.php"); ?>
             <!-- datagrid para clasificacion individual -->
             <div id="finales_individual-table" class="scores_table" style="display:none;width:100%">
                 <?php include_once(__DIR__ . "/../lib/templates/final_individual.inc.php"); ?>
