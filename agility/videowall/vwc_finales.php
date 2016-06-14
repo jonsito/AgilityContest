@@ -124,7 +124,7 @@ Pantalla de de visualizacion combinada llamada/parciales
                             <th data-options="field:'NombreGuia',	width:50, align:'right'" > <?php _e('Handler'); ?></th>
                             <th data-options="field:'NombreClub',	width:45, align:'right'" > <?php _e('Club'); ?></th>
                             <!--
-                    <th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
+                    <th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"> <?php _e('F'); ?></th>
                     <th data-options="field:'R1',			width:15, align:'center'"> <?php _e('R'); ?>.</th>
                     -->
                             <th data-options="field:'T1',			width:25, align:'right',formatter:formatT1,styler:formatBorder"> <?php _e('Time'); ?>.</th>

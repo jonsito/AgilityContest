@@ -489,7 +489,10 @@ function vwcp_updateLlamada(evt,data) {
 			$("#vwls_Categoria").html(current['Categoria']);
 			$("#vwls_Grado").html(current['Grado']);
 			$("#vwls_Dorsal").html(current['Dorsal']);
-			$("#vwls_Nombre").html(current['Nombre']);
+			// take care on Test dog
+			if (evt.Nombre==="<?php _e('Test dog');?>")
+                $("#vwls_Nombre").html(evt.Nombre);
+			else $("#vwls_Nombre").html(current['Nombre']);
 			var celo=(current['Celo']!=0)?'<span class="blink"><?php _e("Heat");?></span>':"&nbsp";
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(current['NombreGuia']);
@@ -583,7 +586,9 @@ function vwcf_updateLlamada(evt,data) {
 			$("#vwls_Categoria").html(current['Categoria']);
 			$("#vwls_Grado").html(current['Grado']);
 			$("#vwls_Dorsal").html(current['Dorsal']);
-			$("#vwls_Nombre").html(current['Nombre']);
+			if (evt.Nombre==="<?php _e('Test dog');?>")
+                $("#vwls_Nombre").html(evt.Nombre);
+            else $("#vwls_Nombre").html(current['Nombre']);
 			var celo = (current['Celo'] != 0) ? '<span class="blink"><?php _e("Heat");?></span>' : "&nbsp";
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(current['NombreGuia']);
