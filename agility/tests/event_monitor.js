@@ -366,7 +366,7 @@ function startEventMgr() {
             }
             if ( parseInt(response['total'])!=0) {
                 var row=response['rows'][0];
-                var evtID=row['ID'];
+                var evtID=parseInt(row['ID'])-1; /* dont loose first "init" event */
 				console.log("Connected to AgilityContest Event bus");
                 setTimeout(function(){ waitForEvents(evtID,0);},0);
             } else {

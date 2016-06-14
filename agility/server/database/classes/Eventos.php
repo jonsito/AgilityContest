@@ -95,11 +95,12 @@ class Eventos extends DBObject {
 	function putEvent(&$data) {
 		$this->myLogger->enter();
 		$sid=$this->sessionID;
+		$onInit=false;
 		// si el evento es "init" y el flag reset_events está a 1 borramos el historico de eventos antes de reinsertar
         if ( ( intval($this->myConfig->getEnv("reset_events")) == 1 ) && ( ($data['Type']==='init') )) {
             $rs= $this->query("DELETE FROM Eventos WHERE (Session=$sid)");
             if (!$rs) return $this->error($this->conn->error);
-            file_put_contents($this->sessionFile,"\n",LOCK_EX); // borra fichero de eventos
+			$onInit=true;
         }
 		// comprueba los permisos de los diversos eventos antes de aceptarlos:
 		switch($data['Type']) {
@@ -198,7 +199,8 @@ class Eventos extends DBObject {
 		$flag=$this->myConfig->getEnv("register_events");
 		$str=json_encode($data);
 		if (boolval($flag)) {
-			file_put_contents($this->sessionFile,$str."\n", FILE_APPEND | LOCK_EX);
+			if ($onInit) file_put_contents($this->sessionFile,$str."\n",LOCK_EX);
+			else file_put_contents($this->sessionFile,$str."\n", FILE_APPEND | LOCK_EX);
 		} else {
 			// as touch() doesn't work if "no_atime" flag is enabled (SSD devices)
 			// just overwrite event file with last event
@@ -306,10 +308,10 @@ class Eventos extends DBObject {
 	}
 	
 	/**
-	 * Retrieve last "open" event with provided Session ID
+	 * Retrieve last "init" event with provided Session ID
 	 * Used for clients to retrieve event ID index
 	 * SELECT * from Eventos
-	 *		WHERE  ( Session = {$data['Session']} ) AND ( Type = 'open' )
+	 *		WHERE  ( Session = {$data['Session']} ) AND ( Type = 'init' )
 	 *		ORDER BY ID DESC LIMIT 1
      * @param {array} $data key:value pairs to extract parameters from
 	 * @param {array} $data requested event info
@@ -325,7 +327,7 @@ class Eventos extends DBObject {
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Eventos",
-				/* WHERE */ "( Session = {$data['Session']} ) AND ( Type = 'open' )",
+				/* WHERE */ "( Session = {$data['Session']} ) AND ( Type = 'init' )",
 				/* ORDER BY */ "ID DESC",
 				/* LIMIT */ "0,1"
 						);

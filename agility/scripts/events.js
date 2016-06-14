@@ -104,7 +104,7 @@ function startEventMgr() {
 			}
 			if ( parseInt(response['total'])!=0) {
 				var row=response['rows'][0];
-				var evtID=row['ID'];
+				var evtID=parseInt(row['ID'])-1; // make sure initial "init" event is received
 				setTimeout(function(){ waitForEvents(evtID,0);},0);
 			} else {
 				setTimeout(function(){ startEventMgr(); },timeout );
