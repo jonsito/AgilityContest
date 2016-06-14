@@ -277,7 +277,6 @@ $config =Config::getInstance();
                 { field:'Perro',		width:0, hidden:true },
                 { field:'Licencia',		width:0, hidden:true },
                 { field:'Pendiente',	width:0, hidden:true },
-                { field:'Tanda',		width:0, hidden:true },
                 { field:'Equipo',		width:0, hidden:true },
                 { field:'NombreEquipo',	width:20, align:'center',	title: '<?php _e('Team');?>' },
                 { field:'Dorsal',		width:10, align:'center',	title: '<?php _e('Dorsal');?>', styler:checkPending },

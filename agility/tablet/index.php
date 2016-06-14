@@ -174,6 +174,36 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <script type="text/javascript">
 
+workingData.testDog= {
+	'Parent':		"",
+	'Prueba':		0,
+	'Jornada':		0,
+	'Manga':		0,
+	'Tanda':		"", // nombre
+	'ID':			0,
+	'Perro':		0,
+	'Licencia':		"",
+	'Pendiente':	0,
+	'Equipo':		0,
+	'NombreEquipo': "",
+	'Dorsal':		0,
+	'Nombre':		"<?php _e('Test dog'); ?>",
+	'NombreLargo':	"",
+	'Celo':			0,
+	'NombreGuia':	"<?php _e('Handler');?>",
+	'NombreClub':	"<?php _e('Club');?>",
+	'Categoria':	"-",
+	'Grado':		"-",
+	'Faltas':		0,
+	'Rehuses':		0,
+	'Tocados':		0,
+	'Tiempo':		0.0,
+	'TIntermedio':	0.0,
+	'Eliminado':	0,
+	'NoPresentado':	0,
+	'Observaciones': ""
+};
+
 $('#seltablet-form').form();
 
 $('#seltablet-Sesion').combogrid({

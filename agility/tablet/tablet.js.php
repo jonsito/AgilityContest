@@ -86,6 +86,13 @@ function tablet_putEvent(type,data){
 }
 
 function tablet_updateSession(row) {
+    // update testDog data
+    workingData.testDog.Prueba=row.Prueba;
+    workingData.testDog.Jornada=row.Jornada;
+    workingData.testDog.Manga=row.Manga;
+    workingData.testDog.Tanda=row.Nombre;
+    workingData.testDog.Categoria=row.Categoria;
+    workingData.testDog.Grado=row.Grado;
 	// update sesion info in database
 	var data = {
 			Operation: 'update',
@@ -369,17 +376,25 @@ function tablet_reconocimiento() {
 
 function tablet_perroEnBlanco() {
 	// verifica que hay manga seleccionada
-	var row=$('#tablet-datagrid').datagrid('getSelected');
+    var dg=$('#tablet-datagrid');
+	var row=dg.datagrid('getSelected');
 	if (!row) {
 		$.messager.alert("Error",'<?php _e("No round selected");?>',"error");
 		return false;
 	}
-	if (row.Tipo==0) {
+	if (parseInt(row.Tipo)==0) {
 		$.messager.alert("Error",'<?php _e("You must select a running round");?>',"error");
 		return false;
 	}
-	// generamos un evento "llamada" con IDPerro=0
-	
+    // generamos un evento "llamada" con IDPerro=0
+    doBeep();
+    workingData.testDog.Session=workingData.sesion;
+    workingData.testDog.Parent='#tablet-datagrid-'+row.ID;
+    var dg2=$(workingData.testDog.Parent);
+    var row2=dg2.datagrid('getSelected');
+    workingData.testDog.RowIndex=(row2)?dg2.datagrid('getRowIndex',row2):-1;
+    $('#tdialog-form').form('load',workingData.testDog);
+    setDataEntryEnabled(true);
 }
 
 function tablet_startstop() {
