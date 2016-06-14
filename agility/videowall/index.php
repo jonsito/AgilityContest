@@ -172,13 +172,16 @@ function myLlamadaRowStyler(idx,row) {
                     <!-- videowall -->
                     <option value="0"><?php _e('Starting order'); ?></option>
                     <option value="1"><?php _e('Call to ring'); ?></option>
-                    <option value="2"><?php _e('Partial scores'); ?></option>
+					<option value="2"><?php _e('Partial scores'); ?></option>
+					<option value="4"><?php _e('Final scores'); ?></option>
                 </optgroup>
 				<optgroup label="<?php _e('Combo view');?> ">
 					<option value="7"><?php _e('Call to ring '); ?> / <?php _e('Partial scores'); ?></option>
 					<option value="8"><?php _e('Call to ring '); ?> / <?php _e('Final scores'); ?></option>
-					<option value="9"><?php _e('Call'); ?> / <?php _e('Final'); ?> (<?php _e('simplified'); ?>)</option>
-					<option value="3"><?php _e('Combo view (old-style)'); ?></option>
+				</optgroup>
+				<optgroup label="<?php _e('Simplified');?> ">
+					<option value="3"><?php _e('Partial Scores'); ?> (<?php _e('simplified'); ?>)</option>
+					<option value="9"><?php _e('Final Scores'); ?> (<?php _e('simplified'); ?>)</option>
 				</optgroup>
        		</select>
     	</div>
@@ -269,7 +272,7 @@ function vw_accept() {
 	initWorkingData(s.ID,videowall_eventManager);
 	ac_config.vwc_simplified=0;
 	ac_config.vw_combined=0;
-	var page="'/agility/console/frm_notavailable.php";
+	var page="/agility/console/frm_notavailable.php";
 	var n=parseInt($('#selvw-Vista').val());
 	switch (n){
 	case 0: // Ordenes de Salida
@@ -281,18 +284,25 @@ function vw_accept() {
 	case 2: // Resultados Parciales
 		page="/agility/videowall/vw_parciales.php";
 		break;
-    case 3: // Vista Combinada (legacy style)
-        page="/agility/videowall/vwc_oldstyle.php";
-        break;
+	case 4: // Clasificacion final
+		// page="/agility/videowall/vw_finales.php";
+		page="/agility/console/frm_notavailable.php";
+		break;
 	case 7: // pantalla combinada ( Resultados parciales )
-			page="/agility/videowall/vwc_parciales.php";
-			ac_config.vw_combined=1;
+		page="/agility/videowall/vwc_parciales.php";
+		ac_config.vw_combined=1;
 		break;
 	case 8: // pantalla comobinada ( Clasificacion final )
 		page="/agility/videowall/vwc_finales.php";
 		ac_config.vw_combined=1;
 		break;
-	case 9: // pantalla comobinada simplificada ( Clasificacion final )
+	case 3: // Vista Combinada (legacy style) is no longer available
+		// page="/agility/videowall/vwc_parciales_simplified.php";
+		page="/agility/console/frm_notavailable.php";
+		ac_config.vw_combined=1;
+		ac_config.vwc_simplified=1;
+		break;
+	case 9: // Combinada Final simplificada
 		page="/agility/videowall/vwc_finales_simplified.php";
 		ac_config.vw_combined=1;
 		ac_config.vwc_simplified=1;
