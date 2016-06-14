@@ -363,6 +363,21 @@ function tablet_reconocimiento() {
 	return false;
 }
 
+function tablet_perroEnBlanco() {
+	// verifica que hay manga seleccionada
+	var row=$('#tablet-datagrid').datagrid('getSelected');
+	if (!row) {
+		$.messager.alert("Error",'<?php _e("No round selected");?>',"error");
+		return false;
+	}
+	if (row.Tipo==0) {
+		$.messager.alert("Error",'<?php _e("You must select a running round");?>',"error");
+		return false;
+	}
+	// generamos un evento "llamada" con IDPerro=0
+	
+}
+
 function tablet_startstop() {
 	var time = Date.now() - startDate;
 	var ssb=getStartStopMode();

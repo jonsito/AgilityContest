@@ -515,7 +515,7 @@ function competicionSelectByDorsal() {
     var drs = $('#competicion-search');
     var rows = dg.datagrid('getRows');
     var dorsal = parseInt(drs.val());
-    drs.val("---- Dorsal ----");
+    drs.val("--- Dorsal ---");
     drs.blur();// remove focus to hide tooltip
     if (dorsal >= 0) {
         var idx = dg.datagrid('getRowIndex', dorsal);

@@ -34,7 +34,7 @@ $config =Config::getInstance();
 	   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()"><?php _e('Update'); ?></a>
 	   	<label for="competicion-autoUpdateBtn"><?php _e('Auto'); ?>:</label>
 	   	<input id="competicion-autoUpdateBtn" type="checkbox" class="easyui-checkbox" value="0" onclick="autoUpdateCompeticion()"/>
-   		<input id="competicion-search" type="text" value="---- Dorsal ----" class="search_textfield"  onchange="competicionSelectByDorsal();"/>
+   		<input id="competicion-search" type="text" value="--- Dorsal ---" class="search_textfield"  onchange="competicionSelectByDorsal();"/>
    	</span>
    	<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
