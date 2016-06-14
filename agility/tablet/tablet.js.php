@@ -121,6 +121,10 @@ function tablet_updateSession(row) {
 }
 
 function tablet_updateResultados(pendiente) {
+	// on "Test dog", do not store into database, only allow event handling
+	if ($('#tdialog-Perro').val()==0) return;
+	
+	// make sure that 'pendiente' is properly sent to server
 	$('#tdialog-Pendiente').val(pendiente);
 	var frm = $('#tdialog-form');
 	$.ajax({
@@ -411,10 +415,21 @@ function tablet_cancel() {
 	var dgname=$('#tdialog-Parent').val();
 	var dg=$(dgname);
 	var row =dg.datagrid('getSelected');
-	if (!row) { // should not ocurrs
-		tablet_cronometro('stop');
-		tablet_cronometro('reset');
-		console.log("INTERNAL ERROR tablet_cancel(): no selected row");
+	// on Test dog no need to pre-select dog entry. so take care on it
+	if (!row || ( $('#tdialog-Perro').val()==0 ) ) {
+		tablet_putEvent(
+			'cancelar',
+			{
+				'NoPresentado'	:	0,
+				'Faltas'		:	0,
+				'Tocados'		:	0,
+				'Rehuses'		:	0,
+				'Tiempo'		:	0,
+				'TIntermedio'	:	0,
+				'Eliminado'		:	0
+			}
+		);
+		// no dog selection, so no result to store nor nextdog to select
 		setDataEntryEnabled(false);
 		return false;
 	}
@@ -443,8 +458,6 @@ function tablet_cancel() {
 			dg.datagrid('scrollTo',{
 				index : idx,
 				callback: function(index) {
-					// tablet_cronometro('stop');
-					// tablet_cronometro('reset');
 					setDataEntryEnabled(false);
 					dg.datagrid('refreshRow',idx);
 				}
@@ -482,21 +495,34 @@ function nextRow(dg,row,index, cb){
  */
 function tablet_save(dg) {
 	tablet_updateResultados(0); // mark as result no longer pending
+
 	var row = dg.datagrid('getSelected');
-	if (!row) { // !no row selected!!. should mark error
-		console.log("INTERNAL ERROR tablet_accept(): no selected row");
-		return -1;
+	var rowindex=(row)?dg.datagrid("getRowIndex", row):-1;
+	// on white dog do not propagate results to datagrid. just send fake event
+	if ($('#tdialog-Perro').val()==0) {
+		tablet_putEvent(
+			'aceptar',
+			{
+				'NoPresentado': 0,
+				'Faltas': 0,
+				'Tocados': 0,
+				'Rehuses': 0,
+				'Tiempo': 0,
+				'Eliminado': 0
+			}
+		);
+		return rowindex;
+	}
+	if (rowindex<0) {
+		console.log("INTERNAL ERROR tablet_save(): no selected row");
+		return rowindex;
 	}
 
-	// send back data to parent tablet datagrid form
+	// send back data to parent tablet datagrid form. mark no pending
 	var obj = formToObject('#tdialog-form');
-	// mark as no longer pending
 	obj.Pendiente = 0;
-	// now update and redraw data on
-	var rowindex= dg.datagrid("getRowIndex", row);
-
-	// update row
 	dg.datagrid('updateRow', {index: rowindex, row: obj});
+
 	// and fire up accept event
 	tablet_putEvent(
 		'aceptar',
