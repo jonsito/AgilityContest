@@ -22,11 +22,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /*
 * Estilos asociados a las diversas pantallas de live stream
 */
+#osd_common {
+    vertical-align: middle;
+    font-size:1.25vw;
+    font-family: "Arial Black", Gadget, sans-serif;
+    border: none;
+    border-width: 0px;
+    z-index: 1;
+}
+
 #vwls_common {
     vertical-align: middle;
-    /*line-height: 25px; */
     font-size:1.0vw;
     font-weight: bold;
+    // font-family: "Arial Black", Gadget, sans-serif;
     border: none;
     border-width: 0px;
     z-index: 1;

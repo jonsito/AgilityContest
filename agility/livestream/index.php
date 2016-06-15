@@ -92,31 +92,14 @@ require_once(__DIR__."/../server/upgradeVersion.php");
             border: 0px none transparent;
         }
 
-		.datagrid-body .datagrid-group {
-			background-color: <?php echo $config->getEnv("vw_hdrbg3"); ?>;
-			color: <?php echo $config->getEnv("vw_hdrfg3"); ?>;
-			height:40px;
-			line-height: 40px;
-		}
-
-		.datagrid-body .datagrid-group .datagrid-group-title {
-			height:40px;
-			line-height: 40px;
-			font-weight: bold;
-		}
-
-		.datagrid-body .datagrid-group .datagrid-group-expander {
-			margin-top:7px;
-		}
-
     </style>
 
 <script type="text/javascript" charset="utf-8">
 
 function myTransparentRowStyler(idx,row) {
 	var res="background-color:";
-	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
-	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
+	var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
+	var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
 	if ( (idx&0x01)==0) { return res+c1+";opacity:0.9"; }
 	else { return res+c2+";opacity:0.9"; }
 }
@@ -153,8 +136,8 @@ function myRowStyler(idx,row) {
 function myLlamadaRowStyler(idx,row) {
 	var height=(ac_config.vwc_simplified==0)?40:50;
 	var res="height:"+height+"px;line-height:"+height+"px;background-color:";
-    var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
-    var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
+    var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
+    var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
     var tnd='<?php echo $config->getEnv('vw_hdrbg2'); ?>';
     var eqp='<?php echo $config->getEnv('vw_hdrbg3'); ?>';
     if (parseInt(row.Orden)==-1) return res+tnd+";";

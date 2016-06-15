@@ -44,7 +44,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php } else { ?>
 		<img src="/agility/server/getChromaKeyImage.php" style="z-index:-1;" />
 <?php } ?>
-		<div id="vwls_common" style="display:inline-block;width:100%;">
+		<div id="osd_common" style="display:inline-block;width:100%;">
 
 			<div id="vwls_mangasInfo">
 				<!-- Recuadro de informacion de la manga -->
@@ -191,8 +191,8 @@ doLayout(layout,"#vwls_Logo",			50,		365,	70,		70	);
 doLayout(layout,"#vwls_Dorsal",			125,	412,	25,		20	);
 doLayout(layout,"#vwls_Nombre",			150,	412,	200,	20	);
 doLayout(layout,"#vwls_NombreGuia",		125,	425,	140,	20	);
-doLayout(layout,"#vwls_NombreClub",		265,	425,	135,	20	);
-doLayout(layout,"#vwls_Celo",			360,	412,	40,		20	);
+doLayout(layout,"#vwls_NombreClub",		265,	425,	145,	20	);
+doLayout(layout,"#vwls_Celo",			370,	412,	30,		20	);
 // doLayout(layout,"#vwls_Grado",			400,	415,	100,	20	); // already shown in infomanga
 // doLayout(layout,"#vwls_Categoria",		510,	412,	140,	20	); // already shown in infomanga
 
