@@ -62,45 +62,68 @@ function vwls_keyBindings() {
 }
 
 function vwls_showData(data) {
+
+
 	var perro=$('#vwls_Perro').html();
 	var vwls_tiempo=$('#vwls_Tiempo');
 	var dorsal=data['Dorsal'];
 	var numero=data['Numero'];
 	var celo=parseInt(data['Celo']);
+
+	function fillForm(res) {
+		$('#vwls_Numero').html(numero);
+		$('#vwls_Dorsal').html(dorsal );
+		$('#vwls_Perro').html(res["ID"]);
+		$('#vwls_Nombre').html(res["Nombre"]);
+		$('#vwls_Logo').attr("src","/agility/images/logos/getLogo.php?Federation="+res['Federation']+"&Logo="+res['LogoClub']);
+		$('#vwls_NombreGuia').html(res["NombreGuia"]);
+		$('#vwls_Cat').html(res["Categoria"]);
+		$('#vwls_Categoria').html(toLongCategoria(res["Categoria"],res['Federation']));
+		// hide "Grado" Information if not applicable
+		$('#vwls_Grado').html(hasGradosByJornada(workingData.datosJornada)?res["NombreGrado"]:"");
+		// on Team events, show Team info instead of Club
+		var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
+		// como en el videowall no tenemos datos de la jornada, lo que hacemos es
+		// contar el numero de equipos de esta para saber si es prueba por equipos o no
+		$('#vwls_NombreClub').html((Object.keys(workingData.teamsByJornada).length>1)?eq:res["NombreClub"]);
+		$('#vwls_Celo').html((celo==1)?'<span class="blink">Celo</span>':'');
+	}
+
 	if (perro!==data['Perro']) {
 		// if datos del participante han cambiado actualiza
-		$.ajax({
-			type: "GET",
-			url: "/agility/server/database/dogFunctions.php",
-			data: {
-				'Operation' : 'getbyidperro',
-				'ID'	: data['Perro']
-			},
-			async: true,
-			cache: false,
-			dataType: 'json',
-			success: function(res){
-				$('#vwls_Numero').html(numero);
-				$('#vwls_Logo').attr("src","/agility/images/logos/"+res['LogoClub']);
-				$('#vwls_Dorsal').html(dorsal );
-				$('#vwls_Perro').html(res["ID"]);
-				$('#vwls_Nombre').html(res["Nombre"]);
-				$('#vwls_NombreGuia').html(res["NombreGuia"]);
-				$('#vwls_Cat').html(res["Categoria"]);
-                $('#vwls_Categoria').html(toLongCategoria(res["Categoria"],res['Federation']));
-                // hide "Grado" Information if not applicable
-                $('#vwls_Grado').html(hasGradosByJornada(workingData.datosJornada)?res["NombreGrado"]:"");
-                // on Team events, show Team info instead of Club
-                var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
-                // como en el videowall no tenemos datos de la jornada, lo que hacemos es
-                // contar el numero de equipos de esta para saber si es prueba por equipos o no
-                $('#vwls_NombreClub').html((Object.keys(workingData.teamsByJornada).length>1)?eq:res["NombreClub"]);
-				$('#vwls_Celo').html((celo==1)?'<span class="blink">Celo</span>':'');
-			},
-			error: function(XMLHttpRequest,textStatus,errorThrown) {
-				alert("error: "+textStatus + " "+ errorThrown );
-			}
-		});
+		if (data['Nombre']==="<?php _e('Test dog'); ?>") { // perro en blanco???
+			data.Equipo=Object.keys(workingData.teamsByJornada)[0]; // default team goes first
+			// en caso de perro en blanco, usa datos del perro por defecto
+			fillForm({
+				Nombre: 	"<?php _e('Test dog'); ?>",
+				ID:			0,
+				LogoClub:	"agilitycontest.png",
+				Federation:	"0",
+				NombreGuia:	"",
+				Categoria:	"-",
+				NombreGrado:"-",
+				NombreClub:	""
+			})
+		} else { // no perro en blanco. Busca datos adicionales
+			$.ajax({
+				type: "GET",
+				url: "/agility/server/database/dogFunctions.php",
+				data: {
+					'Operation' : 'getbyidperro',
+					'ID'	: data['Perro']
+				},
+				async: true,
+				cache: false,
+				dataType: 'json',
+				success: function(res){
+					if (typeof(res.errorMsg)==="undefined") fillForm(res);
+					else $.messager.show({title:"error",msg:res.errorMsg,timeout:5000,showType:'slide'});
+				},
+				error: function(XMLHttpRequest,textStatus,errorThrown) {
+					$.messager.show({title:"error",msg:textStatus + " " + errorThrown,timeout:5000,showType:'slide'});
+				}
+			})
+		}
 	}
 	// actualiza resultados del participante
 	$('#vwls_Faltas').html(data["Faltas"]);
