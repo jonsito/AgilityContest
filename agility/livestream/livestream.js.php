@@ -104,13 +104,15 @@ function vwls_showData(data) {
 				NombreGrado:"-",
 				NombreClub:	""
 			})
-		} else { // no perro en blanco. Busca datos adicionales
+		} else { // no perro en blanco. 
+			// Busca datos adicionales
 			$.ajax({
 				type: "GET",
 				url: "/agility/server/database/dogFunctions.php",
 				data: {
 					'Operation' : 'getbyidperro',
-					'ID'	: data['Perro']
+					'ID'	: data['Perro'],
+					'Jornada': workingData.jornada
 				},
 				async: true,
 				cache: false,

@@ -247,6 +247,11 @@ class Dogs extends DBObject {
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
+		// in videowall/livestream, add results data for journey
+		$jornada=http_request("Jornada","i",0);
+		if ($jornada==0) return $data; // no need to add competition data
+		$res=$this->__select("*","Resultados","(Perro=$idperro) AND (Jornada=$jornada)");
+		$data["results"]=$res['rows'];
 		return $data;
 	}
 	

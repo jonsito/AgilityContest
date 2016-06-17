@@ -279,13 +279,15 @@ class VideoWall {
         }
         // if dog is not provided nor found, just assume default
         if ($found<0) $found=$before;
-        // and return 3 arrays:
+        // and return 4 arrays:
         $res=array(
             // "total" => count($res),
             // "rows" => $res,
             "before" => array_slice($result,-$found,$before),
             "current" => array_slice($result,-($found+1),1),
-            "after" => array_slice($result,-($found+1+$after),$after)
+            "after" => array_slice($result,-($found+1+$after),$after),
+            // extra round results for current dog (if any)
+            "results" =>$this->myDBObject->__select("*","Resultados","(Perro=$perro) AND (Jornada={$this->jornada['ID']})","","")['rows']
         );
         echo json_encode($res);
         return 0;
