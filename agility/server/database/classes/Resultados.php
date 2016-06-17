@@ -580,7 +580,12 @@ class Resultados extends DBObject {
 		// FASE 5: buscamos el puesto en el que finalmente ha quedado $myPerro y lo retornamos
 		for ($idx=0;$idx<$size;$idx++ ){
 			if ($table[$idx]['Perro']!=$idperro) continue;
-			return array( 'success'=>true,'puesto'=>(1+$idx),'penalizacion'=>$table[$idx]['Penalizacion']);
+			return array( 
+				'success'		=> true,
+				'puesto'		=>(1+$idx),
+				'penalizacion'	=>$table[$idx]['Penalizacion'],
+				'mejortiempo' 	=>$table[0]['Tiempo']
+			);
 		}
 		//arriving here means error: perro not found
 		return $this->error("Perro:$idperro not found in resultados::getPuesto()");

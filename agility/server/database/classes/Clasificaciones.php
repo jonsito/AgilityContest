@@ -522,12 +522,12 @@ class Clasificaciones extends DBObject {
 		$idperro=intval($perro['Perro']);
 		// en el caso de que todavia no haya clasificaciones, la tabla esta vacia y nuestro perro va el primero :-)
 		if ($size==0) {
-			return array( 'success'=>true,'puesto'=>1,'penalizacion'=>0 /* no easy way to evaluate */);
+			return array( 'mejortiempo'=>$perro['Tiempo'],'success'=>true,'puesto'=>1,'penalizacion'=>0 /* no easy way to evaluate */);
 		}
 		// buscamos el puesto en el que finalmente ha quedado $myPerro y lo retornamos
 		for ($idx=0;$idx<$size;$idx++ ){
 			if ($table[$idx]['Perro']!=$idperro) continue;
-			return array( 'success'=>true,'puesto'=>(1+$idx),'penalizacion'=>$table[$idx]['Penalizacion']);
+			return array('mejortiempo'=>$table[0]['Tiempo'], 'success'=>true,'puesto'=>(1+$idx),'penalizacion'=>$table[$idx]['Penalizacion']);
 		}
 		//arriving here means error: perro not found
 		return $this->error("Perro:$idperro not found in clasificaciones::getPuesto()");
