@@ -572,7 +572,10 @@ function vwcf_updateLlamada(evt,data) {
 				}
 				// una vez evaluadas las clasificaciones de los 'before' perros, las presentamos
 				var ret= {'total':dat['before'].length,'rows':dat['before']};
-				$('#vwcf_ultimos-datagrid').datagrid('loadData', ret ).datagrid('scrollTo', 0);
+				$('#finales_last_individual-datagrid')
+					.datagrid('loadData', ret )
+					.datagrid('fitColumns')
+					.datagrid('scrollTo', 0);
 			}
 
 			// componemos ventana de llamada

@@ -88,7 +88,7 @@ Pantalla de de visualizacion combinada llamada/parciales
                         <!-- datos de resultados -->
                         <span style="display:none"  id="vwls_Faltas">0</span>
                         <span style="display:none"  id="vwls_Tocados">0</span>
-                        <span class="vwc_dlabel" id="vwls_FaltasTocadosLbl"><?php _e('F/T'); ?>:</span>
+                        <span class="vwc_dlabel" id="vwls_FaltasTocadosLbl"><?php _e('F'); ?>:</span>
                         <span class="vwc_data"  id="vwls_FaltasTocados">0</span>
                         <span class="vwc_dlabel" id="vwls_RehusesLbl"><?php _e('R'); ?>:</span>
                         <span class="vwc_data"  id="vwls_Rehuses">0</span>
@@ -109,41 +109,9 @@ Pantalla de de visualizacion combinada llamada/parciales
                     </div>
                 </div>
                 <div data-options="region:'east'" style="width:68%"> <!-- ULTIMOS TRES RESULTADOS -->
-                    <!-- tabla de ultimos 4 resultados -->
-                    <table id="vwcf_ultimos-datagrid">
-                        <thead>
-                        <tr>
-                            <!--
-                            <th data-options="field:'Perro',		hidden:true " ></th>
-                             -->
-                            <th data-options="field:'Orden',		width:20, align:'center',formatter:formatOrdenLlamadaPista" >#</th>
-                            <th data-options="field:'LogoClub',		width:20, align:'left',formatter:formatLogo" > &nbsp;</th>
-                            <th data-options="field:'Dorsal',		width:20, align:'left'" > <?php _e('Dors'); ?>.</th>
-                            <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
-                            <th data-options="field:'Categoria',	width:15, align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
-                            <th data-options="field:'NombreGuia',	width:50, align:'right'" > <?php _e('Handler'); ?></th>
-                            <th data-options="field:'NombreClub',	width:45, align:'right'" > <?php _e('Club'); ?></th>
-                            <!--
-                    <th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"> <?php _e('F'); ?></th>
-                    <th data-options="field:'R1',			width:15, align:'center'"> <?php _e('R'); ?>.</th>
-                    -->
-                            <th data-options="field:'T1',			width:25, align:'right',formatter:formatT1,styler:formatBorder"> <?php _e('Time'); ?>.</th>
-                            <th data-options="field:'P1',			width:20, align:'right',formatter:formatP1"> <?php _e('Penal'); ?>.</th>
-                            <th data-options="field:'Puesto1',		width:15, align:'center'"> <?php _e('Pos'); ?>.</th>
-                            <!--
-                    <th data-options="field:'F2',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
-                    <th data-options="field:'R2',			width:15, align:'center'"> <?php _e('R'); ?>.</th>
-                    -->
-                            <th data-options="field:'T2',			width:25, align:'right',formatter:formatT2,styler:formatBorder"> <?php _e('Time'); ?>.</th>
-                            <th data-options="field:'P2',			width:20, align:'right',formatter:formatP2"> <?php _e('Penal'); ?>.</th>
-                            <th data-options="field:'Puesto2',		width:15, align:'center'"> <?php _e('Pos'); ?>.</th>
-                            <th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
-                            <th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
-                            <th data-options="field:'Calificacion',	width:20, align:'center'" > <?php _e('Calif'); ?>.</th>
-                            <th data-options="field:'Puesto',		width:15, align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
-                        </tr>
-                        </thead>
-                    </table>
+                    <div id="finales_last_individual-table" class="scores_table" style="width:100%">
+                        <?php include_once(__DIR__ . "/../lib/templates/final_last_individual.inc.php"); ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -263,22 +231,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             return true;
         }
     });
-
-    $('#vwcf_ultimos-datagrid').datagrid({
-        // propiedades del panel asociado
-        fit: true,
-        border: false,
-        closable: false,
-        collapsible: false,
-        collapsed: false,
-        pagination: false,
-        rownumbers: false,
-        fitColumns: true,
-        singleSelect: true,
-        autoRowHeight: true,
-        rowStyler:myRowStyler
-    });
-
+    
     // header elements layout
     var layout= {'rows':110,'cols':1900};
     doLayout(layout,"#vwc_header-logo",	        0,	    0,	100,    100	);
@@ -313,7 +266,6 @@ Pantalla de de visualizacion combinada llamada/parciales
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateHeaderAndFooter(e,d); // fix header
                 setFinalIndividualOrTeamView(d); // fix individual or team view for final results
-                vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation on lasts teams
                 vwcf_updateLlamada(e,d);
             });
         },
@@ -321,7 +273,6 @@ Pantalla de de visualizacion combinada llamada/parciales
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateHeaderAndFooter(e,d);
                 setFinalIndividualOrTeamView(d); // fix individual or team view for final results
-                vw_formatClasificacionesDatagrid($('#vwcf_ultimos-datagrid'),e,d,null); // fix team/logos/cat/grade presentation on lasts teams
                 vwcf_updateLlamada(e,d);
             });
         },
