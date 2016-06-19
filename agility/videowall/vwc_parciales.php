@@ -108,10 +108,14 @@ Pantalla de de visualizacion combinada llamada/parciales
                         <span id="vw_footer-footerData"></span>
                     </div>
                 </div>
-                <div data-options="region:'east'" style="width:62%"> <!-- ULTIMOS TRES RESULTADOS -->
-
-                    <div id="parciales_last_individual-table" class="scores_table" style="width:100%">
+                <div data-options="region:'east'" style="width:62%;">
+                    <!-- ULTIMOS TRES RESULTADOS PARA PRUEBAS INDIVIDUAL -->
+                    <div id="parciales_last_individual-table" class="scores_table" style="display:none;width:100%">
                         <?php include_once(__DIR__ . "/../lib/templates/parcial_last_individual.inc.php"); ?>
+                    </div>
+                    <!-- ULTIMOS TRES RESULTADOS PARA PRUEBAS POR EQUIPOS -->
+                    <div id="parciales_last_equipos-table" class="scores_table" style="display:none;width:100%">
+                        <?php include_once(__DIR__ . "/../lib/templates/parcial_last_teams.inc.php"); ?>
                     </div>
                 </div>
             </div>

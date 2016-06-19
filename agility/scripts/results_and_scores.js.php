@@ -393,13 +393,11 @@ function setFinalIndividualOrTeamView(data) {
     if (team) {
         $("#finales_individual-table").css("display","none");
         $("#finales_equipos-table").css("display","inherit");
-        $("#finales_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]});
-        $("#finales_equipos-datagrid").datagrid('fitColumns');
+        $("#finales_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
     } else {
         $("#finales_individual-table").css("display","inherit");
         $("#finales_equipos-table").css("display","none");
-        $("#finales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]});
-        $("#finales_individual-datagrid").datagrid('fitColumns');
+        $("#finales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
     }
 }
 
@@ -411,13 +409,17 @@ function setParcialIndividualOrTeamView(data) {
     // activamos la visualizacion de la tabla correcta
     if (team) {
         $("#parciales_individual-table").css("display","none");
+        $("#parciales_last_individual-table").css("display","none");
         $("#parciales_equipos-table").css("display","inherit");
-        $("#parciales_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]});
-        $("#parciales_equipos-datagrid").datagrid('fitColumns');
+        $("#parciales_last_equipos-table").css("display","inherit");
+        $("#parciales_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+        $("#parciales_last_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
     } else {
-        $("#parciales_individual-table").css("display","inherit");
         $("#parciales_equipos-table").css("display","none");
-        $("#parciales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]});
-        $("#parciales_individual-datagrid").datagrid('fitColumns');
+        $("#parciales_last_equipos-table").css("display","none");
+        $("#parciales_individual-table").css("display","inherit");
+        $("#parciales_last_individual-table").css("display","inherit");
+        $("#parciales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+        $("#parciales_last_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
     }
 }

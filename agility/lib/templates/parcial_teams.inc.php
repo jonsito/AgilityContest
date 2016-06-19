@@ -32,7 +32,6 @@ $config =Config::getInstance();
         // propiedades del datagrid
         // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
         loadMsg:  "<?php _e('Updating partial scores');?>...",
-        width:'100%', // let space to expand/collapse and row number bars to avoid horizontal scroll
         height:2048, // enought big to assure overflow
         pagination: false,
         rownumbers: true,

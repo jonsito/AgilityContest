@@ -4,7 +4,7 @@ require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
-<table id="parciales_last_individual-datagrid">
+<table id="parciales_last_equipos-datagrid">
     <thead>
     <tr>
         <!--
@@ -13,7 +13,7 @@ $config =Config::getInstance();
         <th data-options="field:'Perro',		hidden:true "></th>
         <th data-options="field:'Raza',		    hidden:true "></th>
         <th data-options="field:'Equipo',		hidden:true "></th>
-        <th data-options="field:'NombreEquipo',	hidden:true "></th>
+        <th data-options="field:'NombreClub',	hidden:true "></th>
          -->
         <th width="3%" data-options="field:'Orden',		   align:'left',formatter:formatOrdenLlamadaPista" >#</th>
 
@@ -26,7 +26,7 @@ $config =Config::getInstance();
         <th data-options="field:'Grado',		width:3, align:'center', formatter:formatGrado" > <?php _e('Grd'); ?>.</th>
         -->
         <th width="17%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
-        <th width="14%" data-options="field:'NombreClub',	align:'right'" > <?php _e('Club'); ?></th>
+        <th width="14%" data-options="field:'NombreEquipo',	align:'right'" > <?php _e('Team'); ?></th>
         <th width="4%" data-options="field:'Faltas',		align:'center',formatter:formatFaltasTocados,styler:formatBorder"> <?php _e('F/T'); ?></th>
         <!--
         <th data-options="field:'Tocados',	hidden:true ">/th>
@@ -51,7 +51,7 @@ $config =Config::getInstance();
 </table>
 
 <script type="text/javascript">
-    $('#parciales_last_individual-datagrid').datagrid({
+    $('#parciales_last_equipos-datagrid').datagrid({
         expandCount: 0,
         // propiedades del panel asociado
         fit: false, // parent is a fake div, so donn't ask to fit parent width: let fitcolumns do the job

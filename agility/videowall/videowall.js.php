@@ -358,7 +358,7 @@ function vwcf_evalPenalizacion () {
  * de los perros que acaban de salir
  * @param {array} items array de datos Datos de perro a evaluar
  */
-function vwc_evalResultados(items) {
+function vwc_eval_lastParciales(items) {
 	// extraemos distancia, trs y trm. con parseInt eliminamos textos extras
 	var dist=parseInt($('#parciales-Distancia').text());
 	var trs=parseInt($('#parciales-TRS').text());
@@ -394,7 +394,7 @@ function vwc_evalResultados(items) {
 		if (dat.Penalizacion>=200.0) dat.Calificacion="<?php _e('N.P.');?>";
 		if (dat.Penalizacion>=400.0) dat.Calificacion="-";
 		// evaluamos posicion
-        if (typeof(workingData.individual=="undefined")) return;
+        if (typeof(workingData.individual) === "undefined") return;
 		for (var n=0; n<workingData.individual.length;n++) {
 			if(workingData.individual[n].Perro==dat.Perro) {
 				dat.Puesto=workingData.individual[n].Puesto; break;
@@ -456,16 +456,14 @@ function vwcp_updateLlamada(evt,data) {
 			var n=parseInt(current["NoPresentado"]);
 			$('#vwls_NoPresentado').html(n);
 			$('#vwls_NoPresentadoLbl').html((n==0)?'':'<span class="blink" style="color:red"><?php _e('NoPr');?>.</span>');
-
-			// evaluamos velocidad, penalización, calificacion y puesto de los que acaban de salir
-			vwc_evalResultados(dat['before']);
-			vwcp_evalPenalizacion(); // repaint penalization
+			// repaint penalization and position for dog in ring
+			vwcp_evalPenalizacion();
+						// evaluamos velocidad, penalización, calificacion y puesto de los que acaban de salir
+			vwc_eval_lastParciales(dat['before']);
 			// una vez evaluadas las clasificaciones de los 'before' perros, las presentamos
 			var ret= {'total':dat['before'].length,'rows':dat['before']};
-			$('#parciales_last_individual-datagrid')
-				.datagrid('loadData', ret )
-				.datagrid('fitColumns')
-				.datagrid('scrollTo', 0);
+			var dgstr=(isJornadaEquipos())?'#parciales_last_equipos-datagrid':'#parciales_last_individual-datagrid';
+			$(dgstr).datagrid('loadData', ret ).datagrid('fitColumns').datagrid('scrollTo', 0);
 		}
 	});
 }
