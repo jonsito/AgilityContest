@@ -4,18 +4,18 @@ require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
-<table id="parciales_equipos-datagrid">
+<table id="parciales_equipos-datagrid" width="100%">
     <thead>
     <tr> <!--
          <th data-options="field:'ID',			hidden:true"></th>
          <th data-options="field:'Prueba',		hidden:true"></th>
          <th data-options="field:'Jornada',		hidden:true"></th>
          -->
-        <th data-options="field:'Logo',		    width:20, sortable:false, formatter:formatTeamLogos">&nbsp</th>
-        <th data-options="field:'Nombre',		width:43, sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
-        <th data-options="field:'Categorias',	width:5, sortable:false, formatter:formatCategoria"><?php _e('Cat'); ?></th>
-        <th data-options="field:'Tiempo',		width:15, sortable:false,align:'center',formatter:formatBold"><?php _e('Time'); ?></th>
-        <th data-options="field:'Penalizacion',	width:15, sortable:false,align:'center',formatter:formatBold"><?php _e('Penalization'); ?></th>
+        <th width="20%" data-options="field:'Logo',		    sortable:false, formatter:formatTeamLogos">&nbsp</th>
+        <th width="43%" data-options="field:'Nombre',		sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
+        <th width="5%"  data-options="field:'Categorias',	sortable:false, formatter:formatCategoria"><?php _e('Cat'); ?></th>
+        <th width="15%" data-options="field:'Tiempo',		sortable:false,align:'center',formatter:formatBold"><?php _e('Time'); ?></th>
+        <th width="15%" data-options="field:'Penalizacion', sortable:false,align:'center',formatter:formatBold"><?php _e('Penalization'); ?></th>
     </tr>
     </thead>
 </table>

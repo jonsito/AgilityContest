@@ -109,8 +109,10 @@ Pantalla de de visualizacion combinada llamada/parciales
                     </div>
                 </div>
                 <div data-options="region:'east'" style="width:62%"> <!-- ULTIMOS TRES RESULTADOS -->
-                    <!-- tabla de ultimos 4 resultados -->
-                    <table id="vwcp_ultimos-datagrid"></table>
+
+                    <div id="parciales_last_individual-table" class="scores_table" style="width:100%">
+                        <?php include_once(__DIR__ . "/../lib/templates/parcial_last_individual.inc.php"); ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -225,53 +227,6 @@ Pantalla de de visualizacion combinada llamada/parciales
         }
     });
 
-    $('#vwcp_ultimos-datagrid').datagrid({
-        // propiedades del panel asociado
-        fit: true,
-        border: false,
-        closable: false,
-        collapsible: false,
-        collapsed: false,
-        pagination: false,
-        rownumbers: false,
-        fitColumns: true,
-        singleSelect: true,
-        autoRowHeight: true,
-        columns:[[
-            { field:'Orden',		width:'9%', align:'center', title: '#', formatter:formatOrdenLlamadaPista},
-            { field:'Manga',		hidden:true },
-            { field:'Perro',		hidden:true },
-            { field:'Raza',		    hidden:true },
-            { field:'Equipo',		hidden:true },
-            { field:'NombreEquipo',	hidden:true },
-            // { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
-            { field:'LogoClub',		width:'8%', align:'center', title: '', formatter:formatLogo},
-            // { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
-            { field:'Nombre',		width:'8%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
-            { field:'NombreGuia',	width:'16%', align:'right', title: '<?php _e('Handler'); ?>' },
-            { field:'NombreClub',	width:'13%', align:'right', title: '<?php _e('Club'); ?>' },
-            { field:'Categoria',	width:'3%', align:'center', title: '<?php _e('Cat'); ?>.', formatter:formatCategoria},
-            { field:'Grado',	    width:'3%', align:'center', title: '<?php _e('Grade'); ?>', formatter:formatGrado },
-            { field:'Faltas',		width:'4%', align:'center', title: '<?php _e('Faults'); ?>'},
-            { field:'Rehuses',		width:'4%', align:'center', title: '<?php _e('Refusals'); ?>'},
-            { field:'Tocados',		width:'4%', align:'center', title: '<?php _e('Touchs'); ?>'},
-            { field:'PRecorrido',	hidden:true },
-            { field:'Tiempo',		width:'5%', align:'right', title: '<?php _e('Time'); ?>', formatter:formatTiempo},
-            { field:'PTiempo',		hidden:true },
-            { field:'Velocidad',	width:'4%', align:'right', title: '<?php _e('Vel'); ?>.', formatter:formatVelocidad},
-            { field:'Penalizacion',	width:'6%', align:'right', title: '<?php _e('Penal'); ?>.', formatter:formatPenalizacion},
-            { field:'Calificacion',	width:'11%', align:'center',title: '<?php _e('Calification'); ?>'},
-            { field:'Puesto',		width:'4%', align:'center',  title: '<?php _e('Position'); ?>', formatter:formatPuesto},
-            { field:'CShort',       hidden:true}
-        ]],
-        rowStyler:myRowStyler,
-        onBeforeLoad: function(param) {
-            // do not update until 'open' received
-            if( $('#vwcp_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
-            return true;
-        }
-    });
-
     // header elements layout
     var layout= {'rows':110,'cols':1900};
     doLayout(layout,"#vwc_header-logo",	        0,	    0,	100,    100	);
@@ -307,7 +262,6 @@ Pantalla de de visualizacion combinada llamada/parciales
                 vwc_updateHeaderAndFooter(e,d);
                 setParcialIndividualOrTeamView(d); // fix individual or team view for final results
                 clearParcialRoundInformation();
-                vw_formatResultadosDatagrid($('#vwcp_ultimos-datagrid'),e,d,null);
                 vwcp_updateLlamada(e,d);
             });
         },
@@ -316,7 +270,6 @@ Pantalla de de visualizacion combinada llamada/parciales
                 vwc_updateHeaderAndFooter(e,d);
                 setParcialIndividualOrTeamView(d); // fix individual or team view for final results
                 updateParciales(d.Ronda.Mode,d);
-                vw_formatResultadosDatagrid($('#vwcp_ultimos-datagrid'),e,d,null);
                 vwcp_updateLlamada(e,d);
             });
         },

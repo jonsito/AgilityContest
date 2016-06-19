@@ -4,7 +4,7 @@ require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
-<table id="parciales_individual-datagrid">
+<table id="parciales_last_individual-datagrid">
     <thead>
     <tr>
         <!--
@@ -15,16 +15,18 @@ $config =Config::getInstance();
         <th data-options="field:'Equipo',		hidden:true "></th>
         <th data-options="field:'NombreEquipo',	hidden:true "></th>
          -->
+        <th width="4%" data-options="field:'Orden',		   align:'left',formatter:formatOrdenLlamadaPista" >#</th>
+
         <th width="5%" data-options="field:'LogoClub',		align:'left',formatter:formatLogo" > &nbsp;</th>
         <th width="5%" data-options="field:'Dorsal',		align:'left'" > <?php _e('Dors'); ?>.</th>
-        <th width="10%" data-options="field:'Nombre',		align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
+        <th width="9%" data-options="field:'Nombre',		align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
         <th width="6%" data-options="field:'Licencia',		align:'center'" > <?php _e('Lic'); ?>.</th>
         <th width="5%" data-options="field:'Categoria',	align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
         <!--
         <th data-options="field:'Grado',		width:3, align:'center', formatter:formatGrado" > <?php _e('Grd'); ?>.</th>
         -->
-        <th width="18%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
-        <th width="15%" data-options="field:'NombreClub',	align:'right'" > <?php _e('Club'); ?></th>
+        <th width="17%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
+        <th width="14%" data-options="field:'NombreClub',	align:'right'" > <?php _e('Club'); ?></th>
         <th width="4%" data-options="field:'Faltas',		align:'center',formatter:formatFaltasTocados,styler:formatBorder"> <?php _e('F/T'); ?></th>
         <!--
         <th data-options="field:'Tocados',	hidden:true ">/th>
@@ -49,7 +51,7 @@ $config =Config::getInstance();
 </table>
 
 <script type="text/javascript">
-    $('#parciales_individual-datagrid').datagrid({
+    $('#parciales_last_individual-datagrid').datagrid({
         expandCount: 0,
         // propiedades del panel asociado
         fit: false, // parent is a fake div, so donn't ask to fit parent width: let fitcolumns do the job

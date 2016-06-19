@@ -83,38 +83,6 @@ function vw_updateWorkingData(evt,callback) {
 
 /**
  * Al recibir 'init' ajustamos el modo de visualización de la pantalla
- * de resultados parciales para individual o equipos
- * y si la prueba es open o no (grados)
- * @param {object} dg Datagrid al que aplicar la modificacion
- * @param {object} evt Evento recibido. Debe ser de tipo init
- * @param {object} data informacion de la prueba,jornada, my manga
- * @param {function} formatter: function to call for group formatter, or null
- */
-function vw_formatResultadosDatagrid(dg,evt,data,formatter) {
-    var team=false;
-	var hasGrades=true;
-    if (parseInt(data.Jornada.Equipos3)!=0) { team=true; hasGrades=false; }
-    if (parseInt(data.Jornada.Equipos4)!=0) { team=true; hasGrades=false; }
-	if (parseInt(data.Jornada.Open)!=0) { hasGrades=false; }
-	if (parseInt(data.Jornada.KO)!=0) { hasGrades=false; }
-
-    // clear datagrid as data no longer valid
-    if (team){
-        if (formatter) dg.datagrid({ view: gview, groupField: 'NombreEquipo', groupFormatter: formatter });
-        dg.datagrid('hideColumn',"LogoClub");
-        dg.datagrid('hideColumn',"Grado");
-    } else {
-        if (formatter) dg.datagrid({view:$.fn.datagrid.defaults.view});
-        dg.datagrid('showColumn',"LogoClub");
-		if (hasGrades)	dg.datagrid('showColumn',"Grado");
-		else dg.datagrid('hideColumn',"Grado");
-    }
-    dg.datagrid('loadData', {"total":0,"rows":[]});
-    dg.datagrid('fitColumns');
-}
-
-/**
- * Al recibir 'init' ajustamos el modo de visualización de la pantalla
  * de resultados finales para individual o equipos
  * los videowalls de clasificaciones finales no tienen campo "grado"
  * @param {object} dg Datagrid al que aplicar la modificacion
@@ -251,27 +219,6 @@ function vwls_updateChronoData(data) {
 }
 
 /**
- * Actualiza el datagrid de llamada a pista con los datos recibidos
- * @param {object} evt event
- * @param {object} data system status data info
- */
-function vw_updateLlamada(evt,data) {
-	$.ajax({
-		type: "GET",
-		dataType: 'json',
-		url: "/agility/server/web/videowall.php",
-		data: {
-			Operation: 'llamada',
-			Pendientes: 25,
-			Session: workingData.sesion
-		},
-		success: function (dat, status, jqxhr) {
-			$('#vw_llamada-datagrid').datagrid('loadData', dat);
-		}
-	});
-}
-
-/**
  * evaluate position in hall of fame (final results)
  * When chrono stops this script is invoked instead of vwcf_evalPenalization()
  * Do not evaluate trs/trm. just iterate on datagrid results to find position
@@ -380,8 +327,8 @@ function vwc_evalPenalizacion(trs,trm,time) {
 
 function vwcp_evalPenalizacion() {
     var time=parseFloat($('#vwls_Tiempo').text());
-    var trs=parseFloat($('#vwcp_parciales-TRS').text());
-    var trm=parseFloat($('#vwcp_parciales-TRM').text());
+    var trs=parseFloat($('#parciales-TRS').text());
+    var trm=parseFloat($('#parciales-TRM').text());
     if (isNaN(trs)) trs=0;
     if (isNaN(trm)) trm=0;
     if (isNaN(time)) time=0;
@@ -393,12 +340,12 @@ function vwcf_evalPenalizacion () {
 	var trm=0;
     var time=parseFloat($('#vwls_Tiempo').text());
 	if ( isAgility(workingData.datosTanda.Tipo) ) {
-		trs=parseFloat($('#vwcf_finales-TRS1').text());
-		trm=parseFloat($('#vwcf_finales-TRM1').text());
+		trs=parseFloat($('#finales-TRS1').text());
+		trm=parseFloat($('#finales-TRM1').text());
 	}
 	if ( isJumping(workingData.datosTanda.Tipo) ) {
-		trs=parseFloat($('#vwcf_finales-TRS2').text());
-		trm=parseFloat($('#vwcf_finales-TRM2').text());
+		trs=parseFloat($('#finales-TRS2').text());
+		trm=parseFloat($('#finales-TRM2').text());
 	}
 	if (isNaN(trs)) trs=0;
 	if (isNaN(trm)) trm=0;
@@ -413,9 +360,9 @@ function vwcf_evalPenalizacion () {
  */
 function vwc_evalResultados(items) {
 	// extraemos distancia, trs y trm. con parseInt eliminamos textos extras
-	var dist=parseInt($('#vwcp_parciales-Distancia').text());
-	var trs=parseInt($('#vwcp_parciales-TRS').text());
-	var trm=parseInt($('#vwcp_parciales-TRM').text());
+	var dist=parseInt($('#parciales-Distancia').text());
+	var trs=parseInt($('#parciales-TRS').text());
+	var trm=parseInt($('#parciales-TRM').text());
 	for (var idx=0;idx<items.length;idx++) {
 		var dat=items[idx];
 		if (dat.Orden=="") { // entrada vacia
@@ -447,11 +394,10 @@ function vwc_evalResultados(items) {
 		if (dat.Penalizacion>=200.0) dat.Calificacion="<?php _e('N.P.');?>";
 		if (dat.Penalizacion>=400.0) dat.Calificacion="-";
 		// evaluamos posicion
-		var results=$('#vw_parciales-datagrid').datagrid('getData')['rows'];
-		if (typeof(results)==="undefined") return; // no data yet
-		for (var n=0; n<results.length;n++) {
-			if(results[n].Perro==dat.Perro) {
-				dat.Puesto=results[n].Puesto; break;
+        if (typeof(workingData.individual=="undefined")) return;
+		for (var n=0; n<workingData.individual.length;n++) {
+			if(workingData.individual[n].Perro==dat.Perro) {
+				dat.Puesto=workingData.individual[n].Puesto; break;
 			}
 		}
 	}
@@ -511,11 +457,15 @@ function vwcp_updateLlamada(evt,data) {
 			$('#vwls_NoPresentado').html(n);
 			$('#vwls_NoPresentadoLbl').html((n==0)?'':'<span class="blink" style="color:red"><?php _e('NoPr');?>.</span>');
 
-			// evaluamos velocidad, penalización, calificacion y puesto
+			// evaluamos velocidad, penalización, calificacion y puesto de los que acaban de salir
 			vwc_evalResultados(dat['before']);
 			vwcp_evalPenalizacion(); // repaint penalization
-			// rellenamos ventana de ultimos resultados
-			$('#vwcp_ultimos-datagrid').datagrid('loadData',dat['before']).datagrid('scrollTo',0);
+			// una vez evaluadas las clasificaciones de los 'before' perros, las presentamos
+			var ret= {'total':dat['before'].length,'rows':dat['before']};
+			$('#parciales_last_individual-datagrid')
+				.datagrid('loadData', ret )
+				.datagrid('fitColumns')
+				.datagrid('scrollTo', 0);
 		}
 	});
 }
@@ -614,95 +564,6 @@ function vwcf_updateLlamada(evt,data) {
 			// dado que necesitamos tener la clasificacion con los perros de la tabla "before",
 			// lo que vamos a hacer es calcular dicha tabla aquí, en lugar de desde el evento "aceptar"
 			updateFinales(data.Ronda, vwcf_evalBefore);
-		}
-	});
-}
-
-/**
- * (Old-style combinada)
- * Actualiza el datagrid de resultados con los datos asociados al evento recibido
- * @param {object} evt event
- * @param {object} data system status data info
- */
-function vw_updateParciales(evt,data) {
-    // en lugar de invocar al datagrid, lo que vamos a hacer es
-    // una peticion ajax, para obtener a la vez los datos tecnicos de la manga
-    // y de los jueces
-    var mode=getMangaMode(data.Prueba.RSCE,data.Manga.Recorrido,data.Tanda.Categoria);
-    var modestr=getMangaModeString(data.Prueba.RSCE,data.Manga.Recorrido,data.Tanda.Categoria);
-    $.ajax({
-        type:'GET',
-        url:"/agility/server/database/resultadosFunctions.php",
-        dataType:'json',
-        data: {
-            Operation:	'getResultados',
-            Prueba:		data.Prueba.ID,
-            Jornada:	data.Jornada.ID,
-            Manga:		data.Manga.ID,
-            Mode:       mode
-        },
-        success: function(dat) {
-            // informacion de la manga
-            var str=dat['manga'].TipoManga + " - " + modestr;
-            $('#vw_header-infomanga').text(str);
-            $('#vw_parciales-Juez1').text((dat['manga'].Juez1<=1)?"":'<?php _e('Judge');?> 1: ' + dat['manga'].NombreJuez1);
-            $('#vw_parciales-Juez2').text((dat['manga'].Juez2<=1)?"":'<?php _e('Judge');?> 2: ' + dat['manga'].NombreJuez2);
-            // datos de TRS
-            $('#vw_parciales-Distancia').text(dat['trs'].dist + 'm.');
-            $('#vw_parciales-Obstaculos').text(dat['trs'].obst);
-            $('#vw_parciales-TRS').text(dat['trs'].trs + 's.');
-            $('#vw_parciales-TRM').text(dat['trs'].trm + 's.');
-            $('#vw_parciales-Velocidad').text( dat['trs'].vel + 'm/s');
-            // actualizar datagrid
-			workingData.teamCounter=1; // reset team's puesto counter
-            $('#vw_parciales-datagrid').datagrid('loadData',dat);
-        }
-    });
-}
-
-/**
- * ( new style combinada parcial)
- * Actualiza el datagrid de resultados con los datos asociados al evento recibido
- * @param {object} evt event
- * @param {object} data system status data info
- */
-function vwcp_updateParciales(evt,data) {
-	// en lugar de invocar al datagrid, lo que vamos a hacer es
-	// una peticion ajax, para obtener a la vez los datos tecnicos de la manga
-	// y de los jueces
-	var mode=getMangaMode(data.Prueba.RSCE,data.Manga.Recorrido,data.Tanda.Categoria);
-	var modestr=getMangaModeString(data.Prueba.RSCE,data.Manga.Recorrido,data.Tanda.Categoria);
-	$.ajax({
-		type:'GET',
-		url:"/agility/server/database/resultadosFunctions.php",
-		dataType:'json',
-		data: {
-			Operation:	'getResultados',
-			Prueba:		data.Prueba.ID,
-			Jornada:	data.Jornada.ID,
-			Manga:		data.Manga.ID,
-			Mode:       mode
-		},
-		success: function(dat) {
-            var nRonda=$('#vwcp_header-NombreRonda');
-			if (typeof(dat.rows)==="undefined") {
-				// no data yet.
-				var errMsg="<?php _e('No data yet');?>";
-				nRonda.text(errMsg);
-                return;
-			}
-			// informacion de la manga
-			var str=dat['manga'].TipoManga + " - " + modestr;
-			nRonda.text(str);
-			// datos de TRS
-			$('#vwcp_parciales-Distancia').text(dat['trs'].dist + 'm.');
-			$('#vwcp_parciales-Obstaculos').text(dat['trs'].obst);
-			$('#vwcp_parciales-TRS').text(dat['trs'].trs + 's.');
-			$('#vwcp_parciales-TRM').text(dat['trs'].trm + 's.');
-			$('#vwcp_parciales-Velocidad').text( dat['trs'].vel + 'm/s');
-			// actualizar datagrid
-			workingData.teamCounter=1; // reset team's puesto counter
-			$('#vw_parciales-datagrid').datagrid('loadData',dat);
 		}
 	});
 }

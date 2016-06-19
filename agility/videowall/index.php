@@ -171,7 +171,6 @@ function myLlamadaRowStyler(idx,row) {
                 <optgroup label="<?php _e('Video Wall');?> ">
                     <!-- videowall -->
                     <option value="0"><?php _e('Starting order'); ?></option>
-                    <option value="1"><?php _e('Call to ring'); ?></option>
 					<option value="2"><?php _e('Partial scores'); ?></option>
 					<option value="4"><?php _e('Final scores'); ?></option>
                 </optgroup>
@@ -277,9 +276,6 @@ function vw_accept() {
 	switch (n){
 	case 0: // Ordenes de Salida
 		page="/agility/videowall/vw_ordensalida.php";
-		break;
-	case 1: // Llamada a pista
-		page="/agility/videowall/vw_llamada.php";
 		break;
 	case 2: // Resultados Parciales
 		page="/agility/videowall/vw_parciales.php";

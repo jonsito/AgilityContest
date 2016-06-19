@@ -11,15 +11,15 @@ $config =Config::getInstance();
                 <span id="parciales-NombreManga" colspan="1" style="display:none">(<?php _e('No round selected'); ?>)</span>
                 &nbsp;
             </th>
-            <th id="parciales-Juez1" colspan="2" style="text-align:left"><?php _e('Judge'); ?> 1:</th>
-            <th id="parciales-Juez2" colspan="2" style="text-align:right"><?php _e('Judge'); ?> 2:</th>
+            <th colspan="2" style="text-align:left"><?php _e('Judge'); ?> 1:<span id="parciales-Juez1"></span></th>
+            <th colspan="2" style="text-align:right"><?php _e('Judge'); ?> 2:<span id="parciales-Juez2"></span></th>
         </tr>
         <tr style="text-align:center">
-            <td id="parciales-Distancia"><?php _e('Dist'); ?>:</td>
-            <td id="parciales-Obstaculos"><?php _e('Obst'); ?>:</td>
-            <td id="parciales-TRS"><?php _e('S.C.T.'); ?>:</td>
-            <td id="parciales-TRM"><?php _e('M.C.T.'); ?>:</td>
-            <td id="parciales-Velocidad"><?php _e('Vel'); ?>:</td>
+            <td><?php _e('Dist'); ?>:<span id="parciales-Distancia"></span>m</td>
+            <td><?php _e('Obst'); ?>:<span id="parciales-Obstaculos"></span></td>
+            <td><?php _e('S.C.T.'); ?>:<span id="parciales-TRS"></span>s</td>
+            <td><?php _e('M.C.T.'); ?>:<span id="parciales-TRM"></span>s</td>
+            <td><?php _e('Vel'); ?>:<span id="parciales-Velocidad"></span>m/s</td>
         </tr>
         </tbody>
     </table>
