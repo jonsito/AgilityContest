@@ -577,7 +577,7 @@ function vw_updateOrdenSalida(evt,data) {
     var infomanga=(typeof(data.Tanda.Nombre)==='undefined')?'':data.Tanda.Nombre;
     $('#vw_header-infomanga').html(data.Tanda.Nombre);
     // and update orden salida related to this tanda
-    $('#vw_ordensalida-datagrid').datagrid('load',{
+    $('#ordensalida-datagrid').datagrid('load',{
         Operation: 'getDataByTanda',
         Prueba: data.Prueba.ID,
         Jornada:data.Jornada.ID,

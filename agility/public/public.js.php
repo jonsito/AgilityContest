@@ -65,7 +65,7 @@ function pb_setFooterInfo() {
 }
 
 function pb_updateOrdenSalida2(id) {
-    $('#pb_ordensalida-datagrid').datagrid('reload',{
+    $('#ordensalida-datagrid').datagrid('reload',{
         Operation: 'getDataByTanda',
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,

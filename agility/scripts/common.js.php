@@ -141,22 +141,22 @@ function hasGradosByJornada(jornada) {
     return true;
 }
 
-/**
- * Check if provided jornada has Team rounds
- * @param {object} jornada Journey data
- * @returns {boolean}
- */
-function isTeamByJornada(jornada) {
-    if (parseInt(jornada.Equipos3)!=0) return true;
-    if (parseInt(jornada.Equipos4)!=0) return true;
-    return false;
-}
-
 function isJornadaOpen() { return (workingData.datosJornada.Open!=0); }
 function isJornadaKO() { return (workingData.datosJornada.KO!=0); }
 function isJornadaEqMejores() { return (workingData.datosJornada.Equipos3!=0); }
 function isJornadaEqConjunta() { return (workingData.datosJornada.Equipos4!=0); }
-function isJornadaEquipos() { return ( isJornadaEqMejores() || isJornadaEqConjunta() ); }
+
+/**
+ * Check if provided jornada has Team rounds
+ * @param {object} jornada Journey data. if undefined use workingData.datosJornada
+ * @returns {boolean}
+ */
+function isJornadaEquipos(datosJornada) {
+	if (typeof(datosJornada)==="undefined") datosJornada=workingData.datosJornada;
+	if (datosJornada.Equipos3!=0) return true;
+	if (datosJornada.Equipos4!=0) return true;
+	return false;
+}
 
 function getMinDogsByTeam() {
 	var mindogs=4;

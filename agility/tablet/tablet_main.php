@@ -315,7 +315,7 @@ $config =Config::getInstance();
                 // populate data entry datagrid with loaded data
                 $('#tdialog-tnext').datagrid('loadData',data.rows);
                 // show/hide team name
-                if (isTeamByJornada(workingData.datosJornada) ) mySelf.datagrid('showColumn','NombreEquipo');
+                if (isJornadaEquipos() ) mySelf.datagrid('showColumn','NombreEquipo');
                 else  mySelf.datagrid('hideColumn','NombreEquipo');
                 // auto resize columns
                 setTimeout(function(){ tbt_dg.datagrid('fixDetailRowHeight',index); },0);
