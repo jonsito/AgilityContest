@@ -62,8 +62,6 @@ function vwls_keyBindings() {
 }
 
 function vwls_showData(data) {
-
-
 	var perro=$('#vwls_Perro').html();
 	var vwls_tiempo=$('#vwls_Tiempo');
 	var dorsal=data['Dorsal'];
@@ -82,10 +80,7 @@ function vwls_showData(data) {
 		// hide "Grado" Information if not applicable
 		$('#vwls_Grado').html(hasGradosByJornada(workingData.datosJornada)?res["NombreGrado"]:"");
 		// on Team events, show Team info instead of Club
-		var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
-		// como en el videowall no tenemos datos de la jornada, lo que hacemos es
-		// contar el numero de equipos de esta para saber si es prueba por equipos o no
-		$('#vwls_NombreClub').html((Object.keys(workingData.teamsByJornada).length>1)?eq:res["NombreClub"]);
+		$('#vwls_NombreClub').html((isJornadaEquipos())?workingData.teamsByJornada[data["Equipo"]].Nombre:res["NombreClub"]);
 		$('#vwls_Celo').html((celo==1)?'<span class="blink">Celo</span>':'');
 	}
 

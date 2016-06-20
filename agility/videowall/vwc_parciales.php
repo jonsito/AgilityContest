@@ -62,11 +62,11 @@ Pantalla de de visualizacion combinada llamada/parciales
             <!-- Datos de TRS y TRM -->
             <?php include_once(__DIR__ . "/../lib/templates/parcial_round_data.inc.php"); ?>
             <!-- datagrid para clasificacion individual -->
-            <div id="parciales_individual-table" class="scores_table" style="display:none;width:100%">
+            <div id="parciales_individual-table" class="scores_table" style="width:100%">
                 <?php include_once(__DIR__ . "/../lib/templates/parcial_individual.inc.php"); ?>
             </div>
             <!-- datagrid para clasificacion por equipos -->
-            <div id="parciales_equipos-table" class="scores_table" style="display:none;width:100%">
+            <div id="parciales_equipos-table" class="scores_table" style="width:100%">
                 <?php include_once(__DIR__ . "/../lib/templates/parcial_teams.inc.php"); ?>
             </div>
         </div>
@@ -110,11 +110,11 @@ Pantalla de de visualizacion combinada llamada/parciales
                 </div>
                 <div data-options="region:'east'" style="width:62%;">
                     <!-- ULTIMOS TRES RESULTADOS PARA PRUEBAS INDIVIDUAL -->
-                    <div id="parciales_last_individual-table" class="scores_table" style="display:none;width:100%">
+                    <div id="parciales_last_individual-table" class="scores_table" style="width:100%">
                         <?php include_once(__DIR__ . "/../lib/templates/parcial_last_individual.inc.php"); ?>
                     </div>
                     <!-- ULTIMOS TRES RESULTADOS PARA PRUEBAS POR EQUIPOS -->
-                    <div id="parciales_last_equipos-table" class="scores_table" style="display:none;width:100%">
+                    <div id="parciales_last_equipos-table" class="scores_table" style="width:100%">
                         <?php include_once(__DIR__ . "/../lib/templates/parcial_last_teams.inc.php"); ?>
                     </div>
                 </div>

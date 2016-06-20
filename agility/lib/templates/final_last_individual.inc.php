@@ -20,7 +20,8 @@ $config =Config::getInstance();
          -->
         <th width="3%" data-options="field:'Orden',		   align:'left',formatter:formatOrdenLlamadaPista" >#</th>
         <!--
-        <th data-options="field:'Perro',		hidden:true " ></th>
+        <th data-options="field:'Equipo',		hidden:true "></th>
+        <th data-options="field:'NombreEquipo',	hidden:true "></th>
          -->
         <th width="3%" data-options="field:'LogoClub',		align:'left',formatter:formatLogo" > &nbsp;</th>
         <th width="3%" data-options="field:'Dorsal',		align:'left'" > <?php _e('Dors'); ?>.</th>

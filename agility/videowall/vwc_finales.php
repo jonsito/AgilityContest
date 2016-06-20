@@ -111,6 +111,9 @@ Pantalla de de visualizacion combinada llamada/parciales
                 <div data-options="region:'east'" style="width:68%"> <!-- ULTIMOS TRES RESULTADOS -->
                     <div id="finales_last_individual-table" class="scores_table" style="width:100%">
                         <?php include_once(__DIR__ . "/../lib/templates/final_last_individual.inc.php"); ?>
+                    </div>                    
+                    <div id="finales_last_equipos-table" class="scores_table" style="width:100%">
+                        <?php include_once(__DIR__ . "/../lib/templates/final_last_teams.inc.php"); ?>
                     </div>
                 </div>
             </div>

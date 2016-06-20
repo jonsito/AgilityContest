@@ -442,7 +442,7 @@ function vwcp_updateLlamada(evt,data) {
 			var celo=(current['Celo']!=0)?'<span class="blink"><?php _e("Heat");?></span>':"&nbsp";
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(current['NombreGuia']);
-			$("#vwls_NombreClub").html(current['NombreClub']);
+            $("#vwls_NombreClub").html(isJornadaEquipos()?current['NombreEquipo']:current['NombreClub']);
 			$("#vwls_Faltas").html(current['Faltas']);
 			$("#vwls_Tocados").html(current['Tocados']);
 			$("#vwls_FaltasTocados").html(parseInt(current['Faltas'])+parseInt(current['Tocados']));
@@ -520,10 +520,8 @@ function vwcf_updateLlamada(evt,data) {
 				}
 				// una vez evaluadas las clasificaciones de los 'before' perros, las presentamos
 				var ret= {'total':dat['before'].length,'rows':dat['before']};
-				$('#finales_last_individual-datagrid')
-					.datagrid('loadData', ret )
-					.datagrid('fitColumns')
-					.datagrid('scrollTo', 0);
+                var dgstr=(isJornadaEquipos())?'#finales_last_equipos-datagrid':'#finales_last_individual-datagrid';
+				$(dgstr).datagrid('loadData', ret ).datagrid('fitColumns').datagrid('scrollTo', 0);
 			}
 
 			// componemos ventana de llamada
@@ -543,7 +541,7 @@ function vwcf_updateLlamada(evt,data) {
 			var celo = (current['Celo'] != 0) ? '<span class="blink"><?php _e("Heat");?></span>' : "&nbsp";
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(current['NombreGuia']);
-			$("#vwls_NombreClub").html(current['NombreClub']);
+			$("#vwls_NombreClub").html(isJornadaEquipos()?current['NombreEquipo']:current['NombreClub']);
 			$("#vwls_Faltas").html(current['Faltas']);
 			$("#vwls_Tocados").html(current['Tocados']);
 			$("#vwls_FaltasTocados").html(parseInt(current['Faltas'])+parseInt(current['Tocados']));

@@ -120,9 +120,11 @@ function showFinalScoresByTeam(parent,idx,row) {
         // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
         rowStyler:myRowStyler,
         onResize:function(){
+            $(mySelf).datagrid('fitColumns');
             $(parent).datagrid('fixDetailRowHeight',idx);
         },
         onLoadSuccess:function(data){
+            $(mySelf).datagrid('fitColumns');
             setTimeout(function(){ $(parent).datagrid('fixDetailRowHeight',idx); },0);
         }
     });
@@ -161,7 +163,7 @@ function showPartialScoresByTeam(parent,idx,row) {
         columns: [[
             {field:'Perro',		    hidden:true },
             {field:'Equipo',	    hidden:true },
-            {field:'Dorsal',	    width:'4%', align:'left',   title:"<?php _e('Dorsal'); ?>" },
+            {field:'Dorsal',	    width:'5%', align:'right',   title:"<?php _e('Dorsal'); ?>" },
             {field:'LogoClub',	    hidden:true },
             {field:'Nombre',	    width:'10%', align:'center', title:"<?php _e('Name'); ?>",   formatter:formatBold},
             {field:'Licencia',	    width:'6%', align:'center', title:"<?php _e('Lic'); ?>." },
@@ -177,14 +179,16 @@ function showPartialScoresByTeam(parent,idx,row) {
             {field:'Velocidad',		width:'6%', align:'right',  title:"<?php _e('Vel'); ?>.",   formatter:formatVelocidad },
             {field:'Penalizacion',	width:'6%', align:'right',  title:"<?php _e('Penal'); ?>.", formatter:formatPenalizacion,styler:formatBorder},
             {field:'Calificacion',  width:'10%', align:'center', title:"<?php _e('Calif'); ?>." },
-            {field:'Puesto',	    width:'6%', align:'center', title:"<?php _e('Position'); ?>",formatter:formatBold }
+            {field:'Puesto',	    width:'5%', align:'center', title:"<?php _e('Position'); ?>",formatter:formatBold }
         ]],
         // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
         rowStyler:myRowStyler,
         onResize:function(){
+            $(mySelf).datagrid('fitColumns');
             $(parent).datagrid('fixDetailRowHeight',idx);
         },
         onLoadSuccess:function(data){
+            $(mySelf).datagrid('fitColumns');
             setTimeout(function(){ $(parent).datagrid('fixDetailRowHeight',idx); },0);
         }
     });
@@ -392,12 +396,18 @@ function setFinalIndividualOrTeamView(data) {
     // activamos la visualizacion de la tabla correcta
     if (team) {
         $("#finales_individual-table").css("display","none");
+        $("#finales_last_individual-table").css("display","none");
         $("#finales_equipos-table").css("display","inherit");
+        $("#finales_last_equipos-table").css("display","inherit");
         $("#finales_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+        $("#finales_last_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
     } else {
-        $("#finales_individual-table").css("display","inherit");
         $("#finales_equipos-table").css("display","none");
+        $("#finales_last_equipos-table").css("display","none");
+        $("#finales_individual-table").css("display","inherit");
+        $("#finales_individual-table").css("display","inherit");
         $("#finales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+        $("#finales_last_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
     }
 }
 

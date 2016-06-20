@@ -418,12 +418,13 @@ function reloadOrdenEquipos() {
 function reloadCompeticion() {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
+    var dg=$('#competicion-datagrid');
 	// si hay alguna celda en edicion, ignorar
-	if ($('#competicion-datagrid').datagrid('options').editIndex!=-1) {
+	if (dg.datagrid('options').editIndex!=-1) {
         $.messager.alert('<?php _e("Busy"); ?>','<?php _e("Cannot update: a cell is being edited"); ?>',"error");
         return;
     }
-    $('#competicion-datagrid').datagrid(
+    dg.datagrid(
             'load',
             { 
             	Prueba: workingData.prueba ,
