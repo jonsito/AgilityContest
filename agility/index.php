@@ -93,19 +93,9 @@ function initialize() {
 	});
 }
 
-/**
- * Common rowStyler function for AgilityContest datagrids
- * @param {int} idx Row index
- * @param {Object} row Row data
- * @return {string} proper row style for given idx
- */
-function myRowStyler(idx,row) {
-    var res="background-color:";
-    var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
-    var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
-    if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
-}
-
+function myRowStyler(idx,row) { return pbRowStyler(idx,row); }
+function myRowStyler2(idx,row) { return pbRowStyler2(idx,row); }
+	
 </script>
 
 <style>

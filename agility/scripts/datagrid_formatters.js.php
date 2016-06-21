@@ -21,6 +21,32 @@ require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 ?>
 
+/**
+ * rowStyler function for AgilityContest public datagrids
+ * @param {int} idx Row index
+ * @param {Object} row Row data
+ * @return {string} proper row style for given idx
+ */
+function pbRowStyler(idx,row) {
+    var res="background-color:";
+    var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
+    var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
+    if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+}
+
+/**
+ * secondary rowStyler function for AgilityContest public datagrids
+ * @param {int} idx Row index
+ * @param {Object} row Row data
+ * @return {string} proper row style for given idx
+ */
+function pbRowStyler2(idx,row) {
+    var res="background-color:";
+    var c1='<?php echo $config->getEnv('vw_rowcolor3'); ?>';
+    var c2='<?php echo $config->getEnv('vw_rowcolor4'); ?>';
+    if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+}
+
 /* formatters generales */
 
 function formatBold(val,row,idx) { return '<span style="font-weight:bold">'+val+'</span>'; }

@@ -43,6 +43,7 @@ define('AC_EASYUI_OPCOLOR','#c0c0c0');
 define('AC_EASYUI_ROWCOLOR1','#ffffff');
 define('AC_EASYUI_ROWCOLOR2','#c0c0c0');
 define('AC_EASYUI_ROWCOLOR3','#c0c0f0');
+define('AC_EASYUI_ROWCOLOR4','#c0f0f0');
 
 /** personalizacion del videowall **/
 define('AC_VW_POLLTIME',5);
@@ -54,6 +55,8 @@ define('AC_VW_HDRFG3','#000000');
 define('AC_VW_HDRBG3','#808080');
 define('AC_VW_ROWCOLOR1','#ffffff');
 define('AC_VW_ROWCOLOR2','#e0ebff');
+define('AC_VW_ROWCOLOR3','#ffffcf');
+define('AC_VW_ROWCOLOR4','#e0ebcf');
 define('AC_VW_ALPHA',0.5);
 define('AC_VW_CRHOMAKEY','#00ff00');
 define('AC_VW_DATAPOSITION',1); // 0:hidden 1:top/right 2:down/rignt 3:down/center
@@ -140,6 +143,7 @@ Class Config {
 		'easyui_rowcolor1'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR1),
 		'easyui_rowcolor2'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR2),
 		'easyui_rowcolor3'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR3),
+		'easyui_rowcolor4'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR4),
 		// configuracion del videowall
 		'vw_polltime'		=> array(	'i',	false,	AC_VW_POLLTIME),
 		'vw_alpha'			=> array(	'f',	false,	AC_VW_ALPHA),
@@ -153,6 +157,8 @@ Class Config {
 		'vw_hdrbg3'			=> array(	'c',	false,	AC_VW_HDRBG3),
 		'vw_rowcolor1'		=> array(	'c',	false,	AC_VW_ROWCOLOR1),
 		'vw_rowcolor2'		=> array(	'c',	false,	AC_VW_ROWCOLOR2),
+		'vw_rowcolor3'		=> array(	'c',	false,	AC_VW_ROWCOLOR3),
+		'vw_rowcolor4'		=> array(	'c',	false,	AC_VW_ROWCOLOR4),
 		// generacion de PDF's
 		'pdf_topmargin'		=> array(	'i',	false,	AC_PDF_TOPMARGIN),
 		'pdf_leftmargin'	=> array(	'i',	false,	AC_PDF_LEFTMARGIN),

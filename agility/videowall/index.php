@@ -126,17 +126,32 @@ function initialize() {
 }
 
 /**
- * Common rowStyler function for AgilityContest datagrids
+ * rowStyler function for videowall datagrids
  * @param {int} idx Row index
  * @param {object} row Row data
  * @return {string} proper row style for given idx
  */
-function myRowStyler(idx,row) {
+function vwRowStyler(idx,row) {
 	var res="background-color:";
 	var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
-    var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
+	var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
+/**
+ * rowStyler function for videowall secondary datagrids
+ * @param {int} idx Row index
+ * @param {object} row Row data
+ * @return {string} proper row style for given idx
+ */
+function vwRowStyler2(idx,row) {
+	var res="background-color:";
+	var c1='<?php echo $config->getEnv('vw_rowcolor3'); ?>';
+	var c2='<?php echo $config->getEnv('vw_rowcolor4'); ?>';
+	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+}
+
+function myRowStyler(idx,row) { return vwRowStyler(idx,row); }
+function myRowStyler2(idx,row) { return vwRowStyler2(idx,row); }
 
 /* same as above, but tracks tanda and team information */
 function myLlamadaRowStyler(idx,row) {

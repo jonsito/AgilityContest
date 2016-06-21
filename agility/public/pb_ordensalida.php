@@ -127,7 +127,7 @@ $('#pb_enumerateMangas').combogrid({
         { field:'Nombre',	width:150, sortable:false, align:'left',title:'<?php _e('List of rounds in this journey'); ?>'},
         { field:'Comentario', hidden:true}
     ]],
-    rowStyler: myRowStyler,
+    rowStyler: pbRowStyler,
     onSelect: function(index,row) {
         $('#ordensalida-datagrid').datagrid('reload',{
             Operation: 'getDataByTanda',

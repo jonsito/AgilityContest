@@ -103,7 +103,7 @@ $('#pb_inscripciones-datagrid').datagrid({
         { field:'Celo',		    width:'5%', align:'center', formatter: formatCelo,	title: '<?php _e('Heat');   ?>' }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-    rowStyler:myRowStyler
+    rowStyler:pbRowStyler
 });
 
 </script>

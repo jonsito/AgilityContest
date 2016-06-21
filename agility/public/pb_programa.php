@@ -103,6 +103,6 @@ $('#pb_programa-datagrid').datagrid({
         { field:'Categoria',hidden:true },
         { field:'Grado',	hidden:true }
     ]],
-    rowStyler:myRowStyler
+    rowStyler:pbRowStyler
 });
 </script>

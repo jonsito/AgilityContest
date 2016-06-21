@@ -100,15 +100,7 @@ $('#pb_inscripciones_eq3-datagrid').datagrid({
     singleSelect: true,
     view: scrollview,
     pageSize: 50,
-    rowStyler: function(idx,row){ // set proper colors on team rows
-        // TODO study why this doesn't work
-        // return {'class':'pb_inscripciones_eq3_teamrow'};
-        return "background-color:<?php echo $config->getEnv('vw_hdrbg2')?>;"+
-            "color:<?php echo $config->getEnv('vw_hdrfg2')?>;"+
-            "font-weight:bold;"+
-            "height:40px;"+
-            "line-height: 40px;";
-    },
+    rowStyler:pbRowStyler,
     // especificamos un formateador especial para desplegar la tabla de inscritos por equipo
     detailFormatter:function(idx,row){
         return '<div style="padding:2px"><table id="pb_inscripciones_eq3-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
@@ -160,7 +152,7 @@ function showInscripcionesByTeam(index,team){
             { field:'Nombre',	    width:'15%',       sortable:false, align: 'center',	title: '<?php _e('Name'); ?>',formatter:formatBoldBig },
             { field:'Raza',	        width:'15%',        sortable:false, align: 'center',title: '<?php _e('Breed');    ?>' },
             { field:'Licencia',	    width:'7%',        sortable:false, align: 'center',title: '<?php _e('Lic');    ?>' },
-            { field:'Categoria',    width:'3%',        sortable:false, align: 'center',title: '<?php _e('Cat');    ?>',formatter:formatCategoria },
+            { field:'Categoria',    width:'3%',        sortable:false, align: 'center',title: '<?php _e('Cat');    ?>',formatter:formatCatGrad },
             // { field:'Grado',	width:6,        sortable:false, align: 'center',title: '<?php _e('Grade');  ?>',formatter:formatGrado },
             { field:'NombreGuia',	width:'18%',   sortable:false, align: 'right',	title: '<?php _e('Handler'); ?>' },
             { field:'NombreClub',	width:'18%',   sortable:false, align: 'right',	title: '<?php _e('Club');   ?>' },
@@ -169,7 +161,7 @@ function showInscripcionesByTeam(index,team){
             { field:'Celo',		    width:'5%', align:'center', formatter: formatCelo,	title: '<?php _e('Heat');   ?>' }
         ]],
         // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-        rowStyler:myRowStyler,
+        rowStyler:pbRowStyler2,
         // on double click fireup editor dialog
         onResize:function(){
             $('#pb_inscripciones_eq3-datagrid').datagrid('fixDetailRowHeight',index);

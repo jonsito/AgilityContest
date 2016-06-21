@@ -108,7 +108,7 @@ function initialize() {
  * @param {object} row Row data
  * @return {string} proper row style for given idx
  */
-function myRowStyler(idx,row) {
+function consoleRowStyler(idx,row) {
 	// console.log("rwostyler row "+idx);
 	var res="background-color:";
 	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>'; // even rows
@@ -122,6 +122,22 @@ function myRowStyler(idx,row) {
     }
 }
 
+/**
+ * rowStyler function for livestream secondary datagrids
+ * @param {int} idx Row index
+ * @param {object} row Row data
+ * @return {string} proper row style for given idx
+ */
+function consoleRowStyler2(idx,row) {
+	var res="background-color:";
+	var c1='<?php echo $config->getEnv('easyui_rowcolor3'); ?>';
+	var c2='<?php echo $config->getEnv('easyui_rowcolor4'); ?>';
+	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+}
+
+function myRowStyler(idx,row) { return consoleRowStyler(idx,row); }
+function myRowStyler2(idx,row) { return consoleRowStyler2(idx,row); }
+	
 </script>
 <style>
 /* Common CSS tags for Agility Contest */

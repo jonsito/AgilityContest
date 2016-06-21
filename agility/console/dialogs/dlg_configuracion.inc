@@ -43,12 +43,14 @@ $config =Config::getInstance();
 			<input id="easyui_hdrcolor" name="easyui_hdrcolor" value="#00ff00" type="color"/><br />
 			<label for="easyui_opcolor"><?php _e('Active menu header color'); ?></label>
 			<input id="easyui_opcolor" name="easyui_opcolor" value="opcolor" type="color"/><br />
-			<label for="easyui_rowcolor1"><?php _e('Color for even rows in tables'); ?></label>
+			<label for="easyui_rowcolor1"><?php _e('Color for even table rows'); ?></label>
 			<input id="easyui_rowcolor1" name="easyui_rowcolor1" value="#e0e0e0" type="color"/><br />
-			<label for="easyui_rowcolor2"><?php _e('Color for odd rows in tables'); ?></label>
+			<label for="easyui_rowcolor2"><?php _e('Color for odd table rows'); ?></label>
 			<input id="easyui_rowcolor2" name="easyui_rowcolor2" value="#c0c0c0" type="color"/><br />
-			<label for="easyui_rowcolor3"><?php _e('Color for extra rows in tables'); ?></label>
+			<label for="easyui_rowcolor3"><?php _e('Color for even secondary table rows'); ?></label>
 			<input id="easyui_rowcolor3" name="easyui_rowcolor3" value="#c0c0f0" type="color"/><br />
+			<label for="easyui_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
+			<input id="easyui_rowcolor4" name="easyui_rowcolor4" value="#c0c0f0" type="color"/><br />
 		</div>
 	
 		<div title="<?php _e('Tablet &amp; Chrono'); ?>" style="padding:10px">
@@ -118,10 +120,14 @@ $config =Config::getInstance();
             <label for="vw_hdrfg3"><?php _e('Text color for tertiary header'); ?></label>
             <input id="vw_hdrfg3" name="vw_hdrfg3" type="color" value="#000000"/><br />
 
-			<label for="vw_rowcolor1"><?php _e('Background color for tables even rows'); ?></label>
+			<label for="vw_rowcolor1"><?php _e('Background color for even table rows'); ?></label>
 			<input id="vw_rowcolor1" name="vw_rowcolor1" type="color" value="#e0e0e0"/><br />
-			<label for="vw_rowcolor2"><?php _e('Background color for tables odd rows'); ?></label>
+			<label for="vw_rowcolor2"><?php _e('Background color for odd table rows'); ?></label>
 			<input id="vw_rowcolor2" name="vw_rowcolor2" type="color" value="#c0c0c0"/><br />
+			<label for="vw_rowcolor3"><?php _e('Color for even secondary table rows'); ?></label>
+			<input id="vw_rowcolor3" name="vw_rowcolor3" type="color" value="#e0e0e0"/><br />
+			<label for="vw_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
+			<input id="vw_rowcolor4" name="vw_rowcolor4" type="color" value="#c0c0c0"/><br />
 
 			<h3><?php _e('Live Stream configurable parameters'); ?></h3>
 			<label for="vw_alpha"><?php _e('Transparency level for OnScreenDisplay'); ?></label>

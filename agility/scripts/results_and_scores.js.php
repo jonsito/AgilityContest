@@ -118,7 +118,7 @@ function showFinalScoresByTeam(parent,idx,row) {
             {field:'Puesto',	width:'3%', align:'center',   title:"<?php _e('Position'); ?>",formatter:formatBold }
         ]],
         // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-        rowStyler:myRowStyler,
+        rowStyler:myRowStyler2,
         onResize:function(){
             $(mySelf).datagrid('fitColumns');
             $(parent).datagrid('fixDetailRowHeight',idx);
@@ -182,7 +182,7 @@ function showPartialScoresByTeam(parent,idx,row) {
             {field:'Puesto',	    width:'5%', align:'center', title:"<?php _e('Position'); ?>",formatter:formatBold }
         ]],
         // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-        rowStyler:myRowStyler,
+        rowStyler:myRowStyler2,
         onResize:function(){
             $(mySelf).datagrid('fitColumns');
             $(parent).datagrid('fixDetailRowHeight',idx);

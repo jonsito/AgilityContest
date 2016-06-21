@@ -22,6 +22,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
+
 /**
  * Obtiene la informacion de la prueba para cabecera y pie de pagina
  */
