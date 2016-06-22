@@ -61,7 +61,6 @@ require_once(__DIR__. "/server/upgradeVersion.php");
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
@@ -111,21 +110,6 @@ function myRowStyler2(idx,row) { return pbRowStyler2(idx,row); }
         text-decoration: none;
         outline: none;
         border: 0px none transparent;
-    }
-
-    /* ajuste de las cabeceras de los datagrid groupview */
-    .datagrid-body .datagrid-group {
-        background-color: <?php echo $config->getEnv('vw_hdrbg2'); ?>;
-        height:30px;
-        line-height: 30px;
-    }
-    .datagrid-body .datagrid-group .datagrid-group-title {
-        height:30px;
-        line-height: 30px;
-        font-weight: bold;
-    }
-    .datagrid-body .datagrid-group .datagrid-group-expander {
-        margin-top:7px;
     }
 
 	/* tip for fix data size in smartphones ----------- */

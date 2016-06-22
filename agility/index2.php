@@ -71,7 +71,6 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
     <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
     <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
     <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.js" type="text/javascript" charset="utf-8" > </script>
     <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
     <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
     <script src="/agility/lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
@@ -234,21 +233,6 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             text-decoration: none; /* remove underline in <a></a> elements */
         }
 
-        /* ajuste de las cabeceras de los datagrid groupview */
-        .datagrid-body .datagrid-group {
-            background-color: <?php echo $config->getEnv('vw_hdrbg2'); ?>;
-            height:40px;
-            line-height: 40px;
-        }
-        .datagrid-body .datagrid-group .datagrid-group-title {
-            height:40px;
-            line-height: 40px;
-            font-weight: bold;
-        }
-        .datagrid-body .datagrid-group .datagrid-group-expander {
-            margin-top:0px;
-        }
-        
         /* tip for fix data size in smartphones ----------- */
         @media only screen and (max-width: 760px) {
             .datagrid-cell {

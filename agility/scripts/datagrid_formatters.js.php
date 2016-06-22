@@ -29,8 +29,8 @@ $config =Config::getInstance();
  */
 function pbRowStyler(idx,row) {
     var res="background-color:";
-    var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
-    var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
+    var c1='<?php echo $config->getEnv('pb_rowcolor1'); ?>';
+    var c2='<?php echo $config->getEnv('pb_rowcolor2'); ?>';
     if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
@@ -42,8 +42,8 @@ function pbRowStyler(idx,row) {
  */
 function pbRowStyler2(idx,row) {
     var res="background-color:";
-    var c1='<?php echo $config->getEnv('vw_rowcolor3'); ?>';
-    var c2='<?php echo $config->getEnv('vw_rowcolor4'); ?>';
+    var c1='<?php echo $config->getEnv('pb_rowcolor3'); ?>';
+    var c2='<?php echo $config->getEnv('pb_rowcolor4'); ?>';
     if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 

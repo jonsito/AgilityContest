@@ -28,8 +28,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     margin-top:0px;
     margin-bottom:0px;
     padding:5px 5px 0px 5px;
-    background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
-    color: <?php echo $config->getEnv('vw_hdrfg1')?>;
+    background-color: <?php echo $config->getEnv('pb_hdrbg1')?>;
+    color: <?php echo $config->getEnv('pb_hdrfg1')?>;
     font-weight: bold;
     font-style: italic;
     font-size:1.5vw;
@@ -39,31 +39,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     margin-top:0px;
     margin-bottom:0px;
     padding:5px;
-    background-color: <?php echo $config->getEnv('vw_hdrbg3')?>;
-    color: <?php echo $config->getEnv('vw_hdrfg3')?>;
+    background-color: <?php echo $config->getEnv('pb_hdrbg1')?>;
+    color: <?php echo $config->getEnv('pb_hdrfg1')?>;
     font-weight: bold;
     font-style: italic;
     font-size:1.5vw;
-}
-/************************** Elementos de la tabla de inscritos a la prueba ************/
-
-td.pb_club {
-    width:90%;
-    background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
-    color: <?php echo $config->getEnv('vw_hdrfg2')?>;
-    text-align:right;
-    font-size:2em;
-    font-style:italic;
-    font-weight:bold;
-    padding-right:25px;
 }
 
 /*************** cabecera de ventana de resultados ************ */
 .pb_trs {
     width:100%;
     padding:0px 5px 5px 5px;
-    background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
-    color: <?php echo $config->getEnv('vw_hdrfg1')?>;
+    background-color: <?php echo $config->getEnv('pb_hdrbg2')?>;
+    color: <?php echo $config->getEnv('pb_hdrfg2')?>;
     font-weight: bold;
     font-style: italic;
     table-layout: fixed;
@@ -87,30 +75,4 @@ td.pb_club {
         text-align:right;
         font-size: 1.3vw;
     }
-}
-
-/************** datos de las tablas de clasificaciones por equipos */
-.pb_equipos3 {
-    border-width:0px;
-    table-layout:fixed;
-    width:1000px;
-    overflow:hidden;
-    white-space:nowrap;
-}
-
-.pb_equipos3 span {
-    display:inline-block;
-    padding-right: -5px;
-    text-align:right;
-    vertical-align:top;
-    width:20%;
-}
-
-/************* estilos de la tabla de inscripciones por equipos */
-.pb_inscripciones_eq3_teamrow {
-    background-color:<?php echo $config->getEnv('vw_hdrbg2')?>;
-    color:<?php echo $config->getEnv('vw_hdrfg2')?>;
-    font-weight:bold;
-    height:30px;
-    line-height: 30px;
 }

@@ -200,6 +200,24 @@ $config =Config::getInstance();
 				<option value="90">1,5 min.</option>
 				<option value="120">2 min.</option>
 			</select><br />
+			<label for="pb_polltime"><?php _e('Rotation period for sponsor logos'); ?></label>
+			<input id="pb_polltime" name="pb_polltime" type="number" size="1" maxlength="1" value="5" min="1" max="9"/> (<?php _e('sec');?>)<br />
+			<label for="pb_hdrbg1"><?php _e('Header background color'); ?></label>
+			<input id="pb_hdrbg1" name="pb_hdrbg1" type="color" value="#0000ff"/><br />
+			<label for="pb_hdrfg1"><?php _e('Header text color'); ?></label>
+			<input id="pb_hdrfg1" name="pb_hdrfg1" type="color" value="#ffffff"/><br />
+			<label for="pb_hdrbg2"><?php _e('Round data table background color'); ?></label>
+			<input id="pb_hdrbg2" name="pb_hdrbg2" type="color" value="#0000ff"/><br />
+			<label for="pb_hdrfg2"><?php _e('Round data table text color'); ?></label>
+			<input id="pb_hdrfg2" name="pb_hdrfg2" type="color" value="#ffffff"/><br />
+			<label for="pb_rowcolor1"><?php _e('Background color for even table rows'); ?></label>
+			<input id="pb_rowcolor1" name="pb_rowcolor1" type="color" value="#e0e0e0"/><br />
+			<label for="pb_rowcolor2"><?php _e('Background color for odd table rows'); ?></label>
+			<input id="pb_rowcolor2" name="pb_rowcolor2" type="color" value="#c0c0c0"/><br />
+			<label for="pb_rowcolor3"><?php _e('Color for even secondary table rows'); ?></label>
+			<input id="pb_rowcolor3" name="pb_rowcolor3" type="color" value="#e0e0e0"/><br />
+			<label for="pb_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
+			<input id="pb_rowcolor4" name="pb_rowcolor4" type="color" value="#c0c0c0"/><br />
 		</div>
 				
 		<div title="<?php _e('General'); ?>" style="padding:10px">
