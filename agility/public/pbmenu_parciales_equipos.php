@@ -58,10 +58,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
-if (isMobileDevice()) {
-    $('#pb_parciales-Cabecera').css('height','90%');
-}
-
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update partial scores table"); ?>');
 $('#pb_parciales-layout').layout({fit:true});
 
