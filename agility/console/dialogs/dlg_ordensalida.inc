@@ -44,10 +44,12 @@ $config =Config::getInstance();
 	   		data-options="iconCls:'icon-downdown'" onclick="evalOrdenSalida('sameorder')"><?php _e('Clone'); ?></a>
 	   	<a id="ordensalida-eqBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-huella'" onclick="$('#ordeneq3-dialog').dialog('open');"><?php _e('Teams'); ?></a>
-	   	<a id="ordensalida-checkBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-help'" onclick="reloadAndCheck()"><?php _e('Check'); ?></a>
-   		</span>
-   		<span style="float:right;padding:5px">
+        <label for="ordensalida-categoria"><?php _e('Cat');?></label>
+        <select id="ordensalida-categoria" style="width:100px"></select>
+   	</span>
+   	<span style="float:right;padding:5px">
+	   	<a id="ordensalida-checkBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-help'" onclick="reloadAndCheck()"><?php _e('Check'); ?></a>
    		<!-- estos elementos deben estar alineados a la derecha -->
    		<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-reload'" onclick="reloadOrdenSalida();"><?php _e('Refresh'); ?></a>
@@ -68,6 +70,15 @@ $('#ordeneq3-dialog').dialog({
     closed:			true,
     modal:			true,
     onBeforeOpen:   reloadSimpleOrdenEquipos
+});
+
+$('#ordensalida-categoria').combobox({
+    value: '-',
+    panelHeight: 'auto',
+    valueField: 'Categoria',
+    textField: 'Nombre',
+    data: getOrdenSalidaCategorias(),
+    onSelect: function(rec) { reloadOrdenSalida(); }
 });
 
 // datos de la tabla de equipos
@@ -134,7 +145,8 @@ $('#ordensalida-datagrid').datagrid({
         Operation: 'getData',
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
-        Manga: workingData.manga
+        Manga: workingData.manga,
+        Categorias: $('ordensalida-categoria').combobox('getValue'),
     },
     loadMsg: '<?php _e("Updating starting order"); ?> ...',
     toolbar: '#ordensalida-toolbar',
@@ -193,5 +205,5 @@ addTooltip($('#ordensalida-cloneBtn').linkbutton(),'<?php _e("Clone starting ord
 addTooltip($('#ordensalida-eqBtn').linkbutton(),'<?php _e("Manual setting of teams starting order"); ?>');
 addTooltip($('#ordensalida-printBtn').linkbutton(),'<?php _e("Print starting order"); ?>');
 addTooltip($('#ordensalida-reloadBtn').linkbutton(),'<?php _e("Reload starting order. Update window"); ?>');
-
+addTooltip($('#ordensalida-categoria').combobox('textbox'),'<?php _e("Select categories to work with"); ?>');
 </script>

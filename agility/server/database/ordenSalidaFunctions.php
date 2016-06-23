@@ -43,14 +43,14 @@ try {
 	$w = http_request("Where","i",0);
     $tv= http_request("TeamView","b",false);
 	$team= http_request("Equipo","i",0);
-	$mode= http_request("Mode","i",8); // sort everything LMST by default
+	$cats= http_request("Categorias","s","-"); // sort everything LMST by default
 	if (($p<=0) || ($j<=0) || ($m<=0)) 
 		throw new Exception("Call to ordenSalidaFunctions with Invalid Prueba:$p Jornada:$j or manga:$m ID");
 	$os=new OrdenSalida($file,$m);
 	switch ($operation) {
-		case "random": $am->access(PERMS_OPERATOR);	$result = $os->random($mode); break;
-		case "reverse": $am->access(PERMS_OPERATOR); $result = $os->reverse($mode); break;
-		case "sameorder": $am->access(PERMS_OPERATOR); $result = $os->sameorder($mode); break;
+		case "random": $am->access(PERMS_OPERATOR);	$result = $os->random($cats); break;
+		case "reverse": $am->access(PERMS_OPERATOR); $result = $os->reverse($cats); break;
+		case "sameorder": $am->access(PERMS_OPERATOR); $result = $os->sameorder($cats); break;
         case "getData":	$result = $os->getData($tv); break;
         case "getTeams":	$result = $os->getTeams(); break;
         case "getDataByTeam":	$result = $os->getDataByTeam($team); break;

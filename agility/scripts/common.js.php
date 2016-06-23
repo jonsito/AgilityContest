@@ -327,6 +327,17 @@ function getFederationInfo() {
 	});
 }
 
+/**
+ * Obtiene una lista de las categorias y modos disponibles
+ * para mostrar en la ventana de ajuste del orden de salida
+ */
+function getOrdenSalidaCategorias() {
+	var cats=workingData.datosFederation.ListaCategorias;
+	var res=[];
+	$.each(cats,function(key,val){ res.push({Categoria:key,Nombre:val}); });
+	return res;
+}
+
 function loadCountryOrClub() {
 	var intl = parseInt(ac_fedInfo[workingData.federation].International);
 	if (intl==0) loadContents('/agility/console/frm_clubes.php','<?php _e('Clubs Database Management');?>');

@@ -396,6 +396,7 @@ function reloadOrdenSalida() {
             Prueba: workingData.prueba,
             Jornada: workingData.jornada ,
             Manga: workingData.manga ,
+            Categorias: $('ordensalida-categoria').combobox('getValue'),
             Operation: 'getData'
         }
     );
@@ -410,6 +411,7 @@ function reloadOrdenEquipos() {
             Prueba: workingData.prueba,
             Jornada: workingData.jornada ,
             Manga: workingData.manga ,
+            Categorias: $('ordensalida-categoria').combobox('getValue'),
             Operation: 'getTeams'
         }
     );
