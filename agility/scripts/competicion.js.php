@@ -396,7 +396,7 @@ function reloadOrdenSalida() {
             Prueba: workingData.prueba,
             Jornada: workingData.jornada ,
             Manga: workingData.manga ,
-            Categorias: $('ordensalida-categoria').combobox('getValue'),
+            Categorias: $('#ordensalida-categoria').combobox('getValue'),
             Operation: 'getData'
         }
     );
@@ -411,7 +411,7 @@ function reloadOrdenEquipos() {
             Prueba: workingData.prueba,
             Jornada: workingData.jornada ,
             Manga: workingData.manga ,
-            Categorias: $('ordensalida-categoria').combobox('getValue'),
+            Categorias: $('#ordensalida-categoria').combobox('getValue'),
             Operation: 'getTeams'
         }
     );
@@ -766,11 +766,11 @@ function saveCompeticionData(idx,data) {
 }
 
 // genera un nuevo orden aleatorio
-function evalOrdenSalida(mode) {
+function evalOrdenSalida(oper) {
 	if (workingData.prueba==0) return;
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
-	if (mode==='random') {
+	if (oper==='random') {
 		$.messager.confirm('<?php _e('Confirm'); ?>', '<?php _e('Every changes done till now will be lost<br />Continue?'); ?>', function(r){
 			if (!r) return;
 			$.ajax({
@@ -781,13 +781,14 @@ function evalOrdenSalida(mode) {
 					Prueba: workingData.prueba,
 					Jornada: workingData.jornada,
 					Manga: workingData.manga,
-					Operation: mode
+                    Categorias: $('#ordensalida-categoria').combobox('getValue'),
+					Operation: oper
 				}
 			}).done( function(msg) {
 				reloadOrdenSalida();
 			});
 		});
-	} else {
+	} else { // 'reverse' o 'clone'
 		$.ajax({
 			type:'GET',
 			url:"/agility/server/database/ordenSalidaFunctions.php",
@@ -796,7 +797,8 @@ function evalOrdenSalida(mode) {
 				Prueba: workingData.prueba,
 				Jornada: workingData.jornada,
 				Manga: workingData.manga,
-				Operation: mode
+                Categorias: $('#ordensalida-categoria').combobox('getValue'),
+				Operation: oper
 			}
 		}).done( function(msg) {
 			reloadOrdenSalida();

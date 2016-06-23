@@ -146,7 +146,7 @@ $('#ordensalida-datagrid').datagrid({
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
         Manga: workingData.manga,
-        Categorias: $('ordensalida-categoria').combobox('getValue'),
+        Categorias: $('#ordensalida-categoria').combobox('getValue'),
     },
     loadMsg: '<?php _e("Updating starting order"); ?> ...',
     toolbar: '#ordensalida-toolbar',

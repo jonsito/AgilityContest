@@ -325,6 +325,45 @@ class OrdenSalida extends DBObject {
     }
 
 	/**
+	 * Separa los perros de la lista en funcion del modo,
+	 * manteniendo el orden.
+	 * Se utiliza para poder ajustar el orden de salida por categorias
+	 * @param {string} $lista lista original de la base de datos
+	 * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST
+	 * @return {array} 0:original 1:included 2:excluded
+	 */
+	function  splitPerrosByMode($lista,$mode) {
+		// cogemos todos los perros de la manga
+		$res=$this->__select("*","Resultados","Manga={$this->manga['ID']}","","");
+		$listaperros=array();
+		// indexamos en función del perroID
+		foreach ($res['rows'] as $perro) {
+			$listaperros[$perro['Perro']]=$perro;
+		}
+		// split de los datos originales
+		$ordenperros=explode(",",getInnerString($lista,"BEGIN,",",END"));
+		// clasificamos los perros por categorias
+		$listas=array( 0=>array(),1=>array(),2=>array());
+		foreach($ordenperros as $perro) {
+			array_push($listas[0],$perro);
+			if (mode_match($listaperros[$perro]['Categoria'],$mode)) {
+                array_push($listas[1],$perro);
+            } else {
+                array_push($listas[2],$perro);
+            }
+		}
+		// retornamos el array de strings
+        $str0=implode(",",$listas[0]);
+        $str1=implode(",",$listas[1]);
+        $str2=implode(",",$listas[2]);
+		return array($str0,$str1,$str2);
+	}
+
+	function splitEquiposByMode($lista,$mode) {
+
+	}
+
+	/**
 	 * Obtiene la lista (actualizada) de perros de una manga en el orden de salida correcto
 	 * En el proceso de inscripcion ya hemos creado la tabla de resultados, y el orden de salida
 	 * con lo que la cosa es sencilla
@@ -339,7 +378,7 @@ class OrdenSalida extends DBObject {
 	 * 
 	 * @param {boolean} teamview true->intercalar información de equipos en el listado 
 	 */
-	function getData($teamView=false) {
+	function getData($teamView=false,$catmode=8) {
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
 		$rs= $this->__select(
 			"Resultados.*,Equipos.Nombre AS NombreEquipo,PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS LogoClub",
@@ -356,8 +395,10 @@ class OrdenSalida extends DBObject {
 		}
 
 		// primera pasada: ajustamos los perros segun el orden de salida que figura en Orden_Salida
+		// si la categoria del perro no coincide, la eliminamos
 		$p2=array();
-		$orden=explode(',',$this->getOrden());
+		$listas=$this->splitPerrosByMode($this->getOrden(),$catmode);
+		$orden=explode(',',$listas[1]); // cogemos la lista de los perros incluidos
 		foreach ($orden as $perro) {
 			if ($perro==="BEGIN") continue;
 			if ($perro==="END") continue;
@@ -428,63 +469,22 @@ class OrdenSalida extends DBObject {
 	}
 
 	/**
-	 * Separa los perros de la lista en funcion del modo,
-	 * manteniendo el orden.
-	 * Se utiliza para poder ajustar el orden de salida por categorias
-	 * @param {string} $lista lista original de la base de datos
-	 * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST
-	 * @return {array} 0:original 1:included 2:excluded
-	 */
-	function  splitPerrosByMode($lista,$mode) {
-		// cogemos todos los perros de la manga
-		$res=$this->__select("*","Resultados","Manga={$this->manga}","","");
-		$listaperros=array();
-		// indexamos en función del perroID
-		foreach ($res['rows'] as $perro) {
-			$listaperros[$perro['Perro']]=$perro;
-		}
-		// split de los datos originales
-		$ordenperros=explode(",",getInnerString($lista,"BEGIN,",",END"));
-		// clasificamos los perros por categorias
-		$listas=array( 0=>array(),1=>array(),2=>array());
-		foreach($ordenperros as $perro) {
-			array_push($listas[0],$perro);
-			if (mode_match($listaperros[$perro]['Categoria'],$mode)) array_push($listas[1],$perro);
-			else array_push($listas[2],$perro);
-		}
-		// retornamos el array de strings
-		return array(implode(",",$listas[0]),implode(",",$listas[1]),implode(",",$listas[2]));
-	}
-
-	function splitEquiposByMode($lista,$mode) {
-
-	}
-
-	/**
 	 * Reordena el orden de salida de una manga al azar
 	 * @param  	{int} $jornada ID de jornada
 	 * @param	{int} $manga ID de manga
 	 * @return {string} nuevo orden de salida
 	 */
-	function random($mode=8) {
+	function random($catmode=8) {
 		// fase 1 aleatorizamos la manga
 		$orden=$this->getOrden();
 		$this->myLogger->debug("OrdenSalida::Random() Manga:{$this->manga['ID']} Orden inicial: \n$orden");
 		// buscamos los perros de la categoria seleccionada
-		$listas=$this->splitPerrosByMode($orden,$mode);
+		$listas=$this->splitPerrosByMode($orden,$catmode);
 		if ($listas[1]!=="") { // si hay datos, reordena; si no no hagas nada
 			$str2 = implode(",",aleatorio(explode(",", $listas[1])));
 			$str="BEGIN,{$listas[2]},$str2,END";
 			$this->setOrden($str);
 		}
-		/*
-		$str=getInnerString($orden,"BEGIN,",",END");
-		if ($str!=="") { // si hay datos, reordena; si no no hagas nada
-			$str2 = implode(",",aleatorio(explode(",", $str)));
-			$str="BEGIN,$str2,END";
-			$this->setOrden($str);
-		}
-		*/
 		$orden=$this->getOrden();
 		$this->myLogger->debug("OrdenSalida::Random() Manga:{$this->manga['ID']} Orden final: \n$orden");
 
@@ -502,7 +502,36 @@ class OrdenSalida extends DBObject {
 
 		return $orden;
 	}
-	
+
+	/**
+	 * pone el mismo orden de salida que la manga hermana
+	 * @return {string} nuevo orden de salida; null on error
+	 */
+	function sameorder($catmode=8) {
+		$this->myLogger->enter();
+
+		// fase 1: buscamos la "manga hermana"
+		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada['ID']);
+		$hermanas=$mhandler->getHermanas($this->manga['ID']);
+		if (!is_array($hermanas)) return $this->error("Error find hermanas info for jornada:{$this->jornada['ID']} and manga:{$this->manga['ID']}");
+		if ($hermanas[1]==null) return $this->error("Cannot clone order: Manga:{$this->manga['ID']} of Jornada:{$this->jornada['ID']} has no brother");
+		// spliteamos manga propia y hermana, y las mezclamos en funcion de la categoria
+		$lista=$this->splitPerrosByMode($hermanas[0]->Orden_Salida,$catmode); // manga actual "splitteada"
+		$lista2=$this->splitPerrosByMode($hermanas[1]->Orden_Salida,$catmode); // manga hermana "splitteada"
+		if ($lista2[1]!=="") { // si hay datos, reordena; si no no hagas nada
+			$str="BEGIN,{$lista[2]},{$lista[1]},END";
+			$this->setOrden($str);
+		}
+		$this->myLogger->trace("Orden de salida original manga:{$this->manga['ID']} jornada:{$this->jornada['ID']} es:\n{$hermanas[0]->Orden_Salida}");
+		$this->myLogger->trace("Orden de salida final manga:{$this->manga['ID']} jornada:{$this->jornada['ID']} es:\n{$this->getOrden()}");
+		
+		// fase 2: clonamos orden de salida y de equipos de la manga hermana
+		$this->setOrden($hermanas[1]->Orden_Salida);
+		$this->setOrdenEquipos($hermanas[1]->Orden_Equipos);
+		$this->myLogger->leave();
+		return $hermanas[1]->Orden_Salida;
+	}
+
 	/**
 	 * Evalua los resultados de la manga from segun mode
 	 * y recalcula el orden de salida de la manga from
@@ -569,27 +598,6 @@ class OrdenSalida extends DBObject {
         $this->setOrdenEquipos($ordenequipos);
 	}
 
-	/**
-	 * pone el mismo orden de salida que la manga hermana
-	 * @return {string} nuevo orden de salida; null on error
-	 */
-	function sameorder($mode=8) {
-		$this->myLogger->enter();
-
-		// fase 1: buscamos la "manga hermana"
-		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada['ID']);
-		$hermanas=$mhandler->getHermanas($this->manga['ID']);
-		if (!is_array($hermanas)) return $this->error("Error find hermanas info for jornada:{$this->jornada['ID']} and manga:{$this->manga['ID']}");
-		if ($hermanas[1]==null) return $this->error("Cannot clone order: Manga:{$this->manga['ID']} of Jornada:{$this->jornada['ID']} has no brother");
-
-		// fase 2: clonamos orden de salida y de equipos de la manga hermana
-		$this->myLogger->trace("El orden de salida original para manga:{$this->manga['ID']} jornada:{$this->jornada['ID']} es:\n{$hermanas[0]->Orden_Salida}");
-        $this->setOrden($hermanas[1]->Orden_Salida);
-        $this->setOrdenEquipos($hermanas[1]->Orden_Equipos);
-		$this->myLogger->leave();
-		return $hermanas[1]->Orden_Salida;
-	}
-	
 	/**
 	 * Calcula el orden de salida de una manga en funcion del orden inverso al resultado de su manga "hermana"
 	 * @return {string} nuevo orden de salida; null on error

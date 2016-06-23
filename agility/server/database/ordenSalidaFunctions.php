@@ -44,14 +44,22 @@ try {
     $tv= http_request("TeamView","b",false);
 	$team= http_request("Equipo","i",0);
 	$cats= http_request("Categorias","s","-"); // sort everything LMST by default
+	$catmode=8;
+	switch ($cats) {
+		case "-": $catmode=8; break; // use 8 instead of 4 because this mode is already includede in 8
+		case "L": $catmode=0; break;
+		case "M": $catmode=1; break;
+		case "S": $catmode=2; break;
+		case "T": $catmode=5; break;
+	}
 	if (($p<=0) || ($j<=0) || ($m<=0)) 
 		throw new Exception("Call to ordenSalidaFunctions with Invalid Prueba:$p Jornada:$j or manga:$m ID");
 	$os=new OrdenSalida($file,$m);
 	switch ($operation) {
-		case "random": $am->access(PERMS_OPERATOR);	$result = $os->random($cats); break;
-		case "reverse": $am->access(PERMS_OPERATOR); $result = $os->reverse($cats); break;
-		case "sameorder": $am->access(PERMS_OPERATOR); $result = $os->sameorder($cats); break;
-        case "getData":	$result = $os->getData($tv); break;
+		case "random": $am->access(PERMS_OPERATOR);	$result = $os->random($catmode); break;
+		case "reverse": $am->access(PERMS_OPERATOR); $result = $os->reverse($catmode); break;
+		case "sameorder": $am->access(PERMS_OPERATOR); $result = $os->sameorder($catmode); break;
+        case "getData":	$result = $os->getData($tv,$catmode); break;
         case "getTeams":	$result = $os->getTeams(); break;
         case "getDataByTeam":	$result = $os->getDataByTeam($team); break;
         case "dnd": $am->access(PERMS_ASSISTANT); $result = $os->dragAndDrop($f,$t,$w); break;
