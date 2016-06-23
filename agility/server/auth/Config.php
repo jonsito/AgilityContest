@@ -86,7 +86,7 @@ define('AC_TABLET_DBLCLICK',"1");	// accion al hacer doble click en listado de m
 
 /** configuracion del sistema de acceso por internet */
 define('AC_WEB_REFRESHTIME',"0");	// periodo de refresco en pantallas live
-define('AC_PB_POLLTIME',5); 		// periodo de rotacion de logotipos de anuncios (segundos)
+define('AC_PB_ROTATELOGOS',5); 		// periodo de rotacion de logotipos de anuncios (segundos)
 define('AC_PB_HDRFG1','#000000');	// colores de texto y fondo de cabecera y pie de pagina
 define('AC_PB_HDRBG1','#FF7F00');
 define('AC_PB_HDRFG2','#000000');	// colores de texto y fondo de informacion de ronda
@@ -191,11 +191,11 @@ Class Config {
 		'tablet_dblclick'	=> array(	'i',	false,	AC_TABLET_DBLCLICK),
 		// acceso web
 		'web_refreshtime'	=> array(	'i',	false,	AC_WEB_REFRESHTIME),
-		'pb_polltime'		=> array(	'i',	false,	AC_PB_POLLTIME),
-		'pb_hdrfg1'			=> array(	'c',	false,	AC_VW_HDRFG1),
-		'pb_hdrbg1'			=> array(	'c',	false,	AC_VW_HDRBG1),
-		'pb_hdrfg2'			=> array(	'c',	false,	AC_VW_HDRFG2),
-		'pb_hdrbg2'			=> array(	'c',	false,	AC_VW_HDRBG2),
+		'pb_rotatelogos'	=> array(	'i',	false,	AC_PB_ROTATELOGOS),
+		'pb_hdrfg1'			=> array(	'c',	false,	AC_PB_HDRFG1),
+		'pb_hdrbg1'			=> array(	'c',	false,	AC_PB_HDRBG1),
+		'pb_hdrfg2'			=> array(	'c',	false,	AC_PB_HDRFG2),
+		'pb_hdrbg2'			=> array(	'c',	false,	AC_PB_HDRBG2),
 		'pb_rowcolor1'		=> array(	'c',	false,	AC_PB_ROWCOLOR1),
 		'pb_rowcolor2'		=> array(	'c',	false,	AC_PB_ROWCOLOR2),
 		'pb_rowcolor3'		=> array(	'c',	false,	AC_PB_ROWCOLOR3),

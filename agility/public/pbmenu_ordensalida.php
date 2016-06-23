@@ -51,11 +51,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
-// in a mobile device, increase north window height
-if (isMobileDevice()) {
-    $('#pb_ordensalida-Cabecera').css('height','90%');
-}
-
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update starting order"); ?>');
 $('#pb_ordensalida-layout').layout({fit:true});
 

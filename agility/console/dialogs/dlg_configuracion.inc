@@ -200,8 +200,8 @@ $config =Config::getInstance();
 				<option value="90">1,5 min.</option>
 				<option value="120">2 min.</option>
 			</select><br />
-			<label for="pb_polltime"><?php _e('Rotation period for sponsor logos'); ?></label>
-			<input id="pb_polltime" name="pb_polltime" type="number" size="1" maxlength="1" value="5" min="1" max="9"/> (<?php _e('sec');?>)<br />
+			<label for="pb_rotatelogos"><?php _e('Rotation period for sponsor logos'); ?></label>
+			<input id="pb_rotatelogos" name="pb_rotatelogos" type="number" size="1" maxlength="1" value="5" min="1" max="9"/> (<?php _e('sec');?>)<br />
 			<label for="pb_hdrbg1"><?php _e('Header background color'); ?></label>
 			<input id="pb_hdrbg1" name="pb_hdrbg1" type="color" value="#0000ff"/><br />
 			<label for="pb_hdrfg1"><?php _e('Header text color'); ?></label>

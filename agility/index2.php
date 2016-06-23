@@ -300,9 +300,18 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
 <script type="text/javascript">
     // define the layout structure
     $('#pb_layout').layout({fit:true});
-    // once closed do not allow expand poster window. instead expand menu
     $('#pb_layout').layout('panel','west').panel({
-        onBeforeExpand: function() { setTimeout(pb_expandMenu(false),0); return false; }
+        // once closed do not allow expand poster window. instead expand menu
+        onBeforeExpand: function() { 
+            ac_config.allow_scroll=true;
+            setTimeout(pb_expandMenu(false),0); 
+            return false;
+        },
+        // on collapse disable scrolling (if any)
+        onBeforeCollapse: function() { 
+            ac_config.allow_scroll=true; 
+            return true; 
+        }
     });
 
 </script>

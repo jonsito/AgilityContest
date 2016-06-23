@@ -587,22 +587,6 @@ function vw_updateOrdenSalida(evt,data) {
     });
 }
 
-function vw_autoscroll(dg,pos) {
-	var pTime=parseInt(ac_config.vw_polltime); // seconds
-	if (pTime==0) { // autoscroll. stay on top
-		dg.datagrid('scrollTo',0);
-		return;
-	}
-	var size=dg.datagrid('getRows').length;
-	setTimeout(function(){
-		dg.datagrid('scrollTo',pos);
-		if ( pos==(size-1)) pos=0; // at end: go to beging
-		else pos+=10;
-		if (pos>=size) pos=size-1; // next to end: pos at end
-		vw_autoscroll(dg,pos);
-	},1000*pTime);
-}
-
 /**
  * Generic event handler for VideoWall and LiveStream screens
  * Every screen has a 'eventHandler' table with pointer to functions to be called

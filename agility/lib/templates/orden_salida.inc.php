@@ -80,7 +80,7 @@ $config =Config::getInstance();
             }
             mySelf.datagrid('fitColumns'); // expand to max width
             // start autoscrolling
-            vw_autoscroll(mySelf,0);
+            autoscroll(mySelf,0,ac_config.vw_polltime);
         }
     });
 
