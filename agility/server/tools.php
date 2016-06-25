@@ -255,6 +255,7 @@ function aleatorio($a) { shuffle($a); return $a; }
  * @param {string} $str string to search into
  * @param {string} $from start tag
  * @param {string} $to end tag
+ * @return {string} requested string or empty if not found
  */
 function getInnerString($str,$from="",$to="") {
 		$str = " ".$str;

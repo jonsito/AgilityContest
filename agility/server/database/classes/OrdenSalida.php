@@ -134,16 +134,16 @@ class OrdenSalida extends DBObject {
     }
 
 	/**
-	 * Join to order strings into one
-	 * @param $str1
-	 * @param $str2
+	 * Join two order strings into one
+     * NOTICE: input data comes WITHOUT BEGIN/END tags
+	 * @param $s1
+	 * @param $s2
 	 */
-	private function joinOrders($str1,$str2) {
-		$str1=getInnerString($str1,"BEGIN,",",END");
-		$str2=getInnerString($str1,"BEGIN,",",END");
-		if ($str1!=="") $str1=",$str1";
-		if ($str2!=="") $str2=",$str2";
-		return "BEGIN$str1$str2,END";
+	private function joinOrders($s1,$s2) {
+		$a=($s1==="")?"":",$s1";
+		$b=($s2==="")?"":",$s2";
+		$res="BEGIN".$a.$b.",END";
+		return $res;
 	}
 
 	/**
@@ -346,6 +346,7 @@ class OrdenSalida extends DBObject {
 	 * @return {array} 0:original 1:included 2:excluded
 	 */
 	function  splitPerrosByMode($lista,$mode) {
+		$this->myLogger->trace("splitPerrosByMode():mode: $mode lista: $lista");
 		// cogemos todos los perros de la manga e indexamos en función del perroID
 		$res=$this->__select("*","Resultados","Manga={$this->manga['ID']}","","");
 		$listaperros=array();
@@ -414,6 +415,7 @@ class OrdenSalida extends DBObject {
 	 * los ordene segun el resultado final deseado
 	 * 
 	 * @param {boolean} teamview true->intercalar información de equipos en el listado 
+	 * @param {integer} catmode categorias a tener en cuenta en el listado que hay que presentar
 	 */
 	function getData($teamView=false,$catmode=8) {
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
@@ -432,7 +434,7 @@ class OrdenSalida extends DBObject {
 		}
 
 		// primera pasada: ajustamos los perros segun el orden de salida que figura en Orden_Salida
-		// si la categoria del perro no coincide, la eliminamos
+		// excluyendo a aquellos cuya categoria no coincide con la solicitada
 		$p2=array();
 		$listas=$this->splitPerrosByMode($this->getOrden(),$catmode);
 		$orden=explode(',',$listas[1]); // cogemos la lista de los perros incluidos
@@ -506,9 +508,8 @@ class OrdenSalida extends DBObject {
 	}
 
 	/**
-	 * Reordena el orden de salida de una manga al azar
-	 * @param  	{int} $jornada ID de jornada
-	 * @param	{int} $manga ID de manga
+	 * Reordena el orden de salida de las categorias indicadas de una manga al azar
+	 * @param	{int} $catmode categorias a las que tiene que afectar este cambio
 	 * @return {string} nuevo orden de salida
 	 */
 	function random($catmode=8) {
@@ -537,7 +538,8 @@ class OrdenSalida extends DBObject {
 	}
 
 	/**
-	 * pone el mismo orden de salida que la manga hermana
+	 * pone el mismo orden de salida que la manga hermana en las categorias solicitadas
+	 * @param	{int} $catmode categorias a las que tiene que afectar este cambio
 	 * @return {string} nuevo orden de salida; null on error
 	 */
 	function sameorder($catmode=8) {
@@ -578,8 +580,9 @@ class OrdenSalida extends DBObject {
 	 * y recalcula el orden de salida de la manga from
 	 * @param {integer} $from manga donde buscar resultados
 	 * @param {integer} $mode categorias de la manga (L,M,S,MS,LMS,T,LM,ST,LMST)
+	 * @param {integer} $catmode categorias que hay que ordenar en la manga (L,M,S,T,LMST)
 	 */
-	private function invierteResultados($from,$mode) {
+	private function invierteResultados($from,$mode,$catmode) {
 
         // FASE 1: invertimos orden de salida de perros
 		$r =new Resultados("OrdenSalida::invierteResultados", $this->prueba['ID'],$from->ID);
@@ -588,8 +591,9 @@ class OrdenSalida extends DBObject {
 		$size= count($data);
 		// recorremos los resultados en orden inverso
 		$ordensalida=$this->getOrden();
-		// y reinsertamos los perros actualizando el orden
+		// y reinsertamos los perros actualizando el orden si la categoria coincide
 		for($idx=$size-1; $idx>=0; $idx--) {
+			if (! mode_match($data[$idx]['Categoria'],$catmode) ) continue;
 			$idperro=$data[$idx]['Perro'];
 			// lo borramos para evitar una posible doble insercion
 			$str = ",$idperro,";
@@ -623,8 +627,9 @@ class OrdenSalida extends DBObject {
         $size= count($res);
         // recorremos los resultados en orden inverso generando el nuevo orden de equipos
         $ordenequipos=$this->getOrdenEquipos();
-        // y reinsertamos los perros actualizando el orden
+        // y reinsertamos los perros actualizando el orden si la categoria del equipo coincide
         for($idx=$size-1; $idx>=0; $idx--) {
+			if (! mode_match($res[$idx]['Categorias'],$catmode)) continue;
             $equipo=intval($res[$idx]['ID']);
             $this->myLogger->trace("Equipo: $equipo - ,{$res[$idx]['Nombre']}");
             // eliminamos el equipo del puesto donde esta
@@ -640,10 +645,11 @@ class OrdenSalida extends DBObject {
 	}
 
 	/**
-	 * Calcula el orden de salida de una manga en funcion del orden inverso al resultado de su manga "hermana"
+	 * Calcula el orden de salida de la(s) categoria(s) indicadas
+	 * de manga en funcion del orden inverso al resultado de su manga "hermana"
 	 * @return {string} nuevo orden de salida; null on error
 	 */
-	function reverse($mode=8) {
+	function reverse($catmode=8) {
 		$this->myLogger->enter();
 		// fase 1: buscamos la "manga hermana"
 		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada['ID']);
@@ -656,25 +662,25 @@ class OrdenSalida extends DBObject {
 		// En funcion del tipo de recorrido tendremos que leer diversos conjuntos de Resultados
 		switch($hermanas[0]->Recorrido) {
 			case 0: // Large,medium,small (3-heighs) Large,medium,small,tiny (4-heights)
-				$this->invierteResultados($hermanas[1],0);
-				$this->invierteResultados($hermanas[1],1);
-				$this->invierteResultados($hermanas[1],2);
-				if ($this->federation->get('Heights')==4) $this->invierteResultados($hermanas[1],5);
+				$this->invierteResultados($hermanas[1],0,$catmode);
+				$this->invierteResultados($hermanas[1],1,$catmode);
+				$this->invierteResultados($hermanas[1],2,$catmode);
+				if ($this->federation->get('Heights')==4) $this->invierteResultados($hermanas[1],5,$catmode);
 				break;
 			case 1: // Large,medium+small (3heights) Large+medium,Small+tiny (4heights)
 				if ($this->federation->get('Heights')==3) {
-					$this->invierteResultados($hermanas[1],0);
-					$this->invierteResultados($hermanas[1],3);
+					$this->invierteResultados($hermanas[1],0,$catmode);
+					$this->invierteResultados($hermanas[1],3,$catmode);
 				} else {
-					$this->invierteResultados($hermanas[1],6);
-					$this->invierteResultados($hermanas[1],7);
+					$this->invierteResultados($hermanas[1],6,$catmode);
+					$this->invierteResultados($hermanas[1],7,$catmode);
 				}
 				break;
 			case 2: // conjunta L+M+S (3 heights) L+M+S+T (4heights)
 				if ($this->federation->get('Heights')==3) {
-					$this->invierteResultados($hermanas[1],4);
+					$this->invierteResultados($hermanas[1],4,$catmode);
 				} else  {
-					$this->invierteResultados($hermanas[1],8);
+					$this->invierteResultados($hermanas[1],8,$catmode);
 				}
 				break;
 		}
