@@ -485,7 +485,7 @@ function swapMangas() {
         if (!r) return;
         $.ajax({
             type:'GET',
-            url:"/agility/server/database/mangaFunctions.php",
+            url:"/agility/server/database/resultadosFunctions.php",
             dataType:'json',
             data: {
                 Prueba: workingData.prueba,

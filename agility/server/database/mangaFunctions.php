@@ -47,7 +47,6 @@ try {
 		case "sharejuez": $am->access(PERMS_OPERATOR); $result=$mangas->shareJuez(); break;
 		// no direct delete as created/destroyed from jornadaFunctions
 		case "enumerate": 	$result=$mangas->selectByJornada(); break;
-		case "swap": 	$result=$mangas->swapMangas($manga,$catmode); break;
 		case "getbyid":		$result=$mangas->selectByID($manga); break;
 		default: throw new Exception("mangaFunctions:: invalid operation: $operation provided");
 	}

@@ -365,43 +365,7 @@ class Mangas extends DBObject {
 		$this->myLogger->leave();
 		return $hermanas;
 	}
-
-	/**
-	 * Intercambia los tipos de las mangas
-	 * @param {integer} $id ID De manga origen
-	 * @param {integer} $catsmode modo que indica las categorias a las que afecta el swap
-	 * @return {string} "" in success else error string
-	 */
-	function swapMangas($id,$catsmode) {
-		$this->myLogger->enter();
-		if ($id<=0) return $this->error("Invalid Manga ID");
-		// second query to retrieve $rows starting at $offset
-		$manga1=$this->__getObject("Mangas",$id);
-		if (!is_object($manga1)) return $this->error("Cannot locate Manga with ID=$id");
-		$tipo1=$manga1->Tipo;
-		$tipo2=Mangas::$manga_hermana[$tipo1];
-		if ($tipo2==0) {
-			$this->myLogger->info("La manga:$id de tipo:$tipo1 no tiene hermana asociada");
-			return array($manga1,null);
-		}
-		// Obtenemos __Todas__ las mangas de esta jornada que tienen el tipo buscado ninguna, una o hasta 8(k.O.)
-		$result2=$this->__select("*","Mangas","( Jornada={$this->jornada} ) AND ( Tipo=$tipo2)","","");
-		if (!is_array($result2)) {
-			// inconsistency error muy serio
-			return $this->error("Falta la manga hermana de tipo:$tipo2 para manga:$id de tipo:$tipo1");
-		}
-		if (count($result2['rows'])!=1) {
-			// no sense swap in single or multi-round series
-			return $this->error("Tiene que haber una y solo una hermana de tipo:$tipo2 para la manga:$id de tipo:$tipo1");
-		}
-		$manga2=$result2['rows'][0];
-		$str1="UPDATE Mangas SET Tipo=$tipo2 WHERE ID=$id";
-		$str2="UPDATE Mangas SET Tipo=$tipo1 WHERE ID={$manga2['ID']}";
-		$this->query($str1);
-		$this->query($str2);
-		return "";
-	}
-
+	
 	/**
 	 * creacion / borrado de mangas asociadas a una jornada
 	 * @param {integer} $id ID de jornada

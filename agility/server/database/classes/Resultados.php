@@ -310,6 +310,69 @@ class Resultados extends DBObject {
 	}
 
 	/**
+	 * Intercambia los resultados de la manga actual con la manga hermana
+	 * @param {integer} $id ID De manga origen
+	 * @param {string} $cat "-LMST" (una letra) que indica las categorias a las que afecta el swap
+	 * @return {string} "" in success else error string
+	 */
+	function swapMangas($cats) {
+		$this->myLogger->enter();
+
+		$tipo1=$this->getDatosManga()->Tipo;
+        $tipo2=Mangas::$manga_hermana[$tipo1];
+		if ($tipo2==0) {
+			return $this->error("La manga:{$this->IDManga} de tipo:$tipo1 no tiene hermana asociada");
+		}
+		// Obtenemos __Todas__ las mangas de esta jornada que tienen el tipo buscado ninguna, una o hasta 8(k.O.)
+		$result2=$this->__select("*","Mangas","( Jornada={$this->getDatosJornada()->ID} ) AND ( Tipo=$tipo2)","","");
+		if (!is_array($result2)) { // inconsistency error muy serio
+			return $this->error("Falta la manga hermana de tipo:$tipo2 para manga:{$this->IDmanga} de tipo:$tipo1");
+		}
+		if (count($result2['rows'])!=1) { // no sense swap in single or multi-round series
+			return $this->error("Tiene que haber una y solo una hermana de tipo:$tipo2 para la manga:{$this->IDManga} de tipo:$tipo1");
+		}
+		$manga2=$result2['rows'][0];
+		// si se pide swap sobre la manga completa, la cosa es sencilla: intercambiamos las mangas "a saco"
+		if ($cats==="-") {
+			$str1="UPDATE Mangas SET Tipo=$tipo2 WHERE ID={$this->IDManga}";
+			$str2="UPDATE Mangas SET Tipo=$tipo1 WHERE ID={$manga2['ID']}";
+			$this->query($str1);
+			$this->query($str2);
+			return "";
+		}
+		// si se pide swap sobre una categoria concreta, la cosa es mas dificil:
+		// hay que obtener e intercambiar resultados individuales
+        $where="";
+        switch ($cats) {
+            case 'L':  $where= " AND ( Categoria='L' )"; break;
+            case 'M':  $where= " AND ( Categoria='M' )"; break;
+            case 'S':  $where= " AND ( Categoria='S' )"; break;
+            case 'T':  $where= " AND ( Categoria='T' )"; break;
+        }
+        // componemos un prepared statement
+        $str="UPDATE Resultados SET Manga =
+                CASE 
+                    WHEN Manga={$this->IDManga} THEN {$manga2['ID']} 
+                    WHEN Manga={$manga2['ID']} THEN {$this->IDManga} 
+                END
+                WHERE (Jornada={$this->IDJornada}) AND (Perro=?)";
+        $stmt=$this->conn->prepare($str);
+        if (!$stmt) return $this->error($this->conn->error);
+        $perro=0;
+        $res=$stmt->bind_param('i',$perro);
+        if (!$res) return $this->error($stmt->error);
+        // iteramos en todos los perros de la manga que coinciden con la categoria pedida
+        $resultados=$this->__select("*","Resultados","(Manga={$this->IDManga}) $where","","");
+        foreach($resultados['rows'] as $row) {
+            $perro=$row['Perro'];
+            $res=$stmt->execute();
+            if (!$res) $this->myLogger->error($stmt->error); // do not abort
+        }
+        $stmt->close();
+        return "";
+	}
+
+	/**
 	 * selecciona los datos del idperro indicado desde la lista de resultados de la manga
 	 * @param {integer} $idperro
 	 * @return {array} [key=>value,...] on success; null on error
