@@ -40,9 +40,10 @@ class DBConnection {
             $conn = new mysqli($host,$user,$pass,$name);
             if ($conn->connect_error) return null;
             $conn->query("SET NAMES 'utf8'");
-            self::$connections[$key]=$conn;
+            self::$connections[$key]=array($conn,0);
         }
-        return self::$connections[$key];
+        self::$connections[$key][1]++; // increase link count
+        return self::$connections[$key][0];
     }
 
     public static function getRootConnection() {
@@ -52,8 +53,13 @@ class DBConnection {
     }
 	
 	public static function closeConnection($conn) {
-        foreach(self::$connections as $c) {
-            // if ($c===$conn) $c->close(); //TODO: what to do in close ?
+        foreach(self::$connections as $key => $val) {
+            if ($val[0]!==$conn) continue;
+            $val[1]--;
+            if ($val[1]>0) return;
+            $conn->close();
+            unset (self::$connections[$key]);
+            return;
         }
 	}
 

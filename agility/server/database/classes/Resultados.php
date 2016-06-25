@@ -332,6 +332,11 @@ class Resultados extends DBObject {
 			return $this->error("Tiene que haber una y solo una hermana de tipo:$tipo2 para la manga:{$this->IDManga} de tipo:$tipo1");
 		}
 		$manga2=$result2['rows'][0];
+		/*
+		 Para mantener el ID de las mangas y que no haya que cerrar ventanas adicionales, eliminamos
+		este cacho pedazo de atajo
+		*/
+		/*
 		// si se pide swap sobre la manga completa, la cosa es sencilla: intercambiamos las mangas "a saco"
 		if ($cats==="-") {
 			$str1="UPDATE Mangas SET Tipo=$tipo2 WHERE ID={$this->IDManga}";
@@ -342,13 +347,21 @@ class Resultados extends DBObject {
 		}
 		// si se pide swap sobre una categoria concreta, la cosa es mas dificil:
 		// hay que obtener e intercambiar resultados individuales
+		*/
         $where="";
         switch ($cats) {
             case 'L':  $where= " AND ( Categoria='L' )"; break;
             case 'M':  $where= " AND ( Categoria='M' )"; break;
             case 'S':  $where= " AND ( Categoria='S' )"; break;
-            case 'T':  $where= " AND ( Categoria='T' )"; break;
+			case 'T':  $where= " AND ( Categoria='T' )"; break;
+			case '-':  $where= ""; break;
+			default: $this->myLogger->error("resultados::swap() invalid category value: '$cats''");
         }
+		// para intercambiar las mangas y debido a que mysql realiza comprobaciones de integridad en cada registro
+		// al hacer un update multiple, en lugar de hacer lo que se debe (agrupar los updates en una transaccion
+		// es preciso desactivar la primary key, y luego volverla  a activar
+		$rconn=DBConnection::getRootConnection();
+		$rconn->query("ALTER Table `Resultados` DROP PRIMARY KEY");
         // componemos un prepared statement
         $str="UPDATE Resultados SET Manga =
                 CASE 
@@ -369,6 +382,9 @@ class Resultados extends DBObject {
             if (!$res) $this->myLogger->error($stmt->error); // do not abort
         }
         $stmt->close();
+		// restauramos claves primarias
+		$rconn->query("ALTER Table `Resultados` ADD PRIMARY KEY (`Manga`,`Perro`)");
+		DBConnection::closeConnection($rconn);
         return "";
 	}
 

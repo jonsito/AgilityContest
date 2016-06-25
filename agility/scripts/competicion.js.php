@@ -483,6 +483,7 @@ function swapMangas() {
         '<?php _e('Do you really want to continue?'); ?>';
     var w=$.messager.confirm('<?php _e("Swaps results");?>', msg, function(r){
         if (!r) return;
+        $.messager.progress({text:"<?php _e('Working');?>..."});
         $.ajax({
             type:'GET',
             url:"/agility/server/database/resultadosFunctions.php",
@@ -495,8 +496,8 @@ function swapMangas() {
                 Operation: 'swap'
             }
         }).done( function(msg) {
-            $('#competicion-dialog').dialog('close');
-            $('#competicion-listamangas').datagrid('reload');
+            $.messager.progress('close');
+            reloadCompeticion();
         });
     });
     w.window('resize',{width:450}).window('center');

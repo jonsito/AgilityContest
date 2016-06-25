@@ -209,15 +209,6 @@ class Updater {
         return 0;
     }
 
-    function updateResultados() {
-        // this fails if primary key doesn't exists, so detect and avoid
-        $cmds= array(
-            "ALTER TABLE `Resultados` DROP PRIMARY KEY;"
-        );
-        foreach ($cmds as $query) { $this->conn->query($query); }
-        return 0;
-    }
-
     // clear (if any) Application Upgrade request
     function removeUpdateMark() {
         $f=__DIR__."/../../logs/do_upgrade";
@@ -261,7 +252,6 @@ try {
     $upg->addColumnUnlessExists("Perros","Genero","varchar(16)");
     $upg->addColumnUnlessExists("Provincias","Pais","varchar(2)","ES");
     $upg->updateInscripciones();
-    $upg->updateResultados();
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
 } catch (Exception $e) {
