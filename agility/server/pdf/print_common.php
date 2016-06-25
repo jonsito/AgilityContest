@@ -54,6 +54,7 @@ class PrintCommon extends FPDF {
 	protected $centro;
 	protected $useUTF8=false;
 	protected $myFontName="Helvetica";
+	protected $errormsg;
 
 	/* from http://www.fpdf.org/en/script/script2.php */
 	function Rotate($angle,$x=-1,$y=-1)	{

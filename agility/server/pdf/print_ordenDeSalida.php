@@ -39,6 +39,7 @@ class OrdenDeSalida extends PrintCommon {
 	protected $manga; // datos de la manga
 	protected $orden; // orden de salida
 	protected $categoria; // categoria que estamos listando
+	protected $validcats; // categorias que nos han pedido listar
 	protected $teams; // lista de equipos de esta jornada
 	
 	// geometria de las celdas
@@ -54,7 +55,7 @@ class OrdenDeSalida extends PrintCommon {
      * @param {integer} $manga Manga ID
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga) {
+	function __construct($prueba,$jornada,$manga,$categorias='') {
 		parent::__construct('Portrait',"print_ordenDeSalida",$prueba,$jornada);
 		if ( ($prueba<=0) || ($jornada<=0) || ($manga<=0) ) {
 			$this->errormsg="printOrdenDeSalida: either prueba/jornada/ manga/orden data are invalid";
@@ -74,6 +75,7 @@ class OrdenDeSalida extends PrintCommon {
 		$eq=new Equipos("print_ordenDeSalida",$prueba,$jornada);
         $this->teams=array();
         foreach($eq->getTeamsByJornada() as $team) $this->teams[$team['ID']]=$team;
+		$this->validcats=$categorias;
 	}
 
 	private function isTeam() {
@@ -132,6 +134,7 @@ class OrdenDeSalida extends PrintCommon {
 		$order=0;
 		$lastTeam=0;
 		foreach($this->orden as $row) {
+			if (!category_match($row['Categoria'],$this->validcats)) continue;
 			$newTeam=intval($row['Equipo']);
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			// if change in categoria, reset orden counter and force page change
@@ -190,8 +193,9 @@ try {
 	$prueba=http_request("Prueba","i",0);
 	$jornada=http_request("Jornada","i",0);
 	$manga=http_request("Manga","i",0);
+	$categorias=http_request("Categorias","s","-");
 	// 	Creamos generador de documento
-	$pdf = new OrdenDeSalida($prueba,$jornada,$manga);
+	$pdf = new OrdenDeSalida($prueba,$jornada,$manga,$categorias);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("ordenDeSalida.pdf","D"); // "D" means open download dialog	

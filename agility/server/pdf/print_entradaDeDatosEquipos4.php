@@ -38,6 +38,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
     protected $perros; // lista de participantes en esta jornada
     protected $manga; // datos de la manga
     protected $categoria;
+    protected $validcats; // categorias de las que se solicita impresion
 	
 	// geometria de las celdas
 	protected $cellHeader;
@@ -52,7 +53,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
      * @param {integer} $manga Manga ID
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga) {
+	function __construct($prueba,$jornada,$manga,$cats) {
 		parent::__construct('Portrait',"print_entradaDeDatosEquipos4",$prueba,$jornada);
 		if ( ($prueba<=0) || ($jornada<=0) ) {
 			$this->errormsg="print_datosEquipos4: either prueba or jornada data are invalid";
@@ -81,6 +82,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
                 }
             }
         }
+        $this->validcats=$cats;
 	}
 	
 	// Cabecera de página
@@ -193,6 +195,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
         $rowcount=0;
         $this->categoria="-";
 		foreach($this->equipos as $equipo) {
+            if(!category_match($equipo['Categorias'],$this->validcats)) continue;
             $miembros=$equipo['Perros'];
             $num=count($miembros);
             if ($num==0) continue; // skip empty teams
@@ -216,8 +219,9 @@ try {
 	$prueba=http_request("Prueba","i",0);
 	$jornada=http_request("Jornada","i",0);
     $manga=http_request("Manga","i",0);
+    $cats=http_request("Categorias","s","-");
     // 	Creamos generador de documento
-    $pdf=new EntradaDeDatosEquipos4($prueba,$jornada,$manga);
+    $pdf=new EntradaDeDatosEquipos4($prueba,$jornada,$manga,$cats);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("entradaDeDatosEquipos4.pdf","D"); // "D" means open download dialog

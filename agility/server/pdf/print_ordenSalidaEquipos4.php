@@ -38,6 +38,7 @@ class OrdenSalidaEquipos4 extends PrintCommon {
     protected $perros; // lista de participantes en esta jornada
     protected $manga; // datos de la manga
     protected $categoria;
+    protected $validcats;
 	
 	// geometria de las celdas
 	protected $cellHeader;
@@ -52,7 +53,7 @@ class OrdenSalidaEquipos4 extends PrintCommon {
      * @param {integer} $manga Manga ID
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga) {
+	function __construct($prueba,$jornada,$manga,$categorias) {
 		parent::__construct('Portrait',"print_entradaDeDatosEquipos4",$prueba,$jornada);
 		if ( ($prueba<=0) || ($jornada<=0) ) {
 			$this->errormsg="print_datosEquipos4: either prueba or jornada data are invalid";
@@ -81,6 +82,7 @@ class OrdenSalidaEquipos4 extends PrintCommon {
                 }
             }
         }
+        $this->validcats=$categorias;
 	}
 	
 	// Cabecera de página
@@ -164,6 +166,8 @@ class OrdenSalidaEquipos4 extends PrintCommon {
         $rowcount=0;
         $this->categoria="-";
 		foreach($this->equipos as $equipo) {
+            // do not print team on unrequested categories
+            if (!category_match($equipo['Categorias'],$this->validcats)) continue;
             $miembros=$equipo['Perros'];
             $num=count($miembros);
             if ($num==0) continue; // skip empty teams

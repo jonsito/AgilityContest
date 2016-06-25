@@ -40,6 +40,7 @@ class EntradaDeDatos extends PrintCommon {
     protected $orden=null; // orden de salida de la manga
 	protected $numrows; // formato del pdf 0:1 1:5 2:15 perros/pagina
 	protected $categoria; // categoria que estamos listando
+	protected $validcats; // lista de categorias solicitadas
 
 	// geometria de las celdas
 	protected $cellHeader
@@ -57,7 +58,7 @@ class EntradaDeDatos extends PrintCommon {
 	 * @param {integer} $numrows numero de perros a imprimir por cada hoja
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$mangas,$ordens,$numrows) {
+	function __construct($prueba,$jornada,$mangas,$ordens,$numrows,$validcats) {
 		parent::__construct('Portrait',"print_entradaDeDatos",$prueba,$jornada);
 		if ( ($prueba<=0) || ($jornada<=0) || ($mangas===null) || ($ordens===null) ) {
 			$this->errormsg="printEntradaDeDatos: either prueba/jornada/ manga/orden data are invalid";
@@ -69,6 +70,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->numrows=$numrows;
 		$this->categoria="L";
 		$this->cellHeader[4]=$this->strClub; // fix country/club text
+		$this->validcats=$validcats;
 	}
 
 	// Cabecera de página
@@ -399,6 +401,7 @@ class EntradaDeDatos extends PrintCommon {
 		$orden=1;
 		$rowcount=0;
 		foreach($this->orden as $row) {
+			if (!category_match($row['Categoria'],$this->validcats)) continue;
 			// if change in categoria, reset orden counter and force page change
 			if ($row['Categoria'] !== $this->categoria) {
 				// $this->myLogger->trace("Nueva categoria es: ".$row['Categoria']);
@@ -439,6 +442,7 @@ try {
 	$jornada=http_request("Jornada","i",0);
 	$manga=http_request("Manga","i",0);
 	$mode=http_request("Mode","i",0);
+	$cats=http_request("Categorias","s","-");
 
 	// Datos de la manga y su manga hermana
 	$m = new Mangas("printEntradaDeDatos",$jornada);
@@ -447,7 +451,7 @@ try {
 	$o = new OrdenSalida("printEntradaDeDatos",$manga);
 	$orden= $o->getData();
 	// Creamos generador de documento
-	$pdf = new EntradaDeDatos($prueba,$jornada,$mangas,$orden['rows'],$mode);
+	$pdf = new EntradaDeDatos($prueba,$jornada,$mangas,$orden['rows'],$mode,$cats);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("entradaDeDatos.pdf","D"); // "D" means open download dialog
