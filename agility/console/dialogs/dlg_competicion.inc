@@ -35,17 +35,17 @@ $config =Config::getInstance();
 	   	<label for="competicion-autoUpdateBtn"><?php _e('Auto'); ?>:</label>
 	   	<input id="competicion-autoUpdateBtn" type="checkbox" class="easyui-checkbox" value="0" onclick="autoUpdateCompeticion()"/>
    		<input id="competicion-search" type="text" value="--- Dorsal ---" class="search_textfield"  onchange="competicionSelectByDorsal();"/>
+		<label for="competicion-categoria"><?php _e('Cat');?></label>
+        <select id="competicion-categoria" style="width:100px"></select>
    	</span>
    	<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
-
 	   	<a id="competicion-swapBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-updown'" onclick="swapMangas()"><?php _e('Swap'); ?></a>
-
 	   	<a id="competicion-resetBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-brush'" onclick="resetCompeticion()"><?php _e('Reset'); ?></a>
    		<a id="competicion-printBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(7);"><?php _e('Printer forms'); ?></a>
+           data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(7,'#competicion-categoria');"><?php _e('Printer forms'); ?></a>
 	</span>
 </div>
 
@@ -73,6 +73,15 @@ $('#competicion-dialog').dialog({
 	}
 });
 
+$('#competicion-categoria').combobox({
+	value: '-',
+	panelHeight: 'auto',
+	valueField: 'Categoria',
+	textField: 'Nombre',
+	data: getOrdenSalidaCategorias(),
+	onSelect: function(rec) { reloadCompeticion(); }
+});
+
 $('#competicion-datagrid').datagrid({
 	// propiedades del panel asociado
 	fit: true,
@@ -88,12 +97,13 @@ $('#competicion-datagrid').datagrid({
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
 		Manga: workingData.manga,
+		Categorias: $('#competicion-categoria').combobox('getValue'),
 		TeamView: isTeam(workingData.datosManga.Tipo)?'true':'false'
     },
     loadMsg: '<?php _e("Updating competition data"); ?> ....',
     toolbar: '#competicion-toolbar',
     pagination: false,
-    rownumbers: false,
+    rownumbers: false, // fix row height to take care on team datagrid
     fitColumns: true,
 	idField: 'Dorsal',
     singleSelect: true,
@@ -229,6 +239,7 @@ addTooltip($('#competicion-resetBtn').linkbutton(),'<?php _e("Delete every compe
 addTooltip($('#competicion-printBtn').linkbutton(),'<?php _e("Print judge assistant forms"); ?>');
 addTooltip($('#competicion-autoUpdateBtn'),'<?php _e("(de)activate periodic refresh of results for this round"); ?>');
 addTooltip($('#competicion-search'),'<?php _e("Search a competitor by entering dorsal"); ?>');
+addTooltip($('#competicion-categoria').combobox('textbox'),'<?php _e("Select categories to work with"); ?>');
 
 // key handling
 $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).bind('keydown',competicionKeyEventHandler);

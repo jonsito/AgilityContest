@@ -54,7 +54,7 @@ $config =Config::getInstance();
    		<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-reload'" onclick="reloadOrdenSalida();"><?php _e('Refresh'); ?></a>
    		<a id="ordensalida-printBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(1);"><?php _e('Print'); ?></a>
+   			data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(1,'#ordensalida-categoria');"><?php _e('Print'); ?></a>
 	</span>
 </div>
 

@@ -29,6 +29,15 @@ try {
 	$jornada=http_request("Jornada","i",0);
 	$operation=http_request("Operation","s",null);
 	$manga=http_request("Manga","i",0);
+	$cats= http_request("Categorias","s","-"); // sort everything LMST by default
+	$catmode=8;
+	switch ($cats) {
+		case "-": $catmode=8; break; // use 8 instead of 4 because this mode is already includede in 8
+		case "L": $catmode=0; break;
+		case "M": $catmode=1; break;
+		case "S": $catmode=2; break;
+		case "T": $catmode=5; break;
+	}
 	if ($operation===null) throw new Exception("Call to mangaFunctions without 'Operation' requested");
 	$mangas= new Mangas("mangaFunctions",$jornada);
 	$am= new AuthManager("mangaFunctions");
@@ -38,7 +47,7 @@ try {
 		case "sharejuez": $am->access(PERMS_OPERATOR); $result=$mangas->shareJuez(); break;
 		// no direct delete as created/destroyed from jornadaFunctions
 		case "enumerate": 	$result=$mangas->selectByJornada(); break;
-		case "swap": 	$result=$mangas->swapMangas($manga); break;
+		case "swap": 	$result=$mangas->swapMangas($manga,$catmode); break;
 		case "getbyid":		$result=$mangas->selectByID($manga); break;
 		default: throw new Exception("mangaFunctions:: invalid operation: $operation provided");
 	}

@@ -30,7 +30,16 @@ try {
 	$jornadaID=http_request("Jornada","i",0);
 	$mangaID=http_request("Manga","i",0);
 	$idperro=http_request("Perro","i",0);
-	$mode=http_request("Mode","i",0);
+	$mode=http_request("Mode","i",0);	
+	$cats= http_request("Categorias","s","-"); // sort everything LMST by default
+	$catmode=8;
+	switch ($cats) {
+		case "-": $catmode=8; break; // use 8 instead of 4 because this mode is already includede in 8
+		case "L": $catmode=0; break;
+		case "M": $catmode=1; break;
+		case "S": $catmode=2; break;
+		case "T": $catmode=5; break;
+	}
 	if ($operation===null) throw new Exception("Call to resultadosFunction without 'Operation' requested");
 	if ($mangaID==0) throw new Exception("Call to resultadosFunction without 'Manga' provided");
 	$resultados= new Resultados("resultadosFunctions",$pruebaID,$mangaID);
@@ -40,7 +49,7 @@ try {
 		case "update": $am->access(PERMS_ASSISTANT); $result=$resultados->update($idperro); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$resultados->delete($idperro); break;
 		case "select": $result=$resultados->select($idperro); break;
-		case "reset": $am->access(PERMS_OPERATOR); $result=$resultados->reset(); break;
+		case "reset": $am->access(PERMS_OPERATOR); $result=$resultados->reset($catmode); break;
 		case "getPendientes": $result=$resultados->getPendientes($mode); break;
 		case "getResultados":$result=$resultados->getResultados($mode); break;
 		case "getResultadosEquipos":$result=$resultados->getResultadosEquipos($mode); break;

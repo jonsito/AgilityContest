@@ -433,6 +433,7 @@ function reloadCompeticion() {
             	Jornada: workingData.jornada , 
             	Manga: workingData.manga , 
             	Operation: 'getData',
+                Categorias: $('#competicion-categoria').combobox('getValue'),
             	TeamView: isTeam(workingData.datosManga.Tipo)?'true':'false'
             }
     );
@@ -446,8 +447,8 @@ function resetCompeticion() {
         $.messager.alert('<?php _e("Busy"); ?>','<?php _e("Cannot reset: a cell is being edited"); ?>',"error");
         return;
     }
-    var msg='<?php _e('Youll lost <strong>EVERY</strong> inserted results'); ?>'+'<br />'+
-        '<?php _e('in every categories on this round'); ?>'+'<br /><br />'+
+    var msg='<?php _e('You will lost <strong>EVERY</strong> inserted results'); ?>'+'<br />'+
+        '<?php _e('in selected categories on this round'); ?>'+'<br /><br />'+
         '<?php _e('Do you really want to continue?'); ?>';
     var w=$.messager.confirm('<?php _e("Erase results");?>', msg, function(r){
         if (!r) return;
@@ -459,6 +460,7 @@ function resetCompeticion() {
                 Prueba: workingData.prueba,
                 Jornada: workingData.jornada,
                 Manga: workingData.manga,
+                Categorias: $('#competicion-categoria').combobox('getValue'),
                 Operation: 'reset'
             }
         }).done( function(msg) {
@@ -477,7 +479,7 @@ function swapMangas() {
         return;
     }
     var msg='<?php _e('This action will exchange <strong>EVERY</strong> inserted results'); ?> '+
-        '<?php _e('in all categories with the Agility/Jumping counterpart of this round'); ?>'+'<br /><br />'+
+        '<?php _e('in selected categories with the Agility/Jumping counterpart of this round'); ?>'+'<br /><br />'+
         '<?php _e('Do you really want to continue?'); ?>';
     var w=$.messager.confirm('<?php _e("Swaps results");?>', msg, function(r){
         if (!r) return;
@@ -489,6 +491,7 @@ function swapMangas() {
                 Prueba: workingData.prueba,
                 Jornada: workingData.jornada,
                 Manga: workingData.manga,
+                Categorias: $('#competicion-categoria').combobox('getValue'),
                 Operation: 'swap'
             }
         }).done( function(msg) {

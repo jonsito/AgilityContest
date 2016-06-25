@@ -346,7 +346,6 @@ class OrdenSalida extends DBObject {
 	 * @return {array} 0:original 1:included 2:excluded
 	 */
 	function  splitPerrosByMode($lista,$mode) {
-		$this->myLogger->trace("splitPerrosByMode():mode: $mode lista: $lista");
 		// cogemos todos los perros de la manga e indexamos en función del perroID
 		$res=$this->__select("*","Resultados","Manga={$this->manga['ID']}","","");
 		$listaperros=array();
@@ -515,23 +514,19 @@ class OrdenSalida extends DBObject {
 	function random($catmode=8) {
 		// fase 1 aleatorizamos la manga
 		$orden=$this->getOrden();
-		$this->myLogger->debug("OrdenSalida::Random() Manga:{$this->manga['ID']} Orden inicial: \n$orden");
 		// buscamos los perros de la categoria seleccionada
 		$listas=$this->splitPerrosByMode($orden,$catmode);
         $str1=$listas[2];
         $str2=implode(",",aleatorio(explode(",", $listas[1])));
         $ordensalida=$this->joinOrders($str1,$str2);
-        $this->myLogger->debug("OrdenSalida::Random() Manga:{$this->manga['ID']} Orden final: \n$ordensalida");
         $this->setOrden($ordensalida);
 
 		// fase 2: aleatorizamos los equipos de la jornada
         $orden=$this->getOrdenEquipos();
-        $this->myLogger->debug("OrdenSalida::RandomTeam() Manga:{$this->manga['ID']} Orden inicial: \n$orden");
         $listas=$this->splitEquiposByMode($orden,$catmode);
         $str1=$listas[2];
         $str2=implode(",",aleatorio(explode(",", $listas[1])));
         $ordenequipos=$this->joinOrders($str1,$str2);
-        $this->myLogger->debug("OrdenSalida::RandomTeam() Manga:{$this->manga['ID']} Orden final: \n$ordenequipos");
         $this->setOrdenEquipos($ordenequipos);
 
 		return $ordensalida;
@@ -557,8 +552,6 @@ class OrdenSalida extends DBObject {
         $str1=$lista[2];
         $str2=$lista2[1];
         $ordensalida=$this->joinOrders($str1,$str2);
-        $this->myLogger->trace("OrdenSalida::Clone() Manga:{$this->manga['ID']} Orden inicial:\n{$hermanas[0]->Orden_Salida}");
-        $this->myLogger->debug("OrdenSalida::Clone() Manga:{$this->manga['ID']} Orden final: \n$ordensalida");
         $this->setOrden($ordensalida);
 
         // hacemos lo mismo con el orden de equipos
@@ -567,8 +560,6 @@ class OrdenSalida extends DBObject {
         $str1=$lista[2];
         $str2=$lista2[1];
         $ordenequipos=$this->joinOrders($str1,$str2);
-        $this->myLogger->trace("OrdenSalida::CloneTeam() Manga:{$this->manga['ID']} Orden inicial:\n{$hermanas[0]->Orden_Equipos}");
-        $this->myLogger->debug("OrdenSalida::CloneTeam() Manga:{$this->manga['ID']} Orden final: \n$ordenequipos");
         $this->setOrdenEquipos($ordenequipos);
 
 		$this->myLogger->leave();

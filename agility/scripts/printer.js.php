@@ -79,9 +79,10 @@ function print_ordenTandas() {
 
 /**
  * manda a la impresora el orden de salida
+ * @param cats lista de categorias a imprimir
  * @returns {Boolean}
  */
-function print_ordenSalida() {
+function print_ordenSalida(cats) {
     var url='/agility/server/pdf/print_ordenDeSalida.php';
     if (isJornadaEqConjunta()) url='/agility/server/pdf/print_ordenSalidaEquipos4.php';
     $.fileDownload(
@@ -91,7 +92,8 @@ function print_ordenSalida() {
             data: {
                 Prueba: workingData.prueba,
                 Jornada: workingData.jornada,
-                Manga: workingData.manga
+                Manga: workingData.manga,
+				Categorias: cats
             },
             preparingMessageHtml: '(Starting order) <?php _e("We are preparing your report, please wait"); ?> ...',
             failMessageHtml: '(Starting order) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -126,7 +128,7 @@ function print_trsTemplates(mode) {
 }
 
 /************************** Hojas del asistente del juez ****************/
-function print_asistente(pages) {
+function print_asistente(pages,cats) {
     $.fileDownload(
         '/agility/server/pdf/print_entradaDeDatos.php',
         {
@@ -135,6 +137,7 @@ function print_asistente(pages) {
                 Prueba: workingData.prueba,
                 Jornada: workingData.jornada,
                 Manga: workingData.manga,
+				Categorias: cats,
                 Mode: pages
             },
             preparingMessageHtml:'(assistant sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
@@ -147,7 +150,7 @@ function print_asistente(pages) {
 /**
  * En pruebas de equipos 4 conjunta se ofrece la opción de usar una única entrada para el equipo
  */
-function print_asistenteEquipos() {
+function print_asistenteEquipos(cats) {
     $.fileDownload(
         '/agility/server/pdf/print_entradaDeDatosEquipos4.php',
         {
@@ -155,7 +158,8 @@ function print_asistenteEquipos() {
             data: {
                 Prueba: workingData.prueba,
                 Jornada: workingData.jornada,
-                Manga: workingData.manga
+                Manga: workingData.manga,
+				Categorias: cats
             },
             preparingMessageHtml: '(assistant team sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
             failMessageHtml:'(assistant team sheets) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -230,11 +234,10 @@ function checkAndPrintParcial(val) {
 /**
  * Prints TRS templates
  * @param {int} def default option
- *  // @param {int} val (optional: categoria 0:L 1:M 2:S 3:T
+ * @param {string} cb (optional: nombre del combobox de donde obtener la categoria
  * @returns {boolean} False to avoid key binding event chaining
  */
-function print_commonDesarrollo(def) {
-
+function print_commonDesarrollo(def,cb) {
     var options= {
         0:((def==0)?'*':'')+'<?php _e('Activities and timetable on this journey'); ?>',
         1:((def==1)?'*':'')+'<?php _e('Starting order on this round'); ?><br/>',
@@ -270,24 +273,31 @@ function print_commonDesarrollo(def) {
         }
         return false;
     }
+
+	var cats='-';
+	var catstr='';
+	if (typeof(cb)!=="undefined") {
+		cats=$(cb).combobox('getValue');
+		if (cats!=="-") catstr="<?php _e("Selected category");?>: "+$(cb).combobox('getText')+" <br />";
+	}
     $.messager.radio(
-        '<?php _e('Print form'); ?>',
-        '<?php _e('Select document type to be generated'); ?>:',
+        '<?php _e("Print form"); ?>',
+        catstr+'<?php _e('Select document type to be generated'); ?>:',
         isJornadaEqConjunta()?options4:options,
         function(r){
             if (!r) return false;
             if (!checkCanPrint(r)) return false;
             switch(parseInt(r)){
                 case 0: print_ordenTandas(); break;
-                case 1: print_ordenSalida(); break;
+                case 1: print_ordenSalida(cats); break;
                 case 2: print_trsTemplates(0); break;
                 case 3: print_trsTemplates(1); break;
                 case 4: print_trsTemplates(2); break;
-                case 5: print_asistente(1); break;
-                case 6: print_asistente(5); break;
-                case 7: print_asistente(10); break;
+                case 5: print_asistente(1,cats); break;
+                case 6: print_asistente(5,cats); break;
+                case 7: print_asistente(10,cats); break;
                 // case 7: checkAndPrintParcial(val); break;
-                case 8: print_asistenteEquipos(); break;
+                case 8: print_asistenteEquipos(cats); break;
             }
         }).window('resize',{width:450});
     return false; //this is critical to stop the click event which will trigger a normal file download!

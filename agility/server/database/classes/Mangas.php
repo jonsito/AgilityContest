@@ -368,9 +368,11 @@ class Mangas extends DBObject {
 
 	/**
 	 * Intercambia los tipos de las mangas
-	 * @param $id ID De manga origen
+	 * @param {integer} $id ID De manga origen
+	 * @param {integer} $catsmode modo que indica las categorias a las que afecta el swap
+	 * @return {string} "" in success else error string
 	 */
-	function swapMangas($id) {
+	function swapMangas($id,$catsmode) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Manga ID");
 		// second query to retrieve $rows starting at $offset

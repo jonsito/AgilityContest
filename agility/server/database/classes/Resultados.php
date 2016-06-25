@@ -284,14 +284,25 @@ class Resultados extends DBObject {
 		return "";
 	}
 
-	function reset() {
+	function reset($catsmode) {
 		$this->myLogger->enter();
+		$where="";
+		switch ($catsmode) {
+			case 0:  $where= " AND ( Categoria='L' )"; break;
+			case 1:  $where= " AND ( Categoria='M' )"; break;
+			case 2:  $where= " AND ( Categoria='S' )"; break;
+			case 3:  $where= " AND ( (Categoria='M') OR (Categoria='S') )" ; break;
+			case 4:  $where= " AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
+			case 5:  $where= " AND ( Categoria='T' )"; break;
+			case 6:  $where= " AND ( (Categoria='L') OR (Categoria='M') )"; break;
+			case 7:  $where= " AND ( (Categoria='S') OR (Categoria='T') )"; break;
+		}
 		$idmanga=$this->IDManga;
 		if ($this->isCerrada())
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
 		$str="UPDATE Resultados
 				SET Faltas=0, Tocados=0, Rehuses=0, Eliminado=0, NoPresentado=0, Tiempo=0, TIntermedio=0, Observaciones='', Pendiente=1
-				WHERE ( Manga=$idmanga)";
+				WHERE ( Manga=$idmanga) $where";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
