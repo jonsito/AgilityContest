@@ -103,7 +103,7 @@ function initialize() {
 
 /**
  * Common rowStyler function for AgilityContest datagrids
- * @paramm {int} idx Row index
+ * @param {int} idx Row index
  * @param {object} row Row data
  * @return {string} proper row style for given idx
  */

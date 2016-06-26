@@ -22,9 +22,9 @@ $config =Config::getInstance();
 ?>
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="competicion-dialog" style="width:900px;height:450px;padding:5px">
+<div id="competicion-dialog" class="editable-datagrid" style="width:900px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
-	<table id="competicion-datagrid" style="padding:5px"></table>
+	<table id="competicion-datagrid"></table>
 </div>
 
 <!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
@@ -79,7 +79,7 @@ $('#competicion-categoria').combobox({
 	valueField: 'Categoria',
 	textField: 'Nombre',
 	data: getOrdenSalidaCategorias(),
-	onSelect: function(rec) { reloadCompeticion(); }
+	onChange: function(newValue,oldValue) { reloadCompeticion(); }
 });
 
 $('#competicion-datagrid').datagrid({
@@ -103,7 +103,7 @@ $('#competicion-datagrid').datagrid({
     loadMsg: '<?php _e("Updating competition data"); ?> ....',
     toolbar: '#competicion-toolbar',
     pagination: false,
-    rownumbers: false, // fix row height to take care on team datagrid
+    rownumbers: true, // fix row height to take care on team datagrid
     fitColumns: true,
 	idField: 'Dorsal',
     singleSelect: true,
@@ -176,11 +176,19 @@ $('#competicion-datagrid').datagrid({
 		if(row.Dorsal==='*') return false;
 		$(this).datagrid('options').editIndex=index;
 		row.editing = true; 
-		updateActions(index); 
+		updateActions(index);
 		return true;
 	},
-	onAfterEdit:function(index,row){ $(this).datagrid('options').editIndex=-1; row.editing = false; updateActions(index); },
-	onCancelEdit:function(index,row){ $(this).datagrid('options').editIndex=-1; row.editing = false; updateActions(index); }
+	onAfterEdit:function(index,row){
+		$(this).datagrid('options').editIndex=-1;
+		row.editing = false;
+		updateActions(index);
+	},
+	onCancelEdit:function(index,row){
+		$(this).datagrid('options').editIndex=-1;
+		row.editing = false;
+		updateActions(index);
+	}
 });
 
 // update row contents on action requested: just force repaint row and reassign buttons
@@ -195,6 +203,7 @@ function updateActions(index){
 	$('#lnkb2_'+index).linkbutton();
 	// enable/disable search textbox acording edit state
 	$('#competicion-search').prop('disabled',( editIndex==-1)?false:true);
+	$('#competicion-categoria').combobox( (editIndex==-1)?'enable':'disable');
 }
 
 function getRowIndex(target){

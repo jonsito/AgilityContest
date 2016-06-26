@@ -332,22 +332,6 @@ class Resultados extends DBObject {
 			return $this->error("Tiene que haber una y solo una hermana de tipo:$tipo2 para la manga:{$this->IDManga} de tipo:$tipo1");
 		}
 		$manga2=$result2['rows'][0];
-		/*
-		 Para mantener el ID de las mangas y que no haya que cerrar ventanas adicionales, eliminamos
-		este cacho pedazo de atajo
-		*/
-		/*
-		// si se pide swap sobre la manga completa, la cosa es sencilla: intercambiamos las mangas "a saco"
-		if ($cats==="-") {
-			$str1="UPDATE Mangas SET Tipo=$tipo2 WHERE ID={$this->IDManga}";
-			$str2="UPDATE Mangas SET Tipo=$tipo1 WHERE ID={$manga2['ID']}";
-			$this->query($str1);
-			$this->query($str2);
-			return "";
-		}
-		// si se pide swap sobre una categoria concreta, la cosa es mas dificil:
-		// hay que obtener e intercambiar resultados individuales
-		*/
         $where="";
         switch ($cats) {
             case 'L':  $where= " AND ( Categoria='L' )"; break;
@@ -358,30 +342,18 @@ class Resultados extends DBObject {
 			default: $this->myLogger->error("resultados::swap() invalid category value: '$cats''");
         }
 		// para intercambiar las mangas y debido a que mysql realiza comprobaciones de integridad en cada registro
-		// al hacer un update multiple, en lugar de hacer lo que se debe (agrupar los updates en una transaccion
-		// es preciso desactivar la primary key, y luego volverla  a activar
+		// al hacer un update multiple, es preciso desactivar la primary key, y luego volverla  a activar
 		$rconn=DBConnection::getRootConnection();
 		$rconn->query("ALTER Table `Resultados` DROP PRIMARY KEY");
-        // componemos un prepared statement
+        // ejecutamos el query
         $str="UPDATE Resultados SET Manga =
                 CASE 
                     WHEN Manga={$this->IDManga} THEN {$manga2['ID']} 
                     WHEN Manga={$manga2['ID']} THEN {$this->IDManga} 
                 END
-                WHERE (Jornada={$this->IDJornada}) AND (Perro=?)";
-        $stmt=$this->conn->prepare($str);
-        if (!$stmt) return $this->error($this->conn->error);
-        $perro=0;
-        $res=$stmt->bind_param('i',$perro);
-        if (!$res) return $this->error($stmt->error);
-        // iteramos en todos los perros de la manga que coinciden con la categoria pedida
-        $resultados=$this->__select("*","Resultados","(Manga={$this->IDManga}) $where","","");
-        foreach($resultados['rows'] as $row) {
-            $perro=$row['Perro'];
-            $res=$stmt->execute();
-            if (!$res) $this->myLogger->error($stmt->error); // do not abort
-        }
-        $stmt->close();
+                WHERE Manga IN ({$this->IDManga},{$manga2['ID']}) $where";
+		$res=$this->query($str);
+        if (!$res) return $this->error($this->conn->error);
 		// restauramos claves primarias
 		$rconn->query("ALTER Table `Resultados` ADD PRIMARY KEY (`Manga`,`Perro`)");
 		DBConnection::closeConnection($rconn);
