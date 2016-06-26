@@ -137,3 +137,7 @@ input.tablet_numbers {
 	font-size: 3.0vw;
 	font-weight: bold;
 }
+
+.nextdog-datagrid td {
+	height:30px;
+}

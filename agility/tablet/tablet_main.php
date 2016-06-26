@@ -108,7 +108,7 @@ $config =Config::getInstance();
                     </fieldset>
                 </form>
             </div> <!-- dialog forms -->
-            <div id="tdialog-Next">
+            <div class="nextdog-datagrid" id="tdialog-Next">
                 <table id="tdialog-tnext"></table>
             </div>
         </div> <!-- region: center -->
@@ -438,19 +438,19 @@ $config =Config::getInstance();
     var dg= {'cols':210, 'rows':145}; // declare base datagrid as A5 sheet
     doLayout(dg,"#tdialog-fieldset",        0,      0,      210,    145 );
     doLayout(dg,"#tdialog-FaltaUpBtn",		5,		5,		30,		75	);
-    doLayout(dg,"#tdialog-FaltaDownBtn",	45,		5,		15,		20	);
-    doLayout(dg,"#tdialog-RehuseUpBtn",		170,	5,		30,		75	);
-    doLayout(dg,"#tdialog-RehuseDownBtn",	145,	5,		15,		20	);
-    doLayout(dg,"#tdialog-TocadoUpBtn",		5,		85,     30,		20	);
-    doLayout(dg,"#tdialog-TocadoDownBtn",	42,		85,     15,		20	);
-    doLayout(dg,"#tdialog-SalidaBtn",		147,	88,		15,		20	);
-    doLayout(dg,"#tdialog-ResetBtn",		60,	    87,	    15,		15	);
-    doLayout(dg,"#tdialog-StartStopBtn",	174,	87,		22,		22	);
-    doLayout(dg,"#tdialog-AcceptBtn",		170,	115,	30,		25	);
-    doLayout(dg,"#tdialog-CancelBtn",		147,	117,	15,		20	);
-    doLayout(dg,"#tdialog-NoPresentadoBtn",	70,		5,		27,		20	);
-    doLayout(dg,"#tdialog-EliminadoBtn",	108,	5,		27,		20	);
-    doLayout(dg,"#tdialog-Next",	        5,	    110,	70,		30	);
+    doLayout(dg,"#tdialog-FaltaDownBtn",	39,		5,		15,		20	);
+    doLayout(dg,"#tdialog-RehuseUpBtn",		171,	5,		30,		75	);
+    doLayout(dg,"#tdialog-RehuseDownBtn",	151,	5,		15,		20	);
+    doLayout(dg,"#tdialog-TocadoUpBtn",		57,		5,      22,		20	);
+    doLayout(dg,"#tdialog-TocadoDownBtn",	82,		5,      15,		20	);
+    doLayout(dg,"#tdialog-SalidaBtn",		163,	87,		17,		22	);
+    doLayout(dg,"#tdialog-ResetBtn",		144,    87,	    17,		22	);
+    doLayout(dg,"#tdialog-StartStopBtn",	182,	87,		19,		22	);
+    doLayout(dg,"#tdialog-AcceptBtn",		171,	115,	30,		25	);
+    doLayout(dg,"#tdialog-CancelBtn",		147,	115,	18,		25	);
+    doLayout(dg,"#tdialog-NoPresentadoBtn",	100,    5,		22,		20	);
+    doLayout(dg,"#tdialog-EliminadoBtn",	125,	5,		22,		20	);
+    doLayout(dg,"#tdialog-Next",	        5,	    87, 	70,		53	);
     doLayout(dg,"#tdialog-1",				80,		80,		20,		15	);
     doLayout(dg,"#tdialog-2",				100,	80,		20,		15	);
     doLayout(dg,"#tdialog-3",				120,	80,		20,		15	);

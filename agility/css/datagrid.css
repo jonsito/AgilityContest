@@ -50,7 +50,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .datagrid-body tr:nth-child(even) {background: #CCC; }
 .datagrid-body tr:nth-child(odd) {background: #EEE; }
 
-/* bug: editable datagrid has 2extra pixels high to fit editable box */
+/* bug: editable datagrid has 2extra pixels high to fit editable box,
+ so need to fix height on every row cells ie:datagrid-cell-rownumber */
 .editable-datagrid td {
     height:27px;
 }
