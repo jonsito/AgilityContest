@@ -17,21 +17,24 @@ if(!isset($config)) $config =Config::getInstance();
     <meta charset="UTF-8">
     <title><?php _e("Final individual");?>(<?php _e("simplified");?>)</title>
     <link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
+    <script src="/agility/lib/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8" > </script>
 </head>
 <body style="padding:0;margin:0;height:100%;min-height:100%">
 <table class="simple_table">
     <tr>
-        <th class="simple_header" colspan="5" rowspan="3">Logotipo</th>
+        <th class="simple_header" colspan="5" rowspan="3">
+            <img src="/agility/images/agilityawc2016.png" alt="agility awc 2016" width="100%" height="300%"/>
+        </th>
         <th class="simple_header">&nbsp;</th>
-        <th class="simple_header" colspan="7"> AGILTY SMALL INDIVIDUAL</th>
-        <td class="simple_header" colspan="3" align="right"> 189m/40s</td>
+        <th class="simple_header" colspan="7" >AGILTY SMALL INDIVIDUAL</th>
+        <td class="simple_header" colspan="3" align="right" style="font-size:1.3vw;font-style:italic"> 189m/40s &nbsp;</td>
     </tr>
     <tr> <!-- cabeceras de la tabla-->
         <th class="simple_header">&nbsp;</th>
 
-        <th class="simple_tableheader" colspan="4">Competitor Info</th>
-        <th class="simple_tableheader" colspan="3">Round data</th>
-        <th class="simple_tableheader" colspan="3">Final data</th>
+        <th class="simple_tableheader lborder tborder rborder" colspan="4">Competitor Info</th>
+        <th class="simple_tableheader tborder rborder" colspan="3">Round data</th>
+        <th class="simple_tableheader tborder rborder" colspan="3">Final data</th>
     </tr>
     <tr>
         <th class="simple_header">&nbsp;</th>
@@ -48,7 +51,7 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_odd rborder">1</td>
     </tr>
     <tr> <!- segunda posicion -->
-        <th colspan="5" class="simple_tableheader">NEXT</th>
+        <th colspan="5" class="simple_tableheader lborder tborder rborder">NEXT</th>
 
         <th class="simple_header">&nbsp;</th>
 
@@ -239,22 +242,24 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_even">5.22</td>
         <td class="simple_results_even rborder">10</td>
     </tr>
-    <tr style="border:2px solid black">
+    <tr style="outline:2px solid black">
         <td class="simple_current">69</td>
         <td colspan="1" class="simple_current">Spain</td>
         <td colspan="2" class="simple_current">Magia</td>
         <td colspan="4" class="simple_current">Carmen Brice&ntilde;o</td>
-        <td class="simple_current" align="right">Time</td>
+        <td class="simple_current" align="right">Time:&nbsp;</td>
         <td class="simple_current" align="left">38.45</td>
-        <td class="simple_current" align="right">F:</td>
+        <td class="simple_current" align="right">F:&nbsp;</td>
         <td class="simple_current" align="left">0</td>
-        <td class="simple_current" align="right">R:</td>
+        <td class="simple_current" align="right">R:&nbsp;</td>
         <td class="simple_current" align="left">0</td>
-        <td class="simple_current" align="right">P:</td>
+        <td class="simple_current" align="right">P:&nbsp;</td>
         <td class="simple_current" align="left">0</td>
     </tr>
     <tr>
-        <th colspan="5" rowspan="2" class="simple_header">Patrocinadores</th>
+        <th colspan="5" rowspan="2" class="simple_header">
+            <?php include_once(__DIR__."/../videowall/vwc_footer_simplified.php");?>
+        </th>
 
         <td class="simple_results_odd lborder">68</td>
         <!- perro que acaba de salir -->

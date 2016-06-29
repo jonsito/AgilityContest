@@ -177,6 +177,21 @@ td.vw_club {
 }
 
 /************ estilos asociados a las vistas simplificadas **************/
+
+/* borde a la izquierda o a la derecha */
+.lborder {
+    border-left:2px solid black;
+}
+.rborder {
+    border-right:2px solid black;
+}
+.tborder {
+    border-top:2px solid black;
+}
+.bborder {
+    border-bottom:2px solid black;
+}
+
 .simple_table {
     border-spacing:0;
     padding:0;
@@ -184,43 +199,37 @@ td.vw_club {
     height:100%;
 }
 .simple_header {
-    height:6%;
+    height:6.1vh;
     color:<?php echo $config->getEnv('vw_hdrfg1')?>;
     background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
+    font-weight: bold;
+    font-size:1.8vw;
 }
 .simple_tableheader {
-    height:6%;
+    height:6vh;
     color:<?php echo $config->getEnv('vw_hdrfg2')?>;
     background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
 }
 .simple_current {
-    height:6%;
+    height:9vh;
     font-weight: bold;
     font-size: 1.8vw;
     color:<?php echo $config->getEnv('vw_hdrfg2')?>;
     background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
 }
 .simple_call_even    {
-    height:6%;
+    height:6vh;
     background: <?php echo $config->getEnv('vw_rowcolor1')?>;
 }
 .simple_call_odd     {
-    height:6%;
+    height:6vh;
     background:  <?php echo $config->getEnv('vw_rowcolor2')?>;
 }
 .simple_results_even {
-    height:6%;
+    height:6vh;
     background: <?php echo $config->getEnv('vw_rowcolor3')?>;
 }
 .simple_results_odd  {
-    height:6%;
+    height:6vh;
     background:  <?php echo $config->getEnv('vw_rowcolor4')?>;
-}
-
-// borde a la izquierda o a la derecha
-.lborder {
-    border-left:2px solid black;
-}
-.rborder {
-    border-right2px solid black;
 }
