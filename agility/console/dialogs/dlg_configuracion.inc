@@ -37,19 +37,22 @@ $config =Config::getInstance();
 				<option value="gray"><?php _e('Grey'); ?></option>
 				<option value="black"><?php _e('Black'); ?></option>
 			</select><br />
+
 			<label for="easyui_bgcolor"><?php _e('Desktop background color'); ?></label>
 			<input id="easyui_bgcolor" name="easyui_bgcolor" value="#0000ff" type="color"/><br />
 			<label for="easyui_hdrcolor"><?php _e('Header title color'); ?></label>
 			<input id="easyui_hdrcolor" name="easyui_hdrcolor" value="#00ff00" type="color"/><br />
 			<label for="easyui_opcolor"><?php _e('Active menu header color'); ?></label>
 			<input id="easyui_opcolor" name="easyui_opcolor" value="opcolor" type="color"/><br />
+
 			<label for="easyui_rowcolor1"><?php _e('Color for even table rows'); ?></label>
-			<input id="easyui_rowcolor1" name="easyui_rowcolor1" value="#e0e0e0" type="color"/><br />
-			<label for="easyui_rowcolor2"><?php _e('Color for odd table rows'); ?></label>
+			<input id="easyui_rowcolor1" name="easyui_rowcolor1" value="#e0e0e0" type="color"/>
+			<label class="space" for="easyui_rowcolor2"><?php _e('Color for odd table rows'); ?></label>
 			<input id="easyui_rowcolor2" name="easyui_rowcolor2" value="#c0c0c0" type="color"/><br />
+
 			<label for="easyui_rowcolor3"><?php _e('Color for even secondary table rows'); ?></label>
-			<input id="easyui_rowcolor3" name="easyui_rowcolor3" value="#c0c0f0" type="color"/><br />
-			<label for="easyui_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
+			<input id="easyui_rowcolor3" name="easyui_rowcolor3" value="#c0c0f0" type="color"/>
+			<label class="space" for="easyui_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
 			<input id="easyui_rowcolor4" name="easyui_rowcolor4" value="#c0c0f0" type="color"/><br />
 		</div>
 	
@@ -105,30 +108,73 @@ $config =Config::getInstance();
 			<h3><?php _e('Video wall configurable parameters'); ?></h3>
 			<label for="vw_polltime"><?php _e('AutoScroll period (seg.)'); ?></label>
 			<input id="vw_polltime" name="vw_polltime" type="text" size="2" value="5"/><br />
+
 			<label for="vw_hdrbg1"><?php _e('Background color for main header'); ?></label>
-			<input id="vw_hdrbg1" name="vw_hdrbg1" type="color" value="#0000ff"/><br />
-			<label for="vw_hdrfg1"><?php _e('Text color for main header'); ?></label>
+			<input id="vw_hdrbg1" name="vw_hdrbg1" type="color" value="#0000ff"/>
+			<label class="space" for="vw_hdrfg1"><?php _e('Text color for main header'); ?></label>
 			<input id="vw_hdrfg1" name="vw_hdrfg1" type="color" value="#ffffff"/><br />
 
 			<label for="vw_hdrbg2"><?php _e('Background color for secondary header'); ?></label>
-			<input id="vw_hdrbg2" name="vw_hdrbg2" type="color" value="#c0c0c0"/><br />
-			<label for="vw_hdrfg2"><?php _e('Text color for secondary header'); ?></label>
+			<input id="vw_hdrbg2" name="vw_hdrbg2" type="color" value="#c0c0c0"/>
+			<label class="space" for="vw_hdrfg2"><?php _e('Text color for secondary header'); ?></label>
 			<input id="vw_hdrfg2" name="vw_hdrfg2" type="color" value="#ffffff"/><br />
 
             <label for="vw_hdrbg3"><?php _e('Background color for tertiary header'); ?></label>
-            <input id="vw_hdrbg3" name="vw_hdrbg3" type="color" value="#c0c0c0"/><br />
-            <label for="vw_hdrfg3"><?php _e('Text color for tertiary header'); ?></label>
+            <input id="vw_hdrbg3" name="vw_hdrbg3" type="color" value="#c0c0c0"/>
+            <label class="space" for="vw_hdrfg3"><?php _e('Text color for tertiary header'); ?></label>
             <input id="vw_hdrfg3" name="vw_hdrfg3" type="color" value="#000000"/><br />
 
 			<label for="vw_rowcolor1"><?php _e('Background color for even table rows'); ?></label>
-			<input id="vw_rowcolor1" name="vw_rowcolor1" type="color" value="#e0e0e0"/><br />
-			<label for="vw_rowcolor2"><?php _e('Background color for odd table rows'); ?></label>
+			<input id="vw_rowcolor1" name="vw_rowcolor1" type="color" value="#e0e0e0"/>
+			<label class="space" for="vw_rowcolor2"><?php _e('Background color for odd table rows'); ?></label>
 			<input id="vw_rowcolor2" name="vw_rowcolor2" type="color" value="#c0c0c0"/><br />
+
 			<label for="vw_rowcolor3"><?php _e('Color for even secondary table rows'); ?></label>
-			<input id="vw_rowcolor3" name="vw_rowcolor3" type="color" value="#e0e0e0"/><br />
-			<label for="vw_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
+			<input id="vw_rowcolor3" name="vw_rowcolor3" type="color" value="#e0e0e0"/>
+			<label class="space" for="vw_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
 			<input id="vw_rowcolor4" name="vw_rowcolor4" type="color" value="#c0c0c0"/><br />
 
+
+			<h3><?php _e('Alternate (simplified) Video wall configurable parameters'); ?></h3>
+			<label for="avw_polltime"><?php _e('Sponsors rotation period (seg.)'); ?></label>
+			<input id="aavw_polltime" name="aavw_polltime" type="text" size="2" value="5"/><br />
+
+			<label for="avw_uselogo"><?php _e('Use special logo instead of standard header');?></label>
+			<input type="hidden" name="avw_uselogo" value="0"/> <!-- trick for checkboxes -->
+			<input type="checkbox" name="avw_uselogo" id="avw_uselogo" value="1"/><br />
+			<label for="avw_logourl"><?php _e('URL for logo image to be used');?></label>
+			<input type="text" size="50" maxlength="100" /><br />
+			
+			<label for="avw_hdrbg1"><?php _e('Background color for main header'); ?></label>
+			<input id="avw_hdrbg1" name="avw_hdrbg1" type="color" value="#0000ff"/>
+			<label class="space" for="avw_hdrfg1"><?php _e('Text color for main header'); ?></label>
+			<input id="avw_hdrfg1" name="avw_hdrfg1" type="color" value="#ffffff"/><br />
+
+			<label for="avw_hdrbg2"><?php _e('Background color for running dog data'); ?></label>
+			<input id="avw_hdrbg2" name="avw_hdrbg2" type="color" value="#c0c0c0"/>
+			<label class="space" for="avw_hdrfg2"><?php _e('Text color for running dog data'); ?></label>
+			<input id="avw_hdrfg2" name="avw_hdrfg2" type="color" value="#ffffff"/><br />
+
+			<label for="avw_hdrbg3"><?php _e('Background color for Team data rows'); ?></label>
+			<input id="avw_hdrbg3" name="avw_hdrbg3" type="color" value="#c0c0c0"/>
+			<label class="space" for="avw_hdrfg3"><?php _e('Text color for Team data rows'); ?></label>
+			<input id="avw_hdrfg3" name="avw_hdrfg3" type="color" value="#000000"/><br />
+			
+			<label for="avw_hdrbg1"><?php _e('Text and lines color for tables'); ?></label>
+			<input id="avw_hdrbg1" name="avw_hdrbg1" type="color" value="#0000ff"/><br />
+			
+			<label for="avw_rowcolor1"><?php _e('Call To ring background color (even rows)'); ?></label>
+			<input id="avw_rowcolor1" name="avw_rowcolor1" type="color" value="#e0e0e0"/>
+			<label class="space" for="avw_rowcolor2"><?php _e('Call to ring background color (odd rows)'); ?></label>
+			<input id="avw_rowcolor2" name="avw_rowcolor2" type="color" value="#c0c0c0"/><br />
+
+			<label for="avw_rowcolor3"><?php _e('Results background color (even rows)'); ?></label>
+			<input id="avw_rowcolor3" name="avw_rowcolor3" type="color" value="#e0e0e0"/>
+			<label class="space" for="avw_rowcolor4"><?php _e('Results background color (odd rows)'); ?></label>
+			<input id="avw_rowcolor4" name="avw_rowcolor4" type="color" value="#c0c0c0"/><br />
+		</div>
+
+		<div title="<?php _e('Live Stream'); ?>" style="padding:10px">
 			<h3><?php _e('Live Stream configurable parameters'); ?></h3>
 			<label for="vw_alpha"><?php _e('Transparency level for OnScreenDisplay'); ?></label>
 			<input id="vw_alpha" name="vw_alpha" type="text" size="3" value="0.5"/> (0.0-1.0)<br />
@@ -141,7 +187,6 @@ $config =Config::getInstance();
 				<option value="2"><?php _e('Lower right corner');?></option>
 				<option value="3"><?php _e('Next to competitor info');?></option>
 			</select><br />
-
 		</div>
 		
 		<div title="<?php _e('Reports'); ?>" style="padding:10px">
@@ -157,18 +202,22 @@ $config =Config::getInstance();
 			<label for="pdf_journeys"><?php _e('Show journey info when printing catalog'); ?></label>
 			<input type="hidden" name="pdf_journeys" value="0"/>
 			<input id="pdf_journeys" name="pdf_journeys" type="checkbox" value="1"/><br />
+
 			<label for="pdf_hdrbg1"><?php _e('Background color for main header'); ?></label>
-			<input id="pdf_hdrbg1" name="pdf_hdrbg1" type="color" value="#ff8020"/><br />
-			<label for="pdf_hdrfg1"><?php _e('Text color on main header'); ?></label>
+			<input id="pdf_hdrbg1" name="pdf_hdrbg1" type="color" value="#ff8020"/>
+			<label class="space" for="pdf_hdrfg1"><?php _e('Text color on main header'); ?></label>
 			<input id="pdf_hdrfg1" name="pdf_hdrfg1" type="color" value="#000000"/><br />
+
 			<label for="pdf_hdrbg2"><?php _e('Background color for secondary header'); ?></label>
-			<input id="pdf_hdrbg2" name="pdf_hdrbg2" type="color" value="#c0c0c0"/><br />
-			<label for="pdf_hdrfg2"><?php _e('Text color for secondary header'); ?></label>
+			<input id="pdf_hdrbg2" name="pdf_hdrbg2" type="color" value="#c0c0c0"/>
+			<label class="space" for="pdf_hdrfg2"><?php _e('Text color for secondary header'); ?></label>
 			<input id="pdf_hdrfg2" name="pdf_hdrfg2" type="color" value="#ffffff"/><br />
+
 			<label for="pdf_rowcolor1"><?php _e('Background color for tables even rows'); ?></label>
-			<input id="pdf_rowcolor1" name="pdf_rowcolor1" type="color" value="#ffffff"/><br />
-			<label for="pdf_rowcolor2"><?php _e('Background color for tables odd rows'); ?></label>
+			<input id="pdf_rowcolor1" name="pdf_rowcolor1" type="color" value="#ffffff"/>
+			<label class="space" for="pdf_rowcolor2"><?php _e('Background color for tables odd rows'); ?></label>
 			<input id="pdf_rowcolor2" name="pdf_rowcolor2" type="color" value="#e0ebff"/><br />
+
 			<label for="pdf_linecolor"><?php _e('Color for separation lines'); ?></label>
 			<input id="pdf_linecolor" name="pdf_linecolor" type="color" value="#808080"/><br />
 			<h3><?php _e('Label printing'); ?></h3>
@@ -202,21 +251,25 @@ $config =Config::getInstance();
 			</select><br />
 			<label for="pb_rotatelogos"><?php _e('Rotation period for sponsor logos'); ?></label>
 			<input id="pb_rotatelogos" name="pb_rotatelogos" type="number" size="1" maxlength="1" value="5" min="1" max="9"/> (<?php _e('sec');?>)<br />
+
 			<label for="pb_hdrbg1"><?php _e('Header background color'); ?></label>
-			<input id="pb_hdrbg1" name="pb_hdrbg1" type="color" value="#0000ff"/><br />
-			<label for="pb_hdrfg1"><?php _e('Header text color'); ?></label>
+			<input id="pb_hdrbg1" name="pb_hdrbg1" type="color" value="#0000ff"/>
+			<label class="space" for="pb_hdrfg1"><?php _e('Header text color'); ?></label>
 			<input id="pb_hdrfg1" name="pb_hdrfg1" type="color" value="#ffffff"/><br />
+
 			<label for="pb_hdrbg2"><?php _e('Round data table background color'); ?></label>
-			<input id="pb_hdrbg2" name="pb_hdrbg2" type="color" value="#0000ff"/><br />
-			<label for="pb_hdrfg2"><?php _e('Round data table text color'); ?></label>
+			<input id="pb_hdrbg2" name="pb_hdrbg2" type="color" value="#0000ff"/>
+			<label class="space" for="pb_hdrfg2"><?php _e('Round data table text color'); ?></label>
 			<input id="pb_hdrfg2" name="pb_hdrfg2" type="color" value="#ffffff"/><br />
+
 			<label for="pb_rowcolor1"><?php _e('Background color for even table rows'); ?></label>
-			<input id="pb_rowcolor1" name="pb_rowcolor1" type="color" value="#e0e0e0"/><br />
-			<label for="pb_rowcolor2"><?php _e('Background color for odd table rows'); ?></label>
+			<input id="pb_rowcolor1" name="pb_rowcolor1" type="color" value="#e0e0e0"/>
+			<label class="space" for="pb_rowcolor2"><?php _e('Background color for odd table rows'); ?></label>
 			<input id="pb_rowcolor2" name="pb_rowcolor2" type="color" value="#c0c0c0"/><br />
+
 			<label for="pb_rowcolor3"><?php _e('Color for even secondary table rows'); ?></label>
-			<input id="pb_rowcolor3" name="pb_rowcolor3" type="color" value="#e0e0e0"/><br />
-			<label for="pb_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
+			<input id="pb_rowcolor3" name="pb_rowcolor3" type="color" value="#e0e0e0"/>
+			<label class="space" for="pb_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
 			<input id="pb_rowcolor4" name="pb_rowcolor4" type="color" value="#c0c0c0"/><br />
 		</div>
 				

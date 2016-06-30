@@ -159,6 +159,10 @@ img.mainpage{
 }
 
 /****** Efectos especiales ****/
+/* espacio adicional delante de un tag <label> */
+.space {
+	margin-left:50px;
+}
 
 /* rotacion de texto */
 .rotate {

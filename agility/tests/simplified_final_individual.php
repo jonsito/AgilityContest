@@ -40,7 +40,7 @@ if(!isset($config)) $config =Config::getInstance();
         <th class="simple_header">&nbsp;</th>
 
         <td class="simple_results_odd lborder">Spain</td>
-        <td class="simple_results_odd">126</td>
+        <td class="simple_results_odd" style="text-align:center;">126</td>
         <td class="simple_results_odd">Narnia</td>
         <td class="simple_results_odd rborder">Carmen Briceño</td>
         <td class="simple_results_odd">35.24</td>
@@ -56,7 +56,7 @@ if(!isset($config)) $config =Config::getInstance();
         <th class="simple_header">&nbsp;</th>
 
         <td class="simple_results_even lborder">Germany</td>
-        <td class="simple_results_even">32</td>
+        <td class="simple_results_even" style="text-align:center;">32</td>
         <td class="simple_results_even">Peanut</td>
         <td class="simple_results_even rborder">Tobias Wust</td>
         <td class="simple_results_even">36.23</td>
@@ -70,7 +70,7 @@ if(!isset($config)) $config =Config::getInstance();
         <!- octavo perro en entrar -->
         <td class="simple_call_odd lborder">77</td>
         <td class="simple_call_odd">Austria</td>
-        <td class="simple_call_odd">38</td>
+        <td class="simple_call_odd" style="text-align:center;">38</td>
         <td class="simple_call_odd">Heisse</td>
         <td class="simple_call_odd rborder">Vlad Criprian Stefanut</td>
 
@@ -78,7 +78,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <!- tercera posicion -->
         <td class="simple_results_odd lborder">&nbsp;</td>
-        <td class="simple_results_odd">381</td>
+        <td class="simple_results_odd" style="text-align:center;">381</td>
         <td class="simple_results_odd">Ammy</td>
         <td class="simple_results_odd rborder">Roland Kolenko</td>
         <td class="simple_results_odd">36.40</td>
@@ -92,7 +92,7 @@ if(!isset($config)) $config =Config::getInstance();
         <!- septimo perro en entrar -->
         <td class="simple_call_even lborder">76</td>
         <td class="simple_call_even">Spain</td>
-        <td class="simple_call_even">120</td>
+        <td class="simple_call_even" style="text-align:center;">120</td>
         <td class="simple_call_even">Melendi</td>
         <td class="simple_call_even rborder">Luis Luque</td>
 
@@ -100,7 +100,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <!- cuarta posicion -->
         <td class="simple_results_even lborder">Turkey</td>
-        <td class="simple_results_even">56</td>
+        <td class="simple_results_even" style="text-align:center;">56</td>
         <td class="simple_results_even">Lali</td>
         <td class="simple_results_even rborder">Samir Abu Laila</td>
         <td class="simple_results_even">38.62</td>
@@ -114,7 +114,7 @@ if(!isset($config)) $config =Config::getInstance();
         <!- sexto perro en entrar -->
         <td class="simple_call_odd lborder">75</td>
         <td class="simple_call_odd">Austria</td>
-        <td class="simple_call_odd">38</td>
+        <td class="simple_call_odd" style="text-align:center;">38</td>
         <td class="simple_call_odd">Heisse</td>
         <td class="simple_call_odd rborder">Vlad Criprian Stefanut</td>
 
@@ -122,7 +122,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <!- quinta posicion -->
         <td class="simple_results_odd lborder">&nbsp;</td>
-        <td class="simple_results_odd">381</td>
+        <td class="simple_results_odd" style="text-align:center;">381</td>
         <td class="simple_results_odd">Ammy</td>
         <td class="simple_results_odd rborder">Roland Kolenko</td>
         <td class="simple_results_odd">36.40</td>
@@ -136,7 +136,7 @@ if(!isset($config)) $config =Config::getInstance();
         <!- quinto perro en entrar -->
         <td class="simple_call_even lborder">74</td>
         <td class="simple_call_even">Spain</td>
-        <td class="simple_call_even">120</td>
+        <td class="simple_call_even" style="text-align:center;">120</td>
         <td class="simple_call_even">Melendi</td>
         <td class="simple_call_even rborder">Luis Luque</td>
 
@@ -144,7 +144,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <!- sexta posicion -->
         <td class="simple_results_even lborder">Turkey</td>
-        <td class="simple_results_even">56</td>
+        <td class="simple_results_even" style="text-align:center;">56</td>
         <td class="simple_results_even">Lali</td>
         <td class="simple_results_even rborder">Samir Abu Laila</td>
         <td class="simple_results_even">38.62</td>
@@ -158,7 +158,7 @@ if(!isset($config)) $config =Config::getInstance();
         <!- cuarto perro en entrar -->
         <td class="simple_call_odd lborder">73</td>
         <td class="simple_call_odd">Austria</td>
-        <td class="simple_call_odd">38</td>
+        <td class="simple_call_odd" style="text-align:center;">38</td>
         <td class="simple_call_odd">Heisse</td>
         <td class="simple_call_odd rborder">Vlad Criprian Stefanut</td>
 
@@ -166,7 +166,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <!- septima posicion -->
         <td class="simple_results_odd lborder">&nbsp;</td>
-        <td class="simple_results_odd">381</td>
+        <td class="simple_results_odd" style="text-align:center;">381</td>
         <td class="simple_results_odd">Ammy</td>
         <td class="simple_results_odd rborder">Roland Kolenko</td>
         <td class="simple_results_odd">36.40</td>
@@ -180,7 +180,7 @@ if(!isset($config)) $config =Config::getInstance();
         <!- tercer perro en entrar -->
         <td class="simple_call_even lborder">72</td>
         <td class="simple_call_even">Spain</td>
-        <td class="simple_call_even">120</td>
+        <td class="simple_call_even" style="text-align:center;">120</td>
         <td class="simple_call_even">Melendi</td>
         <td class="simple_call_even rborder">Luis Luque</td>
 
@@ -188,7 +188,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <!- octava posicion -->
         <td class="simple_results_even lborder">Turkey</td>
-        <td class="simple_results_even">56</td>
+        <td class="simple_results_even" style="text-align:center;">56</td>
         <td class="simple_results_even">Lali</td>
         <td class="simple_results_even rborder">Samir Abu Laila</td>
         <td class="simple_results_even">38.62</td>
@@ -202,7 +202,7 @@ if(!isset($config)) $config =Config::getInstance();
         <!- segundo perro en entrar -->
         <td class="simple_call_odd lborder">71</td>
         <td class="simple_call_odd">Austria</td>
-        <td class="simple_call_odd">38</td>
+        <td class="simple_call_odd" style="text-align:center;">38</td>
         <td class="simple_call_odd">Heisse</td>
         <td class="simple_call_odd rborder">Vlad Criprian Stefanut</td>
 
@@ -210,7 +210,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <!- novena posicion -->
         <td class="simple_results_odd lborder">&nbsp;</td>
-        <td class="simple_results_odd">381</td>
+        <td class="simple_results_odd" style="text-align:center;">381</td>
         <td class="simple_results_odd">Ammy</td>
         <td class="simple_results_odd rborder">Roland Kolenko</td>
         <td class="simple_results_odd">36.40</td>
@@ -224,7 +224,7 @@ if(!isset($config)) $config =Config::getInstance();
         <!- proximo perro en entrar -->
         <td class="simple_call_even lborder">70</td>
         <td class="simple_call_even">France</td>
-        <td class="simple_call_even">41</td>
+        <td class="simple_call_even" style="text-align:center;">41</td>
         <td class="simple_call_even">Hidwine</td>
         <td class="simple_call_even rborder">Aline Tricot</td>
 
@@ -232,7 +232,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <!- decima posicion -->
         <td class="simple_results_even lborder">&nbsp;</td>
-        <td class="simple_results_even">8</td>
+        <td class="simple_results_even" style="text-align:center;">8</td>
         <td class="simple_results_even">Brahma</td>
         <td class="simple_results_even rborder">Manes Nicole</td>
         <td class="simple_results_even">40.22</td>
@@ -242,11 +242,12 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_even">5.22</td>
         <td class="simple_results_even rborder">10</td>
     </tr>
-    <tr style="outline:2px solid black">
+    <tr style="outline:2px solid <?php echo $config->getEnv('avw_linecolor')?>;">
         <td class="simple_current">69</td>
-        <td colspan="1" class="simple_current">Spain</td>
-        <td colspan="2" class="simple_current">Magia</td>
-        <td colspan="4" class="simple_current">Carmen Brice&ntilde;o</td>
+        <td class="simple_current">Spain</td>
+        <td class="simple_current" style="text-align:center;">127</td>
+        <td colspan="2" class="simple_current" align="center">Magia</td>
+        <td colspan="3" class="simple_current" align="center">Carmen Brice&ntilde;o</td>
         <td class="simple_current" align="right">Time:&nbsp;</td>
         <td class="simple_current" align="left">38.45</td>
         <td class="simple_current" align="right">F:&nbsp;</td>
@@ -264,7 +265,7 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_odd lborder">68</td>
         <!- perro que acaba de salir -->
         <td class="simple_results_odd">Austria</td>
-        <td class="simple_results_odd">43</td>
+        <td class="simple_results_odd" style="text-align:center;">43</td>
         <td class="simple_results_odd">Louwie</td>
         <td class="simple_results_odd rborder">Ronald Vlemincx</td>
         <td class="simple_results_odd">41.07</td>
@@ -278,7 +279,7 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_even lborder">67</td>
         <!- penultimo perro que acaba de salir -->
         <td class="simple_results_even">Spain</td>
-        <td class="simple_results_even">43</td>
+        <td class="simple_results_even" style="text-align:center;">43</td>
         <td class="simple_results_even">Xira</td>
         <td class="simple_results_even rborder">Sergio Ruiz Jim&eacute;nez</td>
         <td class="simple_results_even">43.52</td>
