@@ -38,9 +38,15 @@ if ($file) {
 <div id="vw_footer">
     <table style="width:100%;">
         <tr>
-            <td align="center"> <a id="url_g0" target="sponsor" href=""> <img id="img_g0" src="" alt="" height="40"/> </a> </td>
-            <td align="center"> <a id="url_g1" target="sponsor" href=""> <img id="img_g1" src="" alt="" height="40"/> </a> </td>
-            <td align="center"> <a id="url_g2" target="sponsor" href=""> <img id="img_g2" src="" alt="" height="40"/> </a> </td>
+            <td style="text-align:center">
+                <a id="url_g0" target="sponsor" href=""> <img id="img_g0" src="a1" alt="" height="40"/> </a>
+            </td>
+            <td style="text-align:center">
+                <a id="url_g1" target="sponsor" href=""> <img id="img_g1" src="a2" alt="" height="40"/> </a>
+            </td>
+            <td style="text-align:center">
+                <a id="url_g2" target="sponsor" href=""> <img id="img_g2" src="a3" alt="" height="40"/> </a>
+            </td>
         </tr>
         <!-- ignore bronze sponsors -->
     </table>
