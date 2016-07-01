@@ -62,20 +62,20 @@ define('AC_VW_CRHOMAKEY','#00ff00');
 define('AC_VW_DATAPOSITION',1); // 0:hidden 1:top/right 2:down/rignt 3:down/center
 
 /** personalizacion del videowall **/
-define('AC_AVW_POLLTIME',5);
-define('AC_AVW_USELOGO',5);
-define('AC_AVW_LOGOURL',"/agility/images/agilityawc2016.png");
-define('AC_AVW_HDRFG1','#FFFFFF');
-define('AC_AVW_HDRBG1','#FF7F00');
-define('AC_AVW_HDRFG2','#000000');
-define('AC_AVW_HDRBG2','#404040');
-define('AC_AVW_HDRFG3','#FFFFFF');
-define('AC_AVW_HDRBG3','#808080');
-define('AC_AVW_ROWCOLOR1','#7f7f7f');
-define('AC_AVW_ROWCOLOR2','#606b7f');
-define('AC_AVW_ROWCOLOR3','#ffffcf');
-define('AC_AVW_ROWCOLOR4','#606b4f');
-define('AC_AVW_LINECOLOR','#ffffff');
+define('AC_VWS_POLLTIME',5);
+define('AC_VWS_USELOGO',5);
+define('AC_VWS_LOGOURL',"/agility/images/agilityawc2016.png");
+define('AC_VWS_HDRFG1','#FFFFFF');
+define('AC_VWS_HDRBG1','#FF7F00');
+define('AC_VWS_HDRFG2','#000000');
+define('AC_VWS_HDRBG2','#404040');
+define('AC_VWS_HDRFG3','#FFFFFF');
+define('AC_VWS_HDRBG3','#808080');
+define('AC_VWS_ROWCOLOR1','#7f7f7f');
+define('AC_VWS_ROWCOLOR2','#606b7f');
+define('AC_VWS_ROWCOLOR3','#ffffcf');
+define('AC_VWS_ROWCOLOR4','#606b4f');
+define('AC_VWS_LINECOLOR','#ffffff');
 
 /** generacion de PDF's **/
 define('AC_PDF_TOPMARGIN', 10.0); // margen superior etiquetas
@@ -185,20 +185,20 @@ Class Config {
 		'vw_rowcolor3'		=> array(	'c',	false,	AC_VW_ROWCOLOR3),
 		'vw_rowcolor4'		=> array(	'c',	false,	AC_VW_ROWCOLOR4),
 		// configuracion del alternate videowall
-		'avw_polltime'		=> array(	'i',	false,	AC_AVW_POLLTIME),
-		'avw_uselogo'		=> array(	'i',	false,	AC_AVW_USELOGO),
-		'avw_logourl'		=> array(	's',	false,	AC_AVW_LOGOURL),
-		'avw_hdrfg1'		=> array(	'c',	false,	AC_AVW_HDRFG1),
-		'avw_hdrbg1'		=> array(	'c',	false,	AC_AVW_HDRBG1),
-		'avw_hdrfg2'		=> array(	'c',	false,	AC_AVW_HDRFG2),
-		'avw_hdrbg2'		=> array(	'c',	false,	AC_AVW_HDRBG2),
-		'avw_hdrfg3'		=> array(	'c',	false,	AC_AVW_HDRFG3),
-		'avw_hdrbg3'		=> array(	'c',	false,	AC_AVW_HDRBG3),
-		'avw_rowcolor1'		=> array(	'c',	false,	AC_AVW_ROWCOLOR1),
-		'avw_rowcolor2'		=> array(	'c',	false,	AC_AVW_ROWCOLOR2),
-		'avw_rowcolor3'		=> array(	'c',	false,	AC_AVW_ROWCOLOR3),
-		'avw_rowcolor4'		=> array(	'c',	false,	AC_AVW_ROWCOLOR4),
-		'avw_linecolor'		=> array(	'c',	false,	AC_AVW_LINECOLOR),
+		'vws_polltime'		=> array(	'i',	false,	AC_VWS_POLLTIME),
+		'vws_uselogo'		=> array(	'i',	false,	AC_VWS_USELOGO),
+		'vws_logourl'		=> array(	's',	false,	AC_VWS_LOGOURL),
+		'vws_hdrfg1'		=> array(	'c',	false,	AC_VWS_HDRFG1),
+		'vws_hdrbg1'		=> array(	'c',	false,	AC_VWS_HDRBG1),
+		'vws_hdrfg2'		=> array(	'c',	false,	AC_VWS_HDRFG2),
+		'vws_hdrbg2'		=> array(	'c',	false,	AC_VWS_HDRBG2),
+		'vws_hdrfg3'		=> array(	'c',	false,	AC_VWS_HDRFG3),
+		'vws_hdrbg3'		=> array(	'c',	false,	AC_VWS_HDRBG3),
+		'vws_rowcolor1'		=> array(	'c',	false,	AC_VWS_ROWCOLOR1),
+		'vws_rowcolor2'		=> array(	'c',	false,	AC_VWS_ROWCOLOR2),
+		'vws_rowcolor3'		=> array(	'c',	false,	AC_VWS_ROWCOLOR3),
+		'vws_rowcolor4'		=> array(	'c',	false,	AC_VWS_ROWCOLOR4),
+		'vws_linecolor'		=> array(	'c',	false,	AC_VWS_LINECOLOR),
 		// generacion de PDF's
 		'pdf_topmargin'		=> array(	'i',	false,	AC_PDF_TOPMARGIN),
 		'pdf_leftmargin'	=> array(	'i',	false,	AC_PDF_LEFTMARGIN),

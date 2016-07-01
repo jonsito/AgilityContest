@@ -242,9 +242,9 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_even">5.22</td>
         <td class="simple_results_even rborder">10</td>
     </tr>
-    <tr style="outline:2px solid <?php echo $config->getEnv('avw_linecolor')?>;">
+    <tr style="outline:2px solid <?php echo $config->getEnv('vws_linecolor')?>;">
         <td colspan="16">
-            <form id="avw_current">
+            <form id="vws_current">
             <table class="simple_table">
                 <tr class="simple_current">
                     <td>
@@ -294,7 +294,7 @@ if(!isset($config)) $config =Config::getInstance();
     </tr>
     <tr>
         <th colspan="5" rowspan="2" class="simple_header">
-            <?php include_once(__DIR__."/../videowall/vwc_footer_simplified.php");?>
+            <?php include_once(__DIR__ . "/../videowall/vws_footer.php");?>
         </th>
 
         <td class="simple_results_odd lborder">68</td>

@@ -180,16 +180,16 @@ td.vw_club {
 
 /* borde a la izquierda o a la derecha */
 .lborder {
-    border-left:2px solid <?php echo $config->getEnv('avw_linecolor')?>;
+    border-left:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
 }
 .rborder {
-    border-right:2px solid <?php echo $config->getEnv('avw_linecolor')?>;
+    border-right:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
 }
 .tborder {
-    border-top:2px solid <?php echo $config->getEnv('avw_linecolor')?>;
+    border-top:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
 }
 .bborder {
-    border-bottom:2px solid <?php echo $config->getEnv('avw_linecolor')?>;
+    border-bottom:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
 }
 
 .simple_table {
@@ -197,7 +197,7 @@ td.vw_club {
     padding:0;
     width:100%;
     height:100%;
-    color:<?php echo $config->getEnv('avw_linecolor')?>;
+    color:<?php echo $config->getEnv('vws_linecolor')?>;
     font-size:1.5vw;
     font-weight:bold;
     font-stretch: condensed;
@@ -217,36 +217,36 @@ td.vw_club {
 
 .simple_header {
     height:6.1vh;
-    color:<?php echo $config->getEnv('avw_hdrfg1')?>;
-    background-color: <?php echo $config->getEnv('avw_hdrbg1')?>;
+    color:<?php echo $config->getEnv('vws_hdrfg1')?>;
+    background-color: <?php echo $config->getEnv('vws_hdrbg1')?>;
     font-weight: bold;
     font-size:1.8vw;
 }
 .simple_tableheader {
     height:6vh;
-    color:<?php echo $config->getEnv('avw_hdrfg2')?>;
-    background-color: <?php echo $config->getEnv('avw_hdrbg2')?>;
+    color:<?php echo $config->getEnv('vws_hdrfg2')?>;
+    background-color: <?php echo $config->getEnv('vws_hdrbg2')?>;
 }
 .simple_current td {
     height:9vh;
     font-weight: bold;
     font-size: 1.8vw;
-    background-color: <?php echo $config->getEnv('avw_hdrbg2')?>;
+    background-color: <?php echo $config->getEnv('vws_hdrbg2')?>;
 }
 .simple_call_even    {
     height:6vh;
-    color:<?php echo $config->getEnv('avw_linecolor')?>;
-    background: <?php echo $config->getEnv('avw_rowcolor1')?>;
+    color:<?php echo $config->getEnv('vws_linecolor')?>;
+    background: <?php echo $config->getEnv('vws_rowcolor1')?>;
 }
 .simple_call_odd     {
     height:6vh;
-    background:  <?php echo $config->getEnv('avw_rowcolor2')?>;
+    background:  <?php echo $config->getEnv('vws_rowcolor2')?>;
 }
 .simple_results_even {
     height:6vh;
-    background: <?php echo $config->getEnv('avw_rowcolor3')?>;
+    background: <?php echo $config->getEnv('vws_rowcolor3')?>;
 }
 .simple_results_odd  {
     height:6vh;
-    background:  <?php echo $config->getEnv('avw_rowcolor4')?>;
+    background:  <?php echo $config->getEnv('vws_rowcolor4')?>;
 }

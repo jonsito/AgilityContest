@@ -290,30 +290,38 @@ function vw_accept() {
 	switch (n){
 	case 0: // Ordenes de Salida
 		page="/agility/videowall/vw_ordensalida.php";
+        ac_config.vw_combined=0;
+        ac_config.vwc_simplified=0;
 		break;
 	case 2: // Resultados Parciales
 		page="/agility/videowall/vw_parciales.php";
+        ac_config.vw_combined=0;
+        ac_config.vwc_simplified=0;
 		break;
 	case 4: // Clasificacion final
 		// page="/agility/videowall/vw_finales.php";
 		page="/agility/console/frm_notavailable.php";
+        ac_config.vw_combined=0;
+        ac_config.vwc_simplified=0;
 		break;
 	case 7: // pantalla combinada ( Resultados parciales )
 		page="/agility/videowall/vwc_parciales.php";
-		ac_config.vw_combined=1;
+        ac_config.vw_combined=1;
+        ac_config.vwc_simplified=0;
 		break;
 	case 8: // pantalla comobinada ( Clasificacion final )
 		page="/agility/videowall/vwc_finales.php";
 		ac_config.vw_combined=1;
+        ac_config.vwc_simplified=0;
 		break;
-	case 3: // Vista Combinada (legacy style) is no longer available
-		// page="/agility/videowall/vwc_parciales_simplified.php";
-		page="/agility/console/frm_notavailable.php";
+	case 3:
+		page=isJornadaEquipos()?"vws_parcial_equipos.php":"vws_parcial_individual.php";
 		ac_config.vw_combined=1;
 		ac_config.vwc_simplified=1;
 		break;
 	case 9: // Combinada Final simplificada
-		page="/agility/videowall/vwc_finales_simplified.php";
+        //page=isJornadaEquipos()?"vws_final_equipos.php":"vws_final_individual.php";
+        page="vws_final_individual.php";
 		ac_config.vw_combined=1;
 		ac_config.vwc_simplified=1;
 		break;

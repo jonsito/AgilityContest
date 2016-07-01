@@ -136,42 +136,42 @@ $config =Config::getInstance();
 
 
 			<h3><?php _e('Alternate (simplified) Video wall configurable parameters'); ?></h3>
-			<label for="avw_polltime"><?php _e('Sponsors rotation period (seg.)'); ?></label>
-			<input id="aavw_polltime" name="aavw_polltime" type="text" size="2" value="5"/><br />
+			<label for="vws_polltime"><?php _e('Sponsors rotation period (seg.)'); ?></label>
+			<input id="vws_polltime" name="vws_polltime" type="text" size="2" value="5"/><br />
 
-			<label for="avw_uselogo"><?php _e('Use special logo instead of standard header');?></label>
-			<input type="hidden" name="avw_uselogo" value="0"/> <!-- trick for checkboxes -->
-			<input type="checkbox" name="avw_uselogo" id="avw_uselogo" value="1"/><br />
-			<label for="avw_logourl"><?php _e('URL for logo image to be used');?></label>
+			<label for="vws_uselogo"><?php _e('Use special logo instead of standard header');?></label>
+			<input type="hidden" name="vws_uselogo" value="0"/> <!-- trick for checkboxes -->
+			<input type="checkbox" name="vws_uselogo" id="vws_uselogo" value="1"/><br />
+			<label for="vws_logourl"><?php _e('URL for logo image to be used');?></label>
 			<input type="text" size="50" maxlength="100" /><br />
 			
-			<label for="avw_hdrbg1"><?php _e('Background color for main header'); ?></label>
-			<input id="avw_hdrbg1" name="avw_hdrbg1" type="color" value="#0000ff"/>
-			<label class="space" for="avw_hdrfg1"><?php _e('Text color for main header'); ?></label>
-			<input id="avw_hdrfg1" name="avw_hdrfg1" type="color" value="#ffffff"/><br />
+			<label for="vws_hdrbg1"><?php _e('Background color for main header'); ?></label>
+			<input id="vws_hdrbg1" name="vws_hdrbg1" type="color" value="#0000ff"/>
+			<label class="space" for="vws_hdrfg1"><?php _e('Text color for main header'); ?></label>
+			<input id="vws_hdrfg1" name="vws_hdrfg1" type="color" value="#ffffff"/><br />
 
-			<label for="avw_hdrbg2"><?php _e('Background color for running dog data'); ?></label>
-			<input id="avw_hdrbg2" name="avw_hdrbg2" type="color" value="#c0c0c0"/>
-			<label class="space" for="avw_hdrfg2"><?php _e('Text color for running dog data'); ?></label>
-			<input id="avw_hdrfg2" name="avw_hdrfg2" type="color" value="#ffffff"/><br />
+			<label for="vws_hdrbg2"><?php _e('Background color for running dog data'); ?></label>
+			<input id="vws_hdrbg2" name="vws_hdrbg2" type="color" value="#c0c0c0"/>
+			<label class="space" for="vws_hdrfg2"><?php _e('Text color for running dog data'); ?></label>
+			<input id="vws_hdrfg2" name="vws_hdrfg2" type="color" value="#ffffff"/><br />
 
-			<label for="avw_hdrbg3"><?php _e('Background color for Team data rows'); ?></label>
-			<input id="avw_hdrbg3" name="avw_hdrbg3" type="color" value="#c0c0c0"/>
-			<label class="space" for="avw_hdrfg3"><?php _e('Text color for Team data rows'); ?></label>
-			<input id="avw_hdrfg3" name="avw_hdrfg3" type="color" value="#000000"/><br />
+			<label for="vws_hdrbg3"><?php _e('Background color for Team data rows'); ?></label>
+			<input id="vws_hdrbg3" name="vws_hdrbg3" type="color" value="#c0c0c0"/>
+			<label class="space" for="vws_hdrfg3"><?php _e('Text color for Team data rows'); ?></label>
+			<input id="vws_hdrfg3" name="vws_hdrfg3" type="color" value="#000000"/><br />
 			
-			<label for="avw_hdrbg1"><?php _e('Text and lines color for tables'); ?></label>
-			<input id="avw_hdrbg1" name="avw_hdrbg1" type="color" value="#0000ff"/><br />
+			<label for="vws_hdrbg1"><?php _e('Text and lines color for tables'); ?></label>
+			<input id="vws_hdrbg1" name="vws_hdrbg1" type="color" value="#0000ff"/><br />
 			
-			<label for="avw_rowcolor1"><?php _e('Call To ring background color (even rows)'); ?></label>
-			<input id="avw_rowcolor1" name="avw_rowcolor1" type="color" value="#e0e0e0"/>
-			<label class="space" for="avw_rowcolor2"><?php _e('Call to ring background color (odd rows)'); ?></label>
-			<input id="avw_rowcolor2" name="avw_rowcolor2" type="color" value="#c0c0c0"/><br />
+			<label for="vws_rowcolor1"><?php _e('Call To ring background color (even rows)'); ?></label>
+			<input id="vws_rowcolor1" name="vws_rowcolor1" type="color" value="#e0e0e0"/>
+			<label class="space" for="vws_rowcolor2"><?php _e('Call to ring background color (odd rows)'); ?></label>
+			<input id="vws_rowcolor2" name="vws_rowcolor2" type="color" value="#c0c0c0"/><br />
 
-			<label for="avw_rowcolor3"><?php _e('Results background color (even rows)'); ?></label>
-			<input id="avw_rowcolor3" name="avw_rowcolor3" type="color" value="#e0e0e0"/>
-			<label class="space" for="avw_rowcolor4"><?php _e('Results background color (odd rows)'); ?></label>
-			<input id="avw_rowcolor4" name="avw_rowcolor4" type="color" value="#c0c0c0"/><br />
+			<label for="vws_rowcolor3"><?php _e('Results background color (even rows)'); ?></label>
+			<input id="vws_rowcolor3" name="vws_rowcolor3" type="color" value="#e0e0e0"/>
+			<label class="space" for="vws_rowcolor4"><?php _e('Results background color (odd rows)'); ?></label>
+			<input id="vws_rowcolor4" name="vws_rowcolor4" type="color" value="#c0c0c0"/><br />
 		</div>
 
 		<div title="<?php _e('Live Stream'); ?>" style="padding:10px">
