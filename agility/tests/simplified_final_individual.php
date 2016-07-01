@@ -50,7 +50,7 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_odd">0.00</td>
         <td class="simple_results_odd rborder">1</td>
     </tr>
-    <tr> <!- segunda posicion -->
+    <tr> <!-- segunda posicion -->
         <th colspan="5" class="simple_tableheader lborder tborder rborder">NEXT</th>
 
         <th class="simple_header">&nbsp;</th>
@@ -67,7 +67,7 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_even rborder">2</td>
     </tr>
     <tr>
-        <!- octavo perro en entrar -->
+        <!-- octavo perro en entrar -->
         <td class="simple_call_odd lborder">77</td>
         <td class="simple_call_odd">Austria</td>
         <td class="simple_call_odd" style="text-align:center;">38</td>
@@ -76,7 +76,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <th class="simple_header">&nbsp;</th>
 
-        <!- tercera posicion -->
+        <!-- tercera posicion -->
         <td class="simple_results_odd lborder">&nbsp;</td>
         <td class="simple_results_odd" style="text-align:center;">381</td>
         <td class="simple_results_odd">Ammy</td>
@@ -89,7 +89,7 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_odd rborder">3</td>
     </tr>
     <tr>
-        <!- septimo perro en entrar -->
+        <!-- septimo perro en entrar -->
         <td class="simple_call_even lborder">76</td>
         <td class="simple_call_even">Spain</td>
         <td class="simple_call_even" style="text-align:center;">120</td>
@@ -98,7 +98,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <th class="simple_header">&nbsp;</th>
 
-        <!- cuarta posicion -->
+        <!-- cuarta posicion -->
         <td class="simple_results_even lborder">Turkey</td>
         <td class="simple_results_even" style="text-align:center;">56</td>
         <td class="simple_results_even">Lali</td>
@@ -111,7 +111,7 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_even rborder">4</td>
     </tr>
     <tr>
-        <!- sexto perro en entrar -->
+        <!-- sexto perro en entrar -->
         <td class="simple_call_odd lborder">75</td>
         <td class="simple_call_odd">Austria</td>
         <td class="simple_call_odd" style="text-align:center;">38</td>
@@ -120,7 +120,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <th class="simple_header">&nbsp;</th>
 
-        <!- quinta posicion -->
+        <!-- quinta posicion -->
         <td class="simple_results_odd lborder">&nbsp;</td>
         <td class="simple_results_odd" style="text-align:center;">381</td>
         <td class="simple_results_odd">Ammy</td>
@@ -133,7 +133,7 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_odd rborder">5</td>
     </tr>
     <tr>
-        <!- quinto perro en entrar -->
+        <!-- quinto perro en entrar -->
         <td class="simple_call_even lborder">74</td>
         <td class="simple_call_even">Spain</td>
         <td class="simple_call_even" style="text-align:center;">120</td>
@@ -142,7 +142,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <th class="simple_header">&nbsp;</th>
 
-        <!- sexta posicion -->
+        <!-- sexta posicion -->
         <td class="simple_results_even lborder">Turkey</td>
         <td class="simple_results_even" style="text-align:center;">56</td>
         <td class="simple_results_even">Lali</td>
@@ -155,7 +155,7 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_even rborder">6</td>
     </tr>
     <tr>
-        <!- cuarto perro en entrar -->
+        <!-- cuarto perro en entrar -->
         <td class="simple_call_odd lborder">73</td>
         <td class="simple_call_odd">Austria</td>
         <td class="simple_call_odd" style="text-align:center;">38</td>
@@ -164,7 +164,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <th class="simple_header">&nbsp;</th>
 
-        <!- septima posicion -->
+        <!-- septima posicion -->
         <td class="simple_results_odd lborder">&nbsp;</td>
         <td class="simple_results_odd" style="text-align:center;">381</td>
         <td class="simple_results_odd">Ammy</td>
@@ -177,7 +177,7 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_odd rborder">7</td>
     </tr>
     <tr>
-        <!- tercer perro en entrar -->
+        <!-- tercer perro en entrar -->
         <td class="simple_call_even lborder">72</td>
         <td class="simple_call_even">Spain</td>
         <td class="simple_call_even" style="text-align:center;">120</td>
@@ -186,7 +186,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <th class="simple_header">&nbsp;</th>
 
-        <!- octava posicion -->
+        <!-- octava posicion -->
         <td class="simple_results_even lborder">Turkey</td>
         <td class="simple_results_even" style="text-align:center;">56</td>
         <td class="simple_results_even">Lali</td>
@@ -199,7 +199,7 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_even rborder">8</td>
     </tr>
     <tr>
-        <!- segundo perro en entrar -->
+        <!-- segundo perro en entrar -->
         <td class="simple_call_odd lborder">71</td>
         <td class="simple_call_odd">Austria</td>
         <td class="simple_call_odd" style="text-align:center;">38</td>
@@ -208,7 +208,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <th class="simple_header">&nbsp;</th>
 
-        <!- novena posicion -->
+        <!-- novena posicion -->
         <td class="simple_results_odd lborder">&nbsp;</td>
         <td class="simple_results_odd" style="text-align:center;">381</td>
         <td class="simple_results_odd">Ammy</td>
@@ -221,7 +221,7 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_odd rborder">9</td>
     </tr>
     <tr>
-        <!- proximo perro en entrar -->
+        <!-- proximo perro en entrar -->
         <td class="simple_call_even lborder">70</td>
         <td class="simple_call_even">France</td>
         <td class="simple_call_even" style="text-align:center;">41</td>
@@ -230,7 +230,7 @@ if(!isset($config)) $config =Config::getInstance();
 
         <th class="simple_header">&nbsp;</th>
 
-        <!- decima posicion -->
+        <!-- decima posicion -->
         <td class="simple_results_even lborder">&nbsp;</td>
         <td class="simple_results_even" style="text-align:center;">8</td>
         <td class="simple_results_even">Brahma</td>
@@ -298,7 +298,7 @@ if(!isset($config)) $config =Config::getInstance();
         </th>
 
         <td class="simple_results_odd lborder">68</td>
-        <!- perro que acaba de salir -->
+        <!-- perro que acaba de salir -->
         <td class="simple_results_odd">Austria</td>
         <td class="simple_results_odd" style="text-align:center;">43</td>
         <td class="simple_results_odd">Louwie</td>
@@ -312,7 +312,7 @@ if(!isset($config)) $config =Config::getInstance();
     </tr>
     <tr>
         <td class="simple_results_even lborder">67</td>
-        <!- penultimo perro que acaba de salir -->
+        <!-- penultimo perro que acaba de salir -->
         <td class="simple_results_even">Spain</td>
         <td class="simple_results_even" style="text-align:center;">43</td>
         <td class="simple_results_even">Xira</td>
