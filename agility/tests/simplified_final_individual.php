@@ -243,19 +243,54 @@ if(!isset($config)) $config =Config::getInstance();
         <td class="simple_results_even rborder">10</td>
     </tr>
     <tr style="outline:2px solid <?php echo $config->getEnv('avw_linecolor')?>;">
-        <td class="simple_current">69</td>
-        <td class="simple_current">Spain</td>
-        <td class="simple_current" style="text-align:center;">127</td>
-        <td colspan="2" class="simple_current" align="center">Magia</td>
-        <td colspan="3" class="simple_current" align="center">Carmen Brice&ntilde;o</td>
-        <td class="simple_current" align="right">Time:&nbsp;</td>
-        <td class="simple_current" align="left">38.45</td>
-        <td class="simple_current" align="right">F:&nbsp;</td>
-        <td class="simple_current" align="left">0</td>
-        <td class="simple_current" align="right">R:&nbsp;</td>
-        <td class="simple_current" align="left">0</td>
-        <td class="simple_current" align="right">P:&nbsp;</td>
-        <td class="simple_current" align="left">0</td>
+        <td colspan="16">
+            <table class="simple_table">
+                <form id="avw_current">
+                <tr class="simple_current">
+                    <td>
+                        <input type="text" name="Orden" readonly="readonly" size="3" value="69"/>
+                    </td>
+                    <td>
+                        <input type="hidden" name="Logo" value="Spain"/>
+                        <img src="/agility/images/logos/getLogo.php?Federation=1&Logo=ES.png" alt="Spain" style="width:6vw;"/>
+                    </td>
+                    <td style="text-align:center;">
+                        <input type="text" name="Dorsal" readonly="readonly" size="3" value="127"/>
+                    </td>
+                    <td colspan="2" align="center">
+                        <input type="hidden" name="Perro" value="Spain"/>
+                        <input type="text" name="Nombre" readonly="readonly" size="12" value="Magia"/>
+                    </td>
+                    <td colspan="5" align="center">
+                        <input type="hidden" name="Guia" value="1234"/>
+                        <input type="text" name="NombreGuia" readonly="readonly" size="30" value="Carmen Brice&ntilde;o"/>
+                    </td>
+                    <td align="right">F:&nbsp;</td>
+                    <td  align="left">
+                        <input type="hidden" name="Faltas" value="0"/>
+                        <input type="hidden" name="Tocados" value="0"/>
+                        <input type="text" name="FaltasTocados" readonly="readonly" size="1" value="0"/>
+                    </td>
+                    <td align="right">R:&nbsp;</td>
+                    <td align="left">
+                        <input type="text" name="Rehuses" readonly="readonly" size="1" value="0"/>
+                        <input type="hidden" name="Eliminado" value="0"/>
+                        <input type="hidden" name="NoPresentado" value="0"/>
+                        <input type="hidden" name="Pendiente" value="0"/>
+                    </td>
+                    <td align="right">Time:&nbsp;</td>
+                    <td align="left">
+                        <input type="text" name="Tiempo" readonly="readonly" size="6" value="38.45"/>
+                        <input type="hidden" name="TIntermedio" value="0"/>
+                    </td>
+                    <td align="right">P:&nbsp;</td>
+                    <td align="left">
+                        <input type="text" name="Penalizacion" readonly="readonly" size="6" value="0"/>
+                    </td>
+                </tr>
+                </form>
+            </table>
+        </td>
     </tr>
     <tr>
         <th colspan="5" rowspan="2" class="simple_header">

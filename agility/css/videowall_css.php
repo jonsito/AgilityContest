@@ -202,6 +202,19 @@ td.vw_club {
     font-weight:bold;
     font-stretch: condensed;
 }
+.simple_table input {
+    margin:0;
+    padding:0;
+    background:none;
+    border:none;
+    outline:none;
+    color:inherit;
+    font-weight: inherit;
+    font-stretch: inherit;
+    font-size: inherit;
+    font-family: inherit;
+}
+
 .simple_header {
     height:6.1vh;
     color:<?php echo $config->getEnv('avw_hdrfg1')?>;
@@ -214,7 +227,7 @@ td.vw_club {
     color:<?php echo $config->getEnv('avw_hdrfg2')?>;
     background-color: <?php echo $config->getEnv('avw_hdrbg2')?>;
 }
-.simple_current {
+.simple_current td {
     height:9vh;
     font-weight: bold;
     font-size: 1.8vw;
