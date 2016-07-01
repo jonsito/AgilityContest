@@ -27,7 +27,7 @@ if(!isset($config)) $config =Config::getInstance();
         </th>
         <th class="simple_header">&nbsp;</th>
         <th class="simple_header" colspan="7" >AGILTY SMALL INDIVIDUAL</th>
-        <td class="simple_header" colspan="3" align="right" style="font-size:1.3vw;font-style:italic"> 189m/40s &nbsp;</td>
+        <td class="simple_header" colspan="3" style="text-align:right;font-size:1.3vw;font-style:italic"> 189m/40s &nbsp;</td>
     </tr>
     <tr> <!-- cabeceras de la tabla-->
         <th class="simple_header">&nbsp;</th>
@@ -244,8 +244,8 @@ if(!isset($config)) $config =Config::getInstance();
     </tr>
     <tr style="outline:2px solid <?php echo $config->getEnv('avw_linecolor')?>;">
         <td colspan="16">
+            <form id="avw_current">
             <table class="simple_table">
-                <form id="avw_current">
                 <tr class="simple_current">
                     <td>
                         <input type="text" name="Orden" readonly="readonly" size="3" value="69"/>
@@ -257,39 +257,39 @@ if(!isset($config)) $config =Config::getInstance();
                     <td style="text-align:center;">
                         <input type="text" name="Dorsal" readonly="readonly" size="3" value="127"/>
                     </td>
-                    <td colspan="2" align="center">
+                    <td colspan="2" style="text-align:center;">
                         <input type="hidden" name="Perro" value="Spain"/>
                         <input type="text" name="Nombre" readonly="readonly" size="12" value="Magia"/>
                     </td>
-                    <td colspan="5" align="center">
+                    <td colspan="5" style="text-align:center;">
                         <input type="hidden" name="Guia" value="1234"/>
                         <input type="text" name="NombreGuia" readonly="readonly" size="30" value="Carmen Brice&ntilde;o"/>
                     </td>
-                    <td align="right">F:&nbsp;</td>
-                    <td  align="left">
+                    <td style="text-align:right">F:&nbsp;</td>
+                    <td  style="text-align:left">
                         <input type="hidden" name="Faltas" value="0"/>
                         <input type="hidden" name="Tocados" value="0"/>
                         <input type="text" name="FaltasTocados" readonly="readonly" size="1" value="0"/>
                     </td>
-                    <td align="right">R:&nbsp;</td>
-                    <td align="left">
+                    <td style="text-align:right">R:&nbsp;</td>
+                    <td style="text-align:left">
                         <input type="text" name="Rehuses" readonly="readonly" size="1" value="0"/>
                         <input type="hidden" name="Eliminado" value="0"/>
                         <input type="hidden" name="NoPresentado" value="0"/>
                         <input type="hidden" name="Pendiente" value="0"/>
                     </td>
-                    <td align="right">Time:&nbsp;</td>
-                    <td align="left">
+                    <td style="text-align:right">Time:&nbsp;</td>
+                    <td style="text-align:left">
                         <input type="text" name="Tiempo" readonly="readonly" size="6" value="38.45"/>
                         <input type="hidden" name="TIntermedio" value="0"/>
                     </td>
-                    <td align="right">P:&nbsp;</td>
-                    <td align="left">
+                    <td style="text-align:right">P:&nbsp;</td>
+                    <td style="text-align:left">
                         <input type="text" name="Penalizacion" readonly="readonly" size="6" value="0"/>
                     </td>
                 </tr>
-                </form>
             </table>
+            </form>
         </td>
     </tr>
     <tr>
