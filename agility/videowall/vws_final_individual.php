@@ -35,9 +35,32 @@ Pantalla de de visualizacion combinada llamada/parciales
   vwcf_ id asociados al panel combinado de parciales
   vwcf_ id asociados al panel combinado de finales
 -->
-<div id="vws-window">
-    <div id="vws_cabecera>">
-        
+<div id="vws-window" style="width:50%;padding:5px;">
+    <div id="vws_header>">
+        <form id="vws_hdr_form">
+        <?php if ($config->getEnv("vws_uselogo")!=0) {
+            // logotipo alargado del evento
+            echo '<input type="hidden" id="vws_call_logoevento" name="LogoEvento" value="/agility/images/agilityawc2016.png"/>';
+            echo '<img src="/agility/images/agilityawc2016.png" id="vws_hdr_logo" alt="Logo"/>';
+            echo '<input type="hidden"      id="vws_hdr_prueba"     name="Prueba" value="Prueba"/>';
+            echo '<input type="hidden"      id="vws_hdr_jornada"     name="Jornada" value="Jornada"/>';
+        } else {
+            // logotipo del organizador. prueba y jornada en texto
+            echo '<input type="hidden" id="vws_call_logoprueba" name="LogoPrueba" value="/agility/images/logos/agilitycontest.png"/>';
+            echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_hdr_logo" alt="Logo"/>';
+            // nombre de la prueba y jornada
+            echo '<input type="text"      id="vws_hdr_prueba"     name="Prueba" value="Prueba"/>';
+            echo '<input type="text"      id="vws_hdr_jornada"     name="Jornada" value="Jornada"/>';
+        }
+        ?>
+            <input type="text"      id="vws_hdr_manga"     name="Manga" value="Manga"/>
+            <span style="text-align:center" id="vws_hdr_calltoring"><?php _e('Call to ring');?> </span>
+            <span style="text-align:center" id="vws_hdr_teaminfo"><?php _e("Competitor's data");?> </span>
+            <span style="text-align:center" id="vws_hdr_lastround"><?php _e('Round');?> </span>
+            <span style="text-align:center" id="vws_hdr_finalscores"><?php _e('Final');?> </span>
+            <input type="text"      id="vws_hdr_dist"     name="Distancia" value="Dist"/>
+            <input type="text"      id="vws_hdr_trs"     name="TRS" value="TRS"/>
+        </form>
     </div>
     
     <div id="vws_llamada">
@@ -45,7 +68,7 @@ Pantalla de de visualizacion combinada llamada/parciales
     echo '<form id="vws_call_'.$n.'">';
     echo '<input type="text" id="vws_call_Orden_'.$n.'" name="Orden" value="Orden '.$n.'"/>';
     echo '<input type="hidden" id="vws_call_LogoClub_'.$n.'"      name="LogoClub" value="Logo '.$n.'"/>';
-    echo '<img src="/agility/images/logos/null.png" id="vws_call_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
+    echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_call_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Perro_'.$n.'"      name="Perro" value="Perro '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Licencia_'.$n.'"   name="Licencia" value="Lic '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Categoria_'.$n.'"  name="Categoria" value="Cat '.$n.'"/>';
@@ -75,7 +98,7 @@ Pantalla de de visualizacion combinada llamada/parciales
 <?php for($n=0;$n<10;$n++) {
     echo '<form id="vws_results_'.$n.'">';
     echo '<input type="hidden" id="vws_results_LogoClub_'.$n.'"      name="LogoClub" value="Logo '.$n.'"/>';
-    echo '<img src="/agility/images/logos/null.png" id="vws_results_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
+    echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_results_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
     echo '<input type="text"      id="vws_results_Dorsal_'.$n.'"     name="Dorsal" value="Dorsal '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Perro_'.$n.'"      name="Perro" value="Perro '.$n.'"/>';
     echo '<input type="text"      id="vws_results_Nombre_'.$n.'"     name="Nombre" value="Nombre '.$n.'"/>';
@@ -121,7 +144,7 @@ Pantalla de de visualizacion combinada llamada/parciales
     echo '<form id= "vws_current">';
     echo '<input type="text" id= "vws_current_Orden" name="Orden" value="Orden"/>';
     echo '<input type="hidden" id= "vws_current_LogoClub"      name="LogoClub" value="Logo"/>';
-    echo '<img src="/agility/images/logos/null.png" id= "vws_current_Logo" name="Logo" alt="Logo"/>';
+    echo '<img src="/agility/images/logos/getLogo.php?Federation=1&Logo=ES.png" id= "vws_current_Logo" name="Logo" alt="Logo"/>';
     echo '<input type="hidden"    id= "vws_current_Perro"      name="Perro" value="Perro"/>';
     echo '<input type="hidden"    id= "vws_current_Categoria"  name="Categoria" value="Cat"/>';
     echo '<input type="hidden"    id= "vws_current_Grado"      name="Grado" value="Grad"/>';
@@ -136,9 +159,9 @@ Pantalla de de visualizacion combinada llamada/parciales
     echo '<input type="hidden"    id= "vws_current_T"          name="Tocados" value="Toc"/>';
     echo '<input type="text"      id= "vws_current_FaltasTocados" name="FaltasTocados" value="F/T">';
     echo '<input type="text"      id= "vws_current_Rehuses"    name="Rehuses" value="R"/>';
-    echo '<input type="text"      id= "vws_current_Puesto"     name="Puesto" value="P"/>';
     echo '<input type="hidden"    id= "vws_current_Tintermedio" name="TIntermedio" value="Tint"/>';
     echo '<input type="text"      id= "vws_current_Tiempo"     name="Tiempo" value="Time"/>';
+    echo '<input type="text"      id= "vws_current_Puesto"     name="Puesto" value="P"/>';
     echo '<input type="hidden"    id= "vws_current_Eliminado"  name="Eliminado" value="Elim"/>';
     echo '<input type="hidden"    id= "vws_current_NoPresentado" name="NoPresentado" value="NPr"/>';
     echo '<input type="hidden"    id= "vws_current_Pendiente"  name="Pendiente" value="Pend"/>';
@@ -155,7 +178,7 @@ Pantalla de de visualizacion combinada llamada/parciales
     echo '<form id="vws_ultimos_'.$n.'">';
     echo '<input type="text"      id="vws_ultimos_Orden_'.$n.'"      name="Dorsal" value="Orden '.$n.'"/>';
     echo '<input type="hidden" id="vws_ultimos_LogoClub_'.$n.'"      name="LogoClub" value="Logo '.$n.'"/>';
-    echo '<img src="/agility/images/logos/null.png" id="vws_ultimos_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
+    echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_ultimos_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
     echo '<input type="text"      id="vws_ultimos_Dorsal_'.$n.'"     name="Dorsal" value="Dorsal '.$n.'"/>';
     echo '<input type="hidden"    id="vws_ultimos_Perro_'.$n.'"      name="Perro" value="Perro '.$n.'"/>';
     echo '<input type="text"      id="vws_ultimos_Nombre_'.$n.'"     name="Nombre" value="Nombre '.$n.'"/>';
@@ -165,7 +188,7 @@ Pantalla de de visualizacion combinada llamada/parciales
     echo '<input type="text"      id="vws_ultimos_NombreGuia_'.$n.'" name="NombreGuia" value="Guia '.$n.'"/>';
     echo '<input type="hidden"    id="vws_ultimos_Equipo_'.$n.'"     name="Equipo" value="Equipo '.$n.'"/>';
     echo '<input type="hidden"    id="vws_ultimos_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_ultimos_NombreClub_'.$n.'" name="NombreClub" value="Club '.$n.'"/>';
+    echo '<input type="hidden"    id="vws_ultimos_NombreClub_'.$n.'" name="NombreClu;outline-width:2pxb" value="Club '.$n.'"/>';
     echo '<!-- data on round 1 -->';
     echo '<input type="hidden"    id="vws_ultimos_F1_'.$n.'"         name="F1" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_ultimos_R1_'.$n.'"         name="R1" value="Reh '.$n.'"/>';
@@ -210,54 +233,75 @@ Pantalla de de visualizacion combinada llamada/parciales
         }
     });
 
-    var layout= {'rows':140,'cols':245};
+    var layout= {'rows':142,'cols':247};
     // cabeceras
+
+<?php
+    if ($config->getEnv("vws_uselogo")!=0) { // logotipo del evento
+        echo 'doLayout(layout,"#vws_hdr_logo",1,0,88,27);';
+    } else { // logotipo del organizador, prueba y jornada en texto
+        echo 'doLayout(layout,"#vws_hdr_logo",1,0,27,27);';
+        echo 'doLayout(layout,"#vws_hdr_prueba",28,0,61,9);';
+        echo 'doLayout(layout,"#vws_hdr_jornada",28,9,61,9);';
+    }
+?>
+    doLayout(layout,"#vws_hdr_manga",101,0,122,9);
+    doLayout(layout,"#vws_hdr_dist",223,0,13,9);
+    doLayout(layout,"#vws_hdr_trs",236,0,10,9);
+
+    doLayout(layout,"#vws_hdr_calltoring",1,27,87,10);
+    doLayout(layout,"#vws_hdr_teaminfo",91,9,83,9);
+    doLayout(layout,"#vws_hdr_lastround",174,9,36,9);
+    doLayout(layout,"#vws_hdr_finalscores",210,9,36,9);
+
+
     // llamada a pista
     for (var n=0;n<8;n++) {
-        doLayout(layout,"#vws_call_Orden_"+n,0,37+9*n,9,9);
-        doLayout(layout,"#vws_call_LogoClub_"+n,9,37+9*n,8,9);
-        doLayout(layout,"#vws_call_Dorsal_"+n,17,37+9*n,9,9);
-        doLayout(layout,"#vws_call_Nombre_"+n,26,37+9*n,19,9);
-        doLayout(layout,"#vws_call_NombreGuia_"+n,45,37+9*n,42,9);
+        doLayout(layout,"#vws_call_Orden_"+n,1,37+9*n,9,9);
+        doLayout(layout,"#vws_call_Logo_"+n,10,37+9*n,8,9);
+        doLayout(layout,"#vws_call_Dorsal_"+n,18,37+9*n,9,9);
+        doLayout(layout,"#vws_call_Nombre_"+n,27,37+9*n,19,9);
+        doLayout(layout,"#vws_call_NombreGuia_"+n,46,37+9*n,42,9);
     }
+    
     // perro en pista
+    doLayout(layout,"#vws_current_Orden",       1,     109,10,13);
+    doLayout(layout,"#vws_current_Logo",        11,    109,15,13);
+    doLayout(layout,"#vws_current_Dorsal",      26,    109,15,13);
+    doLayout(layout,"#vws_current_Nombre",      41,    109,41,13);
+    doLayout(layout,"#vws_current_NombreGuia",  82,    109,74,13);
+    doLayout(layout,"#vws_current_FaltasTocados",156,  109,20,13);
+    doLayout(layout,"#vws_current_Rehuses",     176,   109,20,13);
+    doLayout(layout,"#vws_current_Tiempo",      196,   109,35,13);
+    doLayout(layout,"#vws_current_Puesto",      231,   109,15,13);
 
-    doLayout(layout,"#vws_current_Orden",       0,     109,10,13);
-    doLayout(layout,"#vws_current_Logo",        10,    109,15,13);
-    doLayout(layout,"#vws_current_Dorsal",      25,    109,15,13);
-    doLayout(layout,"#vws_current_Nombre",      40,    109,35,13);
-    doLayout(layout,"#vws_current_NombreGuia",  75,    109,65,13);
-    doLayout(layout,"#vws_current_FaltasTocados",140,  109,45,13);
-    doLayout(layout,"#vws_current_Rehuses",     185,   109,20,13);
-    doLayout(layout,"#vws_current_Puesto",      205,   109,22,13);
-    doLayout(layout,"#vws_current_Tiempo",      227,   109,18,13);
     // resultados
     for(n=0;n<10;n++) {
-        doLayout(layout,"#vws_results_Logo_"+n,     88,     19+9*n,10,9);
-        doLayout(layout,"#vws_results_Dorsal_"+n,   98,     19+9*n,9,9);
-        doLayout(layout,"#vws_results_Nombre_"+n,   107,    19+9*n,19,9);
-        doLayout(layout,"#vws_results_NombreGuia_"+n,126,   19+9*n,47,9);
-        doLayout(layout,"#vws_results_T1_"+n,       173,    19+9*n,14,9);
-        doLayout(layout,"#vws_results_P1_"+n,       187,    19+9*n,14,9);
-        doLayout(layout,"#vws_results_Puesto1_"+n,  201,    19+9*n,8,9);
-        doLayout(layout,"#vws_results_Tiempo_"+n,   209,    19+9*n,14,9);
-        doLayout(layout,"#vws_results_Penalizacion_"+n,223, 19+9*n,14,9);
-        doLayout(layout,"#vws_results_Puesto_"+n,   237,    19+9*n,8,9);
+        doLayout(layout,"#vws_results_Logo_"+n,     91,     19+9*n,10,9);
+        doLayout(layout,"#vws_results_Dorsal_"+n,   101,     19+9*n,9,9);
+        doLayout(layout,"#vws_results_Nombre_"+n,   110,    19+9*n,19,9);
+        doLayout(layout,"#vws_results_NombreGuia_"+n,129,   19+9*n,45,9);
+        doLayout(layout,"#vws_results_T1_"+n,       174,    19+9*n,14,9);
+        doLayout(layout,"#vws_results_P1_"+n,       188,    19+9*n,14,9);
+        doLayout(layout,"#vws_results_Puesto1_"+n,  202,    19+9*n,8,9);
+        doLayout(layout,"#vws_results_Tiempo_"+n,   210,    19+9*n,14,9);
+        doLayout(layout,"#vws_results_Penalizacion_"+n,224, 19+9*n,14,9);
+        doLayout(layout,"#vws_results_Puesto_"+n,   238,    19+9*n,8,9);
     }
     // ultimos resultados
     for(n=0;n<2;n++) {
-        doLayout(layout,"#vws_ultimos_Orden_"+n,    79,     122+9*n,9,9);
-        doLayout(layout,"#vws_ultimos_Logo_"+n,     88,     122+9*n,10,9);
-        doLayout(layout,"#vws_ultimos_Dorsal_"+n,   98,     122+9*n,9,9);
-        doLayout(layout,"#vws_ultimos_Nombre_"+n,   107,    122+9*n,19,9);
-        doLayout(layout,"#vws_ultimos_NombreGuia_"+n,126,   122+9*n,47,9);
-        doLayout(layout,"#vws_ultimos_T1_"+n,       173,    122+9*n,14,9);
-        doLayout(layout,"#vws_ultimos_P1_"+n,       187,    122+9*n,14,9);
-        doLayout(layout,"#vws_ultimos_Puesto1_"+n,  201,    122+9*n,8,9);
-        doLayout(layout,"#vws_ultimos_Tiempo_"+n,   209,    122+9*n,14,9);
-        doLayout(layout,"#vws_ultimos_Penalizacion_"+n,223, 122+9*n,14,9);
-        doLayout(layout,"#vws_ultimos_Puesto_"+n,   237,    122+9*n,8,9);
+        doLayout(layout,"#vws_ultimos_Orden_"+n,    82,     122+9*n,9,9);
+        doLayout(layout,"#vws_ultimos_Logo_"+n,     91,     122+9*n,10,9);
+        doLayout(layout,"#vws_ultimos_Dorsal_"+n,   101,     122+9*n,9,9);
+        doLayout(layout,"#vws_ultimos_Nombre_"+n,   110,    122+9*n,19,9);
+        doLayout(layout,"#vws_ultimos_NombreGuia_"+n,129,   122+9*n,45,9);
+        doLayout(layout,"#vws_ultimos_T1_"+n,       174,    122+9*n,14,9);
+        doLayout(layout,"#vws_ultimos_P1_"+n,       188,    122+9*n,14,9);
+        doLayout(layout,"#vws_ultimos_Puesto1_"+n,  202,    122+9*n,8,9);
+        doLayout(layout,"#vws_ultimos_Tiempo_"+n,   210,    122+9*n,14,9);
+        doLayout(layout,"#vws_ultimos_Penalizacion_"+n,224, 122+9*n,14,9);
+        doLayout(layout,"#vws_ultimos_Puesto_"+n,   238,    122+9*n,8,9);
     }
     // sponsor
-    doLayout(layout,"#vws_sponsors",   0,    122,79,18);
+    doLayout(layout,"#vws_sponsors",   1,    122,79,18);
 </script>
