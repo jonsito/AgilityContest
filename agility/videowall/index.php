@@ -72,7 +72,7 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/videowall/videowall.js.php" type="text/javascript" charset="utf-8" > </script>
-
+<script src="/agility/videowall/vws.js.php" type="text/javascript" charset="utf-8" > </script>
 
     <style>
 
@@ -315,13 +315,12 @@ function vw_accept() {
         ac_config.vwc_simplified=0;
 		break;
 	case 3:
-		page=isJornadaEquipos()?"vws_parcial_equipos.php":"vws_parcial_individual.php";
+		page="vws_parcial.php";
 		ac_config.vw_combined=1;
 		ac_config.vwc_simplified=1;
 		break;
 	case 9: // Combinada Final simplificada
-        //page=isJornadaEquipos()?"vws_final_equipos.php":"vws_final_individual.php";
-        page="vws_final_individual.php";
+        page="vws_final.php";
 		ac_config.vw_combined=1;
 		ac_config.vwc_simplified=1;
 		break;

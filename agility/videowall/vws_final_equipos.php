@@ -11,7 +11,7 @@ if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.php"); retur
 
 ?>
 <!--
-vws_final_individual.php
+vws_final_equipos.php
 
 Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -42,8 +42,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             echo '<input type="hidden" id="vws_call_logoprueba" name="LogoPrueba" value="/agility/images/logos/agilitycontest.png"/>';
             echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_hdr_logo" alt="Logo"/>';
             // nombre de la prueba y jornada
-            echo '<input type="text"      id="vws_hdr_prueba"     name="Prueba" value="Prueba"/>';
-            echo '<input type="text"      id="vws_hdr_jornada"     name="Jornada" value="Jornada"/>';
+            echo '<input type="text"      id="vws_hdr_prueba"     name="Prueba" value="Prueba Equipos"/>';
+            echo '<input type="text"      id="vws_hdr_jornada"     name="Jornada" value="Jornada Equipos"/>';
         }
         ?>
             <input type="text"      id="vws_hdr_manga"     name="Manga" value="Manga"/>
