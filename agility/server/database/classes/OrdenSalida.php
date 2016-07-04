@@ -481,21 +481,28 @@ class OrdenSalida extends DBObject {
         }
 
 		// quinta: intercalar informacion de equipos si se precisa
+		// para que aparezca en el menu de introduccion de datos de la consola
+		//
+		// adicionalmente, en las pruebas por equipos anyadimos al resultado un array
+		// extra indicando los equipos y su orden de salida. Este array es distinto al
+		// obtenido con getOrdenEquipos, pues si un equipo tiene perros en varias categorias,
+		// el equipo aparecera varias veces en este resultado
 		$p6=$p5;
 		if ($teamView) {
             $p6=array();
 			$equipo=0;
 			foreach ($p5 as $perro) {
-				if ($perro['Equipo']!=$equipo){
+				if ($perro['Equipo']!=$equipo){ // cambio de equipo en el orden de salida
+					// intercala datos de equipo en orden de salida general
 					$equipo=$perro['Equipo'];
 					$a=array(
 						'Dorsal' => '*',
-						'Nombre'=>_('Equipo'),
+						'Nombre'=>_('Team'),
 						'NombreGuia'=>$perro['NombreEquipo'],
 						'Eliminado'=>0,
 						'NoPresentado'=>0
 					);
-					array_push($p6,$a); // intercala datos de equipo
+					array_push($p6,$a);
 				}
 				array_push($p6,$perro); // introduce datos de perro
 			}

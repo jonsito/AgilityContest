@@ -230,6 +230,7 @@ class VideoWall {
             'Pendiente' => 1
         );
     }
+    
     /**
      * Obtiene $after+$before+1 perros ordenados segun el orden de salida
      * @param $perro ID de perro tomado como referencia
@@ -292,6 +293,116 @@ class VideoWall {
         echo json_encode($res);
         return 0;
     }
+
+    private function getEmptyTeamData() {
+        return array(
+            'Prueba' => $this->prueba['ID'],
+            'Jornada' => $this->jornada['ID'],
+            'Manga' => $this->mangaid,
+            'LogoTeam' => 'empty.png',
+            'Orden' => "",
+            'Equipo' => 0,
+            'NombreEquipo' => "",
+            'Categoria' => "",
+            'Grado' => "",
+            'Celo' => 0
+        );
+    }
+
+    /**
+     * Obtiene $after+$before+1 equipos ordenados segun el orden de salida
+     * @param $perro ID de perro tomado como referencia
+     *  if ID==0 means at begin of queue
+     *  if ID<0 means at end of queue
+     * @param $before numero de equipos que hayan salido antes que el equipo del perro de referencia
+     * @param $after numero de equipos que tengan que salir despues del equipo del perro de referencia
+     * @return array (
+     *             before: Array de $before equipos que han saludo antes
+     *             after: Array de $equipos que tienen que salir despues
+     *             current: Array de (resultados de ) perros del mismo equipo que tienen que salir juntos
+     *      )
+     * Notese que un equipo puede estar troceado. En ese caso "current" solo muestra los perros del equipo
+     * que salen en ese "trozo"
+     */
+    function videowall_teamWindowCall($perro,$before,$after) {
+        $this->myLogger->enter();
+        $nitems=$before+$after+1;
+        // obtenemos listado ordenado de perros de la manga
+        $osobj=new OrdenSalida("VideoWall-ng",$this->mangaid);
+        $os=$osobj->getData(false); // omit inserting team info rows
+        // obtenemos categoria y grado de la tanda
+        $catstr=Tandas::$tipo_tanda[$this->tandatype]['Categoria']; // categoria
+        $gradostr =Tandas::$tipo_tanda[$this->tandatype]['Grado']; // grado ("-" means any grade)
+        // componemos un array de $before+1+$after perros
+        $result=array();
+        // reserve $before +1 empty slots before team list
+        for($n=0;$n<$before+1;$n++) {
+            array_unshift($result,$this->getEmptyTeamData());
+        }
+        $found=-1;
+        // add dog list, setting up starting orden
+        $orden=0;
+        $lastTeam=0; // ultimo equipo analizado
+        $teamList=array();
+        // if dog found, mark index
+        foreach ($os['rows'] as &$item) {
+            // si la categoria y (if required) el grado difieren, ignora la entrada
+            if ( strstr($catstr,$item['Categoria'])===false) continue; // category does not match, ignore
+            if ( ($gradostr!=='-') && ($gradostr!==$item['Grado']) ) continue; // grade differs, ignore entry
+            // si el equipo es distinto, anyade equipo a la lista, y reinicia teamList
+            if ( $item['Equipo']!=$lastTeam) {
+                $teamList=array(); // borramos equipo anterior
+                $lastTeam=$item['Equipo'];
+                $orden++;
+                // creamos los datos del nuevo equipo, y lo insertamos en el orden de salida
+                // los perros del mismo equipo comparten cagegoria, grado y celo, con lo que
+                // usamos los datos del primer perro encontrado del equipo
+                // por otro lado, para el logo, cogemos el logo del primer perro. TODO: revise
+                $team=array(
+                    'Prueba' => $this->prueba['ID'],
+                    'Jornada' => $this->jornada['ID'],
+                    'Manga' => $this->mangaid,
+                    'LogoTeam' =>  $item['LogoClub'],
+                    'Orden' => $orden,
+                    'Equipo' => $item['Equipo'],
+                    'NombreEquipo' => $item['NombreEquipo'],
+                    'Categoria' => $item['Categoria'],
+                    'Grado' => $item['Grado'],
+                    'Celo' => $item['Celo']
+                );
+                array_unshift($result,$team); // insertamos equipo en orden al principio de la lista
+            }
+            // anyade el perro al equipo actual
+            array_push($teamList,$item);
+
+            // si perro encontrado, lo marcamos
+            if ($item['Perro']==$perro) $found=count($result)-1;
+            if ($found<=0) continue; // not yet found
+            if ( (count($result)-$found) > $after ) break; // enought teams; iteration no longer needed
+        }
+        // fill array with $after empty rows
+        for($n=0;$n<$after;$n++) {
+            array_unshift($result,$this->getEmptyTeamData());
+            // if dogID<0 means seek at end of list
+            if($perro>=0) continue;
+            if($n!=0) continue;
+            $found=count($result)-1;
+        }
+        // if team is not provided nor found matching dog, just assume default
+        if ($found<0) $found=$before;
+        // and return 4 arrays:
+        $res=array(
+            // "total" => count($res),
+            // "rows" => $res,
+            "before" => array_slice($result,-$found,$before),
+            "current" => array_slice($result,-($found+1),1),
+            "after" => array_slice($result,-($found+1+$after),$after),
+            //results for dog matching team
+            "results" =>$teamList
+        );
+        echo json_encode($res);
+        return 0;
+    }
 } 
 
 $sesion = http_request("Session","i",0);
@@ -313,6 +424,7 @@ try {
 	if($operacion==="livestream") return $vw->videowall_livestream();
     if($operacion==="llamada") return $vw->videowall_llamada($pendientes); // pendientes por salir
     if($operacion==="window") return $vw->videowall_windowCall(intval($perro),intval($before),intval($after)); // 15 por detras y 4 por delante
+    if($operacion==="teamwindow") return $vw->videowall_teamWindowCall(intval($perro),intval($before),intval($after));
 } catch (Exception $e) {
 	echo "<p>Error:<br />".$e->getMessage()."</p>";
     return 0;

@@ -57,7 +57,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     </div>
     
     <div id="vws_llamada">
-<?php for($n=0;$n<8;$n++) {
+<?php for($n=0;$n<5;$n++) {
     echo '<form id="vws_call_'.$n.'">';
     echo '<input type="text" id="vws_call_Orden_'.$n.'" name="Orden" value="Orden '.$n.'"/>';
     echo '<input type="hidden" id="vws_call_LogoClub_'.$n.'"      name="LogoClub" value="Logo '.$n.'"/>';
