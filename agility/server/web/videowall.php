@@ -319,10 +319,16 @@ class VideoWall {
      * @return array (
      *             before: Array de $before equipos que han saludo antes
      *             after: Array de $equipos que tienen que salir despues
-     *             current: Array de (resultados de ) perros del mismo equipo que tienen que salir juntos
+     *             current: Equipo en pista
+     *             results: Resultados de los componentes del equipo en pista que tienen la misma categoria
      *      )
      * Notese que un equipo puede estar troceado. En ese caso "current" solo muestra los perros del equipo
      * que salen en ese "trozo"
+     *
+     * Por otro lado, dado que en el orden de salida se discrimina por categorias, el campo results
+     * puede tener menos datos que $mindogs, con lo que hay que rellenar a ceros.
+     * Realmente esta funcion esta pensada para rellenar la pantalla simplificada(equipos) en la que se
+     * asume que hay cuatro perros por equipo y que todos son de la misma categoria 
      */
     function videowall_teamWindowCall($perro,$before,$after) {
         $this->myLogger->enter();
@@ -343,7 +349,11 @@ class VideoWall {
         // add dog list, setting up starting orden
         $orden=0;
         $lastTeam=0; // ultimo equipo analizado
-        $teamList=array();
+        $foundTeam=array( // create a default array without dogs for "current" team
+            $this->getEmptyData(),$this->getEmptyData(),$this->getEmptyData(),$this->getEmptyData()
+        ); // equipo que contiene el perro actual
+        $teams=array(); // lista de equipos
+        $team=null; // equipo que esta siendo analizado
         // if dog found, mark index
         foreach ($os['rows'] as &$item) {
             // si la categoria y (if required) el grado difieren, ignora la entrada
@@ -351,8 +361,8 @@ class VideoWall {
             if ( ($gradostr!=='-') && ($gradostr!==$item['Grado']) ) continue; // grade differs, ignore entry
             // si el equipo es distinto, anyade equipo a la lista, y reinicia teamList
             if ( $item['Equipo']!=$lastTeam) {
-                $teamList=array(); // borramos equipo anterior
                 $lastTeam=$item['Equipo'];
+                if (!isset($teams[$lastTeam])) $teams[$lastTeam]=array(); // to prevent override in celo
                 $orden++;
                 // creamos los datos del nuevo equipo, y lo insertamos en el orden de salida
                 // los perros del mismo equipo comparten cagegoria, grado y celo, con lo que
@@ -373,14 +383,18 @@ class VideoWall {
                 array_unshift($result,$team); // insertamos equipo en orden al principio de la lista
             }
             // anyade el perro al equipo actual
-            array_push($teamList,$item);
+            array_push($teams[$lastTeam],$item);
 
             // si perro encontrado, lo marcamos
-            if ($item['Perro']==$perro) $found=count($result)-1;
-            if ($found<=0) continue; // not yet found
-            if ( (count($result)-$found) > $after ) break; // enought teams; iteration no longer needed
+            if ($item['Perro']==$perro) {
+                $found=count($result)-1;
+                $foundTeam=&$teams[$lastTeam]; // use reference cause may be more dogs in team
+            }
+            // do not try to optimize loop: heat bitches stands at the end,
+            // so need to parse entire starting
+            // order to fill teams with heat bitches
         }
-        // fill array with $after empty rows
+        // fill array with $after empty rows to make sure data is available at last team
         for($n=0;$n<$after;$n++) {
             array_unshift($result,$this->getEmptyTeamData());
             // if dogID<0 means seek at end of list
@@ -390,6 +404,8 @@ class VideoWall {
         }
         // if team is not provided nor found matching dog, just assume default
         if ($found<0) $found=$before;
+        // fill $foundteam to fit 4 entries
+        for (;count($foundTeam)<4;) array_push($foundTeam,$this->getEmptyData());
         // and return 4 arrays:
         $res=array(
             // "total" => count($res),
@@ -398,7 +414,7 @@ class VideoWall {
             "current" => array_slice($result,-($found+1),1),
             "after" => array_slice($result,-($found+1+$after),$after),
             //results for dog matching team
-            "results" =>$teamList
+            "results" =>$foundTeam
         );
         echo json_encode($res);
         return 0;
