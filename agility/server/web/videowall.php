@@ -413,7 +413,7 @@ class VideoWall {
             "current" => array_slice($result,-($found+1),1),
             "after" => array_slice($result,-($found+1+$after),$after),
             //results for dog matching team
-            "results" =>$foundTeam
+            "results" =>$foundTeam,
         );
         echo json_encode($res);
         return 0;

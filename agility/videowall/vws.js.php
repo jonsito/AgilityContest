@@ -72,12 +72,74 @@ function vws_updateLlamada(evt,data) {
             Session: workingData.sesion
         },
         success: function(dat,status,jqxhr) {
+            var logo="null.png";
             // fill "after" columns
             for(var n=0;n<nitems;n++) {
+                logo=dat['after'][n][(team)?'LogoTeam':'LogoClub'];
                 $('#vws_call_'+n).form('load',dat['after'][n]);
+                $('#vws_call_Logo_'+n).attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             }
             // fill "current" columns
-            // fill "after" ( but will be revisited on updateResults )
+            if(team) {
+                workingData.vws_currentRow=null;
+                dat['results'][0]['Orden']=dat['current'][0]['Orden']; // to properly fill form field
+                for (n=0;n<4;n++) {
+                    // notice 'results' and 'LogoClub' as we need dog data, not team data
+                    dat['results'][n]['FaltasTocados']=parseInt(dat['results'][n]['Faltas'])+parseInt(dat['results'][n]['Tocados']);
+                    $('#vws_current_'+n).form('load',dat['results'][n]);
+                    // check for current dot to mark proper "current" row form as active
+                    if (dat['results'][n]['Perro']==evt['Dog']) workingData.currentRow='#vws_current_'+n;
+                }
+                logo=dat['current'][0]['LogoTeam'];
+                $('#vws_current_Logo_0').attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
+            } else {
+                logo=dat['current'][0]['LogoClub'];
+                dat['current'][0]['FaltasTocados']=parseInt(dat['current'][0]['Faltas'])+parseInt(dat['current'][0]['Tocados']);
+                $('#vws_current').form('load',dat['current'][0]);
+                workingData.currentRow='#vws_current';
+                $('#vws_current_Logo').attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
+            }
+            // fill "before" ( but will be revisited on updateResults )
+            for(n=0;n<2;n++) {
+                logo=dat['before'][n][(team)?'LogoTeam':'LogoClub'];
+                $('#vws_before_'+n).form('load',dat['before'][n]);
+                $('#vws_before_Logo_'+n).attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
+            }
         }
     });
+}
+
+
+function vws_updateData(event) {
+    
+}
+
+function vwsf_evalPenalizacion() {
+
+}
+
+function vwsp_evalPenalizacion() {
+
+}
+
+/**
+ * evaluate position in hall of fame (final results)
+ * When chrono stops this script is invoked instead of vwcf_evalPenalization()
+ * Do not evaluate trs/trm. just iterate on datagrid results to find position
+ * @param {boolean} flag display on/off
+ * @param {float} time measured from chrono (do not read html dom content)
+ */
+function vwsf_displayPuesto(flag,time) {
+    
+}
+
+/**
+ * evaluate position in hall of fame (final results)
+ * When chrono stops this script is invoked instead of vwcf_evalPenalization()
+ * Do not evaluate trs/trm. just iterate on datagrid results to find position
+ * @param {boolean} flag display on/off
+ * @param {float} time measured from chrono (do not read html dom content)
+ */
+function vwsp_displayPuesto(flag,time) {
+
 }

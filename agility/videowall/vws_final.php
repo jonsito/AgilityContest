@@ -93,8 +93,8 @@ events
             });
         },
         'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-            vwls_updateData(event);
-            vwcf_evalPenalizacion();
+            vws_updateData(event);
+            vwsf_evalPenalizacion();
         },
         'llamada': function (event, time) {    // llamada a pista
             var crm=$('#cronometro');
@@ -102,12 +102,12 @@ events
             crm.Chrono('stop',time);
             crm.Chrono('reset',time);
             vw_updateWorkingData(event,function(e,d){
-                vwcf_updateLlamada(e,d);
+                vws_updateLlamada(e,d);
             });
         },
         'salida': function (event, time) {     // orden de salida
             myCounter.start();
-            vwcf_displayPuesto(false,0);
+            vwsf_displayPuesto(false,0);
         },
         'start': function (event, time) {      // start crono manual
             // si crono automatico, ignora
@@ -119,18 +119,18 @@ events
             crm.Chrono('stop', time);
             crm.Chrono('reset');
             crm.Chrono('start', time);
-            vwcf_displayPuesto(false,0);
+            vwsf_displayPuesto(false,0);
         },
         'stop': function (event, time) {      // stop crono manual
             var crm= $('#cronometro');
             $('#vwls_StartStopFlag').text("Start");
             myCounter.stop();
             crm.Chrono('stop', time);
-            vwcf_displayPuesto(true,crm.Chrono('getValue')/1000);
+            vwsf_displayPuesto(true,crm.Chrono('getValue')/1000);
         },
         // nada que hacer aqui: el crono automatico se procesa en el tablet
         'crono_start': function (event, time) { // arranque crono automatico
-            vwcf_displayPuesto(false,0);
+            vwsf_displayPuesto(false,0);
             var crm = $('#cronometro');
             myCounter.stop();
             $('#vwls_StartStopFlag').text('Auto');
@@ -139,7 +139,7 @@ events
                 crm.Chrono('stop', time);
                 crm.Chrono('reset');
                 crm.Chrono('start', time);
-                vwcf_evalPenalizacion();
+                vwsf_evalPenalizacion();
                 return
             }
             if (ac_config.crono_resync === "0") {
@@ -162,7 +162,7 @@ events
             var crm= $('#cronometro');
             $('#vwls_StartStopFlag').text("Start");
             crm.Chrono('stop', time);
-            vwcf_displayPuesto(true,crm.Chrono('getValue')/1000);
+            vwsf_displayPuesto(true,crm.Chrono('getValue')/1000);
         },
         'crono_reset': function (event, time) {	// puesta a cero del crono electronico
             var crm = $('#cronometro');
@@ -170,11 +170,11 @@ events
             $('#vwls_StartStopFlag').text("Start");
             crm.Chrono('stop', time);
             crm.Chrono('reset', time);
-            vwcf_displayPuesto(false,0);
+            vwsf_displayPuesto(false,0);
         },
         'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
-            vwls_updateChronoData(event);
-            vwcf_evalPenalizacion();
+            vws_updateChronoData(event);
+            vwsf_evalPenalizacion();
         },
         'crono_error': null, // fallo en los sensores de paso
         'aceptar': function (event,time) { // operador pulsa aceptar
