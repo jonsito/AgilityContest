@@ -58,5 +58,26 @@ function vws_setFinalIndividualOrTeamView(data) {
  * @param {object} data system status data info
  */
 function vws_updateLlamada(evt,data) {
-
+    var team=isJornadaEquipos();
+    var nitems=(team)?5:8;
+    $.ajax( {
+        type: "GET",
+        dataType: 'json',
+        url: "/agility/server/web/videowall.php",
+        data: {
+            Operation: (team)?'teamwindow':'window',
+            Before: 2,
+            After: nitems,
+            Perro: parseInt(evt['Dog']),
+            Session: workingData.sesion
+        },
+        success: function(dat,status,jqxhr) {
+            // fill "after" columns
+            for(var n=0;n<nitems;n++) {
+                $('#vws_call_'+n).form('load',dat['after'][n]);
+            }
+            // fill "current" columns
+            // fill "after" ( but will be revisited on updateResults )
+        }
+    });
 }
