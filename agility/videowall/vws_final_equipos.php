@@ -60,48 +60,25 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php for($n=0;$n<5;$n++) {
     echo '<form id="vws_call_'.$n.'">';
     echo '<input type="text" id="vws_call_Orden_'.$n.'" name="Orden" value="Orden '.$n.'"/>';
-    echo '<input type="hidden" id="vws_call_LogoClub_'.$n.'"      name="LogoClub" value="Logo '.$n.'"/>';
+    echo '<input type="hidden" id="vws_call_LogoTeam_'.$n.'"      name="LogoTeam" value="Logo '.$n.'"/>';
     echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_call_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_Perro_'.$n.'"      name="Perro" value="Perro '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_Licencia_'.$n.'"   name="Licencia" value="Lic '.$n.'"/>';
+    echo '<input type="hidden"    id="vws_call_Equipo_'.$n.'"      name="Equipo" value="Equipo '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Categoria_'.$n.'"  name="Categoria" value="Cat '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Grado_'.$n.'"      name="Grado" value="Grad '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_CatGrad_'.$n.'"    name="CatGrad" value="Grad '.$n.'"/>';
-    echo '<input type="text"      id="vws_call_Dorsal_'.$n.'"     name="Dorsal" value="Dorsal '.$n.'"/>';
-    echo '<input type="text"      id="vws_call_Nombre_'.$n.'"     name="Nombre" value="Nombre '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_Celo_'.$n.'"       name="Celo" value="Celo $1"/>';
-    echo '<input type="text"      id="vws_call_NombreGuia_'.$n.'" name="NombreGuia" value="Guia '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_NombreClub_'.$n.'" name="NombreClub" value="Club '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_F_'.$n.'"          name="Faltas" value="Flt '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_T_'.$n.'"          name="Tocados" value="Toc '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_FaltasTocados_'.$n.'" name="FaltasTocados" value=F/T $n/>';
-    echo '<input type="hidden"    id="vws_call_Rehuses_'.$n.'"    name="Rehuses" value="R '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_Puesto_'.$n.'"     name="Puesto" value="P '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_Tintermedio_'.$n.'" name="TIntermedio" value="TI '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_Tiempo_'.$n.'"     name="Tiempo" value="T '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_Eliminado_'.$n.'"  name="Eliminado" value="Elim '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_NoPresentado_'.$n.'" name="NoPresentado" value="NPr '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_Pendiente_'.$n.'"  name="Pendiente" value="Pend '.$n.'"/>';
+    echo '<input type="text"      id="vws_call_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
     echo '</form>';
 } ?>
     </div>
     
     <div id="vws_results">
-<?php for($n=0;$n<10;$n++) {
+<?php for($n=0;$n<7;$n++) {
     echo '<form id="vws_results_'.$n.'">';
     echo '<input type="hidden" id="vws_results_LogoClub_'.$n.'"      name="LogoClub" value="Logo '.$n.'"/>';
     echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_results_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
-    echo '<input type="text"      id="vws_results_Dorsal_'.$n.'"     name="Dorsal" value="Dorsal '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_results_Perro_'.$n.'"      name="Perro" value="Perro '.$n.'"/>';
-    echo '<input type="text"      id="vws_results_Nombre_'.$n.'"     name="Nombre" value="Nombre '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_Licencia_'.$n.'"      name="Licencia" value="Lic '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Categoria_'.$n.'"  name="Categoria" value="Cat '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Grado_'.$n.'"      name="Grado" value="Grad '.$n.'"/>';
-    echo '<input type="text"      id="vws_results_NombreGuia_'.$n.'" name="NombreGuia" value="Guia '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Equipo_'.$n.'"     name="Equipo" value="Equipo '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_results_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_results_NombreClub_'.$n.'" name="NombreClub" value="Club '.$n.'"/>';
+    echo '<input type="text"    id="vws_results_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
     echo '<!-- data on round 1 -->';
     echo '<input type="hidden"    id="vws_results_F1_'.$n.'"         name="F1" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_R1_'.$n.'"         name="R1" value="Reh '.$n.'"/>';
@@ -132,33 +109,42 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }?>
     </div>
     
-    <div id="vws_perro_en_pista">
+    <div id="vws_equipo_en_pista">
 <?php
-    echo '<form id= "vws_current">';
-    echo '<input type="text" id= "vws_current_Orden" name="Orden" value="Orden"/>';
-    echo '<input type="hidden" id= "vws_current_LogoClub"      name="LogoClub" value="Logo"/>';
-    echo '<img src="/agility/images/logos/getLogo.php?Federation=1&Logo=ES.png" id= "vws_current_Logo" name="Logo" alt="Logo"/>';
-    echo '<input type="hidden"    id= "vws_current_Perro"      name="Perro" value="Perro"/>';
-    echo '<input type="hidden"    id= "vws_current_Categoria"  name="Categoria" value="Cat"/>';
-    echo '<input type="hidden"    id= "vws_current_Grado"      name="Grado" value="Grad"/>';
-    echo '<input type="hidden"    id= "vws_current_CatGrad"    name="CatGrad" value="Grad"/>';
-    echo '<input type="text"      id= "vws_current_Dorsal"     name="Dorsal" value="Dorsal"/>';
-    echo '<input type="text"      id= "vws_current_Nombre"     name="Nombre" value="Nombre"/>';
-    echo '<input type="hidden"    id= "vws_current_Celo"       name="Celo" value="Celo $1"/>';
-    echo '<input type="text"      id= "vws_current_NombreGuia" name="NombreGuia" value="Guia"/>';
-    echo '<input type="hidden"    id= "vws_current_NombreEquipo" name="NombreEquipo" value="Equipo"/>';
-    echo '<input type="hidden"    id= "vws_current_NombreClub" name="NombreClub" value="Club"/>';
-    echo '<input type="hidden"    id= "vws_current_F"          name="Faltas" value="Flt"/>';
-    echo '<input type="hidden"    id= "vws_current_T"          name="Tocados" value="Toc"/>';
-    echo '<input type="text"      id= "vws_current_FaltasTocados" name="FaltasTocados" value="F/T">';
-    echo '<input type="text"      id= "vws_current_Rehuses"    name="Rehuses" value="R"/>';
-    echo '<input type="hidden"    id= "vws_current_Tintermedio" name="TIntermedio" value="Tint"/>';
-    echo '<input type="text"      id= "vws_current_Tiempo"     name="Tiempo" value="Time"/>';
-    echo '<input type="text"      id= "vws_current_Puesto"     name="Puesto" value="P"/>';
-    echo '<input type="hidden"    id= "vws_current_Eliminado"  name="Eliminado" value="Elim"/>';
-    echo '<input type="hidden"    id= "vws_current_NoPresentado" name="NoPresentado" value="NPr"/>';
-    echo '<input type="hidden"    id= "vws_current_Pendiente"  name="Pendiente" value="Pend"/>';
+for($n=0;$n<4;$n++) {
+    echo '<form id= "vws_current_'.$n.'">';
+    if ($n==0) {
+        echo '<input type="text" id= "vws_current_Orden_'.$n.'" name="Orden" value="Orden '.$n.'"/>';
+        echo '<img src="/agility/images/logos/getLogo.php?Federation=1&Logo=ES.png" id= "vws_current_Logo_'.$n.'" name="Logo" alt="Logo"/>';
+        echo '<input type="hidden"    id= "vws_current_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
+    } else if ($n==1) {
+
+        echo '<input type="text"      id= "vws_current_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
+    } else {
+        echo '<input type="hidden"    id= "vws_current_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
+    }
+    echo '<input type="hidden"    id= "vws_current_Logo_'.$n.'"   name="LogoClub" value="Logo '.$n.'"/>';
+    echo '<input type="text"      id= "vws_current_Dorsal_'.$n.'"     name="Dorsal" value="Dorsal '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_Perro_'.$n.'"      name="Perro" value="Perro '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_Categoria_'.$n.'"  name="Categoria" value="Cat '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_Grado_'.$n.'"      name="Grado" value="Grad '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_CatGrad_'.$n.'"    name="CatGrad" value="Grad '.$n.'"/>';
+    echo '<input type="text"      id= "vws_current_Nombre_'.$n.'"     name="Nombre" value="Nombre '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_Celo_'.$n.'"       name="Celo" value="Celo '.$n.'"/>';
+    echo '<input type="text"      id= "vws_current_NombreGuia_'.$n.'" name="NombreGuia" value="Guia '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_NombreClub_'.$n.'" name="NombreClub" value="Club '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_F_'.$n.'"          name="Faltas" value="Flt '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_T_'.$n.'"          name="Tocados" value="Toc '.$n.'"/>';
+    echo '<input type="text"      id= "vws_current_FaltasTocados_'.$n.'" name="FaltasTocados" value="F/T '.$n.'">';
+    echo '<input type="text"      id= "vws_current_Rehuses_'.$n.'"    name="Rehuses" value="R '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_Tintermedio_'.$n.'" name="TIntermedio" value="Tint '.$n.'"/>';
+    echo '<input type="text"      id= "vws_current_Tiempo_'.$n.'"     name="Tiempo" value="Time '.$n.'"/>';
+    echo '<input type="text"      id= "vws_current_Puesto_'.$n.'"     name="Puesto" value="P '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_Eliminado_'.$n.'"  name="Eliminado" value="Elim '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_NoPresentado_'.$n.'" name="NoPresentado" value="NPr '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_Pendiente_'.$n.'"  name="Pendiente" value="Pend '.$n.'"/>';
     echo '</form>';
+}
 ?>
     </div>
     
@@ -172,16 +158,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="text"      id="vws_ultimos_Orden_'.$n.'"      name="Dorsal" value="Orden '.$n.'"/>';
     echo '<input type="hidden" id="vws_ultimos_LogoClub_'.$n.'"      name="LogoClub" value="Logo '.$n.'"/>';
     echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_ultimos_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
-    echo '<input type="text"      id="vws_ultimos_Dorsal_'.$n.'"     name="Dorsal" value="Dorsal '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_ultimos_Perro_'.$n.'"      name="Perro" value="Perro '.$n.'"/>';
-    echo '<input type="text"      id="vws_ultimos_Nombre_'.$n.'"     name="Nombre" value="Nombre '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_Licencia_'.$n.'"      name="Licencia" value="Lic '.$n.'"/>';
     echo '<input type="hidden"    id="vws_ultimos_Categoria_'.$n.'"  name="Categoria" value="Cat '.$n.'"/>';
     echo '<input type="hidden"    id="vws_ultimos_Grado_'.$n.'"      name="Grado" value="Grad '.$n.'"/>';
-    echo '<input type="text"      id="vws_ultimos_NombreGuia_'.$n.'" name="NombreGuia" value="Guia '.$n.'"/>';
     echo '<input type="hidden"    id="vws_ultimos_Equipo_'.$n.'"     name="Equipo" value="Equipo '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_ultimos_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_ultimos_NombreClub_'.$n.'" name="NombreClu;outline-width:2pxb" value="Club '.$n.'"/>';
+    echo '<input type="text"      id="vws_ultimos_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
     echo '<!-- data on round 1 -->';
     echo '<input type="hidden"    id="vws_ultimos_F1_'.$n.'"         name="F1" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_ultimos_R1_'.$n.'"         name="R1" value="Reh '.$n.'"/>';
@@ -214,21 +194,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 -->
 <script type="text/javascript" charset="utf-8">
-/*
-    $('#vws-panel').panel({
-        fit:true,
-        noheader:true,
-        border:false,
-        closable:false,
-        collapsible:false,
-        collapsed:false,
-        resizable:true
-    });
-*/
-
+    
     var layout= {'rows':142,'cols':247};
+    
     // cabeceras
-
 <?php
     if ($config->getEnv("vws_uselogo")!=0) { // logotipo del evento
         echo 'doLayout(layout,"#vws_hdr_logo",1,0,88,27);';
@@ -249,51 +218,54 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
     // llamada a pista
-    for (var n=0;n<8;n++) {
-        doLayout(layout,"#vws_call_Orden_"+n,1,37+9*n,9,9);
-        doLayout(layout,"#vws_call_Logo_"+n,10,37+9*n,8,9);
-        doLayout(layout,"#vws_call_Dorsal_"+n,18,37+9*n,9,9);
-        doLayout(layout,"#vws_call_Nombre_"+n,27,37+9*n,19,9);
-        doLayout(layout,"#vws_call_NombreGuia_"+n,46,37+9*n,42,9);
+    for (var n=0;n<5;n++) {
+        doLayout(layout,"#vws_call_Orden_"+n,1,37+9*n,10,9);
+        doLayout(layout,"#vws_call_Logo_"+n,11,37+9*n,15,9);
+        doLayout(layout,"#vws_call_NombreEquipo_"+n,26,37+9*n,56,9);
     }
     
-    // perro en pista
-    doLayout(layout,"#vws_current_Orden",       1,     109,10,13);
-    doLayout(layout,"#vws_current_Logo",        11,    109,15,13);
-    doLayout(layout,"#vws_current_Dorsal",      26,    109,15,13);
-    doLayout(layout,"#vws_current_Nombre",      41,    109,41,13);
-    doLayout(layout,"#vws_current_NombreGuia",  82,    109,74,13);
-    doLayout(layout,"#vws_current_FaltasTocados",156,  109,20,13);
-    doLayout(layout,"#vws_current_Rehuses",     176,   109,20,13);
-    doLayout(layout,"#vws_current_Tiempo",      196,   109,35,13);
-    doLayout(layout,"#vws_current_Puesto",      231,   109,15,13);
+    // perros del equipo en pista
+    for (n=0;n<4;n++) {
+        if (n==0) { // orden, logo, dorsal
+            doLayout(layout,"#vws_current_Orden_0",    1,     82+10*n,10,10);
+            doLayout(layout,"#vws_current_Logo_0",     11,    82+10*n,15,10);
+            doLayout(layout,"#vws_current_Dorsal_0",   26,    82+10*n,24,10);
+        } else if (n==1) { // equipo,dorsal
+            doLayout(layout,"#vws_current_NombreEquipo_1", 1,  82+10*n,39,10);
+            doLayout(layout,"#vws_current_Dorsal_1",   40,    82+10*n,10,10);
+        } else { // dorsal
+            doLayout(layout,"#vws_current_Dorsal_"+n,  1,     82+10*n,49,10);
+        }
+        doLayout(layout,"#vws_current_Nombre_"+n,      50,    82+10*n,41,10);
+        doLayout(layout,"#vws_current_NombreGuia_"+n,  91,    82+10*n,70,10);
+        doLayout(layout,"#vws_current_FaltasTocados_"+n,156,  82+10*n,20,10);
+        doLayout(layout,"#vws_current_Rehuses_"+n,     176,   82+10*n,20,10);
+        doLayout(layout,"#vws_current_Tiempo_"+n,      196,   82+10*n,35,10);
+        doLayout(layout,"#vws_current_Puesto_"+n,      231,   82+10*n,15,10);
+    }
 
     // resultados
-    for(n=0;n<10;n++) {
+    for(n=0;n<7;n++) {
         doLayout(layout,"#vws_results_Logo_"+n,     91,     19+9*n,10,9);
-        doLayout(layout,"#vws_results_Dorsal_"+n,   101,     19+9*n,9,9);
-        doLayout(layout,"#vws_results_Nombre_"+n,   110,    19+9*n,19,9);
-        doLayout(layout,"#vws_results_NombreGuia_"+n,129,   19+9*n,45,9);
-        doLayout(layout,"#vws_results_T1_"+n,       174,    19+9*n,14,9);
-        doLayout(layout,"#vws_results_P1_"+n,       188,    19+9*n,14,9);
-        doLayout(layout,"#vws_results_Puesto1_"+n,  202,    19+9*n,8,9);
-        doLayout(layout,"#vws_results_Tiempo_"+n,   210,    19+9*n,14,9);
-        doLayout(layout,"#vws_results_Penalizacion_"+n,224, 19+9*n,14,9);
-        doLayout(layout,"#vws_results_Puesto_"+n,   238,    19+9*n,8,9);
+        doLayout(layout,"#vws_results_NombreEquipo_"+n,101, 19+9*n,61,9);
+        doLayout(layout,"#vws_results_T1_"+n,       162,    19+9*n,16,9);
+        doLayout(layout,"#vws_results_P1_"+n,       178,    19+9*n,16,9);
+        doLayout(layout,"#vws_results_Puesto1_"+n,  194,    19+9*n,10,9);
+        doLayout(layout,"#vws_results_Tiempo_"+n,   204,    19+9*n,16,9);
+        doLayout(layout,"#vws_results_Penalizacion_"+n,220, 19+9*n,16,9);
+        doLayout(layout,"#vws_results_Puesto_"+n,   236,    19+9*n,10,9);
     }
     // ultimos resultados
     for(n=0;n<2;n++) {
         doLayout(layout,"#vws_ultimos_Orden_"+n,    82,     122+9*n,9,9);
         doLayout(layout,"#vws_ultimos_Logo_"+n,     91,     122+9*n,10,9);
-        doLayout(layout,"#vws_ultimos_Dorsal_"+n,   101,     122+9*n,9,9);
-        doLayout(layout,"#vws_ultimos_Nombre_"+n,   110,    122+9*n,19,9);
-        doLayout(layout,"#vws_ultimos_NombreGuia_"+n,129,   122+9*n,45,9);
-        doLayout(layout,"#vws_ultimos_T1_"+n,       174,    122+9*n,14,9);
-        doLayout(layout,"#vws_ultimos_P1_"+n,       188,    122+9*n,14,9);
-        doLayout(layout,"#vws_ultimos_Puesto1_"+n,  202,    122+9*n,8,9);
-        doLayout(layout,"#vws_ultimos_Tiempo_"+n,   210,    122+9*n,14,9);
-        doLayout(layout,"#vws_ultimos_Penalizacion_"+n,224, 122+9*n,14,9);
-        doLayout(layout,"#vws_ultimos_Puesto_"+n,   238,    122+9*n,8,9);
+        doLayout(layout,"#vws_ultimos_NombreEquipo_"+n,101, 122+9*n,61,9);
+        doLayout(layout,"#vws_ultimos_T1_"+n,       162,    122+9*n,16,9);
+        doLayout(layout,"#vws_ultimos_P1_"+n,       178,    122+9*n,16,9);
+        doLayout(layout,"#vws_ultimos_Puesto1_"+n,  194,    122+9*n,10,9);
+        doLayout(layout,"#vws_ultimos_Tiempo_"+n,   204,    122+9*n,16,9);
+        doLayout(layout,"#vws_ultimos_Penalizacion_"+n,220, 122+9*n,16,9);
+        doLayout(layout,"#vws_ultimos_Puesto_"+n,   236,    122+9*n,10,9);
     }
     // sponsor
     doLayout(layout,"#vws_sponsors",   1,    122,79,18);

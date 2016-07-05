@@ -214,17 +214,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 -->
 <script type="text/javascript" charset="utf-8">
-/*
-    $('#vws-panel').panel({
-        fit:true,
-        noheader:true,
-        border:false,
-        closable:false,
-        collapsible:false,
-        collapsed:false,
-        resizable:true
-    });
-*/
 
     var layout= {'rows':142,'cols':247};
     // cabeceras

@@ -365,7 +365,7 @@ class VideoWall {
                 if (!isset($teams[$lastTeam])) $teams[$lastTeam]=array(); // to prevent override in celo
                 $orden++;
                 // creamos los datos del nuevo equipo, y lo insertamos en el orden de salida
-                // los perros del mismo equipo comparten cagegoria, grado y celo, con lo que
+                // los perros del mismo equipo comparten cagegoria y grado  con lo que
                 // usamos los datos del primer perro encontrado del equipo
                 // por otro lado, para el logo, cogemos el logo del primer perro. TODO: revise
                 $team=array(
@@ -377,8 +377,7 @@ class VideoWall {
                     'Equipo' => $item['Equipo'],
                     'NombreEquipo' => $item['NombreEquipo'],
                     'Categoria' => $item['Categoria'],
-                    'Grado' => $item['Grado'],
-                    'Celo' => $item['Celo']
+                    'Grado' => $item['Grado']
                 );
                 array_unshift($result,$team); // insertamos equipo en orden al principio de la lista
             }
