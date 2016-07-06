@@ -230,12 +230,14 @@ class Clasificaciones extends DBObject {
         // reindexamos equipos por ID y aniadimos campos para evaluar clasificacion
         $teams=array();
         foreach ($tbj as $equipo) {
+			$id=$equipo['ID'];
             if ($equipo['Nombre']==="-- Sin asignar --") continue;
             // comprobamos la categoria. si no coincide tiramos el equipo
             $modes=array("L","M","S","MS","LMS","T","LM","ST","LMST");
             if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
-            $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Tiempo'=>0,'Penalizacion'=>0));
-            $teams[$equipo['ID']]=$r;
+            $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Puesto1'=>0,'Puesto2'=>0,'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0));
+            $teams[$id]=$r;
+			$teams[$id]['Equipo']=$id; // guardamos el teamID 
         }
         // procesamos manga 1. Se asume que los resultados ya vienen ordenados por puesto,
         // de manera que se contabilizan solo los mindogs primeros perros de cada equipo
@@ -276,13 +278,27 @@ class Clasificaciones extends DBObject {
             for($n=$team['C1'];$n<$mindogs;$n++) { $team['P1']+=400; $team['Penalizacion']+=400; }
             for($n=$team['C2'];$n<$mindogs;$n++) { $team['P2']+=400; $team['Penalizacion']+=400; }
         }
-        // eliminamos el indice del array
+		// calculamos y almacenamos puestos de manga 1
+		$manga1=array_values($teams);
+		usort($manga1, function($a, $b) {
+			if ( $a['P1'] == $b['P1'] )	return ($a['T1'] > $b['T1'])? 1:-1;
+			return ( $a['P1'] > $b['P1'])?1:-1;
+		});
+		for ($n=0;$n<count($manga1);$n++) $teams[$manga1[$n]['ID']]['Puesto1']=$n+1;
+		// calculamos y almacenamos puestos de manga 2
+		$manga2=array_values($teams);
+		usort($manga2, function($a, $b) {
+			if ( $a['P2'] == $b['P2'] )	return ($a['T2'] > $b['T2'])? 1:-1;
+			return ( $a['P2'] > $b['P2'])?1:-1;
+		});
+		for ($n=0;$n<count($manga2);$n++) $teams[$manga2[$n]['ID']]['Puesto2']=$n+1;
+		// calculamos y almacenamos puesto en la clasificacion final
         $final=array_values($teams);
-        // re-ordenamos los datos en base a la puntuacion
         usort($final, function($a, $b) {
             if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
             return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
         });
+		for ($n=0;$n<count($final);$n++) $teams[$final[$n]['ID']]['Puesto']=$n+1;
         // retornamos resultado
         return $final;
 	}
