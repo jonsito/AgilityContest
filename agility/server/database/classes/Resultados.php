@@ -803,6 +803,8 @@ class Resultados extends DBObject {
             $teams[$eq]['Count']++;
             $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
             $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
+			// cogemos como logo del equipo el logo del primer perro que encontremos de dicho equipo
+			if (!array_key_exists('LogoTeam',$teams[$eq])) $teams[$eq]['LogoTeam']=$resultado['LogoClub'];
         }
         // rellenamos huecos hasta completar mindogs
         foreach ($teams as &$team ) {

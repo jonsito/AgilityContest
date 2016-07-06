@@ -102,7 +102,7 @@ events
             crm.Chrono('stop',time);
             crm.Chrono('reset',time);
             vw_updateWorkingData(event,function(e,d){
-                vws_updateLlamada(e,d);
+                vws_updateLlamada(e,d,vws_updateFinales);
             });
         },
         'salida': function (event, time) {     // orden de salida
@@ -181,7 +181,7 @@ events
             myCounter.stop();
             $('#cronometro').Chrono('stop', time);  // nos aseguramos de que los cronos esten parados
             vw_updateWorkingData(event,function(e,d){
-                /* vw_updateFinales(e,d); */ // required to be done at
+                /* vw_updateFinales(e,d); */ // required to be done as callback for updateLLamada()
             });
         },
         'cancelar': function (event,time) {  // operador pulsa cancelar

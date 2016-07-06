@@ -111,7 +111,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id="vws_results_C1_'.$n.'"         name="C1" value="Cal1 '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_E1_'.$n.'"         name="E1" value="Elim1 '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_N1_'.$n.'"         name="N1" value="NoPr1 '.$n.'"/>';
-    echo '<input type="text"      id="vws_results_Puesto1_'.$n.'"    name="Puesto" value="Pos '.$n.'"/>';
+    echo '<input type="text"      id="vws_results_Puesto1_'.$n.'"    name="Puesto1" value="Pos '.$n.'"/>';
     echo '<!-- data on round 2 -->';
     echo '<input type="hidden"    id="vws_results_F2_'.$n.'"         name="F2" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_R2_'.$n.'"         name="R2" value="Reh '.$n.'"/>';
@@ -121,7 +121,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id="vws_results_C2_'.$n.'"         name="C2" value="Cal2 '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_E2_'.$n.'"         name="E2" value="Elim2 '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_N2_'.$n.'"         name="N2" value="NoPr '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_results_Puesto2_'.$n.'"    name="Puesto" value="Pos '.$n.'"/>';
+    echo '<input type="hidden"    id="vws_results_Puesto2_'.$n.'"    name="Puesto2" value="Pos '.$n.'"/>';
     echo '<!-- Final data -->';
     echo '<input type="text"      id="vws_results_Tiempo_'.$n.'"       name="Tiempo" value="Tiempo '.$n.'"/>';
     echo '<input type="text"      id="vws_results_Penalizacion_'.$n.'" name="Penalizacion" value="Penal '.$n.'"/>';
@@ -191,7 +191,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id="vws_before_C1_'.$n.'"         name="C1" value="Cal1 '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_E1_'.$n.'"         name="E1" value="Elim1 '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_N1_'.$n.'"         name="N1" value="NoPr1 '.$n.'"/>';
-    echo '<input type="text"      id="vws_before_Puesto1_'.$n.'"    name="Puesto" value="Pos '.$n.'"/>';
+    echo '<input type="text"      id="vws_before_Puesto1_'.$n.'"    name="Puesto1" value="Pos '.$n.'"/>';
     echo '<!-- data on round 2 ( in simplified everything is hidden, just show final results -->';
     echo '<input type="hidden"    id="vws_before_F2_'.$n.'"         name="F2" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_R2_'.$n.'"         name="R2" value="Reh '.$n.'"/>';
@@ -201,7 +201,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id="vws_before_C2_'.$n.'"         name="C2" value="Cal2 '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_E2_'.$n.'"         name="E2" value="Elim2 '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_N2_'.$n.'"         name="N2" value="NoPr '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_before_Puesto2_'.$n.'"    name="Puesto" value="Pos '.$n.'"/>';
+    echo '<input type="hidden"    id="vws_before_Puesto2_'.$n.'"    name="Puesto2" value="Pos '.$n.'"/>';
     echo '<!-- Final data -->';
     echo '<input type="text"      id="vws_before_Tiempo_'.$n.'"       name="Tiempo" value="Tiempo '.$n.'"/>';
     echo '<input type="text"      id="vws_before_Penalizacion_'.$n.'" name="Penalizacion" value="Penal '.$n.'"/>';

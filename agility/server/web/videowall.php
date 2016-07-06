@@ -375,6 +375,7 @@ class VideoWall {
                     'LogoTeam' =>  $item['LogoClub'],
                     'Orden' => $orden,
                     'Equipo' => $item['Equipo'],
+                    'ID' => $item['Equipo'], // duplicate
                     'NombreEquipo' => $item['NombreEquipo'],
                     'Categoria' => $item['Categoria'],
                     'Grado' => $item['Grado']

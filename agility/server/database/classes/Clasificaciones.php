@@ -251,6 +251,8 @@ class Clasificaciones extends DBObject {
             $teams[$eq]['P1']+=$resultado['Penalizacion'];
             $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
             $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
+			// cogemos como logo del equipo el logo del primer perro que encontremos de dicho equipo
+			if (!array_key_exists('LogoTeam',$teams[$eq])) $teams[$eq]['LogoTeam']=$resultado['LogoClub'];
         }
         // procesamos manga 2
         if ($r2!=null) foreach($r2['rows'] as $resultado) {
@@ -265,6 +267,8 @@ class Clasificaciones extends DBObject {
             $teams[$eq]['P2']+=$resultado['Penalizacion'];
             $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
             $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
+			// cogemos como logo del equipo el logo del primer perro que encontremos de dicho equipo
+			if (!array_key_exists('LogoTeam',$teams[$eq])) $teams[$eq]['LogoTeam']=$resultado['LogoClub'];
         }
         // rellenamos huecos hasta completar mindogs
         foreach ($teams as &$team ) {
