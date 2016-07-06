@@ -26,11 +26,10 @@ $config =Config::getInstance();
 /**
  * Handle simplified panel header and footer
  * add proper logos, set texts, start footer sponsor rotation
- * @param {object} evt received 'init' event
  * @param {object} data data associated with event as received from setup_working_data()
  */
-function vws_updateHeaderAndFooter(evt,data) {
-
+function vws_updateHeader(data) {
+    console.log(JSON.stringify(data));
 }
 
 function vws_setFinalIndividualOrTeamView(data) {
@@ -73,6 +72,8 @@ function vws_updateLlamada(evt,data,callback) {
         },
         success: function(dat,status,jqxhr) {
             var logo="null.png";
+            // update header
+            vws_updateHeader(dat);
             // fill "after" columns
             for(var n=0;n<nitems;n++) {
                 logo=dat['after'][n][(team)?'LogoTeam':'LogoClub'];
@@ -142,7 +143,7 @@ function vws_updateFinales(data) {
             var size = items.length; // longitud de datos a analizar
 
             // ajustamos cabeceras ( nombre mangas, trs y trm )
-
+            vws_updateHeader(dat);
             // rellenamos arrays 'result' y 'before'
             for (var n = 0; n < size; n++) {
                 // el campo puesto no viene: lo obtenemos del orden de la lista

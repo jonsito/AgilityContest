@@ -77,13 +77,12 @@ events
         'null': null,// null event: no action taken
         'init': function (event, time) { // connection is made.
             vw_updateWorkingData(event,function(e,d){
-                vws_updateHeaderAndFooter(e,d); // fix header. Do not add round as no data yet
+                vws_updateHeader(d); // fix header. Do not add round as no data yet
                 vws_setFinalIndividualOrTeamView(d); // fix individual or team view for final results
             });
         },
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
-                vws_updateHeaderAndFooter(e,d); // fix header. ( add round information )
                 vws_updateLlamada(e,d); // load call to ring data and existing results
             });
         },
