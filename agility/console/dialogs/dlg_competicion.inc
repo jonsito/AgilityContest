@@ -103,7 +103,10 @@ $('#competicion-datagrid').datagrid({
     loadMsg: '<?php _e("Updating competition data"); ?> ....',
     toolbar: '#competicion-toolbar',
     pagination: false,
-    rownumbers: true, // fix row height to take care on team datagrid
+	// these two fields are required in 1.4.2 editable datagrid, due to bad rownumber cell height evaluation
+	// and poor rendering performance. To be removed in a newer jeasyui version
+	autoRowHeight:false, // as specific css is needed, for rownumbers do not autoevaluate row height
+    rownumbers: true, // fix rownumber cell height to take care on editable datagrid
     fitColumns: true,
 	idField: 'Dorsal',
     singleSelect: true,

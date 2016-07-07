@@ -213,9 +213,9 @@ function vws_updateData(data) {
     var n=parseInt(data["NoPresentado"]);
     var p=parseInt($('#vws_current_Puesto'+workingData.vws_currentRow).val());
     var r=$('#vws_current_Result'+workingData.vws_currentRow);
-    if ((e<0) && (n<0)) return; // no change. do nothing
-    if (n>=0) { r.val( (n==0)?p:'<?php _e('NoPr');?>.'); return; } // change in not present: update
-    if (e>=0) { r.val( (e==0)?p:'<?php _e('Elim');?>.'); return; }// change in eliminated: update
+    if (n>0) { r.val('<?php _e('NoPr');?>.'); return; }
+    if (e>0) { r.val('<?php _e('Elim');?>.'); return; }
+    r.val(p);
 }
 
 function vws_updateChronoData(data) { vws_updateData(data); } // just call updateData as from tablet
