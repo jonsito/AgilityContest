@@ -202,6 +202,7 @@ function vwls_updateData(data) {
 	if (data["Rehuses"]!=-1) 	$('#vwls_Rehuses').html(data["Rehuses"]).hide().show(0);
 	if (data["Tiempo"]!=-1) 	$('#vwls_Tiempo').html(data["Tiempo"]).hide().show(0);
 	if (data["TIntermedio"]!=-1)$("#vwls_TIntermedio").html(data['TIntermedio']);
+	// parseamos puesto
 	var e=parseInt(data["Eliminado"]);
 	if (e>=0) {
 		$('#vwls_Eliminado').html(e);

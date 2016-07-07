@@ -97,14 +97,14 @@ function vws_updateLlamada(evt,data,callback) {
             }
             // fill "current" columns
             if(team) {
-                workingData.vws_currentRow=null;
+                workingData.vws_currentRow="";
                 dat['results'][0]['Orden']=dat['current'][0]['Orden']; // to properly fill form field
                 for (n=0;n<4;n++) {
                     // notice 'results' and 'LogoClub' as we need dog data, not team data
                     dat['results'][n]['FaltasTocados']=parseInt(dat['results'][n]['Faltas'])+parseInt(dat['results'][n]['Tocados']);
                     $('#vws_current_'+n).form('load',dat['results'][n]);
                     // check for current dot to mark proper "current" row form as active
-                    if (dat['results'][n]['Perro']==evt['Dog']) workingData.currentRow='#vws_current_'+n;
+                    if (dat['results'][n]['Perro']==evt['Dog']) workingData.vws_currentRow="_"+n;
                 }
                 logo=dat['current'][0]['LogoTeam'];
                 $('#vws_current_Logo_0').attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
@@ -112,7 +112,7 @@ function vws_updateLlamada(evt,data,callback) {
                 logo=dat['current'][0]['LogoClub'];
                 dat['current'][0]['FaltasTocados']=parseInt(dat['current'][0]['Faltas'])+parseInt(dat['current'][0]['Tocados']);
                 $('#vws_current').form('load',dat['current'][0]);
-                workingData.currentRow='#vws_current';
+                workingData.vws_currentRow="";
                 $('#vws_current_Logo').attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             }
             // fill "before" ( but will be revisited on updateResults )
@@ -163,6 +163,7 @@ function vws_updateFinales(data) {
             for (var n = 0; n < size; n++) {
                 // el campo puesto no viene: lo obtenemos del orden de la lista
                 items[n]['Puesto']=n+1;
+                items[n]['Result']=n+1;
                 // fill if required 'result' table data
                 if (n < nitems) {
                     var logo = items[n][(team) ? 'LogoTeam' : 'LogoClub'];
@@ -175,27 +176,49 @@ function vws_updateFinales(data) {
                     if (!team) { if ($('#vws_before_Perro_' + i).val() != items[n]['Perro']) continue; }
                     $('#vws_before_' + i).form('load',items[n]);
                 }
-            } // fill result & before
+            }
             // ahora indicamos puesto en el(los) campo(s) current, utilizando los datos de perros individuales
             for (n = 0; n < individual.length; n++) {
                 var perro = individual[n]['Perro'];
                 if (team) {
                     for (i = 0; i < 4; i++) {
                         if ($('#vws_current_Perro_' + i).val() != perro) continue;
-                        $('#vws_current_Puesto' + i).val(individual[n]['Puesto']);
+                        $('#vws_current_Puesto_' + i).val(individual[n]['Puesto']);
+                        $('#vws_current_Result_' + i).val(individual[n]['Puesto']);
                     }
                 } else {
                     if ($('#vws_current_Perro').val() != perro) continue;
                     $('#vws_current_Puesto').val(individual[n]['Puesto']);
+                    $('#vws_current_Result').val(individual[n]['Puesto']);
                 }
             } // fill current
         } // success
     }); // ajax
 }
 
-function vws_updateData(event) {
-    
+function vws_updateData(data) {
+    // take care on F/T changes
+    if (data["Faltas"]!=-1) 	$('#vws_current_Faltas'+workingData.vws_currentRow).val(data["Faltas"]);
+    if (data["Tocados"]!=-1) 	$('#vws_current_Tocados'+workingData.vws_currentRow).val(data["Tocados"]);
+    // now update faltastocados field
+    var flt=$('#vws_current_Faltas'+workingData.vws_currentRow).val();
+    var toc=$('#vws_current_Tocados'+workingData.vws_currentRow).val();
+    $('#vws_current_FaltasTocados'+workingData.vws_currentRow).val(parseInt(flt)+parseInt(toc));
+    // fix refusals and times
+    if (data["Rehuses"]!=-1) 	$('#vws_current_Rehuses'+workingData.vws_currentRow).val(data["Rehuses"]);
+    if (data["Tiempo"]!=-1) 	$('#vws_current_Tiempo'+workingData.vws_currentRow).val(data["Tiempo"]);
+    if (data["TIntermedio"]!=-1) $('#vws_current_TIntermedio'+workingData.vws_currentRow).val(data["TIntermedio"]);
+    // handle eliminated and not presented overriding (if needed ) Puesto field
+    var e=parseInt(data["Eliminado"]);
+    var n=parseInt(data["NoPresentado"]);
+    var p=parseInt($('#vws_current_Puesto'+workingData.vws_currentRow).val());
+    var r=$('#vws_current_Result'+workingData.vws_currentRow);
+    if ((e<0) && (n<0)) return; // no change. do nothing
+    if (n>=0) { r.val( (n==0)?p:'<?php _e('NoPr');?>.'); return; } // change in not present: update
+    if (e>=0) { r.val( (e==0)?p:'<?php _e('Elim');?>.'); return; }// change in eliminated: update
 }
+
+function vws_updateChronoData(data) { vws_updateData(data); } // just call updateData as from tablet
 
 function vwsf_evalPenalizacion() {
 

@@ -147,16 +147,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="text"      id= "vws_current_NombreGuia" name="NombreGuia" value="Guia"/>';
     echo '<input type="hidden"    id= "vws_current_NombreEquipo" name="NombreEquipo" value="Equipo"/>';
     echo '<input type="hidden"    id= "vws_current_NombreClub" name="NombreClub" value="Club"/>';
-    echo '<input type="hidden"    id= "vws_current_F"          name="Faltas" value="Flt"/>';
-    echo '<input type="hidden"    id= "vws_current_T"          name="Tocados" value="Toc"/>';
+    echo '<input type="hidden"    id= "vws_current_Faltas"      name="Faltas" value="Flt"/>';
+    echo '<input type="hidden"    id= "vws_current_Tocados"     name="Tocados" value="Toc"/>';
     echo '<input type="text"      id= "vws_current_FaltasTocados" name="FaltasTocados" value="F/T">';
     echo '<input type="text"      id= "vws_current_Rehuses"    name="Rehuses" value="R"/>';
     echo '<input type="hidden"    id= "vws_current_Tintermedio" name="TIntermedio" value="Tint"/>';
     echo '<input type="text"      id= "vws_current_Tiempo"     name="Tiempo" value="Time"/>';
-    echo '<input type="text"      id= "vws_current_Puesto"     name="Puesto" value="P"/>';
-    echo '<input type="hidden"    id= "vws_current_Eliminado"  name="Eliminado" value="Elim"/>';
-    echo '<input type="hidden"    id= "vws_current_NoPresentado" name="NoPresentado" value="NPr"/>';
+    echo '<input type="hidden"    id= "vws_current_Puesto"     name="Puesto" value="P"/>';
+    echo '<input type="hidden"    id= "vws_current_Eliminado"  name="Eliminado" value=""/>';
+    echo '<input type="hidden"    id= "vws_current_NoPresentado" name="NoPresentado" value=""/>';
     echo '<input type="hidden"    id= "vws_current_Pendiente"  name="Pendiente" value="Pend"/>';
+    echo '<input type="text"      id= "vws_current_Result"       name="Result" value="Res"/>';
     echo '</form>';
 ?>
     </div>
@@ -254,7 +255,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     doLayout(layout,"#vws_current_FaltasTocados",156,  109,20,13);
     doLayout(layout,"#vws_current_Rehuses",     176,   109,20,13);
     doLayout(layout,"#vws_current_Tiempo",      196,   109,35,13);
-    doLayout(layout,"#vws_current_Puesto",      231,   109,15,13);
+    doLayout(layout,"#vws_current_Result",      231,   109,15,13);
 
     // resultados
     for(n=0;n<10;n++) {
