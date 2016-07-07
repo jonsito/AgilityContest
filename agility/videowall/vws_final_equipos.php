@@ -118,17 +118,20 @@ for($n=0;$n<4;$n++) {
     echo '<input type="hidden"    id= "vws_current_Celo_'.$n.'"       name="Celo" value="Celo '.$n.'"/>';
     echo '<input type="text"      id= "vws_current_NombreGuia_'.$n.'" name="NombreGuia" value="Guia '.$n.'"/>';
     echo '<input type="hidden"    id= "vws_current_NombreClub_'.$n.'" name="NombreClub" value="Club '.$n.'"/>';
-    echo '<input type="hidden"    id= "vws_current_Faltas_'.$n.'"          name="Faltas" value="Flt '.$n.'"/>';
-    echo '<input type="hidden"    id= "vws_current_Tocados_'.$n.'"          name="Tocados" value="Toc '.$n.'"/>';
-    echo '<input type="text"      id= "vws_current_FaltasTocados_'.$n.'" name="FaltasTocados" value="F/T '.$n.'">';
-    echo '<input type="text"      id= "vws_current_Rehuses_'.$n.'"    name="Rehuses" value="R '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_Faltas_'.$n.'"     name="Faltas" value="Flt '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_Tocados_'.$n.'"    name="Tocados" value="Toc '.$n.'"/>';
+    echo '<span id= "vws_current_FaltasTocados_'.$n.'">F/T '.$n.'"</span>';
+    echo '<input type="hidden"      id= "vws_current_Rehuses_'.$n.'"    name="Rehuses" value="R '.$n.'"/>';
+    echo '<span id= "vws_current_Refusals_'.$n.'">R '.$n.'"</span>';
     echo '<input type="hidden"    id= "vws_current_Tintermedio_'.$n.'" name="TIntermedio" value="Tint '.$n.'"/>';
-    echo '<input type="text"      id= "vws_current_Tiempo_'.$n.'"     name="Tiempo" value="Time '.$n.'"/>';
+    echo '<input type="hidden"    id= "vws_current_Tiempo_'.$n.'"     name="Tiempo" value="Time '.$n.'"/>';
+    echo '<span id= "vws_current_Time_'.$n.'" >Time '.$n.'</span>';
     echo '<input type="hidden"    id= "vws_current_Puesto_'.$n.'"     name="Puesto" value="P '.$n.'"/>';
     echo '<input type="hidden"    id= "vws_current_Eliminado_'.$n.'"  name="Eliminado" value=""/>';
     echo '<input type="hidden"    id= "vws_current_NoPresentado_'.$n.'" name="NoPresentado" value=""/>';
     echo '<input type="hidden"    id= "vws_current_Pendiente_'.$n.'"  name="Pendiente" value="Pend '.$n.'"/>';
-    echo '<input type="text"      id= "vws_current_Result_'.$n.'"  name="Pendiente" value="Res '.$n.'"/>';
+    echo '<span id= "vws_current_Result_'.$n.'" >Res '.$n.'</span>';
+    echo '<span id= "vws_current_Active_'.$n.'" >Act '.$n.'</span>';
     echo '</form>';
 }
 ?>
@@ -210,11 +213,12 @@ for($n=0;$n<4;$n++) {
             doLayout(layout,"#vws_current_Dorsal_"+n,  40,    82+10*n,10,10);
         }
         doLayout(layout,"#vws_current_Nombre_"+n,      50,    82+10*n,41,10);
-        doLayout(layout,"#vws_current_NombreGuia_"+n,  91,    82+10*n,70,10);
-        doLayout(layout,"#vws_current_FaltasTocados_"+n,156,  82+10*n,20,10);
-        doLayout(layout,"#vws_current_Rehuses_"+n,     176,   82+10*n,20,10);
-        doLayout(layout,"#vws_current_Tiempo_"+n,      196,   82+10*n,35,10);
-        doLayout(layout,"#vws_current_Result_"+n,      231,   82+10*n,15,10);
+        doLayout(layout,"#vws_current_NombreGuia_"+n,  91,    82+10*n,71,10);
+        doLayout(layout,"#vws_current_FaltasTocados_"+n,162,  82+10*n,16,10);
+        doLayout(layout,"#vws_current_Refusals_"+n,     178,   82+10*n,16,10);
+        doLayout(layout,"#vws_current_Time_"+n,        194,   82+10*n,26,10);
+        doLayout(layout,"#vws_current_Result_"+n,      220,   82+10*n,16,10);
+        doLayout(layout,"#vws_current_Active_"+n,      236,   82+10*n,10,10);
     }
 
     // resultados

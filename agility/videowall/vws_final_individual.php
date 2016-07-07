@@ -149,15 +149,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id= "vws_current_NombreClub" name="NombreClub" value="Club"/>';
     echo '<input type="hidden"    id= "vws_current_Faltas"      name="Faltas" value="Flt"/>';
     echo '<input type="hidden"    id= "vws_current_Tocados"     name="Tocados" value="Toc"/>';
-    echo '<input type="text"      id= "vws_current_FaltasTocados" name="FaltasTocados" value="F/T">';
-    echo '<input type="text"      id= "vws_current_Rehuses"    name="Rehuses" value="R"/>';
+    echo '<span id= "vws_current_FaltasTocados">F/T</span>';
+    echo '<input type="hidden"      id= "vws_current_Rehuses"    name="Rehuses" value="R"/>';
+    echo '<span id= "vws_current_Refusals">F/T</span>';
     echo '<input type="hidden"    id= "vws_current_Tintermedio" name="TIntermedio" value="Tint"/>';
-    echo '<input type="text"      id= "vws_current_Tiempo"     name="Tiempo" value="Time"/>';
+    echo '<input type="hidden"    id= "vws_current_Tiempo"     name="Tiempo" value="Time"/>';
+    echo '<span id= "vws_current_Time">Time</span>';
     echo '<input type="hidden"    id= "vws_current_Puesto"     name="Puesto" value="P"/>';
     echo '<input type="hidden"    id= "vws_current_Eliminado"  name="Eliminado" value=""/>';
     echo '<input type="hidden"    id= "vws_current_NoPresentado" name="NoPresentado" value=""/>';
     echo '<input type="hidden"    id= "vws_current_Pendiente"  name="Pendiente" value="Pend"/>';
-    echo '<input type="text"      id= "vws_current_Result"       name="Result" value="Res"/>';
+    echo '<span id="vws_current_Result">Res</span>';
+    echo '<span id= "vws_current_Active" style="display:none">Active</span>';
     echo '</form>';
 ?>
     </div>
@@ -252,9 +255,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     doLayout(layout,"#vws_current_Dorsal",      28,    109,18,13);
     doLayout(layout,"#vws_current_Nombre",      46,    109,36,13);
     doLayout(layout,"#vws_current_NombreGuia",  82,    109,74,13);
+
     doLayout(layout,"#vws_current_FaltasTocados",156,  109,20,13);
-    doLayout(layout,"#vws_current_Rehuses",     176,   109,20,13);
-    doLayout(layout,"#vws_current_Tiempo",      196,   109,35,13);
+    doLayout(layout,"#vws_current_Refusals",     176,   109,20,13);
+    doLayout(layout,"#vws_current_Time",      196,   109,35,13);
     doLayout(layout,"#vws_current_Result",      231,   109,15,13);
 
     // resultados

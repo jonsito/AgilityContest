@@ -59,6 +59,25 @@ function vws_setFinalIndividualOrTeamView(data) {
 }
 
 
+function vws_displayData(row,flag) {
+    // faltas, tocados, rehuses y tiempo
+    var f=parseInt($('#vws_current_Faltas'+row).val());
+    var t=parseInt($('#vws_current_Tocados'+row).val());
+    var r=parseInt($('#vws_current_Rehuses'+row).val());
+    var tim=parseFloat($('#vws_current_Tiempo'+row).val());
+    $('#vws_current_FaltasTocados'+row).html("F/T: "+(f+t));
+    $('#vws_current_Refusals'+row).html("R: "+(r));
+    if (flag) $('#vws_current_Time'+row).html("Time: "+ toFixedT(tim,ac_config.numdecs));
+    // eliminado, no presentado, puesto
+    var e=parseInt($('#vws_current_Eliminado'+row).val());
+    var n=parseInt($('#vws_current_NoPresentado'+row).val());
+    var p=parseInt($('#vws_current_Puesto'+row).val());
+    var r=$('#vws_current_Result'+row);
+    if (n>0) { r.html('<?php _e('NoPr');?>.'); return; }
+    if (e>0) { r.html('<?php _e('Elim');?>.'); return; }
+    r.html(p);
+}
+
 /**
  * Gestion de llamada a pista en combinada simplificada(final)
  *
@@ -101,8 +120,8 @@ function vws_updateLlamada(evt,data,callback) {
                 dat['results'][0]['Orden']=dat['current'][0]['Orden']; // to properly fill form field
                 for (n=0;n<4;n++) {
                     // notice 'results' and 'LogoClub' as we need dog data, not team data
-                    dat['results'][n]['FaltasTocados']=parseInt(dat['results'][n]['Faltas'])+parseInt(dat['results'][n]['Tocados']);
                     $('#vws_current_'+n).form('load',dat['results'][n]);
+                    vws_displayData("_"+n,true);
                     // check for current dot to mark proper "current" row form as active
                     if (dat['results'][n]['Perro']==evt['Dog']) workingData.vws_currentRow="_"+n;
                 }
@@ -110,8 +129,8 @@ function vws_updateLlamada(evt,data,callback) {
                 $('#vws_current_Logo_0').attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             } else {
                 logo=dat['current'][0]['LogoClub'];
-                dat['current'][0]['FaltasTocados']=parseInt(dat['current'][0]['Faltas'])+parseInt(dat['current'][0]['Tocados']);
                 $('#vws_current').form('load',dat['current'][0]);
+                vws_displayData("",true);
                 workingData.vws_currentRow="";
                 $('#vws_current_Logo').attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             }
@@ -184,18 +203,22 @@ function vws_updateFinales(data) {
                     for (i = 0; i < 4; i++) {
                         if ($('#vws_current_Perro_' + i).val() != perro) continue;
                         $('#vws_current_Puesto_' + i).val(individual[n]['Puesto']);
-                        $('#vws_current_Result_' + i).val(individual[n]['Puesto']);
+                        vws_displayData("_"+i,false);
                     }
                 } else {
                     if ($('#vws_current_Perro').val() != perro) continue;
                     $('#vws_current_Puesto').val(individual[n]['Puesto']);
-                    $('#vws_current_Result').val(individual[n]['Puesto']);
+                    vws_displayData("",false);
                 }
             } // fill current
         } // success
     }); // ajax
 }
 
+/**
+ * Callled from tablet/chrono "data/cronodata" event
+ * @param {object} data Event received data
+ */
 function vws_updateData(data) {
     // take care on F/T changes
     if (data["Faltas"]!=-1) 	$('#vws_current_Faltas'+workingData.vws_currentRow).val(data["Faltas"]);
@@ -208,14 +231,10 @@ function vws_updateData(data) {
     if (data["Rehuses"]!=-1) 	$('#vws_current_Rehuses'+workingData.vws_currentRow).val(data["Rehuses"]);
     if (data["Tiempo"]!=-1) 	$('#vws_current_Tiempo'+workingData.vws_currentRow).val(data["Tiempo"]);
     if (data["TIntermedio"]!=-1) $('#vws_current_TIntermedio'+workingData.vws_currentRow).val(data["TIntermedio"]);
+    if (data["Eliminado"]!=-1) $('#vws_current_Eliminado'+workingData.vws_currentRow).val(data["Eliminado"]);
+    if (data["NoPresentado"]!=-1) $('#vws_current_NoPresentado'+workingData.vws_currentRow).val(data["NoPresentado"]);
     // handle eliminated and not presented overriding (if needed ) Puesto field
-    var e=parseInt(data["Eliminado"]);
-    var n=parseInt(data["NoPresentado"]);
-    var p=parseInt($('#vws_current_Puesto'+workingData.vws_currentRow).val());
-    var r=$('#vws_current_Result'+workingData.vws_currentRow);
-    if (n>0) { r.val('<?php _e('NoPr');?>.'); return; }
-    if (e>0) { r.val('<?php _e('Elim');?>.'); return; }
-    r.val(p);
+    vws_displayData(workingData.vws_currentRow,(data["tiempo"]>=0));
 }
 
 function vws_updateChronoData(data) { vws_updateData(data); } // just call updateData as from tablet
