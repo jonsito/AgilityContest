@@ -53,8 +53,7 @@ events
         onUpdate: function(elapsed,running,paused) {
             var time=parseFloat(elapsed/1000.0);
             $('#vws_current_Time'+workingData.vws_currentRow).html("Time: "+toFixedT(time,(running)?1:ac_config.numdecs));
-            if (!running && !paused) return true; // do not update penalization on stop
-            vwsf_evalPenalizacion();
+            // in simplified videowall do not eval penalization as nonsense
             return true;
         },
         onBeforePause:function() { $('#vws_current_Time'+workingData.vws_currentRow).addClass('blink'); return true; },
@@ -96,7 +95,6 @@ events
         },
         'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
             vws_updateData(event);
-            vwsf_evalPenalizacion();
         },
         'llamada': function (event, time) {    // llamada a pista
             var crm=$('#cronometro');
@@ -141,7 +139,6 @@ events
                 crm.Chrono('stop', time);
                 crm.Chrono('reset');
                 crm.Chrono('start', time);
-                vwsf_evalPenalizacion();
                 return
             }
             if (ac_config.crono_resync === "0") {
@@ -176,7 +173,6 @@ events
         },
         'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
             vws_updateChronoData(event);
-            vwsf_evalPenalizacion();
         },
         'crono_error': null, // fallo en los sensores de paso
         'aceptar': function (event,time) { // operador pulsa aceptar

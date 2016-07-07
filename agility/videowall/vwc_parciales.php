@@ -100,7 +100,6 @@ Pantalla de de visualizacion combinada llamada/parciales
                         <!-- Informacion de cronometro -->
                         <span class="vwc_dtime"  id="vwls_Tiempo">00.000</span>
                         <span class="vwc_dtime"  id="vwls_Puesto">Puesto</span>
-                        <span id="vwls_timestamp" style="display:none"></span>
                     </div>
                 </div>
                 <div data-options="region:'center',border:false" class="vwc_bottom"> <!-- PATROCINADORES -->
@@ -124,7 +123,10 @@ Pantalla de de visualizacion combinada llamada/parciales
 </div>
 
 <!-- declare a tag to attach a chrono object to -->
-<div id="cronometro"><span id="vwls_StartStopFlag" style="display:none">Start</span></div>
+<div id="cronometro">
+    <span id="vwls_StartStopFlag" style="display:none">Start</span>
+    <span id="vwls_timestamp" style="display:none"></span>
+</div>
 
 <script type="text/javascript">
 

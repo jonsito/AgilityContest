@@ -73,7 +73,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<span style="display:none" id="vwls_NoPresentado">0</span>
 				<span class="vwls_dtime" id="vwls_PuestoLbl"></span>
 				<span style="display:none" id="vwls_Puesto"></span>
-				<span style="display:none" id="vwls_timestamp"></span>
 			</div>
 
 			<!-- Informacion del participante -->
@@ -99,7 +98,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <!-- declare a tag to attach a chrono object to -->
-<div id="cronometro"><span id="vwls_StartStopFlag" style="display:none">Start</span></div>
+<div id="cronometro">
+	<span id="vwls_StartStopFlag" style="display:none">Start</span>
+	<span style="display:none" id="vwls_timestamp"></span>
+</div>
 		
 <script type="text/javascript">
 

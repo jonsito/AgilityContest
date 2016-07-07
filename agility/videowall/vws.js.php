@@ -239,14 +239,6 @@ function vws_updateData(data) {
 
 function vws_updateChronoData(data) { vws_updateData(data); } // just call updateData as from tablet
 
-function vwsf_evalPenalizacion() {
-
-}
-
-function vwsp_evalPenalizacion() {
-
-}
-
 /**
  * evaluate position in hall of fame (final results)
  * When chrono stops this script is invoked instead of vwcf_evalPenalization()
@@ -255,7 +247,36 @@ function vwsp_evalPenalizacion() {
  * @param {float} time measured from chrono (do not read html dom content)
  */
 function vwsf_displayPuesto(flag,time) {
-    
+    var cur=workingData.vws_currentRow;
+    // if requested, turn off data
+    var perro=$('#vws_current_Perro'+cur).val();
+    if (!flag || (perro==0) ) { $('#vws_current_Result'+cur).html(''); return; }
+    // use set timeout to make sure data are already refreshed
+    setTimeout(function(){
+        // phase 1 retrieve results
+        // use text() instead of html() avoid extra html code
+        var datos= {
+            'Perro':	perro,
+            'Categoria':$('#vws_current_Categoria'+cur).val(),
+            'Grado':	$('#vws_current_Grado'+cur).val(),
+            'Faltas':	$('#vws_current_Faltas'+cur).val(),
+            'Tocados':	$('#vws_current_Tocados'+cur).val(),
+            'Rehuses':	$('#vws_current_Rehuses'+cur).val(),
+            'Eliminado':$('#vws_current_Eliminado'+cur).val(),
+            'NoPresentado':$('#vws_current_NoPresentado'+cur).val(),
+            'Tiempo':	time
+        };
+        // phase 2: do not call server if not presentado ( but do it on eliminated (as final score to evaluate first round )
+        if (datos.NoPresentado=="1") {
+            $('#vws_current_Result'+cur).html('<span class="blink" style="color:red;"><?php _e('NoPr');?>.</span>');// no presentado
+            return;
+        }
+        // on eliminado, do not blink error, as we don't know data on the other round.
+        // phase 3: call server to evaluate partial result position
+        getPuestoFinal(datos,function(data,resultados){
+            $('#vws_current_Result'+cur).html('- '+Number(resultados.puesto).toString()+' -');
+        });
+    },0);
 }
 
 /**
@@ -267,9 +288,4 @@ function vwsf_displayPuesto(flag,time) {
  */
 function vwsp_displayPuesto(flag,time) {
 
-}
-
-
-function vwsf_evalPenalizacion() {
-    
 }
