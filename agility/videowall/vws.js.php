@@ -268,3 +268,8 @@ function vwsf_displayPuesto(flag,time) {
 function vwsp_displayPuesto(flag,time) {
 
 }
+
+
+function vwsf_evalPenalizacion() {
+    
+}

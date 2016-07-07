@@ -37,26 +37,29 @@ events
 </div>
 
 <!-- declare a tag to attach a chrono object to -->
-<div id="cronometro"><span id="vws_StartStopFlag" style="display:none">Start</span></div>
+<div id="cronometro">
+    <span id="vws_StartStopFlag" style="display:none">Start</span>
+    <span id="vws_timestamp" style="display:none"></span>
+</div>
 
 <script type="text/javascript">
 
     // create a Chronometer instance
     $('#cronometro').Chrono( {
-        seconds_sel: '#vwls_timestamp', // on team contest, should be redirected to entries 0..3
+        seconds_sel: '#vws_timestamp', // on team contest, should be redirected to entries 0..3
         auto: false,
         interval: 50,
         showMode: 2,
         onUpdate: function(elapsed,running,paused) {
             var time=parseFloat(elapsed/1000.0);
-            $('#vwls_Tiempo').html(toFixedT(time,(running)?1:ac_config.numdecs));
+            $('#vws_current_Time'+workingData.vws_currentRow).html("Time: "+toFixedT(time,(running)?1:ac_config.numdecs));
             if (!running && !paused) return true; // do not update penalization on stop
-            vwcf_evalPenalizacion();
+            vwsf_evalPenalizacion();
             return true;
         },
-        onBeforePause:function() { $('#vwls_Tiempo').addClass('blink'); return true; },
-        onBeforeResume: function() { $('#vwls_Tiempo').removeClass('blink'); return true; },
-        onBeforeReset: function() { $('#vwls_Tiempo').removeClass('blink'); return true; }
+        onBeforePause:function() { $('#vws_current_Time'+workingData.vws_currentRow).addClass('blink'); return true; },
+        onBeforeResume: function() { $('#vws_current_Time'+workingData.vws_currentRow).removeClass('blink'); return true; },
+        onBeforeReset: function() { $('#vws_current_Time'+workingData.vws_currentRow).removeClass('blink'); return true; }
     });
 
 
