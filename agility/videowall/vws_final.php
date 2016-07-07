@@ -68,27 +68,27 @@ events
         collapsible:false,
         collapsed:false,
         resizable:true,
-        onOpen: function() {
-            startEventMgr();
-        }
+        onOpen: function() { startEventMgr(); },
+        onLoad: function() { vws_updateHeader('prueba',null);}
     });
 
     var eventHandler= {
         'null': null,// null event: no action taken
         'init': function (event, time) { // connection is made.
             vw_updateWorkingData(event,function(e,d){
-                vws_updateHeader(d); // fix header. Do not add round as no data yet
+                // NOTICE: do not call updateHeader here cause no window loaded yet !!!
                 vws_setFinalIndividualOrTeamView(d); // fix individual or team view for final results
             });
         },
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
-                vws_updateLlamada(e,d); // load call to ring data and existing results
+                vws_updateHeader('manga',d); // fix header round
+                vws_updateLlamada(e,d,vws_updateFinales); // load call to ring data and existing results
             });
         },
         'close': function (event, time) { // no more dogs in tanda
             vw_updateWorkingData(event,function(e,d){
-                vws_updateLlamada({'Dog':-1},d); // seek at end of list
+                vws_updateLlamada({'Dog':-1},d,vws_updateFinales); // seek at end of list
             });
         },
         'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)

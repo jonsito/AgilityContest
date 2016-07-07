@@ -33,13 +33,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <form id="vws_hdr_form">
         <?php if ($config->getEnv("vws_uselogo")!=0) {
             // logotipo alargado del evento
-            echo '<input type="hidden" id="vws_call_logoevento" name="LogoEvento" value="/agility/images/agilityawc2016.png"/>';
+            echo '<input type="hidden" id="vws_hdr_logoprueba" name="LogoPrueba" value="/agility/images/agilityawc2016.png"/>';
             echo '<img src="/agility/images/agilityawc2016.png" id="vws_hdr_logo" alt="Logo"/>';
             echo '<input type="hidden"      id="vws_hdr_prueba"     name="Prueba" value="Prueba"/>';
             echo '<input type="hidden"      id="vws_hdr_jornada"     name="Jornada" value="Jornada"/>';
         } else {
             // logotipo del organizador. prueba y jornada en texto
-            echo '<input type="hidden" id="vws_call_logoprueba" name="LogoPrueba" value="/agility/images/logos/agilitycontest.png"/>';
+            echo '<input type="hidden" id="vws_hdr_logoprueba" name="LogoPrueba" value="/agility/images/logos/agilitycontest.png"/>';
             echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_hdr_logo" alt="Logo"/>';
             // nombre de la prueba y jornada
             echo '<input type="text"      id="vws_hdr_prueba"     name="Prueba" value="Prueba Equipos"/>';
@@ -51,8 +51,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <span style="text-align:center" id="vws_hdr_teaminfo"><?php _e("Competitor's data");?> </span>
             <span style="text-align:center" id="vws_hdr_lastround"><?php _e('Round');?> </span>
             <span style="text-align:center" id="vws_hdr_finalscores"><?php _e('Final');?> </span>
-            <input type="text"      id="vws_hdr_dist"     name="Distancia" value="Dist"/>
-            <input type="text"      id="vws_hdr_trs"     name="TRS" value="TRS"/>
+            <input type="text"      id="vws_hdr_trs"     name="TRS" value="Dist/TRS"/>
         </form>
     </div>
     
@@ -174,15 +173,15 @@ for($n=0;$n<4;$n++) {
 <?php
     if ($config->getEnv("vws_uselogo")!=0) { // logotipo del evento
         echo 'doLayout(layout,"#vws_hdr_logo",1,0,88,27);';
+        echo 'doLayout(layout,"#vws_hdr_manga",101,0,122,9);';
     } else { // logotipo del organizador, prueba y jornada en texto
         echo 'doLayout(layout,"#vws_hdr_logo",1,0,27,27);';
-        echo 'doLayout(layout,"#vws_hdr_prueba",28,0,61,9);';
+        echo 'doLayout(layout,"#vws_hdr_prueba",28,0,82,9);';
         echo 'doLayout(layout,"#vws_hdr_jornada",28,9,61,9);';
+        echo 'doLayout(layout,"#vws_hdr_manga",110,0,112,9);';
     }
 ?>
-    doLayout(layout,"#vws_hdr_manga",101,0,122,9);
-    doLayout(layout,"#vws_hdr_dist",223,0,13,9);
-    doLayout(layout,"#vws_hdr_trs",236,0,10,9);
+    doLayout(layout,"#vws_hdr_trs",222,0,24,9); // dist / trs
 
     doLayout(layout,"#vws_hdr_calltoring",1,27,87,10);
     doLayout(layout,"#vws_hdr_teaminfo",91,9,83,9);

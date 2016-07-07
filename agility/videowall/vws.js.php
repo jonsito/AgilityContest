@@ -24,12 +24,29 @@ $config =Config::getInstance();
 // javascript code for simplified videowall related functions
 
 /**
- * Handle simplified panel header and footer
- * add proper logos, set texts, start footer sponsor rotation
- * @param {object} data data associated with event as received from setup_working_data()
+ * Update header information
+ * Fill contest, journey, round and sct according requested operation
+ * @param {string} mode what to update
+ * @param {object} data where to take information from
  */
-function vws_updateHeader(data) {
-    console.log(JSON.stringify(data));
+function vws_updateHeader(mode,data) {
+    mode=mode.toLowerCase();
+    if (mode.indexOf("prueba")>=0) {
+        var imgurl="/agility/images/logos/agilitycontest.png";
+        if (parseInt(ac_config.vws_uselogo)) imgurl=ac_config.vws_logourl;
+        $('#vws_hdr_logoprueba').val(imgurl);
+        $('#vws_hdr_prueba').val(workingData.datosPrueba.Nombre);
+        $('#vws_hdr_jornada').val(workingData.datosJornada.Nombre);
+    }
+    if (mode.indexOf("manga")>=0) { // fix round name
+        var team=(isJornadaEquipos())?"<?php _e('Teams');?>":"<?php _e('Individual');?>";
+        $('#vws_hdr_manga').val(data.Tanda.Nombre+" - "+team);
+    }
+    if (mode.indexOf("trs")>=0) { // fix sct/mct
+        // current round is always first one:
+        var trs=data.trs1.dist+ "m. / " +data.trs1.trs+"s.";
+        $('#vws_hdr_trs').val(trs);
+    }
 }
 
 function vws_setFinalIndividualOrTeamView(data) {
@@ -72,8 +89,6 @@ function vws_updateLlamada(evt,data,callback) {
         },
         success: function(dat,status,jqxhr) {
             var logo="null.png";
-            // update header
-            vws_updateHeader(dat);
             // fill "after" columns
             for(var n=0;n<nitems;n++) {
                 logo=dat['after'][n][(team)?'LogoTeam':'LogoClub'];
@@ -143,7 +158,7 @@ function vws_updateFinales(data) {
             var size = items.length; // longitud de datos a analizar
 
             // ajustamos cabeceras ( nombre mangas, trs y trm )
-            vws_updateHeader(dat);
+            vws_updateHeader('trs',dat);
             // rellenamos arrays 'result' y 'before'
             for (var n = 0; n < size; n++) {
                 // el campo puesto no viene: lo obtenemos del orden de la lista
