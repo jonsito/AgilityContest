@@ -178,6 +178,18 @@ td.vw_club {
 
 /************ estilos asociados a las vistas simplificadas **************/
 
+#vws-window { /* color de fondo y textos genericos de la pantalla */
+    color:<?php echo $config->getEnv('vws_hdrfg1')?>;
+    background-color: <?php echo $config->getEnv('vws_hdrbg1')?>;
+}
+
+.vws_theader { /* cabeceras de las tablas */
+    height:6vh;
+    color:<?php echo $config->getEnv('vws_hdrfg2')?>;
+    background-color: <?php echo $config->getEnv('vws_hdrbg2')?>;
+    text-align:center;
+}
+
 /* borde a la izquierda o a la derecha */
 .lborder {
     border-left:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
@@ -222,11 +234,7 @@ td.vw_club {
     font-weight: bold;
     font-size:1.8vw;
 }
-.simple_tableheader {
-    height:6vh;
-    color:<?php echo $config->getEnv('vws_hdrfg2')?>;
-    background-color: <?php echo $config->getEnv('vws_hdrbg2')?>;
-}
+
 .simple_current td {
     height:9vh;
     font-weight: bold;

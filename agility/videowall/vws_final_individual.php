@@ -47,12 +47,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         }
         ?>
             <input type="text"      id="vws_hdr_manga"     name="Manga" value="Manga"/>
-            <span style="text-align:center" id="vws_hdr_calltoring"><?php _e('Call to ring');?> </span>
-            <span style="text-align:center" id="vws_hdr_teaminfo"><?php _e("Competitor's data");?> </span>
-            <span style="text-align:center" id="vws_hdr_lastround"><?php _e('Round');?> </span>
-            <span style="text-align:center" id="vws_hdr_finalscores"><?php _e('Final');?> </span>
             <input type="text"      id="vws_hdr_trs"     name="TRS" value="Dist/TRS"/>
         </form>
+        <span class="vws_theader" id="vws_hdr_calltoring"><?php _e('Call to ring');?> </span>
+        <span class="vws_theader" id="vws_hdr_teaminfo"><?php _e("Competitor's data");?> </span>
+        <span class="vws_theader" id="vws_hdr_lastround"><?php _e('Round');?> </span>
+        <span class="vws_theader" id="vws_hdr_finalscores"><?php _e('Final');?> </span>
     </div>
     
     <div id="vws_llamada">

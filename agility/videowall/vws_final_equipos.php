@@ -47,12 +47,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         }
         ?>
             <input type="text"      id="vws_hdr_manga"     name="Manga" value="Manga"/>
-            <span style="text-align:center" id="vws_hdr_calltoring"><?php _e('Call to ring');?> </span>
-            <span style="text-align:center" id="vws_hdr_teaminfo"><?php _e("Competitor's data");?> </span>
-            <span style="text-align:center" id="vws_hdr_lastround"><?php _e('Round');?> </span>
-            <span style="text-align:center" id="vws_hdr_finalscores"><?php _e('Final');?> </span>
             <input type="text"      id="vws_hdr_trs"     name="TRS" value="Dist/TRS"/>
         </form>
+        <span class="vws_theader" id="vws_hdr_calltoring"><?php _e('Call to ring');?> </span>
+        <span class="vws_theader" id="vws_hdr_teaminfo"><?php _e("Competitor's data");?> </span>
+        <span class="vws_theader" id="vws_hdr_lastround"><?php _e('Round');?> </span>
+        <span class="vws_theader" id="vws_hdr_finalscores"><?php _e('Final');?> </span>
     </div>
     
     <div id="vws_llamada">
@@ -176,21 +176,21 @@ for($n=0;$n<4;$n++) {
     // cabeceras
 <?php
     if ($config->getEnv("vws_uselogo")!=0) { // logotipo del evento
-        echo 'doLayout(layout,"#vws_hdr_logo",1,0,88,27);';
+        echo 'doLayout(layout,"#vws_hdr_logo",1,0,88,26);';
         echo 'doLayout(layout,"#vws_hdr_manga",101,0,122,9);';
     } else { // logotipo del organizador, prueba y jornada en texto
-        echo 'doLayout(layout,"#vws_hdr_logo",1,0,27,27);';
+        echo 'doLayout(layout,"#vws_hdr_logo",1,0,27,26);';
         echo 'doLayout(layout,"#vws_hdr_prueba",28,0,82,9);';
-        echo 'doLayout(layout,"#vws_hdr_jornada",28,9,61,9);';
+        echo 'doLayout(layout,"#vws_hdr_jornada",28,9,63,10);';
         echo 'doLayout(layout,"#vws_hdr_manga",110,0,112,9);';
     }
 ?>
     doLayout(layout,"#vws_hdr_trs",222,0,24,9); // dist / trs
 
-    doLayout(layout,"#vws_hdr_calltoring",1,27,87,10);
-    doLayout(layout,"#vws_hdr_teaminfo",91,9,83,9);
-    doLayout(layout,"#vws_hdr_lastround",174,9,36,9);
-    doLayout(layout,"#vws_hdr_finalscores",210,9,36,9);
+    doLayout(layout,"#vws_hdr_calltoring",1,27,81,10);
+    doLayout(layout,"#vws_hdr_teaminfo",91,9,83,10);
+    doLayout(layout,"#vws_hdr_lastround",174,9,36,10);
+    doLayout(layout,"#vws_hdr_finalscores",210,9,36,10);
 
 
     // llamada a pista
