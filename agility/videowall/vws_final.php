@@ -111,7 +111,7 @@ events
         },
         'start': function (event, time) {      // start crono manual
             // si crono automatico, ignora
-            var ssf = $('#vwls_StartStopFlag');
+            var ssf = $('#vws_StartStopFlag');
             if (ssf.text() === "Auto") return;
             ssf.text("Stop");
             vwsCounter.stop(); // stop 15 seconds countdown if needed
@@ -123,7 +123,7 @@ events
         },
         'stop': function (event, time) {      // stop crono manual
             var crm= $('#cronometro');
-            $('#vwls_StartStopFlag').text("Start");
+            $('#vws_StartStopFlag').text("Start");
             vwsCounter.stop();
             crm.Chrono('stop', time);
             vwsf_displayPuesto(true,crm.Chrono('getValue')/1000);
@@ -133,7 +133,7 @@ events
             vwsf_displayPuesto(false,0);
             var crm = $('#cronometro');
             vwsCounter.stop();
-            $('#vwls_StartStopFlag').text('Auto');
+            $('#vws_StartStopFlag').text('Auto');
             // si esta parado, arranca en modo automatico
             if (!crm.Chrono('started')) {
                 crm.Chrono('stop', time);
@@ -159,14 +159,14 @@ events
         },
         'crono_stop': function (event, time) {	// parada crono electronico
             var crm= $('#cronometro');
-            $('#vwls_StartStopFlag').text("Start");
+            $('#vws_StartStopFlag').text("Start");
             crm.Chrono('stop', time);
             vwsf_displayPuesto(true,crm.Chrono('getValue')/1000);
         },
         'crono_reset': function (event, time) {	// puesta a cero del crono electronico
             var crm = $('#cronometro');
             vwsCounter.stop();
-            $('#vwls_StartStopFlag').text("Start");
+            $('#vws_StartStopFlag').text("Start");
             crm.Chrono('stop', time);
             crm.Chrono('reset', time);
             vwsf_displayPuesto(false,0);
