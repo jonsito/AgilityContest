@@ -98,7 +98,7 @@ events
         },
         'llamada': function (event, time) {    // llamada a pista
             var crm=$('#cronometro');
-            myCounter.stop();
+            vwsCounter.stop();
             crm.Chrono('stop',time);
             crm.Chrono('reset',time);
             vw_updateWorkingData(event,function(e,d){
@@ -106,7 +106,7 @@ events
             });
         },
         'salida': function (event, time) {     // orden de salida
-            myCounter.start();
+            vwsCounter.start();
             vwsf_displayPuesto(false,0);
         },
         'start': function (event, time) {      // start crono manual
@@ -114,7 +114,7 @@ events
             var ssf = $('#vwls_StartStopFlag');
             if (ssf.text() === "Auto") return;
             ssf.text("Stop");
-            myCounter.stop(); // stop 15 seconds countdown if needed
+            vwsCounter.stop(); // stop 15 seconds countdown if needed
             var crm = $('#cronometro');
             crm.Chrono('stop', time);
             crm.Chrono('reset');
@@ -124,7 +124,7 @@ events
         'stop': function (event, time) {      // stop crono manual
             var crm= $('#cronometro');
             $('#vwls_StartStopFlag').text("Start");
-            myCounter.stop();
+            vwsCounter.stop();
             crm.Chrono('stop', time);
             vwsf_displayPuesto(true,crm.Chrono('getValue')/1000);
         },
@@ -132,7 +132,7 @@ events
         'crono_start': function (event, time) { // arranque crono automatico
             vwsf_displayPuesto(false,0);
             var crm = $('#cronometro');
-            myCounter.stop();
+            vwsCounter.stop();
             $('#vwls_StartStopFlag').text('Auto');
             // si esta parado, arranca en modo automatico
             if (!crm.Chrono('started')) {
@@ -165,7 +165,7 @@ events
         },
         'crono_reset': function (event, time) {	// puesta a cero del crono electronico
             var crm = $('#cronometro');
-            myCounter.stop();
+            vwsCounter.stop();
             $('#vwls_StartStopFlag').text("Start");
             crm.Chrono('stop', time);
             crm.Chrono('reset', time);
@@ -176,7 +176,7 @@ events
         },
         'crono_error': null, // fallo en los sensores de paso
         'aceptar': function (event,time) { // operador pulsa aceptar
-            myCounter.stop();
+            vwsCounter.stop();
             $('#cronometro').Chrono('stop', time);  // nos aseguramos de que los cronos esten parados
             vw_updateWorkingData(event,function(e,d){
                 /* vw_updateFinales(e,d); */ // required to be done as callback for updateLLamada()
@@ -184,7 +184,7 @@ events
         },
         'cancelar': function (event,time) {  // operador pulsa cancelar
             var crm = $('#cronometro');
-            myCounter.stop();
+            vwsCounter.stop();
             crm.Chrono('stop', time);
             crm.Chrono('reset', time);
         },

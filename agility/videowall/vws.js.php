@@ -24,6 +24,16 @@ $config =Config::getInstance();
 // javascript code for simplified videowall related functions
 
 /**
+ * declare vwsCounter as replacement of myCounter
+ */
+var vwsCounter = new Countdown({
+	seconds:15,  // number of seconds to count down
+	onUpdateStatus: function(tsec){
+		$('#vws_current_Tiempo'+workingData.vws_currentRow).html(toFixedT((tsec/10),1));
+	}
+});
+
+/**
  * Update header information
  * Fill contest, journey, round and sct according requested operation
  * @param {string} mode what to update
@@ -72,10 +82,10 @@ function vws_displayData(row,flag) {
     var e=parseInt($('#vws_current_Eliminado'+row).val());
     var n=parseInt($('#vws_current_NoPresentado'+row).val());
     var p=parseInt($('#vws_current_Puesto'+row).val());
-    var r=$('#vws_current_Result'+row);
-    if (n>0) { r.html('<?php _e('NoPr');?>.'); return; }
-    if (e>0) { r.html('<?php _e('Elim');?>.'); return; }
-    r.html(p);
+    var rs=$('#vws_current_Result'+row);
+    if (n>0) { rs.html('<?php _e('NoPr');?>.'); return; }
+    if (e>0) { rs.html('<?php _e('Elim');?>.'); return; }
+    rs.html(p);
 }
 
 /**
@@ -119,16 +129,31 @@ function vws_updateLlamada(evt,data,callback) {
                 workingData.vws_currentRow="";
                 dat['results'][0]['Orden']=dat['current'][0]['Orden']; // to properly fill form field
                 for (n=0;n<4;n++) {
-                    // notice 'results' and 'LogoClub' as we need dog data, not team data
-                    $('#vws_current_'+n).form('load',dat['results'][n]);
-                    vws_displayData("_"+n,true);
+                    var cur='_'+n;
                     // check for current dot to mark proper "current" row form as active
-                    if (dat['results'][n]['Perro']==evt['Dog']) workingData.vws_currentRow="_"+n;
+                    if (dat['results'][n]['Perro']==evt['Dog']) workingData.vws_currentRow=cur;
+                    // notice 'results' and 'LogoClub' as we need dog data, not team data
+                    $('#vws_current'+cur).form('load',dat['results'][n]);
+                    vws_displayData(cur,true);
+                    if (n==3) {  // check for test dog on last row and fix team logo
+                        if (evt['Nombre']==="<?php _e('Test dog');?>") {
+                            $('#vws_current_Nombre_3').val(evt['Nombre']);
+                            workingData.vws_currentRow='_3';
+                            logo="agilitycontest.png";
+                        } else {
+                            logo=dat['current'][0]['LogoTeam'];
+                        }
+                    }
                 }
-                logo=dat['current'][0]['LogoTeam'];
+                // set team icon. on test dog use AC logo
                 $('#vws_current_Logo_0').attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             } else {
-                logo=dat['current'][0]['LogoClub'];
+                if (evt['Nombre']==="<?php _e('Test dog');?>") {
+                    logo="agilitycontest.png";
+                    dat['current'][0]['Nombre']=evt['Nombre'];
+                } else {
+                    logo=dat['current'][0]['LogoClub'];
+                }
                 $('#vws_current').form('load',dat['current'][0]);
                 vws_displayData("",true);
                 workingData.vws_currentRow="";
@@ -248,9 +273,12 @@ function vws_updateChronoData(data) { vws_updateData(data); } // just call updat
  */
 function vwsf_displayPuesto(flag,time) {
     var cur=workingData.vws_currentRow;
-    // if requested, turn off data
+
+    // if requested, or test dog (id==0) do not try to evaluate final scores
     var perro=$('#vws_current_Perro'+cur).val();
-    if (!flag || (perro==0) ) { $('#vws_current_Result'+cur).html(''); return; }
+    if (typeof(perro)==="undefined") perro=0;
+    if (!flag || (perro==0)) { $('#vws_current_Result'+cur).html(''); return; }
+
     // use set timeout to make sure data are already refreshed
     setTimeout(function(){
         // phase 1 retrieve results
