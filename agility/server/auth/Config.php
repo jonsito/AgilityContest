@@ -69,12 +69,12 @@ define('AC_VWS_HDRFG1','#FFFFFF');
 define('AC_VWS_HDRBG1','#FF7F00');
 define('AC_VWS_HDRFG2','#000000');
 define('AC_VWS_HDRBG2','#404040');
-define('AC_VWS_HDRFG3','#FFFFFF');
-define('AC_VWS_HDRBG3','#808080');
 define('AC_VWS_ROWCOLOR1','#7f7f7f');
 define('AC_VWS_ROWCOLOR2','#606b7f');
 define('AC_VWS_ROWCOLOR3','#ffffcf');
 define('AC_VWS_ROWCOLOR4','#606b4f');
+define('AC_VWS_ROWCOLOR5','#FFFFFF');
+define('AC_VWS_ROWCOLOR6','#808080');
 define('AC_VWS_LINECOLOR','#ffffff');
 
 /** generacion de PDF's **/
@@ -192,12 +192,12 @@ Class Config {
 		'vws_hdrbg1'		=> array(	'c',	false,	AC_VWS_HDRBG1),
 		'vws_hdrfg2'		=> array(	'c',	false,	AC_VWS_HDRFG2),
 		'vws_hdrbg2'		=> array(	'c',	false,	AC_VWS_HDRBG2),
-		'vws_hdrfg3'		=> array(	'c',	false,	AC_VWS_HDRFG3),
-		'vws_hdrbg3'		=> array(	'c',	false,	AC_VWS_HDRBG3),
 		'vws_rowcolor1'		=> array(	'c',	false,	AC_VWS_ROWCOLOR1),
 		'vws_rowcolor2'		=> array(	'c',	false,	AC_VWS_ROWCOLOR2),
 		'vws_rowcolor3'		=> array(	'c',	false,	AC_VWS_ROWCOLOR3),
 		'vws_rowcolor4'		=> array(	'c',	false,	AC_VWS_ROWCOLOR4),
+        'vws_rowcolor5'		=> array(	'c',	false,	AC_VWS_ROWCOLOR5),
+        'vws_rowcolor6'		=> array(	'c',	false,	AC_VWS_ROWCOLOR6),
 		'vws_linecolor'		=> array(	'c',	false,	AC_VWS_LINECOLOR),
 		// generacion de PDF's
 		'pdf_topmargin'		=> array(	'i',	false,	AC_PDF_TOPMARGIN),
@@ -407,7 +407,6 @@ Class Config {
 	}
 	
 	public function saveConfig() {
-		do_log("hola mundo \n");
 		$data=array();
 		// notice that "ip_address" inputbox and "save" "restore" config buttons
 		// are also received from console. just ignore it
@@ -417,7 +416,10 @@ Class Config {
 			$type=$info[0];
 			if ($info[0]=="c") $type="s";
 			if ($info[0]=="b") $type="i";
-			if (isset($_REQUEST[$key]))	$data[$key]=http_request($key,$type,$info[2]);
+			if (isset($_REQUEST[$key]))	{
+				$data[$key]=http_request($key,$type,$info[2]);
+				do_log("leyendo $key => {$data[$key]} => ".$_REQUEST[$key]);
+			}
 		}
 		// finally write file:
 		$res=array_merge($this->config,$data);

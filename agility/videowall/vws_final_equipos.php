@@ -47,7 +47,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         }
         ?>
             <input type="text"      id="vws_hdr_manga"     name="Manga" value="Manga"/>
-            <input type="text"      id="vws_hdr_trs"     name="TRS" value="Dist/TRS"/>
+            <input class="trs" type="text"      id="vws_hdr_trs"     name="TRS" value="Dist/TRS"/>
         </form>
         <span class="vws_theader" id="vws_hdr_calltoring"><?php _e('Call to ring');?> </span>
         <span class="vws_theader" id="vws_hdr_teaminfo"><?php _e("Competitor's data");?> </span>
@@ -57,7 +57,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     
     <div id="vws_llamada">
 <?php for($n=0;$n<5;$n++) {
-    echo '<form id="vws_call_'.$n.'">';
+    echo '<form id="vws_call_'.$n.'" class="vws_css_call_'.($n%2).' vws_entry">';
     echo '<input type="text" id="vws_call_Orden_'.$n.'" name="Orden" value="Orden '.$n.'"/>';
     echo '<input type="hidden" id="vws_call_LogoTeam_'.$n.'"      name="LogoTeam" value="Logo '.$n.'"/>';
     echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_call_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
@@ -71,7 +71,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     
     <div id="vws_results">
 <?php for($n=0;$n<7;$n++) {
-    echo '<form id="vws_results_'.$n.'">';
+    echo '<form id="vws_results_'.$n.'" class="vws_css_results_'.($n%2).' vws_entry">';
     echo '<input type="hidden" id="vws_results_LogoTeam_'.$n.'"      name="LogoTeam" value="Logo '.$n.'"/>';
     echo '<img alt="Logo '.$n.'"  id="vws_results_Logo_'.$n.'"       name="Logo" src="/agility/images/logos/agilitycontest.png"  />';
     echo '<input type="hidden"    id="vws_results_Categorias_'.$n.'"  name="Categorias" value="Cat '.$n.'"/>';
@@ -97,7 +97,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     <div id="vws_equipo_en_pista">
 <?php
 for($n=0;$n<4;$n++) {
-    echo '<form id= "vws_current_'.$n.'">';
+    echo '<form id= "vws_current_'.$n.'" class="vws_css_current_'.($n%2).' vws_entry">';
     if ($n==0) {
         echo '<input type="text" id= "vws_current_Orden_'.$n.'" name="Orden" value="Orden '.$n.'"/>';
         echo '<img src="/agility/images/logos/getLogo.php?Federation=1&Logo=ES.png" id= "vws_current_Logo_'.$n.'" name="Logo" alt="Logo"/>';
@@ -143,7 +143,7 @@ for($n=0;$n<4;$n++) {
     
     <div id="vws_before">
 <?php for($n=0;$n<2;$n++) {
-    echo '<form id="vws_before_'.$n.'">';
+    echo '<form id="vws_before_'.$n.'" class="vws_css_results_'.($n%2).' vws_entry">';
 
     echo '<input type="text"      id="vws_before_Orden_'.$n.'"      name="Orden" value="Orden '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_LogoTeam_'.$n.'"    name="LogoTeam" value="Logo '.$n.'"/>';
@@ -188,9 +188,9 @@ for($n=0;$n<4;$n++) {
     doLayout(layout,"#vws_hdr_trs",222,0,24,9); // dist / trs
 
     doLayout(layout,"#vws_hdr_calltoring",1,27,81,10);
-    doLayout(layout,"#vws_hdr_teaminfo",91,9,83,10);
-    doLayout(layout,"#vws_hdr_lastround",174,9,36,10);
-    doLayout(layout,"#vws_hdr_finalscores",210,9,36,10);
+    doLayout(layout,"#vws_hdr_teaminfo",91,9,71,10);
+    doLayout(layout,"#vws_hdr_lastround",162,9,44,10);
+    doLayout(layout,"#vws_hdr_finalscores",204,9,42,10);
 
 
     // llamada a pista

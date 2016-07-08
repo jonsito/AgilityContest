@@ -188,8 +188,70 @@ td.vw_club {
     color:<?php echo $config->getEnv('vws_hdrfg2')?>;
     background-color: <?php echo $config->getEnv('vws_hdrbg2')?>;
     text-align:center;
+    font-weight: bold;
+    font-size:2.0vw;
 }
 
+#vws_hdr_form input { /* formularios de la cabecera */
+    color:<?php echo $config->getEnv('vws_hdrfg1')?>;
+    background-color: <?php echo $config->getEnv('vws_hdrbg1')?>;
+    text-align:left;
+    font-weight: bold;
+    margin:0;
+    padding:0;
+    border:none;
+    outline:none;
+    font-size:2.2vw;
+}
+
+#vws_hdr_form input.trs  {
+    font-size:1.5vw;
+}
+
+.vws_css_call_0 {
+    background-color: <?php echo $config->getEnv('vws_rowcolor1')?>;
+}
+.vws_css_call_1 {
+    background-color: <?php echo $config->getEnv('vws_rowcolor2')?>;
+}
+.vws_css_results_0 {
+    background-color: <?php echo $config->getEnv('vws_rowcolor3')?>;
+}
+.vws_css_results_1 {
+    background-color: <?php echo $config->getEnv('vws_rowcolor4')?>;
+}
+.vws_css_current_0 {
+    background-color: <?php echo $config->getEnv('vws_rowcolor5')?>;
+}
+.vws_css_current_1 {
+    background-color: <?php echo $config->getEnv('vws_rowcolor6')?>;
+}
+
+.vws_entry input {
+    text-align:left;
+    font-weight: bold;
+    margin:0;
+    padding:0;
+    border:none;
+    outline:none;
+    font-size:1.6vw;
+    font-stretch:condensed;
+    color:<?php echo $config->getEnv('vws_linecolor')?>;
+    background-color:inherit;
+}
+
+.vws_entry span {
+    text-align:left;
+    font-weight: bold;
+    margin:0;
+    padding:0;
+    border:none;
+    outline:none;
+    font-size:1.6vw;
+    font-stretch:condensed;
+    color:<?php echo $config->getEnv('vws_linecolor')?>;
+    background-color:inherit;
+}
 /* borde a la izquierda o a la derecha */
 .lborder {
     border-left:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
@@ -202,59 +264,4 @@ td.vw_club {
 }
 .bborder {
     border-bottom:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
-}
-
-.simple_table {
-    border-spacing:0;
-    padding:0;
-    width:100%;
-    height:100%;
-    color:<?php echo $config->getEnv('vws_linecolor')?>;
-    font-size:1.5vw;
-    font-weight:bold;
-    font-stretch: condensed;
-}
-.simple_table input {
-    margin:0;
-    padding:0;
-    background:none;
-    border:none;
-    outline:none;
-    color:inherit;
-    font-weight: inherit;
-    font-stretch: inherit;
-    font-size: inherit;
-    font-family: inherit;
-}
-
-.simple_header {
-    height:6.1vh;
-    color:<?php echo $config->getEnv('vws_hdrfg1')?>;
-    background-color: <?php echo $config->getEnv('vws_hdrbg1')?>;
-    font-weight: bold;
-    font-size:1.8vw;
-}
-
-.simple_current td {
-    height:9vh;
-    font-weight: bold;
-    font-size: 1.8vw;
-    background-color: <?php echo $config->getEnv('vws_hdrbg2')?>;
-}
-.simple_call_even    {
-    height:6vh;
-    color:<?php echo $config->getEnv('vws_linecolor')?>;
-    background: <?php echo $config->getEnv('vws_rowcolor1')?>;
-}
-.simple_call_odd     {
-    height:6vh;
-    background:  <?php echo $config->getEnv('vws_rowcolor2')?>;
-}
-.simple_results_even {
-    height:6vh;
-    background: <?php echo $config->getEnv('vws_rowcolor3')?>;
-}
-.simple_results_odd  {
-    height:6vh;
-    background:  <?php echo $config->getEnv('vws_rowcolor4')?>;
 }

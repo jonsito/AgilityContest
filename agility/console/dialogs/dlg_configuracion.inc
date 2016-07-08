@@ -133,8 +133,7 @@ $config =Config::getInstance();
 			<input id="vw_rowcolor3" name="vw_rowcolor3" type="color" value="#e0e0e0"/>
 			<label class="space" for="vw_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
 			<input id="vw_rowcolor4" name="vw_rowcolor4" type="color" value="#c0c0c0"/><br />
-
-
+			
 			<h3><?php _e('Alternate (simplified) Video wall configurable parameters'); ?></h3>
 			<label for="vws_polltime"><?php _e('Sponsors rotation period (seg.)'); ?></label>
 			<input id="vws_polltime" name="vws_polltime" type="text" size="2" value="5"/><br />
@@ -150,18 +149,13 @@ $config =Config::getInstance();
 			<label class="space" for="vws_hdrfg1"><?php _e('Text color for main header'); ?></label>
 			<input id="vws_hdrfg1" name="vws_hdrfg1" type="color" value="#ffffff"/><br />
 
-			<label for="vws_hdrbg2"><?php _e('Background color for running dog data'); ?></label>
+			<label for="vws_hdrbg2"><?php _e('Background color for table header'); ?></label>
 			<input id="vws_hdrbg2" name="vws_hdrbg2" type="color" value="#c0c0c0"/>
-			<label class="space" for="vws_hdrfg2"><?php _e('Text color for running dog data'); ?></label>
+			<label class="space" for="vws_hdrfg2"><?php _e('Text color table header'); ?></label>
 			<input id="vws_hdrfg2" name="vws_hdrfg2" type="color" value="#ffffff"/><br />
-
-			<label for="vws_hdrbg3"><?php _e('Background color for Team data rows'); ?></label>
-			<input id="vws_hdrbg3" name="vws_hdrbg3" type="color" value="#c0c0c0"/>
-			<label class="space" for="vws_hdrfg3"><?php _e('Text color for Team data rows'); ?></label>
-			<input id="vws_hdrfg3" name="vws_hdrfg3" type="color" value="#000000"/><br />
 			
-			<label for="vws_hdrbg1"><?php _e('Text and lines color for tables'); ?></label>
-			<input id="vws_hdrbg1" name="vws_hdrbg1" type="color" value="#0000ff"/><br />
+			<label for="vws_linecolor"><?php _e('Text and lines color for tables'); ?></label>
+			<input id="vws_linecolor" name="vws_linecolor" type="color" value="#0000ff"/><br />
 			
 			<label for="vws_rowcolor1"><?php _e('Call To ring background color (even rows)'); ?></label>
 			<input id="vws_rowcolor1" name="vws_rowcolor1" type="color" value="#e0e0e0"/>
@@ -172,6 +166,11 @@ $config =Config::getInstance();
 			<input id="vws_rowcolor3" name="vws_rowcolor3" type="color" value="#e0e0e0"/>
 			<label class="space" for="vws_rowcolor4"><?php _e('Results background color (odd rows)'); ?></label>
 			<input id="vws_rowcolor4" name="vws_rowcolor4" type="color" value="#c0c0c0"/><br />
+			
+			<label for="vws_rowcolor5"><?php _e('Current Team background color (even rows)'); ?></label>
+			<input id="vws_rowcolor5" name="vws_rowcolor5" type="color" value="#c0c0c0"/>
+			<label class="space" for="vws_rowcolor6"><?php _e('Current Team background color (odd rows)'); ?></label>
+			<input id="vws_rowcolor6" name="vws_rowcolor6" type="color" value="#000000"/><br />
 		</div>
 
 		<div title="<?php _e('Live Stream'); ?>" style="padding:10px">
