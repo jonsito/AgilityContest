@@ -84,7 +84,7 @@ events
         },
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
-                vws_updateHeader('manga',d); // fix header round
+                vws_updateHeader('manga trs',d); // fix header round
                 vws_updateLlamada(e,d,vws_updateFinales); // load call to ring data and existing results
             });
         },
