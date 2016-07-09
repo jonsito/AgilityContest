@@ -68,6 +68,7 @@ class VideoWall {
 			$this->mode=$mode;
 		}
         $this->prueba=$this->myDBObject->__getArray("Pruebas",$pruebaid);
+        $this->prueba['LogoClub']=$this->myDBObject->__getArray("Clubes",intval($this->prueba['Club']))['Logo'];
         $this->jornada=$this->myDBObject->__getArray("Jornadas",$jornadaid);
         if ($mangaid!=0) {
             $this->manga=$this->myDBObject->__getArray("Mangas",$mangaid);

@@ -44,13 +44,16 @@ function vws_updateHeader(mode,data) {
     if (mode.indexOf("prueba")>=0) {
         var imgurl="/agility/images/logos/agilitycontest.png";
         if (parseInt(ac_config.vws_uselogo)) imgurl=ac_config.vws_logourl;
+        else imgurl="/agility/images/logos/"+workingData.datosPrueba.LogoClub;
         $('#vws_hdr_logoprueba').val(imgurl);
+        $('#vws_hdr_logo').attr('src',imgurl);
         $('#vws_hdr_prueba').val(workingData.datosPrueba.Nombre);
         $('#vws_hdr_jornada').val(workingData.datosJornada.Nombre);
     }
     if (mode.indexOf("manga")>=0) { // fix round name
-        var team=(isJornadaEquipos())?"<?php _e('Teams');?>":"<?php _e('Individual');?>";
-        $('#vws_hdr_manga').val(data.Tanda.Nombre+" - "+team);
+        var team=(isJornadaEquipos())?"":" - <?php _e('Individual');?>";
+        $('#vws_hdr_manga').val(data.Tanda.Nombre+team);
+        $('#vws_hdr_lastround').html(isAgility(data.Tanda.Tipo)?"Agility":"Jumping");
     }
     if (mode.indexOf("trs")>=0) { // fix sct/mct
         // current round is always first one:
@@ -77,7 +80,7 @@ function vws_displayData(row,flag) {
     var tim=parseFloat($('#vws_current_Tiempo'+row).val());
     $('#vws_current_FaltasTocados'+row).html("F/T: "+(f+t));
     $('#vws_current_Refusals'+row).html("R: "+(r));
-    if (flag) $('#vws_current_Time'+row).html("Time: "+ toFixedT(tim,ac_config.numdecs));
+    if (flag) $('#vws_current_Time'+row).html("T: "+ toFixedT(tim,ac_config.numdecs));
     // eliminado, no presentado, puesto
     var e=parseInt($('#vws_current_Eliminado'+row).val());
     var n=parseInt($('#vws_current_NoPresentado'+row).val());
@@ -131,7 +134,10 @@ function vws_updateLlamada(evt,data,callback) {
                 for (n=0;n<4;n++) {
                     var cur='_'+n;
                     // check for current dot to mark proper "current" row form as active
-                    if (dat['results'][n]['Perro']==evt['Dog']) workingData.vws_currentRow=cur;
+                    if (dat['results'][n]['Perro']==evt['Dog']) {
+                        workingData.vws_currentRow=cur;
+                        $('#vws_current_Active'+cur).html('<img width="100%" src="/agility/images/logos/getLogo.php?Logo=agilityContest.png&Federation=0"/>');
+                    } else  $('#vws_current_Active'+cur).html("");
                     // notice 'results' and 'LogoClub' as we need dog data, not team data
                     $('#vws_current'+cur).form('load',dat['results'][n]);
                     vws_displayData(cur,true);

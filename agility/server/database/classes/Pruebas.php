@@ -179,7 +179,7 @@ class Pruebas extends DBObject {
 
 		// execute query to retrieve $rows starting at $offset
 		$result=$this->__select(
-				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
+				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub, Clubes.Logo AS LogoClub,
 							Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel,
 							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva,
 							Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
@@ -210,7 +210,7 @@ class Pruebas extends DBObject {
 		if($q!=="") $where="$where AND ( (Pruebas.Nombre LIKE '%$q%' ) OR (Clubes.Nombre LIKE '%$q%') OR (Pruebas.Observaciones LIKE '%$q%') )";
 		// retrieve result from parent __select() call
 		$result= $this->__select(
-				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
+				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub, Clubes.Logo AS LogoClub,
 							Pruebas.Ubicacion AS Ubicacion, Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
 							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva, Pruebas.Cerrada AS Cerrada,
 							Pruebas.Observaciones AS Observaciones, $limit as UserLimit",
