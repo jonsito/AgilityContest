@@ -33,7 +33,7 @@ $config =Config::getInstance();
         <!--
         <th data-options="field:'PRecorrido',	hidden:true ">/th>
         -->
-        <th width="5%" data-options="field:'Tiempo',		align:'right',formatter:formatTF"><?php _e('Time'); ?></th>
+        <th width="5%" data-options="field:'Tiempo',		align:'right',formatter:formatTP"><?php _e('Time'); ?></th>
         <!--
         <th data-options="field:'PTiempo',	hidden:true ">/th>
         -->

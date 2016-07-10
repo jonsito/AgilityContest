@@ -90,22 +90,25 @@ function formatPenalizacionFinal(val,row,idx) {
 }
 
 function formatV1(val,row,idx) { return (row.P1>=200)?"-":toFixedT(parseFloat(val),1); }
-function formatTP(val,p,idx) {
+function formatTPen(val,p,idx) {
     if (p>=400) return '-';
     if (p>=200) return '0';
     return toFixedT(parseFloat(val),ac_config.numdecs);
 }
 
-function formatT1(val,row,idx) { return formatTP(val,row.P1,idx); }
-function formatP1(val,row,idx) { return formatTP(val,row.P1,idx); }
+function formatT1(val,row,idx) { return formatTPen(val,row.P1,idx); }
+function formatP1(val,row,idx) { return formatTPen(val,row.P1,idx); }
 function formatV2(val,row,idx) { return (row.P2>=200)?"-":toFixedT(parseFloat(val),1); }
-function formatT2(val,row,idx) { return formatTP(val,row.P2,idx); }
-function formatP2(val,row,idx) { return formatTP(val,row.P2,idx); }
+function formatT2(val,row,idx) { return formatTPen(val,row.P2,idx); }
+function formatP2(val,row,idx) { return formatTPen(val,row.P2,idx); }
 function formatTF(val,row,idx) {
     var t=parseFloat(row.T1)+parseFloat(row.T2);
     return (row.Penalizacion>=200)?"-":toFixedT(t,ac_config.numdecs);
 }
-
+function formatTP(val,row,idx) {
+    var t=parseFloat(row.Tiempo);
+    return (row.Penalizacion>=200)?"-":toFixedT(t,ac_config.numdecs);
+}
 function formatCatGrad(val,row,idx) {
     var hasGrade=true;
     if (isJornadaEquipos()) hasGrade=false;
