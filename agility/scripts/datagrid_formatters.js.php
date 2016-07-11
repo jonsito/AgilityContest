@@ -85,11 +85,10 @@ function formatPuestoFinalBig(val,row,idx) {
 function formatPenalizacionFinal(val,row,idx) {
     var p=row.Penalizacion;
     if (p>=800) return "-";
-    if (p>=400) return p-400;
+    if (p>=400) return toFixedT(parseFloat(p-400),ac_config.numdecs);
     return toFixedT(parseFloat(val),ac_config.numdecs);
 }
 
-function formatV1(val,row,idx) { return (row.P1>=200)?"-":toFixedT(parseFloat(val),1); }
 function formatTPen(val,p,idx) {
     if (p>=400) return '-';
     if (p>=200) return '0';
@@ -97,10 +96,11 @@ function formatTPen(val,p,idx) {
 }
 
 function formatT1(val,row,idx) { return formatTPen(val,row.P1,idx); }
-function formatP1(val,row,idx) { return formatTPen(val,row.P1,idx); }
-function formatV2(val,row,idx) { return (row.P2>=200)?"-":toFixedT(parseFloat(val),1); }
 function formatT2(val,row,idx) { return formatTPen(val,row.P2,idx); }
+function formatP1(val,row,idx) { return formatTPen(val,row.P1,idx); }
 function formatP2(val,row,idx) { return formatTPen(val,row.P2,idx); }
+function formatV1(val,row,idx) { return (row.P1>=200)?"-":toFixedT(parseFloat(val),1); }
+function formatV2(val,row,idx) { return (row.P2>=200)?"-":toFixedT(parseFloat(val),1); }
 function formatTF(val,row,idx) {
     var t=parseFloat(row.T1)+parseFloat(row.T2);
     return (row.Penalizacion>=200)?"-":toFixedT(t,ac_config.numdecs);
