@@ -216,8 +216,7 @@ $config =Config::getInstance();
             return '<div style="padding:2px"><table id="' + dg + '"></table></div>';
         },
         onClickRow: function(idx,row) {
-            tablet_updateSession(row);
-            $('#tablet-datagrid').datagrid('expandRow',idx);
+            $('#tablet-datagrid').datagrid('expandRow',idx); // fire up onExpandRow event
         },
         onExpandRow: function(idx,row) {
             row.expanded=1;
@@ -225,7 +224,12 @@ $config =Config::getInstance();
             var dg=$('#tablet-datagrid');
             // collapse previous expanded row
             var oldRow=dg.datagrid('options').expandedRow;
-            if ( (oldRow!=-1) && (oldRow!=idx) )  dg.datagrid('collapseRow',oldRow);
+            if ( (oldRow!=-1) && (oldRow!=idx) )  {
+                // unselect and close previous selection
+                var oldID=dg.datagrid('getRows')[oldRow]['ID'];
+                $("#tablet-datagrid-"+oldID).datagrid('unselectAll');
+                dg.datagrid('collapseRow',oldRow);
+            }
             dg.datagrid('options').expandedRow=idx;
             // update session dataassistant
             tablet_updateSession(row);
@@ -234,7 +238,7 @@ $config =Config::getInstance();
         onCollapseRow: function(idx,row) {
             row.expanded=0;
             var dg="#tablet-datagrid-" + parseInt(row.ID);
-            $(dg).remove();
+            $(dg).datagrid('unselectAll');
             doBeep();
         }
     });

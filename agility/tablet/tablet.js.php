@@ -86,27 +86,28 @@ function tablet_putEvent(type,data){
 }
 
 function tablet_updateSession(row) {
-    // update testDog data
-    workingData.testDog.Prueba=row.Prueba;
-    workingData.testDog.Jornada=row.Jornada;
-    workingData.testDog.Manga=row.Manga;
-    workingData.testDog.Tanda=row.Nombre;
-    workingData.testDog.Categoria=row.Categoria;
-    workingData.testDog.Grado=row.Grado;
+	// on user defined mangas, check for wourse walk
+	if ( parseInt(row.Manga)==0) {
+		if (row.Nombre.toLowerCase().indexOf("econo")>0) tablet_reconocimiento();
+		return false;
+	} else {
+		// in non-user defined rounds, update testDog data
+		workingData.testDog.Prueba=row.Prueba;
+		workingData.testDog.Jornada=row.Jornada;
+		workingData.testDog.Manga=row.Manga;
+		workingData.testDog.Tanda=row.Nombre;
+		workingData.testDog.Categoria=row.Categoria;
+		workingData.testDog.Grado=row.Grado;
+	}
 	// update sesion info in database
 	var data = {
-			Operation: 'update',
-			ID: workingData.sesion,
-			Prueba: row.Prueba,
-			Jornada: row.Jornada,
-			Manga: row.Manga,
-			Tanda: row.ID
+		Operation: 'update',
+		ID: workingData.sesion,
+		Prueba: row.Prueba,
+		Jornada: row.Jornada,
+		Manga: row.Manga,
+		Tanda: row.ID
 	};
-	if (parseInt(row.Manga)==0) {
-		var str= row.Nombre.toLowerCase();
-		if (str.indexOf("econo")>0) return false;
-		else tablet_reconocimiento();
-	}
 	// setup infoheader on tablet
 	$('#tdialog-InfoLbl').html(workingData.datosPrueba.Nombre + ' - ' + workingData.datosJornada.Nombre + ' - ' + row.Nombre);
 	$.ajax({
