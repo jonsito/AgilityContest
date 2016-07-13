@@ -199,9 +199,20 @@ doLayout(layout,"#vwls_Celo",			370,	412,	30,		20	);
 // doLayout(layout,"#vwls_Categoria",		510,	412,	140,	20	); // already shown in infomanga
 
 // data for infomanga box
-doLayout(layout,"#vwls_InfoManga",		15,		10,		165,	20 ); // transparent boxes for infomanga
-doLayout(layout,"#vwls_Manga",			20, 	14,	    155,	15	);
-
+switch (parseInt(ac_config.vw_infoposition)) {
+	case 0: // screen top
+		doLayout(layout, "#vwls_InfoManga", 15, 10, 165, 20 ); // transparent boxes for infomanga
+		doLayout(layout, "#vwls_Manga", 20, 14, 155, 15);
+		break;
+	case 1: // on top of competitor box
+		doLayout(layout, "#vwls_InfoManga", 125, 385, 165, 20 ); // transparent boxes for infomanga
+		doLayout(layout, "#vwls_Manga", 130, 390, 155, 15);
+		break;
+	case 2: // hidden
+		$("#vwls_InfoManga").css('display:none');
+		$("#vwls_Manga").css('display:none');
+		break;
+}
 
 var eventHandler= {
 	'null': null,// null event: no action taken

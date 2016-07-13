@@ -60,6 +60,7 @@ define('AC_VW_ROWCOLOR4','#e0ebcf');
 define('AC_VW_ALPHA',0.5);
 define('AC_VW_CRHOMAKEY','#00ff00');
 define('AC_VW_DATAPOSITION',1); // 0:hidden 1:top/right 2:down/rignt 3:down/center
+define('AC_VW_INFOPOSITION',1); // 0:hidden 1:top/left 2:on top of dog info
 
 /** personalizacion del videowall **/
 define('AC_VWS_POLLTIME',5);
@@ -174,6 +175,7 @@ Class Config {
 		'vw_alpha'			=> array(	'f',	false,	AC_VW_ALPHA),
 		'vw_chromakey'		=> array(	'c',	false,	AC_VW_CRHOMAKEY),
 		'vw_dataposition'	=> array(	'i',	false,	AC_VW_DATAPOSITION),
+		'vw_infoposition'	=> array(	'i',	false,	AC_VW_INFOPOSITION),
 		'vw_hdrfg1'			=> array(	'c',	false,	AC_VW_HDRFG1),
 		'vw_hdrbg1'			=> array(	'c',	false,	AC_VW_HDRBG1),
 		'vw_hdrfg2'			=> array(	'c',	false,	AC_VW_HDRFG2),

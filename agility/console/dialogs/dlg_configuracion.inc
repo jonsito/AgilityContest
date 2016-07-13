@@ -186,6 +186,12 @@ $config =Config::getInstance();
 				<option value="2"><?php _e('Lower right corner');?></option>
 				<option value="3"><?php _e('Next to competitor info');?></option>
 			</select><br />
+			<label for="vw_infoposition"><?php _e('Round data screen location'); ?></label>
+			<select id="vw_infoposition" name="vw_infoposition">
+				<option value="0"><?php _e('Not visible');?></option>
+				<option value="1" selected="selected"><?php _e('Screen top');?></option>
+				<option value="2"><?php _e('On top of competitor info');?></option>
+			</select><br />
 		</div>
 		
 		<div title="<?php _e('Reports'); ?>" style="padding:10px">
