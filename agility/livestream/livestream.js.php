@@ -35,13 +35,14 @@ function vwls_enableOSD(val) {
 }
 
 function vwls_showRoundInfo(val) {
-	if (val==0) $('#vwls_mangasInfo').css('display','none');
+	var disp=(val==0)?'none':'initial';
+	if (parseInt(ac_config.vw_infoposition)==0) disp='none';
 	else $('#vwls_mangasInfo').css('display','initial');
 }
 
 function vwls_showCompetitorInfo(val) {
-	if (val==0) $('#vwls_competitorInfo').css('display','none');
-	else $('#vwls_competitorInfo').css('display','initial');
+	var disp=(val==0)?'none':'initial';
+	$('#vwls_competitorInfo').css('display',disp);
 }
 
 function vwls_showResultsInfo(val) {
