@@ -55,7 +55,7 @@ function vws_updateHeader(mode,data) {
         $('#vws_hdr_manga').val(data.Tanda.Nombre+team);
         $('#vws_hdr_lastround').html(isAgility(data.Tanda.Tipo)?"Agility":"Jumping");
     }
-    if (mode.indexOf("trs")>=0) { // fix sct/mct
+    if ( (typeof(data.trs1)!=="undefined") && (mode.indexOf("trs")>=0)) { // fix sct/mct
         // current round is always first one:
         var trs=data.trs1.dist+ "m. / " +data.trs1.trs+"s.";
         $('#vws_hdr_trs').val(trs);

@@ -34,20 +34,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <?php if ($config->getEnv("vws_uselogo")!=0) {
             // logotipo alargado del evento
             echo '<input type="hidden" id="vws_hdr_logoprueba" name="LogoPrueba" value="/agility/images/agilityawc2016.png"/>';
-            echo '<img src="/agility/images/agilityawc2016.png" id="vws_hdr_logo" alt="Logo"/>';
+            echo '<img src="/agility/images/agilityawc2016.png" class="vws_imgpadding" id="vws_hdr_logo" alt="Logo"/>';
             echo '<input type="hidden"      id="vws_hdr_prueba"     name="Prueba" value="Prueba"/>';
             echo '<input type="hidden"      id="vws_hdr_jornada"     name="Jornada" value="Jornada"/>';
         } else {
             // logotipo del organizador. prueba y jornada en texto
             echo '<input type="hidden" id="vws_hdr_logoprueba" name="LogoPrueba" value="/agility/images/logos/agilitycontest.png"/>';
-            echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_hdr_logo" alt="Logo"/>';
+            echo '<img src="/agility/images/logos/agilitycontest.png" class="vws_imgpadding" id="vws_hdr_logo" alt="Logo"/>';
             // nombre de la prueba y jornada
             echo '<input type="text"      id="vws_hdr_prueba"     name="Prueba" value="Prueba"/>';
             echo '<input type="text"      id="vws_hdr_jornada"     name="Jornada" value="Jornada"/>';
         }
         ?>
             <input type="text"      id="vws_hdr_manga"     name="Manga" value="Manga"/>
-            <input type="text"      id="vws_hdr_trs"     name="TRS" value="Dist/TRS"/>
+            <input class="trs" type="text"      id="vws_hdr_trs"     name="TRS" value="Dist/TRS"/>
         </form>
         <span class="vws_theader" id="vws_hdr_calltoring"><?php _e('Call to ring');?> </span>
         <span class="vws_theader" id="vws_hdr_teaminfo"><?php _e("Competitor's data");?> </span>
@@ -57,10 +57,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     
     <div id="vws_llamada">
 <?php for($n=0;$n<8;$n++) {
-    echo '<form id="vws_call_'.$n.'">';
+    echo '<form id="vws_call_'.$n.'" class="vws_css_call_'.($n%2).' vws_entry">';
     echo '<input type="text" id="vws_call_Orden_'.$n.'" name="Orden" value="Orden '.$n.'"/>';
     echo '<input type="hidden" id="vws_call_LogoClub_'.$n.'"      name="LogoClub" value="Logo '.$n.'"/>';
-    echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_call_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
+    echo '<img class="vws_css_call_'.($n%2).' vws_imgpadding" src="/agility/images/logos/agilitycontest.png" id="vws_call_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Perro_'.$n.'"      name="Perro" value="Perro '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Licencia_'.$n.'"   name="Licencia" value="Lic '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Categoria_'.$n.'"  name="Categoria" value="Cat '.$n.'"/>';
@@ -88,9 +88,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     
     <div id="vws_results">
 <?php for($n=0;$n<10;$n++) {
-    echo '<form id="vws_results_'.$n.'">';
+    echo '<form id="vws_results_'.$n.'" class="vws_css_results_'.($n%2).' vws_entry">';
     echo '<input type="hidden" id="vws_results_LogoClub_'.$n.'"      name="LogoClub" value="Logo '.$n.'"/>';
-    echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_results_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
+    echo '<img class="vws_css_results_'.($n%2).' vws_imgpadding" src="/agility/images/logos/agilitycontest.png" id="vws_results_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
     echo '<input type="text"      id="vws_results_Dorsal_'.$n.'"     name="Dorsal" value="Dorsal '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Perro_'.$n.'"      name="Perro" value="Perro '.$n.'"/>';
     echo '<input type="text"      id="vws_results_Nombre_'.$n.'"     name="Nombre" value="Nombre '.$n.'"/>';
@@ -104,7 +104,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<!-- data on round 1 -->';
     echo '<input type="hidden"    id="vws_results_F1_'.$n.'"         name="F1" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_R1_'.$n.'"         name="R1" value="Reh '.$n.'"/>';
-    echo '<input type="text"      id="vws_results_T1_'.$n.'"         name="T1" value="Time1 '.$n.'"/>';
+    echo '<input type="text"      class="lborder" id="vws_results_T1_'.$n.'"         name="T1" value="Time1 '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_V1_'.$n.'"         name="V1" value="Vel1 '.$n.'"/>';
     echo '<input type="text"      id="vws_results_P1_'.$n.'"         name="P1" value="Pen1 '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_C1_'.$n.'"         name="C1" value="Cal1 '.$n.'"/>';
@@ -122,7 +122,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id="vws_results_N2_'.$n.'"         name="N2" value="NoPr '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Puesto2_'.$n.'"    name="Puesto2" value="Pos '.$n.'"/>';
     echo '<!-- Final data -->';
-    echo '<input type="text"      id="vws_results_Tiempo_'.$n.'"       name="Tiempo" value="Tiempo '.$n.'"/>';
+    echo '<input type="text"      class="lborder" id="vws_results_Tiempo_'.$n.'"       name="Tiempo" value="Tiempo '.$n.'"/>';
     echo '<input type="text"      id="vws_results_Penalizacion_'.$n.'" name="Penalizacion" value="Penal '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Calificacion_'.$n.'" name="Calificacion" value="Calif '.$n.'"/>';
     echo '<input type="text"      id="vws_results_Puesto_'.$n.'"       name="Puesto" value="Pos '.$n.'"/>';
@@ -133,10 +133,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     
     <div id="vws_perro_en_pista">
 <?php
-    echo '<form id= "vws_current">';
+    echo '<form id= "vws_current" class="vws_css_current_0 vws_entry">';
     echo '<input type="text" id= "vws_current_Orden" name="Orden" value="Orden"/>';
     echo '<input type="hidden" id= "vws_current_LogoClub"      name="LogoClub" value="Logo"/>';
-    echo '<img src="/agility/images/logos/getLogo.php?Federation=1&Logo=ES.png" id= "vws_current_Logo" name="Logo" alt="Logo"/>';
+    echo '<img class="vws_css_current_'.($n%2).' vws_imgpadding" src="/agility/images/logos/getLogo.php?Federation=1&Logo=ES.png" id= "vws_current_Logo" name="Logo" alt="Logo"/>';
     echo '<input type="hidden"    id= "vws_current_Perro"      name="Perro" value="Perro"/>';
     echo '<input type="hidden"    id= "vws_current_Categoria"  name="Categoria" value="Cat"/>';
     echo '<input type="hidden"    id= "vws_current_Grado"      name="Grado" value="Grad"/>';
@@ -160,7 +160,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id= "vws_current_NoPresentado" name="NoPresentado" value=""/>';
     echo '<input type="hidden"    id= "vws_current_Pendiente"  name="Pendiente" value="Pend"/>';
     echo '<span id="vws_current_Result">Res</span>';
-    echo '<span id= "vws_current_Active" style="display:none">Active</span>';
+    echo '<span id="vws_current_Active" style="display:none">Active</span>';
     echo '</form>';
 ?>
     </div>
@@ -171,10 +171,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     
     <div id="vws_before">
 <?php for($n=0;$n<2;$n++) {
-    echo '<form id="vws_before_'.$n.'">';
+    echo '<form id="vws_before_'.$n.'" class="vws_css_results_'.($n%2).' vws_entry">';
     echo '<input type="text"      id="vws_before_Orden_'.$n.'"      name="Orden" value="Orden '.$n.'"/>';
     echo '<input type="hidden" id="vws_before_LogoClub_'.$n.'"      name="LogoClub" value="Logo '.$n.'"/>';
-    echo '<img src="/agility/images/logos/agilitycontest.png" id="vws_before_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
+    echo '<img class="vws_css_results_'.($n%2).' vws_imgpadding" src="/agility/images/logos/agilitycontest.png" id="vws_before_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
     echo '<input type="text"      id="vws_before_Dorsal_'.$n.'"     name="Dorsal" value="Dorsal '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_Perro_'.$n.'"      name="Perro" value="Perro '.$n.'"/>';
     echo '<input type="text"      id="vws_before_Nombre_'.$n.'"     name="Nombre" value="Nombre '.$n.'"/>';
@@ -188,7 +188,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<!-- data on round 1 -->';
     echo '<input type="hidden"    id="vws_before_F1_'.$n.'"         name="F1" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_R1_'.$n.'"         name="R1" value="Reh '.$n.'"/>';
-    echo '<input type="text"      id="vws_before_T1_'.$n.'"         name="T1" value="Time1 '.$n.'"/>';
+    echo '<input type="text"      class="lborder" id="vws_before_T1_'.$n.'"         name="T1" value="Time1 '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_V1_'.$n.'"         name="V1" value="Vel1 '.$n.'"/>';
     echo '<input type="text"      id="vws_before_P1_'.$n.'"         name="P1" value="Pen1 '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_C1_'.$n.'"         name="C1" value="Cal1 '.$n.'"/>';
@@ -206,7 +206,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id="vws_before_N2_'.$n.'"         name="N2" value="NoPr '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_Puesto2_'.$n.'"    name="Puesto2" value="Pos '.$n.'"/>';
     echo '<!-- Final data -->';
-    echo '<input type="text"      id="vws_before_Tiempo_'.$n.'"       name="Tiempo" value="Tiempo '.$n.'"/>';
+    echo '<input type="text"      class="lborder" id="vws_before_Tiempo_'.$n.'"       name="Tiempo" value="Tiempo '.$n.'"/>';
     echo '<input type="text"      id="vws_before_Penalizacion_'.$n.'" name="Penalizacion" value="Penal '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_Calificacion_'.$n.'" name="Calificacion" value="Calif '.$n.'"/>';
     echo '<input type="text"      id="vws_before_Puesto_'.$n.'"       name="Puesto" value="Pos '.$n.'"/>';
@@ -227,9 +227,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         echo 'doLayout(layout,"#vws_hdr_manga",101,0,122,9);';
     } else { // logotipo del organizador, prueba y jornada en texto
         echo 'doLayout(layout,"#vws_hdr_logo",1,0,27,27);';
-        echo 'doLayout(layout,"#vws_hdr_prueba",28,0,82,9);';
+        echo 'doLayout(layout,"#vws_hdr_prueba",28,0,112,9);';
         echo 'doLayout(layout,"#vws_hdr_jornada",28,9,61,9);';
-        echo 'doLayout(layout,"#vws_hdr_manga",110,0,112,9);';
+        echo 'doLayout(layout,"#vws_hdr_manga",140,0,82,9);';
     }
 ?>
     doLayout(layout,"#vws_hdr_trs",222,0,24,9);

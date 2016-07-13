@@ -40,7 +40,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         } else {
             // logotipo del organizador. prueba y jornada en texto
             echo '<input type="hidden" id="vws_hdr_logoprueba" name="LogoPrueba" value="/agility/images/logos/agilitycontest.png"/>';
-            echo '<img src="/agility/images/logos/agilitycontest.png" class="vws_imgpadding"  id="vws_hdr_logo" alt="Logo"/>';
+            echo '<img src="/agility/images/logos/agilitycontest.png" class="vws_imgpadding" id="vws_hdr_logo" alt="Logo"/>';
             // nombre de la prueba y jornada
             echo '<input type="text"      id="vws_hdr_prueba"     name="Prueba" value="Prueba Equipos"/>';
             echo '<input type="text"      id="vws_hdr_jornada"     name="Jornada" value="Jornada Equipos"/>';
@@ -182,9 +182,9 @@ for($n=0;$n<4;$n++) {
         echo 'doLayout(layout,"#vws_hdr_manga",101,0,122,9);';
     } else { // logotipo del organizador, prueba y jornada en texto
         echo 'doLayout(layout,"#vws_hdr_logo",1,0,27,26);';
-        echo 'doLayout(layout,"#vws_hdr_prueba",28,0,82,9);';
+        echo 'doLayout(layout,"#vws_hdr_prueba",28,0,112,9);';
         echo 'doLayout(layout,"#vws_hdr_jornada",28,9,63,10);';
-        echo 'doLayout(layout,"#vws_hdr_manga",110,0,112,9);';
+        echo 'doLayout(layout,"#vws_hdr_manga",140,0,82,9);';
     }
 ?>
     doLayout(layout,"#vws_hdr_trs",222,0,24,9); // dist / trs
