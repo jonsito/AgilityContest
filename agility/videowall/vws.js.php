@@ -34,12 +34,39 @@ var vwsCounter = new Countdown({
 });
 
 /**
+ * Show/Hide result fields according selected round
+ * @param agility
+ */
+function vws_selectAgilityOrJumping(agility) {
+    $('#vws_hdr_lastround').html((agility)?"Agility":"Jumping");
+    var toShow=(agility)?"1":"2";
+    var toHide=(agility)?"2":"1";
+    var size=isJornadaEquipos()?7:10;
+    for (var n=0;n<size;n++) { // results
+        $("#vws_results_T"+toShow+"_"+n).css("display","inline-block");
+        $("#vws_results_P"+toShow+"_"+n).css("display","inline-block");
+        $("#vws_results_Puesto"+toShow+"_"+n).css("display","inline-block");
+        $("#vws_results_T"+toHide+"_"+n).css("display","none");
+        $("#vws_results_P"+toHide+"_"+n).css("display","none");
+        $("#vws_results_Puesto"+toHide+"_"+n).css("display","none");
+    }
+    for (n=0;n<2;n++) { // last results
+        $("#vws_before_T"+toShow+"_"+n).css("display","inline-block");
+        $("#vws_before_P"+toShow+"_"+n).css("display","inline-block");
+        $("#vws_before_Puesto"+toShow+"_"+n).css("display","inline-block");
+        $("#vws_before_T"+toHide+"_"+n).css("display","none");
+        $("#vws_before_P"+toHide+"_"+n).css("display","none");
+        $("#vws_before_Puesto"+toHide+"_"+n).css("display","none");
+    }
+}
+
+/**
  * Update header information
  * Fill contest, journey, round and sct according requested operation
  * @param {string} mode what to update
  * @param {object} data where to take information from
  */
-function vws_updateHeader(mode,data) {
+function vwsf_updateHeader(mode,data) {
     mode=mode.toLowerCase();
     if (mode.indexOf("prueba")>=0) {
         var imgurl="/agility/images/logos/agilitycontest.png";
@@ -50,15 +77,17 @@ function vws_updateHeader(mode,data) {
         $('#vws_hdr_prueba').val(workingData.datosPrueba.Nombre);
         $('#vws_hdr_jornada').val(workingData.datosJornada.Nombre);
     }
+    if (data==null) return; // cannot go further without data
     if (mode.indexOf("manga")>=0) { // fix round name
         var team=(isJornadaEquipos())?"":" - <?php _e('Individual');?>";
         $('#vws_hdr_manga').val(data.Tanda.Nombre+team);
-        $('#vws_hdr_lastround').html(isAgility(data.Tanda.Tipo)?"Agility":"Jumping");
+        vws_selectAgilityOrJumping(isAgility(data.Tanda.Tipo));
     }
-    if ( (typeof(data.trs1)!=="undefined") && (mode.indexOf("trs")>=0)) { // fix sct/mct
+    if ( mode.indexOf("trs")>=0) { // fix sct/mct
         // current round is always first one:
-        var trs=data.trs1.dist+ "m. / " +data.trs1.trs+"s.";
-        $('#vws_hdr_trs').val(trs);
+        var trs1=(typeof(data.trs1)==="undefined")?"<?php _e('Dist');?>/<?php _e('SCT');?>": data.trs1.dist+ "m. / " +data.trs1.trs+"s.";
+        var trs2=(typeof(data.trs2)==="undefined")?"<?php _e('Dist');?>/<?php _e('SCT');?>": data.trs2.dist+ "m. / " +data.trs2.trs+"s.";
+        $('#vws_hdr_trs').val(isAgility(workingData.datosTanda.Tipo)?trs1:trs2);
     }
 }
 
@@ -208,7 +237,7 @@ function vws_updateFinales(data) {
             var size = items.length; // longitud de datos a analizar
 
             // ajustamos cabeceras ( nombre mangas, trs y trm )
-            vws_updateHeader('trs',dat);
+            vwsf_updateHeader('trs',dat);
             // rellenamos arrays 'result' y 'before'
             for (var n = 0; n < size; n++) {
                 // el campo puesto no viene: lo obtenemos del orden de la lista

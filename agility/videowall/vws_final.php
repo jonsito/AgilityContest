@@ -71,7 +71,7 @@ events
         collapsed:false,
         resizable:true,
         onOpen: function() { startEventMgr(); },
-        onLoad: function() { vws_updateHeader('prueba',null);}
+        onLoad: function() { vwsf_updateHeader('prueba',null);}
     });
 
     var eventHandler= {
@@ -84,7 +84,7 @@ events
         },
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
-                vws_updateHeader('manga trs',d); // fix header round
+                vwsf_updateHeader('manga trs',d); // fix header round
                 vws_updateLlamada(e,d,vws_updateFinales); // load call to ring data and existing results
             });
         },

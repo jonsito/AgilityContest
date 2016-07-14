@@ -82,9 +82,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="text"      id="vws_results_P1_'.$n.'"         name="P1" value="Pen1 '.$n.'"/>';
     echo '<input type="text"      id="vws_results_Puesto1_'.$n.'"    name="Puesto1" value="Pos '.$n.'"/>';
     echo '<!-- data on round 2 -->';
-    echo '<input type="hidden"    class="lborder" id="vws_results_T2_'.$n.'"         name="T2" value="Time2 '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_results_P2_'.$n.'"         name="P2" value="Pen2 '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_results_Puesto2_'.$n.'"    name="P2" value="Pos '.$n.'"/>';
+    echo '<input type="text"      class="lborder" id="vws_results_T2_'.$n.'"         name="T2" value="Time2 '.$n.'"/>';
+    echo '<input type="text"      id="vws_results_P2_'.$n.'"         name="P2" value="Pen2 '.$n.'"/>';
+    echo '<input type="text"      id="vws_results_Puesto2_'.$n.'"    name="Puesto2" value="Pos '.$n.'"/>';
     echo '<!-- Final data -->';
     echo '<input type="text"      class="lborder" id="vws_results_Tiempo_'.$n.'"       name="Tiempo" value="Tiempo '.$n.'"/>';
     echo '<input type="text"      id="vws_results_Penalizacion_'.$n.'" name="Penalizacion" value="Penal '.$n.'"/>';
@@ -158,9 +158,9 @@ for($n=0;$n<4;$n++) {
     echo '<input type="text"      id="vws_before_P1_'.$n.'"         name="P1" value="Pen1 '.$n.'"/>';
     echo '<input type="text"      id="vws_before_Puesto1_'.$n.'"    name="Puesto1" value="Pos '.$n.'"/>';
     echo '<!-- data on round 2 (hidden in simplified videowall ) -->';
-    echo '<input type="hidden"    class="lborder" id="vws_before_T2_'.$n.'"         name="T2" value="Time2 '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_before_P2_'.$n.'"         name="P2" value="Pen2 '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_before_Puesto2_'.$n.'"    name="P2" value="Pos '.$n.'"/>';
+    echo '<input type="text"      class="lborder" id="vws_before_T2_'.$n.'"         name="T2" value="Time2 '.$n.'"/>';
+    echo '<input type="text"      id="vws_before_P2_'.$n.'"         name="P2" value="Pen2 '.$n.'"/>';
+    echo '<input type="text"      id="vws_before_Puesto2_'.$n.'"    name="P2" value="Pos '.$n.'"/>';
     echo '<!-- Final data -->';
     echo '<input type="text"      class="lborder" id="vws_before_Tiempo_'.$n.'"       name="Tiempo" value="Tiempo '.$n.'"/>';
     echo '<input type="text"      id="vws_before_Penalizacion_'.$n.'" name="Penalizacion" value="Penal '.$n.'"/>';
@@ -229,9 +229,15 @@ for($n=0;$n<4;$n++) {
     for(n=0;n<7;n++) {
         doLayout(layout,"#vws_results_Logo_"+n,     91,     19+9*n,10,9);
         doLayout(layout,"#vws_results_NombreEquipo_"+n,101, 19+9*n,61,9);
+        // ronda agility
         doLayout(layout,"#vws_results_T1_"+n,       162,    19+9*n,17,9);
         doLayout(layout,"#vws_results_P1_"+n,       179,    19+9*n,17,9);
         doLayout(layout,"#vws_results_Puesto1_"+n,  196,    19+9*n,8,9);
+        // ronda jumping ( en runtime se hace que solo una de las dos rondas sea visible
+        doLayout(layout,"#vws_results_T2_"+n,       162,    19+9*n,17,9);
+        doLayout(layout,"#vws_results_P2_"+n,       179,    19+9*n,17,9);
+        doLayout(layout,"#vws_results_Puesto2_"+n,  196,    19+9*n,8,9);
+        // final
         doLayout(layout,"#vws_results_Tiempo_"+n,   204,    19+9*n,17,9);
         doLayout(layout,"#vws_results_Penalizacion_"+n,221, 19+9*n,17,9);
         doLayout(layout,"#vws_results_Puesto_"+n,   238,    19+9*n,8,9);
@@ -241,9 +247,15 @@ for($n=0;$n<4;$n++) {
         doLayout(layout,"#vws_before_Orden_"+n,    82,     122+9*n,9,9);
         doLayout(layout,"#vws_before_Logo_"+n,     91,     122+9*n,10,9);
         doLayout(layout,"#vws_before_NombreEquipo_"+n,101, 122+9*n,61,9);
+        // agility
         doLayout(layout,"#vws_before_T1_"+n,       162,    122+9*n,17,9);
         doLayout(layout,"#vws_before_P1_"+n,       179,    122+9*n,17,9);
         doLayout(layout,"#vws_before_Puesto1_"+n,  196,    122+9*n,8,9);
+        // jumping
+        doLayout(layout,"#vws_before_T2_"+n,       162,    122+9*n,17,9);
+        doLayout(layout,"#vws_before_P2_"+n,       179,    122+9*n,17,9);
+        doLayout(layout,"#vws_before_Puesto2_"+n,  196,    122+9*n,8,9);
+        // final
         doLayout(layout,"#vws_before_Tiempo_"+n,   204,    122+9*n,17,9);
         doLayout(layout,"#vws_before_Penalizacion_"+n,221, 122+9*n,17,9);
         doLayout(layout,"#vws_before_Puesto_"+n,   238,    122+9*n,8,9);
