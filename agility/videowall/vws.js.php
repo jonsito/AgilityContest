@@ -91,6 +91,37 @@ function vwsf_updateHeader(mode,data) {
     }
 }
 
+/**
+ * Update header information for partial results
+ * Fill contest, journey, round and sct according requested operation
+ * @param {string} mode what to update
+ * @param {object} data where to take information from
+ */
+function vwsp_updateHeader(mode,data) {
+    mode=mode.toLowerCase();
+    if (mode.indexOf("prueba")>=0) {
+        var imgurl="/agility/images/logos/agilitycontest.png";
+        if (parseInt(ac_config.vws_uselogo)) imgurl=ac_config.vws_logourl;
+        else imgurl="/agility/images/logos/"+workingData.datosPrueba.LogoClub;
+        $('#vws_hdr_logoprueba').val(imgurl);
+        $('#vws_hdr_logo').attr('src',imgurl);
+        $('#vws_hdr_prueba').val(workingData.datosPrueba.Nombre);
+        $('#vws_hdr_jornada').val(workingData.datosJornada.Nombre);
+    }
+    if (data==null) return; // cannot go further without data
+    if (mode.indexOf("manga")>=0) { // fix round name
+        var team=(isJornadaEquipos())?"":" - <?php _e('Individual');?>";
+        $('#vws_hdr_manga').val(data.Tanda.Nombre+team);
+        vws_selectAgilityOrJumping(isAgility(data.Tanda.Tipo));
+    }
+    if ( mode.indexOf("trs")>=0) { // fix sct/mct
+        // TO BE WRITTEN
+    }
+}
+/**
+ * Load and render proper final scores page acording individual or team journey
+ * @param {object} data journey information
+ */
 function vws_setFinalIndividualOrTeamView(data) {
     var team=false;
     if (parseInt(data.Jornada.Equipos3)!=0) { team=true; }
@@ -100,6 +131,18 @@ function vws_setFinalIndividualOrTeamView(data) {
     $('#vws-window').window('refresh',page);
 }
 
+/**
+* Load and render proper partial results page acording individual or team journey
+* @param {object} data journey information
+*/
+function vws_setPartialIndividualOrTeamView(data) {
+    var team=false;
+    if (parseInt(data.Jornada.Equipos3)!=0) { team=true; }
+    if (parseInt(data.Jornada.Equipos4)!=0) { team=true;  }
+    // cargamos la pagina adecuada en funcion del tipo de evento
+    var page='/agility/videowall/'+((team==true)?'vws_parcial_equipos.php':'vws_parcial_individual.php');
+    $('#vws-window').window('refresh',page);
+}
 
 function vws_displayData(row,flag) {
     // faltas, tocados, rehuses y tiempo
@@ -273,6 +316,14 @@ function vws_updateFinales(data) {
             } // fill current
         } // success
     }); // ajax
+}
+
+/**
+ * funcion para rellenar los resultados en la pantalla simplificada
+ * @param {object} data Datos de la sesion ( recibidos desde vws_updateWorkingData() )
+ */
+function vws_updateParciales(data) {
+
 }
 
 /**
