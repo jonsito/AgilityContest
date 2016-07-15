@@ -323,7 +323,67 @@ function vws_updateFinales(data) {
  * @param {object} data Datos de la sesion ( recibidos desde vws_updateWorkingData() )
  */
 function vws_updateParciales(data) {
+    // ajustamos contadores
+    var team=isJornadaEquipos();
+    var nitems=(team)?7:10; // clasificaciones a presentar en funcion de individual/equipos
+    // buscamos resultados parciales de la manga
+    $.ajax({
+            type:'GET',
+            url:"/agility/server/database/resultadosFunctions.php",
+            dataType:'json',
+            data: {
+            Operation:	(isJornadaEquipos())?'getResultadosEquipos':'getResultados',
+            Prueba:		workingData.prueba,
+            Jornada:	workingData.jornada,
+            Manga:		workingData.manga,
+            Mode:       data.Ronda.Mode
+        },
+        success: function (dat) {
+            var items = dat.rows; // resultados que hay que coger para rellenar tablas
+            var individual = dat.rows; // resultados de clasificacion individual
+            if (team) {
+                items = dat.equipos;
+                individual = dat.individual;
+            }
+            var size = items.length; // longitud de datos a analizar
 
+            // ajustamos cabeceras ( nombre mangas, trs y trm )
+            vwsp_updateHeader('trs',dat);
+            // rellenamos arrays 'result' y 'before'
+            for (var n = 0; n < size; n++) {
+                // el campo puesto no viene: lo obtenemos del orden de la lista
+                items[n]['Puesto']=n+1;
+                items[n]['Result']=n+1;
+                // fill if required 'result' table data
+                if (n < nitems) {
+                    var logo = items[n][(team) ? 'LogoTeam' : 'LogoClub'];
+                    $('#vws_results_' + n).form('load', items[n]);
+                    $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
+                }
+                // fill if required 'before' table data
+                for (var i = 0; i < 2; i++) {
+                    if (team) { if ($('#vws_before_Equipo_' + i).val() != items[n]['ID']) continue; }
+                    if (!team) { if ($('#vws_before_Perro_' + i).val() != items[n]['Perro']) continue; }
+                    $('#vws_before_' + i).form('load',items[n]);
+                }
+            }
+            // ahora indicamos puesto en el(los) campo(s) current, utilizando los datos de perros individuales
+            for (n = 0; n < individual.length; n++) {
+                var perro = individual[n]['Perro'];
+                if (team) {
+                    for (i = 0; i < 4; i++) {
+                        if ($('#vws_current_Perro_' + i).val() != perro) continue;
+                        $('#vws_current_Puesto_' + i).val(individual[n]['Puesto']);
+                        vws_displayData("_"+i,false);
+                    }
+                } else {
+                    if ($('#vws_current_Perro').val() != perro) continue;
+                    $('#vws_current_Puesto').val(individual[n]['Puesto']);
+                    vws_displayData("",false);
+                }
+            } // fill current
+        } // success
+    }); // ajax
 }
 
 /**
