@@ -188,8 +188,8 @@ td.vw_club {
     color:<?php echo $config->getEnv('vws_hdrfg2')?>;
     background-color: <?php echo $config->getEnv('vws_hdrbg2')?>;
     text-align:center;
-    font-weight: bold;
-    font-size:2.0vw;
+    font-size:1.9vw;
+    padding-top:0.8vw;
 }
 
 #vws_hdr_form input { /* formularios de la cabecera */
@@ -227,28 +227,34 @@ td.vw_club {
     background-color: <?php echo $config->getEnv('vws_rowcolor6')?>;
 }
 
+.vws_entry {
+    font-familiy: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-stretch:condensed;
+}
+
 .vws_entry input {
     text-align:left;
-    font-weight: bold;
     margin:0;
     padding:0;
     border:none;
     outline:none;
-    font-size:1.6vw;
-    font-stretch:condensed;
     color:<?php echo $config->getEnv('vws_linecolor')?>;
     background-color:inherit;
+    /* input fields doesn't inherit font styles */
+    font-size:1.6vw;
+    font-familiy: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-stretch:condensed;
 }
 
 .vws_entry span {
     text-align:left;
-    font-weight: bold;
     margin:0;
-    padding:0;
+    padding-top:0.8vw;
     border:none;
     outline:none;
     font-size:1.6vw;
-    font-stretch:condensed;
     color:<?php echo $config->getEnv('vws_linecolor')?>;
     background-color:inherit;
 }
@@ -258,7 +264,7 @@ td.vw_club {
 }
 
 /* borde a la izquierda o a la derecha */
-.vws_entry input.lborder {
+.vws_entry .lborder {
     border-left:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
     padding-left:5px;
 }

@@ -204,25 +204,27 @@ for($n=0;$n<4;$n++) {
     
     // perros del equipo en pista
     for (n=0;n<4;n++) {
+        var y=(n==0)?1:0;
+        var dy=((n==0) || (n==3))?1:0;
         if (n==0) { // orden, logo, dorsal
-            doLayout(layout,"#vws_current_Orden_0",    1,     82+10*n,10,10);
-            doLayout(layout,"#vws_current_Logo_0",     11,    82+10*n,15,10);
-            doLayout(layout,"#vws_current_Spare_0",   26,    82+10*n,14,10);
-            doLayout(layout,"#vws_current_Dorsal_0",   40,    82+10*n,10,10);
+            doLayout(layout,"#vws_current_Orden_0",    1,    82+10*n+y,10,10-dy);
+            doLayout(layout,"#vws_current_Logo_0",     11,   82+10*n+y,15,10-dy);
+            doLayout(layout,"#vws_current_Spare_0",    26,   82+10*n+y,14,10-dy);
+            doLayout(layout,"#vws_current_Dorsal_0",   40,   82+10*n+y,10,10-dy);
         } else if (n==1) { // equipo,dorsal
-            doLayout(layout,"#vws_current_NombreEquipo_1", 1, 82+10*n,39,10);
-            doLayout(layout,"#vws_current_Dorsal_1",   40,    82+10*n,10,10);
+            doLayout(layout,"#vws_current_NombreEquipo_1", 1,82+10*n+y,39,10-dy);
+            doLayout(layout,"#vws_current_Dorsal_1",   40,   82+10*n+y,10,10-dy);
         } else { // dorsal
-            doLayout(layout,"#vws_current_Spare_"+n,   1,    82+10*n,39,10);
-            doLayout(layout,"#vws_current_Dorsal_"+n,  40,    82+10*n,10,10);
+            doLayout(layout,"#vws_current_Spare_"+n,   1,    82+10*n+y,39,10-dy);
+            doLayout(layout,"#vws_current_Dorsal_"+n,  40,   82+10*n+y,10,10-dy);
         }
-        doLayout(layout,"#vws_current_Nombre_"+n,      50,    82+10*n,41,10);
-        doLayout(layout,"#vws_current_NombreGuia_"+n,  91,    82+10*n,71,10);
-        doLayout(layout,"#vws_current_FaltasTocados_"+n,162,  82+10*n,16,10);
-        doLayout(layout,"#vws_current_Refusals_"+n,     178,   82+10*n,16,10);
-        doLayout(layout,"#vws_current_Time_"+n,        194,   82+10*n,26,10);
-        doLayout(layout,"#vws_current_Result_"+n,      220,   82+10*n,16,10);
-        doLayout(layout,"#vws_current_Active_"+n,      236,   82+10*n,10,10);
+        doLayout(layout,"#vws_current_Nombre_"+n,      50,   82+10*n+y,41,10-dy);
+        doLayout(layout,"#vws_current_NombreGuia_"+n,  91,   82+10*n+y,71,10-dy);
+        doLayout(layout,"#vws_current_FaltasTocados_"+n,162, 82+10*n+y,16,10-dy);
+        doLayout(layout,"#vws_current_Refusals_"+n,     178, 82+10*n+y,16,10-dy);
+        doLayout(layout,"#vws_current_Time_"+n,        194,  82+10*n+y,26,10-dy);
+        doLayout(layout,"#vws_current_Result_"+n,      220,  82+10*n+y,16,10-dy);
+        doLayout(layout,"#vws_current_Active_"+n,      236,  82+10*n+y,10,10-dy);
     }
 
     // resultados

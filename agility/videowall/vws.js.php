@@ -115,7 +115,8 @@ function vwsp_updateHeader(mode,data) {
         vws_selectAgilityOrJumping(isAgility(data.Tanda.Tipo));
     }
     if ( mode.indexOf("trs")>=0) { // fix sct/mct
-        // TO BE WRITTEN
+        var trs=(typeof(data.trs)==="undefined")?"<?php _e('Dist');?>/<?php _e('SCT');?>": data.trs.dist+ "m. / " +data.trs.trs+"s.";
+        $('#vws_hdr_trs').val(trs);
     }
 }
 /**
@@ -351,22 +352,27 @@ function vws_updateParciales(data) {
             vwsp_updateHeader('trs',dat);
             // rellenamos arrays 'result' y 'before'
             for (var n = 0; n < size; n++) {
-                // el campo puesto no viene: lo obtenemos del orden de la lista
-                items[n]['Puesto']=n+1;
-                items[n]['Result']=n+1;
                 // fill if required 'result' table data
                 if (n < nitems) {
                     var logo = items[n][(team) ? 'LogoTeam' : 'LogoClub'];
                     $('#vws_results_' + n).form('load', items[n]);
                     $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
+                    $('#vws_results_FaltasTocados_' + n).html(parseInt(items[n]['Faltas'])+parseInt(items[n]['Tocados']));
                 }
-                // fill if required 'before' table data
+                // fill if found 'before' table data
                 for (var i = 0; i < 2; i++) {
                     if (team) { if ($('#vws_before_Equipo_' + i).val() != items[n]['ID']) continue; }
                     if (!team) { if ($('#vws_before_Perro_' + i).val() != items[n]['Perro']) continue; }
                     $('#vws_before_' + i).form('load',items[n]);
+                    if (!team) $('#vws_before_FaltasTocados_' + i).html(parseInt(items[n]['Faltas'])+parseInt(items[n]['Tocados']))
                 }
             }
+            // si size < nitems, completamos con datos vacios
+            for (;n<nitems;n++) {
+
+            }
+            // limpia los campos "before que no hayan sido utilizados
+
             // ahora indicamos puesto en el(los) campo(s) current, utilizando los datos de perros individuales
             for (n = 0; n < individual.length; n++) {
                 var perro = individual[n]['Perro'];

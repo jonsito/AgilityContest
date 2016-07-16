@@ -250,16 +250,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     }
     
     // perro en pista
-    doLayout(layout,"#vws_current_Orden",       1,     109,10,13);
-    doLayout(layout,"#vws_current_Logo",        11,    109,17,13);
-    doLayout(layout,"#vws_current_Dorsal",      28,    109,18,13);
-    doLayout(layout,"#vws_current_Nombre",      46,    109,36,13);
-    doLayout(layout,"#vws_current_NombreGuia",  82,    109,74,13);
+    doLayout(layout,"#vws_current_Orden",       1,     110,10,11);
+    doLayout(layout,"#vws_current_Logo",        11,    110,17,11);
+    doLayout(layout,"#vws_current_Dorsal",      28,    110,18,11);
+    doLayout(layout,"#vws_current_Nombre",      46,    110,36,11);
+    doLayout(layout,"#vws_current_NombreGuia",  82,    110,74,11);
 
-    doLayout(layout,"#vws_current_FaltasTocados",156,  109,20,13);
-    doLayout(layout,"#vws_current_Refusals",     176,   109,20,13);
-    doLayout(layout,"#vws_current_Time",      196,   109,35,13);
-    doLayout(layout,"#vws_current_Result",      231,   109,15,13);
+    doLayout(layout,"#vws_current_FaltasTocados",156,  110,20,11);
+    doLayout(layout,"#vws_current_Refusals",    176,   110,20,11);
+    doLayout(layout,"#vws_current_Time",        196,   110,35,11);
+    doLayout(layout,"#vws_current_Result",      231,   110,15,11);
 
     // resultados
     for(n=0;n<10;n++) {

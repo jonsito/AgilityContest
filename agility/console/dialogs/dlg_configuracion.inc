@@ -142,7 +142,7 @@ $config =Config::getInstance();
 			<input type="hidden" name="vws_uselogo" value="0"/> <!-- trick for checkboxes -->
 			<input type="checkbox" name="vws_uselogo" id="vws_uselogo" value="1"/><br />
 			<label for="vws_logourl"><?php _e('URL for logo image to be used');?></label>
-			<input type="text" size="50" maxlength="100" /><br />
+			<input type="text" id="vws_logourl" name="vws_logourl" size="50" maxlength="90" /><br />
 			
 			<label for="vws_hdrbg1"><?php _e('Background color for main header'); ?></label>
 			<input id="vws_hdrbg1" name="vws_hdrbg1" type="color" value="#0000ff"/>

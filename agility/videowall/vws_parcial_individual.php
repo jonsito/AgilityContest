@@ -51,8 +51,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         </form>
         <span class="vws_theader" id="vws_hdr_calltoring"><?php _e('Call to ring');?> </span>
         <span class="vws_theader" id="vws_hdr_teaminfo"><?php _e("Competitor's data");?> </span>
-        <span class="vws_theader" id="vws_hdr_lastround"><?php _e('Round');?> </span>
-        <span class="vws_theader" id="vws_hdr_finalscores"><?php _e('Final');?> </span>
+        <span class="vws_theader" style="text-align:left" id="vws_hdr_FltLabel"><?php _e('F');?> </span>
+        <span class="vws_theader" style="text-align:left" id="vws_hdr_RLabel"><?php _e('R');?> </span>
+        <span class="vws_theader" style="text-align:left" id="vws_hdr_TimeLabel"><?php _e('Tim');?> </span>
+        <span class="vws_theader" id="vws_hdr_PenalLabel"><?php _e('Penal');?> </span>
+        <span class="vws_theader" id="vws_hdr_PosLabel"><?php _e('Pos');?> </span>
     </div>
     
     <div id="vws_llamada">
@@ -104,9 +107,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<!-- data on round -->';
     echo '<input type="hidden"    id="vws_results_Faltas_'.$n.'"        name="Faltas" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Tocados_'.$n.'"       name="Tocados" value="Flt '.$n.'"/>';
-    echo '<span                   id="vws_results_FaltasTocados_'.$n.'" >F/T '.$n.'</span>';
+    echo '<span                   id="vws_results_FaltasTocados_'.$n.'"  class="lborder" >F/T '.$n.'</span>';
     echo '<input type="text"      id="vws_results_Rehuses_'.$n.'"       name="Rehuses" value="Reh '.$n.'"/>';
-    echo '<input type="text"      id="vws_results_Tiempo_'.$n.'"        name="Tiempo" value="Time '.$n.'" class="lborder" />';
+    echo '<input type="text"      id="vws_results_Tiempo_'.$n.'"        name="Tiempo" value="Time '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Velocidad_'.$n.'"     name="Velocidad" value="Vel '.$n.'"/>';
     echo '<input type="text"      id="vws_results_Penalizacion_'.$n.'"  name="Penalizacion" value="Pen '.$n.'" class="lborder" />';
     echo '<input type="hidden"    id="vws_results_Calificacion_'.$n.'"  name="Calificacion" value="Cal '.$n.'"/>';
@@ -160,6 +163,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php for($n=0;$n<2;$n++) {
 
     echo '<form id="vws_before_'.$n.'" class="vws_css_results_'.($n%2).' vws_entry">';
+    echo '<input type="text"      id="vws_before_Orden_'.$n.'"      name="Orden" value="Ord '.$n.'"/>';
     echo '<input type="hidden" id="vws_before_LogoClub_'.$n.'"      name="LogoClub" value="Logo '.$n.'"/>';
     echo '<img class="vws_css_results_'.($n%2).' vws_imgpadding" src="/agility/images/logos/agilitycontest.png" id="vws_before_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
     echo '<input type="text"      id="vws_before_Dorsal_'.$n.'"     name="Dorsal" value="Dorsal '.$n.'"/>';
@@ -175,9 +179,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<!-- data on round -->';
     echo '<input type="hidden"    id="vws_before_Faltas_'.$n.'"        name="Faltas" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_Tocados_'.$n.'"       name="Tocados" value="Flt '.$n.'"/>';
-    echo '<span                   id="vws_before_FaltasTocados_'.$n.'" >F/T '.$n.'</span>';
+    echo '<span                   id="vws_before_FaltasTocados_'.$n.'"  class="lborder" >F/T '.$n.'</span>';
     echo '<input type="text"      id="vws_before_Rehuses_'.$n.'"       name="Rehuses" value="Reh '.$n.'"/>';
-    echo '<input type="text"      id="vws_before_Tiempo_'.$n.'"        name="Tiempo" value="Time '.$n.'" class="lborder" />';
+    echo '<input type="text"      id="vws_before_Tiempo_'.$n.'"        name="Tiempo" value="Time '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_Velocidad_'.$n.'"     name="Velocidad" value="Vel '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_PTiempo_'.$n.'"       name="PTiempo" value="PTime '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_PRecorrido_'.$n.'"    name="PRecorrido" value="PReco '.$n.'"/>';
@@ -211,10 +215,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 ?>
     doLayout(layout,"#vws_hdr_trs",222,0,24,9);
 
-    doLayout(layout,"#vws_hdr_calltoring",1,27,87,10);
-    doLayout(layout,"#vws_hdr_teaminfo",91,9,83,9);
-    doLayout(layout,"#vws_hdr_lastround",174,9,36,9);
-    doLayout(layout,"#vws_hdr_finalscores",210,9,36,9);
+    doLayout(layout,"#vws_hdr_calltoring",  1,27,87,10);
+    doLayout(layout,"#vws_hdr_teaminfo",    90,9,91,9);
+    doLayout(layout,"#vws_hdr_FltLabel",    181,9,10,9);
+    doLayout(layout,"#vws_hdr_RLabel",      191,9,10,9);
+    doLayout(layout,"#vws_hdr_TimeLabel",   201,9,17,9);
+    doLayout(layout,"#vws_hdr_PenalLabel",  218,9,17,9);
+    doLayout(layout,"#vws_hdr_PosLabel",    235,9,11,9);
 
 
     // llamada a pista
@@ -227,16 +234,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     }
     
     // perro en pista
-    doLayout(layout,"#vws_current_Orden",       1,     109,10,13);
-    doLayout(layout,"#vws_current_Logo",        11,    109,17,13);
-    doLayout(layout,"#vws_current_Dorsal",      28,    109,18,13);
-    doLayout(layout,"#vws_current_Nombre",      46,    109,36,13);
-    doLayout(layout,"#vws_current_NombreGuia",  82,    109,74,13);
+    doLayout(layout,"#vws_current_Orden",       1,     110,10,11);
+    doLayout(layout,"#vws_current_Logo",        11,    110,17,11);
+    doLayout(layout,"#vws_current_Dorsal",      28,    110,18,11);
+    doLayout(layout,"#vws_current_Nombre",      46,    110,36,11);
+    doLayout(layout,"#vws_current_NombreGuia",  82,    110,74,11);
 
-    doLayout(layout,"#vws_current_FaltasTocados",156,  109,20,13);
-    doLayout(layout,"#vws_current_Refusals",     176,   109,20,13);
-    doLayout(layout,"#vws_current_Time",      196,   109,35,13);
-    doLayout(layout,"#vws_current_Result",      231,   109,15,13);
+    doLayout(layout,"#vws_current_FaltasTocados",156,  110,20,11);
+    doLayout(layout,"#vws_current_Refusals",     176,  110,20,11);
+    doLayout(layout,"#vws_current_Time",        196,   110,35,11);
+    doLayout(layout,"#vws_current_Result",      231,   110,15,11);
 
     // resultados
     for(n=0;n<10;n++) {
@@ -246,9 +253,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         doLayout(layout,"#vws_results_Nombre_"+n,    110,   19+9*n,23,9);
         doLayout(layout,"#vws_results_NombreGuia_"+n,133,   19+9*n,48,9);
         // datos de la manga
-        doLayout(layout,"#vws_results_Tiempo_"+n,        181, 19+9*n,17,9);
-        doLayout(layout,"#vws_results_FaltasTocados_"+n, 198, 19+9*n,10,9);
-        doLayout(layout,"#vws_results_Rehuses_"+n,       208, 19+9*n,10,9);
+        doLayout(layout,"#vws_results_FaltasTocados_"+n, 181, 19+9*n,10,9);
+        doLayout(layout,"#vws_results_Rehuses_"+n,       191, 19+9*n,10,9);
+        doLayout(layout,"#vws_results_Tiempo_"+n,        201, 19+9*n,17,9);
         // resultados
         doLayout(layout,"#vws_results_Penalizacion_"+n,  218, 19+9*n,17,9);
         doLayout(layout,"#vws_results_Puesto_"+n,        235, 19+9*n,11,9);
@@ -262,9 +269,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         doLayout(layout,"#vws_before_Nombre_"+n,   110,    122+9*n,23,9);
         doLayout(layout,"#vws_before_NombreGuia_"+n,133,   122+9*n,48,9);
         // manga
-        doLayout(layout,"#vws_before_Tiempo_"+n,        181, 122+9*n,17,9);
-        doLayout(layout,"#vws_before_FaltasTocados_"+n, 198, 122+9*n,10,9);
-        doLayout(layout,"#vws_before_Rehuses_"+n,       208, 122+9*n,10,9);
+        doLayout(layout,"#vws_before_FaltasTocados_"+n, 181, 122+9*n,10,9);
+        doLayout(layout,"#vws_before_Rehuses_"+n,       191, 122+9*n,10,9);
+        doLayout(layout,"#vws_before_Tiempo_"+n,        201, 122+9*n,17,9);
         // resultados
         doLayout(layout,"#vws_before_Penalizacion_"+n,  218, 122+9*n,17,9);
         doLayout(layout,"#vws_before_Puesto_"+n,        235, 122+9*n,11,9);
