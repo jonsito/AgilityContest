@@ -37,6 +37,7 @@ if ($file) {
 ?>
 <div id="vw_footer">
     <table style="width:100%;">
+        <tr><td colspan="3">&nbsp;</td></tr>
         <tr>
             <td style="text-align:center">
                 <a id="url_g0" target="sponsor" href=""> <img id="img_g0" src="/agility/images/logos/null.png" alt="" height="40"/> </a>
