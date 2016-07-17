@@ -61,17 +61,10 @@ $config =Config::getInstance();
         autoRowHeight: true,
         // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
         rowStyler:myRowStyler,
-        /*
-        onBeforeLoad:function(params) {
-            // do not update until 'open' received
-            if( $('#vw_header-infoprueba').html()==='<?php _e('Header'); ?>') return false;
-            return true;
-        },
-        */
         onLoadSuccess:function(){
             var mySelf=$('#ordensalida-datagrid');
             // show/hide team name
-            if (isJornadaEquipos() ) {
+            if (isJornadaEquipos(null) ) {
                 mySelf.datagrid('showColumn','NombreEquipo');
                 mySelf.datagrid('hideColumn','NombreClub');
             } else  {

@@ -69,7 +69,7 @@ function formatCategoria(val,row,idx) {
 /* formatters para datagrid de resultados */
 function formatFaltasTocados(val,row,idx) { return parseInt(row.Faltas)+parseInt(row.Tocados); }
 function formatPuesto(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
-function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5.em;font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
+function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
 function formatVelocidad(val,row,idx) { return (row.Penalizacion>=200)?"-":toFixedT(parseFloat(val),1); }
 function formatTiempo(val,row,idx) { return (row.Penalizacion>=200)?"-":toFixedT(parseFloat(val),ac_config.numdecs); }
 function formatPenalizacion(val,row,idx) { return toFixedT(parseFloat(val),ac_config.numdecs); }
@@ -111,7 +111,7 @@ function formatTP(val,row,idx) {
 }
 function formatCatGrad(val,row,idx) {
     var hasGrade=true;
-    if (isJornadaEquipos()) hasGrade=false;
+    if (isJornadaEquipos(null)) hasGrade=false;
     if (isJornadaOpen()) hasGrade=false;
     if (isJornadaKO()) hasGrade=false;
     if (!hasGrade) return formatCategoria(val,row,idx);

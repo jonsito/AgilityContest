@@ -357,7 +357,7 @@ function vwcf_evalPenalizacion () {
 /**
  * Evalua y rellena los datos de penalizacion, calificacion y puesto
  * de los perros que acaban de salir
- * @param {array} items array de datos Datos de perro a evaluar
+ * @param {object} items array de datos Datos de perro a evaluar
  */
 function vwc_eval_lastParciales(items) {
 	// extraemos distancia, trs y trm. con parseInt eliminamos textos extras
@@ -443,7 +443,7 @@ function vwcp_updateLlamada(evt,data) {
 			var celo=(current['Celo']!=0)?'<span class="blink"><?php _e("Heat");?></span>':"&nbsp";
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(current['NombreGuia']);
-            $("#vwls_NombreClub").html(isJornadaEquipos()?current['NombreEquipo']:current['NombreClub']);
+            $("#vwls_NombreClub").html(isJornadaEquipos(null)?current['NombreEquipo']:current['NombreClub']);
 			$("#vwls_Faltas").html(current['Faltas']);
 			$("#vwls_Tocados").html(current['Tocados']);
 			$("#vwls_FaltasTocados").html(parseInt(current['Faltas'])+parseInt(current['Tocados']));
@@ -463,7 +463,7 @@ function vwcp_updateLlamada(evt,data) {
 			vwc_eval_lastParciales(dat['before']);
 			// una vez evaluadas las clasificaciones de los 'before' perros, las presentamos
 			var ret= {'total':dat['before'].length,'rows':dat['before']};
-			var dgstr=(isJornadaEquipos())?'#parciales_last_equipos-datagrid':'#parciales_last_individual-datagrid';
+			var dgstr=(isJornadaEquipos(null))?'#parciales_last_equipos-datagrid':'#parciales_last_individual-datagrid';
 			$(dgstr).datagrid('loadData', ret ).datagrid('fitColumns').datagrid('scrollTo', 0);
 		}
 	});
@@ -521,7 +521,7 @@ function vwcf_updateLlamada(evt,data) {
 				}
 				// una vez evaluadas las clasificaciones de los 'before' perros, las presentamos
 				var ret= {'total':dat['before'].length,'rows':dat['before']};
-                var dgstr=(isJornadaEquipos())?'#finales_last_equipos-datagrid':'#finales_last_individual-datagrid';
+                var dgstr=(isJornadaEquipos(null))?'#finales_last_equipos-datagrid':'#finales_last_individual-datagrid';
 				$(dgstr).datagrid('loadData', ret ).datagrid('fitColumns').datagrid('scrollTo', 0);
 			}
 
@@ -542,7 +542,7 @@ function vwcf_updateLlamada(evt,data) {
 			var celo = (current['Celo'] != 0) ? '<span class="blink"><?php _e("Heat");?></span>' : "&nbsp";
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(current['NombreGuia']);
-			$("#vwls_NombreClub").html(isJornadaEquipos()?current['NombreEquipo']:current['NombreClub']);
+			$("#vwls_NombreClub").html(isJornadaEquipos(null)?current['NombreEquipo']:current['NombreClub']);
 			$("#vwls_Faltas").html(current['Faltas']);
 			$("#vwls_Tocados").html(current['Tocados']);
 			$("#vwls_FaltasTocados").html(parseInt(current['Faltas'])+parseInt(current['Tocados']));
@@ -591,8 +591,8 @@ function vw_updateOrdenSalida(evt,data) {
 /**
  * Generic event handler for VideoWall and LiveStream screens
  * Every screen has a 'eventHandler' table with pointer to functions to be called
- * @param id {integer} Event ID
- * @param evt {array} Event data
+ * @param id {number} Event ID
+ * @param evt {object} Event data
  */
 function videowall_eventManager(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string

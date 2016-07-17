@@ -35,7 +35,7 @@ $('#seljornada-window').window({
 			return;
 		}
 		page="/agility/console/frm_clasificaciones2.php";
-		if (isJornadaEquipos()) page="/agility/console/frm_clasificaciones_equipos.php";
+		if (isJornadaEquipos(null)) page="/agility/console/frm_clasificaciones_equipos.php";
 		if (workingData.datosJornada.Open!=0) page="/agility/console/frm_clasificaciones2.php";
 		if (workingData.datosJornada.KO!=0) page="/agility/console/resultados_ko.php";
 		loadContents(page,'<?php _e('Results & Scores');?>');

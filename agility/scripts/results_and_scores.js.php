@@ -238,7 +238,7 @@ function consoleReloadParcial(val,fill) {
         url:"/agility/server/database/resultadosFunctions.php",
         dataType:'json',
         data: {
-            Operation:	(isJornadaEquipos())?'getResultadosEquipos':'getResultados',
+            Operation:	(isJornadaEquipos(null))?'getResultadosEquipos':'getResultados',
             Prueba:		workingData.prueba,
             Jornada:	workingData.jornada,
             Manga:		workingData.manga,
@@ -262,7 +262,7 @@ function consoleReloadParcial(val,fill) {
 
             // actualizar datagrid
             if (!fill) return;
-            if ( isJornadaEquipos() ) {
+            if ( isJornadaEquipos(null) ) {
                 var dg=$('#parciales_equipos-datagrid');
                 workingData.individual=dat.individual;
                 dg.datagrid('options').expandCount = 0;
@@ -300,7 +300,7 @@ function updateParciales(mode,row) {
         url:"/agility/server/database/resultadosFunctions.php",
         dataType:'json',
         data: {
-            Operation:	(isJornadaEquipos())?'getResultadosEquipos':'getResultados',
+            Operation:	(isJornadaEquipos(null))?'getResultadosEquipos':'getResultados',
             Prueba:		workingData.prueba,
             Jornada:	workingData.jornada,
             Manga:		workingData.manga,
@@ -318,7 +318,7 @@ function updateParciales(mode,row) {
             $('#parciales-TRM').text(dat['trs'].trm);
             $('#parciales-Velocidad').text(dat['trs'].vel);
             // actualizar datagrid
-            if ( isJornadaEquipos() ) {
+            if ( isJornadaEquipos(null) ) {
                 var dg=$('#parciales_equipos-datagrid');
                 workingData.individual=dat.individual;
                 dg.datagrid('options').expandCount = 0;
@@ -349,7 +349,7 @@ function updateFinales(ronda,callback) {
         url:"/agility/server/database/clasificacionesFunctions.php",
         dataType:'json',
         data: {
-            Operation: (isJornadaEquipos())?'clasificacionEquipos':'clasificacionIndividual',
+            Operation: (isJornadaEquipos(null))?'clasificacionEquipos':'clasificacionIndividual',
             Prueba:	ronda.Prueba,
             Jornada:ronda.Jornada,
             Manga1:	ronda.Manga1,
@@ -388,7 +388,7 @@ function updateFinales(ronda,callback) {
             }
             // clasificaciones
 
-            if ( isJornadaEquipos() ) {
+            if ( isJornadaEquipos(null) ) {
                 $('#finales_equipos_roundname_m1').html(ronda.NombreManga1);
                 $('#finales_equipos_roundname_m2').html(ronda.NombreManga2);
                 var dg=$('#finales_equipos-datagrid');

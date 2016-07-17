@@ -319,7 +319,7 @@ $config =Config::getInstance();
                 // populate data entry datagrid with loaded data
                 $('#tdialog-tnext').datagrid('loadData',data.rows);
                 // show/hide team name
-                if (isJornadaEquipos() ) mySelf.datagrid('showColumn','NombreEquipo');
+                if (isJornadaEquipos(null) ) mySelf.datagrid('showColumn','NombreEquipo');
                 else  mySelf.datagrid('hideColumn','NombreEquipo');
                 // auto resize columns
                 setTimeout(function(){ tbt_dg.datagrid('fixDetailRowHeight',index); },0);
@@ -413,7 +413,6 @@ $config =Config::getInstance();
         singleSelect: true,
         autoRowHeight: true,
         columns:[[
-            /*{ field:'Num',	width:'10%', align:'right',	title: '<?php _e('Num');?>' },*/
             { field:'Dorsal',width:'10%', align:'right',	title: '<?php _e('Dorsal');?>' },
             { field:'Nombre',width:'25%', align:'right',	title: '<?php _e('Name');?>' },
             { field:'NombreGuia',	width:'35%', align:'right',	title: '<?php _e('Handler');?>' },

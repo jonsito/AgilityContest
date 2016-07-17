@@ -148,11 +148,12 @@ function isJornadaEqConjunta() { return (workingData.datosJornada.Equipos4!=0); 
 
 /**
  * Check if provided jornada has Team rounds
- * @param {object} jornada Journey data. if undefined use workingData.datosJornada
+ * @param {object} datosJornada Journey data. if undefined or null use workingData.datosJornada
  * @returns {boolean}
  */
 function isJornadaEquipos(datosJornada) {
 	if (typeof(datosJornada)==="undefined") datosJornada=workingData.datosJornada;
+	else if (datosJornada===null) datosJornada=workingData.datosJornada;
 	if (datosJornada.Equipos3!=0) return true;
 	if (datosJornada.Equipos4!=0) return true;
 	return false;
@@ -314,7 +315,7 @@ function getFederationInfo() {
 		cache: false,
 		dataType: 'json',
 		success: function(list){
-			if ( typeof (list) !== "array") {
+			if ( typeof (list) !== "object") { // in Javascript array and object is the same
 				ac_fedInfo=list;
 				initWorkingData(); // must be called _after_ data is loaded
 			} else {
@@ -470,7 +471,7 @@ function Countdown(options) {
 
 	// get running status
 	this.started = function() {
-		return (count>0)?true:false;
+		return (count>0); //true if started
 	}
 }
 

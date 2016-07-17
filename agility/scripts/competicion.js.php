@@ -104,7 +104,7 @@ function isJumping(tanda) {
 
 /**
  * Obtiene el modo de visualizacion de una manga determinada en funcion de la prueba, tipo de recorrido y categorias
- * @param {int} federation ID
+ * @param {int} fed federation ID
  * @param {int} recorrido 0:separado 1:mixto 2:conjunto
  * @param {int} categoria 0:L 1:M 2:S 3:T
  * @returns {int} requested mode. -1 if invalid request
@@ -150,7 +150,7 @@ function getModeString(fed,mode) {
 
 /**
  * Obtiene el texto asociado al modo de visualizacion de una manga determinada en funcion de la prueba, tipo de recorrido y categorias
- * @param {int} federation ID
+ * @param {int} fed federation ID
  * @param {int} recorrido 0:separado 1:mixto 2:conjunto
  * @param {int} categoria 0:L 1:M 2:S 3:T
  * @returns {int} requested string. "Invalid" if invalid request
@@ -690,7 +690,7 @@ function setupResultadosWindow(recorrido) {
     $('#resultadosmanga-SmallBtn').prop('checked',false);
     $('#resultadosmanga-TinyBtn').prop('checked',false);
     // cargamos ventana inicial de resultados con una pantalla vacia
-    if (isJornadaEquipos()) $('#parciales_equipos-datagrid').datagrid('loadData',{total:0, rows:{}});
+    if (isJornadaEquipos(null)) $('#parciales_equipos-datagrid').datagrid('loadData',{total:0, rows:{}});
     else $('#parciales_individual-datagrid').datagrid('loadData',{total:0, rows:{}});
     // actualizamos la informacion del panel de informacion de trs/trm
     var infomanga=ac_fedInfo[fed].InfoManga[parseInt(recorrido)];
@@ -1011,7 +1011,7 @@ function resultados_doSelectRonda(row) {
 		url:"/agility/server/database/clasificacionesFunctions.php",
 		dataType:'json',
 		data: {
-            Operation: (isJornadaEquipos())?'clasificacionEquipos':'clasificacionIndividual',
+            Operation: (isJornadaEquipos(null))?'clasificacionEquipos':'clasificacionIndividual',
 			Prueba:workingData.prueba,
             Jornada:workingData.jornada,
             Federation:fed,
@@ -1021,7 +1021,7 @@ function resultados_doSelectRonda(row) {
 			Mode: mode
 		},
 		success: function(dat) {
-            if ( isJornadaEquipos() ) {
+            if ( isJornadaEquipos(null) ) {
                 $('#finales_equipos_roundname_m1').text(row.Manga1.Nombre);
                 $('#finales_equipos_roundname_m2').text(row.Manga2.Nombre);
                 workingData.individual=dat.individual;
@@ -1125,7 +1125,7 @@ function reloadClasificaciones() {
 		url:"/agility/server/database/clasificacionesFunctions.php",
 		dataType:'json',
 		data: {
-            Operation: (isJornadaEquipos())?'clasificacionEquipos':'clasificacionIndividual',
+            Operation: (isJornadaEquipos(null))?'clasificacionEquipos':'clasificacionIndividual',
 			Prueba:workingData.prueba,
 			Jornada:workingData.jornada,
 			Manga1:ronda.Manga1,
@@ -1134,7 +1134,7 @@ function reloadClasificaciones() {
 			Mode: mode
 		},
 		success: function(dat) {
-            if ( isJornadaEquipos() ) {
+            if ( isJornadaEquipos(null) ) {
                 $('#finales_equipos_roundname_m1').text(ronda.NombreManga1);
                 $('#finales_equipos_roundname_m2').text(ronda.NombreManga2);
                 workingData.individual=dat.individual;

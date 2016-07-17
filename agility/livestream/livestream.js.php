@@ -23,7 +23,7 @@ $config =Config::getInstance();
 
 function vwls_enableOSD(val) {
 	var title=document.title;
-	var str="-"
+	var str="-";
 	if (val==0) {
 		str=" - OSD:OFF";
 		$('#vwls_common').css('display','none');
@@ -37,7 +37,7 @@ function vwls_enableOSD(val) {
 function vwls_showRoundInfo(val) {
 	var disp=(val==0)?'none':'initial';
 	if (parseInt(ac_config.vw_infoposition)==0) disp='none';
-	else $('#vwls_mangasInfo').css('display','initial');
+	else $('#vwls_mangasInfo').css('display',disp);
 }
 
 function vwls_showCompetitorInfo(val) {
@@ -81,7 +81,7 @@ function vwls_showData(data) {
 		// hide "Grado" Information if not applicable
 		$('#vwls_Grado').html(hasGradosByJornada(workingData.datosJornada)?res["NombreGrado"]:"");
 		// on Team events, show Team info instead of Club
-		$('#vwls_NombreClub').html((isJornadaEquipos())?workingData.teamsByJornada[data["Equipo"]].Nombre:res["NombreClub"]);
+		$('#vwls_NombreClub').html((isJornadaEquipos(null))?workingData.teamsByJornada[data["Equipo"]].Nombre:res["NombreClub"]);
 		$('#vwls_Celo').html((celo==1)?'<span class="blink">Celo</span>':'');
 	}
 
@@ -146,7 +146,7 @@ function vwls_showData(data) {
 /**
  * evaluate and display position for this dog
  * @param {boolean} flag: true:evaluate, false:clear
- * @param {float} tiempo datatime from chronometer
+ * @param {float} time datatime from chronometer
  */
 function vwls_displayPuesto(flag,time) {
 	// if requested, turn off data

@@ -256,18 +256,18 @@ function public_acceptSelection() {
     var page='/agility/console/frm_notavailable.php';
 	switch (o){
 	case 'inscritos':
-        if (isJornadaEquipos() ) page="/agility/public/pb_inscripciones_equipos.php";
+        if (isJornadaEquipos(null) ) page="/agility/public/pb_inscripciones_equipos.php";
         else page="/agility/public/pb_inscripciones.php";
 		break;
 	case 'ordensalida':
 		page="/agility/public/pb_ordensalida.php";
 		break;
 	case 'parciales':
-        if (isJornadaEquipos() ) page="/agility/public/pb_parciales_equipos.php";
+        if (isJornadaEquipos(null) ) page="/agility/public/pb_parciales_equipos.php";
         else page="/agility/public/pb_parciales.php";
 		break;
 	case 'clasificaciones':
-        if (isJornadaEquipos() ) page="/agility/public/pb_finales_equipos.php";
+        if (isJornadaEquipos(null) ) page="/agility/public/pb_finales_equipos.php";
         else page="/agility/public/pb_finales.php";
         break;
     case 'programa':

@@ -220,7 +220,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         onLoadSuccess: function(data) {
             var mySelf=$('#vwc_llamada-datagrid');
             // show/hide team name
-            if (isJornadaEquipos() ) {
+            if (isJornadaEquipos(null) ) {
                 mySelf.datagrid('hideColumn','NombreClub');
                 mySelf.datagrid('showColumn','NombreEquipo');
             } else  {

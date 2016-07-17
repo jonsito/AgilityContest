@@ -41,7 +41,7 @@ function vws_selectAgilityOrJumping(agility) {
     $('#vws_hdr_lastround').html((agility)?"Agility":"Jumping");
     var toShow=(agility)?"1":"2";
     var toHide=(agility)?"2":"1";
-    var size=isJornadaEquipos()?7:10;
+    var size=isJornadaEquipos(null)?7:10;
     for (var n=0;n<size;n++) { // results
         $("#vws_results_T"+toShow+"_"+n).css("display","inline-block");
         $("#vws_results_P"+toShow+"_"+n).css("display","inline-block");
@@ -79,7 +79,7 @@ function vwsf_updateHeader(mode,data) {
     }
     if (data==null) return; // cannot go further without data
     if (mode.indexOf("manga")>=0) { // fix round name
-        var team=(isJornadaEquipos())?"":" - <?php _e('Individual');?>";
+        var team=(isJornadaEquipos(null))?"":" - <?php _e('Individual');?>";
         $('#vws_hdr_manga').val(data.Tanda.Nombre+team);
         vws_selectAgilityOrJumping(isAgility(data.Tanda.Tipo));
     }
@@ -110,9 +110,8 @@ function vwsp_updateHeader(mode,data) {
     }
     if (data==null) return; // cannot go further without data
     if (mode.indexOf("manga")>=0) { // fix round name
-        var team=(isJornadaEquipos())?"":" - <?php _e('Individual');?>";
+        var team=(isJornadaEquipos(null))?"":" - <?php _e('Individual');?>";
         $('#vws_hdr_manga').val(data.Tanda.Nombre+team);
-        vws_selectAgilityOrJumping(isAgility(data.Tanda.Tipo));
     }
     if ( mode.indexOf("trs")>=0) { // fix sct/mct
         var trs=(typeof(data.trs)==="undefined")?"<?php _e('Dist');?>/<?php _e('SCT');?>": data.trs.dist+ "m. / " +data.trs.trs+"s.";
@@ -124,9 +123,7 @@ function vwsp_updateHeader(mode,data) {
  * @param {object} data journey information
  */
 function vws_setFinalIndividualOrTeamView(data) {
-    var team=false;
-    if (parseInt(data.Jornada.Equipos3)!=0) { team=true; }
-    if (parseInt(data.Jornada.Equipos4)!=0) { team=true;  }
+    var team=isJornadaEquipos(data.Jornada);
     // cargamos la pagina adecuada en funcion del tipo de evento
     var page='/agility/videowall/'+((team==true)?'vws_final_equipos.php':'vws_final_individual.php');
     $('#vws-window').window('refresh',page);
@@ -137,9 +134,7 @@ function vws_setFinalIndividualOrTeamView(data) {
 * @param {object} data journey information
 */
 function vws_setPartialIndividualOrTeamView(data) {
-    var team=false;
-    if (parseInt(data.Jornada.Equipos3)!=0) { team=true; }
-    if (parseInt(data.Jornada.Equipos4)!=0) { team=true;  }
+    var team=isJornadaEquipos(data.Jornada);
     // cargamos la pagina adecuada en funcion del tipo de evento
     var page='/agility/videowall/'+((team==true)?'vws_parcial_equipos.php':'vws_parcial_individual.php');
     $('#vws-window').window('refresh',page);
@@ -179,7 +174,7 @@ function vws_displayData(row,flag) {
  * @param {function} callback function to be called on updateLlamada success
  */
 function vws_updateLlamada(evt,data,callback) {
-    var team=isJornadaEquipos();
+    var team=isJornadaEquipos(null);
     var nitems=(team)?5:8; // resultados a evaluar en el orden de llamada a pista
     $.ajax( {
         type: "GET",
@@ -255,7 +250,7 @@ function vws_updateLlamada(evt,data,callback) {
  */
 function vws_updateFinales(data) {
     // ajustamos contadores
-    var team=isJornadaEquipos();
+    var team=isJornadaEquipos(null);
     var nitems=(team)?7:10; // clasificaciones a presentar en funcion de individual/equipos
     // buscamos clasificaciones
     $.ajax({
@@ -325,7 +320,7 @@ function vws_updateFinales(data) {
  */
 function vws_updateParciales(data) {
     // ajustamos contadores
-    var team=isJornadaEquipos();
+    var team=isJornadaEquipos(null);
     var nitems=(team)?7:10; // clasificaciones a presentar en funcion de individual/equipos
     // buscamos resultados parciales de la manga
     $.ajax({
@@ -333,7 +328,7 @@ function vws_updateParciales(data) {
             url:"/agility/server/database/resultadosFunctions.php",
             dataType:'json',
             data: {
-            Operation:	(isJornadaEquipos())?'getResultadosEquipos':'getResultados',
+            Operation:	(isJornadaEquipos(null))?'getResultadosEquipos':'getResultados',
             Prueba:		workingData.prueba,
             Jornada:	workingData.jornada,
             Manga:		workingData.manga,

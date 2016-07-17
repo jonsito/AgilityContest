@@ -183,7 +183,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             }
             pb_collapseMenu(true);
             var page="/agility/public/pbmenu_parciales.php";
-            if (isJornadaEquipos() ) page="/agility/public/pbmenu_parciales_equipos.php";
+            if (isJornadaEquipos(null) ) page="/agility/public/pbmenu_parciales_equipos.php";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
@@ -192,7 +192,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             workingData.datosRonda=workingData.datosJornada.Series[serie];
             pb_collapseMenu(true);
             var page="/agility/public/pbmenu_finales.php";
-            if (isJornadaEquipos() ) page="/agility/public/pbmenu_finales_equipos.php";
+            if (isJornadaEquipos(null) ) page="/agility/public/pbmenu_finales_equipos.php";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
