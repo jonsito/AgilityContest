@@ -132,7 +132,7 @@ for($n=0;$n<4;$n++) {
     echo '<input type="hidden"    id= "vws_current_NoPresentado_'.$n.'" name="NoPresentado" value=""/>';
     echo '<input type="hidden"    id= "vws_current_Pendiente_'.$n.'"  name="Pendiente" value="Pend '.$n.'"/>';
     echo '<span id="vws_current_Result_'.$n.'" >Res '.$n.'</span>';
-    echo '<span id="vws_current_Active_'.$n.'" ></span>';
+    echo '<span id="vws_current_Active_'.$n.'" style="padding:0"></span>';
     echo '</form>';
 }
 ?>

@@ -133,7 +133,7 @@ for($n=0;$n<4;$n++) {
     echo '<input type="hidden"    id= "vws_current_NoPresentado_'.$n.'" name="NoPresentado" value=""/>';
     echo '<input type="hidden"    id= "vws_current_Pendiente_'.$n.'"  name="Pendiente" value="Pend '.$n.'"/>';
     echo '<span id="vws_current_Result_'.$n.'" >Res '.$n.'</span>';
-    echo '<span id="vws_current_Active_'.$n.'" ></span>';
+    echo '<span id="vws_current_Active_'.$n.'" style="padding:0"></span>';
     echo '</form>';
 }
 ?>
@@ -230,37 +230,37 @@ for($n=0;$n<4;$n++) {
     // resultados
     for(n=0;n<7;n++) {
         doLayout(layout,"#vws_results_Logo_"+n,     91,     19+9*n,10,9);
-        doLayout(layout,"#vws_results_NombreEquipo_"+n,101, 19+9*n,61,9);
+        doLayout(layout,"#vws_results_NombreEquipo_"+n,101, 19+9*n,57,9);
         // ronda agility
-        doLayout(layout,"#vws_results_T1_"+n,       162,    19+9*n,17,9);
-        doLayout(layout,"#vws_results_P1_"+n,       179,    19+9*n,17,9);
-        doLayout(layout,"#vws_results_Puesto1_"+n,  196,    19+9*n,8,9);
+        doLayout(layout,"#vws_results_T1_"+n,       158,    19+9*n,19,9);
+        doLayout(layout,"#vws_results_P1_"+n,       177,    19+9*n,18,9);
+        doLayout(layout,"#vws_results_Puesto1_"+n,  195,    19+9*n,7,9);
         // ronda jumping ( en runtime se hace que solo una de las dos rondas sea visible
-        doLayout(layout,"#vws_results_T2_"+n,       162,    19+9*n,17,9);
-        doLayout(layout,"#vws_results_P2_"+n,       179,    19+9*n,17,9);
-        doLayout(layout,"#vws_results_Puesto2_"+n,  196,    19+9*n,8,9);
+        doLayout(layout,"#vws_results_T2_"+n,       158,    19+9*n,19,9);
+        doLayout(layout,"#vws_results_P2_"+n,       177,    19+9*n,18,9);
+        doLayout(layout,"#vws_results_Puesto2_"+n,  195,    19+9*n,7,9);
         // final
-        doLayout(layout,"#vws_results_Tiempo_"+n,   204,    19+9*n,17,9);
-        doLayout(layout,"#vws_results_Penalizacion_"+n,221, 19+9*n,17,9);
-        doLayout(layout,"#vws_results_Puesto_"+n,   238,    19+9*n,8,9);
+        doLayout(layout,"#vws_results_Tiempo_"+n,   202,    19+9*n,19,9);
+        doLayout(layout,"#vws_results_Penalizacion_"+n,221, 19+9*n,18,9);
+        doLayout(layout,"#vws_results_Puesto_"+n,   239,    19+9*n,7,9);
     }
     // ultimos resultados
     for(n=0;n<2;n++) {
         doLayout(layout,"#vws_before_Orden_"+n,    82,     122+9*n,9,9);
         doLayout(layout,"#vws_before_Logo_"+n,     91,     122+9*n,10,9);
-        doLayout(layout,"#vws_before_NombreEquipo_"+n,101, 122+9*n,61,9);
+        doLayout(layout,"#vws_before_NombreEquipo_"+n,101, 122+9*n,57,9);
         // agility
-        doLayout(layout,"#vws_before_T1_"+n,       162,    122+9*n,17,9);
-        doLayout(layout,"#vws_before_P1_"+n,       179,    122+9*n,17,9);
-        doLayout(layout,"#vws_before_Puesto1_"+n,  196,    122+9*n,8,9);
+        doLayout(layout,"#vws_before_T1_"+n,       158,    122+9*n,19,9);
+        doLayout(layout,"#vws_before_P1_"+n,       177,    122+9*n,18,9);
+        doLayout(layout,"#vws_before_Puesto1_"+n,  195,    122+9*n,7,9);
         // jumping
-        doLayout(layout,"#vws_before_T2_"+n,       162,    122+9*n,17,9);
-        doLayout(layout,"#vws_before_P2_"+n,       179,    122+9*n,17,9);
-        doLayout(layout,"#vws_before_Puesto2_"+n,  196,    122+9*n,8,9);
+        doLayout(layout,"#vws_before_T2_"+n,       158,    122+9*n,19,9);
+        doLayout(layout,"#vws_before_P2_"+n,       177,    122+9*n,18,9);
+        doLayout(layout,"#vws_before_Puesto2_"+n,  195,    122+9*n,7,9);
         // final
-        doLayout(layout,"#vws_before_Tiempo_"+n,   204,    122+9*n,17,9);
-        doLayout(layout,"#vws_before_Penalizacion_"+n,221, 122+9*n,17,9);
-        doLayout(layout,"#vws_before_Puesto_"+n,   238,    122+9*n,8,9);
+        doLayout(layout,"#vws_before_Tiempo_"+n,   202,    122+9*n,19,9);
+        doLayout(layout,"#vws_before_Penalizacion_"+n,221, 122+9*n,18,9);
+        doLayout(layout,"#vws_before_Puesto_"+n,   239,    122+9*n,7,9);
     }
     // sponsor
     doLayout(layout,"#vws_sponsors",   1,    122,79,18);

@@ -234,7 +234,7 @@ function vws_updateLlamada(evt,data,callback) {
                     // check for current dot to mark proper "current" row form as active
                     if (dat['results'][n]['Perro']==evt['Dog']) {
                         workingData.vws_currentRow=cur;
-                        $('#vws_current_Active'+cur).html('<img width="100%" src="/agility/images/logos/getLogo.php?Logo=agilityContest.png&Federation=0"/>');
+                        $('#vws_current_Active'+cur).html('<img width="100%" src="'+ac_fedInfo[workingData.federation]['Logo']+'"/>');
                     } else  $('#vws_current_Active'+cur).html("");
                     // notice 'results' and 'LogoClub' as we need dog data, not team data
                     $('#vws_current'+cur).form('load',dat['results'][n]);
