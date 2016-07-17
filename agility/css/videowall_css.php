@@ -266,7 +266,7 @@ td.vw_club {
 /* borde a la izquierda o a la derecha */
 .vws_entry .lborder {
     border-left:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
-    padding-left:5px;
+    padding-left:1vw;
 }
 .rborder {
     border-right:2px solid <?php echo $config->getEnv('vws_linecolor')?>;

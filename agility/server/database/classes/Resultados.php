@@ -802,6 +802,8 @@ class Resultados extends DBObject {
             if ($teams[$eq]['Count']>=$mindogs) continue;
             $teams[$eq]['Count']++;
             $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
+            $teams[$eq]['PTiempo']+=$resultado['PTiempo'];
+            $teams[$eq]['PRecorrido']+=$resultado['PRecorrido'];
             $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
 			// cogemos como logo del equipo el logo del primer perro que encontremos de dicho equipo
 			if (!array_key_exists('LogoTeam',$teams[$eq])) $teams[$eq]['LogoTeam']=$resultado['LogoClub'];

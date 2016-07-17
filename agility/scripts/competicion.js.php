@@ -624,18 +624,20 @@ function competicionKeyEventHandler(evt) {
 	return true; // to allow follow key binding chain
 }
 /**
- * Evaluate puesto for given perro in final scores
+ * Evaluate puesto for given perro
  * Notice that the dog data for current round is not yet stored
  * @param {object} datos (idPerro, penalization on current round)
  * @param {function} callback(resultado,puesto)
+ * @param {boolean} final evaluate partial or final position
  * @returns {boolean}
  */
-function getPuestoFinal(datos,callback) {
+function __getPuesto(datos,callback,final) {
     var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,datos.Categoria);
     if (mode==-1) {
         $.messager.alert('<?php _e('Error'); ?>','<?php _e('Internal error: invalid Federation/Course/Category combination'); ?>','error');
         return false;
     }
+    var url=(final)?"/agility/server/database/clasificacionesFunctions.php":"/agility/server/database/resultadosFunctions.php";
     var param= {
         Operation:	'getPuesto',
         Prueba:		workingData.prueba,
@@ -646,7 +648,7 @@ function getPuestoFinal(datos,callback) {
     // console.log("perro:"+idperro+" categoria:"+datos.Categoria+" mode:"+mode);
     $.ajax({
         type:'GET',
-        url:"/agility/server/database/clasificacionesFunctions.php",
+        url: url,
         dataType:'json',
         data: $.extend({},param,datos),
         success: function(result) {
@@ -669,38 +671,8 @@ function getPuestoFinal(datos,callback) {
  * @param {function} callback(resultado,puesto)
  * @returns {boolean}
  */
-function getPuestoParcial(datos,callback) {
-    var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,datos.Categoria);
-    if (mode==-1) {
-        $.messager.alert('<?php _e('Error'); ?>','<?php _e('Internal error: invalid Federation/Course/Category combination'); ?>','error');
-        return false;
-    }
-    var param= {
-        Operation:	'getPuesto',
-        Prueba:		workingData.prueba,
-        Jornada:	workingData.jornada,
-        Manga:		workingData.manga,
-        Mode:       mode
-    };
-    // console.log("perro:"+idperro+" categoria:"+datos.Categoria+" mode:"+mode);
-    $.ajax({
-        type:'GET',
-        url:"/agility/server/database/resultadosFunctions.php",
-        dataType:'json',
-        data: $.extend({},param,datos),
-        success: function(result) {
-            if (result.errorMsg) {
-                $.messager.alert('<?php _e('Error'); ?>',result.errorMsg,'error');
-                return false;
-            }
-            if (result.success==true) {
-                callback(datos,result);
-                return false;
-            }
-        }
-    });
-    return false;
-}
+function getPuestoFinal(datos,callback) { return __getPuesto(datos,callback,true); }
+function getPuestoParcial(datos,callback) { return __getPuesto(datos,callback,false); }
 
 /**
  * Inicializa ventana de resultados ajustando textos segun federacion/recorrido

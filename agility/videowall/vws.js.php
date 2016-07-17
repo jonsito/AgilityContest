@@ -422,8 +422,9 @@ function vws_updateChronoData(data) { vws_updateData(data); } // just call updat
  * Do not evaluate trs/trm. just iterate on datagrid results to find position
  * @param {boolean} flag display on/off
  * @param {float} time measured from chrono (do not read html dom content)
+ * @param {boolean} final evaluate final or partial position
  */
-function vwsf_displayPuesto(flag,time) {
+function vws_displayPuesto(flag,time,final) {
     var cur=workingData.vws_currentRow;
 
     // if requested, or test dog (id==0) do not try to evaluate final scores
@@ -453,19 +454,14 @@ function vwsf_displayPuesto(flag,time) {
         }
         // on eliminado, do not blink error, as we don't know data on the other round.
         // phase 3: call server to evaluate partial result position
-        getPuestoFinal(datos,function(data,resultados){
-            $('#vws_current_Result'+cur).html('- '+Number(resultados.puesto).toString()+' -');
-        });
+        if (final) {
+            getPuestoFinal(datos,function(data,resultados){
+                $('#vws_current_Result'+cur).html('- '+Number(resultados.puesto).toString()+' -');
+            });
+        } else {
+            getPuestoParcial(datos,function(data,resultados){
+                $('#vws_current_Result'+cur).html('- '+Number(resultados.puesto).toString()+' -');
+            });
+        }
     },0);
-}
-
-/**
- * evaluate position in hall of fame (final results)
- * When chrono stops this script is invoked instead of vwcf_evalPenalization()
- * Do not evaluate trs/trm. just iterate on datagrid results to find position
- * @param {boolean} flag display on/off
- * @param {float} time measured from chrono (do not read html dom content)
- */
-function vwsp_displayPuesto(flag,time) {
-
 }

@@ -50,9 +50,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <input class="trs" type="text"      id="vws_hdr_trs"     name="TRS" value="Dist/TRS"/>
         </form>
         <span class="vws_theader" id="vws_hdr_calltoring"><?php _e('Call to ring');?> </span>
-        <span class="vws_theader" id="vws_hdr_teaminfo"><?php _e("Competitor's data");?> </span>
-        <span class="vws_theader" id="vws_hdr_lastround"><?php _e('Round');?> </span>
-        <span class="vws_theader" id="vws_hdr_finalscores"><?php _e('Final');?> </span>
+        <span class="vws_theader" id="vws_hdr_teaminfo"><?php _e("Team data");?> </span>
+
+        <span class="vws_theader" style="text-align:left" id="vws_hdr_PRecorridoLabel"><?php _e('CP');?> </span>
+        <span class="vws_theader" style="text-align:left" id="vws_hdr_PTiempoLabel"><?php _e('TP');?> </span>
+        <span class="vws_theader" style="text-align:left" id="vws_hdr_TiempoLabel"><?php _e('Time');?> </span>
+        <span class="vws_theader" id="vws_hdr_PenalLabel"><?php _e('Penal');?> </span>
+        <span class="vws_theader" id="vws_hdr_PosLabel"><?php _e('Pos');?> </span>
+
     </div>
     
     <div id="vws_llamada">
@@ -77,17 +82,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id="vws_results_Categorias_'.$n.'"  name="Categorias" value="Cat '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Equipo_'.$n.'"     name="ID" value="Equipo '.$n.'"/>';
     echo '<input type="text"    id="vws_results_NombreEquipo_'.$n.'" name="Nombre" value="Equipo '.$n.'"/>';
-    echo '<!-- data on round 1 -->';
-    echo '<input type="text"      class="lborder" id="vws_results_T1_'.$n.'"         name="T1" value="Time1 '.$n.'"/>';
-    echo '<input type="text"      id="vws_results_P1_'.$n.'"         name="P1" value="Pen1 '.$n.'"/>';
-    echo '<input type="text"      id="vws_results_Puesto1_'.$n.'"    name="Puesto1" value="Pos '.$n.'"/>';
-    echo '<!-- data on round 2 -->';
-    echo '<input type="text"      class="lborder" id="vws_results_T2_'.$n.'"         name="T2" value="Time2 '.$n.'"/>';
-    echo '<input type="text"      id="vws_results_P2_'.$n.'"         name="P2" value="Pen2 '.$n.'"/>';
-    echo '<input type="text"      id="vws_results_Puesto2_'.$n.'"    name="Puesto2" value="Pos '.$n.'"/>';
-    echo '<!-- Final data -->';
-    echo '<input type="text"      class="lborder" id="vws_results_Tiempo_'.$n.'"       name="Tiempo" value="Tiempo '.$n.'"/>';
-    echo '<input type="text"      id="vws_results_Penalizacion_'.$n.'" name="Penalizacion" value="Penal '.$n.'"/>';
+    echo '<!-- data on round -->';
+    echo '<input type="text"      id="vws_results_PRecorrido_'.$n.'" name="PRecorrido" value="PR '.$n.'" class="lborder" />';
+    echo '<input type="text"      id="vws_results_PTiempo_'.$n.'"    name="PTiempo"    value="PT '.$n.'"/>';
+    echo '<input type="text"      id="vws_results_Tiempo_'.$n.'"     name="Tiempo"     value="Time '.$n.'"/>';
+    echo '<input type="text"      id="vws_results_Penalizacion_'.$n.'" name="Penalizacion" value="Penal '.$n.'"  class="lborder" //>';
     echo '<input type="text"      id="vws_results_Puesto_'.$n.'"       name="Puesto" value="Pos '.$n.'"/>';
     echo '</form>';
 
@@ -145,25 +144,21 @@ for($n=0;$n<4;$n++) {
     
     <div id="vws_before">
 <?php for($n=0;$n<2;$n++) {
+
     echo '<form id="vws_before_'.$n.'" class="vws_css_results_'.($n%2).' vws_entry">';
 
     echo '<input type="text"      id="vws_before_Orden_'.$n.'"      name="Orden" value="Orden '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_before_LogoTeam_'.$n.'"    name="LogoTeam" value="Logo '.$n.'"/>';
-    echo '<img class="vws_css_results_'.($n%2).' vws_imgpadding"  alt="Logo '.$n.'"  id="vws_before_Logo_'.$n.'"       name="Logo" src="/agility/images/logos/agilitycontest.png"  />';
+    echo '<!-- team information -->';
+    echo '<input type="hidden"    id="vws_before_LogoTeam_'.$n.'"      name="LogoTeam" value="Logo '.$n.'"/>';
+    echo '<img class="vws_css_results_'.($n%2).' vws_imgpadding"  alt="Logo '.$n.'"  id="vws_before_Logo_'.$n.'" name="Logo" src="/agility/images/logos/agilitycontest.png"  />';
     echo '<input type="hidden"    id="vws_before_Categorias_'.$n.'"  name="Categorias" value="Cat '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_Equipo_'.$n.'"     name="ID" value="Equipo '.$n.'"/>';
     echo '<input type="text"      id="vws_before_NombreEquipo_'.$n.'" name="Nombre" value="Equipo '.$n.'"/>';
-    echo '<!-- data on round 1 -->';
-    echo '<input type="text"      class="lborder" id="vws_before_T1_'.$n.'"         name="T1" value="Time1 '.$n.'"/>';
-    echo '<input type="text"      id="vws_before_P1_'.$n.'"         name="P1" value="Pen1 '.$n.'"/>';
-    echo '<input type="text"      id="vws_before_Puesto1_'.$n.'"    name="Puesto1" value="Pos '.$n.'"/>';
-    echo '<!-- data on round 2 (hidden in simplified videowall ) -->';
-    echo '<input type="text"      class="lborder" id="vws_before_T2_'.$n.'"         name="T2" value="Time2 '.$n.'"/>';
-    echo '<input type="text"      id="vws_before_P2_'.$n.'"         name="P2" value="Pen2 '.$n.'"/>';
-    echo '<input type="text"      id="vws_before_Puesto2_'.$n.'"    name="P2" value="Pos '.$n.'"/>';
-    echo '<!-- Final data -->';
-    echo '<input type="text"      class="lborder" id="vws_before_Tiempo_'.$n.'"       name="Tiempo" value="Tiempo '.$n.'"/>';
-    echo '<input type="text"      id="vws_before_Penalizacion_'.$n.'" name="Penalizacion" value="Penal '.$n.'"/>';
+    echo '<!-- data on round -->';
+    echo '<input type="text"      id="vws_before_PRecorrido_'.$n.'" name="PRecorrido" value="PR '.$n.'" class="lborder" />';
+    echo '<input type="text"      id="vws_before_PTiempo_'.$n.'"    name="PTiempo"    value="PT '.$n.'"/>';
+    echo '<input type="text"      id="vws_before_Tiempo_'.$n.'"     name="Tiempo"     value="Time '.$n.'"/>';
+    echo '<input type="text"      id="vws_before_Penalizacion_'.$n.'" name="Penalizacion" value="Penal '.$n.'" class="lborder" //>';
     echo '<input type="text"      id="vws_before_Puesto_'.$n.'"       name="Puesto" value="Pos '.$n.'"/>';
     echo '</form>';
 } ?>
@@ -190,10 +185,13 @@ for($n=0;$n<4;$n++) {
     doLayout(layout,"#vws_hdr_trs",222,0,24,9); // dist / trs
 
     doLayout(layout,"#vws_hdr_calltoring",1,27,81,10);
-    doLayout(layout,"#vws_hdr_teaminfo",91,9,71,10);
-    doLayout(layout,"#vws_hdr_lastround",162,9,44,10);
-    doLayout(layout,"#vws_hdr_finalscores",204,9,42,10);
+    doLayout(layout,"#vws_hdr_teaminfo",91,9,74,10);
 
+    doLayout(layout,"#vws_hdr_PRecorridoLabel",   165,9,15,9);
+    doLayout(layout,"#vws_hdr_PTiempoLabel",      180,9,15,9);
+    doLayout(layout,"#vws_hdr_TiempoLabel",       195,9,20,9);
+    doLayout(layout,"#vws_hdr_PenalLabel",        215,9,20,9);
+    doLayout(layout,"#vws_hdr_PosLabel",          235,9,11,9);
 
     // llamada a pista
     for (var n=0;n<5;n++) {
@@ -204,61 +202,53 @@ for($n=0;$n<4;$n++) {
     
     // perros del equipo en pista
     for (n=0;n<4;n++) {
+        var y=(n==0)?1:0;
+        var dy=((n==0) || (n==3))?1:0;
         if (n==0) { // orden, logo, dorsal
-            doLayout(layout,"#vws_current_Orden_0",    1,     82+10*n,10,10);
-            doLayout(layout,"#vws_current_Logo_0",     11,    82+10*n,15,10);
-            doLayout(layout,"#vws_current_Spare_0",   26,    82+10*n,14,10);
-            doLayout(layout,"#vws_current_Dorsal_0",   40,    82+10*n,10,10);
+            doLayout(layout,"#vws_current_Orden_0",    1,     82+10*n+y,10,10-dy);
+            doLayout(layout,"#vws_current_Logo_0",     11,    82+10*n+y,15,10-dy);
+            doLayout(layout,"#vws_current_Spare_0",    26,    82+10*n+y,14,10-dy);
+            doLayout(layout,"#vws_current_Dorsal_0",   40,    82+10*n+y,10,10-dy);
         } else if (n==1) { // equipo,dorsal
-            doLayout(layout,"#vws_current_NombreEquipo_1", 1, 82+10*n,39,10);
-            doLayout(layout,"#vws_current_Dorsal_1",   40,    82+10*n,10,10);
+            doLayout(layout,"#vws_current_NombreEquipo_1", 1, 82+10*n+y,39,10-dy);
+            doLayout(layout,"#vws_current_Dorsal_1",   40,    82+10*n+y,10,10-dy);
         } else { // dorsal
-            doLayout(layout,"#vws_current_Spare_"+n,   1,    82+10*n,39,10);
-            doLayout(layout,"#vws_current_Dorsal_"+n,  40,    82+10*n,10,10);
+            doLayout(layout,"#vws_current_Spare_"+n,    1,    82+10*n+y,39,10-dy);
+            doLayout(layout,"#vws_current_Dorsal_"+n,  40,    82+10*n+y,10,10-dy);
         }
-        doLayout(layout,"#vws_current_Nombre_"+n,      50,    82+10*n,41,10);
-        doLayout(layout,"#vws_current_NombreGuia_"+n,  91,    82+10*n,71,10);
-        doLayout(layout,"#vws_current_FaltasTocados_"+n,162,  82+10*n,16,10);
-        doLayout(layout,"#vws_current_Refusals_"+n,     178,   82+10*n,16,10);
-        doLayout(layout,"#vws_current_Time_"+n,        194,   82+10*n,26,10);
-        doLayout(layout,"#vws_current_Result_"+n,      220,   82+10*n,16,10);
-        doLayout(layout,"#vws_current_Active_"+n,      236,   82+10*n,10,10);
+        doLayout(layout,"#vws_current_Nombre_"+n,      50,    82+10*n+y,41,10-dy);
+        doLayout(layout,"#vws_current_NombreGuia_"+n,  91,    82+10*n+y,71,10-dy);
+        doLayout(layout,"#vws_current_FaltasTocados_"+n,162,  82+10*n+y,16,10-dy);
+        doLayout(layout,"#vws_current_Refusals_"+n,    178,   82+10*n+y,16,10-dy);
+        doLayout(layout,"#vws_current_Time_"+n,        194,   82+10*n+y,26,10-dy);
+        doLayout(layout,"#vws_current_Result_"+n,      220,   82+10*n+y,16,10-dy);
+        doLayout(layout,"#vws_current_Active_"+n,      236,   82+10*n+y,10,10-dy);
     }
 
     // resultados
     for(n=0;n<7;n++) {
-        doLayout(layout,"#vws_results_Logo_"+n,     91,     19+9*n,10,9);
-        doLayout(layout,"#vws_results_NombreEquipo_"+n,101, 19+9*n,61,9);
-        // ronda agility
-        doLayout(layout,"#vws_results_T1_"+n,       162,    19+9*n,17,9);
-        doLayout(layout,"#vws_results_P1_"+n,       179,    19+9*n,17,9);
-        doLayout(layout,"#vws_results_Puesto1_"+n,  196,    19+9*n,8,9);
-        // ronda jumping ( en runtime se hace que solo una de las dos rondas sea visible
-        doLayout(layout,"#vws_results_T2_"+n,       162,    19+9*n,17,9);
-        doLayout(layout,"#vws_results_P2_"+n,       179,    19+9*n,17,9);
-        doLayout(layout,"#vws_results_Puesto2_"+n,  196,    19+9*n,8,9);
-        // final
-        doLayout(layout,"#vws_results_Tiempo_"+n,   204,    19+9*n,17,9);
-        doLayout(layout,"#vws_results_Penalizacion_"+n,221, 19+9*n,17,9);
-        doLayout(layout,"#vws_results_Puesto_"+n,   238,    19+9*n,8,9);
+        doLayout(layout,"#vws_results_Logo_"+n,          91,    19+9*n,10,9);
+        doLayout(layout,"#vws_results_NombreEquipo_"+n, 101,    19+9*n,64,9);
+        // penalizacion y tiempo de la manga
+        doLayout(layout,"#vws_results_PRecorrido_"+n,   165,    19+9*n,15,9);
+        doLayout(layout,"#vws_results_PTiempo_"+n,      180,    19+9*n,15,9);
+        doLayout(layout,"#vws_results_Tiempo_"+n,       195,    19+9*n,20,9);
+        // resultado
+        doLayout(layout,"#vws_results_Penalizacion_"+n, 215,    19+9*n,20,9);
+        doLayout(layout,"#vws_results_Puesto_"+n,       235,    19+9*n,11,9);
     }
     // ultimos resultados
     for(n=0;n<2;n++) {
-        doLayout(layout,"#vws_before_Orden_"+n,    82,     122+9*n,9,9);
-        doLayout(layout,"#vws_before_Logo_"+n,     91,     122+9*n,10,9);
-        doLayout(layout,"#vws_before_NombreEquipo_"+n,101, 122+9*n,61,9);
-        // agility
-        doLayout(layout,"#vws_before_T1_"+n,       162,    122+9*n,17,9);
-        doLayout(layout,"#vws_before_P1_"+n,       179,    122+9*n,17,9);
-        doLayout(layout,"#vws_before_Puesto1_"+n,  196,    122+9*n,8,9);
-        // jumping
-        doLayout(layout,"#vws_before_T2_"+n,       162,    122+9*n,17,9);
-        doLayout(layout,"#vws_before_P2_"+n,       179,    122+9*n,17,9);
-        doLayout(layout,"#vws_before_Puesto2_"+n,  196,    122+9*n,8,9);
-        // final
-        doLayout(layout,"#vws_before_Tiempo_"+n,   204,    122+9*n,17,9);
-        doLayout(layout,"#vws_before_Penalizacion_"+n,221, 122+9*n,17,9);
-        doLayout(layout,"#vws_before_Puesto_"+n,   238,    122+9*n,8,9);
+        doLayout(layout,"#vws_before_Orden_"+n,          82,     122+9*n,9,9);
+        doLayout(layout,"#vws_before_Logo_"+n,           91,     122+9*n,10,9);
+        doLayout(layout,"#vws_before_NombreEquipo_"+n,  101,     122+9*n,64,9);
+        // manga
+        doLayout(layout,"#vws_before_PRecorrido_"+n,    165,     122+9*n,15,9);
+        doLayout(layout,"#vws_before_PTiempo_"+n,       180,     122+9*n,15,9);
+        doLayout(layout,"#vws_before_Tiempo_"+n,        195,     122+9*n,20,9);
+        // resultado
+        doLayout(layout,"#vws_before_Penalizacion_"+n,  215,     122+9*n,20,9);
+        doLayout(layout,"#vws_before_Puesto_"+n,        235,     122+9*n,11,9);
     }
     // sponsor
     doLayout(layout,"#vws_sponsors",   1,    122,79,18);

@@ -107,7 +107,7 @@ events
         },
         'salida': function (event, time) {     // orden de salida
             vwsCounter.start();
-            vwsf_displayPuesto(false,0);
+            vws_displayPuesto(false,0,true);
         },
         'start': function (event, time) {      // start crono manual
             // si crono automatico, ignora
@@ -119,18 +119,18 @@ events
             crm.Chrono('stop', time);
             crm.Chrono('reset');
             crm.Chrono('start', time);
-            vwsf_displayPuesto(false,0);
+            vws_displayPuesto(false,0,true);
         },
         'stop': function (event, time) {      // stop crono manual
             var crm= $('#cronometro');
             $('#vws_StartStopFlag').text("Start");
             vwsCounter.stop();
             crm.Chrono('stop', time);
-            vwsf_displayPuesto(true,crm.Chrono('getValue')/1000);
+            vws_displayPuesto(true,crm.Chrono('getValue')/1000,true);
         },
         // nada que hacer aqui: el crono automatico se procesa en el tablet
         'crono_start': function (event, time) { // arranque crono automatico
-            vwsf_displayPuesto(false,0);
+            vws_displayPuesto(false,0,true);
             var crm = $('#cronometro');
             vwsCounter.stop();
             $('#vws_StartStopFlag').text('Auto');
@@ -161,7 +161,7 @@ events
             var crm= $('#cronometro');
             $('#vws_StartStopFlag').text("Start");
             crm.Chrono('stop', time);
-            vwsf_displayPuesto(true,crm.Chrono('getValue')/1000);
+            vws_displayPuesto(true,crm.Chrono('getValue')/1000,true);
         },
         'crono_reset': function (event, time) {	// puesta a cero del crono electronico
             var crm = $('#cronometro');
@@ -169,7 +169,7 @@ events
             $('#vws_StartStopFlag').text("Start");
             crm.Chrono('stop', time);
             crm.Chrono('reset', time);
-            vwsf_displayPuesto(false,0);
+            vws_displayPuesto(false,0,true);
         },
         'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
             vws_updateChronoData(event);
