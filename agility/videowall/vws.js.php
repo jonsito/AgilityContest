@@ -34,6 +34,36 @@ var vwsCounter = new Countdown({
 });
 
 /**
+ * Provide a null, empty object with required fields to fill templates in combined videowall
+ * @param {boolean} final to notice partial or final results
+ * @param {boolean} team  to indicate individual or team journey
+ */
+function vws_getEmptyResults(final,team) {
+    if (final && team) return { // team final
+            'Logo':'none.png', 'Nombre':'',
+            'T1':'','P1':'','Puesto1':'',
+            'T2':'','P2':'','Puesto2':'',
+            'Tiempo':'','Penalizacion':'','Puesto':''
+        };
+    if (final && !team) return  { // individual final
+            'Logo':'none.png','Dorsal':'','Nombre':'', 'NombreGuia':'',
+            'T1':'','P1':'','Puesto1':'',
+            'T2':'','P2':'','Puesto2':'',
+            'Tiempo':'','Penalizacion':'','Puesto':''
+        };
+    if (!final && team) return { // team partial
+            'Logo':'none.png', 'Nombre':'',
+            'PRecorrido':'','PTiempo':'', 'Tiempo':'',
+            'Penalizacion':'','Puesto':''
+        };
+    if (!final && !team ) return { // individual partial
+            'Logo':'none.png','Dorsal':'','Nombre':'', 'NombreGuia':'',
+            'Faltas':0,'Tocados':0,'Rehuses':'','Tiempo':'',
+            'Penalizacion':'','Puesto':''
+        };
+}
+
+/**
  * Show/Hide result fields according selected round
  * @param agility
  */
@@ -295,6 +325,17 @@ function vws_updateFinales(data) {
                     $('#vws_before_' + i).form('load',items[n]);
                 }
             }
+            // si size < nitems, completamos con datos vacios
+            for (;n<nitems;n++) {
+                $('#vws_results_' + n).form('load', vws_getEmptyResults(/*final*/true,team));
+                $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/null.png');
+            }
+            // limpiamos datos vacios en tabla "before"
+            for (i = 0; i < 2; i++) {
+                if ($('#vws_before_Orden_' + i).val() !== '') continue;
+                $('#vws_before_' + i).form('load', vws_getEmptyResults(/*final*/true,team));
+                $('#vws_before_Logo_' + i).attr('src', '/agility/images/logos/null.png');
+            }
             // ahora indicamos puesto en el(los) campo(s) current, utilizando los datos de perros individuales
             for (n = 0; n < individual.length; n++) {
                 var perro = individual[n]['Perro'];
@@ -364,10 +405,16 @@ function vws_updateParciales(data) {
             }
             // si size < nitems, completamos con datos vacios
             for (;n<nitems;n++) {
-
+                $('#vws_results_' + n).form('load', vws_getEmptyResults(/*final*/false,team));
+                $('#vws_results_FaltasTocados_' + n).html('0');
+                $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/null.png');
             }
             // limpia los campos "before que no hayan sido utilizados
-
+            for (i = 0; i < 2; i++) {
+                if ($('#vws_before_Orden_' + i).val() !== '') continue;
+                $('#vws_before_' + i).form('load', vws_getEmptyResults(/*final*/false,team));
+                $('#vws_before_Logo_' + i).attr('src', '/agility/images/logos/null.png');
+            }
             // ahora indicamos puesto en el(los) campo(s) current, utilizando los datos de perros individuales
             for (n = 0; n < individual.length; n++) {
                 var perro = individual[n]['Perro'];
@@ -451,11 +498,11 @@ function vws_displayPuesto(flag,time,final) {
         // phase 3: call server to evaluate partial result position
         if (final) {
             getPuestoFinal(datos,function(data,resultados){
-                $('#vws_current_Result'+cur).html('- '+Number(resultados.puesto).toString()+' -');
+                $('#vws_current_Result'+cur).html('- '+Number(resultados.Puesto).toString()+' -');
             });
         } else {
             getPuestoParcial(datos,function(data,resultados){
-                $('#vws_current_Result'+cur).html('- '+Number(resultados.puesto).toString()+' -');
+                $('#vws_current_Result'+cur).html('- '+Number(resultados.Puesto).toString()+' -');
             });
         }
     },0);

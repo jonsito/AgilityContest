@@ -315,7 +315,7 @@ function getFederationInfo() {
 		cache: false,
 		dataType: 'json',
 		success: function(list){
-			if ( typeof (list) !== "object") { // in Javascript array and object is the same
+			if ( typeof (list) === "object") { // in Javascript array and object is the same
 				ac_fedInfo=list;
 				initWorkingData(); // must be called _after_ data is loaded
 			} else {
