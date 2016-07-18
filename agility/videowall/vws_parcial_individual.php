@@ -215,7 +215,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 ?>
     doLayout(layout,"#vws_hdr_trs",222,0,24,9);
 
-    doLayout(layout,"#vws_hdr_calltoring",  1,27,87,10);
+    doLayout(layout,"#vws_hdr_calltoring",  1,27,87,9);
     doLayout(layout,"#vws_hdr_teaminfo",    90,9,91,9);
     doLayout(layout,"#vws_hdr_FltLabel",    181,9,10,9);
     doLayout(layout,"#vws_hdr_RLabel",      191,9,10,9);

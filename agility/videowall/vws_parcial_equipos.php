@@ -184,8 +184,8 @@ for($n=0;$n<4;$n++) {
 ?>
     doLayout(layout,"#vws_hdr_trs",222,0,24,9); // dist / trs
 
-    doLayout(layout,"#vws_hdr_calltoring",1,27,81,10);
-    doLayout(layout,"#vws_hdr_teaminfo",91,9,74,10);
+    doLayout(layout,"#vws_hdr_calltoring",1,27,81,9);
+    doLayout(layout,"#vws_hdr_teaminfo",91,9,74,9);
 
     doLayout(layout,"#vws_hdr_PRecorridoLabel",   165,9,15,9);
     doLayout(layout,"#vws_hdr_PTiempoLabel",      180,9,15,9);

@@ -189,10 +189,10 @@ for($n=0;$n<4;$n++) {
 ?>
     doLayout(layout,"#vws_hdr_trs",222,0,24,9); // dist / trs
 
-    doLayout(layout,"#vws_hdr_calltoring",1,27,81,10);
-    doLayout(layout,"#vws_hdr_teaminfo",91,9,71,10);
-    doLayout(layout,"#vws_hdr_lastround",162,9,44,10);
-    doLayout(layout,"#vws_hdr_finalscores",204,9,42,10);
+    doLayout(layout,"#vws_hdr_calltoring",1,27,81,9);
+    doLayout(layout,"#vws_hdr_teaminfo",91,9,71,9);
+    doLayout(layout,"#vws_hdr_lastround",162,9,44,9);
+    doLayout(layout,"#vws_hdr_finalscores",204,9,42,9);
 
 
     // llamada a pista
