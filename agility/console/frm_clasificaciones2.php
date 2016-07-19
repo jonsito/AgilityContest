@@ -22,9 +22,12 @@ $config =Config::getInstance();
 ?>
 
 <!-- CLASIFICACIONES DE PRUEBA/JORNADA/RONDA -->
-<div id="resultados-info" style="width:100%">
-	<div id="resultados-infolayout" class="easyui-layout" style="height:200px;">
-		<div data-options="region:'west',title:'<?php _e('Contests data'); ?>',split:true,collapsed:false" style="width:300px;padding:10px;font-size:9px">
+<div id="resultados-info" style="width:100%;height:550px;">
+	<div id="resultados-infolayout" class="easyui-layout"  data-options="fit:true,border:true" style="padding:10px;">
+
+        <!-- PANEL IZQUIERDO: DATOS DE LA PRUEBA -->
+		<div data-options="region:'west',title:'<?php _e('Contests data'); ?>',split:true,collapsed:false,collapsible:false"
+             style="width:30%;padding:10px;font-size:9px">
 			<form class="result_forms" id="resultados-info-prueba" method="get">
 			<table>
 			<tr>
@@ -57,18 +60,17 @@ $config =Config::getInstance();
 			</form>
 		</div> <!-- Datos de Prueba/Jornada/Ronda -->
 	
-		<div data-options="region:'center',title:'<?php _e('Technical data on current round series'); ?>'" style="width:500px;padding:10px;font-size:9px">
+		<div data-options="region:'center',title:'<?php _e('Technical data on current round series'); ?>',split:true,collapsed:false,collapsible:false" style="width:70%;font-size:9px">
 			<?php require('dialogs/inforesultados.inc')?>
-		</div> <!-- Layout: center --> 
-		
+		</div> <!-- Layout: center -->
+
+		<div id="resultados-data" class="scores_table" data-options="region:'south',split:true,collapsed:false,collapsible:false" style="height:70%;">
+			<!-- tabla con las clasificaciones -->
+			<?php include(__DIR__ . "/../lib/templates/final_individual.inc.php"); ?>
+		</div>
 	</div> <!-- informacion de layout -->
 	
 </div> <!-- panel de informacion -->
-
-<div id="resultados-data" style="width:100%;height:400px">
-	<!-- tabla con las clasificaciones -->
-	<?php include(__DIR__ . "/../lib/templates/final_individual.inc.php"); ?>
-</div>
 
 <div id="resultados-toolbar" style="width:100%;display:inline-block">
    	<span style="float:left;padding:5px">
@@ -114,28 +116,12 @@ $config =Config::getInstance();
 
 <script type="text/javascript">
 
-$('#resultados-data').panel({
-	closable:false,
-	collapsible:false,
-	collapsed:false
-});
-
-$('#resultados-info').panel({
-	title:'<?php _e('Journey scores'); ?>',
-	closable:true,
-	collapsible:false,
-	collapsed:false,
-	onClose:function(){$('#resultados-data').panel('close');}
-});
-
-$('#resultados-infolayout').layout();
 $('#resultados-selectCategoria').combobox({
 		valueField:'mode',
 		textField:'text',
 		panelHeight:75,
 		onSelect:function (index,row) {	reloadClasificaciones(); }
 });
-
 
 // combogrid que presenta cada una de las rondas de la jornada
 $('#resultados-info-ronda').combogrid({
