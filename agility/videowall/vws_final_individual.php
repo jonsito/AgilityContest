@@ -266,18 +266,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         doLayout(layout,"#vws_results_Logo_"+n,     91,     19+9*n,10,9);
         doLayout(layout,"#vws_results_Dorsal_"+n,   101,     19+9*n,9,9);
         doLayout(layout,"#vws_results_Nombre_"+n,   110,    19+9*n,19,9);
-        doLayout(layout,"#vws_results_NombreGuia_"+n,129,   19+9*n,45,9);
+        doLayout(layout,"#vws_results_NombreGuia_"+n,129,   19+9*n,43,9);
         // Agility
-        doLayout(layout,"#vws_results_T1_"+n,       174,    19+9*n,14,9);
-        doLayout(layout,"#vws_results_P1_"+n,       188,    19+9*n,14,9);
-        doLayout(layout,"#vws_results_Puesto1_"+n,  202,    19+9*n,8,9);
+        doLayout(layout,"#vws_results_T1_"+n,       172,    19+9*n,14,9);
+        doLayout(layout,"#vws_results_P1_"+n,       186,    19+9*n,15,9);
+        doLayout(layout,"#vws_results_Puesto1_"+n,  201,    19+9*n,8,9);
         // Jumping
-        doLayout(layout,"#vws_results_T2_"+n,       174,    19+9*n,14,9);
-        doLayout(layout,"#vws_results_P2_"+n,       188,    19+9*n,14,9);
-        doLayout(layout,"#vws_results_Puesto2_"+n,  202,    19+9*n,8,9);
+        doLayout(layout,"#vws_results_T2_"+n,       172,    19+9*n,14,9);
+        doLayout(layout,"#vws_results_P2_"+n,       186,    19+9*n,15,9);
+        doLayout(layout,"#vws_results_Puesto2_"+n,  201,    19+9*n,8,9);
         //final
-        doLayout(layout,"#vws_results_Tiempo_"+n,   210,    19+9*n,14,9);
-        doLayout(layout,"#vws_results_Penalizacion_"+n,224, 19+9*n,14,9);
+        doLayout(layout,"#vws_results_Tiempo_"+n,   209,    19+9*n,14,9);
+        doLayout(layout,"#vws_results_Penalizacion_"+n,223, 19+9*n,15,9);
         doLayout(layout,"#vws_results_Puesto_"+n,   238,    19+9*n,8,9);
     }
     // ultimos resultados
@@ -286,18 +286,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         doLayout(layout,"#vws_before_Logo_"+n,     91,     122+9*n,10,9);
         doLayout(layout,"#vws_before_Dorsal_"+n,   101,    122+9*n,9,9);
         doLayout(layout,"#vws_before_Nombre_"+n,   110,    122+9*n,19,9);
-        doLayout(layout,"#vws_before_NombreGuia_"+n,129,   122+9*n,45,9);
+        doLayout(layout,"#vws_before_NombreGuia_"+n,129,   122+9*n,43,9);
         // agility
-        doLayout(layout,"#vws_before_T1_"+n,       174,    122+9*n,14,9);
-        doLayout(layout,"#vws_before_P1_"+n,       188,    122+9*n,14,9);
-        doLayout(layout,"#vws_before_Puesto1_"+n,  202,    122+9*n,8,9);
+        doLayout(layout,"#vws_before_T1_"+n,       172,    122+9*n,14,9);
+        doLayout(layout,"#vws_before_P1_"+n,       186,    122+9*n,15,9);
+        doLayout(layout,"#vws_before_Puesto1_"+n,  201,    122+9*n,8,9);
         // Jumping
-        doLayout(layout,"#vws_before_T2_"+n,       174,    122+9*n,14,9);
-        doLayout(layout,"#vws_before_P2_"+n,       188,    122+9*n,14,9);
-        doLayout(layout,"#vws_before_Puesto2_"+n,  202,    122+9*n,8,9);
+        doLayout(layout,"#vws_before_T2_"+n,       172,    122+9*n,14,9);
+        doLayout(layout,"#vws_before_P2_"+n,       186,    122+9*n,15,9);
+        doLayout(layout,"#vws_before_Puesto2_"+n,  201,    122+9*n,8,9);
         // final
-        doLayout(layout,"#vws_before_Tiempo_"+n,   210,    122+9*n,14,9);
-        doLayout(layout,"#vws_before_Penalizacion_"+n,224, 122+9*n,14,9);
+        doLayout(layout,"#vws_before_Tiempo_"+n,   209,    122+9*n,14,9);
+        doLayout(layout,"#vws_before_Penalizacion_"+n,223, 122+9*n,15,9);
         doLayout(layout,"#vws_before_Puesto_"+n,   238,    122+9*n,8,9);
     }
     // sponsor
