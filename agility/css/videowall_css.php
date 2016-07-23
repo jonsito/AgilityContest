@@ -178,6 +178,12 @@ td.vw_club {
 
 /************ estilos asociados a las vistas simplificadas **************/
 
+/* custon font family: OpenType Futura Condensed Bold */
+@font-face {
+    font-family: 'AgilityContest';
+    src: url('agility/server/web/FuturaCondensedBold.otf') format('OpenType') ;
+}
+
 #vws-window { /* color de fondo y textos genericos de la pantalla */
     color:<?php echo $config->getEnv('vws_hdrfg1')?>;
     background-color: <?php echo $config->getEnv('vws_hdrbg1')?>;
@@ -228,7 +234,7 @@ td.vw_club {
 }
 
 .vws_entry {
-    font-familiy: Arial, Helvetica, sans-serif;
+    font-familiy: 'AgilityContest';
     font-weight: bold;
     font-stretch:condensed;
 }
