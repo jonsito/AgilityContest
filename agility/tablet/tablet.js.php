@@ -122,6 +122,8 @@ function tablet_updateSession(row) {
 			data.NombreJornada= workingData.datosJornada.Nombre;
 			data.NombreManga= row.Nombre;
 			data.NombreRing= workingData.datosSesion.Nombre;
+			data.Perro=0;
+			data.Dorsal=0;
 			// send proper event
 			tablet_putEvent( (parseInt(row.Manga)==0)?'info':'open',data);
 		}
