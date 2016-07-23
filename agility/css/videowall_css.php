@@ -177,11 +177,14 @@ td.vw_club {
 }
 
 /************ estilos asociados a las vistas simplificadas **************/
-
-/* custon font family: OpenType Futura Condensed Bold */
+/* font: 'OpenType Futura Condensed' */
 @font-face {
     font-family: 'AgilityContest';
-    src: url('agility/server/web/FuturaCondensedBold.otf') format('OpenType') ;
+    src: url('/agility/videowall/futuracondensedbold-webfont.woff2') format('woff2'),
+        url('/agility/videowall/futuracondensedbold-webfont.woff') format('woff'),
+        url('/agility/videowall/FuturaCondensedBold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 #vws-window { /* color de fondo y textos genericos de la pantalla */
