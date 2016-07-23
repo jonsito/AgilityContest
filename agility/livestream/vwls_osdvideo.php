@@ -233,12 +233,14 @@ var eventHandler= {
 		});
 	},
 	'close': function(event,time){ // no more dogs in tabla
+		ac_config.dogInRing=false;
 		vwls_enableOSD(0); // apaga el OSD
 	},
 	'datos': function(event,time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
 	},
 	'llamada': function(event,time) {    // llamada a pista
+		ac_config.dogInRing=true;
 		var crm=$('#cronometro');
 		myCounter.stop();
 		crm.Chrono('stop',time);
@@ -327,6 +329,7 @@ var eventHandler= {
 		$('#cronometro').Chrono('stop',time);  // nos aseguramos de que los cronos esten parados
 	},
 	'cancelar': function(event,time){  // operador pulsa cancelar
+		ac_config.dogInRing=false;
 		var crm=$('#cronometro');
 		myCounter.stop();
 		crm.Chrono('stop',time);

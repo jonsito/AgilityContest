@@ -27,9 +27,11 @@ function vwls_enableOSD(val) {
 	if (val==0) {
 		str=" - OSD:OFF";
 		$('#vwls_common').css('display','none');
+		$('#osd_common').css('display','none'); // osd requires special namming due to layers
 	} else {
 		str=" - OSD:ON";
 		$('#vwls_common').css('display','initial');
+		$('#osd_common').css('display','initial');  // osd requires special namming due to layers
 	}
 	document.title=title.replace(/ -.*/,"")+str;
 }
@@ -42,12 +44,14 @@ function vwls_showRoundInfo(val) {
 
 function vwls_showCompetitorInfo(val) {
 	var disp=(val==0)?'none':'initial';
+	if (!ac_config.dogInRing) disp='none'; // to avoid show info data in course walk changes
 	$('#vwls_competitorInfo').css('display',disp);
 }
 
 function vwls_showResultsInfo(val) {
 	var disp=(val==0)?'none':'initial';
 	if (parseInt(ac_config.vw_dataposition)==0) disp='none';
+	if (!ac_config.dogInRing) disp='none'; // to avoid show info data in course walk changes
 	$('#vwls_resultadosInfo').css('display',disp);
 }
 
@@ -56,8 +60,8 @@ function vwls_keyBindings() {
 	$(document).keydown(function(e) {
 		if (e.which != 32) return true; // not space
 		var div=$('#vwls_common');
-		var state=div.css('display');
-		setTimeout(function(){vwls_enableOSD( (state==='none')?1:0);},0 );
+		var state=( document.title.indexOf("OSD:ON")>=0)?true:false;
+		setTimeout(function(){vwls_enableOSD( (state)?0:1);},0 );
 		return true; // to allow continue event chain
 	});
 }
