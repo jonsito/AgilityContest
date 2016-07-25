@@ -85,9 +85,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<!-- data on round -->';
     echo '<input type="text"      id="vws_results_PRecorrido_'.$n.'" name="PRecorrido" value="PR '.$n.'" class="lborder" />';
     echo '<input type="text"      id="vws_results_PTiempo_'.$n.'"    name="PTiempo"    value="PT '.$n.'"/>';
-    echo '<input type="text"      id="vws_results_Tiempo_'.$n.'"     name="Tiempo"     value="Time '.$n.'"/>';
+    echo '<input type="text"      id="vws_results_Tiempo_'.$n.'"     name="Tiempo"     value="Time '.$n.'" class="rpadding" />';
     echo '<input type="text"      id="vws_results_Penalizacion_'.$n.'" name="Penalizacion" value="Penal '.$n.'"  class="lborder" //>';
-    echo '<input type="text"      id="vws_results_Puesto_'.$n.'"       name="Puesto" value="Pos '.$n.'"/>';
+    echo '<input type="text"      id="vws_results_Puesto_'.$n.'"       name="Puesto" value="Pos '.$n.'" class="rpadding" />';
     echo '</form>';
 
 }?>
@@ -157,9 +157,9 @@ for($n=0;$n<4;$n++) {
     echo '<!-- data on round -->';
     echo '<input type="text"      id="vws_before_PRecorrido_'.$n.'" name="PRecorrido" value="PR '.$n.'" class="lborder" />';
     echo '<input type="text"      id="vws_before_PTiempo_'.$n.'"    name="PTiempo"    value="PT '.$n.'"/>';
-    echo '<input type="text"      id="vws_before_Tiempo_'.$n.'"     name="Tiempo"     value="Time '.$n.'"/>';
+    echo '<input type="text"      id="vws_before_Tiempo_'.$n.'"     name="Tiempo"     value="Time '.$n.'" class="rpadding" />';
     echo '<input type="text"      id="vws_before_Penalizacion_'.$n.'" name="Penalizacion" value="Penal '.$n.'" class="lborder" //>';
-    echo '<input type="text"      id="vws_before_Puesto_'.$n.'"       name="Puesto" value="Pos '.$n.'"/>';
+    echo '<input type="text"      id="vws_before_Puesto_'.$n.'"       name="Puesto" value="Pos '.$n.'" class="rpadding" />';
     echo '</form>';
 } ?>
     </div>

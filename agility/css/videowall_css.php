@@ -253,19 +253,20 @@ td.vw_club {
     outline:none;
     color:<?php echo $config->getEnv('vws_linecolor')?>;
     background-color:inherit;
-    font-size:1.7vw;
+    font-size:1.65vw;
     font-family: 'futura_condensedbold'; /* input fields doesn't inherit font styles */
     font-weight: bold;
     font-stretch:condensed;
+    text-align: right;
 }
 
 .vws_entry span {
-    text-align:left;
+    text-align:center;
     margin:0;
     padding-top:0.8vw;
     border:none;
     outline:none;
-    font-size:1.7vw;
+    font-size:1.65vw;
     color:<?php echo $config->getEnv('vws_linecolor')?>;
     background-color:inherit;
 }
@@ -279,12 +280,6 @@ td.vw_club {
     border-left:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
     padding-left:0.5vw;
 }
-.rborder {
-    border-right:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
-}
-.tborder {
-    border-top:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
-}
-.bborder {
-    border-bottom:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
+.vws_entry .rpadding {
+    padding-right:0.5vw;
 }
