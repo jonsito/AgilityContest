@@ -52,8 +52,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <span class="vws_theader" id="vws_hdr_calltoring"><?php _e('Call to ring');?> </span>
         <span class="vws_theader" id="vws_hdr_teaminfo"><?php _e("Team data");?> </span>
 
-        <span class="vws_theader" style="text-align:left" id="vws_hdr_PRecorridoLabel"><?php _e('CP');?> </span>
-        <span class="vws_theader" style="text-align:left" id="vws_hdr_PTiempoLabel"><?php _e('TP');?> </span>
+        <span class="vws_theader" style="text-align:right" id="vws_hdr_PRecorridoLabel"><?php _e('CP');?> </span>
+        <span class="vws_theader" style="text-align:center" id="vws_hdr_PTiempoLabel"><?php _e('TP');?> </span>
         <span class="vws_theader" style="text-align:left" id="vws_hdr_TiempoLabel"><?php _e('Time');?> </span>
         <span class="vws_theader" id="vws_hdr_PenalLabel"><?php _e('Penal');?> </span>
         <span class="vws_theader" id="vws_hdr_PosLabel"><?php _e('Pos');?> </span>
@@ -69,7 +69,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id="vws_call_Equipo_'.$n.'"      name="Equipo" value="Equipo '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Categoria_'.$n.'"  name="Categoria" value="Cat '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Grado_'.$n.'"      name="Grado" value="Grad '.$n.'"/>';
-    echo '<input type="text"      id="vws_call_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
+    echo '<input type="text"      class="left" id="vws_call_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
     echo '</form>';
 } ?>
     </div>
@@ -81,7 +81,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<img class="vws_css_results_'.($n%2).' vws_imgpadding"  alt="Logo '.$n.'"  id="vws_results_Logo_'.$n.'" name="Logo" src="/agility/images/logos/agilitycontest.png"  />';
     echo '<input type="hidden"    id="vws_results_Categorias_'.$n.'"  name="Categorias" value="Cat '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Equipo_'.$n.'"     name="ID" value="Equipo '.$n.'"/>';
-    echo '<input type="text"    id="vws_results_NombreEquipo_'.$n.'" name="Nombre" value="Equipo '.$n.'"/>';
+    echo '<input type="text"      class="left" id="vws_results_NombreEquipo_'.$n.'" name="Nombre" value="Equipo '.$n.'"/>';
     echo '<!-- data on round -->';
     echo '<input type="text"      id="vws_results_PRecorrido_'.$n.'" name="PRecorrido" value="PR '.$n.'" class="lborder" />';
     echo '<input type="text"      id="vws_results_PTiempo_'.$n.'"    name="PTiempo"    value="PT '.$n.'"/>';
@@ -153,7 +153,7 @@ for($n=0;$n<4;$n++) {
     echo '<img class="vws_css_results_'.($n%2).' vws_imgpadding"  alt="Logo '.$n.'"  id="vws_before_Logo_'.$n.'" name="Logo" src="/agility/images/logos/agilitycontest.png"  />';
     echo '<input type="hidden"    id="vws_before_Categorias_'.$n.'"  name="Categorias" value="Cat '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_Equipo_'.$n.'"     name="ID" value="Equipo '.$n.'"/>';
-    echo '<input type="text"      id="vws_before_NombreEquipo_'.$n.'" name="Nombre" value="Equipo '.$n.'"/>';
+    echo '<input type="text"      class="left" id="vws_before_NombreEquipo_'.$n.'" name="Nombre" value="Equipo '.$n.'"/>';
     echo '<!-- data on round -->';
     echo '<input type="text"      id="vws_before_PRecorrido_'.$n.'" name="PRecorrido" value="PR '.$n.'" class="lborder" />';
     echo '<input type="text"      id="vws_before_PTiempo_'.$n.'"    name="PTiempo"    value="PT '.$n.'"/>';

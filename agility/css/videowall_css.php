@@ -243,10 +243,10 @@ td.vw_club {
     font-family: 'futura_condensedbold';
     font-weight: bold;
     font-stretch:condensed;
+    text-align:right;
 }
 
 .vws_entry input {
-    text-align:left;
     margin:0;
     padding:0;
     border:none;
@@ -261,7 +261,6 @@ td.vw_club {
 }
 
 .vws_entry span {
-    text-align:center;
     margin:0;
     padding-top:0.8vw;
     border:none;
@@ -274,6 +273,10 @@ td.vw_club {
 .vws_imgpadding {
     padding:5px;
 }
+
+.vws_entry .left { text-align: left; }
+.vws_entry .right { text-align: right; }
+.vws_entry .center { text-align: center; }
 
 /* borde a la izquierda o a la derecha */
 .vws_entry .lborder {
