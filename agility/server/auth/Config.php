@@ -310,6 +310,8 @@ Class Config {
 		$windows=(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')?true:false;
 		$locale=$this->getPreferredLanguage($this->config['lang']);
 
+        // check for navigator preferences; on fail use default from config
+        if (!array_key_exists($locale,Config::$locale_list)) $locale=$this->config['lang'];
 		$locales=Config::$locale_list[$locale];
 		$sel=setlocale(LC_ALL, $locales);
 		putenv("LC_ALL=$sel");
