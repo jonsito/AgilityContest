@@ -177,12 +177,15 @@ td.vw_club {
 }
 
 /************ estilos asociados a las vistas simplificadas **************/
-/* font: 'OpenType Futura Condensed' */
+
 @font-face {
-    font-family: 'AgilityContest';
-    src: url('/agility/videowall/futuracondensedbold-webfont.woff2') format('woff2'),
-        url('/agility/videowall/futuracondensedbold-webfont.woff') format('woff'),
-        url('/agility/videowall/FuturaCondensedBold.otf') format('opentype');
+    font-family: 'futura_condensedbold';
+    src: url('../fonts/futuracondensedbold-webfont-webfont.eot');
+    src: url('../fonts/futuracondensedbold-webfont-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/futuracondensedbold-webfont-webfont.woff2') format('woff2'),
+        url('../fonts/futuracondensedbold-webfont-webfont.woff') format('woff'),
+        url('../fonts/futuracondensedbold-webfont-webfont.ttf') format('truetype'),
+        url('../fonts/futuracondensedbold-webfont-webfont.svg#futura_condensedbold') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -237,7 +240,7 @@ td.vw_club {
 }
 
 .vws_entry {
-    font-familiy: 'AgilityContest';
+    font-family: 'futura_condensedbold';
     font-weight: bold;
     font-stretch:condensed;
 }
@@ -250,9 +253,8 @@ td.vw_club {
     outline:none;
     color:<?php echo $config->getEnv('vws_linecolor')?>;
     background-color:inherit;
-    /* input fields doesn't inherit font styles */
-    font-size:1.6vw;
-    font-familiy: Arial, Helvetica, sans-serif;
+    font-size:1.7vw;
+    font-family: 'futura_condensedbold'; /* input fields doesn't inherit font styles */
     font-weight: bold;
     font-stretch:condensed;
 }
@@ -263,7 +265,7 @@ td.vw_club {
     padding-top:0.8vw;
     border:none;
     outline:none;
-    font-size:1.6vw;
+    font-size:1.7vw;
     color:<?php echo $config->getEnv('vws_linecolor')?>;
     background-color:inherit;
 }
