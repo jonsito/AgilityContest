@@ -270,13 +270,22 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                             }
                             echon("</ul>");
                         echon("</li>");
-                        echon("<li>"._("Partial scores"));
-                            echon('<ul>');
-                            foreach ($jornada['Mangas'] as $manga ){
-                                echon ('<li><a href="javascript:pbmenu_loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['Manga'].','.$manga['Mode'].')">'.$manga['Nombre']."</a> </li>");
-                            }
-                            echon("</ul>");
-                        echon("</li>");
+                        // skipping single round series may lead in empty partial scores section.
+                        // so detect and avoid
+
+                        // firstly enumerate rounds
+                        $roundstr="";
+                        foreach ($jornada['Mangas'] as $manga ){
+                            // on single round series (special or preagility1) skip partial scores
+                            if ($manga['TipoManga']==16) continue; // special single round
+                            if ( ($manga['TipoManga']==1) && ($jornada['PreAgility2']==0) ) continue;
+                            $roundstr .= '<li><a href="javascript:pbmenu_loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['Manga'].','.$manga['Mode'].')">'.$manga['Nombre']."</a> </li>\n";
+                        }
+                        // on empty rounds count skip partial scores; else display them
+                        if ($roundstr!=="") {
+                            echon("<li>"._("Partial scores")); echon('<ul>'); echo $roundstr; echon("</ul>"); echon("</li>");
+                        }
+
                         echon("<li>"._("Final scores"));
                             echon('<ul>');
                             for ($n=0;$n<count($jornada['Series']);$n++) {
