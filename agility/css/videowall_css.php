@@ -180,12 +180,36 @@ td.vw_club {
 
 @font-face {
     font-family: 'futura_condensedbold';
-    src: url('../fonts/futuracondensedbold-webfont-webfont.eot');
-    src: url('../fonts/futuracondensedbold-webfont-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/futuracondensedbold-webfont-webfont.woff2') format('woff2'),
-        url('../fonts/futuracondensedbold-webfont-webfont.woff') format('woff'),
-        url('../fonts/futuracondensedbold-webfont-webfont.ttf') format('truetype'),
-        url('../fonts/futuracondensedbold-webfont-webfont.svg#futura_condensedbold') format('svg');
+    src: url('../fonts/futuracondensedbold-webfont.eot');
+    src: url('../fonts/futuracondensedbold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/futuracondensedbold-webfont.woff2') format('woff2'),
+        url('../fonts/futuracondensedbold-webfont.woff') format('woff'),
+        url('../fonts/futuracondensedbold-webfont.ttf') format('truetype'),
+        url('../fonts/futuracondensedbold-webfont.svg#futura_condensedbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'roadgeek_2005_engschriftRg';
+    src: url('../fonts/roadgeek_2005_engschrift-webfont.eot');
+    src: url('../fonts/roadgeek_2005_engschrift-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/roadgeek_2005_engschrift-webfont.woff2') format('woff2'),
+    url('../fonts/roadgeek_2005_engschrift-webfont.woff') format('woff'),
+    url('../fonts/roadgeek_2005_engschrift-webfont.ttf') format('truetype'),
+    url('../fonts/roadgeek_2005_engschrift-webfont.svg#roadgeek_2005_engschriftRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'roadgeek_2005_series_b';
+    src: url('../fonts/roadgeek_2005_series_b-webfont.eot');
+    src: url('../fonts/roadgeek_2005_series_b-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/roadgeek_2005_series_b-webfont.woff2') format('woff2'),
+    url('../fonts/roadgeek_2005_series_b-webfont.woff') format('woff'),
+    url('../fonts/roadgeek_2005_series_b-webfont.ttf') format('truetype'),
+    url('../fonts/roadgeek_2005_series_b-webfont.svg#roadgeek_2005_series_b') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -240,7 +264,8 @@ td.vw_club {
 }
 
 .vws_entry {
-    font-family: 'futura_condensedbold';
+    font-family: 'roadgeek_2005_series_b';
+    /* font-family: 'futura_condensedbold'; */
     font-weight: bold;
     font-stretch:condensed;
     text-align:right;
@@ -253,8 +278,9 @@ td.vw_club {
     outline:none;
     color:<?php echo $config->getEnv('vws_linecolor')?>;
     background-color:inherit;
-    font-size:1.65vw;
-    font-family: 'futura_condensedbold'; /* input fields doesn't inherit font styles */
+    font-size:2.2vw;
+    /* font-family: 'futura_condensedbold'; *//* input fields doesn't inherit font styles */
+    font-family: 'roadgeek_2005_series_b';
     font-weight: bold;
     font-stretch:condensed;
     text-align: right;
@@ -265,7 +291,7 @@ td.vw_club {
     padding-top:0.8vw;
     border:none;
     outline:none;
-    font-size:1.65vw;
+    font-size:2.2vw;
     color:<?php echo $config->getEnv('vws_linecolor')?>;
     background-color:inherit;
 }
