@@ -69,10 +69,10 @@ function toFixedT(value,numdecs) {
 	// that is : toFixedT( 2.1 , 2) returns '2.1' instead of '2.10'
 	switch (parseInt(numdecs)) {
 		case 0: return parseInt(value);
-		case 1: return Number(value.toString().match(/^\d+(?:\.\d{0,1})?/))
-		case 2: return Number(value.toString().match(/^\d+(?:\.\d{0,2})?/))
-		case 3: return Number(value.toString().match(/^\d+(?:\.\d{0,3})?/))
-		case 4: return Number(value.toString().match(/^\d+(?:\.\d{0,4})?/))
+		case 1: return Number(value.toString().match(/^\d+(?:\.\d{0,1})?/));
+		case 2: return Number(value.toString().match(/^\d+(?:\.\d{0,2})?/));
+		case 3: return Number(value.toString().match(/^\d+(?:\.\d{0,3})?/));
+		case 4: return Number(value.toString().match(/^\d+(?:\.\d{0,4})?/));
 		default: return toFixed(value,numdecs);
 	}
 }

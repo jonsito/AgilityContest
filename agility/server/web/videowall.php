@@ -228,7 +228,8 @@ class VideoWall {
             'Tiempo' => 0.0,
             'TIntermedio' => 0.0,
             'Observaciones' => "",
-            'Pendiente' => 1
+            'Pendiente' => 1,
+            'Puesto' => ""
         );
     }
     

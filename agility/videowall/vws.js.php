@@ -170,6 +170,11 @@ function vws_setPartialIndividualOrTeamView(data) {
     $('#vws-window').window('refresh',page);
 }
 
+/**
+ *
+ * @param {string} row Row suffix ( or empty if infvidual round )
+ * @param {boolean} flag (tell routine to use Time flag. On false, time will be handle by chronometer )
+ */
 function vws_displayData(row,flag) {
     // faltas, tocados, rehuses y tiempo
     var f=parseInt($('#vws_current_Faltas'+row).val());
@@ -183,10 +188,11 @@ function vws_displayData(row,flag) {
     var e=parseInt($('#vws_current_Eliminado'+row).val());
     var n=parseInt($('#vws_current_NoPresentado'+row).val());
     var p=parseInt($('#vws_current_Puesto'+row).val());
+    if (isNaN(p)) p=0; // on first dog no results, so no position yet.... thus don't show anything
     var rs=$('#vws_current_Result'+row);
     if (n>0) { rs.html('<?php _e('NoPr');?>.'); return; }
     if (e>0) { rs.html('<?php _e('Elim');?>.'); return; }
-    rs.html(p);
+    rs.html('- '+p+' -');
 }
 
 /**
@@ -234,7 +240,7 @@ function vws_updateLlamada(evt,data,callback) {
                     // check for current dot to mark proper "current" row form as active
                     if (dat['results'][n]['Perro']==evt['Dog']) {
                         workingData.vws_currentRow=cur;
-                        $('#vws_current_Active'+cur).html('<img width="100%" src="'+ac_fedInfo[workingData.federation]['Logo']+'"/>');
+                        $('#vws_current_Active'+cur).html('<img width="80%" src="'+ac_fedInfo[workingData.federation]['Logo']+'"/>');
                     } else  $('#vws_current_Active'+cur).html("");
                     // notice 'results' and 'LogoClub' as we need dog data, not team data
                     $('#vws_current'+cur).form('load',dat['results'][n]);
@@ -406,13 +412,14 @@ function vws_updateParciales(data) {
             // si size < nitems, completamos con datos vacios
             for (;n<nitems;n++) {
                 $('#vws_results_' + n).form('load', vws_getEmptyResults(/*final*/false,team));
-                $('#vws_results_FaltasTocados_' + n).html('0');
+                $('#vws_results_FaltasTocados_' + n).html('');
                 $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/null.png');
             }
             // limpia los campos "before que no hayan sido utilizados
             for (i = 0; i < 2; i++) {
                 if ($('#vws_before_Orden_' + i).val() !== '') continue;
                 $('#vws_before_' + i).form('load', vws_getEmptyResults(/*final*/false,team));
+                $('#vws_before_FaltasTocados_' + i).html('');
                 $('#vws_before_Logo_' + i).attr('src', '/agility/images/logos/null.png');
             }
             // ahora indicamos puesto en el(los) campo(s) current, utilizando los datos de perros individuales
@@ -496,13 +503,14 @@ function vws_displayPuesto(flag,time,final) {
         }
         // on eliminado, do not blink error, as we don't know data on the other round.
         // phase 3: call server to evaluate partial result position
+        // notice that getPuestoFinal returns lowercase data ('mejortiempo,'penalizacion','puesto')
         if (final) {
             getPuestoFinal(datos,function(data,resultados){
-                $('#vws_current_Result'+cur).html('- '+Number(resultados.Puesto).toString()+' -');
+                $('#vws_current_Result'+cur).html('- '+Number(resultados.puesto).toString()+' -');
             });
         } else {
             getPuestoParcial(datos,function(data,resultados){
-                $('#vws_current_Result'+cur).html('- '+Number(resultados.Puesto).toString()+' -');
+                $('#vws_current_Result'+cur).html('- '+Number(resultados.puesto).toString()+' -');
             });
         }
     },0);

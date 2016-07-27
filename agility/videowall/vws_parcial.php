@@ -52,7 +52,7 @@ events
         showMode: 2,
         onUpdate: function(elapsed,running,paused) {
             var time=parseFloat(elapsed/1000.0);
-            $('#vws_current_Time'+workingData.vws_currentRow).html("Time: "+toFixedT(time,(running)?1:ac_config.numdecs));
+            $('#vws_current_Time'+workingData.vws_currentRow).html(/*"T: "+*/toFixedT(time,(running)?1:ac_config.numdecs));
             // in simplified videowall do not eval penalization as nonsense
             return true;
         },

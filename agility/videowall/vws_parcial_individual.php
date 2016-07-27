@@ -149,7 +149,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id= "vws_current_Eliminado"  name="Eliminado" value=""/>';
     echo '<input type="hidden"    id= "vws_current_NoPresentado" name="NoPresentado" value=""/>';
     echo '<input type="hidden"    id= "vws_current_Pendiente"  name="Pendiente" value="Pend"/>';
-    echo '<span id="vws_current_Result">Res</span>';
+    echo '<span class="rpadding" id="vws_current_Result">Res</span>';
     echo '<span id="vws_current_Active" style="display:none">Active</span>';
     echo '</form>';
 ?>
@@ -242,8 +242,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
     doLayout(layout,"#vws_current_FaltasTocados",156,  110,20,11);
     doLayout(layout,"#vws_current_Refusals",     176,  110,20,11);
-    doLayout(layout,"#vws_current_Time",        196,   110,35,11);
-    doLayout(layout,"#vws_current_Result",      231,   110,15,11);
+    doLayout(layout,"#vws_current_Time",        196,   110,30,11);
+    doLayout(layout,"#vws_current_Result",      226,   110,20,11);
 
     // resultados
     for(n=0;n<10;n++) {
