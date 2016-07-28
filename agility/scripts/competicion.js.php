@@ -28,7 +28,8 @@ $config =Config::getInstance();
 /************************** Gestion de datos de la ventana de manga activa */
 
 /**
- * indica si la manga es agility o jumping
+ * indica si la manga es la primera (normalmente agility) o la segunda (jumping)
+ * Se usa para saber que parciales de las clasficaciones finales hay que usar
  */
 function isAgility(tanda) {
     switch(Number(tanda)) {
@@ -39,9 +40,9 @@ function isAgility(tanda) {
         case    3	:/* Agility-1 GI Large'*/ return true;
         case    4	:/* Agility-1 GI Medium */ return true;
         case    5	:/* Agility-1 GI Small'*/ return true;
-        case    6	:/* Agility-2 GI Large'*/ return true;
-        case    7	:/* Agility-2 GI Medium'*/ return true;
-        case    8	:/* Agility-2 GI Small'*/ return true;
+        case    6	:/* Agility-2 GI Large'*/ return false; // second round
+        case    7	:/* Agility-2 GI Medium'*/ return false; // second round
+        case    8	:/* Agility-2 GI Small'*/ return false; // second round
         case    9	:/* Agility GII Large*/ return true;
         case    10	:/* Agility GII Medium*/ return true;
         case    11	:/* Agility GII Small*/ return true;
