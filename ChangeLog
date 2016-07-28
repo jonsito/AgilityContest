@@ -1,0 +1,43 @@
+Version 2.3.0 28-Jul-2016
+    General:
+        - New Team Contest handling
+            * Rewritten result evaluation and presentation code
+            * New team modalities ( 2/3, 3/4, 2/2, 3/3 4/4 )
+        - New Common interface to show Videowall/Livestream/PublicWeb pages
+        - So many improvements, bugfixes and i18n issues
+    Console:
+        - Ability to choose category to operate with in starting order, data introduction and printing
+        - Showing of results and scores use new common interface
+        - Search boxes clears "-- Search --" text in mouse enter/leave
+    Tablet:
+        - Improved interaction with electronic chronometer
+        - Reorganize icons and buttons
+        - Fixed and added new key bindinds
+        - Add "Test dog" option
+        - Bigger direct access table for easy dog selection
+    LiveStream:
+        - Now timeData and round information have configurable location
+        - Add Dog order to OSD information
+        - Minimize OSD occuppied space
+        - Allow show/hide mean clicking 'space' key
+    VideoWall:
+        - Integrated with new common results user interface
+        - New simplified Screens with separate configuration, intended to be used in
+          big stadium videowalls
+    PublicWeb:
+        - Added a new user interface, intended to watch a single contest, with direct access
+        to every items
+    Chronometer:
+        - Improved interaction with tablet/event handler
+        - Sample reference code (python) for raspberry-pi based chronometer
+        - Sample reference code (nodejs) for event protocol
+        - Preliminary code for direct attached (USB) chronometer
+    ExcelImport:
+        - ( not yet finished ) Now an excel file can be uploaded and checked for consistency.
+        Still pending user interface for excel entries validation
+    Documentation:
+        - English manual (already outdated :-( )
+        - Deployment manual
+        - Event handler/chrono protocol API
+    And many, many more...
+    Enjoy
