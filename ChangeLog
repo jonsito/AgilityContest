@@ -9,6 +9,7 @@ Version 2.3.0 28-Jul-2016
         - Ability to choose category to operate with in starting order, data introduction and printing
         - Showing of results and scores use new common interface
         - Search boxes clears "-- Search --" text in mouse enter/leave
+        - User configuration can be saved and restored
     Tablet:
         - Improved interaction with electronic chronometer
         - Reorganize icons and buttons
