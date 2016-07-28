@@ -32,7 +32,8 @@ $config =Config::getInstance();
 	<span style="float:left;padding:5px">
 	   	<label for="Buscar"><?php _e('Search'); ?>: </label>
 		<input name="Buscar" type="text" id="new_inscripcion-datagrid-search" style="width:150px" value="<?php _e('-- Search --'); ?>"
-			class="search_textfield" onchange="reloadWithSearch('#new_inscripcion-datagrid','noinscritos',false);"/>
+			class="search_textfield" onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"
+			   onchange="reloadWithSearch('#new_inscripcion-datagrid','noinscritos',false);"/>
 	</span>
 	<span style="float:right;padding:5px">
 		<a id="new_inscripcion-reloadBtn" href="#" class="easyui-linkbutton"

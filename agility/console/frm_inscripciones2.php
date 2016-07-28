@@ -93,7 +93,8 @@ $config =Config::getInstance();
 		<a id="inscripciones-setBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-order'"
 		   onclick="setDorsal()"><?php _e('Set dorsal'); ?></a>
-   		<input id="inscripciones-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"	/>
+   		<input id="inscripciones-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
+			   onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
 		<span id="inscripciones-readonly" class="blink" style="color:red">Read Only</span>
    	</span>
    	<span style="float:right;padding:5px"> 	<!-- estos elementos deben estar alineados a la derecha -->

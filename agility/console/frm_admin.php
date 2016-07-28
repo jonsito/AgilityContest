@@ -42,7 +42,8 @@ $config =Config::getInstance();
    				<a id="usuarios-delBtn" href="#" class="easyui-linkbutton" 
    					data-options="iconCls:'icon-trash'"
    					onclick="deleteUser('#usuarios-datagrid')"><?php _e('Delete user'); ?></a>
-   				<input id="usuarios-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"	/>
+   				<input id="usuarios-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
+					onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
    			</span>
    			<span style="float:right;padding:5px">
    				<a id="usuarios-keyBtn" href="#" class="easyui-linkbutton" 
@@ -82,7 +83,8 @@ $config =Config::getInstance();
    				<a id="sesiones-resetBtn" href="#" class="easyui-linkbutton" 
    					data-options="iconCls:'icon-redo'"
    					onclick="resetSession('#sesiones-datagrid')"><?php _e('Reset session'); ?></a>
-   				<input id="sesiones-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"	/>
+   				<input id="sesiones-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
+					   onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
    			</span>
    			<span style="float:right;padding:5px">
    				<a id="sesiones-reloadBtn" href="#" class="easyui-linkbutton"

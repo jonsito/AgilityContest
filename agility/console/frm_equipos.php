@@ -36,7 +36,8 @@ $config =Config::getInstance();
    			onclick="editTeam('#team_datagrid')"><?php _e('Edit'); ?></a>
    		<a id="team_datagrid-delBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-trash'"
    			onclick="deleteTeam('#team_datagrid')"><?php _e('Delete'); ?></a>
-   		<input id="team_datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"/>
+   		<input id="team_datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
+			   onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
    	</span>
    	<span style="float:right;padding:5px">
 		<a id="team_datagrid-checkBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help'"

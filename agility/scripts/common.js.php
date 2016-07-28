@@ -874,6 +874,16 @@ function displayRowData(dg) {
 }
 
 /**
+ * when focus/Blur in searchBox set/clear "-- Search --" text
+ * @param {object} box input text search box
+ * @param {boolean} action true:focus (enter box) , false:blur (exit box)
+ */
+function handleSearchBox(box,action) {
+	if (action)	(box.value == "<?php _e('-- Search --');?>" ) && (box.value = ''); // mouse focus
+	else (box.value == '') && (box.value =  "<?php _e('-- Search --');?>" ); // mouse leave
+}
+
+/**
  * reload main datagrid for perros/guias/clubes/jueces/pruebas/inscripciones
  * adding search criteria
  * @param {string} dg Datagrid name
