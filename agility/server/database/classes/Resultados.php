@@ -796,7 +796,7 @@ class Resultados extends DBObject {
         foreach($resultados['rows'] as $resultado) {
             $eq=$resultado['Equipo'];
             if (!array_key_exists($eq,$teams)) {
-                $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->IDPrueba} Jornada:{$this->IDJornada} Manga:1 Equipo:$eq no existe");
+                $this->myLogger->notice("evalParcialEquipos(): Prueba:{$this->IDPrueba} Jornada:{$this->IDJornada} Manga:1 Equipo:$eq no existe");
                 continue;
             }
             if ($teams[$eq]['Count']>=$mindogs) continue;

@@ -297,6 +297,7 @@ class PrintClasificacionTeam extends PrintCommon {
 			$this->Cell(16,4,$row['NombreClub'],0,0,'R',true);	// nombreClub
 			// manga 1
 			if ($this->manga1!=null) {
+			    $this->SetTextColor( ($row['Out1']==0)?0:128 );
 				$this->Cell(5,4,$row['F1'],'L',0,'C',true);	// 1- Faltas+Tocados
 				$this->Cell(5,4,$row['R1'],0,0,'C',true);	// 1- Rehuses
 				$this->Cell(10,4,$t1,0,0,'C',true);	// 1- Tiempo
@@ -308,6 +309,7 @@ class PrintClasificacionTeam extends PrintCommon {
 			}
 			// manga 2
 			if ($this->manga2!=null) {
+                $this->SetTextColor( ($row['Out2']==0)?0:128 );
 				$this->Cell(5,4,$row['F2'],'L',0,'C',true);	// 2- Faltas+Tocados
 				$this->Cell(5,4,$row['R2'],0,0,'C',true);	// 2- Rehuses
 				$this->Cell(10,4,$t2,0,0,'C',true);	// 2- Tiempo
@@ -318,6 +320,7 @@ class PrintClasificacionTeam extends PrintCommon {
 				$this->Cell(47,4,'','L',0,'C',true);	// espacio en blanco
 			}
 			// global
+            $this->SetTextColor(0);
 			$this->Cell(9,4,number_format($row['Tiempo'],$this->timeResolution),'L',0,'C',true);	// Tiempo
 			$this->Cell(9,4,number_format($penal,$this->timeResolution),0,0,'C',true);	// Penalizacion
 			$this->Cell(9,4,$row['Calificacion'],0,0,'C',true);	// Calificacion

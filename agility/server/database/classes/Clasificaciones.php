@@ -93,6 +93,7 @@ class Clasificaciones extends DBObject {
 				'V1' => $item['Velocidad'],
 				'P1' => $item['Penalizacion'],
 				'C1' => $item['CShort'],
+                'Out1' => 0,  // used in team to tell if included in points
                 'Puesto1' => $item['Puesto'], // puesto conjunto
                 'Pcat1' => $item['Pcat'], // puesto por categoria
 				// datos fake manga 2 ( to be filled if so )
@@ -104,6 +105,7 @@ class Clasificaciones extends DBObject {
 				'V2' => 0,
 				'P2' => 400,
 				'C2' => '',
+                'Out2' => 0, // used in team to tell if included in points
                 'Puesto2' => 0,
                 'Pcat2' => 0,
 				// datos globales
@@ -143,6 +145,7 @@ class Clasificaciones extends DBObject {
 						'V1' => 0,
 						'P1' => 400,
 						'C1' => '',
+                        'Out1' => 0,  // used in team to tell if included in points
 						'Puesto1' => 0, // puesto conjunto
 						'Pcat1' => 0, // puesto por categoria
 						'Puesto' => 0, // to be evaluated
@@ -156,7 +159,8 @@ class Clasificaciones extends DBObject {
 				$final[$item['Perro']]['T2'] = floatval($item['Tiempo']);
 				$final[$item['Perro']]['V2'] = $item['Velocidad'];
 				$final[$item['Perro']]['P2'] = $item['Penalizacion'];
-				$final[$item['Perro']]['C2'] = $item['CShort'];
+                $final[$item['Perro']]['C2'] = $item['CShort'];
+                $final[$item['Perro']]['Out2'] = 0;
                 $final[$item['Perro']]['Puesto2'] = $item['Puesto'];
                 $final[$item['Perro']]['Pcat2'] = $item['Pcat'];
 				$final[$item['Perro']]['Tiempo'] = $final[$item['Perro']]['T1'] + $final[$item['Perro']]['T2'];
@@ -222,8 +226,11 @@ class Clasificaciones extends DBObject {
      * Evalua el resultado de una competicion por equipos
      * @param {array} $r1 datos de la manga 1
      * @param {array} $r2 datos de la manga 2
+     * @param {array} $c clasificacion final (individual)
+     * @param {integer} $mindogs perros que contabilizan
+     * @param {integer} $mode modo de la prueba
      */
-	function evalFinalEquipos($r1,$r2,$mindogs,$mode) {
+	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$mode) {
         // Datos de equipos de la jornada
         $eobj=new Equipos("evalFinalEquipos",$this->prueba->ID,$this->jornada->ID);
         $tbj=$eobj->getTeamsByJornada();
@@ -247,7 +254,14 @@ class Clasificaciones extends DBObject {
                 $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:1 Equipo:$eq no existe");
                 continue;
             }
-            if ($teams[$eq]['C1']>=$mindogs) continue;
+            if ($teams[$eq]['C1']>=$mindogs) {
+                for ($fidx=0;$fidx < count($c); $fidx++) {
+                    if ($resultado['Perro']!=$c[$fidx]['Perro']) continue;
+                    $c[$fidx]['Out1']=1;
+                    break;
+                }
+                continue;
+            }
             $teams[$eq]['C1']++;
             $teams[$eq]['T1']+=$resultado['Tiempo'];
             $teams[$eq]['P1']+=$resultado['Penalizacion'];
@@ -263,7 +277,14 @@ class Clasificaciones extends DBObject {
                 $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:2 Equipo:$eq no existe");
                 continue;
             }
-            if ($teams[$eq]['C2']>=$mindogs) continue;
+            if ($teams[$eq]['C2']>=$mindogs) {
+                for ($fidx=0;$fidx < count($c); $fidx++) {
+                    if ($resultado['Perro']!=$c[$fidx]['Perro']) continue;
+                    $c[$fidx]['Out2']=1;
+                    break;
+                }
+                continue;
+            }
             $teams[$eq]['C2']++;
             $teams[$eq]['T2']+=$resultado['Tiempo'];
             $teams[$eq]['P2']+=$resultado['Penalizacion'];
@@ -435,7 +456,7 @@ class Clasificaciones extends DBObject {
         $result['trs1']=$res['trs2'];
         $result['trs2']=$res['trs1'];
         $result['jueces']=$res['jueces'];
-        $result['equipos']=$this->evalFinalEquipos($c1,$c2,$mindogs,$mode);
+        $result['equipos']=$this->evalFinalEquipos($c1,$c2,$result['individual'],$mindogs,$mode);
         $result['total']=count($result['equipos']);
         return $result;
 	}
