@@ -109,6 +109,8 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 
 <script type="text/javascript" charset="utf-8">
 
+var ac_videoWallOpts={'Ring':1,'View':3,'Auto':0};
+
 function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
@@ -122,6 +124,10 @@ function initialize() {
 	loadConfiguration();
 	getLicenseInfo();
 	getFederationInfo();
+	ac_videoWallOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
+	ac_videoWallOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
+	ac_videoWallOpts.Auto=<?php _e(http_request("Auto","i",1)); ?>; // auto start displaying choosen selection
+	if (ac_videoWallOpts.Auto==1) setTimeout(function() { vw_accept();	},10000); // on autostart launch window after 10 seconds
 }
 
 /**
@@ -260,9 +266,10 @@ $('#selvw-Session').combogrid({
 		return true;
 	},
 	onLoadSuccess: function(data) {
-		var vs=$('#selvw-Session');
-		var def= vs.combogrid('grid').datagrid('getRows')[0].ID; // get first ID ( usually ring 1 )
-		vs.combogrid('setValue',def);
+		setTimeout(function() {
+			$('#selvw-Vista').val(ac_videoWallOpts.View.toString());
+			$('#selvw-Session').combogrid('setValue', (ac_videoWallOpts.Ring+1).toString())
+		},0); // also fires onSelect()
 	},
     onSelect: function(index,row) {setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1);}
 });
@@ -298,6 +305,11 @@ function vw_accept() {
         ac_config.vw_combined=0;
         ac_config.vwc_simplified=0;
 		break;
+	case 3: // Combinada parcial simplificada
+		page="vws_parcial.php";
+		ac_config.vw_combined=1;
+		ac_config.vwc_simplified=1;
+		break;
 	case 4: // Clasificacion final
 		// page="/agility/videowall/vw_finales.php";
 		page="/agility/console/frm_notavailable.php";
@@ -313,11 +325,6 @@ function vw_accept() {
 		page="/agility/videowall/vwc_finales.php";
 		ac_config.vw_combined=1;
         ac_config.vwc_simplified=0;
-		break;
-	case 3:
-		page="vws_parcial.php";
-		ac_config.vw_combined=1;
-		ac_config.vwc_simplified=1;
 		break;
 	case 9: // Combinada Final simplificada
         page="vws_final.php";

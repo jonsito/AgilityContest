@@ -105,7 +105,7 @@ function myTransparentRowStyler(idx,row) {
 	else { return res+c2+";opacity:0.9"; }
 }
 
-var ac_liveStreamOpts={'Ring':1,'View':3};
+var ac_liveStreamOpts={'Ring':1,'View':3,'Auto':0};
 
 function initialize() {
 	// make sure that every ajax call provides sessionKey
@@ -122,6 +122,8 @@ function initialize() {
 	getFederationInfo();
 	ac_liveStreamOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
 	ac_liveStreamOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
+	ac_liveStreamOpts.Auto=<?php _e(http_request("Auto","i",1)); ?>; // auto start displaying choosen selection
+	if (ac_liveStreamOpts.Auto==1) setTimeout(function() { ls_accept();	},10000); // on autostart launch window after 10 seconds
 }
 
 /**
@@ -203,7 +205,7 @@ function myLlamadaRowStyler(idx,row) {
 
 <div id="selvw-Buttons" style="text-align:right">
    	<a id="selvw-okBtn" href="#" class="easyui-linkbutton" 
-   	   	data-options="iconCls: 'icon-ok'" onclick="vw_accept()"><?php _e('Accept'); ?></a>
+   	   	data-options="iconCls: 'icon-ok'" onclick="ls_accept()"><?php _e('Accept'); ?></a>
 </div>	<!-- botones -->
 
 </div> <!-- contenido -->
@@ -267,7 +269,7 @@ $('#selvw-Session').combogrid({
     onSelect: function(index,row) {setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1);}
 });
 
-function vw_accept() {
+function ls_accept() {
 	// si prueba invalida cancelamos operacion
 	var s=$('#selvw-Session').combogrid('grid').datagrid('getSelected');
 	if ( s===null ) {
