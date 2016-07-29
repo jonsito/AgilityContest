@@ -39,8 +39,8 @@ class INTL3 extends Federations {
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',
-                'L' => 'Large',
-                'M' => 'Medium',
+                'L' => 'Std',
+                'M' => 'Med',
                 'S' => 'Small',
                 // 'T' => 'Tiny'
             ),
@@ -52,26 +52,26 @@ class INTL3 extends Federations {
                 // 'T' => 'Tiny'
             ),
             'InfoManga' => array(
-                array('L' => _('Large'),         'M' => _('Medium'),         'S' => _('Small'), 'T' => ''), // separate courses
-                array('L' => _('Large'),         'M' => _('Medium+Small'),   'S' => '',         'T' => ''), // mixed courses
+                array('L' => _('Standard'),         'M' => _('Medium'),         'S' => _('Small'), 'T' => ''), // separate courses
+                array('L' => _('Standard'),         'M' => _('Medium+Small'),   'S' => '',         'T' => ''), // mixed courses
                 array('L' => _('Common course'), 'M' => '',                  'S' => '',         'T' => '') // common
             ),
             'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3, -1), array(/* conjunto */ 4, 4, 4, -1 )),
             'ModeStrings' => array( // text to be shown on each category
-                array(/* separado */ "Large", "Medium", "Small", "Invalid"),
-                array(/* mixto */ "Large", "Medium+Small", "Medium+Small", "Invalid"),
+                array(/* separado */ "Standard", "Medium", "Small", "Invalid"),
+                array(/* mixto */ "Standard", "Medium+Small", "Medium+Small", "Invalid"),
                 array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid")
             ),
             'IndexedModes' => array ( // modes 5 to 8 are invalid in this federation
-                "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
+                "Standard", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Standard+Medium", "Small+Tiny", "Common L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
-                "L"=>"Large",
+                "L"=>"Standard",
                 "M"=>"Medium",
                 "S"=>"Small",
                 "T"=>"Tiny", // invalid
-                "LM"=>"Large/Medium", // invalid
+                "LM"=>"Standard/Medium", // invalid
                 "ST"=>"Small/Tiny", // invalid
                 "MS"=>"Medium/Small",
                 "LMS" => 'Common LMS',

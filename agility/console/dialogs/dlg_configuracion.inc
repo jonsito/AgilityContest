@@ -208,6 +208,10 @@ $config =Config::getInstance();
 			<input type="hidden" name="pdf_journeys" value="0"/>
 			<input id="pdf_journeys" name="pdf_journeys" type="checkbox" value="1"/><br />
 
+			<label for="pdf_grades"><?php _e('Show level/grade info when printing catalog'); ?></label>
+			<input type="hidden" name="pdf_grades" value="0"/>
+			<input id="pdf_grades" name="pdf_grades" type="checkbox" value="1"/><br />
+
 			<label for="pdf_hdrbg1"><?php _e('Background color for main header'); ?></label>
 			<input id="pdf_hdrbg1" name="pdf_hdrbg1" type="color" value="#ff8020"/>
 			<label class="space" for="pdf_hdrfg1"><?php _e('Text color on main header'); ?></label>

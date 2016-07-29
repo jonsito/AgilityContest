@@ -122,7 +122,11 @@ class PrintCatalogo extends PrintCommon {
 		$this->Cell( $this->width[1], 7, _('Breed'),'LTB', 0, 'C',true);
         if ($this->width[2]!=0) // skip license on international contests
 		    $this->Cell( $this->width[2], 7, _('License'),'LTB', 0, 'C',true);
-		$this->Cell( $this->width[3], 7, _('Cat').'/'._('Grade'),'LTB', 0, 'C',true);
+        if (intval($this->config->getEnv("pdf_grades"))!=0) {
+            $this->Cell( $this->width[3], 7, _('Cat').'/'._('Grade'),'LTB', 0, 'C',true);
+        } else {
+            $this->Cell( $this->width[3], 7, _('Category'),'LTB', 0, 'C',true);
+        }
 		$this->Cell( $this->width[4], 7, _('Handler'),'LTBR', 0, 'C',true);
 		// print names of each declared journeys
 		for($i=5;$i<count($this->width);$i++) {
@@ -154,8 +158,11 @@ class PrintCatalogo extends PrintCommon {
         if ($this->width[2]!=0) // skip license on international contests
             $this->Cell( $this->width[2], 7, $row['Licencia'],	'LB', 0, 'C',	true);
         $this->SetFont($this->getFontName(),'',8); // bold 8px
-		$grad=" - {$row['Grado']}";
-		if ($grad==" - -") $grad="";
+		$grad="";
+		if (intval($this->config->getEnv("pdf_grades"))!=0) {
+			$grad=" - {$row['Grado']}";
+			if ($grad==" - -") $grad="";
+		}
 		$this->Cell( $this->width[3], 7, $this->getCatString($row['Categoria']).$grad,	'LB', 0, 'C',	true);
 		$this->SetFont($this->getFontName(),'B',9); // bold 9px
 		$this->Cell( $this->width[4], 7, $row['NombreGuia'],'LBR', 0, 'R',	true);
@@ -586,8 +593,10 @@ class PrintInscritos extends PrintCommon {
 
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos =	array(  11,       21,     16,    38,   29,     8,     8,     9,       11,     5,  5,  5,  5,  5,  5,  5,  5 );
-	protected $align=	array(  'R',      'L',    'C',   'R',  'R',   'C',    'L',   'C',    'L',    'C','C','C','C','C','C','C','C');
+    protected $pos =
+        array(  11,       21,   16,    38,     28,     9,     8,     9,       11,     5,  5,  5,  5,  5,  5,  5,  5 );
+    protected $align=
+        array(  'R',      'L',  'C',   'R',   'R',    'C',    'L',   'C',    'L',    'C','C','C','C','C','C','C','C');
 	
 	/**
 	 * Constructor
@@ -604,8 +613,15 @@ class PrintInscritos extends PrintCommon {
 		$this->inscritos=$inscritos['rows'];
 		$this->jornadas=$jornadas['rows'];
 		$this->setPageName("inscritosByPrueba.pdf");
-		$this->cellHeader=
-			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,_('Cat'),_('Grado'),_('Heat'),_('Comments'),_('Sab.'),_('Dom.'));
+        $this->cellHeader=
+            array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,_('Cat'),_('Grado'),_('Heat'),_('Comments'),_('Sab.'),_('Dom.'));
+        // on request to dont print grades re-evaluate sizes and text
+        $grad=intval($this->config->getEnv('pdf_grades'));
+        if ($grad==0) {
+            $this->cellHeader[5]=_('Category');
+            $this->pos[5]+=$this->pos[6];
+            $this->pos[6]=0;
+        }
 	}
 	
 	// Cabecera de página
@@ -631,7 +647,7 @@ class PrintInscritos extends PrintCommon {
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
 			if ($this->pos[$i]==0) continue;
-			$this->Cell($this->pos[$i],6,$this->cellHeader[$i],1,0,'C',true);
+            $this->Cell($this->pos[$i],6,$this->cellHeader[$i],1,0,'C',true);
 		}
 		// Restauración de colores y fuentes
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
@@ -684,8 +700,12 @@ class PrintInscritos extends PrintCommon {
             $this->SetFont($this->getFontName(),'',8); // normal 8px
 			$this->Cell($this->pos[3],5,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
 			$this->Cell($this->pos[4],5,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
-			$this->Cell($this->pos[5],5,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
-			$this->Cell($this->pos[6],5,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
+            if (intval($this->config->getEnv("pdf_grades"))!=0) {
+                $this->Cell($this->pos[5],5,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
+                $this->Cell($this->pos[6],5,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
+            } else {
+                $this->Cell($this->pos[5]+$this->pos[6],5,$this->getCatString($row['Categoria']),	'LR',	0,		$this->align[5],	$fill);
+            }
 			$this->Cell($this->pos[7],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[7],	$fill);
 			$this->Cell($this->pos[8],5,$row['Observaciones'],'LR',	0,		$this->align[8],	$fill);
 			if ($this->pos[9]!=0)
@@ -750,7 +770,8 @@ class PrintInscritosByJornada extends PrintCommon {
                 $this->jornada=$j;
                 $this->JName = "J{$j['Numero']}";
 				// remove "Grade" from cell array if jornada is open/team/KO
-				if( ! Jornadas::hasGrades($j)) {
+				if( !Jornadas::hasGrades($j) || (intval($this->config->getEnv("pdf_grades"))==0) ) {
+				    $this->cellHeader[5]=_('Category');
 					$this->pos[5]=16; // increase category size
 					$this->pos[6]=0;  // set grade size to zero
 				}
