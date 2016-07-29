@@ -33,8 +33,10 @@ $am=new AuthManager("LiveStream");
 if (!$am->allowed(ENABLE_LIVESTREAM)) {
 	die("Current license has no permissions to handle livestream related functions");
 }
-// tool to perform automatic upgrades in database when needed
-require_once(__DIR__."/../server/upgradeVersion.php");
+
+// tool to perform automatic upgrades in database when needed.
+// REMOVED: should only be needed in console. It's up the operator to take care on DB upgrades
+// require_once(__DIR__."/../server/upgradeVersion.php");
 ?>
 
 <!DOCTYPE html>
@@ -103,6 +105,8 @@ function myTransparentRowStyler(idx,row) {
 	else { return res+c2+";opacity:0.9"; }
 }
 
+var ac_liveStreamOpts={'Ring':1,'View':3};
+
 function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
@@ -116,6 +120,8 @@ function initialize() {
 	loadConfiguration();
 	getLicenseInfo();
 	getFederationInfo();
+	ac_liveStreamOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
+	ac_liveStreamOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
 }
 
 /**
@@ -216,7 +222,7 @@ $('#selvw-dialog').dialog({
 	closed: false,
 	shadow: true,
 	modal: true,
-	buttons: '#selvw-Buttons' 
+	buttons: '#selvw-Buttons'
 });
 
 $('#selvw-form').form();
@@ -252,11 +258,12 @@ $('#selvw-Session').combogrid({
 		param.Hidden=0;
 		return true;
 	},
-	onLoadSuccess: function(data) {
-		var vs=$('#selvw-Session');
-		var def= vs.combogrid('grid').datagrid('getRows')[0].ID; // get first ID ( usually ring 1 )
-		vs.combogrid('setValue',def);
-	},
+    onLoadSuccess: function (data) {
+        setTimeout(function() {
+            $('#selvw-Vista').val(ac_liveStreamOpts.View.toString());
+            $('#selvw-Session').combogrid('setValue', (ac_liveStreamOpts.Ring+1).toString())
+        },0); // also fires onSelect()
+    },
     onSelect: function(index,row) {setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1);}
 });
 

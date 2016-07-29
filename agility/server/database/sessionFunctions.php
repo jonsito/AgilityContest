@@ -38,7 +38,7 @@ try {
 	$data=testAndSet($data,"LiveStream","s","",false);
 	$data=testAndSet($data,"LiveStream2","s","",false);
 	$data=testAndSet($data,"LiveStream3","s","",false);
-	$data["Hidden"]=http_request("Hidden","i",0);
+    $data["Hidden"]=http_request("Hidden","i",0);
 	
 	if ($operation===null) throw new Exception("Call to sessionFunctions without 'Operation' requested");
 	$sesion= new Sesiones("sessionFunctions");
