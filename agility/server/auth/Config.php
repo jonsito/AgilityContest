@@ -128,12 +128,15 @@ Class Config {
 		"es_ES" => Array('es_ES','es','es_ES.UTF-8','esp','spanish','spanish.1252'),
 		"en_US" => Array('en_us','en','en_US.UTF-8','eng','english','english.1252'),
 		"de_DE" => Array('de_DE','de','de_DE.UTF-8','ger','german','german.1252'),
+		"hu_HU" => Array('hu_HU','hu','hu_HU.UTF-8','hun','hungarian','hungarian.1252')
 		"es" => Array('es_ES','es','es_ES.UTF-8','esp','spanish','spanish.1252'),
 		"en" => Array('en_us','en','en_US.UTF-8','eng','english','english.1252'),
 		"de" => Array('de_DE','de','de_DE.UTF-8','ger','german','german.1252'),
+		"hu" => Array('hu_HU','hu','hu_HU.UTF-8','hun','hungarian','hungarian.1252'),
 		"es-ES" => Array('es_ES','es','es_ES.UTF-8','esp','spanish','spanish.1252'),
 		"en-US" => Array('en_us','en','en_US.UTF-8','eng','english','english.1252'),
 		"de-DE" => Array('de_DE','de','de_DE.UTF-8','ger','german','german.1252')
+		"hu-HU" => Array('hu_HU','hu','hu_HU.UTF-8','hun','hungarian','hungarian.1252')
 	);
 
 	public static $config_options = array (
