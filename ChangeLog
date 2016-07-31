@@ -1,3 +1,13 @@
+Version 2.3.1 31-Jul-2016
+    PDF:
+        - On team results print in grey rounds that don't qualify
+    GENERAL:
+        - Add Hungarian language support. Thanks to  Krisztián Henrik Papp
+    VIDEOWALL:
+        - Quick access to VideoWall screens by mean of http request parameters
+    Excel:
+        - !Finally! excel import in blind (no user interaction) mode
+
 Version 2.3.0 28-Jul-2016
     General:
         - New Team Contest handling
