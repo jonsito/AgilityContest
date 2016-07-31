@@ -1,19 +1,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-07-16 10:18+0200\n"
-"PO-Revision-Date: 2016-07-30 23:38+0200\n"
+"POT-Creation-Date: 2016-07-31 09:55+0200\n"
+"PO-Revision-Date: 2016-07-31 09:56+0200\n"
+"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
+"Language: hu_HU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;_utf\n"
-"Last-Translator: Papp Krisztián Henrik <pappkh2000@gmail.com>\n"
-"Language: hu_HU\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: lib/templates\n"
 "X-Poedit-SearchPathExcluded-0: videos\n"
@@ -56,11 +56,11 @@ msgstr "É"
 msgid "R"
 msgstr "M"
 
-#: chrono/chrono.inc.php:67 console/frm_equipos.php:219
-#: console/frm_inscripciones2.php:197 lib/templates/orden_salida.inc.php:24
+#: chrono/chrono.inc.php:67 console/frm_equipos.php:220
+#: console/frm_inscripciones2.php:198 lib/templates/orden_salida.inc.php:24
 #: livestream/vwls_osdvideo.php:86 public/pb_inscripciones.php:100
 #: public/pb_inscripciones_equipos.php:150 public/pbmenu_inscripciones.php:92
-#: public/pbmenu_inscripciones_equipos.php:141 scripts/competicion.js.php:1069
+#: public/pbmenu_inscripciones_equipos.php:141 scripts/competicion.js.php:1042
 #: scripts/printer.js.php:215 scripts/results_and_scores.js.php:187
 #: server/pdf/print_clasificacion.php:163
 #: server/pdf/print_clasificacion_equipos.php:231
@@ -68,14 +68,14 @@ msgstr "M"
 #: server/pdf/print_entradaDeDatos.php:153
 #: server/pdf/print_entradaDeDatos.php:310
 #: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:608
-#: server/pdf/print_inscritosByPrueba.php:746
+#: server/pdf/print_inscritosByPrueba.php:617
+#: server/pdf/print_inscritosByPrueba.php:766
 #: server/pdf/print_ordenDeSalida.php:73 server/pdf/print_podium.php:102
 #: server/pdf/print_resultadosByEquipos.php:96
 #: server/pdf/print_resultadosByManga.php:63
-#: server/pdf/print_trsTemplates.php:256 tablet/tablet.js.php:623
-#: tablet/tablet.js.php:658 tablet/tablet.js.php:663 tablet/tablet_main.php:77
-#: tablet/tablet_main.php:286 tablet/tablet_main.php:417
+#: server/pdf/print_trsTemplates.php:256 tablet/tablet.js.php:625
+#: tablet/tablet.js.php:660 tablet/tablet.js.php:665 tablet/tablet_main.php:77
+#: tablet/tablet_main.php:286 tablet/tablet_main.php:416
 #: videowall/vwc_finales.php:81 videowall/vwc_finales.php:211
 #: videowall/vwc_parciales.php:81 videowall/vwc_parciales.php:207
 #: console/dialogs/dlg_competicion.inc:121
@@ -83,17 +83,17 @@ msgstr "M"
 msgid "Dorsal"
 msgstr "Rajtszám"
 
-#: chrono/chrono.inc.php:68 console/frm_equipos.php:69
+#: chrono/chrono.inc.php:68 console/frm_equipos.php:70
 #: console/import/import.js.php:97 console/import/import.js.php:105
 #: console/import/import.js.php:115 console/import/import_perros.inc.php:148
-#: scripts/competicion.js.php:1069 scripts/printer.js.php:215
+#: scripts/competicion.js.php:1042 scripts/printer.js.php:215
 #: console/dialogs/dlg_chperros.inc:148
-#: console/dialogs/dlg_newInscripcion.inc:150
+#: console/dialogs/dlg_newInscripcion.inc:151
 msgid "Dog"
 msgstr "Kutya"
 
-#: chrono/chrono.inc.php:69 console/frm_equipos.php:79
-#: console/frm_equipos.php:224 console/frm_inscripciones2.php:202
+#: chrono/chrono.inc.php:69 console/frm_equipos.php:80
+#: console/frm_equipos.php:225 console/frm_inscripciones2.php:203
 #: console/import/import.js.php:69 console/import/import.js.php:77
 #: console/import/import.js.php:86 console/import/import_perros.inc.php:151
 #: lib/templates/final_individual.inc.php:27
@@ -105,7 +105,7 @@ msgstr "Kutya"
 #: lib/templates/parcial_last_teams.inc.php:28 livestream/vwls_osdvideo.php:88
 #: public/pb_inscripciones.php:107 public/pb_inscripciones_equipos.php:157
 #: public/pbmenu_inscripciones.php:99
-#: public/pbmenu_inscripciones_equipos.php:148 scripts/competicion.js.php:1069
+#: public/pbmenu_inscripciones_equipos.php:148 scripts/competicion.js.php:1042
 #: scripts/printer.js.php:215 scripts/results_and_scores.js.php:122
 #: scripts/results_and_scores.js.php:194 server/pdf/print_clasificacion.php:171
 #: server/pdf/print_clasificacion_equipos.php:235
@@ -114,27 +114,27 @@ msgstr "Kutya"
 #: server/pdf/print_entradaDeDatos.php:231
 #: server/pdf/print_entradaDeDatos.php:312
 #: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:126
-#: server/pdf/print_inscritosByPrueba.php:608
-#: server/pdf/print_inscritosByPrueba.php:746
+#: server/pdf/print_inscritosByPrueba.php:130
+#: server/pdf/print_inscritosByPrueba.php:617
+#: server/pdf/print_inscritosByPrueba.php:766
 #: server/pdf/print_ordenDeSalida.php:73 server/pdf/print_podium.php:110
 #: server/pdf/print_resultadosByEquipos.php:96
 #: server/pdf/print_resultadosByManga.php:63
 #: server/pdf/print_trsTemplates.php:264 tablet/tablet_main.php:81
-#: tablet/tablet_main.php:290 tablet/tablet_main.php:419
+#: tablet/tablet_main.php:290 tablet/tablet_main.php:418
 #: videowall/vwc_finales.php:83 videowall/vwc_finales.php:214
 #: videowall/vwc_parciales.php:83 videowall/vwc_parciales.php:210
 #: console/dialogs/dlg_chperros.inc:151 console/dialogs/dlg_competicion.inc:123
 #: console/dialogs/dlg_editInscripcion.inc:46
-#: console/dialogs/dlg_newInscripcion.inc:154
+#: console/dialogs/dlg_newInscripcion.inc:155
 #: console/dialogs/dlg_ordensalida.inc:166 console/dialogs/dlg_perros.inc:77
 msgid "Handler"
 msgstr "Felvezető"
 
 #: chrono/chrono.inc.php:70 chrono/chrono.js.php:168 chrono/chrono.js.php:265
-#: console/frm_equipos.php:84 console/frm_equipos.php:225
-#: console/frm_guias.php:93 console/frm_inscripciones.php:78
-#: console/frm_inscripciones2.php:203 console/frm_registration.php:56
+#: console/frm_equipos.php:85 console/frm_equipos.php:226
+#: console/frm_guias.php:94 console/frm_inscripciones.php:78
+#: console/frm_inscripciones2.php:204 console/frm_registration.php:56
 #: console/import/import.js.php:40 console/import/import.js.php:49
 #: console/import/import.js.php:58 console/import/import_handlers.inc.php:114
 #: console/import/import_perros.inc.php:152 index.php:186
@@ -146,29 +146,32 @@ msgstr "Felvezető"
 #: livestream/vwls_osdvideo.php:89 modules/Federations.php:147
 #: public/pb_inscripciones.php:108 public/pb_inscripciones_equipos.php:158
 #: public/pbmenu_inscripciones.php:100
-#: public/pbmenu_inscripciones_equipos.php:149 scripts/competicion.js.php:1069
+#: public/pbmenu_inscripciones_equipos.php:149 scripts/competicion.js.php:1042
 #: scripts/results_and_scores.js.php:123 scripts/results_and_scores.js.php:195
 #: server/excel/common_writer.php:113
 #: server/pdf/print_clasificacion_excel.php:101
 #: server/pdf/print_clasificacion_excel.php:164 server/pdf/print_common.php:187
 #: server/pdf/print_listaPerros.php:60 tablet/index.php:259
 #: tablet/tablet_main.php:83 tablet/tablet_main.php:291
-#: tablet/tablet_main.php:420 videowall/vwc_finales.php:84
+#: tablet/tablet_main.php:419 videowall/vwc_finales.php:84
 #: videowall/vwc_finales.php:215 videowall/vwc_parciales.php:84
 #: videowall/vwc_parciales.php:211 console/dialogs/dlg_chguias.inc:114
 #: console/dialogs/dlg_chperros.inc:152 console/dialogs/dlg_competicion.inc:124
 #: console/dialogs/dlg_editInscripcion.inc:48 console/dialogs/dlg_guias.inc:45
-#: console/dialogs/dlg_newInscripcion.inc:155
+#: console/dialogs/dlg_newInscripcion.inc:156
 #: console/dialogs/dlg_ordensalida.inc:167 console/dialogs/dlg_perros.inc:191
 #: console/dialogs/dlg_pruebas.inc:49 console/dialogs/dlg_selectJornada.inc:85
 msgid "Club"
 msgstr "Klub"
 
 #: chrono/chrono.inc.php:71 console/dialogs/infomanga.php:78
-#: console/frm_admin.php:138 console/frm_equipos.php:74
+#: console/frm_admin.php:140 console/frm_equipos.php:75
 #: console/import/import_perros.inc.php:71 livestream/vwls_osdvideo.php:90
 #: server/pdf/print_clasificacion_excel.php:161
 #: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:128
+#: server/pdf/print_inscritosByPrueba.php:621
+#: server/pdf/print_inscritosByPrueba.php:774
 #: server/pdf/print_trsTemplates.php:81 server/pdf/print_trsTemplates.php:127
 #: videowall/vwc_finales.php:85 videowall/vwc_parciales.php:85
 #: console/dialogs/dlg_chperros.inc:71
@@ -177,16 +180,16 @@ msgstr "Klub"
 msgid "Category"
 msgstr "Méret"
 
-#: chrono/chrono.inc.php:72 console/frm_clubes.php:260
-#: console/frm_equipos.php:223 console/frm_guias.php:149
-#: console/frm_inscripciones2.php:201 console/frm_paises.php:225
-#: console/frm_perros.php:151 console/import/import_perros.inc.php:78
+#: chrono/chrono.inc.php:72 console/frm_clubes.php:261
+#: console/frm_equipos.php:224 console/frm_guias.php:150
+#: console/frm_inscripciones2.php:202 console/frm_paises.php:226
+#: console/frm_perros.php:152 console/import/import_perros.inc.php:78
 #: console/import/import_perros.inc.php:150 livestream/vwls_osdvideo.php:91
 #: public/pb_inscripciones.php:106 public/pb_inscripciones_equipos.php:156
 #: public/pbmenu_inscripciones.php:98
 #: public/pbmenu_inscripciones_equipos.php:147
 #: server/pdf/print_clasificacion_excel.php:162
-#: server/pdf/print_inscritosByPrueba.php:125
+#: server/pdf/print_inscritosByPrueba.php:126
 #: server/pdf/print_resultadosByManga.php:61
 #: server/pdf/print_trsTemplates.php:81 tablet/tablet_main.php:87
 #: tablet/tablet_main.php:293 videowall/vwc_finales.php:86
@@ -195,12 +198,12 @@ msgstr "Méret"
 #: console/dialogs/dlg_editInscripcion.inc:44
 #: console/dialogs/dlg_jornadas.inc:65 console/dialogs/dlg_jornadas.inc:71
 #: console/dialogs/dlg_jornadas.inc:77
-#: console/dialogs/dlg_newInscripcion.inc:153 console/dialogs/dlg_perros.inc:70
+#: console/dialogs/dlg_newInscripcion.inc:154 console/dialogs/dlg_perros.inc:70
 msgid "Grade"
 msgstr "Szint"
 
 #: chrono/chrono.inc.php:73 chrono/chrono.js.php:268
-#: console/frm_equipos.php:228 console/frm_inscripciones2.php:204
+#: console/frm_equipos.php:229 console/frm_inscripciones2.php:205
 #: lib/templates/orden_salida.inc.php:34 livestream/vwls_osdvideo.php:92
 #: public/pb_inscripciones.php:111 public/pb_inscripciones_equipos.php:161
 #: public/pbmenu_inscripciones.php:103
@@ -208,15 +211,15 @@ msgstr "Szint"
 #: server/pdf/print_entradaDeDatos.php:154
 #: server/pdf/print_entradaDeDatos.php:233
 #: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:608
-#: server/pdf/print_inscritosByPrueba.php:746
+#: server/pdf/print_inscritosByPrueba.php:617
+#: server/pdf/print_inscritosByPrueba.php:766
 #: server/pdf/print_ordenDeSalida.php:73 server/pdf/print_ordenDeSalida.php:179
 #: server/pdf/print_trsTemplates.php:257 tablet/tablet_main.php:89
 #: tablet/tablet_main.php:289 videowall/videowall.js.php:443
 #: videowall/videowall.js.php:542 videowall/vwc_finales.php:87
 #: videowall/vwc_finales.php:217 videowall/vwc_parciales.php:87
 #: videowall/vwc_parciales.php:213 console/dialogs/dlg_editInscripcion.inc:74
-#: console/dialogs/dlg_newInscripcion.inc:75
+#: console/dialogs/dlg_newInscripcion.inc:76
 #: console/dialogs/dlg_ordensalida.inc:168
 msgid "Heat"
 msgstr "Tüzel"
@@ -247,16 +250,15 @@ msgid "Eliminated"
 msgstr "Kizárás"
 
 #: chrono/chrono.inc.php:100 console/import/import.js.php:275
-#: scripts/common.js.php:274 scripts/common.js.php:298
-#: scripts/common.js.php:321 scripts/common.js.php:548
-#: scripts/common.js.php:560 scripts/common.js.php:572
-#: scripts/common.js.php:587 scripts/competicion.js.php:296
-#: scripts/competicion.js.php:325 scripts/competicion.js.php:636
-#: scripts/competicion.js.php:654 scripts/competicion.js.php:675
-#: scripts/competicion.js.php:693 scripts/competicion.js.php:851
-#: scripts/competicion.js.php:865 scripts/competicion.js.php:962
-#: scripts/competicion.js.php:966 scripts/competicion.js.php:1088
-#: scripts/competicion.js.php:1145 scripts/equipos.js.php:70
+#: scripts/common.js.php:276 scripts/common.js.php:300
+#: scripts/common.js.php:323 scripts/common.js.php:550
+#: scripts/common.js.php:562 scripts/common.js.php:574
+#: scripts/common.js.php:589 scripts/competicion.js.php:297
+#: scripts/competicion.js.php:326 scripts/competicion.js.php:638
+#: scripts/competicion.js.php:657 scripts/competicion.js.php:824
+#: scripts/competicion.js.php:838 scripts/competicion.js.php:935
+#: scripts/competicion.js.php:939 scripts/competicion.js.php:1061
+#: scripts/competicion.js.php:1118 scripts/equipos.js.php:70
 #: scripts/equipos.js.php:123 scripts/equipos.js.php:312
 #: scripts/guias.js.php:87 scripts/guias.js.php:158 scripts/guias.js.php:181
 #: scripts/guias.js.php:209 scripts/guias.js.php:239
@@ -274,7 +276,7 @@ msgstr "Kizárás"
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
 #: scripts/usuarios.js.php:86 scripts/usuarios.js.php:150
 #: console/dialogs/dlg_competicion.inc:71
-#: console/dialogs/dlg_configuracion.inc:467
+#: console/dialogs/dlg_configuracion.inc:474
 #: console/dialogs/dlg_selectJornada.inc:156
 msgid "Error"
 msgstr "Hiba"
@@ -341,7 +343,7 @@ msgid "Start 15 seconds countdown"
 msgstr "15 másodperces visszaszámlálás indítása"
 
 #: chrono/chrono.js.php:135 chrono/chrono.js.php:216 chrono/chrono.js.php:284
-#: chrono/chrono.js.php:385 livestream/livestream.js.php:136
+#: chrono/chrono.js.php:385 livestream/livestream.js.php:140
 #: modules/Federations.php:192 modules/rfec/config.php:118
 #: modules/uca/config.php:110 scripts/datagrid_formatters.js.php:76
 #: server/pdf/print_entradaDeDatos.php:254
@@ -349,16 +351,16 @@ msgstr "15 másodperces visszaszámlálás indítása"
 #: videowall/videowall.js.php:209 videowall/videowall.js.php:293
 #: videowall/videowall.js.php:323 videowall/videowall.js.php:394
 #: videowall/videowall.js.php:456 videowall/videowall.js.php:555
-#: videowall/vws.js.php:162 console/dialogs/dlg_competicion.inc:138
+#: videowall/vws.js.php:194 console/dialogs/dlg_competicion.inc:138
 msgid "Elim"
 msgstr "Kiz"
 
 #: chrono/chrono.js.php:140 chrono/chrono.js.php:212 chrono/chrono.js.php:289
-#: chrono/chrono.js.php:392 livestream/livestream.js.php:141
+#: chrono/chrono.js.php:392 livestream/livestream.js.php:145
 #: videowall/videowall.js.php:214 videowall/videowall.js.php:250
 #: videowall/videowall.js.php:289 videowall/videowall.js.php:322
 #: videowall/videowall.js.php:459 videowall/videowall.js.php:558
-#: videowall/vws.js.php:161 videowall/vws.js.php:450
+#: videowall/vws.js.php:193 videowall/vws.js.php:501
 msgid "NoPr"
 msgstr "Nem ind"
 
@@ -373,17 +375,17 @@ msgstr "Nem ind"
 msgid "Dors"
 msgstr "Sorszám"
 
-#: chrono/chrono.js.php:152 chrono/index.php:146 console/frm_admin.php:173
-#: console/frm_clasificaciones2.php:161
-#: console/frm_clasificaciones_equipos.php:161 console/frm_clubes.php:98
-#: console/frm_clubes.php:172 console/frm_clubes.php:257
-#: console/frm_equipos.php:140 console/frm_equipos.php:220
-#: console/frm_equipos.php:292 console/frm_guias.php:91
-#: console/frm_guias.php:146 console/frm_inscripciones.php:76
-#: console/frm_inscripciones2.php:198 console/frm_jueces.php:86
-#: console/frm_login.php:102 console/frm_paises.php:81
-#: console/frm_paises.php:136 console/frm_paises.php:221
-#: console/frm_perros.php:144 console/frm_pruebas.php:151
+#: chrono/chrono.js.php:152 chrono/index.php:146 console/frm_admin.php:175
+#: console/frm_clasificaciones2.php:147
+#: console/frm_clasificaciones_equipos.php:148 console/frm_clubes.php:99
+#: console/frm_clubes.php:173 console/frm_clubes.php:258
+#: console/frm_equipos.php:141 console/frm_equipos.php:221
+#: console/frm_equipos.php:293 console/frm_guias.php:92
+#: console/frm_guias.php:147 console/frm_inscripciones.php:76
+#: console/frm_inscripciones2.php:199 console/frm_jueces.php:87
+#: console/frm_login.php:102 console/frm_paises.php:82
+#: console/frm_paises.php:137 console/frm_paises.php:222
+#: console/frm_perros.php:145 console/frm_pruebas.php:152
 #: console/frm_registration.php:48 console/import/import_clubes.inc.php:43
 #: console/import/import_handlers.inc.php:38
 #: console/import/import_handlers.inc.php:112
@@ -394,7 +396,7 @@ msgstr "Sorszám"
 #: lib/templates/orden_salida.inc.php:25
 #: lib/templates/parcial_individual.inc.php:20
 #: lib/templates/parcial_last_individual.inc.php:22
-#: lib/templates/parcial_last_teams.inc.php:22 livestream/index.php:242
+#: lib/templates/parcial_last_teams.inc.php:22 livestream/index.php:250
 #: livestream/vwls_osdvideo.php:87 public/pb_inscripciones.php:102
 #: public/pb_inscripciones_equipos.php:152 public/pbmenu_inscripciones.php:94
 #: public/pbmenu_inscripciones_equipos.php:143
@@ -409,15 +411,15 @@ msgstr "Sorszám"
 #: server/pdf/print_entradaDeDatos.php:311
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:121
-#: server/pdf/print_inscritosByPrueba.php:608
-#: server/pdf/print_inscritosByPrueba.php:746
+#: server/pdf/print_inscritosByPrueba.php:617
+#: server/pdf/print_inscritosByPrueba.php:766
 #: server/pdf/print_ordenDeSalida.php:73 server/pdf/print_podium.php:103
 #: server/pdf/print_resultadosByEquipos.php:96
 #: server/pdf/print_resultadosByManga.php:63
 #: server/pdf/print_trsTemplates.php:259 server/pdf/print_trsTemplates.php:262
 #: tablet/index.php:224 tablet/index.php:257 tablet/tablet_main.php:78
-#: tablet/tablet_main.php:287 tablet/tablet_main.php:418
-#: videowall/index.php:249 videowall/vwc_finales.php:82
+#: tablet/tablet_main.php:287 tablet/tablet_main.php:417
+#: videowall/index.php:255 videowall/vwc_finales.php:82
 #: videowall/vwc_finales.php:213 videowall/vwc_parciales.php:82
 #: videowall/vwc_parciales.php:209 console/dialogs/dlg_chguias.inc:38
 #: console/dialogs/dlg_chguias.inc:112 console/dialogs/dlg_chperros.inc:38
@@ -439,9 +441,9 @@ msgid "Hndlr"
 msgstr "Felv"
 
 #: chrono/chrono.js.php:154 chrono/chrono.js.php:250
-#: console/frm_equipos.php:141 console/frm_equipos.php:222
-#: console/frm_equipos.php:293 console/frm_guias.php:148
-#: console/frm_inscripciones2.php:200 console/frm_perros.php:150
+#: console/frm_equipos.php:142 console/frm_equipos.php:223
+#: console/frm_equipos.php:294 console/frm_guias.php:149
+#: console/frm_inscripciones2.php:201 console/frm_perros.php:151
 #: console/import/import_perros.inc.php:149
 #: lib/templates/final_individual.inc.php:23
 #: lib/templates/final_last_individual.inc.php:30
@@ -458,15 +460,15 @@ msgstr "Felv"
 #: scripts/results_and_scores.js.php:119 scripts/results_and_scores.js.php:191
 #: server/pdf/print_clasificacion.php:169
 #: server/pdf/print_clasificacion_equipos.php:234
-#: server/pdf/print_inscritosByPrueba.php:125
-#: server/pdf/print_inscritosByPrueba.php:608
-#: server/pdf/print_inscritosByPrueba.php:746 server/pdf/print_podium.php:106
+#: server/pdf/print_inscritosByPrueba.php:126
+#: server/pdf/print_inscritosByPrueba.php:617
+#: server/pdf/print_inscritosByPrueba.php:766 server/pdf/print_podium.php:106
 #: server/pdf/print_podium.php:108 server/pdf/print_resultadosByEquipos.php:96
 #: server/pdf/print_resultadosByManga.php:61 tablet/tablet_main.php:85
 #: tablet/tablet_main.php:292 console/dialogs/dlg_chperros.inc:149
 #: console/dialogs/dlg_competicion.inc:38
 #: console/dialogs/dlg_competicion.inc:125
-#: console/dialogs/dlg_newInscripcion.inc:152
+#: console/dialogs/dlg_newInscripcion.inc:153
 #: console/dialogs/dlg_ordensalida.inc:47
 #: console/dialogs/dlg_ordensalida.inc:102
 #: console/dialogs/dlg_ordensalida.inc:165
@@ -477,7 +479,7 @@ msgstr "Méret"
 msgid "Grad"
 msgstr "Szint"
 
-#: chrono/chrono.js.php:160 chrono/chrono.js.php:257 console/frm_equipos.php:89
+#: chrono/chrono.js.php:160 chrono/chrono.js.php:257 console/frm_equipos.php:90
 #: lib/templates/final_last_teams.inc.php:35
 #: lib/templates/final_teams.inc.php:21 lib/templates/orden_salida.inc.php:23
 #: lib/templates/parcial_last_teams.inc.php:29
@@ -490,8 +492,8 @@ msgstr "Szint"
 msgid "Team"
 msgstr "Csapat"
 
-#: chrono/chrono.js.php:164 chrono/chrono.js.php:261 console/frm_clubes.php:102
-#: console/frm_jueces.php:89 console/frm_paises.php:80
+#: chrono/chrono.js.php:164 chrono/chrono.js.php:261 console/frm_clubes.php:103
+#: console/frm_jueces.php:90 console/frm_paises.php:81
 #: console/import/import_clubes.inc.php:62
 #: console/import/import_clubes.inc.php:171
 #: console/import/import_clubes.inc.php:199 modules/Federations.php:147
@@ -516,10 +518,10 @@ msgstr "Érzékelő hiba"
 msgid "Ring"
 msgstr "Pálya"
 
-#: chrono/index.php:108 console/frm_equipos.php:98
+#: chrono/index.php:108 console/frm_equipos.php:99
 #: console/frm_inscripciones.php:41 console/frm_login.php:59
 #: console/frm_logout.php:35 console/frm_myAdmin.php:65
-#: livestream/index.php:200 tablet/tablet_main.php:58 videowall/index.php:207
+#: livestream/index.php:208 tablet/tablet_main.php:58 videowall/index.php:213
 #: console/dialogs/dlg_clubes.inc:138
 #: console/dialogs/dlg_editInscripcion.inc:98
 #: console/dialogs/dlg_ordentandas.inc:79
@@ -536,15 +538,15 @@ msgid "Work with selected ring/session"
 msgstr "A kiválasztott pályával/munkamenettel dolgozni"
 
 #: chrono/index.php:147 console/dialogs/infomanga.php:309
-#: console/frm_clasificaciones2.php:53
-#: console/frm_clasificaciones_equipos.php:53 console/frm_clubes.php:175
-#: console/frm_equipos.php:142 console/frm_equipos.php:227
-#: console/frm_equipos.php:294 console/frm_guias.php:96
-#: console/frm_inscripciones2.php:60 console/frm_paises.php:139
-#: console/frm_pruebas.php:97 console/frm_pruebas.php:151
+#: console/frm_clasificaciones2.php:56
+#: console/frm_clasificaciones_equipos.php:55 console/frm_clubes.php:176
+#: console/frm_equipos.php:143 console/frm_equipos.php:228
+#: console/frm_equipos.php:295 console/frm_guias.php:97
+#: console/frm_inscripciones2.php:60 console/frm_paises.php:140
+#: console/frm_pruebas.php:98 console/frm_pruebas.php:152
 #: console/import/import_clubes.inc.php:111
 #: console/import/import_handlers.inc.php:55 index.php:217
-#: lib/templates/orden_salida.inc.php:35 livestream/index.php:243
+#: lib/templates/orden_salida.inc.php:35 livestream/index.php:251
 #: public/pb_inscripciones_equipos.php:94
 #: public/pb_inscripciones_equipos.php:160 public/pb_programa.php:102
 #: public/pbmenu_inscripciones_equipos.php:85
@@ -552,10 +554,10 @@ msgstr "A kiválasztott pályával/munkamenettel dolgozni"
 #: server/excel/common_writer.php:113 server/pdf/print_entradaDeDatos.php:234
 #: server/pdf/print_entradaDeDatos.php:315
 #: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:608
-#: server/pdf/print_inscritosByPrueba.php:746
+#: server/pdf/print_inscritosByPrueba.php:617
+#: server/pdf/print_inscritosByPrueba.php:766
 #: server/pdf/print_ordenDeSalida.php:73 server/pdf/print_ordenTandas.php:90
-#: tablet/index.php:225 tablet/tablet_main.php:210 videowall/index.php:250
+#: tablet/index.php:225 tablet/tablet_main.php:210 videowall/index.php:256
 #: console/dialogs/dlg_chguias.inc:55 console/dialogs/dlg_clubes.inc:125
 #: console/dialogs/dlg_competicion.inc:140
 #: console/dialogs/dlg_editInscripcion.inc:77
@@ -690,11 +692,11 @@ msgstr "Fix MCT"
 #: server/pdf/print_resultadosByEquipos.php:125
 #: server/pdf/print_resultadosByEquipos4.php:120
 #: server/pdf/print_resultadosByManga.php:90
-#: server/pdf/print_trsTemplates.php:127 videowall/vws.js.php:88
-#: videowall/vws.js.php:89 console/dialogs/inforesultados.inc:45
-#: console/dialogs/inforesultados.inc:53 console/dialogs/inforesultados.inc:61
-#: console/dialogs/inforesultados.inc:69 console/dialogs/inforesultados.inc:96
-#: console/dialogs/inforesultados.inc:104
+#: server/pdf/print_trsTemplates.php:127 videowall/vws.js.php:118
+#: videowall/vws.js.php:119 videowall/vws.js.php:147
+#: console/dialogs/inforesultados.inc:45 console/dialogs/inforesultados.inc:53
+#: console/dialogs/inforesultados.inc:61 console/dialogs/inforesultados.inc:69
+#: console/dialogs/inforesultados.inc:96 console/dialogs/inforesultados.inc:104
 #: console/dialogs/inforesultados.inc:112
 #: console/dialogs/inforesultados.inc:120
 msgid "SCT"
@@ -715,13 +717,13 @@ msgstr "Sablonok"
 
 #: console/dialogs/infomanga.php:320 console/dialogs/dlg_configuracion.inc:346
 #: console/dialogs/dlg_configuracion.inc:359
-#: console/dialogs/dlg_configuracion.inc:481 console/dialogs/dlg_tools.inc:12
+#: console/dialogs/dlg_configuracion.inc:488 console/dialogs/dlg_tools.inc:12
 msgid "Restore"
 msgstr "Visszaállít"
 
 #: console/dialogs/infomanga.php:325 console/dialogs/dlg_competicion.inc:145
 #: console/dialogs/dlg_configuracion.inc:365
-#: console/dialogs/dlg_configuracion.inc:388 console/dialogs/dlg_equipos.inc:57
+#: console/dialogs/dlg_configuracion.inc:395 console/dialogs/dlg_equipos.inc:57
 #: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:123
 #: console/dialogs/dlg_jueces.inc:84 console/dialogs/dlg_perros.inc:94
 #: console/dialogs/dlg_pruebas.inc:77 console/dialogs/dlg_sesiones.inc:75
@@ -738,7 +740,7 @@ msgid "Judge name"
 msgstr "Bíró neve"
 
 #: console/dialogs/infomanga.php:354 console/dialogs/infomanga.php:377
-#: console/frm_guias.php:95 console/frm_registration.php:52
+#: console/frm_guias.php:96 console/frm_registration.php:52
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -790,9 +792,9 @@ msgstr "Bíró adatainak klónozása minden futamra ebben a fordulóban"
 msgid "Version"
 msgstr "Verzió"
 
-#: console/frm_about.php:29 console/frm_clasificaciones2.php:45
-#: console/frm_clasificaciones_equipos.php:45
-#: console/frm_inscripciones2.php:140 console/frm_pruebas.php:152
+#: console/frm_about.php:29 console/frm_clasificaciones2.php:48
+#: console/frm_clasificaciones_equipos.php:47
+#: console/frm_inscripciones2.php:141 console/frm_pruebas.php:153
 #: server/excel/common_writer.php:133 server/pdf/print_clasificacion.php:95
 #: server/pdf/print_clasificacion_equipos.php:133
 #: server/pdf/print_clasificacion_excel.php:105 server/pdf/print_common.php:308
@@ -857,138 +859,139 @@ msgstr "Felhasználó szerkesztése"
 msgid "Delete user"
 msgstr "Felhasználó törlése"
 
-#: console/frm_admin.php:45 console/frm_admin.php:55 console/frm_admin.php:85
-#: console/frm_admin.php:92 console/frm_clubes.php:40
+#: console/frm_admin.php:45 console/frm_admin.php:56 console/frm_admin.php:86
+#: console/frm_admin.php:94 console/frm_clubes.php:40
 #: console/frm_equipos.php:39 console/frm_guias.php:42
 #: console/frm_inscripciones2.php:96 console/frm_jueces.php:42
 #: console/frm_paises.php:35 console/frm_perros.php:75
-#: console/frm_pruebas.php:42 scripts/common.js.php:884
-#: scripts/common.js.php:896 scripts/equipos.js.php:28 server/tools.php:207
+#: console/frm_pruebas.php:42 scripts/common.js.php:882
+#: scripts/common.js.php:883 scripts/common.js.php:896
+#: scripts/common.js.php:908 scripts/equipos.js.php:28 server/tools.php:207
 #: console/dialogs/dlg_newInscripcion.inc:34
 msgid "-- Search --"
 msgstr "-- Keresés --"
 
-#: console/frm_admin.php:50 console/frm_login.php:45 console/frm_myAdmin.php:55
+#: console/frm_admin.php:51 console/frm_login.php:45 console/frm_myAdmin.php:55
 #: tablet/index.php:149 console/dialogs/dlg_usuarios.inc:58
 msgid "Password"
 msgstr "Jelszó"
 
-#: console/frm_admin.php:57 console/frm_admin.php:94 console/frm_clubes.php:45
-#: console/frm_equipos.php:47 console/frm_guias.php:51
-#: console/frm_inscripciones2.php:113 console/frm_jueces.php:51
-#: console/frm_paises.php:40 console/frm_perros.php:90
-#: console/frm_pruebas.php:56 console/import/import_clubes.inc.php:37
+#: console/frm_admin.php:58 console/frm_admin.php:96 console/frm_clubes.php:46
+#: console/frm_equipos.php:48 console/frm_guias.php:52
+#: console/frm_inscripciones2.php:114 console/frm_jueces.php:52
+#: console/frm_paises.php:41 console/frm_perros.php:91
+#: console/frm_pruebas.php:57 console/import/import_clubes.inc.php:37
 #: console/import/import_handlers.inc.php:32
 #: console/import/import_perros.inc.php:32 console/dialogs/dlg_chguias.inc:32
 #: console/dialogs/dlg_chperros.inc:32 console/dialogs/dlg_competicion.inc:150
-#: console/dialogs/dlg_newInscripcion.inc:45 console/dialogs/dlg_tools.inc:24
+#: console/dialogs/dlg_newInscripcion.inc:46 console/dialogs/dlg_tools.inc:24
 msgid "Clear"
 msgstr "Töröl"
 
-#: console/frm_admin.php:62
+#: console/frm_admin.php:63
 msgid "Sessions"
 msgstr "Munkamenetek"
 
-#: console/frm_admin.php:75 scripts/sesiones.js.php:33
+#: console/frm_admin.php:76 scripts/sesiones.js.php:33
 msgid "New session"
 msgstr "Új munkamenet"
 
-#: console/frm_admin.php:78
+#: console/frm_admin.php:79
 msgid "Edit session"
 msgstr "Munkamenet szerkesztése"
 
-#: console/frm_admin.php:81 scripts/sesiones.js.php:103
+#: console/frm_admin.php:82 scripts/sesiones.js.php:103
 msgid "Delete session"
 msgstr "Munkamenet törlése"
 
-#: console/frm_admin.php:84
+#: console/frm_admin.php:85
 msgid "Reset session"
 msgstr "Munkamenet visszaállítása"
 
-#: console/frm_admin.php:99
+#: console/frm_admin.php:101
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: console/frm_admin.php:102
+#: console/frm_admin.php:104
 msgid "Tools"
 msgstr "Eszközök"
 
-#: console/frm_admin.php:118
+#: console/frm_admin.php:120
 msgid "User data management"
 msgstr "Felhasználói adatok kezelése"
 
-#: console/frm_admin.php:121
+#: console/frm_admin.php:123
 msgid "Updating users list"
 msgstr "Felhasználó lista frissítése"
 
-#: console/frm_admin.php:135 server/excel/common_writer.php:55
+#: console/frm_admin.php:137 server/excel/common_writer.php:55
 #: console/dialogs/dlg_usuarios.inc:63
 msgid "Information"
 msgstr "Információ"
 
-#: console/frm_admin.php:136 console/frm_clubes.php:173
-#: console/frm_jueces.php:90 console/frm_paises.php:137
+#: console/frm_admin.php:138 console/frm_clubes.php:174
+#: console/frm_jueces.php:91 console/frm_paises.php:138
 #: console/import/import_handlers.inc.php:51 console/dialogs/dlg_chguias.inc:51
 #: console/dialogs/dlg_guias.inc:41 console/dialogs/dlg_jueces.inc:52
 #: console/dialogs/dlg_usuarios.inc:67
 msgid "Telephone"
 msgstr "Telefon"
 
-#: console/frm_admin.php:157
+#: console/frm_admin.php:159
 msgid "Session (ring) data management"
 msgstr "Munkamenet (pálya) adatainak kezelése"
 
-#: console/frm_admin.php:160
+#: console/frm_admin.php:162
 msgid "Updating session list"
 msgstr "Munkamenetek listájának frissítése"
 
-#: console/frm_admin.php:174
+#: console/frm_admin.php:176
 msgid "Description"
 msgstr "Leírás"
 
-#: console/frm_admin.php:176 console/frm_logout.php:31 scripts/auth.js.php:74
+#: console/frm_admin.php:178 console/frm_logout.php:31 scripts/auth.js.php:74
 #: scripts/auth.js.php:103 tablet/index.php:144 tablet/index.php:372
 #: console/dialogs/dlg_sesiones.inc:39
 msgid "User"
 msgstr "Felhasználó"
 
-#: console/frm_admin.php:194
+#: console/frm_admin.php:196
 msgid "Create and insert new user<br/> into database"
 msgstr "Új felhasználó létrehozása és<br/> beillesztése az adatbázisba"
 
-#: console/frm_admin.php:195
+#: console/frm_admin.php:197
 msgid "Modify data on selected user"
 msgstr "Kiválasztott felhasználó adatainak szerkesztése"
 
-#: console/frm_admin.php:196
+#: console/frm_admin.php:198
 msgid "Remove selected user from database"
 msgstr "Kiválasztott felhasználó törlése az adatbázisból"
 
-#: console/frm_admin.php:197 console/frm_admin.php:205
+#: console/frm_admin.php:199 console/frm_admin.php:207
 msgid "Clear search box. Update data"
 msgstr "Keresődoboz kiürítése. Adatok firssítése"
 
-#: console/frm_admin.php:198 console/dialogs/dlg_usuarios.inc:102
+#: console/frm_admin.php:200 console/dialogs/dlg_usuarios.inc:102
 msgid "Change user password"
 msgstr "Felhasználói jelszó módosítása"
 
-#: console/frm_admin.php:201
+#: console/frm_admin.php:203
 msgid "Add a new session (ring)<br/>into data base"
 msgstr "Új munkamenet (pálya) létrehozása és<br/> beillesztése az adatbázisba"
 
-#: console/frm_admin.php:202
+#: console/frm_admin.php:204
 msgid "Modify data on selected session (ring)"
 msgstr "Kiválasztott munkamenet (pálya) adatainak szerkesztése"
 
-#: console/frm_admin.php:203
+#: console/frm_admin.php:205
 msgid "Remove selected session from database"
 msgstr "Kiválasztott munkamenet (pálya) törlése az adatbázisból"
 
-#: console/frm_admin.php:204
+#: console/frm_admin.php:206
 msgid "Reset/Clear event log from selected session"
 msgstr "Eseménynapló visszaállítása/törlése a kiválasztott munkamenetből"
 
-#: console/frm_admin.php:206
+#: console/frm_admin.php:208
 msgid "Look for sessions matching search criteria"
 msgstr "Munkamenet keresése a keresési kritérium alapján"
 
@@ -996,37 +999,37 @@ msgstr "Munkamenet keresése a keresési kritérium alapján"
 msgid "Results & Scores"
 msgstr "Eredmények & Pontok"
 
-#: console/frm_clasificaciones.php:47 console/frm_clasificaciones2.php:93
-#: console/frm_clasificaciones_equipos.php:93 console/index.php:211
+#: console/frm_clasificaciones.php:47 console/frm_clasificaciones2.php:95
+#: console/frm_clasificaciones_equipos.php:96 console/index.php:211
 #: server/excel/scores_writer.php:239 server/pdf/print_clasificacion.php:159
 #: server/pdf/print_clasificacion_excel.php:155
 msgid "Scores"
 msgstr "Pontok"
 
-#: console/frm_clasificaciones2.php:27
-#: console/frm_clasificaciones_equipos.php:27 console/frm_inscripciones2.php:42
+#: console/frm_clasificaciones2.php:29
+#: console/frm_clasificaciones_equipos.php:28 console/frm_inscripciones2.php:42
 msgid "Contests data"
 msgstr "Verseny adatok"
 
-#: console/frm_clasificaciones2.php:32
-#: console/frm_clasificaciones_equipos.php:32 console/frm_inscripciones2.php:52
+#: console/frm_clasificaciones2.php:35
+#: console/frm_clasificaciones_equipos.php:34 console/frm_inscripciones2.php:52
 msgid "Title"
 msgstr "Cím"
 
-#: console/frm_clasificaciones2.php:37
-#: console/frm_clasificaciones_equipos.php:37 console/frm_inscripciones2.php:56
+#: console/frm_clasificaciones2.php:40
+#: console/frm_clasificaciones_equipos.php:39 console/frm_inscripciones2.php:56
 msgid "Organizing Club"
 msgstr "Rendező Klub"
 
-#: console/frm_clasificaciones2.php:41
-#: console/frm_clasificaciones_equipos.php:41 index.php:143
-#: public/public.js.php:43 scripts/competicion.js.php:875
+#: console/frm_clasificaciones2.php:44
+#: console/frm_clasificaciones_equipos.php:43 index.php:143
+#: public/public.js.php:43 scripts/competicion.js.php:848
 #: scripts/equipos.js.php:73 scripts/equipos.js.php:126
 #: server/excel/common_writer.php:65 server/excel/common_writer.php:138
 #: server/pdf/print_clasificacion.php:84
 #: server/pdf/print_clasificacion_equipos.php:122
 #: server/pdf/print_clasificacion_excel.php:103
-#: server/pdf/print_inscritosByPrueba.php:780
+#: server/pdf/print_inscritosByPrueba.php:801
 #: server/pdf/print_ordenTandas.php:66 server/pdf/print_podium.php:79
 #: server/pdf/print_trsTemplates.php:70 server/pdf/print_trsTemplates.php:80
 #: tablet/index.php:163 videowall/videowall.js.php:115
@@ -1034,8 +1037,8 @@ msgstr "Rendező Klub"
 msgid "Journey"
 msgstr "Forduló"
 
-#: console/frm_clasificaciones2.php:49
-#: console/frm_clasificaciones_equipos.php:49
+#: console/frm_clasificaciones2.php:52
+#: console/frm_clasificaciones_equipos.php:51
 #: lib/templates/final_individual.inc.php:11
 #: lib/templates/final_individual.inc.php:12
 #: lib/templates/final_last_individual.inc.php:12
@@ -1051,76 +1054,75 @@ msgstr "Forduló"
 #: server/pdf/print_clasificacion_excel.php:126
 #: server/pdf/print_clasificacion_excel.php:135
 #: videowall/vws_final_equipos.php:54 videowall/vws_final_individual.php:54
-#: videowall/vws_parcial_equipos.php:54 console/dialogs/inforesultados.inc:32
-#: console/dialogs/inforesultados.inc:83
+#: console/dialogs/inforesultados.inc:32 console/dialogs/inforesultados.inc:83
 msgid "Round"
 msgstr "Futam"
 
-#: console/frm_clasificaciones2.php:60
-#: console/frm_clasificaciones_equipos.php:60
+#: console/frm_clasificaciones2.php:63
+#: console/frm_clasificaciones_equipos.php:63
 msgid "Technical data on current round series"
 msgstr "Technikai adatok a jelenlegi futam sorozatban"
 
-#: console/frm_clasificaciones2.php:79
-#: console/frm_clasificaciones_equipos.php:79 tablet/tablet_main.php:122
+#: console/frm_clasificaciones2.php:81
+#: console/frm_clasificaciones_equipos.php:82 tablet/tablet_main.php:122
 #: console/dialogs/dlg_ordensalida.inc:55
 msgid "Refresh"
 msgstr "Frissítés"
 
-#: console/frm_clasificaciones2.php:81
-#: console/frm_clasificaciones_equipos.php:81 console/frm_equipos.php:43
+#: console/frm_clasificaciones2.php:83
+#: console/frm_clasificaciones_equipos.php:84 console/frm_equipos.php:44
 msgid "Verify"
 msgstr "Ellenőrzés"
 
-#: console/frm_clasificaciones2.php:83
-#: console/frm_clasificaciones_equipos.php:83
+#: console/frm_clasificaciones2.php:85
+#: console/frm_clasificaciones_equipos.php:86
 #: console/dialogs/dlg_configuracion.inc:197
 msgid "Reports"
 msgstr "Jelentések"
 
-#: console/frm_clasificaciones2.php:88
-#: console/frm_clasificaciones_equipos.php:88
+#: console/frm_clasificaciones2.php:90
+#: console/frm_clasificaciones_equipos.php:91
 msgid "Select format"
 msgstr "Formátum kiválasztása"
 
-#: console/frm_clasificaciones2.php:90
-#: console/frm_clasificaciones_equipos.php:90 server/pdf/print_podium.php:65
+#: console/frm_clasificaciones2.php:92
+#: console/frm_clasificaciones_equipos.php:93 server/pdf/print_podium.php:65
 msgid "Podium"
 msgstr "Eredményhirdetés"
 
-#: console/frm_clasificaciones2.php:91
-#: console/frm_clasificaciones_equipos.php:91
+#: console/frm_clasificaciones2.php:93
+#: console/frm_clasificaciones_equipos.php:94
 msgid "Text export"
 msgstr "Szöveges exportálás"
 
-#: console/frm_clasificaciones2.php:92
-#: console/frm_clasificaciones_equipos.php:92
+#: console/frm_clasificaciones2.php:94
+#: console/frm_clasificaciones_equipos.php:95
 msgid "R.S.C.E. Report"
 msgstr "R.S.C.E. Jelentés"
 
-#: console/frm_clasificaciones2.php:96
-#: console/frm_clasificaciones_equipos.php:96
+#: console/frm_clasificaciones2.php:98
+#: console/frm_clasificaciones_equipos.php:99
 msgid "Label sheets"
 msgstr "Teljesítménykönyv cimkék"
 
-#: console/frm_clasificaciones2.php:97
-#: console/frm_clasificaciones_equipos.php:97
+#: console/frm_clasificaciones2.php:99
+#: console/frm_clasificaciones_equipos.php:100
 msgid "Isolated labels"
 msgstr "Elválasztott cimke"
 
-#: console/frm_clasificaciones2.php:100
-#: console/frm_clasificaciones_equipos.php:100
+#: console/frm_clasificaciones2.php:102
+#: console/frm_clasificaciones_equipos.php:103
 msgid "Initial label"
 msgstr "Kezdő cimke"
 
-#: console/frm_clasificaciones2.php:103
-#: console/frm_clasificaciones_equipos.php:103
+#: console/frm_clasificaciones2.php:105
+#: console/frm_clasificaciones_equipos.php:106
 msgid "Dorsal list"
 msgstr "Startlista"
 
-#: console/frm_clasificaciones2.php:110
-#: console/frm_clasificaciones_equipos.php:110 console/frm_equipos.php:45
-#: console/frm_inscripciones2.php:107 console/frm_perros.php:83
+#: console/frm_clasificaciones2.php:112
+#: console/frm_clasificaciones_equipos.php:113 console/frm_equipos.php:46
+#: console/frm_inscripciones2.php:108 console/frm_perros.php:84
 #: console/dialogs/dlg_ordensalida.inc:57
 #: console/dialogs/dlg_ordentandas.inc:46
 #: console/dialogs/dlg_resultados_equipos.inc:41
@@ -1128,38 +1130,33 @@ msgstr "Startlista"
 msgid "Print"
 msgstr "Nyomtat"
 
-#: console/frm_clasificaciones2.php:124
-#: console/frm_clasificaciones_equipos.php:124
-msgid "Journey scores"
-msgstr "Forduló pontszámok"
-
-#: console/frm_clasificaciones2.php:189
-#: console/frm_clasificaciones_equipos.php:189
+#: console/frm_clasificaciones2.php:175
+#: console/frm_clasificaciones_equipos.php:176
 msgid "Update score tables"
 msgstr "Pontszám táblázat frissítése"
 
-#: console/frm_clasificaciones2.php:190
-#: console/frm_clasificaciones_equipos.php:190
+#: console/frm_clasificaciones2.php:176
+#: console/frm_clasificaciones_equipos.php:177
 msgid "Check for dogs without registered data"
 msgstr "Regisztrált adatok nélküli kutyák keresése"
 
-#: console/frm_clasificaciones2.php:191
-#: console/frm_clasificaciones_equipos.php:191
+#: console/frm_clasificaciones2.php:177
+#: console/frm_clasificaciones_equipos.php:178
 msgid "Print scores on current round"
 msgstr "Jelenlegi futam pontszámainak nyomtatása"
 
-#: console/frm_clasificaciones2.php:192
-#: console/frm_clasificaciones_equipos.php:192
+#: console/frm_clasificaciones2.php:178
+#: console/frm_clasificaciones_equipos.php:179
 msgid "Print data in selected format"
 msgstr "Adatok nyomtatása a kiválasztott formátumban"
 
-#: console/frm_clasificaciones2.php:193
-#: console/frm_clasificaciones_equipos.php:193
+#: console/frm_clasificaciones2.php:179
+#: console/frm_clasificaciones_equipos.php:180
 msgid "where to start printing<br/>in labels sheet"
 msgstr "hol legyen a nyomtatás megkezdve<br/>a cimke lapon"
 
-#: console/frm_clasificaciones2.php:194
-#: console/frm_clasificaciones_equipos.php:194
+#: console/frm_clasificaciones2.php:180
+#: console/frm_clasificaciones_equipos.php:181
 msgid "Comma separated list of dorsals to be printed"
 msgstr "Vesszővel elválasztott lista a versenyzőkről nyomtatva lesz"
 
@@ -1175,16 +1172,16 @@ msgstr "Klub szerkesztése"
 msgid "Delete Club"
 msgstr "Klub törlése"
 
-#: console/frm_clubes.php:81
+#: console/frm_clubes.php:82
 msgid "Clubs data management"
 msgstr "Klubok adatainak kezelése"
 
-#: console/frm_clubes.php:84
+#: console/frm_clubes.php:85
 msgid "Updating Clubs list"
 msgstr "Klubok listájának frissítése"
 
-#: console/frm_clubes.php:99 console/frm_clubes.php:100
-#: console/frm_jueces.php:87 console/frm_jueces.php:88
+#: console/frm_clubes.php:100 console/frm_clubes.php:101
+#: console/frm_jueces.php:88 console/frm_jueces.php:89
 #: console/import/import_clubes.inc.php:50
 #: console/import/import_clubes.inc.php:54 console/dialogs/dlg_clubes.inc:57
 #: console/dialogs/dlg_clubes.inc:61 console/dialogs/dlg_jueces.inc:40
@@ -1192,75 +1189,75 @@ msgstr "Klubok listájának frissítése"
 msgid "Address"
 msgstr "Cím"
 
-#: console/frm_clubes.php:101
+#: console/frm_clubes.php:102
 msgid "State"
 msgstr "Állam"
 
-#: console/frm_clubes.php:103 console/frm_clubes.php:104
-#: console/frm_clubes.php:105 console/import/import_clubes.inc.php:66
+#: console/frm_clubes.php:104 console/frm_clubes.php:105
+#: console/frm_clubes.php:106 console/import/import_clubes.inc.php:66
 #: console/import/import_clubes.inc.php:70
 #: console/import/import_clubes.inc.php:74 console/dialogs/dlg_clubes.inc:80
 #: console/dialogs/dlg_clubes.inc:84 console/dialogs/dlg_clubes.inc:88
 msgid "Contact"
 msgstr "Kapcsolat"
 
-#: console/frm_clubes.php:118
+#: console/frm_clubes.php:119
 msgid "Out"
 msgstr "Ki"
 
-#: console/frm_clubes.php:142
+#: console/frm_clubes.php:143
 msgid "Create a new club <br/>and insert into database"
 msgstr "Új klub létrehozása és<br/>beillesztése az adatbázisba"
 
-#: console/frm_clubes.php:143
+#: console/frm_clubes.php:144
 msgid "Edit data on selected club"
 msgstr "Kiválasztott klub adatainak szerkesztése"
 
-#: console/frm_clubes.php:144
+#: console/frm_clubes.php:145
 msgid "Remove club from database"
 msgstr "Klub törlése az adatbázisból"
 
-#: console/frm_clubes.php:145 console/frm_guias.php:124
-#: console/frm_paises.php:109
+#: console/frm_clubes.php:146 console/frm_guias.php:125
+#: console/frm_paises.php:110
 msgid "Clear search box. Update table"
 msgstr "Keresődoboz kiürítése. Táblázat  firssítése"
 
-#: console/frm_clubes.php:146
+#: console/frm_clubes.php:147
 msgid "Look for clubes matching search criteria"
 msgstr "Klubok keresése a megadott keresési kritériumoknak megfelelően"
 
-#: console/frm_clubes.php:161
+#: console/frm_clubes.php:162
 msgid "Handlers belonging to club"
 msgstr "A klubhoz tartozó felvezetők"
 
-#: console/frm_clubes.php:162 console/frm_paises.php:126
+#: console/frm_clubes.php:163 console/frm_paises.php:127
 msgid "Loading handlers list"
 msgstr "Felvezetők listájának betöltése"
 
-#: console/frm_clubes.php:174 console/frm_jueces.php:97
-#: console/frm_paises.php:138 console/import/import_clubes.inc.php:95
+#: console/frm_clubes.php:175 console/frm_jueces.php:98
+#: console/frm_paises.php:139 console/import/import_clubes.inc.php:95
 #: console/import/import_handlers.inc.php:47 console/dialogs/dlg_chguias.inc:47
 #: console/dialogs/dlg_clubes.inc:109 console/dialogs/dlg_guias.inc:37
 #: console/dialogs/dlg_jueces.inc:71 console/dialogs/dlg_usuarios.inc:71
 msgid "Electronic mail"
 msgstr "Elektronikus levél"
 
-#: console/frm_clubes.php:207 console/frm_paises.php:171
+#: console/frm_clubes.php:208 console/frm_paises.php:172
 msgid "Join handler"
 msgstr "Felvezető megnyitása"
 
-#: console/frm_clubes.php:212 console/frm_guias.php:38
-#: console/frm_paises.php:176
+#: console/frm_clubes.php:213 console/frm_guias.php:38
+#: console/frm_paises.php:177
 msgid "Edit handler"
 msgstr "Felvezető szerkesztése"
 
-#: console/frm_clubes.php:217 console/frm_paises.php:181
+#: console/frm_clubes.php:218 console/frm_paises.php:182
 msgid "Dettach handler"
 msgstr "Felvezető leválasztása"
 
-#: console/frm_clubes.php:222 console/frm_clubes.php:301
-#: console/frm_guias.php:190 console/frm_paises.php:186
-#: console/frm_paises.php:265 console/frm_pruebas.php:200
+#: console/frm_clubes.php:223 console/frm_clubes.php:302
+#: console/frm_guias.php:191 console/frm_paises.php:187
+#: console/frm_paises.php:266 console/frm_pruebas.php:201
 #: console/dialogs/dlg_clubes.inc:39 console/dialogs/dlg_competicion.inc:34
 #: console/dialogs/dlg_ordentandas.inc:44
 #: console/dialogs/dlg_resultados_equipos.inc:39
@@ -1268,36 +1265,36 @@ msgstr "Felvezető leválasztása"
 msgid "Update"
 msgstr "Frissít"
 
-#: console/frm_clubes.php:230
+#: console/frm_clubes.php:231
 msgid "Create/Assing handler to club"
 msgstr "Felvezető létrehozása/hozzákapcsolása a klubhoz"
 
-#: console/frm_clubes.php:231
+#: console/frm_clubes.php:232
 msgid "Edit data on handler belonging club"
 msgstr "Klubhoz tartozó felvezető adatainak szerkesztése"
 
-#: console/frm_clubes.php:232
+#: console/frm_clubes.php:233
 msgid "Unassign selected handler from club"
 msgstr "Kiválasztott felvezető leválasztása a klubtól"
 
-#: console/frm_clubes.php:233
+#: console/frm_clubes.php:234
 msgid "Update handlers list on club"
 msgstr "Klubhoz tartozó felvezetők listájának frissítése"
 
-#: console/frm_clubes.php:250 console/frm_paises.php:214
+#: console/frm_clubes.php:251 console/frm_paises.php:215
 msgid "Loading list of dogs"
 msgstr "Kutyák listájának betöltése"
 
-#: console/frm_clubes.php:251 console/frm_paises.php:215
+#: console/frm_clubes.php:252 console/frm_paises.php:216
 msgid "Registered dogs belonging to"
 msgstr "Regisztrált kutyák ide tartoznak"
 
-#: console/frm_clubes.php:259 console/frm_paises.php:224
+#: console/frm_clubes.php:260 console/frm_paises.php:225
 msgid "Cat."
 msgstr "Méret"
 
-#: console/frm_clubes.php:261 console/frm_guias.php:150
-#: console/frm_paises.php:226 console/frm_perros.php:146
+#: console/frm_clubes.php:262 console/frm_guias.php:151
+#: console/frm_paises.php:227 console/frm_perros.php:147
 #: console/import/import_perros.inc.php:59
 #: lib/templates/orden_salida.inc.php:26 public/pb_inscripciones.php:103
 #: public/pb_inscripciones_equipos.php:153 public/pbmenu_inscripciones.php:95
@@ -1309,19 +1306,19 @@ msgstr "Méret"
 msgid "Breed"
 msgstr "Fajta"
 
-#: console/frm_clubes.php:262 console/frm_guias.php:151
-#: console/frm_perros.php:147 console/import/import_perros.inc.php:51
+#: console/frm_clubes.php:263 console/frm_guias.php:152
+#: console/frm_perros.php:148 console/import/import_perros.inc.php:51
 #: console/dialogs/dlg_chperros.inc:51 console/dialogs/dlg_perros.inc:43
 msgid "Gender"
 msgstr "Nem"
 
-#: console/frm_clubes.php:263 console/frm_guias.php:152
-#: console/frm_paises.php:227 console/frm_perros.php:148
+#: console/frm_clubes.php:264 console/frm_guias.php:153
+#: console/frm_paises.php:228 console/frm_perros.php:149
 msgid "KC id"
 msgstr "MEOESZ id"
 
-#: console/frm_clubes.php:264 console/frm_guias.php:153
-#: console/frm_paises.php:228 lib/templates/orden_salida.inc.php:27
+#: console/frm_clubes.php:265 console/frm_guias.php:154
+#: console/frm_paises.php:229 lib/templates/orden_salida.inc.php:27
 #: server/pdf/print_clasificacion_excel.php:160
 #: server/pdf/print_entradaDeDatos.php:230
 #: server/pdf/print_entradaDeDatos.php:312
@@ -1331,34 +1328,34 @@ msgstr "MEOESZ id"
 msgid "License"
 msgstr "Teljesítménykönyv sorszáma"
 
-#: console/frm_clubes.php:286 console/frm_guias.php:175
-#: console/frm_paises.php:250
+#: console/frm_clubes.php:287 console/frm_guias.php:176
+#: console/frm_paises.php:251
 msgid "Assign dog"
 msgstr "Kutya csatolása"
 
-#: console/frm_clubes.php:291 console/frm_guias.php:180
-#: console/frm_paises.php:255 console/frm_perros.php:71
+#: console/frm_clubes.php:292 console/frm_guias.php:181
+#: console/frm_paises.php:256 console/frm_perros.php:71
 msgid "Edit dog"
 msgstr "Kutya szerkesztése"
 
-#: console/frm_clubes.php:296 console/frm_guias.php:185
-#: console/frm_paises.php:260
+#: console/frm_clubes.php:297 console/frm_guias.php:186
+#: console/frm_paises.php:261
 msgid "Dettach dog"
 msgstr "Kutya leválasztása"
 
-#: console/frm_clubes.php:312 console/frm_paises.php:276
+#: console/frm_clubes.php:313 console/frm_paises.php:277
 msgid "Declare/Assign a dog to"
 msgstr "Kutya hozzárendelése "
 
-#: console/frm_clubes.php:313 console/frm_paises.php:277
+#: console/frm_clubes.php:314 console/frm_paises.php:278
 msgid "Edit data on dog belonging to"
 msgstr "Felvezetőhöz tartozó kutya adatainak szerkesztése"
 
-#: console/frm_clubes.php:314 console/frm_paises.php:278
+#: console/frm_clubes.php:315 console/frm_paises.php:279
 msgid "Unassign selected dog from handler"
 msgstr "Kiválasztott kutya leválasztása a felvezetőtől"
 
-#: console/frm_clubes.php:315 console/frm_paises.php:279
+#: console/frm_clubes.php:316 console/frm_paises.php:280
 msgid "Update list of dogs belonging to"
 msgstr "Felvezetőhöz tartozó kutyák listájának frissítése"
 
@@ -1395,21 +1392,21 @@ msgid "Planning"
 msgstr "Tervezés"
 
 #: console/frm_competicion2.php:74 index.php:150 index2.php:265
-#: livestream/index.php:184 livestream/index.php:190
+#: livestream/index.php:192 livestream/index.php:198
 #: livestream/vwls_ordensalida.php:62 public/pb_ordensalida.php:42
 #: public/pb_ordensalida.php:51 public/pbmenu_ordensalida.php:39
-#: scripts/competicion.js.php:882 server/pdf/print_ordenDeSalida.php:90
-#: server/pdf/print_ordenSalidaEquipos4.php:90 videowall/index.php:187
+#: scripts/competicion.js.php:855 server/pdf/print_ordenDeSalida.php:90
+#: server/pdf/print_ordenSalidaEquipos4.php:90 videowall/index.php:193
 #: videowall/vw_ordensalida.php:36
 msgid "Starting order"
 msgstr "Startlista"
 
-#: console/frm_competicion2.php:77 scripts/competicion.js.php:889
+#: console/frm_competicion2.php:77 scripts/competicion.js.php:862
 #: server/pdf/print_entradaDeDatos.php:78 server/pdf/print_trsTemplates.php:77
 msgid "Data entry"
 msgstr "Eredménybevitel"
 
-#: console/frm_competicion2.php:80 scripts/competicion.js.php:895
+#: console/frm_competicion2.php:80 scripts/competicion.js.php:868
 msgid "Round results"
 msgstr "Futam eredményei"
 
@@ -1452,11 +1449,11 @@ msgstr "Szerkesztése"
 msgid "Delete"
 msgstr "Törlés"
 
-#: console/frm_equipos.php:55 console/dialogs/dlg_newInscripcion.inc:95
+#: console/frm_equipos.php:56 console/dialogs/dlg_newInscripcion.inc:96
 msgid "Done"
 msgstr "Kész"
 
-#: console/frm_equipos.php:100 console/frm_inscripciones.php:43
+#: console/frm_equipos.php:101 console/frm_inscripciones.php:43
 #: console/frm_login.php:61 console/frm_logout.php:37
 #: console/frm_myAdmin.php:67 console/frm_perros.php:54
 #: console/import/import_handlers.inc.php:72
@@ -1473,60 +1470,60 @@ msgstr "Kész"
 msgid "Cancel"
 msgstr "Mégse"
 
-#: console/frm_equipos.php:117
+#: console/frm_equipos.php:118
 msgid "Team management on contest"
 msgstr "Csapatok kezelése a versenyben"
 
-#: console/frm_equipos.php:127 console/frm_equipos.php:283
+#: console/frm_equipos.php:128 console/frm_equipos.php:284
 msgid "Updating team list"
 msgstr "Csapatok listájának frissítése"
 
-#: console/frm_equipos.php:180
+#: console/frm_equipos.php:181
 msgid "Show teams matching search criteria"
 msgstr "Keresési kritériumnak megfelelő csapatok mutatása"
 
-#: console/frm_equipos.php:181
+#: console/frm_equipos.php:182
 msgid "Declare a new team on this contest"
 msgstr "Új csapat létrehozása a versenyben"
 
-#: console/frm_equipos.php:182
+#: console/frm_equipos.php:183
 msgid "Edit data on selected team"
 msgstr "Kiválasztott csapat adatainak szerkesztése"
 
-#: console/frm_equipos.php:183
+#: console/frm_equipos.php:184
 msgid "Remove team on this contest"
 msgstr "Kiválasztott csapat törlése"
 
-#: console/frm_equipos.php:184
+#: console/frm_equipos.php:185
 msgid "Clear search box. Update team list"
 msgstr "Keresődoboz kiürítése. Csapatok listájának firssítése"
 
-#: console/frm_equipos.php:185
+#: console/frm_equipos.php:186
 msgid "Verify teams. Enumerate found problems"
 msgstr "Csapatok ellenőrzése. Talált problémák felsorolása"
 
-#: console/frm_equipos.php:186
+#: console/frm_equipos.php:187
 msgid "Print team list on this journey"
 msgstr "Csapatok listájának nyomtatása ebben a fordulóban"
 
-#: console/frm_equipos.php:186
+#: console/frm_equipos.php:187
 msgid "and their team members"
 msgstr "és a csapattagjaik"
 
-#: console/frm_equipos.php:187
+#: console/frm_equipos.php:188
 msgid "Close windows. Return to previous menu"
 msgstr "Ablak bezárása. Visszatérés az előző menübe"
 
-#: console/frm_equipos.php:196
+#: console/frm_equipos.php:197
 msgid "Registered inscriptions on team"
 msgstr "Regisztált nevezések a csapatban"
 
-#: console/frm_equipos.php:201
+#: console/frm_equipos.php:202
 msgid "Reading inscription list"
 msgstr "Regisztált versenyzők listázása"
 
-#: console/frm_equipos.php:221 console/frm_inscripciones2.php:199
-#: console/frm_perros.php:149 lib/templates/final_individual.inc.php:22
+#: console/frm_equipos.php:222 console/frm_inscripciones2.php:200
+#: console/frm_perros.php:150 lib/templates/final_individual.inc.php:22
 #: lib/templates/final_last_individual.inc.php:29
 #: lib/templates/final_last_teams.inc.php:29
 #: lib/templates/parcial_individual.inc.php:21
@@ -1539,25 +1536,25 @@ msgstr "Regisztált versenyzők listázása"
 #: server/pdf/print_clasificacion_equipos.php:233
 #: server/pdf/print_entradaDeDatos.php:158
 #: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:608
-#: server/pdf/print_inscritosByPrueba.php:746
+#: server/pdf/print_inscritosByPrueba.php:617
+#: server/pdf/print_inscritosByPrueba.php:766
 #: server/pdf/print_ordenDeSalida.php:73 server/pdf/print_podium.php:104
 #: server/pdf/print_resultadosByEquipos.php:96
 #: server/pdf/print_resultadosByManga.php:63
 #: server/pdf/print_trsTemplates.php:261
-#: console/dialogs/dlg_newInscripcion.inc:151
+#: console/dialogs/dlg_newInscripcion.inc:152
 msgid "Lic"
 msgstr "Teljkönyv sorszám"
 
-#: console/frm_equipos.php:253
+#: console/frm_equipos.php:254
 msgid "Select new team"
 msgstr "Új csapat kiválasztása"
 
-#: console/frm_equipos.php:263
+#: console/frm_equipos.php:264
 msgid "Assing competitor to selected team"
 msgstr "Versenyző hozzárendelése a kiválasztott csapathoz"
 
-#: console/frm_equipos.php:264
+#: console/frm_equipos.php:265
 msgid "Cancel selection. Close window"
 msgstr "Kijelölés törlése. Ablak bezárása"
 
@@ -1570,55 +1567,55 @@ msgstr "Új felvezető"
 msgid "Delete handler"
 msgstr "Felvezető törlése"
 
-#: console/frm_guias.php:73
+#: console/frm_guias.php:74
 msgid "Handlers data management"
 msgstr "Felvezetők adatainak kezelése"
 
-#: console/frm_guias.php:76
+#: console/frm_guias.php:77
 msgid "Updating handlers list"
 msgstr "Felvezetők listájának frissítése"
 
-#: console/frm_guias.php:94
+#: console/frm_guias.php:95
 msgid "Phone"
 msgstr "Telefon"
 
-#: console/frm_guias.php:121
+#: console/frm_guias.php:122
 msgid "Insert a new handler<br/>into DataBase"
 msgstr "Új felvezető létrehozása és<br/>beillesztése az adatbázisba"
 
-#: console/frm_guias.php:122
+#: console/frm_guias.php:123
 msgid "Edit data on selected handler"
 msgstr "Kiválasztott felvezető adatainak szerkesztése"
 
-#: console/frm_guias.php:123
+#: console/frm_guias.php:124
 msgid "Remove selected handler from Database"
 msgstr "Kiválasztott felvezető törlése az adatbázisból"
 
-#: console/frm_guias.php:125
+#: console/frm_guias.php:126
 msgid "Show handlers matching search criteria"
 msgstr "Keresési kritériumnak megfelelő felvezetők mutatása"
 
-#: console/frm_guias.php:134
+#: console/frm_guias.php:135
 msgid "Dogs registered to"
 msgstr "A kutya regisztrálva van"
 
-#: console/frm_guias.php:139
+#: console/frm_guias.php:140
 msgid "Updating dogs list"
 msgstr "Kutyák listájának frissítése"
 
-#: console/frm_guias.php:198
+#: console/frm_guias.php:199
 msgid "Assing dog to handler"
 msgstr "Kutya csatolása felvezetőhöz"
 
-#: console/frm_guias.php:199
+#: console/frm_guias.php:200
 msgid "Dettach dog from handler"
 msgstr "Kutya leválasztása felvezetőről"
 
-#: console/frm_guias.php:200
+#: console/frm_guias.php:201
 msgid "Editar data on dog assigned to"
 msgstr "Kutya adatainak szerkesztése, aki hozzá tartozik"
 
-#: console/frm_guias.php:201
+#: console/frm_guias.php:202
 msgid "Update dog list from handler"
 msgstr "Felvezetőhöz tartozó kutyák listájának frissítése"
 
@@ -1664,11 +1661,11 @@ msgstr "Nevezők listája ebben a versenyben"
 msgid "Set dorsal"
 msgstr "Rajtszám beállítása"
 
-#: console/frm_inscripciones2.php:102
+#: console/frm_inscripciones2.php:103
 msgid "Reorder"
 msgstr "Újrarendez"
 
-#: console/frm_inscripciones2.php:105
+#: console/frm_inscripciones2.php:106
 #: server/pdf/print_ordenSalidaEquipos4.php:90
 #: server/pdf/print_resultadosByEquipos.php:104
 #: server/pdf/print_resultadosByEquipos4.php:99
@@ -1676,102 +1673,102 @@ msgstr "Újrarendez"
 msgid "Teams"
 msgstr "Csapatok"
 
-#: console/frm_inscripciones2.php:134
+#: console/frm_inscripciones2.php:135
 msgid "Updating journeys data"
 msgstr "Fordulók adatainak frissítése"
 
-#: console/frm_inscripciones2.php:139 tablet/index.php:307
+#: console/frm_inscripciones2.php:140 tablet/index.php:307
 msgid "Name/Comment"
 msgstr "Név/Megjegyzés"
 
-#: console/frm_inscripciones2.php:141 console/frm_pruebas.php:153
+#: console/frm_inscripciones2.php:142 console/frm_pruebas.php:154
 #: server/excel/common_writer.php:133 server/pdf/print_ordenTandas.php:91
 #: tablet/tablet_main.php:208 console/dialogs/dlg_jornadas.inc:45
 msgid "Hour"
 msgstr "Óra"
 
-#: console/frm_inscripciones2.php:142
+#: console/frm_inscripciones2.php:143
 msgid "G-I  "
 msgstr "A1"
 
-#: console/frm_inscripciones2.php:143
+#: console/frm_inscripciones2.php:144
 msgid "G-II "
 msgstr "A2"
 
-#: console/frm_inscripciones2.php:144
+#: console/frm_inscripciones2.php:145
 msgid "G-III"
 msgstr "A3"
 
-#: console/frm_inscripciones2.php:145
+#: console/frm_inscripciones2.php:146
 msgid "Team3"
 msgstr "Csapat (3 fős)"
 
-#: console/frm_inscripciones2.php:146
+#: console/frm_inscripciones2.php:147
 msgid "Team4"
 msgstr "Csapat (4fős)"
 
-#: console/frm_inscripciones2.php:147
+#: console/frm_inscripciones2.php:148
 msgid "Open "
 msgstr "Open"
 
-#: console/frm_inscripciones2.php:148
+#: console/frm_inscripciones2.php:149
 msgid "PA. 1"
 msgstr "Elő-Agility 1"
 
-#: console/frm_inscripciones2.php:149
+#: console/frm_inscripciones2.php:150
 msgid "PA. 2"
 msgstr "Elő-Agility 2"
 
-#: console/frm_inscripciones2.php:150
+#: console/frm_inscripciones2.php:151
 msgid "K.O. "
 msgstr "K.O."
 
-#: console/frm_inscripciones2.php:151 console/frm_pruebas.php:163
+#: console/frm_inscripciones2.php:152 console/frm_pruebas.php:164
 msgid "Special"
 msgstr "Speciális"
 
-#: console/frm_inscripciones2.php:152 console/frm_pruebas.php:100
-#: console/frm_pruebas.php:165 server/excel/common_writer.php:133
+#: console/frm_inscripciones2.php:153 console/frm_pruebas.php:101
+#: console/frm_pruebas.php:166 server/excel/common_writer.php:133
 msgid "Closed"
 msgstr "Zárt"
 
-#: console/frm_inscripciones2.php:185
+#: console/frm_inscripciones2.php:186
 msgid "Updating inscriptions data"
 msgstr "Nevezések listájának frissítése"
 
-#: console/frm_inscripciones2.php:230
+#: console/frm_inscripciones2.php:231
 msgid "Register new inscriptions"
 msgstr "Új nevezés beillesztése"
 
-#: console/frm_inscripciones2.php:231
+#: console/frm_inscripciones2.php:232
 msgid "Modify selected inscription"
 msgstr "Kiválasztott nevezés szerkesztése"
 
-#: console/frm_inscripciones2.php:232
+#: console/frm_inscripciones2.php:233
 msgid "Remove selected inscription from database"
 msgstr "Kiválasztott nevezés törlése az adatbázisból"
 
-#: console/frm_inscripciones2.php:233
+#: console/frm_inscripciones2.php:234
 msgid "Change dorsal number for selected inscription"
 msgstr "Rajtszám cseréje a kiválasztott nevezésnél"
 
-#: console/frm_inscripciones2.php:234
+#: console/frm_inscripciones2.php:235
 msgid "Reassign dorsals ordering by Club,Category,Grade, and Name"
 msgstr "Rajtszámok újraosztása Klub,Méret,Szint és Név alatján rendezve"
 
-#: console/frm_inscripciones2.php:235
+#: console/frm_inscripciones2.php:236
 msgid "Open Team handling window for selected journey"
 msgstr "Csapat kezelési ablak megnyitása a kiválasztott fordulóban"
 
-#: console/frm_inscripciones2.php:236
+#: console/frm_inscripciones2.php:237
 msgid "Print inscriptions list on this contest"
 msgstr "Nevezők listájának nyomtatása a kiválasztott fersenyben"
 
-#: console/frm_inscripciones2.php:237
+#: console/frm_inscripciones2.php:238
 msgid "Clear search box<br/>Update inscriptions list"
 msgstr "Keresődoboz kiürítése. Nevezők listájának firssítése"
 
-#: console/frm_inscripciones2.php:238
+#: console/frm_inscripciones2.php:239
 msgid "Search inscriptions matching search criteria"
 msgstr "Nevezések keresése a keresési kritérium alapján"
 
@@ -1787,55 +1784,55 @@ msgstr "Bíró szerkesztése"
 msgid "Delete judge"
 msgstr "Bíró törlése"
 
-#: console/frm_jueces.php:68
+#: console/frm_jueces.php:69
 msgid "Judge database handling"
 msgstr "Bírói adatbázis kezelése"
 
-#: console/frm_jueces.php:72
+#: console/frm_jueces.php:73
 msgid "Updating judge list"
 msgstr "Bírók listájának szerkesztése"
 
-#: console/frm_jueces.php:92 console/import/import_clubes.inc.php:82
+#: console/frm_jueces.php:93 console/import/import_clubes.inc.php:82
 #: console/dialogs/dlg_clubes.inc:96
 msgid "RSCE"
 msgstr "RSCE"
 
-#: console/frm_jueces.php:93 console/import/import_clubes.inc.php:84
+#: console/frm_jueces.php:94 console/import/import_clubes.inc.php:84
 #: console/dialogs/dlg_clubes.inc:98
 msgid "RFEC"
 msgstr "RFEC"
 
-#: console/frm_jueces.php:94 console/import/import_clubes.inc.php:86
+#: console/frm_jueces.php:95 console/import/import_clubes.inc.php:86
 #: console/dialogs/dlg_clubes.inc:100
 msgid "UCA"
 msgstr "UCA"
 
-#: console/frm_jueces.php:95
+#: console/frm_jueces.php:96
 msgid "Intl"
 msgstr "FCI"
 
-#: console/frm_jueces.php:96
+#: console/frm_jueces.php:97
 msgid "Pract"
 msgstr "Gyakorló bíró"
 
-#: console/frm_jueces.php:111
+#: console/frm_jueces.php:112
 msgid "Add a new judge to database"
 msgstr "Új bíró hozzáadása az adatbázishoz"
 
-#: console/frm_jueces.php:112
+#: console/frm_jueces.php:113
 msgid "Modify data on selected judge"
 msgstr "Kiválasztott bíró adatainak szerkesztése"
 
-#: console/frm_jueces.php:113
+#: console/frm_jueces.php:114
 msgid "Remove selected judge from database"
 msgstr "Kiválasztott bíró törlése az adatbázisból"
 
-#: console/frm_jueces.php:114 console/frm_perros.php:173
-#: console/frm_pruebas.php:128
+#: console/frm_jueces.php:115 console/frm_perros.php:174
+#: console/frm_pruebas.php:129
 msgid "Clear search box. Update list"
 msgstr "Keresődoboz kiürítése. Lista frissítése"
 
-#: console/frm_jueces.php:115
+#: console/frm_jueces.php:116
 msgid "Look for judges matching search criteria"
 msgstr "Bírók keresése a megadott keresési kritériumoknak megfelelően"
 
@@ -1851,7 +1848,7 @@ msgstr "Amennyiben nem lép be, a \"vendég\" felhasználóval lesz beléptetve"
 msgid "User name"
 msgstr "Felhasználónév"
 
-#: console/frm_login.php:50 console/frm_pruebas.php:98
+#: console/frm_login.php:50 console/frm_pruebas.php:99
 #: server/excel/common_writer.php:71 server/excel/common_writer.php:113
 #: console/dialogs/dlg_pruebas.inc:41
 msgid "Federation"
@@ -1939,7 +1936,7 @@ msgstr "Közvetlen adatbázis kapcsolat"
 msgid "Validate user. Open phpMyAdmin database manager panel"
 msgstr "Felhasználó megerősítése. PhPMyAdmin adatbázis kezelő panel megnyitása"
 
-#: console/frm_myAdmin.php:91 console/frm_perros.php:176
+#: console/frm_myAdmin.php:91 console/frm_perros.php:177
 #: console/frm_registration.php:107 console/import/import_handlers.inc.php:82
 #: console/import/import_perros.inc.php:112 console/dialogs/dlg_chguias.inc:82
 #: console/dialogs/dlg_chperros.inc:112 console/dialogs/dlg_clubes.inc:148
@@ -1951,35 +1948,35 @@ msgstr "Felhasználó megerősítése. PhPMyAdmin adatbázis kezelő panel megny
 msgid "Cancel operation. Close window"
 msgstr "Művelet megszakítása. Ablak bezárása"
 
-#: console/frm_paises.php:62
+#: console/frm_paises.php:63
 msgid "Country database"
 msgstr "Ország adatbázis"
 
-#: console/frm_paises.php:65
+#: console/frm_paises.php:66
 msgid "Updating Country list"
 msgstr "Országok listájának frissítése"
 
-#: console/frm_paises.php:110
+#: console/frm_paises.php:111
 msgid "Look for countries matching search criteria"
 msgstr "Országok keresése a keresési kritérium alapján"
 
-#: console/frm_paises.php:125
+#: console/frm_paises.php:126
 msgid "Handlers from country"
 msgstr "Ehhez az országhoz tartozó felvezetők keresése"
 
-#: console/frm_paises.php:194
+#: console/frm_paises.php:195
 msgid "Create/Assing handler to country"
 msgstr "Felvezető létrehozása/hozzárendelése az országhoz"
 
-#: console/frm_paises.php:195
+#: console/frm_paises.php:196
 msgid "Edit data on handler belonging country"
 msgstr "Országhoztartozó felvezető adatainak szerkesztése"
 
-#: console/frm_paises.php:196
+#: console/frm_paises.php:197
 msgid "Unassign selected handler from country"
 msgstr "Kiválasztott felvezető leválasztása az országtól"
 
-#: console/frm_paises.php:197
+#: console/frm_paises.php:198
 msgid "Update handlers list on country"
 msgstr "Országhoz tartozó felvezetők listájának frissítése"
 
@@ -2009,7 +2006,7 @@ msgid "Import"
 msgstr "Import"
 
 #: console/frm_perros.php:68 scripts/perros.js.php:40
-#: console/dialogs/dlg_newInscripcion.inc:89
+#: console/dialogs/dlg_newInscripcion.inc:90
 msgid "New dog"
 msgstr "Új kutya"
 
@@ -2017,62 +2014,62 @@ msgstr "Új kutya"
 msgid "Delete dog"
 msgstr "Kutya törlése"
 
-#: console/frm_perros.php:80 scripts/perros.js.php:272
+#: console/frm_perros.php:81 scripts/perros.js.php:272
 msgid "Import/Export"
 msgstr "Import/Export"
 
-#: console/frm_perros.php:102
+#: console/frm_perros.php:103
 msgid "Excel import"
 msgstr "Excel importálás"
 
-#: console/frm_perros.php:112
+#: console/frm_perros.php:113
 msgid "entries"
 msgstr "nevezések"
 
-#: console/frm_perros.php:126
+#: console/frm_perros.php:127
 msgid "Database dog handling"
 msgstr "Kutya adatbázis kezelés"
 
-#: console/frm_perros.php:129 console/dialogs/dlg_newInscripcion.inc:142
+#: console/frm_perros.php:130 console/dialogs/dlg_newInscripcion.inc:143
 msgid "Updating dog list"
 msgstr "Kutyák listájának frissítése"
 
-#: console/frm_perros.php:153 console/dialogs/dlg_perros.inc:189
+#: console/frm_perros.php:154 console/dialogs/dlg_perros.inc:189
 msgid "Handler name"
 msgstr "Felvezető neve"
 
-#: console/frm_perros.php:155 console/import/import_clubes.inc.php:169
+#: console/frm_perros.php:156 console/import/import_clubes.inc.php:169
 #: console/dialogs/dlg_guias.inc:119 console/dialogs/dlg_pruebas.inc:178
 msgid "Club name"
 msgstr "Klub neve"
 
-#: console/frm_perros.php:168
+#: console/frm_perros.php:169
 msgid "Insert new dog <br/>into database"
 msgstr "Új kutya beillesztése<br>az adatbázisba"
 
-#: console/frm_perros.php:169
+#: console/frm_perros.php:170
 msgid "Modify data on selected dog"
 msgstr "Kiválasztott kutya adatainak szerkesztése"
 
-#: console/frm_perros.php:170
+#: console/frm_perros.php:171
 msgid "Remove selected dog from database"
 msgstr "Kiválasztott kutya törlése az adatbázisból"
 
-#: console/frm_perros.php:171 scripts/perros.js.php:273
+#: console/frm_perros.php:172 scripts/perros.js.php:273
 msgid "Import/Export dog data from/to Excel file"
 msgstr "Kutyák adatainak Importálása/Exportálása Excel fájlnól/fájlba"
 
-#: console/frm_perros.php:172
+#: console/frm_perros.php:173
 msgid "Print dog list with current search/sort criteria"
 msgstr ""
 "Kutyák listájának nyomtatása a jelenlegi keresési/rendezési kritériumok "
 "alapján"
 
-#: console/frm_perros.php:174
+#: console/frm_perros.php:175
 msgid "Look into database for dogs matching search criteria"
 msgstr "Kutyák keresése a keresési kritérium alapján"
 
-#: console/frm_perros.php:175
+#: console/frm_perros.php:176
 msgid "Import dog data from selected Excel file"
 msgstr "Kutyák adatainak importálása a kiválasztott Excel fájlból"
 
@@ -2088,96 +2085,96 @@ msgstr "Verseny szerkesztése"
 msgid "Remove contest"
 msgstr "Verseny törlése"
 
-#: console/frm_pruebas.php:45
+#: console/frm_pruebas.php:46
 msgid "Incl. closed"
 msgstr "Befejezett versenyeket is"
 
-#: console/frm_pruebas.php:50
+#: console/frm_pruebas.php:51
 msgid "Export"
 msgstr "Export"
 
-#: console/frm_pruebas.php:75
+#: console/frm_pruebas.php:76
 msgid "Contest data handling"
 msgstr "Verseny adatainak kezelése"
 
-#: console/frm_pruebas.php:77
+#: console/frm_pruebas.php:78
 msgid "Updating contest list"
 msgstr "Versenyek listájának frissítése"
 
-#: console/frm_pruebas.php:91
+#: console/frm_pruebas.php:92
 msgid "Contest name"
 msgstr "Verseny neve"
 
-#: console/frm_pruebas.php:93
+#: console/frm_pruebas.php:94
 msgid "Organizing club"
 msgstr "Szervező klub"
 
-#: console/frm_pruebas.php:94 console/dialogs/dlg_pruebas.inc:55
+#: console/frm_pruebas.php:95 console/dialogs/dlg_pruebas.inc:55
 msgid "Event location"
 msgstr "Verseny helyswzíne"
 
-#: console/frm_pruebas.php:95 console/dialogs/dlg_pruebas.inc:59
+#: console/frm_pruebas.php:96 console/dialogs/dlg_pruebas.inc:59
 msgid "Triptych URL"
 msgstr "Helyszín URL"
 
-#: console/frm_pruebas.php:96 console/dialogs/dlg_pruebas.inc:63
+#: console/frm_pruebas.php:97 console/dialogs/dlg_pruebas.inc:63
 msgid "Brochure URL"
 msgstr "Nevezési felhívás URL"
 
-#: console/frm_pruebas.php:99 server/excel/common_writer.php:113
+#: console/frm_pruebas.php:100 server/excel/common_writer.php:113
 #: console/dialogs/dlg_pruebas.inc:44
 msgid "Selective"
 msgstr "Szelektív"
 
-#: console/frm_pruebas.php:124
+#: console/frm_pruebas.php:125
 msgid "Declare a new contest and include into database"
 msgstr "Új verseny létrehozása és beillesztése az adatbázisba"
 
-#: console/frm_pruebas.php:125
+#: console/frm_pruebas.php:126
 msgid "Edit information on selected contest"
 msgstr "Kiválasztott verseny adatainak szerkesztése"
 
-#: console/frm_pruebas.php:126
+#: console/frm_pruebas.php:127
 msgid "Remove selected contest"
 msgstr "Kiválasztott verseny törlése"
 
-#: console/frm_pruebas.php:127
+#: console/frm_pruebas.php:128
 msgid "Export selected contest data in Excel format"
 msgstr "Kiválasztott verseny adatainak exportálása Excel formátumba"
 
-#: console/frm_pruebas.php:129
+#: console/frm_pruebas.php:130
 msgid "Include finished (closed) contest into listing"
 msgstr "Befejezett (zárt) versenyek belefoglalása a listázásba"
 
-#: console/frm_pruebas.php:130
+#: console/frm_pruebas.php:131
 msgid "Look for contests matching search criteria"
 msgstr "Versenyek keresése a megadott keresési kritériumoknak megfelelően"
 
-#: console/frm_pruebas.php:137
+#: console/frm_pruebas.php:138
 msgid "Journeys on this contest"
 msgstr "Ehhez a versenyhez tartozó fordulók"
 
-#: console/frm_pruebas.php:145
+#: console/frm_pruebas.php:146
 msgid "Loading list of journeys"
 msgstr "Fordulók listájának betöltése"
 
-#: console/frm_pruebas.php:190
+#: console/frm_pruebas.php:191
 msgid "Edit journey"
 msgstr "Forduló frissítése"
 
-#: console/frm_pruebas.php:195
+#: console/frm_pruebas.php:196
 msgid "Close journey"
 msgstr "Forduló lezárása"
 
-#: console/frm_pruebas.php:210
+#: console/frm_pruebas.php:211
 msgid "Edit data on selected journey"
 msgstr "Kiválasztott forduló adatainak szerkesztése"
 
-#: console/frm_pruebas.php:211
+#: console/frm_pruebas.php:212
 msgid "Close journey. Store data as inmutable"
 msgstr "Forduló lezárása. Adatok tárolása szerkeszthetetlenül"
 
-#: console/frm_pruebas.php:212
+#: console/frm_pruebas.php:213
 msgid "Update journey list for this contest"
 msgstr "Fordulók listájának frissítése ebben a versenyben"
 
@@ -2447,7 +2444,7 @@ msgstr "Munkamenet megkezdése"
 msgid "DATABASE"
 msgstr "ADATBÁZIS"
 
-#: console/index.php:196 scripts/common.js.php:628
+#: console/index.php:196 scripts/common.js.php:630
 msgid "Clubs"
 msgstr "Klubok"
 
@@ -2515,7 +2512,7 @@ msgid "Scores - Contest and Journey selection"
 msgstr "Pontszámok - Verseny és Forduló választás"
 
 #: console/index.php:212 scripts/inscripciones.js.php:267
-#: server/pdf/print_inscritosByPrueba.php:250
+#: server/pdf/print_inscritosByPrueba.php:257
 msgid "Statistics"
 msgstr "Statisztika"
 
@@ -2560,7 +2557,7 @@ msgstr "Verseny, forduló és nézet kiválasztása"
 msgid "Contest"
 msgstr "Verseny"
 
-#: index.php:147 livestream/index.php:178 videowall/index.php:183
+#: index.php:147 livestream/index.php:186 videowall/index.php:189
 msgid "Select View"
 msgstr "Nézet választása"
 
@@ -2570,18 +2567,18 @@ msgstr "Nézet választása"
 msgid "Inscription list"
 msgstr "Nevezők listája"
 
-#: index.php:151 index2.php:273 livestream/index.php:183
-#: livestream/index.php:189 livestream/vwls_parciales.php:65
+#: index.php:151 index2.php:286 livestream/index.php:191
+#: livestream/index.php:197 livestream/vwls_parciales.php:65
 #: public/pb_parciales.php:38 public/pb_parciales.php:44
 #: public/pb_parciales.php:54 public/pb_parciales_equipos.php:38
 #: public/pb_parciales_equipos.php:44 public/pb_parciales_equipos.php:54
 #: public/pbmenu_parciales.php:42 public/pbmenu_parciales_equipos.php:42
-#: videowall/index.php:188 videowall/index.php:192
+#: videowall/index.php:194 videowall/index.php:198
 #: videowall/vw_parciales.php:43 videowall/vwc_parciales.php:51
 msgid "Partial scores"
 msgstr "Részleges eredmények"
 
-#: index.php:152 index2.php:280 lib/templates/final_individual.inc.php:13
+#: index.php:152 index2.php:289 lib/templates/final_individual.inc.php:13
 #: lib/templates/final_last_individual.inc.php:14
 #: lib/templates/final_last_teams.inc.php:14
 #: lib/templates/final_teams.inc.php:13 public/pb_finales.php:38
@@ -2589,8 +2586,8 @@ msgstr "Részleges eredmények"
 #: public/pb_finales_equipos.php:38 public/pb_finales_equipos.php:44
 #: public/pb_finales_equipos.php:53 public/pbmenu_finales.php:39
 #: public/pbmenu_finales_equipos.php:40 server/pdf/print_clasificacion.php:133
-#: server/pdf/print_clasificacion_equipos.php:170 videowall/index.php:189
-#: videowall/index.php:193 videowall/vwc_finales.php:51
+#: server/pdf/print_clasificacion_equipos.php:170 videowall/index.php:195
+#: videowall/index.php:199 videowall/vwc_finales.php:51
 msgid "Final scores"
 msgstr "Végső eredmények"
 
@@ -2696,7 +2693,8 @@ msgstr "H/É"
 #: server/pdf/print_resultadosByEquipos4.php:219
 #: server/pdf/print_resultadosByManga.php:63
 #: server/pdf/print_trsTemplates.php:283 tablet/tablet_main.php:97
-#: tablet/tablet_main.php:297 console/dialogs/dlg_competicion.inc:129
+#: tablet/tablet_main.php:297 videowall/vws_parcial_equipos.php:57
+#: console/dialogs/dlg_competicion.inc:129
 msgid "Time"
 msgstr "Idő"
 
@@ -2754,7 +2752,7 @@ msgstr "Seb"
 #: server/pdf/print_podium.php:117 server/pdf/print_podium.php:125
 #: server/pdf/print_resultadosByEquipos.php:97
 #: server/pdf/print_resultadosByManga.php:63
-#: videowall/vws_parcial_individual.php:57
+#: videowall/vws_parcial_equipos.php:58 videowall/vws_parcial_individual.php:57
 msgid "Penal"
 msgstr "Hiba"
 
@@ -2774,7 +2772,7 @@ msgstr "Ért"
 #: lib/templates/final_last_individual.inc.php:49
 #: lib/templates/final_last_teams.inc.php:42
 #: lib/templates/final_last_teams.inc.php:49
-#: videowall/vws_parcial_individual.php:58
+#: videowall/vws_parcial_equipos.php:59 videowall/vws_parcial_individual.php:58
 msgid "Pos"
 msgstr "Hely"
 
@@ -2837,7 +2835,7 @@ msgstr "Végső eredmények frissítése"
 #: livestream/vwls_ordensalida.php:65 livestream/vwls_ordensalida.php:124
 #: livestream/vwls_parciales.php:68 livestream/vwls_parciales.php:160
 #: scripts/results_and_scores.js.php:55 scripts/results_and_scores.js.php:66
-#: tablet/tablet.js.php:383 videowall/vw_ordensalida.php:39
+#: tablet/tablet.js.php:385 videowall/vw_ordensalida.php:39
 #: videowall/vw_ordensalida.php:88 videowall/vw_parciales.php:46
 #: videowall/vw_parciales.php:108
 msgid "No round selected"
@@ -2858,8 +2856,8 @@ msgstr "Futamhoz tartozó adatok"
 #: server/pdf/print_clasificacion_equipos.php:149
 #: server/pdf/print_clasificacion_excel.php:129
 #: server/pdf/print_clasificacion_excel.php:138
-#: server/pdf/print_trsTemplates.php:127 videowall/vws.js.php:88
-#: videowall/vws.js.php:89
+#: server/pdf/print_trsTemplates.php:127 videowall/vws.js.php:118
+#: videowall/vws.js.php:119 videowall/vws.js.php:147
 msgid "Dist"
 msgstr "Hossz"
 
@@ -2888,7 +2886,7 @@ msgstr "Szintidő"
 msgid "M.C.T."
 msgstr "Maximum"
 
-#: lib/templates/final_teams.inc.php:10
+#: lib/templates/final_teams.inc.php:10 videowall/vws_parcial_equipos.php:53
 msgid "Team data"
 msgstr "Csapat adatok"
 
@@ -2900,21 +2898,6 @@ msgstr "Hibapontok"
 #: console/dialogs/dlg_ordensalida.inc:151
 msgid "Updating starting order"
 msgstr "Rajtlista frissítése"
-
-#: lib/templates/orden_salida.inc.php:67 livestream/vwls_ordensalida.php:59
-#: livestream/vwls_ordensalida.php:112 livestream/vwls_parciales.php:159
-#: public/pb_finales.php:51 public/pb_finales_equipos.php:51
-#: public/pb_inscripciones.php:34 public/pb_inscripciones_equipos.php:34
-#: public/pb_ordensalida.php:49 public/pb_parciales.php:52
-#: public/pb_parciales_equipos.php:52 public/pb_programa.php:36
-#: public/pbmenu_finales.php:37 public/pbmenu_finales_equipos.php:38
-#: public/pbmenu_inscripciones.php:34
-#: public/pbmenu_inscripciones_equipos.php:34 public/pbmenu_ordensalida.php:37
-#: public/pbmenu_parciales.php:40 public/pbmenu_parciales_equipos.php:40
-#: public/pbmenu_programa.php:36 videowall/vw_ordensalida.php:34
-#: videowall/vw_ordensalida.php:78 videowall/vw_parciales.php:107
-msgid "Header"
-msgstr "Fejléc"
 
 #: lib/templates/parcial_console_round_data.inc.php:9
 msgid "Technical data on selected round"
@@ -2948,42 +2931,42 @@ msgstr "MCT"
 msgid "Updating partial scores"
 msgstr "Részleges eredmények frissítése"
 
-#: livestream/index.php:174 videowall/index.php:179
+#: livestream/index.php:182 videowall/index.php:185
 msgid "Select Session/Ring"
 msgstr "Pálya kiválasztása"
 
-#: livestream/index.php:180
+#: livestream/index.php:188
 msgid "Embedded Video"
 msgstr "Beágyazott videó"
 
-#: livestream/index.php:182 console/dialogs/dlg_configuracion.inc:176
+#: livestream/index.php:190 console/dialogs/dlg_configuracion.inc:176
 msgid "Live Stream"
 msgstr "Élő közvetítés"
 
-#: livestream/index.php:186
+#: livestream/index.php:194
 msgid "Chroma Key"
 msgstr "Színkulcs"
 
-#: livestream/index.php:188
+#: livestream/index.php:196
 msgid "On Screen Display"
 msgstr "Képernyőn adatok megjelenítése"
 
-#: livestream/index.php:211 videowall/index.php:218
+#: livestream/index.php:219 videowall/index.php:224
 msgid "View to deploy"
 msgstr "Tekintsd meg a telepítéshez"
 
-#: livestream/index.php:224 videowall/index.php:231
+#: livestream/index.php:232 videowall/index.php:237
 msgid "Use selected as working session"
 msgstr "Kiválasztott használata a munkamenethez"
 
-#: livestream/index.php:268 videowall/index.php:275
+#: livestream/index.php:277 videowall/index.php:282
 msgid "You should select a valid session"
 msgstr "Válassz ki egy érvényes munkamenetet"
 
-#: livestream/livestream.js.php:90 livestream/livestream.js.php:94
+#: livestream/livestream.js.php:94 livestream/livestream.js.php:98
 #: tablet/index.php:189 tablet/tablet_main.php:128
 #: videowall/videowall.js.php:440 videowall/videowall.js.php:539
-#: videowall/vws.js.php:217 videowall/vws.js.php:229
+#: videowall/vws.js.php:249 videowall/vws.js.php:261
 msgid "Test dog"
 msgstr "Teszt kutya"
 
@@ -2999,6 +2982,20 @@ msgid ""
 msgstr ""
 "Kérem nézd át -és ha szükséges- frissítsd az AgilityContest regisztrációs "
 "licenc adatokat"
+
+#: livestream/vwls_ordensalida.php:59 livestream/vwls_ordensalida.php:112
+#: livestream/vwls_parciales.php:159 public/pb_finales.php:51
+#: public/pb_finales_equipos.php:51 public/pb_inscripciones.php:34
+#: public/pb_inscripciones_equipos.php:34 public/pb_ordensalida.php:49
+#: public/pb_parciales.php:52 public/pb_parciales_equipos.php:52
+#: public/pb_programa.php:36 public/pbmenu_finales.php:37
+#: public/pbmenu_finales_equipos.php:38 public/pbmenu_inscripciones.php:34
+#: public/pbmenu_inscripciones_equipos.php:34 public/pbmenu_ordensalida.php:37
+#: public/pbmenu_parciales.php:40 public/pbmenu_parciales_equipos.php:40
+#: public/pbmenu_programa.php:36 videowall/vw_ordensalida.php:34
+#: videowall/vw_ordensalida.php:78 videowall/vw_parciales.php:107
+msgid "Header"
+msgstr "Fejléc"
 
 #: livestream/vwls_osdvideo.php:83
 msgid "Number"
@@ -3078,8 +3075,8 @@ msgid "Ex P"
 msgstr "Kit"
 
 #: modules/intl3/config.php:55 modules/intl3/config.php:56
-#: modules/intl4/config.php:55 modules/rfec/config.php:55
-msgid "Large"
+#: modules/rsce/config.php:55 modules/rsce/config.php:56
+msgid "Standard"
 msgstr "Maxi"
 
 #: modules/intl3/config.php:55 modules/intl4/config.php:55
@@ -3095,6 +3092,10 @@ msgstr "Mini"
 #: modules/intl3/config.php:56
 msgid "Medium+Small"
 msgstr "Midi+Mini"
+
+#: modules/intl4/config.php:55 modules/rfec/config.php:55
+msgid "Large"
+msgstr "Maxi"
 
 #: modules/intl4/config.php:55
 msgid "Tiny"
@@ -3119,10 +3120,6 @@ msgstr "Mini+Toy"
 #: modules/rfec/config.php:57
 msgid "L+M+S+T"
 msgstr "L+M+S+T"
-
-#: modules/rsce/config.php:55 modules/rsce/config.php:56
-msgid "Standard"
-msgstr "Maxi"
 
 #: modules/rsce/config.php:55
 msgid "Midi"
@@ -3530,13 +3527,13 @@ msgstr "Ezt az elemet nem lehet törölni"
 msgid "Countries cannot be deleted"
 msgstr "Az országok nem törölhetőek"
 
-#: scripts/clubes.js.php:218 scripts/competicion.js.php:778
+#: scripts/clubes.js.php:218 scripts/competicion.js.php:751
 #: scripts/guias.js.php:80 scripts/guias.js.php:151 scripts/jueces.js.php:113
 #: scripts/perros.js.php:105 scripts/perros.js.php:169
 #: scripts/pruebas.js.php:130 scripts/sesiones.js.php:103
 #: scripts/sesiones.js.php:133 scripts/tandas.js.php:123
 #: scripts/usuarios.js.php:109 console/dialogs/dlg_competicion.inc:220
-#: console/dialogs/dlg_configuracion.inc:429
+#: console/dialogs/dlg_configuracion.inc:436
 msgid "Confirm"
 msgstr "Megerősít"
 
@@ -3548,169 +3545,168 @@ msgstr "Klub törlése"
 msgid "from database. Sure?"
 msgstr "az adatbázisból. Biztos vagy benne?"
 
-#: scripts/common.js.php:274
+#: scripts/common.js.php:276
 msgid "LoadConfig(): cannot retrieve configuration from server"
 msgstr "LoadConfig(): cannot retrieve configuration from server"
 
-#: scripts/common.js.php:298
+#: scripts/common.js.php:300
 msgid "getLicenseInfo(): cannot retrieve License info from server"
 msgstr "getLicenseInfo(): cannot retrieve License info from server"
 
-#: scripts/common.js.php:321
+#: scripts/common.js.php:323
 msgid "getFederationsInfo(): cannot retrieve federations info from server"
 msgstr "getFederationsInfo(): cannot retrieve federations info from server"
 
-#: scripts/common.js.php:343
+#: scripts/common.js.php:345
 msgid "Clubs Database Management"
 msgstr "Klubok adatbázis kezelése"
 
-#: scripts/common.js.php:344
+#: scripts/common.js.php:346
 msgid "Countries Database Info"
 msgstr "Országok adatbázis információ"
 
-#: scripts/common.js.php:625
+#: scripts/common.js.php:627
 msgid "Countries"
 msgstr "Országok"
 
-#: scripts/competicion.js.php:116 scripts/competicion.js.php:141
-#: scripts/competicion.js.php:162 scripts/competicion.js.php:189
+#: scripts/competicion.js.php:117 scripts/competicion.js.php:142
+#: scripts/competicion.js.php:163 scripts/competicion.js.php:190
 msgid "Invalid or undefined Federation"
 msgstr "Érvénytelen vagy nem megadott szövetség"
 
-#: scripts/competicion.js.php:120 scripts/competicion.js.php:145
-#: scripts/competicion.js.php:166 scripts/competicion.js.php:193
+#: scripts/competicion.js.php:121 scripts/competicion.js.php:146
+#: scripts/competicion.js.php:167 scripts/competicion.js.php:194
 msgid "Invalid course mode"
 msgstr "Érvénytelen pálya mód"
 
-#: scripts/competicion.js.php:299
+#: scripts/competicion.js.php:300
 msgid "Data exported"
 msgstr "Adatok exportálva"
 
-#: scripts/competicion.js.php:299
+#: scripts/competicion.js.php:300
 msgid "Judge data exported to all rounds"
 msgstr "Bírók adatai exportálva az összes futamra"
 
-#: scripts/competicion.js.php:328
+#: scripts/competicion.js.php:329
 msgid "Data saved"
 msgstr "Adatok mentve"
 
-#: scripts/competicion.js.php:328
+#: scripts/competicion.js.php:329
 msgid "Data on current round stored"
 msgstr "Adatok a jelenlegi futamon mentve"
 
-#: scripts/competicion.js.php:379
+#: scripts/competicion.js.php:380
 msgid "OK"
 msgstr "OK"
 
-#: scripts/competicion.js.php:379
+#: scripts/competicion.js.php:380
 msgid "There are no dogs from same handler close together"
 msgstr "Nincs több kutya egy felvezetőtől túl közel a startlistában"
 
-#: scripts/competicion.js.php:381
+#: scripts/competicion.js.php:382
 msgid "Proximity alert"
 msgstr "Közelségi figyelmeztetés"
 
-#: scripts/competicion.js.php:381
+#: scripts/competicion.js.php:382
 msgid "List of handlers with dogs so close together"
 msgstr "Felvezetők listája, akik túl közel vannak több kutyával saját magukhoz"
 
-#: scripts/competicion.js.php:426 scripts/competicion.js.php:447
-#: scripts/competicion.js.php:478
+#: scripts/competicion.js.php:427 scripts/competicion.js.php:448
+#: scripts/competicion.js.php:479
 msgid "Busy"
 msgstr "Elfoglalt"
 
-#: scripts/competicion.js.php:426
+#: scripts/competicion.js.php:427
 msgid "Cannot update: a cell is being edited"
 msgstr "Nem frissíthető: egy mezőt most szerkesztesz"
 
-#: scripts/competicion.js.php:447
+#: scripts/competicion.js.php:448
 msgid "Cannot reset: a cell is being edited"
 msgstr "Nem visszaállítható: egy mezőt most szerkesztesz"
 
-#: scripts/competicion.js.php:450
+#: scripts/competicion.js.php:451
 msgid "You will lost <strong>EVERY</strong> inserted results"
 msgstr "El fogsz veszíteni <strong>MINDEN</strong> beillesztett eredményt"
 
-#: scripts/competicion.js.php:451
+#: scripts/competicion.js.php:452
 msgid "in selected categories on this round"
 msgstr "a kiválasztott kategóriákban ebben a futamban"
 
-#: scripts/competicion.js.php:452 scripts/competicion.js.php:483
+#: scripts/competicion.js.php:453 scripts/competicion.js.php:484
 msgid "Do you really want to continue?"
 msgstr "Biztosan folytatni akarod?"
 
-#: scripts/competicion.js.php:453
+#: scripts/competicion.js.php:454
 msgid "Erase results"
 msgstr "Eredmények törlése"
 
-#: scripts/competicion.js.php:478
+#: scripts/competicion.js.php:479
 msgid "Cannot swap: a cell is being edited"
 msgstr "Nem lehet váltani: egy mezőt most szerkesztesz"
 
-#: scripts/competicion.js.php:481
+#: scripts/competicion.js.php:482
 msgid "This action will exchange <strong>EVERY</strong> inserted results"
 msgstr "Ez a művelet kicserél <strong>MINDEN</strong> beillesztett eredményt"
 
-#: scripts/competicion.js.php:482
+#: scripts/competicion.js.php:483
 msgid ""
 "in selected categories with the Agility/Jumping counterpart of this round"
 msgstr ""
 "a kiválasztott kategóriákban az Agility/Jumping részeiben ennek a futamnak"
 
-#: scripts/competicion.js.php:484
+#: scripts/competicion.js.php:485
 msgid "Swaps results"
 msgstr "Eredmények cseréje"
 
-#: scripts/competicion.js.php:486
+#: scripts/competicion.js.php:487
 msgid "Working"
 msgstr "Dolgozik"
 
-#: scripts/competicion.js.php:530
+#: scripts/competicion.js.php:531
 msgid "Not found"
 msgstr "Nem található"
 
-#: scripts/competicion.js.php:530
+#: scripts/competicion.js.php:531
 msgid "Cannot find dog with dorsal"
 msgstr "Nem található kutya a megadott rajtszámmal"
 
-#: scripts/competicion.js.php:636 scripts/competicion.js.php:675
-#: scripts/results_and_scores.js.php:229
+#: scripts/competicion.js.php:638 scripts/results_and_scores.js.php:229
 msgid "Internal error: invalid Federation/Course/Category combination"
 msgstr "Belső hiba: érvénytelen Szövetség/Pálya/Kategória kombináció"
 
-#: scripts/competicion.js.php:778
+#: scripts/competicion.js.php:751
 msgid "Every changes done till now will be lost<br />Continue?"
 msgstr "Minden változtatás, amit eddig csináltál el fog veszni<br/>Folytatod?"
 
-#: scripts/competicion.js.php:865
+#: scripts/competicion.js.php:838
 msgid "There is no round selected"
 msgstr "Nincs futam kiválasztva"
 
-#: scripts/competicion.js.php:962
+#: scripts/competicion.js.php:935
 msgid "No defined journey"
 msgstr "Nincs definiált forduló"
 
-#: scripts/competicion.js.php:966
+#: scripts/competicion.js.php:939
 msgid "Requested federation module is not installed"
 msgstr "A kiválasztott szövetség modul nincs telepítve"
 
-#: scripts/competicion.js.php:1068
+#: scripts/competicion.js.php:1041
 msgid "<strong>These dogs are pending to provide course data in round"
 msgstr "<strong>Ezelnek a kutyáknak még nincs megadva az eredménye"
 
-#: scripts/competicion.js.php:1088 scripts/competicion.js.php:1145
+#: scripts/competicion.js.php:1061 scripts/competicion.js.php:1118
 msgid "There is no selected round for this journey"
 msgstr "Nincs kiválasztott futa, ebben a fordulóban"
 
-#: scripts/competicion.js.php:1108 scripts/competicion.js.php:1130
+#: scripts/competicion.js.php:1081 scripts/competicion.js.php:1103
 msgid "Verify OK"
 msgstr "Ellenőrzés OK"
 
-#: scripts/competicion.js.php:1108 scripts/competicion.js.php:1130
+#: scripts/competicion.js.php:1081 scripts/competicion.js.php:1103
 msgid "No dogs found without their course results"
 msgstr "Nem található kutya eredmények nélkül"
 
-#: scripts/competicion.js.php:1132
+#: scripts/competicion.js.php:1105
 msgid "Verify Error"
 msgstr "Ellenőrzés hiba"
 
@@ -3880,7 +3876,7 @@ msgstr "az összes fordulót érintve, ami nincs megjelölve <em>lezárt</em>ké
 msgid "Really want to delete selected inscription"
 msgstr "Biztosan törölni szeretnéd a kiválasztott nevezéseket"
 
-#: scripts/inscripciones.js.php:136 console/dialogs/dlg_newInscripcion.inc:102
+#: scripts/inscripciones.js.php:136 console/dialogs/dlg_newInscripcion.inc:103
 msgid "Enrolling"
 msgstr "Besorolás"
 
@@ -4060,7 +4056,7 @@ msgstr "Írnoki lista (10 kutya/lap)"
 msgid "Judge assistant sheets (combined for team 4)"
 msgstr "Írnoki lista (kombinált 4 fős csapathoz)"
 
-#: scripts/printer.js.php:271 tablet/tablet.js.php:662
+#: scripts/printer.js.php:271 tablet/tablet.js.php:664
 msgid "There is no selected round"
 msgstr "Nincs futam kiválasztva"
 
@@ -4416,61 +4412,61 @@ msgstr "Futam2:Hibák2:Értékelés2:Helyezés2"
 msgid "Contest catalogue"
 msgstr "Verseny katalógus"
 
-#: server/pdf/print_inscritosByPrueba.php:457
-#: server/pdf/print_inscritosByPrueba.php:473
-#: server/pdf/print_inscritosByPrueba.php:507
-#: server/pdf/print_inscritosByPrueba.php:529
+#: server/pdf/print_inscritosByPrueba.php:464
+#: server/pdf/print_inscritosByPrueba.php:480
+#: server/pdf/print_inscritosByPrueba.php:514
+#: server/pdf/print_inscritosByPrueba.php:536
 msgid "Total"
 msgstr "Összesen"
 
-#: server/pdf/print_inscritosByPrueba.php:548
+#: server/pdf/print_inscritosByPrueba.php:555
 msgid "Participation global data"
 msgstr "Résztvevők globális adatai"
 
-#: server/pdf/print_inscritosByPrueba.php:558
-#: server/pdf/print_inscritosByPrueba.php:560
+#: server/pdf/print_inscritosByPrueba.php:565
+#: server/pdf/print_inscritosByPrueba.php:567
 msgid "3 Best"
 msgstr "3 legjobb"
 
-#: server/pdf/print_inscritosByPrueba.php:559
+#: server/pdf/print_inscritosByPrueba.php:566
 msgid "2 Best"
 msgstr "2 legjobb"
 
-#: server/pdf/print_inscritosByPrueba.php:564
-#: server/pdf/print_inscritosByPrueba.php:567
+#: server/pdf/print_inscritosByPrueba.php:571
+#: server/pdf/print_inscritosByPrueba.php:574
 msgid "Team 4"
 msgstr "4 fős csapat"
 
-#: server/pdf/print_inscritosByPrueba.php:565
+#: server/pdf/print_inscritosByPrueba.php:572
 msgid "Team 2"
 msgstr "2 fős csapat"
 
-#: server/pdf/print_inscritosByPrueba.php:566
+#: server/pdf/print_inscritosByPrueba.php:573
 msgid "Team 3"
 msgstr "3 fős csapat"
 
-#: server/pdf/print_inscritosByPrueba.php:571
+#: server/pdf/print_inscritosByPrueba.php:578
 msgid "K.O."
 msgstr "K.O."
 
-#: server/pdf/print_inscritosByPrueba.php:608
-#: server/pdf/print_inscritosByPrueba.php:746
+#: server/pdf/print_inscritosByPrueba.php:617
+#: server/pdf/print_inscritosByPrueba.php:766
 msgid "Grado"
 msgstr "Szint"
 
-#: server/pdf/print_inscritosByPrueba.php:608
+#: server/pdf/print_inscritosByPrueba.php:617
 msgid "Sab."
 msgstr "Sab."
 
-#: server/pdf/print_inscritosByPrueba.php:608
+#: server/pdf/print_inscritosByPrueba.php:617
 msgid "Dom."
 msgstr "Dom."
 
-#: server/pdf/print_inscritosByPrueba.php:614
+#: server/pdf/print_inscritosByPrueba.php:630
 msgid "Competitors list"
 msgstr "Versenyzők listája"
 
-#: server/pdf/print_inscritosByPrueba.php:768
+#: server/pdf/print_inscritosByPrueba.php:789
 msgid "Competitors of the day"
 msgstr "A nap versenyzői"
 
@@ -4570,15 +4566,15 @@ msgstr "Nincs feéhasználó kiválasztva"
 msgid "Session successfully started"
 msgstr "Munkamenet sikeresen megkezdve"
 
-#: tablet/tablet.js.php:387
+#: tablet/tablet.js.php:389
 msgid "You must select a running round"
 msgstr "Egy futó futamot kell kiválasztanod"
 
-#: tablet/tablet.js.php:622
+#: tablet/tablet.js.php:624
 msgid "Dog with dorsal"
 msgstr "Kutya rajtszámmal"
 
-#: tablet/tablet.js.php:622
+#: tablet/tablet.js.php:624
 msgid "does not run in this series"
 msgstr "nem fut ezekben a fordulókban"
 
@@ -4598,24 +4594,19 @@ msgstr "Nem indult"
 msgid "Updating series order"
 msgstr "Futamok sorrendjének frissítése"
 
-#: tablet/tablet_main.php:416 videowall/vwc_finales.php:78
-#: videowall/vwc_parciales.php:78
-msgid "Num"
-msgstr "Szám"
-
-#: tablet/tablet_main.php:436
+#: tablet/tablet_main.php:435
 msgid "Update session data"
 msgstr "Munkamenet adatainak frissítése"
 
-#: tablet/tablet_main.php:437
+#: tablet/tablet_main.php:436
 msgid "Mark test dog enter into ring"
 msgstr "Teszt kutya megjelölése pályára lépettként"
 
-#: tablet/tablet_main.php:438
+#: tablet/tablet_main.php:437
 msgid "Tell chronometer to start Course walk"
 msgstr "Jelezni az időmérőnek, hogy kezdje a pályabejárást"
 
-#: tablet/tablet_main.php:439
+#: tablet/tablet_main.php:438
 msgid "Activate data entry panel on selected dorsal"
 msgstr "Adatbeviteli panel aktiválása a kiválasztott rajtszámnál"
 
@@ -4623,32 +4614,32 @@ msgstr "Adatbeviteli panel aktiválása a kiválasztott rajtszámnál"
 msgid "Final individual"
 msgstr "Végső egyéni"
 
-#: tests/simplified_final_individual.php:18 videowall/index.php:196
-#: videowall/index.php:197
+#: tests/simplified_final_individual.php:18 videowall/index.php:202
+#: videowall/index.php:203
 msgid "simplified"
 msgstr "egyszerűsített"
 
-#: videowall/index.php:185
+#: videowall/index.php:191
 msgid "Video Wall"
 msgstr "Videófal"
 
-#: videowall/index.php:191
+#: videowall/index.php:197
 msgid "Combo view"
 msgstr "Kombinált nézet"
 
-#: videowall/index.php:192 videowall/index.php:193
+#: videowall/index.php:198 videowall/index.php:199
 msgid "Call to ring "
 msgstr "Pályára hívás"
 
-#: videowall/index.php:195
+#: videowall/index.php:201
 msgid "Simplified"
 msgstr "Egyszerűsített"
 
-#: videowall/index.php:196
+#: videowall/index.php:202
 msgid "Partial Scores"
 msgstr "Részleges eredmények"
 
-#: videowall/index.php:197
+#: videowall/index.php:203
 msgid "Final Scores"
 msgstr "Végső eredmények"
 
@@ -4662,11 +4653,15 @@ msgstr "A jelenlegi licenc nem engedélyezi a videófal használatát"
 msgid "Call to ring"
 msgstr "Pályára hívás"
 
+#: videowall/vwc_finales.php:78 videowall/vwc_parciales.php:78
+msgid "Num"
+msgstr "Szám"
+
 #: videowall/vwc_parciales.php:195
 msgid "Updating list of teams to be called to ring"
 msgstr "Csapatok listájának frissítése a pályára híváshoz"
 
-#: videowall/vws.js.php:82 videowall/vws.js.php:113
+#: videowall/vws.js.php:112 videowall/vws.js.php:143
 msgid "Individual"
 msgstr "Egyéni"
 
@@ -4675,14 +4670,21 @@ msgid "Waiting for connection with event server"
 msgstr "Az esemény szerverrel való kapcsolatra várakozás"
 
 #: videowall/vws_final_equipos.php:53 videowall/vws_final_individual.php:53
-#: videowall/vws_parcial_equipos.php:53 videowall/vws_parcial_individual.php:53
+#: videowall/vws_parcial_individual.php:53
 msgid "Competitor's data"
 msgstr "Versenyzők adatai"
 
 #: videowall/vws_final_equipos.php:55 videowall/vws_final_individual.php:55
-#: videowall/vws_parcial_equipos.php:55
 msgid "Final"
 msgstr "Végső"
+
+#: videowall/vws_parcial_equipos.php:55
+msgid "CP"
+msgstr "CP"
+
+#: videowall/vws_parcial_equipos.php:56
+msgid "TP"
+msgstr "É"
 
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
@@ -4825,13 +4827,13 @@ msgstr "Páratlan táblázatsorok színe"
 
 #: console/dialogs/dlg_configuracion.inc:53
 #: console/dialogs/dlg_configuracion.inc:132
-#: console/dialogs/dlg_configuracion.inc:275
+#: console/dialogs/dlg_configuracion.inc:279
 msgid "Color for even secondary table rows"
 msgstr "Páros táblázatsorok színe másodlagos táblázatban "
 
 #: console/dialogs/dlg_configuracion.inc:55
 #: console/dialogs/dlg_configuracion.inc:134
-#: console/dialogs/dlg_configuracion.inc:277
+#: console/dialogs/dlg_configuracion.inc:281
 msgid "Color for odd secondary table rows"
 msgstr "Páratlan táblázatsorok színe másodlagos táblázatban "
 
@@ -4929,7 +4931,7 @@ msgstr "Automatikus görgetés idő (sec.)"
 
 #: console/dialogs/dlg_configuracion.inc:112
 #: console/dialogs/dlg_configuracion.inc:147
-#: console/dialogs/dlg_configuracion.inc:211
+#: console/dialogs/dlg_configuracion.inc:215
 msgid "Background color for main header"
 msgstr "Háttérszín a fő fejlécben"
 
@@ -4939,12 +4941,12 @@ msgid "Text color for main header"
 msgstr "Betűszín a fő fejlécben"
 
 #: console/dialogs/dlg_configuracion.inc:117
-#: console/dialogs/dlg_configuracion.inc:216
+#: console/dialogs/dlg_configuracion.inc:220
 msgid "Background color for secondary header"
 msgstr "Háttérszín a másodlagos fejlécben"
 
 #: console/dialogs/dlg_configuracion.inc:119
-#: console/dialogs/dlg_configuracion.inc:218
+#: console/dialogs/dlg_configuracion.inc:222
 msgid "Text color for secondary header"
 msgstr "Betűszín a másodlagos fejlécben"
 
@@ -4957,12 +4959,12 @@ msgid "Text color for tertiary header"
 msgstr "Betűszín a harmadlagos fejlécben"
 
 #: console/dialogs/dlg_configuracion.inc:127
-#: console/dialogs/dlg_configuracion.inc:270
+#: console/dialogs/dlg_configuracion.inc:274
 msgid "Background color for even table rows"
 msgstr "Háttérszín a páros táblázatsorokban"
 
 #: console/dialogs/dlg_configuracion.inc:129
-#: console/dialogs/dlg_configuracion.inc:272
+#: console/dialogs/dlg_configuracion.inc:276
 msgid "Background color for odd table rows"
 msgstr "Háttérszín a páratlan táblázatsorokban"
 
@@ -5075,101 +5077,93 @@ msgstr "Betűtípus"
 msgid "Show journey info when printing catalog"
 msgstr "Forduló adatainak mutatása amikor nyomtatja a katalógust"
 
-#: console/dialogs/dlg_configuracion.inc:213
+#: console/dialogs/dlg_configuracion.inc:211
+msgid "Show level/grade info when printing catalog"
+msgstr "Forduló adatainak mutatása amikor nyomtatja a katalógust"
+
+#: console/dialogs/dlg_configuracion.inc:217
 msgid "Text color on main header"
 msgstr "Betűszín a fő fejlécben"
 
-#: console/dialogs/dlg_configuracion.inc:221
+#: console/dialogs/dlg_configuracion.inc:225
 msgid "Background color for tables even rows"
 msgstr "Háttérszín a páros táblázatsorokban"
 
-#: console/dialogs/dlg_configuracion.inc:223
+#: console/dialogs/dlg_configuracion.inc:227
 msgid "Background color for tables odd rows"
 msgstr "Háttérszín a páratlan táblázatsorokban"
 
-#: console/dialogs/dlg_configuracion.inc:226
+#: console/dialogs/dlg_configuracion.inc:230
 msgid "Color for separation lines"
 msgstr "Elválasztó vonalak színe"
 
-#: console/dialogs/dlg_configuracion.inc:228
+#: console/dialogs/dlg_configuracion.inc:232
 msgid "Label printing"
 msgstr "Cimke nyomtatás"
 
-#: console/dialogs/dlg_configuracion.inc:229
+#: console/dialogs/dlg_configuracion.inc:233
 msgid "Label sheet format (# labels/sheet)"
 msgstr "Cimke lap formátum (#cimke/lap)"
 
-#: console/dialogs/dlg_configuracion.inc:239
+#: console/dialogs/dlg_configuracion.inc:243
 msgid "Label sheet upper margin (mmts)"
 msgstr "Cimke lap felső margó (mm)"
 
-#: console/dialogs/dlg_configuracion.inc:241
+#: console/dialogs/dlg_configuracion.inc:245
 msgid "Label sheet right margin (mmts)"
 msgstr "Cimke lap jobb margó (mm)"
 
-#: console/dialogs/dlg_configuracion.inc:245
+#: console/dialogs/dlg_configuracion.inc:249
 msgid "Internet"
 msgstr "Internet"
 
-#: console/dialogs/dlg_configuracion.inc:246
+#: console/dialogs/dlg_configuracion.inc:250
 msgid "Public access from internet"
 msgstr "Publikus hozzáférés az internetről"
 
-#: console/dialogs/dlg_configuracion.inc:247
+#: console/dialogs/dlg_configuracion.inc:251
 msgid "Data auto-refresh interval"
 msgstr "Adatok automatikus frissítés időköze"
 
-#: console/dialogs/dlg_configuracion.inc:250
+#: console/dialogs/dlg_configuracion.inc:254
 msgid "No refresh"
 msgstr "Nincs frissítés"
 
-#: console/dialogs/dlg_configuracion.inc:257
+#: console/dialogs/dlg_configuracion.inc:261
 msgid "Rotation period for sponsor logos"
 msgstr "Forgási idő a támogatói logóknál"
 
-#: console/dialogs/dlg_configuracion.inc:258
+#: console/dialogs/dlg_configuracion.inc:262
 msgid "sec"
 msgstr "mp"
 
-#: console/dialogs/dlg_configuracion.inc:260
+#: console/dialogs/dlg_configuracion.inc:264
 msgid "Header background color"
 msgstr "Fejléc háttérszíne"
 
-#: console/dialogs/dlg_configuracion.inc:262
+#: console/dialogs/dlg_configuracion.inc:266
 msgid "Header text color"
 msgstr "Betűszín a fejlécben"
 
-#: console/dialogs/dlg_configuracion.inc:265
+#: console/dialogs/dlg_configuracion.inc:269
 msgid "Round data table background color"
 msgstr "Futam adatok táblázatának háttérszíne"
 
-#: console/dialogs/dlg_configuracion.inc:267
+#: console/dialogs/dlg_configuracion.inc:271
 msgid "Round data table text color"
 msgstr "Futam adatok táblázatának szövegszíne"
 
-#: console/dialogs/dlg_configuracion.inc:281
+#: console/dialogs/dlg_configuracion.inc:285
 msgid "General"
 msgstr "Általános"
 
-#: console/dialogs/dlg_configuracion.inc:282
+#: console/dialogs/dlg_configuracion.inc:286
 msgid "General configuration"
 msgstr "Általános beállítások"
 
-#: console/dialogs/dlg_configuracion.inc:283
+#: console/dialogs/dlg_configuracion.inc:287
 msgid "Default language"
 msgstr "Alapértelmezett nyelv"
-
-#: console/dialogs/dlg_configuracion.inc:285
-msgid "Spanish"
-msgstr "Spanish"
-
-#: console/dialogs/dlg_configuracion.inc:286
-msgid "English"
-msgstr "English"
-
-#: console/dialogs/dlg_configuracion.inc:287
-msgid "German"
-msgstr "German"
 
 #: console/dialogs/dlg_configuracion.inc:289
 msgid "Choose language from browser preferences"
@@ -5228,7 +5222,7 @@ msgid "Paper size"
 msgstr "Papírméret"
 
 #: console/dialogs/dlg_configuracion.inc:317
-#: console/dialogs/dlg_configuracion.inc:412
+#: console/dialogs/dlg_configuracion.inc:419
 #: console/dialogs/dlg_ordensalida.inc:52
 msgid "Check"
 msgstr "Ellenőrzés"
@@ -5281,74 +5275,74 @@ msgstr "Konfiguráció visszatöltése fájlból"
 msgid "Default"
 msgstr "Alapértelmezett"
 
-#: console/dialogs/dlg_configuracion.inc:370
+#: console/dialogs/dlg_configuracion.inc:377
 msgid "Enter printer name/device or leave empty to disable"
 msgstr "Add meg a nyomtató/eszköz nevét vagy hagyd üresen letiltáshoz"
 
-#: console/dialogs/dlg_configuracion.inc:371
+#: console/dialogs/dlg_configuracion.inc:378
 msgid "Cancel changes. Restore information from server"
 msgstr "Változtatások visszavonása. Információ visszatöltése a szerverről"
 
-#: console/dialogs/dlg_configuracion.inc:372
+#: console/dialogs/dlg_configuracion.inc:379
 msgid "Factory reset. Configure with default data"
 msgstr "Gyári visszaállítás. Beállítás az alapértelmezett adatokkal"
 
-#: console/dialogs/dlg_configuracion.inc:373
+#: console/dialogs/dlg_configuracion.inc:380
 msgid "Accept changes. Save as new configuration"
 msgstr "Változtatások elfogadása. Mentés új konfigurációként"
 
-#: console/dialogs/dlg_configuracion.inc:374
+#: console/dialogs/dlg_configuracion.inc:381
 msgid "Send sample report to check printer"
 msgstr "Minta jelentés küldése a nyomtató teszteléséhez"
 
-#: console/dialogs/dlg_configuracion.inc:389
+#: console/dialogs/dlg_configuracion.inc:396
 msgid "New configuration successfully saved"
 msgstr "Új konfiguráció sikeresen mentve"
 
-#: console/dialogs/dlg_configuracion.inc:390
-#: console/dialogs/dlg_configuracion.inc:483
+#: console/dialogs/dlg_configuracion.inc:397
+#: console/dialogs/dlg_configuracion.inc:490
 msgid "You should close session and reload page"
 msgstr "Zárd le a munkamenetet és töltsd újra a böngésző lapot"
 
-#: console/dialogs/dlg_configuracion.inc:391
-#: console/dialogs/dlg_configuracion.inc:484
+#: console/dialogs/dlg_configuracion.inc:398
+#: console/dialogs/dlg_configuracion.inc:491
 msgid "for changes to become active"
 msgstr "a változtatások életbe lépéséhez"
 
-#: console/dialogs/dlg_configuracion.inc:413
+#: console/dialogs/dlg_configuracion.inc:420
 msgid "A test page has been sent to event recording printer"
 msgstr ""
 "Egy teszt oldal el lett küldve az esemény rögzítő nyomtatóra nyomtatásra"
 
-#: console/dialogs/dlg_configuracion.inc:414
+#: console/dialogs/dlg_configuracion.inc:421
 msgid "Please check for proper output"
 msgstr "Ellenőrizd a helyes kimenetet"
 
-#: console/dialogs/dlg_configuracion.inc:415
+#: console/dialogs/dlg_configuracion.inc:422
 msgid "Remember to save changes before exiting"
 msgstr "Ne felejtsd el menteni a módosításokat kilépés előtt"
 
-#: console/dialogs/dlg_configuracion.inc:429
+#: console/dialogs/dlg_configuracion.inc:436
 msgid "Restore factory default values. Sure?"
 msgstr "Gyári értékek visszaállítása. Biztos?"
 
-#: console/dialogs/dlg_configuracion.inc:454
+#: console/dialogs/dlg_configuracion.inc:461
 msgid "Downloading configuration, please wait"
 msgstr "Konfiguráció letöltése, kérlek várj"
 
-#: console/dialogs/dlg_configuracion.inc:455
+#: console/dialogs/dlg_configuracion.inc:462
 msgid "There was a problem in configuration download. Please try again"
 msgstr "Nem sikerült letölteni a konfigurációt. Kérlek próbáld újra"
 
-#: console/dialogs/dlg_configuracion.inc:467
+#: console/dialogs/dlg_configuracion.inc:474
 msgid "No config file selected"
 msgstr "Nincs konfigurációs fájl kiválasztva"
 
-#: console/dialogs/dlg_configuracion.inc:478
+#: console/dialogs/dlg_configuracion.inc:485
 msgid "Restore configuration from file error"
 msgstr "Konfiguráció fájlból történő visszatöltése közben hiba történt"
 
-#: console/dialogs/dlg_configuracion.inc:482
+#: console/dialogs/dlg_configuracion.inc:489
 msgid "Configuration file successfully restored"
 msgstr "Konfigurációs fájl sikeresen visszaállítva"
 
@@ -5492,47 +5486,47 @@ msgstr "Szövetség"
 msgid "Register judge information into database"
 msgstr "Bírói információ mentése az adatbázisba"
 
-#: console/dialogs/dlg_newInscripcion.inc:56
+#: console/dialogs/dlg_newInscripcion.inc:57
 msgid "Journeys"
 msgstr "Fordulók"
 
-#: console/dialogs/dlg_newInscripcion.inc:93
+#: console/dialogs/dlg_newInscripcion.inc:94
 msgid "Inscribe"
 msgstr "Bejegyzés"
 
-#: console/dialogs/dlg_newInscripcion.inc:101
+#: console/dialogs/dlg_newInscripcion.inc:102
 msgid "Processing inscriptions"
 msgstr "Nevezések feldolgozása"
 
-#: console/dialogs/dlg_newInscripcion.inc:125
+#: console/dialogs/dlg_newInscripcion.inc:126
 msgid "Add inscriptions to contest"
 msgstr "Nevezés hozzáadása a versenyhez"
 
-#: console/dialogs/dlg_newInscripcion.inc:227
+#: console/dialogs/dlg_newInscripcion.inc:228
 msgid "Search available competitors"
 msgstr "Elérhető versenyzők keresése"
 
-#: console/dialogs/dlg_newInscripcion.inc:227
+#: console/dialogs/dlg_newInscripcion.inc:228
 msgid "matching search criteria"
 msgstr "keresési kritériumnak megfelelő"
 
-#: console/dialogs/dlg_newInscripcion.inc:231
+#: console/dialogs/dlg_newInscripcion.inc:232
 msgid "Inscribe selected dog(s) into contest"
 msgstr "Kiválasztott kutyák bejegyzése a versenybe"
 
-#: console/dialogs/dlg_newInscripcion.inc:232
+#: console/dialogs/dlg_newInscripcion.inc:233
 msgid "Close window"
 msgstr "Ablak bezárása"
 
-#: console/dialogs/dlg_newInscripcion.inc:232
+#: console/dialogs/dlg_newInscripcion.inc:233
 msgid "Return to inscription handling form"
 msgstr "Visszatérés a nevezéseket kezelő menübe"
 
-#: console/dialogs/dlg_newInscripcion.inc:233
+#: console/dialogs/dlg_newInscripcion.inc:234
 msgid "Clear selection. Refresh list"
 msgstr "Kijelölés törlése. Lista frissítése"
 
-#: console/dialogs/dlg_newInscripcion.inc:234
+#: console/dialogs/dlg_newInscripcion.inc:235
 msgid "Insert a new dog into database"
 msgstr "Új kutya beillesztése az adatbázosba"
 
@@ -5814,392 +5808,405 @@ msgstr "Felhasználói információk mentése az adatbázisba"
 msgid "Change password"
 msgstr "Jelszó változtatás"
 
-msgid "Equipo"
-msgstr "Equipo"
+#~ msgid "Journey scores"
+#~ msgstr "Forduló pontszámok"
 
-msgid "Updating round scores"
-msgstr "Futam adatainak frissítése"
+#~ msgid "Spanish"
+#~ msgstr "Spanish"
 
-msgid "Categ"
-msgstr "Méret"
+#~ msgid "English"
+#~ msgstr "English"
 
-msgid "No data yet"
-msgstr "Még nincs adat"
+#~ msgid "German"
+#~ msgstr "German"
 
-msgid "Color for extra rows in tables"
-msgstr "Plusz sorok színe a táblázatokban"
+#~ msgid "Equipo"
+#~ msgstr "Equipo"
 
-msgid "Updating round results"
-msgstr "Futam eredményeinek frissítése"
+#~ msgid "Updating round scores"
+#~ msgstr "Futam adatainak frissítése"
 
-msgid "Call"
-msgstr "Hívás"
+#~ msgid "Categ"
+#~ msgstr "Méret"
 
-msgid "Combo view (old-style)"
-msgstr "Kombinált nézet (régi-típusú)"
+#~ msgid "No data yet"
+#~ msgstr "Még nincs adat"
 
-msgid "Data"
-msgstr "Adat"
+#~ msgid "Color for extra rows in tables"
+#~ msgstr "Plusz sorok színe a táblázatokban"
 
-msgid "Round data info"
-msgstr "Futam adatok"
+#~ msgid "Updating round results"
+#~ msgstr "Futam eredményeinek frissítése"
 
-msgid "Standard C. Time"
-msgstr "Szintidő"
+#~ msgid "Call"
+#~ msgstr "Hívás"
 
-msgid "Maximum C. Time"
-msgstr "Maximum idő"
+#~ msgid "Combo view (old-style)"
+#~ msgstr "Kombinált nézet (régi-típusú)"
 
-msgid "Place"
-msgstr "Helyezés"
+#~ msgid "Data"
+#~ msgstr "Adat"
 
-msgid "Please enter valid values and accept or create new entry"
-msgstr ""
-"Kérem adjon meg szabályos értékeket és fogadja el vagy hozzon létre új elemet"
+#~ msgid "Round data info"
+#~ msgstr "Futam adatok"
 
-msgid "Exc. (p)"
-msgstr "Kit (h)"
+#~ msgid "Standard C. Time"
+#~ msgstr "Szintidő"
 
-msgid "Combo view (partial)"
-msgstr "Kombinált nézet (részleges)"
+#~ msgid "Maximum C. Time"
+#~ msgstr "Maximum idő"
 
-msgid "Combo view (final)"
-msgstr "Kombinált nézet (végleges)"
+#~ msgid "Place"
+#~ msgstr "Helyezés"
 
-msgid "Language"
-msgstr "Nyelv"
+#~ msgid "Please enter valid values and accept or create new entry"
+#~ msgstr ""
+#~ "Kérem adjon meg szabályos értékeket és fogadja el vagy hozzon létre új "
+#~ "elemet"
 
-msgid "Eq"
-msgstr "Eq"
+#~ msgid "Exc. (p)"
+#~ msgstr "Kit (h)"
 
-msgid "heat"
-msgstr "Tüzel"
+#~ msgid "Combo view (partial)"
+#~ msgstr "Kombinált nézet (részleges)"
 
-msgid "SCT Small"
-msgstr "SCT Mini"
+#~ msgid "Combo view (final)"
+#~ msgstr "Kombinált nézet (végleges)"
 
-msgid "Combined L+M+S"
-msgstr "Kombinált L+M+S"
+#~ msgid "Language"
+#~ msgstr "Nyelv"
 
-msgid "Combined 6+5+4+3"
-msgstr "Kombinált 60+50+40+30 cm"
+#~ msgid "Eq"
+#~ msgstr "Eq"
 
-msgid "Print template sheet for evaluate SCT"
-msgstr "Sablon lap nyomtatása a szintidő kiszámolásához"
+#~ msgid "heat"
+#~ msgstr "Tüzel"
 
-msgid "Separate courses 60/50 and 40/30"
-msgstr "Külön pálya a 60/50 cm és a 40/30 cm-nek"
+#~ msgid "SCT Small"
+#~ msgstr "SCT Mini"
 
-msgid "Show time data with miliseconds"
-msgstr "Idő adatok mutatása századokban"
+#~ msgid "Combined L+M+S"
+#~ msgstr "Kombinált L+M+S"
 
-msgid "Contest\\&#39;s data"
-msgstr "Versenyek adatai"
+#~ msgid "Combined 6+5+4+3"
+#~ msgstr "Kombinált 60+50+40+30 cm"
 
-msgid "Competitor&#39;s data"
-msgstr "Versenyzők adatai"
+#~ msgid "Print template sheet for evaluate SCT"
+#~ msgstr "Sablon lap nyomtatása a szintidő kiszámolásához"
 
-msgid "Updating inscriptio&#39;s data"
-msgstr "Nevezések adatainak frissítése"
+#~ msgid "Separate courses 60/50 and 40/30"
+#~ msgstr "Külön pálya a 60/50 cm és a 40/30 cm-nek"
 
-msgid "Página"
-msgstr "Página"
+#~ msgid "Show time data with miliseconds"
+#~ msgstr "Idő adatok mutatása századokban"
 
-msgid "DataSheet to evaluate SCT /MCT"
-msgstr "Adattáblázat az SCT/MCT kiszámításához"
+#~ msgid "Contest\\&#39;s data"
+#~ msgstr "Versenyek adatai"
 
-msgid "Nombre"
-msgstr "Nombre"
+#~ msgid "Competitor&#39;s data"
+#~ msgstr "Versenyzők adatai"
 
-msgid "Lic."
-msgstr "Lic."
+#~ msgid "Updating inscriptio&#39;s data"
+#~ msgstr "Nevezések adatainak frissítése"
 
-msgid "Guía"
-msgstr "Guía"
+#~ msgid "Página"
+#~ msgstr "Página"
 
-msgid "Cat/Grado"
-msgstr "Cat/Grado"
+#~ msgid "DataSheet to evaluate SCT /MCT"
+#~ msgstr "Adattáblázat az SCT/MCT kiszámításához"
 
-msgid "Flt."
-msgstr "Hiba"
+#~ msgid "Nombre"
+#~ msgstr "Nombre"
 
-msgid "Toc."
-msgstr "Érintés"
+#~ msgid "Lic."
+#~ msgstr "Lic."
 
-msgid "Reh."
-msgstr "Megtag."
+#~ msgid "Guía"
+#~ msgstr "Guía"
 
-msgid "Tiempo"
-msgstr "Idő"
+#~ msgid "Cat/Grado"
+#~ msgstr "Cat/Grado"
 
-msgid "Vel."
-msgstr "Sebesség"
+#~ msgid "Flt."
+#~ msgstr "Hiba"
 
-msgid "Penal."
-msgstr "Hiba"
+#~ msgid "Toc."
+#~ msgstr "Érintés"
 
-msgid "Calificación"
-msgstr "Értékelés"
+#~ msgid "Reh."
+#~ msgstr "Megtag."
 
-msgid "Puesto"
-msgstr "Puesto"
+#~ msgid "Tiempo"
+#~ msgstr "Idő"
 
-msgid "Resultados Manga"
-msgstr "Resultados Manga"
+#~ msgid "Vel."
+#~ msgstr "Sebesség"
 
-msgid "Global Equipo"
-msgstr "Global Equipo"
+#~ msgid "Penal."
+#~ msgstr "Hiba"
 
-msgid "Resultados Parciales"
-msgstr "Resultados Parciales"
+#~ msgid "Calificación"
+#~ msgstr "Értékelés"
 
-msgid "Orden de Salida Equipos"
-msgstr "Orden de Salida Equipos"
+#~ msgid "Puesto"
+#~ msgstr "Puesto"
 
-msgid "Orden"
-msgstr "Orden"
+#~ msgid "Resultados Manga"
+#~ msgstr "Resultados Manga"
 
-msgid "Raza"
-msgstr "Raza"
+#~ msgid "Global Equipo"
+#~ msgstr "Global Equipo"
 
-msgid "Observaciones"
-msgstr "Observaciones"
+#~ msgid "Resultados Parciales"
+#~ msgstr "Resultados Parciales"
 
-msgid "Orden de Salida"
-msgstr "Orden de Salida"
+#~ msgid "Orden de Salida Equipos"
+#~ msgstr "Orden de Salida Equipos"
 
-msgid "KC. dogID"
-msgstr "LOE / RRC"
+#~ msgid "Orden"
+#~ msgstr "Orden"
 
-msgid "Listado de Participantes"
-msgstr "Listado de Participantes"
+#~ msgid "Raza"
+#~ msgstr "Raza"
 
-msgid "Listado de Equipos"
-msgstr "Listado de Equipos"
+#~ msgid "Observaciones"
+#~ msgstr "Observaciones"
 
-msgid "Entrada de datos (Equipos-4)"
-msgstr "Entrada de datos (Equipos-4)"
+#~ msgid "Orden de Salida"
+#~ msgstr "Orden de Salida"
 
-msgid "Introducción de Datos"
-msgstr "Introducción de Datos"
+#~ msgid "KC. dogID"
+#~ msgstr "LOE / RRC"
 
-msgid "Clasificación Final"
-msgstr "Clasificación Final"
+#~ msgid "Listado de Participantes"
+#~ msgstr "Listado de Participantes"
 
-msgid "Direct access to DataBase"
-msgstr "Acceso directo a la base de datos"
+#~ msgid "Listado de Equipos"
+#~ msgstr "Listado de Equipos"
 
-msgid "Comprobar equipos. Indicar los problemas encontrados"
-msgstr "Comprobar equipos. Indicar los problemas encontrados"
+#~ msgid "Entrada de datos (Equipos-4)"
+#~ msgstr "Entrada de datos (Equipos-4)"
 
-msgid ""
-"Imprimir la lista de equipos de la jornada <br />y los miembros de cada "
-"equipo"
-msgstr ""
-"Imprimir la lista de equipos de la jornada <br />y los miembros de cada "
-"equipo"
+#~ msgid "Introducción de Datos"
+#~ msgstr "Introducción de Datos"
 
-msgid "Actualizando lista de equipos"
-msgstr "Actualizando lista de equipos"
+#~ msgid "Clasificación Final"
+#~ msgstr "Clasificación Final"
 
-msgid "Informaci&oacute;n de la Jornada"
-msgstr "Informaci&oacute;n de la Jornada"
+#~ msgid "Direct access to DataBase"
+#~ msgstr "Acceso directo a la base de datos"
 
-msgid "Categor&iacute;as"
-msgstr "Categor&iacute;as"
+#~ msgid "Comprobar equipos. Indicar los problemas encontrados"
+#~ msgstr "Comprobar equipos. Indicar los problemas encontrados"
 
-msgid "Sure"
-msgstr "¿Seguro?"
+#~ msgid ""
+#~ "Imprimir la lista de equipos de la jornada <br />y los miembros de cada "
+#~ "equipo"
+#~ msgstr ""
+#~ "Imprimir la lista de equipos de la jornada <br />y los miembros de cada "
+#~ "equipo"
 
-msgid "Error:"
-msgstr "Hiba"
+#~ msgid "Actualizando lista de equipos"
+#~ msgstr "Actualizando lista de equipos"
 
-msgid "Debe seleccionar una jornada con competiciones por equipos"
-msgstr "Debe seleccionar una jornada con competiciones por equipos"
+#~ msgid "Informaci&oacute;n de la Jornada"
+#~ msgstr "Informaci&oacute;n de la Jornada"
 
-msgid "La jornada seleccionada no tiene competiciones por equipos"
-msgstr "La jornada seleccionada no tiene competiciones por equipos"
+#~ msgid "Categor&iacute;as"
+#~ msgstr "Categor&iacute;as"
 
-msgid "El equipo por defecto NO se puede editar"
-msgstr "El equipo por defecto NO se puede editar"
+#~ msgid "Sure"
+#~ msgstr "¿Seguro?"
 
-msgid "El equipo por defecto NO se puede borrar"
-msgstr "El equipo por defecto NO se puede borrar"
+#~ msgid "Error:"
+#~ msgstr "Hiba"
 
-msgid "Esta operaci&oacute;n borrar&aacute; el equipo de la jornada"
-msgstr "Esta operaci&oacute;n borrar&aacute; el equipo de la jornada"
+#~ msgid "Debe seleccionar una jornada con competiciones por equipos"
+#~ msgstr "Debe seleccionar una jornada con competiciones por equipos"
 
-msgid "Desea realmente eliminar el equipo"
-msgstr "Desea realmente eliminar el equipo"
+#~ msgid "La jornada seleccionada no tiene competiciones por equipos"
+#~ msgstr "La jornada seleccionada no tiene competiciones por equipos"
 
-msgid "de esta jornada"
-msgstr "de esta jornada"
+#~ msgid "El equipo por defecto NO se puede editar"
+#~ msgstr "El equipo por defecto NO se puede editar"
 
-msgid "Debe indicar un equipo v&aacute;lido"
-msgstr "Debe indicar un equipo v&aacute;lido"
+#~ msgid "El equipo por defecto NO se puede borrar"
+#~ msgstr "El equipo por defecto NO se puede borrar"
 
-msgid "Tm"
-msgstr "Eq"
+#~ msgid "Esta operaci&oacute;n borrar&aacute; el equipo de la jornada"
+#~ msgstr "Esta operaci&oacute;n borrar&aacute; el equipo de la jornada"
 
-msgid "Round Data"
-msgstr "Datos de la manga"
+#~ msgid "Desea realmente eliminar el equipo"
+#~ msgstr "Desea realmente eliminar el equipo"
 
-msgid "Heat."
-msgstr "Tüzel"
+#~ msgid "de esta jornada"
+#~ msgstr "de esta jornada"
 
-msgid "View"
-msgstr "Vista"
+#~ msgid "Debe indicar un equipo v&aacute;lido"
+#~ msgstr "Debe indicar un equipo v&aacute;lido"
 
-msgid "Leyendo inscripciones...."
-msgstr "Leyendo inscripciones...."
+#~ msgid "Tm"
+#~ msgstr "Eq"
 
-msgid "Gu&iacute;a"
-msgstr "Gu&iacute;a"
+#~ msgid "Round Data"
+#~ msgstr "Datos de la manga"
 
-msgid "Actualizando clasificaciones de la ronda..."
-msgstr "Actualizando clasificaciones de la ronda..."
+#~ msgid "Heat."
+#~ msgstr "Tüzel"
 
-msgid "Coourse walk"
-msgstr "Pályabejárás"
+#~ msgid "View"
+#~ msgstr "Vista"
 
-msgid "Datos de la Prueba"
-msgstr "Datos de la Prueba"
+#~ msgid "Leyendo inscripciones...."
+#~ msgstr "Leyendo inscripciones...."
 
-msgid "Eq. 3"
-msgstr "Tm"
+#~ msgid "Gu&iacute;a"
+#~ msgstr "Gu&iacute;a"
 
-msgid "Actualizando lista de usuarios"
-msgstr "Actualizando lista de usuarios"
+#~ msgid "Actualizando clasificaciones de la ronda..."
+#~ msgstr "Actualizando clasificaciones de la ronda..."
 
-msgid "Nombre/Comentario"
-msgstr "Nombre/Comentario"
+#~ msgid "Coourse walk"
+#~ msgstr "Pályabejárás"
 
-msgid "Fecha"
-msgstr "Fecha"
+#~ msgid "Datos de la Prueba"
+#~ msgstr "Datos de la Prueba"
 
-msgid "Hora"
-msgstr "Hora"
+#~ msgid "Eq. 3"
+#~ msgstr "Tm"
 
-msgid "Cerrada"
-msgstr "Cerrada"
+#~ msgid "Actualizando lista de usuarios"
+#~ msgstr "Actualizando lista de usuarios"
 
-msgid "KC dogID"
-msgstr "LOE / RRC"
+#~ msgid "Nombre/Comentario"
+#~ msgstr "Nombre/Comentario"
 
-msgid "Verificar"
-msgstr "Verificar"
+#~ msgid "Fecha"
+#~ msgstr "Fecha"
 
-msgid "Imprimir"
-msgstr "Imprimir"
+#~ msgid "Hora"
+#~ msgstr "Hora"
 
-msgid "Perro"
-msgstr "Perro"
+#~ msgid "Cerrada"
+#~ msgstr "Cerrada"
 
-msgid "Categor&iacute;a"
-msgstr "Categor&iacute;a"
+#~ msgid "KC dogID"
+#~ msgstr "LOE / RRC"
 
-msgid "Aceptar"
-msgstr "Aceptar"
+#~ msgid "Verificar"
+#~ msgstr "Verificar"
 
-msgid "Cancelar"
-msgstr "Cancelar"
+#~ msgid "Imprimir"
+#~ msgstr "Imprimir"
 
-msgid "Inscripciones registradas en el equipo"
-msgstr "Inscripciones registradas en el equipo"
+#~ msgid "Perro"
+#~ msgstr "Perro"
 
-msgid "Asignar el participante al equipo seleccionado"
-msgstr "Asignar el participante al equipo seleccionado"
+#~ msgid "Categor&iacute;a"
+#~ msgstr "Categor&iacute;a"
 
-msgid "Cancelar selecci&oacute;n. Cerrar ventana"
-msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
+#~ msgid "Aceptar"
+#~ msgstr "Aceptar"
 
-msgid "Actualizando lista de equipos ..."
-msgstr "Actualizando lista de equipos ..."
+#~ msgid "Cancelar"
+#~ msgstr "Cancelar"
 
-msgid "Actualizando lista de perros"
-msgstr "Actualizando lista de perros"
+#~ msgid "Inscripciones registradas en el equipo"
+#~ msgstr "Inscripciones registradas en el equipo"
 
-msgid "Equipos -3 mejores-"
-msgstr "Equipos -3 mejores-"
+#~ msgid "Asignar el participante al equipo seleccionado"
+#~ msgstr "Asignar el participante al equipo seleccionado"
 
-msgid "Equipos -conjunta-"
-msgstr "Equipos -conjunta-"
+#~ msgid "Cancelar selecci&oacute;n. Cerrar ventana"
+#~ msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
 
-msgid "Abierta"
-msgstr "Abierta"
+#~ msgid "Actualizando lista de equipos ..."
+#~ msgstr "Actualizando lista de equipos ..."
 
-msgid "Mangas K.O."
-msgstr "Mangas K.O."
+#~ msgid "Actualizando lista de perros"
+#~ msgstr "Actualizando lista de perros"
 
-msgid "Desarrollo de la jornada"
-msgstr "Desarrollo de la jornada"
+#~ msgid "Equipos -3 mejores-"
+#~ msgstr "Equipos -3 mejores-"
 
-msgid "Mangas de la jornada"
-msgstr "Mangas de la jornada"
+#~ msgid "Equipos -conjunta-"
+#~ msgstr "Equipos -conjunta-"
 
-msgid "Programaci&oacute;n"
-msgstr "Programaci&oacute;n"
+#~ msgid "Abierta"
+#~ msgstr "Abierta"
 
-msgid "Orden de salida"
-msgstr "Orden de salida"
+#~ msgid "Mangas K.O."
+#~ msgstr "Mangas K.O."
 
-msgid "Entrada de datos"
-msgstr "Entrada de datos"
+#~ msgid "Desarrollo de la jornada"
+#~ msgstr "Desarrollo de la jornada"
 
-msgid "Resultados de la manga"
-msgstr "Resultados de la manga"
+#~ msgid "Mangas de la jornada"
+#~ msgstr "Mangas de la jornada"
 
-msgid ""
-"Ver/Ordenar la secuencia de <br/>Mangas/Categor&iacute;as/Grados de la "
-"jornada"
-msgstr ""
-"Ver/Ordenar la secuencia de <br/>Mangas/Categor&iacute;as/Grados de la "
-"jornada"
+#~ msgid "Programaci&oacute;n"
+#~ msgstr "Programaci&oacute;n"
 
-msgid "Ver/Editar el Orden de salida de la manga"
-msgstr "Ver/Editar el Orden de salida de la manga"
+#~ msgid "Orden de salida"
+#~ msgstr "Orden de salida"
 
-msgid "Insertar resultados de los participantes en la manga"
-msgstr "Insertar resultados de los participantes en la manga"
+#~ msgid "Entrada de datos"
+#~ msgstr "Entrada de datos"
 
-msgid "Ver los resultados parciales de la manga"
-msgstr "Ver los resultados parciales de la manga"
+#~ msgid "Resultados de la manga"
+#~ msgstr "Resultados de la manga"
 
-msgid "Actualizando resultados de la ronda..."
-msgstr "Actualizando resultados de la ronda..."
+#~ msgid ""
+#~ "Ver/Ordenar la secuencia de <br/>Mangas/Categor&iacute;as/Grados de la "
+#~ "jornada"
+#~ msgstr ""
+#~ "Ver/Ordenar la secuencia de <br/>Mangas/Categor&iacute;as/Grados de la "
+#~ "jornada"
 
-msgid "Men&uacute; de Operaciones"
-msgstr "Men&uacute; de Operaciones"
+#~ msgid "Ver/Editar el Orden de salida de la manga"
+#~ msgstr "Ver/Editar el Orden de salida de la manga"
 
-msgid "Iniciar sesi&oacute;n"
-msgstr "Iniciar sesi&oacute;n"
+#~ msgid "Insertar resultados de los participantes en la manga"
+#~ msgstr "Insertar resultados de los participantes en la manga"
 
-msgid "Gu&iacute;as"
-msgstr "Gu&iacute;a"
+#~ msgid "Ver los resultados parciales de la manga"
+#~ msgstr "Ver los resultados parciales de la manga"
 
-msgid "Creaci&oacute;n de pruebas"
-msgstr "Informaci&oacute;n de la Jornada"
+#~ msgid "Actualizando resultados de la ronda..."
+#~ msgstr "Actualizando resultados de la ronda..."
 
-msgid "Competicion - Selecci&oacute;n de Prueba y Jornada"
-msgstr "Informaci&oacute;n de la Jornada"
+#~ msgid "Men&uacute; de Operaciones"
+#~ msgstr "Men&uacute; de Operaciones"
 
-msgid "Desarrollo de la prueba"
-msgstr "Desarrollo de la jornada"
+#~ msgid "Iniciar sesi&oacute;n"
+#~ msgstr "Iniciar sesi&oacute;n"
 
-msgid "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
-msgstr "Informaci&oacute;n de la Jornada"
+#~ msgid "Gu&iacute;as"
+#~ msgstr "Gu&iacute;a"
 
-msgid "Estad&iacute;sticas"
-msgstr "Categor&iacute;as"
+#~ msgid "Creaci&oacute;n de pruebas"
+#~ msgstr "Informaci&oacute;n de la Jornada"
 
-msgid "Informaci&oacute;n de registro"
-msgstr "Informaci&oacute;n de la Jornada"
+#~ msgid "Competicion - Selecci&oacute;n de Prueba y Jornada"
+#~ msgstr "Informaci&oacute;n de la Jornada"
 
-msgid "Sobre la aplicaci&oacute;n..."
-msgstr "Programaci&oacute;n"
+#~ msgid "Desarrollo de la prueba"
+#~ msgstr "Desarrollo de la jornada"
 
-msgid "Hello World"
-msgstr "Hola Mundo"
+#~ msgid "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
+#~ msgstr "Informaci&oacute;n de la Jornada"
 
-msgid "Resultados y Clasificaciones"
-msgstr "Resultados y Clasificaciones"
+#~ msgid "Estad&iacute;sticas"
+#~ msgstr "Categor&iacute;as"
+
+#~ msgid "Informaci&oacute;n de registro"
+#~ msgstr "Informaci&oacute;n de la Jornada"
+
+#~ msgid "Sobre la aplicaci&oacute;n..."
+#~ msgstr "Programaci&oacute;n"
+
+#~ msgid "Hello World"
+#~ msgstr "Hola Mundo"
+
+#~ msgid "Resultados y Clasificaciones"
+#~ msgstr "Resultados y Clasificaciones"
