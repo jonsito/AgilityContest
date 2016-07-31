@@ -198,6 +198,11 @@ Section /o "Initial language: German" ger
     SetOutPath $INSTDIR
     File /oname=settings.bat settings_de.bat
 SectionEnd
+
+Section /o "Initial language: Hungarian" ger
+    SetOutPath $INSTDIR
+    File /oname=settings.bat settings_hu.bat
+SectionEnd
 ;;;;;;;;;;;;;;;;;;;;;;
 ; Uninstall settings ;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -287,5 +292,8 @@ Function .onMouseOverSection
 
     StrCmp $0 4 "" +2
         SendMessage $R0 ${WM_SETTEXT} 0 "STR:FirstBoot in German. You may change later"
+
+    StrCmp $0 5 "" +2
+        SendMessage $R0 ${WM_SETTEXT} 0 "STR:FirstBoot in Hungarian. You may change later"
 
 FunctionEnd
