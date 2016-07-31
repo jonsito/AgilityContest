@@ -79,8 +79,8 @@ class DogReader {
         );
     }
 
-    public function saveStatus($str){
-        $f=fopen(IMPORT_LOG,"a"); // open for append-only
+    public function saveStatus($str,$reset=false){
+        $f=fopen(IMPORT_LOG,($reset)?"w":"a"); // open for append-only
         if (!$f) {
             $this->myLogger->error("fopen() cannot create file: ".IMPORT_LOG);
             return;
@@ -92,7 +92,7 @@ class DogReader {
     public function retrieveExcelFile() {
         // phase 1 retrieve data from browser
         $this->myLogger->enter();
-        $this->saveStatus("Loading file...");
+        $this->saveStatus("Loading file...",true); // initialize status file
         // extraemos los datos de registro
         $data=http_request("Data","s",null);
         if (!$data) return array("errorMsg" => "importExcel(dogs)::download(): No data to import has been received");
@@ -263,7 +263,7 @@ class DogReader {
             }
             // dump excel data into temporary database table
             set_time_limit($timeout); // avoid php to be killed on very slow systems
-            $this->saveStatus("#$index");
+            $this->saveStatus("Parsing excel row #$index");
             $this->storeRow($index,$row);
             $index++;
         }
@@ -329,7 +329,7 @@ class DogReader {
             if ($search['rows'][$index]['Club']!=$item['ClubID']) continue;
             // arriving here means match found. So replace all instances with found data and return to continue import
             $i=$search['rows'][$index]['ID']; // id del guia
-            $n=$search['rows'][$index]['Nombre']; // nombre del guia
+            $n=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Nombre']); // nombre del guia
             $str="UPDATE $t SET HandlerID=$i, NombreGuia='$n' WHERE (NombreGuia = '$a')"; // exact match
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
@@ -362,7 +362,7 @@ class DogReader {
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
-            $str="UPDATE $t SET HandlerID=$id WHERE (Nombre = '$a')";
+            $str="UPDATE $t SET DogID=$id WHERE (Nombre = '$a')";
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetDog(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
             return true; // tell parent item found. proceed with next
@@ -372,8 +372,8 @@ class DogReader {
             if ($search['rows'][$index]['Guia']!=$item['HandlerID']) continue;
             // arriving here means match found. So replace all instances with found data and return to continue import
             $i=$search['rows'][$index]['ID']; // id del guia
-            $n=$search['rows'][$index]['Nombre']; // nombre del guia
-            $str="UPDATE $t SET DogID=$i, Nombre='$n' WHERE (Nombre LIKE '%$a%')";
+            $n=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Nombre']); // nombre del guia
+            $str="UPDATE $t SET DogID=$i, Nombre='$n' WHERE (Nombre = '$a')"; // Pending: add breed, cat, grade and so
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetDog(): update dog '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
             return true; // tell parent item found. proceed with next
@@ -438,7 +438,7 @@ class DogReader {
     public function beginImport() {
         // start import process
         $this->saveStatus("Begin importing analyzed data");
-        // TODO: here comes import process
+        // TODO: here comes import process. In blindMode, just return
         return array( 'operation'=>'import','success'=>'ok');
     }
 

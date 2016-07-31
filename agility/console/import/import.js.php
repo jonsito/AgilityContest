@@ -167,11 +167,11 @@ function perros_importHandleResult(data) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
         dlg.dialog('close');
     }
-    if (data.operation!='progress') console.log("recv: "+data.operation);
+    // if (data.operation!='progress') console.log("recv: "+data.operation);
     switch (data.operation){
         case "upload":
             pb.progressbar('setValue','<?php _e("Checking Excel File");?> : '); // beware ' : ' sequence
-            perros_importSendTask({'Operation':'check','Filename':data.filename});
+            setTimeout(function() {perros_importSendTask({'Operation':'check','Filename':data.filename})},0);
             ac_import.progress_status="running";
             setTimeout(function() {perros_importSendTask({'Operation':'progress'})} ,0); // start progress monitoring
             break;
@@ -221,14 +221,16 @@ function perros_importHandleResult(data) {
             break;
         case "close":
             ac_import.progress_status="paused";
-            dlg.dialog('close');
+            $.messager.alert('<?php _e("Import Done");?>','<?php _e("Import from Excel File Done");?>','info');
+            dlg.dialog('close'); // close import dialog
+            reloadWithSearch('#perros-datagrid','select',false); // and reload dogs datagrid
             break;
         case "progress": // receive progress status from server
             // iterate until "Done." received
-            if (data.status==="Done.") return;
+            if (data.status==="") return; // just created import progress file
+            if (data.status==="Done.") return; // end of job
             var val=pb.progressbar('getValue');
-            var str=val.substring(0,val.indexOf(' : '));
-            pb.progressbar('setValue',str+" : "+data.status);
+            pb.progressbar('setValue',data.status);
             if (ac_import.progress_status==='running')
                 setTimeout(perros_importSendTask({'Operation':'progress'}),1000);
             break;
