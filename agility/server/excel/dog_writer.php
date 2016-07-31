@@ -29,7 +29,7 @@ class excel_ListaPerros extends XLSX_Writer {
 
 	protected $lista; // listado de perros
 
-    protected $cols = array( 'Name','Pedigree Name','Gender','Breed','License','KC id','Cat','Grad','Handler','Club','Province','Country');
+    protected $cols = array( 'Name','Pedigree Name','Gender','Breed','License','KC id','Category','Grade','Handler','Club','Province','Country');
     protected $fields = array( 'Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Provincia','Pais');
 
 	/**

@@ -66,8 +66,8 @@ class DogReader {
             'Breed' =>      array (  -6,  -1, "s", "Raza",      " `Raza` varchar(255) DEFAULT NULL, "), // dog breed, optional
             'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '--------', "), // dog license. required for A2-A3; else optional
             'KC_ID' =>      array (  -8,  -1, "s", "LOE_RRC",   " `LOE_RRC` varchar(255) DEFAULT NULL, "), // LOE_RRC kennel club dog id
-            'Cat' =>        array (  -9,   1, "s", "Categoria", " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
-            'Grad' =>       array (  -10,  1, "s", "Grado",     " `Grado` varchar(16) DEFAULT '-', "), // required
+            'Category' =>   array (  -9,   1, "s", "Categoria", " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
+            'Grade' =>       array (  -10,  1, "s", "Grado",     " `Grado` varchar(16) DEFAULT '-', "), // required
             // handler related data
             'HandlerID' =>  array (  -11,  0, "i", "HandlerID", " `HandlerID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
             'Handler' =>    array (  -12,  1, "s", "NombreGuia"," `NombreGuia` varchar(255) NOT NULL, "), // Handler's name. Required
@@ -117,6 +117,7 @@ class DogReader {
                 $fieldName=$header[$index];
                 if ( ($fieldName==$field) || ($fieldName==_utf($field)) ) {
                     $data[0]=$index;
+                    break;
                 }
             }
         }
@@ -162,8 +163,8 @@ class DogReader {
             if ( ($val[0]<0) || ($val[1]==0)) continue; // field not provided or to be evaluated by importer
             $str1 .= "{$val[3]}, "; // add field name
             $item=$row[$val[0]];
-            if ($key==='Grad') $item=parseGrade($item);
-            if ($key==='Cat') $item=parseCategory($item);
+            if ($key==='Grade') $item=parseGrade($item);
+            if ($key==='Category') $item=parseCategory($item);
             if ($key==='Gender') $item=parseGender($item);
             switch ($val[2]) {
                 case "s": // string
@@ -222,7 +223,7 @@ class DogReader {
 
     public function validateFile( $filename,$droptable=true) {
         $this->saveStatus("Validating received file...");
-        unlink(IMPORT_LOG);
+        // unlink(IMPORT_LOG);
         // open temporary file
         $reader = ReaderFactory::create(Type::XLSX);
         $reader->open($filename);
@@ -238,7 +239,11 @@ class DogReader {
             // arriving here means "Dogs" page not found
             if ($sheet==null) throw new Exception ("No sheet named 'Dogs' or 'Inscriptions' found in excel file");
         } else {
-            $sheet=$reader->getCurrentSheet();
+            // getCurrentSheet() is not available for reader. so dirty trick
+            // $sheet=$reader->getCurrentSheet();
+            foreach ($reader->getSheetIterator() as $sheet) {
+                if ($sheet->getIndex()==0) break;
+            }
         }
         // OK: now parse sheet
         $index=0;
