@@ -448,8 +448,8 @@ class DogReader {
     }
 
     public function cancelImport() {
-        // remove temporary files, do not perform import
-        return 0;
+        $this->saveStatus("Done.");
+        return array( 'operation'=>'abort','success'=>'ok');
     }
 }
 

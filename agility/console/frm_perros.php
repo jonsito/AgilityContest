@@ -38,7 +38,7 @@ $config =Config::getInstance();
 			   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this)">
 			<br /> <br />
 			<input id="perros-excelData" type="hidden" name="excelData" value="">
-			<label for="perros-excelBlindMode"><?php _e("Quiet mode");?></label>
+			<label for="perros-excelBlindMode"><?php _e("Quiet (blind) mode");?></label>
 			<input id="perros-excelBlindMode" type="checkbox" name="excelBlindMode" value="1" checked="checked">
 			<br />
 			</p>

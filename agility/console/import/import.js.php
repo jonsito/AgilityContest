@@ -144,7 +144,7 @@ function perros_importSendTask(params) {
                 dlg.dialog('close');
             }
             // valid data received fire up client-side import parser
-            setTimeout( function() {  perros_importHandleResult(res); },500);
+            setTimeout( function() {  perros_importHandleResult(res); },100);
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Import from Excel error","Error: "+textStatus + " "+ errorThrown,'error' );
@@ -187,6 +187,19 @@ function perros_importHandleResult(data) {
             if (data.success=='fail') { // user action required. study cases
                 var funcs={};
                 ac_import.progress_status='paused'; // tell progress monitor to pause
+                if (ac_import.blind=1) {
+                    var str1='<?php _e("Club/Country not found or missmatch");?>: '+data.search.NombreClub;
+                    var str2='<?php _e("This is not allowed when importing in blind mode");?>';
+                    var str3='<?php _e("Import aborted.");?>';
+                    $.messager.alert({
+                        title: '<?php _e("Blind mode import");?>',
+                        msg: str1+"<br />"+str2+"<br />"+str3,
+                        icon: 'error',
+                        width: 480
+                    });
+                    setTimeout(function(){perros_importSendTask({'Operation':'abort'})},0);
+                    break;
+                }
                 if (parseInt(data.search.ClubID)==0) {
                     funcs= {'notf': clubNotFound,'miss':clubMissmatch,'multi':clubMustChoose};
                 } else if (parseInt(data.search.HandlerID)==0) {
@@ -215,6 +228,8 @@ function perros_importHandleResult(data) {
             ac_import.progress_status="running";
             break;
         case "abort": // cancel transaction
+            dlg.dialog('close'); // close import dialog
+            reloadWithSearch('#perros-datagrid','select',false); // and reload dogs datagrid
             break;
         case "import": // import finished. Tell server to cleanup
             setTimeout(function() { perros_importSendTask({'Operation':'close'}); },0);
