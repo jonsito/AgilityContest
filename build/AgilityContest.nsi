@@ -199,7 +199,7 @@ Section /o "Initial language: German" ger
     File /oname=settings.bat settings_de.bat
 SectionEnd
 
-Section /o "Initial language: Hungarian" ger
+Section /o "Initial language: Hungarian" hun
     SetOutPath $INSTDIR
     File /oname=settings.bat settings_hu.bat
 SectionEnd
@@ -264,12 +264,14 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; show section descriptions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 Function .onSelChange
 
   !insertmacro StartRadioButtons $1
     !insertmacro RadioButton ${esp}
     !insertmacro RadioButton ${eng}
     !insertmacro RadioButton ${ger}
+    !insertmacro RadioButton ${hun}
   !insertmacro EndRadioButtons
 
 FunctionEnd
