@@ -277,7 +277,7 @@ class DogReader {
     private function findAndSetClub($item) {
         $this->myLogger->enter();
 
-        $a=$item['NombreClub'];
+        $a=$this->myDBObject->conn->real_escape_string($item['NombreClub']);
         // TODO: search and handle also club's longnames
         $this->saveStatus("Importing club '$a'");
         if ($this->blindMode==0) $search=$this->myDBObject->__select("*","Clubes","( Nombre LIKE '%$a%')","","");
@@ -304,7 +304,7 @@ class DogReader {
         $this->myLogger->enter();
         $t=TABLE_NAME;
         // notice that arriving here means all clubs has been parsed and analyzed
-        $a=$item['NombreGuia'];
+        $a=$this->myDBObject->conn->real_escape_string($item['NombreGuia']);
         $this->saveStatus("Importing handler '$a'");
         $f=$this->federation->get('ID');
         if ($this->blindMode==0)
@@ -344,7 +344,7 @@ class DogReader {
         $t=TABLE_NAME;
         // notice that arriving here means all clubs and handlers has been parsed and analyzed
         // TODO: search and handle also dog's long (pedigree) name
-        $a=$item['Nombre'];
+        $a=$this->myDBObject->conn->real_escape_string($item['Nombre']);
         $this->saveStatus("Importing dog '$a'");
         $f=$this->federation->get('ID');
         if ($this->blindMode==0)
@@ -357,7 +357,7 @@ class DogReader {
             $h=$item['HandlerID'];
             $c=$item['Categoria'];
             $g=$item['Grado'];
-            $r=isset($item['Raza'])?$item['Raza']:"";
+            $r=isset($item['Raza'])?$this->myDBObject->conn->real_escape_string($item['Raza']):"";
             $str="INSERT INTO Perros (Nombre,Guia,Categoria,Grado, Raza,Federation) VALUES ( '$a',$h,'$c','$g','$r',$f)";
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
@@ -390,7 +390,7 @@ class DogReader {
             /* SELECT */ "*",
             /* FROM   */ TABLE_NAME,
             /* WHERE  */ "( ClubID = 0) || ( HandlerID = 0 ) || ( DogID = 0 )",
-            /* ORDER BY */ "ClubID ASC, HandlerID ASC, DogID ASC",
+            /* ORDER BY */ "DogID ASC, HandlerID ASC, ClubID ASC",
             /* LIMIT */  ""
         );
         foreach ($res['rows'] as $item ) {

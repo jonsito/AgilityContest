@@ -25,7 +25,8 @@ $config =Config::getInstance();
 variables used to store import status
  */
 var ac_import = {
-    'progress_status': "running"
+    'progress_status': "running",
+    'blind': 0
 };
 
 /*************************************** importacion de perros desde fichero excel **************************/
@@ -128,7 +129,8 @@ function dogMustChoose(search,found) {
  */
 function perros_importSendTask(params) {
     var dlg=$('#perros-excel-dialog');
-    params.Federation=workingData.federation;
+    params.Federation   =   workingData.federation;
+    params.Blind        =   ac_import.blind;
     if (params.Operation!='progress') console.log("send: "+params.Operation);
     $.ajax({
         type:'POST', // use post to send file
@@ -142,7 +144,7 @@ function perros_importSendTask(params) {
                 dlg.dialog('close');
             }
             // valid data received fire up client-side import parser
-            setTimeout( function() {  perros_importHandleResult(res); },0);
+            setTimeout( function() {  perros_importHandleResult(res); },500);
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Import from Excel error","Error: "+textStatus + " "+ errorThrown,'error' );
@@ -161,8 +163,6 @@ function perros_importSendTask(params) {
 function perros_importHandleResult(data) {
     var dlg=$('#perros-excel-dialog');
     var pb=$('#perros-excel-progressbar');
-    var blind=ac_config.blindImport;
-    var fed=workingData.Federation;
     if (data.errorMsg) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
         dlg.dialog('close');
@@ -171,24 +171,29 @@ function perros_importHandleResult(data) {
     switch (data.operation){
         case "upload":
             pb.progressbar('setValue','<?php _e("Checking Excel File");?> : '); // beware ' : ' sequence
-            perros_importSendTask({'Operation':'check','Filename':data.filename,'Blind':data.blind});
+            perros_importSendTask({'Operation':'check','Filename':data.filename});
             ac_import.progress_status="running";
-            setTimeout(perros_importSendTask({'Operation':'progress', 'Blind':blind,'Federation':fed}),1000);
+            setTimeout(function() {perros_importSendTask({'Operation':'progress'})} ,0); // start progress monitoring
             break;
         case "check":
             pb.progressbar('setValue','<?php _e("Starting data import");?>');
-            perros_importSendTask({'Operation':'parse', 'Blind':blind,'Federation':fed});
+            setTimeout(function() { perros_importSendTask({'Operation':'parse'})},0);
             break;
         case "parse": // analyze next line
             if (data.success=='ok') { // if success==true parse again
-                perros_importSendTask({'Operation':'parse', 'Blind':blind,'Federation':fed});
+                ac_import.progress_status='running'; // tell progress monitor to pause
+                setTimeout(function(){perros_importSendTask({'Operation':'parse'})},0);
             }
             if (data.success=='fail') { // user action required. study cases
                 var funcs={};
                 ac_import.progress_status='paused'; // tell progress monitor to pause
-                if (parseInt(data.search.ClubID)==0) funcs= {'notf': clubNotFound,'miss':clubMissmatch,'multi':clubMustChoose};
-                else if (parseInt(data.search.HandlerID)==0) funcs= {'notf':handlerNotFound,'miss':handlerMissmatch,'multi':handlerMustChoose};
-                else funcs= {'notf':dogNotFound,'miss':dogMissmatch,'multi':dogMustChoose};
+                if (parseInt(data.search.ClubID)==0) {
+                    funcs= {'notf': clubNotFound,'miss':clubMissmatch,'multi':clubMustChoose};
+                } else if (parseInt(data.search.HandlerID)==0) {
+                    funcs= {'notf':handlerNotFound,'miss':handlerMissmatch,'multi':handlerMustChoose};
+                } else {
+                    funcs= {'notf':dogNotFound,'miss':dogMissmatch,'multi':dogMustChoose};
+                }
 
                 var len=data.found.length;
                 if (len==0) funcs.notf(data.search,data.success);         // item not found: ask user to select existing or create new one
@@ -196,7 +201,7 @@ function perros_importHandleResult(data) {
                 else funcs.multi(data.search,data.success);                // several compatible items found. ask user to decide
             }
             if (data.success=='done') { // file parsed: start real import procedure
-                perros_importSendTask({'Operation':'import', 'Blind':blind,'Federation':fed});
+                setTimeout(function() { perros_importSendTask({'Operation':'import'})},0);
             }
             break;
         case "create": // create a new entry with provided data for current line
@@ -205,15 +210,14 @@ function perros_importHandleResult(data) {
             // no break;
         case "ignore": // ignore data from excel file in current line
             // continue parsing
-            setTimeout(function() { perros_importSendTask({'Operation':'parse', 'Blind':blind,'Federation':fed}); },0);
+            setTimeout(function() { perros_importSendTask({'Operation':'parse'}); },0);
             // re-start progress monitoring
             ac_import.progress_status="running";
-            setTimeout(function() { perros_importSendTask({'Operation':'progress', 'Blind':blind,'Federation':fed}); },1000);
             break;
         case "abort": // cancel transaction
             break;
         case "import": // import finished. Tell server to cleanup
-            perros_importSendTask({'Operation':'close', 'Blind':blind,'Federation':fed});
+            setTimeout(function() { perros_importSendTask({'Operation':'close'}); },0);
             break;
         case "close":
             ac_import.progress_status="paused";
@@ -225,7 +229,8 @@ function perros_importHandleResult(data) {
             var val=pb.progressbar('getValue');
             var str=val.substring(0,val.indexOf(' : '));
             pb.progressbar('setValue',str+" : "+data.status);
-            if (ac_import.progress_status==='running') setTimeout(perros_importSendTask({'Operation':'progress', 'Blind':blind,'Federation':fed}),1000);
+            if (ac_import.progress_status==='running')
+                setTimeout(perros_importSendTask({'Operation':'progress'}),1000);
             break;
         default:
             $.messager.alert("Excel import error","Invalid operation received from server: "+data.operation );
@@ -273,12 +278,12 @@ function importAction(item,action) {
  */
 function perros_excelImport() {
     var data=$('#perros-excelData').val();
-    ac_config.blindImport=$('#perros-excelBlindMode').prop('checked')?1:0;
+    ac_import.blind=$('#perros-excelBlindMode').prop('checked')?1:0;
     if (data=="") {
         $.messager.alert("<?php _e('Error');?>","<?php _e('No import file selected');?>",'error');
     } else {
         $('#perros-excel-progressbar').progressbar('setValue','Upload');
-        return perros_importSendTask({ Operation: 'upload', Data: data, 'Blind':ac_config.blindImport,'Federation':workingData.federation});
+        return perros_importSendTask({ Operation: 'upload', Data: data});
     }
 }
 

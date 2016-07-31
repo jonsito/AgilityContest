@@ -271,7 +271,7 @@ function loadConfiguration(callback) {
 				// extra configuration data to speedup
 				ac_config.numdecs=(ac_config.crono_miliseconds=="0")?2:3;
 				ac_config.dogInRing=false; // to be used in videowall and livestream to show dog info and timings
-				ac_config.blindImport=0; // to be used in importing functions
+				ac_import.blind=0; // to be used in importing functions
 				if (typeof(callback)!=="undefined") callback(ac_config);
 			} else {
 				$.messager.alert('<?php _e("Error"); ?>','<?php _e("LoadConfig(): cannot retrieve configuration from server"); ?>',"error")

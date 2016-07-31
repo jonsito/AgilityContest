@@ -36,10 +36,11 @@ $config =Config::getInstance();
 			<input type="file" name="perros-excel" value="" id="perros-excel-fileSelect"
 				   class="icon_button icon-search"
 			   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this)">
-			<input id="perros-excelData" type="hidden" name="excelData" value=""><br />
+			<br /> <br />
+			<input id="perros-excelData" type="hidden" name="excelData" value="">
 			<label for="perros-excelBlindMode"><?php _e("Quiet mode");?></label>
-			<input id="perros-excelBlindMode" type="checkbox" name="excelBlindMode" value="1">
-			<br />&nbsp;<br />
+			<input id="perros-excelBlindMode" type="checkbox" name="excelBlindMode" value="1" checked="checked">
+			<br />
 			</p>
 		<p>
 			<span style="float:left"><?php _e('Import status'); ?>:	</span>
