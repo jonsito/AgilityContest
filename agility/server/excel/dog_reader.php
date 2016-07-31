@@ -39,13 +39,15 @@ class DogReader {
     public $errormsg;
     protected $myLogger;
     protected $federation;
+    protected $blindMode;
     protected $myAuthMgr;
     protected $tablename;
     protected $fieldList;
     protected $myDBObject;
 
-    public function __construct($fed) {
+    public function __construct($fed,$blind=0) {
         $this->federation = Federations::getFederation($fed);
+        $this->blindMode = intval($blind);
         $this->myConfig=Config::getInstance();
         $this->myLogger= new Logger("importExcel(dogs)",$this->myConfig->getEnv("debug_level"));
         if (php_sapi_name()!="cli") {
@@ -274,13 +276,17 @@ class DogReader {
 
     private function findAndSetClub($item) {
         $this->myLogger->enter();
+
         $a=$item['NombreClub'];
         // TODO: search and handle also club's longnames
         $this->saveStatus("Importing club '$a'");
-        // $search=$this->myDBObject->__selectAsArray("*","Clubes","( Nombre LIKE '%$a%') OR ( NombreLargo LIKE '%$a%')");
-        $search=$this->myDBObject->__select("*","Clubes","( Nombre LIKE '%$a%')","","");
+        if ($this->blindMode==0) $search=$this->myDBObject->__select("*","Clubes","( Nombre LIKE '%$a%')","","");
+        else                     $search=$this->myDBObject->__select("*","Clubes","( Nombre = '$a')","","");
         if ( !is_array($search) ) return "findAndSetClub(): Invalid search term: '$a'"; // invalid search. mark error
-        if ($search['total']==0) return false; // no search result; ask user to select or create as new
+        if ($search['total']==0) {
+            // to create club/country we need aditional info, so cannot auto-create in blind mode
+            return false;
+        } // no search result; ask user to select or create as new
         if ($search['total']>1) return $search; // more than 1 compatible item found. Ask user to choose
         if ($search['rows'][0]['Federations'] & (1<<$this->federation->get('ID')) == 0 ) return $search; // federation missmatch. ask user to fix
         // arriving here means match found. So replace all instances with found data and return to continue import
@@ -288,7 +294,7 @@ class DogReader {
         $i=$search['rows'][0]['ID']; // Club ID
         $n=$search['rows'][0]['Nombre']; // Club Name
         $this->myLogger->trace("Found club '$a' => Name:$n ID:$i");
-        $str="UPDATE $t SET ClubID=$i, NombreClub='$n' WHERE (NombreClub LIKE '%$a%')";
+        $str="UPDATE $t SET ClubID=$i, NombreClub='$n' WHERE (NombreClub = '$a')";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetClub(): update club '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
         return true; // tell parent item found. proceed with next
@@ -296,23 +302,37 @@ class DogReader {
 
     private function findAndSetHandler($item) {
         $this->myLogger->enter();
+        $t=TABLE_NAME;
         // notice that arriving here means all clubs has been parsed and analyzed
         $a=$item['NombreGuia'];
         $this->saveStatus("Importing handler '$a'");
         $f=$this->federation->get('ID');
-        $search=$this->myDBObject->__select("*","Guias","( Nombre LIKE '%$a%' ) AND ( Federation = $f ) ","","");
+        if ($this->blindMode==0)
+                $search=$this->myDBObject->__select("*","Guias","( Nombre LIKE '%$a%' ) AND ( Federation = $f ) ","","");
+        else    $search=$this->myDBObject->__select("*","Guias","( Nombre = '$a' ) AND ( Federation = $f ) ","","");
         if ( !is_array($search) ) return "findAndSetHandler(): Invalid search term: '$a'"; // invalid search. mark error
-        if ($search['total']==0) return false; // no search result; ask user to select or create as new
+        if ($search['total']==0) {
+            if ($this->blindMode==0) return false;
+            $c=$item['ClubID'];
+            // if not found and in blind mode create handler "on the fly"
+            $str="INSERT INTO Guias (Nombre,Club,Federation) VALUES ( '$a',$c,$f)";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "findAndSetHandler(): blindInsertGuia '$a' error:".$this->myDBObject->conn->error;
+            $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
+            $str="UPDATE $t SET HandlerID=$id WHERE (NombreGuia = '$a')";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
+            return true; // tell parent item found. proceed with next
+        } // no search result; ask user to select or create as new
         for ($index=0;$index<$search['total'];$index++) {
             // find right entry. if not found ask user
             if ($search['rows'][$index]['Club']!=$item['ClubID']) continue;
             // arriving here means match found. So replace all instances with found data and return to continue import
-            $t=TABLE_NAME;
             $i=$search['rows'][$index]['ID']; // id del guia
             $n=$search['rows'][$index]['Nombre']; // nombre del guia
-            $str="UPDATE $t SET HandlerID=$i, NombreGuia='$n' WHERE (NombreGuia LIKE '%$a%')";
+            $str="UPDATE $t SET HandlerID=$i, NombreGuia='$n' WHERE (NombreGuia = '$a')"; // exact match
             $res=$this->myDBObject->query($str);
-            if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
+            if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
             return true; // tell parent item found. proceed with next
         }
         // arriving here means item(s) found, but none compatible. Ask user
@@ -321,19 +341,36 @@ class DogReader {
 
     private function findAndSetDog($item) {
         $this->myLogger->enter();
+        $t=TABLE_NAME;
         // notice that arriving here means all clubs and handlers has been parsed and analyzed
         // TODO: search and handle also dog's long (pedigree) name
         $a=$item['Nombre'];
         $this->saveStatus("Importing dog '$a'");
         $f=$this->federation->get('ID');
-        $search=$this->myDBObject->__select("*","Perros","( Nombre LIKE '%$a%') AND ( Federation = $f ) ","","");
+        if ($this->blindMode==0)
+             $search=$this->myDBObject->__select("*","Perros","( Nombre LIKE '%$a%') AND ( Federation = $f ) ","","");
+        else $search=$this->myDBObject->__select("*","Perros","( Nombre = '$a') AND ( Federation = $f ) ","","");
         if ( !is_array($search) ) return "findAndSetDog(): Invalid search term: '$a'"; // invalid search. mark error
-        if ($search['total']==0) return false; // no search result; ask user to select or create as new
+        if ($search['total']==0) {
+            if ($this->blindMode==0) return false;  // no search result; ask user to select or create as new
+            // if not found and in blind mode create handler "on the fly"
+            $h=$item['HandlerID'];
+            $c=$item['Categoria'];
+            $g=$item['Grado'];
+            $r=isset($item['Raza'])?$item['Raza']:"";
+            $str="INSERT INTO Perros (Nombre,Guia,Categoria,Grado, Raza,Federation) VALUES ( '$a',$h,'$c','$g','$r',$f)";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
+            $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
+            $str="UPDATE $t SET HandlerID=$id WHERE (Nombre = '$a')";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "findAndSetDog(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
+            return true; // tell parent item found. proceed with next
+        }
         for ($index=0;$index<$search['total'];$index++) {
             // find right entry. if not found ask user
             if ($search['rows'][$index]['Guia']!=$item['HandlerID']) continue;
             // arriving here means match found. So replace all instances with found data and return to continue import
-            $t=TABLE_NAME;
             $i=$search['rows'][$index]['ID']; // id del guia
             $n=$search['rows'][$index]['Nombre']; // nombre del guia
             $str="UPDATE $t SET DogID=$i, Nombre='$n' WHERE (Nombre LIKE '%$a%')";
@@ -434,9 +471,10 @@ if (php_sapi_name() != "cli" ) {
     try {
         // 	Creamos generador de documento
         $fed=http_request("Federation","i",-1);
+        $blind=http_request("Blind","i",0);
         if ($fed<0) throw new Exception("dog_reader::ImportExcel(): invalid Federation ID: $fed");
 
-        $dr=new DogReader($fed);
+        $dr=new DogReader($fed,$blind);
         $result="";
         switch ($op) {
             case "upload":

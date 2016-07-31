@@ -161,6 +161,8 @@ function perros_importSendTask(params) {
 function perros_importHandleResult(data) {
     var dlg=$('#perros-excel-dialog');
     var pb=$('#perros-excel-progressbar');
+    var blind=ac_config.blindImport;
+    var fed=workingData.Federation;
     if (data.errorMsg) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
         dlg.dialog('close');
@@ -169,17 +171,17 @@ function perros_importHandleResult(data) {
     switch (data.operation){
         case "upload":
             pb.progressbar('setValue','<?php _e("Checking Excel File");?> : '); // beware ' : ' sequence
-            perros_importSendTask({'Operation':'check','Filename':data.filename});
+            perros_importSendTask({'Operation':'check','Filename':data.filename,'Blind':data.blind});
             ac_import.progress_status="running";
-            setTimeout(perros_importSendTask({'Operation':'progress'}),1000);
+            setTimeout(perros_importSendTask({'Operation':'progress', 'Blind':blind,'Federation':fed}),1000);
             break;
         case "check":
             pb.progressbar('setValue','<?php _e("Starting data import");?>');
-            perros_importSendTask({'Operation':'parse'});
+            perros_importSendTask({'Operation':'parse', 'Blind':blind,'Federation':fed});
             break;
         case "parse": // analyze next line
             if (data.success=='ok') { // if success==true parse again
-                perros_importSendTask({'Operation':'parse'});
+                perros_importSendTask({'Operation':'parse', 'Blind':blind,'Federation':fed});
             }
             if (data.success=='fail') { // user action required. study cases
                 var funcs={};
@@ -194,7 +196,7 @@ function perros_importHandleResult(data) {
                 else funcs.multi(data.search,data.success);                // several compatible items found. ask user to decide
             }
             if (data.success=='done') { // file parsed: start real import procedure
-                perros_importSendTask({'Operation':'import'});
+                perros_importSendTask({'Operation':'import', 'Blind':blind,'Federation':fed});
             }
             break;
         case "create": // create a new entry with provided data for current line
@@ -203,15 +205,15 @@ function perros_importHandleResult(data) {
             // no break;
         case "ignore": // ignore data from excel file in current line
             // continue parsing
-            setTimeout(function() { perros_importSendTask({'Operation':'parse'}); },0);
+            setTimeout(function() { perros_importSendTask({'Operation':'parse', 'Blind':blind,'Federation':fed}); },0);
             // re-start progress monitoring
             ac_import.progress_status="running";
-            setTimeout(function() { perros_importSendTask({'Operation':'progress'}); },1000);
+            setTimeout(function() { perros_importSendTask({'Operation':'progress', 'Blind':blind,'Federation':fed}); },1000);
             break;
         case "abort": // cancel transaction
             break;
         case "import": // import finished. Tell server to cleanup
-            perros_importSendTask({'Operation':'close'});
+            perros_importSendTask({'Operation':'close', 'Blind':blind,'Federation':fed});
             break;
         case "close":
             ac_import.progress_status="paused";
@@ -223,7 +225,7 @@ function perros_importHandleResult(data) {
             var val=pb.progressbar('getValue');
             var str=val.substring(0,val.indexOf(' : '));
             pb.progressbar('setValue',str+" : "+data.status);
-            if (ac_import.progress_status==='running') setTimeout(perros_importSendTask({'Operation':'progress'}),1000);
+            if (ac_import.progress_status==='running') setTimeout(perros_importSendTask({'Operation':'progress', 'Blind':blind,'Federation':fed}),1000);
             break;
         default:
             $.messager.alert("Excel import error","Invalid operation received from server: "+data.operation );
@@ -271,11 +273,12 @@ function importAction(item,action) {
  */
 function perros_excelImport() {
     var data=$('#perros-excelData').val();
+    ac_config.blindImport=$('#perros-excelBlindMode').prop('checked')?1:0;
     if (data=="") {
         $.messager.alert("<?php _e('Error');?>","<?php _e('No import file selected');?>",'error');
     } else {
         $('#perros-excel-progressbar').progressbar('setValue','Upload');
-        return perros_importSendTask({ Operation: 'upload', Data: $('#perros-excelData').val() });
+        return perros_importSendTask({ Operation: 'upload', Data: data, 'Blind':ac_config.blindImport,'Federation':workingData.federation});
     }
 }
 

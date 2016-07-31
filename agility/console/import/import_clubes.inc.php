@@ -145,7 +145,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         $('#importclubes-form').form();
         // - botones
     	addTooltip($('#importclubes-newBtn').linkbutton(),'<?php _e("Import as new club with provided data"); ?>');
-    	addTooltip($('#importclubes-selectBtn').linkbutton(),'<?php _e("Use selected existing club and updata club info"); ?>');
+    	addTooltip($('#importclubes-selectBtn').linkbutton(),'<?php _e("Use selected existing club and update club info"); ?>');
     	addTooltip($('#importclubes-ignoreBtn').linkbutton(),'<?php _e("Ignore entry. do not import into database"); ?>');
         addTooltip($('#importclubes-clearBtn').linkbutton(),'<?php _e("Clear club search and reset data to import"); ?>')
         $('#importclubes-clearBtn').linkbutton().bind('click',function() {

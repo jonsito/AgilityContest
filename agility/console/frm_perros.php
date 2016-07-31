@@ -36,7 +36,9 @@ $config =Config::getInstance();
 			<input type="file" name="perros-excel" value="" id="perros-excel-fileSelect"
 				   class="icon_button icon-search"
 			   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this)">
-			<input id="perros-excelData" type="hidden" name="excelData" value="">
+			<input id="perros-excelData" type="hidden" name="excelData" value=""><br />
+			<label for="perros-excelBlindMode"><?php _e("Quiet mode");?></label>
+			<input id="perros-excelBlindMode" type="checkbox" name="excelBlindMode" value="1">
 			<br />&nbsp;<br />
 			</p>
 		<p>
@@ -175,4 +177,5 @@ $config =Config::getInstance();
         addTooltip($('#perros-datagrid-search'),'<?php _e("Look into database for dogs matching search criteria"); ?>');
 		addTooltip($('#perros-excel-okBtn').linkbutton(),'<?php _e("Import dog data from selected Excel file"); ?>');
 		addTooltip($('#perros-excel-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
+		addTooltip($('#perros-excelBlindMode').linkbutton(),'<?php _e("Assume no coherency errors with current database data"); ?>');
 </script>
