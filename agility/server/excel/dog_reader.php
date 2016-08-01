@@ -39,15 +39,16 @@ class DogReader {
     public $errormsg;
     protected $myLogger;
     protected $federation;
+    protected $myOptions;
     protected $blindMode;
     protected $myAuthMgr;
     protected $tablename;
     protected $fieldList;
     protected $myDBObject;
 
-    public function __construct($fed,$blind=0) {
+    public function __construct($fed,$options) {
         $this->federation = Federations::getFederation($fed);
-        $this->blindMode = intval($blind);
+        $this->myOptions=$options;
         $this->myConfig=Config::getInstance();
         $this->myLogger= new Logger("importExcel(dogs)",$this->myConfig->getEnv("debug_level"));
         if (php_sapi_name()!="cli") {
@@ -66,7 +67,7 @@ class DogReader {
             'LongName' =>   array (  -4,  -1, "s", "NombreLargo","`NombreLargo` varchar(255) DEFAULT NULL, "), // dog pedigree long name
             'Gender' =>     array (  -5,  -1, "s", "Genero",    " `Genero` varchar(16) DEFAULT NULL, "), // M, F, Male/Female
             'Breed' =>      array (  -6,  -1, "s", "Raza",      " `Raza` varchar(255) DEFAULT NULL, "), // dog breed, optional
-            'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '--------', "), // dog license. required for A2-A3; else optional
+            'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '--------', "), // dog license. required for A2-A3;
             'KC_ID' =>      array (  -8,  -1, "s", "LOE_RRC",   " `LOE_RRC` varchar(255) DEFAULT NULL, "), // LOE_RRC kennel club dog id
             'Category' =>   array (  -9,   1, "s", "Categoria", " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
             'Grade' =>       array (  -10,  1, "s", "Grado",     " `Grado` varchar(16) DEFAULT '-', "), // required
@@ -279,8 +280,8 @@ class DogReader {
 
         $a=$this->myDBObject->conn->real_escape_string($item['NombreClub']);
         // TODO: search and handle also club's longnames
-        $this->saveStatus("Importing club '$a'");
-        if ($this->blindMode==0) $search=$this->myDBObject->__select("*","Clubes","( Nombre LIKE '%$a%')","","");
+        $this->saveStatus("Analyzing club '$a'");
+        if ($this->myOptions['Blind']==0) $search=$this->myDBObject->__select("*","Clubes","( Nombre LIKE '%$a%')","","");
         else                     $search=$this->myDBObject->__select("*","Clubes","( Nombre = '$a')","","");
         if ( !is_array($search) ) return "findAndSetClub(): Invalid search term: '$a'"; // invalid search. mark error
         if ($search['total']==0) {
@@ -292,9 +293,14 @@ class DogReader {
         // arriving here means match found. So replace all instances with found data and return to continue import
         $t=TABLE_NAME;
         $i=$search['rows'][0]['ID']; // Club ID
-        $n=$search['rows'][0]['Nombre']; // Club Name
-        $this->myLogger->trace("Found club '$a' => Name:$n ID:$i");
-        $str="UPDATE $t SET ClubID=$i, NombreClub='$n' WHERE (NombreClub = '$a')";
+        $nombre=$this->myDBObject->conn->real_escape_string($search['rows'][0]['Nombre']); // Club Name
+        if ($this->myOptions['Blind']!=0) {
+            // check precedence on DB or Excel
+            if ($this->myOptions['DBPriority']==0) $nombre= $a; // tomamos el nombre del guia del excel
+            // check precedence on DB or Excel
+            if ($this->myOptions['WordUpperCase']!=0) $nombre= ucwords(strtolower($nombre)); // formato mayuscula inicial
+        }
+        $str="UPDATE $t SET ClubID=$i, NombreClub='$nombre' WHERE (NombreClub = '$a')";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetClub(): update club '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
         return true; // tell parent item found. proceed with next
@@ -305,21 +311,23 @@ class DogReader {
         $t=TABLE_NAME;
         // notice that arriving here means all clubs has been parsed and analyzed
         $a=$this->myDBObject->conn->real_escape_string($item['NombreGuia']);
-        $this->saveStatus("Importing handler '$a'");
+        $this->saveStatus("Analyzing handler '$a'");
         $f=$this->federation->get('ID');
-        if ($this->blindMode==0)
+        if ($this->myOptions['Blind']==0)
                 $search=$this->myDBObject->__select("*","Guias","( Nombre LIKE '%$a%' ) AND ( Federation = $f ) ","","");
         else    $search=$this->myDBObject->__select("*","Guias","( Nombre = '$a' ) AND ( Federation = $f ) ","","");
         if ( !is_array($search) ) return "findAndSetHandler(): Invalid search term: '$a'"; // invalid search. mark error
         if ($search['total']==0) {
-            if ($this->blindMode==0) return false;
+            if ($this->myOptions['Blind']==0) return false;
             $c=$item['ClubID'];
             // if not found and in blind mode create handler "on the fly"
-            $str="INSERT INTO Guias (Nombre,Club,Federation) VALUES ( '$a',$c,$f)";
+            $nombre=$a;
+            if ($this->myOptions['WordUpperCase']!=0) $nombre=ucwords(strtolower($a));
+            $str="INSERT INTO Guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetHandler(): blindInsertGuia '$a' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
-            $str="UPDATE $t SET HandlerID=$id WHERE (NombreGuia = '$a')";
+            $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '$a')";
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
             return true; // tell parent item found. proceed with next
@@ -328,9 +336,15 @@ class DogReader {
             // find right entry. if not found ask user
             if ($search['rows'][$index]['Club']!=$item['ClubID']) continue;
             // arriving here means match found. So replace all instances with found data and return to continue import
-            $i=$search['rows'][$index]['ID']; // id del guia
-            $n=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Nombre']); // nombre del guia
-            $str="UPDATE $t SET HandlerID=$i, NombreGuia='$n' WHERE (NombreGuia = '$a')"; // exact match
+            $id=$search['rows'][$index]['ID']; // id del guia
+            $nombre= $this->myDBObject->conn->real_escape_string($search['rows'][$index]['Nombre']); // nombre del guia (DB)
+            if ($this->myOptions['Blind']!=0) {
+                // check precedence on DB or Excel
+                if ($this->myOptions['DBPriority']==0) $nombre= $a; // tomamos el nombre del guia del excel
+                // take care on word uppercase handling
+                if ($this->myOptions['WordUpperCase']!=0) $nombre= ucwords(strtolower($nombre)); // formato mayuscula inicial
+            }
+            $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '$a')"; // exact match
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
             return true; // tell parent item found. proceed with next
@@ -339,30 +353,65 @@ class DogReader {
         return $search;
     }
 
+    /**
+     * routine to mix db data and excel data in blind mode
+     * @param $dbdata
+     * @param $filedata
+     * @return string
+     */
+    private function import_mixData($dbdata,$filedata) {
+        // dbdata is already escaped, so do only on $filedata
+        $filedata=$this->myDBObject->conn->real_escape_string($filedata);
+        // handle word uppercase
+        if($this->myOptions['WordUpperCase']!=0) {
+            $dbdata=ucwords(strtolower($dbdata));
+            $filedata=ucwords(strtolower($filedata));
+        }
+        // take care on precedence and empty fields
+        if($this->myOptions['DBPriority']==0) {
+            if ($this->myOptions['IgnoreWhiteSpaces']!=0) return $dbdata;
+            if ($dbdata!="") return $dbdata;
+            return $filedata;
+        } else {
+            if ($this->myOptions['IgnoreWhiteSpaces']!=0) return $filedata;
+            if ($filedata!="") return $filedata;
+            return $dbdata;
+        }
+    }
+
     private function findAndSetDog($item) {
         $this->myLogger->enter();
         $t=TABLE_NAME;
         // notice that arriving here means all clubs and handlers has been parsed and analyzed
         // TODO: search and handle also dog's long (pedigree) name
         $a=$this->myDBObject->conn->real_escape_string($item['Nombre']);
-        $this->saveStatus("Importing dog '$a'");
+        $this->saveStatus("Analyzing dog '$a'");
         $f=$this->federation->get('ID');
-        if ($this->blindMode==0)
+        if ($this->myOptions['Blind']==0)
              $search=$this->myDBObject->__select("*","Perros","( Nombre LIKE '%$a%') AND ( Federation = $f ) ","","");
         else $search=$this->myDBObject->__select("*","Perros","( Nombre = '$a') AND ( Federation = $f ) ","","");
         if ( !is_array($search) ) return "findAndSetDog(): Invalid search term: '$a'"; // invalid search. mark error
         if ($search['total']==0) {
-            if ($this->blindMode==0) return false;  // no search result; ask user to select or create as new
+            if ($this->myOptions['Blind']==0) return false;  // no search result; ask user to select or create as new
             // if not found and in blind mode create handler "on the fly"
             $h=$item['HandlerID'];
             $c=$item['Categoria'];
             $g=$item['Grado'];
-            $r=isset($item['Raza'])?$this->myDBObject->conn->real_escape_string($item['Raza']):"";
-            $str="INSERT INTO Perros (Nombre,Guia,Categoria,Grado, Raza,Federation) VALUES ( '$a',$h,'$c','$g','$r',$f)";
+            $raza=isset($item['Raza'])?$this->myDBObject->conn->real_escape_string($item['Raza']):"";
+            $nlargo=isset($item['NombreLargo'])?$this->myDBObject->conn->real_escape_string($item['NombreLargo']):"";
+            $nombre=$a;
+            // check precedence on DB or Excel
+            if ($this->myOptions['WordUpperCase']!=0) { // formato mayuscula inicial
+                $nombre= ucwords(strtolower($nombre));
+                $raza= ucwords(strtolower($raza));
+                $nlargo= ucwords(strtolower($nlargo));
+            }
+            $str="INSERT INTO Perros (Nombre,NombrLargo,Guia,Categoria,Grado, Raza,Federation)".
+                 " VALUES ( '$nombre','$nlargo',$h,'$c','$g','$raza',$f)";
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
-            $str="UPDATE $t SET DogID=$id WHERE (Nombre = '$a')";
+            $str="UPDATE $t SET DogID=$id, Nombre='$nombre',Raza='$raza',NombreLargo='$nlargo' WHERE (Nombre = '$a')";
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetDog(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
             return true; // tell parent item found. proceed with next
@@ -371,9 +420,23 @@ class DogReader {
             // find right entry. if not found ask user
             if ($search['rows'][$index]['Guia']!=$item['HandlerID']) continue;
             // arriving here means match found. So replace all instances with found data and return to continue import
-            $i=$search['rows'][$index]['ID']; // id del guia
-            $n=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Nombre']); // nombre del guia
-            $str="UPDATE $t SET DogID=$i, Nombre='$n' WHERE (Nombre = '$a')"; // Pending: add breed, cat, grade and so
+            $i=$search['rows'][$index]['ID']; // id del perro
+            $nombre=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Nombre']); // nombre del perro
+            $nlargo=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['NombreLargo']); // nombre largo
+            $raza=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Raza']); // raza
+            $lic=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Licencia']); // licencia
+            $cat=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Categoria']); // licencia
+            $grad=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Grado']); // licencia
+            if ($this->myOptions['Blind']) {
+                $nombre=$this->import_mixData($nombre,$item['Nombre']);
+                $nlargo=$this->import_mixData($nombre,isset($item['NombreLargo'])?$item['NommbreLargo']:"");
+                $raza=$this->import_mixData($nombre,isset($item['Raza'])?$item['Raza']:"");
+                $lic=$this->import_mixData($nombre,isset($item['Licencia'])?$item['Licencia']:"");
+                $cat=$this->import_mixData($nombre,$item['Categoria']);
+                $grad=$this->import_mixData($nombre,$item['Grado']);
+            }
+            $str="UPDATE $t SET DogID=$i, Nombre='$nombre', NombreLargo='$nlargo', Raza='$raza', Licencia='$lic', Categoria='$cat', Grado='$grad'".
+                "WHERE (Nombre = '$a')";
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetDog(): update dog '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
             return true; // tell parent item found. proceed with next
@@ -435,10 +498,40 @@ class DogReader {
         return array('operation'=> 'ignore', 'success'=> 'done');
     }
 
+    /**
+     * When parse, analyze and mix is done, time to update database with final results
+     * @return array|string
+     */
     public function beginImport() {
-        // start import process
-        $this->saveStatus("Begin importing analyzed data");
-        // TODO: here comes import process. In blindMode, just return
+        $t=TABLE_NAME;
+        $this->saveStatus("Import done. Updating database with final results");
+
+        if ($this->myOptions['Blind']==0) { // do not update clubs in blind mode
+            // import clubes data
+            $this->saveStatus("Importing resulting clubs data");
+            $str="UPDATE Clubes INNER JOIN $t ON $t.ClubID = Clubes.ID SET Clubes.Nombre = $t.Nombre ";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "beginImport(clubes): update error:".$this->myDBObject->conn->error;
+        }
+
+        // import handler data
+        $this->saveStatus("Importing resulting handler data");
+        $str="UPDATE Guias INNER JOIN $t ON $t.HandlerID = Guias.ID SET Guias.Nombre = $t.NombreGuia ";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "beginImport(handlers): update error:".$this->myDBObject->conn->error;
+
+        // import dog data
+        $this->saveStatus("Importing resulting handler data");
+        $str="UPDATE Perros INNER JOIN $t ON $t.DogID = Perros.ID ".
+            "Set Perros.Nombre = $t.Nombre ".
+            ", Perros.NombreLargo = $t.NombreLargo ".
+            ", Perros.Raza = $t.Raza ".
+            ", Perros.Licencia = $t.Licencia ".
+            ", Perros.Categoria = $t.Categoria ".
+            ", Perros.Grado = $t.Grado ".
+            ", Perros.Guia = $t.Guia ";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "beginImport(dogs): update error:".$this->myDBObject->conn->error;
         return array( 'operation'=>'import','success'=>'ok');
     }
 
@@ -471,10 +564,15 @@ if (php_sapi_name() != "cli" ) {
     try {
         // 	Creamos generador de documento
         $fed=http_request("Federation","i",-1);
-        $blind=http_request("Blind","i",0);
+        $options=array();
+        $options['Blind']=http_request("Blind","i",0);
+        $options['DBPriority']=http_request("DBPriority","i",1);
+        $options['WordUpperCase']=http_request("WordUpperCase","i",1);
+        $options['IgnoreWhiteSpaces']=http_request("IgnoreWhitespaces","i",1);
+
         if ($fed<0) throw new Exception("dog_reader::ImportExcel(): invalid Federation ID: $fed");
 
-        $dr=new DogReader($fed,$blind);
+        $dr=new DogReader($fed,$options);
         $result="";
         switch ($op) {
             case "upload":
