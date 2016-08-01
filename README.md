@@ -23,7 +23,7 @@ Features:
 - Export contest results in MS-Excel format to ease later data management
 - Import contests inscriptions from Excel(CSV) files*
 - Support for non-FCI federations (RFEC, UCA) and International (countries instead clubs) Contests
-- Internationalization (Actually English/Spanish/German. more languages incoming)
+- Internationalization (Actually English/Spanish/German/Hungarian more languages incoming)
 - Auto-update, backup/recovery tools. Fully configurable
 
 (*) Some of these features are still under development :-(
