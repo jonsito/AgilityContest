@@ -26,10 +26,24 @@ variables used to store import status
  */
 var ac_import = {
     'progress_status': "running",
-    'blind': 0
+    'blind': 1, // default blind (non interactive ) import mode
+    'word_upercase':1, // on blind mode, uppercase words in DB
+    'db_priority':1, // blind mode: on match use database data instead of excel data
+    'ignore_spaces':1 // blind mode: blank field are ignored, or used to override DB data
 };
 
 /*************************************** importacion de perros desde fichero excel **************************/
+
+/**
+ * Show/hide Blind options according checkbox status
+ */
+function import_showHideBlind() {
+    ac_import.blind=$('#perros-excelBlindMode').prop('checked')?1:0;
+    ac_import.db_priority=$('input[name=excelPreference]:checked').val();
+    ac_import.word_upercase=$('input[name=excelUpperCase]:checked').val();
+    ac_import.ignore_spaces=$('input[name=excelEmpty]:checked').val();
+    $("#perros-excelBlindOptions").css("display",(ac_import.blind!=0)?"inherit":"none");
+}
 
 /**
  * prepare importclubes-dialog to ask for action when club not found
@@ -131,7 +145,9 @@ function perros_importSendTask(params) {
     var dlg=$('#perros-excel-dialog');
     params.Federation   =   workingData.federation;
     params.Blind        =   ac_import.blind;
-    if (params.Operation!='progress') console.log("send: "+params.Operation);
+    params.DBPriority   =   ac_import.db_priority;
+    params.WordUpperCase=   ac_import.word_upercase;
+    params.IgnoreWhitespaces=ac_import.ignore_spaces;
     $.ajax({
         type:'POST', // use post to send file
         url:"/agility/server/excel/dog_reader.php",
@@ -296,12 +312,22 @@ function importAction(item,action) {
 function perros_excelImport() {
     var data=$('#perros-excelData').val();
     ac_import.blind=$('#perros-excelBlindMode').prop('checked')?1:0;
+    ac_import.db_priority=$('input[name=excelPreference]:checked').val();
+    ac_import.word_upercase=$('input[name=excelUpperCase]:checked').val();
+    ac_import.ignore_spaces=$('input[name=excelEmpty]:checked').val();
     if (data=="") {
         $.messager.alert("<?php _e('Error');?>","<?php _e('No import file selected');?>",'error');
-    } else {
-        $('#perros-excel-progressbar').progressbar('setValue','Upload');
-        return perros_importSendTask({ Operation: 'upload', Data: data});
+        return;
     }
+    if (ac_import.blind==0) {
+        $.messager.alert(
+            "<?php _e('Error');?>",
+            "<?php _e('Interactive import is not yet available');?>. "+"<?php _e('Sorry')?>",
+            'error');
+        return;
+    }
+    $('#perros-excel-progressbar').progressbar('setValue','Upload');
+    return perros_importSendTask({ Operation: 'upload', Data: data});
 }
 
 // retrieve excel file for imput file button and store into a temporary variable
