@@ -183,7 +183,6 @@ function perros_importHandleResult(data) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
         dlg.dialog('close');
     }
-    // if (data.operation!='progress') console.log("recv: "+data.operation);
     switch (data.operation){
         case "upload":
             pb.progressbar('setValue','<?php _e("Checking Excel File");?> : '); // beware ' : ' sequence
@@ -267,6 +266,7 @@ function perros_importHandleResult(data) {
             break;
         default:
             $.messager.alert("Excel import error","Invalid operation received from server: "+data.operation );
+            ac_import.progress_status==='paused';
             dlg.dialog('close');
     }
     return false;

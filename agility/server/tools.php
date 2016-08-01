@@ -111,11 +111,23 @@ function escapeString($str) {
 	return $res;
 }
 
+/**
+ * capitalize first letter of every word utf8 strings
+ * notice: ucwords() doesn't work with utf8
+ * @param $str
+ */
+function toUpperCaseWords($str) {return mb_convert_case($str, MB_CASE_TITLE, "UTF-8"); }
+
+/**
+ * Parse an string and return matching boolean value
+ * @param {string} $var  text to be evaluated
+ * @return bool|string true, false,or same text if cannot decide
+ */
 function toBoolean($var) {
 	if (is_null($var)) return false;
 	if (is_bool($var)) return $var;
 	if (is_string($var)) $var=strtolower(trim($var));
-	$t=array (1,true,"1","t","true","on","s","si","y","yes","ja","oui");
+	$t=array (1,true,"1","t","true","on","s","si","y","yes","ja","oui","da");
 	if ( in_array($var,$t) ) return true;
 	return false;
 }

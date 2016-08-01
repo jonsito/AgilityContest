@@ -128,23 +128,27 @@ $config =Config::getInstance();
 <?php require_once("dialogs/dlg_clubes.inc");?>
     
 <script type="text/javascript">
-        
-        // tell jquery to convert declared elements to jquery easyui Objects
-		$('#perros-excel-dialog').dialog( {
-			title:'<?php _e('Excel import'); ?>',
-			closed:true,
-			modal:true,
-			buttons:'#perros-excel-buttons',
-			iconCls:'icon-table'
-		} );
 
-		$('#perros-excel-progressbar').progressbar({
-			width: '70%',
-			value: 0,
-			//text: '{value} '+'<?php _e("entries"); ?>'
-			text: '{value}'
-		});
-		$('#perros-excelFederation').html(workingData.datosFederation.LongName);
+	$('#perros-excel-progressbar').progressbar({
+		width: '70%',
+		value: 0,
+		//text: '{value} '+'<?php _e("entries"); ?>'
+		text: '{value}'
+	});
+
+	$('#perros-excelFederation').html(workingData.datosFederation.LongName);
+
+    // tell jquery to convert declared elements to jquery easyui Objects
+	$('#perros-excel-dialog').dialog( {
+		title:'<?php _e('Excel import'); ?>',
+		closed:true,
+		modal:true,
+		buttons:'#perros-excel-buttons',
+		iconCls:'icon-table',
+		onOpen: function() {
+			$('#perros-excel-progressbar').progressbar('setValue',"");
+		}
+	} );
 
         // datos de la tabla de perros
         // - tabla
