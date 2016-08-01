@@ -64,11 +64,11 @@ class DogReader {
             // 'ID' =>      array (  -1,  0,  "i", "ID",        " `ID` int(4) UNIQUE NOT NULL, "), // automatically added
             'DogID' =>      array (  -2,  0,  "i", "DogID",     " `DogID` int(4) NOT NULL DEFAULT 0, "), // to be filled by importer
             'Name'   =>      array (  -3,  1,  "s","Nombre",    " `Nombre` varchar(255) NOT NULL, "), // Dog name
-            'LongName' =>   array (  -4,  -1, "s", "NombreLargo","`NombreLargo` varchar(255) DEFAULT NULL, "), // dog pedigree long name
-            'Gender' =>     array (  -5,  -1, "s", "Genero",    " `Genero` varchar(16) DEFAULT NULL, "), // M, F, Male/Female
-            'Breed' =>      array (  -6,  -1, "s", "Raza",      " `Raza` varchar(255) DEFAULT NULL, "), // dog breed, optional
-            'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '--------', "), // dog license. required for A2-A3;
-            'KC_ID' =>      array (  -8,  -1, "s", "LOE_RRC",   " `LOE_RRC` varchar(255) DEFAULT NULL, "), // LOE_RRC kennel club dog id
+            'LongName' =>   array (  -4,  -1, "s", "NombreLargo","`NombreLargo` varchar(255) DEFAULT '', "), // dog pedigree long name
+            'Gender' =>     array (  -5,  -1, "s", "Genero",    " `Genero` varchar(16) DEFAULT '', "), // M, F, Male/Female
+            'Breed' =>      array (  -6,  -1, "s", "Raza",      " `Raza` varchar(255) DEFAULT '', "), // dog breed, optional
+            'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '', "), // dog license. required for A2-A3;
+            'KC_ID' =>      array (  -8,  -1, "s", "LOE_RRC",   " `LOE_RRC` varchar(255) DEFAULT '', "), // LOE_RRC kennel club dog id
             'Category' =>   array (  -9,   1, "s", "Categoria", " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
             'Grade' =>       array (  -10,  1, "s", "Grado",     " `Grado` varchar(16) DEFAULT '-', "), // required
             // handler related data
@@ -140,10 +140,8 @@ class DogReader {
             throw new Exception("Cannot perform import process: database::dbConnect()");
         // $str="DELETE FROM TABLE {$this->tablename} IF EXISTS";
         $str="CREATE TABLE {$this->tablename} (";
-        foreach ($this->fieldList as $key => $val) {
-            if ( ($val[1]!=0) && ($val[0]<0) ) continue; // field neither required nor provided
-            $str .=$val[4];
-        }
+        // include every fields, either are declared in excel file or not
+        foreach ($this->fieldList as $key => $val)  $str .=$val[4];
         $str .=" ID int(4) UNIQUE NOT NULL "; // to get an unique id in database
         $str .=");";
         $res=$rconn->query($str);
@@ -406,7 +404,7 @@ class DogReader {
                 $raza= ucwords(strtolower($raza));
                 $nlargo= ucwords(strtolower($nlargo));
             }
-            $str="INSERT INTO Perros (Nombre,NombrLargo,Guia,Categoria,Grado, Raza,Federation)".
+            $str="INSERT INTO Perros (Nombre,NombreLargo,Guia,Categoria,Grado, Raza,Federation)".
                  " VALUES ( '$nombre','$nlargo',$h,'$c','$g','$raza',$f)";
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
