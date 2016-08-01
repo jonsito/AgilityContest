@@ -342,20 +342,7 @@ class DogReader {
                 $search=$this->myDBObject->__select("*","Guias","( Nombre LIKE '%$a%' ) AND ( Federation = $f ) ","","");
         else    $search=$this->myDBObject->__select("*","Guias","( Nombre = '$a' ) AND ( Federation = $f ) ","","");
         if ( !is_array($search) ) return "findAndSetHandler(): Invalid search term: '$a'"; // invalid search. mark error
-        if ($search['total']==0) {
-            if ($this->myOptions['Blind']==0) return false;
-            // if not found and in blind mode create handler "on the fly"
-            $nombre=$a;
-            if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($a);
-            $str="INSERT INTO Guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";
-            $res=$this->myDBObject->query($str);
-            if (!$res) return "findAndSetHandler(): blindInsertGuia '$a' error:".$this->myDBObject->conn->error;
-            $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
-            $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '$a') AND (ClubID=$c)";
-            $res=$this->myDBObject->query($str);
-            if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
-            return true; // tell parent item found. proceed with next
-        } // no search result; ask user to select or create as new
+        // parse found entries looking for match
         for ($index=0;$index<$search['total'];$index++) {
             // find right entry. if not found ask user
             if ($search['rows'][$index]['Club']!=$item['ClubID']) continue;
@@ -370,8 +357,23 @@ class DogReader {
             if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
             return true; // tell parent item found. proceed with next
         }
-        // arriving here means item(s) found, but none compatible. Ask user or throw error if blind mode
-        return ($this->myOptions['Blind']==0)? $search: "Cannot blindly import Handler: {$item['NombreGuia']} - {$item['NombreClub']}";
+        // no entries, or no matches or cannot decide.
+        if ( ($search['total']!=0) && ($this->myOptions['Blind']==0) ) return $search; // cannot decide: ask user
+        if ( ($search['total']==0) && ($this->myOptions['Blind']==0) ) return false;  // no search: ask user to select or create as new
+
+        // arriving here means create item,
+        // either cause not found in database
+        // or blind mode and cannot find exact match in found entries
+        $nombre=$a;
+        if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($a);
+        $str="INSERT INTO Guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "findAndSetHandler(): blindInsertGuia '$a' error:".$this->myDBObject->conn->error;
+        $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
+        $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '$a') AND (ClubID=$c)";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
+        return true; // tell parent item found (created). proceed with next
     }
 
     private function findAndSetDog($item) {
@@ -387,31 +389,8 @@ class DogReader {
              $search=$this->myDBObject->__select("*","Perros","( Nombre LIKE '%$a%') AND ( Federation = $f ) ","","");
         else $search=$this->myDBObject->__select("*","Perros","( Nombre = '$a') AND ( Federation = $f ) ","","");
         if ( !is_array($search) ) return "findAndSetDog(): Invalid search term: '$a'"; // invalid search. mark error
-        if ($search['total']==0) {
-            if ($this->myOptions['Blind']==0) return false;  // no search result; ask user to select or create as new
-            // if not found and in blind mode create handler "on the fly"
-            $c=$item['Categoria'];
-            $g=$item['Grado'];
-            $s=$item['Genero'];
-            $raza=isset($item['Raza'])?$this->myDBObject->conn->real_escape_string($item['Raza']):"";
-            $nlargo=isset($item['NombreLargo'])?$this->myDBObject->conn->real_escape_string($item['NombreLargo']):"";
-            $nombre=$a;
-            // check precedence on DB or Excel
-            if ($this->myOptions['WordUpperCase']!=0) { // formato mayuscula inicial
-                $nombre= toUpperCaseWords($nombre);
-                $raza= toUpperCaseWords($raza);
-                $nlargo= toUpperCaseWords($nlargo);
-            }
-            $str="INSERT INTO Perros (Nombre,NombreLargo,Guia,Categoria,Grado, Raza,Genero,Federation)".
-                 " VALUES ( '$nombre','$nlargo',$h,'$c','$g','$raza','$s',$f)";
-            $res=$this->myDBObject->query($str);
-            if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
-            $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
-            $str="UPDATE $t SET DogID=$id, Nombre='$nombre',Raza='$raza',NombreLargo='$nlargo' WHERE (Nombre = '$a') AND (HandlerID=$h)";
-            $res=$this->myDBObject->query($str);
-            if (!$res) return "findAndSetDog(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
-            return true; // tell parent item found. proceed with next
-        }
+
+        // parse found entries looking for match
         for ($index=0;$index<$search['total'];$index++) {
             // find right entry. if not found ask user
             if ($search['rows'][$index]['Guia']!=$item['HandlerID']) continue;
@@ -439,8 +418,34 @@ class DogReader {
             if (!$res) return "findAndSetDog(): update dog '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
             return true; // tell parent item found. proceed with next
         }
-        // arriving here means item(s) found, but none compatible. Ask user or throw error if blind mode
-        return ($this->myOptions['Blind']==0)? $search: "Cannot blindly import Dog: {$item['Nombre']} - {$item['NombreGuia']}";
+        // no entries, or no matches or cannot decide.
+        if ( ($search['total']!=0) && ($this->myOptions['Blind']==0) ) return $search; // cannot decide: ask user
+        if ( ($search['total']==0) && ($this->myOptions['Blind']==0) ) return false;  // no search: ask user to select or create as new
+
+        // arriving here means create item,
+        // either cause not found in database
+        // or blind mode and cannot find exact match in found entries
+        $c=$item['Categoria'];
+        $g=$item['Grado'];
+        $s=$item['Genero'];
+        $raza=isset($item['Raza'])?$this->myDBObject->conn->real_escape_string($item['Raza']):"";
+        $nlargo=isset($item['NombreLargo'])?$this->myDBObject->conn->real_escape_string($item['NombreLargo']):"";
+        $nombre=$a;
+        // check precedence on DB or Excel
+        if ($this->myOptions['WordUpperCase']!=0) { // formato mayuscula inicial
+            $nombre= toUpperCaseWords($nombre);
+            $raza= toUpperCaseWords($raza);
+            $nlargo= toUpperCaseWords($nlargo);
+        }
+        $str="INSERT INTO Perros (Nombre,NombreLargo,Guia,Categoria,Grado, Raza,Genero,Federation)".
+            " VALUES ( '$nombre','$nlargo',$h,'$c','$g','$raza','$s',$f)";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
+        $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
+        $str="UPDATE $t SET DogID=$id, Nombre='$nombre',Raza='$raza',NombreLargo='$nlargo' WHERE (Nombre = '$a') AND (HandlerID=$h)";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "findAndSetDog(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
+        return true; // tell parent item found (created). proceed with next
     }
 
     /**
@@ -515,14 +520,14 @@ class DogReader {
 
         // import handler data
         $this->saveStatus("Importing resulting handlers data");
-        $str="UPDATE Guias INNER JOIN $t ON $t.HandlerID = Guias.ID SET Guias.Nombre = $t.NombreGuia ";
+        $str="UPDATE Guias INNER JOIN $t ON ($t.HandlerID = Guias.ID) AND ($t.ClubID = Guias.Club) SET Guias.Nombre = $t.NombreGuia ";
         $res=$this->myDBObject->query($str);
         if (!$res) return "beginImport(handlers): update error:".$this->myDBObject->conn->error;
 
         // import dog data
         $this->saveStatus("Importing resulting dogs data");
-        $str="UPDATE Perros INNER JOIN $t ON $t.DogID = Perros.ID ".
-            "Set Perros.Nombre = $t.Nombre ".
+        $str="UPDATE Perros INNER JOIN $t ON ($t.DogID = Perros.ID) AND ($t.HandlerID = Perros.Guia) ".
+            "SET Perros.Nombre = $t.Nombre ".
             ", Perros.NombreLargo = $t.NombreLargo ".
             ", Perros.Raza = $t.Raza ".
             ", Perros.Genero = $t.Genero ".
