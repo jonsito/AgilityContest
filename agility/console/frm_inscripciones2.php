@@ -101,6 +101,9 @@ $config =Config::getInstance();
     	<a id="inscripciones-reorderBtn" href="#" class="easyui-linkbutton"
     		data-options="iconCls:'icon-updown'" 
     		onclick="reorderInscripciones(workingData.prueba)"><?php _e('Reorder'); ?></a>
+   		<a id="inscripciones-excelBtn" href="#" class="easyui-linkbutton"
+		   data-options="iconCls:'icon-db_restore'"
+		   onclick="importExportInscripciones()"><?php _e('Import/Export'); ?></a>
     	<a id="inscripciones-teamBtn" href="#" class="easyui-linkbutton"
     		data-options="iconCls:'icon-huella'" 
     		onclick="openTeamWindow(workingData.prueba)"><?php _e('Teams'); ?></a>
@@ -232,6 +235,7 @@ addTooltip($('#inscripciones-newBtn').linkbutton(),'<?php _e("Register new inscr
 addTooltip($('#inscripciones-editBtn').linkbutton(),'<?php _e("Modify selected inscription");?>');
 addTooltip($('#inscripciones-delBtn').linkbutton(),'<?php _e("Remove selected inscription from database");?>');
 addTooltip($('#inscripciones-setBtn').linkbutton(),'<?php _e("Change dorsal number for selected inscription");?>');
+addTooltip($('#inscripciones-excelBtn').linkbutton(),'<?php _e("Import/Export Inscriptions from/to Excel file"); ?>');
 addTooltip($('#inscripciones-reorderBtn').linkbutton(),'<?php _e("Reassign dorsals ordering by Club,Category,Grade, and Name");?>');
 addTooltip($('#inscripciones-teamBtn').linkbutton(),'<?php _e("Open Team handling window for selected journey");?>');
 addTooltip($('#inscripciones-printBtn').linkbutton(),'<?php _e("Print inscriptions list on this contest");?>');

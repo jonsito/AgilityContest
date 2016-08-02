@@ -257,6 +257,46 @@ function canInscribe(jornada) {
 	return result;
 }
 
+function importExportInscripciones() {
+	var cb='<input type="text" id="excel-selClub" class="easyui-combobox" name="excel-selClub" />';
+	var options= {
+		0: '<?php _e("Generate empty excel inscription template");?>',
+		1: '<?php _e("Generate inscription template for club");?>: '+cb,
+		2: '<?php _e("Export current inscriptions to Excel file");?>',
+		3: '<?php _e("Import inscriptions from Excel file");?>'
+	};
+	$.messager.radio(
+		'<?php _e('Excel import/export'); ?>',
+		'<?php _e('Select from available operations'); ?>:',
+		options,
+		function(r) {
+			switch(parseInt(3)){
+			case 0: break;
+			case 1: break;
+			case 2: break;
+			case 3:
+				$.fileDownload(
+					'/agility/server/excel/inscription_writer.php',
+					{
+						httpMethod: 'GET',
+						data: {	Prueba: workingData.prueba },
+						preparingMessageHtml: '<?php _e("Creating Excel file. Please wait"); ?> ...',
+						failMessageHtml: '<?php _e("There was a problem generating your report, please try again"); ?>.'
+					}
+				);
+				break
+			}
+		}
+	).window('resize',{width:530});
+	$('#excel-selClub').combobox({
+		width:165,
+		valueField:'ID',
+		textField:'Nombre',
+		url:'/agility/server/database/clubFunctions.php?Operation=enumerate&Combo=1&Federation='+workingData.federation
+	});
+	return false; //this is critical to stop the click event which will trigger a normal file download!
+}
+
 /**
  * Imprime las inscripciones
  * @returns {Boolean} true on success, otherwise false
@@ -264,7 +304,7 @@ function canInscribe(jornada) {
 function printInscripciones() {
 	// en el caso de que haya alguna jornada seleccionada.
 	// anyadir al menu la posibilidad de imprimir solo los inscritos en dicha jornada
-	var options= { 0:'<?php _e('Simple listing'); ?>',1:'<?php _e('Catalogue'); ?>',2:'<?php _e('Statistics'); ?>',4:'<?php _e("Export to Excel");?>'};
+	var options= { 0:'<?php _e('Simple listing'); ?>',1:'<?php _e('Catalogue'); ?>',2:'<?php _e('Statistics'); ?>'};
 	// buscamos la jornada seleccionada
 	var row=$('#inscripciones-jornadas').datagrid('getSelected');
     var jornada=0;
@@ -279,17 +319,14 @@ function printInscripciones() {
 		options,
 		function(r){
 			if (!r) return;
-			var opt=parseInt(r);
-			var url='/agility/server/pdf/print_inscritosByPrueba.php';
-			if (opt==4) url='/agility/server/excel/inscription_writer.php';
 			$.fileDownload(
-					url,
+				'/agility/server/pdf/print_inscritosByPrueba.php',
 					{
 						httpMethod: 'GET',
 						data: {
                             Prueba: workingData.prueba,
                             Jornada: jornada,
-                            Mode: opt
+                            Mode: parseInt(r)
                         },
 						preparingMessageHtml: '<?php _e("Printing inscriptions. Please wait"); ?> ...',
 						failMessageHtml: '<?php _e("There was a problem generating your report, please try again"); ?>.'

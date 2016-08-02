@@ -228,6 +228,7 @@ class Clubes extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search query string
 		$q=http_request("q","s","");
+        $c=http_request("Combo","i",0);
 		// evaluate federation for club/country filtering
 		$fedstr = "1";
 		if ($this->curFederation!=null) {
@@ -246,7 +247,7 @@ class Clubes extends DBObject {
 				/* LIMIT */ ""
 		);
 		$this->myLogger->leave();
-		return $result;
+		return ($c==0)?$result:$result['rows']; // in combo mode just result rows
 	}
 
     /**
