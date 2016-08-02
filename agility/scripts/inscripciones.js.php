@@ -270,22 +270,23 @@ function importExportInscripciones() {
 		'<?php _e('Select from available operations'); ?>:',
 		options,
 		function(r) {
-			switch(parseInt(3)){
-			case 0: break;
-			case 1: break;
-			case 2: break;
-			case 3:
-				$.fileDownload(
-					'/agility/server/excel/inscription_writer.php',
-					{
-						httpMethod: 'GET',
-						data: {	Prueba: workingData.prueba },
-						preparingMessageHtml: '<?php _e("Creating Excel file. Please wait"); ?> ...',
-						failMessageHtml: '<?php _e("There was a problem generating your report, please try again"); ?>.'
-					}
-				);
-				break
-			}
+            var opt=parseInt(r);
+		    var club= /* opt==1 */ $('#excel-selClub').combobox('getValue'); // on "--sin asignar--" means print inscriptions
+            if (opt==0) club=-1;
+            if (opt==2) club=0;
+            if (opt!=3) { // export
+                $.fileDownload(
+                    '/agility/server/excel/inscription_writer.php',
+                    {
+                        httpMethod: 'GET',
+                        data: {	'Prueba': workingData.prueba, 'Club': club },
+                        preparingMessageHtml: '<?php _e("Creating Excel file. Please wait"); ?> ...',
+                        failMessageHtml: '<?php _e("There was a problem generating your report, please try again"); ?>.'
+                    }
+                );
+            } else { // import
+                alert("import next to be ready. sorry");
+            }
 		}
 	).window('resize',{width:530});
 	$('#excel-selClub').combobox({

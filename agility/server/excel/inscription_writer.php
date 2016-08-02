@@ -30,6 +30,7 @@ require_once(__DIR__."/common_writer.php");
 class Excel_Inscripciones extends XLSX_Writer {
 
 	protected $jornadas=array(); // lista de jornadas de la prueba
+    protected $club=-1; // -1:inscriptiones 0:header x:template for club x
 
     protected $cols = array(
 		'Dorsal',
@@ -47,8 +48,9 @@ class Excel_Inscripciones extends XLSX_Writer {
 	 * @param {int} $prueba Prueba ID
 	 * @throws Exception
 	 */
-	function __construct($prueba) {
+	function __construct($prueba,$club) {
 		parent::__construct("inscriptionlist.xlsx");
+        $this->club=intval($club);
 		setcookie('fileDownload','true',time()+30,"/"); // tell browser to hide "downloading" message box
         $p=new Pruebas("excel_Inscripciones");
         $res=$p->selectByID($prueba);
@@ -79,7 +81,6 @@ class Excel_Inscripciones extends XLSX_Writer {
 		$this->myLogger->enter();
 		$this->createInfoPage(_utf('Inscription List'),$this->prueba['RSCE']);
 		$this->createPruebaInfoPage($this->prueba,$this->jornadas);
-		$insc=new Inscripciones("excel_printInscripciones",$this->prueba['ID']);
 		// evaluate journeys to be added as excel column
 		foreach ($this->jornadas as $jornada) {
 			if ($jornada['Nombre']==='-- Sin asignar --') continue; // skip empty journeys
@@ -98,11 +99,24 @@ class Excel_Inscripciones extends XLSX_Writer {
 		// write header
 		$this->writeTableHeader();
 
-		// retrieve inscription list
-		$lista=$insc->enumerate()['rows'];
+        if ($this->club==-1) return; // just print header
+        $insc=new Inscripciones("excel_printInscripciones",$this->prueba['ID']);
+        if ($this->club==0) { // retrieve inscription list
+            $lista=$insc->enumerate()['rows'];
+        } else { // retrieve dog list from provided club
+            $res=$insc->__select(
+                "*",
+                "PerroGuiaClub",
+                "(Club={$this->club}) && (Federation={$this->prueba['RSCE']})",
+                "Categoria ASC, Grado ASC, Nombre ASC",
+                "");
+            $lista=$res['rows'];
+        }
 		foreach ($lista as $perro) {
+		    if ( ($this->club>0) && ($this->club!=$perro['Club']) ) continue;
+            $strip=($this->club>0)?true:false;
 			$row=array();
-			$row[]=$perro['Dorsal'];
+			$row[]=($this->club>0)? 0 : $perro['Dorsal'];
 			$row[]=$perro['Nombre'];
 			$row[]=$perro['NombreLargo'];
 			$row[]=$perro['Genero'];
@@ -114,11 +128,12 @@ class Excel_Inscripciones extends XLSX_Writer {
 			$row[]=$perro['NombreGuia'];
 			$row[]=$perro['NombreClub'];
 			$row[]=$perro['Pais'];
-			$row[]=($perro['Celo']==1)?"X":"";
-			$row[]=$perro['Observaciones'];
+			$row[]=($this->club>0)? "" : ($perro['Celo']==1)?"X":"";
+			$row[]=($this->club>0)? "" : $perro['Observaciones'];
 			// aniadimos info de jornadas (inscrito/equipo
 			foreach ($this->jornadas as $jornada) {
 				if ($jornada['Nombre']==='-- Sin asignar --') continue; // skip empty journeys
+                if ($this->club>0) { $row[]=""; continue; } // in club template mode just print empty field
 				if ($perro['J'.$jornada['Numero']]==0) { // el perro no esta inscrito en la jornada
 					$row[]="";
 				}
@@ -132,7 +147,7 @@ class Excel_Inscripciones extends XLSX_Writer {
 				}
 			}
 			// finalmente informacion de pago
-			$row[]=$perro['Pagado'];
+			$row[]=($this->club>0)? 0 : $perro['Pagado'];
 			// !!finaly!! add perro to excel table
 			$this->myWriter->addRow($row);
 		}
@@ -143,8 +158,9 @@ class Excel_Inscripciones extends XLSX_Writer {
 // Consultamos la base de datos
 try {
 	// 	Creamos generador de documento
-	$prueba=http_request("Prueba","i",-1);
-	$excel = new Excel_Inscripciones($prueba);
+    $prueba=http_request("Prueba","i",-1);
+    $club=http_request("Club","i",0); // -1:empty template 0:inscriptions x:club template
+	$excel = new Excel_Inscripciones($prueba,$club);
 	$excel->open();
 	$excel->composeTable();
 	$excel->close();
