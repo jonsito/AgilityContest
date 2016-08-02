@@ -5,7 +5,7 @@
  * User: jantonio
  * Date: 2/04/16
  * Time: 16:20
-dog_reader.php
+inscription_reader.php
 
 Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 

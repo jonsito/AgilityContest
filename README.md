@@ -21,7 +21,7 @@ Features:
 - On Screen Display (OSD) support for LiveStream video (needs Video and streaming infrastructure)
 - PDF printout of inscriptions, competition order, results, labels, etc
 - Export contest results in MS-Excel format to ease later data management
-- Import contests inscriptions from Excel(CSV) files*
+- Import contests dogs and inscriptions* from Excel(.xlsx) files
 - Support for non-FCI federations (RFEC, UCA) and International (countries instead clubs) Contests
 - Internationalization (Actually English/Spanish/German/Hungarian more languages incoming)
 - Auto-update, backup/recovery tools. Fully configurable
