@@ -41,16 +41,28 @@ class Inscripciones extends DBObject {
 		$this->pruebaID=$prueba;
 		$this->insertid=0; // initial value
 	}
-	
-	/**
-	 * Create a new inscripcion
-	 * @param {int} perro ID del perro
-	 * @return {string} empty string if ok; else null
-	 */
+
+    /**
+     * Create a new inscripcion
+     * @param {int} perro ID del perro
+     * @return {string} empty string if ok; else null
+     */
 	function insert($idperro) {
+        // obtenemos los restantes valores de la inscripcion
+        $prueba=$this->pruebaID;
+        $jornadas=http_request("Jornadas","i",0);
+        $pagado=http_request("Pagado","i",0);
+        $celo=http_request("Celo","i",0);
+        $observaciones="";
+        $res=realInsert($idperro,$prueba,$jornadas,$pagado,$celo,$observaciones);
+        if (is_string($res)) return $res; // error
+        return ""; // return ok
+    }
+
+	function realInsert($idperro,$prueba,$jornadas,$pagado,$celo,$observaciones) {
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("Invalid IDPerro ID");
-		$res= $this->__SelectObject(
+		$res= $this->__selectObject(
 			/* SELECT */ "count(*) AS count",
 			/* FROM */ "Inscripciones",
 			/* WHERE */ "( Prueba=".$this->pruebaID.") AND ( Perro=$idperro )"
@@ -59,14 +71,7 @@ class Inscripciones extends DBObject {
 			return $this->error("No puedo obtener datos del perro con ID:$idperro para la prueba:{$this->pruebaID}");
 		if($res->count>0)
 			return $this->error("El perro con ID:$idperro ya esta inscrito en la prueba:{$this->pruebaID}");
-		
-		// obtenemos los restantes valores de la inscripcion
-		$prueba=$this->pruebaID;
-		$jornadas=http_request("Jornadas","i",0);
-		$pagado=http_request("Pagado","i",0);
-		$celo=http_request("Celo","i",0);
-		$observaciones="";
-		
+
 		// ok, ya tenemos lo necesario. Vamos a inscribirle... pero solo en las jornadas abiertas
 		$str= "INSERT INTO Inscripciones (Prueba,Perro,Celo,Observaciones,Jornadas,Pagado)
 			VALUES ($prueba,$idperro,$celo,'$observaciones',$jornadas,$pagado)";
@@ -87,7 +92,7 @@ class Inscripciones extends DBObject {
 		procesaInscripcion($prueba,$inscripcionid);
 		// all right return ok
 		$this->myLogger->leave();
-		return ""; // return ok
+        return $obj->LastDorsal;
 	}
 	
 	/**
@@ -423,6 +428,11 @@ class Inscripciones extends DBObject {
 		if (!is_array($inscritos))
 			return $this->error("reorder(): Canot retrieve list of inscritos");
 
+        // contador y variables de control de bucle
+        $dorsal=1;
+        $perro=0;
+        $len=count($inscritos['rows']);
+
 		//usaremos prepared statements para acelerar
 		$str1="UPDATE Inscripciones SET Dorsal=? WHERE (Prueba={$this->pruebaID}) AND (Perro=?)";
 		$str2="UPDATE Resultados SET DORSAL=? WHERE (Prueba={$this->pruebaID}) AND (Perro=?)";
@@ -432,20 +442,17 @@ class Inscripciones extends DBObject {
 		$stmt2=$this->conn->prepare($str2);
 		if (!$stmt2) return $this->error($this->conn->error);
 			
-		$res1=$stmt1->bind_param('ii',$dorsal1,$perro1);
+		$res1=$stmt1->bind_param('ii',$dorsal,$perro);
 		if (!$res1) return $this->error($stmt1->error);
-		$res2=$stmt2->bind_param('ii',$dorsal2,$perro2);
+		$res2=$stmt2->bind_param('ii',$dorsal,$perro);
 		if (!$res2) return $this->error($stmt2->error);
 
-		$dorsal=1;
-		$len=count($inscritos['rows']);
 		
 		for($n=0;$n<$len;$n++,$dorsal++) {
 			// avoid php to be killed on very slow systems
 			set_time_limit($timeout);
 			// actualizamos las tabla de inscripciones y resultados
-			$dorsal1=$dorsal; $dorsal2=$dorsal;
-			$perro1=$inscritos['rows'][$n]['Perro']; $perro2=$perro1;
+			$perro=$inscritos['rows'][$n]['Perro'];
 			$res=$stmt1->execute();
 			if (!$res) return $this->error($stmt1->error);
 			$res=$stmt2->execute();

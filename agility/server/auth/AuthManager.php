@@ -32,7 +32,7 @@ define ("PERMS_CHRONO",6);
 
 // permisos de ejecucion
 define ("ENABLE_IMPORT",1);		// permite importar datos desde ficheros excel
-define ("ENABLE_TEAMS",2);		// permite gestionar pruebas de equipos 4
+define ("ENABLE_TEAMS",2);		// permite gestionar pruebas de equipos
 define ("ENABLE_KO",4);			// permite gestionar pruebas K.O
 define ("ENABLE_SPECIAL",8);	// permite gestionar pruebas de mangas multiples
 define ("ENABLE_VIDEOWALL",16); // permite acceso desde videomarcador

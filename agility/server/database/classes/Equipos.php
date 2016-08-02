@@ -71,16 +71,20 @@ class Equipos extends DBObject {
         }
         return $this->defaultTeam;
 	}
-	
-	function insert() {
-		$this->myLogger->enter();
-		$prueba=$this->pruebaID;
-		$jornada=$this->jornadaID;
 
+	function insert() {
         // iniciamos los valores, chequeando su existencia
         $categorias = http_request("Categorias","s",null,false); // may be null
         $nombre 	= http_request("Nombre","s",null,false); // not null
         $observaciones= http_request('Observaciones',"s",null,false); // may be null
+        return $this->realInsert($categorias,$nombre,$observaciones);
+    }
+
+	function realInsert($categorias,$nombre,$observaciones) {
+		$this->myLogger->enter();
+		$prueba=$this->pruebaID;
+		$jornada=$this->jornadaID;
+
         $this->myLogger->info("Prueba:$prueba Jornada:$jornada Nombre:'$nombre' Observaciones:'$observaciones'");
 
 		// componemos un prepared statement

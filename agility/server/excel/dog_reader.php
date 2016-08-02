@@ -34,10 +34,14 @@ use Box\Spout\Common\Type;
 define ('IMPORT_LOG',__DIR__."/../../../logs/import.log");
 define ('TABLE_NAME',"ImportData"); // name of temporary table to store excel file data into
 
+/**
+ * Class DogReader
+ */
 class DogReader {
 
     public $errormsg;
     public $myLogger;
+    protected $name;
     protected $federation;
     protected $myOptions;
     protected $blindMode;
@@ -46,18 +50,19 @@ class DogReader {
     protected $fieldList;
     protected $myDBObject;
 
-    public function __construct($fed,$options) {
+    public function __construct($name,$fed,$options) {
         $this->federation = Federations::getFederation($fed);
         $this->myOptions=$options;
+        $this->name=$name;
         $this->myConfig=Config::getInstance();
-        $this->myLogger= new Logger("importExcel(dogs)",$this->myConfig->getEnv("debug_level"));
+        $this->myLogger= new Logger($this->name,$this->myConfig->getEnv("debug_level"));
         if (php_sapi_name()!="cli") {
-            $this->myAuthMgr= new AuthManager("importExcel(dogs)");
+            $this->myAuthMgr= new AuthManager($this->name);
             if (! $this->myAuthMgr->allowed(ENABLE_IMPORT) )
-                throw new Exception ("ImportExcel(dogs): Feature disabled: program not registered");
+                throw new Exception ("{$this->name}: Unlicensed copy or Feature disabled in current license");
         }
         $this->tablename= TABLE_NAME;
-        $this->myDBObject= new DBObject("ImportExcel(dogs)");
+        $this->myDBObject = new DBObject($name);
         $this->fieldList=array (
             // name => index, required (1:true 0:false-to-evaluate -1:optional), default
             // dog related data
@@ -96,9 +101,9 @@ class DogReader {
         $this->saveStatus("Loading file...",true); // initialize status file
         // extraemos los datos de registro
         $data=http_request("Data","s",null);
-        if (!$data) return array("errorMsg" => "importExcel(dogs)::download(): No data to import has been received");
+        if (!$data) return array("errorMsg" => "{$this->name}::download(): No data to import has been received");
         if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
-            return array("operation"=>"upload","errorMsg" => "importExcel(dogs)::download() Invalid received data format");
+            return array("operation"=>"upload","errorMsg" => "{$this->name}::download() Invalid received data format");
         }
         // mimetype for excel file is be stored at $matches[1]: and should be checked
         // $type=$matches[1]; // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', or whatever. Not really used
@@ -112,7 +117,7 @@ class DogReader {
         return array("operation"=>"upload","success"=>true,"filename"=>$tmpfile);
     }
 
-    private function validateHeader($header) {
+    protected function validateHeader($header) {
         $this->saveStatus("Validating header...");
         // search required fields in header and store index when found
         foreach ($this->fieldList as $field =>&$data) {
@@ -132,7 +137,7 @@ class DogReader {
         return 0;
     }
 
-    private function createTemporaryTable() {
+    protected function createTemporaryTable() {
         $this->saveStatus("Creating temporary table...");
         // To create database we need root DB access
         $rconn=DBConnection::getRootConnection();
@@ -142,19 +147,19 @@ class DogReader {
         $str="CREATE TABLE {$this->tablename} (";
         // include every fields, either are declared in excel file or not
         foreach ($this->fieldList as $key => $val)  $str .=$val[4];
-        $str .=" ID int(4) UNIQUE NOT NULL "; // to get an unique id in database
-        $str .=") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        $str .=" ID int(4) NOT NULL AUTOINCREMENT, PRIMARY KEY (`ID`)"; // to get an unique id in database
+        $str .=") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;";
         $res=$rconn->query($str);
         if (!$res) {
             $error=$rconn->error;
-            $str="ImportExcel(dogs)::createTemporaryTable(): Error creating temporary table: '$error'";
+            $str="{$this->name}::createTemporaryTable(): Error creating temporary table: '$error'";
             $this->myLogger->error($str);
             throw new Exception($str);
         }
         return 0;
     }
 
-    private function import_storeExcelRowIntoDB($index,$row) {
+    protected function import_storeExcelRowIntoDB($index,$row) {
         // compose insert sequence
         $str1= "INSERT INTO {$this->tablename} (";
         $str2= "ID ) VALUES (";
@@ -194,12 +199,12 @@ class DogReader {
         $res=$this->myDBObject->query($str);
         if (!$res) {
             $error=$this->myDBObject->conn->error;
-            throw new Exception("ImportExcel(dogs)::populateTable(): Error inserting row $index ".json_encode($row));
+            throw new Exception("{$this->name}::populateTable(): Error inserting row $index ".json_encode($row));
         }
         return 0;
     }
 
-    public function dropTable() {
+    protected function dropTable() {
         // To create database we need root DB access
         $rconn=DBConnection::getRootConnection();
         if ($rconn->connect_error)
@@ -208,7 +213,7 @@ class DogReader {
         $res=$rconn->query($str);
         if (!$res) {
             $error=$rconn->error;
-            $str="ImportExcel(dogs)::dropTable(): Error deleting temporary table: '$error'";
+            $str="{$this->name}::dropTable(): Error deleting temporary table: '$error'";
             $this->myLogger->error($str);
             throw new Exception($str);
         }
@@ -216,7 +221,7 @@ class DogReader {
     }
 
     // stupid spout that has no sheet /row count function
-    private function sheetCount($reader) {
+    protected function sheetCount($reader) {
         $count=0;
         foreach ($reader->getSheetIterator() as $sheet) $count++;
         return $count;
@@ -234,8 +239,8 @@ class DogReader {
             // else look for a sheet named _("Dogs") or _("Inscriptions")
             foreach ($reader->getSheetIterator() as $sheet) {
                 $name = $sheet->getName();
-                if ($name=="Dogs" || ($name==_("Dogs")) ) break;
                 if ($name=="Inscriptions" || ($name==_("Inscriptions")) ) break;
+                if ($name=="Dogs" || ($name==_("Dogs")) ) break;
             }
             // arriving here means "Dogs" page not found
             if ($sheet==null) throw new Exception ("No sheet named 'Dogs' or 'Inscriptions' found in excel file");
@@ -299,7 +304,7 @@ class DogReader {
         }
     }
 
-    private function findAndSetClub($item) {
+    protected function findAndSetClub($item) {
         $this->myLogger->enter();
 
         $a=$this->myDBObject->conn->real_escape_string($item['NombreClub']);
@@ -330,7 +335,7 @@ class DogReader {
         return true; // tell parent item found. proceed with next
     }
 
-    private function findAndSetHandler($item) {
+    protected function findAndSetHandler($item) {
         $this->myLogger->enter();
         $t=TABLE_NAME;
         $c=$item['ClubID'];
@@ -376,7 +381,7 @@ class DogReader {
         return true; // tell parent item found (created). proceed with next
     }
 
-    private function findAndSetDog($item) {
+    protected function findAndSetDog($item) {
         $this->myLogger->enter();
         $t=TABLE_NAME;
         $h=$item['HandlerID'];
@@ -508,7 +513,7 @@ class DogReader {
      */
     public function beginImport() {
         $t=TABLE_NAME;
-        $this->saveStatus("Import done. Updating database with final results");
+        $this->saveStatus("Analysis done. Updating database with final results");
 
         if ($this->myOptions['Blind']==0) { // do not update clubs in blind mode
             // import clubes data
@@ -537,7 +542,7 @@ class DogReader {
             ", Perros.Guia = $t.HandlerID ";
         $res=$this->myDBObject->query($str);
         if (!$res) return "beginImport(dogs): update error:".$this->myDBObject->conn->error;
-        return array( 'operation'=>'import','success'=>'ok');
+        return array( 'operation'=>'import','success'=>'close');
     }
 
     public function endImport() {
@@ -577,7 +582,7 @@ if (php_sapi_name() != "cli" ) {
 
         if ($fed<0) throw new Exception("dog_reader::ImportExcel(): invalid Federation ID: $fed");
 
-        $dr=new DogReader($fed,$options);
+        $dr=new DogReader("ImportExcel(dogs)",$fed,$options);
         $result="";
         switch ($op) {
             case "upload":

@@ -246,8 +246,9 @@ function perros_importHandleResult(data) {
             dlg.dialog('close'); // close import dialog
             reloadWithSearch('#perros-datagrid','select',false); // and reload dogs datagrid
             break;
-        case "import": // import finished. Tell server to cleanup
-            setTimeout(function() { perros_importSendTask({'Operation':'close'}); },0);
+        case "import": // import dogs finished.
+            var op=data.success; // success field tells what to do now : close,teams, inscribe
+            setTimeout(function() { perros_importSendTask({'Operation':op}); },0);
             break;
         case "close":
             ac_import.progress_status="paused";
