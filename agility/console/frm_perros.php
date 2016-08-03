@@ -88,7 +88,8 @@ $config =Config::getInstance();
 		onOpen: function() {
 			ac_import.mode='perros';
 			$('#import-excel-progressbar').progressbar('setValue',"");
-		}
+		},
+		onClose: function() { ac_import.progress_status='paused'; }
 	} );
 
         // datos de la tabla de perros

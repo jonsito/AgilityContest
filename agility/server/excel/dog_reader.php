@@ -70,7 +70,7 @@ class DogReader {
     );
 
     public function __construct($name,$fed,$options) {
-        $this->federation = Federations::getFederation($fed);
+        $this->federation = $fed;
         $this->myOptions=$options;
         $this->name=$name;
         $this->myConfig=Config::getInstance();
@@ -125,16 +125,17 @@ class DogReader {
         foreach ($this->fieldList as $field =>&$data) {
             for($index=0; $index<count($header); $index++) {
                 $fieldName=$header[$index];
-                if ( ($fieldName==$field) || ($fieldName==_utf($field)) ) {
-                    $data[0]=$index;
-                    break;
-                }
+                // searc by index or by _(index)
+                if ( ($fieldName==$field) || ($fieldName==_utf($field)) ) { $data[0]=$index; break; }
+                // on special fields ( Journey names, use try to use journey name
+                $name=preg_replace('/\s+/', '', $data[3]);
+                if ($fieldName==$name) { $data[0]=$index; break; }
             }
         }
         // now check for required but not declared fields
         foreach ($this->fieldList as $key =>$val) {
             if ( ($val[0]<0) && ($val[1]>0) )
-                throw new Exception ("ExcelImport(dogs)::required field '$key' => ".json_encode($val)." not found in Excel header");
+                throw new Exception ("{$this->name}::required field '$key' => ".json_encode($val)." not found in Excel header");
         }
         $this->myLogger->leave();
         return 0;
@@ -316,7 +317,6 @@ class DogReader {
 
     protected function findAndSetClub($item) {
         $this->myLogger->enter();
-
         $a=$this->myDBObject->conn->real_escape_string($item['NombreClub']);
         // TODO: search and handle also club's longnames
         $this->saveStatus("Analyzing club '$a'");
@@ -328,7 +328,7 @@ class DogReader {
             return false;
         } // no search result; ask user to select or create as new
         if ($search['total']>1) return $search; // more than 1 compatible item found. Ask user to choose
-        if ($search['rows'][0]['Federations'] & (1<<$this->federation->get('ID')) == 0 ) return $search; // federation missmatch. ask user to fix
+        if ($search['rows'][0]['Federations'] & (1<<($this->federation)) == 0 ) return $search; // federation missmatch. ask user to fix
         // arriving here means match found. So replace all instances with found data and return to continue import
         $t=TABLE_NAME;
         $i=$search['rows'][0]['ID']; // Club ID
@@ -353,7 +353,7 @@ class DogReader {
         // notice that arriving here means all clubs has been parsed and analyzed
         $a=$this->myDBObject->conn->real_escape_string($item['NombreGuia']);
         $this->saveStatus("Analyzing handler '$a'");
-        $f=$this->federation->get('ID');
+        $f=$this->federation;
         if ($this->myOptions['Blind']==0)
                 $search=$this->myDBObject->__select("*","Guias","( Nombre LIKE '%$a%' ) AND ( Federation = $f ) ","","");
         else    $search=$this->myDBObject->__select("*","Guias","( Nombre = '$a' ) AND ( Federation = $f ) ","","");
@@ -401,7 +401,7 @@ class DogReader {
         // TODO: search and handle also dog's long (pedigree) name
         $a=$this->myDBObject->conn->real_escape_string($item['Nombre']);
         $this->saveStatus("Analyzing dog '$a'");
-        $f=$this->federation->get('ID');
+        $f=$this->federation;
         if ($this->myOptions['Blind']==0)
              $search=$this->myDBObject->__select("*","Perros","( Nombre LIKE '%$a%') AND ( Federation = $f ) ","","");
         else $search=$this->myDBObject->__select("*","Perros","( Nombre = '$a') AND ( Federation = $f ) ","","");
@@ -557,7 +557,7 @@ class DogReader {
             ", Perros.Grado = $t.Grado ".
             ", Perros.Guia = $t.HandlerID ";
         $res=$this->myDBObject->query($str);
-        if (!$res) return "beginImport(dogs): update error:".$this->myDBObject->conn->error;
+        if (!$res) return "{$this->name} beginImport(): update error:".$this->myDBObject->conn->error;
         $this->myLogger->leave();
         return array( 'operation'=>'import','success'=>'close');
     }

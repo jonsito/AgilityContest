@@ -45,11 +45,11 @@ class InscriptionReader extends DogReader{
         // add additional fields required to handle inscriptions
         $inscList= array(
             'Dorsal' =>  array (  -15,  -1, "i", "Dorsal", " `Dorsal` int(4) NOT NULL DEFAULT 0, "), // dorsal, opcional
-            'Heat' =>    array (  -16,  -1, "b", "Celo", " `Dorsal` tinyint(1) NOT NULL DEFAULT 0, "), // celo, opcional
+            'Heat' =>    array (  -16,  -1, "b", "Celo", " `Celo` tinyint(1) NOT NULL DEFAULT 0, "), // celo, opcional
             'Comments' =>array (  -17,  -1, "s", "Observaciones", " `Observaciones` varchar(255) NOT NULL DEFAULT '', "), // comentarios, opcional
             'Pay' =>     array (  -18,  -1, "i", "Pagado", " `Pagado` int(4) NOT NULL DEFAULT 0, "), // pagadol, opcional
             'Journeys' =>array (  -19,   0, "i", "Jornadas", " `Jornadas` int(4) NOT NULL DEFAULT 0, "), // jornadas. to evaluate
-            'Orden' =>   array (  -20,   0, "i", "Orden", " `Order` int(4) NOT NULL DEFAULT 0, "), // orden, to evaluate
+            'Orden' =>   array (  -20,   0, "i", "Orden", " `Orden` int(4) NOT NULL DEFAULT 0, "), // orden, to evaluate
         );
         foreach ($inscList as $key => $data) $this->fieldList[$key]=$data;
 
@@ -115,58 +115,64 @@ class InscriptionReader extends DogReader{
     public function doInscription() {
         $t=TABLE_NAME;
         // retrieve list of pending inscriptions
-        $res=$this->myDBObject->__select("*",TABLE_NAME,"(Orden=0)","ID ASC","");
-        if (!$res) return "doInscription::getParticipantes() error:".$this->myDBObject->conn->error;
-        // inscribe first item
-        if ($res['total']>0) {
-            $item=$res['rows'][0];
+        $lista=$this->myDBObject->__select("*",TABLE_NAME,"(Orden=0)","ID ASC","");
+        if (!$lista) return "doInscription::getParticipantes() error:".$this->myDBObject->conn->error;
+        for ($index=0;$index<$lista['total'];$index++) {
+            $item=$lista['rows'][$index];
             $id=$item['ID'];
-            $this->saveStatus("Registering inscription: {$item['Nombre']} - {$item['NombreGuia']}");
+            $this->saveStatus("Check and Register inscription: {$item['Nombre']} - {$item['NombreGuia']}");
             // evaluate journeys to inscribe into
             $jornadas=0;
             foreach ($this->fieldList as $key => $val) {
                 if (strpos($key,'Jornada')===FALSE) continue; // not a journey field
-                $numero=intval(explode(':',$key)[2]) - 1;
-                $nombre=$val[3];
+                $numero=intval(explode(':',$key)[1]) - 1;
+                $nombre=$item[$val[3]];
                 if (trim($nombre)!=="") $jornadas |= (1<<$numero); // field not empty means need to inscribe
             }
 
-            // make inscription
-            $idperro=$item['DogID'];
-            $pagado=$item['Pagado'];
-            $celo=(trim($item['Celo'])==="")?0:1;
-            $obs=mysqli_real_escape_string($this->myDBObject->conn,$item['Comentarios']);
-            $newdorsal=intval($item['Dorsal']);
-            $insc=new Inscripciones("excelImport",$this->prueba['ID']);
-            $dorsal=$insc->realInsert($idperro,$this->prueba['ID'],$jornadas,$pagado,$celo,$obs);
-            if (is_string($dorsal)) return $dorsal; // error
-            // set dorsal if provided
-            if ($dorsal!=0) $insc->setDorsal($idperro,$dorsal,$newdorsal);
+            if ($jornadas!=0) { // if zero no journeys to inscribe into, so skip and try next item in list
+                $this->myLogger->trace("Inscribiendo perro ID:$id Nombre:{$item['Nombre']} Jornadas:$jornadas");
 
-            // add to proper team when required
-            foreach ($this->jornadas as $jornada) {
+                // make inscription
+                $idperro=$item['DogID'];
+                $pagado=$item['Pagado'];
+                $celo = (trim($item['Celo'])==="")?0:1;
+                $obs=mysqli_real_escape_string($this->myDBObject->conn,$item['Observaciones']);
+                $newdorsal=intval($item['Dorsal']);
+                $insc=new Inscripciones("excelImport",$this->prueba['ID']);
+                $dorsal=$insc->realInsert($idperro,$this->prueba['ID'],$jornadas,$pagado,$celo,$obs);
+                if (!is_numeric($dorsal)) return $dorsal; // error
+                $dorsal=intval($dorsal);
+                // set dorsal if provided
+                if ($dorsal!=0) $insc->setDorsal($idperro,$dorsal,$newdorsal);
+                /*
+                // add to proper team when required
+                foreach ($this->jornadas as $jornada) {
 
-                // check if a given journey has teams and if dog is inscribed
-                if ( (intval($jornada['Equipos3']) + intval($jornada['Equipos4']))==0) continue; // not team journey
-                $name=preg_replace('/\s+/', '', $jornada['Nombre']); // remove spaces to get friendly with database field naming
-                if (trim($item[$name])==="") continue; // not inscribed in this team journey
+                    // check if a given journey has teams and if dog is inscribed
+                    if ( (intval($jornada['Equipos3']) + intval($jornada['Equipos4']))==0) continue; // not team journey
+                    $name=preg_replace('/\s+/', '', $jornada['Nombre']); // remove spaces to get friendly with database field naming
+                    if (trim($item[$name])==="") continue; // not inscribed in this team journey
 
-                // need to inscribe: locate team id and perform inscription into requested team
-                $eq= new Equipos("excelImport",$this->prueba['ID'],$jornada['ID']);
-                $tbj=$eq->getTeamsByJornada();
-                foreach($tbj as $team) {
-                    if ($team['Nombre']!==$item[$name]) continue;
-                    $eq->updateTeam($idperro,$team['ID']);
-                    break;
+                    // need to inscribe: locate team id and perform inscription into requested team
+                    $eq= new Equipos("excelImport",$this->prueba['ID'],$jornada['ID']);
+                    $tbj=$eq->getTeamsByJornada();
+                    foreach($tbj as $team) {
+                        if ($team['Nombre']!==$item[$name]) continue;
+                        $eq->updateTeam($idperro,$team['ID']);
+                        break;
+                    }
+                    // go to next journey to look for team ones
                 }
-                // go to next journey
+                */
             }
             // mark entry as already inscribed
             $str ="UPDATE $t SET ORDEN=$id WHERE ID=$id";
             $res=$this->myDBObject->query($str);
-            if (!$res) return "doInscription::markAsInscribed($id) error:".$this->myDBObject->conn->error;
-            // ask for next result
-            return array( 'operation'=> 'import','success'=> 'inscribe');
+            if (!$res) return "doInscription::markAsProcessed($id) error:".$this->myDBObject->conn->error;
+            // if inscription done return to client to ask for next iteration
+            if ($jornadas!=0) return array( 'operation'=> 'import','success'=> 'inscribe');
+            // else continue loop looking for any item with jornadas!=0
         }
         // no inscriptions pending. tell client to end import
         return array( 'operation'=>'import','success'=>'close');

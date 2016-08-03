@@ -143,7 +143,8 @@ $('#inscripciones-excel-dialog').dialog( {
 	onOpen: function() {
 		ac_import.mode='inscripciones';
 		$('#import-excel-progressbar').progressbar('setValue',"");
-	}
+	},
+	onClose: function() { ac_import.progres_status='paused'; }
 } );
 
 $('#inscripciones-pruebas').form('load','/agility/server/database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);

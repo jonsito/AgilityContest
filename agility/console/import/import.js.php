@@ -26,7 +26,7 @@ variables used to store import status
  */
 var ac_import = {
     'mode' :'perros', // perros, inscripciones, pruebas
-    'progress_status': "running",
+    'progress_status': "paused",
     'blind': 1, // default blind (non interactive ) import mode
     'word_upercase':1, // on blind mode, uppercase words in DB
     'db_priority':1, // blind mode: on match use database data instead of excel data
@@ -189,6 +189,7 @@ function excel_importHandleResult(data) {
     var pb=$('#import-excel-progressbar');
     if (data.errorMsg) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
+        ac_import.progress_status='paused'; // tell progress monitor to pause
         dlg.dialog('close');
         return false;
     }
