@@ -282,7 +282,7 @@ function perros_importExportDogs() {
                     print_listaPerros('excel');
                     break;
                 case 1:
-                    loadImportPages(); // make sure dialogs and scripts are loaded into page
+                    loadImportPages(); // make sure dialogs and scripts for interactive import are loaded into page
                     $('#perros-excel-dialog').dialog('open');
                     break;
             }

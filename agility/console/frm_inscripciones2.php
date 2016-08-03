@@ -35,7 +35,20 @@ $config =Config::getInstance();
 ?>
 <div  style="width:100%;height:550px">
 
-<!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->
+<!-- Ventana de seleccion de fichero para importacion de datos excel -->
+<div id="inscripciones-excel-dialog" style="width:640px;height:auto;padding:10px; display=none;">
+	<?php require_once(__DIR__."/../lib/templates/import_dialog.inc.php"); ?>
+</div>
+
+<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE IMPORTACION -->
+<div id="inscripciones-excel-buttons">
+	<a id="inscripciones-excel-okBtn" href="#" class="easyui-linkbutton"
+	   data-options="iconCls: 'icon-ok'" onclick="inscripciones_excelImport()"><?php _e('Import'); ?></a>
+	<a id="inscripciones-excel-cancelBtn" href="#" class="easyui-linkbutton"
+	   data-options="iconCls: 'icon-cancel'" onclick="$('#inscripciones-excel-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+</div>
+
+	<!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->
 <div id="inscripciones-infolayout" class="easyui-layout" data-options="fit:true,border:true" style="padding:10px;">
 	
 	<!-- PANEL IZQUIERDO: DATOS DE LA PRUEBA -->
@@ -119,6 +132,19 @@ $config =Config::getInstance();
 </div>
 
 <script type="text/javascript">
+
+// tell jquery to convert declared elements to jquery easyui Objects
+$('#inscripciones-excel-dialog').dialog( {
+	title:' <?php _e('Import dogs and inscriptions from Excel file'); ?>',
+	closed:true,
+	modal:true,
+	buttons:'#inscripciones-excel-buttons',
+	iconCls:'icon-table',
+	onOpen: function() {
+		ac_import.mode='inscripciones';
+		$('#import-excel-progressbar').progressbar('setValue',"");
+	}
+} );
 
 $('#inscripciones-pruebas').form('load','/agility/server/database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
 $('#inscripciones-jornadas').datagrid({
@@ -242,4 +268,6 @@ addTooltip($('#inscripciones-printBtn').linkbutton(),'<?php _e("Print inscriptio
 addTooltip($('#inscripciones-reloadBtn').linkbutton(),'<?php _e("Clear search box<br/>Update inscriptions list");?>');
 addTooltip($('#inscripciones-datagrid-search'),'<?php _e("Search inscriptions matching search criteria");?>');
 
+addTooltip($('#inscripciones-excel-okBtn').linkbutton(),'<?php _e("Import Inscriptions data from selected Excel file"); ?>');
+addTooltip($('#inscripciones-excel-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 </script>

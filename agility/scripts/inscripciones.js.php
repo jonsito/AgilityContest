@@ -285,7 +285,8 @@ function importExportInscripciones() {
                     }
                 );
             } else { // import
-                alert("import next to be ready. sorry");
+                loadImportPages(); // make sure dialogs and scripts for interactive import are loaded into page
+                $('#inscripciones-excel-dialog').dialog('open');
             }
 		}
 	).window('resize',{width:530});
@@ -293,7 +294,13 @@ function importExportInscripciones() {
 		width:165,
 		valueField:'ID',
 		textField:'Nombre',
-		url:'/agility/server/database/clubFunctions.php?Operation=enumerate&Combo=1&Federation='+workingData.federation
+		mode:'remote',
+		url:'/agility/server/database/clubFunctions.php',
+		queryParams: {
+			Operation:	'enumerate',
+			Combo:	1,
+			Federation: workingData.federation
+		}
 	});
 	return false; //this is critical to stop the click event which will trigger a normal file download!
 }

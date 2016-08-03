@@ -25,6 +25,7 @@ $config =Config::getInstance();
 variables used to store import status
  */
 var ac_import = {
+    'mode' :'perros', // perros, inscripciones, pruebas
     'progress_status': "running",
     'blind': 1, // default blind (non interactive ) import mode
     'word_upercase':1, // on blind mode, uppercase words in DB
@@ -32,17 +33,17 @@ var ac_import = {
     'ignore_spaces':1 // blind mode: blank field are ignored, or used to override DB data
 };
 
-/*************************************** importacion de perros desde fichero excel **************************/
+/*************************************** importacion de datos desde fichero excel **************************/
 
 /**
  * Show/hide Blind options according checkbox status
  */
 function import_showHideBlind() {
-    ac_import.blind=$('#perros-excelBlindMode').prop('checked')?1:0;
+    ac_import.blind=$('#import-excelBlindMode').prop('checked')?1:0;
     ac_import.db_priority=$('input[name=excelPreference]:checked').val();
     ac_import.word_upercase=$('input[name=excelUpperCase]:checked').val();
     ac_import.ignore_spaces=$('input[name=excelEmpty]:checked').val();
-    $("#perros-excelBlindOptions").css("display",(ac_import.blind!=0)?"inherit":"none");
+    $("#import-excelBlindOptions").css("display",(ac_import.blind!=0)?"inherit":"none");
 }
 
 /**
@@ -141,8 +142,8 @@ function dogMustChoose(search,found) {
  * Send command to excel importer
  * @param params list of parameters to be sent to server
  */
-function perros_importSendTask(params) {
-    var dlg=$('#perros-excel-dialog');
+function excel_importSendTask(params) {
+    var dlg=(ac_import.mode=='perros')? $('#perros-excel-dialog'): $('#inscriptions-excel-dialog');
     params.Federation   =   workingData.federation;
     params.Blind        =   ac_import.blind;
     params.DBPriority   =   ac_import.db_priority;
@@ -160,7 +161,7 @@ function perros_importSendTask(params) {
                 dlg.dialog('close');
             }
             // valid data received fire up client-side import parser
-            setTimeout( function() {  perros_importHandleResult(res); },100);
+            setTimeout( function() {  excel_importHandleResult(res); },100);
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Import from Excel error","Error: "+textStatus + " "+ errorThrown,'error' );
@@ -176,9 +177,10 @@ function perros_importSendTask(params) {
  * @param data received response from server
  * @returns {boolean} false on fail; otherwise true
  */
-function perros_importHandleResult(data) {
-    var dlg=$('#perros-excel-dialog');
-    var pb=$('#perros-excel-progressbar');
+function excel_importHandleResult(data) {
+    var dlg=(ac_import.mode=='perros')? $('#perros-excel-dialog') : $('#inscripciones-excel-dialog');
+    var datagrid=(ac_import.mode=='perros')? '#perros-datagrid' : '#inscripciones-datagrid';
+    var pb=$('#import-excel-progressbar');
     if (data.errorMsg) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
         dlg.dialog('close');
@@ -186,18 +188,18 @@ function perros_importHandleResult(data) {
     switch (data.operation){
         case "upload":
             pb.progressbar('setValue','<?php _e("Checking Excel File");?> : '); // beware ' : ' sequence
-            setTimeout(function() {perros_importSendTask({'Operation':'check','Filename':data.filename})},0);
+            setTimeout(function() {excel_importSendTask({'Operation':'check','Filename':data.filename})},0);
             ac_import.progress_status="running";
-            setTimeout(function() {perros_importSendTask({'Operation':'progress'})} ,0); // start progress monitoring
+            setTimeout(function() {excel_importSendTask({'Operation':'progress'})} ,0); // start progress monitoring
             break;
         case "check":
             pb.progressbar('setValue','<?php _e("Starting data import");?>');
-            setTimeout(function() { perros_importSendTask({'Operation':'parse'})},0);
+            setTimeout(function() { excel_importSendTask({'Operation':'parse'})},0);
             break;
         case "parse": // analyze next line
             if (data.success=='ok') { // if success==true parse again
                 ac_import.progress_status='running'; // tell progress monitor to pause
-                setTimeout(function(){perros_importSendTask({'Operation':'parse'})},0);
+                setTimeout(function(){excel_importSendTask({'Operation':'parse'})},0);
             }
             if (data.success=='fail') { // user action required. study cases
                 var funcs={};
@@ -212,7 +214,7 @@ function perros_importHandleResult(data) {
                         icon: 'error',
                         width: 480
                     });
-                    setTimeout(function(){perros_importSendTask({'Operation':'abort'})},0);
+                    setTimeout(function(){excel_importSendTask({'Operation':'abort'})},0);
                     break;
                 }
                 if (parseInt(data.search.ClubID)==0) {
@@ -229,7 +231,7 @@ function perros_importHandleResult(data) {
                 else funcs.multi(data.search,data.success);                // several compatible items found. ask user to decide
             }
             if (data.success=='done') { // file parsed: start real import procedure
-                setTimeout(function() { perros_importSendTask({'Operation':'import'})},0);
+                setTimeout(function() { excel_importSendTask({'Operation':'import'})},0);
             }
             break;
         case "create": // create a new entry with provided data for current line
@@ -238,23 +240,23 @@ function perros_importHandleResult(data) {
             // no break;
         case "ignore": // ignore data from excel file in current line
             // continue parsing
-            setTimeout(function() { perros_importSendTask({'Operation':'parse'}); },0);
+            setTimeout(function() { excel_importSendTask({'Operation':'parse'}); },0);
             // re-start progress monitoring
             ac_import.progress_status="running";
             break;
         case "abort": // cancel transaction
             dlg.dialog('close'); // close import dialog
-            reloadWithSearch('#perros-datagrid','select',false); // and reload dogs datagrid
+            reloadWithSearch(datagrid,'select',false); // and reload dogs datagrid
             break;
         case "import": // import dogs finished.
             var op=data.success; // success field tells what to do now : close,teams, inscribe
-            setTimeout(function() { perros_importSendTask({'Operation':op}); },0);
+            setTimeout(function() { excel_importSendTask({'Operation':op}); },0);
             break;
         case "close":
             ac_import.progress_status="paused";
             $.messager.alert('<?php _e("Import Done");?>','<?php _e("Import from Excel File Done");?>','info');
             dlg.dialog('close'); // close import dialog
-            reloadWithSearch('#perros-datagrid','select',false); // and reload dogs datagrid
+            reloadWithSearch(datagrid,'select',false); // and reload dogs datagrid
             break;
         case "progress": // receive progress status from server
             // iterate until "Done." received
@@ -263,11 +265,11 @@ function perros_importHandleResult(data) {
             var val=pb.progressbar('getValue');
             pb.progressbar('setValue',data.status);
             if (ac_import.progress_status==='running')
-                setTimeout(perros_importSendTask({'Operation':'progress'}),1000);
+                setTimeout(excel_importSendTask({'Operation':'progress'}),1000);
             break;
         default:
             $.messager.alert("Excel import error","Invalid operation received from server: "+data.operation );
-            ac_import.progress_status==='paused';
+            ac_import.progress_status='paused';
             dlg.dialog('close');
     }
     return false;
@@ -297,7 +299,7 @@ function importAction(item,action) {
             // add received and parsed data
         },
         success: function(res) {
-            setTimeout (function() {perros_importHandleResult(res);},0);
+            setTimeout (function() {import_importHandleResult(res);},0);
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
         }
@@ -306,13 +308,24 @@ function importAction(item,action) {
     return false;
 }
 
+// retrieve excel file for imput file button and store into a temporary variable
+function read_excelFile(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#import-excelData').val(e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 /**
  * Llamada al servidor para importar datos de perros
  * desde el fichero excel seleccionado
  */
-function perros_excelImport() {
-    var data=$('#perros-excelData').val();
-    ac_import.blind=$('#perros-excelBlindMode').prop('checked')?1:0;
+function real_excelImport() {
+    var data=$('#import-excelData').val();
+    ac_import.blind=$('#import-excelBlindMode').prop('checked')?1:0;
     ac_import.db_priority=$('input[name=excelPreference]:checked').val();
     ac_import.word_upercase=$('input[name=excelUpperCase]:checked').val();
     ac_import.ignore_spaces=$('input[name=excelEmpty]:checked').val();
@@ -327,17 +340,9 @@ function perros_excelImport() {
             'error');
         return;
     }
-    $('#perros-excel-progressbar').progressbar('setValue','Upload');
-    return perros_importSendTask({ Operation: 'upload', Data: data});
+    $('#import-excel-progressbar').progressbar('setValue','Upload');
+    return import_importSendTask({ Operation: 'upload', Data: data});
 }
 
-// retrieve excel file for imput file button and store into a temporary variable
-function read_excelFile(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#perros-excelData').val(e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
+function perros_excelImport() { ac_import.mode='perros'; return real_excelImport(); }
+function inscripciones_excelImport() { ac_import.mode='inscripciones'; return real_excelImport(); }
