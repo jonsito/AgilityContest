@@ -47,8 +47,27 @@ class DogReader {
     protected $blindMode;
     protected $myAuthMgr;
     protected $tablename;
-    protected $fieldList;
     protected $myDBObject;
+    protected $fieldList=array (
+        // name => index, required (1:true 0:false-to-evaluate -1:optional), default
+        // dog related data
+        // 'ID' =>      array (  -1,  0,  "i", "ID",        " `ID` int(4) UNIQUE NOT NULL, "), // automatically added
+        'DogID' =>      array (  -2,  0,  "i", "DogID",     " `DogID` int(4) NOT NULL DEFAULT 0, "), // to be filled by importer
+        'Name'   =>      array (  -3,  1,  "s","Nombre",    " `Nombre` varchar(255) NOT NULL, "), // Dog name
+        'LongName' =>   array (  -4,  -1, "s", "NombreLargo","`NombreLargo` varchar(255) DEFAULT '', "), // dog pedigree long name
+        'Gender' =>     array (  -5,  -1, "s", "Genero",    " `Genero` varchar(16) DEFAULT '', "), // M, F, Male/Female
+        'Breed' =>      array (  -6,  -1, "s", "Raza",      " `Raza` varchar(255) DEFAULT '', "), // dog breed, optional
+        'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '', "), // dog license. required for A2-A3;
+        'KC_ID' =>      array (  -8,  -1, "s", "LOE_RRC",   " `LOE_RRC` varchar(255) DEFAULT '', "), // LOE_RRC kennel club dog id
+        'Category' =>   array (  -9,   1, "s", "Categoria", " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
+        'Grade' =>       array (  -10,  1, "s", "Grado",     " `Grado` varchar(16) DEFAULT '-', "), // required
+         // handler related data
+        'HandlerID' =>  array (  -11,  0, "i", "HandlerID", " `HandlerID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
+        'Handler' =>    array (  -12,  1, "s", "NombreGuia"," `NombreGuia` varchar(255) NOT NULL, "), // Handler's name. Required
+        // club related data
+        'ClubID' =>     array (  -13,  0, "i", "ClubID",    " `ClubID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
+        'Club' =>       array (  -14,  1, "s", "NombreClub"," `NombreClub` varchar(255) NOT NULL,")  // Club's Name. required
+    );
 
     public function __construct($name,$fed,$options) {
         $this->federation = Federations::getFederation($fed);
@@ -60,32 +79,14 @@ class DogReader {
             $this->myAuthMgr= new AuthManager($this->name);
             if (! $this->myAuthMgr->allowed(ENABLE_IMPORT) )
                 throw new Exception ("{$this->name}: Unlicensed copy or Feature disabled in current license");
+            $this->myAuthMgr->access(PERMS_OPERATOR); // throw exception on fail
         }
         $this->tablename= TABLE_NAME;
         $this->myDBObject = new DBObject($name);
-        $this->fieldList=array (
-            // name => index, required (1:true 0:false-to-evaluate -1:optional), default
-            // dog related data
-            // 'ID' =>      array (  -1,  0,  "i", "ID",        " `ID` int(4) UNIQUE NOT NULL, "), // automatically added
-            'DogID' =>      array (  -2,  0,  "i", "DogID",     " `DogID` int(4) NOT NULL DEFAULT 0, "), // to be filled by importer
-            'Name'   =>      array (  -3,  1,  "s","Nombre",    " `Nombre` varchar(255) NOT NULL, "), // Dog name
-            'LongName' =>   array (  -4,  -1, "s", "NombreLargo","`NombreLargo` varchar(255) DEFAULT '', "), // dog pedigree long name
-            'Gender' =>     array (  -5,  -1, "s", "Genero",    " `Genero` varchar(16) DEFAULT '', "), // M, F, Male/Female
-            'Breed' =>      array (  -6,  -1, "s", "Raza",      " `Raza` varchar(255) DEFAULT '', "), // dog breed, optional
-            'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '', "), // dog license. required for A2-A3;
-            'KC_ID' =>      array (  -8,  -1, "s", "LOE_RRC",   " `LOE_RRC` varchar(255) DEFAULT '', "), // LOE_RRC kennel club dog id
-            'Category' =>   array (  -9,   1, "s", "Categoria", " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
-            'Grade' =>       array (  -10,  1, "s", "Grado",     " `Grado` varchar(16) DEFAULT '-', "), // required
-            // handler related data
-            'HandlerID' =>  array (  -11,  0, "i", "HandlerID", " `HandlerID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
-            'Handler' =>    array (  -12,  1, "s", "NombreGuia"," `NombreGuia` varchar(255) NOT NULL, "), // Handler's name. Required
-            // club related data
-            'ClubID' =>     array (  -13,  0, "i", "ClubID",    " `ClubID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
-            'Club' =>       array (  -14,  1, "s", "NombreClub"," `NombreClub` varchar(255) NOT NULL,")  // Club's Name. required
-        );
     }
 
     public function saveStatus($str,$reset=false){
+        $this->myLogger->trace("saveStatus(): $str");
         $f=fopen(IMPORT_LOG,($reset)?"w":"a"); // open for append-only
         if (!$f) {
             $this->myLogger->error("fopen() cannot create file: ".IMPORT_LOG);
@@ -107,17 +108,18 @@ class DogReader {
         }
         // mimetype for excel file is be stored at $matches[1]: and should be checked
         // $type=$matches[1]; // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', or whatever. Not really used
-        $this->myLogger->leave();
         $contents= base64_decode( $matches[2] ); // decodes received data
         // phase 2 store it into temporary file
         $tmpfile=tempnam_sfx(__DIR__."/../../../logs","import","xlsx");
         $file=fopen($tmpfile,"wb");
         fwrite($file,$contents);
         fclose($file);
+        $this->myLogger->leave();
         return array("operation"=>"upload","success"=>true,"filename"=>$tmpfile);
     }
 
     protected function validateHeader($header) {
+        $this->myLogger->enter();
         $this->saveStatus("Validating header...");
         // search required fields in header and store index when found
         foreach ($this->fieldList as $field =>&$data) {
@@ -134,21 +136,24 @@ class DogReader {
             if ( ($val[0]<0) && ($val[1]>0) )
                 throw new Exception ("ExcelImport(dogs)::required field '$key' => ".json_encode($val)." not found in Excel header");
         }
+        $this->myLogger->leave();
         return 0;
     }
 
     protected function createTemporaryTable() {
+        $this->myLogger->enter();
         $this->saveStatus("Creating temporary table...");
         // To create database we need root DB access
         $rconn=DBConnection::getRootConnection();
         if ($rconn->connect_error)
             throw new Exception("Cannot perform import process: database::dbConnect()");
         // $str="DELETE FROM TABLE {$this->tablename} IF EXISTS";
-        $str="CREATE TABLE {$this->tablename} (";
+        $str="CREATE TABLE {$this->tablename} ( `ID` int(4) NOT NULL AUTO_INCREMENT,";
         // include every fields, either are declared in excel file or not
         foreach ($this->fieldList as $key => $val)  $str .=$val[4];
-        $str .=" ID int(4) NOT NULL AUTOINCREMENT, PRIMARY KEY (`ID`)"; // to get an unique id in database
+        $str .=" PRIMARY KEY (`ID`)"; // to get an unique id in database
         $str .=") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;";
+        $this->myLogger->trace($str);
         $res=$rconn->query($str);
         if (!$res) {
             $error=$rconn->error;
@@ -156,10 +161,12 @@ class DogReader {
             $this->myLogger->error($str);
             throw new Exception($str);
         }
+        $this->myLogger->leave();
         return 0;
     }
 
     protected function import_storeExcelRowIntoDB($index,$row) {
+        $this->myLogger->enter();
         // compose insert sequence
         $str1= "INSERT INTO {$this->tablename} (";
         $str2= "ID ) VALUES (";
@@ -201,6 +208,7 @@ class DogReader {
             $error=$this->myDBObject->conn->error;
             throw new Exception("{$this->name}::populateTable(): Error inserting row $index ".json_encode($row));
         }
+        $this->myLogger->leave();
         return 0;
     }
 
@@ -228,6 +236,7 @@ class DogReader {
     }
 
     public function validateFile( $filename,$droptable=true) {
+        $this->myLogger->enter();
         $this->saveStatus("Validating received file...");
         // unlink(IMPORT_LOG);
         // open temporary file
@@ -275,6 +284,7 @@ class DogReader {
         // fine. we can start parsing data in DB database table
         $reader->close();
         unlink($filename); // remove temporary file if no named file provided
+        $this->myLogger->leave();
         return 0;
     }
 
@@ -332,6 +342,7 @@ class DogReader {
         $str="UPDATE $t SET ClubID=$i, NombreClub='$nombre' WHERE (NombreClub = '$a')";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetClub(): update club '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
+        $this->myLogger->leave();
         return true; // tell parent item found. proceed with next
     }
 
@@ -378,6 +389,7 @@ class DogReader {
         $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '$a') AND (ClubID=$c)";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
+        $this->myLogger->leave();
         return true; // tell parent item found (created). proceed with next
     }
 
@@ -450,6 +462,7 @@ class DogReader {
         $str="UPDATE $t SET DogID=$id, Nombre='$nombre',Raza='$raza',NombreLargo='$nlargo' WHERE (Nombre = '$a') AND (HandlerID=$h)";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetDog(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
+        $this->myLogger->leave();
         return true; // tell parent item found (created). proceed with next
     }
 
@@ -457,6 +470,7 @@ class DogReader {
      * @return {array} data to be evaluated
      */
     public function parse() {
+        $this->myLogger->enter();
         $res=$this->myDBObject->__select(
             /* SELECT */ "*",
             /* FROM   */ TABLE_NAME,
@@ -483,6 +497,7 @@ class DogReader {
             return array('operation'=> 'parse', 'success'=> 'fail', 'search' => $item, 'found' => $found['rows']);
         }
         // arriving here means no more items to analyze. So tell user to proccedd with import
+        $this->myLogger->leave();
         return array('operation'=> 'parse', 'success'=> 'done');
     }
 
@@ -512,6 +527,7 @@ class DogReader {
      * @return array|string
      */
     public function beginImport() {
+        $this->myLogger->enter();
         $t=TABLE_NAME;
         $this->saveStatus("Analysis done. Updating database with final results");
 
@@ -542,6 +558,7 @@ class DogReader {
             ", Perros.Guia = $t.HandlerID ";
         $res=$this->myDBObject->query($str);
         if (!$res) return "beginImport(dogs): update error:".$this->myDBObject->conn->error;
+        $this->myLogger->leave();
         return array( 'operation'=>'import','success'=>'close');
     }
 
@@ -556,82 +573,3 @@ class DogReader {
     }
 }
 
-
-// skip web server parsing when running in local (CommandLineInterpreter - cli ) mode
-if (php_sapi_name() != "cli" ) {
-    $op=http_request("Operation","s","");
-    if ($op==='progress') {
-        // retrieve last line of progress file
-        $lines=file(IMPORT_LOG,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        if (!$lines) {
-            echo json_encode( array( 'operation'=>'progress','success'=>'fail', 'status' => "Error reading progress file" ) );
-        } else {
-            echo json_encode( array( 'operation'=>'progress','success'=>'ok', 'status' => strval($lines[count($lines)-1]) ) );
-        }
-        return;
-    }
-    // Consultamos la base de datos
-    try {
-        // 	Creamos generador de documento
-        $fed=http_request("Federation","i",-1);
-        $options=array();
-        $options['Blind']=http_request("Blind","i",0);
-        $options['DBPriority']=http_request("DBPriority","i",1);
-        $options['WordUpperCase']=http_request("WordUpperCase","i",1);
-        $options['IgnoreWhiteSpaces']=http_request("IgnoreWhitespaces","i",1);
-
-        if ($fed<0) throw new Exception("dog_reader::ImportExcel(): invalid Federation ID: $fed");
-
-        $dr=new DogReader("ImportExcel(dogs)",$fed,$options);
-        $result="";
-        switch ($op) {
-            case "upload":
-                // download excel file from browser
-                $result = $dr->retrieveExcelFile();
-                break;
-            case "check":
-                // check that received file matches PerroGuiaClub format
-                // and store in temporary database table
-                $file=http_request("Filename","s",null);
-                $result = $dr->validateFile($file);
-                break;
-            case "parse":
-                // start analysis
-                $result = $dr->parse();
-                break;
-            case "create":
-                // a new line has been accepted from user: insert and update temporary excel file
-                $result = $dr->createEntry();
-                break;            
-            case "update":
-                // a new line has been accepted from user: insert and update temporary excel file
-                $result = $dr->updateEntry();
-                break;
-            case "ignore":
-                // received entry has been refused by user: remove and update temporary excel file
-                $result = $dr->ignoreEntry();
-                break;
-            case "abort":
-                // user has cancelled import file: clear and return temporary data
-                $result = $dr->cancelImport();
-                break;
-            case "import":
-                // every entries have been corrected and have proper entry ID's: start importing
-                $result = $dr->beginImport();
-                break;
-            case "close":
-                // end of import. clear and return;
-                $result = $dr->endImport();
-                break;
-            default: throw new Exception("excel_import(dogs): invalid operation '$op' requested");
-        }
-        if ($result===null) throw new Exception($dr->errormsg);// null on error
-        if (is_string($result)) throw new Exception($result);
-        if ( ($result==="") || ($result===0) )  // empty or zero on success
-            echo json_encode(array('operation'=> $op, 'success'=>'ok'));
-        else echo json_encode($result);         // else return data already has been set
-    } catch (Exception $e) {
-        $dr->myLogger->error($e->getMessage());
-        echo json_encode(array("operation"=>$op, 'success'=>'fail', 'errorMsg'=>$e->getMessage()));
-    }
-}

@@ -144,16 +144,22 @@ function dogMustChoose(search,found) {
  */
 function excel_importSendTask(params) {
     var dlg=(ac_import.mode=='perros')? $('#perros-excel-dialog'): $('#inscriptions-excel-dialog');
-    params.Federation   =   workingData.federation;
-    params.Blind        =   ac_import.blind;
-    params.DBPriority   =   ac_import.db_priority;
-    params.WordUpperCase=   ac_import.word_upercase;
-    params.IgnoreWhitespaces=ac_import.ignore_spaces;
     $.ajax({
         type:'POST', // use post to send file
-        url:"/agility/server/excel/dog_reader.php",
+        url:"/agility/server/excel/excelReaderFunctions.php",
         dataType:'json',
-        data: params,
+        data: {
+            Operation    :   params.Operation,
+            Filename     :   (typeof(params.Filename)==="undefined")?"":params.Filename,
+            Data         :   (typeof(params.Data)==="undefined")?"":params.Data,
+            Mode         :   ac_import.mode,
+            Prueba       :   workingData.prueba,
+            Federation   :   workingData.federation,
+            Blind        :   ac_import.blind,
+            DBPriority   :   ac_import.db_priority,
+            WordUpperCase:   ac_import.word_upercase,
+            IgnoreWhitespaces:ac_import.ignore_spaces
+        },
         contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
         success: function(res) {
             if (res.errorMsg){
@@ -184,6 +190,7 @@ function excel_importHandleResult(data) {
     if (data.errorMsg) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
         dlg.dialog('close');
+        return false;
     }
     switch (data.operation){
         case "upload":
@@ -281,18 +288,17 @@ function excel_importHandleResult(data) {
  * @param {string} action 'create', 'update', 'ignore'
  */
 function importAction(item,action) {
-
     // close dialog
     var label="#import"+item+"-dialog";
     $(label).dialog('close');
 
-    // ask server to perform proper action
-    // to be revisited
+    // ask server to perform proper action in interactive ( ac_import.Blind )  mode
     $.ajax({
         type:'POST', // use post to send file
-        url:"/agility/server/excel/dog_reader.php",
+        url:"/agility/server/excel/excelReaderFunctions.php",
         dataType:'json',
         data: {
+            Mode: ac_import.mode,
             Item: item,
             Operation: action,
             Federation: workingData.federation
@@ -322,9 +328,12 @@ function read_excelFile(input) {
 /**
  * Llamada al servidor para importar datos de perros
  * desde el fichero excel seleccionado
+ * @param{string} mode 'perros', 'inscripciones' 'pruebas'
  */
-function real_excelImport() {
+function real_excelImport(mode) {
+    console.log("real_excelImport() "+mode);
     var data=$('#import-excelData').val();
+    ac_import.mode=mode;
     ac_import.blind=$('#import-excelBlindMode').prop('checked')?1:0;
     ac_import.db_priority=$('input[name=excelPreference]:checked').val();
     ac_import.word_upercase=$('input[name=excelUpperCase]:checked').val();
@@ -341,8 +350,8 @@ function real_excelImport() {
         return;
     }
     $('#import-excel-progressbar').progressbar('setValue','Upload');
-    return import_importSendTask({ Operation: 'upload', Data: data});
+    return excel_importSendTask({ Operation: 'upload', Data: data});
 }
 
-function perros_excelImport() { ac_import.mode='perros'; return real_excelImport(); }
-function inscripciones_excelImport() { ac_import.mode='inscripciones'; return real_excelImport(); }
+function perros_excelImport() { return real_excelImport('perros'); }
+function inscripciones_excelImport() { return real_excelImport('inscripciones'); }
