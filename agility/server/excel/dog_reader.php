@@ -20,9 +20,9 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program;
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
+require_once(__DIR__."/../i18n/Country.php");
 require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/../../modules/Federations.php");
@@ -318,10 +318,14 @@ class DogReader {
     protected function findAndSetClub($item) {
         $this->myLogger->enter();
         $a=$this->myDBObject->conn->real_escape_string($item['NombreClub']);
+        $old=$a;
         // TODO: search and handle also club's longnames
         $this->saveStatus("Analyzing club '$a'");
-        if ($this->myOptions['Blind']==0) $search=$this->myDBObject->__select("*","Clubes","( Nombre LIKE '%$a%')","","");
-        else                     $search=$this->myDBObject->__select("*","Clubes","( Nombre = '$a')","","");
+        // international 2-letter iso country code: replace with country name
+        // should revise that we are in an international contest
+        if (array_key_exists($a,Country::$countryList) ) $a=Country::$countryList[$a];
+        if ($this->myOptions['Blind']==0) $search=$this->myDBObject->__select("*","Clubes","( Nombre LIKE '%$a%') OR (NombreLargo LIKE '%$a%')","","");
+        else                     $search=$this->myDBObject->__select("*","Clubes","( Nombre = '$a') OR (NombreLargo = '$a')","","");
         if ( !is_array($search) ) return "findAndSetClub(): Invalid search term: '$a'"; // invalid search. mark error
         if ($search['total']==0) {
             // to create club/country we need aditional info, so cannot auto-create in blind mode
@@ -339,7 +343,7 @@ class DogReader {
             // check precedence on DB or Excel
             if ($this->myOptions['WordUpperCase']!=0) $nombre= toUpperCaseWords($nombre); // formato mayuscula inicial
         }
-        $str="UPDATE $t SET ClubID=$i, NombreClub='$nombre' WHERE (NombreClub = '$a')";
+        $str="UPDATE $t SET ClubID=$i, NombreClub='$nombre' WHERE (NombreClub = '$old')";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetClub(): update club '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
         $this->myLogger->leave();
