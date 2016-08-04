@@ -54,7 +54,7 @@ class Inscripciones extends DBObject {
         $pagado=http_request("Pagado","i",0);
         $celo=http_request("Celo","i",0);
         $observaciones="";
-        $res=realInsert($idperro,$prueba,$jornadas,$pagado,$celo,$observaciones);
+        $res=$this->realInsert($idperro,$prueba,$jornadas,$pagado,$celo,$observaciones);
         if (is_string($res)) return $res; // error
         return ""; // return ok
     }
