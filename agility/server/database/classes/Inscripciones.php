@@ -63,14 +63,16 @@ class Inscripciones extends DBObject {
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("Invalid IDPerro ID");
 		$res= $this->__selectObject(
-			/* SELECT */ "count(*) AS count",
+			/* SELECT */ "*",
 			/* FROM */ "Inscripciones",
 			/* WHERE */ "( Prueba=".$this->pruebaID.") AND ( Perro=$idperro )"
 		);
-		if (!is_object($res))
-			return $this->error("No puedo obtener datos del perro con ID:$idperro para la prueba:{$this->pruebaID}");
-		if($res->count>0)
-			return $this->error("El perro con ID:$idperro ya esta inscrito en la prueba:{$this->pruebaID}");
+		if($res!=null){ // already inscribed, try to update
+            if (!is_object($res)) return $res;
+            $this->myLogger->notice("El perro con ID:$idperro ya esta inscrito en la prueba:{$this->pruebaID}");
+            $this->real_update($idperro,$jornadas,$celo,$observaciones,$pagado);
+            return $res->Dorsal;
+        }
 
 		// ok, ya tenemos lo necesario. Vamos a inscribirle... pero solo en las jornadas abiertas
 		$str= "INSERT INTO Inscripciones (Prueba,Perro,Celo,Observaciones,Jornadas,Pagado)
@@ -94,13 +96,21 @@ class Inscripciones extends DBObject {
 		$this->myLogger->leave();
         return $obj->LastDorsal;
 	}
-	
-	/**
-	 * Update an inscripcion
-	 * @param {int} perro ID del perro
-	 * @return {string} empty string if ok; else null
-	 */
+
+    /**
+     * Update an inscripcion
+     * @param {int} perro ID del perro
+     * @return {string} empty string if ok; else null
+     */
 	function update($idperro) {
+        $celo=http_request("Celo","i",$res->Celo);
+        $observaciones=http_request("Observaciones","s",$res->Observaciones);
+        $pagado=http_request("Pagado","i",$res->Pagado);
+        $jornadas=http_request("Jornadas","i",$res->Jornadas);
+        return $this->real_update($idperro,$jornadas,$celo,$observaciones,$pagado);
+    }
+
+	function real_update($idperro,$jornadas,$celo,$observaciones,$pagado) {
 		$this->myLogger->enter();
 		$p=$this->pruebaID;
 		if ($idperro<=0) return $this->error("Invalid IDPerro ID");
@@ -116,10 +126,6 @@ class Inscripciones extends DBObject {
 
 		// buscamos datos nuevos y mezclamos con los actuales
 		$id=$res->ID;
-		$celo=http_request("Celo","i",$res->Celo);
-		$observaciones=http_request("Observaciones","s",$res->Observaciones);
-		$pagado=http_request("Pagado","i",$res->Pagado);
-		$jornadas=http_request("Jornadas","i",$res->Jornadas);
 
 		// actualizamos bbdd
 		$str="UPDATE Inscripciones 

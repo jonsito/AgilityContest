@@ -56,8 +56,9 @@ class InscriptionReader extends DogReader{
         // add as columns for contest journeys
         $res=$this->myDBObject->__select("*","Jornadas","(Prueba=$pruebaID)","","");
         if (!$res) throw new Exception("InscriptionReader::construct(): cannot retrieve list of journeys for prueba: $pruebaID");
+        $this->jornadas=$res['rows'];
         $index=-21;
-        foreach ($res['rows'] as $jornada) {
+        foreach ($this->jornadas as $jornada) {
             $name=$jornada['Nombre'];
             if ($name==="-- Sin asignar --") continue;
             else $name=preg_replace('/\s+/', '', $name); // remove spaces to get friendly with database field naming
@@ -96,6 +97,7 @@ class InscriptionReader extends DogReader{
             $teams=array();
             foreach ($res['rows']as $team) {
                 $eq=$team['Equipo'];
+                if (strtolower(trim($eq))==='x') continue; // inscribed to default team
                 if (!array_key_exists($eq,$teams)) $teams[$eq]=''; // team not yet declared.
                 if (strpos($teams[$eq],$team['Categoria'])===FALSE) $teams[$eq] .= $team['Categoria'];
             }
@@ -136,7 +138,7 @@ class InscriptionReader extends DogReader{
                 // make inscription
                 $idperro=$item['DogID'];
                 $pagado=$item['Pagado'];
-                $celo = (trim($item['Celo'])==="")?0:1;
+                $celo = intval(trim($item['Celo']));
                 $obs=mysqli_real_escape_string($this->myDBObject->conn,$item['Observaciones']);
                 $newdorsal=intval($item['Dorsal']);
                 $insc=new Inscripciones("excelImport",$this->prueba['ID']);
@@ -145,26 +147,25 @@ class InscriptionReader extends DogReader{
                 $dorsal=intval($dorsal);
                 // set dorsal if provided
                 if ($dorsal!=0) $insc->setDorsal($idperro,$dorsal,$newdorsal);
-                /*
                 // add to proper team when required
                 foreach ($this->jornadas as $jornada) {
 
                     // check if a given journey has teams and if dog is inscribed
                     if ( (intval($jornada['Equipos3']) + intval($jornada['Equipos4']))==0) continue; // not team journey
                     $name=preg_replace('/\s+/', '', $jornada['Nombre']); // remove spaces to get friendly with database field naming
-                    if (trim($item[$name])==="") continue; // not inscribed in this team journey
-
+                    $itemTeam=trim($item[$name]);
+                    if ($itemTeam==="") continue; // not inscribed in this team journey
+                    if (strtolower($itemTeam)==="x") continue; // no team provided. use default team assignment
                     // need to inscribe: locate team id and perform inscription into requested team
                     $eq= new Equipos("excelImport",$this->prueba['ID'],$jornada['ID']);
                     $tbj=$eq->getTeamsByJornada();
                     foreach($tbj as $team) {
-                        if ($team['Nombre']!==$item[$name]) continue;
+                        if ($team['Nombre']!==$itemTeam) continue;
                         $eq->updateTeam($idperro,$team['ID']);
                         break;
                     }
                     // go to next journey to look for team ones
                 }
-                */
             }
             // mark entry as already inscribed
             $str ="UPDATE $t SET ORDEN=$id WHERE ID=$id";

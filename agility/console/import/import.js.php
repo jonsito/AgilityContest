@@ -332,7 +332,6 @@ function read_excelFile(input) {
  * @param{string} mode 'perros', 'inscripciones' 'pruebas'
  */
 function real_excelImport(mode) {
-    console.log("real_excelImport() "+mode);
     var data=$('#import-excelData').val();
     ac_import.mode=mode;
     ac_import.blind=$('#import-excelBlindMode').prop('checked')?1:0;

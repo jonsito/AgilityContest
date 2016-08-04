@@ -84,8 +84,15 @@ class Equipos extends DBObject {
 		$this->myLogger->enter();
 		$prueba=$this->pruebaID;
 		$jornada=$this->jornadaID;
-
         $this->myLogger->info("Prueba:$prueba Jornada:$jornada Nombre:'$nombre' Observaciones:'$observaciones'");
+
+        // look for duplicate team
+        $res= $this->__selectObject( "*", "Equipos", "( Prueba=$prueba) AND ( Jornada=$jornada ) AND (nombre='$nombre')"  );
+        if($res!=null){ // already created, try to update
+            if (!is_object($res)) return $res; // error in trying locate team
+            $this->myLogger->notice("El Equipo '$nombre' ya esta inscrito en la prueba:$prueba jornada:$jornada");
+            return "";
+        }
 
 		// componemos un prepared statement
         // Miembros is no longer used. just set not null for DB integrity
@@ -111,15 +118,18 @@ class Equipos extends DBObject {
 		$this->myLogger->leave();
 		return "";
 	}
-	
-	function update($id) {
-		$this->myLogger->enter();
-		if ($id<=0) return $this->error("Invalid Equipo ID provided");
 
+	function update($id) {
         // iniciamos los valores, chequeando su existencia
         $n = http_request("Nombre","s",null,false); // not null
         $o = http_request('Observaciones',"s",'',false);
         $c = http_request('Categorias',"s",'',false);
+        return $this->real_update($id,$n,$o,$c);
+    }
+
+	function real_update($id,$n,$o,$c) {
+		$this->myLogger->enter();
+		if ($id<=0) return $this->error("Invalid Equipo ID provided");
         $this->myLogger->info("Team:$id Prueba:{$this->pruebaID} Jornada:{$this->jornadaID} Nombre:'$n' Observ:'$o' Categ:'$c'");
 
 		// componemos un prepared statement. Do not mofify any field that not matches current pruebaID
