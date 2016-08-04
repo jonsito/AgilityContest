@@ -48,6 +48,7 @@ class DogReader {
     protected $myAuthMgr;
     protected $tablename;
     protected $myDBObject;
+    protected $isInternational;
     protected $fieldList=array (
         // name => index, required (1:true 0:false-to-evaluate -1:optional), default
         // dog related data
@@ -60,17 +61,19 @@ class DogReader {
         'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '', "), // dog license. required for A2-A3;
         'KC_ID' =>      array (  -8,  -1, "s", "LOE_RRC",   " `LOE_RRC` varchar(255) DEFAULT '', "), // LOE_RRC kennel club dog id
         'Category' =>   array (  -9,   1, "s", "Categoria", " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
-        'Grade' =>       array (  -10,  1, "s", "Grado",     " `Grado` varchar(16) DEFAULT '-', "), // required
+        'Grade' =>       array (  -10, 1, "s", "Grado",     " `Grado` varchar(16) DEFAULT '-', "), // required
          // handler related data
         'HandlerID' =>  array (  -11,  0, "i", "HandlerID", " `HandlerID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
         'Handler' =>    array (  -12,  1, "s", "NombreGuia"," `NombreGuia` varchar(255) NOT NULL, "), // Handler's name. Required
         // club related data
+        // in international contests user can provide ISO country name either in "Club" or in "Country" field
         'ClubID' =>     array (  -13,  0, "i", "ClubID",    " `ClubID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
-        'Club' =>       array (  -14,  1, "s", "NombreClub"," `NombreClub` varchar(255) NOT NULL,")  // Club's Name. required
+        'Club' =>       array (  -14,  1, "s", "NombreClub"," `NombreClub` varchar(255) NOT NULL,"),  // Club's Name. required
+        'Country' =>    array (  -15, -1, "s", "Pais",      " `Pais` varchar(255) NOT NULL,")  // Country. optional
     );
 
     public function __construct($name,$fed,$options) {
-        $this->federation = $fed;
+        $this->federation = intval($fed);
         $this->myOptions=$options;
         $this->name=$name;
         $this->myConfig=Config::getInstance();
@@ -83,6 +86,12 @@ class DogReader {
         }
         $this->tablename= TABLE_NAME;
         $this->myDBObject = new DBObject($name);
+        // take care on international feds ajdusting "required" array field
+        $fedobj=Federations::getFederation($this->federation);
+        $this->isInternational=$fedobj->isInternational();
+        if ($this->isInternational) {
+            $this->fieldList['Club'][1]=-1;$this->fieldList['Country'][1]=1;
+        }
     }
 
     public function saveStatus($str,$reset=false){
@@ -123,13 +132,18 @@ class DogReader {
         $this->saveStatus("Validating header...");
         // search required fields in header and store index when found
         foreach ($this->fieldList as $field =>&$data) {
+            $toSearch=$field;
+            if (strpos($field,"Jornada")!==FALSE ) $toSearch=$data[3]; // already converted and stripped
+            // iterate header to find each stored field index
             for($index=0; $index<count($header); $index++) {
-                $fieldName=$header[$index];
-                // searc by index or by _(index)
-                if ( ($fieldName==$field) || ($fieldName==_utf($field)) ) { $data[0]=$index; break; }
-                // on special fields ( Journey names, use try to use journey name
-                $name=preg_replace('/\s+/', '', $data[3]);
-                if ($fieldName==$name) { $data[0]=$index; break; }
+                $name=$header[$index];
+                $name=preg_replace('/\s+/', '', $name);
+                $name=mysqli_real_escape_string($this->myDBObject->conn,$name);
+                // search by index or by _(index). Try to take care on special chars
+                if ( ($name==$toSearch) || ($name==_utf($toSearch))) {
+                    $this->myLogger->trace("Found key $name at index $index");
+                    $data[0]=$index; break;
+                }
             }
         }
         // now check for required but not declared fields
@@ -180,6 +194,12 @@ class DogReader {
             if ($key==='Grade') $item=parseGrade($item);
             if ($key==='Category') $item=parseCategory($item);
             if ($key==='Gender') $item=parseGender($item);
+            if ($this->isInternational) {
+                // in international contests when no club store country as club value
+                // retrieve index for country field
+                $idx=$this->fieldList['Country'][0];
+                if ( ($key==='Club') && ($item=="") ) $item=$row[$idx];;
+            }
             switch ($val[2]) {
                 case "s": // string
                     $a=mysqli_real_escape_string($this->myDBObject->conn,$item);
@@ -207,7 +227,7 @@ class DogReader {
         $res=$this->myDBObject->query($str);
         if (!$res) {
             $error=$this->myDBObject->conn->error;
-            throw new Exception("{$this->name}::populateTable(): Error inserting row $index ".json_encode($row));
+            throw new Exception("{$this->name}::populateTable(): Error inserting row $index ".json_encode($row)."\n$error");
         }
         $this->myLogger->leave();
         return 0;
@@ -319,11 +339,17 @@ class DogReader {
         $this->myLogger->enter();
         $a=$this->myDBObject->conn->real_escape_string($item['NombreClub']);
         $old=$a;
-        // TODO: search and handle also club's longnames
         $this->saveStatus("Analyzing club '$a'");
-        // international 2-letter iso country code: replace with country name
-        // should revise that we are in an international contest
-        if (array_key_exists($a,Country::$countryList) ) $a=Country::$countryList[$a];
+        // in international contest, Club field should contain country name
+        // but excel file can also provide "Country" field. So check for both
+        if ($this->isInternational) {
+            // country field takes precedence if exists
+            if (array_key_exists('Pais',$item)) $a=$item['Pais'];
+            // if field comes in 2Char ISO convention replace with country name
+            if (array_key_exists($a,Country::$countryList) ) $a=Country::$countryList[$a];
+        }
+        // our database stores countries as clubs for international contest, so we can now make normal query for club search
+        // remember that "Blind" mode looks for exact match
         if ($this->myOptions['Blind']==0) $search=$this->myDBObject->__select("*","Clubes","( Nombre LIKE '%$a%') OR (NombreLargo LIKE '%$a%')","","");
         else                     $search=$this->myDBObject->__select("*","Clubes","( Nombre = '$a') OR (NombreLargo = '$a')","","");
         if ( !is_array($search) ) return "findAndSetClub(): Invalid search term: '$a'"; // invalid search. mark error

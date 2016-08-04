@@ -262,7 +262,7 @@ function importExportInscripciones() {
 	var options= {
 		0: '<?php _e("Generate empty excel inscription template");?>',
 		1: '<?php _e("Generate inscription template for club");?>: '+cb,
-		2: '<?php _e("Export current inscriptions to Excel file");?>',
+		2: '*<?php _e("Export current inscriptions to Excel file");?>',
 		3: '<?php _e("Import inscriptions from Excel file");?>'
 	};
 	$.messager.radio(

@@ -273,6 +273,7 @@ public static $countryList = array(
 "SU" => "Union of Soviet Socialist Republics",
 "AE" => "United Arab Emirates",
 "GB" => "United Kingdom",
+"UK" => "United Kingdom", // European Union has made a request to ISO to update this
 "US" => "United States",
 "ZZ" => "Unknown or Invalid Region",
 "UY" => "Uruguay",
