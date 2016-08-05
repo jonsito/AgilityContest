@@ -70,8 +70,8 @@ if (!$am->allowed(ENABLE_LIVESTREAM)) {
 <script src="/agility/lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
-	<script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
-	<script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/livestream/livestream.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/videowall/videowall.js.php" type="text/javascript" charset="utf-8" > </script>
@@ -105,7 +105,7 @@ function myTransparentRowStyler(idx,row) {
 	else { return res+c2+";opacity:0.9"; }
 }
 
-var ac_liveStreamOpts={'Ring':1,'View':3,'Auto':0};
+var ac_liveStreamOpts={'Ring':1,'View':2,'Mode':'chroma','Timeout':0};
 
 function initialize() {
 	// make sure that every ajax call provides sessionKey
@@ -121,9 +121,11 @@ function initialize() {
 	getLicenseInfo();
 	getFederationInfo();
 	ac_liveStreamOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
-	ac_liveStreamOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
-	ac_liveStreamOpts.Auto=<?php _e(http_request("Auto","i",1)); ?>; // auto start displaying choosen selection
-	if (ac_liveStreamOpts.Auto==1) setTimeout(function() { ls_accept();	},10000); // on autostart launch window after 10 seconds
+	ac_liveStreamOpts.View=<?php _e(http_request("View","i",1)); ?>; // 0:start/1:live/2:parcial/3:final
+	ac_liveStreamOpts.Mode='<?php _e(http_request("Mode","s","chroma")); ?>'; // "video" / "chroma"
+	ac_liveStreamOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // 0: dont else auto start after x seconds
+	$('#Livestream_Mode_' + ac_liveStreamOpts.Mode).prop('checked',true);
+	if (ac_liveStreamOpts.Timeout!=0) setTimeout(function() { ls_accept();	},1000*ac_liveStreamOpts.Timeout); // on autostart launch window after 10 seconds
 }
 
 /**
@@ -185,19 +187,17 @@ function myLlamadaRowStyler(idx,row) {
     	<div class="fitem">
        		<label for="Vista"><?php _e('Select View'); ?>:</label>
        		<select id="selvw-Vista" name="Vista" style="width:200px">
-                <optgroup label="<?php _e('Embedded Video');?> ">
-                    <!-- videowall -->
-					<option value="0"><?php _e('Live Stream'); ?></option>
-					<option value="1"><?php _e('Partial scores'); ?></option>
-					<option value="2"><?php _e('Starting order'); ?></option>
-                </optgroup>
-                <optgroup label="<?php _e('Chroma Key');?> ">
-                    <!-- livestream -->
-                    <option value="3"><?php _e('On Screen Display'); ?></option>
-                    <option value="4"><?php _e('Partial scores'); ?></option>
-                    <option value="5"><?php _e('Starting order'); ?></option>
-                </optgroup>
-       		</select>
+				<option value="0"><?php _e('Starting order'); ?></option>
+				<option value="1"><?php _e('Live Stream'); ?></option>
+				<option value="2"><?php _e('Partial scores'); ?></option>
+				<option value="3"><?php _e('Final scores'); ?></option>
+			</select>
+			<br /><br />
+			<span style="display:inline-block;width:100px"><?php _e("Select mode");?></span>
+			<input id="Livestream_Mode_video" type="radio" name="Livestream_Mode" value="1">
+			<label for="Livestream_Mode_video"><?php _e('Embedded Video');?></label>
+			<input id="Livestream_Mode_chroma" type="radio" name="Livestream_Mode" value="0">
+			<label for="Livestream_Mode_chroma"><?php _e('Chroma Key');?></label>
     	</div>
     	
 	</form>
@@ -277,48 +277,33 @@ function ls_accept() {
 		$.messager.alert("Error",'<?php _e("You should select a valid session"); ?>',"error");
 		return;
 	}
-	// clear selection to make sure next time gets empty
-	$('#selvw-Session').combogrid('setValue','');
-	$('#selvw-Jornada').combogrid('setValue','');
-	
+	// load video(1) or chroma(0) mode
+	ac_config.vw_combined=$('input[name=Livestream_Mode]:checked').val();
+	var combinedstr=(ac_config.vw_combined==0)?"chroma":"video";
 	// store selected data into global structure
 	workingData.sesion=s.ID;
 	workingData.nombreSesion=s.Nombre;
 	initWorkingData(s.ID,videowall_eventManager);
-	ac_config.vw_combined=0;
+
 	var page="'/agility/console/frm_notavailable.php";
-	var n=parseInt($('#selvw-Vista').val());
 	var title="AgilityContest LiveStream ";
+	var n=parseInt($('#selvw-Vista').val());
 	switch (n) {
-		case 0: // Embedded OSD
-			page = "/agility/livestream/vwls_osdvideo.php?combined=1";
-			ac_config.vw_combined=1;
-			title +="( Overlay )";
+		case 0: // Starting order
+			page = "/agility/livestream/vwls_ordensalida.php?combined="+ac_config.vw_combined;
+			title +="( Overlay - "+combinedstr+" )";
 			break;
-		case 1: // Orden de salida
-			page = "/agility/livestream/vwls_parciales.php?combined=1";
-			ac_config.vw_combined=1;
-			title +="( Partial scores )";
+		case 1: // On Screen Display
+			page = "/agility/livestream/vwls_osdvideo.php?combined="+ac_config.vw_combined;
+			title +="( OSD info - "+combinedstr+" )";
 			break;
 		case 2: // Resultados Parciales
-			page = "/agility/livestream/vwls_ordensalida.php?combined=1";
-			ac_config.vw_combined=1;
-			title +="( Starting order )";
+			page = "/agility/livestream/vwls_parciales.php?combined="+ac_config.vw_combined;
+			title +="( Starting order - "+combinedstr+" )";
 			break;
-		case 3: // Live Stream OSD
-			page = "/agility/livestream/vwls_osdvideo.php?combined=0";
-			ac_config.vw_combined=0;
-			title +="( Overlay )";
-			break;
-		case 4: // resultados parciales con livestream
-			page = "/agility/livestream/vwls_parciales.php?combined=0";
-			ac_config.vw_combined=0;
-			title +="( Partial scores )";
-			break;
-		case 5: // Resultados Parciales
-			page = "/agility/livestream/vwls_ordensalida.php?combined=0";
-			ac_config.vw_combined=0;
-			title +="( Starting order )";
+		case 3: // Resultados finales
+			page = "/agility/livestream/vwls_finales.php?combined="+ac_config.vw_combined;
+			title +="( Overlay - "+combinedstr+" )";
 			break;
 	}
 	$('#selvw-dialog').dialog('close');

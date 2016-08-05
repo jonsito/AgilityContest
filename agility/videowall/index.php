@@ -126,8 +126,8 @@ function initialize() {
 	getFederationInfo();
 	ac_videoWallOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
 	ac_videoWallOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
-	ac_videoWallOpts.Auto=<?php _e(http_request("Auto","i",1)); ?>; // auto start displaying choosen selection
-	if (ac_videoWallOpts.Auto==1) setTimeout(function() { vw_accept();	},10000); // on autostart launch window after 10 seconds
+	ac_videoWallOpts.Timeout=<?php _e(http_request("Auto","i",0)); ?>; // auto start displaying after x seconds. 0 disable
+	if (ac_videoWallOpts.Timeout!=0) setTimeout(function() { vw_accept();	},1000*ac_videoWallOpts.Timeout); // if requested fire autostart
 }
 
 /**
@@ -282,9 +282,6 @@ function vw_accept() {
 		$.messager.alert("Error",'<?php _e("You should select a valid session"); ?>',"error");
 		return;
 	}
-	// clear selection to make sure next time gets empty
-	$('#selvw-Session').combogrid('setValue','');
-	$('#selvw-Jornada').combogrid('setValue','');
 	
 	// store selected data into global structure
 	workingData.sesion=s.ID;

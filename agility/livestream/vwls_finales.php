@@ -6,12 +6,12 @@ require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
 require_once(__DIR__ . "/../server/auth/AuthManager.php");
 $config =Config::getInstance();
-$am = new AuthManager("Videowall::parciales");
+$am = new AuthManager("Videowall::finales");
 if ( ! $am->allowed(ENABLE_LIVESTREAM)) { include_once("unregistered.php"); return 0;}
 $combined=http_request("combined","i",0);
 ?>
 <!--
-vw_parciales.inc
+vw_finales.inc
 
 Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -27,9 +27,9 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-<!-- Presentacion de resultados parciales -->
+<!-- Presentacion de resultados finales -->
 
-<div id="vw_parciales-window">
+<div id="vw_finales-window">
 
     <div id="vw_parent-layout" class="easyui-layout" style="width:100%;height:auto;">
 
@@ -51,7 +51,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div data-options="region:'center',border:false" style="background-color:transparent;">
         <!-- ventana interior -->
             <div id="vwls_common" style="display:inline-block;width:100%;height:auto">
-                <div id="vw_parciales-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader"
+                <div id="vw_finales-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader"
                       style="height:120px;font-size:1.0em;" >
                     <table width="100%">
                         <tr>
@@ -62,35 +62,59 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                                 <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Contest'); ?></span>
                             </td>
                             <td align="right">
-                                <span id="vw_header-texto"><?php _e('Partial scores'); ?></span>&nbsp;-&nbsp;
+                                <span id="vw_header-texto"><?php _e('Final scores'); ?></span>&nbsp;-&nbsp;
                                 <span id="vw_header-ring"><?php _e('Ring'); ?></span>
                                 <br />
                                 <span id="vw_header-infomanga" style="width:200px">(<?php _e('No round selected'); ?>)</span>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" align="right" id="vw_parciales_trs-data">
-                                <?php include_once(__DIR__."/../lib/templates/parcial_round_data.inc.php"); ?>
+                            <td colspan="2" align="right" id="vw_finales_trs-data">
+                                <?php include_once(__DIR__."/../lib/templates/final_rounds_data.inc.php"); ?>
                             </td>
                         </tr>
                     </table>
                 </div>
 
                 <!-- tabla de datos: se cargan la de individual y de equipos, y en runtime se selecciona una u otra -->
-                <div id="vw_parciales-data" data-options="region:'center'" style="background-color:transparent;">
+                <div id="vw_finales-data" data-options="region:'center'" style="background-color:transparent;">
 
                     <!-- datagrid para resultados individuales -->
-                    <div id="parciales_individual-table" class="scores_table" style="display:none;width:100%">
-                        <?php include_once(__DIR__."/../lib/templates/parcial_individual.inc.php"); ?>
+                    <div id="finales_individual-table" class="scores_table" style="display:none;width:98%">
+                        <table id="finales_individual-datagrid">
+                            <thead>
+                            <tr>
+                                <th colspan="4"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
+                                <th colspan="3"> <span class="main_theader" id="finales_individual_roundname_m1"><?php _e('Round'); ?> 1</span></th>
+                                <th colspan="3"> <span class="main_theader" id="finales_individual_roundname_m2"><?php _e('Round'); ?> 2</span></th>
+                                <th colspan="3"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
+                            </tr>
+                            <tr>
+                                <th width="5" data-options="field:'LogoClub',		align:'left',formatter:formatLogo" > &nbsp;</th>
+                                <th width="5" data-options="field:'Dorsal',		align:'left'" > <?php _e('Dors'); ?>.</th>
+                                <th width="10" data-options="field:'Nombre',		align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
+                                <th width="18" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
+                                <th width="7" data-options="field:'T1',			align:'right',formatter:formatT1,styler:formatBorder"> <?php _e('Time'); ?>.</th>
+                                <th width="7" data-options="field:'P1',			align:'right',formatter:formatP1"> <?php _e('Penal'); ?>.</th>
+                                <th width="4" data-options="field:'Puesto1',		align:'center'"> <?php _e('Pos'); ?>.</th>
+                                <th width="7" data-options="field:'T2',			align:'right',formatter:formatT2,styler:formatBorder"> <?php _e('Time'); ?>.</th>
+                                <th width="7" data-options="field:'P2',			align:'right',formatter:formatP2"> <?php _e('Penal'); ?>.</th>
+                                <th width="4" data-options="field:'Puesto2',		align:'center'"> <?php _e('Pos'); ?>.</th>
+                                <th width="7" data-options="field:'Tiempo',		align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
+                                <th width="7" data-options="field:'Penalizacion',	align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
+                                <th width="6" data-options="field:'Puesto',		align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
+                            </tr>
+                            </thead>
+                        </table>
                     </div>
                     <!-- datagrid para resultados por equipos -->
-                    <div id="parciales_equipos-table" class="scores_table" style="display:none;width:100%">
-                        <?php include_once(__DIR__."/../lib/templates/parcial_teams.inc.php"); ?>
+                    <div id="finales_equipos-table" class="scores_table" style="display:none;width:103%">
+                        <?php include_once(__DIR__."/../lib/templates/final_teams.inc.php"); ?>
                     </div>
                 </div>
 
                 <!-- Pie de pagina -->
-                <div id="vw_parciales-footer" data-options="region:'south',split:false" class="vw_floatingfooter"
+                <div id="vw_finales-footer" data-options="region:'south',split:false" class="vw_floatingfooter"
                     style="font-size:1.2em;">
                     <span id="vw_footer-footerData"></span>
                 </div>
@@ -98,14 +122,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         </div>
     </div>
 
-</div> <!-- vw_parciales-window -->
+</div> <!-- vw_finales-window -->
 
 <script type="text/javascript">
 
 $('#vw_parent-layout').layout({fit:true});
 $('#vwls_common').layout({fit:true});
 
-$('#vw_parciales-window').window({
+$('#vw_finales-window').window({
 	fit:true,
 	noheader:true,
 	border:false,
@@ -118,8 +142,26 @@ $('#vw_parciales-window').window({
 	}
 });
 
-var pid=$('#parciales_individual-datagrid');
-pid.datagrid({
+$('#finales_individual-datagrid').datagrid({
+    expandCount: 0,
+    // propiedades del panel asociado
+    fit: false, // set to false as we used thead to declare columns, and they have their own width
+    border: false,
+    closable: false,
+    collapsible: false,
+    collapsed: false,
+    // propiedades del datagrid
+    // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
+    loadMsg: "<?php _e('Updating final scores');?>...",
+    width:'100%',
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    singleSelect: true,
+    autoRowHeight:false,
+    idField: 'ID',
+    pageSize: 500, // enought bit to make it senseless
+    // columns declared at html section to show additional headers
     scrollbarSize:0,
     rowStyler:myTransparentRowStyler,
     onBeforeLoad: function (param) {
@@ -128,15 +170,12 @@ pid.datagrid({
         return true;
     },
     onLoadSuccess: function(data) {
-        $('#parciales_individual-datagrid').datagrid('scrollTo',0); // point to first result
+        $('#finales_individual-datagrid').datagrid('scrollTo',0); // point to first result
     }
 });
-// hide Category and license fields
-pid.datagrid('hideColumn','Categoria');
-pid.datagrid('hideColumn','Licencia');
-pid.datagrid('fitColumns');
 
-$('#parciales_equipos-datagrid').datagrid({
+var fed=$('#finales_equipos-datagrid');
+fed.datagrid({
     rowStyler:myTransparentRowStyler,
     onBeforeLoad: function (param) {
         // do not update until 'open' received
@@ -145,12 +184,15 @@ $('#parciales_equipos-datagrid').datagrid({
     },
     onLoadSuccess: function(data) {
         if (data.total==0) return; // no data yet
-        var dg=$('#parciales_equipos-datagrid');
-        dg.datagrid('expandRow',0); // expand first row
+        var dg=$('#finales_equipos-datagrid');
         dg.datagrid('scrollTo',0); // point to first result
         dg.datagrid('fixDetailRowHeight');
     }
 });
+
+// hide Categorias field in team view
+fed.datagrid('hideColumn','Categorias');
+fed.datagrid('fitColumns');
 
 var eventHandler= {
     'null': null,// null event: no action taken
@@ -159,8 +201,8 @@ var eventHandler= {
         vwls_enableOSD(1);
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
-            clearParcialRoundInformation();
-            setParcialIndividualOrTeamView(d); // fix individual or team view for final results
+            clearFinalRoundInformation();
+            setFinalIndividualOrTeamView(d); // fix individual or team view for final results
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
             $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
         });
@@ -168,8 +210,8 @@ var eventHandler= {
     'open': function(event){ // operator select tanda
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
-            setParcialIndividualOrTeamView(d); // fix individual or team view for final results
-            updateParciales(d.Ronda.Mode,d);
+            setFinalIndividualOrTeamView(d); // fix individual or team view for final results
+            updateFinales(d.Ronda);
         });
     },
     'close': null,      // no more dogs in tanda
@@ -188,7 +230,7 @@ var eventHandler= {
     'crono_dat':  null, // datos provenientes de crono
     'aceptar':	function(event){ // operador pulsa aceptar
         vw_updateWorkingData(event,function(e,d){
-            updateParciales(d.Ronda.Mode,d);
+            updateFinales(d.Ronda);
         });
     },
     'cancelar': null, // operador pulsa cancelar
