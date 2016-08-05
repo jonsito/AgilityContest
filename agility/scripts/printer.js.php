@@ -80,11 +80,13 @@ function print_ordenTandas() {
 /**
  * manda a la impresora el orden de salida
  * @param cats lista de categorias a imprimir
+ * @param excel lista de categorias a imprimir
  * @returns {Boolean}
  */
-function print_ordenSalida(cats) {
+function print_ordenSalida(cats,excel) {
     var url='/agility/server/pdf/print_ordenDeSalida.php';
     if (isJornadaEqConjunta()) url='/agility/server/pdf/print_ordenSalidaEquipos4.php';
+	if (excel) url='/agility/server/excel/print_ordenSalidaExcel.php';
     $.fileDownload(
         url,
         {
@@ -93,7 +95,9 @@ function print_ordenSalida(cats) {
                 Prueba: workingData.prueba,
                 Jornada: workingData.jornada,
                 Manga: workingData.manga,
-				Categorias: cats
+				Categorias: cats,
+				Excel: excel,
+				EqConjunta: isJornadaEqConjunta()?1:0
             },
             preparingMessageHtml: '(Starting order) <?php _e("We are preparing your report, please wait"); ?> ...',
             failMessageHtml: '(Starting order) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -240,32 +244,34 @@ function checkAndPrintParcial(val) {
 function print_commonDesarrollo(def,cb) {
     var options= {
         0:((def==0)?'*':'')+'<?php _e('Activities and timetable on this journey'); ?>',
-        1:((def==1)?'*':'')+'<?php _e('Starting order on this round'); ?><br/>',
-        2:((def==2)?'*':'')+'<?php _e('SheetCalc to evaluate SCT and MCT'); ?>',
-        3:((def==3)?'*':'')+'<?php _e('Sheet to anotate data on rounds'); ?>',
-        4:((def==4)?'*':'')+'<?php _e('Judge assistant empty sheet'); ?><br/>',
-        5:((def==5)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
-        6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
-        7:((def==7)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?><br/>'
+		1:((def==1)?'*':'')+'<?php _e('Starting order on this round'); ?> - PDF',
+		2:((def==2)?'*':'')+'<?php _e('Starting order on this round'); ?> - Excel<br/>',
+        3:((def==3)?'*':'')+'<?php _e('SheetCalc to evaluate SCT and MCT'); ?>',
+        4:((def==4)?'*':'')+'<?php _e('Sheet to anotate data on rounds'); ?>',
+        5:((def==5)?'*':'')+'<?php _e('Judge assistant empty sheet'); ?><br/>',
+        6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
+        7:((def==7)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
+        8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?><br/>'
         // As we need to select categoria, cannot directly access to print parciales
         //8:((def==8)?'*':'')+'Imprimir resultados parciales de la manga'
     };
     var options4= {
         0:((def==0)?'*':'')+'<?php _e('Activities and timetable on this journey'); ?>',
-        1:((def==1)?'*':'')+'<?php _e('Starting order on this round'); ?><br/>',
-        2:((def==2)?'*':'')+'<?php _e('SheetCalc to evaluate SCT and MCT'); ?>',
-        3:((def==3)?'*':'')+'<?php _e('Sheet to anotate data on rounds'); ?>',
-        4:((def==4)?'*':'')+'<?php _e('Judge assistant empty sheet'); ?><br/>',
-        5:((def==5)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
-        6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
-        7:((def==7)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?>',
-        8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (combined for team 4)'); ?><br/>'
+        1:((def==1)?'*':'')+'<?php _e('Starting order on this round'); ?>',
+		2:((def==2)?'*':'')+'<?php _e('Starting order on this round'); ?> (<?php _e("Excel format");?>)<br/>',
+        3:((def==3)?'*':'')+'<?php _e('SheetCalc to evaluate SCT and MCT'); ?>',
+        4:((def==4)?'*':'')+'<?php _e('Sheet to anotate data on rounds'); ?>',
+        5:((def==5)?'*':'')+'<?php _e('Judge assistant empty sheet'); ?><br/>',
+        6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
+        7:((def==7)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
+        8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?>',
+        9:((def==9)?'*':'')+'<?php _e('Judge assistant sheets (combined for team 4)'); ?><br/>'
     };
 
     function checkCanPrint(oper) {
         switch(parseInt(oper)){
-            case 0: case 2:case 3:case 9: return true;
-            case 1: case 4: case 5: case 6: case 7:case 8:
+            case 0: case 3:case 4:case 5: return true;
+            case 1: case 2: case 6: case 7: case 8:case 9:
                 var row= $('#competicion-listamangas').datagrid('getSelected');
                 if (row )  return true;
                 $.messager.alert('<?php _e('Error'); ?>','<?php _e('There is no selected round'); ?>','error');
@@ -289,15 +295,15 @@ function print_commonDesarrollo(def,cb) {
             if (!checkCanPrint(r)) return false;
             switch(parseInt(r)){
                 case 0: print_ordenTandas(); break;
-                case 1: print_ordenSalida(cats); break;
-                case 2: print_trsTemplates(0); break;
-                case 3: print_trsTemplates(1); break;
-                case 4: print_trsTemplates(2); break;
-                case 5: print_asistente(1,cats); break;
-                case 6: print_asistente(5,cats); break;
-                case 7: print_asistente(10,cats); break;
-                // case 7: checkAndPrintParcial(val); break;
-                case 8: print_asistenteEquipos(cats); break;
+                case 1: print_ordenSalida(cats,false); break;
+				case 2: print_ordenSalida(cats,true); break;
+                case 3: print_trsTemplates(0); break;
+                case 4: print_trsTemplates(1); break;
+                case 5: print_trsTemplates(2); break;
+                case 6: print_asistente(1,cats); break;
+                case 7: print_asistente(5,cats); break;
+                case 8: print_asistente(10,cats); break;
+                case 9: print_asistenteEquipos(cats); break;
             }
         }).window('resize',{width:450});
     return false; //this is critical to stop the click event which will trigger a normal file download!

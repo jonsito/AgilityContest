@@ -312,7 +312,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 		<tr> <!-- fila 7: botones reset y save -->
             <td>
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
-                   id="dmanga_Templates" onclick="print_commonDesarrollo(2);"><?php _e('Templates'); ?></a>
+                   id="dmanga_Templates" onclick="print_commonDesarrollo(3);"><?php _e('Templates'); ?></a>
             </td>
 			<td colspan="4">&nbsp;</td>
 			<td>
