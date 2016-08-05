@@ -22,23 +22,24 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__.'/../i18n/Country.php');
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Dogs.php');
 require_once(__DIR__."/common_writer.php");
 
 class excel_ordenSalida extends XLSX_Writer {
-
+    protected $errormsg;
+    protected $prueba;
+    protected $federation;
     protected $manga; // datos de la manga
     protected $orden; // orden de salida
     protected $categoria; // categoria que estamos listando
     protected $validcats; // categorias que nos han pedido listar
     protected $teams; // lista de equipos de esta jornada
     protected $team4; // tell to print standard or team4 mode
-    protected $cellHeader;
 
-    protected $cols = array( 'Order','Name','Pedigree Name','Gender','Breed','License','KC id','Category','Grade','Handler','Club','Province','Country');
-    protected $fields = array( 'Orden','Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Provincia','Pais');
-
+    protected $header;
+    protected $fields;
     /**
      * Constructor
      * @throws Exception
@@ -49,11 +50,18 @@ class excel_ordenSalida extends XLSX_Writer {
         if ( ($prueba<=0) || ($jornada<=0) || ($manga<=0) ) {
             $this->errormsg="excel_OrdenDeSalida: either prueba/jornada/ manga/orden data are invalid";
             throw new Exception($this->errormsg);
-        }		$this->federation=Federations::getFederation(0); // defaults to RSCE
+        }
         $myDBObject= new DBObject("excel_ordenDeSalida");
-        $pruebaObj= $myDBObject->__getObject("Pruebas",$prueba);
-        $federation=Federations::getFederation(intval($pruebaObj->RSCE));
-        $strClub=($federation->isInternational())?_('Country'):_('Club');
+        $this->prueba= $myDBObject->__getArray("Pruebas",$prueba);
+        $this->federation=Federations::getFederation(intval($this->prueba['RSCE']));
+        // set up fields according international or national contests
+        if ($this->federation->isInternational()) {
+            $this->header = array( 'Order','Name','Pedigree Name','Gender','Breed','Category','Grade','Handler','Country');
+            $this->fields = array( 'Orden','Nombre','NombreLargo','Genero','Raza','Categoria','Grado','NombreGuia','Pais');
+        } else {
+            $this->header   = array( 'Order','Name','Gender','Breed','License','Category','Grade','Handler','Club','Country');
+            $this->fields = array( 'Orden','Nombre','Genero','Raza','Licencia','Categoria','Grado','NombreGuia','NombreClub','Pais');
+        }
         // Datos de la manga
         $m = new Mangas("excel_OrdenDeSalida",$jornada);
         $this->manga= $m->selectByID($manga);
@@ -62,10 +70,8 @@ class excel_ordenSalida extends XLSX_Writer {
         $os= $o->getData();
         $this->orden=$os['rows'];
         $this->categoria="L";
-        $this->cellHeader =
-            array(_('Order'),_('Dorsal'),_('Name'),_('Breed'),_('Lic'),_('Handler'),$strClub,_('Heat'),_('Comments'));
         // obtenemos los datos de equipos de la jornada indexados por el ID del equipo
-        $eq=new Equipos("print_ordenDeSalida",$prueba,$jornada);
+        $eq=new Equipos("excel_ordenDeSalida",$prueba,$jornada);
         $this->teams=array();
         foreach($eq->getTeamsByJornada() as $team) $this->teams[$team['ID']]=$team;
         $this->validcats=$categorias;
@@ -77,30 +83,70 @@ class excel_ordenSalida extends XLSX_Writer {
             default: return false;
         }
     }
+    public function open() {
+        parent::open();
+        $this->createInfoPage(_utf("Starting order"),$this->federation->get('ID'));
+    }
 
     private function writeTableHeader() {
         // internationalize header texts
-        for($n=0;$n<count($this->cols);$n++) {
-            $this->cols[$n]=_utf($this->cols[$n]);
+        $cols=array();
+        for($n=0;$n<count($this->header);$n++) {
+            $cols[$n]=_utf($this->header[$n]);
         }
         // send to excel
-        $this->myWriter->addRowWithStyle($this->cols,$this->rowHeaderStyle);
+        $this->myWriter->addRowWithStyle($cols,$this->rowHeaderStyle);
     }
 
     function composeTable() {
         $this->myLogger->enter();
-
         // Create page
         $dogspage=$this->myWriter->addNewSheetAndMakeItCurrent();
         $dogspage->setName(_("Starting order"));
         // write header
         $this->writeTableHeader();
 
-        foreach($this->lista as $perro) {
-            $row=array();
+        $categoria="";
+        $equipo="-- Sin asignar --";
+        $index=1;
+        foreach($this->orden as $perro) {
+            if ($categoria!=$perro['Categoria']) {
+                if ($categoria!="") $this->myWriter->addRow(array()); // add empty row
+                $row=array();
+                $index=1;
+                $categoria=$perro['Categoria'];
+                array_push($row,_utf('Category') . ':');
+                array_push($row,$this->federation->get('ListaCategorias')[$categoria]);
+                $this->myWriter->addRow($row);
+            }
+            if($equipo!=$perro['NombreEquipo']) {
+                $equipo=$perro['NombreEquipo'];
+                $row=array();
+                array_push($row,_utf('Team') . ':');
+                array_push($row,$equipo);
+                $this->myWriter->addRow($row);
+            }
             // extract relevant information from database received dog
-            for($n=0;$n<count($this->fields);$n++) array_push($row,$perro[$this->fields[$n]]);
+            $row=array();
+            array_push($row,$index);
+            for($n=1;$n<count($this->fields);$n++) {
+                $val=$perro[$this->fields[$n]];
+                // some fields require federation specific translations
+                switch($this->fields[$n]) {
+                    case 'Categoria':
+                        $val=$this->federation->getCategory($categoria);
+                        break;
+                    case 'Grado':
+                        $val=$this->federation->getGrade($val);
+                        break;
+                    case 'Pais': // use long iso names
+                        if (array_key_exists($val,Country::$countryList)) $val=Country::$countryList[$val];
+                        break;
+                }
+                array_push($row,$val);
+            }
             $this->myWriter->addRow($row);
+            $index++;
         }
         $this->myLogger->leave();
     }
@@ -116,7 +162,6 @@ try {
     // 	Creamos generador de documento
     $excel = new excel_ordenSalida($prueba,$jornada,$manga,$categorias,$conjunta);
     $excel->open();
-    $excel->createInfoPage(_utf("Starting order"),0);
     $excel->composeTable();
     $excel->close();
     return 0;
