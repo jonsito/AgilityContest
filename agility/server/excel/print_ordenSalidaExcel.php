@@ -30,6 +30,7 @@ require_once(__DIR__."/common_writer.php");
 class excel_ordenSalida extends XLSX_Writer {
     protected $errormsg;
     protected $prueba;
+    protected $jornada;
     protected $federation;
     protected $manga; // datos de la manga
     protected $orden; // orden de salida
@@ -53,14 +54,15 @@ class excel_ordenSalida extends XLSX_Writer {
         }
         $myDBObject= new DBObject("excel_ordenDeSalida");
         $this->prueba= $myDBObject->__getArray("Pruebas",$prueba);
+        $this->jornada= $myDBObject->__getArray("Jornadas",$jornada);
         $this->federation=Federations::getFederation(intval($this->prueba['RSCE']));
         // set up fields according international or national contests
         if ($this->federation->isInternational()) {
-            $this->header = array( 'Order','Name','Pedigree Name','Gender','Breed','Category','Grade','Handler','Country');
-            $this->fields = array( 'Orden','Nombre','NombreLargo','Genero','Raza','Categoria','Grado','NombreGuia','Pais');
+            $this->header = array( 'Order','Name','Pedigree Name','Gender','Breed','Category','Grade','Handler','Country','Heat');
+            $this->fields = array( 'Orden','Nombre','NombreLargo','Genero','Raza','Categoria','Grado','NombreGuia','Pais','Celo');
         } else {
-            $this->header   = array( 'Order','Name','Gender','Breed','License','Category','Grade','Handler','Club','Country');
-            $this->fields = array( 'Orden','Nombre','Genero','Raza','Licencia','Categoria','Grado','NombreGuia','NombreClub','Pais');
+            $this->header   = array( 'Order','Name','Gender','Breed','License','Category','Grade','Handler','Club','Country','Heat');
+            $this->fields = array( 'Orden','Nombre','Genero','Raza','Licencia','Categoria','Grado','NombreGuia','NombreClub','Pais','Celo');
         }
         // Datos de la manga
         $m = new Mangas("excel_OrdenDeSalida",$jornada);
@@ -96,6 +98,19 @@ class excel_ordenSalida extends XLSX_Writer {
         }
         // send to excel
         $this->myWriter->addRowWithStyle($cols,$this->rowHeaderStyle);
+        // add round information
+        $row=array();
+        array_push($row,_('Date'));
+        array_push($row,$this->jornada['Fecha']);
+        $this->myWriter->addRow($row);
+        $row=array();
+        array_push($row,_('Journey'));
+        array_push($row,$this->jornada['Nombre']);
+        $this->myWriter->addRow($row);
+        $row=array();
+        array_push($row,_('Round'));
+        array_push($row,Mangas::$tipo_manga[$this->manga->Tipo][1]);
+        $this->myWriter->addRow($row);
     }
 
     function composeTable() {
@@ -110,6 +125,7 @@ class excel_ordenSalida extends XLSX_Writer {
         $equipo="-- Sin asignar --";
         $index=1;
         foreach($this->orden as $perro) {
+            if (!category_match($perro['Categoria'],$this->validcats)) continue;
             if ($categoria!=$perro['Categoria']) {
                 if ($categoria!="") $this->myWriter->addRow(array()); // add empty row
                 $row=array();
@@ -142,6 +158,8 @@ class excel_ordenSalida extends XLSX_Writer {
                     case 'Pais': // use long iso names
                         if (array_key_exists($val,Country::$countryList)) $val=Country::$countryList[$val];
                         break;
+                    case 'Celo':
+                        $val=(intval($val)==0)?"":_('Heat');
                 }
                 array_push($row,$val);
             }
