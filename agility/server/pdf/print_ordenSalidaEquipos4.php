@@ -109,7 +109,8 @@ class OrdenSalidaEquipos4 extends PrintCommon {
 	
 	function printTeamInfo($rowcount,$index,$team,$members) {
         // evaluate logos
-        $logos=array('null.png','null.png','null.png','null.png');
+        $nullpng=getIconPath($this->federation->get('Name'),"null.png");
+        $logos=array($nullpng,$nullpng,$nullpng,$nullpng);
         if ($team['Nombre']==="-- Sin asignar --") {
             $logos[0]=getIconPath($this->federation->get('Name'),"agilitycontest.png");
         } else {
@@ -117,7 +118,6 @@ class OrdenSalidaEquipos4 extends PrintCommon {
             foreach($members as $miembro) {
                 $logo=$this->getLogoName($miembro['Perro']);
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
-                $this->myLogger->trace("Miembro: {$miembro['Nombre']} Logo:$logo");
             }
         }
         // posicion de la celda

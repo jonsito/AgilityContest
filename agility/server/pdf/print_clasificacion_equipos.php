@@ -196,6 +196,7 @@ class PrintClasificacionTeam extends PrintCommon {
 		$this->Cell(15,8,strval(1+$teamcount)." -",'LT',0,'C',true); // imprime puesto del equipo
 		$x=$this->getX();
 		$y=$this->getY();
+        // if no logo is "null.png" don't try to insert logo, just add empty text with parent background
 		for ($n=0;$n<$this->getMinDogs();$n++) {
 			if ($logos[$n]==="null.png") {
 				$this->SetX($x+10*$n);

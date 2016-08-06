@@ -31,9 +31,9 @@ $config =Config::getInstance();
             <span id="import-excelBlindOptions" style="display:inherit;">
 				<br/> <?php _e("Options for non-interactive import");?>:<br/>
 				<span style="display:inline-block;width:275px"><?php _e("Precedence on DB/Excel entry match");?>:</span>
-				<input id="import-excelPrefDB"   type="radio" name="excelPreference" value="1" checked="checked">
+				<input id="import-excelPrefDB"   type="radio" name="excelPreference" value="1">
 				<label for="import-excelPrefDB"><?php _e('Database')?></label>
-				<input id="import-excelPrefFile" type="radio" name="excelPreference" value="0">
+				<input id="import-excelPrefFile" type="radio" name="excelPreference" value="0" checked="checked">
 				<label for="import-excelPrefFile"><?php _e('Excel file')?></label><br/>
 
 				<span style="display:inline-block;width:275px"><?php _e("Text Conversion");?>:</span>

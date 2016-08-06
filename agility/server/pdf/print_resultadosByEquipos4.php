@@ -185,6 +185,7 @@ class ResultadosByEquipos4 extends PrintCommon {
         $this->ac_header(1,14);
         $this->Cell(128,14,"","LTBR",0,'C',true);
         $x=70;
+        // if no logo is "null.png" don't try to insert logo, just add empty text with parent background
         for ($n=0;$n<4;$n++) {
             if ($logos[$n]==="null.png") {
                 $this->SetX($x+7*$n);
