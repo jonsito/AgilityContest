@@ -117,6 +117,7 @@ class OrdenSalidaEquipos4 extends PrintCommon {
             foreach($members as $miembro) {
                 $logo=$this->getLogoName($miembro['Perro']);
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
+                $this->myLogger->trace("Miembro: {$miembro['Nombre']} Logo:$logo");
             }
         }
         // posicion de la celda
@@ -166,7 +167,9 @@ class OrdenSalidaEquipos4 extends PrintCommon {
         $rowcount=0;
         $this->categoria="-";
 		foreach($this->equipos as $equipo) {
-            // do not print team on unrequested categories
+            // skip "-- Sin asignar --" team. Do not print team on unrequested categories
+            if ($equipo['Nombre']==="-- Sin asignar --") continue;
+            // $this->myLogger->trace("Team:{$equipo['Nombre']} cats:{$equipo['Categorias']} compare to:{$this->validcats}");
             if (!category_match($equipo['Categorias'],$this->validcats)) continue;
             $miembros=$equipo['Perros'];
             $num=count($miembros);
@@ -192,8 +195,9 @@ try {
 	$prueba=http_request("Prueba","i",0);
 	$jornada=http_request("Jornada","i",0);
     $manga=http_request("Manga","i",0);
+    $categorias=http_request("Categorias","s","-");
     // 	Creamos generador de documento
-    $pdf=new OrdenSalidaEquipos4($prueba,$jornada,$manga);
+    $pdf=new OrdenSalidaEquipos4($prueba,$jornada,$manga,$categorias);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("ordenSalidaEquipos4.pdf","D"); // "D" means open download dialog

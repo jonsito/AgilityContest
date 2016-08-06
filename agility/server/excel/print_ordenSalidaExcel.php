@@ -34,10 +34,8 @@ class excel_ordenSalida extends XLSX_Writer {
     protected $federation;
     protected $manga; // datos de la manga
     protected $orden; // orden de salida
-    protected $categoria; // categoria que estamos listando
     protected $validcats; // categorias que nos han pedido listar
-    protected $teams; // lista de equipos de esta jornada
-    protected $team4; // tell to print standard or team4 mode
+    protected $equipos; // tell to print standard or team4 mode
 
     protected $header;
     protected $fields;
@@ -56,6 +54,7 @@ class excel_ordenSalida extends XLSX_Writer {
         $this->prueba= $myDBObject->__getArray("Pruebas",$prueba);
         $this->jornada= $myDBObject->__getArray("Jornadas",$jornada);
         $this->federation=Federations::getFederation(intval($this->prueba['RSCE']));
+        $this->validcats=$categorias;
         // set up fields according international or national contests
         if ($this->federation->isInternational()) {
             $this->header = array( 'Order','Name','Pedigree Name','Gender','Breed','Category','Grade','Handler','Country','Heat');
@@ -67,16 +66,30 @@ class excel_ordenSalida extends XLSX_Writer {
         // Datos de la manga
         $m = new Mangas("excel_OrdenDeSalida",$jornada);
         $this->manga= $m->selectByID($manga);
-        // Datos del orden de salida
+        // orden de salida de los perros
         $o = new OrdenSalida("excel_OrdenDeSalida",$manga);
         $os= $o->getData();
         $this->orden=$os['rows'];
-        $this->categoria="L";
-        // obtenemos los datos de equipos de la jornada indexados por el ID del equipo
-        $eq=new Equipos("excel_ordenDeSalida",$prueba,$jornada);
-        $this->teams=array();
-        foreach($eq->getTeamsByJornada() as $team) $this->teams[$team['ID']]=$team;
-        $this->validcats=$categorias;
+        // orden de salida de los equipos de la jornada
+        $teams= $o->getTeams();
+        $this->equipos=$teams['rows'];
+
+        // para el modo "equipos conjunta" agrupamos los perros por equipos
+        // el orden de equipos y de perros viene dado por el orden de salida,
+        // con la diferencia en que no se hace "split" del equipos sino que van todos seguidos
+
+        // this anidated loop is a bit dirty, and perhaps a bit slow on large team contests
+        // but as used rarely no real need to improve
+        foreach($this->equipos as &$equipo) { $equipo['Perros']=array(); } // create dog array entry
+        // add each dog in their matching team dog array
+        foreach($this->orden as $perro) {
+            foreach($this->equipos as &$equipo) {
+                if ($perro['Equipo']==$equipo['ID']) {
+                    array_push($equipo['Perros'],$perro);
+                    break;
+                }
+            }
+        }
     }
 
     private function isTeam() {
@@ -111,6 +124,55 @@ class excel_ordenSalida extends XLSX_Writer {
         array_push($row,_('Round'));
         array_push($row,Mangas::$tipo_manga[$this->manga->Tipo][1]);
         $this->myWriter->addRow($row);
+    }
+
+    function composeTableConjunta() {
+        $this->myLogger->enter();
+        $index=1; // starting order
+
+        // Create page
+        $dogspage=$this->myWriter->addNewSheetAndMakeItCurrent();
+        $dogspage->setName(_("Starting order"));
+        // write header
+        $this->writeTableHeader();
+        foreach ($this->equipos as $equipo) {
+            // skip "-- Sin asignar --" team. Do not print team on unrequested categories
+            if ($equipo['Nombre']==="-- Sin asignar --") continue;
+            // $this->myLogger->trace("Team:{$equipo['Nombre']} cats:{$equipo['Categorias']} compare to:{$this->validcats}");
+            if (!category_match($equipo['Categorias'],$this->validcats)) continue;
+            // print team name:
+            $row=array();
+            array_push($row,_utf('Team') . ':');
+            array_push($row,$equipo['Nombre']);
+            $this->myWriter->addRow($row);
+            // imprimimos los perros del equipo
+            foreach ($equipo['Perros'] as $perro ) {
+                // extract relevant information from database received dog
+                $row=array();
+                array_push($row,$index); // starting order
+                for($n=1;$n<count($this->fields);$n++) {
+                    $val=$perro[$this->fields[$n]];
+                    // some fields require federation specific translations
+                    switch($this->fields[$n]) {
+                        case 'Categoria':
+                            $val=$this->federation->getCategory($perro['Categoria']);
+                            break;
+                        case 'Grado':
+                            $val=$this->federation->getGrade($val);
+                            break;
+                        case 'Pais': // use long iso names
+                            if (array_key_exists($val,Country::$countryList)) $val=Country::$countryList[$val];
+                            break;
+                        case 'Celo':
+                            $val=(intval($val)==0)?"":_('Heat');
+                    }
+                    array_push($row,$val);
+                }
+                $this->myWriter->addRow($row);
+                $index++;
+            }
+        }
+        $this->myLogger->leave();
     }
 
     function composeTable() {
@@ -180,7 +242,8 @@ try {
     // 	Creamos generador de documento
     $excel = new excel_ordenSalida($prueba,$jornada,$manga,$categorias,$conjunta);
     $excel->open();
-    $excel->composeTable();
+    if (! $conjunta) $excel->composeTable();
+    else $excel->composeTableConjunta();
     $excel->close();
     return 0;
 } catch (Exception $e) {

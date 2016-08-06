@@ -90,21 +90,24 @@ class InscriptionReader extends DogReader{
 
             // if team journey retrieve all team names and create them
             $jname=$jornada['Nombre'];
+            $jname=preg_replace('/\s+/', '', $jname); // remove spaces to get friendly with database field naming
+            $jname=mysqli_real_escape_string($this->myDBObject->conn,$jname); // escape to avoid SQL injection
+
             $this->saveStatus("Creating teams for Journey: $jname");
             // select distinct jornadaname from temporary tabla where jornadaname!="" group by jornadaname
-            $res=$this->myDBObject->__select("DISTINCT Categoria , $jname AS Equipo",TABLE_NAME,"($jname<>'')","","",$jname);
+            $res=$this->myDBObject->__select("DISTINCT Categoria , $jname AS NombreEquipo",TABLE_NAME,"($jname<>'')","","");
             // parse result to join categories on same team
             $teams=array();
             foreach ($res['rows']as $team) {
-                $eq=$team['Equipo'];
-                if (strtolower(trim($eq))==='x') continue; // inscribed to default team
-                if (!array_key_exists($eq,$teams)) $teams[$eq]=''; // team not yet declared.
-                if (strpos($teams[$eq],$team['Categoria'])===FALSE) $teams[$eq] .= $team['Categoria'];
+                $nequipo=$team['NombreEquipo'];
+                if (strtolower(trim($nequipo))==='x') continue; // inscribed to default team
+                if (!array_key_exists($nequipo,$teams)) $teams[$nequipo]=''; // team not yet declared.
+                if (strpos($teams[$nequipo],$team['Categoria'])===FALSE) $teams[$nequipo] .= $team['Categoria'];
             }
             // and now iterate result and store teams into database
             foreach ($teams as $team => $cat) {
                 // create teams for this journey
-                $this->saveStatus("Creating team: $jname -> $team");
+                $this->saveStatus("Creating team: $jname -> $team - $cat");
                 // evaluate categories
                 $eq=new Equipos("importInscriptions",$this->prueba['ID'],$jornada['ID']);
                 $eq->realInsert($cat,$team,/* "Excel imported"*/ "");

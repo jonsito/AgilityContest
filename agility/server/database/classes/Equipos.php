@@ -90,8 +90,8 @@ class Equipos extends DBObject {
         $res= $this->__selectObject( "*", "Equipos", "( Prueba=$prueba) AND ( Jornada=$jornada ) AND (nombre='$nombre')"  );
         if($res!=null){ // already created, try to update
             if (!is_object($res)) return $res; // error in trying locate team
-            $this->myLogger->notice("El Equipo '$nombre' ya esta inscrito en la prueba:$prueba jornada:$jornada");
-            return "";
+            $this->myLogger->notice("El Equipo '$nombre' '$categorias' ya esta inscrito en la prueba:$prueba jornada:$jornada");
+            return $this->real_update($res->ID,$nombre,$observaciones,$categorias);
         }
 
 		// componemos un prepared statement
@@ -130,7 +130,7 @@ class Equipos extends DBObject {
 	function real_update($id,$n,$o,$c) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Equipo ID provided");
-        $this->myLogger->info("Team:$id Prueba:{$this->pruebaID} Jornada:{$this->jornadaID} Nombre:'$n' Observ:'$o' Categ:'$c'");
+        $this->myLogger->trace("Team:$id Prueba:{$this->pruebaID} Jornada:{$this->jornadaID} Nombre:'$n' Observ:'$o' Categ:'$c'");
 
 		// componemos un prepared statement. Do not mofify any field that not matches current pruebaID
 		$sql ="UPDATE Equipos SET Nombre=? , Observaciones=?, Categorias=? WHERE ( ID=$id )";
