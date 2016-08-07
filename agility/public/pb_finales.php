@@ -132,7 +132,7 @@ $('#pb_finales-window').window({
 });
 
 // fire autorefresh if configured
-function pb_updateFinalesIndvidual() {
+function pb_updateFinalesIndividual() {
     var rtime=parseInt(ac_config.web_refreshtime);
     updateFinales();
     if (rtime!=0) workingData.timeout=setTimeout(pb_updateFinalesIndividual,1000*rtime);

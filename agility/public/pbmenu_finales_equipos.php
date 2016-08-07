@@ -76,7 +76,7 @@ $('#pb_finales-panel').panel({
 	}
 });
 
-// fire autorefresh if configured
+// fire autorefresh if configured and user has no expanded rows
 function pbmenu_updateFinalesEquipos() {
     var rtime=parseInt(ac_config.web_refreshtime);
     var options= $('#finales_equipos-datagrid').datagrid('options');

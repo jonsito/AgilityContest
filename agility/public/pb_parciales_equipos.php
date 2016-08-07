@@ -138,7 +138,7 @@ $('#parciales_equipos-datagrid').datagrid({
     }
 });
 
-// fire autorefresh if configured
+// fire autorefresh if configured and user has no expanded rows
 function pb_updateParcialesEquipos() {
 	var rtime=parseInt(ac_config.web_refreshtime);
 	var options=$('#parciales_equipos-datagrid').datagrid('options');

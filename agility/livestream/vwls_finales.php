@@ -53,6 +53,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <div id="vwls_common" style="display:inline-block;width:100%;height:auto">
                 <div id="vw_finales-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader"
                       style="height:120px;font-size:1.0em;" >
+
                     <table width="100%">
                         <tr>
                             <td rowspan="2">
@@ -65,7 +66,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                                 <span id="vw_header-texto"><?php _e('Final scores'); ?></span>&nbsp;-&nbsp;
                                 <span id="vw_header-ring"><?php _e('Ring'); ?></span>
                                 <br />
-                                <span id="vw_header-infomanga" style="width:200px">(<?php _e('No round selected'); ?>)</span>
+                                <span id="finales-NombreRonda" style="width:200px">(<?php _e('No round selected'); ?>)</span>
                             </td>
                         </tr>
                         <tr>

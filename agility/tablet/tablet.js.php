@@ -716,7 +716,7 @@ function bindKeysToTablet() {
 				else 	tablet_up('#tdialog-Rehuses',true);
 				break;
 			case 84: // 'T' -> tocado
-			case 18: // 'Alt' -> also works as "touch"
+			// case 18: // 'Alt' -> also works as "touch"
 				if (e.ctrlKey) tablet_down('#tdialog-Tocados',true);
 				else 	tablet_up('#tdialog-Tocados',true);
 				break;
