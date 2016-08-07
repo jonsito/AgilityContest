@@ -426,7 +426,7 @@ function setFinalIndividualOrTeamView(data) {
         $("#finales_equipos-table").css("display","none");
         $("#finales_last_equipos-table").css("display","none");
         $("#finales_individual-table").css("display","inherit");
-        $("#finales_individual-table").css("display","inherit");
+        $("#finales_last_individual-table").css("display","inherit");
         $("#finales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
         $("#finales_last_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
     }

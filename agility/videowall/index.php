@@ -308,8 +308,7 @@ function vw_accept() {
 		ac_config.vwc_simplified=1;
 		break;
 	case 4: // Clasificacion final
-		// page="/agility/videowall/vw_finales.php";
-		page="/agility/console/frm_notavailable.php";
+		page="/agility/videowall/vw_finales.php";
         ac_config.vw_combined=0;
         ac_config.vwc_simplified=0;
 		break;

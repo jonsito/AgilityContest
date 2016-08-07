@@ -11,7 +11,7 @@ if ( ! $am->allowed(ENABLE_LIVESTREAM)) { include_once("unregistered.php"); retu
 $combined=http_request("combined","i",0);
 ?>
 <!--
-vw_finales.inc
+vwls_finales.inc
 
 Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
