@@ -32,7 +32,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_finales-panel">
     <div id="pb_finales-layout" style="width:100%">
         <div id="pb_finales-Cabecera" style="height:20%;" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateFinales(workingData.datosRonda);" href="#" style="float:left">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateFinales(0,workingData.datosRonda);" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="40" />
             </a>
             <span style="float:left;padding:5px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
@@ -82,7 +82,7 @@ function pbmenu_updateFinalesEquipos() {
     var options= $('#finales_equipos-datagrid').datagrid('options');
     if ( options.expandCount <= 0 ){
         options.expandCount=0;
-        updateFinales(workingData.datosRonda);
+        updateFinales(0,workingData.datosRonda);
     }
     if (rtime!=0) workingData.timeout=setTimeout(pbmenu_updateFinalesEquipos,1000*rtime);
 }

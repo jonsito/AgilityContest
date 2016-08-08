@@ -539,7 +539,6 @@ function vwcf_updateLlamada(evt,data) {
 			$('#vwc_llamada-datagrid').datagrid('loadData', dat['after']).datagrid('scrollTo', dat['after'].length - 1);
 			// rellenamos ventana de datos del perro en pista
 			var current=dat['current'][0];
-			// TODO: obtener datos de manga hermana y presentarlos
 			$("#vwls_Numero").html(current['Orden']);
 			$("#vwls_Logo").attr('src', '/agility/images/logos/' + current['LogoClub']);
 			$("#vwls_Perro").html(current['Perro']);

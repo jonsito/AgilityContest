@@ -334,8 +334,11 @@ function updateParciales(mode,row) {
 
 /**
  * Actualiza datos de la clasificacion general
+ * @param {integer} perro. Si != 0 añadir entrada extra indicando el tiempo que tiene que hacer para quedar primero
+ * @param {object} ronda Datos de la ronda que estamos. if undefined retrieve from combo
+ * @param {function} callback que hacer una vez recibidos los datos
  */
-function updateFinales(ronda,callback) {
+function updateFinales(perro,ronda,callback) {
     if (typeof(ronda)==="undefined") {
         ronda=$('#enumerateFinales').combogrid('grid').datagrid('getSelected');
         if (ronda==null) {
@@ -355,7 +358,8 @@ function updateFinales(ronda,callback) {
             Manga1:	ronda.Manga1,
             Manga2:	ronda.Manga2,
             Rondas: ronda.Rondas,
-            Mode: 	ronda.Mode
+            Mode: 	ronda.Mode,
+            Perro:  perro
         },
         success: function(dat) {
             // nombres de las mangas

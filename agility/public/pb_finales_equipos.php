@@ -45,7 +45,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				    },0);
                 }
                 ">
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateFinales();" href="#" style="float:left">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="updateFinales(0);" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="40" />
             </a>
             <span style="float:left;padding:5px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
@@ -108,7 +108,7 @@ $('#enumerateFinales').combogrid({
 		return true;
 	},
 	onChange:function(value){
-		updateFinales();
+		updateFinales(0);
         $('#pb_finales-layout').layout('collapse','north');
 	}
 });
@@ -138,7 +138,7 @@ function pb_updateFinalesEquipos() {
 	var options=$('#finales_equipos-datagrid').datagrid('options');
     if ( options.expandCount <= 0 ){
 		options.expandCount=0;
-        updateFinales();
+        updateFinales(0);
     }
     if (rtime!=0) workingData.timeout=setTimeout(pb_updateFinalesEquipos,1000*rtime);
 }
