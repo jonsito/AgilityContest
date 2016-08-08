@@ -282,9 +282,10 @@ function vws_updateLlamada(evt,data,callback) {
 
 /**
  * funcion para rellenar los resultados en la pantalla simplificada
+ * @param integer perro id del perro sobre el que calcular el tiempo que necesita para quedar primero
  * @param {object} data Datos de la sesion ( recibidos desde vws_updateWorkingData() )
  */
-function vws_updateFinales(data) {
+function vws_updateFinales(perro,data) {
     // ajustamos contadores
     var team=isJornadaEquipos(null);
     var nitems=(team)?7:10; // clasificaciones a presentar en funcion de individual/equipos
@@ -300,7 +301,8 @@ function vws_updateFinales(data) {
             Manga1: data.Ronda.Manga1,
             Manga2: data.Ronda.Manga2,
             Rondas: data.Ronda.Rondas,
-            Mode: data.Ronda.Mode
+            Mode: data.Ronda.Mode,
+            Perro: perro
         },
         success: function (dat) {
             var items = dat.rows; // resultados que hay que coger para rellenar tablas

@@ -283,7 +283,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         'close': function (event, time) { // no more dogs in tanda
             vw_updateWorkingData(event,function(e,d){
-                vwcf_updateLlamada({'Dog':-1},d); // seek at end of list
+                vwcf_updateLlamada({'Dog':-1},d); // seek at end of list. update clasifications in inner call
             });
         },
         'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
@@ -375,7 +375,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             myCounter.stop();
             $('#cronometro').Chrono('stop', time);  // nos aseguramos de que los cronos esten parados
             vw_updateWorkingData(event,function(e,d){
-                /* vw_updateFinales(e,d); */ // required to be done at
+                // do not call updateFinales() here; do it at 'llamada' or 'close'
             });
         },
         'cancelar': function (event,time) {  // operador pulsa cancelar

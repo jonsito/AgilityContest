@@ -523,6 +523,16 @@ function vwcf_updateLlamada(evt,data) {
 				var ret= {'total':dat['before'].length,'rows':dat['before']};
                 var dgstr=(isJornadaEquipos(null))?'#finales_last_equipos-datagrid':'#finales_last_individual-datagrid';
 				$(dgstr).datagrid('loadData', ret ).datagrid('fitColumns').datagrid('scrollTo', 0);
+
+				// en el caso de llamada a pista, en la respuesta existira un campo adicional "current,
+				// que contiene los datos de las dos mangas del perro en cuestion.
+				// junto con un campo adicional "needed" que indica el tiempo que tiene que hacer para quedar primero
+				if (typeof(res.current) == "undefined" ) return;
+				// actualizamos el campo vwls_Puesto con el valor de required
+				// solo si penalizacion final es mayor que 400 ( esto es: hay mangas pendientes )
+				if (parseInt(res.current['Penalizacion'])< 400) return;
+				var necesita=res.current['needed'];
+				$('#vwls_Puesto').html('<span class="blink">'+(necesita>0)?necesita:''+'</span>');
 			}
 
 			// componemos ventana de llamada
@@ -560,7 +570,7 @@ function vwcf_updateLlamada(evt,data) {
 			vwcf_evalPenalizacion(); // repaint penalization
 			// dado que necesitamos tener la clasificacion con los perros de la tabla "before",
 			// lo que vamos a hacer es calcular dicha tabla aquí, en lugar de desde el evento "aceptar"
-			updateFinales(data.Ronda, vwcf_evalBefore);
+			updateFinales(current['Perro'],data.Ronda, vwcf_evalBefore);
 		}
 	});
 }

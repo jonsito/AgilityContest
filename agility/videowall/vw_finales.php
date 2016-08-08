@@ -136,7 +136,7 @@ var eventHandler= {
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
             setFinalIndividualOrTeamView(d); // fix individual or team view for final results
-            updateFinales(d.Ronda);
+            updateFinales(0,d.Ronda);
         });
     },
     'close': null,      // no more dogs in tanda
@@ -155,7 +155,7 @@ var eventHandler= {
     'crono_dat':  null, // datos provenientes de crono
     'aceptar':	function(event){ // operador pulsa aceptar
         vw_updateWorkingData(event,function(e,d){
-            updateFinales(d.Ronda);
+            updateFinales(0,d.Ronda);
         });
     },
     'cancelar': null, // operador pulsa cancelar

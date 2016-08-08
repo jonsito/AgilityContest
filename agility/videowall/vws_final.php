@@ -85,12 +85,12 @@ events
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
                 vwsf_updateHeader('manga trs',d); // fix header round
-                vws_updateLlamada(e,d,vws_updateFinales); // load call to ring data and existing results
+                vws_updateLlamada(e,d,function() {vws_updateFinales(0)}); // load call to ring data and existing results
             });
         },
         'close': function (event, time) { // no more dogs in tanda
             vw_updateWorkingData(event,function(e,d){
-                vws_updateLlamada({'Dog':-1},d,vws_updateFinales); // seek at end of list
+                vws_updateLlamada({'Dog':-1},d,function() {vws_updateFinales(0)}); // seek at end of list
             });
         },
         'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
@@ -102,7 +102,7 @@ events
             crm.Chrono('stop',time);
             crm.Chrono('reset',time);
             vw_updateWorkingData(event,function(e,d){
-                vws_updateLlamada(e,d,vws_updateFinales);
+                vws_updateLlamada(e,d,function() {vws_updateFinales(0);});
             });
         },
         'salida': function (event, time) {     // orden de salida
@@ -179,7 +179,7 @@ events
             vwsCounter.stop();
             $('#cronometro').Chrono('stop', time);  // nos aseguramos de que los cronos esten parados
             vw_updateWorkingData(event,function(e,d){
-                /* vw_updateFinales(e,d); */ // required to be done as callback for updateLLamada()
+                // do not call updateFinales here, just use inner function at updateLLamada()
             });
         },
         'cancelar': function (event,time) {  // operador pulsa cancelar
