@@ -226,7 +226,27 @@ class Clasificaciones extends DBObject {
 		$result['trs1']=$c1['trs'];
 		$result['trs2']=$c2['trs'];
         $result['jueces']=array($c1['manga']->NombreJuez1,$c1['manga']->NombreJuez2);
+
+        // when a dog is provided, evaluate time required to get first position in final scores
         if ($this->currentDog!=0) {
+            $this->current['toBeFirst']="";
+            // if no pending rounds mark as cannot get first
+            if ($this->current['Penalizacion']<400) $this->current['toBeFirst']="";
+            else if ( (intval($this->current['N1'])+intval($this->current['N2'])) >= 2 ) $this->current['toBeFirst']="";
+            else {
+                $fp=floatval($final[0]['Penalizacion']);
+                $cp=floatval($this->current['Penalizacion']-400);
+                if ($fp>$cp ) { // tiene menos penalizacion que el primero; con no pasar del TRM basta
+                    $this->current['toBeFirst']=  // ( el TRM será aquel cuyo "current[Penalizacion]" es 400;
+                        ($this->current['P1']>=400)? $result['trs1']['TRM'] : $result['trs2']['TRM'];
+                }
+                if ($fp==$cp) { // misma penalizacion: tiene que mejorar la suma de tiempo
+                    $this->current['toBeFirst']=floatval($result['rows'][0]['Tiempo'])-floatval($this->current['Tiempo']);
+                }
+                if ($fp<$cp) {// tiene mas penalizacion que el primero: no tiene nada que hacer
+                    $this->current['toBeFirst']="";
+                }
+            }
             $result['current']=$this->current;
             $this->myLogger->trace("current dog timings: ".json_encode($result['current']));
         }

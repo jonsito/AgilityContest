@@ -73,7 +73,7 @@ function toFixedT(value,numdecs) {
 		case 2: return Number(value.toString().match(/^\d+(?:\.\d{0,2})?/));
 		case 3: return Number(value.toString().match(/^\d+(?:\.\d{0,3})?/));
 		case 4: return Number(value.toString().match(/^\d+(?:\.\d{0,4})?/));
-		default: return toFixed(value,numdecs);
+		default: return value.toFixed(numdecs); // use default javascript routine
 	}
 }
 
