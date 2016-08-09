@@ -29,7 +29,7 @@ $config =Config::getInstance();
 var vwsCounter = new Countdown({
 	seconds:15,  // number of seconds to count down
 	onUpdateStatus: function(tsec){
-		$('#vws_current_Tiempo'+workingData.vws_currentRow).html(toFixedT((tsec/10),1));
+		$('#vws_current_Time'+workingData.vws_currentRow).html(toFixedT((tsec/10),1));
 	}
 });
 
@@ -389,7 +389,7 @@ function vws_updateParciales(data) {
             Prueba:		workingData.prueba,
             Jornada:	workingData.jornada,
             Manga:		workingData.manga,
-            Mode:       data.Ronda.Mode
+            Mode:       workingData.datosTanda.Mode
         },
         success: function (dat) {
             var items = dat.rows; // resultados que hay que coger para rellenar tablas
