@@ -228,7 +228,7 @@ $config =Config::getInstance();
     		$(mySelf).datagrid('buildToolbar',toolbar);
         	$('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
 			// tooltips de los sub-formularios
-			addTooltip($('#guiasByClub-newBtn'+club.ID).linkbutton(),'<?php _e("Create/Assing handler to club"); ?>'+" '"+club.Nombre+"'");
+			addTooltip($('#guiasByClub-newBtn'+club.ID).linkbutton(),'<?php _e("Create/Assign handler to club"); ?>'+" '"+club.Nombre+"'");
 			addTooltip($('#guiasByClub-editBtn'+club.ID).linkbutton(),'<?php _e("Edit data on handler belonging club"); ?>'+" '"+club.Nombre+"'");
 			addTooltip($('#guiasByClub-delBtn'+club.ID).linkbutton(),'<?php _e("Unassign selected handler from club"); ?>'+" '"+club.Nombre+"'");
 			addTooltip($('#guiasByClub-reloadBtn'+club.ID).linkbutton(),'<?php _e("Update handlers list on club"); ?>'+" '"+club.Nombre+"'");

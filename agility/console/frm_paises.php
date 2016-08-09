@@ -192,7 +192,7 @@ $config =Config::getInstance();
     		$(mySelf).datagrid('buildToolbar',toolbar);
         	$('#countries-datagrid').datagrid('fixDetailRowHeight',index);
 			// tooltips de los sub-formularios
-			addTooltip($('#guiasByCountry-newBtn'+country.ID).linkbutton(),'<?php _e("Create/Assing handler to country"); ?>'+" '"+country.Nombre+"'");
+			addTooltip($('#guiasByCountry-newBtn'+country.ID).linkbutton(),'<?php _e("Create/Assign handler to country"); ?>'+" '"+country.Nombre+"'");
 			addTooltip($('#guiasByCountry-editBtn'+country.ID).linkbutton(),'<?php _e("Edit data on handler belonging country"); ?>'+" '"+country.Nombre+"'");
 			addTooltip($('#guiasByCountry-delBtn'+country.ID).linkbutton(),'<?php _e("Unassign selected handler from country"); ?>'+" '"+country.Nombre+"'");
 			addTooltip($('#guiasByCountry-reloadBtn'+country.ID).linkbutton(),'<?php _e("Update handlers list on country"); ?>'+" '"+country.Nombre+"'");

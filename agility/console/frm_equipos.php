@@ -261,7 +261,7 @@ $('#selteam-window').window({
 	modal: true
 });
 
-addTooltip($('#selteam-okBtn').linkbutton(),"<?php _e('Assing competitor to selected team');?>");
+addTooltip($('#selteam-okBtn').linkbutton(),"<?php _e('Assign competitor to selected team');?>");
 addTooltip($('#selteam-cancelBtn').linkbutton(),"<?php _e('Cancel selection. Close window');?>");
 
 //datos del formulario de asignacion de equipo

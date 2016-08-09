@@ -196,7 +196,7 @@ $config =Config::getInstance();
     		$(mySelf).datagrid('buildToolbar',toolbar); // programmatically add toolbar to datagrid
         	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
 			// tooltips de los sub-formularios
-			addTooltip($('#perrosbyguia-newBtn'+guia.ID).linkbutton(),'<?php _e("Assing dog to handler");?>'+" '"+guia.Nombre+"'");
+			addTooltip($('#perrosbyguia-newBtn'+guia.ID).linkbutton(),'<?php _e("Assign dog to handler");?>'+" '"+guia.Nombre+"'");
 			addTooltip($('#perrosbyguia-delBtn'+guia.ID).linkbutton(),'<?php _e("Dettach dog from handler");?>'+" '"+guia.Nombre+"'");
 			addTooltip($('#perrosbyguia-editBtn'+guia.ID).linkbutton(),'<?php _e("Editar data on dog assigned to");?>'+" '"+guia.Nombre+"'");
 			addTooltip($('#perrosbyguia-reloadBtn'+guia.ID).linkbutton(),'<?php _e("Update dog list from handler");?>'+" '"+guia.Nombre+"'");

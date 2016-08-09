@@ -35,7 +35,7 @@ require_once(__DIR__."/classes/Guias.php");
 			case "update": $am->access(PERMS_OPERATOR); $result=$guias->update($guiaid); break;
 			case "delete": $am->access(PERMS_OPERATOR); $result=$guias->delete($guiaid); break;
 			case "select": $result=$guias->select(); break; // select *
-			case "orphan": $am->access(PERMS_OPERATOR); $result=$guias->orphan($guiaid); break; // unassing from club
+			case "orphan": $am->access(PERMS_OPERATOR); $result=$guias->orphan($guiaid); break; // unassign from club
 			case "enumerate": $result=$guias->enumerate(); break; // block select
 			case "getbyclub": $result=$guias->selectByClub($clubid); break; 
 			case "getbyid": $result=$guias->selectByID($guiaid); break;
