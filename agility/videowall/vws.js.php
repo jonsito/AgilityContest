@@ -257,7 +257,7 @@ function vws_updateLlamada(evt,data,callback) {
                 }
                 // set team icon. on test dog use AC logo
                 $('#vws_current_Logo_0').attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
-            } else {
+            } else { /* individual */
                 if (evt['Nombre']==="<?php _e('Test dog');?>") {
                     logo="agilitycontest.png";
                     dat['current'][0]['Nombre']=evt['Nombre'];
@@ -275,14 +275,14 @@ function vws_updateLlamada(evt,data,callback) {
                 $('#vws_before_'+n).form('load',dat['before'][n]);
                 $('#vws_before_Logo_'+n).attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             }
-            if (typeof(callback)==="function") callback(data);
+            if (typeof(callback)==="function") callback(parseInt(evt['Dog']),data);
         }
     });
 }
 
 /**
  * funcion para rellenar los resultados en la pantalla simplificada
- * @param integer perro id del perro sobre el que calcular el tiempo que necesita para quedar primero
+ * @param {integer} perro id del perro sobre el que calcular el tiempo que necesita para quedar primero
  * @param {object} data Datos de la sesion ( recibidos desde vws_updateWorkingData() )
  */
 function vws_updateFinales(perro,data) {

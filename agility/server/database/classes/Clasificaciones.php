@@ -29,6 +29,8 @@ class Clasificaciones extends DBObject {
 	protected $jornada;
 	protected $ronda;
 	protected $mangas;
+    protected $currentDog;
+    protected $current;
 
 	/**
 	 * Constructor
@@ -37,7 +39,7 @@ class Clasificaciones extends DBObject {
 	 * @param {integer} $jornada jornada ID
 	 * @throws Exception if cannot contact database or invalid prueba/jornada ID
 	 */
-	function __construct($file,$prueba,$jornada) {
+	function __construct($file,$prueba,$jornada,$perro=0) {
 		parent::__construct($file);
 		if ($prueba<=0) {
 			$this->errormsg="Clasificaciones::Construct invalid prueba ID:$prueba";
@@ -55,6 +57,7 @@ class Clasificaciones extends DBObject {
 		if (!is_object($obj)) throw new Exception($obj);
 		$this->jornada=$obj;
 		$this->mangas=array();
+        $this->currentDog=$perro;
 	}
 	
 	/**
@@ -169,10 +172,14 @@ class Clasificaciones extends DBObject {
 				$final[$item['Perro']]['Puntos'] = '';
 			}
 		}
-		// una vez ordenados, el índice perro ya no tiene sentido, con lo que vamos a eliminarlo
-		// y reconstruir el array
+		// una vez ordenados, reconstruimos el array eliminando el indice "perro"
+        // no obstante, si $this->currentDog es distinto de cero, guardamos la entrada seleccionada
+        // en $this->current para evaluar luego el tiempo requerido
 		$final2=array();
-		foreach($final as $item) array_push($final2,$item);
+		foreach($final as $perro => $item) {
+		    if ($this->currentDog==$perro) $this->current=$item;
+		    array_push($final2,$item);
+        }
 		$final=$final2;
 
 		// re-ordenamos los datos en base a la puntuacion 
@@ -219,6 +226,10 @@ class Clasificaciones extends DBObject {
 		$result['trs1']=$c1['trs'];
 		$result['trs2']=$c2['trs'];
         $result['jueces']=array($c1['manga']->NombreJuez1,$c1['manga']->NombreJuez2);
+        if ($this->currentDog!=0) {
+            $result['current']=$this->current;
+            $this->myLogger->trace("current dog timings: ".json_encode($result['current']));
+        }
 		return $result;
 	}
 
@@ -325,7 +336,12 @@ class Clasificaciones extends DBObject {
 	}
 
 	/**
-	 * genera la tabla de resultados finales y evalua el orden de clasificacion
+	 * Esta funcion evalua la penalización final, sin calcular puntuaciones, ni excelentes ni
+     * nada de eso.
+     * Se utiliza en getPuestoFinal para adivinar la posición en que ha quedado un perro,
+     * con independencia de si tiene puntos o no
+     * Es similar a evalFinal(), salvo que se excuye el calculo de puntos
+     *
 	 * @param {array} $c1 clasificacion primera manga
 	 * @param {array} $c2 clasificacion segunda manga
 	 * @param {integer} $mode Modo 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
@@ -458,6 +474,7 @@ class Clasificaciones extends DBObject {
         $result['jueces']=$res['jueces'];
         $result['equipos']=$this->evalFinalEquipos($c1,$c2,$result['individual'],$mindogs,$mode);
         $result['total']=count($result['equipos']);
+        if (array_key_exists('current',$res)) $result['current']=$res['current'];
         return $result;
 	}
 

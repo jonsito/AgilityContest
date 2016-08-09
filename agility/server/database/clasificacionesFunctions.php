@@ -25,8 +25,9 @@ try {
 	$prueba=http_request("Prueba","i",0);
 	$jornada=http_request("Jornada","i",0);
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
+    $perro= http_request("Perro","i",0); // used to evaluate puesto or time to get first
     $op=http_request("Operation","s","clasificacionIndividual");
-	$c= new Clasificaciones("clasificacionesFunctions",$prueba,$jornada);
+	$c= new Clasificaciones("clasificacionesFunctions",$prueba,$jornada,$perro);
 	switch($op) {
 		case "clasificacionIndividual":
 			$mangas=array();
@@ -58,8 +59,8 @@ try {
 			break;
 		case "getPuesto":
 			$data=array(
+			    'Perro' => $perro,
 				'Manga' => http_request("Manga","i",0),
-				'Perro' => http_request("Perro","i",0),
 				'Faltas'=> http_request("Faltas","i",0),
 				'Tocados'=> http_request("Tocados","i",0),
 				'Rehuses'=> http_request("Rehuses","i",0),

@@ -527,12 +527,26 @@ function vwcf_updateLlamada(evt,data) {
 				// en el caso de llamada a pista, en la respuesta existira un campo adicional "current,
 				// que contiene los datos de las dos mangas del perro en cuestion.
 				// junto con un campo adicional "needed" que indica el tiempo que tiene que hacer para quedar primero
-				if (typeof(res.current) == "undefined" ) return;
+				if (typeof(res.current) === "undefined" ) return;
 				// actualizamos el campo vwls_Puesto con el valor de required
 				// solo si penalizacion final es mayor que 400 ( esto es: hay mangas pendientes )
-				if (parseInt(res.current['Penalizacion'])< 400) return;
-				var necesita=res.current['needed'];
-				$('#vwls_Puesto').html('<span class="blink">'+(necesita>0)?necesita:''+'</span>');
+                // caso especial es cuando ya tiene datos y es un doble no presentado... por si acaso se pone "<="
+				if (parseFloat(res.current['Penalizacion'])<= 400) return;
+                var first=res['rows'][0];
+                var necesita="";
+                var fp=parseFloat(first['Penalizacion']);
+                var cp=parseFloat(res.current['Penalizacion']-400);
+                if (fp>cp ) { // tiene menos penalizacion que el primero: con hacer menos del TRM basta
+                    necesita= isAgility(workingData.datosTanda.Tipo)?res['trs1']['TRM']:res['trs2']['TRM'];
+                    necesita="&lt; "+toFixedT(necesita,2);
+                }
+                if (fp==cp) { // misma penalizacion: tiene que mejorar la suma de tiempo
+                    necesita="&lt;" + toFixedT(parseFloat(first['Tiempo'])-parseFloat(res.current['Tiempo']),2);
+                }
+                if (fp<cp) {// tiene mas penalizacion que el primero: no tiene nada que hacer
+                    necesita=" ";
+                }
+                $('#vwls_Puesto').html('<span class="blink">'+necesita+'</span>');
 			}
 
 			// componemos ventana de llamada
