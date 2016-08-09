@@ -174,8 +174,9 @@ function vws_setPartialIndividualOrTeamView(data) {
  *
  * @param {string} row Row suffix ( or empty if infvidual round )
  * @param {boolean} flag (tell routine to use Time flag. On false, time will be handle by chronometer )
+ * @param {float} toBeFirst if defined, on call to ring show time required to first place
  */
-function vws_displayData(row,flag) {
+function vws_displayData(row,flag,toBeFirst) {
     // faltas, tocados, rehuses y tiempo
     var f=parseInt($('#vws_current_Faltas'+row).val());
     var t=parseInt($('#vws_current_Tocados'+row).val());
@@ -192,6 +193,11 @@ function vws_displayData(row,flag) {
     var rs=$('#vws_current_Result'+row);
     if (n>0) { rs.html('<?php _e('NoPr');?>.'); return; }
     if (e>0) { rs.html('<?php _e('Elim');?>.'); return; }
+    if (typeof(toBeFirst)!=="undefined") {
+        if (toBeFirst==="") {rs.html(""); return; }
+        rs.html('<span class="blink">&lt; '+toFixedT(toBeFirst,ac_config.numdecs)+'</span>');
+        return;
+    }
     rs.html('- '+p+' -');
 }
 
@@ -351,12 +357,14 @@ function vws_updateFinales(perro,data) {
                     for (i = 0; i < 4; i++) {
                         if ($('#vws_current_Perro_' + i).val() != perro) continue;
                         $('#vws_current_Puesto_' + i).val(individual[n]['Puesto']);
-                        vws_displayData("_"+i,false);
+                        if (typeof(dat.current)==="undefined") vws_displayData("_"+i,false);
+                        else vws_displayData("_"+i,false,dat.current['toBeFirst']);
                     }
                 } else {
                     if ($('#vws_current_Perro').val() != perro) continue;
                     $('#vws_current_Puesto').val(individual[n]['Puesto']);
-                    vws_displayData("",false);
+                    if (typeof(dat.current)==="undefined") vws_displayData("",false);
+                    else vws_displayData("",false,dat.current['toBeFirst']);
                 }
             } // fill current
         } // success

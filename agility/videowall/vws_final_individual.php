@@ -151,7 +151,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id= "vws_current_Tocados"     name="Tocados" value="Toc"/>';
     echo '<span id= "vws_current_FaltasTocados">F/T</span>';
     echo '<input type="hidden"      id= "vws_current_Rehuses"    name="Rehuses" value="R"/>';
-    echo '<span id= "vws_current_Refusals">F/T</span>';
+    echo '<span id= "vws_current_Refusals">R</span>';
     echo '<input type="hidden"    id= "vws_current_Tintermedio" name="TIntermedio" value="Tint"/>';
     echo '<input type="hidden"    id= "vws_current_Tiempo"     name="Tiempo" value="Time"/>';
     echo '<span id= "vws_current_Time">Time</span>';
