@@ -149,7 +149,7 @@ switch (parseInt(ac_config.vw_dataposition)) {
 		doLayout(layout,"#vwls_Tiempo",			742,	60,     35,		15	);
 		doLayout(layout,"#vwls_EliminadoLbl",	745,	75,     30,		15	);
 		doLayout(layout,"#vwls_NoPresentadoLbl",745,	75,     30,		15	);
-		doLayout(layout,"#vwls_PuestoLbl"		,745,	75,     30,		15	);
+		doLayout(layout,"#vwls_PuestoLbl",		745,	75,     30,		15	);
 		// fix font size to allow miliseconds
 		$("#vwls_Tiempo").css('font-size','1.1vw');
 		$("#vwls_EliminadoLbl").css('font-size','1.1vw');

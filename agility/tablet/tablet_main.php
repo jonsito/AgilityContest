@@ -416,7 +416,7 @@ $config =Config::getInstance();
             { field:'Dorsal',width:'10%', align:'right',	title: '<?php _e('Dorsal');?>' },
             { field:'Nombre',width:'25%', align:'right',	title: '<?php _e('Name');?>' },
             { field:'NombreGuia',	width:'35%', align:'right',	title: '<?php _e('Handler');?>' },
-            { field:'NombreClub',	width:'20%', align:'right',	title: '<?php _e('Club');?>' }
+            { field:'NombreClub',	width:'25%', align:'right',	title: '<?php _e('Club');?>' }
         ]],
         onDblClickRow: function(index,row) {
             // check for store before change dog
