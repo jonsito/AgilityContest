@@ -178,9 +178,9 @@ switch (parseInt(ac_config.vw_dataposition)) {
 		// doLayout(layout,"#vwls_TocadosLbl",	465,	412,    10,		15	);
 		// doLayout(layout,"#vwls_Tocados",		475,	412,    10,		15	);
 		doLayout(layout,"#vwls_Tiempo",			450,	425,    35,		15	);
-		doLayout(layout,"#vwls_EliminadoLbl",	415,	425,    30,		15	);
-		doLayout(layout,"#vwls_NoPresentadoLbl",415,	425,    30,		15	);
-		doLayout(layout,"#vwls_PuestoLbl",		415,	425,    30,		15	);
+		doLayout(layout,"#vwls_EliminadoLbl",	410,	425,    35,		15	);
+		doLayout(layout,"#vwls_NoPresentadoLbl",410,	425,    35,		15	);
+		doLayout(layout,"#vwls_PuestoLbl",		410,	425,    35,		15	);
 		break;
 	default: vwls_showResultsInfo(0) // desactiva visualizacion de resultados
 		break;
@@ -254,6 +254,7 @@ var eventHandler= {
 	'salida': function(event,time){     // orden de salida
 		vwls_displayPuesto(false,0); // clear puesto
 		vwls_showResultsInfo(1); // activa visualizacion de datos del competidor
+		if (ac_config.vw_tobefirst!=="0") vwls_displayToBeFirst(event['Perro']);
 		myCounter.start();
 	},
 	'start': function(event,time) {      // start crono manual

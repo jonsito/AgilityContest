@@ -679,6 +679,14 @@ function setTanda(data) {
 	workingData.datosTanda =data;
 }
 
+function setRonda(data) {
+	workingData.nombreRonda = "";
+	workingData.datosRonda = {};
+	if (typeof(data) === 'undefined') return;
+	workingData.nombreRonda = data.Nombre;
+	workingData.datosRonda=data;
+}
+
 var workingData = {};
 /**
  * @param {int} id SessionID

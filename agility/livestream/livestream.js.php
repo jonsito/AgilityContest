@@ -147,8 +147,34 @@ function vwls_showData(data) {
 	vwls_tiempo.html(data["Tiempo"]);
 }
 
-function vwls_displayToBeFirst(dog) {
-    if (ac_config.vw_tobefirst)
+function vwls_displayToBeFirst(perro) {
+    if (typeof(workingData.nombreRonda)==="undefined") return;
+    if (workingData.nombreRonda==="") return; // no info on round yet. cannot evaluate
+	$.ajax({
+		type: 'GET',
+		url: "/agility/server/database/clasificacionesFunctions.php",
+		dataType: 'json',
+		data: {
+			Operation: 'clasificacionIndividual',
+			Prueba: workingData.prueba,
+			Jornada: workingData.jornada,
+			Manga: workingData.manga,
+			Mode: workingData.datosRonda.Mode,
+			Manga1: workingData.datosRonda.Manga1,
+			Manga2: workingData.datosRonda.Manga2,
+			Rondas: workingData.datosRonda.Rondas,
+			Perro: perro
+		},
+		success: function (dat) {
+			if (typeof(dat.errorMsg)!=="undefined") {
+				console.log("vwls_displayToBeFirst(): " + dat.errorMsg);
+				return;
+			}
+			if ( typeof(dat.current) === "undefined" ) return;
+			if ( dat.current.toBeFirst==="" ) return;
+			$("#vwls_PuestoLbl").html("&lt"+toFixedT(parseFloat(dat.current.toBeFirst),ac_config.numdecs));
+		}
+	});
 }
 
 /**
