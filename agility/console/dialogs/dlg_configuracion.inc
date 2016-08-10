@@ -175,10 +175,16 @@ $config =Config::getInstance();
 
 		<div title="<?php _e('Live Stream'); ?>" style="padding:10px">
 			<h3><?php _e('Live Stream configurable parameters'); ?></h3>
+			<label for="vw_tobefirst"><?php _e('Evaluate and show time to get first place'); ?></label>
+			<input type="hidden" name="vw_tobefirst" value="0"/>
+			<input id="vw_tobefirst" name="vw_tobefirst" type="checkbox" value="1"/><br />
+
 			<label for="vw_alpha"><?php _e('Transparency level for OnScreenDisplay'); ?></label>
 			<input id="vw_alpha" name="vw_alpha" type="text" size="3" value="0.5"/> (0.0-1.0)<br />
+
 			<label for="vw_chromakey"><?php _e('Color for Chroma Keyer'); ?></label>
 			<input id="vw_chromakey" name="vw_chromakey" type="color" value="#00ff00"/><br />
+
 			<label for="vw_dataposition"><?php _e('Timming data screen location'); ?></label>
 			<select id="vw_dataposition" name="vw_dataposition">
 				<option value="0"><?php _e('Not visible');?></option>
@@ -186,6 +192,7 @@ $config =Config::getInstance();
 				<option value="2"><?php _e('Lower right corner');?></option>
 				<option value="3"><?php _e('Next to competitor info');?></option>
 			</select><br />
+
 			<label for="vw_infoposition"><?php _e('Round data screen location'); ?></label>
 			<select id="vw_infoposition" name="vw_infoposition">
 				<option value="0"><?php _e('Not visible');?></option>

@@ -147,6 +147,10 @@ function vwls_showData(data) {
 	vwls_tiempo.html(data["Tiempo"]);
 }
 
+function vwls_displayToBeFirst(dog) {
+    if (ac_config.vw_tobefirst)
+}
+
 /**
  * evaluate and display position for this dog
  * @param {boolean} flag: true:evaluate, false:clear

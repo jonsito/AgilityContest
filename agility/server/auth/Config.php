@@ -61,6 +61,7 @@ define('AC_VW_ALPHA',0.5);
 define('AC_VW_CRHOMAKEY','#00ff00');
 define('AC_VW_DATAPOSITION',1); // 0:hidden 1:top/right 2:down/rignt 3:down/center
 define('AC_VW_INFOPOSITION',1); // 0:hidden 1:top/left 2:on top of dog info
+define('AC_VW_TOBEFIRST',1); // enable evaluate time to get first place ( computing time consumer )
 
 /** personalizacion del videowall **/
 define('AC_VWS_POLLTIME',5);
@@ -185,6 +186,7 @@ Class Config {
 		'easyui_rowcolor3'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR3),
 		'easyui_rowcolor4'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR4),
 		// configuracion del videowall
+		'vw_tobefirst'		=> array(	'i',	false,	AC_VW_TOBEFIRST),
 		'vw_polltime'		=> array(	'i',	false,	AC_VW_POLLTIME),
 		'vw_alpha'			=> array(	'f',	false,	AC_VW_ALPHA),
 		'vw_chromakey'		=> array(	'c',	false,	AC_VW_CRHOMAKEY),
