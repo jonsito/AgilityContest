@@ -21,6 +21,7 @@ require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Competicion");
 
+require_once("dialogs/dlg_entrenamientos.inc");
 require_once("dialogs/dlg_ordentandas.inc");
 require_once("dialogs/dlg_ordensalida.inc");
 require_once("dialogs/dlg_competicion.inc");
@@ -66,6 +67,9 @@ switch(http_request("tipo","s","std")) {
 <!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
 <div id="competicion-listamanga-toolbar" style="width:100%;display:inline-block">
 	<span style="float:left;padding:10px">
+		<a id="competicion-entrenamientosBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-tools'" style="width:185px"
+           onclick="competicionDialog('entrenamientos');"><?php _e('Training');?></a>
 		<a id="competicion-ordentandasBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-updown'" style="width:185px"
 			onclick="competicionDialog('ordentandas');"><?php _e('Planning');?></a>
@@ -148,6 +152,7 @@ $('#competicion-listamangas').datagrid({
 });
 
 //tooltips
+addTooltip($('#competicion-entrenamientosBtn').linkbutton(),"<?php _e('View/Edit Training session timetable for the contest')?>");
 addTooltip($('#competicion-ordentandasBtn').linkbutton(),"<?php _e('View/Edit Rounds and series order<br />on this journey')?>");
 addTooltip($('#competicion-ordensalidaBtn').linkbutton(),"<?php _e('View/Edit Starting order on selected round');?>");
 addTooltip($('#competicion-competicionBtn').linkbutton(),"<?php _e('Insert/Edit competitors results');?>");

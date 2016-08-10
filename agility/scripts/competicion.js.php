@@ -795,7 +795,12 @@ function dragAndDropOrdenSalida(from,to,where,whenDone) {
 		url:"/agility/server/database/ordenSalidaFunctions.php",
 		dataType:'json',
 		data: {	
-			Operation: 'dnd', Prueba: workingData.prueba, Jornada: workingData.jornada,	Manga: workingData.manga, From: from,To: to,Where: where
+			Operation: 'dnd',
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada,
+            Manga: workingData.manga,
+            From: from,
+            To: to,Where: where
 		}
 	}).done( function(msg) {
 		whenDone();
@@ -827,6 +832,7 @@ function dragAndDropOrdenTandas(from,to,where) {
 		}
 	});
 }
+
 /**
  * Abre la ventana de competicion requerida 'ordensalida','competicion','resultadosmanga'
  * @param name
@@ -834,18 +840,28 @@ function dragAndDropOrdenTandas(from,to,where) {
 function competicionDialog(name) {
 	// obtenemos datos de la manga seleccionada
 	var row= $('#competicion-listamangas').datagrid('getSelected');
-    if (!row && name!== 'ordentandas') {
+    var required=true;
+    if (name=='ordentandas') required=false;
+    if (name=='entrenamientos') required=false;
+    if (!row && required) {
     	$.messager.alert('<?php _e('Error'); ?>','<?php _e('There is no round selected'); ?>','info');
     	return; // no hay ninguna manga seleccionada. retornar
     }
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada;
+    $('#entrenamientos-dialog').dialog('close');
     $('#ordentandas-dialog').dialog('close');
     $('#ordensalida-dialog').dialog('close');
     $('#competicion-dialog').dialog('close');
     $('#resultadosmanga-dialog').dialog('close');
+    if (name==='entrenamientos') {
+        // abrimos ventana de dialogo
+        $('#entrenamientos-dialog').dialog('open').dialog('setTitle',' <?php _e("Training sesion"); ?>'+": "+workingData.nombrePrueba);
+        // cargamos ventana de orden de salida
+        reloadEntrenamientos();
+    }
     if (name==='ordentandas') {
         // abrimos ventana de dialogo
-        $('#ordentandas-dialog').dialog('open').dialog('setTitle',' <?php _e("Journey"); ?>'+": "+title);
+        $('#ordentandas-dialog').dialog('open').dialog('setTitle',' <?php _e("Timetable"); ?>'+": "+title);
         // cargamos ventana de orden de salida
         reloadOrdenTandas();
     }

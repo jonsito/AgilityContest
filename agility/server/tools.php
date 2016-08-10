@@ -240,7 +240,7 @@ function http_request($name,$type,$def,$esc=true) {
  * @param {boolean} $esc true if variable should be MySQL escape'd to avoid SQL injection
  * @return array with inserted data
  */
-function testAndSet($data,$name,$type,$def,$esc=true) {
+function testAndSet(&$data,$name,$type,$def,$esc=true) {
 	if (isset($_REQUEST[$name])) $data[$name]=http_request($name,$type,$def,$esc);
 	return $data;
 }

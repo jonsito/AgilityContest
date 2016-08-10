@@ -236,6 +236,34 @@ class Updater {
         foreach ($cmds as $query) { $this->conn->query($query); }
         return 0;
     }
+
+    function createTrainingTable() {
+        $str="
+        CREATE TABLE IF NOT EXISTS `Entrenamientos` (
+          `ID` int(4) NOT NULL AUTO_INCREMENT,
+          `Prueba`  int(4) NOT NULL DEFAULT 1,
+          `Orden`   int(4) NOT NULL DEFAULT 0,
+          `Club`    int(4) NOT NULL,
+          `Fecha`   date DEFAULT '2016-01-01' ,
+          `Firma` time  DEFAULT '00:00:00' ,
+          `Veterinario` time DEFAULT '01:00:00',
+          `Entrada`  time DEFAULT '02:00:00',
+          `Duracion`  time DEFAULT 0,
+          `Ring1` varchar(255) DEFAULT '',
+          `Ring2` varchar(255) DEFAULT '',
+          `Ring3` varchar(255) DEFAULT '',
+          `Ring4` varchar(255) DEFAULT '',
+          `Observaciones` varchar(255) DEFAULT '',
+          PRIMARY KEY (`ID`),
+          KEY `Entrenamientos_Prueba` (`Prueba`),
+          KEY `Entrenamientos_Club` (`Club`),
+          CONSTRAINT `Entrenamientos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+          CONSTRAINT `Entrenamientos_ibfk_2` FOREIGN KEY (`Club`) REFERENCES `Clubes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE 
+        ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+        ";
+        $res=$this->conn->query($str);
+        if (!$res) throw new Exception("upgrade::createTrainingTable(): ".$this->conn->error);
+    }
 }
 
 $upg=new Updater();
@@ -254,6 +282,7 @@ try {
     $upg->updateInscripciones();
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
+    $upg->createTrainingTable();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }
