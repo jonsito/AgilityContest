@@ -30,7 +30,7 @@ class Clasificaciones extends DBObject {
 	protected $ronda;
 	protected $mangas;
     protected $currentDog;
-    protected $current;
+    protected $current=null;
 
 	/**
 	 * Constructor
@@ -227,31 +227,65 @@ class Clasificaciones extends DBObject {
 		$result['trs2']=$c2['trs'];
         $result['jueces']=array($c1['manga']->NombreJuez1,$c1['manga']->NombreJuez2);
 
-        // when a dog is provided, evaluate time required to get first position in final scores
+        // when a dog is provided (!and found!), evaluate time required to get first position in final scores
         if ($this->currentDog!=0) {
-            $this->current['toBeFirst']="";
-            // if no pending rounds mark as cannot get first
-            if ($this->current['Penalizacion']<400) $this->current['toBeFirst']="";
-            else if ( (intval($this->current['N1'])+intval($this->current['N2'])) >= 2 ) $this->current['toBeFirst']="";
-            else {
-                $fp=floatval($final[0]['Penalizacion']);
-                $cp=floatval($this->current['Penalizacion']-400);
-                if ($fp>$cp ) { // tiene menos penalizacion que el primero; con no pasar del TRM basta
-                    $this->current['toBeFirst']=  // ( el TRM será aquel cuyo "current[Penalizacion]" es 400;
-                        ($this->current['P1']>=400)? $result['trs1']['TRM'] : $result['trs2']['TRM'];
-                }
-                if ($fp==$cp) { // misma penalizacion: tiene que mejorar la suma de tiempo
-                    $this->current['toBeFirst']=floatval($result['rows'][0]['Tiempo'])-floatval($this->current['Tiempo']);
-                }
-                if ($fp<$cp) {// tiene mas penalizacion que el primero: no tiene nada que hacer
-                    $this->current['toBeFirst']="";
-                }
-            }
+            $this->eval_timeToBeFirst($result);
             $result['current']=$this->current;
-            $this->myLogger->trace("current dog timings: ".json_encode($result['current']));
+            // $this->myLogger->trace("current dog timings: ".json_encode($result['current']));
         }
 		return $result;
 	}
+
+    /**
+     * When currentDog!=0 try to evaluate time required to get first (assume no course penalization :-)
+     * @param {array} $result clasificaciones de la prueba
+     */
+	private function eval_timeToBeFirst($result) {
+        // if no dogs yet, just do nothing :-)
+        if (count($result['rows'])==0)  { $this->current['toBeFirst']=""; return; }
+        $first=$result['rows'][0]; // pointer to first dog in scores
+
+        // on first round current dog has <at least 400 on penalty. detect dual NP on first
+        if ( $first['Penalizacion'] >= 400 ) {// first round.
+            // in first current no data yet for current dog, unless already run. so detect and handle
+            if ($first['P1']==400) { // current tanda is jumping
+                $fp=floatval($first['P2']);
+                $ft=floatval($first['T2']);
+                $cp=($this->current==null)? 0 : floatval($this->current['P2']);
+                $ct=($this->current==null)? 0 : floatval($this->current['T2']);
+                $trs=$result['trs2'];
+            } else { // current tanda is agility
+                $fp=floatval($first['P1']);
+                $ft=floatval($first['T1']);
+                $cp=($this->current==null)? 0 : floatval($this->current['P1']);
+                $ct=($this->current==null)? 0 : floatval($this->current['T1']);
+                $trs=$result['trs1'];
+            }
+            // evaluate required data
+        } else { // final round
+            // detect no pending rounds for current dog
+            if ($this->current['Penalizacion']<400) { $this->current['toBeFirst']=""; return; }
+            if ( (intval($this->current['N1'])+intval($this->current['N2'])) >= 2 ) { $this->current['toBeFirst']=""; return; }
+
+            // second round. get global penalization and times
+            $fp = floatval($first['Penalizacion']);
+            $ft = floatval($first['Tiempo']);
+            $cp = floatval($this->current['Penalizacion'] - 400);
+            $ct = floatval($this->current['Tiempo']); //
+            $trs=($this->current['P1']>=400)?$result['trs1']:$result['trs2'];
+        }
+        if ($fp<$cp) {// tiene mas penalizacion que el primero: no tiene nada que hacer
+            $this->current['toBeFirst']="";
+        }
+        if ($fp==$cp) { // misma penalizacion: tiene que mejorar el tiempo
+            $this->current['toBeFirst']=$ft-$ct;
+        }
+        if ($fp>$cp ) { // tiene menos penalizacion que el primero;
+            // con que la penalizacion por tiempo no supere a la del primero basta
+            // NOTA: como esto es jarto complicado de evaluar, de momento lo dejamos en el TRS
+            $this->current['toBeFirst']=$trs['trs'];
+        }
+    }
 
     /**
      * Evalua el resultado de una competicion por equipos
