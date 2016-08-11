@@ -119,14 +119,15 @@ $('#entrenamientos-datagrid').datagrid({
 		{ field:'M',	width:75, title:'<?php _e("Ring");?> 2'},
 		{ field:'S',	width:75, title:'<?php _e("Ring");?> 3'},
 		{ field:'T',	width:75, title:'<?php _e("Ring");?> 4'},
-		{ field:'Observaciones',	width:150, title:'<?php _e("Comments");?> '},
+		{ field:'Observaciones', width:100, title:'<?php _e("Comments");?> '},
     ]],
     rowStyler:myRowStyler,
     onDblClickRow: function() { editEntrenamiento('#entrenamientos-datagrid'); },
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
+		var cats=howManyHeights(workingData.federation);
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
-        if (howManyGrades(workingData.federation)<4) $(this).datagrid('hideColumn','T');
+		$(this).datagrid((cats==4)?'showColumn':'hideColumn','T');
     },
     onDragEnter: function(dst,src) { return true; }, // default is not restriction
     onDrop: function(dst,src,updown) {
