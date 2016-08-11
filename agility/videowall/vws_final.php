@@ -56,7 +56,7 @@ events
             // in simplified videowall do not eval penalization as nonsense
             return true;
         },
-        onBeforePause:function() { $('#vws_current_Time'+workingData.vws_currentRow).addClass('blink'); return true; },
+        // onBeforePause:function() { $('#vws_current_Time'+workingData.vws_currentRow).addClass('blink'); return true; },
         onBeforeResume: function() { $('#vws_current_Time'+workingData.vws_currentRow).removeClass('blink'); return true; },
         onBeforeReset: function() { $('#vws_current_Time'+workingData.vws_currentRow).removeClass('blink'); return true; }
     });
