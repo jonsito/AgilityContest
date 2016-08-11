@@ -144,7 +144,8 @@ class Entrenamientos extends DBObject {
     }
 
 	/**
-	 * Insert a new user into database
+	 * Insert a new user into database. Used in Excel import functions
+     * as no way to insert non-inscribed countries/clubs from console
 	 * @return {string} "" if ok; null on error
 	 */
 	function insert() {
@@ -164,15 +165,7 @@ class Entrenamientos extends DBObject {
 		return "";
 	}
 	
-	/**
-	 * Delete training entry with provided ID
-	 * @param {integer} $id ID primary key
-	 * @return "" on success ; otherwise null
-	 */
-	function delete($id) {
-		$this->myLogger->enter();
-		return "";
-	}	
+	/* Delete has been removed, as no use in training sessions */
 	
 	/**
 	 * Select user with provided ID
@@ -210,7 +203,7 @@ class Entrenamientos extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		$where = "(Entrenamientos.Club = Clubes.ID) ";
+		$where = "(Prueba={$this->pruebaID}) AND (Entrenamientos.Club = Clubes.ID) ";
 		if ($search!=='') $where= $where . " AND ( (Clubes.Nombre LIKE '%$search%') OR ( Clubes.Pais LIKE '%$search%' ) ) ";
 		$result=$this->__select(
 				/* SELECT */ "Entrenamientos.*, Clubes.Nombre as NombreClub, Clubes.Logo as LogoClub",
@@ -227,7 +220,7 @@ class Entrenamientos extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search criteria for query
         $q=http_request("q","s",null);
-		$where="(Entrenamientos.Club = Clubes.ID) ";
+		$where="(Prueba={$this->pruebaID}) AND (Entrenamientos.Club = Clubes.ID) ";
         if ($q!=="") $where=$where . " AND ( (Clubes.Nombre LIKE '%$q%') OR ( Clubes.Pais LIKE '%$q%' ) ) ";
 		$result=$this->__select(
 				/* SELECT */ "Entrenamientos.*, Clubes.Nombre as NombreClub, Clubes.Logo as LogoClub",
