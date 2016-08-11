@@ -28,6 +28,35 @@ $config =Config::getInstance();
 	<form id="config-form" name="configuracion" class="easyui-form">
 	<div id="config-tabs" class="easyui-tabs" data-options="tabPosition:'left'" style="width:100%;height:auto">
 		<input id="config-Operation" type="hidden" name="Operation" value="saveConfig"/>
+
+		<div title="<?php _e('Contest');?>" style="padding:10px">
+			<h3><?php _e('Contest parameters'); ?></h3>
+
+			<label for="proximity_alert"><?php _e('Proximity alert on starting order'); ?></label>
+			<input type="number" min="1" max="20" size="2" value="5" name="proximity_alert" id="proximity_alert"/> <?php _e('Dogs'); ?><br />
+
+			<label><?php _e('Time data precision shown'); ?></label>
+			<label for="crono_cents" style="width:130px;margin-top:5px;">
+				<input type="radio" id="crono_cents" name="crono_miliseconds" value="0" checked="checked" /><?php _e('cents'); ?>
+			</label>
+			<label for="crono_milis" style="width:130px;margin-top:5px;">
+				<input type="radio" id="crono_milis" name="crono_miliseconds" value="1"/><?php _e('millis'); ?>
+			</label><br />
+
+			<h3><?php _e('Training session parameters'); ?></h3>
+			<label><?php _e('Club/Country Training time assignment mode'); ?></label>
+			<select name="training_type">
+				<option value="0" selected="selected"><?php _e('Individual time * Max number of dogs/category');?> </option>
+				<option value="1"><?php _e('Individual time * Number of dogs on each County or Club');?> </option>
+			</select>
+
+			<label for=training_time"><?php _e('Training time for each dog');?> </label>
+			<input type="number" min="60" max="300" size="2" value="180" step="15" style="width:50px" name="training_time" id="training_time"/> <?php _e('Seconds'); ?><br />
+
+			<label for=training_grace"><?php _e('Training grace period to enter/leave ring');?> </label>
+			<input type="number" min="5" max="60" size="2" value="15" step="5" style="width:50px" name="training_grace" id="training_grace"/> <?php _e('Seconds'); ?><br />
+		</div>
+
 		<div title="<?php _e('Desktop'); ?>" style="padding:10px">
 			<h3><?php _e('Desktop look and feel'); ?></h3>
 			<label for="config_theme"><?php _e('Dekstop theme'); ?></label>
@@ -327,16 +356,7 @@ $config =Config::getInstance();
             <label for="reset_events"><?php _e('Clear event registration on tablet init session'); ?></label>
             <input type="hidden" name="reset_events" value="0"/> <!-- trick for checkboxes -->
             <input type="checkbox" name="reset_events" id="reset_events" value="1"/><br />
-			<label for="proximity_alert"><?php _e('Proximity alert on starting order'); ?></label>
-			<input type="number" min="1" max="20" size="2" value="5" name="proximity_alert" id="proximity_alert"/> <?php _e('Dogs'); ?><br />
 
-			<label><?php _e('Time data precision shown'); ?></label>
-			<label for="crono_cents" style="width:130px;margin-top:5px;">
-				<input type="radio" id="crono_cents" name="crono_miliseconds" value="0" checked="checked" /><?php _e('cents'); ?>
-			</label>
-			<label for="crono_milis" style="width:130px;margin-top:5px;">
-				<input type="radio" id="crono_milis" name="crono_miliseconds" value="1"/><?php _e('millis'); ?>
-			</label><br />
 		</div>
 
 		<div title="<?php _e('System'); ?>" style="padding:10px">

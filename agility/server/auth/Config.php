@@ -34,6 +34,9 @@ define('AC_WIDE_PRINTER','0'); // defaults to 58mm wide POS printer
 
 /** variables de la aplicacion principal **/
 define('AC_PROXIMITY_ALERT',5);
+define('AC_TRAINING_TIME',180);
+define('AC_TRAINING_TYPE',0);
+define('AC_TRAINING_GRACE',15);
 
 /** entorno grafico **/
 define('AC_EASYUI_THEME','default');
@@ -159,10 +162,15 @@ Class Config {
 		'reset_events'		=> array(	'b',	false,	AC_RESET_EVENTS),
 		'event_printer'		=> array(	's',	false,	AC_EVENT_PRINTER),
 		'wide_printer'		=> array(	'b',	false,	AC_WIDE_PRINTER),
-		// Internacionalizacion. Idiomas
+		// Internacionalizacion
 		'lang'				=> array(	's',	false,	AC_LANG),
 		'accept_lang'		=> array(	'b',	false,	AC_ACCEPT_LANG),
+		// configuracion de la prueba
 		'proximity_alert'	=> array(	'i',	false,	AC_PROXIMITY_ALERT),
+		'training_time'		=> array(	'i',	false,	AC_TRAINING_TIME),
+        'training_type'		=> array(	'i',	false,	AC_TRAINING_TYPE),
+        'training_grace'	=> array(	'i',	false,	AC_TRAINING_GRACE),
+
 		// variables del sistema.
 		// just declared, no neccesarily real value
 		'restricted'		=> array(	'i',	true,	0),
