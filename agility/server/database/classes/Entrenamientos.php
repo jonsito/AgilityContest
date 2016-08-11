@@ -213,7 +213,7 @@ class Entrenamientos extends DBObject {
 		$where = "(Entrenamientos.Club = Clubes.ID) ";
 		if ($search!=='') $where= $where . " AND ( (Clubes.Nombre LIKE '%$search%') OR ( Clubes.Pais LIKE '%$search%' ) ) ";
 		$result=$this->__select(
-				/* SELECT */ "*, Clubes.Nombre as NombreClub, Clubes.Logo as LogoClub",
+				/* SELECT */ "Entrenamientos.*, Clubes.Nombre as NombreClub, Clubes.Logo as LogoClub",
 				/* FROM */ "Entrenamientos,Clubes",
 				/* WHERE */ $where,
 				/* ORDER BY */ $sort,
@@ -230,7 +230,7 @@ class Entrenamientos extends DBObject {
 		$where="(Entrenamientos.Club = Clubes.ID) ";
         if ($q!=="") $where=$where . " AND ( (Clubes.Nombre LIKE '%$q%') OR ( Clubes.Pais LIKE '%$q%' ) ) ";
 		$result=$this->__select(
-				/* SELECT */ "*, Clubes.Nombre as NombreClub, Clubes.Logo as LogoClub",
+				/* SELECT */ "Entrenamientos.*, Clubes.Nombre as NombreClub, Clubes.Logo as LogoClub",
 				/* FROM */ "Entrenamientos,Clubes",
 				/* WHERE */ $where,
 				/* ORDER BY */ "Orden ASC",
@@ -240,11 +240,37 @@ class Entrenamientos extends DBObject {
 		return $result;
 	}
 
+    /**
+     * insert $from before(where==false) or after(where=true) $to
+     * This dnd routine uses a Orden shift'ng: increase every remaining row order,
+     * and assign moved row orden to created hole
+     * @param {integer} $from id to move
+     * @param {integer} $to id to insert arounn
+     * @param {boolean} $where false:insert before  / true:insert after
+     */
 	function dragAndDrop() {
-        $f=http_request("From","i",-1);
-        $t=http_request("To","i",-1);
-        $w=http_request("Where","i",0);
-        if (($f<0)|| ($t<0)) return $this->error("Invalid parameters From:$f or To:$t received");
+	    $this->myLogger->enter();
+        $from=http_request("From","i",-1);
+        $to=http_request("To","i",-1);
+        $where=http_request("Where","i",0);
+        if (($from<0)|| ($to<0)) return $this->error("{$this->file}::DragAndDrop()Invalid parameters From:$from or To:$to received");
+
+        // get from/to trainning session ID
+        $f=$this->__selectObject("*","Entrenamientos","(Prueba={$this->pruebaID}) AND (ID=$from)");
+        $t=$this->__selectObject("*","Entrenamientos","(Prueba={$this->pruebaID}) AND (ID=$to)");
+        if(!$f || !$t) {
+            $this->myLogger->error("Error: no ID for Trainning sesion '$from' and/or '$to' on prueba:{$this->pruebaID}");
+            return $this->errormsg;
+        }
+        $torder=$t->Orden;
+        $neworder=($where)?$torder+1/*after*/:$torder/*before*/;
+        $comp=($where)?">"/*after*/:">="/*before*/;
+        $str="UPDATE Entrenamientos SET Orden=Orden+1 WHERE ( Prueba = {$this->pruebaID} ) AND ( Orden $comp $torder )";
+        $rs=$this->query($str);
+        if (!$rs) return $this->error($this->conn->error);
+        $str="UPDATE Entrenamientos SET Orden=$neworder WHERE ( Prueba = {$this->pruebaID} ) AND ( ID = $from )";
+        $rs=$this->query($str);
+        if (!$rs) return $this->error($this->conn->error);
         return "";
     }
 }
