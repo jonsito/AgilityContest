@@ -24,6 +24,7 @@ class Entrenamientos extends DBObject {
 
     protected $pruebaID;
     protected $prueba;
+    protected $myConfig;
 
 	function __construct($name,$prueba) {
 		parent::__construct($name);
@@ -31,6 +32,7 @@ class Entrenamientos extends DBObject {
         $this->prueba=$this->__getObject("Pruebas",$prueba);
         if (!$this->prueba) throw new Exception('$name: Prueba with ID:$prueba not found in database');
         $this->pruebaID=$prueba;
+        $this->myConfig=Config::getInstance();
 	}
 
     /**
@@ -39,6 +41,9 @@ class Entrenamientos extends DBObject {
      */
     function clear() {
         $this->myLogger->enter();
+        $str="DELETE FROM Entrenamientos WHERE (Prueba={$this->pruebaID}) ";
+        $res= $this->query($str);
+        if (!$res) return $this->error("Cannot remove training session entries for contest id: {$this->pruebaID}");
         $this->myLogger->leave();
         return "";
     }
@@ -49,6 +54,91 @@ class Entrenamientos extends DBObject {
      */
     function populate() {
         $this->myLogger->enter();
+        // cogemos todos los perros inscritos en una prueba y los agrupamos por clubes y categoria
+        $res=$this->__select(
+            /* SELECT */    "COUNT(PerroGuiaClub.ID) AS Numero, Categoria, Club,NombreClub",
+            /* FROM */      "Inscripciones,PerroGuiaClub",
+            /* WHERE */     "(Inscripciones.Prueba={$this->pruebaID}) AND (Inscripciones.Perro=PerroGuiaClub.ID)",
+            /* ORDER */     "Club ASC, Categoria ASC",
+            /* LIMIT */     "",
+            /* GROUP BY */  "Club,Categoria"
+        );
+        if (!$res) return $this->error($this->conn->error);
+        // analizamos datos, añadiento tiempos
+        $clubes=array();
+        $orden=0;
+        foreach ($res['rows'] as $item) {
+            $idclub=intval($item['Club']);
+            // if entry not created, time to do
+            if (!array_key_exists($idclub,$clubes)) {
+                $nuevoclub= array(
+                    'Prueba'    => $this->pruebaID,
+                    'Orden'     => $orden++,
+                    'Club'      => $idclub,
+                    'NombreClub'=> $item['NombreClub'],
+                    'Fecha'     => date('Y-m-d'),
+                    'Firma'     => '',
+                    'Veterinario'=>'',
+                    'Entrada'   => '',
+                    'Salida'    => '',
+                    'Total'     => 0,
+                    'L'         => 0,
+                    'M'         => 0,
+                    'S'         => 0,
+                    'T'         => 0,
+                    '-'         => 0, // to avoid warnings on nonexistent
+                    'Observaciones' => ""
+                );
+                $clubes[$idclub]=$nuevoclub;
+            }
+            // vamos rellenando datos
+            $clubes[$idclub]['Total']+=intval($item['Numero']);
+            $clubes[$idclub][$item['Categoria']]+=intval($item['Numero']);
+        }
+        // ok. ahora toca asignar los tiempos
+        $nextTime=time(); // enter to ring comes one hour after veterinary
+        $mode=intval($this->myConfig->getEnv("training_type"));
+        $dtime=intval($this->myConfig->getEnv("training_time"));
+        $gtime=intval($this->myConfig->getEnv("training_grace"));
+        foreach($clubes as &$club) {
+            $duration=($mode==0)? $club['Total']*$dtime : max($club['L'],$club['M'],$club['S'],$club['T'])*$dtime;
+            $club['Firma']=date('Y-m-d H:i',$nextTime);
+            $club['Veterinario']=date('Y-m-d H:i',$nextTime+120); // 2 minutes later
+            $club['Entrada']=date('Y-m-d H:i:s',$nextTime+3600); // 1 hour later
+            $club['Salida']=date('Y-m-d H:i:s',$nextTime+3600+$duration);
+            $nextTime+=$duration+$gtime;
+            $this->myLogger->trace("Club: {$club['NombreClub']} Entrada: {$club['Entrada']} Salida: {$club['Salida']} Duracion:$duration");
+        }
+        // ok. next comes clear and populate Training database table
+        $this->clear();
+        // to speedup, use prepared statements
+        // componemos un prepared statement (para evitar sql injection)
+        $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Entrada,Salida,L,M,S,T,Observaciones)
+			   VALUES({$this->pruebaID},?,?,?,?,?,?,?,?,?,?,?,?)";
+        $stmt=$this->conn->prepare($sql);
+        if (!$stmt) return $this->error($this->conn->error);
+        $res=$stmt->bind_param('iisssssiiiis',$idx,$clb,$fecha,$firma,$vet,$ent,$sal,$l,$m,$s,$t,$obs);
+        if (!$res) return $this->error($this->conn->error);
+        foreach($clubes as $elem) {
+            $idx=$elem['Orden'];
+            $clb=$elem['Club'];
+            $fecha=$elem['Fecha'];
+            $firma=$elem['Firma'];
+            $vet=$elem['Veterinario'];
+            $ent=$elem['Entrada'];
+            $sal=$elem['Salida'];
+            $l=$elem['L'];
+            $m=$elem['M'];
+            $s=$elem['S'];
+            $t=$elem['T'];
+            $obs=$elem['Observaciones'];
+            $this->myLogger->trace("insertando: ".json_encode($club));
+            // invocamos la orden SQL y devolvemos el resultado
+            $res=$stmt->execute();
+            if (!$res) return $this->error($stmt->error);
+        }
+        $stmt->close();
+
         $this->myLogger->leave();
         return "";
     }

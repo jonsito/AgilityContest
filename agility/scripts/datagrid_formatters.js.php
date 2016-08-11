@@ -21,6 +21,26 @@ require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 ?>
 
+function formatYMD(val,row,idx) {
+    var d = new Date(val);
+    var mes=((d.getMonth()<10)?'0':'')+d.getMonth().toString();
+    var dia=((d.getDay()<10)?'0':'')+d.getDay().toString();
+    return ""+d.getFullYear() + "-" + mes + "-" + dia;
+}
+function formatHM(val,row,idx){
+    var d = new Date(val);
+    var hora=((d.getHours()<10)?'0':'')+d.getHours().toString();
+    var min=((d.getMinutes()<10)?'0':'')+d.getMinutes().toString();
+    return ""+hora+":"+min;
+}
+function formatHMS(val,row,idx){
+    var d = new Date(val);
+    var hora=((d.getHours()<10)?'0':'')+d.getHours().toString();
+    var min=((d.getMinutes()<10)?'0':'')+d.getMinutes().toString();
+    var sec=((d.getSeconds()<10)?'0':'')+d.getSeconds().toString();
+    return ""+hora+":"+min+":"+sec;
+}
+
 /**
  * rowStyler function for AgilityContest public datagrids
  * @param {int} idx Row index

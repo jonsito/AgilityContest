@@ -33,10 +33,10 @@ $config =Config::getInstance();
 	<span style="float:left;padding:5px">
 	   	<a id="entrenamientos-newBtn" href="#" class="easyui-linkbutton"
 	   		data-options="iconCls:'icon-notes'" onclick="newEntrenamiento('#entrenamientos-datagrid','')"><?php _e('Insert'); ?></a>
-	   	<a id="entrenamientos-editBtn" href="#" class="easyui-linkbutton"
-	   		data-options="iconCls:'icon-edit'" onclick="editEntrenamiento('#entrenamientos-datagrid')"><?php _e('Edit'); ?></a>
 	   	<a id="entrenamientos-removeBtn" href="#" class="easyui-linkbutton"
 	   		data-options="iconCls:'icon-remove'" onclick="deleteEntrenamiento('#entrenamientos-datagrid')"><?php _e('Delete'); ?></a>
+	   	<a id="entrenamientos-resetBtn" href="#" class="easyui-linkbutton"
+		   data-options="iconCls:'icon-new'" onclick="resetEntrenamientos('#entrenamientos-datagrid')"><?php _e('Reset'); ?></a>
    	</span>
    	<!-- estos elementos deben estar alineados a la derecha -->
    	<span style="float:right;padding:5px">
@@ -101,30 +101,32 @@ $('#entrenamientos-datagrid').datagrid({
     loadMsg: '<?php _e("Updating training session timetable for contest"); ?> ...',
     toolbar: '#entrenamientos-toolbar',
     pagination: false,
-    rownumbers: true,
+    rownumbers: false,
     fitColumns: true,
     singleSelect: true,
     columns:[[
         { field:'ID',		hidden:true },
         { field:'Prueba',	hidden:true },
-		{ field:'LogoClub', width:100, title:''},
-		{ field:'Club',		width:200, title: isInternational(workingData.federation)? "<?php _e('Country');?>":"<?php _e('Club');?>" },
-		{ field:'Fecha', 	width:100, title:'<?php  _e("Date");?>' },
-		{ field:'Firma', 	width:100, title:'<?php  _e("Check-in");?>' },
-		{ field:'Veterinario',	width:100, title:'<?php _e("Vet control");?> '},
-		{ field:'Entrada',	width:100, title:'<?php _e("Start time");?>'},
-		{ field:'Duracion',	width:100, title:'<?php _e("Duration");?>'},
-		{ field:'Ring1',	width:100, title:'<?php _e("Ring");?> 1'},
-		{ field:'Ring2',	width:100, title:'<?php _e("Ring");?> 2'},
-		{ field:'Ring3',	width:100, title:'<?php _e("Ring");?> 3'},
-		{ field:'Ring4',	width:100, title:'<?php _e("Ring");?> 4'},
-		{ field:'Observaciones',	width:200, title:'<?php _e("Comments");?> '},
+		{ field:'LogoClub', width:50, title:'',formatter:formatLogo},
+		{ field:'Club',		hidden:true},
+		{ field:'NombreClub',width:150, title: isInternational(workingData.federation)? "<?php _e('Country');?>":"<?php _e('Club');?>" },
+		{ field:'Fecha', 	width:100, title:'<?php  _e("Date");?>',formatter:formatYMD },
+		{ field:'Firma', 	width:100, title:'<?php  _e("Check-in");?>',formatter:formatHM },
+		{ field:'Veterinario',	width:100, title:'<?php _e("Veterinary");?>',formatter:formatHM},
+		{ field:'Entrada',	width:100, title:'<?php _e("Start");?>',formatter:formatHMS},
+		{ field:'Salida',	width:100, title:'<?php _e("End");?>',formatter:formatHMS},
+		{ field:'L',	width:75, title:'<?php _e("Ring");?> 1'},
+		{ field:'M',	width:75, title:'<?php _e("Ring");?> 2'},
+		{ field:'S',	width:75, title:'<?php _e("Ring");?> 3'},
+		{ field:'T',	width:75, title:'<?php _e("Ring");?> 4'},
+		{ field:'Observaciones',	width:150, title:'<?php _e("Comments");?> '},
     ]],
     rowStyler:myRowStyler,
-    onDblClickRow: function() { editEntrenamientos('#entrenamientos-datagrid'); },
+    onDblClickRow: function() { editEntrenamiento('#entrenamientos-datagrid'); },
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+        if (howManyGrades(workingData.federation)<4) $(this).datagrid('hideColumn','T');
     },
     onDragEnter: function(dst,src) { return true; }, // default is not restriction
     onDrop: function(dst,src,updown) {
@@ -137,8 +139,8 @@ addKeyHandler('#entrenamientos-datagrid','#entrenamientos-dialog',newEntrenamien
 
 // botones
 addTooltip($('#entrenamientos-newBtn').linkbutton(),'<?php _e("Insert a new training session entry"); ?>'+"<br/>"+"before selected one");
-addTooltip($('#entrenamientos-editBtn').linkbutton(),'<?php _e("Edit selected training session"); ?>');
 addTooltip($('#entrenamientos-removeBtn').linkbutton(),'<?php _e("Remove selected training session from timetable"); ?>');
+addTooltip($('#entrenamientos-resetBtn').linkbutton(),'<?php _e("Re-create training table from inscription data"); ?>');
 addTooltip($('#entrenamientos-reloadBtn').linkbutton(),'<?php _e("Refresh training session timetable from database"); ?>');
 addTooltip($('#entrenamientos-excelBtn').linkbutton(),'<?php _e("Import/export session from/to Excel file"); ?>');
 addTooltip($('#entrenamientos-printBtn').linkbutton(),'<?php _e("Print training session timetable"); ?>');

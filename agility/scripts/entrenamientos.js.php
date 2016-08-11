@@ -70,14 +70,32 @@ function editEntrenamiento(dg){
     $('#entrenamientos_newEntrenamiento-form').form('load',row);
 }
 
+function resetEntrenamientos(dg) {
+    $.ajax({
+        type: 'GET',
+        url: '/agility/server/database/trainingFunctions.php',
+        data: {
+            Operation:'populate',
+            Prueba: workingData.prueba
+        },
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){
+                $.messager.show({ width:300, height:200, title: '<?php _e('Error'); ?>', msg: result.errorMsg });
+            }
+            reloadEntrenamientos();
+        }
+    });
+}
+
 function reloadEntrenamientos() {
     if (workingData.prueba==0) return;
     if (workingData.jornada==0) return;
     $('#entrenamientos-datagrid').datagrid(
         'load',
         {
-            Prueba: workingData.prueba,
-            Operation: 'enumerate'
+            Operation: 'enumerate',
+            Prueba: workingData.prueba
         }
     );
 }
