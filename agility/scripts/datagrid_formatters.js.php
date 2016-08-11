@@ -21,20 +21,31 @@ require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 ?>
 
+// convert YYYY-MM-DD HH:MM:SS to date object
+function mysqlToDate(datetime) {
+    if (typeof(datetime)==="undefined") return new Date(); // prevent empty data
+    var a=datetime.split(" ");
+    var d=a[0].split("-");
+    if (a.length==1) a[1]="00:00:00";
+    var t=a[1].split(":");
+    return new Date(d[0],(d[1]-1),d[2],t[0],t[1],t[2]);
+}
+
 function formatYMD(val,row,idx) {
-    var d = new Date(val);
-    var mes=((d.getMonth()<10)?'0':'')+d.getMonth().toString();
+    var d = mysqlToDate(val);
+    var m=1+d.getMonth(); // getMonth() returns 0..11
+    var mes=((m<10)?'0':'')+m.toString();
     var dia=((d.getDay()<10)?'0':'')+d.getDay().toString();
     return ""+d.getFullYear() + "-" + mes + "-" + dia;
 }
 function formatHM(val,row,idx){
-    var d = new Date(val);
+    var d = mysqlToDate(val);
     var hora=((d.getHours()<10)?'0':'')+d.getHours().toString();
     var min=((d.getMinutes()<10)?'0':'')+d.getMinutes().toString();
     return ""+hora+":"+min;
 }
 function formatHMS(val,row,idx){
-    var d = new Date(val);
+    var d = mysqlToDate(val);
     var hora=((d.getHours()<10)?'0':'')+d.getHours().toString();
     var min=((d.getMinutes()<10)?'0':'')+d.getMinutes().toString();
     var sec=((d.getSeconds()<10)?'0':'')+d.getSeconds().toString();
