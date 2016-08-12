@@ -167,3 +167,28 @@ $.extend($.fn.datagrid.methods, {
         return win;
     }
 })(jQuery);
+
+/**
+ * Create a timespinner editor for datagrids
+ */
+$.extend($.fn.datagrid.defaults.editors, {
+    timespinner: {
+        init: function(container, options){
+            var input = $('<input>').appendTo(container);
+            input.timespinner(options);
+            return input
+        },
+        destroy: function(target){
+            $(target).timespinner('destroy');
+        },
+        getValue: function(target){
+            return $(target).timespinner('getValue');
+        },
+        setValue: function(target, value){
+            $(target).timespinner('setValue', value);
+        },
+        resize: function(target, width){
+            $(target).timespinner('resize', width);
+        }
+    }
+});

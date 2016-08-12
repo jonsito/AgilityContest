@@ -67,6 +67,7 @@ $('#entrenamientos-Nombre').textbox({ required:true, validType:'length[1,255]' }
 
 $('#entrenamientos-datagrid').datagrid({
 	// added by me to handle editing
+    editRow: {},
 	editIndex: -1,
 	// propiedades del panel asociado
 	fit: true,
@@ -97,16 +98,16 @@ $('#entrenamientos-datagrid').datagrid({
 		{ field:'Fecha', 	width:100, title:'<?php  _e("Date");?>',formatter:formatYMD,
 			editor:{ type:'datebox', options: { required:true,formatter: dateToMysql } }
 		},
-		{ field:'Firma', 	width:100, title:'<?php  _e("Check-in");?>',formatter:formatHM,
+		{ field:'Firma', 	align:'center', width:100, title:'<?php  _e("Check-in");?>',formatter:formatHM,
             editor:{ type:'timespinner', options: { required:true,showSeconds:false } }
         },
-		{ field:'Veterinario',	width:100, title:'<?php _e("Veterinary");?>',formatter:formatHM,
+		{ field:'Veterinario',align:'center',	width:100, title:'<?php _e("Veterinary");?>',formatter:formatHM,
             editor:{ type:'timespinner', options: { required:true,showSeconds:false } }
         },
-		{ field:'Entrada',	width:100, title:'<?php _e("Start");?>',formatter:formatHMS,
+		{ field:'Entrada',  align:'center',	width:100, title:'<?php _e("Start");?>',formatter:formatHMS,
             editor:{ type:'timespinner', options: { required:true,showSeconds:true} }
         },
-		{ field:'Salida',	width:100, title:'<?php _e("End");?>',formatter:formatHMS,
+		{ field:'Salida',   align:'center',	width:100, title:'<?php _e("End");?>',formatter:formatHMS,
             editor:{ type:'timespinner', options: { required:true,showSeconds:true } }
         },
 		{ field:'L',	width:75, title:'<?php _e("Ring");?> 1'},
@@ -119,7 +120,10 @@ $('#entrenamientos-datagrid').datagrid({
     ]],
     rowStyler:myRowStyler,
     onDblClickRow: function(index,row) {
-		    if ($(this).datagrid('options').editIndex!=-1) return; // ignore dblclick on edit active
+            // ignore dblclick on edit active
+		    if ($(this).datagrid('options').editIndex!=-1) return;
+            // clone current row data to allow restore
+            $(this).datagrid('options').editRow = JSON.parse(JSON.stringify(row));
 			$(this).datagrid('beginEdit',index);
 		},
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
@@ -147,6 +151,21 @@ $('#entrenamientos-datagrid').datagrid({
         $(this).datagrid('disableDnd');
         return true;
 	},
+    onBeginEdit: function(index,row){
+	    // set up initial values for editable cells
+        var ed = $(this).datagrid('getEditor',{index:index,field:'Fecha'});
+        $(ed.target).datebox('setValue', row.Fecha.split(' ')[0].replace("-","/"));
+        ed = $(this).datagrid('getEditor',{index:index,field:'Firma'});
+        $(ed.target).timespinner('setValue', row.Firma.split(' ')[1]);
+        ed = $(this).datagrid('getEditor',{index:index,field:'Veterinario'});
+        $(ed.target).timespinner('setValue', row.Veterinario.split(' ')[1]);
+        ed = $(this).datagrid('getEditor',{index:index,field:'Entrada'});
+        $(ed.target).timespinner('setValue', row.Entrada.split(' ')[1]);
+        ed = $(this).datagrid('getEditor',{index:index,field:'Salida'});
+        $(ed.target).timespinner('setValue', row.Salida.split(' ')[1]);
+        ed = $(this).datagrid('getEditor',{index:index,field:'Observaciones'});
+        $(ed.target).textbox('setValue', row.Observaciones);
+    },
 	onEndEdit: function(index,row,changes) {
         $('#entrenamientos-undoBtn').linkbutton('disable');
         $('#entrenamientos-saveBtn').linkbutton('disable');

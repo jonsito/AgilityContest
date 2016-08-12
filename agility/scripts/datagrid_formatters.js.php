@@ -29,29 +29,49 @@ function dateToMysql(d) {
     return ""+d.getFullYear() + "-" + mes + "-" + dia;
 }
 
-// convert YYYY-MM-DD HH:MM:SS to javascript.Date object
-function mysqlToDate(datetime) {
-    if (typeof(datetime)==="undefined") return new Date(); // prevent empty data
-    var a=datetime.split(" ");
-    var d=a[0].split("-");
-    if (a.length==1) a[1]="00:00:00";
-    var t=a[1].split(":");
+// convert string to Date object
+// accepted strings
+// yyyy-mm-dd ( add 00:00:00 )
+// yyyy-mm-dd hh:mm:ss
+// hh:mm (add yyyy-mm-dd from parent, and assume 00 seconds
+// hh:mm:ss ( add yyyy-mm-dd
+function mysqlToDate(defdate,datetime) {
+    if (typeof(datetime)==="undefined") return mysqlToDate("1970-01-01 00:00:00",defdate); // recursive call with default value
+    var dt=datetime.trim();
+    if (dt==="") return mysqlToDate("1970-01-01 00:00:00",defdate); // recursive call with default value
+    if ( /^\d{4}-(0\d|1[0-2])-(0\d|[1-2]\d|3[0-1]) (?:2[0-3]|[01]\d):[0-5]\d:[0-5]\d$/.test(dt) ) { // yyyy-mm dd hh:mm:ss
+
+    } else if ( /^\d{4}-(0\d|1[0-2])-(0\d|[1-2]\d|3[0-1])$/.test(dt) ) { // yyyy-mm-dd
+        dt=dt+" 00:00:00";
+    } else if ( /^(?:2[0-3]|[01]\d):[0-5]\d:[0-5]\d$/.test(dt) ) { // hh:mm:ss
+        var a=defdate.split(" ");
+        dt=a[0]+" "+dt;
+    } else if ( /^(?:2[0-3]|[01]\d):[0-5]\d$/.test(dt) ){ // hh:mm
+        var a=defdate.split(" ");
+        dt=a[0]+" "+dt+":00";
+    } else {
+        console.log("mysqlToDate: invalid entry provided:"+datetime);
+        return mysqlToDate("1970-01-01 00:00:00",defdate);
+    }
+    var b=dt.split(" ");
+    var d=b[0].split("-");
+    var t=b[1].split(":");
     return new Date(d[0],(d[1]-1),d[2],t[0],t[1],t[2]);
 }
 
 function formatYMD(val,row,idx) {
-    var d = mysqlToDate(val);
+    var d = mysqlToDate(row.Fecha,val);
     return dateToMysql(d);
 }
 
 function formatHM(val,row,idx){
-    var d = mysqlToDate(val);
+    var d = mysqlToDate(row.Fecha,val);
     var hora=((d.getHours()<10)?'0':'')+d.getHours().toString();
     var min=((d.getMinutes()<10)?'0':'')+d.getMinutes().toString();
     return ""+hora+":"+min;
 }
 function formatHMS(val,row,idx){
-    var d = mysqlToDate(val);
+    var d = mysqlToDate(row.Fecha,val);
     var hora=((d.getHours()<10)?'0':'')+d.getHours().toString();
     var min=((d.getMinutes()<10)?'0':'')+d.getMinutes().toString();
     var sec=((d.getSeconds()<10)?'0':'')+d.getSeconds().toString();

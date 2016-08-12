@@ -89,15 +89,13 @@ function resetEntrenamientos(dg) {
 }
 
 function reloadEntrenamientos() {
+    var dg=$('#entrenamientos-datagrid');
     if (workingData.prueba==0) return;
-    if (workingData.jornada==0) return;
-    $('#entrenamientos-datagrid').datagrid(
-        'load',
-        {
-            Operation: 'enumerate',
-            Prueba: workingData.prueba
-        }
-    );
+    if (dg.datagrid('options').editIndex!=-1) {
+        $.messager.alert("<php _('Edit active');?>","<?php _e('Please close edition before update');?>","error");
+        return;
+    }
+    dg.datagrid( 'load', { Operation: 'enumerate', Prueba: workingData.prueba } );
 }
 
 /**
@@ -115,9 +113,12 @@ function saveEditEntrenamiento(dg){
  * @param {string} dg datagrid ID de donde se obtiene la actividad
  */
 function cancelEditEntrenamiento(dg){
+    var editIndex=$(dg).datagrid('options').editIndex;
     // restore previous data
+    var editRow=$(dg).datagrid('options').editRow;
+    $(dg).datagrid('updateRow',{index:editIndex,row:editRow});
     // tell datagrid to end edition
-    $(dg).datagrid('endEdit',$(dg).datagrid('options').editIndex); // onAfterEdit will set editIndex
+    $(dg).datagrid('endEdit',editIndex); // onAfterEdit will set editIndex
 }
 
 function printEntrenamientos() {
@@ -125,7 +126,12 @@ function printEntrenamientos() {
 }
 
 function importExportEntrenamientos() {
-
+    var dg=$('#entrenamientos-datagrid');
+    if (workingData.prueba==0) return;
+    if (dg.datagrid('options').editIndex!=-1) {
+        $.messager.alert("<php _('Edit active');?>","<?php _e('Please close edition before import');?>","error");
+        return;
+    }
 }
 
 //reajusta el orden de las sesiones de entrenamiento
