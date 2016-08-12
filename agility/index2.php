@@ -257,6 +257,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             echon('<dl class="menu_enum">');
             foreach ($ptree['Jornadas'] as $jornada) {
                 if ($jornada['Nombre']==='-- Sin asignar --') continue;
+                if (count($jornada['Mangas'])==0) continue; // no rounds, no print
                 echon( "<dt>{$jornada['Nombre']}</dt>");
                 echon("<dd>");
                     echon("<ol>");
