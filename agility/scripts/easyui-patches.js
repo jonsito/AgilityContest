@@ -27,6 +27,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * y ajustar el style "float" de todos los elementos declarados, +appentTo()
  */
 $.extend($.fn.datagrid.methods, {
+    disableDnd: function(jq,index){
+        return jq.each(function(){
+            var target = this;
+            var opts = $(this).datagrid('options');
+            if (index != undefined){
+                var trs = opts.finder.getTr(this, index);
+            } else {
+                var trs = opts.finder.getTr(this, 0, 'allbody');
+            }
+            trs.draggable('disable');
+        });
+    },
 	buildToolbar: function(jq, items){
 		return jq.each(function(){
 			var p = $(this).datagrid('getPanel');
@@ -155,4 +167,3 @@ $.extend($.fn.datagrid.methods, {
         return win;
     }
 })(jQuery);
-

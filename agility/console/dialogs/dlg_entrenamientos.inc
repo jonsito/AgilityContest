@@ -95,20 +95,27 @@ $('#entrenamientos-datagrid').datagrid({
 		{ field:'Club',		hidden:true},
 		{ field:'NombreClub',width:150, title: isInternational(workingData.federation)? "<?php _e('Country');?>":"<?php _e('Club');?>" },
 		{ field:'Fecha', 	width:100, title:'<?php  _e("Date");?>',formatter:formatYMD,
-			editor:{
-				type:'datebox',
-				options: { formatter: dateToMysql }
-			}
+			editor:{ type:'datebox', options: { required:true,formatter: dateToMysql } }
 		},
-		{ field:'Firma', 	width:100, title:'<?php  _e("Check-in");?>',formatter:formatHM },
-		{ field:'Veterinario',	width:100, title:'<?php _e("Veterinary");?>',formatter:formatHM},
-		{ field:'Entrada',	width:100, title:'<?php _e("Start");?>',formatter:formatHMS},
-		{ field:'Salida',	width:100, title:'<?php _e("End");?>',formatter:formatHMS},
+		{ field:'Firma', 	width:100, title:'<?php  _e("Check-in");?>',formatter:formatHM,
+            editor:{ type:'timespinner', options: { required:true,showSeconds:false } }
+        },
+		{ field:'Veterinario',	width:100, title:'<?php _e("Veterinary");?>',formatter:formatHM,
+            editor:{ type:'timespinner', options: { required:true,showSeconds:false } }
+        },
+		{ field:'Entrada',	width:100, title:'<?php _e("Start");?>',formatter:formatHMS,
+            editor:{ type:'timespinner', options: { required:true,showSeconds:true} }
+        },
+		{ field:'Salida',	width:100, title:'<?php _e("End");?>',formatter:formatHMS,
+            editor:{ type:'timespinner', options: { required:true,showSeconds:true } }
+        },
 		{ field:'L',	width:75, title:'<?php _e("Ring");?> 1'},
 		{ field:'M',	width:75, title:'<?php _e("Ring");?> 2'},
 		{ field:'S',	width:75, title:'<?php _e("Ring");?> 3'},
 		{ field:'T',	width:75, title:'<?php _e("Ring");?> 4'},
-		{ field:'Observaciones', width:100, title:'<?php _e("Comments");?> '},
+		{ field:'Observaciones', width:100, title:'<?php _e("Comments");?>',
+            editor:{ type:'textbox', options: { required:false } }
+		}
     ]],
     rowStyler:myRowStyler,
     onDblClickRow: function(index,row) {
@@ -128,19 +135,23 @@ $('#entrenamientos-datagrid').datagrid({
         dragAndDropEntrenamientos(src.ID,dst.ID,(updown==='top')?0:1);
     },
 	onBeforeSelect: function(index,row) {
-		return($(this).datagrid('options').editIndex==-1);
+        var edtidx=$(this).datagrid('options').editIndex;
+        if (edtidx==-1) return true;
+		return(edtidx==index);
 	},
 	onBeforeEdit: function(index,row) {
 		// save row content, enable buttons, and mark index
         $('#entrenamientos-undoBtn').linkbutton('enable');
         $('#entrenamientos-saveBtn').linkbutton('enable');
 		$(this).datagrid('options').editIndex = index;
+        $(this).datagrid('disableDnd');
         return true;
 	},
 	onEndEdit: function(index,row,changes) {
         $('#entrenamientos-undoBtn').linkbutton('disable');
         $('#entrenamientos-saveBtn').linkbutton('disable');
 		$(this).datagrid('options').editIndex = -1;
+        $(this).datagrid('disableDnd');
 	}
 });
 
