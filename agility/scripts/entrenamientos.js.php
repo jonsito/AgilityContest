@@ -101,52 +101,23 @@ function reloadEntrenamientos() {
 }
 
 /**
- * Call json to Ask for commit new/edit actividad to server
+ * @param {string} dg datagrid ID de donde se obtiene la actividad
+ * Call json to Ask for commit changes in training session to server
  */
-function saveEntrenamientos(dg){
-    var frm = $('#entrenamientos_newEntrenamiento-form');
-    if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
-    $.ajax({
-        type: 'GET',
-        url: '/agility/server/database/trainingFunctions.php',
-        data: frm.serialize(),
-        dataType: 'json',
-        success: function (result) {
-            if (result.errorMsg){
-                $.messager.show({ width:300, height:200, title: '<?php _e('Error'); ?>', msg: result.errorMsg });
-            } else {
-                $('#entrenamientos_newEntrenamiento-dialog').dialog('close');
-                reloadentrenamientos();
-            }
-        }
-    });
+function saveEditEntrenamiento(dg){
+    // save data
+    // tel datagrid to end edition
+    $(dg).datagrid('endEdit',$(dg).datagrid('options').editIndex); // onAfterEdit will set editIndex
 }
 
 /**
- * Delete actividad data in bbdd
+ * Cancel editing, restore previous values
  * @param {string} dg datagrid ID de donde se obtiene la actividad
  */
-function deleteEntrenamiento(dg){
-    var row = $(dg).datagrid('getSelected');
-    if (!row) {
-    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no activity selected"); ?>',"warning");
-    	return; // no way to know which session is selected
-    }
-    if (row.Tipo!=0) {
-    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
-    	return; // cannot delete default session
-    }
-    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Remove activity'); ?>'+' '+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
-      	if (!r) return;
-        $.get('/agility/server/database/trainingFunctions.php',{Operation:'delete',ID:row.ID},function(result){
-            if (result.success){
-                reloadentrenamientos();
-            } else {
-            	// show error message
-                $.messager.show({width:300,height:200,title: '<?php _e('Error'); ?>',msg: result.errorMsg});
-            }
-        },'json');
-    });
+function cancelEditEntrenamiento(dg){
+    // restore previous data
+    // tell datagrid to end edition
+    $(dg).datagrid('endEdit',$(dg).datagrid('options').editIndex); // onAfterEdit will set editIndex
 }
 
 function printEntrenamientos() {

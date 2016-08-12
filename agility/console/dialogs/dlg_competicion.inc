@@ -191,6 +191,9 @@ $('#competicion-datagrid').datagrid({
 		$(this).datagrid('options').editIndex=-1;
 		row.editing = false;
 		updateActions(index);
+	},
+	onBeforeSelect: function(index,row) {
+		return ($(this).datagrid('options').editIndex==-1);
 	}
 });
 

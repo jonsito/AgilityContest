@@ -21,7 +21,15 @@ require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 ?>
 
-// convert YYYY-MM-DD HH:MM:SS to date object
+// convert javascript.Date object to YYYY-MM-DD format
+function dateToMysql(d) {
+    var m=1+d.getMonth(); // getMonth() returns 0..11
+    var mes=((m<10)?'0':'')+m.toString();
+    var dia=((d.getDate()<10)?'0':'')+d.getDate().toString();
+    return ""+d.getFullYear() + "-" + mes + "-" + dia;
+}
+
+// convert YYYY-MM-DD HH:MM:SS to javascript.Date object
 function mysqlToDate(datetime) {
     if (typeof(datetime)==="undefined") return new Date(); // prevent empty data
     var a=datetime.split(" ");
@@ -33,11 +41,9 @@ function mysqlToDate(datetime) {
 
 function formatYMD(val,row,idx) {
     var d = mysqlToDate(val);
-    var m=1+d.getMonth(); // getMonth() returns 0..11
-    var mes=((m<10)?'0':'')+m.toString();
-    var dia=((d.getDay()<10)?'0':'')+d.getDay().toString();
-    return ""+d.getFullYear() + "-" + mes + "-" + dia;
+    return dateToMysql(d);
 }
+
 function formatHM(val,row,idx){
     var d = mysqlToDate(val);
     var hora=((d.getHours()<10)?'0':'')+d.getHours().toString();
