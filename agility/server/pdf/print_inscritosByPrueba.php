@@ -594,7 +594,7 @@ class PrintInscritos extends PrintCommon {
 	// geometria de las celdas
 	protected $cellHeader;
     protected $pos =
-        array(  11,       25,   16,    36,     26,     9,     8,     9,       11,     5,  5,  5,  5,  5,  5,  5,  5 );
+        array(  11,       25,   16,    36,     26,     9,     8,     9,       7,     6,  6,  6,  6,  6,  6,  6,  6 );
     protected $align=
         array(  'R',      'L',  'C',   'R',   'R',    'C',    'L',   'C',    'L',    'C','C','C','C','C','C','C','C');
 	
@@ -670,7 +670,7 @@ class PrintInscritos extends PrintCommon {
 		// contamos las jornadas sin asignar	
 		foreach($this->jornadas as $row => $jornada) {
 			if ($jornada['Nombre']==='-- Sin asignar --') {
-				$this->pos[8]+=5;
+				$this->pos[8]+=6;
 				$this->pos[9+$row]=0;
 				continue;
 			} else {
