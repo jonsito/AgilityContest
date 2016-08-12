@@ -154,7 +154,7 @@ function parseGender($gender) {
 	if (is_null($gender)) return '-';
 	$gender=strtolower(trim(utf8_decode($gender)));
 	if ($gender==="") return '-';
-	if (in_array($gender,$female)) return 'H';
+	if (in_array($gender,$female)) return 'F';
 	if (in_array($gender,$male)) return 'M';
 	// perhaps should try to detect here if first letter is m/h/f
 	return '-';

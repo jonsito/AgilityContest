@@ -339,14 +339,17 @@ class DogReader {
         $this->myLogger->enter();
         $a=$this->myDBObject->conn->real_escape_string($item['NombreClub']);
         $old=$a;
-        $this->saveStatus("Analyzing club '$a'");
         // in international contest, Club field should contain country name
         // but excel file can also provide "Country" field. So check for both
         if ($this->isInternational) {
             // country field takes precedence if exists
-            if (array_key_exists('Pais',$item)) $a=$item['Pais'];
+            if (array_key_exists('Country',$item)) $a=$item['Pais'];
+            if (array_key_exists(_utf('Country'),$item)) $a=$item['Pais'];
             // if field comes in 2Char ISO convention replace with country name
             if (array_key_exists($a,Country::$countryList) ) $a=Country::$countryList[$a];
+            $this->saveStatus("Analyzing country '$a'");
+        } else {
+            $this->saveStatus("Analyzing club '$a'");
         }
         // our database stores countries as clubs for international contest, so we can now make normal query for club search
         // remember that "Blind" mode looks for exact match
@@ -447,6 +450,7 @@ class DogReader {
             $nlargo=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['NombreLargo']); // nombre largo
             $raza=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Raza']); // raza
             $lic=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Licencia']); // licencia
+            $loe=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['LOE_RRC']); // LOE /RRC
             $cat=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Categoria']); // licencia
             $grad=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Grado']); // licencia
             $sex=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Genero']); // sexo
@@ -455,11 +459,12 @@ class DogReader {
                 $nlargo=$this->import_mixData($nlargo,isset($item['NombreLargo'])?$item['NombreLargo']:"");
                 $raza=$this->import_mixData($raza,isset($item['Raza'])?$item['Raza']:"");
                 $lic=$this->import_mixData($lic,isset($item['Licencia'])?$item['Licencia']:"",false);
+                $loe=$this->import_mixData($lic,isset($item['LOE_RRC'])?$item['LOE_RRC']:"",false);
                 $cat=$this->import_mixData($cat,$item['Categoria'],false);
                 $grad=$this->import_mixData($grad,$item['Grado'],false);
                 $sex=$this->import_mixData($sex,$item['Genero'],false);
             }
-            $str="UPDATE $t SET DogID=$i, Nombre='$nombre', NombreLargo='$nlargo', Genero='$sex', Raza='$raza', Licencia='$lic', Categoria='$cat', Grado='$grad'".
+            $str="UPDATE $t SET DogID=$i, Nombre='$nombre', NombreLargo='$nlargo', Genero='$sex', Raza='$raza', Licencia='$lic', LOE_RRC='$loe', Categoria='$cat', Grado='$grad'".
                 "WHERE (Nombre = '$a')  AND (HandlerID=$h)";
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetDog(): update dog '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
@@ -475,6 +480,7 @@ class DogReader {
         $c=$item['Categoria'];
         $g=$item['Grado'];
         $s=$item['Genero'];
+        $loe=isset($item['LOE_RRC'])?$this->myDBObject->conn->real_escape_string($item['LOE_RRC']):"";
         $raza=isset($item['Raza'])?$this->myDBObject->conn->real_escape_string($item['Raza']):"";
         $nlargo=isset($item['NombreLargo'])?$this->myDBObject->conn->real_escape_string($item['NombreLargo']):"";
         $nombre=$a;
@@ -484,12 +490,12 @@ class DogReader {
             $raza= toUpperCaseWords($raza);
             $nlargo= toUpperCaseWords($nlargo);
         }
-        $str="INSERT INTO Perros (Nombre,NombreLargo,Guia,Categoria,Grado, Raza,Genero,Federation)".
-            " VALUES ( '$nombre','$nlargo',$h,'$c','$g','$raza','$s',$f)";
+        $str="INSERT INTO Perros (Nombre,NombreLargo,LOE_RRC,Guia,Categoria,Grado, Raza,Genero,Federation)".
+            " VALUES ( '$nombre','$nlargo','$loe',$h,'$c','$g','$raza','$s',$f)";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
         $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
-        $str="UPDATE $t SET DogID=$id, Nombre='$nombre',Raza='$raza',NombreLargo='$nlargo' WHERE (Nombre = '$a') AND (HandlerID=$h)";
+        $str="UPDATE $t SET DogID=$id, Nombre='$nombre',LOE_RRC='$loe',Raza='$raza',NombreLargo='$nlargo' WHERE (Nombre = '$a') AND (HandlerID=$h)";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetDog(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
         $this->myLogger->leave();
@@ -582,6 +588,7 @@ class DogReader {
             ", Perros.NombreLargo = $t.NombreLargo ".
             ", Perros.Raza = $t.Raza ".
             ", Perros.Genero = $t.Genero ".
+            ", Perros.LOE_RRC = $t.LOE_RRC ".
             ", Perros.Licencia = $t.Licencia ".
             ", Perros.Categoria = $t.Categoria ".
             ", Perros.Grado = $t.Grado ".
