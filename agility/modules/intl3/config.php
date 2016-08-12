@@ -16,7 +16,7 @@ class INTL3 extends Federations {
             'Grades' => 3,
             'International' => 1,
             'WideLicense' => false, // some federations need extra print space to show license ID
-            'Recorridos' => array('Common course',"Standard / Midi + Mini","Separate courses"),
+            'Recorridos' => array('Common course',"Large / Med + Small","Separate courses"),
             'ListaGradosShort' => array(
                 '-' => '-',
                 'Baja' => 'Out',
@@ -39,39 +39,39 @@ class INTL3 extends Federations {
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',
-                'L' => 'Std',
+                'L' => 'Large',
                 'M' => 'Med',
                 'S' => 'Small',
                 // 'T' => 'Tiny'
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',
-                'L' => 'Standard',
+                'L' => 'Large',
                 'M' => 'Medium',
                 'S' => 'Small',
                 // 'T' => 'Tiny'
             ),
             'InfoManga' => array(
-                array('L' => _('Standard'),         'M' => _('Medium'),         'S' => _('Small'), 'T' => ''), // separate courses
-                array('L' => _('Standard'),         'M' => _('Medium+Small'),   'S' => '',         'T' => ''), // mixed courses
+                array('L' => _('Large'),         'M' => _('Medium'),         'S' => _('Small'), 'T' => ''), // separate courses
+                array('L' => _('Large'),         'M' => _('Medium+Small'),   'S' => '',         'T' => ''), // mixed courses
                 array('L' => _('Common course'), 'M' => '',                  'S' => '',         'T' => '') // common
             ),
             'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3, -1), array(/* conjunto */ 4, 4, 4, -1 )),
             'ModeStrings' => array( // text to be shown on each category
-                array(/* separado */ "Standard", "Medium", "Small", "Invalid"),
-                array(/* mixto */ "Standard", "Medium+Small", "Medium+Small", "Invalid"),
+                array(/* separado */ "Large", "Medium", "Small", "Invalid"),
+                array(/* mixto */ "Large", "Medium+Small", "Medium+Small", "Invalid"),
                 array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid")
             ),
             'IndexedModes' => array ( // modes 5 to 8 are invalid in this federation
-                "Standard", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Standard+Medium", "Small+Tiny", "Common L/M/S/T"
+                "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
-                "L"=>"Standard",
+                "L"=>"Large",
                 "M"=>"Medium",
                 "S"=>"Small",
                 "T"=>"Tiny", // invalid
-                "LM"=>"Standard/Medium", // invalid
+                "LM"=>"Large/Medium", // invalid
                 "ST"=>"Small/Tiny", // invalid
                 "MS"=>"Medium/Small",
                 "LMS" => 'Common LMS',

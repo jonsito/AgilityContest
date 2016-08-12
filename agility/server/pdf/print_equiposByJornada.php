@@ -89,7 +89,7 @@ class EquiposByJornada extends PrintCommon {
 		$this->print_commonHeader(_("List of teams"));
         // pintamos "identificacion de la manga"
         $this->SetFont($this->getFontName(),'B',12); // bold 15
-        $str  = "Jornada: ". $this->jornada->Nombre . " - " . $this->jornada->Fecha;
+        $str  = _("Journey").": ". $this->jornada->Nombre . " - " . $this->jornada->Fecha;
         $this->Cell(90,6,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
         $this->Ln(6);
 	}
@@ -124,10 +124,22 @@ class EquiposByJornada extends PrintCommon {
         $this->Cell(10,9,'','TR',0,'R',true); // empty space at right of page
         $this->Ln();
         $this->ac_header(2,8);
-        for($i=0;$i<count($this->cellHeader);$i++) {
-            // en la cabecera texto siempre centrado
-            $this->Cell($this->pos[$i],6,$this->cellHeader[$i],1,0,'C',true);
+
+        // campos de la cabecera. texto centrado
+        $this->Cell($this->pos[0],6,$this->cellHeader[0],1,0,'C',true); // dorsal
+        $this->Cell($this->pos[1],6,$this->cellHeader[1],1,0,'C',true); // nombre
+        if ($this->federation->isInternational()) {
+            $this->Cell($this->pos[2]+$this->pos[3],6,$this->cellHeader[2],1,0,'C',true); // raza
+        } else {
+            $this->Cell($this->pos[2],6,$this->cellHeader[2],1,0,'C',true); // raza
+            $this->Cell($this->pos[3],6,$this->cellHeader[3],1,0,'C',true); // licencia
         }
+        $this->Cell($this->pos[4],6,$this->cellHeader[4],1,0,'C',true); // categoria-grado
+        $this->Cell($this->pos[5],6,$this->cellHeader[5],1,0,'C',true); // guia
+        $this->Cell($this->pos[6],6,$this->cellHeader[6],1,0,'C',true); // club-pais
+        $this->Cell($this->pos[7],6,$this->cellHeader[7],1,0,'C',true); // celo
+        $this->Cell($this->pos[8],6,$this->cellHeader[8],1,0,'C',true); // observaciones
+
 		$this->ac_row(2,9);
 		$this->Ln();
         $rowcount+=3;
@@ -163,9 +175,13 @@ class EquiposByJornada extends PrintCommon {
                 $this->SetFont($this->getFontName(),'B',10); // bold 9px
                 $this->Cell($this->pos[1],5,$row['Nombre'],		'LR',0,$this->align[1],true);
                 $this->SetFont($this->getFontName(),'',8); // remove bold 9px
-                $this->Cell($this->pos[2],5,$row['Raza'],		'LR',0,$this->align[2],true);
-                if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',7);
-                $this->Cell($this->pos[3],5,$row['Licencia'],	'LR',0,$this->align[3],true);
+                if ($this->federation->isInternational()){
+                    $this->Cell($this->pos[2]+ $this->pos[3],5,$row['Raza'],		'LR',0,$this->align[2],true);
+                } else {
+                    $this->Cell($this->pos[2],5,$row['Raza'],		'LR',0,$this->align[2],true);
+                    if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',7);
+                    $this->Cell($this->pos[3],5,$row['Licencia'],	'LR',0,$this->align[3],true);
+                }
                 $this->SetFont($this->getFontName(),'',8); // restore normal size after wide license
                 $this->Cell($this->pos[4],5,$this->getCatString($row['Categoria']),	'LR',0,$this->align[4],true);
     			$this->Cell($this->pos[5],5,$row['NombreGuia'],	'LR',0,$this->align[5],true);

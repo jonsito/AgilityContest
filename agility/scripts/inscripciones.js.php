@@ -312,7 +312,7 @@ function importExportInscripciones() {
 function printInscripciones() {
 	// en el caso de que haya alguna jornada seleccionada.
 	// anyadir al menu la posibilidad de imprimir solo los inscritos en dicha jornada
-	var options= { 0:'<?php _e('Simple listing'); ?>',1:'<?php _e('Catalogue'); ?>',2:'<?php _e('Statistics'); ?>'};
+	var options= { 0:'<?php _e('Simple listing'); ?>',1:'<?php _e('Catalog'); ?>',2:'<?php _e('Statistics'); ?>'};
 	// buscamos la jornada seleccionada
 	var row=$('#inscripciones-jornadas').datagrid('getSelected');
     var jornada=0;

@@ -61,7 +61,7 @@ class PrintCatalogo extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		$this->print_commonHeader(_('Contest catalogue'));
+		$this->print_commonHeader(_('Contest catalog'));
 		$this->Ln(5);
 		$this->myLogger->leave();
 	}
@@ -594,7 +594,7 @@ class PrintInscritos extends PrintCommon {
 	// geometria de las celdas
 	protected $cellHeader;
     protected $pos =
-        array(  11,       21,   16,    38,     28,     9,     8,     9,       11,     5,  5,  5,  5,  5,  5,  5,  5 );
+        array(  11,       25,   16,    36,     26,     9,     8,     9,       11,     5,  5,  5,  5,  5,  5,  5,  5 );
     protected $align=
         array(  'R',      'L',  'C',   'R',   'R',    'C',    'L',   'C',    'L',    'C','C','C','C','C','C','C','C');
 	
@@ -621,6 +621,10 @@ class PrintInscritos extends PrintCommon {
             $this->cellHeader[5]=_('Category');
             $this->pos[5]+=$this->pos[6];
             $this->pos[6]=0;
+        }
+        if ($this->federation->isInternational()) {
+            $this->pos[1]+=$this->pos[2];
+            $this->pos[2]=0;
         }
 	}
 	
@@ -673,9 +677,11 @@ class PrintInscritos extends PrintCommon {
 				$this->cellHeader[9+$row]=$jornada['Nombre'];
 			}
 		}
-        // si estamos en caza ajustamos para que quepa la licencia
-        if ($this->federation->get('WideLicense')) {
-            $this->pos[0]-=1; $this->pos[1]-=2; $this->pos[2]+=20; $this->pos[3]-=5; $this->pos[4]-=5; $this->pos[8]-=7;
+		if (!$this->federation->isInternational()) {
+            // si estamos en caza ajustamos para que quepa la licencia
+            if ($this->federation->get('WideLicense')) {
+                $this->pos[0]-=1; $this->pos[1]-=2; $this->pos[2]+=20; $this->pos[3]-=5; $this->pos[4]-=5; $this->pos[8]-=7;
+            }
         }
 		// Datos
 		$fill = false;
@@ -693,10 +699,15 @@ class PrintInscritos extends PrintCommon {
 
 			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
 			$this->SetFont($this->getFontName(),'B',8); // bold 8px
-			$this->Cell($this->pos[1],5,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
-            if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',7); // normal 7px
-            else $this->SetFont($this->getFontName(),'',8); // normal 8px
-			$this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
+            if ($this->federation->isInternational()) {
+                $n=$row['Nombre']." - ".$row['NombreLargo'];
+                $this->Cell($this->pos[1],5,$n,		'LR',	0,		$this->align[1],	$fill);
+            } else {
+                $this->Cell($this->pos[1],5,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
+                if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',7); // normal 7px
+                else $this->SetFont($this->getFontName(),'',8); // normal 8px
+                $this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
+            }
             $this->SetFont($this->getFontName(),'',8); // normal 8px
 			$this->Cell($this->pos[3],5,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
 			$this->Cell($this->pos[4],5,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
@@ -743,7 +754,7 @@ class PrintInscritosByJornada extends PrintCommon {
 
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos =	array(  11,       30,     21,    46,   33,     8,       8,     8,       25 );
+	protected $pos =	array(  11,       36,     21,    42,   31,     8,       8,     10,       23 );
 	protected $align=	array(  'R',      'C',    'C',   'R',  'R',    'C',    'C',    'C',      'L');
 
 	/**
@@ -772,8 +783,13 @@ class PrintInscritosByJornada extends PrintCommon {
 				// remove "Grade" from cell array if jornada is open/team/KO
 				if( !Jornadas::hasGrades($j) || (intval($this->config->getEnv("pdf_grades"))==0) ) {
 				    $this->cellHeader[5]=_('Category');
-					$this->pos[5]=16; // increase category size
-					$this->pos[6]=0;  // set grade size to zero
+					$this->pos[5]+=$this->pos[6]; // increase category size
+					$this->pos[6]=0;  // to fit grade
+				}
+				// remove "License" in international contests
+				if($this->federation->isInternational()) {
+					$this->pos[1]+=$this->pos[2]; // increase name size
+					$this->pos[2]=0;  // to fit license
 				}
                 break;
             }
@@ -786,7 +802,7 @@ class PrintInscritosByJornada extends PrintCommon {
 
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader(_("Competitors of the day"));
+		$this->print_commonHeader(_("Competitors listing"));
 	}
 
 	// Pie de página
@@ -849,10 +865,15 @@ class PrintInscritosByJornada extends PrintCommon {
 
 			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
 			$this->SetFont($this->getFontName(),'B',9); // bold 9px
-			$this->Cell($this->pos[1],5,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
-			if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',7); // normal 7px
-			else $this->SetFont($this->getFontName(),'',8); // normal 8px
-			$this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
+			if ($this->federation->isInternational()) {
+				$n=$row['Nombre']." - ".$row['NombreLargo'];
+				$this->Cell($this->pos[1],5,$n,		'LR',	0,		'L',	$fill);
+			} else {
+				$this->Cell($this->pos[1],5,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
+				if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',7); // normal 7px
+				else $this->SetFont($this->getFontName(),'',8); // normal 8px
+				$this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
+			}
 			$this->SetFont($this->getFontName(),'',8); // normal 8px
 			$this->Cell($this->pos[3],5,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
 			$this->Cell($this->pos[4],5,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
