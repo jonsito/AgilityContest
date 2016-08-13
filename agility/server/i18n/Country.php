@@ -584,5 +584,16 @@ public static $countryList = array(
         $result=array('total'=>count($data),'rows'=>$data);
         return $result;
     }
+
+    static function replace(){
+        foreach( Country::$coi_list as $coi => $country) {
+            foreach (Country::$countryList as $iso => $pais) {
+                if ($country!==$pais) continue;
+                echo "UPDATE Clubes SET Pais='$coi' WHERE Pais='$iso';\n";
+                break;
+            }
+        }
+    }
 }
+// Country::replace();
 ?>
