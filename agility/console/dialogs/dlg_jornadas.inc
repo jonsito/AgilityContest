@@ -80,7 +80,7 @@ $config =Config::getInstance();
             </div>
             
             <div class="fitem">
-                <label for="jornadas-Open" style="width:150px" ><?php _e('Open contest (no grades)'); ?></label>
+                <label for="jornadas-Open" style="width:150px" ><?php _e('No grades (Open)'); ?></label>
                 <input id="jornadas-Open" name="Open" class="easyui-checkbox" 
                 	type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Open',0x0020)"/>
             </div>

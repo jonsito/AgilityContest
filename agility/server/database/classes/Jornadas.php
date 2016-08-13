@@ -31,7 +31,7 @@ class Jornadas extends DBObject {
 		/* 3 */ array(4,	'Grado I'),
 		/* 4 */ array(8,	'Grado II'),
 		/* 5 */ array(16,	'Grado III'),
-		/* 6 */ array(32,	'Open'),
+		/* 6 */ array(32,	'Individual'), // Open
 		/* 7 */ array(64,	'Equipos ( 3 mejores )'),
 		/* 8 */ array(128,	'Equipos ( 4 conjunta )'),
 		/* 9 */ array(256,	'Ronda K.O.'),
@@ -368,8 +368,8 @@ class Jornadas extends DBObject {
 									) );
 		}
 		if ($row->Open!=0) {
-			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,7); // 'Agility Open'
-			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,12); // 'Jumping Open'
+			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,7); // 'Agility Individual'
+			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,12); // 'Jumping Individual'
 			array_push($data,array( 
 									"Rondas" => Jornadas::$tipo_ronda[6][0],
 									"Nombre" => Jornadas::$tipo_ronda[6][1], 
@@ -679,8 +679,8 @@ class Jornadas extends DBObject {
 			Jornadas::__compose($data, $prueba, $jornadaid, 5, $m1, $m2);
 		}
 		if ($jornada['Open']!=0) { // Jornadas::tiporonda=6
-			$m1 = Jornadas::__searchManga(7, $mangas); // Agility Open
-			$m2 = Jornadas::__searchManga(12, $mangas); // Jumping Open
+			$m1 = Jornadas::__searchManga(7, $mangas); // Agility Individual
+			$m2 = Jornadas::__searchManga(12, $mangas); // Jumping Individual
 			Jornadas::__compose($data, $prueba, $jornadaid, 6, $m1, $m2);
 		}
 		if ($jornada['Equipos3']!=0) { // Jornadas::tiporonda=7

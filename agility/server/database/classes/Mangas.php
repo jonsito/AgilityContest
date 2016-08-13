@@ -31,16 +31,16 @@ class Mangas extends DBObject {
 		4 => 	array( 4, 'Agility Grado I Manga 2',	'GI',	'Agility-2 GI',	'Grado I'),
 		5 =>	array( 5, 'Agility Grado II', 			'GII',	'Agility GII',	'Grado II'),
 		6 =>	array( 6, 'Agility Grado III', 			'GIII',	'Agility GIII',	'Grado III'),
-		7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Abierta'),
+		7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual'), // Open
 		8 =>	array( 8, 'Agility Equipos',			'-',	'Agility Eq.',	'Equipos'), // team best
 		9 =>	array( 9, 'Agility Equipos'				,'-',	'Agility Eq.',	'Equipos'), // team combined
 		10 =>	array( 10,'Jumping Grado II',			'GII',	'Jumping GII',	'Grado II'),
 		11 =>	array( 11,'Jumping Grado III',			'GIII',	'Jumping GIII',	'Grado III'),
-		12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Abierta'),
+		12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual'), // Open
 		13 =>	array( 13,'Jumping Equipos'				,'-',   'Jumping Eq.',	'Equipos'), // team best
 		14 =>	array( 14,'Jumping Equipos'				,'-',  	'Jumping Eq.',	'Equipos'), // team combined
 		15 =>	array( 15,'Ronda K.O.', 				'-',	'Ronda K.O.',	'K.O.'),
-		16 =>	array( 16,'Manga especial', 			'-',	'Manga Especial','Abierta')	
+		16 =>	array( 16,'Manga especial', 			'-',	'Manga Especial','Individual') // special round, no grades
 	);
 	
 	/* tabla para obtener facilmente la manga complementaria a una manga dada */

@@ -495,7 +495,7 @@ class Clasificaciones extends DBObject {
 			case 0x0004: // Grado I
 			case 0x0008: // Grado II
 			case 0x0010: // Grado III
-			case 0x0020: // Open
+			case 0x0020: // Open - Individual
 			case 0x0018: // Conjunta GII - GIII
 			case 0x0100: // ronda KO 1..8 vueltas
 			case 0x0200: // manga especial (una vuelta)
@@ -549,7 +549,7 @@ class Clasificaciones extends DBObject {
 			case 0x0004: // Grado I
 			case 0x0008: // Grado II
 			case 0x0010: // Grado III
-			case 0x0020: // Open
+			case 0x0020: // Open - Individual
 				$r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility
 				$r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping
 				$c1=$r1->getResultados($mode);

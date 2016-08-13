@@ -166,7 +166,7 @@ class Print_Podium extends PrintCommon {
 		if (Jornadas::hasGrades($this->jornada)) {
 			$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',true);	// categoria/grado
 		} else {
-			$this->Cell(10,6,"{$row['Categoria']}",0,0,'C',true);	// solo categoria (Open/Teams/KO)
+			$this->Cell(10,6,"{$row['Categoria']}",0,0,'C',true);	// solo categoria (Individual-Open/Teams/KO)
 		}
 		$this->Cell(35,6,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
 		$this->Cell(20,6,$row['NombreClub'],0,0,'R',true);	// nombreClub

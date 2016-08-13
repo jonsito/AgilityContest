@@ -380,7 +380,7 @@ function tablet_acceptSelectJornada() {
 						workingData.datosPrueba=p;
 						workingData.nombreJornada=j.Nombre;
                         workingData.datosJornada=j;
-                        // jornadas "normales", equipos3 y Open comparten el mismo fichero
+                        // jornadas "normales", equipos3 e Individual-Open comparten el mismo fichero
         	    		var page="/agility/tablet/tablet_main.php";
         	    		if (workingData.datosJornada.Equipos4==1) {
         	    			page="/agility/tablet/tablet_main.php"; // parche temporal

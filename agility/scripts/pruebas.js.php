@@ -294,7 +294,7 @@ function saveJornada(){
  * 0x0004, 'Grado1',
  * 0x0008, 'Grado2',
  * 0x0010, 'Grado3',
- * 0x0020, 'Open',
+ * 0x0020, 'Individual', (pen)
  * 0x0040, 'Equipos3',
  * 0x0080, 'Equipos4',
  * 0x0100, 'KO',
@@ -339,13 +339,13 @@ function checkPrueba(id,mask) {
 	// si estamos seleccionando una prueba ko/open/equipos, no permitir ninguna otra
 	if ( (mask & 0x1DE0) != 0 ) {
 		if (mask!=pruebas) {
-			$.messager.alert('<?php _e('Error'); ?>','<?php _e('KO, Open, or team rounds must be declared in a separate journey'); ?>','error');
+			$.messager.alert('<?php _e('Error'); ?>','<?php _e('KO, Individual (Open), or team rounds must be declared in a separate journey'); ?>','error');
 			$(id).prop('checked',false);
 			if (id==='#jornadas-EquiposChk') $('#jornadas-MangasEquipos').prop('disabled','disabled');
 		}
 	} else {
 		if ( (pruebas & 0x1DE0) != 0 ) {
-			$.messager.alert('<?php _e('Error'); ?>','<?php _e('You cannot add additional rounds when KO,Open or team rounds are already declared in a journey'); ?>','error');
+			$.messager.alert('<?php _e('Error'); ?>','<?php _e('You cannot add additional rounds when KO, Individual (Open) or team rounds are already declared in a journey'); ?>','error');
 			$(id).prop('checked',false);
 			if (id==='#jornadas-PreAgilityChk') $('#jornadas-MangasPreAgility').prop('disabled','disabled');
 			if (id==='#jornadas-Especial') $('#jornadas-Observaciones').prop('disabled','disabled');

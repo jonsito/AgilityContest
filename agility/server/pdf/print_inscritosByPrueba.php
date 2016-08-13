@@ -574,7 +574,7 @@ class PrintEstadisticas extends PrintCommon {
 				case 4:$flag=_("Team 4"); break;
 				default: break;
 			}
-			if ($jornada['Open']!=0) /* $flag=_("Open"); */ $flag=" "; // print space in Open journeys
+			if ($jornada['Open']!=0) /* $flag=_("Individual"); */ $flag=" "; // print space in Individual-Open journeys
 			if ($jornada['KO']!=0) $flag=_("K.O.");
 			if ($flag==="")
 				$this->printTableData($est,$name,$alturas);

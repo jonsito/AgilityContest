@@ -52,9 +52,9 @@ $('#seljornada-window').window({
             // use default dialogs
 		}
 		if (workingData.datosJornada.Open!=0) {
-			// an Open Contest is like a normal with no Grades but only categories
+			// an Individual - Open Contest is like a normal with no Grades but only categories
 			page="/agility/console/frm_competicion2.php?tipo=open";
-			extra=" ( <?php _e('Open');?> )";
+			extra=" ( <?php _e('Individual');?> )";
 			// use default dialogs
 		}
 		if (workingData.datosJornada.KO!=0) { // number shows how many rounds for series
