@@ -87,8 +87,8 @@ class PrintTandas extends PrintCommon {
 		$this->Cell(80,7,_("Activity"),'TLBR',0,'L',true);
 		$this->Cell(25,7,_("Ring"),'TLB',0,'C',true);
 		$this->Cell(15,7,"# "._("Competitors"),'TLB',0,'C',true);
-		$this->Cell(50,7,_("Comments"),'TLB',0,'R',true);
-		$this->Cell(20,7,_("Hour")." (*)",'TLBR',0,'C',true);
+		$this->Cell(40,7,_("Comments"),'TLB',0,'R',true);
+		$this->Cell(30,7,_("Hour")." (*)",'TLBR',0,'C',true);
 		$this->Ln();
 		$this->myLogger->leave();
 	}
@@ -133,8 +133,8 @@ class PrintTandas extends PrintCommon {
 			} else {
 				$this->Cell(15,7,"----",'LBR',0,'C',true);
 			}
-			$this->Cell(50,7,$row['Comentario'],'LB',0,'C',true);
-			$this->Cell(20,7,$row['Horario'],'LBR',0,'C',true);
+			$this->Cell(40,7,$row['Comentario'],'LB',0,'C',true);
+			$this->Cell(30,7,$row['Horario'],'LBR',0,'C',true);
 			$rowcount++;
 			$this->Ln(7);
 		}

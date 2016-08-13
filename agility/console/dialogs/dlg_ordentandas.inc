@@ -133,8 +133,8 @@ $('#ordentandas-datagrid').datagrid({
       		{ field:'Nombre',	width:200, sortable:false, align:'left',title:'<?php _e('Activity'); ?>',formatter:formatBold},
       		{ field:'Sesion',	hidden:true },
       		{ field:'NombreSesion',width:100, sortable:false, align:'left',title:'<?php _e('Session - Ring'); ?>'},
-      		{ field:'Horario',	width:50, sortable:false, align:'center',title:'<?php _e('Timetable'); ?>'},
-      		{ field:'Comentario',width:160, sortable:false, align:'left',title:'<?php _e('Comments'); ?>'},
+      		{ field:'Horario',	width:90, sortable:false, align:'center',title:'<?php _e('Timetable'); ?>'},
+      		{ field:'Comentario',width:120, sortable:false, align:'left',title:'<?php _e('Comments'); ?>'},
       		{ field:'Categoria',hidden:true },
       		{ field:'Grado',	hidden:true }
     ]],
