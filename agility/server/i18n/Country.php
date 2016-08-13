@@ -25,7 +25,8 @@ require_once(__DIR__."/../auth/AuthManager.php");
 class Country {
 
     /* standard coi abreviatures. Where not found use ISO-3166-1 codes */
-public static $coi_list = array (
+// public static $coi_list = array (
+public static $countryList = array(
     "AFG" => "Afghanistan",
     "ALB" => "Albania",
     "ALG" => "Algeria",
@@ -292,7 +293,7 @@ public static $coi_list = array (
     "ALA" => "Åland Islands",
 );
 
-public static $countryList = array(
+    public static $isoList = array(
 "AF" => "Afghanistan",
 "AL" => "Albania",
 "DZ" => "Algeria",
@@ -584,7 +585,7 @@ public static $countryList = array(
         $result=array('total'=>count($data),'rows'=>$data);
         return $result;
     }
-
+/*
     static function replace(){
         foreach( Country::$coi_list as $coi => $country) {
             foreach (Country::$countryList as $iso => $pais) {
@@ -594,6 +595,7 @@ public static $countryList = array(
             }
         }
     }
+*/
 }
 // Country::replace();
 ?>
