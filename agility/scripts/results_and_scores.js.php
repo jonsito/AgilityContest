@@ -186,13 +186,13 @@ function showPartialScoresByTeam(parent,idx,row) {
             {field:'Equipo',	    hidden:true },
             {field:'Dorsal',	    width:'5%', align:'right',   title:"<?php _e('Dorsal'); ?>" },
             {field:'LogoClub',	    hidden:true },
-            {field:'Nombre',	    width:'10%', align:'center', title:"<?php _e('Name'); ?>",   formatter:formatBold},
+            {field:'Nombre',	    width:'17%', align:'left', title:"<?php _e('Name'); ?>",   formatter:formatDogName},
             {field:'Licencia',	    width:'6%', align:'center', title:"<?php _e('Lic'); ?>." },
             {field:'Categoria',	    width:'6%', align:'center', title:"<?php _e('Cat'); ?>.",   formatter:formatCatGrad },
             {field:'Grado',	        hidden:true },
             {field:'NombreEquipo',  hidden:true },
-            {field:'NombreGuia',    width:'18%',align:'right',  title:"<?php _e('Handler'); ?>" },
-            {field:'NombreClub',    width:'14%',align:'right',  title:"<?php _e('Club'); ?>" },
+            {field:'NombreGuia',    width:'12%',align:'right',  title:"<?php _e('Handler'); ?>" },
+            {field:'NombreClub',    width:'12%',align:'right',  title:clubOrCountry },
             {field:'Faltas',		width:'4%', align:'center', title:"<?php _e('F/T'); ?>",    formatter:formatFaltasTocados,styler:formatBorder },
             {field:'Tocados',       hidden:true },
             {field:'Rehuses',		width:'4%', align:'center', title:"R." },
@@ -209,7 +209,11 @@ function showPartialScoresByTeam(parent,idx,row) {
             $(parent).datagrid('fixDetailRowHeight',idx);
         },
         onLoadSuccess:function(data){
-            $(mySelf).datagrid('fitColumns');
+            if (isInternational(workingData.federation)) {
+                $(mySelf).datagrid('hideColumn','Licencia');
+                $(mySelf).datagrid('autoSizeColumn','Nombre');
+            }
+            $(mySelf).datagrid('fitColumns'); // expand to max width
             setTimeout(function(){ $(parent).datagrid('fixDetailRowHeight',idx); },0);
         }
     });
