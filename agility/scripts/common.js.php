@@ -683,6 +683,7 @@ function setRonda(data) {
 	workingData.nombreRonda = "";
 	workingData.datosRonda = {};
 	if (typeof(data) === 'undefined') return;
+	if (data==null) return;
 	workingData.nombreRonda = data.Nombre;
 	workingData.datosRonda=data;
 }

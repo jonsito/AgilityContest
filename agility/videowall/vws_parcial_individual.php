@@ -51,9 +51,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         </form>
         <span class="vws_theader" id="vws_hdr_calltoring"><?php _e('Call to ring');?> </span>
         <span class="vws_theader" id="vws_hdr_teaminfo"><?php _e("Competitor's data");?> </span>
-        <span class="vws_theader" style="text-align:left" id="vws_hdr_FltLabel"><?php _e('F');?> </span>
-        <span class="vws_theader" style="text-align:left" id="vws_hdr_RLabel"><?php _e('R');?> </span>
-        <span class="vws_theader" style="text-align:left" id="vws_hdr_TimeLabel"><?php _e('Tim');?> </span>
+        <span class="vws_theader" style="text-align:left" id="vws_hdr_FltLabel">&nbsp;&nbsp;&nbsp;<?php _e('F');?> </span>
+        <span class="vws_theader" style="text-align:left" id="vws_hdr_RLabel">&nbsp;&nbsp;&nbsp;<?php _e('R');?> </span>
+        <span class="vws_theader" style="text-align:left" id="vws_hdr_TimeLabel">&nbsp;&nbsp;&nbsp;<?php _e('Tim');?> </span>
         <span class="vws_theader" id="vws_hdr_PenalLabel"><?php _e('Penal');?> </span>
         <span class="vws_theader" id="vws_hdr_PosLabel"><?php _e('Pos');?> </span>
     </div>
@@ -107,7 +107,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<!-- data on round -->';
     echo '<input type="hidden"    id="vws_results_Faltas_'.$n.'"        name="Faltas" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Tocados_'.$n.'"       name="Tocados" value="Flt '.$n.'"/>';
-    echo '<span                   id="vws_results_FaltasTocados_'.$n.'"  class="lborder" >F/T '.$n.'</span>';
+    echo '<span  style="line-height:0.75em"                 id="vws_results_FaltasTocados_'.$n.'"  class="lborder" >F/T '.$n.'</span>';
     echo '<input type="text"      id="vws_results_Rehuses_'.$n.'"       name="Rehuses" value="Reh '.$n.'"/>';
     echo '<input type="text"      class="rpadding" id="vws_results_Tiempo_'.$n.'"        name="Tiempo" value="Time '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Velocidad_'.$n.'"     name="Velocidad" value="Vel '.$n.'"/>';
@@ -179,7 +179,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<!-- data on round -->';
     echo '<input type="hidden"    id="vws_before_Faltas_'.$n.'"        name="Faltas" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_Tocados_'.$n.'"       name="Tocados" value="Flt '.$n.'"/>';
-    echo '<span                   id="vws_before_FaltasTocados_'.$n.'"  class="lborder" >F/T '.$n.'</span>';
+    echo '<span style="line-height:0.75em" id="vws_before_FaltasTocados_'.$n.'"  class="lborder" >F/T '.$n.'</span>';
     echo '<input type="text"      id="vws_before_Rehuses_'.$n.'"       name="Rehuses" value="Reh '.$n.'"/>';
     echo '<input type="text"      class="rpadding" id="vws_before_Tiempo_'.$n.'"        name="Tiempo" value="Time '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_Velocidad_'.$n.'"     name="Velocidad" value="Vel '.$n.'"/>';
