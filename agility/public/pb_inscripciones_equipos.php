@@ -77,7 +77,13 @@ $('#pb_inscripciones-window').window({
 $('#pb_inscripciones_eq3-datagrid').datagrid({
     fit: true,
     url: '/agility/server/database/equiposFunctions.php',
-    queryParams: { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''	},
+    queryParams: {
+        Operation:'select',
+        Prueba:workingData.prueba,
+        Jornada:workingData.jornada,
+        where:'',
+        HideDefault:1 // do not show default team
+    },
     loadMsg: "<?php _e('Updating inscriptions');?> ...",
     method: 'get',
     mode: 'remote',

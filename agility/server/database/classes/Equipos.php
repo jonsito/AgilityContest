@@ -203,12 +203,14 @@ class Equipos extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
+		$hideDefault=http_request("HideDefault","i",0);
+        $hdef = ($hideDefault==0)?"":" AND (Equipos.DefaultTeam!=1)";
 		$where = "(Equipos.Prueba={$this->pruebaID}) AND (Equipos.Jornada={$this->jornadaID})";
 		if ($search!=='') $where=$where." AND ( (Equipos.Nombre LIKE '%$search%') OR ( Equipos.Observaciones LIKE '%$search%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Equipos",
-				/* WHERE */ $where,
+				/* WHERE */ $where.$hdef,
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
@@ -220,12 +222,14 @@ class Equipos extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search string
 		$q=http_request("q","s","");
+        $hideDefault=http_request("HideDefault","i",0);
+        $hdef = ($hideDefault==0)?"":" AND (Equipos.DefaultTeam!=1)";
 		$where = "(Equipos.Prueba={$this->pruebaID}) AND (Equipos.Jornada={$this->jornadaID})";
 		if ($q!=="") $where=$where." AND ( ( Equipos.Nombre LIKE '%$q%' ) OR ( Equipos.Observaciones LIKE '%$q%' ) )";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Equipos",
-				/* WHERE */ $where,
+				/* WHERE */ $where.$hdef,
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""
 		);
