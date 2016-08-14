@@ -664,26 +664,27 @@ class Resultados extends DBObject {
 		
 		// FASE 0: en funcion del tipo de recorrido y modo pedido
 		// ajustamos el criterio de busqueda de la tabla de resultados
-		$where="(Manga=$idmanga) AND (Pendiente=0) ";
+		$where="(Manga=$idmanga) AND (Pendiente=0) AND (Perros.ID=Resultados.Perro) ";
 		$cat="";
 		switch ($mode) {
-			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
-			case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
-			case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
-			case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
-			case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
-			case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
-			case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
-			case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
+			case 0: /* Large */		$cat= "AND (Resultados.Categoria='L')"; break;
+			case 1: /* Medium */	$cat= "AND (Resultados.Categoria='M')"; break;
+			case 2: /* Small */		$cat= "AND (Resultados.Categoria='S')"; break;
+			case 3: /* Med+Small */ $cat= "AND ( (Resultados.Categoria='M') OR (Resultados.Categoria='S') )"; break;
+			case 4: /* L+M+S */ 	$cat= "AND ( (Resultados.Categoria='L') OR (Resultados.Categoria='M') OR (Resultados.Categoria='S') )"; break;
+			case 5: /* Tiny */		$cat= "AND (Resultados.Categoria='T')"; break;
+			case 6: /* L+M */		$cat= "AND ( (Resultados.Categoria='L') OR (Resultados.Categoria='M') )"; break;
+			case 7: /* S+T */		$cat= "AND ( (Resultados.Categoria='S') OR (Resultados.Categoria='T') )"; break;
 			case 8: /* L+M+S+T */	break; // no check categoria
 			default: return $this->error("modo de recorrido desconocido:$mode");
 		}
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
-				"Dorsal,Perro,Nombre,Raza,Equipo,Licencia,Categoria,Grado,NombreGuia,NombreClub,Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,
+				"Dorsal,Perro,Resultados.Nombre,NombreLargo,Resultados.Raza,Equipo,Resultados.Licencia,Resultados.Categoria,Resultados.Grado,NombreGuia,NombreClub,
+				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,
 					( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido,
 					0 AS PTiempo, 0 AS Penalizacion, '' AS Calificacion, 0 AS Velocidad", 
-				"Resultados", 
+				"Resultados,Perros",
 				"$where $cat",
 				" PRecorrido ASC, Tiempo ASC", 
 				"");

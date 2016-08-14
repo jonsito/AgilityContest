@@ -17,7 +17,7 @@ $config =Config::getInstance();
          -->
         <th width="5%" data-options="field:'LogoClub',		align:'left',formatter:formatLogo" > &nbsp;</th>
         <th width="5%" data-options="field:'Dorsal',		align:'left'" > <?php _e('Dors'); ?>.</th>
-        <th width="10%" data-options="field:'Nombre',		align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
+        <th width="10%" data-options="field:'Nombre',		align:'left',formatter:formatDogName"> <?php _e('Name'); ?></th>
         <th width="6%" data-options="field:'Licencia',		align:'center'" > <?php _e('Lic'); ?>.</th>
         <th width="5%" data-options="field:'Categoria',	align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
         <!--
@@ -67,6 +67,16 @@ $config =Config::getInstance();
         singleSelect: true,
         autoRowHeight: false,
         idField: 'Perro',
-        rowStyler:myRowStyler
+        rowStyler:myRowStyler ,
+        onLoadSuccess: function() {
+            // set club/country
+            $(this).datagrid('options').columns[0][6].title=clubOrCountry();
+            // on international contests hide license, and enlarge name to allow pedigree name
+            if (isInternational(workingData.federation)) {
+                $(this).datagrid('hideColumn','Licencia');
+                $(this).datagrid('autoSizeColumn','Nombre');
+            }
+            $(this).datagrid('fitColumns'); // expand to max width
+        }
     });
 </script>
