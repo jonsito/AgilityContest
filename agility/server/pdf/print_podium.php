@@ -100,8 +100,12 @@ class Print_Podium extends PrintCommon {
 		$this->SetFont($this->getFontName(),'',8); // default font
 		// datos del participante
 		$this->Cell(10,6,_('Dorsal'),0,0,'C',true); 	// dorsal
-		$this->Cell(25,6,_('Name'),0,0,'C',true);	// nombre (20,y
-		$this->Cell(15,6,_('Lic').'.',0,0,'C',true);	// licencia
+        if ($this->federation->isInternational()){
+            $this->Cell(40,6,_('Name'),0,0,'C',true);	// nombre
+        } else {
+            $this->Cell(25,6,_('Name'),0,0,'C',true);	// nombre
+            $this->Cell(15,6,_('Lic').'.',0,0,'C',true);	// licencia
+        }
 		if (Jornadas::hasGrades($this->jornada)){
 			$this->Cell(10,6,_('Cat').'/'._('Grd'),0,0,'C',true);	// categoria/grado
 		} else {
@@ -160,9 +164,15 @@ class Print_Podium extends PrintCommon {
 		// datos del participante
 		$this->Cell(10,6,$row['Dorsal'],0,0,'R',true); 	// dorsal
 		$this->SetFont($this->getFontName(),'B',9); // bold font
-		$this->Cell(25,6,$row['Nombre'],0,0,'L',true);	// nombre (20,y
-		$this->SetFont($this->getFontName(),'',9); // default font
-		$this->Cell(15,6,$row['Licencia'],0,0,'C',true);	// licencia
+        if ($this->federation->isInternational()) {
+            $nombre=$row['Nombre']." - ".$row['NombreLargo'];
+            $this->Cell(40,6,$nombre,0,0,'L',true);	// nombre (20,y
+            $this->SetFont($this->getFontName(),'',9); // default font
+        } else {
+            $this->Cell(25,6,$row['Nombre'],0,0,'L',true);	// nombre (20,y
+            $this->SetFont($this->getFontName(),'',9); // default font
+            $this->Cell(15,6,$row['Licencia'],0,0,'C',true);	// licencia
+        }
 		if (Jornadas::hasGrades($this->jornada)) {
 			$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',true);	// categoria/grado
 		} else {

@@ -39,9 +39,9 @@ class EquiposByJornada extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader;
-    //                      Dorsal  nombre raza licencia Categoria guia club  celo  observaciones
-	protected $pos	=array( 10,     25,     27,    10,    18,      40,   25,  10,    25);
-	protected $align=array( 'R',    'C',    'R',    'C',  'C',     'R',  'R', 'C',   'R');
+    //                      Dorsal  nombre licencia raza Categoria guia club  celo  observaciones
+	protected $pos	=array( 10,     30,     10,    27,    18,      35,   25,  10,    25);
+	protected $align=array( 'R',    'C',    'C',    'R',  'C',     'R',  'R', 'C',   'R');
 	
 	/**
 	 * Constructor
@@ -81,7 +81,7 @@ class EquiposByJornada extends PrintCommon {
         }
         // finalmente internacionalizamos cabeceras
 		$this->cellHeader = 
-				array(_('Dorsal'),_('Name'),_('Breed'),_('Lic'),_('Category'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
+				array(_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Category'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
 	}
 	
 	// Cabecera de página
@@ -127,13 +127,13 @@ class EquiposByJornada extends PrintCommon {
 
         // campos de la cabecera. texto centrado
         $this->Cell($this->pos[0],6,$this->cellHeader[0],1,0,'C',true); // dorsal
-        $this->Cell($this->pos[1],6,$this->cellHeader[1],1,0,'C',true); // nombre
         if ($this->federation->isInternational()) {
-            $this->Cell($this->pos[2]+$this->pos[3],6,$this->cellHeader[2],1,0,'C',true); // raza
+            $this->Cell($this->pos[1]+$this->pos[2],6,$this->cellHeader[1],1,0,'C',true); // nombre
         } else {
-            $this->Cell($this->pos[2],6,$this->cellHeader[2],1,0,'C',true); // raza
-            $this->Cell($this->pos[3],6,$this->cellHeader[3],1,0,'C',true); // licencia
+            $this->Cell($this->pos[1],6,$this->cellHeader[1],1,0,'C',true); // nombre
+            $this->Cell($this->pos[2],6,$this->cellHeader[2],1,0,'C',true); // licencia
         }
+        $this->Cell($this->pos[3],6,$this->cellHeader[3],1,0,'C',true); // raza
         $this->Cell($this->pos[4],6,$this->cellHeader[4],1,0,'C',true); // categoria-grado
         $this->Cell($this->pos[5],6,$this->cellHeader[5],1,0,'C',true); // guia
         $this->Cell($this->pos[6],6,$this->cellHeader[6],1,0,'C',true); // club-pais
@@ -157,7 +157,7 @@ class EquiposByJornada extends PrintCommon {
 
         // take care on wide license federations
         if ($this->federation->get('WideLicense')) {
-            $this->pos[1]-=2; $this->pos[2]-=3; $this->pos[3]+=20; $this->pos[8]-=15;
+            $this->pos[1]-=2; $this->pos[2]+=20; $this->pos[3]-=3; $this->pos[8]-=15;
         }
         $order=0;
         $rowcount=0;
@@ -172,16 +172,18 @@ class EquiposByJornada extends PrintCommon {
             foreach($miembros as $row) {
                 $this->ac_SetFillColor( (($order&0x01)==0)?$bg1:$bg2);
     			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',0,$this->align[0],true);
-                $this->SetFont($this->getFontName(),'B',10); // bold 9px
-                $this->Cell($this->pos[1],5,$row['Nombre'],		'LR',0,$this->align[1],true);
-                $this->SetFont($this->getFontName(),'',8); // remove bold 9px
-                if ($this->federation->isInternational()){
-                    $this->Cell($this->pos[2]+ $this->pos[3],5,$row['Raza'],		'LR',0,$this->align[2],true);
-                } else {
-                    $this->Cell($this->pos[2],5,$row['Raza'],		'LR',0,$this->align[2],true);
+                if ($this->federation->isInternational()) { // long name, skip license
+                    $this->SetFont($this->getFontName(),'B',8); // bold 9px
+                    $nombre=$row['Nombre']." - ".$row['NombreLargo'];
+                    $this->Cell($this->pos[1]+$this->pos[2],5,$nombre,		'LR',0,'L',true);
+                } else { // short name, include license
+                    $this->SetFont($this->getFontName(),'B',10); // bold 9px
+                    $this->Cell($this->pos[1],5,$row['Nombre'],		'LR',0,$this->align[1],true);
                     if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',7);
-                    $this->Cell($this->pos[3],5,$row['Licencia'],	'LR',0,$this->align[3],true);
+                    $this->Cell($this->pos[2],5,$row['Licencia'],	'LR',0,$this->align[2],true);
                 }
+                $this->SetFont($this->getFontName(),'',8); // restore normal font
+                $this->Cell($this->pos[3],5,$row['Raza'],		'LR',0,$this->align[3],true);
                 $this->SetFont($this->getFontName(),'',8); // restore normal size after wide license
                 $this->Cell($this->pos[4],5,$this->getCatString($row['Categoria']),	'LR',0,$this->align[4],true);
     			$this->Cell($this->pos[5],5,$row['NombreGuia'],	'LR',0,$this->align[5],true);

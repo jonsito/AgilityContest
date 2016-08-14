@@ -43,7 +43,7 @@ class ResultadosByManga extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos	=array(  8,		17,		15,		30,		20,		15,		   6,      6,    6,       12,     7,    12,      23,			11 );
+	protected $pos	=array(  8,		17,		15,		30,		20,		15,		   6,      6,    6,       12,     7,    12,      24,			10 );
 	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
 
 	
@@ -60,7 +60,7 @@ class ResultadosByManga extends PrintCommon {
 		$this->mode=$mode;
 		$catgrad=(Jornadas::hasGrades($this->jornada))?_('Cat').'/'._('Grade'):_('Cat').".";
 		$this->cellHeader=
-			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Position'));
+			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Pos'));
 	}
 	
 	// Cabecera de página
@@ -128,6 +128,8 @@ class ResultadosByManga extends PrintCommon {
 		$this->SetLineWidth(.3);
 		if ($this->federation->get('WideLicense')) {
             $this->pos[1]+=5;$this->pos[2]=0;$this->pos[3]+=5;$this->pos[4]+=5;
+        } else if ($this->federation->isInternational()) {
+            $this->pos[1]+=20;$this->pos[2]=0;$this->pos[4]-=5; // remove license. leave space for LongName
         }
 		// Datos
 
@@ -153,7 +155,9 @@ class ResultadosByManga extends PrintCommon {
 			$this->SetFont($this->getFontName(),'',8); // set data font size
 			$this->Cell($this->pos[0],6,$row['Dorsal'],			'LR',	0,		$this->align[0],	true);
 			$this->SetFont($this->getFontName(),'B',8); // mark Nombre as bold
-			$this->Cell($this->pos[1],6,$row['Nombre'],			'LR',	0,		$this->align[1],	true);
+            $nombre=$row['Nombre'];
+            if ($this->federation->isInternational()) $nombre .= " - " . $row['NombreLargo'];
+			$this->Cell($this->pos[1],6,$nombre,			'LR',	0,		$this->align[1],	true);
 			$this->SetFont($this->getFontName(),'',8); // set data font size
 			if ($this->pos[2]!=0) $this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	true);
 			$this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	true);

@@ -75,23 +75,9 @@ class ResultadosByEquipos4 extends PrintCommon {
         $this->manga=$manga;
         $this->resultados=$resultados;
         $this->mode=$mode;
-        $mindogs=0;
-        switch(intval($this->jornada->Equipos3)) {
-            case 1:$mindogs=3; break; // old style 3 best of 4
-            case 2:$mindogs=2; break; // 2 besto of 3
-            case 3:$mindogs=3; break; // 3 best of 4
-            default: break;
-        }
-        switch(intval($this->jornada->Equipos4)) {
-            case 1:$mindogs=4; break; // old style 4 combined
-            case 2:$mindogs=2; break; // 2 combined
-            case 3:$mindogs=3; break; // 3 combined
-            case 4:$mindogs=4; break; // 4 combined
-            default: break;
-        }
         $this->equipos=Resultados::getTeamResults($resultados['rows'],$prueba,$jornada,$mindogs);
         $this->eqmgr=new Equipos("print_resultadosByEquipos4",$prueba,$jornada);
-        $this->mindogs=mindogs;
+        $this->mindogs=$this->getMinDogs();
 	}
 	
 	// Cabecera de página

@@ -42,9 +42,6 @@ class OrdenSalidaEquipos4 extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader;
-    //                      Dorsal  nombre raza licencia Categoria guia club  celo  observaciones
-	protected $pos	=array( 10,     25,     27,    10,    18,      40,   25,  10,    25);
-	protected $align=array( 'R',    'C',    'R',    'C',  'C',     'R',  'R', 'C',   'R');
 	
 	/**
 	 * Constructor
