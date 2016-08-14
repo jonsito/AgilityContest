@@ -265,6 +265,34 @@ class Updater {
         $res=$this->conn->query($str);
         if (!$res) throw new Exception("upgrade::createTrainingTable(): ".$this->conn->error);
     }
+
+    /**
+     * In order to show a team logo we use 'Miembros' field of Table 'Equipos' to store team members in non-default teams
+     * Remember that when adding/removeing a team member, you should invoke "Equipos::updateTeam($perro,$team), to retain
+     * consistency with 'Resultados' table
+     *
+     * This is a dirty trick for databases prior to 2016-08-14 to populate Miembros field in Equipos table.
+     * till now these field was unused with default value 'BEGIN,END'
+     */
+    function populateTeamMembers() {
+        $dbobj=new DBObject("populateTeamMembers");
+        $teams=$dbobj->__select("*","Equipos","(Miembros='BEGIN,END') AND (DefaultTeam=0)","","");
+        foreach ($teams['rows'] as $team) {
+            $j=$team['Jornada'];
+            $t=$team['ID'];
+            $res=$dbobj->__select(
+                /*SELECT */ "GROUP_CONCAT(DISTINCT Perro SEPARATOR ',') AS Lista",
+                /* FROM */  "Resultados",
+                /* WHERE */ "(Jornada=$j) AND (equipo=$t)",
+                "","","" // ORDER, LIMIT, GROUP BY
+            );
+            if($res['total']==0) continue;
+            $lista="BEGIN,{$res['rows'][0]['Lista']},END";
+            do_log("updating team: '{$team['Nombre']} list:$lista ");
+            $str="UPDATE Equipos SET Miembros='$lista' WHERE ID=$t";
+            $dbobj->query($str);
+        }
+    }
 }
 
 $upg=new Updater();
@@ -284,6 +312,7 @@ try {
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
+    $upg->populateTeamMembers();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }

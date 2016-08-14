@@ -264,19 +264,26 @@ class Equipos extends DBObject {
 	 * @param {integer} $idteam ID equipo. 0: default team
 	 * @return "" on success; else error String
 	 */
-	function updateTeam($idperro,$idteam=0) {
-		if ($idteam==0) { // equipo no especificado: search default
-            $idteam=$this->getDefaultTeam()['ID'];
-		}
-		// obtenemos datos del equipo solicitado
-        $team=null;
-		$teams=$this->getTeamsByJornada();
-		foreach($teams as $equipo) {
-			if ($equipo['ID']==$idteam) {$team=$equipo; break;}
-		}
-		if ($team==null) return $this->error("El equipo:$idteam NO pertenece a la jornada:{$this->jornadaID}");
-
-        // asignamos el perro
+	function updateTeam($idperro,$idteam=0)
+    {
+        if ($idteam == 0) { // equipo no especificado: search default
+            $idteam = $this->getDefaultTeam()['ID'];
+        }
+        // vemos si el equipo pertenece a la jornada. obtenemos datos del equipo solicitado
+        $newteam = $this->__getArray("Equipos", $idteam);
+        if (!$newteam) return $this->error("No encuentro datos del equipo:$idteam");
+        if ($newteam['Jornada'] != $this->jornadaID) return $this->error("Elquipo:$idteam no pertenece a la jornada {$this->jornadaID}");
+        // actualizamos la lista de miembros borrando el perro del equipo anterior (si existiera)
+        $sql = "UPDATE Equipos SET Miembros=REPLACE(Miembros,',$idperro,',',') WHERE Jornada={$this->jornadaID}";
+        $res = $this->query($sql);
+        if (!$res) return $this->error("Error removing team member $idperro from old team:" . $this->conn->error);
+        // si el nuevo equipo no es el default, insertamos en lista de miembros
+        if ($newteam['DefaultTeam'] != 0) {
+            $sql = "UPDATE Equipos SET Miembros=REPLACE(Miembros,',END',',$idperro,END') WHERE ID=$idteam";
+            $res = $this->query($sql);
+            if (!$res) return $this->error("Error removing team member $idperro from old team:" . $this->conn->error);
+        }
+        // finalmente asignamos el perro en la tabla de resultados
         $res=$this->query("UPDATE Resultados SET Equipo=$idteam WHERE (Perro=$idperro) AND (Jornada={$this->jornadaID})");
         if (!$res) return $this->error($this->conn->error);
 
@@ -386,5 +393,6 @@ class Equipos extends DBObject {
         return $res;
     }
 }
-	
+
+
 ?>
