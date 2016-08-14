@@ -208,12 +208,21 @@ class Equipos extends DBObject {
 		$where = "(Equipos.Prueba={$this->pruebaID}) AND (Equipos.Jornada={$this->jornadaID})";
 		if ($search!=='') $where=$where." AND ( (Equipos.Nombre LIKE '%$search%') OR ( Equipos.Observaciones LIKE '%$search%') ) ";
 		$result=$this->__select(
-				/* SELECT */ "*",
+				/* SELECT */ "* , 'null.png' as LogoTeam",
 				/* FROM */ "Equipos",
 				/* WHERE */ $where.$hdef,
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
+        $addLogo=http_request("AddLogo","i",0);
+        if ($addLogo!=0) {
+            $clb=new Clubes("Equpos::TeamLogo");
+            foreach ($result['rows'] as &$team) {
+                if ($team['Miembros']==="BEGIN,END") continue; // no member, use default (null) logo
+                $first=intval(explode(',',$team['Miembros'])[1]); // cogemos el primer miembro del equipo
+                $team['LogoTeam']=$clb->getLogoName("Perros",$first);
+            }
+        }
 		$this->myLogger->leave();
 		return $result;
 	}
