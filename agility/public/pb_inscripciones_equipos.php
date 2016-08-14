@@ -88,7 +88,7 @@ $('#pb_inscripciones_eq3-datagrid').datagrid({
         { field:'ID',			hidden:true },
         { field:'Prueba',		hidden:true },
         { field:'Jornada',		hidden:true },
-        { field:'Orden',		hidden:true },
+        { field:'Orden',		hidden:true /*, width:20, sortable:false,	title: '', formatter:formatTeamLogos */},
         { field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Team');?>' },
         { field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Cat');?>.' },
         { field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Comments');?>'},
@@ -107,16 +107,6 @@ $('#pb_inscripciones_eq3-datagrid').datagrid({
     },
     onExpandRow: function(idx,row) {
         showInscripcionesByTeam(idx,row);
-    },
-    onLoadSuccess: function(data) {
-        /*
-        function fireUp(index) {
-            setTimeout(function() {dg.datagrid('expandRow',index);},1000*index);
-        }
-        var dg = $('#pb_inscripciones_eq3-datagrid');
-        var count = dg.datagrid('getRows').length;
-        for(var i=0; i<count; i++) fireUp(i);
-        */
     }
 });
 

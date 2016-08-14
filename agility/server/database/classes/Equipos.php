@@ -254,7 +254,7 @@ class Equipos extends DBObject {
 	 * Si no se indica, lo inscribe en el equipo por defecto
      * TODO: Asumimos que la jornada no está cerrada....
      *
-     * Nota: El campo "Miembros" ya no se usa.
+     * Nota: El campo "Miembros" por ahora no se usa. en el futuro se usara para meter los logotipos del equipo
      * Lo que haremos sera actualizar el campo "Equipo" de la tabla de resultados
 	 * @param {integer} $idperro ID Perro
 	 * @param {integer} $idteam ID equipo. 0: default team
