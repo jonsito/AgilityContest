@@ -197,7 +197,7 @@ class PrintClasificacionTeam extends PrintCommon {
 		$x=$this->getX();
 		$y=$this->getY();
         // if no logo is "null.png" don't try to insert logo, just add empty text with parent background
-		for ($n=0;$n<$this->getMinDogs();$n++) {
+		for ($n=0;$n<$this->getMaxDogs();$n++) {
 			if ($logos[$n]==="null.png") {
 				$this->SetX($x+10*$n);
 				$this->Cell(10,8,"",'T',0,'C',true);
@@ -230,8 +230,12 @@ class PrintClasificacionTeam extends PrintCommon {
 		$this->SetFont($this->getFontName(),'',8); // default font
 		// datos del participante
 		$this->Cell(8,4,_('Dorsal'),'BL',0,'C',true); 	// dorsal
-		$this->Cell(20,4,_('Name'),'B',0,'C',true);	// nombre (20,y
-		$this->Cell(($wide)?28:13,4,_('Lic'),'B',0,'C',true);	// licencia
+        if ($this->federation->isInternational()){
+            $this->Cell(20+($wide)?28:13,4,_('Name'),'B',0,'C',true);	// nombre (20,y
+        } else {
+            $this->Cell(20,4,_('Name'),'B',0,'C',true);	// nombre (20,y
+            $this->Cell(($wide)?28:13,4,_('Lic'),'B',0,'C',true);	// licencia
+        }
 		$this->Cell(8,4,_('Cat'),'B',0,'C',true);	// categoria ( en equipos no se considera el grado )
 		$this->Cell(30,4,_('Handler'),'B',0,'C',true);	// nombreGuia
 		$this->Cell(16,4,$this->strClub,'B',0,'C',true);	// nombreClub
@@ -288,10 +292,16 @@ class PrintClasificacionTeam extends PrintCommon {
 			$this->SetFont($this->getFontName(),'',8); // default font
 			// datos del participante
 			$this->Cell(8,4,$row['Dorsal'],'L',0,'L',true); 	// dorsal
-			$this->SetFont($this->getFontName(),'B',8); // Display Nombre in bold typeface
-			$this->Cell(20,4,$row['Nombre'],0,0,'L',true);	// nombre (20,y
-			$this->SetFont($this->getFontName(),'',($wide)?6:8); // default font for licencia
-			$this->Cell(($wide)?28:13,4,$row['Licencia'],0,0,'C',true);	// licencia
+            if ($this->federation->isInternational()) {
+                $this->SetFont($this->getFontName(),'B',8); // Display Nombre in bold typeface
+                $nombre=$row['Nombre']." - ".$row['NombreLargo'];
+                $this->Cell(20+($wide)?28:13,4,$nombre,0,0,'L',true);	// nombre (20,y
+            } else {
+                $this->SetFont($this->getFontName(),'B',8); // Display Nombre in bold typeface
+                $this->Cell(20,4,$row['Nombre'],0,0,'L',true);	// nombre (20,y
+                $this->SetFont($this->getFontName(),'',($wide)?6:8); // default font for licencia
+                $this->Cell(($wide)?28:13,4,$row['Licencia'],0,0,'C',true);	// licencia
+            }
 			$this->SetFont($this->getFontName(),'',8); // default font
 			$this->Cell(8,4,"{$row['Categoria']}",0,0,'C',true);	// categoria/grado
 			$this->Cell(30,4,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
