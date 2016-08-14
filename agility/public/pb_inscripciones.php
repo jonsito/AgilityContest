@@ -99,19 +99,27 @@ $('#pb_inscripciones-datagrid').datagrid({
         { field:'Club',		hidden:true }, // Club ID
         { field:'Dorsal',	    width:'5%',   sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
         { field:'LogoClub',	    width:'5%',    sortable:false, align: 'center',	title: '',formatter:formatLogo },
-        { field:'Nombre',	    width:'15%',   sortable:false, align: 'center',	title: '<?php _e('Name'); ?>',formatter:formatBoldBig },
-        { field:'Raza',         width:'10%',   sortable:false, align: 'right',  title: '<?php _e('Breed');   ?>' },
-        { field:'Licencia',	    width:'10%',   sortable:false, align: 'center', title: '<?php _e('Lic');    ?>' },
-        { field:'Categoria',    width:'5%',    sortable:false, align: 'center', title: '<?php _e('Cat');    ?>',formatter:formatCategoria },
-        { field:'Grado',	    width:'5%',    sortable:false, align: 'center', title: '<?php _e('Grade');  ?>', formatter:formatGrado },
-        { field:'NombreGuia',	width:'20%',   sortable:false, align: 'right',	title: '<?php _e('Handler'); ?>' },
-        { field:'NombreClub',	width:'18%',   sortable:false, align: 'right',	title: '<?php _e('Club');   ?>' },
+        { field:'Nombre',	    width:'15%',   sortable:false, align: 'left',	title: '<?php _e('Name'); ?>',formatter:formatDogName },
+        { field:'Licencia',	    width:'9%',   sortable:false, align: 'center', title: '<?php _e('Lic');    ?>' },
+        { field:'Raza',         width:'11%',   sortable:false, align: 'right',  title: '<?php _e('Breed');   ?>' },
+        { field:'Categoria',    width:'6%',    sortable:false, align: 'center', title: '<?php _e('Cat');    ?>',formatter:formatCatGrad },
+        // { field:'Grado',	    width:'5',    sortable:false, align: 'center', title: '<?php _e('Grade');  ?>', formatter:formatGrado },
+        { field:'NombreGuia',	width:'19%',   sortable:false, align: 'right',	title: '<?php _e('Handler'); ?>' },
+        { field:'NombreClub',	width:'15%',   sortable:false, align: 'right',	title: clubOrCountry() },
         { field:'NombreEquipo',	hidden:true },
-        { field:'Observaciones',	hidden:true },
-        { field:'Celo',		    width:'5%', align:'center', formatter: formatCelo,	title: '<?php _e('Heat');   ?>' }
+        { field:'Celo',		    width:'5%', align:'center', formatter: formatCelo,	title: '<?php _e('Heat');   ?>' },
+        { field:'Observaciones',width:'10%',   sortable:false, align: 'right',  title: '<?php _e('Comments');   ?>' }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-    rowStyler:pbRowStyler
+    rowStyler:pbRowStyler,
+    onLoadSuccess: function() {
+        // on international contests hide license, and enlarge name to allow pedigree name
+        if (isInternational(workingData.federation)) {
+            $(this).datagrid('hideColumn','Licencia');
+            $(this).datagrid('autoSizeColumn','Nombre');
+        }
+        $(this).datagrid('fitColumns'); // expand to max width
+    }
 });
 
 </script>

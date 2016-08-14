@@ -22,9 +22,9 @@ $config =Config::getInstance();
         <th width="5%" data-options="field:'LogoClub',  align:'center',	formatter: formatLogo">&nbsp;</th>
         <th width="12%" data-options="field:'NombreEquipo',align:'center',hidden:true"><?php _e('Team'); ?></th>
         <th width="5%" data-options="field:'Dorsal',	align:'center',styler:checkPending"><?php _e('Dorsal'); ?> </th>
-        <th width="16%" data-options="field:'Nombre',	align:'left',formatter: formatBoldBig"><?php _e('Name'); ?></th>
-        <th width="15%" data-options="field:'Raza',     align:'center'"><?php _e('Breed'); ?></th>
+        <th width="18%" data-options="field:'Nombre',	align:'left',formatter: formatDogName"><?php _e('Name'); ?></th>
         <th width="5%" data-options="field:'Licencia',	align:'center'"><?php _e('License'); ?></th>
+        <th width="15%" data-options="field:'Raza',     align:'center'"><?php _e('Breed'); ?></th>
         <th width="4%" data-options="field:'Categoria',	align:'center',formatter:formatCatGrad"><?php _e('Cat'); ?>.</th>
         <!--
         <th width="0" data-options="field:'Grado',		hidden:true"></th>
@@ -32,7 +32,7 @@ $config =Config::getInstance();
         <th width="17%" data-options="field:'NombreGuia',align:'right'"><?php _e('Handler'); ?></th>
         <th width="12%" data-options="field:'NombreClub',align:'right'"><?php _e('Club'); ?></th>
         <th width="4%" data-options="field:'Celo',		align:'center', formatter:formatCelo"><?php _e('Heat'); ?></th>
-        <th width="12%" data-options="field:'Observaciones',align:'left'"><?php _e('Comments'); ?></th>
+        <th width="10%" data-options="field:'Observaciones',align:'left'"><?php _e('Comments'); ?></th>
     </tr>
     </thead>
 </table>
@@ -63,13 +63,18 @@ $config =Config::getInstance();
         rowStyler:myRowStyler,
         onLoadSuccess:function(){
             var mySelf=$('#ordensalida-datagrid');
-            // show/hide team name
+            // On Team journeys, show team name instead of club, and viceversa
             if (isJornadaEquipos(null) ) {
                 mySelf.datagrid('showColumn','NombreEquipo');
                 mySelf.datagrid('hideColumn','NombreClub');
             } else  {
                 mySelf.datagrid('hideColumn','NombreEquipo');
                 mySelf.datagrid('showColumn','NombreClub');
+            }
+            // on international contests hide license, and enlarge name to allow pedigree name
+            if (isInternational(workingData.federation)) {
+                mySelf.datagrid('hideColumn','Licencia');
+                mySelf.datagrid('autoSizeColumn','Nombre');
             }
             mySelf.datagrid('fitColumns'); // expand to max width
             // start autoscrolling

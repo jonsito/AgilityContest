@@ -121,7 +121,24 @@ function formatCategoria(val,row,idx) {
     if (typeof (ac_fedInfo[fed].ListaCategoriasShort[val]) === "undefined") return val;
     return ac_fedInfo[fed].ListaCategoriasShort[val];
 }
+function formatCatGrad(val,row,idx) {
+    var hasGrade=true;
+    if (isJornadaEquipos(null)) hasGrade=false;
+    if (isJornadaOpen()) hasGrade=false;
+    if (isJornadaKO()) hasGrade=false;
+    if (!hasGrade) return formatCategoria(val,row,idx);
+    // return formatCategoria(row.Categoria,row.idx)+"/"+formatGrado(row.Grado,row,idx);
+    return row.Categoria+"-"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(
+}
 
+function formatDogName(val,row,idx) {
+    if (!isInternational(workingData.federation)) return formatBoldBig(val,row,idx);
+    return formatBold(row.Nombre+" - <br/>"+row.NombreLargo,row,idx);
+}
+
+function clubOrCountry() {
+    return isInternational(workingData.federation)? "<?php _e('Country');?>":"<?php _e('Club');?>";
+}
 
 /* formatters para datagrid de resultados */
 function formatFaltasTocados(val,row,idx) { return parseInt(row.Faltas)+parseInt(row.Tocados); }
@@ -165,15 +182,6 @@ function formatTF(val,row,idx) {
 function formatTP(val,row,idx) {
     var t=parseFloat(row.Tiempo);
     return (row.Penalizacion>=200)?"-":toFixedT(t,ac_config.numdecs);
-}
-function formatCatGrad(val,row,idx) {
-    var hasGrade=true;
-    if (isJornadaEquipos(null)) hasGrade=false;
-    if (isJornadaOpen()) hasGrade=false;
-    if (isJornadaKO()) hasGrade=false;
-    if (!hasGrade) return formatCategoria(val,row,idx);
-    // return formatCategoria(row.Categoria,row.idx)+"/"+formatGrado(row.Grado,row,idx);
-    return row.Categoria+"-"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(
 }
 
 /**
