@@ -605,6 +605,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
  * @param {int} f Federation ID
  */
 function setFederation(f) {
+	f=parseInt(f);
 	var fed=null;
 	// iterate ac_fedInfo until ID matches
 	for ( var i=0;i<10;i++) {

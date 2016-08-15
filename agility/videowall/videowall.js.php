@@ -40,7 +40,8 @@ function vw_updateWorkingData(evt,callback) {
 	// TODO: do not call server if no change from current data
 	var flag=true;
 	if (evt.Type==="init") flag=false; // on init force  reload
-	else if (workingData.prueba!=evt.Prueba) flag=false;
+	if (evt.Type==="open") flag=false; // on open force  reload . Should not be necessary, but...
+	if (workingData.prueba!=evt.Prueba) flag=false;
 	else if (workingData.jornada!=evt.Jornada) flag=false;
 	else if (workingData.manga!=evt.Manga) flag=false;
 	else if (workingData.tanda!=evt.Tanda) flag=false;
@@ -76,6 +77,7 @@ function vw_updateWorkingData(evt,callback) {
             setManga(data.Manga);
 			setTanda(data.Tanda);
 			setRonda(data.Ronda);
+			setFederation(data.Prueba.RSCE);
             // and finally invoke callback
             if ( typeof(callback)==='function' ) callback(evt,data);
         }

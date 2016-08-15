@@ -24,7 +24,7 @@ $config =Config::getInstance();
         <th data-options="field:'Grado',		width:3, align:'center', formatter:formatGrado" > <?php _e('Grd'); ?>.</th>
         -->
         <th width="18%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
-        <th width="15%" data-options="field:'NombreClub',	align:'right'" > <?php _e('Club'); ?></th>
+        <th width="15%" data-options="field:'NombreClub',	align:'right'" id="parciales_individual-Club"> <?php _e('Club'); ?></th>
         <th width="4%" data-options="field:'Faltas',		align:'center',formatter:formatFaltasTocados,styler:formatBorder"> <?php _e('F/T'); ?></th>
         <!--
         <th data-options="field:'Tocados',	hidden:true ">/th>
@@ -38,8 +38,8 @@ $config =Config::getInstance();
         <th data-options="field:'PTiempo',	hidden:true ">/th>
         -->
         <th width="4%" data-options="field:'Velocidad',	align:'right',formatter:formatV1"> <?php _e('Vel'); ?>.</th>
-        <th width="6%" data-options="field:'Penalizacion',	align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
-        <th width="8%" data-options="field:'Calificacion',	align:'center',styler:formatBorder" > <?php _e('Calif'); ?>.</th>
+        <th width="6%" data-options="field:'Penalizacion',	align:'right',formatter:formatPenalizacionFinal,styler:formatBorder" > <?php _e('Penaliz'); ?>.</th>
+        <th width="8%" data-options="field:'Calificacion',	align:'center'" > <?php _e('Calif'); ?>.</th>
         <th width="5%" data-options="field:'Puesto',		align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
         <!--
         <th data-options="field:'CShort',	hidden:true ">/th>
@@ -50,6 +50,7 @@ $config =Config::getInstance();
 
 <script type="text/javascript">
     $('#parciales_individual-datagrid').datagrid({
+        // declared by me. not used in individual scores
         expandCount: 0,
         // propiedades del panel asociado
         fit: false, // parent is a fake div, so donn't ask to fit parent width: let fitcolumns do the job
@@ -63,20 +64,10 @@ $config =Config::getInstance();
         width:'100%',
         pagination: false,
         rownumbers: false,
-        fitColumns: true,
+        fitColumns: false,
         singleSelect: true,
         autoRowHeight: false,
         idField: 'Perro',
-        rowStyler:myRowStyler ,
-        onLoadSuccess: function() {
-            // set club/country
-            $(this).datagrid('options').columns[0][6].title=clubOrCountry();
-            // on international contests hide license, and enlarge name to allow pedigree name
-            if (isInternational(workingData.federation)) {
-                $(this).datagrid('hideColumn','Licencia');
-                $(this).datagrid('autoSizeColumn','Nombre');
-            }
-            $(this).datagrid('fitColumns'); // expand to max width
-        }
+        rowStyler:myRowStyler
     });
 </script>

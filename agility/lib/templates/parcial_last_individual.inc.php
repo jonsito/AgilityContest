@@ -19,14 +19,14 @@ $config =Config::getInstance();
 
         <th width="5%" data-options="field:'LogoClub',		align:'left',formatter:formatLogo" > &nbsp;</th>
         <th width="5%" data-options="field:'Dorsal',		align:'right'" > <?php _e('Dors'); ?>.</th>
-        <th width="9%" data-options="field:'Nombre',		align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
+        <th width="9%" data-options="field:'Nombre',		align:'left',formatter:formatDogName"> <?php _e('Name'); ?></th>
         <th width="6%" data-options="field:'Licencia',		align:'center'" > <?php _e('Lic'); ?>.</th>
         <th width="5%" data-options="field:'Categoria',	align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
         <!--
         <th data-options="field:'Grado',		width:3, align:'center', formatter:formatGrado" > <?php _e('Grd'); ?>.</th>
         -->
         <th width="17%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
-        <th width="14%" data-options="field:'NombreClub',	align:'right'" > <?php _e('Club'); ?></th>
+        <th width="14%" data-options="field:'NombreClub',	align:'right'" id="parciales_last_individual-Club"> <?php _e('Club'); ?></th>
         <th width="4%" data-options="field:'Faltas',		align:'center',formatter:formatFaltasTocados,styler:formatBorder"> <?php _e('F/T'); ?></th>
         <!--
         <th data-options="field:'Tocados',	hidden:true ">/th>
@@ -69,6 +69,17 @@ $config =Config::getInstance();
         singleSelect: true,
         autoRowHeight: false,
         idField: 'Perro',
-        rowStyler:myRowStyler
+        rowStyler:myRowStyler ,
+        onLoadSuccess: function() {
+            var mySelf=$('#parciales_last_individual-datagrid');
+            // set club/country
+            $('#parciales_last_individual-Club').html(clubOrCountry());
+            // on international contests hide license, and enlarge name to allow pedigree name
+            if (isInternational(workingData.federation)) {
+                mySelf.datagrid('hideColumn','Licencia');
+                mySelf.datagrid('autoSizeColumn','Nombre');
+            }
+            mySelf.datagrid('fitColumns'); // expand to max width
+        }
     });
 </script>

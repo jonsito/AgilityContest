@@ -92,8 +92,17 @@ $('#parciales_individual-datagrid').datagrid({
         if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
         return true;
     },
-    onLoadSuccess: function(data) {
-        $('#parciales_individual-datagrid').datagrid('scrollTo',0); // point to first result
+    onLoadSuccess: function() {
+        var mySelf=$('#parciales_individual-datagrid');
+        // set club/country
+        mySelf.datagrid('options').columns[0][6].title=clubOrCountry();
+        // on international contests hide license, and enlarge name to allow pedigree name
+        if (isInternational(workingData.federation)) {
+            mySelf.datagrid('hideColumn','Licencia');
+            mySelf.datagrid('autoSizeColumn','Nombre');
+        }
+        mySelf.datagrid('fitColumns'); // expand to max width
+        mySelf.datagrid('scrollTo',0); // point to first result
     }
 });
 
