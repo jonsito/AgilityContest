@@ -54,11 +54,11 @@ Pantalla de de visualizacion combinada llamada/parciales
                 </span>
             </div>
         </div>
-        <div data-options="region:'west'" style="width:34%;"> <!-- LLAMADA A PISTA -->
+        <div data-options="region:'west'" style="width:25%;"> <!-- LLAMADA A PISTA -->
             <table id="vwc_llamada-datagrid" class="vwc_top"></table>
         </div>
         <div data-options="region:'center',border:false" class="vwc_top"><!-- Espacio vacio -->&nbsp;</div>
-        <div data-options="region:'east'" style="width:65%"> <!-- CLASIFICACION FINAL -->
+        <div data-options="region:'east'" style="width:74%"> <!-- CLASIFICACION FINAL -->
             <!-- Datos de TRS y TRM -->
             <?php include_once(__DIR__ . "/../lib/templates/final_rounds_data.inc.php"); ?>
             <!-- datagrid para clasificacion individual -->
@@ -107,7 +107,7 @@ Pantalla de de visualizacion combinada llamada/parciales
                         <span id="vw_footer-footerData"></span>
                     </div>
                 </div>
-                <div data-options="region:'east'" style="width:68%"> <!-- ULTIMOS TRES RESULTADOS -->
+                <div data-options="region:'east'" style="width:76%"> <!-- ULTIMOS TRES RESULTADOS -->
                     <div id="finales_last_individual-table" class="scores_table" style="width:100%">
                         <?php include_once(__DIR__ . "/../lib/templates/final_last_individual.inc.php"); ?>
                     </div>                    
@@ -169,7 +169,16 @@ Pantalla de de visualizacion combinada llamada/parciales
             return true;
         },
         onLoadSuccess: function(data) {
-            $('#finales_individual-datagrid').datagrid('scrollTo',0); // point to first result
+            var mySelf=$('#finales_individual-datagrid');
+            // set club/country
+            $('#finales_individual-Club').html(clubOrCountry());
+            // on international contests hide license, and enlarge name to allow pedigree name
+            if (isInternational(workingData.federation)) {
+                mySelf.datagrid('hideColumn','Licencia');
+                mySelf.datagrid('autoSizeColumn','Nombre');
+            }
+            mySelf.datagrid('fitColumns'); // expand to max width
+            mySelf.datagrid('scrollTo',0); // point to first result
         }
     });
 

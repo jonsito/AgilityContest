@@ -32,7 +32,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="vw_finales-window">
     <!-- ventana interior -->
     <div id="vw_common" style="display:inline-block;width:100%;height:auto">
-        <div id="vw_finales-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader" style="height:120px;font-size:1.0em;" >
+        <div id="vw_finales-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader" style="height:155px;font-size:1.0em;" >
 
             <table width="100%">
                 <tr>
@@ -70,7 +70,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         </div>
 
         <!-- Pie de pagina -->
-        <div id="vw_finales-footer" data-options="region:'south',split:false" class="vw_floatingfooter" style="font-size:1.2em;">
+        <div id="vw_finales-footer" data-options="region:'south',split:false" class="vw_floatingfooter" style="height:70px;font-size:1.2em;">
              <span id="vw_footer-footerData"></span>
         </div>
     </div>
@@ -101,7 +101,17 @@ $('#finales_individual-datagrid').datagrid({
         return true;
     },
     onLoadSuccess: function(data) {
-        $('#finales_individual-datagrid').datagrid('scrollTo',0); // point to first result
+        var mySelf=$('#finales_individual-datagrid');
+        // set club/country
+        $('#finales_individual-Club').html(clubOrCountry());
+        // on international contests hide license, and enlarge name to allow pedigree name
+        if (isInternational(workingData.federation)) {
+            mySelf.datagrid('hideColumn','Licencia');
+            mySelf.datagrid('autoSizeColumn','Nombre');
+        }
+        mySelf.datagrid('fitColumns'); // expand to max width
+        mySelf.datagrid('scrollTo',0); // point to first result
+        mySelf.datagrid('scrollTo',0); // point to first result
     }
 });
 

@@ -131,9 +131,10 @@ function formatCatGrad(val,row,idx) {
     return row.Categoria+"-"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(
 }
 
-function formatDogName(val,row,idx) {
+function formatDogName(val,row,idx) { // long name limited to 20 characters
+    if (typeof(val)==="undefined") return ""; // to prevent initial empty rows
     if (!isInternational(workingData.federation)) return formatBoldBig(val,row,idx);
-    return formatBold(row.Nombre+" - <br/>"+row.NombreLargo,row,idx);
+    return formatBold(row.Nombre+" - <br/>"+row.NombreLargo.substr(0,20),row,idx);
 }
 
 function clubOrCountry() {

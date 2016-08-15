@@ -25,14 +25,14 @@ $config =Config::getInstance();
          -->
         <th width="3%" data-options="field:'LogoClub',		align:'left',formatter:formatLogo" > &nbsp;</th>
         <th width="3%" data-options="field:'Dorsal',		align:'left'" > <?php _e('Dors'); ?>.</th>
-        <th width="7%" data-options="field:'Nombre',		align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
+        <th width="7%" data-options="field:'Nombre',		align:'left',formatter:formatDogName"> <?php _e('Name'); ?></th>
         <th width="4%" data-options="field:'Licencia',		align:'center'" > <?php _e('Lic'); ?>.</th>
         <th width="5%" data-options="field:'Categoria',	    align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
         <!--
         <th data-options="field:'Grado',		width:3, align:'center', formatter:formatGrado" > <?php _e('Grd'); ?>.</th>
         -->
         <th width="9%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
-        <th width="7%" data-options="field:'NombreClub',	align:'right'" > <?php _e('Club'); ?></th>
+        <th width="7%" data-options="field:'NombreClub',	align:'right'" id="finales_last_individual-Club"> <?php _e('Club'); ?></th>
         <th width="2%" data-options="field:'F1',			align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
         <th width="2%" data-options="field:'R1',			align:'center'"> <?php _e('R'); ?>.</th>
         <th width="4%" data-options="field:'T1',			align:'right',formatter:formatT1"> <?php _e('Time'); ?>.</th>
@@ -76,7 +76,18 @@ $config =Config::getInstance();
         rowStyler:myRowStyler,
         autoRowHeight:false,
         idField: 'ID',
-        pageSize: 500 // enought bit to make it senseless
+        pageSize: 500, // enought bit to make it senseless
         // columns declared at html section to show additional headers
+        onLoadSuccess: function() {
+            var mySelf=$('#finales_last_individual-datagrid');
+            // set club/country
+            $('#finales_last_individual-Club').html(clubOrCountry());
+            // on international contests hide license, and enlarge name to allow pedigree name
+            if (isInternational(workingData.federation)) {
+                mySelf.datagrid('hideColumn','Licencia');
+                mySelf.datagrid('autoSizeColumn','Nombre');
+            }
+            mySelf.datagrid('fitColumns'); // expand to max width
+        }
     });
 </script>

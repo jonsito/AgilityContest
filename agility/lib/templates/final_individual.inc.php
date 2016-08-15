@@ -18,14 +18,14 @@ $config =Config::getInstance();
          -->
         <th width="3%" data-options="field:'LogoClub',		align:'left',formatter:formatLogo" > &nbsp;</th>
         <th width="3%" data-options="field:'Dorsal',		align:'left'" > <?php _e('Dors'); ?>.</th>
-        <th width="7%" data-options="field:'Nombre',		align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
+        <th width="7%" data-options="field:'Nombre',		align:'left',formatter:formatDogName"> <?php _e('Name'); ?></th>
         <th width="4%" data-options="field:'Licencia',		align:'center'" > <?php _e('Lic'); ?>.</th>
         <th width="5%" data-options="field:'Categoria',	    align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
         <!--
         <th data-options="field:'Grado',		width:3, align:'center', formatter:formatGrado" > <?php _e('Grd'); ?>.</th>
         -->
         <th width="9%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
-        <th width="7%" data-options="field:'NombreClub',	align:'right'" > <?php _e('Club'); ?></th>
+        <th width="7%" data-options="field:'NombreClub',	align:'right'" id="finales_individual-Club"> <?php _e('Club'); ?></th>
         <th width="2%" data-options="field:'F1',			align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
         <th width="2%" data-options="field:'R1',			align:'center'"> <?php _e('R'); ?>.</th>
         <th width="4%" data-options="field:'T1',			align:'right',formatter:formatT1"> <?php _e('Time'); ?>.</th>
