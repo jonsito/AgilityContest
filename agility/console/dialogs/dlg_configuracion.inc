@@ -176,12 +176,12 @@ $config =Config::getInstance();
 
 			<label for="vws_font"><?php _e('Font family for text in cells'); ?></label>
 			<select id="vws_font" name="vws_font">
-				<option value="defaultfont"><?php _e('Default system font'); ?></option>
-				<option value="futura_condensedbold">Futura Condensed Bold</option>
-				<option value="roadgeek_2005_engschriftRg" selected="selected">RoadGeek 2005 Engschrift</option>
-				<option value="roadgeek_2005_series_b" selected="selected">RoadGeek 2005 Series B</option>
-				<option value="Helvetica Neue LT Std 67 Medium Condensed" selected="selected">Helvetica Neue LT Std 67 Medium Condensed</option>
-				<option value="Helvetica Neue LT Std 67 Bold Condensed" selected="selected">Helvetica Neue LT Std 67 Bold Condensed</option>
+				<option value="1.8vw:Helvetica, monospace"><?php _e('Default system font'); ?></option>
+				<option value="1.8vw:futura_condensedbold">Futura Condensed Bold</option>
+				<option value="1.8vw:roadgeek_2005_engschriftRg">RoadGeek 2005 Engschrift</option>
+				<option value="1.8vw:roadgeek_2005_series_b" selected="selected">RoadGeek 2005 Series B</option>
+				<option value="1.8vw:Helvetica Neue LT Std 67 Medium Condensed" selected="selected">Helvetica Neue LT Std 67 Medium Condensed</option>
+				<option value="1.8vw:Helvetica Neue LT Std 67 Bold Condensed" selected="selected">Helvetica Neue LT Std 67 Bold Condensed</option>
 			</select><br />
 			
 			<label for="vws_hdrbg1"><?php _e('Background color for main header'); ?></label>

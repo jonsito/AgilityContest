@@ -228,8 +228,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     for (var n=0;n<8;n++) {
         doLayout(layout,"#vws_call_Orden_"+n,1,37+9*n,10,9);
         doLayout(layout,"#vws_call_Logo_"+n,11,37+9*n,8,9);
-        doLayout(layout,"#vws_call_Dorsal_"+n,19,37+9*n,9,9);
-        doLayout(layout,"#vws_call_Nombre_"+n,28,37+9*n,18,9);
+        doLayout(layout,"#vws_call_Dorsal_"+n,19,37+9*n,10,9);
+        doLayout(layout,"#vws_call_Nombre_"+n,29,37+9*n,17,9);
         doLayout(layout,"#vws_call_NombreGuia_"+n,46,37+9*n,42,9);
     }
     

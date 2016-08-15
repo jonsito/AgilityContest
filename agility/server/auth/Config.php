@@ -70,7 +70,7 @@ define('AC_VW_TOBEFIRST',1); // enable evaluate time to get first place ( comput
 define('AC_VWS_POLLTIME',5);
 define('AC_VWS_USELOGO',5);
 define('AC_VWS_LOGOURL',"/agility/images/agilityawc2016.png");
-define('AC_VWS_FONT','futura_condensedbold');
+define('AC_VWS_FONT','1.8vw:futura_condensedbold');
 define('AC_VWS_HDRFG1','#FFFFFF');
 define('AC_VWS_HDRBG1','#FF7F00');
 define('AC_VWS_HDRFG2','#000000');

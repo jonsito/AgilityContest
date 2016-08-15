@@ -1,6 +1,10 @@
 <?php header ("Content-type: text/css");
 require_once(__DIR__."/../server/auth/Config.php");
 $config = Config::getInstance();
+
+$sizefont=$config->getEnv("vws_font");
+$fontfamiliy=explode(':',$sizefont)[1];
+$fontsize=explode(':',$sizefont)[0];
 ?>
 /*
 videowall_css.php
@@ -186,8 +190,6 @@ td.vw_club {
         url('../fonts/futuracondensedbold-webfont.woff') format('woff'),
         url('../fonts/futuracondensedbold-webfont.ttf') format('truetype'),
         url('../fonts/futuracondensedbold-webfont.svg#futura_condensedbold') format('svg');
-    font-weight: normal;
-    font-style: normal;
 }
 
 @font-face {
@@ -198,8 +200,6 @@ td.vw_club {
     url('../fonts/roadgeek_2005_engschrift-webfont.woff') format('woff'),
     url('../fonts/roadgeek_2005_engschrift-webfont.ttf') format('truetype'),
     url('../fonts/roadgeek_2005_engschrift-webfont.svg#roadgeek_2005_engschriftRg') format('svg');
-    font-weight: normal;
-    font-style: normal;
 }
 
 @font-face {
@@ -210,8 +210,6 @@ td.vw_club {
     url('../fonts/roadgeek_2005_series_b-webfont.woff') format('woff'),
     url('../fonts/roadgeek_2005_series_b-webfont.ttf') format('truetype'),
     url('../fonts/roadgeek_2005_series_b-webfont.svg#roadgeek_2005_series_b') format('svg');
-    font-weight: normal;
-    font-style: normal;
 }
 
 @font-face {
@@ -284,10 +282,8 @@ td.vw_club {
 }
 
 .vws_entry {
-<?php
-    $ff=$config->getEnv("vws_font");
-    if ($ff!=='defaultfont') echo "    font-family: '$ff'; ";
-?>
+    font-familiy: <?php echo $fontfamiliy; ?>;
+    font-size: <?php echo $fontsize; ?>;
     font-weight: bold;
     font-stretch:condensed;
     text-align:right;
@@ -300,11 +296,8 @@ td.vw_club {
     outline:none;
     color:<?php echo $config->getEnv('vws_linecolor')?>;
     background-color:inherit;
-    font-size:2.2vw;
-<?php
-    $ff=$config->getEnv("vws_font");
-    if ($ff!=='defaultfont') echo "    font-family: '$ff'; ";
-?>
+    font-familiy: <?php echo $fontfamiliy; ?>;
+    font-size: <?php echo $fontsize; ?>;
     font-weight: bold;
     font-stretch:condensed;
     text-align: right;
@@ -315,7 +308,7 @@ td.vw_club {
     padding-top:0.8vw;
     border:none;
     outline:none;
-    font-size:2.2vw;
+    font-size: <?php echo $fontsize; ?>;
     color:<?php echo $config->getEnv('vws_linecolor')?>;
     background-color:inherit;
 }
