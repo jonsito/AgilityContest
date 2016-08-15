@@ -214,6 +214,26 @@ td.vw_club {
     font-style: normal;
 }
 
+@font-face {
+    font-family: "Helvetica Neue LT Std 67 Medium Condensed";
+    src: url("../fonts/Helvetica_Neue_LT_Std_67_MdCd.eot"); /* IE9*/
+    src: url("../fonts/Helvetica_Neue_LT_Std_67_MdCd.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../fonts/Helvetica_Neue_LT_Std_67_MdCd.woff2") format("woff2"), /* chrome、firefox */
+    url("../fonts/Helvetica_Neue_LT_Std_67_MdCd.woff") format("woff"), /* chrome、firefox */
+    url("../fonts/Helvetica_Neue_LT_Std_67_MdCd.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url("../fonts/Helvetica_Neue_LT_Std_67_MdCd.svg#Helvetica Neue LT Std 67 Medium Condensed") format("svg"); /* iOS 4.1- */
+}
+
+@font-face {
+    font-family: "Helvetica Neue LT Std 77 Bold Condensed";
+    src: url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.eot"); /* IE9*/
+    src: url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.woff2") format("woff2"), /* chrome、firefox */
+    url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.woff") format("woff"), /* chrome、firefox */
+    url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.svg#Helvetica Neue LT Std 77 Bold Condensed") format("svg"); /* iOS 4.1- */
+}
+
 #vws-window { /* color de fondo y textos genericos de la pantalla */
     color:<?php echo $config->getEnv('vws_hdrfg1')?>;
     background-color: <?php echo $config->getEnv('vws_hdrbg1')?>;
@@ -264,8 +284,10 @@ td.vw_club {
 }
 
 .vws_entry {
-    font-family: 'roadgeek_2005_series_b';
-    /* font-family: 'futura_condensedbold'; */
+<?php
+    $ff=$config->getEnv("vws_font");
+    if ($ff!=='defaultfont') echo "    font-family: '$ff'; ";
+?>
     font-weight: bold;
     font-stretch:condensed;
     text-align:right;
@@ -279,8 +301,10 @@ td.vw_club {
     color:<?php echo $config->getEnv('vws_linecolor')?>;
     background-color:inherit;
     font-size:2.2vw;
-    /* font-family: 'futura_condensedbold'; *//* input fields doesn't inherit font styles */
-    font-family: 'roadgeek_2005_series_b';
+<?php
+    $ff=$config->getEnv("vws_font");
+    if ($ff!=='defaultfont') echo "    font-family: '$ff'; ";
+?>
     font-weight: bold;
     font-stretch:condensed;
     text-align: right;

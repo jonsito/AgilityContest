@@ -164,6 +164,7 @@ $config =Config::getInstance();
 			<input id="vw_rowcolor4" name="vw_rowcolor4" type="color" value="#c0c0c0"/><br />
 			
 			<h3><?php _e('Alternate (simplified) Video wall configurable parameters'); ?></h3>
+			
 			<label for="vws_polltime"><?php _e('Sponsors rotation period (seg.)'); ?></label>
 			<input id="vws_polltime" name="vws_polltime" type="text" size="2" value="5"/><br />
 
@@ -172,6 +173,16 @@ $config =Config::getInstance();
 			<input type="checkbox" name="vws_uselogo" id="vws_uselogo" value="1"/><br />
 			<label for="vws_logourl"><?php _e('URL for logo image to be used');?></label>
 			<input type="text" id="vws_logourl" name="vws_logourl" size="50" maxlength="90" /><br />
+
+			<label for="vws_font"><?php _e('Font family for text in cells'); ?></label>
+			<select id="vws_font" name="vws_font">
+				<option value="defaultfont"><?php _e('Default system font'); ?></option>
+				<option value="futura_condensedbold">Futura Condensed Bold</option>
+				<option value="roadgeek_2005_engschriftRg" selected="selected">RoadGeek 2005 Engschrift</option>
+				<option value="roadgeek_2005_series_b" selected="selected">RoadGeek 2005 Series B</option>
+				<option value="Helvetica Neue LT Std 67 Medium Condensed" selected="selected">Helvetica Neue LT Std 67 Medium Condensed</option>
+				<option value="Helvetica Neue LT Std 67 Bold Condensed" selected="selected">Helvetica Neue LT Std 67 Bold Condensed</option>
+			</select><br />
 			
 			<label for="vws_hdrbg1"><?php _e('Background color for main header'); ?></label>
 			<input id="vws_hdrbg1" name="vws_hdrbg1" type="color" value="#0000ff"/>
