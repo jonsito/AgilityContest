@@ -145,7 +145,7 @@ function showFinalScoresByTeam(parent,idx,row) {
             $(parent).datagrid('fixDetailRowHeight',idx);
         },
         onLoadSuccess:function(data){
-            $(mySelf).datagrid('fitColumns');
+            $(this).datagrid('autoSizeColumn','Nombre').datagrid('fitColumns'); // fix size according name
             setTimeout(function(){ $(parent).datagrid('fixDetailRowHeight',idx); },0);
         }
     });
@@ -209,11 +209,8 @@ function showPartialScoresByTeam(parent,idx,row) {
             $(parent).datagrid('fixDetailRowHeight',idx);
         },
         onLoadSuccess:function(data){
-            if (isInternational(workingData.federation)) {
-                $(mySelf).datagrid('hideColumn','Licencia');
-                $(mySelf).datagrid('autoSizeColumn','Nombre');
-            }
-            $(mySelf).datagrid('fitColumns'); // expand to max width
+            if (data.total==0) return;
+            $(this).datagrid('autoSizeColumn','Nombre').datagrid('fitColumns'); // fix size according name
             setTimeout(function(){ $(parent).datagrid('fixDetailRowHeight',idx); },0);
         }
     });
@@ -439,8 +436,8 @@ function vwcf_configureScreenLayout() {
     // show hide license according national or international
     resdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
     lastdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
-    restdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
-    lasttdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    // restdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    // lasttdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');// no existe campo 'Licencia' en resultados equipos
 
     $('#finales_individual-Club').html(clubOrCountry());
     $('#finales_last_individual-Club').html(clubOrCountry());
@@ -455,25 +452,41 @@ function vwcf_configureScreenLayout() {
     calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
 }
 
-function setParcialIndividualOrTeamView(data) {
-    var team=false;
-    if (parseInt(data.Jornada.Equipos3)!=0) { team=true; }
-    if (parseInt(data.Jornada.Equipos4)!=0) { team=true;  }
-    // limpiamos tablas
-    // activamos la visualizacion de la tabla correcta
-    if (team) {
-        $("#parciales_individual-table").css("display","none");
-        $("#parciales_last_individual-table").css("display","none");
-        $("#parciales_equipos-table").css("display","inherit");
-        $("#parciales_last_equipos-table").css("display","inherit");
-        $("#parciales_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-        $("#parciales_last_equipos-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-    } else {
-        $("#parciales_equipos-table").css("display","none");
-        $("#parciales_last_equipos-table").css("display","none");
-        $("#parciales_individual-table").css("display","inherit");
-        $("#parciales_last_individual-table").css("display","inherit");
-        $("#parciales_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-        $("#parciales_last_individual-datagrid").datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-    }
+// called on init or open
+// select individual or team view
+// show/hide columns according (inter)national federation type
+function vwcp_configureScreenLayout() {
+    var resdg=$('#parciales_individual-datagrid');
+    var lastdg=$('#parciales_last_individual-datagrid');
+    var restdg=$('#parciales_equipos-datagrid');
+    var lasttdg=$('#parciales_last_equipos-datagrid');
+    var calldg=$('#vwc_llamada-datagrid');
+    var team=isJornadaEquipos(null);
+    var intl=isInternational(null);
+
+    // individual or team view
+    $("#parciales_individual-table").css("display",(team)?'none':'inherit');
+    $("#parciales_last_individual-table").css("display",(team)?'none':'inherit');
+    $("#parciales_equipos-table").css("display",(team)?'inherit':'none');
+    $("#parciales_last_equipos-table").css("display",(team)?'inherit':'none');
+    calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
+    calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
+
+    // show hide license according national or international
+    resdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    lastdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    // restdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    // lasttdg.datagrid((intl)?'hideColumn':'showColumn','Licencia'); // no existe campo 'Licencia' en resultados  equipos
+
+    $('#parciales_individual-Club').html(clubOrCountry());
+    $('#parciales_last_individual-Club').html(clubOrCountry());
+    // $('#finales_equipos-Club').html(clubOrCountry()); // doesn't exist :-)
+    $('#parciales_last_equipos-Club').html(clubOrCountry());
+
+    // load empty data and expand to max width
+    resdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+    lastdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+    restdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+    lasttdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+    calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
 }

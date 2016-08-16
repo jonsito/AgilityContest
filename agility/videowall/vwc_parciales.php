@@ -170,17 +170,26 @@ Pantalla de de visualizacion combinada llamada/parciales
             if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
             return true;
         },
-        onLoadSuccess: function() {
-            var mySelf=$('#parciales_individual-datagrid');
-            // set club/country
-            $('#parciales_individual-Club').html(clubOrCountry());
-            // on international contests hide license, and enlarge name to allow pedigree name
-            if (isInternational(workingData.federation)) {
-                mySelf.datagrid('hideColumn','Licencia');
-                mySelf.datagrid('autoSizeColumn','Nombre');
-            }
-            mySelf.datagrid('fitColumns'); // expand to max width
-            mySelf.datagrid('scrollTo',0); // point to first result
+        onLoadSuccess: function(data) {
+            if (data.total==0) return; // no data yet
+            $(this).datagrid('autoSizeColumn','Nombre');
+            $(this).datagrid('fitColumns'); // expand to max width
+            $(this).datagrid('scrollTo',0); // point to first result
+        }
+    });
+
+    $('#parciales_equipos-datagrid').datagrid({
+        onBeforeLoad: function (param) {
+            // do not update until 'open' received
+            if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
+            return true;
+        },
+        onLoadSuccess: function(data) {
+            if (data.total==0) return; // no data yet
+            $(this).datagrid('expandRow',0); // expand 2 first rows
+            $(this).datagrid('expandRow',1);
+            $(this).datagrid('scrollTo',0); // point to first result
+            $(this).datagrid('fixDetailRowHeight');
         }
     });
 
@@ -222,19 +231,6 @@ Pantalla de de visualizacion combinada llamada/parciales
             { field:'Celo',	        width:'5%',  align:'center', title: '<?php _e('Heat'); ?>',formatter:formatCelo }
         ]],
         rowStyler:myLlamadaRowStyler,
-        onLoadSuccess: function(data) {
-            var mySelf=$('#vwc_llamada-datagrid');
-            // show/hide team name
-            if (isJornadaEquipos(null) ) {
-                mySelf.datagrid('hideColumn','NombreClub');
-                mySelf.datagrid('showColumn','NombreEquipo');
-            } else  {
-                mySelf.datagrid('hideColumn','NombreEquipo');
-                mySelf.datagrid('showColumn','NombreClub');
-            }
-            mySelf.datagrid('fitColumns'); // expand to max width
-
-        },
         onBeforeLoad: function(param) {
             // do not update until 'open' received
             if( $('#vwc_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
@@ -275,7 +271,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         'init': function (event, time) { // operator starts tablet application
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateHeaderAndFooter(e,d);
-                setParcialIndividualOrTeamView(d); // fix individual or team view for final results
+                vwcp_configureScreenLayout(d); // fix individual or team view for final results
                 clearParcialRoundInformation();
                 vwcp_updateLlamada(e,d);
             });
@@ -283,7 +279,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateHeaderAndFooter(e,d);
-                setParcialIndividualOrTeamView(d); // fix individual or team view for final results
+                vwcp_configureScreenLayout(d); // fix individual or team view for final results
                 updateParciales(d.Ronda.Mode,d);
                 vwcp_updateLlamada(e,d);
             });

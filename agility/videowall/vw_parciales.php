@@ -92,17 +92,26 @@ $('#parciales_individual-datagrid').datagrid({
         if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
         return true;
     },
-    onLoadSuccess: function() {
-        var mySelf=$('#parciales_individual-datagrid');
-        // set club/country
-        mySelf.datagrid('options').columns[0][6].title=clubOrCountry();
-        // on international contests hide license, and enlarge name to allow pedigree name
-        if (isInternational(workingData.federation)) {
-            mySelf.datagrid('hideColumn','Licencia');
-            mySelf.datagrid('autoSizeColumn','Nombre');
-        }
-        mySelf.datagrid('fitColumns'); // expand to max width
-        mySelf.datagrid('scrollTo',0); // point to first result
+    onLoadSuccess: function(data) {
+        if (data.total==0) return; // no data yet
+        $(this).datagrid('autoSizeColumn','Nombre');
+        $(this).datagrid('fitColumns'); // expand to max width
+        $(this).datagrid('scrollTo',0); // point to first result
+    }
+});
+
+$('#parciales_equipos-datagrid').datagrid({
+    onBeforeLoad: function (param) {
+        // do not update until 'open' received
+        if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
+        return true;
+    },
+    onLoadSuccess: function(data) {
+        if (data.total==0) return; // no data yet
+        $(this).datagrid('expandRow',0); // expand 2 first rows
+        $(this).datagrid('expandRow',1);
+        $(this).datagrid('scrollTo',0); // point to first result
+        $(this).datagrid('fixDetailRowHeight');
     }
 });
 
@@ -111,7 +120,7 @@ var eventHandler= {
     'init': function(event) { // operator starts tablet application
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
-            setParcialIndividualOrTeamView(d); // fix individual or team view for final results
+            vwcp_configureScreenLayout(d); // fix individual or team view for final results
             clearParcialRoundInformation();
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
             $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
@@ -120,7 +129,7 @@ var eventHandler= {
     'open': function(event){ // operator select tandac
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
-            setParcialIndividualOrTeamView(d); // fix individual or team view for final results
+            vwcp_configureScreenLayout(d); // fix individual or team view for final results
             updateParciales(d.Ronda.Mode,d);
         });
     },

@@ -71,15 +71,7 @@ $config =Config::getInstance();
         idField: 'Perro',
         rowStyler:myRowStyler ,
         onLoadSuccess: function() {
-            var mySelf=$('#parciales_last_individual-datagrid');
-            // set club/country
-            $('#parciales_last_individual-Club').html(clubOrCountry());
-            // on international contests hide license, and enlarge name to allow pedigree name
-            if (isInternational(workingData.federation)) {
-                mySelf.datagrid('hideColumn','Licencia');
-                mySelf.datagrid('autoSizeColumn','Nombre');
-            }
-            mySelf.datagrid('fitColumns'); // expand to max width
+            $(this).datagrid('autoSizeColumn','Nombre').datagrid('fitColumns'); // adjust name width and expand to max width
         }
     });
 </script>
