@@ -66,7 +66,7 @@ class Entrenamientos extends DBObject {
         if (!$res) return $this->error($this->conn->error);
         // analizamos datos, añadiento tiempos
         $clubes=array();
-        $orden=0;
+        $orden=1;
         foreach ($res['rows'] as $item) {
             $idclub=intval($item['Club']);
             // if entry not created, time to do

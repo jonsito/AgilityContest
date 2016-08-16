@@ -187,6 +187,7 @@ function myLlamadaRowStyler(idx,row) {
     	<div class="fitem">
        		<label for="Vista"><?php _e('Select View'); ?>:</label>
        		<select id="selvw-Vista" name="Vista" style="width:200px">
+				<option value="4"><?php _e('Training session'); ?></option>
 				<option value="0"><?php _e('Starting order'); ?></option>
 				<option value="1"><?php _e('Live Stream'); ?></option>
 				<option value="2"><?php _e('Partial scores'); ?></option>
@@ -303,6 +304,10 @@ function ls_accept() {
 			break;
 		case 3: // Resultados finales
 			page = "/agility/livestream/vwls_finales.php?combined="+ac_config.vw_combined;
+			title +="( Overlay - "+combinedstr+" )";
+			break;
+		case 4: // sesion de entrenamientos
+			page = "/agility/livestream/vwls_entrenamientos.php?combined="+ac_config.vw_combined;
 			title +="( Overlay - "+combinedstr+" )";
 			break;
 	}
