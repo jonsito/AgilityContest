@@ -77,7 +77,11 @@ function vwls_showData(data) {
 		$('#vwls_Numero').html(numero);
 		$('#vwls_Dorsal').html(dorsal );
 		$('#vwls_Perro').html(res["ID"]);
-		$('#vwls_Nombre').html(res["Nombre"]);
+
+		// take care on Test dog and intl contests
+		var perro=res['Nombre']; // may contain "Test dog"
+		if (perro!=="<?php _e('Test dog');?>") perro= isInternational()? perro+" - "+res['NombreLargo'] : perro;
+		$('#vwls_Nombre').html(perro);
 		$('#vwls_Logo').attr("src","/agility/images/logos/getLogo.php?Federation="+res['Federation']+"&Logo="+res['LogoClub']);
 		$('#vwls_NombreGuia').html(res["NombreGuia"]);
 		$('#vwls_Cat').html(res["Categoria"]);
@@ -96,6 +100,7 @@ function vwls_showData(data) {
 			// en caso de perro en blanco, usa datos del perro por defecto
 			fillForm({
 				Nombre: 	"<?php _e('Test dog'); ?>",
+				NombreLargo:"",
 				ID:			0,
 				LogoClub:	"agilitycontest.png",
 				Federation:	"0",

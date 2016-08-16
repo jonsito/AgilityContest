@@ -128,6 +128,7 @@ pid.datagrid({
         return true;
     },
     onLoadSuccess: function(data) {
+        if (data.total==0) return; // no data yet
         $('#parciales_individual-datagrid').datagrid('scrollTo',0); // point to first result
     }
 });
@@ -146,9 +147,8 @@ $('#parciales_equipos-datagrid').datagrid({
     onLoadSuccess: function(data) {
         if (data.total==0) return; // no data yet
         var dg=$('#parciales_equipos-datagrid');
-        dg.datagrid('expandRow',0); // expand first row
         dg.datagrid('scrollTo',0); // point to first result
-        dg.datagrid('fixDetailRowHeight');
+        // at livestream no space to expand first row. so let remain hidden
     }
 });
 
@@ -160,7 +160,7 @@ var eventHandler= {
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
             clearParcialRoundInformation();
-            setParcialIndividualOrTeamView(d); // fix individual or team view for final results
+            vwcp_configureScreenLayout(d); // fix individual/team national/international view for final results
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
             $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
         });
@@ -168,7 +168,7 @@ var eventHandler= {
     'open': function(event){ // operator select tanda
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
-            setParcialIndividualOrTeamView(d); // fix individual or team view for final results
+            vwcp_configureScreenLayout(d); // fix individual/team national/international view for final results
             updateParciales(d.Ronda.Mode,d);
         });
     },

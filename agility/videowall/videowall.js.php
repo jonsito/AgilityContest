@@ -439,10 +439,11 @@ function vwcp_updateLlamada(evt,data) {
 			$("#vwls_Categoria").html(current['Categoria']);
 			$("#vwls_Grado").html(current['Grado']);
 			$("#vwls_Dorsal").html(current['Dorsal']);
-			// take care on Test dog
-			if (evt.Nombre==="<?php _e('Test dog');?>")
-                $("#vwls_Nombre").html(evt.Nombre);
-			else $("#vwls_Nombre").html(current['Nombre']);
+			// take care on Test dog and intl contests
+			var perro=current['Nombre'];
+			if (evt.Nombre==="<?php _e('Test dog');?>") perro= "<?php _e('Test dog');?>";
+			else perro= isInternational()? perro+" - "+current['NombreLargo'] : perro;
+			$("#vwls_Nombre").html(perro);
 			var celo=(current['Celo']!=0)?'<span class="blink"><?php _e("Heat");?></span>':"&nbsp";
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(current['NombreGuia']);
@@ -541,13 +542,14 @@ function vwcf_updateLlamada(evt,data) {
 			var current=dat['current'][0];
 			$("#vwls_Numero").html(current['Orden']);
 			$("#vwls_Logo").attr('src', '/agility/images/logos/' + current['LogoClub']);
-			$("#vwls_Perro").html(current['Perro']);
 			$("#vwls_Categoria").html(current['Categoria']);
 			$("#vwls_Grado").html(current['Grado']);
 			$("#vwls_Dorsal").html(current['Dorsal']);
-			if (evt.Nombre==="<?php _e('Test dog');?>")
-                $("#vwls_Nombre").html(evt.Nombre);
-            else $("#vwls_Nombre").html(current['Nombre']);
+			// take care on Test dog and intl contests
+			var perro=current['Nombre'];
+			if (evt.Nombre==="<?php _e('Test dog');?>") perro= "<?php _e('Test dog');?>";
+			else perro=isInternational()? perro+" - "+current['NombreLargo'] : perro;
+			$("#vwls_Nombre").html(perro);
 			var celo = (current['Celo'] != 0) ? '<span class="blink"><?php _e("Heat");?></span>' : "&nbsp";
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(current['NombreGuia']);

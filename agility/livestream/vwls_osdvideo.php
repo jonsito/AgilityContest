@@ -189,9 +189,9 @@ switch (parseInt(ac_config.vw_dataposition)) {
 // data for competitor box
 doLayout(layout,"#vwls_Datos",			10,		410,	390,	30 ); // background box
 doLayout(layout,"#vwls_Numero",			20,		416,	30,		50	);
-doLayout(layout,"#vwls_Logo",			50,		365,	70,		70	);
+doLayout(layout,"#vwls_Logo",			50,		365,	70,		70	); // may be redefined later for intl contests
 doLayout(layout,"#vwls_Dorsal",			125,	412,	25,		20	);
-doLayout(layout,"#vwls_Nombre",			150,	412,	200,	20	);
+doLayout(layout,"#vwls_Nombre",			150,	412,	220,	20	);
 doLayout(layout,"#vwls_NombreGuia",		125,	425,	140,	20	);
 doLayout(layout,"#vwls_NombreClub",		265,	425,	145,	20	);
 doLayout(layout,"#vwls_Celo",			370,	412,	30,		20	);
@@ -229,6 +229,9 @@ var eventHandler= {
 		vwls_showCompetitorInfo(0); // desactiva visualizacion de datos del competidor
 		vwls_showResultsInfo(0); // desactiva visualizacion de resultados
 		vw_updateWorkingData(event,function(e,d){
+			if (isInternational(null)) // decrease logo height to match "country flag" aspect sze
+				 doLayout(layout,"#vwls_Logo",			50,		390,	70,		45	);
+			else doLayout(layout,"#vwls_Logo",			50,		365,	70,		70	);
 			vw_updateHeaderAndFooter(e,d);
 		});
 	},

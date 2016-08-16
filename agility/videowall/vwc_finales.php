@@ -184,11 +184,10 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         onLoadSuccess: function(data) {
             if (data.total==0) return; // no data yet
-            var dg=$('#finales_equipos-datagrid');
-            dg.datagrid('expandRow',0); // expand 2 first rows
-            dg.datagrid('expandRow',1);
-            dg.datagrid('scrollTo',0); // point to first result
-            dg.datagrid('fixDetailRowHeight');
+            $(this).datagrid('expandRow',0); // expand 2 first rows
+            $(this).datagrid('expandRow',1);
+            $(this).datagrid('scrollTo',0); // point to first result
+            $(this).datagrid('fixDetailRowHeight');
         }
     });
 
@@ -240,8 +239,8 @@ Pantalla de de visualizacion combinada llamada/parciales
     doLayout(liveLayout,"#vwls_Numero",	        0,	    25,	    70,	    150	);
     doLayout(liveLayout,"#vwls_Logo",	        100,	10,	    120,	180	);
     doLayout(liveLayout,"#vwls_Dorsal",	        230,	10,	    80, 	100	);
-    doLayout(liveLayout,"#vwls_Nombre",	        335,    10,	    415,	100	);
-    doLayout(liveLayout,"#vwls_Celo",	        800,    10,	    100,	100	);
+    doLayout(liveLayout,"#vwls_Nombre",	        335,    10,	    560,	100	);
+    doLayout(liveLayout,"#vwls_Celo",	        900,    10,	    100,	100	);
     doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    460,	100	);
     doLayout(liveLayout,"#vwls_NombreClub",	    700,	100,    400,	100	);
     // doLayout(liveLayout,"#vwls_Categoria",	    0,	    0,	100,	100	);

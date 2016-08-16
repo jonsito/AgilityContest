@@ -171,6 +171,7 @@ $('#finales_individual-datagrid').datagrid({
         return true;
     },
     onLoadSuccess: function(data) {
+        if (data.total==0) return; // no data yet
         $('#finales_individual-datagrid').datagrid('scrollTo',0); // point to first result
     }
 });
@@ -185,9 +186,8 @@ fed.datagrid({
     },
     onLoadSuccess: function(data) {
         if (data.total==0) return; // no data yet
-        var dg=$('#finales_equipos-datagrid');
-        dg.datagrid('scrollTo',0); // point to first result
-        dg.datagrid('fixDetailRowHeight');
+        $(this).datagrid('scrollTo',0); // point to first result
+        // at livestream no space to expand first row. so let remain hidden
     }
 });
 
@@ -203,7 +203,7 @@ var eventHandler= {
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
             clearFinalRoundInformation();
-            setFinalIndividualOrTeamView(d); // fix individual or team view for final results
+            vwcf_configureScreenLayout(d); // fix individual/team national/international view for final results
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
             $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
         });
@@ -211,7 +211,7 @@ var eventHandler= {
     'open': function(event){ // operator select tanda
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
-            setFinalIndividualOrTeamView(d); // fix individual or team view for final results
+            vwcf_configureScreenLayout(d); // fix individual/team national/international view for final results
             updateFinales(0,d.Ronda);
         });
     },
