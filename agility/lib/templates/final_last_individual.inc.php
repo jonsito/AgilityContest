@@ -79,15 +79,7 @@ $config =Config::getInstance();
         pageSize: 500, // enought bit to make it senseless
         // columns declared at html section to show additional headers
         onLoadSuccess: function() {
-            var mySelf=$('#finales_last_individual-datagrid');
-            // set club/country
-            $('#finales_last_individual-Club').html(clubOrCountry());
-            // on international contests hide license, and enlarge name to allow pedigree name
-            if (isInternational(workingData.federation)) {
-                mySelf.datagrid('hideColumn','Licencia');
-                mySelf.datagrid('autoSizeColumn','Nombre');
-            }
-            mySelf.datagrid('fitColumns'); // expand to max width
+            $(this).datagrid('autoSizeColumn','Nombre').datagrid('fitColumns');
         }
     });
 </script>

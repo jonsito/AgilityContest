@@ -101,17 +101,10 @@ $('#finales_individual-datagrid').datagrid({
         return true;
     },
     onLoadSuccess: function(data) {
-        var mySelf=$('#finales_individual-datagrid');
-        // set club/country
-        $('#finales_individual-Club').html(clubOrCountry());
-        // on international contests hide license, and enlarge name to allow pedigree name
-        if (isInternational(workingData.federation)) {
-            mySelf.datagrid('hideColumn','Licencia');
-            mySelf.datagrid('autoSizeColumn','Nombre');
-        }
-        mySelf.datagrid('fitColumns'); // expand to max width
-        mySelf.datagrid('scrollTo',0); // point to first result
-        mySelf.datagrid('scrollTo',0); // point to first result
+        if (data.total==0) return; // no data yet
+        $(this).datagrid('autoSizeColumn','Nombre');
+        $(this).datagrid('fitColumns'); // expand to max width
+        $(this).datagrid('scrollTo',0); // point to first result
     }
 });
 
@@ -137,7 +130,7 @@ var eventHandler= {
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
             clearFinalRoundInformation();
-            setFinalIndividualOrTeamView(d); // fix individual or team view for final results
+            vwcf_configureScreenLayout(d); // fix individual or team view for final results
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
             $('#vw_header-NombreRonda').html("(<?php _e('No round selected');?>)");
         });
@@ -145,7 +138,7 @@ var eventHandler= {
     'open': function(event){ // operator select tanda
         vw_updateWorkingData(event,function(e,d){
             vw_updateHeaderAndFooter(e,d);
-            setFinalIndividualOrTeamView(d); // fix individual or team view for final results
+            vwcf_configureScreenLayout(d); // fix individual or team view for final results
             updateFinales(0,d.Ronda);
         });
     },

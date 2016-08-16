@@ -207,7 +207,10 @@ function howManyHeights(fed) {
 	return parseInt(ac_fedInfo[fed].Heights);
 
 }
+
 function isInternational(fed){
+	if (typeof(fed)==="undefined") fed=workingData.federation;
+	if (fed==null) fed=workingData.federation;
 	return (parseInt(ac_fedInfo[fed].International)!=0)?true:false;
 }
 

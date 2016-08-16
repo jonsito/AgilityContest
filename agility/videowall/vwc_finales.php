@@ -107,7 +107,7 @@ Pantalla de de visualizacion combinada llamada/parciales
                         <span id="vw_footer-footerData"></span>
                     </div>
                 </div>
-                <div data-options="region:'east'" style="width:76%"> <!-- ULTIMOS TRES RESULTADOS -->
+                <div id="finales_last-div" data-options="region:'east'" style="width:76%"> <!-- ULTIMOS TRES RESULTADOS -->
                     <div id="finales_last_individual-table" class="scores_table" style="width:100%">
                         <?php include_once(__DIR__ . "/../lib/templates/final_last_individual.inc.php"); ?>
                     </div>                    
@@ -169,16 +169,10 @@ Pantalla de de visualizacion combinada llamada/parciales
             return true;
         },
         onLoadSuccess: function(data) {
-            var mySelf=$('#finales_individual-datagrid');
-            // set club/country
-            $('#finales_individual-Club').html(clubOrCountry());
-            // on international contests hide license, and enlarge name to allow pedigree name
-            if (isInternational(workingData.federation)) {
-                mySelf.datagrid('hideColumn','Licencia');
-                mySelf.datagrid('autoSizeColumn','Nombre');
-            }
-            mySelf.datagrid('fitColumns'); // expand to max width
-            mySelf.datagrid('scrollTo',0); // point to first result
+            if (data.total==0) return; // no data yet
+            $(this).datagrid('autoSizeColumn','Nombre');
+            $(this).datagrid('fitColumns'); // expand to max width
+            $(this).datagrid('scrollTo',0); // point to first result
         }
     });
 
@@ -226,19 +220,6 @@ Pantalla de de visualizacion combinada llamada/parciales
             { field:'Celo',	        width:'5%', align:'center', title: '<?php _e('Heat'); ?>',formatter:formatCelo }
         ]],
         rowStyler:myLlamadaRowStyler,
-        onLoadSuccess: function(data) {
-            var mySelf=$('#vwc_llamada-datagrid');
-            // show/hide team name
-            if (isJornadaEquipos(null) ) {
-                mySelf.datagrid('hideColumn','NombreClub');
-                mySelf.datagrid('showColumn','NombreEquipo');
-            } else  {
-                mySelf.datagrid('hideColumn','NombreEquipo');
-                mySelf.datagrid('showColumn','NombreClub');
-            }
-            mySelf.datagrid('fitColumns'); // expand to max width
-
-        },
         onBeforeLoad: function(param) {
             // do not update until 'open' received
             if( $('#vwc_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
@@ -279,14 +260,14 @@ Pantalla de de visualizacion combinada llamada/parciales
         'init': function (event, time) { // operator starts tablet application
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateHeaderAndFooter(e,d); // fix header
-                setFinalIndividualOrTeamView(d); // fix individual or team view for final results
+                vwcf_configureScreenLayout(d); // fix individual/team national/international view for final results
                 vwcf_updateLlamada(e,d);
             });
         },
         'open': function (event, time) { // operator select tandaxx
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateHeaderAndFooter(e,d);
-                setFinalIndividualOrTeamView(d); // fix individual or team view for final results
+                vwcf_configureScreenLayout(d); // fix individual or team view for final results
                 vwcf_updateLlamada(e,d);
             });
         },
