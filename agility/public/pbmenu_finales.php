@@ -75,6 +75,20 @@ $('#pb_finales-panel').panel({
 	}
 });
 
+$('#finales_individual-datagrid').datagrid({
+    onBeforeLoad: function (param) {
+        // do not update until 'open' received
+        if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
+        return true;
+    },
+    onLoadSuccess: function(data) {
+        if (data.total==0) return; // no data yet
+        $(this).datagrid('autoSizeColumn','Nombre');
+        $(this).datagrid('fitColumns'); // expand to max width
+        // $(this).datagrid('scrollTo',0); // do not autoscroll: let the user decide
+    }
+});
+
 // fire autorefresh if configured
 function pbmenu_updateFinalesIndividual() {
     var rtime=parseInt(ac_config.web_refreshtime);
@@ -82,6 +96,7 @@ function pbmenu_updateFinalesIndividual() {
     if (rtime!=0) workingData.timeout=setTimeout(pbmenu_updateFinalesIndividual,1000*rtime);
 }
 
+vwcf_configureScreenLayout(null);  // dirty, but works: remove license, hanndle club/country and so
 setTimeout(function(){ $('#enumerateFinales').text(workingData.datosRonda.Nombre)},0);
 if (workingData.timeout!=null) clearTimeout(workingData.timeout);
 pbmenu_updateFinalesIndividual();

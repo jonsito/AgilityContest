@@ -81,10 +81,17 @@ $('#parciales_individual-datagrid').datagrid({
     onBeforeLoad: function(param) { // do not load if no manga selected
         if (workingData.manga==0) return false; // do not try to load if not variable initialized
         return true;
+    },
+    onLoadSuccess: function(data) {
+        if (data.total==0) return; // no data yet
+        $(this).datagrid('autoSizeColumn','Nombre');
+        $(this).datagrid('fitColumns'); // expand to max width
+        // $(this).datagrid('scrollTo',0); // do not autoscroll: let the user decide
     }
 });
 
 // fire autorefresh if configured
+vwcp_configureScreenLayout(null); // dirty, but works: remove license, hanndle club/country and so
 setTimeout(function(){ $('#enumerateParciales').text(workingData.nombreManga)},0);
 var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) {
