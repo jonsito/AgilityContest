@@ -68,6 +68,7 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <script src="/agility/lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
@@ -190,6 +191,7 @@ function myLlamadaRowStyler(idx,row) {
        		<select id="selvw-Vista" name="Vista" style="width:200px">
                 <optgroup label="<?php _e('Video Wall');?> ">
                     <!-- videowall -->
+					<option value="1"><?php _e('Training session'); ?></option>
                     <option value="0"><?php _e('Starting order'); ?></option>
 					<option value="2"><?php _e('Partial scores'); ?></option>
 					<option value="4"><?php _e('Final scores'); ?></option>
@@ -297,6 +299,25 @@ function vw_accept() {
         ac_config.vw_combined=0;
         ac_config.vwc_simplified=0;
 		break;
+	case 1: // sesion de entrenamientos
+		check_permissions(access_perms.ENABLE_TRAINING,function(res) {
+			if (res.errorMsg) {
+				$.messager.alert('License error','<?php _e("Current license has no permission to handle training sessions"); ?>',"error");
+				page=null;
+				return;
+			}
+			page="/agility/videowall/vw_entrenamientos.php";
+			ac_config.vw_combined=0;
+			ac_config.vwc_simplified=0;
+			$('#selvw-dialog').dialog('close');
+			$('#vw_contenido').load(
+				page,
+				function(response,status,xhr){
+					if (status=='error') $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+				}
+			);
+		});
+		return; // use return instead of break to avoid executin load twice
 	case 2: // Resultados Parciales
 		page="/agility/videowall/vw_parciales.php";
         ac_config.vw_combined=0;
@@ -329,7 +350,7 @@ function vw_accept() {
 		break;
 	}
 	$('#selvw-dialog').dialog('close');
-	$('#vw_contenido').load(	
+	$('#vw_contenido').load(
 			page,
 			function(response,status,xhr){
 				if (status=='error') $('#vw_contenido').load('/agility/console/frm_notavailable.php');

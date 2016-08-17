@@ -248,7 +248,7 @@ al servidor
 function check_access(perms,callback) {
     $.ajax({
         type:'GET',
-        url:"/agility/server/database/jornadaFunctions.php",
+        url:"/agility/server/adminFunctions.php",
         dataType:'json',
         data: {
             Operation:	'userlevel',

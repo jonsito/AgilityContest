@@ -605,10 +605,9 @@ function vw_updateOrdenSalida(evt,data) {
  * En funcion de public, videowall, tablet o livestream, ajustamos el datagrid y los contenidos
  * En funcion de federacion ajustamos, club, pais, categorias
  *
- * @param {object} dg jquery easyui datagrid object
- *@param {string} mode 'videowall' 'tablet' 'livestream' 'public'
+ *@param {object} dg jquery easyui datagrid object
  */
-function vw_setTrainingLayout(dg,mode) {
+function vw_setTrainingLayout(dg) {
     $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
     // fix country/club and reload datagrid
     dg.datagrid('setFieldTitle',{'field':'NombreClub','title':clubOrCountry()});

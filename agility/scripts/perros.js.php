@@ -285,7 +285,7 @@ function perros_importExportDogs() {
                     // import
                     check_permissions(access_perms.ENABLE_IMPORT, function (res) {
                         if (res.errorMsg) {
-                            $.messager.alert('License error',<?php _e("Current license has no Excel import function enabled"); ?>', "error");
+                            $.messager.alert('License error','<?php _e("Current license has no Excel import function enabled"); ?>', "error");
                         } else {
                             loadImportPages(); // make sure dialogs and scripts for interactive import are loaded into page
                             $('#perros-excel-dialog').dialog('open');
