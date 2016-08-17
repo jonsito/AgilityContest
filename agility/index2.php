@@ -145,6 +145,13 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
+        function pbmenu_loadTrainingSession(prueba) {
+            var p=<?php echo json_encode($ptree['Prueba']); ?>;
+            setPrueba(p);
+            pb_collapseMenu(true);
+            $('#pb_layout').layout('panel','east').panel('refresh',"/agility/public/pbmenu_entrenamientos.php");
+        }
+
         function pbmenu_loadTimeTable(prueba,jornada) {
             var p=<?php echo json_encode($ptree['Prueba']); ?>;
             var j=<?php echo json_encode($ptree['Jornadas']); ?>;
@@ -255,6 +262,10 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             <?php
             echon("<h2>{$ptree['Prueba']['Nombre']}</h2>");
             echon('<dl class="menu_enum">');
+            // si la licencia permite sesiones de entrenamiento las mostramos
+            if ( $am->allowed(ENABLE_TRAINING)) {
+                echon( '<dt><a href="javascript:pbmenu_loadTrainingSession('.$pruebaID.');">'._("Training session").'</a></dt><br/>');
+            }
             foreach ($ptree['Jornadas'] as $jornada) {
                 if ($jornada['Nombre']==='-- Sin asignar --') continue;
                 if (count($jornada['Mangas'])==0) continue; // no rounds, no print

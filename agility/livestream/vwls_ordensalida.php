@@ -111,7 +111,8 @@ $('#ordensalida-datagrid').datagrid({
         // do not update until 'open' received
         if( $('#vw_header-infoprueba').html()==='<?php _e('Header'); ?>') return false;
         return true;
-    }
+    },
+    rowStyler:lsRowStyler // override default
 });
 
 var eventHandler= {

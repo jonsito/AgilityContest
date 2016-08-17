@@ -60,7 +60,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Header'); ?></span>
 
                     <div style="float:right;padding:10px;text-align:right;">
-                        <span id="vw_header-texto"><?php _e('Training Session'); ?></span>
+                        <span id="vw_header-texto"><?php _e('Training session'); ?></span>
                         <span id="vw_header-ring" style="display:none"><?php _e('Ring'); ?></span>
                         <br />
                         <span id="vw_header-infomanga" style="display:none">(<?php _e('No round selected'); ?>)</span>

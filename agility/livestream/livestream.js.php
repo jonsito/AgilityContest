@@ -215,20 +215,3 @@ function vwls_displayPuesto(flag,time) {
 	},0);
 }
 
-/**
- * En funcion de public, videowall, tablet o livestream, ajustamos el datagrid y los contenidos
- * En funcion de federacion ajustamos, club, pais, categorias
- *
- * @param {object} dg jquery easyui datagrid object
- *@param {string} mode 'videowall' 'tablet' 'livestream' 'public'
- */
-function vw_setTrainingLayout(dg,mode) {
-    $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
-    // fix country/club and reload datagrid
-    dg.datagrid('options').columns[0][4].title=clubOrCountry();
-    dg.datagrid('showHeader',true);
-    // en funcion de la federacion se ajusta el numero de categorias
-    var cats=howManyHeights(workingData.federation);
-    dg.datagrid((cats==3)?'hideColumn':'showColumn','T');
-    dg.datagrid('fitColumns');
-}

@@ -43,7 +43,9 @@ function pb_getHeaderInfo(showJourney) {
         },
         success: function(data,status,jqxhr) {
             var str= data.Prueba.Nombre;
-            if (showJourney) str = str + '<br />' +  data.Jornada.Nombre;
+            if (data.Jornada) { // training session has no journey :-)
+                if (showJourney) str = str + '<br />' +  data.Jornada.Nombre;
+            }
             $('#pb_header-infocabecera').html(str);
             // on international competitions, use federation Organizer logo
             var logo='/agility/images/logos/'+data.Club.Logo;
@@ -66,6 +68,10 @@ function pb_setFooterInfo() {
         $('#pb_footer-logoFederation2').attr('src',logo2);
         $('#pb_footer-urlFederation2').attr('href',url2);
     });
+}
+
+function pb_updateEntrenamientos() {
+    $('#entrenamientos-datagrid').datagrid('reload');
 }
 
 function pb_updateOrdenSalida2(id) {
@@ -120,4 +126,20 @@ function pb_updatePrograma() {
         Jornada: workingData.jornada,
         Sesion: 0 // Set Session ID to 0 to include everything
     });
+}
+
+/**
+ * En funcion de public, videowall, tablet o livestream, ajustamos el datagrid y los contenidos
+ * En funcion de federacion ajustamos, club, pais, categorias
+ *
+ * @param {object} dg jquery easyui datagrid object
+ */
+function pb_setTrainingLayout(dg) {
+    $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
+    // fix country/club and reload datagrid
+    dg.datagrid('setFieldTitle',{'field':'NombreClub','title':clubOrCountry()});
+    // en funcion de la federacion se ajusta el numero de categorias
+    var cats=howManyHeights(workingData.federation);
+    dg.datagrid((cats==3)?'hideColumn':'showColumn','T');
+    dg.datagrid('fitColumns');
 }

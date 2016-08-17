@@ -45,7 +45,12 @@ $config =Config::getInstance();
         singleSelect: true,
         autoRowHeight: true,
         // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-        rowStyler:myRowStyler
+        rowStyler:myRowStyler,
+        onLoadSuccess: function(data) {
+            if (data['total']!=0) return;
+            $.messager.alert("No data",'<?php _e("This contest has no training session defined");?>','info');
+            workingData.timeout=null; // disable auto-refresh as no sense
+        }
         // other parameters will be initializated later
     });
 

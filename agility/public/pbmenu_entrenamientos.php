@@ -3,13 +3,12 @@ require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
-$am = new AuthManager("Public::entrenamientos");
+$am = new AuthManager("Public::inscripciones");
 if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.php"); return 0; }
-if ( ! $am->allowed(ENABLE_TRAINING)) { include_once("trainingnotallowed.php"); return 0;}
 ?>
 
 <!--
-pb_entrenamientos.inc
+pbmenu_inscripciones.inc
 
 Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -26,7 +25,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- Presentacion de las entrenamientos de la jornada -->
-<div id="pb_entrenamientos-window">
+<div id="pb_entrenamientos-panel">
 	<div id="pb_entrenamientos-layout" style="width:100%">
 		<div id="pb_entrenamientos-Cabecera" data-options="region:'north',split:false" style="height:10%;" class="pb_floatingheader">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateEntrenamientos();" href="#" style="float:left">
@@ -48,7 +47,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update training session info"); ?>');
 $('#pb_entrenamientos-layout').layout({fit:true});
-$('#pb_entrenamientos-window').window({
+$('#pb_entrenamientos-panel').panel({
 	fit:true,
 	noheader:true,
 	border:false,
@@ -56,23 +55,18 @@ $('#pb_entrenamientos-window').window({
 	collapsible:false,
 	collapsed:false,
 	resizable:false,
-	callback: null, 
-	// 1 minute poll is enouth for this, as no expected changes during a session
+	callback: null,
 	onOpen: function() {
         // generate header
-        pb_getHeaderInfo(false);
+        pb_getHeaderInfo();
         // generate footer
         pb_setFooterInfo();
-	},
-    onClose: function() {
-        // do not auto-refresh in inscriptions
-        // clearInterval($(this).window.defaults.callback);
-    }
+	}
 });
 
 var pbdg= $('#entrenamientos-datagrid');
 pbdg.datagrid({
-   rowStyler:pbRowStyler // override default
+    rowStyler:pbRowStyler // override default
 });
 
 pb_setTrainingLayout(pbdg);
@@ -80,12 +74,12 @@ pb_setTrainingLayout(pbdg);
 // fire autorefresh if configured
 var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!=0) {
-	function update() {
-		pb_updateEntrenamientos();
-		workingData.timeout= setTimeout(update,1000*rtime);
-	}
-	if (workingData.timeout!=null) clearTimeout(workingData.timeout);
-	update();
+    function update() {
+        pb_updateEntrenamientos();
+        workingData.timeout= setTimeout(update,1000*rtime);
+    }
+    if (workingData.timeout!=null) clearTimeout(workingData.timeout);
+    update();
 }
 
 </script>

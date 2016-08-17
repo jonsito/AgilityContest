@@ -76,6 +76,21 @@ $.extend($.fn.datagrid.methods, {
             alink[0].click();
             alink.remove();
         });
+    },
+    setFieldTitle: function(jq,data) {
+        return jq.each(function(){
+            // set datagrid options
+            var cols=$(this).datagrid('options').columns[0]; // no extra headers in my code
+            for (var n=0; n<cols.length;n++) {
+                if (cols[n].field!==data.field) continue; // not found: continue
+                cols[n].title=data.title; // found: set new title
+                break; // no need to continue iteration
+            }
+            // change rendered layout
+            var panel = $(this).datagrid('getPanel');
+            var fld = $('td[field='+data.field+']',panel);
+            if(fld.length) $('span', fld).eq(0).html(data.title);
+        });
     }
 });
 

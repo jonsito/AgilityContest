@@ -602,6 +602,23 @@ function vw_updateOrdenSalida(evt,data) {
 }
 
 /**
+ * En funcion de public, videowall, tablet o livestream, ajustamos el datagrid y los contenidos
+ * En funcion de federacion ajustamos, club, pais, categorias
+ *
+ * @param {object} dg jquery easyui datagrid object
+ *@param {string} mode 'videowall' 'tablet' 'livestream' 'public'
+ */
+function vw_setTrainingLayout(dg,mode) {
+    $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
+    // fix country/club and reload datagrid
+    dg.datagrid('setFieldTitle',{'field':'NombreClub','title':clubOrCountry()});
+    // en funcion de la federacion se ajusta el numero de categorias
+    var cats=howManyHeights(workingData.federation);
+    dg.datagrid((cats==3)?'hideColumn':'showColumn','T');
+    dg.datagrid('fitColumns');
+}
+
+/**
  * Generic event handler for VideoWall and LiveStream screens
  * Every screen has a 'eventHandler' table with pointer to functions to be called
  * @param id {number} Event ID
