@@ -8,6 +8,7 @@ require_once(__DIR__ . "/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Videowall::parciales");
 if ( ! $am->allowed(ENABLE_LIVESTREAM)) { include_once("unregistered.php"); return 0;}
+if ( ! $am->allowed(ENABLE_TRAINING)) { include_once("trainingnotallowed.php"); return 0;}
 $combined=http_request("combined","i",0);
 ?>
 <!--
@@ -115,7 +116,7 @@ var eventHandler= {
         vwls_enableOSD(1); // by default screen is visible
         vw_updateWorkingData(event,function(evt,data){
             var dg=$('#entrenamientos-datagrid');
-            vw_updateHeaderAndFooter(evt,data);
+            vw_updateHeaderAndFooter(evt,data,false);
             vw_setTrainingLayout(dg,'livestream');
         });
     },
@@ -123,7 +124,7 @@ var eventHandler= {
         vw_updateWorkingData(event,function(evt,data){
             // not really needed, but to avoid to reload tablet when livestream restarts
             var dg=$('#entrenamientos-datagrid');
-            vw_updateHeaderAndFooter(evt,data);
+            vw_updateHeaderAndFooter(evt,data,false);
             vw_setTrainingLayout(dg,'livestream');
         });
     },

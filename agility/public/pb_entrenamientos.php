@@ -5,7 +5,7 @@ require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Public::entrenamientos");
 if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.php"); return 0; }
-if ( ! $am->allowed(ENABLE_TRAINING)) { include_once("unregistered.php"); return 0; }
+if ( ! $am->allowed(ENABLE_TRAINING)) { include_once("trainingnotallowed.php"); return 0;}
 ?>
 
 <!--
@@ -29,14 +29,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_entrenamientos-window">
 	<div id="pb_entrenamientos-layout" style="width:100%">
 		<div id="pb_entrenamientos-Cabecera" data-options="region:'north',split:false" style="height:10%;" class="pb_floatingheader">
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateInscripciones();" href="#" style="float:left">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="$('#entrenamientos-datagrid').datagrid('reload');" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
             </a>
 		    <span style="float:left;padding:10px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
-			<span style="float:right;" id="pb_header-texto"><?php _e('Inscription list'); ?></span>
+			<span style="float:right;" id="pb_header-texto"><?php _e('Training session'); ?></span>
 		</div>
 		<div id="pb_entrenamientos-data" data-options="region:'center'" >
-			<span id="pb_entrenamientos-datagrid"></span>
+            <?php include_once(__DIR__."/../lib/templates/entrenamientos.inc.php");?>
 		</div>
         <div id="pb_entrenamientos-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>
@@ -50,7 +50,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 // var rtime=parseInt(ac_config.web_refreshtime);
 // if (rtime!=0) setInterval(pb_updateInscripciones,1000*rtime);
 
-addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update inscription list"); ?>');
+addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update training session info"); ?>');
 $('#pb_entrenamientos-layout').layout({fit:true});
 $('#pb_entrenamientos-window').window({
 	fit:true,
@@ -64,7 +64,7 @@ $('#pb_entrenamientos-window').window({
 	// 1 minute poll is enouth for this, as no expected changes during a session
 	onOpen: function() {
         // generate header
-        pb_getHeaderInfo();
+        pb_getHeaderInfo(false);
         // generate footer
         pb_setFooterInfo();
 	},
@@ -74,53 +74,5 @@ $('#pb_entrenamientos-window').window({
     }
 });
 
-$('#pb_entrenamientos-datagrid').datagrid({
-    width: '100%',
-    height: '100%',
-    pagination: false,
-    rownumbers: false,
-    fitColumns: true,
-    singleSelect: true,
-    loadMsg: '<?php _e('Updating inscriptions');?> ...',
-    url: '/agility/server/database/inscripcionFunctions.php',
-    queryParams: { Operation: 'inscritosbyjornada', Prueba:workingData.prueba, Jornada:workingData.jornada },
-    method: 'get',
-    autorowheight:true,
-    view: scrollview,
-    pageSize: 25,
-    columns: [[
-        { field:'ID',		hidden:true }, // inscripcion ID
-        { field:'Prueba',	hidden:true }, // prueba ID
-        { field:'Jornadas',	hidden:true }, // bitmask de jornadas inscritas
-        { field:'Perro',	hidden:true }, // dog ID
-        { field:'Equipo',	hidden:true }, // only used on Team contests
-        { field:'Guia', 	hidden:true }, // Guia ID
-        { field:'Club',		hidden:true }, // Club ID
-        { field:'LOE_RRC',	hidden:true }, // LOE/RRC
-        { field:'Club',		hidden:true }, // Club ID
-        { field:'Dorsal',	    width:'5%',   sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
-        { field:'LogoClub',	    width:'5%',    sortable:false, align: 'center',	title: '',formatter:formatLogo },
-        { field:'Nombre',	    width:'15%',   sortable:false, align: 'left',	title: '<?php _e('Name'); ?>',formatter:formatDogName },
-        { field:'Licencia',	    width:'9%',   sortable:false, align: 'center', title: '<?php _e('Lic');    ?>' },
-        { field:'Raza',         width:'11%',   sortable:false, align: 'right',  title: '<?php _e('Breed');   ?>' },
-        { field:'Categoria',    width:'6%',    sortable:false, align: 'center', title: '<?php _e('Cat');    ?>',formatter:formatCatGrad },
-        // { field:'Grado',	    width:'5',    sortable:false, align: 'center', title: '<?php _e('Grade');  ?>', formatter:formatGrado },
-        { field:'NombreGuia',	width:'19%',   sortable:false, align: 'right',	title: '<?php _e('Handler'); ?>' },
-        { field:'NombreClub',	width:'15%',   sortable:false, align: 'right',	title: clubOrCountry() },
-        { field:'NombreEquipo',	hidden:true },
-        { field:'Celo',		    width:'5%', align:'center', formatter: formatCelo,	title: '<?php _e('Heat');   ?>' },
-        { field:'Observaciones',width:'10%',   sortable:false, align: 'right',  title: '<?php _e('Comments');   ?>' }
-    ]],
-    // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-    rowStyler:pbRowStyler,
-    onLoadSuccess: function() {
-        // on international contests hide license, and enlarge name to allow pedigree name
-        if (isInternational(workingData.federation)) {
-            $(this).datagrid('hideColumn','Licencia');
-            $(this).datagrid('autoSizeColumn','Nombre');
-        }
-        $(this).datagrid('fitColumns'); // expand to max width
-    }
-});
 
 </script>

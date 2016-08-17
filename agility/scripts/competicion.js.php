@@ -856,7 +856,7 @@ function competicionDialog(name) {
     if (name==='entrenamientos') {
         check_permissions(access_perms.ENABLE_TRAINING,function(res) {
             if (res.errorMsg) {
-                $.messager.alert('License error',<?php _e("This license has no permission to handle training sessions"); ?>',"error");
+                $.messager.alert('License error','<?php _e("This license has no permission to handle training sessions"); ?>',"error");
             } else {
                 // abrimos ventana de dialogo
                 $('#entrenamientos-dialog').dialog('open').dialog('setTitle',' <?php _e("Training sesion"); ?>'+": "+workingData.nombrePrueba);

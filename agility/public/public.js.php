@@ -25,8 +25,10 @@ $config =Config::getInstance();
 
 /**
  * Obtiene la informacion de la prueba para cabecera y pie de pagina
+ * @
  */
-function pb_getHeaderInfo() {
+function pb_getHeaderInfo(showJourney) {
+    if (typeof(showJourney)==="undefined") showJourney=true;
     $.ajax( {
         type: "GET",
         dataType: 'json',
@@ -40,7 +42,8 @@ function pb_getHeaderInfo() {
             Mode: workingData.mode
         },
         success: function(data,status,jqxhr) {
-            var str='<?php _e("Contest"); ?>' + ': ' + data.Prueba.Nombre + '<br />' + '<?php _e("Journey"); ?>' + ': '+ data.Jornada.Nombre;
+            var str= data.Prueba.Nombre;
+            if (showJourney) str = str + '<br />' +  data.Jornada.Nombre;
             $('#pb_header-infocabecera').html(str);
             // on international competitions, use federation Organizer logo
             var logo='/agility/images/logos/'+data.Club.Logo;

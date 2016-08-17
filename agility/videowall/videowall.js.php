@@ -113,9 +113,11 @@ function vw_formatClasificacionesDatagrid(dg,evt,data,formatter) {
  * @param {object} evt received 'init' event
  * @param {object} data data associated with event
  */
-function vw_updateHeaderAndFooter(evt,data) {
+function vw_updateHeaderAndFooter(evt,data,showJourney) {
+	if (typeof(showJourney)==="undefined") showJourney=true;
     // update header
-    var infoprueba='<?php _e('Contest'); ?>'+': ' + data.Prueba.Nombre+' <br />'+'<?php _e('Journey'); ?>'+': '+ data.Jornada.Nombre;
+    var infoprueba= data.Prueba.Nombre;
+	if (showJourney) infoprueba = infoprueba + ' <br />'+ data.Jornada.Nombre;
     $('#vw_header-infoprueba').html(infoprueba);
     $('#vw_header-ring').html(data.Sesion.Nombre);
 	// on international competitions, use federation Organizer logo

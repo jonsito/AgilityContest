@@ -146,7 +146,8 @@ function myRowStyler2(idx,row) { return pbRowStyler2(idx,row); }
     	<div class="fitem">
        		<label for="public-Operation"><?php _e('Select View'); ?>:</label>
        		<select id="public-Operation" name="Operation" style="width:200px">
-       		<option value="inscritos"><?php _e('Inscription list'); ?></option>
+				<option value="inscritos"><?php _e('Inscription list'); ?></option>
+				<option value="entrenamientos"><?php _e('Training session'); ?></option>
        		<option value="ordensalida"><?php _e('Starting order'); ?></option>
        		<option value="parciales"><?php _e('Partial scores'); ?></option>
        		<option value="clasificaciones"><?php _e('Final scores'); ?></option>
@@ -262,6 +263,9 @@ function public_acceptSelection() {
 	case 'ordensalida':
 		page="/agility/public/pb_ordensalida.php";
 		break;
+	case 'entrenamientos':
+			page="/agility/public/pb_entrenamientos.php";
+			break;
 	case 'parciales':
         if (isJornadaEquipos(null) ) page="/agility/public/pb_parciales_equipos.php";
         else page="/agility/public/pb_parciales.php";
