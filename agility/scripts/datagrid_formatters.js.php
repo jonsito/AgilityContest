@@ -214,9 +214,9 @@ function formatOrdenLlamadaPista(val,row,idx) { if (val<=0) return ""; return '<
 function formatLlamadaGuia(val,row,idx) { if (row.Orden>0) return val; return '<span style="font-weight:bold;font-size:1.4em;">'+val+'</span>'; }
 
 function formatTrainingState(val,row,idx) {
-    if (row.Estado<0) return '<span style="font-weight:bold;color:#0000FF">'+val+'</span>';
-    if (row.Estado==0) return '<span style="font-weight:bold;color:#FF0000">'+val+'</span>';
-    if (row.Estado>0) return '<span style="font-weight:bold;color:#00FF00">'+val+'</span>';
+    if (row.Estado<0) return '<span style="font-weight:bold;color:#0000FF">'+(idx+1).toString()+'</span>';
+    if (row.Estado==0) return '<span style="font-weight:bold;color:#FF0000">'+(idx+1).toString()+'</span>';
+    if (row.Estado>0) return '<span style="font-weight:bold;color:#00FF00">'+(idx+1).toString()+'</span>';
 }
 /**
  * Return logo matching requested cell value

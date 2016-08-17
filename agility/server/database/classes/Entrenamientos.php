@@ -234,6 +234,58 @@ class Entrenamientos extends DBObject {
 		return $result;
 	}
 
+	private function getEmptyData($orden){
+	    $nextTime=time();
+        $gtime=intval($this->myConfig->getEnv("training_grace"));
+        return array(
+            'Prueba'    => $this->pruebaID,
+            'Orden'     => $orden,
+            'Club'      => 0,
+            'NombreClub'=> '',
+            'Fecha'     => date('Y-m-d',$nextTime),
+            'Firma'     =>date('Y-m-d H:i',$nextTime),
+            'Veterinario'=>date('Y-m-d H:i',$nextTime+120), // 2 minutes later
+            'Entrada'   =>date('Y-m-d H:i:s',$nextTime+3600), // 1 hour later
+            'Salida'    =>date('Y-m-d H:i:s',$nextTime+3600+$gtime),
+            'Total'     => 0,
+            'L'         => 0,
+            'M'         => 0,
+            'S'         => 0,
+            'T'         => 0,
+            '-'         => 0, // to avoid warnings on nonexistent
+            'Observaciones' => '',
+            'Estado'    => -1 // -1:pending 0:running 1:done
+        );
+    }
+
+    /**
+     * Retrieve next 10 elements starting at provided ID
+     * As Orden may not be consecutive, need to parse all entries, and reevaluate index
+     * when at end of list, fill with empty data
+     * @param $id
+     * @param int $count
+     */
+	function window($id,$size=10) {
+        $enum=$this->enumerate()['rows'];
+        $orden=0;
+        $result=array();
+        for ($idx=0;$idx<count($enum);$idx++) {
+            $orden++;
+            if( $enum[$idx]['ID']!=$id) continue;
+            $enum['Orden']=$orden; // override internal orden as may be non-consecutive
+            array_push($result,$enum[$idx]);
+            $size--;
+            if ($size==0) break;
+        }
+        // fill empty data until complete requested size
+        for(;$size>0;$size--) {
+            $orden++;
+            array_push($result,$this->getEmptyData($orden));
+        }
+        // reverse array
+        $res=array('total'=>count($result),'rows'=>array_reverse($result));
+    }
+
     /**
      * insert $from before(where==false) or after(where=true) $to
      * This dnd routine uses a Orden shift'ng: increase every remaining row order,

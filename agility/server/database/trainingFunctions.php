@@ -28,6 +28,7 @@ try {
 	$am= new AuthManager("trainingFunctions");
 	$operation=http_request("Operation","s",null);
     $id=http_request("ID","i",0);
+    $size=http_request("Size","i",10);
     $prueba=http_request("Prueba","i",0);
     $data=array(
         'Club'  =>    http_request("Club","i",0),
@@ -52,9 +53,10 @@ try {
 		case "clear": $am->access(PERMS_OPERATOR); $result=$train->clear(); break;
 		case "populate": $am->access(PERMS_OPERATOR); $result=$train->populate(); break;
 		case "select": $result=$train->select(); break; // list with order, index, count and where
-		case "enumerate": $result=$train->enumerate(); break; // list with where
+        case "enumerate": $result=$train->enumerate(); break; // list with where
+        case "window": $result=$train->window($id,$size); break; // list next $size items starting at $id
         case "selectbyid": $result=$train->selectByID($id); break;
-        case "dnd": $result=$train->dragAndDrop(); break;
+        case "dnd": $am->access(PERMS_OPERATOR); $result=$train->dragAndDrop(); break;
 		default: throw new Exception("trainningFunctions:: invalid operation: '$operation' provided");
 	}
 	if ($result===null) 

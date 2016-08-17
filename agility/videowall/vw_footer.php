@@ -28,7 +28,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <img id="vw_footer-logoFederation2" src="/agility/images/logos/agilitycontest.png" alt="" width="50"/>
         </a>
         <span style="display:inline-block;padding:12px;font-size:10px;font-style:oblique">
-            Powered by AgilityContest-<?php echo $config->getEnv('version_name'); ?> <br/>Copyright &copy; 2013-2016 JAMC
+            AgilityContest-<?php echo $config->getEnv('version_name'); ?> <br/>&copy; 2013-2016 JAMC
         </span>
     </span>
     <span style="float:right">
