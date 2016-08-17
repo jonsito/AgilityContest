@@ -109,6 +109,21 @@ const access_level = {
 	PERMS_ASSISTANT	:3,
 	PERMS_GUEST		:4,
 	PERMS_NONE		:5
+};
+
+// convert time seconds to hh:mm:ss or mm:ss
+function toHMS(time) {
+
+	function str_pad_left(string,pad,length) {
+		return (new Array(length+1).join(pad)+string).slice(-length);
+	}
+
+	var hours = Math.floor(time / 3600);
+	time = time - hours * 3600;
+	var minutes = Math.floor(time / 60);
+	var seconds = time - minutes * 60;
+	if (hours==0) return str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2);
+	else 	return str_pad_left(hours,'0',2)+':'+str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2);
 }
 
 /**

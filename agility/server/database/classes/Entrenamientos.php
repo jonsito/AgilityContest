@@ -262,20 +262,21 @@ class Entrenamientos extends DBObject {
      * Retrieve next 10 elements starting at provided ID
      * As Orden may not be consecutive, need to parse all entries, and reevaluate index
      * when at end of list, fill with empty data
-     * @param $id
+     * @param $id. entry id to start with. if zero start from the begining
      * @param int $count
      */
-	function window($id,$size=10) {
+	function window($id=0,$size=10) {
         $enum=$this->enumerate()['rows'];
         $orden=0;
         $result=array();
         for ($idx=0;$idx<count($enum);$idx++) {
             $orden++;
-            if( $enum[$idx]['ID']!=$id) continue;
+            if ( ($id!=0) && ( $enum[$idx]['ID']!=$id) ) continue; // not yet found; go to next
+            $id=0; // mark entry found
             $enum['Orden']=$orden; // override internal orden as may be non-consecutive
             array_push($result,$enum[$idx]);
             $size--;
-            if ($size==0) break;
+            if ($size==0) break; // enought entries, dont loop anymore
         }
         // fill empty data until complete requested size
         for(;$size>0;$size--) {
@@ -283,7 +284,7 @@ class Entrenamientos extends DBObject {
             array_push($result,$this->getEmptyData($orden));
         }
         // reverse array
-        $res=array('total'=>count($result),'rows'=>array_reverse($result));
+        return array('total'=>count($result),'rows'=>array_reverse($result));
     }
 
     /**

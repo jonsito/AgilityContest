@@ -156,6 +156,31 @@ function vwRowStyler2(idx,row) {
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
+/**
+ * rowStyler function for videowall simplified training session
+ * @param {int} idx Row index
+ * @param {object} row Row data
+ * @return {string} proper row style for given idx
+ */
+function vws_rowStyler(idx,row) {
+	var st=parseInt(row.Estado);
+	var t='<?php echo $config->getEnv('vws_linecolor'); ?>';
+	// var h=(st==0)?'5vw':'3.5vw';
+	var h=(idx==9)?'10vw':'3.5vw';
+	var res="height:"+h+";color:"+t+";background-color:";
+	var c1='<?php echo $config->getEnv('vws_rowcolor1'); ?>';
+	var c2='<?php echo $config->getEnv('vws_rowcolor2'); ?>';
+	var c3='<?php echo $config->getEnv('vws_rowcolor3'); ?>';
+	var c5='<?php echo $config->getEnv('vws_rowcolor5'); ?>';
+	var c6='<?php echo $config->getEnv('vws_rowcolor6'); ?>';
+	if (st==0) return res+c3+";";
+	if (st<0){
+		if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+	} else {
+		if ( (idx&0x01)==0) { return res+c5+";"; } else { return res+c6+";"; }
+	}
+}
+
 function myRowStyler(idx,row) { return vwRowStyler(idx,row); }
 function myRowStyler2(idx,row) { return vwRowStyler2(idx,row); }
 
@@ -201,6 +226,7 @@ function myLlamadaRowStyler(idx,row) {
 					<option value="8"><?php _e('Call to ring '); ?> / <?php _e('Final scores'); ?></option>
 				</optgroup>
 				<optgroup label="<?php _e('Simplified');?> ">
+					<option value="6"><?php _e('Training session'); ?> (<?php _e('simplified'); ?>)</option>
 					<option value="3"><?php _e('Partial Scores'); ?> (<?php _e('simplified'); ?>)</option>
 					<option value="9"><?php _e('Final Scores'); ?> (<?php _e('simplified'); ?>)</option>
 				</optgroup>
@@ -333,6 +359,25 @@ function vw_accept() {
         ac_config.vw_combined=0;
         ac_config.vwc_simplified=0;
 		break;
+	case 6: // entrenamientos simplificado
+		check_permissions(access_perms.ENABLE_TRAINING,function(res) {
+			if (res.errorMsg) {
+				$.messager.alert('License error','<?php _e("Current license has no permission to handle training sessions"); ?>',"error");
+				page=null;
+				return;
+			}
+			page="/agility/videowall/vws_entrenamientos.php";
+			ac_config.vw_combined=0;
+			ac_config.vwc_simplified=0;
+			$('#selvw-dialog').dialog('close');
+			$('#vw_contenido').load(
+				page,
+				function(response,status,xhr){
+					if (status=='error') $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+				}
+			);
+		});
+		return; // use return instead of break to avoid executin load twice
 	case 7: // pantalla combinada ( Resultados parciales )
 		page="/agility/videowall/vwc_parciales.php";
         ac_config.vw_combined=1;

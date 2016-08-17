@@ -84,7 +84,6 @@ class VideoWall {
             $rondas=Jornadas::enumerateRondasByJornada($jornadaid)['rows'];
             foreach($rondas as $ronda) {
                 $cat=Tandas::$tipo_tanda[$this->tandatype]['Categoria'];
-                $this->myLogger->trace("MangaID {$this->mangaid} Cat: $cat Ronda: ".json_encode($ronda));
                 if ($ronda['Manga1']==$this->mangaid) {
                     foreach( str_split($cat) as $c) {
                         if (strpos($ronda['Categoria'],$c)===false) continue;
@@ -108,8 +107,7 @@ class VideoWall {
             if($a!==FALSE) $str=substr($str,0,$a);
             $this->manga['Nombre']=$str;
         }
-
-		$this->myLogger->info("sesion:$sessionid prueba:{$this->prueba['ID']} jornada:{$this->jornada['ID']} manga:{$this->mangaid} tanda:{$this->tandatype} mode:$mode");
+		// $this->myLogger->info("sesion:$sessionid prueba:{$this->prueba['ID']} jornada:{$this->jornada['ID']} manga:{$this->mangaid} tanda:{$this->tandatype} mode:$mode");
 	}
 
     function isTeam() {

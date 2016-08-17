@@ -218,6 +218,8 @@ function formatTrainingState(val,row,idx) {
     if (row.Estado==0) return '<span style="font-weight:bold;color:#FF0000">'+(idx+1).toString()+'</span>';
     if (row.Estado>0) return '<span style="font-weight:bold;color:#00FF00">'+(idx+1).toString()+'</span>';
 }
+function formatTrainingTime(val,row,idx) { return toHMS(val * ac_config.training_time); }
+
 /**
  * Return logo matching requested cell value
  * @param val logo name
