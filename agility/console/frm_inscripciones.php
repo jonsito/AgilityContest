@@ -105,7 +105,7 @@ function acceptSelectPrueba() {
 	}
 	$('#selprueba-window').window('close');
 	var extradlgs={'inscripciones':'#new_inscripcion-dialog','equipos':'#team_datagrid-dialog','import':'#inscripciones-excel-dialog'};
-	check_perms(access_level.PERMS_OPERATOR,function() {loadContents(page,title,extradlgs);});
+	check_softLevel(access_level.PERMS_OPERATOR,function() {loadContents(page,title,extradlgs);});
 }
 
 function cancelSelectPrueba() {

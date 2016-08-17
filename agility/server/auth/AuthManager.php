@@ -28,7 +28,7 @@ define ("PERMS_OPERATOR",2);
 define ("PERMS_ASSISTANT",3);
 define ("PERMS_GUEST",4);
 define ("PERMS_NONE",5);
-define ("PERMS_CHRONO",6);
+define ("PERMS_CHRONO",6); // special case to handle electronic chrono hardware. should be revisited
 
 // permisos de ejecucion
 define ("ENABLE_IMPORT",1);		// permite importar datos desde ficheros excel
@@ -40,6 +40,7 @@ define ("ENABLE_PUBLIC",32);    // permite acceso publico web
 define ("ENABLE_CHRONO",64);    // permite gestion desde cronometro
 define ("ENABLE_ULIMIT",128);   // permite numero de inscripciones ilimitadas
 define ("ENABLE_LIVESTREAM",256);// permite funciones de live-streaming y chroma-key
+define ("ENABLE_TRAINING",512); // permite gestion de sesiones de entrenamiento
 
 // datos de registro
 define('AC_REGINFO_FILE' , __DIR__."/registration.info");
@@ -387,7 +388,7 @@ class AuthManager {
 	function setPerms($level) { $this->level=$level; }
 	
 	/* 
-	 * check permissions on current session token against required level
+	 * check level on current session token against required level
 	 */
 	function access($requiredlevel) {
 		if ($requiredlevel==PERMS_CHRONO) {
@@ -396,6 +397,16 @@ class AuthManager {
 		}
 		if ($requiredlevel>=$this->level) return true;
 		throw new Exception("Insufficient credentials:({$this->level}) required: $requiredlevel");
+	}
+
+	/**
+	 * Comprueba si la licencia actual tiene permisos para realizar la operacion indicada
+	 * @param $requestedperm
+	 */
+	function permissions($requestedperm) {
+		if ($this->allowed($requestedperm)==0)
+			throw new Exception("Current license has no perms for requested operation: $requestedperm");
+		return true;
 	}
 
     function allowed($feature) {

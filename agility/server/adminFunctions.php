@@ -314,8 +314,10 @@ try {
 	$am= new AuthManager("adminFunctions");
     $adm= new Admin("adminFunctions",$am);
 	switch ($operation) {
-		case "access":
+		case "userlevel":
 			$am->access($perms); $result=array('success'=>true); break;
+		case "permissions":
+			$am->permissions($perms); $result=array('success'=>true); break;
 		case "backup":
 			/* $am->access(PERMS_ADMIN); */
 			$result=$adm->backup();	break;

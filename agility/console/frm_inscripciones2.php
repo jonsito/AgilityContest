@@ -251,7 +251,7 @@ $('#inscripciones-datagrid').datagrid({
 });
 
 // set visibility of read-only warning
-$('#inscripciones-readonly').css('display',check_perms(access_level.PERMS_OPERATOR,null)?'none':'inline-block');
+$('#inscripciones-readonly').css('display',check_softLevel(access_level.PERMS_OPERATOR,null)?'none':'inline-block');
 
 // key handler
 addSimpleKeyHandler('#inscripciones-jornadas',null,editJornadaFromPrueba);

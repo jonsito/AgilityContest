@@ -164,9 +164,9 @@ function openTeamWindow(pruebaID) {
 	}
     // comprobamos si tenemos permiso para manejar jornadas por equipos
     setJornada(row);
-    check_access(workingData.prueba,workingData.jornada,0,function(res) {
+    check_access(access_perms.ENABLE_TEAMS,function(res) {
         if (res.errorMsg) {
-            $.messager.alert('<?php _e("Access denied"); ?>',res.errorMsg,"error");
+            $.messager.alert('<?php _e("Current License has no permissions to handle Team Journeys"); ?>',res.errorMsg,"error");
         } else {
             // allright: marcamos jornada como activa, recargamos lista de equipos y abrimos ventana
             $('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});

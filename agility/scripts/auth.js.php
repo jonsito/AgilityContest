@@ -198,38 +198,20 @@ function send_regFile() {
 }
 
 /*
-Comprueba si el usuario tiene privilegios suficientes para realizar la operacion indicada en callback
-(admin,operator,assistant,guest)
-En caso de no tener privilegios avisa, pero deja continuar
-Si callback es null, simplemente retorna true o false
- */
-function check_perms(perm,callback) {
-	if (typeof(callback) !== 'function') {
-		return (ac_authInfo.Perms<=perm)?true:false;
-	}
-	if (ac_authInfo.Perms<=perm) { callback(); return;}
-	$.messager.alert(
-		'<?php _e("Permissions");?>',
-		'<?php _e("Current user has not enought level to make changes <br/>Read-only access enabled");?>',
-		'warning',
-		callback
-	);
-}
-
-/*
 Same as above, but use ajax call to retrieve real permissions from server
  */
-function checkRemotePerms(perms, callback) {
+function check_permissions(perms, callback) {
 	$.ajax({
 		type: "GET",
 		url: '/agility/server/adminFunctions.php',
-		data: {	'Operation' : 'access','Perms':perms },
+		data: {
+			'Operation' : 'permissions',
+			'Perms':perms
+		},
 		async: true,
 		cache: false,
 		dataType: 'json',
-		success: function(data){
-			callback( (data.errorMsg)?false:true);
-		},
+		success: function(data){ callback( data); },
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
 			alert("error: "+textStatus + " "+ errorThrown );
 		}
@@ -237,18 +219,39 @@ function checkRemotePerms(perms, callback) {
 }
 
 /*
+ Comprueba si el usuario tiene privilegios suficientes para realizar la operacion indicada en callback
+ (admin,operator,assistant,guest)
+ En caso de no tener privilegios avisa, pero deja continuar
+ Si callback es null, simplemente retorna true o false
+ */
+function check_softLevel(perm,callback) {
+	if (typeof(callback) !== 'function') {
+		return (ac_authInfo.Perms<=perm);
+	}
+	if (ac_authInfo.Perms>perm) {
+		$.messager.alert(
+			'<?php _e("User level");?>',
+			'<?php _e("Current user has not enought level to make changes <br/>Read-only access enabled");?>',
+			'warning',
+			null
+		);
+	}
+	callback();
+}
+
+/*
 Comprueba si la licencia tiene habilitado el permiso para acceder a la funcionalidad deseada
 ( pruebas por equipos, ko, videomarcador, etc )
-Por seguridad, los permisos no se envian nunca al cliente, por lo que es necesaria una llamada
+Por seguridad, los permisos no se comprueban nunca en el cliente, por lo que es necesaria una llamada
 al servidor
  */
-function check_access(p,j,perms,callback) {
+function check_access(perms,callback) {
     $.ajax({
         type:'GET',
         url:"/agility/server/database/jornadaFunctions.php",
         dataType:'json',
         data: {
-            Operation:	'access',
+            Operation:	'userlevel',
             Prueba:	workingData.prueba,
             ID:workingData.jornada,
             Perms : perms

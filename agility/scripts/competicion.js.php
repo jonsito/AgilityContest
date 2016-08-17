@@ -854,10 +854,17 @@ function competicionDialog(name) {
     $('#competicion-dialog').dialog('close');
     $('#resultadosmanga-dialog').dialog('close');
     if (name==='entrenamientos') {
-        // abrimos ventana de dialogo
-        $('#entrenamientos-dialog').dialog('open').dialog('setTitle',' <?php _e("Training sesion"); ?>'+": "+workingData.nombrePrueba);
-        // cargamos ventana de orden de salida
-        reloadEntrenamientos();
+        check_permissions(access_perms.ENABLE_TRAINING,function(res) {
+            if (res.errorMsg) {
+                $.messager.alert('License error',<?php _e("This license has no permission to handle training sessions"); ?>',"error");
+            } else {
+                // abrimos ventana de dialogo
+                $('#entrenamientos-dialog').dialog('open').dialog('setTitle',' <?php _e("Training sesion"); ?>'+": "+workingData.nombrePrueba);
+                // cargamos ventana de orden de salida
+                reloadEntrenamientos();
+            }
+            return false; // prevent default fireup of event trigger
+        });
     }
     if (name==='ordentandas') {
         // abrimos ventana de dialogo

@@ -267,7 +267,7 @@ function importExportInscripciones() {
 	};
 	$.messager.radio(
 		'<?php _e('Excel import/export'); ?>',
-		'<?php _e('Select from available operations'); ?>:',
+		'<?php _e('Choose from available operations'); ?>:',
 		options,
 		function(r) {
             var opt=parseInt(r);
@@ -285,8 +285,15 @@ function importExportInscripciones() {
                     }
                 );
             } else { // import
-                loadImportPages(); // make sure dialogs and scripts for interactive import are loaded into page
-                $('#inscripciones-excel-dialog').dialog('open');
+                check_permissions(access_perms.ENABLE_IMPORT, function (res) {
+                    if (res.errorMsg) {
+                        $.messager.alert('License error',<?php _e("Current license has no Excel import function enabled"); ?>', "error");
+                    } else {
+                        loadImportPages(); // make sure dialogs and scripts for interactive import are loaded into page
+                        $('#inscripciones-excel-dialog').dialog('open');
+                    }
+                    return false; // prevent default fireup of event trigger
+                });
             }
 		}
 	).window('resize',{width:530});

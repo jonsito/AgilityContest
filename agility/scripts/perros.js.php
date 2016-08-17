@@ -282,8 +282,16 @@ function perros_importExportDogs() {
                     print_listaPerros('excel');
                     break;
                 case 1:
-                    loadImportPages(); // make sure dialogs and scripts for interactive import are loaded into page
-                    $('#perros-excel-dialog').dialog('open');
+                    // import
+                    check_permissions(access_perms.ENABLE_IMPORT, function (res) {
+                        if (res.errorMsg) {
+                            $.messager.alert('License error',<?php _e("Current license has no Excel import function enabled"); ?>', "error");
+                        } else {
+                            loadImportPages(); // make sure dialogs and scripts for interactive import are loaded into page
+                            $('#perros-excel-dialog').dialog('open');
+                        }
+                        return false; // prevent default fireup of event trigger
+                    });
                     break;
             }
         }).window('resize',{width:550});

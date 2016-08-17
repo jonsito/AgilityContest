@@ -89,13 +89,16 @@ function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); }
 
 // permisos de ejecucion
 const access_perms = {
-    ENABLE_IMPORT   :1,  // permite importar datos desde Excel
-    ENABLE_TEAMS    :2,  // permite gestionar pruebas de equipos
-    ENABLE_KO       :4,  // permite gestionar pruebas K.O
-    ENABLE_SPECIAL  :8,  // permite gestionar pruebas de mangas multiples
-    ENABLE_VIDEOWALL:16, // permite acceso desde videomarcador
-    ENABLE_PUBLIC   :32, // permite acceso publico web
-    ENABLE_CHRONO   :64 // permite gestion desde cronometro
+    ENABLE_IMPORT   :  1,  // permite importar datos desde Excel
+    ENABLE_TEAMS    :  2,  // permite gestionar pruebas de equipos
+    ENABLE_KO       :  4,  // permite gestionar pruebas K.O
+    ENABLE_SPECIAL  :  8,  // permite gestionar pruebas de mangas multiples
+    ENABLE_VIDEOWALL:  16, // permite acceso desde videomarcador
+    ENABLE_PUBLIC   :  32, // permite acceso publico web
+    ENABLE_CHRONO   :  64, // permite gestion desde cronometro
+	ENABLE_ULIMIT   :  128,// permite numero de inscripciones ilimitadas
+	ENABLE_LIVESTREAM: 256,// permite funciones de live-streaming y chroma-key
+	ENABLE_TRAINING	:  512 // permite gestion de sesiones de entrenamiento
 };
 
 // permisos de acceso
