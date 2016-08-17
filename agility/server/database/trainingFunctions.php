@@ -40,7 +40,8 @@ try {
         'Ring2'  =>   http_request("Ring2","s",""),
         'Ring3'  =>   http_request("Ring3","s",""),
         'Ring4'  =>   http_request("Rin4","s",""),
-        'Observaciones' => http_request("Observaciones","s","")
+        'Observaciones' => http_request("Observaciones","s",""),
+        'Estado' => http_request("Observaciones","i",-1), // -1:peonding 0:running 1:done
     );
 	if ($operation===null) throw new Exception("Call to trainingFunctions without 'Operation' requested");
 	$train= new Entrenamientos("trainingFunctions",$prueba);

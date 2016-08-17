@@ -213,6 +213,11 @@ function formatDorsal(val,row,idx) { return '<span style="font-size:1.5em;font-w
 function formatOrdenLlamadaPista(val,row,idx) { if (val<=0) return ""; return '<span style="font-weight:bold;font-size:1.5em;">'+val+'</span>'; }
 function formatLlamadaGuia(val,row,idx) { if (row.Orden>0) return val; return '<span style="font-weight:bold;font-size:1.4em;">'+val+'</span>'; }
 
+function formatTrainingState(val,row,idx) {
+    if (row.Estado<0) return '<span style="font-weight:bold;color:#0000FF">'+val+'</span>';
+    if (row.Estado==0) return '<span style="font-weight:bold;color:#FF0000">'+val+'</span>';
+    if (row.Estado>0) return '<span style="font-weight:bold;color:#00FF00">'+val+'</span>';
+}
 /**
  * Return logo matching requested cell value
  * @param val logo name

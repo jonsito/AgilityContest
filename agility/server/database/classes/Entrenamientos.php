@@ -87,7 +87,8 @@ class Entrenamientos extends DBObject {
                     'S'         => 0,
                     'T'         => 0,
                     '-'         => 0, // to avoid warnings on nonexistent
-                    'Observaciones' => ""
+                    'Observaciones' => "",
+                    'Estado'    => -1 // -1:pending 0:running 1:done
                 );
                 $clubes[$idclub]=$nuevoclub;
             }
@@ -113,11 +114,11 @@ class Entrenamientos extends DBObject {
         $this->clear();
         // to speedup, use prepared statements
         // componemos un prepared statement (para evitar sql injection)
-        $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Entrada,Salida,L,M,S,T,Observaciones)
-			   VALUES({$this->pruebaID},?,?,?,?,?,?,?,?,?,?,?,?)";
+        $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Entrada,Salida,L,M,S,T,Observaciones,Estado)
+			   VALUES({$this->pruebaID},?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $stmt=$this->conn->prepare($sql);
         if (!$stmt) return $this->error($this->conn->error);
-        $res=$stmt->bind_param('iisssssiiiis',$idx,$clb,$fecha,$firma,$vet,$ent,$sal,$l,$m,$s,$t,$obs);
+        $res=$stmt->bind_param('iisssssiiiis',$idx,$clb,$fecha,$firma,$vet,$ent,$sal,$l,$m,$s,$t,$obs,$st);
         if (!$res) return $this->error($this->conn->error);
         foreach($clubes as $elem) {
             $idx=$elem['Orden'];
@@ -132,7 +133,7 @@ class Entrenamientos extends DBObject {
             $s=$elem['S'];
             $t=$elem['T'];
             $obs=$elem['Observaciones'];
-            $this->myLogger->trace("insertando: ".json_encode($club));
+            $st=$elem['Estado'];
             // invocamos la orden SQL y devolvemos el resultado
             $res=$stmt->execute();
             if (!$res) return $this->error($stmt->error);
@@ -215,7 +216,7 @@ class Entrenamientos extends DBObject {
 		$this->myLogger->leave();
 		return $result;
 	}
-	
+
 	function enumerate() { // like select but with fixed order
 		$this->myLogger->enter();
 		// evaluate search criteria for query

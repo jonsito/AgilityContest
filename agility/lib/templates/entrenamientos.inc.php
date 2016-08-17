@@ -12,7 +12,7 @@ $config =Config::getInstance();
         columns: [[
             {field:'ID',     hidden:true},
             {field:'Prueba', hidden:true},
-            {field:'Orden',       width:10,      align:'center', title:'#',     formatter: formatBoldBig},
+            {field:'Orden',       width:10,      align:'center', title:'#',     formatter: formatTrainingState},
             {field:'LogoClub',	  width:10,      align:'center', title:'',      formatter: formatLogo},
             {field:'NombreClub',  width:25,      align:'left',   title: '<?php _e('Club');?>' },
             {field:'Fecha',	      width:20,      align:'center', title: '<?php _e('Date');?>',formatter: formatYMD},
@@ -26,6 +26,7 @@ $config =Config::getInstance();
             {field:'T',           width:10,      align:'center', title: '<?php _e('Toy');?>' },
             {field:'-',           hidden:true},
             {field:'Observaciones',width:15,     align:'center', title: '<?php _e('Comments');?>' },
+            {field:'Estado', hidden:true}
         ]],
         nowrap: false,
         fit: false, // on fake container, do not try to fit

@@ -92,6 +92,7 @@ $('#entrenamientos-datagrid').datagrid({
     columns:[[
         { field:'ID',		hidden:true },
         { field:'Prueba',	hidden:true },
+		{ field:'Orden',    width:40, title:'',formatter:formatTrainingState},
 		{ field:'LogoClub', width:50, title:'',formatter:formatLogo},
 		{ field:'Club',		hidden:true},
 		{ field:'NombreClub',width:150, title: isInternational(workingData.federation)? "<?php _e('Country');?>":"<?php _e('Club');?>" },
@@ -114,9 +115,8 @@ $('#entrenamientos-datagrid').datagrid({
 		{ field:'M',	width:75, title:'<?php _e("Ring");?> 2'},
 		{ field:'S',	width:75, title:'<?php _e("Ring");?> 3'},
 		{ field:'T',	width:75, title:'<?php _e("Ring");?> 4'},
-		{ field:'Observaciones', width:100, title:'<?php _e("Comments");?>',
-            editor:{ type:'textbox', options: { required:false } }
-		}
+		{ field:'Observaciones', width:100, title:'<?php _e("Comments");?>', editor:{ type:'textbox', options: { required:false } } },
+		{ field:'Estado',	hidden:true }
     ]],
     rowStyler:myRowStyler,
     onDblClickRow: function(index,row) {

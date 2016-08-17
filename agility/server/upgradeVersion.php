@@ -255,6 +255,7 @@ class Updater {
           `T` int(4) NOT NULL DEFAULT 0,
           `-` int(4) NOT NULL DEFAULT 0,
           `Observaciones` varchar(255) DEFAULT '',
+          `Estado` int(4) NOT NULL DEFAULT -1,
           PRIMARY KEY (`ID`),
           KEY `Entrenamientos_Prueba` (`Prueba`),
           KEY `Entrenamientos_Club` (`Club`),
