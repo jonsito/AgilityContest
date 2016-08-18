@@ -262,49 +262,58 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             <?php
             echon("<h2>{$ptree['Prueba']['Nombre']}</h2>");
             echon('<dl class="menu_enum">');
+            /*
             // si la licencia permite sesiones de entrenamiento las mostramos
             if ( $am->allowed(ENABLE_TRAINING)) {
                 echon( '<dt><a href="javascript:pbmenu_loadTrainingSession('.$pruebaID.');">'._("Training session").'</a></dt><br/>');
             }
+            */
+            echon('<dt>Live session now: <a class="easyui-linkbutton" href="#">Jumping Team Large</a>');
             foreach ($ptree['Jornadas'] as $jornada) {
                 if ($jornada['Nombre']==='-- Sin asignar --') continue;
                 if (count($jornada['Mangas'])==0) continue; // no rounds, no print
                 echon( "<dt>{$jornada['Nombre']}</dt>");
                 echon("<dd>");
                     echon("<ol>");
-                        echon('<li><a href="javascript:pbmenu_loadTimeTable('.$pruebaID.','.$jornada['ID'].')">'._("Timetable")."</a> </li>");
-                        echon('<li><a href="javascript:pbmenu_loadInscriptions('.$pruebaID.','.$jornada['ID'].')">'._("Inscriptions")."</a> </li>");
-                        echon('<li>'._("Starting order"));
-                            echon('<ul>');
+                        echon('<li><a class="easyui-linkbutton" href="javascript:pbmenu_loadTimeTable('.$pruebaID.','.$jornada['ID'].')">'._("Timetable")."</a> </li>");
+                        echon('<li><a class="easyui-linkbutton" href="javascript:pbmenu_loadInscriptions('.$pruebaID.','.$jornada['ID'].')">'._("Inscriptions")."</a> </li>");
+                        echon('<li>'._("Starting order").'<br/>');
+                            echon('<table>');
+                            $tipo=0;
                             foreach ($jornada['Tandas'] as $tanda ){
                                 if ($tanda['TipoManga']==0) continue; // skip user defined tandas
-                                echon ('<li><a href="javascript:pbmenu_loadStartingOrder('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">'.$tanda['Nombre']."</a> </li>");
+                                if ($tanda['TipoManga']!=$tipo) echon( ($tipo==0)? '<tr>' : '</tr><tr>');
+                                $tipo=$tanda['TipoManga'];
+                                echon ('<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadStartingOrder('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">'.$tanda['Nombre']."</a> </td>");
                             }
-                            echon("</ul>");
+                            echon("</tr></table");
                         echon("</li>");
                         // skipping single round series may lead in empty partial scores section.
                         // so detect and avoid
 
                         // firstly enumerate rounds
                         $roundstr="";
+                        $mng=0;
                         foreach ($jornada['Mangas'] as $manga ){
                             // on single round series (special or preagility1) skip partial scores
                             if ($manga['TipoManga']==16) continue; // special single round
                             if ( ($manga['TipoManga']==1) && ($jornada['PreAgility2']==0) ) continue;
-                            $roundstr .= '<li><a href="javascript:pbmenu_loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['Manga'].','.$manga['Mode'].')">'.$manga['Nombre']."</a> </li>\n";
+                            if ($manga['Manga']!=$mng) $roundstr .= ($mng==0)? '<tr>' : '</tr><tr>';
+                            $mng=$manga['Manga'];
+                            $roundstr .= '<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['Manga'].','.$manga['Mode'].')">'.$manga['Nombre']."</a> </td>\n";
                         }
                         // on empty rounds count skip partial scores; else display them
                         if ($roundstr!=="") {
-                            echon("<li>"._("Partial scores")); echon('<ul>'); echo $roundstr; echon("</ul>"); echon("</li>");
+                            echon("<li>"._("Partial scores").'<br>'); echon('<table>'); echo $roundstr; echon('</table>'); echon("</li>");
                         }
 
-                        echon("<li>"._("Final scores"));
-                            echon('<ul>');
+                        echon("<li>"._("Final scores").'<br/>');
+                            echon('<table><tr>');
                             for ($n=0;$n<count($jornada['Series']);$n++) {
                                 $serie=$jornada['Series'][$n];
-                                echon ('<li><a href="javascript:pbmenu_loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$n.')">'.$serie['Nombre']."</a> </li>");
+                                echon ('<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$n.')">'.$serie['Nombre']."</a> </td>");
                             }
-                            echon("</ul>");
+                            echon('</tr></table>');
                         echon("</li>");
                     echon("</ol>");
                 echon("</dd>");

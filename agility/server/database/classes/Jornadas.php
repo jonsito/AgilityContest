@@ -602,7 +602,9 @@ class Jornadas extends DBObject {
 			'Manga1'=>$m1['ID'],
 			'Manga2'=>($m2!==null)?$m2['ID']:0,
 			'NombreManga1'=>Mangas::$tipo_manga[$m1['Tipo']][1],
-			'NombreManga2'=>($m2!==null)?Mangas::$tipo_manga[$m2['Tipo']][1]:''
+			'NombreManga2'=>($m2!==null)?Mangas::$tipo_manga[$m2['Tipo']][1]:'',
+            'Tipo1' => $m1['Tipo'],
+            'Tipo2' => $m2['Tipo']
 		);
 	}
 
