@@ -39,7 +39,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <span id="vw_header-infomanga" style="display:none;width:200px">(<?php _e('No round selected'); ?>)</span>
             </div>
 		</div>
-		<div id="vw_tabla" data-options="region:'center'">
+		<div class="vws_entrenamientos" id="vw_tabla" data-options="region:'center'">
             <table id="entrenamientos-datagrid"></table>
 		</div>
         <div id="vw_entrenamientos-footer" data-options="region:'south',split:false" class="vw_floatingfooter">
@@ -71,7 +71,7 @@ $('#entrenamientos-datagrid').datagrid({
         {field:'ID',     hidden:true},
         {field:'Prueba', hidden:true},
         {field:'Orden',       width:10,      align:'center', title:'#',     formatter: formatBoldBig},
-        {field:'LogoClub',	  width:10,      align:'center', title:'',      formatter: formatLogo},
+        {field:'LogoClub',	  width:7,      align:'center', title:'',      formatter: formatLogo},
         {field:'NombreClub',  width:25,      align:'left',   title: '<?php _e('Club');?>' },
         {field:'Fecha',	      hidden:true, width:20,      align:'center', title: '<?php _e('Date');?>',formatter: formatYMD},
         {field:'Firma',       hidden:true, width:15,      align:'center', title: '<?php _e('Check-in');?>',formatter: formatHM},

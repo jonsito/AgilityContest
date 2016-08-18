@@ -329,3 +329,25 @@ td.vw_club {
 .vws_entry .rpadding {
     padding-right:0.5vw;
 }
+
+.ws_rowStylerDown {
+    color:<?php echo $config->getEnv('vws_linecolor'); ?>;
+    height: 10vw;
+    line-height:10vw;
+    font-size: 5vw;
+    background-color:<?php echo $config->getEnv('vws_rowcolor5'); ?>;
+}
+
+.vws_entrenamientos .datagrid-row {
+    color:<?php echo $config->getEnv('vws_linecolor'); ?>;
+    height: 3.5vw;
+}
+
+.vws_entrenamientos .datagrid-row .datagrid-cell {
+    font-familiy: <?php echo $fontfamiliy; ?>;
+    font-weight: bold;
+    font-stretch:condensed;
+    text-align:center;
+    font-size: 1.7vw;
+    line-height: 1.8vw;
+}

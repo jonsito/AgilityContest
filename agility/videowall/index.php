@@ -156,6 +156,24 @@ function vwRowStyler2(idx,row) {
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
+/* clases para la sesion de entrenamiento */
+
+function vws_rowStylerOdd() {
+    return "background-color:<?php echo $config->getEnv('vws_rowcolor1'); ?>";
+}
+
+function vws_rowStylerEven() {
+    return "background-color:<?php echo $config->getEnv('vws_rowcolor2'); ?>";
+}
+
+function vws_rowStylerDown() {
+    return "height: 10vw;"+
+        "line-height:10vw;"+
+        "font-size: 5vw;"+
+        "background-color:<?php echo $config->getEnv('vws_rowcolor5'); ?>";
+}
+
+
 /**
  * rowStyler function for videowall simplified training session
  * @param {int} idx Row index
@@ -163,22 +181,9 @@ function vwRowStyler2(idx,row) {
  * @return {string} proper row style for given idx
  */
 function vws_rowStyler(idx,row) {
-	var st=parseInt(row.Estado);
-	var t='<?php echo $config->getEnv('vws_linecolor'); ?>';
-	// var h=(st==0)?'5vw':'3.5vw';
-	var h=(idx==9)?'10vw':'3.5vw';
-	var res="height:"+h+";color:"+t+";background-color:";
-	var c1='<?php echo $config->getEnv('vws_rowcolor1'); ?>';
-	var c2='<?php echo $config->getEnv('vws_rowcolor2'); ?>';
-	var c3='<?php echo $config->getEnv('vws_rowcolor3'); ?>';
-	var c5='<?php echo $config->getEnv('vws_rowcolor5'); ?>';
-	var c6='<?php echo $config->getEnv('vws_rowcolor6'); ?>';
-	if (st==0) return res+c3+";";
-	if (st<0){
-		if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
-	} else {
-		if ( (idx&0x01)==0) { return res+c5+";"; } else { return res+c6+";"; }
-	}
+	if (idx==9)  return  vws_rowStylerDown();
+	if ((idx&0x01)==0)  return vws_rowStylerEven();
+	else  return vws_rowStylerOdd();
 }
 
 function myRowStyler(idx,row) { return vwRowStyler(idx,row); }
