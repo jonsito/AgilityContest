@@ -182,7 +182,7 @@ function vws_displayData(row,flag,toBeFirst) {
     var t=parseInt($('#vws_current_Tocados'+row).val());
     var r=parseInt($('#vws_current_Rehuses'+row).val());
     var tim=parseFloat($('#vws_current_Tiempo'+row).val());
-    $('#vws_current_FaltasTocados'+row).html("F/T: "+(f+t));
+    $('#vws_current_FaltasTocados'+row).html("F: "+(f+t));
     $('#vws_current_Refusals'+row).html("R: "+(r));
     if (flag) $('#vws_current_Time'+row).html("T: "+ toFixedT(tim,ac_config.numdecs));
     // eliminado, no presentado, puesto

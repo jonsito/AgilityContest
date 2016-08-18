@@ -122,7 +122,7 @@ for($n=0;$n<4;$n++) {
     echo '<input type="hidden"    id= "vws_current_NombreClub_'.$n.'" name="NombreClub" value="Club '.$n.'"/>';
     echo '<input type="hidden"    id= "vws_current_Faltas_'.$n.'"     name="Faltas" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id= "vws_current_Tocados_'.$n.'"    name="Tocados" value="Toc '.$n.'"/>';
-    echo '<span id= "vws_current_FaltasTocados_'.$n.'">F/T '.$n.'"</span>';
+    echo '<span id= "vws_current_FaltasTocados_'.$n.'">F '.$n.'"</span>';
     echo '<input type="hidden"      id= "vws_current_Rehuses_'.$n.'"    name="Rehuses" value="R '.$n.'"/>';
     echo '<span id= "vws_current_Refusals_'.$n.'">R '.$n.'"</span>';
     echo '<input type="hidden"    id= "vws_current_Tintermedio_'.$n.'" name="TIntermedio" value="Tint '.$n.'"/>';

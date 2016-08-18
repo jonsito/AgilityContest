@@ -31,7 +31,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 -->
     <div id="vws_header>">
         <form id="vws_hdr_form">
-        <?php if ($config->getEnv("vws_uselogo")!=0) {
+        <?php if (intval($config->getEnv("vws_uselogo"))!=0) {
             // logotipo alargado del evento
             echo '<input type="hidden" id="vws_hdr_logoprueba" name="LogoPrueba" value="/agility/images/agilityawc2016.png"/>';
             echo '<img src="/agility/images/agilityawc2016.png" class="vws_imgpadding" id="vws_hdr_logo" alt="Logo"/>';
@@ -77,7 +77,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id="vws_call_NombreClub_'.$n.'" name="NombreClub" value="Club '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_F_'.$n.'"          name="Faltas" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_T_'.$n.'"          name="Tocados" value="Toc '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_FaltasTocados_'.$n.'" name="FaltasTocados" value=F/T $n/>';
+    echo '<input type="hidden"    id="vws_call_FaltasTocados_'.$n.'" name="FaltasTocados" value=F $n/>';
     echo '<input type="hidden"    id="vws_call_Rehuses_'.$n.'"    name="Rehuses" value="R '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Puesto_'.$n.'"     name="Puesto" value="P '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Tintermedio_'.$n.'" name="TIntermedio" value="TI '.$n.'"/>';
@@ -107,8 +107,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<!-- data on round -->';
     echo '<input type="hidden"    id="vws_results_Faltas_'.$n.'"        name="Faltas" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Tocados_'.$n.'"       name="Tocados" value="Flt '.$n.'"/>';
-    echo '<span  style="line-height:0.75em"                 id="vws_results_FaltasTocados_'.$n.'"  class="lborder" >F/T '.$n.'</span>';
-    echo '<input type="text"      id="vws_results_Rehuses_'.$n.'"       name="Rehuses" value="Reh '.$n.'"/>';
+    echo '<span  style="line-height:0.75em"                 id="vws_results_FaltasTocados_'.$n.'"  class="lborder center" >F '.$n.'</span>';
+    echo '<input type="text"      class="center" id="vws_results_Rehuses_'.$n.'"       name="Rehuses" value="Reh '.$n.'"/>';
     echo '<input type="text"      class="rpadding" id="vws_results_Tiempo_'.$n.'"        name="Tiempo" value="Time '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Velocidad_'.$n.'"     name="Velocidad" value="Vel '.$n.'"/>';
     echo '<input type="text"      id="vws_results_Penalizacion_'.$n.'"  name="Penalizacion" value="Pen '.$n.'" class="lborder" />';
@@ -139,9 +139,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id= "vws_current_NombreClub" name="NombreClub" value="Club"/>';
     echo '<input type="hidden"    id= "vws_current_Faltas"      name="Faltas" value="Flt"/>';
     echo '<input type="hidden"    id= "vws_current_Tocados"     name="Tocados" value="Toc"/>';
-    echo '<span id= "vws_current_FaltasTocados">F/T</span>';
+    echo '<span id= "vws_current_FaltasTocados">F</span>';
     echo '<input type="hidden"      id= "vws_current_Rehuses"    name="Rehuses" value="R"/>';
-    echo '<span id= "vws_current_Refusals">F/T</span>';
+    echo '<span id= "vws_current_Refusals">R</span>';
     echo '<input type="hidden"    id= "vws_current_Tintermedio" name="TIntermedio" value="Tint"/>';
     echo '<input type="hidden"    id= "vws_current_Tiempo"     name="Tiempo" value="Time"/>';
     echo '<span id= "vws_current_Time">Time</span>';
@@ -179,8 +179,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<!-- data on round -->';
     echo '<input type="hidden"    id="vws_before_Faltas_'.$n.'"        name="Faltas" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_Tocados_'.$n.'"       name="Tocados" value="Flt '.$n.'"/>';
-    echo '<span style="line-height:0.75em" id="vws_before_FaltasTocados_'.$n.'"  class="lborder" >F/T '.$n.'</span>';
-    echo '<input type="text"      id="vws_before_Rehuses_'.$n.'"       name="Rehuses" value="Reh '.$n.'"/>';
+    echo '<span style="line-height:0.75em" id="vws_before_FaltasTocados_'.$n.'"  class="lborder" >F'.$n.'</span>';
+    echo '<input type="text"      class="center" id="vws_before_Rehuses_'.$n.'"       name="Rehuses" value="Reh '.$n.'"/>';
     echo '<input type="text"      class="rpadding" id="vws_before_Tiempo_'.$n.'"        name="Tiempo" value="Time '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_Velocidad_'.$n.'"     name="Velocidad" value="Vel '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_PTiempo_'.$n.'"       name="PTiempo" value="PTime '.$n.'"/>';
@@ -253,9 +253,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         doLayout(layout,"#vws_results_Nombre_"+n,    110,   19+9*n,23,9);
         doLayout(layout,"#vws_results_NombreGuia_"+n,133,   19+9*n,48,9);
         // datos de la manga
-        doLayout(layout,"#vws_results_FaltasTocados_"+n, 181, 19+9*n,10,9);
-        doLayout(layout,"#vws_results_Rehuses_"+n,       191, 19+9*n,10,9);
-        doLayout(layout,"#vws_results_Tiempo_"+n,        201, 19+9*n,17,9);
+        doLayout(layout,"#vws_results_FaltasTocados_"+n, 181, 19+9*n,9,9);
+        doLayout(layout,"#vws_results_Rehuses_"+n,       190, 19+9*n,10,9);
+        doLayout(layout,"#vws_results_Tiempo_"+n,        200, 19+9*n,18,9);
         // resultados
         doLayout(layout,"#vws_results_Penalizacion_"+n,  218, 19+9*n,17,9);
         doLayout(layout,"#vws_results_Puesto_"+n,        235, 19+9*n,11,9);
@@ -269,9 +269,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         doLayout(layout,"#vws_before_Nombre_"+n,   110,    122+9*n,23,9);
         doLayout(layout,"#vws_before_NombreGuia_"+n,133,   122+9*n,48,9);
         // manga
-        doLayout(layout,"#vws_before_FaltasTocados_"+n, 181, 122+9*n,10,9);
-        doLayout(layout,"#vws_before_Rehuses_"+n,       191, 122+9*n,10,9);
-        doLayout(layout,"#vws_before_Tiempo_"+n,        201, 122+9*n,17,9);
+        doLayout(layout,"#vws_before_FaltasTocados_"+n, 181, 122+9*n,9,9);
+        doLayout(layout,"#vws_before_Rehuses_"+n,       190, 122+9*n,10,9);
+        doLayout(layout,"#vws_before_Tiempo_"+n,        200, 122+9*n,18,9);
         // resultados
         doLayout(layout,"#vws_before_Penalizacion_"+n,  218, 122+9*n,17,9);
         doLayout(layout,"#vws_before_Puesto_"+n,        235, 122+9*n,11,9);

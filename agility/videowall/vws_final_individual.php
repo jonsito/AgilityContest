@@ -74,7 +74,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id="vws_call_NombreClub_'.$n.'" name="NombreClub" value="Club '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_F_'.$n.'"          name="Faltas" value="Flt '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_T_'.$n.'"          name="Tocados" value="Toc '.$n.'"/>';
-    echo '<input type="hidden"    id="vws_call_FaltasTocados_'.$n.'" name="FaltasTocados" value=F/T $n/>';
+    echo '<input type="hidden"    id="vws_call_FaltasTocados_'.$n.'" name="FaltasTocados" value=F $n/>';
     echo '<input type="hidden"    id="vws_call_Rehuses_'.$n.'"    name="Rehuses" value="R '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Puesto_'.$n.'"     name="Puesto" value="P '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Tintermedio_'.$n.'" name="TIntermedio" value="TI '.$n.'"/>';
@@ -149,7 +149,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<input type="hidden"    id= "vws_current_NombreClub" name="NombreClub" value="Club"/>';
     echo '<input type="hidden"    id= "vws_current_Faltas"      name="Faltas" value="Flt"/>';
     echo '<input type="hidden"    id= "vws_current_Tocados"     name="Tocados" value="Toc"/>';
-    echo '<span id= "vws_current_FaltasTocados">F/T</span>';
+    echo '<span id= "vws_current_FaltasTocados">F</span>';
     echo '<input type="hidden"      id= "vws_current_Rehuses"    name="Rehuses" value="R"/>';
     echo '<span id= "vws_current_Refusals">R</span>';
     echo '<input type="hidden"    id= "vws_current_Tintermedio" name="TIntermedio" value="Tint"/>';
