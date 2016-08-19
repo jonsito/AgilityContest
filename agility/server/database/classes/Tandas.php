@@ -426,7 +426,7 @@ class Tandas extends DBObject {
 		$club= new Clubes("Tandas::getListaPerros",$this->prueba->RSCE);
 		// iteramos la lista de tandas
 		foreach ($lista_tandas['rows'] as $tanda) {
-			$this->myLogger->info("Analizando tanda \n".json_encode($tanda));
+			// $this->myLogger->info("Analizando tanda \n".json_encode($tanda));
 			// Comprobamos si debemos analizar la tanda
 			if ($t>0) { $do_iterate= ( $tanda['ID'] == abs($t) )? true:false; } // iterar solo la tanda
 			if ($t<0) { if ( $tanda['ID'] == abs($t) ) $do_iterate=true; } 		// iterar a partir de la tanda

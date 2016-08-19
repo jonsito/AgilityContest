@@ -51,6 +51,7 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 		GNU General Public License as published by the Free Software Foundation; either version 2 of the License, 
 		or (at your option) any later version." />
 <title>AgilityContest (VideoWall)</title>
+<link rel="stylesheet" type="text/css" href="/agility/fonts/fonts.css" />
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />

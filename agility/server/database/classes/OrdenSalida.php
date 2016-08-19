@@ -440,7 +440,7 @@ class OrdenSalida extends DBObject {
 		foreach ($orden as $perro) {
 			if ($perro==="BEGIN") continue;
 			if ($perro==="END") continue;
-			if (!array_key_exists($perro,$p1)) {
+			if (!array_key_exists(intval($perro),$p1)) {
 				$this->myLogger->error("El perro $perro esta en el orden de salida pero no en los resultados");
 				// TODO: FIX this consistency error
 			} else {

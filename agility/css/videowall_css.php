@@ -2,9 +2,8 @@
 require_once(__DIR__."/../server/auth/Config.php");
 $config = Config::getInstance();
 
-$sizefont=$config->getEnv("vws_font");
-$fontfamiliy=explode(':',$sizefont)[1];
-$fontsize=explode(':',$sizefont)[0];
+$fontfamily=$config->getEnv("vws_font");
+$fontsize=floatval($config->getEnv("vws_fontsize"))."vw";
 ?>
 /*
 videowall_css.php
@@ -181,56 +180,6 @@ td.vw_club {
 }
 
 /************ estilos asociados a las vistas simplificadas **************/
-
-@font-face {
-    font-family: 'futura_condensedbold';
-    src: url('../fonts/futuracondensedbold-webfont.eot');
-    src: url('../fonts/futuracondensedbold-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/futuracondensedbold-webfont.woff2') format('woff2'),
-        url('../fonts/futuracondensedbold-webfont.woff') format('woff'),
-        url('../fonts/futuracondensedbold-webfont.ttf') format('truetype'),
-        url('../fonts/futuracondensedbold-webfont.svg#futura_condensedbold') format('svg');
-}
-
-@font-face {
-    font-family: 'roadgeek_2005_engschriftRg';
-    src: url('../fonts/roadgeek_2005_engschrift-webfont.eot');
-    src: url('../fonts/roadgeek_2005_engschrift-webfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/roadgeek_2005_engschrift-webfont.woff2') format('woff2'),
-    url('../fonts/roadgeek_2005_engschrift-webfont.woff') format('woff'),
-    url('../fonts/roadgeek_2005_engschrift-webfont.ttf') format('truetype'),
-    url('../fonts/roadgeek_2005_engschrift-webfont.svg#roadgeek_2005_engschriftRg') format('svg');
-}
-
-@font-face {
-    font-family: 'roadgeek_2005_series_b';
-    src: url('../fonts/roadgeek_2005_series_b-webfont.eot');
-    src: url('../fonts/roadgeek_2005_series_b-webfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/roadgeek_2005_series_b-webfont.woff2') format('woff2'),
-    url('../fonts/roadgeek_2005_series_b-webfont.woff') format('woff'),
-    url('../fonts/roadgeek_2005_series_b-webfont.ttf') format('truetype'),
-    url('../fonts/roadgeek_2005_series_b-webfont.svg#roadgeek_2005_series_b') format('svg');
-}
-
-@font-face {
-    font-family: "Helvetica Neue LT Std 67 Medium Condensed";
-    src: url("../fonts/Helvetica_Neue_LT_Std_67_MdCd.eot"); /* IE9*/
-    src: url("../fonts/Helvetica_Neue_LT_Std_67_MdCd.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-    url("../fonts/Helvetica_Neue_LT_Std_67_MdCd.woff2") format("woff2"), /* chrome、firefox */
-    url("../fonts/Helvetica_Neue_LT_Std_67_MdCd.woff") format("woff"), /* chrome、firefox */
-    url("../fonts/Helvetica_Neue_LT_Std_67_MdCd.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-    url("../fonts/Helvetica_Neue_LT_Std_67_MdCd.svg#Helvetica Neue LT Std 67 Medium Condensed") format("svg"); /* iOS 4.1- */
-}
-
-@font-face {
-    font-family: "Helvetica Neue LT Std 77 Bold Condensed";
-    src: url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.eot"); /* IE9*/
-    src: url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-    url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.woff2") format("woff2"), /* chrome、firefox */
-    url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.woff") format("woff"), /* chrome、firefox */
-    url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-    url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.svg#Helvetica Neue LT Std 77 Bold Condensed") format("svg"); /* iOS 4.1- */
-}
 
 #vws-window { /* color de fondo y textos genericos de la pantalla */
     color:<?php echo $config->getEnv('vws_hdrfg1')?>;
