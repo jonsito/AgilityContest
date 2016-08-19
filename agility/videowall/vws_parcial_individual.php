@@ -205,15 +205,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php
     if ($config->getEnv("vws_uselogo")!=0) { // logotipo del evento
         echo 'doLayout(layout,"#vws_hdr_logo",1,0,89,27);';
-        echo 'doLayout(layout,"#vws_hdr_manga",90,0,122,9);';
+        echo 'doLayout(layout,"#vws_hdr_manga",90,1,122,8);';
     } else { // logotipo del organizador, prueba y jornada en texto
-        echo 'doLayout(layout,"#vws_hdr_logo",1,0,27,27);';
-        echo 'doLayout(layout,"#vws_hdr_prueba",28,0,112,9);';
+        echo 'doLayout(layout,"#vws_hdr_logo",1,1,27,26);';
+        echo 'doLayout(layout,"#vws_hdr_prueba",28,1,112,8);';
         echo 'doLayout(layout,"#vws_hdr_jornada",28,9,61,9);';
-        echo 'doLayout(layout,"#vws_hdr_manga",140,0,82,9);';
+        echo 'doLayout(layout,"#vws_hdr_manga",140,1,82,8);';
     }
 ?>
-    doLayout(layout,"#vws_hdr_trs",222,0,24,9);
+    doLayout(layout,"#vws_hdr_trs",222,1,24,8);
 
     doLayout(layout,"#vws_hdr_calltoring",  1,27,88,9);
     doLayout(layout,"#vws_hdr_teaminfo",    90,9,91,9);

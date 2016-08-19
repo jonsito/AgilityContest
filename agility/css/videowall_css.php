@@ -230,9 +230,10 @@ td.vw_club {
     background-color: <?php echo $config->getEnv('vws_rowcolor6')?>;
 }
 
+
 .vws_entry {
     font-familiy: <?php echo $fontfamiliy; ?>;
-    font-size: <?php echo $fontsize; ?>;
+    font-size: <?php echo $fontsize ?>;
     font-weight: bold;
     font-stretch:condensed;
     text-align:right;
