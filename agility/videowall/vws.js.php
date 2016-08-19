@@ -34,6 +34,26 @@ var vwsCounter = new Countdown({
 });
 
 /**
+ * use keys up/down to increase/decrease font size
+ * NOT WORKING: REVISE
+ */
+function vws_keyBindings() {
+    // capture <space> key to switch OSD on/off
+    $(document).keydown(function(e) {
+        var delta=0;
+        if (e.which == 38) delta=0.1; //  key up
+        if (e.which == 40) delta=-0.1; // key down
+        if (delta==0) return true; // let continue keybind event chain
+        // get current height
+        var size=$('.vws_entry').css('font-size').replace('px','');
+        size =parseFloat(size)+delta;
+        $('.vws_entry').css('font-size',''+size+'vw');
+        document.title="font-size: "+size;
+        return true; // to allow continue event chain
+    });
+}
+
+/**
  * Provide a null, empty object with required fields to fill templates in combined videowall
  * @param {boolean} final to notice partial or final results
  * @param {boolean} team  to indicate individual or team journey
