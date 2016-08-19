@@ -204,33 +204,33 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <?php
     if ($config->getEnv("vws_uselogo")!=0) { // logotipo del evento
-        echo 'doLayout(layout,"#vws_hdr_logo",1,0,89,27);';
-        echo 'doLayout(layout,"#vws_hdr_manga",90,1,122,8);';
+        echo 'doLayout(layout,"#vws_hdr_logo",  1,1,92,26);';
+        echo 'doLayout(layout,"#vws_hdr_manga", 93,1,121,8);';
     } else { // logotipo del organizador, prueba y jornada en texto
-        echo 'doLayout(layout,"#vws_hdr_logo",1,1,27,26);';
+        echo 'doLayout(layout,"#vws_hdr_logo",  1,1,27,26);';
         echo 'doLayout(layout,"#vws_hdr_prueba",28,1,112,8);';
         echo 'doLayout(layout,"#vws_hdr_jornada",28,9,61,9);';
-        echo 'doLayout(layout,"#vws_hdr_manga",140,1,82,8);';
+        echo 'doLayout(layout,"#vws_hdr_manga", 140,1,82,8);';
     }
 ?>
     doLayout(layout,"#vws_hdr_trs",222,1,24,8);
 
-    doLayout(layout,"#vws_hdr_calltoring",  1,27,88,9);
-    doLayout(layout,"#vws_hdr_teaminfo",    90,9,91,9);
-    doLayout(layout,"#vws_hdr_FltLabel",    181,9,10,9);
-    doLayout(layout,"#vws_hdr_RLabel",      191,9,10,9);
-    doLayout(layout,"#vws_hdr_TimeLabel",   201,9,17,9);
+    doLayout(layout,"#vws_hdr_calltoring",  1,27,91,9);
+    doLayout(layout,"#vws_hdr_teaminfo",    93,9,88,9);
+    doLayout(layout,"#vws_hdr_FltLabel",    181,9,9,9);
+    doLayout(layout,"#vws_hdr_RLabel",      190,9,10,9);
+    doLayout(layout,"#vws_hdr_TimeLabel",   200,9,18,9);
     doLayout(layout,"#vws_hdr_PenalLabel",  218,9,17,9);
     doLayout(layout,"#vws_hdr_PosLabel",    235,9,11,9);
 
 
     // llamada a pista
     for (var n=0;n<8;n++) {
-        doLayout(layout,"#vws_call_Orden_"+n,1,37+9*n,10,9);
-        doLayout(layout,"#vws_call_Logo_"+n,11,37+9*n,7,9);
-        doLayout(layout,"#vws_call_Dorsal_"+n,18,37+9*n,12,9);
-        doLayout(layout,"#vws_call_Nombre_"+n,30,37+9*n,17,9);
-        doLayout(layout,"#vws_call_NombreGuia_"+n,47,37+9*n,42,9);
+        doLayout(layout,"#vws_call_Orden_"+n,   1,37+9*n,10,9);
+        doLayout(layout,"#vws_call_Logo_"+n,    11,37+9*n,8,9);
+        doLayout(layout,"#vws_call_Dorsal_"+n,  19,37+9*n,13,9);
+        doLayout(layout,"#vws_call_Nombre_"+n,  32,37+9*n,18,9);
+        doLayout(layout,"#vws_call_NombreGuia_"+n,50,37+9*n,42,9);
     }
     
     // perro en pista
@@ -248,10 +248,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     // resultados
     for(n=0;n<10;n++) {
         // datos del participante
-        doLayout(layout,"#vws_results_Logo_"+n,       90,   19+9*n,9,9);
-        doLayout(layout,"#vws_results_Dorsal_"+n,     99,   19+9*n,12,9);
-        doLayout(layout,"#vws_results_Nombre_"+n,    111,   19+9*n,22,9);
-        doLayout(layout,"#vws_results_NombreGuia_"+n,133,   19+9*n,48,9);
+        doLayout(layout,"#vws_results_Logo_"+n,       93,   19+9*n,8,9);
+        doLayout(layout,"#vws_results_Dorsal_"+n,    101,   19+9*n,13,9);
+        doLayout(layout,"#vws_results_Nombre_"+n,    114,   19+9*n,18,9);
+        doLayout(layout,"#vws_results_NombreGuia_"+n,132,   19+9*n,49,9);
         // datos de la manga
         doLayout(layout,"#vws_results_FaltasTocados_"+n, 181, 19+9*n,9,9);
         doLayout(layout,"#vws_results_Rehuses_"+n,       190, 19+9*n,10,9);
@@ -263,11 +263,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     // ultimos resultados
     for(n=0;n<2;n++) {
         // participante
-        doLayout(layout,"#vws_before_Orden_"+n,    80,     122+9*n,10,9);
-        doLayout(layout,"#vws_before_Logo_"+n,     90,     122+9*n,9,9);
-        doLayout(layout,"#vws_before_Dorsal_"+n,   99,     122+9*n,12,9);
-        doLayout(layout,"#vws_before_Nombre_"+n,   111,    122+9*n,22,9);
-        doLayout(layout,"#vws_before_NombreGuia_"+n,133,   122+9*n,48,9);
+        doLayout(layout,"#vws_before_Orden_"+n,    83,     122+9*n,10,9);
+        doLayout(layout,"#vws_before_Logo_"+n,     93,     122+9*n,8,9);
+        doLayout(layout,"#vws_before_Dorsal_"+n,   101,    122+9*n,13,9);
+        doLayout(layout,"#vws_before_Nombre_"+n,   114,    122+9*n,18,9);
+        doLayout(layout,"#vws_before_NombreGuia_"+n,132,   122+9*n,49,9);
         // manga
         doLayout(layout,"#vws_before_FaltasTocados_"+n, 181, 122+9*n,9,9);
         doLayout(layout,"#vws_before_Rehuses_"+n,       190, 122+9*n,10,9);

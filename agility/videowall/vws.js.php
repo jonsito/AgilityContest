@@ -44,11 +44,11 @@ function vws_keyBindings() {
         if (e.which == 38) delta=0.1; //  key up
         if (e.which == 40) delta=-0.1; // key down
         if (delta==0) return true; // let continue keybind event chain
-        // get current height
-        var size=$('.vws_entry').css('font-size').replace('px','');
-        size =parseFloat(size)+delta;
+        size=parseFloat(ac_config.vws_fontsize)+delta;
+        if ( (size>=1.0) && (size<=5.0) ) ac_config.vws_fontsize=size;
         $('.vws_entry').css('font-size',''+size+'vw');
-        document.title="font-size: "+size;
+        $('.vws_entry input').css('font-size',''+size+'vw');
+        document.title="font-size: "+toFixedT(size,1);
         return true; // to allow continue event chain
     });
 }

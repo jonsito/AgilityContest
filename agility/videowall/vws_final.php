@@ -78,6 +78,7 @@ events
         'null': null,// null event: no action taken
         'init': function (event, time) { // connection is made.
             vw_updateWorkingData(event,function(e,d){
+                vws_keyBindings(); // make text higher/lower with up/down keys
                 // NOTICE: do not call updateHeader here cause no window loaded yet !!!
                 vws_setFinalIndividualOrTeamView(d); // fix individual or team view for final results
             });

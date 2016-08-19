@@ -58,7 +58,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 
 @font-face {
-    font-family: "Helvetica Neue LT Std 77 Bold Condensed";
+    font-family: "Helvetica Neue LT Std 67 Bold Condensed";
     src: url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.eot"); /* IE9*/
     src: url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
     url("../fonts/Helvetica_Neue_LT_Std_67_BdCd.woff2") format("woff2"), /* chrome、firefox */
@@ -78,11 +78,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 
 @font-face {
-    font-family: "SteelFish Regular";
+    font-family: "Steelfish Regular";
     src: url("../fonts/Steelfish-Regular.eot"); /* IE9*/
     src: url("../fonts/Steelfish-Regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
     url("../fonts/Steelfish-Regular.woff2") format("woff2"), /* chrome、firefox */
     url("../fonts/Steelfish-Regular.woff") format("woff"), /* chrome、firefox */
     url("../fonts/Steelfish-Regular.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-    url("../fonts/Steelfish-Regular.svg#SteelFish Regular") format("svg"); /* iOS 4.1- */
+    url("../fonts/Steelfish-Regular.svg#Steelfish Regular") format("svg"); /* iOS 4.1- */
 }

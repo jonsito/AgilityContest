@@ -3,7 +3,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 $config = Config::getInstance();
 
 $fontfamily=$config->getEnv("vws_font");
-$fontsize=floatval($config->getEnv("vws_fontsize"))."vw";
+$fontsize=''.$config->getEnv("vws_fontsize").'vw';
 ?>
 /*
 videowall_css.php
@@ -230,39 +230,6 @@ td.vw_club {
     background-color: <?php echo $config->getEnv('vws_rowcolor6')?>;
 }
 
-
-.vws_entry {
-    font-familiy: <?php echo $fontfamiliy; ?>;
-    font-size: <?php echo $fontsize ?>;
-    font-weight: bold;
-    font-stretch:condensed;
-    text-align:right;
-}
-
-.vws_entry input {
-    margin:0;
-    padding:0;
-    border:none;
-    outline:none;
-    color:<?php echo $config->getEnv('vws_linecolor')?>;
-    background-color:inherit;
-    font-familiy: <?php echo $fontfamiliy; ?>;
-    font-size: <?php echo $fontsize; ?>;
-    font-weight: bold;
-    font-stretch:condensed;
-    text-align: right;
-}
-
-.vws_entry span {
-    margin:0;
-    padding-top:0.8vw;
-    border:none;
-    outline:none;
-    font-size: <?php echo $fontsize; ?>;
-    color:<?php echo $config->getEnv('vws_linecolor')?>;
-    background-color:inherit;
-}
-
 .vws_imgpadding {
     padding:5px;
 }
@@ -276,8 +243,40 @@ td.vw_club {
     border-left:2px solid <?php echo $config->getEnv('vws_linecolor')?>;
     padding-left:0.5vw;
 }
+
 .vws_entry .rpadding {
     padding-right:0.5vw;
+}
+
+.vws_entry {
+    font-family:'<?php echo $fontfamily; ?>';
+    font-size: <?php echo $fontsize ?>;
+    font-weight: bold;
+    font-stretch:condensed;
+    text-align:center;
+}
+
+.vws_entry input[type="text"] {
+    margin:0;
+    padding:0;
+    border:none;
+    outline:none;
+    color:inherit;
+    background-color:inherit;
+    font-family: '<?php echo $fontfamily; ?>' ;
+    font-size: <?php echo $fontsize ?>;
+    font-weight: bold;
+    font-stretch:condensed;
+    text-align: left;
+}
+
+.vws_entry span {
+    margin:0;
+    padding-top:0.9vw;
+    border:none;
+    outline:none;
+    color:inherit;
+    background-color:inherit;
 }
 
 .ws_rowStylerDown {
@@ -294,7 +293,7 @@ td.vw_club {
 }
 
 .vws_entrenamientos .datagrid-row .datagrid-cell {
-    font-familiy: <?php echo $fontfamiliy; ?>;
+    font-family: <?php echo $fontfamily; ?>;
     font-weight: bold;
     font-stretch:condensed;
     text-align:center;

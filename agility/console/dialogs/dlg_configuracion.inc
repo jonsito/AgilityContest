@@ -183,7 +183,7 @@ $config =Config::getInstance();
 				<option value="Helvetica Neue LT Std 67 Medium Condensed" selected="selected">Helvetica Neue LT Std 67 Medium Condensed</option>
 				<option value="Helvetica Neue LT Std 67 Bold Condensed" selected="selected">Helvetica Neue LT Std 67 Bold Condensed</option>
 				<option value="Stint Ultra Condensed Regular" selected="selected">Stint Ultra Condensed Regular</option>
-				<option value="Steelfish-Regular" selected="selected">Steelfish Regular</option>
+				<option value="Steelfish Regular" selected="selected">Steelfish Regular</option>
 			</select>
 			<label for="vws_fontsize"><?php _e('Default font size (vw units) '); ?></label>
 			<input id="vws_fontsize" name="vws_fontsize" type="number" size="2" min="0.5" max="5.0" step="0.1" value="1.8"/>
