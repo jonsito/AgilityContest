@@ -427,7 +427,11 @@ function vws_updateParciales(data) {
                 // fill if required 'result' table data
                 if (n < nitems) {
                     var logo = items[n][(team) ? 'LogoTeam' : 'LogoClub'];
-                    $('#vws_results_' + n).form('load', items[n]);
+                    // en pruebas por equipos getTeamResults, retorna datos tanto para equipos completos
+                    // como sin completar e incluso vacios. Por ello lo tenemos en cuenta
+                    var data=items[n];
+                    if (team && items[n]['Penalizacion']>=(400*getMinDogsByTeam())) data=vws_getEmptyResults(/*final*/false,team);
+                    $('#vws_results_' + n).form('load', data);
                     $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
                     $('#vws_results_FaltasTocados_' + n).html(parseInt(items[n]['Faltas'])+parseInt(items[n]['Tocados']));
                 }

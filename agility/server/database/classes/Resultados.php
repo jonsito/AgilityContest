@@ -788,7 +788,7 @@ class Resultados extends DBObject {
 			// comprobamos la categoria. si no coincide tiramos el equipo
 			$modes=array("L","M","S","MS","LMS","T","LM","ST","LMST");
 			if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
-			$r=array_merge($equipo,array('Count'=>0,'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0));
+			$r=array_merge($equipo,array('Count'=>0,'PTiempo'=>0,'PRecorrido'=>0,'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0));
 			$teams[$equipo['ID']]=$r;
 		}
         // procesamos manga Se asume que los resultados ya vienen ordenados por puesto,
