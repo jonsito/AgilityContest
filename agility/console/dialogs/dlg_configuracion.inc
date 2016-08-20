@@ -440,7 +440,7 @@ $config =Config::getInstance();
 				            '<?php _e("You should close session and reload page"); ?> '+
 				            '<?php _e("for changes to become active"); ?>',
 				            "info");
-					loadConfiguration();
+					loadConfiguration(function(config) { $('#config-form').form('load',config);	});
 	            }
 	        }
 	    });
@@ -466,7 +466,7 @@ $config =Config::getInstance();
 						icon: "info",
 						width: 500
 					});
-					loadConfiguration();
+					// loadConfiguration(function(config) { $('#config-form').form('load',config);	});
 				}
 			}
 		});
@@ -479,6 +479,12 @@ $config =Config::getInstance();
 		$.messager.confirm('<?php _e("Confirm"); ?>','<?php _e("Restore factory default values. Sure?"); ?>',function(r){
 			if (r) {
 				$('#config-form').form('load','/agility/server/adminFunctions.php?Operation=defaultConfig');
+				$.messager.alert('<?php _e("Factory reset"); ?>',
+					'<?php _e("Restored default configuration options"); ?>'+" <br />"+
+					'<?php _e("You should close session and reload page"); ?> '+
+					'<?php _e("for changes to become active"); ?>',
+					"info",
+					function() {loadConfiguration(function(config) { $('#config-form').form('load',config);	});});
 			}
 		});
 	}
@@ -487,7 +493,7 @@ $config =Config::getInstance();
 	 * discard config changes and restore browser configuration from server config
 	 */
 	function loadConfig() {
-		$('#config-form').form('load','/agility/server/adminFunctions.php?Operation=loadConfig');
+		loadConfiguration(function(config) { $('#config-form').form('load',config);	});
 	}
 
 	/**
@@ -535,7 +541,7 @@ $config =Config::getInstance();
 					icon: "info",
 					width: 400
 				});
-				loadConfiguration();
+				loadConfiguration(function(config) { $('#config-form').form('load',config);	});
 			},
 			error: function(XMLHttpRequest,textStatus,errorThrown) {
 				$.messager.alert("Restore configuration from file error","Error: "+textStatus + " "+ errorThrown,'error' );
