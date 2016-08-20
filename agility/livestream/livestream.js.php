@@ -81,7 +81,7 @@ function vwls_showData(data) {
 		// take care on Test dog and intl contests
 		var perro=res['Nombre']; // may contain "Test dog"
 		if (perro!=="<?php _e('Test dog');?>") perro= isInternational()? perro+" - "+res['NombreLargo'] : perro;
-		$('#vwls_Nombre').html(perro);
+		$('#vwls_Nombre').html(perro.substr(0,40)); // limit length to avoid overflow assigned space
 		$('#vwls_Logo').attr("src","/agility/images/logos/getLogo.php?Federation="+res['Federation']+"&Logo="+res['LogoClub']);
 		$('#vwls_NombreGuia').html(res["NombreGuia"]);
 		$('#vwls_Cat').html(res["Categoria"]);

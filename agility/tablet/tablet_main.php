@@ -205,8 +205,8 @@ $config =Config::getInstance();
             { field:'Grado',	hidden:true },
             { field:'Sesion',	hidden:true },
             { field:'Tipo',	    hidden:true },
-            { field:'Horario',	width:100, sortable:false, align:'center', title:'<?php _e('Hour');?>',styler:tandasStyler },
-            { field:'Nombre',	width:250, sortable:false, align:'left',title:'<?php _e('Activity');?>',styler:tandasStyler},
+            { field:'Horario',	width:125, sortable:false, align:'center', title:'<?php _e('Hour');?>',styler:tandasStyler },
+            { field:'Nombre',	width:225, sortable:false, align:'left',title:'<?php _e('Activity');?>',styler:tandasStyler},
             { field:'Comentario',	width:75, sortable:false, align:'left',title:'<?php _e('Comments');?>',styler:tandasStyler}
         ]],
         rowStyler: myRowStyler,

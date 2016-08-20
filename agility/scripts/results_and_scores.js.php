@@ -433,12 +433,22 @@ function vwcf_configureScreenLayout() {
     calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
     calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
 
-    // show hide license according national or international
+    // show hide license and califications according national or international
     resdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
     lastdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
-    // restdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
-    // lasttdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');// no existe campo 'Licencia' en resultados equipos
-
+    $('#finales_individual_teaminfo').parents('td').attr('colspan',(intl)?6:7);
+    /*
+    * this is commented cause fitcolumns seems not to work well when fit=false
+    resdg.datagrid((intl)?'hideColumn':'showColumn','C1');
+    lastdg.datagrid((intl)?'hideColumn':'showColumn','C1');
+    $('#finales_individual_roundname_m1').parents('td').attr('colspan',(intl)?6:7);
+    resdg.datagrid((intl)?'hideColumn':'showColumn','C2');
+    lastdg.datagrid((intl)?'hideColumn':'showColumn','C2');
+    $('#finales_individual_roundname_m2').parents('td').attr('colspan',(intl)?6:7);
+    resdg.datagrid((intl)?'hideColumn':'showColumn','Calificacion');
+    lastdg.datagrid((intl)?'hideColumn':'showColumn','Calificacion');
+    $('#finales_individual_finalscores').parents('td').attr('colspan',(intl)?3:4);
+    */
     $('#finales_individual-Club').html(clubOrCountry());
     $('#finales_last_individual-Club').html(clubOrCountry());
     // $('#finales_equipos-Club').html(clubOrCountry()); // doesn't exist :-)

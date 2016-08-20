@@ -284,8 +284,8 @@ class Clasificaciones extends DBObject {
         }
         if ($fp>$cp ) { // tiene menos penalizacion que el primero;
             // con que la penalizacion por tiempo no supere a la del primero basta
-            // NOTA: como esto es jarto complicado de evaluar, de momento lo dejamos en el TRS
-            $this->current['toBeFirst']=$trs['trs'];
+            // NOTA: como esto es jarto complicado de evaluar, de momento lo dejamos en el mejor tiempo
+            $this->current['toBeFirst']=$ft;
         }
     }
 

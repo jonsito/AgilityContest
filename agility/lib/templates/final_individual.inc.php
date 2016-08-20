@@ -7,10 +7,10 @@ $config =Config::getInstance();
 <table id="finales_individual-datagrid">
     <thead>
     <tr>
-        <th colspan="7"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
-        <th colspan="7"> <span class="main_theader" id="finales_individual_roundname_m1"><?php _e('Round'); ?> 1</span></th>
-        <th colspan="7"> <span class="main_theader" id="finales_individual_roundname_m2"><?php _e('Round'); ?> 2</span></th>
-        <th colspan="4"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
+        <th colspan="7"><span class="main_theader" id="finales_individual_teaminfo"><?php _e('Competitor data'); ?></span> </th>
+        <th colspan="7"><span class="main_theader" id="finales_individual_roundname_m1"><?php _e('Round'); ?> 1</span></th>
+        <th colspan="7"><span class="main_theader" id="finales_individual_roundname_m2"><?php _e('Round'); ?> 2</span></th>
+        <th colspan="4"><span class="main_theader" id="finales_individual_finalscores"><?php _e('Final scores'); ?></span></th>
     </tr>
     <tr>
         <!--
@@ -64,7 +64,7 @@ $config =Config::getInstance();
         width:'100%',
         pagination: false,
         rownumbers: false,
-        fitColumns: true,
+        fitColumns: false,
         singleSelect: true,
         rowStyler:myRowStyler,
         autoRowHeight:false,
