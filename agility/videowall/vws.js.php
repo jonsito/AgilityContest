@@ -134,10 +134,11 @@ function vwsf_updateHeader(mode,data) {
         vws_selectAgilityOrJumping(isAgility(data.Tanda.Tipo));
     }
     if ( mode.indexOf("trs")>=0) { // fix sct/mct
-        // current round is always first one:
         var trs1=(typeof(data.trs1)==="undefined")?"<?php _e('Dist');?>/<?php _e('SCT');?>": data.trs1.dist+ "m. / " +data.trs1.trs+"s.";
         var trs2=(typeof(data.trs2)==="undefined")?"<?php _e('Dist');?>/<?php _e('SCT');?>": data.trs2.dist+ "m. / " +data.trs2.trs+"s.";
-        $('#vws_hdr_trs').val(isAgility(workingData.datosTanda.Tipo)?trs1:trs2);
+        // $('#vws_hdr_trs').val(isAgility(workingData.datosTanda.Tipo)?trs1:trs2);
+        // current round is always first one:
+        $('#vws_hdr_trs').val(trs1);
     }
 }
 
@@ -202,9 +203,9 @@ function vws_displayData(row,flag,toBeFirst) {
     var t=parseInt($('#vws_current_Tocados'+row).val());
     var r=parseInt($('#vws_current_Rehuses'+row).val());
     var tim=parseFloat($('#vws_current_Tiempo'+row).val());
-    $('#vws_current_FaltasTocados'+row).html("F: "+(f+t));
-    $('#vws_current_Refusals'+row).html("R: "+(r));
-    if (flag) $('#vws_current_Time'+row).html("T: "+ toFixedT(tim,ac_config.numdecs));
+    $('#vws_current_FaltasTocados'+row).html("F:"+(f+t));
+    $('#vws_current_Refusals'+row).html("R:"+(r));
+    if (flag) $('#vws_current_Time'+row).html(/*"T:"+ */toFixedT(tim,ac_config.numdecs));
     // eliminado, no presentado, puesto
     var e=parseInt($('#vws_current_Eliminado'+row).val());
     var n=parseInt($('#vws_current_NoPresentado'+row).val());
@@ -349,7 +350,11 @@ function vws_updateFinales(perro,data) {
                 // fill if required 'result' table data
                 if (n < nitems) {
                     var logo = items[n][(team) ? 'LogoTeam' : 'LogoClub'];
-                    $('#vws_results_' + n).form('load', items[n]);
+                    // en pruebas por equipos getTeamClasificaciones, retorna datos tanto para equipos completos
+                    // como sin completar e incluso vacios. Por ello lo tenemos en cuenta
+                    var data=items[n];
+                    if (team && items[n]['Penalizacion']>=(800*getMinDogsByTeam())) data=vws_getEmptyResults(/*final*/true,team);
+                    $('#vws_results_' + n).form('load', data);
                     $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
                 }
                 // fill if required 'before' table data
