@@ -70,7 +70,7 @@ class Inscripciones extends DBObject {
 		if($res!=null){ // already inscribed, try to update
             if (!is_object($res)) return $res;
             $this->myLogger->notice("El perro con ID:$idperro ya esta inscrito en la prueba:{$this->pruebaID}");
-            $this->real_update($idperro,$jornadas,$celo,$observaciones,$pagado);
+            $this->real_update($jornadas,$celo,$observaciones,$pagado,$res->ID);
             return $res->Dorsal;
         }
 
@@ -103,41 +103,32 @@ class Inscripciones extends DBObject {
      * @return {string} empty string if ok; else null
      */
 	function update($idperro) {
+        $p=$this->pruebaID;
+        if ($idperro<=0) return $this->error("Invalid IDPerro ID");
+        // cogemos los datos actuales
+        $res=$this->__selectObject("*","Inscripciones","(Perro=$idperro) AND (Prueba=$p)");
+        if (!is_object($res))
+            return $this->error("El perro cond ID:$idperro no figura inscrito en la prueba:$p");
         $celo=http_request("Celo","i",$res->Celo);
         $observaciones=http_request("Observaciones","s",$res->Observaciones);
         $pagado=http_request("Pagado","i",$res->Pagado);
         $jornadas=http_request("Jornadas","i",$res->Jornadas);
-        return $this->real_update($idperro,$jornadas,$celo,$observaciones,$pagado);
+        return $this->real_update($jornadas,$celo,$observaciones,$pagado,$res->ID);
     }
 
-	function real_update($idperro,$jornadas,$celo,$observaciones,$pagado) {
+	function real_update($jornadas,$celo,$observaciones,$pagado,$inscriptionID) {
 		$this->myLogger->enter();
-		$p=$this->pruebaID;
-		if ($idperro<=0) return $this->error("Invalid IDPerro ID");
-		// cogemos los datos actuales
-		$res=$this->__selectObject(
-						// idinscripcion, idprueba, idperro y dorsal no cambian
-			/* SELECT */	"ID, Celo, Observaciones, Jornadas, Pagado", 
-			/* FROM */		"Inscripciones",
-			/* WHERE */		"(Perro=$idperro) AND (Prueba=$p)"
-		);
-		if (!is_object($res))
-			return $this->error("El perro cond ID:$idperro no figura inscrito en la prueba:$p");
-
-		// buscamos datos nuevos y mezclamos con los actuales
-		$id=$res->ID;
-
 		// actualizamos bbdd
 		$str="UPDATE Inscripciones 
 			SET Celo=$celo, Observaciones='$observaciones', Jornadas=$jornadas, Pagado=$pagado
-			WHERE ( ID=$id)";
+			WHERE ( ID=$inscriptionID)";
 		
 		// actualizamos datos de inscripcion
 		$res=$this->query($str);
 		if (!$res) return $this->error($this->conn->error);
 		
 		// recalculamos la inscripcion, orden de salida y tabla de resultados
-		procesaInscripcion($this->pruebaID,$id);
+		procesaInscripcion($this->pruebaID,$inscriptionID);
 		
 		// everything ok. return
 		$this->myLogger->leave();
