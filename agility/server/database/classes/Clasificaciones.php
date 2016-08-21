@@ -57,7 +57,10 @@ class Clasificaciones extends DBObject {
 		if (!is_object($obj)) throw new Exception($obj);
 		$this->jornada=$obj;
 		$this->mangas=array();
+        // when perro is requested, but we are in first round, it's possible that dog has no data yet,
+        // and doesn't appears in clasification, so make sure that at least a dummy entry is returned
         $this->currentDog=$perro;
+        $this->current=array('Perro' => $perro );
 	}
 	
 	/**
@@ -178,7 +181,7 @@ class Clasificaciones extends DBObject {
         // no obstante, si $this->currentDog es distinto de cero, guardamos la entrada seleccionada
         // en $this->current para evaluar luego el tiempo requerido
 		$final2=array();
-		foreach($final as $perro => $item) {
+		foreach($final as $perro => &$item) {
 		    if ($this->currentDog==$perro) $this->current=$item;
 		    array_push($final2,$item);
         }
@@ -279,8 +282,9 @@ class Clasificaciones extends DBObject {
         if ($fp<$cp) {// tiene mas penalizacion que el primero: no tiene nada que hacer
             $this->current['toBeFirst']="";
         }
-        if ($fp==$cp) { // misma penalizacion: tiene que mejorar el tiempo
+        if ($fp==$cp) { // misma penalizacion: tiene que mejorar el tiempo... salvo que ya sea el primero
             $this->current['toBeFirst']=$ft-$ct;
+            if ($ft-$ct==0) $this->current['toBeFirst']=""; // already the first: do nothing
         }
         if ($fp>$cp ) { // tiene menos penalizacion que el primero;
             // con que la penalizacion por tiempo no supere a la del primero basta
@@ -372,6 +376,9 @@ class Clasificaciones extends DBObject {
 			if ( $a['P1'] == $b['P1'] )	return ($a['T1'] > $b['T1'])? 1:-1;
 			return ( $a['P1'] > $b['P1'])?1:-1;
 		});
+        // dado que array_values retorna una copia y no el array original
+        // es preciso asignar valores usando éste e indexando segun el orden devuelto
+        // por manga1
 		for ($n=0;$n<count($manga1);$n++) $teams[$manga1[$n]['ID']]['Puesto1']=$n+1;
 		// calculamos y almacenamos puestos de manga 2
 		$manga2=array_values($teams);
@@ -386,7 +393,10 @@ class Clasificaciones extends DBObject {
             if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
             return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
         });
-		for ($n=0;$n<count($final);$n++) $teams[$final[$n]['ID']]['Puesto']=$n+1;
+		for ($n=0;$n<count($final);$n++) {
+		    $final[$n]['Puesto']=$n+1; // at final Puesto use (now yes) evaluated value instead of original
+		    // $teams[$final[$n]['ID']]['Puesto']=$n+1;
+        }
         // retornamos resultado
         return $final;
 	}

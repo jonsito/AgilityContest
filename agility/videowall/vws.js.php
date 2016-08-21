@@ -198,6 +198,7 @@ function vws_setPartialIndividualOrTeamView(data) {
  * @param {float} toBeFirst if defined, on call to ring show time required to first place
  */
 function vws_displayData(row,flag,toBeFirst) {
+    // se asume la comprobacion pervia de que vws_current_Perro y tobefirst['Perro'] coinciden. Si no esto dara cosas raras
     // faltas, tocados, rehuses y tiempo
     var f=parseInt($('#vws_current_Faltas'+row).val());
     var t=parseInt($('#vws_current_Tocados'+row).val());
@@ -214,13 +215,13 @@ function vws_displayData(row,flag,toBeFirst) {
     var rs=$('#vws_current_Result'+row);
     if (n>0) { rs.html('<?php _e('NoPr');?>.'); return; }
     if (e>0) { rs.html('<?php _e('Elim');?>.'); return; }
-    if (p>0) { rs.html('- '+p+' -'); return; }
-    if (typeof(toBeFirst)!=="undefined") {
-        if (toBeFirst==="") {rs.html(""); return; }
-        rs.html('<span class="blink">&lt;'+toFixedT(toBeFirst,ac_config.numdecs)+'</span>');
+    if (typeof(toBeFirst)!=="undefined"){
+        // si toBeFirst es "" quiere decir que no tiene mangas pendientes, luego ya no tiene nada que mejorar
+        if (toBeFirst!=="") rs.html('<span class="blink">&lt;'+toFixedT(parseFloat(toBeFirst),ac_config.numdecs)+'</span>');
         return;
     }
-    rs.html('- '+p+' -');
+    // si llega aqui es que no habia perro para evaluar, luego ponemos sencillamente la posicion en que ha quedado
+    rs.html((p>0)?'- '+p+' -':"");
 }
 
 /**
@@ -333,21 +334,16 @@ function vws_updateFinales(perro,data) {
             Perro: perro
         },
         success: function (dat) {
-            var items = dat.rows; // resultados que hay que coger para rellenar tablas
-            var individual = dat.rows; // resultados de clasificacion individual
-            if (team) {
-                items = dat.equipos;
-                individual = dat.individual;
-            }
+            var items= (team)?dat.equipos:dat.rows;// resultados que hay que coger para rellenar tablas
+            var individual=(team)?dat.individual:dat.rows; // resultados de clasificacion individual
             var size = items.length; // longitud de datos a analizar
 
-            // ajustamos cabeceras ( nombre mangas, trs y trm )
+            // ajustamos cabeceras, actualizando datos del trs con los datos recibidos (para ajuste dinamico del TRS)
             vwsf_updateHeader('trs',dat);
             // rellenamos arrays 'result' y 'before'
             for (var n = 0; n < size; n++) {
-                // el campo puesto no viene: lo obtenemos del orden de la lista
-                items[n]['Puesto']=n+1;
-                items[n]['Result']=n+1;
+                // el campo result no viene: lo obtenemos del puesto ( que debería coincidir con el orden de la lista )
+                items[n]['Result']=items[n]['Puesto'];
                 // fill if required 'result' table data
                 if (n < nitems) {
                     var logo = items[n][(team) ? 'LogoTeam' : 'LogoClub'];
@@ -376,27 +372,38 @@ function vws_updateFinales(perro,data) {
                 $('#vws_before_' + i).form('load', vws_getEmptyResults(/*final*/true,team));
                 $('#vws_before_Logo_' + i).attr('src', '/agility/images/logos/null.png');
             }
-            // ahora indicamos puesto en el(los) campo(s) current, utilizando los datos de perros individuales
-            for (n = 0; n < individual.length; n++) {
-                var count=0;
-                var perro = individual[n]['Perro'];
-                if (team) {
-                    for (i = 0; i < 4; i++) {
-                        if ($('#vws_current_Perro_' + i).val() != perro) continue;
-                        $('#vws_current_Puesto_' + i).val(individual[n]['Puesto']);
-                        if (typeof(dat.current)==="undefined") vws_displayData("_"+i,false);
-                        else vws_displayData("_"+i,false,dat.current['toBeFirst']);
-                        count++;
-                    }
-                    if (count>=4) break; // no more dogs to fill, break loop
-                } else {
-                    if ($('#vws_current_Perro').val() != perro) continue;
-                    $('#vws_current_Puesto').val(individual[n]['Puesto']);
-                    if (typeof(dat.current)==="undefined") vws_displayData("",false);
-                    else vws_displayData("",false,dat.current['toBeFirst']);
-                    break; // already filled; no sense to iterate till the end
+
+            // ahora indicamos puesto y/o toBeFirst en el(los) campo(s) current,
+            // utilizando los datos de perros individuales
+            // reindexamos "individual" segun el id de perro
+            var dogsByID={};
+            for (n=0;n<individual.length;n++) dogsByID[parseInt(individual[n]['Perro'])]=individual[n];
+            var evalToBeFirst=(typeof(dat.current)!=="undefined");
+            if (team) {
+                for (i=0;i<4;i++) {
+                    var curdog=parseInt($('#vws_current_Perro_' + i).val());
+                    if (typeof (dogsByID[curdog])!=="undefined")
+                         $('#vws_current_Puesto_'+i).val(dogsByID[curdog]['Puesto']);
+                    else $('#vws_current_Puesto_'+i).val(0);
+                    vws_displayData("_"+i,false);
+
+                    // comprobamos si el perro es al que hay que poner el toBefirst
+                    if (!evalToBeFirst) continue;
+                    if (parseInt(dat.current['Perro']) != curdog) continue;
+                    vws_displayData("_"+i,false,dat.current['toBeFirst']);
                 }
-            } // fill current
+            } else { // individual. solo hay una columna que chequear
+                var curdog=parseInt($('#vws_current_Perro').val());
+                if (typeof (dogsByID[curdog])!=="undefined")
+                    $('#vws_current_Puesto').val(dogsByID[curdog]['Puesto']);
+                else $('#vws_current_Puesto').val(0);
+                vws_displayData("",false);
+
+                // comprobamos si el perro es al que hay que poner el toBefirst
+                if (!evalToBeFirst) return;
+                if (parseInt(dat.current['Perro']) != curdog) return;
+                vws_displayData("",false,dat.current['toBeFirst']);
+            }
         } // success
     }); // ajax
 }
