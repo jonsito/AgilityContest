@@ -214,9 +214,10 @@ function vws_displayData(row,flag,toBeFirst) {
     var rs=$('#vws_current_Result'+row);
     if (n>0) { rs.html('<?php _e('NoPr');?>.'); return; }
     if (e>0) { rs.html('<?php _e('Elim');?>.'); return; }
+    if (p>0) { rs.html('- '+p+' -'); return; }
     if (typeof(toBeFirst)!=="undefined") {
         if (toBeFirst==="") {rs.html(""); return; }
-        rs.html('<span class="blink">&lt; '+toFixedT(toBeFirst,ac_config.numdecs)+'</span>');
+        rs.html('<span class="blink">&lt;'+toFixedT(toBeFirst,ac_config.numdecs)+'</span>');
         return;
     }
     rs.html('- '+p+' -');
@@ -377,6 +378,7 @@ function vws_updateFinales(perro,data) {
             }
             // ahora indicamos puesto en el(los) campo(s) current, utilizando los datos de perros individuales
             for (n = 0; n < individual.length; n++) {
+                var count=0;
                 var perro = individual[n]['Perro'];
                 if (team) {
                     for (i = 0; i < 4; i++) {
@@ -384,12 +386,15 @@ function vws_updateFinales(perro,data) {
                         $('#vws_current_Puesto_' + i).val(individual[n]['Puesto']);
                         if (typeof(dat.current)==="undefined") vws_displayData("_"+i,false);
                         else vws_displayData("_"+i,false,dat.current['toBeFirst']);
+                        count++;
                     }
+                    if (count>=4) break; // no more dogs to fill, break loop
                 } else {
                     if ($('#vws_current_Perro').val() != perro) continue;
                     $('#vws_current_Puesto').val(individual[n]['Puesto']);
                     if (typeof(dat.current)==="undefined") vws_displayData("",false);
                     else vws_displayData("",false,dat.current['toBeFirst']);
+                    break; // already filled; no sense to iterate till the end
                 }
             } // fill current
         } // success
