@@ -112,7 +112,9 @@ function pb_updateInscripciones_eq3() {
         Operation:'select',
         Prueba:workingData.prueba,
         Jornada:workingData.jornada,
-        where:''
+        where:'',
+        HideDefault:1, // do not show default team
+        AddLogo:1 // generate LogoTeam
     });
 }
 
