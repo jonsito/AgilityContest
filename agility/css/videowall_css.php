@@ -249,7 +249,7 @@ td.vw_club {
 }
 
 .vws_entry {
-    font-family:'<?php echo $fontfamily; ?>';
+    font-family:<?php echo $fontfamily; ?>;
     font-size: <?php echo $fontsize ?>;
     font-weight: bold;
     font-stretch:condensed;
@@ -263,7 +263,7 @@ td.vw_club {
     outline:none;
     color:inherit;
     background-color:inherit;
-    font-family: '<?php echo $fontfamily; ?>' ;
+    font-family: <?php echo $fontfamily; ?> ;
     font-size: <?php echo $fontsize ?>;
     font-weight: bold;
     font-stretch:condensed;

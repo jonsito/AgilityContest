@@ -33,23 +33,51 @@ var vwsCounter = new Countdown({
 	}
 });
 
+
+
 /**
  * use keys up/down to increase/decrease font size
  * NOT WORKING: REVISE
  */
 function vws_keyBindings() {
+    if (typeof(ac_config.cur_fontindex)==="undefined") ac_config.cur_fontindex=7;
     // capture <space> key to switch OSD on/off
     $(document).keydown(function(e) {
+        var keycode=e.which;
         var delta=0;
-        if (e.which == 38) delta=0.1; //  key up
-        if (e.which == 40) delta=-0.1; // key down
-        if (delta==0) return true; // let continue keybind event chain
-        size=parseFloat(ac_config.vws_fontsize)+delta;
-        if ( (size>=1.0) && (size<=5.0) ) ac_config.vws_fontsize=size;
-        $('.vws_entry').css('font-size',''+size+'vw');
-        $('.vws_entry input').css('font-size',''+size+'vw');
-        document.title="font-size: "+toFixedT(size,1);
-        return true; // to allow continue event chain
+        if (keycode == 38) delta=0.1; //  key up
+        if (keycode == 40) delta=-0.1; // key down
+        if (delta!=0){
+            size=parseFloat(ac_config.vws_fontsize)+delta;
+            if ( (size>=1.0) && (size<=5.0) ) ac_config.vws_fontsize=size;
+            $('.vws_entry').css('font-size',''+size+'vw');
+            $('.vws_entry input').css('font-size',''+size+'vw');
+            document.title="font-size: "+toFixedT(size,1);
+            e.preventDefault();
+        }
+        delta=0;
+        if (keycode == 37) delta=-1; //  key left
+        if (keycode == 39) delta=1; // key right
+        if (delta!=0) { // change font
+             var fonts= [
+                "Helvetica, monospace",
+                "futura_condensedbold",
+                "roadgeek_2005_engschriftRg",
+                "roadgeek_2005_series_b",
+                "Helvetica Neue LT Std 67 Medium Condensed",
+                "Helvetica Neue LT Std 67 Bold Condensed",
+                "Stint Ultra Condensed Regular",
+                "Steelfish Regular"
+            ];
+            var idx=ac_config.cur_fontindex+delta;
+            if (idx>=fonts.length) idx=0;
+            if (idx<0) idx=fonts.length-1;
+            ac_config.cur_fontindex=idx;
+            $('.vws_entry').css('font-family',fonts[idx]);
+            $('.vws_entry input').css('font-family',fonts[idx]);
+            document.title="idx:"+idx+" font-family: "+fonts[idx];
+            e.preventDefault();
+        }
     });
 }
 

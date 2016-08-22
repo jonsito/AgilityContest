@@ -179,10 +179,10 @@ $config =Config::getInstance();
 				<option value="Helvetica, monospace"><?php _e('Default system font'); ?></option>
 				<option value="futura_condensedbold">Futura Condensed Bold</option>
 				<option value="roadgeek_2005_engschriftRg">RoadGeek 2005 Engschrift</option>
-				<option value="roadgeek_2005_series_b" selected="selected">RoadGeek 2005 Series B</option>
-				<option value="Helvetica Neue LT Std 67 Medium Condensed" selected="selected">Helvetica Neue LT Std 67 Medium Condensed</option>
-				<option value="Helvetica Neue LT Std 67 Bold Condensed" selected="selected">Helvetica Neue LT Std 67 Bold Condensed</option>
-				<option value="Stint Ultra Condensed Regular" selected="selected">Stint Ultra Condensed Regular</option>
+				<option value="roadgeek_2005_series_b">RoadGeek 2005 Series B</option>
+				<option value="Helvetica Neue LT Std 67 Medium Condensed">Helvetica Neue LT Std 67 Medium Condensed</option>
+				<option value="Helvetica Neue LT Std 67 Bold Condensed">Helvetica Neue LT Std 67 Bold Condensed</option>
+				<option value="Stint Ultra Condensed Regular">Stint Ultra Condensed Regular</option>
 				<option value="Steelfish Regular" selected="selected">Steelfish Regular</option>
 			</select>
 			<label for="vws_fontsize"><?php _e('Default font size (vw units) '); ?></label>
