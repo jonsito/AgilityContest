@@ -40,7 +40,6 @@ var vwsCounter = new Countdown({
  * NOT WORKING: REVISE
  */
 function vws_keyBindings() {
-    if (typeof(ac_config.cur_fontindex)==="undefined") ac_config.cur_fontindex=7;
     // capture <space> key to switch OSD on/off
     $(document).keydown(function(e) {
         var keycode=e.which;
@@ -59,6 +58,7 @@ function vws_keyBindings() {
         if (keycode == 37) delta=-1; //  key left
         if (keycode == 39) delta=1; // key right
         if (delta!=0) { // change font
+            if (typeof(ac_config.cur_fontindex)==="undefined") ac_config.cur_fontindex=7;
              var fonts= [
                 "Helvetica, monospace",
                 "futura_condensedbold",
