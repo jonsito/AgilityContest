@@ -257,7 +257,9 @@ $poster="/agility/images/agilityawc2016.png";
 <div id="pb_layout">
 
 <div id="poster_panel" data-options="region:'west',split:false" style="width:40%">
-    <img src="/agility/images/agilityawc2016.png" alt="logo_agilityawc2016" style="max-width:90%;padding:20px"/>
+    <a href="www.agilitywc2016.com">
+        <img src="/agility/images/agilityawc2016.png" alt="logo_agilityawc2016" style="max-width:90%;padding:20px"/>
+    </a>
     <div style="padding:20px;font-weight: bold; font-size:1.2vw;">
         <h2><?php _e('Important notice'); ?>:</h2>
         <p>
