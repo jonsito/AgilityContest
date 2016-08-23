@@ -263,7 +263,7 @@ $poster="/agility/images/agilityawc2016.png";
         <p>
             <?php _e("Data shown in these pages reflect <em>real time status</em> of the contest and may be modified by Judges and Organization after revision");?>
         </p><p>
-            <?php _e("For oficial scores and results, please look at");?> <a href="">AWC-FCI 2016 web</a>
+            <?php _e("For oficial scores and results, please look at");?> <a href="http://agilitywc2016.com/competition">AWC-FCI 2016 web</a>
         </p>
 
     </div>
