@@ -47,7 +47,7 @@ $poster="/agility/images/agilityawc2016.png";
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $ptree['Prueba']['Nombre'] . " - " . _("Web access"); ?> </title>
+    <title><?php echo $ptree['Prueba']['Nombre'] . " - " . _("OnLine data"); ?> </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="application-name" content="Agility Contest" />
     <meta name="copyright" content="© 2013-2015 Juan Antonio Martinez" />
