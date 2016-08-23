@@ -38,7 +38,7 @@ class PrintCatalogo extends PrintCommon {
 	protected $inscritos;
 	protected $jornadas;
 	
-	protected $width = array( 45,18,15,22,30,5,5,5,5,5,5,5,5); // anchos predefinidos de las celdas
+	protected $width = array( 41,17,14,21,29,6,6,6,6,6,6,6,6); // anchos predefinidos de las celdas
 	protected $cellHeader = array( 'J1','J2','J3','J4','J5','J6','J7','J8');
 	
 	/**
@@ -150,8 +150,8 @@ class PrintCatalogo extends PrintCommon {
 		$this->Cell( 15, 7, $row['Dorsal'],	'TLB', 0, 'C',	true);
 		$this->SetFont($this->getFontName(),'BI',9); // bold 9px italic
         $name= $row['Nombre'];
-        if (!is_null($row['NombreLargo']) && $row['NombreLargo']!=="") $name = $row['NombreLargo']." - ".$name;
-		$this->Cell( $this->width[0], 7, $name,	'LB', 0, 'C',	true);
+        if (!is_null($row['NombreLargo']) && $row['NombreLargo']!=="") $name = $name . " - " .$row['NombreLargo'];
+		$this->Cell( $this->width[0], 7, $name,	'LB', 0, 'L',	true);
 		$this->SetFont($this->getFontName(),'',8); // bold 8px
 		$this->Cell( $this->width[1], 7, $row['Raza'],		'LB', 0, 'C',	true);
         if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',6); // bold 6px
@@ -188,7 +188,7 @@ class PrintCatalogo extends PrintCommon {
 			// contamos las jornadas sin asignar
 			if (($skip==0) || ($jornada['Nombre']==='-- Sin asignar --')) {
 				$this->cellHeader[$row]='';
-				$this->width[0]+=2;$this->width[1]+=1;$this->width[4]+=2;
+				$this->width[0]+=3;$this->width[1]+=1;$this->width[4]+=2;
 				$this->width[5+$row]=0;
 			} else {
 				$this->cellHeader[$row]=$jornada['Nombre'];

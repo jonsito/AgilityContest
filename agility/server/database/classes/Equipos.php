@@ -335,10 +335,12 @@ class Equipos extends DBObject {
                             Resultados.Nombre, Resultados.Raza, Resultados.Licencia, Resultados.Categoria, Resultados.Grado,
                             Resultados.Celo,Resultados.NombreGuia,Resultados.NombreClub, Resultados.Equipo,
                             PerroGuiaClub.Club AS Club, PerroGuiaClub.Guia AS Guia, PerroGuiaClub.LogoClub AS LogoClub, 
-                            PerroGuiaClub.NombreLargo AS NombreLargo,
+                            PerroGuiaClub.NombreLargo AS NombreLargo, Inscripciones.Observaciones AS Observaciones,
                             '$tname' AS NombreEquipo",
-            /* from */	"Resultados,PerroGuiaClub",
-            /* where */ "( PerroGuiaClub.ID = Resultados.Perro)	AND ( Resultados.Jornada={$teamobj->Jornada} ) AND ( Resultados.Equipo=$team )",
+            /* from */	"Resultados,PerroGuiaClub,Inscripciones",
+            /* where */ "( PerroGuiaClub.ID = Resultados.Perro)	AND ( Resultados.Jornada={$teamobj->Jornada} ) 
+            	        AND ( Inscripciones.Prueba=Resultados.Prueba ) AND (Inscripciones.Perro=Resultados.Perro)
+                        AND ( Resultados.Equipo=$team )",
             /* order */ "NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC",
             /* limit */ ""
         );

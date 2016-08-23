@@ -189,7 +189,7 @@ class EquiposByJornada extends PrintCommon {
     			$this->Cell($this->pos[5],5,$row['NombreGuia'],	'LR',0,$this->align[5],true);
     			$this->Cell($this->pos[6],5,$row['NombreClub'],	'LR',0,$this->align[6],true);
     			$this->Cell($this->pos[7],5,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[7],true);
-    			$this->Cell($this->pos[8],5,/*$row['Observaciones']*/ "",'LR',0,$this->align[8],true);
+    			$this->Cell($this->pos[8],5,$row['Observaciones'],'LR',0,$this->align[8],true);
     			$this->Ln();
     			$order++;
                 $rowcount++;
