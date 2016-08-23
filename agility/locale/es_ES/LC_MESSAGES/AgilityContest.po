@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-08-20 13:01+0200\n"
-"PO-Revision-Date: 2016-08-20 13:04+0200\n"
+"POT-Creation-Date: 2016-08-23 13:18+0200\n"
+"PO-Revision-Date: 2016-08-23 13:21+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.8\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -18,6 +18,84 @@ msgstr ""
 "X-Poedit-SearchPath-1: lib/templates\n"
 "X-Poedit-SearchPathExcluded-0: videos\n"
 "X-Poedit-SearchPathExcluded-1: images\n"
+
+#: awcfci2016/index.php:50 index2.php:49
+msgid "Web access"
+msgstr "Acceso internet"
+
+#: awcfci2016/index.php:262
+msgid "Important notice"
+msgstr "Aviso Importante"
+
+#: awcfci2016/index.php:264
+msgid ""
+"Data shown in these pages reflect <em>real time status</em> of the contest "
+"and may be modified by Judges and Organization after revision"
+msgstr ""
+"Los datos mostrados en estas p&aacute;ginas se actualizan <em>en tiempo "
+"real</em> y pueden ser posteriormente revisados por jueces y/o "
+"organizaci&oacute;n"
+
+#: awcfci2016/index.php:266
+msgid "For oficial scores and results, please look at"
+msgstr "Para obtener los resultados <em>oficiales</em>, por favor consulte en"
+
+#: awcfci2016/index.php:291 index2.php:263
+msgid "Online information"
+msgstr "Informaci&oacute;n en l&iacute;nea"
+
+#: awcfci2016/index.php:301 index2.php:280 public/pb_programa.php:97
+#: public/pbmenu_programa.php:101 scripts/competicion.js.php:871
+msgid "Timetable"
+msgstr "Horario"
+
+#: awcfci2016/index.php:302 index2.php:281 server/excel/dog_reader.php:272
+#: server/excel/inscription_writer.php:96
+msgid "Inscriptions"
+msgstr "Inscripciones"
+
+#: awcfci2016/index.php:303 console/frm_competicion2.php:78 index.php:151
+#: index2.php:282 livestream/index.php:191 livestream/vwls_ordensalida.php:62
+#: public/pb_ordensalida.php:42 public/pb_ordensalida.php:51
+#: public/pbmenu_ordensalida.php:42 scripts/competicion.js.php:878
+#: server/excel/print_ordenSalidaExcel.php:103
+#: server/excel/print_ordenSalidaExcel.php:135
+#: server/excel/print_ordenSalidaExcel.php:182
+#: server/pdf/print_ordenDeSalida.php:90
+#: server/pdf/print_ordenSalidaEquipos4.php:87 videowall/index.php:226
+#: videowall/vw_ordensalida.php:36
+msgid "Starting order"
+msgstr "Orden de salida"
+
+#: awcfci2016/index.php:330 console/frm_clasificaciones2.php:52
+#: console/frm_clasificaciones_equipos.php:51
+#: lib/templates/final_individual.inc.php:11
+#: lib/templates/final_individual.inc.php:12
+#: lib/templates/final_last_individual.inc.php:12
+#: lib/templates/final_last_individual.inc.php:13
+#: lib/templates/final_last_teams.inc.php:12
+#: lib/templates/final_last_teams.inc.php:13
+#: lib/templates/final_teams.inc.php:11 lib/templates/final_teams.inc.php:12
+#: livestream/vwls_finales.php:89 livestream/vwls_finales.php:90
+#: livestream/vwls_osdvideo.php:53 public/pb_parciales.php:55
+#: public/pb_parciales_equipos.php:55
+#: server/excel/print_ordenSalidaExcel.php:124
+#: server/excel/scores_writer.php:94 server/pdf/print_clasificacion.php:109
+#: server/pdf/print_clasificacion_equipos.php:146
+#: server/pdf/print_clasificacion_equipos.php:266
+#: server/pdf/print_clasificacion_excel.php:126
+#: server/pdf/print_clasificacion_excel.php:135
+#: videowall/vws_final_equipos.php:54 videowall/vws_final_individual.php:54
+msgid "Round"
+msgstr "Manga"
+
+#: awcfci2016/index.php:333 console/frm_clasificaciones.php:47
+#: console/frm_clasificaciones2.php:95
+#: console/frm_clasificaciones_equipos.php:96 console/index.php:213
+#: server/excel/scores_writer.php:239 server/pdf/print_clasificacion.php:159
+#: server/pdf/print_clasificacion_excel.php:155
+msgid "Scores"
+msgstr "Clasificaciones"
 
 #: chrono/chrono.inc.php:44
 msgid "Contest data"
@@ -59,8 +137,8 @@ msgstr "R"
 #: chrono/chrono.inc.php:67 console/frm_equipos.php:220
 #: console/frm_inscripciones2.php:228 lib/templates/orden_salida.inc.php:24
 #: livestream/vwls_osdvideo.php:86 public/pb_inscripciones.php:100
-#: public/pb_inscripciones_equipos.php:149 public/pbmenu_inscripciones.php:96
-#: public/pbmenu_inscripciones_equipos.php:147 scripts/competicion.js.php:1065
+#: public/pb_inscripciones_equipos.php:149 public/pbmenu_inscripciones.php:100
+#: public/pbmenu_inscripciones_equipos.php:154 scripts/competicion.js.php:1065
 #: scripts/printer.js.php:219 scripts/results_and_scores.js.php:187
 #: server/pdf/print_clasificacion.php:163
 #: server/pdf/print_clasificacion_equipos.php:232
@@ -78,8 +156,6 @@ msgstr "R"
 #: tablet/tablet_main.php:286 tablet/tablet_main.php:416
 #: videowall/vwc_finales.php:81 videowall/vwc_finales.php:213
 #: videowall/vwc_parciales.php:81 videowall/vwc_parciales.php:225
-#: console/dialogs/dlg_competicion.inc:121
-#: console/dialogs/dlg_ordensalida.inc:162
 msgid "Dorsal"
 msgstr "Dorsal"
 
@@ -87,8 +163,6 @@ msgstr "Dorsal"
 #: console/import/import.js.php:113 console/import/import.js.php:121
 #: console/import/import.js.php:131 console/import/import_perros.inc.php:148
 #: scripts/competicion.js.php:1065 scripts/printer.js.php:219
-#: console/dialogs/dlg_chperros.inc:148
-#: console/dialogs/dlg_newInscripcion.inc:151
 msgid "Dog"
 msgstr "Perro"
 
@@ -104,8 +178,8 @@ msgstr "Perro"
 #: lib/templates/parcial_last_individual.inc.php:28
 #: lib/templates/parcial_last_teams.inc.php:30 livestream/vwls_finales.php:97
 #: livestream/vwls_osdvideo.php:88 public/pb_inscripciones.php:107
-#: public/pb_inscripciones_equipos.php:156 public/pbmenu_inscripciones.php:103
-#: public/pbmenu_inscripciones_equipos.php:154 scripts/competicion.js.php:1065
+#: public/pb_inscripciones_equipos.php:156 public/pbmenu_inscripciones.php:107
+#: public/pbmenu_inscripciones_equipos.php:161 scripts/competicion.js.php:1065
 #: scripts/printer.js.php:219 scripts/results_and_scores.js.php:122
 #: scripts/results_and_scores.js.php:194 server/pdf/print_clasificacion.php:175
 #: server/pdf/print_clasificacion_equipos.php:240
@@ -124,10 +198,6 @@ msgstr "Perro"
 #: tablet/tablet_main.php:290 tablet/tablet_main.php:418
 #: videowall/vwc_finales.php:83 videowall/vwc_finales.php:216
 #: videowall/vwc_parciales.php:83 videowall/vwc_parciales.php:228
-#: console/dialogs/dlg_chperros.inc:151 console/dialogs/dlg_competicion.inc:123
-#: console/dialogs/dlg_editInscripcion.inc:46
-#: console/dialogs/dlg_newInscripcion.inc:155
-#: console/dialogs/dlg_ordensalida.inc:166 console/dialogs/dlg_perros.inc:77
 msgid "Handler"
 msgstr "Gu&iacute;a"
 
@@ -154,13 +224,6 @@ msgstr "Gu&iacute;a"
 #: tablet/tablet_main.php:419 videowall/vwc_finales.php:84
 #: videowall/vwc_finales.php:217 videowall/vwc_parciales.php:84
 #: videowall/vwc_parciales.php:229 videowall/vws_entrenamientos.php:75
-#: console/dialogs/dlg_chguias.inc:114 console/dialogs/dlg_chperros.inc:152
-#: console/dialogs/dlg_competicion.inc:124
-#: console/dialogs/dlg_editInscripcion.inc:48
-#: console/dialogs/dlg_entrenamientos.inc:98 console/dialogs/dlg_guias.inc:45
-#: console/dialogs/dlg_newInscripcion.inc:156
-#: console/dialogs/dlg_ordensalida.inc:167 console/dialogs/dlg_perros.inc:191
-#: console/dialogs/dlg_pruebas.inc:49 console/dialogs/dlg_selectJornada.inc:85
 msgid "Club"
 msgstr "Club"
 
@@ -175,9 +238,6 @@ msgstr "Club"
 #: server/pdf/print_inscritosByPrueba.php:785
 #: server/pdf/print_trsTemplates.php:81 server/pdf/print_trsTemplates.php:127
 #: videowall/vwc_finales.php:85 videowall/vwc_parciales.php:85
-#: console/dialogs/dlg_chperros.inc:71
-#: console/dialogs/dlg_editInscripcion.inc:42 console/dialogs/dlg_perros.inc:63
-#: console/dialogs/dlg_usuarios.inc:75
 msgid "Category"
 msgstr "Categor&iacute;a"
 
@@ -187,19 +247,14 @@ msgstr "Categor&iacute;a"
 #: console/frm_perros.php:130 console/import/import_perros.inc.php:78
 #: console/import/import_perros.inc.php:150 livestream/vwls_osdvideo.php:91
 #: public/pb_inscripciones.php:106 public/pb_inscripciones_equipos.php:155
-#: public/pbmenu_inscripciones.php:102
-#: public/pbmenu_inscripciones_equipos.php:153
+#: public/pbmenu_inscripciones.php:106
+#: public/pbmenu_inscripciones_equipos.php:160
 #: server/pdf/print_clasificacion_excel.php:162
 #: server/pdf/print_inscritosByPrueba.php:126
 #: server/pdf/print_resultadosByManga.php:61
 #: server/pdf/print_trsTemplates.php:81 tablet/tablet_main.php:87
 #: tablet/tablet_main.php:293 videowall/vwc_finales.php:86
-#: videowall/vwc_parciales.php:86 console/dialogs/dlg_chperros.inc:78
-#: console/dialogs/dlg_chperros.inc:150
-#: console/dialogs/dlg_editInscripcion.inc:44
-#: console/dialogs/dlg_jornadas.inc:65 console/dialogs/dlg_jornadas.inc:71
-#: console/dialogs/dlg_jornadas.inc:77
-#: console/dialogs/dlg_newInscripcion.inc:154 console/dialogs/dlg_perros.inc:70
+#: videowall/vwc_parciales.php:86
 msgid "Grade"
 msgstr "Grado"
 
@@ -207,8 +262,8 @@ msgstr "Grado"
 #: console/frm_equipos.php:229 console/frm_inscripciones2.php:235
 #: lib/templates/orden_salida.inc.php:34 livestream/vwls_osdvideo.php:92
 #: public/pb_inscripciones.php:110 public/pb_inscripciones_equipos.php:159
-#: public/pbmenu_inscripciones.php:106
-#: public/pbmenu_inscripciones_equipos.php:157
+#: public/pbmenu_inscripciones.php:110
+#: public/pbmenu_inscripciones_equipos.php:164
 #: server/excel/print_ordenSalidaExcel.php:167
 #: server/excel/print_ordenSalidaExcel.php:224
 #: server/pdf/print_entradaDeDatos.php:154
@@ -221,9 +276,7 @@ msgstr "Grado"
 #: tablet/tablet_main.php:289 videowall/videowall.js.php:449
 #: videowall/videowall.js.php:555 videowall/vwc_finales.php:87
 #: videowall/vwc_finales.php:219 videowall/vwc_parciales.php:87
-#: videowall/vwc_parciales.php:231 console/dialogs/dlg_editInscripcion.inc:74
-#: console/dialogs/dlg_newInscripcion.inc:76
-#: console/dialogs/dlg_ordensalida.inc:168
+#: videowall/vwc_parciales.php:231
 msgid "Heat"
 msgstr "Celo"
 
@@ -279,14 +332,10 @@ msgstr "Eliminado"
 #: scripts/sesiones.js.php:80 scripts/sesiones.js.php:140
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
 #: scripts/usuarios.js.php:86 scripts/usuarios.js.php:150
-#: console/dialogs/dlg_competicion.inc:71
-#: console/dialogs/dlg_configuracion.inc:517
-#: console/dialogs/dlg_selectJornada.inc:156
 msgid "Error"
 msgstr "Error"
 
-#: chrono/chrono.inc.php:102 console/dialogs/dlg_competicion.inc:46
-#: console/dialogs/dlg_entrenamientos.inc:39 console/dialogs/dlg_tools.inc:19
+#: chrono/chrono.inc.php:102
 msgid "Reset"
 msgstr "Reset"
 
@@ -304,7 +353,6 @@ msgstr "Intermedio"
 
 #: chrono/chrono.inc.php:112 lib/templates/entrenamientos.inc.php:22
 #: videowall/vws_entrenamientos.php:80
-#: console/dialogs/dlg_entrenamientos.inc:111
 msgid "End"
 msgstr "Final"
 
@@ -357,7 +405,7 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 #: videowall/videowall.js.php:214 videowall/videowall.js.php:298
 #: videowall/videowall.js.php:328 videowall/videowall.js.php:399
 #: videowall/videowall.js.php:462 videowall/videowall.js.php:568
-#: videowall/vws.js.php:215 console/dialogs/dlg_competicion.inc:138
+#: videowall/vws.js.php:245
 msgid "Elim"
 msgstr "Elim"
 
@@ -366,7 +414,7 @@ msgstr "Elim"
 #: videowall/videowall.js.php:219 videowall/videowall.js.php:255
 #: videowall/videowall.js.php:294 videowall/videowall.js.php:327
 #: videowall/videowall.js.php:465 videowall/videowall.js.php:571
-#: videowall/vws.js.php:214 videowall/vws.js.php:531
+#: videowall/vws.js.php:244 videowall/vws.js.php:580
 msgid "NoPr"
 msgstr "NoPr"
 
@@ -405,8 +453,8 @@ msgstr "Dors"
 #: lib/templates/parcial_last_teams.inc.php:22 livestream/index.php:251
 #: livestream/vwls_finales.php:96 livestream/vwls_osdvideo.php:87
 #: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:151
-#: public/pbmenu_inscripciones.php:98
-#: public/pbmenu_inscripciones_equipos.php:149
+#: public/pbmenu_inscripciones.php:102
+#: public/pbmenu_inscripciones_equipos.php:156
 #: scripts/results_and_scores.js.php:117 scripts/results_and_scores.js.php:189
 #: server/excel/common_writer.php:113 server/excel/common_writer.php:133
 #: server/pdf/print_clasificacion.php:165
@@ -430,18 +478,7 @@ msgstr "Dors"
 #: tablet/tablet_main.php:287 tablet/tablet_main.php:417
 #: videowall/index.php:289 videowall/vwc_finales.php:82
 #: videowall/vwc_finales.php:215 videowall/vwc_parciales.php:82
-#: videowall/vwc_parciales.php:227 console/dialogs/dlg_chguias.inc:38
-#: console/dialogs/dlg_chguias.inc:112 console/dialogs/dlg_chperros.inc:38
-#: console/dialogs/dlg_clubes.inc:51 console/dialogs/dlg_competicion.inc:122
-#: console/dialogs/dlg_editInscripcion.inc:38
-#: console/dialogs/dlg_equipos.inc:33 console/dialogs/dlg_guias.inc:29
-#: console/dialogs/dlg_jornadas.inc:29 console/dialogs/dlg_jueces.inc:30
-#: console/dialogs/dlg_ordensalida.inc:101
-#: console/dialogs/dlg_ordensalida.inc:163
-#: console/dialogs/dlg_ordentandas.inc:53
-#: console/dialogs/dlg_ordentandas.inc:169 console/dialogs/dlg_perros.inc:29
-#: console/dialogs/dlg_pruebas.inc:154 console/dialogs/dlg_selectJornada.inc:83
-#: console/dialogs/dlg_sesiones.inc:28 console/dialogs/dlg_usuarios.inc:55
+#: videowall/vwc_parciales.php:227
 msgid "Name"
 msgstr "Nombre"
 
@@ -463,9 +500,9 @@ msgstr "Gu&iacute;a"
 #: lib/templates/parcial_last_teams.inc.php:26
 #: lib/templates/parcial_teams.inc.php:16 public/pb_inscripciones.php:105
 #: public/pb_inscripciones_equipos.php:101
-#: public/pb_inscripciones_equipos.php:154 public/pbmenu_inscripciones.php:101
-#: public/pbmenu_inscripciones_equipos.php:90
-#: public/pbmenu_inscripciones_equipos.php:152
+#: public/pb_inscripciones_equipos.php:154 public/pbmenu_inscripciones.php:105
+#: public/pbmenu_inscripciones_equipos.php:96
+#: public/pbmenu_inscripciones_equipos.php:159
 #: scripts/results_and_scores.js.php:119 scripts/results_and_scores.js.php:191
 #: server/pdf/print_clasificacion.php:173
 #: server/pdf/print_clasificacion_equipos.php:239
@@ -474,13 +511,7 @@ msgstr "Gu&iacute;a"
 #: server/pdf/print_inscritosByPrueba.php:777 server/pdf/print_podium.php:110
 #: server/pdf/print_podium.php:112 server/pdf/print_resultadosByEquipos.php:96
 #: server/pdf/print_resultadosByManga.php:61 tablet/tablet_main.php:85
-#: tablet/tablet_main.php:292 console/dialogs/dlg_chperros.inc:149
-#: console/dialogs/dlg_competicion.inc:38
-#: console/dialogs/dlg_competicion.inc:125
-#: console/dialogs/dlg_newInscripcion.inc:153
-#: console/dialogs/dlg_ordensalida.inc:47
-#: console/dialogs/dlg_ordensalida.inc:102
-#: console/dialogs/dlg_ordensalida.inc:165
+#: tablet/tablet_main.php:292
 msgid "Cat"
 msgstr "Cat"
 
@@ -494,12 +525,11 @@ msgstr "Grd"
 #: lib/templates/parcial_last_teams.inc.php:31
 #: lib/templates/parcial_teams.inc.php:15
 #: public/pb_inscripciones_equipos.php:100
-#: public/pbmenu_inscripciones_equipos.php:89
+#: public/pbmenu_inscripciones_equipos.php:95
 #: server/database/classes/OrdenSalida.php:500
 #: server/excel/print_ordenSalidaExcel.php:145
 #: server/excel/print_ordenSalidaExcel.php:203 tablet/tablet_main.php:285
 #: videowall/vwc_finales.php:218 videowall/vwc_parciales.php:230
-#: console/dialogs/dlg_ordensalida.inc:161
 msgid "Team"
 msgstr "Equipo"
 
@@ -510,9 +540,6 @@ msgstr "Equipo"
 #: console/import/import_clubes.inc.php:199 modules/Federations.php:147
 #: scripts/datagrid_formatters.js.php:141 server/excel/dog_reader.php:347
 #: server/pdf/print_common.php:187 server/pdf/print_listaPerros.php:60
-#: console/dialogs/dlg_clubes.inc:76 console/dialogs/dlg_clubes.inc:173
-#: console/dialogs/dlg_entrenamientos.inc:98 console/dialogs/dlg_jueces.inc:48
-#: console/dialogs/dlg_jueces.inc:114
 msgid "Country"
 msgstr "Pa&iacute;s"
 
@@ -531,10 +558,6 @@ msgstr "Fallo de sensores"
 #: videowall/vw_ordensalida.php:37 videowall/vw_parciales.php:44
 #: videowall/vwc_finales.php:45 videowall/vwc_parciales.php:45
 #: videowall/vws_entrenamientos.php:37
-#: console/dialogs/dlg_entrenamientos.inc:114
-#: console/dialogs/dlg_entrenamientos.inc:115
-#: console/dialogs/dlg_entrenamientos.inc:116
-#: console/dialogs/dlg_entrenamientos.inc:117
 msgid "Ring"
 msgstr "Ring"
 
@@ -542,10 +565,6 @@ msgstr "Ring"
 #: console/frm_inscripciones.php:41 console/frm_login.php:59
 #: console/frm_logout.php:35 console/frm_myAdmin.php:65
 #: livestream/index.php:209 tablet/tablet_main.php:58 videowall/index.php:247
-#: console/dialogs/dlg_clubes.inc:138
-#: console/dialogs/dlg_editInscripcion.inc:98
-#: console/dialogs/dlg_ordentandas.inc:79
-#: console/dialogs/dlg_selectJornada.inc:42
 msgid "Accept"
 msgstr "Aceptar"
 
@@ -570,9 +589,9 @@ msgstr "Trabajar con el ring seleccionado"
 #: lib/templates/orden_salida.inc.php:35 livestream/index.php:252
 #: public/pb_inscripciones.php:111 public/pb_inscripciones_equipos.php:102
 #: public/pb_inscripciones_equipos.php:160 public/pb_programa.php:102
-#: public/pbmenu_inscripciones.php:107
-#: public/pbmenu_inscripciones_equipos.php:91
-#: public/pbmenu_inscripciones_equipos.php:158 public/pbmenu_programa.php:102
+#: public/pbmenu_inscripciones.php:111
+#: public/pbmenu_inscripciones_equipos.php:97
+#: public/pbmenu_inscripciones_equipos.php:165 public/pbmenu_programa.php:106
 #: server/excel/common_writer.php:113 server/pdf/print_entradaDeDatos.php:234
 #: server/pdf/print_entradaDeDatos.php:315
 #: server/pdf/print_equiposByJornada.php:84
@@ -580,17 +599,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/print_inscritosByPrueba.php:777
 #: server/pdf/print_ordenDeSalida.php:73 server/pdf/print_ordenTandas.php:90
 #: tablet/index.php:225 tablet/tablet_main.php:210 videowall/index.php:290
-#: videowall/vws_entrenamientos.php:86 console/dialogs/dlg_chguias.inc:55
-#: console/dialogs/dlg_clubes.inc:125 console/dialogs/dlg_competicion.inc:140
-#: console/dialogs/dlg_editInscripcion.inc:77
-#: console/dialogs/dlg_entrenamientos.inc:118
-#: console/dialogs/dlg_equipos.inc:48 console/dialogs/dlg_guias.inc:51
-#: console/dialogs/dlg_jornadas.inc:29 console/dialogs/dlg_jueces.inc:75
-#: console/dialogs/dlg_ordensalida.inc:103
-#: console/dialogs/dlg_ordentandas.inc:71
-#: console/dialogs/dlg_ordentandas.inc:137
-#: console/dialogs/dlg_ordentandas.inc:170 console/dialogs/dlg_pruebas.inc:67
-#: console/dialogs/dlg_selectJornada.inc:87 console/dialogs/dlg_sesiones.inc:45
+#: videowall/vws_entrenamientos.php:86
 msgid "Comments"
 msgstr "Observaciones"
 
@@ -634,11 +643,6 @@ msgstr "Recorridos"
 #: server/pdf/print_resultadosByEquipos.php:121
 #: server/pdf/print_resultadosByEquipos4.php:102
 #: server/pdf/print_resultadosByManga.php:86
-#: console/dialogs/inforesultados.inc:43 console/dialogs/inforesultados.inc:51
-#: console/dialogs/inforesultados.inc:59 console/dialogs/inforesultados.inc:67
-#: console/dialogs/inforesultados.inc:94 console/dialogs/inforesultados.inc:102
-#: console/dialogs/inforesultados.inc:110
-#: console/dialogs/inforesultados.inc:118
 msgid "Distance"
 msgstr "Distancia"
 
@@ -650,11 +654,6 @@ msgstr "Distancia"
 #: server/pdf/print_resultadosByEquipos.php:123
 #: server/pdf/print_resultadosByEquipos4.php:104
 #: server/pdf/print_resultadosByManga.php:88
-#: console/dialogs/inforesultados.inc:44 console/dialogs/inforesultados.inc:52
-#: console/dialogs/inforesultados.inc:60 console/dialogs/inforesultados.inc:68
-#: console/dialogs/inforesultados.inc:95 console/dialogs/inforesultados.inc:103
-#: console/dialogs/inforesultados.inc:111
-#: console/dialogs/inforesultados.inc:119
 msgid "Obstacles"
 msgstr "Obst&aacute;culos"
 
@@ -715,13 +714,8 @@ msgstr "TRM fijo"
 #: server/pdf/print_resultadosByEquipos.php:125
 #: server/pdf/print_resultadosByEquipos4.php:106
 #: server/pdf/print_resultadosByManga.php:90
-#: server/pdf/print_trsTemplates.php:127 videowall/vws.js.php:138
-#: videowall/vws.js.php:139 videowall/vws.js.php:167
-#: console/dialogs/inforesultados.inc:45 console/dialogs/inforesultados.inc:53
-#: console/dialogs/inforesultados.inc:61 console/dialogs/inforesultados.inc:69
-#: console/dialogs/inforesultados.inc:96 console/dialogs/inforesultados.inc:104
-#: console/dialogs/inforesultados.inc:112
-#: console/dialogs/inforesultados.inc:120
+#: server/pdf/print_trsTemplates.php:127 videowall/vws.js.php:165
+#: videowall/vws.js.php:166 videowall/vws.js.php:196
 msgid "SCT"
 msgstr "TRS"
 
@@ -738,20 +732,11 @@ msgstr "TRS Medium"
 msgid "Templates"
 msgstr "Plantillas"
 
-#: console/dialogs/infomanga.php:320 console/dialogs/dlg_configuracion.inc:389
-#: console/dialogs/dlg_configuracion.inc:402
-#: console/dialogs/dlg_configuracion.inc:531 console/dialogs/dlg_tools.inc:12
+#: console/dialogs/infomanga.php:320
 msgid "Restore"
 msgstr "Restaurar"
 
-#: console/dialogs/infomanga.php:325 console/dialogs/dlg_competicion.inc:145
-#: console/dialogs/dlg_configuracion.inc:408
-#: console/dialogs/dlg_configuracion.inc:438
-#: console/dialogs/dlg_entrenamientos.inc:35 console/dialogs/dlg_equipos.inc:57
-#: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:123
-#: console/dialogs/dlg_jueces.inc:84 console/dialogs/dlg_perros.inc:94
-#: console/dialogs/dlg_pruebas.inc:77 console/dialogs/dlg_sesiones.inc:75
-#: console/dialogs/dlg_usuarios.inc:45 console/dialogs/dlg_usuarios.inc:89
+#: console/dialogs/infomanga.php:325
 msgid "Save"
 msgstr "Guardar"
 
@@ -828,8 +813,6 @@ msgstr "Versi&oacute;n"
 #: server/pdf/print_clasificacion_excel.php:105 server/pdf/print_common.php:310
 #: server/pdf/print_podium.php:80 server/pdf/print_trsTemplates.php:80
 #: videowall/vws_entrenamientos.php:76
-#: console/dialogs/dlg_entrenamientos.inc:99
-#: console/dialogs/dlg_jornadas.inc:41
 msgid "Date"
 msgstr "Fecha"
 
@@ -899,12 +882,11 @@ msgstr "Borrar usuario"
 #: console/frm_pruebas.php:42 scripts/common.js.php:913
 #: scripts/common.js.php:914 scripts/common.js.php:927
 #: scripts/common.js.php:939 scripts/equipos.js.php:28 server/tools.php:219
-#: console/dialogs/dlg_newInscripcion.inc:34
 msgid "-- Search --"
 msgstr "-- Buscar --"
 
 #: console/frm_admin.php:51 console/frm_login.php:45 console/frm_myAdmin.php:55
-#: tablet/index.php:149 console/dialogs/dlg_usuarios.inc:58
+#: tablet/index.php:149
 msgid "Password"
 msgstr "Contrase&ntilde;a"
 
@@ -914,9 +896,7 @@ msgstr "Contrase&ntilde;a"
 #: console/frm_paises.php:41 console/frm_perros.php:71
 #: console/frm_pruebas.php:57 console/import/import_clubes.inc.php:37
 #: console/import/import_handlers.inc.php:32
-#: console/import/import_perros.inc.php:32 console/dialogs/dlg_chguias.inc:32
-#: console/dialogs/dlg_chperros.inc:32 console/dialogs/dlg_competicion.inc:150
-#: console/dialogs/dlg_newInscripcion.inc:46 console/dialogs/dlg_tools.inc:24
+#: console/import/import_perros.inc.php:32
 msgid "Clear"
 msgstr "Limpiar"
 
@@ -957,15 +937,12 @@ msgid "Updating users list"
 msgstr "Actualizando lista de usuarios"
 
 #: console/frm_admin.php:137 server/excel/common_writer.php:55
-#: console/dialogs/dlg_usuarios.inc:63
 msgid "Information"
 msgstr "Informaci&oacute;n"
 
 #: console/frm_admin.php:138 console/frm_clubes.php:174
 #: console/frm_jueces.php:91 console/frm_paises.php:138
-#: console/import/import_handlers.inc.php:51 console/dialogs/dlg_chguias.inc:51
-#: console/dialogs/dlg_guias.inc:41 console/dialogs/dlg_jueces.inc:52
-#: console/dialogs/dlg_usuarios.inc:67
+#: console/import/import_handlers.inc.php:51
 msgid "Telephone"
 msgstr "Tel&eacute;fono"
 
@@ -983,7 +960,6 @@ msgstr "Descripci&oacute;n"
 
 #: console/frm_admin.php:178 console/frm_logout.php:31 scripts/auth.js.php:74
 #: scripts/auth.js.php:103 tablet/index.php:144 tablet/index.php:372
-#: console/dialogs/dlg_sesiones.inc:39
 msgid "User"
 msgstr "Usuario"
 
@@ -1003,7 +979,7 @@ msgstr "Borrar el usuario seleccionado de la base de datos"
 msgid "Clear search box. Update data"
 msgstr "Borrar casilla de busqueda. Actualizar datos"
 
-#: console/frm_admin.php:200 console/dialogs/dlg_usuarios.inc:102
+#: console/frm_admin.php:200
 msgid "Change user password"
 msgstr "Cambiar la contrase&ntilde;a del usuario"
 
@@ -1031,13 +1007,6 @@ msgstr "Buscar sesiones que coincidan con el criterio de busqueda"
 #: console/frm_clasificaciones.php:41
 msgid "Results & Scores"
 msgstr "Resultados y Clasificaciones"
-
-#: console/frm_clasificaciones.php:47 console/frm_clasificaciones2.php:95
-#: console/frm_clasificaciones_equipos.php:96 console/index.php:213
-#: server/excel/scores_writer.php:239 server/pdf/print_clasificacion.php:159
-#: server/pdf/print_clasificacion_excel.php:155
-msgid "Scores"
-msgstr "Clasificaciones"
 
 #: console/frm_clasificaciones2.php:29
 #: console/frm_clasificaciones_equipos.php:28 console/frm_inscripciones2.php:55
@@ -1071,29 +1040,6 @@ msgstr "Club anfitri&oacute;n"
 msgid "Journey"
 msgstr "Jornada"
 
-#: console/frm_clasificaciones2.php:52
-#: console/frm_clasificaciones_equipos.php:51
-#: lib/templates/final_individual.inc.php:11
-#: lib/templates/final_individual.inc.php:12
-#: lib/templates/final_last_individual.inc.php:12
-#: lib/templates/final_last_individual.inc.php:13
-#: lib/templates/final_last_teams.inc.php:12
-#: lib/templates/final_last_teams.inc.php:13
-#: lib/templates/final_teams.inc.php:11 lib/templates/final_teams.inc.php:12
-#: livestream/vwls_finales.php:89 livestream/vwls_finales.php:90
-#: livestream/vwls_osdvideo.php:53 public/pb_parciales.php:55
-#: public/pb_parciales_equipos.php:55
-#: server/excel/print_ordenSalidaExcel.php:124
-#: server/excel/scores_writer.php:94 server/pdf/print_clasificacion.php:109
-#: server/pdf/print_clasificacion_equipos.php:146
-#: server/pdf/print_clasificacion_equipos.php:266
-#: server/pdf/print_clasificacion_excel.php:126
-#: server/pdf/print_clasificacion_excel.php:135
-#: videowall/vws_final_equipos.php:54 videowall/vws_final_individual.php:54
-#: console/dialogs/inforesultados.inc:32 console/dialogs/inforesultados.inc:83
-msgid "Round"
-msgstr "Manga"
-
 #: console/frm_clasificaciones2.php:63
 #: console/frm_clasificaciones_equipos.php:63
 msgid "Technical data on current round series"
@@ -1101,7 +1047,6 @@ msgstr "Datos t&eacute;cnicos de las mangas"
 
 #: console/frm_clasificaciones2.php:81
 #: console/frm_clasificaciones_equipos.php:82 tablet/tablet_main.php:122
-#: console/dialogs/dlg_ordensalida.inc:55
 msgid "Refresh"
 msgstr "Actualizar"
 
@@ -1112,7 +1057,6 @@ msgstr "Verificar"
 
 #: console/frm_clasificaciones2.php:85
 #: console/frm_clasificaciones_equipos.php:86
-#: console/dialogs/dlg_configuracion.inc:249
 msgid "Reports"
 msgstr "Informes"
 
@@ -1159,11 +1103,6 @@ msgstr "Lista de dorsales"
 #: console/frm_clasificaciones2.php:112
 #: console/frm_clasificaciones_equipos.php:113 console/frm_equipos.php:46
 #: console/frm_inscripciones2.php:124 console/frm_perros.php:64
-#: console/dialogs/dlg_entrenamientos.inc:50
-#: console/dialogs/dlg_ordensalida.inc:57
-#: console/dialogs/dlg_ordentandas.inc:46
-#: console/dialogs/dlg_resultados_equipos.inc:41
-#: console/dialogs/dlg_resultados_individual.inc:41
 msgid "Print"
 msgstr "Imprimir"
 
@@ -1197,7 +1136,7 @@ msgstr "Posici&oacute;n inicial <br /> en la hoja de etiquetas"
 msgid "Comma separated list of dorsals to be printed"
 msgstr "Lista de dorsales a imprimir separada por comas"
 
-#: console/frm_clubes.php:33 console/dialogs/dlg_pruebas.inc:52
+#: console/frm_clubes.php:33
 msgid "New Club"
 msgstr "Nuevo Club"
 
@@ -1220,9 +1159,7 @@ msgstr "Actualizando lista de clubes"
 #: console/frm_clubes.php:100 console/frm_clubes.php:101
 #: console/frm_jueces.php:88 console/frm_jueces.php:89
 #: console/import/import_clubes.inc.php:50
-#: console/import/import_clubes.inc.php:54 console/dialogs/dlg_clubes.inc:57
-#: console/dialogs/dlg_clubes.inc:61 console/dialogs/dlg_jueces.inc:40
-#: console/dialogs/dlg_jueces.inc:44
+#: console/import/import_clubes.inc.php:54
 msgid "Address"
 msgstr "Direcci&oacute;n"
 
@@ -1233,8 +1170,7 @@ msgstr "Provincia"
 #: console/frm_clubes.php:104 console/frm_clubes.php:105
 #: console/frm_clubes.php:106 console/import/import_clubes.inc.php:66
 #: console/import/import_clubes.inc.php:70
-#: console/import/import_clubes.inc.php:74 console/dialogs/dlg_clubes.inc:80
-#: console/dialogs/dlg_clubes.inc:84 console/dialogs/dlg_clubes.inc:88
+#: console/import/import_clubes.inc.php:74
 msgid "Contact"
 msgstr "Contacto"
 
@@ -1273,9 +1209,7 @@ msgstr "Cargando lista de gu&iacute;as"
 
 #: console/frm_clubes.php:175 console/frm_jueces.php:98
 #: console/frm_paises.php:139 console/import/import_clubes.inc.php:95
-#: console/import/import_handlers.inc.php:47 console/dialogs/dlg_chguias.inc:47
-#: console/dialogs/dlg_clubes.inc:109 console/dialogs/dlg_guias.inc:37
-#: console/dialogs/dlg_jueces.inc:71 console/dialogs/dlg_usuarios.inc:71
+#: console/import/import_handlers.inc.php:47
 msgid "Electronic mail"
 msgstr "Correo electr&oacute;nico"
 
@@ -1295,11 +1229,6 @@ msgstr "Desasignar gu&iacute;a"
 #: console/frm_clubes.php:223 console/frm_clubes.php:302
 #: console/frm_guias.php:191 console/frm_paises.php:187
 #: console/frm_paises.php:266 console/frm_pruebas.php:201
-#: console/dialogs/dlg_clubes.inc:39 console/dialogs/dlg_competicion.inc:34
-#: console/dialogs/dlg_entrenamientos.inc:48
-#: console/dialogs/dlg_ordentandas.inc:44
-#: console/dialogs/dlg_resultados_equipos.inc:39
-#: console/dialogs/dlg_resultados_individual.inc:39
 msgid "Update"
 msgstr "Actualizar"
 
@@ -1335,18 +1264,16 @@ msgstr "Cat."
 #: console/frm_paises.php:227 console/frm_perros.php:125
 #: console/import/import_perros.inc.php:59
 #: lib/templates/orden_salida.inc.php:27 public/pb_inscripciones.php:104
-#: public/pb_inscripciones_equipos.php:153 public/pbmenu_inscripciones.php:100
-#: public/pbmenu_inscripciones_equipos.php:151
+#: public/pb_inscripciones_equipos.php:153 public/pbmenu_inscripciones.php:104
+#: public/pbmenu_inscripciones_equipos.php:158
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:122
-#: server/pdf/print_ordenDeSalida.php:73 console/dialogs/dlg_chperros.inc:59
-#: console/dialogs/dlg_perros.inc:51
+#: server/pdf/print_ordenDeSalida.php:73
 msgid "Breed"
 msgstr "Raza"
 
 #: console/frm_clubes.php:263 console/frm_guias.php:152
 #: console/frm_perros.php:126 console/import/import_perros.inc.php:51
-#: console/dialogs/dlg_chperros.inc:51 console/dialogs/dlg_perros.inc:43
 msgid "Gender"
 msgstr "G&eacute;nero"
 
@@ -1361,8 +1288,7 @@ msgstr "LOE/RRC"
 #: server/pdf/print_entradaDeDatos.php:230
 #: server/pdf/print_entradaDeDatos.php:312
 #: server/pdf/print_inscritosByPrueba.php:124 videowall/vwc_finales.php:214
-#: videowall/vwc_parciales.php:226 console/dialogs/dlg_editInscripcion.inc:40
-#: console/dialogs/dlg_ordensalida.inc:164
+#: videowall/vwc_parciales.php:226
 msgid "License"
 msgstr "Licencia"
 
@@ -1406,7 +1332,7 @@ msgid "Teams 4"
 msgstr "Equipos (4 conjunta)"
 
 #: console/frm_competicion.php:57 server/database/classes/Jornadas.php:71
-#: videowall/vws.js.php:132 videowall/vws.js.php:163
+#: videowall/vws.js.php:160 videowall/vws.js.php:192
 msgid "Individual"
 msgstr "Individual"
 
@@ -1433,19 +1359,6 @@ msgstr "Entrenamiento"
 #: console/frm_competicion2.php:75
 msgid "Planning"
 msgstr "Programa"
-
-#: console/frm_competicion2.php:78 index.php:151 index2.php:280
-#: livestream/index.php:191 livestream/vwls_ordensalida.php:62
-#: public/pb_ordensalida.php:42 public/pb_ordensalida.php:51
-#: public/pbmenu_ordensalida.php:39 scripts/competicion.js.php:878
-#: server/excel/print_ordenSalidaExcel.php:103
-#: server/excel/print_ordenSalidaExcel.php:135
-#: server/excel/print_ordenSalidaExcel.php:182
-#: server/pdf/print_ordenDeSalida.php:90
-#: server/pdf/print_ordenSalidaEquipos4.php:87 videowall/index.php:226
-#: videowall/vw_ordensalida.php:36
-msgid "Starting order"
-msgstr "Orden de salida"
 
 #: console/frm_competicion2.php:81 scripts/competicion.js.php:885
 #: server/pdf/print_entradaDeDatos.php:78 server/pdf/print_trsTemplates.php:77
@@ -1483,23 +1396,19 @@ msgstr "Ver resultados parciales de la manga seleccionada"
 #: console/frm_equipos.php:34 console/frm_inscripciones2.php:99
 #: console/import/import_clubes.inc.php:125
 #: console/import/import_handlers.inc.php:66
-#: console/import/import_perros.inc.php:92 console/dialogs/dlg_chguias.inc:66
-#: console/dialogs/dlg_chperros.inc:92
+#: console/import/import_perros.inc.php:92
 msgid "New"
 msgstr "Nuevo"
 
 #: console/frm_equipos.php:36 console/frm_inscripciones2.php:102
-#: console/dialogs/dlg_competicion.inc:149
-#: console/dialogs/dlg_ordentandas.inc:37
 msgid "Edit"
 msgstr "Editar"
 
 #: console/frm_equipos.php:38 console/frm_inscripciones2.php:105
-#: console/dialogs/dlg_ordentandas.inc:39
 msgid "Delete"
 msgstr "Borrar"
 
-#: console/frm_equipos.php:56 console/dialogs/dlg_newInscripcion.inc:96
+#: console/frm_equipos.php:56
 msgid "Done"
 msgstr "Hecho"
 
@@ -1508,16 +1417,6 @@ msgstr "Hecho"
 #: console/frm_logout.php:37 console/frm_myAdmin.php:67
 #: console/frm_perros.php:34 console/import/import_handlers.inc.php:72
 #: console/import/import_perros.inc.php:99 tablet/tablet_main.php:59
-#: console/dialogs/dlg_chguias.inc:72 console/dialogs/dlg_chperros.inc:99
-#: console/dialogs/dlg_clubes.inc:41 console/dialogs/dlg_clubes.inc:140
-#: console/dialogs/dlg_competicion.inc:146
-#: console/dialogs/dlg_editInscripcion.inc:96
-#: console/dialogs/dlg_entrenamientos.inc:37 console/dialogs/dlg_guias.inc:62
-#: console/dialogs/dlg_jornadas.inc:125 console/dialogs/dlg_jueces.inc:86
-#: console/dialogs/dlg_ordentandas.inc:81 console/dialogs/dlg_perros.inc:96
-#: console/dialogs/dlg_pruebas.inc:79 console/dialogs/dlg_selectJornada.inc:44
-#: console/dialogs/dlg_sesiones.inc:77 console/dialogs/dlg_usuarios.inc:47
-#: console/dialogs/dlg_usuarios.inc:91
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -1580,8 +1479,8 @@ msgstr "Leyendo lista de inscritos"
 #: lib/templates/parcial_individual.inc.php:21
 #: lib/templates/parcial_last_individual.inc.php:23
 #: lib/templates/parcial_last_teams.inc.php:24 public/pb_inscripciones.php:103
-#: public/pb_inscripciones_equipos.php:152 public/pbmenu_inscripciones.php:99
-#: public/pbmenu_inscripciones_equipos.php:150
+#: public/pb_inscripciones_equipos.php:152 public/pbmenu_inscripciones.php:103
+#: public/pbmenu_inscripciones_equipos.php:157
 #: scripts/results_and_scores.js.php:118 scripts/results_and_scores.js.php:190
 #: server/pdf/print_clasificacion.php:168
 #: server/pdf/print_clasificacion_equipos.php:237
@@ -1593,7 +1492,6 @@ msgstr "Leyendo lista de inscritos"
 #: server/pdf/print_resultadosByEquipos.php:96
 #: server/pdf/print_resultadosByManga.php:63
 #: server/pdf/print_trsTemplates.php:261
-#: console/dialogs/dlg_newInscripcion.inc:152
 msgid "Lic"
 msgstr "Lic"
 
@@ -1610,7 +1508,6 @@ msgid "Cancel selection. Close window"
 msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
 
 #: console/frm_guias.php:35 scripts/guias.js.php:106
-#: console/dialogs/dlg_perros.inc:80
 msgid "New handler"
 msgstr "Nuevo Gu&iacute;a"
 
@@ -1670,7 +1567,7 @@ msgstr "Editar datos del perro perteneciente a"
 msgid "Update dog list from handler"
 msgstr "Actualizar datos del perro asignado al gu&iacute;a"
 
-#: console/frm_inscripciones.php:33 console/dialogs/dlg_selectJornada.inc:30
+#: console/frm_inscripciones.php:33
 msgid "Select contest"
 msgstr "Selecciona prueba"
 
@@ -1687,7 +1584,6 @@ msgid "Cancel selection. close window"
 msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
 
 #: console/frm_inscripciones.php:79 index.php:188 tablet/index.php:260
-#: console/dialogs/dlg_selectJornada.inc:86
 msgid "Fed"
 msgstr "Fed"
 
@@ -1721,7 +1617,7 @@ msgid "Reorder"
 msgstr "Reordenar"
 
 #: console/frm_inscripciones2.php:119 console/frm_perros.php:61
-#: scripts/perros.js.php:272 console/dialogs/dlg_entrenamientos.inc:46
+#: scripts/perros.js.php:272
 msgid "Import/Export"
 msgstr "Importar/Exportar"
 
@@ -1729,7 +1625,6 @@ msgstr "Importar/Exportar"
 #: server/pdf/print_ordenSalidaEquipos4.php:87
 #: server/pdf/print_resultadosByEquipos.php:104
 #: server/pdf/print_resultadosByEquipos4.php:85
-#: console/dialogs/dlg_jornadas.inc:91 console/dialogs/dlg_ordensalida.inc:46
 msgid "Teams"
 msgstr "Equipos"
 
@@ -1747,7 +1642,7 @@ msgstr "Nombre/Observaciones"
 
 #: console/frm_inscripciones2.php:172 console/frm_pruebas.php:154
 #: server/excel/common_writer.php:133 server/pdf/print_ordenTandas.php:91
-#: tablet/tablet_main.php:208 console/dialogs/dlg_jornadas.inc:45
+#: tablet/tablet_main.php:208
 msgid "Hour"
 msgstr "Hora"
 
@@ -1849,13 +1744,7 @@ msgstr "Importar inscripciones desde el fichero Excel seleccionado"
 #: console/frm_inscripciones2.php:273 console/frm_myAdmin.php:91
 #: console/frm_perros.php:155 console/frm_registration.php:107
 #: console/import/import_handlers.inc.php:82
-#: console/import/import_perros.inc.php:112 console/dialogs/dlg_chguias.inc:82
-#: console/dialogs/dlg_chperros.inc:112 console/dialogs/dlg_clubes.inc:148
-#: console/dialogs/dlg_clubes.inc:150 console/dialogs/dlg_guias.inc:79
-#: console/dialogs/dlg_jornadas.inc:224 console/dialogs/dlg_jueces.inc:123
-#: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:115
-#: console/dialogs/dlg_pruebas.inc:108 console/dialogs/dlg_sesiones.inc:88
-#: console/dialogs/dlg_usuarios.inc:104 console/dialogs/dlg_usuarios.inc:107
+#: console/import/import_perros.inc.php:112
 msgid "Cancel operation. Close window"
 msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
 
@@ -1880,17 +1769,14 @@ msgid "Updating judge list"
 msgstr "Actualizando lista de jueces"
 
 #: console/frm_jueces.php:93 console/import/import_clubes.inc.php:82
-#: console/dialogs/dlg_clubes.inc:96
 msgid "RSCE"
 msgstr "RSCE"
 
 #: console/frm_jueces.php:94 console/import/import_clubes.inc.php:84
-#: console/dialogs/dlg_clubes.inc:98
 msgid "RFEC"
 msgstr "RFEC"
 
 #: console/frm_jueces.php:95 console/import/import_clubes.inc.php:86
-#: console/dialogs/dlg_clubes.inc:100
 msgid "UCA"
 msgstr "UCA"
 
@@ -1939,7 +1825,6 @@ msgstr "Nombre de usuario"
 
 #: console/frm_login.php:50 console/frm_pruebas.php:99
 #: server/excel/common_writer.php:71 server/excel/common_writer.php:113
-#: console/dialogs/dlg_pruebas.inc:41
 msgid "Federation"
 msgstr "Federaci&oacute;n"
 
@@ -1947,7 +1832,7 @@ msgstr "Federaci&oacute;n"
 msgid "Session init"
 msgstr "Inicio de sesi&oacute;n"
 
-#: console/frm_login.php:100 console/dialogs/dlg_pruebas.inc:152
+#: console/frm_login.php:100
 msgid "ID"
 msgstr "ID"
 
@@ -1977,7 +1862,7 @@ msgstr "Cancelar fin de sesi&oacute;n. Cerrar ventana"
 
 #: console/frm_myAdmin.php:31 scripts/inscripciones.js.php:88
 #: scripts/pruebas.js.php:131 scripts/pruebas.js.php:207
-#: server/pdf/print_ordenTandas.php:80 console/dialogs/dlg_perros.inc:84
+#: server/pdf/print_ordenTandas.php:80
 msgid "Notice"
 msgstr "Aviso"
 
@@ -2058,7 +1943,6 @@ msgid "Update handlers list on country"
 msgstr "Actualizar lista de gu&iacute;as del pa&iacute;s"
 
 #: console/frm_perros.php:48 scripts/perros.js.php:40
-#: console/dialogs/dlg_newInscripcion.inc:90
 msgid "New dog"
 msgstr "Nuevo perro"
 
@@ -2074,16 +1958,15 @@ msgstr "Importar datos de perros desde fichero Excel"
 msgid "Database dog handling"
 msgstr "Gesti&oacute;n de datos de perros"
 
-#: console/frm_perros.php:108 console/dialogs/dlg_newInscripcion.inc:143
+#: console/frm_perros.php:108
 msgid "Updating dog list"
 msgstr "Actualizando lista de perros"
 
-#: console/frm_perros.php:132 console/dialogs/dlg_perros.inc:189
+#: console/frm_perros.php:132
 msgid "Handler name"
 msgstr "Nombre del gu&iacute;a"
 
 #: console/frm_perros.php:134 console/import/import_clubes.inc.php:169
-#: console/dialogs/dlg_guias.inc:119 console/dialogs/dlg_pruebas.inc:178
 msgid "Club name"
 msgstr "Nombre del Club"
 
@@ -2153,20 +2036,19 @@ msgstr "Nombre de la prueba"
 msgid "Organizing club"
 msgstr "Club anfitri&oacute;n"
 
-#: console/frm_pruebas.php:95 console/dialogs/dlg_pruebas.inc:55
+#: console/frm_pruebas.php:95
 msgid "Event location"
 msgstr "Lugar de realizaci&oacute;n"
 
-#: console/frm_pruebas.php:96 console/dialogs/dlg_pruebas.inc:59
+#: console/frm_pruebas.php:96
 msgid "Triptych URL"
 msgstr "URL del tr&iacute;ptico"
 
-#: console/frm_pruebas.php:97 console/dialogs/dlg_pruebas.inc:63
+#: console/frm_pruebas.php:97
 msgid "Brochure URL"
 msgstr "URL del cartel"
 
 #: console/frm_pruebas.php:100 server/excel/common_writer.php:113
-#: console/dialogs/dlg_pruebas.inc:44
 msgid "Selective"
 msgstr "Selectiva"
 
@@ -2260,7 +2142,7 @@ msgstr "Fecha de expiraci&oacute;n"
 msgid "Register"
 msgstr "Registrar"
 
-#: console/frm_registration.php:81 console/dialogs/dlg_equipos.inc:59
+#: console/frm_registration.php:81
 msgid "Close"
 msgstr "Cerrar"
 
@@ -2374,42 +2256,37 @@ msgstr "Importar datos de Clubs"
 
 #: console/import/import_clubes.inc.php:34
 #: console/import/import_handlers.inc.php:29
-#: console/import/import_perros.inc.php:29 console/dialogs/dlg_chguias.inc:29
-#: console/dialogs/dlg_chperros.inc:29
-#: console/dialogs/dlg_configuracion.inc:391
-#: console/dialogs/dlg_newInscripcion.inc:33
+#: console/import/import_perros.inc.php:29
 msgid "Search"
 msgstr "Buscar"
 
 #: console/import/import_clubes.inc.php:58
 #: console/import/import_clubes.inc.php:170
-#: console/import/import_clubes.inc.php:224 console/dialogs/dlg_clubes.inc:65
-#: console/dialogs/dlg_clubes.inc:198 console/dialogs/dlg_guias.inc:120
-#: console/dialogs/dlg_pruebas.inc:179
+#: console/import/import_clubes.inc.php:224
 msgid "Province"
 msgstr "Provincia"
 
-#: console/import/import_clubes.inc.php:78 console/dialogs/dlg_clubes.inc:92
+#: console/import/import_clubes.inc.php:78
 msgid "GPS coordinates"
 msgstr "Coordenadas GPS"
 
-#: console/import/import_clubes.inc.php:91 console/dialogs/dlg_clubes.inc:105
+#: console/import/import_clubes.inc.php:91
 msgid "Web page"
 msgstr "P&aacute;gina web"
 
-#: console/import/import_clubes.inc.php:99 console/dialogs/dlg_clubes.inc:113
+#: console/import/import_clubes.inc.php:99
 msgid "Facebook account"
 msgstr "Cuenta de Facebook"
 
-#: console/import/import_clubes.inc.php:103 console/dialogs/dlg_clubes.inc:117
+#: console/import/import_clubes.inc.php:103
 msgid "Google+ account"
 msgstr "Cuenta en Google+"
 
-#: console/import/import_clubes.inc.php:107 console/dialogs/dlg_clubes.inc:121
+#: console/import/import_clubes.inc.php:107
 msgid "Twitter account"
 msgstr "Cuenta de Twitter"
 
-#: console/import/import_clubes.inc.php:115 console/dialogs/dlg_clubes.inc:129
+#: console/import/import_clubes.inc.php:115
 msgid "Unsubscribed"
 msgstr "Dado de baja"
 
@@ -2419,7 +2296,6 @@ msgstr "Seleccionar"
 
 #: console/import/import_clubes.inc.php:131
 #: lib/templates/import_dialog.inc.php:47
-#: console/dialogs/dlg_configuracion.inc:127
 msgid "Ignore"
 msgstr "Ignorar"
 
@@ -2439,76 +2315,68 @@ msgstr "Ignorar esta entrada y las relacionadas. no importar en base de datos"
 msgid "Clear club search and reset data to import"
 msgstr "Borrar b&uacute;squeda. restaurar datos a importar"
 
-#: console/import/import_clubes.inc.php:225 console/dialogs/dlg_clubes.inc:199
+#: console/import/import_clubes.inc.php:225
 msgid "Region/State"
 msgstr "Comunidada aut&oacute;noma"
 
-#: console/import/import_handlers.inc.php:26 console/dialogs/dlg_chguias.inc:26
+#: console/import/import_handlers.inc.php:26
 msgid "Handler re-asignation"
 msgstr "Re-asignacion de gu&iacute;s"
 
-#: console/import/import_handlers.inc.php:70 console/dialogs/dlg_chguias.inc:70
+#: console/import/import_handlers.inc.php:70
 msgid "Reassign"
 msgstr "Reasignar"
 
-#: console/import/import_handlers.inc.php:81 console/dialogs/dlg_chguias.inc:81
+#: console/import/import_handlers.inc.php:81
 msgid "Clear form"
 msgstr "Limpiar formulario"
 
-#: console/import/import_handlers.inc.php:83 console/dialogs/dlg_chguias.inc:83
+#: console/import/import_handlers.inc.php:83
 msgid "Use provided data to create a new club member"
 msgstr "Usar los datos del formulario para crear un nuevo miembro del club"
 
-#: console/import/import_handlers.inc.php:84 console/dialogs/dlg_chguias.inc:84
+#: console/import/import_handlers.inc.php:84
 msgid "Re-assign selected handler to be member of club"
 msgstr "Reasignar el gu&iacute;a selecionado como miembro del club"
 
-#: console/import/import_perros.inc.php:26 console/dialogs/dlg_chperros.inc:26
+#: console/import/import_perros.inc.php:26
 msgid "Dog re-assignation"
 msgstr "Re-asignaci&oacute;n de perros"
 
-#: console/import/import_perros.inc.php:47 console/dialogs/dlg_chperros.inc:47
-#: console/dialogs/dlg_perros.inc:39
+#: console/import/import_perros.inc.php:47
 msgid "Pedigree Name"
 msgstr "Nombre largo"
 
-#: console/import/import_perros.inc.php:54 console/dialogs/dlg_chperros.inc:54
-#: console/dialogs/dlg_perros.inc:46
+#: console/import/import_perros.inc.php:54
 msgid "Male"
 msgstr "Macho"
 
-#: console/import/import_perros.inc.php:55 console/dialogs/dlg_chperros.inc:55
-#: console/dialogs/dlg_perros.inc:47
+#: console/import/import_perros.inc.php:55
 msgid "Female"
 msgstr "Hembra"
 
-#: console/import/import_perros.inc.php:63 console/dialogs/dlg_chperros.inc:63
-#: console/dialogs/dlg_perros.inc:55
+#: console/import/import_perros.inc.php:63
 msgid "Kennel Club ID"
 msgstr "Num. LOE/RRC"
 
-#: console/import/import_perros.inc.php:67 console/dialogs/dlg_chperros.inc:67
-#: console/dialogs/dlg_perros.inc:59
+#: console/import/import_perros.inc.php:67
 msgid "Ag. License"
 msgstr "Lic. de Agility"
 
-#: console/import/import_perros.inc.php:96 console/dialogs/dlg_chperros.inc:96
+#: console/import/import_perros.inc.php:96
 msgid "Re-assign"
 msgstr "Reasignar"
 
 #: console/import/import_perros.inc.php:109
-#: console/dialogs/dlg_chperros.inc:109
 msgid "Clear dog search to be re-assignated form"
 msgstr ""
 "Borrar formulario de b&uacute;squeda para reasignaci&oacute;n de perros"
 
 #: console/import/import_perros.inc.php:110
-#: console/dialogs/dlg_chperros.inc:110
 msgid "Declare a new dog belonging to selected handler"
 msgstr "Crear nuevo perro asignado al gu&iacute;a seleccionado"
 
 #: console/import/import_perros.inc.php:111
-#: console/dialogs/dlg_chperros.inc:111
 msgid "Re-assign select dog to belong this handler"
 msgstr "Reasignar el perro seleccionado al gu&iacute;a"
 
@@ -2541,8 +2409,8 @@ msgid "Dogs Database Management"
 msgstr "Gesti&oacute;n de datos de Perros"
 
 #: console/index.php:200 public/pb_programa.php:101
-#: public/pbmenu_programa.php:101 server/excel/dog_reader.php:273
-#: server/excel/dog_writer.php:65 console/dialogs/dlg_configuracion.inc:36
+#: public/pbmenu_programa.php:105 server/excel/dog_reader.php:273
+#: server/excel/dog_writer.php:65
 msgid "Dogs"
 msgstr "Perros"
 
@@ -2550,8 +2418,7 @@ msgstr "Perros"
 msgid "Judges Database Management"
 msgstr "Gesti&oacute;n de datos de Jueces"
 
-#: console/index.php:201 console/dialogs/inforesultados.inc:36
-#: console/dialogs/inforesultados.inc:87
+#: console/index.php:201
 msgid "Judges"
 msgstr "Jueces"
 
@@ -2627,7 +2494,7 @@ msgstr "Selecciona la prueba, jornada y vista"
 #: index.php:139 livestream/vwls_finales.php:63 livestream/vwls_finales.php:170
 #: livestream/vwls_finales.php:184 livestream/vwls_parciales.php:62
 #: livestream/vwls_parciales.php:127 livestream/vwls_parciales.php:144
-#: public/pb_finales.php:137 public/pbmenu_finales.php:81
+#: public/pb_finales.php:137 public/pbmenu_finales.php:85
 #: server/excel/common_writer.php:63 server/excel/common_writer.php:117
 #: server/pdf/print_clasificacion_excel.php:99 tablet/index.php:159
 #: videowall/vw_finales.php:43 videowall/vw_finales.php:100
@@ -2637,7 +2504,6 @@ msgstr "Selecciona la prueba, jornada y vista"
 #: videowall/vwc_finales.php:182 videowall/vwc_finales.php:224
 #: videowall/vwc_parciales.php:42 videowall/vwc_parciales.php:170
 #: videowall/vwc_parciales.php:184 videowall/vwc_parciales.php:236
-#: console/dialogs/dlg_configuracion.inc:32
 msgid "Contest"
 msgstr "Prueba"
 
@@ -2646,38 +2512,38 @@ msgid "Select View"
 msgstr "Selecciona vista"
 
 #: index.php:149 public/pb_inscripciones.php:35
-#: public/pb_inscripciones_equipos.php:35 public/pbmenu_inscripciones.php:35
-#: public/pbmenu_inscripciones_equipos.php:35
+#: public/pb_inscripciones_equipos.php:35 public/pbmenu_inscripciones.php:38
+#: public/pbmenu_inscripciones_equipos.php:38
 msgid "Inscription list"
 msgstr "Listado de inscritos"
 
 #: index.php:150 livestream/index.php:190 livestream/vwls_entrenamientos.php:63
-#: public/pb_entrenamientos.php:36 public/pbmenu_entrenamientos.php:35
+#: public/pb_entrenamientos.php:36 public/pbmenu_entrenamientos.php:38
 #: videowall/index.php:225 videowall/index.php:235
 #: videowall/vw_entrenamientos.php:36 videowall/vws_entrenamientos.php:36
 msgid "Training session"
 msgstr "Sesi&oacute;n de entrenamientos"
 
-#: index.php:152 index2.php:307 livestream/index.php:193
+#: index.php:152 index2.php:309 livestream/index.php:193
 #: livestream/vwls_parciales.php:65 public/pb_parciales.php:38
 #: public/pb_parciales.php:44 public/pb_parciales.php:54
 #: public/pb_parciales_equipos.php:38 public/pb_parciales_equipos.php:44
-#: public/pb_parciales_equipos.php:54 public/pbmenu_parciales.php:42
-#: public/pbmenu_parciales_equipos.php:42 videowall/index.php:227
+#: public/pb_parciales_equipos.php:54 public/pbmenu_parciales.php:44
+#: public/pbmenu_parciales_equipos.php:44 videowall/index.php:227
 #: videowall/index.php:231 videowall/vw_parciales.php:43
 #: videowall/vwc_parciales.php:51
 msgid "Partial scores"
 msgstr "Clasificaci&oacute;n parcial"
 
-#: index.php:153 index2.php:310 lib/templates/final_individual.inc.php:13
+#: index.php:153 index2.php:312 lib/templates/final_individual.inc.php:13
 #: lib/templates/final_last_individual.inc.php:14
 #: lib/templates/final_last_teams.inc.php:14
 #: lib/templates/final_teams.inc.php:13 livestream/index.php:194
 #: livestream/vwls_finales.php:66 livestream/vwls_finales.php:91
 #: public/pb_finales.php:38 public/pb_finales.php:44 public/pb_finales.php:53
 #: public/pb_finales_equipos.php:38 public/pb_finales_equipos.php:44
-#: public/pb_finales_equipos.php:53 public/pbmenu_finales.php:39
-#: public/pbmenu_finales_equipos.php:40 server/pdf/print_clasificacion.php:133
+#: public/pb_finales_equipos.php:53 public/pbmenu_finales.php:42
+#: public/pbmenu_finales_equipos.php:43 server/pdf/print_clasificacion.php:133
 #: server/pdf/print_clasificacion_equipos.php:170 videowall/index.php:228
 #: videowall/index.php:232 videowall/vw_finales.php:46
 #: videowall/vwc_finales.php:51
@@ -2692,37 +2558,15 @@ msgstr "Programa de la jornada"
 msgid "You should select contest, journey and view to continue"
 msgstr "Debe seleccionar prueba, jornada y vista para continuar"
 
-#: index2.php:49
-msgid "Web access"
-msgstr "Acceso internet"
-
-#: index2.php:261
-msgid "Online information"
-msgstr "Informaci&oacute;n en l&iacute;nea"
-
-#: index2.php:278 public/pb_programa.php:97 public/pbmenu_programa.php:97
-#: scripts/competicion.js.php:871 console/dialogs/dlg_ordentandas.inc:67
-#: console/dialogs/dlg_ordentandas.inc:136
-msgid "Timetable"
-msgstr "Horario"
-
-#: index2.php:279 server/excel/dog_reader.php:272
-#: server/excel/inscription_writer.php:96
-msgid "Inscriptions"
-msgstr "Inscripciones"
-
 #: lib/templates/entrenamientos.inc.php:19 videowall/vws_entrenamientos.php:77
-#: console/dialogs/dlg_entrenamientos.inc:102
 msgid "Check-in"
 msgstr "Firma"
 
 #: lib/templates/entrenamientos.inc.php:20 videowall/vws_entrenamientos.php:78
-#: console/dialogs/dlg_entrenamientos.inc:105
 msgid "Veterinary"
 msgstr "Veterinario"
 
 #: lib/templates/entrenamientos.inc.php:21 videowall/vws_entrenamientos.php:79
-#: console/dialogs/dlg_entrenamientos.inc:108
 msgid "Start"
 msgstr "Inicio"
 
@@ -2834,7 +2678,6 @@ msgstr "F/T"
 #: server/pdf/print_resultadosByManga.php:63
 #: server/pdf/print_trsTemplates.php:283 tablet/tablet_main.php:97
 #: tablet/tablet_main.php:297 videowall/vws_parcial_equipos.php:57
-#: console/dialogs/dlg_competicion.inc:129
 msgid "Time"
 msgstr "Tiempo"
 
@@ -2868,11 +2711,6 @@ msgstr "Tiempo"
 #: server/pdf/print_clasificacion_excel.php:143 server/pdf/print_podium.php:120
 #: server/pdf/print_podium.php:128 server/pdf/print_resultadosByEquipos.php:97
 #: server/pdf/print_resultadosByManga.php:63
-#: console/dialogs/inforesultados.inc:47 console/dialogs/inforesultados.inc:55
-#: console/dialogs/inforesultados.inc:63 console/dialogs/inforesultados.inc:71
-#: console/dialogs/inforesultados.inc:98 console/dialogs/inforesultados.inc:106
-#: console/dialogs/inforesultados.inc:114
-#: console/dialogs/inforesultados.inc:122
 msgid "Vel"
 msgstr "Vel"
 
@@ -2976,7 +2814,7 @@ msgstr "Actualizando clasificaci&oacute;n final"
 #: livestream/vwls_entrenamientos.php:66 livestream/vwls_finales.php:69
 #: livestream/vwls_finales.php:208 livestream/vwls_ordensalida.php:65
 #: livestream/vwls_ordensalida.php:125 livestream/vwls_parciales.php:68
-#: livestream/vwls_parciales.php:165 public/public.js.php:138
+#: livestream/vwls_parciales.php:165 public/public.js.php:140
 #: scripts/results_and_scores.js.php:55 scripts/results_and_scores.js.php:66
 #: tablet/tablet.js.php:385 videowall/videowall.js.php:611
 #: videowall/vw_entrenamientos.php:39 videowall/vw_finales.php:49
@@ -3001,8 +2839,8 @@ msgstr "Datos de la manga"
 #: server/pdf/print_clasificacion_equipos.php:149
 #: server/pdf/print_clasificacion_excel.php:129
 #: server/pdf/print_clasificacion_excel.php:138
-#: server/pdf/print_trsTemplates.php:127 videowall/vws.js.php:138
-#: videowall/vws.js.php:139 videowall/vws.js.php:167
+#: server/pdf/print_trsTemplates.php:127 videowall/vws.js.php:165
+#: videowall/vws.js.php:166 videowall/vws.js.php:196
 msgid "Dist"
 msgstr "Dist"
 
@@ -3031,7 +2869,8 @@ msgstr "T.R.S."
 msgid "M.C.T."
 msgstr "T.R.M."
 
-#: lib/templates/final_teams.inc.php:10 videowall/vws_parcial_equipos.php:53
+#: lib/templates/final_teams.inc.php:10 videowall/vws_final_equipos.php:53
+#: videowall/vws_parcial_equipos.php:53
 msgid "Team data"
 msgstr "Datos del equipo"
 
@@ -3048,7 +2887,6 @@ msgid "Database backup is recommended before import"
 msgstr "Se recomienda una copia de seguridad antes de la importacion"
 
 #: lib/templates/import_dialog.inc.php:13
-#: console/dialogs/dlg_configuracion.inc:386 console/dialogs/dlg_tools.inc:7
 msgid "Backup"
 msgstr "Backup"
 
@@ -3109,7 +2947,6 @@ msgid "Assume no coherency errors with current database data"
 msgstr "Asumir que no hay incoherencias con los datos existentes en la BBDD"
 
 #: lib/templates/orden_salida.inc.php:56
-#: console/dialogs/dlg_ordensalida.inc:151
 msgid "Updating starting order"
 msgstr "Actualizando orden de salida"
 
@@ -3129,12 +2966,7 @@ msgstr "Datos t&eacute;cnicos de la manga"
 #: server/pdf/print_clasificacion_excel.php:141
 #: server/pdf/print_resultadosByEquipos.php:127
 #: server/pdf/print_resultadosByManga.php:92
-#: server/pdf/print_trsTemplates.php:127 console/dialogs/inforesultados.inc:46
-#: console/dialogs/inforesultados.inc:54 console/dialogs/inforesultados.inc:62
-#: console/dialogs/inforesultados.inc:70 console/dialogs/inforesultados.inc:97
-#: console/dialogs/inforesultados.inc:105
-#: console/dialogs/inforesultados.inc:113
-#: console/dialogs/inforesultados.inc:121
+#: server/pdf/print_trsTemplates.php:127
 msgid "MCT"
 msgstr "TRM"
 
@@ -3149,7 +2981,7 @@ msgstr "Actualizando resultados de la manga"
 msgid "Select Session/Ring"
 msgstr "Selecciona Ring"
 
-#: livestream/index.php:192 console/dialogs/dlg_configuracion.inc:221
+#: livestream/index.php:192
 msgid "Live Stream"
 msgstr "Video en directo"
 
@@ -3180,8 +3012,8 @@ msgstr "Debe seleccionar una sesi&oacute;n v&aacute;lida"
 #: livestream/livestream.js.php:83 livestream/livestream.js.php:98
 #: livestream/livestream.js.php:102 tablet/index.php:189
 #: tablet/tablet_main.php:128 videowall/videowall.js.php:446
-#: videowall/videowall.js.php:552 videowall/vws.js.php:275
-#: videowall/vws.js.php:287
+#: videowall/videowall.js.php:552 videowall/vws.js.php:306
+#: videowall/vws.js.php:318
 msgid "Test dog"
 msgstr "Perro en blanco"
 
@@ -3205,12 +3037,12 @@ msgstr ""
 #: public/pb_finales_equipos.php:51 public/pb_inscripciones.php:34
 #: public/pb_inscripciones_equipos.php:34 public/pb_ordensalida.php:49
 #: public/pb_parciales.php:52 public/pb_parciales_equipos.php:52
-#: public/pb_programa.php:36 public/pbmenu_entrenamientos.php:34
-#: public/pbmenu_finales.php:37 public/pbmenu_finales_equipos.php:38
-#: public/pbmenu_inscripciones.php:34
-#: public/pbmenu_inscripciones_equipos.php:34 public/pbmenu_ordensalida.php:37
-#: public/pbmenu_parciales.php:40 public/pbmenu_parciales_equipos.php:40
-#: public/pbmenu_programa.php:36 videowall/vw_entrenamientos.php:34
+#: public/pb_programa.php:36 public/pbmenu_entrenamientos.php:37
+#: public/pbmenu_finales.php:40 public/pbmenu_finales_equipos.php:41
+#: public/pbmenu_inscripciones.php:37
+#: public/pbmenu_inscripciones_equipos.php:37 public/pbmenu_ordensalida.php:40
+#: public/pbmenu_parciales.php:42 public/pbmenu_parciales_equipos.php:42
+#: public/pbmenu_programa.php:39 videowall/vw_entrenamientos.php:34
 #: videowall/vw_entrenamientos.php:72 videowall/vw_finales.php:134
 #: videowall/vw_ordensalida.php:34 videowall/vw_ordensalida.php:78
 #: videowall/vw_parciales.php:125 videowall/vws_entrenamientos.php:34
@@ -3241,7 +3073,6 @@ msgstr "No Presentado"
 #: modules/uca/config.php:105 scripts/datagrid_formatters.js.php:152
 #: server/pdf/print_entradaDeDatos.php:255
 #: server/pdf/print_resultadosByEquipos4.php:205 videowall/videowall.js.php:400
-#: console/dialogs/dlg_competicion.inc:139
 msgid "N.P."
 msgstr "N.P."
 
@@ -3367,7 +3198,7 @@ msgstr "Cat. 40+30"
 msgid "60+50+40+30"
 msgstr "60+50+40+30"
 
-#: public/pb_entrenamientos.php:49 public/pbmenu_entrenamientos.php:48
+#: public/pb_entrenamientos.php:49 public/pbmenu_entrenamientos.php:51
 msgid "Update training session info"
 msgstr "Actualizando datos de entrenamientos"
 
@@ -3381,20 +3212,20 @@ msgid "Available scores"
 msgstr "Resultados disponibles"
 
 #: public/pb_finales.php:114 public/pb_finales_equipos.php:78
-#: public/pbmenu_finales.php:58 public/pbmenu_finales_equipos.php:59
+#: public/pbmenu_finales.php:61 public/pbmenu_finales_equipos.php:62
 msgid "Update scores"
 msgstr "Actualizar resultados"
 
 #: public/pb_inscripciones.php:52 public/pb_inscripciones_equipos.php:52
-#: public/pbmenu_inscripciones.php:49
-#: public/pbmenu_inscripciones_equipos.php:48
+#: public/pbmenu_inscripciones.php:52
+#: public/pbmenu_inscripciones_equipos.php:51
 msgid "Update inscription list"
 msgstr "Actualizar listado de inscritos"
 
 #: public/pb_inscripciones.php:83 public/pb_inscripciones_equipos.php:88
-#: public/pb_inscripciones_equipos.php:133 public/pbmenu_inscripciones.php:75
-#: public/pbmenu_inscripciones_equipos.php:78
-#: public/pbmenu_inscripciones_equipos.php:131
+#: public/pb_inscripciones_equipos.php:133 public/pbmenu_inscripciones.php:79
+#: public/pbmenu_inscripciones_equipos.php:83
+#: public/pbmenu_inscripciones_equipos.php:138
 msgid "Updating inscriptions"
 msgstr "Actualizando inscripciones"
 
@@ -3402,7 +3233,7 @@ msgstr "Actualizando inscripciones"
 msgid "Round selection"
 msgstr "Seleccion de manga"
 
-#: public/pb_ordensalida.php:76 public/pbmenu_ordensalida.php:54
+#: public/pb_ordensalida.php:76 public/pbmenu_ordensalida.php:57
 #: tablet/tablet_main.php:262
 msgid "Update starting order"
 msgstr "Actualizando orden de salida"
@@ -3412,33 +3243,38 @@ msgid "List of rounds in this journey"
 msgstr "Lista de mangas de la jornada"
 
 #: public/pb_parciales.php:79 public/pb_parciales_equipos.php:79
-#: public/pbmenu_parciales.php:61 public/pbmenu_parciales_equipos.php:61
+#: public/pbmenu_parciales.php:63 public/pbmenu_parciales_equipos.php:63
 msgid "Update partial scores table"
 msgstr "Actualizar resultados parciales"
 
-#: public/pb_programa.php:37 public/pbmenu_programa.php:37
+#: public/pb_programa.php:37 public/pbmenu_programa.php:40
 msgid "Journey activities info"
 msgstr "Programa de la jornada"
 
-#: public/pb_programa.php:50 public/pbmenu_programa.php:50
+#: public/pb_programa.php:50 public/pbmenu_programa.php:53
 msgid "Update schedule info on this journey"
 msgstr "Actualizar programa de la jornada"
 
-#: public/pb_programa.php:86 public/pbmenu_programa.php:86
+#: public/pb_programa.php:86 public/pbmenu_programa.php:90
 msgid "Updating schedule time on this journey"
 msgstr "Actualizando el programa de la jornada"
 
-#: public/pb_programa.php:98 public/pbmenu_programa.php:98
+#: public/pb_programa.php:98 public/pbmenu_programa.php:102
 #: server/pdf/print_ordenTandas.php:87 tablet/tablet_main.php:209
-#: console/dialogs/dlg_ordentandas.inc:133
 msgid "Activity"
 msgstr "Actividad"
 
-#: public/pb_programa.php:100 public/pbmenu_programa.php:100
-#: console/dialogs/dlg_ordentandas.inc:63
-#: console/dialogs/dlg_ordentandas.inc:135
+#: public/pb_programa.php:100 public/pbmenu_programa.php:104
 msgid "Session - Ring"
 msgstr "Sesi&oacute;n - Ring"
+
+#: public/pbmenu_entrenamientos.php:52 public/pbmenu_finales.php:62
+#: public/pbmenu_finales_equipos.php:63 public/pbmenu_inscripciones.php:53
+#: public/pbmenu_inscripciones_equipos.php:52 public/pbmenu_ordensalida.php:58
+#: public/pbmenu_parciales.php:64 public/pbmenu_parciales_equipos.php:64
+#: public/pbmenu_programa.php:54
+msgid "Back to contest menu"
+msgstr "Volver al men&uacute; principal"
 
 #: public/trainingnotallowed.php:9
 msgid "Current license does not allow view/handle training sessions"
@@ -3699,7 +3535,7 @@ msgstr ""
 "El usuario actual no tiene suficientes permisos para realizar cambios<br/"
 ">Modo Solo-Lectura activo"
 
-#: scripts/clubes.js.php:120 console/dialogs/dlg_guias.inc:48
+#: scripts/clubes.js.php:120
 msgid "New club"
 msgstr "Nuevo Club"
 
@@ -3753,8 +3589,7 @@ msgstr "No se pueden borrar pa&iacute;ses de la base de datos"
 #: scripts/perros.js.php:105 scripts/perros.js.php:169
 #: scripts/pruebas.js.php:130 scripts/sesiones.js.php:103
 #: scripts/sesiones.js.php:133 scripts/tandas.js.php:123
-#: scripts/usuarios.js.php:109 console/dialogs/dlg_competicion.inc:223
-#: console/dialogs/dlg_configuracion.inc:479
+#: scripts/usuarios.js.php:109
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -3951,7 +3786,6 @@ msgid "Verify Error"
 msgstr "Error al verificar"
 
 #: scripts/entrenamientos.js.php:38 scripts/tandas.js.php:38
-#: console/dialogs/dlg_ordentandas.inc:87
 msgid "New activity"
 msgstr "Nueva actividad"
 
@@ -4088,7 +3922,6 @@ msgstr "al club"
 #: scripts/perros.js.php:105 scripts/perros.js.php:169
 #: scripts/sesiones.js.php:103 scripts/sesiones.js.php:133
 #: scripts/tandas.js.php:123 scripts/usuarios.js.php:109
-#: console/dialogs/dlg_competicion.inc:223
 msgid "Sure?"
 msgstr "¿Seguro?"
 
@@ -4139,7 +3972,7 @@ msgstr "de aquellas jornadas que no hayan sido marcadas como <em>cerradas</em>"
 msgid "Really want to delete selected inscription"
 msgstr "Realmente desea borrar la inscripci&oacute;n seleccionada"
 
-#: scripts/inscripciones.js.php:136 console/dialogs/dlg_newInscripcion.inc:103
+#: scripts/inscripciones.js.php:136
 msgid "Enrolling"
 msgstr "Inscribiendo a"
 
@@ -4489,15 +4322,15 @@ msgstr "Eliminar la actividad"
 msgid "Administrator"
 msgstr "Administrador"
 
-#: scripts/usuarios.js.php:30 console/dialogs/dlg_usuarios.inc:78
+#: scripts/usuarios.js.php:30
 msgid "Operator"
 msgstr "Operador"
 
-#: scripts/usuarios.js.php:31 console/dialogs/dlg_usuarios.inc:79
+#: scripts/usuarios.js.php:31
 msgid "Assistant"
 msgstr "Asistente"
 
-#: scripts/usuarios.js.php:33 console/dialogs/dlg_usuarios.inc:80
+#: scripts/usuarios.js.php:33
 msgid "Guest"
 msgstr "Invitado"
 
@@ -4545,7 +4378,7 @@ msgstr "Contrase&ntilde;a cambiada con &eacute;xito"
 
 #: server/database/classes/Jornadas.php:66
 msgid "Pre-Agility (1)"
-msgstr ""
+msgstr "Pre-Agility (1)"
 
 #: server/database/classes/Jornadas.php:67
 msgid "Pre-Agility (2)"
@@ -4571,7 +4404,7 @@ msgstr "Equipos (3 mejores)"
 msgid "Teams (4)"
 msgstr "Equipos (4 conjunta)"
 
-#: server/database/classes/Jornadas.php:74 console/dialogs/dlg_jornadas.inc:105
+#: server/database/classes/Jornadas.php:74
 msgid "K.O. Round"
 msgstr "Ronda K.O."
 
@@ -4632,7 +4465,6 @@ msgstr "Cat./Grado"
 #: server/pdf/print_resultadosByEquipos4.php:202
 #: server/pdf/print_resultadosByManga.php:63
 #: server/pdf/print_trsTemplates.php:281
-#: console/dialogs/dlg_competicion.inc:127
 msgid "Ref"
 msgstr "Reh"
 
@@ -4708,7 +4540,6 @@ msgstr "Tocados"
 #: server/pdf/print_resultadosByEquipos4.php:201
 #: server/pdf/print_resultadosByManga.php:63
 #: server/pdf/print_trsTemplates.php:280
-#: console/dialogs/dlg_competicion.inc:126
 msgid "Flt"
 msgstr "Flt"
 
@@ -4884,7 +4715,7 @@ msgstr "Selecci&oacute;n de usuario, ring, prueba y jornada"
 msgid "Session"
 msgstr "Sesi&oacute;n"
 
-#: tablet/index.php:272 console/dialogs/dlg_selectJornada.inc:161
+#: tablet/index.php:272
 msgid "Current license permissions"
 msgstr "Los permisos de la licencia instalada"
 
@@ -4896,7 +4727,7 @@ msgstr "no permiten la gesti&oacute;n de pruebas"
 msgid "with more than"
 msgstr "con m&aacute;s de"
 
-#: tablet/index.php:273 console/dialogs/dlg_selectJornada.inc:162
+#: tablet/index.php:273
 msgid "inscriptions"
 msgstr "inscripciones"
 
@@ -5029,14 +4860,14 @@ msgstr "Obtener los pr&oacute;ximos 10 equipos"
 msgid "Waiting for connection with event server"
 msgstr "Esperando conexi&oacute;n con el servidor de eventos"
 
-#: videowall/vws_final_equipos.php:53 videowall/vws_final_individual.php:53
-#: videowall/vws_parcial_individual.php:53
-msgid "Competitor's data"
-msgstr "Datos del participante"
-
 #: videowall/vws_final_equipos.php:55 videowall/vws_final_individual.php:55
 msgid "Final"
 msgstr "Final"
+
+#: videowall/vws_final_individual.php:53
+#: videowall/vws_parcial_individual.php:53
+msgid "Competitor's data"
+msgstr "Datos del participante"
 
 #: videowall/vws_parcial_equipos.php:55
 msgid "CP"
@@ -5050,1212 +4881,903 @@ msgstr "PTim"
 msgid "Tim"
 msgstr "Tmp"
 
-#: console/dialogs/dlg_clubes.inc:47
-msgid "Club information"
-msgstr "Informaci&oacute;n del club"
-
-#: console/dialogs/dlg_clubes.inc:147
-msgid "Register data on new club. Update database"
-msgstr "Registrar datos del nuevo club. Actualizar base de datos"
-
-#: console/dialogs/dlg_clubes.inc:149
-msgid "Validate logo. Store and update database"
-msgstr "Validar logotipo. Guardar y actualizar base de datos"
-
-#: console/dialogs/dlg_clubes.inc:151
-msgid "Choosen image should be of type <em>.png</em>"
-msgstr "La imagen seleccionada debe ser de tipo <em>.png</em>"
-
-#: console/dialogs/dlg_clubes.inc:152
-msgid "150x150 pixel size and transparent background"
-msgstr "Tama&ntilde;o 150x150 pixels con fondo transparente"
-
-#: console/dialogs/dlg_clubes.inc:153
-msgid "Press on image to change club logo"
-msgstr "Pulsa sobre la imagen para cambiar el logotipo del club"
-
-#: console/dialogs/dlg_clubes.inc:207
-msgid "New logo"
-msgstr "Nuevo logotipo"
-
-#: console/dialogs/dlg_competicion.inc:35
-msgid "Auto"
-msgstr "Auto"
-
-#: console/dialogs/dlg_competicion.inc:44
-msgid "Swap"
-msgstr "Intercambiar"
-
-#: console/dialogs/dlg_competicion.inc:48
-msgid "Printer forms"
-msgstr "Formularios"
-
-#: console/dialogs/dlg_competicion.inc:71
-msgid "Please cancel or save changes before closing window"
-msgstr "Por favor, cancele o guarde los cambios antes de cerrar la ventana"
-
-#: console/dialogs/dlg_competicion.inc:103
-msgid "Updating competition data"
-msgstr "Actualizando datos de la competici&oacute;n"
-
-#: console/dialogs/dlg_competicion.inc:128
-msgid "Tch."
-msgstr "Toc"
-
-#: console/dialogs/dlg_competicion.inc:223
-msgid "Clear competitor results"
-msgstr "Borrar los datos de resultados del participante"
-
-#: console/dialogs/dlg_competicion.inc:251
-msgid "Reload competition data on this round"
-msgstr "Actualizar resultados de la manga"
-
-#: console/dialogs/dlg_competicion.inc:252
-msgid "Swap data and results from Agility/Jumping matching round"
-msgstr ""
-"Intercambiar datos entre las mangas de Agility/Jumping de esta categoria"
-
-#: console/dialogs/dlg_competicion.inc:253
-msgid "Delete every competitors data on this round"
-msgstr "Borrar todos los resultados de esta manga"
-
-#: console/dialogs/dlg_competicion.inc:254
-msgid "Print judge assistant forms"
-msgstr "Imprimir formularios del asistente de pista"
-
-#: console/dialogs/dlg_competicion.inc:255
-msgid "(de)activate periodic refresh of results for this round"
-msgstr ""
-"(des)activar el refresco peri&oacute;dico de los resultados de la manga"
-
-#: console/dialogs/dlg_competicion.inc:256
-msgid "Search a competitor by entering dorsal"
-msgstr "Buscar un participante por dorsal"
-
-#: console/dialogs/dlg_competicion.inc:257
-#: console/dialogs/dlg_ordensalida.inc:208
-msgid "Select categories to work with"
-msgstr "Selecciona las categor&iacute;as a mostrar"
-
-#: console/dialogs/dlg_configuracion.inc:33
-msgid "Contest parameters"
-msgstr "Par&aacute;metros de la prueba"
-
-#: console/dialogs/dlg_configuracion.inc:35
-msgid "Proximity alert on starting order"
-msgstr "Alerta de proximidad en el orden de salida"
-
-#: console/dialogs/dlg_configuracion.inc:38
-msgid "Time data precision shown"
-msgstr "Resoluci&oacute;n de los tiempos mostrados"
-
-#: console/dialogs/dlg_configuracion.inc:40
-msgid "cents"
-msgstr "cent&eacute;simas"
-
-#: console/dialogs/dlg_configuracion.inc:43
-msgid "millis"
-msgstr "mil&eacute;simas"
-
-#: console/dialogs/dlg_configuracion.inc:46
-msgid "Training session parameters"
-msgstr "Par&aacute;metros de la sesi&oacute;n de entrenamientos"
-
-#: console/dialogs/dlg_configuracion.inc:47
-msgid "Club/Country Training time assignment mode"
-msgstr "Modo de asignaci&oacute;n de tiempo a cada pa&iacute;s/club"
-
-#: console/dialogs/dlg_configuracion.inc:49
-msgid "Individual time * Max number of dogs/category"
-msgstr "Tiempo por perro * perros de la categor&iacute;a con mas perros"
-
-#: console/dialogs/dlg_configuracion.inc:50
-msgid "Individual time * Number of dogs on each County or Club"
-msgstr "Tiempo por perro * n&uacute;mero total de perros por club/pa&iacute;s"
-
-#: console/dialogs/dlg_configuracion.inc:53
-msgid "Training time for each dog"
-msgstr "Tiempo de entrenamiento para cada perro"
-
-#: console/dialogs/dlg_configuracion.inc:54
-#: console/dialogs/dlg_configuracion.inc:57
-msgid "Seconds"
-msgstr "Segundos"
-
-#: console/dialogs/dlg_configuracion.inc:56
-msgid "Training grace period to enter/leave ring"
-msgstr "Tiempo de guarda para entrada/salida del ring"
-
-#: console/dialogs/dlg_configuracion.inc:60
-msgid "Desktop"
-msgstr "Escritorio"
-
-#: console/dialogs/dlg_configuracion.inc:61
-msgid "Desktop look and feel"
-msgstr "Apariencia del escritorio"
-
-#: console/dialogs/dlg_configuracion.inc:62
-msgid "Dekstop theme"
-msgstr "Tema del escritorio"
-
-#: console/dialogs/dlg_configuracion.inc:64
-msgid "Default theme"
-msgstr "Tema por defecto"
-
-#: console/dialogs/dlg_configuracion.inc:65
-msgid "Metro"
-msgstr "Metro"
-
-#: console/dialogs/dlg_configuracion.inc:66
-msgid "Grey"
-msgstr "Grey"
-
-#: console/dialogs/dlg_configuracion.inc:67
-msgid "Black"
-msgstr "Black"
-
-#: console/dialogs/dlg_configuracion.inc:70
-msgid "Desktop background color"
-msgstr "Color de fondo del escritorio"
-
-#: console/dialogs/dlg_configuracion.inc:72
-msgid "Header title color"
-msgstr "Color de la cabecera"
-
-#: console/dialogs/dlg_configuracion.inc:74
-msgid "Active menu header color"
-msgstr "Color de texto el men&uacute; activo"
-
-#: console/dialogs/dlg_configuracion.inc:77
-msgid "Color for even table rows"
-msgstr "Color de las filas pares de las tablas"
-
-#: console/dialogs/dlg_configuracion.inc:79
-msgid "Color for odd table rows"
-msgstr "Color de las filas impares de las tablas"
-
-#: console/dialogs/dlg_configuracion.inc:82
-#: console/dialogs/dlg_configuracion.inc:161
-#: console/dialogs/dlg_configuracion.inc:331
-msgid "Color for even secondary table rows"
-msgstr "Color de filas pares en tablas secundarias"
-
-#: console/dialogs/dlg_configuracion.inc:84
-#: console/dialogs/dlg_configuracion.inc:163
-#: console/dialogs/dlg_configuracion.inc:333
-msgid "Color for odd secondary table rows"
-msgstr "Color de filas impares en tablas secundarias"
-
-#: console/dialogs/dlg_configuracion.inc:88
-msgid "Tablet &amp; Chrono"
-msgstr "Tablet y Crono"
-
-#: console/dialogs/dlg_configuracion.inc:89
-msgid "Judge assistant tablet configuration"
-msgstr "Configuraci&oacute;n del tablet del asistente de pista"
-
-#: console/dialogs/dlg_configuracion.inc:91
-msgid "Emit beep on key pressed"
-msgstr "Se&ntilde;al sonora al pulsar la pantalla"
-
-#: console/dialogs/dlg_configuracion.inc:95
-msgid "Allow modify starting order from tablet"
-msgstr "Permitir modificaciones del orden de salida desde el tablet"
-
-#: console/dialogs/dlg_configuracion.inc:99
-msgid "Accept button save data and goes to next participant"
-msgstr ""
-"Bot&oacute;n <em>Aceptar</em> guarda datos y salta a siguiente participante"
-
-#: console/dialogs/dlg_configuracion.inc:103
-msgid "Enable keyboard when running in laptop/netbook"
-msgstr "Habilitar teclado al ejecutar el tablet en un port&aacute;til"
-
-#: console/dialogs/dlg_configuracion.inc:107
-msgid "Action at double click in round list"
-msgstr "Accion cuando se hace doble click en listado de manga"
-
-#: console/dialogs/dlg_configuracion.inc:109
-msgid "Cancel and select"
-msgstr "Revertir cambios. Mostrar perro indicado"
-
-#: console/dialogs/dlg_configuracion.inc:110
-msgid "Save and select"
-msgstr "Guardar cambios. Mostrar perro indicado"
-
-#: console/dialogs/dlg_configuracion.inc:113
-msgid "Electronic chronometer behaviour"
-msgstr "Funcionamiento del cron&oacute;metro electr&oacute;nico"
-
-#: console/dialogs/dlg_configuracion.inc:115
-msgid "Course Walk duration"
-msgstr "Tiempo de reconocimiento de pista"
-
-#: console/dialogs/dlg_configuracion.inc:116
-msgid "Minutes"
-msgstr "Minutos"
-
-#: console/dialogs/dlg_configuracion.inc:117
-msgid "Show chrono data on tablet"
-msgstr "Mostrar datos de tiempo en el tablet"
-
-#: console/dialogs/dlg_configuracion.inc:122
-msgid "Show intermediate time stats in videowall"
-msgstr "Mostrar estad&iacute;sticas de tiempo intermedio en marcadores"
-
-#: console/dialogs/dlg_configuracion.inc:126
-msgid "Action to perform at 15sec countdown end"
-msgstr "Al finalizar la cuenta de 15 segundos"
-
-#: console/dialogs/dlg_configuracion.inc:128
-msgid "Start manual chrono"
-msgstr "Arrancar cron&oacute;metro manual"
-
-#: console/dialogs/dlg_configuracion.inc:129
-msgid "Eliminate team"
-msgstr "Eliminar participante"
-
-#: console/dialogs/dlg_configuracion.inc:131
-msgid "On sensor detection when manual chrono is active"
-msgstr "Al paso por sensor con crono manual activado"
-
-#: console/dialogs/dlg_configuracion.inc:132
-msgid "Start electronic chrono"
-msgstr "Arrancar cron&oacute;metro electr&oacute;nico"
-
-#: console/dialogs/dlg_configuracion.inc:133
-msgid "Continue with manual chrono"
-msgstr "Continuar con crono manual"
-
-#: console/dialogs/dlg_configuracion.inc:136
-msgid "VideoWall"
-msgstr "Video-Marcadores"
-
-#: console/dialogs/dlg_configuracion.inc:137
-msgid "Video wall configurable parameters"
-msgstr "Parametros configurables de los video-marcadores"
-
-#: console/dialogs/dlg_configuracion.inc:138
-msgid "AutoScroll period (seg.)"
-msgstr "Periodo de rotaci&oacute;n de datos (seg.)"
-
-#: console/dialogs/dlg_configuracion.inc:141
-#: console/dialogs/dlg_configuracion.inc:192
-#: console/dialogs/dlg_configuracion.inc:267
-msgid "Background color for main header"
-msgstr "Color de fondo de la cabecera principal"
-
-#: console/dialogs/dlg_configuracion.inc:143
-#: console/dialogs/dlg_configuracion.inc:194
-msgid "Text color for main header"
-msgstr "Color del texto de la cabecera principal"
-
-#: console/dialogs/dlg_configuracion.inc:146
-#: console/dialogs/dlg_configuracion.inc:272
-msgid "Background color for secondary header"
-msgstr "Color de fondo de la cabecera secundaria"
-
-#: console/dialogs/dlg_configuracion.inc:148
-#: console/dialogs/dlg_configuracion.inc:274
-msgid "Text color for secondary header"
-msgstr "Color del texto de la cabecera secundaria"
-
-#: console/dialogs/dlg_configuracion.inc:151
-msgid "Background color for tertiary header"
-msgstr "Color de fondo de cabeceras adicionales"
-
-#: console/dialogs/dlg_configuracion.inc:153
-msgid "Text color for tertiary header"
-msgstr "Color del texto de cabeceras adicionales"
-
-#: console/dialogs/dlg_configuracion.inc:156
-#: console/dialogs/dlg_configuracion.inc:326
-msgid "Background color for even table rows"
-msgstr "Color de fondo de las tablas (filas pares)"
-
-#: console/dialogs/dlg_configuracion.inc:158
-#: console/dialogs/dlg_configuracion.inc:328
-msgid "Background color for odd table rows"
-msgstr "Color de fondo de las tablas (filas impares)"
-
-#: console/dialogs/dlg_configuracion.inc:166
-msgid "Alternate (simplified) Video wall configurable parameters"
-msgstr "Par&aacute;metros de los video-marcadores simplificados"
-
-#: console/dialogs/dlg_configuracion.inc:168
-msgid "Sponsors rotation period (seg.)"
-msgstr "Periodo de rotaci&oacute;n de patrocinadores (seg.)"
-
-#: console/dialogs/dlg_configuracion.inc:171
-msgid "Use special logo instead of standard header"
-msgstr "Usar logo en lugar de datos de la prueba"
-
-#: console/dialogs/dlg_configuracion.inc:174
-msgid "URL for logo image to be used"
-msgstr "URL del logotipo a usar"
-
-#: console/dialogs/dlg_configuracion.inc:177
-msgid "Font family for text in cells"
-msgstr "Tipograf&iacute;a para el texto"
-
-#: console/dialogs/dlg_configuracion.inc:179
-msgid "Default system font"
-msgstr "Fuente tipogr&aacute;ficas del sistema"
-
-#: console/dialogs/dlg_configuracion.inc:188
-msgid "Default font size (vw units) "
-msgstr "Tama&ntilde;o de letra en unidades  .vw CSS"
-
-#: console/dialogs/dlg_configuracion.inc:197
-msgid "Background color for table header"
-msgstr "Color de fondo de la cabecera"
-
-#: console/dialogs/dlg_configuracion.inc:199
-msgid "Text color table header"
-msgstr "Color de texto de la cabecera"
-
-#: console/dialogs/dlg_configuracion.inc:202
-msgid "Text and lines color for tables"
-msgstr "Color de texto y de lineas de las tablas"
-
-#: console/dialogs/dlg_configuracion.inc:205
-msgid "Call To ring background color (even rows)"
-msgstr "Color tabla de llamada a pista (filas pares)"
-
-#: console/dialogs/dlg_configuracion.inc:207
-msgid "Call to ring background color (odd rows)"
-msgstr "Color tabla de llamada a pista (filas impares)"
-
-#: console/dialogs/dlg_configuracion.inc:210
-msgid "Results background color (even rows)"
-msgstr "Color tabla de resultados (filas pares)"
-
-#: console/dialogs/dlg_configuracion.inc:212
-msgid "Results background color (odd rows)"
-msgstr "Color tabla de resultados (filas impares)"
-
-#: console/dialogs/dlg_configuracion.inc:215
-msgid "Current Team background color (even rows)"
-msgstr "Color datos de equipo en pista (filas pares)"
-
-#: console/dialogs/dlg_configuracion.inc:217
-msgid "Current Team background color (odd rows)"
-msgstr "Color datos de equipo en pista (filas impares)"
-
-#: console/dialogs/dlg_configuracion.inc:222
-msgid "Live Stream configurable parameters"
-msgstr "Parametros del Live-Stream"
-
-#: console/dialogs/dlg_configuracion.inc:223
-msgid "Evaluate and show time to get first place"
-msgstr "Calcular y mostrar tiempo necesario para 1er puesto"
-
-#: console/dialogs/dlg_configuracion.inc:227
-msgid "Transparency level for OnScreenDisplay"
-msgstr "Nivel de transparencia para OnScreenDisplay"
-
-#: console/dialogs/dlg_configuracion.inc:230
-msgid "Color for Chroma Keyer"
-msgstr "Color del Chroma-key"
-
-#: console/dialogs/dlg_configuracion.inc:233
-msgid "Timming data screen location"
-msgstr "Ubicaci&oacute;n de los datos de tiempos"
-
-#: console/dialogs/dlg_configuracion.inc:235
-#: console/dialogs/dlg_configuracion.inc:243
-msgid "Not visible"
-msgstr "No visible"
-
-#: console/dialogs/dlg_configuracion.inc:236
-msgid "Upper right corner"
-msgstr "Esquina superior derecha"
-
-#: console/dialogs/dlg_configuracion.inc:237
-msgid "Lower right corner"
-msgstr "Esquina inferior derecha"
-
-#: console/dialogs/dlg_configuracion.inc:238
-msgid "Next to competitor info"
-msgstr "Junto a datos del competidor"
-
-#: console/dialogs/dlg_configuracion.inc:241
-msgid "Round data screen location"
-msgstr "Ubicaci&oacute;n de la informaci&oacute;n de la manga"
-
-#: console/dialogs/dlg_configuracion.inc:244
-msgid "Screen top"
-msgstr "Parte superior de la pantalla"
-
-#: console/dialogs/dlg_configuracion.inc:245
-msgid "On top of competitor info"
-msgstr "Encima de los datos del competidor"
-
-#: console/dialogs/dlg_configuracion.inc:250
-msgid "PDF forms and reports generation"
-msgstr "Generacion de formularios PDF e informes"
-
-#: console/dialogs/dlg_configuracion.inc:251
-msgid "Font family"
-msgstr "Tipos de fuentes de caracteres"
-
-#: console/dialogs/dlg_configuracion.inc:259
-msgid "Show journey info when printing catalog"
-msgstr "Inclu&iacute;r informaci&oacute;n de jornadas en cat&aacute;logo"
-
-#: console/dialogs/dlg_configuracion.inc:263
-msgid "Show level/grade info when printing catalog"
-msgstr "Inclu&iacute;r informaci&oacute;n grado en cat&aacute;logo"
-
-#: console/dialogs/dlg_configuracion.inc:269
-msgid "Text color on main header"
-msgstr "Color de texto de la cabecera principal"
-
-#: console/dialogs/dlg_configuracion.inc:277
-msgid "Background color for tables even rows"
-msgstr "Color de fondo de las tablas (filas pares)"
-
-#: console/dialogs/dlg_configuracion.inc:279
-msgid "Background color for tables odd rows"
-msgstr "Color de fondo de las tablas (filas impares)"
-
-#: console/dialogs/dlg_configuracion.inc:282
-msgid "Color for separation lines"
-msgstr "Color de las l&iacute;neas de separaci&oacute;n"
-
-#: console/dialogs/dlg_configuracion.inc:284
-msgid "Label printing"
-msgstr "Impresi&oacute;n de etiquetas"
-
-#: console/dialogs/dlg_configuracion.inc:285
-msgid "Label sheet format (# labels/sheet)"
-msgstr "Formato de la hoja (Num. etiquetas/p&aacute;gina)"
-
-#: console/dialogs/dlg_configuracion.inc:295
-msgid "Label sheet upper margin (mmts)"
-msgstr "Margen superior de la hoja (mmts)"
-
-#: console/dialogs/dlg_configuracion.inc:297
-msgid "Label sheet right margin (mmts)"
-msgstr "Margen izquierdo de la hoja (mmts)"
-
-#: console/dialogs/dlg_configuracion.inc:301
-msgid "Internet"
-msgstr "Internet"
-
-#: console/dialogs/dlg_configuracion.inc:302
-msgid "Public access from internet"
-msgstr "Acceso p&uacute;blico por Internet"
-
-#: console/dialogs/dlg_configuracion.inc:303
-msgid "Data auto-refresh interval"
-msgstr "Periodo de refresco de los datos"
-
-#: console/dialogs/dlg_configuracion.inc:306
-msgid "No refresh"
-msgstr "No refrescar"
-
-#: console/dialogs/dlg_configuracion.inc:313
-msgid "Rotation period for sponsor logos"
-msgstr "Periodo de rotaci&oacute;n de anuncios"
-
-#: console/dialogs/dlg_configuracion.inc:314
-msgid "sec"
-msgstr "seg"
-
-#: console/dialogs/dlg_configuracion.inc:316
-msgid "Header background color"
-msgstr "Color de fondo de cabecera/pie"
-
-#: console/dialogs/dlg_configuracion.inc:318
-msgid "Header text color"
-msgstr "Color de texto de la cabecera/pie"
-
-#: console/dialogs/dlg_configuracion.inc:321
-msgid "Round data table background color"
-msgstr "Color de fondo de informaci&oacute;n de manga"
-
-#: console/dialogs/dlg_configuracion.inc:323
-msgid "Round data table text color"
-msgstr "Color texto informaci&oacute;n de manga"
-
-#: console/dialogs/dlg_configuracion.inc:337
-msgid "General"
-msgstr "General"
-
-#: console/dialogs/dlg_configuracion.inc:338
-msgid "General configuration"
-msgstr "Configuraci&oacute;n general"
-
-#: console/dialogs/dlg_configuracion.inc:339
-msgid "Default language"
-msgstr "Idioma por defecto"
-
-#: console/dialogs/dlg_configuracion.inc:341
-msgid "Choose language from browser preferences"
-msgstr "Seleccionar el idioma seg&uacute;n preferencias del navegador"
-
-#: console/dialogs/dlg_configuracion.inc:344
-msgid "Debug level"
-msgstr "Nivel de depuraci&oacute;n"
-
-#: console/dialogs/dlg_configuracion.inc:347
-msgid "None"
-msgstr "Ninguno"
-
-#: console/dialogs/dlg_configuracion.inc:348
-msgid "Unusable syetem"
-msgstr "Sistema inutilizable"
-
-#: console/dialogs/dlg_configuracion.inc:349
-msgid "Non recoverable errors"
-msgstr "Errores no recuperables"
-
-#: console/dialogs/dlg_configuracion.inc:350
-msgid "Recoverable error"
-msgstr "Errores recuperables"
-
-#: console/dialogs/dlg_configuracion.inc:351
-msgid "Notice alerts"
-msgstr "Avisos a tener en cuenta"
-
-#: console/dialogs/dlg_configuracion.inc:352
-msgid "Informative messages"
-msgstr "Mensajes informativos"
-
-#: console/dialogs/dlg_configuracion.inc:353
-msgid "Debugging information"
-msgstr "Informaci&oacute;n de depuraci&oacute;n"
-
-#: console/dialogs/dlg_configuracion.inc:354
-msgid "Execution trace registering"
-msgstr "Trazas de ejecucion"
-
-#: console/dialogs/dlg_configuracion.inc:355
-msgid "Register everything"
-msgstr "Registrar absolutamente todo"
-
-#: console/dialogs/dlg_configuracion.inc:357
-msgid "Provide raw file copy for system events"
-msgstr "Generar fichero con registro de eventos del sistema"
-
-#: console/dialogs/dlg_configuracion.inc:361
-msgid "Printer device name to write tablet reports"
-msgstr "Nombre de la impresora de registro del tablet"
-
-#: console/dialogs/dlg_configuracion.inc:362
-msgid "Paper size"
-msgstr "Tamaño del papel"
-
-#: console/dialogs/dlg_configuracion.inc:369
-#: console/dialogs/dlg_configuracion.inc:462
-#: console/dialogs/dlg_ordensalida.inc:52
-msgid "Check"
-msgstr "Verificar"
-
-#: console/dialogs/dlg_configuracion.inc:372
-msgid "Clear event registration on tablet init session"
-msgstr "Borrar historial de eventos al iniciar sesi&oacute;n en el tablet"
-
-#: console/dialogs/dlg_configuracion.inc:378
-msgid "System"
-msgstr "Sistema"
-
-#: console/dialogs/dlg_configuracion.inc:379
-msgid "Additional server information"
-msgstr "Informaci&oacute;n adicional del servidor"
-
-#: console/dialogs/dlg_configuracion.inc:380
-msgid "IP address(es)"
-msgstr "Direcci&oacute;n(es) IP"
-
-#: console/dialogs/dlg_configuracion.inc:384
-msgid "Save and Restore configuration"
-msgstr "Guardar y Recuperar configuraci&oacute;n"
-
-#: console/dialogs/dlg_configuracion.inc:385
-msgid "Download configuration to file"
-msgstr "Guardar configuraci&oacute;n en fichero"
-
-#: console/dialogs/dlg_configuracion.inc:388
-msgid "Restore configuration from file"
-msgstr "Recuperar configuraci&oacute;n desde fichero"
-
-#: console/dialogs/dlg_configuracion.inc:404
-msgid "Default"
-msgstr "Defecto"
-
-#: console/dialogs/dlg_configuracion.inc:420
-msgid "Enter printer name/device or leave empty to disable"
-msgstr ""
-"Nombre o Dispositivo de impresi&oacute;n <br/>Dejar vac&iacute;o para "
-"desactivar"
-
-#: console/dialogs/dlg_configuracion.inc:421
-msgid "Cancel changes. Restore information from server"
-msgstr ""
-"Anular cambios. Recuperar informaci&oacute;n de configuraci&oacute;n del "
-"servidor"
-
-#: console/dialogs/dlg_configuracion.inc:422
-msgid "Factory reset. Configure with default data"
-msgstr ""
-"Configurar aplicaci&oacute;n con los valores por defecto de f&aacute;brica. "
-
-#: console/dialogs/dlg_configuracion.inc:423
-msgid "Accept changes. Save as new configuration"
-msgstr "Aceptar cambios. Guardar como nueva configuraci&oacute;n"
-
-#: console/dialogs/dlg_configuracion.inc:424
-msgid "Send sample report to check printer"
-msgstr "Enviar informe de prueba para comprobar impresora"
-
-#: console/dialogs/dlg_configuracion.inc:439
-msgid "New configuration successfully saved"
-msgstr "Nueva configuraci&oacute;n guardada correctamente"
-
-#: console/dialogs/dlg_configuracion.inc:440
-#: console/dialogs/dlg_configuracion.inc:533
-msgid "You should close session and reload page"
-msgstr "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"
-
-#: console/dialogs/dlg_configuracion.inc:441
-#: console/dialogs/dlg_configuracion.inc:534
-msgid "for changes to become active"
-msgstr "para que los cambios se activen"
-
-#: console/dialogs/dlg_configuracion.inc:463
-msgid "A test page has been sent to event recording printer"
-msgstr "Se ha enviado una pagina de prueba a la impresora de registro"
-
-#: console/dialogs/dlg_configuracion.inc:464
-msgid "Please check for proper output"
-msgstr "Compruebe que la impresi&oacute;n es correcta"
-
-#: console/dialogs/dlg_configuracion.inc:465
-msgid "Remember to save changes before exiting"
-msgstr "Recuerde guardar los cambios antes de salir del men&uacute;"
-
-#: console/dialogs/dlg_configuracion.inc:479
-msgid "Restore factory default values. Sure?"
-msgstr "Restaurar valores por defecto. ¿Seguro?"
-
-#: console/dialogs/dlg_configuracion.inc:504
-msgid "Downloading configuration, please wait"
-msgstr "Descargando fichero de configuraci&oacute;n. Espere..."
-
-#: console/dialogs/dlg_configuracion.inc:505
-msgid "There was a problem in configuration download. Please try again"
-msgstr ""
-"Hubo un problema en la descarga de la configuraci&oacute;n. Pruebe de nuevo"
-
-#: console/dialogs/dlg_configuracion.inc:517
-msgid "No config file selected"
-msgstr "No se ha indicado ning&uacute;n fichero"
-
-#: console/dialogs/dlg_configuracion.inc:528
-msgid "Restore configuration from file error"
-msgstr "Error al restaurar configuraci&oacute;n desde fichero"
-
-#: console/dialogs/dlg_configuracion.inc:532
-msgid "Configuration file successfully restored"
-msgstr "Configuraci&oacute;n restaurada correctamente"
-
-#: console/dialogs/dlg_editInscripcion.inc:36 console/dialogs/dlg_perros.inc:26
-msgid "Dog information"
-msgstr "Datos del perro"
-
-#: console/dialogs/dlg_editInscripcion.inc:37
-msgid "Inscription data"
-msgstr "Datos de la inscripci&oacute;n"
-
-#: console/dialogs/dlg_editInscripcion.inc:79
-msgid "Paid out"
-msgstr "Pagado"
-
-#: console/dialogs/dlg_editInscripcion.inc:92
-msgid "Modify"
-msgstr "Modificar"
-
-#: console/dialogs/dlg_editInscripcion.inc:109
-msgid "Edit inscription"
-msgstr "Editar inscripci&oacute;n"
-
-#: console/dialogs/dlg_editInscripcion.inc:161
-msgid "Change dog data"
-msgstr "Cambiar datos sobre el perro"
-
-#: console/dialogs/dlg_editInscripcion.inc:161
-msgid "into database"
-msgstr "en la base de datos"
-
-#: console/dialogs/dlg_editInscripcion.inc:162
-msgid "Accept changes"
-msgstr "Aceptar cambios"
-
-#: console/dialogs/dlg_editInscripcion.inc:162
-msgid "Update inscription data"
-msgstr "Actualizar datos de inscripci&oacute;n"
-
-#: console/dialogs/dlg_editInscripcion.inc:163
-msgid "Cancel changes. Close window"
-msgstr "Cancelar modificaciones. Cerrar ventana"
-
-#: console/dialogs/dlg_entrenamientos.inc:41
-msgid "Eval"
-msgstr "Calcular"
-
-#: console/dialogs/dlg_entrenamientos.inc:85
-msgid "Updating training session timetable for contest"
-msgstr "Actualizando sesi&oacute;n de entrenamientos de la prueba"
-
-#: console/dialogs/dlg_entrenamientos.inc:178
-msgid "Save changes to training session being edited"
-msgstr "Guardar los cambios editados en el entrenamiento"
-
-#: console/dialogs/dlg_entrenamientos.inc:179
-msgid "Cancel changes. Restore previous values"
-msgstr "Anular cambios. Restaurar valores originales"
-
-#: console/dialogs/dlg_entrenamientos.inc:180
-msgid "Re-create training table from inscription data"
-msgstr ""
-"Regenerar sesi&oacute;n de entrenamientos con datos de las inscripciones"
-
-#: console/dialogs/dlg_entrenamientos.inc:181
-msgid "Refresh training session timetable from database"
-msgstr "Actualizar sesi&oacute;n de entrenamientos"
-
-#: console/dialogs/dlg_entrenamientos.inc:182
-msgid "Import/export session from/to Excel file"
-msgstr "Importar/Exportar sesi&oacute;n desde/hacia fichero Excel"
-
-#: console/dialogs/dlg_entrenamientos.inc:183
-msgid "Print training session timetable"
-msgstr "Imprimir la sesi&oacute;n de entrenamientos de la prueba"
-
-#: console/dialogs/dlg_entrenamientos.inc:184
-msgid "Recalculate timetable values starting at selected row"
-msgstr "Recalcular los horarios desde la fila seleccionada"
-
-#: console/dialogs/dlg_equipos.inc:26
-msgid "Team information"
-msgstr "Datos del equipo"
-
-#: console/dialogs/dlg_equipos.inc:38
-msgid "Categories"
-msgstr "Categor&iacute;as"
-
-#: console/dialogs/dlg_equipos.inc:87
-msgid "Register team data.<br />Update database"
-msgstr "Registrar datos del equipo. Actualizar base de datos"
-
-#: console/dialogs/dlg_equipos.inc:88
-msgid "Terminate operations. Close window"
-msgstr "Terminar la operaci&oacute;n. Cerrar ventana"
-
-#: console/dialogs/dlg_guias.inc:26
-msgid "Handler information"
-msgstr "Datos del gu&iacute;a"
-
-#: console/dialogs/dlg_guias.inc:78
-msgid "Aceptar handler data. Store into database"
-msgstr "Aceptar datos del gu&iacute;a. Guardar en la base de datos"
-
-#: console/dialogs/dlg_guias.inc:80 console/dialogs/dlg_pruebas.inc:109
-msgid "Register new club into database"
-msgstr "Registrar un nuevo club en la base de datos"
-
-#: console/dialogs/dlg_jornadas.inc:26
-msgid "Journey information"
-msgstr "Informaci&oacute;n de la jornada"
-
-#: console/dialogs/dlg_jornadas.inc:49
-msgid "Rounds on this journey"
-msgstr "Mangas de la jornada"
-
-#: console/dialogs/dlg_jornadas.inc:59
-msgid "Single round"
-msgstr "Una vuelta"
-
-#: console/dialogs/dlg_jornadas.inc:60
-msgid "Double round"
-msgstr "Doble vuelta"
-
-#: console/dialogs/dlg_jornadas.inc:83
-msgid "No grades (Open)"
-msgstr "Sin grados (Open)"
-
-#: console/dialogs/dlg_jornadas.inc:96
-msgid "2 best of 3"
-msgstr "2 mejores de 3"
-
-#: console/dialogs/dlg_jornadas.inc:97
-msgid "3 best of 4"
-msgstr "3 mejores de 4"
-
-#: console/dialogs/dlg_jornadas.inc:98
-msgid "2 combined"
-msgstr "2 conjunta"
-
-#: console/dialogs/dlg_jornadas.inc:99
-msgid "3 combined"
-msgstr "3 conjunta"
-
-#: console/dialogs/dlg_jornadas.inc:100
-msgid "4 combined"
-msgstr "4 conjunta"
-
-#: console/dialogs/dlg_jornadas.inc:111
-msgid "Special round"
-msgstr "Manga especial"
-
-#: console/dialogs/dlg_jornadas.inc:223
-msgid "Register journey into database"
-msgstr "Registrar datos de la jornada en la base de datos"
-
-#: console/dialogs/dlg_jueces.inc:27
-msgid "Judge information"
-msgstr "Datos del juez"
-
-#: console/dialogs/dlg_jueces.inc:56
-msgid "International judge"
-msgstr "Juez internacional"
-
-#: console/dialogs/dlg_jueces.inc:60
-msgid "Learning judge"
-msgstr "Juez en pr&aacute;cticas"
-
-#: console/dialogs/dlg_jueces.inc:64
-msgid "Federations"
-msgstr "Federaciones"
-
-#: console/dialogs/dlg_jueces.inc:122
-msgid "Register judge information into database"
-msgstr "Registrar informaci&oacute;n del juez en la base de datos"
-
-#: console/dialogs/dlg_newInscripcion.inc:57
-msgid "Journeys"
-msgstr "Jornadas"
-
-#: console/dialogs/dlg_newInscripcion.inc:94
-msgid "Inscribe"
-msgstr "Inscribir"
-
-#: console/dialogs/dlg_newInscripcion.inc:102
-msgid "Processing inscriptions"
-msgstr "Procesando inscripciones"
-
-#: console/dialogs/dlg_newInscripcion.inc:126
-msgid "Add inscriptions to contest"
-msgstr "A&ntilde;adir inscripciones a la prueba"
-
-#: console/dialogs/dlg_newInscripcion.inc:228
-msgid "Search available competitors"
-msgstr "Buscar posibles participantes"
-
-#: console/dialogs/dlg_newInscripcion.inc:228
-msgid "matching search criteria"
-msgstr "que coincidan con el criterio de b&uacute;squeda"
-
-#: console/dialogs/dlg_newInscripcion.inc:232
-msgid "Inscribe selected dog(s) into contest"
-msgstr "Inscribir el/los perro(s) seleccionados en la prueba"
-
-#: console/dialogs/dlg_newInscripcion.inc:233
-msgid "Close window"
-msgstr "Cerrar ventana"
-
-#: console/dialogs/dlg_newInscripcion.inc:233
-msgid "Return to inscription handling form"
-msgstr "Volver a la pantalla de gesti&oacute;n de inscripciones"
-
-#: console/dialogs/dlg_newInscripcion.inc:234
-msgid "Clear selection. Refresh list"
-msgstr "Borrar selecci&oacute;n. Actualizar lista"
-
-#: console/dialogs/dlg_newInscripcion.inc:235
-msgid "Insert a new dog into database"
-msgstr "A&ntilde;adir un nuevo perro en la base de datos"
-
-#: console/dialogs/dlg_ordensalida.inc:40
-msgid "Random"
-msgstr "Aleatorio"
-
-#: console/dialogs/dlg_ordensalida.inc:42
-msgid "Reverse"
-msgstr "Inverso"
-
-#: console/dialogs/dlg_ordensalida.inc:44
-msgid "Clone"
-msgstr "Clonar"
-
-#: console/dialogs/dlg_ordensalida.inc:64
-msgid "Manual setting of teams order for this round"
-msgstr "Ajuste manual del orden de salida de equipos de esta manga"
-
-#: console/dialogs/dlg_ordensalida.inc:90
-msgid "Updating teams starting order"
-msgstr "Actualizando orden de salida de equipos"
-
-#: console/dialogs/dlg_ordensalida.inc:105
-msgid "Def"
-msgstr "Def"
-
-#: console/dialogs/dlg_ordensalida.inc:201
-msgid "Look for <em>proximity alerts</em>"
-msgstr "Buscar alertas de proximidad"
-
-#: console/dialogs/dlg_ordensalida.inc:201
-msgid "with dogs belonging same handler"
-msgstr "con perros pertenecientes al mismo gu&iacute;a"
-
-#: console/dialogs/dlg_ordensalida.inc:202
-msgid "Generate a new, random, starting order"
-msgstr "Generar un nuevo orden de salida aleatorio"
-
-#: console/dialogs/dlg_ordensalida.inc:203
-msgid "Reverse starting order according with results in the coupled round"
-msgstr ""
-"Invertir el orden de salida respecto de los resultados de la otra manga"
-
-#: console/dialogs/dlg_ordensalida.inc:204
-msgid "Clone starting order from coupled round"
-msgstr "Seleccionar el mismo orden de salida que la otra manga"
-
-#: console/dialogs/dlg_ordensalida.inc:205
-msgid "Manual setting of teams starting order"
-msgstr "Ajuste manual del orden de salida de equipos"
-
-#: console/dialogs/dlg_ordensalida.inc:206
-msgid "Print starting order"
-msgstr "Imprimir orden de salida"
-
-#: console/dialogs/dlg_ordensalida.inc:207
-msgid "Reload starting order. Update window"
-msgstr "Recargar orden de salida. Refrescar ventana"
-
-#: console/dialogs/dlg_ordentandas.inc:35
-msgid "Insert"
-msgstr "Insertar"
-
-#: console/dialogs/dlg_ordentandas.inc:122
-msgid "Updating activities and timetable on journey"
-msgstr "Actualizando programa de actividades de la jornada"
-
-#: console/dialogs/dlg_ordentandas.inc:183
-msgid "Add a new activity into journey timetable"
-msgstr "A&ntilde;adir una nueva actividad al programa de la jornada"
-
-#: console/dialogs/dlg_ordentandas.inc:184
-msgid "Edit selected activity"
-msgstr "Editar actividad seleccionada"
-
-#: console/dialogs/dlg_ordentandas.inc:185
-msgid "Remove activity from journey timetable"
-msgstr "Borrar la actividad del programa de la jornada"
-
-#: console/dialogs/dlg_ordentandas.inc:186
-msgid "Refresh journey timetable from database"
-msgstr "Refrescar programa de la jornada desde la base de datos"
-
-#: console/dialogs/dlg_ordentandas.inc:187
-msgid "Print journey activities timetable"
-msgstr "Imprimir el programa de la jornada"
-
-#: console/dialogs/dlg_ordentandas.inc:188
-msgid "Store activity information into database"
-msgstr "Guardar actividad en la base de datos"
-
-#: console/dialogs/dlg_perros.inc:85
-msgid "Changes on Grade or Category for a dog"
-msgstr "Los cambios de grado o categor&iacute;a de un perro"
-
-#: console/dialogs/dlg_perros.inc:86
-msgid "will affect to every non closed contest and journeys"
-msgstr ""
-"Afectar&aacute;n a todas las pruebas y jornadas que no est&eacute;n cerradas"
-
-#: console/dialogs/dlg_perros.inc:87
-msgid "where dog have been inscribed"
-msgstr "en las que el perro se haya inscrito"
-
-#: console/dialogs/dlg_perros.inc:114
-msgid "Register dog information. Update database"
-msgstr "Registrar informaci&oacute;n del perro en la base de datos"
-
-#: console/dialogs/dlg_perros.inc:116
-msgid "Register a new handler"
-msgstr "Registrar un nuevo gu&iacute;a"
-
-#: console/dialogs/dlg_pruebas.inc:26
-msgid "Contest information"
-msgstr "Informaci&oacute;n de la prueba"
-
-#: console/dialogs/dlg_pruebas.inc:29
-msgid "Name of this contest"
-msgstr "Denominaci&oacute;n de la prueba"
-
-#: console/dialogs/dlg_pruebas.inc:107
-msgid "Accept data. Register contest into database"
-msgstr "Aceptar datos. Registrar la prueba en la base de datos"
-
-#: console/dialogs/dlg_resultados_equipos.inc:35
-#: console/dialogs/dlg_resultados_individual.inc:35
-msgid "Results on selected categories"
-msgstr "Resultados de la categor&iacute;a seleccionada"
-
-#: console/dialogs/dlg_resultados_equipos.inc:74
-#: console/dialogs/dlg_resultados_individual.inc:74
-#: console/dialogs/dlg_selectJornada.inc:64
-msgid "Update results on selected round/category"
-msgstr "Ver resultados parciales de la manga seleccionada"
-
-#: console/dialogs/dlg_resultados_equipos.inc:75
-#: console/dialogs/dlg_resultados_individual.inc:75
-#: console/dialogs/dlg_selectJornada.inc:65
-msgid "Print round results"
-msgstr "Imprimir resultados de la manga"
-
-#: console/dialogs/dlg_selectJornada.inc:34
-msgid "Select journey"
-msgstr "Selecciona jornada"
-
-#: console/dialogs/dlg_selectJornada.inc:51
-msgid "Select contest and journey to work with"
-msgstr "Selecciona la prueba y jornada a desplegar"
-
-#: console/dialogs/dlg_selectJornada.inc:124
-msgid "Name/Comments"
-msgstr "Nombre / Observaciones"
-
-#: console/dialogs/dlg_selectJornada.inc:156
-msgid "You must select a valid contest/journey"
-msgstr "Debe seleccionar una prueba y jornada v&aacute;lidas"
-
-#: console/dialogs/dlg_selectJornada.inc:162
-msgid "forbids handling of contests</br> with more than"
-msgstr "no permiten la gesti&oacute;n de pruebas<br/> con m&aacute;s de"
-
-#: console/dialogs/dlg_sesiones.inc:25
-msgid "Session information"
-msgstr "Informaci&oacute;n de la sesi&oacute;n"
-
-#: console/dialogs/dlg_sesiones.inc:42
-msgid "Disconnect"
-msgstr "Desconectar"
-
-#: console/dialogs/dlg_sesiones.inc:49
-msgid "Background image/mjpeg"
-msgstr "Imagen de fondo / mjpeg"
-
-#: console/dialogs/dlg_sesiones.inc:53
-msgid "Stream MPEG-4"
-msgstr "Stream MPEG-4"
-
-#: console/dialogs/dlg_sesiones.inc:57
-msgid "Stream OGV"
-msgstr "Stream OGV"
-
-#: console/dialogs/dlg_sesiones.inc:61
-msgid "Stream Web-M"
-msgstr "Stream Web-M"
-
-#: console/dialogs/dlg_sesiones.inc:66
-msgid "Sequences"
-msgstr "Secuencias"
-
-#: console/dialogs/dlg_sesiones.inc:85
-msgid "Disconnect current user from session"
-msgstr "Desconectar al usuario activo en esta sesi&oacute;n"
-
-#: console/dialogs/dlg_sesiones.inc:86
-msgid "View/Edit sequences for"
-msgstr "Ver/Editar secuencias para"
-
-#: console/dialogs/dlg_sesiones.inc:86
-msgid "videowall attached to this session"
-msgstr "los videomarcadores de esta sesi&oacute;n"
-
-#: console/dialogs/dlg_sesiones.inc:87
-msgid "Register session information. Upate database"
-msgstr "Guardar la informaci&oacute;n de la sesi&oacute;n en la base de datos"
-
-#: console/dialogs/dlg_tools.inc:5
-msgid "Create database backup"
-msgstr "Copia de seguridad de la BBDD"
-
-#: console/dialogs/dlg_tools.inc:10
-msgid "Restore database backup"
-msgstr "Restaurar base de datos"
-
-#: console/dialogs/dlg_tools.inc:17
-msgid "Erase database contents"
-msgstr "Borrar base de datos"
-
-#: console/dialogs/dlg_tools.inc:22
-msgid "Delete stored contests"
-msgstr "Borrar pruebas almacenadas"
-
-#: console/dialogs/dlg_tools.inc:27
-msgid "Search for updates"
-msgstr "Buscar actualizaciones"
-
-#: console/dialogs/dlg_tools.inc:35
-msgid "Create and download a database backup copy"
-msgstr "Generar y descargar una copia de seguridad de la base de datos"
-
-#: console/dialogs/dlg_tools.inc:36
-msgid "Restore database contents from previous backup"
-msgstr "Restaurar la base de datos desde un backup previo"
-
-#: console/dialogs/dlg_tools.inc:37
-msgid "Factory reset. Clear EVERY content on database"
-msgstr "Reset de f&aacute;brica. Borrar TODO el contenido de la base de datos"
-
-#: console/dialogs/dlg_tools.inc:38
-msgid "Clear contests from database"
-msgstr "Borrar las pruebas registradas en la base de datos"
-
-#: console/dialogs/dlg_tools.inc:38
-msgid "leaving only dogs/handlers/judges/clubs information"
-msgstr "dejando solo datos sobre perros, gu&iacute;as, clubes y jueces"
-
-#: console/dialogs/dlg_tools.inc:39
-msgid "Search and install AgilityContest updates"
-msgstr "Buscar e instalar actualizaciones de AgilityContest"
-
-#: console/dialogs/dlg_usuarios.inc:24
-msgid "Password change"
-msgstr "Cambio de ontrase&ntilde;a"
-
-#: console/dialogs/dlg_usuarios.inc:28
-msgid "Current password"
-msgstr "Contrase&ntilde;a actual"
-
-#: console/dialogs/dlg_usuarios.inc:32 console/dialogs/dlg_usuarios.inc:36
-msgid "New password"
-msgstr "Nueva contrase&ntilde;a"
-
-#: console/dialogs/dlg_usuarios.inc:36
-msgid "again"
-msgstr "otra vez"
-
-#: console/dialogs/dlg_usuarios.inc:52
-msgid "User information"
-msgstr "Informaci&oacute;n del usuario"
-
-#: console/dialogs/dlg_usuarios.inc:77
-msgid "Admin"
-msgstr "Administrador"
-
-#: console/dialogs/dlg_usuarios.inc:103
-msgid "Store user information into database"
-msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
-
-#: console/dialogs/dlg_usuarios.inc:106
-msgid "Change password"
-msgstr "Cambiar la contrase&ntilde;a"
+#~ msgid "Club information"
+#~ msgstr "Informaci&oacute;n del club"
+
+#~ msgid "Register data on new club. Update database"
+#~ msgstr "Registrar datos del nuevo club. Actualizar base de datos"
+
+#~ msgid "Validate logo. Store and update database"
+#~ msgstr "Validar logotipo. Guardar y actualizar base de datos"
+
+#~ msgid "Choosen image should be of type <em>.png</em>"
+#~ msgstr "La imagen seleccionada debe ser de tipo <em>.png</em>"
+
+#~ msgid "150x150 pixel size and transparent background"
+#~ msgstr "Tama&ntilde;o 150x150 pixels con fondo transparente"
+
+#~ msgid "Press on image to change club logo"
+#~ msgstr "Pulsa sobre la imagen para cambiar el logotipo del club"
+
+#~ msgid "New logo"
+#~ msgstr "Nuevo logotipo"
+
+#~ msgid "Auto"
+#~ msgstr "Auto"
+
+#~ msgid "Swap"
+#~ msgstr "Intercambiar"
+
+#~ msgid "Printer forms"
+#~ msgstr "Formularios"
+
+#~ msgid "Please cancel or save changes before closing window"
+#~ msgstr "Por favor, cancele o guarde los cambios antes de cerrar la ventana"
+
+#~ msgid "Updating competition data"
+#~ msgstr "Actualizando datos de la competici&oacute;n"
+
+#~ msgid "Tch."
+#~ msgstr "Toc"
+
+#~ msgid "Clear competitor results"
+#~ msgstr "Borrar los datos de resultados del participante"
+
+#~ msgid "Reload competition data on this round"
+#~ msgstr "Actualizar resultados de la manga"
+
+#~ msgid "Swap data and results from Agility/Jumping matching round"
+#~ msgstr ""
+#~ "Intercambiar datos entre las mangas de Agility/Jumping de esta categoria"
+
+#~ msgid "Delete every competitors data on this round"
+#~ msgstr "Borrar todos los resultados de esta manga"
+
+#~ msgid "Print judge assistant forms"
+#~ msgstr "Imprimir formularios del asistente de pista"
+
+#~ msgid "(de)activate periodic refresh of results for this round"
+#~ msgstr ""
+#~ "(des)activar el refresco peri&oacute;dico de los resultados de la manga"
+
+#~ msgid "Search a competitor by entering dorsal"
+#~ msgstr "Buscar un participante por dorsal"
+
+#~ msgid "Select categories to work with"
+#~ msgstr "Selecciona las categor&iacute;as a mostrar"
+
+#~ msgid "Contest parameters"
+#~ msgstr "Par&aacute;metros de la prueba"
+
+#~ msgid "Proximity alert on starting order"
+#~ msgstr "Alerta de proximidad en el orden de salida"
+
+#~ msgid "Time data precision shown"
+#~ msgstr "Resoluci&oacute;n de los tiempos mostrados"
+
+#~ msgid "cents"
+#~ msgstr "cent&eacute;simas"
+
+#~ msgid "millis"
+#~ msgstr "mil&eacute;simas"
+
+#~ msgid "Training session parameters"
+#~ msgstr "Par&aacute;metros de la sesi&oacute;n de entrenamientos"
+
+#~ msgid "Club/Country Training time assignment mode"
+#~ msgstr "Modo de asignaci&oacute;n de tiempo a cada pa&iacute;s/club"
+
+#~ msgid "Individual time * Max number of dogs/category"
+#~ msgstr "Tiempo por perro * perros de la categor&iacute;a con mas perros"
+
+#~ msgid "Individual time * Number of dogs on each County or Club"
+#~ msgstr ""
+#~ "Tiempo por perro * n&uacute;mero total de perros por club/pa&iacute;s"
+
+#~ msgid "Training time for each dog"
+#~ msgstr "Tiempo de entrenamiento para cada perro"
+
+#~ msgid "Seconds"
+#~ msgstr "Segundos"
+
+#~ msgid "Training grace period to enter/leave ring"
+#~ msgstr "Tiempo de guarda para entrada/salida del ring"
+
+#~ msgid "Desktop"
+#~ msgstr "Escritorio"
+
+#~ msgid "Desktop look and feel"
+#~ msgstr "Apariencia del escritorio"
+
+#~ msgid "Dekstop theme"
+#~ msgstr "Tema del escritorio"
+
+#~ msgid "Default theme"
+#~ msgstr "Tema por defecto"
+
+#~ msgid "Metro"
+#~ msgstr "Metro"
+
+#~ msgid "Grey"
+#~ msgstr "Grey"
+
+#~ msgid "Black"
+#~ msgstr "Black"
+
+#~ msgid "Desktop background color"
+#~ msgstr "Color de fondo del escritorio"
+
+#~ msgid "Header title color"
+#~ msgstr "Color de la cabecera"
+
+#~ msgid "Active menu header color"
+#~ msgstr "Color de texto el men&uacute; activo"
+
+#~ msgid "Color for even table rows"
+#~ msgstr "Color de las filas pares de las tablas"
+
+#~ msgid "Color for odd table rows"
+#~ msgstr "Color de las filas impares de las tablas"
+
+#~ msgid "Color for even secondary table rows"
+#~ msgstr "Color de filas pares en tablas secundarias"
+
+#~ msgid "Color for odd secondary table rows"
+#~ msgstr "Color de filas impares en tablas secundarias"
+
+#~ msgid "Tablet &amp; Chrono"
+#~ msgstr "Tablet y Crono"
+
+#~ msgid "Judge assistant tablet configuration"
+#~ msgstr "Configuraci&oacute;n del tablet del asistente de pista"
+
+#~ msgid "Emit beep on key pressed"
+#~ msgstr "Se&ntilde;al sonora al pulsar la pantalla"
+
+#~ msgid "Allow modify starting order from tablet"
+#~ msgstr "Permitir modificaciones del orden de salida desde el tablet"
+
+#~ msgid "Accept button save data and goes to next participant"
+#~ msgstr ""
+#~ "Bot&oacute;n <em>Aceptar</em> guarda datos y salta a siguiente "
+#~ "participante"
+
+#~ msgid "Enable keyboard when running in laptop/netbook"
+#~ msgstr "Habilitar teclado al ejecutar el tablet en un port&aacute;til"
+
+#~ msgid "Action at double click in round list"
+#~ msgstr "Accion cuando se hace doble click en listado de manga"
+
+#~ msgid "Cancel and select"
+#~ msgstr "Revertir cambios. Mostrar perro indicado"
+
+#~ msgid "Save and select"
+#~ msgstr "Guardar cambios. Mostrar perro indicado"
+
+#~ msgid "Electronic chronometer behaviour"
+#~ msgstr "Funcionamiento del cron&oacute;metro electr&oacute;nico"
+
+#~ msgid "Course Walk duration"
+#~ msgstr "Tiempo de reconocimiento de pista"
+
+#~ msgid "Minutes"
+#~ msgstr "Minutos"
+
+#~ msgid "Show chrono data on tablet"
+#~ msgstr "Mostrar datos de tiempo en el tablet"
+
+#~ msgid "Show intermediate time stats in videowall"
+#~ msgstr "Mostrar estad&iacute;sticas de tiempo intermedio en marcadores"
+
+#~ msgid "Action to perform at 15sec countdown end"
+#~ msgstr "Al finalizar la cuenta de 15 segundos"
+
+#~ msgid "Start manual chrono"
+#~ msgstr "Arrancar cron&oacute;metro manual"
+
+#~ msgid "Eliminate team"
+#~ msgstr "Eliminar participante"
+
+#~ msgid "On sensor detection when manual chrono is active"
+#~ msgstr "Al paso por sensor con crono manual activado"
+
+#~ msgid "Start electronic chrono"
+#~ msgstr "Arrancar cron&oacute;metro electr&oacute;nico"
+
+#~ msgid "Continue with manual chrono"
+#~ msgstr "Continuar con crono manual"
+
+#~ msgid "VideoWall"
+#~ msgstr "Video-Marcadores"
+
+#~ msgid "Video wall configurable parameters"
+#~ msgstr "Parametros configurables de los video-marcadores"
+
+#~ msgid "AutoScroll period (seg.)"
+#~ msgstr "Periodo de rotaci&oacute;n de datos (seg.)"
+
+#~ msgid "Background color for main header"
+#~ msgstr "Color de fondo de la cabecera principal"
+
+#~ msgid "Text color for main header"
+#~ msgstr "Color del texto de la cabecera principal"
+
+#~ msgid "Background color for secondary header"
+#~ msgstr "Color de fondo de la cabecera secundaria"
+
+#~ msgid "Text color for secondary header"
+#~ msgstr "Color del texto de la cabecera secundaria"
+
+#~ msgid "Background color for tertiary header"
+#~ msgstr "Color de fondo de cabeceras adicionales"
+
+#~ msgid "Text color for tertiary header"
+#~ msgstr "Color del texto de cabeceras adicionales"
+
+#~ msgid "Background color for even table rows"
+#~ msgstr "Color de fondo de las tablas (filas pares)"
+
+#~ msgid "Background color for odd table rows"
+#~ msgstr "Color de fondo de las tablas (filas impares)"
+
+#~ msgid "Alternate (simplified) Video wall configurable parameters"
+#~ msgstr "Par&aacute;metros de los video-marcadores simplificados"
+
+#~ msgid "Sponsors rotation period (seg.)"
+#~ msgstr "Periodo de rotaci&oacute;n de patrocinadores (seg.)"
+
+#~ msgid "Use special logo instead of standard header"
+#~ msgstr "Usar logo en lugar de datos de la prueba"
+
+#~ msgid "URL for logo image to be used"
+#~ msgstr "URL del logotipo a usar"
+
+#~ msgid "Font family for text in cells"
+#~ msgstr "Tipograf&iacute;a para el texto"
+
+#~ msgid "Default system font"
+#~ msgstr "Fuente tipogr&aacute;ficas del sistema"
+
+#~ msgid "Default font size (vw units) "
+#~ msgstr "Tama&ntilde;o de letra en unidades  .vw CSS"
+
+#~ msgid "Background color for table header"
+#~ msgstr "Color de fondo de la cabecera"
+
+#~ msgid "Text color table header"
+#~ msgstr "Color de texto de la cabecera"
+
+#~ msgid "Text and lines color for tables"
+#~ msgstr "Color de texto y de lineas de las tablas"
+
+#~ msgid "Call To ring background color (even rows)"
+#~ msgstr "Color tabla de llamada a pista (filas pares)"
+
+#~ msgid "Call to ring background color (odd rows)"
+#~ msgstr "Color tabla de llamada a pista (filas impares)"
+
+#~ msgid "Results background color (even rows)"
+#~ msgstr "Color tabla de resultados (filas pares)"
+
+#~ msgid "Results background color (odd rows)"
+#~ msgstr "Color tabla de resultados (filas impares)"
+
+#~ msgid "Current Team background color (even rows)"
+#~ msgstr "Color datos de equipo en pista (filas pares)"
+
+#~ msgid "Current Team background color (odd rows)"
+#~ msgstr "Color datos de equipo en pista (filas impares)"
+
+#~ msgid "Live Stream configurable parameters"
+#~ msgstr "Parametros del Live-Stream"
+
+#~ msgid "Evaluate and show time to get first place"
+#~ msgstr "Calcular y mostrar tiempo necesario para 1er puesto"
+
+#~ msgid "Transparency level for OnScreenDisplay"
+#~ msgstr "Nivel de transparencia para OnScreenDisplay"
+
+#~ msgid "Color for Chroma Keyer"
+#~ msgstr "Color del Chroma-key"
+
+#~ msgid "Timming data screen location"
+#~ msgstr "Ubicaci&oacute;n de los datos de tiempos"
+
+#~ msgid "Not visible"
+#~ msgstr "No visible"
+
+#~ msgid "Upper right corner"
+#~ msgstr "Esquina superior derecha"
+
+#~ msgid "Lower right corner"
+#~ msgstr "Esquina inferior derecha"
+
+#~ msgid "Next to competitor info"
+#~ msgstr "Junto a datos del competidor"
+
+#~ msgid "Round data screen location"
+#~ msgstr "Ubicaci&oacute;n de la informaci&oacute;n de la manga"
+
+#~ msgid "Screen top"
+#~ msgstr "Parte superior de la pantalla"
+
+#~ msgid "On top of competitor info"
+#~ msgstr "Encima de los datos del competidor"
+
+#~ msgid "PDF forms and reports generation"
+#~ msgstr "Generacion de formularios PDF e informes"
+
+#~ msgid "Font family"
+#~ msgstr "Tipos de fuentes de caracteres"
+
+#~ msgid "Show journey info when printing catalog"
+#~ msgstr "Inclu&iacute;r informaci&oacute;n de jornadas en cat&aacute;logo"
+
+#~ msgid "Show level/grade info when printing catalog"
+#~ msgstr "Inclu&iacute;r informaci&oacute;n grado en cat&aacute;logo"
+
+#~ msgid "Text color on main header"
+#~ msgstr "Color de texto de la cabecera principal"
+
+#~ msgid "Background color for tables even rows"
+#~ msgstr "Color de fondo de las tablas (filas pares)"
+
+#~ msgid "Background color for tables odd rows"
+#~ msgstr "Color de fondo de las tablas (filas impares)"
+
+#~ msgid "Color for separation lines"
+#~ msgstr "Color de las l&iacute;neas de separaci&oacute;n"
+
+#~ msgid "Label printing"
+#~ msgstr "Impresi&oacute;n de etiquetas"
+
+#~ msgid "Label sheet format (# labels/sheet)"
+#~ msgstr "Formato de la hoja (Num. etiquetas/p&aacute;gina)"
+
+#~ msgid "Label sheet upper margin (mmts)"
+#~ msgstr "Margen superior de la hoja (mmts)"
+
+#~ msgid "Label sheet right margin (mmts)"
+#~ msgstr "Margen izquierdo de la hoja (mmts)"
+
+#~ msgid "Internet"
+#~ msgstr "Internet"
+
+#~ msgid "Public access from internet"
+#~ msgstr "Acceso p&uacute;blico por Internet"
+
+#~ msgid "Data auto-refresh interval"
+#~ msgstr "Periodo de refresco de los datos"
+
+#~ msgid "No refresh"
+#~ msgstr "No refrescar"
+
+#~ msgid "Rotation period for sponsor logos"
+#~ msgstr "Periodo de rotaci&oacute;n de anuncios"
+
+#~ msgid "sec"
+#~ msgstr "seg"
+
+#~ msgid "Header background color"
+#~ msgstr "Color de fondo de cabecera/pie"
+
+#~ msgid "Header text color"
+#~ msgstr "Color de texto de la cabecera/pie"
+
+#~ msgid "Round data table background color"
+#~ msgstr "Color de fondo de informaci&oacute;n de manga"
+
+#~ msgid "Round data table text color"
+#~ msgstr "Color texto informaci&oacute;n de manga"
+
+#~ msgid "General"
+#~ msgstr "General"
+
+#~ msgid "General configuration"
+#~ msgstr "Configuraci&oacute;n general"
+
+#~ msgid "Default language"
+#~ msgstr "Idioma por defecto"
+
+#~ msgid "Choose language from browser preferences"
+#~ msgstr "Seleccionar el idioma seg&uacute;n preferencias del navegador"
+
+#~ msgid "Debug level"
+#~ msgstr "Nivel de depuraci&oacute;n"
+
+#~ msgid "None"
+#~ msgstr "Ninguno"
+
+#~ msgid "Unusable syetem"
+#~ msgstr "Sistema inutilizable"
+
+#~ msgid "Non recoverable errors"
+#~ msgstr "Errores no recuperables"
+
+#~ msgid "Recoverable error"
+#~ msgstr "Errores recuperables"
+
+#~ msgid "Notice alerts"
+#~ msgstr "Avisos a tener en cuenta"
+
+#~ msgid "Informative messages"
+#~ msgstr "Mensajes informativos"
+
+#~ msgid "Debugging information"
+#~ msgstr "Informaci&oacute;n de depuraci&oacute;n"
+
+#~ msgid "Execution trace registering"
+#~ msgstr "Trazas de ejecucion"
+
+#~ msgid "Register everything"
+#~ msgstr "Registrar absolutamente todo"
+
+#~ msgid "Provide raw file copy for system events"
+#~ msgstr "Generar fichero con registro de eventos del sistema"
+
+#~ msgid "Printer device name to write tablet reports"
+#~ msgstr "Nombre de la impresora de registro del tablet"
+
+#~ msgid "Paper size"
+#~ msgstr "Tamaño del papel"
+
+#~ msgid "Check"
+#~ msgstr "Verificar"
+
+#~ msgid "Clear event registration on tablet init session"
+#~ msgstr "Borrar historial de eventos al iniciar sesi&oacute;n en el tablet"
+
+#~ msgid "System"
+#~ msgstr "Sistema"
+
+#~ msgid "Additional server information"
+#~ msgstr "Informaci&oacute;n adicional del servidor"
+
+#~ msgid "IP address(es)"
+#~ msgstr "Direcci&oacute;n(es) IP"
+
+#~ msgid "Save and Restore configuration"
+#~ msgstr "Guardar y Recuperar configuraci&oacute;n"
+
+#~ msgid "Download configuration to file"
+#~ msgstr "Guardar configuraci&oacute;n en fichero"
+
+#~ msgid "Restore configuration from file"
+#~ msgstr "Recuperar configuraci&oacute;n desde fichero"
+
+#~ msgid "Default"
+#~ msgstr "Defecto"
+
+#~ msgid "Enter printer name/device or leave empty to disable"
+#~ msgstr ""
+#~ "Nombre o Dispositivo de impresi&oacute;n <br/>Dejar vac&iacute;o para "
+#~ "desactivar"
+
+#~ msgid "Cancel changes. Restore information from server"
+#~ msgstr ""
+#~ "Anular cambios. Recuperar informaci&oacute;n de configuraci&oacute;n del "
+#~ "servidor"
+
+#~ msgid "Factory reset. Configure with default data"
+#~ msgstr ""
+#~ "Configurar aplicaci&oacute;n con los valores por defecto de f&aacute;"
+#~ "brica. "
+
+#~ msgid "Accept changes. Save as new configuration"
+#~ msgstr "Aceptar cambios. Guardar como nueva configuraci&oacute;n"
+
+#~ msgid "Send sample report to check printer"
+#~ msgstr "Enviar informe de prueba para comprobar impresora"
+
+#~ msgid "New configuration successfully saved"
+#~ msgstr "Nueva configuraci&oacute;n guardada correctamente"
+
+#~ msgid "You should close session and reload page"
+#~ msgstr "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"
+
+#~ msgid "for changes to become active"
+#~ msgstr "para que los cambios se activen"
+
+#~ msgid "A test page has been sent to event recording printer"
+#~ msgstr "Se ha enviado una pagina de prueba a la impresora de registro"
+
+#~ msgid "Please check for proper output"
+#~ msgstr "Compruebe que la impresi&oacute;n es correcta"
+
+#~ msgid "Remember to save changes before exiting"
+#~ msgstr "Recuerde guardar los cambios antes de salir del men&uacute;"
+
+#~ msgid "Restore factory default values. Sure?"
+#~ msgstr "Restaurar valores por defecto. ¿Seguro?"
+
+#~ msgid "Downloading configuration, please wait"
+#~ msgstr "Descargando fichero de configuraci&oacute;n. Espere..."
+
+#~ msgid "There was a problem in configuration download. Please try again"
+#~ msgstr ""
+#~ "Hubo un problema en la descarga de la configuraci&oacute;n. Pruebe de "
+#~ "nuevo"
+
+#~ msgid "No config file selected"
+#~ msgstr "No se ha indicado ning&uacute;n fichero"
+
+#~ msgid "Restore configuration from file error"
+#~ msgstr "Error al restaurar configuraci&oacute;n desde fichero"
+
+#~ msgid "Configuration file successfully restored"
+#~ msgstr "Configuraci&oacute;n restaurada correctamente"
+
+#~ msgid "Dog information"
+#~ msgstr "Datos del perro"
+
+#~ msgid "Inscription data"
+#~ msgstr "Datos de la inscripci&oacute;n"
+
+#~ msgid "Paid out"
+#~ msgstr "Pagado"
+
+#~ msgid "Modify"
+#~ msgstr "Modificar"
+
+#~ msgid "Edit inscription"
+#~ msgstr "Editar inscripci&oacute;n"
+
+#~ msgid "Change dog data"
+#~ msgstr "Cambiar datos sobre el perro"
+
+#~ msgid "into database"
+#~ msgstr "en la base de datos"
+
+#~ msgid "Accept changes"
+#~ msgstr "Aceptar cambios"
+
+#~ msgid "Update inscription data"
+#~ msgstr "Actualizar datos de inscripci&oacute;n"
+
+#~ msgid "Cancel changes. Close window"
+#~ msgstr "Cancelar modificaciones. Cerrar ventana"
+
+#~ msgid "Eval"
+#~ msgstr "Calcular"
+
+#~ msgid "Updating training session timetable for contest"
+#~ msgstr "Actualizando sesi&oacute;n de entrenamientos de la prueba"
+
+#~ msgid "Save changes to training session being edited"
+#~ msgstr "Guardar los cambios editados en el entrenamiento"
+
+#~ msgid "Cancel changes. Restore previous values"
+#~ msgstr "Anular cambios. Restaurar valores originales"
+
+#~ msgid "Re-create training table from inscription data"
+#~ msgstr ""
+#~ "Regenerar sesi&oacute;n de entrenamientos con datos de las inscripciones"
+
+#~ msgid "Refresh training session timetable from database"
+#~ msgstr "Actualizar sesi&oacute;n de entrenamientos"
+
+#~ msgid "Import/export session from/to Excel file"
+#~ msgstr "Importar/Exportar sesi&oacute;n desde/hacia fichero Excel"
+
+#~ msgid "Print training session timetable"
+#~ msgstr "Imprimir la sesi&oacute;n de entrenamientos de la prueba"
+
+#~ msgid "Recalculate timetable values starting at selected row"
+#~ msgstr "Recalcular los horarios desde la fila seleccionada"
+
+#~ msgid "Team information"
+#~ msgstr "Datos del equipo"
+
+#~ msgid "Categories"
+#~ msgstr "Categor&iacute;as"
+
+#~ msgid "Register team data.<br />Update database"
+#~ msgstr "Registrar datos del equipo. Actualizar base de datos"
+
+#~ msgid "Terminate operations. Close window"
+#~ msgstr "Terminar la operaci&oacute;n. Cerrar ventana"
+
+#~ msgid "Handler information"
+#~ msgstr "Datos del gu&iacute;a"
+
+#~ msgid "Aceptar handler data. Store into database"
+#~ msgstr "Aceptar datos del gu&iacute;a. Guardar en la base de datos"
+
+#~ msgid "Register new club into database"
+#~ msgstr "Registrar un nuevo club en la base de datos"
+
+#~ msgid "Journey information"
+#~ msgstr "Informaci&oacute;n de la jornada"
+
+#~ msgid "Rounds on this journey"
+#~ msgstr "Mangas de la jornada"
+
+#~ msgid "Single round"
+#~ msgstr "Una vuelta"
+
+#~ msgid "Double round"
+#~ msgstr "Doble vuelta"
+
+#~ msgid "No grades (Open)"
+#~ msgstr "Sin grados (Open)"
+
+#~ msgid "2 best of 3"
+#~ msgstr "2 mejores de 3"
+
+#~ msgid "3 best of 4"
+#~ msgstr "3 mejores de 4"
+
+#~ msgid "2 combined"
+#~ msgstr "2 conjunta"
+
+#~ msgid "3 combined"
+#~ msgstr "3 conjunta"
+
+#~ msgid "4 combined"
+#~ msgstr "4 conjunta"
+
+#~ msgid "Special round"
+#~ msgstr "Manga especial"
+
+#~ msgid "Register journey into database"
+#~ msgstr "Registrar datos de la jornada en la base de datos"
+
+#~ msgid "Judge information"
+#~ msgstr "Datos del juez"
+
+#~ msgid "International judge"
+#~ msgstr "Juez internacional"
+
+#~ msgid "Learning judge"
+#~ msgstr "Juez en pr&aacute;cticas"
+
+#~ msgid "Federations"
+#~ msgstr "Federaciones"
+
+#~ msgid "Register judge information into database"
+#~ msgstr "Registrar informaci&oacute;n del juez en la base de datos"
+
+#~ msgid "Journeys"
+#~ msgstr "Jornadas"
+
+#~ msgid "Inscribe"
+#~ msgstr "Inscribir"
+
+#~ msgid "Processing inscriptions"
+#~ msgstr "Procesando inscripciones"
+
+#~ msgid "Add inscriptions to contest"
+#~ msgstr "A&ntilde;adir inscripciones a la prueba"
+
+#~ msgid "Search available competitors"
+#~ msgstr "Buscar posibles participantes"
+
+#~ msgid "matching search criteria"
+#~ msgstr "que coincidan con el criterio de b&uacute;squeda"
+
+#~ msgid "Inscribe selected dog(s) into contest"
+#~ msgstr "Inscribir el/los perro(s) seleccionados en la prueba"
+
+#~ msgid "Close window"
+#~ msgstr "Cerrar ventana"
+
+#~ msgid "Return to inscription handling form"
+#~ msgstr "Volver a la pantalla de gesti&oacute;n de inscripciones"
+
+#~ msgid "Clear selection. Refresh list"
+#~ msgstr "Borrar selecci&oacute;n. Actualizar lista"
+
+#~ msgid "Insert a new dog into database"
+#~ msgstr "A&ntilde;adir un nuevo perro en la base de datos"
+
+#~ msgid "Random"
+#~ msgstr "Aleatorio"
+
+#~ msgid "Reverse"
+#~ msgstr "Inverso"
+
+#~ msgid "Clone"
+#~ msgstr "Clonar"
+
+#~ msgid "Manual setting of teams order for this round"
+#~ msgstr "Ajuste manual del orden de salida de equipos de esta manga"
+
+#~ msgid "Updating teams starting order"
+#~ msgstr "Actualizando orden de salida de equipos"
+
+#~ msgid "Def"
+#~ msgstr "Def"
+
+#~ msgid "Look for <em>proximity alerts</em>"
+#~ msgstr "Buscar alertas de proximidad"
+
+#~ msgid "with dogs belonging same handler"
+#~ msgstr "con perros pertenecientes al mismo gu&iacute;a"
+
+#~ msgid "Generate a new, random, starting order"
+#~ msgstr "Generar un nuevo orden de salida aleatorio"
+
+#~ msgid "Reverse starting order according with results in the coupled round"
+#~ msgstr ""
+#~ "Invertir el orden de salida respecto de los resultados de la otra manga"
+
+#~ msgid "Clone starting order from coupled round"
+#~ msgstr "Seleccionar el mismo orden de salida que la otra manga"
+
+#~ msgid "Manual setting of teams starting order"
+#~ msgstr "Ajuste manual del orden de salida de equipos"
+
+#~ msgid "Print starting order"
+#~ msgstr "Imprimir orden de salida"
+
+#~ msgid "Reload starting order. Update window"
+#~ msgstr "Recargar orden de salida. Refrescar ventana"
+
+#~ msgid "Insert"
+#~ msgstr "Insertar"
+
+#~ msgid "Updating activities and timetable on journey"
+#~ msgstr "Actualizando programa de actividades de la jornada"
+
+#~ msgid "Add a new activity into journey timetable"
+#~ msgstr "A&ntilde;adir una nueva actividad al programa de la jornada"
+
+#~ msgid "Edit selected activity"
+#~ msgstr "Editar actividad seleccionada"
+
+#~ msgid "Remove activity from journey timetable"
+#~ msgstr "Borrar la actividad del programa de la jornada"
+
+#~ msgid "Refresh journey timetable from database"
+#~ msgstr "Refrescar programa de la jornada desde la base de datos"
+
+#~ msgid "Print journey activities timetable"
+#~ msgstr "Imprimir el programa de la jornada"
+
+#~ msgid "Store activity information into database"
+#~ msgstr "Guardar actividad en la base de datos"
+
+#~ msgid "Changes on Grade or Category for a dog"
+#~ msgstr "Los cambios de grado o categor&iacute;a de un perro"
+
+#~ msgid "will affect to every non closed contest and journeys"
+#~ msgstr ""
+#~ "Afectar&aacute;n a todas las pruebas y jornadas que no est&eacute;n "
+#~ "cerradas"
+
+#~ msgid "where dog have been inscribed"
+#~ msgstr "en las que el perro se haya inscrito"
+
+#~ msgid "Register dog information. Update database"
+#~ msgstr "Registrar informaci&oacute;n del perro en la base de datos"
+
+#~ msgid "Register a new handler"
+#~ msgstr "Registrar un nuevo gu&iacute;a"
+
+#~ msgid "Contest information"
+#~ msgstr "Informaci&oacute;n de la prueba"
+
+#~ msgid "Name of this contest"
+#~ msgstr "Denominaci&oacute;n de la prueba"
+
+#~ msgid "Accept data. Register contest into database"
+#~ msgstr "Aceptar datos. Registrar la prueba en la base de datos"
+
+#~ msgid "Results on selected categories"
+#~ msgstr "Resultados de la categor&iacute;a seleccionada"
+
+#~ msgid "Update results on selected round/category"
+#~ msgstr "Ver resultados parciales de la manga seleccionada"
+
+#~ msgid "Print round results"
+#~ msgstr "Imprimir resultados de la manga"
+
+#~ msgid "Select journey"
+#~ msgstr "Selecciona jornada"
+
+#~ msgid "Select contest and journey to work with"
+#~ msgstr "Selecciona la prueba y jornada a desplegar"
+
+#~ msgid "Name/Comments"
+#~ msgstr "Nombre / Observaciones"
+
+#~ msgid "You must select a valid contest/journey"
+#~ msgstr "Debe seleccionar una prueba y jornada v&aacute;lidas"
+
+#~ msgid "forbids handling of contests</br> with more than"
+#~ msgstr "no permiten la gesti&oacute;n de pruebas<br/> con m&aacute;s de"
+
+#~ msgid "Session information"
+#~ msgstr "Informaci&oacute;n de la sesi&oacute;n"
+
+#~ msgid "Disconnect"
+#~ msgstr "Desconectar"
+
+#~ msgid "Background image/mjpeg"
+#~ msgstr "Imagen de fondo / mjpeg"
+
+#~ msgid "Stream MPEG-4"
+#~ msgstr "Stream MPEG-4"
+
+#~ msgid "Stream OGV"
+#~ msgstr "Stream OGV"
+
+#~ msgid "Stream Web-M"
+#~ msgstr "Stream Web-M"
+
+#~ msgid "Sequences"
+#~ msgstr "Secuencias"
+
+#~ msgid "Disconnect current user from session"
+#~ msgstr "Desconectar al usuario activo en esta sesi&oacute;n"
+
+#~ msgid "View/Edit sequences for"
+#~ msgstr "Ver/Editar secuencias para"
+
+#~ msgid "videowall attached to this session"
+#~ msgstr "los videomarcadores de esta sesi&oacute;n"
+
+#~ msgid "Register session information. Upate database"
+#~ msgstr ""
+#~ "Guardar la informaci&oacute;n de la sesi&oacute;n en la base de datos"
+
+#~ msgid "Create database backup"
+#~ msgstr "Copia de seguridad de la BBDD"
+
+#~ msgid "Restore database backup"
+#~ msgstr "Restaurar base de datos"
+
+#~ msgid "Erase database contents"
+#~ msgstr "Borrar base de datos"
+
+#~ msgid "Delete stored contests"
+#~ msgstr "Borrar pruebas almacenadas"
+
+#~ msgid "Search for updates"
+#~ msgstr "Buscar actualizaciones"
+
+#~ msgid "Create and download a database backup copy"
+#~ msgstr "Generar y descargar una copia de seguridad de la base de datos"
+
+#~ msgid "Restore database contents from previous backup"
+#~ msgstr "Restaurar la base de datos desde un backup previo"
+
+#~ msgid "Factory reset. Clear EVERY content on database"
+#~ msgstr ""
+#~ "Reset de f&aacute;brica. Borrar TODO el contenido de la base de datos"
+
+#~ msgid "Clear contests from database"
+#~ msgstr "Borrar las pruebas registradas en la base de datos"
+
+#~ msgid "leaving only dogs/handlers/judges/clubs information"
+#~ msgstr "dejando solo datos sobre perros, gu&iacute;as, clubes y jueces"
+
+#~ msgid "Search and install AgilityContest updates"
+#~ msgstr "Buscar e instalar actualizaciones de AgilityContest"
+
+#~ msgid "Password change"
+#~ msgstr "Cambio de ontrase&ntilde;a"
+
+#~ msgid "Current password"
+#~ msgstr "Contrase&ntilde;a actual"
+
+#~ msgid "New password"
+#~ msgstr "Nueva contrase&ntilde;a"
+
+#~ msgid "again"
+#~ msgstr "otra vez"
+
+#~ msgid "User information"
+#~ msgstr "Informaci&oacute;n del usuario"
+
+#~ msgid "Admin"
+#~ msgstr "Administrador"
+
+#~ msgid "Store user information into database"
+#~ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
+
+#~ msgid "Change password"
+#~ msgstr "Cambiar la contrase&ntilde;a"
 
 #~ msgid "Permissions"
 #~ msgstr "Permisos"

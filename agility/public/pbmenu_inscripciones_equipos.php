@@ -28,6 +28,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_inscripciones-panel">
 	<div id="pb_inscripciones-layout" style="width:100%">
 		<div id="pb_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:10%;" class="pb_floatingheader">
+            <a id="pb_back-link" class="easyui-linkbutton" onClick="pb_expandMenu(true);" href="#" style="float:left">
+                <img id="pb_back-logo" src="/agility/images/backtomenu.png" width="50" />
+            </a>&nbsp;
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateInscripciones_eq3();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
             </a>
@@ -46,6 +49,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <script type="text/javascript">
 
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update inscription list"); ?>');
+addTooltip($('#pb_back-link').linkbutton(),'<?php _e("Back to contest menu"); ?>');
 $('#pb_inscripciones-layout').layout({fit:true});
 $('#pb_inscripciones-panel').panel({
 	fit:true,

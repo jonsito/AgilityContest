@@ -313,7 +313,7 @@ try {
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
-    $upg->populateTeamMembers();
+    // $upg->populateTeamMembers();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }

@@ -18,9 +18,12 @@ header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",
  if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-require_once(__DIR__ . "/server/tools.php");
-require_once(__DIR__ . "/server/auth/Config.php");
-require_once(__DIR__ . "/server/auth/AuthManager.php");
+/**
+ * PERSONALIZED ENTRY PAGE FOR AWC FCI 2016
+ */
+require_once(__DIR__ . "/../server/tools.php");
+require_once(__DIR__ . "/../server/auth/Config.php");
+require_once(__DIR__ . "/../server/auth/AuthManager.php");
 if(!isset($config)) $config =Config::getInstance();
 
 /* check for properly installed xampp */
@@ -32,14 +35,12 @@ if (!$am->allowed(ENABLE_PUBLIC)) {
     die("Current license has no permissions to handle public (web) access related functions");
 }
 // tool to perform automatic upgrades in database when needed
-require_once(__DIR__. "/server/upgradeVersion.php");
-require_once(__DIR__. "/server/web/public.php");
+require_once(__DIR__. "/../server/web/public.php");
 
-$pruebaID=http_request("Prueba","i",18);
+$pruebaID=http_request("Prueba","i",22);
 $pb=new PublicWeb($pruebaID);
 $ptree=$pb->publicweb_deploy();
-$poster=$ptree['Prueba']['Cartel'];
-if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
+$poster="/agility/images/agilityawc2016.png";
 ?>
 
 <!DOCTYPE html>
@@ -214,7 +215,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             height: 100%;
         }
         #poster_panel {
-            background: #000000 url("<?php echo $poster;?>") no-repeat bottom left;
+            background: #000000 url("/agility/awcfci2016/spainbg.png") no-repeat bottom left;
             background-size: 100% 100%;
             width: 100%;
             height: auto;
@@ -222,7 +223,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         }
         #menu_panel {
             /* background should be extracted from contest poster information */
-            background: #000000 url("background.jpg") no-repeat bottom left;
+            background: #000000 url("/agility/awcfci2016/spainbg.png") no-repeat bottom left;
             background-size: 100% 100%;
             width: 100%;
             height: auto;
@@ -256,21 +257,41 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
 <div id="pb_layout">
 
 <div id="poster_panel" data-options="region:'west',split:false" style="width:40%">
-    <!-- render here contest poster image as declared in database -->
+    <img src="/agility/images/agilityawc2016.png" alt="logo_agilityawc2016" style="max-width:90%;padding:20px"/>
+    <div style="padding:20px;font-weight: bold; font-size:1.2vw;">
+        <h2><?php _e('Important notice'); ?>:</h2>
+        <p>
+            <?php _e("Data shown in these pages reflect <em>real time status</em> of the contest and may be modified by Judges and Organization after revision");?>
+        </p><p>
+            <?php _e("For oficial scores and results, please look at");?> <a href="">AWC-FCI 2016 web</a>
+        </p>
+
+    </div>
+    <table style="padding:20px;width:auto; position:absolute; bottom:0">
+        <tr>
+            <th>Powered by<br/> AgilityContest 2.3.1</th>
+            <th>Hosting courtesy of<br/> CubeNode Systems SL</th>
+        </tr>
+        <tr>
+            <td style="width:50%">
+                <a target="agilitycontest" href="http://www.agilitycontest.es">
+                    <img src="/agility/images/AgilityContest.png" style="max-width:50%">
+                </a>
+            </td>
+            <td style="width:50%">
+                <a target="cubenode" href="http://www.cubenode.com">
+                <img src="/agility/awcfci2016/cubenode.png" style="max-width:100%">
+                </a>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <div id="menu_panel" data-options="region:'center'">
-        <h1><?php _e("Online information"); ?></h1>
+        <h1><?php echo /*"{$ptree['Prueba']['Nombre']} - " . */_("Online information"); ?></h1>
             <?php
-            echon("<h2>{$ptree['Prueba']['Nombre']}</h2>");
             echon('<dl class="menu_enum">');
-            /*
-            // si la licencia permite sesiones de entrenamiento las mostramos
-            if ( $am->allowed(ENABLE_TRAINING)) {
-                echon( '<dt><a href="javascript:pbmenu_loadTrainingSession('.$pruebaID.');">'._("Training session").'</a></dt><br/>');
-            }
-            */
-            echon('<dt>Live session now: <a class="easyui-linkbutton" href="#">Jumping Team Large</a>');
+            echon('<dt>Live session now: <a class="easyui-linkbutton" href="#">Jumping Team Large</a></dt><dd>&nbsp;</dd>');
             foreach ($ptree['Jornadas'] as $jornada) {
                 if ($jornada['Nombre']==='-- Sin asignar --') continue;
                 if (count($jornada['Mangas'])==0) continue; // no rounds, no print
@@ -306,10 +327,10 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                         }
                         // on empty rounds count skip partial scores; else display them
                         if ($roundstr!=="") {
-                            echon("<li>"._("Partial scores").'<br>'); echon('<table>'); echo $roundstr; echon('</table>'); echon("</li>");
+                            echon("<li>"._("Round").'s<br>'); echon('<table>'); echo $roundstr; echon('</table>'); echon("</li>");
                         }
 
-                        echon("<li>"._("Final scores").'<br/>');
+                        echon("<li>"._("Scores").'<br/>');
                             echon('<table><tr>');
                             for ($n=0;$n<count($jornada['Series']);$n++) {
                                 $serie=$jornada['Series'][$n];

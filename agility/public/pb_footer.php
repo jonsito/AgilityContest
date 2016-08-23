@@ -55,6 +55,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <a target="acontest" href="https://www.github.com/jonsito/AgilityContest " style="text-decoration:none;">
             <img id="pb_footer-logoAgilityContest" src="/agility/images/supporters/agilitycontest.png" alt="agilitycontest" height="40"/>
         </a>
+        <a target="cubenode" href="http://www.cubenode.com" style="text-decoration:none;">
+            <img id="pb_footer-logoAgilityContest" src="/agility/awcfci2016/cubenode2.png" alt="cubenode" height="40"/>
+        </a>
         <span style="padding:5px">
             <!-- remove to avoid copyright issues -->
             <!--
