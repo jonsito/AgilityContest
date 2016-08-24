@@ -214,7 +214,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             height: 100%;
         }
         #poster_panel {
-            background: #000000 url("<?php echo $poster;?>") no-repeat bottom left;
+            background: <?php echo $config->getEnv('pb_hdrbg1');?> url("<?php echo $poster;?>") no-repeat bottom left;
             background-size: 100% 100%;
             width: 100%;
             height: auto;
@@ -222,7 +222,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         }
         #menu_panel {
             /* background should be extracted from contest poster information */
-            background: #000000 url("background.jpg") no-repeat bottom left;
+            background: <?php echo $config->getEnv('pb_hdrbg1');?> url("background.jpg") no-repeat bottom left;
             background-size: 100% 100%;
             width: 100%;
             height: auto;

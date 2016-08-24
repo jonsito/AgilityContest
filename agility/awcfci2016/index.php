@@ -215,15 +215,16 @@ $poster="/agility/images/agilityawc2016.png";
             height: 100%;
         }
         #poster_panel {
-            background: #000000 url("/agility/awcfci2016/spainbg.png") no-repeat bottom left;
+            /* background: #000000 url("/agility/awcfci2016/spainbg.png") no-repeat bottom left;*/
+            background: <?php echo $config->getEnv('pb_hdrbg1');?>;
             background-size: 100% 100%;
             width: 100%;
             height: auto;
             min-height:100%;
         }
         #menu_panel {
-            /* background should be extracted from contest poster information */
-            background: #000000 url("/agility/awcfci2016/spainbg.png") no-repeat bottom left;
+            /* background: #000000 url("/agility/awcfci2016/spainbg.png") no-repeat bottom left;*/
+            background: <?php echo $config->getEnv('pb_hdrbg1');?>;
             background-size: 100% 100%;
             width: 100%;
             height: auto;
