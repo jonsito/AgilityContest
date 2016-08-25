@@ -121,8 +121,8 @@ class Entrenamientos extends DBObject {
         $this->clear();
         // to speedup, use prepared statements
         // componemos un prepared statement (para evitar sql injection)
-        $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Entrada,Key1,Value1,Key2,Value2,Key3,Value3,Observaciones,Estado)
-			   VALUES({$this->pruebaID},?,?,?,?,?,?,'{$large}',?,'{$medium}',?,'{$small}',?,'{$toy}',?,'?',?)";
+        $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Entrada,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,Observaciones,Estado)
+			   VALUES({$this->pruebaID},?,?,?,?,?,?,'{$large}',?,'{$medium}',?,'{$small}',?,'{$toy}',?,?,?)";
         $this->myLogger->trace("SQL: $sql");
         $this->myLogger->trace("SQL: before prepare");
         $stmt=$this->conn->prepare($sql);
