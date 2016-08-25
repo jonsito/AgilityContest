@@ -25,6 +25,7 @@ class Entrenamientos extends DBObject {
     protected $pruebaID;
     protected $prueba;
     protected $myConfig;
+    protected $fedObj;
 
 	function __construct($name,$prueba) {
 		parent::__construct($name);
@@ -32,6 +33,7 @@ class Entrenamientos extends DBObject {
         $this->prueba=$this->__getObject("Pruebas",$prueba);
         if (!$this->prueba) throw new Exception('$name: Prueba with ID:$prueba not found in database');
         $this->pruebaID=$prueba;
+        $this->fedObj=Federations::getFederation(intval($this->prueba->RSCE));
         $this->myConfig=Config::getInstance();
 	}
 
@@ -106,19 +108,27 @@ class Entrenamientos extends DBObject {
             $club['Firma']=date('Y-m-d H:i',$nextTime);
             $club['Veterinario']=date('Y-m-d H:i',$nextTime+120); // 2 minutes later
             $club['Entrada']=date('Y-m-d H:i:s',$nextTime+3600); // 1 hour later
-            $club['Salida']=date('Y-m-d H:i:s',$nextTime+3600+$duration);
             $nextTime+=$duration+$gtime;
-            $this->myLogger->trace("Club: {$club['NombreClub']} Entrada: {$club['Entrada']} Salida: {$club['Salida']} Duracion:$duration");
+            // $this->myLogger->trace("Club: {$club['NombreClub']} Entrada: {$club['Entrada']} Duracion:$duration");
         }
         // ok. next comes clear and populate Training database table
+        // retrieve default key names from i18nt'd category names
+        $large=$this->fedObj->getCategory('L');
+        $medium=$this->fedObj->getCategory('M');
+        $small=$this->fedObj->getCategory('S');
+        $toy=$this->fedObj->getCategory('T');
+        // remove old data for this contest
         $this->clear();
         // to speedup, use prepared statements
         // componemos un prepared statement (para evitar sql injection)
-        $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Entrada,Salida,L,M,S,T,Observaciones,Estado)
-			   VALUES({$this->pruebaID},?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Entrada,Key1,Value1,Key2,Value2,Key3,Value3,Observaciones,Estado)
+			   VALUES({$this->pruebaID},?,?,?,?,?,?,'{$large}',?,'{$medium}',?,'{$small}',?,'{$toy}',?,'?',?)";
+        $this->myLogger->trace("SQL: $sql");
+        $this->myLogger->trace("SQL: before prepare");
         $stmt=$this->conn->prepare($sql);
         if (!$stmt) return $this->error($this->conn->error);
-        $res=$stmt->bind_param('iisssssiiiis',$idx,$clb,$fecha,$firma,$vet,$ent,$sal,$l,$m,$s,$t,$obs,$st);
+        $this->myLogger->trace("SQL: before bind");
+        $res=$stmt->bind_param('iissssiiiisi',$idx,$clb,$fecha,$firma,$vet,$ent,$l,$m,$s,$t,$obs,$st);
         if (!$res) return $this->error($this->conn->error);
         foreach($clubes as $elem) {
             $idx=$elem['Orden'];
@@ -127,7 +137,6 @@ class Entrenamientos extends DBObject {
             $firma=$elem['Firma'];
             $vet=$elem['Veterinario'];
             $ent=$elem['Entrada'];
-            $sal=$elem['Salida'];
             $l=$elem['L'];
             $m=$elem['M'];
             $s=$elem['S'];
@@ -246,13 +255,15 @@ class Entrenamientos extends DBObject {
             'Firma'     =>date('Y-m-d H:i',$nextTime),
             'Veterinario'=>date('Y-m-d H:i',$nextTime+120), // 2 minutes later
             'Entrada'   =>date('Y-m-d H:i:s',$nextTime+3600), // 1 hour later
-            'Salida'    =>date('Y-m-d H:i:s',$nextTime+3600+$gtime),
-            'Total'     => 0,
-            'L'         => 0,
-            'M'         => 0,
-            'S'         => 0,
-            'T'         => 0,
-            '-'         => 0, // to avoid warnings on nonexistent
+            'Total'     => 0, // not used (number total of dogs)
+            'Key1'         => $this->fedObj->getCategory('L'),
+            'Key2'         => $this->fedObj->getCategory('M'),
+            'Key3'         => $this->fedObj->getCategory('S'),
+            'Key4'         => $this->fedObj->getCategory('T'),
+            'Value1'         => 0,
+            'Value2'         => 0,
+            'Value3'         => 0,
+            'Value4'         => 0,
             'Observaciones' => '',
             'Estado'    => -1 // -1:pending 0:running 1:done
         );

@@ -93,29 +93,30 @@ $('#entrenamientos-datagrid').datagrid({
         { field:'ID',		hidden:true },
         { field:'Prueba',	hidden:true },
 		{ field:'Orden',    width:40, title:'',formatter:formatTrainingState},
-		{ field:'LogoClub', width:50, title:'',formatter:formatLogo},
+		{ field:'LogoClub', width:40, title:'',formatter:formatLogo},
 		{ field:'Club',		hidden:true},
-		{ field:'NombreClub',width:150, title: isInternational(workingData.federation)? "<?php _e('Country');?>":"<?php _e('Club');?>" },
-		{ field:'Fecha', 	width:100, title:'<?php  _e("Date");?>',formatter:formatYMD,
+		{ field:'NombreClub',width:100, title: isInternational(workingData.federation)? "<?php _e('Country');?>":"<?php _e('Club');?>" },
+		{ field:'Fecha', 	width:60, title:'<?php  _e("Date");?>',formatter:formatYMD,
 			editor:{ type:'datebox', options: { required:true,formatter: dateToMysql } }
 		},
-		{ field:'Firma', 	align:'center', width:100, title:'<?php  _e("Check-in");?>',formatter:formatHM,
+		{ field:'Firma', 	align:'center', width:60, title:'<?php  _e("Check-in");?>',formatter:formatHM,
             editor:{ type:'timespinner', options: { required:true,showSeconds:false } }
         },
-		{ field:'Veterinario',align:'center',	width:100, title:'<?php _e("Veterinary");?>',formatter:formatHM,
+		{ field:'Veterinario',align:'center',	width:60, title:'<?php _e("Veterinary");?>',formatter:formatHM,
             editor:{ type:'timespinner', options: { required:true,showSeconds:false } }
         },
-		{ field:'Entrada',  align:'center',	width:100, title:'<?php _e("Start");?>',formatter:formatHMS,
+		{ field:'Entrada',  align:'center',	width:60, title:'<?php _e("Start");?>',formatter:formatHMS,
             editor:{ type:'timespinner', options: { required:true,showSeconds:true} }
         },
-		{ field:'Salida',   align:'center',	width:100, title:'<?php _e("End");?>',formatter:formatHMS,
-            editor:{ type:'timespinner', options: { required:true,showSeconds:true } }
-        },
-		{ field:'L',	width:75, title:'<?php _e("Ring");?> 1'},
-		{ field:'M',	width:75, title:'<?php _e("Ring");?> 2'},
-		{ field:'S',	width:75, title:'<?php _e("Ring");?> 3'},
-		{ field:'T',	width:75, title:'<?php _e("Ring");?> 4'},
-		{ field:'Observaciones', width:100, title:'<?php _e("Comments");?>', editor:{ type:'textbox', options: { required:false } } },
+		{ field:'Key1',	width:50, title:'<?php _e("Ring");?> 1'},
+		{ field:'Value1',width:25, title:'<?php _e("Time");?> 1'},
+		{ field:'Key2',	width:50, title:'<?php _e("Ring");?> 2'},
+		{ field:'Value2',width:25, title:'<?php _e("Time");?> 2'},
+		{ field:'Key3',	width:50, title:'<?php _e("Ring");?> 3'},
+		{ field:'Value3',width:25, title:'<?php _e("Time");?> 3'},
+		{ field:'Key4',	width:50, title:'<?php _e("Ring");?> 4'},
+		{ field:'Value4',width:25, title:'<?php _e("Time");?> 4'},
+		{ field:'Observaciones', width:60, title:'<?php _e("Comments");?>', editor:{ type:'textbox', options: { required:false } } },
 		{ field:'Estado',	hidden:true }
     ]],
     rowStyler:myRowStyler,
@@ -129,7 +130,8 @@ $('#entrenamientos-datagrid').datagrid({
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
 		var cats=howManyHeights(workingData.federation);
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
-		$(this).datagrid((cats==4)?'showColumn':'hideColumn','T');
+		$(this).datagrid((cats==4)?'showColumn':'hideColumn','Key4');
+		$(this).datagrid((cats==4)?'showColumn':'hideColumn','Value4');
 		$(this).datagrid('enableDnd');
     },
     onDragEnter: function(dst,src) {  // do not allow drag and drop when edit active

@@ -237,6 +237,9 @@ class Updater {
         return 0;
     }
 
+    // tabla de entrenamientos
+    // definimos hasta cuatro rings por pais, indicando en cada ring
+    // la categoria y el tiempo en segundos
     function createTrainingTable() {
         $str="
         CREATE TABLE IF NOT EXISTS `Entrenamientos` (
@@ -248,12 +251,14 @@ class Updater {
           `Firma` timestamp  DEFAULT 0 ,
           `Veterinario` timestamp DEFAULT  0 ,
           `Entrada`  timestamp DEFAULT  0 ,
-          `Salida`  timestamp DEFAULT 0,
-          `L` int(4) NOT NULL DEFAULT 0,
-          `M` int(4) NOT NULL DEFAULT 0,
-          `S` int(4) NOT NULL DEFAULT 0,
-          `T` int(4) NOT NULL DEFAULT 0,
-          `-` int(4) NOT NULL DEFAULT 0,
+          `Key1` varchar(32) DEFAULT '',
+          `Value1` int(4) NOT NULL DEFAULT 0,
+          `Key2` varchar(32) DEFAULT '',
+          `Value2` int(4) NOT NULL DEFAULT 0,
+          `Key3` varchar(32) DEFAULT '',
+          `Value3` int(4) NOT NULL DEFAULT 0,
+          `Key4` varchar(32) DEFAULT '',
+          `Value4` int(4) NOT NULL DEFAULT 0,
           `Observaciones` varchar(255) DEFAULT '',
           `Estado` int(4) NOT NULL DEFAULT -1,
           PRIMARY KEY (`ID`),
