@@ -232,6 +232,13 @@ function isInternational(fed){
 	return (parseInt(ac_fedInfo[fed].International)!=0)?true:false;
 }
 
+// coge un objeto, {key:val,....} y lo convierte en otro de la forma {{'Key': objKey,'Value':objValue},...}
+function toKeyValue(obj) {
+	var res=[];
+	for ( var key in obj)  if (obj.hasOwnProperty(key)) res.push({'Key':key,'Value':obj[key]});
+	return res;
+}
+
 // lista de dialogos a limpiar cada vez que se recarga la pantalla
 var slaveDialogs = {};
 

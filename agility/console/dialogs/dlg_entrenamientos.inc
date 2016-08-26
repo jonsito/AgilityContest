@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!--  dialogo de orden de sesiones de entrenamiento e introduccion de datos de una competicion -->
-<div id="entrenamientos-dialog" style="width:800px;height:450px;padding:5px">
+<div id="entrenamientos-dialog" style="width:850px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="entrenamientos-datagrid" style="padding:5px"></table>
 </div>
@@ -92,31 +92,49 @@ $('#entrenamientos-datagrid').datagrid({
     columns:[[
         { field:'ID',		hidden:true },
         { field:'Prueba',	hidden:true },
-		{ field:'Orden',    width:40, title:'',formatter:formatTrainingState},
-		{ field:'LogoClub', width:40, title:'',formatter:formatLogo},
+		{ field:'Orden',    width:20, title:'',formatter:formatTrainingState},
+		{ field:'LogoClub', width:30, title:'',formatter:formatLogo},
 		{ field:'Club',		hidden:true},
-		{ field:'NombreClub',width:100, title: isInternational(workingData.federation)? "<?php _e('Country');?>":"<?php _e('Club');?>" },
+		{ field:'NombreClub',width:80, title: isInternational(workingData.federation)? "<?php _e('Country');?>":"<?php _e('Club');?>" },
 		{ field:'Fecha', 	width:60, title:'<?php  _e("Date");?>',formatter:formatYMD,
 			editor:{ type:'datebox', options: { required:true,formatter: dateToMysql } }
 		},
-		{ field:'Firma', 	align:'center', width:60, title:'<?php  _e("Check-in");?>',formatter:formatHM,
+		{ field:'Firma', 	align:'center', width:50, title:'<?php  _e("Check-in");?>',formatter:formatHM,
             editor:{ type:'timespinner', options: { required:true,showSeconds:false } }
         },
-		{ field:'Veterinario',align:'center',	width:60, title:'<?php _e("Veterinary");?>',formatter:formatHM,
+		{ field:'Veterinario',align:'center',	width:50, title:'<?php _e("Veterinary");?>',formatter:formatHM,
             editor:{ type:'timespinner', options: { required:true,showSeconds:false } }
         },
-		{ field:'Entrada',  align:'center',	width:60, title:'<?php _e("Start");?>',formatter:formatHMS,
+		{ field:'Entrada',  align:'center',	width:50, title:'<?php _e("Start");?>',formatter:formatHM,
             editor:{ type:'timespinner', options: { required:true,showSeconds:true} }
         },
-		{ field:'Key1',	width:50, title:'<?php _e("Ring");?> 1'},
-		{ field:'Value1',width:25, title:'<?php _e("Time");?> 1'},
-		{ field:'Key2',	width:50, title:'<?php _e("Ring");?> 2'},
-		{ field:'Value2',width:25, title:'<?php _e("Time");?> 2'},
-		{ field:'Key3',	width:50, title:'<?php _e("Ring");?> 3'},
-		{ field:'Value3',width:25, title:'<?php _e("Time");?> 3'},
-		{ field:'Key4',	width:50, title:'<?php _e("Ring");?> 4'},
-		{ field:'Value4',width:25, title:'<?php _e("Time");?> 4'},
-		{ field:'Observaciones', width:60, title:'<?php _e("Comments");?>', editor:{ type:'textbox', options: { required:false } } },
+		{ field:'Duracion',  align:'center',	width:45, title:'<?php _e("Duration");?>',formatter:formatMinSecs,
+			editor:{ type: 'numberspinner',options: {required:true,min:0,precision:0,increment:15,formatter:formatMinSecs} }
+		},
+		{ field:'Key1',	width:40, title:'<?php _e("Ring");?> 1', formatter: formatCategoria,
+			editor:{ type:'combobox', options:{ required:true,valueField:'Key',textField:'Value',data:toKeyValue(ac_fedInfo[workingData.federation].ListaCategorias)} }
+		},
+		{ field:'Value1',width:30, title:'<?php _e("Dogs");?> 1', align:'center',
+			editor:{ type: 'numberspinner',options: {required:true,min:0,precision:0} }
+		},
+		{ field:'Key2',	width:40, title:'<?php _e("Ring");?> 2', formatter: formatCategoria,
+			editor:{ type:'combobox', options:{ required:true,valueField:'Key',textField:'Value',data:toKeyValue(ac_fedInfo[workingData.federation].ListaCategorias)} }
+		},
+		{ field:'Value2',width:30, title:'<?php _e("Dogs");?> 2', align:'center',
+			editor:{ type: 'numberspinner',options: {required:true,min:0,precision:0} }
+		},
+		{ field:'Key3',	width:40, title:'<?php _e("Ring");?> 3', formatter: formatCategoria,
+			editor:{ type:'combobox', options:{ required:true,valueField:'Key',textField:'Value',data:toKeyValue(ac_fedInfo[workingData.federation].ListaCategorias)} }
+		},
+		{ field:'Value3',width:30, title:'<?php _e("Dogs");?> 3', align:'center',
+			editor:{ type: 'numberspinner',options: {required:true,min:0,precision:0} }
+		},
+		{ field:'Key4',	width:40, title:'<?php _e("Ring");?> 4', formatter: formatCategoria,
+			editor:{ type:'combobox', options:{ required:true,valueField:'Key',textField:'Value',data:toKeyValue(ac_fedInfo[workingData.federation].ListaCategorias)} }
+		},
+		{ field:'Value4',width:30, title:'<?php _e("Dogs");?> 4', align:'center',
+			editor:{ type: 'numberspinner',options: {required:true,min:0,precision:0} }
+		},
 		{ field:'Estado',	hidden:true }
     ]],
     rowStyler:myRowStyler,
@@ -163,8 +181,6 @@ $('#entrenamientos-datagrid').datagrid({
         $(ed.target).timespinner('setValue', row.Veterinario.split(' ')[1]);
         ed = $(this).datagrid('getEditor',{index:index,field:'Entrada'});
         $(ed.target).timespinner('setValue', row.Entrada.split(' ')[1]);
-        ed = $(this).datagrid('getEditor',{index:index,field:'Salida'});
-        $(ed.target).timespinner('setValue', row.Salida.split(' ')[1]);
         ed = $(this).datagrid('getEditor',{index:index,field:'Observaciones'});
         $(ed.target).textbox('setValue', row.Observaciones);
     },

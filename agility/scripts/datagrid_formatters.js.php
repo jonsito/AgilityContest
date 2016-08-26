@@ -78,6 +78,13 @@ function formatHMS(val,row,idx){
     return ""+hora+":"+min+":"+sec;
 }
 
+function formatMinSecs(val,row,idx) {
+    var time=parseInt(val); // seconds
+    var min=Math.floor(time/60);
+    var secs= time%60;
+    return  "" + min + "'" + ((secs<10)?"0"+secs:secs)+'"';
+}
+
 /**
  * rowStyler function for AgilityContest public datagrids
  * @param {int} idx Row index
@@ -130,6 +137,12 @@ function formatCatGrad(val,row,idx) {
     // return formatCategoria(row.Categoria,row.idx)+"/"+formatGrado(row.Grado,row,idx);
     return row.Categoria+"-"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(
 }
+
+/** categoria:numdogs */
+function formatTrainingCell1(val,row,idx) { return row.Key1+" - "+val; }
+function formatTrainingCell2(val,row,idx) { return row.Key2+" - "+val; }
+function formatTrainingCell3(val,row,idx) { return row.Key3+" - "+val; }
+function formatTrainingCell4(val,row,idx) { return row.Key4+" - "+val; }
 
 function formatDogName(val,row,idx) { // long name limited to 20 characters
     if (typeof(val)==="undefined") return ""; // to prevent initial empty rows

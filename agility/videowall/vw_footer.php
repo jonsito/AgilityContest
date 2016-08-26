@@ -22,38 +22,45 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="vw_footer">
     <span style="float:left">
         <a id="vw_footer-urlFederation" target="fed" href="" style="border:0 none;">
-            <img id="vw_footer-logoFederation" src="/agility/images/logos/agilitycontest.png" alt="" width="50"/>
+            <img id="vw_footer-logoFederation" src="/agility/images/logos/agilitycontest.png" alt="" width="40"/>
         </a>
         <a id="vw_footer-urlFederation2" target="fed2" href="">
-            <img id="vw_footer-logoFederation2" src="/agility/images/logos/agilitycontest.png" alt="" width="50"/>
+            <img id="vw_footer-logoFederation2" src="/agility/images/logos/agilitycontest.png" alt="" width="40"/>
         </a>
         <span style="display:inline-block;padding:12px;font-size:10px;font-style:oblique">
             AgilityContest-<?php echo $config->getEnv('version_name'); ?> <br/>&copy; 2013-2016 JAMC
         </span>
     </span>
     <span style="float:right">
-
+    <table><tr><td>
 <?php
 /* el fichero "supporters,csv" tiene el formato CSV: "patrocinador":"logo":"url"[:"categoria"] */
 $file=fopen(__DIR__."/../images/supporters/supporters.csv","r");
 if ($file) {
+    $odd=false;
+
     while (($datos = fgetcsv($file, 0, ':','"')) !== FALSE) {
         $nitems=count($datos);
         if ($nitems<3) continue; // invalid format
         $cat=($nitems==3)?"bronze":strtolower($datos[3]); // "gold","silver","bronze"
         $height=10;
-        if ($cat=="gold") $height=50;
-        if ($cat=="silver") $height=25;
+        if ($cat=="gold") $height=40;
+        if ($cat=="silver") $height=20;
+        if ($cat=="bronze") continue;
         echo '<a  target="'.$datos[0].'" href="'.$datos[2].'">';
         echo '<img id="vw_footer-'.$datos[0].'" src="/agility/images/supporters/'.$datos[1].'" alt="'.$cat." ".$datos[0].'" height="'.$height.'"/>';
-        echo '</a>&nbsp;';
+        echo '</a>';
+        if (($odd==false) && ($height==20)) { echo "<br/>"; $odd=true; }
+        else { echo "</td><td>"; $odd=false;}
     }
+    if ($odd==true)  echo "</td><td>"; // take care on even ends
     fclose($file); // this also removes temporary file
 }
 ?>
         <!-- El logo de y URL de la aplicación siempre esta presente :-) -->
         <a target="acontest" href="https://www.github.com/jonsito/AgilityContest">
-            <img id="vw_footer-logoAgilityContest" src="/agility/images/supporters/agilitycontest.png" alt="agilitycontest" height="50"/>
+            <img id="vw_footer-logoAgilityContest" src="/agility/images/supporters/agilitycontest.png" alt="agilitycontest" height="40"/>
         </a>
+    </td></tr></table>
     </span>
 </div>

@@ -46,8 +46,8 @@ $config =Config::getInstance();
 			<h3><?php _e('Training session parameters'); ?></h3>
 			<label><?php _e('Club/Country Training time assignment mode'); ?></label>
 			<select name="training_type">
-				<option value="0" selected="selected"><?php _e('Individual time * Max number of dogs/category');?> </option>
-				<option value="1"><?php _e('Individual time * Number of dogs on each County or Club');?> </option>
+				<option value="1" selected="selected"><?php _e('Individual time * Max number of dogs/category');?> </option>
+				<option value="0"><?php _e('Individual time * Number of dogs on each County or Club');?> </option>
 			</select>
 
 			<label for=training_time"><?php _e('Training time for each dog');?> </label>
