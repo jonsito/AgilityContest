@@ -75,9 +75,9 @@ class ResultadosByEquipos4 extends PrintCommon {
         $this->manga=$manga;
         $this->resultados=$resultados;
         $this->mode=$mode;
-        $this->equipos=Resultados::getTeamResults($resultados['rows'],$prueba,$jornada,$mindogs);
-        $this->eqmgr=new Equipos("print_resultadosByEquipos4",$prueba,$jornada);
         $this->mindogs=$this->getMinDogs();
+        $this->equipos=Resultados::getTeamResults($resultados['rows'],$prueba,$jornada,$this->mindogs);
+        $this->eqmgr=new Equipos("print_resultadosByEquipos4",$prueba,$jornada);
 	}
 	
 	// Cabecera de página
