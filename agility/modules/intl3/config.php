@@ -45,7 +45,7 @@ class INTL3 extends Federations {
                 // 'T' => 'Tiny'
             ),
             'ListaCategorias' => array (
-                '-' => 'Sin especificar',
+                '-' => '-',
                 'L' => 'Large',
                 'M' => 'Medium',
                 'S' => 'Small',

@@ -39,7 +39,7 @@ var vwsCounter = new Countdown({
  * use keys up/down to increase/decrease font size
  * NOT WORKING: REVISE
  */
-function vws_keyBindings() {
+function vws_keyBindings(classid) {
     // capture <space> key to switch OSD on/off
     $(document).keydown(function(e) {
         var keycode=e.which;
@@ -49,8 +49,8 @@ function vws_keyBindings() {
         if (delta!=0){
             size=parseFloat(ac_config.vws_fontsize)+delta;
             if ( (size>=1.0) && (size<=5.0) ) ac_config.vws_fontsize=size;
-            $('.vws_entry').css('font-size',''+size+'vw');
-            $('.vws_entry input').css('font-size',''+size+'vw');
+            $(classid).css('font-size',''+size+'vw');
+            $(classid+' input').css('font-size',''+size+'vw');
             document.title="font-size: "+toFixedT(size,1);
             e.preventDefault();
         }
@@ -73,8 +73,8 @@ function vws_keyBindings() {
             if (idx>=fonts.length) idx=0;
             if (idx<0) idx=fonts.length-1;
             ac_config.cur_fontindex=idx;
-            $('.vws_entry').css('font-family',fonts[idx]);
-            $('.vws_entry input').css('font-family',fonts[idx]);
+            $(classid).css('font-family',fonts[idx]);
+            $(classid+' input').css('font-family',fonts[idx]);
             document.title="idx:"+idx+" font-family: "+fonts[idx];
             e.preventDefault();
         }

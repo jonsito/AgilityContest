@@ -76,14 +76,18 @@ $('#entrenamientos-datagrid').datagrid({
         {field:'Fecha',	      hidden:true, width:20,      align:'center', title: '<?php _e('Date');?>',formatter: formatYMD},
         {field:'Firma',       hidden:true, width:15,      align:'center', title: '<?php _e('Check-in');?>',formatter: formatHM},
         {field:'Veterinario', hidden:true, width:15,	  align:'center',  title: '<?php _e('Veterinary');?>',formatter: formatHM},
-        {field:'Entrada',     hidden:true, width:20,      align:'right',  title: '<?php _e('Start');?>',formatter: formatHMS},
-        {field:'Salida',      hidden:true, width:20,      align:'right',  title: '<?php _e('End');?>',formatter: formatHMS},
-        {field:'L',           width:10,      align:'center', title: '<?php _e('Large');?>', formatter: formatTrainingTime },
-        {field:'M',           width:10,      align:'center', title: '<?php _e('Medium');?>', formatter: formatTrainingTime},
-        {field:'S',           width:10,      align:'center', title: '<?php _e('Small');?>', formatter: formatTrainingTime},
-        {field:'T',           width:10,      align:'center', title: '<?php _e('Toy');?>', formatter: formatTrainingTime},
+        {field:'Entrada',     width:15,      align:'right',  title: '<?php _e('Start');?>',formatter: formatHM},
+        {field:'Duracion',    hidden:true, width:20,      align:'right',  title: '<?php _e('End');?>',formatter: formatMinSecs},
+        {field:'Key1',        hidden:true},
+        {field:'Value1',      width:20,      align:'center', title: '<?php _e('Ring');?> 1',formatter: formatTrainingCell1 },
+        {field:'Key2',        hidden:true},
+        {field:'Value2',      width:20,      align:'center', title: '<?php _e('Ring');?> 2',formatter: formatTrainingCell2 },
+        {field:'Key3',        hidden:true},
+        {field:'Value3',      width:20,      align:'center', title: '<?php _e('Ring');?> 3',formatter: formatTrainingCell3 },
+        {field:'Key4',        hidden:true},
+        {field:'Value4',      width:20,      align:'center', title: '<?php _e('Ring');?> 4',formatter: formatTrainingCell4 },
         {field:'-',           hidden:true},
-        {field:'Observaciones',hidden:true, width:15,     align:'center', title: '<?php _e('Comments');?>' },
+        {field:'Observaciones',hidden:true },
         {field:'Estado', hidden:true}
     ]],
     nowrap: false,
@@ -105,6 +109,7 @@ $('#entrenamientos-datagrid').datagrid({
     singleSelect: true,
     autoRowHeight: true,
     rowStyler:vws_rowStyler,
+    onBeforeSelect: function(index) { return false; }, // dont allow row selection
     //onBeforeLoad:function(params) {
     //    // do not update until 'open' or 'init' received
     //    if( $('#vw_header-infoprueba').html()==='<?php _e('Header'); ?>') return false;
@@ -123,6 +128,7 @@ $('#entrenamientos-datagrid').datagrid({
             vw_updateWorkingData(event,function(evt,data) {
                 vw_updateHeaderAndFooter(evt, data, false);
                 vw_setTrainingLayout($('#entrenamientos-datagrid'));
+                vws_keyBindings('.vws_entrenamientos'); // make text higher/lower with up/down keys
             });
         },
         'open': function(event){ // operator select tanda

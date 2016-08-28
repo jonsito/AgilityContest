@@ -250,7 +250,8 @@ class Updater {
           `Fecha`   date DEFAULT '2016-01-01' ,
           `Firma` timestamp  DEFAULT 0 ,
           `Veterinario` timestamp DEFAULT  0 ,
-          `Entrada`  timestamp DEFAULT  0 ,
+          `Entrada` timestamp DEFAULT  0 ,
+          `Duracion` int(4) NOT NULL DEFAULT 0,
           `Key1` varchar(32) DEFAULT '',
           `Value1` int(4) NOT NULL DEFAULT 0,
           `Key2` varchar(32) DEFAULT '',
@@ -318,7 +319,7 @@ try {
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
-    // $upg->populateTeamMembers();
+    $upg->populateTeamMembers();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }

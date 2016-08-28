@@ -300,3 +300,6 @@ td.vw_club {
     font-size: 1.7vw;
     line-height: 1.8vw;
 }
+.vws_entrenamientos .datagrid-row .datagrid-row-over{
+    background:transparent;
+}
