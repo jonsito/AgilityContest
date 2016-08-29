@@ -288,7 +288,8 @@ class Clasificaciones extends DBObject {
         }
         if ($fp>$cp ) { // tiene menos penalizacion que el primero;
             // con que la penalizacion por tiempo no supere a la del primero basta
-            // NOTA: como esto es jarto complicado de evaluar, de momento lo dejamos en el mejor tiempo
+            // NOTA: como esto es jarto complicado de evaluar, de momento lo dejamos
+            // en superar el tiempo de la manga que ha hecho el primero
             $this->current['toBeFirst']=$ft;
         }
     }

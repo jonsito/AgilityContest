@@ -734,6 +734,8 @@ function saveCompeticionData(idx,data) {
 			Pendiente: data['Pendiente']
 		},
 		success: function(dat) {
+		    // generate an event to track console modifications
+
 			if (dat.Manga!=workingData.manga) return; // window changed
 			$('#competicion-datagrid').datagrid('updateRow',{index: idx,row: dat});
 			$('#lnkb1_'+idx).linkbutton();

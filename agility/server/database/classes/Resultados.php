@@ -423,7 +423,6 @@ class Resultados extends DBObject {
                 if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
             }
 		}
-        $this->myLogger->trace("Tiempo es '$tiempo' '");
 		// efectuamos el update, marcando "pendiente" como false
 		$sql="UPDATE Resultados 
 			SET Entrada='$entrada' , Comienzo='$comienzo' , 
