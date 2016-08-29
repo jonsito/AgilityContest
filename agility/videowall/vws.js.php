@@ -37,7 +37,6 @@ var vwsCounter = new Countdown({
 
 /**
  * use keys up/down to increase/decrease font size
- * NOT WORKING: REVISE
  */
 function vws_keyBindings(classid) {
     // capture <space> key to switch OSD on/off
@@ -47,7 +46,7 @@ function vws_keyBindings(classid) {
         if (keycode == 38) delta=0.1; //  key up
         if (keycode == 40) delta=-0.1; // key down
         if (delta!=0){
-            size=parseFloat(ac_config.vws_fontsize)+delta;
+            var size=parseFloat(ac_config.vws_fontsize)+delta;
             if ( (size>=1.0) && (size<=5.0) ) ac_config.vws_fontsize=size;
             $(classid).css('font-size',''+size+'vw');
             $(classid+' input').css('font-size',''+size+'vw');
@@ -378,7 +377,13 @@ function vws_updateFinales(perro,data) {
                     // en pruebas por equipos getTeamClasificaciones, retorna datos tanto para equipos completos
                     // como sin completar e incluso vacios. Por ello lo tenemos en cuenta
                     var data=items[n];
-                    if (team && items[n]['Penalizacion']>=(800*getMinDogsByTeam())) data=vws_getEmptyResults(/*final*/true,team);
+                    if (team && data['Penalizacion']>=(800*getMinDogsByTeam())) data=vws_getEmptyResults(/*final*/true,team);
+                    // en individual, queda horroroso una penalizacion de 400, por lo que hay que hacer limpieza en los textos
+                    // que se van a presentar
+                    if (!team) {
+                        if(data['P1']==400) { data['P1']=""; data['T1']=""; data['Puesto1']=''; data['Penalizacion']-=400; }
+                        if(data['P2']==400) { data['P2']=""; data['T2']=""; data['Puesto2']=''; data['Penalizacion']-=400; }
+                    }
                     $('#vws_results_' + n).form('load', data);
                     $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
                 }
