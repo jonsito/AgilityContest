@@ -241,8 +241,8 @@ Pantalla de de visualizacion combinada llamada/parciales
     doLayout(liveLayout,"#vwls_Dorsal",	        230,	10,	    80, 	100	);
     doLayout(liveLayout,"#vwls_Nombre",	        335,    10,	    660,	100	);
     doLayout(liveLayout,"#vwls_Celo",	        995,   10,	    100,	100	);
-    doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    460,	100	);
-    doLayout(liveLayout,"#vwls_NombreClub",	    700,	100,    400,	100	);
+    doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    510,	100	);
+    doLayout(liveLayout,"#vwls_NombreClub",	    750,	100,    350,	100	);
     // doLayout(liveLayout,"#vwls_Categoria",	    0,	    0,	100,	100	);
     // doLayout(liveLayout,"#vwls_Grado",	        0,	    0,	100,	100	);
     // doLayout(liveLayout,"#vwls_TocadosLbl",	    900,	25,     100,	150	);

@@ -258,13 +258,15 @@ class Clasificaciones extends DBObject {
                 $ft=floatval($first['T2']);
                 $cp=($this->current==null)? 0 : floatval($this->current['P2']);
                 $ct=($this->current==null)? 0 : floatval($this->current['T2']);
-                $trs=$result['trs2'];
+                $trs=$result['trs2']['trs'];
+                $trm=$result['trs2']['trm'];
             } else { // current tanda is agility
                 $fp=floatval($first['P1']);
                 $ft=floatval($first['T1']);
                 $cp=($this->current==null)? 0 : floatval($this->current['P1']);
                 $ct=($this->current==null)? 0 : floatval($this->current['T1']);
-                $trs=$result['trs1'];
+                $trs=$result['trs1']['trs'];
+                $trm=$result['trs1']['trm'];
             }
             // evaluate required data
         } else { // final round
@@ -277,7 +279,8 @@ class Clasificaciones extends DBObject {
             $ft = floatval($first['Tiempo']);
             $cp = floatval($this->current['Penalizacion'] - 400);
             $ct = floatval($this->current['Tiempo']); //
-            $trs=($this->current['P1']>=400)?$result['trs1']:$result['trs2'];
+            $trs= floatval( ($this->current['P1']>=400)?$result['trs1']['trs']:$result['trs2']['trs']);
+            $trm= floatval( ($this->current['P1']>=400)?$result['trs1']['trm']:$result['trs2']['trm']);
         }
         if ($fp<$cp) {// tiene mas penalizacion que el primero: no tiene nada que hacer
             $this->current['toBeFirst']="";
@@ -287,10 +290,8 @@ class Clasificaciones extends DBObject {
             if ($ft-$ct==0) $this->current['toBeFirst']=""; // already the first: do nothing
         }
         if ($fp>$cp ) { // tiene menos penalizacion que el primero;
-            // con que la penalizacion por tiempo no supere a la del primero basta
-            // NOTA: como esto es jarto complicado de evaluar, de momento lo dejamos
-            // en superar el tiempo de la manga que ha hecho el primero
-            $this->current['toBeFirst']=$ft;
+            // con que la penalizacion por tiempo no supere a la del primero y que no se pase del NC o TRM basta
+            $this->current['toBeFirst']=min($trs+$fp-$cp,$trs+25,$trm);
         }
     }
 

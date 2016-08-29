@@ -63,7 +63,7 @@ function toFixedT(value,numdecs) {
 	// numbers in javascript: ie: toFixedT(4.27 , 2 ) return 4.26 due to js internal handling
     if (typeof(value)==="undefined") return "";
     if (value==null) return "";
-    if (value=="") return "";
+    if (value==="") return "";
 	if (isNaN(value)) return value;
 	/*
 	return Number ( value - 5/Math.pow(10,numdecs+1)).toFixed(numdecs);
