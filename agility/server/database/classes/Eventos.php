@@ -173,7 +173,7 @@ class Eventos extends DBObject {
 		}
         // iniciamos los valores
         // $timestamp= date('Y-m-d G:i:s');
-        $timestamp= date('Y-m-d G:i:s',$data['TimeStamp']/1000);
+        $timestamp= date('Y-m-d G:i:s',$data['TimeStamp']);
         $source=$data['Source'];
         $type=$data['Type'];
         $evtdata=json_encode($data);
