@@ -32,7 +32,8 @@ function chrono_putEvent(type,dat){
 	var obj= {
 			'Operation':'chronoEvent',
 			'Type': 	type,
-			'TimeStamp': Date.now() - startDate,
+			// 'TimeStamp': Date.now() - startDate,
+			'TimeStamp': Date.now() / 1000,
 			'Source':	'chrono_'+workingData.sesion,
 			'Session':	workingData.sesion,
 			'Prueba':	workingData.prueba,

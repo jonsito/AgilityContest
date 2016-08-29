@@ -63,7 +63,8 @@ function tablet_putEvent(type,data){
 	var obj= {
 			'Operation':'putEvent',
 			'Type': 	type,
-			'TimeStamp': Date.now() - startDate,
+		// 'TimeStamp': Date.now() - startDate,
+			'TimeStamp': Date.now() / 1000,
 			'Source':	'tablet_'+tds,
 			'Session':	tds,
 			'Prueba':	$('#tdialog-Prueba').val(),
