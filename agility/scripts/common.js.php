@@ -61,20 +61,28 @@ function myAlert(msg) {
 function toFixedT(value,numdecs) {
 	// first approach. may fail with some numbers due to internal handling of floating point
 	// numbers in javascript: ie: toFixedT(4.27 , 2 ) return 4.26 due to js internal handling
+    if (typeof(value)==="undefined") return "";
+    if (value==null) return "";
+    if (value=="") return "";
+	if (isNaN(value)) return value;
 	/*
 	return Number ( value - 5/Math.pow(10,numdecs+1)).toFixed(numdecs);
 	*/
-
-	// this code works fine, but doesn't always returns desired decimal numbers
-	// that is : toFixedT( 2.1 , 2) returns '2.1' instead of '2.10'
+	var str="";
 	switch (parseInt(numdecs)) {
 		case 0: return parseInt(value);
-		case 1: return Number(value.toString().match(/^\d+(?:\.\d{0,1})?/));
-		case 2: return Number(value.toString().match(/^\d+(?:\.\d{0,2})?/));
-		case 3: return Number(value.toString().match(/^\d+(?:\.\d{0,3})?/));
-		case 4: return Number(value.toString().match(/^\d+(?:\.\d{0,4})?/));
+		case 1: str= value.toString().match(/^\d+(?:\.\d{0,1})?/); break;
+		case 2: str= value.toString().match(/^\d+(?:\.\d{0,2})?/); break;
+		case 3: str= value.toString().match(/^\d+(?:\.\d{0,3})?/); break;
+		case 4: str= value.toString().match(/^\d+(?:\.\d{0,4})?/); break;
 		default: return value.toFixed(numdecs); // use default javascript routine
 	}
+    // now complete number of decimals reqired
+	if (str=="0") str="0.00001"; // very, very, very stupid javascript
+	if (str.toString().indexOf(".")<0) str=str+".00001";
+	else str=str+"00001";
+	var res=str.split(".");
+	return res[0]+"."+res[1].substr(0,numdecs);
 }
 
 function toPercent(val,percent) {

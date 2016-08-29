@@ -384,6 +384,13 @@ function vws_updateFinales(perro,data) {
                         if(data['P1']==400) { data['P1']=""; data['T1']=""; data['Puesto1']=''; data['Penalizacion']-=400; }
                         if(data['P2']==400) { data['P2']=""; data['T2']=""; data['Puesto2']=''; data['Penalizacion']-=400; }
                     }
+                    //stupid javascript that lacks of sprintf
+                    data['P1']=toFixedT(data['P1'],ac_config.numdecs);
+                    data['T1']=toFixedT(data['T1'],ac_config.numdecs);
+                    data['P2']=toFixedT(data['P2'],ac_config.numdecs);
+                    data['T2']=toFixedT(data['T2'],ac_config.numdecs);
+                    data['Tiempo']=toFixedT(data['Tiempo'],ac_config.numdecs);
+                    data['Penalizacion']=toFixedT(data['Penalizacion'],ac_config.numdecs);
                     $('#vws_results_' + n).form('load', data);
                     $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
                 }
@@ -480,7 +487,15 @@ function vws_updateParciales(data) {
                     // en pruebas por equipos getTeamResults, retorna datos tanto para equipos completos
                     // como sin completar e incluso vacios. Por ello lo tenemos en cuenta
                     var data=items[n];
-                    if (team && items[n]['Penalizacion']>=(400*getMinDogsByTeam())) data=vws_getEmptyResults(/*final*/false,team);
+                    if (team && data['Penalizacion']>=(400*getMinDogsByTeam())) data=vws_getEmptyResults(/*final*/false,team);
+                    //stupid javascript that lacks of sprintf
+                    data['P1']=toFixedT(data['P1'],ac_config.numdecs);
+                    data['T1']=toFixedT(data['T1'],ac_config.numdecs);
+                    data['P2']=toFixedT(data['P2'],ac_config.numdecs);
+                    data['T2']=toFixedT(data['T2'],ac_config.numdecs);
+                    data['Tiempo']=toFixedT(data['Tiempo'],ac_config.numdecs);
+                    data['Penalizacion']=toFixedT(data['Penalizacion'],ac_config.numdecs);
+                    // fill forms
                     $('#vws_results_' + n).form('load', data);
                     $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
                     $('#vws_results_FaltasTocados_' + n).html(parseInt(items[n]['Faltas'])+parseInt(items[n]['Tocados']));
