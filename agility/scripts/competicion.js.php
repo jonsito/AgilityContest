@@ -708,6 +708,46 @@ function setupResultadosWindow(recorrido) {
 }
 
 function saveCompeticionData(idx,data) {
+
+    function sendEvent(evtdata) {
+        var obj= {
+            'Operation':'putEvent',
+            'Type': 	'aceptar',
+            'TimeStamp': Math.floor(Date.now() / 1000),
+            'Source':	'Console',
+            'Session':	1, // Session id for console events
+            'Prueba':	workingData.prueba,
+            'Jornada':	workingData.jornada,
+            'Manga':	workingData.manga,
+            'Tanda':	workingData.tanda,
+            'Perro':	evtdata['Perro'],
+            'Dorsal':	evtdata['Dorsal'],
+            'Equipo':	evtdata['Equipo'],
+            'Celo':		evtdata['Celo'],
+            'Value':	evtdata['Value'],
+            'Licencia':	evtdata['Licencia'],
+            'Nombre':		evtdata['Nombre'],
+            'NombreGuia':	evtdata['NombreGuia'],
+            'NombreClub':	evtdata['NombreClub'],
+            'Categoria':	evtdata['Categoria'],
+            'Tocados':	    evtdata['Tocados'],
+            'Faltas':		evtdata['Faltas'],
+            'Rehuses':	    evtdata['Rehuses'],
+            'Tiempo':		evtdata['Tiempo'],
+            'Eliminado':	evtdata['Eliminado'],
+            'NoPresentado':	evtdata['NoPresentado'],
+            'Observaciones':data['Observaciones'],
+            'Pendiente':    evtdata['Pendiente']
+        };
+        // send "update" event to every session listeners
+        $.ajax({
+            type:'GET',
+            url:"/agility/server/database/eventFunctions.php",
+            dataType:'json',
+            data: $.extend({},obj,data)
+        });
+    }
+
 	$.ajax({
 		type:'GET',
 		url:"/agility/server/database/resultadosFunctions.php",
@@ -735,7 +775,7 @@ function saveCompeticionData(idx,data) {
 		},
 		success: function(dat) {
 		    // generate an event to track console modifications
-
+            sendEvent(data);
 			if (dat.Manga!=workingData.manga) return; // window changed
 			$('#competicion-datagrid').datagrid('updateRow',{index: idx,row: dat});
 			$('#lnkb1_'+idx).linkbutton();
