@@ -454,7 +454,7 @@ function vws_updateParciales(data) {
             Prueba:		workingData.prueba,
             Jornada:	workingData.jornada,
             Manga:		workingData.manga,
-            Mode:       workingData.datosTanda.Mode
+            Mode:       getMangaMode(workingData.federation,workingData.datosManga.Recorrido,workingData.datosTanda.Categoria)
         },
         success: function (dat) {
             var items = dat.rows; // resultados que hay que coger para rellenar tablas
