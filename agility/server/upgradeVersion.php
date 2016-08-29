@@ -293,7 +293,8 @@ class Updater {
                 /* WHERE */ "(Jornada=$j) AND (equipo=$t)",
                 "","","" // ORDER, LIMIT, GROUP BY
             );
-            if($res['total']==0) continue;
+            if($res['total']==0) continue; // no teams
+            if ($res['rows'][0]['Lista']==="") continue; // non default team but empty
             $lista="BEGIN,{$res['rows'][0]['Lista']},END";
             do_log("updating team: '{$team['Nombre']} list:$lista ");
             $str="UPDATE Equipos SET Miembros='$lista' WHERE ID=$t";
