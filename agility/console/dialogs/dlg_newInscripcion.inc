@@ -225,7 +225,7 @@ function newInscripcion_onOpenSuccess() {
 	if ( canInscribe(jornadas[7]) ) val+=128;
 	$('#new_inscripcion-Jornadas').val(val);
 	// validation flag makes this tooltip disappear, so reinit on every window open
-	addTooltip($('new_inscripcion-datagrid-search').linkbutton(),'<?php _e("Search available competitors"); ?>'+"<br />"+'<?php _e("matching search criteria"); ?>');
+	addTooltip($('#new_inscripcion-datagrid-search').linkbutton(),'<?php _e("Search available competitors"); ?>'+"<br />"+'<?php _e("matching search criteria"); ?>');
 }
 
 // tooltips de los sub-formularios

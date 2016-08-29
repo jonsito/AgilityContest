@@ -243,7 +243,7 @@ function deleteTeam(dg){
             $.get('/agility/server/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba,Jornada:row.Jornada},function(result){
                 if (result.success){
                     $(dg).datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});    // reload the prueba data 
-                    $('selteam-Equipo').combogrid('grid').datagrid('load'); // update assignment combogrid list
+                    $('#selteam-Equipo').combogrid('grid').datagrid('load'); // update assignment combogrid list
                 } else {
                     $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
                 }
@@ -267,21 +267,26 @@ function saveTeam() {
 	if ( $('#team_edit_dialog-S').is(':checked') ) cat+='S';
 	if ( $('#team_edit_dialog-T').is(':checked') ) cat+='T';
 	$('#team_edit_dialog-Categorias').val(cat);
+    if (cat==="") {
+        $.messager.alert("Error",'<?php _e("This team has no assigned categories");?>',"error");
+        return false;
+    }
     $.ajax({
         type: 'GET',
         url: '/agility/server/database/equiposFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
-            if (result.errorMsg){ 
-            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            if (result.errorMsg){
+                $.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {// on submit success, reload results
-            	// on save done refresh related data/combo grids
-				$('#team_edit_dialog').dialog('close');
-				$('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''}); 
+                // on save done refresh related data/combo grids
+                $('#team_edit_dialog').dialog('close');
+                $('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
             }
         }
     });
+    return false;
 }
 
 /**

@@ -101,6 +101,10 @@ class PrintClasificacionTeam extends PrintCommon {
 		}
 		// iteramos los perros insertandolos en el equipo. Recuerda que los perros ya vienen ordenados
 		foreach($results['individual'] as &$perro) {
+		    if (!array_key_exists($perro['Equipo'],$teams)) {
+		        $this->myLogger->error("Prueba:$prueba Jornada:$jornada El perro {$perro['Perro']} esta asignado al equipo:{$perro['Equipo']} que no pertenece a la jornada");
+                continue; // skip this item, to avoid pdf generation error
+            }
 			array_push($teams[$perro['Equipo']]['Perros'],$perro);
 		}
         $this->equipos=$teams;
