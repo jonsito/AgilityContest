@@ -174,6 +174,10 @@ $config =Config::getInstance();
 			<label for="vws_logourl"><?php _e('URL for logo image to be used');?></label>
 			<input type="text" id="vws_logourl" name="vws_logourl" size="50" maxlength="90" /><br />
 
+			<label for="vws_uselogo"><?php _e('Enable animated images into screen');?></label>
+			<input type="hidden" name="vws_animation" value="0"/> <!-- trick for checkboxes -->
+			<input type="checkbox" name="vws_animation" id="vws_animation" value="1"/><br />
+
 			<label for="vws_font"><?php _e('Font family for text in cells'); ?></label>
 			<select id="vws_font" name="vws_font">
 				<option value="Helvetica, monospace"><?php _e('Default system font'); ?></option>

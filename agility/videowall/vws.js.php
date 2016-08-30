@@ -33,7 +33,21 @@ var vwsCounter = new Countdown({
 	}
 });
 
-
+function vws_animation(img) { // happy, excused
+    var image="/agility/videowall/"+img+"dog.gif";
+    $.messager.show({
+        msg:'<img src="'+image+'" height="100%"/>',
+        showType:'fade',
+        timeout: 5000,
+        height:350,
+        width:(img=='happy')?500:300,
+        style: {
+            opacity:0.7,
+            right:'',
+            bottom:''
+        }
+    });
+}
 
 /**
  * use keys up/down to increase/decrease font size
@@ -77,6 +91,8 @@ function vws_keyBindings(classid) {
             document.title="idx:"+idx+" font-family: "+fonts[idx];
             e.preventDefault();
         }
+        if(keycode == 72) /*H: happy */ vws_animation("happy");
+        if(keycode == 83) /*S: sad */ vws_animation("excused");
     });
 }
 
@@ -560,6 +576,7 @@ function vws_updateData(data) {
     if (data["NoPresentado"]!=-1) $('#vws_current_NoPresentado'+workingData.vws_currentRow).val(data["NoPresentado"]);
     // handle eliminated and not presented overriding (if needed ) Puesto field
     vws_displayData(workingData.vws_currentRow,(data["tiempo"]>=0));
+    if ( (ac_config.vws_animation==1) && (data['Eliminado']==1) ) setTimeout(function(){vws_animation('excused')},0);
 }
 
 function vws_updateChronoData(data) { vws_updateData(data); } // just call updateData as from tablet
@@ -605,11 +622,15 @@ function vws_displayPuesto(flag,time,final) {
         // notice that getPuestoFinal returns lowercase data ('mejortiempo,'penalizacion','puesto')
         if (final) {
             getPuestoFinal(datos,function(data,resultados){
-                $('#vws_current_Result'+cur).html('- '+Number(resultados.puesto).toString()+' -');
+                var p=Number(resultados.puesto).toString();
+                $('#vws_current_Result'+cur).html('- '+p+' -');
+                if ( (ac_config.vws_animation==1) && (p=="1") ) setTimeout(function(){vws_animation('happy')},0);
             });
         } else {
             getPuestoParcial(datos,function(data,resultados){
-                $('#vws_current_Result'+cur).html('- '+Number(resultados.puesto).toString()+' -');
+                var p=Number(resultados.puesto).toString();
+                $('#vws_current_Result'+cur).html('- '+p+' -');
+                if ( (ac_config.vws_animation==1) && (p=="1") ) setTimeout(function(){vws_animation('happy')},0);
             });
         }
     },0);

@@ -70,6 +70,7 @@ define('AC_VW_TOBEFIRST',1); // enable evaluate time to get first place ( comput
 define('AC_VWS_POLLTIME',5);
 define('AC_VWS_USELOGO',5);
 define('AC_VWS_LOGOURL',"/agility/images/agilityawc2016.png");
+define('AC_VWS_ANIMATION',1);
 define('AC_VWS_FONT','futura_condensedbold');
 define('AC_VWS_FONTSIZE','2.5');
 define('AC_VWS_HDRFG1','#FFFFFF');
@@ -216,6 +217,7 @@ Class Config {
 		'vws_polltime'		=> array(	'i',	false,	AC_VWS_POLLTIME),
 		'vws_uselogo'		=> array(	'i',	false,	AC_VWS_USELOGO),
 		'vws_logourl'		=> array(	's',	false,	AC_VWS_LOGOURL),
+		'vws_animation'		=> array(	'i',	false,	AC_VWS_ANIMATION),
 		'vws_font'			=> array(	's',	false,	AC_VWS_FONT),
 		'vws_fontsize'		=> array(	'f',	false,	AC_VWS_FONTSIZE),
 		'vws_hdrfg1'		=> array(	'c',	false,	AC_VWS_HDRFG1),

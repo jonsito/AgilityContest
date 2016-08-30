@@ -29,6 +29,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!--
 <div id="vws-panel" style="padding:5px;">
 -->
+
     <div id="vws_header>">
         <form id="vws_hdr_form">
         <?php if ($config->getEnv("vws_uselogo")!=0) {
