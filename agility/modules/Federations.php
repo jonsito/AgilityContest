@@ -144,7 +144,7 @@ class Federations {
      * @return string either i18n'd 'Club' or 'Contry' according federation
      */
     public function getClubString() {
-        return $this->isInternational()?_('Club'):_('Country');
+        return $this->isInternational()?_('Country'):_('Club');
     }
 
     /**
