@@ -218,7 +218,7 @@ class Print_Podium extends PrintCommon {
 	function composeTable() {
 		$this->myLogger->enter();
 
-		$this->addPage();
+		$this->AddPage();
 		$this->print_InfoJornada();
 		foreach($this->resultados as $mode => $data) {
 			$rowcount=0;

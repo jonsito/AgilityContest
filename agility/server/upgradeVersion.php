@@ -294,9 +294,9 @@ class Updater {
                 "","","" // ORDER, LIMIT, GROUP BY
             );
             if($res['total']==0) continue; // no teams
-            if ($res['rows'][0]['Lista']==="") continue; // non default team but empty
-            $lista="BEGIN,{$res['rows'][0]['Lista']},END";
-            do_log("updating team: '{$team['Nombre']} list:$lista ");
+            $data=$res['rows'][0]['Lista'];
+            if ( is_null($data) || (trim($data)==="") ) continue;
+            $lista="BEGIN,$data,END";
             $str="UPDATE Equipos SET Miembros='$lista' WHERE ID=$t";
             $dbobj->query($str);
         }

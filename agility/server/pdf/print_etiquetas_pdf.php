@@ -205,7 +205,7 @@ class Etiquetas_PDF extends PrintCommon {
 				$pajar=",$listadorsales,";
 				if (strpos($pajar,$aguja)===FALSE) continue; // Dorsal not in list
 			}
-			if ( (($rowcount%$labels)==0) && ($rowcount!=0)) $this->addPage(); // 16/13 etiquetas por pagina
+			if ( (($rowcount%$labels)==0) && ($rowcount!=0)) $this->AddPage(); // 16/13 etiquetas por pagina
 			$this->writeCell($rowcount%$labels,$row);
 			$rowcount++;
 		}
@@ -289,7 +289,7 @@ try {
 	
 	// Creamos generador de documento
 	$pdf = new Etiquetas_PDF($prueba,$jornada,$mangas);
-	$pdf->addPage(); 
+	$pdf->AddPage();
 	// mandamos a imprimir
 	$pdf->resultados=$res;
 	$pdf->composeTable($rowcount,$listadorsales);

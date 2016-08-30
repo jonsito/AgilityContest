@@ -121,10 +121,6 @@ function cancelEditEntrenamiento(dg){
     $(dg).datagrid('endEdit',editIndex); // onAfterEdit will set editIndex
 }
 
-function printEntrenamientos() {
-
-}
-
 function importExportEntrenamientos() {
     var dg=$('#entrenamientos-datagrid');
     if (workingData.prueba==0) return;

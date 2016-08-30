@@ -196,7 +196,7 @@ class ResultadosByEquipos3 extends PrintCommon {
             // si el equipo no tiene participantes es que la categoria no es válida: skip
             if (count($equipo['Resultados'])==0) continue;
             if( ( $teamcount % 6) == 0 ) { // assume 40mmts/team)
-                $this->addPage();
+                $this->AddPage();
             }
             // evaluate puesto del equipo
             // $this->myLogger->trace("imprimiendo datos del equipo {$equipo['ID']} - {$equipo['Nombre']}");

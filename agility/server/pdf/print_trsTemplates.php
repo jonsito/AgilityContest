@@ -91,7 +91,7 @@ class PrintTRSTemplates extends PrintCommon {
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
-        $this->addPage();
+        $this->AddPage();
         // header
         $count=0;
         $this->SetXY(10,20);

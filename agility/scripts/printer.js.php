@@ -75,6 +75,23 @@ function print_ordenTandas() {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
+/**
+ * Imprime el programa de entrenamientos
+ */
+function print_entrenamientos() {
+	$.fileDownload(
+		'/agility/server/pdf/print_entrenamientos.php',
+		{
+			httpMethod: 'GET',
+			data: {
+				Prueba: workingData.prueba
+			},
+			preparingMessageHtml:'(rounds order) <?php _e("We are preparing your report, please wait"); ?> ...',
+			failMessageHtml: '(rounds order) <?php _e("There was a problem generating your report, please try again."); ?>'
+		}
+	);
+	return false; //this is critical to stop the click event which will trigger a normal file download!
+}
 /************************** impresion del orden de salida **********/
 
 /**

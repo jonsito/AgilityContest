@@ -102,7 +102,7 @@ class Print_ListaPerros extends PrintCommon {
 			$this->myLogger->trace("perro: ".$perro['Nombre']);
 			// $this->cell(width,height,text,border,start,align,fill)
 			if (($rowcount%47)==0) {
-				$this->addPage();
+				$this->AddPage();
 				$this->writeTableHeader();
 			}
             $this->ac_row($rowcount,8.5);

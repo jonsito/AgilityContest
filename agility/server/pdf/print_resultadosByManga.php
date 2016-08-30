@@ -141,7 +141,7 @@ class ResultadosByManga extends PrintCommon {
 			if( ($rowcount%$numrows) == 0 ) { // assume $numrows rows per page ( rowWidth = 7mmts )
 				if ($rowcount>0) 
 					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
-				$this->addPage();
+				$this->AddPage();
 				$this->writeTableHeader();
 			}
 			// properly format special fields

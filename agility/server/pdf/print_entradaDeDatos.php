@@ -412,7 +412,7 @@ class EntradaDeDatos extends PrintCommon {
 			}
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			if( ($rowcount % $this->numrows) == 0 ) { // assume $numrows entries per page 
-				$this->addPage();
+				$this->AddPage();
 				if($this->numrows!=1) {
 					// indicamos nombre del operador que rellena la hoja
 					$this->ac_header(2,12);

@@ -45,6 +45,7 @@ try {
         'Estado' => http_request("Observaciones","i",-1), // -1:peonding 0:running 1:done
     );
 	if ($operation===null) throw new Exception("Call to trainingFunctions without 'Operation' requested");
+    if ($am->allowed(ENABLE_TRAINING)==0) throw new Exception("Current License does not allow Training session handling");
 	$train= new Entrenamientos("trainingFunctions",$prueba);
 	switch ($operation) {
 		case "insert": $am->access(PERMS_OPERATOR); $result=$train->insert(); break;

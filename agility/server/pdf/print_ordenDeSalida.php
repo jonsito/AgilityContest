@@ -154,7 +154,7 @@ class OrdenDeSalida extends PrintCommon {
 			if ( ($rowcount==0) || ($rowcount>=37) ) { // assume 38 rows per page ( rowWidth = 6mmts )
 				if ($rowcount>0) $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre en cambio de pagina
 				$rowcount=0;
-				$this->addPage();
+				$this->AddPage();
 				$this->writeTableHeader();
 				$lastTeam=0; // force writting of team header information
 			}

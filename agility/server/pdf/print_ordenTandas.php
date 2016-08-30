@@ -103,7 +103,7 @@ class PrintTandas extends PrintCommon {
 		foreach($this->orden as $row) {
 			// $this->cell(width,height,text,border,start,align,fill)
 			if (($rowcount%30)==0) {
-				$this->addPage();
+				$this->AddPage();
 				$this->writeTableHeader();
 			}
 			// imprimimos numero de orden

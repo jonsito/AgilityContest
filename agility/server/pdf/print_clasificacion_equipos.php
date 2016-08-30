@@ -389,7 +389,7 @@ class PrintClasificacionTeam extends PrintCommon {
             if (count($equipo['Perros'])==0) continue;
             // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
             if( ($teamcount%$numrows) == 0 ) { // assume 40mmts/team)
-                $this->addPage();
+                $this->AddPage();
             }
             // evaluate puesto del equipo
             // $this->myLogger->trace("imprimiendo datos del equipo {$equipo['ID']} - {$equipo['Nombre']}");

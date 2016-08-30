@@ -47,7 +47,7 @@ $config =Config::getInstance();
 	   	<a id="entrenamientos-reloadBtn" href="#" class="easyui-linkbutton"
 	   		data-options="iconCls:'icon-reload'" onclick="reloadEntrenamientos();"><?php _e('Update'); ?></a>
    		<a id="entrenamientos-printBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-print'" onclick="printEntrenamientos()"><?php _e('Print'); ?></a>
+   			data-options="iconCls:'icon-print'" onclick="print_entrenamientos()"><?php _e('Print'); ?></a>
 	</span>
 </div>
 

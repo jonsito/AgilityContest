@@ -203,7 +203,7 @@ class PrintCatalogo extends PrintCommon {
             $this->width[0]+=$this->width[2];
             $this->width[2]=0;
         }
-		$this->addPage(); // start page
+		$this->AddPage(); // start page
 		$club=0;
         $count=0;
 		foreach($this->inscritos as $row) {
@@ -211,7 +211,7 @@ class PrintCatalogo extends PrintCommon {
             if (($club == $row['Club'])) {
                 // no hay cambio de club
                 if ($pos > 270) {
-                    $this->addPage();
+                    $this->AddPage();
                     $this->printClub($club);
                     $count = 0;
                 }
@@ -219,7 +219,7 @@ class PrintCatalogo extends PrintCommon {
                 $club = $row['Club'];
                 // cambio de club
                 $this->ln(7); // extra newline
-                if ($pos > 250) $this->addPage();
+                if ($pos > 250) $this->AddPage();
                 $this->printClub($club);
                 $count = 0;
             }
@@ -550,7 +550,7 @@ class PrintEstadisticas extends PrintCommon {
 	function composeTable() {
 		$alturas=$this->federation->get('Heights');
 		$est=$this->evalData();
-		$this->addPage();
+		$this->AddPage();
 		$count=0;
 		$this->printTableHeader($est,'Prueba',_('Participation global data'));
 		$this->printTableData($est,'Prueba',$alturas);
@@ -581,7 +581,7 @@ class PrintEstadisticas extends PrintCommon {
 			else
 				$this->printTableDataSpecial($est,$name,$alturas,$flag);
 			$count++;
-			if ($count%4==0) $this->addPage();
+			if ($count%4==0) $this->AddPage();
 		}
 	}
 }
@@ -691,7 +691,7 @@ class PrintInscritos extends PrintCommon {
 			if( ($rowcount%46) == 0 ) { // assume 39 rows per page ( header + rowWidth = 5mmts )
 				if ($rowcount>0) 
 					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
-				$this->addPage();
+				$this->AddPage();
 				$this->writeTableHeader();
 			} 
 			// $this->Cell($this->pos[0],7,$row['IDPerro'],	'LR',0,$this->align[0],$fill);
@@ -857,7 +857,7 @@ class PrintInscritosByJornada extends PrintCommon {
 			if( ($rowcount%46) == 0 ) { // assume 44 rows per page ( header + rowWidth = 5mmts )
 				if ($rowcount>0)
 					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
-				$this->addPage();
+				$this->AddPage();
 				$this->writeTableHeader();
 			}
 			// $this->Cell($this->pos[0],7,$row['IDPerro'],	'LR',0,$this->align[0],$fill);

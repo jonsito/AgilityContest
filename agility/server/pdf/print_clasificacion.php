@@ -289,7 +289,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->SetLineWidth(.3);
 		
 		$rowcount=0;
-		$this->addPage();
+		$this->AddPage();
 		$this->print_datosMangas();
 		foreach($this->resultados as $row) {
 			$numrows=($this->PageNo()==1)?18:22;
@@ -302,7 +302,7 @@ class PrintClasificacion extends PrintCommon {
 				$this->setX(10);
 				$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 				$this->cell(275,0,'','T'); // celda sin altura y con raya
-				$this->addPage();
+				$this->AddPage();
 				$rowcount=0;
 			}
 		}
