@@ -56,11 +56,11 @@ $config =Config::getInstance();
    	<!-- estos elementos deben estar alineados a la derecha -->
    	<span style="float:right;padding:5px">
         <a id="entrenamientos-excelBtn" href="#" class="easyui-linkbutton"
-            data-options="iconCls:'icon-db_restore'" onclick="importExportEntrenamientos('pdf')"><?php _e('Import/Export'); ?></a>
+            data-options="iconCls:'icon-db_restore'" onclick="importExportEntrenamientos()"><?php _e('Import/Export'); ?></a>
 	   	<a id="entrenamientos-reloadBtn" href="#" class="easyui-linkbutton"
 	   		data-options="iconCls:'icon-reload'" onclick="reloadEntrenamientos();"><?php _e('Update'); ?></a>
    		<a id="entrenamientos-printBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-print'" onclick="print_entrenamientos()"><?php _e('Print'); ?></a>
+   			data-options="iconCls:'icon-print'" onclick="print_entrenamientos('pdf')"><?php _e('Print'); ?></a>
 	</span>
 </div>
 
