@@ -33,6 +33,12 @@ var ac_import = {
     'ignore_spaces':1 // blind mode: blank field are ignored, or used to override DB data
 };
 
+var ac_import_table = {
+    'perros' :          [ '#perros-excel-dialog','#perros-datagrid' ],
+    'inscripciones' :   [ '#inscripciones-excel-dialog','#inscripciones-datagrid' ],
+    'entrenamientos' :  [ '#entrenamientos-excel-dialog','#entrenamientos-datagrid' ]
+};
+
 /*************************************** importacion de datos desde fichero excel **************************/
 
 /**
@@ -143,7 +149,7 @@ function dogMustChoose(search,found) {
  * @param params list of parameters to be sent to server
  */
 function excel_importSendTask(params) {
-    var dlg=(ac_import.mode=='perros')? $('#perros-excel-dialog'): $('#inscriptions-excel-dialog');
+    var dlg=$(ac_import_table[ac_import.mode][0]);
     $.ajax({
         type:'POST', // use post to send file
         url:"/agility/server/excel/excelReaderFunctions.php",
@@ -184,8 +190,9 @@ function excel_importSendTask(params) {
  * @returns {boolean} false on fail; otherwise true
  */
 function excel_importHandleResult(data) {
-    var dlg=(ac_import.mode=='perros')? $('#perros-excel-dialog') : $('#inscripciones-excel-dialog');
-    var datagrid=(ac_import.mode=='perros')? '#perros-datagrid' : '#inscripciones-datagrid';
+
+    var dlg=$(ac_import_table[ac_import.mode][0]);
+    var datagrid=ac_import_table[ac_import.mode][1];
     var pb=$('#import-excel-progressbar');
     if (data.errorMsg) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
@@ -290,7 +297,7 @@ function excel_importHandleResult(data) {
  */
 function importAction(item,action) {
     // close dialog
-    var label="#import"+item+"-dialog";
+    var label="#import-"+item+"-dialog";
     $(label).dialog('close');
 
     // ask server to perform proper action in interactive ( ac_import.Blind )  mode
@@ -355,3 +362,4 @@ function real_excelImport(mode) {
 
 function perros_excelImport() { return real_excelImport('perros'); }
 function inscripciones_excelImport() { return real_excelImport('inscripciones'); }
+function entrenamientos_excelImport() { return real_excelImport('entrenamientos'); }

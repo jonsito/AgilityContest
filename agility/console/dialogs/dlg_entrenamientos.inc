@@ -21,6 +21,19 @@ require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
+<!-- Ventana de seleccion de fichero para importacion de datos excel -->
+<div id="entrenamientos-excel-dialog" style="width:640px;height:auto;padding:10px; display=none;">
+	<?php require_once(__DIR__."/../../lib/templates/import_dialog.inc.php"); ?>
+</div>
+<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE IMPORTACION -->
+<div id="entrenamientos-excel-buttons">
+	<a id="entrenamientos-excel-okBtn" href="#" class="easyui-linkbutton"
+	   data-options="iconCls: 'icon-ok'" onclick="entrenamientos_excelImport()"><?php _e('Import'); ?></a>
+	<a id="entrenamientos-excel-cancelBtn" href="#" class="easyui-linkbutton"
+	   data-options="iconCls: 'icon-cancel'" onclick="$('#entrenamientos-excel-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+</div>
+
+
 <!--  dialogo de orden de sesiones de entrenamiento e introduccion de datos de una competicion -->
 <div id="entrenamientos-dialog" style="width:850px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
@@ -52,6 +65,19 @@ $config =Config::getInstance();
 </div>
 
 <script type="text/javascript">
+
+$('#entrenamientos-excel-dialog').dialog( {
+	title:' <?php _e('Import training session information from Excel file'); ?>',
+	closed:true,
+	modal:true,
+	buttons:'#entrenamientos-excel-buttons',
+	iconCls:'icon-table',
+	onOpen: function() {
+		ac_import.mode='entrenamientos';
+		$('#import-excel-progressbar').progressbar('setValue',"");
+	},
+	onClose: function() { ac_import.progress_status='paused'; }
+} );
 
 $('#entrenamientos-dialog').dialog({
 	collapsible:false,
@@ -200,5 +226,7 @@ addTooltip($('#entrenamientos-reloadBtn').linkbutton(),'<?php _e("Refresh traini
 addTooltip($('#entrenamientos-excelBtn').linkbutton(),'<?php _e("Import/export session from/to Excel file"); ?>');
 addTooltip($('#entrenamientos-printBtn').linkbutton(),'<?php _e("Print training session timetable"); ?>');
 addTooltip($('#entrenamientos-evalBtn').linkbutton(),'<?php _e("Recalculate timetable values starting at selected row"); ?>');
+addTooltip($('#entrenamientos-excel-okBtn').linkbutton(),'<?php _e("Import training session data from selected Excel file"); ?>');
+addTooltip($('#entrenamientos-excel-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 
 </script>
