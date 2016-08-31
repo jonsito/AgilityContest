@@ -30,7 +30,7 @@ require_once(__DIR__."/../database/classes/DBObject.php");
 require_once(__DIR__.'/Spout/Autoloader/autoload.php');
 require_once(__DIR__.'/dog_reader.php');
 
-class InscriptionReader extends DogReader{
+class InscriptionReader extends DogReader {
 
     protected $prueba;
     protected $jornadas;

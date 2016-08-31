@@ -30,6 +30,7 @@ require_once(__DIR__."/../database/classes/DBObject.php");
 require_once(__DIR__.'/Spout/Autoloader/autoload.php');
 require_once(__DIR__.'/dog_reader.php');
 require_once(__DIR__.'/inscription_reader.php');
+require_once(__DIR__ . '/trainingtable_reader.php');
 
 $op=http_request("Operation","s","");
 if ($op==='progress') {
@@ -60,6 +61,9 @@ try {
     } else  if ($mode==="inscripciones") {
         if ($prueba==0) throw new Exception("inscription_reader::ImportExcel(): invalid Prueba ID: $prueba");
         $er=new InscriptionReader("ExcelImport(inscriptions)",$prueba,$options);
+    } else if ($mode==="entrenamientos") {
+        if ($prueba==0) throw new Exception("inscription_reader::ImportExcel(): invalid Prueba ID: $prueba");
+        $er=new EntrenamientosReader("ExcelImport(training session)",$prueba,$options);
     } else {
         // import pruebas when ready
         throw new Exception("excelReaderFunctions(): invalid mode selected: ".$mode);
@@ -101,11 +105,11 @@ try {
             $result = $er->beginImport();
             break;
         case "teams":
-            // every entries have been corrected and have proper entry ID's: start importing
+            // every entries have been corrected and have proper entry ID's: start importing teams
             $result = $er->createTeams();
             break;
         case "inscribe":
-            // every entries have been corrected and have proper entry ID's: start importing
+            // every entries have been corrected and have proper entry ID's: start importing inscriptions
             $result = $er->doInscription();
             break;
         case "close":
