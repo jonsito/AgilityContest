@@ -208,6 +208,7 @@ function excel_importHandleResult(data) {
             setTimeout(function() {excel_importSendTask({'Operation':'progress'})} ,0); // start progress monitoring
             break;
         case "check":
+            ac_import.progress_status="running";
             pb.progressbar('setValue','<?php _e("Starting data import");?>');
             setTimeout(function() { excel_importSendTask({'Operation':'parse'})},0);
             break;

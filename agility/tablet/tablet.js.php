@@ -133,8 +133,16 @@ function tablet_updateSession(row) {
 
 function tablet_updateResultados(pendiente) {
 	// on "Test dog", do not store into database, only allow event handling
-	if ($('#tdialog-Perro').val()==0) return;
-	
+	var p=$('#tdialog-Perro').val();
+	if (p==0) return;
+	// DO NOT STORE WHEN not present,eliminated and time is zero
+	var n=$('#tdialog-NoPresentado').val();
+	var e=$('#tdialog-Eliminado').val();
+	var t=$('#tdialog-Tiempo').val();
+	if ( (pendiente==0) && (n==0) && (e==0) && (t==0) ) {
+		console.log("tablet_updateResultados() try to mark pending dog:"+p+" with no data entered");
+		return;
+	}
 	// make sure that 'pendiente' is properly sent to server
 	$('#tdialog-Pendiente').val(pendiente);
 	var frm = $('#tdialog-form');
