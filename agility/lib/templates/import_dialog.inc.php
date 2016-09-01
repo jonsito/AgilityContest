@@ -20,13 +20,15 @@ $config =Config::getInstance();
             <input type="file" name="import-excel" value="" id="import-excel-fileSelect"
                    class="icon_button icon-search"
                    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this)">
-            <br /> <br />
+            <br />
             <input id="import-excelData" type="hidden" name="excelData" value="">
             <!-- modo blind (no interactivo -->
-            <label for="import-excelBlindMode"><?php _e("Blind (non-interactive) mode");?></label>
-            <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1" checked="checked"
-                   onchange="import_showHideBlind();">
-            <br/>
+            <span id="import_excelBlindCheck">
+                <br />
+                <label for="import-excelBlindMode"><?php _e("Blind (non-interactive) mode");?></label>
+                <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1" checked="checked"
+                       onchange="import_showHideBlind();">
+            </span>
             <!-- opciones para el modo blind -->
             <span id="import-excelBlindOptions" style="display:inherit;">
 				<br/> <?php _e("Options for non-interactive import");?>:<br/>
