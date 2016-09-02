@@ -49,6 +49,8 @@ class DogReader {
     protected $tablename;
     protected $myDBObject;
     protected $isInternational;
+    protected $validPageNames;
+
     protected $fieldList=array (
         // name => index, required (1:true 0:false-to-evaluate -1:optional), default
         // dog related data
@@ -92,6 +94,7 @@ class DogReader {
         if ($this->isInternational) {
             $this->fieldList['Club'][1]=-1;$this->fieldList['Country'][1]=1;
         }
+        $this->validPageNames=array("Dogs","Inscriptions");
     }
 
     public function saveStatus($str,$reset=false){
@@ -264,23 +267,28 @@ class DogReader {
         $reader = ReaderFactory::create(Type::XLSX);
         $reader->open($filename);
         // if there are only one sheet assume it is what we are looking for
+        $found=false;
+        $sheet=null;
         if ($this->sheetCount($reader)>1) {
-            $sheet=null;
             // else look for a sheet named _("Dogs") or _("Inscriptions")
             foreach ($reader->getSheetIterator() as $sheet) {
                 $name = $sheet->getName();
-                if ($name=="Inscriptions" || ($name==_("Inscriptions")) ) break;
-                if ($name=="Dogs" || ($name==_("Dogs")) ) break;
+                foreach($this->validPageNames as $pname) {
+                    if ( ($name!=$pname) && ($name!=_($pname)) ) continue;
+                    $found=true; break;
+                }
+                if ($found) break;
             }
-            // arriving here means "Dogs" page not found
-            if ($sheet==null) throw new Exception ("No sheet named 'Dogs' or 'Inscriptions' found in excel file");
         } else {
             // getCurrentSheet() is not available for reader. so dirty trick
             // $sheet=$reader->getCurrentSheet();
             foreach ($reader->getSheetIterator() as $sheet) {
                 if ($sheet->getIndex()==0) break;
+                $found=true;
             }
         }
+        // arriving here means "Dogs" page not found
+        if (!$found) throw new Exception ("No valid sheet name found in excel file");
         // OK: now parse sheet
         $index=0;
         $timeout=ini_get('max_execution_time');

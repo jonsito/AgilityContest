@@ -76,7 +76,7 @@ $('#entrenamientos-datagrid').datagrid({
         {field:'Fecha',	      hidden:true, width:20,      align:'center', title: '<?php _e('Date');?>',formatter: formatYMD},
         {field:'Firma',       hidden:true, width:15,      align:'center', title: '<?php _e('Check-in');?>',formatter: formatHM},
         {field:'Veterinario', hidden:true, width:15,	  align:'center',  title: '<?php _e('Veterinary');?>',formatter: formatHM},
-        {field:'Entrada',     width:15,      align:'right',  title: '<?php _e('Start');?>',formatter: formatHM},
+        {field:'Comienzo',    width:15,      align:'right',  title: '<?php _e('Start');?>',formatter: formatHM},
         {field:'Duracion',    hidden:true, width:20,      align:'right',  title: '<?php _e('End');?>',formatter: formatMinSecs},
         {field:'Key1',        hidden:true},
         {field:'Value1',      width:20,      align:'center', title: '<?php _e('Ring');?> 1',formatter: formatTrainingCell1 },

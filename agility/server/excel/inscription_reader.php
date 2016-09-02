@@ -67,6 +67,7 @@ class InscriptionReader extends DogReader {
             $this->fieldList[$key]= array( $index,1,"s",$name," `$name` varchar(255) NOT NULL DEFAULT '', ");
             $index--;
         }
+        $this->validPageNames=array("Inscriptions");
     }
 
     /**

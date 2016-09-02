@@ -64,7 +64,7 @@ class PrintEntrenamientos extends PrintCommon {
         if ($this->federation->isInternational()){ $s4=0; $s123=15; $corc=_('Country'); }
         // fill columns
         $this->cols     = array( '#',    '',        $corc, _('Date'), _('Check in'),_('Veterinary'), _('Start'), _('Duration'), _('Ring').' 1', _('Ring').' 2', _('Ring').' 3', _('Ring').' 4');
-        $this->fields   = array( /*eval*/'','LogoClub','NombreClub','Fecha','Firma', 'Veterinario','Entrada','Duracion',/*keyValue1 */ '',/*KeyValue2*/ '',/*KeyValue3*/ '',/*KeyValue4*/ '');
+        $this->fields   = array( /*eval*/'','LogoClub','NombreClub','Fecha','Firma', 'Veterinario','Comienzo','Duracion',/*keyValue1 */ '',/*KeyValue2*/ '',/*KeyValue3*/ '',/*KeyValue4*/ '');
         $this->sizes    = array(    10,         10,     30,         23,     20,       15,          18,       18,          $s123,          $s123,           $s123,           $s4 );
         $this->align    = array(    'C',        'C',    'L',        'L',    'C',      'C',         'C',      'R',         'C',            'C',             'C',             'C');
 	}

@@ -31,7 +31,7 @@ class excel_Entrenamientos extends XLSX_Writer {
 	protected $lista; // tandas de entrenamientos
 
     protected $cols = array();
-    protected $fields = array( 'NombreClub','Fecha','Firma','Veterinario','Entrada','Duracion','Key1','Value1','Key2','Value2','Key3','Value3','Key4','Value4','Observaciones');
+    protected $fields = array( 'NombreClub','Fecha','Firma','Veterinario','Comienzo','Duracion','Key1','Value1','Key2','Value2','Key3','Value3','Key4','Value4','Observaciones');
 
 	/**
 	 * Constructor
@@ -49,7 +49,7 @@ class excel_Entrenamientos extends XLSX_Writer {
 		}
 		$clb=Federations::getFederation(intval($fed))->getClubString(); // country or club
 		$this->cols=
-            array( $clb,_('Date'),_('Check in'),_('Veterinary'),_('Start'),_('Duration'),'Key1','Value1','Key2','Value2','Key3','Value3','Key4','Value4',_('Comments'));
+            array( $clb,_('Date'),_('Check-in'),_('Veterinary'),_('Start'),_('Duration'),'Key1','Value1','Key2','Value2','Key3','Value3','Key4','Value4',_('Comments'));
         $this->lista=$res['rows'];
 	}
 
@@ -67,7 +67,7 @@ class excel_Entrenamientos extends XLSX_Writer {
 
 		// Create page
 		$dogspage=$this->myWriter->addNewSheetAndMakeItCurrent();
-		$dogspage->setName(_("Training"));
+		$dogspage->setName(_("Trainings"));
 		// write header
 		$this->writeTableHeader();
 

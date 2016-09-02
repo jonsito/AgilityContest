@@ -52,29 +52,103 @@ class EntrenamientosReader extends DogReader {
             'ClubID' =>     array (  -2,    0, "i", "ClubID",    " `ClubID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
             'Club' =>       array (  -3,    1, "s", "NombreClub"," `NombreClub` varchar(255) NOT NULL,"),  // Club's Name. required
             'Country' =>    array (  -4,   -1, "s", "Pais",      " `Pais` varchar(255) NOT NULL,"),  // Country. optional
+            // datos de horarios y duracion del entrenamiento
             'Date' =>       array (  -5,    1, "s", "Fecha",     " `Fecha` date DEFAULT '2016-01-01', "), // required
-            'CheckIn' =>    array (  -6,    1, "s", "Firma",     " `Firma` timestamp  DEFAULT 0 , "), // required
+            'Check-in' =>    array (  -6,   1, "s", "Firma",     " `Firma` timestamp  DEFAULT 0 , "), // required
             'Veterinary' => array (  -7,    1, "s", "Veterinario"," `Veterinario` timestamp DEFAULT  0 , "), // required
-            'Start' =>      array (  -8,    1, "s", "Inicio",    " `Entrada` timestamp DEFAULT  0 , "), // required
-            'Duration' =>   array (  -9,    1, "s", "Duracion",  " `Duracion` int(4) NOT NULL DEFAULT 0, "), // required segundos
+            'Start' =>      array (  -8,    1, "s", "Comienzo",  " `Comienzo` timestamp DEFAULT  0 , "), // required
+            'Duration' =>   array (  -9,    1, "i", "Duracion",  " `Duracion` int(4) NOT NULL DEFAULT 0, "), // required segundos
             // datos de los cuatro rings
             'Key1' =>       array (  -10,   1, "s", "Key1",      " `Key1` varchar(32) DEFAULT 'L', "), // required
-            'Value1' =>     array (  -11,   1, "s", "Value1",    " `Value1` int(4) NOT NULL DEFAULT 0, "), // required
+            'Value1' =>     array (  -11,   1, "i", "Value1",    " `Value1` int(4) NOT NULL DEFAULT 0, "), // required
             'Key2' =>       array (  -12,   1, "s", "Key2",      " `Key2` varchar(32) DEFAULT 'M', "), // required
-            'Value2' =>     array (  -13,   1, "s", "Value2",    " `Value2` int(4) NOT NULL DEFAULT 0, "), // required
+            'Value2' =>     array (  -13,   1, "i", "Value2",    " `Value2` int(4) NOT NULL DEFAULT 0, "), // required
             'Key3' =>       array (  -14,   1, "s", "Key3",      " `Key3` varchar(32) DEFAULT 'S', "), // required
-            'Value3' =>     array (  -15,   1, "s", "Value3",    " `Value3` int(4) NOT NULL DEFAULT 0, "), // required
+            'Value3' =>     array (  -15,   1, "i", "Value3",    " `Value3` int(4) NOT NULL DEFAULT 0, "), // required
             'Key4' =>       array (  -16,  -1, "s", "Key4",      " `Key4` varchar(32) DEFAULT 'T', "), // 4th ring is optional in 3 height
-            'Value4' =>     array (  -17,  -1, "s", "Value4",    " `Value4` int(4) NOT NULL DEFAULT 0, "), // 4th ring is optional in 3 height
+            'Value4' =>     array (  -17,  -1, "i", "Value4",    " `Value4` int(4) NOT NULL DEFAULT 0, "), // 4th ring is optional in 3 height
             // comentarios
-            'Comments' =>   array (  -18,  0, "i", "Observaciones", " `Observaciones` varchar(255) DEFAULT '', "),  // optional
+            'Comments' =>   array (  -18,   0, "s", "Observaciones", " `Observaciones` varchar(255) DEFAULT '', "),  // optional
             // Estado: default -1
         );
         // fix fields according contest type
         $fedobj=Federations::getFederation($this->federation);
         if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=-1; $this->fieldList['Country'][1]=1; } // country/club
         if ($fedobj->get('Heights')==4) { $this->fieldList['Key4'][1]=1; $this->fieldList['Value4'][1]=1; } // required on 4 heights
+        $this->validPageNames=array("Trainings");
     }
 
+    /**
+     * @return {array} data to be evaluated
+     */
+    public function parse() {
+        $this->myLogger->enter();
+        $res=$this->myDBObject->__select(
+        /* SELECT */ "*",
+            /* FROM   */ TABLE_NAME,
+            /* WHERE  */ "( ClubID = 0 )",
+            /* ORDER BY */ "ClubID ASC",
+            /* LIMIT */  ""
+        );
+        foreach ($res['rows'] as $item ) {
+            $found=$this->findAndSetClub($item);
+            if (is_string($found)) throw new Exception("import parse: $found");
+            if (is_bool($found)) {
+                if ($found===true) // item found and match: notify and return
+                    return array('operation'=> 'parse', 'success'=> 'ok', 'search' => $item, 'found' => $found['rows']);
+                else // item not found: create a default item
+                    return array('operation'=> 'parse', 'success'=> 'fail', 'search' => $item, 'found' => array());
+            }
+            // nultiple matching items found: ask
+            return array('operation'=> 'parse', 'success'=> 'fail', 'search' => $item, 'found' => $found['rows']);
+        }
+        // arriving here means no more items to analyze. So tell user to proccedd with import
+        $this->myLogger->leave();
+        return array('operation'=> 'parse', 'success'=> 'done');
+    }
+
+    function beginImport() {
+        $this->myLogger->enter();
+        // borramos datos de la tabla de entrenamientos de la prueba
+        $str="DELETE FROM Entrenamientos WHERE ( Prueba={$this->prueba['ID']})";
+        $this->myDBObject->query($str);
+        $entries=$this->myDBObject->__select("*",TABLE_NAME,"","")['rows'];
+        $orden=1;
+
+        // usaremos estas variables para controlar asignar los tiempos de los campos que esten vacios
+        $nextTime=time(); // enter to ring comes one hour after veterinary
+        $mode=intval($this->myConfig->getEnv("training_type"));
+        $dtime=intval($this->myConfig->getEnv("training_time"));
+        $gtime=intval($this->myConfig->getEnv("training_grace"));
+
+        $trobj=new Entrenamientos("ExcelImportEntrenamientos",$this->prueba['ID']);
+        foreach ($entries as $row) {
+            $data=array();
+            $data['Club']=$row['ClubID'];
+            $f=date_parse($row['Fecha']);
+            if ($f) $nextTime=mktime(0, 0, 0, $f['month'], $f['day'], $f['year']);
+            $data['Fecha'] = date('Y-m-d H:i',$nextTime);
+            // PENDING: check and fix provided timestamps
+            $data['Firma']=$row['Firma'];
+            $data['Veterinario']=$row['Veterinario'];
+            $data['Comienzo']=$row['Comienzo'];
+
+            $data['Duracion']=$row['Duracion'];
+            $data['Key1']=$row['Key1'];
+            $data['Key2']=$row['Key2'];
+            $data['Key3']=$row['Key3'];
+            $data['Key4']=$row['Key4'];
+            $data['Value1']=$row['Value1'];
+            $data['Value2']=$row['Value2'];
+            $data['Value3']=$row['Value3'];
+            $data['Value4']=$row['Value4'];
+            $data['Comentarios']=$row['Comentarios'];
+            $this->saveStatus("Importing training data session for entry: '{$row['NombreClub']}'");
+            $res=$trobj->insert($data);
+            if ($res!=="") return $res; // will throw exception and mark error in client
+        }
+        $this->myLogger->leave();
+
+    }
 }
 ?>

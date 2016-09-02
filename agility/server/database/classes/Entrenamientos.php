@@ -79,7 +79,7 @@ class Entrenamientos extends DBObject {
                     'Fecha'     => date('Y-m-d'),
                     'Firma'     => '',
                     'Veterinario'=>'',
-                    'Entrada'   => '',
+                    'Comienzo'   => '',
                     'Salida'    => '',
                     'Duracion'  => '', // tiempo en ring
                     'Total'     => 0,  // tiempo total si se contabiliza por perros
@@ -106,10 +106,10 @@ class Entrenamientos extends DBObject {
             $duration=($mode==0)? $club['Total']*$dtime : max($club['L'],$club['M'],$club['S'],$club['T'])*$dtime;
             $club['Firma']=date('Y-m-d H:i',$nextTime);
             $club['Veterinario']=date('Y-m-d H:i',$nextTime+120); // 2 minutes later
-            $club['Entrada']=date('Y-m-d H:i:s',$nextTime+3600); // 1 hour later
+            $club['Comienzo']=date('Y-m-d H:i:s',$nextTime+3600); // 1 hour later
             $club['Duracion']=$duration; // time in seconds
             $nextTime+=$duration+$gtime;
-            // $this->myLogger->trace("Club: {$club['NombreClub']} Entrada: {$club['Entrada']} Duracion:$duration");
+            // $this->myLogger->trace("Club: {$club['NombreClub']} Comienzo: {$club['Comienzo']} Duracion:$duration");
         }
         // ok. next comes clear and populate Training database table
         // retrieve default key names from i18nt'd category names
@@ -121,7 +121,7 @@ class Entrenamientos extends DBObject {
         $this->clear();
         // to speedup, use prepared statements
         // componemos un prepared statement (para evitar sql injection)
-        $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Entrada,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,Observaciones,Estado)
+        $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Comienzo,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,Observaciones,Estado)
 			   VALUES({$this->pruebaID},?,?,?,?,?,?,?,'{$large}',?,'{$medium}',?,'{$small}',?,'{$toy}',?,?,?)";
         $this->myLogger->trace("SQL: $sql");
         $this->myLogger->trace("SQL: before prepare");
@@ -136,7 +136,7 @@ class Entrenamientos extends DBObject {
             $fecha=$elem['Fecha'];
             $firma=$elem['Firma'];
             $vet=$elem['Veterinario'];
-            $ent=$elem['Entrada'];
+            $ent=$elem['Comienzo'];
             $dur=$elem['Duracion'];
             $l=$elem['L'];
             $m=$elem['M'];
@@ -157,10 +157,32 @@ class Entrenamientos extends DBObject {
 	/**
 	 * Insert a new user into database. Used in Excel import functions
      * as no way to insert non-inscribed countries/clubs from console
+     * @param {array} data Entry to be inserted
 	 * @return {string} "" if ok; null on error
 	 */
-	function insert() {
+	function insert($data) {
 		$this->myLogger->enter();
+        $p=$this->pruebaID;
+        $o=$data['Orden'];
+        $c=$data['Club'];
+        $d=$data['Fecha'];
+        $f=$data['Firma'];
+        $v=$data['Veterinario'];
+        $s=$data['Comienzo'];
+        $t=$data['Duracion'];
+        $k1=$data['Key1'];
+        $k2=$data['Key2'];
+        $k3=$data['Key1'];
+        $k4=$data['Key2'];
+        $v1=$data['Value1'];
+        $v2=$data['Value2'];
+        $v3=$data['Value3'];
+        $v4=$data['Value4'];
+        $obs=$data['Observaciones'];
+        $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Comienzo,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,Observaciones,Estado)
+			   VALUES($p,$o,$c,$d,$f,$v,$s,$t,'$k1',$v1,'$k2',$v2,'$k3',$v3,'$k4',$v4,$obs,-1)";
+        $res=$this->query($sql);
+        if (!$res) return $this->conn->error;
 		$this->myLogger->leave();
 		return ""; 
 	}
@@ -255,7 +277,7 @@ class Entrenamientos extends DBObject {
             'Fecha'     => date('Y-m-d',$nextTime),
             'Firma'     =>date('Y-m-d H:i',$nextTime),
             'Veterinario'=>date('Y-m-d H:i',$nextTime+120), // 2 minutes later
-            'Entrada'   =>date('Y-m-d H:i:s',$nextTime+3600), // 1 hour later
+            'Comienzo'   =>date('Y-m-d H:i:s',$nextTime+3600), // 1 hour later
             'Duracion'  => 0,
             'Total'     => 0, // not used (number total of dogs)
             'Key1'         => $this->fedObj->getCategory('L'),

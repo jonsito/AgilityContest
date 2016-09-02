@@ -186,7 +186,7 @@ $('#entrenamientos-datagrid').datagrid({
 		{ field:'Veterinario',align:'center',	width:50, title:'<?php _e("Veterinary");?>',formatter:formatHM,
             editor:{ type:'timespinner', options: { required:true,showSeconds:false } }
         },
-		{ field:'Entrada',  align:'center',	width:50, title:'<?php _e("Start");?>',formatter:formatHM,
+		{ field:'Comienzo', align:'center',	width:50, title:'<?php _e("Start");?>',formatter:formatHM,
             editor:{ type:'timespinner', options: { required:true,showSeconds:true} }
         },
 		{ field:'Duracion',  align:'center',	width:45, title:'<?php _e("Duration");?>',formatter:formatMinSecs,
@@ -261,7 +261,7 @@ $('#entrenamientos-datagrid').datagrid({
         ed = $(this).datagrid('getEditor',{index:index,field:'Veterinario'});
         $(ed.target).timespinner('setValue', row.Veterinario.split(' ')[1]);
         ed = $(this).datagrid('getEditor',{index:index,field:'Entrada'});
-        $(ed.target).timespinner('setValue', row.Entrada.split(' ')[1]);
+        $(ed.target).timespinner('setValue', row.Comienzo.split(' ')[1]);
         ed = $(this).datagrid('getEditor',{index:index,field:'Observaciones'});
         $(ed.target).textbox('setValue', row.Observaciones);
     },
