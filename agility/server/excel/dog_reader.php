@@ -273,7 +273,9 @@ class DogReader {
             // else look for a sheet named _("Dogs") or _("Inscriptions")
             foreach ($reader->getSheetIterator() as $sheet) {
                 $name = $sheet->getName();
+                $this->myLogger->trace("analizyng sheet name: $name");
                 foreach($this->validPageNames as $pname) {
+                    $this->myLogger->trace("analizyng sheet name: '$name' searching for '$pname'");
                     if ( ($name!=$pname) && ($name!=_($pname)) ) continue;
                     $found=true; break;
                 }
@@ -283,8 +285,8 @@ class DogReader {
             // getCurrentSheet() is not available for reader. so dirty trick
             // $sheet=$reader->getCurrentSheet();
             foreach ($reader->getSheetIterator() as $sheet) {
-                if ($sheet->getIndex()==0) break;
                 $found=true;
+                break; // just break at one and only sheet
             }
         }
         // arriving here means "Dogs" page not found

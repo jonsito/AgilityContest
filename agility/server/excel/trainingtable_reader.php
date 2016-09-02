@@ -60,15 +60,15 @@ class EntrenamientosReader extends DogReader {
             'Duration' =>   array (  -9,    1, "i", "Duracion",  " `Duracion` int(4) NOT NULL DEFAULT 0, "), // required segundos
             // datos de los cuatro rings
             'Key1' =>       array (  -10,   1, "s", "Key1",      " `Key1` varchar(32) DEFAULT 'L', "), // required
-            'Value1' =>     array (  -11,   1, "i", "Value1",    " `Value1` int(4) NOT NULL DEFAULT 0, "), // required
+            'Value1' =>     array (  -11,  -1, "i", "Value1",    " `Value1` int(4) NOT NULL DEFAULT 0, "), // optional
             'Key2' =>       array (  -12,   1, "s", "Key2",      " `Key2` varchar(32) DEFAULT 'M', "), // required
-            'Value2' =>     array (  -13,   1, "i", "Value2",    " `Value2` int(4) NOT NULL DEFAULT 0, "), // required
+            'Value2' =>     array (  -13,  -1, "i", "Value2",    " `Value2` int(4) NOT NULL DEFAULT 0, "), // optional
             'Key3' =>       array (  -14,   1, "s", "Key3",      " `Key3` varchar(32) DEFAULT 'S', "), // required
-            'Value3' =>     array (  -15,   1, "i", "Value3",    " `Value3` int(4) NOT NULL DEFAULT 0, "), // required
+            'Value3' =>     array (  -15,  -1, "i", "Value3",    " `Value3` int(4) NOT NULL DEFAULT 0, "), // optional
             'Key4' =>       array (  -16,  -1, "s", "Key4",      " `Key4` varchar(32) DEFAULT 'T', "), // 4th ring is optional in 3 height
             'Value4' =>     array (  -17,  -1, "i", "Value4",    " `Value4` int(4) NOT NULL DEFAULT 0, "), // 4th ring is optional in 3 height
             // comentarios
-            'Comments' =>   array (  -18,   0, "s", "Observaciones", " `Observaciones` varchar(255) DEFAULT '', "),  // optional
+            'Comments' =>   array (  -18,  -1, "s", "Observaciones", " `Observaciones` varchar(255) DEFAULT '', "),  // optional
             // Estado: default -1
         );
         // fix fields according contest type
@@ -107,6 +107,41 @@ class EntrenamientosReader extends DogReader {
         return array('operation'=> 'parse', 'success'=> 'done');
     }
 
+    // retorna array L,M,S,T,-
+    private function howManyDogs($team){
+        $list=$this->myDBObject->__select(
+        /*select*/    "count(*) AS Numero,Categoria",
+        /* from */    "Inscripciones,PerroGuiaClub",
+        /* where */   "WHERE ( Prueba={$this->prueba['ID']} ) AND (Inscripciones.Perro=PerroGuiaClub.ID) AND (Club=$team)",
+        /* order by*/ "Categoria ASC",
+        /* limit */   "",
+        /* group by*/"Categoria"
+        );
+        $res= array( 'L' => 0, 'M' => 0, 'S'=>0, 'T' => 0, '-' => 0, 'Total' => 0);
+        foreach($list as $item) { $res[$item['Categoria']] += $item['Numero']; $res['total']+=$item['Numero']; }
+        return $res;
+    }
+
+    /* return an integer (number of seconds since 1-Enero-1970 */
+    private function getTime($str,$deftime) {
+        $def=date_parse(date('Y-m-d H:i:s',$deftime));
+        if(!$def) {
+            $this->myLogger->warn("Cannot parse current provided time: '$str'");
+            $def=time();
+        }
+        $cur=date_parse($str);
+        if (!$cur) return mktime($def['hour'], $def['minute'], $def['second'], $def['month'], $def['day'], $def['year']);
+        // combine def and cur
+        return mktime(
+            empty($cur['hour'])?    $def['hour']:$cur['hour'],
+            empty($cur['minute'])?  $def['minute']:$cur['minute'],
+            empty($cur['second'])?  $def['second']:$cur['second'],
+            empty($cur['month'])?   $def['month']:$cur['month'],
+            empty($cur['day'])?     $def['day']:$cur['day'],
+            empty($cur['year'])?    $def['year']:$cur['year']
+        );
+    }
+
     function beginImport() {
         $this->myLogger->enter();
         // borramos datos de la tabla de entrenamientos de la prueba
@@ -116,7 +151,8 @@ class EntrenamientosReader extends DogReader {
         $orden=1;
 
         // usaremos estas variables para controlar asignar los tiempos de los campos que esten vacios
-        $nextTime=time(); // enter to ring comes one hour after veterinary
+        $defTime=time(mktime(0,0,0,date("m"),date("d"),date("Y"))); // default time
+
         $mode=intval($this->myConfig->getEnv("training_type"));
         $dtime=intval($this->myConfig->getEnv("training_time"));
         $gtime=intval($this->myConfig->getEnv("training_grace"));
@@ -124,24 +160,33 @@ class EntrenamientosReader extends DogReader {
         $trobj=new Entrenamientos("ExcelImportEntrenamientos",$this->prueba['ID']);
         foreach ($entries as $row) {
             $data=array();
+            $items=$this->howManyDogs($row['ClubID']);
             $data['Club']=$row['ClubID'];
-            $f=date_parse($row['Fecha']);
-            if ($f) $nextTime=mktime(0, 0, 0, $f['month'], $f['day'], $f['year']);
-            $data['Fecha'] = date('Y-m-d H:i',$nextTime);
-            // PENDING: check and fix provided timestamps
-            $data['Firma']=$row['Firma'];
-            $data['Veterinario']=$row['Veterinario'];
-            $data['Comienzo']=$row['Comienzo'];
-
+            // obtenemos fecha
+            $defTime=$this->getTime($row['Fecha'],$defTime);
+            $data['Fecha'] = date('Y-m-d H:i',$defTime);
+            //hora de la firma del equipo
+            $firma=$this->getTime($row['Firma'],$defTime+300); //
+            $data['Firma'] = date('Y-m-d H:i',$firma);
+            // hora de la revision veterinaria
+            $veterinario=$this->getTime($row['Veterinario'],$defTime+300); // 5 minutes after check-in
+            $data['Veterinario'] = date('Y-m-d H:i',$veterinario);
+            // hora de entrada a pista
+            $comienzo=$this->getTime($row['Comienzo'],$defTime+3600); // 1 hour after check-in
+            $data['Comienzo']= date('Y-m-d H:i',$comienzo);
+            // si no nos dan duracion la evaluamos
+            if ($row['Duracion']==0)
+                $row['Duracion']=($mode==0)? $items['total']*$dtime : max($items['L'],$items['M'],$items['S'],$items['T'])*$dtime;
             $data['Duracion']=$row['Duracion'];
+
             $data['Key1']=$row['Key1'];
             $data['Key2']=$row['Key2'];
             $data['Key3']=$row['Key3'];
             $data['Key4']=$row['Key4'];
-            $data['Value1']=$row['Value1'];
-            $data['Value2']=$row['Value2'];
-            $data['Value3']=$row['Value3'];
-            $data['Value4']=$row['Value4'];
+            $data['Value1']=($row['Value1']==0)?$items['L']:$row['Value1'];
+            $data['Value2']=($row['Value1']==0)?$items['M']:$row['Value1'];
+            $data['Value3']=($row['Value1']==0)?$items['S']:$row['Value1'];
+            $data['Value4']=($row['Value1']==0)?$items['T']:$row['Value1'];
             $data['Comentarios']=$row['Comentarios'];
             $this->saveStatus("Importing training data session for entry: '{$row['NombreClub']}'");
             $res=$trobj->insert($data);
