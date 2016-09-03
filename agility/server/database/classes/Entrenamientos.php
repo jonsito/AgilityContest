@@ -180,7 +180,7 @@ class Entrenamientos extends DBObject {
         $v4=$data['Value4'];
         $obs=$data['Observaciones'];
         $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Comienzo,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,Observaciones,Estado)
-			   VALUES($p,$o,$c,$d,$f,$v,$s,$t,'$k1',$v1,'$k2',$v2,'$k3',$v3,'$k4',$v4,$obs,-1)";
+			   VALUES($p,$o,$c,'$d','$f','$v','$s',$t,'$k1',$v1,'$k2',$v2,'$k3',$v3,'$k4',$v4,'$obs',-1)";
         $res=$this->query($sql);
         if (!$res) return $this->conn->error;
 		$this->myLogger->leave();

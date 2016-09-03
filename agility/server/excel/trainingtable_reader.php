@@ -27,6 +27,7 @@ require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/../../modules/Federations.php");
 require_once(__DIR__."/../database/classes/DBObject.php");
+require_once(__DIR__."/../database/classes/Entrenamientos.php");
 require_once(__DIR__.'/Spout/Autoloader/autoload.php');
 require_once(__DIR__.'/dog_reader.php');
 
@@ -112,25 +113,28 @@ class EntrenamientosReader extends DogReader {
         $list=$this->myDBObject->__select(
         /*select*/    "count(*) AS Numero,Categoria",
         /* from */    "Inscripciones,PerroGuiaClub",
-        /* where */   "WHERE ( Prueba={$this->prueba['ID']} ) AND (Inscripciones.Perro=PerroGuiaClub.ID) AND (Club=$team)",
+        /* where */   "( Prueba={$this->prueba['ID']} ) AND (Inscripciones.Perro=PerroGuiaClub.ID) AND (Club=$team)",
         /* order by*/ "Categoria ASC",
         /* limit */   "",
         /* group by*/"Categoria"
         );
         $res= array( 'L' => 0, 'M' => 0, 'S'=>0, 'T' => 0, '-' => 0, 'Total' => 0);
-        foreach($list as $item) { $res[$item['Categoria']] += $item['Numero']; $res['total']+=$item['Numero']; }
+        foreach($list['rows'] as $item) {
+            $res[$item['Categoria']] += $item['Numero'];
+            $res['Total']+=$item['Numero'];
+        }
         return $res;
     }
 
     /* return an integer (number of seconds since 1-Enero-1970 */
     private function getTime($str,$deftime) {
         $def=date_parse(date('Y-m-d H:i:s',$deftime));
-        if(!$def) {
+        if($def===FALSE) {
             $this->myLogger->warn("Cannot parse current provided time: '$str'");
             $def=time();
         }
         $cur=date_parse($str);
-        if (!$cur) return mktime($def['hour'], $def['minute'], $def['second'], $def['month'], $def['day'], $def['year']);
+        if ($cur===FALSE) return mktime($def['hour'], $def['minute'], $def['second'], $def['month'], $def['day'], $def['year']);
         // combine def and cur
         return mktime(
             empty($cur['hour'])?    $def['hour']:$cur['hour'],
@@ -140,6 +144,15 @@ class EntrenamientosReader extends DogReader {
             empty($cur['day'])?     $def['day']:$cur['day'],
             empty($cur['year'])?    $def['year']:$cur['year']
         );
+    }
+
+    // convert m's" into seconds
+    private function parseMinSecs($str) {
+        $str=str_replace('"','',$str); // comilla doble "
+        $str=str_replace(' ','',$str); // espacios
+        $str=str_replace("'",":",$str); // comilla simple '
+        $a=explode(":",$str);
+        return 60*$a[0]+$a[1];
     }
 
     function beginImport() {
@@ -162,6 +175,7 @@ class EntrenamientosReader extends DogReader {
             $data=array();
             $items=$this->howManyDogs($row['ClubID']);
             $data['Club']=$row['ClubID'];
+            $data['Orden']=$orden;
             // obtenemos fecha
             $defTime=$this->getTime($row['Fecha'],$defTime);
             $data['Fecha'] = date('Y-m-d H:i',$defTime);
@@ -176,24 +190,26 @@ class EntrenamientosReader extends DogReader {
             $data['Comienzo']= date('Y-m-d H:i',$comienzo);
             // si no nos dan duracion la evaluamos
             if ($row['Duracion']==0)
-                $row['Duracion']=($mode==0)? $items['total']*$dtime : max($items['L'],$items['M'],$items['S'],$items['T'])*$dtime;
-            $data['Duracion']=$row['Duracion'];
+                $row['Duracion']=($mode==0)? $items['Total']*$dtime : max($items['L'],$items['M'],$items['S'],$items['T'])*$dtime;
+            $data['Duracion']=$this->parseMinSecs($row['Duracion']);
 
             $data['Key1']=$row['Key1'];
             $data['Key2']=$row['Key2'];
             $data['Key3']=$row['Key3'];
             $data['Key4']=$row['Key4'];
             $data['Value1']=($row['Value1']==0)?$items['L']:$row['Value1'];
-            $data['Value2']=($row['Value1']==0)?$items['M']:$row['Value1'];
-            $data['Value3']=($row['Value1']==0)?$items['S']:$row['Value1'];
-            $data['Value4']=($row['Value1']==0)?$items['T']:$row['Value1'];
-            $data['Comentarios']=$row['Comentarios'];
+            $data['Value2']=($row['Value2']==0)?$items['M']:$row['Value2'];
+            $data['Value3']=($row['Value3']==0)?$items['S']:$row['Value3'];
+            $data['Value4']=($row['Value4']==0)?$items['T']:$row['Value4'];
+            $data['Observaciones']=$row['Observaciones'];
             $this->saveStatus("Importing training data session for entry: '{$row['NombreClub']}'");
             $res=$trobj->insert($data);
             if ($res!=="") return $res; // will throw exception and mark error in client
+            $orden++;
+            $defTime=$defTime+3600+$data['Duracion']+$gtime;
         }
         $this->myLogger->leave();
-
+        return array( 'operation'=>'import','success'=>'close');
     }
 }
 ?>
