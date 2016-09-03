@@ -149,9 +149,10 @@ class PrintEntrenamientos extends PrintCommon {
                     case 9:
                     case 10:
                     case 11: // rings
-                        $key=$row['Key'.($n-7)];
-                        $value=$row['Value'.($n-7)];
-                        $data=( ($key==="") || ($value==0) )? "---" : "$key - $value";
+                        $idx=strval($n-7);
+                        $key=$row["Key{$idx}"];
+                        $value=$row["Value{$idx}"];
+                        $data=($key==="")? "---" : "$key - $value";
                         $this->Cell($this->sizes[$n],5.5,$data,'R',0,$this->align[$n],true);
                         break;
                     default:

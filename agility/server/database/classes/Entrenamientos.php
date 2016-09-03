@@ -172,8 +172,8 @@ class Entrenamientos extends DBObject {
         $t=$data['Duracion'];
         $k1=$data['Key1'];
         $k2=$data['Key2'];
-        $k3=$data['Key1'];
-        $k4=$data['Key2'];
+        $k3=$data['Key3'];
+        $k4=$data['Key4'];
         $v1=$data['Value1'];
         $v2=$data['Value2'];
         $v3=$data['Value3'];
