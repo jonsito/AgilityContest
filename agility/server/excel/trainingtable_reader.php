@@ -55,9 +55,9 @@ class EntrenamientosReader extends DogReader {
             'Country' =>    array (  -4,   -1, "s", "Pais",      " `Pais` varchar(255) NOT NULL,"),  // Country. optional
             // datos de horarios y duracion del entrenamiento
             'Date' =>       array (  -5,    1, "s", "Fecha",     " `Fecha` date DEFAULT '2016-01-01', "), // required
-            'Check-in' =>    array (  -6,   1, "s", "Firma",     " `Firma` timestamp  DEFAULT 0 , "), // required
-            'Veterinary' => array (  -7,    1, "s", "Veterinario"," `Veterinario` timestamp DEFAULT  0 , "), // required
-            'Start' =>      array (  -8,    1, "s", "Comienzo",  " `Comienzo` timestamp DEFAULT  0 , "), // required
+            'Check-in' =>    array (  -6,   1, "s", "Firma",     " `Firma` datetime  DEFAULT 0 , "), // required
+            'Veterinary' => array (  -7,    1, "s", "Veterinario"," `Veterinario` datetime DEFAULT  0 , "), // required
+            'Start' =>      array (  -8,    1, "s", "Comienzo",  " `Comienzo` datetime DEFAULT  0 , "), // required
             'Duration' =>   array (  -9,    1, "i", "Duracion",  " `Duracion` int(4) NOT NULL DEFAULT 0, "), // required segundos
             // datos de los cuatro rings
             'Key1' =>       array (  -10,   1, "s", "Key1",      " `Key1` varchar(32) DEFAULT 'L', "), // required
@@ -74,9 +74,97 @@ class EntrenamientosReader extends DogReader {
         );
         // fix fields according contest type
         $fedobj=Federations::getFederation($this->federation);
-        if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=-1; $this->fieldList['Country'][1]=1; } // country/club
+        if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=0; $this->fieldList['Country'][1]=1; } // country/club
         if ($fedobj->get('Heights')==4) { $this->fieldList['Key4'][1]=1; $this->fieldList['Value4'][1]=1; } // required on 4 heights
         $this->validPageNames=array("Trainings");
+    }
+
+    /** convert an excel date format into unix epoch seconds */
+    private function excelTimeToSeconds($exceldate) {
+        return intval(floor(($exceldate - 25569) * 86400));
+    }
+
+    protected function import_storeExcelRowIntoDB($index,$row) {
+        $this->myLogger->enter();
+        // compose insert sequence
+        $str1= "INSERT INTO {$this->tablename} (";
+        $str2= "ID, NombreClub ) VALUES (";
+        $club="";
+        $fecha=0;
+        // for each row evaluate field name and get content from provided row
+        // notice that
+        foreach ($this->fieldList as $key => $val) {
+            if ( ($val[0]<0) || ($val[1]==0)) continue; // field not provided or to be evaluated by importer
+            if ($key!=='Club') $str1 .= "{$val[3]}, "; // add field name except when parsing club
+            $item=$row[$val[0]];
+            switch ($key){
+                case 'Club':
+                    $club=mysqli_real_escape_string($this->myDBObject->conn,$item);
+                    break;
+                case 'Country':
+                    $a=mysqli_real_escape_string($this->myDBObject->conn,$item);
+                    $str2.="'{$a}', ";
+                    if ($club==="") $club=$a; // by default assume club= country until defined
+                    break;
+                case 'Date':
+                    // excel provides dates as an integer indicating number of days after 1900
+                    $fecha= $this->excelTimeToSeconds($item);
+                    $s=gmdate("Y-m-d",$fecha); // also, excel use CET, so use gmdate to evaluate properly
+                    $str2.=" '{$s}', ";
+                    break;
+                case 'Check-in':
+                    /* no break */
+                case 'Veterinary':
+                    /* no break */
+                case 'Start':
+                    // also excel declares times as a 24 hour decimal fraction
+                    $seconds=$this->excelTimeToSeconds($item);
+                    if ($item<1) $seconds+=$fecha; // check for full datetime provided
+                    $s=gmdate("Y-m-d H:i:s",$seconds);
+                    $str2.=" '{$s}', ";
+                    break;
+                case 'Duration':
+                    // if seconds provide store "as is", if provided min'secs" convert into seconds
+                    $s=str_replace('"','',$item); // comilla doble "
+                    $s=str_replace(' ','',$s); // espacios
+                    $s=str_replace("'",":",$s); // comilla simple '
+                    $a=explode(":",$s);
+                    $s=(count($a)==1)?intval($a[0]):60*intval($a[0])+intval($a[1]);
+                    $str2.=" {$s}, ";
+                    break;
+                default:
+                    switch ($val[2]) {
+                        case "s": // string
+                            $a=mysqli_real_escape_string($this->myDBObject->conn,$item);
+                            $str2.="'{$a}', ";
+                            break;
+                        case "i":
+                            $a=intval($item);
+                            $str2 .= " {$a}, "; // integer
+                            break;
+                        case "b":
+                            $a=(toBoolean($item))?1:0;
+                            $str2 .= " {$a}, "; // boolean as 1/0
+                            break;
+                        case "f":
+                            $a=floatval($item);
+                            $str2 .= " {$a}, "; // float
+                            break;
+                        default:
+                            // escape to avoid sql injection issues
+                            $a=mysqli_real_escape_string($this->myDBObject->conn,$item);
+                            $str2 .= " {$a}, ";
+                    }
+            }
+        }
+        $str ="$str1 $str2 {$index} , '$club' );"; // compose insert string
+        $res=$this->myDBObject->query($str);
+        if (!$res) {
+            $error=$this->myDBObject->conn->error;
+            throw new Exception("{$this->name}::populateTable(): Error inserting row $index ".json_encode($row)."\n$error");
+        }
+        $this->myLogger->leave();
+        return 0;
     }
 
     /**
@@ -134,7 +222,9 @@ class EntrenamientosReader extends DogReader {
             $def=time();
         }
         $cur=date_parse($str);
-        if ($cur===FALSE) return mktime($def['hour'], $def['minute'], $def['second'], $def['month'], $def['day'], $def['year']);
+        if ($cur===FALSE) {
+            return mktime($def['hour'], $def['minute'], $def['second'], $def['month'], $def['day'], $def['year']);
+        }
         // combine def and cur
         return mktime(
             empty($cur['hour'])?    $def['hour']:$cur['hour'],
@@ -144,15 +234,6 @@ class EntrenamientosReader extends DogReader {
             empty($cur['day'])?     $def['day']:$cur['day'],
             empty($cur['year'])?    $def['year']:$cur['year']
         );
-    }
-
-    // convert m's" into seconds
-    private function parseMinSecs($str) {
-        $str=str_replace('"','',$str); // comilla doble "
-        $str=str_replace(' ','',$str); // espacios
-        $str=str_replace("'",":",$str); // comilla simple '
-        $a=explode(":",$str);
-        return 60*$a[0]+$a[1];
     }
 
     function beginImport() {
@@ -189,9 +270,9 @@ class EntrenamientosReader extends DogReader {
             $comienzo=$this->getTime($row['Comienzo'],$defTime+3600); // 1 hour after check-in
             $data['Comienzo']= date('Y-m-d H:i',$comienzo);
             // si no nos dan duracion la evaluamos
+            $data['Duracion']=$row['Duracion'];
             if ($row['Duracion']==0)
-                $row['Duracion']=($mode==0)? $items['Total']*$dtime : max($items['L'],$items['M'],$items['S'],$items['T'])*$dtime;
-            $data['Duracion']=$this->parseMinSecs($row['Duracion']);
+                $data['Duracion']=($mode==0)? $items['Total']*$dtime : max($items['L'],$items['M'],$items['S'],$items['T'])*$dtime;
 
             $data['Key1']=$row['Key1'];
             $data['Key2']=$row['Key2'];
