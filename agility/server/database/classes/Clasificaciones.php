@@ -291,7 +291,7 @@ class Clasificaciones extends DBObject {
         }
         if ($fp>$cp ) { // tiene menos penalizacion que el primero;
             // con que la penalizacion por tiempo no supere a la del primero y que no se pase del NC o TRM basta
-            $this->current['toBeFirst']=min($trs+$fp-$cp,$trs+25,$trm);
+            $this->current['toBeFirst']=min($trs+$fp-$cp,$trs+26,$trm);
         }
     }
 

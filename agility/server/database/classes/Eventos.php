@@ -172,8 +172,9 @@ class Eventos extends DBObject {
 				return "";
 		}
         // iniciamos los valores
-        // $timestamp= date('Y-m-d G:i:s');
-        $timestamp= date('Y-m-d G:i:s',$data['TimeStamp']);
+        // Windows have some problems in parsing timestamp from tablet. need to revise
+        $timestamp= date('Y-m-d H:i:s');
+        // $timestamp= date('Y-m-d H:i:s',$data['TimeStamp']);
         $source=$data['Source'];
         $type=$data['Type'];
         $evtdata=json_encode($data);
