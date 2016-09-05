@@ -255,16 +255,16 @@ class Clasificaciones extends DBObject {
             // in first current no data yet for current dog, unless already run. so detect and handle
             if ($first['P1']==400) { // current tanda is jumping
                 $fp=floatval($first['P2']);
-                $ft=floatval($first['T2']);
+                $ft=($fp>=100)?0:floatval($first['T2']);
                 $cp=($this->current==null)? 0 : floatval($this->current['P2']);
-                $ct=($this->current==null)? 0 : floatval($this->current['T2']);
+                $ct=($this->current==null)? 0 : ($cp>=100)?0:floatval($this->current['T2']);
                 $trs=$result['trs2']['trs'];
                 $trm=$result['trs2']['trm'];
             } else { // current tanda is agility
                 $fp=floatval($first['P1']);
-                $ft=floatval($first['T1']);
+                $ft=($fp>=100)?0:floatval($first['T1']);
                 $cp=($this->current==null)? 0 : floatval($this->current['P1']);
-                $ct=($this->current==null)? 0 : floatval($this->current['T1']);
+                $ct=($this->current==null)? 0 : ($cp>=100)?0:floatval($this->current['T1']);
                 $trs=$result['trs1']['trs'];
                 $trm=$result['trs1']['trm'];
             }
@@ -274,11 +274,14 @@ class Clasificaciones extends DBObject {
             if ($this->current['Penalizacion']<400) { $this->current['toBeFirst']=""; return; }
             if ( (intval($this->current['N1'])+intval($this->current['N2'])) >= 2 ) { $this->current['toBeFirst']=""; return; }
 
-            // second round. get global penalization and times
+            // in final round. get global penalization
+            // take care on eliminated when evaluating final time
             $fp = floatval($first['Penalizacion']);
-            $ft = floatval($first['Tiempo']);
+            $ft = ( ($first['P1']>=100)?0:$first['T1'] ) + ( ($first['P2']>=100)?0:$first['T2'] );
+            // current has a pending run with time=0
             $cp = floatval($this->current['Penalizacion'] - 400);
-            $ct = floatval($this->current['Tiempo']); //
+            $ct = ( ($this->current['P1']>=100)?0:$this->current['T1'] ) + ( ($this->current['P2']>=100)?0:$this->current['T2']);
+            // and annotate trs and trm
             $trs= floatval( ($this->current['P1']>=400)?$result['trs1']['trs']:$result['trs2']['trs']);
             $trm= floatval( ($this->current['P1']>=400)?$result['trs1']['trm']:$result['trs2']['trm']);
         }
@@ -290,8 +293,17 @@ class Clasificaciones extends DBObject {
             if ($ft-$ct==0) $this->current['toBeFirst']=""; // already the first: do nothing
         }
         if ($fp>$cp ) { // tiene menos penalizacion que el primero;
-            // con que la penalizacion por tiempo no supere a la del primero y que no se pase del NC o TRM basta
-            $this->current['toBeFirst']=min($trs+$fp-$cp,$trs+26,$trm);
+            // tenemos varias posibilidades, y tenemos que escoger la menor de ellas
+            // que el tiempo no supere al del trm
+            $c1=$trm;
+            // que el perro no obtenga un NoClasificado
+            $c2=$trs+26;
+            // que la penalizacion por tiempo no sea mayour que la penalizacion que tiene el primero
+            $c3=$trs+($fp-$cp);
+            // que el tiempo + la penalizacion no supere al tiemp+penalizacion del primero
+            $c4=($ft-$ct) + floor($fp-$cp); // redondear la penalizacion para no duplicar centesimas de segundo
+            //  en este ultimo caso, hay que eliminar decimales en la penalizacion, porque se van a sumar al tiempo...
+            $this->current['toBeFirst']=min($c4,$c3,$c2,$c1);
         }
     }
 

@@ -317,7 +317,7 @@ function vwc_evalPenalizacion(trs,trm,time) {
 		var r=parseInt($('#vwls_Rehuses').html());
 		var e=parseInt($('#vwls_Eliminado').html());
 		var n=parseInt($('#vwls_NoPresentado').html());
-		var pr=max(5*(f+t+r),100*e,200*n);
+		var pr=Math.max(5*(f+t+r),100*e,200*n);
 		var pt=0;
 		if (time<=trs) pt=0; // por debajo de TRS
 		else if ((time>=trm) && (trm!=0) ) pt=100; // supera TRS
@@ -383,7 +383,7 @@ function vwc_eval_lastParciales(items) {
 		if (dat.Tiempo==0) dat.Velocidad=0;
 		else dat.Velocidad=parseFloat(dist)/parseFloat(dat.Tiempo);
 		// evaluamos penalizacion
-		dat.PRecorrido=max( 5*(dat.Faltas + dat.Rehuses + dat.Tocados), 100*dat.Eliminado , 200*dat.NoPresentado );
+		dat.PRecorrido=Math.max( 5*(dat.Faltas + dat.Rehuses + dat.Tocados), 100*dat.Eliminado , 200*dat.NoPresentado );
 		if (dat.Tiempo<=trs) dat.PTiempo=0; // por debajo de TRS
 		else if ((dat.Tiempo>=trm) && (trm!=0) ) dat.PTiempo=100; // supera TRS
 		else dat.PTiempo=dat.Tiempo-trs;
