@@ -539,7 +539,7 @@ class Resultados extends DBObject {
 		}
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
-			"Perro,	( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido, Tiempo, 0 AS PTiempo, 0 AS Penalizacion",
+			"Perro,	GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido, Tiempo, 0 AS PTiempo, 0 AS Penalizacion",
 			"Resultados",
 			"$where $cat",
 			" PRecorrido ASC, Tiempo ASC",
@@ -551,13 +551,13 @@ class Resultados extends DBObject {
 		$table=&$res['rows']; // reference copy to economize memory and time
 		$size=$res['total'];
 
-		// FASE 2: si es necesario insertamos datos de nuestro perro.
+		// FASE 2: si es necesario inserFtamos datos de nuestro perro.
 		// Dado que el array anterior ya esta ordenado,el metodo mas rapido es el de insercion directa
         if ($idperro!=0) {
             $myPerro=array(
                 'Perro' => $idperro,
                 'Tiempo' => $perro['Tiempo'],
-                'PRecorrido' => 5*$perro['Faltas'] + 5*$perro['Rehuses'] + 5*$perro['Tocados'] + 100*$perro['Eliminado'] + 200*$perro['NoPresentado'],
+                'PRecorrido' => max(5*$perro['Faltas'] + 5*$perro['Rehuses'] + 5*$perro['Tocados'] , 100*$perro['Eliminado'] , 200*$perro['NoPresentado']),
                 'PTiempo' => 0.0,
                 'Penalizacion' => 0.0,
             );
@@ -681,7 +681,7 @@ class Resultados extends DBObject {
 		$res=$this->__select(
 				"Dorsal,Perro,Resultados.Nombre,NombreLargo,Resultados.Raza,Equipo,Resultados.Licencia,Resultados.Categoria,Resultados.Grado,NombreGuia,NombreClub,
 				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,
-					( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido,
+					GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,
 					0 AS PTiempo, 0 AS Penalizacion, '' AS Calificacion, 0 AS Velocidad", 
 				"Resultados,Perros",
 				"$where $cat",
