@@ -99,6 +99,7 @@ BTN_Inter=	22	# BCM25		- Button_8 //	Intermediate Chrono
 #		'crono_dat'	    // Envio de Falta/Rehuse/Eliminado desde el crono
 #		'crono_reset'	// puesta a cero del contador
 #		'crono_error'	// sensor error detected (Value=1) or solved (Value=0)
+#		'crono_ready'	// chrono synced and listening (Value=1) or disabled (Value=0)
 # Session= Session ID to join. You should select it from retrieved list of available session ID's from server
 # Source= Chronometer ID. should be in form "chrono_sessid"
 # Value= start/stop/int: time of event detection
@@ -457,6 +458,8 @@ def eventParser():
 				continue
 			if type == 'info':				# value: message
 				continue
+			if type == 'crono_ready':		# to be written
+            	continue
 			# eventos de cambio de camara para gestion de Live Stream
 			# el campo "data" contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
 			if type == 'camera':			# cambio de fuente de streaming

@@ -375,6 +375,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             vwcp_evalPenalizacion();
         },
         'crono_error': null, // fallo en los sensores de paso
+        'crono_ready':    null, // chrono ready and listening
         'aceptar': function (event,time) { // operador pulsa aceptar
             myCounter.stop();
             $('#cronometro').Chrono('stop', time);  // nos aseguramos de que los cronos esten parados

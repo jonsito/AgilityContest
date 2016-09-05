@@ -147,6 +147,7 @@ var eventHandler= {
     'crono_reset':  null, // puesta a cero del crono electronico
     'crono_error':  null, // fallo en los sensores de paso
     'crono_dat':  null, // datos desde crono
+    'crono_ready':  null, // estado del crono
     'aceptar':	null, // operador pulsa aceptar
     'cancelar': null, // operador pulsa cancelar
     'camera':	null, // change video source

@@ -49,6 +49,7 @@ class Eventos extends DBObject {
 		13  => 'crono_dat',     // Envio de Falta/Rehuse/Eliminado desde el crono
 		14  => 'crono_reset',	// puesta a cero del contador
 		15	=> 'crono_error',	// error en alineamiento de sensores
+        23  => 'crono_ready',   // estado del crono activado/escuchando
 		// entrada de datos, dato siguiente, cancelar operacion
 		16	=> 'llamada',		// operador abre panel de entrada de datos
 		17	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
@@ -132,6 +133,7 @@ class Eventos extends DBObject {
 			case 'crono_dat':     	// Envio de Falta/Rehuse/Eliminado desde el crono
             case 'crono_reset':		// puesta a cero del contador
             case 'crono_error':		// error en alineamiento de sensores
+            case 'crono_ready': // estado activo/escuchando
 				if (!$this->myAuth->allowed(ENABLE_CHRONO)) {
 					$this->myLogger->info("Ignore chrono events: licencse forbids");
 					return array('errorMsg' => 'Current license does not allow chrono handling');

@@ -176,6 +176,7 @@ events
             vws_updateChronoData(event);
         },
         'crono_error': null, // fallo en los sensores de paso
+        'crono_ready':    null, // chrono ready and listening
         'aceptar': function (event,time) { // operador pulsa aceptar
             vwsCounter.stop();
             $('#cronometro').Chrono('stop', time);  // nos aseguramos de que los cronos esten parados

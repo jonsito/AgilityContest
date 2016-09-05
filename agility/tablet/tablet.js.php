@@ -853,10 +853,21 @@ function tablet_eventManager(id,evt) {
 		// ignored, just for get noticed at chrono display
 		return;
 	case 'crono_error': // sensor alignment failed
+		// show error message. Use reset to clear
 		if (event['Value']==1) tbox.addClass('blink');
 		else tbox.removeClass('blink');
 		return;
-		// show error message. Use reset to clear
+	case 'crono_ready':	// el crono esta activo y escuchando
+		var value=(parseInt(event['Value'])==0)?"Not Listening":"Ready";
+		setTimeout(function(){
+			$.messager.show({
+				title:'Chronometer',
+				msg:'Chronometer state now is:'+value,
+				timeout:5000,
+				showType:'slide'
+			});
+		},0);
+		return;
 	case 'cancelar': // operador pulsa cancelar
 		return;
 	case 'aceptar':	// operador pulsa aceptar

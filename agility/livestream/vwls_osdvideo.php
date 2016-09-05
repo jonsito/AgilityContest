@@ -328,6 +328,7 @@ var eventHandler= {
 		vwls_updateChronoData(event);
 	},
 	'crono_error':  null, // fallo en los sensores de paso
+	'crono_ready':  null, // estado del crono
 	'aceptar':	function(event,time){ // operador pulsa aceptar
 		myCounter.stop();
 		$('#cronometro').Chrono('stop',time);  // nos aseguramos de que los cronos esten parados

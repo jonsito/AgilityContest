@@ -158,9 +158,15 @@ var eventHandler= {
 	},
 	'crono_error':  function(event,time) { // fallo en los sensores de paso
 		var val=parseInt(event.Value);
-		console.log(event['Type'] + " - Chronometer notifies ensor error event:"+val);
+		console.log(event['Type'] + " - Chronometer notifies sensor error event:"+val);
         if (val==1) console.log("    Sensor status: Failed");
         else console.log("    Sensor status: OK");
+	},
+	'crono_ready':  function(event,time) { // crono activo y escuchando
+		var val=parseInt(event.Value);
+		console.log(event['Type'] + " - Chronometer notifies chrono is ready and listening state:"+val);
+		if (val==1) console.log("    Sensor status: Failed");
+		else console.log("    Sensor status: OK");
 	},
 	'aceptar':	function(event,time){ // operador pulsa aceptar
 		console.log(event['Type'] + " - Assistant console operator accepts competitor result");
