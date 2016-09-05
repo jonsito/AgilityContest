@@ -366,7 +366,7 @@ $config =Config::getInstance();
             $('#tdialog-NoPresentadoStr').val((np==0)?"":"NP");
             tablet_putEvent('llamada',
                     { // setup initial data for event,
-                        'TimeStamp'     : Date.now() - startDate,
+                        'TimeStamp'     : Math.floor(Date.now()/1000),
                         'NoPresentado'	: np,
                         'Faltas'		: $('#tdialog-Faltas').val(),
                         'Tocados'		: $('#tdialog-Tocados').val(),

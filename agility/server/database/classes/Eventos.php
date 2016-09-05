@@ -171,10 +171,8 @@ class Eventos extends DBObject {
 				$this->myLogger->error("Unknown event type:".$data['Type']);
 				return "";
 		}
-        // iniciamos los valores
-        // Windows have some problems in parsing timestamp from tablet. need to revise
-        $timestamp= date('Y-m-d H:i:s');
-        // $timestamp= date('Y-m-d H:i:s',$data['TimeStamp']);
+        // iniciamos los valores (  Timestamp viene en formato php::time() en segundos
+        $timestamp= date('Y-m-d H:i:s',$data['TimeStamp']);
         $source=$data['Source'];
         $type=$data['Type'];
         $evtdata=json_encode($data);
@@ -221,7 +219,7 @@ class Eventos extends DBObject {
 	 * send 'reconfig' event to every sessions
 	 */
 	function reconfigure() {
-		$data= array("Type"=>"reconfig", "Source"=>"Console", "ID"=>0, "TimeStamp"=>1000*time(),"Value"=>0);
+		$data= array("Type"=>"reconfig", "Source"=>"Console", "ID"=>0, "TimeStamp"=>time(),"Value"=>0);
 		return $this->putEvent($data);
 	}
 

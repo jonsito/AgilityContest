@@ -53,6 +53,7 @@ import datetime
 import time					# to get and process timestamps
 import netifaces as ni		# to discover ip address/network/netmask
 import ipaddress            # to deal with IPv4 addresses
+import math                 # to handle timestamps
 
 ##### GPIO PIN Assignment
 # WARNING: this pinout is only valid in RPi Models B+ and 2. 
@@ -143,7 +144,7 @@ def blink_powerled():
 def json_request(type,value):
 	global session_id
 	# compose json request
-	args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(millis())+"&Source=" +SESSION_NAME
+	args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(math.floor(millis()/1000))+"&Source=" +SESSION_NAME
 	args = args + "&Session=" + session_id + "&Value="+value
 	url="https://"+server+"/agility/server/database/eventFunctions.php"
 	# debug( "JSON Request: " + url + "" + args)

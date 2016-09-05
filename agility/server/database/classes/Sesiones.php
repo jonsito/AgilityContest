@@ -111,7 +111,7 @@ class Sesiones extends DBObject {
             // common data for senders and receivers
             'ID'		=>	$id,
             'Session'	=> 	$id,
-            'TimeStamp'	=> 	date('Y-m-d G:i:s'),
+            'TimeStamp'	=> 	time(), /* date('Y-m-d H:i:s'),*/
             'Type' 		=> 	"camera",
             'Source'	=> 	$sdata->Nombre,
             // datos identificativos del evento que se envia
