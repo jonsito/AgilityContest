@@ -57,11 +57,15 @@ class excel_ordenSalida extends XLSX_Writer {
         $this->validcats=$categorias;
         // set up fields according international or national contests
         if ($this->federation->isInternational()) {
-            $this->header = array( 'Order','Name','Pedigree Name','Gender','Breed','Category','Grade','Handler','Country','Heat');
-            $this->fields = array( 'Orden','Nombre','NombreLargo','Genero','Raza','Categoria','Grado','NombreGuia','Pais','Celo');
+            $this->header = array( 'Order','Dorsal','Name','Pedigree Name','Gender','Breed','Category','Grade','Handler','Country','Heat','Comments');
+            $this->fields = array( 'Orden','Dorsal','Nombre','NombreLargo','Genero','Raza','Categoria','Grado','NombreGuia','Pais','Celo','Observaciones');
         } else {
-            $this->header   = array( 'Order','Name','Gender','Breed','License','Category','Grade','Handler','Club','Country','Heat');
-            $this->fields = array( 'Orden','Nombre','Genero','Raza','Licencia','Categoria','Grado','NombreGuia','NombreClub','Pais','Celo');
+            $this->header   = array( 'Order','Dorsal','Name','Gender','Breed','License','Category','Grade','Handler','Club','Country','Heat','Coments');
+            $this->fields = array( 'Orden','Dorsal','Nombre','Genero','Raza','Licencia','Categoria','Grado','NombreGuia','NombreClub','Pais','Celo','Observaciones');
+        }
+        if (intval($this->myConfig->getEnv("pdf_grades"))==0) { // if not grades, remove it from output
+            array_splice($this->header,7,1);
+            array_splice($this->fields,7,1);
         }
         // Datos de la manga
         $m = new Mangas("excel_OrdenDeSalida",$jornada);
