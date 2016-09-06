@@ -41,12 +41,13 @@ function livestream_eventManager(id,evt) {
 function vwls_enableOSD(val) {
 	var title=document.title;
 	var str="-";
+	var dly=toFixedT(ac_config.vw_evtdelay,1);
 	if (val==0) {
-		str=" - OSD:OFF";
+		str=" - OSD:OFF - delay: "+dly;
 		$('#vwls_common').css('display','none');
 		$('#osd_common').css('display','none'); // osd requires special namming due to layers
 	} else {
-		str=" - OSD:ON";
+		str=" - OSD:ON - delay: "+dly;
 		$('#vwls_common').css('display','initial');
 		$('#osd_common').css('display','initial');  // osd requires special namming due to layers
 	}
@@ -77,20 +78,19 @@ function vwls_keyBindings() {
 	$(document).keydown(function(e) {
 		var dly=parseFloat(ac_config.vw_evtdelay);
 		var kcode=e.which;
+		var state = ( document.title.indexOf("OSD:ON") >= 0) ? true : false;
 		switch (parseInt(kcode)) {
 			case 38: // key up
 				dly+=0.1;
 				if (ac_config.vw_evtdelay<4.9) ac_config.vw_evtdelay=(dly>5)?5:dly;
-				console.log("evtdelay: "+ac_config.vw_evtdelay);
+				vwls_enableOSD((state) ? 1 : 0);
 				break;
 			case 40: // key down
 				dly-=0.1
 				if (ac_config.vw_evtdelay>0.1)  ac_config.vw_evtdelay=(dly<0)?0:dly;
-				console.log("evtdelay: "+ac_config.vw_evtdelay);
+				vwls_enableOSD((state) ? 1 : 0);
 				break;
 			case 32: // space
-				var div = $('#vwls_common');
-				var state = ( document.title.indexOf("OSD:ON") >= 0) ? true : false;
 				setTimeout(function () {
 					vwls_enableOSD((state) ? 0 : 1);
 				}, 0);

@@ -301,10 +301,17 @@ $poster="/agility/images/agilityawc2016.png";
             $p=$ptree['Current']->Pru;
             $j=$ptree['Current']->Jor;
             $mng=$ptree['Current']->Mng;
+            $t=$ptree['Current']->Tnd;
             foreach($ptree['Jornadas'] as $jornada) {
-                foreach ($jornada['Mangas'] as $manga) {
-                    if ($manga['Manga']==$mng) {
-                        echon('<dt>Live session now: <a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$manga['Mode'].');">'.$manga['Nombre'].'</a></dt><dd>&nbsp;</dd>');
+                foreach ($jornada['Tandas'] as $tanda) {
+                    if ( ($tanda['Manga']==$mng) && ($tanda['ID']==$t) ) {
+                        // ok. ahora hay que adivinar el mode.
+                        // como solucion de emergencia, y dado que estamos en el awfci el modo solo puede ser 0,1 o 2
+                        $mode=-1;
+                        if ($tanda['Categoria']==="L") $mode=0;
+                        if ($tanda['Categoria']==="M") $mode=1;
+                        if ($tanda['Categoria']==="S") $mode=2;
+                        echon('<dt>Live session now: <a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$mode.');">'.$tanda['Nombre'].'</a></dt><dd>&nbsp;</dd>');
                     }
                 }
             }

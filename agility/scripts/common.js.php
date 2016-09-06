@@ -54,7 +54,7 @@ function myAlert(msg) {
 
 /**
  * Replacement for toFixed, but trunk instead of round
- * @param {int} value Value to be parsed,
+ * @param {float} value Value to be parsed,
  * @param {int} numdecs Number of decimal numbers to be shown
  * no, cannot use sprintf library, as internally uses toFixed() rounding
  */
