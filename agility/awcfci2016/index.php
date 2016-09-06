@@ -206,6 +206,7 @@ $poster="/agility/images/agilityawc2016.png";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
+        console.log(<?php echo json_encode($ptree); ?>);
     </script>
 
     <style type="text/css">
@@ -270,31 +271,43 @@ $poster="/agility/images/agilityawc2016.png";
         </p>
 
     </div>
-    <table style="padding:20px;width:auto; position:absolute; bottom:0">
-        <tr>
-            <th>Powered by<br/> AgilityContest 2.3.1</th>
-            <th>Hosting courtesy of<br/> CubeNode Systems SL</th>
-        </tr>
-        <tr>
-            <td style="width:50%">
-                <a target="agilitycontest" href="http://www.agilitycontest.es">
-                    <img src="/agility/images/AgilityContest.png" style="max-width:50%">
-                </a>
-            </td>
-            <td style="width:50%">
-                <a target="cubenode" href="http://www.cubenode.com">
-                <img src="/agility/awcfci2016/cubenode.png" style="max-width:100%">
-                </a>
-            </td>
-        </tr>
-    </table>
+    <div style="font-size:0.9vw;">
+        <table style="padding:20px;width:auto; position:absolute; bottom:0">
+            <tr>
+                <th>Powered by<br/> AgilityContest 2.3.1</th>
+                <th>Hosting courtesy of<br/> CubeNode Systems SL</th>
+            </tr>
+            <tr>
+                <td style="width:50%">
+                    <a target="agilitycontest" href="http://www.agilitycontest.es">
+                        <img src="/agility/images/AgilityContest.png" style="max-width:50%">
+                    </a>
+                </td>
+                <td style="width:50%">
+                    <a target="cubenode" href="http://www.cubenode.com">
+                        <img src="/agility/awcfci2016/cubenode.png" style="max-width:100%">
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 <div id="menu_panel" data-options="region:'center'">
         <h1><?php echo /*"{$ptree['Prueba']['Nombre']} - " . */_("Online information"); ?></h1>
             <?php
             echon('<dl class="menu_enum">');
-            echon('<dt>Live session now: <a class="easyui-linkbutton" href="#">Jumping Team Large</a></dt><dd>&nbsp;</dd>');
+            // evaluamos datos de la sesion actual
+            $p=$ptree['Current']->Pru;
+            $j=$ptree['Current']->Jor;
+            $mng=$ptree['Current']->Mng;
+            foreach($ptree['Jornadas'] as $jornada) {
+                foreach ($jornada['Mangas'] as $manga) {
+                    if ($manga['Manga']==$mng) {
+                        echon('<dt>Live session now: <a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$manga['Mode'].');">'.$manga['Nombre'].'</a></dt><dd>&nbsp;</dd>');
+                    }
+                }
+            }
             foreach ($ptree['Jornadas'] as $jornada) {
                 if ($jornada['Nombre']==='-- Sin asignar --') continue;
                 if (count($jornada['Mangas'])==0) continue; // no rounds, no print

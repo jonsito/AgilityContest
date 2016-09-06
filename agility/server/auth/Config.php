@@ -61,6 +61,7 @@ define('AC_VW_ROWCOLOR2','#e0ebff');
 define('AC_VW_ROWCOLOR3','#ffffcf');
 define('AC_VW_ROWCOLOR4','#e0ebcf');
 define('AC_VW_ALPHA',0.5);
+define('AC_VW_EVTDELAY',1.0);
 define('AC_VW_CRHOMAKEY','#00ff00');
 define('AC_VW_DATAPOSITION',1); // 0:hidden 1:top/right 2:down/rignt 3:down/center
 define('AC_VW_INFOPOSITION',1); // 0:hidden 1:top/left 2:on top of dog info
@@ -200,6 +201,7 @@ Class Config {
 		'vw_tobefirst'		=> array(	'i',	false,	AC_VW_TOBEFIRST),
 		'vw_polltime'		=> array(	'i',	false,	AC_VW_POLLTIME),
 		'vw_alpha'			=> array(	'f',	false,	AC_VW_ALPHA),
+		'vw_evtdelay'		=> array(	'f',	false,	AC_VW_EVTDELAY),
 		'vw_chromakey'		=> array(	'c',	false,	AC_VW_CRHOMAKEY),
 		'vw_dataposition'	=> array(	'i',	false,	AC_VW_DATAPOSITION),
 		'vw_infoposition'	=> array(	'i',	false,	AC_VW_INFOPOSITION),

@@ -80,6 +80,19 @@ class PublicWeb
             // retrieve final results index for each series
             $jornada['Series']=Jornadas::enumerateRondasByJornada($jornada['ID'])['rows'];
         }
+        // obtenemos finalmente la sesion activa
+        $id=$this->prueba['ID'];
+        $res=$this->myDBObject->__select(
+            /* select */    "*",
+            /* from */      "Eventos",
+            /* where */     "(Type='open') AND (Data LIKE '%\"Pru\":".$id.",%')",
+            /* order by */  "ID DESC",
+            /* limit */     "",
+            /* group by */  ""
+        );
+        if ($res['total']==0) return $result;
+        $ses=$res['rows'][0]['Data']; // remember that data is json-encoded
+        $result['Current']=json_decode($ses);
         return $result;
     }
 }

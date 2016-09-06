@@ -284,7 +284,7 @@ function ls_accept() {
 	// store selected data into global structure
 	workingData.sesion=s.ID;
 	workingData.nombreSesion=s.Nombre;
-	initWorkingData(s.ID,videowall_eventManager);
+	initWorkingData(s.ID,livestream_eventManager);
 
 	var page="'/agility/console/frm_notavailable.php";
 	var title="AgilityContest LiveStream ";

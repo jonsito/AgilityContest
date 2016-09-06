@@ -231,6 +231,9 @@ $config =Config::getInstance();
 			<label for="vw_alpha"><?php _e('Transparency level for OnScreenDisplay'); ?></label>
 			<input id="vw_alpha" name="vw_alpha" type="text" size="3" value="0.5"/> (0.0-1.0)<br />
 
+			<label for="vw_evtdelay"><?php _e('Delay for LiveStream event parsing'); ?></label>
+			<input id="vw_evtdelay" name="vw_evtdelay" type="number" style="width:40px;" value="1.0" min="0" max="5" step="0.1"/> (<?php _e('sec');?>)<br />
+
 			<label for="vw_chromakey"><?php _e('Color for Chroma Keyer'); ?></label>
 			<input id="vw_chromakey" name="vw_chromakey" type="color" value="#00ff00"/><br />
 

@@ -21,6 +21,23 @@ require_once(__DIR__."/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
+/**
+ * Generic event handler for VideoWall and LiveStream screens
+ * Every screen has a 'eventHandler' table with pointer to functions to be called
+ * @param id {number} Event ID
+ * @param evt {object} Event data
+ */
+function livestream_eventManager(id,evt) {
+	var event=parseEvent(evt); // remember that event was coded in DB as an string
+	event['ID']=id; // fix real id on stored eventData
+	var time=event['Value'];
+	if (typeof(eventHandler[event['Type']])==="function") {
+		setTimeout(function() {
+			eventHandler[event['Type']](event,time);
+		}, ac_config.vw_evtdelay*1000);
+	}
+}
+
 function vwls_enableOSD(val) {
 	var title=document.title;
 	var str="-";
@@ -58,10 +75,27 @@ function vwls_showResultsInfo(val) {
 function vwls_keyBindings() {
 	// capture <space> key to switch OSD on/off
 	$(document).keydown(function(e) {
-		if (e.which != 32) return true; // not space
-		var div=$('#vwls_common');
-		var state=( document.title.indexOf("OSD:ON")>=0)?true:false;
-		setTimeout(function(){vwls_enableOSD( (state)?0:1);},0 );
+		var dly=parseFloat(ac_config.vw_evtdelay);
+		var kcode=e.which;
+		switch (parseInt(kcode)) {
+			case 38: // key up
+				dly+=0.1;
+				if (ac_config.vw_evtdelay<4.9) ac_config.vw_evtdelay=(dly>5)?5:dly;
+				console.log("evtdelay: "+ac_config.vw_evtdelay);
+				break;
+			case 40: // key down
+				dly-=0.1
+				if (ac_config.vw_evtdelay>0.1)  ac_config.vw_evtdelay=(dly<0)?0:dly;
+				console.log("evtdelay: "+ac_config.vw_evtdelay);
+				break;
+			case 32: // space
+				var div = $('#vwls_common');
+				var state = ( document.title.indexOf("OSD:ON") >= 0) ? true : false;
+				setTimeout(function () {
+					vwls_enableOSD((state) ? 0 : 1);
+				}, 0);
+				break;
+		}
 		return true; // to allow continue event chain
 	});
 }
