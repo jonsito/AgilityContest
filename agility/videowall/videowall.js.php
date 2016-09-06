@@ -544,6 +544,7 @@ function vwcf_updateLlamada(evt,data) {
 			var current=dat['current'][0];
 			$("#vwls_Numero").html(current['Orden']);
 			$("#vwls_Logo").attr('src', '/agility/images/logos/' + current['LogoClub']);
+			$("#vwls_Perro").html(current['Perro']);
 			$("#vwls_Categoria").html(current['Categoria']);
 			$("#vwls_Grado").html(current['Grado']);
 			$("#vwls_Dorsal").html(current['Dorsal']);
