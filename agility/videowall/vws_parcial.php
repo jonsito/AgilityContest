@@ -98,10 +98,7 @@ events
             vws_updateData(event);
         },
         'llamada': function (event, time) {    // llamada a pista
-            var crm=$('#cronometro');
-            vwsCounter.stop();
-            crm.Chrono('stop',time);
-            crm.Chrono('reset',time);
+            vwsCounter.stop(); // do not stop chrono, just countdown
             vw_updateWorkingData(event,function(e,d){
                 vws_updateLlamada(e,d,vws_updateParciales);
             });
@@ -179,7 +176,6 @@ events
         'crono_ready':    null, // chrono ready and listening
         'aceptar': function (event,time) { // operador pulsa aceptar
             vwsCounter.stop();
-            $('#cronometro').Chrono('stop', time);  // nos aseguramos de que los cronos esten parados
             vw_updateWorkingData(event,function(e,d){
                 /* vw_updateParciales(e,d); */ // required to be done as callback for updateLLamada()
             });

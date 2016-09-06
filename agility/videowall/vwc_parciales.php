@@ -294,10 +294,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             vwcp_evalPenalizacion();
         },
         'llamada': function (event, time) {    // llamada a pista
-            var crm=$('#cronometro');
-            myCounter.stop();
-            crm.Chrono('stop',time);
-            crm.Chrono('reset',time);
+            myCounter.stop(); // do not stop chrono, just clear countdown ( to allow team contests)
             vw_updateWorkingData(event,function(e,d){
                 vwcp_updateLlamada(e,d);
             });
@@ -378,7 +375,6 @@ Pantalla de de visualizacion combinada llamada/parciales
         'crono_ready':    null, // chrono ready and listening
         'aceptar': function (event,time) { // operador pulsa aceptar
             myCounter.stop();
-            $('#cronometro').Chrono('stop', time);  // nos aseguramos de que los cronos esten parados
             vw_updateWorkingData(event,function(e,d){
                 updateParciales(d.Ronda.Mode,d);
             });

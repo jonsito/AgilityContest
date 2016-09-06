@@ -244,14 +244,15 @@ var eventHandler= {
 	},
 	'llamada': function(event,time) {    // llamada a pista
 		ac_config.dogInRing=true;
+		// do not stop nor reset chrono in 'aceptar' or 'llamada'. Just stop countdown
 		var crm=$('#cronometro');
 		myCounter.stop();
-		crm.Chrono('stop',time);
-		crm.Chrono('reset',time);
+		// crm.Chrono('stop',time);
+		// crm.Chrono('reset',time);
 		vwls_enableOSD(1); 	// activa visualizacion de OSD
 		vwls_showRoundInfo(1); // activa visualizacion de datos de la manga
 		vwls_showCompetitorInfo(1); // activa visualizacion de datos del competidor
-		vwls_showResultsInfo(0); // desactiva visualizacion de resultados
+		vwls_showResultsInfo(crm.Chrono('started')); // desactiva visualizacion de resultados si crono parado
 		vwls_showData(event);
 	},
 	'salida': function(event,time){     // orden de salida
@@ -330,8 +331,7 @@ var eventHandler= {
 	'crono_error':  null, // fallo en los sensores de paso
 	'crono_ready':  null, // estado del crono
 	'aceptar':	function(event,time){ // operador pulsa aceptar
-		myCounter.stop();
-		$('#cronometro').Chrono('stop',time);  // nos aseguramos de que los cronos esten parados
+		myCounter.stop(); // not really needed, but...
 	},
 	'cancelar': function(event,time){  // operador pulsa cancelar
 		ac_config.dogInRing=false;
