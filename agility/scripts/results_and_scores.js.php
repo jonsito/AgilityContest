@@ -425,6 +425,11 @@ function vwcf_configureScreenLayout() {
     var team=isJornadaEquipos(null);
     var intl=isInternational(null);
 
+    // on intl move country to right of country flag
+    if (intl) {
+        resdg.datagrid('moveField',{idxHead:1,idxFrom:'NombreClub', idxTo:'Dorsal'});
+        lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
+    }
     // individual or team view
     $("#finales_individual-table").css("display",(team)?'none':'inherit');
     $("#finales_last_individual-table").css("display",(team)?'none':'inherit');
@@ -474,6 +479,11 @@ function vwcp_configureScreenLayout() {
     var team=isJornadaEquipos(null);
     var intl=isInternational(null);
 
+    // on intl move country to right of country flag
+    if (intl) {
+        resdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
+        lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
+    }
     // individual or team view
     $("#parciales_individual-table").css("display",(team)?'none':'inherit');
     $("#parciales_last_individual-table").css("display",(team)?'none':'inherit');
@@ -481,7 +491,6 @@ function vwcp_configureScreenLayout() {
     $("#parciales_last_equipos-table").css("display",(team)?'inherit':'none');
     calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
     calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
-
     // show hide license according national or international
     resdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
     lastdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');

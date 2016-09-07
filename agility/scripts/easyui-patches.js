@@ -91,6 +91,36 @@ $.extend($.fn.datagrid.methods, {
             var fld = $('td[field='+data.field+']',panel);
             if(fld.length) $('span', fld).eq(0).html(data.title);
         });
+    },
+    moveField: function(jq,data){
+        return jq.each(function(){
+            var columns = $(this).datagrid('options').columns;
+            var cc = columns[data.idxHead];
+            var c = _remove(data.idxFrom);
+            if (c){
+                _insert(data.idxTo,c);
+            }
+            function _remove(field){
+                for(var i=0; i<cc.length; i++){
+                    if (cc[i].field == field){
+                        var c = cc[i];
+                        cc.splice(i,1);
+                        return c;
+                    }
+                }
+                return null;
+            }
+            function _insert(field,c){
+                var newcc = [];
+                for(var i=0; i<cc.length; i++){
+                    if (cc[i].field == field){
+                        newcc.push(c);
+                    }
+                    newcc.push(cc[i]);
+                }
+                columns[data.idxHead] = newcc;
+            }
+        });
     }
 });
 
