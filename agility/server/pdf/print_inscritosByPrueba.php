@@ -760,8 +760,9 @@ class PrintInscritosByJornada extends PrintCommon {
 
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos =	array(  11,       36,     21,    42,   31,     8,       8,     10,       23 );
-	protected $align=	array(  'R',      'C',    'C',   'R',  'R',    'C',    'C',    'C',      'L');
+                            // Dorsal    name   license breed    handler Club   cat      grad    heat    comments
+	protected $pos =	array(  7,       35,     20,     25,       38,    25,     8,       8,     9,       15 );
+	protected $align=	array(  'R',     'C',    'C',    'R',     'R',    'R',    'C',    'C',    'C',      'L');
 
 	/**
 	 * Constructor
@@ -780,7 +781,7 @@ class PrintInscritosByJornada extends PrintCommon {
         $this->jornadas=$jornadas['rows'];
 		$this->setPageName("inscritosByJornada.pdf");
 		$this->cellHeader=
-			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,_('Cat'),_('Grado'),_('Heat'),_('Comments'));
+			array(_('Dorsal'),_('Name'),_('Lic'),_('Breed'), _('Handler'),$this->strClub,_('Cat'),_('Grado'),_('Heat'),_('Comments'));
         $this->JName="";
         foreach ($jornadas['rows'] as $j) {
             if ($j['ID'] == $jornadaid) {
@@ -788,14 +789,14 @@ class PrintInscritosByJornada extends PrintCommon {
                 $this->JName = "J{$j['Numero']}";
 				// remove "Grade" from cell array if jornada is open/team/KO
 				if( !Jornadas::hasGrades($j) || (intval($this->config->getEnv("pdf_grades"))==0) ) {
-				    $this->cellHeader[5]=_('Category');
-					$this->pos[5]+=$this->pos[6]; // increase category size
-					$this->pos[6]=0;  // to fit grade
+				    $this->cellHeader[6]=_('Category');
+					$this->pos[6]+=$this->pos[7]; // increase category size
+					$this->pos[7]=0;  // to fit grade
 				}
 				// remove "License" in international contests
 				if($this->federation->isInternational()) {
 					$this->pos[1]+=$this->pos[2]; // increase name size
-					$this->pos[2]=0;  // to fit license
+					$this->pos[2]=0;  // and remove license
 				}
                 break;
             }
@@ -850,7 +851,7 @@ class PrintInscritosByJornada extends PrintCommon {
 
 		// si estamos en caza ajustamos para que quepa la licencia
 		if ($this->federation->get('WideLicense')) {
-			$this->pos[2]+=15; $this->pos[3]-=8; $this->pos[4]-=7;
+			$this->pos[2]+=15; $this->pos[4]-=8; $this->pos[5]-=7;
 		}
 		// Datos
 		$fill = false;
@@ -869,6 +870,7 @@ class PrintInscritosByJornada extends PrintCommon {
 			// $this->Cell($this->pos[0],7,$row['IDPerro'],	'LR',0,$this->align[0],$fill);
 			// $this->Cell($this->pos[0],7,$rowcount+1,		'LR',	0,		$this->align[0],$fill); // display order instead of idperro
 
+            $this->SetFont($this->getFontName(),'',8); // normal 8px
 			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
 			$this->SetFont($this->getFontName(),'B',9); // bold 9px
 			if ($this->federation->isInternational()) {
@@ -881,18 +883,19 @@ class PrintInscritosByJornada extends PrintCommon {
 				$this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
 			}
 			$this->SetFont($this->getFontName(),'',8); // normal 8px
-			$this->Cell($this->pos[3],5,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
-			$this->Cell($this->pos[4],5,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
-			if ($this->pos[6]==0) { // journey has no grades
+            $this->Cell($this->pos[3],5,$row['Raza'],	    'LR',	0,		$this->align[3],	$fill);
+            $this->Cell($this->pos[4],5,$row['NombreGuia'],	'LR',	0,		$this->align[4],	$fill);
+			$this->Cell($this->pos[5],5,$row['NombreClub'],	'LR',	0,		$this->align[5],	$fill);
+			if ($this->pos[7]==0) { // journey has no grades
 				// $catstr=$row['Categoria'];
 				$catstr=$this->federation->getCategory($row['Categoria']);
-				$this->Cell($this->pos[5],5,$catstr,	'LR',	0,		$this->align[5],	$fill);
+				$this->Cell($this->pos[6],5,$catstr,	'LR',	0,		$this->align[6],	$fill);
 			} else {
-				$this->Cell($this->pos[5],5,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
-				$this->Cell($this->pos[6],5,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
+				$this->Cell($this->pos[6],5,$row['Categoria'],	'LR',	0,		$this->align[6],	$fill);
+				$this->Cell($this->pos[7],5,$row['Grado'],		'LR',	0,		$this->align[7],	$fill);
 			}
-			$this->Cell($this->pos[7],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[7],	$fill);
-			$this->Cell($this->pos[8],5,$row['Observaciones'],'LR',	0,		$this->align[8],	$fill);
+			$this->Cell($this->pos[8],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[8],	$fill);
+			$this->Cell($this->pos[9],5,$row['Observaciones'],'LR',	0,		$this->align[9],	$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;
