@@ -594,9 +594,10 @@ class PrintInscritos extends PrintCommon {
 	// geometria de las celdas
 	protected $cellHeader;
     protected $pos =
-        array(  11,       25,   16,    36,     26,     9,     8,     9,       7,     6,  6,  6,  6,  6,  6,  6,  6 );
+			// dorsal   name   license  Breed  handler  club  cat    grade  heat   comments  J1  J2  J3  J4  J5  J6  J7  J8
+        array(  7,       25,   16,     14,     34,     24,     9,     8,     9,       1,     6,  6,  6,  6,  6,  6,  6,  6 );
     protected $align=
-        array(  'R',      'L',  'C',   'R',   'R',    'C',    'L',   'C',    'L',    'C','C','C','C','C','C','C','C');
+        array(  'R',     'L',  'C',   'R',    'R',    'R',    'C',    'L',   'C',    'L',    'C','C','C','C','C','C','C','C');
 	
 	/**
 	 * Constructor
@@ -614,17 +615,19 @@ class PrintInscritos extends PrintCommon {
 		$this->jornadas=$jornadas['rows'];
 		$this->setPageName("inscritosByPrueba.pdf");
         $this->cellHeader=
-            array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,_('Cat'),_('Grado'),_('Heat'),_('Comments'),_('Sab.'),_('Dom.'));
+            array(_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Handler'),$this->strClub,_('Cat'),_('Grado'),_('Heat'),_('Comments'));
         // on request to dont print grades re-evaluate sizes and text
         $grad=intval($this->config->getEnv('pdf_grades'));
-        if ($grad==0) {
-            $this->cellHeader[5]=_('Category');
-            $this->pos[5]+=$this->pos[6];
-            $this->pos[6]=0;
+        if ($grad==0) { // remove grade column
+            $this->cellHeader[6]=_('Category');
+            $this->pos[6]+=$this->pos[7];
+            $this->pos[7]=0;
         }
-        if ($this->federation->isInternational()) {
+        if ($this->federation->isInternational()) { // remove license column
             $this->pos[1]+=$this->pos[2];
             $this->pos[2]=0;
+			$this->pos[3]+=$this->pos[8];
+			$this->pos[8]=0;
         }
 	}
 	
@@ -670,17 +673,17 @@ class PrintInscritos extends PrintCommon {
 		// contamos las jornadas sin asignar	
 		foreach($this->jornadas as $row => $jornada) {
 			if ($jornada['Nombre']==='-- Sin asignar --') {
-				$this->pos[8]+=6;
-				$this->pos[9+$row]=0;
+				$this->pos[9]+=6;
+				$this->pos[10+$row]=0;
 				continue;
 			} else {
-				$this->cellHeader[9+$row]=$jornada['Nombre'];
+				$this->cellHeader[10+$row]=$jornada['Nombre'];
 			}
 		}
 		if (!$this->federation->isInternational()) {
             // si estamos en caza ajustamos para que quepa la licencia
             if ($this->federation->get('WideLicense')) {
-                $this->pos[0]-=1; $this->pos[1]-=2; $this->pos[2]+=20; $this->pos[3]-=5; $this->pos[4]-=5; $this->pos[8]-=7;
+                $this->pos[0]-=1; $this->pos[1]-=2; $this->pos[2]+=20; $this->pos[3]-=5; $this->pos[5]-=5; $this->pos[9]-=7;
             }
         }
 		// Datos
@@ -697,7 +700,8 @@ class PrintInscritos extends PrintCommon {
 			// $this->Cell($this->pos[0],7,$row['IDPerro'],	'LR',0,$this->align[0],$fill);
 			// $this->Cell($this->pos[0],7,$rowcount+1,		'LR',	0,		$this->align[0],$fill); // display order instead of idperro
 
-			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
+			$this->SetFont($this->getFontName(),'B',7); // bold 7px
+			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',	0,		$this->align[0],	$fill);
 			$this->SetFont($this->getFontName(),'B',8); // bold 8px
             if ($this->federation->isInternational()) {
                 $n=$row['Nombre']." - ".$row['NombreLargo'];
@@ -708,33 +712,35 @@ class PrintInscritos extends PrintCommon {
                 else $this->SetFont($this->getFontName(),'',8); // normal 8px
                 $this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
             }
-            $this->SetFont($this->getFontName(),'',8); // normal 8px
-			$this->Cell($this->pos[3],5,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
-			$this->Cell($this->pos[4],5,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
+            $this->SetFont($this->getFontName(),'',7); // normal 7px
+			$this->Cell($this->pos[3],5,$row['Raza'],		'LR',	0,		$this->align[3],	$fill);
+			$this->Cell($this->pos[4],5,$row['NombreGuia'],	'LR',	0,		$this->align[4],	$fill);
+			$this->Cell($this->pos[5],5,$row['NombreClub'],	'LR',	0,		$this->align[5],	$fill);
             if (intval($this->config->getEnv("pdf_grades"))!=0) {
-                $this->Cell($this->pos[5],5,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
-                $this->Cell($this->pos[6],5,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
+                $this->Cell($this->pos[6],5,$row['Categoria'],	'LR',	0,		$this->align[6],	$fill);
+                $this->Cell($this->pos[7],5,$row['Grado'],		'LR',	0,		$this->align[7],	$fill);
             } else {
-                $this->Cell($this->pos[5]+$this->pos[6],5,$this->getCatString($row['Categoria']),	'LR',	0,		$this->align[5],	$fill);
+                $this->Cell($this->pos[6]+$this->pos[7],5,$this->getCatString($row['Categoria']),'LR',0,$this->align[6],$fill);
             }
-			$this->Cell($this->pos[7],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[7],	$fill);
-			$this->Cell($this->pos[8],5,$row['Observaciones'],'LR',	0,		$this->align[8],	$fill);
-			if ($this->pos[9]!=0)
-				$this->Cell($this->pos[9],5,($row['J1']==0)?"":"X",	'LR',0,		$this->align[9],	$fill);
+            if ($this->pos[8]!=0) // special handling of heat for intl contests
+				$this->Cell($this->pos[8],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[8],	$fill);
+			$this->Cell($this->pos[9],5,$row['Observaciones'],'LR',	0,			$this->align[9],	$fill);
 			if ($this->pos[10]!=0)
-				$this->Cell($this->pos[10],5,($row['J2']==0)?"":"X",'LR',0,		$this->align[10],	$fill);
+				$this->Cell($this->pos[10],5,($row['J1']==0)?"":"X",'LR',0,		$this->align[10],	$fill);
 			if ($this->pos[11]!=0)
-				$this->Cell($this->pos[11],5,($row['J3']==0)?"":"X",'LR',0,		$this->align[11],	$fill);
+				$this->Cell($this->pos[11],5,($row['J2']==0)?"":"X",'LR',0,		$this->align[11],	$fill);
 			if ($this->pos[12]!=0)
-				$this->Cell($this->pos[12],5,($row['J4']==0)?"":"X",'LR',0,		$this->align[12],	$fill);
+				$this->Cell($this->pos[12],5,($row['J3']==0)?"":"X",'LR',0,		$this->align[12],	$fill);
 			if ($this->pos[13]!=0)
-				$this->Cell($this->pos[13],5,($row['J5']==0)?"":"X",'LR',0,		$this->align[13],	$fill);
+				$this->Cell($this->pos[13],5,($row['J4']==0)?"":"X",'LR',0,		$this->align[13],	$fill);
 			if ($this->pos[14]!=0)
-				$this->Cell($this->pos[14],5,($row['J6']==0)?"":"X",'LR',0,		$this->align[14],	$fill);
+				$this->Cell($this->pos[14],5,($row['J5']==0)?"":"X",'LR',0,		$this->align[14],	$fill);
 			if ($this->pos[15]!=0)
-				$this->Cell($this->pos[15],5,($row['J7']==0)?"":"X",'LR',0,		$this->align[15],	$fill);
+				$this->Cell($this->pos[15],5,($row['J6']==0)?"":"X",'LR',0,		$this->align[15],	$fill);
 			if ($this->pos[16]!=0)
-				$this->Cell($this->pos[16],5,($row['J8']==0)?"":"X",'LR',0,		$this->align[16],	$fill);
+				$this->Cell($this->pos[16],5,($row['J7']==0)?"":"X",'LR',0,		$this->align[16],	$fill);
+			if ($this->pos[17]!=0)
+				$this->Cell($this->pos[17],5,($row['J8']==0)?"":"X",'LR',0,		$this->align[17],	$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;

@@ -248,7 +248,7 @@ INSERT INTO Clubes(ID,Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Co
 (248,'Ukraine','','','','-- Sin asignar --','UA','','','','','','','','','','../../server/i18n/UA.png',1,'',0),
 (249,'Union of Soviet Socialist Republics','','','','-- Sin asignar --','SU','','','','','','','','','','../../server/i18n/SU.png',1,'',0),
 (250,'United Arab Emirates','','','','-- Sin asignar --','AE','','','','','','','','','','../../server/i18n/AE.png',1,'',0),
-(251,'United Kingdom','','','','-- Sin asignar --','GB','','','','','','','','','','../../server/i18n/GB.png',1,'',0),
+(251,'Great Britain','','','','-- Sin asignar --','GB','','','','','','','','','','../../server/i18n/GB.png',1,'',0),
 (252,'United States','','','','-- Sin asignar --','US','','','','','','','','','','../../server/i18n/US.png',1,'',0),
 (253,'Unknown or Invalid Region','','','','-- Sin asignar --','ZZ','','','','','','','','','','../../server/i18n/ZZ.png',1,'',0),
 (254,'Uruguay','','','','-- Sin asignar --','UY','','','','','','','','','','../../server/i18n/UY.png',1,'',0),
