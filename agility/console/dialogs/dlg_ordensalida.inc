@@ -173,8 +173,8 @@ $('#ordensalida-datagrid').datagrid({
     onBeforeLoad: function(param) { return (workingData.manga > 0); }, // do not load if no manga selected
     onLoadSuccess: function(data) {
 		// show/hide 'NombreEquipo' based of manga type
-		if (isTeam(workingData.datosManga.Tipo) ) $('#ordensalida-datagrid').datagrid('showColumn','NombreEquipo');
-		else  $('#ordensalida-datagrid').datagrid('hideColumn','NombreEquipo');
+		if (isTeam(workingData.datosManga.Tipo) ) $(this).datagrid('showColumn','NombreEquipo');
+		else  $(this).datagrid('hideColumn','NombreEquipo');
         // get focus on datagrid (to bind keystrokes) and enable drag and drop
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();

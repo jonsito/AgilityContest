@@ -44,9 +44,8 @@ class OrdenDeSalida extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader;
-    //                       orden    dorsal  nombre licencia raza Genero     guia club   celo   observaciones
-	protected $pos	=array(  12,      10,     25,     15,     22,     10,      40,   25,     10,    16);
-	protected $align=array(  'R',    'R',    'C',    'C',     'R',   'C',      'R',  'R',    'C',   'R');
+    protected $pos;
+    protected $align;
 	
 	/**
 	 * Constructor
@@ -69,8 +68,12 @@ class OrdenDeSalida extends PrintCommon {
 		$os= $o->getData();
 		$this->orden=$os['rows'];
 		$this->categoria="L";
-		$this->cellHeader = 
-				array(_('Order'),_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Gender'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
+         $this->cellHeader =
+         //                0            1       2         3        4           5           6           7              8          9
+                array(_('Order'),_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Gender'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
+        //                  orden    dorsal  nombre    licencia raza Genero     guia club   celo   observaciones
+        $this->pos	=array(  12,      10,     25,        15,      22,    10,      40,   25,     10,    16);
+        $this->align=array(  'R',    'R',    'C',        'C',     'R',   'C',     'R',  'R',    'C',   'R');
         // obtenemos los datos de equipos de la jornada indexados por el ID del equipo
 		$eq=new Equipos("print_ordenDeSalida",$prueba,$jornada);
         $this->teams=array();
@@ -98,13 +101,25 @@ class OrdenDeSalida extends PrintCommon {
 	
 	function writeTableHeader() {
 		// $this->myLogger->enter();
+
 		// Colores, ancho de línea y fuente en negrita de la cabecera de tabla
 		$this->ac_header(1,9);
-		for($i=0;$i<count($this->cellHeader);$i++) {
-			// en la cabecera texto siempre centrado
-            if ($this->pos[$i]==0) continue; // on wideLicense suppress license info
-			$this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
-		}
+
+        $this->Cell($this->pos[0],7,$this->cellHeader[0],1,0,'C',true); // orden
+        if ($this->federation->isInternational())
+            $this->Cell($this->pos[7],7,$this->cellHeader[7],1,0,'C',true); // pais
+        $this->Cell($this->pos[1],7,$this->cellHeader[1],1,0,'C',true); // dorsal
+        $this->Cell($this->pos[2],7,$this->cellHeader[2],1,0,'C',true); // nombre
+        if ($this->pos[3]!=0)
+            $this->Cell($this->pos[3],7,$this->cellHeader[3],1,0,'C',true); // licencia
+        $this->Cell($this->pos[4],7,$this->cellHeader[4],1,0,'C',true); // raza
+        $this->Cell($this->pos[5],7,$this->cellHeader[5],1,0,'C',true); // genero
+        $this->Cell($this->pos[6],7,$this->cellHeader[6],1,0,'C',true); // nombreguia
+        if (! $this->federation->isInternational())
+            $this->Cell($this->pos[7],7,$this->cellHeader[7],1,0,'C',true); // nombreclub
+        $this->Cell($this->pos[8],7,$this->cellHeader[8],1,0,'C',true); // celo
+        $this->Cell($this->pos[9],7,$this->cellHeader[9],1,0,'C',true); // observaciones
+
 		// Restauración de colores y fuentes
 		$this->ac_row(2,9);
 		$this->Ln();
@@ -168,6 +183,9 @@ class OrdenDeSalida extends PrintCommon {
 			$this->SetFont($this->getFontName(),'B',11); // bold 9px
 			$this->Cell($this->pos[0],6,($order+1)." - ",'LR',0,$this->align[0],true); // display order
 			$this->SetFont($this->getFontName(),'',9); // remove bold 9px
+            if ($this->federation->isInternational()) {
+                $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
+            }
 			$this->Cell($this->pos[1],6,$row['Dorsal'],		'LR',0,$this->align[1],true);
             // not enought space for long name in international contests
             $this->SetFont($this->getFontName(),'B',11); // bold 9px
@@ -177,7 +195,9 @@ class OrdenDeSalida extends PrintCommon {
             $this->Cell($this->pos[4],6,$row['Raza'],		'LR',0,$this->align[4],true);
             $this->Cell($this->pos[5],6,$row['Genero'],		'LR',0,$this->align[5],true);
 			$this->Cell($this->pos[6],6,$row['NombreGuia'],	'LR',0,$this->align[6],true);
-			$this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
+            if (! $this->federation->isInternational()) {
+                $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
+            }
 			$this->Cell($this->pos[8],6,($row['Celo']==0)?"":_("Heat"),	'LR',0,$this->align[8],true);
 			$this->Cell($this->pos[9],6,$row['Observaciones'],'LR',0,$this->align[9],true);
 			$this->Ln();
