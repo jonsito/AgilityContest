@@ -27,7 +27,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <a id="vw_footer-urlFederation2" target="fed2" href="">
             <img id="vw_footer-logoFederation2" src="/agility/images/logos/agilitycontest.png" alt="" width="40"/>
         </a>
-        <span style="display:inline-block;padding:12px;font-size:10px;font-style:oblique">
+        <span style="display:inline-block;padding:12px;font-size:0.6vw;font-style:oblique">
             AgilityContest-<?php echo $config->getEnv('version_name'); ?> <br/>&copy; 2013-2016 JAMC
         </span>
     </span>

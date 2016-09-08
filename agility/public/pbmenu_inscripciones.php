@@ -113,13 +113,17 @@ $('#pb_inscripciones-datagrid').datagrid({
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:pbRowStyler,
-    onLoadSuccess: function(data) {
+    onBeforeLoad: function(data){
         var done=$(this).datagrid('options').configured;
         if (!done) {
-            inscripciones_configureScreenLayout( $(this) );
+            inscripciones_configureScreenLayout( $(this));
             $(this).datagrid('options').configured=true;
         }
+        return true;
+    },
+    onLoadSuccess: function(data) {
         $(this).datagrid('autoSizeColumn','Nombre');
+        $(this).datagrid('fitcolumns');
     }
 });
 

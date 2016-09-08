@@ -373,8 +373,8 @@ function formatVwTeamClasificaciones(value,rows) { return formatTeamClasificacio
 function resetDatagrid(dg,data) {
     if (typeof(data)==="undefined") data={"total":0,"rows":[]};
     var opts=dg.datagrid('options');
-    dg.datagrid(opts);
     setTimeout(function(){
+        dg.datagrid(opts);
         dg.datagrid('loadData', data);
         dg.datagrid('fitColumns');
     },0);
@@ -409,18 +409,6 @@ function vwcf_configureScreenLayout() {
     resdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
     lastdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
     $('#finales_individual_teaminfo').parents('td').attr('colspan',(intl)?6:7);
-    /*
-     * this is commented cause fitcolumns seems not to work well when fit=false
-     resdg.datagrid((intl)?'hideColumn':'showColumn','C1');
-     lastdg.datagrid((intl)?'hideColumn':'showColumn','C1');
-     $('#finales_individual_roundname_m1').parents('td').attr('colspan',(intl)?6:7);
-     resdg.datagrid((intl)?'hideColumn':'showColumn','C2');
-     lastdg.datagrid((intl)?'hideColumn':'showColumn','C2');
-     $('#finales_individual_roundname_m2').parents('td').attr('colspan',(intl)?6:7);
-     resdg.datagrid((intl)?'hideColumn':'showColumn','Calificacion');
-     lastdg.datagrid((intl)?'hideColumn':'showColumn','Calificacion');
-     $('#finales_individual_finalscores').parents('td').attr('colspan',(intl)?3:4);
-     */
     $('#finales_individual-Club').html(clubOrCountry());
     $('#finales_last_individual-Club').html(clubOrCountry());
     // $('#finales_equipos-Club').html(clubOrCountry()); // doesn't exist :-)
@@ -431,12 +419,6 @@ function vwcf_configureScreenLayout() {
     resetDatagrid(lastdg);
     resetDatagrid(restdg);
     resetDatagrid(lasttdg);
-    /*
-     resdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-     lastdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-     restdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-     lasttdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-     */
     calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
 }
 
@@ -480,12 +462,6 @@ function vwcp_configureScreenLayout() {
     resetDatagrid(lastdg);
     resetDatagrid(restdg);
     resetDatagrid(lasttdg);
-    /*
-     resdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-     lastdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-     restdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-     lasttdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-     */
     calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
 }
 
@@ -493,7 +469,7 @@ function ordenSalida_configureScreenLayout(dg) {
     // On Team journeys, show team name instead of club, and viceversa
     if (isJornadaEquipos(null) ) {
         dg.datagrid('showColumn','NombreEquipo');
-        mySelf.datagrid('hideColumn','NombreClub');
+        dg.datagrid('hideColumn','NombreClub');
     } else  {
         dg.datagrid('hideColumn','NombreEquipo');
         dg.datagrid('showColumn','NombreClub');
@@ -514,6 +490,8 @@ function inscripciones_configureScreenLayout(dg) {
         dg.datagrid('hideColumn','Licencia');
         dg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
     }
-    resetDatagrid(dg);
+    // do not call reset, to avoid load infinite loop
+    var opts=dg.datagrid('options');
+    setTimeout(function(){dg.datagrid(opts)},0);
 }
 
