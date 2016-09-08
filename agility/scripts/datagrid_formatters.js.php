@@ -244,7 +244,7 @@ function formatLogo(val,row,idx) {
     // TODO: no idea why idx:0 has no logo declared
     if (typeof(val)==='undefined') val="empty.png";
     var fed=workingData.federation;
-    return '<img src="/agility/images/logos/getLogo.php?Fed='+fed+'&Logo='+val+'" width="30" height="30" alt="'+val+'"/>\n';
+    return'<img src="/agility/images/logos/getLogo.php?Fed='+fed+'&Logo='+val+'" width="30" height="30" alt="'+val+'"/>\n';
 }
 
 /**
