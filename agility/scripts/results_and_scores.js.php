@@ -413,6 +413,14 @@ function updateFinales(perro,ronda,callback) {
     });
 }
 
+// repaint datagrid saving options, and load with empty data
+function resetDatagrid(dg) {
+    var opts=dg.datagrid('options');
+    dg.datagrid(options);
+    dg.datagrid('loadData', {"total":0,"rows":[]}):
+    dg.datagrid('fitColumns');
+}
+
 // called on init or open
 // select individual or team view
 // show/hide columns according (inter)national federation type
@@ -454,11 +462,17 @@ function vwcf_configureScreenLayout() {
     // $('#finales_equipos-Club').html(clubOrCountry()); // doesn't exist :-)
     $('#finales_last_equipos-Club').html(clubOrCountry());
 
-    // load empty data and expand to max width
+    // reload datagrid with new options and fill with empty data and expand to max width
+    resetDatagrid(resdg);
+    resetDatagrid(lastdg);
+    resetDatagrid(restdg);
+    resetDatagrid(lasttdg);
+    /*
     resdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
     lastdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
     restdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
     lasttdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+    */
     calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
 }
 
@@ -493,10 +507,16 @@ function vwcp_configureScreenLayout() {
     // $('#finales_equipos-Club').html(clubOrCountry()); // doesn't exist :-)
     $('#parciales_last_equipos-Club').html(clubOrCountry());
 
-    // load empty data and expand to max width
-    resdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-    lastdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-    restdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
-    lasttdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+    // reload datagrid with new options and fill with empty data and expand to max width
+    resetDatagrid(resdg);
+    resetDatagrid(lastdg);
+    resetDatagrid(restdg);
+    resetDatagrid(lasttdg);
+    /*
+     resdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+     lastdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+     restdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+     lasttdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
+     */
     calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
 }
