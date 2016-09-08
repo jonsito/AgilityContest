@@ -414,14 +414,18 @@ function updateFinales(perro,ronda,callback) {
 }
 
 // repaint datagrid saving options, and load with empty data
-function resetDatagrid(dg) {
+// WARNING !! DO NOT USE AS RESULT OF "OnLoadSuccess" (infinite loop)
+function resetDatagrid(dg,data) {
+    if (typeof(data)==="undefined") data={"total":0,"rows":[]};
     var opts=dg.datagrid('options');
-    dg.datagrid(options);
-    dg.datagrid('loadData', {"total":0,"rows":[]}):
-    dg.datagrid('fitColumns');
+    dg.datagrid(opts);
+    setTimeout(function(){
+        dg.datagrid('loadData', data);
+        dg.datagrid('fitColumns');
+    },0);
 }
 
-// called on init or open
+// called on init or openS
 // select individual or team view
 // show/hide columns according (inter)national federation type
 function vwcf_configureScreenLayout() {
@@ -434,7 +438,7 @@ function vwcf_configureScreenLayout() {
     var intl=isInternational(null);
 
     // on intl move country to right of country flag
-    if (intl) {
+    if (intl && !team) {
         resdg.datagrid('moveField',{idxHead:1,idxFrom:'NombreClub', idxTo:'Dorsal'});
         lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
     }
@@ -494,7 +498,7 @@ function vwcp_configureScreenLayout() {
     var intl=isInternational(null);
 
     // on intl move country to right of country flag
-    if (intl) {
+    if (intl && !team) {
         resdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
         lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
     }
@@ -528,4 +532,32 @@ function vwcp_configureScreenLayout() {
      lasttdg.datagrid('loadData', {"total":0,"rows":[]}).datagrid('fitColumns');
      */
     calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
+}
+
+function ordenSalida_configureScreenLayout(dg) {
+    // On Team journeys, show team name instead of club, and viceversa
+    if (isJornadaEquipos(null) ) {
+        dg.datagrid('showColumn','NombreEquipo');
+        mySelf.datagrid('hideColumn','NombreClub');
+    } else  {
+        dg.datagrid('hideColumn','NombreEquipo');
+        dg.datagrid('showColumn','NombreClub');
+    }
+    // on international contests hide license, and enlarge name to allow pedigree name
+    if (isInternational(workingData.federation)) {
+        dg.datagrid('setFieldTitle',{'field':'NombreClub','title':'<?php _e("Country");?>'});
+        dg.datagrid('hideColumn','Licencia');
+        dg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
+    }
+    resetDatagrid(dg);
+}
+
+function inscripciones_configureScreenLayout(dg) {
+    // on international contests hide license, and enlarge name to allow pedigree name
+    if (isInternational(workingData.federation)) {
+        dg.datagrid('setFieldTitle',{'field':'NombreClub','title':'<?php _e("Country");?>'});
+        dg.datagrid('hideColumn','Licencia');
+        dg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
+    }
+    resetDatagrid(dg);
 }

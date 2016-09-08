@@ -74,6 +74,7 @@ $('#pb_inscripciones-window').window({
 });
 
 $('#pb_inscripciones-datagrid').datagrid({
+    configured: false, // added by me
     width: '100%',
     height: '100%',
     pagination: false,
@@ -97,8 +98,8 @@ $('#pb_inscripciones-datagrid').datagrid({
         { field:'Club',		hidden:true }, // Club ID
         { field:'LOE_RRC',	hidden:true }, // LOE/RRC
         { field:'Club',		hidden:true }, // Club ID
-        { field:'Dorsal',	    width:'5%',   sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
         { field:'LogoClub',	    width:'5%',    sortable:false, align: 'center',	title: '',formatter:formatLogo },
+        { field:'Dorsal',	    width:'5%',   sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
         { field:'Nombre',	    width:'15%',   sortable:false, align: 'left',	title: '<?php _e('Name'); ?>',formatter:formatDogName },
         { field:'Licencia',	    width:'9%',   sortable:false, align: 'center', title: '<?php _e('Lic');    ?>' },
         { field:'Raza',         width:'11%',   sortable:false, align: 'right',  title: '<?php _e('Breed');   ?>' },
@@ -113,12 +114,12 @@ $('#pb_inscripciones-datagrid').datagrid({
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:pbRowStyler,
     onLoadSuccess: function() {
-        // on international contests hide license, and enlarge name to allow pedigree name
-        if (isInternational(workingData.federation)) {
-            $(this).datagrid('hideColumn','Licencia');
-            $(this).datagrid('autoSizeColumn','Nombre');
+        var done=$(this).datagrid('options').configured;
+        if (!done) {
+            inscripciones_configureScreenLayout( $(this) );
+            $(this).datagrid('options').configured=true;
         }
-        $(this).datagrid('fitColumns'); // expand to max width
+        $(this).datagrid('autoSizeColumn','Nombre');
     }
 });
 

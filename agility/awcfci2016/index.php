@@ -206,7 +206,6 @@ $poster="/agility/images/agilityawc2016.png";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
-        console.log(<?php echo json_encode($ptree); ?>);
     </script>
 
     <style type="text/css">

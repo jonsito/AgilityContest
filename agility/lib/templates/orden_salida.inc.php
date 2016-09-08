@@ -40,19 +40,18 @@ $config =Config::getInstance();
 <script type="text/javascript">
 
     $('#ordensalida-datagrid').datagrid({
+        configured: false, // added by me
         nowrap: false,
         fit: false,
         height: 'auto',
         method: 'get',
         url: '/agility/server/database/tandasFunctions.php',
-        /*
-        queryParams: {
+        queryParams: { // to be overriden. just to avoid call error
             Operation: 'getDataByTanda',
-            Prueba: workingData.prueba,
-            Jornada: workingData.jornada,
-            Sesion: workingData.sesion // used only at startup. then use TandaID
+            Prueba: 1,
+            Jornada: 1,
+            Sesion: 1 // used only at startup. then use TandaID
         },
-        */
         loadMsg: "<?php _e('Updating starting order');?> ...",
         pagination: false,
         rownumbers: false,
@@ -61,24 +60,13 @@ $config =Config::getInstance();
         autoRowHeight: true,
         // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
         rowStyler:myRowStyler,
-        onLoadSuccess:function(){
-            var mySelf=$('#ordensalida-datagrid');
-            // On Team journeys, show team name instead of club, and viceversa
-            if (isJornadaEquipos(null) ) {
-                mySelf.datagrid('showColumn','NombreEquipo');
-                mySelf.datagrid('hideColumn','NombreClub');
-            } else  {
-                mySelf.datagrid('hideColumn','NombreEquipo');
-                mySelf.datagrid('showColumn','NombreClub');
+        onLoadSuccess:function(data){
+            var done=$(this).datagrid('options').configured;
+            if (!done) {
+                ordenSalida_configureScreenLayout( $(this) );
+                $(this).datagrid('options').configured=true;
             }
-            // on international contests hide license, and enlarge name to allow pedigree name
-            if (isInternational(workingData.federation)) {
-                mySelf.datagrid('hideColumn','Licencia');
-                mySelf.datagrid('autoSizeColumn','Nombre');
-            }
-            mySelf.datagrid('fitColumns'); // expand to max width
-            // start autoscrolling
-            autoscroll(mySelf,0,ac_config.vw_polltime);
+            $(this).datagrid('autoSizeColumn','Nombre');
         }
     });
 
