@@ -367,3 +367,131 @@ function formatTeamClasificaciones(dgname,value,rows) {
 }
 
 function formatVwTeamClasificaciones(value,rows) { return formatTeamClasificaciones('#vwcf_clasificacion-datagrid',value,rows); }
+
+// repaint datagrid saving options, and load with empty data
+// WARNING !! DO NOT USE AS RESULT OF "OnLoadSuccess" (infinite loop)
+function resetDatagrid(dg,data) {
+    if (typeof(data)==="undefined") data={"total":0,"rows":[]};
+    var opts=dg.datagrid('options');
+    setTimeout(function(){
+        dg.datagrid(opts);
+        dg.datagrid('loadData', data);
+        dg.datagrid('fitColumns');
+    },0);
+}
+
+// called on init or openS
+// select individual or team view
+// show/hide columns according (inter)national federation type
+function vwcf_configureScreenLayout() {
+    var resdg=$('#finales_individual-datagrid');
+    var lastdg=$('#finales_last_individual-datagrid');
+    var restdg=$('#finales_equipos-datagrid');
+    var lasttdg=$('#finales_last_equipos-datagrid');
+    var calldg=$('#vwc_llamada-datagrid');
+    var team=isJornadaEquipos(null);
+    var intl=isInternational(null);
+
+    // on intl move country to right of country flag
+    if (intl && !team) {
+        resdg.datagrid('moveField',{idxHead:1,idxFrom:'NombreClub', idxTo:'Dorsal'});
+        lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
+    }
+    // individual or team view
+    $("#finales_individual-table").css("display",(team)?'none':'inherit');
+    $("#finales_last_individual-table").css("display",(team)?'none':'inherit');
+    $("#finales_equipos-table").css("display",(team)?'inherit':'none');
+    $("#finales_last_equipos-table").css("display",(team)?'inherit':'none');
+    calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
+    calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
+
+    // show hide license and califications according national or international
+    resdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    lastdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    $('#finales_individual_teaminfo').parents('td').attr('colspan',(intl)?6:7);
+    $('#finales_individual-Club').html(clubOrCountry());
+    $('#finales_last_individual-Club').html(clubOrCountry());
+    // $('#finales_equipos-Club').html(clubOrCountry()); // doesn't exist :-)
+    $('#finales_last_equipos-Club').html(clubOrCountry());
+
+    // reload datagrid with new options and fill with empty data and expand to max width
+    resetDatagrid(resdg);
+    resetDatagrid(lastdg);
+    resetDatagrid(restdg);
+    resetDatagrid(lasttdg);
+    calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
+}
+
+// called on init or open
+// select individual or team view
+// show/hide columns according (inter)national federation type
+function vwcp_configureScreenLayout() {
+    var resdg=$('#parciales_individual-datagrid');
+    var lastdg=$('#parciales_last_individual-datagrid');
+    var restdg=$('#parciales_equipos-datagrid');
+    var lasttdg=$('#parciales_last_equipos-datagrid');
+    var calldg=$('#vwc_llamada-datagrid');
+    var team=isJornadaEquipos(null);
+    var intl=isInternational(null);
+
+    // on intl move country to right of country flag
+    if (intl && !team) {
+        resdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
+        lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
+    }
+    // individual or team view
+    $("#parciales_individual-table").css("display",(team)?'none':'inherit');
+    $("#parciales_last_individual-table").css("display",(team)?'none':'inherit');
+    $("#parciales_equipos-table").css("display",(team)?'inherit':'none');
+    $("#parciales_last_equipos-table").css("display",(team)?'inherit':'none');
+    calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
+    calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
+    // show hide license according national or international
+    resdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    lastdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    // restdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    // lasttdg.datagrid((intl)?'hideColumn':'showColumn','Licencia'); // no existe campo 'Licencia' en resultados  equipos
+
+    $('#parciales_individual-Club').html(clubOrCountry());
+    $('#parciales_last_individual-Club').html(clubOrCountry());
+    // $('#finales_equipos-Club').html(clubOrCountry()); // doesn't exist :-)
+    $('#parciales_last_equipos-Club').html(clubOrCountry());
+
+    // reload datagrid with new options and fill with empty data and expand to max width
+    resetDatagrid(resdg);
+    resetDatagrid(lastdg);
+    resetDatagrid(restdg);
+    resetDatagrid(lasttdg);
+    calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
+}
+
+function ordenSalida_configureScreenLayout(dg) {
+    // On Team journeys, show team name instead of club, and viceversa
+    if (isJornadaEquipos(null) ) {
+        dg.datagrid('showColumn','NombreEquipo');
+        dg.datagrid('hideColumn','NombreClub');
+    } else  {
+        dg.datagrid('hideColumn','NombreEquipo');
+        dg.datagrid('showColumn','NombreClub');
+    }
+    // on international contests hide license, and enlarge name to allow pedigree name
+    if (isInternational(workingData.federation)) {
+        dg.datagrid('setFieldTitle',{'field':'NombreClub','title':'<?php _e("Country");?>'});
+        dg.datagrid('hideColumn','Licencia');
+        dg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
+    }
+    resetDatagrid(dg);
+}
+
+function inscripciones_configureScreenLayout(dg) {
+    // on international contests hide license, and enlarge name to allow pedigree name
+    if (isInternational(workingData.federation)) {
+        dg.datagrid('setFieldTitle',{'field':'NombreClub','title':'<?php _e("Country");?>'});
+        dg.datagrid('hideColumn','Licencia');
+        dg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
+    }
+    // do not call reset, to avoid load infinite loop
+    var opts=dg.datagrid('options');
+    setTimeout(function(){dg.datagrid(opts)},0);
+}
+

@@ -123,13 +123,15 @@ var eventHandler= {
         vw_updateWorkingData(event,function(evt,data){
             vw_updateHeaderAndFooter(evt,data);
             $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
-            // clear datagrid
-            $('#ordensalida-datagrid').datagrid('loadData', {"total":0,"rows":[]});
+            // properly format datagrid, and clear
+            ordenSalida_configureScreenLayout($('#ordensalida-datagrid'));
         });
     },
     'open': function(event){ // operator select tanda
         vw_updateWorkingData(event,function(evt,data){
             vw_updateHeaderAndFooter(evt,data);
+            // properly format datagrid, and clear
+            ordenSalida_configureScreenLayout($('#ordensalida-datagrid'));
             vw_updateOrdenSalida(evt,data);
         });
     },

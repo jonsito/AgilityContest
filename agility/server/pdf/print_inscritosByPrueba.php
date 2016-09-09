@@ -594,10 +594,11 @@ class PrintInscritos extends PrintCommon {
 	// geometria de las celdas
 	protected $cellHeader;
     protected $pos =
-			// dorsal   name   license  Breed  handler  club  cat    grade  heat   comments  J1  J2  J3  J4  J5  J6  J7  J8
-        array(  7,       25,   16,     14,     34,     24,     9,     8,     9,       1,     6,  6,  6,  6,  6,  6,  6,  6 );
+			//  0         1     2       3      4       5       6         7    8      9        10   11  12  13  14  15  16  17
+			// dorsal   name   license  Breed  cat     grade   handler  club  heat comments   J1  J2  J3  J4  J5  J6  J7  J8
+        array(  7,       25,   16,     14,     9,      8,      34,     24,    9,       1,     6,  6,  6,  6,  6,  6,  6,  6 );
     protected $align=
-        array(  'R',     'L',  'C',   'R',    'R',    'R',    'C',    'L',   'C',    'L',    'C','C','C','C','C','C','C','C');
+        array(  'C',     'L',  'C',   'R',    'C',     'L',    'R',    'R',   'C',    'L',    'C','C','C','C','C','C','C','C');
 	
 	/**
 	 * Constructor
@@ -615,18 +616,19 @@ class PrintInscritos extends PrintCommon {
 		$this->jornadas=$jornadas['rows'];
 		$this->setPageName("inscritosByPrueba.pdf");
         $this->cellHeader=
-            array(_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Handler'),$this->strClub,_('Cat'),_('Grado'),_('Heat'),_('Comments'));
+			//        0           1         2          3       4         5           6            7            8           9
+            array(_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Cat'),_('Grado'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
         // on request to dont print grades re-evaluate sizes and text
         $grad=intval($this->config->getEnv('pdf_grades'));
         if ($grad==0) { // remove grade column
-            $this->cellHeader[6]=_('Category');
-            $this->pos[6]+=$this->pos[7];
-            $this->pos[7]=0;
+            $this->cellHeader[4]=_('Category');
+            $this->pos[4]+=$this->pos[5];
+            $this->pos[5]=0;
         }
-        if ($this->federation->isInternational()) { // remove license column
-            $this->pos[1]+=$this->pos[2];
+        if ($this->federation->isInternational()) { // remove license and heat column
+            $this->pos[1]+=$this->pos[2]; // remove license and add to name
             $this->pos[2]=0;
-			$this->pos[3]+=$this->pos[8];
+			$this->pos[3]+=$this->pos[8]; // remove heat and add to breed
 			$this->pos[8]=0;
         }
 	}
@@ -651,10 +653,27 @@ class PrintInscritos extends PrintCommon {
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
 		$this->ac_SetDrawColor("0x000000"); // line color
 		$this->SetFont($this->getFontName(),'B',9); // bold 9px
-		for($i=0;$i<count($this->cellHeader);$i++) {
+
+		$this->Cell($this->pos[0],6,$this->cellHeader[0],1,0,$this->align[0],true); // dorsal
+		if ($this->federation->isInternational()) // if intl insert country
+			$this->Cell($this->pos[7],6,$this->cellHeader[7],1,0,$this->align[7],true);
+		$this->Cell($this->pos[1],6,$this->cellHeader[1],1,0,$this->align[1],true); // name
+		if ($this->pos[2]!=0) // skip license when required
+			$this->Cell($this->pos[2],6,$this->cellHeader[2],1,0,$this->align[2],true); // license
+		$this->Cell($this->pos[3],6,$this->cellHeader[3],1,0,$this->align[3],true); // breed
+		$this->Cell($this->pos[4],6,$this->cellHeader[4],1,0,$this->align[4],true); // cat
+		if ($this->pos[5]!=0) // skip grade when required
+			$this->Cell($this->pos[5],6,$this->cellHeader[5],1,0,$this->align[5],true); // grade
+		$this->Cell($this->pos[6],6,$this->cellHeader[6],1,0,$this->align[6],true); // handler
+		if (! $this->federation->isInternational()) // if not intl here comes club
+			$this->Cell($this->pos[7],6,$this->cellHeader[7],1,0,$this->align[7],true);
+		if ($this->pos[8]!=0) // skip license when required
+			$this->Cell($this->pos[8],6,$this->cellHeader[8],1,0,$this->align[8],true); // heat
+		$this->Cell($this->pos[9],6,$this->cellHeader[9],1,0,$this->align[9],true); // comments
+		for($i=10;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
 			if ($this->pos[$i]==0) continue;
-            $this->Cell($this->pos[$i],6,$this->cellHeader[$i],1,0,'C',true);
+			$this->Cell($this->pos[$i],6,$this->cellHeader[$i],1,0,$this->align[$i],true);
 		}
 		// Restauración de colores y fuentes
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
@@ -700,8 +719,14 @@ class PrintInscritos extends PrintCommon {
 			// $this->Cell($this->pos[0],7,$row['IDPerro'],	'LR',0,$this->align[0],$fill);
 			// $this->Cell($this->pos[0],7,$rowcount+1,		'LR',	0,		$this->align[0],$fill); // display order instead of idperro
 
+			//     0           1         2          3       4         5           6            7            8           9
+			// _('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Cat'),_('Grado'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
 			$this->SetFont($this->getFontName(),'B',7); // bold 7px
 			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',	0,		$this->align[0],	$fill);
+			if ($this->federation->isInternational()) { // on intl here comes country
+				$this->SetFont($this->getFontName(),'',7); // bold 7px
+				$this->Cell($this->pos[7],5,$row['NombreClub'],	'LR',	0,		$this->align[7],	$fill); // club
+			}
 			$this->SetFont($this->getFontName(),'B',8); // bold 8px
             if ($this->federation->isInternational()) {
                 $n=$row['Nombre']." - ".$row['NombreLargo'];
@@ -713,18 +738,20 @@ class PrintInscritos extends PrintCommon {
                 $this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
             }
             $this->SetFont($this->getFontName(),'',7); // normal 7px
-			$this->Cell($this->pos[3],5,$row['Raza'],		'LR',	0,		$this->align[3],	$fill);
-			$this->Cell($this->pos[4],5,$row['NombreGuia'],	'LR',	0,		$this->align[4],	$fill);
-			$this->Cell($this->pos[5],5,$row['NombreClub'],	'LR',	0,		$this->align[5],	$fill);
-            if (intval($this->config->getEnv("pdf_grades"))!=0) {
-                $this->Cell($this->pos[6],5,$row['Categoria'],	'LR',	0,		$this->align[6],	$fill);
-                $this->Cell($this->pos[7],5,$row['Grado'],		'LR',	0,		$this->align[7],	$fill);
-            } else {
-                $this->Cell($this->pos[6]+$this->pos[7],5,$this->getCatString($row['Categoria']),'LR',0,$this->align[6],$fill);
-            }
+			$this->Cell($this->pos[3],5,$row['Raza'],		'LR',	0,		$this->align[3],	$fill); // breed
+			if (intval($this->config->getEnv("pdf_grades"))!=0) { // properly handle cat/grad
+				$this->Cell($this->pos[4],5,$row['Categoria'],	'LR',	0,		$this->align[4],	$fill); // cat
+				$this->Cell($this->pos[5],5,$row['Grado'],		'LR',	0,		$this->align[5],	$fill); // grad
+			} else {
+				$this->Cell($this->pos[4]+$this->pos[5],5,$this->getCatString($row['Categoria']),'LR',0,$this->align[4],$fill); // catgrad
+			}
+			$this->Cell($this->pos[6],5,$row['NombreGuia'],	'LR',	0,		$this->align[6],	$fill); // handler
+			if (!$this->federation->isInternational()){ // if not intl here comes club
+				$this->Cell($this->pos[7],5,$row['NombreClub'],	'LR',	0,		$this->align[7],	$fill); // club
+			}
             if ($this->pos[8]!=0) // special handling of heat for intl contests
-				$this->Cell($this->pos[8],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[8],	$fill);
-			$this->Cell($this->pos[9],5,$row['Observaciones'],'LR',	0,			$this->align[9],	$fill);
+				$this->Cell($this->pos[8],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[8],	$fill); // heat
+			$this->Cell($this->pos[9],5,$row['Observaciones'],'LR',	0,			$this->align[9],	$fill); // comments
 			if ($this->pos[10]!=0)
 				$this->Cell($this->pos[10],5,($row['J1']==0)?"":"X",'LR',0,		$this->align[10],	$fill);
 			if ($this->pos[11]!=0)

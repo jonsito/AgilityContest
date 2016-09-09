@@ -64,10 +64,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
-// fire autorefresh if configured
-var rtime=parseInt(ac_config.web_refreshtime);
-if (rtime!=0) setInterval(pb_updateOrdenSalida,1000*rtime);
-
 // in a mobile device, increase north window height
 if (isMobileDevice()) {
     $('#pb_ordensalida-Cabecera').css('height','90%');
