@@ -296,6 +296,10 @@ $poster="/agility/images/agilityawc2016.png";
         <h1><?php echo /*"{$ptree['Prueba']['Nombre']} - " . */_("Online information"); ?></h1>
             <?php
             echon('<dl class="menu_enum">');
+            // si la licencia permite sesiones de entrenamiento las mostramos
+            if ( $am->allowed(ENABLE_TRAINING)) {
+                echon( '<dt><a class="easyui-linkbutton" href="javascript:pbmenu_loadTrainingSession('.$pruebaID.');">'._("Training session").'</a></dt><br/>');
+            }
             // evaluamos datos de la sesion actual
             $p=$ptree['Current']->Pru;
             $j=$ptree['Current']->Jor;

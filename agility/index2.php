@@ -264,12 +264,10 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             <?php
             echon("<h2>{$ptree['Prueba']['Nombre']}</h2>");
             echon('<dl class="menu_enum">');
-            /*
             // si la licencia permite sesiones de entrenamiento las mostramos
             if ( $am->allowed(ENABLE_TRAINING)) {
-                echon( '<dt><a href="javascript:pbmenu_loadTrainingSession('.$pruebaID.');">'._("Training session").'</a></dt><br/>');
+                echon( '<dt><a class="easyui-linkbutton" href="javascript:pbmenu_loadTrainingSession('.$pruebaID.');">'._("Training session").'</a></dt><br/>');
             }
-            */
             echon('<dt>Live session now: <a class="easyui-linkbutton" href="#">Jumping Team Large</a>');
             foreach ($ptree['Jornadas'] as $jornada) {
                 if ($jornada['Nombre']==='-- Sin asignar --') continue;
