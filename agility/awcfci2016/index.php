@@ -264,9 +264,9 @@ $poster="/agility/images/agilityawc2016.png";
     <div style="padding:20px;font-weight: bold; font-size:1.2vw;">
         <h2><?php _e('Important notice'); ?>:</h2>
         <p>
-            <?php _e("Data shown in these pages reflect <em>real time status</em> of the contest and may be modified by Judges and Organization after revision");?>
+            <?php _e("Data shown in these pages is a <em>real time copy</em> of the contest server, and may be modified by Judges and Organization after revision");?>
         </p><p>
-            <?php _e("For oficial scores and results, please look at");?> <a href="http://agilitywc2016.com/competition">AWC-FCI 2016 web</a>
+            <?php _e("For official scores and results, please look at");?> <a href="http://agilitywc2016.com/competition">AWC-FCI 2016 web</a>
         </p>
 
     </div>
