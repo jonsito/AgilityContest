@@ -264,11 +264,32 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             <?php
             echon("<h2>{$ptree['Prueba']['Nombre']}</h2>");
             echon('<dl class="menu_enum">');
+
+            // evaluamos datos de la sesion actual
+            $p=$ptree['Current']->Pru;
+            $j=$ptree['Current']->Jor;
+            $mng=$ptree['Current']->Mng;
+            $t=$ptree['Current']->Tnd;
+            foreach($ptree['Jornadas'] as $jornada) {
+                foreach ($jornada['Tandas'] as $tanda) {
+                    if ( ($tanda['Manga']==$mng) && ($tanda['ID']==$t) ) {
+                        // ok. ahora hay que adivinar el mode.
+                        // como solucion de emergencia, y dado que estamos en el awfci el modo solo puede ser 0,1 o 2
+                        $mode=-1;
+                        if ($tanda['Categoria']==="L") $mode=0;
+                        if ($tanda['Categoria']==="M") $mode=1;
+                        if ($tanda['Categoria']==="S") $mode=2;
+                        echon('<dt>Live session now: <a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$mode.');">'.$tanda['Nombre'].'</a></dt><dd>&nbsp;</dd>');
+                    }
+                }
+            }
+
             // si la licencia permite sesiones de entrenamiento las mostramos
             if ( $am->allowed(ENABLE_TRAINING)) {
                 echon( '<dt><a class="easyui-linkbutton" href="javascript:pbmenu_loadTrainingSession('.$pruebaID.');">'._("Training session").'</a></dt><br/>');
             }
-            echon('<dt>Live session now: <a class="easyui-linkbutton" href="#">Jumping Team Large</a>');
+
+            // enumermos jornadas
             foreach ($ptree['Jornadas'] as $jornada) {
                 if ($jornada['Nombre']==='-- Sin asignar --') continue;
                 if (count($jornada['Mangas'])==0) continue; // no rounds, no print
