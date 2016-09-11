@@ -31,7 +31,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_finales-panel">
     <div id="pb_finales-layout" style="width:100%">
         <div id="pb_finales-Cabecera" style="height:20%;" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
-            <a id="pb_back-link" class="easyui-linkbutton" onClick="pb_expandMenu(true);" href="#" style="float:left">
+            <a id="pb_back-link" class="easyui-linkbutton" onClick="pbmenu_expandMenu(true);" href="#" style="float:left">
                 <img id="pb_back-logo" src="/agility/images/backtomenu.png" width="40" />
             </a>&nbsp;
             <a id="pb_header-link" class="easyui-linkbutton" onClick="updateFinales(0,workingData.datosRonda);" href="#" style="float:left">
@@ -96,13 +96,15 @@ $('#finales_individual-datagrid').datagrid({
 // fire autorefresh if configured
 function pbmenu_updateFinalesIndividual() {
     var rtime=parseInt(ac_config.web_refreshtime);
+    if ( (rtime!=0) && (workingData.timeout!=null) ) return;
     updateFinales(0,workingData.datosRonda);
-    if (rtime!=0) workingData.timeout=setTimeout(pbmenu_updateFinalesIndividual,1000*rtime);
+    workingData.timeout=setTimeout(pbmenu_updateFinalesIndividual,1000*rtime);
 }
-
-vwcf_configureScreenLayout(null);  // dirty, but works: remove license, hanndle club/country and so
+// dirty, but works: remove license, hanndle club/country and so
+vwcf_configureScreenLayout(null);
+// fix header text
 setTimeout(function(){ $('#enumerateFinales').text(workingData.datosRonda.Nombre)},0);
-if (workingData.timeout!=null) clearTimeout(workingData.timeout);
-pbmenu_updateFinalesIndividual();
+// and fire timeout if enabled
+if (workingData.timeout==="readyToRun")  pbmenu_updateFinalesIndividual();
 
 </script>

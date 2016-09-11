@@ -32,7 +32,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_parciales-panel">
     <div id="pb_parciales-layout" style="width:100%">
         <div id="pb_parciales-Cabecera"  style="height:15%;" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
-            <a id="pb_back-link" class="easyui-linkbutton" onClick="pb_expandMenu(true);" href="#" style="float:left">
+            <a id="pb_back-link" class="easyui-linkbutton" onClick="pbmenu_expandMenu(true);" href="#" style="float:left">
                 <img id="pb_back-logo" src="/agility/images/backtomenu.png" width="40" />
             </a>&nbsp;
             <a id="pb_header-link" class="easyui-linkbutton" onClick="updateParciales(workingData.datosManga.Mode,workingData.datosManga);" href="#" style="float:left">
@@ -94,13 +94,16 @@ $('#parciales_individual-datagrid').datagrid({
 });
 
 // fire autorefresh if configured
-function pb_updateParcialesIndividual() {
+function pbmenu_updateParcialesIndividual() {
+    // if asked to stop grant request
     var rtime=parseInt(ac_config.web_refreshtime);
+    if ((rtime==0) || (workingData.timeout==null)) return;
+    // refresh data
     updateParciales(/* empty to retrieve data from combogrid */);
-    if (rtime!=0) workingData.timeout=setTimeout(pb_updateParcialesIndividual,1000*rtime);
+    // re-trigger timeout
+    workingData.timeout=setTimeout(pbmenu_updateParcialesIndividual,1000*rtime);
 }
-if (workingData.timeout!=null) clearTimeout(workingData.timeout);
 vwcp_configureScreenLayout(null); // dirty, but works: remove license, hanndle club/country and so
-pb_updateParcialesIndividual();
+if (workingData.timeout==="readyToRun")  pbmenu_updateParcialesIndividual();
 
 </script>

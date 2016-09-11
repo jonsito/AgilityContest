@@ -28,7 +28,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_inscripciones-panel">
 	<div id="pb_inscripciones-layout" style="width:100%">
 		<div id="pb_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:10%;" class="pb_floatingheader">
-            <a id="pb_back-link" class="easyui-linkbutton" onClick="pb_expandMenu(true);" href="#" style="float:left">
+            <a id="pb_back-link" class="easyui-linkbutton" onClick="pbmenu_expandMenu(true);" href="#" style="float:left">
                 <img id="pb_back-logo" src="/agility/images/backtomenu.png" width="50" />
             </a>&nbsp;
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateInscripciones_eq3();" href="#" style="float:left">

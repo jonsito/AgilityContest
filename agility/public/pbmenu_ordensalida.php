@@ -31,7 +31,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<div id="pb_ordensalida-layout" style="width:100%">
 		<div id="pb_ordensalida-Cabecera" style="height:10%;" class="pb_floatingheader"
              data-options="region:'north',split:false,collapsed:false">
-            <a id="pb_back-link" class="easyui-linkbutton" onClick="pb_expandMenu(true);" href="#" style="float:left">
+            <a id="pb_back-link" class="easyui-linkbutton" onClick="pbmenu_expandMenu(true);" href="#" style="float:left">
                 <img id="pb_back-logo" src="/agility/images/backtomenu.png" width="50" />
             </a>&nbsp;
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateOrdenSalida2(workingData.tanda);" href="#" style="float:left">
@@ -91,17 +91,18 @@ $('#ordensalida-datagrid').datagrid({
 });
 
 // fire autorefresh if configured
-setTimeout(function(){ $('#pb_enumerateMangas').text(workingData.nombreTanda)},0);
-var rtime=parseInt(ac_config.web_refreshtime);
-if (rtime!=0) {
-    
-    function update() {
-        pb_updateOrdenSalida2(workingData.tanda);
-        workingData.timeout=setTimeout(update,1000*rtime);
-    }
-    
-    if (workingData.timeout!=null) clearTimeout(workingData.timeout);
-    update();
+function pbmenu_ordenSalida_timeoutHandler() {
+    // check for request to stop
+    var rtime=parseInt(ac_config.web_refreshtime);
+    if ((rtime==0) || (workingData.timeout==null)) return;
+    // refresh data
+    pb_updateOrdenSalida2(workingData.tanda);
+    // re-trigger event
+    workingData.timeout=setTimeout(pbmenu_ordenSalida_timeoutHandler,1000*rtime);
 }
+// update header title
+setTimeout(function(){ $('#pb_enumerateMangas').text(workingData.nombreTanda)},0);
+// and fire up refresh
+if (workingData.timeout==="readyToRun")  pbmenu_ordenSalida_timeoutHandler();
 
 </script>

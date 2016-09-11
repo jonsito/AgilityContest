@@ -32,7 +32,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_parciales-panel">
     <div id="pb_parciales-layout" style="width:100%">
         <div id="pb_parciales-Cabecera"  style="height:15%;" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
-            <a id="pb_back-link" class="easyui-linkbutton" onClick="pb_expandMenu(true);" href="#" style="float:left">
+            <a id="pb_back-link" class="easyui-linkbutton" onClick="pbmenu_expandMenu(true);" href="#" style="float:left">
                 <img id="pb_back-logo" src="/agility/images/backtomenu.png" width="40" />
             </a>&nbsp;
             <a id="pb_header-link" class="easyui-linkbutton" onClick="updateParciales(workingData.datosManga.Mode,workingData.datosManga);" href="#" style="float:left">
@@ -81,20 +81,24 @@ $('#pb_parciales-panel').panel({
 	}
 });
 
-
 // fire autorefresh if configured and user has no expanded rows
 function pbmenu_updateParcialesEquipos() {
+    // do nothing if asked to stop
     var rtime=parseInt(ac_config.web_refreshtime);
+    if ( (rtime==0) || (workingData.timeout==null) ) return;
+
+    // if no expanded rows, refresh screen
     var options=$('#parciales_equipos-datagrid').datagrid('options');
     if ( options.expandCount <= 0 ){
         options.expandCount=0;
         updateParciales(workingData.datosManga.Mode,workingData.datosManga);
     }
-    if (rtime!=0) workingData.timeout=setTimeout(pbmenu_updateParcialesEquipos,1000*rtime);
+    // re-ttrigger timeout
+    workingData.timeout=setTimeout(pbmenu_updateParcialesEquipos,1000*rtime);
 }
 
-setTimeout(function(){ $('#enumerateParciales').text(workingData.datosManga.Nombre)},0);
-if (workingData.timeout!=null) clearTimeout(workingData.timeout);
-pbmenu_updateParcialesEquipos();
+// update round name in header
+setTimeout( function(){  $('#enumerateParciales').text(workingData.datosManga.Nombre) }, 0);
+if (workingData.timeout==="readyToRun") pbmenu_updateParcialesEquipos();
     
 </script>

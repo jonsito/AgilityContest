@@ -106,7 +106,12 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         function myRowStyler(idx,row) { return pbRowStyler(idx,row); }
         function myRowStyler2(idx,row) { return pbRowStyler2(idx,row); }
 
-        function pb_collapseMenu(flag) {
+        /**
+         * Abre el panel derecho, cierra el menu, si flag, cierra tambien baner inicial
+         * @param {boolean} flag ask for closing also left banner
+         */
+        function pbmenu_collapseMenu(flag) {
+            workingData.timeout="readyToRun";
             var p=$('#pb_layout');
             if (flag) {
                 p.layout('panel','west').panel('options').width='1%';
@@ -116,7 +121,13 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             p.layout('expand','east');
             $('#pb_back-link').css('display','inherit');
         }
-        function pb_expandMenu(flag) {
+
+        /**
+         * Abre el menu, cierra la vista, apaga temporizadores
+         * Si flag, cierra tambien panel de banner
+         * @param {boolean} flag
+         */
+        function pbmenu_expandMenu(flag) {
             var p=$('#pb_layout');
             if (flag) {
                 p.layout('panel','west').panel('options').width='1%';
@@ -125,6 +136,10 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             p.layout('panel','east').panel('options').width='60%';
             p.layout('expand','east');
             $('#pb_back-link').css('display','none');
+            if (workingData.timeout != null ) {
+                clearTimeout(workingData.timeoout);
+                workingData.timeout=null;
+            }
         }
 
         function pbmenu_getAndSet(prueba,jornada) {
@@ -140,7 +155,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         
         function pbmenu_loadInscriptions(prueba,jornada) {
             pbmenu_getAndSet(prueba,jornada);
-            pb_collapseMenu(true);
+            pbmenu_collapseMenu(true);
             var page="/agility/public/pbmenu_inscripciones.php";
             if (isJornadaEqMejores() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
             if (isJornadaEqConjunta() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
@@ -150,7 +165,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         function pbmenu_loadTrainingSession(prueba) {
             var p=<?php echo json_encode($ptree['Prueba']); ?>;
             setPrueba(p);
-            pb_collapseMenu(true);
+            pbmenu_collapseMenu(true);
             $('#pb_layout').layout('panel','east').panel('refresh',"/agility/public/pbmenu_entrenamientos.php");
         }
 
@@ -163,7 +178,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                 setJornada(j[n]);
                 break;
             }
-            pb_collapseMenu(true);
+            pbmenu_collapseMenu(true);
             $('#pb_layout').layout('panel','east').panel('refresh',"/agility/public/pbmenu_programa.php");
         }
 
@@ -176,7 +191,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                 setTanda(tandas[n]);
                 break;
             }
-            pb_collapseMenu(true);
+            pbmenu_collapseMenu(true);
             $('#pb_layout').layout('panel','east').panel('refresh',"/agility/public/pbmenu_ordensalida.php");
         }
 
@@ -190,7 +205,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                 setManga(mangas[n]);
                 break;
             }
-            pb_collapseMenu(true);
+            pbmenu_collapseMenu(true);
             var page="/agility/public/pbmenu_parciales.php";
             if (isJornadaEquipos(null) ) page="/agility/public/pbmenu_parciales_equipos.php";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
@@ -199,7 +214,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         function pbmenu_loadFinalScores(prueba,jornada,serie) {
             pbmenu_getAndSet(prueba,jornada);
             workingData.datosRonda=workingData.datosJornada.Series[serie];
-            pb_collapseMenu(true);
+            pbmenu_collapseMenu(true);
             var page="/agility/public/pbmenu_finales.php";
             if (isJornadaEquipos(null) ) page="/agility/public/pbmenu_finales_equipos.php";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
@@ -355,7 +370,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         // once closed do not allow expand poster window. instead expand menu
         onBeforeExpand: function() { 
             ac_config.allow_scroll=true;
-            setTimeout(pb_expandMenu(false),0); 
+            setTimeout(pbmenu_expandMenu(false),0);
             return false;
         },
         // on collapse disable scrolling (if any)

@@ -28,7 +28,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_entrenamientos-panel">
 	<div id="pb_entrenamientos-layout" style="width:100%">
 		<div id="pb_entrenamientos-Cabecera" data-options="region:'north',split:false" style="height:10%;" class="pb_floatingheader">
-			<a id="pb_back-link" class="easyui-linkbutton" onClick="pb_expandMenu(true);" href="#" style="float:left">
+			<a id="pb_back-link" class="easyui-linkbutton" onClick="pbmenu_expandMenu(true);" href="#" style="float:left">
 				<img id="pb_back-logo" src="/agility/images/backtomenu.png" width="50" />
 			</a>&nbsp;
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateEntrenamientos();" href="#" style="float:left">
@@ -69,21 +69,18 @@ $('#pb_entrenamientos-panel').panel({
 });
 
 var pbdg= $('#entrenamientos-datagrid');
-pbdg.datagrid({
+pbdg.datagrid( {
     rowStyler:pbRowStyler // override default
 });
 
-pb_setTrainingLayout(pbdg);
 
-// fire autorefresh if configured
-var rtime=parseInt(ac_config.web_refreshtime);
-if (rtime!=0) {
-    function update() {
-        pb_updateEntrenamientos();
-        workingData.timeout= setTimeout(update,1000*rtime);
-    }
-    if (workingData.timeout!=null) clearTimeout(workingData.timeout);
-    update();
+function pbmenu_handleTrainingRefresh() {
+	var rtime=parseInt(ac_config.web_refreshtime);
+	if ((rtime!=0) && (workingData.timeout!=null)) return;
+	pb_updateEntrenamientos();
+	workingData.timeout=setTimeout(pbmenu_handleTrainingRefresh,1000*rtime);
 }
+pb_setTrainingLayout(pbdg);
+if (workingData.timeout==="readyToRun")  pbmenu_handleTrainingRefresh();
 
 </script>
