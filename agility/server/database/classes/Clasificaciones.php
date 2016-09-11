@@ -288,8 +288,8 @@ class Clasificaciones extends DBObject {
         if ($fp<$cp) {// tiene mas penalizacion que el primero: no tiene nada que hacer
             $this->current['toBeFirst']="";
         }
-        if ($fp==$cp) { // misma penalizacion: tiene que mejorar el tiempo... salvo que ya sea el primero
-            $this->current['toBeFirst']=$ft-$ct;
+        if ($fp==$cp) { // misma penalizacion: tiene que mejorar el tiempo sin pasarse del trs... salvo que ya sea el primero
+            $this->current['toBeFirst']=min($trs,$ft-$ct);
             if ($ft-$ct==0) $this->current['toBeFirst']=""; // already the first: do nothing
         }
         if ($fp>$cp ) { // tiene menos penalizacion que el primero;
@@ -298,7 +298,7 @@ class Clasificaciones extends DBObject {
             $c1=$trm;
             // que el perro no obtenga un NoClasificado
             $c2=$trs+26;
-            // que la penalizacion por tiempo no sea mayour que la penalizacion que tiene el primero
+            // que la penalizacion por tiempo no sea mayor que la penalizacion que tiene el primero
             $c3=$trs+($fp-$cp);
             // que el tiempo + la penalizacion no supere al tiemp+penalizacion del primero
             $c4=($ft-$ct) + floor($fp-$cp); // redondear la penalizacion para no duplicar centesimas de segundo
