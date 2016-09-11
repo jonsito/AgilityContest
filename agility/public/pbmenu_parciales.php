@@ -99,7 +99,7 @@ function pbmenu_updateParcialesIndividual() {
     var rtime=parseInt(ac_config.web_refreshtime);
     if ((rtime==0) || (workingData.timeout==null)) return;
     // refresh data
-    updateParciales(/* empty to retrieve data from combogrid */);
+    updateParciales(workingData.datosManga.Mode,workingData.datosManga);
     // re-trigger timeout
     workingData.timeout=setTimeout(pbmenu_updateParcialesIndividual,1000*rtime);
 }

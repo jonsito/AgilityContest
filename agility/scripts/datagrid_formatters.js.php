@@ -371,6 +371,7 @@ function formatVwTeamClasificaciones(value,rows) { return formatTeamClasificacio
 // repaint datagrid saving options, and load with empty data
 // WARNING !! DO NOT USE AS RESULT OF "OnLoadSuccess" (infinite loop)
 function resetDatagrid(dg,data) {
+    if ( dg.length ==0) return; // to avoid try to reset undefined jquery objects
     if (typeof(data)==="undefined") data={"total":0,"rows":[]};
     var opts=dg.datagrid('options');
     setTimeout(function(){

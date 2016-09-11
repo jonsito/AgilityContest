@@ -96,7 +96,7 @@ $('#finales_individual-datagrid').datagrid({
 // fire autorefresh if configured
 function pbmenu_updateFinalesIndividual() {
     var rtime=parseInt(ac_config.web_refreshtime);
-    if ( (rtime!=0) && (workingData.timeout!=null) ) return;
+    if ( (rtime==0) || (workingData.timeout==null) ) return;
     updateFinales(0,workingData.datosRonda);
     workingData.timeout=setTimeout(pbmenu_updateFinalesIndividual,1000*rtime);
 }
