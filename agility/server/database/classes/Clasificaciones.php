@@ -285,6 +285,15 @@ class Clasificaciones extends DBObject {
             $trs= floatval( ($this->current['P1']>=400)?$result['trs1']['trs']:$result['trs2']['trs']);
             $trm= floatval( ($this->current['P1']>=400)?$result['trs1']['trm']:$result['trs2']['trm']);
         }
+        // there is so many special cases that no real sense -and not enought time until awc
+        // to get a full solution ( perhaps something like successive aproximations...
+        // so let stay in simplest case: only show timeToFirst when current and first have no penalization
+        // and then return time differences
+        if ($fp!=0) $this->current['toBeFirst']="";
+        else if ($cp!=0) $this->current['toBeFirst']="";
+        else if ($ft==$ct) $this->current['toBeFirst']="";
+        else  $this->current['toBeFirst']=min($trs,$ft-$ct);
+        /*
         if ($fp<$cp) {// tiene mas penalizacion que el primero: no tiene nada que hacer
             $this->current['toBeFirst']="";
         }
@@ -305,6 +314,7 @@ class Clasificaciones extends DBObject {
             //  en este ultimo caso, hay que eliminar decimales en la penalizacion, porque se van a sumar al tiempo...
             $this->current['toBeFirst']=min($c4,$c3,$c2,$c1);
         }
+        */
     }
 
     /**
