@@ -40,11 +40,45 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </div>
 		</div>
 		<div class="vws_entrenamientos" id="vw_tabla" data-options="region:'center'">
-            <table id="entrenamientos-datagrid"></table>
-		</div>
-        <div id="vw_entrenamientos-footer" data-options="region:'south',split:false" class="vw_floatingfooter">
+<?php for ($entry=9;$entry>=0; $entry--) {
+            $type=($entry==0)?'text':'hidden';
+            $type2=($entry==0)?'hidden':'text';
+            ?>
+            <form name="vw_entrenamientos_<?php echo $entry;?>">
+                <input id="vw_training_Orden_<?php echo $entry;?>" name="Orden" type="<?php echo $type2;?>" value="Orden <?php echo $entry;?>"/>
+                <input id="vw_training_Comienzo_<?php echo $entry;?>" name="Comienzo" type="<?php echo $type2;?>" value="Comienzo <?php echo $entry;?>"/>
+                <span id="vw_training_Ring1_<?php echo $entry;?>">
+                    <input id="vw_training_LogoClub1_<?php echo $entry;?>" name="LogoClub1" type="text" value="Logo1"/>
+                    <input id="vw_training_NombreClub1_<?php echo $entry;?>" name="NombreClub1" type="text" value="Club1"/>
+                    <input id="vw_training_Duracion1_<?php echo $entry;?>" name="Duracion1" type="<?php echo $type;?>" value="Duracion1"/>
+                    <input id="vw_training_Key1_<?php echo $entry;?>" name="Key1" type="<?php echo $type;?>" value="Key1"/>
+                    <input id="vw_training_Value1_<?php echo $entry;?>" name="Value1" type="hidden" value="Value1"/>
+                </span>
+                <span id="vw_training_Ring2_<?php echo $entry;?>">
+                    <input id="vw_training_LogoClub2_<?php echo $entry;?>" name="LogoClub2" type="text"/>
+                    <input id="vw_training_NombreClub2_<?php echo $entry;?>" name="NombreClub2" type="text"/>
+                    <input id="vw_training_Duracion2_<?php echo $entry;?>" name="Duracion2" type="<?php echo $type;?>"/>
+                    <input id="vw_training_Key2_<?php echo $entry;?>" name="Key2" type="<?php echo $type;?>"/>
+                    <input id="vw_training_Value2_<?php echo $entry;?>" name="Value2" type="hidden"/>
+                </span>
+                <span id="vw_training_Ring3_<?php echo $entry;?>">
+                    <input id="vw_training_LogoClub3_<?php echo $entry;?>" name="LogoClub3" type="text"/>
+                    <input id="vw_training_NombreClub3_<?php echo $entry;?>" name="NombreClub3" type="text"/>
+                    <input id="vw_training_Duracion3_<?php echo $entry;?>" name="Duracion3" type="<?php echo $type;?>"/>
+                    <input id="vw_training_Key3_<?php echo $entry;?>" name="Key3" type="<?php echo $type;?>"/>
+                    <input id="vw_training_Value3_<?php echo $entry;?>" name="Value3" type="hidden"/>
+                </span>
+                <span id="vw_training_Ring4_<?php echo $entry;?>" style="display:none;">
+                    <input id="vw_training_LogoClub4_<?php echo $entry;?>" name="LogoClub4" type="text"/>
+                    <input id="vw_training_NombreClub4_<?php echo $entry;?>" name="NombreClub4" type="text"/>
+                    <input id="vw_training_Duracion4_<?php echo $entry;?>" name="Duracion4" type="<?php echo $type;?>"/>
+                    <input id="vw_training_Key4_<?php echo $entry;?>" name="Key4" type="<?php echo $type;?>"/>
+                    <input id="vw_training_Value4_<?php echo $entry;?>" name="Value4" type="hidden"/>
+                </span>
+            </form>
+<?php } ?>
             <span id="vw_footer-footerData"></span>
-        </div>
+		</div>
 	</div>
 </div> <!-- vw_entrenamientos-window -->
 
@@ -65,62 +99,34 @@ $('#vw_entrenamientos-window').window({
         startEventMgr();
     }
 });
+var layout= {'rows':120,'cols':124};
+// columnas de paises pendientes
+for (var n=9; n>=1;n--) {
+    doLayout(layout,"#vw_training_Orden_"+n,             2, 90-10*n,    10,10);
+    doLayout(layout,"#vw_training_Comienzo_"+n,     2+  10, 90-10*n,    20,10);
+    doLayout(layout,"#vw_training_LogoClub1_"+n,    2+  30, 90-10*n,    10,10);
+    doLayout(layout,"#vw_training_NombreClub1_"+n,  2+  40, 90-10*n,    20,10);
+    doLayout(layout,"#vw_training_LogoClub2_"+n,    2+  60, 90-10*n,    10,10);
+    doLayout(layout,"#vw_training_NombreClub2_"+n,  2+  70, 90-10*n,    20,10);
+    doLayout(layout,"#vw_training_LogoClub3_"+n,    2+  90, 90-10*n,    10,10);
+    doLayout(layout,"#vw_training_NombreClub3_"+n,   2+  100,90-10*n,    20,10);
+}
+// columna principal (paises en pista )
 
-$('#entrenamientos-datagrid').datagrid({
-    columns: [[
-        {field:'ID',     hidden:true},
-        {field:'Prueba', hidden:true},
-        {field:'Orden',       width:10,      align:'center', title:'#',     formatter: formatBoldBig},
-        {field:'LogoClub',	  width:7,      align:'center', title:'',      formatter: formatLogo},
-        {field:'NombreClub',  width:25,      align:'left',   title: '<?php _e('Club');?>' },
-        {field:'Fecha',	      hidden:true, width:20,      align:'center', title: '<?php _e('Date');?>',formatter: formatYMD},
-        {field:'Firma',       hidden:true, width:15,      align:'center', title: '<?php _e('Check-in');?>',formatter: formatHM},
-        {field:'Veterinario', hidden:true, width:15,	  align:'center',  title: '<?php _e('Veterinary');?>',formatter: formatHM},
-        {field:'Comienzo',    width:15,      align:'right',  title: '<?php _e('Start');?>',formatter: formatHM},
-        {field:'Duracion',    hidden:true, width:20,      align:'right',  title: '<?php _e('End');?>',formatter: formatMinSecs},
-        {field:'Key1',        hidden:true},
-        {field:'Value1',      width:20,      align:'center', title: '<?php _e('Ring');?> 1',formatter: formatTrainingCell1 },
-        {field:'Key2',        hidden:true},
-        {field:'Value2',      width:20,      align:'center', title: '<?php _e('Ring');?> 2',formatter: formatTrainingCell2 },
-        {field:'Key3',        hidden:true},
-        {field:'Value3',      width:20,      align:'center', title: '<?php _e('Ring');?> 3',formatter: formatTrainingCell3 },
-        {field:'Key4',        hidden:true},
-        {field:'Value4',      width:20,      align:'center', title: '<?php _e('Ring');?> 4',formatter: formatTrainingCell4 },
-        {field:'-',           hidden:true},
-        {field:'Observaciones',hidden:true },
-        {field:'Estado', hidden:true}
-    ]],
-    nowrap: false,
-    fit: false, // on fake container, do not try to fit
-    height: '100%',
-    method: 'get',
-    url: '/agility/server/database/trainingFunctions.php',
-    queryParams: {
-        Operation: 'window',
-        Size: 10,
-        ID:0,
-        Prueba: workingData.prueba, // when used from direct access
-        Sesion: workingData.sesion // when used from event handler
-    },
-    loadMsg: "<?php _e('retrieve next 10 teams to come');?> ...",
-    pagination: false,
-    rownumbers: false,
-    fitColumns: true,
-    singleSelect: true,
-    autoRowHeight: true,
-    rowStyler:vws_rowStyler,
-    onBeforeSelect: function(index) { return false; }, // dont allow row selection
-    //onBeforeLoad:function(params) {
-    //    // do not update until 'open' or 'init' received
-    //    if( $('#vw_header-infoprueba').html()==='<?php _e('Header'); ?>') return false;
-    //    return true;
-    //},
-    onLoadSuccess: function(data) {
-        if (data['total']!=0) return;
-        $.messager.alert("No data",'<?php _e("This contest has no training session defined");?>','info');
-    }
+doLayout(layout,"#vw_training_LogoClub1_0",    2+  30, 90,     10,15);
+doLayout(layout,"#vw_training_NombreClub1_0",  2+  40, 90,     20,10);
+doLayout(layout,"#vw_training_Key1_0",         2+  30, 105,    10,15);
+doLayout(layout,"#vw_training_Duracion1_0",    2+  40, 100,    20,20);
+doLayout(layout,"#vw_training_LogoClub2_0",    2+  60, 90,     10,15);
+doLayout(layout,"#vw_training_NombreClub2_0",  2+  70, 90,     20,10);
+doLayout(layout,"#vw_training_Key2_0",         2+  60, 105,    10,15);
+doLayout(layout,"#vw_training_Duracion2_0",    2+  70, 100,    20,20);
+doLayout(layout,"#vw_training_LogoClub3_0",    2+  90, 90,     10,15);
+doLayout(layout,"#vw_training_NombreClub3_0",  2+  100,90,     20,10);
+doLayout(layout,"#vw_training_Key3_0",         2+  90, 105,    10,15);
+doLayout(layout,"#vw_training_Duracion3_0",    2+  100,100,    20,20);
 
-});
+doLayout(layout,"#vw_footer-footerData",            2, 90,     30,30);
 
     var eventHandler= {
         'null': null,// null event: no action taken
