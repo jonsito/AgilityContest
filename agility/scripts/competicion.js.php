@@ -388,6 +388,55 @@ function reloadAndCheck() {
 	proximityAlert();
 }
 
+// data {Index:idx Row:row } or null
+function copyPasteOrdenSalida(data) {
+    var dg=$('#ordensalida-datagrid');
+    var row=dg.datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no item selected"); ?>',"warning");
+        return;
+    }
+    var btn=$('#ordensalida-pasteBtn');
+    if ( (typeof(data)==="undefined") || (data==null) ){ // paste requested
+        data=dg.datagrid('options').clipboard;
+        if (data==null) {
+            $.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no item selected"); ?>',"warning");
+            return;
+        }
+        // check if move order is possible
+        var from=":"+data.Row.Equipo+":"+data.Row.Categoria+":"+data.Row.Celo+":";
+        var to=":"+row.Equipo+":"+row.Categoria+":"+row.Celo+":";
+        if (isJornadaEqConjunta()) {
+            // en jornadas por equipos conjunta, no hay que tener en cuenta ni categoria ni celo
+            from=":"+data.Row.Equipo+":";
+            to=":"+row.Equipo+":";
+        }
+        if (from!==to) {
+            $.messager.alert('<?php _e("Error"); ?>','<?php _e("Cannot move to selected destination"); ?>',"warning");
+            return;
+        }
+        // do ordensalida change
+        dragAndDropOrdenSalida(data.Row.Perro,row.Perro,0,function(){
+            // update ordensalida
+            reloadOrdenSalida();
+            // disable paste button and clear clipboard
+            btn.linkbutton('disable');
+            dg.datagrid('options').clipboard=null;
+        });
+    } else {
+        // save data into clipboard and enable paste button
+        dg.datagrid('options').clipboard=data;
+        btn.linkbutton('enable');
+        $.messager.show({
+            title:'Move',
+            msg:"<?php _e('Dog stored into clipboard');?> <br/> <?php _e('To move, select new position and press Move');?>",
+            showType:'fade',
+            timeout:3000,
+            style:{ right:'', bottom:'' }
+        });
+    }
+}
+
 function reloadOrdenSalida() {
     if (workingData.jornada==0) return;
     if (workingData.manga==0) return;

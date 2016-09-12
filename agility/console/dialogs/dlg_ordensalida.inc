@@ -48,6 +48,8 @@ $config =Config::getInstance();
         <select id="ordensalida-categoria" style="width:100px"></select>
    	</span>
    	<span style="float:right;padding:5px">
+	   	<a id="ordensalida-pasteBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-redo'" onclick="copyPasteOrdenSalida()"><?php _e('Move'); ?></a>
 	   	<a id="ordensalida-checkBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-help'" onclick="reloadAndCheck()"><?php _e('Check'); ?></a>
    		<!-- estos elementos deben estar alineados a la derecha -->
@@ -132,6 +134,7 @@ $('#ordensalida-dialog').dialog({
 });
 
 $('#ordensalida-datagrid').datagrid({
+    clipboard: null, // added by me to handle cut&paste
 	// propiedades del panel asociado
 	fit: true,
 	border: false,
@@ -178,6 +181,11 @@ $('#ordensalida-datagrid').datagrid({
         // get focus on datagrid (to bind keystrokes) and enable drag and drop
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+        $(this).datagrid('options').clipboard=null; // reset clipboard
+        $('#ordensalida-pasteBtn').linkbutton('disable');
+    },
+    onDblClickRow: function(index,row) {
+        copyPasteOrdenSalida({'Row':row,'Index':index});
     },
     onDragEnter: function(dst,src) {
         var from=":"+src.Equipo+":"+src.Categoria+":"+src.Celo+":";
@@ -198,6 +206,7 @@ $('#ordensalida-datagrid').datagrid({
 addSimpleKeyHandler('#ordensalida-datagrid','#ordensalida-dialog');
 
 // botones
+addTooltip($('#ordensalida-pasteBtn').linkbutton(),'<?php _e("Move entry before selected possition"); ?>');
 addTooltip($('#ordensalida-checkBtn').linkbutton(),'<?php _e("Look for <em>proximity alerts</em>"); ?>'+" <br/>"+'<?php _e("with dogs belonging same handler"); ?>');
 addTooltip($('#ordensalida-randomBtn').linkbutton(),'<?php _e("Generate a new, random, starting order"); ?>');
 addTooltip($('#ordensalida-reverseBtn').linkbutton(),'<?php _e("Reverse starting order according with results in the coupled round"); ?>');
