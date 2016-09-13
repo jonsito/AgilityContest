@@ -291,7 +291,7 @@ $poster="/agility/images/agilityawc2016.png";
     </a>
     <div style="padding:5px 20px;font-weight: bold; font-size:1.2vw;">
         <?php
-        echon('<dl class="menu_enum">');
+        echon('<dl class="menu_enum"> <dt>Live session now: ');
         // evaluamos datos de la sesion actual
         $p=$ptree['Current']->Pru;
         $j=$ptree['Current']->Jor;
@@ -308,11 +308,10 @@ $poster="/agility/images/agilityawc2016.png";
                     if ($tanda['Categoria']==="S") $mode=2;
                     $serie=$mode;
                     if (Tandas::isAgility($tanda['Tipo'])) {
-                        echon ('<dt><a class="easyui-linkbutton" href="javascript:pbmenu_loadFinalScores('.$p .','.$j.','.$serie.')">'.$tanda['Nombre']."</a> </dt>");
+                        echon ('<a class="easyui-linkbutton" href="javascript:pbmenu_loadFinalScores('.$p .','.$j.','.$serie.')">'.$tanda['Nombre']."</a> </dt>");
                     } else { // jumping
-                        echon('<dt>Live session now: <a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$mode.');">'.$tanda['Nombre'].'</a></dt>');
+                        echon('<a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$mode.');">'.$tanda['Nombre'].'</a></dt>');
                     }
-
                 }
             }
         }
