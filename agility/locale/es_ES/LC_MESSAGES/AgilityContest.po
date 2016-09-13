@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-09-13 11:43+0200\n"
-"PO-Revision-Date: 2016-09-13 11:44+0200\n"
+"POT-Creation-Date: 2016-09-13 13:01+0200\n"
+"PO-Revision-Date: 2016-09-13 13:01+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -28,8 +28,8 @@ msgid "Important notice"
 msgstr "Aviso Importante"
 
 #: awcfci2016/index.php:228
-msgid "THIS PAGE HAVE NO OFFICIAL DATA"
-msgstr "ESTA WEB NO CONTIENE DATOS OFICIALES"
+msgid "THIS WEB PAGE HAS NO OFFICIAL DATA"
+msgstr "ESTA PAGINA WEB NO CONTIENE DATOS OFICIALES"
 
 #: awcfci2016/index.php:229 awcfci2016/index.php:296
 msgid ""
@@ -48,7 +48,7 @@ msgstr "Para consultar datos oficiales, por favor mire en"
 msgid "Online information"
 msgstr "Informaci&oacute;n en l&iacute;nea"
 
-#: awcfci2016/index.php:350 index.php:150 index2.php:304
+#: awcfci2016/index.php:355 index.php:150 index2.php:304
 #: livestream/index.php:190 livestream/vwls_entrenamientos.php:63
 #: public/pb_entrenamientos.php:36 public/pbmenu_entrenamientos.php:38
 #: videowall/index.php:225 videowall/index.php:235
@@ -56,17 +56,17 @@ msgstr "Informaci&oacute;n en l&iacute;nea"
 msgid "Training session"
 msgstr "Sesi&oacute;n de entrenamientos"
 
-#: awcfci2016/index.php:360 index2.php:314 public/pb_programa.php:97
+#: awcfci2016/index.php:365 index2.php:314 public/pb_programa.php:97
 #: public/pbmenu_programa.php:101 scripts/competicion.js.php:962
 msgid "Timetable"
 msgstr "Horario"
 
-#: awcfci2016/index.php:361 index2.php:315
+#: awcfci2016/index.php:366 index2.php:315
 #: server/excel/inscription_writer.php:96
 msgid "Inscriptions"
 msgstr "Inscripciones"
 
-#: awcfci2016/index.php:362 console/frm_competicion2.php:78 index.php:151
+#: awcfci2016/index.php:367 console/frm_competicion2.php:78 index.php:151
 #: index2.php:316 livestream/index.php:191 livestream/vwls_ordensalida.php:62
 #: public/pb_ordensalida.php:42 public/pb_ordensalida.php:51
 #: public/pbmenu_ordensalida.php:42 scripts/competicion.js.php:969
@@ -79,7 +79,7 @@ msgstr "Inscripciones"
 msgid "Starting order"
 msgstr "Orden de salida"
 
-#: awcfci2016/index.php:389 console/frm_clasificaciones2.php:52
+#: awcfci2016/index.php:394 console/frm_clasificaciones2.php:52
 #: console/frm_clasificaciones_equipos.php:51
 #: lib/templates/final_individual.inc.php:11
 #: lib/templates/final_individual.inc.php:12
@@ -101,7 +101,7 @@ msgstr "Orden de salida"
 msgid "Round"
 msgstr "Manga"
 
-#: awcfci2016/index.php:392 console/frm_clasificaciones.php:47
+#: awcfci2016/index.php:397 console/frm_clasificaciones.php:47
 #: console/frm_clasificaciones2.php:95
 #: console/frm_clasificaciones_equipos.php:96 console/index.php:213
 #: server/excel/scores_writer.php:239 server/pdf/print_clasificacion.php:159
@@ -4943,6 +4943,9 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "THIS PAGE HAVE NO OFFICIAL DATA"
+#~ msgstr "ESTA WEB NO CONTIENE DATOS OFICIALES"
 
 #~ msgid "THESE ARE NOT OFFICIAL DATA"
 #~ msgstr "ESTA WEB NO CONTIENE DATOS OFICIALES"

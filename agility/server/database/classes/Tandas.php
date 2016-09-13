@@ -38,70 +38,80 @@ class Tandas extends DBObject {
 	 * Grado:		Tanda's grado 
 	 */
 	public static $tipo_tanda = array (
-			0	=> array('Tipo'=>0,		'TipoManga'=>0,		'Nombre'=>'-- Sin especificar --',  'Categoria'=>'-',	'Grado'=>'-'),
+			0	=> array('Tipo'=>0,		'TipoManga'=>0,		'Nombre'=>'-- Sin especificar --',  'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-',	'Grado'=>'-'),
 			// en pre-agility no hay categorias
-			1	=> array('Tipo'=>1,		'TipoManga'=> 1,	'Nombre'=>'Pre-Agility 1',			'Categoria'=>'-LMST','Grado'=>'P.A.'),
-			2	=> array('Tipo'=>2,		'TipoManga'=> 2,	'Nombre'=>'Pre-Agility 2',			'Categoria'=>'-LMST','Grado'=>'P.A.'),
-			3	=> array('Tipo'=>3,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Large',		'Categoria'=>'L',	'Grado'=>'GI'),
-			4	=> array('Tipo'=>4,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Medium',	'Categoria'=>'M',	'Grado'=>'GI'),
-			5	=> array('Tipo'=>5,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Small',		'Categoria'=>'S',	'Grado'=>'GI'),
-			6	=> array('Tipo'=>6,		'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Large',		'Categoria'=>'L',	'Grado'=>'GI'),
-			7	=> array('Tipo'=>7,		'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Medium',	'Categoria'=>'M',	'Grado'=>'GI'),
-			8	=> array('Tipo'=>8,		'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Small',		'Categoria'=>'S',	'Grado'=>'GI'),
-			9	=> array('Tipo'=>9,		'TipoManga'=> 5,	'Nombre'=>'Agility GII Large',		'Categoria'=>'L',	'Grado'=>'GII'),
-			10	=> array('Tipo'=>10,	'TipoManga'=> 5,	'Nombre'=>'Agility GII Medium',		'Categoria'=>'M',	'Grado'=>'GII'),
-			11	=> array('Tipo'=>11,	'TipoManga'=> 5,	'Nombre'=>'Agility GII Small',		'Categoria'=>'S',	'Grado'=>'GII'),
-			12	=> array('Tipo'=>12,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Large',		'Categoria'=>'L',	'Grado'=>'GIII'),
-			13	=> array('Tipo'=>13,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Medium',	'Categoria'=>'M',	'Grado'=>'GIII'),
-			14	=> array('Tipo'=>14,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Small',		'Categoria'=>'S',	'Grado'=>'GIII'),
-			15	=> array('Tipo'=>15,	'TipoManga'=> 7,	'Nombre'=>'Agility Large',			'Categoria'=>'L',	'Grado'=>'-'), // Individual-Open
-			16	=> array('Tipo'=>16,	'TipoManga'=> 7,	'Nombre'=>'Agility Medium',			'Categoria'=>'M',	'Grado'=>'-'), //  Individual-Open
-			17	=> array('Tipo'=>17,	'TipoManga'=> 7,	'Nombre'=>'Agility Small',			'Categoria'=>'S',	'Grado'=>'-'), //  Individual-Open
-			18	=> array('Tipo'=>18,	'TipoManga'=> 8,	'Nombre'=>'Agility team Large',		'Categoria'=>'L',	'Grado'=>'-'), // team best
-			19	=> array('Tipo'=>19,	'TipoManga'=> 8,	'Nombre'=>'Agility team Medium',		'Categoria'=>'M',	'Grado'=>'-'), // team best
-			20	=> array('Tipo'=>20,	'TipoManga'=> 8,	'Nombre'=>'Agility team Small',		'Categoria'=>'S',	'Grado'=>'-'), // team best
+			1	=> array('Tipo'=>1,		'TipoManga'=> 1,	'Nombre'=>'Pre-Agility 1',			'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'P.A.'),
+			2	=> array('Tipo'=>2,		'TipoManga'=> 2,	'Nombre'=>'Pre-Agility 2',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'P.A.'),
+			3	=> array('Tipo'=>3,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Large',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'GI'),
+			4	=> array('Tipo'=>4,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'GI'),
+			5	=> array('Tipo'=>5,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'GI'),
+			6	=> array('Tipo'=>6,		'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Large',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'GI'),
+			7	=> array('Tipo'=>7,		'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Medium',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'GI'),
+			8	=> array('Tipo'=>8,		'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Small',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'GI'),
+			9	=> array('Tipo'=>9,		'TipoManga'=> 5,	'Nombre'=>'Agility GII Large',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'GII'),
+			10	=> array('Tipo'=>10,	'TipoManga'=> 5,	'Nombre'=>'Agility GII Medium',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'GII'),
+			11	=> array('Tipo'=>11,	'TipoManga'=> 5,	'Nombre'=>'Agility GII Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'GII'),
+			12	=> array('Tipo'=>12,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Large',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'GIII'),
+			13	=> array('Tipo'=>13,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'GIII'),
+			14	=> array('Tipo'=>14,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'GIII'),
+			15	=> array('Tipo'=>15,	'TipoManga'=> 7,	'Nombre'=>'Agility Large',			'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'-'), // Individual-Open
+			16	=> array('Tipo'=>16,	'TipoManga'=> 7,	'Nombre'=>'Agility Medium',			'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'-'), //  Individual-Open
+			17	=> array('Tipo'=>17,	'TipoManga'=> 7,	'Nombre'=>'Agility Small',			'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'-'), //  Individual-Open
+			18	=> array('Tipo'=>18,	'TipoManga'=> 8,	'Nombre'=>'Agility team Large',		'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'L',	'Grado'=>'-'), // team best
+			19	=> array('Tipo'=>19,	'TipoManga'=> 8,	'Nombre'=>'Agility team Medium',	'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'M',	'Grado'=>'-'), // team best
+			20	=> array('Tipo'=>20,	'TipoManga'=> 8,	'Nombre'=>'Agility team Small',		'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'S',	'Grado'=>'-'), // team best
         	// en jornadas por equipos conjunta tres alturas se mezclan categorias M y S
-			21	=> array('Tipo'=>21,	'TipoManga'=> 9,	'Nombre'=>'Ag. Teams Large',		'Categoria'=>'L',	'Grado'=>'-'), // team combined
-			22	=> array('Tipo'=>22,	'TipoManga'=> 9,	'Nombre'=>'Ag. Teams Med/Small',	'Categoria'=>'MS',	'Grado'=>'-'), // team combined
-			23	=> array('Tipo'=>23,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Large',		'Categoria'=>'L',	'Grado'=>'GII'),
-			24	=> array('Tipo'=>24,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Medium',		'Categoria'=>'M',	'Grado'=>'GII'),
-			25	=> array('Tipo'=>25,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Small',		'Categoria'=>'S',	'Grado'=>'GII'),
-			26	=> array('Tipo'=>26,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Large',		'Categoria'=>'L',	'Grado'=>'GIII'),
-			27	=> array('Tipo'=>27,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Medium',	'Categoria'=>'M',	'Grado'=>'GIII'),
-			28	=> array('Tipo'=>28,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Small',		'Categoria'=>'S',	'Grado'=>'GIII'),
-			29	=> array('Tipo'=>29,	'TipoManga'=> 12,	'Nombre'=>'Jumping Large',			'Categoria'=>'L',	'Grado'=>'-'), //  Individual-Open
-			30	=> array('Tipo'=>30,	'TipoManga'=> 12,	'Nombre'=>'Jumping Medium',			'Categoria'=>'M',	'Grado'=>'-'), //  Individual-Open
-			31	=> array('Tipo'=>31,	'TipoManga'=> 12,	'Nombre'=>'Jumping Small',			'Categoria'=>'S',	'Grado'=>'-'), //  Individual-Open
-			32	=> array('Tipo'=>32,	'TipoManga'=> 13,	'Nombre'=>'Jumping team Large',		'Categoria'=>'L',	'Grado'=>'-'), // team best
-			33	=> array('Tipo'=>33,	'TipoManga'=> 13,	'Nombre'=>'Jumping team Medium',		'Categoria'=>'M',	'Grado'=>'-'), // team best
-			34	=> array('Tipo'=>34,	'TipoManga'=> 13,	'Nombre'=>'Jumping team Small',		'Categoria'=>'S',	'Grado'=>'-'), // team best
+			21	=> array('Tipo'=>21,	'TipoManga'=> 9,	'Nombre'=>'Ag. Teams Large',		'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'L',	'Grado'=>'-'), // team combined
+			22	=> array('Tipo'=>22,	'TipoManga'=> 9,	'Nombre'=>'Ag. Teams Med/Small',	'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'MS',	'Grado'=>'-'), // team combined
+			23	=> array('Tipo'=>23,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Large',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'GII'),
+			24	=> array('Tipo'=>24,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Medium',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'GII'),
+			25	=> array('Tipo'=>25,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Small',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'GII'),
+			26	=> array('Tipo'=>26,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Large',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'GIII'),
+			27	=> array('Tipo'=>27,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Medium',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'GIII'),
+			28	=> array('Tipo'=>28,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Small',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'GIII'),
+			29	=> array('Tipo'=>29,	'TipoManga'=> 12,	'Nombre'=>'Jumping Large',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'-'), //  Individual-Open
+			30	=> array('Tipo'=>30,	'TipoManga'=> 12,	'Nombre'=>'Jumping Medium',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'-'), //  Individual-Open
+			31	=> array('Tipo'=>31,	'TipoManga'=> 12,	'Nombre'=>'Jumping Small',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'-'), //  Individual-Open
+			32	=> array('Tipo'=>32,	'TipoManga'=> 13,	'Nombre'=>'Jumping team Large',		'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'L',	'Grado'=>'-'), // team best
+			33	=> array('Tipo'=>33,	'TipoManga'=> 13,	'Nombre'=>'Jumping team Medium',	'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'M',	'Grado'=>'-'), // team best
+			34	=> array('Tipo'=>34,	'TipoManga'=> 13,	'Nombre'=>'Jumping team Small',		'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'S',	'Grado'=>'-'), // team best
 			// en jornadas por equipos conjunta 3 alturas se mezclan categorias M y S
-			35	=> array('Tipo'=>35,	'TipoManga'=> 14,	'Nombre'=>'Jp. Teams Large',		'Categoria'=>'L',	'Grado'=>'-'), // team combined
-			36	=> array('Tipo'=>36,	'TipoManga'=> 14,	'Nombre'=>'Jp. Teams Med/Small',	'Categoria'=>'MS',	'Grado'=>'-'), // team combined
+			35	=> array('Tipo'=>35,	'TipoManga'=> 14,	'Nombre'=>'Jp. Teams Large',		'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'L',	'Grado'=>'-'), // team combined
+			36	=> array('Tipo'=>36,	'TipoManga'=> 14,	'Nombre'=>'Jp. Teams Med/Small',	'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'MS',	'Grado'=>'-'), // team combined
 			// en las rondas KO, los perros compiten todos contra todos
-			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'Nombre'=>'Manga K.O.',				'Categoria'=>'-LMST','Grado'=>'-'),
-			38	=> array('Tipo'=>38,	'TipoManga'=> 16,	'Nombre'=>'Special Round Large',	'Categoria'=>'L',	'Grado'=>'-'),
-			39	=> array('Tipo'=>39,	'TipoManga'=> 16,	'Nombre'=>'Special Round Medium',	'Categoria'=>'M',	'Grado'=>'-'),
-			40	=> array('Tipo'=>40,	'TipoManga'=> 16,	'Nombre'=>'Special Round Small',	'Categoria'=>'S',	'Grado'=>'-'),
+			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'Nombre'=>'Manga K.O.',				'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
+			38	=> array('Tipo'=>38,	'TipoManga'=> 16,	'Nombre'=>'Special Round Large',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'-'),
+			39	=> array('Tipo'=>39,	'TipoManga'=> 16,	'Nombre'=>'Special Round Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'-'),
+			40	=> array('Tipo'=>40,	'TipoManga'=> 16,	'Nombre'=>'Special Round Small',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'-'),
 	
 			// "Tiny" support for Pruebas de cuatro alturas
-			41	=> array('Tipo'=>41,	'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Tiny',		'Categoria'=>'T',	'Grado'=>'GI'),
-			42	=> array('Tipo'=>42,	'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Tiny',		'Categoria'=>'T',	'Grado'=>'GI'),
-			43	=> array('Tipo'=>43,	'TipoManga'=> 5,	'Nombre'=>'Agility GII Tiny',		'Categoria'=>'T',	'Grado'=>'GII'),
-			44	=> array('Tipo'=>44,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Tiny',		'Categoria'=>'T',	'Grado'=>'GIII'), // no existe
-			45	=> array('Tipo'=>45,	'TipoManga'=> 7,	'Nombre'=>'Agility Tiny',			'Categoria'=>'T',	'Grado'=>'-'), //  Individual-Open
-			46	=> array('Tipo'=>46,	'TipoManga'=> 8,	'Nombre'=>'Agility team Tiny',		'Categoria'=>'T',	'Grado'=>'-'), // team best
+			41	=> array('Tipo'=>41,	'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Tiny',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GI'),
+			42	=> array('Tipo'=>42,	'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Tiny',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GI'),
+			43	=> array('Tipo'=>43,	'TipoManga'=> 5,	'Nombre'=>'Agility GII Tiny',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GII'),
+			44	=> array('Tipo'=>44,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Tiny',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GIII'), // no existe
+			45	=> array('Tipo'=>45,	'TipoManga'=> 7,	'Nombre'=>'Agility Tiny',			'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'-'), //  Individual-Open
+			46	=> array('Tipo'=>46,	'TipoManga'=> 8,	'Nombre'=>'Agility team Tiny',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'-'), // team best
 			// en equipos4  cuatro alturas  agrupamos por LM y ST
-			47	=> array('Tipo'=>47,	'TipoManga'=> 9,	'Nombre'=>'Ag. teams Large/Medium','Categoria'=>'LM',	'Grado'=>'-'), // team combined
-			48	=> array('Tipo'=>48,	'TipoManga'=> 9,	'Nombre'=>'Ag. teams Small/Tiny',	'Categoria'=>'ST',	'Grado'=>'-'), // team combined
-			49	=> array('Tipo'=>49,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Tiny',		'Categoria'=>'T',	'Grado'=>'GII'),
-			50	=> array('Tipo'=>50,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Tiny',		'Categoria'=>'T',	'Grado'=>'GIII'), // no existe
-			51	=> array('Tipo'=>51,	'TipoManga'=> 12,	'Nombre'=>'Jumping Tiny',			'Categoria'=>'T',	'Grado'=>'-'), //  Individual-Open
-			52	=> array('Tipo'=>52,	'TipoManga'=> 13,	'Nombre'=>'Jumping team Tiny',		'Categoria'=>'T',	'Grado'=>'-'), // team best
-			53	=> array('Tipo'=>53,	'TipoManga'=> 14,	'Nombre'=>'Jp. teams Large/Medium','Categoria'=>'LM',	'Grado'=>'-'), // team combined
-			54	=> array('Tipo'=>54,	'TipoManga'=> 14,	'Nombre'=>'Jp. teams Small/Tiny',	'Categoria'=>'ST',	'Grado'=>'-'), // team combined
-			55	=> array('Tipo'=>55,	'TipoManga'=> 16,	'Nombre'=>'Special round Tiny',	    'Categoria'=>'T',	'Grado'=>'-'),
+			47	=> array('Tipo'=>47,	'TipoManga'=> 9,	'Nombre'=>'Ag. teams Large/Medium', 'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'LM',	'Grado'=>'-'), // team combined
+			48	=> array('Tipo'=>48,	'TipoManga'=> 9,	'Nombre'=>'Ag. teams Small/Tiny',	'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'ST',	'Grado'=>'-'), // team combined
+			49	=> array('Tipo'=>49,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Tiny',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GII'),
+			50	=> array('Tipo'=>50,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Tiny',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GIII'), // no existe
+			51	=> array('Tipo'=>51,	'TipoManga'=> 12,	'Nombre'=>'Jumping Tiny',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'-'), //  Individual-Open
+			52	=> array('Tipo'=>52,	'TipoManga'=> 13,	'Nombre'=>'Jumping team Tiny',		'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'T',	'Grado'=>'-'), // team best
+			53	=> array('Tipo'=>53,	'TipoManga'=> 14,	'Nombre'=>'Jp. teams Large/Medium', 'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'LM',	'Grado'=>'-'), // team combined
+			54	=> array('Tipo'=>54,	'TipoManga'=> 14,	'Nombre'=>'Jp. teams Small/Tiny',	'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'ST',	'Grado'=>'-'), // team combined
+			55	=> array('Tipo'=>55,	'TipoManga'=> 16,	'Nombre'=>'Special round Tiny',	    'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'-'),
 	);
+
+    static function isAgility($tipo) {
+        if (!array_key_exists($tipo,Tandas::$tipo_tanda)) return false; // key not found: return false
+        return Tandas::$tipo_tanda[$tipo]['isAgility'];
+    }
+
+    static function isTeam($tipo) {
+        if (!array_key_exists($tipo,Tandas::$tipo_tanda)) return false; // key not found: return false
+        return Tandas::$tipo_tanda[$tipo]['isTeam'];
+    }
 
 	/**
 	 * return every array items that matches with provided key
@@ -111,7 +121,7 @@ class Tandas extends DBObject {
 	*/
 	static function getTandasInfo($key,$value) {
 		$res=array();
-		if (!array_key_exists($key,Tandas::$tipo_tanda[0])) return $res; // key not found: return empty array
+		if (!array_key_exists($key,Tandas::$tipo_tanda)) return $res; // key not found: return empty array
 		foreach(Tandas::$tipo_tanda as $item) {
 			if ($item[$key]==$value) array_push($res,$item);
 		}

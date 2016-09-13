@@ -93,6 +93,7 @@ class PublicWeb
         if ($res['total']==0) return $result;
         $ses=$res['rows'][0]['Data']; // remember that data is json-encoded
         $result['Current']=json_decode($ses);
+        // $this->myLogger->trace(json_encode($result));
         return $result;
     }
 }

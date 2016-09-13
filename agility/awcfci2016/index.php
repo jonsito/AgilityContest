@@ -225,15 +225,11 @@ $poster="/agility/images/agilityawc2016.png";
         function notOfficial() {
             var str='<span style="padding:20px;font-weight: bold; font-size:1.5vw;">';
                 str+='<h2><?php _e("Important notice"); ?>:</h2>';
-                str+='<h3><em><?php _e("THIS PAGE HAVE NO OFFICIAL DATA");?></em></h3>';
+                str+='<h3><em><?php _e("THIS WEB PAGE HAS NO OFFICIAL DATA");?></em></h3>';
             str+='<p><?php _e("Data shown in these pages is a <em>real time copy</em> of the contest server, and may be modified by Judges and Organization after revision");?></p>';
             str+='<p><?php _e("For official scores and results, please look at");?> <a href="http://agilitywc2016.com/competition">AWC-FCI 2016 web</a></p>';
             str+='</span>';
-            $.messager.alert(
-                "Notice",
-                str,
-                "warning"
-            ).window({width:600,height:350});
+            /* $.messager.alert("Notice",str,"warning").window({width:600,height:350}); */
         }
     </script>
 
@@ -286,15 +282,49 @@ $poster="/agility/images/agilityawc2016.png";
 
 <div id="pb_layout">
 
-<div id="poster_panel" data-options="region:'west',split:false" style="width:40%">
-    <a href="www.agilitywc2016.com">
-        <img src="/agility/images/agilityawc2016.png" alt="logo_agilityawc2016" style="max-width:90%;padding:20px"/>
+<div id="poster_panel" data-options="region:'west',split:false" style="width:40%"> <!-- empty --> </div>
+
+<div id="menu_panel" data-options="region:'center'">
+    <h1 style="padding:5px 20px"><?php _e("Online data")?></h1>
+    <a href="http://www.agilitywc2016.com">
+        <img src="/agility/images/agilityawc2016.png" alt="logo_agilityawc2016" style="max-width:80%;padding:5px 20px"/>
     </a>
-    <div style="padding:20px;font-weight: bold; font-size:1.2vw;">
+    <div style="padding:5px 20px;font-weight: bold; font-size:1.2vw;">
+        <?php
+        echon('<dl class="menu_enum">');
+        // evaluamos datos de la sesion actual
+        $p=$ptree['Current']->Pru;
+        $j=$ptree['Current']->Jor;
+        $mng=$ptree['Current']->Mng;
+        $t=$ptree['Current']->Tnd;
+        foreach($ptree['Jornadas'] as $jornada) {
+            foreach ($jornada['Tandas'] as $tanda) {
+                if ( ($tanda['Manga']==$mng) && ($tanda['ID']==$t) ) {
+                    // ok. ahora hay que adivinar el mode.
+                    // como solucion de emergencia, y dado que estamos en el awfci el modo y las series solo pueden ser 0,1 o 2
+                    $mode=-1;
+                    if ($tanda['Categoria']==="L") $mode=0;
+                    if ($tanda['Categoria']==="M") $mode=1;
+                    if ($tanda['Categoria']==="S") $mode=2;
+                    $serie=$mode;
+                    if (Tandas::isAgility($tanda['Tipo'])) {
+                        echon ('<dt><a class="easyui-linkbutton" href="javascript:pbmenu_loadFinalScores('.$p .','.$j.','.$serie.')">'.$tanda['Nombre']."</a> </dt>");
+                    } else { // jumping
+                        echon('<dt>Live session now: <a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$mode.');">'.$tanda['Nombre'].'</a></dt>');
+                    }
+
+                }
+            }
+        }
+        echon('</dl>');
+        ?>
+    </div>
+
+    <div style="padding:5px 20px;font-weight: bold; font-size:1.2vw;">
         <h2><?php _e('Important notice'); ?>:</h2>
         <p>
             <?php _e("Data shown in these pages is a <em>real time copy</em> of the contest server, and may be modified by Judges and Organization after revision");?>
-        </p><p>
+        <br/>
             <?php _e("For official scores and results, please look at");?> <a href="http://agilitywc2016.com/competition">AWC-FCI 2016 web</a>
         </p>
 
@@ -321,88 +351,6 @@ $poster="/agility/images/agilityawc2016.png";
     </div>
 </div>
 
-<div id="menu_panel" data-options="region:'center'">
-        <h1><?php echo /*"{$ptree['Prueba']['Nombre']} - " . */_("Online information"); ?> - Test</h1>
-            <?php
-            echon('<dl class="menu_enum">');
-
-            // evaluamos datos de la sesion actual
-            $p=$ptree['Current']->Pru;
-            $j=$ptree['Current']->Jor;
-            $mng=$ptree['Current']->Mng;
-            $t=$ptree['Current']->Tnd;
-            foreach($ptree['Jornadas'] as $jornada) {
-                foreach ($jornada['Tandas'] as $tanda) {
-                    if ( ($tanda['Manga']==$mng) && ($tanda['ID']==$t) ) {
-                        // ok. ahora hay que adivinar el mode.
-                        // como solucion de emergencia, y dado que estamos en el awfci el modo solo puede ser 0,1 o 2
-                        $mode=-1;
-                        if ($tanda['Categoria']==="L") $mode=0;
-                        if ($tanda['Categoria']==="M") $mode=1;
-                        if ($tanda['Categoria']==="S") $mode=2;
-                        echon('<dt>Live session now: <a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$mode.');">'.$tanda['Nombre'].'</a></dt><dd>&nbsp;</dd>');
-                    }
-                }
-            }
-
-            // si la licencia permite sesiones de entrenamiento las mostramos
-            if ( $am->allowed(ENABLE_TRAINING)) {
-                echon( '<dt><a class="easyui-linkbutton" href="javascript:pbmenu_loadTrainingSession('.$pruebaID.');">'._("Training session").'</a></dt><br/>');
-            }
-
-            // enumeramos jornadas
-            foreach ($ptree['Jornadas'] as $jornada) {
-                if ($jornada['Nombre']==='-- Sin asignar --') continue;
-                if (count($jornada['Mangas'])==0) continue; // no rounds, no print
-                echon( "<dt>{$jornada['Nombre']}</dt>");
-                echon("<dd>");
-                    echon("<ol>");
-                        echon('<li><a class="easyui-linkbutton" href="javascript:pbmenu_loadTimeTable('.$pruebaID.','.$jornada['ID'].')">'._("Timetable")."</a> </li>");
-                        echon('<li><a class="easyui-linkbutton" href="javascript:pbmenu_loadInscriptions('.$pruebaID.','.$jornada['ID'].')">'._("Inscriptions")."</a> </li>");
-                        echon('<li>'._("Starting order").'<br/>');
-                            echon('<table>');
-                            $tipo=0;
-                            foreach ($jornada['Tandas'] as $tanda ){
-                                if ($tanda['TipoManga']==0) continue; // skip user defined tandas
-                                if ($tanda['TipoManga']!=$tipo) echon( ($tipo==0)? '<tr>' : '</tr><tr>');
-                                $tipo=$tanda['TipoManga'];
-                                echon ('<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadStartingOrder('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">'.$tanda['Nombre']."</a> </td>");
-                            }
-                            echon("</tr></table");
-                        echon("</li>");
-                        // skipping single round series may lead in empty partial scores section.
-                        // so detect and avoid
-
-                        // firstly enumerate rounds
-                        $roundstr="";
-                        $mng=0;
-                        foreach ($jornada['Mangas'] as $manga ){
-                            // on single round series (special or preagility1) skip partial scores
-                            if ($manga['TipoManga']==16) continue; // special single round
-                            if ( ($manga['TipoManga']==1) && ($jornada['PreAgility2']==0) ) continue;
-                            if ($manga['Manga']!=$mng) $roundstr .= ($mng==0)? '<tr>' : '</tr><tr>';
-                            $mng=$manga['Manga'];
-                            $roundstr .= '<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['Manga'].','.$manga['Mode'].')">'.$manga['Nombre']."</a> </td>\n";
-                        }
-                        // on empty rounds count skip partial scores; else display them
-                        if ($roundstr!=="") {
-                            echon("<li>"._("Round").'s<br>'); echon('<table>'); echo $roundstr; echon('</table>'); echon("</li>");
-                        }
-
-                        echon("<li>"._("Scores").'<br/>');
-                            echon('<table><tr>');
-                            for ($n=0;$n<count($jornada['Series']);$n++) {
-                                $serie=$jornada['Series'][$n];
-                                echon ('<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$n.')">'.$serie['Nombre']."</a> </td>");
-                            }
-                            echon('</tr></table>');
-                        echon("</li>");
-                    echon("</ol>");
-                echon("</dd>");
-            }
-            echon('</dl>');
-            ?>
-    </div>
 
     <div id="data_panel" data-options="region:'east',split:true,collapsed:true" style="width:20%">
         <!-- to be replaced on mouse click to load proper page -->

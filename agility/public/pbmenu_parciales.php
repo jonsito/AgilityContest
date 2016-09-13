@@ -104,6 +104,7 @@ function pbmenu_updateParcialesIndividual() {
     workingData.timeout=setTimeout(pbmenu_updateParcialesIndividual,1000*rtime);
 }
 vwcp_configureScreenLayout(null); // dirty, but works: remove license, hanndle club/country and so
+setTimeout( function(){  $('#enumerateParciales').text(workingData.datosManga.Nombre) }, 0);
 if (workingData.timeout==="readyToRun")  pbmenu_updateParcialesIndividual();
 
 </script>
