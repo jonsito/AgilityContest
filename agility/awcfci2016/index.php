@@ -184,6 +184,7 @@ $poster="/agility/images/agilityawc2016.png";
         }
 
         function pbmenu_loadStartingOrder(prueba,jornada,tanda) {
+            return;
             pbmenu_getAndSet(prueba,jornada);
             // evaluate tanda by looking at tandaID
             var tandas=workingData.datosJornada.Tandas;
@@ -221,6 +222,19 @@ $poster="/agility/images/agilityawc2016.png";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
+        function notOfficial() {
+            var str='<span style="padding:20px;font-weight: bold; font-size:1.5vw;">';
+                str+='<h2><?php _e("Important notice"); ?>:</h2>';
+                str+='<h3><em><?php _e("THIS PAGE HAVE NO OFFICIAL DATA");?></em></h3>';
+            str+='<p><?php _e("Data shown in these pages is a <em>real time copy</em> of the contest server, and may be modified by Judges and Organization after revision");?></p>';
+            str+='<p><?php _e("For official scores and results, please look at");?> <a href="http://agilitywc2016.com/competition">AWC-FCI 2016 web</a></p>';
+            str+='</span>';
+            $.messager.alert(
+                "Notice",
+                str,
+                "warning"
+            ).window({width:600,height:350});
+        }
     </script>
 
     <style type="text/css">
@@ -268,7 +282,7 @@ $poster="/agility/images/agilityawc2016.png";
         }
     </style>
 </head>
-<body id="body">
+<body id="body" onLoad="notOfficial();">
 
 <div id="pb_layout">
 
@@ -308,7 +322,7 @@ $poster="/agility/images/agilityawc2016.png";
 </div>
 
 <div id="menu_panel" data-options="region:'center'">
-        <h1><?php echo /*"{$ptree['Prueba']['Nombre']} - " . */_("Online information"); ?></h1>
+        <h1><?php echo /*"{$ptree['Prueba']['Nombre']} - " . */_("Online information"); ?> - Test</h1>
             <?php
             echon('<dl class="menu_enum">');
 

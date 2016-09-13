@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-09-12 13:04+0200\n"
-"PO-Revision-Date: 2016-09-12 13:04+0200\n"
+"POT-Creation-Date: 2016-09-13 11:43+0200\n"
+"PO-Revision-Date: 2016-09-13 11:44+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -23,11 +23,15 @@ msgstr ""
 msgid "OnLine data"
 msgstr "Datos en L&iacute;nea"
 
-#: awcfci2016/index.php:280
+#: awcfci2016/index.php:227 awcfci2016/index.php:294
 msgid "Important notice"
 msgstr "Aviso Importante"
 
-#: awcfci2016/index.php:282
+#: awcfci2016/index.php:228
+msgid "THIS PAGE HAVE NO OFFICIAL DATA"
+msgstr "ESTA WEB NO CONTIENE DATOS OFICIALES"
+
+#: awcfci2016/index.php:229 awcfci2016/index.php:296
 msgid ""
 "Data shown in these pages is a <em>real time copy</em> of the contest "
 "server, and may be modified by Judges and Organization after revision"
@@ -36,15 +40,15 @@ msgstr ""
 "em> del servidor en el torneo, y pueden ser modificados a posteriori por los "
 "jueces y la organizaci&oacute;n"
 
-#: awcfci2016/index.php:284
+#: awcfci2016/index.php:230 awcfci2016/index.php:298
 msgid "For official scores and results, please look at"
 msgstr "Para consultar datos oficiales, por favor mire en"
 
-#: awcfci2016/index.php:311 index2.php:278
+#: awcfci2016/index.php:325 index2.php:278
 msgid "Online information"
 msgstr "Informaci&oacute;n en l&iacute;nea"
 
-#: awcfci2016/index.php:336 index.php:150 index2.php:304
+#: awcfci2016/index.php:350 index.php:150 index2.php:304
 #: livestream/index.php:190 livestream/vwls_entrenamientos.php:63
 #: public/pb_entrenamientos.php:36 public/pbmenu_entrenamientos.php:38
 #: videowall/index.php:225 videowall/index.php:235
@@ -52,17 +56,17 @@ msgstr "Informaci&oacute;n en l&iacute;nea"
 msgid "Training session"
 msgstr "Sesi&oacute;n de entrenamientos"
 
-#: awcfci2016/index.php:346 index2.php:314 public/pb_programa.php:97
+#: awcfci2016/index.php:360 index2.php:314 public/pb_programa.php:97
 #: public/pbmenu_programa.php:101 scripts/competicion.js.php:962
 msgid "Timetable"
 msgstr "Horario"
 
-#: awcfci2016/index.php:347 index2.php:315
+#: awcfci2016/index.php:361 index2.php:315
 #: server/excel/inscription_writer.php:96
 msgid "Inscriptions"
 msgstr "Inscripciones"
 
-#: awcfci2016/index.php:348 console/frm_competicion2.php:78 index.php:151
+#: awcfci2016/index.php:362 console/frm_competicion2.php:78 index.php:151
 #: index2.php:316 livestream/index.php:191 livestream/vwls_ordensalida.php:62
 #: public/pb_ordensalida.php:42 public/pb_ordensalida.php:51
 #: public/pbmenu_ordensalida.php:42 scripts/competicion.js.php:969
@@ -75,7 +79,7 @@ msgstr "Inscripciones"
 msgid "Starting order"
 msgstr "Orden de salida"
 
-#: awcfci2016/index.php:375 console/frm_clasificaciones2.php:52
+#: awcfci2016/index.php:389 console/frm_clasificaciones2.php:52
 #: console/frm_clasificaciones_equipos.php:51
 #: lib/templates/final_individual.inc.php:11
 #: lib/templates/final_individual.inc.php:12
@@ -97,7 +101,7 @@ msgstr "Orden de salida"
 msgid "Round"
 msgstr "Manga"
 
-#: awcfci2016/index.php:378 console/frm_clasificaciones.php:47
+#: awcfci2016/index.php:392 console/frm_clasificaciones.php:47
 #: console/frm_clasificaciones2.php:95
 #: console/frm_clasificaciones_equipos.php:96 console/index.php:213
 #: server/excel/scores_writer.php:239 server/pdf/print_clasificacion.php:159
@@ -231,7 +235,7 @@ msgstr "Gu&iacute;a"
 #: tablet/index.php:259 tablet/tablet_main.php:83 tablet/tablet_main.php:291
 #: tablet/tablet_main.php:419 videowall/vwc_finales.php:84
 #: videowall/vwc_finales.php:217 videowall/vwc_parciales.php:84
-#: videowall/vwc_parciales.php:229 videowall/vws_entrenamientos.php:75
+#: videowall/vwc_parciales.php:229
 msgid "Club"
 msgstr "Club"
 
@@ -361,7 +365,7 @@ msgstr "Salida"
 msgid "Intermediate"
 msgstr "Intermedio"
 
-#: chrono/chrono.inc.php:112 videowall/vws_entrenamientos.php:80
+#: chrono/chrono.inc.php:112
 msgid "End"
 msgstr "Final"
 
@@ -573,9 +577,7 @@ msgstr "Fallo de sensores"
 #: videowall/vw_entrenamientos.php:37 videowall/vw_finales.php:47
 #: videowall/vw_ordensalida.php:37 videowall/vw_parciales.php:44
 #: videowall/vwc_finales.php:45 videowall/vwc_parciales.php:45
-#: videowall/vws_entrenamientos.php:37 videowall/vws_entrenamientos.php:82
-#: videowall/vws_entrenamientos.php:84 videowall/vws_entrenamientos.php:86
-#: videowall/vws_entrenamientos.php:88
+#: videowall/vws_entrenamientos.php:37
 msgid "Ring"
 msgstr "Ring"
 
@@ -830,7 +832,7 @@ msgstr "Versi&oacute;n"
 #: server/pdf/print_clasificacion_equipos.php:137
 #: server/pdf/print_clasificacion_excel.php:105 server/pdf/print_common.php:310
 #: server/pdf/print_entrenamientos.php:66 server/pdf/print_podium.php:80
-#: server/pdf/print_trsTemplates.php:80 videowall/vws_entrenamientos.php:76
+#: server/pdf/print_trsTemplates.php:80
 msgid "Date"
 msgstr "Fecha"
 
@@ -2576,19 +2578,19 @@ msgid "Web access"
 msgstr "Acceso internet"
 
 #: lib/templates/entrenamientos.inc.php:19
-#: server/excel/trainingtable_writer.php:52 videowall/vws_entrenamientos.php:77
+#: server/excel/trainingtable_writer.php:52
 msgid "Check-in"
 msgstr "Firma"
 
 #: lib/templates/entrenamientos.inc.php:20
 #: server/excel/trainingtable_writer.php:52
-#: server/pdf/print_entrenamientos.php:66 videowall/vws_entrenamientos.php:78
+#: server/pdf/print_entrenamientos.php:66
 msgid "Veterinary"
 msgstr "Veterinario"
 
 #: lib/templates/entrenamientos.inc.php:21
 #: server/excel/trainingtable_writer.php:52
-#: server/pdf/print_entrenamientos.php:66 videowall/vws_entrenamientos.php:79
+#: server/pdf/print_entrenamientos.php:66
 msgid "Start"
 msgstr "Inicio"
 
@@ -2602,7 +2604,7 @@ msgstr "Duracion"
 msgid "Updating training session order"
 msgstr "Actualizando el orden de los entrenamientos"
 
-#: lib/templates/entrenamientos.inc.php:55 videowall/vws_entrenamientos.php:120
+#: lib/templates/entrenamientos.inc.php:55
 msgid "This contest has no training session defined"
 msgstr "Esta prueba no tiene sesi&oacute;n de entrenamientos"
 
@@ -3051,7 +3053,6 @@ msgstr ""
 #: videowall/vw_entrenamientos.php:72 videowall/vw_finales.php:134
 #: videowall/vw_ordensalida.php:34 videowall/vw_ordensalida.php:78
 #: videowall/vw_parciales.php:125 videowall/vws_entrenamientos.php:34
-#: videowall/vws_entrenamientos.php:115
 msgid "Header"
 msgstr "Cabecera"
 
@@ -4918,10 +4919,6 @@ msgstr "Num"
 msgid "Updating list of teams to be called to ring"
 msgstr "Actualizando orden de llamada a pista"
 
-#: videowall/vws_entrenamientos.php:105
-msgid "retrieve next 10 teams to come"
-msgstr "Obtener los pr&oacute;ximos 10 equipos"
-
 #: videowall/vws_final.php:35 videowall/vws_parcial.php:35
 msgid "Waiting for connection with event server"
 msgstr "Esperando conexi&oacute;n con el servidor de eventos"
@@ -4946,6 +4943,12 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "THESE ARE NOT OFFICIAL DATA"
+#~ msgstr "ESTA WEB NO CONTIENE DATOS OFICIALES"
+
+#~ msgid "retrieve next 10 teams to come"
+#~ msgstr "Obtener los pr&oacute;ximos 10 equipos"
 
 #~ msgid ""
 #~ "Data shown in these pages reflect <em>real time status</em> of the "
