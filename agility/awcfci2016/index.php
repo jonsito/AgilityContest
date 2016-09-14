@@ -47,7 +47,7 @@ $poster="/agility/images/agilityawc2016.png";
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $ptree['Prueba']['Nombre'] . " - " . _("OnLine data"); ?> </title>
+    <title><?php echo $ptree['Prueba']['Nombre'] . " - " . _("On line data"); ?> </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="application-name" content="Agility Contest" />
     <meta name="copyright" content="© 2013-2015 Juan Antonio Martinez" />
@@ -285,13 +285,13 @@ $poster="/agility/images/agilityawc2016.png";
 <div id="poster_panel" data-options="region:'west',split:false" style="width:40%"> <!-- empty --> </div>
 
 <div id="menu_panel" data-options="region:'center'">
-    <h1 style="padding:5px 20px"><?php _e("Online data")?></h1>
+    <div style="padding:5px 20px;font-weight: bold; font-size:1.5vw;"><?php _e("Online data")?></div>
     <a href="http://www.agilitywc2016.com">
-        <img src="/agility/images/agilityawc2016.png" alt="logo_agilityawc2016" style="max-width:80%;padding:5px 20px"/>
+        <img src="/agility/images/agilityawc2016.png" alt="logo_agilityawc2016" style="max-width:60%;padding:5px 20px"/>
     </a>
     <div style="padding:5px 20px;font-weight: bold; font-size:1.2vw;">
         <?php
-        echon('<dl class="menu_enum"> <dt>Live session now: ');
+        echon(_('Live session now: '));
         // evaluamos datos de la sesion actual
         $p=$ptree['Current']->Pru;
         $j=$ptree['Current']->Jor;
@@ -308,14 +308,13 @@ $poster="/agility/images/agilityawc2016.png";
                     if ($tanda['Categoria']==="S") $mode=2;
                     $serie=$mode;
                     if (Tandas::isAgility($tanda['Tipo'])) {
-                        echon ('<a class="easyui-linkbutton" href="javascript:pbmenu_loadFinalScores('.$p .','.$j.','.$serie.')">'.$tanda['Nombre']."</a> </dt>");
+                        echon ('<a class="easyui-linkbutton" href="javascript:pbmenu_loadFinalScores('.$p .','.$j.','.$serie.')">'.$tanda['Nombre']."</a>");
                     } else { // jumping
-                        echon('<a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$mode.');">'.$tanda['Nombre'].'</a></dt>');
+                        echon('<a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$mode.');">'.$tanda['Nombre'].'</a>');
                     }
                 }
             }
         }
-        echon('</dl>');
         ?>
     </div>
 
@@ -323,8 +322,10 @@ $poster="/agility/images/agilityawc2016.png";
         <h2><?php _e('Important notice'); ?>:</h2>
         <p>
             <?php _e("Data shown in these pages is a <em>real time copy</em> of the contest server, and may be modified by Judges and Organization after revision");?>
-        <br/>
-            <?php _e("For official scores and results, please look at");?> <a href="http://agilitywc2016.com/competition">AWC-FCI 2016 web</a>
+        <br/>&nbsp;<br/>
+            <?php _e("For official (PDF) scores and results, please look at");?> <a href="http://agilitywc2016.com/competition-2"><?php _e('AWC-FCI 2016 web server');?></a>
+        <br/>&nbsp;<br/>
+            <?php _e("To access on line (HTML) data, go to ");?><a href="http://agilitycontest.es/agility/index2.php?Prueba=22"><?php _e('Online data page');?></a>
         </p>
 
     </div>
@@ -337,12 +338,12 @@ $poster="/agility/images/agilityawc2016.png";
             <tr>
                 <td style="width:50%">
                     <a target="agilitycontest" href="http://www.agilitycontest.es">
-                        <img src="/agility/images/AgilityContest.png" style="max-width:50%">
+                        <img src="/agility/images/AgilityContest.png" style="max-width:40%">
                     </a>
                 </td>
                 <td style="width:50%">
                     <a target="cubenode" href="http://www.cubenode.com">
-                        <img src="/agility/awcfci2016/cubenode.png" style="max-width:100%">
+                        <img src="/agility/awcfci2016/cubenode.png" style="max-width:90%">
                     </a>
                 </td>
             </tr>
