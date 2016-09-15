@@ -246,7 +246,7 @@ class Inscripciones extends DBObject {
 			FROM Inscripciones,PerroGuiaClub
 			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) 
 				AND ( Inscripciones.Prueba=$id )
-			ORDER BY Dorsal ASC";
+			ORDER BY Club ASC, Dorsal ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 	
