@@ -49,10 +49,46 @@ function vws_animation(img) { // happy, excused
     });
 }
 
+// retrieve next 9 items pending to go into ring
+function vws_trainingPopulate() {
+    $.ajax({
+        type: 'POST',
+        url: '/agility/server/database/trainingFunctions.php',
+        dataType: 'json',
+        data: {
+            Operation: 'window',
+            Orden: $("#vw_training_Orden_1").val(),
+            Prueba: workingData.prueba,
+            Size: 9
+        },
+        success: function(data) {
+            if (data.errorMsg) { // error
+                $.messager.alert("Error",data.errorMsg,"error");
+            } else {// success: populate forms
+                for (var n=0; n<9; n++) {
+                    var items=data['rows'][n];
+                    $("#vw_entrenamientos_"+(n+1).toString()).form('load',items);
+                }
+            }
+        },
+        error: function() { alert("error");	}
+    });
+}
+
+function vws_trainingHandleRing(ring) {
+
+}
+
+function vws_trainingGotoNext() {
+
+}
+
 /**
  * use keys up/down to increase/decrease font size
+ * @param inScoreMode false:training true:scores
  */
-function vws_keyBindings(classid) {
+function vws_keyBindings(inScoreMode) {
+    var classid=".vws_entry";
     // capture <space> key to switch OSD on/off
     $(document).keydown(function(e) {
         var keycode=e.which;
@@ -91,8 +127,16 @@ function vws_keyBindings(classid) {
             document.title="idx:"+idx+" font-family: "+fonts[idx];
             e.preventDefault();
         }
-        if(keycode == 72) /*H: happy */ vws_animation("happy");
-        if(keycode == 83) /*S: sad */ vws_animation("excused");
+        if (inScoreMode) { // showing scores dog test
+            if(keycode == 72) /*H: happy */ vws_animation("happy");
+            if(keycode == 83) /*S: sad */ vws_animation("excused");
+        } else { // training mode: handle training turns
+            if(keycode == 49) /* 1 ring 1 control */ vws_trainingHandleRing(1); // start/stop/reset countdown
+            if(keycode == 50) /* 2 ring 2 control */ vws_trainingHandleRing(2);
+            if(keycode == 51) /* 3 ring 3 control */ vws_trainingHandleRing(3);
+            if(keycode == 52) /* 4 ring 4 control */ vws_trainingHandleRing(4);
+            if(keycode == 13) /* Intro */ vws_trainingGotoNext();         // activate next item
+        }
     });
 }
 

@@ -44,7 +44,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             $type=($entry==0)?'text':'hidden';
             $type2=($entry==0)?'hidden':'text';
             ?>
-            <form id="vw_entrenamientos_<?php echo $entry;?>" name="vw_entrenamientos_<?php echo $entry;?>">
+            <form name="vw_entrenamientos_<?php echo $entry;?>">
                 <input id="vw_training_Orden_<?php echo $entry;?>" name="Orden" type="<?php echo $type2;?>" value="Orden <?php echo $entry;?>"/>
                 <input id="vw_training_Comienzo_<?php echo $entry;?>" name="Comienzo" type="<?php echo $type2;?>" value="Comienzo <?php echo $entry;?>"/>
                 <span id="vw_training_Ring1_<?php echo $entry;?>">
@@ -55,24 +55,24 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     <input id="vw_training_Value1_<?php echo $entry;?>" name="Value1" type="hidden" value="Value1"/>
                 </span>
                 <span id="vw_training_Ring2_<?php echo $entry;?>">
-                    <input id="vw_training_LogoClub2_<?php echo $entry;?>" name="LogoClub2" type="text" value="Logo2"/>
-                    <input id="vw_training_NombreClub2_<?php echo $entry;?>" name="NombreClub2" type="text" value="Club2"/>
-                    <input id="vw_training_Duracion2_<?php echo $entry;?>" name="Duracion2" type="<?php echo $type;?>" value="Duracion2"/>
-                    <input id="vw_training_Key2_<?php echo $entry;?>" name="Key2" type="<?php echo $type;?>" value="Key2"/>
+                    <input id="vw_training_LogoClub2_<?php echo $entry;?>" name="LogoClub2" type="text"/>
+                    <input id="vw_training_NombreClub2_<?php echo $entry;?>" name="NombreClub2" type="text"/>
+                    <input id="vw_training_Duracion2_<?php echo $entry;?>" name="Duracion2" type="<?php echo $type;?>"/>
+                    <input id="vw_training_Key2_<?php echo $entry;?>" name="Key2" type="<?php echo $type;?>"/>
                     <input id="vw_training_Value2_<?php echo $entry;?>" name="Value2" type="hidden"/>
                 </span>
                 <span id="vw_training_Ring3_<?php echo $entry;?>">
-                    <input id="vw_training_LogoClub3_<?php echo $entry;?>" name="LogoClub3" type="text" value="Logo3"/>
-                    <input id="vw_training_NombreClub3_<?php echo $entry;?>" name="NombreClub3" type="text" value="Club3"/>
-                    <input id="vw_training_Duracion3_<?php echo $entry;?>" name="Duracion3" type="<?php echo $type;?>" value="Duracion3"/>
-                    <input id="vw_training_Key3_<?php echo $entry;?>" name="Key3" type="<?php echo $type;?>" value="Key3"/>
+                    <input id="vw_training_LogoClub3_<?php echo $entry;?>" name="LogoClub3" type="text"/>
+                    <input id="vw_training_NombreClub3_<?php echo $entry;?>" name="NombreClub3" type="text"/>
+                    <input id="vw_training_Duracion3_<?php echo $entry;?>" name="Duracion3" type="<?php echo $type;?>"/>
+                    <input id="vw_training_Key3_<?php echo $entry;?>" name="Key3" type="<?php echo $type;?>"/>
                     <input id="vw_training_Value3_<?php echo $entry;?>" name="Value3" type="hidden"/>
                 </span>
                 <span id="vw_training_Ring4_<?php echo $entry;?>" style="display:none;">
-                    <input id="vw_training_LogoClub4_<?php echo $entry;?>" name="LogoClub4" type="text" value="Logo4"/>
-                    <input id="vw_training_NombreClub4_<?php echo $entry;?>" name="NombreClub4" type="text" value="Club4"/>
-                    <input id="vw_training_Duracion4_<?php echo $entry;?>" name="Duracion4" type="<?php echo $type;?>" value="Duracion4"/>
-                    <input id="vw_training_Key4_<?php echo $entry;?>" name="Key4" type="<?php echo $type;?>" value="Key4"/>
+                    <input id="vw_training_LogoClub4_<?php echo $entry;?>" name="LogoClub4" type="text"/>
+                    <input id="vw_training_NombreClub4_<?php echo $entry;?>" name="NombreClub4" type="text"/>
+                    <input id="vw_training_Duracion4_<?php echo $entry;?>" name="Duracion4" type="<?php echo $type;?>"/>
+                    <input id="vw_training_Key4_<?php echo $entry;?>" name="Key4" type="<?php echo $type;?>"/>
                     <input id="vw_training_Value4_<?php echo $entry;?>" name="Value4" type="hidden"/>
                 </span>
             </form>
@@ -141,7 +141,6 @@ doLayout(layout,"#vw_footer-footerData",            2, 90,     30,30);
             vw_updateWorkingData(event,function(evt,data){
                 vw_updateHeaderAndFooter(evt,data,false);
                 vw_setTrainingLayout($('#entrenamientos-datagrid'));
-                vws_trainingPopulate();
             });
         },
         'close': null,    // no more dogs in tanda

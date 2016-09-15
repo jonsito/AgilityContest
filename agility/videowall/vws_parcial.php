@@ -78,7 +78,7 @@ events
         'null': null,// null event: no action taken
         'init': function (event, time) { // connection is made.
             vw_updateWorkingData(event,function(e,d){
-                vws_keyBindings('.vws_entry'); // capture up/down keyboard to change font size
+                vws_keyBindings(true); // capture up/down keyboard to change font size
                 // NOTICE: do not call updateHeader here cause no window loaded yet !!!
                 vws_setPartialIndividualOrTeamView(d); // fix individual or team view for partial results
             });

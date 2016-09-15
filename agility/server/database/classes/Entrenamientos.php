@@ -300,26 +300,19 @@ class Entrenamientos extends DBObject {
      * @param $id. entry id to start with. if zero start from the begining
      * @param int $count
      */
-	function window($id=0,$size=10) {
-        $enum=$this->enumerate()['rows'];
-        $orden=0;
-        $result=array();
-        for ($idx=0;$idx<count($enum);$idx++) {
-            $orden++;
-            if ( ($id!=0) && ( $enum[$idx]['ID']!=$id) ) continue; // not yet found; go to next
-            $id=0; // mark entry found
-            $enum['Orden']=$orden; // override internal orden as may be non-consecutive
-            array_push($result,$enum[$idx]);
-            $size--;
-            if ($size==0) break; // enought entries, dont loop anymore
-        }
-        // fill empty data until complete requested size
-        for(;$size>0;$size--) {
-            $orden++;
-            array_push($result,$this->getEmptyData($orden));
-        }
-        // reverse array
-        return array('total'=>count($result),'rows'=>array_reverse($result));
+	function window($orden=0,$size=10) {
+        $this->myLogger->enter();
+        // evaluate search criteria for query
+        $where=
+        $result=$this->__select(
+        /* SELECT */ "Entrenamientos.*, Clubes.Nombre as NombreClub, Clubes.Logo as LogoClub",
+            /* FROM */ "Entrenamientos,Clubes",
+            /* WHERE */ "(Prueba={$this->pruebaID}) AND (Entrenamientos.Club = Clubes.ID) AND (Orden>$orden)",
+            /* ORDER BY */ "Orden ASC",
+            /* LIMIT */ "$size"
+        );
+        $this->myLogger->leave();
+        return $result;
     }
 
     /**
