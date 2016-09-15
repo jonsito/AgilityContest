@@ -129,7 +129,7 @@ class OrdenDeSalida extends PrintCommon {
 	function printTeamInformation($team,$order,$row=array()) {
 		$this->ac_header(2,10);
 		$nombre=$this->teams[$team]['Nombre'];
-        $this->Image($row['LogoClub'],$this->GetX(),$this->GetY()+6,12.6);
+        $this->Image($row['LogoClub'],$this->GetX(),$this->GetY()+6,12,8);
         $this->Cell(12,6,$order,'LTBR',0,'C',true);
 		$this->Cell(173,6,$nombre,'LTBR',0,'R',true);
 		$this->ac_row(2,9);
@@ -187,12 +187,15 @@ class OrdenDeSalida extends PrintCommon {
             if ($this->federation->isInternational()) {
                 if ($this->isTeam()) {
                     $this->Cell($this->pos[0],6,"",'',0,$this->align[0],false);
+                    $this->SetFont($this->getFontName(),'',9); // remove bold 9px
+                    $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
                 } else {
                     $this->SetFont($this->getFontName(),'B',11); // bold 9px
                     $this->Cell($this->pos[0],6,($order+1)." - ",'LR',0,$this->align[0],true);
+                    $this->SetFont($this->getFontName(),'',8);
+                    $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
+                    $this->Image($row['LogoClub'],1+$this->GetX()-$this->pos[7],0.5+$this->GetY(),6,5);
                 }
-                $this->SetFont($this->getFontName(),'',9); // remove bold 9px
-                $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
             } else {
                 $this->SetFont($this->getFontName(),'B',11); // bold 9px
                 $this->Cell($this->pos[0],6,($order+1),'',0,$this->align[0],true);
