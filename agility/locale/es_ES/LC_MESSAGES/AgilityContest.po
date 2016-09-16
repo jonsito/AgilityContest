@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-09-16 10:44+0200\n"
-"PO-Revision-Date: 2016-09-16 10:44+0200\n"
+"POT-Creation-Date: 2016-09-16 11:19+0200\n"
+"PO-Revision-Date: 2016-09-16 11:19+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -46,7 +46,7 @@ msgstr "Para consultar datos oficiales, por favor mire en"
 
 #: awcfci2016/index.php:288
 msgid "Online data"
-msgstr "Datos en l&iacute;ea"
+msgstr "Datos en l&iacute;nea"
 
 #: awcfci2016/index.php:294
 msgid "Live session now: "
