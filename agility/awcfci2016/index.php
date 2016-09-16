@@ -184,7 +184,6 @@ $poster="/agility/images/agilityawc2016.png";
         }
 
         function pbmenu_loadStartingOrder(prueba,jornada,tanda) {
-            return;
             pbmenu_getAndSet(prueba,jornada);
             // evaluate tanda by looking at tandaID
             var tandas=workingData.datosJornada.Tandas;
