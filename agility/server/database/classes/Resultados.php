@@ -90,7 +90,7 @@ class Resultados extends DBObject {
 		if ($this->federation != null) return $this->federation;
         $prb=$this->getDatosPrueba();
 		$this->federation= Federations::getFederation(intval($prb->RSCE));
-        $this->myLogger->trace("Datos prueba: ".json_encode($prb)." Datos federacion ".json_encode($this->federation));
+        // $this->myLogger->trace("Datos prueba: ".json_encode($prb)." Datos federacion ".json_encode($this->federation));
 		return $this->federation;
 	}
 

@@ -28,7 +28,7 @@ class INTL3 extends Federations {
                 'Ret.' => 'Ret.'
             ),
             'ListaGrados'    => array (
-                '-' => 'Not specified',
+                '-' => 'Individual',
                 'GI' => 'Grade I',
                 'GII'=> 'Grade II',
                 'GIII' => 'Grade III',

@@ -325,7 +325,7 @@ $poster="/agility/images/agilityawc2016.png";
         <br/>&nbsp;<br/>
             <?php _e("For official (PDF) scores and results, please look at");?> <a href="http://agilitywc2016.com/competition-2"><?php _e('AWC-FCI 2016 web server');?></a>
         <br/>&nbsp;<br/>
-            <?php _e("To access on line (HTML) data, go to ");?><a href="http://agilitycontest.es/agility/index2.php?Prueba=22"><?php _e('Online data page');?></a>
+            <?php _e("To access on line (HTML) data, go to ");?> <a href="http://agilitycontest.es/agility/index2.php?Prueba=22"><?php _e('Online data page');?></a>
         </p>
 
     </div>
