@@ -69,8 +69,8 @@ $('#pb_ordensalida-panel').panel({
     callback: null,
     // 1 minute poll is enouth for this, as no expected changes during a session
     onOpen: function() {
-        // update header
-        pb_getHeaderInfo();
+        // update heade
+        if (workingData.prueba>0) pb_getHeaderInfo();
         // update footer
         pb_setFooterInfo();
     }
