@@ -70,14 +70,7 @@ $('#pb_finales-panel').panel({
 	closable:false,
 	collapsible:false,
 	collapsed:false,
-	resizable:true,
-	// 1 minute poll is enouth for this, as no expected changes during a session
-	onOpen: function() {
-        // update header
-        pb_getHeaderInfo();
-        // update footer info
-        pb_setFooterInfo();
-	}
+	resizable:true
 });
 
 // fire autorefresh if configured and user has no expanded rows
@@ -95,7 +88,13 @@ function pbmenu_updateFinalesEquipos() {
     workingData.timeout=setTimeout(pbmenu_updateFinalesEquipos,1000*rtime);
 }
 
-setTimeout(function(){ $('#enumerateFinales').text(workingData.datosRonda.Nombre)},0);
+setTimeout(function(){
+    // update header
+    pb_getHeaderInfo();
+    // update footer info
+    pb_setFooterInfo();
+    $('#enumerateFinales').text(workingData.datosRonda.Nombre);
+},0);
 if (workingData.timeout==="readyToRun") pbmenu_updateFinalesEquipos();
 
 </script>

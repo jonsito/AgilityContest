@@ -71,13 +71,7 @@ $('#pb_parciales-panel').panel({
 	closable:false,
 	collapsible:false,
 	collapsed:false,
-	resizable:true,
-	onOpen: function() {
-        // update header
-        pb_getHeaderInfo();
-        // update footer
-        pb_setFooterInfo();
-	}
+	resizable:true
 });
 
 $('#parciales_individual-datagrid').datagrid({
@@ -104,7 +98,14 @@ function pbmenu_updateParcialesIndividual() {
     workingData.timeout=setTimeout(pbmenu_updateParcialesIndividual,1000*rtime);
 }
 vwcp_configureScreenLayout(null); // dirty, but works: remove license, hanndle club/country and so
-setTimeout( function(){  $('#enumerateParciales').text(workingData.datosManga.Nombre) }, 0);
+setTimeout( function(){
+    // update header
+    pb_getHeaderInfo();
+    // update footer
+    pb_setFooterInfo();
+    // set text for manga name
+    $('#enumerateParciales').text(workingData.datosManga.Nombre);
+}, 0);
 if (workingData.timeout==="readyToRun")  pbmenu_updateParcialesIndividual();
 
 </script>

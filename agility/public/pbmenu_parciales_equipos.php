@@ -71,14 +71,7 @@ $('#pb_parciales-panel').panel({
 	closable:false,
 	collapsible:false,
 	collapsed:false,
-	resizable:true,
-	// 1 minute poll is enouth for this, as no expected changes during a session
-	onOpen: function() {
-        // update header
-        pb_getHeaderInfo();
-        // update footer
-        pb_setFooterInfo();
-	}
+	resizable:true
 });
 
 // fire autorefresh if configured and user has no expanded rows
@@ -98,7 +91,13 @@ function pbmenu_updateParcialesEquipos() {
 }
 
 // update round name in header
-setTimeout( function(){  $('#enumerateParciales').text(workingData.datosManga.Nombre) }, 0);
+setTimeout( function(){
+    // update header
+    pb_getHeaderInfo();
+    // update footer
+    pb_setFooterInfo();
+    $('#enumerateParciales').text(workingData.datosManga.Nombre);
+}, 0);
 if (workingData.timeout==="readyToRun") pbmenu_updateParcialesEquipos();
     
 </script>

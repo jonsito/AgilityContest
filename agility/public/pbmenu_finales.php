@@ -69,14 +69,7 @@ $('#pb_finales-panel').panel({
 	closable:false,
 	collapsible:false,
 	collapsed:false,
-	resizable:true,
-	// 1 minute poll is enouth for this, as no expected changes during a session
-	onOpen: function() {
-        // update header
-        pb_getHeaderInfo();
-        // update footer info
-        pb_setFooterInfo();
-	}
+	resizable:true
 });
 
 $('#finales_individual-datagrid').datagrid({
@@ -103,7 +96,13 @@ function pbmenu_updateFinalesIndividual() {
 // dirty, but works: remove license, hanndle club/country and so
 vwcf_configureScreenLayout(null);
 // fix header text
-setTimeout(function(){ $('#enumerateFinales').text(workingData.datosRonda.Nombre)},0);
+setTimeout(function(){
+    // update header
+    pb_getHeaderInfo();
+    // update footer info
+    pb_setFooterInfo();
+    $('#enumerateFinales').text(workingData.datosRonda.Nombre);
+},0);
 // and fire timeout if enabled
 if (workingData.timeout==="readyToRun")  pbmenu_updateFinalesIndividual();
 

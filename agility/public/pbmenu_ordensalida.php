@@ -66,14 +66,7 @@ $('#pb_ordensalida-panel').panel({
     collapsible:false,
     collapsed:false,
     resizable:true,
-    callback: null,
-    // 1 minute poll is enouth for this, as no expected changes during a session
-    onOpen: function() {
-        // update heade
-        if (workingData.prueba>0) pb_getHeaderInfo();
-        // update footer
-        pb_setFooterInfo();
-    }
+    callback: null
 });
 
 $('#ordensalida-datagrid').datagrid({
@@ -101,7 +94,11 @@ function pbmenu_ordenSalida_timeoutHandler() {
     workingData.timeout=setTimeout(pbmenu_ordenSalida_timeoutHandler,1000*rtime);
 }
 // update header title
-setTimeout(function(){ $('#pb_enumerateMangas').text(workingData.nombreTanda)},0);
+setTimeout( function(){
+    pb_getHeaderInfo();
+    pb_setFooterInfo();
+    $('#pb_enumerateMangas').text(workingData.nombreTanda);
+},0);
 // and fire up refresh
 if (workingData.timeout==="readyToRun")  pbmenu_ordenSalida_timeoutHandler();
 
