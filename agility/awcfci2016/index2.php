@@ -268,13 +268,13 @@ $poster="/agility/images/agilityawc2016.png";
                     }
                     if (workingData.requestedOrden=="Start") {
                         if (workingData.requestedCategoria=="Large") { // agility large individual starting order
-                            pbmenu_loadStartingOrder(22,169,643);
+                            pbmenu_loadStartingOrder(22,169,641);
                         }
                         if (workingData.requestedCategoria=="Medium") { // agility medium individual starting order
                             pbmenu_loadStartingOrder(22,169,642);
                         }
                         if (workingData.requestedCategoria=="Small") { // agility small individual starting order
-                            pbmenu_loadStartingOrder(22,169,641);
+                            pbmenu_loadStartingOrder(22,169,643);
                         }
                     }
                 }
