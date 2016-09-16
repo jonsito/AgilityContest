@@ -25,7 +25,7 @@ $config =Config::getInstance();
 <div id="entrenamientos-excel-dialog" style="width:640px;height:auto;padding:10px; display=none;">
 	<form name="excel-importOpts">
 		<p>
-			<?php _e("Import training session timetable from excel file");?><br/>
+			<?php _e("Import training session timetable from Excel file");?><br/>
 			<?php _e("Database backup is recommended before import");?> &nbsp; &nbsp;
 			<input type="button" class="icon_button icon-db_backup" name="<?php _e('Backup');?>" value="<?php _e('Backup');?>" onClick="backupDatabase();"/>
 		</p>
@@ -122,7 +122,7 @@ $('#import-excel-progressbar').progressbar({
 });
 
 $('#entrenamientos-excel-dialog').dialog( {
-	title:' <?php _e('Import training session information from Excel file'); ?>',
+	title:' <?php _e('Import training session timetable from Excel file'); ?>',
 	closed:true,
 	modal:true,
 	buttons:'#entrenamientos-excel-buttons',
