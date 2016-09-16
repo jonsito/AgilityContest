@@ -38,9 +38,12 @@ if (!$am->allowed(ENABLE_PUBLIC)) {
 require_once(__DIR__. "/../server/web/public.php");
 
 $pruebaID=http_request("Prueba","i",22);
-$requestedJornada=http_request('J',"s","Individual"); // Individual - Teams
-$requestedManga=http_request('M',"s","Agility"); // Agility - Jumping - Final
-$requestedCategoria=http_request('C',"s","Large"); // Large - Medium - Small
+$requestedJornada=http_request('J',"s",""); // Individual - Teams
+if ($requestedJornada=="") $requestedJornada=http_request('Jornada',"s","Individual");
+$requestedManga=http_request('M',"s",""); // Agility - Jumping - Final
+if ($requestedManga=="") $requestedManga=http_request('Manga','s','Agility');
+$requestedCategoria=http_request('C',"s",""); // Large - Medium - Small
+if ($requestedCategoria=="") $requestedCategoria=http_request('Categoria',"s","Large"); // Large - Medium - Small
 $requestedOrden=http_request('S',"s",""); // (emtpy):competion -  "Start":starting order
 $pb=new PublicWeb($pruebaID);
 $ptree=$pb->publicweb_deploy();

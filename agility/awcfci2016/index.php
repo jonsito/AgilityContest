@@ -323,8 +323,11 @@ $poster="/agility/images/agilityawc2016.png";
             <?php _e("Data shown in these pages is a <em>real time copy</em> of the contest server, and may be modified by Judges and Organization after revision");?>
         <br/>&nbsp;<br/>
             <?php _e("For official (PDF) scores and results, please look at");?> <a href="http://agilitywc2016.com/competition-2"><?php _e('AWC-FCI 2016 web server');?></a>
-        <br/>&nbsp;<br/>
+        <br/>&nbsp;
+<!--
+        <br/>
             <?php _e("To access on line (HTML) data, go to ");?> <a href="http://agilitycontest.es/agility/index2.php?Prueba=22"><?php _e('Online data page');?></a>
+-->
         </p>
 
     </div>
