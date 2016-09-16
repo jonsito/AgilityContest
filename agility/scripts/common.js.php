@@ -353,8 +353,8 @@ function getFederationInfo() {
 		dataType: 'json',
 		success: function(list){
 			if ( typeof (list) === "object") { // in Javascript array and object is the same
-				ac_fedInfo=list;
 				initWorkingData(); // must be called _after_ data is loaded
+				ac_fedInfo=list;
 			} else {
 				$.messager.alert('<?php _e("Error"); ?>','<?php _e("getFederationsInfo(): cannot retrieve federations info from server"); ?>',"error")
 			}

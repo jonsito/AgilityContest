@@ -137,7 +137,7 @@ $poster="/agility/images/agilityawc2016.png";
         /* make sure configuration is loaded from server before onLoad() event */
         loadConfiguration();
         getLicenseInfo();
-        getFederationInfo();
+        getFederationInfo(); // calls in turn initWorkingData()
         workingData.timeout=null;
         workingData.requestedJornada='<?php echo $requestedJornada;?>';
         workingData.requestedCategoria='<?php echo $requestedCategoria;?>';
@@ -377,10 +377,19 @@ $poster="/agility/images/agilityawc2016.png";
                 }
             }
         }
+
+        function fireUpWhenReady() {
+            if (typeof(ac_fedInfo[9])==="object") {
+                jumpToRequestedPage();
+                return;
+            }
+            setTimeout(function(){fireUpWhenReady()},200);
+        }
+
     </script>
 </head>
 
-<body id="body" onLoad="jumpToRequestedPage()">
+<body id="body" onLoad="fireUpWhenReady();">
     <!-- to be replaced on mouse click to load proper page -->
     <div id="public-contenido" class="easyui-panel"
          data-options="fit:true,border:false,noheader:true">
