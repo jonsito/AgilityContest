@@ -3,7 +3,7 @@
 # Script to deploy from AgilityContest git tree to install dir
 # clone from http://github.com/jonsito/AgilityContest.git
 BASEDIR=`dirname $0`/..
-INSTDIR=${1:=/var/www/html/AgilityContest}
+INSTDIR=${1:-/var/www/html/AgilityContest}
 WEBDIR=${INSTDIR}/..
 
 # for UBUNTU
