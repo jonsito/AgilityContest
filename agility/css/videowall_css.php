@@ -248,6 +248,10 @@ td.vw_club {
     padding-right:0.5vw;
 }
 
+.vws_entry .lpadding {
+    padding-left:0.5vw;
+}
+
 .vws_entry {
     font-family:<?php echo $fontfamily; ?>;
     font-size: <?php echo $fontsize ?>;

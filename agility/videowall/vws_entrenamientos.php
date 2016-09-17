@@ -39,42 +39,58 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <span id="vw_header-infomanga" style="display:none;width:200px">(<?php _e('No round selected'); ?>)</span>
             </div>
 		</div>
-		<div class="vws_entry" id="vw_tabla" data-options="region:'center'">
+		<div class="vws_results" id="vw_tabla" data-options="region:'center'" >
 <?php for ($entry=9;$entry>=0; $entry--) {
             $type=($entry==0)?'text':'hidden';
             $type2=($entry==0)?'hidden':'text';
+            $cls=($entry==0)?"vws_css_current_0":"vws_css_results_".($entry%2);
             ?>
-            <form id="vw_entrenamientos_<?php echo $entry;?>" name="vw_entrenamientos_<?php echo $entry;?>">
-                <input id="vw_training_Orden_<?php echo $entry;?>" name="Orden" type="<?php echo $type2;?>" value="Orden <?php echo $entry;?>"/>
+            <form id="vw_entrenamientos_<?php echo $entry;?>" name="vw_entrenamientos_<?php echo $entry;?>" class="<?php echo $cls?> vws_entry">
+                <input id="vw_training_Orden_<?php echo $entry;?>" name="Orden" type="<?php echo $type2;?>" value="Orden <?php echo $entry;?>" style="padding-left:2vw;"/>
                 <input id="vw_training_Comienzo_<?php echo $entry;?>" name="Comienzo" type="<?php echo $type2;?>" value="Comienzo <?php echo $entry;?>"/>
-                <span id="vw_training_Ring1_<?php echo $entry;?>">
-                    <input id="vw_training_LogoClub1_<?php echo $entry;?>" name="LogoClub1" type="text" value="Logo1"/>
+                <input id="vw_training_Duracion_<?php echo $entry;?>" name="Duracion" type="<?php echo $type2;?>" value="Duracion" <?php echo $entry;?>"/>
+                <!-- datos del ring 1 -->
+                    <input id="vw_training_LogoClub1_<?php echo $entry;?>" name="LogoClub1" type="hidden" value="Logo1"/>
+                    <img class="vws_css_results_<?php echo($entry%2);?> vws_imgpadding"
+                         src="/agility/images/logos/agilitycontest.png"
+                         id="vw_training_Logo1_<?php echo $entry;?>"
+                         alt="Logo <?php echo $entry;?>"/>
                     <input id="vw_training_NombreClub1_<?php echo $entry;?>" name="NombreClub1" type="text" value="Club1"/>
                     <input id="vw_training_Duracion1_<?php echo $entry;?>" name="Duracion1" type="<?php echo $type;?>" value="Duracion1"/>
                     <input id="vw_training_Key1_<?php echo $entry;?>" name="Key1" type="<?php echo $type;?>" value="Key1"/>
                     <input id="vw_training_Value1_<?php echo $entry;?>" name="Value1" type="hidden" value="Value1"/>
-                </span>
-                <span id="vw_training_Ring2_<?php echo $entry;?>">
-                    <input id="vw_training_LogoClub2_<?php echo $entry;?>" name="LogoClub2" type="text" value="Logo2"/>
+                <!-- datos del ring 2 -->
+                    <input id="vw_training_LogoClub2_<?php echo $entry;?>" name="LogoClub2" type="hidden" value="Logo2"/>
+                    <img class="vws_css_results_<?php echo($entry%2);?> vws_imgpadding"
+                         src="/agility/images/logos/agilitycontest.png"
+                         id="vw_training_Logo2_<?php echo $entry;?>"
+                         alt="Logo <?php echo $entry;?>"/>
                     <input id="vw_training_NombreClub2_<?php echo $entry;?>" name="NombreClub2" type="text" value="Club2"/>
                     <input id="vw_training_Duracion2_<?php echo $entry;?>" name="Duracion2" type="<?php echo $type;?>" value="Duracion2"/>
                     <input id="vw_training_Key2_<?php echo $entry;?>" name="Key2" type="<?php echo $type;?>" value="Key2"/>
                     <input id="vw_training_Value2_<?php echo $entry;?>" name="Value2" type="hidden"/>
-                </span>
-                <span id="vw_training_Ring3_<?php echo $entry;?>">
-                    <input id="vw_training_LogoClub3_<?php echo $entry;?>" name="LogoClub3" type="text" value="Logo3"/>
+                <!-- datos del ring 3 -->
+                    <input id="vw_training_LogoClub3_<?php echo $entry;?>" name="LogoClub3" type="hidden" value="Logo3"/>
+                    <img class="vws_css_results_<?php echo($entry%2);?> vws_imgpadding"
+                         src="/agility/images/logos/agilitycontest.png"
+                         id="vw_training_Logo3_<?php echo $entry;?>"
+                         alt="Logo <?php echo $entry;?>"/>
                     <input id="vw_training_NombreClub3_<?php echo $entry;?>" name="NombreClub3" type="text" value="Club3"/>
                     <input id="vw_training_Duracion3_<?php echo $entry;?>" name="Duracion3" type="<?php echo $type;?>" value="Duracion3"/>
                     <input id="vw_training_Key3_<?php echo $entry;?>" name="Key3" type="<?php echo $type;?>" value="Key3"/>
                     <input id="vw_training_Value3_<?php echo $entry;?>" name="Value3" type="hidden"/>
-                </span>
-                <span id="vw_training_Ring4_<?php echo $entry;?>" style="display:none;">
-                    <input id="vw_training_LogoClub4_<?php echo $entry;?>" name="LogoClub4" type="text" value="Logo4"/>
+                <!-- datos del ring 4 -->
+                <!--
+                    <input id="vw_training_LogoClub4_<?php echo $entry;?>" name="LogoClub4" type="hidden" value="Logo4"/>
+                    <img class="vws_css_results_<?php echo($entry%2);?> vws_imgpadding"
+                         src="/agility/images/logos/agilitycontest.png"
+                         id="vw_training_Logo4_<?php echo $entry;?>"
+                         alt="Logo <?php echo $entry;?>"/>
                     <input id="vw_training_NombreClub4_<?php echo $entry;?>" name="NombreClub4" type="text" value="Club4"/>
                     <input id="vw_training_Duracion4_<?php echo $entry;?>" name="Duracion4" type="<?php echo $type;?>" value="Duracion4"/>
                     <input id="vw_training_Key4_<?php echo $entry;?>" name="Key4" type="<?php echo $type;?>" value="Key4"/>
                     <input id="vw_training_Value4_<?php echo $entry;?>" name="Value4" type="hidden"/>
-                </span>
+                -->
             </form>
 <?php } ?>
             <span id="vw_footer-footerData"></span>
@@ -99,34 +115,35 @@ $('#vw_entrenamientos-window').window({
         startEventMgr();
     }
 });
-var layout= {'rows':120,'cols':124};
+var layout= {'rows':121,'cols':124};
 // columnas de paises pendientes
 for (var n=9; n>=1;n--) {
-    doLayout(layout,"#vw_training_Orden_"+n,             2, 90-10*n,    10,10);
-    doLayout(layout,"#vw_training_Comienzo_"+n,     2+  10, 90-10*n,    20,10);
-    doLayout(layout,"#vw_training_LogoClub1_"+n,    2+  30, 90-10*n,    10,10);
-    doLayout(layout,"#vw_training_NombreClub1_"+n,  2+  40, 90-10*n,    20,10);
-    doLayout(layout,"#vw_training_LogoClub2_"+n,    2+  60, 90-10*n,    10,10);
-    doLayout(layout,"#vw_training_NombreClub2_"+n,  2+  70, 90-10*n,    20,10);
-    doLayout(layout,"#vw_training_LogoClub3_"+n,    2+  90, 90-10*n,    10,10);
-    doLayout(layout,"#vw_training_NombreClub3_"+n,   2+  100,90-10*n,    20,10);
+    doLayout(layout,"#vw_training_Orden_"+n,             1, 90-10*n,    6,10);
+    doLayout(layout,"#vw_training_Comienzo_"+n,     2+   5, 90-10*n,    15,10);
+    doLayout(layout,"#vw_training_Duracion_"+n,     2+  20, 90-10*n,    10,10);
+    doLayout(layout,"#vw_training_Logo1_"+n,        2+  30, 90-10*n,    7,10);
+    doLayout(layout,"#vw_training_NombreClub1_"+n,  2+  37, 90-10*n,    23,10);
+    doLayout(layout,"#vw_training_Logo2_"+n,        2+  60, 90-10*n,    7,10);
+    doLayout(layout,"#vw_training_NombreClub2_"+n,  2+  67, 90-10*n,    23,10);
+    doLayout(layout,"#vw_training_Logo3_"+n,        2+  90, 90-10*n,    7,10);
+    doLayout(layout,"#vw_training_NombreClub3_"+n,  2+  97 ,90-10*n,    24,10);
 }
 // columna principal (paises en pista )
 
-doLayout(layout,"#vw_training_LogoClub1_0",    2+  30, 90,     10,15);
-doLayout(layout,"#vw_training_NombreClub1_0",  2+  40, 90,     20,10);
-doLayout(layout,"#vw_training_Key1_0",         2+  30, 105,    10,15);
-doLayout(layout,"#vw_training_Duracion1_0",    2+  40, 100,    20,20);
-doLayout(layout,"#vw_training_LogoClub2_0",    2+  60, 90,     10,15);
-doLayout(layout,"#vw_training_NombreClub2_0",  2+  70, 90,     20,10);
-doLayout(layout,"#vw_training_Key2_0",         2+  60, 105,    10,15);
-doLayout(layout,"#vw_training_Duracion2_0",    2+  70, 100,    20,20);
-doLayout(layout,"#vw_training_LogoClub3_0",    2+  90, 90,     10,15);
-doLayout(layout,"#vw_training_NombreClub3_0",  2+  100,90,     20,10);
-doLayout(layout,"#vw_training_Key3_0",         2+  90, 105,    10,15);
-doLayout(layout,"#vw_training_Duracion3_0",    2+  100,100,    20,20);
+doLayout(layout,"#vw_training_Logo1_0",        2+  30, 91,     10,14);
+doLayout(layout,"#vw_training_NombreClub1_0",  2+  40, 91,     20, 9);
+doLayout(layout,"#vw_training_Key1_0",         2+  30, 105,    10,14);
+doLayout(layout,"#vw_training_Duracion1_0",    2+  40, 100,    20,19);
+doLayout(layout,"#vw_training_Logo2_0",        2+  60, 91,     10,14);
+doLayout(layout,"#vw_training_NombreClub2_0",  2+  70, 91,     20, 9);
+doLayout(layout,"#vw_training_Key2_0",         2+  60, 105,    10,14);
+doLayout(layout,"#vw_training_Duracion2_0",    2+  70, 100,    20,19);
+doLayout(layout,"#vw_training_Logo3_0",        2+  90, 91,     10,14);
+doLayout(layout,"#vw_training_NombreClub3_0",  2+  100,91,     21, 9);
+doLayout(layout,"#vw_training_Key3_0",         2+  90, 105,    10,14);
+doLayout(layout,"#vw_training_Duracion3_0",    2+  100,100,    21,19);
 
-doLayout(layout,"#vw_footer-footerData",            2, 90,     30,30);
+doLayout(layout,"#vw_footer-footerData",            1, 90,     31,29);
 
     var eventHandler= {
         'null': null,// null event: no action taken
