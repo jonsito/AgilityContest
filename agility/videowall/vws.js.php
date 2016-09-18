@@ -67,6 +67,7 @@ function vws_trainingPopulate(idx) {
             } else {// success: populate forms
                 for (var n=0; n<10; n++) {
                     var extra="";
+                    var kv=""
                     var i=(n).toString();
                     var item=data['rows'][n];
                     // populate row and fill data
@@ -83,31 +84,44 @@ function vws_trainingPopulate(idx) {
                         $("#vw_training_Logo1_"+i).attr('src','/agility/images/logos/null.png');
                         $("#vw_training_NombreClub1_"+i).val("");
                         $("#vw_training_Key1_"+i).val("");
+                        $("#vw_training_Duracion1_"+i).html("");
                     } else { // populate with data
+                        kv=item['Key1']+" - "+item['Value1'];
                         extra=(n==0)?"":(" - "+item['Key1']);
                         $("#vw_training_Logo1_"+i).attr('src','/agility/images/logos/'+item['LogoClub']);
                         $("#vw_training_NombreClub1_"+i).val(item['NombreClub']+extra);
+                        $("#vw_training_Key1_"+i).val(kv);
+                        $("#vw_training_Duracion1_"+i).html(toHMS(dr));
                     }
                     // handle of ring 2
                     if (item['Key2']==="") { // no data
                         $("#vw_training_Logo2_"+i).attr('src','/agility/images/logos/null.png');
                         $("#vw_training_NombreClub2_"+i).val("");
                         $("#vw_training_Key2_"+i).val("");
+                        $("#vw_training_Duracion2_"+i).html("");
                     } else { // populate with data
+                        kv=item['Key2']+" - "+item['Value2'];
                         extra=(n==0)?"":(" - "+item['Key2']);
                         $("#vw_training_Logo2_"+i).attr('src','/agility/images/logos/'+item['LogoClub']);
                         $("#vw_training_NombreClub2_"+i).val(item['NombreClub']+extra);
+                        $("#vw_training_Key2_"+i).val(kv);
+                        $("#vw_training_Duracion2_"+i).html(toHMS(dr));
                     }
                     // handle of ring 3
                     if (item['Key3']==="") { // no data
                         $("#vw_training_Logo3_"+i).attr('src','/agility/images/logos/null.png');
                         $("#vw_training_NombreClub3_"+i).val("");
                         $("#vw_training_Key2_"+i).val("");
+                        $("#vw_training_Duracion3_"+i).html("");
                     } else { // populate with data
+                        kv=item['Key3']+" - "+item['Value3'];
                         extra=(n==0)?"":(" - "+item['Key3']);
                         $("#vw_training_Logo3_"+i).attr('src','/agility/images/logos/'+item['LogoClub']);
                         $("#vw_training_NombreClub3_"+i).val(item['NombreClub']+extra);
+                        $("#vw_training_Key3_"+i).val(kv);
+                        $("#vw_training_Duracion3_"+i).html(toHMS(dr));
                     }
+                    // need to process ring 4 after awc :-)
                 }
             }
         },
@@ -131,6 +145,7 @@ function vws_trainingGotoNext(delta) {
  */
 function vws_keyBindings(inScoreMode) {
     var classid=".vws_entry";
+    var class2id=
     // capture <space> key to switch OSD on/off
     $(document).keydown(function(e) {
         var keycode=e.which;
@@ -142,6 +157,7 @@ function vws_keyBindings(inScoreMode) {
             if ( (size>=1.0) && (size<=5.0) ) ac_config.vws_fontsize=size;
             $(classid).css('font-size',''+size+'vw');
             $(classid+' input').css('font-size',''+size+'vw');
+            $('.vws_training span').css('font-size',''+(1.8*size)+'vw');
             document.title="font-size: "+toFixedT(size,1);
             e.preventDefault();
         }

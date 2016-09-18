@@ -46,9 +46,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php for ($entry=9;$entry>=0; $entry--) {
             $type=($entry==0)?'text':'hidden';
             $type2=($entry==0)?'hidden':'text';
+            $disp=($entry==0)?'display:inherit;padding-top:0px;font-size:2.5vw;':'display:none;';
             $cls=($entry==0)?"vws_css_current_0":"vws_css_results_".($entry%2);
             ?>
-            <form id="vw_entrenamientos_<?php echo $entry;?>" name="vw_entrenamientos_<?php echo $entry;?>" class="<?php echo $cls?> vws_entry">
+            <form id="vw_entrenamientos_<?php echo $entry;?>" name="vw_entrenamientos_<?php echo $entry;?>" class="<?php echo $cls?> vws_entry vws_training">
                 <input id="vw_training_Index_<?php echo $entry;?>" name="Index" type="<?php echo $type2;?>" value="<?php echo $entry;?>" style="padding-left:2vw;"/>
                 <input id="vw_training_Orden_<?php echo $entry;?>" name="Orden" type="hidden" value="Orden <?php echo $entry;?>"/>
                 <input id="vw_training_Comienzo_<?php echo $entry;?>" name="Comienzo" type="<?php echo $type2;?>" value="Comienzo <?php echo $entry;?>"/>
@@ -60,8 +61,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                          id="vw_training_Logo1_<?php echo $entry;?>"
                          alt="Logo <?php echo $entry;?>"/>
                     <input id="vw_training_NombreClub1_<?php echo $entry;?>" name="NombreClub1" type="text" value="Club1"/>
-                    <input id="vw_training_Duracion1_<?php echo $entry;?>" name="Duracion1" type="<?php echo $type;?>" value="Duracion1" style="font-size:3.0vw"/>
-                    <input id="vw_training_Key1_<?php echo $entry;?>" name="Key1" type="<?php echo $type;?>" value="Key1"/>
+                    <span id="vw_training_Duracion1_<?php echo $entry;?>" name="Duracion1" style="<?php echo $disp;?>">Duracion 1</span>
+                    <input id="vw_training_Key1_<?php echo $entry;?>" name="Key1" type="<?php echo $type;?>" value="Key1" style="padding-left:2vw;"/>
                     <input id="vw_training_Value1_<?php echo $entry;?>" name="Value1" type="hidden" value="Value1"/>
                 <!-- datos del ring 2 -->
                     <img class="vws_css_results_<?php echo($entry%2);?> vws_imgpadding"
@@ -69,8 +70,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                          id="vw_training_Logo2_<?php echo $entry;?>"
                          alt="Logo <?php echo $entry;?>"/>
                     <input id="vw_training_NombreClub2_<?php echo $entry;?>" name="NombreClub2" type="text" value="Club2"/>
-                    <input id="vw_training_Duracion2_<?php echo $entry;?>" name="Duracion2" type="<?php echo $type;?>" value="Duracion2" style="font-size:3.0vw"/>
-                    <input id="vw_training_Key2_<?php echo $entry;?>" name="Key2" type="<?php echo $type;?>" value="Key2"/>
+                    <span id="vw_training_Duracion2_<?php echo $entry;?>" name="Duracion2" style="<?php echo $disp;?>">Duracion 2</span>
+                    <input id="vw_training_Key2_<?php echo $entry;?>" name="Key2" type="<?php echo $type;?>" value="Key2" style="padding-left:2vw;/>
                     <input id="vw_training_Value2_<?php echo $entry;?>" name="Value2" type="hidden"/>
                 <!-- datos del ring 3 -->
                     <img class="vws_css_results_<?php echo($entry%2);?> vws_imgpadding"
@@ -78,8 +79,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                          id="vw_training_Logo3_<?php echo $entry;?>"
                          alt="Logo <?php echo $entry;?>"/>
                     <input id="vw_training_NombreClub3_<?php echo $entry;?>" name="NombreClub3" type="text" value="Club3"/>
-                    <input id="vw_training_Duracion3_<?php echo $entry;?>" name="Duracion3" type="<?php echo $type;?>" value="Duracion3" style="font-size:3.0vw"/>
-                    <input id="vw_training_Key3_<?php echo $entry;?>" name="Key3" type="<?php echo $type;?>" value="Key3"/>
+                    <span id="vw_training_Duracion3_<?php echo $entry;?>" name="Duracion3" style="<?php echo $disp;?>">Duracion 3</span>
+                    <input id="vw_training_Key3_<?php echo $entry;?>" name="Key3" type="<?php echo $type;?>" value="Key3" style="padding-left:2vw;/>
                     <input id="vw_training_Value3_<?php echo $entry;?>" name="Value3" type="hidden"/>
                 <!-- datos del ring 4 -->
                 <!--
@@ -89,8 +90,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                          id="vw_training_Logo4_<?php echo $entry;?>"
                          alt="Logo <?php echo $entry;?>"/>
                     <input id="vw_training_NombreClub4_<?php echo $entry;?>" name="NombreClub4" type="text" value="Club4"/>
-                    <input id="vw_training_Duracion4_<?php echo $entry;?>" name="Duracion4" type="<?php echo $type;?>" value="Duracion4"/>
-                    <input id="vw_training_Key4_<?php echo $entry;?>" name="Key4" type="<?php echo $type;?>" value="Key4"/>
+                    <span id="vw_training_Duracion4_<?php echo $entry;?>" name="Duracion4" style="<?php echo $disp;?>font-size:3.0vw">Duracion 4</span>
+                    <input id="vw_training_Key4_<?php echo $entry;?>" name="Key4" type="<?php echo $type;?>" value="Key4" style="padding-left:2vw;/>
                     <input id="vw_training_Value4_<?php echo $entry;?>" name="Value4" type="hidden"/>
                 -->
             </form>
