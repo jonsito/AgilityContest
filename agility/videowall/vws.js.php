@@ -85,13 +85,17 @@ function vws_trainingPopulate(idx) {
                         $("#vw_training_NombreClub1_"+i).val("");
                         $("#vw_training_Key1_"+i).val("");
                         $("#vw_training_Duracion1_"+i).html("");
+                        if (n==0) vws_counter1.stop();
                     } else { // populate with data
                         kv=item['Key1']+" - "+item['Value1'];
                         extra=(n==0)?"":(" - "+item['Key1']);
                         $("#vw_training_Logo1_"+i).attr('src','/agility/images/logos/'+item['LogoClub']);
                         $("#vw_training_NombreClub1_"+i).val(item['NombreClub']+extra);
                         $("#vw_training_Key1_"+i).val(kv);
-                        $("#vw_training_Duracion1_"+i).html(toHMS(dr));
+                        if (n==0) {
+                            vws_counter1.reset(dr);
+                            vws_counter1.start();
+                        }
                     }
                     // handle of ring 2
                     if (item['Key2']==="") { // no data
@@ -99,13 +103,17 @@ function vws_trainingPopulate(idx) {
                         $("#vw_training_NombreClub2_"+i).val("");
                         $("#vw_training_Key2_"+i).val("");
                         $("#vw_training_Duracion2_"+i).html("");
+                        if (n==0) vws_counter2.stop();
                     } else { // populate with data
                         kv=item['Key2']+" - "+item['Value2'];
                         extra=(n==0)?"":(" - "+item['Key2']);
                         $("#vw_training_Logo2_"+i).attr('src','/agility/images/logos/'+item['LogoClub']);
                         $("#vw_training_NombreClub2_"+i).val(item['NombreClub']+extra);
                         $("#vw_training_Key2_"+i).val(kv);
-                        $("#vw_training_Duracion2_"+i).html(toHMS(dr));
+                        if (n==0) {
+                            vws_counter2.reset(dr);
+                            vws_counter2.start();
+                        }
                     }
                     // handle of ring 3
                     if (item['Key3']==="") { // no data
@@ -113,13 +121,17 @@ function vws_trainingPopulate(idx) {
                         $("#vw_training_NombreClub3_"+i).val("");
                         $("#vw_training_Key2_"+i).val("");
                         $("#vw_training_Duracion3_"+i).html("");
+                        if (n==0) vws_counter3.stop();
                     } else { // populate with data
                         kv=item['Key3']+" - "+item['Value3'];
                         extra=(n==0)?"":(" - "+item['Key3']);
                         $("#vw_training_Logo3_"+i).attr('src','/agility/images/logos/'+item['LogoClub']);
                         $("#vw_training_NombreClub3_"+i).val(item['NombreClub']+extra);
                         $("#vw_training_Key3_"+i).val(kv);
-                        $("#vw_training_Duracion3_"+i).html(toHMS(dr));
+                        if (n==0) {
+                            vws_counter3.reset(dr);
+                            vws_counter3.start();
+                        }
                     }
                     // need to process ring 4 after awc :-)
                 }
@@ -129,8 +141,19 @@ function vws_trainingPopulate(idx) {
     });
 }
 
-function vws_trainingHandleRing(ring) {
-
+function vws_trainingHandleRing(ring,ctrl) { // false:start/stop true:pause/resume
+    var counter;
+    switch (ring) {
+        case 1: counter=vws_counter1; break;
+        case 2: counter=vws_counter2; break;
+        case 3: counter=vws_counter3; break;
+        default: return; // need to handle ring4
+    }
+    if (ctrl && counter.started()) {
+        if (counter.paused()) counter.resume(); else counter.pause();
+        return;
+    }
+    if (counter.started()) counter.stop(); else counter.start();
 }
 
 function vws_trainingGotoNext(delta) {
@@ -149,6 +172,7 @@ function vws_keyBindings(inScoreMode) {
     // capture <space> key to switch OSD on/off
     $(document).keydown(function(e) {
         var keycode=e.which;
+        var ctrl=e.ctrlKey;
         var delta=0;
         if (keycode == 38) delta=0.1; //  key up
         if (keycode == 40) delta=-0.1; // key down
@@ -189,10 +213,10 @@ function vws_keyBindings(inScoreMode) {
             if(keycode == 72) /*H: happy */ vws_animation("happy");
             if(keycode == 83) /*S: sad */ vws_animation("excused");
         } else { // training mode: handle training turns
-            if(keycode == 49) /* 1 ring 1 control */ vws_trainingHandleRing(1); // start/stop/reset countdown
-            if(keycode == 50) /* 2 ring 2 control */ vws_trainingHandleRing(2);
-            if(keycode == 51) /* 3 ring 3 control */ vws_trainingHandleRing(3);
-            if(keycode == 52) /* 4 ring 4 control */ vws_trainingHandleRing(4);
+            if(keycode == 49) /* 1 ring 1 control */ vws_trainingHandleRing(1,ctrl); // start/stop/reset countdown
+            if(keycode == 50) /* 2 ring 2 control */ vws_trainingHandleRing(2,ctrl);
+            if(keycode == 51) /* 3 ring 3 control */ vws_trainingHandleRing(3,ctrl);
+            if(keycode == 52) /* 4 ring 4 control */ vws_trainingHandleRing(4,ctrl);
             if(keycode == 80) /* P */ vws_trainingGotoNext(-1);     // back to previous item
             if(keycode == 78) /* N */ vws_trainingGotoNext(1);    // activate next item
             if(keycode == 13) /* Intro */ vws_trainingGotoNext(1); // activate next item

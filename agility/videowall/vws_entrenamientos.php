@@ -100,7 +100,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		</div>
 	</div>
 </div> <!-- vw_entrenamientos-window -->
-
 <script type="text/javascript">
 
 $('#vw_entrenamientos-layout').layout({fit:true});
@@ -148,6 +147,35 @@ doLayout(layout,"#vw_training_Duracion3_0",    2+  100,100,    21,19);
 
 doLayout(layout,"#vw_footer-footerData",            1, 90,     31,29);
 
+var vws_counter1=new Countdown({
+    seconds: 0,
+    onUpdateStatus: function(tsec){
+        var sec=tsec/10; // remove tenths of seconds
+        var time=sprintf('%02d:%02d', Math.floor(sec/60),sec%60);
+        $('#vw_training_Duracion1_0').html( time );
+    }, // callback for each tenth of second
+    onCounterEnd: function(){ /* empty */    }
+});
+var vws_counter2=new Countdown({
+    seconds: 0,
+    onUpdateStatus: function(tsec){
+        var sec=tsec/10; // remove tenths of seconds
+        var time=sprintf('%02d:%02d', Math.floor(sec/60),sec%60);
+        $('#vw_training_Duracion2_0').html( time );
+    }, // callback for each tenth of second
+    onCounterEnd: function(){ /* empty */    }
+});
+var vws_counter3= new Countdown({
+    seconds: 0,
+    onUpdateStatus: function(tsec){
+        var sec=tsec/10; // remove tenths of seconds
+        var time=sprintf('%02d:%02d', Math.floor(sec/60),sec%60);
+        $('#vw_training_Duracion3_0').html( time );
+    }, // callback for each tenth of second
+    onCounterEnd: function(){ /* empty */    }
+});
+
+
     var eventHandler= {
         'null': null,// null event: no action taken
         'init': function(event) { // operator starts tablet application
@@ -185,5 +213,6 @@ doLayout(layout,"#vw_footer-footerData",            1, 90,     31,29);
         'reconfig':	function(event) { loadConfiguration(); }, // reload configuration from server
         'info':	null // click on user defined tandas
     };
+
 
 </script>
