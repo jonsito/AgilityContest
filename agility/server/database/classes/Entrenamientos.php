@@ -266,12 +266,12 @@ class Entrenamientos extends DBObject {
 		return $result;
 	}
 
-	private function getEmptyData($orden){
+	private function getEmptyData(){
 	    $nextTime=time();
         $gtime=intval($this->myConfig->getEnv("training_grace"));
         return array(
             'Prueba'    => $this->pruebaID,
-            'Orden'     => $orden,
+            'Orden'     => 0,
             'Club'      => 0,
             'NombreClub'=> '',
             'Fecha'     => date('Y-m-d',$nextTime),
@@ -280,10 +280,10 @@ class Entrenamientos extends DBObject {
             'Comienzo'   =>date('Y-m-d H:i:s',$nextTime+3600), // 1 hour later
             'Duracion'  => 0,
             'Total'     => 0, // not used (number total of dogs)
-            'Key1'         => $this->fedObj->getCategory('L'),
-            'Key2'         => $this->fedObj->getCategory('M'),
-            'Key3'         => $this->fedObj->getCategory('S'),
-            'Key4'         => $this->fedObj->getCategory('T'),
+            'Key1'         => "", // $this->fedObj->getCategory('M'),
+            'Key2'         => "", // $this->fedObj->getCategory('M'),
+            'Key3'         => "", // $this->fedObj->getCategory('S'),
+            'Key4'         => "", // $this->fedObj->getCategory('T'),
             'Value1'         => 0,
             'Value2'         => 0,
             'Value3'         => 0,
@@ -300,17 +300,20 @@ class Entrenamientos extends DBObject {
      * @param $id. entry id to start with. if zero start from the begining
      * @param int $count
      */
-	function window($orden=0,$size=10) {
+	function window($start=0,$size=10) {
         $this->myLogger->enter();
         // evaluate search criteria for query
         $where=
         $result=$this->__select(
         /* SELECT */ "Entrenamientos.*, Clubes.Nombre as NombreClub, Clubes.Logo as LogoClub",
             /* FROM */ "Entrenamientos,Clubes",
-            /* WHERE */ "(Prueba={$this->pruebaID}) AND (Entrenamientos.Club = Clubes.ID) AND (Orden>$orden)",
+            /* WHERE */ "(Prueba={$this->pruebaID}) AND (Entrenamientos.Club = Clubes.ID)",
             /* ORDER BY */ "Orden ASC",
-            /* LIMIT */ "$size"
+            /* LIMIT */ "$start,$size"
         );
+        for ($n=0;$n<$size;$n++) {
+            if (!array_key_exists($n,$result['rows']) )$result['rows'][$n]=$this->getEmptyData();
+        }
         $this->myLogger->leave();
         return $result;
     }

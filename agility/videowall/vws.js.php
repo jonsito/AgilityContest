@@ -50,24 +50,64 @@ function vws_animation(img) { // happy, excused
 }
 
 // retrieve next 9 items pending to go into ring
-function vws_trainingPopulate() {
+function vws_trainingPopulate(idx) {
     $.ajax({
         type: 'POST',
         url: '/agility/server/database/trainingFunctions.php',
         dataType: 'json',
         data: {
             Operation: 'window',
-            Orden: $("#vw_training_Orden_1").val(),
+            Index:  idx,
             Prueba: workingData.prueba,
-            Size: 9
+            Size: 10
         },
         success: function(data) {
             if (data.errorMsg) { // error
                 $.messager.alert("Error",data.errorMsg,"error");
             } else {// success: populate forms
-                for (var n=0; n<9; n++) {
-                    var items=data['rows'][n];
-                    $("#vw_entrenamientos_"+(n+1).toString()).form('load',items);
+                for (var n=0; n<10; n++) {
+                    var extra="";
+                    var i=(n).toString();
+                    var item=data['rows'][n];
+                    // populate row and fill data
+                    item['Index']=(item['Orden']==0)?"":idx+n;
+                    $("#vw_entrenamientos_"+i).form('load',item);
+                    // start time
+                    var st=$('#vw_training_Comienzo_'+n).val();
+                    $('#vw_training_Comienzo_'+n).val((item['Orden']==0)?"-":formatHM(st,item,n));
+                    // duration
+                    var dr=$('#vw_training_Duracion_'+n).val();
+                    $('#vw_training_Duracion_'+n).val((item['Orden']==0)?"-":formatMinSecs(dr,item,n));
+                    // handle of ring 1
+                    if (item['Key1']==="") { // no data
+                        $("#vw_training_Logo1_"+i).attr('src','/agility/images/logos/null.png');
+                        $("#vw_training_NombreClub1_"+i).val("");
+                        $("#vw_training_Key1_"+i).val("");
+                    } else { // populate with data
+                        extra=(n==0)?"":(" - "+item['Key1']);
+                        $("#vw_training_Logo1_"+i).attr('src','/agility/images/logos/'+item['LogoClub']);
+                        $("#vw_training_NombreClub1_"+i).val(item['NombreClub']+extra);
+                    }
+                    // handle of ring 2
+                    if (item['Key2']==="") { // no data
+                        $("#vw_training_Logo2_"+i).attr('src','/agility/images/logos/null.png');
+                        $("#vw_training_NombreClub2_"+i).val("");
+                        $("#vw_training_Key2_"+i).val("");
+                    } else { // populate with data
+                        extra=(n==0)?"":(" - "+item['Key2']);
+                        $("#vw_training_Logo2_"+i).attr('src','/agility/images/logos/'+item['LogoClub']);
+                        $("#vw_training_NombreClub2_"+i).val(item['NombreClub']+extra);
+                    }
+                    // handle of ring 3
+                    if (item['Key3']==="") { // no data
+                        $("#vw_training_Logo3_"+i).attr('src','/agility/images/logos/null.png');
+                        $("#vw_training_NombreClub3_"+i).val("");
+                        $("#vw_training_Key2_"+i).val("");
+                    } else { // populate with data
+                        extra=(n==0)?"":(" - "+item['Key3']);
+                        $("#vw_training_Logo3_"+i).attr('src','/agility/images/logos/'+item['LogoClub']);
+                        $("#vw_training_NombreClub3_"+i).val(item['NombreClub']+extra);
+                    }
                 }
             }
         },
@@ -79,8 +119,10 @@ function vws_trainingHandleRing(ring) {
 
 }
 
-function vws_trainingGotoNext() {
-
+function vws_trainingGotoNext(delta) {
+    var idx=delta+parseInt($("#vw_training_Index_0").val());
+    if (idx<0) idx=0;
+    setTimeout(function() {vws_trainingPopulate(idx)},0);
 }
 
 /**
@@ -135,7 +177,9 @@ function vws_keyBindings(inScoreMode) {
             if(keycode == 50) /* 2 ring 2 control */ vws_trainingHandleRing(2);
             if(keycode == 51) /* 3 ring 3 control */ vws_trainingHandleRing(3);
             if(keycode == 52) /* 4 ring 4 control */ vws_trainingHandleRing(4);
-            if(keycode == 13) /* Intro */ vws_trainingGotoNext();         // activate next item
+            if(keycode == 80) /* P */ vws_trainingGotoNext(-1);     // back to previous item
+            if(keycode == 78) /* N */ vws_trainingGotoNext(1);    // activate next item
+            if(keycode == 13) /* Intro */ vws_trainingGotoNext(1); // activate next item
         }
     });
 }

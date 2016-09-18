@@ -438,7 +438,7 @@ class Tandas extends DBObject {
 				$manga=$tanda['Manga'];
 				// en cada manga cogemos  los perros ordenados segun el orden de salida
 				$os=new OrdenSalida("Tandas::getListaPerros()",$manga);
-				$perrosmanga=$os->getData(false); // false: do not include extra team information rows
+				$perrosmanga=$os->getData(false); // false: do not include extra team information row
 			}
 			// OK ya tenemos la lista ordenada de los perros de cada manga
 			// Ahora vamos a sacar la lista por cada tanda
