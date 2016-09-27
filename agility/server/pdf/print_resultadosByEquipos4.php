@@ -46,6 +46,7 @@ class ResultadosByEquipos4 extends PrintCommon {
         'Dorsal' => '-',
         'Perro' => 0,
         'Nombre' => '-',
+        'NombreLargo' => '-',
         'NombreGuia' => '-',
         'NombreClub' => '-',
         'Licencia' => '-',

@@ -420,7 +420,7 @@ class OrdenSalida extends DBObject {
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
 		$rs= $this->__select(
 			"Resultados.*,Equipos.Nombre AS NombreEquipo,
-			PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS LogoClub,PerroGuiaClub.Pais,PerroGuiaClub.Genero,
+			PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS LogoClub,PerroGuiaClub.Pais,PerroGuiaClub.Genero,PerroGuiaClub.LOE_RRC AS LOE_RRC,
 			Inscripciones.Observaciones AS Observaciones",
 			"Resultados,Equipos,PerroGuiaClub,Inscripciones",
 			"(Inscripciones.Prueba={$this->prueba['ID']}) AND (Inscripciones.Perro=Resultados.Perro) AND

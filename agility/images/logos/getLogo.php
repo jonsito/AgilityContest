@@ -26,10 +26,21 @@ $fed=http_request("Fed","i" ,http_request("Federation","i",0) );
 $logo=http_request("Logo","s","null.png");
 $fedname=Federations::getFederation(intval($fed))->get('Name');
 $iconpath=getIconPath($fedname,$logo);
+/*
 $image = imagecreatefromstring(file_get_contents($iconpath));
 imagealphablending($image, false); // preserve transparency
 imagesavealpha($image, true);
 header('Content-Type: image/png');
 imagepng($image);
 imagedestroy($image);
+*/
+// from: http://stackoverflow.com/questions/2882472/php-send-file-to-user
+$finfo = finfo_open(FILEINFO_MIME_TYPE);
+header('Content-Type: ' . finfo_file($finfo, $iconpath));
+finfo_close($finfo);
+//Define file size
+header('Content-Length: ' . filesize($iconpath));
+ob_clean();
+flush();
+readfile($iconpath);
 ?>

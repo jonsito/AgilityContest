@@ -1,6 +1,6 @@
 <?php
 /*
-print_ordenDeSalida.php
+print_ordenDeSalida_awcfci.php
 
 Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -126,10 +126,12 @@ class OrdenDeSalida extends PrintCommon {
 		// $this->myLogger->leave();
 	}
 	
-	function printTeamInformation($team) {
-		$this->ac_header(2,9);
+	function printTeamInformation($team,$order,$row=array()) {
+		$this->ac_header(2,10);
 		$nombre=$this->teams[$team]['Nombre'];
-		$this->Cell(185,6,$nombre,'LTBR',0,'R',true);
+        $this->Image($row['LogoClub'],$this->GetX(),$this->GetY()+6,12,8);
+        $this->Cell(12,6,$order,'LTBR',0,'C',true);
+		$this->Cell(173,6,$nombre,'LTBR',0,'R',true);
 		$this->ac_row(2,9);
 		$this->Ln();
 	}
@@ -147,6 +149,7 @@ class OrdenDeSalida extends PrintCommon {
 		// Datos
 		$rowcount=0;
 		$order=0;
+        $team_order=1;
 		$lastTeam=0;
 		foreach($this->orden as $row) {
 			if (!category_match($row['Categoria'],$this->validcats)) continue;
@@ -163,7 +166,7 @@ class OrdenDeSalida extends PrintCommon {
 			if ($this->isTeam()) {
 				// team change: make sure that new team fits in page
 				if ($newTeam!=$lastTeam) {
-					if ($rowcount>=32) $rowcount=37; // team change: seek at end of page
+					if ($rowcount>=31) $rowcount=37; // team change: seek at end of page
 				}
 			}
 			if ( ($rowcount==0) || ($rowcount>=37) ) { // assume 38 rows per page ( rowWidth = 6mmts )
@@ -176,15 +179,26 @@ class OrdenDeSalida extends PrintCommon {
 			// on team Events and team change add Team header information
 			if ( $this->isTeam() && ($newTeam!=$lastTeam) ) {
 				$lastTeam=$newTeam;
-				$this->printTeamInformation($lastTeam);
+				$this->printTeamInformation($lastTeam,$team_order,$row);
 				$rowcount++;
+                $team_order++;
 			}
             $this->ac_row($order,9);
-			$this->SetFont($this->getFontName(),'B',11); // bold 9px
-			$this->Cell($this->pos[0],6,($order+1)." - ",'LR',0,$this->align[0],true); // display order
-			$this->SetFont($this->getFontName(),'',9); // remove bold 9px
             if ($this->federation->isInternational()) {
-                $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
+                if ($this->isTeam()) {
+                    $this->Cell($this->pos[0],6,"",'',0,$this->align[0],false);
+                    $this->SetFont($this->getFontName(),'',9); // remove bold 9px
+                    $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
+                } else {
+                    $this->SetFont($this->getFontName(),'B',11); // bold 9px
+                    $this->Cell($this->pos[0],6,($order+1)." - ",'LR',0,$this->align[0],true);
+                    $this->SetFont($this->getFontName(),'',8);
+                    $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
+                    $this->Image($row['LogoClub'],1+$this->GetX()-$this->pos[7],0.5+$this->GetY(),6,5);
+                }
+            } else {
+                $this->SetFont($this->getFontName(),'B',11); // bold 9px
+                $this->Cell($this->pos[0],6,($order+1),'',0,$this->align[0],true);
             }
 			$this->Cell($this->pos[1],6,$row['Dorsal'],		'LR',0,$this->align[1],true);
             // not enought space for long name in international contests
