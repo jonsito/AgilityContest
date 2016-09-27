@@ -53,6 +53,7 @@ class PrintClasificacionTeam extends PrintCommon {
         'Dorsal' => '-',
         'Perro' => 0,
         'Nombre' => '-',
+        'NombreLargo' => '-',
         'NombreGuia' => '-',
         'NombreClub' => '-',
         'Licencia' => '-',
