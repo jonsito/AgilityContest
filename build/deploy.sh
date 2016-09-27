@@ -7,11 +7,11 @@ INSTDIR=${1:-/var/www/html/AgilityContest}
 WEBDIR=${INSTDIR}/..
 
 # for UBUNTU
-OWNER=root
-GROUP=www-data
+#OWNER=root
+#GROUP=www-data
 # for Fedora/RedHat (sudo to proper user before running)
-#OWNER=${USER}
-#GROUP=apache
+OWNER=jantonio
+GROUP=apache
 
 # some checks
 echo -n "Check..."

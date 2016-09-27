@@ -313,7 +313,7 @@ $poster="/agility/images/agilityawc2016.png";
                         pbmenu_loadFinalScores(22,169,1);
                     }
                     if (workingData.requestedCategoria=="Small") { // final small individual
-                        pbmenu_loadFinalScores(22,169,1);
+                        pbmenu_loadFinalScores(22,169,2);
                     }
                 }
             }

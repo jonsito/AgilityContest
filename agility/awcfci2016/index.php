@@ -197,6 +197,7 @@ $poster="/agility/images/agilityawc2016.png";
         }
 
         function pbmenu_loadPartialScores(prueba,jornada,manga,mode) {
+	    ac_config.web_refreshtime=30;
             pbmenu_getAndSet(prueba,jornada);
             // evaluate tanda by looking at tandaID
             var mangas=workingData.datosJornada.Mangas;
@@ -213,6 +214,7 @@ $poster="/agility/images/agilityawc2016.png";
         }
 
         function pbmenu_loadFinalScores(prueba,jornada,serie) {
+	    ac_config.web_refreshtime=30;
             pbmenu_getAndSet(prueba,jornada);
             workingData.datosRonda=workingData.datosJornada.Series[serie];
             pbmenu_collapseMenu(true);
