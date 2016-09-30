@@ -24,12 +24,13 @@ class SheetIterator implements IteratorInterface
      * @param string $filePath Path of the file to be read
      * @param \Box\Spout\Reader\XLSX\Helper\SharedStringsHelper $sharedStringsHelper
      * @param \Box\Spout\Common\Helper\GlobalFunctionsHelper $globalFunctionsHelper
+     * @param bool $shouldFormatDates Whether date/time values should be returned as PHP objects or be formatted as strings
      * @throws \Box\Spout\Reader\Exception\NoSheetsFoundException If there are no sheets in the file
      */
-    public function __construct($filePath, $sharedStringsHelper, $globalFunctionsHelper)
+    public function __construct($filePath, $sharedStringsHelper, $globalFunctionsHelper, $shouldFormatDates)
     {
         // Fetch all available sheets
-        $sheetHelper = new SheetHelper($filePath, $sharedStringsHelper, $globalFunctionsHelper);
+        $sheetHelper = new SheetHelper($filePath, $sharedStringsHelper, $globalFunctionsHelper, $shouldFormatDates);
         $this->sheets = $sheetHelper->getSheets();
 
         if (count($this->sheets) === 0) {
@@ -52,7 +53,7 @@ class SheetIterator implements IteratorInterface
      * Checks if current position is valid
      * @link http://php.net/manual/en/iterator.valid.php
      *
-     * @return boolean
+     * @return bool
      */
     public function valid()
     {

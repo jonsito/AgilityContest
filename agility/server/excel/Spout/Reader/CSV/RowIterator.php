@@ -57,6 +57,7 @@ class RowIterator implements IteratorInterface
      * @param string $fieldDelimiter Character that delimits fields
      * @param string $fieldEnclosure Character that enclose fields
      * @param string $encoding Encoding of the CSV file to be read
+     * @param string $endOfLineDelimiter End of line delimiter
      * @param \Box\Spout\Common\Helper\GlobalFunctionsHelper $globalFunctionsHelper
      */
     public function __construct($filePointer, $fieldDelimiter, $fieldEnclosure, $encoding, $endOfLineDelimiter, $globalFunctionsHelper)
@@ -105,7 +106,7 @@ class RowIterator implements IteratorInterface
      * Checks if current position is valid
      * @link http://php.net/manual/en/iterator.valid.php
      *
-     * @return boolean
+     * @return bool
      */
     public function valid()
     {
@@ -152,7 +153,7 @@ class RowIterator implements IteratorInterface
      */
     protected function getNextUTF8EncodedRow()
     {
-        $encodedRowData = fgetcsv($this->filePointer, self::MAX_READ_BYTES_PER_LINE, $this->fieldDelimiter, $this->fieldEnclosure);
+        $encodedRowData = $this->globalFunctionsHelper->fgetcsv($this->filePointer, self::MAX_READ_BYTES_PER_LINE, $this->fieldDelimiter, $this->fieldEnclosure);
         if (false === $encodedRowData) {
             return false;
         }

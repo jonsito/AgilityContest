@@ -62,6 +62,23 @@ class Style
     protected $hasSetWrapText = false;
 
     /**
+     * @var Border
+     */
+    protected $border = null;
+
+    /**
+     * @var bool Whether border properties should be applied
+     */
+    protected $shouldApplyBorder = false;
+
+    /** @var string Background color */
+    protected $backgroundColor = null;
+
+    /** @var bool */
+    protected $hasSetBackgroundColor = false;
+
+
+    /**
      * @return int|null
      */
     public function getId()
@@ -80,7 +97,33 @@ class Style
     }
 
     /**
-     * @return boolean
+     * @return Border
+     */
+    public function getBorder()
+    {
+        return $this->border;
+    }
+
+    /**
+     * @param Border $border
+     */
+    public function setBorder(Border $border)
+    {
+        $this->shouldApplyBorder = true;
+        $this->border = $border;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldApplyBorder()
+    {
+        return $this->shouldApplyBorder;
+    }
+
+    /**
+     * @return bool
      */
     public function isFontBold()
     {
@@ -99,7 +142,7 @@ class Style
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isFontItalic()
     {
@@ -118,7 +161,7 @@ class Style
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isFontUnderline()
     {
@@ -137,7 +180,7 @@ class Style
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isFontStrikethrough()
     {
@@ -218,7 +261,7 @@ class Style
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function shouldWrapText()
     {
@@ -226,13 +269,22 @@ class Style
     }
 
     /**
+     * @param bool|void $shouldWrap Should the text be wrapped
      * @return Style
      */
-    public function setShouldWrapText()
+    public function setShouldWrapText($shouldWrap = true)
     {
-        $this->shouldWrapText = true;
+        $this->shouldWrapText = $shouldWrap;
         $this->hasSetWrapText = true;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasSetWrapText()
+    {
+        return $this->hasSetWrapText;
     }
 
     /**
@@ -241,6 +293,35 @@ class Style
     public function shouldApplyFont()
     {
         return $this->shouldApplyFont;
+    }
+
+    /**
+     * Sets the background color
+     * @param string $color ARGB color (@see Color)
+     * @return Style
+     */
+    public function setBackgroundColor($color)
+    {
+        $this->hasSetBackgroundColor = true;
+        $this->backgroundColor = $color;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBackgroundColor()
+    {
+        return $this->backgroundColor;
+    }
+
+    /**
+     *
+     * @return bool Whether the background color should be applied
+     */
+    public function shouldApplyBackgroundColor()
+    {
+        return $this->hasSetBackgroundColor;
     }
 
     /**
@@ -301,6 +382,12 @@ class Style
         }
         if (!$this->hasSetWrapText && $baseStyle->shouldWrapText()) {
             $mergedStyle->setShouldWrapText();
+        }
+        if (!$this->getBorder() && $baseStyle->shouldApplyBorder()) {
+            $mergedStyle->setBorder($baseStyle->getBorder());
+        }
+        if (!$this->hasSetBackgroundColor && $baseStyle->shouldApplyBackgroundColor()) {
+            $mergedStyle->setBackgroundColor($baseStyle->getBackgroundColor());
         }
 
         return $mergedStyle;

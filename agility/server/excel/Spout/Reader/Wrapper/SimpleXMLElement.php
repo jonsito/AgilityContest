@@ -40,8 +40,6 @@ class SimpleXMLElement
         }
 
         $this->resetXMLInternalErrorsSetting();
-
-        return $this->simpleXMLElement;
     }
 
     /**
@@ -154,7 +152,7 @@ class SimpleXMLElement
     /**
      * Returns the immediate children.
      *
-     * @return array The children
+     * @return SimpleXMLElement[] The children
      */
     public function children()
     {

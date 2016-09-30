@@ -109,15 +109,40 @@ class StyleBuilder
     }
 
     /**
-     * Makes the text wrap in the cell if it's too long or
-     * on multiple lines.
+     * Makes the text wrap in the cell if requested
      *
      * @api
+     * @param bool $shouldWrap Should the text be wrapped
      * @return StyleBuilder
      */
-    public function setShouldWrapText()
+    public function setShouldWrapText($shouldWrap = true)
     {
-        $this->style->setShouldWrapText();
+        $this->style->setShouldWrapText($shouldWrap);
+        return $this;
+    }
+
+    /**
+     * Set a border
+     *
+     * @param Border $border
+     * @return $this
+     */
+    public function setBorder(Border $border)
+    {
+        $this->style->setBorder($border);
+        return $this;
+    }
+
+    /**
+     *  Sets a background color
+     *
+     * @api
+     * @param string $color ARGB color (@see Color)
+     * @return StyleBuilder
+     */
+    public function setBackgroundColor($color)
+    {
+        $this->style->setBackgroundColor($color);
         return $this;
     }
 
