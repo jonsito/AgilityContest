@@ -50,6 +50,8 @@ function acceptLogin() {
 		$.messager.alert("Invalid data",'<?php _e("There is no user chosen");?>',"error");
 		return;
 	}
+	// set federation
+	setFederation($('#login-Federation').combogrid('getValue'));
 	$.ajax({
 		type: 'POST',
   		url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',

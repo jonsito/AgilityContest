@@ -154,27 +154,29 @@ class Dogs extends DBObject {
      * @param $toID dog to replace from
      */
 	function joinTo($fromID,$toID) {
+        $this->myLogger->enter();
         if (($fromID<=0) || ($toID<=0)) return $this->error("joinTo() invalid from:$fromID or to:$toID values");
         // en teoria, inscripciones y resultados se actualizan mediante foreign key (Perros.ID), pero
         // por siacaso lo hacemos a mano
 	    // update inscripciones
-        $str="UPDATE Inscripciones SET Perro=$toID WHERE ( Perro=$fromID )";
-        $res=$this->query($str);
+        $res=$this->query("UPDATE Inscripciones SET Perro=$toID WHERE ( Perro=$fromID )");
         if (!$res) return $this->error($this->conn->error);
 	    // update resultados
-        $str="UPDATE Resultados SET Perro=$toID WHERE ( Perro=$fromID )";
-        $res=$this->query($str);
+        $res=$this->query("UPDATE Resultados SET Perro=$toID WHERE ( Perro=$fromID )");
         if (!$res) return $this->error($this->conn->error);
 
         // en estas tablas, hay que actualizar las listas del tipo ',FromID,' a ',ToID,'
         // update starting orders
-        $str="UPDATE Mangas SET Orden_Salida=REPLACE(Orden_Salida,',$fromID,',',$toID,') where (Orden_Salida like '%,$fromID,%')";
-        $res=$this->query($str);
+        $res=$this->query("UPDATE Mangas SET Orden_Salida=REPLACE(Orden_Salida,',$fromID,',',$toID,') where (Orden_Salida like '%,$fromID,%')");
         if (!$res) return $this->error($this->conn->error);
         // update team member lists
-        $str="UPDATE Equipos SET Miembros=REPLACE(Miembros,',$fromID,',',$toID,') where (Miembros like '%,$fromID,%')";
-        $res=$this->query($str);
+        $res=$this->query("UPDATE Equipos SET Miembros=REPLACE(Miembros,',$fromID,',',$toID,') where (Miembros like '%,$fromID,%')");
         if (!$res) return $this->error($this->conn->error);
+
+        // and finally remove "from" dog
+        $rs= $this->query("DELETE FROM Perros WHERE (ID=$fromID)");
+        if (!$rs) return $this->error($this->conn->error);
+        $this->myLogger->leave();
         return "";
     }
 

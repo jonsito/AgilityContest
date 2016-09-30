@@ -659,7 +659,7 @@ function setFederation(f) {
 	// so result can become null. detect and ignore
 	if (fed==null) {
 		workingData.federation= 0;
-		workingData.datosFederation=null;
+		workingData.datosFederation=ac_fedInfo[0]; //default to rsce
 		return;
 	}
 	workingData.federation= fed.ID;

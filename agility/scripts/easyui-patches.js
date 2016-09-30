@@ -192,7 +192,6 @@ $.extend($.fn.datagrid.methods, {
 		win.children('input.messager-input').focus();
 		return win;
 	};
-
     $.messager.password =function(title,msg,fn){
         var content="<div class=\"messager-icon messager-warning\"></div>"+"<div>"+msg+"</div>"+"<br />"+"<div style=\"clear:both;\"/>"+"<div><input class=\"messager-input\" type=\"password\"/></div>";
         var buttons={};

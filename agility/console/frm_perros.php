@@ -34,6 +34,20 @@ $config =Config::getInstance();
 	   data-options="iconCls: 'icon-cancel'" onclick="$('#perros-excel-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
 </div>
 
+<!-- Ventana de seleccion de perro para unificar datos -->
+<div id="perros-join-dialog" style="width:250px;height:auto;padding:10px; display=none;">
+	<label for="perros-join-combogrid"> <?php _e('Choose a dog and <br/>replace current (duplicated) selection with this (right) new one'); ?></label><br>
+	<input id="perros-join-combogrid" name="perros-join-combogrid" value="0" style="width:200px;"/>
+</div>
+
+<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE union -->
+<div id="perros-join-buttons">
+	<a id="perros-join-okBtn" href="#" class="easyui-linkbutton"
+	   data-options="iconCls: 'icon-ok'" onclick="joinDog('join')"><?php _e('Join'); ?></a>
+	<a id="perros-join-cancelBtn" href="#" class="easyui-linkbutton"
+	   data-options="iconCls: 'icon-cancel'" onclick="$('#perros-join-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+</div>
+
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE PERROS -->
 <div style="width:100%;height:550px;">
     <!-- DECLARACION DE LA TABLA -->
@@ -50,8 +64,11 @@ $config =Config::getInstance();
    			data-options="iconCls:'icon-edit'"
    			onclick="editDog('#perros-datagrid')"><?php _e('Edit dog'); ?></a>
    		<a id="perros-delBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-trash'"
-   			onclick="deleteDog('#perros-datagrid')"><?php _e('Delete dog'); ?></a>
+		   data-options="iconCls:'icon-trash'"
+		   onclick="deleteDog('#perros-datagrid')"><?php _e('Delete dog'); ?></a>
+   		<a id="perros-joinBtn" href="#" class="easyui-linkbutton"
+		   data-options="iconCls:'icon-sum'"
+		   onclick="joinDog('open')"><?php _e('Join dog'); ?></a>
    		<input id="perros-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
 			   onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
    	</span>
@@ -91,6 +108,41 @@ $config =Config::getInstance();
 		},
 		onClose: function() { ac_import.progress_status='paused'; }
 	} );
+
+	// tell jquery to convert declared elements to jquery easyui Objects
+	$('#perros-join-dialog').dialog( {
+		title:"<?php _e('Join dog'); ?>",
+		closed:true,
+		modal:true,
+		buttons:'#perros-join-buttons',
+		iconCls:'icon-sum'
+	} );
+
+	$('#perros-join-combogrid').combogrid({
+		panelWidth:450,
+		idField: 'ID',
+		delay: 500,
+		textField: 'Nombre',
+		url: '/agility/server/database/dogFunctions.php',
+		queryParams: { Operation:'enumerate', Federation: workingData.federation },
+		method: 'get',
+		mode: 'remote',
+		columns: [[
+			{field:'ID',hidden:'true'},
+			{field:'Federation',hidden:'true'},
+			{field:'Nombre',title:'<?php _e('Dog'); ?>',width:20,align:'left'},
+			{field:'Genero',title:'<?php _e('Gender'); ?>',width:20,align:'center'},
+			{field:'Licencia',title:'<?php _e('License'); ?>',width:20,align:'right'},
+			{field:'Categoria',title:'<?php _e('Cat'); ?>.',width:10,align:'center',formatter:formatCategoria},
+			{field:'Grado',title:'<?php _e('Grade'); ?>',width:10,align:'center',formatter:formatGrado},
+			{field:'NombreGuia',title:'<?php _e('Handler'); ?>',width:40,align:'right'},
+			{field:'NombreClub',title:'<?php _e('Club'); ?>',width:20,align:'right'}
+		]],
+		multiple: false,
+		fitColumns: true,
+		singleSelect: true,
+		selectOnNavigation: false
+	});
 
         // datos de la tabla de perros
         // - tabla
@@ -147,10 +199,13 @@ $config =Config::getInstance();
 		addTooltip($('#perros-newBtn').linkbutton(),'<?php _e("Insert new dog <br/>into database"); ?>');
 		addTooltip($('#perros-editBtn').linkbutton(),'<?php _e("Modify data on selected dog"); ?>');
 		addTooltip($('#perros-delBtn').linkbutton(),'<?php _e("Remove selected dog from database"); ?>');
+		addTooltip($('#perros-joinBtn').linkbutton(),'<?php _e("Mark two dogs as duplicated and join them in the database"); ?>');
 		addTooltip($('#perros-excelBtn').linkbutton(),'<?php _e("Import/Export dog data from/to Excel file"); ?>');
 		addTooltip($('#perros-printBtn').linkbutton(),'<?php _e("Print dog list with current search/sort criteria"); ?>');
         addTooltip($('#perros-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update list"); ?>');
         addTooltip($('#perros-datagrid-search'),'<?php _e("Look into database for dogs matching search criteria"); ?>');
 		addTooltip($('#perros-excel-okBtn').linkbutton(),'<?php _e("Import dog data from selected Excel file"); ?>');
 		addTooltip($('#perros-excel-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
+		addTooltip($('#perros-join-okBtn').linkbutton(),'<?php _e("Mark dog as duplicate. Convert to newly selected one"); ?>');
+		addTooltip($('#perros-join-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 </script>
