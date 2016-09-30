@@ -128,10 +128,10 @@ $config =Config::getInstance();
 		method: 'get',
 		mode: 'remote',
 		columns: [[
-			{field:'ID',hidden:'true'},
+			{field:'ID',title:'<?php _e('ID'); ?>',width:10,align:'left'},
 			{field:'Federation',hidden:'true'},
 			{field:'Nombre',title:'<?php _e('Dog'); ?>',width:20,align:'left'},
-			{field:'Genero',title:'<?php _e('Gender'); ?>',width:20,align:'center'},
+			{field:'Genero',title:'<?php _e('Gender'); ?>',width:5,align:'center'},
 			{field:'Licencia',title:'<?php _e('License'); ?>',width:20,align:'right'},
 			{field:'Categoria',title:'<?php _e('Cat'); ?>.',width:10,align:'center',formatter:formatCategoria},
 			{field:'Grado',title:'<?php _e('Grade'); ?>',width:10,align:'center',formatter:formatGrado},
