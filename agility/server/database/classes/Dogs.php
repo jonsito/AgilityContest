@@ -145,7 +145,39 @@ class Dogs extends DBObject {
 		$this->myLogger->leave();
 		return "";
 	}
-	
+
+    /**
+     * Modify Database replaceing every instances of $fromID with $toID
+     * That is: dog "from" becomes dog "to"
+     * This code does not set up resulting dog properties, just move ID's
+     * @param $fromID dog to be replaced
+     * @param $toID dog to replace from
+     */
+	function joinTo($fromID,$toID) {
+        if (($fromID<=0) || ($toID<=0)) return $this->error("joinTo() invalid from:$fromID or to:$toID values");
+        // en teoria, inscripciones y resultados se actualizan mediante foreign key (Perros.ID), pero
+        // por siacaso lo hacemos a mano
+	    // update inscripciones
+        $str="UPDATE Inscripciones SET Perro=$toID WHERE ( Perro=$fromID )";
+        $res=$this->query($str);
+        if (!$res) return $this->error($this->conn->error);
+	    // update resultados
+        $str="UPDATE Resultados SET Perro=$toID WHERE ( Perro=$fromID )";
+        $res=$this->query($str);
+        if (!$res) return $this->error($this->conn->error);
+
+        // en estas tablas, hay que actualizar las listas del tipo ',FromID,' a ',ToID,'
+        // update starting orders
+        $str="UPDATE Mangas SET Orden_Salida=REPLACE(Orden_Salida,',$fromID,',',$toID,') where (Orden_Salida like '%,$fromID,%')";
+        $res=$this->query($str);
+        if (!$res) return $this->error($this->conn->error);
+        // update team member lists
+        $str="UPDATE Equipos SET Miembros=REPLACE(Miembros,',$fromID,',',$toID,') where (Miembros like '%,$fromID,%')";
+        $res=$this->query($str);
+        if (!$res) return $this->error($this->conn->error);
+        return "";
+    }
+
 	/**
 	 * Enumerate all dogs that matches requested criteria and order
 	 * @return null on error, else requested data

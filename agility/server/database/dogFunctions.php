@@ -31,12 +31,15 @@ try {
 	$idperro=http_request("ID","i",0);
 	$idguia=http_request("Guia","i",0);
 	$federation=http_request("Federation","i",-1);
+    $idfrom=http_request("From","i",0);
+    $idto=http_request("To","i",0);
 	if ($operation===null) throw new Exception("Call to dogFunctions without 'Operation' requested");
 	switch ($operation) {
 		case "insert": $am->access(PERMS_OPERATOR); $result=$perros->insert($federation); break;
 		case "update": $am->access(PERMS_OPERATOR); $result=$perros->update($idperro); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$perros->delete($idperro); break;
-		case "orphan": $am->access(PERMS_OPERATOR); $result=$perros->orphan($idperro); break; // unassign from handler
+        case "orphan": $am->access(PERMS_OPERATOR); $result=$perros->orphan($idperro); break; // unassign from handler
+        case "join":   $am->access(PERMS_OPERATOR); $result=$perros->joinTo($idfrom,$idto); break; // join two dogs
 		case "select": $result=$perros->select(); break; // list with order, index, count and where
 		case "enumerate":	$result=$perros->enumerate(); break; // list with where
 		case "getbyguia":	$result=$perros->selectByGuia($idguia); break;
