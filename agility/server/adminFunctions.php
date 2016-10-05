@@ -318,6 +318,8 @@ try {
 			$am->access($perms); $result=array('success'=>true); break;
 		case "permissions":
 			$am->permissions($perms); $result=array('success'=>true); break;
+		case "capabilities":
+			$am->access(PERMS_NONE); $result=$am->getLicensePerms(); break;
 		case "backup":
 			/* $am->access(PERMS_ADMIN); */
 			$result=$adm->backup();	break;
@@ -344,7 +346,7 @@ try {
 		case "restoreConfig": // receive, analyze and save configuration from file
 			$am->access(PERMS_ADMIN);
 			$config=Config::getInstance();
-			$result=$config->RestoreConfig();
+			$result=$config->restoreConfig();
 			$ev=new Eventos("RestoreConfig",1,$am);
 			$ev->reconfigure();
 			break;

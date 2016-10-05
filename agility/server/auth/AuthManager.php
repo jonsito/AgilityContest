@@ -415,17 +415,19 @@ class AuthManager {
         $res=$this->getRegistrationInfo();
 		if ($res==null) return 0; // invalid license
 		if ( $res['Expired']==="1" ) return 0; // license has expired
-        // extract and declare inner functions
         $opts=$res['Options'];
-		// $this->myLogger->trace("opts:$opts feature:$feature");
         if ($res['Info']==="") return bindec($opts) & $feature; // old style licenses
-		/*
-        return $this->myGateKeeper($res,$feature);
-        $info=str_replace("__OPTS__",$opts,$res['info']);
-        return $res;
-		*/
-		return 1; // TODO: implement new style license coding
+		// default: allow. this should be revisited on new license handling
+		return 1;
     }
+
+    function getLicensePerms() {
+		// retrieve registration data
+		$res=$this->getRegistrationInfo();
+		if ($res==null) return 0; // invalid license
+		if ( $res['Expired']==="1" ) return 0; // license has expired
+		return array('success' => true, 'perms' => bindec($res['Options'])); // to be revisited when new license style handling
+	}
 
     function getUserLimit() {
         $res=$this->getRegistrationInfo();
