@@ -23,7 +23,7 @@ BUILD_DIR=/home/jantonio/work/agility/build
 EXTRA_DIR=/home/jantonio/work/agility/extra-pkgs
 CONF_DIR=${BASE_DIR}/extras
 NSIS=${BASE_DIR}/build/AgilityContest.nsi
-XAMPP=xampp-portable-win32-5.6.20-0-VC11.zip
+XAMPP=xampp-portable-win32-5.6.24-1-VC11.zip
 DROPBOX=${HOME}/Dropbox/Public/AgilityContest
 
 # make sure that build dir exists and is clean
