@@ -102,8 +102,8 @@ class Usuarios extends DBObject {
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
-	}	
-	
+	}
+
 	/**
 	 * Select user with provided ID
 	 * @param {string} $user name primary key

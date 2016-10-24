@@ -45,7 +45,8 @@ try {
 		case "enumerate": $result=$users->enumerate(); break; // list with where
 		case "login": $result=$am->login($user,$pass,$sid); break;
 		case "pwcheck": $result=$am->checkPassword($user,$pass); break; // just check pass, dont create session
-		case "logout": $result=$am->logout(); break;
+        case "logout": $result=$am->logout(); break;
+        case "reset": $result=$am->resetAdminPassword(); break;
 		default: throw new Exception("userFunctions:: invalid operation: '$operation' provided");
 	}
 	if ($result===null) 

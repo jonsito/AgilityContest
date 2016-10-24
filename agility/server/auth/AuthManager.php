@@ -317,7 +317,19 @@ class AuthManager {
 	function checkPassword($user,$pass) {
 		return $this->login($user,$pass,0,true);	
 	}
-	
+
+	function resetAdminPassword() {
+        // allow only localhost access
+        $white_list= array ("localhost","127.0.0.1","::1",$_SERVER['SERVER_ADDR'],"138.4.4.108");
+        if (!in_array($_SERVER['REMOTE_ADDR'],$white_list)) {
+            die("<p>Esta operacion debe ser realizada desde la consola del servidor</p>");
+        }
+		$p=base64_encode(password_hash("admin",PASSWORD_DEFAULT));
+		$str="UPDATE Usuarios SET Login='admin', Password='$p' ,Perms=1 WHERE (ID=3)"; //1:nobody 2:root 3:admin
+		$this->mySessionMgr->query($str);
+		return "";
+	}
+
 	/*
 	 * closes current session
 	 */
