@@ -324,6 +324,10 @@ class AuthManager {
         if (!in_array($_SERVER['REMOTE_ADDR'],$white_list)) {
             die("<p>Esta operacion debe ser realizada desde la consola del servidor</p>");
         }
+        $i=$this->getRegistrationInfo();
+		if( ($i['Serial']==="00000000" ) || ($i['Serial']!==http_request("Serial","s","invalid")))  {
+			die("<p>Invalid Serial license number. Please contact your dealer</p>");
+		}
 		$p=base64_encode(password_hash("admin",PASSWORD_DEFAULT));
 		$str="UPDATE Usuarios SET Login='admin', Password='$p' ,Perms=1 WHERE (ID=3)"; //1:nobody 2:root 3:admin
 		$this->mySessionMgr->query($str);
