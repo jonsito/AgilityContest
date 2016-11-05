@@ -121,7 +121,11 @@ class Tandas extends DBObject {
 	*/
 	static function getTandasInfo($key,$value) {
 		$res=array();
-		if (!array_key_exists($key,Tandas::$tipo_tanda)) return $res; // key not found: return empty array
+		if (!array_key_exists($key,Tandas::$tipo_tanda[0])) { // use index0 to check valid key
+            // key not found: notify and return empty array
+		    do_log("Invalid search key for Tandas array:$key");
+		    return $res;
+        }
 		foreach(Tandas::$tipo_tanda as $item) {
 			if ($item[$key]==$value) array_push($res,$item);
 		}
@@ -505,10 +509,14 @@ class Tandas extends DBObject {
 		return array('RowIndex' => "-1" );
 	}
 
+	// fed: federation data
+    // tipomanga: manga type:
+    // oper: false:remove true:insert
 	private function insert_remove($fed,$tipomanga,$oper) {
 		$alturas=intval($fed->get('Heights'));
 		$grados=intval($fed->get('Grades'));
-		foreach( $this->getTandasInfo('TipoManga',$tipomanga) as $item) {
+        $tandas=$this->getTandasInfo('TipoManga',$tipomanga);
+		foreach( $tandas as $item) {
             $tipo=$item['Tipo'];
 			if( ($alturas==3) && ($item['Categoria']==='T') ) {
 				// remove every "tiny" tandas on RSCE contests
@@ -576,7 +584,7 @@ class Tandas extends DBObject {
 		$j=$this->jornada;
 		$p=$this->prueba;
 		$f=Federations::getFederation(intval(intval($p->RSCE)));
-		$this->myLogger->trace("call to getFederation({$p->RSCE}) returns: ".print_r($f,true));
+		// $this->myLogger->trace("call to getFederation({$p->RSCE}) returns: ".print_r($f,true));
 		// actualizamos la lista de tandas de cada ronda
 		
 		// preagility necesita tratamiento especial
