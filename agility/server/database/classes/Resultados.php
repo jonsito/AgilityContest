@@ -119,8 +119,8 @@ class Resultados extends DBObject {
 			throw new Exception($this->errormsg);
 		}
 		$this->IDPrueba=$prueba;
+        $this->IDManga=$manga;
 		$this->IDJornada=0; // to be filled
-		$this->IDManga=$manga;
 		$this->dmanga=null;
 		$this->djornada=null;
         $this->dequipos=null;
@@ -297,6 +297,7 @@ class Resultados extends DBObject {
 			case 6:  $where= " AND ( (Categoria='L') OR (Categoria='M') )"; break;
 			case 7:  $where= " AND ( (Categoria='S') OR (Categoria='T') )"; break;
 		}
+		$this->getDatosJornada(); // also implies getDatosManga
 		$idmanga=$this->IDManga;
 		if ($this->isCerrada())
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
@@ -305,6 +306,21 @@ class Resultados extends DBObject {
 				WHERE ( Manga=$idmanga) $where";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
+        // also reset every related rounds on subordinate journeys
+        // this should be done in a recursive way...
+        // in a first implementation, only step down one level
+        $mobj= new Mangas("Resultados::reset()",$this->IDJornada);
+        $lst=$mobj->getSubordinates($idmanga);
+        foreach ($lst['rows'] as $mng) {
+            $jid=$mng['Jornada'];
+            $mid=$mng['ID'];
+            $this->myLogger->trace("Resultados::reset() on subordinate round $mid / journey $jid");
+            $str="UPDATE Resultados
+				SET Faltas=0, Tocados=0, Rehuses=0, Eliminado=0, NoPresentado=0, Tiempo=0, TIntermedio=0, Observaciones='', Pendiente=1
+				WHERE ( Manga=$mid) $where";
+            $rs=$this->query($str);
+            if (!$rs) return $this->error($this->conn->error);
+        }
 		$this->myLogger->leave();
 		return "";
 	}
