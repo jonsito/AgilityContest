@@ -24,23 +24,23 @@ class Mangas extends DBObject {
 	
 	/* copia de la estructura de la base de datos, para ahorrar consultas */
 	public static $tipo_manga= array(
-		0 =>	array ( 0,'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo'),
-		1 =>	array( 1, 'Pre-Agility Manga 1', 		'P.A.',	'PreAgility 1',	'Pre-Agility'),
-		2 => 	array( 2, 'Pre-Agility Manga 2', 		'P.A.',	'PreAgility 2',	'Pre-Agility'),
-		3 =>	array( 3, 'Agility Grade I Manga 1',	'GI',	'Agility-1 GI',	'Grade I'),
-		4 => 	array( 4, 'Agility Grade I Manga 2',	'GI',	'Agility-2 GI',	'Grade I'),
-		5 =>	array( 5, 'Agility Grade II', 			'GII',	'Agility GII',	'Grade II'),
-		6 =>	array( 6, 'Agility Grade III', 			'GIII',	'Agility GIII',	'Grade III'),
-		7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual'), // Open
-		8 =>	array( 8, 'Agility Teams',			    '-',	'Ag. Teams',	'Teams'), // team best
-		9 =>	array( 9, 'Agility Teams'				,'-',	'Ag. Teams.',	'Teams'), // team combined
-		10 =>	array( 10,'Jumping Grade II',			'GII',	'Jumping GII',	'Grado II'),
-		11 =>	array( 11,'Jumping Grade III',			'GIII',	'Jumping GIII',	'Grado III'),
-		12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual'), // Open
-		13 =>	array( 13,'Jumping Teams'				,'-',   'Jmp Teams',	'Teams'), // team best
-		14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp Teams',	'Teams'), // team combined
-		15 =>	array( 15,'K.O. Round', 				'-',	'K.O. Round',	'K.O.'),
-		16 =>	array( 16,'Special Round', 			    '-',	'Special Round','Individual') // special round, no grades
+		0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo',  'IsAgility'),
+		1 =>	array( 1, 'Pre-Agility Manga 1', 		'P.A.',	'PreAgility 1',	'Pre-Agility',  true),
+		2 => 	array( 2, 'Pre-Agility Manga 2', 		'P.A.',	'PreAgility 2',	'Pre-Agility',  false),
+		3 =>	array( 3, 'Agility Grade I Manga 1',	'GI',	'Agility-1 GI',	'Grade I',      true),
+		4 => 	array( 4, 'Agility Grade I Manga 2',	'GI',	'Agility-2 GI',	'Grade I',      true),
+		5 =>	array( 5, 'Agility Grade II', 			'GII',	'Agility GII',	'Grade II',     true),
+		6 =>	array( 6, 'Agility Grade III', 			'GIII',	'Agility GIII',	'Grade III',    true),
+		7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual',   true), // Open
+		8 =>	array( 8, 'Agility Teams',			    '-',	'Ag. Teams',	'Teams',        true), // team best
+		9 =>	array( 9, 'Agility Teams'				,'-',	'Ag. Teams.',	'Teams',        true), // team combined
+		10 =>	array( 10,'Jumping Grade II',			'GII',	'Jumping GII',	'Grado II',     false),
+		11 =>	array( 11,'Jumping Grade III',			'GIII',	'Jumping GIII',	'Grado III',    false),
+		12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual',   false), // Open
+		13 =>	array( 13,'Jumping Teams'				,'-',   'Jmp Teams',	'Teams',        false), // team best
+		14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp Teams',	'Teams',        false), // team combined
+		15 =>	array( 15,'K.O. Round', 				'-',	'K.O. Round',	'K.O.',         false),
+		16 =>	array( 16,'Special Round', 			    '-',	'Special Round','Individual',   true) // special round, no grades
 	);
 	
 	/* tabla para obtener facilmente la manga complementaria a una manga dada */
@@ -365,7 +365,41 @@ class Mangas extends DBObject {
 		$this->myLogger->leave();
 		return $hermanas;
 	}
-	
+
+    /**
+     * Dada una manga, obtiene la lista de mangas compatibles de todas las jornadas marcadas como
+     * subordinadas de la jornada actual
+     * @param {integer} $manga manga de la jornada principal
+     * @return {array} lista de mangas compatibles con $manga de las jornadas subordinadas a la actual
+     */
+	function getSubordinates($manga) {
+        $res=array();
+        // fase 0: buscamos datos de la manga solicitada
+        $mng=$this->__getArray("Mangas",$manga);
+        if ( !is_array($mng) || ($mng['Jornada']!=$this->jornada) ) {
+            $this->myLogger->error("Invalid manga ID: $manga");
+            return array("total"=>0, "rows"=>$res);
+        }
+        // fase 1: obtenemos la lista de mangas de las jornadas subordinadas
+        $mngs=$this->__select(
+            "Mangas.*",
+            "Mangas,Jornadas",
+            "Mangas.Jornada=Jornadas.ID and Jornada.SlaveOf={$this->jornada}",
+            "",
+            "");
+        // fase 2: de la lista anterior cogemos las mangas compatibles
+        // notese que no basta con comparar el tipo: la jornada padre puede ser una normal,
+        // y la subordinada una de tipo open, con lo que hay que ver si ambas mangas son de tipo
+        // agility o jumping
+        foreach ($mngs as $m) {
+            // comparamos tipos viendo si ambas son "agility" o "jumping"
+            if(Mangas::$tipo_manga[$m['Tipo']][5] != Mangas::$tipo_manga[$mng['Tipo']][5]) continue;
+            $res[]=$m;
+        }
+        // retornamos resultado de la comparacion
+        return array('total'=>count($res),"rows"=>$res);
+    }
+
 	/**
 	 * creacion / borrado de mangas asociadas a una jornada
 	 * @param {integer} $id ID de jornada
