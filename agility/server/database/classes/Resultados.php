@@ -306,20 +306,15 @@ class Resultados extends DBObject {
 				WHERE ( Manga=$idmanga) $where";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
-        // also reset every related rounds on subordinate journeys
-        // this should be done in a recursive way...
-        // in a first implementation, only step down one level
+        // also reset every related rounds on subordinate journeys in a recursive way
         $mobj= new Mangas("Resultados::reset()",$this->IDJornada);
         $lst=$mobj->getSubordinates($idmanga);
         foreach ($lst['rows'] as $mng) {
             $jid=$mng['Jornada'];
             $mid=$mng['ID'];
-            $this->myLogger->trace("Resultados::reset() on subordinate round $mid / journey $jid");
-            $str="UPDATE Resultados
-				SET Faltas=0, Tocados=0, Rehuses=0, Eliminado=0, NoPresentado=0, Tiempo=0, TIntermedio=0, Observaciones='', Pendiente=1
-				WHERE ( Manga=$mid) $where";
-            $rs=$this->query($str);
-            if (!$rs) return $this->error($this->conn->error);
+            $subRes=new Resultados("reset round:$mid on journey:$jid childOf:{$this->IDJornada}",$this->IDPrueba,$mid);
+            $res=$subRes->reset($catsmode);
+            if ($res!="") return $this->error($res);
         }
 		$this->myLogger->leave();
 		return "";
@@ -448,6 +443,16 @@ class Resultados extends DBObject {
 			WHERE (Perro=$idperro) AND (Manga=$this->IDManga)";
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);
+        // also propagate results in every rounds on subordinate journeys in a recursive way
+        $mobj= new Mangas("Resultados::reset()",$this->IDJornada);
+        $lst=$mobj->getSubordinates($idmanga);
+        foreach ($lst['rows'] as $mng) {
+            $jid=$mng['Jornada'];
+            $mid=$mng['ID'];
+            $subRes=new Resultados("update round:$mid on journey:$jid childOf:{$this->IDJornada}",$this->IDPrueba,$mid);
+            $res=$subRes->update($idperro);
+            if ($res!="") return $this->error($res);
+        }
 		$this->myLogger->leave();
 		return $this->select($idperro);
 	}
