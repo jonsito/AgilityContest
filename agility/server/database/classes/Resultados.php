@@ -368,6 +368,17 @@ class Resultados extends DBObject {
 		// restauramos claves primarias
 		$rconn->query("ALTER Table `Resultados` ADD PRIMARY KEY (`Manga`,`Perro`)");
 		DBConnection::closeConnection($rconn);
+        // also reset every related rounds on subordinate journeys in a recursive way
+        $mobj= new Mangas("Resultados::swap()",$this->IDJornada);
+        $lst=$mobj->getSubordinates($this->IDManga);
+        foreach ($lst['rows'] as $mng) {
+            $jid=$mng['Jornada'];
+            $mid=$mng['ID'];
+            $subRes=new Resultados("swap round:$mid on journey:$jid childOf:{$this->IDJornada}",$this->IDPrueba,$mid);
+            $res=$subRes->swapMangas($cats);
+            if ($res!="") return $this->error($res);
+        }
+        $this->myLogger->leave();
         return "";
 	}
 
@@ -444,7 +455,7 @@ class Resultados extends DBObject {
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);
         // also propagate results in every rounds on subordinate journeys in a recursive way
-        $mobj= new Mangas("Resultados::reset()",$this->IDJornada);
+        $mobj= new Mangas("Resultados::update()",$this->IDJornada);
         $lst=$mobj->getSubordinates($idmanga);
         foreach ($lst['rows'] as $mng) {
             $jid=$mng['Jornada'];
