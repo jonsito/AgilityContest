@@ -233,8 +233,40 @@ class Jornadas extends DBObject {
 		// return composed array
 		$this->myLogger->leave();
 		return $result;
-	}	
-	
+	}
+
+    /**
+     * Enumerate list of declared journeys in current contest that can be used as parents of provided journey
+     */
+	function getAvailableParents($id) {
+        $this->myLogger->enter();
+        // retrieve result from parent __select() call
+        $items= $this->__select(
+        /* SELECT */ "*",
+            /* FROM */ "Jornadas",
+            /* WHERE */ "( Prueba = ".$this->prueba." )" ,
+            /* ORDER BY */ "Numero ASC",
+            /* LIMIT */ ""
+        );
+        // parse received data
+        $list=array();
+        // add null journey ( no subordinate )
+        $list[] = array('ID' => 0, 'Nombre' => _('Independent Journey'));
+        foreach($items['rows'] as $j) {
+            // skip undeclared journeys
+            if ($j['Nombre']=="-- Sin asignar --") continue;
+            // skip mySelf
+            if ($j['ID']==$id) continue;
+            // check for recursiveness. At this moment, only one level deep
+            if ($j['SlaveOf']==$id) continue;
+            // everything ok. add to result
+            $list[]=array('ID' => $j['ID'], 'Nombre' => $j['Nombre']);
+        }
+        // return composed array ( in json "combobox" format ( just array, not total/rows )
+        $this->myLogger->leave();
+        return $list;
+    }
+
 	/**
 	 * search all jornadas related to provided prueba that matches provided criteria
 	 * @param {integer} $allowClosed 1:allow listing closed jornadas; 0:don't

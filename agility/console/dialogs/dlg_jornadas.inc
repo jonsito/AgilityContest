@@ -80,7 +80,7 @@ $config =Config::getInstance();
             </div>
             
             <div class="fitem">
-                <label for="jornadas-Open" style="width:150px" ><?php _e('No grades (Open)'); ?></label>
+                <label for="jornadas-Open" style="width:150px" ><?php _e('No grades - Open'); ?></label>
                 <input id="jornadas-Open" name="Open" class="easyui-checkbox" 
                 	type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Open',0x0020)"/>
             </div>
@@ -106,12 +106,18 @@ $config =Config::getInstance();
                 <input id="jornadas-KO" name="KO" class="easyui-checkbox" 
                 	type="checkbox" value="1" onClick="checkPrueba('#jornadas-KO',0x0100);"/>
             </div>
-            
+
             <div class="fitem">
                 <label for="jornadas-Especial" style="width:150px" ><?php _e('Special round'); ?></label>
-                <input id="jornadas-Especial" name="Especial" class="easyui-checkbox" 
-                	type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Especial',0x0200)"/>
+                <input id="jornadas-Especial" name="Especial" class="easyui-checkbox"
+                       type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Especial',0x0200)"/>
                 <input id="jornadas-Observaciones" name="Observaciones" type="text" value="(Especificar)" class="easyui-validatebox" style="width:125px"/>
+            </div>
+
+            <div class="fitem">
+                <label for="jornadas-SlaveOf_List" style="width:150px" ><?php _e('Subordinate of'); ?></label>
+                <input id="jornadas-SlaveOf" name="SlaveOf" type="hidden" value="0"/>
+                <input id="jornadas-SlaveOf_List" name="SlaveOf_List" value="0" style="width:150px"/>
             </div>
         </form>
             
@@ -180,6 +186,8 @@ $config =Config::getInstance();
             $('#jornadas-Cerrada').prop('checked',(data.Cerrada == 1));
         	$('#jornadas-Prueba').val(data.Prueba);
         	$('#jornadas-Operation').val('update');
+            // fix slaveof combobox according value
+            $('#jornadas-SlaveOf_List').combobox('reload')
         }
     });
 
@@ -218,6 +226,28 @@ $config =Config::getInstance();
     $('#jornadas-Nombre').validatebox({
         required: true,
         validType: 'length[1,255]'
+    });
+
+    $('#jornadas-SlaveOf_List').combobox({
+        panelHeight: 'auto',
+        valueField:'ID',
+        textField:'Nombre',
+        method: 'get',
+        mode: 'remote',
+        required: true,
+        url:'/agility/server/database/jornadaFunctions.php',
+        onChange:function(newval,oldval) {
+            $('#jornadas-SlaveOf').val(newval);
+        },
+        onLoadSuccess: function() {
+            $(this).combobox('select',$('#jornadas-SlaveOf').val())
+        },
+        onBeforeLoad:function(param) {
+            param.Operation='getAvailableParents';
+            param.Prueba= $('#jornadas-Prueba').val();
+            param.ID= $('#jornadas-ID').val();
+            return true;
+        }
     });
 
 	addTooltip($('#jornadas-okBtn').linkbutton(),'<?php _e("Register journey into database"); ?>');
