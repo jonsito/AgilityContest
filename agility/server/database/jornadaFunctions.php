@@ -38,7 +38,7 @@ require_once(__DIR__."/classes/Jornadas.php");
 			// there is no need of "insert" method: every prueba has 8 "hard-linked" jornadas
 			case "delete": $am->access(PERMS_OPERATOR); $result=$jornadas->delete($jornadaid); break;
 			case "close": $am->access(PERMS_OPERATOR); $result=$jornadas->close($jornadaid); break;
-			case "update": $am->access(PERMS_OPERATOR); $result=$jornadas->update($jornadaid); break;
+			case "update": $am->access(PERMS_OPERATOR); $result=$jornadas->update($jornadaid,$am); break;
             case "select": $result=$jornadas->selectByPrueba(); break;
             case "getbyid": $result=$jornadas->selectByID($jornadaid); break;
 			case "enumerate": $result=$jornadas->searchByPrueba($allowClosed,$hideUnassigned); break;

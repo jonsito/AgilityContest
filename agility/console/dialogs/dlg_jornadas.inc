@@ -18,6 +18,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php
 require_once(__DIR__."/../../server/auth/Config.php");
 require_once(__DIR__."/../../server/tools.php");
+require_once(__DIR__."/../../server/auth/AuthManager.php");
+$am = new AuthManager("Chrono");
 $config =Config::getInstance();
 ?>
 
@@ -235,6 +237,9 @@ $config =Config::getInstance();
         method: 'get',
         mode: 'remote',
         required: true,
+<?php    if ( ! $am->allowed(ENABLE_SPECIAL)) { ?>
+        disabled: true,
+<?php    } ?>
         url:'/agility/server/database/jornadaFunctions.php',
         onChange:function(newval,oldval) {
             $('#jornadas-SlaveOf').val(newval);

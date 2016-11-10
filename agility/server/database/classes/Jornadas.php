@@ -88,9 +88,10 @@ class Jornadas extends DBObject {
 	/**
 	 * Update journey data
 	 * @param {integer} $jornadaid
+     * @param {object} $am AuthManager Object
 	 * @return string
 	 */
-	function update($jornadaid) {
+	function update($jornadaid,$am) {
 		$this->myLogger->enter();
 		// if prueba or jornada are closed refuse to upate
 		if ($jornadaid<=0) return $this->error("Invalid jornada ID");
@@ -113,9 +114,13 @@ class Jornadas extends DBObject {
         $observaciones = http_request("Observaciones","s","(sin especificar)",false);
         $cerrada = http_request("Cerrada","i",0);
         $slaveof = http_request("SlaveOf","i",0);
-        $id= $jornadaid;
+        $id= $jornadaid; // prepared statements cannot handle function parameters as bind variables
         $this->myLogger->info("ID: $id Prueba: $prueba Nombre: $nombre Fecha: $fecha Hora: $hora");
-
+        // if Slaveof != 0 check for proper permissions. If not allowed notifylog and ignore
+        if ( ($slaveof!=0) && (! $am->allowed(ENABLE_SPECIAL)) ) {
+            $this->myLogger->notice("Jornada::update() Current license does not allow Subordinate journeys");
+            $slaveof=0;
+        }
 		// componemos un prepared statement
 		$sql ="UPDATE Jornadas
 				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, SlaveOf=?, Grado1=?, Grado2=?, Grado3=?,
@@ -127,7 +132,6 @@ class Jornadas extends DBObject {
 				$prueba,$nombre,$fecha,$hora,$slaveof,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$especial,$observaciones,$cerrada,$id);
 		if (!$res) return $this->error($this->conn->error); 
 
-		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($this->conn->error); 
