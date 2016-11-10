@@ -462,7 +462,7 @@ class Resultados extends DBObject {
             $mid=$mng['ID'];
             $subRes=new Resultados("update round:$mid on journey:$jid childOf:{$this->IDJornada}",$this->IDPrueba,$mid);
             $res=$subRes->update($idperro);
-            if ($res!="") return $this->error($res);
+            if (is_string($res)) return $this->error($res);
         }
 		$this->myLogger->leave();
 		return $this->select($idperro);

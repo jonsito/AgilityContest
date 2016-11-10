@@ -384,14 +384,14 @@ class Mangas extends DBObject {
         $mngs=$this->__select(
             "Mangas.*",
             "Mangas,Jornadas",
-            "Mangas.Jornada=Jornadas.ID and Jornada.SlaveOf={$this->jornada}",
+            "Mangas.Jornada=Jornadas.ID and Jornadas.SlaveOf={$this->jornada}",
             "",
             "");
         // fase 2: de la lista anterior cogemos las mangas compatibles
         // notese que no basta con comparar el tipo: la jornada padre puede ser una normal,
         // y la subordinada una de tipo open, con lo que hay que ver si ambas mangas son de tipo
         // agility o jumping
-        foreach ($mngs as $m) {
+        foreach ($mngs['rows'] as $m) {
             // comparamos tipos viendo si ambas son "agility" o "jumping"
             if(Mangas::$tipo_manga[$m['Tipo']][5] != Mangas::$tipo_manga[$mng['Tipo']][5]) continue;
             $res[]=$m;
