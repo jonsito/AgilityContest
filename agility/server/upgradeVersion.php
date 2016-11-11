@@ -82,6 +82,29 @@ class Updater {
         $this->myLogger->leave();
     }
 
+    function dropColumnIfExists($table,$field) {
+        $drop = "DROP PROCEDURE IF EXISTS DropColumnIfExists;";
+        $create = "
+        CREATE PROCEDURE DropColumnIfExists()
+            BEGIN
+                IF EXISTS (
+                    SELECT * FROM information_schema.COLUMNS
+                    WHERE column_name='$field'
+                        AND table_name='$table'
+                        AND table_schema='agility'
+                    )
+                THEN
+                    ALTER TABLE `agility`.`$table` DROP COLUMN `$field`;
+                END IF;
+            END;
+        ";
+        $call="CALL DropColumnIfExists()";
+        $this->conn->query($drop);
+        $this->conn->query($create);
+        $this->conn->query($call);
+        // $this->myLogger->leave();
+    }
+
     function addColumnUnlessExists($table,$field,$data,$def=null) {
         // $this->myLogger->enter();
         $str="";
@@ -89,10 +112,10 @@ class Updater {
             // check for enclose default into single quotes
             $type=strtolower($data);
             $isStr=false;
-            if (strpos($data,"text")!==FALSE) $isStr=true;
-            if (strpos($data,"char")!==FALSE) $isStr=true;
-            if (strpos($data,"time")!==FALSE) $isStr=true;
-            if (strpos($data,"date")!==FALSE) $isStr=true;
+            if (strpos($type,"text")!==FALSE) $isStr=true;
+            if (strpos($type,"char")!==FALSE) $isStr=true;
+            if (strpos($type,"time")!==FALSE) $isStr=true;
+            if (strpos($type,"date")!==FALSE) $isStr=true;
             if ($isStr) $str=" NOT NULL DEFAULT '$def'";
             else        $str=" NOT NULL DEFAULT $def";
         }
@@ -312,10 +335,13 @@ try {
     $upg->addCountries();
     $upg->addColumnUnlessExists("Mangas","Orden_Equipos","TEXT");
     $upg->addColumnUnlessExists("Resultados","TIntermedio","double","0.0");
-    $upg->addColumnUnlessExists("Resultados","Games","int(4)",0);
+    $upg->addColumnUnlessExists("Resultados","Games","int(4)","0");
     $upg->addColumnUnlessExists("Perros","NombreLargo","varchar(255)");
     $upg->addColumnUnlessExists("Perros","Genero","varchar(16)");
     $upg->addColumnUnlessExists("Provincias","Pais","varchar(2)","ES");
+    $upg->dropColumnIfExists("Jornadas","Orden_Tandas");
+    $upg->addColumnUnlessExists("Jornadas","Games","int(4)","0");
+    $upg->addColumnUnlessExists("Jornadas","Tipo_Competicion","varchar(255)","Standard");
     $upg->updateInscripciones();
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
