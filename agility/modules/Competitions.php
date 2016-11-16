@@ -26,14 +26,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 class Competitions {
 
         // each pair $federationID:$competitionID must be unique
-        protected $federationID;
-        protected $competitionID;
-        protected $competitionName;
+        protected $federationID=0;
+        protected $competitionID=0;
+        protected $competitionName="Standard";
+        protected $selectiva=0; // historic flag from Prueba table
 
         function __construct($name) {
             $this->competitionName=$name;
-            $this->federationID=0; // to be override by child class
-            $this->competitionID=0; // to be overriden by child class
         }
 
     /**
@@ -55,6 +54,33 @@ class Competitions {
          }
          // arriving here means requested federation not found
          return $competitionList;
+     }
+
+    /**
+     * Retrieve a competition object based in prueba/jornada information
+     * @param $prueba
+     * @param $jornada
+     */
+     static function getCompetition($prueba,$jornada) {
+         $fed=intval($prueba->Federation);
+         $type=intval($jornada->Tipo_Competicion);
+         $sel=intval($prueba->Selectiva);
+         // analize sub-directories looking for classes matching federation and journey ID
+         // Notice that module class name must match file name
+         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
+             $name=str_replace(".php","",basename($filename));
+             require_once($filename);
+             $comp=new $name;
+             if (!$comp) continue; // cannot instantiate class. should report error
+             if ($comp->federationID!=$fed) continue;
+             if ($comp->competitionID!=$type) continue;
+             // competition found: assign selective flag and return
+             $comp->selectiva=$sel;
+             return $comp;
+         }
+         // arriving here means requested federation not found: warn and return default
+         do_log("Cannot find valid competition module for federation:$fed type:$type . Using defaults");
+         return new Competitions("Default for Fed:$fed Type:$type");
      }
 
     /**

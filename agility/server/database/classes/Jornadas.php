@@ -114,6 +114,7 @@ class Jornadas extends DBObject {
         $observaciones = http_request("Observaciones","s","(sin especificar)",false);
         $cerrada = http_request("Cerrada","i",0);
         $slaveof = http_request("SlaveOf","i",0);
+        $tipo_competicion = http_request("Tipo_Competicion","i",0);
         $id= $jornadaid; // prepared statements cannot handle function parameters as bind variables
         $this->myLogger->info("ID: $id Prueba: $prueba Nombre: $nombre Fecha: $fecha Hora: $hora");
         // if Slaveof != 0 check for proper permissions. If not allowed notifylog and ignore
@@ -123,13 +124,13 @@ class Jornadas extends DBObject {
         }
 		// componemos un prepared statement
 		$sql ="UPDATE Jornadas
-				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, SlaveOf=?, Grado1=?, Grado2=?, Grado3=?,
+				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, SlaveOf=?, Tipo_Competicion=?,Grado1=?, Grado2=?, Grado3=?,
 					Open=?, Equipos3=?, Equipos4=?, PreAgility=?, PreAgility2=?, KO=?, Especial=?, Observaciones=?, Cerrada=?
 				WHERE ( ID=? );";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('isssiiiiiiiiiiisii',
-				$prueba,$nombre,$fecha,$hora,$slaveof,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$especial,$observaciones,$cerrada,$id);
+		$res=$stmt->bind_param('isssiiiiiiiiiiiisii',
+				$prueba,$nombre,$fecha,$hora,$slaveof,$tipo_competicion,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$especial,$observaciones,$cerrada,$id);
 		if (!$res) return $this->error($this->conn->error); 
 
 		// invocamos la orden SQL y devolvemos el resultado

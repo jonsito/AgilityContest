@@ -121,6 +121,12 @@ $config =Config::getInstance();
                 <input id="jornadas-SlaveOf" name="SlaveOf" type="hidden" value="0"/>
                 <input id="jornadas-SlaveOf_List" name="SlaveOf_List" value="0" style="width:150px"/>
             </div>
+
+            <div class="fitem">
+                <label for="jornadas-Tipo_Competicion_List" style="width:150px" ><?php _e('Competition Mode'); ?></label>
+                <input id="jornadas-Tipo_Competicion" name="Tipo_Competicion" type="hidden" value="0"/>
+                <input id="jornadas-Tipo_Competicion_List" name="Tipo_Competicion_List" value="0" style="width:150px"/>
+            </div>
         </form>
             
 </div>
@@ -255,6 +261,26 @@ $config =Config::getInstance();
         }
     });
 
+    $('#jornadas-Tipo_Competicion_List').combobox({
+        panelHeight: 'auto',
+        valueField:'ID',
+        textField:'Nombre',
+        method: 'get',
+        mode: 'remote',
+        required: true,
+        url:'/agility/modules/moduleFunctions.php',
+        onChange:function(newval,oldval) {
+            $('#jornadas-Tipo_Competicion').val(newval);
+        },
+        onLoadSuccess: function() {
+            $(this).combobox('select',$('#jornadas-Tipo_Competicion').val())
+        },
+        onBeforeLoad:function(param) {
+            param.Operation='competitions';
+            param.Federation= workingData.federation;
+            return true;
+        }
+    });
 	addTooltip($('#jornadas-okBtn').linkbutton(),'<?php _e("Register journey into database"); ?>');
 	addTooltip($('#jornadas-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
     
