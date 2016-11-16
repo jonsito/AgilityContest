@@ -64,7 +64,7 @@ class Competitions {
      * @param $jornada
      */
      static function getCompetition($prueba,$jornada) {
-         $fed=intval($prueba->Federation);
+         $fed=intval($prueba->RSCE);
          $type=intval($jornada->Tipo_Competicion);
          $sel=intval($prueba->Selectiva);
          // analize sub-directories looking for classes matching federation and journey ID
