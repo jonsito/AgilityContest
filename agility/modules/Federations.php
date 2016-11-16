@@ -168,67 +168,6 @@ class Federations {
     }
 
     /**
-     * Evalua la calificacion parcial del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
-     * @param {object} $m datos de la manga
-     * @param {array} $perro datos de puntuacion del perro. Passed by reference
-     * @param {array} $puestocat puesto en funcion de la categoria
-     */
-    public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
-        if ($perro['Penalizacion']>=400)  { // pending
-            $perro['Penalizacion']=400.0;
-            $perro['Calificacion'] = "-";
-            $perro['CShort'] = "-";
-        }
-        else if ($perro['Penalizacion']>=200)  {
-            $perro['Penalizacion']=200.0;
-            $perro['Calificacion'] = _("Not Present");
-            $perro['CShort'] = _("N.P.");
-        }
-        else if ($perro['Penalizacion']>=100) {
-            $perro['Penalizacion']=100.0;
-            $perro['Calificacion'] = _("Eliminated");
-            $perro['CShort'] = _("Elim");
-        }
-        else if ($perro['Penalizacion']>=26)	{
-            $perro['Calificacion'] = _("Not Clasified");
-            $perro['CShort'] = _("N.C.");
-        }
-        else if ($perro['Penalizacion']>=16)	{
-            $perro['Calificacion'] = _("Good");
-            $perro['CShort'] = _("Good");
-        }
-        else if ($perro['Penalizacion']>=6)	{
-            $perro['Calificacion'] = _("Very good");
-            $perro['CShort'] = _("V.G.");
-        }
-        else if ($perro['Penalizacion']>0)	{
-            $perro['Calificacion'] = _("Excellent");
-            $perro['CShort'] = _("Exc");
-        }
-        else if ($perro['Penalizacion']==0)	{
-            $perro['Calificacion'] = _("Excellent (p)");
-            $perro['CShort'] = _("Ex P");
-        }
-    }
-
-    /**
-     * Evalua la calificacion final del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
-     * @param {object} $m1 datos de la primera manga
-     * @param {object} $m2 datos de la segunda manga
-     * @param {array} $c1 resultados de la primera manga
-     * @param {array} $c2 resultados de la segunda manga
-     * @param {array} $perro datos de puntuacion del perro. Passed by reference
-     * @param {array} $puestocat puesto en funcion de la categoria
-     */
-    public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat){
-        return; // should be overriden
-    }
-
-    /**
      * Search federation data by providing ID/Name
      * @param {int} $id Federation ID
      * @return {object} requested federation or null if not found

@@ -145,7 +145,7 @@ class Competitions {
      * @param {array} $puestocat puesto en funcion de la categoria
      */
     public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat){
-        return; // should be overriden
+        return;
     }
 }
 ?>

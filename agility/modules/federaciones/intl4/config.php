@@ -81,19 +81,5 @@ class INTL4 extends Federations {
         );
     }
 
-    /**
-     * Evalua la calificacion final del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
-     * @param {object} $m1 datos de la primera manga
-     * @param {object} $m2 datos de la segunda manga
-     * @param {array} $c1 resultados de la primera manga
-     * @param {array} $c2 resultados de la segunda manga
-     * @param {array} $perro datos de puntuacion del perro. Passed by reference
-     * @param {array} $puestocat puesto en funcion de la categoria
-     */
-    public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat){
-        parent::evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,$perro,$puestocat);
-    }
 }
 ?>
