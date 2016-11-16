@@ -1,68 +1,68 @@
 <?php
-class INTL3 extends Federations {
+class INTL4 extends Federations {
 
     function __construct() {
         $this->config= array (
-            'ID'    => 9,
-            'Name'  => 'Intl3',
-            'LongName' => 'International Contest - 3 heights',
+            'ID'    => 8,
+            'Name'  => 'Intl4',
+            'LongName' => 'International Contest - 4 heights',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'        => '/agility/modules/intl3/fciawc2016.png',
-            'Logo'        => '/agility/modules/intl3/rsce.png',
-            'ParentLogo'  => '/agility/modules/intl3/fci.png',
-            'WebURL' => 'http://www.fci.org',
-            'ParentWebURL' => 'http://www.fci.org',
-            'Heights' => 3,
-            'Grades' => 3,
+            'OrganizerLogo'     => '/agility/modules/federaciones/intl4/wao.png',
+            'Logo'     => '/agility/modules/federaciones/intl4/wao.png',
+            'ParentLogo'   => '/agility/modules/federaciones/intl4/wao.png',
+            'WebURL' => 'http://www.worldagilityopen.com/',
+            'ParentWebURL' => 'http://www.worldagilityopen.com/',
+            'Heights' => 4,
+            'Grades' => 2,
             'International' => 1,
             'WideLicense' => false, // some federations need extra print space to show license ID
-            'Recorridos' => array('Common course',"Large / Med + Small","Separate courses"),
+            'Recorridos' => array('Common course',"Standard + Medium / Small + Toy","Separate courses"),
             'ListaGradosShort' => array(
-                '-' => '-',
+                '-' => 'Sin especificar',
                 'Baja' => 'Out',
                 'GI' => 'A1',
                 'GII'=> 'A2',
-                'GIII' => 'A3',
+                'GIII' => 'A3', //  invalid for 2-grades contests
                 'P.A.' => 'A0',
                 'P.B.' => 'T.d.', // "Test dog"
                 'Ret.' => 'Ret.'
             ),
             'ListaGrados'    => array (
-                '-' => 'Individual',
+                '-' => 'Not specified ',
                 'GI' => 'Grade I',
                 'GII'=> 'Grade II',
-                'GIII' => 'Grade III',
-                'P.A.' => 'Pre-Agility',
+                // 'GIII' => 'Grade III', // no existe
+                'P.A.' => 'Grade 0',
                 'P.B.' => 'Test dog',
                 'Baja' => 'Temporary out',
-                'Ret.' => 'Retired',
+                'Ret.' => 'Retired'
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',
                 'L' => 'Large',
-                'M' => 'Med',
-                'S' => 'Small',
-                // 'T' => 'Tiny'
-            ),
-            'ListaCategorias' => array (
-                '-' => '-',
-                'L' => 'Large',
                 'M' => 'Medium',
                 'S' => 'Small',
-                // 'T' => 'Tiny'
+                'T' => 'Toy'
+            ),
+            'ListaCategorias' => array (
+                '-' => 'Not especified',
+                'L' => 'Large - 60',
+                'M' => 'Medium - 50',
+                'S' => 'Small - 40',
+                'T' => 'Toy - 30'
             ),
             'InfoManga' => array(
-                array('L' => _('Large'),         'M' => _('Medium'),         'S' => _('Small'), 'T' => ''), // separate courses
-                array('L' => _('Large'),         'M' => _('Medium+Small'),   'S' => '',         'T' => ''), // mixed courses
-                array('L' => _('Common course'), 'M' => '',                  'S' => '',         'T' => '') // common
+                array('L' => _('Large'),         'M' => _('Medium'), 'S' => _('Small'),      'T' => _('Tiny')), // separate courses
+                array('L' => _('Large+Medium'),  'M' => '',          'S' => _('Small+Tiny'), 'T' => ''), // mixed courses
+                array('L' => _('Common course'), 'M' => '',          'S' => '',              'T' => '') // common
             ),
-            'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3, -1), array(/* conjunto */ 4, 4, 4, -1 )),
+            'Modes' => array(array(/* separado */ 0, 1, 2, 5 ), array(/* mixto */ 6, 6, 7, 7 ), array(/* conjunto */ 8, 8, 8, 8 )),
             'ModeStrings' => array( // text to be shown on each category
-                array(/* separado */ "Large", "Medium", "Small", "Invalid"),
-                array(/* mixto */ "Large", "Medium+Small", "Medium+Small", "Invalid"),
-                array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid")
+                array(/* separado */ "Large", "Medium", "Small", "Tiny"),
+                array(/* mixto */ "Large+Medium", "Large+Medium", "Small+Tiny", "Small+Tiny"),
+                array(/* conjunto */ "Common course", "Common course", "Common course", "Common course")
             ),
-            'IndexedModes' => array ( // modes 5 to 8 are invalid in this federation
+            'IndexedModes' => array (
                 "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
             ),
             'IndexedModeStrings' => array(
@@ -70,10 +70,10 @@ class INTL3 extends Federations {
                 "L"=>"Large",
                 "M"=>"Medium",
                 "S"=>"Small",
-                "T"=>"Tiny", // invalid
-                "LM"=>"Large/Medium", // invalid
-                "ST"=>"Small/Tiny", // invalid
-                "MS"=>"Medium/Small",
+                "T"=>"Tiny",
+                "LM"=>"Large/Medium",
+                "ST"=>"Small/Tiny",
+                "MS"=>"Medium/Small", // invalid
                 "LMS" => 'Common LMS',
                 "LMST" => 'Common LMST',
                 "-LMST" => ''
@@ -98,7 +98,7 @@ class INTL3 extends Federations {
      * @param {object} $p datos de la prueba
      * @param {object} $j datos de la jornada
      * @param {object} $m1 datos de la primera manga
-     * @param {object} $m22 datos de la segunda manga
+     * @param {object} $m2 datos de la segunda manga
      * @param {array} $c1 resultados de la primera manga
      * @param {array} $c2 resultados de la segunda manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference

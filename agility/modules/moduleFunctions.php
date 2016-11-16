@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../server/logging.php");
 require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/Competitions.php");
 require_once(__DIR__."/Federations.php");
 
 try {
@@ -31,6 +32,7 @@ try {
         case "info": $result= Federations::getFederation($federation); break;
         case "enumerate": $result= Federations::enumerate(); break;
         case "infomanga": $result= Federations::infomanga($federation,$recorrido); break;
+        case "competitions": $result=Competitions::getAvailableCompetitions($federation); break;
         default: throw new Exception("moduleFunctions:: invalid operation: '$operation' provided");
     }
     if ($result===null)

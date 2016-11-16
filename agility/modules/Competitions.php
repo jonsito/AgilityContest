@@ -28,14 +28,34 @@ class Competitions {
         // each pair $federationID:$competitionID must be unique
         protected $federationID;
         protected $competitionID;
+        protected $competitionName;
 
-        function __construct($name,$prueba,$jornada) {
-
+        function __construct($name) {
+            $this->competitionName=$name;
+            $this->federationID=0; // to be override by child class
+            $this->competitionID=0; // to be overriden by child class
         }
 
-        function getAvailableCompetitions() {
-
-        }
+    /**
+     * Create json array of available competitions for provided federation
+     * @param {integer} $fed Federation id
+     * @return {array} ({int}ID,{string}name)
+     */
+     static function getAvailableCompetitions($fed) {
+         $competitionList=array();
+         // analize sub-directories looking for classes matching federation id
+         // Notice that module class name must match file name
+         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
+             $name=str_replace(".php","",basename($filename));
+             require_once($filename);
+             $comp=new $name;
+             if (!$comp) continue; // cannot instantiate class. should report error
+             if ($comp->federationID!=$fed) continue;
+             $competitionList[]=array("ID"=>$comp->competitionID,"Nombre"=>$comp->competitionName);
+         }
+         // arriving here means requested federation not found
+         return $competitionList;
+     }
 
     /**
      * Evalua la calificacion parcial del perro

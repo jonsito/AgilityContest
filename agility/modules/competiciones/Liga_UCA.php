@@ -7,8 +7,8 @@
  * Time: 10:58
  */
 class Liga_UCA extends Competitions {
-    function __construct($prueba,$jornada) {
-        parent::__construct("Puntuable Liga UCA",$prueba,$jornada);
+    function __construct() {
+        parent::__construct("Puntuable Liga UCA");
         $this->federationID=2;
         $this->competitionID=0;
     }

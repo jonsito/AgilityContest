@@ -7,8 +7,8 @@
  * Time: 10:58
  */
 class Copa_PastorBelga extends Competitions {
-    function __construct($prueba,$jornada) {
-        parent::__construct("Copa del Pastor Belga",$prueba,$jornada);
+    function __construct() {
+        parent::__construct("Copa del Pastor Belga");
         $this->federationID=0;
         $this->competitionID=4;
     }

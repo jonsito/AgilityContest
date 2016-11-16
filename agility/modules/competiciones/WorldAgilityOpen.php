@@ -7,8 +7,8 @@
  * Time: 10:58
  */
 class WorldAgilityOpen extends Competitions {
-    function __construct($prueba,$jornada) {
-        parent::__construct("World Agility Open",$prueba,$jornada);
+    function __construct() {
+        parent::__construct("World Agility Open");
         $this->federationID=8;
         $this->competitionID=1;
     }

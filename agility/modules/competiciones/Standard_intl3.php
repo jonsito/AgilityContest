@@ -7,8 +7,8 @@
  * Time: 10:58
  */
 class Standard_intl3 extends Competitions {
-    function __construct($prueba,$jornada) {
-        parent::__construct("Standard",$prueba,$jornada);
+    function __construct() {
+        parent::__construct("Standard");
         $this->federationID=9;
         $this->competitionID=0;
     }

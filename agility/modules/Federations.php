@@ -237,7 +237,7 @@ class Federations {
         $fedList=array();
         // analize sub-directories looking for matching ID or name
         // Notice that module class name should be the same as uppercase'd module directory name
-        foreach( glob(__DIR__.'/*',GLOB_ONLYDIR) as $federation) {
+        foreach( glob(__DIR__.'/federaciones/*',GLOB_ONLYDIR) as $federation) {
             $name=strtoupper( basename($federation));
             require_once($federation."/config.php");
             $fed=new $name;
@@ -255,7 +255,7 @@ class Federations {
      */
     static function getFederationList() {
         $fedList=array();
-        foreach( glob(__DIR__.'/*',GLOB_ONLYDIR) as $federation) {
+        foreach( glob(__DIR__.'/federaciones/*',GLOB_ONLYDIR) as $federation) {
             $name=strtoupper( basename($federation));
             require_once($federation."/config.php");
             $fed=new $name;

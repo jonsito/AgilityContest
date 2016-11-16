@@ -7,8 +7,8 @@
  * Time: 10:58
  */
 class Liga_RFEC extends Competitions {
-    function __construct($prueba,$jornada) {
-        parent::__construct("Puntuable Liga RFEC",$prueba,$jornada);
+    function __construct() {
+        parent::__construct("Puntuable Liga RFEC");
         $this->federationID=1;
         $this->competitionID=0;
     }

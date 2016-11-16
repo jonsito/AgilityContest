@@ -7,8 +7,8 @@
  * Time: 10:58
  */
 class Puntuable_RSCE extends Competitions {
-    function __construct($prueba,$jornada) {
-        parent::__construct("Puntuable C.E. RSCE",$prueba,$jornada);
+    function __construct() {
+        parent::__construct("Puntuable C.E. RSCE");
         $this->federationID=0;
         $this->competitionID=0;
     }
