@@ -25,7 +25,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  */
 class Competitions {
 
-        function __construct($prueba,$jornada) {
+        // each pair $federationID:$competitionID must be unique
+        protected $federationID;
+        protected $competitionID;
+
+        function __construct($name,$prueba,$jornada) {
 
         }
 
