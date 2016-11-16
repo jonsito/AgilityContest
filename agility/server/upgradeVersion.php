@@ -341,7 +341,7 @@ try {
     $upg->addColumnUnlessExists("Provincias","Pais","varchar(2)","ES");
     $upg->dropColumnIfExists("Jornadas","Orden_Tandas");
     $upg->addColumnUnlessExists("Jornadas","Games","int(4)","0");
-    $upg->addColumnUnlessExists("Jornadas","Tipo_Competicion","varchar(255)","Standard");
+    $upg->addColumnUnlessExists("Jornadas","Tipo_Competicion","int(4)","0");
     $upg->updateInscripciones();
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
