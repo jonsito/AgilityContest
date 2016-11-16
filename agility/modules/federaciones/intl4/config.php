@@ -82,18 +82,6 @@ class INTL4 extends Federations {
     }
 
     /**
-     * Evalua la calificacion parcial del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
-     * @param {object} $m datos de la manga
-     * @param {array} $perro datos de puntuacion del perro. Passed by reference
-     * @param {array} $puestocat puesto en funcion de la categoria
-     */
-    public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
-        parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
-    }
-
-    /**
      * Evalua la calificacion final del perro
      * @param {object} $p datos de la prueba
      * @param {object} $j datos de la jornada

@@ -30,8 +30,10 @@ class Competitions {
         protected $competitionID=0;
         protected $competitionName="Standard";
         protected $selectiva=0; // historic flag from Prueba table
+        protected $prueba=null;
+        protected $jornada=null;
 
-        function __construct($name) {
+        /* protected */ function __construct($name) {
             $this->competitionName=$name;
         }
 
@@ -76,6 +78,8 @@ class Competitions {
              if ($comp->competitionID!=$type) continue;
              // competition found: assign selective flag and return
              $comp->selectiva=$sel;
+             $comp->prueba=$prueba;
+             $comp->jornada=$jornada;
              return $comp;
          }
          // arriving here means requested federation not found: warn and return default

@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 require_once(__DIR__."/DBObject.php");
+require_once(__DIR__."/../../../modules/Competitions.php");
 require_once(__DIR__."/../../../modules/Federations.php");
 require_once(__DIR__."/OrdenSalida.php");
 require_once(__DIR__."/Mangas.php");
@@ -524,12 +525,12 @@ class Resultados extends DBObject {
 			default: return $this->error("modo de recorrido desconocido:$mode");
 		}
 		//  evaluamos mejores tiempos intermedios y totales
-		$best=$this->__(
-			"min(TIntermedio) AS BestIntermedio, min(Tiempo) AS BestFinal",
-			"Resultados",
-			"(Tiempo>0) AND $where $cat",
-			"",
-			""
+		$best=$this->__select(
+			/* SELECT */ "min(TIntermedio) AS BestIntermedio, min(Tiempo) AS BestFinal",
+			/* FROM */  "Resultados",
+			/* WHERE */ "(Tiempo>0) AND $where $cat",
+			/* ORDER */ "",
+			/* LIMIT */ ""
 		);
 		if (!is_array($best))
 			return $this->error($this->conn->error);
@@ -797,8 +798,9 @@ class Resultados extends DBObject {
             if ($lastcat[$cat]!=$now) { $lastcat[$cat]=$now; $puestocat[$cat]=$countcat[$cat]; }
             $table[$idx]['Pcat']=$puestocat[$cat];
 
-			// la calificacion depende de categoria, grado y federacion
-			$fed->evalPartialCalification($this->getDatosPrueba(),$this->getDatosJornada(),$this->getDatosManga(),$table[$idx],$puestocat);
+			// la calificacion depende de categoria, grado, federacion y tipo de competicion
+            $comp=Competitions::getCompetition($this->getDatosPrueba(),$this->getDatosJornada());
+			$comp->evalPartialCalification($this->getDatosPrueba(),$this->getDatosJornada(),$this->getDatosManga(),$table[$idx],$puestocat);
 		}
 
         // componemos datos del array a retornar
