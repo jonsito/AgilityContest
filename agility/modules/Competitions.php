@@ -145,7 +145,11 @@ class Competitions {
      * @param {array} $puestocat puesto en funcion de la categoria
      */
     public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat){
-        return;
+        return; // normally is overriden by child classes
+    }
+
+    public function evalTRS() {
+        return null;
     }
 }
 ?>

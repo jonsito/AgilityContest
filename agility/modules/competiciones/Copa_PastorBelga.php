@@ -6,10 +6,23 @@
  * Date: 16/11/16
  * Time: 10:58
  */
-class Copa_PastorBelga extends Competitions {
+class Copa_PastorBelga extends Selectiva_PastorBelga  {
+
+    /*
+    * En copa del pastor belga, compiten pastores belgas de cuaquier grado
+    * - puntuan tanto en individual como en conjunta los 10 primeros no eliminados.
+    * - para puntuar en conjunta no puede estar eliminado en ninguna manga
+    * - En caso de empate comparten los mismos puntos
+    * - el baremo es: 20,18,16,14,12,10,8,6,4,2 ( el doble que en la selectiva
+    */
+
     function __construct() {
         parent::__construct("Copa del Pastor Belga");
         $this->federationID=0;
         $this->competitionID=4;
+        $this->ptsmanga=array("20","18","16","14","12", "10"," 8"," 6"," 4"," 2"); // puntos por manga y puesto
+        $this->ptsglobal=array("20","18","16","14","12", "10"," 8"," 6"," 4"," 2"); // puntos conjunta
     }
+
+    function evalTRS() { return null; } // best * 1.15 round up. must be Declared in round development
 }
