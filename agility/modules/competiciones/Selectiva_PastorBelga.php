@@ -114,9 +114,7 @@ class Selectiva_PastorBelga extends Competitions {
         }
     }
 
-
-
-    function evalTRS() {
+    function checkAndFixTRSData($prueba,$jornada,$manga,$data) {
         /*
          * El TRS de una selectiva de PB es el la media de los tres mejores perros
          * de grado II y III de _cualquier_raza_ de la prueba RSCE asociada
@@ -126,5 +124,27 @@ class Selectiva_PastorBelga extends Competitions {
          *
          * Es por ello que se inserta esta rutina en medio de la funcion Resultados::evalTRS
          */
+        // fase 0: buscamos la jornada padre
+        $parent=intval($jornada->SlaveOf);
+        if ($parent==0) return $data;
+
+        // fase 1: cogemos todos los resultados de standard grado II y III de la manga padre
+        $myDBObject=new DBObject("checkAndFixTRSData");
+        $res=$myDBObject->__select(
+            /* SELECT */ "Perro, Mangas.Tipo AS TIPO, GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,Tiempo, 0 AS PTiempo, 0 AS Penalizacion",
+            /* FROM */   "Resultados,Mangas",
+            /* WHERE */  "(Resultados.Manga=Mangas.ID) AND (Pendiente=0) AND (Jornada=$parent) AND (Categoria='L') AND ( (Grado='GII') OR (Grado='GIII') )",
+            /* ORDER BY */" PRecorrido ASC, Tiempo ASC",
+            /* LIMIT */  ""
+        );
+        // fase 2: eliminamos aquellos que no coincidan con el tipo de manga (agility/jumping)
+        $tipo=Mangas::$tipo_manga[$manga->Tipo][5]; // vemos si estamos en agility o jumping
+        $result=array();
+        foreach ($res['rows'] as $row ) {
+            if (Mangas::$tipo_manga[$row['Tipo']][5] != $tipo) continue;
+            $result[]=$row; // tipo coincide. anyadimos al resultado. Recuerda que ya estan ordenados
+        }
+        // finalmente retornamos el resultado
+        return $data;
     }
 }

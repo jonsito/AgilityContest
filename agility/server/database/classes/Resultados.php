@@ -134,7 +134,13 @@ class Resultados extends DBObject {
 	 * @return array('dist','obst','trs','trm','vel') or null on error
 	 */
 	private function evalTRS($mode,$data) {
-		$dmanga=(array) $this->getDatosManga();
+        // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
+        // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
+        // manga actual, sino de la manga padre.
+        // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
+        $dmanga=(array) $this->getDatosManga();
+        $comp=Competitions::getCompetition($this->getDatosPrueba(),$this->getDatosJornada());
+        $data=$comp->checkAndFixTRSData($this->getDatosPrueba(),$this->getDatosJornada(),$this->getDatosManga(),$data);
 		$result= array();
 		// vemos de donde tenemos que tomar los datos
 		$suffix='L';

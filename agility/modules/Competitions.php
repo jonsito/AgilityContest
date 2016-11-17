@@ -148,8 +148,21 @@ class Competitions {
         return; // normally is overriden by child classes
     }
 
-    public function evalTRS() {
-        return null;
+    /**
+     * Re-evaluate and fix -if required- results data used to evaluate TRS for
+     * provided $prueba/$jornada/$manga
+     * @param {object} $prueba Contest data
+     * @param {object} $jornada Journey data
+     * @param {object} $manga Round data
+     * @param {array} $data Original results provided for evaluation
+     * @return {array} final data to be used to evaluate trs/trm
+     */
+    public function checkAndFixTRSData($prueba,$jornada,$manga,$data) {
+        // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
+        // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
+        // manga actual, sino de la manga padre.
+        // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
+        return $data;
     }
 }
 ?>
