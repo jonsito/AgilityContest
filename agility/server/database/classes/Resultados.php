@@ -130,7 +130,7 @@ class Resultados extends DBObject {
 	/**
 	 * gets distance, obstacles, trs and trm
 	 * @param {integer} $mode 0:Large 1:Medium 2:Small 3:M+S 4:L+M+S
-	 * @param {array} $data current _ordered_ results data according $mode
+	 * @param {array} $dat current _ordered_ results data according $mode
 	 * @return array('dist','obst','trs','trm','vel') or null on error
 	 */
 	private function evalTRS($mode,$data) {

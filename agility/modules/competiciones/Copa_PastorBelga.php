@@ -1,5 +1,5 @@
 <?php
-
+require_once("Selectiva_PastorBelga.php");
 /**
  * Created by PhpStorm.
  * User: jantonio

@@ -115,6 +115,7 @@ class Selectiva_PastorBelga extends Competitions {
     }
 
     function checkAndFixTRSData($prueba,$jornada,$manga,$data) {
+        do_log("checkAndFixTRSData: enter()");
         /*
          * El TRS de una selectiva de PB es el la media de los tres mejores perros
          * de grado II y III de _cualquier_raza_ de la prueba RSCE asociada
@@ -127,13 +128,13 @@ class Selectiva_PastorBelga extends Competitions {
         // fase 0: buscamos la jornada padre
         $parent=intval($jornada->SlaveOf);
         if ($parent==0) return $data;
-
-        // fase 1: cogemos todos los resultados de standard grado II y III de la manga padre
         $myDBObject=new DBObject("checkAndFixTRSData");
+        // fase 1: cogemos todos los resultados de standard grado II y III de la manga padre
         $res=$myDBObject->__select(
-            /* SELECT */ "Perro, Mangas.Tipo AS TIPO, GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,Tiempo, 0 AS PTiempo, 0 AS Penalizacion",
+            /* SELECT */ "Perro, Mangas.Tipo AS Tipo, GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,Tiempo",
             /* FROM */   "Resultados,Mangas",
-            /* WHERE */  "(Resultados.Manga=Mangas.ID) AND (Pendiente=0) AND (Jornada=$parent) AND (Categoria='L') AND ( (Grado='GII') OR (Grado='GIII') )",
+            /* WHERE */  "(Resultados.Manga=Mangas.ID) AND (Pendiente=0) AND (Resultados.Jornada=$parent)".
+                            "AND (Categoria='L') AND ( (Resultados.Grado='GII') OR (Resultados.Grado='GIII') )",
             /* ORDER BY */" PRecorrido ASC, Tiempo ASC",
             /* LIMIT */  ""
         );
@@ -145,6 +146,6 @@ class Selectiva_PastorBelga extends Competitions {
             $result[]=$row; // tipo coincide. anyadimos al resultado. Recuerda que ya estan ordenados
         }
         // finalmente retornamos el resultado
-        return $data;
+        return $result;
     }
 }
