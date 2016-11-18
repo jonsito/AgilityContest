@@ -94,21 +94,21 @@ class Selectiva_PastorBelga extends Competitions {
         // manga 1
         // puntos a los 10 primeros por manga/categoria si no estan eliminados
         if ($c1!=null) {
-            if ( ($perro['Pcat1']>0) && ($perro['P1']<100) && ($perro['Pcat1']<=5) ) {
+            if ( ($perro['Pcat1']>0) && ($perro['P1']<100) && ($perro['Pcat1']<=10) ) {
                 $perro['C1'] = $this->ptsmanga[$perro['Pcat1']-1];
             }
         }
         // manga 2
         if ($c2!=null) {
             // puntos a los 10 primeros por manga/categoria si no estan eliminados
-            if ( ($perro['Pcat2']>0) && ($perro['P2']<100) && ($perro['Pcat2']<=5) ) {
+            if ( ($perro['Pcat2']>0) && ($perro['P2']<100) && ($perro['Pcat2']<=10) ) {
                 $perro['C2'] = $this->ptsmanga[$perro['Pcat2']-1];
             }
         }
         // conjunta
         if ($puestocat[$cat]<11) {
-            // puntuan los 10 primeros si no se han eliminado o no clasificado en ambas mangas
-            if ( ($perro['P1']<100.0) || ($perro['P2']<100.0) ) { // verificar si es NC o eliminado
+            // puntuan los 10 primeros si no se han eliminado o no clasificado en ninguna manga
+            if ( ($perro['P1']<100.0) && ($perro['P2']<100.0) ) { // verificar si es NC o eliminado
                 $perro['Calificacion']=$this->ptsglobal[$puestocat[$cat]-1];
             }
         }

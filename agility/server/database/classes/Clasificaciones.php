@@ -218,7 +218,6 @@ class Clasificaciones extends DBObject {
 			if($this->jornada->Equipos3!=0) continue;
 			if($this->jornada->Equipos4!=0) continue;
 			if($this->jornada->KO!=0) continue;
-			if($this->jornada->Open!=0) continue;
             // evaluamos calificacion y puntos en funcion de la federacion y de si es o no selectiva
             $comp=Competitions::getCompetition($this->prueba,$this->jornada);
 			$comp->evalFinalCalification($this->prueba,$this->jornada,$m1,$m2,$c1,$c2,$final[$idx],$puestocat);
