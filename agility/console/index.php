@@ -172,6 +172,9 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 		// perform automatic upgrades in database when needed
 		require_once(__DIR__ . "/../server/upgradeVersion.php");
 		?>
+        <script type="text/javascript">
+            history.replaceState('data to be passed', 'AgilityContest Console', '/agility/console');
+        </script>
 	</p>
 </div>
 

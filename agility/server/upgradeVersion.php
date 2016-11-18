@@ -399,34 +399,39 @@ class Updater {
 
 $upg=new Updater();
 if ($upg->slaveMode()==true) return; // restricted mode. do not try to update database anyway
+// allow only localhost access
+$white_list= array ("localhost","127.0.0.1","::1",$_SERVER['SERVER_ADDR'],"138.4.4.108");
+if (!in_array($_SERVER['REMOTE_ADDR'],$white_list))  return; // upgrade is restricted to console
+// check for database install request
+$installdb = http_request("installdb", "i", 0);
+
 try {
     // check for (re)install database request
-    $installdb = http_request("installdb", "i", 0);
     if ($installdb !== 0) {
-        ob_implicit_flush(true); // temporary disable buffer to send progress to browser
-        $upg->installDB(); // perform first database install
+        ob_implicit_flush(true);
+        $upg->installDB();
         ob_implicit_flush(false);
-    } else {
-        // when not in first install, process database to make it compliant with sofwtare version
-        $upg->removeUpdateMark();
-        $upg->updateVersionHistory();
-        $upg->updatePerroGuiaClub();
-        $upg->addCountries();
-        $upg->addColumnUnlessExists("Mangas", "Orden_Equipos", "TEXT");
-        $upg->addColumnUnlessExists("Resultados", "TIntermedio", "double", "0.0");
-        $upg->addColumnUnlessExists("Resultados", "Games", "int(4)", "0");
-        $upg->addColumnUnlessExists("Perros", "NombreLargo", "varchar(255)");
-        $upg->addColumnUnlessExists("Perros", "Genero", "varchar(16)");
-        $upg->addColumnUnlessExists("Provincias", "Pais", "varchar(2)", "ES");
-        $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
-        $upg->addColumnUnlessExists("Jornadas", "Games", "int(4)", "0");
-        $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
-        $upg->updateInscripciones();
-        $upg->upgradeTeams();
-        $upg->setTRStoFloat();
-        $upg->createTrainingTable();
-        $upg->populateTeamMembers();
+        return;
     }
+    // when not in first install, process database to make it compliant with sofwtare version
+    $upg->removeUpdateMark();
+    $upg->updateVersionHistory();
+    $upg->updatePerroGuiaClub();
+    $upg->addCountries();
+    $upg->addColumnUnlessExists("Mangas", "Orden_Equipos", "TEXT");
+    $upg->addColumnUnlessExists("Resultados", "TIntermedio", "double", "0.0");
+    $upg->addColumnUnlessExists("Resultados", "Games", "int(4)", "0");
+    $upg->addColumnUnlessExists("Perros", "NombreLargo", "varchar(255)");
+    $upg->addColumnUnlessExists("Perros", "Genero", "varchar(16)");
+    $upg->addColumnUnlessExists("Provincias", "Pais", "varchar(2)", "ES");
+    $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
+    $upg->addColumnUnlessExists("Jornadas", "Games", "int(4)", "0");
+    $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
+    $upg->updateInscripciones();
+    $upg->upgradeTeams();
+    $upg->setTRStoFloat();
+    $upg->createTrainingTable();
+    $upg->populateTeamMembers();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }
