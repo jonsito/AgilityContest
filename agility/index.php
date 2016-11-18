@@ -31,8 +31,6 @@ $am=new AuthManager("Public");
 if (!$am->allowed(ENABLE_PUBLIC)) {
 	die("Current license has no permissions to handle public (web) access related functions");
 }
-// tool to perform automatic upgrades in database when needed
-require_once(__DIR__. "/server/upgradeVersion.php");
 
 ?>
 <!DOCTYPE html>

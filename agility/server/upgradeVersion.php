@@ -30,6 +30,7 @@ require_once(__DIR__."/database/classes/DBObject.php");
 require_once(__DIR__."/i18n/Country.php");
 
 define("MINVER","20150522_2300");
+define ('INSTALL_LOG',__DIR__."/../../logs/install.log");
 
 class Updater {
     protected $config;
@@ -47,6 +48,76 @@ class Updater {
         // connect database with proper permissions
         $this->conn = DBConnection::getRootConnection();
         if ($this->conn->connect_error) throw new Exception("Cannot perform upgrade process: database::dbConnect()");
+    }
+
+    private function install_log($str) {
+        $f=fopen(INSTALL_LOG,"a"); // open for append-only
+        if (!$f) { $this->myLogger->error("fopen() cannot create file: ".INSTALL_LOG); return;}
+        echo "$str<br/>\n"; flush(); ob_flush();
+        fwrite($f,"$str\n");
+        fclose($f);
+    }
+
+    function installDB() {
+
+        // check if this is really needed
+        // session_start();
+        // unset($_SESSION['progress']);
+        // session_write_close();
+
+        // phase 1: retrieve database file from "extras" directory
+        $data=file(__DIR__."/../../extras/agility.sql",FILE_IGNORE_NEW_LINES);
+        if ($data===FALSE) die("Cannot load database file to be installed");
+
+        // phase 2: verify received file
+        if (strpos(substr($data[0],0,25),"-- AgilityContest")===FALSE)
+            throw new Exception("Provided file is not an AgilityContest backup file");
+
+        // phase 3: delete all tables and structures from database
+        $this->conn->query('SET foreign_key_checks = 0');
+        if ($result = $this->conn->query("SHOW TABLES")) {
+            while($row = $result->fetch_array(MYSQLI_NUM)) {
+                $this->install_log("Drop table ".$row[0]);
+                $this->conn->query('DROP TABLE IF EXISTS '.$row[0]);
+            }
+        }
+        $this->conn->query('SET foreign_key_checks = 1');
+
+        // phase 4: parse sql file and populate tables into database
+        // Temporary variable, used to store current query
+        $templine = '';
+        $trigger=false;
+        $numlines=count($data);
+        $timeout=ini_get('max_execution_time');
+        $lastcount=0; // to handle progress info
+        // Loop through each line
+        foreach ($data as $idx => $line) {
+            // Skip it if it's a comment
+            if (substr($line, 0, 2) == '--' || trim($line) == '') continue;
+            // properly handle "DELIMITER ;;" command
+            if (trim($line)=="DELIMITER ;;") { $trigger=true; continue; }
+            else if (trim($line)=="DELIMITER ;") { $trigger=false; }
+            else $templine .= $line;    // Add this line to the current segment
+            if ($trigger) continue;
+            // If it has a semicolon at the end, it's the end of the query
+            if (substr(trim($line), -1, 1) == ';') {
+                // check for need to log
+                $count=intval((100*$idx)/$numlines);
+                if ($count!=$lastcount ) $this->install_log($lastcount);
+                $lastcount=$count;
+                // avoid php to be killed on very slow systems
+                set_time_limit($timeout);
+                // Perform the query
+                if (! $this->conn->query($templine) ){
+                    $this->myLogger->error('Error performing query \'<strong>' . $templine . '\': ' . $this->conn->error . '<br />');
+                }
+                // Reset temp variable to empty
+                $templine = '';
+            }
+        }
+        $this->install_log("Install Database Done");
+        $this->myLogger->info("database install success");
+        return "";
     }
 
     function slaveMode() {
@@ -329,24 +400,33 @@ class Updater {
 $upg=new Updater();
 if ($upg->slaveMode()==true) return; // restricted mode. do not try to update database anyway
 try {
-    $upg->removeUpdateMark();
-    $upg->updateVersionHistory();
-    $upg->updatePerroGuiaClub();
-    $upg->addCountries();
-    $upg->addColumnUnlessExists("Mangas","Orden_Equipos","TEXT");
-    $upg->addColumnUnlessExists("Resultados","TIntermedio","double","0.0");
-    $upg->addColumnUnlessExists("Resultados","Games","int(4)","0");
-    $upg->addColumnUnlessExists("Perros","NombreLargo","varchar(255)");
-    $upg->addColumnUnlessExists("Perros","Genero","varchar(16)");
-    $upg->addColumnUnlessExists("Provincias","Pais","varchar(2)","ES");
-    $upg->dropColumnIfExists("Jornadas","Orden_Tandas");
-    $upg->addColumnUnlessExists("Jornadas","Games","int(4)","0");
-    $upg->addColumnUnlessExists("Jornadas","Tipo_Competicion","int(4)","0");
-    $upg->updateInscripciones();
-    $upg->upgradeTeams();
-    $upg->setTRStoFloat();
-    $upg->createTrainingTable();
-    $upg->populateTeamMembers();
+    // check for (re)install database request
+    $installdb = http_request("installdb", "i", 0);
+    if ($installdb !== 0) {
+        ob_implicit_flush(true); // temporary disable buffer to send progress to browser
+        $upg->installDB(); // perform first database install
+        ob_implicit_flush(false);
+    } else {
+        // when not in first install, process database to make it compliant with sofwtare version
+        $upg->removeUpdateMark();
+        $upg->updateVersionHistory();
+        $upg->updatePerroGuiaClub();
+        $upg->addCountries();
+        $upg->addColumnUnlessExists("Mangas", "Orden_Equipos", "TEXT");
+        $upg->addColumnUnlessExists("Resultados", "TIntermedio", "double", "0.0");
+        $upg->addColumnUnlessExists("Resultados", "Games", "int(4)", "0");
+        $upg->addColumnUnlessExists("Perros", "NombreLargo", "varchar(255)");
+        $upg->addColumnUnlessExists("Perros", "Genero", "varchar(16)");
+        $upg->addColumnUnlessExists("Provincias", "Pais", "varchar(2)", "ES");
+        $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
+        $upg->addColumnUnlessExists("Jornadas", "Games", "int(4)", "0");
+        $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
+        $upg->updateInscripciones();
+        $upg->upgradeTeams();
+        $upg->setTRStoFloat();
+        $upg->createTrainingTable();
+        $upg->populateTeamMembers();
+    }
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }

@@ -248,7 +248,7 @@ class Admin extends DBObject {
         $data=$this->retrieveDBFile();
         // phase 2: verify received file
 		if (strpos(substr($data,0,25),"-- AgilityContest")===FALSE)
-			throw new Exception("Provided file is not an AgilityContest backup file");
+			throw new Exception("Install file is not an AgilityContest database file");
         // phase 3: delete all tables and structures from database
         $this->dropAllTables($rconn);
         // phase 4: parse sql file and populate tables into database

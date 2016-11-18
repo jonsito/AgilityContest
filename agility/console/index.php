@@ -1,13 +1,11 @@
 <?php
+ini_set('zlib.output_compression', 0);
 header("Access-Control-Allow-Origin: https//{$_SERVER['SERVER_ADDR']}/agility",false);
 header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",false);
 require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
 if (!isset($config) ) $config=Config::getInstance();
 
-// tool to perform automatic upgrades in database when needed
-require_once(__DIR__ . "/../server/upgradeVersion.php");
- 
 /* check for properly installed xampp */
 if( ! function_exists('openssl_get_publickey')) {
 	die("Invalid configuration: please uncomment line 'module=php_openssl.dll' in file '\\xampp\\php\\php.ini'");
@@ -24,8 +22,8 @@ if( ! function_exists('password_verify')) {
 if ( intval($config->getEnv('restricted'))!=0) {
     die("Access other than public directory is not allowed");
 }
-
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,6 +99,7 @@ function initialize() {
 	initAuthInfo();
 	// load login page
 	loadContents("/agility/console/frm_login.php","");
+	$('#upgradeVersion').css('display','none'); // hide install log
 }
 
 /**
@@ -167,6 +166,14 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 </head>
 
 <body onload="initialize();">
+<div id="upgradeVersion" style="color:#fff;display:block">
+	<h1>Installing database... please wait</h1><p>
+		<?php
+		// perform automatic upgrades in database when needed
+		require_once(__DIR__ . "/../server/upgradeVersion.php");
+		?>
+	</p>
+</div>
 
 <!-- CABECERA -->
 <div id="myheader">

@@ -33,8 +33,6 @@ $am=new AuthManager("VideoWall");
 if (!$am->allowed(ENABLE_VIDEOWALL)) {
 	die("Current license has no permissions to handle videowall related functions");
 }
-// tool to perform automatic upgrades in database when needed
-require_once(__DIR__."/../server/upgradeVersion.php");
 ?>
 
 <!DOCTYPE html>
