@@ -38,7 +38,7 @@ class Selectiva_PastorBelga extends Competitions {
         $cat=$perro['Categoria'];
         $pt1="";
         // puntos a los 10 primeros por manga/categoria si no estan eliminados
-        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<100) && ($puestocat[$cat]<=5) ) {
+        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<100) && ($puestocat[$cat]<=10) ) {
             $pt1 = $this->ptsmanga[$puestocat[$cat]-1];
         }
         if ($perro['Penalizacion']>=400)  {
