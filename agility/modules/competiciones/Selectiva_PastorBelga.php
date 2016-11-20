@@ -57,7 +57,7 @@ class Selectiva_PastorBelga extends Competitions {
             $perro['CShort'] = _("Elim");
         }
         else if ($perro['Penalizacion']>=26)	{
-            $perro['Calificacion'] = _("Not Clasified");
+            $perro['Calificacion'] = _("Not Clasified")." - ".$pt1; // confirm that N.C Classified receives points
             $perro['CShort'] = _("N.C.")." - ".$pt1; // confirm that N.C Classified receives points
         }
         else if ($perro['Penalizacion']>=16)	{
