@@ -48,6 +48,10 @@ class Entrenamientos extends DBObject {
         return "";
     }
 
+    function delete($id) {
+        return ""; // to be written
+    }
+
     /**
      * Fill trainning sesion with default data from database and configuration
      * @return {string} "" if ok; null on error
@@ -189,11 +193,13 @@ class Entrenamientos extends DBObject {
 
 	/**
 	 * Update trainning entry data
-	 * @param {integer} $id entry ID primary key
+     * @param {integer} $id entry ID primary key
+     * @param {array} $data data used to update entry
 	 * @return {string} "" on success; null on error
 	 */
-	function update($id) {
+	function update($id,$data) {
 		$this->myLogger->enter();
+        // to be writen
 		$this->myLogger->leave();
 		return "";
 	}

@@ -21,7 +21,7 @@ require_once(__DIR__ . "/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
-<div id="dlg_register" style="width:640px;padding:10px">
+<div id="dlg_register" style="width:700px;padding:10px">
 	<img src="/agility/images/AgilityContest.png" 
 		width="150" height="100" alt="AgilityContest Logo" 
 		style="border:1px solid #000000;margin:10px;float:right;padding:5px">
@@ -30,7 +30,7 @@ $config =Config::getInstance();
 			<strong><?php _e('Version'); ?>: </strong><span id="reg_version">version</span> - <span id="reg_date">date</span>
 		</dt>
 		<dt>
-			<strong>AgilityContest</strong> <?php _e('is Copyright &copy; 2013-2015 by'); ?> <em> Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
+			<strong>AgilityContest</strong> <?php _e('is Copyright &copy; 2013-2017 by'); ?> <em> Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
 		</dt>
 		<dd>
 		<?php _e('Source code is available at'); ?> <a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />
@@ -41,31 +41,52 @@ $config =Config::getInstance();
 	<p>
 	<?php _e('Registered at'); ?> 'Registro Territorial de la Propiedad Intelectual de Madrid'. <em>Expediente: 09-RTPI-09439.4/2014</em>
 	</p>
-	<hr />&nbsp;<br />
-	<strong><?php _e('Licensing information'); ?>:</strong>
+	<hr />
 	<form id="registration_data">
-		<div class="fitem">
-			<label for="rd_User"><?php _e('Name'); ?>:</label>
-			<input id="rd_User" type="text" readonly="readonly" name="User" /><br/>
-		</div>
-		<div class="fitem">
-			<label for="rd_Email"><?php _e('E-mail'); ?>:</label>
-			<input id="rd_Email" type="text" readonly="readonly" name="Email" /><br/>
-		</div>
-		<div class="fitem">
-			<label for="rd_Club"><?php _e('Club'); ?>:</label>
-			<input id="rd_Club" type="text" readonly="readonly" name="Club" /><br/>
-		</div>
-		<div class="fitem">
-			<label for="rd_Serial"><?php _e('Serial num'); ?>:</label>
-			<input id="rd_Serial" type="text" readonly="readonly" name="Serial" /><br/>
-		</div>
-		<div class="fitem">
-			<label for="rd_Expires"><?php _e('Expiration date'); ?>:</label>
-			<input id="rd_Expires" type="text" readonly="readonly" name="Expires" /><br/>
-		</div>
-	</form>
-	<br /><hr />&nbsp;<br />
+	<table width="100%">
+		<tr>
+			<td><strong><?php _e('Licensing information'); ?>:</strong></td>
+			<td><strong><?php _e('Current License Capabilities'); ?>:</strong><br/></td>
+		</tr>
+		<tr>
+		<td>
+			<div class="fitem">
+				<label for="rd_User"><?php _e('Name'); ?>:</label>
+				<input id="rd_User" type="text" readonly="readonly" name="User" /><br/>
+			</div>
+			<div class="fitem">
+				<label for="rd_Email"><?php _e('E-mail'); ?>:</label>
+				<input id="rd_Email" type="text" readonly="readonly" name="Email" /><br/>
+			</div>
+			<div class="fitem">
+				<label for="rd_Club"><?php _e('Club'); ?>:</label>
+				<input id="rd_Club" type="text" readonly="readonly" name="Club" /><br/>
+			</div>
+			<div class="fitem">
+				<label for="rd_Serial"><?php _e('Serial num'); ?>:</label>
+				<input id="rd_Serial" type="text" readonly="readonly" name="Serial" /><br/>
+			</div>
+			<div class="fitem">
+				<label for="rd_Expires"><?php _e('Expiration date'); ?>:</label>
+				<input id="rd_Expires" type="text" readonly="readonly" name="Expires" /><br/>
+			</div>
+		</td>
+		<td>
+			<input type="checkbox" disabled="disabled" value="1" name="ENABLE_IMPORT" /><?php _e("Import from Excel files");?><br />
+			<input type="checkbox" disabled="disabled" value="2" name="ENABLE_TEAMS"/><?php _e("Team contests");?><br />
+			<input type="checkbox" disabled="disabled" value="4" name="ENABLE_KO"/><?php _e("KO and Games rounds");?><br />
+			<input type="checkbox" disabled="disabled" value="8" name="ENABLE_SPECIAL"/><?php _e("Series with more than 2 rounds");?><br />
+			<input type="checkbox" disabled="disabled" value="16" name="ENABLE_VIDEOWALL"/><?php _e("VideoWall and ScoreBoard");?><br />
+			<input type="checkbox" disabled="disabled" value="32" name="ENABLE_PUBLIC"/><?php _e("Internet/Wifi public Access");?><br />
+			<input type="checkbox" disabled="disabled" value="64" name="ENABLE_CHRONO"/><?php _e("Chronometer connection");?><br />
+			<input type="checkbox" disabled="disabled" value="128" name="ENABLE_ULIMIT"/><?php _e("Unlimited inscriptions in a contest");?><br />
+			<input type="checkbox" disabled="disabled" value="256" name="ENABLE_LIVESTREAM"/><?php _e("LiveStream OnScreenDisplay signal");?><br />
+			<input type="checkbox" disabled="disabled" value="512" name="ENABLE_TRAINING"/><?php _e("Trainning sessions handling");?><br />
+		</td>
+	</tr></table>
+	</form>&nbsp;
+	<br />
+	<hr />
 	<form id="register_file">
 	<div>
 		<span style="float:left">	

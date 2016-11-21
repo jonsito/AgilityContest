@@ -1,6 +1,6 @@
-<h3>Utilidades</h3>   	
+<h3><?php _e("Tools");?></h3>
 
-<div id="tools-dlg-buttons">
+<div id="tools-dlg-admintab">
 	<p> 
 		<span style="display:inline-block;width:350px"><?php _e('Create database backup'); ?>: </span>
     	<a id="tools-backupBtn" href="#" class="easyui-linkbutton" style="width:85px"

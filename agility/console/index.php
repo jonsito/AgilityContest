@@ -63,6 +63,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/scripts/jueces.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/usuarios.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/sesiones.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/modules.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/entrenamientos.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/tandas.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/equipos.js.php" type="text/javascript" charset="utf-8" > </script>

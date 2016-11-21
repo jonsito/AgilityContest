@@ -53,8 +53,8 @@ try {
     if ($am->allowed(ENABLE_TRAINING)==0) throw new Exception("Current License does not allow Training session handling");
 	$train= new Entrenamientos("trainingFunctions",$prueba);
 	switch ($operation) {
-		case "insert": $am->access(PERMS_OPERATOR); $result=$train->insert(); break;
-		case "update": $am->access(PERMS_OPERATOR); $result=$train->update($id); break;
+		case "insert": $am->access(PERMS_OPERATOR); $result=$train->insert($data); break;
+		case "update": $am->access(PERMS_OPERATOR); $result=$train->update($id,$data); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$train->delete($id); break;
 		case "clear": $am->access(PERMS_OPERATOR); $result=$train->clear(); break;
 		case "populate": $am->access(PERMS_OPERATOR); $result=$train->populate(); break;

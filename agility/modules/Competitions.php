@@ -23,7 +23,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  *
  * This field eventually will replace and override functionality of "Selectiva" from Pruebas
  */
+require_once(__DIR__."/Federations.php");
 class Competitions {
+
+        // in order to update modules, we assume that moduleRevision must be greater or equal
+        // to running software revision
+        protected $moduleVersion="1.0.0";
+        protected $moduleRevision="20161121_0900";
 
         // each pair $federationID:$competitionID must be unique
         protected $federationID=0;
@@ -38,54 +44,18 @@ class Competitions {
         }
 
     /**
-     * Create json array of available competitions for provided federation
-     * @param {integer} $fed Federation id
-     * @return {array} ({int}ID,{string}name)
+     * Retrieve module information
      */
-     static function getAvailableCompetitions($fed) {
-         $competitionList=array();
-         // analize sub-directories looking for classes matching federation id
-         // Notice that module class name must match file name
-         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
-             $name=str_replace(".php","",basename($filename));
-             require_once($filename);
-             $comp=new $name;
-             if (!$comp) continue; // cannot instantiate class. should report error
-             if ($comp->federationID!=$fed) continue;
-             $competitionList[]=array("ID"=>$comp->competitionID,"Nombre"=>$comp->competitionName);
-         }
-         // arriving here means requested federation not found
-         return $competitionList;
-     }
-
-    /**
-     * Retrieve a competition object based in prueba/jornada information
-     * @param $prueba
-     * @param $jornada
-     */
-     static function getCompetition($prueba,$jornada) {
-         $fed=intval($prueba->RSCE);
-         $type=intval($jornada->Tipo_Competicion);
-         $sel=intval($prueba->Selectiva);
-         // analize sub-directories looking for classes matching federation and journey ID
-         // Notice that module class name must match file name
-         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
-             $name=str_replace(".php","",basename($filename));
-             require_once($filename);
-             $comp=new $name;
-             if (!$comp) continue; // cannot instantiate class. should report error
-             if ($comp->federationID!=$fed) continue;
-             if ($comp->competitionID!=$type) continue;
-             // competition found: assign selective flag and return
-             $comp->selectiva=$sel;
-             $comp->prueba=$prueba;
-             $comp->jornada=$jornada;
-             return $comp;
-         }
-         // arriving here means requested federation not found: warn and return default
-         do_log("Cannot find valid competition module for federation:$fed type:$type . Using defaults");
-         return new Competitions("Default for Fed:$fed Type:$type");
-     }
+    public function getModuleInfo() {
+        return array(
+            "ModuleName" => $this->competitionName,
+            "FederationName" => Federations::getFederation($this->federationID)->get("Name"),
+            "ModuleID" => $this->competitionID,
+            "FederationID" => $this->competitionID,
+            "ModuleVersion" => $this->moduleVersion,
+            "ModuleRevision" => $this->moduleRevision
+        );
+    }
 
     /**
      * Evalua la calificacion parcial del perro
@@ -164,5 +134,62 @@ class Competitions {
         // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
         return $data;
     }
+
+    /**************************************** static functions comes here *************************************/
+
+    /**
+     * Create json array of available competitions for provided federation (or enumerate all if fed<0)
+     * When $fed <0 return array in json datagrid format
+     * if $fed >=0 return array in json combobox format
+     * @param {integer} $fed Federation id
+     * @return {array} ({int}ID,{string}name)
+     */
+    static function getAvailableCompetitions($fed=-1) {
+        $competitionList=array();
+        // analize sub-directories looking for classes matching federation id
+        // Notice that module class name must match file name
+        foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
+            $name=str_replace(".php","",basename($filename));
+            require_once($filename);
+            $comp=new $name;
+            if (!$comp) continue; // cannot instantiate class. should report error
+            if (($fed >= 0) && ($comp->federationID != $fed) ) continue;
+            if ($fed>0) $competitionList[]=array("ID"=>$comp->competitionID,"Nombre"=>$comp->competitionName);
+            else $competitionList[]=$comp->getModuleInfo();
+        }
+        // arriving here means requested federation not found
+        if ($fed>=0) return $competitionList;
+        return array("total"=> count($competitionList), "rows"=>$competitionList);
+    }
+
+    /**
+     * Retrieve a competition object based in prueba/jornada information
+     * @param $prueba
+     * @param $jornada
+     */
+    static function getCompetition($prueba,$jornada) {
+        $fed=intval($prueba->RSCE);
+        $type=intval($jornada->Tipo_Competicion);
+        $sel=intval($prueba->Selectiva);
+        // analize sub-directories looking for classes matching federation and journey ID
+        // Notice that module class name must match file name
+        foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
+            $name=str_replace(".php","",basename($filename));
+            require_once($filename);
+            $comp=new $name;
+            if (!$comp) continue; // cannot instantiate class. should report error
+            if ($comp->federationID!=$fed) continue;
+            if ($comp->competitionID!=$type) continue;
+            // competition found: assign selective flag and return
+            $comp->selectiva=$sel;
+            $comp->prueba=$prueba;
+            $comp->jornada=$jornada;
+            return $comp;
+        }
+        // arriving here means requested federation not found: warn and return default
+        do_log("Cannot find valid competition module for federation:$fed type:$type . Using defaults");
+        return new Competitions("Default for Fed:$fed Type:$type");
+    }
+
 }
 ?>

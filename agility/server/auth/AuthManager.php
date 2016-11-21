@@ -170,6 +170,19 @@ class AuthManager {
 		$data["Info"]=""; // do not unset, just hide
 		$data["User"]=$data["Name"]; // stupid historic naming change
 		$data["Expired"]=( strcmp( $data['Expires'] , date("Ymd") ) <0 )?"1":"0";
+
+		// permisos de ejecucion
+		$p=intval($data['Options'],2);
+		$data["ENABLE_IMPORT"]		= ( $p & 1 );	// permite importar datos desde ficheros excel
+		$data["ENABLE_TEAMS"]		= ( $p & 2 );	// permite gestionar pruebas de equipos
+		$data["ENABLE_KO"]			= ( $p & 4 );	// permite gestionar pruebas K.O
+		$data["ENABLE_SPECIAL"]		= ( $p & 8 );	// permite gestionar pruebas de mangas multiples
+		$data["ENABLE_VIDEOWALL"]	= ( $p & 16 );  // permite acceso desde videomarcador
+		$data["ENABLE_PUBLIC"]		= ( $p & 32 );  // permite acceso publico web
+		$data["ENABLE_CHRONO"]		= ( $p & 64 );  // permite gestion desde cronometro
+		$data["ENABLE_ULIMIT"]		= ( $p & 128 ); // permite numero de inscripciones ilimitadas
+		$data["ENABLE_LIVESTREAM"]	= ( $p & 256 ); // permite funciones de live-streaming y chroma-key
+		$data["ENABLE_TRAINING"]	= ( $p & 512 ); // permite gestion de sesiones de entrenamiento
 		return $data;
 	}
 	
