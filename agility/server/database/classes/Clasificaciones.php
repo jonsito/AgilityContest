@@ -197,6 +197,8 @@ class Clasificaciones extends DBObject {
         $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
         $countcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
 		$size=count($final);
+        // evaluamos calificacion y puntos en funcion de la federacion y de si es o no selectiva
+        $comp=Competitions::getCompetition($this->prueba,$this->jornada);
 		for($idx=0;$idx<$size;$idx++) {
             // vemos la categoria y actualizamos contadores de categoria
             $cat=$final[$idx]['Categoria'];
@@ -218,8 +220,7 @@ class Clasificaciones extends DBObject {
 			if($this->jornada->Equipos3!=0) continue;
 			if($this->jornada->Equipos4!=0) continue;
 			if($this->jornada->KO!=0) continue;
-            // evaluamos calificacion y puntos en funcion de la federacion y de si es o no selectiva
-            $comp=Competitions::getCompetition($this->prueba,$this->jornada);
+            // call to competition module to get calification points and related data
 			$comp->evalFinalCalification($this->prueba,$this->jornada,$m1,$m2,$c1,$c2,$final[$idx],$puestocat);
 		}
 
