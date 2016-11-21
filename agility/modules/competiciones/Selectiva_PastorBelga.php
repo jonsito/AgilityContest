@@ -8,8 +8,9 @@
  */
 class Selectiva_PastorBelga extends Competitions {
 
-    protected $ptsmanga=array("10"," 9"," 8"," 7"," 6"," 5"," 4"," 3"," 2"," 1"); // puntos por manga y puesto
-    protected $ptsglobal=array("10"," 9"," 8"," 7"," 6"," 5"," 4"," 3"," 2"," 1"); //puntos por general
+    // solo puntuan los 10 primeros, pero anyadimos un campo extra por si hay empate en el decimo
+    protected $ptsmanga=array("10"," 9"," 8"," 7"," 6"," 5"," 4"," 3"," 2"," 1","1"); // puntos por manga y puesto
+    protected $ptsglobal=array("10"," 9"," 8"," 7"," 6"," 5"," 4"," 3"," 2"," 1","1"); //puntos por general
 
     function __construct($name="Selectiva Pastor Belga") {
         parent::__construct($name);
@@ -25,6 +26,8 @@ class Selectiva_PastorBelga extends Competitions {
      * - el baremo es 10,9,8,7,6,5,5,4,3,2,1
      */
 
+    private $lastperro=null;
+    private $lastpuesto=-1;
     /**
      * Evalua la calificacion parcial del perro
      * @param {object} $p datos de la prueba
@@ -37,10 +40,19 @@ class Selectiva_PastorBelga extends Competitions {
         // cogemos la categoria, que en el pastor belga siempre deberia ser L
         $cat=$perro['Categoria'];
         $pt1="";
+        $puesto=$puestocat[$cat];
         // puntos a los 10 primeros por manga/categoria si no estan eliminados
-        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<100) && ($puestocat[$cat]<=10) ) {
-            $pt1 = $this->ptsmanga[$puestocat[$cat]-1];
+        if ( ($puesto>0) && ($perro['Penalizacion']<100) && ($puesto<=10) ) {
+            // en el Pastor belga, si hay empate, se reparten los puntos a asignar entre los dos puestos
+            // BUG: solo detectamos si hay dos perros con el mismo puesto... más de dos sería un lio y no es realista
+            if ($this->lastpuesto==$puesto) {
+                $pt1=($this->ptsmanga[$puestocat[$cat]-1]+$this->ptsmanga[$puestocat[$cat]])/2;
+                $this->lastperro['Calificacion']=preg_replace('/(\w+) - (\d+)/i','${1} - '.$pt1,$this->lastperro['Calificacion']);
+            }
+            else $pt1 = $this->ptsmanga[$puestocat[$cat]-1];
         }
+        $this->lastperro=&$perro; // store reference
+        $this->lastpuesto=$puesto;
         if ($perro['Penalizacion']>=400)  {
             $perro['Penalizacion']=400.0;
             $perro['Calificacion'] = "-";
@@ -88,6 +100,15 @@ class Selectiva_PastorBelga extends Competitions {
      * @param {array} $c2 datos de la segunda manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
+     *
+     * BUG: segun las normas del pastor belga, si dos o mas perros tienen misma penalizacion,
+     * se les asigna a cada uno la media de la suma de sus puntuaciones.
+     * Para poder implementar esto correctamente necesitaría analizar el array completo de
+     * perros por manga y por conjunta, y eso obliga a re-escribir medio programa
+     *
+     * Una solucion intermedia sería guardar un puntero a los 10 primeros de cada manga y a
+     * los de la conjunta, comprobando en cada iteracion si hay algún puesto que coincida...
+     * De momento, lo dejamos estar
      */
     public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat){
         $cat=$perro['Categoria']; // cogemos la categoria, que siempre deberia ser estandard (L)

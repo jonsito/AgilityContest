@@ -786,6 +786,9 @@ class Resultados extends DBObject {
         $puestocat=array( 'C'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
         $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
         $countcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
+
+        // la calificacion depende de categoria, grado, federacion y tipo de competicion
+        $comp=Competitions::getCompetition($this->getDatosPrueba(),$this->getDatosJornada());
         $fed=$this->getFederation();
 		for($idx=0;$idx<$size;$idx++) {
             // vemos la categoria y actualizamos contadores de categoria
@@ -804,8 +807,7 @@ class Resultados extends DBObject {
             if ($lastcat[$cat]!=$now) { $lastcat[$cat]=$now; $puestocat[$cat]=$countcat[$cat]; }
             $table[$idx]['Pcat']=$puestocat[$cat];
 
-			// la calificacion depende de categoria, grado, federacion y tipo de competicion
-            $comp=Competitions::getCompetition($this->getDatosPrueba(),$this->getDatosJornada());
+            // finalmente llamamos al modulo de la competicion para evaluar la calificacion
 			$comp->evalPartialCalification($this->getDatosPrueba(),$this->getDatosJornada(),$this->getDatosManga(),$table[$idx],$puestocat);
 		}
 
