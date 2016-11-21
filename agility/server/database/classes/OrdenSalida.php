@@ -421,7 +421,7 @@ class OrdenSalida extends DBObject {
 		$rs= $this->__select(
 			"Resultados.*,Equipos.Nombre AS NombreEquipo,
 			PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS LogoClub,PerroGuiaClub.Pais,PerroGuiaClub.Genero,PerroGuiaClub.LOE_RRC AS LOE_RRC,
-			Inscripciones.Observaciones AS Observaciones",
+			Inscripciones.Observaciones AS Observaciones, 1 AS PerrosPorGuia",
 			"Resultados,Equipos,PerroGuiaClub,Inscripciones",
 			"(Inscripciones.Prueba={$this->prueba['ID']}) AND (Inscripciones.Perro=Resultados.Perro) AND
 			(Manga={$this->manga['ID']}) AND (Resultados.Equipo=Equipos.ID) AND (Resultados.Perro=PerroGuiaClub.ID)",
@@ -429,10 +429,14 @@ class OrdenSalida extends DBObject {
 			""
 		);
 		if(!is_array($rs)) return $this->error($this->conn->error);
-		// recreamos el array de perros anyadiendo el ID del perro como clave
 		$p1=array();
+		$guias=array();
 		foreach ($rs['rows'] as $resultado) {
-			$p1[$resultado['Perro']]=$resultado; 
+			// recreamos el array de perros anyadiendo el ID del perro como clave
+			$p1[$resultado['Perro']]=$resultado;
+			// generamos lista de guias y los perros que tiene cada uno
+			if (array_key_exists($resultado['NombreGuia'],$guias)) $guias[$resultado['NombreGuia']]++;
+			else $guias[$resultado['NombreGuia']]=1;
 		}
 
 		// primera pasada: ajustamos los perros segun el orden de salida que figura en Orden_Salida
@@ -447,6 +451,8 @@ class OrdenSalida extends DBObject {
 				$this->myLogger->error("El perro $perro esta en el orden de salida pero no en los resultados");
 				// TODO: FIX this consistency error
 			} else {
+				// insertamos el numero de perros que tiene el guia
+				$p1[$perro]['PerrosPorGuia']= $guias[$p1[$perro]['NombreGuia']];
 				array_push($p2,$p1[$perro]);
 			}
 		}

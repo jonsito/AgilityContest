@@ -170,8 +170,12 @@ $('#ordensalida-datagrid').datagrid({
 		{ field:'NombreClub',	width:30, sortable:false,   align:'right', title: '<?php _e('Club'); ?>' },
 		{ field:'Celo',		    width:10, sortable:false, formatter: formatCelo,	align:'center', title:'<?php _e('Heat'); ?>'}
     ]],
-    rowStyler:function(index,row) { // colorize rows
-        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+    rowStyler:function(index,row) { // colorize rows. Mark handlers with multiple dogs
+        if (row.PerrosPorGuia>1) {
+            return ((index&0x01)==0)?'background-color:#cbc;':'background-color:#ede;';
+        } else {
+            return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+        }
     },
     onBeforeLoad: function(param) { return (workingData.manga > 0); }, // do not load if no manga selected
     onLoadSuccess: function(data) {
