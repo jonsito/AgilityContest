@@ -8,9 +8,18 @@
  */
 class Selectiva_PastorBelga extends Competitions {
 
-    // solo puntuan los 10 primeros, pero anyadimos un campo extra por si hay empate en el decimo
-    protected $ptsmanga=array("10"," 9"," 8"," 7"," 6"," 5"," 4"," 3"," 2"," 1","1"); // puntos por manga y puesto
-    protected $ptsglobal=array("10"," 9"," 8"," 7"," 6"," 5"," 4"," 3"," 2"," 1","1"); //puntos por general
+    /*
+     * En la selectiva del pastor belga, compiten pastores belgas de grado II y III
+     * - puntuan tanto en individual como en conjunta los 10 primeros no eliminados.
+     * - para puntuar en conjunta no puede estar eliminado en ninguna manga
+     * - En caso de empate comparten la media de los puntos que les corresponderian
+     *   si no hubieran empatado
+     * - el baremo es 10,9,8,7,6,5,5,4,3,2,1
+     */
+
+    // solo puntuan los 10 primeros, pero anyadimos campos extras por si hay empate en el decimo
+    protected $ptsmanga=array("10"," 9"," 8"," 7"," 6"," 5"," 4"," 3"," 2"," 1","0","0"); // puntos por manga y puesto
+    protected $ptsglobal=array("10"," 9"," 8"," 7"," 6"," 5"," 4"," 3"," 2"," 1","0","0"); //puntos por general
 
     function __construct($name="Selectiva Pastor Belga") {
         parent::__construct($name);
@@ -19,15 +28,19 @@ class Selectiva_PastorBelga extends Competitions {
     }
 
     /*
-     * En la selectiva del pastor belga, compiten pastores belgas de grado II y III
-     * - puntuan tanto en individual como en conjunta los 10 primeros no eliminados.
-     * - para puntuar en conjunta no puede estar eliminado en ninguna manga
-     * - En caso de empate comparten los mismos puntos
-     * - el baremo es 10,9,8,7,6,5,5,4,3,2,1
+     * Como el sistema de asignacion de puntos es iterativo ( puesto->punto ),
+     * tenemos que inventar algun tipo de "memoria" donde guardar los perros que han puntuado
+     * para detectar los empates y poder actuar en consecuencia
+     *
+     * Para ello vamos a crear un array de puestos, y asignar los perros por puestos,
+     * de manera que si en algun puesto hay mas de un perro recalculamos los puntos para dicho
+     * puesto en cada iteracion
      */
+    private $parciales=array();
+    private $finalp1=array();
+    private $finalp2=array();
+    private $finales=array();
 
-    private $lastperro=null;
-    private $lastpuesto=-1;
     /**
      * Evalua la calificacion parcial del perro
      * @param {object} $p datos de la prueba
@@ -43,16 +56,16 @@ class Selectiva_PastorBelga extends Competitions {
         $puesto=$puestocat[$cat];
         // puntos a los 10 primeros por manga/categoria si no estan eliminados
         if ( ($puesto>0) && ($perro['Penalizacion']<100) && ($puesto<=10) ) {
-            // en el Pastor belga, si hay empate, se reparten los puntos a asignar entre los dos puestos
-            // BUG: solo detectamos si hay dos perros con el mismo puesto... más de dos sería un lio y no es realista
-            if ($this->lastpuesto==$puesto) {
-                $pt1=($this->ptsmanga[$puestocat[$cat]-1]+$this->ptsmanga[$puestocat[$cat]])/2;
-                $this->lastperro['Calificacion']=preg_replace('/(\w+) - (\d+)/i','${1} - '.$pt1,$this->lastperro['Calificacion']);
-            }
-            else $pt1 = $this->ptsmanga[$puestocat[$cat]-1];
+            $this->parciales[$puesto][]=&$perro; // important: store by reference
+            // evaluate points to assign according number of dogs with same puesto
+            $nperros=count($this->parciales[$puesto]);
+            $pt1=0;
+            for ($n=0;$n<$nperros;$n++) $pt1+=$this->ptsmanga[$puesto-1+$n];
+            $pt1 =$pt1/$nperros;
+            // assign evaluated points to every dogs with same puesto
+            for ($n=0;$n<$nperros;$n++) $this->parciales[$puesto][$n]['Calificacion']=
+                preg_replace('/(\w+) - (\d+)/i','${1} - '.$pt1,$this->parciales[$puesto][$n]['Calificacion']);
         }
-        $this->lastperro=&$perro; // store reference
-        $this->lastpuesto=$puesto;
         if ($perro['Penalizacion']>=400)  {
             $perro['Penalizacion']=400.0;
             $perro['Calificacion'] = "-";
@@ -117,7 +130,15 @@ class Selectiva_PastorBelga extends Competitions {
         $perro['C1']="";
         if ($c1!=null) {
             if ( ($perro['Pcat1']>0) && ($perro['P1']<100) && ($perro['Pcat1']<=10) ) {
-                $perro['C1'] = $this->ptsmanga[$perro['Pcat1']-1];
+                $puesto=$perro['Pcat1'];
+                $this->finalp1[$puesto][]=&$perro; // important: store by reference
+                // evaluate points to assign according number of dogs with same puesto
+                $nperros=count($this->finalp1[$puesto]);
+                $pt1=0;
+                for ($n=0;$n<$nperros;$n++) $pt1+=$this->ptsmanga[$puesto-1+$n];
+                $pt1 =$pt1/$nperros;
+                // assign evaluated points to every dogs with same puesto
+                for ($n=0;$n<$nperros;$n++) $this->finalp1[$puesto][$n]['C1']=$pt1;
             }
         }
         // manga 2
@@ -125,16 +146,30 @@ class Selectiva_PastorBelga extends Competitions {
         if ($c2!=null) {
             // puntos a los 10 primeros por manga/categoria si no estan eliminados
             if ( ($perro['Pcat2']>0) && ($perro['P2']<100) && ($perro['Pcat2']<=10) ) {
-                $perro['C2'] = $this->ptsmanga[$perro['Pcat2']-1];
+                $puesto=$perro['Pcat2'];
+                $this->finalp2[$puesto][]=&$perro; // important: store by reference
+                // evaluate points to assign according number of dogs with same puesto
+                $nperros=count($this->finalp2[$puesto]);
+                $pt2=0;
+                for ($n=0;$n<$nperros;$n++) $pt2+=$this->ptsmanga[$puesto-1+$n];
+                $pt2 =$pt2/$nperros;
+                // assign evaluated points to every dogs with same puesto
+                for ($n=0;$n<$nperros;$n++) $this->finalp2[$puesto][$n]['C2']=$pt2;
             }
         }
         // conjunta
         $perro['Calificacion']="";
-        if ($puestocat[$cat]<11) {
-            // puntuan los 10 primeros si no se han eliminado o no clasificado en ninguna manga
-            if ( ($perro['P1']<100.0) && ($perro['P2']<100.0) ) { // verificar si es NC o eliminado
-                $perro['Calificacion']=$this->ptsglobal[$puestocat[$cat]-1];
-            }
+        // puntuan los 10 primeros si no se han eliminado o no clasificado en ninguna manga
+        if ( ($perro['P1']<100.0) && ($perro['P2']<100.0) && ($puestocat[$cat]<=10)) {
+            $puesto=$puestocat[$cat];
+            $this->finales[$puesto][]=&$perro; // important: store by reference
+            // evaluate points to assign according number of dogs with same puesto
+            $nperros=count($this->finales[$puesto]);
+            $ptf=0;
+            for ($n=0;$n<$nperros;$n++) $ptf+=$this->ptsglobal[$puesto-1+$n];
+            $ptf =$ptf/$nperros;
+            // assign evaluated points to every dogs with same puesto
+            for ($n=0;$n<$nperros;$n++) $this->finales[$puesto][$n]['Calificacion']=$ptf;
         }
     }
 
