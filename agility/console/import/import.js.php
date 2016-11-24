@@ -285,7 +285,7 @@ function excel_importHandleResult(data) {
             if (data.status==="Done.") return; // end of job
             // check for update progress bar and/or continue progress polling
             if (ac_import.progress_status==='running') pb.progressbar('setValue',data.status);
-            if (ac_import.progress_status!=='stopped') setTimeout(excel_importSendTask({'Operation':'progress'}),1000);
+            if (ac_import.progress_status!=='stopped') setTimeout(excel_importSendTask({'Operation':'progress'}),2000);
             break;
         default:
             ac_import.progress_status='stopped';
@@ -301,29 +301,35 @@ function excel_importHandleResult(data) {
  * @param {string} action 'create', 'update', 'ignore'
  */
 function importAction(item,action) {
-    // close dialog
     var label="#import-"+item+"-dialog";
-    $(label).dialog('close');
-
-    // ask server to perform proper action in interactive ( ac_import.Blind )  mode
-    $.ajax({
-        type:'POST', // use post to send file
-        url:"/agility/server/excel/excelReaderFunctions.php",
-        dataType:'json',
-        data: {
-            Mode: ac_import.mode,
-            Suffix: ac_import.suffix,
-            Item: item,
-            Operation: action,
-            Federation: workingData.federation
-            // add received and parsed data
-        },
-        success: function(res) {
-            setTimeout (function() {import_importHandleResult(res);},0);
-        },
-        error: function(XMLHttpRequest,textStatus,errorThrown) {
+    var key="key"; // original search key from server
+    var value=0; // database object ID from choosen item (if any), or zero
+    if (action=="create") {
+        // open proper dialog for create a new entry in database with provided name from search box
+        switch (item) {
+            case 'clubs':
+            case "guias":
+            case "perros":
+            default: // error
         }
-    });
+    }
+    if (action="ignore") {
+        // tell server to ignore this entry, delete from temporary table and continue parsing
+        setTimeout(function() { excel_importSendTask({'Operation':'ignore','Key':key,'Value':0}); },0);
+        // close selection window
+        $(label).dialog('close');
+        // restart progressbar polling
+        ac_import.progres_status="running";
+    }
+    if (action=="select") {
+        // retrieve original search and selectedByUser key
+        // and tell server to use selected entry as matching search
+        setTimeout(function() { excel_importSendTask({'Operation':'select','Key':key,'Value':value}); },0);
+        // close selection window
+        $(label).dialog('close');
+        // restart progressbar polling
+        ac_import.progres_status="running";
+    }
     // return false to dont't propagate event chain
     return false;
 }
