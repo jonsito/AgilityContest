@@ -166,7 +166,8 @@ function excel_importSendTask(params) {
             DBPriority   :   ac_import.db_priority,
             WordUpperCase:   ac_import.word_upercase,
             IgnoreWhitespaces:ac_import.ignore_spaces,
-            Suffix       :   ac_import.suffix
+            Suffix       :   ac_import.suffix,
+            Count        :   ac_import.count++
         },
         contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
         success: function(res) {
@@ -198,15 +199,15 @@ function excel_importHandleResult(data) {
     var pb=$('#import-excel-progressbar');
     if (data.errorMsg) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
-        ac_import.progress_status='paused'; // tell progress monitor to pause
+        ac_import.progress_status='stopped'; // tell progress monitor to pause
         dlg.dialog('close');
         return false;
     }
     switch (data.operation){
         case "upload":
+            ac_import.progress_status="running";
             pb.progressbar('setValue','<?php _e("Checking Excel File");?> : '); // beware ' : ' sequence
             setTimeout(function() {excel_importSendTask({'Operation':'check','Filename':data.filename})},0);
-            ac_import.progress_status="running";
             setTimeout(function() {excel_importSendTask({'Operation':'progress'})} ,0); // start progress monitoring
             break;
         case "check":
@@ -216,12 +217,12 @@ function excel_importHandleResult(data) {
             break;
         case "parse": // analyze next line
             if (data.success=='ok') { // if success==true parse again
-                ac_import.progress_status='running'; // tell progress monitor to pause
+                ac_import.progress_status="running";
                 setTimeout(function(){excel_importSendTask({'Operation':'parse'})},0);
             }
             if (data.success=='fail') { // user action required. study cases
                 var funcs={};
-                ac_import.progress_status='paused'; // tell progress monitor to pause
+                ac_import.progress_status='paused'; // tell progress monitor to pause progress bar refresh
                 if (ac_import.blind=1) {
                     var str1='<?php _e("Club/Country not found or missmatch");?>: '+data.search.NombreClub;
                     var str2='<?php _e("This is not allowed when importing in blind mode");?>';
@@ -249,6 +250,7 @@ function excel_importHandleResult(data) {
                 else funcs.multi(data.search,data.success);                // several compatible items found. ask user to decide
             }
             if (data.success=='done') { // file parsed: start real import procedure
+                ac_import.progress_status="running";
                 setTimeout(function() { excel_importSendTask({'Operation':'import'})},0);
             }
             break;
@@ -258,36 +260,36 @@ function excel_importHandleResult(data) {
             // no break;
         case "ignore": // ignore data from excel file in current line
             // continue parsing
+            ac_import.progress_status="running";
             setTimeout(function() { excel_importSendTask({'Operation':'parse'}); },0);
             // re-start progress monitoring
-            ac_import.progress_status="running";
             break;
         case "abort": // cancel transaction
+            ac_import.progress_status="running";
             dlg.dialog('close'); // close import dialog
             reloadWithSearch(datagrid,'select',false); // and reload dogs datagrid
             break;
         case "import": // import dogs finished.
+            ac_import.progress_status="running";
             var op=data.success; // success field tells what to do now : close,teams, inscribe
             setTimeout(function() { excel_importSendTask({'Operation':op}); },0);
             break;
         case "close":
-            ac_import.progress_status="paused";
+            ac_import.progress_status="stopped";
             $.messager.alert('<?php _e("Import Done");?>','<?php _e("Import from Excel File Done");?>','info');
             dlg.dialog('close'); // close import dialog
             reloadWithSearch(datagrid,'select',false); // and reload dogs datagrid
             break;
         case "progress": // receive progress status from server
             // iterate until "Done." received
-            if (data.status==="") return; // just created import progress file
             if (data.status==="Done.") return; // end of job
-            var val=pb.progressbar('getValue');
-            pb.progressbar('setValue',data.status);
-            if (ac_import.progress_status==='running')
-                setTimeout(excel_importSendTask({'Operation':'progress'}),1000);
+            // check for update progress bar and/or continue progress polling
+            if (ac_import.progress_status==='running') pb.progressbar('setValue',data.status);
+            if (ac_import.progress_status!=='stopped') setTimeout(excel_importSendTask({'Operation':'progress'}),1000);
             break;
         default:
+            ac_import.progress_status='stopped';
             $.messager.alert("Excel import error","Invalid operation received from server: "+data.operation );
-            ac_import.progress_status='paused';
             dlg.dialog('close');
     }
     return false;
@@ -350,6 +352,7 @@ function real_excelImport(mode) {
     ac_import.word_upercase=$('input[name=excelUpperCase]:checked').val();
     ac_import.ignore_spaces=$('input[name=excelEmpty]:checked').val();
     ac_import.suffix=getRandomString(8);
+    ac_import.count=0;
     if (data=="") {
         $.messager.alert("<?php _e('Error');?>","<?php _e('No import file selected');?>",'error');
         return;
