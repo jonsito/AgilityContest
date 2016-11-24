@@ -43,6 +43,17 @@ if (typeof String.prototype.capitalize != 'function') {
 }
 
 /**
+ * Returns a random string of length 'len'
+ * from: http://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+ * @param {number} len resulting string length
+ * @return {string} resulting random string
+ */
+function getRandomString(len) {
+	var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	return new Array(len).join().split(',').map(function() { return s.charAt(Math.floor(Math.random() * s.length)); }).join('');
+}
+
+/**
  * Evaluate start Time (used as base time in tablet/chrono/videowall
  */
 var startDate=Date.now();

@@ -31,7 +31,7 @@ require_once __DIR__.'/Spout/Autoloader/autoload.php';
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;
 
-define ('IMPORT_LOG',__DIR__."/../../../logs/import.log");
+define ('IMPORT_DIR',__DIR__."/../../../logs/");
 define ('TABLE_NAME',"ImportData"); // name of temporary table to store excel file data into
 
 /**
@@ -99,9 +99,10 @@ class DogReader {
 
     public function saveStatus($str,$reset=false){
         $this->myLogger->trace("saveStatus(): $str");
-        $f=fopen(IMPORT_LOG,($reset)?"w":"a"); // open for append-only
+        $importFileName=IMPORT_DIR."import_{$this->myOptions['Suffix']}.log";
+        $f=fopen($importFileName,($reset)?"w":"a"); // open for append-only
         if (!$f) {
-            $this->myLogger->error("fopen() cannot create file: ".IMPORT_LOG);
+            $this->myLogger->error("fopen() cannot create file: $importFileName");
             return;
         }
         fwrite($f,"$str\n");
@@ -262,7 +263,7 @@ class DogReader {
     public function validateFile( $filename,$droptable=true) {
         $this->myLogger->enter();
         $this->saveStatus("Validating received file...");
-        // unlink(IMPORT_LOG);
+        // unlink(IMPORT_DIR."import_{$this->myOptions['Suffix']}.log");
         // open temporary file
         $reader = ReaderFactory::create(Type::XLSX);
         $reader->open($filename);

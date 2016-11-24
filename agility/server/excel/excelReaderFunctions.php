@@ -32,12 +32,25 @@ require_once(__DIR__.'/dog_reader.php');
 require_once(__DIR__.'/inscription_reader.php');
 require_once(__DIR__ . '/trainingtable_reader.php');
 
+$options=array();
+$options['Suffix']=http_request("Suffix","s","");
 $op=http_request("Operation","s","");
 if ($op==='progress') {
     // retrieve last line of progress file
-    $lines=file(IMPORT_LOG,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    if (!$lines)  echo json_encode( array( 'operation'=>'progress','success'=>'fail', 'status' => "Error reading progress file" ) );
-    else echo json_encode( array( 'operation'=>'progress','success'=>'ok', 'status' => strval($lines[count($lines)-1]) ) );
+    $importFileName=IMPORT_DIR."import_{$options['Suffix']}.log";
+    // to avoid memory problems with huge log files, assume that max line length is 1024 and use this trick
+    // from: http://stackoverflow.com/questions/1510141/read-last-line-from-file
+    $maxLength = 1024;
+    $fp = fopen($importFileName, 'r');
+    if (!$fp)  {
+        $result= json_encode( array( 'operation'=>'progress','success'=>'fail', 'status' => "Error reading progress file $importFileName" ) );
+    } else {
+        fseek($fp, -$maxLength , SEEK_END);
+        $fewLines = explode("\n", fgets($fp, $maxLength));
+        $lastLine = $fewLines[count($fewLines) - 1];
+        $result= json_encode( array( 'operation'=>'progress','success'=>'ok', 'status' => strval($lastLine) ) );
+    }
+    echo $result; // send result (ok or fail) to client
     return;
 }
 
@@ -49,7 +62,6 @@ try {
     $mode=http_request("Mode","s","");
     if ($mode==="") throw new Exception("excelReaderFunctions(): no mode selected");
 
-    $options=array();
     $options['Blind']=http_request("Blind","i",0);
     $options['DBPriority']=http_request("DBPriority","i",1);
     $options['WordUpperCase']=http_request("WordUpperCase","i",1);

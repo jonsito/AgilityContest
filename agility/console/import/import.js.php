@@ -30,7 +30,8 @@ var ac_import = {
     'blind': 1, // default blind (non interactive ) import mode
     'word_upercase':1, // on blind mode, uppercase words in DB
     'db_priority':1, // blind mode: on match use database data instead of excel data
-    'ignore_spaces':1 // blind mode: blank field are ignored, or used to override DB data
+    'ignore_spaces':1, // blind mode: blank field are ignored, or used to override DB data
+    'suffix': ''
 };
 
 var ac_import_table = {
@@ -164,7 +165,8 @@ function excel_importSendTask(params) {
             Blind        :   ac_import.blind,
             DBPriority   :   ac_import.db_priority,
             WordUpperCase:   ac_import.word_upercase,
-            IgnoreWhitespaces:ac_import.ignore_spaces
+            IgnoreWhitespaces:ac_import.ignore_spaces,
+            Suffix       :   ac_import.suffix
         },
         contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
         success: function(res) {
@@ -308,6 +310,7 @@ function importAction(item,action) {
         dataType:'json',
         data: {
             Mode: ac_import.mode,
+            Suffix: ac_import.suffix,
             Item: item,
             Operation: action,
             Federation: workingData.federation
@@ -346,6 +349,7 @@ function real_excelImport(mode) {
     ac_import.db_priority=$('input[name=excelPreference]:checked').val();
     ac_import.word_upercase=$('input[name=excelUpperCase]:checked').val();
     ac_import.ignore_spaces=$('input[name=excelEmpty]:checked').val();
+    ac_import.suffix=getRandomString(8);
     if (data=="") {
         $.messager.alert("<?php _e('Error');?>","<?php _e('No import file selected');?>",'error');
         return;
