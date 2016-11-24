@@ -299,37 +299,25 @@ function excel_importHandleResult(data) {
  * Respond to user actions when required
  * @param {string} item dialog class 'clubs', 'handlers', 'dogs'
  * @param {string} action 'create', 'update', 'ignore'
+ * @param {number} fromkey  ID of temporary table row being parsed
+ * @param {number} dbkey ID of database row to be used in matching, 0 on create/ignore
  */
-function importAction(item,action) {
+function importAction(item,action,fromkey,dbkey) {
     var label="#import-"+item+"-dialog";
     var key="key"; // original search key from server
     var value=0; // database object ID from choosen item (if any), or zero
-    if (action=="create") {
-        // open proper dialog for create a new entry in database with provided name from search box
-        switch (item) {
-            case 'clubs':
-            case "guias":
-            case "perros":
-            default: // error
-        }
-    }
-    if (action="ignore") {
-        // tell server to ignore this entry, delete from temporary table and continue parsing
-        setTimeout(function() { excel_importSendTask({'Operation':'ignore','Key':key,'Value':0}); },0);
-        // close selection window
-        $(label).dialog('close');
-        // restart progressbar polling
-        ac_import.progres_status="running";
-    }
-    if (action=="select") {
-        // retrieve original search and selectedByUser key
-        // and tell server to use selected entry as matching search
-        setTimeout(function() { excel_importSendTask({'Operation':'select','Key':key,'Value':value}); },0);
-        // close selection window
-        $(label).dialog('close');
-        // restart progressbar polling
-        ac_import.progres_status="running";
-    }
+    var options = {
+      Operation: action,
+      Item: item,
+      FromKey: fromkey,
+      DBKey: dbkey
+    };
+    // tell server to handle this entry, with provided item, action and parameters
+    setTimeout(function() { excel_importSendTask(options); },0);
+    // close selection window
+    $(label).dialog('close');
+    // restart progressbar polling
+    ac_import.progres_status="running";
     // return false to dont't propagate event chain
     return false;
 }
