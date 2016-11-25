@@ -195,7 +195,8 @@ $config =Config::getInstance();
         	$('#jornadas-Prueba').val(data.Prueba);
         	$('#jornadas-Operation').val('update');
             // fix slaveof combobox according value
-            $('#jornadas-SlaveOf_List').combobox('reload')
+            $('#jornadas-SlaveOf_List').combobox('reload');
+            $('#jornadas-Tipo_Competicion_List').combobox('reload')
         }
     });
 

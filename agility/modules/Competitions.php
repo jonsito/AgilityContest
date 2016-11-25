@@ -48,10 +48,14 @@ class Competitions {
      */
     public function getModuleInfo() {
         return array(
+            // for compatibility with getModuleList($fed)
+            "ID" => $this->competitionID,
+            "Nombre" => $this->competitionName,
+            // module information name
             "ModuleName" => $this->competitionName,
             "FederationName" => Federations::getFederation($this->federationID)->get("Name"),
             "ModuleID" => $this->competitionID,
-            "FederationID" => $this->competitionID,
+            "FederationID" => $this->federationID,
             "ModuleVersion" => $this->moduleVersion,
             "ModuleRevision" => $this->moduleRevision
         );
@@ -154,11 +158,10 @@ class Competitions {
             $comp=new $name;
             if (!$comp) continue; // cannot instantiate class. should report error
             if (($fed >= 0) && ($comp->federationID != $fed) ) continue;
-            if ($fed>0) $competitionList[]=array("ID"=>$comp->competitionID,"Nombre"=>$comp->competitionName);
-            else $competitionList[]=$comp->getModuleInfo();
+            $competitionList[]=$comp->getModuleInfo();
         }
         // arriving here means requested federation not found
-        if ($fed>=0) return $competitionList;
+        if ($fed>=0) return $competitionList; // combobox getCompetitionList($fed)
         return array("total"=> count($competitionList), "rows"=>$competitionList);
     }
 
