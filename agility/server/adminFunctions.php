@@ -310,6 +310,11 @@ try {
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
 	if ($operation==="progress") {
 		$logfile=RESTORE_DIR."restore_{$suffix}.log";
+		// no progressfile yet. return a dummy message to avoid warn to console in windows xampp
+		if (!file_exists($logfile)) {
+            echo json_encode( array( 'progress' => "Waiting for progress info...") );
+            return;
+		}
         // retrieve last line of progress file
         $lines=file($logfile,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 		echo json_encode( array( 'progress' => strval($lines[count($lines)-1]) ) );
