@@ -28,7 +28,7 @@ function newPlugin() {
 function updatePlugin(dg) {
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no session selected"); ?>',"warning");
+        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no module selected"); ?>',"warning");
         return; // no way to know which module is selected
     }
     alert("Not yet implemented");

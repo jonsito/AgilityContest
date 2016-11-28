@@ -66,11 +66,12 @@ class Updater {
         // session_write_close();
 
         // phase 1: retrieve database file from "extras" directory
-        $data=file(__DIR__."/../../extras/agility.sql",FILE_IGNORE_NEW_LINES);
-        if ($data===FALSE) die("Cannot load database file to be installed");
+        $fp=fopen(__DIR__."/../../extras/agility.sql", "r");
+        if (!$fp) die("Cannot load database file to be installed");
 
         // phase 2: verify received file
-        if (strpos(substr($data[0],0,25),"-- AgilityContest")===FALSE)
+        $str=fgets($fp);
+        if (strpos(substr($str,0,25),"-- AgilityContest")===FALSE)
             throw new Exception("Provided file is not an AgilityContest backup file");
 
         // phase 3: delete all tables and structures from database
@@ -87,26 +88,24 @@ class Updater {
         // Temporary variable, used to store current query
         $templine = '';
         $trigger=false;
-        $numlines=count($data);
         $timeout=ini_get('max_execution_time');
-        $lastcount=0; // to handle progress info
         // Loop through each line
-        foreach ($data as $idx => $line) {
+        while ( ($str=fgets($fp))!==false ) {
+            // avoid php to be killed on very slow systems
+            set_time_limit($timeout);
+            $line=trim($str); // remove spaces and newlines
             // Skip it if it's a comment
             if (substr($line, 0, 2) == '--' || trim($line) == '') continue;
             // properly handle "DELIMITER ;;" command
-            if (trim($line)=="DELIMITER ;;") { $trigger=true; continue; }
-            else if (trim($line)=="DELIMITER ;") { $trigger=false; }
+            if ($line==="DELIMITER ;;") { $trigger=true; continue; }
+            else if ($line==="DELIMITER ;") { $trigger=false; }
             else $templine .= $line;    // Add this line to the current segment
             if ($trigger) continue;
+            // log every create/insert
+            if (strpos($line,"CREATE")===0) $this->install_log($line);
+            if (strpos($line,"INSERT")===0) $this->install_log($line);
             // If it has a semicolon at the end, it's the end of the query
             if (substr(trim($line), -1, 1) == ';') {
-                // check for need to log
-                $count=intval((100*$idx)/$numlines);
-                if ($count!=$lastcount ) $this->install_log($lastcount);
-                $lastcount=$count;
-                // avoid php to be killed on very slow systems
-                set_time_limit($timeout);
                 // Perform the query
                 if (! $this->conn->query($templine) ){
                     $this->myLogger->error('Error performing query \'<strong>' . $templine . '\': ' . $this->conn->error . '<br />');
@@ -115,6 +114,7 @@ class Updater {
                 $templine = '';
             }
         }
+        fclose($fp);
         $this->install_log("Install Database Done");
         $this->myLogger->info("database install success");
         return "";
