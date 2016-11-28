@@ -54,7 +54,7 @@ class Updater {
         $f=fopen(INSTALL_LOG,"a"); // open for append-only
         if (!$f) { $this->myLogger->error("fopen() cannot create file: ".INSTALL_LOG); return;}
         echo "$str<br/>\n"; flush(); ob_flush();
-        fwrite($f,"$str\n");
+        fwrite($f,$str."\n");
         fclose($f);
     }
 
@@ -411,7 +411,6 @@ try {
         ob_implicit_flush(true);
         $upg->installDB();
         ob_implicit_flush(false);
-        return;
     }
     // when not in first install, process database to make it compliant with sofwtare version
     $upg->removeUpdateMark();
