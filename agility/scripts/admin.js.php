@@ -98,6 +98,7 @@ function restoreDatabase(){
                 if (data.errorMsg) { // error
                     $.messager.alert("Error",data.errorMsg,"error");
                 } else { // success:
+                    var suffix=getRandomString(8);
                     $.messager.progress({
                         title: 'Restore',
                         msg: '<?php _e('Restoreing database'); ?>',
@@ -110,7 +111,8 @@ function restoreDatabase(){
                         dataType:'json',
                         data: {
                             Operation: 'restore',
-                            Data: $('#tools-restoreData').val()
+                            Data: $('#tools-restoreData').val(),
+                            Suffix: suffix
                         },
                         contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
                         success: function(data) {
@@ -137,7 +139,8 @@ function restoreDatabase(){
                             url:"/agility/server/adminFunctions.php",
                             dataType:'json',
                             data: {
-                                Operation: 'progress'
+                                Operation: 'progress',
+                                Suffix: suffix
                             },
                             success: function(data) {
                                 if(data.progress!=="Done"){

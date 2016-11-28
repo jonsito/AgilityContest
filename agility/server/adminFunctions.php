@@ -20,7 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 // Github redirects links, and make curl fail.. so use real ones
 // define ('UPDATE_INFO','https://github.com/jonsito/AgilityContest/raw/master/agility/server/auth/system.ini');
 define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/agility/server/auth/system.ini');
-define ('RESTORE_LOG',__DIR__."/../../logs/restore.log");
+define ('RESTORE_DIR',__DIR__."/../../logs/");
 
 require_once(__DIR__."/logging.php");
 require_once(__DIR__."/tools.php");
@@ -38,13 +38,15 @@ class Admin extends DBObject {
 	private $dbhost;
 	private $dbuser;
 	private $dbpass;
+	public $logfile;
 
-	function __construct($file,$am) {
+	function __construct($file,$am,$suffix="") {
         parent::__construct("adminFunctions");
 		// connect database
 		$this->file=$file;
 		$this->myConfig=Config::getInstance();
         $this->myAuth=$am;
+        $this->logfile=RESTORE_DIR."restore_{$suffix}.log";
 
 		$this->dbname=$this->myConfig->getEnv('database_name');
 		$this->dbhost=$this->myConfig->getEnv('database_host');
@@ -146,8 +148,8 @@ class Admin extends DBObject {
 	}	
 
 	private function handleSession($str) {
-        $f=fopen(RESTORE_LOG,"a"); // open for append-only
-        if (!$f) { $this->myLogger->error("fopen() cannot create file: ".RESTORE_LOG); return;}
+        $f=fopen($this->logfile,"a"); // open for append-only
+        if (!$f) { $this->myLogger->error("fopen() cannot create file: ".$this->restore_file); return;}
 		fwrite($f,"$str\n");
         fclose($f);
 	}
@@ -304,15 +306,17 @@ try {
 	$result=null;
 	$operation=http_request("Operation","s","");
 	$perms=http_request("Perms","i",PERMS_NONE);
+	$suffix=http_request("Suffix","s","");
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
 	if ($operation==="progress") {
+		$logfile=RESTORE_DIR."restore_{$suffix}.log";
         // retrieve last line of progress file
-        $lines=file(RESTORE_LOG,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $lines=file($logfile,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 		echo json_encode( array( 'progress' => strval($lines[count($lines)-1]) ) );
 		return;
 	}
 	$am= new AuthManager("adminFunctions");
-    $adm= new Admin("adminFunctions",$am);
+    $adm= new Admin("adminFunctions",$am,$suffix);
 	switch ($operation) {
 		case "userlevel":
 			$am->access($perms); $result=array('success'=>true); break;
