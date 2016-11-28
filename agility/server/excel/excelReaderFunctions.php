@@ -38,6 +38,10 @@ $op=http_request("Operation","s","");
 if ($op==='progress') {
     // retrieve last line of progress file
     $importFileName=IMPORT_DIR."import_{$options['Suffix']}.log";
+    if (!file_exists($importFileName)) {
+        echo json_encode( array( 'operation'=>'progress','success'=>'ok', 'status' => "Waiting for progress info..." ) );
+        return;
+    }
     $lines=file($importFileName,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     if (!$lines)
         echo json_encode( array( 'operation'=>'progress','success'=>'fail', 'status' => "Error reading progress file: $importFileName" ) );
