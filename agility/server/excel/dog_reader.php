@@ -367,12 +367,12 @@ class DogReader {
         if ($this->myOptions['Blind']==0) $search=$this->myDBObject->__select("*","Clubes","( Nombre LIKE '%$a%') OR (NombreLargo LIKE '%$a%')","","");
         else                     $search=$this->myDBObject->__select("*","Clubes","( Nombre = '$a') OR (NombreLargo = '$a')","","");
         if ( !is_array($search) ) return "findAndSetClub(): Invalid search term: '$a'"; // invalid search. mark error
-        if ($search['total']==0) {
-            // to create club/country we need aditional info, so cannot auto-create in blind mode
-            return false;
-        } // no search result; ask user to select or create as new
+
+        // to create clubs additional info is needed, so cannot auto-create in blind mode
+        if ($search['total']==0) return false; // no search found ask user to select or create
         if ($search['total']>1) return $search; // more than 1 compatible item found. Ask user to choose
         if ($search['rows'][0]['Federations'] & (1<<($this->federation)) == 0 ) return $search; // federation missmatch. ask user to fix
+
         // arriving here means match found. So replace all instances with found data and return to continue import
         $t=TABLE_NAME;
         $i=$search['rows'][0]['ID']; // Club ID
@@ -417,13 +417,11 @@ class DogReader {
             if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
             return true; // tell parent item found. proceed with next
         }
-        // no entries, or no matches or cannot decide.
-        if ( ($search['total']!=0) && ($this->myOptions['Blind']==0) ) return $search; // cannot decide: ask user
-        if ( ($search['total']==0) && ($this->myOptions['Blind']==0) ) return false;  // no search: ask user to select or create as new
+        // in interactive mode, when no entries, or no matches or cannot decide ask user
+        if ($this->myOptions['Blind']==0) return ($search['total']==0)? false /* no entries or no match */ : $search /* cannot decide */;
 
-        // arriving here means create item,
-        // either cause not found in database
-        // or blind mode and cannot find exact match in found entries
+        // arriving here means blind mode and item not found or not exact match
+        // so blindly create new item with data from excel
         $nombre=$a;
         if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($a);
         $str="INSERT INTO Guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";
@@ -481,13 +479,10 @@ class DogReader {
             if (!$res) return "findAndSetDog(): update dog '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
             return true; // tell parent item found. proceed with next
         }
-        // no entries, or no matches or cannot decide.
-        if ( ($search['total']!=0) && ($this->myOptions['Blind']==0) ) return $search; // cannot decide: ask user
-        if ( ($search['total']==0) && ($this->myOptions['Blind']==0) ) return false;  // no search: ask user to select or create as new
 
-        // arriving here means create item,
-        // either cause not found in database
-        // or blind mode and cannot find exact match in found entries
+        // in interactive mode, when no entries, or no matches or cannot decide ask user
+        if ($this->myOptions['Blind']==0) return ($search['total']==0)? false /* no entries or no match */ : $search /* cannot decide */;
+
         $c=$item['Categoria'];
         $g=$item['Grado'];
         $s=$item['Genero'];
