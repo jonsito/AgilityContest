@@ -120,9 +120,10 @@ class Admin extends DBObject {
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'DAR') { // Darwin (MacOSX)
 			$cmd='/Applications/XAMPP/xamppfiles/bin/mysqldump';
 		}
-		$cmd = "$cmd --opt --single-transaction --routines --triggers -h $dbhost -u$dbuser -p$dbpass $dbname";
-		$this->myLogger->info("Ejecutando comando: '$cmd'");
-		$input = popen($cmd, 'r');
+		// phase 1: dump structure
+		$cmd1 = "$cmd --opt --no-data --single-transaction --routines --triggers -h $dbhost -u$dbuser -p$dbpass $dbname";
+		$this->myLogger->info("Ejecutando comando: '$cmd1'");
+		$input = popen($cmd1, 'r');
 		if ($input===FALSE) { $this->errorMsg="adminFunctions::popen() failed"; return null;}
 		
 		$fname="$dbname-".date("Ymd_Hi").".sql";
@@ -144,12 +145,29 @@ class Admin extends DBObject {
 			}
 		}
 		pclose($input);
+		// phase 2: dump data. Exclude ImportData and (if configured to) Eventos table contents
+        $noexport="--ignore-table=agility.ImportData";
+		if (intval($this->myConfig->getEnv("full_backup"))==0) $noexport .= " --ignore-table=agility.Eventos";
+
+        $cmd2 = "$cmd --opt --no-create-info --single-transaction --routines --triggers $noexport -h $dbhost -u$dbuser -p$dbpass $dbname";
+        $this->myLogger->info("Ejecutando comando: '$cmd2'");
+        $input = popen($cmd2, 'r');
+        if ($input===FALSE) { $this->errorMsg="adminFunctions::popen() failed"; return null;}
+        while(!feof($input)) {
+            $line = fgets($input);
+            if (substr($line, 0, 6) === 'INSERT') {
+                $this->process_line($line);
+            } else {
+                echo $line;
+            }
+        }
+        pclose($input);
 		return "ok";
 	}	
 
 	private function handleSession($str) {
         $f=fopen($this->logfile,"a"); // open for append-only
-        if (!$f) { $this->myLogger->error("fopen() cannot create file: ".$this->restore_file); return;}
+        if (!$f) { $this->myLogger->error("fopen() cannot create file: ".$this->logfile); return;}
 		fwrite($f,"$str\n");
         fclose($f);
 	}

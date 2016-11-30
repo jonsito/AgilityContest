@@ -380,6 +380,10 @@ $config =Config::getInstance();
             <input type="hidden" name="reset_events" value="0"/> <!-- trick for checkboxes -->
             <input type="checkbox" name="reset_events" id="reset_events" value="1"/><br />
 
+            <label for="full_backup"><?php _e('Include event history in backup'); ?></label>
+            <input type="hidden" name="full_backup" value="0"/> <!-- trick for checkboxes -->
+            <input type="checkbox" name="full_backup" id="backup" value="1"/><br />
+
 		</div>
 
 		<div title="<?php _e('System'); ?>" style="padding:10px">
