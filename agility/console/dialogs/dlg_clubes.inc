@@ -189,7 +189,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			url: '/agility/server/database/enumerate_Provincias.php',
             queryParams:{
                 Operation: 'select',
-                Country: 'ES'
+                Country: "ESP"
             },
 			method: 'get',
 			mode: 'remote',
@@ -200,7 +200,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			]],
 			multiple: false,
 			fitColumns: true,
-			selectOnNavigation: false
+			selectOnNavigation: false,
+            onBeforeLoad: function(params) {
+			    params.Country=$('#clubes-Pais').combogrid('getValue');
+            }
         });
 
         $('#clubes-logo-dialog').dialog( {

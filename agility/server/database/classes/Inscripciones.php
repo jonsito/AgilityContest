@@ -198,8 +198,8 @@ class Inscripciones extends DBObject {
 		$id = $this->pruebaID;
 		$fed =  http_request("Federation","i",0);
 		$search =  http_request("where","s","");
-		$extra = '';
-		if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%')
+		$extra = "AND (PerroGuiaClub.Grado<>'Baja') AND (PerroGuiaClub.Grado<>'Ret.') " ;
+		if ($search!=='') $extra .= " AND ( (PerroGuiaClub.Nombre LIKE '%$search%')
 		OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) ) ";
 
 		$page=http_request("page","i",0);
