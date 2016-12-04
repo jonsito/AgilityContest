@@ -356,7 +356,7 @@ class DogReader {
             // country field takes precedence if exists
             if (array_key_exists('Country',$item)) $a=$item['Pais'];
             if (array_key_exists(_utf('Country'),$item)) $a=$item['Pais'];
-            // if field comes in 2Char ISO convention replace with country name
+            // if field comes in 3Char ISO convention replace with country name
             if (array_key_exists($a,Country::$countryList) ) $a=Country::$countryList[$a];
             $this->saveStatus("Analyzing country '$a'");
         } else {
@@ -468,7 +468,7 @@ class DogReader {
                 $nlargo=$this->import_mixData($nlargo,isset($item['NombreLargo'])?$item['NombreLargo']:"");
                 $raza=$this->import_mixData($raza,isset($item['Raza'])?$item['Raza']:"");
                 $lic=$this->import_mixData($lic,isset($item['Licencia'])?$item['Licencia']:"",false);
-                $loe=$this->import_mixData($lic,isset($item['LOE_RRC'])?$item['LOE_RRC']:"",false);
+                $loe=$this->import_mixData($loe,isset($item['LOE_RRC'])?$item['LOE_RRC']:"",false);
                 $cat=$this->import_mixData($cat,$item['Categoria'],false);
                 $grad=$this->import_mixData($grad,$item['Grado'],false);
                 $sex=$this->import_mixData($sex,$item['Genero'],false);
@@ -543,24 +543,167 @@ class DogReader {
         return array('operation'=> 'parse', 'success'=> 'done');
     }
 
-    public function createEntry() {
+    public function createEntry($options) {
+        $this->myLogger->enter();
+        // update existing entry from database
+        $t=TABLE_NAME;
+        $f=$this->federation;
+        // locate entry in database
+        $obj=$this->myDBObject->__selectObject("*",TABLE_NAME,"ID={$options['ExcelID']}");
+        if (!is_object($obj)) {
+            // Temporary table id not found. notify error and return
+            return "CreateEntry(): Temporary table RowID:{$options['ExcelID']} not found  error:".$this->myDBObject->conn->error;
+        }
         // add a new entry into database
-        
-        // tell client to continue parse
+        if ($options['Object']=="Club") {
+            // this is an error: clubs cannot be created on the fly, as need extra parameters
+            return "CreateEntry(): cannot automagically create new club {$obj->Nombre}";
+        } else if ($options['Object']=="Handler") {
+            $nombre=$obj->Nombre;
+            $c=$obj->ClubID;
+            if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($obj->Nombre);
+            $str="INSERT INTO Guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "CreateEntry(): Insert Guia '{$obj->Nombre}' error:".$this->myDBObject->conn->error;
+            $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
+            $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '{$obj->Nombre}') AND (ClubID=$c)";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "CreateEnrty(): Temporary table update Guia '{$obj->Nombre}' error:".$this->myDBObject->conn->error; // invalid update; mark error
+        } else if ($options['Object']=="Perro") {
+            $c=$obj->Categoria;
+            $g=$obj->Grado;
+            $s=$obj->Genero;
+            $loe=isset($item['LOE_RRC'])?$this->myDBObject->conn->real_escape_string($obj->LOE_RRC):"";
+            $raza=isset($item['Raza'])?$this->myDBObject->conn->real_escape_string($obj->Raza):"";
+            $nlargo=isset($item['NombreLargo'])?$this->myDBObject->conn->real_escape_string($obj->NombreLargo):"";
+            $nombre=$obj->Nombre;
+            $h=$obj->HandlerID;
+            // check precedence on DB or Excel
+            if ($this->myOptions['WordUpperCase']!=0) { // formato mayuscula inicial
+                $nombre= toUpperCaseWords($nombre);
+                $raza= toUpperCaseWords($raza);
+                $nlargo= toUpperCaseWords($nlargo);
+            }
+            $str="INSERT INTO Perros (Nombre,NombreLargo,LOE_RRC,Guia,Categoria,Grado, Raza,Genero,Federation)".
+                " VALUES ( '$nombre','$nlargo','$loe',$h,'$c','$g','$raza','$s',$f)";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "CreateEntry(): InsertDog '$nombre' error:".$this->myDBObject->conn->error;
+            $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table with fixed data
+            $str="UPDATE $t SET DogID=$id, Nombre='$nombre',LOE_RRC='$loe',Raza='$raza',NombreLargo='$nlargo' WHERE (Nombre = '$nombre') AND (HandlerID=$h)";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "Create(): temp table update dog '$nombre' error:".$this->myDBObject->conn->error; // invalid update; mark error
+        } else {
+            // invalid object: notice error and return
+            return "CreateEntry(): Invalid Object to search for update in temporary table: {$options['Object']}";
+        }// tell client to continue parse
+        $this->myLogger->leave();
         return array('operation'=> 'create', 'success'=> 'done');
     }    
     
-    public function updateEntry() {
+    public function updateEntry($options) {
+        $this->myLogger->enter();
         // update existing entry from database
+        $t=TABLE_NAME;
+        // locate entry in database
+        $obj=$this->myDBObject->__selectObject("*",TABLE_NAME,"ID={$options['ExcelID']}");
+        if (!is_object($obj)) {
+            // Temporary table id not found. notify error and return
+            return "UpdateEntry(): Temporary table RowID:{$options['ExcelID']} not found  error:".$this->myDBObject->conn->error;
+        }
+        // delete every entry with matching name
+        if ($options['Object']=="Club") {
+            // obtenemos nombre del club tal y como figura en la base de datos
+            $dbobj=$this->myDBObject->__selectObject("*","Clubes","ID={$options['DatabaseID']}");
+            // actualizamos nombre del club y club ID en todas las entradas de la tabla temporal
+            // en que aparezca. para ello tenemos que hacer un update por nombre
+            $dbname=$this->myDBObject->conn->real_escape_string($dbobj->Nombre);
+            $name=$this->myDBObject->conn->real_escape_string($obj->NombreClub);
+            $str="UPDATE $t SET ClubID={$dbobj->ID}, NombreClub='$dbname' WHERE (NombreClub = '$name')";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "UpdateEntry(): update club '$name' error:".$this->myDBObject->conn->error;
+        }
+        else if ($options['Object']=="Guia") {
+            // obtenemos nombre del guia tal y como figura en la base de datos
+            $dbobj=$this->myDBObject->__selectObject("*","Guias","ID={$options['DatabaseID']}");
+            // ajustamos el id y el nombre del guia en la tabla excel
+            $dbname=$this->myDBObject->conn->real_escape_string($dbobj->Nombre);
+            $name=$this->myDBObject->conn->real_escape_string($obj->NombreGuia);
+            $str="UPDATE $t SET HandlerID={$dbobj->ID}, NombreGuia='$dbname' WHERE (NombreGuia = '$name')";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "UpdateEntry(): update handler '$name' Set Name/ID error:".$this->myDBObject->conn->error;
+            // ajustamos el club en la base de datos en función del club de la tabla excel
+            $str="UPDATE Guias SET Club={$obj->ClubID} WHERE (ID={$dbobj->ID})";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "UpdateEntry(): update handler '$name' Set Club error:".$this->myDBObject->conn->error;
+        }
+        else if ($options['Object']=="Perro") {
+            // obtenemos nombre del guia tal y como figura en la base de datos
+            $dbobj=$this->myDBObject->__selectObject("*","Perros","ID={$options['DatabaseID']}");
+            // evaluamos todos los parametros en funcion de los modos de imporatacion
+            $nombre=$this->myDBObject->conn->real_escape_string($dbobj->Nombre); // nombre del perro
+            $nlargo=$this->myDBObject->conn->real_escape_string($dbobj->NombreLargo); // nombre largo
+            $raza=$this->myDBObject->conn->real_escape_string($dbobj->Raza); // raza
+            $lic=$this->myDBObject->conn->real_escape_string($dbobj->Licencia); // licencia
+            $loe=$this->myDBObject->conn->real_escape_string($dbobj->LOE_RRC); // LOE /RRC
+            $cat=$this->myDBObject->conn->real_escape_string($dbobj->Categoria); // licencia
+            $grad=$this->myDBObject->conn->real_escape_string($dbobj->Grado); // licencia
+            $sex=$this->myDBObject->conn->real_escape_string($dbobj->Genero); // sexo
+            if ($this->myOptions['Blind']) {
+                $nombre=$this->import_mixData($nombre,$obj->Nombre);
+                $nlargo=$this->import_mixData($nlargo,isset($obj->NombreLargo)?$obj->NombreLargo:"");
+                $raza=$this->import_mixData($raza,isset($obj->Raza)?$obj->Raza:"");
+                $lic=$this->import_mixData($lic,isset($obj->Licencia)?$obj->Licencia:"",false);
+                $loe=$this->import_mixData($loe,isset($obj->LOE_RRC)?$obj->LOE_RRC:"",false);
+                $cat=$this->import_mixData($cat,$obj->Categoria,false);
+                $grad=$this->import_mixData($grad,$obj->Grado,false);
+                $sex=$this->import_mixData($sex,$obj->Genero,false);
+            }
+            // update temporary table with evaluated data
+            $str="UPDATE $t SET DogID={$dbobj->ID}, Nombre='$nombre', NombreLargo='$nlargo', Genero='$sex', Raza='$raza', Licencia='$lic', LOE_RRC='$loe', Categoria='$cat', Grado='$grad'".
+                "WHERE (Nombre = '{$obj->Nombre}')  AND (HandlerID={$obj->handlerID})";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "UpdateEntry(): update dog '{obj->Nombre}' Set Dog Data error:".$this->myDBObject->conn->error;
+            // notice that no need to update data in database, this is done in "import" phase
+        }
+        else {
+            // invalid object: notice error and return
+            return "UpdateEntry(): Invalid Object to search for update in temporary table: {$options['Object']}";
 
-        // tell client to continue parse
+        }// tell client to continue parse
+        $this->myLogger->leave();
         return array('operation'=> 'update', 'success'=> 'done');
     }
 
-    public function ignoreEntry() {
-        // ignore entry from imported table
-
+    public function ignoreEntry($options) {
+        $this->myLogger->enter();
+        $t=TABLE_NAME;
+        // locate entry in temporary database
+        $obj=$this->myDBObject->__selectObject("*",TABLE_NAME,"ID={$options['ExcelID']}");
+        if (!is_object($obj)) {
+            // Temporary table id not found. notify error and return
+            return "IgnoreEntry(): Temporary table RowID:{$options['ExcelID']} not found  error:".$this->myDBObject->conn->error;
+        }
+        if ($options['Object']=="Club") {
+            $str="DELETE FROM $t WHERE NombreClub=='{$obj->NombreClub}'";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "IgnoreEntry(): Ignore Club '{$obj->NombreClub}' error:".$this->myDBObject->conn->error;
+        }
+        else if ($options['Object']=="Guia") {
+            $str="DELETE FROM $t WHERE NombreGuia=='{$obj->NombreGuia}'";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "IgnoreEntry(): Ignore Handler '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error;
+        }
+        else if ($options['Object']=="Perro") {
+            $str="DELETE FROM $t WHERE Nombre=='{$obj->Nombre}'";
+            $res=$this->myDBObject->query($str);
+            if (!$res) return "IgnoreEntry(): Ignore Dog '{$obj->Nombre}' error:".$this->myDBObject->conn->error;
+        }
+        else {
+            // invalid object: notice error and return
+            return "IgnoreEntry(): Invalid Object to search in temporary table: {$options['Object']}";
+        }
         // tell client to continue parse
+        $this->myLogger->leave();
         return array('operation'=> 'ignore', 'success'=> 'done');
     }
 

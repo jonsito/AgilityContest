@@ -61,6 +61,9 @@ try {
     $options['DBPriority']=http_request("DBPriority","i",1);
     $options['WordUpperCase']=http_request("WordUpperCase","i",1);
     $options['IgnoreWhiteSpaces']=http_request("IgnoreWhitespaces","i",1);
+    $options['Object']=http_request("Object","s",""); // 'Perro' 'Guia' 'Club'
+    $options['DatabaseID']=http_request("DatabaseID","i",0); // -1:ignore 0:create else:update
+    $options['ExcelID']=http_request("ExcelID","i",0); // ID of affected ExcelImport table row
 
     if ($mode==="perros") {
         if ($fed<0) throw new Exception("dog_reader::ImportExcel(): invalid Federation ID: $fed");
@@ -93,15 +96,15 @@ try {
             break;
         case "create":
             // a new line has been accepted from user: insert and update temporary excel file
-            $result = $er->createEntry();
+            $result = $er->createEntry($options);
             break;
         case "update":
             // a new line has been accepted from user: insert and update temporary excel file
-            $result = $er->updateEntry();
+            $result = $er->updateEntry($options);
             break;
         case "ignore":
             // received entry has been refused by user: remove and update temporary excel file
-            $result = $er->ignoreEntry();
+            $result = $er->ignoreEntry($options);
             break;
         case "abort":
             // user has cancelled import file: clear and return temporary data
