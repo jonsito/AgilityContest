@@ -259,10 +259,9 @@ function excel_importHandleResult(data) {
         case "update": // accept changes to existing entry for current line
             // no break;
         case "ignore": // ignore data from excel file in current line
-            // continue parsing
+            // continue parsing and restart progress monitoring
             ac_import.progress_status="running";
             setTimeout(function() { excel_importSendTask({'Operation':'parse'}); },0);
-            // re-start progress monitoring
             break;
         case "abort": // cancel transaction
             ac_import.progress_status="running";

@@ -22,82 +22,46 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE REASIGNACION DE GUIAS -->
-    <div id="chguias-dialog" style="width:550px;height:350px;padding:10px 20px">
-        <div id="chguias-title" class="ftitle"><?php _e('Handler re-asignation'); ?></div>
-        <form id="chguias-header">
+    <div id="importhandlers-dialog" style="width:550px;height:350px;padding:10px 20px">
+        <div id="importhandlers-title" class="ftitle"><?php _e('Handler re-asignation'); ?></div>
+        <form id="importhandlers-header">
         	<div class="fitem">
-                <label for="chguias-Search"><?php _e('Search'); ?>: </label>
-                <select id="chguias-Search" name="Search" style="width:200px"></select>&nbsp;
-                <a id="chguias-clearBtn" href="#" class="easyui-linkbutton"
+                <label for="importhandlers-Search"><?php _e('Search'); ?>: </label>
+                <select id="importhandlers-Search" name="Search" style="width:200px"></select>&nbsp;
+                <a id="importhandlers-clearBtn" href="#" class="easyui-linkbutton"
                 	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
         	</div>
         </form>
-        <hr/>
-        <form id="chguias-form" method="get" novalidate>
-            <div class="fitem">
-                <label for="chguias-Nombre"><?php _e('Name'); ?>:</label>
-                <input id="chguias-Federation" name="Federation" type="hidden" />
-                <input id="chguias-ID" name="ID" type="hidden" value="" /> <!-- Guia ID -->
-                <input id="chguias-Nombre" name="Nombre" style="width:300px" />
-                <input id="chguias-Club" name="Club" type="hidden" value="" /> <!-- Club ID -->
-                <input id="chguias-newClub" name="newClub" type="hidden" value="" /> <!-- new Club ID -->
-                <input id="chguias-Operation" name="Operation" type="hidden" value=""/> <!-- inser/update/delete -->
-            </div>
-            <div class="fitem">
-                <label for="chguias-Email"><?php _e('Electronic mail'); ?>:</label>
-                <input id="chguias-Email" name="Email" type="text" style="width:250px"/>
-            </div>
-            <div class="fitem">
-                <label for="chguias-Telefono"><?php _e('Telephone'); ?>:</label>
-                <input id="chguias-Telefono" name="Telefono" type="text" />
-            </div>
-            <div class="fitem">
-                <label for="chguias-Observaciones"><?php _e('Comments'); ?>:</label>
-                <textarea id="chguias-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
-            </div>
-        </form>
-        <input id="chguias-parent" type="hidden" value="" />
     </div>
 
    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-   	<div id="chguias-dlg-buttons" style="display:inline-block">
+   	<div id="importhandlers-dlg-buttons" style="display:inline-block">
    	    <span style="float:left">
-        	<a id="chguias-newBtn" href="#" class="easyui-linkbutton" onclick="saveChGuia()"
-        		data-options="iconCls:'icon-users'"><?php _e('New'); ?></a>
+        	<a id="importhandlers-newBtn" href="#" class="easyui-linkbutton" onclick="importAction('handlers','create');"
+        		data-options="iconCls:'icon-users'"><?php _e('Create'); ?></a>
         </span>
         <span style="float:right">
-   	    	<a id="chguias-okBtn" href="#" class="easyui-linkbutton" 
-   	    		data-options="iconCls:'icon-ok'" onclick="assignGuia()"><?php _e('Reassign'); ?></a>
-   	    	<a id="chguias-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    		data-options="iconCls:'icon-cancel'" onclick="$('#chguias-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+   	    	<a id="importhandlers-okBtn" href="#" class="easyui-linkbutton"
+   	    		data-options="iconCls:'icon-ok'" onclick="importAction('handlers','update');"><?php _e('Select'); ?></a>
+   	    	<a id="importhandlers-cancelBtn" href="#" class="easyui-linkbutton"
+   	    		data-options="iconCls:'icon-cancel'" onclick="importAction('handlers','ignore');"><?php _e('Ignore'); ?></a>
    	    </span>
    	</div>
    	
     <script type="text/javascript">
         // datos del formulario de nuevo/edit guia
         // - declaracion del formulario
-        $('#chguias-form').form();
+        $('#importhandlers-form').form();
         // - botones
-    	addTooltip($('#chguias-clearBtn').linkbutton(),'<?php _e("Clear form"); ?>');
-    	addTooltip($('#chguias-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
-    	addTooltip($('#chguias-newBtn').linkbutton(),'<?php _e("Use provided data to create a new club member"); ?>');
-    	addTooltip($('#chguias-okBtn').linkbutton(),'<?php _e("Re-assign selected handler to be member of club"); ?>');
-    	$('#chguias-clearBtn').bind('click',function() {
-    	    $('#chguias-header').form('clear'); // emtpy
-    	    $('#chguias-form').form('reset'); // restore to original values 
+    	addTooltip($('#importhandlers-clearBtn').linkbutton(),'<?php _e("Clear selection"); ?>');
+    	addTooltip($('#importhandlers-okBtn').linkbutton(),'<?php _e("Use selected handler to be used in imported data"); ?>');
+    	addTooltip($('#importhandlers-newBtn').linkbutton(),'<?php _e("Use Excel imported data to create a new handler"); ?>');
+    	addTooltip($('#importhandlers-cancelBtn').linkbutton(),'<?php _e("Ignore handler and their entries from imported Excel data"); ?>');
+    	$('#importhandlers-clearBtn').bind('click',function() {
+    	    $('#importhandlers-header').form('reset'); //  restore to original values
     	});
-        
-        // campos del formulario
 
-        $('#chguias-Nombre').validatebox({
-            required: true,
-            validType: 'length[1,255]'
-        });
-        $('#chguias-Email').validatebox({
-            required: false,
-            validType: 'email'
-        });
-        $('#chguias-Search').combogrid({
+        $('#importhandlers-Search').combogrid({
     		panelWidth: 350,
     		panelHeight: 200,
     		idField: 'ID',
@@ -120,18 +84,15 @@ $config =Config::getInstance();
     		onSelect: function(index,row) {
     			var id=row.ID;
     			if (id<=0) return;
-    	        $('#chguias-form').form('load','/agility/server/database/guiaFunctions.php?Operation=getbyid&ID='+id); // load form with json retrieved data
-    			$('#chguias-Club').val($('#chguias-newClub').val()); // restore "Club" field
+    	        $('#importhandlers-form').form('load','/agility/server/database/guiaFunctions.php?Operation=getbyid&ID='+id); // load form with json retrieved data
+    			$('#importhandlers-Club').val($('#importhandlers-newClub').val()); // restore "Club" field
     		}
     	});
 
         // datos de la ventana
-        $('#chguias-dialog').dialog( {
+        $('#importhandlers-dialog').dialog( {
             closed: true,
-            buttons: '#chguias-dlg-buttons',
+            buttons: '#importhandlers-dlg-buttons',
             iconCls: 'icon-users'
-    	});
-    	$('#chguias-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
-    		if (e.keyCode == 27){ $('#chguias-dialog').dialog('close');	}
     	});
 </script>
