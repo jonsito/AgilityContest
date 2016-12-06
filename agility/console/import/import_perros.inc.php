@@ -22,14 +22,16 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE REASIGNACION DE UN PERRO-->
-    <div id="importperros-dialog" style="width:550px;height:420px;padding:10px 20px">
-        <div id="importperros-title" class="ftitle"><?php _e('Dog re-assignation'); ?></div>
+    <p id="importperros-dialog" style="width:550px;height:420px;padding:10px 20px">
+        <div id="importperros-title" class="ftitle"><?php _e('Dog import'); ?></div>
+        <p><span id="importperros-Text"></span></p>
         <form id="importperros-header">
         	<div class="fitem">
                 <label for="importperros-Search"><?php _e('Search'); ?>: </label>
                 <select id="importperros-Search" name="Search" style="width:250px"></select>&nbsp;
                 <a id="importperros-clearBtn" href="#" class="easyui-linkbutton"
                 	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
+                <input type="hidden" id="importperros-DogID" value="0"/>
         	</div>
         </form>
     </div>
@@ -37,13 +39,16 @@ $config =Config::getInstance();
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     <div id="importperros-dlg-buttons" style="display:inline-block">
     	<span style="float:left">
-        	<a id="importperros-newBtn" href="#" class="easyui-linkbutton" onclick="importAction('dogs','create')"
+        	<a id="importperros-newBtn" href="#" class="easyui-linkbutton"
+                onclick="importAction('dogs','create',$('#importperros-DogID').val(),$('#importperros-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-dog'"><?php _e('Create'); ?></a>
         </span>
         <span style="float:right">
-        	<a id="importperros-okBtn" href="#" class="easyui-linkbutton" onclick="importAction('dogs','update')"
+        	<a id="importperros-okBtn" href="#" class="easyui-linkbutton"
+                onclick="importAction('dogs','update',$('#importperros-DogID').val(),$('#importperros-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-ok'"><?php _e('Select'); ?></a>
-        	<a id="importperros-cancelBtn" href="#" class="easyui-linkbutton" onclick="importAction('dogs','ignore')"
+        	<a id="importperros-cancelBtn" href="#" class="easyui-linkbutton"
+                onclick="importAction('dogs','ignore',$('#importperros-DogID').val(),$('#importperros-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-cancel'"><?php _e('Cancel'); ?></a>
         </span>
     </div>

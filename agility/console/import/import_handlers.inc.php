@@ -24,12 +24,14 @@ $config =Config::getInstance();
 <!-- FORMULARIO DE REASIGNACION DE GUIAS -->
     <div id="importhandlers-dialog" style="width:550px;height:350px;padding:10px 20px">
         <div id="importhandlers-title" class="ftitle"><?php _e('Handler re-asignation'); ?></div>
+        <p><span id="importhandlers-Text"></span></p>
         <form id="importhandlers-header">
         	<div class="fitem">
                 <label for="importhandlers-Search"><?php _e('Search'); ?>: </label>
                 <select id="importhandlers-Search" name="Search" style="width:200px"></select>&nbsp;
                 <a id="importhandlers-clearBtn" href="#" class="easyui-linkbutton"
                 	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
+                <input type="hidden" id="importhandlers-HandlerID" value="0"/>
         	</div>
         </form>
     </div>
@@ -37,14 +39,17 @@ $config =Config::getInstance();
    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
    	<div id="importhandlers-dlg-buttons" style="display:inline-block">
    	    <span style="float:left">
-        	<a id="importhandlers-newBtn" href="#" class="easyui-linkbutton" onclick="importAction('handlers','create');"
+        	<a id="importhandlers-newBtn" href="#" class="easyui-linkbutton"
+                onclick="importAction('handlers','create',$('#importhandlers-HandlerID').val(),$('#importhandlers-Search').combogrid('getValue'));"
         		data-options="iconCls:'icon-users'"><?php _e('Create'); ?></a>
         </span>
         <span style="float:right">
    	    	<a id="importhandlers-okBtn" href="#" class="easyui-linkbutton"
-   	    		data-options="iconCls:'icon-ok'" onclick="importAction('handlers','update');"><?php _e('Select'); ?></a>
+                onclick="importAction('handlers','update',$('#importhandlers-HandlerID').val(),$('#importhandlers-Search').combogrid('getValue'));"
+                data-options="iconCls:'icon-ok'"><?php _e('Select'); ?></a>
    	    	<a id="importhandlers-cancelBtn" href="#" class="easyui-linkbutton"
-   	    		data-options="iconCls:'icon-cancel'" onclick="importAction('handlers','ignore');"><?php _e('Ignore'); ?></a>
+                onclick="importAction('handlers','ignore',$('#importhandlers-HandlerID').val(),$('#importhandlers-Search').combogrid('getValue'));"
+   	    		data-options="iconCls:'icon-cancel'"><?php _e('Ignore'); ?></a>
    	    </span>
    	</div>
    	

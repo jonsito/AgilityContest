@@ -24,10 +24,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE importclubes -->
  <div id="importclubes-dialog" style="width:550px;height:600px;padding:10px 20px" >
-
-    <div class="ftitle">
-        <?php _e('Club data Import'); ?>
-    </div>
+    <div class="ftitle"><?php _e('Club data Import'); ?></div>
+     <p><span id="importclubes-Text"></span></p>
      <form id="importclubes-header">
          <p id="importclubes_header-Text"> </p> <!-- to be filled -->
          <div class="fitem">
@@ -35,6 +33,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
              <select id="importclubes-Search" name="Search" style="width:250px"></select>&nbsp;
              <a id="importclubes-clearBtn" href="#" class="easyui-linkbutton"
                 data-options="iconCls: 'icon-brush'"><?php _e('Clear'); ?></a>
+             <input type="hidden" id="importclubes-ClubID" value="0"/>
          </div>
      </form>
 </div>  
@@ -46,9 +45,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     </span>
     <span style="float:right">
         <a id="importclubes-selectBtn" href="#" class="easyui-linkbutton"
-            data-options="iconCls: 'icon-ok'" onclick="importAction('clubs','update');"><?php _e('Select'); ?></a>
+            onclick="importAction('clubs','update',$('#importclubes-ClubID').val(),$('#importclubes-Search').combogrid('getValue'));"
+            data-options="iconCls: 'icon-ok'" ><?php _e('Select'); ?></a>
         <a id="importclubes-ignoreBtn" href="#" class="easyui-linkbutton"
-            data-options="iconCls:'icon-cancel'" onclick="importAction('clubs','ignore');"><?php _e('Ignore'); ?></a>
+            onclick="importAction('clubs','ignore',$('#importclubes-ClubID').val(),$('#importclubes-Search').combogrid('getValue'));"
+            data-options="iconCls:'icon-cancel'" ><?php _e('Ignore'); ?></a>
     </span>
 </div>
     
