@@ -660,7 +660,7 @@ class DogReader {
             }
             // update temporary table with evaluated data
             $str="UPDATE $t SET DogID={$dbobj->ID}, Nombre='$nombre', NombreLargo='$nlargo', Genero='$sex', Raza='$raza', Licencia='$lic', LOE_RRC='$loe', Categoria='$cat', Grado='$grad'".
-                "WHERE (Nombre = '{$obj->Nombre}')  AND (HandlerID={$obj->handlerID})";
+                "WHERE (Nombre = '{$obj->Nombre}')  AND (HandlerID={$obj->HandlerID})";
             $res=$this->myDBObject->query($str);
             if (!$res) return "UpdateEntry(): update dog '{obj->Nombre}' Set Dog Data error:".$this->myDBObject->conn->error;
             // notice that no need to update data in database, this is done in "import" phase

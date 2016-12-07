@@ -428,12 +428,8 @@ function loadImportPages() {
 
 	// load html pages
 	$('#importclubes').panel('refresh', '/agility/console/import/import_clubes.inc.php');
-	/*
 	$('#importhandlers').panel('refresh', '/agility/console/import/import_handlers.inc.php');
-	$('#importdogs').panel('refresh', '/agility/console/import/import_dogs.inc.php');
-	$('#importinscriptions').panel('refresh', '/agility/console/import/import_inscriptions.inc.php');
-	$('#importcontest').panel('refresh', '/agility/console/import/import_contest.inc.php');
-	*/
+	$('#importdogs').panel('refresh', '/agility/console/import/import_perros.inc.php');
 	import_flag.html("ready"); // mark as ready
 	return true;
 }

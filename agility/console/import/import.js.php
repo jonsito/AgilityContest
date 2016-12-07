@@ -44,8 +44,8 @@ var ac_import_table = {
 
 function import_setProgressStatus(status) {
     switch (status){
-        case "running": ac_import.progress_status=status; ac_import.progress_timeout=10000; break;
-        case "paused": ac_import.progress_status=status; ac_import.progress_timeout=2000; break;
+        case "running": ac_import.progress_status=status; ac_import.progress_timeout=2000; break;
+        case "paused": ac_import.progress_status=status; ac_import.progress_timeout=10000; break;
         case "stopped": ac_import.progress_status=status; ac_import.progress_timeout=2000; break;
         default: console.log("invalid progress status requested: ".status);
     }
@@ -205,7 +205,7 @@ function excel_importSendTask(params) {
                 dlg.dialog('close');
             }
             // valid data received fire up client-side import parser
-            setTimeout( function() {  excel_importHandleResult(res); },100);
+            excel_importHandleResult(res);
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Import from Excel error","Error: "+textStatus + " "+ errorThrown,'error' );
@@ -312,7 +312,7 @@ function excel_importHandleResult(data) {
             if (data.status==="Done.") return; // end of job
             // check for update progress bar and/or continue progress polling
             if (ac_import.progress_status==='running') pb.progressbar('setValue',data.status);
-            if (ac_import.progress_status!=='stopped') setTimeout(excel_importSendTask({'Operation':'progress'}),ac_import.progress_timeout);
+            if (ac_import.progress_status!=='stopped') setTimeout(function() {excel_importSendTask({'Operation':'progress'})},ac_import.progress_timeout);
             break;
         default:
             import_setProgressStatus('stopped');
@@ -383,7 +383,7 @@ function real_excelImport(mode) {
     $('#import-excel-progressbar').progressbar('setValue','Upload');
     import_setProgressStatus("running");
     excel_importSendTask({ Operation: 'upload', Data: data});
-    setTimeout(function() {excel_importSendTask({'Operation':'progress'})} ,5000); // start progress monitoring
+    setTimeout(function() {excel_importSendTask({'Operation':'progress'})} ,ac_import.progress_timeout); // start progress monitoring
 }
 
 function perros_excelImport() { return real_excelImport('perros'); }
