@@ -23,66 +23,67 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE importclubes -->
- <div id="importclubes-dialog" style="width:550px;height:600px;padding:10px 20px" >
+ <div id="importClub-dialog" style="width:550px;height:auto;padding:10px 20px;" >
     <div class="ftitle"><?php _e('Club data Import'); ?></div>
-     <p><span id="importclubes-Text"></span></p>
-     <form id="importclubes-header">
-         <p id="importclubes_header-Text"> </p> <!-- to be filled -->
+     <p><span id="importClub-Text"></span></p>
+     <form id="importClub-header">
+         <p id="importClub-Text"> </p> <!-- to be filled -->
          <div class="fitem">
-             <label for="importclubes-Search"><?php _e('Search'); ?>: </label>
-             <select id="importclubes-Search" name="Search" style="width:250px"></select>&nbsp;
-             <a id="importclubes-clearBtn" href="#" class="easyui-linkbutton"
+             <label for="importClub-Search"><?php _e('Search'); ?>: </label>
+             <select id="importClub-Search" name="Search" style="width:250px"></select>&nbsp;
+             <a id="importClub-clearBtn" href="#" class="easyui-linkbutton"
                 data-options="iconCls: 'icon-brush'"><?php _e('Clear'); ?></a>
-             <input type="hidden" id="importclubes-ClubID" value="0"/>
+             <input type="hidden" id="importClub-ClubID" value="0"/>
          </div>
      </form>
 </div>  
         
 <!-- BOTONES DE IMPORTAR / SELECCIONAR / IGNORAR DEL CUADRO DE DIALOGO -->
-<div id="importclubes-dlg-buttons" style="display:inline-block">
+<div id="importClub-dlg-buttons" style="display:inline-block">
     <span style="float:left">
-        <a id="importclubes-newBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-new'"><?php _e('New'); ?></a>
+        <a id="importClub-newBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-new'"><?php _e('New'); ?></a>
     </span>
     <span style="float:right">
-        <a id="importclubes-selectBtn" href="#" class="easyui-linkbutton"
-            onclick="importAction('clubs','update',$('#importclubes-ClubID').val(),$('#importclubes-Search').combogrid('getValue'));"
+        <a id="importClub-selectBtn" href="#" class="easyui-linkbutton"
+            onclick="importAction('Club','update',$('#importClub-ClubID').val(),$('#importClub-Search').combogrid('getValue'));"
             data-options="iconCls: 'icon-ok'" ><?php _e('Select'); ?></a>
-        <a id="importclubes-ignoreBtn" href="#" class="easyui-linkbutton"
-            onclick="importAction('clubs','ignore',$('#importclubes-ClubID').val(),$('#importclubes-Search').combogrid('getValue'));"
+        <a id="importClub-ignoreBtn" href="#" class="easyui-linkbutton"
+            onclick="importAction('Club','ignore',$('#importClub-ClubID').val(),$('#importClub-Search').combogrid('getValue'));"
             data-options="iconCls:'icon-cancel'" ><?php _e('Ignore'); ?></a>
     </span>
 </div>
     
 <script type="text/javascript">
 
-        $('#importclubes-dialog').dialog( {
+        $('#importClub-dialog').dialog( {
+            closable:false,
             closed:true,
             modal:true,
-            buttons:'#importclubes-dlg-buttons',
+            buttons:'#importClub-dlg-buttons',
             iconCls:'icon-flag'
         } );
 
         // - declaracion del formulario
-        $('#importclubes-form').form();
+        $('#importClub-form').form();
         // - botones
-    	addTooltip($('#importclubes-newBtn').linkbutton(),'<?php _e("Open dialog to create new club"); ?>');
-        $('#importclubes-newBtn').bind('click',function() {
+    	addTooltip($('#importClub-newBtn').linkbutton(),'<?php _e("Open dialog to create new club"); ?>');
+        $('#importClub-newBtn').bind('click',function() {
             newClub(
                 null, // no datagrid to refresh
-                $('#importclubes-Search').combogrid('getText'), // default name
+                $('#importClub-Search').combogrid('getText'), // default name
                 function() { // what to do on accept button pressed
-                    $('#importclubes-Search').combogrid('reset');
+                    $('#importClub-Search').combogrid('reset');
                 });
         });
-    	addTooltip($('#importclubes-selectBtn').linkbutton(),'<?php _e("Use selected club and update club info"); ?>');
-    	addTooltip($('#importclubes-ignoreBtn').linkbutton(),'<?php _e("Ignore entry. do not import into database"); ?>');
-        addTooltip($('#importclubes-clearBtn').linkbutton(),'<?php _e("Clear club selection"); ?>');
-        $('#importclubes-clearBtn').linkbutton().bind('click',function() {
-            $('#importclubes-header').form('reset'); // empty form
+    	addTooltip($('#importClub-selectBtn').linkbutton(),'<?php _e("Use selected club and update club info"); ?>');
+    	addTooltip($('#importClub-ignoreBtn').linkbutton(),'<?php _e("Ignore entry. do not import into database"); ?>');
+        addTooltip($('#importClub-clearBtn').linkbutton(),'<?php _e("Clear club selection"); ?>');
+        $('#importClub-clearBtn').linkbutton().bind('click',function() {
+            $('#importClub-header').form('reset'); // empty form
         });
 
         // combogrid de seleccion de clubes/paises
-        $('#importclubes-Search').combogrid({
+        $('#importClub-Search').combogrid({
             panelWidth: 350,
             panelHeight: 200,
             delay: 500,

@@ -558,7 +558,7 @@ class DogReader {
         if ($options['Object']=="Club") {
             // this is an error: clubs cannot be created on the fly, as need extra parameters
             return "CreateEntry(): cannot automagically create new club {$obj->Nombre}";
-        } else if ($options['Object']=="Handler") {
+        } else if ($options['Object']=="Guia") {
             $nombre=$obj->Nombre;
             $c=$obj->ClubID;
             if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($obj->Nombre);
@@ -684,17 +684,17 @@ class DogReader {
             return "IgnoreEntry(): Temporary table RowID:{$options['ExcelID']} not found  error:".$this->myDBObject->conn->error;
         }
         if ($options['Object']=="Club") {
-            $str="DELETE FROM $t WHERE NombreClub=='{$obj->NombreClub}'";
+            $str="DELETE FROM $t WHERE NombreClub = '{$obj->NombreClub}'";
             $res=$this->myDBObject->query($str);
             if (!$res) return "IgnoreEntry(): Ignore Club '{$obj->NombreClub}' error:".$this->myDBObject->conn->error;
         }
         else if ($options['Object']=="Guia") {
-            $str="DELETE FROM $t WHERE NombreGuia=='{$obj->NombreGuia}'";
+            $str="DELETE FROM $t WHERE NombreGuia = '{$obj->NombreGuia}'";
             $res=$this->myDBObject->query($str);
             if (!$res) return "IgnoreEntry(): Ignore Handler '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error;
         }
         else if ($options['Object']=="Perro") {
-            $str="DELETE FROM $t WHERE Nombre=='{$obj->Nombre}'";
+            $str="DELETE FROM $t WHERE Nombre = '{$obj->Nombre}'";
             $res=$this->myDBObject->query($str);
             if (!$res) return "IgnoreEntry(): Ignore Dog '{$obj->Nombre}' error:".$this->myDBObject->conn->error;
         }

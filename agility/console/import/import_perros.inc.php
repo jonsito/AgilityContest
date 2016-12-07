@@ -22,33 +22,33 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE REASIGNACION DE UN PERRO-->
-    <p id="importperros-dialog" style="width:550px;height:420px;padding:10px 20px">
-        <div id="importperros-title" class="ftitle"><?php _e('Dog import'); ?></div>
-        <p><span id="importperros-Text"></span></p>
-        <form id="importperros-header">
+    <div id="importPerro-dialog" style="width:550px;height:auto;padding:10px 20px;">
+        <div id="importPerro-title" class="ftitle"><?php _e('Dog import'); ?></div>
+        <p><span id="importPerro-Text"></span></p>
+        <form id="importPerro-header">
         	<div class="fitem">
-                <label for="importperros-Search"><?php _e('Search'); ?>: </label>
-                <select id="importperros-Search" name="Search" style="width:250px"></select>&nbsp;
-                <a id="importperros-clearBtn" href="#" class="easyui-linkbutton"
+                <label for="importPerro-Search"><?php _e('Search'); ?>: </label>
+                <select id="importPerro-Search" name="Search" style="width:250px"></select>&nbsp;
+                <a id="importPerro-clearBtn" href="#" class="easyui-linkbutton"
                 	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
-                <input type="hidden" id="importperros-DogID" value="0"/>
+                <input type="hidden" id="importPerro-DogID" value="0"/>
         	</div>
         </form>
     </div>
     
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-    <div id="importperros-dlg-buttons" style="display:inline-block">
+    <div id="importPerro-dlg-buttons" style="display:inline-block;">
     	<span style="float:left">
-        	<a id="importperros-newBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('dogs','create',$('#importperros-DogID').val(),$('#importperros-Search').combogrid('getValue'))"
+        	<a id="importPerro-newBtn" href="#" class="easyui-linkbutton"
+                onclick="importAction('Perro','create',$('#importPerro-DogID').val(),$('#importPerro-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-dog'"><?php _e('Create'); ?></a>
         </span>
         <span style="float:right">
-        	<a id="importperros-okBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('dogs','update',$('#importperros-DogID').val(),$('#importperros-Search').combogrid('getValue'))"
+        	<a id="importPerro-okBtn" href="#" class="easyui-linkbutton"
+                onclick="importAction('Perro','update',$('#importPerro-DogID').val(),$('#importPerro-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-ok'"><?php _e('Select'); ?></a>
-        	<a id="importperros-cancelBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('dogs','ignore',$('#importperros-DogID').val(),$('#importperros-Search').combogrid('getValue'))"
+        	<a id="importPerro-cancelBtn" href="#" class="easyui-linkbutton"
+                onclick="importAction('Perro','ignore',$('#importPerro-DogID').val(),$('#importPerro-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-cancel'"><?php _e('Cancel'); ?></a>
         </span>
     </div>
@@ -57,23 +57,25 @@ $config =Config::getInstance();
 
     // datos del formulario de nuevo/edit perros
     // - declaracion del formulario
-    $('#importperros-form').form();
+    $('#importPerro-form').form();
     // - botones
-    addTooltip($('#importperros-newBtn').linkbutton(),'<?php _e("Create a new dog with Excel provided data"); ?>');
-    addTooltip($('#importperros-okBtn').linkbutton(),'<?php _e("Use selected dog to be used in requested Excel import data"); ?>');
-    addTooltip($('#importperros-cancelBtn').linkbutton(),'<?php _e("Ignore data. Do not import Excel dog entry into database"); ?>');
-    addTooltip($('#importperros-clearBtn').linkbutton(),'<?php _e("Clear selection"); ?>');
-    $('#importperros-clearBtn').bind('click',function() {
-        $('#importperros-header').form('reset'); // restore to initial values
+    addTooltip($('#importPerro-newBtn').linkbutton(),'<?php _e("Create a new dog with Excel provided data"); ?>');
+    addTooltip($('#importPerro-okBtn').linkbutton(),'<?php _e("Use selected dog to be used in requested Excel import data"); ?>');
+    addTooltip($('#importPerro-cancelBtn').linkbutton(),'<?php _e("Ignore data. Do not import Excel dog entry into database"); ?>');
+    addTooltip($('#importPerro-clearBtn').linkbutton(),'<?php _e("Clear selection"); ?>');
+    $('#importPerro-clearBtn').bind('click',function() {
+        $('#importPerro-header').form('reset'); // restore to initial values
     });
     
     // campos del formulario
-    $('#importperros-dialog').dialog({
+    $('#importPerro-dialog').dialog({
+        closable: false,
     	closed: true,
-    	buttons: '#importperros-dlg-buttons',
+    	buttons: '#importPerro-dlg-buttons',
         iconCls: 'icon-dog'
     });
-    $('#importperros-Search').combogrid({
+
+    $('#importPerro-Search').combogrid({
 		panelWidth: 350,
 		panelHeight: 200,
 		idField: 'ID',

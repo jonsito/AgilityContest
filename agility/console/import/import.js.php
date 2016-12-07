@@ -27,11 +27,13 @@ variables used to store import status
 var ac_import = {
     'mode' :'perros', // perros, inscripciones, pruebas
     'progress_status': "paused",
+    'progress_timeout': 2000, // default is 2 seconds for progress bar monitoring
     'blind': 1, // default blind (non interactive ) import mode
     'word_upercase':1, // on blind mode, uppercase words in DB
     'db_priority':1, // blind mode: on match use database data instead of excel data
     'ignore_spaces':1, // blind mode: blank field are ignored, or used to override DB data
-    'suffix': ''
+    'suffix': '',
+    'count': 0 // sequence counter
 };
 
 var ac_import_table = {
@@ -39,6 +41,15 @@ var ac_import_table = {
     'inscripciones' :   [ '#inscripciones-excel-dialog','#inscripciones-datagrid' ],
     'entrenamientos' :  [ '#entrenamientos-excel-dialog','#entrenamientos-datagrid' ]
 };
+
+function import_setProgressStatus(status) {
+    switch (status){
+        case "running": ac_import.progress_status=status; ac_import.progress_timeout=10000; break;
+        case "paused": ac_import.progress_status=status; ac_import.progress_timeout=2000; break;
+        case "stopped": ac_import.progress_status=status; ac_import.progress_timeout=2000; break;
+        default: console.log("invalid progress status requested: ".status);
+    }
+}
 
 /*************************************** importacion de datos desde fichero excel **************************/
 
@@ -50,113 +61,113 @@ function import_showHideBlind() {
     ac_import.db_priority=$('input[name=excelPreference]:checked').val();
     ac_import.word_upercase=$('input[name=excelUpperCase]:checked').val();
     ac_import.ignore_spaces=$('input[name=excelEmpty]:checked').val();
-    $("#import-excelBlindOptions").css("display",(ac_import.blind!=0)?"inherit":"none");
+    // $("#import-excelBlindOptions").css("display",(ac_import.blind!=0)?"inherit":"none");
 }
 
 /**
- * prepare importclubes-dialog to ask for action when club not found
+ * prepare importClub-dialog to ask for action when club not found
  * @param {object} search data to search for
  * @param {object} found not used; empty object
  * @returns {boolean} true or false according result
  */
 function clubNotFound(search) {
     var msg1="<?php _e('Club');?> '";
-    var msg2="' <?php _e('not found in database');?> <br/>";
+    var msg2="'<br /> <?php _e('not found in database');?> <br/>";
     var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
-    var msg=msg1+search.NombreClub+"<br/>"+msg2+msg3;
-    $("#importclubes-Text").html(msg);
-    $("#importclubes-ClubID").val(search.ID);
-    $("#importclubes-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
+    var msg=msg1+search.NombreClub+msg2+msg3;
+    $("#importClub-Text").html(msg);
+    $("#importClub-ClubID").val(search.ID);
+    $("#importClub-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
     return false;
 }
 function clubMissmatch(search) {
     var msg1="<?php _e('Club');?> '";
-    var msg2="' <?php _e('data missmatch (*) with existing one in database');?> <br/>";
+    var msg2="'<br /> <?php _e('data missmatch (*) with existing one in database');?> <br/>";
     var msg3=" <?php _e('Please enter right values and accept or create new entry');?>";
-    var msg=msg1+search.NombreClub+"<br/>"+msg2+msg3;
-    $("#importclubes-Text").html(msg);
-    $("#importclubes-ClubID").val(search.ID);
-    $("#importclubes-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
+    var msg=msg1+search.NombreClub+msg2+msg3;
+    $("#importClub-Text").html(msg);
+    $("#importClub-ClubID").val(search.ID);
+    $("#importClub-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
     return false;
 }
 function clubMustChoose(search) {
     var msg1="<?php _e('Club');?> '";
-    var msg2="' <?php _e('provided data are compatible with');?> <br/>";
+    var msg2="'<br /> <?php _e('provided data are compatible with');?> <br/>";
     var msg3=" <?php _e('more than one existing in database');?> <br/>";
     var msg4=" <?php _e('Please select right one or create new entry');?>";
-    var msg=msg1+search.NombreClub+"<br/>"+msg2+msg3+msg4;
-    $("#importclubes-Text").html(msg);
-    $("#importclubes-ClubID").val(search.ID);
-    $("#importclubes-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
+    var msg=msg1+search.NombreClub+msg2+msg3+msg4;
+    $("#importClub-Text").html(msg);
+    $("#importClub-ClubID").val(search.ID);
+    $("#importClub-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
     return false;
 }
 
 function handlerNotFound(search) {
-    var data=search.NombreGuia+" ( "+search.NombreClub+" )<br/>";
+    var data=search.NombreGuia+" ( "+search.NombreClub+" )";
     var msg1="<?php _e('Handler');?> '";
-    var msg2="' <?php _e('not found in database');?> <br/>";
+    var msg2="'<br /> <?php _e('not found in database');?> <br/>";
     var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
     var msg=msg1+data+msg2+msg3;
-    $("#importhandlers-Text").html(msg);
-    $("#importhandlers-HandlerID").val(search.ID);
-    $("#importhandlers-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
+    $("#importGuia-Text").html(msg);
+    $("#importGuia-HandlerID").val(search.ID);
+    $("#importGuia-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
 }
 function handlerMissmatch(search) {
-    var data=search.NombreGuia+" ( "+search.NombreClub+" )<br/>";
+    var data=search.NombreGuia+" ( "+search.NombreClub+" )";
     var msg1="<?php _e('Handler');?> '";
-    var msg2="' <?php _e('data missmatch (*) with existing one in database');?> <br/>";
+    var msg2="'<br /> <?php _e('data missmatch (*) with existing one in database');?> <br/>";
     var msg3=" <?php _e('Please enter right values and accept or create new entry');?>";
     var msg=msg1+data+msg2+msg3;
-    $("#importhandlers-Text").html(msg);
-    $("#importhandlers-HandlerID").val(search.ID);
-    $("#importhandlers-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
+    $("#importGuia-Text").html(msg);
+    $("#importGuia-HandlerID").val(search.ID);
+    $("#importGuia-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
     return false;
 }
 function handlerMustChoose(search) {
-    var data=search.NombreGuia+" ( "+search.NombreClub+" )<br/>";
+    var data=search.NombreGuia+" ( "+search.NombreClub+" )";
     var msg1="<?php _e('Handler');?> '";
-    var msg2="' <?php _e('provided data are compatible with');?> <br/>";
+    var msg2="'<br /> <?php _e('provided data are compatible with');?> <br/>";
     var msg3=" <?php _e('more than one existing in database');?> <br/>";
     var msg4=" <?php _e('Please select right one or create new entry');?>";
     var msg=msg1+data+msg2+msg3+msg4;
-    $("#importhandlers-Text").html(msg);
-    $("#importhandlers-HandlerID").val(search.ID);
-    $("#importhandlers-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
+    $("#importGuia-Text").html(msg);
+    $("#importGuia-HandlerID").val(search.ID);
+    $("#importGuia-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
     return false;
 }
 
 function dogNotFound(search) {
-    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )<br/>";
+    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
     var msg1="<?php _e('Dog');?> '";
-    var msg2="' <?php _e('not found in database');?> <br/>";
+    var msg2="'<br /> <?php _e('not found in database');?> <br/>";
     var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
     var msg=msg1+data+msg2+msg3;
-    $("#importperros-Text").html(msg);
-    $("#importperros-DogID").val(search.ID);
-    $("#importperros-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
+    $("#importPerro-Text").html(msg);
+    $("#importPerro-DogID").val(search.ID);
+    $("#importPerro-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
 }
 function dogMissmatch(search) {
-    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )<br/>";
+    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
     var msg1="<?php _e('Dog');?> '";
-    var msg2="' <?php _e('data missmatch (*) with existing one in database');?> <br/>";
+    var msg2="'<br /> <?php _e('data missmatch (*) with existing one in database');?> <br/>";
     var msg3=" <?php _e('Please enter right values and accept or create new entry');?>";
     var msg=msg1+data+msg2+msg3;
-    $("#importperros-Text").html(msg);
-    $("#importperros-DogID").val(search.ID);
-    $("#importperros-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
+    $("#importPerro-Text").html(msg);
+    $("#importPerro-DogID").val(search.ID);
+    $("#importPerro-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
     return false;
 }
 
 function dogMustChoose(search) {
-    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )<br/>";
+    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
     var msg1="<?php _e('Dog');?> '";
-    var msg2="' <?php _e('provided data are compatible with');?> ";
+    var msg2="'<br /> <?php _e('provided data are compatible with');?> ";
     var msg3=" <?php _e('more than one existing in database');?> <br/>";
     var msg4=" <?php _e('Please select right one or create new entry');?>";
     var msg=msg1+data+msg2+msg3+msg4;
-    $("#importperros-Text").html(msg);
-    $("#importperros-DogID").val(search.ID);
-    $("#importperros-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
+    $("#importPerro-Text").html(msg);
+    $("#importPerro-DogID").val(search.ID);
+    $("#importPerro-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
     return false;
 }
 
@@ -175,6 +186,9 @@ function excel_importSendTask(params) {
             Filename     :   (typeof(params.Filename)==="undefined")?"":params.Filename,
             Data         :   (typeof(params.Data)==="undefined")?"":params.Data,
             Mode         :   ac_import.mode,
+            DatabaseID   :   (typeof(params.DatabaseID)==="undefined")?0:params.DatabaseID,
+            ExcelID      :   (typeof(params.ExcelID)==="undefined")?0:params.ExcelID,
+            Object      :   (typeof(params.Object)==="undefined")?"":params.Object,
             Prueba       :   workingData.prueba,
             Federation   :   workingData.federation,
             Blind        :   ac_import.blind,
@@ -214,44 +228,43 @@ function excel_importHandleResult(data) {
     var pb=$('#import-excel-progressbar');
     if (data.errorMsg) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
-        ac_import.progress_status='stopped'; // tell progress monitor to pause
+        import_setProgressStatus('stopped'); // tell progress monitor to pause
         dlg.dialog('close');
         return false;
     }
     switch (data.operation){
         case "upload":
-            ac_import.progress_status="running";
+            import_setProgressStatus("running");
             pb.progressbar('setValue','<?php _e("Checking Excel File");?> : '); // beware ' : ' sequence
             setTimeout(function() {excel_importSendTask({'Operation':'check','Filename':data.filename})},0);
-            setTimeout(function() {excel_importSendTask({'Operation':'progress'})} ,0); // start progress monitoring
             break;
         case "check":
-            ac_import.progress_status="running";
+            import_setProgressStatus("running");
             pb.progressbar('setValue','<?php _e("Starting data import");?>');
             setTimeout(function() { excel_importSendTask({'Operation':'parse'})},0);
             break;
         case "parse": // analyze next line
             if (data.success=='ok') { // if success==true parse again
-                ac_import.progress_status="running";
+                import_setProgressStatus("running");
                 setTimeout(function(){excel_importSendTask({'Operation':'parse'})},0);
             }
             if (data.success=='fail') { // user action required. study cases
                 var funcs={};
-                ac_import.progress_status='paused'; // tell progress monitor to pause progress bar refresh
-                if (ac_import.blind=1) {
-                    var str1='<?php _e("Club/Country not found or missmatch");?>: '+data.search.NombreClub;
-                    var str2='<?php _e("This is not allowed when importing in blind mode");?>';
-                    var str3='<?php _e("Import aborted.");?>';
-                    $.messager.alert({
-                        title: '<?php _e("Blind mode import");?>',
-                        msg: str1+"<br />"+str2+"<br />"+str3,
-                        icon: 'error',
-                        width: 480
-                    });
-                    setTimeout(function(){excel_importSendTask({'Operation':'abort'})},0);
-                    break;
-                }
+                import_setProgressStatus('paused'); // tell progress monitor to pause progress bar refresh
                 if (parseInt(data.search.ClubID)==0) {
+                    if (ac_import.blind==1) {
+                        var str1='<?php _e("Club/Country not found or missmatch");?>: '+data.search.NombreClub;
+                        var str2='<?php _e("This is not allowed when importing in blind mode");?>';
+                        var str3='<?php _e("Import aborted.");?>';
+                        $.messager.alert({
+                            title: '<?php _e("Blind mode import");?>',
+                            msg: str1+"<br />"+str2+"<br />"+str3,
+                            icon: 'error',
+                            width: 480
+                        });
+                        setTimeout(function(){excel_importSendTask({'Operation':'abort'})},0);
+                        break;
+                    }
                     funcs= {'notf': clubNotFound,'miss':clubMissmatch,'multi':clubMustChoose};
                 } else if (parseInt(data.search.HandlerID)==0) {
                     funcs= {'notf':handlerNotFound,'miss':handlerMissmatch,'multi':handlerMustChoose};
@@ -265,7 +278,7 @@ function excel_importHandleResult(data) {
                 else funcs.multi(data.search);                // several compatible items found. ask user to decide
             }
             if (data.success=='done') { // file parsed: start real import procedure
-                ac_import.progress_status="running";
+                import_setProgressStatus("running");
                 setTimeout(function() { excel_importSendTask({'Operation':'import'})},0);
             }
             break;
@@ -275,21 +288,21 @@ function excel_importHandleResult(data) {
             // no break;
         case "ignore": // ignore data from excel file in current line
             // continue parsing and restart progress monitoring
-            ac_import.progress_status="running";
+            import_setProgressStatus("running");
             setTimeout(function() { excel_importSendTask({'Operation':'parse'}); },0);
             break;
         case "abort": // cancel transaction
-            ac_import.progress_status="running";
+            import_setProgressStatus("running");
             dlg.dialog('close'); // close import dialog
             reloadWithSearch(datagrid,'select',false); // and reload dogs datagrid
             break;
         case "import": // import dogs finished.
-            ac_import.progress_status="running";
+            import_setProgressStatus("running");
             var op=data.success; // success field tells what to do now : close,teams, inscribe
             setTimeout(function() { excel_importSendTask({'Operation':op}); },0);
             break;
         case "close":
-            ac_import.progress_status="stopped";
+            import_setProgressStatus("stopped");
             $.messager.alert('<?php _e("Import Done");?>','<?php _e("Import from Excel File Done");?>','info');
             dlg.dialog('close'); // close import dialog
             reloadWithSearch(datagrid,'select',false); // and reload dogs datagrid
@@ -299,10 +312,10 @@ function excel_importHandleResult(data) {
             if (data.status==="Done.") return; // end of job
             // check for update progress bar and/or continue progress polling
             if (ac_import.progress_status==='running') pb.progressbar('setValue',data.status);
-            if (ac_import.progress_status!=='stopped') setTimeout(excel_importSendTask({'Operation':'progress'}),2000);
+            if (ac_import.progress_status!=='stopped') setTimeout(excel_importSendTask({'Operation':'progress'}),ac_import.progress_timeout);
             break;
         default:
-            ac_import.progress_status='stopped';
+            import_setProgressStatus('stopped');
             $.messager.alert("Excel import error","Invalid operation received from server: "+data.operation );
             dlg.dialog('close');
     }
@@ -317,21 +330,23 @@ function excel_importHandleResult(data) {
  * @param {number} dbkey ID of database row to be used in matching, 0 on create/ignore
  */
 function importAction(item,action,fromkey,dbkey) {
-    var label="#import-"+item+"-dialog";
+    var label="#import"+item+"-dialog";
+    var search="#import"+item+"-Search";
     var key="key"; // original search key from server
     var value=0; // database object ID from choosen item (if any), or zero
     var options = {
-      Operation: action,
-      Item: item,
-      FromKey: fromkey,
-      DBKey: dbkey
+      Operation: action, // create update ignore
+      Object: item, // Perro Guia Club
+      ExcelID: fromkey,
+      DatabaseID: dbkey
     };
     // tell server to handle this entry, with provided item, action and parameters
     setTimeout(function() { excel_importSendTask(options); },0);
     // close selection window
+    $(search).combogrid('clear');
     $(label).dialog('close');
     // restart progressbar polling
-    ac_import.progres_status="running";
+    import_setProgressStatus("running");
     // return false to dont't propagate event chain
     return false;
 }
@@ -365,15 +380,10 @@ function real_excelImport(mode) {
         $.messager.alert("<?php _e('Error');?>","<?php _e('No import file selected');?>",'error');
         return;
     }
-    if (ac_import.blind==0) {
-        $.messager.alert(
-            "<?php _e('Error');?>",
-            "<?php _e('Interactive import is not yet available');?>. "+"<?php _e('Sorry')?>",
-            'error');
-        return;
-    }
     $('#import-excel-progressbar').progressbar('setValue','Upload');
-    return excel_importSendTask({ Operation: 'upload', Data: data});
+    import_setProgressStatus("running");
+    excel_importSendTask({ Operation: 'upload', Data: data});
+    setTimeout(function() {excel_importSendTask({'Operation':'progress'})} ,5000); // start progress monitoring
 }
 
 function perros_excelImport() { return real_excelImport('perros'); }

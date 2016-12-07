@@ -45,9 +45,10 @@ $config =Config::getInstance();
                <label for="import-excelBlindMode"><?php _e("Blind (non-interactive) mode");?></label>
                <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1" checked="checked"
 				   onchange="import_showHideBlind();">
+                <br />
            </span>
 			<!-- opciones para el modo blind -->
-			<span id="import-excelBlindOptions" style="display:none;">
+			<span id="import-excelBlindOptions">
 				<br/> <?php _e("Options for non-interactive import");?>:<br/>
 				<span style="display:inline-block;width:275px"><?php _e("Precedence on DB/Excel entry match");?>:</span>
 				<input id="import-excelPrefDB"   type="radio" name="excelPreference" value="1">

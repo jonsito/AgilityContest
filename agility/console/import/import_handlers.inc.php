@@ -22,33 +22,33 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE REASIGNACION DE GUIAS -->
-    <div id="importhandlers-dialog" style="width:550px;height:350px;padding:10px 20px">
-        <div id="importhandlers-title" class="ftitle"><?php _e('Handler re-asignation'); ?></div>
-        <p><span id="importhandlers-Text"></span></p>
-        <form id="importhandlers-header">
+    <div id="importGuia-dialog" style="width:550px;height:auto;padding:10px 20px;">
+        <div id="importGuia-title" class="ftitle"><?php _e('Handler re-asignation'); ?></div>
+        <p><span id="importGuia-Text"></span></p>
+        <form id="importGuia-header">
         	<div class="fitem">
-                <label for="importhandlers-Search"><?php _e('Search'); ?>: </label>
-                <select id="importhandlers-Search" name="Search" style="width:200px"></select>&nbsp;
-                <a id="importhandlers-clearBtn" href="#" class="easyui-linkbutton"
+                <label for="importGuia-Search"><?php _e('Search'); ?>: </label>
+                <select id="importGuia-Search" name="Search" style="width:200px"></select>&nbsp;
+                <a id="importGuia-clearBtn" href="#" class="easyui-linkbutton"
                 	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
-                <input type="hidden" id="importhandlers-HandlerID" value="0"/>
+                <input type="hidden" id="importGuia-HandlerID" value="0"/>
         	</div>
         </form>
     </div>
 
    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-   	<div id="importhandlers-dlg-buttons" style="display:inline-block">
+   	<div id="importGuia-dlg-buttons" style="display:inline-block">
    	    <span style="float:left">
-        	<a id="importhandlers-newBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('handlers','create',$('#importhandlers-HandlerID').val(),$('#importhandlers-Search').combogrid('getValue'));"
+        	<a id="importGuia-newBtn" href="#" class="easyui-linkbutton"
+                onclick="importAction('Guia','create',$('#importGuia-HandlerID').val(),$('#importGuia-Search').combogrid('getValue'));"
         		data-options="iconCls:'icon-users'"><?php _e('Create'); ?></a>
         </span>
         <span style="float:right">
-   	    	<a id="importhandlers-okBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('handlers','update',$('#importhandlers-HandlerID').val(),$('#importhandlers-Search').combogrid('getValue'));"
+   	    	<a id="importGuia-okBtn" href="#" class="easyui-linkbutton"
+                onclick="importAction('Guia','update',$('#importGuia-HandlerID').val(),$('#importGuia-Search').combogrid('getValue'));"
                 data-options="iconCls:'icon-ok'"><?php _e('Select'); ?></a>
-   	    	<a id="importhandlers-cancelBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('handlers','ignore',$('#importhandlers-HandlerID').val(),$('#importhandlers-Search').combogrid('getValue'));"
+   	    	<a id="importGuia-cancelBtn" href="#" class="easyui-linkbutton"
+                onclick="importAction('Guia','ignore',$('#importGuia-HandlerID').val(),$('#importGuia-Search').combogrid('getValue'));"
    	    		data-options="iconCls:'icon-cancel'"><?php _e('Ignore'); ?></a>
    	    </span>
    	</div>
@@ -56,17 +56,17 @@ $config =Config::getInstance();
     <script type="text/javascript">
         // datos del formulario de nuevo/edit guia
         // - declaracion del formulario
-        $('#importhandlers-form').form();
+        $('#importGuia-form').form();
         // - botones
-    	addTooltip($('#importhandlers-clearBtn').linkbutton(),'<?php _e("Clear selection"); ?>');
-    	addTooltip($('#importhandlers-okBtn').linkbutton(),'<?php _e("Use selected handler to be used in imported data"); ?>');
-    	addTooltip($('#importhandlers-newBtn').linkbutton(),'<?php _e("Use Excel imported data to create a new handler"); ?>');
-    	addTooltip($('#importhandlers-cancelBtn').linkbutton(),'<?php _e("Ignore handler and their entries from imported Excel data"); ?>');
-    	$('#importhandlers-clearBtn').bind('click',function() {
-    	    $('#importhandlers-header').form('reset'); //  restore to original values
+    	addTooltip($('#importGuia-clearBtn').linkbutton(),'<?php _e("Clear selection"); ?>');
+    	addTooltip($('#importGuia-okBtn').linkbutton(),'<?php _e("Use selected handler to be used in imported data"); ?>');
+    	addTooltip($('#importGuia-newBtn').linkbutton(),'<?php _e("Use Excel imported data to create a new handler"); ?>');
+    	addTooltip($('#importGuia-cancelBtn').linkbutton(),'<?php _e("Ignore handler and their entries from imported Excel data"); ?>');
+    	$('#importGuia-clearBtn').bind('click',function() {
+    	    $('#importGuia-header').form('reset'); //  restore to original values
     	});
 
-        $('#importhandlers-Search').combogrid({
+        $('#importGuia-Search').combogrid({
     		panelWidth: 350,
     		panelHeight: 200,
     		idField: 'ID',
@@ -89,15 +89,16 @@ $config =Config::getInstance();
     		onSelect: function(index,row) {
     			var id=row.ID;
     			if (id<=0) return;
-    	        $('#importhandlers-form').form('load','/agility/server/database/guiaFunctions.php?Operation=getbyid&ID='+id); // load form with json retrieved data
-    			$('#importhandlers-Club').val($('#importhandlers-newClub').val()); // restore "Club" field
+    	        $('#importGuia-form').form('load','/agility/server/database/guiaFunctions.php?Operation=getbyid&ID='+id); // load form with json retrieved data
+    			$('#importGuia-Club').val($('#importGuia-newClub').val()); // restore "Club" field
     		}
     	});
 
         // datos de la ventana
-        $('#importhandlers-dialog').dialog( {
+        $('#importGuia-dialog').dialog( {
+            closable: false,
             closed: true,
-            buttons: '#importhandlers-dlg-buttons',
+            buttons: '#importGuia-dlg-buttons',
             iconCls: 'icon-users'
     	});
 </script>
