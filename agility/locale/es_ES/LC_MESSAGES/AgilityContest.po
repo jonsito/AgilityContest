@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-12-07 09:38+0100\n"
-"PO-Revision-Date: 2016-12-07 09:43+0100\n"
+"POT-Creation-Date: 2016-12-08 22:30+0100\n"
+"PO-Revision-Date: 2016-12-08 22:32+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -134,9 +134,9 @@ msgid "Dorsal"
 msgstr "Dorsal"
 
 #: chrono/chrono.inc.php:68 console/frm_equipos.php:70
-#: console/frm_perros.php:133 console/import/import.js.php:130
-#: console/import/import.js.php:140 console/import/import.js.php:152
-#: console/import/import_perros.inc.php:89 scripts/competicion.js.php:1156
+#: console/frm_perros.php:133 console/import/import.js.php:141
+#: console/import/import.js.php:151 console/import/import.js.php:163
+#: console/import/import_perros.inc.php:91 scripts/competicion.js.php:1156
 #: scripts/printer.js.php:241 console/dialogs/dlg_chperros.inc:148
 #: console/dialogs/dlg_newInscripcion.inc:151
 msgid "Dog"
@@ -144,9 +144,9 @@ msgstr "Perro"
 
 #: chrono/chrono.inc.php:69 console/frm_equipos.php:80
 #: console/frm_equipos.php:225 console/frm_inscripciones2.php:233
-#: console/frm_perros.php:138 console/import/import.js.php:96
-#: console/import/import.js.php:106 console/import/import.js.php:117
-#: console/import/import_perros.inc.php:92
+#: console/frm_perros.php:138 console/import/import.js.php:107
+#: console/import/import.js.php:117 console/import/import.js.php:128
+#: console/import/import_perros.inc.php:94
 #: lib/templates/final_individual.inc.php:27
 #: lib/templates/final_last_individual.inc.php:34
 #: lib/templates/final_last_teams.inc.php:36
@@ -187,10 +187,10 @@ msgstr "Gu&iacute;a"
 #: console/frm_equipos.php:85 console/frm_equipos.php:226
 #: console/frm_guias.php:94 console/frm_inscripciones.php:78
 #: console/frm_inscripciones2.php:234 console/frm_perros.php:139
-#: console/frm_registration.php:62 console/import/import.js.php:63
-#: console/import/import.js.php:73 console/import/import.js.php:83
+#: console/frm_registration.php:62 console/import/import.js.php:74
+#: console/import/import.js.php:84 console/import/import.js.php:94
 #: console/import/import_handlers.inc.php:83
-#: console/import/import_perros.inc.php:93 index.php:185
+#: console/import/import_perros.inc.php:95 index.php:185
 #: lib/templates/entrenamientos.inc.php:17
 #: lib/templates/final_individual.inc.php:28
 #: lib/templates/final_last_individual.inc.php:35
@@ -209,7 +209,7 @@ msgstr "Gu&iacute;a"
 #: videowall/vwc_parciales.php:229 console/dialogs/dlg_chguias.inc:114
 #: console/dialogs/dlg_chperros.inc:152 console/dialogs/dlg_competicion.inc:124
 #: console/dialogs/dlg_editInscripcion.inc:48
-#: console/dialogs/dlg_entrenamientos.inc:179 console/dialogs/dlg_guias.inc:45
+#: console/dialogs/dlg_entrenamientos.inc:180 console/dialogs/dlg_guias.inc:45
 #: console/dialogs/dlg_newInscripcion.inc:156
 #: console/dialogs/dlg_ordensalida.inc:170 console/dialogs/dlg_perros.inc:191
 #: console/dialogs/dlg_pruebas.inc:49 console/dialogs/dlg_selectJornada.inc:85
@@ -236,7 +236,7 @@ msgstr "Categor&iacute;a"
 #: console/frm_equipos.php:224 console/frm_guias.php:150
 #: console/frm_inscripciones2.php:232 console/frm_paises.php:226
 #: console/frm_perros.php:137 console/frm_perros.php:182
-#: console/import/import_perros.inc.php:91 livestream/vwls_osdvideo.php:91
+#: console/import/import_perros.inc.php:93 livestream/vwls_osdvideo.php:91
 #: public/pb_inscripciones.php:107 public/pb_inscripciones_equipos.php:155
 #: public/pbmenu_inscripciones.php:107
 #: public/pbmenu_inscripciones_equipos.php:160
@@ -306,22 +306,21 @@ msgstr "Reh&uacute;se"
 msgid "Eliminated"
 msgstr "Eliminado"
 
-#: chrono/chrono.inc.php:100 console/import/import.js.php:365
-#: console/import/import.js.php:370 scripts/common.js.php:323
-#: scripts/common.js.php:347 scripts/common.js.php:370
-#: scripts/common.js.php:603 scripts/common.js.php:615
-#: scripts/common.js.php:627 scripts/common.js.php:642
-#: scripts/competicion.js.php:297 scripts/competicion.js.php:326
-#: scripts/competicion.js.php:396 scripts/competicion.js.php:403
-#: scripts/competicion.js.php:415 scripts/competicion.js.php:687
-#: scripts/competicion.js.php:706 scripts/competicion.js.php:920
-#: scripts/competicion.js.php:938 scripts/competicion.js.php:1049
-#: scripts/competicion.js.php:1053 scripts/competicion.js.php:1175
-#: scripts/competicion.js.php:1232 scripts/entrenamientos.js.php:84
-#: scripts/entrenamientos.js.php:180 scripts/equipos.js.php:70
-#: scripts/equipos.js.php:123 scripts/equipos.js.php:317
-#: scripts/guias.js.php:87 scripts/guias.js.php:158 scripts/guias.js.php:181
-#: scripts/guias.js.php:209 scripts/guias.js.php:239
+#: chrono/chrono.inc.php:100 console/import/import.js.php:380
+#: scripts/common.js.php:323 scripts/common.js.php:347
+#: scripts/common.js.php:370 scripts/common.js.php:599
+#: scripts/common.js.php:611 scripts/common.js.php:623
+#: scripts/common.js.php:638 scripts/competicion.js.php:297
+#: scripts/competicion.js.php:326 scripts/competicion.js.php:396
+#: scripts/competicion.js.php:403 scripts/competicion.js.php:415
+#: scripts/competicion.js.php:687 scripts/competicion.js.php:706
+#: scripts/competicion.js.php:920 scripts/competicion.js.php:938
+#: scripts/competicion.js.php:1049 scripts/competicion.js.php:1053
+#: scripts/competicion.js.php:1175 scripts/competicion.js.php:1232
+#: scripts/entrenamientos.js.php:84 scripts/entrenamientos.js.php:180
+#: scripts/equipos.js.php:70 scripts/equipos.js.php:123
+#: scripts/equipos.js.php:317 scripts/guias.js.php:87 scripts/guias.js.php:158
+#: scripts/guias.js.php:181 scripts/guias.js.php:209 scripts/guias.js.php:239
 #: scripts/inscripciones.js.php:68 scripts/inscripciones.js.php:191
 #: scripts/inscripciones.js.php:235 scripts/jueces.js.php:90
 #: scripts/perros.js.php:183 scripts/perros.js.php:203
@@ -342,7 +341,7 @@ msgid "Error"
 msgstr "Error"
 
 #: chrono/chrono.inc.php:102 console/dialogs/dlg_competicion.inc:46
-#: console/dialogs/dlg_entrenamientos.inc:101 console/dialogs/dlg_tools.inc:19
+#: console/dialogs/dlg_entrenamientos.inc:102 console/dialogs/dlg_tools.inc:19
 msgid "Reset"
 msgstr "Reset"
 
@@ -508,7 +507,7 @@ msgstr "Gu&iacute;a"
 #: console/frm_equipos.php:142 console/frm_equipos.php:223
 #: console/frm_equipos.php:294 console/frm_guias.php:149
 #: console/frm_inscripciones2.php:231 console/frm_perros.php:136
-#: console/frm_perros.php:181 console/import/import_perros.inc.php:90
+#: console/frm_perros.php:181 console/import/import_perros.inc.php:92
 #: lib/templates/final_individual.inc.php:23
 #: lib/templates/final_last_individual.inc.php:30
 #: lib/templates/final_last_teams.inc.php:32
@@ -560,14 +559,14 @@ msgstr "Equipo"
 
 #: chrono/chrono.js.php:164 chrono/chrono.js.php:261 console/frm_clubes.php:103
 #: console/frm_jueces.php:90 console/frm_paises.php:81
-#: console/import/import_clubes.inc.php:99 modules/Federations.php:147
+#: console/import/import_clubes.inc.php:100 modules/Federations.php:147
 #: scripts/datagrid_formatters.js.php:154
 #: scripts/datagrid_formatters.js.php:480
-#: scripts/datagrid_formatters.js.php:490 server/excel/dog_reader.php:358
+#: scripts/datagrid_formatters.js.php:490 server/excel/dog_reader.php:363
 #: server/pdf/print_common.php:187 server/pdf/print_entrenamientos.php:64
 #: server/pdf/print_listaPerros.php:60 console/dialogs/dlg_clubes.inc:76
 #: console/dialogs/dlg_clubes.inc:173
-#: console/dialogs/dlg_entrenamientos.inc:179 console/dialogs/dlg_jueces.inc:48
+#: console/dialogs/dlg_entrenamientos.inc:180 console/dialogs/dlg_jueces.inc:48
 #: console/dialogs/dlg_jueces.inc:114
 msgid "Country"
 msgstr "Pa&iacute;s"
@@ -591,10 +590,10 @@ msgstr "Fallo de sensores"
 #: videowall/vw_ordensalida.php:37 videowall/vw_parciales.php:44
 #: videowall/vwc_finales.php:45 videowall/vwc_parciales.php:45
 #: videowall/vws_entrenamientos.php:37
-#: console/dialogs/dlg_entrenamientos.inc:195
-#: console/dialogs/dlg_entrenamientos.inc:201
-#: console/dialogs/dlg_entrenamientos.inc:207
-#: console/dialogs/dlg_entrenamientos.inc:213
+#: console/dialogs/dlg_entrenamientos.inc:196
+#: console/dialogs/dlg_entrenamientos.inc:202
+#: console/dialogs/dlg_entrenamientos.inc:208
+#: console/dialogs/dlg_entrenamientos.inc:214
 msgid "Ring"
 msgstr "Ring"
 
@@ -806,7 +805,7 @@ msgstr "Restaurar"
 #: console/dialogs/infomanga.php:325 console/dialogs/dlg_competicion.inc:145
 #: console/dialogs/dlg_configuracion.inc:419
 #: console/dialogs/dlg_configuracion.inc:449
-#: console/dialogs/dlg_entrenamientos.inc:97 console/dialogs/dlg_equipos.inc:57
+#: console/dialogs/dlg_entrenamientos.inc:98 console/dialogs/dlg_equipos.inc:57
 #: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:137
 #: console/dialogs/dlg_jueces.inc:84 console/dialogs/dlg_perros.inc:94
 #: console/dialogs/dlg_pruebas.inc:77 console/dialogs/dlg_sesiones.inc:75
@@ -889,7 +888,7 @@ msgstr "Versi&oacute;n"
 #: server/pdf/print_clasificacion_excel.php:105 server/pdf/print_common.php:310
 #: server/pdf/print_entrenamientos.php:66 server/pdf/print_podium.php:80
 #: server/pdf/print_trsTemplates.php:80
-#: console/dialogs/dlg_entrenamientos.inc:180
+#: console/dialogs/dlg_entrenamientos.inc:181
 #: console/dialogs/dlg_jornadas.inc:43
 msgid "Date"
 msgstr "Fecha"
@@ -957,9 +956,9 @@ msgstr "Borrar usuario"
 #: console/frm_equipos.php:39 console/frm_guias.php:42
 #: console/frm_inscripciones2.php:109 console/frm_jueces.php:42
 #: console/frm_paises.php:35 console/frm_perros.php:72
-#: console/frm_pruebas.php:42 scripts/common.js.php:945
-#: scripts/common.js.php:946 scripts/common.js.php:959
-#: scripts/common.js.php:971 scripts/equipos.js.php:28 server/tools.php:219
+#: console/frm_pruebas.php:42 scripts/common.js.php:941
+#: scripts/common.js.php:942 scripts/common.js.php:955
+#: scripts/common.js.php:967 scripts/equipos.js.php:28 server/tools.php:219
 #: console/dialogs/dlg_newInscripcion.inc:34 console/dialogs/dlg_plugins.inc:17
 msgid "-- Search --"
 msgstr "-- Buscar --"
@@ -1223,7 +1222,7 @@ msgstr "Lista de dorsales"
 #: console/frm_clasificaciones2.php:112
 #: console/frm_clasificaciones_equipos.php:113 console/frm_equipos.php:46
 #: console/frm_inscripciones2.php:124 console/frm_perros.php:81
-#: console/dialogs/dlg_entrenamientos.inc:112
+#: console/dialogs/dlg_entrenamientos.inc:113
 #: console/dialogs/dlg_ordensalida.inc:59
 #: console/dialogs/dlg_ordentandas.inc:46
 #: console/dialogs/dlg_resultados_equipos.inc:41
@@ -1355,7 +1354,7 @@ msgstr "Desasignar gu&iacute;a"
 #: console/frm_guias.php:191 console/frm_paises.php:187
 #: console/frm_paises.php:266 console/frm_pruebas.php:201
 #: console/dialogs/dlg_clubes.inc:39 console/dialogs/dlg_competicion.inc:34
-#: console/dialogs/dlg_entrenamientos.inc:110
+#: console/dialogs/dlg_entrenamientos.inc:111
 #: console/dialogs/dlg_ordentandas.inc:44
 #: console/dialogs/dlg_resultados_equipos.inc:39
 #: console/dialogs/dlg_resultados_individual.inc:39
@@ -1575,8 +1574,8 @@ msgstr "Hecho"
 #: console/dialogs/dlg_clubes.inc:41 console/dialogs/dlg_clubes.inc:140
 #: console/dialogs/dlg_competicion.inc:146
 #: console/dialogs/dlg_editInscripcion.inc:96
-#: console/dialogs/dlg_entrenamientos.inc:82
-#: console/dialogs/dlg_entrenamientos.inc:99 console/dialogs/dlg_guias.inc:62
+#: console/dialogs/dlg_entrenamientos.inc:83
+#: console/dialogs/dlg_entrenamientos.inc:100 console/dialogs/dlg_guias.inc:62
 #: console/dialogs/dlg_jornadas.inc:139 console/dialogs/dlg_jueces.inc:86
 #: console/dialogs/dlg_ordentandas.inc:81 console/dialogs/dlg_perros.inc:96
 #: console/dialogs/dlg_pruebas.inc:79 console/dialogs/dlg_selectJornada.inc:44
@@ -1765,7 +1764,7 @@ msgid "Inscriptions - Registering form"
 msgstr "Inscripciones - Formulario de registro"
 
 #: console/frm_inscripciones2.php:46 console/frm_perros.php:32
-#: console/dialogs/dlg_entrenamientos.inc:80
+#: console/dialogs/dlg_entrenamientos.inc:81
 msgid "Import"
 msgstr "Importar"
 
@@ -1788,7 +1787,7 @@ msgstr "Reordenar"
 
 #: console/frm_inscripciones2.php:119 console/frm_perros.php:78
 #: scripts/entrenamientos.js.php:133 scripts/perros.js.php:309
-#: console/dialogs/dlg_entrenamientos.inc:108
+#: console/dialogs/dlg_entrenamientos.inc:109
 msgid "Import/Export"
 msgstr "Importar/Exportar"
 
@@ -1918,7 +1917,7 @@ msgstr "Importar inscripciones desde el fichero Excel seleccionado"
 #: console/frm_registration.php:128 console/dialogs/dlg_chguias.inc:82
 #: console/dialogs/dlg_chperros.inc:112 console/dialogs/dlg_clubes.inc:148
 #: console/dialogs/dlg_clubes.inc:150
-#: console/dialogs/dlg_entrenamientos.inc:291 console/dialogs/dlg_guias.inc:79
+#: console/dialogs/dlg_entrenamientos.inc:292 console/dialogs/dlg_guias.inc:79
 #: console/dialogs/dlg_jornadas.inc:286 console/dialogs/dlg_jueces.inc:123
 #: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:115
 #: console/dialogs/dlg_pruebas.inc:108 console/dialogs/dlg_sesiones.inc:88
@@ -2163,7 +2162,7 @@ msgstr "Actualizando lista de perros"
 msgid "Handler name"
 msgstr "Nombre del gu&iacute;a"
 
-#: console/frm_perros.php:186 console/import/import_clubes.inc.php:97
+#: console/frm_perros.php:186 console/import/import_clubes.inc.php:98
 #: console/dialogs/dlg_guias.inc:119 console/dialogs/dlg_pruebas.inc:178
 msgid "Club name"
 msgstr "Nombre del Club"
@@ -2401,105 +2400,97 @@ msgstr "Cerrar"
 msgid "Import license file into application"
 msgstr "Importar fichero de licencia en la aplicaci&oacute;n"
 
-#: console/import/import.js.php:64 console/import/import.js.php:97
-#: console/import/import.js.php:131
+#: console/import/import.js.php:75 console/import/import.js.php:108
+#: console/import/import.js.php:142
 msgid "not found in database"
 msgstr "no encontrado en la base de datos"
 
-#: console/import/import.js.php:65 console/import/import.js.php:98
-#: console/import/import.js.php:132
+#: console/import/import.js.php:76 console/import/import.js.php:109
+#: console/import/import.js.php:143
 msgid "Please select/edit existing one or create new entry"
 msgstr "Seleccione y/o edite una entrada existente o cree una nueva"
 
-#: console/import/import.js.php:69 console/import/import.js.php:102
-#: console/import/import.js.php:136
+#: console/import/import.js.php:80 console/import/import.js.php:113
+#: console/import/import.js.php:147
 msgid "Entry not found"
 msgstr "Entrada no encontrada"
 
-#: console/import/import.js.php:74 console/import/import.js.php:107
-#: console/import/import.js.php:141
+#: console/import/import.js.php:85 console/import/import.js.php:118
+#: console/import/import.js.php:152
 msgid "data missmatch (*) with existing one in database"
 msgstr "datos en conflicto con los existentes en la base de datos"
 
-#: console/import/import.js.php:75 console/import/import.js.php:108
-#: console/import/import.js.php:142
+#: console/import/import.js.php:86 console/import/import.js.php:119
+#: console/import/import.js.php:153
 msgid "Please enter right values and accept or create new entry"
 msgstr ""
 "Por favor, indique los valores correctos y pulse aceptar, o cree una nueva "
 "entrada"
 
-#: console/import/import.js.php:79 console/import/import.js.php:112
-#: console/import/import.js.php:146
+#: console/import/import.js.php:90 console/import/import.js.php:123
+#: console/import/import.js.php:157
 msgid "Data missmatch"
 msgstr "Datos no compatibles"
 
-#: console/import/import.js.php:84 console/import/import.js.php:118
-#: console/import/import.js.php:153
+#: console/import/import.js.php:95 console/import/import.js.php:129
+#: console/import/import.js.php:164
 msgid "provided data are compatible with"
 msgstr "los datos indicados son compatibles con"
 
-#: console/import/import.js.php:85 console/import/import.js.php:119
-#: console/import/import.js.php:154
+#: console/import/import.js.php:96 console/import/import.js.php:130
+#: console/import/import.js.php:165
 msgid "more than one existing in database"
 msgstr "mas de una entrada existente en la base de datos"
 
-#: console/import/import.js.php:86 console/import/import.js.php:120
-#: console/import/import.js.php:155
+#: console/import/import.js.php:97 console/import/import.js.php:131
+#: console/import/import.js.php:166
 msgid "Please select right one or create new entry"
 msgstr "Seleccione y/o edite la entrada correcta o cree una nueva"
 
-#: console/import/import.js.php:90 console/import/import.js.php:124
-#: console/import/import.js.php:159
+#: console/import/import.js.php:101 console/import/import.js.php:135
+#: console/import/import.js.php:170
 msgid "Must choose"
 msgstr "Seleccion requerida"
 
-#: console/import/import.js.php:190 console/import/import.js.php:216
+#: console/import/import.js.php:204 console/import/import.js.php:230
 msgid "Import from Excel error"
 msgstr "Error de importaci&oacute;n desde Excel"
 
-#: console/import/import.js.php:224
+#: console/import/import.js.php:238
 msgid "Checking Excel File"
 msgstr "Verificando fichero Excel"
 
-#: console/import/import.js.php:230
+#: console/import/import.js.php:243
 msgid "Starting data import"
 msgstr "Comienzo de importacion"
 
-#: console/import/import.js.php:242
+#: console/import/import.js.php:256
 msgid "Club/Country not found or missmatch"
 msgstr "Club/pa&iacute;s no encontrado o no coincidente"
 
-#: console/import/import.js.php:243
+#: console/import/import.js.php:257
 msgid "This is not allowed when importing in blind mode"
 msgstr "Esto no est&aacute; permitido importando en modo no interactivo"
 
-#: console/import/import.js.php:244
+#: console/import/import.js.php:258
 msgid "Import aborted."
 msgstr "Importaci&oacute;n cancelada"
 
-#: console/import/import.js.php:246
+#: console/import/import.js.php:260
 msgid "Blind mode import"
 msgstr "Importaci&oacute;n no interactiva"
 
-#: console/import/import.js.php:293
+#: console/import/import.js.php:306
 msgid "Import Done"
 msgstr "Importaci&oacute;n completada"
 
-#: console/import/import.js.php:293
+#: console/import/import.js.php:306
 msgid "Import from Excel File Done"
 msgstr "Proceso de importaci&oacute;n desde Excel completado"
 
-#: console/import/import.js.php:365
+#: console/import/import.js.php:380
 msgid "No import file selected"
 msgstr "No se ha indicado fichero a importar"
-
-#: console/import/import.js.php:371
-msgid "Interactive import is not yet available"
-msgstr "Importaci&oacute;n en modo interactivo disponible todav&iacute;a"
-
-#: console/import/import.js.php:371
-msgid "Sorry"
-msgstr "Lo siento"
 
 #: console/import/import_clubes.inc.php:27
 msgid "Club data Import"
@@ -2522,37 +2513,37 @@ msgstr "Seleccionar"
 
 #: console/import/import_clubes.inc.php:52
 #: console/import/import_handlers.inc.php:52
-#: lib/templates/import_dialog.inc.php:49
+#: lib/templates/import_dialog.inc.php:50
 #: console/dialogs/dlg_configuracion.inc:127
-#: console/dialogs/dlg_entrenamientos.inc:64
+#: console/dialogs/dlg_entrenamientos.inc:65
 msgid "Ignore"
 msgstr "Ignorar"
 
-#: console/import/import_clubes.inc.php:68
+#: console/import/import_clubes.inc.php:69
 msgid "Open dialog to create new club"
 msgstr "Abrir di&aacute;logo de creaci&oacute;n de clubes"
 
-#: console/import/import_clubes.inc.php:77
+#: console/import/import_clubes.inc.php:78
 msgid "Use selected club and update club info"
 msgstr "Usar el club seleccionado en los datos importados"
 
-#: console/import/import_clubes.inc.php:78
+#: console/import/import_clubes.inc.php:79
 msgid "Ignore entry. do not import into database"
 msgstr "Ignorar esta entrada y las relacionadas. no importar en base de datos"
 
-#: console/import/import_clubes.inc.php:79
+#: console/import/import_clubes.inc.php:80
 msgid "Clear club selection"
 msgstr "Borrar selecci&oacute;n de club"
 
-#: console/import/import_clubes.inc.php:98 console/dialogs/dlg_clubes.inc:65
+#: console/import/import_clubes.inc.php:99 console/dialogs/dlg_clubes.inc:65
 #: console/dialogs/dlg_clubes.inc:198 console/dialogs/dlg_guias.inc:120
 #: console/dialogs/dlg_pruebas.inc:179
 msgid "Province"
 msgstr "Provincia"
 
-#: console/import/import_handlers.inc.php:26 console/dialogs/dlg_chguias.inc:26
-msgid "Handler re-asignation"
-msgstr "Re-asignacion de gu&iacute;s"
+#: console/import/import_handlers.inc.php:26
+msgid "Handler import"
+msgstr "Importar gu&iacute;a"
 
 #: console/import/import_handlers.inc.php:44
 #: console/import/import_perros.inc.php:44
@@ -2604,7 +2595,7 @@ msgstr "Iniciar Sesi&oacute;n"
 msgid "DATABASE"
 msgstr "BASE DE DATOS"
 
-#: console/index.php:209 scripts/common.js.php:684
+#: console/index.php:209 scripts/common.js.php:680
 msgid "Clubs"
 msgstr "Clubes"
 
@@ -2623,10 +2614,10 @@ msgstr "Gesti&oacute;n de datos de Perros"
 #: console/index.php:211 public/pb_programa.php:101
 #: public/pbmenu_programa.php:105 server/excel/dog_writer.php:65
 #: console/dialogs/dlg_configuracion.inc:36
-#: console/dialogs/dlg_entrenamientos.inc:198
-#: console/dialogs/dlg_entrenamientos.inc:204
-#: console/dialogs/dlg_entrenamientos.inc:210
-#: console/dialogs/dlg_entrenamientos.inc:216
+#: console/dialogs/dlg_entrenamientos.inc:199
+#: console/dialogs/dlg_entrenamientos.inc:205
+#: console/dialogs/dlg_entrenamientos.inc:211
+#: console/dialogs/dlg_entrenamientos.inc:217
 msgid "Dogs"
 msgstr "Perros"
 
@@ -2797,28 +2788,28 @@ msgstr "Inscripciones"
 
 #: lib/templates/entrenamientos.inc.php:19
 #: server/excel/trainingtable_writer.php:52
-#: console/dialogs/dlg_entrenamientos.inc:183
+#: console/dialogs/dlg_entrenamientos.inc:184
 msgid "Check-in"
 msgstr "Firma"
 
 #: lib/templates/entrenamientos.inc.php:20
 #: server/excel/trainingtable_writer.php:52
 #: server/pdf/print_entrenamientos.php:66
-#: console/dialogs/dlg_entrenamientos.inc:186
+#: console/dialogs/dlg_entrenamientos.inc:187
 msgid "Veterinary"
 msgstr "Veterinario"
 
 #: lib/templates/entrenamientos.inc.php:21
 #: server/excel/trainingtable_writer.php:52
 #: server/pdf/print_entrenamientos.php:66
-#: console/dialogs/dlg_entrenamientos.inc:189
+#: console/dialogs/dlg_entrenamientos.inc:190
 msgid "Start"
 msgstr "Inicio"
 
 #: lib/templates/entrenamientos.inc.php:22
 #: server/excel/trainingtable_writer.php:52
 #: server/pdf/print_entrenamientos.php:66
-#: console/dialogs/dlg_entrenamientos.inc:192
+#: console/dialogs/dlg_entrenamientos.inc:193
 msgid "Duration"
 msgstr "Duracion"
 
@@ -3143,57 +3134,57 @@ msgstr "Puslsa Importar para empezar, o Cancelar para anular"
 msgid "Blind (non-interactive) mode"
 msgstr "Importaci&oacute;n no interactiva"
 
-#: lib/templates/import_dialog.inc.php:34
-#: console/dialogs/dlg_entrenamientos.inc:51
+#: lib/templates/import_dialog.inc.php:35
+#: console/dialogs/dlg_entrenamientos.inc:52
 msgid "Options for non-interactive import"
 msgstr "Configuraci&oacute;n"
 
-#: lib/templates/import_dialog.inc.php:35
-#: console/dialogs/dlg_entrenamientos.inc:52
+#: lib/templates/import_dialog.inc.php:36
+#: console/dialogs/dlg_entrenamientos.inc:53
 msgid "Precedence on DB/Excel entry match"
 msgstr "Prioridad en caso de coincidencia"
 
-#: lib/templates/import_dialog.inc.php:37
-#: console/dialogs/dlg_entrenamientos.inc:54
+#: lib/templates/import_dialog.inc.php:38
+#: console/dialogs/dlg_entrenamientos.inc:55
 msgid "Database"
 msgstr "Base de datos"
 
-#: lib/templates/import_dialog.inc.php:39
-#: console/dialogs/dlg_entrenamientos.inc:56
+#: lib/templates/import_dialog.inc.php:40
+#: console/dialogs/dlg_entrenamientos.inc:57
 msgid "Excel file"
 msgstr "Fichero excel"
 
-#: lib/templates/import_dialog.inc.php:41
-#: console/dialogs/dlg_entrenamientos.inc:57
+#: lib/templates/import_dialog.inc.php:42
+#: console/dialogs/dlg_entrenamientos.inc:58
 msgid "Text Conversion"
 msgstr "Conversi&oacute;n del texto"
 
-#: lib/templates/import_dialog.inc.php:43
-#: console/dialogs/dlg_entrenamientos.inc:59
+#: lib/templates/import_dialog.inc.php:44
+#: console/dialogs/dlg_entrenamientos.inc:60
 msgid "Capitalize words"
 msgstr "Inicial en may&uacute;sculas"
 
-#: lib/templates/import_dialog.inc.php:45
-#: console/dialogs/dlg_entrenamientos.inc:61
+#: lib/templates/import_dialog.inc.php:46
+#: console/dialogs/dlg_entrenamientos.inc:62
 msgid "Leave as is"
 msgstr "Dejar como est&aacute;"
 
-#: lib/templates/import_dialog.inc.php:47
-#: console/dialogs/dlg_entrenamientos.inc:62
+#: lib/templates/import_dialog.inc.php:48
+#: console/dialogs/dlg_entrenamientos.inc:63
 msgid "Action on empty fields"
 msgstr "Acci&oacute;n ante campos vac&iacute;os"
 
-#: lib/templates/import_dialog.inc.php:51
-#: console/dialogs/dlg_entrenamientos.inc:66
+#: lib/templates/import_dialog.inc.php:52
+#: console/dialogs/dlg_entrenamientos.inc:67
 msgid "Overwrite"
 msgstr "Sobre-escribir"
 
-#: lib/templates/import_dialog.inc.php:57
-#: console/dialogs/dlg_entrenamientos.inc:72
+#: lib/templates/import_dialog.inc.php:58
+#: console/dialogs/dlg_entrenamientos.inc:73
 msgid "Import status"
 msgstr "Importar estado"
 
-#: lib/templates/import_dialog.inc.php:73
+#: lib/templates/import_dialog.inc.php:74
 msgid "Assume no coherency errors with current database data"
 msgstr "Asumir que no hay incoherencias con los datos existentes en la BBDD"
 
@@ -3409,6 +3400,10 @@ msgstr "Recorrido com&uacute;n"
 #: modules/Federations.php:21
 msgid "Separate courses"
 msgstr "Recorridos separados"
+
+#: modules/Federations.php:22
+msgid "LongName"
+msgstr "NombreLargo"
 
 #: modules/federaciones/intl3/config.php:55
 #: modules/federaciones/intl3/config.php:56
@@ -3944,7 +3939,7 @@ msgstr "Gesti&oacute;n de datos de Clubes"
 msgid "Countries Database Info"
 msgstr "Informaci&oacute;n de pa&iacute;ses en la BBDD"
 
-#: scripts/common.js.php:681
+#: scripts/common.js.php:677
 msgid "Countries"
 msgstr "Pa&iacute;ses"
 
@@ -5270,6 +5265,10 @@ msgstr "PTim"
 msgid "Tim"
 msgstr "Tmp"
 
+#: console/dialogs/dlg_chguias.inc:26
+msgid "Handler re-asignation"
+msgstr "Re-asignaci&oacute;n de gu&iacute;as"
+
 #: console/dialogs/dlg_chguias.inc:70
 msgid "Reassign"
 msgstr "Reasignar"
@@ -6130,48 +6129,48 @@ msgid "Cancel changes. Close window"
 msgstr "Cancelar modificaciones. Cerrar ventana"
 
 #: console/dialogs/dlg_entrenamientos.inc:28
-#: console/dialogs/dlg_entrenamientos.inc:125
+#: console/dialogs/dlg_entrenamientos.inc:126
 msgid "Import training session timetable from Excel file"
 msgstr "Importar tabla de entrenamientos desde fichero Excel"
 
-#: console/dialogs/dlg_entrenamientos.inc:103
+#: console/dialogs/dlg_entrenamientos.inc:104
 msgid "Eval"
 msgstr "Calcular"
 
-#: console/dialogs/dlg_entrenamientos.inc:166
+#: console/dialogs/dlg_entrenamientos.inc:167
 msgid "Updating training session timetable for contest"
 msgstr "Actualizando sesi&oacute;n de entrenamientos de la prueba"
 
-#: console/dialogs/dlg_entrenamientos.inc:283
+#: console/dialogs/dlg_entrenamientos.inc:284
 msgid "Save changes to training session being edited"
 msgstr "Guardar los cambios editados en el entrenamiento"
 
-#: console/dialogs/dlg_entrenamientos.inc:284
+#: console/dialogs/dlg_entrenamientos.inc:285
 msgid "Cancel changes. Restore previous values"
 msgstr "Anular cambios. Restaurar valores originales"
 
-#: console/dialogs/dlg_entrenamientos.inc:285
+#: console/dialogs/dlg_entrenamientos.inc:286
 msgid "Re-create training table from inscription data"
 msgstr ""
 "Regenerar sesi&oacute;n de entrenamientos con datos de las inscripciones"
 
-#: console/dialogs/dlg_entrenamientos.inc:286
+#: console/dialogs/dlg_entrenamientos.inc:287
 msgid "Refresh training session timetable from database"
 msgstr "Actualizar sesi&oacute;n de entrenamientos"
 
-#: console/dialogs/dlg_entrenamientos.inc:287
+#: console/dialogs/dlg_entrenamientos.inc:288
 msgid "Import/export session from/to Excel file"
 msgstr "Importar/Exportar sesi&oacute;n desde/hacia fichero Excel"
 
-#: console/dialogs/dlg_entrenamientos.inc:288
+#: console/dialogs/dlg_entrenamientos.inc:289
 msgid "Print training session timetable"
 msgstr "Imprimir la sesi&oacute;n de entrenamientos de la prueba"
 
-#: console/dialogs/dlg_entrenamientos.inc:289
+#: console/dialogs/dlg_entrenamientos.inc:290
 msgid "Recalculate timetable values starting at selected row"
 msgstr "Recalcular los horarios desde la fila seleccionada"
 
-#: console/dialogs/dlg_entrenamientos.inc:290
+#: console/dialogs/dlg_entrenamientos.inc:291
 msgid "Import training session data from selected Excel file"
 msgstr "Importar tabla de entrenamientos desde el fichero Excel seleccionado"
 
@@ -6645,6 +6644,12 @@ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 #: console/dialogs/dlg_usuarios.inc:106
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
+
+#~ msgid "Interactive import is not yet available"
+#~ msgstr "Importaci&oacute;n en modo interactivo disponible todav&iacute;a"
+
+#~ msgid "Sorry"
+#~ msgstr "Lo siento"
 
 #~ msgid "Import as new club with provided data"
 #~ msgstr "Importar como nuevo club con los datos proporcionados"

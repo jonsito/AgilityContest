@@ -21,9 +21,9 @@ require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
-<!-- FORMULARIO DE REASIGNACION DE GUIAS -->
+<!-- FORMULARIO DE IMPORTACION DE GUIAS -->
     <div id="importGuia-dialog" style="width:550px;height:auto;padding:10px 20px;">
-        <div id="importGuia-title" class="ftitle"><?php _e('Handler re-asignation'); ?></div>
+        <div id="importGuia-title" class="ftitle"><?php _e('Handler import'); ?></div>
         <p><span id="importGuia-Text"></span></p>
         <form id="importGuia-header">
         	<div class="fitem">

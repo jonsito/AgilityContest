@@ -19,7 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /* for poedit */
 $dummy= _('Common course');
 $dummy= _('Separate courses');
-/* for poedit */
+$dummy= _('LongName');
 
 class Federations {
     protected $config = array (

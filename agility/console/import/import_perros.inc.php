@@ -21,7 +21,7 @@ require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
-<!-- FORMULARIO DE REASIGNACION DE UN PERRO-->
+<!-- FORMULARIO DE IMPORTACION DE UN PERRO-->
     <div id="importPerro-dialog" style="width:550px;height:auto;padding:10px 20px;">
         <div id="importPerro-title" class="ftitle"><?php _e('Dog import'); ?></div>
         <p><span id="importPerro-Text"></span></p>

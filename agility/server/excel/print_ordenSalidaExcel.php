@@ -57,7 +57,7 @@ class excel_ordenSalida extends XLSX_Writer {
         $this->validcats=$categorias;
         // set up fields according international or national contests
         if ($this->federation->isInternational()) {
-            $this->header = array( 'Order','Dorsal','Name','Pedigree Name','Gender','Breed','Category','Grade','Handler','Country','Heat','Comments','LOE_RRC');
+            $this->header = array( 'Order','Dorsal','Name','LongName','Gender','Breed','Category','Grade','Handler','Country','Heat','Comments','LOE_RRC');
             $this->fields = array( 'Orden','Dorsal','Nombre','NombreLargo','Genero','Raza','Categoria','Grado','NombreGuia','Pais','Celo','Observaciones','LOE_RRC');
         } else {
             $this->header   = array( 'Order','Dorsal','Name','Gender','Breed','License','Category','Grade','Handler','Club','Country','Heat','Coments','LOE_RRC');

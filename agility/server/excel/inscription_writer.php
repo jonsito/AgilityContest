@@ -34,7 +34,7 @@ class Excel_Inscripciones extends XLSX_Writer {
 
     protected $cols = array(
 		'Dorsal',
-		'Name','Pedigree Name','Gender','Breed','License','KC id','Category','Grade','Handler','Club','Country', // datos del perro
+		'Name','LongName','Gender','Breed','License','KC id','Category','Grade','Handler','Club','Country', // datos del perro
 		'Heat','Comments' // Jornada1, Jornada2, // datos de la inscripcion en la jornada
 	);
     protected $fields = array(

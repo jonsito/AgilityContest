@@ -40,7 +40,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
 
     protected $cols = array(
 		'Dorsal',
-		'Name','Pedigree Name','Gender','Breed','License','KC id','Category','Grade','Handler','Club','Country', // datos del perro
+		'Name','LongName','Gender','Breed','License','KC id','Category','Grade','Handler','Club','Country', // datos del perro
 		'Team','Heat','Comments', // datos de la inscripcion en la jornada
 		'F1','R1','E1','N1','Tiempo1','Penal1', // datos de la manga 1
 		'F2','R2','E2','N2','Tiempo2','Penal2', // datos de la manga 2

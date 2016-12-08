@@ -57,7 +57,7 @@ class DogReader {
         // 'ID' =>      array (  -1,  0,  "i", "ID",        " `ID` int(4) UNIQUE NOT NULL, "), // automatically added
         'DogID' =>      array (  -2,  0,  "i", "DogID",     " `DogID` int(4) NOT NULL DEFAULT 0, "), // to be filled by importer
         'Name'   =>      array (  -3,  1,  "s","Nombre",    " `Nombre` varchar(255) NOT NULL, "), // Dog name
-        'LongName' =>   array (  -4,  -1, "s", "NombreLargo","`NombreLargo` varchar(255) DEFAULT '', "), // dog pedigree long name
+        'LongName' =>   array (  -4,  -1, "s", "NombreLargo"," `NombreLargo` varchar(255) DEFAULT '', "), // dog pedigree long name
         'Gender' =>     array (  -5,  -1, "s", "Genero",    " `Genero` varchar(16) DEFAULT '', "), // M, F, Male/Female
         'Breed' =>      array (  -6,  -1, "s", "Raza",      " `Raza` varchar(255) DEFAULT '', "), // dog breed, optional
         'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '', "), // dog license. required for A2-A3;
@@ -327,22 +327,27 @@ class DogReader {
      * @return string
      */
     private function import_mixData($dbdata,$filedata,$ucase=true) {
+        $uppercase=intval($this->myOptions['WordUpperCase']);
+        $dbpriority=intval($this->myOptions['DBPriority']);
+        $ignorewhitespaces=intval($this->myOptions['IgnoreWhiteSpaces']);
         // dbdata is already escaped, so do only on $filedata
         $filedata=$this->myDBObject->conn->real_escape_string($filedata);
         // handle word uppercase
-        if($ucase && ($this->myOptions['WordUpperCase']!=0) ) {
+        if($ucase && ($uppercase!=0) ) {
             $dbdata=toUpperCaseWords($dbdata);
             $filedata=toUpperCaseWords($filedata);
         }
         // take care on precedence and empty fields
-        if($this->myOptions['DBPriority']!=0) { // database has priority
-            if ($this->myOptions['IgnoreWhiteSpaces']!=0) return $dbdata;
-            if ($dbdata!="") return $dbdata;
-            return $filedata;
-        } else { // excel file has priority
-            if ($this->myOptions['IgnoreWhiteSpaces']!=0) return $filedata;
-            if ($filedata!="") return $filedata;
+        if($dbpriority!=0) {
+            // database has priority
+            if ($ignorewhitespaces!=0) return $dbdata;
+            if ($dbdata=="") return $filedata; // no dbdata, try to use excel
             return $dbdata;
+        } else {
+            // excel file has priority
+            if ($ignorewhitespaces!=0) return $filedata;
+            if ($filedata=="") return $dbdata; // no file data, try to use dbdata
+            return $filedata;
         }
     }
 
@@ -451,8 +456,9 @@ class DogReader {
 
         // parse found entries looking for match
         for ($index=0;$index<$search['total'];$index++) {
-            // find right entry. if not found ask user
+            // find right entry. if not found iterate on next entry from query
             if ($search['rows'][$index]['Guia']!=$item['HandlerID']) continue;
+
             // arriving here means match found. So replace all instances with found data and return to continue import
             $i=$search['rows'][$index]['ID']; // id del perro
             $nombre=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Nombre']); // nombre del perro
@@ -463,26 +469,31 @@ class DogReader {
             $cat=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Categoria']); // licencia
             $grad=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Grado']); // licencia
             $sex=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Genero']); // sexo
-            if ($this->myOptions['Blind']) {
-                $nombre=$this->import_mixData($nombre,$item['Nombre']);
-                $nlargo=$this->import_mixData($nlargo,isset($item['NombreLargo'])?$item['NombreLargo']:"");
-                $raza=$this->import_mixData($raza,isset($item['Raza'])?$item['Raza']:"");
-                $lic=$this->import_mixData($lic,isset($item['Licencia'])?$item['Licencia']:"",false);
-                $loe=$this->import_mixData($loe,isset($item['LOE_RRC'])?$item['LOE_RRC']:"",false);
-                $cat=$this->import_mixData($cat,$item['Categoria'],false);
-                $grad=$this->import_mixData($grad,$item['Grado'],false);
-                $sex=$this->import_mixData($sex,$item['Genero'],false);
-            }
+
+            // rework data according translate rules
+            $nombre=$this->import_mixData($nombre,$item['Nombre']);
+            $nlargo=$this->import_mixData($nlargo,isset($item['NombreLargo'])?$item['NombreLargo']:"");
+            $raza=$this->import_mixData($raza,isset($item['Raza'])?$item['Raza']:"");
+            $lic=$this->import_mixData($lic,isset($item['Licencia'])?$item['Licencia']:"",false);
+            $loe=$this->import_mixData($loe,isset($item['LOE_RRC'])?$item['LOE_RRC']:"",false);
+            $cat=$this->import_mixData($cat,$item['Categoria'],false);
+            $grad=$this->import_mixData($grad,$item['Grado'],false);
+            $sex=$this->import_mixData($sex,$item['Genero'],false);
+
+            // and finally update temporary table with evaluated data
             $str="UPDATE $t SET DogID=$i, Nombre='$nombre', NombreLargo='$nlargo', Genero='$sex', Raza='$raza', Licencia='$lic', LOE_RRC='$loe', Categoria='$cat', Grado='$grad'".
                 "WHERE (Nombre = '$a')  AND (HandlerID=$h)";
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetDog(): update dog '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
-            return true; // tell parent item found. proceed with next
+
+            // tell parent item found. proceed with next
+            return true;
         }
 
         // in interactive mode, when no entries, or no matches or cannot decide ask user
         if ($this->myOptions['Blind']==0) return ($search['total']==0)? false /* no entries or no match */ : $search /* cannot decide */;
 
+        // in blind mode, create dog and update temporary table
         $c=$item['Categoria'];
         $g=$item['Grado'];
         $s=$item['Genero'];
@@ -637,29 +648,31 @@ class DogReader {
             if (!$res) return "UpdateEntry(): update handler '$name' Set Club error:".$this->myDBObject->conn->error;
         }
         else if ($options['Object']=="Perro") {
-            // obtenemos nombre del guia tal y como figura en la base de datos
+            // obtenemos nombre del perro tal y como figura en la base de datos
             $dbobj=$this->myDBObject->__selectObject("*","Perros","ID={$options['DatabaseID']}");
-            // evaluamos todos los parametros en funcion de los modos de imporatacion
+
+            // escapamos todos los textos para evitar problemas con las operaciones de la base de datos
             $nombre=$this->myDBObject->conn->real_escape_string($dbobj->Nombre); // nombre del perro
             $nlargo=$this->myDBObject->conn->real_escape_string($dbobj->NombreLargo); // nombre largo
             $raza=$this->myDBObject->conn->real_escape_string($dbobj->Raza); // raza
             $lic=$this->myDBObject->conn->real_escape_string($dbobj->Licencia); // licencia
             $loe=$this->myDBObject->conn->real_escape_string($dbobj->LOE_RRC); // LOE /RRC
-            $cat=$this->myDBObject->conn->real_escape_string($dbobj->Categoria); // licencia
-            $grad=$this->myDBObject->conn->real_escape_string($dbobj->Grado); // licencia
+            $cat=$this->myDBObject->conn->real_escape_string($dbobj->Categoria); // categoria
+            $grad=$this->myDBObject->conn->real_escape_string($dbobj->Grado); // grado
             $sex=$this->myDBObject->conn->real_escape_string($dbobj->Genero); // sexo
-            if ($this->myOptions['Blind']) {
-                $nombre=$this->import_mixData($nombre,$obj->Nombre);
-                $nlargo=$this->import_mixData($nlargo,isset($obj->NombreLargo)?$obj->NombreLargo:"");
-                $raza=$this->import_mixData($raza,isset($obj->Raza)?$obj->Raza:"");
-                $lic=$this->import_mixData($lic,isset($obj->Licencia)?$obj->Licencia:"",false);
-                $loe=$this->import_mixData($loe,isset($obj->LOE_RRC)?$obj->LOE_RRC:"",false);
-                $cat=$this->import_mixData($cat,$obj->Categoria,false);
-                $grad=$this->import_mixData($grad,$obj->Grado,false);
-                $sex=$this->import_mixData($sex,$obj->Genero,false);
-            }
+
+            // evaluamos todos los parametros en funcion de los modos de imporatacion
+            $nombre=$this->import_mixData($nombre,$obj->Nombre);
+            $nlargo=$this->import_mixData($nlargo,isset($obj->NombreLargo)?$obj->NombreLargo:"");
+            $raza=$this->import_mixData($raza,isset($obj->Raza)?$obj->Raza:"");
+            $lic=$this->import_mixData($lic,isset($obj->Licencia)?$obj->Licencia:"",false);
+            $loe=$this->import_mixData($loe,isset($obj->LOE_RRC)?$obj->LOE_RRC:"",false);
+            $cat=$this->import_mixData($cat,$obj->Categoria,false);
+            $grad=$this->import_mixData($grad,$obj->Grado,false);
+            $sex=$this->import_mixData($sex,$obj->Genero,false);
+
             // update temporary table with evaluated data
-            $str="UPDATE $t SET DogID={$dbobj->ID}, Nombre='$nombre', NombreLargo='$nlargo', Genero='$sex', Raza='$raza', Licencia='$lic', LOE_RRC='$loe', Categoria='$cat', Grado='$grad'".
+            $str="UPDATE $t SET DogID={$dbobj->ID}, Nombre='$nombre', NombreLargo='$nlargo', Genero='$sex', Raza='$raza', Licencia='$lic', LOE_RRC='$loe', Categoria='$cat', Grado='$grad' ".
                 "WHERE (Nombre = '{$obj->Nombre}')  AND (HandlerID={$obj->HandlerID})";
             $res=$this->myDBObject->query($str);
             if (!$res) return "UpdateEntry(): update dog '{obj->Nombre}' Set Dog Data error:".$this->myDBObject->conn->error;
@@ -719,7 +732,7 @@ class DogReader {
         if ($this->myOptions['Blind']==0) { // do not update clubs in blind mode
             // import clubes data
             $this->saveStatus("Importing resulting clubs data");
-            $str="UPDATE Clubes INNER JOIN $t ON $t.ClubID = Clubes.ID SET Clubes.Nombre = $t.Nombre ";
+            $str="UPDATE Clubes INNER JOIN $t ON $t.ClubID = Clubes.ID SET Clubes.Nombre = $t.NombreClub ";
             $res=$this->myDBObject->query($str);
             if (!$res) return "beginImport(clubes): update error:".$this->myDBObject->conn->error;
         }
