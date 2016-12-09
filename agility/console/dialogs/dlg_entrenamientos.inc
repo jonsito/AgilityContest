@@ -224,7 +224,7 @@ $('#entrenamientos-datagrid').datagrid({
 		// do not try to load if current license has no permissions
 		// Notice: server side also checks capabilities. this is just to avoid javascript error
 		// in populate datagrid when server rejects request cause of licensing
-		return (parseInt(ac_regInfo,2) & access_perms.ENABLE_TRAINING) !== 0;
+		return (parseInt(ac_regInfo.Options,2) & access_perms.ENABLE_TRAINING) !== 0;
 	},
     onDblClickRow: function(index,row) {
             // ignore dblclick on edit active
