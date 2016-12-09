@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-12-08 22:30+0100\n"
-"PO-Revision-Date: 2016-12-08 22:32+0100\n"
+"POT-Creation-Date: 2016-12-09 23:36+0100\n"
+"PO-Revision-Date: 2016-12-09 23:37+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -134,8 +134,8 @@ msgid "Dorsal"
 msgstr "Dorsal"
 
 #: chrono/chrono.inc.php:68 console/frm_equipos.php:70
-#: console/frm_perros.php:133 console/import/import.js.php:141
-#: console/import/import.js.php:151 console/import/import.js.php:163
+#: console/frm_perros.php:133 console/import/import.js.php:158
+#: console/import/import.js.php:170 console/import/import.js.php:184
 #: console/import/import_perros.inc.php:91 scripts/competicion.js.php:1156
 #: scripts/printer.js.php:241 console/dialogs/dlg_chperros.inc:148
 #: console/dialogs/dlg_newInscripcion.inc:151
@@ -144,8 +144,8 @@ msgstr "Perro"
 
 #: chrono/chrono.inc.php:69 console/frm_equipos.php:80
 #: console/frm_equipos.php:225 console/frm_inscripciones2.php:233
-#: console/frm_perros.php:138 console/import/import.js.php:107
-#: console/import/import.js.php:117 console/import/import.js.php:128
+#: console/frm_perros.php:138 console/import/import.js.php:118
+#: console/import/import.js.php:130 console/import/import.js.php:143
 #: console/import/import_perros.inc.php:94
 #: lib/templates/final_individual.inc.php:27
 #: lib/templates/final_last_individual.inc.php:34
@@ -187,8 +187,8 @@ msgstr "Gu&iacute;a"
 #: console/frm_equipos.php:85 console/frm_equipos.php:226
 #: console/frm_guias.php:94 console/frm_inscripciones.php:78
 #: console/frm_inscripciones2.php:234 console/frm_perros.php:139
-#: console/frm_registration.php:62 console/import/import.js.php:74
-#: console/import/import.js.php:84 console/import/import.js.php:94
+#: console/frm_registration.php:62 console/import/import.js.php:77
+#: console/import/import.js.php:90 console/import/import.js.php:103
 #: console/import/import_handlers.inc.php:83
 #: console/import/import_perros.inc.php:95 index.php:185
 #: lib/templates/entrenamientos.inc.php:17
@@ -306,7 +306,7 @@ msgstr "Reh&uacute;se"
 msgid "Eliminated"
 msgstr "Eliminado"
 
-#: chrono/chrono.inc.php:100 console/import/import.js.php:380
+#: chrono/chrono.inc.php:100 console/import/import.js.php:401
 #: scripts/common.js.php:323 scripts/common.js.php:347
 #: scripts/common.js.php:370 scripts/common.js.php:599
 #: scripts/common.js.php:611 scripts/common.js.php:623
@@ -2400,95 +2400,103 @@ msgstr "Cerrar"
 msgid "Import license file into application"
 msgstr "Importar fichero de licencia en la aplicaci&oacute;n"
 
-#: console/import/import.js.php:75 console/import/import.js.php:108
-#: console/import/import.js.php:142
+#: console/import/import.js.php:75 console/import/import.js.php:88
+#: console/import/import.js.php:101 console/import/import.js.php:116
+#: console/import/import.js.php:128 console/import/import.js.php:141
+#: console/import/import.js.php:156 console/import/import.js.php:168
+#: console/import/import.js.php:182
+msgid "Analyzing Excel Entry"
+msgstr "Analizando fila Excel"
+
+#: console/import/import.js.php:78 console/import/import.js.php:119
+#: console/import/import.js.php:159
 msgid "not found in database"
 msgstr "no encontrado en la base de datos"
 
-#: console/import/import.js.php:76 console/import/import.js.php:109
-#: console/import/import.js.php:143
+#: console/import/import.js.php:79 console/import/import.js.php:120
+#: console/import/import.js.php:160
 msgid "Please select/edit existing one or create new entry"
 msgstr "Seleccione y/o edite una entrada existente o cree una nueva"
 
-#: console/import/import.js.php:80 console/import/import.js.php:113
-#: console/import/import.js.php:147
+#: console/import/import.js.php:83 console/import/import.js.php:124
+#: console/import/import.js.php:164
 msgid "Entry not found"
 msgstr "Entrada no encontrada"
 
-#: console/import/import.js.php:85 console/import/import.js.php:118
-#: console/import/import.js.php:152
+#: console/import/import.js.php:91 console/import/import.js.php:131
+#: console/import/import.js.php:171
 msgid "data missmatch (*) with existing one in database"
 msgstr "datos en conflicto con los existentes en la base de datos"
 
-#: console/import/import.js.php:86 console/import/import.js.php:119
-#: console/import/import.js.php:153
+#: console/import/import.js.php:92 console/import/import.js.php:132
+#: console/import/import.js.php:172
 msgid "Please enter right values and accept or create new entry"
 msgstr ""
 "Por favor, indique los valores correctos y pulse aceptar, o cree una nueva "
 "entrada"
 
-#: console/import/import.js.php:90 console/import/import.js.php:123
-#: console/import/import.js.php:157
+#: console/import/import.js.php:96 console/import/import.js.php:136
+#: console/import/import.js.php:176
 msgid "Data missmatch"
 msgstr "Datos no compatibles"
 
-#: console/import/import.js.php:95 console/import/import.js.php:129
-#: console/import/import.js.php:164
+#: console/import/import.js.php:104 console/import/import.js.php:144
+#: console/import/import.js.php:185
 msgid "provided data are compatible with"
 msgstr "los datos indicados son compatibles con"
 
-#: console/import/import.js.php:96 console/import/import.js.php:130
-#: console/import/import.js.php:165
+#: console/import/import.js.php:105 console/import/import.js.php:145
+#: console/import/import.js.php:186
 msgid "more than one existing in database"
 msgstr "mas de una entrada existente en la base de datos"
 
-#: console/import/import.js.php:97 console/import/import.js.php:131
-#: console/import/import.js.php:166
+#: console/import/import.js.php:106 console/import/import.js.php:146
+#: console/import/import.js.php:187
 msgid "Please select right one or create new entry"
 msgstr "Seleccione y/o edite la entrada correcta o cree una nueva"
 
-#: console/import/import.js.php:101 console/import/import.js.php:135
-#: console/import/import.js.php:170
+#: console/import/import.js.php:110 console/import/import.js.php:150
+#: console/import/import.js.php:191
 msgid "Must choose"
 msgstr "Seleccion requerida"
 
-#: console/import/import.js.php:204 console/import/import.js.php:230
+#: console/import/import.js.php:225 console/import/import.js.php:251
 msgid "Import from Excel error"
 msgstr "Error de importaci&oacute;n desde Excel"
 
-#: console/import/import.js.php:238
+#: console/import/import.js.php:259
 msgid "Checking Excel File"
 msgstr "Verificando fichero Excel"
 
-#: console/import/import.js.php:243
+#: console/import/import.js.php:264
 msgid "Starting data import"
 msgstr "Comienzo de importacion"
 
-#: console/import/import.js.php:256
+#: console/import/import.js.php:277
 msgid "Club/Country not found or missmatch"
 msgstr "Club/pa&iacute;s no encontrado o no coincidente"
 
-#: console/import/import.js.php:257
+#: console/import/import.js.php:278
 msgid "This is not allowed when importing in blind mode"
 msgstr "Esto no est&aacute; permitido importando en modo no interactivo"
 
-#: console/import/import.js.php:258
+#: console/import/import.js.php:279
 msgid "Import aborted."
 msgstr "Importaci&oacute;n cancelada"
 
-#: console/import/import.js.php:260
+#: console/import/import.js.php:281
 msgid "Blind mode import"
 msgstr "Importaci&oacute;n no interactiva"
 
-#: console/import/import.js.php:306
+#: console/import/import.js.php:327
 msgid "Import Done"
 msgstr "Importaci&oacute;n completada"
 
-#: console/import/import.js.php:306
+#: console/import/import.js.php:327
 msgid "Import from Excel File Done"
 msgstr "Proceso de importaci&oacute;n desde Excel completado"
 
-#: console/import/import.js.php:380
+#: console/import/import.js.php:401
 msgid "No import file selected"
 msgstr "No se ha indicado fichero a importar"
 
