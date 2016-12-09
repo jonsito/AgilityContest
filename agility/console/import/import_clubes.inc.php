@@ -95,7 +95,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             mode: 'remote',
             columns: [[
                 {field:'ID',hidden:'true'},
-                {field:'Nombre',    title:'<?php _e("Club name"); ?>',  width:'60%',align:'left'},
+                {field:'Nombre',    title:'<?php _e("Club name"); ?>',  width:'55%',align:'left'},
                 {field:'Provincia', title:'<?php _e("Province"); ?>',   width:'25%',align:'right'},
                 {field:'Pais',      title:'<?php _e("Country"); ?>',    width:'15%',align:'right'}
             ]],

@@ -72,11 +72,11 @@ function import_showHideBlind() {
  */
 function clubNotFound(search) {
     var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
-    var hdr="<?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em><br />";
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
-    var msg1="<?php _e('Club');?> '";
-    var msg2="'<br /> <?php _e('not found in database');?> <br/>";
-    var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
+    var msg1="<p><?php _e('Club');?> '";
+    var msg2="': <?php _e('not found in database');?> <br/>";
+    var msg3=" <?php _e('Please select/edit existing one or create new entry');?></p>";
     var msg=hdr+msg1+search.NombreClub+msg2+msg3;
     $("#importClub-Text").html(msg);
     $("#importClub-ClubID").val(search.ID);
@@ -85,11 +85,11 @@ function clubNotFound(search) {
 }
 function clubMissmatch(search) {
     var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
-    var hdr="<?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em><br />";
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
-    var msg1="<?php _e('Club');?> '";
-    var msg2="'<br /> <?php _e('data missmatch (*) with existing one in database');?> <br/>";
-    var msg3=" <?php _e('Please enter right values and accept or create new entry');?>";
+    var msg1="<p><?php _e('Club');?> '";
+    var msg2="': <?php _e('data missmatch (*) with existing one in database');?> <br/>";
+    var msg3=" <?php _e('Please enter right values and accept or create new entry');?></p>";
     var msg=hdr+msg1+search.NombreClub+msg2+msg3;
     $("#importClub-Text").html(msg);
     $("#importClub-ClubID").val(search.ID);
@@ -98,12 +98,12 @@ function clubMissmatch(search) {
 }
 function clubMustChoose(search) {
     var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
-    var hdr="<?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em><br />";
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
-    var msg1="<?php _e('Club');?> '";
-    var msg2="'<br /> <?php _e('provided data are compatible with');?> <br/>";
+    var msg1="<p><?php _e('Club');?> '";
+    var msg2="': <?php _e('provided data are compatible with');?> <br/>";
     var msg3=" <?php _e('more than one existing in database');?> <br/>";
-    var msg4=" <?php _e('Please select right one or create new entry');?>";
+    var msg4=" <?php _e('Please select right one or create new entry');?></p>";
     var msg=hdr+msg1+search.NombreClub+msg2+msg3+msg4;
     $("#importClub-Text").html(msg);
     $("#importClub-ClubID").val(search.ID);
@@ -113,11 +113,11 @@ function clubMustChoose(search) {
 
 function handlerNotFound(search) {
     var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
-    var hdr="<?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em><br />";
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
-    var msg1="<?php _e('Handler');?> '";
-    var msg2="'<br /> <?php _e('not found in database');?> <br/>";
-    var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
+    var msg1="<p><?php _e('Handler');?> '";
+    var msg2="': <?php _e('not found in database');?> <br/>";
+    var msg3=" <?php _e('Please select/edit existing one or create new entry');?></p>";
     var msg=hdr+msg1+search.NombreGuia+msg2+msg3;
     $("#importGuia-Text").html(msg);
     $("#importGuia-HandlerID").val(search.ID);
@@ -125,11 +125,11 @@ function handlerNotFound(search) {
 }
 function handlerMissmatch(search) {
     var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
-    var hdr="<?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em><br />";
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
-    var msg1="<?php _e('Handler');?> '";
-    var msg2="'<br /> <?php _e('data missmatch (*) with existing one in database');?> <br/>";
-    var msg3=" <?php _e('Please enter right values and accept or create new entry');?>";
+    var msg1="<p><?php _e('Handler');?> '";
+    var msg2="': <?php _e('data missmatch (*) with existing one in database');?> <br/>";
+    var msg3=" <?php _e('Please enter right values and accept or create new entry');?></p>";
     var msg=hdr+msg1+search.NombreGuia+msg2+msg3;
     $("#importGuia-Text").html(msg);
     $("#importGuia-HandlerID").val(search.ID);
@@ -138,12 +138,12 @@ function handlerMissmatch(search) {
 }
 function handlerMustChoose(search) {
     var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
-    var hdr="<?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em><br />";
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
-    var msg1="<?php _e('Handler');?> '";
-    var msg2="'<br /> <?php _e('provided data are compatible with');?> <br/>";
+    var msg1="<p><?php _e('Handler');?> '";
+    var msg2="': <?php _e('provided data are compatible with');?> <br/>";
     var msg3=" <?php _e('more than one existing in database');?> <br/>";
-    var msg4=" <?php _e('Please select right one or create new entry');?>";
+    var msg4=" <?php _e('Please select right one or create new entry');?></p>";
     var msg=hdr+msg1+search.NombreGuia+msg2+msg3+msg4;
     $("#importGuia-Text").html(msg);
     $("#importGuia-HandlerID").val(search.ID);
@@ -153,11 +153,11 @@ function handlerMustChoose(search) {
 
 function dogNotFound(search) {
     var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
-    var hdr="<?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em><br />";
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
-    var msg1="<?php _e('Dog');?> '";
-    var msg2="'<br /> <?php _e('not found in database');?> <br/>";
-    var msg3=" <?php _e('Please select/edit existing one or create new entry');?>";
+    var msg1="<p><?php _e('Dog');?> '";
+    var msg2="': <?php _e('not found in database');?> <br/>";
+    var msg3=" <?php _e('Please select/edit existing one or create new entry');?></p>";
     var msg=hdr+msg1+search.Nombre+msg2+msg3;
     $("#importPerro-Text").html(msg);
     $("#importPerro-DogID").val(search.ID);
@@ -165,11 +165,11 @@ function dogNotFound(search) {
 }
 function dogMissmatch(search) {
     var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
-    var hdr="<?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em><br />";
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
-    var msg1="<?php _e('Dog');?> '";
-    var msg2="'<br /> <?php _e('data missmatch (*) with existing one in database');?> <br/>";
-    var msg3=" <?php _e('Please enter right values and accept or create new entry');?>";
+    var msg1="<p><?php _e('Dog');?> '";
+    var msg2="': <?php _e('data missmatch (*) with existing one in database');?> <br/>";
+    var msg3=" <?php _e('Please enter right values and accept or create new entry');?></p>";
     var msg=hdr+msg1+search.Nombre+msg2+msg3;
     $("#importPerro-Text").html(msg);
     $("#importPerro-DogID").val(search.ID);
@@ -179,12 +179,12 @@ function dogMissmatch(search) {
 
 function dogMustChoose(search) {
     var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
-    var hdr="<?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em><br />";
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
-    var msg1="<?php _e('Dog');?> '";
-    var msg2="'<br /> <?php _e('provided data are compatible with');?> ";
+    var msg1="<p><?php _e('Dog');?> '";
+    var msg2="': <?php _e('provided data are compatible with');?> ";
     var msg3=" <?php _e('more than one existing in database');?> <br/>";
-    var msg4=" <?php _e('Please select right one or create new entry');?>";
+    var msg4=" <?php _e('Please select right one or create new entry');?></p>";
     var msg=hdr+msg1+search.Nombre+msg2+msg3+msg4;
     $("#importPerro-Text").html(msg);
     $("#importPerro-DogID").val(search.ID);
