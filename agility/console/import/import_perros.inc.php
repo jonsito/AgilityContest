@@ -49,7 +49,7 @@ $config =Config::getInstance();
         		data-options="iconCls:'icon-ok'"><?php _e('Select'); ?></a>
         	<a id="importPerro-cancelBtn" href="#" class="easyui-linkbutton"
                 onclick="importAction('Perro','ignore',$('#importPerro-DogID').val(),$('#importPerro-Search').combogrid('getValue'))"
-        		data-options="iconCls:'icon-cancel'"><?php _e('Cancel'); ?></a>
+        		data-options="iconCls:'icon-cancel'"><?php _e('Ignore'); ?></a>
         </span>
     </div>
     

@@ -64,6 +64,12 @@ function import_showHideBlind() {
     // $("#import-excelBlindOptions").css("display",(ac_import.blind!=0)?"inherit":"none");
 }
 
+function searchDataToString(search) {
+    var lic=search.Licencia;
+    if (lic!=="") lic="Lic:"+lic+" - ";
+    return search.Nombre+" - "+lic+ search.Categoria+""+search.Grado+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
+}
+
 /**
  * prepare importClub-dialog to ask for action when club not found
  * @param {object} search data to search for
@@ -71,7 +77,7 @@ function import_showHideBlind() {
  * @returns {boolean} true or false according result
  */
 function clubNotFound(search) {
-    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
+    var data=searchDataToString(search);
     var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
     var msg1="<p><?php _e('Club');?> '";
@@ -84,7 +90,7 @@ function clubNotFound(search) {
     return false;
 }
 function clubMissmatch(search) {
-    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
+    var data=searchDataToString(search);
     var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
     var msg1="<p><?php _e('Club');?> '";
@@ -97,7 +103,7 @@ function clubMissmatch(search) {
     return false;
 }
 function clubMustChoose(search) {
-    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
+    var data=searchDataToString(search);
     var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
     var msg1="<p><?php _e('Club');?> '";
@@ -112,7 +118,7 @@ function clubMustChoose(search) {
 }
 
 function handlerNotFound(search) {
-    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
+    var data=searchDataToString(search);
     var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
     var msg1="<p><?php _e('Handler');?> '";
@@ -124,7 +130,7 @@ function handlerNotFound(search) {
     $("#importGuia-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
 }
 function handlerMissmatch(search) {
-    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
+    var data=searchDataToString(search);
     var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
     var msg1="<p><?php _e('Handler');?> '";
@@ -137,7 +143,7 @@ function handlerMissmatch(search) {
     return false;
 }
 function handlerMustChoose(search) {
-    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
+    var data=searchDataToString(search);
     var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
     var msg1="<p><?php _e('Handler');?> '";
@@ -152,7 +158,7 @@ function handlerMustChoose(search) {
 }
 
 function dogNotFound(search) {
-    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
+    var data=searchDataToString(search);
     var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
     var msg1="<p><?php _e('Dog');?> '";
@@ -164,7 +170,7 @@ function dogNotFound(search) {
     $("#importPerro-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
 }
 function dogMissmatch(search) {
-    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
+    var data=searchDataToString(search);
     var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
     var msg1="<p><?php _e('Dog');?> '";
@@ -178,7 +184,7 @@ function dogMissmatch(search) {
 }
 
 function dogMustChoose(search) {
-    var data=search.Nombre+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
+    var data=searchDataToString(search);
     var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
 
     var msg1="<p><?php _e('Dog');?> '";
@@ -361,6 +367,11 @@ function importAction(item,action,fromkey,dbkey) {
       ExcelID: fromkey,
       DatabaseID: dbkey
     };
+    if (!dbkey || !dbkey.length) dbkey=0; // prevent null or empty values in dbkey
+    if ( (action==="update") && (parseInt(dbkey)==0) ) {
+        $.messager.alert("No selection","<?php _e('Must select a valid entry for requesting update');?> "+item );
+        return false;
+    }
     // tell server to handle this entry, with provided item, action and parameters
     setTimeout(function() { excel_importSendTask(options); },0);
     // close selection window

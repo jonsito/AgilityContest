@@ -570,16 +570,16 @@ class DogReader {
             // this is an error: clubs cannot be created on the fly, as need extra parameters
             return "CreateEntry(): cannot automagically create new club {$obj->Nombre}";
         } else if ($options['Object']=="Guia") {
-            $nombre=$obj->Nombre;
+            $nombre=$obj->NombreGuia;
             $c=$obj->ClubID;
-            if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($obj->Nombre);
+            if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($obj->NombreGuia);
             $str="INSERT INTO Guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";
             $res=$this->myDBObject->query($str);
-            if (!$res) return "CreateEntry(): Insert Guia '{$obj->Nombre}' error:".$this->myDBObject->conn->error;
+            if (!$res) return "CreateEntry(): Insert Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
-            $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '{$obj->Nombre}') AND (ClubID=$c)";
+            $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '{$obj->NombreGuia}') AND (ClubID=$c)";
             $res=$this->myDBObject->query($str);
-            if (!$res) return "CreateEnrty(): Temporary table update Guia '{$obj->Nombre}' error:".$this->myDBObject->conn->error; // invalid update; mark error
+            if (!$res) return "CreateEnrty(): Temporary table update Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error; // invalid update; mark error
         } else if ($options['Object']=="Perro") {
             $c=$obj->Categoria;
             $g=$obj->Grado;
