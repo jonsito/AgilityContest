@@ -41,6 +41,36 @@ function logTrace($str) {
     }
 }
 
+/**
+ * Try to get a file from url
+ * Depending on config try several methods
+ *
+ * @param $url file URL to retrieve
+ */
+function retrieveFileFromURL($url) {
+    // if enabled, use standard file_get_contents
+    if (ini_get('allow_url_fopen') == true) {
+        $res=file_get_contents($url);
+        // on fail, try to use old way to retrieve data
+        if ($res!==FALSE) return $res;
+    }
+    // if not enable, try curl
+    if (function_exists('curl_init')) {
+        $ch = curl_init();
+        $timeout = 5;
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
+        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/auth/cacert.pem");
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        $data = curl_exec($ch);
+        curl_close($ch);
+        return $data;
+    }
+    // arriving here means error
+    return FALSE;
+}
+
 Class AgilityContestUpdater {
     var $version_name="1.0.0";
     var $version_date="20150101_0000";
