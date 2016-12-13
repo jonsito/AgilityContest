@@ -76,7 +76,7 @@ class Puntuable_RSCE extends Competitions {
             return;
         }
         $perro['Calificacion'] = _("Excellent")." 0";
-        $perro['CShort'] = "0";
+        $perro['CShort'] = "Ex 0";
         foreach ( $this->puntos as $item) {
             if ($perro['Grado']!==$item[0]) continue;
             // comprobamos si estamos en agility o en jumping
@@ -87,7 +87,7 @@ class Puntuable_RSCE extends Competitions {
             // si la velocidad es igual o superior se apunta tanto. notese que el array está ordenado por grad/velocidad
             if ($perro['Velocidad']>=$item[$base+$offset]) {
                 $perro['Calificacion'] = _("Excellent")." ".$item[1];
-                $perro['CShort'] = $item[1];
+                $perro['CShort'] = "Ex ".$item[1];
             }
         }
     }
@@ -115,67 +115,13 @@ class Puntuable_RSCE extends Competitions {
             if ($pts==2) $perro['Calificacion'] = "2 Puntos";
             return;
         }
-        if ($grad==="GII") { // grado dos puntua normalmente
-            $perro['Calificacion']="";
-            if ( ($perro['P1']<6.0) && ($perro['P2']<6.0) ) $perro['Calificacion']= 'P. Equipos';
-            if ($perro['Penalizacion']==0.0) $perro['Calificacion']= 'Punto';
-            return;
-        }
-        if ($grad!=="GIII") {
-            return; // ignore other extrange grades
-        }
-        // arriving here means grado III
-        if ($p->Selectiva==0){
-            $perro['Calificacion']="";
-            if ( ($perro['P1']<6.0) && ($perro['P2']<6.0) ) $perro['Calificacion']= 'P. Equipos';
-            if ($perro['Penalizacion']==0.0) $perro['Calificacion']= 'Punto';
-            return;
-        }
-        // arriving here means prueba selectiva and Grado III
-        if ( ! $this->validLicense($perro['Licencia']) ) {  // comprobamos si el perro es mestizo o extranjero
-            $perro['Calificacion'] = ($perro['Penalizacion']==0.0)?'Punto':'';
-            return;
-        }
-        switch($perro['Categoria']){
-            case 'L': $tipo=$m1->TRS_L_Tipo; $factor=$m1->TRS_L_Factor; $unit=$m1->TRS_L_Unit; break;
-            case 'M': $tipo=$m1->TRS_M_Tipo; $factor=$m1->TRS_M_Factor; $unit=$m1->TRS_M_Unit; break;
-            case 'S': $tipo=$m1->TRS_S_Tipo; $factor=$m1->TRS_S_Factor; $unit=$m1->TRS_S_Unit; break;
-            default: return; // invalid; do not evaluate
-        }
-        if ( ($tipo==1) && ($factor==0)) {  // SI TRS_L_Factor es 0 tenemos puntuacion para individual
-            // manga 1 - puntuan los 10 primeros en cada manga con excelente
-            $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
-            if (intval($m1->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
-            $perro['C1']="";
-            if ( ($perro['P1']<6.0) && ($perro['Pcat1']<=10) && ($perro['Pcat1']>0)) {
-                $perro['C1']=$pts[$perro['Pcat1']-1];
-            }
-            // manga 2 - puntuan los 10 primeros en cada manga con excelente
-            $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
-            if (intval($m2->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
-            $perro['C2']="";
-            if ( ($c2!=null) && ($perro['P2']<6.0) && ($perro['Pcat2']<=10) && ($perro['Pcat2']>0)) {
-                $perro['C2']=$pts[$perro['Pcat2']-1];
-            }
-            // conjunta - puntuan los 10 primeros si tienen doble excelente
-            $pts=array("10","9","8","7","6","5","4","3","2","1"); // puntuacion manga conjunta individual
-            $pfin=" ";
-            if ( ($perro['P1']<6.0) && ($perro['P2']<6.0)  && ($perro['Pcat']<=10) && ($perro['Pcat']>0)) {
-                $pfin=$pts[$perro['Pcat']-1];
-            }
-            // finalmente componemos el string a presentar
-            $perro['Calificacion']= /* $str=strval($pt1)."-".strval($pt2)."-" . */ strval($pfin);
-        }
-        if ( ($tipo==1) && ($factor==10) && ($unit=='%') ) {  // SI TRS_L_Factor es +10% tenemos clasificacion por equipos
-            // solo puntua conjunta si el perro tiene doble excelente
-            $ptsteam=array("20","16","12","8","7","6","4","3","2","1"); // puntuacion manga conjunta equipos
-            $pteam=" ";
-            if ( ($perro['P1']<6.0) && ($perro['P2']<6.0)  && ($perro['Pcat']<=10) && ($perro['Pcat']>0) ) {
-                $pteam=$ptsteam[$perro['Pcat']-1];
-            }
-            // finalmente componemos el string a presentar
-            $perro['Calificacion']=strval($pteam);
-        }
-        return; // should be overriden
+        // componemos string de calificacion final
+        $p1=" ";
+        if ($perro['P1']<6.0) $p1="-";
+        if ($perro['P1']==0) $p1=substr($perro['C1'],-1,1);
+        $p2=" ";
+        if ($perro['P2']<6.0) $p2="-";
+        if ($perro['P2']==0) $p2=substr($perro['C2'],-1,1);
+        $perro['Calificacion']="$p1 / $p2";
     }
 }
