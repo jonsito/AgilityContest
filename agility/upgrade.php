@@ -53,17 +53,19 @@ function retrieveFileFromURL($url) {
         $res=file_get_contents($url);
         // on fail, try to use old way to retrieve data
         if ($res!==FALSE) return $res;
+        echo "file_getContents() failed<br/>";
     }
     // if not enable, try curl
     if (function_exists('curl_init')) {
-        $ch = curl_init();
+        $ch = curl_init($url);
+        if ($ch===FALSE) { echo "curl_init() failed:"; return FALSE; }
         $timeout = 5;
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
-        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/auth/cacert.pem");
+        // curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/auth/cacert.pem");
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
-        curl_setopt($ch, CURLOPT_URL, $url);
         $data = curl_exec($ch);
+        if ($data===FALSE) { echo "curl_exec() failed:".curl_error($ch)."<br/>"; return FALSE; }
         curl_close($ch);
         return $data;
     }
