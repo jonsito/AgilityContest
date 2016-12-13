@@ -17,18 +17,19 @@
  */
 class Puntuable_RSCE extends Competitions {
 
-    public static $puntos=array(
-        array("GI",     1,  0.0,    0.0),
-        array("GII",    2,  5.1,    5.5),
-        array("GII",    1,  3.5,    3.8),
-        array("GIII",   2,  5.1,    5.5),
-        array("GIII",   1,  4.1,    4.5),
-    );
+   private $puntos;
 
     function __construct() {
         parent::__construct("Puntuable C.E. RSCE");
         $this->federationID=0;
         $this->competitionID=0;
+        $this->puntos=array(
+            /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS */
+            array("GII",    "1",  3.8,    3.6,   3.6,   4.0,    3.8,    3.8 ),
+            array("GII",    "2",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3 ),
+            array("GIII",   "1",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7 ),
+            array("GIII",   "2",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3 ),
+        );
     }
 
     /**
@@ -65,41 +66,29 @@ class Puntuable_RSCE extends Competitions {
      * @param {array} $puestocat puesto en funcion de la categoria
      */
     public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
-        if ($perro['Grado']!=="GIII") {
+        // si estamos en grado 1 o tiene 6 o mas puntos de penalizacion, utiliza la puntuacion estandard
+        if ($perro['Grado']==="GI") {
             parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
             return;
         }
-        if (intval($p->Selectiva)==0) {
+        if ($perro['Penalizacion']>0) {
             parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
             return;
         }
-        // arriving here means prueba selectiva and Grado III
-        // comprobamos si el perro es mestizo
-        if (! $this->validLicense($perro['Licencia']) ) { // perro mestizo o extranjero no puntua
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
-            return;
-        }
-        // si no tiene excelente no puntua
-        if ( ($perro['Penalizacion']>=6.0)) {
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
-            return;
-        }
-        $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
-        if (intval($m->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
-        // solo puntuan los 10 primeros
-        if ( ($puestocat[$perro['Categoria']]>10) || ($puestocat[$perro['Categoria']]<=0) ) {
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
-            return;
-        }
-        // si llegamos aqui tenemos los 10 primeros perros una prueba selectiva en grado 3 con un perro no mestizo que ha sacado excelente :-)
-        $pt1=$pts[$puestocat[$perro['Categoria']]-1];
-        if ($perro['Penalizacion']>0)	{
-            $perro['Calificacion'] = _("Exc")." - $pt1";
-            $perro['CShort'] = _("Exc");
-        }
-        if ($perro['Penalizacion']==0)	{
-            $perro['Calificacion'] = _("Exc")." (p) - $pt1";
-            $perro['CShort'] = _("Ex P");
+        $perro['Calificacion'] = _("Excellent")." 0";
+        $perro['CShort'] = "0";
+        foreach ( $this->puntos as $item) {
+            if ($perro['Grado']!==$item[0]) continue;
+            // comprobamos si estamos en agility o en jumping
+            $offset=(Mangas::$tipo_manga[$m->Tipo][5])?0/*agility*/:3/*jumping*/;
+            $base=2;
+            if ($perro['Categoria']==="M") $base=3;
+            if ($perro['Categoria']==="S") $base=4;
+            // si la velocidad es igual o superior se apunta tanto. notese que el array está ordenado por grad/velocidad
+            if ($perro['Velocidad']>=$item[$base+$offset]) {
+                $perro['Calificacion'] = _("Excellent")." ".$item[1];
+                $perro['CShort'] = $item[1];
+            }
         }
     }
 
