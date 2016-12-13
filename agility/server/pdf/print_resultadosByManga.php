@@ -147,7 +147,7 @@ class ResultadosByManga extends PrintCommon {
 			// properly format special fields
 
 			$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}";
-			$veloc= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],1);
+			$veloc= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],2);
 			$tiempo= ($row['Penalizacion']>=200)?"-":number_format($row['Tiempo'],$this->timeResolution);
 			$penal=number_format($row['Penalizacion'],$this->timeResolution);
 			$this->ac_row($rowcount,8);

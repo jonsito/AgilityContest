@@ -1,12 +1,30 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: jantonio
- * Date: 16/11/16
- * Time: 10:58
+ *
+ * Sistema de calificacion para las pruebas puntuables C.E. RSCE Temporada 2017
+ * En grado 1 se obtiene punto por cada excelente a cero
+ *
+ * En grado 2 y 3 Se obtienen puntos por cada excelente a cero con velocidad superior a:
+ *
+ * GII: Agility 3.5m/s Jumping 3.8m/s
+ * GIII: Agility 4.1m/s Jumping 4.5m/s
+ * Además los perros que hagan el recorrido a cero con una velocidad superior a 5.1(agility) / 5.5(Jumping)
+ * obtendran un punto extra
+ *
+ * Para la clasificacion para el C.E. Se exigen seis excelentes a cero en cada manga,
+ * en los que al menos 3 de ellos tienen que tener puntos
  */
 class Puntuable_RSCE extends Competitions {
+
+    public static $puntos=array(
+        array("GI",     1,  0.0,    0.0),
+        array("GII",    2,  5.1,    5.5),
+        array("GII",    1,  3.5,    3.8),
+        array("GIII",   2,  5.1,    5.5),
+        array("GIII",   1,  4.1,    4.5),
+    );
+
     function __construct() {
         parent::__construct("Puntuable C.E. RSCE");
         $this->federationID=0;
@@ -33,6 +51,8 @@ class Puntuable_RSCE extends Competitions {
         if (substr($lic,0,1)=='A') return true; // A000 to A999
         if (substr($lic,0,1)=='B') return true; // B000 to B999
         if (substr($lic,0,1)=='C') return true; // C000 to C999
+        if (substr($lic,0,1)=='D') return true; // D000 to D999
+        if (substr($lic,0,1)=='E') return true; // E000 to E999
         return false;
     }
 
