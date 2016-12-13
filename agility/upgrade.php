@@ -124,7 +124,7 @@ Class AgilityContestUpdater {
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_ENCODING, "");
-        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/server/auth/cacert.pem");
+        // curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/server/auth/cacert.pem");
         set_time_limit(350);
         $res=curl_exec($ch);
         curl_close($ch);
