@@ -77,22 +77,8 @@ Class AgilityContestUpdater {
     private function file_get($url) {
         $timeout = 300;
         set_time_limit(350);
-        // if enabled, use standard file_get_contents
-        if (ini_get('allow_url_fopen') == true) {
-            return file_get_contents($url);
-        }
-        // if not enable, try curl
-        if (function_exists('curl_init')) {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
-            curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/server/auth/cacert.pem");
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
-            curl_setopt($ch, CURLOPT_URL, $url);
-            $data = curl_exec($ch);
-            curl_close($ch);
-            return $data;
-        }
+        $res=retrieveFileFromURL($url);
+        if ($res!==FALSE) return $res;
         // arriving here means no way to load file from remote site
         die( 'Cannot retrieve update information. Check your internet connection');
     }
@@ -169,7 +155,7 @@ Class AgilityContestUpdater {
                 continue;
             };
             // else try to copy
-            $a = file_get_contents($from);
+            $a= retrieveFileFromURL($from);
             $f = fopen($to, "w");
             if (!is_resource($f)) {
                 $this->logProgress("WARNING: $str $temp");

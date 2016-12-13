@@ -234,23 +234,8 @@ class Admin extends DBObject {
 
 	// returns a file retrieved from an URL as a variable
 	private function file_get($url) {
-		// if enabled, use standard file_get_contents
-		if (ini_get('allow_url_fopen') == true) {
-			return file_get_contents($url);
-		}
-		// if not enable, try curl
-		if (function_exists('curl_init')) {
-			$ch = curl_init();
-			$timeout = 5;
-			curl_setopt($ch, CURLOPT_HEADER, 0);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
-			curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/auth/cacert.pem");
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
-			curl_setopt($ch, CURLOPT_URL, $url);
-			$data = curl_exec($ch);
-			curl_close($ch);
-			return $data;
-		}
+		$res=retrieveFileFromURL($url);
+		if ($res!==FALSE) return $res;
 		// arriving here means no way to load file from remote site
 		$this->myLogger->error('Cannot retrieve update information. Check your internet connection');
 		return null;

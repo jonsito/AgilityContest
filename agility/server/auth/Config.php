@@ -529,8 +529,7 @@ Class Config {
 				case 's': if (is_string($value)) $type="string";break;
 				case 'c': if (is_color($value)) $type="color";	break;
 				case 'f': // trick to detect if an string contains a float
-					$floatVal = floatval($value);
-					if($floatVal && intval($floatVal) != $floatVal) $type="float";
+                    if ( is_numeric($value) && (strpos($value,'.')!==false) )$type="float"; break;
 					break;
 				case 'i': if ( is_numeric($value) && (strpos($value,'.')==false) )$type="int"; break;
 				case 'b': if (($value=="1") || ($value=="0")) $type="bool";	break;

@@ -169,7 +169,7 @@ class EscposPrintBuffer implements PrintBuffer {
 		$cacheKey = md5(serialize($supportedCodePages));
 		/* Check for pre-generated file */
 		if(file_exists($cacheFile)) {
-			$cacheData = file_get_contents($cacheFile);
+			$cacheData = retrieveFileFromURL($cacheFile);
 			if(self::COMPRESS_CACHE) {
 				$cacheData = gzdecode($cacheData);
 			}
