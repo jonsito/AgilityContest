@@ -8,7 +8,7 @@
  */
 class Liga_UCA extends Competitions {
     function __construct() {
-        parent::__construct("Puntuable Liga UCA");
+        parent::__construct("Prueba puntuable Liga UCA");
         $this->federationID=2;
         $this->competitionID=0;
     }

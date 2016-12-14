@@ -8,7 +8,7 @@
  */
 class Standard_intl4 extends Competitions {
     function __construct() {
-        parent::__construct("Standard");
+        parent::__construct("International 4-height contest");
         $this->federationID=8;
         $this->competitionID=0;
     }

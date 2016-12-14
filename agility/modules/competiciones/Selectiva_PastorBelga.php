@@ -21,7 +21,7 @@ class Selectiva_PastorBelga extends Competitions {
     protected $ptsmanga=array("10"," 9"," 8"," 7"," 6"," 5"," 4"," 3"," 2"," 1","0","0"); // puntos por manga y puesto
     protected $ptsglobal=array("10"," 9"," 8"," 7"," 6"," 5"," 4"," 3"," 2"," 1","0","0"); //puntos por general
 
-    function __construct($name="Selectiva Pastor Belga") {
+    function __construct($name="Selectiva del Pastor Belga") {
         parent::__construct($name);
         $this->federationID=0;
         $this->competitionID=3;

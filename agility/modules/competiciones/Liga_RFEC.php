@@ -49,10 +49,10 @@ class Liga_RFEC extends Competitions {
     private $myDBObject;
 
     function __construct() {
-        parent::__construct("Puntuable Liga RFEC");
+        parent::__construct("Prueba puntuable Liga RFEC");
         $this->federationID=1;
         $this->competitionID=0;
-        $this->myDBObject=new DBObject("Puntuable Liga RFEC");
+        $this->myDBObject=new DBObject("Prueba untuable Liga RFEC");
     }
 
     /**

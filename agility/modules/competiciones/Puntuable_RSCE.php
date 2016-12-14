@@ -20,7 +20,7 @@ class Puntuable_RSCE extends Competitions {
    private $puntos;
 
     function __construct() {
-        parent::__construct("Puntuable C.E. RSCE");
+        parent::__construct("Prueba puntuable C.E. RSCE");
         $this->federationID=0;
         $this->competitionID=0;
         $this->puntos=array(

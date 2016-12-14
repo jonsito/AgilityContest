@@ -293,8 +293,17 @@ class PrintCommon extends FPDF {
 		// pintamos el titulo en un recuadro
 		$this->SetFont($this->getFontName(),'B',20); // bold 20
 		$this->SetXY($this->centro -60,20);
-		$this->Cell(120,10,$title,1,0,'C',false);// Nombre de la prueba centrado
-		$this->Ln(15); // Salto de línea
+		$this->Cell(120,10,$title,1,0,'C',false);// Titulo del listado en el centro
+        // si la jornada esta definida, debajo del recuadro imprimimos modalidad de competicion
+		$this->Ln(10);
+		if ($this->jornada!=null) {
+            $this->SetFont($this->getFontName(),'I',8); // bold 20
+            $this->SetXY($this->centro -60,30);
+            $cname=Competitions::getCompetition($this->prueba,$this->jornada)->getModuleInfo()['Nombre'];
+            $this->Cell(120,5,$cname,0,0,'C',false);// Titulo del listado en el centro
+		}
+		$this->Ln(5);
+
 		//$this->myLogger->leave();
 	}
 	

@@ -8,7 +8,7 @@
  */
 class Selectiva_RSCE_Individual extends Competitions {
     function __construct() {
-        parent::__construct("Selectiva AWC (Individual)");
+        parent::__construct("Prueba selectiva AWC (Individual)");
         $this->federationID=0;
         $this->competitionID=1;
     }
