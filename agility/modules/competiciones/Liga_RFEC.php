@@ -21,26 +21,29 @@ class Liga_RFEC extends Competitions {
 
     public static $leagueZones=array(
         "Castilla - La Mancha"  =>  0,
-        "Comunitat Valenciana"  =>  1,
-        "Andalucía"             =>  2,
-        "País Vasco"            =>  3,
-        "Cantabria"             =>  4,
+        "Comunitat Valenciana"  =>  1, // zona este
+        "Andalucía"             =>  2, // zona sur
+        "País Vasco"            =>  3, // zona norte
+        "Cantabria"             =>  3, // zona norte
+        "Asturias"              =>  3, // zona norte
         "Castilla y León"       =>  0, // junto castilla la mancha
-        "Extremadura"           =>  2, // junto andalucia
+        "Extremadura"           =>  2, // zona sur
         "Balears, Illes"        =>  5,
         "Cataluña"              =>  6,
-        "Ceuta"                 =>  7, // depende de RFEC
-        "Galicia"               =>  8,
+        "Ceuta"                 =>  2, // zona sur
+        "Galicia"               =>  4,
         "Aragón"                =>  9,
-        "Madrid, Comunidad de"  =>  10,
-        "Melilla"               =>  7, // depende de RFEC
-        "Murcia, Región de"     =>  11,
-        "Navarra, Comunidad Foral de"  =>  12,
-        "Canarias"              =>  13,
-        "Rioja, La"             =>  14
+        "Madrid, Comunidad de"  =>  7,
+        "Melilla"               =>  2, // zona sur
+        "Murcia, Región de"     =>  1, // zona este
+        "Navarra, Comunidad Foral de"  =>  8,
+        "Canarias"              =>  10,
+        "Rioja, La"             =>  11
     );
 
-    private $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors
+    private $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
+    private $pfoffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
+
     private $zonesByClub=array();
     private $leagueZone=-1;
     private $myDBObject;
@@ -143,20 +146,20 @@ class Liga_RFEC extends Competitions {
             $perro['CShort'] = _("N.C.");
         }
         else if ($perro['Penalizacion']>=16)	{
-            $perro['Calificacion'] = _("Good")." - ".$pt1;
-            $perro['CShort'] = _("Good");
+            $perro['Calificacion'] = _("Good")." ".$pt1;
+            $perro['CShort'] = _("Good")." ".$pt1;
         }
         else if ($perro['Penalizacion']>=6)	{
-            $perro['Calificacion'] = _("V.G.")." - ".$pt1;
-            $perro['CShort'] = _("V.G.");
+            $perro['Calificacion'] = _("Very good")." ".$pt1;
+            $perro['CShort'] = _("V.G.")." ".$pt1;
         }
         else if ($perro['Penalizacion']>0)	{
-            $perro['Calificacion'] = _("Exc")." - ".$pt1;
-            $perro['CShort'] = _("Exc");
+            $perro['Calificacion'] = _("Excellent")." ".$pt1;
+            $perro['CShort'] = _("Exc")." ".$pt1;
         }
         else if ($perro['Penalizacion']==0)	{
-            $perro['Calificacion'] = _("Exc")." - ".$pt1;
-            $perro['CShort'] = _("Exc");
+            $perro['Calificacion'] = _("Excellent")." ".$pt1;
+            $perro['CShort'] = _("Exc")." ".$pt1;
         }
     }
 
@@ -171,44 +174,65 @@ class Liga_RFEC extends Competitions {
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat){
-        $grad=$perro['Grado']; // cogemos el grado
-        $cat=$perro['Categoria']; // cogemos la categoria
-        if ($grad!=="GII") { // solo se puntua en grado II
-            $perro['Calificacion']=$perro['C1'];
-            if ($perro['P1']<$perro['P2']) $perro['Calificacion']=$perro['C2'];
+    public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat)
+    {
+        do_log(json_encode($perro));
+        $grad = $perro['Grado']; // cogemos el grado
+        $cat = $perro['Categoria']; // cogemos la categoria
+
+        // si no grado II no se puntua
+        if ($grad !== "GII") {
+            if ( ($c1==null) || ($c2==null)) {
+                $perro['Calificacion']= " ";
+            } else { // se coge la peor calificacion
+                $perro['Calificacion'] = $perro['C1'];
+                if ($perro['P1'] < $perro['P2']) $perro['Calificacion'] = $perro['C2'];
+            }
             return;
         }
-        $ptsmanga=array("5","4","3","2","1"); // puntos por manga y puesto
-        $ptsglobal=array("15","12","9","7","6","5","4","3","2","1"); //puestos por general (si no NC o Elim en alguna manga)
-        // manga 1
-        $pt1=0;
-        if ($perro['P1']<6.0) $pt1++; // 1 punto por excelente
-        if ($perro['P1']==0.0) $pt1++; // 2 puntos por cero
-        // puntos a los 5 primeros por manga/categoria si no estan eliminados
-        if ( ($perro['Pcat1']>0) && ($perro['P1']<100) && ($perro['Pcat1']<=5) ) $pt1+= $ptsmanga[$perro['Pcat1']-1];
-        $perro['C1']=($pt1==0)?" ":strval($pt1);
-        // manga 2
-        $pt2=0;
-        if ($c2!=null) {
-            if ($perro['P2']<6.0) $pt2++; // 1 punto por excelente
-            if ($perro['P2']==0.0) $pt2++; // 2 puntos por cero
-            // puntos a los 5 primeros por manga/categoria si no estan eliminados
-            if ( ($perro['Pcat2']>0) && ($perro['P2']<100) && ($perro['Pcat2']<=5) ) $pt2+= $ptsmanga[$perro['Pcat2']-1];
-        }
-        $perro['C2']=($pt2==0)?" ":strval($pt2);
-        // conjunta
-        $pfin=0;
-        if ($puestocat[$cat]<11) {
-            // puntuan los 10 primeros si no se han eliminado o no clasificado en ambas mangas
-            if ( ($perro['P1']<=26.0) || ($perro['P2']<=26.0) ) {
-                $pfin=$ptsglobal[$puestocat[$cat]-1];
+
+        // los "extranjeros no puntuan
+        if (!$this->isInLeague($perro)) {
+            $this->pfoffset[$cat]++; // properly handle puestocat offset
+            if ( ($c1==null) || ($c2==null)) {
+                $perro['Calificacion']= " ";
+            } else { // se coge la peor calificacion
+                $perro['Calificacion'] = $perro['C1'];
+                if ($perro['P1'] < $perro['P2']) $perro['Calificacion'] = $perro['C2'];
             }
+            return;
         }
-        /** TODO: PENDIENTE DE VERIFICAR */
-        // en las pruebas selectivas de caza (regional y nacional) se puntua doble
-        // if ($p->Selectiva!=0) { $pt1*=2; $pt2*=2; $pfin*=2; }
-        // finalmente componemos el string a presentar
-        $perro['Calificacion']=strval($pfin);
+
+        $ptsglobal = array("15", "12", "9", "7", "6", "5", "4", "3", "2", "1"); //puestos por general (si no NC o Elim en alguna manga)
+
+        // manga 1
+        $pt1 = "0";
+        if ($c1 != null) { // extraemos los puntos de la primera manga
+            $x=substr($perro['C1'],-1,1);
+            $pt1=(is_numeric($x))?$x:"0";
+        }
+        // manga 2
+        $pt2="0";
+        if ($c2!=null) { // extraemos los puntos de la segunda manga
+            $x=substr($perro['C2'],-1,1);
+            $pt2=(is_numeric($x))?$x:"0";
+        }
+        // conjunta
+        $pfin="0";
+        if ( ($c1==null) || ($c2==null)) { // si falta alguna manga no puntua
+            $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
+            return;
+        }
+        // si eliminado o no clasificado en alguna manga no puntua
+        if ( ($perro['P1']>=26.0) || ($perro['P2']>=26.0) ) {
+            $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
+            return;
+        }
+        // evaluamos puesto real una vez eliminados los "extranjeros"
+        $puesto=$puestocat[$cat]-$this->pfoffset[$cat];
+        // si esta entre los 10 primeros cogemos los puntos
+        if ($puesto<11) $pfin=$ptsglobal[$puesto-1];
+        // y asignamos la calificacion final
+        $perro['Calificacion']="$pt1 - $pt2 - $pfin";
     }
 }

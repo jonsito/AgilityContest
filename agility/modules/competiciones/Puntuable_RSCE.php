@@ -87,7 +87,7 @@ class Puntuable_RSCE extends Competitions {
             // si la velocidad es igual o superior se apunta tanto. notese que el array está ordenado por grad/velocidad
             if ($perro['Velocidad']>=$item[$base+$offset]) {
                 $perro['Calificacion'] = _("Excellent")." ".$item[1];
-                $perro['CShort'] = "Ex ".$item[1];
+                $perro['CShort'] = "Exc ".$item[1];
             }
         }
     }

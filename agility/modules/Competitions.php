@@ -103,7 +103,7 @@ class Competitions {
         }
         else if ($perro['Penalizacion']==0)	{
             $perro['Calificacion'] = _("Excellent (0)");
-            $perro['CShort'] = _("Ex 0");
+            $perro['CShort'] = _("Exc");
         }
     }
 
