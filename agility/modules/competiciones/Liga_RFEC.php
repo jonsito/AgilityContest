@@ -1,16 +1,94 @@
 <?php
+require_once(__DIR__."/../../server/database/classes/DBObject.php");
+/*
+Liga_RFEC.php
 
-/**
- * Created by PhpStorm.
- * User: jantonio
- * Date: 16/11/16
- * Time: 10:58
- */
+Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+
+This program is free software; you can redistribute it and/or modify it under the terms
+of the GNU General Public License as published by the Free Software Foundation;
+either version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program;
+if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
 class Liga_RFEC extends Competitions {
+
+    public static $leagueZones=array(
+        "Castilla - La Mancha"  =>  0,
+        "Comunitat Valenciana"  =>  1,
+        "Andalucía"             =>  2,
+        "País Vasco"            =>  3,
+        "Cantabria"             =>  4,
+        "Castilla y León"       =>  0, // junto castilla la mancha
+        "Extremadura"           =>  2, // junto andalucia
+        "Balears, Illes"        =>  5,
+        "Cataluña"              =>  6,
+        "Ceuta"                 =>  7, // depende de RFEC
+        "Galicia"               =>  8,
+        "Aragón"                =>  9,
+        "Madrid, Comunidad de"  =>  10,
+        "Melilla"               =>  7, // depende de RFEC
+        "Murcia, Región de"     =>  11,
+        "Navarra, Comunidad Foral de"  =>  12,
+        "Canarias"              =>  13,
+        "Rioja, La"             =>  14
+    );
+
+    private $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors
+    private $zonesByClub=array();
+    private $leagueZone=-1;
+    private $myDBObject;
+
     function __construct() {
         parent::__construct("Puntuable Liga RFEC");
         $this->federationID=1;
         $this->competitionID=0;
+        $this->myDBObject=new DBObject("Puntuable Liga RFEC");
+    }
+
+    /**
+     * @param {array} $perro dog data
+     * @return bool
+     */
+    private function isInLeague($perro) {
+        // on first dog, evaluate competition zone for organizer club
+        if ($this->leagueZone<0) { // first call, zone not yet evaluated
+            $res=$this->myDBObject->__selectObject("Comunidad",
+                "Clubes,Provincias"," (Clubes.ID={$this->prueba->Club}) AND (Clubes.Provincia=Provincias.Provincia)");
+            if (!$res) {
+                do_log("Cannot locate comunidad for organizer club: {$this->prueba->Club}");
+                return false;
+            }
+            if (!array_key_exists($res->Comunidad,Liga_RFEC::$leagueZones)) {
+                do_log("Cannot locate league zone for organizer comunidad: {$res->Comunidad}");
+                return false;
+            }
+            $this->leagueZone=Liga_RFEC::$leagueZones[$res->Comunidad];
+        }
+        // retrieve club zone and test for matching with competition zone
+        if(!array_key_exists($perro['NombreClub'],$this->zonesByClub)) {
+            // club not yet in cache: parse it
+            $res=$this->myDBObject->__selectObject("Comunidad",
+                "Clubes,Provincias"," (Clubes.Nombre='{$perro['NombreClub']}') AND (Clubes.Provincia=Provincias.Provincia)");
+            if (!$res) {
+                do_log("Cannot locate comunidad for club: {$perro['NombreClub']}");
+                return false;
+            }
+            if (!array_key_exists($res->Comunidad,Liga_RFEC::$leagueZones)) {
+                do_log("Cannot locate league zone for club: {$perro['NombreClub']}");
+                return false;
+            }
+            // store zone for this club in cache
+            $this->zonesByClub[$perro['NombreClub']]=Liga_RFEC::$leagueZones[$res->Comunidad];
+        }
+        // return zone matching test result
+        return ($this->zonesByClub[$perro['NombreClub']]===$this->leagueZone);
     }
 
     /**
@@ -28,12 +106,23 @@ class Liga_RFEC extends Competitions {
             parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
             return;
         }
+        if (!$this->isInLeague($perro)) { // do not get league points if competitor does not belong to current zone
+            $this->poffset[$cat]++; // properly handle puestocat offset
+            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            return;
+        }
         $ptsmanga=array("5","4","3","2","1"); // puntos por manga y puesto
         $pt1=0;
         if ($perro['Penalizacion']<6.0) $pt1++; // 1 punto por excelente
         if ($perro['Penalizacion']==0.0) $pt1++; // 2 puntos por cero
-        // puntos a los 5 primeros por manga/categoria si no estan eliminados
-        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<100) && ($puestocat[$cat]<=5) ) $pt1+= $ptsmanga[$puestocat[$cat]-1];
+        // puntos a los 5 primeros de la zona liguera por manga/categoria si no estan eliminados o NC
+        $puesto=$puestocat[$cat]-$this->poffset[$cat];
+        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<26) && ($puesto<=5) ) {
+            $pt1+= $ptsmanga[$puesto-1];
+        } else { // no points or not qualified; discard
+            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            return;
+        }
         if ($perro['Penalizacion']>=400)  {
             $perro['Penalizacion']=400.0;
             $perro['Calificacion'] = "-";

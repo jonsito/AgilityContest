@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-12-11 12:48+0100\n"
-"PO-Revision-Date: 2016-12-11 12:49+0100\n"
+"POT-Creation-Date: 2016-12-14 14:16+0100\n"
+"PO-Revision-Date: 2016-12-14 14:16+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -297,7 +297,8 @@ msgid "Refusal"
 msgstr "Reh&uacute;se"
 
 #: chrono/chrono.inc.php:98 modules/Competitions.php:85
-#: modules/competiciones/Liga_RFEC.php:49 modules/competiciones/Liga_UCA.php:41
+#: modules/competiciones/Liga_RFEC.php:138
+#: modules/competiciones/Liga_UCA.php:41
 #: modules/competiciones/Selectiva_PastorBelga.php:81
 #: server/pdf/print_entradaDeDatos.php:358
 #: server/pdf/print_entradaDeDatos.php:379
@@ -403,7 +404,7 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 
 #: chrono/chrono.js.php:135 chrono/chrono.js.php:216 chrono/chrono.js.php:284
 #: chrono/chrono.js.php:385 livestream/livestream.js.php:179
-#: modules/Competitions.php:86 modules/competiciones/Liga_RFEC.php:50
+#: modules/Competitions.php:86 modules/competiciones/Liga_RFEC.php:139
 #: modules/competiciones/Liga_UCA.php:42
 #: modules/competiciones/Selectiva_PastorBelga.php:82
 #: scripts/datagrid_formatters.js.php:164
@@ -3313,7 +3314,7 @@ msgstr "Cabecera"
 msgid "Number"
 msgstr "N&uacute;mero"
 
-#: modules/Competitions.php:80 modules/competiciones/Liga_RFEC.php:44
+#: modules/Competitions.php:80 modules/competiciones/Liga_RFEC.php:133
 #: modules/competiciones/Liga_UCA.php:36
 #: modules/competiciones/Selectiva_PastorBelga.php:76
 #: server/pdf/print_entradaDeDatos.php:357
@@ -3321,7 +3322,7 @@ msgstr "N&uacute;mero"
 msgid "Not Present"
 msgstr "No Presentado"
 
-#: modules/Competitions.php:81 modules/competiciones/Liga_RFEC.php:45
+#: modules/Competitions.php:81 modules/competiciones/Liga_RFEC.php:134
 #: modules/competiciones/Liga_UCA.php:37
 #: modules/competiciones/Selectiva_PastorBelga.php:77
 #: scripts/datagrid_formatters.js.php:165
@@ -3331,13 +3332,13 @@ msgstr "No Presentado"
 msgid "N.P."
 msgstr "N.P."
 
-#: modules/Competitions.php:89 modules/competiciones/Liga_RFEC.php:53
+#: modules/Competitions.php:89 modules/competiciones/Liga_RFEC.php:142
 #: modules/competiciones/Liga_UCA.php:45
 #: modules/competiciones/Selectiva_PastorBelga.php:85
 msgid "Not Clasified"
 msgstr "No Clasificado"
 
-#: modules/Competitions.php:90 modules/competiciones/Liga_RFEC.php:54
+#: modules/Competitions.php:90 modules/competiciones/Liga_RFEC.php:143
 #: modules/competiciones/Liga_UCA.php:46
 #: modules/competiciones/Selectiva_PastorBelga.php:86
 #: videowall/videowall.js.php:398
@@ -3345,9 +3346,9 @@ msgid "N.C."
 msgstr "N.C."
 
 #: modules/Competitions.php:93 modules/Competitions.php:94
-#: modules/competiciones/Liga_RFEC.php:57
-#: modules/competiciones/Liga_RFEC.php:58 modules/competiciones/Liga_UCA.php:49
-#: modules/competiciones/Liga_UCA.php:50
+#: modules/competiciones/Liga_RFEC.php:146
+#: modules/competiciones/Liga_RFEC.php:147
+#: modules/competiciones/Liga_UCA.php:49 modules/competiciones/Liga_UCA.php:50
 #: modules/competiciones/Selectiva_PastorBelga.php:89
 #: modules/competiciones/Selectiva_PastorBelga.php:90
 #: videowall/videowall.js.php:397
@@ -3358,8 +3359,9 @@ msgstr "Bien"
 msgid "Very good"
 msgstr "Muy bien"
 
-#: modules/Competitions.php:98 modules/competiciones/Liga_RFEC.php:61
-#: modules/competiciones/Liga_RFEC.php:62 modules/competiciones/Liga_UCA.php:54
+#: modules/Competitions.php:98 modules/competiciones/Liga_RFEC.php:150
+#: modules/competiciones/Liga_RFEC.php:151
+#: modules/competiciones/Liga_UCA.php:54
 #: modules/competiciones/Selectiva_PastorBelga.php:93
 #: modules/competiciones/Selectiva_PastorBelga.php:94
 #: videowall/videowall.js.php:396
@@ -3368,17 +3370,16 @@ msgstr "M.B."
 
 #: modules/Competitions.php:101 modules/competiciones/Liga_UCA.php:57
 #: modules/competiciones/Liga_UCA.php:61
+#: modules/competiciones/Puntuable_RSCE.php:78
+#: modules/competiciones/Puntuable_RSCE.php:89
 msgid "Excellent"
 msgstr "Excelente"
 
-#: modules/Competitions.php:102 modules/competiciones/Liga_RFEC.php:65
-#: modules/competiciones/Liga_RFEC.php:66
-#: modules/competiciones/Liga_RFEC.php:69
-#: modules/competiciones/Liga_RFEC.php:70 modules/competiciones/Liga_UCA.php:58
-#: modules/competiciones/Liga_UCA.php:62
-#: modules/competiciones/Puntuable_RSCE.php:77
-#: modules/competiciones/Puntuable_RSCE.php:78
-#: modules/competiciones/Puntuable_RSCE.php:81
+#: modules/Competitions.php:102 modules/competiciones/Liga_RFEC.php:154
+#: modules/competiciones/Liga_RFEC.php:155
+#: modules/competiciones/Liga_RFEC.php:158
+#: modules/competiciones/Liga_RFEC.php:159
+#: modules/competiciones/Liga_UCA.php:58 modules/competiciones/Liga_UCA.php:62
 #: modules/competiciones/Selectiva_PastorBelga.php:97
 #: modules/competiciones/Selectiva_PastorBelga.php:98
 #: modules/competiciones/Selectiva_PastorBelga.php:101
@@ -3394,15 +3395,12 @@ msgid "Exc"
 msgstr "Exc"
 
 #: modules/Competitions.php:105
-msgid "Excellent (p)"
-msgstr "Excelente (p)"
+msgid "Excellent (0)"
+msgstr "Excelente (0)"
 
-#: modules/Competitions.php:106 modules/competiciones/Puntuable_RSCE.php:82
-#: modules/competiciones/Selectiva_RSCE_Equipos.php:82
-#: modules/competiciones/Selectiva_RSCE_Individual.php:82
-#: videowall/videowall.js.php:394
-msgid "Ex P"
-msgstr "Ex P"
+#: modules/Competitions.php:106
+msgid "Ex 0"
+msgstr "Ex 0"
 
 #: modules/Federations.php:20 modules/federaciones/intl3/config.php:57
 #: modules/federaciones/intl4/config.php:57
@@ -3416,6 +3414,12 @@ msgstr "Recorridos separados"
 #: modules/Federations.php:22
 msgid "LongName"
 msgstr "NombreLargo"
+
+#: modules/competiciones/Selectiva_RSCE_Equipos.php:82
+#: modules/competiciones/Selectiva_RSCE_Individual.php:82
+#: videowall/videowall.js.php:394
+msgid "Ex P"
+msgstr "Ex P"
 
 #: modules/federaciones/intl3/config.php:55
 #: modules/federaciones/intl3/config.php:56
@@ -6656,6 +6660,9 @@ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 #: console/dialogs/dlg_usuarios.inc:106
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
+
+#~ msgid "Excellent (p)"
+#~ msgstr "Excelente (p)"
 
 #~ msgid "Interactive import is not yet available"
 #~ msgstr "Importaci&oacute;n en modo interactivo disponible todav&iacute;a"

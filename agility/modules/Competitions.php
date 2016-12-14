@@ -102,8 +102,8 @@ class Competitions {
             $perro['CShort'] = _("Exc");
         }
         else if ($perro['Penalizacion']==0)	{
-            $perro['Calificacion'] = _("Excellent (p)");
-            $perro['CShort'] = _("Ex P");
+            $perro['Calificacion'] = _("Excellent (0)");
+            $perro['CShort'] = _("Ex 0");
         }
     }
 
