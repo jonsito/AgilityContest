@@ -6,7 +6,7 @@
  * Date: 16/11/16
  * Time: 10:58
  */
-class Puntuable_RSCE extends Competitions {
+class Puntuable_RSCE_2016 extends Competitions {
     function __construct() {
         parent::__construct("Prueba puntuable C.E. RSCE 2016");
         $this->federationID=0;
