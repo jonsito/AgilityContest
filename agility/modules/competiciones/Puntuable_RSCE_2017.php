@@ -17,7 +17,7 @@
  */
 class Puntuable_RSCE_2017 extends Competitions {
 
-   private $puntos;
+   protected $puntos;
 
     function __construct($name="Prueba puntuable C.E. RSCE 2017") {
         parent::__construct($name);

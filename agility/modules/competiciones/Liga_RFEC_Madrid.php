@@ -17,81 +17,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-class Liga_RFEC extends Competitions {
+class Liga_RFEC_Madrid extends Liga_RFEC {
 
-    public static $leagueZones=array(
-        "Castilla - La Mancha"  =>  0,
-        "Comunitat Valenciana"  =>  1, // zona este
-        "Andalucía"             =>  2, // zona sur
-        "País Vasco"            =>  3, // zona norte
-        "Cantabria"             =>  3, // zona norte
-        "Asturias"              =>  3, // zona norte
-        "Castilla y León"       =>  0, // junto castilla la mancha
-        "Extremadura"           =>  2, // zona sur
-        "Balears, Illes"        =>  5,
-        "Cataluña"              =>  6,
-        "Ceuta"                 =>  2, // zona sur
-        "Galicia"               =>  4,
-        "Aragón"                =>  9,
-        "Madrid, Comunidad de"  =>  7,
-        "Melilla"               =>  2, // zona sur
-        "Murcia, Región de"     =>  1, // zona este
-        "Navarra, Comunidad Foral de"  =>  8,
-        "Canarias"              =>  10,
-        "Rioja, La"             =>  11
-    );
-
-    protected $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
-    protected $pfoffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
-
-    protected $zonesByClub=array();
-    protected $leagueZone=-1;
-    protected $myDBObject;
-
-    function __construct($name="Prueba puntuable Liga RFEC") {
-        parent::__construct($name);
+    function __construct() {
+        parent::__construct("Prueba puntuable Liga RFEC Madrid");
         $this->federationID=1;
-        $this->competitionID=0;
-        $this->myDBObject=new DBObject("Prueba untuable Liga RFEC");
-    }
-
-    /**
-     * @param {array} $perro dog data
-     * @return bool
-     */
-    protected function isInLeague($perro) {
-        // on first dog, evaluate competition zone for organizer club
-        if ($this->leagueZone<0) { // first call, zone not yet evaluated
-            $res=$this->myDBObject->__selectObject("Comunidad",
-                "Clubes,Provincias"," (Clubes.ID={$this->prueba->Club}) AND (Clubes.Provincia=Provincias.Provincia)");
-            if (!$res) {
-                do_log("Cannot locate comunidad for organizer club: {$this->prueba->Club}");
-                return false;
-            }
-            if (!array_key_exists($res->Comunidad,Liga_RFEC::$leagueZones)) {
-                do_log("Cannot locate league zone for organizer comunidad: {$res->Comunidad}");
-                return false;
-            }
-            $this->leagueZone=Liga_RFEC::$leagueZones[$res->Comunidad];
-        }
-        // retrieve club zone and test for matching with competition zone
-        if(!array_key_exists($perro['NombreClub'],$this->zonesByClub)) {
-            // club not yet in cache: parse it
-            $res=$this->myDBObject->__selectObject("Comunidad",
-                "Clubes,Provincias"," (Clubes.Nombre='{$perro['NombreClub']}') AND (Clubes.Provincia=Provincias.Provincia)");
-            if (!$res) {
-                do_log("Cannot locate comunidad for club: {$perro['NombreClub']}");
-                return false;
-            }
-            if (!array_key_exists($res->Comunidad,Liga_RFEC::$leagueZones)) {
-                do_log("Cannot locate league zone for club: {$perro['NombreClub']}");
-                return false;
-            }
-            // store zone for this club in cache
-            $this->zonesByClub[$perro['NombreClub']]=Liga_RFEC::$leagueZones[$res->Comunidad];
-        }
-        // return zone matching test result
-        return ($this->zonesByClub[$perro['NombreClub']]===$this->leagueZone);
+        $this->competitionID=2;
     }
 
     /**
@@ -118,9 +49,10 @@ class Liga_RFEC extends Competitions {
         $pt1=0;
         if ($perro['Penalizacion']<6.0) $pt1++; // 1 punto por excelente
         if ($perro['Penalizacion']==0.0) $pt1++; // 2 puntos por cero
-        // puntos a los 5 primeros de la zona liguera por manga/categoria si no estan eliminados o NC
+        // puntos a los 5 primeros de la zona liguera por manga/categoria si no estan eliminados
+        // en madrid se permite que los perros NC puntuen
         $puesto=$puestocat[$cat]-$this->poffset[$cat];
-        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<26) && ($puesto<=5) ) {
+        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<100) && ($puesto<=5) ) {
             $pt1+= $ptsmanga[$puesto-1];
         } else { // no points or not qualified; discard
             parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
@@ -141,9 +73,9 @@ class Liga_RFEC extends Competitions {
             $perro['Calificacion'] = _("Eliminated");
             $perro['CShort'] = _("Elim");
         }
-        else if ($perro['Penalizacion']>=26)	{
-            $perro['Calificacion'] = _("Not Clasified");
-            $perro['CShort'] = _("N.C.");
+        else if ($perro['Penalizacion']>=26)	{ // en madrid, los NC puntuan tambien
+            $perro['Calificacion'] = _("Not Clasified")." ".$pt1;
+            $perro['CShort'] = _("N.C.")." ".$pt1;
         }
         else if ($perro['Penalizacion']>=16)	{
             $perro['Calificacion'] = _("Good")." ".$pt1;
@@ -218,13 +150,9 @@ class Liga_RFEC extends Competitions {
         }
         // conjunta
         $pfin="0";
-        // si falta alguna manga no puntua
-        if ( ($c1==null) || ($c2==null)) {
-            $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
-            return;
-        }
-        // si eliminado o no clasificado en alguna manga no puntua
-        if ( ($perro['P1']>=26.0) || ($perro['P2']>=26.0) ) {
+        // en madrid se permite puntuar por conjunta los perros que tengan una manga a eliminado/NC
+        // no obstante, si eliminado en ambas mangas no puntua
+        if ( ($perro['P1']>=100.0) || ($perro['P2']>=100.0) ) {
             $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
             return;
         }

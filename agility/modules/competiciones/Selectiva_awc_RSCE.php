@@ -6,7 +6,7 @@
  * Date: 16/11/16
  * Time: 10:58
  */
-class Selectiva_RSCE_Individual extends Puntuable_RSCE_2017 {
+class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
 
     private $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
     private $pfoffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
