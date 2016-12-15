@@ -176,7 +176,6 @@ class Liga_RFEC extends Competitions {
      */
     public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat)
     {
-        do_log(json_encode($perro));
         $grad = $perro['Grado']; // cogemos el grado
         $cat = $perro['Categoria']; // cogemos la categoria
 
@@ -208,13 +207,13 @@ class Liga_RFEC extends Competitions {
         // manga 1
         $pt1 = "0";
         if ($c1 != null) { // extraemos los puntos de la primera manga
-            $x=substr($perro['C1'],-1,1);
+            $x=trim(substr($perro['C1'],-2));
             $pt1=(is_numeric($x))?$x:"0";
         }
         // manga 2
         $pt2="0";
         if ($c2!=null) { // extraemos los puntos de la segunda manga
-            $x=substr($perro['C2'],-1,1);
+            $x=trim(substr($perro['C2'],-2));
             $pt2=(is_numeric($x))?$x:"0";
         }
         // conjunta

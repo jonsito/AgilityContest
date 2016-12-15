@@ -80,12 +80,12 @@ class Selectiva_RSCE_Individual extends Puntuable_RSCE_2017 {
         // si llegamos aqui tenemos los 10 primeros perros una prueba selectiva en grado 3 con un perro no mestizo que ha sacado excelente :-)
         $pt1=$pts[$puesto-1];
         if ($perro['Penalizacion']>0)	{
-            $perro['Calificacion'] = _("Exc")." - $pt1";
-            $perro['CShort'] = _("Exc");
+            $perro['Calificacion'] = _("Excellent")." $pt1";
+            $perro['CShort'] = _("Exc")." $pt1";
         }
         if ($perro['Penalizacion']==0)	{
-            $perro['Calificacion'] = _("Exc")." (p) - $pt1";
-            $perro['CShort'] = _("Ex P");
+            $perro['Calificacion'] = _("Excellent")." (p) $pt1";
+            $perro['CShort'] = _("ExP")." $pt1";
         }
     }
 
@@ -139,13 +139,13 @@ class Selectiva_RSCE_Individual extends Puntuable_RSCE_2017 {
         // manga 1
         $pt1 = "0";
         if ($c1 != null) { // extraemos los puntos de la primera manga
-            $x=substr($perro['C1'],-1,1);
+            $x=trim(substr($perro['C1'],-2));
             $pt1=(is_numeric($x))?$x:"0";
         }
         // manga 2
         $pt2="0";
         if ($c2!=null) { // extraemos los puntos de la segunda manga
-            $x=substr($perro['C2'],-1,1);
+            $x=trim(substr($perro['C2'],-2));
             $pt2=(is_numeric($x))?$x:"0";
         }
         // conjunta

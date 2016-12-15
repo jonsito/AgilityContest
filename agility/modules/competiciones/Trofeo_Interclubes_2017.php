@@ -6,9 +6,9 @@
  * Date: 16/11/16
  * Time: 10:58
  */
-class Selectiva_RSCE_Equipos extends Competitions {
+class Trofeo_Interclubes_2017 extends Competitions {
     function __construct() {
-        parent::__construct("Prueba selectiva AWC (Equipos)");
+        parent::__construct("Trofeo_Interclubes_2017");
         $this->federationID=0;
         $this->competitionID=2;
     }
