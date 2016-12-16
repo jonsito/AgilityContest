@@ -34,6 +34,8 @@ class Resultados extends DBObject {
 	protected $djornada=null;  // datos de la jornada
 	protected $dequipos=null; // datos de los equipos
 	protected $dprueba=null; // datos de la prueba
+    protected $dcompetition=null; // datos del modulo de competicion
+
 	protected $federation=null;
 
 	function getDatosManga() {
@@ -76,6 +78,13 @@ class Resultados extends DBObject {
 		$this->dprueba=$obj;
 		return $this->dprueba;
 	}
+
+	function getDatosCompeticion() {
+        if ($this->dcompetition==null) {
+            $this->dcompetition=Competitions::getCompetition($this->getDatosPrueba(),$this->getDatosJornada());
+        }
+        return $this->dcompetition;
+    }
 
 	function getDatosEquipos() {
         if ($this->dequipos!=null) return $this->dequipos;
@@ -138,8 +147,8 @@ class Resultados extends DBObject {
         // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
         // manga actual, sino de la manga padre.
         // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
-        $comp=Competitions::getCompetition($this->getDatosPrueba(),$this->getDatosJornada());
-        $data=$comp->checkAndFixTRSData($this->getDatosPrueba(),$this->getDatosJornada(),$this->getDatosManga(),$data);
+        $comp=$this->getDatosCompeticion();
+        $data=$comp->checkAndFixTRSData($this->getDatosManga(),$data);
 		$result= array();
 		// vemos de donde tenemos que tomar los datos
 		$suffix='L';
@@ -788,7 +797,7 @@ class Resultados extends DBObject {
         $countcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
 
         // la calificacion depende de categoria, grado, federacion y tipo de competicion
-        $comp=Competitions::getCompetition($this->getDatosPrueba(),$this->getDatosJornada());
+        $comp=$this->getDatosCompeticion();
         $fed=$this->getFederation();
 		for($idx=0;$idx<$size;$idx++) {
             // vemos la categoria y actualizamos contadores de categoria
@@ -808,7 +817,7 @@ class Resultados extends DBObject {
             $table[$idx]['Pcat']=$puestocat[$cat];
 
             // finalmente llamamos al modulo de la competicion para evaluar la calificacion
-			$comp->evalPartialCalification($this->getDatosPrueba(),$this->getDatosJornada(),$this->getDatosManga(),$table[$idx],$puestocat);
+			$comp->evalPartialCalification($this->getDatosManga(),$table[$idx],$puestocat);
 		}
 
         // componemos datos del array a retornar

@@ -221,7 +221,7 @@ class Clasificaciones extends DBObject {
 			if($this->jornada->Equipos4!=0) continue;
 			if($this->jornada->KO!=0) continue;
             // call to competition module to get calification points and related data
-			$comp->evalFinalCalification($this->prueba,$this->jornada,$m1,$m2,$c1,$c2,$final[$idx],$puestocat);
+			$comp->evalFinalCalification($m1,$m2,$c1,$c2,$final[$idx],$puestocat);
 		}
 
 		// Esto es (casi) t odo, amigos

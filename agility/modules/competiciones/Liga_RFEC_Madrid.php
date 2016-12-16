@@ -28,22 +28,20 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
 
     /**
      * Evalua la calificacion parcial del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
      * @param {object} $m datos de la manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
+    public function evalPartialCalification($m,&$perro,$puestocat) {
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
         if ($grad!=="GII") { // solo se puntua en grado II
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         if (!$this->isInLeague($perro)) { // do not get league points if competitor does not belong to current zone
             $this->poffset[$cat]++; // properly handle puestocat offset
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         $ptsmanga=array("5","4","3","2","1"); // puntos por manga y puesto
@@ -56,7 +54,7 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<100) && ($puesto<=5) ) {
             $pt1+= $ptsmanga[$puesto-1];
         } else { // no points or not qualified; discard
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         if ($perro['Penalizacion']>=400)  {
@@ -98,8 +96,6 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
 
     /**
      * Evalua la calificacion final del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
      * @param {object} $m1 datos de la primera manga
      * @param {object} $m2 datos de la segunda manga
      * @param {array} $c1 datos de la primera manga
@@ -107,7 +103,7 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat)
+    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat)
     {
         $grad = $perro['Grado']; // cogemos el grado
         $cat = $perro['Categoria']; // cogemos la categoria

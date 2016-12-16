@@ -43,13 +43,11 @@ class Selectiva_PastorBelga extends Competitions {
 
     /**
      * Evalua la calificacion parcial del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
      * @param {object} $m datos de la manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
+    public function evalPartialCalification($m,&$perro,$puestocat) {
         // cogemos la categoria, que en el pastor belga siempre deberia ser L
         $cat=$perro['Categoria'];
         $pt1="";
@@ -105,8 +103,6 @@ class Selectiva_PastorBelga extends Competitions {
 
     /**
      * Evalua la calificacion final del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
      * @param {object} $m1 datos de la primera manga
      * @param {object} $m2 datos de la segunda manga
      * @param {array} $c1 datos de la primera manga
@@ -123,7 +119,7 @@ class Selectiva_PastorBelga extends Competitions {
      * los de la conjunta, comprobando en cada iteracion si hay algún puesto que coincida...
      * De momento, lo dejamos estar
      */
-    public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat){
         $cat=$perro['Categoria']; // cogemos la categoria, que siempre deberia ser estandard (L)
         // manga 1
         // puntos a los 10 primeros por manga/categoria si no estan eliminados
@@ -173,7 +169,7 @@ class Selectiva_PastorBelga extends Competitions {
         }
     }
 
-    function checkAndFixTRSData($prueba,$jornada,$manga,$data) {
+    function checkAndFixTRSData($manga,$data) {
         do_log("checkAndFixTRSData: enter()");
         /*
          * El TRS de una selectiva de PB es el la media de los tres mejores perros
@@ -185,7 +181,7 @@ class Selectiva_PastorBelga extends Competitions {
          * Es por ello que se inserta esta rutina en medio de la funcion Resultados::evalTRS
          */
         // fase 0: buscamos la jornada padre
-        $parent=intval($jornada->SlaveOf);
+        $parent=intval($this->jornada->SlaveOf);
         if ($parent==0) return $data;
         $myDBObject=new DBObject("checkAndFixTRSData");
         // fase 1: cogemos todos los resultados de standard grado II y III de la manga padre

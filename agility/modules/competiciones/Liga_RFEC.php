@@ -96,13 +96,11 @@ class Liga_RFEC extends Competitions {
 
     /**
      * Evalua la calificacion parcial del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
      * @param {object} $m datos de la manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
+    public function evalPartialCalification($m,&$perro,$puestocat) {
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
         if ($grad!=="GII") { // solo se puntua en grado II
@@ -165,8 +163,6 @@ class Liga_RFEC extends Competitions {
 
     /**
      * Evalua la calificacion final del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
      * @param {object} $m1 datos de la primera manga
      * @param {object} $m2 datos de la segunda manga
      * @param {array} $c1 datos de la primera manga
@@ -174,7 +170,7 @@ class Liga_RFEC extends Competitions {
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat)
+    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat)
     {
         $grad = $perro['Grado']; // cogemos el grado
         $cat = $perro['Categoria']; // cogemos la categoria

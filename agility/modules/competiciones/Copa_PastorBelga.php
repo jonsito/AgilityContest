@@ -25,7 +25,7 @@ class Copa_PastorBelga extends Selectiva_PastorBelga  {
         $this->ptsglobal=array("20","18","16","14","12", "10"," 8"," 6"," 4"," 2","0","0"); // puntos conjunta
     }
 
-    function checkAndFixTRSData($prueba,$jornada,$manga,$data) {
+    function checkAndFixTRSData($manga,$data) {
         // best * 1.15 round up. must be Declared in round development
         // override selectiva declaration: just use default ( do nothing )
         return $data;

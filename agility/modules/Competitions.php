@@ -63,13 +63,11 @@ class Competitions {
 
     /**
      * Evalua la calificacion parcial del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
      * @param {object} $m datos de la manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
+    public function evalPartialCalification($m,&$perro,$puestocat) {
         if ($perro['Penalizacion']>=400)  { // pending
             $perro['Penalizacion']=400.0;
             $perro['Calificacion'] = "-";
@@ -109,8 +107,6 @@ class Competitions {
 
     /**
      * Evalua la calificacion final del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
      * @param {object} $m1 datos de la primera manga
      * @param {object} $m2 datos de la segunda manga
      * @param {array} $c1 resultados de la primera manga
@@ -118,20 +114,18 @@ class Competitions {
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat){
         return; // normally is overriden by child classes
     }
 
     /**
      * Re-evaluate and fix -if required- results data used to evaluate TRS for
      * provided $prueba/$jornada/$manga
-     * @param {object} $prueba Contest data
-     * @param {object} $jornada Journey data
      * @param {object} $manga Round data and trs parameters
      * @param {array} $data Original results provided for evaluation
      * @return {array} final data to be used to evaluate trs/trm
      */
-    public function checkAndFixTRSData($prueba,$jornada,$manga,$data) {
+    public function checkAndFixTRSData($manga,$data) {
         // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
         // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
         // manga actual, sino de la manga padre.
@@ -169,8 +163,9 @@ class Competitions {
 
     /**
      * Retrieve a competition object based in prueba/jornada information
-     * @param $prueba
-     * @param $jornada
+     * @param {object} $prueba
+     * @param {object} $jornada
+     * @return requested competition module, or default if not found
      */
     static function getCompetition($prueba,$jornada) {
         $fed=intval($prueba->RSCE);

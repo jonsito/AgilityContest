@@ -20,15 +20,13 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
     /**
      * Re-evaluate and fix -if required- results data used to evaluate TRS for
      * provided $prueba/$jornada/$manga
-     * @param {object} $prueba Contest data
-     * @param {object} $jornada Journey data
      * @param {object} $manga Round data and trs parameters
      * @param {array} $data Original results provided for evaluation
      * @return {array} final data to be used to evaluate trs/trm
      */
-    public function checkAndFixTRSData($prueba,$jornada,$manga,$data) {
+    public function checkAndFixTRSData($manga,$data) {
         // remember that prueba,jornada and manga are objects, so passed by reference
-        $prueba->Selectiva=1;
+        $this->prueba->Selectiva=1;
         // en pruebas selectivas RSCE de la temporada 2017
         // el trs para grado 3 es el del mejor perro por categoria y sin redondeo
         if ($manga->Grado==="GIII") {
@@ -67,31 +65,29 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
 
     /**
      * Evalua la calificacion parcial del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
      * @param {object} $m datos de la manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
+    public function evalPartialCalification($m,&$perro,$puestocat) {
         if ($perro['Grado']!=="GIII") {
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         // arriving here means grado III
-        if ($p->Selectiva==0) { // need to be marked as selectiva to properly evaluate TRS in GIII
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+        if ($this->prueba->Selectiva==0) { // need to be marked as selectiva to properly evaluate TRS in GIII
+            parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         // si no tiene excelente no puntua
         if ( ($perro['Penalizacion']>=6.0)) {
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         // comprobamos si el perro es mestizo
         if (! $this->validLicense($perro['Licencia']) ) { // perro mestizo o extranjero no puntua
             $this->poffset[$perro['Categoria']]++; // mark to skip point assignation
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
@@ -99,7 +95,7 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
         // solo puntuan los 10 primeros
         $puesto=$puestocat[$perro['Categoria']]-$this->pfoffset[$perro['Categoria']];
         if ( ($puesto>10) || ($puesto<=0) ) {
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         // si llegamos aqui tenemos los 10 primeros perros una prueba selectiva en grado 3 con un perro no mestizo que ha sacado excelente :-)
@@ -117,8 +113,6 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
 
     /**
      * Evalua la calificacion final del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
      * @param {object} $m1 datos de la primera manga
      * @param {object} $m2 datos de la segunda manga
      * @param {array} $c1 resultados de la primera manga
@@ -126,14 +120,14 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat){
         $grad=$perro['Grado']; // cogemos la categoria
         if ($grad==="GI") { // en grado uno puntua como prueba normal
-            parent::evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,$perro,$puestocat);
+            parent::evalFinalCalification($m1,$m2,$c1,$c2,$perro,$puestocat);
             return;
         }
         if ($grad==="GII") { // grado dos puntua como prueba normal
-            parent::evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,$perro,$puestocat);
+            parent::evalFinalCalification($m1,$m2,$c1,$c2,$perro,$puestocat);
             return;
         }
         if ($grad!=="GIII") { // ignore other extrange grades
@@ -141,14 +135,14 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
             return;
         }
         // arriving here means grado III
-        if ($p->Selectiva==0){ // need to be marked as selectiva to properly evaluate TRS in GIII
-            parent::evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,$perro,$puestocat);
+        if ($this->prueba->Selectiva==0){ // need to be marked as selectiva to properly evaluate TRS in GIII
+            parent::evalFinalCalification($m1,$m2,$c1,$c2,$perro,$puestocat);
             return;
         }
         // arriving here means prueba selectiva and Grado III
         if ( ! $this->validLicense($perro['Licencia']) ) {  // comprobamos si el perro es mestizo o extranjero
             $this->pfoffset[$perro['Categoria']]++; // mark to skip point assignation
-            parent::evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,$perro,$puestocat);
+            parent::evalFinalCalification($m1,$m2,$c1,$c2,$perro,$puestocat);
             return;
         }
 

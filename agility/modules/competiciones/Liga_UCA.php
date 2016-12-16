@@ -21,9 +21,9 @@ class Liga_UCA extends Competitions {
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
+    public function evalPartialCalification($m,&$perro,$puestocat) {
         if ($perro['Grado']!=="GII") { // solo se puntua en grado II
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         if ($perro['Penalizacion']>=400)  { // tiene manga pendiente de salir
@@ -75,7 +75,7 @@ class Liga_UCA extends Competitions {
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat){
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
         if ($grad!=="GII") { // solo se puntua en grado II

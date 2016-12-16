@@ -35,19 +35,17 @@ class Puntuable_RSCE_2017 extends Competitions {
     /**
      * Re-evaluate and fix -if required- results data used to evaluate TRS for
      * provided $prueba/$jornada/$manga
-     * @param {object} $prueba Contest data
-     * @param {object} $jornada Journey data
      * @param {object} $manga Round data and trs parameters
      * @param {array} $data Original results provided for evaluation
      * @return {array} final data to be used to evaluate trs/trm
      */
-    public function checkAndFixTRSData($prueba,$jornada,$manga,$data) {
+    public function checkAndFixTRSData($manga,$data) {
 
         // en pruebas puntuables RSCE de la temporada 2017
         // el trs para grado 3 es el mejor tiempo * 1.15 y con redondeo hacia arriba
 
         // remember that prueba,jornada and manga are objects, so passed by reference
-        $prueba->Selectiva=0; // to allow round up
+        $this->prueba->Selectiva=0; // to allow round up
         if ($manga->Grado==="GIII") {
             $manga->TRS_L_Tipo=1;$manga->TRS_L_Factor=15;$manga->TRS_L_Unit='%';
             $manga->TRM_L_Tipo=1;$manga->TRM_L_Factor=50;$manga->TRM_L_Unit='%';
@@ -62,20 +60,18 @@ class Puntuable_RSCE_2017 extends Competitions {
 
     /**
      * Evalua la calificacion parcial del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
      * @param {object} $m datos de la manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
+    public function evalPartialCalification($m,&$perro,$puestocat) {
         // si estamos en grado 1 o tiene 6 o mas puntos de penalizacion, utiliza la puntuacion estandard
         if ($perro['Grado']==="GI") {
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         if ($perro['Penalizacion']>0) {
-            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         $perro['Calificacion'] = _("Excellent")." 0";
@@ -97,8 +93,6 @@ class Puntuable_RSCE_2017 extends Competitions {
 
     /**
      * Evalua la calificacion final del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
      * @param {object} $m1 datos de la primera manga
      * @param {object} $m2 datos de la segunda manga
      * @param {array} $c1 resultados de la primera manga
@@ -106,7 +100,7 @@ class Puntuable_RSCE_2017 extends Competitions {
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat){
         $grad=$perro['Grado']; // cogemos la categoria
 
         if ($grad==="GI") { // en grado uno se puntua por cada manga
