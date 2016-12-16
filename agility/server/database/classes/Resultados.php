@@ -633,29 +633,11 @@ class Resultados extends DBObject {
 
 		// FASE 3: evaluamos TRS Y TRM
 		$tdata=$this->evalTRS($mode,$table); // array( 'dist' 'obst' 'trs' 'trm', 'vel')
-		$trs=$tdata['trs'];
-		$trm=$tdata['trm'];
 
 		// FASE 4: añadimos ptiempo, penalizacion total
+        $comp=$this->getDatosCompeticion();
 		for ($idx=0;$idx<$size;$idx++ ){
-			if ($trs==0) {
-				// si TRS==0 no hay penalizacion por tiempo
-				$table[$idx]['PTiempo']		= 	0.0;
-				$table[$idx]['Penalizacion']=	$table[$idx]['PRecorrido'];
-			} else {
-				// evaluamos penalizacion por tiempo y penalizacion final
-				if ($table[$idx]['Tiempo']<$trs) { // Por debajo del TRS
-					$table[$idx]['PTiempo']		= 	0.0;
-					$table[$idx]['Penalizacion']=	$table[$idx]['PRecorrido'];
-				}
-				if ($table[$idx]['Tiempo']>=$trs) { // Superado TRS
-					$table[$idx]['PTiempo']		=	$table[$idx]['Tiempo'] 		-	$trs;
-					$table[$idx]['Penalizacion']=	floatval($table[$idx]['PRecorrido'])	+	$table[$idx]['PTiempo'];
-				}
-				if ($table[$idx]['Tiempo']>$trm) { // Superado TRM: eliminado
-					$table[$idx]['Penalizacion']=	100.0;
-				}
-			}
+		    $comp->evalPartialPenalization($table[$idx],$tdata);
 		}
 		// FASE 4: re-ordenamos los datos en base a la puntuacion y calculamos campo "Puesto"
 		usort($table, function($a, $b) {
@@ -749,30 +731,11 @@ class Resultados extends DBObject {
 		// FASE 3: añadimos ptiempo, puntuacion, clasificacion y logo
         $clubes=new Clubes("Resultados::getResultados",$this->getDatosPrueba()->RSCE);
 		$size=count($table);
+		$comp=$this->getDatosCompeticion();
 		for ($idx=0;$idx<$size;$idx++ ){
             $table[$idx]['Puntos'] = 0; // to be re-evaluated later
-			// importante: las asignaciones se hacen en base a $table[$idx], 
-			// pues si no solo se actualiza la copia
-			
-			if ($trs==0) {
-				// si TRS==0 no hay penalizacion por tiempo
-				$table[$idx]['PTiempo']		= 	0.0; 
-				$table[$idx]['Penalizacion']=	$table[$idx]['PRecorrido'];
-			} else {
-				// evaluamos penalizacion por tiempo y penalizacion final
-				if ($table[$idx]['Tiempo']<$trs) { // Por debajo del TRS
-					$table[$idx]['PTiempo']		= 	0.0; 
-					$table[$idx]['Penalizacion']=	$table[$idx]['PRecorrido'];
-				}
-				if ($table[$idx]['Tiempo']>=$trs) { // Superado TRS
-					$table[$idx]['PTiempo']		=	$table[$idx]['Tiempo'] 		-	$trs; 
-					$table[$idx]['Penalizacion']=	floatval($table[$idx]['PRecorrido'])	+	$table[$idx]['PTiempo'];
-				}
-				if ($table[$idx]['Tiempo']>$trm) { // Superado TRM: eliminado
-					$table[$idx]['Penalizacion']=	100.0;
-				}
-			}
-				
+            // evaluate penalization
+			$comp->evalPartialPenalization($table[$idx],$tdata);
 			// evaluamos velocidad 
 			if ($table[$idx]['Tiempo']==0)	$table[$idx]['Velocidad'] = 0;
 			else 	$table[$idx]['Velocidad'] =  $tdata['dist'] / $table[$idx]['Tiempo'];
@@ -796,8 +759,6 @@ class Resultados extends DBObject {
         $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
         $countcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
 
-        // la calificacion depende de categoria, grado, federacion y tipo de competicion
-        $comp=$this->getDatosCompeticion();
         $fed=$this->getFederation();
 		for($idx=0;$idx<$size;$idx++) {
             // vemos la categoria y actualizamos contadores de categoria
@@ -817,7 +778,7 @@ class Resultados extends DBObject {
             $table[$idx]['Pcat']=$puestocat[$cat];
 
             // finalmente llamamos al modulo de la competicion para evaluar la calificacion
-			$comp->evalPartialCalification($this->getDatosManga(),$table[$idx],$puestocat);
+			$this->getDatosCompeticion()->evalPartialCalification($this->getDatosManga(),$table[$idx],$puestocat);
 		}
 
         // componemos datos del array a retornar

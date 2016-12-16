@@ -39,8 +39,8 @@ $config =Config::getInstance();
         -->
         <th width="4%" data-options="field:'Velocidad',	align:'right',formatter:formatV1"> <?php _e('Vel'); ?>.</th>
         <th width="6%" data-options="field:'Penalizacion',	align:'right',formatter:formatPenalizacionFinal,styler:formatBorder" > <?php _e('Penaliz'); ?>.</th>
-        <th width="8%" data-options="field:'Calificacion',	align:'center'" > <?php _e('Calif'); ?>.</th>
-        <th width="5%" data-options="field:'Puesto',		align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
+        <th width="9%" data-options="field:'Calificacion',	align:'center'" > <?php _e('Calif'); ?>.</th>
+        <th width="4%" data-options="field:'Puesto',		align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
         <!--
         <th data-options="field:'CShort',	hidden:true ">/th>
         -->
