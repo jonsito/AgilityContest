@@ -42,12 +42,21 @@ class Puntuable_RSCE_2017 extends Competitions {
      * @return {array} final data to be used to evaluate trs/trm
      */
     public function checkAndFixTRSData($prueba,$jornada,$manga,$data) {
+
         // en pruebas puntuables RSCE de la temporada 2017
         // el trs para grado 3 es el mejor tiempo * 1.15 y con redondeo hacia arriba
-        /*
-         * Este punto esta pendiente de clarificacion en canina. Mientras no se sepa,
-         * se ajusta a mano desde el programa
-         */
+
+        // remember that prueba,jornada and manga are objects, so passed by reference
+        $prueba->Selectiva=0; // to allow round up
+        if ($manga->Grado==="GIII") {
+            $manga->TRS_L_Tipo=1;$manga->TRS_L_Factor=15;$manga->TRS_L_Unit='%';
+            $manga->TRM_L_Tipo=1;$manga->TRM_L_Factor=50;$manga->TRM_L_Unit='%';
+            $manga->TRS_M_Tipo=1;$manga->TRS_M_Factor=15;$manga->TRS_M_Unit='%';
+            $manga->TRM_M_Tipo=1;$manga->TRM_M_Factor=50;$manga->TRM_M_Unit='%';
+            $manga->TRS_S_Tipo=1;$manga->TRS_S_Factor=15;$manga->TRS_S_Unit='%';
+            $manga->TRM_S_Tipo=1;$manga->TRM_S_Factor=50;$manga->TRM_S_Unit='%';
+        }
+
         return $data;
     }
 
