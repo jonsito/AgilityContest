@@ -33,28 +33,22 @@ class Puntuable_RSCE_2017 extends Competitions {
     }
 
     /**
-     * Evaluate if a dog has a mixBreed License
-     * @param $lic
+     * Re-evaluate and fix -if required- results data used to evaluate TRS for
+     * provided $prueba/$jornada/$manga
+     * @param {object} $prueba Contest data
+     * @param {object} $jornada Journey data
+     * @param {object} $manga Round data and trs parameters
+     * @param {array} $data Original results provided for evaluation
+     * @return {array} final data to be used to evaluate trs/trm
      */
-    function validLicense($lic){
-        $lic=strval($lic);
-        // remove dots, spaces and dashes
-        $lic=str_replace(" ","",$lic);
-        $lic=str_replace("-","",$lic);
-        $lic=str_replace(".","",$lic);
-        $lic=strtoupper($lic);
-        if (strlen($lic)<4) {
-            if (is_numeric($lic)) return true; // licenses from 0 to 999
-            return false;
-        }
-        if (strlen($lic)>4) return false; // rsce licenses has up to 4 characters
-        if (substr($lic,0,1)=='0') return true; // 0000 to 9999
-        if (substr($lic,0,1)=='A') return true; // A000 to A999
-        if (substr($lic,0,1)=='B') return true; // B000 to B999
-        if (substr($lic,0,1)=='C') return true; // C000 to C999
-        if (substr($lic,0,1)=='D') return true; // D000 to D999
-        if (substr($lic,0,1)=='E') return true; // E000 to E999
-        return false;
+    public function checkAndFixTRSData($prueba,$jornada,$manga,$data) {
+        // en pruebas puntuables RSCE de la temporada 2017
+        // el trs para grado 3 es el mejor tiempo * 1.15 y con redondeo hacia arriba
+        /*
+         * Este punto esta pendiente de clarificacion en canina. Mientras no se sepa,
+         * se ajusta a mano desde el programa
+         */
+        return $data;
     }
 
     /**

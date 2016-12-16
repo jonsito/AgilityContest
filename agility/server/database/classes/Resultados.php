@@ -138,7 +138,6 @@ class Resultados extends DBObject {
         // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
         // manga actual, sino de la manga padre.
         // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
-        $dmanga=(array) $this->getDatosManga();
         $comp=Competitions::getCompetition($this->getDatosPrueba(),$this->getDatosJornada());
         $data=$comp->checkAndFixTRSData($this->getDatosPrueba(),$this->getDatosJornada(),$this->getDatosManga(),$data);
 		$result= array();
@@ -157,8 +156,8 @@ class Resultados extends DBObject {
 			case 8: $suffix="L"; break; // L+M+S+T
 		}
 		// evaluamos distancia y obstaculos
-		$result['dist']= $dmanga["Dist_$suffix"]; 
-		$result['obst']= $dmanga["Obst_$suffix"];
+		$result['dist']= $this->getDatosManga()->{"Dist_$suffix"};
+		$result['obst']= $this->getDatosManga()->{"Obst_$suffix"};
 		// evaluamos mejor tiempo y media de los tres mejores
 		$best1=0;
 		$best3=0;
@@ -167,8 +166,8 @@ class Resultados extends DBObject {
 		if (count($data)==2) { $best1=$data[0]['Tiempo']; $best3=($data[0]['Tiempo']+$data[1]['Tiempo'])/2.0;}
 		if (count($data)>=3) { $best1=$data[0]['Tiempo']; $best3=($data[0]['Tiempo']+$data[1]['Tiempo']+$data[2]['Tiempo'])/3.0;}
 		// Evaluamos TRS
-        $factor=floatval($dmanga["TRS_{$suffix}_Factor"]);
-		switch ($dmanga["TRS_{$suffix}_Tipo"]) {
+        $factor=floatval($this->getDatosManga()->{"TRS_{$suffix}_Factor"});
+		switch ($this->getDatosManga()->{"TRS_{$suffix}_Tipo"}) {
 			// NOTA IMPORTANTE: 
 			// No se hace chequeo de tipos, con lo que si por error en un calculo de TRS standard se pide un tipo STD+XX
 			// la aplicacion entrará en un bucle infinito
@@ -176,28 +175,28 @@ class Resultados extends DBObject {
 				$result['trs']=$factor;
 				break;
 			case 1: // mejor tiempo
-				if ($dmanga["TRS_{$suffix}_Unit"]==="s") $result['trs']= $best1 + $factor; // ( + X segundos )
+				if ($this->getDatosManga()->{"TRS_{$suffix}_Unit"}==="s") $result['trs']= $best1 + $factor; // ( + X segundos )
 				else $result['trs']= $best1 * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 			case 2: // media de los tres mejores tiempos
-				if ($dmanga["TRS_{$suffix}_Unit"]==="s") $result['trs']= $best3 + $factor; // ( + X segundos )
+				if ($this->getDatosManga()->{"TRS_{$suffix}_Unit"}==="s") $result['trs']= $best3 + $factor; // ( + X segundos )
 				else $result['trs']= $best3 * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 			case 3: // trs standard +xxx						
 				$result_std=$this->getResultados(0)['trs'];
-				if ($dmanga["TRS_{$suffix}_Unit"]==="s") 
+				if ($this->getDatosManga()->{"TRS_{$suffix}_Unit"}==="s")
 					$result['trs']= $result_std['trs'] + $factor; // ( + X segundos )
 				else $result['trs']= $result_std['trs'] * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 			case 4: // trs medium + xx						
 				$result_med=$this->getResultados(1)['trs'];
-				if ($dmanga["TRS_{$suffix}_Unit"]==="s") 
+				if ($this->getDatosManga()->{"TRS_{$suffix}_Unit"}==="s")
 					$result['trs']= $result_med['trs'] + $factor; // ( + X segundos )
 				else $result['trs']= $result_med['trs'] * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 			case 5: // trs small + xx
 				$result_med=$this->getResultados(2)['trs'];
-				if ($dmanga["TRS_{$suffix}_Unit"]==="s")
+				if ($this->getDatosManga()->{"TRS_{$suffix}_Unit"}==="s")
 					$result['trs']= $result_med['trs'] + $factor; // ( + X segundos )
 				else $result['trs']= $result_med['trs'] * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
@@ -208,20 +207,21 @@ class Resultados extends DBObject {
 		}
 		// si estamos en una selectiva RSCE, y el factor es 0.0 _NO_ se redondea
 		$roundUp=true;
-		$t=$dmanga["TRS_{$suffix}_Factor"];
+		$t=$this->getDatosManga()->{"TRS_{$suffix}_Factor"};
 		if ( ($this->getDatosPrueba()->Selectiva==1) && ($t==0)) $roundUp=false;
 		// si el trs esta especificado con decimales, tampoco se redondea
 		if ( $t - (int)$t != 0) $roundUp=false;
 		// en caso de tener que redondear hacia arriba, procedemos
 		if ($roundUp) $result['trs']=ceil($result['trs']); // redondeamos hacia arriba
 		// Evaluamos TRM
-		switch($dmanga["TRM_{$suffix}_Tipo"]) {
+		switch($this->getDatosManga()->{"TRM_{$suffix}_Tipo"}) {
 			case 0: // TRM Fijo
-				$result['trm']=$dmanga["TRM_{$suffix}_Factor"];
+				$result['trm']=$this->getDatosManga()->{"TRM_{$suffix}_Factor"};
 				break;
 			case 1: // TRS + (segs o porcentaje)
-				if ($dmanga["TRM_{$suffix}_Unit"]==="s") $result['trm']=$result['trs'] + $dmanga["TRM_{$suffix}_Factor"]; // ( + X segundos )
-				else $result['trm'] = $result['trs'] * ( (100.0+$dmanga["TRM_{$suffix}_Factor"]) / 100.0) ; // (+ X por ciento)
+				if ($this->getDatosManga()->{"TRM_{$suffix}_Unit"}==="s")
+				    $result['trm']=$result['trs'] + $this->getDatosManga()->{"TRM_{$suffix}_Factor"}; // ( + X segundos )
+				else $result['trm'] = $result['trs'] * ( (100.0+$this->getDatosManga()->{"TRM_{$suffix}_Factor"}) / 100.0) ; // (+ X por ciento)
 				break;
 		}
 		if ($roundUp) $result['trm']=ceil($result['trm']); // redondeamos hacia arriba

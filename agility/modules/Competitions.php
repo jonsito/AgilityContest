@@ -127,7 +127,7 @@ class Competitions {
      * provided $prueba/$jornada/$manga
      * @param {object} $prueba Contest data
      * @param {object} $jornada Journey data
-     * @param {object} $manga Round data
+     * @param {object} $manga Round data and trs parameters
      * @param {array} $data Original results provided for evaluation
      * @return {array} final data to be used to evaluate trs/trm
      */
@@ -136,6 +136,8 @@ class Competitions {
         // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
         // manga actual, sino de la manga padre.
         // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
+        // en otros casos PE grado 3 en puntuables rsce y selectivas rsce hay que
+        // fijar los parametros del trs y el flag de selectiva
         return $data;
     }
 

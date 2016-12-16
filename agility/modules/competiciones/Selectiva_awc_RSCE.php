@@ -18,6 +18,31 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
     }
 
     /**
+     * Re-evaluate and fix -if required- results data used to evaluate TRS for
+     * provided $prueba/$jornada/$manga
+     * @param {object} $prueba Contest data
+     * @param {object} $jornada Journey data
+     * @param {object} $manga Round data and trs parameters
+     * @param {array} $data Original results provided for evaluation
+     * @return {array} final data to be used to evaluate trs/trm
+     */
+    public function checkAndFixTRSData($prueba,$jornada,$manga,$data) {
+        // remember that prueba,jornada and manga are objects, so passed by reference
+        $prueba->Selectiva=1;
+        // en pruebas selectivas RSCE de la temporada 2017
+        // el trs para grado 3 es el del mejor perro por categoria y sin redondeo
+        if ($manga->Grado==="GIII") {
+            $manga->TRS_L_Tipo=1;$manga->TRS_L_Factor=0;$manga->TRS_L_Unit='s';
+            $manga->TRM_L_Tipo=1;$manga->TRM_L_Factor=50;$manga->TRM_L_Unit='%';
+            $manga->TRS_M_Tipo=1;$manga->TRS_M_Factor=0;$manga->TRS_M_Unit='s';
+            $manga->TRM_M_Tipo=1;$manga->TRM_M_Factor=50;$manga->TRM_M_Unit='%';
+            $manga->TRS_S_Tipo=1;$manga->TRS_S_Factor=0;$manga->TRS_S_Unit='s';
+            $manga->TRM_S_Tipo=1;$manga->TRM_S_Factor=50;$manga->TRM_S_Unit='%';
+        }
+        return $data;
+    }
+
+    /**
      * Evaluate if a dog has a mixBreed License
      * @param $lic
      */
