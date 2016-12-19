@@ -104,13 +104,13 @@ class PrintCommon extends FPDF {
 		if (is_numeric($txt)) $txt=strval($txt);
 		if (is_string($txt)===FALSE) { return; } // Cell is only valid with strings
 		// convert to iso-latin1 from html
-		// special handling of &asymp; entity
-		$txt=str_replace("&asymp;","± ",$txt);
+		// special handling of some entities
+        $txt=str_replace("&asymp;","± ",$txt);
 		$txt=html_entity_decode($txt);
 		if (!$this->useUTF8) $txt=utf8_decode($txt);
 		// let string fit into box
 		for($n=strlen($txt);$n>0;$n--) {
-			$str=substr($txt,0,$n);
+			$str=mb_substr($txt,0,$n);
 			$sw=$this->GetStringWidth($str);
 			if ($sw>=($w-(1.5))) continue;
 			$txt=$str;

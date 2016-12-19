@@ -25,10 +25,10 @@ class Puntuable_RSCE_2017 extends Competitions {
         $this->competitionID=5;
         $this->puntos=array(
             /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS */
-            array("GII",    "1",  3.8,    3.6,   3.6,   4.0,    3.8,    3.8 ),
-            array("GII",    "2",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3 ),
-            array("GIII",   "1",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7 ),
-            array("GIII",   "2",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3 ),
+            array("GII",    "P*",  3.8,    3.6,   3.6,   4.0,    3.8,    3.8 ),
+            array("GII",    "2P",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3 ),
+            array("GIII",   "P*",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7 ),
+            array("GIII",   "2P",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3 ),
         );
     }
 
@@ -78,8 +78,8 @@ class Puntuable_RSCE_2017 extends Competitions {
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
-        $perro['Calificacion'] = _("Excellent")." 0";
-        $perro['CShort'] = "Ex 0";
+        $perro['Calificacion'] = _("Excellent")." Pt";
+        $perro['CShort'] = "Ex Pt";
         foreach ( $this->puntos as $item) {
             if ($perro['Grado']!==$item[0]) continue;
             // comprobamos si estamos en agility o en jumping
@@ -90,7 +90,7 @@ class Puntuable_RSCE_2017 extends Competitions {
             // si la velocidad es igual o superior se apunta tanto. notese que el array está ordenado por grad/velocidad
             if ($perro['Velocidad']>=$item[$base+$offset]) {
                 $perro['Calificacion'] = _("Excellent")." ".$item[1];
-                $perro['CShort'] = "Exc ".$item[1];
+                $perro['CShort'] = "Ex ".$item[1];
             }
         }
     }
@@ -122,10 +122,10 @@ class Puntuable_RSCE_2017 extends Competitions {
         // componemos string de calificacion final
         $p1=" ";
         if ($perro['P1']<6.0) $p1="-";
-        if ($perro['P1']==0) $p1=substr($perro['C1'],-1,1);
+        if ($perro['P1']==0) $p1=mb_substr($perro['C1'],-2,2);
         $p2=" ";
         if ($perro['P2']<6.0) $p2="-";
-        if ($perro['P2']==0) $p2=substr($perro['C2'],-1,1);
+        if ($perro['P2']==0) $p2=mb_substr($perro['C2'],-2,2);
         $perro['Calificacion']="$p1 / $p2";
     }
 }
