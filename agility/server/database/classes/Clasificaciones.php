@@ -84,6 +84,7 @@ class Clasificaciones extends DBObject {
         // procesamos cada una de las 8 posibles mangas
         for ($i=0;$i<8;$i++) {
             if($resultados[$i]==null) continue; // no info for round $i
+            $dogcount=count($resultados[$i]['rows']);
             // iterate over every rounds and compose array
             foreach($resultados[$i]['rows'] as $item){
                 $dogID=$item['Perro'];
@@ -91,7 +92,7 @@ class Clasificaciones extends DBObject {
                     // creamos todos los posibles elementos de la tabla
                     $participante=array(
                         // datos del participante
-                        'Participantes' => count($resultados[$i]['rows']),
+                        'Participantes' => $dogcount,
                         'Perro' => $dogID,
                         'Dorsal' => $item['Dorsal'],
                         'Nombre' => $item['Nombre'],
@@ -104,15 +105,15 @@ class Clasificaciones extends DBObject {
                         'NombreGuia' => $item['NombreGuia'],
                         'NombreClub' => $item['NombreClub'],
                         'LogoClub' => $item['LogoClub'],
-                        // datos globales
-                        'Tiempo' => $item['Tiempo'],
+                        // global data to be evaluated
+                        'Tiempo' => 0,
                         'Penalizacion' => 0,
                         'Calificacion' => '',
-                        'Puntos' => '', // to be evaluated
-                        'Puesto' => 0, // to be evaluated
-                        'Pcat' => 0 // to be evaluated
+                        'Puntos' => '',
+                        'Puesto' => 0,
+                        'Pcat' => 0
                     );
-                    // anyadimos datos de cada manga y evaluamos penalizacion total
+                    // anyadimos datos de cada manga
                     for($j=1;$j<9;$j++) {
                         if ($resultados[$j-1]==null) continue;
                         $participante["F{$j}"]=0;
@@ -126,27 +127,28 @@ class Clasificaciones extends DBObject {
                         $participante["Out{$j}"]=0;
                         $participante["Puesto{$j}"]=0;
                         $participante["Pcat{$j}"]=0;
-                        $participante["Penalizacion"] +=400;
+                        $participante["Penalizacion"] +=400;// default to not processed
                     }
                     // insertamos el array en la lista de participantes
                     $final[$dogID]=$participante;
+                    // do_log("round:{$mangas[$i]->ID} Create Participante:{$dogID}: ".json_encode($participante));
                 }
                 // una vez creado -si es necesario, claro - nos ponemos y rellenamos los elementos especificos de esta manga
-                $participante=&$final[$dogID]; // avoid copy to properly handle contents
                 $j=$i+1;
-                $participante["F{$j}"] = $item['Faltas']+ $item['Tocados'];
-                $participante["R{$j}"] = $item['Rehuses'];
-                $participante["E{$j}"] = $item['Eliminado'];
-                $participante["N{$j}"] = $item['NoPresentado'];
-                $participante["T{$j}"] = floatval($item['Tiempo']);
-                $participante["V{$j}"] = floatval($item['Velocidad']);
-                $participante["P{$j}"] = $item['Penalizacion'];
-                $participante["C{$j}"] = $item['CShort'];
-                $participante["Out{$j}"]=0;
-                $participante["Puesto{$j}"] = $item['Puesto'];
-                $participante["Pcat{$j}"] = $item['Pcat'];
-                $participante["Tiempo"] += $participante["T{$j}"];
-                $participante['Penalizacion'] = $participante['Penalizacion'] - 400 + $participante["P{$j}"];
+                $final[$dogID]["F{$j}"] = $item['Faltas']+ $item['Tocados'];
+                $final[$dogID]["R{$j}"] = $item['Rehuses'];
+                $final[$dogID]["E{$j}"] = $item['Eliminado'];
+                $final[$dogID]["N{$j}"] = $item['NoPresentado'];
+                $final[$dogID]["T{$j}"] = floatval($item['Tiempo']);
+                $final[$dogID]["V{$j}"] = floatval($item['Velocidad']);
+                $final[$dogID]["P{$j}"] = $item['Penalizacion'];
+                $final[$dogID]["C{$j}"] = $item['CShort'];
+                $final[$dogID]["Out{$j}"]=0;
+                $final[$dogID]["Puesto{$j}"] = $item['Puesto'];
+                $final[$dogID]["Pcat{$j}"] = $item['Pcat'];
+                $final[$dogID]["Tiempo"] += $final[$dogID]["T{$j}"];
+                $final[$dogID]['Penalizacion'] = $final[$dogID]['Penalizacion'] - 400 + $final[$dogID]["P{$j}"];
+                // do_log("round:{$mangas[$i]->ID} inserted Participante:{$dogID}: ".json_encode($participante));
             }
         }
 		// una vez evaluados, reconstruimos el array eliminando el indice "perro"

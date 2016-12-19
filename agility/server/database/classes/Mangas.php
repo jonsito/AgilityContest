@@ -277,7 +277,7 @@ class Mangas extends DBObject {
 	 */
 	function delete($tipo) {
 		$this->myLogger->enter();
-		if ( ($tipo<=0) || ($tipo>16) ) return $this->error("Invalid value for 'Tipo'"); 
+		if ( ($tipo<=0) || ($tipo>17) ) return $this->error("Invalid value for 'Tipo'");
 		// si la manga existe, borrarla; si no existe, no hacer nada
 		$str="DELETE FROM Mangas WHERE ( Jornada = {$this->jornada} ) AND  ( Tipo = $tipo )";
 		$rs=$this->query($str);

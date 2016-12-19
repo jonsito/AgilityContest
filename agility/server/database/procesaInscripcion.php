@@ -109,6 +109,8 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			case 15:// 'Ronda K.O.', '-'
 			case 16:// 'Manga especial', '-'
 				$inscribir=true; break;
+            case 17: // 'Agility Grado I Manga 3', 'GI'
+                if ($g==='GI') $inscribir=true; break;
 			default: 
 				throw new Exception("Tipo de manga $mtype desconocido. Manga:$mid Jornada:$j Prueba:$p");
 				break;
