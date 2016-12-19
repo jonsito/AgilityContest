@@ -97,17 +97,15 @@ class Puntuable_RSCE_2017 extends Competitions {
 
     /**
      * Evalua la calificacion final del perro
-     * @param {object} $m1 datos de la primera manga
-     * @param {object} $m2 datos de la segunda manga
-     * @param {array} $c1 resultados de la primera manga
-     * @param {array} $c2 resultados de la segunda manga
+     * @param {array} $mangas informacion {object} de las diversas mangas
+     * @param {array} $resultados informacion {array} de los resultados de cada manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat){
         $grad=$perro['Grado']; // cogemos la categoria
         if ($grad==="P.A.") {
-            parent::evalFinalCalification($m1,$m2,$c1,$c2,$perro,$puestocat);
+            parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
         }
         if ($grad==="GI") { // en grado uno se puntua por cada manga

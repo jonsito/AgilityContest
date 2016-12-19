@@ -235,7 +235,7 @@ function saveJornada(){
     	$('#jornadas-PreAgility').val(0);
     	$('#jornadas-PreAgility2').val(0);
     }
-    $('#jornadas-Grado1').val( $('#jornadas-Grado1').is(':checked')?'1':'0');
+    $('#jornadas-Grado1').val( $('#jornadas-Grado1Chk').is(':checked')?$('#jornadas-MangasGrado1').val():'0');
     $('#jornadas-Grado2').val( $('#jornadas-Grado2').is(':checked')?'1':'0');
     $('#jornadas-Grado3').val( $('#jornadas-Grado3').is(':checked')?'1':'0');
     $('#jornadas-Open').val( $('#jornadas-Open').is(':checked')?'1':'0');
@@ -314,7 +314,17 @@ function checkPrueba(id,mask) {
 	}
 	// pruebas |= $('#jornadas-PreAgility').is(':checked')?0x0001:0;
 	// pruebas |= $('#jornadas-PreAgility2').is(':checked')?0x0002:0;
-	pruebas |= $('#jornadas-Grado1').is(':checked')?0x0004:0;
+
+    // grado 1 puede tener 1 2 o 3 mangas
+    if ($('#jornadas-Grado1Chk').is(':checked')) {
+	    pruebas |= 0x0004;
+        $('#jornadas-MangasGrado1').prop('disabled',false);
+        $('#jornadas-Grado1').val($('#jornadas-MangasGrado1').val());
+    } else {
+        $('#jornadas-MangasGrado1').prop('disabled','disabled');
+        $('#jornadas-Grado1').val(0);
+    }
+
 	pruebas |= $('#jornadas-Grado2').is(':checked')?0x0008:0;
 	pruebas |= $('#jornadas-Grado3').is(':checked')?0x0010:0;
 	pruebas |= $('#jornadas-Open').is(':checked')?0x0020:0;

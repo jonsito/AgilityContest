@@ -40,7 +40,8 @@ class Mangas extends DBObject {
 		13 =>	array( 13,'Jumping Teams'				,'-',   'Jmp Teams',	'Teams',        false), // team best
 		14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp Teams',	'Teams',        false), // team combined
 		15 =>	array( 15,'K.O. Round', 				'-',	'K.O. Round',	'K.O.',         false),
-		16 =>	array( 16,'Special Round', 			    '-',	'Special Round','Individual',   true) // special round, no grades
+		16 =>	array( 16,'Special Round', 			    '-',	'Special Round','Individual',   true), // special round, no grades
+		17 => 	array( 17,'Agility Grade I Manga 3',	'GI',	'Agility-3 GI',	'Grade I',      true) // on RFEC special G1 3rd round
 	);
 	
 	/* tabla para obtener facilmente la manga complementaria a una manga dada */
@@ -61,7 +62,8 @@ class Mangas extends DBObject {
 		8,	/* 13,'Jumping Equipos (3 mejores)', '-' */
 		9,	/* 14,'Jumping Equipos (Conjunta)', '-' */
 		0,	/* 15,'Ronda K.O.', '-' */
-		0	/* 16,'Manga Especial', '-' */
+		0,	/* 16,'Manga Especial', '-' */
+		3	/* 17,'Agility Grado I Manga 3', 'GI' */
 	);
 	
 	public static $manga_modes= array (
@@ -403,7 +405,7 @@ class Mangas extends DBObject {
 	/**
 	 * creacion / borrado de mangas asociadas a una jornada
 	 * @param {integer} $id ID de jornada
-	 * @param {integer} $grado1 la jornada tiene(1) o no (0) mangas de grado 1
+	 * @param {integer} $grado1 la jornada tiene(1/2) o no (0) mangas de grado 1
 	 * @param {integer} $grado2 la jornada tiene (1) o no (0) mangas de grado 2
 	 * @param {integer} $grado3 la jornada tiene (1) o no (0) mangas de grado 3
 	 * @param {integer} $open la jornada tiene (1) o no (0) una prueba abierta
@@ -431,9 +433,12 @@ class Mangas extends DBObject {
 		}
 		
 		/* 3, 'Agility Grado I Manga 1', 'GI' */
-		/* 4, 'Agility Grado I Manga 2', 'GI' */
-		if ($grado1) { 	$this->insert(3,'GI'); $this->insert(4,'GI');		}
-		else { $this->delete(3);	$this->delete(4); }
+        /* 4, 'Agility Grado I Manga 2', 'GI' */
+        /* 17, 'Agility Grado I Manga 3', 'GI' */
+        if ($grado1==1)  { $this->insert(3,'GI'); $this->insert(4,'GI'); $this->delete(17);}
+        else if ($grado1==2)  { $this->insert(3,'GI'); $this->delete(4); $this->delete(17);}
+        else if ($grado1==3)  { $this->insert(3,'GI'); $this->insert(4,'GI'); $this->insert(17,'GI');}
+        else  { $this->delete(3); $this->delete(4); $this->delete(17);}
 
 		/* 5, 'Agility Grado II', 'GII' */
 		/* 10,'Jumping Grado II', 'GII' */

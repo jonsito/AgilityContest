@@ -16,6 +16,7 @@ class UCA extends Federations {
             'Grades' => 2,
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
+            'RoundsG1' => 2, // on rfec may be 3
             'Recorridos' => array('Common course',"60 + 50 / 40 + 30","Separate courses"),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',

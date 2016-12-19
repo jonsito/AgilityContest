@@ -16,6 +16,7 @@ class RSCE extends Federations {
             'Grades' => 3,
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
+            'RoundsG1' => 2, // on rfec may be 3
             'Recorridos' => array('Common course',"Standard / Midi + Mini","Separate courses"),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',

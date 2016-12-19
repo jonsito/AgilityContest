@@ -96,21 +96,18 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
 
     /**
      * Evalua la calificacion final del perro
-     * @param {object} $m1 datos de la primera manga
-     * @param {object} $m2 datos de la segunda manga
-     * @param {array} $c1 datos de la primera manga
-     * @param {array} $c2 datos de la segunda manga
+     * @param {array} $mangas informacion {object} de las diversas mangas
+     * @param {array} $resultados informacion {array} de los resultados de cada manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat)
-    {
+    public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat){
         $grad = $perro['Grado']; // cogemos el grado
         $cat = $perro['Categoria']; // cogemos la categoria
 
         // si no grado II no se puntua
         if ($grad !== "GII") {
-            if ( ($c1==null) || ($c2==null)) {
+            if ( ($resultados[0]==null) || ($resultados[1]==null)) {
                 $perro['Calificacion']= " ";
             } else { // se coge la peor calificacion
                 $perro['Calificacion'] = $perro['C1'];
@@ -122,7 +119,7 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         // los "extranjeros no puntuan
         if (!$this->isInLeague($perro)) {
             $this->pfoffset[$cat]++; // properly handle puestocat offset
-            if ( ($c1==null) || ($c2==null)) {
+            if ( ($resultados[0]==null) || ($resultados[1]==null)) {
                 $perro['Calificacion']= " ";
             } else { // se coge la peor calificacion
                 $perro['Calificacion'] = $perro['C1'];
@@ -135,13 +132,13 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
 
         // manga 1
         $pt1 = "0";
-        if ($c1 != null) { // extraemos los puntos de la primera manga
+        if ($resultados[0] != null) { // extraemos los puntos de la primera manga
             $x=trim(substr($perro['C1'],-2));
             $pt1=(is_numeric($x))?$x:"0";
         }
         // manga 2
         $pt2="0";
-        if ($c2!=null) { // extraemos los puntos de la segunda manga
+        if ($resultados[1]!=null) { // extraemos los puntos de la segunda manga
             $x=trim(substr($perro['C2'],-2));
             $pt2=(is_numeric($x))?$x:"0";
         }

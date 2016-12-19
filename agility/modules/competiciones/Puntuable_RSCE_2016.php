@@ -86,14 +86,12 @@ class Puntuable_RSCE_2016 extends Competitions {
 
     /**
      * Evalua la calificacion final del perro
-     * @param {object} $m1 datos de la primera manga
-     * @param {object} $m2 datos de la segunda manga
-     * @param {array} $c1 resultados de la primera manga
-     * @param {array} $c2 resultados de la segunda manga
+     * @param {array} $mangas informacion {object} de las diversas mangas
+     * @param {array} $resultados informacion {array} de los resultados de cada manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat){
         $grad=$perro['Grado']; // cogemos la categoria
 
         if ($grad==="GI") { // en grado uno se puntua por cada manga
@@ -126,25 +124,25 @@ class Puntuable_RSCE_2016 extends Competitions {
             $perro['Calificacion'] = ($perro['Penalizacion']==0.0)?'Punto':'';
             return;
         }
-        switch($perro['Categoria']){
-            case 'L': $tipo=$m1->TRS_L_Tipo; $factor=$m1->TRS_L_Factor; $unit=$m1->TRS_L_Unit; break;
-            case 'M': $tipo=$m1->TRS_M_Tipo; $factor=$m1->TRS_M_Factor; $unit=$m1->TRS_M_Unit; break;
-            case 'S': $tipo=$m1->TRS_S_Tipo; $factor=$m1->TRS_S_Factor; $unit=$m1->TRS_S_Unit; break;
+        switch($perro['Categoria']){ // usamos mangas[0] porque todas las mangas de grado 3 comparten configuracion de TRS
+            case 'L': $tipo=$mangas[0]->TRS_L_Tipo; $factor=$mangas[0]->TRS_L_Factor; $unit=$mangas[0]->TRS_L_Unit; break;
+            case 'M': $tipo=$mangas[0]->TRS_M_Tipo; $factor=$mangas[0]->TRS_M_Factor; $unit=$mangas[0]->TRS_M_Unit; break;
+            case 'S': $tipo=$mangas[0]->TRS_S_Tipo; $factor=$mangas[0]->TRS_S_Factor; $unit=$mangas[0]->TRS_S_Unit; break;
             default: return; // invalid; do not evaluate
         }
         if ( ($tipo==1) && ($factor==0)) {  // SI TRS_L_Factor es 0 tenemos puntuacion para individual
             // manga 1 - puntuan los 10 primeros en cada manga con excelente
             $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
-            if (intval($m1->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
+            if (intval($mangas[0]->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
             $perro['C1']="";
-            if ( ($perro['P1']<6.0) && ($perro['Pcat1']<=10) && ($perro['Pcat1']>0)) {
+            if (  ($resultados[0]!=null) && ($perro['P1']<6.0) && ($perro['Pcat1']<=10) && ($perro['Pcat1']>0)) {
                 $perro['C1']=$pts[$perro['Pcat1']-1];
             }
             // manga 2 - puntuan los 10 primeros en cada manga con excelente
             $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
-            if (intval($m2->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
+            if (intval($mangas[2]->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
             $perro['C2']="";
-            if ( ($c2!=null) && ($perro['P2']<6.0) && ($perro['Pcat2']<=10) && ($perro['Pcat2']>0)) {
+            if ( ($resultados[1]!=null) && ($perro['P2']<6.0) && ($perro['Pcat2']<=10) && ($perro['Pcat2']>0)) {
                 $perro['C2']=$pts[$perro['Pcat2']-1];
             }
             // conjunta - puntuan los 10 primeros si tienen doble excelente

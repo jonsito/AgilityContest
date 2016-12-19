@@ -101,6 +101,10 @@ class Tandas extends DBObject {
 			53	=> array('Tipo'=>53,	'TipoManga'=> 14,	'Nombre'=>'Jp. teams Large/Medium', 'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'LM',	'Grado'=>'-'), // team combined
 			54	=> array('Tipo'=>54,	'TipoManga'=> 14,	'Nombre'=>'Jp. teams Small/Tiny',	'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'ST',	'Grado'=>'-'), // team combined
 			55	=> array('Tipo'=>55,	'TipoManga'=> 16,	'Nombre'=>'Special round Tiny',	    'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'-'),
+            56	=> array('Tipo'=>56,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Large',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'GI'), // extra rounds for GI RFEC
+            57	=> array('Tipo'=>57,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'GI'),
+            58	=> array('Tipo'=>58,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'GI'),
+            59	=> array('Tipo'=>59,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Tiny',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GI')
 	);
 
     static function isAgility($tipo) {
@@ -598,9 +602,21 @@ class Tandas extends DBObject {
             $this->insert_remove($f,1,false);	// Pre-Agility Manga 1
             $this->insert_remove($f,2,false);	// Pre-Agility Manga 2
         }
-		$this->insert_remove($f,3,($j->Grado1 != 0)?true:false);		// Agility Grado I Manga 1
-		$this->insert_remove($f,4,($j->Grado1 != 0)?true:false);		// Agility Grado I Manga 2
-		$this->insert_remove($f,5,($j->Grado2 != 0)?true:false);		// Agility Grado II
+        // grado 1 puede tener 1, 2 o 3 mangas
+        switch($j->Grado1) {
+            case 3: // 3- round grado1
+                $this->insert_remove($f,3,true);$this->insert_remove($f,4,true);$this->insert_remove($f,17,true);
+                break;
+            case 2: // 1- round grado1
+                $this->insert_remove($f,3,true);$this->insert_remove($f,4,false);$this->insert_remove($f,17,false);
+                break;
+            case 1: // 2- round grado1
+                $this->insert_remove($f,3,true);$this->insert_remove($f,4,true);$this->insert_remove($f,17,false);
+                break;
+            default: // no grado1
+            $this->insert_remove($f,3,false);$this->insert_remove($f,4,false);$this->insert_remove($f,17,false);
+        }
+        $this->insert_remove($f,5,($j->Grado2 != 0)?true:false);		// Agility Grado II
 		$this->insert_remove($f,10,($j->Grado2 != 0)?true:false);		// Jumping Grado II
 		$this->insert_remove($f,6,($j->Grado3 != 0)?true:false);		// Agility Grado III
 		$this->insert_remove($f,11,($j->Grado3 != 0)?true:false);		// Jumping Grado III

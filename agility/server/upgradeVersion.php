@@ -395,6 +395,19 @@ class Updater {
             $dbobj->query($str);
         }
     }
+
+    /**
+     * insert into database information for Agility Grade 1 Round 3
+     * @return
+     */
+    function addAgility3Grade1() {
+        $cmds= array(
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(17,'Agility Grado 1 Manga 3','GI')"
+        );
+        foreach ($cmds as $query) { $this->conn->query($query); }
+        return 0;
+    }
+
 }
 
 $upg=new Updater();
@@ -431,6 +444,7 @@ try {
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
     $upg->populateTeamMembers();
+    $upg->addAgility3Grade1();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }

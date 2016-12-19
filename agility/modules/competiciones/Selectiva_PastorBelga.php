@@ -103,10 +103,8 @@ class Selectiva_PastorBelga extends Competitions {
 
     /**
      * Evalua la calificacion final del perro
-     * @param {object} $m1 datos de la primera manga
-     * @param {object} $m2 datos de la segunda manga
-     * @param {array} $c1 datos de la primera manga
-     * @param {array} $c2 datos de la segunda manga
+     * @param {array} $mangas informacion {object} de las diversas mangas
+     * @param {array} $resultados informacion {array} de los resultados de cada manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      *
@@ -119,12 +117,12 @@ class Selectiva_PastorBelga extends Competitions {
      * los de la conjunta, comprobando en cada iteracion si hay algún puesto que coincida...
      * De momento, lo dejamos estar
      */
-    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat){
         $cat=$perro['Categoria']; // cogemos la categoria, que siempre deberia ser estandard (L)
         // manga 1
         // puntos a los 10 primeros por manga/categoria si no estan eliminados
         $perro['C1']="";
-        if ($c1!=null) {
+        if ($resultados[0]!=null) {
             if ( ($perro['Pcat1']>0) && ($perro['P1']<100) && ($perro['Pcat1']<=10) ) {
                 $puesto=$perro['Pcat1'];
                 $this->finalp1[$puesto][]=&$perro; // important: store by reference
@@ -139,7 +137,7 @@ class Selectiva_PastorBelga extends Competitions {
         }
         // manga 2
         $perro['C2']="";
-        if ($c2!=null) {
+        if ($resultados[1]!=null) {
             // puntos a los 10 primeros por manga/categoria si no estan eliminados
             if ( ($perro['Pcat2']>0) && ($perro['P2']<100) && ($perro['Pcat2']<=10) ) {
                 $puesto=$perro['Pcat2'];

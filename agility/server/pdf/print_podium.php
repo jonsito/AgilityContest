@@ -45,11 +45,11 @@ class Print_Podium extends PrintCommon {
 	protected $resultados;
 
 	 /** Constructor
-      * @param {int} $prueba
-      * @param {int} $jornada
-	 * @param {array} $mangas lista de mangaid's
-	 * @param {array} $results resultados asociados a la manga pedidas
-	 * @throws Exception
+     *@param {int} $prueba
+     *@param {int} $jornada
+	 *@param {array} $mangas lista de mangaid's
+	 *@param {array} $results resultados asociados a la manga pedidas
+	 *@throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas,$results) {
 		parent::__construct('Landscape',"print_podium",$prueba,$jornada);

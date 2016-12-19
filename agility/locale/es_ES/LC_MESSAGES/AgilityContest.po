@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-12-14 14:16+0100\n"
-"PO-Revision-Date: 2016-12-14 14:16+0100\n"
+"POT-Creation-Date: 2016-12-19 12:50+0100\n"
+"PO-Revision-Date: 2016-12-19 12:51+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -197,7 +197,7 @@ msgstr "Gu&iacute;a"
 #: lib/templates/orden_salida.inc.php:33
 #: lib/templates/parcial_individual.inc.php:27
 #: lib/templates/parcial_last_individual.inc.php:29
-#: livestream/vwls_osdvideo.php:89 modules/Federations.php:147
+#: livestream/vwls_osdvideo.php:89 modules/Federations.php:148
 #: scripts/competicion.js.php:1156 scripts/datagrid_formatters.js.php:154
 #: scripts/results_and_scores.js.php:123 server/excel/common_writer.php:113
 #: server/pdf/print_clasificacion_excel.php:101
@@ -248,8 +248,8 @@ msgstr "Categor&iacute;a"
 #: videowall/vwc_parciales.php:86 console/dialogs/dlg_chperros.inc:78
 #: console/dialogs/dlg_chperros.inc:150
 #: console/dialogs/dlg_editInscripcion.inc:44
-#: console/dialogs/dlg_jornadas.inc:67 console/dialogs/dlg_jornadas.inc:73
-#: console/dialogs/dlg_jornadas.inc:79
+#: console/dialogs/dlg_jornadas.inc:67 console/dialogs/dlg_jornadas.inc:79
+#: console/dialogs/dlg_jornadas.inc:85
 #: console/dialogs/dlg_newInscripcion.inc:154 console/dialogs/dlg_perros.inc:70
 msgid "Grade"
 msgstr "Grado"
@@ -296,10 +296,11 @@ msgstr "Falta"
 msgid "Refusal"
 msgstr "Reh&uacute;se"
 
-#: chrono/chrono.inc.php:98 modules/Competitions.php:85
-#: modules/competiciones/Liga_RFEC.php:138
+#: chrono/chrono.inc.php:98 modules/Competitions.php:116
+#: modules/competiciones/Liga_RFEC.php:139
+#: modules/competiciones/Liga_RFEC_Madrid.php:72
 #: modules/competiciones/Liga_UCA.php:41
-#: modules/competiciones/Selectiva_PastorBelga.php:81
+#: modules/competiciones/Selectiva_PastorBelga.php:79
 #: server/pdf/print_entradaDeDatos.php:358
 #: server/pdf/print_entradaDeDatos.php:379
 #: server/pdf/print_entradaDeDatosEquipos4.php:174
@@ -330,8 +331,8 @@ msgstr "Eliminado"
 #: scripts/printer.js.php:346 scripts/printer.js.php:377
 #: scripts/printer.js.php:413 scripts/printer.js.php:448
 #: scripts/pruebas.js.php:111 scripts/pruebas.js.php:139
-#: scripts/pruebas.js.php:218 scripts/pruebas.js.php:342
-#: scripts/pruebas.js.php:348 scripts/results_and_scores.js.php:230
+#: scripts/pruebas.js.php:218 scripts/pruebas.js.php:352
+#: scripts/pruebas.js.php:358 scripts/results_and_scores.js.php:230
 #: scripts/sesiones.js.php:80 scripts/sesiones.js.php:140
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
 #: scripts/usuarios.js.php:86 scripts/usuarios.js.php:150
@@ -404,9 +405,10 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 
 #: chrono/chrono.js.php:135 chrono/chrono.js.php:216 chrono/chrono.js.php:284
 #: chrono/chrono.js.php:385 livestream/livestream.js.php:179
-#: modules/Competitions.php:86 modules/competiciones/Liga_RFEC.php:139
+#: modules/Competitions.php:117 modules/competiciones/Liga_RFEC.php:140
+#: modules/competiciones/Liga_RFEC_Madrid.php:73
 #: modules/competiciones/Liga_UCA.php:42
-#: modules/competiciones/Selectiva_PastorBelga.php:82
+#: modules/competiciones/Selectiva_PastorBelga.php:80
 #: scripts/datagrid_formatters.js.php:164
 #: server/pdf/print_entradaDeDatos.php:254
 #: server/pdf/print_resultadosByEquipos4.php:205 tablet/tablet_main.php:104
@@ -560,7 +562,7 @@ msgstr "Equipo"
 
 #: chrono/chrono.js.php:164 chrono/chrono.js.php:261 console/frm_clubes.php:103
 #: console/frm_jueces.php:90 console/frm_paises.php:81
-#: console/import/import_clubes.inc.php:100 modules/Federations.php:147
+#: console/import/import_clubes.inc.php:100 modules/Federations.php:148
 #: scripts/datagrid_formatters.js.php:154
 #: scripts/datagrid_formatters.js.php:480
 #: scripts/datagrid_formatters.js.php:490 server/excel/dog_reader.php:363
@@ -807,7 +809,7 @@ msgstr "Restaurar"
 #: console/dialogs/dlg_configuracion.inc:419
 #: console/dialogs/dlg_configuracion.inc:449
 #: console/dialogs/dlg_entrenamientos.inc:98 console/dialogs/dlg_equipos.inc:57
-#: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:137
+#: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:143
 #: console/dialogs/dlg_jueces.inc:84 console/dialogs/dlg_perros.inc:94
 #: console/dialogs/dlg_pruebas.inc:77 console/dialogs/dlg_sesiones.inc:75
 #: console/dialogs/dlg_usuarios.inc:45 console/dialogs/dlg_usuarios.inc:89
@@ -886,7 +888,7 @@ msgstr "Versi&oacute;n"
 #: server/excel/trainingtable_writer.php:52
 #: server/pdf/print_clasificacion.php:95
 #: server/pdf/print_clasificacion_equipos.php:138
-#: server/pdf/print_clasificacion_excel.php:105 server/pdf/print_common.php:310
+#: server/pdf/print_clasificacion_excel.php:105 server/pdf/print_common.php:319
 #: server/pdf/print_entrenamientos.php:66 server/pdf/print_podium.php:80
 #: server/pdf/print_trsTemplates.php:80
 #: console/dialogs/dlg_entrenamientos.inc:181
@@ -1576,7 +1578,7 @@ msgstr "Hecho"
 #: console/dialogs/dlg_editInscripcion.inc:96
 #: console/dialogs/dlg_entrenamientos.inc:83
 #: console/dialogs/dlg_entrenamientos.inc:100 console/dialogs/dlg_guias.inc:62
-#: console/dialogs/dlg_jornadas.inc:139 console/dialogs/dlg_jueces.inc:86
+#: console/dialogs/dlg_jornadas.inc:145 console/dialogs/dlg_jueces.inc:86
 #: console/dialogs/dlg_ordentandas.inc:81 console/dialogs/dlg_perros.inc:96
 #: console/dialogs/dlg_pruebas.inc:79 console/dialogs/dlg_selectJornada.inc:44
 #: console/dialogs/dlg_sesiones.inc:77 console/dialogs/dlg_usuarios.inc:47
@@ -1795,7 +1797,7 @@ msgstr "Importar/Exportar"
 #: server/pdf/print_ordenSalidaEquipos4.php:87
 #: server/pdf/print_resultadosByEquipos.php:105
 #: server/pdf/print_resultadosByEquipos4.php:86
-#: console/dialogs/dlg_jornadas.inc:93 console/dialogs/dlg_ordensalida.inc:46
+#: console/dialogs/dlg_jornadas.inc:99 console/dialogs/dlg_ordensalida.inc:46
 msgid "Teams"
 msgstr "Equipos"
 
@@ -1918,7 +1920,7 @@ msgstr "Importar inscripciones desde el fichero Excel seleccionado"
 #: console/dialogs/dlg_chperros.inc:112 console/dialogs/dlg_clubes.inc:148
 #: console/dialogs/dlg_clubes.inc:150
 #: console/dialogs/dlg_entrenamientos.inc:292 console/dialogs/dlg_guias.inc:79
-#: console/dialogs/dlg_jornadas.inc:286 console/dialogs/dlg_jueces.inc:123
+#: console/dialogs/dlg_jornadas.inc:305 console/dialogs/dlg_jueces.inc:123
 #: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:115
 #: console/dialogs/dlg_pruebas.inc:108 console/dialogs/dlg_sesiones.inc:88
 #: console/dialogs/dlg_usuarios.inc:104 console/dialogs/dlg_usuarios.inc:107
@@ -3314,17 +3316,19 @@ msgstr "Cabecera"
 msgid "Number"
 msgstr "N&uacute;mero"
 
-#: modules/Competitions.php:80 modules/competiciones/Liga_RFEC.php:133
+#: modules/Competitions.php:111 modules/competiciones/Liga_RFEC.php:134
+#: modules/competiciones/Liga_RFEC_Madrid.php:67
 #: modules/competiciones/Liga_UCA.php:36
-#: modules/competiciones/Selectiva_PastorBelga.php:76
+#: modules/competiciones/Selectiva_PastorBelga.php:74
 #: server/pdf/print_entradaDeDatos.php:357
 #: server/pdf/print_entradaDeDatos.php:378 tablet/tablet_main.php:60
 msgid "Not Present"
 msgstr "No Presentado"
 
-#: modules/Competitions.php:81 modules/competiciones/Liga_RFEC.php:134
+#: modules/Competitions.php:112 modules/competiciones/Liga_RFEC.php:135
+#: modules/competiciones/Liga_RFEC_Madrid.php:68
 #: modules/competiciones/Liga_UCA.php:37
-#: modules/competiciones/Selectiva_PastorBelga.php:77
+#: modules/competiciones/Selectiva_PastorBelga.php:75
 #: scripts/datagrid_formatters.js.php:165
 #: server/pdf/print_entradaDeDatos.php:255
 #: server/pdf/print_resultadosByEquipos4.php:206 videowall/videowall.js.php:400
@@ -3332,78 +3336,87 @@ msgstr "No Presentado"
 msgid "N.P."
 msgstr "N.P."
 
-#: modules/Competitions.php:89 modules/competiciones/Liga_RFEC.php:142
+#: modules/Competitions.php:120 modules/competiciones/Liga_RFEC.php:143
+#: modules/competiciones/Liga_RFEC_Madrid.php:76
 #: modules/competiciones/Liga_UCA.php:45
-#: modules/competiciones/Selectiva_PastorBelga.php:85
+#: modules/competiciones/Selectiva_PastorBelga.php:83
 msgid "Not Clasified"
 msgstr "No Clasificado"
 
-#: modules/Competitions.php:90 modules/competiciones/Liga_RFEC.php:143
+#: modules/Competitions.php:121 modules/competiciones/Liga_RFEC.php:144
+#: modules/competiciones/Liga_RFEC_Madrid.php:77
 #: modules/competiciones/Liga_UCA.php:46
-#: modules/competiciones/Selectiva_PastorBelga.php:86
+#: modules/competiciones/Selectiva_PastorBelga.php:84
 #: videowall/videowall.js.php:398
 msgid "N.C."
 msgstr "N.C."
 
-#: modules/Competitions.php:93 modules/Competitions.php:94
-#: modules/competiciones/Liga_RFEC.php:146
+#: modules/Competitions.php:124 modules/Competitions.php:125
 #: modules/competiciones/Liga_RFEC.php:147
+#: modules/competiciones/Liga_RFEC.php:148
+#: modules/competiciones/Liga_RFEC_Madrid.php:80
+#: modules/competiciones/Liga_RFEC_Madrid.php:81
 #: modules/competiciones/Liga_UCA.php:49 modules/competiciones/Liga_UCA.php:50
-#: modules/competiciones/Selectiva_PastorBelga.php:89
-#: modules/competiciones/Selectiva_PastorBelga.php:90
+#: modules/competiciones/Selectiva_PastorBelga.php:87
+#: modules/competiciones/Selectiva_PastorBelga.php:88
 #: videowall/videowall.js.php:397
 msgid "Good"
 msgstr "Bien"
 
-#: modules/Competitions.php:97 modules/competiciones/Liga_UCA.php:53
+#: modules/Competitions.php:128 modules/competiciones/Liga_RFEC.php:151
+#: modules/competiciones/Liga_RFEC_Madrid.php:84
+#: modules/competiciones/Liga_UCA.php:53
 msgid "Very good"
 msgstr "Muy bien"
 
-#: modules/Competitions.php:98 modules/competiciones/Liga_RFEC.php:150
-#: modules/competiciones/Liga_RFEC.php:151
+#: modules/Competitions.php:129 modules/competiciones/Liga_RFEC.php:152
+#: modules/competiciones/Liga_RFEC_Madrid.php:85
 #: modules/competiciones/Liga_UCA.php:54
-#: modules/competiciones/Selectiva_PastorBelga.php:93
-#: modules/competiciones/Selectiva_PastorBelga.php:94
+#: modules/competiciones/Selectiva_PastorBelga.php:91
+#: modules/competiciones/Selectiva_PastorBelga.php:92
 #: videowall/videowall.js.php:396
 msgid "V.G."
 msgstr "M.B."
 
-#: modules/Competitions.php:101 modules/competiciones/Liga_UCA.php:57
-#: modules/competiciones/Liga_UCA.php:61
-#: modules/competiciones/Puntuable_RSCE.php:78
-#: modules/competiciones/Puntuable_RSCE.php:89
+#: modules/Competitions.php:132 modules/competiciones/Liga_RFEC.php:155
+#: modules/competiciones/Liga_RFEC.php:159
+#: modules/competiciones/Liga_RFEC_Madrid.php:88
+#: modules/competiciones/Liga_RFEC_Madrid.php:92
+#: modules/competiciones/Liga_UCA.php:57 modules/competiciones/Liga_UCA.php:61
+#: modules/competiciones/Puntuable_RSCE_2017.php:81
+#: modules/competiciones/Puntuable_RSCE_2017.php:92
+#: modules/competiciones/Selectiva_awc_RSCE.php:104
+#: modules/competiciones/Selectiva_awc_RSCE.php:108
 msgid "Excellent"
 msgstr "Excelente"
 
-#: modules/Competitions.php:102 modules/competiciones/Liga_RFEC.php:154
-#: modules/competiciones/Liga_RFEC.php:155
-#: modules/competiciones/Liga_RFEC.php:158
-#: modules/competiciones/Liga_RFEC.php:159
+#: modules/Competitions.php:133 modules/Competitions.php:137
+#: modules/competiciones/Liga_RFEC.php:156
+#: modules/competiciones/Liga_RFEC.php:160
+#: modules/competiciones/Liga_RFEC_Madrid.php:89
+#: modules/competiciones/Liga_RFEC_Madrid.php:93
 #: modules/competiciones/Liga_UCA.php:58 modules/competiciones/Liga_UCA.php:62
-#: modules/competiciones/Selectiva_PastorBelga.php:97
-#: modules/competiciones/Selectiva_PastorBelga.php:98
-#: modules/competiciones/Selectiva_PastorBelga.php:101
-#: modules/competiciones/Selectiva_PastorBelga.php:102
-#: modules/competiciones/Selectiva_RSCE_Equipos.php:77
-#: modules/competiciones/Selectiva_RSCE_Equipos.php:78
-#: modules/competiciones/Selectiva_RSCE_Equipos.php:81
-#: modules/competiciones/Selectiva_RSCE_Individual.php:77
-#: modules/competiciones/Selectiva_RSCE_Individual.php:78
-#: modules/competiciones/Selectiva_RSCE_Individual.php:81
+#: modules/competiciones/Puntuable_RSCE_2016.php:77
+#: modules/competiciones/Puntuable_RSCE_2016.php:78
+#: modules/competiciones/Puntuable_RSCE_2016.php:81
+#: modules/competiciones/Selectiva_PastorBelga.php:95
+#: modules/competiciones/Selectiva_PastorBelga.php:96
+#: modules/competiciones/Selectiva_PastorBelga.php:99
+#: modules/competiciones/Selectiva_PastorBelga.php:100
+#: modules/competiciones/Selectiva_awc_RSCE.php:105
+#: modules/competiciones/Trofeo_Interclubes_2017.php:75
+#: modules/competiciones/Trofeo_Interclubes_2017.php:76
+#: modules/competiciones/Trofeo_Interclubes_2017.php:79
 #: videowall/videowall.js.php:395
 msgid "Exc"
 msgstr "Exc"
 
-#: modules/Competitions.php:105
+#: modules/Competitions.php:136
 msgid "Excellent (0)"
 msgstr "Excelente (0)"
 
-#: modules/Competitions.php:106
-msgid "Ex 0"
-msgstr "Ex 0"
-
-#: modules/Federations.php:20 modules/federaciones/intl3/config.php:57
-#: modules/federaciones/intl4/config.php:57
+#: modules/Federations.php:20 modules/federaciones/intl3/config.php:58
+#: modules/federaciones/intl4/config.php:58
 msgid "Common course"
 msgstr "Recorrido com&uacute;n"
 
@@ -3415,113 +3428,117 @@ msgstr "Recorridos separados"
 msgid "LongName"
 msgstr "NombreLargo"
 
-#: modules/competiciones/Selectiva_RSCE_Equipos.php:82
-#: modules/competiciones/Selectiva_RSCE_Individual.php:82
+#: modules/competiciones/Puntuable_RSCE_2016.php:82
+#: modules/competiciones/Trofeo_Interclubes_2017.php:80
 #: videowall/videowall.js.php:394
 msgid "Ex P"
 msgstr "Ex P"
 
-#: modules/federaciones/intl3/config.php:55
+#: modules/competiciones/Selectiva_awc_RSCE.php:109
+msgid "ExP"
+msgstr "Ex P"
+
 #: modules/federaciones/intl3/config.php:56
-#: modules/federaciones/intl4/config.php:55
-#: modules/federaciones/rfec/config.php:55
+#: modules/federaciones/intl3/config.php:57
+#: modules/federaciones/intl4/config.php:56
+#: modules/federaciones/rfec/config.php:56
 msgid "Large"
 msgstr "Large"
 
-#: modules/federaciones/intl3/config.php:55
-#: modules/federaciones/intl4/config.php:55
-#: modules/federaciones/rfec/config.php:55
+#: modules/federaciones/intl3/config.php:56
+#: modules/federaciones/intl4/config.php:56
+#: modules/federaciones/rfec/config.php:56
 msgid "Medium"
 msgstr "Medium"
 
-#: modules/federaciones/intl3/config.php:55
-#: modules/federaciones/intl4/config.php:55
-#: modules/federaciones/rfec/config.php:55
+#: modules/federaciones/intl3/config.php:56
+#: modules/federaciones/intl4/config.php:56
+#: modules/federaciones/rfec/config.php:56
 msgid "Small"
 msgstr "Small"
 
-#: modules/federaciones/intl3/config.php:56
+#: modules/federaciones/intl3/config.php:57
 msgid "Medium+Small"
 msgstr "Medium+Small"
 
-#: modules/federaciones/intl4/config.php:55
+#: modules/federaciones/intl4/config.php:56
 msgid "Tiny"
 msgstr "Tiny"
 
-#: modules/federaciones/intl4/config.php:56
-#: modules/federaciones/rfec/config.php:56
+#: modules/federaciones/intl4/config.php:57
+#: modules/federaciones/rfec/config.php:57
 msgid "Large+Medium"
 msgstr "Large+Medium"
 
-#: modules/federaciones/intl4/config.php:56
+#: modules/federaciones/intl4/config.php:57
 msgid "Small+Tiny"
 msgstr "Small+Tiny"
 
-#: modules/federaciones/rfec/config.php:55
+#: modules/federaciones/rfec/config.php:56
 msgid "Toy"
 msgstr "Toy"
 
-#: modules/federaciones/rfec/config.php:56
+#: modules/federaciones/rfec/config.php:57
 msgid "Small+Toy"
 msgstr "Small+Toy"
 
-#: modules/federaciones/rfec/config.php:57
+#: modules/federaciones/rfec/config.php:58
 msgid "L+M+S+T"
 msgstr "L+M+S+T"
 
-#: modules/federaciones/rsce/config.php:55
 #: modules/federaciones/rsce/config.php:56
+#: modules/federaciones/rsce/config.php:57
 msgid "Standard"
 msgstr "Standard"
 
-#: modules/federaciones/rsce/config.php:55
+#: modules/federaciones/rsce/config.php:56
 msgid "Midi"
 msgstr "Midi"
 
-#: modules/federaciones/rsce/config.php:55
+#: modules/federaciones/rsce/config.php:56
 msgid "Mini"
 msgstr "Mini"
 
-#: modules/federaciones/rsce/config.php:56
+#: modules/federaciones/rsce/config.php:57
 msgid "Midi+Mini"
 msgstr "Midi+Mini"
 
-#: modules/federaciones/rsce/config.php:57
+#: modules/federaciones/rsce/config.php:58
 msgid "Std+Midi+Mini"
 msgstr "Std+Midi+Mini"
 
-#: modules/federaciones/uca/config.php:55
-#: modules/federaciones/uca/config.php:61
+#: modules/federaciones/uca/config.php:56
+#: modules/federaciones/uca/config.php:62
 msgid "Cat. 60"
 msgstr "Cat. 60"
 
-#: modules/federaciones/uca/config.php:55
-#: modules/federaciones/uca/config.php:61
+#: modules/federaciones/uca/config.php:56
+#: modules/federaciones/uca/config.php:62
 msgid "Cat. 50"
 msgstr "Cat. 50"
 
-#: modules/federaciones/uca/config.php:55
-#: modules/federaciones/uca/config.php:61
+#: modules/federaciones/uca/config.php:56
+#: modules/federaciones/uca/config.php:62
 msgid "Cat. 40"
 msgstr "Cat. 40"
 
-#: modules/federaciones/uca/config.php:55
-#: modules/federaciones/uca/config.php:61
+#: modules/federaciones/uca/config.php:56
+#: modules/federaciones/uca/config.php:62
 msgid "Cat. 30"
 msgstr "Cat. 30"
 
-#: modules/federaciones/uca/config.php:56
-#: modules/federaciones/uca/config.php:62
+#: modules/federaciones/uca/config.php:57
+#: modules/federaciones/uca/config.php:63
 msgid "Cat. 60+50"
 msgstr "Cat. 60+50"
 
-#: modules/federaciones/uca/config.php:56
-#: modules/federaciones/uca/config.php:62
+#: modules/federaciones/uca/config.php:57
+#: modules/federaciones/uca/config.php:63
 msgid "Cat. 40+30"
 msgstr "Cat. 40+30"
 
-#: modules/federaciones/uca/config.php:57
-#: modules/federaciones/uca/config.php:63
+#: modules/federaciones/uca/config.php:58
+#: modules/federaciones/uca/config.php:64
 msgid "60+50+40+30"
 msgstr "60+50+40+30"
 
@@ -4663,14 +4680,14 @@ msgstr "inscripciones o resultados"
 msgid "Continue?"
 msgstr "Realmente desea continuar?"
 
-#: scripts/pruebas.js.php:342
+#: scripts/pruebas.js.php:352
 msgid ""
 "KO, Individual (Open), or team rounds must be declared in a separate journey"
 msgstr ""
 "Una ronda KO, una prueba Individual/Open, o una prueba por equipos deben ser "
 "declaradas en una jornada aparte"
 
-#: scripts/pruebas.js.php:348
+#: scripts/pruebas.js.php:358
 msgid ""
 "You cannot add additional rounds when KO, Individual (Open) or team rounds "
 "are already declared in a journey"
@@ -4793,7 +4810,7 @@ msgstr "Equipos (3/4)"
 msgid "Teams (4)"
 msgstr "Equipos (4 conjunta)"
 
-#: server/database/classes/Jornadas.php:74 console/dialogs/dlg_jornadas.inc:107
+#: server/database/classes/Jornadas.php:74 console/dialogs/dlg_jornadas.inc:113
 msgid "K.O. Round"
 msgstr "Ronda K.O."
 
@@ -4920,11 +4937,11 @@ msgstr "Velocidad"
 msgid "Score"
 msgstr "Clasificaci&oacute;n"
 
-#: server/pdf/print_common.php:312
+#: server/pdf/print_common.php:321
 msgid "Page"
 msgstr "P&aacute;gina"
 
-#: server/pdf/print_common.php:316
+#: server/pdf/print_common.php:325
 msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
 
@@ -6226,51 +6243,55 @@ msgstr "Informaci&oacute;n de la jornada"
 msgid "Rounds on this journey"
 msgstr "Mangas de la jornada"
 
-#: console/dialogs/dlg_jornadas.inc:61
+#: console/dialogs/dlg_jornadas.inc:61 console/dialogs/dlg_jornadas.inc:72
 msgid "Single round"
 msgstr "Una vuelta"
 
-#: console/dialogs/dlg_jornadas.inc:62
+#: console/dialogs/dlg_jornadas.inc:62 console/dialogs/dlg_jornadas.inc:73
 msgid "Double round"
 msgstr "Doble vuelta"
 
-#: console/dialogs/dlg_jornadas.inc:85
+#: console/dialogs/dlg_jornadas.inc:74
+msgid "Triple round"
+msgstr "Triple vuelta"
+
+#: console/dialogs/dlg_jornadas.inc:91
 msgid "No grades - Open"
 msgstr "Sin grados - Open"
 
-#: console/dialogs/dlg_jornadas.inc:98
+#: console/dialogs/dlg_jornadas.inc:104
 msgid "2 best of 3"
 msgstr "2 mejores de 3"
 
-#: console/dialogs/dlg_jornadas.inc:99
+#: console/dialogs/dlg_jornadas.inc:105
 msgid "3 best of 4"
 msgstr "3 mejores de 4"
 
-#: console/dialogs/dlg_jornadas.inc:100
+#: console/dialogs/dlg_jornadas.inc:106
 msgid "2 combined"
 msgstr "2 conjunta"
 
-#: console/dialogs/dlg_jornadas.inc:101
+#: console/dialogs/dlg_jornadas.inc:107
 msgid "3 combined"
 msgstr "3 conjunta"
 
-#: console/dialogs/dlg_jornadas.inc:102
+#: console/dialogs/dlg_jornadas.inc:108
 msgid "4 combined"
 msgstr "4 conjunta"
 
-#: console/dialogs/dlg_jornadas.inc:113
+#: console/dialogs/dlg_jornadas.inc:119
 msgid "Special round"
 msgstr "Manga especial"
 
-#: console/dialogs/dlg_jornadas.inc:120
+#: console/dialogs/dlg_jornadas.inc:126
 msgid "Subordinate of"
 msgstr "Dependiente de"
 
-#: console/dialogs/dlg_jornadas.inc:126
+#: console/dialogs/dlg_jornadas.inc:132
 msgid "Competition Mode"
 msgstr "Modalidad"
 
-#: console/dialogs/dlg_jornadas.inc:285
+#: console/dialogs/dlg_jornadas.inc:304
 msgid "Register journey into database"
 msgstr "Registrar datos de la jornada en la base de datos"
 
@@ -6660,6 +6681,9 @@ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 #: console/dialogs/dlg_usuarios.inc:106
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
+
+#~ msgid "Ex 0"
+#~ msgstr "Ex 0"
 
 #~ msgid "Excellent (p)"
 #~ msgstr "Excelente (p)"

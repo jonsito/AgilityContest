@@ -65,8 +65,14 @@ $config =Config::getInstance();
             
             <div class="fitem">
                 <label for="jornadas-Grado1" style="width:150px" ><?php _e('Grade'); ?> 1</label>
-                <input id="jornadas-Grado1" name="Grado1" class="easyui-checkbox" 
-                type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado1',0x0004)"/>
+                <input type="hidden" id="jornadas-Grado1" name="Grado1" value="1">
+                <input id="jornadas-Grado1Chk" name="Grado1Chk" class="easyui-checkbox"
+                    type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado1',0x0004)"/>
+                <select id="jornadas-MangasGrado1" name="MangasGrado1" style="width:130px">
+                    <option value="2"> <?php _e('Single round'); ?> </option>
+                    <option value="1"> <?php _e('Double round'); ?></option>
+                    <option id="jornadas-G1Manga3" value="3"> <?php _e('Triple round'); ?></option>
+                </select>
             </div>
             
             <div class="fitem">
@@ -163,7 +169,17 @@ $config =Config::getInstance();
             	$('#jornadas-MangasPreAgility').prop('disabled','disabled');
             }
             $('#jornadas-PreAgility').prop('checked',(data.PreAgility == 1));
-            $('#jornadas-Grado1').prop('checked',(data.Grado1 == 1));
+
+            if (data.Grado1!=0) {
+                $('#jornadas-Grado1Chk').prop('checked',true);
+                $('#jornadas-MangasGrado1').prop('disabled',false);
+                $('#jornadas-MangasGrado1').prop('value',data.Grado1);
+            } else {
+                $('#jornadas-Grado1Chk').prop('checked',false);
+                $('#jornadas-MangasGrado1').prop('disabled','disabled');
+                $('#jornadas-MangasGrado1').prop('value',1); // on disable, set default to 2 rounds
+            }
+
             $('#jornadas-Grado2').prop('checked',(data.Grado2 == 1));
             if(howManyGrades(workingData.datosPrueba.RSCE)==3) {
             	$('#jornadas-Grado3').prop('disabled',false);
@@ -196,7 +212,10 @@ $config =Config::getInstance();
         	$('#jornadas-Operation').val('update');
             // fix slaveof combobox according value
             $('#jornadas-SlaveOf_List').combobox('reload');
-            $('#jornadas-Tipo_Competicion_List').combobox('reload')
+            $('#jornadas-Tipo_Competicion_List').combobox('reload');
+            // take care on how many GI rounds can be choosen
+            if (workingData.datosFederation.RoundsG1==3) $('#jornadas-G1Manga3').prop('disabled',false);
+            else $('#jornadas-G1Manga3').prop('disabled','disabled');
         }
     });
 

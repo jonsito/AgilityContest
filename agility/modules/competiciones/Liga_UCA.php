@@ -66,16 +66,12 @@ class Liga_UCA extends Competitions {
 
     /**
      * Evalua la calificacion final del perro
-     * @param {object} $p datos de la prueba
-     * @param {object} $j datos de la jornada
-     * @param {object} $m1 datos de la primera manga
-     * @param {object} $m2 datos de la segunda manga
-     * @param {array} $c1 resultados de la primera manga
-     * @param {array} $c2 resultados de la segunda manga
+     * @param {array} $mangas informacion {object} de las diversas mangas
+     * @param {array} $resultados informacion {array} de los resultados de cada manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat){
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
         if ($grad!=="GII") { // solo se puntua en grado II
@@ -84,17 +80,19 @@ class Liga_UCA extends Competitions {
             return;
         }
         $pts=array("10","8","6","4","3","2","1");
-        $pt1=0;
         // manga 1
-        if ($perro['P1']>=26) $pt1=0; // NC o eliminado: no puntua
-        if ($perro['P1']<26) $pt1=2;
-        if ($perro['P1']<16) $pt1=3;
-        if ($perro['P1']<6) $pt1=4;
-        if ($perro['P1']==0) $pt1=5;
+        $pt1=0;
+        if($resultados[0]!=null) {
+            if ($perro['P1']>=26) $pt1=0; // NC o eliminado: no puntua
+            if ($perro['P1']<26) $pt1=2;
+            if ($perro['P1']<16) $pt1=3;
+            if ($perro['P1']<6) $pt1=4;
+            if ($perro['P1']==0) $pt1=5;
+        }
         $perro['C1']=($pt1==0)?" ":strval($pt1);
         // manga 2
         $pt2=0;
-        if ($c2!=null) {
+        if ($resultados[1]!=null) {
             if ($perro['P2']>=26) $pt2=0; // NC o eliminado: no puntua
             if ($perro['P2']<26) $pt2=2;
             if ($perro['P2']<16) $pt2=3;

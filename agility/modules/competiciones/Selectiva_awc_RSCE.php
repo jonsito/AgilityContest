@@ -113,21 +113,19 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
 
     /**
      * Evalua la calificacion final del perro
-     * @param {object} $m1 datos de la primera manga
-     * @param {object} $m2 datos de la segunda manga
-     * @param {array} $c1 resultados de la primera manga
-     * @param {array} $c2 resultados de la segunda manga
+     * @param {array} $mangas informacion {object} de las diversas mangas
+     * @param {array} $resultados informacion {array} de los resultados de cada manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($m1,$m2,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat){
         $grad=$perro['Grado']; // cogemos la categoria
         if ($grad==="GI") { // en grado uno puntua como prueba normal
-            parent::evalFinalCalification($m1,$m2,$c1,$c2,$perro,$puestocat);
+            parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
         }
         if ($grad==="GII") { // grado dos puntua como prueba normal
-            parent::evalFinalCalification($m1,$m2,$c1,$c2,$perro,$puestocat);
+            parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
         }
         if ($grad!=="GIII") { // ignore other extrange grades
@@ -136,13 +134,13 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
         }
         // arriving here means grado III
         if ($this->prueba->Selectiva==0){ // need to be marked as selectiva to properly evaluate TRS in GIII
-            parent::evalFinalCalification($m1,$m2,$c1,$c2,$perro,$puestocat);
+            parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
         }
         // arriving here means prueba selectiva and Grado III
         if ( ! $this->validLicense($perro['Licencia']) ) {  // comprobamos si el perro es mestizo o extranjero
             $this->pfoffset[$perro['Categoria']]++; // mark to skip point assignation
-            parent::evalFinalCalification($m1,$m2,$c1,$c2,$perro,$puestocat);
+            parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
         }
 
@@ -157,20 +155,20 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
 
         // manga 1
         $pt1 = "0";
-        if ($c1 != null) { // extraemos los puntos de la primera manga
+        if ($resultados[0] != null) { // extraemos los puntos de la primera manga
             $x=trim(substr($perro['C1'],-2));
             $pt1=(is_numeric($x))?$x:"0";
         }
         // manga 2
         $pt2="0";
-        if ($c2!=null) { // extraemos los puntos de la segunda manga
+        if ($resultados[1]!=null) { // extraemos los puntos de la segunda manga
             $x=trim(substr($perro['C2'],-2));
             $pt2=(is_numeric($x))?$x:"0";
         }
         // conjunta
         $pfin="0";
         $pi=intval($pt1)+intval($pt2);
-        if ( ($c1==null) || ($c2==null)) { // si falta alguna manga no puntua en conjunta
+        if ( ($resultados[0]==null) || ($resultados[1]==null)) { // si falta alguna manga no puntua en conjunta
             $perro['Calificacion']= "$pi / -";
             return;
         }

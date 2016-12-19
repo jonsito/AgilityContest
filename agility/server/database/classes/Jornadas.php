@@ -310,7 +310,8 @@ class Jornadas extends DBObject {
 		foreach ($mangas as $manga) {
 			if ($manga["Tipo"]==$tipo) return $manga;
 		}
-		$this->myLogger->error("Cannot locate Mangas of Tipo:$tipo in Jornada:$jornadaid");
+		// this may fail in grade 1 with variable number of rows
+		$this->myLogger->notice("Cannot locate Mangas of Tipo:$tipo in Jornada:$jornadaid");
 		return null;
 	}
 	
@@ -372,20 +373,26 @@ class Jornadas extends DBObject {
 		$data=array();
 		if ($row->Grado1!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,3); // 'Agility-1 GI'
-			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,4); // 'Agility-2 GI'
+            $manga2= $this->fetchManga($mangas['rows'],$jornadaid,4); // 'Agility-2 GI'
+            $manga3= $this->fetchManga($mangas['rows'],$jornadaid,17); // 'Agility-3 GI'
 			array_push($data,array( 
 									"Rondas" => $this->tipo_ronda[3][0],
 									"Nombre" => $this->tipo_ronda[3][1],
 									"Manga1" => $manga1['ID'],
-									"Manga2" => $manga2['ID'],
+                                    "Manga2" => ($manga2!=null)?$manga2['ID']:0,
+                                    "Manga3" => ($manga3!=null)?$manga3['ID']:0,
 									"NombreManga1" => 'Agility-1 GI',
 									"NombreManga2" => 'Agility-2 GI',
+                                    "NombreManga3" => 'Agility-3 GI',
 									"Recorrido1" => $manga1['Recorrido'],
-									"Recorrido2" => $manga2['Recorrido'],
+                                    "Recorrido2" => ($manga2!=null)?$manga2['Recorrido']:0,
+                                    "Recorrido3" => ($manga3!=null)?$manga3['Recorrido']:0,
 									"Juez11" => $this->fetchJuez($manga1['Juez1']),
-									"Juez12" => $this->fetchJuez($manga1['Juez2']),
-									"Juez21" => $this->fetchJuez($manga2['Juez1']),
-									"Juez22" => $this->fetchJuez($manga2['Juez2'])
+                                    "Juez12" => $this->fetchJuez($manga1['Juez2']),
+                                    "Juez21" => $this->fetchJuez(($manga2!=null)?$manga2['Juez1']:1), // --sin asignar--
+                                    "Juez22" => $this->fetchJuez(($manga2!=null)?$manga2['Juez2']:1),
+									"Juez31" => $this->fetchJuez(($manga3!=null)?$manga3['Juez1']:1),
+									"Juez32" => $this->fetchJuez(($manga3!=null)?$manga3['Juez2']:1)
 									) );
 		}
 		if ($row->Grado2!=0) {
@@ -647,7 +654,7 @@ class Jornadas extends DBObject {
 		return null;
 	}
 
-	static function __composeArray($p,$j,$t,$r,$m,$m1,$m2) {
+	static function __composeArray($p,$j,$t,$r,$m,$m1,$m2=null,$m3=null,$m4=null,$m5=null,$m6=null,$m7=null,$m8=null) {
 	    $jobj=new Jornadas("enumerateRondasByJornada",0);
 		return array(
 			'Prueba'=>$p,
@@ -658,39 +665,57 @@ class Jornadas extends DBObject {
 			'Mode'=>$m,
 			'Categoria'=>Mangas::$manga_modes[$m][1], // list of affected categories
 			'Manga1'=>$m1['ID'],
-			'Manga2'=>($m2!==null)?$m2['ID']:0,
+            'Manga2'=>($m2!==null)?$m2['ID']:0,
+            'Manga3'=>($m3!==null)?$m3['ID']:0,
+            'Manga4'=>($m4!==null)?$m4['ID']:0,
+            'Manga5'=>($m5!==null)?$m5['ID']:0,
+            'Manga6'=>($m6!==null)?$m6['ID']:0,
+            'Manga7'=>($m7!==null)?$m7['ID']:0,
+            'Manga8'=>($m8!==null)?$m8['ID']:0,
 			'NombreManga1'=>Mangas::$tipo_manga[$m1['Tipo']][1],
-			'NombreManga2'=>($m2!==null)?Mangas::$tipo_manga[$m2['Tipo']][1]:'',
+            'NombreManga2'=>($m2!==null)?Mangas::$tipo_manga[$m2['Tipo']][1]:'',
+            'NombreManga3'=>($m3!==null)?Mangas::$tipo_manga[$m3['Tipo']][1]:'',
+            'NombreManga4'=>($m4!==null)?Mangas::$tipo_manga[$m4['Tipo']][1]:'',
+            'NombreManga5'=>($m5!==null)?Mangas::$tipo_manga[$m5['Tipo']][1]:'',
+            'NombreManga6'=>($m6!==null)?Mangas::$tipo_manga[$m6['Tipo']][1]:'',
+            'NombreManga7'=>($m7!==null)?Mangas::$tipo_manga[$m7['Tipo']][1]:'',
+            'NombreManga8'=>($m8!==null)?Mangas::$tipo_manga[$m8['Tipo']][1]:'',
             'Tipo1' => $m1['Tipo'],
-            'Tipo2' => $m2['Tipo']
+            'Tipo2' => ($m2!==null)?$m2['Tipo']:0,
+            'Tipo3' => ($m3!==null)?$m3['Tipo']:0,
+            'Tipo4' => ($m4!==null)?$m4['Tipo']:0,
+            'Tipo5' => ($m5!==null)?$m5['Tipo']:0,
+            'Tipo6' => ($m6!==null)?$m6['Tipo']:0,
+            'Tipo7' => ($m7!==null)?$m7['Tipo']:0,
+            'Tipo8' => ($m8!==null)?$m8['Tipo']:0,
 		);
 	}
 
-	static function __compose(&$data,$prueba,$jornadaid,$tiporonda,$m1,$m2){
+	static function __compose(&$data,$prueba,$jornadaid,$tiporonda,$m1,$m2=null,$m3=null,$m4=null,$m5=null,$m6=null,$m7=null,$m8=null){
 		$heights=intval(Federations::getFederation( intval($prueba['RSCE']) )->get('Heights'));
 		switch(intval($m1['Recorrido'])){ // should be the same than $m2['Recorrido']
 			case 0: // separado
-				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],0,$m1,$m2)); // large
-				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],1,$m1,$m2)); // medium
-				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],2,$m1,$m2)); // small
+				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],0,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // large
+				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],1,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // medium
+				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],2,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // small
 				if($heights==4) {
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],5,$m1,$m2)); // tiny
+					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],5,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // tiny
 				}
 				break;
 			case 1: // mixto
 				if($heights==3) {
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],0,$m1,$m2)); // large
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],3,$m1,$m2)); // m+s
+					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],0,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // large
+					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],3,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // m+s
 				} else {
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],6,$m1,$m2)); // l+m
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],7,$m1,$m2)); // s+t
+					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],6,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // l+m
+					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],7,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // s+t
 				}
 				break;
 			case 2: // conjunto
 				if($heights==3) {
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],4,$m1,$m2)); // l+m+s
+					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],4,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // l+m+s
 				} else {
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],8,$m1,$m2)); // l+m+s+t
+					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],8,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // l+m+s+t
 				}
 				break;
 		}
@@ -725,8 +750,9 @@ class Jornadas extends DBObject {
 		}
 		if ($jornada['Grado1']!=0) {  // Jornadas::tiporonda=3
 			$m1 = Jornadas::__searchManga(3, $mangas); // Agility 1 Grado I
-			$m2 = Jornadas::__searchManga(4, $mangas); // Agility 2 Grado I
-			Jornadas::__compose($data, $prueba, $jornadaid, 3, $m1, $m2);
+            $m2=($jornada['Grado1']==2)?Jornadas::__searchManga(4, $mangas):null; // Agility 2 Grado I
+            $m3=($jornada['Grado1']==3)?Jornadas::__searchManga(17, $mangas):null; // Agility 3 Grado I
+			Jornadas::__compose($data, $prueba, $jornadaid, 3, $m1, $m2, $m3);
 		}
 		if ($jornada['Grado2']!=0) {  // Jornadas::tiporonda=4
 			$m1 = Jornadas::__searchManga(5, $mangas); // Agility Grado II
