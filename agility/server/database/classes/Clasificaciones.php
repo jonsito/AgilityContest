@@ -77,113 +77,79 @@ class Clasificaciones extends DBObject {
 	function evalFinal($idmangas,$c1,$c2=null,$c3=null,$c4=null,$c5=null,$c6=null,$c7=null,$c8=null) {
 		$this->myLogger->enter();
 		$mangas=array();
-		for ($i=0;$i<8;$i++)$mangas[$i]=$this->__getObject("Mangas",$idmangas[$i]);
-		$final=array(); // puesto,dorsal, nombre, licencia,categoria,grado, nombreguia, nombreclub,
-						// F1,R1,T1,V1,P1,C1,F2,R2,T2,V2,P2,C2, Penalizacion,Calificacion
-		// Procesamos la primera manga y generamos una segunda manga "fake"
-		foreach($c1['rows'] as $item) {
-			$participante=array(
-				// datos del participante
-				'Participantes' => count($c1['rows']),
-                'Perro' => $item['Perro'],
-                'Dorsal' => $item['Dorsal'],
-                'Nombre' => $item['Nombre'],
-                'NombreLargo' => $item['NombreLargo'],
-				'Licencia' => $item['Licencia'],
-				'Categoria' => $item['Categoria'],
-                'Grado' => $item['Grado'],
-                'Equipo' => $item['Equipo'],
-                'NombreEquipo' => $item['NombreEquipo'],
-                'NombreGuia' => $item['NombreGuia'],
-                'NombreClub' => $item['NombreClub'],
-                'LogoClub' => $item['LogoClub'],
-				// datos manga 1
-				'F1' => $item['Faltas'] + $item['Tocados'],
-				'R1' => $item['Rehuses'],
-                'E1' => $item['Eliminado'],
-                'N1' => $item['NoPresentado'],
-				'T1' => floatval($item['Tiempo']),
-				'V1' => $item['Velocidad'],
-				'P1' => $item['Penalizacion'],
-				'C1' => $item['CShort'],
-                'Out1' => 0,  // used in team to tell if included in points
-                'Puesto1' => $item['Puesto'], // puesto conjunto
-                'Pcat1' => $item['Pcat'], // puesto por categoria
-				// datos fake manga 2 ( to be filled if so )
-				'F2' => 0,
-				'R2' => 0,
-                'E2' => 0,
-                'N2' => 0,
-				'T2' => 0,
-				'V2' => 0,
-				'P2' => 400,
-				'C2' => '',
-                'Out2' => 0, // used in team to tell if included in points
-                'Puesto2' => 0,
-                'Pcat2' => 0,
-				// datos globales
-				'Tiempo' => $item['Tiempo'],
-				'Penalizacion' => $item['Penalizacion'] + 400,
-				'Calificacion' => $item['CShort'],
-				'Puntos' => '', // to be evaluated
-                'Puesto' => 0, // to be evaluated
-				'Pcat' => 0 // to be evaluated
-			);
-			$final[$item['Perro']]=$participante;
-		}
-		if ($c2!=null) { // Procesamos la segunda manga
-			foreach($c2['rows'] as $item) {
-				if (!isset($final[$item['Perro']])) {
-					$this->myLogger->notice("El perro con ID:{$item['Perro']} no tiene datos en la primera manga.");
-					$final[$item['Perro']]= array( // generamos datos de primera manga vacios
-						// datos del participante
-						'Participantes' => count($c2['rows']),
-						'Perro' => $item['Perro'],
-						'Dorsal' => $item['Dorsal'],
+		for ($i=0;$i<8;$i++) $mangas[$i]=$this->__getObject("Mangas",$idmangas[$i]);
+		$resultados=array($c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
+        $final=array(); // puesto,dorsal, nombre, licencia,categoria,grado, nombreguia, nombreclub,
+                        // F1,R1,T1,V1,P1,C1,F2,R2,T2,V2,P2,C2, [....] Penalizacion,Calificacion
+        // procesamos cada una de las 8 posibles mangas
+        for ($i=0;$i<8;$i++) {
+            if($resultados[$i]==null) continue; // no info for round $i
+            // iterate over every rounds and compose array
+            foreach($resultados[$i]['rows'] as $item){
+                $dogID=$item['Perro'];
+                if (!array_key_exists($dogID,$final)) {
+                    // creamos todos los posibles elementos de la tabla
+                    $participante=array(
+                        // datos del participante
+                        'Participantes' => count($resultados[$i]['rows']),
+                        'Perro' => $dogID,
+                        'Dorsal' => $item['Dorsal'],
                         'Nombre' => $item['Nombre'],
                         'NombreLargo' => $item['NombreLargo'],
-						'Licencia' => $item['Licencia'],
-						'Categoria' => $item['Categoria'],
-						'Grado' => $item['Grado'],
-						'Equipo' => $item['Equipo'],
-						'NombreEquipo' => $item['NombreEquipo'],
-						'NombreGuia' => $item['NombreGuia'],
-						'NombreClub' => $item['NombreClub'],
-						'LogoClub' => $item['LogoClub'],
-						// datos manga 1
-						'F1' => 0,
-						'R1' => 0,
-						'E1' => 0,
-						'N1' => 0,
-						'T1' => 0,
-						'V1' => 0,
-						'P1' => 400,
-						'C1' => '',
-                        'Out1' => 0,  // used in team to tell if included in points
-						'Puesto1' => 0, // puesto conjunto
-						'Pcat1' => 0, // puesto por categoria
-						'Puesto' => 0, // to be evaluated
-						'Pcat' => 0 // to be evaluated
-					);
-				}
-				$final[$item['Perro']]['F2'] = $item['Faltas'] + $item['Tocados'];
-                $final[$item['Perro']]['R2'] = $item['Rehuses'];
-                $final[$item['Perro']]['E2'] = $item['Eliminado'];
-                $final[$item['Perro']]['N2'] = $item['NoPresentado'];
-				$final[$item['Perro']]['T2'] = floatval($item['Tiempo']);
-				$final[$item['Perro']]['V2'] = $item['Velocidad'];
-				$final[$item['Perro']]['P2'] = $item['Penalizacion'];
-                $final[$item['Perro']]['C2'] = $item['CShort'];
-                $final[$item['Perro']]['Out2'] = 0;
-                $final[$item['Perro']]['Puesto2'] = $item['Puesto'];
-                $final[$item['Perro']]['Pcat2'] = $item['Pcat'];
-				$final[$item['Perro']]['Tiempo'] = $final[$item['Perro']]['T1'] + $final[$item['Perro']]['T2'];
-				$final[$item['Perro']]['Penalizacion'] = $final[$item['Perro']]['P1'] + $final[$item['Perro']]['P2'];
-				$final[$item['Perro']]['Calificacion'] = '';
-				$final[$item['Perro']]['Puntos'] = '';
-			}
-		}
-		// una vez ordenados, reconstruimos el array eliminando el indice "perro"
+                        'Licencia' => $item['Licencia'],
+                        'Categoria' => $item['Categoria'],
+                        'Grado' => $item['Grado'],
+                        'Equipo' => $item['Equipo'],
+                        'NombreEquipo' => $item['NombreEquipo'],
+                        'NombreGuia' => $item['NombreGuia'],
+                        'NombreClub' => $item['NombreClub'],
+                        'LogoClub' => $item['LogoClub'],
+                        // datos globales
+                        'Tiempo' => $item['Tiempo'],
+                        'Penalizacion' => 0,
+                        'Calificacion' => '',
+                        'Puntos' => '', // to be evaluated
+                        'Puesto' => 0, // to be evaluated
+                        'Pcat' => 0 // to be evaluated
+                    );
+                    // anyadimos datos de cada manga y evaluamos penalizacion total
+                    for($j=1;$j<9;$j++) {
+                        if ($resultados[$j-1]==null) continue;
+                        $participante["F{$j}"]=0;
+                        $participante["R{$j}"]=0;
+                        $participante["E{$j}"]=0;
+                        $participante["N{$j}"]=0;
+                        $participante["T{$j}"]=0;
+                        $participante["V{$j}"]=0;
+                        $participante["P{$j}"]=0;
+                        $participante["C{$j}"]=0;
+                        $participante["Out{$j}"]=0;
+                        $participante["Puesto{$j}"]=0;
+                        $participante["Pcat{$j}"]=0;
+                        $participante["Penalizacion"] +=400;
+                    }
+                    // insertamos el array en la lista de participantes
+                    $final[$dogID]=$participante;
+                }
+                // una vez creado -si es necesario, claro - nos ponemos y rellenamos los elementos especificos de esta manga
+                $participante=&$final[$dogID]; // avoid copy to properly handle contents
+                $j=$i+1;
+                $participante["F{$j}"] = $item['Faltas']+ $item['Tocados'];
+                $participante["R{$j}"] = $item['Rehuses'];
+                $participante["E{$j}"] = $item['Eliminado'];
+                $participante["N{$j}"] = $item['NoPresentado'];
+                $participante["T{$j}"] = floatval($item['Tiempo']);
+                $participante["V{$j}"] = floatval($item['Velocidad']);
+                $participante["P{$j}"] = $item['Penalizacion'];
+                $participante["C{$j}"] = $item['CShort'];
+                $participante["Out{$j}"]=0;
+                $participante["Puesto{$j}"] = $item['Puesto'];
+                $participante["Pcat{$j}"] = $item['Pcat'];
+                $participante["Tiempo"] += $participante["T{$j}"];
+                $participante['Penalizacion'] = $participante['Penalizacion'] - 400 + $participante["P{$j}"];
+            }
+        }
+		// una vez evaluados, reconstruimos el array eliminando el indice "perro"
         // no obstante, si $this->currentDog es distinto de cero, guardamos la entrada seleccionada
         // en $this->current para evaluar luego el tiempo requerido
 		$final2=array();
@@ -227,7 +193,6 @@ class Clasificaciones extends DBObject {
 			if($this->jornada->Equipos4!=0) continue;
 			if($this->jornada->KO!=0) continue;
             // call to competition module to get calification points and related data
-            $resultados=array($c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
 			$comp->evalFinalCalification($mangas,$resultados,$final[$idx],$puestocat);
 		}
 
@@ -300,28 +265,6 @@ class Clasificaciones extends DBObject {
         else if ($cp!=0) $this->current['toBeFirst']="";
         else if ($ft==$ct) $this->current['toBeFirst']="";
         else  $this->current['toBeFirst']=min($trs,$ft-$ct);
-        /*
-        if ($fp<$cp) {// tiene mas penalizacion que el primero: no tiene nada que hacer
-            $this->current['toBeFirst']="";
-        }
-        if ($fp==$cp) { // misma penalizacion: tiene que mejorar el tiempo sin pasarse del trs... salvo que ya sea el primero
-            $this->current['toBeFirst']=min($trs,$ft-$ct);
-            if ($ft-$ct==0) $this->current['toBeFirst']=""; // already the first: do nothing
-        }
-        if ($fp>$cp ) { // tiene menos penalizacion que el primero;
-            // tenemos varias posibilidades, y tenemos que escoger la menor de ellas
-            // que el tiempo no supere al del trm
-            $c1=$trm;
-            // que el perro no obtenga un NoClasificado
-            $c2=$trs+26;
-            // que la penalizacion por tiempo no sea mayor que la penalizacion que tiene el primero
-            $c3=$trs+($fp-$cp);
-            // que el tiempo + la penalizacion no supere al tiemp+penalizacion del primero
-            $c4=($ft-$ct) + floor($fp-$cp); // redondear la penalizacion para no duplicar centesimas de segundo
-            //  en este ultimo caso, hay que eliminar decimales en la penalizacion, porque se van a sumar al tiempo...
-            $this->current['toBeFirst']=min($c4,$c3,$c2,$c1);
-        }
-        */
     }
 
     /**
