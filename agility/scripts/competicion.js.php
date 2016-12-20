@@ -1035,14 +1035,8 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
  * rellena la ventana de informacion con los datos definitivos de cada manga de la ronda seleccionada
  */
 function resultados_doSelectRonda(row) {
-	var resultados=[];
 
-	// FASE 0 ajustamos los jueces de la ronda
-	$('#dm1_Juez1').val(row.Juez11);
-	$('#dm1_Juez2').val(row.Juez12);
-	$('#dm2_Juez1').val(row.Juez21);
-	$('#dm2_Juez2').val(row.Juez22);
-
+    var resultados=[];
     // FASE 1 Ajustamos en funcion del tipo de recorrido lo que debemos ver en las mangas
     var fed= parseInt(workingData.datosPrueba.RSCE);
     if (workingData.jornada==0) {
@@ -1074,49 +1068,33 @@ function resultados_doSelectRonda(row) {
     }
     $('#resultados-selectCategoria').combobox('loadData',rondas);
 
-    // visibilidad de primera manga
-    $('#datos_manga1-InfoRow').css('display','table-row');
-    $('#datos_manga1-LargeRow').css('display',(infomanga['L']==="")?'none':'table-row');
-    $('#datos_manga1-MediumRow').css('display',(infomanga['M']==="")?'none':'table-row');
-    $('#datos_manga1-SmallRow').css('display',(infomanga['S']==="")?'none':'table-row');
-    $('#datos_manga1-TinyRow').css('display',(infomanga['T']==="")?'none':'table-row');
-    // textos de la primera manga
-    $('#datos_manga1-LargeLbl').html(infomanga['L']);
-    $('#datos_manga1-MediumLbl').html(infomanga['M']);
-    $('#datos_manga1-SmallLbl').html(infomanga['S']);
-    $('#datos_manga1-TinyLbl').html(infomanga['T']);
-    // datos evaluados de TRS y TRM de primera manga
-    // si fedinfo.Modes[rec][i] resultados_fillForm no hace nada
-    resultados_fillForm(resultados,row.Manga1,'1',fedinfo.Modes[rec][0]);
-    resultados_fillForm(resultados,row.Manga1,'1',fedinfo.Modes[rec][1]);
-    resultados_fillForm(resultados,row.Manga1,'1',fedinfo.Modes[rec][2]);
-    resultados_fillForm(resultados,row.Manga1,'1',fedinfo.Modes[rec][3]);
-    // Manga 2
-    if (row.Manga2<=0) {
-        // esta ronda solo tiene una manga. desactiva la segunda
-        $('#datos_manga2-InfoRow').css('display','none');
-        $('#datos_manga2-LargeRow').css('display','none');
-        $('#datos_manga2-MediumRow').css('display','none');
-        $('#datos_manga2-SmallRow').css('display','none');
-        $('#datos_manga2-TinyRow').css('display','none');
-    } else {
-        // visibilidad de segunda manga
-        $('#datos_manga2-InfoRow').css('display','table-row');
-        $('#datos_manga2-LargeRow').css('display',(infomanga['L']==="")?'none':'table-row');
-        $('#datos_manga2-MediumRow').css('display',(infomanga['M']==="")?'none':'table-row');
-        $('#datos_manga2-SmallRow').css('display',(infomanga['S']==="")?'none':'table-row');
-        $('#datos_manga2-TinyRow').css('display',(infomanga['T']==="")?'none':'table-row');
-        // textos de la segunda manga
-        $('#datos_manga2-LargeLbl').html(infomanga['L']);
-        $('#datos_manga2-MediumLbl').html(infomanga['M']);
-        $('#datos_manga2-SmallLbl').html(infomanga['S']);
-        $('#datos_manga2-TinyLbl').html(infomanga['T']);
-        // datos evaluados de TRS y TRM de segunda manga
-        // si fedinfo.Modes[rec][i] resultados_fillForm no hace nada
-        resultados_fillForm(resultados,row.Manga2,'2',fedinfo.Modes[rec][0]);
-        resultados_fillForm(resultados,row.Manga2,'2',fedinfo.Modes[rec][1]);
-        resultados_fillForm(resultados,row.Manga2,'2',fedinfo.Modes[rec][2]);
-        resultados_fillForm(resultados,row.Manga2,'2',fedinfo.Modes[rec][3]);
+    for (nmanga=1;nmanga<9;nmanga++) {
+        if (row['Manga'+nmanga]<=0) {
+            // la manga no existe: oculta informacion de dicha manga
+            $('#datos_manga'+nmanga+'-InfoRow').css('display','none');
+            $('#datos_manga'+nmanga+'-LargeRow').css('display','none');
+            $('#datos_manga'+nmanga+'-MediumRow').css('display','none');
+            $('#datos_manga'+nmanga+'-SmallRow').css('display','none');
+            $('#datos_manga'+nmanga+'-TinyRow').css('display','none');
+            $('#datos_manga'+nmanga+'-Separator').css('display','none');
+        } else {
+            // la manga existe: ajusta visibilidad de dicha manga
+            $('#datos_manga'+nmanga+'-InfoRow').css('display','table-row');
+            $('#datos_manga'+nmanga+'-LargeRow').css('display',(infomanga['L']==="")?'none':'table-row');
+            $('#datos_manga'+nmanga+'-MediumRow').css('display',(infomanga['M']==="")?'none':'table-row');
+            $('#datos_manga'+nmanga+'-SmallRow').css('display',(infomanga['S']==="")?'none':'table-row');
+            $('#datos_manga'+nmanga+'-TinyRow').css('display',(infomanga['T']==="")?'none':'table-row');
+            $('#datos_manga'+nmanga+'-Separator').css('display','table-row');
+            // indica los datos de los jueces de dicha manga
+            $('#dm'+nmanga+'_Juez1').val(row['Juez'+nmanga+'1']);
+            $('#dm'+nmanga+'_Juez2').val(row['Juez'+nmanga+'2']);
+            // datos evaluados de TRS y TRM de segunda manga
+            // si fedinfo.Modes[rec][i] resultados_fillForm no hace nada
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][0]);
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][1]);
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][2]);
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][3]);
+        }
     }
 
     // FASE 2: cargamos informacion sobre resultados globales y la volcamos en el datagrid
@@ -1131,19 +1109,29 @@ function resultados_doSelectRonda(row) {
             Jornada:workingData.jornada,
             Federation:fed,
 			Manga1:row.Manga1,
-			Manga2:row.Manga2,
+            Manga2:row.Manga2,
+            Manga3:row.Manga3,
+            Manga4:row.Manga4,
+            Manga5:row.Manga5,
+            Manga6:row.Manga6,
+            Manga7:row.Manga7,
+            Manga8:row.Manga8,
 			Rondas: row.Rondas,
 			Mode: mode
 		},
 		success: function(dat) {
             if ( isJornadaEquipos(null) ) {
+                // las rondas por equipos siempre tienen dos mangas
                 $('#finales_equipos_roundname_m1').text(row.Manga1.Nombre);
                 $('#finales_equipos_roundname_m2').text(row.Manga2.Nombre);
                 workingData.individual=dat.individual;
                 $('#finales_equipos-datagrid').datagrid('loadData',dat.equipos);
             } else {
-                $('#finales_individual_roundname_m1').text(row.Manga1.Nombre);
-                $('#finales_individual_roundname_m2').text(row.Manga2.Nombre);
+                // en las mangas que esten definidas, ajusta el nombre
+                for (nmanga=1;nmanga<9;nmanga++) {
+                    if (row['Manga'+nmanga]<=0) continue;
+                    $('#finales_individual_roundname_m'+nmanga).text(row['Manga'+nmanga].Nombre);
+                }
                 workingData.individual=dat.rows;
                 $('#finales_individual-datagrid').datagrid('loadData',dat.rows);
             }
@@ -1244,19 +1232,29 @@ function reloadClasificaciones() {
 			Prueba:workingData.prueba,
 			Jornada:workingData.jornada,
 			Manga1:ronda.Manga1,
-			Manga2:ronda.Manga2,
+            Manga2:ronda.Manga2,
+            Manga3:ronda.Manga3,
+            Manga4:ronda.Manga4,
+            Manga5:ronda.Manga5,
+            Manga6:ronda.Manga6,
+            Manga7:ronda.Manga7,
+            Manga8:ronda.Manga8,
 			Rondas: ronda.Rondas,
 			Mode: mode
 		},
 		success: function(dat) {
             if ( isJornadaEquipos(null) ) {
+                // las rondas por equipos siempre tienen solo dos mangas
                 $('#finales_equipos_roundname_m1').text(ronda.NombreManga1);
                 $('#finales_equipos_roundname_m2').text(ronda.NombreManga2);
                 workingData.individual=dat.individual;
                 $('#finales_equipos-datagrid').datagrid('loadData',dat.equipos);
             } else {
-                $('#finales_individual_roundname_m1').text(ronda.NombreManga1);
-                $('#finales_individual_roundname_m2').text(ronda.NombreManga2);
+                // en las mangas que esten definidas, ajusta el nombre
+                for (nmanga=1;nmanga<9;nmanga++) {
+                    if (ronda['Manga'+nmanga]<=0) continue;
+                    $('#finales_individual_roundname_m'+nmanga).text(ronda['NombreManga'+nmanga]);
+                }
                 workingData.individual=dat.rows;
                 $('#finales_individual-datagrid').datagrid('loadData',dat.rows);
             }
