@@ -185,10 +185,29 @@ function formatTPen(val,p,idx) {
 
 function formatT1(val,row,idx) { return formatTPen(val,row.P1,idx); }
 function formatT2(val,row,idx) { return formatTPen(val,row.P2,idx); }
+function formatT3(val,row,idx) { return formatTPen(val,row.P3,idx); }
+function formatT4(val,row,idx) { return formatTPen(val,row.P4,idx); }
+function formatT5(val,row,idx) { return formatTPen(val,row.P5,idx); }
+function formatT6(val,row,idx) { return formatTPen(val,row.P6,idx); }
+function formatT7(val,row,idx) { return formatTPen(val,row.P7,idx); }
+function formatT8(val,row,idx) { return formatTPen(val,row.P8,idx); }
 function formatP1(val,row,idx) { return formatTPen(val,row.P1,idx); }
 function formatP2(val,row,idx) { return formatTPen(val,row.P2,idx); }
+function formatP3(val,row,idx) { return formatTPen(val,row.P3,idx); }
+function formatP4(val,row,idx) { return formatTPen(val,row.P4,idx); }
+function formatP5(val,row,idx) { return formatTPen(val,row.P5,idx); }
+function formatP6(val,row,idx) { return formatTPen(val,row.P6,idx); }
+function formatP7(val,row,idx) { return formatTPen(val,row.P7,idx); }
+function formatP8(val,row,idx) { return formatTPen(val,row.P8,idx); }
 function formatV1(val,row,idx) { return (row.P1>=200)?"-":toFixedT(parseFloat(val),1); }
 function formatV2(val,row,idx) { return (row.P2>=200)?"-":toFixedT(parseFloat(val),1); }
+function formatV3(val,row,idx) { return (row.P3>=200)?"-":toFixedT(parseFloat(val),1); }
+function formatV4(val,row,idx) { return (row.P4>=200)?"-":toFixedT(parseFloat(val),1); }
+function formatV5(val,row,idx) { return (row.P5>=200)?"-":toFixedT(parseFloat(val),1); }
+function formatV6(val,row,idx) { return (row.P6>=200)?"-":toFixedT(parseFloat(val),1); }
+function formatV7(val,row,idx) { return (row.P7>=200)?"-":toFixedT(parseFloat(val),1); }
+function formatV8(val,row,idx) { return (row.P8>=200)?"-":toFixedT(parseFloat(val),1); }
+
 function formatTF(val,row,idx) {
     var t=parseFloat(row.T1)+parseFloat(row.T2);
     return (row.Penalizacion>=200)?"-":toFixedT(t,ac_config.numdecs);
