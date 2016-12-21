@@ -5,34 +5,28 @@ $config =Config::getInstance();
 ?>
 
 <table id="finales_individual-datagrid">
-    <thead data-options="frozen:true">
+    <thead>
     <tr>
         <th colspan="7"><span class="main_theader" id="finales_individual_teaminfo"><?php _e('Competitor data'); ?></span> </th>
+<?php for ($nmanga=1;$nmanga<9; $nmanga++ ) { ?>
+        <th colspan="7"><span class="main_theader" id="finales_individual_roundname_m<?php echo $nmanga;?>"><?php _e('Round'); ?> <?php echo $nmanga;?></span></th>
+<?php } ?>
         <th colspan="4"><span class="main_theader" id="finales_individual_finalscores"><?php _e('Final scores'); ?></span></th>
     </tr>
     <tr>
-        // datos identificativos
+        <!--
+        <th data-options="field:'Perro',		hidden:true " ></th>
+         -->
         <th width="3%" data-options="field:'LogoClub',		align:'left',formatter:formatLogo" > &nbsp;</th>
         <th width="3%" data-options="field:'Dorsal',		align:'left'" > <?php _e('Dors'); ?>.</th>
         <th width="7%" data-options="field:'Nombre',		align:'left',formatter:formatDogName"> <?php _e('Name'); ?></th>
         <th width="4%" data-options="field:'Licencia',		align:'center'" > <?php _e('Lic'); ?>.</th>
         <th width="5%" data-options="field:'Categoria',	    align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
+        <!--
+        <th data-options="field:'Grado',		width:3, align:'center', formatter:formatGrado" > <?php _e('Grd'); ?>.</th>
+        -->
         <th width="9%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
         <th width="7%" data-options="field:'NombreClub',	align:'right'" id="finales_individual-Club"> <?php _e('Club'); ?></th>
-        // datos globales
-        <th width="4%" data-options="field:'Tiempo',		align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
-        <th width="4%" data-options="field:'Penalizacion',	align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
-        <th width="4%" data-options="field:'Calificacion',	align:'center'" > <?php _e('Calif'); ?>.</th>
-        <th width="4%" data-options="field:'Puesto',		align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
-    </tr>
-    </thead>
-    <thead data-options="frozen:false">
-        <tr>
-        <?php for ($nmanga=1;$nmanga<9; $nmanga++ ) { ?>
-            <th colspan="7"><span class="main_theader" id="finales_individual_roundname_m<?php echo $nmanga;?>"><?php _e('Round'); ?> <?php echo $nmanga;?></span></th>
-        <?php } ?>
-        </tr>
-        <tr>
 <?php for ($nmanga=1;$nmanga<9; $nmanga++ ) { ?>
         <th width="2%" data-options="field:'F<?php echo $nmanga;?>',    align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
         <th width="2%" data-options="field:'R<?php echo $nmanga;?>',	align:'center'"> <?php _e('R'); ?>.</th>
@@ -42,7 +36,11 @@ $config =Config::getInstance();
         <th width="5%" data-options="field:'C<?php echo $nmanga;?>',	align:'center'"> <?php _e('Cal'); ?>.</th>
         <th width="3%" data-options="field:'Puesto<?php echo $nmanga;?>',align:'center'"> <?php _e('Pos'); ?>.</th>
 <?php } ?>
-        </tr>
+        <th width="4%" data-options="field:'Tiempo',		align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
+        <th width="4%" data-options="field:'Penalizacion',	align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
+        <th width="4%" data-options="field:'Calificacion',	align:'center'" > <?php _e('Calif'); ?>.</th>
+        <th width="4%" data-options="field:'Puesto',		align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
+    </tr>
     </thead>
 </table>
 

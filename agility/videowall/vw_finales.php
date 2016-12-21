@@ -61,7 +61,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div id="vw_finales-data" data-options="region:'center'" style="background-color:transparent;">
             <!-- datagrid para resultados individuales -->
             <div id="finales_individual-table" class="scores_table" style="display:none;width:100%">
-                <?php include_once(__DIR__."/../lib/templates/final_individual.inc.php"); ?>
+                <?php include_once(__DIR__ . "/../lib/templates/final_individual.inc.php"); ?>
             </div>
             <!-- datagrid para resultados por equipos -->
             <div id="finales_equipos-table" class="scores_table" style="display:none;width:103%">
