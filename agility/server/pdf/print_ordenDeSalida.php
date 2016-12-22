@@ -149,28 +149,35 @@ class OrdenDeSalida extends PrintCommon {
 		$order=0;
 		$lastTeam=0;
 		foreach($this->orden as $row) {
+
+
 			if (!category_match($row['Categoria'],$this->validcats)) continue;
 			$newTeam=intval($row['Equipo']);
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			// if change in categoria, reset orden counter and force page change
 			if ($row['Categoria'] !== $this->categoria) {
-				$this->categoria = $row['Categoria'];
-				$this->Cell(array_sum($this->pos),0,'','T'); // forzamos linea de cierre
-				$rowcount=0;
+                $this->categoria = $row['Categoria'];
+                $this->Cell(array_sum($this->pos),0,'','T'); // forzamos linea de cierre
+			    // if new category header fits in page show it; else force new page
+                if($rowcount > 32) {
+                    $rowcount=0;
+                } else {
+                    $this->Ln(10);
+                    $this->print_identificacionManga($this->manga,$this->getCatString($this->categoria));
+                    $this->writeTableHeader();
+                    $rowcount+=4;
+                }
 				$order=0;
 				$lastTeam=0;
-			} 
-			if ($this->isTeam()) {
-				// team change: make sure that new team fits in page
-				if ($newTeam!=$lastTeam) {
-					if ($rowcount>=32) $rowcount=37; // team change: seek at end of page
-				}
 			}
+			// on team, if team change, make sure that new team fits in page. Else force new page
+			if ( $this->isTeam() && ($newTeam!=$lastTeam) && ($rowcount>=32) ) $rowcount=37;
+
 			if ( ($rowcount==0) || ($rowcount>=37) ) { // assume 38 rows per page ( rowWidth = 6mmts )
-				if ($rowcount>0) $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre en cambio de pagina
+                $this->Cell(array_sum($this->pos),0,'','T');// linea de cierre en cambio de pagina$this->AddPage();
 				$rowcount=0;
 				$this->AddPage();
-				$this->writeTableHeader();
+                $this->writeTableHeader();
 				$lastTeam=0; // force writting of team header information
 			}
 			// on team Events and team change add Team header information

@@ -286,7 +286,7 @@ function print_commonDesarrollo(def,cb) {
         5:((def==5)?'*':'')+'<?php _e('Judge assistant empty sheet'); ?><br/>',
         6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
         7:((def==7)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
-        8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?>',
+        8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (15 dogs/page)'); ?>',
         9:((def==9)?'*':'')+'<?php _e('Judge assistant sheets (combined for team 4)'); ?><br/>'
     };
 
@@ -324,7 +324,7 @@ function print_commonDesarrollo(def,cb) {
                 case 5: print_trsTemplates(2); break;
                 case 6: print_asistente(1,cats); break;
                 case 7: print_asistente(5,cats); break;
-                case 8: print_asistente(10,cats); break;
+                case 8: print_asistente(15,cats); break;
                 case 9: print_asistenteEquipos(cats); break;
             }
         }).window('resize',{width:450});
