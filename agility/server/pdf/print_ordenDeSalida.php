@@ -149,19 +149,17 @@ class OrdenDeSalida extends PrintCommon {
 		$order=0;
 		$lastTeam=0;
 		foreach($this->orden as $row) {
-
-
 			if (!category_match($row['Categoria'],$this->validcats)) continue;
 			$newTeam=intval($row['Equipo']);
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			// if change in categoria, reset orden counter and force page change
+			// if change in categoria, reset orden counter.
 			if ($row['Categoria'] !== $this->categoria) {
                 $this->categoria = $row['Categoria'];
                 $this->Cell(array_sum($this->pos),0,'','T'); // forzamos linea de cierre
 			    // if new category header fits in page show it; else force new page
                 if($rowcount > 32) {
-                    $rowcount=0;
-                } else {
+                    $rowcount=37;
+                } else if ($rowcount!=0) {
                     $this->Ln(10);
                     $this->print_identificacionManga($this->manga,$this->getCatString($this->categoria));
                     $this->writeTableHeader();
