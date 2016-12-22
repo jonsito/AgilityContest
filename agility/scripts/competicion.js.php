@@ -1036,7 +1036,55 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
  */
 function resultados_doSelectRonda(row) {
 
+    function populate_clasificacion() {
+        // fase 3 rellenar datos de la clasificacion.
+        // como puede haber una carga diferida del datagrid en el caso de mangas multiples
+        // se pone esto como una inner funcion que puede se ejecutada "en directo" o desde un
+        // ajax response
+        mode=$('#resultados-selectCategoria').combobox('getValue');
+        $.ajax({
+            type:'GET',
+            url:"/agility/server/database/clasificacionesFunctions.php",
+            dataType:'json',
+            data: {
+                Operation: (isJornadaEquipos(null))?'clasificacionEquipos':'clasificacionIndividual',
+                Prueba:workingData.prueba,
+                Jornada:workingData.jornada,
+                Federation:fed,
+                Manga1:row.Manga1,
+                Manga2:row.Manga2,
+                Manga3:row.Manga3,
+                Manga4:row.Manga4,
+                Manga5:row.Manga5,
+                Manga6:row.Manga6,
+                Manga7:row.Manga7,
+                Manga8:row.Manga8,
+                Rondas: row.Rondas,
+                Mode: mode
+            },
+            success: function(dat) {
+                if ( isJornadaEquipos(null) ) {
+                    // las rondas por equipos siempre tienen dos mangas
+                    $('#finales_equipos_roundname_m1').text(row.Manga1.Nombre);
+                    $('#finales_equipos_roundname_m2').text(row.Manga2.Nombre);
+                    workingData.individual=dat.individual;
+                    $('#finales_equipos-datagrid').datagrid('loadData',dat.equipos);
+                } else {
+                    // en las mangas que esten definidas, ajusta el nombre
+                    for (nmanga=1;nmanga<9;nmanga++) {
+                        if (row['Manga'+nmanga]<=0) continue;
+                        $('#finales_individual_roundname_m'+nmanga).text(row['Manga'+nmanga].Nombre);
+                    }
+                    workingData.individual=dat.rows;
+                    $('#finales_individual-datagrid').datagrid('loadData',dat.rows);
+                }
+            }
+        });
+    }
+
+
     var resultados=[];
+
     // FASE 1 Ajustamos en funcion del tipo de recorrido lo que debemos ver en las mangas
     var fed= parseInt(workingData.datosPrueba.RSCE);
     if (workingData.jornada==0) {
@@ -1097,46 +1145,22 @@ function resultados_doSelectRonda(row) {
         }
     }
 
-    // FASE 2: cargamos informacion sobre resultados globales y la volcamos en el datagrid
-    mode=$('#resultados-selectCategoria').combobox('getValue');
-	$.ajax({
-		type:'GET',
-		url:"/agility/server/database/clasificacionesFunctions.php",
-		dataType:'json',
-		data: {
-            Operation: (isJornadaEquipos(null))?'clasificacionEquipos':'clasificacionIndividual',
-			Prueba:workingData.prueba,
-            Jornada:workingData.jornada,
-            Federation:fed,
-			Manga1:row.Manga1,
-            Manga2:row.Manga2,
-            Manga3:row.Manga3,
-            Manga4:row.Manga4,
-            Manga5:row.Manga5,
-            Manga6:row.Manga6,
-            Manga7:row.Manga7,
-            Manga8:row.Manga8,
-			Rondas: row.Rondas,
-			Mode: mode
-		},
-		success: function(dat) {
-            if ( isJornadaEquipos(null) ) {
-                // las rondas por equipos siempre tienen dos mangas
-                $('#finales_equipos_roundname_m1').text(row.Manga1.Nombre);
-                $('#finales_equipos_roundname_m2').text(row.Manga2.Nombre);
-                workingData.individual=dat.individual;
-                $('#finales_equipos-datagrid').datagrid('loadData',dat.equipos);
-            } else {
-                // en las mangas que esten definidas, ajusta el nombre
-                for (nmanga=1;nmanga<9;nmanga++) {
-                    if (row['Manga'+nmanga]<=0) continue;
-                    $('#finales_individual_roundname_m'+nmanga).text(row['Manga'+nmanga].Nombre);
-                }
-                workingData.individual=dat.rows;
-                $('#finales_individual-datagrid').datagrid('loadData',dat.rows);
-            }
-		}
-	});
+    // FASE 2: si estamos en individual, descargamos el datagrid con el numero de mangas apropiado
+    if (isJornadaEquipos(null)) {
+        $('#resultados-toolbar').css('display','inline-block');
+        populate_clasificacion();
+    } else {
+        var nmangas=2;
+        for(n=8;n>0;n--) if (row['Manga'+n]!=0) {nmangas=n; break } // numero de mangas
+        $('#resultados-data').load("/agility/lib/templates/final_individual.inc.php?NumMangas="+nmangas,
+            function() {
+                // anyadimos toolbar y keyhandler al datagrid de clasificaciones
+                // $('#finales_individual-datagrid').datagrid({toolbar: '#resultados-toolbar'});
+                $('#resultados-toolbar').css('display','inline-block');
+                addSimpleKeyHandler('#finales_individual-datagrid',null);
+                populate_clasificacion();
+            });
+    }
 }
 
 function verifyCompose(data,manga,nombre) {
@@ -1158,7 +1182,8 @@ function verifyClasificaciones() {
 	var url='/agility/server/pdf/print_clasificacion.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	var str1="";
-	var str2="";
+    var str2="";
+    var str3="";
 	if (ronda==null) {
     	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round for this journey"); ?>',"warning");
     	return false; // no way to know which ronda is selected
@@ -1201,12 +1226,39 @@ function verifyClasificaciones() {
 				},
 				success: function(data) {
 					if (parseInt(data['total'])!=0) str2=verifyCompose(data,ronda.Manga2,ronda.NombreManga2);
-					if (str1==="" && str2==="") {
-						$.messager.alert('<?php _e("Verify OK"); ?>','<?php _e("No dogs found without their course results"); ?>',"info");
-					} else {
-						var w=$.messager.alert('<?php _e("Verify Error"); ?>',str1+str2,"error");
-						w.window('resize',{width:600}).window('center');
-					}
+					if (ronda.Manga3==0) {
+					    // no hay tercera manga
+                        if (str1==="" && str2==="") {
+                            $.messager.alert('<?php _e("Verify OK"); ?>','<?php _e("No dogs found without their course results"); ?>',"info");
+                        } else {
+                            var w=$.messager.alert('<?php _e("Verify Error"); ?>',str1+str2,"error");
+                            w.window('resize',{width:600}).window('center');
+                        }
+                        return false; // prevent default fireup of event trigger
+                    }
+                    // verificamos manga 3
+                    $.ajax({
+                        type: 'GET',
+                        url: "/agility/server/database/resultadosFunctions.php",
+                        dataType: 'json',
+                        data: {
+                            Operation: 'getPendientes',
+                            Prueba: workingData.prueba,
+                            Jornada: workingData.jornada,
+                            Manga: ronda.Manga3,
+                            Mode: mode
+                        },
+                        success: function (data) {
+                            if (parseInt(data['total']) != 0) str3 = verifyCompose(data, ronda.Manga3, ronda.NombreManga3);
+                            if (str1==="" && str2==="" && str3==="") {
+                                $.messager.alert('<?php _e("Verify OK"); ?>', '<?php _e("No dogs found without their course results"); ?>', "info");
+                            } else {
+                                var w = $.messager.alert('<?php _e("Verify Error"); ?>', str1 + str2 + str3, "error");
+                                w.window('resize', {width: 600}).window('center');
+                            }
+                            return false; // prevent default fireup of event trigger
+                        }
+                    });
 				}
 			});
 		}

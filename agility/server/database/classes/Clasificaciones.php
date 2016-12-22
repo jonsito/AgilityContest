@@ -533,8 +533,22 @@ class Clasificaciones extends DBObject {
 				$r1= new Resultados("Clasificaciones::Preagility 1",$this->prueba->ID,$idmangas[0]);
 				$c1=$r1->getResultados($mode);
 				return $this->evalFinal($idmangas,$c1,null);
-			case 0x0002: // pre-agility a dos vueltas
 			case 0x0004: // Grado I
+                $r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility manga 1
+                $c1=$r1->getResultados($mode);
+                $c2=null;
+                if ($idmangas[1]!=0) {
+                    $r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[1]); // Agility manga 2
+                    $c2=$r2->getResultados($mode);
+                }
+                $c3=null;
+                if ($idmangas[2]!=0) {
+                    $r3=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[2]); // Agility manga 3
+                    $c3=$r3->getResultados($mode);
+                }
+                return $this->evalFinal($idmangas,$c1,$c2,$c3);
+                break;
+            case 0x0002: // pre-agility a dos vueltas
 			case 0x0008: // Grado II
 			case 0x0010: // Grado III
 			case 0x0020: // Open - Individual

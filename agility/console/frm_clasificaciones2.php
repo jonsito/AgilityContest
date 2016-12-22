@@ -64,27 +64,29 @@ $config =Config::getInstance();
 			<?php require('dialogs/inforesultados.inc')?>
 		</div> <!-- Layout: center -->
 
-		<div id="resultados-data" class="scores_table" data-options="region:'south',split:true,collapsed:false,collapsible:false" style="height:70%;">
-			<!-- tabla con las clasificaciones -->
-			<?php include(__DIR__ . "/../lib/templates/final_individual.inc.php"); ?>
+		<div id="resultados-dataregion" class="scores_table" data-options="region:'south',split:true,collapsed:false,collapsible:false" style="height:70%;">
+            <div id="resultados-toolbar" style="width:100%;display:none"> <!-- hide until datagrid gets loaded -->
+   	            <span style="float:left;padding:5px">
+   	                <input id="resultados-selectCategoria" name="Categoria">
+   	            </span>
+                <span style="float:right;padding:5px">
+   		            <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton"
+                        data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();"><?php _e('Refresh'); ?></a>
+   		            <a id="resultados-verifyBtn" href="#" class="easyui-linkbutton"
+                        data-options="iconCls:'icon-search'" onclick="verifyClasificaciones();"><?php _e('Verify'); ?></a>
+   		            <a id="resultados-printBtn" href="#" class="easyui-linkbutton"
+                        data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');"><?php _e('Reports'); ?></a>
+   	            </span>
+            </div>
+			<!-- tabla con las clasificaciones. se carga dinamicamente -->
+            <div id="resultados-data" class="scores_table">
+                <?php _e('No round selected');?>
+            </div>
 		</div>
 	</div> <!-- informacion de layout -->
 	
 </div> <!-- panel de informacion -->
 
-<div id="resultados-toolbar" style="width:100%;display:inline-block">
-   	<span style="float:left;padding:5px">
-   	    <input id="resultados-selectCategoria" name="Categoria">
-   	</span>
-   	<span style="float:right;padding:5px">
-   		<a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();"><?php _e('Refresh'); ?></a>
-   		<a id="resultados-verifyBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-search'" onclick="verifyClasificaciones();"><?php _e('Verify'); ?></a>
-   		<a id="resultados-printBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');"><?php _e('Reports'); ?></a>
-   	</span>
-</div>
 
 <div id="resultados-printDialog" class="easyui-dialog" 
 	data-options="title:'<?php _e('Select format'); ?>',closable:true,closed:true,width:'450px',height:'250px'">
@@ -117,10 +119,11 @@ $config =Config::getInstance();
 <script type="text/javascript">
 
 $('#resultados-selectCategoria').combobox({
-		valueField:'mode',
-		textField:'text',
-		panelHeight:75,
-		onSelect:function (index,row) {	reloadClasificaciones(); }
+    width:125,
+    valueField:'mode',
+	textField:'text',
+	panelHeight:75,
+	onSelect:function (index,row) {	reloadClasificaciones(); }
 });
 
 // combogrid que presenta cada una de las rondas de la jornada
@@ -179,7 +182,4 @@ addTooltip($('#resultados-printDlgBtn').linkbutton(),'<?php _e("Print data in se
 addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in labels sheet"); ?>');
 addTooltip($('#r_prlistLbl'),'<?php _e("Comma separated list of dorsals to be printed"); ?>');
 
-// amyadimos toolbar y keyhandler al datagrid de clasificaciones
-$('#finales_individual-datagrid').datagrid({toolbar: '#resultados-toolbar'});
-addSimpleKeyHandler('#finales_individual-datagrid',null);
 </script>

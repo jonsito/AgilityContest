@@ -209,7 +209,7 @@ function formatV7(val,row,idx) { return (row.P7>=200)?"-":toFixedT(parseFloat(va
 function formatV8(val,row,idx) { return (row.P8>=200)?"-":toFixedT(parseFloat(val),1); }
 
 function formatTF(val,row,idx) {
-    var t=parseFloat(row.T1)+parseFloat(row.T2);
+    var t=parseFloat(row.Tiempo);
     return (row.Penalizacion>=200)?"-":toFixedT(t,ac_config.numdecs);
 }
 function formatTP(val,row,idx) {
