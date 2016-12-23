@@ -481,12 +481,24 @@ class OrdenSalida extends DBObject {
             }
 
             // cuarta pasada: ordenar por categoria
+			// respetando el orden definido en el programa de la jornada
+			// miramos el orden de tandas:
+			$cats=implode(',',Tandas::getTandasByTipoManga($this->manga['Tipo'])); // tipos de tanda asociados a la manga
+			$this->myLogger->trace("Cats:'$cats' tipomanga:{$this->manga['Tipo']} ");
+            $res=$this->__select(
+            	"Categoria",
+				"Tandas",
+				"(Tandas.Jornada={$this->jornada['ID']}) AND (Tandas.Tipo IN ($cats)) ","
+				Orden ASC"
+			);
+            // ordenamos segun el orden de categorias establecido en las tandas
             $p5=array();
-            foreach(array('L','M','S','T') as $cat) {
-                foreach ($p4 as $perro) {
-                    if ($perro['Categoria']==$cat) array_push($p5,$perro);
+            foreach ($res['rows'] as $item) {
+            	if (strpos($item['Categoria'],"LMS") ) $item['Categoria']="-";
+            	foreach ($p4 as $perro) {
+                    if ($perro['Categoria']==$item['Categoria']) array_push($p5,$perro);
                 }
-            }
+			}
         }
 
 		// quinta: intercalar informacion de equipos si se precisa

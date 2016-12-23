@@ -117,6 +117,15 @@ class Tandas extends DBObject {
         return Tandas::$tipo_tanda[$tipo]['isTeam'];
     }
 
+    // obtiene la lista de tipos de tanda que coinciden con un tipo de manga determinado
+    // usado para evaluar el orden de las categorias segun el programa de la jornada
+    static function getTandasByTipoManga($tipo){
+        $res=array();
+        foreach(Tandas::$tipo_tanda as $key => $value) {
+            if ($value['TipoManga']==$tipo) array_push($res,$key);
+        }
+        return $res;
+    }
 	/**
 	 * return every array items that matches with provided key
 	 * @param {string} $key
