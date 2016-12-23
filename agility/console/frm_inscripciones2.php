@@ -191,6 +191,22 @@ $('#inscripciones-jornadas').datagrid({
 	}
 });
 
+var menuJornadas;
+function createMenuJornadas(){
+    menuJornadas = $('<div/>').appendTo('body');
+    menuJornadas.menu({
+        onClick: function(item){
+            var current=menuJornadas.menu('options').current;
+            if (item.name=='clear') clearJourneyInscriptions(current);
+            if (item.name=='all')   inscribeAllIntoJourney(current);
+            if (item.name=='clear') inscribeSelectedIntoJourney(current);
+        }
+    });
+    menuJornadas.menu('appendItem',{name:'clear', text: "<?php _e('Clear all inscriptions on this journey')?>",iconCls:'icon-cut' });
+    menuJornadas.menu('appendItem',{name:'all', text: "<?php _e('Clone all inscriptions into this journey')?>",iconCls:'icon-notes' });
+    menuJornadas.menu('appendItem',{name:'journey', text: "<?php _e('Clone inscriptions on selected journey into this one')?>",iconCls:'icon-tip' });
+}
+
 // datos de la tabla de inscripciones
 // - tabla
 $('#inscripciones-datagrid').datagrid({
@@ -247,6 +263,18 @@ $('#inscripciones-datagrid').datagrid({
 	// on double click fireup editor dialog
     onDblClickRow:function() { 
         editInscripcion();
+    },
+    onHeaderContextMenu: function(e, field){
+	    if ( ['J1','J2','J3','J4','J5','J6','J7','J8'].indexOf(field) <0) return true;
+        e.preventDefault();
+        if (!menuJornadas){
+            createMenuJornadas();
+        }
+        menuJornadas.menu( {'current':field} );
+        menuJornadas.menu('show', {
+            left:e.pageX,
+            top:e.pageY
+        });
     }
 });
 

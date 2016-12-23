@@ -201,6 +201,22 @@ function reorderInscripciones(idprueba) {
 	});
 }
 
+function clearJourneyInscriptions(current){
+    alert("Clear inscriptions on journey "+current+". Job pending");
+}
+function inscribeAllIntoJourney(current){
+    alert("Clone all inscriptions into journey "+current+". Job pending");
+}
+
+function inscribeSelectedIntoJourney(current){
+    var row=$('#inscripciones-jornadas').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no journey selected"); ?>',"warning");
+        return; // no hay ninguna jornada seleccionada para clonar
+    }
+    alert("Clone inscription on journey '"+row.Nombre+"' into "+current+". Job pending");
+}
+
 /**
  * cambia el dorsal
  * @param idprueba ID de la prueba
