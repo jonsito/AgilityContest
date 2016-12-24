@@ -531,9 +531,10 @@ class Inscripciones extends DBObject {
         $this->query("DELETE FROM Tandas FROM Tandas WHERE Jornada=$jornada");
         // borramos equipos ! no borrar equipo por defecto !
         $this->query("DELETE FROM Equipos WHERE (Jornada=$jornada) AND (DefaultTeam=0)");
+        $this-
         // la jornada no se borra. Hay que obtener su numero de orden
-        $jobj=$this->getObject("Jornadas",$jornada);
-        $numero=1<<(($jobj->Numero)-1); // mascara de inscripciones
+        $jobj=$this->__getObject("Jornadas",$jornada);
+        $numero=1<<(intval($jobj->Numero)-1); // mascara de inscripciones
         $this->query("UPDATE Inscripciones SET Jornadas=(Jornadas & ~$numero) WHERE Prueba={$this->pruebaID}");
         return "";
     }
@@ -553,9 +554,9 @@ where val = 2
      */
     function cloneInscripciones($from,$jornada) {
         $this->myLogger->enter();
-        $fobj=$this->getObject("Jornadas",$from);
+        $fobj=$this->__getObject("Jornadas",$from);
         if (!$from) throw new Exception("cloneInscripciones: Invalid JornadaID to clone from");
-        $tobj=$this->getObject("Jornadas",$jornada);
+        $tobj=$this->__getObject("Jornadas",$jornada);
         if (!$tobj) throw new Exception("cloneInscripciones: Invalid JornadaID to clone into");
         // si las jornadas no tienen las mismas mangas no se pueden clonar
         if ($fobj->Grado1!=$tobj->Grado1) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Grado1");
