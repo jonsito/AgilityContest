@@ -574,7 +574,8 @@ where val = 2
         $fmask=1<<(($fobj->Numero)-1);
         $tmask=1<<(($tobj->Numero)-1);
         // actualizamos tabla de inscripciones
-        $this->query("UPDATE Inscripciones SET Jornadas=(Jornadas|$tmask) WHERE Prueba={$this->pruebaID} AND ((Jornadas&$fmask)!=0)");
+        $res=$this->query("UPDATE Inscripciones SET Jornadas=(Jornadas|$tmask) WHERE Prueba={$this->pruebaID} AND ((Jornadas&$fmask)!=0)");
+        if (!$res) $this->myLogger->error($this->conn->error);
         // actualizamos lista de equipos
         $str  = "INSERT INTO Equipos ( Prueba,Jornada,Categorias,Nombre,Observaciones,Miembros,DefaultTeam ) "
                 ."SELECT Prueba,$jornada AS Jornada,Categorias,Nombre,Observaciones,Miembros,DefaultTeam "
