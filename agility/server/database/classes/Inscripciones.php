@@ -623,7 +623,7 @@ where val = 2
                 $this->query($str);
             }
             // arriving here means no brohter round found. this is an error.
-            $this->myLogger->error("No equivalent round fournd for Journey $from round $fround of type {$item['Tipo']} in journey $jornada");
+            $this->myLogger->error("No equivalent round fournd for Journey $from round $fmanga of type {$item['Tipo']} in journey $jornada");
         }
         // por ultimo: las sesiones no se clonan: no tiene sentido pues esta jornada no existe todavia
         // por lo que no puede tener sesiones asignadas
