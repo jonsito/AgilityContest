@@ -199,7 +199,7 @@ function createMenuJornadas(){
             var current=menuJornadas.menu('options').current;
             if (item.name=='clear') clearJourneyInscriptions(current);
             if (item.name=='all')   inscribeAllIntoJourney(current);
-            if (item.name=='clear') inscribeSelectedIntoJourney(current);
+            if (item.name=='journey') inscribeSelectedIntoJourney(current);
         }
     });
     menuJornadas.menu('appendItem',{name:'clear', text: "<?php _e('Clear all inscriptions on this journey')?>",iconCls:'icon-cut' });
@@ -266,11 +266,12 @@ $('#inscripciones-datagrid').datagrid({
     },
     onHeaderContextMenu: function(e, field){
 	    if ( ['J1','J2','J3','J4','J5','J6','J7','J8'].indexOf(field) <0) return true;
+	    var index=parseInt(field.substr(1,1))-1;
         e.preventDefault();
         if (!menuJornadas){
             createMenuJornadas();
         }
-        menuJornadas.menu( {'current':field} );
+        menuJornadas.menu( {'current':index} );
         menuJornadas.menu('show', {
             left:e.pageX,
             top:e.pageY

@@ -202,19 +202,115 @@ function reorderInscripciones(idprueba) {
 }
 
 function clearJourneyInscriptions(current){
-    alert("Clear inscriptions on journey "+current+". Job pending");
+    var row=$('#inscripciones-jornadas').datagrid('getData')['rows'][current];
+    if (row.Nombre==='-- Sin asignar --') {
+        $.messager.alert('<?php _e("Undeclared"); ?>','<?php _e("Selected journey to clear is empty"); ?>',"warning");
+        return false; // no hay ninguna jornada seleccionada para clonar
+    }
+    $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Clearing inscriptions in journey");?>'+"'"+row.Nombre+"'" });
+    $.ajax({
+        cache: false,
+        timeout: 60000, // 60 segundos
+        type:'GET',
+        url:"/agility/server/database/inscripcionFunctions.php",
+        dataType:'json',
+        data: {
+            Prueba: row.Prueba,
+            Operation: 'clearinscripciones',
+            Jornada: row.ID
+        },
+        success: function(data) {
+            if(data.errorMsg) {
+                $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: data.errorMsg });
+            } else {
+                $('#inscripciones-datagrid').datagrid('reload');
+            }
+            $.messager.progress('close');
+        },
+        error:function(jqXHR, textStatus, errorThrown) {
+            // console.log(textStatus, errorThrown);
+            $.messager.progress('close');
+        }
+    });
+    return false;
 }
+
 function inscribeAllIntoJourney(current){
-    alert("Clone all inscriptions into journey "+current+". Job pending");
+    var row=$('#inscripciones-jornadas').datagrid('getData')['rows'][current];
+    if (row.Nombre==='-- Sin asignar --') {
+        $.messager.alert('<?php _e("Undeclared"); ?>','<?php _e("Must declare this journey first"); ?>',"warning");
+        return false; // no hay ninguna jornada seleccionada para clonar
+    }
+    $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Cloning all inscriptions into journey");?>'+"'"+row.Nombre+"'" });
+    $.ajax({
+        cache: false,
+        timeout: 60000, // 60 segundos
+        type:'GET',
+        url:"/agility/server/database/inscripcionFunctions.php",
+        dataType:'json',
+        data: {
+            Prueba: row.Prueba,
+            Operation: 'populateinscripciones',
+            Jornada: row.ID
+        },
+        success: function(data) {
+            if(data.errorMsg) {
+                $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: data.errorMsg });
+            } else {
+                $('#inscripciones-datagrid').datagrid('reload');
+            }
+            $.messager.progress('close');
+        },
+        error:function(jqXHR, textStatus, errorThrown) {
+            // console.log(textStatus, errorThrown);
+            $.messager.progress('close');
+        }
+    });
+    return false;
 }
 
 function inscribeSelectedIntoJourney(current){
     var row=$('#inscripciones-jornadas').datagrid('getSelected');
     if (!row) {
         $.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no journey selected"); ?>',"warning");
-        return; // no hay ninguna jornada seleccionada para clonar
+        return false; // no hay ninguna jornada seleccionada para clonar
     }
-    alert("Clone inscription on journey '"+row.Nombre+"' into "+current+". Job pending");
+    if(row.Nombre==='-- Sin asignar --') {
+        $.messager.alert('<?php _e("Undeclared"); ?>','<?php _e("Selected journey to clone has no data"); ?>',"warning");
+        return false; // no hay ninguna jornada seleccionada para clonar
+    }
+    var tojourney=$('#inscripciones-jornadas').datagrid('getData')['rows'][current];
+    if (tojourney.Nombre==='-- Sin asignar --') {
+        $.messager.alert('<?php _e("Undeclared"); ?>','<?php _e("Selected journey to clone into is no defined"); ?>',"warning");
+        return false; // no hay ninguna jornada seleccionada para clonar
+    }
+    $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Cloning inscriptions from selected journey into ");?>'+"'"+tojourney.Nombre+"'" });
+    $.ajax({
+        cache: false,
+        timeout: 60000, // 60 segundos
+        type:'GET',
+        url:"/agility/server/database/inscripcionFunctions.php",
+        dataType:'json',
+        data: {
+            Prueba: row.Prueba,
+            Operation: 'cloneinscripciones',
+            From: row.ID,
+            Jornada: tojourney.ID
+        },
+        success: function(data) {
+            if(data.errorMsg) {
+                $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: data.errorMsg });
+            } else {
+                $('#inscripciones-datagrid').datagrid('reload');
+            }
+            $.messager.progress('close');
+        },
+        error:function(jqXHR, textStatus, errorThrown) {
+            // console.log(textStatus, errorThrown);
+            $.messager.progress('close');
+        }
+    });
+    return false;
 }
 
 /**

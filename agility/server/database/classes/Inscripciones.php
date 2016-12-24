@@ -511,6 +511,40 @@ class Inscripciones extends DBObject {
 		$this->myLogger->leave();
 		return $result;
 	}
+
+    /**
+     * Clear every inscriptions and related info from provided journey
+     * @param {int} $jornada Jornada ID
+     * @return string empty on success else error message
+     */
+	function clearInscripciones($jornada) {
+	    $this->errormsg= "to be done";
+	    return null;
+    }
+
+    /**
+     * Inscribe every registered dogs for a contest into provided journey
+     * preserve existing inscriptions
+     * @param {int} $jornada Jornada ID
+     * @return string empty on success else error message
+     */
+    function populateInscripciones($jornada) {
+        $this->errormsg= "to be done";
+        return null;
+    }
+
+    /**
+     * Clone all inscriptions from one journey to another
+     * preserve existing inscriptions on destination journey
+     * @param {int} $from Jornada ID to clone inscriptions from
+     * @param {int} $jornada Jornada ID to be cloned
+     * @return string empty on success else error message
+     */
+    function cloneInscripciones($from,$jornada) {
+        $this->errormsg= "to be done";
+        return null;
+    }
+
 } /* end of class "Inscripciones" */
 
 ?>

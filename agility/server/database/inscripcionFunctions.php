@@ -30,6 +30,7 @@ require_once(__DIR__."/classes/Inscripciones.php");
 		$perro=http_request("Perro","i",0);
         $equipo=http_request("Equipo","i",0);
         $jornada=http_request("Jornada","i",0);
+        $from=http_request("From","i",0);
 		$olddorsal=http_request("Dorsal","i",0);
 		$newdorsal=http_request("NewDorsal","i",0);
 		if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");
@@ -44,7 +45,10 @@ require_once(__DIR__."/classes/Inscripciones.php");
             case "inscritosbyteam": $result=$inscripciones->inscritosByTeam($equipo); break;
             case "inscritosbyjornada": $result=$inscripciones->inscritosByJornada($jornada); break;
 			case "reorder": $am->access(PERMS_OPERATOR); $result=$inscripciones->reorder(); break;
-			case "setdorsal": $am->access(PERMS_OPERATOR); $result=$inscripciones->setDorsal($perro,$olddorsal,$newdorsal); break;
+            case "setdorsal": $am->access(PERMS_OPERATOR); $result=$inscripciones->setDorsal($perro,$olddorsal,$newdorsal); break;
+            case "clearinscripciones": $am->access(PERMS_OPERATOR); $result=$inscripciones->clearInscripciones($jornada); break;
+            case "populateinscripciones": $am->access(PERMS_OPERATOR); $result=$inscripciones->populateInscripciones($jornada); break;
+            case "cloneinscripciones": $am->access(PERMS_OPERATOR); $result=$inscripciones->cloneInscripciones($from,$jornada); break;
 			default: throw new Exception("inscripcionFunctions:: invalid operation: $operation provided");
 		}
 		if ($result===null) 
