@@ -514,13 +514,124 @@ class Inscripciones extends DBObject {
 
     /**
      * Clear every inscriptions and related info from provided journey
+     * posiblemente esto se pudiera hacer automaticamente con las foreign keys
+     * pero por si acaso, así no hay fallo
      * @param {int} $jornada Jornada ID
      * @return string empty on success else error message
      */
 	function clearInscripciones($jornada) {
-	    $this->errormsg= "to be done";
-	    return null;
+	    if ($jornada<=0) throw new Exception("clearInscripciones: Invalid JornadaID");
+        // borramos sesiones asociadas
+        $this->query("DELETE FROM Sesiones WHERE Jornada=$jornada");
+	    // borramos resultados
+        $this->query("DELETE FROM Resultados WHERE Jornada=$jornada");
+        // borramos mangas
+        $this->query("DELETE FROM Mangas WHERE Jornada=$jornada");
+        // borramos tandas
+        $this->query("DELETE FROM Tandas FROM Tandas WHERE Jornada=$jornada");
+        // borramos equipos ! no borrar equipo por defecto !
+        $this->query("DELETE FROM Equipos WHERE (Jornada=$jornada) AND (DefaultTeam=0)");
+        // la jornada no se borra. Hay que obtener su numero de orden
+        $jobj=$this->getObject("Jornadas",$jornada);
+        $numero=1<<(($jobj->Numero)-1); // mascara de inscripciones
+        $this->query("UPDATE Inscripciones SET Jornadas=(Jornadas & ~$numero) WHERE Prueba={$this->pruebaID}");
+        return "";
     }
+
+    /*
+     insert into your_table (val, cols, cole)
+select 5 as val, cols, cole
+from your_table
+where val = 2
+     */
+    /**
+     * Clone all inscriptions from one journey to another
+     * preserve existing inscriptions on destination journey
+     * @param {int} $from Jornada ID to clone inscriptions from
+     * @param {int} $jornada Jornada ID to be cloned
+     * @return string empty on success else error message
+     */
+    function cloneInscripciones($from,$jornada) {
+        $this->myLogger->enter();
+        $fobj=$this->getObject("Jornadas",$from);
+        if (!$from) throw new Exception("cloneInscripciones: Invalid JornadaID to clone from");
+        $tobj=$this->getObject("Jornadas",$jornada);
+        if (!$tobj) throw new Exception("cloneInscripciones: Invalid JornadaID to clone into");
+        // si las jornadas no tienen las mismas mangas no se pueden clonar
+        if ($fobj->Grado1!=$tobj->Grado1) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Grado1");
+        if ($fobj->Grado2!=$tobj->Grado2) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Grado2");
+        if ($fobj->Grado3!=$tobj->Grado3) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Grado3");
+        if ($fobj->Equipos3!=$tobj->Equipos3) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Equipos3");
+        if ($fobj->Equipos4!=$tobj->Equipos4) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Equipos4");
+        if ($fobj->PreAgility!=$tobj->PreAgility) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": PreAgility");
+        if ($fobj->Preagility2!=$tobj->PreAgility2) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": PreAgility-2");
+        if ($fobj->Open!=$tobj->Open) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Open");
+        if ($fobj->Especial!=$tobj->Especial) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Especial");
+        if ($fobj->KO!=$tobj->KO) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": K.O");
+        if ($fobj->Games!=$tobj->Games) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Games");
+        // buscamos numero de orden de jornada origen y destino
+        $fmask=1<<(($fobj->Numero)-1);
+        $tmask=1<<(($tobj->Numero)-1);
+        // actualizamos tabla de inscripciones
+        $this->query("UPDATE Inscripciones SET Jornadas=(Jornadas|$tmask) WHERE Prueba={$this->pruebaID} AND ((Jornadas&$fmask)!=0)");
+        // actualizamos lista de equipos
+        $str  = "INSERT INTO Equipos ( Prueba,Jornada,Categorias,Nombre,Observaciones,Miembros,DefaultTeam ) "
+                ."SELECT Prueba,$jornada AS Jornada,Categorias,Nombre,Observaciones,Miembros,DefaultTeam"
+                ."FROM Equipos WHERE Jornada=$from AND DefaultTeam=0";
+        $this->query($str);
+        // actualizamos miembros del equipo por defecto ( que no se inserta, sino que tiene que venir por defecto
+        $str = "UPDATE Equipos,(SELECT Miembros FROM Equipos WHERE Jornada=$from AND DefaultTeam=1) AS p2 "
+               ."SET Equipos.Miembros=p2.Miembros WHERE Jornada=$jornada AND DefaultTeam=1";
+        $this->query($str);
+        // las tandas no se clonan, pues ya estan generadas. como mucho caso habría que clonar contenidos
+        // pero es algo que no vamos a hacer hoy...
+
+        // del mismo modo las mangas ya estan definidas;
+        // lo unico que hacemos es sincronizar los datos de ambas mangas
+        $str = "UPDATE Mangas,(SELECT * FROM Mangas WHERE Jornada=$from) AS p2 "
+            ."SET Mangas.Recorrido=p2.Recorrido ,"
+            ."Mangas.Dist_L=p2.DIST_L, Mangas.Obst_L=p2.Obst_L, Mangas.Dist_M=p2.Dist_M, Mangas.Obst_M=p2.Obst_M, "
+            ."Mangas.Dist_T=p2.Dist_T, Mangas.Obst_T=p2.Obst_T, Mangas.Dist_S=p2.Dist_S, Mangas.Obst_S=p2.Obst_T, "
+            ."Mangas.TRS_L_Tipo=p2.TRS_L_Tipo, Mangas.TRS_L_Factor=p2.TRS_L_Factor, Mangas.TRS_L_Unit=p2.TRS_L_Unit, "
+            ."Mangas.TRM_L_Tipo=p2.TRM_L_Tipo, Mangas.TRM_L_Factor=p2.TRM_L_Factor,	Mangas.TRM_L_Unit=p2.TRM_L_Unit, "
+            ."Mangas.TRS_M_Tipo=p2.TRS_M_Tipo, Mangas.TRS_M_Factor=p2.TRS_M_Factor, Mangas.TRS_M_Unit=p2.TRS_M_Unit, "
+            ."Mangas.TRM_M_Tipo=p2.TRM_M_Tipo, Mangas.TRM_M_Factor=p2.TRM_M_Factor,	Mangas.TRM_M_Unit=p2.TRM_M_Unit, "
+            ."Mangas.TRS_S_Tipo=p2.TRS_S_Tipo, Mangas.TRS_S_Factor=p2.TRS_S_Factor, Mangas.TRS_S_Unit=p2.TRS_S_Unit, "
+            ."Mangas.TRM_S_Tipo=p2.TRM_S_Tipo, Mangas.TRM_S_Factor=p2.TRM_S_Factor,	Mangas.TRM_S_Unit=p2.TRM_S_Unit, "
+            ."Mangas.TRS_T_Tipo=p2.TRS_T_Tipo, Mangas.TRS_T_Factor=p2.TRS_T_Factor, Mangas.TRS_T_Unit=p2.TRS_T_Unit, "
+            ."Mangas.TRM_T_Tipo=p2.TRM_T_Tipo, Mangas.TRM_T_Factor=p2.TRM_T_Factor,	Mangas.TRM_T_Unit=p2.TRM_T_Unit, "
+            ."Mangas.Juez1=ps.Juez1, Mangas.Juez2=p2.Juez2, Mangas.Observaciones=p2.Observaciones, "
+            ."Mangas.OrdenSalida=p2.OrdenSalida, Mangas.OrdenEquipos=p2.OrdenEquipos"
+            ."WHERE Jornada=$jornada AND Manga.tipo=p2.Tipo"; // importante lo de los tipos de mangas :-)
+        $this->query($str);
+
+        // ahora viene el meollo del asunto: clonar los resultados
+        // para ello, tenemos que adivinar las mangas "equivalentes" de cada jornada
+        $mangasfrom=$this->__select("*","Mangas","Jornada=$from");
+        $mangasto=$this->__select("*","Mangas","Jornada=$jornada");
+        // por cada manga insertamos la fila de resultados.
+        foreach($mangasfrom['rows'] as $item) {
+            $fmanga=$item['ID'];
+            foreach($mangasto['rows'] as $mng) {
+                if($item['Tipo']!=$mng['Tipo']) continue;
+                $manga=$mng['ID'];
+                // se anyade un "IGNORE" por si la tupla perro,manga ya existe
+                $str  = "INSERT IGNORE INTO Resultados "
+                    ."(Prueba,Jornada,Manga,Dorsal,Perro,Equipo,Nombre,Raza,Licencia,Categoria,Grado,Celo,NombreGuia,NombreClub,Entrada,Comienzo,Faltas,Rehuses,Tocados,Eliminado,NoPresentado,Tiempo,Observaciones,Pendiente,TIntermedio,Games) "
+                    ."SELECT Prueba,$jornada AS Jornada,$manga AS Manga.Dorsal,Perro,Equipo,Nombre,Raza,Licencia,Categoria,Grado,Celo,NombreGuia,NombreClub,Entrada,Comienzo,Faltas,Rehuses,Tocados,Eliminado,NoPresentado,Tiempo,Observaciones,Pendiente,TIntermedio,Games "
+                    ."FROM Resultados WHERE Jornada=$from AND Manga=$fmanga";
+                $this->query($str);
+            }
+            // arriving here means no brohter round found. this is an error.
+            $this->myLogger->error("No equivalent round fournd for Journey $from round $fround of type {$item['Tipo']} in journey $jornada");
+        }
+        // por ultimo: las sesiones no se clonan: no tiene sentido pues esta jornada no existe todavia
+        // por lo que no puede tener sesiones asignadas
+        $this->myLogger->leave();
+        // ok. proceso completado
+        return "";
+    }
+
 
     /**
      * Inscribe every registered dogs for a contest into provided journey
@@ -532,19 +643,6 @@ class Inscripciones extends DBObject {
         $this->errormsg= "to be done";
         return null;
     }
-
-    /**
-     * Clone all inscriptions from one journey to another
-     * preserve existing inscriptions on destination journey
-     * @param {int} $from Jornada ID to clone inscriptions from
-     * @param {int} $jornada Jornada ID to be cloned
-     * @return string empty on success else error message
-     */
-    function cloneInscripciones($from,$jornada) {
-        $this->errormsg= "to be done";
-        return null;
-    }
-
 } /* end of class "Inscripciones" */
 
 ?>
