@@ -270,6 +270,35 @@ function inscribeAllIntoJourney(current){
 }
 
 function inscribeSelectedIntoJourney(current){
+    function doInscribeSelectedIntoJourney(tojourney) {
+        $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Cloning inscriptions from selected journey into ");?>'+"'"+tojourney.Nombre+"'" });
+        $.ajax({
+            cache: false,
+            timeout: 60000, // 60 segundos
+            type:'GET',
+            url:"/agility/server/database/inscripcionFunctions.php",
+            dataType:'json',
+            data: {
+                Prueba: row.Prueba,
+                Operation: 'cloneinscripciones',
+                From: row.ID,
+                Jornada: tojourney.ID
+            },
+            success: function(data) {
+                if(data.errorMsg) {
+                    $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: data.errorMsg });
+                } else {
+                    $('#inscripciones-datagrid').datagrid('reload');
+                }
+                $.messager.progress('close');
+            },
+            error:function(jqXHR, textStatus, errorThrown) {
+                // console.log(textStatus, errorThrown);
+                $.messager.progress('close');
+            }
+        });
+    }
+
     var row=$('#inscripciones-jornadas').datagrid('getSelected');
     if (!row) {
         $.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no journey selected"); ?>',"warning");
@@ -281,35 +310,35 @@ function inscribeSelectedIntoJourney(current){
     }
     var tojourney=$('#inscripciones-jornadas').datagrid('getData')['rows'][current];
     if (tojourney.Nombre==='-- Sin asignar --') {
-        $.messager.alert('<?php _e("Undeclared"); ?>','<?php _e("Selected journey to clone into is no defined"); ?>',"warning");
-        return false; // no hay ninguna jornada seleccionada para clonar
+        $.messager.confirm('<?php _e("Undeclared"); ?>','<?php _e("Selected journey to clone into is not defined. Create?"); ?>',function(r){
+            if (!r) return false;
+            // create new journey data from original
+            var id=tojourney.ID;
+            var journey=cloneObj(row);
+            journey.ID=id;
+            journey.Operation='update';
+            journey.Nombre="Clone of "+row.Nombre;
+            // update journey info
+            $.ajax({
+                type: 'GET',
+                url: '/agility/server/database/jornadaFunctions.php',
+                data: journey,
+                dataType: 'json',
+                success: function (result) {
+                    if (result.errorMsg){
+                        $.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+                        return false;
+                    } else {
+                        doInscribeSelectedIntoJourney(journey);
+                        $('#inscripciones-jornadas').datagrid('reload');    // reload the prueba data
+                    }
+                }
+            });
+        });
+        return false; // no hay ninguna jornada seleccionada para clonar, y el usuario aborta operacion
     }
-    $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Cloning inscriptions from selected journey into ");?>'+"'"+tojourney.Nombre+"'" });
-    $.ajax({
-        cache: false,
-        timeout: 60000, // 60 segundos
-        type:'GET',
-        url:"/agility/server/database/inscripcionFunctions.php",
-        dataType:'json',
-        data: {
-            Prueba: row.Prueba,
-            Operation: 'cloneinscripciones',
-            From: row.ID,
-            Jornada: tojourney.ID
-        },
-        success: function(data) {
-            if(data.errorMsg) {
-                $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: data.errorMsg });
-            } else {
-                $('#inscripciones-datagrid').datagrid('reload');
-            }
-            $.messager.progress('close');
-        },
-        error:function(jqXHR, textStatus, errorThrown) {
-            // console.log(textStatus, errorThrown);
-            $.messager.progress('close');
-        }
-    });
+    // arriving here means that destination journey exists and is defined. try to process
+    doInscribeSelectedIntoJourney(tojourney);
     return false;
 }
 

@@ -616,6 +616,8 @@ class Inscripciones extends DBObject {
                     ."FROM Resultados WHERE Jornada=$from AND Manga={$f['ID']}";
                 $res=$this->query($str);
                 if (!$res) $this->myLogger->error($this->conn->error);
+                // now need to fix teams id
+                // TO BE DONE
             }
             // arriving here means no brohter round found. this is an error.
             if (!$found) $this->myLogger->error("No equivalent round fournd for Journey $from round {$tmanga['ID']} of type {$f['Tipo']} in journey $jornada");
