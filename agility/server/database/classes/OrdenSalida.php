@@ -494,9 +494,9 @@ class OrdenSalida extends DBObject {
             // ordenamos segun el orden de categorias establecido en las tandas
             $p5=array();
             foreach ($res['rows'] as $item) {
-            	if (strpos($item['Categoria'],"LMS") ) $item['Categoria']="-";
+            	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-LMST";
             	foreach ($p4 as $perro) {
-                    if ($perro['Categoria']==$item['Categoria']) array_push($p5,$perro);
+            		if (strpos($item['Categoria'],$perro['Categoria'])!==false) array_push($p5,$perro);
                 }
 			}
         }

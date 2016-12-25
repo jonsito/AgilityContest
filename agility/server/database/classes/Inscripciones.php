@@ -539,12 +539,6 @@ class Inscripciones extends DBObject {
         return "";
     }
 
-    /*
-     insert into your_table (val, cols, cole)
-select 5 as val, cols, cole
-from your_table
-where val = 2
-     */
     /**
      * Clone all inscriptions from one journey to another
      * preserve existing inscriptions on destination journey
@@ -642,7 +636,25 @@ where val = 2
      * @return string empty on success else error message
      */
     function populateInscripciones($jornada) {
-        $this->errormsg= "to be done";
+        $tobj=$this->__getArray("Jornadas",$jornada);
+        if (!$tobj) throw new Exception("updateInscripciones: Invalid JornadaID to clone into");
+        $tmask=1<<(($tobj['Numero'])-1);
+        // actualizamos tabla de inscripciones
+        $res=$this->query("UPDATE Inscripciones SET Jornadas=(Jornadas|$tmask) WHERE Prueba={$this->pruebaID}");
+        if (!$res) $this->myLogger->error($this->conn->error);
+        // obtenemos la lista de inscripciones y de perros
+        // el orden debe coincidir; si no tenemos un problema muy serio....
+        $inscripciones=$this->__select("*","Inscripciones","Prueba={$this->pruebaID}","Perro ASC");
+        $perros=$this->__select(
+            "*",
+            "PerroGuiaClub",
+            "ID IN (SELECT Perro AS ID FROM Inscripciones WHERE Prueba={$this->pruebaID}) ",
+            "ID ASC");
+        for($n=0;$n<$inscripciones['total']; $n++) {
+            $this->myLogger->trace("Procesando inscripcion {$inscripciones['rows'][$n]['Perro']} del perro: {$perros['rows'][$n]['ID']} {$perros['rows'][$n]['Nombre']}");
+            inscribePerroEnJornada($inscripciones['rows'][$n],$tobj,$perros['rows'][$n]);
+        }
+
         return null;
     }
 } /* end of class "Inscripciones" */
