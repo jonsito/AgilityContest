@@ -586,13 +586,13 @@ class Inscripciones extends DBObject {
         // clonamos los datos y los resultados de las mangas
         $mangasfrom=$this->__select("*","Mangas","Jornada=$from");
         $mangasto=$this->__select("*","Mangas","Jornada=$jornada");
-
         foreach ($mangasfrom['rows'] as $f) {
             $found=false;
+            $ordenequipos=str_replace(",{$fobj->Default_Team},",",{$tobj->Default_Team},",$f['Orden_Equipos']);
             foreach($mangasto['rows'] as $tmanga) {
                 if($tmanga['Tipo']!=$f['Tipo']) continue;
                 $found=true;
-                // clone manga info
+                // clone manga info. in orden equipos replace origin default team with destination default team
                 $str = "UPDATE Mangas SET Mangas.Recorrido={$f['Recorrido']} ,"
                     ."Mangas.Dist_L={$f['Dist_L']}, Mangas.Obst_L={$f['Obst_L']}, Mangas.Dist_M={$f['Dist_M']}, Mangas.Obst_M={$f['Obst_M']}, "
                     ."Mangas.Dist_T={$f['Dist_T']}, Mangas.Obst_T={$f['Obst_T']}, Mangas.Dist_S={$f['Dist_S']}, Mangas.Obst_S={$f['Obst_T']}, "
@@ -605,7 +605,7 @@ class Inscripciones extends DBObject {
                     ."Mangas.TRS_T_Tipo={$f['TRS_T_Tipo']}, Mangas.TRS_T_Factor={$f['TRS_T_Factor']}, Mangas.TRS_T_Unit='{$f['TRS_T_Unit']}', "
                     ."Mangas.TRM_T_Tipo={$f['TRM_T_Tipo']}, Mangas.TRM_T_Factor={$f['TRM_T_Factor']}, Mangas.TRM_T_Unit='{$f['TRM_T_Unit']}', "
                     ."Mangas.Juez1={$f['Juez1']}, Mangas.Juez2={$f['Juez2']}, Mangas.Observaciones='{$f['Observaciones']}', "
-                    ."Mangas.Orden_Salida='{$f['Orden_Salida']}', Mangas.Orden_Equipos='{$f['Orden_Equipos']}' "
+                    ."Mangas.Orden_Salida='{$f['Orden_Salida']}', Mangas.Orden_Equipos='$ordenequipos' "
                     ."WHERE Jornada=$jornada AND Mangas.ID={$tmanga['ID']} "; // importante lo de los tipos de mangas :-)
                 $res=$this->query($str);
                 if (!$res) $this->myLogger->error($this->conn->error);

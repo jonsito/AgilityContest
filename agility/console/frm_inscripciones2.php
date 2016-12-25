@@ -195,6 +195,8 @@ var menuJornadas;
 function createMenuJornadas(){
     menuJornadas = $('<div/>').appendTo('body');
     menuJornadas.menu({
+        current:0, // added by JAMC
+        align:'right',
         onClick: function(item){
             var current=menuJornadas.menu('options').current;
             if (item.name=='clear') clearJourneyInscriptions(current);
@@ -203,7 +205,7 @@ function createMenuJornadas(){
         }
     });
     menuJornadas.menu('appendItem',{name:'clear', text: "<?php _e('Clear all inscriptions on this journey')?>",iconCls:'icon-cut' });
-    menuJornadas.menu('appendItem',{name:'all', text: "<?php _e('Clone all inscriptions into this journey')?>",iconCls:'icon-notes' });
+    menuJornadas.menu('appendItem',{name:'all', text: "<?php _e('Register all inscriptions into this journey')?>",iconCls:'icon-notes' });
     menuJornadas.menu('appendItem',{name:'journey', text: "<?php _e('Clone inscriptions on selected journey into this one')?>",iconCls:'icon-tip' });
 }
 
@@ -271,10 +273,10 @@ $('#inscripciones-datagrid').datagrid({
         if (!menuJornadas){
             createMenuJornadas();
         }
-        menuJornadas.menu( {'current':index} );
+        menuJornadas.menu('options').current=index;
         menuJornadas.menu('show', {
-            left:e.pageX,
-            top:e.pageY
+            left:e.pageX-375,
+            top:e.pageY+15
         });
     }
 });
