@@ -525,15 +525,14 @@ class Inscripciones extends DBObject {
         $this->query("DELETE FROM Sesiones WHERE Jornada=$jornada");
 	    // borramos resultados
         $this->query("DELETE FROM Resultados WHERE Jornada=$jornada");
-        // borramos mangas
-        $this->query("DELETE FROM Mangas WHERE Jornada=$jornada");
-        // borramos tandas
-        $this->query("DELETE FROM Tandas FROM Tandas WHERE Jornada=$jornada");
+        // borramos ordensalida y ordenequipos de las mangas
+        $jobj=$this->__getObject("Jornadas",$jornada);
+        $this->query("UPDATE Mangas SET Orden_Salida='BEGIN,END',Orden_Equipos='BEGIN,{$jobj->Default_Team},END' WHERE Jornada=$jornada");
         // borramos equipos ! no borrar equipo por defecto !
         $this->query("DELETE FROM Equipos WHERE (Jornada=$jornada) AND (DefaultTeam=0)");
-        $this-
         // la jornada no se borra. Hay que obtener su numero de orden
         $jobj=$this->__getObject("Jornadas",$jornada);
+        // y usarlo como mascara en las inscripciones
         $numero=1<<(intval($jobj->Numero)-1); // mascara de inscripciones
         $this->query("UPDATE Inscripciones SET Jornadas=(Jornadas & ~$numero) WHERE Prueba={$this->pruebaID}");
         return "";
