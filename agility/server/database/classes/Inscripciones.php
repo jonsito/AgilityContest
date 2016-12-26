@@ -547,6 +547,7 @@ class Inscripciones extends DBObject {
      */
     function cloneInscripciones($from,$jornada) {
         $this->myLogger->enter();
+        $timeout=ini_get('max_execution_time');
         $fobj=$this->__getObject("Jornadas",$from);
         if (!$fobj) throw new Exception("cloneInscripciones: Invalid JornadaID to clone from");
         $tobj=$this->__getObject("Jornadas",$jornada);
@@ -605,6 +606,7 @@ class Inscripciones extends DBObject {
         $mangasfrom=$this->__select("*","Mangas","Jornada=$from");
         $mangasto=$this->__select("*","Mangas","Jornada=$jornada");
         foreach ($mangasfrom['rows'] as $f) {
+            set_time_limit($timeout); // to avoid timeout in slow computers
             $found=false;
             foreach ($mangasto['rows'] as &$t) { // use reference instead of copy
                 if ($t['Tipo']!=$f['Tipo']) continue;
@@ -670,6 +672,7 @@ class Inscripciones extends DBObject {
     function populateInscripciones($jornada) {
         $tobj=$this->__getArray("Jornadas",$jornada);
         if (!$tobj) throw new Exception("updateInscripciones: Invalid JornadaID to clone into");
+        $timeout=ini_get('max_execution_time');
         $tmask=1<<(($tobj['Numero'])-1);
         // actualizamos tabla de inscripciones
         $res=$this->query("UPDATE Inscripciones SET Jornadas=(Jornadas|$tmask) WHERE Prueba={$this->pruebaID}");
@@ -683,6 +686,7 @@ class Inscripciones extends DBObject {
             "ID IN (SELECT Perro AS ID FROM Inscripciones WHERE Prueba={$this->pruebaID}) ",
             "ID ASC");
         for($n=0;$n<$inscripciones['total']; $n++) {
+            set_time_limit($timeout);
             $this->myLogger->trace("Procesando inscripcion {$inscripciones['rows'][$n]['Perro']} del perro: {$perros['rows'][$n]['ID']} {$perros['rows'][$n]['Nombre']}");
             inscribePerroEnJornada($inscripciones['rows'][$n],$tobj,$perros['rows'][$n]);
         }
