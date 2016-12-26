@@ -26,8 +26,15 @@
 	<p>
 		<span style="display:inline-block;width:350px"><?php _e('Search for updates'); ?></span>
 		<a id="tools-upgradeBtn" href="#" class="easyui-linkbutton" style="width:85px"
-		   data-options="iconCls:'icon-reload'" onclick="checkForUpgrades()">Upgrade</a>
+		   data-options="iconCls:'icon-reload'" onclick="checkForUpgrades()"><?php _e('Upgrade')?></a>
 	</p>
+    <p>
+        <span style="display:inline-block;width:350px"><?php _e('Debug and log trace file'); ?></span>
+        <a id="tools-logResetBtn" href="#" class="easyui-linkbutton" style="width:85px"
+           data-options="iconCls:'icon-brush'" onclick="resetLogFile()"><?php _e('Reset');?></a>
+        <a id="tools-logViewBtn" href="#" class="easyui-linkbutton" style="width:85px"
+           data-options="iconCls:'icon-search'" onclick="viewLogFile()"><?php _e('View');?></a>
+    </p>
 </div>
 
 <script type="text/javascript">
@@ -37,4 +44,6 @@ addTooltip($('#tools-restoreBtn').linkbutton(),'<?php _e("Restore database conte
 addTooltip($('#tools-resetBtn').linkbutton(),'<?php _e("Factory reset. Clear EVERY content on database"); ?>');
 addTooltip($('#tools-eraseBtn').linkbutton(),'<?php _e("Clear contests from database"); ?>'+"<br />"+'<?php _e("leaving only dogs/handlers/judges/clubs information"); ?>');
 addTooltip($('#tools-upgradeBtn').linkbutton(),'<?php _e("Search and install AgilityContest updates"); ?>');
+addTooltip($('#tools-logResetBtn').linkbutton(),'<?php _e("Clear debugging and trace file"); ?>');
+addTooltip($('#tools-logViewBtn').linkbutton(),'<?php _e("Download debug and trace file"); ?>');
 </script>

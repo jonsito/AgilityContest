@@ -33,6 +33,50 @@ function checkForAdmin() {
     return true;
 }
 
+function viewLogFile(){
+    if (ac_authInfo.Perms>access_level.PERMS_OPERATOR) {
+        $.messager.alert('<?php _e("Error"); ?>',"<?php _e("ViewLog(): Must log in with 'admin' or 'operator' access level"); ?>","error");
+        return;
+    }
+    $.fileDownload(
+        '/agility/server/adminFunctions.php',
+        {
+            httpMethod: 'GET',
+            data: {
+                Operation: 'viewlog'
+            },
+            preparingMessageHtml: '<?php _e("We are preparing your log file download, please wait"); ?>'+"...",
+            failMessageHtml: '<?php _e("There was a problem generating your log file, please report author."); ?>'
+        }
+    );
+    return false;
+}
+
+function resetLogFile(){
+    if (ac_authInfo.Perms>access_level.PERMS_ADMIN) {
+        $.messager.alert('<?php _e("Error"); ?>',"<?php _e("ResetLog(): Must log in with 'admin' access level"); ?>","error");
+        return;
+    }
+    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Clear trace and debugging log file');?>'+'<br/>'+'<?php _e('Sure?'); ?>',function(r){
+        if (r){
+            $.ajax({
+                type:'GET',
+                url:"/agility/server/adminFunctions.php",
+                dataType:'json',
+                data: {
+                    Operation: 'resetlog'
+                },
+                success: function(res) {
+                    $.messager.alert({ width:300, height:150, title: '<?php _e('Log Cleared'); ?>', msg: '<?php _e('Debug and trace log file successfully cleared');?>' });
+                },
+                error: function(XMLHttpRequest,textStatus,errorThrown) {
+                    $.messager.alert("Error: "+oper,"Error: "+textStatus + " "+ errorThrown,'error' );
+                }
+            });
+        }
+    });
+}
+
 function backupDatabase(){
     $.fileDownload(
         '/agility/server/adminFunctions.php',

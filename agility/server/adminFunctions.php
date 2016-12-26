@@ -102,7 +102,30 @@ class Admin extends DBObject {
 			echo $line[$i];
 		}
 	}
-	
+
+	public function dumpLog() {
+        $fname="trace-".date("Ymd_Hi").".log";
+        header('Set-Cookie: fileDownload=true; path=/');
+        header('Cache-Control: max-age=60, must-revalidate');
+        header('Content-Type: text/plain; charset=utf-8');
+        header('Content-Disposition: attachment; filename="'.$fname.'"');
+        $f=fopen(ini_get('error_log'),"r");
+        if(!$f) throw new Exception("Error opening log file");
+        while(!feof($f)) { $line = fgets($f); echo $line; }
+        fclose($f);
+        return "";
+	}
+
+	public function resetLog() {
+        $f = @fopen(ini_get('error_log'), "r+");
+        if ($f !== false) {
+            ftruncate($f, 0);
+            fputs($f,"Log registry started at ".date("Y-m-d H:i:s")."\n");
+            fclose($f);
+        }
+        return "";
+	}
+
 	public function backup() {
 		
 		$dbname=$this->dbname;
@@ -387,6 +410,13 @@ try {
 			$printer=new RawPrinter($pname,$pwide);
 			$printer->rawprinter_Check();
 			break;
+		case "viewlog":
+            $result=$adm->dumpLog();
+			break;
+        case "resetlog":
+            $am->access(PERMS_ADMIN);
+            $result=$adm->resetLog();
+            break;
 		default:
 			throw new Exception("adminFunctions:: invalid operation: '$operation' provided");
 	}
