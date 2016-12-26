@@ -353,8 +353,14 @@ function clasificaciones_printPodium() {
 			data: { 
 				Prueba:workingData.prueba,
 				Jornada:workingData.jornada,
-				Manga1:ronda.Manga1,
-				Manga2:ronda.Manga2,
+                Manga1:ronda.Manga1,
+                Manga2:ronda.Manga2,
+                Manga3:ronda.Manga3,
+                Manga4:ronda.Manga4,
+                Manga5:ronda.Manga5,
+                Manga6:ronda.Manga6,
+                Manga7:ronda.Manga7,
+                Manga8:ronda.Manga8,
 				Rondas: ronda.Rondas
 			},
 	        preparingMessageHtml:'(podium) <?php _e("We are preparing your report, please wait"); ?> ...',
@@ -385,7 +391,13 @@ function clasificaciones_printCanina() {
 				Prueba:workingData.prueba,
 				Jornada:workingData.jornada,
 				Manga1:ronda.Manga1,
-				Manga2:ronda.Manga2,
+                Manga2:ronda.Manga2,
+                Manga3:ronda.Manga3,
+                Manga4:ronda.Manga4,
+                Manga5:ronda.Manga5,
+                Manga6:ronda.Manga6,
+                Manga7:ronda.Manga7,
+                Manga8:ronda.Manga8,
 				Rondas: ronda.Rondas,
 				Mode: mode
 			},
@@ -420,6 +432,7 @@ function clasificaciones_printEtiquetas(flag,start,list) {
 			data: { 
 				Prueba:workingData.prueba,
 				Jornada:workingData.jornada,
+                // en etiquetas solo hay dos mangas
 				Manga1:ronda.Manga1,
 				Manga2:ronda.Manga2,
 				Rondas: ronda.Rondas,
@@ -455,8 +468,14 @@ function clasificaciones_printClasificacion() {
 			data: { 
 				Prueba:workingData.prueba,
 				Jornada:workingData.jornada,
-				Manga1:ronda.Manga1,
-				Manga2:ronda.Manga2,
+                Manga1:ronda.Manga1,
+                Manga2:ronda.Manga2,
+                Manga3:ronda.Manga3,
+                Manga4:ronda.Manga4,
+                Manga5:ronda.Manga5,
+                Manga6:ronda.Manga6,
+                Manga7:ronda.Manga7,
+                Manga8:ronda.Manga8,
 				Rondas: ronda.Rondas,
 				Mode: mode
 			},

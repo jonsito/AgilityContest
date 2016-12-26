@@ -1179,7 +1179,6 @@ function verifyCompose(data,manga,nombre) {
 
 function verifyClasificaciones() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
-	var url='/agility/server/pdf/print_clasificacion.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	var str1="";
     var str2="";

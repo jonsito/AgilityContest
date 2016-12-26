@@ -203,7 +203,9 @@ class Clasificaciones extends DBObject {
 		$result['total']=$size;
 		$result['rows']=$final;
 		$result['trs1']=$c1['trs'];
-		$result['trs2']=$c2['trs'];
+        $result['trs2']=$c2['trs'];
+        $result['trs3']=$c3['trs'];
+        // assume same juez in every mangas
         $result['jueces']=array($c1['manga']->NombreJuez1,$c1['manga']->NombreJuez2);
 
         // when a dog is provided (!and found!), evaluate time required to get first position in final scores
