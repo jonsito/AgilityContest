@@ -176,6 +176,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->Cell(46*$factor,7,_('Scores'),0,0,'C',true);
 		$this->ln();
 		$this->SetFont($this->getFontName(),'',8); // default font
+
 		// datos del participante
 		$this->Cell(10,7,_('Dorsal'),0,0,'C',true); 	// dorsal
         if ($this->federation->isInternational()) {
@@ -191,6 +192,7 @@ class PrintClasificacion extends PrintCommon {
 		}
 		$this->Cell(($wide)?30:35,7,_('Handler'),0,0,'C',true);	// nombreGuia
 		$this->Cell(($wide)?15:20,7,$this->strClub,0,0,'C',true);	// nombreClub
+
 		// manga 1
         if ($this->manga1!=null) {
             $this->Cell(7*$factor,7,_('F/T'),0,0,'C',true);	// 1- Faltas+Tocados
@@ -202,6 +204,7 @@ class PrintClasificacion extends PrintCommon {
         } else {
             $this->Cell(57*$factor,7,'',0,0,'C',true);	// espacio en blanco
         }
+
 		// manga 2
 		if ($this->manga2!=null) {
 			$this->Cell(7*$factor,7,_('F/T'),0,0,'C',true);	// 2- Faltas+Tocados
@@ -213,6 +216,7 @@ class PrintClasificacion extends PrintCommon {
 		} else {
 			$this->Cell(57*$factor,7,'',0,0,'C',true);	// espacio en blanco
 		}
+
 		// manga 3
         if ($this->manga3!=null) {
             $this->Cell(7*$factor,7,_('F/T'),0,0,'C',true);	// 3- Faltas+Tocados
@@ -223,6 +227,7 @@ class PrintClasificacion extends PrintCommon {
             $this->Cell(10*$factor,7,_('Calif'),0,0,'C',true);	// 3- calificacion
         }
         // do not print empty data if no round 3
+
 		// global
 		$this->Cell(12*$factor,7,_('Time'),0,0,'C',true);	// Tiempo total
 		$this->Cell(12*$factor,7,_('Penaliz'),0,0,'C',true);	// Penalizacion

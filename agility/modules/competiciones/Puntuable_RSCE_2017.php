@@ -22,7 +22,7 @@ class Puntuable_RSCE_2017 extends Competitions {
     function __construct($name="Prueba puntuable C.E. RSCE 2017") {
         parent::__construct($name);
         $this->federationID=0;
-        $this->competitionID=5;
+        $this->competitionID=0;
         $this->puntos=array(
             /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS */
             array("GII",    "P*",  3.8,    3.6,   3.6,   4.0,    3.8,    3.8 ),
