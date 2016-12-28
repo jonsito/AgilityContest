@@ -75,6 +75,7 @@ function hex2rgb($hex) {
 function is_color($str) {
 	if (preg_match('/^#[a-f0-9]{6}$/i', $str)) return true;
 	if (preg_match('/^#[a-f0-9]{3}$/i', $str)) return true;
+	return false;
 }
 
 // check if we are using HTTPS.

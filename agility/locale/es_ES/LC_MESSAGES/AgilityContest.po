@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-12-26 22:08+0100\n"
-"PO-Revision-Date: 2016-12-26 22:08+0100\n"
+"POT-Creation-Date: 2016-12-28 17:57+0100\n"
+"PO-Revision-Date: 2016-12-28 17:58+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -898,7 +898,7 @@ msgstr "Fecha"
 
 #: console/frm_about.php:32
 msgid " is CopyRight &copy; 2013-2015 from "
-msgstr " es CopyRight &copy; 2013-2015 de "
+msgstr " es CopyRight &copy; 2013-2017 de "
 
 #: console/frm_about.php:35
 msgid "Source code available at"
@@ -961,7 +961,7 @@ msgstr "Borrar usuario"
 #: console/frm_paises.php:35 console/frm_perros.php:72
 #: console/frm_pruebas.php:42 scripts/common.js.php:941
 #: scripts/common.js.php:942 scripts/common.js.php:955
-#: scripts/common.js.php:967 scripts/equipos.js.php:28 server/tools.php:219
+#: scripts/common.js.php:967 scripts/equipos.js.php:28 server/tools.php:220
 #: console/dialogs/dlg_newInscripcion.inc:34 console/dialogs/dlg_plugins.inc:17
 msgid "-- Search --"
 msgstr "-- Buscar --"
@@ -4687,17 +4687,13 @@ msgstr "Hojas del asistente de pista (1 perro/p&aacute;gina)"
 msgid "Judge assistant sheets (5 dogs/page)"
 msgstr "Hojas del asistente de pista (5 perros/p&aacute;gina)"
 
-#: scripts/printer.js.php:276
-msgid "Judge assistant sheets (10 dogs/page)"
-msgstr "Hojas del asistente de pista (10 perros/p&aacute;gina)"
+#: scripts/printer.js.php:276 scripts/printer.js.php:289
+msgid "Judge assistant sheets (15 dogs/page)"
+msgstr "Hojas del asistente de pista (15 perros/p&aacute;gina)"
 
 #: scripts/printer.js.php:283
 msgid "Excel format"
 msgstr "Formato Excel"
-
-#: scripts/printer.js.php:289
-msgid "Judge assistant sheets (15 dogs/page)"
-msgstr "Hojas del asistente de pista (15 perros/p&aacute;gina)"
 
 #: scripts/printer.js.php:290
 msgid "Judge assistant sheets (combined for team 4)"
@@ -4887,7 +4883,6 @@ msgstr "Info"
 msgid "Password changed successfully"
 msgstr "Contrase&ntilde;a cambiada con &eacute;xito"
 
-#: server/database/classes/Inscripciones.php:555
 #: server/database/classes/Inscripciones.php:556
 #: server/database/classes/Inscripciones.php:557
 #: server/database/classes/Inscripciones.php:558
@@ -4898,6 +4893,7 @@ msgstr "Contrase&ntilde;a cambiada con &eacute;xito"
 #: server/database/classes/Inscripciones.php:563
 #: server/database/classes/Inscripciones.php:564
 #: server/database/classes/Inscripciones.php:565
+#: server/database/classes/Inscripciones.php:566
 msgid "Round information missmatch"
 msgstr "La configuraci&oacute;n de la jornada no coincide"
 
@@ -6818,6 +6814,9 @@ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 #: console/dialogs/dlg_usuarios.inc:106
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
+
+#~ msgid "Judge assistant sheets (10 dogs/page)"
+#~ msgstr "Hojas del asistente de pista (10 perros/p&aacute;gina)"
 
 #~ msgid "Ex 0"
 #~ msgstr "Ex 0"

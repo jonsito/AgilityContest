@@ -273,7 +273,7 @@ function print_commonDesarrollo(def,cb) {
         5:((def==5)?'*':'')+'<?php _e('Judge assistant empty sheet'); ?><br/>',
         6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
         7:((def==7)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
-        8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?><br/>'
+        8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (15 dogs/page)'); ?><br/>'
         // As we need to select categoria, cannot directly access to print parciales
         //8:((def==8)?'*':'')+'Imprimir resultados parciales de la manga'
     };

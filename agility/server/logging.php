@@ -90,5 +90,8 @@ date_default_timezone_set("Europe/Madrid");
 // ini_set('display_errors', 1); /* dont send errors to http response */
 ini_set("log_errors",1);
 ini_set("error_log",__DIR__."/../../logs/trace.log");
-
+// on MAC-OSX tmpdir is set to login user tmp directory.
+// As xampp runs as user 'daemon', write permission to this 'tmp' directory fails.
+// so make sure to set a valid tmp directory for everyone. A bit risky, but works
+if (strtoupper(PHP_OS)==="DARWIN") putenv('TMPDIR=/tmp');
 ?>
