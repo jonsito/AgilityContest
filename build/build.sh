@@ -93,12 +93,34 @@ if [ -d ${DROPBOX} ]; then
     cp ${BASE_DIR}/README* ${BUILD_DIR}/docs
 fi
 
-# and finally invoke makensis
+# invoke makensis
 echo "Prepare and execute makensis..."
 VERSION=`grep version_name ${BUILD_DIR}/agility/server/auth/system.ini | sed -e 's/^.*= "/"/g'`
 DATE=`grep version_date ${BUILD_DIR}/agility/server/auth/system.ini | sed -e 's/^.*= "/"/g'`
 sed -e "s/__VERSION__/${VERSION}/g" -e "s/__TIMESTAMP__/${DATE}/g" ${NSIS} > ${BUILD_DIR}/AgilityContest.nsi
 cp ${BASE_DIR}/build/{installer.bmp,License.txt,wellcome.bmp} ${BUILD_DIR}
 (cd ${BUILD_DIR}; makensis AgilityContest.nsi )
+
+# prepare dmg image for MAC-OSX
+echo "Creating disk image for Mac-OSX"
+#strip quotes in version
+VERSION=`echo $VERSION |sed -e 's/"//g'`
+DATE=`echo $DATE |sed -e 's/"//g'`
+mkdir -p ${BUILD_DIR}/AgilityContest-master
+cd ${BUILD_DIR}
+cp extras/osx_install.command .
+chmod +x osx_install.command
+mkdir -p .background
+cp agility/images/AgilityContest.png .background
+cp -r COPYING License.txt agility logs extras docs AgilityContest-master
+zip -r AgilityContest-master.zip AgilityContest-master
+FILES="osx_install.command COPYING License.txt AgilityContest-master.zip"
+mkisofs -A AgilityContest \
+    -P jonsito@gmail.com \
+    -V ${VERSION}_${DATE} \
+    -J -r -o AgilityContest-${VERSION}-${DATE}.dmg \
+    -graft-points /.background/=.background ${FILES}
+# cleanups
+rm -rf AgilityContest-master AgilityContest-master.zip osx_install.command .background
 
 echo "That's all folks!"

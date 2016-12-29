@@ -1,11 +1,25 @@
 #!/bin/sh
+BASE=`dirname $0`
 HTDOCS=/Applications/XAMPP/htdocs
 BASEDIR=$HTDOCS/AgilityContest-master
 CONFDIR=$HTDOCS/AgilityContest-master/agility/server/auth
 EXTRAS=$HTDOCS/AgilityContest-master/extras
 
-echo "Downloading code..."
-curl https://codeload.github.com/jonsito/AgilityContest/zip/master -o /tmp/AgilityContest-master.zip
+# request root permissions before continue install
+if [ "$USER" != "root" ]; then
+    echo "Password required to continue as user root"
+    sudo $0
+    exit 1
+fi
+
+if [ ! -d /Applications/XAMPP ]; then
+    echo "XAMPP for Mac-OSX is not installed"
+    echo "Download and install it from https://www.apachefriends.org/xampp-files/5.6.28/xampp-osx-5.6.28-1-installer.dmg"
+    exit 1
+fi
+
+echo "Prepare..."
+# curl https://codeload.github.com/jonsito/AgilityContest/zip/master -o /tmp/AgilityContest-master.zip
 rm -f /tmp/registration.info
 rm -f /tmp/config.ini
 echo ""
@@ -17,16 +31,19 @@ if [ -f $CONFDIR ]; then
     cp $CONFDIR/config.ini /tmp
 fi
 # create a backup of old application
-rm -rf $BASEDIR.old && mv $BASEDIR $BASEDIR.old
+rm -rf $BASEDIR.old
+if [ -d $BASEDIR ]; then
+    mv $BASEDIR $BASEDIR.old
+fi
 # and unzip files
 cd $HTDOCS;
-unzip -q /tmp/AgilityContest-master.zip
+unzip -q $BASE/AgilityContest-master.zip
 echo ""
 
 echo "Adding AgilityContest apache configuration file... "
 cp $EXTRAS/AgilityContest_osx.conf /Applications/XAMPP/etc/extra
 sed -i -e '/.*AgilityContest.*/d' /Applications/XAMPP/etc/httpd.conf
-echo 'Include \"/Applications/XAMPP/etc/extra/AgilityContest_osx.conf\"' >> /Applications/XAMPP/etc/httpd.conf
+echo 'Include "/Applications/XAMPP/etc/extra/AgilityContest_osx.conf"' >> /Applications/XAMPP/etc/httpd.conf
 echo ""
 
 echo "Fixing permissions... "
@@ -34,6 +51,10 @@ cd $HTDOCS
 chown -R daemon AgilityContest-master
 chgrp -R daemon AgilityContest-master
 xattr -dr com.apple.quarantine AgilityContest-master
+echo ""
+
+echo "Starting MySQL database server"
+/Applications/XAMPP/bin/mysql.server restart
 echo ""
 
 echo "Creating and populating AgilityContest database"
@@ -46,9 +67,17 @@ SOURCE /Applications/XAMPP/htdocs/AgilityContest-master/extras/users.sql;
 _EOF
 echo ""
 
-echo "Restoring licencse and configuration"
+echo "Restoring license and configuration data"
 [ -f /tmp/registration.info ] && cp /tmp/registration.info $CONFIG/registration.info
 [ -f /tmp/config.ini ] && cp /tmp/config.ini $CONFIG/config.ini
 echo ""
 
 echo "Instalacion completada"
+echo "Arrancar la aplicación S/[n]?"
+read a
+case $a in
+    [SsYy]* )
+        /Applications/XAMPP/xamppfiles/xampp restart
+        open -a Safari https://localhost/agility/console
+    ;;
+esac
