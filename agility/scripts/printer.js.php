@@ -154,7 +154,7 @@ function print_trsTemplates(mode) {
 }
 
 /************************** Hojas del asistente del juez ****************/
-function print_asistente(pages,cats) {
+function print_asistente(pages,cats,fill) {
     $.fileDownload(
         '/agility/server/pdf/print_entradaDeDatos.php',
         {
@@ -164,7 +164,8 @@ function print_asistente(pages,cats) {
                 Jornada: workingData.jornada,
                 Manga: workingData.manga,
 				Categorias: cats,
-                Mode: pages
+                Mode: pages,
+                FillData:(fill)?1:0
             },
             preparingMessageHtml:'(assistant sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
             failMessageHtml:'(assistant sheets) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -176,7 +177,7 @@ function print_asistente(pages,cats) {
 /**
  * En pruebas de equipos 4 conjunta se ofrece la opción de usar una única entrada para el equipo
  */
-function print_asistenteEquipos(cats) {
+function print_asistenteEquipos(cats,fill) {
     $.fileDownload(
         '/agility/server/pdf/print_entradaDeDatosEquipos4.php',
         {
@@ -185,7 +186,8 @@ function print_asistenteEquipos(cats) {
                 Prueba: workingData.prueba,
                 Jornada: workingData.jornada,
                 Manga: workingData.manga,
-				Categorias: cats
+				Categorias: cats,
+                FillData:(fill)?1:0
             },
             preparingMessageHtml: '(assistant team sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
             failMessageHtml:'(assistant team sheets) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -197,26 +199,63 @@ function print_asistenteEquipos(cats) {
 /********************** impresion de datos parciales ***************/
 
 function print_parcial(mode) {
-    var url='/agility/server/pdf/print_resultadosByManga.php';
-    if ( parseInt(workingData.datosJornada.Equipos3)!=0)
-        url='/agility/server/pdf/print_resultadosByEquipos.php';
-    if ( parseInt(workingData.datosJornada.Equipos4)!=0)
-        url='/agility/server/pdf/print_resultadosByEquipos4.php';
-	$.fileDownload(
-		url,
-		{
-			httpMethod: 'GET',
-			data: { 
-				Prueba: workingData.prueba,
-				Jornada: workingData.jornada,
-				Manga: workingData.manga,
-				Mode: mode,
-				Operation: 'print'
-			},
-	        preparingMessageHtml: '(partial scores) <?php _e("We are preparing your report, please wait"); ?> ...',
-	        failMessageHtml:'(partial scores) <?php _e("There was a problem generating your report, please try again."); ?>'
-		}
-	);
+    $.messager.radio(
+        '<?php _e("Partial scores"); ?>',
+        '<?php _e("Select output format"); ?>:',
+        {
+            0: '*<?php _e("Create PDF Report");?>',
+            1: '<?php _e("Create Excel File"); ?>',
+            2: '<?php _e("Print filled assistant sheets"); ?>'
+        },
+        function (r) {
+            if (!r) return false;
+            switch (parseInt(r)) {
+                case 0: // create pdf
+                    var url = '/agility/server/pdf/print_resultadosByManga.php';
+                    if (parseInt(workingData.datosJornada.Equipos3) != 0)
+                        url = '/agility/server/pdf/print_resultadosByEquipos.php';
+                    if (parseInt(workingData.datosJornada.Equipos4) != 0)
+                        url = '/agility/server/pdf/print_resultadosByEquipos4.php';
+                    $.fileDownload(
+                        url,
+                        {
+                            httpMethod: 'GET',
+                            data: {
+                                Prueba: workingData.prueba,
+                                Jornada: workingData.jornada,
+                                Manga: workingData.manga,
+                                Mode: mode,
+                                Operation: 'print'
+                            },
+                            preparingMessageHtml: '(partial scores) <?php _e("We are preparing your report, please wait"); ?> ...',
+                            failMessageHtml: '(partial scores) <?php _e("There was a problem generating your report, please contact author."); ?>'
+                        }
+                    );
+                    break;
+                case 1: // create excel file
+                    $.fileDownload(
+                        '/agility/server/excel/partialscores_writer.php',
+                        {
+                            httpMethod: 'GET',
+                            data: {
+                                Prueba: workingData.prueba,
+                                Jornada: workingData.jornada,
+                                Manga: workingData.manga,
+                                Mode: mode,
+                                Operation: 'excel'
+                            },
+                            preparingMessageHtml: '(Excel partial scores) <?php _e("We are preparing your report, please wait"); ?> ...',
+                            failMessageHtml: '(Excel partial scores) <?php _e("There was a problem generating your report, contact author."); ?>'
+                        }
+                    );
+                    break;
+                case 2:
+                    print_asistente(15, "-", true);
+                    break;
+            }
+            return false; // return false to prevetn event keyboard chaining
+        }).window('resize', {width: 550});
+    return false;
 }
 
 /**
@@ -322,10 +361,10 @@ function print_commonDesarrollo(def,cb) {
                 case 3: print_trsTemplates(0); break;
                 case 4: print_trsTemplates(1); break;
                 case 5: print_trsTemplates(2); break;
-                case 6: print_asistente(1,cats); break;
-                case 7: print_asistente(5,cats); break;
-                case 8: print_asistente(15,cats); break;
-                case 9: print_asistenteEquipos(cats); break;
+                case 6: print_asistente(1,cats,false); break;
+                case 7: print_asistente(5,cats,false); break;
+                case 8: print_asistente(15,cats,false); break;
+                case 9: print_asistenteEquipos(cats,false); break;
             }
         }).window('resize',{width:450});
     return false; //this is critical to stop the click event which will trigger a normal file download!
@@ -402,7 +441,7 @@ function clasificaciones_printCanina() {
 				Mode: mode
 			},
 	        preparingMessageHtml:'(excel) <?php _e("We are preparing your report, please wait"); ?> ...',
-	        failMessageHtml: '(excel) <?php _e("There was a problem generating your report, please try again."); ?>'
+	        failMessageHtml: '(excel) <?php _e("There was a problem generating your report, please contact the author."); ?>'
 		}
 	);
     return false; //this is critical to stop the click event which will trigger a normal file download!

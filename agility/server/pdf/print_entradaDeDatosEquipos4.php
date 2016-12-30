@@ -39,6 +39,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
     protected $manga; // datos de la manga
     protected $categoria;
     protected $validcats; // categorias de las que se solicita impresion
+    protected $fillData;
 	
 	// geometria de las celdas
 	protected $cellHeader;
@@ -53,7 +54,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
      * @param {integer} $manga Manga ID
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$cats) {
+	function __construct($prueba,$jornada,$manga,$cats,$fill=0) {
 		parent::__construct('Portrait',"print_entradaDeDatosEquipos4",$prueba,$jornada);
 		if ( ($prueba<=0) || ($jornada<=0) ) {
 			$this->errormsg="print_datosEquipos4: either prueba or jornada data are invalid";
@@ -83,6 +84,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
             }
         }
         $this->validcats=$cats;
+        $this->fillData=($fill==0)?false:true;
 	}
 	
 	// Cabecera de página
@@ -173,6 +175,8 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
         $this->Cell(15,2.5,_("Touchs"),0,'L',false);
         $this->Cell(15,2.5,_("Eliminated"),0,'L',false);
         $this->Cell(29,2.5,_("Time"),0,0,'L',false);
+        if ( ! $this->fillData) return;
+        // to be done: on fill mode populate team results in assistant sheets
 	}
 	
 	// Tabla coloreada
@@ -220,8 +224,9 @@ try {
 	$jornada=http_request("Jornada","i",0);
     $manga=http_request("Manga","i",0);
     $cats=http_request("Categorias","s","-");
+    $fill=http_request("FillData","i",0);
     // 	Creamos generador de documento
-    $pdf=new EntradaDeDatosEquipos4($prueba,$jornada,$manga,$cats);
+    $pdf=new EntradaDeDatosEquipos4($prueba,$jornada,$manga,$cats,$fill);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("entradaDeDatosEquipos4.pdf","D"); // "D" means open download dialog

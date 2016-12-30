@@ -96,6 +96,12 @@ class EntradaDeDatos extends PrintCommon {
 		$this->print_commonFooter();
 	}
 
+	private function palotes($count) {
+	    $str="";
+	    for (;$count>0;$count--) $str.="| ";
+	    return $str;
+    }
+
     /**
 	 * Prints 15 dogs / page
      * @param {number} $rowcount
@@ -182,7 +188,19 @@ class EntradaDeDatos extends PrintCommon {
 		$this->Cell(29,5,_('Time'),  '',0,'L',false);
 		if (! $this->fillData) { $this->Ln(9); return; }
 		// arriving here means populate results
-
+        $this->SetFont($this->getFontName(),'B',9); //
+        $this->SetXY($x+40,$y+8);
+        $this->Cell(45,5,$this->palotes($row['Faltas']),	'',0,'L',false);
+        $this->Cell(40,5,$this->palotes($row['Tocados']),	'',0,'L',false);
+        $this->Cell(15,5,$this->palotes($row['Rehuses']),	'',0,'L',false);
+        $this->Cell(7, 5,$row['Faltas'],	'',0,'C',false);
+        $this->Cell(7, 5,$row['Tocados'],	'',0,'C',false);
+        $this->Cell(7, 5,$row['Rehuses'],	'',0,'C',false);
+        $this->Cell(9,5,$row['Tiempo'],  '',0,'L',false);
+        if($row['Pendiente']!=0)  $this->Cell(20,5,_('Pending'),  '',0,'L',false);
+        else if($row['NoPresentado']!=0)  $this->Cell(19,5,_('Not Present'),  '',0,'L',false);
+        else if($row['Eliminado']!=0)  $this->Cell(19,5,_('Eliminated'),  '',0,'L',false);
+        $this->Ln(6);
 	}
 	
 	/**
@@ -451,7 +469,7 @@ try {
 	$manga=http_request("Manga","i",0);
 	$mode=http_request("Mode","i",0);
 	$cats=http_request("Categorias","s","-");
-	$fill=http_request("Datos","i",0); // tell if print data in sheets
+	$fill=http_request("FillData","i",0); // tell if print data in sheets
 
 	// Datos de la manga y su manga hermana
 	$m = new Mangas("printEntradaDeDatos",$jornada);
