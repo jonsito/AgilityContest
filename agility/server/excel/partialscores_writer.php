@@ -61,8 +61,8 @@ class Excel_PartialScores extends XLSX_Writer {
         $modestr=$federation->get('IndexedModes')[intval($this->mode)];
         $juez1=$this->myDBObject->__getObject("Jueces",$this->manga->Juez1);
         $juez2=$this->myDBObject->__getObject("Jueces",$this->manga->Juez2);
-        $j1=($juez1->Nombre==="--- Sin asignar ---")?"":$juez1->Nombre;
-        $j2=($juez2->Nombre==="--- Sin asignar ---")?"":$juez2->Nombre;
+        $j1=($juez1->Nombre==="-- Sin asignar --")?"":$juez1->Nombre;
+        $j2=($juez2->Nombre==="-- Sin asignar --")?"":$juez2->Nombre;
         // dump excel rows
 	    $row=array(_("Contest"),$this->prueba->Nombre);  $this->myWriter->addRow($row);
 	    $row=array(_("Journey"),$this->jornada->Nombre,$this->jornada->Fecha); $this->myWriter->addRow($row);

@@ -254,7 +254,7 @@ function print_parcial(mode) {
                     break;
             }
             return false; // return false to prevetn event keyboard chaining
-        }).window('resize', {width: 550});
+        }).window('resize', {width: 300});
     return false;
 }
 
