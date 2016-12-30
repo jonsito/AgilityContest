@@ -41,6 +41,7 @@ class EntradaDeDatos extends PrintCommon {
 	protected $numrows; // formato del pdf 0:1 1:5 2:15 perros/pagina
 	protected $categoria; // categoria que estamos listando
 	protected $validcats; // lista de categorias solicitadas
+	protected $fillData=false; // populate sheets with result data
 
 	// geometria de las celdas
 	protected $cellHeader
@@ -58,7 +59,7 @@ class EntradaDeDatos extends PrintCommon {
 	 * @param {integer} $numrows numero de perros a imprimir por cada hoja
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$mangas,$ordens,$numrows,$validcats) {
+	function __construct($prueba,$jornada,$mangas,$ordens,$numrows,$validcats,$fill) {
 		parent::__construct('Portrait',"print_entradaDeDatos",$prueba,$jornada);
 		if ( ($prueba<=0) || ($jornada<=0) || ($mangas===null) || ($ordens===null) ) {
 			$this->errormsg="printEntradaDeDatos: either prueba/jornada/ manga/orden data are invalid";
@@ -71,6 +72,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->categoria="L";
 		$this->cellHeader[4]=$this->strClub; // fix country/club text
 		$this->validcats=$validcats;
+		$this->fillData=($fill!=0)?true:false;
 	}
 
 	// Cabecera de página
@@ -95,6 +97,7 @@ class EntradaDeDatos extends PrintCommon {
 	}
 
     /**
+	 * Prints 15 dogs / page
      * @param {number} $rowcount
      * @param {array} $row
 	 * @param {integer} $orden . Starting order in their category
@@ -177,11 +180,13 @@ class EntradaDeDatos extends PrintCommon {
 		$this->Cell(7, 5,_('Ref'),	'',0,'C',false);
 		$this->Cell(7, 5,_('Tch'),	'',0,'C',false);
 		$this->Cell(29,5,_('Time'),  '',0,'L',false);
-		$this->Ln(9);
+		if (! $this->fillData) { $this->Ln(9); return; }
+		// arriving here means populate results
+
 	}
 	
 	/**
-	 * 
+	 * Prints 5 dogs / page
 	 * @param {number} $rowcount Row index
 	 * @param {number} $row Row data
 	 * @param {number} $f width factor (to be reused on extended print)
@@ -254,10 +259,14 @@ class EntradaDeDatos extends PrintCommon {
 		$this->Cell(30,10,_("N.P."),1,0,'L',false);
 		$this->Cell(10); $this->Cell(20,10,"R: ",1,0,'L',false);
 		$this->Cell(40,10,"",'LBR',0,'C',true);
+
+        if (! $this->fillData) { $this->Ln(14); return; }
+        // arriving here means populate results
 		$this->Ln(14);
 	}
 
     /**
+	 * Prints 1 dog / page
      * @param {number} $rowcount
      * @param {array} $row
 	 * @param {integer} $orden . Startin order in their category
@@ -442,6 +451,7 @@ try {
 	$manga=http_request("Manga","i",0);
 	$mode=http_request("Mode","i",0);
 	$cats=http_request("Categorias","s","-");
+	$fill=http_request("Datos","i",0); // tell if print data in sheets
 
 	// Datos de la manga y su manga hermana
 	$m = new Mangas("printEntradaDeDatos",$jornada);
@@ -450,7 +460,7 @@ try {
 	$o = new OrdenSalida("printEntradaDeDatos",$manga);
 	$orden= $o->getData();
 	// Creamos generador de documento
-	$pdf = new EntradaDeDatos($prueba,$jornada,$mangas,$orden['rows'],$mode,$cats);
+	$pdf = new EntradaDeDatos($prueba,$jornada,$mangas,$orden['rows'],$mode,$cats,$fill);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("entradaDeDatos.pdf","D"); // "D" means open download dialog

@@ -495,9 +495,13 @@ class OrdenSalida extends DBObject {
             $p5=array();
             foreach ($res['rows'] as $item) {
             	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-LMST";
-            	foreach ($p4 as $perro) {
-            		if (strpos($item['Categoria'],$perro['Categoria'])!==false) array_push($p5,$perro);
-                }
+            	// si la tanda tiene mas de una categoria, hacemos un split y separamos internamente
+				$cats=str_split(($item['Categoria']));
+				foreach($cats as $cat) {
+                    foreach ($p4 as $perro) {
+                        if ($cat==$perro['Categoria']) array_push($p5,$perro);
+                    }
+				}
 			}
         }
 
