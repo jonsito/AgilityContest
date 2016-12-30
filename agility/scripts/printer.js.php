@@ -245,7 +245,7 @@ function print_parcial(mode) {
                                 Operation: 'excel'
                             },
                             preparingMessageHtml: '(Excel partial scores) <?php _e("We are preparing your report, please wait"); ?> ...',
-                            failMessageHtml: '(Excel partial scores) <?php _e("There was a problem generating your report, contact author."); ?>'
+                            failMessageHtml: '(Excel partial scores) <?php _e("There was a problem generating your report, please contact author."); ?>'
                         }
                     );
                     break;
@@ -254,7 +254,7 @@ function print_parcial(mode) {
                     break;
             }
             return false; // return false to prevetn event keyboard chaining
-        }).window('resize', {width: 300});
+        }).window('resize', {width: 350});
     return false;
 }
 
