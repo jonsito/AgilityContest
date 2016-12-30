@@ -34,7 +34,7 @@ define('AC_EVENT_PRINTER','');
 define('AC_WIDE_PRINTER','0'); // defaults to 58mm wide POS printer
 
 /** variables de la aplicacion principal **/
-define('AC_PROXIMITY_ALERT',5);
+define('AC_PROXIMITY_ALERT',10);
 define('AC_TRAINING_TIME',180);
 define('AC_TRAINING_TYPE',0);
 define('AC_TRAINING_GRACE',15);
