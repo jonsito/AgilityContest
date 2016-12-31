@@ -35,8 +35,8 @@ class Excel_PartialScores extends XLSX_Writer {
 	protected $mode;
 	protected $timeResolution;
 
-    protected $cols = array( 'License','Category','Grade','Name','LongName','Breed','Handler','Club','Faults','Refusals','Time','Penalization','Calification');
-    protected $fields = array( 'Licencia','Categoria','Grado','Nombre','NombreLargo','Raza','NombreGuia','NombreClub','Faltas','Rehuses','Tiempo','Penalizacion','Calificacion');
+    protected $cols = array( 'License','Category','Grade','Name','LongName','Breed','Handler','Club','Faults','Refusals','Speed','Time','Penalization','Calification');
+    protected $fields = array( 'Licencia','Categoria','Grado','Nombre','NombreLargo','Raza','NombreGuia','NombreClub','Faltas','Rehuses','Velocidad','Tiempo','Penalizacion','Calificacion');
 
 	/**
 	 * Constructor
