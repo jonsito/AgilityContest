@@ -48,19 +48,24 @@ class Liga_UCA extends Competitions {
         else if ($perro['Penalizacion']>=16)	{ // Bien: 2 puntos
             $perro['Calificacion'] = _("Good")." - 2";
             $perro['CShort'] = _("Good");
+            $perro['Puntos'] = 2;
         }
         else if ($perro['Penalizacion']>=6)	{ // Muy bien: 3 puntos
             $perro['Calificacion'] = _("Very good")." - 3";
             $perro['CShort'] = _("V.G.");
+            $perro['Puntos'] = 3;
         }
         else if ($perro['Penalizacion']>0)	{ // Excelente: 4 puntos
             $perro['Calificacion'] = _("Excellent")." - 4";
             $perro['CShort'] = _("Exc");
+            $perro['Puntos'] = 4;
         }
         else if ($perro['Penalizacion']==0)	{ // Cero: 5 puntos
             $perro['Calificacion'] = _("Excellent")." - 5";
             $perro['CShort'] = _("Exc");
+            $perro['Puntos'] = 5;
         }
+        $perro['Estrellas']= 0;
     }
 
 

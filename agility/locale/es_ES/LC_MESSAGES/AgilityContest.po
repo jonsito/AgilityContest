@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-12-30 11:45+0100\n"
-"PO-Revision-Date: 2016-12-30 11:45+0100\n"
+"POT-Creation-Date: 2016-12-31 09:13+0100\n"
+"PO-Revision-Date: 2016-12-31 09:13+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -298,7 +298,7 @@ msgstr "Falta"
 msgid "Refusal"
 msgstr "Reh&uacute;se"
 
-#: chrono/chrono.inc.php:98 modules/Competitions.php:116
+#: chrono/chrono.inc.php:98 modules/Competitions.php:123
 #: modules/competiciones/Liga_RFEC.php:139
 #: modules/competiciones/Liga_RFEC_Madrid.php:72
 #: modules/competiciones/Liga_UCA.php:41
@@ -411,7 +411,7 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 
 #: chrono/chrono.js.php:135 chrono/chrono.js.php:216 chrono/chrono.js.php:284
 #: chrono/chrono.js.php:385 livestream/livestream.js.php:179
-#: modules/Competitions.php:117 modules/competiciones/Liga_RFEC.php:140
+#: modules/Competitions.php:124 modules/competiciones/Liga_RFEC.php:140
 #: modules/competiciones/Liga_RFEC_Madrid.php:73
 #: modules/competiciones/Liga_UCA.php:42
 #: modules/competiciones/Selectiva_PastorBelga.php:80
@@ -3352,7 +3352,15 @@ msgstr "Cabecera"
 msgid "Number"
 msgstr "N&uacute;mero"
 
-#: modules/Competitions.php:111 modules/competiciones/Liga_RFEC.php:134
+#: modules/Competitions.php:20
+msgid "Points"
+msgstr "Puntos"
+
+#: modules/Competitions.php:21
+msgid "Stars"
+msgstr "Estrellas"
+
+#: modules/Competitions.php:118 modules/competiciones/Liga_RFEC.php:134
 #: modules/competiciones/Liga_RFEC_Madrid.php:67
 #: modules/competiciones/Liga_UCA.php:36
 #: modules/competiciones/Selectiva_PastorBelga.php:74
@@ -3362,7 +3370,7 @@ msgstr "N&uacute;mero"
 msgid "Not Present"
 msgstr "No Presentado"
 
-#: modules/Competitions.php:112 modules/competiciones/Liga_RFEC.php:135
+#: modules/Competitions.php:119 modules/competiciones/Liga_RFEC.php:135
 #: modules/competiciones/Liga_RFEC_Madrid.php:68
 #: modules/competiciones/Liga_UCA.php:37
 #: modules/competiciones/Selectiva_PastorBelga.php:75
@@ -3373,14 +3381,14 @@ msgstr "No Presentado"
 msgid "N.P."
 msgstr "N.P."
 
-#: modules/Competitions.php:120 modules/competiciones/Liga_RFEC.php:143
+#: modules/Competitions.php:127 modules/competiciones/Liga_RFEC.php:143
 #: modules/competiciones/Liga_RFEC_Madrid.php:76
 #: modules/competiciones/Liga_UCA.php:45
 #: modules/competiciones/Selectiva_PastorBelga.php:83
 msgid "Not Clasified"
 msgstr "No Clasificado"
 
-#: modules/Competitions.php:121 modules/competiciones/Liga_RFEC.php:144
+#: modules/Competitions.php:128 modules/competiciones/Liga_RFEC.php:144
 #: modules/competiciones/Liga_RFEC_Madrid.php:77
 #: modules/competiciones/Liga_UCA.php:46
 #: modules/competiciones/Selectiva_PastorBelga.php:84
@@ -3388,7 +3396,7 @@ msgstr "No Clasificado"
 msgid "N.C."
 msgstr "N.C."
 
-#: modules/Competitions.php:124 modules/Competitions.php:125
+#: modules/Competitions.php:131 modules/Competitions.php:132
 #: modules/competiciones/Liga_RFEC.php:147
 #: modules/competiciones/Liga_RFEC.php:148
 #: modules/competiciones/Liga_RFEC_Madrid.php:80
@@ -3400,39 +3408,39 @@ msgstr "N.C."
 msgid "Good"
 msgstr "Bien"
 
-#: modules/Competitions.php:128 modules/competiciones/Liga_RFEC.php:151
+#: modules/Competitions.php:135 modules/competiciones/Liga_RFEC.php:151
 #: modules/competiciones/Liga_RFEC_Madrid.php:84
-#: modules/competiciones/Liga_UCA.php:53
+#: modules/competiciones/Liga_UCA.php:54
 msgid "Very good"
 msgstr "Muy bien"
 
-#: modules/Competitions.php:129 modules/competiciones/Liga_RFEC.php:152
+#: modules/Competitions.php:136 modules/competiciones/Liga_RFEC.php:152
 #: modules/competiciones/Liga_RFEC_Madrid.php:85
-#: modules/competiciones/Liga_UCA.php:54
+#: modules/competiciones/Liga_UCA.php:55
 #: modules/competiciones/Selectiva_PastorBelga.php:91
 #: modules/competiciones/Selectiva_PastorBelga.php:92
 #: videowall/videowall.js.php:396
 msgid "V.G."
 msgstr "M.B."
 
-#: modules/Competitions.php:132 modules/competiciones/Liga_RFEC.php:155
+#: modules/Competitions.php:139 modules/competiciones/Liga_RFEC.php:155
 #: modules/competiciones/Liga_RFEC.php:159
 #: modules/competiciones/Liga_RFEC_Madrid.php:88
 #: modules/competiciones/Liga_RFEC_Madrid.php:92
-#: modules/competiciones/Liga_UCA.php:57 modules/competiciones/Liga_UCA.php:61
+#: modules/competiciones/Liga_UCA.php:59 modules/competiciones/Liga_UCA.php:64
 #: modules/competiciones/Puntuable_RSCE_2017.php:81
-#: modules/competiciones/Puntuable_RSCE_2017.php:92
+#: modules/competiciones/Puntuable_RSCE_2017.php:94
 #: modules/competiciones/Selectiva_awc_RSCE.php:104
 #: modules/competiciones/Selectiva_awc_RSCE.php:108
 msgid "Excellent"
 msgstr "Excelente"
 
-#: modules/Competitions.php:133 modules/Competitions.php:137
+#: modules/Competitions.php:140 modules/Competitions.php:144
 #: modules/competiciones/Liga_RFEC.php:156
 #: modules/competiciones/Liga_RFEC.php:160
 #: modules/competiciones/Liga_RFEC_Madrid.php:89
 #: modules/competiciones/Liga_RFEC_Madrid.php:93
-#: modules/competiciones/Liga_UCA.php:58 modules/competiciones/Liga_UCA.php:62
+#: modules/competiciones/Liga_UCA.php:60 modules/competiciones/Liga_UCA.php:65
 #: modules/competiciones/Puntuable_RSCE_2016.php:77
 #: modules/competiciones/Puntuable_RSCE_2016.php:78
 #: modules/competiciones/Puntuable_RSCE_2016.php:81
@@ -3448,7 +3456,7 @@ msgstr "Excelente"
 msgid "Exc"
 msgstr "Exc"
 
-#: modules/Competitions.php:136
+#: modules/Competitions.php:143
 msgid "Excellent (0)"
 msgstr "Excelente (0)"
 

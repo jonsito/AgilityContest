@@ -108,6 +108,24 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
             $perro['Calificacion'] = _("Excellent")." (p) $pt1";
             $perro['CShort'] = _("ExP")." $pt1";
         }
+        // en una selectiva solo puntua el primer perro, por lo que no tiene demasiado sentido la evaluacion de puntos y estrellas
+        // de momento ponemos lo ponemos... luego ya veremos
+        $perro['Puntos']=($puesto>1)?0:1;
+        $perro['Estrellas']=0;
+        if ($puesto>1) return;
+        foreach ( $this->puntos as $item) {
+            if ($perro['Grado']!==$item[0]) continue;
+            // comprobamos si estamos en agility o en jumping
+            $offset=(Mangas::$tipo_manga[$m->Tipo][5])?0/*agility*/:3/*jumping*/;
+            $base=2;
+            if ($perro['Categoria']==="M") $base=3;
+            if ($perro['Categoria']==="S") $base=4;
+            // si la velocidad es igual o superior se apunta tanto. notese que el array está ordenado por grad/velocidad
+            if ($perro['Velocidad']>=$item[$base+$offset]) {
+                $perro['Puntos'] = $item[8];
+                $Perro['Estrellas'] = $item[9];
+            }
+        }
     }
 
 

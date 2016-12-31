@@ -734,6 +734,7 @@ class Resultados extends DBObject {
 		$comp=$this->getDatosCompeticion();
 		for ($idx=0;$idx<$size;$idx++ ){
             $table[$idx]['Puntos'] = 0; // to be re-evaluated later
+            $table[$idx]['Estrellas'] = 0; // to be re-evaluated later
             // evaluate penalization
 			$comp->evalPartialPenalization($table[$idx],$tdata);
 			// evaluamos velocidad 
@@ -778,7 +779,7 @@ class Resultados extends DBObject {
             $table[$idx]['Pcat']=$puestocat[$cat];
 
             // finalmente llamamos al modulo de la competicion para evaluar la calificacion
-			$this->getDatosCompeticion()->evalPartialCalification($this->getDatosManga(),$table[$idx],$puestocat);
+			$comp->evalPartialCalification($this->getDatosManga(),$table[$idx],$puestocat);
 		}
 
         // componemos datos del array a retornar

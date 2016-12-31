@@ -24,11 +24,11 @@ class Puntuable_RSCE_2017 extends Competitions {
         $this->federationID=0;
         $this->competitionID=0;
         $this->puntos=array(
-            /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS */
-            array("GII",    "P*",  3.8,    3.6,   3.6,   4.0,    3.8,    3.8 ),
-            array("GII",    "2P",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3 ),
-            array("GIII",   "P*",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7 ),
-            array("GIII",   "2P",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3 ),
+            /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS    pts  stars*/
+            array("GII",    "P*",  3.8,    3.6,   3.6,   4.0,    3.8,    3.8,   1,  1 ),
+            array("GII",    "2P",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3,   2,  1 ),
+            array("GIII",   "P*",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   1,  1 ),
+            array("GIII",   "2P",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3,   2,  1 ),
         );
     }
 
@@ -80,6 +80,8 @@ class Puntuable_RSCE_2017 extends Competitions {
         }
         $perro['Calificacion'] = _("Excellent")." Pt";
         $perro['CShort'] = "Ex Pt";
+        $perro['Puntos'] = 1;
+        $Perro['Estrellas'] = 0;
         foreach ( $this->puntos as $item) {
             if ($perro['Grado']!==$item[0]) continue;
             // comprobamos si estamos en agility o en jumping
@@ -91,6 +93,8 @@ class Puntuable_RSCE_2017 extends Competitions {
             if ($perro['Velocidad']>=$item[$base+$offset]) {
                 $perro['Calificacion'] = _("Excellent")." ".$item[1];
                 $perro['CShort'] = "Ex ".$item[1];
+                $perro['Puntos'] = $item[8];
+                $perro['Estrellas'] = $item[9];
             }
         }
     }

@@ -159,6 +159,9 @@ class Liga_RFEC extends Competitions {
             $perro['Calificacion'] = _("Excellent")." ".$pt1;
             $perro['CShort'] = _("Exc")." ".$pt1;
         }
+        // datos para la exportacion de parciales en excel
+        $perro['Puntos'] = $pt1;
+        $perro['Estrellas']= 0;
     }
 
     /**

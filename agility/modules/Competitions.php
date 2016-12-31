@@ -16,6 +16,10 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+// for poedit
+$dummy= _('Points');
+$dummy= _('Stars');
+
 /*
  * This class handles every available kind of competitions on each federations
  * Starting on version 2.3.1_20161110 Table "Jornadas" includes a new Field "Tipo_Competicion"
@@ -101,6 +105,9 @@ class Competitions {
      * @param {array} $puestocat puesto en funcion de la categoria
      */
     public function evalPartialCalification($m,&$perro,$puestocat) {
+        // datos para la exportacion de parciales en excel
+        $perro['Puntos'] = 0;
+        $perro['Estrellas']= 0;
         if ($perro['Penalizacion']>=400)  { // pending
             $perro['Penalizacion']=400.0;
             $perro['Calificacion'] = "-";

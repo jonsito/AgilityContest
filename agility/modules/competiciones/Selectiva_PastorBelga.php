@@ -99,6 +99,8 @@ class Selectiva_PastorBelga extends Competitions {
             $perro['Calificacion'] = _("Exc")." - ".$pt1;
             $perro['CShort'] = _("Exc");
         }
+        $perro['Puntos']=$pt1;
+        $perro['Estrellas']=0;
     }
 
     /**

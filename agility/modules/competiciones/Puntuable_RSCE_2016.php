@@ -81,6 +81,9 @@ class Puntuable_RSCE_2016 extends Competitions {
             $perro['Calificacion'] = _("Exc")." (p) - $pt1";
             $perro['CShort'] = _("Ex P");
         }
+        // datos para la exportacion de parciales en excel
+        $perro['Puntos'] = $pt1;
+        $perro['Estrellas']= 0;
     }
 
 

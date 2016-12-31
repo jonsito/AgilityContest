@@ -79,6 +79,8 @@ class Trofeo_Interclubes_2017 extends Competitions {
             $perro['Calificacion'] = _("Exc")." (p) - $pt1";
             $perro['CShort'] = _("Ex P");
         }
+        $perro['Puntos']=$pt1;
+        $perro['Estrellas']=0;
     }
 
     /**

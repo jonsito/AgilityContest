@@ -92,6 +92,9 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
             $perro['Calificacion'] = _("Excellent")." ".$pt1;
             $perro['CShort'] = _("Exc")." ".$pt1;
         }
+        // datos para la exportacion de parciales en excel
+        $perro['Puntos'] = $pt1;
+        $perro['Estrellas']= 0;
     }
 
     /**
