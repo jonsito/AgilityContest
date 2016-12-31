@@ -81,7 +81,7 @@ class Puntuable_RSCE_2017 extends Competitions {
         $perro['Calificacion'] = _("Excellent")." Pt";
         $perro['CShort'] = "Ex Pt";
         $perro['Puntos'] = 1;
-        $Perro['Estrellas'] = 0;
+        $perro['Estrellas'] = 0;
         foreach ( $this->puntos as $item) {
             if ($perro['Grado']!==$item[0]) continue;
             // comprobamos si estamos en agility o en jumping

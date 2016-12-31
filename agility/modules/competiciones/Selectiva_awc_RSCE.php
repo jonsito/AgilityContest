@@ -123,7 +123,7 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
             // si la velocidad es igual o superior se apunta tanto. notese que el array está ordenado por grad/velocidad
             if ($perro['Velocidad']>=$item[$base+$offset]) {
                 $perro['Puntos'] = $item[8];
-                $Perro['Estrellas'] = $item[9];
+                $perro['Estrellas'] = $item[9];
             }
         }
     }
