@@ -415,10 +415,11 @@ class OrdenSalida extends DBObject {
 	 * 
 	 * @param {boolean} teamview true->intercalar información de equipos en el listado 
 	 * @param {integer} catmode categorias a tener en cuenta en el listado que hay que presentar
+	 * @param {array} rs lista de resultados a presentar. Se utiliza para reordenar resultados en funcion del orden de salida
 	 */
-	function getData($teamView=false,$catmode=8) {
+	function getData($teamView=false,$catmode=8,$rs=null) {
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
-		$rs= $this->__select(
+		if (!$rs) $rs= $this->__select(
 			"Resultados.*,Equipos.Nombre AS NombreEquipo,
 			PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS LogoClub,PerroGuiaClub.Pais,PerroGuiaClub.Genero,PerroGuiaClub.LOE_RRC AS LOE_RRC,
 			Inscripciones.Observaciones AS Observaciones, 1 AS PerrosPorGuia",

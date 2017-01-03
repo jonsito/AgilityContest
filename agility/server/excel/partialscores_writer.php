@@ -97,6 +97,7 @@ class Excel_PartialScores extends XLSX_Writer {
 
 		// write column names
 		$this->writeTableHeader();
+
 		// and dump results
 		foreach($this->resultados['rows'] as $row) {
 		    // preformat specific fields
@@ -121,13 +122,17 @@ try {
     $idmanga=http_request("Manga","i",0);
     $mode=http_request("Mode","i",0);
 
-    $mngobj= new Mangas("printResultadosByManga",$idjornada);
+    $mngobj= new Mangas("excelResultadosByManga",$idjornada);
     $manga=$mngobj->selectByID($idmanga);
-    $resobj= new Resultados("printResultadosByManga",$idprueba,$idmanga);
+    $resobj= new Resultados("excelResultadosByManga",$idprueba,$idmanga);
+
+    // retrieve results and sort by starting order
     $resultados=$resobj->getResultados($mode); // throw exception if pending dogs
+    $osobj= new OrdenSalida("excelResultadosByManga",$idmanga);
+    $res=$osobj->getData(false,$mode,$resultados);
 
     // Creamos generador de documento
-    $excel = new Excel_PartialScores($idprueba,$idjornada,$manga,$resultados,$mode);
+    $excel = new Excel_PartialScores($idprueba,$idjornada,$manga,$res,$mode);
     $excel->open();
     $excel->composeTable();
     $excel->close();
