@@ -41,7 +41,7 @@ function newDog(dg,def){
 	if (!strpos(def,"Buscar")) $('#perros-Nombre').val(def.capitalize());
 	$('#perros-Operation').val('insert');
 	$('#perros-warning').css('visibility','hidden');
-	$('#perros-okBtn').one('click',function() {reload_perrosDatagrid(dg)});
+	$('#perros-okBtn').one('click',function() {reload_perrosDatagrid(dg);});
 }
 
 /**
@@ -60,7 +60,7 @@ function editDog(dg){
     row.Operation='update';
     $('#perros-form').form('load',row);// load form with row data
 	$('#perros-warning').css('visibility','visible');
-	$('#perros-okBtn').one('click',reload_perrosDatagrid);
+	$('#perros-okBtn').one('click',function() {reload_perrosDatagrid(dg);});
 }
 
 /**
