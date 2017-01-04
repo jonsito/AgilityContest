@@ -40,6 +40,11 @@ cd $HTDOCS;
 unzip -q $BASE/AgilityContest-master.zip
 echo ""
 
+echo "Configuring MySQL... "
+sed -i -e '/.*lower_case_table_names.*/d' /Applications/XAMPP/xamppfiles/etc/my.cnf
+sed -i -e '/\[mysqld\]/a lower_case_table_names = 1' /Applications/XAMPP/xamppfiles/etc/my.cnf
+echo ""
+
 echo "Adding AgilityContest apache configuration file... "
 cp $EXTRAS/AgilityContest_osx.conf /Applications/XAMPP/etc/extra
 sed -i -e '/.*AgilityContest.*/d' /Applications/XAMPP/etc/httpd.conf
