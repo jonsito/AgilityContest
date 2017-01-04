@@ -244,7 +244,7 @@ function removePruebas(){
     }).window('resize',{width:640});
 }
 
-function askForUpgrade(msg){
+function askForUpgrade(msg,name,release){
     var l1='<?php _e("<strong>Notice:</strong><br/>"); ?>';
     if (ac_regInfo.Serial==="00000000") {
         $.messager.alert('<?php _e("Update AgilityContest"); ?>',
@@ -262,7 +262,27 @@ function askForUpgrade(msg){
                 if (data.errorMsg) { // error
                     $.messager.alert("Error", data.errorMsg, "error");
                 } else {
-                    window.location='/agility/upgrade.php?sessionkey='+ac_authInfo.SessionKey;
+                    $.messager.progress({
+                        title: '<?php _e("Downloading");?>',
+                        text: '<?php _e("Please wait"); ?>...',
+                        msg: '<?php _e("Downloading new version into server");?>: '+name+'-'+release
+                    });
+                    $.ajax({
+                        url:"/agility/server/adminFunctions.php",
+                        dataType:'json',
+                        data: {
+                            Operation: 'download',
+                            Version: release
+                        },
+                        success: function(data) {
+                            $.messager.progress('close');
+                            if (typeof(data.errorMsg)!=="undefined") {
+                                $.messager.alert('<?php _e("Download update failed"); ?>',data.errorMsg,"error");
+                                return false;
+                            }
+                            window.location='/agility/upgrade.php?sessionkey='+ac_authInfo.SessionKey;
+                        }
+                    });
                 }
             });
         }
@@ -287,7 +307,7 @@ function checkForUpgrades() {
                 $.messager.alert("Version Info",msg,"info");
             }
             msg = msg +"<p>"+'<?php _e("Last Version"); ?>'+": "+data.version_name+"<br />"+'<?php _e('Last Release');?>'+": "+data.version_date+"</p>";
-            if (data.version_date>ac_config.version_date) askForUpgrade(msg);
+            if (data.version_date>ac_config.version_date) askForUpgrade(msg,data.version_name,data.version_date);
         }
     });
 }

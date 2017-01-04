@@ -325,6 +325,19 @@ class Admin extends DBObject {
 		fclose($f);
 		return $res;
 	}
+
+	public function downloadUpgrades($version) {
+		$source='https://codeload.github.com/jonsito/AgilityContest/zip/master';
+		$dest=__DIR__."/../../logs/AgilityContest-{$version}.zip";
+		unlink($dest);
+		set_time_limit(0);
+		$res="";
+        if(!@copy($source,$dest))  {
+            $errors= error_get_last();
+            $res="Download error:{$errors['type']} {$errors['message']}";
+        }
+        return $res;
+	}
 }
 
 $response="";
@@ -332,7 +345,8 @@ try {
 	$result=null;
 	$operation=http_request("Operation","s","");
 	$perms=http_request("Perms","i",PERMS_NONE);
-	$suffix=http_request("Suffix","s","");
+    $suffix=http_request("Suffix","s","");
+    $version=http_request("Version","s","");
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
 	if ($operation==="progress") {
 		$logfile=RESTORE_DIR."restore_{$suffix}.log";
@@ -364,8 +378,10 @@ try {
 			$am->access(PERMS_ADMIN); $result=$adm->clearDatabase(); break;
 		case "clear":
 			$am->access(PERMS_ADMIN); $result=$adm->clearContests(); break;
-		case "upgrade":
-			$am->access(PERMS_ADMIN); $result=$adm->checkForUpgrades(); break;
+        case "upgrade":
+            $am->access(PERMS_ADMIN); $result=$adm->checkForUpgrades(); break;
+        case "download":
+            $am->access(PERMS_ADMIN); $result=$adm->downloadUpgrades($version); break;
 		case "reginfo": 
 			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg="Cannot retrieve license information"; break;
 		case "register":

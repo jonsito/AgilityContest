@@ -159,6 +159,7 @@ Class AgilityContestUpdater {
      * Clear tmp files
      */
     public function prepare() {
+        mkdir(TEMP_DIR);
         // clear old config files from tmpdir
         foreach ($this->user_files as $temp => $file) {
             if (file_exists(TEMP_DIR.$temp)) unlink(TEMP_DIR.$temp);
@@ -427,6 +428,7 @@ $res=$up->doUpgrade();
 if ($res===FALSE) { $up->logProgress("FATAL: Upgrade failed"); return; }
 $res =$up->handleConfig(false); // restore
 if ($res===FALSE) { $up->logProgress("NOTICE: Restore configuration failed"); return;}
+unlink($up->temp_file); // remove downloaded zip file
 $up->logProgress("DONE: Upgrade to Version: {$up->getVersionName()} Revision: {$up->getVersionDate()} ready");
 
 ?>
