@@ -157,6 +157,16 @@ class Competitions {
     }
 
     /**
+     * Provide default TRS/TRM/Recorrido values for a given competitiona at
+     * Round creation time
+     * @param {integer} $tipo Round tipe as declared as Mangas::TipoManga
+     * @return {array} trs array or null if no changes
+     */
+    public function presetTRSData($tipo) {
+        return null;
+    }
+
+    /**
      * Re-evaluate and fix -if required- results data used to evaluate TRS for
      * provided $prueba/$jornada/$manga
      * @param {object} $manga Round data and trs parameters

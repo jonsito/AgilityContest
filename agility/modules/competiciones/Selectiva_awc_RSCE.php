@@ -18,6 +18,27 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
     }
 
     /**
+     * Provide default TRS/TRM/Recorrido values for a given competitiona at
+     * Round creation time
+     * @param {integer} $tipo Round tipe as declared as Mangas::TipoManga
+     * @return {array} trs array or null if no changes
+     */
+    public function presetTRSData($tipo) {
+        if ( ($tipo!=6) && ($tipo!=11) ) return null; // Not grade 3, no preset
+        $manga=array();
+        $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
+        $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=0;$manga['TRS_L_Unit']='s'; // best dog + 0s no roundup
+        $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;$manga['TRM_L_Unit']='%'; // trs + 50 %
+        $manga['TRS_M_Tipo']=1;$manga['TRS_M_Factor']=0;$manga['TRS_M_Unit']='s';
+        $manga['TRM_M_Tipo']=1;$manga['TRM_M_Factor']=50;$manga['TRM_M_Unit']='%';
+        $manga['TRS_S_Tipo']=1;$manga['TRS_S_Factor']=0;$manga['TRS_S_Unit']='s';
+        $manga['TRM_S_Tipo']=1;$manga['TRM_S_Factor']=50;$manga['TRM_S_Unit']='%';
+        $manga['TRS_T_Tipo']=1;$manga['TRS_T_Factor']=0;$manga['TRS_T_Unit']='s'; // not used but required
+        $manga['TRM_T_Tipo']=1;$manga['TRM_T_Factor']=50;$manga['TRM_T_Unit']='%';
+        return $manga;
+    }
+
+    /**
      * Re-evaluate and fix -if required- results data used to evaluate TRS for
      * provided $prueba/$jornada/$manga
      * @param {object} $manga Round data and trs parameters
@@ -26,17 +47,7 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
      */
     public function checkAndFixTRSData($manga,$data) {
         // remember that prueba,jornada and manga are objects, so passed by reference
-        $this->prueba->Selectiva=1;
-        // en pruebas selectivas RSCE de la temporada 2017
-        // el trs para grado 3 es el del mejor perro por categoria y sin redondeo
-        if ($manga->Grado==="GIII") {
-            $manga->TRS_L_Tipo=1;$manga->TRS_L_Factor=0;$manga->TRS_L_Unit='s';
-            $manga->TRM_L_Tipo=1;$manga->TRM_L_Factor=50;$manga->TRM_L_Unit='%';
-            $manga->TRS_M_Tipo=1;$manga->TRS_M_Factor=0;$manga->TRS_M_Unit='s';
-            $manga->TRM_M_Tipo=1;$manga->TRM_M_Factor=50;$manga->TRM_M_Unit='%';
-            $manga->TRS_S_Tipo=1;$manga->TRS_S_Factor=0;$manga->TRS_S_Unit='s';
-            $manga->TRM_S_Tipo=1;$manga->TRM_S_Factor=50;$manga->TRM_S_Unit='%';
-        }
+        $this->prueba->Selectiva = 1; // not really required, just to be sure
         return $data;
     }
 

@@ -25,8 +25,28 @@ class Copa_PastorBelga extends Selectiva_PastorBelga  {
         $this->ptsglobal=array("20","18","16","14","12", "10"," 8"," 6"," 4"," 2","0","0"); // puntos conjunta
     }
 
+    /**
+     * Provide default TRS/TRM/Recorrido values for a given competitiona at
+     * Round creation time
+     * @param {integer} $tipo Round tipe as declared as Mangas::TipoManga
+     * @return {array} trs array or null if no changes
+     */
+    public function presetTRSData($tipo) {
+        // any grade is allowed, so no check tipo
+        $manga=array();
+        $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
+        $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=15;$manga['TRS_L_Unit']='%'; // mejor + 15%  roundup
+        $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;$manga['TRM_L_Unit']='%'; // trs + 50 %
+        $manga['TRS_M_Tipo']=1;$manga['TRS_M_Factor']=15;$manga['TRS_M_Unit']='%';
+        $manga['TRM_M_Tipo']=1;$manga['TRM_M_Factor']=50;$manga['TRM_M_Unit']='%';
+        $manga['TRS_S_Tipo']=1;$manga['TRS_S_Factor']=15;$manga['TRS_S_Unit']='%';
+        $manga['TRM_S_Tipo']=1;$manga['TRM_S_Factor']=50;$manga['TRM_S_Unit']='%';
+        $manga['TRS_T_Tipo']=1;$manga['TRS_T_Factor']=15;$manga['TRS_T_Unit']='%'; // not used but required
+        $manga['TRM_T_Tipo']=1;$manga['TRM_T_Factor']=50;$manga['TRM_T_Unit']='%'; // not used but required
+        return $manga;
+    }
+
     function checkAndFixTRSData($manga,$data) {
-        // best * 1.15 round up. must be Declared in round development
         // override selectiva declaration: just use default ( do nothing )
         return $data;
     }

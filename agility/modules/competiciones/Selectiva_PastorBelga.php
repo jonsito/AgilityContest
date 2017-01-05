@@ -169,6 +169,34 @@ class Selectiva_PastorBelga extends Competitions {
         }
     }
 
+    /**
+     * Provide default TRS/TRM/Recorrido values for a given competitiona at
+     * Round creation time
+     * @param {integer} $tipo Round tipe as declared as Mangas::TipoManga
+     * @return {array} trs array or null if no changes
+     */
+    public function presetTRSData($tipo) {
+        if ( ($tipo!=6) && ($tipo!=11) && ($tipo!=5) && ($tipo!=10)) return null; // Not grade 3 or 2, no preset
+        $manga=array();
+        $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
+        $manga['TRS_L_Tipo']=2;$manga['TRS_L_Factor']=10;$manga['TRS_L_Unit']='%'; // media 3 mejores + 10% roundup
+        $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;$manga['TRM_L_Unit']='%'; // trs + 50 %
+        $manga['TRS_M_Tipo']=2;$manga['TRS_M_Factor']=10;$manga['TRS_M_Unit']='%';
+        $manga['TRM_M_Tipo']=1;$manga['TRM_M_Factor']=50;$manga['TRM_M_Unit']='%';
+        $manga['TRS_S_Tipo']=2;$manga['TRS_S_Factor']=10;$manga['TRS_S_Unit']='%';
+        $manga['TRM_S_Tipo']=1;$manga['TRM_S_Factor']=50;$manga['TRM_S_Unit']='%';
+        $manga['TRS_T_Tipo']=2;$manga['TRS_T_Factor']=10;$manga['TRS_T_Unit']='%'; // not used but required
+        $manga['TRM_T_Tipo']=1;$manga['TRM_T_Factor']=50;$manga['TRM_T_Unit']='%'; // not used but required
+        return $manga;
+    }
+
+    /**
+     * Re-evaluate and fix -if required- results data used to evaluate TRS for
+     * provided $prueba/$jornada/$manga
+     * @param {object} $manga Round data and trs parameters
+     * @param {array} $data Original results provided for evaluation
+     * @return {array} final data to be used to evaluate trs/trm
+     */
     function checkAndFixTRSData($manga,$data) {
         do_log("checkAndFixTRSData: enter()");
         /*

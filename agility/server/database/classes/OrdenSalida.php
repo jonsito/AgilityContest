@@ -355,6 +355,7 @@ class OrdenSalida extends DBObject {
 		// clasificamos los perros por categorias
 		$listas=array( 0=>array(),1=>array(),2=>array());
 		foreach($ordenperros as $perro) {
+			if ($perro=="") continue; // skip if no data
 			array_push($listas[0],$perro);
 			if (mode_match($listaperros[$perro]['Categoria'],$mode)) {
                 array_push($listas[1],$perro);
@@ -448,6 +449,7 @@ class OrdenSalida extends DBObject {
 		foreach ($orden as $perro) {
 			if ($perro==="BEGIN") continue;
 			if ($perro==="END") continue;
+			if ($perro==="") continue;
 			if (!array_key_exists(intval($perro),$p1)) {
 				$this->myLogger->error("El perro $perro esta en el orden de salida pero no en los resultados");
 				// TODO: FIX this consistency error
