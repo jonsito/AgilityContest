@@ -23,7 +23,7 @@ require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Usuarios.php");
 require_once (__DIR__."/classes/Admin.php");
-require_once (__DIR__."../auth/Config.php");
+require_once (__DIR__."/../auth/Config.php");
 
 $response="";
 try {
@@ -52,7 +52,7 @@ try {
 		    // if configured to do, search for updates at login success
 		    if ($config->getEnv("search_updates")!=0) {
                 $adm=new Admin("CheckUpdatesAtLogin",$am,"");
-                $v = $adm->checkForUpgrades();
+                $v = $adm->checkForUpgrades(false);
                 $result['NewVersion'] = "{$v['version_name']}-{$v['version_date']}";
             }
             break;

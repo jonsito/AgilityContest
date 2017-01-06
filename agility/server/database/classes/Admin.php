@@ -20,7 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 // Github redirects links, and make curl fail.. so use real ones
 // define ('UPDATE_INFO','https://github.com/jonsito/AgilityContest/raw/master/agility/server/auth/system.ini');
 define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/agility/server/auth/system.ini');
-if (!defined('RESTORE_DIR')) define ('RESTORE_DIR',__DIR__."/../../logs/");
+if (!defined('RESTORE_DIR')) define ('RESTORE_DIR',__DIR__."/../../../../logs/");
 
 require_once(__DIR__."/../../logging.php");
 require_once(__DIR__."/../../tools.php");
@@ -300,14 +300,17 @@ class Admin extends DBObject {
 		return "";
 	}
 
-	public function clearContests() {
+	public function clearContests($fireException=true) {
         return $this->query("DELETE FROM Pruebas WHERE ID>1");
 	}
 
-	public function checkForUpgrades() {
+	public function checkForUpgrades($fireException=true) {
         $info = $this->file_get(UPDATE_INFO);
-        if ( ($info==null) || (!is_string($info)) )
-            throw new Exception("checkForUpgrade(): cannot retrieve version info from internet");
+        if ( ($info==null) || (!is_string($info)) ) {
+            if ($fireException)  throw new Exception("checkForUpgrade(): cannot retrieve version info from internet");
+            $info="version_name = \"0.0.0\"\nversion_date = \"19700101_0000\"\n"; // escape quotes to get newlines into string
+        }
+
         $info = str_replace("\r\n", "\n", $info);
         $info = str_replace(" ", "", $info);
         $data = explode("\n",$info);
@@ -320,7 +323,7 @@ class Admin extends DBObject {
             'version_date' => $version_date
         );
 		// mark filesystem to allow upgrade
-		$f=fopen(__DIR__."/../../logs/do_upgrade","w");
+		$f=fopen(RESTORE_DIR."/do_upgrade","w");
 		fwrite($f,$this->myAuth->getSessionKey());
 		fclose($f);
 		return $res;
@@ -340,108 +343,4 @@ class Admin extends DBObject {
 	}
 }
 
-$response="";
-try {
-	$result=null;
-	$operation=http_request("Operation","s","");
-	$perms=http_request("Perms","i",PERMS_NONE);
-    $suffix=http_request("Suffix","s","");
-    $version=http_request("Version","s","");
-	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
-	if ($operation==="progress") {
-		$logfile=RESTORE_DIR."restore_{$suffix}.log";
-		// no progressfile yet. return a dummy message to avoid warn to console in windows xampp
-		if (!file_exists($logfile)) {
-            echo json_encode( array( 'progress' => "Waiting for progress info...") );
-            return;
-		}
-        // retrieve last line of progress file
-        $lines=file($logfile,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-		echo json_encode( array( 'progress' => strval($lines[count($lines)-1]) ) );
-		return;
-	}
-	$am= new AuthManager("adminFunctions");
-    $adm= new Admin("adminFunctions",$am,$suffix);
-	switch ($operation) {
-		case "userlevel":
-			$am->access($perms); $result=array('success'=>true); break;
-		case "permissions":
-			$am->permissions($perms); $result=array('success'=>true); break;
-		case "capabilities":
-			$am->access(PERMS_NONE); $result=$am->getLicensePerms(); break;
-		case "backup":
-			/* $am->access(PERMS_ADMIN); */
-			$result=$adm->backup();	break;
-		case "restore":
-			$am->access(PERMS_ADMIN); $result=$adm->restore(); break;
-		case "reset":
-			$am->access(PERMS_ADMIN); $result=$adm->clearDatabase(); break;
-		case "clear":
-			$am->access(PERMS_ADMIN); $result=$adm->clearContests(); break;
-        case "upgrade":
-            $am->access(PERMS_ADMIN); $result=$adm->checkForUpgrades(); break;
-        case "download":
-            $am->access(PERMS_ADMIN); $result=$adm->downloadUpgrades($version); break;
-		case "reginfo": 
-			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg="Cannot retrieve license information"; break;
-		case "register":
-			$am->access(PERMS_ADMIN); $result=$am->registerApp(); if ($result==null) $adm->errormsg="Cannot import license data"; break;
-		case "loadConfig": // send configuration to browser
-			$config=Config::getInstance();
-			$result=$config->loadConfig();
-			break;
-		case "backupConfig": // generate and download a "config.ini" file
-			$config=Config::getInstance();
-			$result=$config->backupConfig();
-			break;
-		case "restoreConfig": // receive, analyze and save configuration from file
-			$am->access(PERMS_ADMIN);
-			$config=Config::getInstance();
-			$result=$config->restoreConfig();
-			$ev=new Eventos("RestoreConfig",1,$am);
-			$ev->reconfigure();
-			break;
-		case "saveConfig": 
-			$am->access(PERMS_ADMIN);
-			$config=Config::getInstance();
-			$result=$config->saveConfig();
-			$ev=new Eventos("SaveConfig",1,$am);
-			$ev->reconfigure();
-			break;
-		case "defaultConfig": 
-			$am->access(PERMS_ADMIN);
-			$config=Config::getInstance();
-			$result=$config->defaultConfig();
-			$ev=new Eventos("DefaultConfig",1,$am);
-			$ev->reconfigure();
-			break;
-        case "getAvailableLanguages":
-            $result= Config::getAvailableLanguages();
-            break;
-		case "printerCheck":
-			$am->access(PERMS_OPERATOR);
-			$config=Config::getInstance();
-			$pname=http_request("event_printer","s","");
-			$pwide=http_request("wide_printer","i",-1);
-			$printer=new RawPrinter($pname,$pwide);
-			$printer->rawprinter_Check();
-			break;
-		case "viewlog":
-            $result=$adm->dumpLog();
-			break;
-        case "resetlog":
-            $am->access(PERMS_ADMIN);
-            $result=$adm->resetLog();
-            break;
-		default:
-			throw new Exception("adminFunctions:: invalid operation: '$operation' provided");
-	}
-	if ($result===null)	throw new Exception($adm->errormsg); // error
-	if ($result==="ok") return; // don't generate any aditional response 
-	if ($result==="") $result= array('success'=>true); // success
-	echo json_encode($result);
-} catch (Exception $e) {
-	do_log($e->getMessage());
-	echo json_encode(array('errorMsg'=>$e->getMessage()));
-}
 ?>
