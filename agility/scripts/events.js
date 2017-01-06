@@ -111,7 +111,7 @@ function startEventMgr() {
 			}
 		},
 		error: function (XMLHttpRequest,textStatus,errorThrown) {
-			alert("error: "+textStatus + " "+ errorThrown );
+			alert("startEventMgr() error: "+textStatus + " "+ errorThrown );
 			setTimeout(function(){ startEventMgr(); },5000 );
 		}
 	});

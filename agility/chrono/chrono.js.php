@@ -268,7 +268,7 @@ function c_showData(data) {
 				$('#chrono_Celo').html((celo==1)?'<span class="blink"><?php _e("Heat");?></span>':'');
 			},
 			error: function(XMLHttpRequest,textStatus,errorThrown) {
-				alert("error: "+textStatus + " "+ errorThrown );
+				alert("c_showData() error: "+textStatus + " "+ errorThrown );
 			}
 		});
 	}

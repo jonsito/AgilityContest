@@ -645,7 +645,7 @@ function tablet_gotoDorsal(tanda,dgname,dorsal) {
 			setDataEntryEnabled(true);
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("error: "+textStatus + " "+ errorThrown );
+			alert("tablet_gotoDorsal() error: "+textStatus + " "+ errorThrown );
 		}
 	});
 }

@@ -384,6 +384,10 @@ $config =Config::getInstance();
             <input type="hidden" name="full_backup" value="0"/> <!-- trick for checkboxes -->
             <input type="checkbox" name="full_backup" id="backup" value="1"/><br />
 
+            <label for="search_updates"><?php _e('Search for updates at startup'); ?></label>
+            <input type="hidden" name="search_updates" value="0"/> <!-- trick for checkboxes -->
+            <input type="checkbox" name="search_updates" id="backup" value="1"/><br />
+
 		</div>
 
 		<div title="<?php _e('System'); ?>" style="padding:10px">

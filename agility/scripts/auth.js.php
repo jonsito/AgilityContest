@@ -67,18 +67,22 @@ function acceptLogin() {
        			$.messager.alert("Error",data.errorMsg,"error");
        			initAuthInfo();
        		} else {// success:
-       			var str="AgilityContest version: "+ac_config.version_name+"-"+ac_config.version_date+"<br />";
+                var vers=ac_config.version_name+"-"+ac_config.version_date;
+       			var str="AgilityContest version: "+vers+"<br />";
        			str =str+'<?php _e("License registered by");?>'+": "+data.User+"<br />";
        			str =str+'<?php _e("For use at club");?>'+": "+data.Club+"<br />";
 				if (data.Expired==="1")  {
-					str = str+'<br/><strong><span class="blink">'+'<?php _e("License expired");?>'+'</span></strong><br/>';
+					str = str+'<br /><strong><span class="blink">'+'<?php _e("License expired");?>'+'</span></strong>';
 				}
-       			str =str+'<br />'+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';
+				if (data.NewVersion>vers) {
+				    str = str+'<br /><?php _e("New version available");?>: '+data.NewVersion;
+                }
+       			str =str+'<br /><br />'+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';
        			var w=$.messager.alert("Login",str,"info",function(){
 					$('#login_menu-text').html('<?php _e("End session");?>'+": <br />"+data.Login);
 					initAuthInfo(data);
 				});
-                w.window('resize',{width:400,height:200}).window('center');
+                w.window('resize',{width:400,height:'auto'}).window('center');
        		} 
        	},
    		error: function() { alert("error");	}
@@ -215,7 +219,7 @@ function check_permissions(perms, callback) {
 		dataType: 'json',
 		success: function(data){ callback( data); },
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("error: "+textStatus + " "+ errorThrown );
+			alert("check_permissions() error: "+textStatus + " "+ errorThrown );
 		}
 	});
 }

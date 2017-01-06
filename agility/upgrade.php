@@ -380,7 +380,7 @@ echo '
                         txarea.putCursorAtEnd();
                     },
                     error: function(XMLHttpRequest,textStatus,errorThrown) {
-                        alert("Error: "+textStatus + " "+ errorThrown );
+                        alert("fireUpdater() Error: "+textStatus + " "+ errorThrown );
                     }
                 });
             }

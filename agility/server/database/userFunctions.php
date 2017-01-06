@@ -22,10 +22,13 @@ require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Usuarios.php");
+require_once (__DIR__."/classes/Admin.php");
+require_once (__DIR__."../auth/Config.php");
 
 $response="";
 try {
 	$result=null;
+    $config=Config::getInstance();
 	$users= new Usuarios("userFunctions");
 	$am= new AuthManager("userFunctions");
 	$operation=http_request("Operation","s",null);
@@ -43,11 +46,21 @@ try {
 		case "selectbyid": $result=$users->selectByID($id); break;
 		case "select": $result=$users->select(); break; // list with order, index, count and where
 		case "enumerate": $result=$users->enumerate(); break; // list with where
-		case "login": $result=$am->login($user,$pass,$sid); break;
+		case "login":
+		    $result = $am->login($user,$pass,$sid);
+		    $result['NewVersion']="0.0.0-19700101_0000";
+		    // if configured to do, search for updates at login success
+		    if ($config->getEnv("search_updates")!=0) {
+                $adm=new Admin("CheckUpdatesAtLogin",$am,"");
+                $v = $adm->checkForUpgrades();
+                $result['NewVersion'] = "{$v['version_name']}-{$v['version_date']}";
+            }
+            break;
 		case "pwcheck": $result=$am->checkPassword($user,$pass); break; // just check pass, dont create session
         case "logout": $result=$am->logout(); break;
         case "reset": $result=$am->resetAdminPassword(); break;
-		default: throw new Exception("userFunctions:: invalid operation: '$operation' provided");
+		default:
+		    throw new Exception("userFunctions:: invalid operation: '$operation' provided");
 	}
 	if ($result===null) 
 		throw new Exception($users->errormsg);

@@ -29,6 +29,7 @@ define('AC_ACCEPT_LANG','0');
 define('AC_DEBUG_LEVEL',0);
 define('AC_REGISTER_EVENTS',"0");
 define('AC_RESET_EVENTS',"1");
+define('AC_SEARCH_UPDATES',"1");
 define('AC_FULL_BACKUP',"0");
 define('AC_EVENT_PRINTER','');
 define('AC_WIDE_PRINTER','0'); // defaults to 58mm wide POS printer
@@ -167,6 +168,7 @@ Class Config {
 		'reset_events'		=> array(	'b',	false,	AC_RESET_EVENTS),
         'event_printer'		=> array(	's',	false,	AC_EVENT_PRINTER),
         'full_backup'		=> array(	'i',	false,	AC_FULL_BACKUP),
+        'search_updates' 	=> array(	'b',	false,	AC_SEARCH_UPDATES),
 		'wide_printer'		=> array(	'b',	false,	AC_WIDE_PRINTER),
 		// Internacionalizacion
 		'lang'				=> array(	's',	false,	AC_LANG),

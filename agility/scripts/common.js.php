@@ -324,7 +324,7 @@ function loadConfiguration(callback) {
 			}
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("error: "+textStatus + " "+ errorThrown );
+			alert("loadConfiguration() error: "+textStatus + " "+ errorThrown );
 		}
 	});
 }
@@ -348,7 +348,7 @@ function getLicenseInfo() {
 			}
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("error: "+textStatus + " "+ errorThrown );
+			alert("getLicenseInfo() error: "+textStatus + " "+ errorThrown );
 		}
 	});
 }
@@ -371,7 +371,7 @@ function getFederationInfo() {
 			}
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("error: "+textStatus + " "+ errorThrown );
+			alert("getFederationInfo() error: "+textStatus + " "+ errorThrown );
 		}
 	});
 }
