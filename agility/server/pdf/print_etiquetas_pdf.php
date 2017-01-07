@@ -148,12 +148,16 @@ class Etiquetas_PDF extends PrintCommon {
 		//Penal2 (117,y+8,17,9) right
 		$this->SetXY($left+107,$y8); 
 		$this->Cell(17,8,$row['P2'],'L',0,'C',false);
+
+        $this->SetFont($this->getFontName(),'',9); // font size for results data
 		//Calif1 (134,y,25,8) right
-		$this->SetXY($left+124,$y1); 
-		$this->Cell(24,7,$row['C1'],'LB',0,'C',false);
+		$this->SetXY($left+124,$y1);
+		$v=($row['V1']==0)?"":number_format($row['V1'],2)."m/s - ";
+		$this->Cell(24,7,$v.$row['C1'],'LB',0,'C',false);
 		//Calif2 (134,y+8,25,9) right
-		$this->SetXY($left+124,$y8); 
-		$this->Cell(24,8,$row['C2'],'L',0,'C',false);
+		$this->SetXY($left+124,$y8);
+        $v=($row['V2']==0)?"":number_format($row['V2'],2)."m/s - ";
+		$this->Cell(24,8,$v.$row['C2'],'L',0,'C',false);
 		
 		//Puesto1 (159,y,15,8) center
 		$this->SetFont($this->getFontName(),'B',20); // font size for results data
