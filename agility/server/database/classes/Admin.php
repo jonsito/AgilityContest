@@ -338,6 +338,7 @@ class Admin extends DBObject {
         $this->myLogger->trace("Downloading $source");
         $ch = curl_init(str_replace(" ","%20",$source)); //Here is the file we are downloading, replace spaces with %20
         curl_setopt($ch, CURLOPT_TIMEOUT, 50);
+        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/../../auth/cacert.pem");
         curl_setopt($ch, CURLOPT_FILE, $fp); // write curl response to file
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // get curl response
         if (! curl_exec($ch)) {

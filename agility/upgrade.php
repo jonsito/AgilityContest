@@ -188,15 +188,12 @@ Class AgilityContestUpdater {
                 continue;
             };
             // else try to copy
-            $a= retrieveFileFromURL($from);
-            $f = fopen($to, "w");
-            if (!is_resource($f)) {
+            $res=$this->file_save($from,$to);
+            if ($res===FALSE) {
                 $this->logProgress("WARNING: $str $temp");
                 $res = false;
                 continue;
             }
-            fwrite($f, $a);
-            fclose($f);
             $this->logProgress($str.$temp);
         }
         return $res;
