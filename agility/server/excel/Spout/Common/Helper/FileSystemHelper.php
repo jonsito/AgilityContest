@@ -104,9 +104,9 @@ class FileSystemHelper
 
         foreach ($itemIterator as $item) {
             if ($item->isDir()) {
-                rmdir($item->getPathname());
+                @rmdir($item->getPathname());
             } else {
-                unlink($item->getPathname());
+                @unlink($item->getPathname());
             }
         }
 

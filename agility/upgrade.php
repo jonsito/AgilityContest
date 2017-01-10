@@ -248,7 +248,7 @@ Class AgilityContestUpdater {
         if (file_exists(POST_INSTALL)) {
             $this->logProgress("EXECUTE: post-install.php");
             include(POST_INSTALL);
-            unlink(POST_INSTALL);
+            @unlink(POST_INSTALL);
         }
         zip_close($zip);
         return true;
@@ -300,7 +300,7 @@ if ( $sk !== $_REQUEST['sessionkey']) {
 // everything ok.
 set_time_limit(ini_get('max_execution_time'));
 $up = new AgilityContestUpdater();
-unlink(TEMP_DIR."do_upgrade"); // remove "need-to-upgrade" mark
+@unlink(TEMP_DIR."do_upgrade"); // remove "need-to-upgrade" mark
 ob_end_clean();
 header("Connection: close");
 ignore_user_abort(); // optional
@@ -425,7 +425,7 @@ $res=$up->doUpgrade();
 if ($res===FALSE) { $up->logProgress("FATAL: Upgrade failed"); return; }
 $res =$up->handleConfig(false); // restore
 if ($res===FALSE) { $up->logProgress("NOTICE: Restore configuration failed"); return;}
-unlink($up->temp_file); // remove downloaded zip file
+@unlink($up->temp_file); // remove downloaded zip file
 $up->logProgress("DONE: Upgrade to Version: {$up->getVersionName()} Revision: {$up->getVersionDate()} ready");
 
 ?>

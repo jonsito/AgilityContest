@@ -263,7 +263,7 @@ class DogReader {
     public function validateFile( $filename,$droptable=true) {
         $this->myLogger->enter();
         $this->saveStatus("Validating received file...");
-        // unlink(IMPORT_DIR."import_{$this->myOptions['Suffix']}.log");
+        // @unlink(IMPORT_DIR."import_{$this->myOptions['Suffix']}.log");
         // open temporary file
         $reader = ReaderFactory::create(Type::XLSX);
         $reader->open($filename);
@@ -315,7 +315,7 @@ class DogReader {
         $this->saveStatus("Read Excel Done.");
         // fine. we can start parsing data in DB database table
         $reader->close();
-        unlink($filename); // remove temporary file if no named file provided
+        @unlink($filename); // remove temporary file if no named file provided
         $this->myLogger->leave();
         return 0;
     }

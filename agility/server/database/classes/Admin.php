@@ -326,7 +326,7 @@ class Admin extends DBObject {
 		// file_get_contents() and copy() suffers from allow_url_fopen and max_mem problem, so just use curl
 		// to download about 300Mb
 		$res="";
-		unlink($dest);
+		@unlink($dest); // use @ to prevent warns to console
         set_time_limit(0);
         $this->myLogger->trace("Opening destination file $dest");
         $fp = fopen ($dest, 'w+');  //This is the file where we save the information
@@ -337,11 +337,12 @@ class Admin extends DBObject {
     	}
         $this->myLogger->trace("Downloading $source");
         $ch = curl_init(str_replace(" ","%20",$source)); //Here is the file we are downloading, replace spaces with %20
-        curl_setopt($ch, CURLOPT_TIMEOUT, 50);
+		curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // not really needed but...
+        curl_setopt($ch, CURLOPT_TIMEOUT, 300); // 5 minutes should be enougth for wellknownforslowness github
         curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/../../auth/cacert.pem");
         curl_setopt($ch, CURLOPT_FILE, $fp); // write curl response to file
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // get curl response
-        if (! curl_exec($ch)) {
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // to allow redirect
+        if (! curl_exec($ch)) { // get curl response
             $errors= error_get_last();
             $res="Download error:{$errors['type']} {$errors['message']}";
             return $res;
