@@ -2,7 +2,7 @@
 /*
 upgrade.php
 
- Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+ Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
  This program is free software; you can redistribute it and/or modify it under the terms
  of the GNU General Public License as published by the Free Software Foundation;
@@ -62,7 +62,7 @@ function retrieveFileFromURL($url) {
         $timeout = 5;
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
-        // curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/auth/cacert.pem");
+        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/server/auth/cacert.pem");
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
         $data = curl_exec($ch);
         if ($data===FALSE) { echo "curl_exec() failed:".curl_error($ch)."<br/>"; return FALSE; }
@@ -124,7 +124,7 @@ Class AgilityContestUpdater {
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_ENCODING, "");
-        // curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/server/auth/cacert.pem");
+        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/server/auth/cacert.pem");
         set_time_limit(350);
         $res=curl_exec($ch);
         curl_close($ch);

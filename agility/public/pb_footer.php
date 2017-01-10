@@ -4,7 +4,7 @@
 /*
 pb_footer.php
 
-Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms
 of the GNU General Public License as published by the Free Software Foundation;
@@ -28,7 +28,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <img id="pb_footer-logoFederation2" src="/agility/images/logos/agilitycontest.png" alt="" height="40"/>
         </a>
         <span style="display:inline-block;padding:10px;font-size:10px;font-style:oblique">
-            AgilityContest-<?php echo $config->getEnv('version_name'); ?><br/> &copy; 2013-2016 JAMC
+            AgilityContest-<?php echo $config->getEnv('version_name'); ?><br/> &copy; 2013-2017 JAMC
         </span>
     </span>
     <span style="float:right">

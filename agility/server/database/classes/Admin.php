@@ -3,7 +3,7 @@
 /*
 Admin.php
 
-Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms
 of the GNU General Public License as published by the Free Software Foundation;
@@ -255,15 +255,6 @@ class Admin extends DBObject {
         return "";
     }
 
-	// returns a file retrieved from an URL as a variable
-	private function file_get($url) {
-		$res=retrieveFileFromURL($url);
-		if ($res!==FALSE) return $res;
-		// arriving here means no way to load file from remote site
-		$this->myLogger->error('Cannot retrieve update information. Check your internet connection');
-		return null;
-	}
-
 	public function restore() {
         // we need root database access to re-create tables
         $rconn=DBConnection::getRootConnection();
@@ -305,8 +296,8 @@ class Admin extends DBObject {
 	}
 
 	public function checkForUpgrades($fireException=true) {
-        $info = $this->file_get(UPDATE_INFO);
-        if ( ($info==null) || (!is_string($info)) ) {
+        $info=retrieveFileFromURL(UPDATE_INFO);
+        if ( ($info==null) || ($info===FALSE) || (!is_string($info)) ) {
             if ($fireException)  throw new Exception("checkForUpgrade(): cannot retrieve version info from internet");
             $info="version_name = \"0.0.0\"\nversion_date = \"19700101_0000\"\n"; // escape quotes to get newlines into string
         }

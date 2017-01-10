@@ -2,7 +2,7 @@
 /*
 tools.php
 
-Copyright  2013-2016 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms 
 of the GNU General Public License as published by the Free Software Foundation; 
@@ -297,7 +297,7 @@ function endsWith($haystack, $needle) {
  * Try to get a file from url
  * Depending on config try several methods
  *
- * @param $url file URL to retrieve
+ * @param {string} $url filename or URL  to retrieve
  */
 function retrieveFileFromURL($url) {
     // if enabled, use standard file_get_contents
@@ -312,7 +312,7 @@ function retrieveFileFromURL($url) {
         $timeout = 5;
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
-        // curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/auth/cacert.pem");
+        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/auth/cacert.pem");
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
         curl_setopt($ch, CURLOPT_URL, $url);
         $data = curl_exec($ch);
