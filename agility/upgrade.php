@@ -391,7 +391,7 @@ echo '
             }
 
             function restart() {
-                document.location.href="https://'.$_SERVER['SERVER_ADDR'].'/agility/console";
+                document.location.href="https://localhost/agility/console";
             }
 
         </script>

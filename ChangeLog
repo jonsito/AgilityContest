@@ -1,3 +1,40 @@
+Version 3.0.2 10-Jan-2017
+    - Nueva arquitectura de modulos, para permitir nuevas modalidades de competición
+    - Gestión de rondas de hasta 8 mangas
+    - Posibilidad de declarar Jornadas Subordinadas, en las que los resultados se clonan de la jornada principal, pero que tienen su propias inscripciones (subconjunto de la principal), TRS y modalidad de competición
+    - Adaptación a las nuevas temporadas de Caza y RSCE.
+    - La velocidad se presenta ahora con dos decimales
+    - Preparado para las nuevas pruebas selectivas de RSCE tanto en individual como por equipos
+    - Soporte de la competición de Selectiva y Copa del Pastor Belga
+    - Soporte de una, dos o tres mangas en Promoción-RFEC, así como mangas simples/dobles en GradoI-RSCE
+    - Importación y Exportación de perros e inscripciones desde/hacia ficheros Excel
+    - Visualización y limpieza de registro de errores y actividad del sistema
+    - Posibilidad de borrar todas las inscripciones de una jornada
+    - Posibilidad de inscribir en una jornada a todos los registrados en una prueba
+    - Posibilidad de clonar, tanto en competiciones individuales como por equipos las inscripciones, datos de TRS y resultados de una jornada en otra
+    - Los listados del asistente de pista ahora salen de 15 en 15 en lugar de 10 en 10. Se mantienen las opciones de 1 y 5 perros/hoja
+    - Posibilidad de seleccionar una categoría determinada en las ventanas del gestión de la prueba, en lugar de tener que ver todas las categorías a la vez
+    - Los ordenes de salida, y entradas de datos respetan el orden de categorías definidos en el programa de la jornada, tanto en consola como en listados
+    - Para alterar el orden de salida, a la opción de arrastrar y soltar, se añade la de marcar y mover, para permitir desplazamientos "fuera de la pantalla"
+    - Si no se selecciona una categoría concreta, en los listados de ordenes de salida las categorías aparecen seguidos en lugar de usar hojas separadas por cada categoría
+    - Diversas modalidades de competiciones por equipos (2,3,4 participantes, modalidad conjunta o x mejores de y)
+    - Los guías que participan con más de un perro aparecen marcados en la consola, para permitir fácil identificación
+    - Mejoras en la impresión de PDF's: ajustes de tamaño de los campos, eliminación configurable del grado en pruebas open/internacionales
+    - Posibilidad de unir dos perros en uno, para la revisión y eliminación de duplicados en la base de datos
+    - Generación de plantillas Excel genéricas y específicas para cada club con lo que poder luego realizar las inscripciones en una prueba de manera automática
+    - Diversas mejoras en la exportación/importación de bases de datos
+    - Mejoras en el instalador, para evitar demoras en el primer arranque
+    - Diversas opciones de configuración adicionales.
+    - Rediseño del tablet para permitir un más fácil acceso a un perro cuando no se respeta el orden de salida
+    - Mejoras en la integración con el Canómetro Electrónico
+    - Revisión general del código con muchas correcciones, tanto de textos como de funcionalidad
+    - Base de datos (bastante) actualizada, incluyendo las últimas pruebas de Diciembre.
+    - Posibilidad de borrar todos los resultados de una manga
+    - Posibilidad de intercambiar los resultados de una manga con su complementaria (pe: cambiar agility por jumping)
+    - Posibilidad de asignar manualmente un dorsal
+    - La información de licencia muestra las opciones habilitadas para dicha licencia
+    - Nueva ventana para definir jornadas de entrenamiento, con horarios y rings por club
+    - Funciones para guardar y recuperar la configuración de la aplicación
 Version 2.3.2 17-Nov-2016
     General:
         - Split federation modules in Federations and Competitions

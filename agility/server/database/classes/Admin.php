@@ -322,14 +322,28 @@ class Admin extends DBObject {
 
 	public function downloadUpgrades($version) {
 		$source='https://codeload.github.com/jonsito/AgilityContest/zip/master';
-		$dest=__DIR__."/../../logs/AgilityContest-{$version}.zip";
+		$dest=__DIR__."/../../../../logs/AgilityContest-{$version}.zip";
+		$this->myLogger->trace("Downloading $source");
 		unlink($dest);
 		set_time_limit(0);
 		$res="";
-        if(!@copy($source,$dest))  {
+		$data=retrieveFileFromURL($source);
+        if ( ($data==null) || ($data===FALSE) ) {
             $errors= error_get_last();
             $res="Download error:{$errors['type']} {$errors['message']}";
+            return $res;
         }
+        $this->myLogger->trace("Opening destination file $dest");
+        $fp=fopen($dest,"w");
+        if(!$fp) {
+            $errors= error_get_last();
+            $res="Download error:{$errors['type']} {$errors['message']}";
+            return $res;
+        }
+        $this->myLogger->trace("Saving upgrade file");
+        fwrite($fp,$data);
+        fclose($fp);
+        $this->myLogger->trace("Upgrade download complete");
         return $res;
 	}
 }
