@@ -321,27 +321,31 @@ class Admin extends DBObject {
 	}
 
 	public function downloadUpgrades($version) {
-		$source='https://codeload.github.com/jonsito/AgilityContest/zip/master';
-		$dest=__DIR__."/../../../../logs/AgilityContest-{$version}.zip";
-		$this->myLogger->trace("Downloading $source");
-		unlink($dest);
-		set_time_limit(0);
+        $source='https://codeload.github.com/jonsito/AgilityContest/zip/master';
+        $dest=__DIR__."/../../../../logs/AgilityContest-{$version}.zip";
+		// file_get_contents() and copy() suffers from allow_url_fopen and max_mem problem, so just use curl
+		// to download about 300Mb
 		$res="";
-		$data=retrieveFileFromURL($source);
-        if ( ($data==null) || ($data===FALSE) ) {
-            $errors= error_get_last();
-            $res="Download error:{$errors['type']} {$errors['message']}";
-            return $res;
-        }
+		unlink($dest);
+        set_time_limit(0);
         $this->myLogger->trace("Opening destination file $dest");
-        $fp=fopen($dest,"w");
-        if(!$fp) {
+        $fp = fopen ($dest, 'w+');  //This is the file where we save the information
+		if(!$fp) {
+        	$errors= error_get_last();
+        	$res="Download error:{$errors['type']} {$errors['message']}";
+        	return $res;
+    	}
+        $this->myLogger->trace("Downloading $source");
+        $ch = curl_init(str_replace(" ","%20",$source)); //Here is the file we are downloading, replace spaces with %20
+        curl_setopt($ch, CURLOPT_TIMEOUT, 50);
+        curl_setopt($ch, CURLOPT_FILE, $fp); // write curl response to file
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // get curl response
+        if (! curl_exec($ch)) {
             $errors= error_get_last();
             $res="Download error:{$errors['type']} {$errors['message']}";
             return $res;
-        }
-        $this->myLogger->trace("Saving upgrade file");
-        fwrite($fp,$data);
+		}
+        curl_close($ch);
         fclose($fp);
         $this->myLogger->trace("Upgrade download complete");
         return $res;
