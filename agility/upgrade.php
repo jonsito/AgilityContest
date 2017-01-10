@@ -187,8 +187,8 @@ Class AgilityContestUpdater {
                 $this->logProgress("SKIP $str $temp");
                 continue;
             };
-            // else try to copy
-            $res=$this->file_save($from,$to);
+            // else try to copy. We can use copy() cause both files are local
+            $res=copy($from,$to);
             if ($res===FALSE) {
                 $this->logProgress("WARNING: $str $temp");
                 $res = false;
