@@ -20,7 +20,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 // Github redirects links, and make curl fail.. so use real ones
 // define ('UPDATE_INFO','https://github.com/jonsito/AgilityContest/raw/master/agility/server/auth/system.ini');
 define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/agility/server/auth/system.ini');
-if (!defined('RESTORE_DIR')) define ('RESTORE_DIR',__DIR__."/../../../../logs/");
 
 require_once(__DIR__."/../../logging.php");
 require_once(__DIR__."/../../tools.php");
@@ -30,6 +29,7 @@ require_once(__DIR__."/DBObject.php");
 require_once(__DIR__."/../../printer/RawPrinter.php");
 
 class Admin extends DBObject {
+	protected $restore_dir=__DIR__."/../../../../logs/";
 	protected $myConfig;
     protected $myAuth;
 	protected $file;
@@ -46,7 +46,7 @@ class Admin extends DBObject {
 		$this->file=$file;
 		$this->myConfig=Config::getInstance();
         $this->myAuth=$am;
-        $this->logfile=RESTORE_DIR."restore_{$suffix}.log";
+        $this->logfile=$this->restore_dir."restore_{$suffix}.log";
 
 		$this->dbname=$this->myConfig->getEnv('database_name');
 		$this->dbhost=$this->myConfig->getEnv('database_host');
@@ -314,7 +314,7 @@ class Admin extends DBObject {
             'version_date' => $version_date
         );
 		// mark filesystem to allow upgrade
-		$f=fopen(RESTORE_DIR."/do_upgrade","w");
+		$f=fopen($this->restore_dir."/do_upgrade","w");
 		fwrite($f,$this->myAuth->getSessionKey());
 		fclose($f);
 		return $res;
