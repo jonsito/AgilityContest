@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-01-11 09:17+0100\n"
-"PO-Revision-Date: 2017-01-11 09:21+0100\n"
+"POT-Creation-Date: 2017-01-12 19:55+0100\n"
+"PO-Revision-Date: 2017-01-12 19:56+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -312,21 +312,21 @@ msgid "Eliminated"
 msgstr "Eliminado"
 
 #: chrono/chrono.inc.php:100 console/import/import.js.php:412
-#: scripts/admin.js.php:38 scripts/admin.js.php:57 scripts/common.js.php:323
-#: scripts/common.js.php:347 scripts/common.js.php:370
-#: scripts/common.js.php:599 scripts/common.js.php:611
-#: scripts/common.js.php:623 scripts/common.js.php:638
-#: scripts/competicion.js.php:297 scripts/competicion.js.php:326
-#: scripts/competicion.js.php:396 scripts/competicion.js.php:403
-#: scripts/competicion.js.php:415 scripts/competicion.js.php:687
-#: scripts/competicion.js.php:706 scripts/competicion.js.php:920
-#: scripts/competicion.js.php:938 scripts/competicion.js.php:1091
-#: scripts/competicion.js.php:1095 scripts/competicion.js.php:1187
-#: scripts/competicion.js.php:1271 scripts/entrenamientos.js.php:84
-#: scripts/entrenamientos.js.php:180 scripts/equipos.js.php:70
-#: scripts/equipos.js.php:123 scripts/equipos.js.php:317
-#: scripts/guias.js.php:87 scripts/guias.js.php:158 scripts/guias.js.php:181
-#: scripts/guias.js.php:209 scripts/guias.js.php:239
+#: scripts/admin.js.php:38 scripts/admin.js.php:57 scripts/admin.js.php:293
+#: scripts/common.js.php:323 scripts/common.js.php:347
+#: scripts/common.js.php:370 scripts/common.js.php:599
+#: scripts/common.js.php:611 scripts/common.js.php:623
+#: scripts/common.js.php:638 scripts/competicion.js.php:297
+#: scripts/competicion.js.php:326 scripts/competicion.js.php:396
+#: scripts/competicion.js.php:403 scripts/competicion.js.php:415
+#: scripts/competicion.js.php:687 scripts/competicion.js.php:706
+#: scripts/competicion.js.php:920 scripts/competicion.js.php:938
+#: scripts/competicion.js.php:1091 scripts/competicion.js.php:1095
+#: scripts/competicion.js.php:1187 scripts/competicion.js.php:1271
+#: scripts/entrenamientos.js.php:84 scripts/entrenamientos.js.php:180
+#: scripts/equipos.js.php:70 scripts/equipos.js.php:123
+#: scripts/equipos.js.php:317 scripts/guias.js.php:87 scripts/guias.js.php:158
+#: scripts/guias.js.php:181 scripts/guias.js.php:209 scripts/guias.js.php:239
 #: scripts/inscripciones.js.php:68 scripts/inscripciones.js.php:191
 #: scripts/inscripciones.js.php:224 scripts/inscripciones.js.php:258
 #: scripts/inscripciones.js.php:289 scripts/inscripciones.js.php:376
@@ -3868,7 +3868,7 @@ msgstr ""
 "Todas las pruebas han sido borradas<br />Por favor, reinicie la "
 "aplicaci&oacute;n"
 
-#: scripts/admin.js.php:250 scripts/admin.js.php:258
+#: scripts/admin.js.php:250 scripts/admin.js.php:259
 msgid "Update AgilityContest"
 msgstr "Actualizar AgilityContest"
 
@@ -3884,43 +3884,52 @@ msgstr ""
 "Para proceder con la actualizaci&oacute;n, introduzca la contrase&ntilde;a "
 "del usuario administrador y pulse <em>Aceptar</em>"
 
-#: scripts/admin.js.php:266
+#: scripts/admin.js.php:268
 msgid "Downloading"
 msgstr "Descargando"
 
-#: scripts/admin.js.php:267
+#: scripts/admin.js.php:269
 msgid "Please wait"
 msgstr "Por favor, espere"
 
-#: scripts/admin.js.php:268
+#: scripts/admin.js.php:270
 msgid "Downloading new version into server"
 msgstr "Descargando actualizaci&oacute;n en el servidor"
 
-#: scripts/admin.js.php:280
+#: scripts/admin.js.php:284
 msgid "Download update failed"
 msgstr "Descarga de actualizaci&oacute;n fallida"
 
-#: scripts/admin.js.php:293
+#: scripts/admin.js.php:287 console/dialogs/dlg_plugins.inc:11
+#: console/dialogs/dlg_tools.inc:29
+msgid "Upgrade"
+msgstr "Actualizar"
+
+#: scripts/admin.js.php:287
+msgid "Download complete. Press Acccept to start upgrade"
+msgstr "Descarga completada. Pulse Aceptar para iniciar actualizaci&oacute;n"
+
+#: scripts/admin.js.php:324
 msgid "Current Version"
 msgstr "Versi&oacute;n actual"
 
-#: scripts/admin.js.php:293
+#: scripts/admin.js.php:324
 msgid "Current Release"
 msgstr "Revisi&oacute;n actual"
 
-#: scripts/admin.js.php:302
+#: scripts/admin.js.php:333
 msgid "Check for Upgrades"
 msgstr "Buscar actualizaciones"
 
-#: scripts/admin.js.php:306
+#: scripts/admin.js.php:337
 msgid "<p>AgilityContest is up to date</p>"
 msgstr "<p>AgilityContest est&aacute; actualizado</p>"
 
-#: scripts/admin.js.php:309
+#: scripts/admin.js.php:340
 msgid "Last Version"
 msgstr "Nueva Versi&oacute;n"
 
-#: scripts/admin.js.php:309
+#: scripts/admin.js.php:340
 msgid "Last Release"
 msgstr "Nueva revisi&oacute;n"
 
@@ -6673,10 +6682,6 @@ msgstr "Registrar un nuevo gu&iacute;a"
 #: console/dialogs/dlg_plugins.inc:8
 msgid "New plugin"
 msgstr "Nuevo m&oacute;dulo"
-
-#: console/dialogs/dlg_plugins.inc:11 console/dialogs/dlg_tools.inc:29
-msgid "Upgrade"
-msgstr "Actualizar"
 
 #: console/dialogs/dlg_plugins.inc:35
 msgid "Current installed modules"
