@@ -119,8 +119,11 @@ try {
 			throw new Exception("adminFunctions:: invalid operation: '$operation' provided");
 	}
 	if ($result===null)	throw new Exception($adm->errormsg); // error
-	if ($result==="ok") return; // don't generate any aditional response 
-	if ($result==="") $result= array('success'=>true); // success
+	if (is_string($result)) {
+        if ($result==="ok") return; // don't generate any aditional response
+		if ($result==="") $result= array('success'=>true); // success
+		else $result=array('errorMsg'=>$result); // non empty string means error message
+	}
 	echo json_encode($result);
 } catch (Exception $e) {
 	do_log($e->getMessage());

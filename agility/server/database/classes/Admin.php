@@ -321,6 +321,7 @@ class Admin extends DBObject {
 	}
 
 	public function downloadUpgrades($version) {
+	    $this->myLogger->enter();
         $source='https://codeload.github.com/jonsito/AgilityContest/zip/master';
         $dest=__DIR__."/../../../../logs/AgilityContest-{$version}.zip";
 		// file_get_contents() and copy() suffers from allow_url_fopen and max_mem problem, so just use curl
@@ -328,27 +329,38 @@ class Admin extends DBObject {
 		$res="";
 		@unlink($dest); // use @ to prevent warns to console
         set_time_limit(0);
-        $this->myLogger->trace("Opening destination file $dest");
         $fp = fopen ($dest, 'w+');  //This is the file where we save the information
 		if(!$fp) {
         	$errors= error_get_last();
-        	$res="Download error:{$errors['type']} {$errors['message']}";
+        	$res="Create upgrade file error:{$errors['type']} {$errors['message']}";
         	return $res;
     	}
-        $this->myLogger->trace("Downloading $source");
         $ch = curl_init(str_replace(" ","%20",$source)); //Here is the file we are downloading, replace spaces with %20
 		curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // not really needed but...
         curl_setopt($ch, CURLOPT_TIMEOUT, 300); // 5 minutes should be enougth for wellknownforslowness github
         curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/../../auth/cacert.pem");
         curl_setopt($ch, CURLOPT_FILE, $fp); // write curl response to file
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // to allow redirect
+        curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4); // try to fix some slowness issues in windozes
         if ( curl_exec($ch) === false ) { // get curl response
-            $res="Download error: ".curl_error($ch);
+            $res="Upgrade download error: ".curl_error($ch);
             return $res;
 		}
         curl_close($ch);
         fclose($fp);
-        $this->myLogger->trace("Upgrade download complete");
+        // now verify downloaded file
+        $zip = new ZipArchive();
+        $chk = $zip->open($dest, ZipArchive::CHECKCONS);
+        if ($chk !== TRUE) {
+            switch($chk) {
+                case ZipArchive::ER_NOZIP: $res='Downloaded file is not a zip archive'; break;
+                case ZipArchive::ER_INCONS: $res='Upgrade zipfile consistency check failed'; break;
+                case ZipArchive::ER_CRC : $res='Upgrade zipfile checksum failed'; break;
+                default: $res='Upgrade zipfile check error ' . $chk; break;
+            }
+        }
+        $zip->close();
+        $this->myLogger->leave();
         return $res;
 	}
 }
