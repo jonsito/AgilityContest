@@ -333,6 +333,7 @@ class Admin extends DBObject {
 		if(!$fp) {
         	$errors= error_get_last();
         	$res="Create upgrade file error:{$errors['type']} {$errors['message']}";
+            $this->handleSession("Done");
         	return $res;
     	}
         $ch = curl_init(str_replace(" ","%20",$source)); //Here is the file we are downloading, replace spaces with %20
@@ -342,8 +343,11 @@ class Admin extends DBObject {
         curl_setopt($ch, CURLOPT_FILE, $fp); // write curl response to file
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // to allow redirect
         curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4); // try to fix some slowness issues in windozes
+        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this,'downloadProgress'));
+        curl_setopt($ch, CURLOPT_NOPROGRESS, false); // needed to make progress function work
         if ( curl_exec($ch) === false ) { // get curl response
             $res="Upgrade download error: ".curl_error($ch);
+            $this->handleSession("Done");
             return $res;
 		}
         curl_close($ch);
@@ -360,9 +364,19 @@ class Admin extends DBObject {
             }
         }
         $zip->close();
+        $this->handleSession("Done");
         $this->myLogger->leave();
         return $res;
 	}
+
+	// notice that this function is called as callback from curl
+	// so cannot use any resource of current class because no scope set
+	// also github does not provide file size to curl, so cannot evaluate percentage
+    function downloadProgress($resource,$download_size, $downloaded, $upload_size, $uploaded)  {
+		$dl=intval($downloaded/(1024*1024));
+		$msg="$dl Mbytes";
+		$this->handleSession($msg);
+    }
 }
 
 ?>

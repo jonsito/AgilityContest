@@ -254,6 +254,7 @@ function askForUpgrade(msg,name,release){
     }
     var l2='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
     var l3='<?php _e("To proceed with AgilityContest update, enter administrator password and press <em>Accept</em>"); ?>';
+    var suffix=getRandomString(8);
     if (!checkForAdmin()) return;
     $.messager.password('<?php _e('Update AgilityContest'); ?>',msg+l1+l2+l3 , function(pass) {
         if (pass) {
@@ -261,35 +262,59 @@ function askForUpgrade(msg,name,release){
             checkPassword(ac_authInfo.Login,pass,function(data) {
                 if (data.errorMsg) { // error
                     $.messager.alert("Error", data.errorMsg, "error");
-                } else {
-                    $.messager.progress({
-                        title: '<?php _e("Downloading");?>',
-                        text: '<?php _e("Please wait"); ?>...',
-                        msg: '<?php _e("Downloading new version into server");?>: '+name+'-'+release
-                    });
+                    return false;
+                }
+                $.messager.progress({
+                    title: '<?php _e("Downloading");?>',
+                    // text: '<?php _e("Please wait"); ?>...',
+                    msg: '<?php _e("Downloading new version into server");?>: '+name+'-'+release,
+                    interval: 0 // do not auto refresh
+                });
+                $.ajax({
+                    url:"/agility/server/adminFunctions.php",
+                    dataType:'json',
+                    data: {
+                        Operation: 'download',
+                        Version: release,
+                        Suffix: suffix
+                    },
+                    success: function(data) {
+                        $.messager.progress('close');
+                        if (typeof(data.errorMsg)!=="undefined") {
+                            $.messager.alert('<?php _e("Download update failed"); ?>',data.errorMsg,"error");
+                            return false;
+                        }
+                        $.messager.confirm("<?php _e('Upgrade');?>","<?php _e('Download complete. Press Acccept to start upgrade');?>",function(r){
+                            if (r) window.location='/agility/upgrade.php?sessionkey='+ac_authInfo.SessionKey;
+                        });
+                    },
+                    error: function(XMLHttpRequest,textStatus,errorThrown) {
+                        $.messager.progress('close');
+                        $.messager.alert("<?php _e('Error');?>","<?php _e('Error');?>: "+textStatus + " "+ errorThrown,'error' );
+                    }
+                });
+
+                // en paralelo arrancamos una tarea para leer el progreso de la operacion
+                function getProgress(){
                     $.ajax({
                         url:"/agility/server/adminFunctions.php",
                         dataType:'json',
                         data: {
-                            Operation: 'download',
-                            Version: release
+                            Operation: 'progress',
+                            Suffix: suffix
                         },
                         success: function(data) {
-                            $.messager.progress('close');
-                            if (typeof(data.errorMsg)!=="undefined") {
-                                $.messager.alert('<?php _e("Download update failed"); ?>',data.errorMsg,"error");
-                                return false;
+                            if(data.progress!=="Done"){
+                                var bar=$.messager.progress('bar');
+                                bar.progressbar('setValue', data.progress);  // set new progress value
+                                setTimeout(getProgress,2000);
+                            } else {
+                                $.messager.progress('close');
                             }
-                            $.messager.confirm("<?php _e('Upgrade');?>","<?php _e('Download complete. Press Acccept to start upgrade');?>",function(r){
-                                if (r) window.location='/agility/upgrade.php?sessionkey='+ac_authInfo.SessionKey;
-                            });
-                        },
-                        error: function(XMLHttpRequest,textStatus,errorThrown) {
-                            $.messager.progress('close');
-                            $.messager.alert("<?php _e('Error');?>","<?php _e('Error');?>: "+textStatus + " "+ errorThrown,'error' );
                         }
                     });
                 }
+                setTimeout(getProgress,2000);
             });
         }
     }).window('resize',{width:480});
