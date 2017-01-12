@@ -342,9 +342,8 @@ class Admin extends DBObject {
         curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/../../auth/cacert.pem");
         curl_setopt($ch, CURLOPT_FILE, $fp); // write curl response to file
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // to allow redirect
-        if (! curl_exec($ch)) { // get curl response
-            $errors= error_get_last();
-            $res="Download error:{$errors['type']} {$errors['message']}";
+        if ( curl_exec($ch) === false ) { // get curl response
+            $res="Download error: ".curl_error($ch);
             return $res;
 		}
         curl_close($ch);

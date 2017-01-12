@@ -280,7 +280,13 @@ function askForUpgrade(msg,name,release){
                                 $.messager.alert('<?php _e("Download update failed"); ?>',data.errorMsg,"error");
                                 return false;
                             }
-                            window.location='/agility/upgrade.php?sessionkey='+ac_authInfo.SessionKey;
+                            $.messager.confirm("<?php _e('Upgrade');?>","<?php _e('Download complete. Press Acccept to start upgrade');?>",function(r){
+                                if (r) window.location='/agility/upgrade.php?sessionkey='+ac_authInfo.SessionKey;
+                            });
+                        },
+                        error: function(XMLHttpRequest,textStatus,errorThrown) {
+                            $.messager.progress('close');
+                            $.messager.alert("<?php _e('Error');?>","<?php _e('Error');?>: "+textStatus + " "+ errorThrown,'error' );
                         }
                     });
                 }
