@@ -353,6 +353,7 @@ class Admin extends DBObject {
 		}
         curl_close($ch);
         fclose($fp);
+        $this->handleSession("Verifying download...");
         // now verify downloaded file
         $zip = new ZipArchive();
         $chk = $zip->open($dest, ZipArchive::CHECKCONS);
@@ -365,6 +366,7 @@ class Admin extends DBObject {
             }
         }
         $zip->close();
+        $this->handleSession($res);
         $this->handleSession("Done");
         $this->myLogger->leave();
         return $res;
