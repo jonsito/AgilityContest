@@ -345,6 +345,7 @@ class Admin extends DBObject {
         curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4); // try to fix some slowness issues in windozes
         curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this,'downloadProgress'));
         curl_setopt($ch, CURLOPT_NOPROGRESS, false); // needed to make progress function work
+        curl_setopt($ch, CURLOPT_BUFFERSIZE, (1024*1024*4)); // set buffer to 4Mb
         if ( curl_exec($ch) === false ) { // get curl response
             $res="Upgrade download error: ".curl_error($ch);
             $this->handleSession("Done");
