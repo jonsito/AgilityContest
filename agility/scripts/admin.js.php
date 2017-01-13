@@ -266,10 +266,10 @@ function askForUpgrade(msg,name,release){
                 }
                 $.messager.progress({
                     title: '<?php _e("Downloading");?>',
-                    // text: '<?php _e("Please wait"); ?>...',
                     msg: '<?php _e("Downloading new version into server");?>: '+name+'-'+release,
                     interval: 0 // do not auto refresh
                 });
+                $.messager.progress('bar').progressbar({text: '{value}' }); // remove '%' sign at progress var
                 $.ajax({
                     url:"/agility/server/adminFunctions.php",
                     dataType:'json',
@@ -304,9 +304,10 @@ function askForUpgrade(msg,name,release){
                             Suffix: suffix
                         },
                         success: function(data) {
-                            if(data.progress!=="Done"){
+                            var value=data.progress;
+                            if(value!=="Done"){
                                 var bar=$.messager.progress('bar');
-                                bar.progressbar('setValue', data.progress);  // set new progress value
+                                bar.progressbar('setValue', value);  // set new progress value
                                 setTimeout(getProgress,2000);
                             } else {
                                 $.messager.progress('close');
