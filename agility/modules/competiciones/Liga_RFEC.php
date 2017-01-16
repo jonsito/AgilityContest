@@ -118,8 +118,8 @@ class Liga_RFEC extends Competitions {
         if ($perro['Penalizacion']==0.0) $pt1++; // 2 puntos por cero
         // puntos a los 5 primeros de la zona liguera por manga/categoria si no estan eliminados o NC
         $puesto=$puestocat[$cat]-$this->poffset[$cat];
-        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<26) && ($puesto<=5) ) {
-            $pt1+= $ptsmanga[$puesto-1];
+        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<26) ) {
+            if ($puesto<=5) $pt1+= $ptsmanga[$puesto-1];
         } else { // no points or not qualified; discard
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;

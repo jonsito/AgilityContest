@@ -702,7 +702,8 @@ class PrintInscritos extends PrintCommon {
 		if (!$this->federation->isInternational()) {
             // si estamos en caza ajustamos para que quepa la licencia
             if ($this->federation->get('WideLicense')) {
-                $this->pos[0]-=1; $this->pos[1]-=2; $this->pos[2]+=20; $this->pos[3]-=5; $this->pos[5]-=5; $this->pos[9]-=7;
+				// dorsal         nombre          	licencia           categoria         grado             observaciones
+                $this->pos[0]-=1; $this->pos[1]-=2; $this->pos[2]+=15; $this->pos[4]-=3; $this->pos[5]-=2; $this->pos[9]-=7;
             }
         }
 		// Datos
