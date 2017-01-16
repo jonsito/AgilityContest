@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
 "POT-Creation-Date: 2017-01-16 17:54+0100\n"
-"PO-Revision-Date: 2017-01-16 17:54+0100\n"
+"PO-Revision-Date: 2017-01-16 18:07+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -6077,7 +6077,7 @@ msgstr "Formato de la hoja (Num. etiquetas/p&aacute;gina)"
 
 #: console/dialogs/dlg_configuracion.inc:304
 msgid "Skip labels for Not Present / Eliminated dogs"
-msgstr "No imprimir etiqueta si perro eliminado / no presentado"
+msgstr "Omitir etiqueta si eliminado / no presentado"
 
 #: console/dialogs/dlg_configuracion.inc:308
 msgid "Label sheet upper margin (mmts)"
