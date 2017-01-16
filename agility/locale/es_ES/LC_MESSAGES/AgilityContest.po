@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-01-12 19:55+0100\n"
-"PO-Revision-Date: 2017-01-12 19:56+0100\n"
+"POT-Creation-Date: 2017-01-16 17:54+0100\n"
+"PO-Revision-Date: 2017-01-16 17:54+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -118,7 +118,7 @@ msgstr "R"
 #: server/pdf/print_entradaDeDatos.php:336
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:620
-#: server/pdf/print_inscritosByPrueba.php:811
+#: server/pdf/print_inscritosByPrueba.php:812
 #: server/pdf/print_ordenDeSalida.php:73
 #: server/pdf/print_ordenDeSalida_awcfci.php:73 server/pdf/print_podium.php:107
 #: server/pdf/print_resultadosByEquipos.php:97
@@ -168,7 +168,7 @@ msgstr "Perro"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:130
 #: server/pdf/print_inscritosByPrueba.php:620
-#: server/pdf/print_inscritosByPrueba.php:811
+#: server/pdf/print_inscritosByPrueba.php:812
 #: server/pdf/print_ordenDeSalida.php:73
 #: server/pdf/print_ordenDeSalida_awcfci.php:73 server/pdf/print_podium.php:119
 #: server/pdf/print_resultadosByEquipos.php:97
@@ -225,7 +225,7 @@ msgstr "Club"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:128
 #: server/pdf/print_inscritosByPrueba.php:624
-#: server/pdf/print_inscritosByPrueba.php:819
+#: server/pdf/print_inscritosByPrueba.php:820
 #: server/pdf/print_trsTemplates.php:81 server/pdf/print_trsTemplates.php:127
 #: videowall/vwc_finales.php:85 videowall/vwc_parciales.php:85
 #: console/dialogs/dlg_chperros.inc:71
@@ -268,7 +268,7 @@ msgstr "Grado"
 #: server/pdf/print_entradaDeDatos.php:255
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:620
-#: server/pdf/print_inscritosByPrueba.php:811
+#: server/pdf/print_inscritosByPrueba.php:812
 #: server/pdf/print_ordenDeSalida.php:73 server/pdf/print_ordenDeSalida.php:206
 #: server/pdf/print_ordenDeSalida_awcfci.php:73
 #: server/pdf/print_ordenDeSalida_awcfci.php:215
@@ -342,7 +342,7 @@ msgstr "Eliminado"
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
 #: scripts/usuarios.js.php:86 scripts/usuarios.js.php:150
 #: console/dialogs/dlg_competicion.inc:71
-#: console/dialogs/dlg_configuracion.inc:538
+#: console/dialogs/dlg_configuracion.inc:544
 #: console/dialogs/dlg_selectJornada.inc:156
 msgid "Error"
 msgstr "Error"
@@ -484,7 +484,7 @@ msgstr "Dors"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:121
 #: server/pdf/print_inscritosByPrueba.php:620
-#: server/pdf/print_inscritosByPrueba.php:811
+#: server/pdf/print_inscritosByPrueba.php:812
 #: server/pdf/print_ordenDeSalida.php:73
 #: server/pdf/print_ordenDeSalida_awcfci.php:73 server/pdf/print_podium.php:109
 #: server/pdf/print_podium.php:111 server/pdf/print_resultadosByEquipos.php:97
@@ -537,7 +537,7 @@ msgstr "Gu&iacute;a"
 #: server/pdf/print_clasificacion_equipos.php:244
 #: server/pdf/print_inscritosByPrueba.php:126
 #: server/pdf/print_inscritosByPrueba.php:620
-#: server/pdf/print_inscritosByPrueba.php:811 server/pdf/print_podium.php:115
+#: server/pdf/print_inscritosByPrueba.php:812 server/pdf/print_podium.php:115
 #: server/pdf/print_podium.php:117 server/pdf/print_resultadosByEquipos.php:97
 #: server/pdf/print_resultadosByManga.php:61 tablet/tablet_main.php:85
 #: tablet/tablet_main.php:292 console/dialogs/dlg_chperros.inc:149
@@ -646,7 +646,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/print_entradaDeDatos.php:341
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:620
-#: server/pdf/print_inscritosByPrueba.php:811
+#: server/pdf/print_inscritosByPrueba.php:812
 #: server/pdf/print_ordenDeSalida.php:73
 #: server/pdf/print_ordenDeSalida_awcfci.php:73
 #: server/pdf/print_ordenTandas.php:90 tablet/index.php:222
@@ -801,15 +801,15 @@ msgstr "TRS Medium"
 msgid "Templates"
 msgstr "Plantillas"
 
-#: console/dialogs/infomanga.php:320 console/dialogs/dlg_configuracion.inc:404
-#: console/dialogs/dlg_configuracion.inc:417
-#: console/dialogs/dlg_configuracion.inc:552 console/dialogs/dlg_tools.inc:12
+#: console/dialogs/infomanga.php:320 console/dialogs/dlg_configuracion.inc:410
+#: console/dialogs/dlg_configuracion.inc:423
+#: console/dialogs/dlg_configuracion.inc:558 console/dialogs/dlg_tools.inc:12
 msgid "Restore"
 msgstr "Restaurar"
 
 #: console/dialogs/infomanga.php:325 console/dialogs/dlg_competicion.inc:145
-#: console/dialogs/dlg_configuracion.inc:423
-#: console/dialogs/dlg_configuracion.inc:453
+#: console/dialogs/dlg_configuracion.inc:429
+#: console/dialogs/dlg_configuracion.inc:459
 #: console/dialogs/dlg_entrenamientos.inc:98 console/dialogs/dlg_equipos.inc:57
 #: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:143
 #: console/dialogs/dlg_jueces.inc:84 console/dialogs/dlg_perros.inc:94
@@ -1132,7 +1132,7 @@ msgstr "Club anfitri&oacute;n"
 #: server/pdf/print_clasificacion_equipos.php:127
 #: server/pdf/print_clasificacion_excel.php:103
 #: server/pdf/print_equiposByJornada.php:92
-#: server/pdf/print_inscritosByPrueba.php:851
+#: server/pdf/print_inscritosByPrueba.php:852
 #: server/pdf/print_ordenTandas.php:66 server/pdf/print_podium.php:81
 #: server/pdf/print_trsTemplates.php:70 server/pdf/print_trsTemplates.php:80
 #: tablet/index.php:160 videowall/vwc_finales.php:43
@@ -1419,7 +1419,7 @@ msgstr "Cat."
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:122
 #: server/pdf/print_inscritosByPrueba.php:620
-#: server/pdf/print_inscritosByPrueba.php:811
+#: server/pdf/print_inscritosByPrueba.php:812
 #: server/pdf/print_ordenDeSalida.php:73
 #: server/pdf/print_ordenDeSalida_awcfci.php:73
 #: console/dialogs/dlg_chperros.inc:59 console/dialogs/dlg_perros.inc:51
@@ -1673,7 +1673,7 @@ msgstr "Leyendo lista de inscritos"
 #: server/pdf/print_entradaDeDatos.php:166
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:620
-#: server/pdf/print_inscritosByPrueba.php:811
+#: server/pdf/print_inscritosByPrueba.php:812
 #: server/pdf/print_ordenDeSalida.php:73
 #: server/pdf/print_ordenDeSalida_awcfci.php:73 server/pdf/print_podium.php:112
 #: server/pdf/print_resultadosByEquipos.php:97
@@ -2548,7 +2548,7 @@ msgstr "Importar datos de Clubs"
 #: console/import/import_handlers.inc.php:30
 #: console/import/import_perros.inc.php:30 console/dialogs/dlg_chguias.inc:29
 #: console/dialogs/dlg_chperros.inc:29
-#: console/dialogs/dlg_configuracion.inc:406
+#: console/dialogs/dlg_configuracion.inc:412
 #: console/dialogs/dlg_newInscripcion.inc:33
 msgid "Search"
 msgstr "Buscar"
@@ -3166,7 +3166,7 @@ msgid "Database backup is recommended before import"
 msgstr "Se recomienda una copia de seguridad antes de la importacion"
 
 #: lib/templates/import_dialog.inc.php:13
-#: console/dialogs/dlg_configuracion.inc:401
+#: console/dialogs/dlg_configuracion.inc:407
 #: console/dialogs/dlg_entrenamientos.inc:30 console/dialogs/dlg_tools.inc:7
 msgid "Backup"
 msgstr "Backup"
@@ -3723,7 +3723,7 @@ msgstr ""
 #: scripts/sesiones.js.php:103 scripts/sesiones.js.php:133
 #: scripts/tandas.js.php:123 scripts/usuarios.js.php:109
 #: console/dialogs/dlg_competicion.inc:223
-#: console/dialogs/dlg_configuracion.inc:494
+#: console/dialogs/dlg_configuracion.inc:500
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -3889,10 +3889,6 @@ msgid "Downloading"
 msgstr "Descargando"
 
 #: scripts/admin.js.php:269
-msgid "Please wait"
-msgstr "Por favor, espere"
-
-#: scripts/admin.js.php:270
 msgid "Downloading new version into server"
 msgstr "Descargando actualizaci&oacute;n en el servidor"
 
@@ -3909,27 +3905,27 @@ msgstr "Actualizar"
 msgid "Download complete. Press Acccept to start upgrade"
 msgstr "Descarga completada. Pulse Aceptar para iniciar actualizaci&oacute;n"
 
-#: scripts/admin.js.php:324
+#: scripts/admin.js.php:325
 msgid "Current Version"
 msgstr "Versi&oacute;n actual"
 
-#: scripts/admin.js.php:324
+#: scripts/admin.js.php:325
 msgid "Current Release"
 msgstr "Revisi&oacute;n actual"
 
-#: scripts/admin.js.php:333
+#: scripts/admin.js.php:334
 msgid "Check for Upgrades"
 msgstr "Buscar actualizaciones"
 
-#: scripts/admin.js.php:337
+#: scripts/admin.js.php:338
 msgid "<p>AgilityContest is up to date</p>"
 msgstr "<p>AgilityContest est&aacute; actualizado</p>"
 
-#: scripts/admin.js.php:340
+#: scripts/admin.js.php:341
 msgid "Last Version"
 msgstr "Nueva Versi&oacute;n"
 
-#: scripts/admin.js.php:340
+#: scripts/admin.js.php:341
 msgid "Last Release"
 msgstr "Nueva revisi&oacute;n"
 
@@ -5263,7 +5259,7 @@ msgid "K.O."
 msgstr "K.O."
 
 #: server/pdf/print_inscritosByPrueba.php:620
-#: server/pdf/print_inscritosByPrueba.php:811
+#: server/pdf/print_inscritosByPrueba.php:812
 msgid "Grado"
 msgstr "Grado"
 
@@ -5271,7 +5267,7 @@ msgstr "Grado"
 msgid "Competitors list"
 msgstr "Listado de participantes"
 
-#: server/pdf/print_inscritosByPrueba.php:839
+#: server/pdf/print_inscritosByPrueba.php:840
 msgid "Competitors listing"
 msgstr "Listado de participantes"
 
@@ -5771,13 +5767,13 @@ msgstr "Color de las filas impares de las tablas"
 
 #: console/dialogs/dlg_configuracion.inc:82
 #: console/dialogs/dlg_configuracion.inc:161
-#: console/dialogs/dlg_configuracion.inc:338
+#: console/dialogs/dlg_configuracion.inc:344
 msgid "Color for even secondary table rows"
 msgstr "Color de filas pares en tablas secundarias"
 
 #: console/dialogs/dlg_configuracion.inc:84
 #: console/dialogs/dlg_configuracion.inc:163
-#: console/dialogs/dlg_configuracion.inc:340
+#: console/dialogs/dlg_configuracion.inc:346
 msgid "Color for odd secondary table rows"
 msgstr "Color de filas impares en tablas secundarias"
 
@@ -5904,12 +5900,12 @@ msgid "Text color for tertiary header"
 msgstr "Color del texto de cabeceras adicionales"
 
 #: console/dialogs/dlg_configuracion.inc:156
-#: console/dialogs/dlg_configuracion.inc:333
+#: console/dialogs/dlg_configuracion.inc:339
 msgid "Background color for even table rows"
 msgstr "Color de fondo de las tablas (filas pares)"
 
 #: console/dialogs/dlg_configuracion.inc:158
-#: console/dialogs/dlg_configuracion.inc:335
+#: console/dialogs/dlg_configuracion.inc:341
 msgid "Background color for odd table rows"
 msgstr "Color de fondo de las tablas (filas impares)"
 
@@ -5998,7 +5994,7 @@ msgid "Delay for LiveStream event parsing"
 msgstr "Retardo de eventos de live streaming"
 
 #: console/dialogs/dlg_configuracion.inc:235
-#: console/dialogs/dlg_configuracion.inc:321
+#: console/dialogs/dlg_configuracion.inc:327
 msgid "sec"
 msgstr "seg"
 
@@ -6071,255 +6067,259 @@ msgstr "Color de fondo de las tablas (filas impares)"
 msgid "Color for separation lines"
 msgstr "Color de las l&iacute;neas de separaci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:291
+#: console/dialogs/dlg_configuracion.inc:292
 msgid "Label printing"
 msgstr "Impresi&oacute;n de etiquetas"
 
-#: console/dialogs/dlg_configuracion.inc:292
+#: console/dialogs/dlg_configuracion.inc:294
 msgid "Label sheet format (# labels/sheet)"
 msgstr "Formato de la hoja (Num. etiquetas/p&aacute;gina)"
 
-#: console/dialogs/dlg_configuracion.inc:302
+#: console/dialogs/dlg_configuracion.inc:304
+msgid "Skip labels for Not Present / Eliminated dogs"
+msgstr "No imprimir etiqueta si perro eliminado / no presentado"
+
+#: console/dialogs/dlg_configuracion.inc:308
 msgid "Label sheet upper margin (mmts)"
 msgstr "Margen superior de la hoja (mmts)"
 
-#: console/dialogs/dlg_configuracion.inc:304
+#: console/dialogs/dlg_configuracion.inc:310
 msgid "Label sheet right margin (mmts)"
 msgstr "Margen izquierdo de la hoja (mmts)"
 
-#: console/dialogs/dlg_configuracion.inc:308
+#: console/dialogs/dlg_configuracion.inc:314
 msgid "Internet"
 msgstr "Internet"
 
-#: console/dialogs/dlg_configuracion.inc:309
+#: console/dialogs/dlg_configuracion.inc:315
 msgid "Public access from internet"
 msgstr "Acceso p&uacute;blico por Internet"
 
-#: console/dialogs/dlg_configuracion.inc:310
+#: console/dialogs/dlg_configuracion.inc:316
 msgid "Data auto-refresh interval"
 msgstr "Periodo de refresco de los datos"
 
-#: console/dialogs/dlg_configuracion.inc:313
+#: console/dialogs/dlg_configuracion.inc:319
 msgid "No refresh"
 msgstr "No refrescar"
 
-#: console/dialogs/dlg_configuracion.inc:320
+#: console/dialogs/dlg_configuracion.inc:326
 msgid "Rotation period for sponsor logos"
 msgstr "Periodo de rotaci&oacute;n de anuncios"
 
-#: console/dialogs/dlg_configuracion.inc:323
+#: console/dialogs/dlg_configuracion.inc:329
 msgid "Header background color"
 msgstr "Color de fondo de cabecera/pie"
 
-#: console/dialogs/dlg_configuracion.inc:325
+#: console/dialogs/dlg_configuracion.inc:331
 msgid "Header text color"
 msgstr "Color de texto de la cabecera/pie"
 
-#: console/dialogs/dlg_configuracion.inc:328
+#: console/dialogs/dlg_configuracion.inc:334
 msgid "Round data table background color"
 msgstr "Color de fondo de informaci&oacute;n de manga"
 
-#: console/dialogs/dlg_configuracion.inc:330
+#: console/dialogs/dlg_configuracion.inc:336
 msgid "Round data table text color"
 msgstr "Color texto informaci&oacute;n de manga"
 
-#: console/dialogs/dlg_configuracion.inc:344
+#: console/dialogs/dlg_configuracion.inc:350
 msgid "General"
 msgstr "General"
 
-#: console/dialogs/dlg_configuracion.inc:345
+#: console/dialogs/dlg_configuracion.inc:351
 msgid "General configuration"
 msgstr "Configuraci&oacute;n general"
 
-#: console/dialogs/dlg_configuracion.inc:346
+#: console/dialogs/dlg_configuracion.inc:352
 msgid "Default language"
 msgstr "Idioma por defecto"
 
-#: console/dialogs/dlg_configuracion.inc:348
+#: console/dialogs/dlg_configuracion.inc:354
 msgid "Choose language from browser preferences"
 msgstr "Seleccionar el idioma seg&uacute;n preferencias del navegador"
 
-#: console/dialogs/dlg_configuracion.inc:351
+#: console/dialogs/dlg_configuracion.inc:357
 msgid "Debug level"
 msgstr "Nivel de depuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:354
+#: console/dialogs/dlg_configuracion.inc:360
 msgid "None"
 msgstr "Ninguno"
 
-#: console/dialogs/dlg_configuracion.inc:355
+#: console/dialogs/dlg_configuracion.inc:361
 msgid "Unusable syetem"
 msgstr "Sistema inutilizable"
 
-#: console/dialogs/dlg_configuracion.inc:356
+#: console/dialogs/dlg_configuracion.inc:362
 msgid "Non recoverable errors"
 msgstr "Errores no recuperables"
 
-#: console/dialogs/dlg_configuracion.inc:357
+#: console/dialogs/dlg_configuracion.inc:363
 msgid "Recoverable error"
 msgstr "Errores recuperables"
 
-#: console/dialogs/dlg_configuracion.inc:358
+#: console/dialogs/dlg_configuracion.inc:364
 msgid "Notice alerts"
 msgstr "Avisos a tener en cuenta"
 
-#: console/dialogs/dlg_configuracion.inc:359
+#: console/dialogs/dlg_configuracion.inc:365
 msgid "Informative messages"
 msgstr "Mensajes informativos"
 
-#: console/dialogs/dlg_configuracion.inc:360
+#: console/dialogs/dlg_configuracion.inc:366
 msgid "Debugging information"
 msgstr "Informaci&oacute;n de depuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:361
+#: console/dialogs/dlg_configuracion.inc:367
 msgid "Execution trace registering"
 msgstr "Trazas de ejecucion"
 
-#: console/dialogs/dlg_configuracion.inc:362
+#: console/dialogs/dlg_configuracion.inc:368
 msgid "Register everything"
 msgstr "Registrar absolutamente todo"
 
-#: console/dialogs/dlg_configuracion.inc:364
+#: console/dialogs/dlg_configuracion.inc:370
 msgid "Provide raw file copy for system events"
 msgstr "Generar fichero con registro de eventos del sistema"
 
-#: console/dialogs/dlg_configuracion.inc:368
+#: console/dialogs/dlg_configuracion.inc:374
 msgid "Printer device name to write tablet reports"
 msgstr "Nombre de la impresora de registro del tablet"
 
-#: console/dialogs/dlg_configuracion.inc:369
+#: console/dialogs/dlg_configuracion.inc:375
 msgid "Paper size"
 msgstr "Tamaño del papel"
 
-#: console/dialogs/dlg_configuracion.inc:376
-#: console/dialogs/dlg_configuracion.inc:477
+#: console/dialogs/dlg_configuracion.inc:382
+#: console/dialogs/dlg_configuracion.inc:483
 #: console/dialogs/dlg_ordensalida.inc:54
 msgid "Check"
 msgstr "Verificar"
 
-#: console/dialogs/dlg_configuracion.inc:379
+#: console/dialogs/dlg_configuracion.inc:385
 msgid "Clear event registration on tablet init session"
 msgstr "Borrar historial de eventos al iniciar sesi&oacute;n en el tablet"
 
-#: console/dialogs/dlg_configuracion.inc:383
+#: console/dialogs/dlg_configuracion.inc:389
 msgid "Include event history in backup"
 msgstr "Incluir historial de eventos en la copia de seguridad"
 
-#: console/dialogs/dlg_configuracion.inc:387
+#: console/dialogs/dlg_configuracion.inc:393
 msgid "Search for updates at startup"
 msgstr "Buscar actualizaciones al inicio"
 
-#: console/dialogs/dlg_configuracion.inc:393
+#: console/dialogs/dlg_configuracion.inc:399
 msgid "System"
 msgstr "Sistema"
 
-#: console/dialogs/dlg_configuracion.inc:394
+#: console/dialogs/dlg_configuracion.inc:400
 msgid "Additional server information"
 msgstr "Informaci&oacute;n adicional del servidor"
 
-#: console/dialogs/dlg_configuracion.inc:395
+#: console/dialogs/dlg_configuracion.inc:401
 msgid "IP address(es)"
 msgstr "Direcci&oacute;n(es) IP"
 
-#: console/dialogs/dlg_configuracion.inc:399
+#: console/dialogs/dlg_configuracion.inc:405
 msgid "Save and Restore configuration"
 msgstr "Guardar y Recuperar configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:400
+#: console/dialogs/dlg_configuracion.inc:406
 msgid "Download configuration to file"
 msgstr "Guardar configuraci&oacute;n en fichero"
 
-#: console/dialogs/dlg_configuracion.inc:403
+#: console/dialogs/dlg_configuracion.inc:409
 msgid "Restore configuration from file"
 msgstr "Recuperar configuraci&oacute;n desde fichero"
 
-#: console/dialogs/dlg_configuracion.inc:419
+#: console/dialogs/dlg_configuracion.inc:425
 msgid "Default"
 msgstr "Defecto"
 
-#: console/dialogs/dlg_configuracion.inc:435
+#: console/dialogs/dlg_configuracion.inc:441
 msgid "Enter printer name/device or leave empty to disable"
 msgstr ""
 "Nombre o Dispositivo de impresi&oacute;n <br/>Dejar vac&iacute;o para "
 "desactivar"
 
-#: console/dialogs/dlg_configuracion.inc:436
+#: console/dialogs/dlg_configuracion.inc:442
 msgid "Cancel changes. Restore information from server"
 msgstr ""
 "Anular cambios. Recuperar informaci&oacute;n de configuraci&oacute;n del "
 "servidor"
 
-#: console/dialogs/dlg_configuracion.inc:437
+#: console/dialogs/dlg_configuracion.inc:443
 msgid "Factory reset. Configure with default data"
 msgstr ""
 "Configurar aplicaci&oacute;n con los valores por defecto de f&aacute;brica. "
 
-#: console/dialogs/dlg_configuracion.inc:438
+#: console/dialogs/dlg_configuracion.inc:444
 msgid "Accept changes. Save as new configuration"
 msgstr "Aceptar cambios. Guardar como nueva configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:439
+#: console/dialogs/dlg_configuracion.inc:445
 msgid "Send sample report to check printer"
 msgstr "Enviar informe de prueba para comprobar impresora"
 
-#: console/dialogs/dlg_configuracion.inc:454
+#: console/dialogs/dlg_configuracion.inc:460
 msgid "New configuration successfully saved"
 msgstr "Nueva configuraci&oacute;n guardada correctamente"
 
-#: console/dialogs/dlg_configuracion.inc:455
-#: console/dialogs/dlg_configuracion.inc:499
-#: console/dialogs/dlg_configuracion.inc:554
+#: console/dialogs/dlg_configuracion.inc:461
+#: console/dialogs/dlg_configuracion.inc:505
+#: console/dialogs/dlg_configuracion.inc:560
 msgid "You should close session and reload page"
 msgstr "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"
 
-#: console/dialogs/dlg_configuracion.inc:456
-#: console/dialogs/dlg_configuracion.inc:500
-#: console/dialogs/dlg_configuracion.inc:555
+#: console/dialogs/dlg_configuracion.inc:462
+#: console/dialogs/dlg_configuracion.inc:506
+#: console/dialogs/dlg_configuracion.inc:561
 msgid "for changes to become active"
 msgstr "para que los cambios se activen"
 
-#: console/dialogs/dlg_configuracion.inc:478
+#: console/dialogs/dlg_configuracion.inc:484
 msgid "A test page has been sent to event recording printer"
 msgstr "Se ha enviado una pagina de prueba a la impresora de registro"
 
-#: console/dialogs/dlg_configuracion.inc:479
+#: console/dialogs/dlg_configuracion.inc:485
 msgid "Please check for proper output"
 msgstr "Compruebe que la impresi&oacute;n es correcta"
 
-#: console/dialogs/dlg_configuracion.inc:480
+#: console/dialogs/dlg_configuracion.inc:486
 msgid "Remember to save changes before exiting"
 msgstr "Recuerde guardar los cambios antes de salir del men&uacute;"
 
-#: console/dialogs/dlg_configuracion.inc:494
+#: console/dialogs/dlg_configuracion.inc:500
 msgid "Restore factory default values. Sure?"
 msgstr "Restaurar valores por defecto. ¿Seguro?"
 
-#: console/dialogs/dlg_configuracion.inc:497
+#: console/dialogs/dlg_configuracion.inc:503
 msgid "Factory reset"
 msgstr "Reset de f&aacute;brica"
 
-#: console/dialogs/dlg_configuracion.inc:498
+#: console/dialogs/dlg_configuracion.inc:504
 msgid "Restored default configuration options"
 msgstr "Recuperada configuraci&oacute;n por defecto"
 
-#: console/dialogs/dlg_configuracion.inc:525
+#: console/dialogs/dlg_configuracion.inc:531
 msgid "Downloading configuration, please wait"
 msgstr "Descargando fichero de configuraci&oacute;n. Espere..."
 
-#: console/dialogs/dlg_configuracion.inc:526
+#: console/dialogs/dlg_configuracion.inc:532
 msgid "There was a problem in configuration download. Please try again"
 msgstr ""
 "Hubo un problema en la descarga de la configuraci&oacute;n. Pruebe de nuevo"
 
-#: console/dialogs/dlg_configuracion.inc:538
+#: console/dialogs/dlg_configuracion.inc:544
 msgid "No config file selected"
 msgstr "No se ha indicado ning&uacute;n fichero"
 
-#: console/dialogs/dlg_configuracion.inc:549
+#: console/dialogs/dlg_configuracion.inc:555
 msgid "Restore configuration from file error"
 msgstr "Error al restaurar configuraci&oacute;n desde fichero"
 
-#: console/dialogs/dlg_configuracion.inc:553
+#: console/dialogs/dlg_configuracion.inc:559
 msgid "Configuration file successfully restored"
 msgstr "Configuraci&oacute;n restaurada correctamente"
 
@@ -6895,6 +6895,9 @@ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 #: console/dialogs/dlg_usuarios.inc:106
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
+
+#~ msgid "Please wait"
+#~ msgstr "Por favor, espere"
 
 #~ msgid "LoadConfig(): cannot retrieve configuration from server"
 #~ msgstr ""

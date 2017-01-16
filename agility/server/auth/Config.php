@@ -89,6 +89,7 @@ define('AC_VWS_ROWCOLOR6','#808080');
 define('AC_VWS_LINECOLOR','#ffffff');
 
 /** generacion de PDF's **/
+define('AC_PDF_SKIPNPEL', "0"); // skip print label when not present or eliminated
 define('AC_PDF_TOPMARGIN', 10.0); // margen superior etiquetas
 define('AC_PDF_LEFTMARGIN', 10.0); // margen izquierdo etiquetas
 define('AC_PDF_LABELHEIGHT', 17.0); // Altura de las pegatinas mmts
@@ -238,7 +239,8 @@ Class Config {
         'vws_rowcolor6'		=> array(	'c',	false,	AC_VWS_ROWCOLOR6),
 		'vws_linecolor'		=> array(	'c',	false,	AC_VWS_LINECOLOR),
 		// generacion de PDF's
-		'pdf_topmargin'		=> array(	'i',	false,	AC_PDF_TOPMARGIN),
+        'pdf_skipnpel'		=> array(	'i',	false,	AC_PDF_SKIPNPEL),
+        'pdf_topmargin'		=> array(	'i',	false,	AC_PDF_TOPMARGIN),
 		'pdf_leftmargin'	=> array(	'i',	false,	AC_PDF_LEFTMARGIN),
 		'pdf_labelheight'	=> array(	'i',	false,	AC_PDF_LABELHEIGHT),
         'pdf_journeys'		=> array(	'b',	false,	AC_PDF_JOURNEYS),

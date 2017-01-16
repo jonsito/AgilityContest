@@ -288,7 +288,9 @@ $config =Config::getInstance();
 
 			<label for="pdf_linecolor"><?php _e('Color for separation lines'); ?></label>
 			<input id="pdf_linecolor" name="pdf_linecolor" type="color" value="#808080"/><br />
+
 			<h3><?php _e('Label printing'); ?></h3>
+
             <label><?php _e('Label sheet format (# labels/sheet)'); ?></label>
             <label for="pdf_labelheight16" style="width:130px;">
                 <input type="radio" id="pdf_labelheight16" name="pdf_labelheight" value="17" checked="checked" onclick="$('#pdf_topmargin').val('10.0');"/>
@@ -299,6 +301,10 @@ $config =Config::getInstance();
                 147x20 (13)
             </label>
             <br />
+            <label for="pdf_skipnpel"><?php _e('Skip labels for Not Present / Eliminated dogs'); ?></label>
+            <input type="hidden" name="pdf_skipnpel" value="0"/>
+            <input id="pdf_skipnpel" name="pdf_skipnpel" type="checkbox" value="1"/><br />
+
 			<label for="pdf_topmargin"><?php _e('Label sheet upper margin (mmts)'); ?></label>
 			<input id="pdf_topmargin" name="pdf_topmargin" type="text" size="4" value="10.0"/><br />
 			<label for="pdf_leftmargin"><?php _e('Label sheet right margin (mmts)'); ?></label>

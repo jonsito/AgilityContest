@@ -208,6 +208,8 @@ class Etiquetas_PDF extends PrintCommon {
 				$aguja=",{$row['Dorsal']},";
 				$pajar=",$listadorsales,";
 				if (strpos($pajar,$aguja)===FALSE) continue; // Dorsal not in list
+			} else { // if not present or eliminated in both rounds, and skipnpel is set, skip competitor
+				if ( ($this->config->getEnv('pdf_skipnpel')!=0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue;
 			}
 			if ( (($rowcount%$labels)==0) && ($rowcount!=0)) $this->AddPage(); // 16/13 etiquetas por pagina
 			$this->writeCell($rowcount%$labels,$row);
