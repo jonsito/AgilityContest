@@ -126,10 +126,13 @@ try {
     $manga=$mngobj->selectByID($idmanga);
     $resobj= new Resultados("excelResultadosByManga",$idprueba,$idmanga);
 
-    // retrieve results and sort by starting order
+    // retrieve results
     $resultados=$resobj->getResultados($mode); // throw exception if pending dogs
     $osobj= new OrdenSalida("excelResultadosByManga",$idmanga);
+    // reindex resultados in starting order
     $res=$osobj->getData(false,$mode,$resultados);
+    // add trs/trm information
+    $res['trs']=$resultados['trs'];
 
     // Creamos generador de documento
     $excel = new Excel_PartialScores($idprueba,$idjornada,$manga,$res,$mode);
