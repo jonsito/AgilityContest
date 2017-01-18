@@ -52,26 +52,34 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
     }
 
     /**
-     * Evaluate if a dog has a mixBreed License
-     * @param $lic
+     * Starting at 2017 season license naming convention changed. Now there is no way to detect
+     * if a dog is registered in LOE/RRC by just looking at license number
+     *
+     * So we use a different approach
+     * - On startup modify database to make sure that every dog with old license style has LOE/RRC
+     * - if not, create a dummy LOE/RRC entry
+     * - Change this code to check LOE/RRC instead of license number
+     * @param $loe Inscription number for LOE/RRC. In old style licences may have fake values
      */
-    function validLicense($lic){
-        $lic=strval($lic);
+    function canReceivePoints($loe){
+        $loe=strval($loe);
         // remove dots, spaces and dashes
-        $lic=str_replace(" ","",$lic);
-        $lic=str_replace("-","",$lic);
-        $lic=str_replace(".","",$lic);
-        $lic=strtoupper($lic);
-        if (strlen($lic)<4) {
-            if (is_numeric($lic)) return true; // licenses from 0 to 999
+        $loe=str_replace(" ","",$loe);
+        $loe=str_replace("-","",$loe);
+        $loe=str_replace(".","",$loe);
+        $loe=strtoupper($loe);
+        return ($loe!="")?true:false;
+        /*
+        if (strlen($loe)<4) {
+            if (is_numeric($loe)) return true; // licenses from 0 to 999
             return false;
         }
-        if (strlen($lic)>4) return false; // rsce licenses has up to 4 characters
-        if (substr($lic,0,1)=='0') return true; // 0000 to 9999
-        if (substr($lic,0,1)=='A') return true; // A000 to A999
-        if (substr($lic,0,1)=='B') return true; // B000 to B999
-        if (substr($lic,0,1)=='C') return true; // C000 to C999
+        if (substr($loe,0,1)=='0') return true; // 0000 to 9999
+        if (substr($loe,0,1)=='A') return true; // A000 to A999
+        if (substr($loe,0,1)=='B') return true; // B000 to B999
+        if (substr($loe,0,1)=='C') return true; // C000 to C999
         return false;
+        */
     }
 
     /**
@@ -96,7 +104,7 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
             return;
         }
         // comprobamos si el perro es mestizo
-        if (! $this->validLicense($perro['Licencia']) ) { // perro mestizo o extranjero no puntua
+        if (! $this->canReceivePoints($perro['Licencia']) ) { // perro mestizo o extranjero no puntua
             $this->poffset[$perro['Categoria']]++; // mark to skip point assignation
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
@@ -167,7 +175,7 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
             return;
         }
         // arriving here means prueba selectiva and Grado III
-        if ( ! $this->validLicense($perro['Licencia']) ) {  // comprobamos si el perro es mestizo o extranjero
+        if ( ! $this->canReceivePoints($perro['Licencia']) ) {  // comprobamos si el perro es mestizo o extranjero
             $this->pfoffset[$perro['Categoria']]++; // mark to skip point assignation
             parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;

@@ -17,7 +17,7 @@ class Trofeo_Interclubes_2017 extends Competitions {
      * Evaluate if a dog has a mixBreed License
      * @param $lic
      */
-    function validLicense($lic){
+    function canReceivePoints($lic){
         $lic=strval($lic);
         // remove dots, spaces and dashes
         $lic=str_replace(" ","",$lic);
@@ -53,7 +53,7 @@ class Trofeo_Interclubes_2017 extends Competitions {
         }
         // arriving here means prueba selectiva and Grado III
         // comprobamos si el perro es mestizo
-        if (! $this->validLicense($perro['Licencia']) ) { // perro mestizo o extranjero no puntua
+        if (! $this->canReceivePoints($perro['Licencia']) ) { // perro mestizo o extranjero no puntua
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
@@ -119,7 +119,7 @@ class Trofeo_Interclubes_2017 extends Competitions {
             return;
         }
         // arriving here means prueba selectiva and Grado III
-        if ( ! $this->validLicense($perro['Licencia']) ) {  // comprobamos si el perro es mestizo o extranjero
+        if ( ! $this->canReceivePoints($perro['Licencia']) ) {  // comprobamos si el perro es mestizo o extranjero
             $perro['Calificacion'] = ($perro['Penalizacion']==0.0)?'Punto':'';
             return;
         }

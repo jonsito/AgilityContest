@@ -408,6 +408,19 @@ class Updater {
         return 0;
     }
 
+    /*
+     * as license convention changes, use Loe/ RRC to check if a dog is elegible for puntuaction in selectives
+     */
+    function fixLOERRC2017() {
+        $cmds= array(
+            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like '0%')",
+            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'A%')",
+            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'B%')",
+            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'C%')",
+        );
+        foreach ($cmds as $query) { $this->conn->query($query); }
+        return 0;
+    }
 }
 
 $upg=new Updater();
@@ -445,6 +458,7 @@ try {
     $upg->createTrainingTable();
     $upg->populateTeamMembers();
     $upg->addAgility3Grade1();
+    $upg->fixLOERRC2017();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }

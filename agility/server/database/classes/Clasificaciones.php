@@ -98,6 +98,7 @@ class Clasificaciones extends DBObject {
                         'Nombre' => $item['Nombre'],
                         'NombreLargo' => $item['NombreLargo'],
                         'Licencia' => $item['Licencia'],
+                        'LOE_RRC' => $item['LOE_RRC'],
                         'Categoria' => $item['Categoria'],
                         'Grado' => $item['Grado'],
                         'Equipo' => $item['Equipo'],
@@ -394,7 +395,7 @@ class Clasificaciones extends DBObject {
 		$this->myLogger->enter();
 		$m1=$this->__getObject("Mangas",$idmangas[0]);
 		$m2=$this->__getObject("Mangas",$idmangas[1]);
-		$final=array(); // puesto,dorsal, nombre, licencia,categoria,grado, nombreguia, nombreclub,
+		$final=array(); // puesto,dorsal, nombre, licencia,LOE_RRC,categoria,grado, nombreguia, nombreclub,
 		// F1,R1,T1,V1,P1,C1,F2,R2,T2,V2,P2,C2, Penalizacion,Calificacion
 		// Procesamos la primera manga y generamos una segunda manga "fake"
 		foreach($c1['rows'] as $item) {
