@@ -29,7 +29,7 @@ require_once(__DIR__."/DBObject.php");
 require_once(__DIR__."/../../printer/RawPrinter.php");
 
 class Admin extends DBObject {
-	protected $restore_dir=__DIR__."/../../../../logs/";
+	protected $restore_dir;
 	protected $myConfig;
     protected $myAuth;
 	protected $file;
@@ -42,6 +42,7 @@ class Admin extends DBObject {
 
 	function __construct($file,$am,$suffix="") {
         parent::__construct("adminFunctions");
+        $this->restore_dir=__DIR__."/../../../../logs/";
 		// connect database
 		$this->file=$file;
 		$this->myConfig=Config::getInstance();
