@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-01-16 17:54+0100\n"
-"PO-Revision-Date: 2017-01-16 18:07+0100\n"
+"POT-Creation-Date: 2017-01-20 20:53+0100\n"
+"PO-Revision-Date: 2017-01-20 20:53+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -3430,8 +3430,8 @@ msgstr "M.B."
 #: modules/competiciones/Liga_UCA.php:59 modules/competiciones/Liga_UCA.php:64
 #: modules/competiciones/Puntuable_RSCE_2017.php:89
 #: modules/competiciones/Puntuable_RSCE_2017.php:102
-#: modules/competiciones/Selectiva_awc_RSCE.php:115
-#: modules/competiciones/Selectiva_awc_RSCE.php:119
+#: modules/competiciones/Selectiva_awc_RSCE.php:123
+#: modules/competiciones/Selectiva_awc_RSCE.php:127
 msgid "Excellent"
 msgstr "Excelente"
 
@@ -3448,7 +3448,7 @@ msgstr "Excelente"
 #: modules/competiciones/Selectiva_PastorBelga.php:96
 #: modules/competiciones/Selectiva_PastorBelga.php:99
 #: modules/competiciones/Selectiva_PastorBelga.php:100
-#: modules/competiciones/Selectiva_awc_RSCE.php:116
+#: modules/competiciones/Selectiva_awc_RSCE.php:124
 #: modules/competiciones/Trofeo_Interclubes_2017.php:75
 #: modules/competiciones/Trofeo_Interclubes_2017.php:76
 #: modules/competiciones/Trofeo_Interclubes_2017.php:79
@@ -3479,7 +3479,7 @@ msgstr "NombreLargo"
 msgid "Ex P"
 msgstr "Ex P"
 
-#: modules/competiciones/Selectiva_awc_RSCE.php:120
+#: modules/competiciones/Selectiva_awc_RSCE.php:128
 msgid "ExP"
 msgstr "Ex P"
 
@@ -5032,6 +5032,10 @@ msgstr "Datos de Licencia"
 #: server/excel/dog_writer.php:85
 msgid "Dog Listing"
 msgstr "Listado de perros"
+
+#: server/excel/inscription_reader.php:39
+msgid "Pay"
+msgstr "Pagado"
 
 #: server/excel/inscription_writer.php:82
 msgid "Inscription List"

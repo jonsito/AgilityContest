@@ -36,6 +36,7 @@ class InscriptionReader extends DogReader {
     protected $jornadas;
 
     public function __construct($name,$pruebaID,$options) {
+        $pay=_('Pay'); // stupid poedit
         $this->myDBObject = new DBObject($name);
         $this->prueba=$this->myDBObject->__selectAsArray("*","Pruebas","ID=$pruebaID");
         if (!is_array($this->prueba))
@@ -49,7 +50,7 @@ class InscriptionReader extends DogReader {
             'Comments' =>array (  -18,  -1, "s", "Observaciones", " `Observaciones` varchar(255) NOT NULL DEFAULT '', "), // comentarios, opcional
             'Pay' =>     array (  -19,  -1, "i", "Pagado", " `Pagado` int(4) NOT NULL DEFAULT 0, "), // pagadol, opcional
             'Journeys' =>array (  -20,   0, "i", "Jornadas", " `Jornadas` int(4) NOT NULL DEFAULT 0, "), // jornadas. to evaluate
-            'Orden' =>   array (  -21,   0, "i", "Orden", " `Orden` int(4) NOT NULL DEFAULT 0, "), // orden, to evaluate
+            'Order' =>   array (  -21,   0, "i", "Orden", " `Orden` int(4) NOT NULL DEFAULT 0, "), // orden, to evaluate
         );
         foreach ($inscList as $key => $data) $this->fieldList[$key]=$data;
 
@@ -141,7 +142,7 @@ class InscriptionReader extends DogReader {
 
                 // make inscription
                 $idperro=$item['DogID'];
-                $pagado=$item['Pagado'];
+                $pagado=intval($item['Pagado']);
                 $celo = intval(trim($item['Celo']));
                 $obs=mysqli_real_escape_string($this->myDBObject->conn,$item['Observaciones']);
                 $newdorsal=intval($item['Dorsal']);
