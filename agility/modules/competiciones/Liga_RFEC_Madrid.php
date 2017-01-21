@@ -149,7 +149,12 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         $pfin="0";
         // en madrid se permite puntuar por conjunta los perros que tengan una manga a eliminado/NC
         // no obstante, si eliminado en ambas mangas no puntua
-        if ( ($perro['P1']>=100.0) || ($perro['P2']>=100.0) ) {
+        if ( ($perro['P1']>=100.0) && ($perro['P2']>=100.0) ) {
+            $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
+            return;
+        }
+        // si en alguna manga no se presenta, tampoco puntua en conjunta
+        if ( ($perro['P1']>=200.0) || ($perro['P2']>=200.0) ) {
             $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
             return;
         }
