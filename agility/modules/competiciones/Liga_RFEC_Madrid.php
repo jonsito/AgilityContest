@@ -72,9 +72,9 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
             $perro['Calificacion'] = _("Eliminated");
             $perro['CShort'] = _("Elim");
         }
-        else if ($perro['Penalizacion']>=26)	{ // en madrid, los NC puntuan tambien
-            $perro['Calificacion'] = _("Not Clasified")." ".$pt1;
-            $perro['CShort'] = _("N.C.")." ".$pt1;
+        else if ($perro['Penalizacion']>=26)	{
+            $perro['Calificacion'] = _("Not Clasified");
+            $perro['CShort'] = _("N.C.");
         }
         else if ($perro['Penalizacion']>=16)	{
             $perro['Calificacion'] = _("Good")." ".$pt1;
@@ -149,7 +149,7 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         $pfin="0";
         // en madrid se permite puntuar por conjunta los perros que tengan una manga a eliminado/NC
         // no obstante, si eliminado en ambas mangas no puntua
-        if ( ($perro['P1']>=100.0) || ($perro['P2']>=100.0) ) {
+        if ( ($perro['P1']>=100.0) && ($perro['P2']>=100.0) ) {
             $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
             return;
         }
