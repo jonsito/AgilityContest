@@ -153,6 +153,12 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
             $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
             return;
         }
+        // En teoría un perro que no se presenta no debería puntuar en conjunta
+        // pero en madrid son así de raritos
+        // if ( ($perro['P1']>=200.0) || ($perro['P2']>=200.0) ) {
+        //    $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
+        //    return;
+        // }
         // evaluamos puesto real una vez eliminados los "extranjeros"
         $puesto=$puestocat[$cat]-$this->pfoffset[$cat];
         // si esta entre los 10 primeros cogemos los puntos
