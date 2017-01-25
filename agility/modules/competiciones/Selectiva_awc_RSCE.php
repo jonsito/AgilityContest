@@ -206,7 +206,6 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
         $pfin="0";
         if ( (trim($pt1)=="") || ($pt1==0) ) $pt1="-";
         if ( (trim($pt2)=="") || ($pt2==0) ) $pt2="-";
-        do_log("perro:{$perro['Nombre']} Pt1:'$pt1' Pt2:'$pt2'");
         if ( ($resultados[0]==null) || ($resultados[1]==null)) { // si falta alguna manga no puntua en conjunta
             $perro['Calificacion']= "$pt1 / $pt2 / -";
             return;
