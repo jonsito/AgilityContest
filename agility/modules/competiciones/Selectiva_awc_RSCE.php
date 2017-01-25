@@ -204,14 +204,16 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
         }
         // conjunta
         $pfin="0";
-        $pi=intval($pt1)+intval($pt2);
+        if ( (trim($pt1)=="") || ($pt1==0) ) $pt1="-";
+        if ( (trim($pt2)=="") || ($pt2==0) ) $pt2="-";
+        do_log("perro:{$perro['Nombre']} Pt1:'$pt1' Pt2:'$pt2'");
         if ( ($resultados[0]==null) || ($resultados[1]==null)) { // si falta alguna manga no puntua en conjunta
-            $perro['Calificacion']= "$pi / -";
+            $perro['Calificacion']= "$pt1 / $pt2 / -";
             return;
         }
         // si no tiene doble excelente no puntua en conjunta
         if ( ($perro['P1']>=6.0) || ($perro['P2']>=6.0) ) {
-            $perro['Calificacion']= "$pi / -";
+            $perro['Calificacion']= "$pt1 / $pt2 / -";
             return;
         }
         // evaluamos puesto real una vez eliminados los "extranjeros"
@@ -219,8 +221,7 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
         // si esta entre los 10 primeros cogemos los puntos
         if ($puesto<11) $pfin=$ptsglobal[$puesto-1];
         // y asignamos la calificacion final
-        $perro['Calificacion']="$pi / $pfin";
-
+        $perro['Calificacion']="$pt1 / $pt2 / $pfin";
         return; // should be overriden
     }
 }

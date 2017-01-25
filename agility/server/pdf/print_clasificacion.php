@@ -283,7 +283,7 @@ class PrintClasificacion extends PrintCommon {
             $this->SetFont($this->getFontName(),'',($wide)?6:8); // default font
             $this->Cell(($wide)?30:15,6,$row['Licencia'],0,0,'C',$fill);	// licencia
         }
-        $this->SetFont($this->getFontName(),'',8); // default font
+        $this->SetFont($this->getFontName(),'',7); // a bit little font to allow califications
 		if (Jornadas::hasGrades($this->jornada)) {
 			$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
 		} else {

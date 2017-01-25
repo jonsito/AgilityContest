@@ -302,7 +302,7 @@ function endsWith($haystack, $needle) {
 function retrieveFileFromURL($url) {
     // if enabled, use standard file_get_contents
     if (ini_get('allow_url_fopen') == true) {
-        $res=file_get_contents($url);
+        $res=@file_get_contents($url); // omit warning on faillure
         // on fail, try to use old way to retrieve data
         if ($res!==FALSE) return $res;
     }
