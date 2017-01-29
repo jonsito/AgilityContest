@@ -99,10 +99,10 @@ class EntrenamientosReader extends DogReader {
             $item=$row[$val[0]];
             switch ($key){
                 case 'Club':
-                    $club=mysqli_real_escape_string($this->myDBObject->conn,$item);
+                    $club=$this->myDBObject->conn->real_escape_string($item);
                     break;
                 case 'Country':
-                    $a=mysqli_real_escape_string($this->myDBObject->conn,$item);
+                    $a=$this->myDBObject->conn->real_escape_string($item);
                     $str2.="'{$a}', ";
                     if ($club==="") $club=$a; // by default assume club= country until defined
                     break;
@@ -135,7 +135,7 @@ class EntrenamientosReader extends DogReader {
                 default:
                     switch ($val[2]) {
                         case "s": // string
-                            $a=mysqli_real_escape_string($this->myDBObject->conn,$item);
+                            $a=$this->myDBObject->conn->real_escape_string($item);
                             $str2.="'{$a}', ";
                             break;
                         case "i":
@@ -152,7 +152,7 @@ class EntrenamientosReader extends DogReader {
                             break;
                         default:
                             // escape to avoid sql injection issues
-                            $a=mysqli_real_escape_string($this->myDBObject->conn,$item);
+                            $a=$this->myDBObject->conn->real_escape_string($item);
                             $str2 .= " {$a}, ";
                     }
             }

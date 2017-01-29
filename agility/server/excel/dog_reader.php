@@ -142,7 +142,7 @@ class DogReader {
             for($index=0; $index<count($header); $index++) {
                 $name=$header[$index];
                 $name=preg_replace('/\s+/', '', $name);
-                $name=mysqli_real_escape_string($this->myDBObject->conn,$name);
+                $name=$this->myDBObject->conn->real_escape_string($name);
                 // search by index or by _(index). Try to take care on special chars
                 if ( ($name==$toSearch) || ($name==_utf($toSearch))) {
                     $this->myLogger->trace("Found key $name at index $index");
@@ -206,7 +206,7 @@ class DogReader {
             }
             switch ($val[2]) {
                 case "s": // string
-                    $a=mysqli_real_escape_string($this->myDBObject->conn,$item);
+                    $a=$this->myDBObject->conn->real_escape_string($item);
                     $str2.="'{$a}', ";
                     break;
                 case "i":
@@ -223,7 +223,7 @@ class DogReader {
                     break;
                 default:
                     // escape to avoid sql injection issues
-                    $a=mysqli_real_escape_string($this->myDBObject->conn,$item);
+                    $a=$this->myDBObject->conn->real_escape_string($item);
                     $str2 .= " {$a}, ";
             }
         }

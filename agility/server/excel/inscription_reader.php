@@ -63,7 +63,7 @@ class InscriptionReader extends DogReader {
             $name=$jornada['Nombre'];
             if ($name==="-- Sin asignar --") continue;
             else $name=preg_replace('/\s+/', '', $name); // remove spaces to get friendly with database field naming
-            $name=mysqli_real_escape_string($this->myDBObject->conn,$name); // escape to avoid SQL injection
+            $name=$this->myDBObject->conn->real_escape_string($name); // escape to avoid SQL injection
             $key="Jornada:".$jornada['Numero'];
             $this->fieldList[$key]= array( $index,1,"s",$name," `$name` varchar(255) NOT NULL DEFAULT '', ");
             $index--;
@@ -93,7 +93,7 @@ class InscriptionReader extends DogReader {
             // if team journey retrieve all team names and create them
             $jname=$jornada['Nombre'];
             $jname=preg_replace('/\s+/', '', $jname); // remove spaces to get friendly with database field naming
-            $jname=mysqli_real_escape_string($this->myDBObject->conn,$jname); // escape to avoid SQL injection
+            $jname=$this->myDBObject->conn->real_escape_string($jname); // escape to avoid SQL injection
 
             $this->saveStatus("Creating teams for Journey: $jname");
             // select distinct jornadaname from temporary tabla where jornadaname!="" group by jornadaname
@@ -144,7 +144,7 @@ class InscriptionReader extends DogReader {
                 $idperro=$item['DogID'];
                 $pagado=intval($item['Pagado']);
                 $celo = intval(trim($item['Celo']));
-                $obs=mysqli_real_escape_string($this->myDBObject->conn,$item['Observaciones']);
+                $obs=$this->myDBObject->conn->real_escape_string($item['Observaciones']);
                 $newdorsal=intval($item['Dorsal']);
                 $insc=new Inscripciones("excelImport",$this->prueba['ID']);
                 $dorsal=$insc->realInsert($idperro,$this->prueba['ID'],$jornadas,$pagado,$celo,$obs);

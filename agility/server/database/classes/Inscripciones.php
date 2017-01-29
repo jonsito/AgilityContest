@@ -642,7 +642,7 @@ class Inscripciones extends DBObject {
                 foreach($resultados['rows'] as &$resultado) {
                     unset($resultado['ID']);// remove id field
                     // scape strings
-                    foreach($resultado as &$field) if (is_string($field)) $field=mysqli_real_escape_string($this->conn,$field);
+                    foreach($resultado as &$field) if (is_string($field)) $field=$this->conn->real_escape_string($field);
                     $resultado['Jornada']=$jornada;
                     $resultado['Manga']=$t['ID'];
                     $resultado['Equipo']=$teamlistByID[$resultado['Equipo']];

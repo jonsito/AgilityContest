@@ -93,13 +93,14 @@ class Selectiva_eo_RSCE extends Selectiva_awc_RSCE {
     function canReceivePoints($club){
         // create and handle an club->country array cache
         if (!array_key_exists($club,$this->countries)) {
-            $str="SELECT Pais FROM Clubes WHERE Nombre=$club";
+            $c=$this->myDBObject->conn->real_escape_string($club);
+            $str="SELECT Pais FROM Clubes WHERE ( Nombre = '$c' )";
             $res=$this->myDBObject->query($str);
             if (!$res) {
                 $this->myDBObject->error($this->myDBObject->conn->error);
                 return false;
             }
-            $row = $res->fetch_array(MYSQLI_NUM);
+            $row = $res->fetch_array(MYSQLI_ASSOC);
             if (!$row) {
                 do_log("EuropeanOpen::canReceivePoints() no country for club $club");
                 return false;
