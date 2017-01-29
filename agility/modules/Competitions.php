@@ -171,9 +171,10 @@ class Competitions {
      * provided $prueba/$jornada/$manga
      * @param {object} $manga Round data and trs parameters
      * @param {array} $data Original results provided for evaluation
+     * @param {integer} $mode to evaluate which categories are to be used
      * @return {array} final data to be used to evaluate trs/trm
      */
-    public function checkAndFixTRSData($manga,$data) {
+    public function checkAndFixTRSData($manga,$data,$mode=0) {
         // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
         // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
         // manga actual, sino de la manga padre.

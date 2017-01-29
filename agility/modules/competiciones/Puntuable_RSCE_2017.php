@@ -58,9 +58,10 @@ class Puntuable_RSCE_2017 extends Competitions {
      * provided $prueba/$jornada/$manga
      * @param {object} $manga Round data and trs parameters
      * @param {array} $data Original results provided for evaluation
+     * @param {integer} $mode which categories have to be selected
      * @return {array} final data to be used to evaluate trs/trm
      */
-    public function checkAndFixTRSData($manga,$data) {
+    public function checkAndFixTRSData($manga,$data,$mode=0) {
         // remember that prueba,jornada and manga are objects, so passed by reference
         $this->prueba->Selectiva = 0; // not really required, just to be sure
         return $data;

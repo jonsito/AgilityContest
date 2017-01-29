@@ -148,7 +148,7 @@ class Resultados extends DBObject {
         // manga actual, sino de la manga padre.
         // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
         $comp=$this->getDatosCompeticion();
-        $data=$comp->checkAndFixTRSData($this->getDatosManga(),$data);
+        $data=$comp->checkAndFixTRSData($this->getDatosManga(),$data,$mode);
 		$result= array();
 		// vemos de donde tenemos que tomar los datos
 		$suffix='L';

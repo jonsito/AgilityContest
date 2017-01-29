@@ -1,7 +1,7 @@
 <?php
 
 /*
-Selectiva_awc_RSCE.php
+Selectiva_eo_RSCE.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -16,36 +16,27 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program;
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
-class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
+class Selectiva_eo_RSCE extends Selectiva_awc_RSCE {
 
-    protected $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
-    protected $pfoffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
+    protected $myDBObject;
+    protected $countries;
+    /*
+     La selectiva para el European Open tiene las mismas caracteristicas que una selectiva para el awc-fci
+     con los siguientes cambios:
+    - Los perros con y sin loe puntuan
+    - Los perros extranjeros NO puntuan
+    - No hay puntuacion por manga conjunta
+    - Se utilizan los resultados de la selectiva awc correspondiente
 
-    function __construct($name="Prueba selectiva AWC 2017") {
-        parent::__construct($name);
-        $this->federationID=0;
-        $this->competitionID=1;
-    }
-
-    /**
-     * Provide default TRS/TRM/Recorrido values for a given competitiona at
-     * Round creation time
-     * @param {integer} $tipo Round tipe as declared as Mangas::TipoManga
-     * @return {array} trs array or null if no changes
+    En cristiano: es una jornada subordinada de la selectiva, en la que participan todos los perros de grado III
      */
-    public function presetTRSData($tipo) {
-        if ( ($tipo!=6) && ($tipo!=11) ) return null; // Not grade 3, no preset
-        $manga=array();
-        $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
-        $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=0;$manga['TRS_L_Unit']='s'; // best dog + 0s no roundup
-        $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;$manga['TRM_L_Unit']='%'; // trs + 50 %
-        $manga['TRS_M_Tipo']=1;$manga['TRS_M_Factor']=0;$manga['TRS_M_Unit']='s';
-        $manga['TRM_M_Tipo']=1;$manga['TRM_M_Factor']=50;$manga['TRM_M_Unit']='%';
-        $manga['TRS_S_Tipo']=1;$manga['TRS_S_Factor']=0;$manga['TRS_S_Unit']='s';
-        $manga['TRM_S_Tipo']=1;$manga['TRM_S_Factor']=50;$manga['TRM_S_Unit']='%';
-        $manga['TRS_T_Tipo']=1;$manga['TRS_T_Factor']=0;$manga['TRS_T_Unit']='s'; // not used but required
-        $manga['TRM_T_Tipo']=1;$manga['TRM_T_Factor']=50;$manga['TRM_T_Unit']='%';
-        return $manga;
+
+    function __construct() {
+        parent::__construct("Selectiva European Open 2017");
+        $this->myDBObject=new DBObject("EuropeanOpen::construct");
+        $this->countries=array(); // array ( nombreclub => pais
+        $this->federationID=0;
+        $this->competitionID=6;
     }
 
     /**
@@ -57,42 +48,66 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
      * @return {array} final data to be used to evaluate trs/trm
      */
     public function checkAndFixTRSData($manga,$data,$mode=0) {
-        // just mark contest as selective.
-        // it's overriden by European open declaration
         // remember that prueba,jornada and manga are objects, so passed by reference
+        $cat="";
+        switch ($mode) { // en el EO solo puede valer 0,1,2, pero bueno...
+            case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
+            case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
+            case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
+            case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
+            case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
+            case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
+            case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
+            case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
+            case 8: /* L+M+S+T */	break; // no check categoria
+            default: return $this->error("modo de recorrido desconocido:$mode");
+        }
+        // fase 0: buscamos la jornada padre
         $this->prueba->Selectiva = 1; // not really required, just to be sure
-        return $data;
+        $parent=intval($this->jornada->SlaveOf);
+        if ($parent==0) return $data;
+
+        // fase 1: cogemos todos los resultados de standard grado III de la manga padre
+        $res=$this->myDBObject->__select(
+            /* SELECT */ "Perro, Mangas.Tipo AS Tipo, GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,Tiempo",
+            /* FROM */   "Resultados,Mangas",
+            /* WHERE */  "(Resultados.Manga=Mangas.ID) AND (Pendiente=0) AND (Resultados.Jornada=$parent) AND (Resultados.Grado='GIII') $cat",
+            /* ORDER BY */" PRecorrido ASC, Tiempo ASC",
+            /* LIMIT */  ""
+        );
+        // fase 2: eliminamos aquellos que no coincidan con el tipo de manga (agility/jumping)
+        $tipo=Mangas::$tipo_manga[$manga->Tipo][5]; // vemos si estamos en agility o jumping
+        $result=array();
+        foreach ($res['rows'] as $row ) {
+            if (Mangas::$tipo_manga[$row['Tipo']][5] != $tipo) continue;
+            $result[]=$row; // tipo coincide. anyadimos al resultado. Recuerda que ya estan ordenados
+        }
+        // finalmente retornamos el resultado
+        return $result;
     }
 
     /**
-     * Starting at 2017 season license naming convention changed. Now there is no way to detect
-     * if a dog is registered in LOE/RRC by just looking at license number
-     *
-     * So we use a different approach
-     * - On startup modify database to make sure that every dog with old license style has LOE/RRC
-     * - if not, create a dummy LOE/RRC entry
-     * - Change this code to check LOE/RRC instead of license number
-     * @param $loe Inscription number for LOE/RRC. In old style licences may have fake values
+     * Every National GIII dogs can get points for European Open
+     * So this function must discriminate comes or not from Spain
      */
-    function canReceivePoints($loe){
-        $loe=strval($loe);
-        // remove dots, spaces and dashes
-        $loe=str_replace(" ","",$loe);
-        $loe=str_replace("-","",$loe);
-        $loe=str_replace(".","",$loe);
-        $loe=strtoupper($loe);
-        return ($loe!="")?true:false;
-        /*
-        if (strlen($loe)<4) {
-            if (is_numeric($loe)) return true; // licenses from 0 to 999
-            return false;
+    function canReceivePoints($club){
+        // create and handle an club->country array cache
+        if (!array_key_exists($club,$this->countries)) {
+            $str="SELECT Pais FROM Clubes WHERE Nombre=$club";
+            $res=$this->myDBObject->query($str);
+            if (!$res) {
+                $this->myDBObject->error($this->myDBObject->conn->error);
+                return false;
+            }
+            $row = $res->fetch_array(MYSQLI_NUM);
+            if (!$row) {
+                do_log("EuropeanOpen::canReceivePoints() no country for club $club");
+                return false;
+            }
+            $this->countries[$club]=$row['Pais'];
         }
-        if (substr($loe,0,1)=='0') return true; // 0000 to 9999
-        if (substr($loe,0,1)=='A') return true; // A000 to A999
-        if (substr($loe,0,1)=='B') return true; // B000 to B999
-        if (substr($loe,0,1)=='C') return true; // C000 to C999
+        if( ($this->countries[$club]==="ESP") || ($this->countries[$club]==="Spain")) return true;
         return false;
-        */
     }
 
     /**
@@ -116,8 +131,8 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
-        // comprobamos si el perro es mestizo
-        if (! $this->canReceivePoints($perro['LOE_RRC']) ) { // perro mestizo o extranjero no puntua
+        // comprobamos si el perro es extranjero
+        if (! $this->canReceivePoints($perro['NombreClub']) ) { // perro extranjero no puntua
             $this->poffset[$perro['Categoria']]++; // mark to skip point assignation
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
@@ -130,7 +145,7 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
-        // si llegamos aqui tenemos los 10 primeros perros una prueba selectiva en grado 3 con un perro no mestizo que ha sacado excelente :-)
+        // si llegamos aqui tenemos los 10 primeros perros una prueba selectiva EO en grado 3 con un perro no extranjero que ha sacado excelente :-)
         $pt1=$pts[$puesto-1];
         if ($perro['Penalizacion']>0)	{
             $perro['Calificacion'] = _("Excellent")." $pt1";
@@ -163,6 +178,9 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
 
     /**
      * Evalua la calificacion final del perro
+     * En las selectivas para el European Open, no hay clasificacion conjunta
+     * Por lo que simplemente vamos a indicar la puntuacion en cada manga
+     *
      * @param {array} $mangas informacion {object} de las diversas mangas
      * @param {array} $resultados informacion {array} de los resultados de cada manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
@@ -187,23 +205,15 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
             parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
         }
-        // arriving here means prueba selectiva and Grado III
-        if ( ! $this->canReceivePoints($perro['LOE_RRC']) ) {  // comprobamos si el perro es mestizo o extranjero
+        // arriving here means prueba selectiva European Open and Grado III
+        if ( ! $this->canReceivePoints($perro['NombreClub']) ) {  // comprobamos si el perro es extranjero
             $this->pfoffset[$perro['Categoria']]++; // mark to skip point assignation
             // parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             $perro['Calificacion']= "No puntua";
             return;
         }
-
-        // en la temporada 2017 el trs para individual y equipos es el mismo
-        // la calificacion conjunta no puntua por individual, solo por equipos
-        // lo que se pondrá como calificacion es X / Y
-        // donde X es la suma de las calificaciones individuales
-        //       Y es la clasificacion por equipos
-        // solo puntuan por conjunta los 10 primeros perros no mestizos/extranjeros que tengan doble excelente
-
-        $ptsglobal = array("20", "16", "12", "8", "7", "6", "4", "3", "2", "1"); //puestos por general (si excelentes en ambas mangas)
-
+        // llegando aqui tenemos perro no extranjero que ha obtenido excelente en ambas mangas
+        // imprimimos los resultados de cada manga. NO HAY puntuacion por conjunta
         // manga 1
         $pt1 = "0";
         if ($resultados[0] != null) { // extraemos los puntos de la primera manga
@@ -216,25 +226,7 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
             $x=trim(substr($perro['C2'],-2));
             $pt2=(is_numeric($x))?$x:"0";
         }
-        // conjunta
-        $pfin="0";
-        if ( (trim($pt1)=="") || ($pt1==0) ) $pt1="-";
-        if ( (trim($pt2)=="") || ($pt2==0) ) $pt2="-";
-        if ( ($resultados[0]==null) || ($resultados[1]==null)) { // si falta alguna manga no puntua en conjunta
-            $perro['Calificacion']= "$pt1 / $pt2 / -";
-            return;
-        }
-        // si no tiene doble excelente no puntua en conjunta
-        if ( ($perro['P1']>=6.0) || ($perro['P2']>=6.0) ) {
-            $perro['Calificacion']= "$pt1 / $pt2 / -";
-            return;
-        }
-        // evaluamos puesto real una vez eliminados los "extranjeros"
-        $puesto=$puestocat[$perro['Categoria']]-$this->pfoffset[$perro['Categoria']];
-        // si esta entre los 10 primeros cogemos los puntos
-        if ($puesto<11) $pfin=$ptsglobal[$puesto-1];
-        // y asignamos la calificacion final
-        $perro['Calificacion']="$pt1 / $pt2 / $pfin";
-        return; // should be overriden
+        $perro['Calificacion']= "$pt1 / $pt2";
+        return;
     }
 }

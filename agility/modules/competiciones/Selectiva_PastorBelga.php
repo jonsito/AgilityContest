@@ -195,10 +195,10 @@ class Selectiva_PastorBelga extends Competitions {
      * provided $prueba/$jornada/$manga
      * @param {object} $manga Round data and trs parameters
      * @param {array} $data Original results provided for evaluation
+     * @param {integer} $mode which categories must be selected
      * @return {array} final data to be used to evaluate trs/trm
      */
-    function checkAndFixTRSData($manga,$data) {
-        do_log("checkAndFixTRSData: enter()");
+    function checkAndFixTRSData($manga,$data,$mode=0) {
         /*
          * El TRS de una selectiva de PB es el la media de los tres mejores perros
          * de grado II y III de _cualquier_raza_ de la prueba RSCE asociada
@@ -213,6 +213,7 @@ class Selectiva_PastorBelga extends Competitions {
         if ($parent==0) return $data;
         $myDBObject=new DBObject("checkAndFixTRSData");
         // fase 1: cogemos todos los resultados de standard grado II y III de la manga padre
+        // como no hay pastores belga mini o midi, no hace falta checkar la categoria :-), so $mode is not used
         $res=$myDBObject->__select(
             /* SELECT */ "Perro, Mangas.Tipo AS Tipo, GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,Tiempo",
             /* FROM */   "Resultados,Mangas",
