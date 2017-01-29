@@ -48,7 +48,7 @@ $config =Config::getInstance();
    	</div>
    	
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE Usuarios -->
-    <div id="usuarios-dialog" style="width:550px;height:300px;padding:10px 20px">
+    <div id="usuarios-dialog" style="width:450px;height:350px;padding:10px 20px">
         <div class="ftitle"><?php _e('User information'); ?></div>
         <form id="usuarios-form" method="get">
             <div class="fitem">
@@ -70,6 +70,10 @@ $config =Config::getInstance();
             <div class="fitem">
                 <label for="usuarios-Email"><?php _e('Electronic mail'); ?></label>
                 <input id="usuarios-Email" class="easyui-validatebox" name="Email" type="text" style="width:250px" />
+            </div>
+            <div class="fitem">
+                <label for="usuarios-Club"><?php _e('Club'); ?>:</label>
+                <select id="usuarios-Club" name="Club" style="width:200px"></select>
             </div>
             <div class="fitem">
                 <label for="usuarios-Perms"><?php _e('Category'); ?></label>
@@ -119,7 +123,25 @@ $config =Config::getInstance();
             required: false,
             validType: 'email'
         });
-
+        $('#usuarios-Club').combogrid({
+            panelWidth: 350,
+            panelHeight: 200,
+            idField: 'ID',
+            textField: 'Nombre',
+            url: '/agility/server/database/clubFunctions.php',
+            queryParams: {Operation:'enumerate',Federation:workingData.federation},
+            method: 'get',
+            mode: 'remote',
+            required: true,
+            columns: [[
+                {field:'ID', hidden:true},
+                {field:'Nombre',title:'<?php _e('Club name'); ?>',width:80,align:'right'},
+                {field:'Provincia',title:'<?php _e('Province'); ?>',width:40,align:'right'}
+            ]],
+            multiple: false,
+            fitColumns: true,
+            selectOnNavigation: false
+        });
      	// bind enter key on password dialog
         $('#password-CurrentPassword').bind('keypress', function (evt) {
             if (evt.keyCode != 13) return true;

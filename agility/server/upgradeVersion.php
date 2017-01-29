@@ -459,6 +459,7 @@ try {
     $upg->populateTeamMembers();
     $upg->addAgility3Grade1();
     $upg->fixLOERRC2017();
+    $upg->addColumnUnlessExists("Usuarios", "Club", "int(4)", "1");
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }

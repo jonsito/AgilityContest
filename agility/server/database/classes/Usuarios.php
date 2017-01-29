@@ -37,14 +37,15 @@ class Usuarios extends DBObject {
 		$gecos =	http_request("Gecos","s",null,false);
 		$phone =	http_request("Phone","s",null,false);
 		$email = 	http_request("Email","s",null,false);
-		$perms= 	http_request("Perms","i",0);
+        $club = 	http_request("Club","i",1);
+        $perms= 	http_request("Perms","i",0);
 
-		$this->myLogger->debug("Login: '$login' Gecos: '$gecos' Phone: '$phone' Email: '$email' Perms: $perms");
+		$this->myLogger->debug("Login: '$login' Gecos: '$gecos' Phone: '$phone' Email: '$email' Club: '$club' Perms: $perms");
 		// componemos un prepared statement
-		$sql ="INSERT INTO Usuarios (Login,Password,Gecos,Phone,Email,Perms) VALUES(?,'--UNDEF--',?,?,?,?)";
+		$sql ="INSERT INTO Usuarios (Login,Password,Gecos,Phone,Email,Club,Perms) VALUES(?,'--UNDEF--',?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('ssssi',$login,$gecos,$phone,$email,$perms);
+		$res=$stmt->bind_param('ssssii',$login,$gecos,$phone,$email,$club,$perms);
 		if (!$res) return $this->error($this->conn->error);
 
 		
@@ -70,15 +71,16 @@ class Usuarios extends DBObject {
 		$login =	http_request("Login","s",null,false); // pkey not null
 		$gecos =	http_request("Gecos","s",null,false);
 		$phone =	http_request("Phone","s",null,false);
-		$email = 	http_request("Email","s",null,false);
+        $email = 	http_request("Email","s",null,false);
+        $club = 	http_request("Club","i",1);
 		$perms= 	http_request("Perms","i",0);
-		$this->myLogger->debug("Login: '$login' Gecos: '$gecos' Phone: '$phone' Email: '$email' Perms: $perms");
+		$this->myLogger->debug("Login: '$login' Gecos: '$gecos' Phone: '$phone' Email: '$email' Club: '$club' Perms: $perms");
 
 		// componemos un prepared statement
-		$sql ="UPDATE Usuarios SET Login=? , Gecos=? , Phone=? , Email=? , Perms=? WHERE ( ID=$id )";
+		$sql ="UPDATE Usuarios SET Login=? , Gecos=? , Phone=? , Email=? , Club=?, Perms=? WHERE ( ID=$id )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('ssssi',$login,$gecos,$phone,$email,$perms);
+		$res=$stmt->bind_param('ssssii',$login,$gecos,$phone,$email,$club,$perms);
 		if (!$res) return $this->error($this->conn->error);
 		
 		// invocamos la orden SQL y devolvemos el resultado
@@ -140,11 +142,11 @@ class Usuarios extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		$where = "(Login != 'root') "; // hide root user to app
+		$where = "(Login != 'root') AND (Clubes.ID=Usuarios.Club)"; // hide root user to app. Add club name
 		if ($search!=='') $where=" AND ( (Login LIKE '%$search%') OR ( Gecos LIKE '%$search%' ) OR ( Email LIKE '%$search%') ) ";
 		$result=$this->__select(
-				/* SELECT */ "*",
-				/* FROM */ "Usuarios",
+				/* SELECT */ "Usuarios.*,Clubes.Nombre AS NombreClub",
+				/* FROM */ "Usuarios,Clubes",
 				/* WHERE */ $where,
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
@@ -157,11 +159,11 @@ class Usuarios extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
-		$where="";
-		if ($q!=="") $where="Login LIKE '%".$q."%'";
+		$where="(Clubes.ID=Usuarios.Club)";
+		if ($q!=="") $where="AND (Login LIKE '%".$q."%')";
 		$result=$this->__select(
-				/* SELECT */ "*",
-				/* FROM */ "Usuarios",
+				/* SELECT */ "Usuarios.*,Clubes.Nombre as NombreClub",
+				/* FROM */ "Usuarios.Clubes",
 				/* WHERE */ $where,
 				/* ORDER BY */ "Login ASC",
 				/* LIMIT */ ""

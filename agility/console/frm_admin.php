@@ -136,11 +136,13 @@ $config =Config::getInstance();
     remoteSort: true,
     columns: [[
         { field:'ID',		hidden:true },
-        { field:'Login',	width:25, sortable:true,	title:'Login' },
-     	{ field:'Gecos',	width:55, sortable:true,	title:'<?php _e('Information'); ?>' },
-     	{ field:'Phone',	width:20, 					title:'<?php _e('Telephone'); ?>' },
-     	{ field:'Email',	width:30, sortable:true,   	title:'E-mail' },
-        { field:'Perms',	width:20,					title:'<?php _e('Category'); ?>', formatter:formatPermissions }
+        { field:'Login',	width:15, sortable:true,	title:'Login' },
+     	{ field:'Gecos',	width:30, sortable:true,	title:'<?php _e('Information'); ?>' },
+     	{ field:'Phone',	width:10, 					title:'<?php _e('Telephone'); ?>' },
+        { field:'Email',	width:20, sortable:true,   	title:'E-mail' },
+        { field:'Club',		hidden:true },
+        { field:'NombreClub', width:20, sortable:true,   	title:'<?php _e('Club')?>' },
+        { field:'Perms',	width:15,					title:'<?php _e('Category'); ?>', formatter:formatPermissions }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,
