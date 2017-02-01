@@ -166,7 +166,7 @@ function parseGender($gender) {
  * @return L,M,S,T,- detected category
  */
 function parseCategory($cat) {
-	static $l = array('l','large','standard','std','60','6');
+	static $l = array('l','large','standard','estandar','std','60','6');
 	static $m = array('m','medium','midi','mid','med','50','5');
 	static $s = array('s','small','mini','min','40','4');
 	static $t = array('t','enano','tiny','toy','30','3','20','2'); // include junior as toy

@@ -206,7 +206,7 @@ class DogReader {
             }
             switch ($val[2]) {
                 case "s": // string
-                    $a=$this->myDBObject->conn->real_escape_string($item);
+                    $a=$this->myDBObject->conn->real_escape_string(trim($item));
                     $str2.="'{$a}', ";
                     break;
                 case "i":
@@ -223,7 +223,7 @@ class DogReader {
                     break;
                 default:
                     // escape to avoid sql injection issues
-                    $a=$this->myDBObject->conn->real_escape_string($item);
+                    $a=$this->myDBObject->conn->real_escape_string(trim($item));
                     $str2 .= " {$a}, ";
             }
         }
