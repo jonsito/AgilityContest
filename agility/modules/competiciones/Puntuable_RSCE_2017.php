@@ -87,8 +87,8 @@ class Puntuable_RSCE_2017 extends Competitions {
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
-        $perro['Calificacion'] = _("Excellent")." Pt";
-        $perro['CShort'] = "Ex Pt";
+        $perro['Calificacion'] = _("Excellent")." P.";
+        $perro['CShort'] = "Ex P.";
         $perro['Puntos'] = 1;
         $perro['Estrellas'] = 0;
         foreach ( $this->puntos as $item) {
