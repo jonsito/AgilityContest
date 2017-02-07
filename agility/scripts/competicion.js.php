@@ -181,6 +181,16 @@ function getMangaModeString(fed,recorrido,categoria) {
 }
 
 /**
+ * Evaluate if possible and repaint timespeed readonly input box for each category
+ */
+function dmanga_evalTimeSpeed() {
+    $("#dmanga_TRS_L_TimeSpeed").val("ts_L");
+    $("#dmanga_TRS_M_TimeSpeed").val("ts_M");
+    $("#dmanga_TRS_S_TimeSpeed").val("ts_S");
+    $("#dmanga_TRS_T_TimeSpeed").val("ts_T");
+}
+
+/**
  * repaint manga information acording federation and course mode
  */
 function dmanga_setRecorridos() {
@@ -280,6 +290,7 @@ function dmanga_setRecorridos() {
         $('#dmanga_TRM_T_Tipo').val(trm_tipo);
         $('#dmanga_TRM_T_Factor').val(trm_factor);
     }
+    dmanga_evalTimeSpeed(); // reevaluate time/speed readonly input box
 }
 
 function dmanga_shareJuez() {
@@ -328,11 +339,8 @@ function save_manga(id) {
     			var recorrido=$("input:radio[name=Recorrido]:checked").val();
     			$.messager.alert('<?php _e('Data saved'); ?>','<?php _e('Data on current round stored'); ?>','info');
     			workingData.datosManga.Recorrido=recorrido;
-    			// update tspeed values
-                $("#dmanga_TRS_L_TimeSpeed").val(result.trs.TRS_L_TimeSpeed);
-                $("#dmanga_TRS_M_TimeSpeed").val(result.trs.TRS_M_TimeSpeed);
-                $("#dmanga_TRS_S_TimeSpeed").val(result.trs.TRS_S_TimeSpeed);
-                $("#dmanga_TRS_T_TimeSpeed").val(result.trs.TRS_T_TimeSpeed);
+    			// update tspeed value
+                dmanga_evalTimeSpeed();
                 // refresh result window if required
     			setupResultadosWindow(recorrido);
             }
