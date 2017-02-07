@@ -328,6 +328,12 @@ function save_manga(id) {
     			var recorrido=$("input:radio[name=Recorrido]:checked").val();
     			$.messager.alert('<?php _e('Data saved'); ?>','<?php _e('Data on current round stored'); ?>','info');
     			workingData.datosManga.Recorrido=recorrido;
+    			// update tspeed values
+                $("#dmanga_TRS_L_TimeSpeed").val(result.trs.TRS_L_TimeSpeed);
+                $("#dmanga_TRS_M_TimeSpeed").val(result.trs.TRS_M_TimeSpeed);
+                $("#dmanga_TRS_S_TimeSpeed").val(result.trs.TRS_S_TimeSpeed);
+                $("#dmanga_TRS_T_TimeSpeed").val(result.trs.TRS_T_TimeSpeed);
+                // refresh result window if required
     			setupResultadosWindow(recorrido);
             }
         }

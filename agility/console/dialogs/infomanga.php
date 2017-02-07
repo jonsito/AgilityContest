@@ -92,7 +92,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
                 <input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
 			<!-- datos para TRS standard -->
-			<td colspan="2">
+			<td>
                 <label for="dmanga_TRS_L_Tipo"></label>
 				<select id="dmanga_TRS_L_Tipo" name="TRS_L_Tipo"
 						onChange="round_setUnit(this.value,'#dmanga_TRS_L_Unit');">
@@ -114,6 +114,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="m">m/s</option>
 				</select>
 			</td>
+            <td>
+                <input type="text" id="dmanga_TRS_L_TimeSpeed" name="TRS_L_TimeSpeed" readonly="readonly" disabled="disabled" size="4" value=""/>
+            </td>
 			<!-- datos para TRM standard -->
 			<td>
                 <label for="dmanga_TRM_L_Tipo"></label>
@@ -146,7 +149,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
                 <input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
 			<!-- datos para TRS medium -->
-			<td colspan="2">
+			<td>
                 <label for="dmanga_TRS_M_Tipo"></label>
 				<select id="dmanga_TRS_M_Tipo" name="TRS_M_Tipo"
 						onChange="round_setUnit(this.value,'#dmanga_TRS_M_Unit');">
@@ -169,6 +172,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="m">m/s</option>
 				</select>
 			</td>
+            <td>
+                <input type="text" id="dmanga_TRS_M_TimeSpeed" name="TRS_M_TimeSpeed" readonly="readonly" disabled="disabled" size="4" value=""/>
+            </td>
 			<!-- datos para TRM medium -->
 			<td>
                 <label for="dmanga_TRM_M_Tipo"></label>
@@ -201,7 +207,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
                 <input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
 			<!-- datos para TRS small -->
-			<td colspan="2">
+			<td>
                 <label for="dmanga_TRS_S_Tipo"></label>
 				<select id="dmanga_TRS_S_Tipo" name="TRS_S_Tipo"
 						onChange="round_setUnit(this.value,'#dmanga_TRS_S_Unit');">
@@ -226,6 +232,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="m">m/s</option>
 				</select>
 			</td>
+            <td>
+                <input type="text" id="dmanga_TRS_S_TimeSpeed" name="TRS_S_TimeSpeed" readonly="readonly" disabled="disabled" size="4" value=""/>
+            </td>
 			<!-- datos para TRM small -->
 			<td>
                 <label for="dmanga_TRM_S_Tipo"></label>
@@ -259,7 +268,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
                 <input type="text" id="dmanga_ObstT" name="Obst_T" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
 			<!-- datos para TRS tiny -->
-			<td colspan="2">
+			<td>
                 <label for="dmanga_TRS_T_Tipo"></label>
 				<select id="dmanga_TRS_T_Tipo" name="TRS_T_Tipo"
 						onChange="round_setUnit(this.value,'#dmanga_TRS_T_Unit');">
@@ -283,6 +292,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="m">m/s</option>
 				</select>
 			</td>
+            <td>
+                <input type="text" id="dmanga_TRS_T_TimeSpeed" name="TRS_T_TimeSpeed" readonly="readonly" disabled="disabled" size="4" value=""/>
+            </td>
 			<!-- datos para TRM tiny -->
 			<td>
                 <label for="dmanga_TRM_T_Tipo"></label>

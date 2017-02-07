@@ -17,7 +17,7 @@ class RFEC extends Federations {
             'International' => 0,
             'WideLicense' => true, // some federations need extra print space to show license ID
             'RoundsG1' => 3,
-            'Recorridos' => array('Common course',"Standard + Medium / Small + Toy","Separate courses"),
+            'Recorridos' => array('Common course',"Large+Medium / Small+Toy","Separate courses"),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja',

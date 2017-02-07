@@ -54,7 +54,7 @@ switch(http_request("tipo","s","std")) {
 
 	<!-- paneles de lista de mangas y datos de cada manga -->
 	<div id="competicion_infolayout" class="easyui-layout" style="height:400px">
-		<div data-options="region:'west',title:'<?php _e('Journey rounds');?>',split:true,collapsed:false" style="width:25%">
+		<div data-options="region:'west',title:'<?php _e('Journey rounds');?>',split:true,collapsed:false" style="width:23%">
 			<!-- Tabla que contiene la lista de Mangas de la jornada -->
 			<table id="competicion-listamangas" style="padding:50px"></table>
 		</div>
