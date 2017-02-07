@@ -115,7 +115,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
             <td>
-                <input type="text" id="dmanga_TRS_L_TimeSpeed" name="TRS_L_TimeSpeed" readonly="readonly" disabled="disabled" size="4" value=""/>
+                <input type="text" id="dmanga_TRS_L_TimeSpeed" name="TRS_L_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
             </td>
 			<!-- datos para TRM standard -->
 			<td>
@@ -173,7 +173,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
             <td>
-                <input type="text" id="dmanga_TRS_M_TimeSpeed" name="TRS_M_TimeSpeed" readonly="readonly" disabled="disabled" size="4" value=""/>
+                <input type="text" id="dmanga_TRS_M_TimeSpeed" name="TRS_M_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
             </td>
 			<!-- datos para TRM medium -->
 			<td>
@@ -233,7 +233,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
             <td>
-                <input type="text" id="dmanga_TRS_S_TimeSpeed" name="TRS_S_TimeSpeed" readonly="readonly" disabled="disabled" size="4" value=""/>
+                <input type="text" id="dmanga_TRS_S_TimeSpeed" name="TRS_S_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
             </td>
 			<!-- datos para TRM small -->
 			<td>
@@ -276,7 +276,8 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="1"><?php _e('Best result'); ?> + </option>
 				<option value="2"><?php _e('3 best average'); ?> + </option>
 				<option value="3"><?php _e('SCT Standard'); ?> + </option>
-				<option value="4"><?php _e('SCT Medium'); ?> + </option>
+                <option value="4"><?php _e('SCT Medium'); ?> + </option>
+                <option value="5"><?php _e('SCT Small'); ?> + </option>
 				<option value="6"><?php _e('Velocity'); ?> </option>
 				</select>
 			</td>
@@ -293,7 +294,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
             <td>
-                <input type="text" id="dmanga_TRS_T_TimeSpeed" name="TRS_T_TimeSpeed" readonly="readonly" disabled="disabled" size="4" value=""/>
+                <input type="text" id="dmanga_TRS_T_TimeSpeed" name="TRS_T_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
             </td>
 			<!-- datos para TRM tiny -->
 			<td>

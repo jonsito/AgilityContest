@@ -184,10 +184,126 @@ function getMangaModeString(fed,recorrido,categoria) {
  * Evaluate if possible and repaint timespeed readonly input box for each category
  */
 function dmanga_evalTimeSpeed() {
-    $("#dmanga_TRS_L_TimeSpeed").val("ts_L");
-    $("#dmanga_TRS_M_TimeSpeed").val("ts_M");
-    $("#dmanga_TRS_S_TimeSpeed").val("ts_S");
-    $("#dmanga_TRS_T_TimeSpeed").val("ts_T");
+    // fase 1: evaluamos datos de categoria Large
+    var d=parseInt($("#dmanga_DistL").val());
+    var f=parseFloat($("#dmanga_TRS_L_Factor").val());
+    var time_l=-1;
+    var speed_l=-1;
+    var tspeed_l="-";
+    switch ($("#dmanga_TRS_L_Tipo").val()) {
+        case "0": // tipo fijo X segundos
+            time_l= f; speed_l= (d==0)? 0: d/time_l; tspeed_l = toFixedT(speed_l,2)+" m/s";
+            break;
+        case "1": // mejor tiempo + xxx
+        case "2": // media 3 mejores + xxx
+            // use defaults
+            break;
+        case "6": // velocidad X metros por segundo
+            if (f!=0) {
+                speed_l= f; time_l= d/speed_l; tspeed_l = toFixedT(time_l,1)+" seg";
+            }
+            break;
+    }
+    $("#dmanga_TRS_L_TimeSpeed").val(tspeed_l);
+
+    // fase 2: evaluamos datos de categoria Medium
+    d=parseInt($("#dmanga_DistM").val());
+    f=parseFloat($("#dmanga_TRS_M_Factor").val());
+    var u=$("#dmanga_TRS_M_Unit").val();
+    var time_m=-1;
+    var speed_m=-1;
+    var tspeed_m="-";
+    switch ($("#dmanga_TRS_M_Tipo").val()) {
+        case "0": // tipo fijo X segundos
+            time_m= f; speed_m= (d==0)? 0: d/time_m; tspeed_m = toFixedT(speed_m,2)+" m/s";
+            break;
+        case "1": // mejor tiempo + xxx
+        case "2": // media 3 mejores + xxx
+            // use defaults
+            break;
+        case "3": // tiempo estandard + xxx
+            if ( tspeed_l != "-" ) {
+                time_m = ( 's' == u )? time_l+f :time_l * ((100.0+f)/100.0); speed_m= (d==0)? 0: d/time_m; tspeed_m= toFixedT(speed_m,2)+" m/s";
+            }
+            break;
+        case "6": // velocidad X metros por segundo
+            if (f!=0) {
+                speed_m= f; time_m= d/speed_m; tspeed_m = toFixedT(time_m,1)+" seg";
+            }
+            break;
+    }
+    $("#dmanga_TRS_M_TimeSpeed").val(tspeed_m);
+
+    // fase 3: evaluamos datos de categoria Small
+    d=parseInt($("#dmanga_DistS").val());
+    f=parseFloat($("#dmanga_TRS_S_Factor").val());
+    u=$("#dmanga_TRS_S_Unit").val();
+    var time_s=-1;
+    var speed_s=-1;
+    var tspeed_s="-";
+    switch ($("#dmanga_TRS_S_Tipo").val()) {
+        case "0": // tipo fijo X segundos
+            time_s= f; speed_s= (d==0)? 0: d/time_s; tspeed_s = toFixedT(speed_s,2)+" m/s";
+            break;
+        case "1": // mejor tiempo + xxx
+        case "2": // media 3 mejores + xxx
+            // use defaults
+            break;
+        case "3": // tiempo estandard + xxx
+            if ( tspeed_l != "-" ) {
+                time_s = ( 's' == u )? time_l+f :time_l * ((100.0+f)/100.0); speed_s= (d==0)? 0: d/time_m; tspeed_s= toFixedT(speed_m,2)+" m/s";
+            }
+            break;
+        case "4": // tiempo medium + xxx
+            if (tspeed_m!="-") {
+                time_s = ( 's' == u )? time_m+f :time_m * ((100.0+f)/100.0); speed_s= (d==0)? 0: d/time_s; tspeed_s= toFixedT(speed_s,2)+" m/s";
+            }
+            break;
+        case "6": // velocidad X metros por segundo
+            if (f!=0) {
+                speed_m= f; time_m= d/speed_m; tspeed_m = toFixedT(time_m,1)+" seg";
+            }
+            break;
+    }
+    $("#dmanga_TRS_S_TimeSpeed").val(tspeed_s);
+
+    // fase 4: evaluamos datos de categoria Toy
+    d=parseInt($("#dmanga_DistT").val());
+    f=parseFloat($("#dmanga_TRS_T_Factor").val());
+    u=$("#dmanga_TRS_T_Unit").val();
+    var time_t=-1;
+    var speed_t=-1;
+    var tspeed_t="-";
+    switch ($("#dmanga_TRS_T_Tipo").val()) {
+        case "0": // tipo fijo X segundos
+            time_t= f; speed_t= (d==0)? 0: d/time_t; tspeed_t = toFixedT(speed_t,2)+" m/s";
+            break;
+        case "1": // mejor tiempo + xxx
+        case "2": // media 3 mejores + xxx
+            // use defaults
+            break;
+        case "3": // tiempo estandard + xxx
+            if ( tspeed_l != "-" ) {
+                time_t = ( 's' == u )? time_l+f :time_l * ((100.0+f)/100.0); speed_t= (d==0)? 0: d/time_t; tspeed_t= toFixedT(speed_t,2)+" m/s";
+            }
+            break;
+        case "4": // tiempo medium + xxx
+            if (tspeed_m!="-") {
+                time_t = ( 's' == u )? time_m+f :time_m * ((100.0+f)/100.0); speed_t= (d==0)? 0: d/time_t; tspeed_t= toFixedT(speed_t,2)+" m/s";
+            }
+            break;
+        case "5": // tiempo small + xxx
+            if (tspeed_s!="-") {
+                time_t = ( 's' == u )? time_s+f :time_s * ((100.0+f)/100.0); speed_t= (d==0)? 0: d/time_t; tspeed_t= toFixedT(speed_t,2)+" m/s";
+            }
+            break;
+        case "6": // velocidad X metros por segundo
+            if (f!=0) {
+                speed_t= f; time_t= d/speed_t; tspeed_t = toFixedT(time_t,1)+" seg";
+            }
+            break;
+    }
+    $("#dmanga_TRS_T_TimeSpeed").val(tspeed_t);
 }
 
 /**
