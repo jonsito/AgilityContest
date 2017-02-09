@@ -692,22 +692,25 @@ class DogReader {
         $t=TABLE_NAME;
         // locate entry in temporary database
         $obj=$this->myDBObject->__selectObject("*",TABLE_NAME,"ID={$options['ExcelID']}");
+        $perro=$this->myDBObject->conn->real_escape_string($obj->Nombre); // nombre del perro
+        $guia=$this->myDBObject->conn->real_escape_string($obj->Nombre); // nombre del perro
+        $club=$this->myDBObject->conn->real_escape_string($obj->Nombre); // nombre del perro
         if (!is_object($obj)) {
             // Temporary table id not found. notify error and return
             return "IgnoreEntry(): Temporary table RowID:{$options['ExcelID']} not found  error:".$this->myDBObject->conn->error;
         }
         if ($options['Object']=="Club") {
-            $str="DELETE FROM $t WHERE NombreClub = '{$obj->NombreClub}'";
+            $str="DELETE FROM $t WHERE NombreClub = '{$club}'";
             $res=$this->myDBObject->query($str);
             if (!$res) return "IgnoreEntry(): Ignore Club '{$obj->NombreClub}' error:".$this->myDBObject->conn->error;
         }
         else if ($options['Object']=="Guia") {
-            $str="DELETE FROM $t WHERE NombreGuia = '{$obj->NombreGuia}'";
+            $str="DELETE FROM $t WHERE NombreGuia = '{$guia}'";
             $res=$this->myDBObject->query($str);
             if (!$res) return "IgnoreEntry(): Ignore Handler '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error;
         }
         else if ($options['Object']=="Perro") {
-            $str="DELETE FROM $t WHERE Nombre = '{$obj->Nombre}'";
+            $str="DELETE FROM $t WHERE Nombre = '{$perro}'";
             $res=$this->myDBObject->query($str);
             if (!$res) return "IgnoreEntry(): Ignore Dog '{$obj->Nombre}' error:".$this->myDBObject->conn->error;
         }
