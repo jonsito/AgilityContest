@@ -34,9 +34,9 @@ class Excel_PartialScores extends XLSX_Writer {
 	protected $resultados;
 	protected $mode;
 	protected $timeResolution;
-
-    protected $cols = array( 'License','Category','Grade','Name','LongName','Breed','Handler','Club','Faults','Refusals','Speed','Time','Penalization','Calification','Points','Stars');
-    protected $fields = array( 'Licencia','Categoria','Grado','Nombre','NombreLargo','Raza','NombreGuia','NombreClub','Faltas','Rehuses','Velocidad','Tiempo','Penalizacion','Calificacion','Puntos','Estrellas');
+    // initialize in constructor to avoid stupid windows php
+    protected $cols = null;
+    protected $fields = null;
 
 	/**
 	 * Constructor
@@ -52,6 +52,9 @@ class Excel_PartialScores extends XLSX_Writer {
         $this->resultados=$resultados;
         $this->mode=$mode;
         $this->timeResolution=($this->myConfig->getEnv('crono_miliseconds')=="0")?2:3;
+        // populate cols and fields
+        $this->fields=array( 'Licencia','Categoria','Grado','Nombre','NombreLargo','Raza','NombreGuia','NombreClub','Faltas','Rehuses','Velocidad','Tiempo','Penalizacion','Calificacion','Puntos','Estrellas');
+        $this->cols=array( 'License','Category','Grade','Name','LongName','Breed','Handler','Club','Faults','Refusals','Speed','Time','Penalization','Calification','Points','Stars');
 	}
 
     // Cabecera de página
@@ -77,10 +80,17 @@ class Excel_PartialScores extends XLSX_Writer {
     }
 
 	private function writeTableHeader() {
+	    /*
+        $suffix= (Mangas::$tipo_manga[$this->manga->Tipo][5])?"_A":"_J";
 		// internationalize header texts
 		for($n=0;$n<count($this->cols);$n++) {
-			$this->cols[$n]=_utf($this->cols[$n]);
+            if ($this->cols[$n]==="Points") $this->cols[$n]=_utf($this->cols[$n]).$suffix;
+            else if ($this->cols[$n]==="Stars") $this->cols[$n]=_utf($this->cols[$n]).$suffix;
+            else $this->cols[$n]=_utf($this->cols[$n]);
 		}
+	    */
+	    // translate header to i18n
+	    for($n=0;$n<count($this->cols);$n++) $this->cols[$n]=_utf($this->cols[$n]);
 		// send to excel
 		$this->myWriter->addRowWithStyle($this->cols,$this->rowHeaderStyle);
 	}
@@ -103,7 +113,7 @@ class Excel_PartialScores extends XLSX_Writer {
 		    // preformat specific fields
             $row['Puesto']= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}";
             $row['Velocidad']= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],2);
-            $row['Tiempo']= ($row['Penalizacion']>=200)?"-":number_format($row['Tiempo'],$this->timeResolution);
+            $row['Tiempo']= ($row['Penalizacion']>=200)?"0":number_format($row['Tiempo'],$this->timeResolution);
             $row['Penalizacion']=number_format($row['Penalizacion'],$this->timeResolution);
             $row['Faltas']=$row['Faltas']+$row['Tocados'];
             // extract relevant information from database received dog

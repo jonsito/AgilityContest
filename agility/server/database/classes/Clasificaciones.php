@@ -125,6 +125,8 @@ class Clasificaciones extends DBObject {
                         $participante["V{$j}"]=0;
                         $participante["P{$j}"]=0;
                         $participante["C{$j}"]=0;
+                        $participante["Pt{$j}"]=0; // points
+                        $participante["St{$j}"]=0; // stars
                         $participante["Out{$j}"]=0;
                         $participante["Puesto{$j}"]=0;
                         $participante["Pcat{$j}"]=0;
@@ -144,6 +146,8 @@ class Clasificaciones extends DBObject {
                 $final[$dogID]["V{$j}"] = floatval($item['Velocidad']);
                 $final[$dogID]["P{$j}"] = $item['Penalizacion'];
                 $final[$dogID]["C{$j}"] = $item['CShort'];
+                $final[$dogID]["Pt{$j}"] = $item['Puntos'];
+                $final[$dogID]["St{$j}"] = $item['Estrellas'];
                 $final[$dogID]["Out{$j}"]=0;
                 $final[$dogID]["Puesto{$j}"] = $item['Puesto'];
                 $final[$dogID]["Pcat{$j}"] = $item['Pcat'];

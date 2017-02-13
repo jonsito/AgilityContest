@@ -151,8 +151,8 @@ class Excel {
 		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
 		$this->xlsLabel($base,0,_("Competitor data"));
 		$this->xlsLabel($base,7,$tm1);
-		$this->xlsLabel($base,13,$tm2);
-		$this->xlsLabel($base,19,_("Scores"));
+		$this->xlsLabel($base,15,$tm2);
+		$this->xlsLabel($base,23,_("Scores"));
 		
 		$base++; // segunda cabecera
 		$this->xlsLabel($base,0,_("Dorsal"));
@@ -167,17 +167,21 @@ class Excel {
 		$this->xlsLabel($base,9,_("Time"));
 		$this->xlsLabel($base,10,_("Speed"));
 		$this->xlsLabel($base,11,_("Penaliz"));
-		$this->xlsLabel($base,12,_("Score"));
-		$this->xlsLabel($base,13,_("Faults"));
-		$this->xlsLabel($base,14,_("Refusals"));
-		$this->xlsLabel($base,15,_("Time"));
-		$this->xlsLabel($base,16,_("Speed"));
-		$this->xlsLabel($base,17,_("Penaliz"));
-		$this->xlsLabel($base,18,_("Score"));
-		$this->xlsLabel($base,19,_("Time"));
-		$this->xlsLabel($base,20,_("Penaliz"));
-		$this->xlsLabel($base,21,_("Score"));
-		$this->xlsLabel($base,22,_("Position"));
+        $this->xlsLabel($base,12,_("Score"));
+        $this->xlsLabel($base,13,_("Points")."_A");
+        $this->xlsLabel($base,14,_("Stars")."_A");
+		$this->xlsLabel($base,15,_("Faults"));
+		$this->xlsLabel($base,16,_("Refusals"));
+		$this->xlsLabel($base,17,_("Time"));
+		$this->xlsLabel($base,18,_("Speed"));
+		$this->xlsLabel($base,19,_("Penaliz"));
+		$this->xlsLabel($base,20,_("Score"));
+        $this->xlsLabel($base,21,_("Points")."_J");
+        $this->xlsLabel($base,22,_("Stars")."_J");
+		$this->xlsLabel($base,23,_("Time"));
+		$this->xlsLabel($base,24,_("Penaliz"));
+		$this->xlsLabel($base,25,_("Score"));
+		$this->xlsLabel($base,26,_("Position"));
 		return $base+1;
 	}
 	
@@ -205,17 +209,21 @@ class Excel {
 		$this->xlsNumber($base,9,$t1);
 		$this->xlsNumber($base,10,$v1);
 		$this->xlsNumber($base,11,$p1);
-		$this->xlsLabel($base,12,$row['C1']);
-		$this->xlsNumber($base,13,$row['F2']);
-		$this->xlsNumber($base,14,$row['R2']);
-		$this->xlsNumber($base,15,$t2);
-		$this->xlsNumber($base,16,$v2);
-		$this->xlsNumber($base,17,$p2);
-		$this->xlsLabel($base,18,$row['C2']);
-		$this->xlsNumber($base,19,number_format($row['Tiempo'],$this->timeResolution));
-		$this->xlsNumber($base,20,$penal);
-		$this->xlsLabel($base,21,$row['Calificacion']);
-		$this->xlsLabel($base,22,$puesto);
+        $this->xlsLabel($base,12,$row['C1']);
+        $this->xlsLabel($base,13,$row['Pt1']);
+        $this->xlsLabel($base,14,$row['St1']);
+		$this->xlsNumber($base,15,$row['F2']);
+		$this->xlsNumber($base,16,$row['R2']);
+		$this->xlsNumber($base,17,$t2);
+		$this->xlsNumber($base,18,$v2);
+		$this->xlsNumber($base,19,$p2);
+		$this->xlsLabel($base,20,$row['C2']);
+        $this->xlsLabel($base,21,$row['Pt2']);
+        $this->xlsLabel($base,22,$row['St2']);
+		$this->xlsNumber($base,23,number_format($row['Tiempo'],$this->timeResolution));
+		$this->xlsNumber($base,24,$penal);
+		$this->xlsLabel($base,25,$row['Calificacion']);
+		$this->xlsLabel($base,26,$puesto);
 		return $base+1;
 	}
 	
