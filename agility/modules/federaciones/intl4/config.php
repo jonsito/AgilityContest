@@ -32,7 +32,7 @@ class INTL4 extends Federations {
                 '-' => 'Not specified ',
                 'GI' => 'Grade I',
                 'GII'=> 'Grade II',
-                // 'GIII' => 'Grade III', // no existe
+                'GIII' => 'Grade III', // no existe
                 'P.A.' => 'Grade 0',
                 'P.B.' => 'Test dog',
                 'Baja' => 'Temporary out',

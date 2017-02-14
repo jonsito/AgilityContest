@@ -54,7 +54,7 @@ $config =Config::getInstance();
             <div class="fitem">
             	<input type="hidden" id="jornadas-PreAgility" name="PreAgility" value="1">
             	<input type="hidden" id="jornadas-PreAgility2" name="PreAgility2" value="2">
-                <label for="jornadas-PreAgilityChk" style="width:150px" >Pre-Agility</label>
+                <label for="jornadas-PreAgilityChk" style="width:150px" ><span id="jornadas-PreAgilityName">Pre-Agility</span></label>
                 <input id="jornadas-PreAgilityChk" name="PreAgilityChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-PreAgilityChk',0x0003)"/>
                 <select id="jornadas-MangasPreAgility" name="MangasPreAgility" style="width:130px">
@@ -64,7 +64,7 @@ $config =Config::getInstance();
             </div>
             
             <div class="fitem">
-                <label for="jornadas-Grado1" style="width:150px" ><?php _e('Grade'); ?> 1</label>
+                <label for="jornadas-Grado1" style="width:150px" ><span id="jornadas-Grado1Name">Grade I</span></label>
                 <input type="hidden" id="jornadas-Grado1" name="Grado1" value="1">
                 <input id="jornadas-Grado1Chk" name="Grado1Chk" class="easyui-checkbox"
                     type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado1',0x0004)"/>
@@ -76,13 +76,13 @@ $config =Config::getInstance();
             </div>
             
             <div class="fitem">
-                <label for="jornadas-Grado2" style="width:150px" ><?php _e('Grade'); ?> 2</label>
+                <label for="jornadas-Grado2" style="width:150px" ><span id="jornadas-Grado2Name">Grade II</span></label>
                 <input id="jornadas-Grado2" name="Grado2" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado2',0x0008)"/>
             </div>
             
             <div class="fitem">
-                <label for="jornadas-Grado3" style="width:150px" ><?php _e('Grade'); ?> 3</label>
+                <label for="jornadas-Grado3" style="width:150px" ><span id="jornadas-Grado3Name">Grade III</span></label>
                 <input id="jornadas-Grado3" name="Grado3" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado3',0x0010)"/>
             </div>
@@ -150,7 +150,15 @@ $config =Config::getInstance();
     $('#jornadas-dialog').dialog({
         modal:true,
         closed:true,
-        buttons:'#jornadas-dlg-buttons'
+        buttons:'#jornadas-dlg-buttons',
+        onBeforeOpen: function() {
+            // fix names for PreAgility, Grade 1,II and III
+            $('#jornadas-PreAgilityName').html(workingData.datosFederation.ListaGrados['P.A.']);
+            $('#jornadas-Grado1Name').html(workingData.datosFederation.ListaGrados['GI']);
+            $('#jornadas-Grado2Name').html(workingData.datosFederation.ListaGrados['GII']);
+            $('#jornadas-Grado3Name').html(workingData.datosFederation.ListaGrados['GIII']);
+            return true;
+        }
     });
     // - declaracion del formulario
     $('#jornadas-form').form({
