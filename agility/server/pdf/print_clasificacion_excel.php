@@ -117,7 +117,7 @@ class Excel {
 		$juez2=$jobj->selectByID($this->manga1->Juez2);
 		$j1=$juez1['Nombre'];
 		$j2=$juez2['Nombre'];
-		$categoria = Mangas::$manga_modes[$mode][0];
+		$categoria = Mangas::getMangaMode($mode,0,$this->federation);
 		$tm1=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $categoria;
 		$tm2=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $categoria;
 		

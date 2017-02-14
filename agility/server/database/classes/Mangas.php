@@ -82,7 +82,12 @@ class Mangas extends DBObject {
 		7 => array('Small + Tiny','ST'),
 		8 => array('Conjunta L+M+S+T','LMST')
 	);
-	
+
+    public static function getMangaMode($mode,$idx,$fed=null) {
+        if (!$fed) return Mangas::$manga_modes[$mode][$idx];
+        return $fed->getMangaMode($mode,$idx);
+    }
+
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object

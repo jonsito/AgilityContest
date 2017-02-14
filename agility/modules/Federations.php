@@ -220,6 +220,17 @@ class Federations {
     }
 
     /**
+     * Translate requested manga mode to federation dependent i18n'd Manga mode data
+     * @param {integer} $type manga mode 0..8
+     * @return {string} requested data
+     */
+    public function getMangaMode($mode) {
+        if (!array_key_exists('IndexedModes',$this->config)) return Mangas::$manga_modes[$mode][0];
+        if (!array_key_exists($mode,$this->config['IndexedModes'])) return Mangas::$manga_modes[$mode][0];
+        return $this->config['IndexedModes'][$mode];
+    }
+
+    /**
      * Translate requested recorrido indexto federation dependent i18n'd one
      * @param {integer} $idx recorrido 0:common 1:mixed 2:separated
      * @return string resulting i18n'd string

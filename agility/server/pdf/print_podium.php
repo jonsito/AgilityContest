@@ -95,7 +95,7 @@ class Print_Podium extends PrintCommon {
 
         // first row of table header
 		$this->SetFont($this->getFontName(),'BI',12); // default font
-		$this->Cell(115,6,Mangas::$manga_modes[$mode][0],0,0,'L',true);
+		$this->Cell(115,6,Mangas::getMangaMode($mode,0,$this->federation),0,0,'L',true);
         $this->Cell(59*$factor,6,$tm1,0,0,'C',true);
         $this->Cell(59*$factor,6,$tm2,0,0,'C',true);
         if($tm3!=="") $this->Cell(59*$factor,6,$tm3,0,0,'C',true);
