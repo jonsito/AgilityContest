@@ -102,7 +102,8 @@ class VideoWall {
         }
         $this->club= $this->myDBObject->__getArray("Clubes",$this->prueba['Club']);
         if ($this->manga!=null) { // elimina parentesis del nombre
-            $str=Mangas::$tipo_manga[$this->manga['Tipo']][1];
+            $fed=Federations::getFederation( intval($this->prueba['RSCE']) );
+            $str=_(Mangas::getTipoManga($this->manga['Tipo'],1,$fed));
             $a=strpos($str,"(");
             if($a!==FALSE) $str=substr($str,0,$a);
             $this->manga['Nombre']=$str;

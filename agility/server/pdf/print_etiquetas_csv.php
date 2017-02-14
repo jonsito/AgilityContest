@@ -47,6 +47,7 @@ class CSV  {
 	protected $resultados;
 	protected $icon;
 	protected $config;
+	protected $federation;
 	
 	 /** Constructor
 	 * @param {obj} $manga datos de la manga
@@ -66,6 +67,7 @@ class CSV  {
 		// evaluage logo info
 		$this->icon="rsce.png";
 		if (isset($this->club)) $this->icon=$this->club->Logo;
+        $this->federation=Federations::getFederation( intval($this->prueba->RSCE) );
 	}
 	
 	// No tenemos cabecera: no cabe
@@ -89,11 +91,11 @@ class CSV  {
 		$line .= $row['NombreClub'].":";
 		$line .= $row['Categoria'].":";
 		$line .= $row['Grado'].":";
-		$line .= Mangas::$tipo_manga[$this->manga1->Tipo][3].":";
+		$line .= _(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)).":";
 		$line .= $row['P1'].":";
 		$line .= $row['C1'].":";
 		$line .= $row['Puesto1'].":";
-		$line .= Mangas::$tipo_manga[$this->manga2->Tipo][3].":";
+		$line .= _(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)).":";
 		$line .= $row['P2'].":";
 		$line .= $row['C2'].":";
 		$line .= $row['Puesto2'].":";

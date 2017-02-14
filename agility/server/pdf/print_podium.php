@@ -63,7 +63,7 @@ class Print_Podium extends PrintCommon {
 	}
 
 	function Header() {
-		$grado=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // same for every round
+		$grado=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // same for every round
 		$this->print_commonHeader(_("Podium")." $grado");
 	}
 	
@@ -84,9 +84,9 @@ class Print_Podium extends PrintCommon {
 	}
 	
 	function writeTableHeader($mode) {
-        $tm1=($this->manga1!=null)?Mangas::$tipo_manga[$this->manga1->Tipo][3]:"";
-        $tm2=($this->manga2!=null)?Mangas::$tipo_manga[$this->manga2->Tipo][3]:"";
-        $tm3=($this->manga3!=null)?Mangas::$tipo_manga[$this->manga3->Tipo][3]:"";
+        $tm1=($this->manga1!=null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)):"";
+        $tm2=($this->manga2!=null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)):"";
+        $tm3=($this->manga3!=null)?_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)):"";
         $factor=($tm3==="")?1:0.75;
 		$this->ac_header(1,12);
 		

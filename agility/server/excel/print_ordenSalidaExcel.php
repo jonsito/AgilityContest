@@ -126,7 +126,7 @@ class excel_ordenSalida extends XLSX_Writer {
         $this->myWriter->addRow($row);
         $row=array();
         array_push($row,_('Round'));
-        array_push($row,Mangas::$tipo_manga[$this->manga->Tipo][1]);
+        array_push($row,_(Mangas::getTipoManga($this->manga->Tipo,1,$this->federation)));
         $this->myWriter->addRow($row);
     }
 

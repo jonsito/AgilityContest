@@ -69,7 +69,7 @@ class Excel_PartialScores extends XLSX_Writer {
         // dump excel rows
 	    $row=array(_("Contest"),$this->prueba->Nombre);  $this->myWriter->addRow($row);
 	    $row=array(_("Journey"),$this->jornada->Nombre,$this->jornada->Fecha); $this->myWriter->addRow($row);
-	    $row=array(_("Round"),Mangas::$tipo_manga[$this->manga->Tipo][1],$modestr); $this->myWriter->addRow($row);
+	    $row=array(_("Round"),_(Mangas::getTipoManga($this->manga->Tipo,1,$federation)),$modestr); $this->myWriter->addRow($row);
 	    $row=array(_("Judges"),$j1,$j2); $this->myWriter->addRow($row);
         $row=array(_('Dist'),$this->resultados['trs']['dist']." mts"); $this->myWriter->addRow($row);
         $row=array(_('Obst'),$this->resultados['trs']['obst']." mts"); $this->myWriter->addRow($row);

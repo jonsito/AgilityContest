@@ -47,6 +47,7 @@ class Excel {
 	public $manga2; // in RSCE excel must allways exists (no single round)
 	protected $myConfig;
 	protected $timeResolution; // number of decimal digits in chrono
+    protected $federation;
 
 	 /** Constructor
 	 * @param {obj} $manga datos de la manga
@@ -64,6 +65,7 @@ class Excel {
 		$this->myConfig = Config::getInstance();
 		// evaluate number of decimals to show when printing timestamps
 		$this->timeResolution=($this->myConfig->getEnv('crono_miliseconds')=="0")?2:3;
+		$this->federation=Federations::getFederation( intval($this->prueba->RSCE) );
 	}
 	
 	// This one makes the beginning of the xls file
@@ -94,7 +96,7 @@ class Excel {
 	}
 	
 	function write_pageHeader($prueba,$jornada,$mangas) {
-		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
+		$ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
 		// starts at 0
 		$this->xlsLabel(0,0,_("Contest"));
 		$this->xlsLabel(0,1,iconv( "UTF-8", "ISO-8859-1",$this->prueba->Nombre));
@@ -116,8 +118,8 @@ class Excel {
 		$j1=$juez1['Nombre'];
 		$j2=$juez2['Nombre'];
 		$categoria = Mangas::$manga_modes[$mode][0];
-		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $categoria;
-		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $categoria;
+		$tm1=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $categoria;
+		$tm2=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $categoria;
 		
 		$this->xlsLabel($row,0,_("Judge")." 1");
 			$this->xlsLabel($row,1,iconv( "UTF-8", "ISO-8859-1",($j1==="-- Sin asignar --")?"":$j1));
@@ -147,8 +149,8 @@ class Excel {
 	function write_TableHeader($base) {
 		
 		// primera cabecera
-		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
-		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
+		$tm1=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation));
+		$tm2=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation));
 		$this->xlsLabel($base,0,_("Competitor data"));
 		$this->xlsLabel($base,7,$tm1);
 		$this->xlsLabel($base,15,$tm2);

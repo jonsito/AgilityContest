@@ -131,11 +131,11 @@ class Etiquetas_PDF extends PrintCommon {
 		$this->SetXY($left+36,$y10); 
 		$this->Cell(38,7,"{$row['Licencia']} - {$row['Nombre']}",0,0,'R',false);
 		//Manga1Tipo(85,y,20,8) center
-		$tipo=Mangas::$tipo_manga[$this->manga1->Tipo][3];
+		$tipo=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation));
 		$this->SetXY($left+75,$y1); 
 		$this->Cell(20,7,$tipo,'LB',0,'L',false);
 		//Manga2Tipo(85,y+8,20,9) center
-		$tipo=Mangas::$tipo_manga[$this->manga2->Tipo][3];
+		$tipo=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation));
 		$this->SetXY($left+75,$y8); 
 		$this->Cell(20,8,$tipo,'L',0,'L',false);
 

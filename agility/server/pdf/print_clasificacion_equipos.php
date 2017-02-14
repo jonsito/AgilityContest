@@ -118,10 +118,10 @@ class PrintClasificacionTeam extends PrintCommon {
 		$jobj=new Jueces("print_Clasificaciones_eq3");
 		$juez1=$jobj->selectByID($this->manga1->Juez1);
 		$juez2=$jobj->selectByID($this->manga1->Juez2); // asume mismos jueces en dos mangas
-		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->categoria;
+		$tm1=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $this->categoria;
 		$tm2=null;
 		if ($this->manga2!=null)
-			$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
+			$tm2=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $this->categoria;
 
 		$this->SetFont($this->getFontName(),'B',11); // bold 9px
 		$this->Cell(80,5,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
@@ -146,7 +146,7 @@ class PrintClasificacionTeam extends PrintCommon {
 		$this->Ln();
 		if ($this->trs2==null) { $this->Ln(); return; }
 		$trs=$this->trs2;
-		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
+		$ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
 		$this->SetFont($this->getFontName(),'B',11); // bold 9px
 		$this->Cell(80,5,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
 		$this->SetFont($this->getFontName(),'B',9); // bold 9px
@@ -166,7 +166,7 @@ class PrintClasificacionTeam extends PrintCommon {
 		$this->Cell(80,7,"{$this->jornada->Nombre}",0,0,'',false);
 		$this->SetXY(35,20);
 		$this->Cell(80,7,"{$this->jornada->Fecha}",0,0,'',false);
-		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
+		$ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
 		$this->SetXY(35,25);
 		$this->Cell(80,7,"$ronda - {$this->categoria}",0,0,'',false);
 	}
@@ -218,9 +218,9 @@ class PrintClasificacionTeam extends PrintCommon {
 
     function writeTableHeader() {
 		$wide=$this->federation->get('WideLicense');
-		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
+		$tm1=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation));
 		$tm2=null;
-		if ($this->manga2!=null) $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
+		if ($this->manga2!=null) $tm2=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation));
 		
 		$this->ac_header(2,8);
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
@@ -348,14 +348,14 @@ class PrintClasificacionTeam extends PrintCommon {
         switch($idx){
             case 0: // manga 1
                 $this->SetFont($this->getFontName(),'BI',8); // default font
-                $this->Cell(($wide)?17:22,4,Mangas::$tipo_manga[$this->manga1->Tipo][3],0,0,'L',true);	// nombre manga 1
+                $this->Cell(($wide)?17:22,4,_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)),0,0,'L',true);	// nombre manga 1
                 $this->SetFont($this->getFontName(),'',8); // default font
                 $this->Cell(($wide)?10:15,4,number_format($team['T1'],$this->timeResolution),0,0,'R',true);	// tiempo manga 1
                 $this->Cell(($wide)?10:15,4,number_format($team['P1'],$this->timeResolution),'R',0,'R',true);	// penalizacion manga 1
                 break;
             case 1: // manga 2
                 $this->SetFont($this->getFontName(),'BI',8); // default font
-                $this->Cell(($wide)?17:22,4,Mangas::$tipo_manga[$this->manga2->Tipo][3],0,0,'L',true);	// nombre manga 2
+                $this->Cell(($wide)?17:22,4,_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)),0,0,'L',true);	// nombre manga 2
                 $this->SetFont($this->getFontName(),'',8); // default font
                 $this->Cell(($wide)?10:15,4,number_format($team['T2'],$this->timeResolution),0,0,'R',true);	// tiempo manga 2
                 $this->SetFont($this->getFontName(),'',8); // default font

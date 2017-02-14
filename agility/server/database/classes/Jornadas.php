@@ -636,7 +636,8 @@ class Jornadas extends DBObject {
 		$jornada=$dbobj->__getArray("Jornadas",$jornadaid);
 		$prueba=$dbobj->__getArray("pruebas",$jornada['Prueba']);
 		$mangas=$dbobj->__select("*","Mangas","(Jornada=$jornadaid)","","")['rows'];
-		$heights=intval(Federations::getFederation( intval($prueba['RSCE']) )->get('Heights'));
+        $fed=Federations::getFederation( intval($prueba['RSCE']) );
+		$heights=intval($fed->get('Heights'));
 		$rows=array();
 		foreach($mangas as $manga) {
 			// datos comunes a todos los resultados posibles de una misma manga
@@ -650,36 +651,36 @@ class Jornadas extends DBObject {
 			$mid=$manga['ID'];
 			switch($manga['Recorrido']){
 				case 0: // recorridos separados
-					$l	=array_merge( array('ID'=>$mid.',0', 'Mode'=>0,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[0][0]),$item);
+					$l	=array_merge( array('ID'=>$mid.',0', 'Mode'=>0,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::$manga_modes[0][0]),$item);
 					array_push($rows,$l);
-					$m	=array_merge( array('ID'=>$mid.',1','Mode'=>1,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[1][0]),$item);
+					$m	=array_merge( array('ID'=>$mid.',1','Mode'=>1,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::$manga_modes[1][0]),$item);
 					array_push($rows,$m);
-					$s	=array_merge( array('ID'=>$mid.',2','Mode'=>2,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[2][0]),$item);
+					$s	=array_merge( array('ID'=>$mid.',2','Mode'=>2,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::$manga_modes[2][0]),$item);
 					array_push($rows,$s);
 					if($heights==4) {
-						$t=array_merge( array('ID'=>$mid.',5','Mode'=>5,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[5][0]),$item);
+						$t=array_merge( array('ID'=>$mid.',5','Mode'=>5,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::$manga_modes[5][0]),$item);
 						array_push($rows,$t);
 					}
 					break;
 				case 1: // recorridos mixto
 					if ($heights==3){
-						$l	=array_merge( array('ID'=>$mid.',0','Mode'=>0,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[0][0]),$item);
+						$l	=array_merge( array('ID'=>$mid.',0','Mode'=>0,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::$manga_modes[0][0]),$item);
 						array_push($rows,$l);
-						$ms	=array_merge( array('ID'=>$mid.',3','Mode'=>3,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[3][0]),$item);
+						$ms	=array_merge( array('ID'=>$mid.',3','Mode'=>3,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::$manga_modes[3][0]),$item);
 						array_push($rows,$ms);
 					} else {
-						$lm	=array_merge( array('ID'=>$mid.',6','Mode'=>6,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[6][0]),$item);
+						$lm	=array_merge( array('ID'=>$mid.',6','Mode'=>6,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::$manga_modes[6][0]),$item);
 						array_push($rows,$lm);
-						$st	=array_merge( array('ID'=>$mid.',7','Mode'=>7,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[7][0]),$item);
+						$st	=array_merge( array('ID'=>$mid.',7','Mode'=>7,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::$manga_modes[7][0]),$item);
 						array_push($rows,$st);
 					}
 					break;
 				case 2: // recorridos conjuntos
 					if ($heights==3){
-						$lms =array_merge( array('ID'=>$mid.',4','Mode'=>4,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[4][0]),$item);
+						$lms =array_merge( array('ID'=>$mid.',4','Mode'=>4,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::$manga_modes[4][0]),$item);
 						array_push($rows,$lms);
 					} else {
-						$lmst=array_merge( array('ID'=>$mid.',8','Mode'=>8,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[8][0]),$item);
+						$lmst=array_merge( array('ID'=>$mid.',8','Mode'=>8,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::$manga_modes[8][0]),$item);
 						array_push($rows,$lmst);
 					}
 					break;
@@ -699,9 +700,10 @@ class Jornadas extends DBObject {
 	}
 
 	static function __composeArray($p,$j,$t,$r,$m,$m1,$m2=null,$m3=null,$m4=null,$m5=null,$m6=null,$m7=null,$m8=null) {
+        $fed=Federations::getFederation( intval($p['RSCE']) );
 	    $jobj=new Jornadas("enumerateRondasByJornada",0);
 		return array(
-			'Prueba'=>$p,
+			'Prueba'=>$p['ID'],
 			'Jornada'=>$j,
 			'Rondas'=> $jobj->tipo_ronda[$t][0],
 			'Nombre'=> $jobj->tipo_ronda[$t][1]." - ".Mangas::$manga_modes[$m][0],
@@ -716,14 +718,14 @@ class Jornadas extends DBObject {
             'Manga6'=>($m6!==null)?$m6['ID']:0,
             'Manga7'=>($m7!==null)?$m7['ID']:0,
             'Manga8'=>($m8!==null)?$m8['ID']:0,
-			'NombreManga1'=>Mangas::$tipo_manga[$m1['Tipo']][1],
-            'NombreManga2'=>($m2!==null)?Mangas::$tipo_manga[$m2['Tipo']][1]:'',
-            'NombreManga3'=>($m3!==null)?Mangas::$tipo_manga[$m3['Tipo']][1]:'',
-            'NombreManga4'=>($m4!==null)?Mangas::$tipo_manga[$m4['Tipo']][1]:'',
-            'NombreManga5'=>($m5!==null)?Mangas::$tipo_manga[$m5['Tipo']][1]:'',
-            'NombreManga6'=>($m6!==null)?Mangas::$tipo_manga[$m6['Tipo']][1]:'',
-            'NombreManga7'=>($m7!==null)?Mangas::$tipo_manga[$m7['Tipo']][1]:'',
-            'NombreManga8'=>($m8!==null)?Mangas::$tipo_manga[$m8['Tipo']][1]:'',
+			'NombreManga1'=>_(Mangas::getTipoManga($m1['Tipo'],1,$fed)),
+            'NombreManga2'=>($m2!==null)?_(Mangas::getTipoManga($m2['Tipo'],1,$fed)):'',
+            'NombreManga3'=>($m3!==null)?_(Mangas::getTipoManga($m3['Tipo'],1,$fed)):'',
+            'NombreManga4'=>($m4!==null)?_(Mangas::getTipoManga($m4['Tipo'],1,$fed)):'',
+            'NombreManga5'=>($m5!==null)?_(Mangas::getTipoManga($m5['Tipo'],1,$fed)):'',
+            'NombreManga6'=>($m6!==null)?_(Mangas::getTipoManga($m6['Tipo'],1,$fed)):'',
+            'NombreManga7'=>($m7!==null)?_(Mangas::getTipoManga($m7['Tipo'],1,$fed)):'',
+            'NombreManga8'=>($m8!==null)?_(Mangas::getTipoManga($m8['Tipo'],1,$fed)):'',
             'Tipo1' => $m1['Tipo'],
             'Tipo2' => ($m2!==null)?$m2['Tipo']:0,
             'Tipo3' => ($m3!==null)?$m3['Tipo']:0,

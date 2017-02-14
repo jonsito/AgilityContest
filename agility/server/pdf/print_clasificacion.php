@@ -77,9 +77,9 @@ class PrintClasificacion extends PrintCommon {
 		$jobj=new Jueces("print_Clasificaciones");
 		$juez1=$jobj->selectByID($this->manga1->Juez1);
 		$juez2=$jobj->selectByID($this->manga1->Juez2); // asume mismos jueces en dos mangas
-        $tm1=($this->manga1!=null)?Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->categoria:null;
-        $tm2=($this->manga2!=null)?Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria:null;
-        $tm3=($this->manga3!=null)?Mangas::$tipo_manga[$this->manga3->Tipo][3] . " - " . $this->categoria:null;
+        $tm1=($this->manga1!=null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $this->categoria:null;
+        $tm2=($this->manga2!=null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $this->categoria:null;
+        $tm3=($this->manga3!=null)?_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)) . " - " . $this->categoria:null;
 
 		$this->SetFont($this->getFontName(),'B',11); // bold 9px
 		$this->Cell(80,6,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
@@ -140,7 +140,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->Cell(80,7,"{$this->jornada->Nombre}",0,0,'',false);
 		$this->SetXY(35,25);
 		$this->Cell(80,7,"{$this->jornada->Fecha}",0,0,'',false);
-		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
+		$ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
 		$this->SetXY(35,30);
 		$this->Cell(80,7,"$ronda - {$this->categoria}",0,0,'',false);
 	}
@@ -156,9 +156,9 @@ class PrintClasificacion extends PrintCommon {
 	
 	function writeTableHeader() {
 		$wide=$this->federation->get('WideLicense'); // some federations need extra space to show license id
-        $tm1=($this->manga1!=null)?Mangas::$tipo_manga[$this->manga1->Tipo][3]:"";
-        $tm2=($this->manga2!=null)?Mangas::$tipo_manga[$this->manga2->Tipo][3]:"";
-        $tm3=($this->manga3!=null)?Mangas::$tipo_manga[$this->manga3->Tipo][3]:"";
+        $tm1=($this->manga1!=null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)):"";
+        $tm2=($this->manga2!=null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)):"";
+        $tm3=($this->manga3!=null)?_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)):"";
         $factor=($tm3==="")?1:0.75;
 		$this->ac_header(1,12);
 		$this->SetXY(10,65);// first page has 3 extra header lines
@@ -298,7 +298,9 @@ class PrintClasificacion extends PrintCommon {
             $this->Cell(12*$factor,6,$t1,0,0,'C',$fill);	// 1- Tiempo
             $this->Cell(9*$factor,6,$v1,0,0,'C',$fill);	// 1- Velocidad
             $this->Cell(12*$factor,6,$p1,0,0,'C',$fill);	// 1- Penalizacion
+            if ($row['P1']==0) $this->SetFont($this->getFontName(),'B',7);
             $this->Cell(10*$factor,6,$row['C1'],0,0,'C',$fill);	// 1- calificacion
+            $this->SetFont($this->getFontName(),'',7);
         } else {
             $this->Cell(57*$factor,6,'',0,0,'C',$fill);	// espacio en blanco
         }
@@ -309,21 +311,27 @@ class PrintClasificacion extends PrintCommon {
 			$this->Cell(12*$factor,6,$t2,0,0,'C',$fill);	// 2- Tiempo
 			$this->Cell(9*$factor,6,$v2,0,0,'C',$fill);	// 2- Velocidad
 			$this->Cell(12*$factor,6,$p2,0,0,'C',$fill);	// 2- Penalizacion
+            if ($row['P2']==0) $this->SetFont($this->getFontName(),'B',7);
 			$this->Cell(10*$factor,6,$row['C2'],0,0,'C',$fill);	// 2- calificacion
+            $this->SetFont($this->getFontName(),'',7);
 		} else {
 			$this->Cell(57*$factor,6,'',0,0,'C',$fill);	// espacio en blanco
-		}		// manga 2
+		}
+		// manga 3
         if ($this->manga3!=null) {
             $this->Cell(7*$factor,6,$row['F3'],0,0,'C',$fill);	// 2- Faltas+Tocados
             $this->Cell(7*$factor,6,$row['R3'],0,0,'C',$fill);	// 2- Rehuses
             $this->Cell(12*$factor,6,$t3,0,0,'C',$fill);	// 2- Tiempo
             $this->Cell(9*$factor,6,$v3,0,0,'C',$fill);	// 2- Velocidad
             $this->Cell(12*$factor,6,$p3,0,0,'C',$fill);	// 2- Penalizacion
+            if ($row['P3']==0) $this->SetFont($this->getFontName(),'B',7);
             $this->Cell(10*$factor,6,$row['C3'],0,0,'C',$fill);	// 2- calificacion
+            $this->SetFont($this->getFontName(),'',7);
         } // no else: no print
 		// global
 		$this->Cell(12*$factor,6,$tiempo,0,0,'C',$fill);	// Tiempo
 		$this->Cell(12*$factor,6,$penal,0,0,'C',$fill);	// Penalizacion
+        $this->SetFont($this->getFontName(),'B',7); // Put final calification in bold
 		$this->Cell(14*$factor,6,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
 		$this->SetFont($this->getFontName(),'B',10); // default font
 		$this->Cell(8*$factor,6,$puesto,0,0,'C',$fill);	// Puesto

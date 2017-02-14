@@ -109,7 +109,7 @@ class RawPrinter {
         */
         $p=$data['Prueba']->Nombre;
         $j=$data['Jornada']->Nombre;
-        $m=Mangas::$tipo_manga[$data['Manga']->Tipo][3];
+        $m=Mangas::getTipoManga($data['Manga']->Tipo,3,null); // do not "federationize" to retain width
         $d=date('H:i:s');
         $l1=sprintf("% -12s % -7s % 12s %s",substr(toASCII($p),0,12),substr(toASCII($j),0,7),substr(toASCII($m),0,12),$d);
         $printer->text($l1);

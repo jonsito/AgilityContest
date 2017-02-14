@@ -25,25 +25,30 @@ class Mangas extends DBObject {
 	/* copia de la estructura de la base de datos, para ahorrar consultas */
 	public static $tipo_manga= array(
 		0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo',  'IsAgility'),
-		1 =>	array( 1, 'Pre-Agility Manga 1', 		'P.A.',	'PreAgility 1',	'Pre-Agility',  true),
-		2 => 	array( 2, 'Pre-Agility Manga 2', 		'P.A.',	'PreAgility 2',	'Pre-Agility',  false),
-		3 =>	array( 3, 'Agility Grade I Manga 1',	'GI',	'Agility-1 GI',	'Grade I',      true),
-		4 => 	array( 4, 'Agility Grade I Manga 2',	'GI',	'Agility-2 GI',	'Grade I',      true),
+		1 =>	array( 1, 'Pre-Agility Round 1', 		'P.A.',	'PreAgility 1',	'Pre-Agility',  true),
+		2 => 	array( 2, 'Pre-Agility Round 2', 		'P.A.',	'PreAgility 2',	'Pre-Agility',  false),
+		3 =>	array( 3, 'Agility Grade I Round 1',	'GI',	'Agility-1 GI',	'Grade I',      true),
+		4 => 	array( 4, 'Agility Grade I Round 2',	'GI',	'Agility-2 GI',	'Grade I',      true),
 		5 =>	array( 5, 'Agility Grade II', 			'GII',	'Agility GII',	'Grade II',     true),
 		6 =>	array( 6, 'Agility Grade III', 			'GIII',	'Agility GIII',	'Grade III',    true),
 		7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual',   true), // Open
 		8 =>	array( 8, 'Agility Teams',			    '-',	'Ag. Teams',	'Teams',        true), // team best
 		9 =>	array( 9, 'Agility Teams'				,'-',	'Ag. Teams.',	'Teams',        true), // team combined
-		10 =>	array( 10,'Jumping Grade II',			'GII',	'Jumping GII',	'Grado II',     false),
-		11 =>	array( 11,'Jumping Grade III',			'GIII',	'Jumping GIII',	'Grado III',    false),
+		10 =>	array( 10,'Jumping Grade II',			'GII',	'Jumping GII',	'Grade II',     false),
+		11 =>	array( 11,'Jumping Grade III',			'GIII',	'Jumping GIII',	'Grade III',    false),
 		12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual',   false), // Open
 		13 =>	array( 13,'Jumping Teams'				,'-',   'Jmp Teams',	'Teams',        false), // team best
 		14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp Teams',	'Teams',        false), // team combined
 		15 =>	array( 15,'K.O. Round', 				'-',	'K.O. Round',	'K.O.',         false),
 		16 =>	array( 16,'Special Round', 			    '-',	'Special Round','Individual',   true), // special round, no grades
-		17 => 	array( 17,'Agility Grade I Manga 3',	'GI',	'Agility-3 GI',	'Grade I',      true) // on RFEC special G1 3rd round
+		17 => 	array( 17,'Agility Grade I Round 3',	'GI',	'Agility-3 GI',	'Grade I',      true) // on RFEC special G1 3rd round
 	);
-	
+
+	public static function getTipoManga($tipo,$idx,$fed=null) {
+        if (!$fed) return Mangas::$tipo_manga[$tipo][$idx];
+        return $fed->getTipoManga($tipo,$idx);
+    }
+
 	/* tabla para obtener facilmente la manga complementaria a una manga dada */
 	public static $manga_hermana= array(
 		0,	/* 0,'','' */
@@ -298,12 +303,13 @@ class Mangas extends DBObject {
 	 */
 	function selectByID($id) {
 		$this->myLogger->enter();
-		if ($id<=0) return $this->error("Invalid Manga ID"); 
+		if ($id<=0) return $this->error("Invalid Manga ID");
+        $fed=Federations::getFederation( intval($this->pruebaObj->RSCE) );
 		// second query to retrieve $rows starting at $offset
 		$result=$this->__getObject("Mangas",$id);
 		$result->Manga=$id;
 		$result->Jornada=$this->jornadaObj->ID;
-		$result->Nombre=Mangas::$tipo_manga[$result->Tipo][1];
+		$result->Nombre=_(Mangas::getTipoManga($result->Tipo,1,$fed));
 		$result->Operation="update";
 		$this->myLogger->leave();
 		return $result;
@@ -315,6 +321,7 @@ class Mangas extends DBObject {
 	 */
 	function selectByJornada() {
 		$this->myLogger->enter();
+        $fed=Federations::getFederation( intval($this->pruebaObj->RSCE) );
 		$result=$this->__select(
 			/* SELECT */"ID,Tipo,Recorrido,Grado",
 			/* FROM */ "Mangas",
@@ -324,7 +331,7 @@ class Mangas extends DBObject {
 		);
 		foreach ( $result['rows'] as &$item) {
 			// merge information on Mangas::Tipo_Manga without using database Tipo_Manga table (to allow i18n)
-			$item['Descripcion']=Mangas::$tipo_manga[$item['Tipo']][1];
+			$item['Descripcion']=_(Mangas::getTipoManga($item['Tipo'],1,$fed));
 		}
 		$this->myLogger->leave();
 		return $result;

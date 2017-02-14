@@ -50,7 +50,7 @@ class Resultados extends DBObject {
 		// add some extra info
         $obj->NombreJuez1=$this->__getObject("Jueces",$obj->Juez1)->Nombre;
         $obj->NombreJuez2=$this->__getObject("Jueces",$obj->Juez2)->Nombre;
-		$obj->TipoManga=Mangas::$tipo_manga[$obj->Tipo][1];
+		$obj->TipoManga=_(Mangas::getTipoManga($obj->Tipo,1,$this->getFederation()));
 		$this->dmanga=$obj;
 		return $this->dmanga;
 	}
