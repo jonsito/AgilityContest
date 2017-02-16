@@ -639,6 +639,8 @@ class DogReader {
             // ajustamos el id y el nombre del guia en la tabla excel
             $dbname=$this->myDBObject->conn->real_escape_string($dbobj->Nombre);
             $name=$this->myDBObject->conn->real_escape_string($obj->NombreGuia);
+            // notese que en el caso del nombre del guia se hace caso a la base de datos, no a las preferencias
+            // de importacion. Esto permite poder ajustar al nombre en la DB "antes" de darle a seleccionar guia
             $str="UPDATE $t SET HandlerID={$dbobj->ID}, NombreGuia='$dbname' WHERE (NombreGuia = '$name')";
             $res=$this->myDBObject->query($str);
             if (!$res) return "UpdateEntry(): update handler '$name' Set Name/ID error:".$this->myDBObject->conn->error;
