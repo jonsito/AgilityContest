@@ -340,13 +340,8 @@ function updateParciales(mode,row) {
  * @param {function} callback que hacer una vez recibidos los datos
  */
 function updateFinales(perro,ronda,callback) {
-    if (typeof(ronda)==="undefined") {
-        ronda=$('#enumerateFinales').combogrid('grid').datagrid('getSelected');
-        if (ronda==null) {
-            // $.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
-            return; // no way to know which ronda is selected
-        }
-    }
+    if (typeof(ronda)==="undefined") ronda=$('#enumerateFinales').combogrid('grid').datagrid('getSelected');
+    if (ronda==null) return; // no way to know which ronda is selected
     // do not call doResults cause expected json data
     $.ajax({
         type:'GET',

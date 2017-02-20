@@ -171,16 +171,16 @@ function vwc_updateHeaderAndFooter(evt,data) {
 		// buscamos los textos de la cabecera. Dependiendo de si es parcial o final
 		// ronda o serie no estaran definidos... pero jquery se hace cargo y lo detecta
 		// Tanda para la llamada a pista
-		var infotanda=(typeof(data.Tanda.Nombre)==='undefined')?'':data.Tanda.Nombre;
+		var infotanda=(typeof(data.Tanda)==='undefined')?'':data.Tanda.Nombre;
 		$('#vwc_header-NombreTanda').html(infotanda);
 		// Ronda para la clasificacion final ( i.e: Grado1 )
-		var inforonda=(typeof(data.Ronda.Nombre)==='undefined')?'':data.Ronda.Nombre;
+		var inforonda=( (typeof(data.Ronda)==='undefined') || (data.Ronda==null))?'':data.Ronda.Nombre;
 		$('#vwc_header-NombreRonda').html(inforonda);
 		// Series para la clasificacion parcial ( i.e: Agility-Grado1 )
-		var infomanga=(typeof(data.Manga.Nombre)==='undefined')?'':data.Manga.Nombre;
+		var infomanga=(typeof(data.Manga)==='undefined')?'':data.Manga.Nombre;
 		$('#vwc_header-NombreManga').html(infomanga);
 		// modestring para la categoria
-		var modestr=getModeString(data.Prueba.RSCE,data.Ronda.Mode);
+		var modestr=( (typeof(data.Ronda)==='undefined') || (data.Ronda==null))?'':getModeString(data.Prueba.RSCE,data.Ronda.Mode);
 		$('#vwc_header-ModeString').html(modestr);
 	}
 
