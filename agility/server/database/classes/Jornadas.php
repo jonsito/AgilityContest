@@ -704,7 +704,7 @@ class Jornadas extends DBObject {
 	    $jobj=new Jornadas("enumerateRondasByJornada",0);
 		return array(
 			'Prueba'=>$p['ID'],
-			'Jornada'=>$j,
+			'Jornada'=>$j['ID'],
 			'Rondas'=> $jobj->tipo_ronda[$t][0],
 			'Nombre'=> $jobj->tipo_ronda[$t][1]." - ".Mangas::getMangaMode($m,0,$fed),
 			'Recorrido'=>$r,
@@ -737,31 +737,31 @@ class Jornadas extends DBObject {
 		);
 	}
 
-	static function __compose(&$data,$prueba,$jornadaid,$tiporonda,$m1,$m2=null,$m3=null,$m4=null,$m5=null,$m6=null,$m7=null,$m8=null){
+	static function __compose(&$data,$prueba,$jornada,$tiporonda,$m1,$m2=null,$m3=null,$m4=null,$m5=null,$m6=null,$m7=null,$m8=null){
 		$heights=intval(Federations::getFederation( intval($prueba['RSCE']) )->get('Heights'));
 		switch(intval($m1['Recorrido'])){ // should be the same than $m2['Recorrido']
 			case 0: // separado
-				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],0,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // large
-				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],1,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // medium
-				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],2,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // small
+				array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],0,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // large
+				array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],1,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // medium
+				array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],2,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // small
 				if($heights==4) {
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],5,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // tiny
+					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],5,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // tiny
 				}
 				break;
 			case 1: // mixto
 				if($heights==3) {
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],0,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // large
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],3,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // m+s
+					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],0,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // large
+					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],3,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // m+s
 				} else {
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],6,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // l+m
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],7,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // s+t
+					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],6,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // l+m
+					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],7,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // s+t
 				}
 				break;
 			case 2: // conjunto
 				if($heights==3) {
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],4,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // l+m+s
+					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],4,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // l+m+s
 				} else {
-					array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],8,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // l+m+s+t
+					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],8,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // l+m+s+t
 				}
 				break;
 		}
@@ -787,43 +787,43 @@ class Jornadas extends DBObject {
 			/* Pre-Agility siempre tiene recorrido comun para todas las categorias */
 			$m1=Jornadas::__searchManga(1,$mangas); // PA-1
 			$m2=Jornadas::__searchManga(2,$mangas); // PA-2
-			Jornadas::__compose($data, $prueba, $jornadaid, 2, $m1, $m2);
+			Jornadas::__compose($data, $prueba, $jornada, 2, $m1, $m2);
 		} else if ($jornada['PreAgility']!=0) {
 			// $dbobj->myLogger->trace("Procesando mangas de preagility-1");
 			/* Pre-Agility siempre tiene recorrido comun para todas las categorias */
 			$m1=Jornadas::__searchManga(1,$mangas); // PA-1
-			Jornadas::__compose($data, $prueba, $jornadaid, 1, $m1, null);
+			Jornadas::__compose($data, $prueba, $jornada, 1, $m1, null);
 		}
 		if ($jornada['Grado1']!=0) {  // Jornadas::tiporonda=3 (0:no G1 1:2rounds 2:1round 3:3rounds )
 			$m1 = Jornadas::__searchManga(3, $mangas); // Agility 1 Grado I
             $m2=($jornada['Grado1']==1)?Jornadas::__searchManga(4, $mangas):null; // Agility 2 Grado I
             $m3=($jornada['Grado1']==3)?Jornadas::__searchManga(17, $mangas):null; // Agility 3 Grado I
-			Jornadas::__compose($data, $prueba, $jornadaid, 3, $m1, $m2, $m3);
+			Jornadas::__compose($data, $prueba, $jornada, 3, $m1, $m2, $m3);
 		}
 		if ($jornada['Grado2']!=0) {  // Jornadas::tiporonda=4
 			$m1 = Jornadas::__searchManga(5, $mangas); // Agility Grado II
 			$m2 = Jornadas::__searchManga(10, $mangas); // Jumping Grado II
-			Jornadas::__compose($data, $prueba, $jornadaid, 4, $m1, $m2);
+			Jornadas::__compose($data, $prueba, $jornada, 4, $m1, $m2);
 		}
 		if ($jornada['Grado3']!=0) { // Jornadas::tiporonda=5
 			$m1 = Jornadas::__searchManga(6, $mangas); // Agility Grado III
 			$m2 = Jornadas::__searchManga(11, $mangas); // Jumping Grado III
-			Jornadas::__compose($data, $prueba, $jornadaid, 5, $m1, $m2);
+			Jornadas::__compose($data, $prueba, $jornada, 5, $m1, $m2);
 		}
 		if ($jornada['Open']!=0) { // Jornadas::tiporonda=6
 			$m1 = Jornadas::__searchManga(7, $mangas); // Agility Individual
 			$m2 = Jornadas::__searchManga(12, $mangas); // Jumping Individual
-			Jornadas::__compose($data, $prueba, $jornadaid, 6, $m1, $m2);
+			Jornadas::__compose($data, $prueba, $jornada, 6, $m1, $m2);
 		}
 		if ($jornada['Equipos3']!=0) { // Jornadas::tiporonda=7
 			$m1 = Jornadas::__searchManga(8, $mangas); // Agility Equipos3
 			$m2 = Jornadas::__searchManga(13, $mangas); // Jumping Equipos3
-			Jornadas::__compose($data, $prueba, $jornadaid, 7, $m1, $m2);
+			Jornadas::__compose($data, $prueba, $jornada, 7, $m1, $m2);
 		}
 		if ($jornada['Equipos4']!=0) { // Jornadas::tiporonda=8
 			$m1 = Jornadas::__searchManga(9, $mangas); // Agility Equipos3
 			$m2 = Jornadas::__searchManga(14, $mangas); // Jumping Equipos3
-			Jornadas::__compose($data, $prueba, $jornadaid, 8, $m1, $m2);
+			Jornadas::__compose($data, $prueba, $jornada, 8, $m1, $m2);
 		}
 		if ($jornada['KO']!=0) {
 			// $dbobj->myLogger->trace("Procesando mangas K.O.");
@@ -832,7 +832,7 @@ class Jornadas extends DBObject {
 		}
 		if ($jornada['Especial']!=0) { // Jornadas::tiporonda=10
 			$m1=Jornadas::__searchManga(16,$mangas); // Manga especial a una vuelta
-			Jornadas::__compose($data,$prueba,$jornadaid,10,$m1,null);
+			Jornadas::__compose($data,$prueba,$jornada,10,$m1,null);
 		}
 		// TODO: evaluate conjuntas Grado II y III
 		$result=array('total'=>count($data),'rows'=>$data);
