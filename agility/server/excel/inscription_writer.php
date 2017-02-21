@@ -66,6 +66,19 @@ class Excel_Inscripciones extends XLSX_Writer {
 			throw new Exception($this->errormsg);
 		}
 		$this->jornadas=$res['rows'];
+		// fix excel file name to match club
+        $suffix="";
+        if ($club!=0) {
+            $club=$p->__selectObject("Nombre","Clubes","ID={$this->club}");
+            $name=$club->Nombre;
+            $name = str_replace('\\', '', $name);
+            $name = str_replace('/', '', $name);
+            // Remove all characters that are not the separator, a-z, 0-9, or whitespace
+            $name = preg_replace('![^'.preg_quote('-').'a-z0-_9\s]+!', '', strtolower($name));
+            // Replace all separator characters and whitespace by a single separator
+            $suffix = "_" . preg_replace('!['.preg_quote('-').'\s]+!u', '_', $name);
+        }
+        $this->myFile="inscriptionlist".$suffix.".xlsx";
 	}
 
 	private function writeTableHeader() {
