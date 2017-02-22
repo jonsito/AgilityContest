@@ -82,22 +82,22 @@ class VideoWall {
         // retrieve rounds for this journey
         if ($mangaid!=0){
             $rondas=Jornadas::enumerateRondasByJornada($jornadaid)['rows'];
+            // and search current round
             foreach($rondas as $ronda) {
+                $mngs=array ('Manga1','Manga2','Manga3','Manga4','Manga5','Manga6','Manga7','Manga8');
                 $cat=Tandas::$tipo_tanda[$this->tandatype]['Categoria'];
-                if ($ronda['Manga1']==$this->mangaid) {
+                foreach ($mngs as $mng) {
+                    if($this->mangaid!=$ronda[$mng]) continue;
                     foreach( str_split($cat) as $c) {
+                        // TODO: revise Jornadas::__composeArray, to retrieve right short value for categoria (or create additional field)
                         if (strpos($ronda['Categoria'],$c)===false) continue;
+                        $this->myLogger->trace("Found ronda: ".json_encode($ronda));
                         $this->ronda=$ronda;
                         break;
                     }
+                    if ($this->ronda!=null) break;
                 }
-                if ($ronda['Manga2']==$this->mangaid){
-                    foreach( str_split($cat) as $c) {
-                        if (strpos($ronda['Categoria'],$c)===false) continue;
-                        $this->ronda=$ronda;
-                        break;
-                    }
-                }
+                if ($this->ronda!=null) break;
             }
         }
         $this->club= $this->myDBObject->__getArray("Clubes",$this->prueba['Club']);
