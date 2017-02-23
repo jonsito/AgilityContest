@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-02-14 14:27+0100\n"
-"PO-Revision-Date: 2017-02-14 14:27+0100\n"
+"POT-Creation-Date: 2017-02-23 15:08+0100\n"
+"PO-Revision-Date: 2017-02-23 15:13+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -93,8 +93,8 @@ msgstr "T"
 # Abreviatura de Rehuses
 #: chrono/chrono.inc.php:51 lib/templates/final_individual.inc.php:39
 #: lib/templates/final_individual_2rondas.inc.php:32
-#: lib/templates/final_last_individual.inc.php:37
-#: lib/templates/final_last_individual.inc.php:44
+#: lib/templates/final_last_individual.inc.php:45
+#: lib/templates/final_last_individual.inc.php:53
 #: lib/templates/final_last_teams.inc.php:39
 #: lib/templates/final_last_teams.inc.php:46
 #: lib/templates/parcial_individual.inc.php:32
@@ -199,7 +199,7 @@ msgstr "Gu&iacute;a"
 #: lib/templates/orden_salida.inc.php:33
 #: lib/templates/parcial_individual.inc.php:27
 #: lib/templates/parcial_last_individual.inc.php:29
-#: livestream/vwls_osdvideo.php:89 modules/Federations.php:273
+#: livestream/vwls_osdvideo.php:89 modules/Federations.php:274
 #: scripts/competicion.js.php:1298 scripts/datagrid_formatters.js.php:154
 #: scripts/results_and_scores.js.php:123 server/excel/common_writer.php:113
 #: server/pdf/print_clasificacion_excel.php:103
@@ -251,8 +251,6 @@ msgstr "Categor&iacute;a"
 #: videowall/vwc_parciales.php:86 console/dialogs/dlg_chperros.inc:78
 #: console/dialogs/dlg_chperros.inc:150
 #: console/dialogs/dlg_editInscripcion.inc:44
-#: console/dialogs/dlg_jornadas.inc:67 console/dialogs/dlg_jornadas.inc:79
-#: console/dialogs/dlg_jornadas.inc:85
 #: console/dialogs/dlg_newInscripcion.inc:154 console/dialogs/dlg_perros.inc:70
 msgid "Grade"
 msgstr "Grado"
@@ -343,7 +341,7 @@ msgstr "Eliminado"
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
 #: scripts/usuarios.js.php:86 scripts/usuarios.js.php:150
 #: console/dialogs/dlg_competicion.inc:71
-#: console/dialogs/dlg_configuracion.inc:544
+#: console/dialogs/dlg_configuracion.inc:574
 #: console/dialogs/dlg_selectJornada.inc:156
 msgid "Error"
 msgstr "Error"
@@ -572,7 +570,7 @@ msgstr "Equipo"
 
 #: chrono/chrono.js.php:164 chrono/chrono.js.php:261 console/frm_clubes.php:103
 #: console/frm_jueces.php:90 console/frm_paises.php:81
-#: console/import/import_clubes.inc.php:100 modules/Federations.php:273
+#: console/import/import_clubes.inc.php:100 modules/Federations.php:274
 #: scripts/datagrid_formatters.js.php:154
 #: scripts/datagrid_formatters.js.php:499
 #: scripts/datagrid_formatters.js.php:509 server/excel/dog_reader.php:363
@@ -806,15 +804,15 @@ msgstr "TRS Small"
 msgid "Templates"
 msgstr "Plantillas"
 
-#: console/dialogs/infomanga.php:333 console/dialogs/dlg_configuracion.inc:410
-#: console/dialogs/dlg_configuracion.inc:423
-#: console/dialogs/dlg_configuracion.inc:558 console/dialogs/dlg_tools.inc:12
+#: console/dialogs/infomanga.php:333 console/dialogs/dlg_configuracion.inc:437
+#: console/dialogs/dlg_configuracion.inc:450
+#: console/dialogs/dlg_configuracion.inc:588 console/dialogs/dlg_tools.inc:12
 msgid "Restore"
 msgstr "Restaurar"
 
 #: console/dialogs/infomanga.php:338 console/dialogs/dlg_competicion.inc:145
-#: console/dialogs/dlg_configuracion.inc:429
-#: console/dialogs/dlg_configuracion.inc:459
+#: console/dialogs/dlg_configuracion.inc:456
+#: console/dialogs/dlg_configuracion.inc:489
 #: console/dialogs/dlg_entrenamientos.inc:98 console/dialogs/dlg_equipos.inc:57
 #: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:143
 #: console/dialogs/dlg_jueces.inc:84 console/dialogs/dlg_perros.inc:94
@@ -833,6 +831,7 @@ msgstr "Nombre del juez"
 
 #: console/dialogs/infomanga.php:367 console/dialogs/infomanga.php:390
 #: console/frm_guias.php:96 console/frm_registration.php:58
+#: console/dialogs/dlg_configuracion.inc:349
 msgid "E-mail"
 msgstr "Correo Electr&oacute;nico"
 
@@ -974,7 +973,8 @@ msgid "-- Search --"
 msgstr "-- Buscar --"
 
 #: console/frm_admin.php:51 console/frm_login.php:45 console/frm_myAdmin.php:55
-#: tablet/index.php:146 console/dialogs/dlg_usuarios.inc:58
+#: tablet/index.php:146 console/dialogs/dlg_configuracion.inc:373
+#: console/dialogs/dlg_usuarios.inc:58
 msgid "Password"
 msgstr "Contrase&ntilde;a"
 
@@ -1056,6 +1056,7 @@ msgstr "Descripci&oacute;n"
 
 #: console/frm_admin.php:183 console/frm_logout.php:31 scripts/auth.js.php:80
 #: scripts/auth.js.php:109 tablet/index.php:141 tablet/index.php:369
+#: console/dialogs/dlg_configuracion.inc:371
 #: console/dialogs/dlg_sesiones.inc:39
 msgid "User"
 msgstr "Usuario"
@@ -1963,7 +1964,7 @@ msgstr "Importar inscripciones desde el fichero Excel seleccionado"
 #: console/dialogs/dlg_chperros.inc:112 console/dialogs/dlg_clubes.inc:148
 #: console/dialogs/dlg_clubes.inc:150
 #: console/dialogs/dlg_entrenamientos.inc:292 console/dialogs/dlg_guias.inc:79
-#: console/dialogs/dlg_jornadas.inc:305 console/dialogs/dlg_jueces.inc:123
+#: console/dialogs/dlg_jornadas.inc:313 console/dialogs/dlg_jueces.inc:123
 #: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:115
 #: console/dialogs/dlg_pruebas.inc:108 console/dialogs/dlg_sesiones.inc:88
 #: console/dialogs/dlg_usuarios.inc:108 console/dialogs/dlg_usuarios.inc:111
@@ -2558,7 +2559,7 @@ msgstr "Importar datos de Clubs"
 #: console/import/import_handlers.inc.php:30
 #: console/import/import_perros.inc.php:30 console/dialogs/dlg_chguias.inc:29
 #: console/dialogs/dlg_chperros.inc:29
-#: console/dialogs/dlg_configuracion.inc:412
+#: console/dialogs/dlg_configuracion.inc:439
 #: console/dialogs/dlg_newInscripcion.inc:33
 msgid "Search"
 msgstr "Buscar"
@@ -2843,7 +2844,7 @@ msgstr "Informaci&oacute;n en l&iacute;nea"
 msgid "Timetable"
 msgstr "Horario"
 
-#: index2.php:313 server/excel/inscription_writer.php:96
+#: index2.php:313 server/excel/inscription_writer.php:109
 msgid "Inscriptions"
 msgstr "Inscripciones"
 
@@ -2897,8 +2898,8 @@ msgstr "Datos del participante"
 #: lib/templates/final_individual_2rondas.inc.php:33
 #: lib/templates/final_individual_2rondas.inc.php:39
 #: lib/templates/final_last_individual.inc.php:38
-#: lib/templates/final_last_individual.inc.php:45
-#: lib/templates/final_last_individual.inc.php:50
+#: lib/templates/final_last_individual.inc.php:46
+#: lib/templates/final_last_individual.inc.php:54
 #: lib/templates/final_last_teams.inc.php:40
 #: lib/templates/final_last_teams.inc.php:47
 #: lib/templates/final_last_teams.inc.php:52
@@ -2941,7 +2942,7 @@ msgstr "Tiempo"
 
 #: lib/templates/final_individual.inc.php:25
 #: lib/templates/final_individual_2rondas.inc.php:40
-#: lib/templates/final_last_individual.inc.php:51
+#: lib/templates/final_last_individual.inc.php:39
 #: lib/templates/final_last_teams.inc.php:53
 #: lib/templates/parcial_individual.inc.php:41
 #: lib/templates/parcial_last_individual.inc.php:43
@@ -2959,7 +2960,7 @@ msgstr "Penal"
 
 #: lib/templates/final_individual.inc.php:26
 #: lib/templates/final_individual_2rondas.inc.php:41
-#: lib/templates/final_last_individual.inc.php:52
+#: lib/templates/final_last_individual.inc.php:40
 #: lib/templates/final_last_teams.inc.php:54
 #: lib/templates/parcial_individual.inc.php:42
 #: lib/templates/parcial_last_individual.inc.php:44
@@ -2976,7 +2977,7 @@ msgstr "Calif"
 
 #: lib/templates/final_individual.inc.php:27
 #: lib/templates/final_individual_2rondas.inc.php:42
-#: lib/templates/final_last_individual.inc.php:53
+#: lib/templates/final_last_individual.inc.php:41
 #: lib/templates/final_last_teams.inc.php:55
 #: lib/templates/parcial_individual.inc.php:43
 #: lib/templates/parcial_last_individual.inc.php:45
@@ -2992,8 +2993,8 @@ msgstr "Puesto"
 # Abrev de Faltas/Tocados
 #: lib/templates/final_individual.inc.php:38
 #: lib/templates/final_individual_2rondas.inc.php:31
-#: lib/templates/final_last_individual.inc.php:36
-#: lib/templates/final_last_individual.inc.php:43
+#: lib/templates/final_last_individual.inc.php:44
+#: lib/templates/final_last_individual.inc.php:52
 #: lib/templates/final_last_teams.inc.php:38
 #: lib/templates/final_last_teams.inc.php:45
 #: lib/templates/parcial_individual.inc.php:28
@@ -3012,8 +3013,8 @@ msgstr "F/T"
 
 #: lib/templates/final_individual.inc.php:41
 #: lib/templates/final_individual_2rondas.inc.php:34
-#: lib/templates/final_last_individual.inc.php:39
-#: lib/templates/final_last_individual.inc.php:46
+#: lib/templates/final_last_individual.inc.php:47
+#: lib/templates/final_last_individual.inc.php:55
 #: lib/templates/final_last_teams.inc.php:41
 #: lib/templates/final_last_teams.inc.php:48
 #: lib/templates/final_rounds_data.inc.php:20
@@ -3050,8 +3051,8 @@ msgstr "Vel"
 
 #: lib/templates/final_individual.inc.php:42
 #: lib/templates/final_individual_2rondas.inc.php:35
-#: lib/templates/final_last_individual.inc.php:40
-#: lib/templates/final_last_individual.inc.php:47
+#: lib/templates/final_last_individual.inc.php:48
+#: lib/templates/final_last_individual.inc.php:56
 #: lib/templates/final_last_teams.inc.php:42
 #: lib/templates/final_last_teams.inc.php:49
 #: lib/templates/final_teams.inc.php:24 lib/templates/final_teams.inc.php:26
@@ -3072,8 +3073,8 @@ msgstr "Penal"
 
 #: lib/templates/final_individual.inc.php:43
 #: lib/templates/final_individual_2rondas.inc.php:36
-#: lib/templates/final_last_individual.inc.php:41
-#: lib/templates/final_last_individual.inc.php:48
+#: lib/templates/final_last_individual.inc.php:49
+#: lib/templates/final_last_individual.inc.php:57
 #: lib/templates/final_last_teams.inc.php:43
 #: lib/templates/final_last_teams.inc.php:50
 #: scripts/results_and_scores.js.php:129 scripts/results_and_scores.js.php:135
@@ -3082,8 +3083,8 @@ msgstr "Cal"
 
 #: lib/templates/final_individual.inc.php:44
 #: lib/templates/final_individual_2rondas.inc.php:37
-#: lib/templates/final_last_individual.inc.php:42
-#: lib/templates/final_last_individual.inc.php:49
+#: lib/templates/final_last_individual.inc.php:50
+#: lib/templates/final_last_individual.inc.php:58
 #: lib/templates/final_last_teams.inc.php:44
 #: lib/templates/final_last_teams.inc.php:51 livestream/vwls_finales.php:100
 #: livestream/vwls_finales.php:103 server/pdf/print_resultadosByManga.php:63
@@ -3093,7 +3094,7 @@ msgstr "Pos"
 
 #: lib/templates/final_individual.inc.php:62
 #: lib/templates/final_individual_2rondas.inc.php:59
-#: lib/templates/final_last_individual.inc.php:70
+#: lib/templates/final_last_individual.inc.php:75
 #: lib/templates/final_last_teams.inc.php:72
 #: lib/templates/final_teams.inc.php:43 livestream/vwls_finales.php:156
 msgid "Updating final scores"
@@ -3176,7 +3177,7 @@ msgid "Database backup is recommended before import"
 msgstr "Se recomienda una copia de seguridad antes de la importacion"
 
 #: lib/templates/import_dialog.inc.php:13
-#: console/dialogs/dlg_configuracion.inc:407
+#: console/dialogs/dlg_configuracion.inc:434
 #: console/dialogs/dlg_entrenamientos.inc:30 console/dialogs/dlg_tools.inc:7
 msgid "Backup"
 msgstr "Backup"
@@ -3739,7 +3740,7 @@ msgstr ""
 #: scripts/sesiones.js.php:103 scripts/sesiones.js.php:133
 #: scripts/tandas.js.php:123 scripts/usuarios.js.php:109
 #: console/dialogs/dlg_competicion.inc:223
-#: console/dialogs/dlg_configuracion.inc:500
+#: console/dialogs/dlg_configuracion.inc:530
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -5164,11 +5165,11 @@ msgstr "Listado de perros"
 msgid "Pay"
 msgstr "Pagado"
 
-#: server/excel/inscription_writer.php:82
+#: server/excel/inscription_writer.php:95
 msgid "Inscription List"
 msgstr "Listado de inscritos"
 
-#: server/excel/inscription_writer.php:91
+#: server/excel/inscription_writer.php:104
 msgid "Paid"
 msgstr "Pagado"
 
@@ -6251,202 +6252,242 @@ msgid "Round data table text color"
 msgstr "Color texto informaci&oacute;n de manga"
 
 #: console/dialogs/dlg_configuracion.inc:350
+msgid "Options for sending electronic mail related functions"
+msgstr "Configuracion para operaciones de correo electr&oacute;nico"
+
+#: console/dialogs/dlg_configuracion.inc:351
+msgid "Email address"
+msgstr "Direcci&oacute;n de correo"
+
+#: console/dialogs/dlg_configuracion.inc:351
+msgid "From license info"
+msgstr "datos de la licencia"
+
+#: console/dialogs/dlg_configuracion.inc:354
+msgid "SMTP Server"
+msgstr "Servidor SMTP"
+
+#: console/dialogs/dlg_configuracion.inc:356
+msgid "Port"
+msgstr "Puerto"
+
+#: console/dialogs/dlg_configuracion.inc:363
+msgid "Authentication method"
+msgstr "M&eacute;todo de autenticaci&oacute;n"
+
+#: console/dialogs/dlg_configuracion.inc:365
+msgid "Login"
+msgstr "Login"
+
+#: console/dialogs/dlg_configuracion.inc:366
+msgid "Plain"
+msgstr "Texto Plano"
+
+#: console/dialogs/dlg_configuracion.inc:367
+msgid "NTLM"
+msgstr "NTLM"
+
+#: console/dialogs/dlg_configuracion.inc:368
+msgid "CRAM-MD5"
+msgstr "CRAM-MD5"
+
+#: console/dialogs/dlg_configuracion.inc:377
 msgid "General"
 msgstr "General"
 
-#: console/dialogs/dlg_configuracion.inc:351
+#: console/dialogs/dlg_configuracion.inc:378
 msgid "General configuration"
 msgstr "Configuraci&oacute;n general"
 
-#: console/dialogs/dlg_configuracion.inc:352
+#: console/dialogs/dlg_configuracion.inc:379
 msgid "Default language"
 msgstr "Idioma por defecto"
 
-#: console/dialogs/dlg_configuracion.inc:354
+#: console/dialogs/dlg_configuracion.inc:381
 msgid "Choose language from browser preferences"
 msgstr "Seleccionar el idioma seg&uacute;n preferencias del navegador"
 
-#: console/dialogs/dlg_configuracion.inc:357
+#: console/dialogs/dlg_configuracion.inc:384
 msgid "Debug level"
 msgstr "Nivel de depuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:360
+#: console/dialogs/dlg_configuracion.inc:387
 msgid "None"
 msgstr "Ninguno"
 
-#: console/dialogs/dlg_configuracion.inc:361
+#: console/dialogs/dlg_configuracion.inc:388
 msgid "Unusable syetem"
 msgstr "Sistema inutilizable"
 
-#: console/dialogs/dlg_configuracion.inc:362
+#: console/dialogs/dlg_configuracion.inc:389
 msgid "Non recoverable errors"
 msgstr "Errores no recuperables"
 
-#: console/dialogs/dlg_configuracion.inc:363
+#: console/dialogs/dlg_configuracion.inc:390
 msgid "Recoverable error"
 msgstr "Errores recuperables"
 
-#: console/dialogs/dlg_configuracion.inc:364
+#: console/dialogs/dlg_configuracion.inc:391
 msgid "Notice alerts"
 msgstr "Avisos a tener en cuenta"
 
-#: console/dialogs/dlg_configuracion.inc:365
+#: console/dialogs/dlg_configuracion.inc:392
 msgid "Informative messages"
 msgstr "Mensajes informativos"
 
-#: console/dialogs/dlg_configuracion.inc:366
+#: console/dialogs/dlg_configuracion.inc:393
 msgid "Debugging information"
 msgstr "Informaci&oacute;n de depuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:367
+#: console/dialogs/dlg_configuracion.inc:394
 msgid "Execution trace registering"
 msgstr "Trazas de ejecucion"
 
-#: console/dialogs/dlg_configuracion.inc:368
+#: console/dialogs/dlg_configuracion.inc:395
 msgid "Register everything"
 msgstr "Registrar absolutamente todo"
 
-#: console/dialogs/dlg_configuracion.inc:370
+#: console/dialogs/dlg_configuracion.inc:397
 msgid "Provide raw file copy for system events"
 msgstr "Generar fichero con registro de eventos del sistema"
 
-#: console/dialogs/dlg_configuracion.inc:374
+#: console/dialogs/dlg_configuracion.inc:401
 msgid "Printer device name to write tablet reports"
 msgstr "Nombre de la impresora de registro del tablet"
 
-#: console/dialogs/dlg_configuracion.inc:375
+#: console/dialogs/dlg_configuracion.inc:402
 msgid "Paper size"
 msgstr "Tamaño del papel"
 
-#: console/dialogs/dlg_configuracion.inc:382
-#: console/dialogs/dlg_configuracion.inc:483
+#: console/dialogs/dlg_configuracion.inc:409
+#: console/dialogs/dlg_configuracion.inc:513
 #: console/dialogs/dlg_ordensalida.inc:54
 msgid "Check"
 msgstr "Verificar"
 
-#: console/dialogs/dlg_configuracion.inc:385
+#: console/dialogs/dlg_configuracion.inc:412
 msgid "Clear event registration on tablet init session"
 msgstr "Borrar historial de eventos al iniciar sesi&oacute;n en el tablet"
 
-#: console/dialogs/dlg_configuracion.inc:389
+#: console/dialogs/dlg_configuracion.inc:416
 msgid "Include event history in backup"
 msgstr "Incluir historial de eventos en la copia de seguridad"
 
-#: console/dialogs/dlg_configuracion.inc:393
+#: console/dialogs/dlg_configuracion.inc:420
 msgid "Search for updates at startup"
 msgstr "Buscar actualizaciones al inicio"
 
-#: console/dialogs/dlg_configuracion.inc:399
+#: console/dialogs/dlg_configuracion.inc:426
 msgid "System"
 msgstr "Sistema"
 
-#: console/dialogs/dlg_configuracion.inc:400
+#: console/dialogs/dlg_configuracion.inc:427
 msgid "Additional server information"
 msgstr "Informaci&oacute;n adicional del servidor"
 
-#: console/dialogs/dlg_configuracion.inc:401
+#: console/dialogs/dlg_configuracion.inc:428
 msgid "IP address(es)"
 msgstr "Direcci&oacute;n(es) IP"
 
-#: console/dialogs/dlg_configuracion.inc:405
+#: console/dialogs/dlg_configuracion.inc:432
 msgid "Save and Restore configuration"
 msgstr "Guardar y Recuperar configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:406
+#: console/dialogs/dlg_configuracion.inc:433
 msgid "Download configuration to file"
 msgstr "Guardar configuraci&oacute;n en fichero"
 
-#: console/dialogs/dlg_configuracion.inc:409
+#: console/dialogs/dlg_configuracion.inc:436
 msgid "Restore configuration from file"
 msgstr "Recuperar configuraci&oacute;n desde fichero"
 
-#: console/dialogs/dlg_configuracion.inc:425
+#: console/dialogs/dlg_configuracion.inc:452
 msgid "Default"
 msgstr "Defecto"
 
-#: console/dialogs/dlg_configuracion.inc:441
+#: console/dialogs/dlg_configuracion.inc:471
 msgid "Enter printer name/device or leave empty to disable"
 msgstr ""
 "Nombre o Dispositivo de impresi&oacute;n <br/>Dejar vac&iacute;o para "
 "desactivar"
 
-#: console/dialogs/dlg_configuracion.inc:442
+#: console/dialogs/dlg_configuracion.inc:472
 msgid "Cancel changes. Restore information from server"
 msgstr ""
 "Anular cambios. Recuperar informaci&oacute;n de configuraci&oacute;n del "
 "servidor"
 
-#: console/dialogs/dlg_configuracion.inc:443
+#: console/dialogs/dlg_configuracion.inc:473
 msgid "Factory reset. Configure with default data"
 msgstr ""
 "Configurar aplicaci&oacute;n con los valores por defecto de f&aacute;brica. "
 
-#: console/dialogs/dlg_configuracion.inc:444
+#: console/dialogs/dlg_configuracion.inc:474
 msgid "Accept changes. Save as new configuration"
 msgstr "Aceptar cambios. Guardar como nueva configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:445
+#: console/dialogs/dlg_configuracion.inc:475
 msgid "Send sample report to check printer"
 msgstr "Enviar informe de prueba para comprobar impresora"
 
-#: console/dialogs/dlg_configuracion.inc:460
+#: console/dialogs/dlg_configuracion.inc:490
 msgid "New configuration successfully saved"
 msgstr "Nueva configuraci&oacute;n guardada correctamente"
 
-#: console/dialogs/dlg_configuracion.inc:461
-#: console/dialogs/dlg_configuracion.inc:505
-#: console/dialogs/dlg_configuracion.inc:560
+#: console/dialogs/dlg_configuracion.inc:491
+#: console/dialogs/dlg_configuracion.inc:535
+#: console/dialogs/dlg_configuracion.inc:590
 msgid "You should close session and reload page"
 msgstr "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"
 
-#: console/dialogs/dlg_configuracion.inc:462
-#: console/dialogs/dlg_configuracion.inc:506
-#: console/dialogs/dlg_configuracion.inc:561
+#: console/dialogs/dlg_configuracion.inc:492
+#: console/dialogs/dlg_configuracion.inc:536
+#: console/dialogs/dlg_configuracion.inc:591
 msgid "for changes to become active"
 msgstr "para que los cambios se activen"
 
-#: console/dialogs/dlg_configuracion.inc:484
+#: console/dialogs/dlg_configuracion.inc:514
 msgid "A test page has been sent to event recording printer"
 msgstr "Se ha enviado una pagina de prueba a la impresora de registro"
 
-#: console/dialogs/dlg_configuracion.inc:485
+#: console/dialogs/dlg_configuracion.inc:515
 msgid "Please check for proper output"
 msgstr "Compruebe que la impresi&oacute;n es correcta"
 
-#: console/dialogs/dlg_configuracion.inc:486
+#: console/dialogs/dlg_configuracion.inc:516
 msgid "Remember to save changes before exiting"
 msgstr "Recuerde guardar los cambios antes de salir del men&uacute;"
 
-#: console/dialogs/dlg_configuracion.inc:500
+#: console/dialogs/dlg_configuracion.inc:530
 msgid "Restore factory default values. Sure?"
 msgstr "Restaurar valores por defecto. ¿Seguro?"
 
-#: console/dialogs/dlg_configuracion.inc:503
+#: console/dialogs/dlg_configuracion.inc:533
 msgid "Factory reset"
 msgstr "Reset de f&aacute;brica"
 
-#: console/dialogs/dlg_configuracion.inc:504
+#: console/dialogs/dlg_configuracion.inc:534
 msgid "Restored default configuration options"
 msgstr "Recuperada configuraci&oacute;n por defecto"
 
-#: console/dialogs/dlg_configuracion.inc:531
+#: console/dialogs/dlg_configuracion.inc:561
 msgid "Downloading configuration, please wait"
 msgstr "Descargando fichero de configuraci&oacute;n. Espere..."
 
-#: console/dialogs/dlg_configuracion.inc:532
+#: console/dialogs/dlg_configuracion.inc:562
 msgid "There was a problem in configuration download. Please try again"
 msgstr ""
 "Hubo un problema en la descarga de la configuraci&oacute;n. Pruebe de nuevo"
 
-#: console/dialogs/dlg_configuracion.inc:544
+#: console/dialogs/dlg_configuracion.inc:574
 msgid "No config file selected"
 msgstr "No se ha indicado ning&uacute;n fichero"
 
-#: console/dialogs/dlg_configuracion.inc:555
+#: console/dialogs/dlg_configuracion.inc:585
 msgid "Restore configuration from file error"
 msgstr "Error al restaurar configuraci&oacute;n desde fichero"
 
-#: console/dialogs/dlg_configuracion.inc:559
+#: console/dialogs/dlg_configuracion.inc:589
 msgid "Configuration file successfully restored"
 msgstr "Configuraci&oacute;n restaurada correctamente"
 
@@ -6620,7 +6661,7 @@ msgstr "Dependiente de"
 msgid "Competition Mode"
 msgstr "Modalidad"
 
-#: console/dialogs/dlg_jornadas.inc:304
+#: console/dialogs/dlg_jornadas.inc:312
 msgid "Register journey into database"
 msgstr "Registrar datos de la jornada en la base de datos"
 
