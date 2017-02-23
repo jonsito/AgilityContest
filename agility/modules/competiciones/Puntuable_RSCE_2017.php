@@ -81,6 +81,7 @@ class Puntuable_RSCE_2017 extends Competitions {
         }
         if ($perro['Grado']==="GI") {
             parent::evalPartialCalification($m,$perro,$puestocat);
+            if($perro['Penalizacion']==0) $perro['Puntos']=1;
             return;
         }
         if ($perro['Penalizacion']>0) {
