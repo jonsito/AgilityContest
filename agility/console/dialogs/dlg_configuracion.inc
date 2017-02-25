@@ -477,11 +477,10 @@ $config =Config::getInstance();
 	
 	function saveConfig() {
 		$('#config-Operation').val('saveConfig');
-	    var frm = $('#config-form');
 	    $.ajax({
 	        type: 'GET',
 	        url: '/agility/server/adminFunctions.php',
-	        data: frm.serialize(),
+	        data: $('#config-form').serialize(),
 	        dataType: 'json',
 	        success: function (result) {
 	            if (result.errorMsg){
@@ -494,7 +493,10 @@ $config =Config::getInstance();
 				            "info");
 					loadConfiguration(function(config) { $('#config-form').form('load',config);	});
 	            }
-	        }
+	        },
+            error: function(XMLHttpRequest,textStatus,errorThrown) {
+                $.messager.alert("Save configuration to file error","Error: "+textStatus + " "+ errorThrown,'error' );
+            }
 	    });
 	}	
 
