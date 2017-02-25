@@ -1,8 +1,8 @@
 <?php
 
-require __DIR__.'/PHPMailer-5.2.22/PHPMailerAutoload.php';
-require __DIR__.'/../auth/Config.php';
-require __DIR__.'/../auth/AuthManager.php';
+require_once __DIR__.'/PHPMailer-5.2.22/PHPMailerAutoload.php';
+require_once __DIR__.'/../auth/Config.php';
+require_once __DIR__.'/../auth/AuthManager.php';
 /*
 mailManager.php
 
@@ -27,12 +27,13 @@ class MailManager {
     protected $myLogger;
 
     private function configureMailer($server,$port,$method,$user,$pass) {
+        // $this->myLogger->trace("ConfigureMailer: Server:'$server' Port:'$port' Auth:'$method' User:'$user' Password:'$pass'");
         //Set the hostname of the mail server
         // use $this->myMailer->Host = gethostbyname('smtp.gmail.com');
-        $this->myMailer->Host = $server;
+        $this->myMailer->Host = gethostbyname($server);
         // if your network does not support SMTP over IPv6
         //Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
-        $this->myMailer->Port = $port;
+        $this->myMailer->Port = intval($port);
         //Set the encryption system to use - ssl (deprecated) or tls
         $this->myMailer->SMTPSecure = 'tls';
         //Whether to use SMTP authentication
@@ -50,7 +51,7 @@ class MailManager {
         $this->myMailer = new PHPMailer; //Create a new PHPMailer instance
         $this->myMailer->isSMTP(); //Tell PHPMailer to use SMTP
         //Enable SMTP debugging
-        $this->myMailer->SMTPDebug = 0; // 0 = off (for production use) // 1 = client messages // 2 = client and server messages
+        $this->myMailer->SMTPDebug = 3; // 0 = off (for production use) // 1 = client messages // 2 = client and server messages // 3=trace connection
         $this->myMailer->Debugoutput = 'html'; //Ask for HTML-friendly debug output
         $this->configureMailer(
         // configure mailer with configuration file contents
@@ -66,10 +67,10 @@ class MailManager {
         $this->myMailer->addReplyTo($data['Email'], $data['Name']);
         // allways attach AgiltiyContest logo
         $this->myMailer->addAttachment('../images/logos/agilitycontest.png');
-
     }
 
     public function check() {
+        $this->myLogger->enter();
         // configure mailer with configuration data from client form
         $this->configureMailer(
             http_request("email_server","s",""),
@@ -88,18 +89,26 @@ class MailManager {
         //Replace the plain text body with one created manually
         $this->myMailer->AltBody = 'This is a plain-text message body for mail testing';
         //send the message, check for errors
+        $this->myLogger->trace("before send");
         if (!$this->myMailer->send()) return "Mailer Error: " . $this->myMailer->ErrorInfo;
+        $this->myLogger->leave();
         return "";
     }
 
     public function notify() {
+        $this->myLogger->enter();
+        $this->myLogger->leave();
         return "";
     }
 
     public function sendInscriptions($prueba) {
+        $this->myLogger->enter();
+        $this->myLogger->leave();
         return "";
     }
     public function sendResults($jornada) {
+        $this->myLogger->enter();
+        $this->myLogger->leave();
         return "";
     }
 }

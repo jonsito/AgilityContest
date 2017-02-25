@@ -40,14 +40,12 @@ try {
         // iterate on selected clubs for sending inscription template
         case "sendInscriptions": $am->access(PERMS_OPERATOR); $result=$mailer->sendInscriptions($prueba); break;
         // send results, scores and excels to federation ad judges
-        case "sendResults": $result=$mailer->sendResults($jornada); break;
+        case "sendResults": $am->access(PERMS_OPERATOR); $result=$mailer->sendResults($jornada); break;
         default: throw new Exception("mailFunctions:: invalid operation: '$operation' provided");
     }
-    if ($result===null)
-        throw new Exception($jueces->errormsg);
-    if ($result==="")
-        echo json_encode(array('success'=>true));
-    else echo json_encode($result);
+    if ($result==="")  echo json_encode(array('success'=>true)); // "": ok
+    else if (is_string($result)) throw new Exception($result); // string: error string
+    else echo json_encode($result);                            // encode response
 } catch (Exception $e) {
     do_log($e->getMessage());
     echo json_encode(array('errorMsg'=>$e->getMessage()));

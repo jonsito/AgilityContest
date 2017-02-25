@@ -374,6 +374,8 @@ $config =Config::getInstance();
             <label for="email_pass"><?php _e('Password'); ?></label>
             <input id="email_pass" name="email_pass" size="20" type="password" value="" class="easyui-textbox"/>
             <br/>
+            <input id="email-checkBtn" type="button" value="<?php _e("Check");?>" onclick="emailCheck();"/>
+            <br/>
         </div>
 		<div title="<?php _e('General'); ?>" style="padding:10px">
 			<h3><?php _e('General configuration'); ?></h3>
@@ -473,7 +475,8 @@ $config =Config::getInstance();
 	addTooltip($('#config-resetBtn').linkbutton(),'<?php _e("Cancel changes. Restore information from server"); ?>');
 	addTooltip($('#config-defaultBtn').linkbutton(),'<?php _e("Factory reset. Configure with default data"); ?>');
 	addTooltip($('#config-okBtn').linkbutton(),'<?php _e("Accept changes. Save as new configuration"); ?>');
-	addTooltip($('#printer-checkBtn').linkbutton(),'<?php _e("Send sample report to check printer"); ?>');
+    addTooltip($('#printer-checkBtn').linkbutton(),'<?php _e("Send sample report to check printer"); ?>');
+    addTooltip($('#email-checkBtn').linkbutton(),'<?php _e("Send yourself a sample mail to check parameters"); ?>');
 	
 	function saveConfig() {
 		$('#config-Operation').val('saveConfig');
@@ -498,8 +501,30 @@ $config =Config::getInstance();
                 $.messager.alert("Save configuration to file error","Error: "+textStatus + " "+ errorThrown,'error' );
             }
 	    });
-	}	
+	}
 
+    function emailCheck() {
+        $('#config-Operation').val('check');
+        $.ajax({
+            type: 'GET',
+            url: '/agility/server/mailFunctions.php',
+            data: $('#config-form').serialize(),
+            dataType: 'json',
+            success: function (result) {
+                if (result.errorMsg){
+                    $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
+                } else {
+                    $.messager.alert('<?php _e("Check"); ?>',
+                        '<?php _e("Mail has been successfully sent"); ?>'+" <br />"+
+                        '<?php _e("Please verify your email inbox check for mail received"); ?> ',
+                        "info");
+                }
+            },
+            error: function(XMLHttpRequest,textStatus,errorThrown) {
+                $.messager.alert("Mailer check error","Error: "+textStatus + " "+ errorThrown,'error' );
+            }
+        });
+    }
 	function printerCheck() {
 		$('#config-Operation').val('printerCheck');
 		var frm = $('#config-form');
