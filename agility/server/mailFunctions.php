@@ -26,26 +26,27 @@ require_once(__DIR__."/mail/MailManager.php");
 
 try {
     $result=null;
-    $am= new AuthManager("juezFunctions");
+    $am= new AuthManager("mailFunctions");
     $operation=http_request("Operation","s",null);
-    $federation=http_request("Federation","i",-1); // -1 defaults to all federations
-    $idjuez=http_request("ID","i",0);
-    $jueces= new Jueces("juezFunctions",$federation);
-    if ($operation===null) throw new Exception("Call to juezFunctions without 'Operation' requested");
+    $prueba=http_request("Prueba","i",0);
+    $jornada=http_request("Jornada","i",0);
+    $mailer=new MailManager("mailFunctions",$am);
+    if ($operation===null) throw new Exception("Call to mailFunctions without 'Operation' requested");
     switch ($operation) {
-        case "insert": $am->access(PERMS_OPERATOR); $result=$jueces->insert(); break;
-        case "update": $am->access(PERMS_OPERATOR); $result=$jueces->update($idjuez); break;
-        case "delete": $am->access(PERMS_OPERATOR); $result=$jueces->delete($idjuez); break;
-        case "selectbyid": $result=$jueces->selectByID($idjuez); break;
-        case "select": $result=$jueces->select(); break; // list with order, index, count and where
-        case "enumerate": $result=$jueces->enumerate(); break; // list with where
-        case "countries": $c=new Country(); $result=$c->enumerate(); break;
-        default: throw new Exception("juezFunctions:: invalid operation: '$operation' provided");
+        // try to send mail to sender using configuration preferences
+        case "check": $am->access(PERMS_OPERATOR); $result=$mailer->check(); break;
+        // send mail to AgilityContest server
+        case "notify": $am->access(PERMS_OPERATOR); $result=$mailer->notify(); break;
+        // iterate on selected clubs for sending inscription template
+        case "sendInscriptions": $am->access(PERMS_OPERATOR); $result=$mailer->sendInscriptions($prueba); break;
+        // send results, scores and excels to federation ad judges
+        case "sendResults": $result=$mailer->sendResults($jornada); break;
+        default: throw new Exception("mailFunctions:: invalid operation: '$operation' provided");
     }
     if ($result===null)
         throw new Exception($jueces->errormsg);
     if ($result==="")
-        echo json_encode(array('success'=>true,'insert_id'=>$jueces->conn->insert_id,'affected_rows'=>$jueces->conn->affected_rows));
+        echo json_encode(array('success'=>true));
     else echo json_encode($result);
 } catch (Exception $e) {
     do_log($e->getMessage());
