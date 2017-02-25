@@ -224,9 +224,10 @@ class Federations {
      * @param {integer} $type manga mode 0..8
      * @return {string} requested data
      */
-    public function getMangaMode($mode) {
-        if (!array_key_exists('IndexedModes',$this->config)) return Mangas::$manga_modes[$mode][0];
-        if (!array_key_exists($mode,$this->config['IndexedModes'])) return Mangas::$manga_modes[$mode][0];
+    public function getMangaMode($mode,$idx=0) {
+        if ($idx!=0) return Mangas::$manga_modes[$mode][$idx];
+        if (!array_key_exists('IndexedModes',$this->config)) return Mangas::$manga_modes[$mode][$idx];
+        if (!array_key_exists($mode,$this->config['IndexedModes'])) return Mangas::$manga_modes[$mode][$idx];
         return $this->config['IndexedModes'][$mode];
     }
 

@@ -53,7 +53,7 @@ $config =Config::getInstance();
         <form id="usuarios-form" method="get">
             <div class="fitem">
                 <label for="usuarios-Login"><?php _e('Name'); ?></label>
-                <input id="usuarios-Login" class="easyui-validatebox" name="Login" type="text" style="width:250px" />
+                <input id="usuarios-Login" type="text" class="easyui-validatebox" name="Login" style="width:250px" />
                 <a id="usuarios-passwdBtn" href="#" class="easyui-linkbutton" 
                 	data-options="iconCls:'icon-key'" onclick="setPassword('#usuarios-datagrid');"><?php _e('Password'); ?></a>
                 <input id="usuarios-ID" name="ID" type="hidden" /> 
@@ -61,15 +61,15 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="usuarios-Gecos"><?php _e('Information'); ?></label>
-                <input id="usuarios-Gecos" name="Gecos" type="text" style="height:25px;width:375px"/>
+                <input id="usuarios-Gecos" name="Gecos" type="text" class="easyui-textbox" style="height:25px;width:375px"/>
             </div>
             <div class="fitem">
                 <label for="usuarios-Phone"><?php _e('Telephone'); ?></label>
-                <input id="usuarios-Phone" name="Phone" type="text" style="width:250px" />
+                <input id="usuarios-Phone" name="Phone" type="text" class="easyui-textbox" style="width:250px" />
             </div>
             <div class="fitem">
                 <label for="usuarios-Email"><?php _e('Electronic mail'); ?></label>
-                <input id="usuarios-Email" class="easyui-validatebox" name="Email" type="text" style="width:250px" />
+                <input id="usuarios-Email" type="text" class="easyui-validatebox" name="Email" style="width:250px" />
             </div>
             <div class="fitem">
                 <label for="usuarios-Club"><?php _e('Club'); ?>:</label>

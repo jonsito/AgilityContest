@@ -27,11 +27,7 @@ $config =Config::getInstance();
         <form id="pruebas-form" method="get" novalidate>
             <div class="fitem">
                 <label for="pruebas-Nombre" style="width:325px"><?php _e('Name of this contest'); ?>:</label>
-                <input id="pruebas-Nombre" 
-                	name="Nombre" 
-                	type="text" 
-                	class="easyui-validatebox" 
-                	style="width:350px" />
+                <input id="pruebas-Nombre" name="Nombre" type="text" class="easyui-validatebox" style="width:350px" />
                 <input id="pruebas-ID" name="ID" type="hidden" /> <!-- primary key -->
                 <input id="pruebas-Operation" name="Operation" type="hidden" /> <!-- used to store operation type -->
                 <input id="pruebas-Cerrada" name="Cerrada" type="hidden" /> <!-- preserve "closed" status -->
@@ -53,15 +49,15 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="pruebas-Ubicacion"><?php _e('Event location'); ?></label>
-                <input id="pruebas-Ubicacion" name="Ubicacion" type="text" style="width:250px"/>
+                <input id="pruebas-Ubicacion" name="Ubicacion" type="text" class="easyui-textbox" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="pruebas-Triptico"><?php _e('Triptych URL'); ?></label>
-                <input id="pruebas-Triptico" name="Triptico" class="easyui-validatebox" type="text" style="width:250px"/>
+                <input id="pruebas-Triptico" name="Triptico" type="text" class="easyui-textbox" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="pruebas-Cartel"><?php _e('Brochure URL'); ?></label>
-                <input id="pruebas-Cartel" name="Cartel" class="easyui-validatebox" type="text" style="width:250px"/>
+                <input id="pruebas-Cartel" name="Cartel" type="text" class="easyui-textbox" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="pruebas-Observaciones"><?php _e('Comments'); ?>:</label>

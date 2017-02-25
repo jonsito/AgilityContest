@@ -45,7 +45,7 @@ $config =Config::getInstance();
 
 			<h3><?php _e('Training session parameters'); ?></h3>
 			<label><?php _e('Club/Country Training time assignment mode'); ?></label>
-			<select name="training_type">
+			<select name="training_type" class="easyui-combobox">
 				<option value="1" selected="selected"><?php _e('Individual time * Max number of dogs/category');?> </option>
 				<option value="0"><?php _e('Individual time * Number of dogs on each County or Club');?> </option>
 			</select>
@@ -60,7 +60,7 @@ $config =Config::getInstance();
 		<div title="<?php _e('Desktop'); ?>" style="padding:10px">
 			<h3><?php _e('Desktop look and feel'); ?></h3>
 			<label for="config_theme"><?php _e('Dekstop theme'); ?></label>
-			<select id="config_theme" name="easyui_theme">
+			<select id="config_theme" name="easyui_theme" class="easyui-combobox">
 				<option value="default" selected="selected"><?php _e('Default theme'); ?></option>
 				<option value="metro"><?php _e('Metro'); ?></option>
 				<option value="gray"><?php _e('Grey'); ?></option>
@@ -105,7 +105,7 @@ $config =Config::getInstance();
 			<input id="tablet_keyboard" name="tablet_keyboard" type="checkbox" value="1"/><br />
 
 			<label for="tablet_dblckick"><?php _e('Action at double click in round list'); ?></label>
-			<select id="tablet_dblclick" name="tablet_dblckick">
+			<select id="tablet_dblclick" name="tablet_dblckick" class="easyui-combobox">
 				<option value="0"><?php _e('Cancel and select');?></option>
 				<option value="1" selected="selected"><?php _e('Save and select');?></option>
 			</select><br />
@@ -136,7 +136,7 @@ $config =Config::getInstance();
 		<div title="<?php _e('VideoWall'); ?>" style="padding:10px">
 			<h3><?php _e('Video wall configurable parameters'); ?></h3>
 			<label for="vw_polltime"><?php _e('AutoScroll period (seg.)'); ?></label>
-			<input id="vw_polltime" name="vw_polltime" type="text" size="2" value="5"/><br />
+			<input id="vw_polltime" name="vw_polltime" type="text" size="2" value="5" class="easyui-textbox"/><br />
 
 			<label for="vw_hdrbg1"><?php _e('Background color for main header'); ?></label>
 			<input id="vw_hdrbg1" name="vw_hdrbg1" type="color" value="#0000ff"/>
@@ -166,20 +166,20 @@ $config =Config::getInstance();
 			<h3><?php _e('Alternate (simplified) Video wall configurable parameters'); ?></h3>
 			
 			<label for="vws_polltime"><?php _e('Sponsors rotation period (seg.)'); ?></label>
-			<input id="vws_polltime" name="vws_polltime" type="text" size="2" value="5"/><br />
+			<input id="vws_polltime" name="vws_polltime" type="text" size="2" value="5" class="easyui-textbox"/><br />
 
 			<label for="vws_uselogo"><?php _e('Use special logo instead of standard header');?></label>
 			<input type="hidden" name="vws_uselogo" value="0"/> <!-- trick for checkboxes -->
 			<input type="checkbox" name="vws_uselogo" id="vws_uselogo" value="1"/><br />
 			<label for="vws_logourl"><?php _e('URL for logo image to be used');?></label>
-			<input type="text" id="vws_logourl" name="vws_logourl" size="50" maxlength="90" /><br />
+			<input type="text" id="vws_logourl" name="vws_logourl" size="50" maxlength="90" class="easyui-textbox"/><br />
 
 			<label for="vws_uselogo"><?php _e('Enable animated images into screen');?></label>
 			<input type="hidden" name="vws_animation" value="0"/> <!-- trick for checkboxes -->
 			<input type="checkbox" name="vws_animation" id="vws_animation" value="1"/><br />
 
 			<label for="vws_font"><?php _e('Font family for text in cells'); ?></label>
-			<select id="vws_font" name="vws_font">
+			<select id="vws_font" name="vws_font" class="easyui-combobox">
 				<option value="Helvetica, monospace"><?php _e('Default system font'); ?></option>
 				<option value="futura_condensedbold">Futura Condensed Bold</option>
 				<option value="roadgeek_2005_engschriftRg">RoadGeek 2005 Engschrift</option>
@@ -229,7 +229,7 @@ $config =Config::getInstance();
 			<input id="vw_tobefirst" name="vw_tobefirst" type="checkbox" value="1"/><br />
 
 			<label for="vw_alpha"><?php _e('Transparency level for OnScreenDisplay'); ?></label>
-			<input id="vw_alpha" name="vw_alpha" type="text" size="3" value="0.5"/> (0.0-1.0)<br />
+			<input id="vw_alpha" name="vw_alpha" type="text" size="3" value="0.5" class="easyui-textbox"/> (0.0-1.0)<br />
 
 			<label for="vw_evtdelay"><?php _e('Delay for LiveStream event parsing'); ?></label>
 			<input id="vw_evtdelay" name="vw_evtdelay" type="number" style="width:40px;" value="1.0" min="0" max="5" step="0.1"/> (<?php _e('sec');?>)<br />
@@ -238,7 +238,7 @@ $config =Config::getInstance();
 			<input id="vw_chromakey" name="vw_chromakey" type="color" value="#00ff00"/><br />
 
 			<label for="vw_dataposition"><?php _e('Timming data screen location'); ?></label>
-			<select id="vw_dataposition" name="vw_dataposition">
+			<select id="vw_dataposition" name="vw_dataposition" class="easyui-combobox">
 				<option value="0"><?php _e('Not visible');?></option>
 				<option value="1" selected="selected"><?php _e('Upper right corner');?></option>
 				<option value="2"><?php _e('Lower right corner');?></option>
@@ -246,7 +246,7 @@ $config =Config::getInstance();
 			</select><br />
 
 			<label for="vw_infoposition"><?php _e('Round data screen location'); ?></label>
-			<select id="vw_infoposition" name="vw_infoposition">
+			<select id="vw_infoposition" name="vw_infoposition" class="easyui-combobox">
 				<option value="0"><?php _e('Not visible');?></option>
 				<option value="1" selected="selected"><?php _e('Screen top');?></option>
 				<option value="2"><?php _e('On top of competitor info');?></option>
@@ -256,7 +256,7 @@ $config =Config::getInstance();
 		<div title="<?php _e('Reports'); ?>" style="padding:10px">
 			<h3><?php _e('PDF forms and reports generation'); ?></h3>
 			<label for="pdf_fontfamily"><?php _e('Font family'); ?></label>
-			<select id="pdf_fontfamily" name="pdf_fontfamily">
+			<select id="pdf_fontfamily" name="pdf_fontfamily" class="easyui-combobox">
 				<option value="DejaVu" selected="selected">DejaVu (UTF-8)</option>
 				<option value="Free">GNU Free (UTF-8)</option>
 				<option value="Courier">Courier (iso-latin1)</option>
@@ -306,16 +306,16 @@ $config =Config::getInstance();
             <input id="pdf_skipnpel" name="pdf_skipnpel" type="checkbox" value="1"/><br />
 
 			<label for="pdf_topmargin"><?php _e('Label sheet upper margin (mmts)'); ?></label>
-			<input id="pdf_topmargin" name="pdf_topmargin" type="text" size="4" value="10.0"/><br />
+			<input id="pdf_topmargin" name="pdf_topmargin" type="text" size="4" value="10.0" class="easyui-textbox"/><br />
 			<label for="pdf_leftmargin"><?php _e('Label sheet right margin (mmts)'); ?></label>
-			<input id="pdf_leftmargin" name="pdf_leftmargin" type="text" size="4" value="10.0"/><br />
+			<input id="pdf_leftmargin" name="pdf_leftmargin" type="text" size="4" value="10.0" class="easyui-textbox"/><br />
 		</div>
 		
 		<div title="<?php _e('Internet'); ?>" style="padding:10px">
 		<h3><?php _e('Public access from internet'); ?></h3>
 			<label for="web_refreshtime"><?php _e('Data auto-refresh interval'); ?></label>
 			<input type="hidden" name="web_refreshtime" value="0"/> <!-- trick for select with value 0 -->
-			<select id="web_refreshtime" name="web_refreshtime">
+			<select id="web_refreshtime" name="web_refreshtime" class="easyui-combobox">
 				<option value="0" selected="selected"><?php _e('No refresh'); ?></option>
 				<option value="30">30 sec.</option>
 				<option value="45">45 sec.</option>
@@ -346,7 +346,35 @@ $config =Config::getInstance();
 			<label class="space" for="pb_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
 			<input id="pb_rowcolor4" name="pb_rowcolor4" type="color" value="#c0c0c0"/><br />
 		</div>
-				
+		<div title="<?php _e('E-mail'); ?>" style="padding:10px">
+            <h3><?php _e('Options for sending electronic mail related functions'); ?></h3>
+            <label for="email_address"><?php _e('Email address'); ?> (<?php _e('From license info'); ?>)</label>
+            <input id="email_address" name="email_address" type="text" readonly="readonly" size="25" value="agilityContest@agilitycontest.es" class="easyui-textbox"/>
+            <br/>
+            <label for="email_server"><?php _e('SMTP Server'); ?></label>
+            <input id="email_server" name="email_server" type="text" size="20" value="" class="easyui-textbox"/>
+            <?php _e('Port'); ?>
+            <select id="email_port" name="email_port" class="easyui-combobox">
+                <option value="25">25 - SMTP</option>
+                <option value="465">465 - SMTP on SSL</option>
+                <option value="25">587 - STARTTLS</option>
+            </select>
+            <br/>
+            <label for="email_auth"><?php _e('Authentication method'); ?></label>
+            <select id="email_auth" name="email_auth" class="easyui-combobox">
+                <option value="LOGIN"><?php _e('Login');?></option>
+                <option value="PLAIN"><?php _e('Plain');?></option>
+                <option value="NTLM"><?php _e('NTLM');?></option>
+                <option value="CRAM-MD5"><?php _e('CRAM-MD5');?></option>
+            </select>
+            <br/>
+            <label for="email_user"><?php _e('User'); ?></label>
+            <input id="email_user" name="email_user" type="text" size="20" value="" class="easyui-textbox"/>
+            <br/>
+            <label for="email_pass"><?php _e('Password'); ?></label>
+            <input id="email_pass" name="email_pass" size="20" type="password" value="" class="easyui-textbox"/>
+            <br/>
+        </div>
 		<div title="<?php _e('General'); ?>" style="padding:10px">
 			<h3><?php _e('General configuration'); ?></h3>
 			<label for="config_lang"><?php _e('Default language'); ?></label>
@@ -355,7 +383,7 @@ $config =Config::getInstance();
 			<input type="hidden" name="accept_lang" value="0"/> <!-- trick for checkboxes -->
 			<input type="checkbox" name="accept_lang" id="accept_lang" value="1"/><br />
 			<label for="debug_level"><?php _e('Debug level'); ?></label>
-			<select id="debug_level" name="debug_level">
+			<select id="debug_level" name="debug_level" class="easyui-combobox">
 				<!-- "PANIC","ALERT","ERROR","WARN","NOTICE","INFO","DEBUG","TRACE","ALL" -->
 				<option value="0" ><?php _e('None'); ?>.</option>
 				<option value="1" ><?php _e('Unusable syetem'); ?></option>
@@ -372,7 +400,7 @@ $config =Config::getInstance();
             <input type="checkbox" name="register_events" id="register_events" value="1"/><br />
 
 			<label for="event_printer"><?php _e('Printer device name to write tablet reports'); ?></label>
-			<input id="event_printer" name="event_printer" type="text" size="10" value=""/> <?php _e('Paper size'); ?>:
+			<input id="event_printer" name="event_printer" type="text" class="easyui-textbox" size="10" value=""/> <?php _e('Paper size'); ?>:
 			<label for="wide_printer58" style="width:70px;">
 				<input type="radio" id="wide_printer58" name="wide_printer" value="0" checked="checked"/> 58mm
 			</label>
@@ -399,7 +427,7 @@ $config =Config::getInstance();
 		<div title="<?php _e('System'); ?>" style="padding:10px">
 			<h3><?php _e('Additional server information'); ?></h3>
 			<label for="ip_address"><?php _e('IP address(es)'); ?></label>
-			<input id="ip_address" name="ip_address" type="text" readonly="readonly" size="45"
+			<input id="ip_address" name="ip_address" type="text" class="easyui-textbox" readonly="readonly" size="45"
 				   value="<?php $a=new networkInterfaces(); echo implode(", ",$a->get_interfaces());?>" />
 			<br />
 			<h3><?php _e('Save and Restore configuration'); ?></h3>
@@ -432,6 +460,9 @@ $config =Config::getInstance();
 
 <script type="text/javascript">
 
+    // retrieve email sender address from registration info.
+    $('#email_address').val(ac_regInfo.Email); // uneditable
+
 	$('#config_lang').combobox({
         url:'/agility/server/adminFunctions.php?Operation=getAvailableLanguages',
         valueField:'ID',
@@ -446,11 +477,10 @@ $config =Config::getInstance();
 	
 	function saveConfig() {
 		$('#config-Operation').val('saveConfig');
-	    var frm = $('#config-form');
 	    $.ajax({
 	        type: 'GET',
 	        url: '/agility/server/adminFunctions.php',
-	        data: frm.serialize(),
+	        data: $('#config-form').serialize(),
 	        dataType: 'json',
 	        success: function (result) {
 	            if (result.errorMsg){
@@ -463,7 +493,10 @@ $config =Config::getInstance();
 				            "info");
 					loadConfiguration(function(config) { $('#config-form').form('load',config);	});
 	            }
-	        }
+	        },
+            error: function(XMLHttpRequest,textStatus,errorThrown) {
+                $.messager.alert("Save configuration to file error","Error: "+textStatus + " "+ errorThrown,'error' );
+            }
 	    });
 	}	
 

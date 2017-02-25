@@ -131,6 +131,12 @@ define('AC_CRONO_MILISECONDS',"0");	// presentar (1) milesimas o centesimas (0) 
 define('AC_CRONO_INTERMEDIATE',"0");// presentar (1) o no (0) datos de crono intermedio
 define('AC_CRONO_RECTIME',"7");		// tiempo (minutos) de reconocimiento de pista (4..10)
 
+/** datos de correo electronico */
+define('AC_EMAIL_SERVER',"mail.google.com"); // SMTP Server name
+define('AC_EMAIL_PORT',587); // SMTP Server port
+define('AC_EMAIL_AUTH',"tls"); // auth method
+define('AC_EMAIL_USER',""); // account user name
+define('AC_EMAIL_PASS',""); // base64 encoded password ( sucks, sure, but better than nothing )
 
 Class Config {
 	
@@ -276,7 +282,13 @@ Class Config {
 		'crono_resync'		=> array(	'b',	false,	AC_CRONO_RESYNC),
 		'crono_miliseconds'	=> array(	'b',	false,	AC_CRONO_MILISECONDS),
 		'crono_intermediate'=> array(	'b',	false,	AC_CRONO_INTERMEDIATE),
-		'crono_rectime'		=> array(	'i',	false,	AC_CRONO_RECTIME)
+		'crono_rectime'		=> array(	'i',	false,	AC_CRONO_RECTIME),
+		// correo electronico
+		'email_server'		=> array(	's',	false,	AC_EMAIL_SERVER),
+		'email_port'		=> array(	'i',	false,	AC_EMAIL_PORT),
+		'email_auth'		=> array(	's',	false,	AC_EMAIL_AUTH),
+		'email_user'		=> array(	's',	false,	AC_EMAIL_USER),
+		'email_pass'		=> array(	's',	false,	AC_EMAIL_PASS)
 	);
 
 	// singleton pattern
@@ -325,6 +337,26 @@ Class Config {
 		return key($lang2pref);
 	}
 
+	private function readAC_configFile($file) {
+		$data=parse_ini_file($file,false); // use false to don't handle subsections
+		foreach ($data as $key => $val) {
+			// transcode special fields
+            if ($key==="email_user") $data[$key]=base64_decode($val);
+            if ($key==="email_pass") $data[$key]=base64_decode($val);
+		}
+		return $data;
+	}
+
+	private function writeAC_configFile($data,$file) {
+		// encode special fields before store
+		foreach ($data as $key => $val) {
+			// transcode special fields
+            if ($key==="email_user") $data[$key]=base64_encode($val);
+            if ($key==="email_pass") $data[$key]=base64_encode($val);
+		}
+		$this->write_ini_file($data,$file,false);
+	}
+
 	private function __construct() {
 
 		// cargamos los valores por defecto
@@ -332,16 +364,17 @@ Class Config {
 			$this->config[$key]=$info[2];
 		}
 		// leemos fichero de sistema
-		$sys=parse_ini_file(AC_SYSTEM_FILE,false); // false: don't parse subsections
+		$sys=$this->readAC_configFile(AC_SYSTEM_FILE); // false: don't parse subsections
 		// leemos ahora el fichero de configuracion
-		$res=parse_ini_file(AC_CONFIG_FILE,false); // false: don't parse subsections
+		$res=$this->readAC_configFile(AC_CONFIG_FILE,false); // false: don't parse subsections
 		if ( ($res===FALSE) || ($sys===FALSE ) ){
 			$this->config['configured'] =false; // mark initialization code to be executed
 			return;
 		}
-		// cargamos los valores definidos en el fichero de configuracion
 		foreach($this->config as $key => $val) {
+            // cargamos los valores definidos en el fichero de configuracion
 			if ( array_key_exists($key,$res)) $this->config[$key]=$res[$key];
+            // ahora procesamos los datos del sistema, que tienen precedencia
 			if ( array_key_exists($key,$sys)) $this->config[$key]=$sys[$key];
 		}
 
@@ -439,12 +472,14 @@ Class Config {
 			if ($info[1]==false) $data[$key]=$info[2];
 		}
 
-		$result=$this->write_ini_file($data,AC_CONFIG_FILE);
+		$result=$this->$this->writeAC_configFile($data,AC_CONFIG_FILE);
 		if ($result===FALSE) {
 			$msg="Error al generar el fichero de configuracion";
 			$this->do_log($msg);
 			return $msg;
 		}
+		// sobreescribimos los valores por defecto sobre los actuales
+		// y retornamos la mezcla
 		$this->config=array_merge($this->config,$data);
 		return $data;
 	}
@@ -465,7 +500,7 @@ Class Config {
 		}
 		// finally write file:
 		$res=array_merge($this->config,$data);
-		$result=$this->write_ini_file($res,AC_CONFIG_FILE);
+		$result=$this->writeAC_configFile($res,AC_CONFIG_FILE);
 		if ($result===FALSE) return "Error al generar el fichero de configuracion";
 		return "";
 	}
@@ -508,7 +543,7 @@ Class Config {
 		$file=fopen($tmpfile,"wb");
 		fwrite($file,$contents);
 		fclose($file);
-		$res=parse_ini_file($tmpfile,false); // don't parse subsections
+		$res=$this->readAC_configFile($tmpfile); // don't parse subsections
 		if (!$res) {
 			return array("errorMsg" => "restoreConfig()::download() Received data is not a '.ini' file");
 		}
@@ -548,7 +583,7 @@ Class Config {
 		}
 		// finally write file:
 		$res=array_merge($this->config,$data);
-		$wres=$this->write_ini_file($res,AC_CONFIG_FILE);
+		$wres=$this->$this->writeAC_configFile($res,AC_CONFIG_FILE);
 		if ($wres===FALSE) return array("errorMsg" => "restoreConfig()::save() error saving .ini file");
 		return array('data'=>join('<br />',$result));
 	}

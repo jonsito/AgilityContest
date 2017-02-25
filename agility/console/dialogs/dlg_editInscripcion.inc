@@ -36,17 +36,17 @@ $config =Config::getInstance();
            	<span  id="edit_inscripcion-dogInfo" 	class="ftitle"><?php _e('Dog information'); ?>:</span>
            	<span  id="edit_inscripcion-inscInfo" 	class="ftitle" style="text-align:center"><?php _e('Inscription data'); ?>:</span>
            	<label id="edit_inscripcion-Nombrelbl"	for="edit_inscripcion-Nombre"><?php _e('Name'); ?>:</label>
-           	<input id="edit_inscripcion-Nombre" 	name="Nombre" type="text" disabled="disabled" />
+           	<input id="edit_inscripcion-Nombre" 	name="Nombre" type="text" class="easyui-textbox" disabled="disabled" />
         	<label id="edit_inscripcion-Licencialbl" for="edit_inscripcion-Licencia"><?php _e('License'); ?>: </label>
-        	<input id="edit_inscripcion-Licencia"	name="Licencia" type="text" disabled="disabled"/>
+        	<input id="edit_inscripcion-Licencia"	name="Licencia" type="text" class="easyui-textbox" disabled="disabled"/>
         	<label id="edit_inscripcion-Categorialbl" for="edit_inscripcion-Categoria"><?php _e('Category'); ?>: </label>
-            <input id="edit_inscripcion-Categoria" 	name="Categoria" type="text" style="text-align:center" disabled="disabled"/>
+            <input id="edit_inscripcion-Categoria" 	name="Categoria" type="text" class="easyui-textbox" style="text-align:center" disabled="disabled"/>
         	<label id="edit_inscripcion-Gradolbl"	for="edit_inscripcion-Grado"><?php _e('Grade'); ?>: </label>
-            <input id="edit_inscripcion-Grado" 		name="Grado" type="text" style="text-align:center" disabled="disabled" />
+            <input id="edit_inscripcion-Grado" 		name="Grado" type="text" class="easyui-textbox" style="text-align:center" disabled="disabled" />
             <label id="edit_inscripcion-NombreGuialbl"	for="edit_inscripcion-NombreGuia"><?php _e('Handler'); ?>: </label>
-            <input id="edit_inscripcion-NombreGuia" name="NombreGuia" type="text" disabled="disabled"/>
+            <input id="edit_inscripcion-NombreGuia" name="NombreGuia" type="text" class="easyui-textbox" disabled="disabled"/>
             <label id="edit_inscripcion-NombreClublbl" for="edit_inscripcion-NombreClub"><?php _e('Club'); ?>: </label>
-           	<input id="edit_inscripcion-NombreClub" name="NombreClub" type="text" disabled="disabled" />
+           	<input id="edit_inscripcion-NombreClub" name="NombreClub" type="text" class="easyui-textbox" disabled="disabled" />
 			<input type="hidden" name="J1" value="0"/> <!-- stupid form handling of val==0 -->
            	<input id="edit_inscripcion-J1" 		name="J1" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
            	<label id="edit_inscripcion-J1lbl" 		for="edit_inscripcion-J1">J1</label>
@@ -75,9 +75,9 @@ $config =Config::getInstance();
            	<input id="edit_inscripcion-Celo" 		name="Celo" type="hidden" value="0"/>
             <input id="edit_inscripcion-Celo2"		name="Celo2" class="easyui-checkbox" type="checkbox" value="1" />
 	        <label id="edit_inscripcion-Observacioneslbl" for="edit_inscripcion-Observaciones"><?php _e('Comments'); ?>:</label>
-	        <input id="edit_inscripcion-Observaciones" type="text" name="Observaciones"/>
+	        <input id="edit_inscripcion-Observaciones" type="text" class="easyui-textbox" name="Observaciones"/>
 	        <label id="edit_inscripcion-Pagadolbl"	for="edit_inscripcion-Pagado"><?php _e('Paid out'); ?>: </label>
- 	  		<input id="edit_inscripcion-Pagado" 	name="Pagado" type="text" style="text-align:right;padding-right:5px"/>
+ 	  		<input id="edit_inscripcion-Pagado" 	name="Pagado" type="text" class="easyui-textbox" style="text-align:right;padding-right:5px"/>
  	  		<span id="edit_inscripcion-PagadoEuro">&euro;</span>
         </form> 
     	</div>

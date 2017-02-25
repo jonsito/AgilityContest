@@ -85,11 +85,11 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td id="dmanga_LargeLbl">Large</td>
 			<td>
                 <label for="dmanga_DistL"></label>
-                <input type="text" id="dmanga_DistL" name="Dist_L" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" class="easyui-textbox" id="dmanga_DistL" name="Dist_L" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
 			<td>
                 <label for="dmanga_ObstL"></label>
-                <input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" class="easyui-textbox" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
 			<!-- datos para TRS standard -->
 			<td>
@@ -104,7 +104,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			</td>
 			<td>
                 <label for="dmanga_TRS_L_Factor"></label>
-                <input type="text" id="dmanga_TRS_L_Factor" name="TRS_L_Factor" size="4" value="0"/>
+                <input type="text" class="easyui-textbox" id="dmanga_TRS_L_Factor" name="TRS_L_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRS_L_Unit"></label>
@@ -115,7 +115,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
             <td>
-                <input type="text" id="dmanga_TRS_L_TimeSpeed" name="TRS_L_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
+                <input type="text" class="easyui-textbox" id="dmanga_TRS_L_TimeSpeed" name="TRS_L_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
             </td>
 			<!-- datos para TRM standard -->
 			<td>
@@ -128,7 +128,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			</td>
 			<td>
                 <label for="dmanga_TRM_L_Factor"></label>
-                <input type="text" id="dmanga_TRM_L_Factor" name="TRM_L_Factor" size="4" value="0"/>
+                <input type="text" class="easyui-textbox" id="dmanga_TRM_L_Factor" name="TRM_L_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRM_L_Unit"></label>
@@ -142,11 +142,11 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td id="dmanga_MediumLbl">Medium</td>
 			<td>
                 <label for="dmanga_DistM"></label>
-                <input type="text" id="dmanga_DistM" name="Dist_M" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" class="easyui-textbox" id="dmanga_DistM" name="Dist_M" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
 			<td>
                 <label for="dmanga_ObstM"></label>
-                <input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" class="easyui-textbox" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
 			<!-- datos para TRS medium -->
 			<td>
@@ -162,7 +162,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			</td>
 			<td>
                 <label for="dmanga_TRS_M_Factor"></label>
-                <input type="text" id="dmanga_TRS_M_Factor" name="TRS_M_Factor" size="4" value="0"/>
+                <input type="text" class="easyui-textbox" id="dmanga_TRS_M_Factor" name="TRS_M_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRS_M_Unit"></label>
@@ -173,7 +173,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
             <td>
-                <input type="text" id="dmanga_TRS_M_TimeSpeed" name="TRS_M_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
+                <input type="text" class="easyui-textbox" id="dmanga_TRS_M_TimeSpeed" name="TRS_M_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
             </td>
 			<!-- datos para TRM medium -->
 			<td>
@@ -186,7 +186,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			</td>
 			<td>
                 <label for="dmanga_TRM_M_Factor"></label>
-                <input type="text" id="dmanga_TRM_M_Factor" name="TRM_M_Factor" size="4" value="0"/>
+                <input type="text" class="easyui-textbox" id="dmanga_TRM_M_Factor" name="TRM_M_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRM_M_Unit"></label>
@@ -200,11 +200,11 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td id="dmanga_SmallLbl">Small</td>
 			<td>
                 <label for="dmanga_DistS"></label>
-                <input type="text" id="dmanga_DistS" name="Dist_S" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" class="easyui-textbox" id="dmanga_DistS" name="Dist_S" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
 			<td>
                 <label for="dmanga_ObstS"></label>
-                <input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" class="easyui-textbox" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
 			<!-- datos para TRS small -->
 			<td>
@@ -222,7 +222,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			</td>
 			<td>
                 <label for="dmanga_TRS_S_Factor"></label>
-                <input type="text" id="dmanga_TRS_S_Factor" name="TRS_S_Factor" size="4" value="0"/>
+                <input type="text" class="easyui-textbox" id="dmanga_TRS_S_Factor" name="TRS_S_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRS_S_Unit"></label>
@@ -233,7 +233,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
             <td>
-                <input type="text" id="dmanga_TRS_S_TimeSpeed" name="TRS_S_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
+                <input type="text" class="easyui-textbox" id="dmanga_TRS_S_TimeSpeed" name="TRS_S_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
             </td>
 			<!-- datos para TRM small -->
 			<td>
@@ -246,7 +246,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			</td>
 			<td>
                 <label for="dmanga_TRM_S_Factor"></label>
-                <input type="text" id="dmanga_TRM_S_Factor" name="TRM_S_Factor" size="4" value="0"/>
+                <input type="text" class="easyui-textbox" id="dmanga_TRM_S_Factor" name="TRM_S_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRM_S_Unit"></label>
@@ -261,11 +261,11 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td id="dmanga_TinyLbl">Tiny</td>
 			<td>
                 <label for="dmanga_DistT"></label>
-                <input type="text" id="dmanga_DistT" name="Dist_T" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" class="easyui-textbox" id="dmanga_DistT" name="Dist_T" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
 			<td>
                 <label for="dmanga_ObstT"></label>
-                <input type="text" id="dmanga_ObstT" name="Obst_T" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" class="easyui-textbox" id="dmanga_ObstT" name="Obst_T" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
 			<!-- datos para TRS tiny -->
 			<td>
@@ -283,7 +283,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			</td>
 			<td>
                 <label for="dmanga_TRS_T_Factor"></label>
-                <input type="text" id="dmanga_TRS_T_Factor" name="TRS_T_Factor" size="4" value="0"/>
+                <input type="text" class="easyui-textbox" id="dmanga_TRS_T_Factor" name="TRS_T_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRS_T_Unit"></label>
@@ -294,7 +294,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
             <td>
-                <input type="text" id="dmanga_TRS_T_TimeSpeed" name="TRS_T_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
+                <input type="text" class="easyui-textbox" id="dmanga_TRS_T_TimeSpeed" name="TRS_T_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
             </td>
 			<!-- datos para TRM tiny -->
 			<td>
@@ -307,7 +307,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			</td>
 			<td>
                 <label for="dmanga_TRM_T_Factor"></label>
-                <input type="text" id="dmanga_TRM_T_Factor" name="TRM_T_Factor" size="4" value="0"/>
+                <input type="text" class="easyui-textbox" id="dmanga_TRM_T_Factor" name="TRM_T_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRM_T_Unit"></label>
@@ -320,7 +320,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 	<?php } ?>
 		<tr> <!-- fila 7: observaciones -->
 			<td colspan="2"><label for="dmanga_Observaciones"><?php _e('Comments'); ?></label></td>
-			<td colspan="8"><input type="text" id="dmanga_Observaciones" name="Observaciones" size="75" value=""/></td>
+			<td colspan="8"><input type="text" class="easyui-textbox" id="dmanga_Observaciones" name="Observaciones" size="75" value=""/></td>
 		</tr>
 		<tr> <!-- fila 7: botones reset y save -->
             <td>

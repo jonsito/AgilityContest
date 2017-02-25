@@ -709,7 +709,7 @@ class Jornadas extends DBObject {
 			'Nombre'=> $jobj->tipo_ronda[$t][1]." - ".Mangas::getMangaMode($m,0,$fed),
 			'Recorrido'=>$r,
 			'Mode'=>$m,
-			'Categoria'=>Mangas::getMangaMode($m,1,$fed), // list of affected categories
+            'Categoria'=>Mangas::getMangaMode($m,1,$fed), // list of affected categories
 			'Manga1'=>$m1['ID'],
             'Manga2'=>($m2!==null)?$m2['ID']:0,
             'Manga3'=>($m3!==null)?$m3['ID']:0,
