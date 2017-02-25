@@ -39,12 +39,12 @@ $config =Config::getInstance();
     		<div class="fitem">
     	   		<label for="Username"><?php _e('User name'); ?>:</label>
        	   		<input id="login-Username" name="Username" style="width:200px" type="text"
-        			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
+        			class="easyui-validatebox easyui-textbox" data-options="required:true,validType:'length[1,255]'"/>
        		</div>        		
        		<div class="fitem">
        	   		<label for="Password"><?php _e('Password'); ?>:</label>
        	   		<input id="login-Password" name="Password" style="width:200px" type="password"
-       	   			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
+       	   			class="easyui-validatebox easyui-textbox" data-options="required:true,validType:'length[1,255]'"/>
        		</div>
        		<div class="fitem">
        	   		<label for="Federation"><?php _e('Federation'); ?>:</label>

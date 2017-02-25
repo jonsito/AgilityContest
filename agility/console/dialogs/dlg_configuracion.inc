@@ -370,6 +370,7 @@ $config =Config::getInstance();
             <br/>
             <label for="email_user"><?php _e('User'); ?></label>
             <input id="email_user" name="email_user" type="text" size="20" value="" class="easyui-textbox"/>
+            <br/>
             <label for="email_pass"><?php _e('Password'); ?></label>
             <input id="email_pass" name="email_pass" size="20" type="password" value="" class="easyui-textbox"/>
             <br/>
@@ -399,7 +400,7 @@ $config =Config::getInstance();
             <input type="checkbox" name="register_events" id="register_events" value="1"/><br />
 
 			<label for="event_printer"><?php _e('Printer device name to write tablet reports'); ?></label>
-			<input id="event_printer" name="event_printer" type="text" size="10" value=""/> <?php _e('Paper size'); ?>:
+			<input id="event_printer" name="event_printer" type="text" class="easyui-textbox" size="10" value=""/> <?php _e('Paper size'); ?>:
 			<label for="wide_printer58" style="width:70px;">
 				<input type="radio" id="wide_printer58" name="wide_printer" value="0" checked="checked"/> 58mm
 			</label>
@@ -426,7 +427,7 @@ $config =Config::getInstance();
 		<div title="<?php _e('System'); ?>" style="padding:10px">
 			<h3><?php _e('Additional server information'); ?></h3>
 			<label for="ip_address"><?php _e('IP address(es)'); ?></label>
-			<input id="ip_address" name="ip_address" type="text" readonly="readonly" size="45"
+			<input id="ip_address" name="ip_address" type="text" class="easyui-textbox" readonly="readonly" size="45"
 				   value="<?php $a=new networkInterfaces(); echo implode(", ",$a->get_interfaces());?>" />
 			<br />
 			<h3><?php _e('Save and Restore configuration'); ?></h3>

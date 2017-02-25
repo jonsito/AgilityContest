@@ -31,7 +31,7 @@ $config =Config::getInstance();
 <div id="new_inscripcion-datagrid-tools" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
 	   	<label for="Buscar"><?php _e('Search'); ?>: </label>
-		<input name="Buscar" type="text" id="new_inscripcion-datagrid-search" style="width:150px" value="<?php _e('-- Search --'); ?>"
+		<input name="Buscar" type="text" class="easyui-textbox" id="new_inscripcion-datagrid-search" style="width:150px" value="<?php _e('-- Search --'); ?>"
 			class="search_textfield" onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"
 			   onchange="reloadWithSearch('#new_inscripcion-datagrid','noinscritos',false);"/>
 	</span>

@@ -45,11 +45,11 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="chguias-Email"><?php _e('Electronic mail'); ?>:</label>
-                <input id="chguias-Email" name="Email" type="text" style="width:250px"/>
+                <input id="chguias-Email" name="Email" type="text" class="easyui-textbox" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="chguias-Telefono"><?php _e('Telephone'); ?>:</label>
-                <input id="chguias-Telefono" name="Telefono" type="text" />
+                <input id="chguias-Telefono" name="Telefono" type="text" class="easyui-textbox" />
             </div>
             <div class="fitem">
                 <label for="chguias-Observaciones"><?php _e('Comments'); ?>:</label>

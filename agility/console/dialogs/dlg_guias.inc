@@ -27,7 +27,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <form id="guias-form" method="get" novalidate>
             <div class="fitem">
                 <label for="guias-Nombre"><?php _e('Name'); ?>:</label>
-                <input id="guias-Nombre" name="Nombre" type="text" style="width:300px" />
+                <input id="guias-Nombre" name="Nombre" type="text" class="easyui-textbox" style="width:300px" />
                 <input id="guias-Federation" name="Federation" type="hidden" />
                 <input id="guias-ID" name="ID" type="hidden" /> <!-- primary key for update -->
                 <input id="guias-Parent" name="Parent" type="hidden" /> <!-- used to store parent datagrid -->
@@ -39,7 +39,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </div>
             <div class="fitem">
                 <label for="guias-Telefono"><?php _e('Telephone'); ?>:</label>
-                <input id="guias-Telefono" name="Telefono" type="text" />
+                <input id="guias-Telefono" name="Telefono" type="text" class="easyui-textbox" />
             </div>
             <div class="fitem">
                 <label for="guias-Club"><?php _e('Club'); ?>:</label>

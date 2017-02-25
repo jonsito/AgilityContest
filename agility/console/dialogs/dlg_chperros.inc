@@ -57,15 +57,15 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="chperros-Raza"><?php _e('Breed'); ?>:</label>
-                <input id="chperros-Raza" class="easyui-validatebox" name="Raza" type="text" />
+                <input id="chperros-Raza" class="easyui-validatebox" name="Raza" type="text" class="easyui-textbox" />
             </div>
             <div class="fitem">
                 <label for="chperros-LOE_RRC"><?php _e('Kennel Club ID'); ?>:</label>
-                <input id="chperros-LOE_RRC" class="easyui-validatebox" name="LOE_RRC" type="text" />
+                <input id="chperros-LOE_RRC" class="easyui-validatebox" name="LOE_RRC" type="text" class="easyui-textbox" />
             </div>
             <div class="fitem">
                 <label for="chperros-Licencia"><?php _e('Ag. License'); ?>:</label>
-                <input id="chperros-Licencia" class="easyui-validatebox" name="Licencia" type="text" />
+                <input id="chperros-Licencia" class="easyui-validatebox" name="Licencia" type="text" class="easyui-textbox" />
             </div>
             <div class="fitem">
                 <label for="chperros-Categorias_Perro"><?php _e('Category'); ?>:</label>

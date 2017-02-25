@@ -27,17 +27,14 @@ $config =Config::getInstance();
         <form id="perros-form" method="get" novalidate>
             <div class="fitem">
                 <label for="perros-Nombre"><?php _e('Name'); ?>:</label>
-                <input id="perros-Nombre" 
-                	name="Nombre" 
-                	type="text" 
-                	class="easyui-validatebox"/>
+                <input id="perros-Nombre" name="Nombre"	type="text"	class="easyui-validatebox"/>
                 <input id="perros-Federation" name="Federation" type="hidden" />
                 <input id="perros-ID" name="ID" type="hidden" /> <!-- hide idperro, as only used for edit and is readonly -->
                 <input id="perros-Operation" name="Operation" type="hidden" value="insert"/> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
                 <label for="perros-NombreLargo"><?php _e('Pedigree Name'); ?>:</label>
-                <input id="perros-NombreLargo" class="easyui-validatebox" name="NombreLargo" type="text" style="width:350px;"/>
+                <input id="perros-NombreLargo" type="text" class="easyui-textbox" name="NombreLargo" style="width:350px;"/>
             </div>
             <div class="fitem">
                 <label for="perros-Genero"><?php _e('Gender'); ?>:</label>
@@ -49,15 +46,15 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="perros-Raza"><?php _e('Breed'); ?>:</label>
-                <input id="perros-Raza" class="easyui-validatebox" name="Raza" type="text" />
+                <input id="perros-Raza" type="text" class="easyui-textbox" name="Raza" />
             </div>
             <div class="fitem">
                 <label for="perros-LOE_RRC"><?php _e('Kennel Club ID'); ?>:</label>
-                <input id="perros-LOE_RRC" class="easyui-validatebox" name="LOE_RRC" type="text" />
+                <input id="perros-LOE_RRC" type="text"  class="easyui-textbox" name="LOE_RRC"/>
             </div>
             <div class="fitem">
                 <label for="perros-Licencia"><?php _e('Ag. License'); ?>:</label>
-                <input id="perros-Licencia" class="easyui-validatebox" name="Licencia" type="text" />
+                <input id="perros-Licencia" type="text" class="easyui-textbox" name="Licencia"/>
             </div>
             <div class="fitem">
                 <label for="perros-Categoria"><?php _e('Category'); ?>:</label>

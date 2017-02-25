@@ -26,18 +26,14 @@ $config =Config::getInstance();
         <form id="sesiones-form" method="get">
             <div class="fitem">
                 <label for="sesiones-Nombre"><?php _e('Name'); ?>:</label>
-                <input id="sesiones-Nombre" 
-                	name="Nombre" 
-                	type="text" 
-                	class="easyui-validatebox" 
-                	style="width:250px" />
+                <input id="sesiones-Nombre" name="Nombre" type="text" class="easyui-validatebox" style="width:250px" />
                 <input id="sesiones-ID" name="ID" type="hidden" /> 
                 <input id="sesiones-Operation" name="Operation" type="hidden" /> <!-- to store insert/update/delete operation -->
             </div>
             <div class="fitem">
                 <input id="sesiones-Operador" name="Operador" type="hidden" /> 
                 <label for="sesiones-Login"><?php _e('User'); ?></label>
-                <input id="sesiones-Login" class="easyui-validatebox" name="Login" readonly="readonly" type="text" style="width:250px" />
+                <input id="sesiones-Login" type="text" class="easyui-validatebox" name="Login" readonly="readonly" style="width:250px" />
                 <a id="sesiones-logoutBtn" href="#" class="easyui-linkbutton" 
                 	data-options="iconCls:'icon-exit'" onclick="session_logout()"><?php _e('Disconnect'); ?></a>
             </div>
@@ -47,19 +43,19 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="sesiones-Background"><?php _e('Background image/mjpeg'); ?></label>
-                <input id="sesiones-Background" name="Background" type="text" style="width:375px" />
+                <input id="sesiones-Background" name="Background" type="text" class="easyui-textbox" style="width:375px" />
             </div>
             <div class="fitem">
                 <label for="sesiones-Livestream"><?php _e('Stream MPEG-4'); ?></label>
-                <input id="sesiones-Livestream" name="LiveStream" type="text" style="width:375px" />
+                <input id="sesiones-Livestream" name="LiveStream" type="text" class="easyui-textbox" style="width:375px" />
             </div>
             <div class="fitem">
                 <label for="sesiones-LiveStream2"><?php _e('Stream OGV'); ?></label>
-                <input id="sesiones-LiveStream2" name="LiveStream2" type="text" style="width:375px" />
+                <input id="sesiones-LiveStream2" name="LiveStream2" type="text" class="easyui-textbox" style="width:375px" />
             </div>
             <div class="fitem">
                 <label for="sesiones-LiveStream3"><?php _e('Stream Web-M'); ?></label>
-                <input id="sesiones-LiveStream3" name="LiveStream3" type="text" style="width:375px" />
+                <input id="sesiones-LiveStream3" name="LiveStream3" type="text" class="easyui-textbox" style="width:375px" />
             </div>
             <div class="fitem" style="display:inline-block;float:right; padding-right:40px">
 				<a id="sesiones-seqBtn" href="#" class="easyui-linkbutton" 

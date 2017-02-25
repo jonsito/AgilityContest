@@ -49,17 +49,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     <form id="clubes-form" method="get" novalidate>
         <div class="fitem">
             <label for="clubes-Nombre"><?php _e('Name'); ?>:</label>
-            <input id="clubes-Nombre" name="Nombre"	type="text" style="width:350px"/>
+            <input id="clubes-Nombre" name="Nombre"	type="text" class="easyui-textbox" style="width:350px"/>
             <input id="clubes-ID" name="ID" type="hidden" /> <!-- used to allow operator change club name -->
             <input id="clubes-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
         </div>
         <div class="fitem">
             <label for="clubes-Direccion1"><?php _e('Address'); ?> 1</label>
-            <input id="clubes-Direccion1" name="Direccion1" type="text" style="width:350px"/>
+            <input id="clubes-Direccion1" name="Direccion1" type="text" class="easyui-textbox" style="width:350px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Direccion2"><?php _e('Address'); ?> 2</label>
-            <input id="clubes-Direccion2" name="Direccion2" type="text" style="width:350px"/>
+            <input id="clubes-Direccion2" name="Direccion2" type="text" class="easyui-textbox" style="width:350px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Provincia"><?php _e('Province'); ?></label>
@@ -78,19 +78,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         </div>
         <div class="fitem">
             <label for="clubes-Contacto1"><?php _e('Contact'); ?> 1</label>
-            <input id="clubes-Contacto1" name="Contacto1" type="text" style="width:175px"/>
+            <input id="clubes-Contacto1" name="Contacto1" type="text" class="easyui-textbox" style="width:175px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Contacto2"><?php _e('Contact'); ?> 2</label>
-            <input id="clubes-Contacto2" name="Contacto2" type="text" style="width:175px"/>
+            <input id="clubes-Contacto2" name="Contacto2" type="text" class="easyui-textbox" style="width:175px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Contacto3"><?php _e('Contact'); ?> 3</label>
-            <input id="clubes-Contacto3" name="Contacto3" type="text" style="width:175px"/>
+            <input id="clubes-Contacto3" name="Contacto3" type="text" class="easyui-textbox" style="width:175px"/>
         </div>
         <div class="fitem">
             <label for="clubes-GPS"><?php _e('GPS coordinates'); ?></label>
-            <input id="clubes-GPS" name="GPS" type="text" style="width:250px"/>
+            <input id="clubes-GPS" name="GPS" type="text" class="easyui-textbox" style="width:250px"/>
         </div>
         <div class="fitem">
             <label for="clubes-RSCE" style="text-align:right;"><?php _e('RSCE'); ?></label>
@@ -103,23 +103,23 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         </div>
         <div class="fitem">
             <label for="clubes-Web"><?php _e('Web page'); ?></label>
-            <input id="clubes-Web" name="Web" type="text" style="width:350px"/>
+            <input id="clubes-Web" name="Web" type="text" class="easyui-textbox" style="width:350px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Email"><?php _e('Electronic mail'); ?>:</label>
-            <input id="clubes-Email" name="Email" type="text" style="width:350px"/>
+            <input id="clubes-Email" name="Email" type="text" class="easyui-textbox" style="width:350px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Facebook"><?php _e('Facebook account'); ?>:</label>
-            <input id="clubes-Facebook" name="Facebook" type="text" style="width:350px"/>
+            <input id="clubes-Facebook" name="Facebook" type="text" class="easyui-textbox" style="width:350px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Google"><?php _e('Google+ account'); ?>:</label>
-            <input id="clubes-Google" name="Google" type="text" style="width:350px"/>
+            <input id="clubes-Google" name="Google" type="text" class="easyui-textbox" style="width:350px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Twitter"><?php _e('Twitter account'); ?>:</label>
-            <input id="clubes-Twitter" name="Twitter" type="text" style="width:350px"/>
+            <input id="clubes-Twitter" name="Twitter" type="text" class="easyui-textbox" style="width:350px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Observaciones"><?php _e('Comments'); ?>:</label>
