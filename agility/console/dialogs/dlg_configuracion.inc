@@ -357,7 +357,7 @@ $config =Config::getInstance();
             <select id="email_port" name="email_port" class="easyui-combobox">
                 <option value="25">25 - SMTP</option>
                 <option value="465">465 - SMTP on SSL</option>
-                <option value="25">587 - STARTTLS</option>
+                <option value="587">587 - STARTTLS</option>
             </select>
             <br/>
             <label for="email_auth"><?php _e('Authentication method'); ?></label>
@@ -514,10 +514,13 @@ $config =Config::getInstance();
                 if (result.errorMsg){
                     $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
                 } else {
-                    $.messager.alert('<?php _e("Check"); ?>',
-                        '<?php _e("Mail has been successfully sent"); ?>'+" <br />"+
-                        '<?php _e("Please verify your email inbox check for mail received"); ?> ',
-                        "info");
+                    $.messager.alert({
+                        title: '<?php _e("Mail Check"); ?>',
+                        msg:   '<?php _e("Mail has been successfully sent to address: "); ?>'+$('#email_address').val()+"' <br />"+
+                               '<?php _e("Please check email inbox for received mail"); ?> ',
+                        icon:  "info",
+                        width: 400
+                    });
                 }
             },
             error: function(XMLHttpRequest,textStatus,errorThrown) {
