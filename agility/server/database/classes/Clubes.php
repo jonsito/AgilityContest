@@ -240,7 +240,7 @@ class Clubes extends DBObject {
 		$where="1";
 		if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
 		$result=$this->__select(
-				/* SELECT */ "ID,Nombre,Provincia,Pais,Federations",
+				/* SELECT */ "ID,Nombre,Provincia,Pais,Federations,Email",
 				/* FROM */ "Clubes",
 				/* WHERE */ "$fedstr AND $where",
 				/* ORDER BY */ "Nombre ASC",

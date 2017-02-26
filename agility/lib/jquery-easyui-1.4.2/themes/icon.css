@@ -155,6 +155,9 @@
 .icon-new{
     background:url('icons/new.png') no-repeat center center;
 }
+.icon-mail{
+    background:url('icons/mail.png') no-repeat center center;
+}
 /* end added icons */
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;

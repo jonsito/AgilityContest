@@ -164,6 +164,21 @@ function exportPrueba(dg) {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
+function emailPrueba(dg) {
+    var row = $(dg).datagrid('getSelected');
+    var url='/agility/server/excel/scores_writer.php';
+    if (!row) {
+        $.messager.alert('<?php _e("Mailer error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
+        return; // no way to know which prueba is selected
+    }
+    $('#pruebas_email-dialog').dialog('open').dialog('setTitle','<?php _e('Email contest info to clubs'); ?>');
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
+
+function perform_emailPrueba() {
+    alert("not available yet");
+}
+
 // ***** gestion de jornadas	*********************************************************
 
 /**

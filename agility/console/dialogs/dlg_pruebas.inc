@@ -20,6 +20,48 @@ require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
+    <!-- FORMULARIO DE ENVIO DE CORREO CON INFORMACION DE UNA PRUEBA LOS CLUBES -->
+    <div id="pruebas_email-dialog" style="width:450px;height:auto;padding:5px;">
+        <p><?php _e("Before sending email with contest info to clubs");?>:</p>
+        <ul>
+            <li><?php _e("Make sure that triptych and poster URL are declared");?></li>
+            <li><?php _e("Revise/Edit email text to be sent with attachements");?></li>
+            <li><?php _e("Decide if you want to send empty inscription template");?></li>
+            <li><?php _e("Select club(s) to send email to, or choose all");?></li>
+            <li><?php _e("Make sure that every selected club has a valid email address declared");?></li>
+        </ul>
+        <form id="pruebas_email-form" method="get" novalidate="novalidate">
+            <div class="fitem">
+                <input name="EmptyTemplate" type="hidden" value="0"/>
+                <label for="pruebas_email-EmptyTemplate" style="width:200px;"><?php _e('Send empty inscription template'); ?></label>
+                <input id="pruebas_email-EmptyTemplate" type="checkbox" name="EmptyTemplate" value="1"/><br/>
+                <input name="SendToAll" type="hidden" value="0"/>
+                <label for="pruebas_email-SendToAll" style="width:200px;"><?php _e('Select all clubs'); ?></label>
+                <input id="pruebas_email-SendToAll" type="checkbox" name="SendToAll" value="1"/><br/>
+            </div>
+            <div class="fitem">
+                <label for="pruebas_email-Clubs" "><?php _e('Club selection'); ?>:</label>
+                <select id="pruebas_email-Clubs" name="Club" style="width:175px"></select>
+            </div>
+        </form>
+    </div>
+
+    <div id="pruebas_email-editor" title="<?php _e('Text editor');?>" style="width:640px;height:400px;padding:20px;" >
+    </div>
+
+    <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO de CREACION DE PRUEBAS-->
+    <div id="pruebas_email-dlg-buttons" style="width:100%;display:inline-block">
+        <span style="float:left">
+            <a id="pruebas_email-editBtn" href="#" class="easyui-linkbutton"
+                data-options="iconCls:'icon-edit'" onclick="$('#pruebas_email-editor').dialog('open');"><?php _e('Edit'); ?></a>
+        </span>
+        <span style="float:right">
+            <a id="pruebas_email-okBtn" href="#" class="easyui-linkbutton"
+                data-options="iconCls:'icon-mail'" onclick="perform_emailPrueba();"><?php _e('Send'); ?></a>
+            <a id="pruebas_email-cancelBtn" href="#" class="easyui-linkbutton"
+                data-options="iconCls:'icon-cancel'" onclick="$('#pruebas_email-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+        </span>
+    </div>
 
    <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE PRUEBAS -->
     <div id="pruebas-dialog" style="width:500px;height:450px;padding:10px 20px">
@@ -67,7 +109,7 @@ $config =Config::getInstance();
     </div>
 
     
-	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO de CREACION DE PRUEBAS-->
 	<div id="pruebas-dlg-buttons">
        	<a id="pruebas-okBtn" href="#" class="easyui-linkbutton" 
        		data-options="iconCls:'icon-ok'" onclick="savePrueba()"><?php _e('Save'); ?></a>
@@ -100,9 +142,14 @@ $config =Config::getInstance();
     });
     
     // - botones
+    addTooltip($('#pruebas_email-editBtn').linkbutton(),'<?php _e("Edit mail template text to be sent"); ?>');
+    addTooltip($('#pruebas_email-okBtn').linkbutton(),'<?php _e("Accept data. Start mailing procedure"); ?>');
+    addTooltip($('#pruebas_email-cancelBtn').linkbutton(),"<?php _e('Cancel operation. Close window'); ?>");
 	addTooltip($('#pruebas-okBtn').linkbutton(),'<?php _e("Accept data. Register contest into database"); ?>');
 	addTooltip($('#pruebas-cancelBtn').linkbutton(),"<?php _e('Cancel operation. Close window'); ?>");
 	addTooltip($('#pruebas-newClubBtn').linkbutton(),'<?php _e("Register new club into database"); ?>');
+
+
     $('#pruebas-newClubBtn').bind('click',function() {
         newClub(
             null,
@@ -112,8 +159,47 @@ $config =Config::getInstance();
             }
         );
     });
-    
-    // campos del formulario
+
+
+    // campos del formulario de generacion de correo
+    $('#pruebas_email-editor').dialog({
+        modal:true,
+        closable:true,
+        closed:true
+    });
+
+    $('#pruebas_email-dialog').dialog({
+        closed:true,
+        buttons:'#pruebas_email-dlg-buttons',
+        onBeforeOpen: function() {
+            $('#pruebas_email-Clubs').combogrid('grid').datagrid('load',{Operation:'enumerate',Federation:workingData.federation});
+        }
+    });
+
+    $('#pruebas_email-Clubs').combogrid({
+        panelWidth: 350,
+        panelHeight: 200,
+        idField: 'ID',
+        textField: 'Nombre',
+        url: '/agility/server/database/clubFunctions.php',
+        queryParams: {
+            'Operation': 'enumerate',
+            'Federation': workingData.federation
+        },
+        method: 'get',
+        mode: 'remote',
+        columns: [[
+            {field:'ID',hidden:true},
+            {field:'Nombre',title:'<?php _e('Club name'); ?>',width:50,align:'right'},
+            {field:'Email',title:'<?php _e('Electronic mail'); ?>',width:70,align:'right'},
+            {field:'Provincia',title:'<?php _e('Province'); ?>',width:30,align:'right'}
+        ]],
+        multiple: true,
+        fitColumns: true,
+        selectOnNavigation: false
+    });
+
+    // campos del formulario de nueva/edicion prueba
     $('#pruebas-dialog').dialog({
         closed:true,
         buttons:'#pruebas-dlg-buttons'
