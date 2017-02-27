@@ -175,8 +175,54 @@ function emailPrueba(dg) {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
+/**
+ * Ask send mail with contest info and inscription templates to each selected club
+ */
 function perform_emailPrueba() {
-    alert("not available yet");
+    var dg=$('#pruebas_email-Clubs').combogrid('grid');
+
+    function handleMail(rows,index,size) {
+        if (index>=size){
+            // recursive call finished, clean, close and refresh
+            pwindow.window('close');
+            $(dg).datagrid('clearSelections');
+            return;
+        }
+        $('#pruebas_email-progresslabel').html('<?php _e("Processing"); ?>'+": "+rows[index].Nombre+"<br/> &lt;"+rows[index].Email+"&gt;");
+        $('#pruebas_email-progressbar').progressbar('setValue', (100.0*(index+1)/size).toFixed(2));
+        $.ajax({
+            cache: false,
+            timeout: 30000, // 20 segundos
+            type:'POST',
+            url:"/agility/server/mailFunctions.php",
+            dataType:'json',
+            data: {
+                Prueba: workingData.prueba,
+                Federation: workingData.federation,
+                Operation: 'sendInscriptions',
+                Club: rows[index].ID,
+                Email: rows[index].Email,
+                Contents: $('#pruebas_email-Contents').val()
+            },
+            success: function(result) {
+                handleMail(rows,index+1,size);
+            }
+        });
+    }
+
+    var pwindow=$('#pruebas_email-progresswindow');
+    var selectedRows= $(dg).datagrid('getSelections');
+    var size=selectedRows.length;
+    if(size==0) {
+        $.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no selected clubs to send mail to"); ?>',"warning");
+        return; // no hay ninguna inscripcion seleccionada. retornar
+    }
+    if (ac_authInfo.Perms>2) {
+        $.messager.alert('<?php _e("No permission"); ?>','<?php _e("Current user has not enought permissions to send mail"); ?>',"error");
+        return; // no tiene permiso para realizar inscripciones. retornar
+    }
+    pwindow.window('open');
+    handleMail(selectedRows,0,size);
 }
 
 // ***** gestion de jornadas	*********************************************************

@@ -30,6 +30,8 @@ try {
     $operation=http_request("Operation","s",null);
     $prueba=http_request("Prueba","i",0);
     $jornada=http_request("Jornada","i",0);
+    $club=http_request("Club","i",0);
+    $email=http_request("Email","s","");
     $mailer=new MailManager("mailFunctions",$am);
     if ($operation===null) throw new Exception("Call to mailFunctions without 'Operation' requested");
     switch ($operation) {
@@ -38,7 +40,10 @@ try {
         // send mail to AgilityContest server
         case "notify": $am->access(PERMS_OPERATOR); $result=$mailer->notify(); break;
         // iterate on selected clubs for sending inscription template
-        case "sendInscriptions": $am->access(PERMS_OPERATOR); $result=$mailer->sendInscriptions($prueba); break;
+        case "sendInscriptions":
+            $am->access(PERMS_OPERATOR);
+            $result=$mailer->sendInscriptions($prueba,$club,$email);
+            break;
         // send results, scores and excels to federation ad judges
         case "sendResults": $am->access(PERMS_OPERATOR); $result=$mailer->sendResults($jornada); break;
         default: throw new Exception("mailFunctions:: invalid operation: '$operation' provided");

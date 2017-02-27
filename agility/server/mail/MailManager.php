@@ -82,8 +82,10 @@ class MailManager {
         return "";
     }
 
-    public function sendInscriptions($prueba) {
+    public function sendInscriptions($prueba,$club,$email) {
         $this->myLogger->enter();
+        $this->myLogger->trace("Sending mail for club:'$club' to address:'$email'");
+        sleep(2); // just for debugging
         $this->myLogger->leave();
         return "";
     }
