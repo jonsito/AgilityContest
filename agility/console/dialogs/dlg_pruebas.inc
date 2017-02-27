@@ -49,7 +49,41 @@ $config =Config::getInstance();
         </form>
     </div>
 
-    <div id="pruebas_email-editor" title="<?php _e('Text editor');?>" style="width:640px;height:400px;padding:20px;" >
+    <div id="pruebas_email-editor" title="<?php _e('Text editor');?>">
+        <textarea id="pruebas_email-Contents" name="Contents" style="width:700px;height:400px;padding:5px;">
+            <h3> !Hola!</h3>
+            <p>
+            Os invitamos invitamos a nuestra próxima prueba, que se celebrará los días XXXXXX  en
+            XXXXXXXX
+            </p>
+            <p>
+            Os adjuntamos el cartel y el tríptico de la prueba, así como una plantilla Excel para que efectuéis las inscripciones<br/>
+            La plantilla contiene la lista de perros y guías que figuran en nuestra base de datos como pertenecientes a vuestro club.
+            Por favor, os pedimos que cumplimentéis la plantilla:
+            </p>
+            <ul>
+                <li>Eliminar los equipos perro/guía que ya no pertenezcan a vuestro club</li>
+                <li>Añadir los equipos perro/guía nuevos</li>
+                <li>Actualizar los datos que estén incompletos o incorrectos, especialmente licencia, categoría, grado; y
+                    en el caso de las licencias nuevas (números de cinco cifras), si el perro tiene LOE/RRC o no.</li>
+                <li>Cumplimentar las inscripciones:
+                    <ol>
+                        <li>Marcar con una X las jornadas a las que el equipo asistirá</li>
+                        <li>Indicar con una "X" las perras que estén en celo</li>
+                        <li>Indicar la cantidad a abonar por cada equipo</li>
+                        <li>En el apartado observaciones, cualquier otra información de interés</li>
+                    </ol>
+                </li>
+            </ul>
+            <p>
+                Una vez rellena la plantilla, por favor devolvedla por correo electrónico a ésta dirección<br/>
+                Si tenéis alguna duda, podéis contactar con nosotros en los teléfonos XXXXXXXXXX
+            </p>
+            <p>
+                Agradeciendo de antemano vuestra colaboración, os esperamos en la prueba con los brazos abiertos<br/>
+                Un saludo
+            </p>
+        </textarea>
     </div>
 
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO de CREACION DE PRUEBAS-->
@@ -166,10 +200,22 @@ $config =Config::getInstance();
 
     // campos del formulario de generacion de correo
     $('#pruebas_email-editor').dialog({
+        area: null, // to handle editor instance
         modal:true,
         closable:true,
-        closed:true
+        closed:true,
+        onBeforeOpen: function (){
+            this.area=new nicEditor({
+                fullPanel : true,
+                iconsPath:'/agility/lib/nicEdit/nicEditorIcons.gif'
+            }).panelInstance('pruebas_email-Contents');
+            return true;
+        },
+        onClose: function() {
+            this.area.removeInstance('pruebas_email-Contents');
+        }
     });
+
 
     $('#pruebas_email-dialog').dialog({
         closed:true,

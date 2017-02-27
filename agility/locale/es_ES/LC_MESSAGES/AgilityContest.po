@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-02-26 19:06+0100\n"
-"PO-Revision-Date: 2017-02-26 19:11+0100\n"
+"POT-Creation-Date: 2017-02-27 11:40+0100\n"
+"PO-Revision-Date: 2017-02-27 11:40+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -214,7 +214,7 @@ msgstr "Gu&iacute;a"
 #: console/dialogs/dlg_entrenamientos.inc:180 console/dialogs/dlg_guias.inc:45
 #: console/dialogs/dlg_newInscripcion.inc:156
 #: console/dialogs/dlg_ordensalida.inc:170 console/dialogs/dlg_perros.inc:188
-#: console/dialogs/dlg_pruebas.inc:87 console/dialogs/dlg_selectJornada.inc:85
+#: console/dialogs/dlg_pruebas.inc:124 console/dialogs/dlg_selectJornada.inc:85
 #: console/dialogs/dlg_usuarios.inc:75
 msgid "Club"
 msgstr "Club"
@@ -503,7 +503,7 @@ msgstr "Dors"
 #: console/dialogs/dlg_ordensalida.inc:166
 #: console/dialogs/dlg_ordentandas.inc:53
 #: console/dialogs/dlg_ordentandas.inc:169 console/dialogs/dlg_perros.inc:29
-#: console/dialogs/dlg_plugins.inc:52 console/dialogs/dlg_pruebas.inc:236
+#: console/dialogs/dlg_plugins.inc:52 console/dialogs/dlg_pruebas.inc:300
 #: console/dialogs/dlg_selectJornada.inc:83 console/dialogs/dlg_sesiones.inc:28
 #: console/dialogs/dlg_usuarios.inc:55
 msgid "Name"
@@ -658,7 +658,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/dialogs/dlg_ordensalida.inc:105
 #: console/dialogs/dlg_ordentandas.inc:71
 #: console/dialogs/dlg_ordentandas.inc:137
-#: console/dialogs/dlg_ordentandas.inc:170 console/dialogs/dlg_pruebas.inc:105
+#: console/dialogs/dlg_ordentandas.inc:170 console/dialogs/dlg_pruebas.inc:142
 #: console/dialogs/dlg_selectJornada.inc:87 console/dialogs/dlg_sesiones.inc:41
 msgid "Comments"
 msgstr "Observaciones"
@@ -816,7 +816,7 @@ msgstr "Restaurar"
 #: console/dialogs/dlg_entrenamientos.inc:98 console/dialogs/dlg_equipos.inc:57
 #: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:143
 #: console/dialogs/dlg_jueces.inc:84 console/dialogs/dlg_perros.inc:91
-#: console/dialogs/dlg_pruebas.inc:115 console/dialogs/dlg_sesiones.inc:71
+#: console/dialogs/dlg_pruebas.inc:152 console/dialogs/dlg_sesiones.inc:71
 #: console/dialogs/dlg_usuarios.inc:45 console/dialogs/dlg_usuarios.inc:93
 msgid "Save"
 msgstr "Guardar"
@@ -940,7 +940,7 @@ msgstr "Esta nota de CopyRight debe ser inclu&iacute;da en toda copia"
 msgid "Registered in"
 msgstr "Inscrito en"
 
-#: console/frm_about.php:71 console/index.php:238
+#: console/frm_about.php:71 console/index.php:239
 msgid "About AgilityContest"
 msgstr "Acerca de AgilityContest"
 
@@ -1107,7 +1107,7 @@ msgid "Results & Scores"
 msgstr "Resultados y Clasificaciones"
 
 #: console/frm_clasificaciones.php:47 console/frm_clasificaciones2.php:97
-#: console/frm_clasificaciones_equipos.php:96 console/index.php:224
+#: console/frm_clasificaciones_equipos.php:96 console/index.php:225
 #: server/excel/scores_writer.php:239 server/pdf/print_clasificacion.php:176
 #: server/pdf/print_clasificacion_excel.php:157
 msgid "Scores"
@@ -1288,7 +1288,7 @@ msgstr "Posici&oacute;n inicial <br /> en la hoja de etiquetas"
 msgid "Comma separated list of dorsals to be printed"
 msgstr "Lista de dorsales a imprimir separada por comas"
 
-#: console/frm_clubes.php:33 console/dialogs/dlg_pruebas.inc:90
+#: console/frm_clubes.php:33 console/dialogs/dlg_pruebas.inc:127
 msgid "New Club"
 msgstr "Nuevo Club"
 
@@ -1361,7 +1361,7 @@ msgstr "Cargando lista de gu&iacute;as"
 #: console/frm_clubes.php:175 console/frm_jueces.php:98
 #: console/frm_paises.php:139 console/dialogs/dlg_chguias.inc:47
 #: console/dialogs/dlg_clubes.inc:109 console/dialogs/dlg_guias.inc:37
-#: console/dialogs/dlg_jueces.inc:71 console/dialogs/dlg_pruebas.inc:194
+#: console/dialogs/dlg_jueces.inc:71 console/dialogs/dlg_pruebas.inc:243
 #: console/dialogs/dlg_usuarios.inc:71
 msgid "Electronic mail"
 msgstr "Correo electr&oacute;nico"
@@ -1583,7 +1583,7 @@ msgstr "Nuevo"
 
 #: console/frm_equipos.php:36 console/frm_inscripciones2.php:102
 #: console/dialogs/dlg_competicion.inc:149
-#: console/dialogs/dlg_ordentandas.inc:37 console/dialogs/dlg_pruebas.inc:56
+#: console/dialogs/dlg_ordentandas.inc:37 console/dialogs/dlg_pruebas.inc:93
 msgid "Edit"
 msgstr "Editar"
 
@@ -1608,7 +1608,7 @@ msgstr "Hecho"
 #: console/dialogs/dlg_entrenamientos.inc:100 console/dialogs/dlg_guias.inc:62
 #: console/dialogs/dlg_jornadas.inc:145 console/dialogs/dlg_jueces.inc:86
 #: console/dialogs/dlg_ordentandas.inc:81 console/dialogs/dlg_perros.inc:93
-#: console/dialogs/dlg_pruebas.inc:62 console/dialogs/dlg_pruebas.inc:117
+#: console/dialogs/dlg_pruebas.inc:99 console/dialogs/dlg_pruebas.inc:154
 #: console/dialogs/dlg_selectJornada.inc:44 console/dialogs/dlg_sesiones.inc:73
 #: console/dialogs/dlg_usuarios.inc:47 console/dialogs/dlg_usuarios.inc:95
 msgid "Cancel"
@@ -1967,7 +1967,7 @@ msgstr "Importar inscripciones desde el fichero Excel seleccionado"
 #: console/dialogs/dlg_entrenamientos.inc:292 console/dialogs/dlg_guias.inc:79
 #: console/dialogs/dlg_jornadas.inc:313 console/dialogs/dlg_jueces.inc:123
 #: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:112
-#: console/dialogs/dlg_pruebas.inc:147 console/dialogs/dlg_pruebas.inc:149
+#: console/dialogs/dlg_pruebas.inc:184 console/dialogs/dlg_pruebas.inc:186
 #: console/dialogs/dlg_sesiones.inc:84 console/dialogs/dlg_usuarios.inc:108
 #: console/dialogs/dlg_usuarios.inc:111
 msgid "Cancel operation. Close window"
@@ -2050,7 +2050,7 @@ msgstr "Nombre de usuario"
 
 #: console/frm_login.php:50 console/frm_pruebas.php:102
 #: server/excel/common_writer.php:71 server/excel/common_writer.php:113
-#: console/dialogs/dlg_plugins.inc:53 console/dialogs/dlg_pruebas.inc:79
+#: console/dialogs/dlg_plugins.inc:53 console/dialogs/dlg_pruebas.inc:116
 msgid "Federation"
 msgstr "Federaci&oacute;n"
 
@@ -2059,7 +2059,7 @@ msgid "Session init"
 msgstr "Inicio de sesi&oacute;n"
 
 #: console/frm_login.php:100 console/frm_perros.php:131
-#: console/dialogs/dlg_pruebas.inc:234
+#: console/dialogs/dlg_pruebas.inc:298
 msgid "ID"
 msgstr "ID"
 
@@ -2129,7 +2129,7 @@ msgstr ""
 msgid "Admin user"
 msgstr "Usuario administrador"
 
-#: console/frm_myAdmin.php:74 console/index.php:231
+#: console/frm_myAdmin.php:74 console/index.php:232
 msgid "Direct DB Access"
 msgstr "Acceso directo a BBDD"
 
@@ -2211,8 +2211,8 @@ msgid "Handler name"
 msgstr "Nombre del gu&iacute;a"
 
 #: console/frm_perros.php:186 console/import/import_clubes.inc.php:98
-#: console/dialogs/dlg_guias.inc:119 console/dialogs/dlg_pruebas.inc:193
-#: console/dialogs/dlg_pruebas.inc:260 console/dialogs/dlg_usuarios.inc:138
+#: console/dialogs/dlg_guias.inc:119 console/dialogs/dlg_pruebas.inc:242
+#: console/dialogs/dlg_pruebas.inc:324 console/dialogs/dlg_usuarios.inc:138
 msgid "Club name"
 msgstr "Nombre del Club"
 
@@ -2271,8 +2271,8 @@ msgid "Incl. closed"
 msgstr "Incl. cerradas"
 
 #: console/frm_pruebas.php:51
-msgid "Email"
-msgstr "Correo Electr&oacute;nico"
+msgid "Mail"
+msgstr "Correo"
 
 #: console/frm_pruebas.php:54
 msgid "Export"
@@ -2294,20 +2294,20 @@ msgstr "Nombre de la prueba"
 msgid "Organizing club"
 msgstr "Club anfitri&oacute;n"
 
-#: console/frm_pruebas.php:98 console/dialogs/dlg_pruebas.inc:93
+#: console/frm_pruebas.php:98 console/dialogs/dlg_pruebas.inc:130
 msgid "Event location"
 msgstr "Lugar de realizaci&oacute;n"
 
-#: console/frm_pruebas.php:99 console/dialogs/dlg_pruebas.inc:97
+#: console/frm_pruebas.php:99 console/dialogs/dlg_pruebas.inc:134
 msgid "Triptych URL"
 msgstr "URL del tr&iacute;ptico"
 
-#: console/frm_pruebas.php:100 console/dialogs/dlg_pruebas.inc:101
+#: console/frm_pruebas.php:100 console/dialogs/dlg_pruebas.inc:138
 msgid "Brochure URL"
 msgstr "URL del cartel"
 
 #: console/frm_pruebas.php:103 server/excel/common_writer.php:113
-#: console/dialogs/dlg_pruebas.inc:82
+#: console/dialogs/dlg_pruebas.inc:119
 msgid "Selective"
 msgstr "Selectiva"
 
@@ -2578,7 +2578,7 @@ msgstr "Buscar"
 
 #: console/import/import_clubes.inc.php:49
 #: console/import/import_handlers.inc.php:49
-#: console/import/import_perros.inc.php:49
+#: console/import/import_perros.inc.php:49 console/dialogs/dlg_pruebas.inc:39
 msgid "Select"
 msgstr "Seleccionar"
 
@@ -2609,7 +2609,7 @@ msgstr "Borrar selecci&oacute;n de club"
 
 #: console/import/import_clubes.inc.php:99 console/dialogs/dlg_clubes.inc:65
 #: console/dialogs/dlg_clubes.inc:198 console/dialogs/dlg_guias.inc:120
-#: console/dialogs/dlg_pruebas.inc:195 console/dialogs/dlg_pruebas.inc:261
+#: console/dialogs/dlg_pruebas.inc:244 console/dialogs/dlg_pruebas.inc:325
 #: console/dialogs/dlg_usuarios.inc:139
 msgid "Province"
 msgstr "Provincia"
@@ -2656,35 +2656,35 @@ msgstr "Usar el perro seleccionado en los datos a importar"
 msgid "Ignore data. Do not import Excel dog entry into database"
 msgstr "Ignorar este perro en los datos a importar"
 
-#: console/index.php:197
+#: console/index.php:198
 msgid "Operations Menu"
 msgstr "Men&uacute; de operaciones"
 
-#: console/index.php:203
+#: console/index.php:204
 msgid "Init Session"
 msgstr "Iniciar Sesi&oacute;n"
 
-#: console/index.php:207
+#: console/index.php:208
 msgid "DATABASE"
 msgstr "BASE DE DATOS"
 
-#: console/index.php:209 scripts/common.js.php:689
+#: console/index.php:210 scripts/common.js.php:689
 msgid "Clubs"
 msgstr "Clubes"
 
-#: console/index.php:210
+#: console/index.php:211
 msgid "Handlers Database Management"
 msgstr "Gesti&oacute;n de datos de Gu&iacute;as"
 
-#: console/index.php:210
+#: console/index.php:211
 msgid "Handlers"
 msgstr "Gu&iacute;as"
 
-#: console/index.php:211
+#: console/index.php:212
 msgid "Dogs Database Management"
 msgstr "Gesti&oacute;n de datos de Perros"
 
-#: console/index.php:211 public/pb_programa.php:101
+#: console/index.php:212 public/pb_programa.php:101
 #: public/pbmenu_programa.php:105 server/excel/dog_writer.php:65
 #: console/dialogs/dlg_configuracion.inc:36
 #: console/dialogs/dlg_entrenamientos.inc:199
@@ -2694,77 +2694,77 @@ msgstr "Gesti&oacute;n de datos de Perros"
 msgid "Dogs"
 msgstr "Perros"
 
-#: console/index.php:212
+#: console/index.php:213
 msgid "Judges Database Management"
 msgstr "Gesti&oacute;n de datos de Jueces"
 
-#: console/index.php:212 server/excel/partialscores_writer.php:73
+#: console/index.php:213 server/excel/partialscores_writer.php:73
 #: console/dialogs/inforesultados.inc:36
 msgid "Judges"
 msgstr "Jueces"
 
-#: console/index.php:215
+#: console/index.php:216
 msgid "CONTESTS"
 msgstr "PRUEBAS"
 
-#: console/index.php:217
+#: console/index.php:218
 msgid "Create and Edit Contests"
 msgstr "Creaci&oacute;n y Edici&oacute;n de Pruebas"
 
-#: console/index.php:217
+#: console/index.php:218
 msgid "Create Contests"
 msgstr "Creaci&oacute;n de pruebas"
 
-#: console/index.php:218
+#: console/index.php:219
 msgid "Inscriptions - Contest selection"
 msgstr "Inscripciones registradas en el equipo"
 
-#: console/index.php:218
+#: console/index.php:219
 msgid "Handle Inscriptions"
 msgstr "Gesti&oacute;n de Inscripciones"
 
-#: console/index.php:219
+#: console/index.php:220
 msgid "Competition - Contest and Journey selection"
 msgstr "Competici&oacute;n - Selecci&oacute;n de Prueba y Jornada"
 
-#: console/index.php:219
+#: console/index.php:220
 msgid "Running Contests"
 msgstr "Desarrollo de la prueba"
 
-#: console/index.php:222
+#: console/index.php:223
 msgid "REPORTS"
 msgstr "CLASIFICACIONES"
 
-#: console/index.php:224
+#: console/index.php:225
 msgid "Scores - Contest and Journey selection"
 msgstr "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
 
-#: console/index.php:225 scripts/inscripciones.js.php:463
+#: console/index.php:226 scripts/inscripciones.js.php:463
 #: server/pdf/print_inscritosByPrueba.php:257
 msgid "Statistics"
 msgstr "Estad&iacute;sticas"
 
-#: console/index.php:228
+#: console/index.php:229
 msgid "TOOLS"
 msgstr "HERRAMIENTAS"
 
-#: console/index.php:230
+#: console/index.php:231
 msgid "Configuration"
 msgstr "Administraci&oacute;n"
 
-#: console/index.php:234
+#: console/index.php:235
 msgid "DOCUMENTATION"
 msgstr "DOCUMENTACION"
 
-#: console/index.php:236
+#: console/index.php:237
 msgid "OnLine Manual"
 msgstr "Manual en L&iacute;nea"
 
-#: console/index.php:237
+#: console/index.php:238
 msgid "License information"
 msgstr "Informaci&oacute;n de registro"
 
-#: console/index.php:238
+#: console/index.php:239
 msgid "About"
 msgstr "Acerca de"
 
@@ -6339,7 +6339,7 @@ msgstr "Seleccionar el idioma seg&uacute;n preferencias del navegador"
 msgid "Debug level"
 msgstr "Nivel de depuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:390
+#: console/dialogs/dlg_configuracion.inc:390 console/dialogs/dlg_pruebas.inc:43
 msgid "None"
 msgstr "Ninguno"
 
@@ -6639,7 +6639,7 @@ msgstr "Datos del gu&iacute;a"
 msgid "Aceptar handler data. Store into database"
 msgstr "Aceptar datos del gu&iacute;a. Guardar en la base de datos"
 
-#: console/dialogs/dlg_guias.inc:80 console/dialogs/dlg_pruebas.inc:150
+#: console/dialogs/dlg_guias.inc:80 console/dialogs/dlg_pruebas.inc:187
 msgid "Register new club into database"
 msgstr "Registrar un nuevo club en la base de datos"
 
@@ -6948,39 +6948,39 @@ msgstr ""
 msgid "Send empty inscription template"
 msgstr "Enviar plantilla de inscripci&oacute;n vac&iacute;a"
 
-#: console/dialogs/dlg_pruebas.inc:39
-msgid "Select all clubs"
-msgstr "Seleccionar todos los clubes"
+#: console/dialogs/dlg_pruebas.inc:41
+msgid "All"
+msgstr "Todos"
 
-#: console/dialogs/dlg_pruebas.inc:43
+#: console/dialogs/dlg_pruebas.inc:46
 msgid "Club selection"
 msgstr "Selecci&oacute;n de clubes"
 
-#: console/dialogs/dlg_pruebas.inc:49
+#: console/dialogs/dlg_pruebas.inc:52
 msgid "Text editor"
 msgstr "Editor de texto"
 
-#: console/dialogs/dlg_pruebas.inc:60
+#: console/dialogs/dlg_pruebas.inc:97
 msgid "Send"
 msgstr "Enviar"
 
-#: console/dialogs/dlg_pruebas.inc:68
+#: console/dialogs/dlg_pruebas.inc:105
 msgid "Contest information"
 msgstr "Informaci&oacute;n de la prueba"
 
-#: console/dialogs/dlg_pruebas.inc:71
+#: console/dialogs/dlg_pruebas.inc:108
 msgid "Name of this contest"
 msgstr "Denominaci&oacute;n de la prueba"
 
-#: console/dialogs/dlg_pruebas.inc:145
+#: console/dialogs/dlg_pruebas.inc:182
 msgid "Edit mail template text to be sent"
 msgstr "Editar el texto del mensaje a enviar"
 
-#: console/dialogs/dlg_pruebas.inc:146
+#: console/dialogs/dlg_pruebas.inc:183
 msgid "Accept data. Start mailing procedure"
 msgstr "Aceptar datos. Comenzar envio de correo"
 
-#: console/dialogs/dlg_pruebas.inc:148
+#: console/dialogs/dlg_pruebas.inc:185
 msgid "Accept data. Register contest into database"
 msgstr "Aceptar datos. Registrar la prueba en la base de datos"
 
@@ -7156,6 +7156,12 @@ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 #: console/dialogs/dlg_usuarios.inc:110
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
+
+#~ msgid "Email"
+#~ msgstr "Correo Electr&oacute;nico"
+
+#~ msgid "Select all clubs"
+#~ msgstr "Seleccionar todos los clubes"
 
 #~ msgid "Please wait"
 #~ msgstr "Por favor, espere"

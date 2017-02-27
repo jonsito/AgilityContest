@@ -53,6 +53,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/nicEdit/nicEdit.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/admin.js.php" type="text/javascript" charset="utf-8" > </script>
