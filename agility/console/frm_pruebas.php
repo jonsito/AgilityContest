@@ -48,7 +48,7 @@ $config =Config::getInstance();
    	<span style="float:right;padding:5px">
    		<a id="pruebas-emailtBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-mail'"
-           onclick="emailPrueba('#pruebas-datagrid')"><?php _e('Email'); ?></a>
+           onclick="emailPrueba('#pruebas-datagrid')"><?php _e('Mail'); ?></a>
    		<a id="pruebas-exportBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-db_backup'"
 		   onclick="exportPrueba('#pruebas-datagrid')"><?php _e('Export'); ?></a>

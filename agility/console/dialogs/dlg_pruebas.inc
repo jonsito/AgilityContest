@@ -21,7 +21,7 @@ require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
     <!-- FORMULARIO DE ENVIO DE CORREO CON INFORMACION DE UNA PRUEBA LOS CLUBES -->
-    <div id="pruebas_email-dialog" style="width:450px;height:auto;padding:5px;">
+    <div id="pruebas_email-dialog" style="width:500px;height:auto;padding:5px;">
         <p><?php _e("Before sending email with contest info to clubs");?>:</p>
         <ul>
             <li><?php _e("Make sure that triptych and poster URL are declared");?></li>
@@ -33,14 +33,17 @@ $config =Config::getInstance();
         <form id="pruebas_email-form" method="get" novalidate="novalidate">
             <div class="fitem">
                 <input name="EmptyTemplate" type="hidden" value="0"/>
-                <label for="pruebas_email-EmptyTemplate" style="width:200px;"><?php _e('Send empty inscription template'); ?></label>
+                <label for="pruebas_email-EmptyTemplate" style="width:250px;"><?php _e('Send empty inscription template'); ?></label>
                 <input id="pruebas_email-EmptyTemplate" type="checkbox" name="EmptyTemplate" value="1"/><br/>
                 <input name="SendToAll" type="hidden" value="0"/>
-                <label for="pruebas_email-SendToAll" style="width:200px;"><?php _e('Select all clubs'); ?></label>
-                <input id="pruebas_email-SendToAll" type="checkbox" name="SendToAll" value="1"/><br/>
+                <span style="display:inline-block;width:250px;"><?php _e('Select'); ?></span>
+                <input id="pruebas_email-All" type="checkbox" name="All" value="1"/>
+                <label for="pruebas_email-All" style="width:50px;"><?php _e('All'); ?></label>
+                <input id="pruebas_email-None" type="checkbox" name="None" value="1"/>
+                <label for="pruebas_email-None"  style="width:50px;"><?php _e('None'); ?></label><br/>
             </div>
             <div class="fitem">
-                <label for="pruebas_email-Clubs" "><?php _e('Club selection'); ?>:</label>
+                <label for="pruebas_email-Clubs" style="width:250px;"><?php _e('Club selection'); ?>:</label>
                 <select id="pruebas_email-Clubs" name="Club" style="width:175px"></select>
             </div>
         </form>
@@ -196,7 +199,22 @@ $config =Config::getInstance();
         ]],
         multiple: true,
         fitColumns: true,
-        selectOnNavigation: false
+        selectOnNavigation: false,
+        onUnselect: function(index,row) {
+            $('#pruebas_email-All').prop('checked',false);
+        },
+        onSelect: function(index,row) {
+            $('#pruebas_email-None').prop('checked',false);
+        }
+    });
+
+    $('#pruebas_email-All').change(function(){
+        if ($(this).prop('checked')) $('#pruebas_email-Clubs').combogrid('grid').datagrid('selectAll');
+        $('#pruebas_email-None').prop('checked',false);
+    });
+    $('#pruebas_email-None').change(function(){
+        if ($(this).prop('checked')) $('#pruebas_email-Clubs').combogrid('grid').datagrid('unselectAll');
+        $('#pruebas_email-All').prop('checked',false);
     });
 
     // campos del formulario de nueva/edicion prueba
