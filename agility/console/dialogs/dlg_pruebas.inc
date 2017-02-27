@@ -21,14 +21,15 @@ require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
     <!-- FORMULARIO DE ENVIO DE CORREO CON INFORMACION DE UNA PRUEBA LOS CLUBES -->
-    <div id="pruebas_email-dialog" style="width:500px;height:auto;padding:5px;">
+    <div id="pruebas_email-dialog" style="width:640px;height:auto;padding:5px;">
         <p><?php _e("Before sending email with contest info to clubs");?>:</p>
         <ul>
             <li><?php _e("Make sure that triptych and poster URL are declared");?></li>
             <li><?php _e("Revise/Edit email text to be sent with attachements");?></li>
             <li><?php _e("Decide if you want to send empty inscription template");?></li>
             <li><?php _e("Select club(s) to send email to, or choose all");?></li>
-            <li><?php _e("Make sure that every selected club has a valid email address declared");?></li>
+            <li><?php _e("Make sure that every selected club has a valid email address declared");?><br/>
+                <?php _e("Press double-click on club to set/change email");?></li>
         </ul>
         <form id="pruebas_email-form" method="get" novalidate="novalidate">
             <div class="fitem">
@@ -42,9 +43,8 @@ $config =Config::getInstance();
                 <input id="pruebas_email-None" type="checkbox" name="None" value="1"/>
                 <label for="pruebas_email-None"  style="width:50px;"><?php _e('None'); ?></label><br/>
             </div>
-            <div class="fitem">
-                <label for="pruebas_email-Clubs" style="width:250px;"><?php _e('Club selection'); ?>:</label>
-                <select id="pruebas_email-Clubs" name="Club" style="width:175px"></select>
+            <div class="fitem" style="height:300px">
+                <table id="pruebas_email-Clubs" name="Club"></table>
             </div>
         </form>
     </div>
@@ -52,7 +52,7 @@ $config =Config::getInstance();
     <!-- barra de progreso de actualizacion de envio de correo -->
     <div id="pruebas_email-progresswindow" class="easyui-window"
          data-options="title:'<?php _e('Sending mail'); ?>...',width:300,modal:true,collapsable:false,minimizable:false,maximizable:false,closable:false,closed:true">
-        <p id="pruebas_email-progresslabel" style="text-align:center"><?php _e('Enrolling'); ?>:</p>
+        <p id="pruebas_email-progresslabel" style="text-align:center"><?php _e('Sending mail to'); ?>:</p>
         <div id="pruebas_email-progressbar" class="easyui-progressbar" style="width:300px;text-align:center;" data-options="value:0"></div>
     </div>
 
@@ -97,8 +97,8 @@ $config =Config::getInstance();
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO de CREACION DE PRUEBAS-->
     <div id="pruebas_email-dlg-buttons" style="width:100%;display:inline-block">
         <span style="float:left">
-            <a id="pruebas_email-editBtn" href="#" class="easyui-linkbutton"
-                data-options="iconCls:'icon-edit'" onclick="$('#pruebas_email-editor').dialog('open');"><?php _e('Edit'); ?></a>
+            <a id="pruebas_email-textBtn" href="#" class="easyui-linkbutton"
+                data-options="iconCls:'icon-notes'" onclick="$('#pruebas_email-editor').dialog('open');"><?php _e('Message'); ?></a>
         </span>
         <span style="float:right">
             <a id="pruebas_email-okBtn" href="#" class="easyui-linkbutton"
@@ -187,7 +187,7 @@ $config =Config::getInstance();
     });
     
     // - botones
-    addTooltip($('#pruebas_email-editBtn').linkbutton(),'<?php _e("Edit mail template text to be sent"); ?>');
+    addTooltip($('#pruebas_email-textBtn').linkbutton(),'<?php _e("Edit mail template text to be sent"); ?>');
     addTooltip($('#pruebas_email-okBtn').linkbutton(),'<?php _e("Accept data. Start mailing procedure"); ?>');
     addTooltip($('#pruebas_email-cancelBtn').linkbutton(),"<?php _e('Cancel operation. Close window'); ?>");
 	addTooltip($('#pruebas-okBtn').linkbutton(),'<?php _e("Accept data. Register contest into database"); ?>');
@@ -229,13 +229,26 @@ $config =Config::getInstance();
         closed:true,
         buttons:'#pruebas_email-dlg-buttons',
         onBeforeOpen: function() {
-            $('#pruebas_email-Clubs').combogrid('grid').datagrid('load',{Operation:'enumerate',Federation:workingData.federation});
+            $('#pruebas_email-Clubs').datagrid('load',{Operation:'enumerate',Federation:workingData.federation});
         }
     });
 
-    $('#pruebas_email-Clubs').combogrid({
-        panelWidth: 350,
-        panelHeight: 200,
+    $('#pruebas_email-Clubs').datagrid({
+        fit: true,
+        border: false,
+        closable: false,
+        collapsible: false,
+        expansible: false,
+        collapsed: false,
+        title: '<?php _e('Club selection'); ?>',
+        loadMsg: '<?php _e('Updating club list'); ?> ...',
+        pagination: false,
+        rownumbers: false,
+        fitColumns: true,
+        multiple: true,
+        selectOnNavigation: false,
+        rowStyler:myRowStyler,
+        fitcolumns: true,
         idField: 'ID',
         textField: 'Nombre',
         url: '/agility/server/database/clubFunctions.php',
@@ -245,29 +258,32 @@ $config =Config::getInstance();
         },
         method: 'get',
         mode: 'remote',
+        multiSort: true,
+        remoteSort: true,
         columns: [[
             {field:'ID',hidden:true},
-            {field:'Nombre',title:'<?php _e('Club name'); ?>',width:50,align:'right'},
-            {field:'Email',title:'<?php _e('Electronic mail'); ?>',width:70,align:'right'},
-            {field:'Provincia',title:'<?php _e('Province'); ?>',width:30,align:'right'}
+            {field:'Nombre',    sortable:true, title:'<?php _e('Club name'); ?>',width:50,align:'right'},
+            {field:'Email',     sortable:true, title:'<?php _e('Electronic mail'); ?>',width:70,align:'right'},
+            {field:'Provincia', sortable:true, title:'<?php _e('Province'); ?>',width:30,align:'right'},
+            {field:'Sent',  title:'<?php _e('Sent'); ?>',width:5,align:'center'}
         ]],
-        multiple: true,
-        fitColumns: true,
-        selectOnNavigation: false,
         onUnselect: function(index,row) {
             $('#pruebas_email-All').prop('checked',false);
         },
         onSelect: function(index,row) {
             $('#pruebas_email-None').prop('checked',false);
+        },
+        onDblClickRow: function (index,row) {
+            pruebas_emailEditClub(index,row);
         }
     });
 
     $('#pruebas_email-All').change(function(){
-        if ($(this).prop('checked')) $('#pruebas_email-Clubs').combogrid('grid').datagrid('selectAll');
+        if ($(this).prop('checked')) $('#pruebas_email-Clubs').datagrid('selectAll');
         $('#pruebas_email-None').prop('checked',false);
     });
     $('#pruebas_email-None').change(function(){
-        if ($(this).prop('checked')) $('#pruebas_email-Clubs').combogrid('grid').datagrid('unselectAll');
+        if ($(this).prop('checked')) $('#pruebas_email-Clubs').datagrid('unselectAll');
         $('#pruebas_email-All').prop('checked',false);
     });
 

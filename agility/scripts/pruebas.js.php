@@ -164,6 +164,19 @@ function exportPrueba(dg) {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
+function pruebas_emailEditClub(index,row) {
+    var m = $.messager.prompt({
+        title: "<?php _e('Change Email');?>",
+        msg: "<?php _e('Enter new email for club');?>: <br/>"+row.Nombre,
+        fn: function(r) {
+            if (r) alert('you type: ' + r);
+        },
+        width: 350
+    });
+    m.find('.messager-input').val(row.Email);
+    return false;
+}
+
 function emailPrueba(dg) {
     var row = $(dg).datagrid('getSelected');
     var url='/agility/server/excel/scores_writer.php';
@@ -179,13 +192,19 @@ function emailPrueba(dg) {
  * Ask send mail with contest info and inscription templates to each selected club
  */
 function perform_emailPrueba() {
-    var dg=$('#pruebas_email-Clubs').combogrid('grid');
+    var dg=$('#pruebas_email-Clubs');
 
     function handleMail(rows,index,size) {
         if (index>=size){
             // recursive call finished, clean, close and refresh
             pwindow.window('close');
-            $(dg).datagrid('clearSelections');
+            dg.datagrid('clearSelections');
+            return;
+        }
+        // skip row ID:1 and fields with no mail
+        if ( (rows[index]['ID']<1) || (rows[index]['Email']=="")) {
+            $('#pruebas_email-progresslabel').html('<?php _e("Skipping"); ?>'+": "+rows[index].Nombre+"<br/> <?php _e('No mail declared');?>");
+            setTimeout(function(){handleMail(rows,index+1,size);},2000); // fire again
             return;
         }
         $('#pruebas_email-progresslabel').html('<?php _e("Processing"); ?>'+": "+rows[index].Nombre+"<br/> &lt;"+rows[index].Email+"&gt;");
@@ -211,7 +230,7 @@ function perform_emailPrueba() {
     }
 
     var pwindow=$('#pruebas_email-progresswindow');
-    var selectedRows= $(dg).datagrid('getSelections');
+    var selectedRows= dg.datagrid('getSelections');
     var size=selectedRows.length;
     if(size==0) {
         $.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no selected clubs to send mail to"); ?>',"warning");
