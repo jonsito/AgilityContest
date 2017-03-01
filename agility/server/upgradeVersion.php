@@ -206,9 +206,12 @@ class Updater {
             END;
         ";
         $call="CALL AddColumnUnlessExists()";
-        $this->conn->query($drop);
-        $this->conn->query($create);
-        $this->conn->query($call);
+        $res=$this->conn->query($drop);
+        if(!$res) do_log($this->conn->error);
+        $res=$this->conn->query($create);
+        if(!$res) do_log($this->conn->error);
+        $res=$this->conn->query($call);
+        if(!$res) do_log($this->conn->error);
         // $this->myLogger->leave();
     }
 
@@ -401,10 +404,11 @@ class Updater {
      * @return
      */
     function addAgility3Grade1() {
+        $dbobj=new DBObject("addAgiltiy3Grade1");
         $cmds= array(
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(17,'Agility Grado 1 Manga 3','GI')"
         );
-        foreach ($cmds as $query) { $this->conn->query($query); }
+        foreach ($cmds as $query) { $dbobj->query($query); }
         return 0;
     }
 
@@ -412,13 +416,24 @@ class Updater {
      * as license convention changes, use Loe/ RRC to check if a dog is elegible for puntuaction in selectives
      */
     function fixLOERRC2017() {
+        $dbobj=new DBObject("addAgiltiy3Grade1");
         $cmds= array(
             "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like '0%')",
             "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'A%')",
             "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'B%')",
-            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'C%')",
+            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'C%')"
         );
-        foreach ($cmds as $query) { $this->conn->query($query); }
+        foreach ($cmds as $query) { $dbobj->query($query); }
+        return 0;
+    }
+
+    function addMailList() {
+        $this->addColumnUnlessExists("Pruebas", "MailList", "TEXT"); // text column cannot have default values
+        $dbobj=new DBObject("addAgiltiy3Grade1");
+        $cmds= array(
+            "UPDATE Pruebas SET MailList='BEGIN,END' WHERE MailList IS NULL"
+        );
+        foreach ($cmds as $query) { $dbobj->query($query); }
         return 0;
     }
 }
@@ -460,6 +475,7 @@ try {
     $upg->addAgility3Grade1();
     $upg->fixLOERRC2017();
     $upg->addColumnUnlessExists("Usuarios", "Club", "int(4)", "1");
+    $upg->addMailList();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }
