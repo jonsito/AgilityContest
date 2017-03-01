@@ -152,15 +152,8 @@ class OrdenSalida extends DBObject {
 	 */
 	function insertIntoList($idperro) {
 		$ordensalida=$this->getOrden();
-		// lo borramos para evitar una posible doble insercion
-		$str = ",$idperro,";
-		$nuevoorden = str_replace ( $str, ",", $ordensalida );
-		// componemos el tag que hay que insertar
-		$myTag="$idperro,END";
-		// y lo insertamos en lugar que corresponde
-		$ordensalida = str_replace ( "END", $myTag, $nuevoorden );
-		// update database
-		return $this->setOrden($ordensalida);
+		$res=list_insert($idperro,$ordensalida);
+		return $this->setOrden($res);
 	}
 
     /**
@@ -169,15 +162,8 @@ class OrdenSalida extends DBObject {
      */
     function insertIntoTeamList($idteam) {
         $ordenequipos=$this->getOrdenEquipos();
-        // lo borramos para evitar una posible doble insercion
-        $str = ",$idteam,";
-        $nuevoorden = str_replace ( $str, ",", $ordenequipos );
-        // componemos el tag que hay que insertar
-        $myTag="$idteam,END";
-        // y lo insertamos en lugar que corresponde
-        $ordenequipos = str_replace ( "END", $myTag, $nuevoorden );
-        // update database
-        return $this->setOrdenEquipos($ordenequipos);
+        $res=list_insert($idteam,$ordenequipos);
+        return $this->setOrdenEquipos($res);
     }
 
 	/**
@@ -187,10 +173,8 @@ class OrdenSalida extends DBObject {
 	 */
 	function removeFromList($idperro) {
 		$ordensalida=$this->getOrden();
-		$str = ",$idperro,";
-		$nuevoorden = str_replace ( $str, ",", $ordensalida );
-		// update database
-		return $this->setOrden($nuevoorden);
+		$res=list_remove($idperro,$ordensalida);
+		return $this->setOrden($res);
 	}
 
     /**
@@ -200,10 +184,8 @@ class OrdenSalida extends DBObject {
      */
     function removeFromTeamList($idteam) {
         $ordenequipos=$this->getOrdenEquipos();
-        $str = ",$idteam,";
-        $nuevoorden = str_replace ( $str, ",", $ordenequipos );
-        // update database
-        return $this->setOrdenEquipos($nuevoorden);
+        $res=list_remove($idteam,$ordenequipos);
+        return $this->setOrdenEquipos($res);
     }
 
     /**
@@ -217,17 +199,9 @@ class OrdenSalida extends DBObject {
 		if ( ($from<=0) || ($to<=0) ) {
 			return $this->error("dnd: SrcIDPerro:$from or DestIDPerro:$to are invalid");
 		}
-		// recuperamos el orden de salida
 		$ordensalida = $this->getOrden();
-		// extraemos "from" de donde este y lo guardamos
-		$str = ",$from,";
-		$ordensalida = str_replace ( $str , "," , $ordensalida );
-		// insertamos 'from' encima o debajo de 'to' segun el flag 'where'
-		$str1 = ",$to,";
-		$str2 = ($where==0)? ",$from,$to," : ",$to,$from,";
-		$ordensalida = str_replace( $str1 , $str2 , $ordensalida );
-		// guardamos el resultado
-		$this->setOrden($ordensalida);
+		$res=list_move($from,$to,$where,$ordensalida);
+		$this->setOrden($res);
 		return "";
 	}
 
@@ -242,17 +216,9 @@ class OrdenSalida extends DBObject {
         if ( ($from<=0) || ($to<=0) ) {
             return $this->error("dnd: SrcIDTeam:$from or DestIDTeam:$to are invalid");
         }
-        // recuperamos el orden de salida
         $ordenequipos = $this->getOrdenEquipos();
-        // extraemos "from" de donde este y lo guardamos
-        $str = ",$from,";
-        $ordenequipos = str_replace ( $str , "," , $ordenequipos );
-        // insertamos 'from' encima o debajo de 'to' segun el flag 'where'
-        $str1 = ",$to,";
-        $str2 = ($where==0)? ",$from,$to," : ",$to,$from,";
-        $ordenequipos = str_replace( $str1 , $str2 , $ordenequipos );
-        // guardamos el resultado
-        $this->setOrdenEquipos($ordenequipos);
+        $res=list_move($from,$to,$where,$ordenequipos);
+        $this->setOrdenEquipos($res);
         return "";
     }
 
