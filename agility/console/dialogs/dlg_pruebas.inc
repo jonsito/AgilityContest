@@ -36,6 +36,11 @@ $config =Config::getInstance();
                 <input name="EmptyTemplate" type="hidden" value="0"/>
                 <label for="pruebas_email-EmptyTemplate" style="width:250px;"><?php _e('Send empty inscription template'); ?></label>
                 <input id="pruebas_email-EmptyTemplate" type="checkbox" name="EmptyTemplate" value="1"/><br/>
+
+                <input name="ReSend" type="hidden" value="0"/>
+                <label for="pruebas_email-ReSend" style="width:250px;"><?php _e('Ignore sent mark and send anyway'); ?></label>
+                <input id="pruebas_email-ReSend" type="checkbox" name="ReSend" value="1"/><br/>
+
                 <input name="SendToAll" type="hidden" value="0"/>
                 <span style="display:inline-block;width:250px;"><?php _e('Select'); ?></span>
                 <input id="pruebas_email-All" type="checkbox" name="All" value="1"/>
@@ -43,7 +48,7 @@ $config =Config::getInstance();
                 <input id="pruebas_email-None" type="checkbox" name="None" value="1"/>
                 <label for="pruebas_email-None"  style="width:50px;"><?php _e('None'); ?></label><br/>
             </div>
-            <div class="fitem" style="height:300px">
+            <div class="fitem" style="height:250px">
                 <table id="pruebas_email-Clubs" name="Club"></table>
             </div>
         </form>
@@ -99,6 +104,8 @@ $config =Config::getInstance();
         <span style="float:left">
             <a id="pruebas_email-textBtn" href="#" class="easyui-linkbutton"
                 data-options="iconCls:'icon-notes'" onclick="$('#pruebas_email-editor').dialog('open');"><?php _e('Message'); ?></a>
+            <a id="pruebas_email-clearBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-brush'" onclick="prueba_clearSentMark();"><?php _e('Clear'); ?></a>
         </span>
         <span style="float:right">
             <a id="pruebas_email-okBtn" href="#" class="easyui-linkbutton"
@@ -188,6 +195,7 @@ $config =Config::getInstance();
     
     // - botones
     addTooltip($('#pruebas_email-textBtn').linkbutton(),'<?php _e("Edit mail template text to be sent"); ?>');
+    addTooltip($('#pruebas_email-clearBtn').linkbutton(),'<?php _e("Remove mail sent mark from every clubs"); ?>');
     addTooltip($('#pruebas_email-okBtn').linkbutton(),'<?php _e("Accept data. Start mailing procedure"); ?>');
     addTooltip($('#pruebas_email-cancelBtn').linkbutton(),"<?php _e('Cancel operation. Close window'); ?>");
 	addTooltip($('#pruebas-okBtn').linkbutton(),'<?php _e("Accept data. Register contest into database"); ?>');
@@ -229,7 +237,7 @@ $config =Config::getInstance();
         closed:true,
         buttons:'#pruebas_email-dlg-buttons',
         onBeforeOpen: function() {
-            $('#pruebas_email-Clubs').datagrid('load',{Operation:'enumerate',Federation:workingData.federation});
+            $('#pruebas_email-Clubs').datagrid('load',{Operation:'enumerate',Prueba:workingData.prueba,Federation:workingData.federation});
         }
     });
 
@@ -251,9 +259,10 @@ $config =Config::getInstance();
         fitcolumns: true,
         idField: 'ID',
         textField: 'Nombre',
-        url: '/agility/server/database/clubFunctions.php',
+        url: '/agility/server/mailFunctions.php',
         queryParams: {
             'Operation': 'enumerate',
+            'Prueba': workingData.prueba,
             'Federation': workingData.federation
         },
         method: 'get',
@@ -262,10 +271,10 @@ $config =Config::getInstance();
         remoteSort: true,
         columns: [[
             {field:'ID',hidden:true},
-            {field:'Nombre',    sortable:true, title:'<?php _e('Club name'); ?>',width:50,align:'right'},
-            {field:'Email',     sortable:true, title:'<?php _e('Electronic mail'); ?>',width:70,align:'right'},
+            {field:'Nombre',    sortable:true, title:'<?php _e('Club name'); ?>',width:40,align:'right'},
+            {field:'Email',     sortable:true, title:'<?php _e('Electronic mail'); ?>',width:60,align:'right'},
             {field:'Provincia', sortable:true, title:'<?php _e('Province'); ?>',width:30,align:'right'},
-            {field:'Sent',  title:'<?php _e('Sent'); ?>',width:5,align:'center'}
+            {field:'Sent',  title:'<?php _e('Sent'); ?>',width:5,align:'center',formatter:formatOk}
         ]],
         onUnselect: function(index,row) {
             $('#pruebas_email-All').prop('checked',false);

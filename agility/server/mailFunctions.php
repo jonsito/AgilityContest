@@ -32,9 +32,13 @@ try {
     $jornada=http_request("Jornada","i",0);
     $club=http_request("Club","i",0);
     $email=http_request("Email","s","");
-    $mailer=new MailManager("mailFunctions",$am);
+    $mailer=new MailManager("mailFunctions",$am,$prueba);
     if ($operation===null) throw new Exception("Call to mailFunctions without 'Operation' requested");
     switch ($operation) {
+        // clear sent mark from every clubs on this contest
+        case "clearsent":  $am->access(PERMS_OPERATOR); $result=$mailer->clearSent(); break;
+        // replacement for clubs::enumerate to add info on mail sent
+        case "enumerate": $result=$mailer->enumerate(); break;
         // try to send mail to sender using configuration preferences
         case "check": $am->access(PERMS_OPERATOR); $result=$mailer->check(); break;
         // send mail to AgilityContest server
@@ -42,7 +46,7 @@ try {
         // iterate on selected clubs for sending inscription template
         case "sendInscriptions":
             $am->access(PERMS_OPERATOR);
-            $result=$mailer->sendInscriptions($prueba,$club,$email);
+            $result=$mailer->sendInscriptions($club,$email);
             break;
         // send results, scores and excels to federation ad judges
         case "sendResults": $am->access(PERMS_OPERATOR); $result=$mailer->sendResults($jornada); break;

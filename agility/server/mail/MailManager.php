@@ -24,11 +24,15 @@ class MailManager {
     protected $myConfig;
     protected $myAuthManager;
     protected $myLogger;
+    protected $myDBObj;
+    protected $pruebaObj;
 
-    public function __construct($filename,$am) {
+    public function __construct($filename,$am,$prueba) {
         $this->myAuthManager=$am;
         $this->myConfig=Config::getInstance();
         $this->myLogger= new Logger($filename,$this->myConfig->getEnv("debug_level"));
+        $this->myDBObj=new DBOBject("MailManager::Enumerate");
+        $this->pruebaObj=$this->myDBObj->__selectObject("*","Pruebas","ID=$prueba");
     }
 
     public function check() {
@@ -76,19 +80,66 @@ class MailManager {
         return "";
     }
 
+    public function enumerate() {
+        $this->myLogger->enter();
+        $curFederation=Federations::getFederation(intval($this->pruebaObj->RSCE));
+        // evaluate search query string
+        $q=http_request("q","s","");
+        // evaluate federation for club/country filtering
+        $fedstr = "1";
+        if ($curFederation!=null) {
+            $fed=intval($curFederation->get('ID'));
+            $mask=1<<$fed;
+            $intlmask=Federations::getInternationalMask();
+            $fedstr=$curFederation->isInternational()?"((Federations & $intlmask)!=0)":"((Federations & $mask)!=0)";
+        }
+        $where="1";
+        if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
+        $result=$this->myDBObj->__select(
+        /* SELECT */ "ID,Nombre,Provincia,Pais,Federations,Email",
+        /* FROM */ "Clubes",
+        /* WHERE */ "$fedstr AND (ID>1) AND $where", // do not include default club in listing
+        /* ORDER BY */ "Nombre ASC",
+        /* LIMIT */ ""
+        );
+        // get MailSent field on pruebaID and add "Sent" field on each row
+        foreach ($result['rows'] as &$row) {
+            $row['Sent']=list_isMember($row['ID'],$this->pruebaObj->MailList)?1:0;
+        }
+        $this->myLogger->leave();
+        return $result;
+    }
+
+    // mark every club on this contest as pending to send mail
+    public function clearSent() {
+        $str="UPDATE Pruebas SET MailList='BEGIN,END' WHERE ID={$this->pruebaObj->ID}";
+        $res=$this->myDBObj->query($str);
+        if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
+        return "";
+    }
+
     public function notify() {
         $this->myLogger->enter();
         $this->myLogger->leave();
         return "";
     }
 
-    public function sendInscriptions($prueba,$club,$email) {
+    public function sendInscriptions($club,$email) {
         $this->myLogger->enter();
         $this->myLogger->trace("Sending mail for club:'$club' to address:'$email'");
+
+        // PENDING: real send mail
+
         sleep(2); // just for debugging
+        // if send mail gets ok, mark club sent in prueba
+        $res=list_insert($club,$this->pruebaObj->MailList);
+        $str="UPDATE Pruebas SET MailList='$res' WHERE ID={$this->pruebaObj->ID}";
+        $this->myDBObj->query($str);
+        $this->pruebaObj->MailList=$res;
         $this->myLogger->leave();
         return "";
     }
+
     public function sendResults($jornada) {
         $this->myLogger->enter();
         $this->myLogger->leave();

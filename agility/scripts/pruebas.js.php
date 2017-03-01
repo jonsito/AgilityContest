@@ -189,16 +189,49 @@ function emailPrueba(dg) {
 }
 
 /**
+ * Borra la marca de correo enviado de todos los mensajes
+ */
+function prueba_clearSentMark() {
+    $.messager.confirm(
+        '<?php _e('Confirm'); ?>',
+        '<?php _e("Mark every club as pending to receive mail"); ?> <br/> <?php _e('Sure');?>',
+            function(r){
+            if (!r) return false;
+            $.get(
+                '/agility/server/mailFunctions.php',
+                {Operation:'clearsent',Prueba:workingData.prueba,Federation:workingData.federation},
+                function(result){
+                    if (result.success){
+                        $('#pruebas_email-Clubs').datagrid('reload',{Operation:'enumerate',Prueba:workingData.prueba,Federation:workingData.federation});    // reload the prueba data
+                    } else {
+                        $.messager.show({ width:300, height:200, title:'<?php _e('Error'); ?>', msg:result.errorMsg });
+                    }
+                },
+                'json'
+            );
+        }
+    );
+}
+
+/**
  * Ask send mail with contest info and inscription templates to each selected club
  */
 function perform_emailPrueba() {
     var dg=$('#pruebas_email-Clubs');
+    var resend=$('#pruebas_email-ReSend').prop('checked');
 
     function handleMail(rows,index,size) {
         if (index>=size){
             // recursive call finished, clean, close and refresh
             pwindow.window('close');
             dg.datagrid('clearSelections');
+            dg.datagrid('reload',{Prueba:workingData.prueba,Federation:workingData.federation,Operation:'enumerate'});
+            return;
+        }
+        // take care on sent mails and "ReSend" flag
+        if ( (!resend) && (rows[index]['Sent']!=0) ) {
+            $('#pruebas_email-progresslabel').html('<?php _e("Skipping"); ?>'+": "+rows[index].Nombre+"<br/> <?php _e('Already sent');?>");
+            setTimeout(function(){handleMail(rows,index+1,size);},2000); // fire again
             return;
         }
         // skip row ID:1 and fields with no mail

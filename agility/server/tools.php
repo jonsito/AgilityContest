@@ -340,6 +340,17 @@ function list_move($from,$to,$where,$list='BEGIN,END') {
 }
 
 /**
+ * Tells if a item is included in list
+ * @param {integer} $item
+ * @param {string} $list
+ * @return {bool} false or true ( found, notfound
+ */
+function list_isMember($item,$list="BEGIN,END") {
+    $str=",$item,";
+    return (strpos($list,$str)===FALSE)?false:true;
+}
+
+/**
  * Try to get a file from url
  * Depending on config try several methods
  *
