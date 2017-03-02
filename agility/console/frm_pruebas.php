@@ -46,7 +46,7 @@ $config =Config::getInstance();
    	    	onclick="doSearchPrueba()"/><?php _e('Incl. closed'); ?>
    	</span>
    	<span style="float:right;padding:5px">
-   		<a id="pruebas-emailtBtn" href="#" class="easyui-linkbutton"
+   		<a id="pruebas-emailBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-mail'"
            onclick="emailPrueba('#pruebas-datagrid')"><?php _e('Mail'); ?></a>
    		<a id="pruebas-exportBtn" href="#" class="easyui-linkbutton"
