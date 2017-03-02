@@ -182,9 +182,21 @@ function emailPrueba(dg) {
     var url='/agility/server/excel/scores_writer.php';
     if (!row) {
         $.messager.alert('<?php _e("Mailer error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
-        return; // no way to know which prueba is selected
+        return false; // no way to know which prueba is selected
     }
-    $('#pruebas_email-dialog').dialog('open').dialog('setTitle','<?php _e('Email contest info to clubs'); ?>');
+    // if no poster / tryptich warn user
+    if ((row.Triptico=="")||(row.Cartel=="")) {
+        $.messager.confirm({
+            title:'<?php _e("Missing data"); ?>',
+            msg:'<p><?php _e("Contest has poster and/or tryptich undefined"); ?></p><p><?php _e("Continue anyway?");?></p>',
+            width:400,
+            fn:function(r){
+                if (!r) return false;
+                $('#pruebas_email-dialog').dialog('open').dialog('setTitle', '<?php _e('Email contest info to clubs'); ?>');
+            }
+        });
+        return false; // no way to know which prueba is selected
+    }
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 

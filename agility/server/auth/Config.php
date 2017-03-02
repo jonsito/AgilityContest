@@ -131,12 +131,15 @@ define('AC_CRONO_MILISECONDS',"0");	// presentar (1) milesimas o centesimas (0) 
 define('AC_CRONO_INTERMEDIATE',"0");// presentar (1) o no (0) datos de crono intermedio
 define('AC_CRONO_RECTIME',"7");		// tiempo (minutos) de reconocimiento de pista (4..10)
 
-/** datos de correo electronico */
-define('AC_EMAIL_SERVER',"mail.google.com"); // SMTP Server name
+/** datos de correo electronico defaults are for google */
+define('AC_EMAIL_SERVER',"smtp.gmail.com"); // SMTP Server name
 define('AC_EMAIL_PORT',587); // SMTP Server port
-define('AC_EMAIL_AUTH',"tls"); // auth method
+define('AC_EMAIL_CRYPT',"STARTTLS"); // encryption method
+define('AC_EMAIL_AUTH',"LOGIN"); // auth method
 define('AC_EMAIL_USER',""); // account user name
 define('AC_EMAIL_PASS',""); // base64 encoded password ( sucks, sure, but better than nothing )
+define('AC_EMAIL_REALM',""); // realm domain for ntlm auth
+define('AC_EMAIL_WORKSTATION',""); // domain workstation for ntlm auth
 
 Class Config {
 	
@@ -286,9 +289,12 @@ Class Config {
 		// correo electronico
 		'email_server'		=> array(	's',	false,	AC_EMAIL_SERVER),
 		'email_port'		=> array(	'i',	false,	AC_EMAIL_PORT),
-		'email_auth'		=> array(	's',	false,	AC_EMAIL_AUTH),
-		'email_user'		=> array(	's',	false,	AC_EMAIL_USER),
-		'email_pass'		=> array(	's',	false,	AC_EMAIL_PASS)
+        'email_crypt'		=> array(	's',	false,	AC_EMAIL_CRYPT),
+        'email_auth'		=> array(	's',	false,	AC_EMAIL_AUTH),
+        'email_user'		=> array(	's',	false,	AC_EMAIL_USER),
+        'email_pass'		=> array(	's',	false,	AC_EMAIL_PASS),
+		'email_realm'		=> array(	's',	false,	AC_EMAIL_REALM),
+		'email_workstation'	=> array(	's',	false,	AC_EMAIL_WORKSTATION)
 	);
 
 	// singleton pattern

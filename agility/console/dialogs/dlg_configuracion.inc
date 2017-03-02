@@ -349,7 +349,7 @@ $config =Config::getInstance();
 		<div title="<?php _e('E-mail'); ?>" style="padding:10px">
             <h3><?php _e('Options for sending electronic mail related functions'); ?></h3>
             <label for="email_address"><?php _e('Email address'); ?> (<?php _e('From license info'); ?>)</label>
-            <input id="email_address" name="email_address" type="text" readonly="readonly" size="25" value="agilityContest@agilitycontest.es" class="easyui-textbox"/>
+            <input id="email_address" name="email_address" type="text" readonly="readonly" disabled="disabled" size="25" value="agilityContest@agilitycontest.es" class="easyui-textbox"/>
             <br/>
             <label for="email_server"><?php _e('SMTP Server'); ?></label>
             <input id="email_server" name="email_server" type="text" size="20" value="" class="easyui-textbox"/>
@@ -357,22 +357,29 @@ $config =Config::getInstance();
             <select id="email_port" name="email_port" class="easyui-combobox">
                 <option value="25">25 - SMTP</option>
                 <option value="465">465 - SMTP on SSL</option>
-                <option value="587">587 - STARTTLS</option>
+                <option value="587">587 - Mail Submission Agent</option>
             </select>
             <br/>
-            <label for="email_auth"><?php _e('Authentication method'); ?></label>
-            <select id="email_auth" name="email_auth" class="easyui-combobox">
-                <option value="LOGIN"><?php _e('Login');?></option>
-                <option value="PLAIN"><?php _e('Plain');?></option>
-                <option value="NTLM"><?php _e('NTLM');?></option>
-                <option value="CRAM-MD5"><?php _e('CRAM-MD5');?></option>
+            <label for="email_crypt"><?php _e("Encryption method");?></label>
+            <select id="email_crypt" name="email_crypt" class="easyui-combobox">
+                <option value="NONE"><?php _e("None");?></option>
+                <option value="STARTTLS"><?php _e("StartTLS after connection");?></option>
+                <option value="TLS"><?php _e("SSL/TLS on dedicated port");?></option>
             </select>
+            <label for="email_auth"><?php _e('Authentication method'); ?></label>
+            <input id="email_auth" name="email_auth" value="PLAIN"/> <!-- redefined bellow -->
             <br/>
             <label for="email_user"><?php _e('User'); ?></label>
             <input id="email_user" name="email_user" type="text" size="20" value="" class="easyui-textbox"/>
             <br/>
             <label for="email_pass"><?php _e('Password'); ?></label>
             <input id="email_pass" name="email_pass" size="20" type="password" value="" class="easyui-textbox"/>
+            <br/>
+            <label for="email_realm"><?php _e('NTLM auth realm'); ?></label>
+            <input id="email_realm" name="email_realm" type="text" size="20" value="" class="easyui-textbox"/>
+            <br/>
+            <label for="email_workstation"><?php _e('NTLM auth workstation'); ?></label>
+            <input id="email_workstation" name="email_workstation" size="20" type="password" value="" class="easyui-textbox"/>
             <br/>
             <input id="email-checkBtn" type="button" value="<?php _e("Check");?>" onclick="emailCheck();"/>
             <br/>
@@ -477,7 +484,29 @@ $config =Config::getInstance();
 	addTooltip($('#config-okBtn').linkbutton(),'<?php _e("Accept changes. Save as new configuration"); ?>');
     addTooltip($('#printer-checkBtn').linkbutton(),'<?php _e("Send sample report to check printer"); ?>');
     addTooltip($('#email-checkBtn').linkbutton(),'<?php _e("Send yourself a sample mail to check parameters"); ?>');
-	
+
+    // enable/disable NTLM auth boxes according auth type method
+    $('#email_auth').combobox({
+        panelHeight:'auto',
+        valueField: 'val',
+        textField: 'text',
+        data:[{
+            val:'PLAIN',text:"<?php _e('None');?>"
+        },{
+            val:'LOGIN',text:"<?php _e('User / Password');?>"
+        },{
+            val:'NTLM',text:"<?php _e('NTLM');?>"
+        },{
+            val:'CRAM-MD5',text:"<?php _e('CRAM-MD5');?>"
+        }],
+        onChange: function( newval, oldval) {
+            $('#email_user').textbox((newval=="PLAIN")?'disable':'enable');
+            $('#email_pass').textbox((newval=="PLAIN")?'disable':'enable');
+            $('#email_realm').textbox((newval=="NTLM")?'enable':'disable');
+            $('#email_workstation').textbox((newval=="NTLM")?'enable':'disable');
+        }
+    });
+
 	function saveConfig() {
 		$('#config-Operation').val('saveConfig');
 	    $.ajax({
@@ -516,7 +545,7 @@ $config =Config::getInstance();
                 } else {
                     $.messager.alert({
                         title: '<?php _e("Mail Check"); ?>',
-                        msg:   '<?php _e("Mail has been successfully sent to address: "); ?>'+$('#email_address').val()+"' <br />"+
+                        msg:   '<?php _e("Mail has been successfully sent to address: "); ?><br/>'+$('#email_address').val()+"' <br />"+
                                '<?php _e("Please check email inbox for received mail"); ?> ',
                         icon:  "info",
                         width: 400

@@ -39,23 +39,41 @@ class MailManager {
         $this->myLogger->enter();
         $myMailer = new PHPMailer; //Create a new PHPMailer instance
         $myMailer->isSMTP(); //Tell PHPMailer to use SMTP
-        //Enable SMTP debugging
+        //Enable SMTP debugging. Notice that output is sent to client, so json_parse() fails
         $myMailer->SMTPDebug = 0; // 0 = off (for production use) // 1 = client messages // 2 = client and server messages // 3=trace connection
         $myMailer->Debugoutput = 'html';
-        // $myMailer->Host = gethostbyname(http_request("email_server","s",""));
+        // $myMailer->Host = gethostbyname(http_request("email_server","s","127.0.0.1"));
         $myMailer->Host = http_request("email_server","s","127.0.0.1");
         // if your network does not support SMTP over IPv6
         //Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
         $myMailer->Port = intval(http_request("email_port","i",25));
-        /* http_request("email_auth","s","PLAIN") */
-        //Set the encryption system to use - ssl (deprecated) or tls
-        $myMailer->SMTPSecure = 'tls';
-        //Whether to use SMTP authentication
-        $myMailer->SMTPAuth = true;
+        /* http_request("email_crypt","s","none") */
+        $crypt=http_request("email_crypt","s","None");
+        switch($crypt) {
+            case 'NONE':
+                $myMailer->SMTPSecure='';
+                $myMailer->SMTPAutoTLS=false;
+                break;
+            case 'STARTTLS':
+                $myMailer->SMTPSecure='tls';
+                $myMailer->SMTPAutoTLS=true;
+                break;
+            case 'TLS':
+                $myMailer->SMTPSecure=($myMailer->Port==465)?'ssl':'tls';
+                $myMailer->SMTPAutoTLS=false;
+                break;
+            default:
+                $this->myLogger->error("Invalid encryption method: $crypt");
+                break;
+        }
+        // Whether to use SMTP authentication
+        $myMailer->AuthType = http_request("email_auth","s","PLAIN");
+        $myMailer->SMTPAuth = ($myMailer->AuthType == "PLAIN" )?false:true;
         //Username to use for SMTP authentication - use full email address for gmail
         $myMailer->Username = http_request("email_user","s","");
-        //Password to use for SMTP authentication
         $myMailer->Password = http_request("email_pass","s","");
+        $myMailer->Realm = http_request("email_realm","s","");
+        $myMailer->Workstation = http_request("email_workstation","s","");
         // retrieve data from current license and use it to initialize sender and replyTo info
         $data=$this->myAuthManager->getRegistrationInfo();
         $myMailer->setFrom($data['Email'], $data['Name']);
