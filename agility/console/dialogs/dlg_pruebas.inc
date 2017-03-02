@@ -34,15 +34,15 @@ $config =Config::getInstance();
         <form id="pruebas_email-form" method="get" novalidate="novalidate">
             <div class="fitem">
                 <input name="EmptyTemplate" type="hidden" value="0"/>
-                <label for="pruebas_email-EmptyTemplate" style="width:250px;"><?php _e('Send empty inscription template'); ?></label>
+                <label for="pruebas_email-EmptyTemplate" style="width:300px;"><?php _e('Send empty inscription template'); ?></label>
                 <input id="pruebas_email-EmptyTemplate" type="checkbox" name="EmptyTemplate" value="1"/><br/>
 
                 <input name="ReSend" type="hidden" value="0"/>
-                <label for="pruebas_email-ReSend" style="width:250px;"><?php _e('Ignore sent mark and send anyway'); ?></label>
+                <label for="pruebas_email-ReSend" style="width:300px;"><?php _e('Ignore sent mark and send anyway'); ?></label>
                 <input id="pruebas_email-ReSend" type="checkbox" name="ReSend" value="1"/><br/>
 
                 <input name="SendToAll" type="hidden" value="0"/>
-                <span style="display:inline-block;width:250px;"><?php _e('Select'); ?></span>
+                <span style="display:inline-block;width:300px;"><?php _e('Select'); ?></span>
                 <input id="pruebas_email-All" type="checkbox" name="All" value="1"/>
                 <label for="pruebas_email-All" style="width:50px;"><?php _e('All'); ?></label>
                 <input id="pruebas_email-None" type="checkbox" name="None" value="1"/>
@@ -82,7 +82,7 @@ $config =Config::getInstance();
                 <li>Cumplimentar las inscripciones:
                     <ol>
                         <li>Marcar con una X las jornadas a las que el equipo asistirá</li>
-                        <li>Indicar con una "X" las perras que estén en celo</li>
+                        <li>Indicar con una X las perras que estén en celo</li>
                         <li>Indicar la cantidad a abonar por cada equipo</li>
                         <li>En el apartado observaciones, cualquier otra información de interés</li>
                     </ol>

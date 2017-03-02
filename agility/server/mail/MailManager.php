@@ -145,10 +145,83 @@ class MailManager {
     public function sendInscriptions($club,$email) {
         $this->myLogger->enter();
         $this->myLogger->trace("Sending mail for club:'$club' to address:'$email'");
+        if ($email=="") return "Error: no email address set";
 
-        // PENDING: real send mail
+        // PENDING check for url Poster and Tryptich download.
 
-        sleep(2); // just for debugging
+        // PENDING Generate and store template for club. Take care on empty template mark
+
+        // Configure email
+        $myMailer = new PHPMailer; //Create a new PHPMailer instance
+        $myMailer->isSMTP(); //Tell PHPMailer to use SMTP
+        //Enable SMTP debugging. Notice that output is sent to client, so json_parse() fails
+        $myMailer->SMTPDebug = 0; // 0 = off (for production use) // 1 = client messages // 2 = client and server messages // 3=trace connection
+        $myMailer->Debugoutput = 'html';
+        // $myMailer->Host = gethostbyname(http_request("email_server","s","127.0.0.1"));
+        $myMailer->Host = $this->myConfig->getEnv("email_server");
+        // if your network does not support SMTP over IPv6
+        //Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
+        $myMailer->Port = intval($this->myConfig->getEnv("email_port"));
+        /* http_request("email_crypt","s","none") */
+        $crypt=$this->myConfig->getEnv("email_crypt");
+        switch($crypt) {
+            case 'NONE':
+                $myMailer->SMTPSecure='';
+                $myMailer->SMTPAutoTLS=false;
+                break;
+            case 'STARTTLS':
+                $myMailer->SMTPSecure='tls';
+                $myMailer->SMTPAutoTLS=true;
+                break;
+            case 'TLS':
+                $myMailer->SMTPSecure=($myMailer->Port==465)?'ssl':'tls';
+                $myMailer->SMTPAutoTLS=false;
+                break;
+            default:
+                $this->myLogger->error("Invalid encryption method: $crypt");
+                break;
+        }
+        // Whether to use SMTP authentication
+        $myMailer->AuthType = $this->myConfig->getEnv("email_auth");
+        $myMailer->SMTPAuth = ($myMailer->AuthType == "PLAIN" )?false:true;
+        //Username to use for SMTP authentication - use full email address for gmail
+        $myMailer->Username = $this->myConfig->getEnv("email_user");
+        $myMailer->Password = $this->myConfig->getEnv("email_pass");
+        $myMailer->Realm = $this->myConfig->getEnv("email_realm");
+        $myMailer->Workstation = $this->myConfig->getEnv("email_workstation");
+        // retrieve data from current license and use it to initialize sender and replyTo info
+        $data=$this->myAuthManager->getRegistrationInfo();
+        $myMailer->setFrom($data['Email'], $data['Name']);
+        $myMailer->addReplyTo($data['Email'], $data['Name']);
+        // compose a dummy message to be sent to sender :-)
+        //Set who the message is to be sent to
+        $myMailer->addAddress($email);
+        //Set the subject line to Contest Name
+        $myMailer->Subject = $this->pruebaObj->Nombre;
+        //convert HTML into a basic plain-text alternative body
+        $d=date("Y/m/d H:i");
+        $htmlmsg="<h4>Test</h4><p>Just a simple <em>HTML</em> text to test send mail in this format</p><p>Mail sent at:$d</p><hr/>";
+        $htmlmsg=http_request("Contents","s",$htmlmsg);
+        $version = $this->myConfig->getEnv("version_name");
+        $release = $this->myConfig->getEnv("version_date");
+        $htmlmsg .= "<hr/><p>". _("Email sent with") .  "AgilityContest-$version $release at $d</p> ";
+        $htmlmsg .= "<p>CopyRight &copy; 2013-2017 by Juan Antonio Martinez &lt; jonsito at gmail dot com &gt;</p>";
+        $myMailer->msgHTML($htmlmsg);
+        // set plain text to notify to use an html-enabled email browser
+        $myMailer->AltBody = _("Please enable HTML view in your email application");
+
+        // PENDING attach Poster
+
+        // PENDING attach tryptich
+
+        // PENDING attach Excel template
+
+        // allways attach AgiltiyContest logo . use absolute paths as phpmailer does not handle relative ones
+        $myMailer->addAttachment(__DIR__.'/../../images/logos/agilitycontest.png');
+        //send the message, check for errors
+        if (!$myMailer->send()) {
+            return "Mailer Error: " . $myMailer->ErrorInfo;
+        }
         // if send mail gets ok, mark club sent in prueba
         $res=list_insert($club,$this->pruebaObj->MailList);
         $str="UPDATE Pruebas SET MailList='$res' WHERE ID={$this->pruebaObj->ID}";
