@@ -28,8 +28,8 @@ $config =Config::getInstance();
             <li><?php _e("Revise/Edit email text to be sent with attachements");?></li>
             <li><?php _e("Decide if you want to send empty inscription template");?></li>
             <li><?php _e("Select club(s) to send email to, or choose all");?></li>
-            <li><?php _e("Make sure that every selected club has a valid email address declared");?><br/>
-                <?php _e("Press double-click on club to set/change email");?></li>
+            <li><?php _e("Make sure that every selected club has a valid email address declared");?></li>
+            <li><?php _e("Press double-click on club to set/change email");?></li>
         </ul>
         <form id="pruebas_email-form" method="get" novalidate="novalidate">
             <div class="fitem">

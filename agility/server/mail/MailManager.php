@@ -155,12 +155,45 @@ class MailManager {
     // send inscription poster, tryptich and excel template to club
     public function sendInscriptions($club,$email) {
         $this->myLogger->enter();
+        $timeout=ini_get('max_execution_time');
+        $maildir=__DIR__."/../../../logs/mail_{$this->pruebaObj->ID}";
         $this->myLogger->trace("Sending mail for club:'$club' to address:'$email'");
         if ($email=="") return "Error: no email address set";
 
-        // PENDING check for url Poster and Tryptich download.
+        // create compose directory. ignore errors if file already exists
+        @mkdir($maildir);
+        // try to retrieve poster into compose directory
+        if ($this->pruebaObj->Cartel=="") {
+            $this->myLogger->info("No Poster declared for prueba {$this->pruebaObj->ID} {$this->pruebaObj->Nombre}");
+        } else {
+            set_time_limit($timeout);
+            // get extension for file to be downloaded
+            $ext=pathinfo( parse_url($this->pruebaObj->Cartel,PHP_URL_PATH), PATHINFO_EXTENSION );
+            if (!file_exists("$maildir/Poster.{$ext}")) {
+                $data=retrieveFileFromURL($this->pruebaObj->Cartel);
+                file_put_contents("$maildir/Poster.{$ext}",$data);
+            }
+        }
+        // try to retrieve tryptich into compose directory
+        if ($this->pruebaObj->Triptico=="") {
+            $this->myLogger->info("No Tryptich declared for prueba {$this->pruebaObj->ID} {$this->pruebaObj->Nombre}");
+        }else {
+            set_time_limit($timeout);
+            // get extension for file to be downloaded
+            $ext=pathinfo( parse_url($this->pruebaObj->Triptico,PHP_URL_PATH), PATHINFO_EXTENSION );
+            if (!file_exists("$maildir/Triptico.{$ext}")) {
+                $data=retrieveFileFromURL($this->pruebaObj->Cartel);
+                file_put_contents("$maildir/Triptico.{$ext}",$data);
+            }
+        }
+        // check for empty template mark request
+        if ( http_request("EmptyTemplate","i","0") != 0 ){
+            // PENDING Generate and store an empty template
+        } else {
+            // PENDING Generate and store personalized template
+        }
 
-        // PENDING Generate and store template for club. Take care on empty template mark
+        // ok: download files is done. Now comes prepare and send mail
 
         // Configure email
         $myMailer = new PHPMailer; //Create a new PHPMailer instance
@@ -221,12 +254,15 @@ class MailManager {
         // set plain text to notify to use an html-enabled email browser
         $myMailer->AltBody = _("Please enable HTML view in your email application");
 
-        // PENDING attach Poster
-
-        // PENDING attach tryptich
-
-        // PENDING attach Excel template
-
+        // iterate on directory to search for files to attach into mail
+        $dir = new DirectoryIterator($maildir);
+        foreach ($dir as $fileinfo) {
+            if (!$fileinfo->isDot()) {
+                $file=$fileinfo->getFilename();
+                $this->myLogger->trace("Attaching file: $maildir/$file");
+                $myMailer->addAttachment("$maildir/$file");
+            }
+        }
         // allways attach AgiltiyContest logo . use absolute paths as phpmailer does not handle relative ones
         $myMailer->addAttachment(__DIR__.'/../../images/logos/agilitycontest.png');
         //send the message, check for errors
