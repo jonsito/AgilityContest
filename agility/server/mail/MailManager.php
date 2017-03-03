@@ -136,12 +136,23 @@ class MailManager {
         return "";
     }
 
-    public function notify() {
-        $this->myLogger->enter();
-        $this->myLogger->leave();
+    /**
+     * Update club email with provided data
+     * @param {integer} $club Club ID
+     * @param {string} $email new Email Address ( escapechar'd by http_request )
+     */
+    public function updateClubMail($club,$email) {
+        if ($club<=1)
+            throw new Exception("updateClubMail(): Invalid Club ID $club");
+        if (!filter_var($email,FILTER_VALIDATE_EMAIL))
+            throw new Exception ("updateClubMail() provided data '$email' is not a valid email address");
+        $str="UPDATE Clubes SET Email='$email' WHERE ID=$club";
+        $res=$this->myDBObj->query($str);
+        if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
         return "";
     }
 
+    // send inscription poster, tryptich and excel template to club
     public function sendInscriptions($club,$email) {
         $this->myLogger->enter();
         $this->myLogger->trace("Sending mail for club:'$club' to address:'$email'");
@@ -231,9 +242,20 @@ class MailManager {
         return "";
     }
 
+    // send results scores and pdf to judge and federation
     public function sendResults($jornada) {
         $this->myLogger->enter();
+        // PENDING
         $this->myLogger->leave();
         return "";
     }
+
+    // send some report to www.agilitycontest.es
+    public function notify() {
+        $this->myLogger->enter();
+        // PENDING
+        $this->myLogger->leave();
+        return "";
+    }
+
 }

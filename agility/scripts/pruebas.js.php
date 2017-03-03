@@ -169,11 +169,34 @@ function pruebas_emailEditClub(index,row) {
         title: "<?php _e('Change Email');?>",
         msg: "<?php _e('Enter new email for club');?>: <br/>"+row.Nombre,
         fn: function(r) {
-            if (r) alert('you type: ' + r);
+            if (!r) return false;
+            $.ajax({
+                type: 'GET',
+                url: '/agility/server/mailFunctions.php',
+                data: {
+                    Prueba: workingData.prueba,
+                    Federation: workingData.federation,
+                    Club: row['ID'],
+                    Email: r,
+                    Operation: "updateclub"
+                },
+                dataType: 'json',
+                // beforeSend: function(jqXHR,settings){ return frm.form('validate'); },
+                success: function (result) {
+                    if (result.errorMsg){
+                        $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
+                        return false;
+                    }
+                    $('#pruebas_email-Clubs').datagrid('updateRow',{
+                            index: index,
+                            row: {Email:r}
+                    });
+                }
+            });
         },
         width: 350
     });
-    m.find('.messager-input').val(row.Email);
+    m.find('.messager-input').val(row.Email); // set default value for prompt
     return false;
 }
 
@@ -183,6 +206,12 @@ function emailPrueba(dg) {
     if (!row) {
         $.messager.alert('<?php _e("Mailer error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
         return false; // no way to know which prueba is selected
+    }
+    if (ac_regInfo.Serial==="00000000") {
+        $.messager.alert('<?php _e("Mail services"); ?>',
+            '<p><?php _e("Electronic mail operations<br/>are not allowed for unregistered licenses"); ?></p>',
+            "info").window('resize',{width:480});
+        return false;
     }
     // if no poster / tryptich warn user
     if ((row.Triptico=="")||(row.Cartel=="")) {

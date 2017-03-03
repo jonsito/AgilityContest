@@ -279,7 +279,6 @@ class Admin extends DBObject {
 	}
 	
 	public function clearDatabase() {
-		// PENDING : reset configuration
 		// drop pruebas
         $this->clearContests();
         // delete data

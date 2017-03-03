@@ -35,6 +35,8 @@ try {
     $mailer=new MailManager("mailFunctions",$am,$prueba);
     if ($operation===null) throw new Exception("Call to mailFunctions without 'Operation' requested");
     switch ($operation) {
+        // update email from selected club
+        case "updateclub": $am->access(PERMS_OPERATOR); $result=$mailer->updateClubMail($club,$email); break;
         // clear sent mark from every clubs on this contest
         case "clearsent":  $am->access(PERMS_OPERATOR); $result=$mailer->clearSent(); break;
         // replacement for clubs::enumerate to add info on mail sent

@@ -48,9 +48,17 @@ class Updater {
         // connect database with proper permissions
         $this->conn = DBConnection::getRootConnection();
         if ($this->conn->connect_error) {
-            $str="Cannot perform upgrade check process: database::dbConnect() error";
+            $str="Cannot perform upgrade check process: database::dbConnect() error. Retrying....";
             $this->install_log("$str <br/>");
-            throw new Exception($str);
+
+            // wait 5 seconds and retry
+            sleep(5);
+            $this->conn = DBConnection::getRootConnection();
+            if ($this->conn->connect_error) {
+                $str="Cannot perform upgrade check process: database::dbConnect() error. Exiting";
+                $this->install_log("$str <br/>");
+                throw new Exception($str);
+            }
         }
     }
 
