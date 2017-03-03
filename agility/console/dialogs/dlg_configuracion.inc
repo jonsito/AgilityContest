@@ -354,14 +354,14 @@ $config =Config::getInstance();
             <label for="email_server"><?php _e('SMTP Server'); ?></label>
             <input id="email_server" name="email_server" type="text" size="20" value="" class="easyui-textbox"/>
             <?php _e('Port'); ?>
-            <select id="email_port" name="email_port" class="easyui-combobox">
+            <select id="email_port" name="email_port" class="easyui-combobox" data-options="panelHeight:'auto'">
                 <option value="25">25 - SMTP</option>
                 <option value="465">465 - SMTP on SSL</option>
                 <option value="587">587 - Mail Submission Agent</option>
             </select>
             <br/>
             <label for="email_crypt"><?php _e("Encryption method");?></label>
-            <select id="email_crypt" name="email_crypt" class="easyui-combobox">
+            <select id="email_crypt" name="email_crypt" class="easyui-combobox" data-options="panelHeight:'auto'">
                 <option value="NONE"><?php _e("None");?></option>
                 <option value="STARTTLS"><?php _e("StartTLS after connection");?></option>
                 <option value="TLS"><?php _e("SSL/TLS on dedicated port");?></option>

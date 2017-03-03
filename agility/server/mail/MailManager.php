@@ -3,6 +3,7 @@
 require_once __DIR__.'/PHPMailer-5.2.22/PHPMailerAutoload.php';
 require_once __DIR__.'/../auth/Config.php';
 require_once __DIR__.'/../auth/AuthManager.php';
+require_once __DIR__.'/../excel/classes/Excel_Inscripciones.php';
 /*
 mailManager.php
 
@@ -133,6 +134,8 @@ class MailManager {
         $str="UPDATE Pruebas SET MailList='BEGIN,END' WHERE ID={$this->pruebaObj->ID}";
         $res=$this->myDBObj->query($str);
         if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
+        // also clear stored files from cache
+        delTree(__DIR__."/../../../logs/mail_{$this->pruebaObj->ID}");
         return "";
     }
 
@@ -156,12 +159,12 @@ class MailManager {
     public function sendInscriptions($club,$email) {
         $this->myLogger->enter();
         $timeout=ini_get('max_execution_time');
-        $maildir=__DIR__."/../../../logs/mail_{$this->pruebaObj->ID}";
+        $maildir=__DIR__."/../../../logs/mail_{$this->pruebaObj->ID}/club_$club";
         $this->myLogger->trace("Sending mail for club:'$club' to address:'$email'");
         if ($email=="") return "Error: no email address set";
 
         // create compose directory. ignore errors if file already exists
-        @mkdir($maildir);
+        @mkdir($maildir,0777,true); // create subdirectories
         // try to retrieve poster into compose directory
         if ($this->pruebaObj->Cartel=="") {
             $this->myLogger->info("No Poster declared for prueba {$this->pruebaObj->ID} {$this->pruebaObj->Nombre}");
@@ -182,16 +185,16 @@ class MailManager {
             // get extension for file to be downloaded
             $ext=pathinfo( parse_url($this->pruebaObj->Triptico,PHP_URL_PATH), PATHINFO_EXTENSION );
             if (!file_exists("$maildir/Triptico.{$ext}")) {
-                $data=retrieveFileFromURL($this->pruebaObj->Cartel);
+                $data=retrieveFileFromURL($this->pruebaObj->Triptico);
                 file_put_contents("$maildir/Triptico.{$ext}",$data);
             }
         }
-        // check for empty template mark request
-        if ( http_request("EmptyTemplate","i","0") != 0 ){
-            // PENDING Generate and store an empty template
-        } else {
-            // PENDING Generate and store personalized template
-        }
+        // check for empty template mark request and retrieve excel file
+        $excelclub=( http_request("EmptyTemplate","i","0") == 0 )? $club:0;
+        $excelObj=new Excel_Inscripciones($this->pruebaObj->ID,$excelclub);
+        $excelObj->open("$maildir/inscripciones.xlsx");
+        $excelObj->composeTable();
+        $excelObj->close();
 
         // ok: download files is done. Now comes prepare and send mail
 

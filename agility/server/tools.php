@@ -263,6 +263,19 @@ function random_password($chars = 8) {
 function aleatorio($a) { shuffle($a); return $a; }
 
 /**
+ * Remove recursively a directory
+ * @param {string} $dir PATH TO remove
+ * @return bool operation result
+ */
+function delTree($dir) {
+    $files = array_diff(scandir($dir), array('.','..'));
+    foreach ($files as $file) {
+        (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+    }
+    return rmdir($dir);
+}
+
+/**
  * Return the substring starting after '$from' and ending before '$to'
  * @param {string} $str string to search into
  * @param {string} $from start tag

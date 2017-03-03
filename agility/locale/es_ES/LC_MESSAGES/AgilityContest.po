@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-03-02 14:11+0100\n"
-"PO-Revision-Date: 2017-03-02 14:18+0100\n"
+"POT-Creation-Date: 2017-03-03 18:23+0100\n"
+"PO-Revision-Date: 2017-03-03 18:25+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -201,7 +201,7 @@ msgstr "Gu&iacute;a"
 #: lib/templates/parcial_last_individual.inc.php:29
 #: livestream/vwls_osdvideo.php:89 modules/Federations.php:274
 #: scripts/competicion.js.php:1298 scripts/datagrid_formatters.js.php:154
-#: scripts/results_and_scores.js.php:123 server/excel/common_writer.php:113
+#: scripts/results_and_scores.js.php:123 server/excel/common_writer.php:114
 #: server/pdf/print_clasificacion_excel.php:103
 #: server/pdf/print_clasificacion_excel.php:166 server/pdf/print_common.php:187
 #: server/pdf/print_entrenamientos.php:63 server/pdf/print_listaPerros.php:60
@@ -335,12 +335,13 @@ msgstr "Eliminado"
 #: scripts/printer.js.php:385 scripts/printer.js.php:422
 #: scripts/printer.js.php:464 scripts/printer.js.php:500
 #: scripts/pruebas.js.php:111 scripts/pruebas.js.php:139
-#: scripts/pruebas.js.php:219 scripts/pruebas.js.php:343
-#: scripts/pruebas.js.php:477 scripts/pruebas.js.php:483
-#: scripts/results_and_scores.js.php:230 scripts/sesiones.js.php:80
-#: scripts/sesiones.js.php:140 scripts/tandas.js.php:100
-#: scripts/tandas.js.php:130 scripts/usuarios.js.php:86
-#: scripts/usuarios.js.php:150 console/dialogs/dlg_competicion.inc:71
+#: scripts/pruebas.js.php:187 scripts/pruebas.js.php:248
+#: scripts/pruebas.js.php:372 scripts/pruebas.js.php:506
+#: scripts/pruebas.js.php:512 scripts/results_and_scores.js.php:230
+#: scripts/sesiones.js.php:80 scripts/sesiones.js.php:140
+#: scripts/tandas.js.php:100 scripts/tandas.js.php:130
+#: scripts/usuarios.js.php:86 scripts/usuarios.js.php:150
+#: console/dialogs/dlg_competicion.inc:71
 #: console/dialogs/dlg_configuracion.inc:634
 #: console/dialogs/dlg_selectJornada.inc:156
 msgid "Error"
@@ -470,7 +471,7 @@ msgstr "Dors"
 #: public/pbmenu_inscripciones.php:103
 #: public/pbmenu_inscripciones_equipos.php:156
 #: scripts/results_and_scores.js.php:117 scripts/results_and_scores.js.php:189
-#: server/excel/common_writer.php:113 server/excel/common_writer.php:133
+#: server/excel/common_writer.php:114 server/excel/common_writer.php:134
 #: server/pdf/print_clasificacion.php:183
 #: server/pdf/print_clasificacion.php:185
 #: server/pdf/print_clasificacion_equipos.php:239
@@ -640,8 +641,8 @@ msgstr "Trabajar con el ring seleccionado"
 #: public/pbmenu_inscripciones.php:112
 #: public/pbmenu_inscripciones_equipos.php:97
 #: public/pbmenu_inscripciones_equipos.php:165 public/pbmenu_programa.php:106
-#: server/excel/common_writer.php:113 server/excel/trainingtable_writer.php:52
-#: server/pdf/print_entradaDeDatos.php:256
+#: server/excel/classes/Excel_Entrenamientos.php:52
+#: server/excel/common_writer.php:114 server/pdf/print_entradaDeDatos.php:256
 #: server/pdf/print_entradaDeDatos.php:341
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:620
@@ -672,8 +673,8 @@ msgstr "Debe seleccionar un ring v&aacute;lido"
 #: lib/templates/final_rounds_data.inc.php:12
 #: lib/templates/parcial_round_data.inc.php:14
 #: lib/templates/parcial_round_data.inc.php:15
-#: server/excel/scores_writer.php:94 server/pdf/print_clasificacion.php:87
-#: server/pdf/print_clasificacion.php:90
+#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/pdf/print_clasificacion.php:87 server/pdf/print_clasificacion.php:90
 #: server/pdf/print_clasificacion_equipos.php:129
 #: server/pdf/print_clasificacion_equipos.php:132
 #: server/pdf/print_clasificacion_excel.php:124
@@ -769,7 +770,8 @@ msgstr "TRM fijo"
 #: lib/templates/parcial_console_round_data.inc.php:24
 #: lib/templates/parcial_console_round_data.inc.php:33
 #: lib/templates/parcial_console_round_data.inc.php:42
-#: server/excel/partialscores_writer.php:76 server/excel/scores_writer.php:94
+#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/Excel_PartialScores.php:76
 #: server/pdf/print_clasificacion.php:102
 #: server/pdf/print_clasificacion.php:116
 #: server/pdf/print_clasificacion.php:130
@@ -889,9 +891,10 @@ msgstr "Versi&oacute;n"
 #: console/frm_about.php:29 console/frm_clasificaciones2.php:48
 #: console/frm_clasificaciones_equipos.php:47
 #: console/frm_inscripciones2.php:171 console/frm_pruebas.php:157
-#: lib/templates/entrenamientos.inc.php:18 server/excel/common_writer.php:133
+#: lib/templates/entrenamientos.inc.php:18
+#: server/excel/classes/Excel_Entrenamientos.php:52
+#: server/excel/common_writer.php:134
 #: server/excel/print_ordenSalidaExcel.php:120
-#: server/excel/trainingtable_writer.php:52
 #: server/pdf/print_clasificacion.php:97
 #: server/pdf/print_clasificacion_equipos.php:138
 #: server/pdf/print_clasificacion_excel.php:107 server/pdf/print_common.php:319
@@ -1031,7 +1034,7 @@ msgstr "Gesti&oacute;n de usuarios"
 msgid "Updating users list"
 msgstr "Actualizando lista de usuarios"
 
-#: console/frm_admin.php:140 server/excel/common_writer.php:55
+#: console/frm_admin.php:140 server/excel/common_writer.php:56
 #: console/dialogs/dlg_usuarios.inc:63
 msgid "Information"
 msgstr "Informaci&oacute;n"
@@ -1109,7 +1112,8 @@ msgstr "Resultados y Clasificaciones"
 
 #: console/frm_clasificaciones.php:47 console/frm_clasificaciones2.php:97
 #: console/frm_clasificaciones_equipos.php:96 console/index.php:225
-#: server/excel/scores_writer.php:239 server/pdf/print_clasificacion.php:176
+#: server/excel/classes/Excel_Clasificaciones.php:239
+#: server/pdf/print_clasificacion.php:176
 #: server/pdf/print_clasificacion_excel.php:157
 msgid "Scores"
 msgstr "Clasificaciones"
@@ -1132,8 +1136,8 @@ msgstr "Club anfitri&oacute;n"
 #: console/frm_clasificaciones2.php:44
 #: console/frm_clasificaciones_equipos.php:43 index.php:141
 #: scripts/equipos.js.php:73 scripts/equipos.js.php:126
-#: server/excel/common_writer.php:65 server/excel/common_writer.php:138
-#: server/excel/partialscores_writer.php:71
+#: server/excel/classes/Excel_PartialScores.php:71
+#: server/excel/common_writer.php:66 server/excel/common_writer.php:139
 #: server/excel/print_ordenSalidaExcel.php:124
 #: server/pdf/print_clasificacion.php:85
 #: server/pdf/print_clasificacion_equipos.php:127
@@ -1158,9 +1162,11 @@ msgstr "Jornada"
 #: lib/templates/final_teams.inc.php:11 lib/templates/final_teams.inc.php:12
 #: livestream/vwls_finales.php:89 livestream/vwls_finales.php:90
 #: livestream/vwls_osdvideo.php:53 public/pb_parciales.php:55
-#: public/pb_parciales_equipos.php:55 server/excel/partialscores_writer.php:72
+#: public/pb_parciales_equipos.php:55
+#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/Excel_PartialScores.php:72
 #: server/excel/print_ordenSalidaExcel.php:128
-#: server/excel/scores_writer.php:94 server/pdf/print_clasificacion.php:111
+#: server/pdf/print_clasificacion.php:111
 #: server/pdf/print_clasificacion_equipos.php:151
 #: server/pdf/print_clasificacion_equipos.php:271
 #: server/pdf/print_clasificacion_excel.php:128
@@ -1846,7 +1852,7 @@ msgid "Name/Comment"
 msgstr "Nombre/Observaciones"
 
 #: console/frm_inscripciones2.php:172 console/frm_pruebas.php:158
-#: server/excel/common_writer.php:133 server/pdf/print_ordenTandas.php:91
+#: server/excel/common_writer.php:134 server/pdf/print_ordenTandas.php:91
 #: tablet/tablet_main.php:208 console/dialogs/dlg_jornadas.inc:47
 msgid "Hour"
 msgstr "Hora"
@@ -1892,7 +1898,7 @@ msgid "Special"
 msgstr "Especial"
 
 #: console/frm_inscripciones2.php:183 console/frm_pruebas.php:104
-#: console/frm_pruebas.php:170 server/excel/common_writer.php:133
+#: console/frm_pruebas.php:170 server/excel/common_writer.php:134
 msgid "Closed"
 msgstr "Cerrada"
 
@@ -2050,7 +2056,7 @@ msgid "User name"
 msgstr "Nombre de usuario"
 
 #: console/frm_login.php:50 console/frm_pruebas.php:102
-#: server/excel/common_writer.php:71 server/excel/common_writer.php:113
+#: server/excel/common_writer.php:72 server/excel/common_writer.php:114
 #: console/dialogs/dlg_plugins.inc:53 console/dialogs/dlg_pruebas.inc:131
 msgid "Federation"
 msgstr "Federaci&oacute;n"
@@ -2089,7 +2095,7 @@ msgid "Cancel logout. Close window"
 msgstr "Cancelar fin de sesi&oacute;n. Cerrar ventana"
 
 #: console/frm_myAdmin.php:31 scripts/inscripciones.js.php:88
-#: scripts/pruebas.js.php:131 scripts/pruebas.js.php:332
+#: scripts/pruebas.js.php:131 scripts/pruebas.js.php:361
 #: server/pdf/print_ordenTandas.php:80 console/dialogs/dlg_perros.inc:81
 msgid "Notice"
 msgstr "Aviso"
@@ -2307,7 +2313,7 @@ msgstr "URL del tr&iacute;ptico"
 msgid "Brochure URL"
 msgstr "URL del cartel"
 
-#: console/frm_pruebas.php:103 server/excel/common_writer.php:113
+#: console/frm_pruebas.php:103 server/excel/common_writer.php:114
 #: console/dialogs/dlg_pruebas.inc:134
 msgid "Selective"
 msgstr "Selectiva"
@@ -2686,7 +2692,7 @@ msgid "Dogs Database Management"
 msgstr "Gesti&oacute;n de datos de Perros"
 
 #: console/index.php:212 public/pb_programa.php:101
-#: public/pbmenu_programa.php:105 server/excel/dog_writer.php:65
+#: public/pbmenu_programa.php:105 server/excel/classes/Excel_ListaPerros.php:65
 #: console/dialogs/dlg_configuracion.inc:36
 #: console/dialogs/dlg_entrenamientos.inc:199
 #: console/dialogs/dlg_entrenamientos.inc:205
@@ -2699,7 +2705,7 @@ msgstr "Perros"
 msgid "Judges Database Management"
 msgstr "Gesti&oacute;n de datos de Jueces"
 
-#: console/index.php:213 server/excel/partialscores_writer.php:73
+#: console/index.php:213 server/excel/classes/Excel_PartialScores.php:73
 #: console/dialogs/inforesultados.inc:36
 msgid "Judges"
 msgstr "Jueces"
@@ -2777,8 +2783,8 @@ msgstr "Selecciona la prueba, jornada y vista"
 #: livestream/vwls_finales.php:184 livestream/vwls_parciales.php:62
 #: livestream/vwls_parciales.php:127 livestream/vwls_parciales.php:144
 #: public/pb_finales.php:137 public/pbmenu_finales.php:78
-#: server/excel/common_writer.php:63 server/excel/common_writer.php:117
-#: server/excel/partialscores_writer.php:70
+#: server/excel/classes/Excel_PartialScores.php:70
+#: server/excel/common_writer.php:64 server/excel/common_writer.php:118
 #: server/pdf/print_clasificacion_excel.php:101 tablet/index.php:156
 #: videowall/vw_finales.php:43 videowall/vw_finales.php:100
 #: videowall/vw_finales.php:114 videowall/vw_parciales.php:40
@@ -2858,32 +2864,32 @@ msgstr "Informaci&oacute;n en l&iacute;nea"
 msgid "Timetable"
 msgstr "Horario"
 
-#: index2.php:313 server/excel/inscription_writer.php:109
+#: index2.php:313 server/excel/classes/Excel_Inscripciones.php:109
 msgid "Inscriptions"
 msgstr "Inscripciones"
 
 #: lib/templates/entrenamientos.inc.php:19
-#: server/excel/trainingtable_writer.php:52
+#: server/excel/classes/Excel_Entrenamientos.php:52
 #: console/dialogs/dlg_entrenamientos.inc:184
 msgid "Check-in"
 msgstr "Firma"
 
 #: lib/templates/entrenamientos.inc.php:20
-#: server/excel/trainingtable_writer.php:52
+#: server/excel/classes/Excel_Entrenamientos.php:52
 #: server/pdf/print_entrenamientos.php:66
 #: console/dialogs/dlg_entrenamientos.inc:187
 msgid "Veterinary"
 msgstr "Veterinario"
 
 #: lib/templates/entrenamientos.inc.php:21
-#: server/excel/trainingtable_writer.php:52
+#: server/excel/classes/Excel_Entrenamientos.php:52
 #: server/pdf/print_entrenamientos.php:66
 #: console/dialogs/dlg_entrenamientos.inc:190
 msgid "Start"
 msgstr "Inicio"
 
 #: lib/templates/entrenamientos.inc.php:22
-#: server/excel/trainingtable_writer.php:52
+#: server/excel/classes/Excel_Entrenamientos.php:52
 #: server/pdf/print_entrenamientos.php:66
 #: console/dialogs/dlg_entrenamientos.inc:193
 msgid "Duration"
@@ -3042,7 +3048,8 @@ msgstr "F/T"
 #: lib/templates/parcial_last_teams.inc.php:44
 #: lib/templates/parcial_round_data.inc.php:22
 #: scripts/results_and_scores.js.php:127 scripts/results_and_scores.js.php:133
-#: scripts/results_and_scores.js.php:200 server/excel/scores_writer.php:94
+#: scripts/results_and_scores.js.php:200
+#: server/excel/classes/Excel_Clasificaciones.php:94
 #: server/pdf/print_clasificacion.php:104
 #: server/pdf/print_clasificacion.php:118
 #: server/pdf/print_clasificacion.php:132
@@ -3132,7 +3139,8 @@ msgstr "Datos de la manga"
 #: lib/templates/final_rounds_data.inc.php:16
 #: lib/templates/final_rounds_data.inc.php:24
 #: lib/templates/parcial_round_data.inc.php:18
-#: server/excel/partialscores_writer.php:74 server/excel/scores_writer.php:94
+#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/Excel_PartialScores.php:74
 #: server/pdf/print_clasificacion.php:100
 #: server/pdf/print_clasificacion.php:114
 #: server/pdf/print_clasificacion.php:128
@@ -3148,7 +3156,8 @@ msgstr "Dist"
 #: lib/templates/final_rounds_data.inc.php:17
 #: lib/templates/final_rounds_data.inc.php:25
 #: lib/templates/parcial_round_data.inc.php:19
-#: server/excel/partialscores_writer.php:75 server/excel/scores_writer.php:94
+#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/Excel_PartialScores.php:75
 #: server/pdf/print_clasificacion.php:101
 #: server/pdf/print_clasificacion.php:115
 #: server/pdf/print_clasificacion.php:129
@@ -3278,7 +3287,8 @@ msgstr "Datos t&eacute;cnicos de la manga"
 #: lib/templates/parcial_console_round_data.inc.php:25
 #: lib/templates/parcial_console_round_data.inc.php:34
 #: lib/templates/parcial_console_round_data.inc.php:43
-#: server/excel/partialscores_writer.php:77 server/excel/scores_writer.php:94
+#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/Excel_PartialScores.php:77
 #: server/pdf/print_clasificacion.php:103
 #: server/pdf/print_clasificacion.php:117
 #: server/pdf/print_clasificacion.php:131
@@ -3751,7 +3761,7 @@ msgstr ""
 #: scripts/competicion.js.php:972 scripts/guias.js.php:80
 #: scripts/guias.js.php:151 scripts/jueces.js.php:113 scripts/perros.js.php:105
 #: scripts/perros.js.php:206 scripts/pruebas.js.php:130
-#: scripts/pruebas.js.php:208 scripts/sesiones.js.php:103
+#: scripts/pruebas.js.php:237 scripts/sesiones.js.php:103
 #: scripts/sesiones.js.php:133 scripts/tandas.js.php:123
 #: scripts/usuarios.js.php:109 console/dialogs/dlg_competicion.inc:223
 #: console/dialogs/dlg_configuracion.inc:590
@@ -4470,8 +4480,8 @@ msgstr "Nuevas inscripciones"
 
 #: scripts/inscripciones.js.php:43 scripts/inscripciones.js.php:84
 #: scripts/inscripciones.js.php:162 scripts/inscripciones.js.php:304
-#: scripts/inscripciones.js.php:352 scripts/pruebas.js.php:281
-#: scripts/pruebas.js.php:301 scripts/pruebas.js.php:323
+#: scripts/inscripciones.js.php:352 scripts/pruebas.js.php:310
+#: scripts/pruebas.js.php:330 scripts/pruebas.js.php:352
 msgid "No selection"
 msgstr "No seleccionado"
 
@@ -4506,7 +4516,7 @@ msgstr "Inscribiendo a"
 msgid "There is no marked dog to be inscribed"
 msgstr "No hay ning&uacute;n perro seleccionado para ser inscrito"
 
-#: scripts/inscripciones.js.php:166 scripts/pruebas.js.php:285
+#: scripts/inscripciones.js.php:166 scripts/pruebas.js.php:314
 msgid "No permission"
 msgstr "Permisos insuficientes"
 
@@ -4549,8 +4559,8 @@ msgstr "Registrando todas las inscripciones en la jornada"
 msgid "Cloning inscriptions from selected journey into "
 msgstr "Clonando las inscripciones de la jornada seleccionada en"
 
-#: scripts/inscripciones.js.php:304 scripts/pruebas.js.php:301
-#: scripts/pruebas.js.php:323
+#: scripts/inscripciones.js.php:304 scripts/pruebas.js.php:330
+#: scripts/pruebas.js.php:352
 msgid "There is no journey selected"
 msgstr "No se ha seleccionado ninguna jornada"
 
@@ -4824,7 +4834,7 @@ msgid "Nueva Prueba"
 msgstr "Nueva Prueba"
 
 #: scripts/pruebas.js.php:86 scripts/pruebas.js.php:127
-#: scripts/pruebas.js.php:150 scripts/pruebas.js.php:184
+#: scripts/pruebas.js.php:150 scripts/pruebas.js.php:207
 msgid "There is no contest selected"
 msgstr "No hay ninguna prueba seleccionada"
 
@@ -4856,98 +4866,109 @@ msgstr "Cambiar e-mail"
 msgid "Enter new email for club"
 msgstr "Nueva direcci&oacute;n de correo para el club"
 
-#: scripts/pruebas.js.php:184
+#: scripts/pruebas.js.php:207
 msgid "Mailer error"
 msgstr "Error de envio"
 
-#: scripts/pruebas.js.php:190
+#: scripts/pruebas.js.php:211
+msgid "Mail services"
+msgstr "Servicios de correo"
+
+#: scripts/pruebas.js.php:212
+msgid ""
+"Electronic mail operations<br/>are not allowed for unregistered licenses"
+msgstr ""
+"No se permiten operaciones de correo electr&oacute;nico <br/> sin licencia "
+"registrada"
+
+#: scripts/pruebas.js.php:219
 msgid "Missing data"
 msgstr "Faltan datos"
 
-#: scripts/pruebas.js.php:191
+#: scripts/pruebas.js.php:220
 msgid "Contest has poster and/or tryptich undefined"
 msgstr "La prueba no tiene p&oacute;ster o tr&iacute;ptico definido"
 
-#: scripts/pruebas.js.php:191
+#: scripts/pruebas.js.php:220
 msgid "Continue anyway?"
 msgstr "Continuar ¿seguro?"
 
-#: scripts/pruebas.js.php:195
+#: scripts/pruebas.js.php:224
 msgid "Email contest info to clubs"
 msgstr "Enviar informaci&oacute;n a los clubes"
 
-#: scripts/pruebas.js.php:209
+#: scripts/pruebas.js.php:238
 msgid "Mark every club as pending to receive mail"
 msgstr "Marcar todos los clubes como pendientes de recibir correo"
 
-#: scripts/pruebas.js.php:209
+#: scripts/pruebas.js.php:238
 msgid "Sure"
 msgstr "¿Seguro?"
 
-#: scripts/pruebas.js.php:245 scripts/pruebas.js.php:251
+#: scripts/pruebas.js.php:274 scripts/pruebas.js.php:280
 msgid "Skipping"
 msgstr "Omitiendo"
 
-#: scripts/pruebas.js.php:245
+#: scripts/pruebas.js.php:274
 msgid "Already sent"
 msgstr "Ya enviado"
 
-#: scripts/pruebas.js.php:251
+#: scripts/pruebas.js.php:280
 msgid "No mail declared"
 msgstr "Sin correo definido"
 
-#: scripts/pruebas.js.php:255
+#: scripts/pruebas.js.php:284
 msgid "Processing"
 msgstr "Procesando"
 
-#: scripts/pruebas.js.php:281
+#: scripts/pruebas.js.php:310
 msgid "There is no selected clubs to send mail to"
 msgstr "No se ha seleccionado ning&uacute;n club al que enviar correo"
 
-#: scripts/pruebas.js.php:285
+#: scripts/pruebas.js.php:314
 msgid "Current user has not enought permissions to send mail"
 msgstr "El usuario actual no tiene suficientes permisos para enviar correo"
 
-#: scripts/pruebas.js.php:305 scripts/pruebas.js.php:327
+#: scripts/pruebas.js.php:334 scripts/pruebas.js.php:356
 msgid "Invalid selection"
 msgstr "Selecci&oacute;n inv&aacute;lida"
 
-#: scripts/pruebas.js.php:305
+#: scripts/pruebas.js.php:334
 msgid "Cannot edit a journey stated as closed"
 msgstr "No se puede modificar una jornada marcada como cerrada"
 
-#: scripts/pruebas.js.php:309
+#: scripts/pruebas.js.php:338
 msgid "Modify journey data"
 msgstr "Editar datos de de la jornada"
 
-#: scripts/pruebas.js.php:327
+#: scripts/pruebas.js.php:356
 msgid "Cannot close an already closed journey"
 msgstr "No se puede cerrar una jornada ya cerrada"
 
-#: scripts/pruebas.js.php:333
+#: scripts/pruebas.js.php:362
 msgid "Setting a journey as closed"
 msgstr "Marcando la jornada como cerrada"
 
-#: scripts/pruebas.js.php:334
+#: scripts/pruebas.js.php:363
 msgid "Youll be no longer able to edit,delete or modify,"
 msgstr "No ser&aacute; posible editar o borrar datos de esta"
 
-#: scripts/pruebas.js.php:335
+#: scripts/pruebas.js.php:364
 msgid "inscriptions or scores"
 msgstr "inscripciones o resultados"
 
-#: scripts/pruebas.js.php:336
+#: scripts/pruebas.js.php:365
 msgid "Continue?"
 msgstr "Realmente desea continuar?"
 
-#: scripts/pruebas.js.php:477
+#: scripts/pruebas.js.php:506
 msgid ""
 "KO, Individual (Open), or team rounds must be declared in a separate journey"
 msgstr ""
 "Una ronda KO, una prueba Individual/Open, o una prueba por equipos deben ser "
 "declaradas en una jornada aparte"
 
-#: scripts/pruebas.js.php:483
+#: scripts/pruebas.js.php:512
 msgid ""
 "You cannot add additional rounds when KO, Individual (Open) or team rounds "
 "are already declared in a journey"
@@ -5223,15 +5244,40 @@ msgstr "Agility Grado I Manga 3"
 msgid "Agility-3 GI"
 msgstr "Agility-3 GI"
 
-#: server/excel/common_writer.php:80
+#: server/excel/classes/Excel_Clasificaciones.php:94
+msgid "Type"
+msgstr "Tipo"
+
+#: server/excel/classes/Excel_Entrenamientos.php:70
+msgid "Trainings"
+msgstr "Entrenamientos"
+
+#: server/excel/classes/Excel_Inscripciones.php:95
+msgid "Inscription List"
+msgstr "Listado de inscritos"
+
+#: server/excel/classes/Excel_Inscripciones.php:104
+msgid "Paid"
+msgstr "Pagado"
+
+#: server/excel/classes/Excel_PartialScores.php:78
+#: server/pdf/print_trsTemplates.php:127
+msgid "Spd"
+msgstr "Vel"
+
+#: server/excel/classes/Excel_PartialScores.php:102
+msgid "Results"
+msgstr "Resultados"
+
+#: server/excel/common_writer.php:81
 msgid "Program info"
 msgstr "Datos de la aplicaci&oacute;n"
 
-#: server/excel/common_writer.php:93
+#: server/excel/common_writer.php:94
 msgid "License Info"
 msgstr "Datos de Licencia"
 
-#: server/excel/dog_writer.php:85
+#: server/excel/dog_writer.php:32
 msgid "Dog Listing"
 msgstr "Listado de perros"
 
@@ -5239,34 +5285,17 @@ msgstr "Listado de perros"
 msgid "Pay"
 msgstr "Pagado"
 
-#: server/excel/inscription_writer.php:95
-msgid "Inscription List"
-msgstr "Listado de inscritos"
-
-#: server/excel/inscription_writer.php:104
-msgid "Paid"
-msgstr "Pagado"
-
-#: server/excel/partialscores_writer.php:78
-#: server/pdf/print_trsTemplates.php:127
-msgid "Spd"
-msgstr "Vel"
-
-#: server/excel/partialscores_writer.php:102
-msgid "Results"
-msgstr "Resultados"
-
-#: server/excel/scores_writer.php:94
-msgid "Type"
-msgstr "Tipo"
-
-#: server/excel/trainingtable_writer.php:70
-msgid "Trainings"
-msgstr "Entrenamientos"
-
-#: server/excel/trainingtable_writer.php:91
+#: server/excel/trainingtable_writer.php:33
 msgid "Training table"
 msgstr "Horarios de entrenamiento"
+
+#: server/mail/MailManager.php:251
+msgid "Email sent with"
+msgstr "Correo enviado con"
+
+#: server/mail/MailManager.php:255
+msgid "Please enable HTML view in your email application"
+msgstr "Por favor habilite la visualizacion HTML en su app de correo"
 
 #: server/pdf/print_clasificacion.php:189
 msgid "Cat/Gr"

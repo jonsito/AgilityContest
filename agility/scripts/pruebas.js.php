@@ -226,6 +226,8 @@ function emailPrueba(dg) {
         });
         return false; // no way to know which prueba is selected
     }
+    // arriving here means that cartel and tryptich are present. so no need to confirm
+    $('#pruebas_email-dialog').dialog('open').dialog('setTitle', '<?php _e('Email contest info to clubs'); ?>');
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
