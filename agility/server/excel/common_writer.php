@@ -46,8 +46,9 @@ class XLSX_Writer {
             ->build();
     }
 
-    function open() {
-        $this->myWriter->openToBrowser($this->myFile);
+    function open($file=null) {
+        if (!$file) $this->myWriter->openToBrowser($this->myFile);
+        else $this->myWriter->openToFile($file);
     }
 
     function createInfoPage($title,$federation=-1) {

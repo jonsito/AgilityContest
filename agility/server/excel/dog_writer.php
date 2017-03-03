@@ -21,60 +21,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__.'/../database/classes/Dogs.php');
-require_once(__DIR__."/common_writer.php");
-
-class excel_ListaPerros extends XLSX_Writer {
-
-	protected $lista; // listado de perros
-
-    protected $cols = array( 'Name','LongName','Gender','Breed','License','KC id','Category','Grade','Handler','Club','Province','Country');
-    protected $fields = array( 'Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Provincia','Pais');
-
-	/**
-	 * Constructor
-	 * @throws Exception
-	 */
-	function __construct() {
-		parent::__construct("doglist.xlsx");
-		setcookie('fileDownload','true',time()+30,"/"); // tell browser to hide "downloading" message box
-        $d=new Dogs("excel_listaPerros");
-        $res=$d->select();
-        if (!is_array($res)){
-			$this->errormsg="print_listaPerros: select() failed";
-			throw new Exception($this->errormsg);
-		}
-        $this->lista=$res['rows'];
-	}
-
-	private function writeTableHeader() {
-		// internationalize header texts
-		for($n=0;$n<count($this->cols);$n++) {
-			$this->cols[$n]=_utf($this->cols[$n]);
-		}
-		// send to excel
-		$this->myWriter->addRowWithStyle($this->cols,$this->rowHeaderStyle);
-	}
-
-	function composeTable() {
-		$this->myLogger->enter();
-
-		// Create page
-		$dogspage=$this->myWriter->addNewSheetAndMakeItCurrent();
-		$dogspage->setName(_("Dogs"));
-		// write header
-		$this->writeTableHeader();
-
-		foreach($this->lista as $perro) {
-			$row=array();
-			// extract relevant information from database received dog
-			for($n=0;$n<count($this->fields);$n++) array_push($row,$perro[$this->fields[$n]]);
-			$this->myWriter->addRow($row);
-		}
-		$this->myLogger->leave();
-	}
-}
+require_once(__DIR__."/classes/Excel_ListaPerros.php");
 
 // Consultamos la base de datos
 try {
