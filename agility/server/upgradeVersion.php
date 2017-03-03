@@ -47,13 +47,17 @@ class Updater {
 
         // connect database with proper permissions
         $this->conn = DBConnection::getRootConnection();
-        if ($this->conn->connect_error) throw new Exception("Cannot perform upgrade process: database::dbConnect()");
+        if ($this->conn->connect_error) {
+            $str="Cannot perform upgrade check process: database::dbConnect() error";
+            $this->install_log("$str <br/>");
+            throw new Exception($str);
+        }
     }
 
     private function install_log($str) {
         $f=fopen(INSTALL_LOG,"a"); // open for append-only
         if (!$f) { $this->myLogger->error("fopen() cannot create file: ".INSTALL_LOG); return;}
-        echo "$str<br/>\n"; flush(); ob_flush();
+        echo "$str\n"; flush(); ob_flush();
         fwrite($f,$str."\n");
         fclose($f);
     }
@@ -78,8 +82,9 @@ class Updater {
         $this->conn->query('SET foreign_key_checks = 0');
         if ($result = $this->conn->query("SHOW TABLES")) {
             while($row = $result->fetch_array(MYSQLI_NUM)) {
-                $this->install_log("Drop table ".$row[0]);
-                $this->conn->query('DROP TABLE IF EXISTS '.$row[0]);
+                $this->install_log("Drop table {$row[0]} ");
+                $res=$this->conn->query('DROP TABLE IF EXISTS '.$row[0]);
+                $this->install_log(($res)? "OK<br/>": "Error: {$this->conn->error} <br/>");
             }
         }
         $this->conn->query('SET foreign_key_checks = 1');
@@ -90,6 +95,7 @@ class Updater {
         $trigger=false;
         $timeout=ini_get('max_execution_time');
         // Loop through each line
+        $need_ack=false; // to handle printing of OK/Error in log
         while ( ($str=fgets($fp))!==false ) {
             // avoid php to be killed on very slow systems
             set_time_limit($timeout);
@@ -102,20 +108,24 @@ class Updater {
             else $templine .= $line;    // Add this line to the current segment
             if ($trigger) continue;
             // log every create/insert
-            if (strpos($line,"CREATE")===0) $this->install_log($line);
-            if (strpos($line,"INSERT")===0) $this->install_log($line);
+            if (strpos($line,"CREATE")===0) { $need_ack=true; $this->install_log("$line "); }
+            if (strpos($line,"INSERT")===0) { $need_ack=true; $this->install_log("$line "); }
             // If it has a semicolon at the end, it's the end of the query
             if (substr(trim($line), -1, 1) == ';') {
                 // Perform the query
                 if (! $this->conn->query($templine) ){
                     $this->myLogger->error('Error performing query \'<strong>' . $templine . '\': ' . $this->conn->error . '<br />');
+                    $this->install_log( " Error: {$this->conn->error} <br/>");
+                } else {
+                    if ($need_ack) $this->install_log(" OK<br/>");
+                    $need_ack=false;
                 }
                 // Reset temp variable to empty
                 $templine = '';
             }
         }
         fclose($fp);
-        $this->install_log("Install Database Done");
+        $this->install_log("Install Database Done<br/>");
         $this->myLogger->info("database install success");
         return "";
     }
