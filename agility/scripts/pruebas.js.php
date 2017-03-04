@@ -297,6 +297,7 @@ function perform_emailPrueba() {
                 Operation: 'sendInscriptions',
                 Club: rows[index].ID,
                 Email: rows[index].Email,
+                EmptyTemplate: $('#pruebas_email-EmptyTemplate').val(),
                 Contents: $('#pruebas_email-Contents').val()
             },
             success: function(result) {
