@@ -52,7 +52,7 @@ $config =Config::getInstance();
 		<td>
 			<div class="fitem">
 				<label for="rd_User"><?php _e('Name'); ?>:</label>
-				<input id="rd_User" type="text" readonly="readonly" name="User" /><br/>
+				<input id="rd_User" type="text" readonly="readonly" name="User"/><br/>
 			</div>
 			<div class="fitem">
 				<label for="rd_Email"><?php _e('E-mail'); ?>:</label>
@@ -106,24 +106,30 @@ $config =Config::getInstance();
 </div>
 
 <script type="text/javascript">
-        $('#dlg_register').window({
-            title: '<?php _e("Licensing information"); ?>',
-            collapsible:false,
-            minimizable:false,
-            maximizable:false,
-            resizable:false,
-            closable:true,
-            modal:true,
-            iconCls: 'icon-dog',
-            onOpen: function() { 
-                $('#reg_version').html(ac_config.version_name);
-                $('#reg_date').html(ac_config.version_date);
-                $('#registration_data').form('load','/agility/server/adminFunctions.php?Operation=reginfo');
-            },  
-            onClose: function() {loadContents('/agility/console/frm_main.php','',{'registration':'#dlg_register'});
-            }
-        });
+    $('#rd_User').textbox();
+    $('#rd_Email').textbox();
+    $('#rd_Club').textbox();
+    $('#rd_Serial').textbox();
+    $('#rd_Expires').textbox();
+
+    $('#dlg_register').window({
+        title: '<?php _e("Licensing information"); ?>',
+        collapsible:false,
+        minimizable:false,
+        maximizable:false,
+        resizable:false,
+        closable:true,
+        modal:true,
+        iconCls: 'icon-dog',
+        onOpen: function() {
+            $('#reg_version').html(ac_config.version_name);
+            $('#reg_date').html(ac_config.version_date);
+            $('#registration_data').form('load','/agility/server/adminFunctions.php?Operation=reginfo');
+        },
+        onClose: function() {loadContents('/agility/console/frm_main.php','',{'registration':'#dlg_register'});
+        }
+    });
         
-		addTooltip($('#registration-okButton').linkbutton(),'<?php _e("Import license file into application"); ?>');
-		addTooltip($('#registration-cancelButton').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
+	addTooltip($('#registration-okButton').linkbutton(),'<?php _e("Import license file into application"); ?>');
+	addTooltip($('#registration-cancelButton').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 </script>

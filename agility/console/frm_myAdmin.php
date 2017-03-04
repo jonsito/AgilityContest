@@ -24,7 +24,7 @@ $config =Config::getInstance();
 <img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="700" height="480" align="middle" />
 
 <!-- FORMULARIO DE introduccion de usuario y contrasenya -->
-<div id="myAdmin-window" style="position:relative;width:640px;height:375px;padding:20px 20px">
+<div id="myAdmin-window" style="position:relative;width:750px;height:auto;padding:10px 10px">
 <!-- panel de myAdmin -->
 	<div id="myAdmin-Layout" class="easyui-layout" data-options="fit:true'">
 	<div style="padding:5px;" data-options="region:'north',border:'false'">
@@ -47,14 +47,12 @@ $config =Config::getInstance();
 	<div id="myAdmin-Form" style="padding:5px;" data-options="region:'center',border:'true'">
 		<form id="myAdmin-Selection">
     		<div class="fitem">
-    	   		<label for="Username"><?php _e('Admin user'); ?>:</label>
-       	   		<input id="myAdmin-Username" name="Username" style="width:200px" type="text"
-        			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
+    	   		<label for="myAdmin-Username"><?php _e('Admin user'); ?>:</label>
+       	   		<input id="myAdmin-Username" name="Username" style="width:200px" type="text"/>
        		</div>        		
        		<div class="fitem">
-       	   		<label for="Password"><?php _e('Password'); ?>:</label>
-       	   		<input id="myAdmin-Password" name="Password" style="width:200px" type="password"
-       	   			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
+       	   		<label for="myAdmin-Password"><?php _e('Password'); ?>:</label>
+       	   		<input id="myAdmin-Password" name="Password" style="width:200px" type="password"/>
        		</div>
 		</form>
 	</div>
@@ -69,6 +67,18 @@ $config =Config::getInstance();
 	</div>
 </div> <!-- Dialog -->
 <script type="text/javascript">
+
+$('#myAdmin-Username').textbox({
+    required:true,
+    validType:'length[1,255]',
+    iconCls:'icon-man'
+});
+
+$('#myAdmin-Password').textbox({
+    required:true,
+    validType:'length[1,255]',
+    iconCls:'icon-lock'
+});
 
 $('#myAdmin-window').window({
 	title:'<?php _e('Direct DB Access'); ?>',

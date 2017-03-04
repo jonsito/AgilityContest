@@ -48,12 +48,12 @@ $config =Config::getInstance();
    	</div>
    	
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE Usuarios -->
-    <div id="usuarios-dialog" style="width:450px;height:350px;padding:10px 20px">
+    <div id="usuarios-dialog" style="width:450px;height:auto;padding:10px 20px">
         <div class="ftitle"><?php _e('User information'); ?></div>
         <form id="usuarios-form" method="get">
             <div class="fitem">
                 <label for="usuarios-Login"><?php _e('Name'); ?></label>
-                <input id="usuarios-Login" type="text" class="easyui-validatebox" name="Login" style="width:250px" />
+                <input id="usuarios-Login" type="text" name="Login" style="width:250px" />
                 <a id="usuarios-passwdBtn" href="#" class="easyui-linkbutton" 
                 	data-options="iconCls:'icon-key'" onclick="setPassword('#usuarios-datagrid');"><?php _e('Password'); ?></a>
                 <input id="usuarios-ID" name="ID" type="hidden" /> 
@@ -61,15 +61,15 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="usuarios-Gecos"><?php _e('Information'); ?></label>
-                <input id="usuarios-Gecos" name="Gecos" type="text" class="easyui-textbox" style="height:25px;width:375px"/>
+                <input id="usuarios-Gecos" name="Gecos" type="text" style="height:25px;width:375px"/>
             </div>
             <div class="fitem">
                 <label for="usuarios-Phone"><?php _e('Telephone'); ?></label>
-                <input id="usuarios-Phone" name="Phone" type="text" class="easyui-textbox" style="width:250px" />
+                <input id="usuarios-Phone" name="Phone" type="text" style="width:250px" />
             </div>
             <div class="fitem">
                 <label for="usuarios-Email"><?php _e('Electronic mail'); ?></label>
-                <input id="usuarios-Email" type="text" class="easyui-validatebox" name="Email" style="width:250px" />
+                <input id="usuarios-Email" type="text" name="Email" style="width:250px" />
             </div>
             <div class="fitem">
                 <label for="usuarios-Club"><?php _e('Club'); ?>:</label>
@@ -115,14 +115,18 @@ $config =Config::getInstance();
         	if (e.keyCode == 27){ $('#usuarios-dialog').dialog('close');
         	}
         });
-        $('#usuarios-Login').validatebox({
+        $('#usuarios-Login').textbox({
             required: true,
             validType: 'length[1,255]'
         });
-        $('#usuarios-Email').validatebox({
+        $('#usuarios-Email').textbox({
             required: false,
             validType: 'email'
         });
+        $('#usuarios-Gecos').textbox();
+        $('#usuarios-Phone').textbox();
+        $('#usuarios-Perms').combobox({panelHeight:'auto'});
+
         $('#usuarios-Club').combogrid({
             panelWidth: 350,
             panelHeight: 200,

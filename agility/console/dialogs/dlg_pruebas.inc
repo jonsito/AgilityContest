@@ -276,6 +276,9 @@ $config =Config::getInstance();
             {field:'Provincia', sortable:true, title:'<?php _e('Province'); ?>',width:30,align:'right'},
             {field:'Sent',  title:'<?php _e('Sent'); ?>',width:5,align:'center',formatter:formatOk}
         ]],
+        onBeforeLoad: function(params) {
+            return (workingData.prueba>0);
+        },
         onUnselect: function(index,row) {
             $('#pruebas_email-All').prop('checked',false);
         },
