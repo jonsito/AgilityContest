@@ -171,12 +171,10 @@ $config =Config::getInstance();
             // fix date and checkboxes value into datebox in "onLoadSuccess" event declaration
             if (data.PreAgility==1) {
                 $('#jornadas-PreAgilityChk').prop('checked',true);
-                $('#jornadas-MangasPreAgility').combobox('enable');
-                $('#jornadas-MangasPreAgility').combobox('setValue',1);
+                $('#jornadas-MangasPreAgility').combobox('enable').combobox('setValue',1);
             } else if (data.PreAgility2==1) {
                 $('#jornadas-PreAgilityChk').prop('checked',true);
-            	$('#jornadas-MangasPreAgility').combobox('enable');
-                $('#jornadas-MangasPreAgility').combobox('setValue',2);
+            	$('#jornadas-MangasPreAgility').combobox('enable').combobox('setValue',2);
             } else {
                 $('#jornadas-PreAgilityChk').prop('checked',false);
             	$('#jornadas-MangasPreAgility').combobox('disable');
@@ -185,31 +183,25 @@ $config =Config::getInstance();
 
             if (data.Grado1!=0) {
                 $('#jornadas-Grado1Chk').prop('checked',true);
-                $('#jornadas-MangasGrado1').combobox('enable');
-                $('#jornadas-MangasGrado1').combobox('setValue',data.Grado1);
+                $('#jornadas-MangasGrado1').combobox('enable').combobox('setValue',data.Grado1);
             } else {
                 $('#jornadas-Grado1Chk').prop('checked',false);
-                $('#jornadas-MangasGrado1').combobox('disable');
-                $('#jornadas-MangasGrado1').combobox('setValue',1); // on disable, set default to 2 rounds
+                $('#jornadas-MangasGrado1').combobox('disable').combobox('setValue',1); // on disable, set default to 2 rounds
             }
 
             $('#jornadas-Grado2').prop('checked',(data.Grado2 == 1));
             if(howManyGrades(workingData.datosPrueba.RSCE)==3) {
-            	$('#jornadas-Grado3').prop('disabled',false);
-                $('#jornadas-Grado3').prop('checked',(data.Grado3 == 1));
+            	$('#jornadas-Grado3').prop('disabled',false).prop('checked',(data.Grado3 == 1));
             } else {
-            	$('#jornadas-Grado3').prop('disabled',true);
-                $('#jornadas-Grado3').prop('checked',false);
+            	$('#jornadas-Grado3').prop('disabled',true).prop('checked',false);
             }
             if (data.Equipos3!=0) {
                 $('#jornadas-EquiposChk').prop('checked',true);
-                $('#jornadas-MangasEquipos').combobox('enable');
-                $('#jornadas-MangasEquipos').combobox('setValue',(data.Equipos3==2)?3:4); // 0:noteam 1:3of4 2:2of3 3:3of4
+                $('#jornadas-MangasEquipos').combobox('enable').combobox('setValue',(data.Equipos3==2)?3:4); // 0:noteam 1:3of4 2:2of3 3:3of4
             } else if (data.Equipos4!=0) {
                 var val=data.Equipos4; // 0:noteam 1:4combined 2:2combined 3:3combined 4:4combined
                 $('#jornadas-EquiposChk').prop('checked',true);
-            	$('#jornadas-MangasEquipos').combobox('enable');
-                $('#jornadas-MangasEquipos').combobox('setValue',(val==1)?7:(val==2)?5:(val==3)?6:7);
+            	$('#jornadas-MangasEquipos').combobox('enable').combobox('setValue',(val==1)?7:(val==2)?5:(val==3)?6:7);
             } else {
                 $('#jornadas-EquiposChk').prop('checked',false);
             	$('#jornadas-MangasEquipos').combobox('disable');

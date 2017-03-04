@@ -392,7 +392,7 @@ function saveJornada(){
     	$('#jornadas-PreAgility').val(0);
     	$('#jornadas-PreAgility2').val(0);
     }
-    $('#jornadas-Grado1').val( $('#jornadas-Grado1Chk').is(':checked')?$('#jornadas-MangasGrado1').val():'0');
+    $('#jornadas-Grado1').val( $('#jornadas-Grado1Chk').is(':checked')?$('#jornadas-MangasGrado1').combobox('getValue'):'0');
     $('#jornadas-Grado2').val( $('#jornadas-Grado2').is(':checked')?'1':'0');
     $('#jornadas-Grado3').val( $('#jornadas-Grado3').is(':checked')?'1':'0');
     $('#jornadas-Open').val( $('#jornadas-Open').is(':checked')?'1':'0');
@@ -476,7 +476,7 @@ function checkPrueba(id,mask) {
     if ($('#jornadas-Grado1Chk').is(':checked')) {
 	    pruebas |= 0x0004;
         $('#jornadas-MangasGrado1').combobox('enable');
-        $('#jornadas-Grado1').val($('#jornadas-MangasGrado1').val());
+        $('#jornadas-Grado1').val($('#jornadas-MangasGrado1').combobox('getValue'));
     } else {
         $('#jornadas-MangasGrado1').combobox('disable');
         $('#jornadas-Grado1').val(0);
