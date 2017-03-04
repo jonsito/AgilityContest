@@ -37,17 +37,15 @@ $config =Config::getInstance();
 	<div id="login-Form" style="padding:5px;" data-options="region:'center',border:'true'">
 		<form id="login-Selection">
     		<div class="fitem">
-    	   		<label for="Username"><?php _e('User name'); ?>:</label>
-       	   		<input id="login-Username" name="Username" style="width:200px" type="text"
-        			class="easyui-validatebox easyui-textbox" data-options="required:true,validType:'length[1,255]'"/>
+    	   		<label for="login-Username"><?php _e('User name'); ?>:</label>
+       	   		<input id="login-Username" name="Username" style="width:200px" type="text"/>
        		</div>        		
        		<div class="fitem">
-       	   		<label for="Password"><?php _e('Password'); ?>:</label>
-       	   		<input id="login-Password" name="Password" style="width:200px" type="password"
-       	   			class="easyui-validatebox easyui-textbox" data-options="required:true,validType:'length[1,255]'"/>
+       	   		<label for="login-Password"><?php _e('Password'); ?>:</label>
+       	   		<input id="login-Password" name="Password" style="width:200px" type="password"/>
        		</div>
        		<div class="fitem">
-       	   		<label for="Federation"><?php _e('Federation'); ?>:</label>
+       	   		<label for="login-Federation"><?php _e('Federation'); ?>:</label>
 				<select id="login-Federation" name="Federation" style="width:200px"></select>
        		</div>
 		</form>
@@ -63,6 +61,29 @@ $config =Config::getInstance();
 	</div>
 </div> <!-- Dialog -->
 <script type="text/javascript">
+
+$('#login-Password').textbox({
+    required:true,
+    validType:'length[1,255]',
+    iconCls:'icon-lock'
+}).textbox('textbox').bind('keypress', function (evt) {
+    //on Enter key on passwd field click on accept
+    if (evt.keyCode != 13) return true;
+    $('#login-okBtn').click();
+    return false;
+});
+
+$('#login-Username').textbox({
+    required:true,
+    validType:'length[1,255]',
+    iconCls:'icon-man'
+}).textbox('textbox').bind('keypress', function (evt) {
+// on Enter key on login field focus on password
+    if (evt.keyCode != 13) return true;
+    $('#login-Password').textbox('textbox').focus();
+    return false;
+});
+
 
 $('#login-window').window({
 	title:'<?php _e('Session init'); ?>',
@@ -108,18 +129,5 @@ $('#login-Federation').combogrid({
 
 addTooltip($('#login-okBtn').linkbutton(),'<?php _e("Start session with provided user privileges"); ?>');
 addTooltip($('#login-cancelBtn').linkbutton(),'<?php _e("Start session as <em>guest</em> user. Close window"); ?>');
-
-// on Enter key on login field focus on password
-$('#login-Username').bind('keypress', function (evt) {
-    if (evt.keyCode != 13) return true;
-    $('#login-Password').focus();
-    return false;
-});
-//on Enter key on passwd field click on accept
-$('#login-Password').bind('keypress', function (evt) {
-    if (evt.keyCode != 13) return true;
-    $('#login-okBtn').click();
-    return false;
-});
 
 </script>

@@ -28,7 +28,7 @@ $config =Config::getInstance();
 	<div id="selprueba-Layout" class="easyui-layout" data-options="fit:true'">
 		<!--  texto del panel de logout -->
 		<div data-options="region:'center',border:'true'">
-			<?php _e('Confirm logout on current session'); ?>: <span id="login-UserName"><?php _e('User'); ?></span>
+			<?php _e('Confirm logout on current session'); ?>: <span id="logout-Username"><?php _e('User'); ?></span>
 		</div><!-- botones del menu de logout-->
 		<div id="logout-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
 		   	<a id="logout-okBtn" href="#" class="easyui-linkbutton" 
@@ -52,7 +52,7 @@ $('#logout-window').window({
 	shadow:true,
 	modal:true,
 	onBeforeOpen:function() {
-		$('#login-UserName').html(ac_authInfo.Login);
+		$('#logout-Username').html(ac_authInfo.Login);
 	}
 });
 
