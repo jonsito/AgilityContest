@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE REASIGNACION DE GUIAS -->
-    <div id="chguias-dialog" style="width:550px;height:350px;padding:10px 20px">
+    <div id="chguias-dialog" style="padding:10px 20px">
         <div id="chguias-title" class="ftitle"><?php _e('Handler re-asignation'); ?></div>
         <form id="chguias-header">
         	<div class="fitem">
@@ -45,11 +45,11 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="chguias-Email"><?php _e('Electronic mail'); ?>:</label>
-                <input id="chguias-Email" name="Email" type="text" class="easyui-textbox" style="width:250px"/>
+                <input id="chguias-Email" name="Email" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="chguias-Telefono"><?php _e('Telephone'); ?>:</label>
-                <input id="chguias-Telefono" name="Telefono" type="text" class="easyui-textbox" />
+                <input id="chguias-Telefono" name="Telefono" type="text" style="width:200px"/>
             </div>
             <div class="fitem">
                 <label for="chguias-Observaciones"><?php _e('Comments'); ?>:</label>
@@ -89,14 +89,15 @@ $config =Config::getInstance();
         
         // campos del formulario
 
-        $('#chguias-Nombre').validatebox({
+        $('#chguias-Nombre').textbox({
             required: true,
             validType: 'length[1,255]'
         });
-        $('#chguias-Email').validatebox({
+        $('#chguias-Email').textbox({
             required: false,
             validType: 'email'
         });
+        $('#chguias-Telefono').textbox();
         $('#chguias-Search').combogrid({
     		panelWidth: 350,
     		panelHeight: 200,
@@ -127,11 +128,12 @@ $config =Config::getInstance();
 
         // datos de la ventana
         $('#chguias-dialog').dialog( {
+            width:550,
+            height:'auto',
             closed: true,
             buttons: '#chguias-dlg-buttons',
             iconCls: 'icon-users'
-    	});
-    	$('#chguias-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+    	}).dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
     		if (e.keyCode == 27){ $('#chguias-dialog').dialog('close');	}
     	});
 </script>

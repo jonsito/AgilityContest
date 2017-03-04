@@ -42,34 +42,30 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE CLUBES -->
- <div id="clubes-dialog" style="width:550px;height:600px;padding:10px 20px">
+ <div id="clubes-dialog" style="padding:10px 20px">
     <div class="ftitle">
     <?php _e('Club information'); ?>
     </div>
     <form id="clubes-form" method="get" novalidate>
         <div class="fitem">
             <label for="clubes-Nombre"><?php _e('Name'); ?>:</label>
-            <input id="clubes-Nombre" name="Nombre"	type="text" class="easyui-textbox" style="width:350px"/>
+            <input id="clubes-Nombre" name="Nombre"	type="text" style="width:350px"/>
             <input id="clubes-ID" name="ID" type="hidden" /> <!-- used to allow operator change club name -->
             <input id="clubes-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
         </div>
         <div class="fitem">
             <label for="clubes-Direccion1"><?php _e('Address'); ?> 1</label>
-            <input id="clubes-Direccion1" name="Direccion1" type="text" class="easyui-textbox" style="width:350px"/>
+            <input id="clubes-Direccion1" name="Direccion1" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Direccion2"><?php _e('Address'); ?> 2</label>
-            <input id="clubes-Direccion2" name="Direccion2" type="text" class="easyui-textbox" style="width:350px"/>
+            <input id="clubes-Direccion2" name="Direccion2" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Provincia"><?php _e('Province'); ?></label>
             <select id="clubes-Provincia" name="Provincia" style="width:175px"></select>
             <a href="#" onClick="$('#clubes-logo-dialog').dialog('open');">
-    	        <img id="clubes-Logo"
-    	           	alt="rsce"
-    	          	name="Logo" 
-    	           	src=""
-    	           	width="120" style="float:right;margin-right:20px"/>
+    	        <img id="clubes-Logo" alt="rsce" name="Logo" src="" width="120" style="float:right;margin-right:20px"/>
             </a>
         </div>
         <div class="fitem">
@@ -78,21 +74,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         </div>
         <div class="fitem">
             <label for="clubes-Contacto1"><?php _e('Contact'); ?> 1</label>
-            <input id="clubes-Contacto1" name="Contacto1" type="text" class="easyui-textbox" style="width:175px"/>
+            <input id="clubes-Contacto1" name="Contacto1" type="text" style="width:175px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Contacto2"><?php _e('Contact'); ?> 2</label>
-            <input id="clubes-Contacto2" name="Contacto2" type="text" class="easyui-textbox" style="width:175px"/>
+            <input id="clubes-Contacto2" name="Contacto2" type="text" style="width:175px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Contacto3"><?php _e('Contact'); ?> 3</label>
-            <input id="clubes-Contacto3" name="Contacto3" type="text" class="easyui-textbox" style="width:175px"/>
+            <input id="clubes-Contacto3" name="Contacto3" type="text" style="width:175px"/>
         </div>
         <div class="fitem">
             <label for="clubes-GPS"><?php _e('GPS coordinates'); ?></label>
-            <input id="clubes-GPS" name="GPS" type="text" class="easyui-textbox" style="width:250px"/>
+            <input id="clubes-GPS" name="GPS" type="text" style="width:250px"/>
         </div>
         <div class="fitem">
+            <span><?php _e('Fed.');?>: </span>
             <label for="clubes-RSCE" style="text-align:right;"><?php _e('RSCE'); ?></label>
             <input id="clubes-RSCE" type="checkbox" value="1" name="RSCE"/>
             <label for="clubes-RFEC" style="text-align:right;"><?php _e('RFEC'); ?></label>
@@ -103,23 +100,23 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         </div>
         <div class="fitem">
             <label for="clubes-Web"><?php _e('Web page'); ?></label>
-            <input id="clubes-Web" name="Web" type="text" class="easyui-textbox" style="width:350px"/>
+            <input id="clubes-Web" name="Web" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Email"><?php _e('Electronic mail'); ?>:</label>
-            <input id="clubes-Email" name="Email" type="text" class="easyui-textbox" style="width:350px"/>
+            <input id="clubes-Email" name="Email" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Facebook"><?php _e('Facebook account'); ?>:</label>
-            <input id="clubes-Facebook" name="Facebook" type="text" class="easyui-textbox" style="width:350px"/>
+            <label for="clubes-Facebook" style="width:225px"><?php _e('Facebook account'); ?>:</label>
+            <input id="clubes-Facebook" name="Facebook" type="text" style="width:250px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Google"><?php _e('Google+ account'); ?>:</label>
-            <input id="clubes-Google" name="Google" type="text" class="easyui-textbox" style="width:350px"/>
+            <label for="clubes-Google" style="width:225px"><?php _e('Google+ account'); ?>:</label>
+            <input id="clubes-Google" name="Google" type="text" style="width:250px"/>
         </div>
         <div class="fitem">
-            <label for="clubes-Twitter"><?php _e('Twitter account'); ?>:</label>
-            <input id="clubes-Twitter" name="Twitter" type="text" class="easyui-textbox" style="width:350px"/>
+            <label for="clubes-Twitter" style="width:225px"><?php _e('Twitter account'); ?>:</label>
+            <input id="clubes-Twitter" name="Twitter" type="text" style="width:250px"/>
         </div>
         <div class="fitem">
             <label for="clubes-Observaciones"><?php _e('Comments'); ?>:</label>
@@ -219,17 +216,29 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         } );
 
         $('#clubes-dialog').dialog( {
+            width:550,
+            height:'auto',
             closed:true,
             modal:true,
             buttons:'#clubes-dlg-buttons',
             iconCls:'icon-flag'
-        } );
-        // Add "Esc" key to abor editing and close dialog
-        $('#clubes-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+        } ).dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+            // Add "Esc" key to abor editing and close dialog
         	if (e.keyCode == 27){ $('#clubes-dialog').dialog('close');
         	}
         });
+
         // validadores
-        $('#clubes-Nombre').validatebox({required:true,validType:'length[1,255]'});
-        $('#clubes-Email').validatebox({required:false,validType:'email'}); 
+        $('#clubes-Nombre').textbox({required:true,validType:'length[1,255]'});
+        $('#clubes-Email').textbox({required:true,validType:'email'}); // needed for mailing operations
+        $('#clubes-Web').textbox({required:false,validType:'url'});
+        $('#clubes-Direccion1').textbox();
+        $('#clubes-Direccion2').textbox();
+        $('#clubes-Contacto1').textbox();
+        $('#clubes-Contacto2').textbox();
+        $('#clubes-Contacto3').textbox();
+        $('#clubes-GPS').textbox();
+        $('#clubes-Google').textbox();
+        $('#clubes-Twitter').textbox();
+        $('#clubes-Facebook').textbox();
 </script>

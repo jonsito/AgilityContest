@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE REASIGNACION DE UN PERRO-->
-    <div id="chperros-dialog" style="width:550px;height:500px;padding:10px 20px">
+    <div id="chperros-dialog" style="padding:10px 20px">
         <div id="chperros-title" class="ftitle"><?php _e('Dog re-assignation'); ?></div>
         <form id="chperros-header">
         	<div class="fitem">
@@ -38,34 +38,34 @@ $config =Config::getInstance();
                 <label for="chperros-Nombre"><?php _e('Name'); ?>:</label>
                 <input id="chperros-ID" name="ID" type="hidden" /> <!-- dog id -->
                 <input id="chperros-Federation" name="Federation" type="hidden" />
-                <input id="chperros-Nombre" name="Nombre" class="easyui-validatebox" /> <!-- dog name -->
+                <input id="chperros-Nombre" name="Nombre" style="width:150px;"/> <!-- dog name -->
                 <input id="chperros-Operation" name="Operation" type="hidden" value="update"/> <!-- inser/update/delete -->
                 <input id="chperros-Guia" name="Guia" type="hidden" /> <!-- id of the guia -->
                 <input id="chperros-newGuia" name="NewGuia" type="hidden" /> <!-- id original of the guia -->
             </div>
             <div class="fitem">
                 <label for="chperros-NombreLargo"><?php _e('Pedigree Name'); ?>:</label>
-                <input id="chperros-NombreLargo" class="easyui-validatebox" name="NombreLargo" type="text" style="width:350px;"/>
+                <input id="chperros-NombreLargo" name="NombreLargo" type="text" style="width:350px;"/>
             </div>
             <div class="fitem">
                 <label for="chperros-Genero"><?php _e('Gender'); ?>:</label>
-                <select id="chperros-Genero" name="Genero" class="easyui-combobox" style="width:100px">
-                    <option value="-" selected="selected">&nbsp;</option>
+                <select id="chperros-Genero" name="Genero"style="width:75px">
+                    <option value="-" selected="selected">-</option>
                     <option value="M"><?php _e('Male'); ?></option>
                     <option value="F"><?php _e('Female'); ?></option>
                 </select>
             </div>
             <div class="fitem">
                 <label for="chperros-Raza"><?php _e('Breed'); ?>:</label>
-                <input id="chperros-Raza" class="easyui-validatebox" name="Raza" type="text" class="easyui-textbox" />
+                <input id="chperros-Raza" name="Raza" type="text"  style="width:150px;"/>
             </div>
             <div class="fitem">
                 <label for="chperros-LOE_RRC"><?php _e('Kennel Club ID'); ?>:</label>
-                <input id="chperros-LOE_RRC" class="easyui-validatebox" name="LOE_RRC" type="text" class="easyui-textbox" />
+                <input id="chperros-LOE_RRC" name="LOE_RRC" type="text"  style="width:150px;"/>
             </div>
             <div class="fitem">
                 <label for="chperros-Licencia"><?php _e('Ag. License'); ?>:</label>
-                <input id="chperros-Licencia" class="easyui-validatebox" name="Licencia" type="text" class="easyui-textbox" />
+                <input id="chperros-Licencia" name="Licencia" type="text"  style="width:150px;"/>
             </div>
             <div class="fitem">
                 <label for="chperros-Categorias_Perro"><?php _e('Category'); ?>:</label>
@@ -117,6 +117,8 @@ $config =Config::getInstance();
     
     // campos del formulario
     $('#chperros-dialog').dialog({
+        width:550,
+        height:'auto',
     	closed: true,
     	buttons: '#chperros-dlg-buttons',
         iconCls: 'icon-dog'/*,
@@ -127,11 +129,11 @@ $config =Config::getInstance();
     		$('#chperros-Categorias_Perro').combobox('reload',cats);
         }
         */
-    });
-    $('#chperros-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+    }).dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
     	if (e.keyCode == 27){ $('#chperros-dialog').dialog('close');
     	}
     });
+
     $('#chperros-Search').combogrid({
 		panelWidth: 350,
 		panelHeight: 200,
@@ -161,10 +163,16 @@ $config =Config::getInstance();
 	        $('#chperros-form').form('load','/agility/server/database/dogFunctions.php?Operation=getbyidperro&ID='+idperro); // load form with json retrieved data
 		}
 	});
-    $('#chperros-Nombre').validatebox({
+    $('#chperros-Nombre').textbox({
         required: true,
         validType: 'length[1,255]'
     });
+    $('#chperros-NombreLargo').textbox();
+    $('#chperros-Raza').textbox();
+    $('#chperros-LOE_RRC').textbox();
+    $('#chperros-Licencia').textbox();
+    $('#chperros-Genero').combobox({panelHeight:'auto'});
+
     $('#chperros-Grados_Perro').combobox({
 		panelHeight: 'auto',
     	valueField:'Grado',

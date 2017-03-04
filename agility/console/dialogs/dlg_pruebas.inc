@@ -116,7 +116,7 @@ $config =Config::getInstance();
     </div>
 
    <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE PRUEBAS -->
-    <div id="pruebas-dialog" style="width:500px;height:450px;padding:10px 20px">
+    <div id="pruebas-dialog" style="padding:10px 20px">
         <div class="ftitle"><?php _e('Contest information'); ?></div>
         <form id="pruebas-form" method="get" novalidate>
             <div class="fitem">
@@ -143,15 +143,15 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="pruebas-Ubicacion"><?php _e('Event location'); ?></label>
-                <input id="pruebas-Ubicacion" name="Ubicacion" type="text" class="easyui-textbox" style="width:250px"/>
+                <input id="pruebas-Ubicacion" name="Ubicacion" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="pruebas-Triptico"><?php _e('Triptych URL'); ?></label>
-                <input id="pruebas-Triptico" name="Triptico" type="text" class="easyui-textbox" style="width:250px"/>
+                <input id="pruebas-Triptico" name="Triptico" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="pruebas-Cartel"><?php _e('Brochure URL'); ?></label>
-                <input id="pruebas-Cartel" name="Cartel" type="text" class="easyui-textbox" style="width:250px"/>
+                <input id="pruebas-Cartel" name="Cartel" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="pruebas-Observaciones"><?php _e('Comments'); ?>:</label>
@@ -298,21 +298,25 @@ $config =Config::getInstance();
 
     // campos del formulario de nueva/edicion prueba
     $('#pruebas-dialog').dialog({
+        width:500,
+        height:'auto',
         closed:true,
         buttons:'#pruebas-dlg-buttons'
     });
-    $('#pruebas-Nombre').validatebox({
+    $('#pruebas-Nombre').textbox({
         required: true,
         validType: 'length[1,255]'
     });
-    $('#pruebas-Triptico').validatebox({
+    $('#pruebas-Triptico').textbox({
         required: false,
         validType: 'url'
     });
-    $('#pruebas-Cartel').validatebox({
+    $('#pruebas-Cartel').textbox({
         required: false,
         validType: 'url'
     });
+    $('#pruebas-Ubicacion').textbox();
+
     $('#pruebas-Federation').combogrid({
         panelWidth: 300,
         panelHeight: 150,

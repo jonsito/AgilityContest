@@ -23,34 +23,30 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  ?>
 
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE JUECES -->
-    <div id="jueces-dialog" style="width:450px;height:auto;padding:10px 20px">
+    <div id="jueces-dialog" style="padding:10px 20px">
         <div class="ftitle"><?php _e('Judge information'); ?></div>
         <form id="jueces-form" method="get" novalidate>
             <div class="fitem">
                 <label for="jueces-Nombre"><?php _e('Name'); ?>:</label>
-                <input id="jueces-Nombre" 
-                	name="Nombre" 
-                	type="text" 
-                	class="easyui-validatebox" 
-                	style="width:250px" />
+                <input id="jueces-Nombre" name="Nombre" type="text"	style="width:250px" />
                 <input id="jueces-ID" name="ID" type="hidden" /> 
                 <input id="jueces-Operation" name="Operation" type="hidden" /> <!-- to store insert/update/delete operation -->
             </div>
             <div class="fitem">
                 <label for="jueces-Direccion1"><?php _e('Address'); ?> 1:</label>
-                <input id="jueces-Direccion1" class="easyui-validatebox" name="Direccion1" type="text" style="width:250px" />
+                <input id="jueces-Direccion1" name="Direccion1" type="text" style="width:250px" />
             </div>
             <div class="fitem">
                 <label for="jueces-Direccion2"><?php _e('Address'); ?> 2:</label>
-                <input id="jueces-Direccion2" class="easyui-validatebox" name="Direccion2" type="text" style="width:250px" />
+                <input id="jueces-Direccion2" name="Direccion2" type="text" style="width:250px" />
             </div>
             <div class="fitem">
                 <label for="jueces-Pais"><?php _e('Country'); ?>:</label>
-                <select id="jueces-Pais" name="Pais" class="easyui-validatebox" style="width:200px"></select>
+                <select id="jueces-Pais" name="Pais" style="width:200px"></select>
             </div>
             <div class="fitem">
                 <label for="jueces-Telefono"><?php _e('Telephone'); ?>:</label>
-                <input id="jueces-Telefono" class="easyui-validatebox" name="Telefono" type="text" />
+                <input id="jueces-Telefono" name="Telefono" type="text"  style="width:200px"/>
             </div>
             <div class="fitem">
                 <label for="jueces-Internacional"><?php _e('International judge'); ?>:</label>
@@ -69,7 +65,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	</div>
             <div class="fitem">
                 <label for="jueces-Email"><?php _e('Electronic mail'); ?>:</label>
-                <input id="jueces-Email" name="Email" class="easyui-validatebox" type="text" style="width:250px"/>
+                <input id="jueces-Email" name="Email" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="jueces-Observaciones"><?php _e('Comments'); ?>:</label>
@@ -123,20 +119,24 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		addTooltip($('#jueces-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
         // campos del formulario
         $('#jueces-dialog').dialog({
+            width:450,
+            height:'auto',
             closed: true,
             buttons: '#jueces-dlg-buttons',
             iconCls: 'icon-whistle'
-        });
-        $('#jueces-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+        }).dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
         	if (e.keyCode == 27){ $('#jueces-dialog').dialog('close');
         	}
         });
-        $('#jueces-Nombre').validatebox({
+        $('#jueces-Nombre').textbox({
             required: true,
             validType: 'length[1,255]'
         });
-        $('#jueces-Email').validatebox({
+        $('#jueces-Email').textbox({
             required: false,
             validType: 'email'
         });
+        $('#jueces-Direccion1').textbox();
+        $('#jueces-Direccion2').textbox();
+        $('#jueces-Telefono').textbox();
         </script>

@@ -29,7 +29,7 @@ $config =Config::getInstance();
         <form id="jornadas-form" method="get" novalidate>
             <div class="fitem">
                 <label for="jornadas-Nombre" style="width:250px"><?php _e('Name'); ?> / <?php _e('Comments'); ?>:</label>
-                <input id="jornadas-Nombre" name="Nombre" type="text" class="easyui-validatebox" style="width:325px"/>
+                <input id="jornadas-Nombre" name="Nombre" type="text" style="width:325px"/>
             </div>
         	<div class="fitem">
 				<!-- ID de la prueba asociada al formulario -->
@@ -68,11 +68,7 @@ $config =Config::getInstance();
                 <input type="hidden" id="jornadas-Grado1" name="Grado1" value="1">
                 <input id="jornadas-Grado1Chk" name="Grado1Chk" class="easyui-checkbox"
                     type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado1',0x0004)"/>
-                <select id="jornadas-MangasGrado1" name="MangasGrado1" style="width:130px">
-                    <option value="2"> <?php _e('Single round'); ?> </option>
-                    <option value="1"> <?php _e('Double round'); ?></option>
-                    <option id="jornadas-G1Manga3" value="3"> <?php _e('Triple round'); ?></option>
-                </select>
+                <input id="jornadas-MangasGrado1" name="MangasGrado1" style="width:130px"/>
             </div>
             
             <div class="fitem">
@@ -119,7 +115,7 @@ $config =Config::getInstance();
                 <label for="jornadas-Especial" style="width:150px" ><?php _e('Special round'); ?></label>
                 <input id="jornadas-Especial" name="Especial" class="easyui-checkbox"
                        type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Especial',0x0200)"/>
-                <input id="jornadas-Observaciones" name="Observaciones" type="text" value="(Especificar)" class="easyui-validatebox" style="width:125px"/>
+                <input id="jornadas-Observaciones" name="Observaciones" type="text" value="(Especificar)" style="width:125px"/>
             </div>
 
             <div class="fitem">
@@ -148,6 +144,7 @@ $config =Config::getInstance();
 <script type="text/javascript">
     // datos del formulario de nuevo/edit jornada
     $('#jornadas-dialog').dialog({
+        height:'auto',
         modal:true,
         closed:true,
         buttons:'#jornadas-dlg-buttons',
@@ -163,29 +160,37 @@ $config =Config::getInstance();
     // - declaracion del formulario
     $('#jornadas-form').form({
         onLoadSuccess : function(data) {
+            // fix number of g1 rounds according federation
+            $('#jornadas-MangasGrado1').combobox(
+                'loadData',
+                (workingData.datosFederation.RoundsG1==3)?
+                    [{text:'<?php _e("Single round");?>',value:'2'},{text:'<?php _e("Double round");?>',value:'1'},{text:'<?php _e("Triple round");?>',value:'3'}]
+                    :
+                    [{text:'<?php _e("Single round"); ?>',value:'2'},{text:'<?php _e("Double round"); ?>',value:'1'}]
+            );
             // fix date and checkboxes value into datebox in "onLoadSuccess" event declaration
             if (data.PreAgility==1) {
                 $('#jornadas-PreAgilityChk').prop('checked',true);
-                $('#jornadas-MangasPreAgility').prop('value',1);
-            	$('#jornadas-MangasPreAgility').prop('disabled',false);
+                $('#jornadas-MangasPreAgility').combobox('enable');
+                $('#jornadas-MangasPreAgility').combobox('setValue',1);
             } else if (data.PreAgility2==1) {
                 $('#jornadas-PreAgilityChk').prop('checked',true);
-            	$('#jornadas-MangasPreAgility').prop('disabled',false);
-                $('#jornadas-MangasPreAgility').prop('value',2);
+            	$('#jornadas-MangasPreAgility').combobox('enable');
+                $('#jornadas-MangasPreAgility').combobox('setValue',2);
             } else {
                 $('#jornadas-PreAgilityChk').prop('checked',false);
-            	$('#jornadas-MangasPreAgility').prop('disabled','disabled');
+            	$('#jornadas-MangasPreAgility').combobox('disable');
             }
             $('#jornadas-PreAgility').prop('checked',(data.PreAgility == 1));
 
             if (data.Grado1!=0) {
                 $('#jornadas-Grado1Chk').prop('checked',true);
-                $('#jornadas-MangasGrado1').prop('disabled',false);
-                $('#jornadas-MangasGrado1').prop('value',data.Grado1);
+                $('#jornadas-MangasGrado1').combobox('enable');
+                $('#jornadas-MangasGrado1').combobox('setValue',data.Grado1);
             } else {
                 $('#jornadas-Grado1Chk').prop('checked',false);
-                $('#jornadas-MangasGrado1').prop('disabled','disabled');
-                $('#jornadas-MangasGrado1').prop('value',1); // on disable, set default to 2 rounds
+                $('#jornadas-MangasGrado1').combobox('disable');
+                $('#jornadas-MangasGrado1').combobox('setValue',1); // on disable, set default to 2 rounds
             }
 
             $('#jornadas-Grado2').prop('checked',(data.Grado2 == 1));
@@ -193,37 +198,34 @@ $config =Config::getInstance();
             	$('#jornadas-Grado3').prop('disabled',false);
                 $('#jornadas-Grado3').prop('checked',(data.Grado3 == 1));
             } else {
-            	$('#jornadas-Grado3').prop('disabled','disabled');
+            	$('#jornadas-Grado3').prop('disabled',true);
                 $('#jornadas-Grado3').prop('checked',false);
             }
             if (data.Equipos3!=0) {
                 $('#jornadas-EquiposChk').prop('checked',true);
-                $('#jornadas-MangasEquipos').prop('value',(data.Equipos3==2)?3:4); // 0:noteam 1:3of4 2:2of3 3:3of4
-            	$('#jornadas-MangasEquipos').prop('disabled',false);
+                $('#jornadas-MangasEquipos').combobox('enable');
+                $('#jornadas-MangasEquipos').combobox('setValue',(data.Equipos3==2)?3:4); // 0:noteam 1:3of4 2:2of3 3:3of4
             } else if (data.Equipos4!=0) {
                 var val=data.Equipos4; // 0:noteam 1:4combined 2:2combined 3:3combined 4:4combined
                 $('#jornadas-EquiposChk').prop('checked',true);
-            	$('#jornadas-MangasEquipos').prop('disabled',false);
-                $('#jornadas-MangasEquipos').prop('value',(val==1)?7:(val==2)?5:(val==3)?6:7);
+            	$('#jornadas-MangasEquipos').combobox('enable');
+                $('#jornadas-MangasEquipos').combobox('setValue',(val==1)?7:(val==2)?5:(val==3)?6:7);
             } else {
                 $('#jornadas-EquiposChk').prop('checked',false);
-            	$('#jornadas-MangasEquipos').prop('disabled','disabled');
+            	$('#jornadas-MangasEquipos').combobox('disable');
             }
             $('#jornadas-Equipos3').prop('checked',(data.Equipos3 != 0));
             $('#jornadas-Equipos4').prop('checked',(data.Equipos4 != 0));
             $('#jornadas-Open').prop('checked',(data.Open == 1));
             $('#jornadas-KO').prop('checked',(data.KO == 1));
             $('#jornadas-Especial').prop('checked',(data.Especial == 1));
-        	$('#jornadas-Observaciones').prop('disabled',(data.Especial==1)?false:'disabled');
+        	$('#jornadas-Observaciones').textbox( (data.Especial==0)?'disable':'enable');
             $('#jornadas-Cerrada').prop('checked',(data.Cerrada == 1));
         	$('#jornadas-Prueba').val(data.Prueba);
         	$('#jornadas-Operation').val('update');
             // fix slaveof combobox according value
             $('#jornadas-SlaveOf_List').combobox('reload');
             $('#jornadas-Tipo_Competicion_List').combobox('reload');
-            // take care on how many GI rounds can be choosen
-            if (workingData.datosFederation.RoundsG1==3) $('#jornadas-G1Manga3').prop('disabled',false);
-            else $('#jornadas-G1Manga3').prop('disabled','disabled');
         }
     });
 
@@ -259,10 +261,24 @@ $config =Config::getInstance();
         required: true
     });
 	// Nombre/comentarios
-    $('#jornadas-Nombre').validatebox({
+    $('#jornadas-Nombre').textbox({
         required: true,
         validType: 'length[1,255]'
     });
+    $('#jornadas-MangasPreAgility').combobox({panelHeight:'auto'});
+    $('#jornadas-MangasGrado1').combobox({
+        panelHeight:'auto',
+        valueField: 'value',
+        textField: 'text',
+        data: [
+            {text:'<?php _e("Single round"); ?>',value:'2'},
+            {text:'<?php _e("Double round"); ?>',value:'1'},
+            {text:'<?php _e("Triple round"); ?>',value:'3'}
+            ]
+    });
+
+    $('#jornadas-MangasEquipos').combobox({panelHeight:'auto'});
+    $('#jornadas-Observaciones').textbox();
 
     $('#jornadas-SlaveOf_List').combobox({
         panelHeight: 'auto',
