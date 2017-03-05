@@ -26,6 +26,14 @@ $config =Config::getInstance();
  */
 
 /**
+ * Open dialog for sending email to judge(s) and federation
+ * @param boolean teams false:individual true:teams
+ */
+function emailClasificaciones(teams) {
+    alert("To be done");
+}
+
+/**
  * Ejecuta un scroll del datagrid cada cierto tiempo
  * @param dg datagrid a "scrollear"
  * @param pos posicion donde se realiza el scroll

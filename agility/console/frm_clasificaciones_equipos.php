@@ -82,6 +82,8 @@ $config =Config::getInstance();
    			data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();"><?php _e('Refresh'); ?></a>
    		<a id="resultados-verifyBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-search'" onclick="verifyClasificaciones();"><?php _e('Verify'); ?></a>
+   		<a id="resultados-emailBtn" href="#" class="easyui-linkbutton"
+            data-options="iconCls:'icon-mail'" onclick="emailClasificaciones(true);"><?php _e('Mail'); ?></a>
    		<a id="resultados-printBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');"><?php _e('Reports'); ?></a>
    	</span>
@@ -175,6 +177,7 @@ $('#resultados-info-prueba').form('load',{
 //tooltips
 addTooltip($('#resultados-refreshBtn').linkbutton(),'<?php _e("Update score tables"); ?>');
 addTooltip($('#resultados-verifyBtn').linkbutton(),'<?php _e("Check for dogs without registered data"); ?>');
+addTooltip($('#resultados-emailBtn').linkbutton(),'<?php _e("Share results and scores by electronic mail"); ?>');
 addTooltip($('#resultados-printBtn').linkbutton(),'<?php _e("Print scores on current round"); ?>');
 addTooltip($('#resultados-printDlgBtn').linkbutton(),'<?php _e("Print data in selected format"); ?>');
 addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in labels sheet"); ?>');
