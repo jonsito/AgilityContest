@@ -4,6 +4,7 @@ require_once __DIR__.'/PHPMailer-5.2.22/PHPMailerAutoload.php';
 require_once __DIR__.'/../auth/Config.php';
 require_once __DIR__.'/../auth/AuthManager.php';
 require_once __DIR__.'/../excel/classes/Excel_Inscripciones.php';
+require_once __DIR__.'/../excel/classes/Excel_Clasificaciones.php';
 /*
 mailManager.php
 
@@ -186,6 +187,35 @@ class MailManager {
     }
 
     /**
+     * Retrieve a list of clubs for this federation indicating whether email has already been sent
+     * @param {integer} $jornada Jornada ID
+     * @return array|null null on error; array ['total', 'rows'] on success
+     */
+    public function enumerateJueces($jornada) {
+        $this->myLogger->enter();
+        if ($jornada<=0) return $this->error("enumerateJuecesByJornada(): Invalid Jornada ID: $jornada");
+        // evaluate search query string
+        $q=http_request("q","s","");
+        // evaluate judge list by parsing rounds in journey
+        $jueces=$this->myDBObj->__select("Juez1,Juez2","Mangas","Jornada=$jornada");
+        $list=array();
+        foreach ($jueces['rows'] as $item) { $list[]=$item['Juez1']; $list[]=$item['Juez2']; }
+        $data=array_unique($list,SORT_NUMERIC); // elimina duplicados
+        $list=join(",",$data); // compone la lista de jueces
+        $where="1";
+        if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
+        $result=$this->myDBObj->__select(
+        /* SELECT */ "*",
+            /* FROM */ "Jueces",
+            /* WHERE */ "(ID>1) AND (ID IN ($list) ) AND $where", // do not include default juez in listing
+            /* ORDER BY */ "Nombre ASC",
+            /* LIMIT */ ""
+        );
+        $this->myLogger->leave();
+        return $result;
+    }
+
+    /**
      * mark every club on this contest as pending to send mail
      * @return string empty on success; null on error
      */
@@ -214,6 +244,23 @@ class MailManager {
         if (!filter_var($email,FILTER_VALIDATE_EMAIL))
             throw new Exception ("updateClubMail() provided data '$email' is not a valid email address");
         $str="UPDATE Clubes SET Email='$email' WHERE ID=$club";
+        $res=$this->myDBObj->query($str);
+        if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
+        return "";
+    }
+
+    /**
+     * Update juez email with provided data
+     * @param {integer} $club Juez ID
+     * @param {string} $email new Email Address ( escapechar'd by http_request )
+     * @return {string} empty on success, else error msg
+     */
+    public function updateJuezMail($juez,$email) {
+        if ($juez<=1)
+            throw new Exception("updateJuezMail(): Invalid Juez ID $juez");
+        if (!filter_var($email,FILTER_VALIDATE_EMAIL))
+            throw new Exception ("updateJuezbMail() provided data '$email' is not a valid email address");
+        $str="UPDATE Jueces SET Email='$email' WHERE ID=$juez";
         $res=$this->myDBObj->query($str);
         if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
         return "";

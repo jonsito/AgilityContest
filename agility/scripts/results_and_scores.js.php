@@ -25,12 +25,119 @@ $config =Config::getInstance();
  * Funciones relacionadas presentacion de resultados y clasificaciones
  */
 
+function scores_emailEditJuez(index,row) {
+    var m = $.messager.prompt({
+        title: "<?php _e('Change Email');?>",
+        msg: "<?php _e('Enter new email for judge');?>: <br/>"+row.Nombre,
+        fn: function(r) {
+            if (!r) return false;
+            $.ajax({
+                type: 'GET',
+                url: '/agility/server/mailFunctions.php',
+                data: {
+                    Prueba: workingData.prueba,
+                    Federation: workingData.federation,
+                    Juez: row['ID'],
+                    Email: r,
+                    Operation: "updateJuez"
+                },
+                dataType: 'json',
+                // beforeSend: function(jqXHR,settings){ return frm.form('validate'); },
+                success: function (result) {
+                    if (result.errorMsg){
+                        $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
+                        return false;
+                    }
+                    $('#scores_email-Jueces').datagrid('updateRow',{
+                        index: index,
+                        row: {Email:r}
+                    });
+                }
+            });
+        },
+        width: 350
+    });
+    m.find('.messager-input').val(row.Email); // set default value for prompt
+    return false;
+}
+
 /**
  * Open dialog for sending email to judge(s) and federation
- * @param boolean teams false:individual true:teams
+ * @param {boolean} teams false:individual true:teams
  */
 function emailClasificaciones(teams) {
-    alert("To be done");
+    if (ac_regInfo.Serial==="00000000") {
+        $.messager.alert('<?php _e("Mail services"); ?>',
+            '<p><?php _e("Electronic mail operations<br/>are not allowed for unregistered licenses"); ?></p>',
+            "info").window('resize',{width:480});
+        return false;
+    }
+    $('#scores_email-dialog').dialog('open').dialog('setTitle', '<?php _e('Email results'); ?>');
+    return false;
+}
+
+/**
+ * Ask send mail with contest info and inscription templates to each selected club
+ */
+function perform_emailScores() {
+    var dg=$('#scores_email-Jueces');
+
+    function handleMail(rows,index,size) {
+        if (index>=size){
+            // recursive call finished, clean, close and refresh
+            pwindow.window('close');
+            dg.datagrid('clearSelections');
+            dg.datagrid('reload',{
+                Operation:'enumerateJueces',
+                Prueba:workingData.prueba,
+                Jornada:workingData.jornada,
+                Federation:workingData.federation});
+            return;
+        }
+        // skip row ID:1 and fields with no mail
+        if ( (rows[index]['ID']<1) || (rows[index]['Email']=="")) {
+            $('#scores_email-progresslabel').html('<?php _e("Skipping"); ?>'+": "+rows[index].Nombre+"<br/> <?php _e('No mail declared');?>");
+            setTimeout(function(){handleMail(rows,index+1,size);},2000); // fire again
+            return;
+        }
+        $('#scores_email-progresslabel').html('<?php _e("Processing"); ?>'+": "+rows[index].Nombre+"<br/> &lt;"+rows[index].Email+"&gt;");
+        $('#scores_email-progressbar').progressbar('setValue', (100.0*(index+1)/size).toFixed(2));
+        $.ajax({
+            cache: false,
+            timeout: 30000, // 20 segundos
+            type:'POST',
+            url:"/agility/server/mailFunctions.php",
+            dataType:'json',
+            data: {
+                Prueba: workingData.prueba,
+                Jornada: workingData.prueba,
+                Federation: workingData.federation,
+                Operation: 'sendResults',
+                Juez: rows[index].ID,
+                Email: rows[index].Email,
+                SendToFederation: $('#scores_email-SendToFederation').val(),
+                PartialScores: $('#scores_email-PartialScores').val(),
+                Contents: $('#scores_email-Contents').val()
+            },
+            success: function(result) {
+                handleMail(rows,index+1,size);
+            }
+        });
+    }
+
+    var pwindow=$('#scores_email-progresswindow');
+    var selectedRows= dg.datagrid('getSelections');
+    var size=selectedRows.length;
+    if(size==0) {
+        $.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no selected judge to send mail to"); ?>',"warning");
+        return; // no hay ninguna inscripcion seleccionada. retornar
+    }
+    if (ac_authInfo.Perms>2) {
+        $.messager.alert('<?php _e("No permission"); ?>','<?php _e("Current user has not enought permissions to send mail"); ?>',"error");
+        return; // no tiene permiso para realizar inscripciones. retornar
+    }
+    pwindow.window('open');
+    handleMail(selectedRows,0,size);
 }
 
 /**

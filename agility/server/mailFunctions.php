@@ -31,16 +31,21 @@ try {
     $prueba=http_request("Prueba","i",0);
     $jornada=http_request("Jornada","i",0);
     $club=http_request("Club","i",0);
+    $juez=http_request("Juez","i",0);
     $email=http_request("Email","s","");
     $mailer=new MailManager("mailFunctions",$am,$prueba);
     if ($operation===null) throw new Exception("Call to mailFunctions without 'Operation' requested");
     switch ($operation) {
         // update email from selected club
         case "updateclub": $am->access(PERMS_OPERATOR); $result=$mailer->updateClubMail($club,$email); break;
+        // update email from selected club
+        case "updateJuez": $am->access(PERMS_OPERATOR); $result=$mailer->updateJuezMail($juez,$email); break;
         // clear sent mark from every clubs on this contest
         case "clearsent":  $am->access(PERMS_OPERATOR); $result=$mailer->clearSent(); break;
         // replacement for clubs::enumerate to add info on mail sent
         case "enumerate": $result=$mailer->enumerate(); break;
+        // list all judges on provided journey
+        case "enumerateJueces": $result=$mailer->enumerateJueces($jornada); break;
         // try to send mail to sender using configuration preferences
         case "check": $am->access(PERMS_OPERATOR); $result=$mailer->check(); break;
         // send mail to AgilityContest server
