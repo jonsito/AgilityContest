@@ -116,6 +116,7 @@ function perform_emailScores() {
                 Juez: rows[index].ID,
                 Email: rows[index].Email,
                 SendToFederation: $('#scores_email-SendToFederation').val(),
+                FedAddress: $('#scores_email-FedAddress').textbox('getValue'),
                 PartialScores: $('#scores_email-PartialScores').val(),
                 Contents: $('#scores_email-Contents').val()
             },

@@ -24,6 +24,7 @@ require_once(__DIR__."/Federations.php");
 try {
     $result=null;
     $federation=http_request("Federation","i",-1); // -1 defaults to all federations
+    $competition=http_request("Competition","i",0); // 0: default modality for provided federation
     $operation=http_request("Operation","s",null); // retrieve requested operation
     $recorrido=http_request("Recorrido","i",0); // 0:separate 1:mixed 2:common
     if ($operation===null) throw new Exception("Call to moduleFunctions without 'Operation' requested");
@@ -33,6 +34,7 @@ try {
         case "enumerate": $result= Federations::enumerate(); break;
         case "infomanga": $result= Federations::infomanga($federation,$recorrido); break;
         case "competitions": $result=Competitions::getAvailableCompetitions($federation); break;
+        case "moduleinfo": $result=Competitions::moduleInfo($federation,$competition); break;
         default: throw new Exception("moduleFunctions:: invalid operation: '$operation' provided");
     }
     if ($result===null)

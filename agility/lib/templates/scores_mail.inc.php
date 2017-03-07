@@ -39,7 +39,10 @@ $config =Config::getInstance();
 
             <input name="SendToFederation" type="hidden" value="0"/>
             <label for="scores_email-SendToFederation" style="width:300px;"><?php _e('Send a copy to federation'); ?></label>
-            <input id="scores_email-SendToFederation" type="checkbox" name="SendToFederation" value="1"/><br/>
+            <input id="scores_email-SendToFederation" type="checkbox" name="SendToFederation" value="1" /><br/>
+            <label for="scores_email-FedAddress" style="width:300px;"><?php _e('Federation Email');?>:</label>
+            <input id="scores_email-FedAddress" type="text" name="FedAddress" value="" style="width:250px;"/>
+            <br/>
         </div>
         <div class="fitem" style="height:125px">
             <table id="scores_email-Jueces" name="Jueces"></table>
@@ -110,12 +113,35 @@ $config =Config::getInstance();
         }
     });
 
+    $('#scores_email-FedAddress').textbox({
+        validType: 'email',
+        disabled: true
+    });
+
+    $('#scores_email-SendToFederation').change(function(){
+        $('#scores_email-FedAddress').textbox(($(this).prop('checked'))?'enable':'disable');
+    });
 
     $('#scores_email-dialog').dialog({
         closed:true,
         buttons:'#scores_email-dlg-buttons',
         onBeforeOpen: function() {
             if (workingData.prueba==0) return false; // it's an error: no contest declared
+            $('#scores_email-SendToFederation').prop('checked',false);
+            // retrieve default email address to contact federation
+            $.ajax({
+                url:"/agility/modules/moduleFunctions.php",
+                dataType:'json',
+                data: {
+                    Operation: 'moduleinfo',
+                    Federation: workingData.federation,
+                    Competition: workingData.datosJornada.Tipo_Competicion
+                },
+                success: function(data) {
+                    $('#scores_email-FedAddress').textbox('setValue',data.Email);
+                }
+            });
+            // retrieve judge list
             $('#scores_email-Jueces').datagrid(
                 'load',
                 {

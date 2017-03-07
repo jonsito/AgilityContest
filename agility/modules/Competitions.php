@@ -243,5 +243,19 @@ class Competitions {
         return new Competitions("Default for Fed:$fed Type:$type");
     }
 
+    static function moduleInfo($fed,$type) {
+        foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
+            $name=str_replace(".php","",basename($filename));
+            require_once($filename);
+            $comp=new $name;
+            if (!$comp) continue; // cannot instantiate class. should report error
+            if ($comp->federationID!=$fed) continue;
+            if ($comp->competitionID!=$type) continue;
+            // competition found: assign selective flag and return
+            return $comp->getModuleInfo();
+        }
+        // arriving here means competition module not found
+        throw new Exception ("Modules::moduleInfo() module information for fed:$fed type:$type not found");
+    }
 }
 ?>
