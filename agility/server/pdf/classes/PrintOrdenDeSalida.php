@@ -16,25 +16,21 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
-header('Set-Cookie: fileDownload=true; path=/');
-// mandatory 'header' to be the first element to be echoed to stdout
-
 /**
  * genera un pdf ordenado por club, categoria y nombre con una pagina por cada jornada
 */
 
-require_once(__DIR__."/fpdf.php");
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__.'/../database/classes/DBObject.php');
-require_once(__DIR__.'/../database/classes/Pruebas.php');
-require_once(__DIR__.'/../database/classes/Jornadas.php');
-require_once(__DIR__.'/../database/classes/Mangas.php');
-require_once(__DIR__.'/../database/classes/OrdenSalida.php');
-require_once(__DIR__."/print_common.php");
+require_once(__DIR__."/../fpdf.php");
+require_once(__DIR__."/../../tools.php");
+require_once(__DIR__."/../../logging.php");
+require_once(__DIR__.'/../../database/classes/DBObject.php');
+require_once(__DIR__.'/../../database/classes/Pruebas.php');
+require_once(__DIR__.'/../../database/classes/Jornadas.php');
+require_once(__DIR__.'/../../database/classes/Mangas.php');
+require_once(__DIR__.'/../../database/classes/OrdenSalida.php');
+require_once(__DIR__."/../print_common.php");
 
-class OrdenDeSalida extends PrintCommon {
+class PrintOrdenDeSalida extends PrintCommon {
 
 	protected $manga; // datos de la manga
 	protected $orden; // orden de salida
@@ -126,12 +122,10 @@ class OrdenDeSalida extends PrintCommon {
 		// $this->myLogger->leave();
 	}
 	
-	function printTeamInformation($team,$order,$row=array()) {
-		$this->ac_header(2,10);
+	function printTeamInformation($team) {
+		$this->ac_header(2,9);
 		$nombre=$this->teams[$team]['Nombre'];
-        $this->Image($row['LogoClub'],$this->GetX(),$this->GetY()+6,12,8);
-        $this->Cell(12,6,$order,'LTBR',0,'C',true);
-		$this->Cell(173,6,$nombre,'LTBR',0,'R',true);
+		$this->Cell(185,6,$nombre,'LTBR',0,'R',true);
 		$this->ac_row(2,9);
 		$this->Ln();
 	}
@@ -149,56 +143,49 @@ class OrdenDeSalida extends PrintCommon {
 		// Datos
 		$rowcount=0;
 		$order=0;
-        $team_order=1;
 		$lastTeam=0;
 		foreach($this->orden as $row) {
 			if (!category_match($row['Categoria'],$this->validcats)) continue;
 			$newTeam=intval($row['Equipo']);
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			// if change in categoria, reset orden counter and force page change
+			// if change in categoria, reset orden counter.
 			if ($row['Categoria'] !== $this->categoria) {
-				$this->categoria = $row['Categoria'];
-				$this->Cell(array_sum($this->pos),0,'','T'); // forzamos linea de cierre
-				$rowcount=0;
+                $this->categoria = $row['Categoria'];
+                $this->Cell(array_sum($this->pos),0,'','T'); // forzamos linea de cierre
+			    // if new category header fits in page show it; else force new page
+                if($rowcount > 32) {
+                    $rowcount=37;
+                } else if ($rowcount!=0) {
+                    $this->Ln(10);
+                    $this->print_identificacionManga($this->manga,$this->getCatString($this->categoria));
+                    $this->writeTableHeader();
+                    $rowcount+=4;
+                }
 				$order=0;
 				$lastTeam=0;
-			} 
-			if ($this->isTeam()) {
-				// team change: make sure that new team fits in page
-				if ($newTeam!=$lastTeam) {
-					if ($rowcount>=31) $rowcount=37; // team change: seek at end of page
-				}
 			}
+			// on team, if team change, make sure that new team fits in page. Else force new page
+			if ( $this->isTeam() && ($newTeam!=$lastTeam) && ($rowcount>=32) ) $rowcount=37;
+
 			if ( ($rowcount==0) || ($rowcount>=37) ) { // assume 38 rows per page ( rowWidth = 6mmts )
-				if ($rowcount>0) $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre en cambio de pagina
+                $this->Cell(array_sum($this->pos),0,'','T');// linea de cierre en cambio de pagina$this->AddPage();
 				$rowcount=0;
 				$this->AddPage();
-				$this->writeTableHeader();
+                $this->writeTableHeader();
 				$lastTeam=0; // force writting of team header information
 			}
 			// on team Events and team change add Team header information
 			if ( $this->isTeam() && ($newTeam!=$lastTeam) ) {
 				$lastTeam=$newTeam;
-				$this->printTeamInformation($lastTeam,$team_order,$row);
+				$this->printTeamInformation($lastTeam);
 				$rowcount++;
-                $team_order++;
 			}
             $this->ac_row($order,9);
+			$this->SetFont($this->getFontName(),'B',11); // bold 9px
+			$this->Cell($this->pos[0],6,($order+1)." - ",'LR',0,$this->align[0],true); // display order
+			$this->SetFont($this->getFontName(),'',9); // remove bold 9px
             if ($this->federation->isInternational()) {
-                if ($this->isTeam()) {
-                    $this->Cell($this->pos[0],6,"",'',0,$this->align[0],false);
-                    $this->SetFont($this->getFontName(),'',9); // remove bold 9px
-                    $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
-                } else {
-                    $this->SetFont($this->getFontName(),'B',11); // bold 9px
-                    $this->Cell($this->pos[0],6,($order+1)." - ",'LR',0,$this->align[0],true);
-                    $this->SetFont($this->getFontName(),'',8);
-                    $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
-                    $this->Image($row['LogoClub'],1+$this->GetX()-$this->pos[7],0.5+$this->GetY(),6,5);
-                }
-            } else {
-                $this->SetFont($this->getFontName(),'B',11); // bold 9px
-                $this->Cell($this->pos[0],6,($order+1),'',0,$this->align[0],true);
+                $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
             }
 			$this->Cell($this->pos[1],6,$row['Dorsal'],		'LR',0,$this->align[1],true);
             // not enought space for long name in international contests
@@ -223,19 +210,4 @@ class OrdenDeSalida extends PrintCommon {
 		$this->myLogger->leave();
 	}
 }
-
-// Consultamos la base de datos
-try {
-	$prueba=http_request("Prueba","i",0);
-	$jornada=http_request("Jornada","i",0);
-	$manga=http_request("Manga","i",0);
-	$categorias=http_request("Categorias","s","-");
-	// 	Creamos generador de documento
-	$pdf = new OrdenDeSalida($prueba,$jornada,$manga,$categorias);
-	$pdf->AliasNbPages();
-	$pdf->composeTable();
-	$pdf->Output("ordenDeSalida.pdf","D"); // "D" means open download dialog	
-} catch (Exception $e) {
-	die ("Error accessing database: ".$e->getMessage());
-};
 ?>

@@ -374,12 +374,16 @@ class MailManager {
 
         // generate pdf files
 
-        // generate excel file
+        // generate excel clasifications file
         $excelObj=new Excel_Clasificaciones($this->pruebaObj->ID);
-        $excelObj->open("$maildir/Resultados.xlsx");
+        $excelObj->open("$maildir/Clasificaciones.xlsx");
         $excelObj->composeTable();
         $excelObj->close();
-
+        // generate excel inscriptions file
+        $excelObj=new Excel_Inscripciones($this->pruebaObj->ID,0); // 0: export every inscriptions
+        $excelObj->open("$maildir/Inscripciones.xlsx");
+        $excelObj->composeTable();
+        $excelObj->close();
         // configure mail
         $myMailer = new PHPMailer; //Create a new PHPMailer instance
         $this->setup_mailer_from_config($myMailer); // myMailer is passed by reference
@@ -408,7 +412,8 @@ class MailManager {
         $myMailer->AltBody = _("Please enable HTML view in your email application");
 
         // attach files
-
+        $myMailer->addAttachment("$maildir/Clasificaciones.xlsx","Clasificaciones.xlsx");
+        $myMailer->addAttachment("$maildir/Inscripciones.xlsx","Inscripciones.xlsx");
         // allways attach AgiltiyContest logo . Use absolute paths as phpmailer does not handle relative ones
         $myMailer->addAttachment(__DIR__.'/../../images/logos/agilitycontest.png');
         //send the message, check for errors
