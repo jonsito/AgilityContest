@@ -27,6 +27,10 @@ class Selectiva_PastorBelga extends Competitions {
         $this->competitionID=3;
     }
 
+    function getModuleInfo($contact = null)  {
+        return parent::getModuleInfo("agility@ceppb.es");
+    }
+
     /*
      * Como el sistema de asignacion de puntos es iterativo ( puesto->punto ),
      * tenemos que inventar algun tipo de "memoria" donde guardar los perros que han puntuado

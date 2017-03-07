@@ -12,6 +12,7 @@ class INTL3 extends Federations {
             'ParentLogo'  => '/agility/modules/federaciones/intl3/fci.png',
             'WebURL' => 'http://www.fci.org',
             'ParentWebURL' => 'http://www.fci.org',
+            'Email' => 'info@fci.be',
             'Heights' => 3,
             'Grades' => 3,
             'International' => 1,

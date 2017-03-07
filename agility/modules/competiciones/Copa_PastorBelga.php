@@ -25,6 +25,10 @@ class Copa_PastorBelga extends Selectiva_PastorBelga  {
         $this->ptsglobal=array("20","18","16","14","12", "10"," 8"," 6"," 4"," 2","0","0"); // puntos conjunta
     }
 
+    function getModuleInfo($contact = null)  {
+        return parent::getModuleInfo("agility@ceppb.es");
+    }
+
     /**
      * Provide default TRS/TRM/Recorrido values for a given competitiona at
      * Round creation time

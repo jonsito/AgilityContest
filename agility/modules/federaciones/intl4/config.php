@@ -12,6 +12,7 @@ class INTL4 extends Federations {
             'ParentLogo'   => '/agility/modules/federaciones/intl4/wao.png',
             'WebURL' => 'http://www.worldagilityopen.com/',
             'ParentWebURL' => 'http://www.worldagilityopen.com/',
+            'Email' => 'info@worldagilityopen.com',
             'Heights' => 4,
             'Grades' => 2,
             'International' => 1,

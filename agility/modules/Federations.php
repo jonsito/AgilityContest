@@ -35,6 +35,7 @@ class Federations {
         'ParentLogo'   => '',   // global federation logo
         'WebURL' => '',
         'ParentWebURL' => '',
+        'Email' => 'jonsito@www.agilitycontest.es',
         'Heights' => 3,
         'Grades' => 3,
         'International' => 0,

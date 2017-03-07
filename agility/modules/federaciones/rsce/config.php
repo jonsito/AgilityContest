@@ -12,6 +12,7 @@ class RSCE extends Federations {
             'ParentLogo'   => '/agility/modules/federaciones/rsce/fci.png',
             'WebURL' => 'http://www.rsce.es/',
             'ParentWebURL' => 'http://www.fci.org/',
+            'Email' => 'agility@rsce.es',
             'Heights' => 3,
             'Grades' => 3,
             'International' => 0,

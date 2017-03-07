@@ -26,6 +26,10 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         $this->competitionID=2;
     }
 
+    function getModuleInfo($contact = null)  {
+        return parent::getModuleInfo("yvonneagility@fecaza.com");
+    }
+
     /**
      * Evalua la calificacion parcial del perro
      * @param {object} $m datos de la manga

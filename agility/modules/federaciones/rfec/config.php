@@ -12,6 +12,7 @@ class RFEC extends Federations {
             'ParentLogo'   => '/agility/modules/federaciones/rfec/csd.png',
             'WebURL' => 'http://www.fecaza.com/',
             'ParentWebURL' => 'http://www.csd.gob.es/',
+            'Email' => 'yvonneagility@fecaza.com',
             'Heights' => 4,
             'Grades' => 2,
             'International' => 0,

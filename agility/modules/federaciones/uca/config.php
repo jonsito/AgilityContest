@@ -12,6 +12,7 @@ class UCA extends Federations {
             'ParentLogo'   => '/agility/modules/federaciones/uca/rfec.png',
             'WebURL' => 'http://www.agilityuca.org/',
             'ParentWebURL' => 'http://www.fecaza.com/',
+            'Email' => '',
             'Heights' => 4,
             'Grades' => 2,
             'International' => 0,
