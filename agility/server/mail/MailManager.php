@@ -384,9 +384,16 @@ class MailManager {
         $myMailer = new PHPMailer; //Create a new PHPMailer instance
         $this->setup_mailer_from_config($myMailer); // myMailer is passed by reference
 
-        // add judges in rcpt_to
+        // add judges in rcpt_to ( from client we receive comma separated list of judges
+        $list=http_request('Email','s','');
+        $jueces=explode(',',$list);
+        foreach ($jueces as $juez ) $myMailer->addAddress($juez);
 
         // if requested add federation in Cc:
+        if (http_request('SendToFederation',"i","0")!=0) {
+            $fedm=http_request("FedAddress","s","");
+            if ($fedm!="") $myMailer->addCC($fedm);
+        }
 
         // prepare message body
         $d=date("Y/m/d H:i");

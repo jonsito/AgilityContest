@@ -80,65 +80,50 @@ function emailClasificaciones(teams) {
  * Ask send mail with contest info and inscription templates to each selected club
  */
 function perform_emailScores() {
-    var dg=$('#scores_email-Jueces');
-
-    function handleMail(rows,index,size) {
-        if (index>=size){
-            // recursive call finished, clean, close and refresh
-            pwindow.window('close');
-            dg.datagrid('clearSelections');
-            dg.datagrid('reload',{
-                Operation:'enumerateJueces',
-                Prueba:workingData.prueba,
-                Jornada:workingData.jornada,
-                Federation:workingData.federation});
-            return;
-        }
-        // skip row ID:1 and fields with no mail
-        if ( (rows[index]['ID']<1) || (rows[index]['Email']=="")) {
-            $('#scores_email-progresslabel').html('<?php _e("Skipping"); ?>'+": "+rows[index].Nombre+"<br/> <?php _e('No mail declared');?>");
-            setTimeout(function(){handleMail(rows,index+1,size);},2000); // fire again
-            return;
-        }
-        $('#scores_email-progresslabel').html('<?php _e("Processing"); ?>'+": "+rows[index].Nombre+"<br/> &lt;"+rows[index].Email+"&gt;");
-        $('#scores_email-progressbar').progressbar('setValue', (100.0*(index+1)/size).toFixed(2));
-        $.ajax({
-            cache: false,
-            timeout: 30000, // 20 segundos
-            type:'POST',
-            url:"/agility/server/mailFunctions.php",
-            dataType:'json',
-            data: {
-                Prueba: workingData.prueba,
-                Jornada: workingData.prueba,
-                Federation: workingData.federation,
-                Operation: 'sendResults',
-                Juez: rows[index].ID,
-                Email: rows[index].Email,
-                SendToFederation: $('#scores_email-SendToFederation').val(),
-                FedAddress: $('#scores_email-FedAddress').textbox('getValue'),
-                PartialScores: $('#scores_email-PartialScores').val(),
-                Contents: $('#scores_email-Contents').val()
-            },
-            success: function(result) {
-                handleMail(rows,index+1,size);
-            }
-        });
-    }
-
-    var pwindow=$('#scores_email-progresswindow');
-    var selectedRows= dg.datagrid('getSelections');
-    var size=selectedRows.length;
-    if(size==0) {
-        $.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no selected judge to send mail to"); ?>',"warning");
-        return; // no hay ninguna inscripcion seleccionada. retornar
-    }
-    if (ac_authInfo.Perms>2) {
-        $.messager.alert('<?php _e("No permission"); ?>','<?php _e("Current user has not enought permissions to send mail"); ?>',"error");
+    var dg = $('#scores_email-Jueces');
+    var selectedRows = dg.datagrid('getSelections');
+    var size = selectedRows.length;
+    if (ac_authInfo.Perms > 2) {
+        $.messager.alert('<?php _e("No permission"); ?>', '<?php _e("Current user has not enought permissions to send mail"); ?>', "error");
         return; // no tiene permiso para realizar inscripciones. retornar
     }
-    pwindow.window('open');
-    handleMail(selectedRows,0,size);
+    if (size == 0) {
+        $.messager.alert('<?php _e("No selection"); ?>', '<?php _e("There is no selected judge to send mail to"); ?>', "warning");
+        return; // no hay ninguna inscripcion seleccionada. retornar
+    }
+    // compose list of receivers. ( need to send one and only one mail to all, to assure data integrity )
+    var list = '';
+    for (var n = 0; n < size; n++) { list = list + selectedRows[n]['Email'];  if (n < size - 1) list = list + ','  }
+    $.ajax({
+        cache: false,
+        timeout: 30000, // 20 segundos
+        type: 'POST',
+        url: "/agility/server/mailFunctions.php",
+        dataType: 'json',
+        sendmsg: '<?php _e("Sending to"); ?> : ' + list,
+        data: {
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada,
+            Federation: workingData.federation,
+            Operation: 'sendResults',
+            Juez: 0, // not needed as we send just a comma separated list
+            Email: list,
+            SendToFederation: $('#scores_email-SendToFederation').val(),
+            FedAddress: $('#scores_email-FedAddress').textbox('getValue'),
+            PartialScores: $('#scores_email-PartialScores').val(),
+            Contents: $('#scores_email-Contents').val()
+        },
+        success: function (result) {
+            if (result.errorMsg) {
+                $.messager.alert({width:350, height:75, title:'<?php _e('Error'); ?>',msg: result.errorMsg,icon:'error' });
+            } else {
+                $.messager.alert({width:300, height:75, title:'<?php _e('Done'); ?>',msg:'<?php _e('Mail successfully sent'); ?>' ,icon:'info' });
+            }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            alert("Send scores by mail error: "+textStatus + " "+ errorThrown );
+        }
+    });
 }
 
 /**

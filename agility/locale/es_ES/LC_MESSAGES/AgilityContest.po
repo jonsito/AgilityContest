@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-03-05 08:43+0100\n"
-"PO-Revision-Date: 2017-03-05 08:44+0100\n"
+"POT-Creation-Date: 2017-03-07 15:25+0100\n"
+"PO-Revision-Date: 2017-03-07 15:35+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -100,7 +100,7 @@ msgstr "T"
 #: lib/templates/parcial_individual.inc.php:32
 #: lib/templates/parcial_last_individual.inc.php:34
 #: lib/templates/parcial_last_teams.inc.php:36 livestream/vwls_osdvideo.php:65
-#: scripts/results_and_scores.js.php:139 videowall/vwc_finales.php:93
+#: scripts/results_and_scores.js.php:232 videowall/vwc_finales.php:93
 #: videowall/vwc_parciales.php:93 videowall/vws_parcial_individual.php:55
 msgid "R"
 msgstr "R"
@@ -110,7 +110,7 @@ msgstr "R"
 #: livestream/vwls_osdvideo.php:86 public/pb_inscripciones.php:102
 #: public/pb_inscripciones_equipos.php:149 public/pbmenu_inscripciones.php:102
 #: public/pbmenu_inscripciones_equipos.php:154 scripts/competicion.js.php:1298
-#: scripts/printer.js.php:280 scripts/results_and_scores.js.php:195
+#: scripts/printer.js.php:280 scripts/results_and_scores.js.php:288
 #: server/pdf/print_clasificacion.php:181
 #: server/pdf/print_clasificacion_equipos.php:237
 #: server/pdf/print_clasificacion_excel.php:160
@@ -158,8 +158,8 @@ msgstr "Perro"
 #: livestream/vwls_osdvideo.php:88 public/pb_inscripciones.php:108
 #: public/pb_inscripciones_equipos.php:156 public/pbmenu_inscripciones.php:108
 #: public/pbmenu_inscripciones_equipos.php:161 scripts/competicion.js.php:1298
-#: scripts/printer.js.php:280 scripts/results_and_scores.js.php:130
-#: scripts/results_and_scores.js.php:202 server/pdf/print_clasificacion.php:193
+#: scripts/printer.js.php:280 scripts/results_and_scores.js.php:223
+#: scripts/results_and_scores.js.php:295 server/pdf/print_clasificacion.php:193
 #: server/pdf/print_clasificacion_equipos.php:245
 #: server/pdf/print_clasificacion_excel.php:165
 #: server/pdf/print_entradaDeDatos.php:169
@@ -199,9 +199,9 @@ msgstr "Gu&iacute;a"
 #: lib/templates/orden_salida.inc.php:33
 #: lib/templates/parcial_individual.inc.php:27
 #: lib/templates/parcial_last_individual.inc.php:29
-#: livestream/vwls_osdvideo.php:89 modules/Federations.php:274
+#: livestream/vwls_osdvideo.php:89 modules/Federations.php:275
 #: scripts/competicion.js.php:1298 scripts/datagrid_formatters.js.php:154
-#: scripts/results_and_scores.js.php:131 server/excel/common_writer.php:114
+#: scripts/results_and_scores.js.php:224 server/excel/common_writer.php:114
 #: server/pdf/print_clasificacion_excel.php:103
 #: server/pdf/print_clasificacion_excel.php:166 server/pdf/print_common.php:187
 #: server/pdf/print_entrenamientos.php:63 server/pdf/print_listaPerros.php:60
@@ -297,11 +297,11 @@ msgstr "Falta"
 msgid "Refusal"
 msgstr "Reh&uacute;se"
 
-#: chrono/chrono.inc.php:98 modules/Competitions.php:123
+#: chrono/chrono.inc.php:98 modules/Competitions.php:126
 #: modules/competiciones/Liga_RFEC.php:139
-#: modules/competiciones/Liga_RFEC_Madrid.php:72
+#: modules/competiciones/Liga_RFEC_Madrid.php:76
 #: modules/competiciones/Liga_UCA.php:41
-#: modules/competiciones/Selectiva_PastorBelga.php:79
+#: modules/competiciones/Selectiva_PastorBelga.php:83
 #: server/pdf/print_entradaDeDatos.php:202
 #: server/pdf/print_entradaDeDatos.php:384
 #: server/pdf/print_entradaDeDatos.php:405
@@ -337,7 +337,8 @@ msgstr "Eliminado"
 #: scripts/pruebas.js.php:111 scripts/pruebas.js.php:139
 #: scripts/pruebas.js.php:187 scripts/pruebas.js.php:250
 #: scripts/pruebas.js.php:375 scripts/pruebas.js.php:509
-#: scripts/pruebas.js.php:515 scripts/results_and_scores.js.php:238
+#: scripts/pruebas.js.php:515 scripts/results_and_scores.js.php:48
+#: scripts/results_and_scores.js.php:118 scripts/results_and_scores.js.php:331
 #: scripts/sesiones.js.php:80 scripts/sesiones.js.php:140
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
 #: scripts/usuarios.js.php:86 scripts/usuarios.js.php:150
@@ -411,10 +412,10 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 
 #: chrono/chrono.js.php:135 chrono/chrono.js.php:216 chrono/chrono.js.php:284
 #: chrono/chrono.js.php:385 livestream/livestream.js.php:179
-#: modules/Competitions.php:124 modules/competiciones/Liga_RFEC.php:140
-#: modules/competiciones/Liga_RFEC_Madrid.php:73
+#: modules/Competitions.php:127 modules/competiciones/Liga_RFEC.php:140
+#: modules/competiciones/Liga_RFEC_Madrid.php:77
 #: modules/competiciones/Liga_UCA.php:42
-#: modules/competiciones/Selectiva_PastorBelga.php:80
+#: modules/competiciones/Selectiva_PastorBelga.php:84
 #: scripts/datagrid_formatters.js.php:164
 #: server/pdf/print_entradaDeDatos.php:276
 #: server/pdf/print_resultadosByEquipos4.php:205 tablet/tablet_main.php:104
@@ -442,13 +443,13 @@ msgstr "NoPr"
 #: lib/templates/parcial_individual.inc.php:19
 #: lib/templates/parcial_last_individual.inc.php:21
 #: lib/templates/parcial_last_teams.inc.php:21 livestream/vwls_finales.php:95
-#: scripts/results_and_scores.js.php:123
+#: scripts/results_and_scores.js.php:216
 msgid "Dors"
 msgstr "Dors"
 
 #: chrono/chrono.js.php:152 chrono/index.php:144 console/frm_admin.php:180
-#: console/frm_clasificaciones2.php:152
-#: console/frm_clasificaciones_equipos.php:150 console/frm_clubes.php:99
+#: console/frm_clasificaciones2.php:154
+#: console/frm_clasificaciones_equipos.php:152 console/frm_clubes.php:99
 #: console/frm_clubes.php:173 console/frm_clubes.php:258
 #: console/frm_equipos.php:141 console/frm_equipos.php:221
 #: console/frm_equipos.php:293 console/frm_guias.php:92
@@ -465,12 +466,13 @@ msgstr "Dors"
 #: lib/templates/orden_salida.inc.php:25
 #: lib/templates/parcial_individual.inc.php:20
 #: lib/templates/parcial_last_individual.inc.php:22
-#: lib/templates/parcial_last_teams.inc.php:22 livestream/index.php:251
+#: lib/templates/parcial_last_teams.inc.php:22
+#: lib/templates/scores_mail.inc.php:182 livestream/index.php:251
 #: livestream/vwls_finales.php:96 livestream/vwls_osdvideo.php:87
 #: public/pb_inscripciones.php:103 public/pb_inscripciones_equipos.php:151
 #: public/pbmenu_inscripciones.php:103
 #: public/pbmenu_inscripciones_equipos.php:156
-#: scripts/results_and_scores.js.php:125 scripts/results_and_scores.js.php:197
+#: scripts/results_and_scores.js.php:218 scripts/results_and_scores.js.php:290
 #: server/excel/common_writer.php:114 server/excel/common_writer.php:134
 #: server/pdf/print_clasificacion.php:183
 #: server/pdf/print_clasificacion.php:185
@@ -504,7 +506,7 @@ msgstr "Dors"
 #: console/dialogs/dlg_ordensalida.inc:166
 #: console/dialogs/dlg_ordentandas.inc:53
 #: console/dialogs/dlg_ordentandas.inc:169 console/dialogs/dlg_perros.inc:29
-#: console/dialogs/dlg_plugins.inc:52 console/dialogs/dlg_pruebas.inc:340
+#: console/dialogs/dlg_plugins.inc:52 console/dialogs/dlg_pruebas.inc:342
 #: console/dialogs/dlg_selectJornada.inc:83 console/dialogs/dlg_sesiones.inc:28
 #: console/dialogs/dlg_usuarios.inc:55
 msgid "Name"
@@ -532,7 +534,7 @@ msgstr "Gu&iacute;a"
 #: public/pb_inscripciones_equipos.php:154 public/pbmenu_inscripciones.php:106
 #: public/pbmenu_inscripciones_equipos.php:96
 #: public/pbmenu_inscripciones_equipos.php:159
-#: scripts/results_and_scores.js.php:127 scripts/results_and_scores.js.php:199
+#: scripts/results_and_scores.js.php:220 scripts/results_and_scores.js.php:292
 #: server/pdf/print_clasificacion.php:191
 #: server/pdf/print_clasificacion_equipos.php:244
 #: server/pdf/print_inscritosByPrueba.php:126
@@ -571,7 +573,7 @@ msgstr "Equipo"
 
 #: chrono/chrono.js.php:164 chrono/chrono.js.php:261 console/frm_clubes.php:103
 #: console/frm_jueces.php:90 console/frm_paises.php:81
-#: console/import/import_clubes.inc.php:100 modules/Federations.php:274
+#: console/import/import_clubes.inc.php:100 modules/Federations.php:275
 #: scripts/datagrid_formatters.js.php:154
 #: scripts/datagrid_formatters.js.php:499
 #: scripts/datagrid_formatters.js.php:509 server/excel/dog_reader.php:363
@@ -629,8 +631,8 @@ msgid "Work with selected ring/session"
 msgstr "Trabajar con el ring seleccionado"
 
 #: chrono/index.php:145 console/dialogs/infomanga.php:322
-#: console/frm_clasificaciones2.php:56
-#: console/frm_clasificaciones_equipos.php:55 console/frm_clubes.php:176
+#: console/frm_clasificaciones2.php:58
+#: console/frm_clasificaciones_equipos.php:57 console/frm_clubes.php:176
 #: console/frm_equipos.php:143 console/frm_equipos.php:228
 #: console/frm_equipos.php:295 console/frm_guias.php:97
 #: console/frm_inscripciones2.php:73 console/frm_paises.php:140
@@ -884,12 +886,12 @@ msgstr ""
 "jornada"
 
 #: console/frm_about.php:29 console/frm_registration.php:30
-#: console/dialogs/dlg_plugins.inc:54
+#: console/dialogs/dlg_plugins.inc:55
 msgid "Version"
 msgstr "Versi&oacute;n"
 
-#: console/frm_about.php:29 console/frm_clasificaciones2.php:48
-#: console/frm_clasificaciones_equipos.php:47
+#: console/frm_about.php:29 console/frm_clasificaciones2.php:50
+#: console/frm_clasificaciones_equipos.php:49
 #: console/frm_inscripciones2.php:171 console/frm_pruebas.php:157
 #: lib/templates/entrenamientos.inc.php:18
 #: server/excel/classes/Excel_Entrenamientos.php:52
@@ -1110,31 +1112,31 @@ msgstr "Buscar sesiones que coincidan con el criterio de busqueda"
 msgid "Results & Scores"
 msgstr "Resultados y Clasificaciones"
 
-#: console/frm_clasificaciones.php:47 console/frm_clasificaciones2.php:99
-#: console/frm_clasificaciones_equipos.php:98 console/index.php:225
+#: console/frm_clasificaciones.php:47 console/frm_clasificaciones2.php:101
+#: console/frm_clasificaciones_equipos.php:100 console/index.php:225
 #: server/excel/classes/Excel_Clasificaciones.php:239
 #: server/pdf/print_clasificacion.php:176
 #: server/pdf/print_clasificacion_excel.php:157
 msgid "Scores"
 msgstr "Clasificaciones"
 
-#: console/frm_clasificaciones2.php:29
-#: console/frm_clasificaciones_equipos.php:28 console/frm_inscripciones2.php:55
+#: console/frm_clasificaciones2.php:31
+#: console/frm_clasificaciones_equipos.php:30 console/frm_inscripciones2.php:55
 msgid "Contests data"
 msgstr "Datos de la prueba"
 
-#: console/frm_clasificaciones2.php:35
-#: console/frm_clasificaciones_equipos.php:34 console/frm_inscripciones2.php:65
+#: console/frm_clasificaciones2.php:37
+#: console/frm_clasificaciones_equipos.php:36 console/frm_inscripciones2.php:65
 msgid "Title"
 msgstr "Denominaci&oacute;n"
 
-#: console/frm_clasificaciones2.php:40
-#: console/frm_clasificaciones_equipos.php:39 console/frm_inscripciones2.php:69
+#: console/frm_clasificaciones2.php:42
+#: console/frm_clasificaciones_equipos.php:41 console/frm_inscripciones2.php:69
 msgid "Organizing Club"
 msgstr "Club anfitri&oacute;n"
 
-#: console/frm_clasificaciones2.php:44
-#: console/frm_clasificaciones_equipos.php:43 index.php:141
+#: console/frm_clasificaciones2.php:46
+#: console/frm_clasificaciones_equipos.php:45 index.php:141
 #: scripts/equipos.js.php:73 scripts/equipos.js.php:126
 #: server/excel/classes/Excel_PartialScores.php:71
 #: server/excel/common_writer.php:66 server/excel/common_writer.php:139
@@ -1151,8 +1153,8 @@ msgstr "Club anfitri&oacute;n"
 msgid "Journey"
 msgstr "Jornada"
 
-#: console/frm_clasificaciones2.php:52
-#: console/frm_clasificaciones_equipos.php:51
+#: console/frm_clasificaciones2.php:54
+#: console/frm_clasificaciones_equipos.php:53
 #: lib/templates/final_individual.inc.php:33
 #: lib/templates/final_individual_2rondas.inc.php:12
 #: lib/templates/final_last_individual.inc.php:12
@@ -1176,41 +1178,41 @@ msgstr "Jornada"
 msgid "Round"
 msgstr "Manga"
 
-#: console/frm_clasificaciones2.php:63
-#: console/frm_clasificaciones_equipos.php:63
+#: console/frm_clasificaciones2.php:65
+#: console/frm_clasificaciones_equipos.php:65
 msgid "Technical data on current round series"
 msgstr "Datos t&eacute;cnicos de las mangas"
 
-#: console/frm_clasificaciones2.php:74
-#: console/frm_clasificaciones_equipos.php:82 tablet/tablet_main.php:122
+#: console/frm_clasificaciones2.php:76
+#: console/frm_clasificaciones_equipos.php:84 tablet/tablet_main.php:122
 #: console/dialogs/dlg_ordensalida.inc:57 console/dialogs/dlg_plugins.inc:22
 msgid "Refresh"
 msgstr "Refrescar"
 
-#: console/frm_clasificaciones2.php:76
-#: console/frm_clasificaciones_equipos.php:84 console/frm_equipos.php:44
+#: console/frm_clasificaciones2.php:78
+#: console/frm_clasificaciones_equipos.php:86 console/frm_equipos.php:44
 msgid "Verify"
 msgstr "Verificar"
 
-#: console/frm_clasificaciones2.php:78
-#: console/frm_clasificaciones_equipos.php:86 console/frm_pruebas.php:51
+#: console/frm_clasificaciones2.php:80
+#: console/frm_clasificaciones_equipos.php:88 console/frm_pruebas.php:51
 msgid "Mail"
 msgstr "Correo"
 
-#: console/frm_clasificaciones2.php:80
-#: console/frm_clasificaciones_equipos.php:88
+#: console/frm_clasificaciones2.php:82
+#: console/frm_clasificaciones_equipos.php:90
 #: console/dialogs/dlg_configuracion.inc:256
 msgid "Reports"
 msgstr "Informes"
 
-#: console/frm_clasificaciones2.php:85
+#: console/frm_clasificaciones2.php:87
 #: lib/templates/final_rounds_data.inc.php:10
 #: lib/templates/parcial_round_data.inc.php:11
 #: livestream/vwls_entrenamientos.php:66 livestream/vwls_finales.php:69
 #: livestream/vwls_finales.php:208 livestream/vwls_ordensalida.php:65
 #: livestream/vwls_ordensalida.php:125 livestream/vwls_parciales.php:68
 #: livestream/vwls_parciales.php:165 public/public.js.php:140
-#: scripts/results_and_scores.js.php:63 scripts/results_and_scores.js.php:74
+#: scripts/results_and_scores.js.php:156 scripts/results_and_scores.js.php:167
 #: tablet/tablet.js.php:393 videowall/videowall.js.php:612
 #: videowall/vw_entrenamientos.php:39 videowall/vw_finales.php:49
 #: videowall/vw_finales.php:135 videowall/vw_ordensalida.php:39
@@ -1219,48 +1221,48 @@ msgstr "Informes"
 msgid "No round selected"
 msgstr "No se ha indicado ninguna manga"
 
-#: console/frm_clasificaciones2.php:94
-#: console/frm_clasificaciones_equipos.php:93
+#: console/frm_clasificaciones2.php:96
+#: console/frm_clasificaciones_equipos.php:95
 msgid "Select format"
 msgstr "Selecciona formato"
 
-#: console/frm_clasificaciones2.php:96
-#: console/frm_clasificaciones_equipos.php:95 server/pdf/print_podium.php:67
+#: console/frm_clasificaciones2.php:98
+#: console/frm_clasificaciones_equipos.php:97 server/pdf/print_podium.php:67
 msgid "Podium"
 msgstr "Podium"
 
-#: console/frm_clasificaciones2.php:97
-#: console/frm_clasificaciones_equipos.php:96
+#: console/frm_clasificaciones2.php:99
+#: console/frm_clasificaciones_equipos.php:98
 msgid "Text export"
 msgstr "Exportar como texto"
 
-#: console/frm_clasificaciones2.php:98
-#: console/frm_clasificaciones_equipos.php:97
+#: console/frm_clasificaciones2.php:100
+#: console/frm_clasificaciones_equipos.php:99
 msgid "R.S.C.E. Report"
 msgstr "Informe R.S.C.E."
 
-#: console/frm_clasificaciones2.php:102
-#: console/frm_clasificaciones_equipos.php:101
+#: console/frm_clasificaciones2.php:104
+#: console/frm_clasificaciones_equipos.php:103
 msgid "Label sheets"
 msgstr "Hojas de etiquetas"
 
-#: console/frm_clasificaciones2.php:103
-#: console/frm_clasificaciones_equipos.php:102
+#: console/frm_clasificaciones2.php:105
+#: console/frm_clasificaciones_equipos.php:104
 msgid "Isolated labels"
 msgstr "Etiquetas sueltas"
 
-#: console/frm_clasificaciones2.php:106
-#: console/frm_clasificaciones_equipos.php:105
+#: console/frm_clasificaciones2.php:108
+#: console/frm_clasificaciones_equipos.php:107
 msgid "Initial label"
 msgstr "Etiqueta inicial"
 
-#: console/frm_clasificaciones2.php:109
-#: console/frm_clasificaciones_equipos.php:108
+#: console/frm_clasificaciones2.php:111
+#: console/frm_clasificaciones_equipos.php:110
 msgid "Dorsal list"
 msgstr "Lista de dorsales"
 
-#: console/frm_clasificaciones2.php:116
-#: console/frm_clasificaciones_equipos.php:115 console/frm_equipos.php:46
+#: console/frm_clasificaciones2.php:118
+#: console/frm_clasificaciones_equipos.php:117 console/frm_equipos.php:46
 #: console/frm_inscripciones2.php:124 console/frm_perros.php:81
 #: console/dialogs/dlg_entrenamientos.inc:113
 #: console/dialogs/dlg_ordensalida.inc:59
@@ -1270,38 +1272,38 @@ msgstr "Lista de dorsales"
 msgid "Print"
 msgstr "Imprimir"
 
-#: console/frm_clasificaciones2.php:180
-#: console/frm_clasificaciones_equipos.php:178
+#: console/frm_clasificaciones2.php:182
+#: console/frm_clasificaciones_equipos.php:180
 msgid "Update score tables"
 msgstr "Actualizar tablas de resultados"
 
-#: console/frm_clasificaciones2.php:181
-#: console/frm_clasificaciones_equipos.php:179
+#: console/frm_clasificaciones2.php:183
+#: console/frm_clasificaciones_equipos.php:181
 msgid "Check for dogs without registered data"
 msgstr "Comprobar si hay perros sin datos anotados"
 
-#: console/frm_clasificaciones2.php:182
-#: console/frm_clasificaciones_equipos.php:181
+#: console/frm_clasificaciones2.php:184
+#: console/frm_clasificaciones_equipos.php:183
 msgid "Print scores on current round"
 msgstr "Imprimir clasificaci&oacute;n de la manga"
 
-#: console/frm_clasificaciones2.php:183
-#: console/frm_clasificaciones_equipos.php:180
+#: console/frm_clasificaciones2.php:185
+#: console/frm_clasificaciones_equipos.php:182
 msgid "Share results and scores by electronic mail"
 msgstr "Enviar resultados y clasificaciones por correo electr&oacute;nico"
 
-#: console/frm_clasificaciones2.php:184
-#: console/frm_clasificaciones_equipos.php:182
+#: console/frm_clasificaciones2.php:186
+#: console/frm_clasificaciones_equipos.php:184
 msgid "Print data in selected format"
 msgstr "Imprimir los datos en el formato seleccionado"
 
-#: console/frm_clasificaciones2.php:185
-#: console/frm_clasificaciones_equipos.php:183
+#: console/frm_clasificaciones2.php:187
+#: console/frm_clasificaciones_equipos.php:185
 msgid "where to start printing<br/>in labels sheet"
 msgstr "Posici&oacute;n inicial <br /> en la hoja de etiquetas"
 
-#: console/frm_clasificaciones2.php:186
-#: console/frm_clasificaciones_equipos.php:184
+#: console/frm_clasificaciones2.php:188
+#: console/frm_clasificaciones_equipos.php:186
 msgid "Comma separated list of dorsals to be printed"
 msgstr "Lista de dorsales a imprimir separada por comas"
 
@@ -1376,10 +1378,10 @@ msgid "Loading handlers list"
 msgstr "Cargando lista de gu&iacute;as"
 
 #: console/frm_clubes.php:175 console/frm_jueces.php:98
-#: console/frm_paises.php:139 console/dialogs/dlg_chguias.inc:47
-#: console/dialogs/dlg_clubes.inc:106 console/dialogs/dlg_guias.inc:37
-#: console/dialogs/dlg_jueces.inc:67 console/dialogs/dlg_pruebas.inc:275
-#: console/dialogs/dlg_usuarios.inc:71
+#: console/frm_paises.php:139 lib/templates/scores_mail.inc.php:183
+#: console/dialogs/dlg_chguias.inc:47 console/dialogs/dlg_clubes.inc:106
+#: console/dialogs/dlg_guias.inc:37 console/dialogs/dlg_jueces.inc:67
+#: console/dialogs/dlg_pruebas.inc:277 console/dialogs/dlg_usuarios.inc:71
 msgid "Electronic mail"
 msgstr "Correo electr&oacute;nico"
 
@@ -1609,7 +1611,8 @@ msgstr "Editar"
 msgid "Delete"
 msgstr "Borrar"
 
-#: console/frm_equipos.php:56 console/dialogs/dlg_newInscripcion.inc:96
+#: console/frm_equipos.php:56 scripts/results_and_scores.js.php:120
+#: console/dialogs/dlg_newInscripcion.inc:96
 msgid "Done"
 msgstr "Hecho"
 
@@ -1617,9 +1620,10 @@ msgstr "Hecho"
 #: console/frm_inscripciones2.php:48 console/frm_login.php:59
 #: console/frm_logout.php:37 console/frm_myAdmin.php:65
 #: console/frm_perros.php:34 console/frm_perros.php:48
-#: tablet/tablet_main.php:59 console/dialogs/dlg_chguias.inc:72
-#: console/dialogs/dlg_chperros.inc:99 console/dialogs/dlg_clubes.inc:41
-#: console/dialogs/dlg_clubes.inc:137 console/dialogs/dlg_competicion.inc:146
+#: lib/templates/scores_mail.inc.php:81 tablet/tablet_main.php:59
+#: console/dialogs/dlg_chguias.inc:72 console/dialogs/dlg_chperros.inc:99
+#: console/dialogs/dlg_clubes.inc:41 console/dialogs/dlg_clubes.inc:137
+#: console/dialogs/dlg_competicion.inc:146
 #: console/dialogs/dlg_editInscripcion.inc:96
 #: console/dialogs/dlg_entrenamientos.inc:83
 #: console/dialogs/dlg_entrenamientos.inc:100 console/dialogs/dlg_guias.inc:62
@@ -1693,7 +1697,7 @@ msgstr "Leyendo lista de inscritos"
 #: lib/templates/parcial_last_teams.inc.php:24 public/pb_inscripciones.php:104
 #: public/pb_inscripciones_equipos.php:152 public/pbmenu_inscripciones.php:104
 #: public/pbmenu_inscripciones_equipos.php:157
-#: scripts/results_and_scores.js.php:126 scripts/results_and_scores.js.php:198
+#: scripts/results_and_scores.js.php:219 scripts/results_and_scores.js.php:291
 #: server/pdf/print_clasificacion.php:186
 #: server/pdf/print_clasificacion_equipos.php:242
 #: server/pdf/print_entradaDeDatos.php:166
@@ -1978,9 +1982,9 @@ msgstr "Importar inscripciones desde el fichero Excel seleccionado"
 
 #: console/frm_inscripciones2.php:304 console/frm_myAdmin.php:101
 #: console/frm_perros.php:208 console/frm_perros.php:210
-#: console/frm_registration.php:134 console/dialogs/dlg_chguias.inc:82
-#: console/dialogs/dlg_chperros.inc:112 console/dialogs/dlg_clubes.inc:145
-#: console/dialogs/dlg_clubes.inc:147
+#: console/frm_registration.php:134 lib/templates/scores_mail.inc.php:89
+#: console/dialogs/dlg_chguias.inc:82 console/dialogs/dlg_chperros.inc:112
+#: console/dialogs/dlg_clubes.inc:145 console/dialogs/dlg_clubes.inc:147
 #: console/dialogs/dlg_entrenamientos.inc:292 console/dialogs/dlg_guias.inc:79
 #: console/dialogs/dlg_jornadas.inc:321 console/dialogs/dlg_jueces.inc:119
 #: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:112
@@ -2076,7 +2080,7 @@ msgid "Session init"
 msgstr "Inicio de sesi&oacute;n"
 
 #: console/frm_login.php:121 console/frm_perros.php:131
-#: console/dialogs/dlg_pruebas.inc:338
+#: console/dialogs/dlg_pruebas.inc:340
 msgid "ID"
 msgstr "ID"
 
@@ -2228,8 +2232,8 @@ msgid "Handler name"
 msgstr "Nombre del gu&iacute;a"
 
 #: console/frm_perros.php:186 console/import/import_clubes.inc.php:98
-#: console/dialogs/dlg_guias.inc:121 console/dialogs/dlg_pruebas.inc:274
-#: console/dialogs/dlg_pruebas.inc:364 console/dialogs/dlg_usuarios.inc:142
+#: console/dialogs/dlg_guias.inc:121 console/dialogs/dlg_pruebas.inc:276
+#: console/dialogs/dlg_pruebas.inc:366 console/dialogs/dlg_usuarios.inc:142
 msgid "Club name"
 msgstr "Nombre del Club"
 
@@ -2622,7 +2626,7 @@ msgstr "Borrar selecci&oacute;n de club"
 
 #: console/import/import_clubes.inc.php:99 console/dialogs/dlg_clubes.inc:65
 #: console/dialogs/dlg_clubes.inc:195 console/dialogs/dlg_guias.inc:122
-#: console/dialogs/dlg_pruebas.inc:276 console/dialogs/dlg_pruebas.inc:365
+#: console/dialogs/dlg_pruebas.inc:278 console/dialogs/dlg_pruebas.inc:367
 #: console/dialogs/dlg_usuarios.inc:143
 msgid "Province"
 msgstr "Provincia"
@@ -2936,9 +2940,9 @@ msgstr "Datos del participante"
 #: lib/templates/parcial_last_teams.inc.php:40
 #: lib/templates/parcial_teams.inc.php:17 livestream/vwls_finales.php:98
 #: livestream/vwls_finales.php:101 livestream/vwls_finales.php:104
-#: scripts/datagrid_formatters.js.php:374 scripts/results_and_scores.js.php:134
-#: scripts/results_and_scores.js.php:140 scripts/results_and_scores.js.php:144
-#: scripts/results_and_scores.js.php:207 server/pdf/print_clasificacion.php:200
+#: scripts/datagrid_formatters.js.php:374 scripts/results_and_scores.js.php:227
+#: scripts/results_and_scores.js.php:233 scripts/results_and_scores.js.php:237
+#: scripts/results_and_scores.js.php:300 server/pdf/print_clasificacion.php:200
 #: server/pdf/print_clasificacion.php:212
 #: server/pdf/print_clasificacion.php:224
 #: server/pdf/print_clasificacion.php:232
@@ -2973,7 +2977,7 @@ msgstr "Tiempo"
 #: lib/templates/parcial_individual.inc.php:41
 #: lib/templates/parcial_last_individual.inc.php:43
 #: lib/templates/parcial_last_teams.inc.php:45 livestream/vwls_finales.php:105
-#: scripts/results_and_scores.js.php:145 server/pdf/print_clasificacion.php:233
+#: scripts/results_and_scores.js.php:238 server/pdf/print_clasificacion.php:233
 #: server/pdf/print_clasificacion_equipos.php:267
 #: server/pdf/print_clasificacion_equipos.php:273
 #: server/pdf/print_clasificacion_excel.php:171
@@ -2991,7 +2995,7 @@ msgstr "Penal"
 #: lib/templates/parcial_individual.inc.php:42
 #: lib/templates/parcial_last_individual.inc.php:44
 #: lib/templates/parcial_last_teams.inc.php:46
-#: scripts/results_and_scores.js.php:146 scripts/results_and_scores.js.php:210
+#: scripts/results_and_scores.js.php:239 scripts/results_and_scores.js.php:303
 #: server/pdf/print_clasificacion.php:203
 #: server/pdf/print_clasificacion.php:215
 #: server/pdf/print_clasificacion.php:227
@@ -3008,7 +3012,7 @@ msgstr "Calif"
 #: lib/templates/parcial_individual.inc.php:43
 #: lib/templates/parcial_last_individual.inc.php:45
 #: lib/templates/parcial_last_teams.inc.php:47 livestream/vwls_finales.php:106
-#: scripts/results_and_scores.js.php:147 scripts/results_and_scores.js.php:211
+#: scripts/results_and_scores.js.php:240 scripts/results_and_scores.js.php:304
 #: server/pdf/print_clasificacion.php:235
 #: server/pdf/print_clasificacion_equipos.php:269
 #: server/pdf/print_clasificacion_excel.php:186 server/pdf/print_podium.php:161
@@ -3026,8 +3030,8 @@ msgstr "Puesto"
 #: lib/templates/parcial_individual.inc.php:28
 #: lib/templates/parcial_last_individual.inc.php:30
 #: lib/templates/parcial_last_teams.inc.php:32
-#: scripts/results_and_scores.js.php:132 scripts/results_and_scores.js.php:138
-#: scripts/results_and_scores.js.php:204 server/pdf/print_clasificacion.php:198
+#: scripts/results_and_scores.js.php:225 scripts/results_and_scores.js.php:231
+#: scripts/results_and_scores.js.php:297 server/pdf/print_clasificacion.php:198
 #: server/pdf/print_clasificacion.php:210
 #: server/pdf/print_clasificacion.php:222
 #: server/pdf/print_clasificacion_equipos.php:248
@@ -3053,8 +3057,8 @@ msgstr "F/T"
 #: lib/templates/parcial_last_individual.inc.php:42
 #: lib/templates/parcial_last_teams.inc.php:44
 #: lib/templates/parcial_round_data.inc.php:22
-#: scripts/results_and_scores.js.php:135 scripts/results_and_scores.js.php:141
-#: scripts/results_and_scores.js.php:208
+#: scripts/results_and_scores.js.php:228 scripts/results_and_scores.js.php:234
+#: scripts/results_and_scores.js.php:301
 #: server/excel/classes/Excel_Clasificaciones.php:94
 #: server/pdf/print_clasificacion.php:104
 #: server/pdf/print_clasificacion.php:118
@@ -3084,8 +3088,8 @@ msgstr "Vel"
 #: lib/templates/final_last_teams.inc.php:49
 #: lib/templates/final_teams.inc.php:24 lib/templates/final_teams.inc.php:26
 #: livestream/vwls_finales.php:99 livestream/vwls_finales.php:102
-#: scripts/datagrid_formatters.js.php:374 scripts/results_and_scores.js.php:136
-#: scripts/results_and_scores.js.php:142 scripts/results_and_scores.js.php:209
+#: scripts/datagrid_formatters.js.php:374 scripts/results_and_scores.js.php:229
+#: scripts/results_and_scores.js.php:235 scripts/results_and_scores.js.php:302
 #: server/pdf/print_clasificacion.php:202
 #: server/pdf/print_clasificacion.php:214
 #: server/pdf/print_clasificacion.php:226
@@ -3104,7 +3108,7 @@ msgstr "Penal"
 #: lib/templates/final_last_individual.inc.php:57
 #: lib/templates/final_last_teams.inc.php:43
 #: lib/templates/final_last_teams.inc.php:50
-#: scripts/results_and_scores.js.php:137 scripts/results_and_scores.js.php:143
+#: scripts/results_and_scores.js.php:230 scripts/results_and_scores.js.php:236
 msgid "Cal"
 msgstr "Cal"
 
@@ -3138,7 +3142,7 @@ msgstr "Grd"
 
 #: lib/templates/final_rounds_data.inc.php:15
 #: lib/templates/final_rounds_data.inc.php:23
-#: scripts/results_and_scores.js.php:77 scripts/results_and_scores.js.php:83
+#: scripts/results_and_scores.js.php:170 scripts/results_and_scores.js.php:176
 msgid "Data info for round"
 msgstr "Datos de la manga"
 
@@ -3317,6 +3321,79 @@ msgstr "TRM"
 msgid "Updating partial scores"
 msgstr "Actualizando resultados de la manga"
 
+#: lib/templates/scores_mail.inc.php:26
+msgid "Before sending email with contest results to judge(s), please:"
+msgstr "Antes de enviar correo con los resultados a los jueces, por favor:"
+
+#: lib/templates/scores_mail.inc.php:28
+msgid "Revise email addresses and select judge(s) to send email to"
+msgstr "Seleccione destinatarios y compruebe las direcciones de correo"
+
+#: lib/templates/scores_mail.inc.php:29
+msgid "Also decide whether to send mail copy to Federation"
+msgstr "Indique si desea enviar copia a la federaci&oacute;n"
+
+#: lib/templates/scores_mail.inc.php:30
+msgid "Choose also if you want to send partial (round) scores"
+msgstr ""
+"Indique tambi&eacute;n si desea enviar resultados parciales (por mangas)"
+
+#: lib/templates/scores_mail.inc.php:31
+msgid "Revise and edit message body"
+msgstr "Revisar y si es necesario editar el mensaje"
+
+#: lib/templates/scores_mail.inc.php:32
+msgid "Press double-click on judge to set/change email"
+msgstr "DobleClick en el juez para ajustar/cambiar correo"
+
+#: lib/templates/scores_mail.inc.php:37
+msgid "Also send scores for each separate round"
+msgstr "Enviar tambi&eacute;n puntuaciones por mangas separadas"
+
+#: lib/templates/scores_mail.inc.php:41
+msgid "Send a copy to federation"
+msgstr "Enviar copia a la federaci&oacute;n"
+
+#: lib/templates/scores_mail.inc.php:43
+msgid "Federation Email"
+msgstr "Correo de la federaci&oacute;n"
+
+#: lib/templates/scores_mail.inc.php:54 console/dialogs/dlg_pruebas.inc:65
+msgid "Text editor"
+msgstr "Editor de texto"
+
+#: lib/templates/scores_mail.inc.php:75 console/dialogs/dlg_pruebas.inc:106
+msgid "Message"
+msgstr "Mensaje"
+
+#: lib/templates/scores_mail.inc.php:79 console/dialogs/dlg_pruebas.inc:112
+msgid "Send"
+msgstr "Enviar"
+
+#: lib/templates/scores_mail.inc.php:87 console/dialogs/dlg_pruebas.inc:197
+msgid "Edit mail template text to be sent"
+msgstr "Editar el texto del mensaje a enviar"
+
+#: lib/templates/scores_mail.inc.php:88 console/dialogs/dlg_pruebas.inc:199
+msgid "Accept data. Start mailing procedure"
+msgstr "Aceptar datos. Comenzar envio de correo"
+
+#: lib/templates/scores_mail.inc.php:158
+msgid "Judges for this journey"
+msgstr "Jueces de esta jornada"
+
+#: lib/templates/scores_mail.inc.php:159
+msgid "Updating judge(s) list"
+msgstr "Actualizando lista de jueces"
+
+#: lib/templates/scores_mail.inc.php:184
+msgid "International"
+msgstr "Internacional"
+
+#: lib/templates/scores_mail.inc.php:185
+msgid "Learning"
+msgstr "Pr&aacute;cticas"
+
 #: livestream/index.php:184 videowall/index.php:215
 msgid "Select Session/Ring"
 msgstr "Selecciona Ring"
@@ -3403,20 +3480,20 @@ msgstr "Puntos"
 msgid "Stars"
 msgstr "Estrellas"
 
-#: modules/Competitions.php:118 modules/competiciones/Liga_RFEC.php:134
-#: modules/competiciones/Liga_RFEC_Madrid.php:67
+#: modules/Competitions.php:121 modules/competiciones/Liga_RFEC.php:134
+#: modules/competiciones/Liga_RFEC_Madrid.php:71
 #: modules/competiciones/Liga_UCA.php:36
-#: modules/competiciones/Selectiva_PastorBelga.php:74
+#: modules/competiciones/Selectiva_PastorBelga.php:78
 #: server/pdf/print_entradaDeDatos.php:201
 #: server/pdf/print_entradaDeDatos.php:383
 #: server/pdf/print_entradaDeDatos.php:404 tablet/tablet_main.php:60
 msgid "Not Present"
 msgstr "No Presentado"
 
-#: modules/Competitions.php:119 modules/competiciones/Liga_RFEC.php:135
-#: modules/competiciones/Liga_RFEC_Madrid.php:68
+#: modules/Competitions.php:122 modules/competiciones/Liga_RFEC.php:135
+#: modules/competiciones/Liga_RFEC_Madrid.php:72
 #: modules/competiciones/Liga_UCA.php:37
-#: modules/competiciones/Selectiva_PastorBelga.php:75
+#: modules/competiciones/Selectiva_PastorBelga.php:79
 #: scripts/datagrid_formatters.js.php:165
 #: server/pdf/print_entradaDeDatos.php:277
 #: server/pdf/print_resultadosByEquipos4.php:206 videowall/videowall.js.php:400
@@ -3424,52 +3501,52 @@ msgstr "No Presentado"
 msgid "N.P."
 msgstr "N.P."
 
-#: modules/Competitions.php:127 modules/competiciones/Liga_RFEC.php:143
-#: modules/competiciones/Liga_RFEC_Madrid.php:76
+#: modules/Competitions.php:130 modules/competiciones/Liga_RFEC.php:143
+#: modules/competiciones/Liga_RFEC_Madrid.php:80
 #: modules/competiciones/Liga_UCA.php:45
-#: modules/competiciones/Selectiva_PastorBelga.php:83
+#: modules/competiciones/Selectiva_PastorBelga.php:87
 msgid "Not Clasified"
 msgstr "No Clasificado"
 
-#: modules/Competitions.php:128 modules/competiciones/Liga_RFEC.php:144
-#: modules/competiciones/Liga_RFEC_Madrid.php:77
+#: modules/Competitions.php:131 modules/competiciones/Liga_RFEC.php:144
+#: modules/competiciones/Liga_RFEC_Madrid.php:81
 #: modules/competiciones/Liga_UCA.php:46
-#: modules/competiciones/Selectiva_PastorBelga.php:84
+#: modules/competiciones/Selectiva_PastorBelga.php:88
 #: videowall/videowall.js.php:398
 msgid "N.C."
 msgstr "N.C."
 
-#: modules/Competitions.php:131 modules/Competitions.php:132
+#: modules/Competitions.php:134 modules/Competitions.php:135
 #: modules/competiciones/Liga_RFEC.php:147
 #: modules/competiciones/Liga_RFEC.php:148
-#: modules/competiciones/Liga_RFEC_Madrid.php:80
-#: modules/competiciones/Liga_RFEC_Madrid.php:81
+#: modules/competiciones/Liga_RFEC_Madrid.php:84
+#: modules/competiciones/Liga_RFEC_Madrid.php:85
 #: modules/competiciones/Liga_UCA.php:49 modules/competiciones/Liga_UCA.php:50
-#: modules/competiciones/Selectiva_PastorBelga.php:87
-#: modules/competiciones/Selectiva_PastorBelga.php:88
+#: modules/competiciones/Selectiva_PastorBelga.php:91
+#: modules/competiciones/Selectiva_PastorBelga.php:92
 #: videowall/videowall.js.php:397
 msgid "Good"
 msgstr "Bien"
 
-#: modules/Competitions.php:135 modules/competiciones/Liga_RFEC.php:151
-#: modules/competiciones/Liga_RFEC_Madrid.php:84
+#: modules/Competitions.php:138 modules/competiciones/Liga_RFEC.php:151
+#: modules/competiciones/Liga_RFEC_Madrid.php:88
 #: modules/competiciones/Liga_UCA.php:54
 msgid "Very good"
 msgstr "Muy bien"
 
-#: modules/Competitions.php:136 modules/competiciones/Liga_RFEC.php:152
-#: modules/competiciones/Liga_RFEC_Madrid.php:85
+#: modules/Competitions.php:139 modules/competiciones/Liga_RFEC.php:152
+#: modules/competiciones/Liga_RFEC_Madrid.php:89
 #: modules/competiciones/Liga_UCA.php:55
-#: modules/competiciones/Selectiva_PastorBelga.php:91
-#: modules/competiciones/Selectiva_PastorBelga.php:92
+#: modules/competiciones/Selectiva_PastorBelga.php:95
+#: modules/competiciones/Selectiva_PastorBelga.php:96
 #: videowall/videowall.js.php:396
 msgid "V.G."
 msgstr "M.B."
 
-#: modules/Competitions.php:139 modules/competiciones/Liga_RFEC.php:155
+#: modules/Competitions.php:142 modules/competiciones/Liga_RFEC.php:155
 #: modules/competiciones/Liga_RFEC.php:159
-#: modules/competiciones/Liga_RFEC_Madrid.php:88
 #: modules/competiciones/Liga_RFEC_Madrid.php:92
+#: modules/competiciones/Liga_RFEC_Madrid.php:96
 #: modules/competiciones/Liga_UCA.php:59 modules/competiciones/Liga_UCA.php:64
 #: modules/competiciones/Puntuable_RSCE_2017.php:91
 #: modules/competiciones/Puntuable_RSCE_2017.php:104
@@ -3480,19 +3557,19 @@ msgstr "M.B."
 msgid "Excellent"
 msgstr "Excelente"
 
-#: modules/Competitions.php:140 modules/Competitions.php:144
+#: modules/Competitions.php:143 modules/Competitions.php:147
 #: modules/competiciones/Liga_RFEC.php:156
 #: modules/competiciones/Liga_RFEC.php:160
-#: modules/competiciones/Liga_RFEC_Madrid.php:89
 #: modules/competiciones/Liga_RFEC_Madrid.php:93
+#: modules/competiciones/Liga_RFEC_Madrid.php:97
 #: modules/competiciones/Liga_UCA.php:60 modules/competiciones/Liga_UCA.php:65
 #: modules/competiciones/Puntuable_RSCE_2016.php:77
 #: modules/competiciones/Puntuable_RSCE_2016.php:78
 #: modules/competiciones/Puntuable_RSCE_2016.php:81
-#: modules/competiciones/Selectiva_PastorBelga.php:95
-#: modules/competiciones/Selectiva_PastorBelga.php:96
 #: modules/competiciones/Selectiva_PastorBelga.php:99
 #: modules/competiciones/Selectiva_PastorBelga.php:100
+#: modules/competiciones/Selectiva_PastorBelga.php:103
+#: modules/competiciones/Selectiva_PastorBelga.php:104
 #: modules/competiciones/Selectiva_awc_RSCE.php:137
 #: modules/competiciones/Selectiva_eo_RSCE.php:153
 #: modules/competiciones/Trofeo_Interclubes_2017.php:75
@@ -3502,12 +3579,12 @@ msgstr "Excelente"
 msgid "Exc"
 msgstr "Exc"
 
-#: modules/Competitions.php:143
+#: modules/Competitions.php:146
 msgid "Excellent (0)"
 msgstr "Excelente (0)"
 
-#: modules/Federations.php:23 modules/federaciones/intl3/config.php:58
-#: modules/federaciones/intl4/config.php:58
+#: modules/Federations.php:23 modules/federaciones/intl3/config.php:59
+#: modules/federaciones/intl4/config.php:59
 msgid "Common course"
 msgstr "Recorrido com&uacute;n"
 
@@ -3530,107 +3607,107 @@ msgstr "Ex P"
 msgid "ExP"
 msgstr "Ex P"
 
-#: modules/federaciones/intl3/config.php:56
 #: modules/federaciones/intl3/config.php:57
-#: modules/federaciones/intl4/config.php:56
-#: modules/federaciones/rfec/config.php:56
+#: modules/federaciones/intl3/config.php:58
+#: modules/federaciones/intl4/config.php:57
+#: modules/federaciones/rfec/config.php:57
 msgid "Large"
 msgstr "Large"
 
-#: modules/federaciones/intl3/config.php:56
-#: modules/federaciones/intl4/config.php:56
-#: modules/federaciones/rfec/config.php:56
+#: modules/federaciones/intl3/config.php:57
+#: modules/federaciones/intl4/config.php:57
+#: modules/federaciones/rfec/config.php:57
 msgid "Medium"
 msgstr "Medium"
 
-#: modules/federaciones/intl3/config.php:56
-#: modules/federaciones/intl4/config.php:56
-#: modules/federaciones/rfec/config.php:56
+#: modules/federaciones/intl3/config.php:57
+#: modules/federaciones/intl4/config.php:57
+#: modules/federaciones/rfec/config.php:57
 msgid "Small"
 msgstr "Small"
 
-#: modules/federaciones/intl3/config.php:57
+#: modules/federaciones/intl3/config.php:58
 msgid "Medium+Small"
 msgstr "Medium+Small"
 
-#: modules/federaciones/intl4/config.php:56
+#: modules/federaciones/intl4/config.php:57
 msgid "Tiny"
 msgstr "Tiny"
 
-#: modules/federaciones/intl4/config.php:57
-#: modules/federaciones/rfec/config.php:57
+#: modules/federaciones/intl4/config.php:58
+#: modules/federaciones/rfec/config.php:58
 msgid "Large+Medium"
 msgstr "Large+Medium"
 
-#: modules/federaciones/intl4/config.php:57
+#: modules/federaciones/intl4/config.php:58
 msgid "Small+Tiny"
 msgstr "Small+Tiny"
 
-#: modules/federaciones/rfec/config.php:56
+#: modules/federaciones/rfec/config.php:57
 msgid "Toy"
 msgstr "Toy"
 
-#: modules/federaciones/rfec/config.php:57
+#: modules/federaciones/rfec/config.php:58
 msgid "Small+Toy"
 msgstr "Small+Toy"
 
-#: modules/federaciones/rfec/config.php:58
+#: modules/federaciones/rfec/config.php:59
 msgid "L+M+S+T"
 msgstr "L+M+S+T"
 
-#: modules/federaciones/rsce/config.php:56
 #: modules/federaciones/rsce/config.php:57
+#: modules/federaciones/rsce/config.php:58
 msgid "Standard"
 msgstr "Standard"
 
-#: modules/federaciones/rsce/config.php:56
+#: modules/federaciones/rsce/config.php:57
 msgid "Midi"
 msgstr "Midi"
 
-#: modules/federaciones/rsce/config.php:56
+#: modules/federaciones/rsce/config.php:57
 msgid "Mini"
 msgstr "Mini"
 
-#: modules/federaciones/rsce/config.php:57
+#: modules/federaciones/rsce/config.php:58
 msgid "Midi+Mini"
 msgstr "Midi+Mini"
 
-#: modules/federaciones/rsce/config.php:58
+#: modules/federaciones/rsce/config.php:59
 msgid "Std+Midi+Mini"
 msgstr "Std+Midi+Mini"
 
-#: modules/federaciones/uca/config.php:56
-#: modules/federaciones/uca/config.php:62
+#: modules/federaciones/uca/config.php:57
+#: modules/federaciones/uca/config.php:63
 msgid "Cat. 60"
 msgstr "Cat. 60"
 
-#: modules/federaciones/uca/config.php:56
-#: modules/federaciones/uca/config.php:62
+#: modules/federaciones/uca/config.php:57
+#: modules/federaciones/uca/config.php:63
 msgid "Cat. 50"
 msgstr "Cat. 50"
 
-#: modules/federaciones/uca/config.php:56
-#: modules/federaciones/uca/config.php:62
+#: modules/federaciones/uca/config.php:57
+#: modules/federaciones/uca/config.php:63
 msgid "Cat. 40"
 msgstr "Cat. 40"
 
-#: modules/federaciones/uca/config.php:56
-#: modules/federaciones/uca/config.php:62
+#: modules/federaciones/uca/config.php:57
+#: modules/federaciones/uca/config.php:63
 msgid "Cat. 30"
 msgstr "Cat. 30"
 
-#: modules/federaciones/uca/config.php:57
-#: modules/federaciones/uca/config.php:63
+#: modules/federaciones/uca/config.php:58
+#: modules/federaciones/uca/config.php:64
 msgid "Cat. 60+50"
 msgstr "Cat. 60+50"
 
-#: modules/federaciones/uca/config.php:57
-#: modules/federaciones/uca/config.php:63
+#: modules/federaciones/uca/config.php:58
+#: modules/federaciones/uca/config.php:64
 msgid "Cat. 40+30"
 msgstr "Cat. 40+30"
 
-#: modules/federaciones/uca/config.php:58
-#: modules/federaciones/uca/config.php:64
+#: modules/federaciones/uca/config.php:59
+#: modules/federaciones/uca/config.php:65
 msgid "60+50+40+30"
 msgstr "60+50+40+30"
 
@@ -4256,7 +4333,7 @@ msgstr "No encontrado"
 msgid "Cannot find dog with dorsal"
 msgstr "No encuentro al perro con dorsal"
 
-#: scripts/competicion.js.php:817 scripts/results_and_scores.js.php:238
+#: scripts/competicion.js.php:817 scripts/results_and_scores.js.php:331
 msgid "Internal error: invalid Federation/Course/Category combination"
 msgstr ""
 "Error interno: combinaci&oacute;n de Federacion/Recorrido/Categor&iacute;a "
@@ -4488,6 +4565,7 @@ msgstr "Nuevas inscripciones"
 #: scripts/inscripciones.js.php:162 scripts/inscripciones.js.php:304
 #: scripts/inscripciones.js.php:352 scripts/pruebas.js.php:313
 #: scripts/pruebas.js.php:333 scripts/pruebas.js.php:355
+#: scripts/results_and_scores.js.php:91
 msgid "No selection"
 msgstr "No seleccionado"
 
@@ -4523,6 +4601,7 @@ msgid "There is no marked dog to be inscribed"
 msgstr "No hay ning&uacute;n perro seleccionado para ser inscrito"
 
 #: scripts/inscripciones.js.php:166 scripts/pruebas.js.php:317
+#: scripts/results_and_scores.js.php:87
 msgid "No permission"
 msgstr "Permisos insuficientes"
 
@@ -4864,7 +4943,7 @@ msgstr "Realmente desea borrar esta prueba"
 msgid "Export error"
 msgstr "Error al exportar"
 
-#: scripts/pruebas.js.php:169
+#: scripts/pruebas.js.php:169 scripts/results_and_scores.js.php:30
 msgid "Change Email"
 msgstr "Cambiar e-mail"
 
@@ -4876,11 +4955,11 @@ msgstr "Nueva direcci&oacute;n de correo para el club"
 msgid "Mailer error"
 msgstr "Error de envio"
 
-#: scripts/pruebas.js.php:211
+#: scripts/pruebas.js.php:211 scripts/results_and_scores.js.php:70
 msgid "Mail services"
 msgstr "Servicios de correo"
 
-#: scripts/pruebas.js.php:212
+#: scripts/pruebas.js.php:212 scripts/results_and_scores.js.php:71
 msgid ""
 "Electronic mail operations<br/>are not allowed for unregistered licenses"
 msgstr ""
@@ -4931,7 +5010,7 @@ msgstr "Procesando"
 msgid "There is no selected clubs to send mail to"
 msgstr "No se ha seleccionado ning&uacute;n club al que enviar correo"
 
-#: scripts/pruebas.js.php:317
+#: scripts/pruebas.js.php:317 scripts/results_and_scores.js.php:87
 msgid "Current user has not enought permissions to send mail"
 msgstr "El usuario actual no tiene suficientes permisos para enviar correo"
 
@@ -4981,6 +5060,26 @@ msgid ""
 msgstr ""
 "No se pueden a&ntilde;adir mangas adicionales cuando hay una prueba KO, "
 "Individual/Open, o una prueba por equipos en una jornada"
+
+#: scripts/results_and_scores.js.php:31
+msgid "Enter new email for judge"
+msgstr "Nuevo correo para el juez"
+
+#: scripts/results_and_scores.js.php:75
+msgid "Email results"
+msgstr "Enviar resultados"
+
+#: scripts/results_and_scores.js.php:91
+msgid "There is no selected judge to send mail to"
+msgstr "No ha seleccionado ning&uacute;n juez para el envio de mensajes"
+
+#: scripts/results_and_scores.js.php:103
+msgid "Sending to"
+msgstr "Enviando a"
+
+#: scripts/results_and_scores.js.php:120
+msgid "Mail successfully sent"
+msgstr "Correo enviado sin errores"
 
 #: scripts/sesiones.js.php:51 scripts/sesiones.js.php:96
 #: scripts/sesiones.js.php:130
@@ -5295,11 +5394,11 @@ msgstr "Pagado"
 msgid "Training table"
 msgstr "Horarios de entrenamiento"
 
-#: server/mail/MailManager.php:290 server/mail/MailManager.php:350
+#: server/mail/MailManager.php:337 server/mail/MailManager.php:404
 msgid "Email sent with"
 msgstr "Correo enviado con"
 
-#: server/mail/MailManager.php:294 server/mail/MailManager.php:354
+#: server/mail/MailManager.php:341 server/mail/MailManager.php:408
 msgid "Please enable HTML view in your email application"
 msgstr "Por favor habilite la visualizacion HTML en su app de correo"
 
@@ -7009,23 +7108,27 @@ msgstr "M&oacute;dulos instalados actualmente"
 msgid "Loading competitions module list"
 msgstr "Actualizando lista de m&oacute;dulos de competici&oacute;n"
 
-#: console/dialogs/dlg_plugins.inc:55
+#: console/dialogs/dlg_plugins.inc:54
+msgid "Email"
+msgstr "Correo Electr&oacute;nico"
+
+#: console/dialogs/dlg_plugins.inc:56
 msgid "Revision"
 msgstr "Revisi&oacute;n"
 
-#: console/dialogs/dlg_plugins.inc:61
+#: console/dialogs/dlg_plugins.inc:62
 msgid "Search and install new competition modules"
 msgstr "Buscar e instalar nuevos m&oacute;dulos de competici&oacute;n"
 
-#: console/dialogs/dlg_plugins.inc:62
+#: console/dialogs/dlg_plugins.inc:63
 msgid "Update selected competition module"
 msgstr "Actualizar el m&oacute;dulo de competici&oacute;n seleccionado"
 
-#: console/dialogs/dlg_plugins.inc:63
+#: console/dialogs/dlg_plugins.inc:64
 msgid "Delete selected competition module"
 msgstr "Borrar el m&oacute;dulo de competici&oacute;n seleccionado"
 
-#: console/dialogs/dlg_plugins.inc:64
+#: console/dialogs/dlg_plugins.inc:65
 msgid "Reload competition module list"
 msgstr "Actualizar lista de m&oacute;dulos de competici&oacute;n"
 
@@ -7080,18 +7183,6 @@ msgstr "Enviando correo"
 msgid "Sending mail to"
 msgstr "Enviando correo a"
 
-#: console/dialogs/dlg_pruebas.inc:65
-msgid "Text editor"
-msgstr "Editor de texto"
-
-#: console/dialogs/dlg_pruebas.inc:106
-msgid "Message"
-msgstr "Mensaje"
-
-#: console/dialogs/dlg_pruebas.inc:112
-msgid "Send"
-msgstr "Enviar"
-
 #: console/dialogs/dlg_pruebas.inc:120
 msgid "Contest information"
 msgstr "Informaci&oacute;n de la prueba"
@@ -7100,31 +7191,23 @@ msgstr "Informaci&oacute;n de la prueba"
 msgid "Name of this contest"
 msgstr "Denominaci&oacute;n de la prueba"
 
-#: console/dialogs/dlg_pruebas.inc:197
-msgid "Edit mail template text to be sent"
-msgstr "Editar el texto del mensaje a enviar"
-
 #: console/dialogs/dlg_pruebas.inc:198
 msgid "Remove mail sent mark from every clubs"
 msgstr "Marcar todos los clubes como `pendiente de env&iacute;o`"
-
-#: console/dialogs/dlg_pruebas.inc:199
-msgid "Accept data. Start mailing procedure"
-msgstr "Aceptar datos. Comenzar envio de correo"
 
 #: console/dialogs/dlg_pruebas.inc:201
 msgid "Accept data. Register contest into database"
 msgstr "Aceptar datos. Registrar la prueba en la base de datos"
 
-#: console/dialogs/dlg_pruebas.inc:251
+#: console/dialogs/dlg_pruebas.inc:253
 msgid "Club selection"
 msgstr "Selecci&oacute;n de clubes"
 
-#: console/dialogs/dlg_pruebas.inc:252
+#: console/dialogs/dlg_pruebas.inc:254
 msgid "Updating club list"
 msgstr "Actualizando lista de clubes"
 
-#: console/dialogs/dlg_pruebas.inc:277
+#: console/dialogs/dlg_pruebas.inc:279
 msgid "Sent"
 msgstr "Enviado"
 
@@ -7306,9 +7389,6 @@ msgstr "Cambiar la contrase&ntilde;a"
 
 #~ msgid "Plain"
 #~ msgstr "Texto Plano"
-
-#~ msgid "Email"
-#~ msgstr "Correo Electr&oacute;nico"
 
 #~ msgid "Select all clubs"
 #~ msgstr "Seleccionar todos los clubes"

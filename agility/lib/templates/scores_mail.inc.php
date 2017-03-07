@@ -50,13 +50,6 @@ $config =Config::getInstance();
     </form>
 </div>
 
-<!-- barra de progreso de actualizacion de envio de correo -->
-<div id="scores_email-progresswindow" class="easyui-window"
-     data-options="title:'<?php _e('Sending mail'); ?>...',width:300,modal:true,collapsable:false,minimizable:false,maximizable:false,closable:false,closed:true">
-    <p id="scores_email-progresslabel" style="text-align:center"><?php _e('Sending mail to'); ?>:</p>
-    <div id="scores_email-progressbar" class="easyui-progressbar" style="width:300px;text-align:center;" data-options="value:0"></div>
-</div>
-
 <!-- area de edicion del mensaje a enviar por correo -->
 <div id="scores_email-editor" title="<?php _e('Text editor');?>">
         <textarea id="scores_email-Contents" name="Contents" style="width:700px;height:400px;padding:5px;">
