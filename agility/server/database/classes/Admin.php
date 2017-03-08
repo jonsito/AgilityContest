@@ -295,6 +295,32 @@ class Admin extends DBObject {
         return $this->query("DELETE FROM Pruebas WHERE ID>1");
 	}
 
+	public function clearTemporaryDirectory() {
+		// borramos ficheros relacionados con actualizaciones
+		$this->myLogger->trace("Clearing update related tmp files");
+		array_map('unlink',glob("{$this->restore_dir}AgilityContest*.zip"));
+        array_map('unlink',glob("{$this->restore_dir}/update.log"));
+
+		// ficheros excel importados
+        $this->myLogger->trace("Clearing update related tmp files");
+        array_map('unlink',glob("{$this->restore_dir}import*.xlsx"));
+        array_map('unlink',glob("{$this->restore_dir}import*.log"));
+
+        // restore operations log
+        $this->myLogger->trace("Clearing update related tmp files");
+        array_map('unlink',glob("{$this->restore_dir}restor*.log"));
+
+        // remove results mail directories
+        $this->myLogger->trace("Clearing update related tmp files");
+        array_map('unlink',glob("{$this->restore_dir}results_*/*.*"));
+        array_map('rmdir',glob("{$this->restore_dir}results_*"));
+
+        // remove inscriptions mail directories
+        $this->myLogger->trace("Clearing update related tmp files");
+        array_map('unlink',glob("{$this->restore_dir}mail_*/*.*"));
+        array_map('rmdir',glob("{$this->restore_dir}mail_*"));
+	}
+
 	public function checkForUpgrades($fireException=true) {
         $info=retrieveFileFromURL(UPDATE_INFO);
         if ( ($info==null) || ($info===FALSE) || (!is_string($info)) ) {

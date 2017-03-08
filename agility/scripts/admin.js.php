@@ -77,6 +77,45 @@ function resetLogFile(){
     });
 }
 
+function clearTempDir(){
+    if (ac_authInfo.Perms>access_level.PERMS_ADMIN) {
+        $.messager.alert('<?php _e("Error"); ?>',"<?php _e("ClearTempDir(): Must log in with 'admin' access level"); ?>","error");
+        return;
+    }
+    $.messager.confirm({
+        title: '<?php _e('Clear tempdir'); ?>',
+        msg: '<p><?php _e('This will remove every unneeded temporary files and logs');?></p>' +
+        '<p><?php _e('Be sure that no update, import, restore, mail or similar action is in progress');?></p>' +
+        '<p><?php _e('Continue?'); ?></p>',
+        fn: function (r) {
+            if (!r) return false;
+            $.ajax({
+                type: 'GET',
+                url: "/agility/server/adminFunctions.php",
+                dataType: 'json',
+                data: {
+                    Operation: 'cleartmpdir'
+                },
+                success: function (res) {
+                    if (res.errorMsg) {
+                        $.messager.alert("Error","ClearTempDir() Error: " + res.errorMsg, 'error');
+                    }
+                    $.messager.alert({
+                        width: 400,
+                        height: 125,
+                        title: '<?php _e('TmpDir Cleared'); ?>',
+                        msg: '<?php _e('Temporary directory successfully cleared');?>'
+                    });
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $.messager.alert("Error","ClearTempDir() Error: " + textStatus + " " + errorThrown, 'error');
+                }
+            });
+        },
+        width: 600,
+        height: 200
+    });
+}
 function backupDatabase(){
     $.fileDownload(
         '/agility/server/adminFunctions.php',

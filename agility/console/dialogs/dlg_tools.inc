@@ -35,6 +35,11 @@
         <a id="tools-logViewBtn" href="#" class="easyui-linkbutton" style="width:85px"
            data-options="iconCls:'icon-search'" onclick="viewLogFile()"><?php _e('View');?></a>
     </p>
+    <p>
+        <span style="display:inline-block;width:350px"><?php _e('Clear temporary directory'); ?></span>
+        <a id="tools-emptyTrashBtn" href="#" class="easyui-linkbutton" style="width:85px"
+           data-options="iconCls:'icon-trash'" onclick="clearTempDir()"><?php _e('Trash')?></a>
+    </p>
 </div>
 
 <script type="text/javascript">
@@ -46,4 +51,5 @@ addTooltip($('#tools-eraseBtn').linkbutton(),'<?php _e("Clear contests from data
 addTooltip($('#tools-upgradeBtn').linkbutton(),'<?php _e("Search and install AgilityContest updates"); ?>');
 addTooltip($('#tools-logResetBtn').linkbutton(),'<?php _e("Clear debugging and trace file"); ?>');
 addTooltip($('#tools-logViewBtn').linkbutton(),'<?php _e("Download debug and trace file"); ?>');
+addTooltip($('#tools-emptyTrashBtn').linkbutton(),'<?php _e("Remove every unneeded files from temporary directory"); ?>');
 </script>

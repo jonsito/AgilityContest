@@ -115,6 +115,10 @@ try {
             $am->access(PERMS_ADMIN);
             $result=$adm->resetLog();
             break;
+        case "cleartmpdir":
+            $am->access(PERMS_ADMIN);
+            $result=$adm->clearTemporaryDirectory();
+            break;
 		default:
 			throw new Exception("adminFunctions:: invalid operation: '$operation' provided");
 	}
