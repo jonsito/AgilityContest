@@ -421,28 +421,4 @@ class VideoWall {
         return 0;
     }
 } 
-
-$sesion = http_request("Session","i",0);
-$operacion = http_request("Operation","s",null);
-$pendientes = http_request("Pendientes","i",10);
-// on session==0, use this elements as IDentifiers
-$prueba = http_request("Prueba","i",0);
-$jornada = http_request("Jornada","i",0);
-$manga = http_request("Manga","i",0);
-$tanda = http_request("Tanda","i",0); // used on access from videowall
-$mode = http_request("Mode","i",0); // used on access from public
-$perro = http_request("Perro","i",0); // used on access from public
-$before = http_request("Before","i",3); // to compose starting order window
-$after = http_request("After","i",12); //  to compose starting order window
-
-$vw=new VideoWall($sesion,$prueba,$jornada,$manga,$tanda,$mode);
-try {
-    if($operacion==="infodata") return $vw->videowall_infodata();
-	if($operacion==="livestream") return $vw->videowall_livestream();
-    if($operacion==="llamada") return $vw->videowall_llamada($pendientes); // pendientes por salir
-    if($operacion==="window") return $vw->videowall_windowCall(intval($perro),intval($before),intval($after)); // 15 por detras y 4 por delante
-    if($operacion==="teamwindow") return $vw->videowall_teamWindowCall(intval($perro),intval($before),intval($after));
-} catch (Exception $e) {
-	echo "<p>Error:<br />".$e->getMessage()."</p>";
-    return 0;
-}
+?>

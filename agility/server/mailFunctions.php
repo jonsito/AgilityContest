@@ -56,7 +56,10 @@ try {
             $result=$mailer->sendInscriptions($club,$email);
             break;
         // send results, scores and excels to federation ad judges
-        case "sendResults": $am->access(PERMS_OPERATOR); $result=$mailer->sendResults($jornada); break;
+        case "sendResults":
+            $am->access(PERMS_OPERATOR);
+            $partialscores=http_request("PartialScores","i",0);
+            $result=$mailer->sendResults($jornada,$partialscores); break;
         default: throw new Exception("mailFunctions:: invalid operation: '$operation' provided");
     }
     if ($result==="")  echo json_encode(array('success'=>true)); // "": ok

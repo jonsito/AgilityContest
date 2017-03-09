@@ -100,7 +100,7 @@ function perform_emailScores() {
         type: 'POST',
         url: "/agility/server/mailFunctions.php",
         dataType: 'json',
-        sendmsg: '<?php _e("Sending to"); ?> : ' + list,
+        sendmsg: '<?php _e("Sending results and scores...."); ?> : ' + list,
         data: {
             Prueba: workingData.prueba,
             Jornada: workingData.jornada,
@@ -115,9 +115,9 @@ function perform_emailScores() {
         },
         success: function (result) {
             if (result.errorMsg) {
-                $.messager.alert({width:350, height:75, title:'<?php _e('Error'); ?>',msg: result.errorMsg,icon:'error' });
+                $.messager.alert({width:350, height:150, title:'<?php _e('Error'); ?>',msg: result.errorMsg,icon:'error' });
             } else {
-                $.messager.alert({width:300, height:75, title:'<?php _e('Done'); ?>',msg:'<?php _e('Mail successfully sent'); ?>' ,icon:'info' });
+                $.messager.alert({width:300, height:150, title:'<?php _e('Done'); ?>',msg:'<?php _e('Mail successfully sent'); ?>' ,icon:'info' });
             }
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {

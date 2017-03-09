@@ -3,8 +3,14 @@
 require_once __DIR__.'/PHPMailer-5.2.22/PHPMailerAutoload.php';
 require_once __DIR__.'/../auth/Config.php';
 require_once __DIR__.'/../auth/AuthManager.php';
+require_once __DIR__.'/../database/classes/Resultados.php';
 require_once __DIR__.'/../excel/classes/Excel_Inscripciones.php';
 require_once __DIR__.'/../excel/classes/Excel_Clasificaciones.php';
+require_once __DIR__.'/../pdf/classes/PrintInscripciones.php';
+require_once __DIR__.'/../pdf/classes/PrintResultadosByEquipos3.php';
+require_once __DIR__.'/../pdf/classes/PrintResultadosByEquipos4.php';
+require_once __DIR__.'/../pdf/classes/PrintResultadosByManga.php';
+require_once __DIR__.'/../web/PublicWeb.php';
 /*
 mailManager.php
 
@@ -365,33 +371,67 @@ class MailManager {
     }
 
     // send results scores and pdf to judge and federation
-    public function sendResults($jornada) {
+    public function sendResults($jornada,$partialscores) {
         $this->myLogger->enter();
+        $prueba=$this->pruebaObj->ID;
         $timeout=ini_get('max_execution_time');
-        $maildir=__DIR__."/../../../logs/results_{$this->pruebaObj->ID}_{$jornada}";
+        $maildir=__DIR__."/../../../logs/results_{$prueba}_{$jornada}";
         // create compose directory. ignore errors if file already exists
         @mkdir($maildir,0777,true); // create subdirectories
 
         // generate pdf files
+        $filelist=array();
+        // ask for availabla rounds/series in this journey
+        $pb= new PublicWeb($prueba,$jornada);
+        $pbdata=$pb->publicweb_deploy();
+        foreach ($pbdata['Jornadas'] as $j) { //buscamos la nuestra en la lista de jornadas
+            if ($j['ID']!=$jornada) continue;
+            if ($partialscores) {
+                foreach ($j['Mangas'] as $m) { // obtenemos la lista de clasificaciones parciales de la jornada
+                    $this->myLogger->trace("Generating pdf for round {$m['Nombre']}");
+                    $robj=new Resultados("MailResults",$prueba,$m['ID']);
+                    switch(intval($m['TipoManga'])) {
+                        // miramos si es una prueba por equipos
+                        case 8: case 13:
+                            $resultados=$robj->getResultadosEquipos($m['Mode']);
+                            $pdf=new PrintResultadosByEquipos3($prueba,$jornada,$m['ID'],$resultados,$m['Mode']);
+                            break;
+                        case 9: case 14:
+                            $resultados=$robj->getResultadosEquipos($m['Mode']);
+                            $pdf=new PrintResultadosByEquipos4($prueba,$jornada,$m['ID'],$resultados,$m['Mode']);
+                            break;
+                        default:
+                            $resultados=$robj->getResultados($m['Mode']);
+                            $pdf=new PrintResultadosByManga($prueba,$jornada,$m['ID'],$resultados,$m['Mode']);
+                            break;
+                    }
+                    $pdf->AliasNbPages();
+                    $pdf->composeTable();
+                    $pdfname=str_replace(" ","_",$m['Nombre']);
+                    $filelist[]=$pdfname;
+                    $pdf->Output("$maildir/resultados_$pdfname.pdf","F"); // "D" means open download dialog
+                }
+            }
+        }
 
         // Datos de inscripciones en PDF
-        $jmgr= new Jornadas("printInscritosByPrueba",$this->pruebaObj->ID);
+        $jmgr= new Jornadas("printInscritosByPrueba",$prueba);
         $jornadas=$jmgr->selectByPrueba();
-        $inscripciones = new Inscripciones("printInscritosByPrueba",$this->pruebaObj->ID);
+        $inscripciones = new Inscripciones("printInscritosByPrueba",$prueba);
         $inscritos= $inscripciones->enumerate();
-        $pdf=new PrintInscritosByJornada($this->pruebaObj->ID,$inscritos,$jornadas,$jornada);
+        $pdf=new PrintInscritosByJornada($prueba,$inscritos,$jornadas,$jornada);
         $pdf->AliasNbPages();
         $pdf->composeTable();
-        $pdf->Output("$maildir/Inscripciones.pdf","F"); // "D" means output to file
+        $pdf->Output("$maildir/Inscripciones.pdf","F"); // "F" means output to file
 
         // generate excel clasifications file
-        $excelObj=new Excel_Clasificaciones($this->pruebaObj->ID);
+        $excelObj=new Excel_Clasificaciones($prueba);
         $excelObj->open("$maildir/Clasificaciones.xlsx");
         $excelObj->composeTable();
         $excelObj->close();
 
         // generate excel inscriptions file
-        $excelObj=new Excel_Inscripciones($this->pruebaObj->ID,0); // 0 means everyone
+        $excelObj=new Excel_Inscripciones($prueba,0); // 0 means everyone
         $excelObj->open("$maildir/Inscripciones.xlsx");
         $excelObj->composeTable();
         $excelObj->close();
@@ -405,7 +445,7 @@ class MailManager {
         foreach ($jueces as $juez ) $myMailer->addAddress($juez);
 
         // if requested add federation in Cc:
-        if (http_request('SendToFederation',"i","0")!=0) {
+        if (http_request('SendToFederation',"i",0)!=0) {
             $fedm=http_request("FedAddress","s","");
             if ($fedm!="") $myMailer->addCC($fedm);
         }
@@ -423,6 +463,10 @@ class MailManager {
         $myMailer->AltBody = _("Please enable HTML view in your email application");
 
         // attach files
+        foreach($filelist as $file) {
+            $this->myLogger->trace("Attaching file $file");
+            $myMailer->addAttachment("maildir/$file",$file);
+        }
         $myMailer->addAttachment("$maildir/Clasificaciones.xlsx","Clasificaciones.xlsx");
         $myMailer->addAttachment("$maildir/Inscripciones.xlsx","Inscripciones.xlsx");
         $myMailer->addAttachment("$maildir/Inscripciones.pdf","Inscripciones.pdf");
