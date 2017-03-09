@@ -185,37 +185,35 @@ function getMangaModeString(fed,recorrido,categoria) {
  */
 function dmanga_evalTimeSpeed() {
     // fase 1: evaluamos datos de categoria Large
-    var d=parseInt($("#dmanga_DistL").val());
-    var f=parseFloat($("#dmanga_TRS_L_Factor").val());
+    var d=parseInt($("#dmanga_DistL").textbox('getValue'));
+    var f=parseFloat($("#dmanga_TRS_L_Factor").textbox('getValue'));
     var time_l=-1;
     var speed_l=-1;
     var tspeed_l="-";
-    switch ($("#dmanga_TRS_L_Tipo").val()) {
+    switch ($("#dmanga_TRS_L_Tipo").textbox('getValue')) {
         case "0": // tipo fijo X segundos
-            time_l= f; speed_l= (d==0)? 0: d/time_l; tspeed_l = toFixedT(speed_l,2)+" m/s";
+            time_l= f; speed_l= (f==0)? 0: d/time_l; tspeed_l = toFixedT(speed_l,2)+" m/s";
             break;
         case "1": // mejor tiempo + xxx
         case "2": // media 3 mejores + xxx
             // use defaults
             break;
         case "6": // velocidad X metros por segundo
-            if (f!=0) {
-                speed_l= f; time_l= d/speed_l; tspeed_l = toFixedT(time_l,1)+" seg";
-            }
+            speed_l= f; time_l= (f==0)?0: d/speed_l; tspeed_l = toFixedT(time_l,1)+" seg";
             break;
     }
-    $("#dmanga_TRS_L_TimeSpeed").val(tspeed_l);
+    $("#dmanga_TRS_L_TimeSpeed").textbox('setValue',tspeed_l);
 
     // fase 2: evaluamos datos de categoria Medium
-    d=parseInt($("#dmanga_DistM").val());
-    f=parseFloat($("#dmanga_TRS_M_Factor").val());
-    var u=$("#dmanga_TRS_M_Unit").val();
+    d=parseInt($("#dmanga_DistM").textbox('getValue'));
+    f=parseFloat($("#dmanga_TRS_M_Factor").textbox('getValue'));
+    var u=$("#dmanga_TRS_M_Unit").combobox('getValue');
     var time_m=-1;
     var speed_m=-1;
     var tspeed_m="-";
-    switch ($("#dmanga_TRS_M_Tipo").val()) {
+    switch ($("#dmanga_TRS_M_Tipo").combobox('getValue')) {
         case "0": // tipo fijo X segundos
-            time_m= f; speed_m= (d==0)? 0: d/time_m; tspeed_m = toFixedT(speed_m,2)+" m/s";
+            time_m= f; speed_m= (f==0)? 0: d/time_m; tspeed_m = toFixedT(speed_m,2)+" m/s";
             break;
         case "1": // mejor tiempo + xxx
         case "2": // media 3 mejores + xxx
@@ -227,23 +225,21 @@ function dmanga_evalTimeSpeed() {
             }
             break;
         case "6": // velocidad X metros por segundo
-            if (f!=0) {
-                speed_m= f; time_m= d/speed_m; tspeed_m = toFixedT(time_m,1)+" seg";
-            }
+            speed_m= f; time_m= (f==0)?0: d/speed_m; tspeed_m = toFixedT(time_m,1)+" seg";
             break;
     }
-    $("#dmanga_TRS_M_TimeSpeed").val(tspeed_m);
+    $("#dmanga_TRS_M_TimeSpeed").textbox('setValue',tspeed_m);
 
     // fase 3: evaluamos datos de categoria Small
-    d=parseInt($("#dmanga_DistS").val());
-    f=parseFloat($("#dmanga_TRS_S_Factor").val());
-    u=$("#dmanga_TRS_S_Unit").val();
+    d=parseInt($("#dmanga_DistS").textbox('getValue'));
+    f=parseFloat($("#dmanga_TRS_S_Factor").textbox('getValue'));
+    u=$("#dmanga_TRS_S_Unit").combobox('getValue');
     var time_s=-1;
     var speed_s=-1;
     var tspeed_s="-";
-    switch ($("#dmanga_TRS_S_Tipo").val()) {
+    switch ($("#dmanga_TRS_S_Tipo").combobox('getValue')) {
         case "0": // tipo fijo X segundos
-            time_s= f; speed_s= (d==0)? 0: d/time_s; tspeed_s = toFixedT(speed_s,2)+" m/s";
+            time_s= f; speed_s= (f==0)? 0: d/time_s; tspeed_s = toFixedT(speed_s,2)+" m/s";
             break;
         case "1": // mejor tiempo + xxx
         case "2": // media 3 mejores + xxx
@@ -260,23 +256,23 @@ function dmanga_evalTimeSpeed() {
             }
             break;
         case "6": // velocidad X metros por segundo
-            if (f!=0) {
-                speed_m= f; time_m= d/speed_m; tspeed_m = toFixedT(time_m,1)+" seg";
-            }
+            speed_s= f; time_s= (f==0)?0: d/speed_s; tspeed_s = toFixedT(time_s,1)+" seg";
             break;
     }
-    $("#dmanga_TRS_S_TimeSpeed").val(tspeed_s);
+    $("#dmanga_TRS_S_TimeSpeed").textbox('setValue',tspeed_s);
+
+    if ( ac_fedInfo[workingData.federation].Heights<4 ) return;
 
     // fase 4: evaluamos datos de categoria Toy
-    d=parseInt($("#dmanga_DistT").val());
-    f=parseFloat($("#dmanga_TRS_T_Factor").val());
-    u=$("#dmanga_TRS_T_Unit").val();
+    d=parseInt($("#dmanga_DistT").textbox('getValue'));
+    f=parseFloat($("#dmanga_TRS_T_Factor").textbox('getValue'));
+    u=$("#dmanga_TRS_T_Unit").combobox('getValue');
     var time_t=-1;
     var speed_t=-1;
     var tspeed_t="-";
-    switch ($("#dmanga_TRS_T_Tipo").val()) {
+    switch ($("#dmanga_TRS_T_Tipo").combobox('getValue')) {
         case "0": // tipo fijo X segundos
-            time_t= f; speed_t= (d==0)? 0: d/time_t; tspeed_t = toFixedT(speed_t,2)+" m/s";
+            time_t= f; speed_t= (f==0)? 0: d/time_t; tspeed_t = toFixedT(speed_t,2)+" m/s";
             break;
         case "1": // mejor tiempo + xxx
         case "2": // media 3 mejores + xxx
@@ -298,12 +294,10 @@ function dmanga_evalTimeSpeed() {
             }
             break;
         case "6": // velocidad X metros por segundo
-            if (f!=0) {
-                speed_t= f; time_t= d/speed_t; tspeed_t = toFixedT(time_t,1)+" seg";
-            }
+            speed_t= f; time_t= (f==0)?0: d/speed_t; tspeed_t = toFixedT(time_t,1)+" seg";
             break;
     }
-    $("#dmanga_TRS_T_TimeSpeed").val(tspeed_t);
+    $("#dmanga_TRS_T_TimeSpeed").textbox('setValue',tspeed_t);
 }
 
 /**
@@ -324,12 +318,12 @@ function dmanga_setRecorridos() {
     var last=data.L;
 
     // first row (large) allways to be shown
-    var trs_tipo=$('#dmanga_TRS_L_Tipo').val();     //0:fixed 1:best+ 2:mean+ 3:L+ 4:M+ 5:S+ 6:speed
-    var trs_factor=$('#dmanga_TRS_L_Factor').val(); //0:seconds 1:percentage
-    var trm_tipo=$('#dmanga_TRM_L_Tipo').val();     //0:fixed 1:trs+
-    var trm_factor=$('#dmanga_TRM_L_Factor').val(); //0:seconds 1:percentage
-    var dist=$('#dmanga_DistL').val();
-    var obst=$('#dmanga_ObstL').val();
+    var trs_tipo=$('#dmanga_TRS_L_Tipo').combobox('getValue');     //0:fixed 1:best+ 2:mean+ 3:L+ 4:M+ 5:S+ 6:speed
+    var trs_factor=$('#dmanga_TRS_L_Factor').textbox('getValue'); //0:seconds 1:percentage
+    var trm_tipo=$('#dmanga_TRM_L_Tipo').combobox('getValue');     //0:fixed 1:trs+
+    var trm_factor=$('#dmanga_TRM_L_Factor').textbox('getValue'); //0:seconds 1:percentage
+    var dist=$('#dmanga_DistL').textbox('getValue');
+    var obst=$('#dmanga_ObstL').textbox('getValue');
     $('#dmanga_LargeRow').css('display','table-row');
     $('#dmanga_LargeLbl').html(data.L);
 
@@ -338,24 +332,24 @@ function dmanga_setRecorridos() {
         // use own data and make it visible
         tipo=4;
         last=data.L;
-        dist=$('#dmanga_DistM').val();
-        obst=$('#dmanga_ObstM').val();
-        trs_tipo=$('#dmanga_TRS_M_Tipo').val();
-        trs_factor=$('#dmanga_TRS_M_Factor').val();
-        trm_tipo=$('#dmanga_TRM_M_Tipo').val();
-        trm_factor=$('#dmanga_TRM_M_Factor').val();
+        dist=$('#dmanga_DistM').textbox('getValue');
+        obst=$('#dmanga_ObstM').textbox('getValue');
+        trs_tipo=$('#dmanga_TRS_M_Tipo').combobox('getValue');
+        trs_factor=$('#dmanga_TRS_M_Factor').textbox('getValue');
+        trm_tipo=$('#dmanga_TRM_M_Tipo').combobox('getValue');
+        trm_factor=$('#dmanga_TRM_M_Factor').textbox('getValue');
         $('#dmanga_MediumRow').css('display','table-row');
         $('#dmanga_MediumLbl').html(data.M);
     } else {
         // use parent data and hide
-        $('#dmanga_DistM').val(dist);
-        $('#dmanga_ObstM').val(obst);
+        $('#dmanga_DistM').textbox('setValue',dist);
+        $('#dmanga_ObstM').textbox('setValue',obst);
         $('#dmanga_MediumRow').css('display','none');
         $('#dmanga_MediumLbl').html(last);
-        $('#dmanga_TRS_M_Tipo').val(trs_tipo);
-        $('#dmanga_TRS_M_Factor').val(trs_factor);
-        $('#dmanga_TRM_M_Tipo').val(trm_tipo);
-        $('#dmanga_TRM_M_Factor').val(trm_factor);
+        $('#dmanga_TRS_M_Tipo').combobox('setValue',trs_tipo);
+        $('#dmanga_TRS_M_Factor').textbox('setValue',trs_factor);
+        $('#dmanga_TRM_M_Tipo').combobox('setValue',trm_tipo);
+        $('#dmanga_TRM_M_Factor').textbox('setValue',trm_factor);
     }
 
     // third row (small )
@@ -363,48 +357,48 @@ function dmanga_setRecorridos() {
         // use own data and make it visible
         tipo=5;
         last=data.S;
-        dist=$('#dmanga_DistS').val();
-        obst=$('#dmanga_ObstS').val();
+        dist=$('#dmanga_DistS').textbox('getValue');
+        obst=$('#dmanga_ObstS').textbox('getValue');
         $('#dmanga_SmallRow').css('display','table-row');
         $('#dmanga_SmallLbl').html(data.S);
-        trs_tipo=$('#dmanga_TRS_S_Tipo').val();
-        trs_factor=$('#dmanga_TRS_S_Factor').val();
-        trm_tipo=$('#dmanga_TRM_S_Tipo').val();
-        trm_factor=$('#dmanga_TRM_S_Factor').val();
+        trs_tipo=$('#dmanga_TRS_S_Tipo').combobox('getValue');
+        trs_factor=$('#dmanga_TRS_S_Factor').textbox('getValue');
+        trm_tipo=$('#dmanga_TRM_S_Tipo').combobox('getValue');
+        trm_factor=$('#dmanga_TRM_S_Factor').textbox('getValue');
     } else {
         // use parent data and hide
-        $('#dmanga_DistS').val(dist);
-        $('#dmanga_ObstS').val(obst);
+        $('#dmanga_DistS').textbox('setValue',dist);
+        $('#dmanga_ObstS').textbox('setValue',obst);
         $('#dmanga_SmallRow').css('display','none');
         $('#dmanga_SmallLbl').html(last);
-        $('#dmanga_TRS_S_Tipo').val(trs_tipo);
-        $('#dmanga_TRS_S_Factor').val(trs_factor);
-        $('#dmanga_TRM_S_Tipo').val(trm_tipo);
-        $('#dmanga_TRM_S_Factor').val(trm_factor);
+        $('#dmanga_TRS_S_Tipo').combobox('setValue',trs_tipo);
+        $('#dmanga_TRS_S_Factor').textbox('setValue',trs_factor);
+        $('#dmanga_TRM_S_Tipo').combobox('setValue',trm_tipo);
+        $('#dmanga_TRM_S_Factor').textbox('setValue',trm_factor);
     }
 
     // fourth row (tiny )
     if (data.T!=="") {
         // use own data and make it visible
         last=data.T;
-        dist=$('#dmanga_DistT').val();
-        obst=$('#dmanga_ObstT').val();
+        dist=$('#dmanga_DistT').textbox('getValue');
+        obst=$('#dmanga_ObstT').textbox('getValue');
         $('#dmanga_TinyRow').css('display','table-row');
         $('#dmanga_TinyLbl').html(data.T);
-        trs_tipo=$('#dmanga_TRS_T_Tipo').val();
-        trs_factor=$('#dmanga_TRS_T_Factor').val();
-        trm_tipo=$('#dmanga_TRM_T_Tipo').val();
-        trm_factor=$('#dmanga_TRM_T_Factor').val();
+        trs_tipo=$('#dmanga_TRS_T_Tipo').combobox('getValue');
+        trs_factor=$('#dmanga_TRS_T_Factor').textbox('getValue');
+        trm_tipo=$('#dmanga_TRM_T_Tipo').combobox('getValue');
+        trm_factor=$('#dmanga_TRM_T_Factor').textbox('getValue');
     } else {
         // use parent data and hide
-        $('#dmanga_DistT').val(dist);
-        $('#dmanga_ObstT').val(obst);
+        $('#dmanga_DistT').textbox('setValue',dist);
+        $('#dmanga_ObstT').textbox('setValue',obst);
         $('#dmanga_TinyRow').css('display','none');
         $('#dmanga_TinyLbl').html(last);
-        $('#dmanga_TRS_T_Tipo').val(trs_tipo);
-        $('#dmanga_TRS_T_Factor').val(trs_factor);
-        $('#dmanga_TRM_T_Tipo').val(trm_tipo);
-        $('#dmanga_TRM_T_Factor').val(trm_factor);
+        $('#dmanga_TRS_T_Tipo').combobox('setValue',trs_tipo);
+        $('#dmanga_TRS_T_Factor').textbox('setValue',trs_factor);
+        $('#dmanga_TRM_T_Tipo').combobox('setValue',trm_tipo);
+        $('#dmanga_TRM_T_Factor').textbox('setValue',trm_factor);
     }
     dmanga_evalTimeSpeed(); // reevaluate time/speed readonly input box
 }

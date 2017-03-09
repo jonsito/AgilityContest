@@ -293,8 +293,8 @@ function formatTeamLogos(val,row,idx) {
 
 /* comodity function to set up round SCT unit based on SCT type */
 function round_setUnit(tipo,dest) {
-    if (tipo==0) $(dest).val('s'); // fixed SCT: set unit to seconds
-    if (tipo==6) $(dest).val('m'); // Velocity instead of time/percent: set unit to mts/sec
+    if (tipo==0) $(dest).combobox('setValue','s'); // fixed SCT: set unit to seconds
+    if (tipo==6) $(dest).combobox('setValue','m/s'); // Velocity instead of time/percent: set unit to mts/sec
 }
 
 function formatTeamResults( name,value , rows ) {

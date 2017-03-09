@@ -85,17 +85,16 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td id="dmanga_LargeLbl">Large</td>
 			<td>
                 <label for="dmanga_DistL"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_DistL" name="Dist_L" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" id="dmanga_DistL" name="Dist_L" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_ObstL"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0"/>
             </td>
 			<!-- datos para TRS standard -->
 			<td>
                 <label for="dmanga_TRS_L_Tipo"></label>
-				<select id="dmanga_TRS_L_Tipo" name="TRS_L_Tipo"
-						onChange="round_setUnit(this.value,'#dmanga_TRS_L_Unit');">
+				<select id="dmanga_TRS_L_Tipo" name="TRS_L_Tipo">
 				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
 				<option value="1"><?php _e('Best result');?> + </option>
 				<option value="2"><?php _e('3 best average');?> + </option>
@@ -104,7 +103,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			</td>
 			<td>
                 <label for="dmanga_TRS_L_Factor"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_TRS_L_Factor" name="TRS_L_Factor" size="4" value="0"/>
+                <input type="text" id="dmanga_TRS_L_Factor" name="TRS_L_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRS_L_Unit"></label>
@@ -115,24 +114,23 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
             <td>
-                <input type="text" class="easyui-textbox" id="dmanga_TRS_L_TimeSpeed" name="TRS_L_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
+                <input type="text" id="dmanga_TRS_L_TimeSpeed" name="TRS_L_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
             </td>
 			<!-- datos para TRM standard -->
 			<td>
                 <label for="dmanga_TRM_L_Tipo"></label>
-				<select id="dmanga_TRM_L_Tipo" name="TRM_L_Tipo"
-						onChange="round_setUnit(this.value,'#dmanga_TRM_L_Unit');">
+				<select id="dmanga_TRM_L_Tipo" name="TRM_L_Tipo">
 				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
 				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
 			</td>
 			<td>
                 <label for="dmanga_TRM_L_Factor"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_TRM_L_Factor" name="TRM_L_Factor" size="4" value="0"/>
+                <input type="text" id="dmanga_TRM_L_Factor" name="TRM_L_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRM_L_Unit"></label>
-				<select id="dmanga_TRM_L_Unit" name="TRM_L_Unit">
+				<select id="dmanga_TRM_L_Unit" name="TRM_L_Unit" >
 				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
@@ -142,17 +140,16 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td id="dmanga_MediumLbl">Medium</td>
 			<td>
                 <label for="dmanga_DistM"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_DistM" name="Dist_M" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" id="dmanga_DistM" name="Dist_M" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_ObstM"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0"/>
             </td>
 			<!-- datos para TRS medium -->
 			<td>
                 <label for="dmanga_TRS_M_Tipo"></label>
-				<select id="dmanga_TRS_M_Tipo" name="TRS_M_Tipo"
-						onChange="round_setUnit(this.value,'#dmanga_TRS_M_Unit');">
+				<select id="dmanga_TRS_M_Tipo" name="TRS_M_Tipo">
 				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
 				<option value="1"><?php _e('Best result');?> + </option>
 				<option value="2"><?php _e('3 best average');?> + </option>
@@ -162,7 +159,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			</td>
 			<td>
                 <label for="dmanga_TRS_M_Factor"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_TRS_M_Factor" name="TRS_M_Factor" size="4" value="0"/>
+                <input type="text" id="dmanga_TRS_M_Factor" name="TRS_M_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRS_M_Unit"></label>
@@ -173,20 +170,19 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
             <td>
-                <input type="text" class="easyui-textbox" id="dmanga_TRS_M_TimeSpeed" name="TRS_M_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
+                <input type="text" id="dmanga_TRS_M_TimeSpeed" name="TRS_M_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
             </td>
 			<!-- datos para TRM medium -->
 			<td>
                 <label for="dmanga_TRM_M_Tipo"></label>
-				<select id="dmanga_TRM_M_Tipo" name="TRM_M_Tipo"
-						onChange="round_setUnit(this.value,'#dmanga_TRM_M_Unit');">
+				<select id="dmanga_TRM_M_Tipo" name="TRM_M_Tipo">
 				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
 				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
 			</td>
 			<td>
                 <label for="dmanga_TRM_M_Factor"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_TRM_M_Factor" name="TRM_M_Factor" size="4" value="0"/>
+                <input type="text" id="dmanga_TRM_M_Factor" name="TRM_M_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRM_M_Unit"></label>
@@ -200,18 +196,16 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td id="dmanga_SmallLbl">Small</td>
 			<td>
                 <label for="dmanga_DistS"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_DistS" name="Dist_S" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" id="dmanga_DistS" name="Dist_S" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_ObstS"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0"/>
             </td>
 			<!-- datos para TRS small -->
 			<td>
                 <label for="dmanga_TRS_S_Tipo"></label>
-				<select id="dmanga_TRS_S_Tipo" name="TRS_S_Tipo"
-						onChange="round_setUnit(this.value,'#dmanga_TRS_S_Unit');">
-					onChange="if(this.value==0) $('#dmanga_TRS_S_Unit').val('s');">
+				<select id="dmanga_TRS_S_Tipo" name="TRS_S_Tipo">
 				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
 				<option value="1"><?php _e('Best result');?> + </option>
 				<option value="2"><?php _e('3 best average');?> + </option>
@@ -222,7 +216,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			</td>
 			<td>
                 <label for="dmanga_TRS_S_Factor"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_TRS_S_Factor" name="TRS_S_Factor" size="4" value="0"/>
+                <input type="text" id="dmanga_TRS_S_Factor" name="TRS_S_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRS_S_Unit"></label>
@@ -233,20 +227,19 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
             <td>
-                <input type="text" class="easyui-textbox" id="dmanga_TRS_S_TimeSpeed" name="TRS_S_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
+                <input type="text" id="dmanga_TRS_S_TimeSpeed" name="TRS_S_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
             </td>
 			<!-- datos para TRM small -->
 			<td>
                 <label for="dmanga_TRM_S_Tipo"></label>
-				<select id="dmanga_TRM_S_Tipo" name="TRM_S_Tipo"
-						onChange="round_setUnit(this.value,'#dmanga_TRM_S_Unit');">
+				<select id="dmanga_TRM_S_Tipo" name="TRM_S_Tipo">
 				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
 				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
 			</td>
 			<td>
                 <label for="dmanga_TRM_S_Factor"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_TRM_S_Factor" name="TRM_S_Factor" size="4" value="0"/>
+                <input type="text" id="dmanga_TRM_S_Factor" name="TRM_S_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRM_S_Unit"></label>
@@ -261,17 +254,16 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td id="dmanga_TinyLbl">Tiny</td>
 			<td>
                 <label for="dmanga_DistT"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_DistT" name="Dist_T" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" id="dmanga_DistT" name="Dist_T" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_ObstT"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_ObstT" name="Obst_T" size="4" value="0" onChange="dmanga_setRecorridos();"/>
+                <input type="text" id="dmanga_ObstT" name="Obst_T" size="4" value="0"/>
             </td>
 			<!-- datos para TRS tiny -->
 			<td>
                 <label for="dmanga_TRS_T_Tipo"></label>
-				<select id="dmanga_TRS_T_Tipo" name="TRS_T_Tipo"
-						onChange="round_setUnit(this.value,'#dmanga_TRS_T_Unit');">
+				<select id="dmanga_TRS_T_Tipo" name="TRS_T_Tipo">
 				<option value="0" selected="selected"><?php _e('Fixed SCT'); ?></option>
 				<option value="1"><?php _e('Best result'); ?> + </option>
 				<option value="2"><?php _e('3 best average'); ?> + </option>
@@ -283,7 +275,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			</td>
 			<td>
                 <label for="dmanga_TRS_T_Factor"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_TRS_T_Factor" name="TRS_T_Factor" size="4" value="0"/>
+                <input type="text" id="dmanga_TRS_T_Factor" name="TRS_T_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRS_T_Unit"></label>
@@ -294,20 +286,19 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
             <td>
-                <input type="text" class="easyui-textbox" id="dmanga_TRS_T_TimeSpeed" name="TRS_T_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
+                <input type="text" id="dmanga_TRS_T_TimeSpeed" name="TRS_T_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
             </td>
 			<!-- datos para TRM tiny -->
 			<td>
                 <label for="dmanga_TRM_T_Tipo"></label>
-				<select id="dmanga_TRM_T_Tipo" name="TRM_T_Tipo"
-					onChange="round_setUnit(this.value,'#dmanga_TRM_T_Unit');">
+				<select id="dmanga_TRM_T_Tipo" name="TRM_T_Tipo">
 				<option value="0" selected="selected"><?php _e('Fixed MCT'); ?></option>
 				<option value="1"><?php _e('SCT'); ?> + </option>
 				</select>
 			</td>
 			<td>
                 <label for="dmanga_TRM_T_Factor"></label>
-                <input type="text" class="easyui-textbox" id="dmanga_TRM_T_Factor" name="TRM_T_Factor" size="4" value="0"/>
+                <input type="text" id="dmanga_TRM_T_Factor" name="TRM_T_Factor" size="4" value="0"/>
             </td>
 			<td>
                 <label for="dmanga_TRM_T_Unit"></label>
@@ -320,7 +311,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 	<?php } ?>
 		<tr> <!-- fila 7: observaciones -->
 			<td colspan="2"><label for="dmanga_Observaciones"><?php _e('Comments'); ?></label></td>
-			<td colspan="8"><input type="text" class="easyui-textbox" id="dmanga_Observaciones" name="Observaciones" size="75" value=""/></td>
+			<td colspan="8"><input type="text" id="dmanga_Observaciones" name="Observaciones" size="75" value=""/></td>
 		</tr>
 		<tr> <!-- fila 7: botones reset y save -->
             <td>
@@ -347,6 +338,39 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 	</span>
 </p>
 <script type="text/javascript">
+
+    //stupid easyui that does not parse from markup
+    $('#dmanga_DistL').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
+    $('#dmanga_DistM').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
+    $('#dmanga_DistS').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
+    $('#dmanga_DistT').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
+    $('#dmanga_ObstL').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
+    $('#dmanga_ObstM').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
+    $('#dmanga_ObstS').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
+    $('#dmanga_ObstT').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
+    $('#dmanga_TRS_L_Tipo').combobox({panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_L_Unit')}});
+    $('#dmanga_TRS_M_Tipo').combobox({panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_M_Unit')}});
+    $('#dmanga_TRS_S_Tipo').combobox({panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_S_Unit')}});
+    $('#dmanga_TRS_T_Tipo').combobox({panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_T_Unit')}});
+    $('#dmanga_TRS_L_Factor').textbox(); $('#dmanga_TRS_M_Factor').textbox();
+    $('#dmanga_TRS_S_Factor').textbox(); $('#dmanga_TRS_T_Factor').textbox();
+    $('#dmanga_TRS_L_Unit').combobox({panelHeight:'auto'});
+    $('#dmanga_TRS_M_Unit').combobox({panelHeight:'auto'});
+    $('#dmanga_TRS_S_Unit').combobox({panelHeight:'auto'});
+    $('#dmanga_TRS_T_Unit').combobox({panelHeight:'auto'});
+    $('#dmanga_TRS_L_TimeSpeed').textbox(); $('#dmanga_TRS_M_TimeSpeed').textbox();
+    $('#dmanga_TRS_S_TimeSpeed').textbox(); $('#dmanga_TRS_T_TimeSpeed').textbox();
+    $('#dmanga_TRM_L_Tipo').combobox({panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_L_Unit')}});
+    $('#dmanga_TRM_M_Tipo').combobox({panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_M_Unit')}});
+    $('#dmanga_TRM_S_Tipo').combobox({panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_S_Unit')}});
+    $('#dmanga_TRM_T_Tipo').combobox({panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_T_Unit')}});
+    $('#dmanga_TRM_L_Factor').textbox(); $('#dmanga_TRM_M_Factor').textbox();
+    $('#dmanga_TRM_S_Factor').textbox(); $('#dmanga_TRM_T_Factor').textbox();
+    $('#dmanga_TRM_L_Unit').combobox({panelHeight:'auto'});
+    $('#dmanga_TRM_M_Unit').combobox({panelHeight:'auto'});
+    $('#dmanga_TRM_S_Unit').combobox({panelHeight:'auto'});
+    $('#dmanga_TRM_T_Unit').combobox({panelHeight:'auto'});
+    $('#dmanga_Observaciones').textbox();
 
 $('#dmanga_Juez1').combogrid({
 	panelWidth: 400,
