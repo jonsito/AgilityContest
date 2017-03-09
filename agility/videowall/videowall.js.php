@@ -61,7 +61,7 @@ function vw_updateWorkingData(evt,callback) {
     $.ajax( {
         type: "GET",
         dataType: 'json',
-        url: "/agility/server/web/videowall.php",
+        url: "/agility/server/web/videowallFunctions.php",
         data: {
             Operation: 'infodata',
             Prueba: evt.Prueba,
@@ -421,7 +421,7 @@ function vwcp_updateLlamada(evt,data) {
 	$.ajax( {
 		type: "GET",
 		dataType: 'json',
-		url: "/agility/server/web/videowall.php",
+		url: "/agility/server/web/videowallFunctions.php",
 		data: {
 			Operation: 'window',
 			Before: 3,
@@ -496,7 +496,7 @@ function vwcf_updateLlamada(evt,data) {
 	$.ajax( {
 		type: "GET",
 		dataType: 'json',
-		url: "/agility/server/web/videowall.php",
+		url: "/agility/server/web/videowallFunctions.php",
 		data: {
 			Operation: 'window',
 			Before: (ac_config.vwc_simplified==0)?4:2,

@@ -49,7 +49,7 @@ try {
 	$pdf = new PrintClasificacion($prueba,$jornada,$mangas,$result,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("print_clasificacion.pdf","D"); // "D" means open download dialog
+	$pdf->Output("print_clasificacion.pdf","D"); // "D" means output to web client (download)
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());

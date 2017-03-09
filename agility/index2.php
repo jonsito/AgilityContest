@@ -31,7 +31,7 @@ $am=new AuthManager("Public");
 if (!$am->allowed(ENABLE_PUBLIC)) {
     die("Current license has no permissions to handle public (web) access related functions");
 }
-require_once(__DIR__. "/server/web/public.php");
+require_once(__DIR__ . "/server/web/PublicWeb.php");
 
 $pruebaID=http_request("Prueba","i",18);
 $pb=new PublicWeb($pruebaID);

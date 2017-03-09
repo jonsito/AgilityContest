@@ -374,13 +374,24 @@ class MailManager {
 
         // generate pdf files
 
+        // Datos de inscripciones en PDF
+        $jmgr= new Jornadas("printInscritosByPrueba",$this->pruebaObj->ID);
+        $jornadas=$jmgr->selectByPrueba();
+        $inscripciones = new Inscripciones("printInscritosByPrueba",$this->pruebaObj->ID);
+        $inscritos= $inscripciones->enumerate();
+        $pdf=new PrintInscritosByJornada($this->pruebaObj->ID,$inscritos,$jornadas,$jornada);
+        $pdf->AliasNbPages();
+        $pdf->composeTable();
+        $pdf->Output("$maildir/Inscripciones.pdf","F"); // "D" means output to file
+
         // generate excel clasifications file
         $excelObj=new Excel_Clasificaciones($this->pruebaObj->ID);
         $excelObj->open("$maildir/Clasificaciones.xlsx");
         $excelObj->composeTable();
         $excelObj->close();
+
         // generate excel inscriptions file
-        $excelObj=new Excel_Inscripciones($this->pruebaObj->ID,$jornada); //inscriptions on this journey
+        $excelObj=new Excel_Inscripciones($this->pruebaObj->ID,0); // 0 means everyone
         $excelObj->open("$maildir/Inscripciones.xlsx");
         $excelObj->composeTable();
         $excelObj->close();
@@ -414,6 +425,7 @@ class MailManager {
         // attach files
         $myMailer->addAttachment("$maildir/Clasificaciones.xlsx","Clasificaciones.xlsx");
         $myMailer->addAttachment("$maildir/Inscripciones.xlsx","Inscripciones.xlsx");
+        $myMailer->addAttachment("$maildir/Inscripciones.pdf","Inscripciones.pdf");
         // allways attach AgiltiyContest logo . Use absolute paths as phpmailer does not handle relative ones
         $myMailer->addAttachment(__DIR__.'/../../images/logos/agilitycontest.png');
         //send the message, check for errors

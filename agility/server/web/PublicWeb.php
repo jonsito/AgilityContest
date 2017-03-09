@@ -1,6 +1,6 @@
 <?php
 /*
-videowall.php
+PublicWeb.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 

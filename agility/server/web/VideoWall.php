@@ -1,6 +1,6 @@
 <?php
 /*
-videowall.php
+VideoWall.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -234,11 +234,11 @@ class VideoWall {
     
     /**
      * Obtiene $after+$before+1 perros ordenados segun el orden de salida
-     * @param $perro ID de perro tomado como referencia
+     * @param {integer}$perro ID de perro tomado como referencia
      *  if ID==0 means at begin of queue
      *  if ID<0 means at end of queue
-     * @param $before numero de perros a buscar que hayan salido antes del de referencia
-     * @param $after numero de perros a introducir que tengan que salir despues del de referencia
+     * @param {integer} $before numero de perros a buscar que hayan salido antes del de referencia
+     * @param {integer} $after numero de perros a introducir que tengan que salir despues del de referencia
      */
     function videowall_windowCall($perro,$before,$after) {
         $this->myLogger->enter();
@@ -312,11 +312,11 @@ class VideoWall {
 
     /**
      * Obtiene $after+$before+1 equipos ordenados segun el orden de salida
-     * @param $perro ID de perro tomado como referencia
+     * @param {integer} $perro ID de perro tomado como referencia
      *  if ID==0 means at begin of queue
      *  if ID<0 means at end of queue
-     * @param $before numero de equipos que hayan salido antes que el equipo del perro de referencia
-     * @param $after numero de equipos que tengan que salir despues del equipo del perro de referencia
+     * @param {integer} $before numero de equipos que hayan salido antes que el equipo del perro de referencia
+     * @param {integer} $after numero de equipos que tengan que salir despues del equipo del perro de referencia
      * @return array (
      *             before: Array de $before equipos que han saludo antes
      *             after: Array de $equipos que tienen que salir despues

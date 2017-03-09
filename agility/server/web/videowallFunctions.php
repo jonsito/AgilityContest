@@ -1,6 +1,6 @@
 <?php
 /*
-publicFunctions.php
+ videowallFunctions.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -16,31 +16,31 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-require_once(__DIR__ . "/../tools.php");
-require_once(__DIR__ . "/PublicWeb.php");
+require_once(__DIR__ . "/../logging.php");
+require_once(__DIR__ . "/../auth/Config.php");
+require_once(__DIR__ . "/VideoWall.php");
 
+$sesion = http_request("Session","i",0);
 $operacion = http_request("Operation","s",null);
 $pendientes = http_request("Pendientes","i",10);
 // on session==0, use this elements as IDentifiers
 $prueba = http_request("Prueba","i",0);
 $jornada = http_request("Jornada","i",0);
 $manga = http_request("Manga","i",0);
+$tanda = http_request("Tanda","i",0); // used on access from videowall
 $mode = http_request("Mode","i",0); // used on access from public
+$perro = http_request("Perro","i",0); // used on access from public
+$before = http_request("Before","i",3); // to compose starting order window
+$after = http_request("After","i",12); //  to compose starting order window
 
-$pb=new PublicWeb($prueba,$jornada,$manga,$mode);
+$vw=new VideoWall($sesion,$prueba,$jornada,$manga,$tanda,$mode);
 try {
-    switch ($operacion) {
-        case "infodata": 
-            $res=$pb->publicweb_infodata();
-            echo json_encode($res);
-            break;
-        case "deploy":   
-            $res=$pb->publicweb_deploy(); 
-            echo json_encode($res);
-            break;
-        default:throw new Exception("publicFunctions.php: operacion invalida:'$operacion'"); break;
-    }
+    if($operacion==="infodata") return $vw->videowall_infodata();
+	if($operacion==="livestream") return $vw->videowall_livestream();
+    if($operacion==="llamada") return $vw->videowall_llamada($pendientes); // pendientes por salir
+    if($operacion==="window") return $vw->videowall_windowCall(intval($perro),intval($before),intval($after)); // 15 por detras y 4 por delante
+    if($operacion==="teamwindow") return $vw->videowall_teamWindowCall(intval($perro),intval($before),intval($after));
 } catch (Exception $e) {
 	echo "<p>Error:<br />".$e->getMessage()."</p>";
+    return 0;
 }
-return 0;

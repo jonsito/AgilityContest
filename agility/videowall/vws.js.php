@@ -415,7 +415,7 @@ function vws_updateLlamada(evt,data,callback) {
     $.ajax( {
         type: "GET",
         dataType: 'json',
-        url: "/agility/server/web/videowall.php",
+        url: "/agility/server/web/videowallFunctions.php",
         data: {
             Operation: (team)?'teamwindow':'window',
             Before: 2,
