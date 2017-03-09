@@ -1146,13 +1146,13 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 			case 2: case 7: suffix='S'; break;
 			case 5: suffix='T'; break;
 			}
-			$('#dm'+idxmanga+'_Nombre').val(dat['manga'].TipoManga);
-			$('#dm'+idxmanga+'_DIST_'+suffix).val(dat['trs'].dist);
-			$('#dm'+idxmanga+'_OBST_'+suffix).val(dat['trs'].obst);
-			$('#dm'+idxmanga+'_TRS_'+suffix).val(dat['trs'].trs);
-			$('#dm'+idxmanga+'_TRM_'+suffix).val(dat['trs'].trm);
+			$('#dm'+idxmanga+'_Nombre').textbox('setValue',dat['manga'].TipoManga);
+			$('#dm'+idxmanga+'_DIST_'+suffix).textbox('setValue',dat['trs'].dist);
+			$('#dm'+idxmanga+'_OBST_'+suffix).textbox('setValue',dat['trs'].obst);
+			$('#dm'+idxmanga+'_TRS_'+suffix).textbox('setValue',dat['trs'].trs);
+			$('#dm'+idxmanga+'_TRM_'+suffix).textbox('setValue',dat['trs'].trm);
             var vel=(''+dat['trs'].vel).replace('&asymp;','\u2248');
-			$('#dm'+idxmanga+'_VEL_'+suffix).val(vel);
+			$('#dm'+idxmanga+'_VEL_'+suffix).textbox('setValue',vel);
 			// store manga results
 			if (typeof resultados[mode] === "undefined") resultados[mode]=[];
 			resultados[mode][idxmanga]=dat['rows'];
@@ -1264,8 +1264,8 @@ function resultados_doSelectRonda(row) {
             $('#datos_manga'+nmanga+'-TinyRow').css('display',(infomanga['T']==="")?'none':'table-row');
             $('#datos_manga'+nmanga+'-Separator').css('display','table-row');
             // indica los datos de los jueces de dicha manga
-            $('#dm'+nmanga+'_Juez1').val(row['Juez'+nmanga+'1']);
-            $('#dm'+nmanga+'_Juez2').val(row['Juez'+nmanga+'2']);
+            $('#dm'+nmanga+'_Juez1').textbox('setValue',row['Juez'+nmanga+'1']);
+            $('#dm'+nmanga+'_Juez2').textbox('setValue',row['Juez'+nmanga+'2']);
             // datos evaluados de TRS y TRM de segunda manga
             // si fedinfo.Modes[rec][i] resultados_fillForm no hace nada
             resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][0]);

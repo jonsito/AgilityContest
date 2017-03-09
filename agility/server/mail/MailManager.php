@@ -380,7 +380,7 @@ class MailManager {
         $excelObj->composeTable();
         $excelObj->close();
         // generate excel inscriptions file
-        $excelObj=new Excel_Inscripciones($this->pruebaObj->ID,0); // 0: export every inscriptions
+        $excelObj=new Excel_Inscripciones($this->pruebaObj->ID,$jornada); //inscriptions on this journey
         $excelObj->open("$maildir/Inscripciones.xlsx");
         $excelObj->composeTable();
         $excelObj->close();
