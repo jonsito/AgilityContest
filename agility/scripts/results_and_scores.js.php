@@ -94,13 +94,15 @@ function perform_emailScores() {
     // compose list of receivers. ( need to send one and only one mail to all, to assure data integrity )
     var list = '';
     for (var n = 0; n < size; n++) { list = list + selectedRows[n]['Email'];  if (n < size - 1) list = list + ','  }
+    // prepare a progress bar to mark running
+    $.messager.progress({title:"<?php _e('Sending');?>...",msg:"<?php _e('Sending results and scores to'); ?> : <br/>" + list,text:""});
     $.ajax({
         cache: false,
         timeout: 30000, // 20 segundos
         type: 'POST',
         url: "/agility/server/mailFunctions.php",
         dataType: 'json',
-        sendmsg: '<?php _e("Sending results and scores...."); ?> : ' + list,
+
         data: {
             Prueba: workingData.prueba,
             Jornada: workingData.jornada,
@@ -114,6 +116,7 @@ function perform_emailScores() {
             Contents: $('#scores_email-Contents').val()
         },
         success: function (result) {
+            $.messager.progress('close');
             if (result.errorMsg) {
                 $.messager.alert({width:350, height:150, title:'<?php _e('Error'); ?>',msg: result.errorMsg,icon:'error' });
             } else {
@@ -121,6 +124,7 @@ function perform_emailScores() {
             }
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.progress('close');
             alert("Send scores by mail error: "+textStatus + " "+ errorThrown );
         }
     });

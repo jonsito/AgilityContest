@@ -3,6 +3,7 @@
 require_once __DIR__.'/PHPMailer-5.2.22/PHPMailerAutoload.php';
 require_once __DIR__.'/../auth/Config.php';
 require_once __DIR__.'/../auth/AuthManager.php';
+require_once __DIR__.'/../database/classes/Mangas.php';
 require_once __DIR__.'/../database/classes/Resultados.php';
 require_once __DIR__.'/../excel/classes/Excel_Inscripciones.php';
 require_once __DIR__.'/../excel/classes/Excel_Clasificaciones.php';
@@ -34,13 +35,20 @@ class MailManager {
     protected $myLogger;
     protected $myDBObj;
     protected $pruebaObj;
+    protected $jornadaObj;
+    protected $myData; // argumentos recibidos por http_request
 
-    public function __construct($filename,$am,$prueba) {
+    public function __construct($filename,$am,$data) {
         $this->myAuthManager=$am;
         $this->myConfig=Config::getInstance();
         $this->myLogger= new Logger($filename,$this->myConfig->getEnv("debug_level"));
+        $this->myData=$data;
         $this->myDBObj=new DBOBject("MailManager::Enumerate");
-        $this->pruebaObj=$this->myDBObj->__selectObject("*","Pruebas","ID=$prueba");
+        $this->pruebObj=null;
+        if ($this->myData['Prueba']!=0)
+            $this->pruebaObj=$this->myDBObj->__selectObject("*","Pruebas","ID={$this->myData['Prueba']}");
+        if ($this->myData['Jornada']!=0)
+            $this->jornadaObj=$this->myDBObj->__selectObject("*","Jornadas","ID={$this->myData['Jornada']}");
     }
 
     /**
@@ -53,12 +61,10 @@ class MailManager {
         //Enable SMTP debugging. Notice that output is sent to client, so json_parse() fails
         $myMailer->SMTPDebug = 0; // 0 = off (for production use) // 1 = client messages // 2 = client and server messages // 3=trace connection
         $myMailer->Debugoutput = 'html';
-        // $myMailer->Host = gethostbyname(http_request("email_server","s","127.0.0.1"));
         $myMailer->Host = $this->myConfig->getEnv("email_server");
         // if your network does not support SMTP over IPv6
         //Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
         $myMailer->Port = intval($this->myConfig->getEnv("email_port"));
-        /* http_request("email_crypt","s","none") */
         $crypt=$this->myConfig->getEnv("email_crypt");
         switch($crypt) {
             case 'NONE':
@@ -102,13 +108,12 @@ class MailManager {
         //Enable SMTP debugging. Notice that output is sent to client, so json_parse() fails
         $myMailer->SMTPDebug = 0; // 0 = off (for production use) // 1 = client messages // 2 = client and server messages // 3=trace connection
         $myMailer->Debugoutput = 'html';
-        // $myMailer->Host = gethostbyname(http_request("email_server","s","127.0.0.1"));
-        $myMailer->Host = http_request("email_server","s","127.0.0.1");
+        // $myMailer->Host = gethostbyname($this->myData["email_server"],"s","127.0.0.1"));
+        $myMailer->Host = $this->myData['email_server'];
         // if your network does not support SMTP over IPv6
         //Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
-        $myMailer->Port = intval(http_request("email_port","i",25));
-        /* http_request("email_crypt","s","none") */
-        $crypt=http_request("email_crypt","s","None");
+        $myMailer->Port = intval($this->myData["email_port"]);
+        $crypt=$this->myData["email_crypt"];
         switch($crypt) {
             case 'NONE':
                 $myMailer->SMTPSecure='';
@@ -127,13 +132,13 @@ class MailManager {
                 break;
         }
         // Whether to use SMTP authentication
-        $myMailer->AuthType = http_request("email_auth","s","PLAIN");
+        $myMailer->AuthType = $this->myData["email_auth"];
         $myMailer->SMTPAuth = ($myMailer->AuthType == "PLAIN" )?false:true;
         //Username to use for SMTP authentication - use full email address for gmail
-        $myMailer->Username = http_request("email_user","s","");
-        $myMailer->Password = http_request("email_pass","s","");
-        $myMailer->Realm = http_request("email_realm","s","");
-        $myMailer->Workstation = http_request("email_workstation","s","");
+        $myMailer->Username = $this->myData["email_user"];
+        $myMailer->Password = $this->myData["email_pass"];
+        $myMailer->Realm = $this->myData["email_realm"];
+        $myMailer->Workstation = $this->myData["email_workstation"];
         // retrieve data from current license and use it to initialize sender and replyTo info
         $data=$this->myAuthManager->getRegistrationInfo();
         $myMailer->setFrom($data['Email'], $data['Name']);
@@ -162,11 +167,11 @@ class MailManager {
      * Retrieve a list of clubs for this federation indicating whether email has already been sent
      * @return array|null null on error; array ['total', 'rows'] on success
      */
-    public function enumerate() {
+    public function enumerateClubes() {
         $this->myLogger->enter();
         $curFederation=Federations::getFederation(intval($this->pruebaObj->RSCE));
         // evaluate search query string
-        $q=http_request("q","s","");
+        $q=$this->myData["q"];
         // evaluate federation for club/country filtering
         $fedstr = "1";
         if ($curFederation!=null) {
@@ -197,13 +202,13 @@ class MailManager {
      * @param {integer} $jornada Jornada ID
      * @return array|null null on error; array ['total', 'rows'] on success
      */
-    public function enumerateJueces($jornada) {
+    public function enumerateJueces() {
         $this->myLogger->enter();
-        if ($jornada<=0) return $this->error("enumerateJuecesByJornada(): Invalid Jornada ID: $jornada");
+        if ($this->myData['Jornada']<=0) return $this->error("enumerateJuecesByJornada(): Invalid Jornada ID: {$this->myData['Jornada']}");
         // evaluate search query string
-        $q=http_request("q","s","");
+        $q=$this->myData["q"];
         // evaluate judge list by parsing rounds in journey
-        $jueces=$this->myDBObj->__select("Juez1,Juez2","Mangas","Jornada=$jornada");
+        $jueces=$this->myDBObj->__select("Juez1,Juez2","Mangas","Jornada={$this->myData['Jornada']}");
         $list=array();
         foreach ($jueces['rows'] as $item) { $list[]=$item['Juez1']; $list[]=$item['Juez2']; }
         $data=array_unique($list,SORT_NUMERIC); // elimina duplicados
@@ -240,16 +245,14 @@ class MailManager {
 
     /**
      * Update club email with provided data
-     * @param {integer} $club Club ID
-     * @param {string} $email new Email Address ( escapechar'd by http_request )
      * @return {string} empty on success, else error msg
      */
-    public function updateClubMail($club,$email) {
-        if ($club<=1)
-            throw new Exception("updateClubMail(): Invalid Club ID $club");
-        if (!filter_var($email,FILTER_VALIDATE_EMAIL))
-            throw new Exception ("updateClubMail() provided data '$email' is not a valid email address");
-        $str="UPDATE Clubes SET Email='$email' WHERE ID=$club";
+    public function updateClubMail() {
+        if ($this->myData['Club']<=1)
+            throw new Exception("updateClubMail(): Invalid Club ID {$this->myData['Club']}");
+        if (!filter_var($this->myData['Email'],FILTER_VALIDATE_EMAIL))
+            throw new Exception ("updateClubMail() provided data `{$this->myData['Email']}` is not a valid email address");
+        $str="UPDATE Clubes SET Email='{$this->myData['Email']} WHERE ID={$this->myData['Club']}";
         $res=$this->myDBObj->query($str);
         if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
         return "";
@@ -257,16 +260,14 @@ class MailManager {
 
     /**
      * Update juez email with provided data
-     * @param {integer} $club Juez ID
-     * @param {string} $email new Email Address ( escapechar'd by http_request )
      * @return {string} empty on success, else error msg
      */
-    public function updateJuezMail($juez,$email) {
-        if ($juez<=1)
-            throw new Exception("updateJuezMail(): Invalid Juez ID $juez");
-        if (!filter_var($email,FILTER_VALIDATE_EMAIL))
-            throw new Exception ("updateJuezbMail() provided data '$email' is not a valid email address");
-        $str="UPDATE Jueces SET Email='$email' WHERE ID=$juez";
+    public function updateJuezMail() {
+        if ($this->myData['Juez']<=1)
+            throw new Exception("updateJuezMail(): Invalid Juez ID {$this->myData['Juez']}");
+        if (!filter_var($this->myData['Email'],FILTER_VALIDATE_EMAIL))
+            throw new Exception ("updateJuezbMail() provided data `{$this->myData['Email']}` is not a valid email address");
+        $str="UPDATE Jueces SET Email='{$this->myData['Email']}' WHERE ID={$this->myData['Juez']}";
         $res=$this->myDBObj->query($str);
         if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
         return "";
@@ -278,12 +279,12 @@ class MailManager {
      * @param {string} $email
      * @return string empty on success; else error code
      */
-    public function sendInscriptions($club,$email) {
+    public function sendInscriptions() {
         $this->myLogger->enter();
         $timeout=ini_get('max_execution_time');
         $maildir=__DIR__."/../../../logs/mail_{$this->pruebaObj->ID}";
-        $this->myLogger->trace("Sending mail for club:'$club' to address:'$email'");
-        if ($email=="") return "Error: no email address set";
+        $this->myLogger->trace("Sending mail for club:`{$this->myData['Club']}` to address:`{$this->myData['Email']}`");
+        if ($this->myData['Email']=="") return "Error: no email address set";
 
         // create compose directory. ignore errors if file already exists
         @mkdir($maildir,0777,true); // create subdirectories
@@ -314,8 +315,8 @@ class MailManager {
             }
         }
         // check for empty template mark request and retrieve excel file
-        $empty=intval(http_request("EmptyTemplate","i","0"));
-        $excelclub=( $empty!=0 )? $club:0;
+        $empty=intval($this->myData["EmptyTemplate"]);
+        $excelclub=( $empty!=0 )? $this->myData['Club']:0;
         if ( ! file_exists("$maildir/Inscripciones_{$excelclub}.xlsx") ) {
             $excelObj=new Excel_Inscripciones($this->pruebaObj->ID,$excelclub);
             $excelObj->open("$maildir/Inscripciones_${excelclub}.xlsx");
@@ -330,14 +331,14 @@ class MailManager {
 
         // compose a dummy message to be sent to sender :-)
         //Set who the message is to be sent to
-        $myMailer->addAddress($email);
+        $myMailer->addAddress($this->myData['Email']);
         //Set the subject line to Contest Name
         $myMailer->Subject = $this->pruebaObj->Nombre;
 
         // prepare message body
         $d=date("Y/m/d H:i");
         $htmlmsg="<h4>Test</h4><p>Just a simple <em>HTML</em> text to test send mail in this format</p><p>Mail sent at:$d</p><hr/>";
-        $htmlmsg=http_request("Contents","s",$htmlmsg);
+        $htmlmsg=$this->myData["Contents"];
         $version = $this->myConfig->getEnv("version_name");
         $release = $this->myConfig->getEnv("version_date");
         $htmlmsg .= "<hr/><p>". _("Email sent with") .  "AgilityContest-$version $release at $d</p> ";
@@ -362,7 +363,7 @@ class MailManager {
             return "Mailer Error: " . $myMailer->ErrorInfo;
         }
         // if send mail gets ok, mark club sent in prueba
-        $res=list_insert($club,$this->pruebaObj->MailList);
+        $res=list_insert($this->myData['Club'],$this->pruebaObj->MailList);
         $str="UPDATE Pruebas SET MailList='{$res}' WHERE ID={$this->pruebaObj->ID}";
         $this->myDBObj->query($str);
         $this->pruebaObj->MailList=$res;
@@ -370,90 +371,112 @@ class MailManager {
         return "";
     }
 
-    // send results scores and pdf to judge and federation
-    public function sendResults($jornada,$partialscores) {
-        $this->myLogger->enter();
-        $prueba=$this->pruebaObj->ID;
-        $timeout=ini_get('max_execution_time');
-        $maildir=__DIR__."/../../../logs/results_{$prueba}_{$jornada}";
+    /**
+     * Create all requested result files files
+     * @return {array} file list
+     */
+    private function create_result_files($maildir) {
         // create compose directory. ignore errors if file already exists
         @mkdir($maildir,0777,true); // create subdirectories
 
         // generate pdf files
         $filelist=array();
         // ask for availabla rounds/series in this journey
-        $pb= new PublicWeb($prueba,$jornada);
+        $pb= new PublicWeb($this->myData['Prueba'],$this->myData['Jornada']);
         $pbdata=$pb->publicweb_deploy();
         foreach ($pbdata['Jornadas'] as $j) { //buscamos la nuestra en la lista de jornadas
-            if ($j['ID']!=$jornada) continue;
-            if ($partialscores) {
-                foreach ($j['Mangas'] as $m) { // obtenemos la lista de clasificaciones parciales de la jornada
-                    $this->myLogger->trace("Generating pdf for round {$m['Nombre']}");
-                    $robj=new Resultados("MailResults",$prueba,$m['ID']);
+            if ($j['ID']!=$this->myData['Jornada']) continue;
+            if ($this->myData['PartialScores']) {
+                foreach ($j['Mangas'] as $m) {
+                    // analizamos la lista de rondas de la jornada GIstd,GIms,etc
+                    // $m['ID'] es de la forma "mangaid,mode"; el ID viene en $m['Manga']
+                    $mngobj= new Mangas("EmailResultadosByManga",$this->myData['Jornada']);
+                    $manga=$mngobj->selectByID($m['Manga']);
+                    $resobj= new Resultados("EmailResultadosByManga",$this->myData['Prueba'],$m['Manga']);
                     switch(intval($m['TipoManga'])) {
                         // miramos si es una prueba por equipos
                         case 8: case 13:
-                            $resultados=$robj->getResultadosEquipos($m['Mode']);
-                            $pdf=new PrintResultadosByEquipos3($prueba,$jornada,$m['ID'],$resultados,$m['Mode']);
-                            break;
+                        $resultados=$resobj->getResultadosEquipos($m['Mode']);
+                        $pdf=new PrintResultadosByEquipos3($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
+                        break;
                         case 9: case 14:
-                            $resultados=$robj->getResultadosEquipos($m['Mode']);
-                            $pdf=new PrintResultadosByEquipos4($prueba,$jornada,$m['ID'],$resultados,$m['Mode']);
-                            break;
+                        $resultados=$resobj->getResultadosEquipos($m['Mode']);
+                        $pdf=new PrintResultadosByEquipos4($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
+                        break;
                         default:
-                            $resultados=$robj->getResultados($m['Mode']);
-                            $pdf=new PrintResultadosByManga($prueba,$jornada,$m['ID'],$resultados,$m['Mode']);
+                            $resultados=$resobj->getResultados($m['Mode']);
+                            $pdf=new PrintResultadosByManga($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
                             break;
                     }
                     $pdf->AliasNbPages();
                     $pdf->composeTable();
                     $pdfname=str_replace(" ","_",$m['Nombre']);
-                    $filelist[]=$pdfname;
-                    $pdf->Output("$maildir/resultados_$pdfname.pdf","F"); // "D" means open download dialog
+                    $pdfname=str_replace("_-_","_",$pdfname);
+                    array_push($filelist,"{$pdfname}.pdf");
+                    $pdf->Output("$maildir/$pdfname.pdf","F"); // "D" means open download dialog
                 }
             }
         }
 
         // Datos de inscripciones en PDF
-        $jmgr= new Jornadas("printInscritosByPrueba",$prueba);
+        $jmgr= new Jornadas("printInscritosByPrueba",$this->myData['Prueba']);
         $jornadas=$jmgr->selectByPrueba();
-        $inscripciones = new Inscripciones("printInscritosByPrueba",$prueba);
+        $inscripciones = new Inscripciones("printInscritosByPrueba",$this->myData['Prueba']);
         $inscritos= $inscripciones->enumerate();
-        $pdf=new PrintInscritosByJornada($prueba,$inscritos,$jornadas,$jornada);
+        $pdf=new PrintInscritosByJornada($this->myData['Prueba'],$inscritos,$jornadas,$this->myData['Jornada']);
         $pdf->AliasNbPages();
         $pdf->composeTable();
         $pdf->Output("$maildir/Inscripciones.pdf","F"); // "F" means output to file
+        array_push($filelist,"Inscripciones.pdf");
 
         // generate excel clasifications file
-        $excelObj=new Excel_Clasificaciones($prueba);
+        $excelObj=new Excel_Clasificaciones($this->myData['Prueba']);
         $excelObj->open("$maildir/Clasificaciones.xlsx");
         $excelObj->composeTable();
         $excelObj->close();
+        array_push($filelist,"Clasificaciones.xlsx");
 
         // generate excel inscriptions file
-        $excelObj=new Excel_Inscripciones($prueba,0); // 0 means everyone
+        $excelObj=new Excel_Inscripciones($this->myData['Prueba'],0); // 0 means everyone
         $excelObj->open("$maildir/Inscripciones.xlsx");
         $excelObj->composeTable();
         $excelObj->close();
+        array_push($filelist,"Inscripciones.xlsx");
+
+        // return list of composed files
+        $this->myLogger->trace("filelist is ".json_encode($filelist));
+        return $filelist;
+    }
+
+    // send results scores and pdf to judge and federation
+    public function sendResults() {
+        $this->myLogger->enter();
+        $prueba=$this->pruebaObj->ID;
+        $timeout=ini_get('max_execution_time');
+        $maildir=__DIR__."/../../../logs/results_{$this->myData['Prueba']}_{$this->myData['Jornada']}";
+        // create files
+        $filelist=$this->create_result_files($maildir);
+
         // configure mail
         $myMailer = new PHPMailer; //Create a new PHPMailer instance
         $this->setup_mailer_from_config($myMailer); // myMailer is passed by reference
 
         // add judges in rcpt_to ( from client we receive comma separated list of judges
-        $list=http_request('Email','s','');
+        $list=$this->myData['Email'];
         $jueces=explode(',',$list);
         foreach ($jueces as $juez ) $myMailer->addAddress($juez);
 
         // if requested add federation in Cc:
-        if (http_request('SendToFederation',"i",0)!=0) {
-            $fedm=http_request("FedAddress","s","");
+        if ( $this->myData['SendToFederation'] != 0) {
+            $fedm=$this->myData["FedAddress"];
             if ($fedm!="") $myMailer->addCC($fedm);
         }
 
         // prepare message body
         $d=date("Y/m/d H:i");
-        $htmlmsg="<h4>Results</h4><p>Here comes <em>Results and Scores</em> for journey $jornada</p><p>Mail sent at:$d</p><hr/>";
-        $htmlmsg=http_request("Contents","s",$htmlmsg);
+        $htmlmsg=$this->myData["Contents"];
+        if ($htmlmsg=="")
+            $htmlmsg="<h4>Results</h4><p>Here comes <em>Results and Scores</em> for journey {$this->myData['Jornada']}</p><p>Mail sent at:$d</p><hr/>";
         $version = $this->myConfig->getEnv("version_name");
         $release = $this->myConfig->getEnv("version_date");
         $htmlmsg .= "<hr/><p>". _("Email sent with") .  "AgilityContest-$version $release at $d</p> ";
@@ -465,11 +488,8 @@ class MailManager {
         // attach files
         foreach($filelist as $file) {
             $this->myLogger->trace("Attaching file $file");
-            $myMailer->addAttachment("maildir/$file",$file);
+            $myMailer->addAttachment("$maildir/$file",$file);
         }
-        $myMailer->addAttachment("$maildir/Clasificaciones.xlsx","Clasificaciones.xlsx");
-        $myMailer->addAttachment("$maildir/Inscripciones.xlsx","Inscripciones.xlsx");
-        $myMailer->addAttachment("$maildir/Inscripciones.pdf","Inscripciones.pdf");
         // allways attach AgiltiyContest logo . Use absolute paths as phpmailer does not handle relative ones
         $myMailer->addAttachment(__DIR__.'/../../images/logos/agilitycontest.png');
         //send the message, check for errors

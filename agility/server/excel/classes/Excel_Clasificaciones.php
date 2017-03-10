@@ -144,7 +144,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
 		$clas=new Clasificaciones("excel_Clasificaciones",$this->prueba['ID'],$jornada['ID']);
 		$results=array();
 		foreach ($rondas as $ronda) {
-			$mangas=array($ronda['Manga1'],$ronda['Manga2']);
+			$mangas=array($ronda['Manga1'],$ronda['Manga2'],$ronda['Manga3'],$ronda['Manga4'],$ronda['Manga5'],$ronda['Manga6'],$ronda['Manga7'],$ronda['Manga8']);
 			$clasifRonda=$clas->clasificacionFinal($ronda['Rondas'],$mangas,$ronda['Mode']);
 			$results=array_merge($results,$clasifRonda['rows']);
 		}

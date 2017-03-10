@@ -778,7 +778,6 @@ class PrintInscritosByJornada extends PrintCommon {
 
 	protected $inscritos; // inscritos en la prueba
 	protected $jornadas; // datos de todas las jornadas de esta prueba
-    protected $jornada; // datos de la jornada concreta
     protected $JName; // campo "JX" a buscar para ver si esta inscrito o no en la jornada
 
 	// geometria de las celdas
@@ -789,13 +788,15 @@ class PrintInscritosByJornada extends PrintCommon {
 
 	/**
 	 * Constructor
-	 * @param {integer} $prueba Prueba ID
+	 * @param {integer} $pruebaid Prueba ID
 	 * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
+	 * @param {array} $jornadas lista de jornadas de la prueba
+	 * @param {integer} $jornadaid id de la prueba que buscamos
 	 * @throws Exception
 	 */
-	function __construct($prueba,$inscritos,$jornadas,$jornadaid) {
-		parent::__construct('Portrait','print_inscritosByJornada',$prueba,0);
-		if ( ($prueba==0) || ($inscritos===null) ) {
+	function __construct($pruebaid,$inscritos,$jornadas,$jornadaid) {
+		parent::__construct('Portrait','print_inscritosByJornada',$pruebaid,$jornadaid);
+		if ( ($pruebaid==0) || ($inscritos===null) ) {
 			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
 			throw new Exception($this->errormsg);
 		}
@@ -808,7 +809,6 @@ class PrintInscritosByJornada extends PrintCommon {
         $this->JName="";
         foreach ($jornadas['rows'] as $j) {
             if ($j['ID'] == $jornadaid) {
-                $this->jornada=$j;
                 $this->JName = "J{$j['Numero']}";
 				// remove "Grade" from cell array if jornada is open/team/KO
 				if( !Jornadas::hasGrades($j) || (intval($this->config->getEnv("pdf_grades"))==0) ) {
@@ -844,7 +844,7 @@ class PrintInscritosByJornada extends PrintCommon {
 		$this->myLogger->enter();
         // pintamos "identificacion de la manga"
         $this->SetFont($this->getFontName(),'B',12); // bold 15
-        $str  = _('Journey'). ": ". $this->jornada['Nombre'] . " - " . $this->jornada['Fecha'];
+        $str  = _('Journey'). ": ". $this->jornada->Nombre . " - " . $this->jornada->Fecha;
         $this->Cell(90,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
         $this->Ln();
 

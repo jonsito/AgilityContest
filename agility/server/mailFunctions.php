@@ -28,39 +28,55 @@ try {
     $result=null;
     $am= new AuthManager("mailFunctions");
     $operation=http_request("Operation","s",null);
-    $prueba=http_request("Prueba","i",0);
-    $jornada=http_request("Jornada","i",0);
-    $club=http_request("Club","i",0);
-    $juez=http_request("Juez","i",0);
-    $email=http_request("Email","s","");
-    $mailer=new MailManager("mailFunctions",$am,$prueba);
+    $data=array(
+        // datos para operacion de enumerate
+        'q' =>   http_request("q","s",""),
+        // datos para envio de inscripciones
+        'EmptyTemplate' => http_request("EmptyTemplate","i",0),
+        // datos para envio de resultados
+        'Prueba'    =>  http_request("Prueba","i",0),
+        'Jornada'   =>  http_request("Jornada","i",0),
+        'Club'      =>  http_request("Club","i",0), // club id on change mail operation
+        'Juez'      =>  http_request("Juez","i",0), // Juez id on change mail operation
+        'Email'     =>  http_request("Email","s",""), // mail list to send mail to
+        'SendToFederation'  =>  http_request("SendToFederation","i",0), // flag to ask for send CC: to federation provided mail
+        'PartialScores'  =>  http_request("PartialScores","i",0), // flag to ask for send CC: to federation provided mail
+        'FedAddress'=>  http_request("FedAddress","s",""), // federation email address
+        'Contents'  =>  http_request("Contents","s",""), // federation email address
+        // datos para prueba de configuracion de correo
+        'email_server'  => http_request("email_server","s","127.0.0.1"),
+        'email_port'    => http_request("email_port","i",25),
+        'email_crypt'   => http_request("email_crypt","s","None"),
+        'email_auth'    => http_request("email_auth","s","PLAIN"),
+        'email_user'    => http_request("email_user","s",""),
+        'email_pass'    => http_request("email_pass","s",""),
+        'email_realm'   => http_request("email_realm","s",""),
+        'email_workstation' => http_request("email_workstation","s","")
+    );
+    $mailer=new MailManager("mailFunctions",$am,$data);
     if ($operation===null) throw new Exception("Call to mailFunctions without 'Operation' requested");
     switch ($operation) {
         // update email from selected club
-        case "updateclub": $am->access(PERMS_OPERATOR); $result=$mailer->updateClubMail($club,$email); break;
+        case "updateclub": $am->access(PERMS_OPERATOR); $result=$mailer->updateClubMail(); break;
         // update email from selected club
-        case "updateJuez": $am->access(PERMS_OPERATOR); $result=$mailer->updateJuezMail($juez,$email); break;
+        case "updateJuez": $am->access(PERMS_OPERATOR); $result=$mailer->updateJuezMail(); break;
         // clear sent mark from every clubs on this contest
         case "clearsent":  $am->access(PERMS_OPERATOR); $result=$mailer->clearSent(); break;
         // replacement for clubs::enumerate to add info on mail sent
-        case "enumerate": $result=$mailer->enumerate(); break;
+        case "enumerate": $result=$mailer->enumerateClubes(); break;
         // list all judges on provided journey
-        case "enumerateJueces": $result=$mailer->enumerateJueces($jornada); break;
+        case "enumerateJueces": $result=$mailer->enumerateJueces(); break;
         // try to send mail to sender using configuration preferences
         case "check": $am->access(PERMS_OPERATOR); $result=$mailer->check(); break;
         // send mail to AgilityContest server
         case "notify": $am->access(PERMS_OPERATOR); $result=$mailer->notify(); break;
         // iterate on selected clubs for sending inscription template
-        case "sendInscriptions":
-            $am->access(PERMS_OPERATOR);
-            $result=$mailer->sendInscriptions($club,$email);
-            break;
+        case "sendInscriptions": $am->access(PERMS_OPERATOR); $result=$mailer->sendInscriptions(); break;
         // send results, scores and excels to federation ad judges
-        case "sendResults":
-            $am->access(PERMS_OPERATOR);
-            $partialscores=http_request("PartialScores","i",0);
-            $result=$mailer->sendResults($jornada,$partialscores); break;
-        default: throw new Exception("mailFunctions:: invalid operation: '$operation' provided");
+        case "sendResults": $am->access(PERMS_OPERATOR); $result=$mailer->sendResults(); break;
+        default:
+            throw new Exception("mailFunctions:: invalid operation: '$operation' provided");
+            break;
     }
     if ($result==="")  echo json_encode(array('success'=>true)); // "": ok
     else if (is_string($result)) throw new Exception($result); // string: error string
