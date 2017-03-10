@@ -3,9 +3,13 @@ call settings.bat
 cd /d %~dp0\xampp
 echo AgilityContest Launch Script
 
-rem for windows 8 and 10 disable w3svc service
 rem notice that this may require admin privileges
-net stop W3SVC 
+rem for windows 8 and 10 disable w3svc service
+rem also configure firewall to allow http https and mysql
+net stop W3SVC
+netsh advfirewall firewall add rule name="MySQL Server" action=allow protocol=TCP dir=in localport=3306
+netsh advfirewall firewall add rule name="Apache HTTP Server" action=allow protocol=TCP dir=in localport=80
+netsh advfirewall firewall add rule name="Apache HTTPs Server" action=allow protocol=TCP dir=in localport=443
 
 rem if required prepare portable xampp to properly setup directories
 if not exist ..\logs\first_install GOTO mysql_start
