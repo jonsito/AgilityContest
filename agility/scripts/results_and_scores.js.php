@@ -95,7 +95,7 @@ function perform_emailScores() {
     var list = '';
     for (var n = 0; n < size; n++) { list = list + selectedRows[n]['Email'];  if (n < size - 1) list = list + ','  }
     // prepare a progress bar to mark running
-    $.messager.progress({title:"<?php _e('Sending');?>...",msg:"<?php _e('Sending results and scores to'); ?> : <br/>" + list,text:""});
+    $.messager.progress({title:"<?php _e('Sending');?>...",msg:"<?php _e('Sending results and scores to'); ?>:<br/>" + list,text:""});
     $.ajax({
         cache: false,
         timeout: 30000, // 20 segundos
@@ -110,9 +110,10 @@ function perform_emailScores() {
             Operation: 'sendResults',
             Juez: 0, // not needed as we send just a comma separated list
             Email: list,
-            SendToFederation: $('#scores_email-SendToFederation').val(),
+            SendToFederation: $('#scores_email-SendToFederation').prop('checked')?1:0,
             FedAddress: $('#scores_email-FedAddress').textbox('getValue'),
-            PartialScores: $('#scores_email-PartialScores').val(),
+            PartialScores: $('#scores_email-PartialScores').prop('checked')?1:0,
+            ZipFile: $('input[name=ZipFile]:checked','#scores_email-form').val(),
             Contents: $('#scores_email-Contents').val()
         },
         success: function (result) {

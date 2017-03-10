@@ -28,16 +28,18 @@ $config =Config::getInstance();
         <li><?php _e("Revise email addresses and select judge(s) to send email to");?></li>
         <li><?php _e("Also decide whether to send mail copy to Federation");?></li>
         <li><?php _e("Choose also if you want to send partial (round) scores");?></li>
+        <li><?php _e("Choose if sending every results in a single '.zip' file");?></li>
         <li><?php _e("Revise and edit message body");?></li>
         <li><?php _e("Press double-click on judge to set/change email");?></li>
     </ul>
     <form id="scores_email-form" method="get" novalidate="novalidate">
         <div class="fitem">
-            <input name="PartialScores" type="hidden" value="0"/>
             <label for="scores_email-PartialScores" style="width:300px;"><?php _e('Also send scores for each separate round'); ?></label>
             <input id="scores_email-PartialScores" type="checkbox" name="PartialScores" value="1"/><br/>
-
-            <input name="SendToFederation" type="hidden" value="0"/>
+            <label for="scores_email-ZipFile" style="width:300px;"><?php _e("Attach single zip file");?></label>
+            <input id="scores_email-ZipFile" name="ZipFile" type="radio" value="1" checked="checked"/>
+            <label for="scores_email-NoZipFile"style="width:150px;text-align:right;" ><?php _e("Separate files");?></label>
+            <input id="scores_email-NoZipFile" name="ZipFile" type="radio" value="0"/><br/>
             <label for="scores_email-SendToFederation" style="width:300px;"><?php _e('Send a copy to federation'); ?></label>
             <input id="scores_email-SendToFederation" type="checkbox" name="SendToFederation" value="1" /><br/>
             <label for="scores_email-FedAddress" style="width:300px;"><?php _e('Federation Email');?>:</label>

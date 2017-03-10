@@ -11,6 +11,8 @@ require_once __DIR__.'/../pdf/classes/PrintInscripciones.php';
 require_once __DIR__.'/../pdf/classes/PrintResultadosByEquipos3.php';
 require_once __DIR__.'/../pdf/classes/PrintResultadosByEquipos4.php';
 require_once __DIR__.'/../pdf/classes/PrintResultadosByManga.php';
+require_once __DIR__.'/../pdf/classes/PrintClasificacion.php';
+require_once __DIR__.'/../pdf/classes/PrintClasificacionTeam.php';
 require_once __DIR__.'/../web/PublicWeb.php';
 /*
 mailManager.php
@@ -372,6 +374,45 @@ class MailManager {
     }
 
     /**
+     * Creates a compressed zip file
+     * @param {string} $maildir base directory to retrieve files
+     * @param {array} $files file list
+     * @param {string} $destination Destinantion zipfile name
+     * @param {bool} $overwrite true to override zip file
+     * @return bool true on success, else false
+     */
+    function create_zip($maildir,$files = array(),$destination = '') {
+
+        $valid_files = array(); // where to store valid files to insert into zip
+        if(is_array($files)) {
+            //cycle through each file
+            foreach($files as $file) {
+                if(file_exists("{$maildir}/{$file}"))  $valid_files[] = $file;  //make sure the file exists
+            }
+        }
+        if(count($valid_files)) { // we have some files to insert into zip, so process
+            //create the archive
+            $zip = new ZipArchive();
+            if($zip->open($destination,ZipArchive::OVERWRITE) !== true) { // allways clear archive if exists
+                $this->myLogger->trace( "canot zipfile open() {$destination}");
+                return false;
+            }
+            //add the files
+            foreach($valid_files as $file)  {
+                // $this->myLogger->trace("Adding {$file} to zipfile");
+                $zip->addFile("{$maildir}/{$file}",$file);
+            }
+            //close the zip -- done!
+            $zip->close();
+            //check to make sure the file exists
+            return file_exists($destination);
+        }
+        // arriving here means no files to add to zipfile, so no zipfile created
+        $this->myLogger->trace("No files to add to zipfile");
+        return false;
+    }
+
+    /**
      * Create all requested result files files
      * @return {array} file list
      */
@@ -386,35 +427,63 @@ class MailManager {
         $pbdata=$pb->publicweb_deploy();
         foreach ($pbdata['Jornadas'] as $j) { //buscamos la nuestra en la lista de jornadas
             if ($j['ID']!=$this->myData['Jornada']) continue;
-            if ($this->myData['PartialScores']) {
-                foreach ($j['Mangas'] as $m) {
-                    // analizamos la lista de rondas de la jornada GIstd,GIms,etc
-                    // $m['ID'] es de la forma "mangaid,mode"; el ID viene en $m['Manga']
-                    $mngobj= new Mangas("EmailResultadosByManga",$this->myData['Jornada']);
-                    $manga=$mngobj->selectByID($m['Manga']);
-                    $resobj= new Resultados("EmailResultadosByManga",$this->myData['Prueba'],$m['Manga']);
-                    switch(intval($m['TipoManga'])) {
-                        // miramos si es una prueba por equipos
-                        case 8: case 13:
+            // clasificacion final
+            foreach($j['Series'] as $s) {
+                $this->myLogger->trace("Parsing Series: ".json_encode($s));
+                $mangas=array(
+                    intval($s['Manga1']), intval($s['Manga2']), intval($s['Manga3']), intval($s['Manga4']),
+                    intval($s['Manga5']), intval($s['Manga6']), intval($s['Manga7']), intval($s['Manga8'])
+                );
+                $cobj=new Clasificaciones("EmailClasificaciones",$this->pruebaObj->ID,$this->jornadaObj->ID);
+                switch(intval($s['Tipo1'])) {
+                    case 8: case 9: case 13: case 14: // prueba por equipos
+                        $clasificaciones=$cobj->clasificacionFinalEquipos($s['Rondas'],$mangas,$s['Mode']);
+                        $pdf = new PrintClasificacionTeam($this->pruebaObj->ID,$this->jornadaObj->ID,$mangas,$clasificaciones,$s['Mode']);
+                        break;
+                    default: // individual
+                        $clasificaciones=$cobj->clasificacionFinal($s['Rondas'],$mangas,$s['Mode']);
+                        $pdf = new PrintClasificacion($this->pruebaObj->ID,$this->jornadaObj->ID,$mangas,$clasificaciones,$s['Mode']);
+                        break;
+                }
+                // Creamos generador de documento
+                $pdf->AliasNbPages();
+                $pdf->composeTable();
+                $pdfname=str_replace(" ","_",$s['Nombre']);
+                $pdfname=str_replace("_-_","_",$pdfname); // prettyformat file name from "manga - categoria"
+                array_push($filelist,"{$pdfname}.pdf");
+                $pdf->Output("$maildir/$pdfname.pdf","F"); // "F" means save to file; "D" send to client; "O" store in variable
+            }
+
+            // check for need to generate partial scores
+            if ($this->myData['PartialScores']==0) continue;
+
+            foreach ($j['Mangas'] as $m) {
+                // analizamos la lista de rondas de la jornada GIstd,GIms,etc
+                // $m['ID'] es de la forma "mangaid,mode"; el ID viene en $m['Manga']
+                $mngobj= new Mangas("EmailResultadosByManga",$this->myData['Jornada']);
+                $manga=$mngobj->selectByID($m['Manga']);
+                $resobj= new Resultados("EmailResultadosByManga",$this->myData['Prueba'],$m['Manga']);
+                switch(intval($m['TipoManga'])) {
+                    // miramos si es una prueba por equipos
+                    case 8: case 13:
                         $resultados=$resobj->getResultadosEquipos($m['Mode']);
                         $pdf=new PrintResultadosByEquipos3($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
                         break;
-                        case 9: case 14:
+                    case 9: case 14:
                         $resultados=$resobj->getResultadosEquipos($m['Mode']);
                         $pdf=new PrintResultadosByEquipos4($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
                         break;
-                        default:
-                            $resultados=$resobj->getResultados($m['Mode']);
-                            $pdf=new PrintResultadosByManga($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
-                            break;
-                    }
-                    $pdf->AliasNbPages();
-                    $pdf->composeTable();
-                    $pdfname=str_replace(" ","_",$m['Nombre']);
-                    $pdfname=str_replace("_-_","_",$pdfname);
-                    array_push($filelist,"{$pdfname}.pdf");
-                    $pdf->Output("$maildir/$pdfname.pdf","F"); // "D" means open download dialog
+                    default:
+                        $resultados=$resobj->getResultados($m['Mode']);
+                        $pdf=new PrintResultadosByManga($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
+                        break;
                 }
+                $pdf->AliasNbPages();
+                $pdf->composeTable();
+                $pdfname=str_replace(" ","_",$m['Nombre']);
+                $pdfname=str_replace("_-_","_",$pdfname); // prettyformat file name from "manga - categoria"
+                array_push($filelist,"{$pdfname}.pdf");
+                $pdf->Output("$maildir/$pdfname.pdf","F"); // "D" means open download dialog
             }
         }
 
@@ -460,7 +529,7 @@ class MailManager {
         // configure mail
         $myMailer = new PHPMailer; //Create a new PHPMailer instance
         $this->setup_mailer_from_config($myMailer); // myMailer is passed by reference
-
+        $myMailer->Subject = _('Results').": {$this->pruebaObj->Nombre} -  {$this->jornadaObj->Nombre}";
         // add judges in rcpt_to ( from client we receive comma separated list of judges
         $list=$this->myData['Email'];
         $jueces=explode(',',$list);
@@ -485,15 +554,24 @@ class MailManager {
         // set plain text to notify to use an html-enabled email browser
         $myMailer->AltBody = _("Please enable HTML view in your email application");
 
-        // attach files
-        foreach($filelist as $file) {
-            $this->myLogger->trace("Attaching file $file");
-            $myMailer->addAttachment("$maildir/$file",$file);
+        if($this->myData['ZipFile']!=0) {
+            $zipfile="ResultsAndScores.zip";
+            $res=$this->create_zip($maildir,$filelist,"{$maildir}/{$zipfile}");
+            if (!$res) return "Mailer error: cannot create zip file";
+            $myMailer->addAttachment("{$maildir}/{$zipfile}",$zipfile);
+        } else {
+            // attach files
+            foreach($filelist as $file) {
+                $this->myLogger->trace("Attaching file $file");
+                $myMailer->addAttachment("{$maildir}/{$file}",$file);
+            }
         }
+
         // allways attach AgiltiyContest logo . Use absolute paths as phpmailer does not handle relative ones
         $myMailer->addAttachment(__DIR__.'/../../images/logos/agilitycontest.png');
         //send the message, check for errors
         $ret="";
+
         if (!$myMailer->send()) {
             $this->myLogger->error($myMailer->ErrorInfo);
             $ret= "Mailer Error: " . $myMailer->ErrorInfo;

@@ -37,6 +37,7 @@ class Clasificaciones extends DBObject {
 	 * @param {string} $file caller for this object
 	 * @param {integer} $prueba prueba ID
 	 * @param {integer} $jornada jornada ID
+     * @param {integer} $perro Dog id used to evaluate position
 	 * @throws Exception if cannot contact database or invalid prueba/jornada ID
 	 */
 	function __construct($file,$prueba,$jornada,$perro=0) {
