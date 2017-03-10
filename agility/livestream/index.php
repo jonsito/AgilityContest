@@ -216,6 +216,8 @@ function myLlamadaRowStyler(idx,row) {
 //add 'callback' property to store interval references
 $.extend($.fn.window.defaults,{callback:null});
 
+$('#selvw-Vista').combobox({panelHeight:'auto'});
+
 $('#selvw-dialog').dialog({
 	title: '<?php _e('View to deploy'); ?>',
 	collapsible: false,
@@ -263,7 +265,7 @@ $('#selvw-Session').combogrid({
 	},
     onLoadSuccess: function (data) {
         setTimeout(function() {
-            $('#selvw-Vista').val(ac_liveStreamOpts.View.toString());
+            $('#selvw-Vista').combobox('setValue',ac_liveStreamOpts.View.toString());
             $('#selvw-Session').combogrid('setValue', (ac_liveStreamOpts.Ring+1).toString())
         },0); // also fires onSelect()
     },
@@ -288,7 +290,7 @@ function ls_accept() {
 
 	var page="'/agility/console/frm_notavailable.php";
 	var title="AgilityContest LiveStream ";
-	var n=parseInt($('#selvw-Vista').val());
+	var n=parseInt($('#selvw-Vista').combobox('getValue'));
 	switch (n) {
 		case 0: // Starting order
 			page = "/agility/livestream/vwls_ordensalida.php?combined="+ac_config.vw_combined;

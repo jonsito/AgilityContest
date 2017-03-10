@@ -252,6 +252,8 @@ function myLlamadaRowStyler(idx,row) {
 //add 'callback' property to store interval references
 $.extend($.fn.window.defaults,{callback:null});
 
+$('#selvw-Vista').combobox({panelHeight:'auto'});
+
 $('#selvw-dialog').dialog({
 	title: '<?php _e('View to deploy'); ?>',
 	collapsible: false,
@@ -299,7 +301,7 @@ $('#selvw-Session').combogrid({
 	},
 	onLoadSuccess: function(data) {
 		setTimeout(function() {
-			$('#selvw-Vista').val(ac_videoWallOpts.View.toString());
+			$('#selvw-Vista').combobox('setValue',ac_videoWallOpts.View.toString());
 			$('#selvw-Session').combogrid('setValue', (ac_videoWallOpts.Ring+1).toString())
 		},0); // also fires onSelect()
 	},
@@ -322,7 +324,7 @@ function vw_accept() {
 	ac_config.vwc_simplified=0;
 	ac_config.vw_combined=0;
 	var page="/agility/console/frm_notavailable.php";
-	var n=parseInt($('#selvw-Vista').val());
+	var n=parseInt($('#selvw-Vista').combobox('getValue'));
 	switch (n){
 	case 0: // Ordenes de Salida
 		page="/agility/videowall/vw_ordensalida.php";
