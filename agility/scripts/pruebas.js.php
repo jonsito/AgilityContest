@@ -386,8 +386,8 @@ function closeJornadaFromPrueba(pruebaID,datagridID) {
 function saveJornada(){
 	// take care on bool-to-int translation from checkboxes to database
     if ($('#jornadas-PreAgilityChk').is(':checked')) {
-        $('#jornadas-PreAgility').val( ($('#jornadas-MangasPreAgility').val()==1)?'1':'0');
-        $('#jornadas-PreAgility2').val( ($('#jornadas-MangasPreAgility').val()==2)?'1':'0');
+        $('#jornadas-PreAgility').val( ($('#jornadas-MangasPreAgility').combobox('getValue')==1)?'1':'0');
+        $('#jornadas-PreAgility2').val( ($('#jornadas-MangasPreAgility').combobox('getValue')==2)?'1':'0');
     } else {
     	$('#jornadas-PreAgility').val(0);
     	$('#jornadas-PreAgility2').val(0);
@@ -399,7 +399,7 @@ function saveJornada(){
     var eq3=$('#jornadas-Equipos3');
     var eq4=$('#jornadas-Equipos4');
     if ($('#jornadas-EquiposChk').is(':checked')) {
-        var val=$('#jornadas-MangasEquipos').val();
+        var val=$('#jornadas-MangasEquipos').combobox('getValue');
         switch (parseInt(val)) {
             case 1: /* old 3best */     eq3.val(3); eq4.val(0); break;
             case 2: /* old 4combined */ eq3.val(0); eq4.val(4); break;
