@@ -96,8 +96,8 @@ $('#login-window').window({
 	shadow:true,
 	modal:true,
 	onBeforeOpen: function () {
-		$('#login-Usuario').val('');
-		$('#login-Password').val('');
+		$('#login-Usuario').textbox('setValue','');
+		$('#login-Password').textbox('setValue','');
 		$('#login-Federation').val(workingData.federation);
 		return true;
 	}

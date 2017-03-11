@@ -20,7 +20,7 @@ require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
-	<div id="password-dialog" style="width:550px;height:300px;padding:10px 20px">
+	<div id="password-dialog" style="width:550px;height:auto;padding:10px 20px">
 		<div class="ftitle"><?php _e('Password change'); ?></div>
 		<form id="password-form" method="get">
 			<div id="password-SameUser" class="fitem">
@@ -30,7 +30,7 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="password-NewPassword"><?php _e('New password'); ?></label>
-                <input id="password-NewPassword" name="NewPassword" type="password" style="height:25px;width:375px"/>
+                <input id="password-NewPassword" name="NewPassword" type="password" style="height:25px;width:375px" />
             </div>
             <div class="fitem">
                 <label for="password-NewPassword2"><?php _e('New password'); ?> (<?php _e('again'); ?>)</label>
@@ -146,19 +146,34 @@ $config =Config::getInstance();
             fitColumns: true,
             selectOnNavigation: false
         });
-     	// bind enter key on password dialog
-        $('#password-CurrentPassword').bind('keypress', function (evt) {
+
+        // bind enter key on password dialog
+        $('#password-CurrentPassword').textbox({
+            required:true,
+            validType:'length[1,255]',
+            iconCls:'icon-lock'
+        }).textbox('textbox').bind('keypress', function (evt) {
             if (evt.keyCode != 13) return true;
             $('#password-NewPassword').focus();
             return false;
         });
-        $('#password-NewPassword').bind('keypress', function (evt) {
+
+        $('#password-NewPassword').textbox({
+            required:true,
+            validType:'length[1,255]',
+            iconCls:'icon-lock'
+        }).textbox('textbox').bind('keypress', function (evt) {
             if (evt.keyCode != 13) return true;
             $('#password-NewPassword2').focus();
             return false;
         });
+
         //on Enter key on passwd field click on accept
-        $('#password-NewPassword2').bind('keypress', function (evt) {
+        $('#password-NewPassword2').textbox({
+            required:true,
+            validType:'length[1,255]',
+            iconCls:'icon-lock'
+        }).textbox('textbox').bind('keypress', function (evt) {
             if (evt.keyCode != 13) return true;
             $('#password-okBtn').click();
             return false;

@@ -143,9 +143,9 @@ function setPassword(dg) {
 
 function savePassword() {
 	var id=$('#password-UserID').val();
-	var op=$('#password-CurrentPassword').val();
-	var np=$('#password-NewPassword').val();
-	var np2=$('#password-NewPassword2').val();
+	var op=$('#password-CurrentPassword').textbox('getValue');
+	var np=$('#password-NewPassword').textbox('getValue');
+	var np2=$('#password-NewPassword2').textbox('getValue');
 	if (np!=np2) {
 		$.messager.show({ width:300, height:200, title: '<?php _e('Error'); ?>', msg: '<?php _e('Passwords does not match'); ?>' });
 		return;

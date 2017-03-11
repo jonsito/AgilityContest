@@ -118,7 +118,7 @@ class AuthManager {
 	function getUserByKey($sk) {
 		$obj=$this->mySessionMgr->__selectObject("*","Sesiones,Usuarios","(Usuarios.ID=Sesiones.Operador) AND ( SessionKey='$sk')");
 		if (!$obj) throw new Exception ("Invalid session key: '$sk'");
-		$userid=$obj->Operador;
+		$userid=intval($obj->Operador);
 		$this->myLogger->info("SessionKey:'$sk' belongs to userid:'$userid'");
 	/*	
 		// if token expired throw exception 
@@ -365,7 +365,8 @@ class AuthManager {
 	/**
 	 * change password for requested user ID
 	 * @param {integer} $id user id to change password to
-	 * @param {string} $pass old password
+     * @param {string} $pass old password
+     * @param {string} $sk session key
 	 * @throws Exception on error
 	 * @return string "" on success; else error message
 	 */
@@ -379,7 +380,7 @@ class AuthManager {
 			case 3:
                 // no break
 			case 2:	// comprobamos el user id
-				if ($id!=$this->operador) throw new Exception("User can only change their own password");
+				if ($id!=$u->Operador) throw new Exception("User can only change their own password");
 				// comprobamos que la contrasenya antigua es correcta
 				$obj=$this->mySessionMgr->__selectObject("*","Usuarios","(ID=$id)");
 				if (!$obj) throw new Exception("SetPassword: Unknown userID: '$id'");
