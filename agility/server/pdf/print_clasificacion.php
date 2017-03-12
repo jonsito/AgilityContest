@@ -49,7 +49,8 @@ try {
 	$pdf = new PrintClasificacion($prueba,$jornada,$mangas,$result,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("print_clasificacion.pdf","D"); // "D" means output to web client (download)
+	$suffix=$c->getName($mangas,$mode);
+	$pdf->Output("FinalScores_{$suffix}.pdf","D"); // "D" means output to web client (download)
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());

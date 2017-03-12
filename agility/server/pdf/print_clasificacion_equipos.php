@@ -50,7 +50,8 @@ try {
 	$pdf = new PrintClasificacionTeam($prueba,$jornada,$mangas,$cfinal,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("print_clasificacion_team.pdf","D"); // "D" means open download dialog
+    $suffix=$c->getName($mangas,$mode);
+    $pdf->Output("FinalScores_{$suffix}.pdf","D"); // "D" means output to web client (download)
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());

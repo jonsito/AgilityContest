@@ -17,12 +17,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 
-require_once("DBObject.php");
-require_once("Pruebas.php");
-require_once("Jornadas.php");
-require_once("Mangas.php");
-require_once("Equipos.php");
-require_once("Resultados.php");
+require_once(__DIR__."/DBObject.php");
+require_once(__DIR__."/Pruebas.php");
+require_once(__DIR__."/Jornadas.php");
+require_once(__DIR__."/Mangas.php");
+require_once(__DIR__."/Equipos.php");
+require_once(__DIR__."/Resultados.php");
+require_once(__DIR__."/../../../modules/Federations.php");
 
 class Clasificaciones extends DBObject {
 	protected $prueba;
@@ -472,6 +473,17 @@ class Clasificaciones extends DBObject {
 		$res['rows']=array_merge($c1['rows'],$c2['rows']); // la informacion de 'puesto' se ignorará...
 		return $res;	
 	}
+
+	function getName($mangas,$mode) {
+	    $fed=Federations::getFederation(intval($this->prueba->RSCE));
+	    $mng=$this->__getObject("Mangas",intval($mangas[0]));
+	    $grad=$fed->getTipoManga($mng->Tipo,4);
+	    $cat=$fed->get('IndexedModes')[intval($mode)];
+	    $res=str_replace(" ","_","{$grad}_{$cat}");
+        $res=str_replace("/","",$res);
+        $res=str_replace("+","",$res);
+        return $res;
+    }
 
 	/**
 	 * Evalua las clasificaciones finales por equipos
