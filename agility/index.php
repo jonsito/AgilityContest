@@ -163,6 +163,7 @@ function myRowStyler2(idx,row) { return pbRowStyler2(idx,row); }
 <script type="text/javascript">
 
 $('#public-form').form();
+$('#public-Operation').combobox({panelHeight:'auto'});
 
 $('#public-Prueba').combogrid({
 	panelWidth: 500,
@@ -237,7 +238,7 @@ $('#public-Jornada').combogrid({
 });
 
 function public_acceptSelection() {
-	var o=$('#public-Operation').val();
+	var o=$('#public-Operation').combobox('getValue');
 	// si datos invalidos cancelamos operacion
 	var p=$('#public-Prueba').combogrid('grid').datagrid('getSelected');
 	var j=$('#public-Jornada').combogrid('grid').datagrid('getSelected');

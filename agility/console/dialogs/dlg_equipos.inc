@@ -31,8 +31,7 @@ $config =Config::getInstance();
    		<input id="team_edit_dialog-Operation" type="hidden" name="Operation" value="insert"/>
    	 	<div class="fitem">
 			<label for="team_edit_dialog-Nombre" style="width:100px"><?php _e('Name'); ?>:</label>
-			<input id="team_edit_dialog-Nombre" name="Nombre" style="width:150px"
-				data-options="required:true,validType:'length[1,100]'"/>
+			<input id="team_edit_dialog-Nombre" name="Nombre" style="width:150px;"/>
 		</div>
 		<div class="fitem">
 			<label for="team_edit_dialog-Categorias" style="width:100px"><?php _e('Categories');?>:</label>
@@ -79,7 +78,7 @@ $('#team_edit_dialog').dialog({
 	}
 });
 
-$('#team_edit_dialog-Nombre').validatebox({
+$('#team_edit_dialog-Nombre').textbox({
     required: true,
     validType: 'length[1,100]'
 });
