@@ -127,9 +127,25 @@ function toBoolean($var) {
 	if (is_null($var)) return false;
 	if (is_bool($var)) return $var;
 	if (is_string($var)) $var=strtolower(trim($var));
-	$t=array (1,true,"1","t","true","on","s","si","y","yes","ja","oui","da");
+	$t=array (1,true,"1","t","true","on","s","si","sí","y","yes","ja","oui","da");
 	if ( in_array($var,$t) ) return true;
 	return false;
+}
+
+/**
+ * @param {string} $var data to be checked
+ * @return {bool|null} true:yes false:no null: not  a valid answer
+ */
+function parseYesNo($var) {
+    if (is_null($var)) return false;
+    if (is_bool($var)) return $var;
+    if (is_string($var)) $var=strtolower(trim($var));
+    $t=array (1,true,"x","1","t","true","on","s","si","sí","y","yes","ja","oui","da");
+    if ( in_array($var,$t) ) return true;
+    $f=array (0,false,"","0","f","false","off","n","no","ez","non","nein","niet");
+    if ( in_array($var,$t) ) return false;
+    // arriving here means neither true nor false valid items, so return nothing
+    return null;
 }
 
 /**

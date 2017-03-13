@@ -587,7 +587,7 @@ class DogReader {
             $loe=isset($item['LOE_RRC'])?$this->myDBObject->conn->real_escape_string($obj->LOE_RRC):"";
             $raza=isset($item['Raza'])?$this->myDBObject->conn->real_escape_string($obj->Raza):"";
             $nlargo=isset($item['NombreLargo'])?$this->myDBObject->conn->real_escape_string($obj->NombreLargo):"";
-            $nombre=$obj->Nombre;
+            $nombre=$this->myDBObject->conn->real_escape_string($obj->Nombre);
             $h=$obj->HandlerID;
             // check precedence on DB or Excel
             if ($this->myOptions['WordUpperCase']!=0) { // formato mayuscula inicial
@@ -695,8 +695,8 @@ class DogReader {
         // locate entry in temporary database
         $obj=$this->myDBObject->__selectObject("*",TABLE_NAME,"ID={$options['ExcelID']}");
         $perro=$this->myDBObject->conn->real_escape_string($obj->Nombre); // nombre del perro
-        $guia=$this->myDBObject->conn->real_escape_string($obj->Nombre); // nombre del perro
-        $club=$this->myDBObject->conn->real_escape_string($obj->Nombre); // nombre del perro
+        $guia=$this->myDBObject->conn->real_escape_string($obj->NombreGuia); // nombre del guia
+        $club=$this->myDBObject->conn->real_escape_string($obj->NombreClub); // nombre del club
         if (!is_object($obj)) {
             // Temporary table id not found. notify error and return
             return "IgnoreEntry(): Temporary table RowID:{$options['ExcelID']} not found  error:".$this->myDBObject->conn->error;

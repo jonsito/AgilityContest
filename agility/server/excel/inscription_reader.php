@@ -102,7 +102,7 @@ class InscriptionReader extends DogReader {
             $teams=array();
             foreach ($res['rows']as $team) {
                 $nequipo=$team['NombreEquipo'];
-                if (strtolower(trim($nequipo))==='x') continue; // inscribed to default team
+                if (! is_null( parseYesNo( trim($nequipo) ) ) ) continue; // not inscribed or in default team
                 if (!array_key_exists($nequipo,$teams)) $teams[$nequipo]=''; // team not yet declared.
                 if (strpos($teams[$nequipo],$team['Categoria'])===FALSE) $teams[$nequipo] .= $team['Categoria'];
             }
@@ -134,7 +134,8 @@ class InscriptionReader extends DogReader {
                 if (strpos($key,'Jornada')===FALSE) continue; // not a journey field
                 $numero=intval(explode(':',$key)[1]) - 1;
                 $nombre=$item[$val[3]];
-                if (trim($nombre)!=="") $jornadas |= (1<<$numero); // field not empty means need to inscribe
+                $yn=parseYesNo(trim($nombre));
+                if (is_null($yn) || ($yn==true)) $jornadas |= (1<<$numero); // field not empty means need to inscribe
             }
 
             if ($jornadas!=0) { // if zero no journeys to inscribe into, so skip and try next item in list
@@ -159,8 +160,7 @@ class InscriptionReader extends DogReader {
                     if ( (intval($jornada['Equipos3']) + intval($jornada['Equipos4']))==0) continue; // not team journey
                     $name=preg_replace('/\s+/', '', $jornada['Nombre']); // remove spaces to get friendly with database field naming
                     $itemTeam=trim($item[$name]);
-                    if ($itemTeam==="") continue; // not inscribed in this team journey
-                    if (strtolower($itemTeam)==="x") continue; // no team provided. use default team assignment
+                    if (!is_null(parseYesNo($itemTeam))) continue; // not inscribed or inscribed into default team
                     // need to inscribe: locate team id and perform inscription into requested team
                     $eq= new Equipos("excelImport",$this->prueba['ID'],$jornada['ID']);
                     $tbj=$eq->getTeamsByJornada();
