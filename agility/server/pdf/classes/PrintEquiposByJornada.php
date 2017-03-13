@@ -81,10 +81,7 @@ class PrintEquiposByJornada extends PrintCommon {
 
         // set file name
         $str=$this->jornada->Nombre;
-        $res=str_replace(" ","",$str);
-        $res=str_replace(".","_",$res);
-        $res=str_replace("/","",$res);
-        $res=str_replace("+","",$res);
+        $res=normalize_filename($str);
         $this->set_FileName("Inscripciones_{$res}.pdf");
 	}
 	

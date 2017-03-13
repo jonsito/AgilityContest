@@ -63,7 +63,7 @@ class PrintListaPerros extends PrintCommon {
 			$this->pos[3]+=5; // decrease handler name
 			$this->pos[7]-=5;
 		}
-		$this->set_FileName("DogListing.pdf");
+		$this->set_FileName("Lista_Perros.pdf");
 	}
 	
 	// Cabecera de página

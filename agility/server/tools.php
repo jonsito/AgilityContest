@@ -85,6 +85,15 @@ function is_https(){
 	return false;
 }
 
+function normalize_filename($fname) {
+    $fname=trim($fname);
+    $fname=str_replace(" ","_",$fname);
+    $fname=str_replace("/","",$fname);
+    $fname=str_replace(".","",$fname);
+    $fname=str_replace("+","",$fname);
+    return $fname;
+}
+
 /**
  * Parse provided string and escape special chars to avoid SQL injection problems
  * NOTICE: THIS IS ONLY VALID FOR MYSQL "native escape mode" on UTF-8 encoding

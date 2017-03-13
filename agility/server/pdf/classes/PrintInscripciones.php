@@ -50,6 +50,7 @@ class PrintCatalogo extends PrintCommon {
 		}
 		$this->inscritos=$inscritos['rows'];
 		$this->jornadas=$jornadas['rows'];
+        $this->set_FileName("Catalogo_inscripciones.pdf");
 	}
 	
 	// Cabecera de página
@@ -242,6 +243,7 @@ class PrintEstadisticas extends PrintCommon {
 		}
 		$this->inscritos=$inscritos['rows'];
 		$this->jornadas=$jornadas['rows'];
+        $this->set_FileName("Estadisticas_inscripciones.pdf");
 	}
 	
 	// Cabecera de página
@@ -623,6 +625,8 @@ class PrintInscritos extends PrintCommon {
 			$this->pos[3]+=$this->pos[8]; // remove heat and add to breed
 			$this->pos[8]=0;
         }
+        // set file name
+        $this->set_FileName("Listado_Participantes.pdf");
 	}
 	
 	// Cabecera de página
@@ -826,11 +830,8 @@ class PrintInscritosByJornada extends PrintCommon {
         }
         // set file name
         $str=$this->jornada->Nombre;
-        $res=str_replace(" ","",$str);
-        $res=str_replace(".","_",$res);
-        $res=str_replace("/","",$res);
-        $res=str_replace("+","",$res);
-        $this->set_FileName("Inscripciones_{$res}.pdf");
+        $res=normalize_filename($str);
+        $this->set_FileName("Inscripciones_Jornada_{$res}.pdf");
 	}
 
 	// Cabecera de página

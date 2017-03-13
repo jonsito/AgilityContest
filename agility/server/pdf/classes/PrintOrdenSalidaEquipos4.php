@@ -80,10 +80,8 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
         $cat=$this->validcats; // categorias del listado
         $str=($cat=='-')?$grad:"{$grad}_{$cat}";
-        $res=str_replace(" ","_",$str);
-        $res=str_replace("/","",$res);
-        $res=str_replace("+","",$res);
-        $this->set_FileName("HojasAsistente_{$res}.pdf");
+        $res=normalize_filename($str);
+        $this->set_FileName("OrdenDeSalida_{$res}.pdf");
 	}
 	
 	// Cabecera de página

@@ -57,6 +57,12 @@ class PrintResultadosByManga extends PrintCommon {
 		$catgrad=(Jornadas::hasGrades($this->jornada))?_('Cat').'/'._('Grade'):_('Cat').".";
 		$this->cellHeader=
 			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Pos'));
+        // set file name
+        $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
+        $cat=$this->federation->getMangaMode($mode,0);
+        $str=($cat=='-')?$grad:"{$grad}_{$cat}";
+        $res=normalize_filename($str);
+        $this->set_FileName("ResultadosManga_{$res}.pdf");
 	}
 	
 	// Cabecera de página

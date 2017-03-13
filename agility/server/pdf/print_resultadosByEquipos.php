@@ -46,7 +46,7 @@ try {
 	$pdf = new PrintResultadosByEquipos3($idprueba,$idjornada,$manga,$resultados,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("resultadosEquipos3.pdf","D"); // "D" means open download dialog
+	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
     die ("Error accessing database: ".$e->getMessage());
 }

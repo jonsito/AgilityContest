@@ -21,7 +21,7 @@ header('Set-Cookie: fileDownload=true; path=/');
 // mandatory 'header' to be the first element to be echoed to stdout
 
 /**
- * genera un pdf con la secuencia ordenada de tandas de la jornada y los participantes de cada tanda
+ * genera un pdf con diversas plantillas
 */
 
 require_once(__DIR__."/fpdf.php");
@@ -38,14 +38,20 @@ try {
 	$pdf = new PrintTRSTemplates($prueba,$jornada,$mode);
 	$pdf->AliasNbPages();
     switch ($mode) {
-        case 0: $pdf->composeTable();
+        case 0:
+            $pdf->set_FileName("TablaTRS_DistanciaVelocidad.pdf");
+            $pdf->composeTable(); // tabla de trs versus distancia/velocidad
             break;
-        case 1: $pdf->printFormulario();
+        case 1:
+            $pdf->set_FileName("Formulario_MangasTRS.pdf");
+            $pdf->printFormulario(); // hoja para apuntar trs de cada manga
             break;
-        case 2: $pdf->printDataForm();
+        case 2:
+            $pdf->set_FileName("Hoja_Asistente_vacia.pdf");
+            $pdf->printDataForm(); // plantilla de asistente de pista vacia
             break;
     }
-	$pdf->Output("plantilla_datos.pdf","D"); // "D" means open download dialog
+	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());
 };

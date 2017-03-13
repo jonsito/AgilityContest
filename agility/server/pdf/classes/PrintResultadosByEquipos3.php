@@ -93,6 +93,12 @@ class PrintResultadosByEquipos3 extends PrintCommon {
                   _('Time'),_('Vel').'.',_('Penal').'.',_('Calification'),_('Position'),_('Team global'));
         $this->equipos=Resultados::getTeamResults($resultados['rows'],$prueba,$jornada,$mindogs);
         $this->eqmgr=new Equipos("print_resultadosByEquipos",$prueba,$jornada);
+        // set file name
+        $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
+        $cat=$this->federation->getMangaMode($mode,0);
+        $str=($cat=='-')?$grad:"{$grad}_{$cat}";
+        $res=normalize_filename($str);
+        $this->set_FileName("ResultadosManga_{$res}.pdf");
 	}
 	
 	// Cabecera de página

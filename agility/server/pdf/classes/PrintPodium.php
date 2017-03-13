@@ -56,9 +56,7 @@ class PrintPodium extends PrintCommon {
 
         // set file name
         $grad=$this->federation->getTipoManga($this->manga1->Tipo,4); // nombre de la serie
-        $res=str_replace(" ","_",$grad);
-        $res=str_replace("/","",$res);
-        $res=str_replace("+","",$res);
+        $res=normalize_filename($grad);
         $this->set_FileName("Podium_{$res}.pdf");
 	}
 
