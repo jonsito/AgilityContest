@@ -56,9 +56,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <script type="text/javascript">
 
         $('#importClub-dialog').dialog( {
+            modal:true,
             closable:false,
             closed:true,
-            modal:true,
             buttons:'#importClub-dlg-buttons',
             iconCls:'icon-flag'
         } );

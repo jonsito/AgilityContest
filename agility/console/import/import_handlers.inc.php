@@ -96,6 +96,7 @@ $config =Config::getInstance();
 
         // datos de la ventana
         $('#importGuia-dialog').dialog( {
+            modal:true,
             closable: false,
             closed: true,
             buttons: '#importGuia-dlg-buttons',

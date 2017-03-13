@@ -69,6 +69,7 @@ $config =Config::getInstance();
     
     // campos del formulario
     $('#importPerro-dialog').dialog({
+        modal:true,
         closable: false,
     	closed: true,
     	buttons: '#importPerro-dlg-buttons',
