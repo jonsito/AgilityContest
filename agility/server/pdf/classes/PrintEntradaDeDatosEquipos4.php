@@ -48,6 +48,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
      * @param {integer} $prueba Prueba ID
      * @param {integer} $jornada Jormada ID
      * @param {integer} $manga Manga ID
+     * @param {string} $cats "-LMST" based string
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$manga,$cats,$fill=0) {
@@ -82,7 +83,17 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         $this->validcats=$cats;
         $this->fillData=($fill==0)?false:true;
 	}
-	
+
+    function getPageName() {
+        $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
+        $cat=$this->validcats; // categorias del listado
+        $str=($cat=='-')?$grad:"{$grad}_{$cat}";
+        $res=str_replace(" ","_",$str);
+        $res=str_replace("/","",$res);
+        $res=str_replace("+","",$res);
+        return $res;
+    }
+
 	// Cabecera de página
 	function Header() {
 		$this->print_commonHeader(_("Data entry (Teams-4)"));

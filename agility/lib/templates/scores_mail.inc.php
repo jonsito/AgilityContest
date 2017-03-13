@@ -120,6 +120,7 @@ $config =Config::getInstance();
     });
 
     $('#scores_email-dialog').dialog({
+        modal:true,
         closed:true,
         buttons:'#scores_email-dlg-buttons',
         onBeforeOpen: function() {

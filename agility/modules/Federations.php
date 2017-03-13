@@ -185,8 +185,8 @@ class Federations {
             10 =>	array( 10,'Jumping Grade II',			'GII',	'Jumping GII',	'Grade II',     false),
             11 =>	array( 11,'Jumping Grade III',			'GIII',	'Jumping GIII',	'Grade III',    false),
             12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual',   false), // Open
-            13 =>	array( 13,'Jumping Teams'				,'-',   'Jmp Teams',	'Teams',        false), // team best
-            14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp Teams',	'Teams',        false), // team combined
+            13 =>	array( 13,'Jumping Teams'				,'-',   'Jmp. Teams',	'Teams',        false), // team best
+            14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp. Teams',	'Teams',        false), // team combined
             15 =>	array( 15,'K.O. Round', 				'-',	'K.O. Round',	'K.O.',         false),
             16 =>	array( 16,'Special Round', 			    '-',	'Special Round','Individual',   true), // special round, no grades
             17 => 	array( 17,'Agility Grade I Round 3',	'GI',	'Agility-3 GI',	'Grade I',      true) // on RFEC special G1 3rd round

@@ -40,7 +40,8 @@ try {
     $pdf=new PrintEntradaDeDatosEquipos4($prueba,$jornada,$manga,$cats,$fill);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("entradaDeDatosEquipos4.pdf","D"); // "D" means open download dialog
+    $suffix=$pdf->getPageName();
+    $pdf->Output("EntradaDeDatos_{$suffix}.pdf","D"); // "D" web client (download) "F" file save
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());
 };
