@@ -62,6 +62,8 @@ class PrintEntrenamientos extends PrintCommon {
         $this->fields   = array( /*eval*/'','LogoClub','NombreClub','Fecha','Firma', 'Veterinario','Comienzo','Duracion',/*keyValue1 */ '',/*KeyValue2*/ '',/*KeyValue3*/ '',/*KeyValue4*/ '');
         $this->sizes    = array(    10,         10,     30,         23,     20,       15,          18,       18,          $s123,          $s123,           $s123,           $s4 );
         $this->align    = array(    'C',        'C',    'L',        'L',    'C',      'C',         'C',      'R',         'C',            'C',             'C',             'C');
+        // set file name as Entrenamientos_prueba
+        $this->set_FileName("Entrenamientos.pdf");
 	}
 	
 	// Cabecera de página

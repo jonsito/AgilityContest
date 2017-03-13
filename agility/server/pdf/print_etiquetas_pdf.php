@@ -60,45 +60,6 @@ try {
 	// obtenemos la clasificacion de la tanda seleccionada
 	$r=$c->clasificacionFinal($rondas,$mangas,$mode);
 	$result[0]=$r['rows'];
-	/*
-	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
-	switch($mng->Recorrido) {
-		case 0: // recorridos separados large medium small
-			$r=$c->clasificacionFinal($rondas,$mangas,0);
-			$result[0]=$r['rows'];
-			$r=$c->clasificacionFinal($rondas,$mangas,1);
-			$result[1]=$r['rows'];
-			$r=$c->clasificacionFinal($rondas,$mangas,2);
-			$result[2]=$r['rows'];
-			if ($heights!=3) {
-				$r=$c->clasificacionFinal($rondas,$mangas,5);
-				$result[5]=$r['rows'];
-			}
-			break;
-		case 1: // large / medium+small
-			if ($heights==3) {
-				$r=$c->clasificacionFinal($rondas,$mangas,0);
-				$result[0]=$r['rows'];
-				$r=$c->clasificacionFinal($rondas,$mangas,3);
-				$result[3]=$r['rows'];
-			} else {
-				$r=$c->clasificacionFinal($rondas,$mangas,6);
-				$result[6]=$r['rows'];
-				$r=$c->clasificacionFinal($rondas,$mangas,7);
-				$result[7]=$r['rows'];
-			}
-			break;
-		case 2: // recorrido conjunto large+medium+small
-			if ($heights==3) {
-				$r=$c->clasificacionFinal($rondas,$mangas,4);
-				$result[4]=$r['rows'];
-			} else {
-				$r=$c->clasificacionFinal($rondas,$mangas,8);
-				$result[8]=$r['rows'];
-			}
-			break;
-	}
-	*/
 	// juntamos las categorias
 	$res=array_merge($result[0],$result[1],$result[2],$result[3],$result[4],$result[5],$result[6],$result[7],$result[8]);
 	// y ordenamos los resultados por dorsales
@@ -110,8 +71,10 @@ try {
 	// mandamos a imprimir
 	$pdf->resultados=$res;
 	$pdf->composeTable($rowcount,$listadorsales);
-	// mandamos a la salida el documento
-	$pdf->Output("print_etiquetas.pdf","D"); // "D" means open download dialog
+
+	// mandamos a la salida el documento. Notese que no usamos el metodo pdf get_FileName
+    $suffix=$c->getName($mangas,$mode);
+    $pdf->Output("Etiquetas_{$suffix}.pdf","D"); // "D" means output to web client (download)
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());

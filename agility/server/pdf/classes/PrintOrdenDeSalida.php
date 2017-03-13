@@ -75,6 +75,15 @@ class PrintOrdenDeSalida extends PrintCommon {
         $this->teams=array();
         foreach($eq->getTeamsByJornada() as $team) $this->teams[$team['ID']]=$team;
 		$this->validcats=$categorias;
+
+        // set file name
+        $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
+        $cat=$this->validcats; // categorias del listado
+        $str=($cat=='-')?$grad:"{$grad}_{$cat}";
+        $res=str_replace(" ","_",$str);
+        $res=str_replace("/","",$res);
+        $res=str_replace("+","",$res);
+        $this->set_FileName("OrdenDeSalida_{$res}.pdf");
 	}
 
 	private function isTeam() {

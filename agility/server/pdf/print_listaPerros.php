@@ -36,7 +36,7 @@ try {
 	$pdf = new PrintListaPerros($fed);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("print_listaPerros.pdf","D"); // "D" means open download dialog
+	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
     return 0;
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());

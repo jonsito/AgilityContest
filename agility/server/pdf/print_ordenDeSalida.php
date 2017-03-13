@@ -39,7 +39,7 @@ try {
 	$pdf = new PrintOrdenDeSalida($prueba,$jornada,$manga,$categorias);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("ordenDeSalida.pdf","D"); // "D" means open download dialog	
+	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());
 };

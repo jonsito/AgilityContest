@@ -45,7 +45,7 @@ class PrintCommon extends FPDF {
 	protected $strClub; // _('Country') or _('Club') according federation
 	protected $jornada; // datos de la jornada
 	protected $myDBObject;
-	protected $pageName; // name of file to be printed
+	protected $fileName; // name of file to be printed
     protected $authManager;
 	protected $regInfo; // registration info from current license
 	protected $timeResolution; // number of decimal numbers to show in time results
@@ -55,6 +55,9 @@ class PrintCommon extends FPDF {
 	protected $useUTF8=false;
 	protected $myFontName="Helvetica";
 	protected $errormsg;
+
+	function set_FileName($fname="output.pdf") { $this->fileName=$fname;}
+	function get_FileName(){return $this->fileName;}
 
 	/* from http://www.fpdf.org/en/script/script2.php */
 	function Rotate($angle,$x=-1,$y=-1)	{
@@ -341,9 +344,6 @@ class PrintCommon extends FPDF {
 		$this->setXY($x,$y);
 		$this->Cell($w,$h,$txt,$border,0,$align,$fill);
 	}
-	
-	function setPageName($name) {$this->pageName=$name; }
-	function getPageName(){ return $this->pageName; }
 	
 	function ac_SetFillColor($str) {
 		$val=intval(str_replace('#','0x',$str),0);

@@ -78,6 +78,14 @@ class PrintEquiposByJornada extends PrintCommon {
         // finalmente internacionalizamos cabeceras
 		$this->cellHeader = 
 				array(_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Category'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
+
+        // set file name
+        $str=$this->jornada->Nombre;
+        $res=str_replace(" ","",$str);
+        $res=str_replace(".","_",$res);
+        $res=str_replace("/","",$res);
+        $res=str_replace("+","",$res);
+        $this->set_FileName("Inscripciones_{$res}.pdf");
 	}
 	
 	// Cabecera de página

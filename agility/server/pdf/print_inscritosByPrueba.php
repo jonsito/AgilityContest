@@ -53,7 +53,8 @@ try {
 	}
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output($pdf->getPageName(),"D"); // "D" means open download dialog
+	$suffix=$pdf->get_FileName();
+	$pdf->Output("Inscripciones_{$suffix}.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());
 }

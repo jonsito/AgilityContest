@@ -49,11 +49,17 @@ class PrintPodium extends PrintCommon {
 	function __construct($prueba,$jornada,$mangas,$results) {
 		parent::__construct('Landscape',"print_podium",$prueba,$jornada);
 		$dbobj=new DBObject("print_clasificacion");
-		if ($mangas[1]!=0) $this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
-        $this->manga1=(($mangas[0]!=0)!=0)?$dbobj->__getObject("Mangas",$mangas[0]):null;
-        $this->manga2=(($mangas[1]!=0)!=0)?$dbobj->__getObject("Mangas",$mangas[1]):null;
-        $this->manga3=(($mangas[2]!=0)!=0)?$dbobj->__getObject("Mangas",$mangas[2]):null;
+        $this->manga1=($mangas[0]!=0)?$dbobj->__getObject("Mangas",$mangas[0]):null;
+        $this->manga2=($mangas[1]!=0)?$dbobj->__getObject("Mangas",$mangas[1]):null;
+        $this->manga3=($mangas[2]!=0)?$dbobj->__getObject("Mangas",$mangas[2]):null;
 		$this->resultados=$results;
+
+        // set file name
+        $grad=$this->federation->getTipoManga($this->manga1->Tipo,4); // nombre de la serie
+        $res=str_replace(" ","_",$grad);
+        $res=str_replace("/","",$res);
+        $res=str_replace("+","",$res);
+        $this->set_FileName("Podium_{$res}.pdf");
 	}
 
 	function Header() {

@@ -50,7 +50,6 @@ class PrintCatalogo extends PrintCommon {
 		}
 		$this->inscritos=$inscritos['rows'];
 		$this->jornadas=$jornadas['rows'];
-		$this->setPageName("catalogoInscripciones.pdf");
 	}
 	
 	// Cabecera de página
@@ -243,7 +242,6 @@ class PrintEstadisticas extends PrintCommon {
 		}
 		$this->inscritos=$inscritos['rows'];
 		$this->jornadas=$jornadas['rows'];
-		$this->setPageName("estadisticasInscripciones.pdf");
 	}
 	
 	// Cabecera de página
@@ -609,7 +607,6 @@ class PrintInscritos extends PrintCommon {
 		}
 		$this->inscritos=$inscritos['rows'];
 		$this->jornadas=$jornadas['rows'];
-		$this->setPageName("inscritosByPrueba.pdf");
         $this->cellHeader=
 			//        0           1         2          3       4         5           6            7            8           9
             array(_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Cat'),_('Grado'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
@@ -803,7 +800,6 @@ class PrintInscritosByJornada extends PrintCommon {
 		usort($inscritos['rows'],function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
         $this->inscritos=$inscritos['rows'];
         $this->jornadas=$jornadas['rows'];
-		$this->setPageName("inscritosByJornada.pdf");
 		$this->cellHeader=
 			array(_('Dorsal'),_('Name'),_('Lic'),_('Breed'), _('Handler'),$this->strClub,_('Cat'),_('Grado'),_('Heat'),_('Comments'));
         $this->JName="";
@@ -828,6 +824,13 @@ class PrintInscritosByJornada extends PrintCommon {
             $this->errormsg="printInscritosByJornada: Invalid Jornada ID:$jornadaid for provided prueba";
             throw new Exception($this->errormsg);
         }
+        // set file name
+        $str=$this->jornada->Nombre;
+        $res=str_replace(" ","",$str);
+        $res=str_replace(".","_",$res);
+        $res=str_replace("/","",$res);
+        $res=str_replace("+","",$res);
+        $this->set_FileName("Inscripciones_{$res}.pdf");
 	}
 
 	// Cabecera de página

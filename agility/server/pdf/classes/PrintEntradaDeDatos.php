@@ -70,6 +70,14 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$this->cellHeader[4]=$this->strClub; // fix country/club text
 		$this->validcats=$validcats;
 		$this->fillData=($fill!=0)?true:false;
+        // set file name
+        $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
+        $cat=$this->validcats; // categorias del listado
+        $str=($cat=='-')?$grad:"{$grad}_{$cat}";
+        $res=str_replace(" ","_",$str);
+        $res=str_replace("/","",$res);
+        $res=str_replace("+","",$res);
+        $this->set_FileName("HojasAsistente_{$res}.pdf");
 	}
 
 	// Cabecera de página
@@ -86,16 +94,6 @@ class PrintEntradaDeDatos extends PrintCommon {
 			$this->Ln(9);
 		}
 		
-	}
-
-	function getPageName() {
-        $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
-        $cat=$this->validcats; // categorias del listado
-		$str=($cat=='-')?$grad:"{$grad}_{$cat}";
-        $res=str_replace(" ","_",$str);
-        $res=str_replace("/","",$res);
-        $res=str_replace("+","",$res);
-        return $res;
 	}
 
 	// Pie de página

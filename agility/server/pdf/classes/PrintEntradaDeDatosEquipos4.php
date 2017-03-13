@@ -82,17 +82,16 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         }
         $this->validcats=$cats;
         $this->fillData=($fill==0)?false:true;
-	}
 
-    function getPageName() {
+        // set pdf file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
         $cat=$this->validcats; // categorias del listado
         $str=($cat=='-')?$grad:"{$grad}_{$cat}";
         $res=str_replace(" ","_",$str);
         $res=str_replace("/","",$res);
         $res=str_replace("+","",$res);
-        return $res;
-    }
+        $this->set_FileName("HojasAsistente_{$res}.pdf");
+	}
 
 	// Cabecera de página
 	function Header() {

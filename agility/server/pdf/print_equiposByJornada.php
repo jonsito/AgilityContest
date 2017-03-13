@@ -38,7 +38,7 @@ try {
 	$pdf = new PrintEquiposByJornada($prueba,$jornada);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("equiposByJornada.pdf","D"); // "D" means open download dialog
+    $pdf->Output($pdf->get_FileName(),"D"); // "D" web download; "F" file save
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());
 };

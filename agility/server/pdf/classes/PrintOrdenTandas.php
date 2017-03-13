@@ -51,6 +51,7 @@ class PrintOrdenTandas extends PrintCommon {
 		$o = new Tandas("PrintTandas",$prueba,$jornada);
 		$ot= $o->getTandas(0); // 0: any tanda
 		$this->orden=$ot['rows'];
+		$this->set_FileName("ProgramaDeLaJornada.pdf");
 	}
 	
 	// Cabecera de página

@@ -96,7 +96,7 @@ try {
 	$pdf = new PrintPodium($prueba,$jornada,$mangas,$result);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("print_podium.pdf","D"); // "D" means open download dialog
+	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());
