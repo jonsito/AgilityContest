@@ -113,6 +113,7 @@ function perform_emailScores() {
             SendToFederation: $('#scores_email-SendToFederation').prop('checked')?1:0,
             FedAddress: $('#scores_email-FedAddress').textbox('getValue'),
             PartialScores: $('#scores_email-PartialScores').prop('checked')?1:0,
+            SendPreAgility: $('#scores_email-SendPreAgility').prop('checked')?1:0,
             ZipFile: $('input[name=ZipFile]:checked','#scores_email-form').val(),
             Contents: $('#scores_email-Contents').val()
         },

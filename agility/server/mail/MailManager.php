@@ -429,7 +429,6 @@ class MailManager {
             if ($j['ID']!=$this->myData['Jornada']) continue;
             // clasificacion final
             foreach($j['Series'] as $s) {
-                $this->myLogger->trace("Parsing Series: ".json_encode($s));
                 $mangas=array(
                     intval($s['Manga1']), intval($s['Manga2']), intval($s['Manga3']), intval($s['Manga4']),
                     intval($s['Manga5']), intval($s['Manga6']), intval($s['Manga7']), intval($s['Manga8'])
@@ -440,6 +439,9 @@ class MailManager {
                         $clasificaciones=$cobj->clasificacionFinalEquipos($s['Rondas'],$mangas,$s['Mode']);
                         $pdf = new PrintClasificacionTeam($this->pruebaObj->ID,$this->jornadaObj->ID,$mangas,$clasificaciones,$s['Mode']);
                         break;
+                    case 1: case 2: // pre-agility
+                        if ($this->myData['SendPreAgility']==0) continue;
+                        // no break
                     default: // individual
                         $clasificaciones=$cobj->clasificacionFinal($s['Rondas'],$mangas,$s['Mode']);
                         $pdf = new PrintClasificacion($this->pruebaObj->ID,$this->jornadaObj->ID,$mangas,$clasificaciones,$s['Mode']);

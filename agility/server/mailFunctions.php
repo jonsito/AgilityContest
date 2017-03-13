@@ -40,7 +40,8 @@ try {
         'Juez'      =>  http_request("Juez","i",0), // Juez id on change mail operation
         'Email'     =>  http_request("Email","s",""), // mail list to send mail to
         'SendToFederation'  =>  http_request("SendToFederation","i",0), // flag to ask for send CC: to federation provided mail
-        'PartialScores'  =>  http_request("PartialScores","i",0), // flag to ask for send CC: to federation provided mail
+        'PartialScores'  =>  http_request("PartialScores","i",0), // include partial scores (rounds) in mail
+        'SendPreAgility' =>  http_request("SendPreAgility","i",0), // include pre-agility results
         'FedAddress'=>  http_request("FedAddress","s",""), // federation email address
         'Contents'  =>  http_request("Contents","s",""), // federation email address
         'ZipFile'  =>  http_request("ZipFile","i",1), // default is to create single zip file

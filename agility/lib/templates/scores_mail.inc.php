@@ -34,6 +34,8 @@ $config =Config::getInstance();
     </ul>
     <form id="scores_email-form" method="get" novalidate="novalidate">
         <div class="fitem">
+            <label for="scores_email-SendPreAgility" style="width:300px;"><?php _e('Include pre agility results'); ?></label>
+            <input id="scores_email-SendPreAgility" type="checkbox" name="SendPreAgility" value="1"/><br/>
             <label for="scores_email-PartialScores" style="width:300px;"><?php _e('Also send scores for each separate round'); ?></label>
             <input id="scores_email-PartialScores" type="checkbox" name="PartialScores" value="1"/><br/>
             <label for="scores_email-ZipFile" style="width:300px;"><?php _e("Attach single zip file");?></label>
