@@ -266,9 +266,13 @@ addTooltip($('#selteam-cancelBtn').linkbutton(),"<?php _e('Cancel selection. Clo
 
 //datos del formulario de asignacion de equipo
 //- declaracion del formulario
+$('#selteam-Nombre').textbox({width:200,readonly:true,disabled:true});
+$('#selteam-NombreClub').textbox({width:200,readonly:true,disabled:true});
+$('#selteam-NombreGuia').textbox({width:200,readonly:true,disabled:true});
+$('#selteam-LongCategoria').textbox({width:200,readonly:true,disabled:true});
 $('#selteam-Form').form({
 	onLoadSuccess: function(data) {
-	    $('#selteam-LongCategoria').val(toLongCategoria(data.Categoria,workingData.federation));
+	    $('#selteam-LongCategoria').textbox('setValue',toLongCategoria(data.Categoria,workingData.federation));
 	    // stupid combogrid that doesn't display right data after form load
 	    $('#selteam-Equipo').combogrid('clear').combogrid('setValue',data.Equipo);
 	}
