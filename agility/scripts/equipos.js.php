@@ -291,52 +291,88 @@ function saveTeam() {
 
 /**
 * Open assign team dialog
-* @param {string} datagrid parent datagrid name
+* @param {string} dg parent datagrid name
 * @param {array} row selected datagrid data
 */
-function changeTeamDialog(datagrid,row) {
+function changeTeamDialog(dg,row) {
 	// cogemos datos de la inscripcion a modificar
 	// actualizamos lista de equipos en el combogrid
 	$('#selteam-Equipo').combogrid('grid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada});
 	// ajustamos variables extras del formulario
-    row.Parent=datagrid;
+    row.Parent=dg;
 	// recargamos el formulario con los datos de la fila seleccionada
     $('#selteam-Form').form('load',row); // onLoadSuccess takes care on combogrid
+    var data=$(dg).datagrid('getSelections');
+    $('#selteam-datagrid').datagrid('loadData',data);
 	// desplegamos formulario 
     $('#selteam-window').window('open');
 }
 
 /**
-* Change team to selected one
-*/
+ * Ask for commit new inscripcion to server
+ * @param {string} dg datagrid to retrieve selections from
+ */
 function changeTeam() {
-	// si no hay ninguna equipo valido seleccionada aborta
-	var p=$('#selteam-Equipo').combogrid('grid').datagrid('getSelected');
-	if (p==null) {
-		// indica error
-		$.messager.alert('<?php _e("Error"); ?>',"<?php _e('You must select a valid team');?>","error");
-		return;
-	}
-	$('#selteam-ID').val(p.ID);
-    var frm = $('#selteam-Form');
-    if (! frm.form('validate')) return;
-    $.ajax({
-        type: 'GET',
-        url: '/agility/server/database/equiposFunctions.php',
-        data: frm.serialize(),
-        dataType: 'json',
-        success: function (result) {
-            if (result.errorMsg){ 
-            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
-            } else {// on submit success, reload results
-            	var parent=$('#selteam-Parent').val();
-            	// on save done refresh related data/combo grids
-                $(parent).datagrid('reload');
-            }
+
+    function handleChangeTeam(rows,index,size) {
+        if (index>=size){  // recursive call finished, clean, close and refresh
+            pwindow.window('close');  // close progress bar
+            var parent=$('#selteam-Parent').val();
+            $(parent).datagrid('reload'); // refresh parent datagrid
+            $('#selteam-window').window('close'); // and close change team window
+            return;
         }
-    });
-	$('#selteam-window').window('close');
+        $('#selteam-progresslabel').text('<?php _e("Setting team for"); ?>'+": "+rows[index].Nombre);
+        $('#selteam-progressbar').progressbar('setValue', (100.0*(index+1)/size).toFixed(2));
+        $('#selteam-Perro').val(rows[index].Perro);
+        $.ajax({
+            cache: false,
+            timeout: 20000, // 20 segundos
+            type:'GET',
+            url: '/agility/server/database/equiposFunctions.php',
+            dataType:'json',
+            data: frm.serialize(),
+            success: function(result) {
+                if (result.errorMsg){
+                    $.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+                    handleChangeTeam(rows,index+1,0); // force end
+                } else {
+                    handleChangeTeam(rows,index+1,size);
+                }
+            }
+        });
+    }
+
+    var pwindow=$('#selteam-progresswindow');
+
+    // si no hay ninguna equipo valido seleccionada aborta
+    var p=$('#selteam-Equipo').combogrid('grid').datagrid('getSelected');
+    if (p==null) {
+        // indica error
+        $.messager.alert('<?php _e("Error"); ?>',"<?php _e('You must select a valid team');?>","error");
+        return;
+    }
+    $('#selteam-ID').val(p.ID);
+
+    // si no hay ningun perro marcado para cambiar de equipo aborta
+    var frm = $('#selteam-Form');
+    var parent=$('#selteam-Parent').val();
+    var selectedRows= $(parent).datagrid('getSelections');
+    var size=selectedRows.length;
+    if(size==0) {
+        $.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no marked dog to change team for"); ?>',"warning");
+        return; // no hay ningun perro seleccionado para cambiar de equipo
+    }
+
+    // si no tienes permiso para la operación, que te den :-)
+    if (ac_authInfo.Perms>2) {
+        $.messager.alert('<?php _e("No permission"); ?>','<?php _e("Current user has not enought permissions to perform operation"); ?>',"error");
+        return; // no tiene permiso para realizar cambios de equipo: retornar
+    }
+    pwindow.window('open');
+    handleChangeTeam(selectedRows,0,size);
 }
+
 
 function reloadOrdenEquipos() {
     $('#ordenequipos-datagrid').datagrid(

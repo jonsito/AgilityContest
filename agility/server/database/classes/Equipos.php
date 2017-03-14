@@ -195,9 +195,9 @@ class Equipos extends DBObject {
 		);
 		// evaluate if any search criteria
 		$search=http_Request("where","s","");
-		// evaluate offset and row count for query
-		$page=http_request("page","i",1);
-		$rows=http_request("rows","i",25);
+		// evaluate offset and row count for query. default is no paging
+		$page=http_request("page","i",0);
+		$rows=http_request("rows","i",0);
 		$limit="";
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
