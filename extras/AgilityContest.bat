@@ -20,17 +20,16 @@ set CONFIG_PHP=install\install.php
 
 rem start mysql database server
 :mysql_start
-echo Installing MySQL as service ...
-mysql\bin\mysqld.exe --defaults-file=mysql\bin\my.ini --install "MySQL for AgilityContest"
-echo Starting MySQL database server ....
-net start "MySQL for AgilityContest"
+echo MySQL Database is trying to start
+echo Please wait  ....
+start /B "" mysql\bin\mysqld --defaults-file=mysql\bin\my.ini --standalone --console
+timeout /t 5
 
 rem start apache web server
 :apache_start
-echo Installing Apache as service
-apache\bin\httpd.exe -k install -n "Apache for AgilityContest"
-echo Starting Apache web server ...
-net start "Apache for AgilityContest"
+echo Starting Apache Web Server....
+start /B "" apache\bin\httpd.exe
+timeout /t 5
 
 rem on first run create database and database users
 if not exist ..\logs\first_install GOTO browser_start
@@ -45,14 +44,12 @@ mysql\bin\mysql -u root < ..\logs\install.sql
 del ..\logs\install.sql
 del ..\logs\first_install
 echo Opening AgilityContest console for first time...
-start /MAX "AgilityContest" https://localhost/agility/console/index.php?installdb=1
-goto finish
+start /WAIT /MAX "AgilityContest" https://localhost/agility/console/index.php?installdb=1
+goto wait_for_end
 
 rem normal start when database is installed
 :browser_start
 echo Opening AgilityContest console...
-start /MAX "AgilityContest" https://localhost/agility/console
+start /WAIT /MAX "AgilityContest" https://localhost/agility/console
 
-rem as started as service no need to manually stop servers. let the system do the job
-rem That's all folks
-:finish
+:wait_for_end
