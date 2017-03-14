@@ -45,7 +45,7 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         }
         if (!$this->isInLeague($perro)) { // do not get league points if competitor does not belong to current zone
             $this->poffset[$cat]++; // properly handle puestocat offset
-            parent::evalPartialCalification($m,$perro,$puestocat);
+            Competitions::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         $ptsmanga=array("5","4","3","2","1"); // puntos por manga y puesto
