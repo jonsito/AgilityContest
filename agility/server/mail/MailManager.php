@@ -14,6 +14,8 @@ require_once __DIR__.'/../pdf/classes/PrintResultadosByManga.php';
 require_once __DIR__.'/../pdf/classes/PrintClasificacion.php';
 require_once __DIR__.'/../pdf/classes/PrintClasificacionTeam.php';
 require_once __DIR__.'/../web/PublicWeb.php';
+require_once __DIR__.'/MacroParser.php';
+
 /*
 mailManager.php
 
@@ -46,7 +48,7 @@ class MailManager {
         $this->myLogger= new Logger($filename,$this->myConfig->getEnv("debug_level"));
         $this->myData=$data;
         $this->myDBObj=new DBOBject("MailManager::Enumerate");
-        $this->pruebObj=null;
+        $this->pruebaObj=null;
         if ($this->myData['Prueba']!=0)
             $this->pruebaObj=$this->myDBObj->__selectObject("*","Pruebas","ID={$this->myData['Prueba']}");
         if ($this->myData['Jornada']!=0)
@@ -292,6 +294,7 @@ class MailManager {
      */
     public function sendInscriptions() {
         $this->myLogger->enter();
+        $macro=new MacroParser($this->pruebaObj->ID);
         $timeout=ini_get('max_execution_time');
         $maildir=__DIR__."/../../../logs/mail_{$this->pruebaObj->ID}";
         $this->myLogger->trace("Sending mail for club:`{$this->myData['Club']}` to address:`{$this->myData['Email']}`");
@@ -354,7 +357,7 @@ class MailManager {
         $release = $this->myConfig->getEnv("version_date");
         $htmlmsg .= "<hr/><p>". _("Email sent with") .  "AgilityContest-$version $release at $d</p> ";
         $htmlmsg .= "<p>CopyRight &copy; 2013-2017 by Juan Antonio Martinez &lt; jonsito at gmail dot com &gt;</p>";
-        $myMailer->msgHTML($htmlmsg);
+        $myMailer->msgHTML($macro->compile($htmlmsg));
         // set plain text to notify to use an html-enabled email browser
         $myMailer->AltBody = _("Please enable HTML view in your email application");
 
@@ -560,7 +563,7 @@ class MailManager {
     // send results scores and pdf to judge and federation
     public function sendResults() {
         $this->myLogger->enter();
-        $prueba=$this->pruebaObj->ID;
+        $macro=new MacroParser($this->pruebaObj->ID);
         $maildir=__DIR__."/../../../logs/results_{$this->myData['Prueba']}_{$this->myData['Jornada']}";
         // create files
         $filelist=$this->create_result_files($maildir);
@@ -589,7 +592,7 @@ class MailManager {
         $release = $this->myConfig->getEnv("version_date");
         $htmlmsg .= "<hr/><p>". _("Email sent with") .  "AgilityContest-$version $release at $d</p> ";
         $htmlmsg .= "<p>CopyRight &copy; 2013-2017 by Juan Antonio Martinez &lt; jonsito at gmail dot com &gt;</p>";
-        $myMailer->msgHTML($htmlmsg);
+        $myMailer->msgHTML($macro->compile($htmlmsg));
         // set plain text to notify to use an html-enabled email browser
         $myMailer->AltBody = _("Please enable HTML view in your email application");
 
