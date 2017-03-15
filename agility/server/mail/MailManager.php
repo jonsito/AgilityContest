@@ -229,6 +229,15 @@ class MailManager {
     }
 
     /**
+     * Clear every preloaded files ( Poster, Triptych and so, to force reload
+     */
+    function clearMailCache() {
+        $maildir=__DIR__."/../../../logs/mail_{$this->pruebaObj->ID}";
+        array_map('unlink',glob("{$maildir}/*"));
+        return "";
+    }
+
+    /**
      * mark every club on this contest as pending to send mail
      * @return string empty on success; null on error
      */
@@ -254,7 +263,7 @@ class MailManager {
             throw new Exception("updateClubMail(): Invalid Club ID {$this->myData['Club']}");
         if (!filter_var($this->myData['Email'],FILTER_VALIDATE_EMAIL))
             throw new Exception ("updateClubMail() provided data `{$this->myData['Email']}` is not a valid email address");
-        $str="UPDATE Clubes SET Email='{$this->myData['Email']} WHERE ID={$this->myData['Club']}";
+        $str="UPDATE Clubes SET Email='{$this->myData['Email']}' WHERE ID={$this->myData['Club']}";
         $res=$this->myDBObj->query($str);
         if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
         return "";

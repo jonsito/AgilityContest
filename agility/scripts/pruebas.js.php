@@ -318,7 +318,22 @@ function perform_emailPrueba() {
         return; // no tiene permiso para realizar inscripciones. retornar
     }
     pwindow.window('open');
-    handleMail(selectedRows,0,size);
+    // clear cache before send
+    $.ajax({
+        cache: false,
+        timeout: 30000, // 20 segundos
+        type:'POST',
+        url:"/agility/server/mailFunctions.php",
+        dataType:'json',
+        data: {
+            Prueba: workingData.prueba,
+            Federation: workingData.federation,
+            Operation: 'clearcache'
+        },
+        success: function(result) {
+            handleMail(selectedRows,0,size);
+        }
+    });
 }
 
 // ***** gestion de jornadas	*********************************************************

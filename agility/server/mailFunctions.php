@@ -64,6 +64,8 @@ try {
         case "updateJuez": $am->access(PERMS_OPERATOR); $result=$mailer->updateJuezMail(); break;
         // clear sent mark from every clubs on this contest
         case "clearsent":  $am->access(PERMS_OPERATOR); $result=$mailer->clearSent(); break;
+        // clear cache directory to force reload attachments
+        case "clearcache":  $am->access(PERMS_OPERATOR); $result=$mailer->clearMailCache(); break;
         // replacement for clubs::enumerate to add info on mail sent
         case "enumerate": $result=$mailer->enumerateClubes(); break;
         // list all judges on provided journey
