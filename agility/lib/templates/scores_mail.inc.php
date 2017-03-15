@@ -81,6 +81,8 @@ $config =Config::getInstance();
     <span style="float:right">
             <a id="scores_email-okBtn" href="#" class="easyui-linkbutton"
                data-options="iconCls:'icon-mail'" onclick="perform_emailScores();"><?php _e('Send'); ?></a>
+            <a id="scores_email-zipBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-zipfile'" onclick="perform_downloadZip();"><?php _e('Get Zip'); ?></a>
             <a id="scores_email-cancelBtn" href="#" class="easyui-linkbutton"
                data-options="iconCls:'icon-cancel'" onclick="$('#scores_email-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
         </span>
@@ -90,6 +92,7 @@ $config =Config::getInstance();
     // - botones
     addTooltip($('#scores_email-textBtn').linkbutton(),'<?php _e("Edit mail template text to be sent"); ?>');
     addTooltip($('#scores_email-okBtn').linkbutton(),'<?php _e("Accept data. Start mailing procedure"); ?>');
+    addTooltip($('#scores_email-zipBtn').linkbutton(),'<?php _e("Download zip file with scores instead of send mail"); ?>');
     addTooltip($('#scores_email-cancelBtn').linkbutton(),"<?php _e('Cancel operation. Close window'); ?>");
 
     // campos del formulario de generacion de correo

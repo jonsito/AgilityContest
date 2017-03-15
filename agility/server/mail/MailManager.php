@@ -402,8 +402,10 @@ class MailManager {
         if(count($valid_files)) { // we have some files to insert into zip, so process
             //create the archive
             $zip = new ZipArchive();
-            if($zip->open($destination,ZipArchive::OVERWRITE) !== true) { // allways clear archive if exists
-                $this->myLogger->trace( "canot zipfile open() {$destination}");
+            @unlink($destination);
+            $res=$zip->open($destination,ZipArchive::CREATE);
+            if($res!== true) { // allways clear archive if exists
+                $this->myLogger->trace( "canot zipfile open() {$destination} Error code: $res");
                 return false;
             }
             //add the files
@@ -426,6 +428,8 @@ class MailManager {
      * @return {array} file list
      */
     private function create_result_files($maildir) {
+
+        $timeout=ini_get('max_execution_time');
         // create compose directory. ignore errors if file already exists
         @mkdir($maildir,0777,true); // create subdirectories
 
@@ -436,6 +440,7 @@ class MailManager {
         $pbdata=$pb->publicweb_deploy();
         foreach ($pbdata['Jornadas'] as $j) { //buscamos la nuestra en la lista de jornadas
             if ($j['ID']!=$this->myData['Jornada']) continue;
+            set_time_limit($timeout);
             // clasificacion final
             foreach($j['Series'] as $s) {
                 $mangas=array(
@@ -469,6 +474,7 @@ class MailManager {
             if ($this->myData['PartialScores']==0) continue;
 
             foreach ($j['Mangas'] as $m) {
+                set_time_limit($timeout);
                 // analizamos la lista de rondas de la jornada GIstd,GIms,etc
                 // $m['ID'] es de la forma "mangaid,mode"; el ID viene en $m['Manga']
                 $mngobj= new Mangas("EmailResultadosByManga",$this->myData['Jornada']);
@@ -528,11 +534,33 @@ class MailManager {
         return $filelist;
     }
 
+    public function getZipFile() {
+        $this->myLogger->enter();
+        $maildir=__DIR__."/../../../logs/results_{$this->myData['Prueba']}_{$this->myData['Jornada']}";
+        // create files
+        $filelist=$this->create_result_files($maildir);
+        // compose zipfile
+        $zipfile="ResultsAndScores.zip";
+        $res=$this->create_zip($maildir,$filelist,"{$maildir}/{$zipfile}");
+        if (!$res) throw new Exception ("Mailer error: cannot create zip file");
+        // download to client
+        header('Set-Cookie: fileDownload=true; path=/');
+        header("Content-type: application/zip");
+        header("Content-Disposition: attachment; filename=$zipfile");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        readfile("{$maildir}/{$zipfile}");
+        // clear temporary data
+        array_map('unlink',glob("{$maildir}/*.pdf"));
+        array_map('unlink',glob("{$maildir}/*.xlsx"));
+        $this->myLogger->leave();
+        return ""; // result will be ignored due to file download operation
+    }
+
     // send results scores and pdf to judge and federation
     public function sendResults() {
         $this->myLogger->enter();
         $prueba=$this->pruebaObj->ID;
-        $timeout=ini_get('max_execution_time');
         $maildir=__DIR__."/../../../logs/results_{$this->myData['Prueba']}_{$this->myData['Jornada']}";
         // create files
         $filelist=$this->create_result_files($maildir);
@@ -589,6 +617,7 @@ class MailManager {
         }
 
         // clear temporary directory to remove pdf's and excels
+        array_map('unlink',glob("{$maildir}/*"));
 
         $this->myLogger->leave();
         return $ret;

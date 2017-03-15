@@ -156,7 +156,10 @@
     background:url('icons/new.png') no-repeat center center;
 }
 .icon-mail{
-    background:url('icons/mail.png') no-repeat center center;
+	background:url('icons/mail.png') no-repeat center center;
+}
+.icon-zipfile{
+	 background:url('icons/zipfile.png') no-repeat center center;
 }
 /* end added icons */
 .icon-mini-add{

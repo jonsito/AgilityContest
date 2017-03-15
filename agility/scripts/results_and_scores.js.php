@@ -77,6 +77,30 @@ function emailClasificaciones(teams) {
 }
 
 /**
+ * Ask to download zip file with scores instead of sending mail
+ */
+function perform_downloadZip() {
+    $.fileDownload(
+        "/agility/server/mailFunctions.php",
+        {
+            httpMethod: 'GET',
+            data: {
+                Prueba: workingData.prueba,
+                Jornada: workingData.jornada,
+                Federation: workingData.federation,
+                Operation: 'getZipFile',
+                PartialScores: $('#scores_email-PartialScores').prop('checked')?1:0,
+                SendPreAgility: $('#scores_email-SendPreAgility').prop('checked')?1:0,
+                ZipFile: 1 // not really needed, but...
+            },
+            preparingMessageHtml: '(Get zip) <?php _e("Preparing zip file with scores to download"); ?> ...',
+            failMessageHtml: '(Get zip) <?php _e("There was a problem generating zip file. Please try again."); ?>'
+        }
+    );
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
+
+/**
  * Ask send mail with contest info and inscription templates to each selected club
  */
 function perform_emailScores() {

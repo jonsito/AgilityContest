@@ -1,5 +1,4 @@
 <?php
-
 /*
 mailFunctions.php
 
@@ -16,7 +15,6 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program;
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
-
 
 require_once(__DIR__."/logging.php");
 require_once(__DIR__."/tools.php");
@@ -78,6 +76,8 @@ try {
         case "sendInscriptions": $am->access(PERMS_OPERATOR); $result=$mailer->sendInscriptions(); break;
         // send results, scores and excels to federation ad judges
         case "sendResults": $am->access(PERMS_OPERATOR); $result=$mailer->sendResults(); break;
+        // download zip file with results
+        case "getZipFile": $result=$mailer->getZipFile(); return 0; // Don't send anything extra to server, just return
         default:
             throw new Exception("mailFunctions:: invalid operation: '$operation' provided");
             break;
