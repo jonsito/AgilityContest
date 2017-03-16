@@ -91,6 +91,7 @@ function normalize_filename($fname) {
     $fname=str_replace("/","",$fname);
     $fname=str_replace(".","",$fname);
     $fname=str_replace("+","",$fname);
+    $fname=str_replace("_-_","_",$fname);
     return $fname;
 }
 

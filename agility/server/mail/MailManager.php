@@ -445,12 +445,14 @@ class MailManager {
             if ($j['ID']!=$this->myData['Jornada']) continue;
             set_time_limit($timeout);
             // clasificacion final
+            $cobj=new Clasificaciones("EmailClasificaciones",$this->pruebaObj->ID,$this->jornadaObj->ID);
             foreach($j['Series'] as $s) {
                 $mangas=array(
                     intval($s['Manga1']), intval($s['Manga2']), intval($s['Manga3']), intval($s['Manga4']),
                     intval($s['Manga5']), intval($s['Manga6']), intval($s['Manga7']), intval($s['Manga8'])
                 );
-                $cobj=new Clasificaciones("EmailClasificaciones",$this->pruebaObj->ID,$this->jornadaObj->ID);
+                $this->myLogger->trace("tipo1 is: ".intval($s['Tipo1']));
+                $pdf=null;
                 switch(intval($s['Tipo1'])) {
                     case 8: case 9: case 13: case 14: // prueba por equipos
                         $clasificaciones=$cobj->clasificacionFinalEquipos($s['Rondas'],$mangas,$s['Mode']);
@@ -464,11 +466,11 @@ class MailManager {
                         $pdf = new PrintClasificacion($this->pruebaObj->ID,$this->jornadaObj->ID,$mangas,$clasificaciones,$s['Mode']);
                         break;
                 }
+                if ($pdf==null) continue;
                 // Creamos generador de documento
                 $pdf->AliasNbPages();
                 $pdf->composeTable();
-                $pdfname=str_replace(" ","_",$s['Nombre']);
-                $pdfname=str_replace("_-_","_",$pdfname); // prettyformat file name from "manga - categoria"
+                $pdfname=normalize_filename($s['Nombre']);
                 array_push($filelist,"{$pdfname}.pdf");
                 $pdf->Output("$maildir/$pdfname.pdf","F"); // "F" means save to file; "D" send to client; "O" store in variable
             }
@@ -483,6 +485,7 @@ class MailManager {
                 $mngobj= new Mangas("EmailResultadosByManga",$this->myData['Jornada']);
                 $manga=$mngobj->selectByID($m['Manga']);
                 $resobj= new Resultados("EmailResultadosByManga",$this->myData['Prueba'],$m['Manga']);
+                $pdf=null;
                 switch(intval($m['TipoManga'])) {
                     // miramos si es una prueba por equipos
                     case 8: case 13:
@@ -493,15 +496,18 @@ class MailManager {
                         $resultados=$resobj->getResultadosEquipos($m['Mode']);
                         $pdf=new PrintResultadosByEquipos4($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
                         break;
+                    case 1: case 2: // pre-agility
+                        if ($this->myData['SendPreAgility']==0) continue;
+                    // no break
                     default:
                         $resultados=$resobj->getResultados($m['Mode']);
                         $pdf=new PrintResultadosByManga($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
                         break;
                 }
+                if ($pdf==null) continue;
                 $pdf->AliasNbPages();
                 $pdf->composeTable();
-                $pdfname=str_replace(" ","_",$m['Nombre']);
-                $pdfname=str_replace("_-_","_",$pdfname); // prettyformat file name from "manga - categoria"
+                $pdfname=normalize_filename($m['Nombre']);
                 array_push($filelist,"{$pdfname}.pdf");
                 $pdf->Output("$maildir/$pdfname.pdf","F"); // "D" means open download dialog
             }
