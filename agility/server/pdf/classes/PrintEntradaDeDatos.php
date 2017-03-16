@@ -74,7 +74,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$this->cellHeader[4]=$this->strClub; // fix country/club text
 		$this->validcats=$data['cats'];
 		$this->fillData=($data['fill']!=0)?true:false;
-		$this->rango=$data['rango'];
+        $this->rango= (preg_match('/^\d+-\d+$/',$data['rango']))? $data['rango'] : "1-99999";
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
         $cat=$this->validcats; // categorias del listado

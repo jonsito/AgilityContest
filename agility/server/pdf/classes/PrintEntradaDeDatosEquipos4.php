@@ -84,7 +84,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         }
         $this->validcats=$data['cats'];
         $this->fillData=($data['fill']==0)?false:true;
-        $this->rango=$data['rango'];
+        $this->rango= (preg_match('/^\d+-\d+$/',$data['rango']))? $data['rango'] : "1-99999";
 
         // set pdf file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga

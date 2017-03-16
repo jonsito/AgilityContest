@@ -69,7 +69,7 @@ class PrintOrdenDeSalida extends PrintCommon {
 		$os= $o->getData();
 		$this->orden=$os['rows'];
 		$this->categoria="L";
-         $this->cellHeader =
+        $this->cellHeader =
          //                0            1       2         3        4           5           6           7              8          9
                 array(_('Order'),_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Gender'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
         //                  orden    dorsal  nombre    licencia raza Genero     guia club   celo   observaciones
@@ -80,7 +80,7 @@ class PrintOrdenDeSalida extends PrintCommon {
         $this->teams=array();
         foreach($eq->getTeamsByJornada() as $team) $this->teams[$team['ID']]=$team;
 		$this->validcats=$data['categorias'];
-        $this->rango=$data['rango'];
+        $this->rango= (preg_match('/^\d+-\d+$/',$data['rango']))? $data['rango'] : "1-99999";
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
         $cat=$this->validcats; // categorias del listado
