@@ -435,7 +435,6 @@ class PrintEntradaDeDatos extends PrintCommon {
         // Rango
         $fromItem=1;
         $toItem=99999;
-        $itemcount=1;
         if (($this->rango!=="") && preg_match('/^\d+-\d+$/',$this->rango)!==FALSE) {
             $a=explode("-",$this->rango);
             $fromItem=intval($a[0]);
@@ -446,7 +445,6 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$rowcount=0;
 		foreach($this->orden as $row) {
 			if (!category_match($row['Categoria'],$this->validcats)) continue;
-            if (($itemcount<$fromItem) || ($itemcount>$toItem) ) { $orden++; $itemcount++; continue; } // not in range; skip
 			// if change in categoria, reset orden counter and force page change
 			if ($row['Categoria'] !== $this->categoria) {
 				// $this->myLogger->trace("Nueva categoria es: ".$row['Categoria']);
@@ -455,6 +453,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 				$rowcount=0;
 				$orden=1;
 			}
+            if (($orden<$fromItem) || ($orden>$toItem) ) { $orden++; continue; } // not in range; skip
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			if( ($rowcount % $this->numrows) == 0 ) { // assume $numrows entries per page 
 				$this->AddPage();
@@ -474,7 +473,6 @@ class PrintEntradaDeDatos extends PrintCommon {
 			}
 			$rowcount++;
 			$orden++;
-			$itemcount++;
 		}
 		// Línea de cierre
 		$this->Cell(array_sum($this->pos),0,'','T');

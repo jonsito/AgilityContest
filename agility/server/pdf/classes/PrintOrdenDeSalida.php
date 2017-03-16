@@ -155,7 +155,6 @@ class PrintOrdenDeSalida extends PrintCommon {
         // Rango
         $fromItem=1;
         $toItem=99999;
-        $itemcount=1;
         if (preg_match('/^\d+-\d+$/',$this->rango)!==FALSE) {
             $a=explode("-",$this->rango);
             $fromItem=intval($a[0]);
@@ -168,7 +167,6 @@ class PrintOrdenDeSalida extends PrintCommon {
 		$lastTeam=0;
 		foreach($this->orden as $row) {
 			if (!category_match($row['Categoria'],$this->validcats)) continue;
-			if (($itemcount<$fromItem) || ($itemcount>$toItem) ) { $order++;$itemcount++; continue; } // not in range; skip
 			$newTeam=intval($row['Equipo']);
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			// if change in categoria, reset orden counter.
@@ -187,6 +185,7 @@ class PrintOrdenDeSalida extends PrintCommon {
 				$order=0;
 				$lastTeam=0;
 			}
+            if ( (($order+1)<$fromItem) || (($order+1)>$toItem) ) { $order++; continue; } // not in range; skip
 			// on team, if team change, make sure that new team fits in page. Else force new page
 			if ( $this->isTeam() && ($newTeam!=$lastTeam) && ($rowcount>=32) ) $rowcount=37;
 
@@ -227,7 +226,6 @@ class PrintOrdenDeSalida extends PrintCommon {
 			$this->Ln();
 			$rowcount++;
 			$order++;
-			$itemcount++;
 		}
 		// Línea de cierre
 		$this->Cell(array_sum($this->pos),0,'','T');

@@ -205,7 +205,6 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         // Rango
         $fromItem=1;
         $toItem=99999;
-        $itemcount=1;
         if (($this->rango!=="") && preg_match('/^\d+-\d+$/',$this->rango)!==FALSE) {
             $a=explode("-",$this->rango);
             $fromItem=intval($a[0]);
@@ -216,7 +215,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         $this->categoria="-";
 		foreach($this->equipos as $equipo) {
             if(!category_match($equipo['Categorias'],$this->validcats)) continue;
-            if (($itemcount<$fromItem) || ($itemcount>$toItem) ) { $index++; $itemcount++; continue; } // not in range; skip
+            if ( (($index+1)<$fromItem) || (($index+1)>$toItem) ) { $index++; continue; } // not in range; skip
             $miembros=$equipo['Perros'];
             $num=count($miembros);
             if ($num==0) continue; // skip empty teams

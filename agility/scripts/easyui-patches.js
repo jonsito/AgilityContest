@@ -236,3 +236,17 @@ $.extend($.fn.datagrid.defaults.editors, {
         }
     }
 });
+
+
+/**
+ * Create a validatebox for number ranges in format XX-YY
+ */
+$.extend($.fn.validatebox.defaults.rules, {
+    'intrange': {
+        validator: function(value,param) {
+            var reg=new RegExp('^[0-9]+-[0-9]+$');
+            return reg.test(value);
+        },
+        message: 'Enter range in format XXXX-XXXX'
+    }
+});

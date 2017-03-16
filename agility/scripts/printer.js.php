@@ -59,14 +59,15 @@ function print_listaPerros(mode) {
 /**
  * Imprime la secuencia de tandas de la jornada
  */
-function print_ordenTandas() {
+function print_ordenTandas(comments) {
     $.fileDownload(
         '/agility/server/pdf/print_ordenTandas.php',
         {
             httpMethod: 'GET',
             data: {
                 Prueba: workingData.prueba,
-                Jornada: workingData.jornada
+                Jornada: workingData.jornada,
+                Comentarios: comments
             },
             preparingMessageHtml:'(rounds order) <?php _e("We are preparing your report, please wait"); ?> ...',
             failMessageHtml: '(rounds order) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -103,9 +104,11 @@ function print_entrenamientos(mode) {
  * manda a la impresora el orden de salida
  * @param cats lista de categorias a imprimir
  * @param excel lista de categorias a imprimir
+ * @param rango lista de perros a imprimir ( turnos de reconocimiento )
+ * @param comentarios texto extra a anyadir a la cabecera
  * @returns {Boolean}
  */
-function print_ordenSalida(cats,excel) {
+function print_ordenSalida(cats,excel,rango,comentarios) {
     var url='/agility/server/pdf/print_ordenDeSalida.php';
     if (isJornadaEqConjunta()) url='/agility/server/pdf/print_ordenSalidaEquipos4.php';
 	if (excel) url='/agility/server/excel/print_ordenSalidaExcel.php';
@@ -119,7 +122,9 @@ function print_ordenSalida(cats,excel) {
                 Manga: workingData.manga,
 				Categorias: cats,
 				Excel: excel,
-				EqConjunta: isJornadaEqConjunta()?1:0
+				EqConjunta: isJornadaEqConjunta()?1:0,
+                Rango: rango,
+                Comentarios: comentarios
             },
             preparingMessageHtml: '(Starting order) <?php _e("We are preparing your report, please wait"); ?> ...',
             failMessageHtml: '(Starting order) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -154,7 +159,7 @@ function print_trsTemplates(mode) {
 }
 
 /************************** Hojas del asistente del juez ****************/
-function print_asistente(pages,cats,fill) {
+function print_asistente(pages,cats,fill,rango,comentarios) {
     $.fileDownload(
         '/agility/server/pdf/print_entradaDeDatos.php',
         {
@@ -165,7 +170,9 @@ function print_asistente(pages,cats,fill) {
                 Manga: workingData.manga,
 				Categorias: cats,
                 Mode: pages,
-                FillData:(fill)?1:0
+                FillData:(fill)?1:0,
+                Rango:rango,
+                Comentarios:comentarios
             },
             preparingMessageHtml:'(assistant sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
             failMessageHtml:'(assistant sheets) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -177,7 +184,7 @@ function print_asistente(pages,cats,fill) {
 /**
  * En pruebas de equipos 4 conjunta se ofrece la opción de usar una única entrada para el equipo
  */
-function print_asistenteEquipos(cats,fill) {
+function print_asistenteEquipos(cats,fill,rango,comentarios) {
     $.fileDownload(
         '/agility/server/pdf/print_entradaDeDatosEquipos4.php',
         {
@@ -187,7 +194,9 @@ function print_asistenteEquipos(cats,fill) {
                 Jornada: workingData.jornada,
                 Manga: workingData.manga,
 				Categorias: cats,
-                FillData:(fill)?1:0
+                FillData:(fill)?1:0,
+                Rango:rango,
+                Comentarios,comentarios
             },
             preparingMessageHtml: '(assistant team sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
             failMessageHtml:'(assistant team sheets) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -296,77 +305,67 @@ function checkAndPrintParcial(val) {
 
 /******************** Entrada comun para las operaciones de impresion del desarrollo de la jornada *******/
 
+function print_performCommonDesarollo() {
+    var oper= parseInt ($('input[name=printer_dialog-option]:checked').val() );
+    var comments=$('#printer_dialog-comments').textbox('getValue');
+    var range=$('#printer_dialog-range').textbox('getValue');
+    var row= $('#competicion-listamangas').datagrid('getSelected'); // look for round selected
+    var cats=$('#printer_dialog-cats').val();
+    switch(oper){
+        case 0: print_ordenTandas(comments); return false; // programa de la jornada
+        case 1: if (!row) break; print_ordenSalida(cats,false,range,comments); return false; //orden de salida pdf
+        case 2: if (!row) break; print_ordenSalida(cats,true,range,comments); return false; // orden de salida excel
+        case 3: print_trsTemplates(0); return false; // tabla trs/trm
+        case 4: print_trsTemplates(1); return false; // hoja de anotacion de trs/trm
+        case 5: print_trsTemplates(2); return false; // hoja de asistente vacia
+        case 6: if (!row) break; print_asistente(1,cats,false,range,comments); return false; // hojas asistente 1 perro/pag
+        case 7: if (!row) break; print_asistente(5,cats,false,range,comments); return false; // hojas asistente 5 perros/pag
+        case 8: if (!row) break; print_asistente(15,cats,false,range,comments); return false; // hojas asistente 15 perros/pag
+        case 9: if (!row) break; print_asistenteEquipos(cats,false,range,comments); return false; // hojas asistente team4 conjunta
+    }
+    // arriving here means round required but not selected. notify and abort
+    $.messager.alert('<?php _e('Error'); ?>','<?php _e('There is no selected round'); ?>','error');
+    return false; // no hay ninguna manga seleccionada. retornar
+}
+
+function print_changeSelection(val) {
+    var cats=$('#printer_dialog-cats').val();
+    var rangeobj=$('#printer_dialog-range');
+    switch (val) {
+        case 0: case 2: case 3: case 4: case 5: rangeobj.textbox('disable');  break;
+        // if cat selected enable range selection on starting order or assistant pages
+        case 1: case 6: case 7: case 8: case 9: rangeobj.textbox( (cats==='-')?'disable':'enable'); break;
+    }
+}
+
 /**
- * Prints TRS templates
+ * Open competition printer dialog and select options
  * @param {int} def default option
  * @param {string} cb (optional: nombre del combobox de donde obtener la categoria
  * @returns {boolean} False to avoid key binding event chaining
  */
 function print_commonDesarrollo(def,cb) {
-    var options= {
-        0:((def==0)?'*':'')+'<?php _e('Activities and timetable on this journey'); ?>',
-		1:((def==1)?'*':'')+'<?php _e('Starting order on this round'); ?> - PDF',
-		2:((def==2)?'*':'')+'<?php _e('Starting order on this round'); ?> - Excel<br/>',
-        3:((def==3)?'*':'')+'<?php _e('SheetCalc to evaluate SCT and MCT'); ?>',
-        4:((def==4)?'*':'')+'<?php _e('Sheet to anotate data on rounds'); ?>',
-        5:((def==5)?'*':'')+'<?php _e('Judge assistant empty sheet'); ?><br/>',
-        6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
-        7:((def==7)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
-        8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (15 dogs/page)'); ?><br/>'
-        // As we need to select categoria, cannot directly access to print parciales
-        //8:((def==8)?'*':'')+'Imprimir resultados parciales de la manga'
-    };
-    var options4= {
-        0:((def==0)?'*':'')+'<?php _e('Activities and timetable on this journey'); ?>',
-        1:((def==1)?'*':'')+'<?php _e('Starting order on this round'); ?>',
-		2:((def==2)?'*':'')+'<?php _e('Starting order on this round'); ?> (<?php _e("Excel format");?>)<br/>',
-        3:((def==3)?'*':'')+'<?php _e('SheetCalc to evaluate SCT and MCT'); ?>',
-        4:((def==4)?'*':'')+'<?php _e('Sheet to anotate data on rounds'); ?>',
-        5:((def==5)?'*':'')+'<?php _e('Judge assistant empty sheet'); ?><br/>',
-        6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
-        7:((def==7)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
-        8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (15 dogs/page)'); ?>',
-        9:((def==9)?'*':'')+'<?php _e('Judge assistant sheets (combined for team 4)'); ?><br/>'
-    };
-
-    function checkCanPrint(oper) {
-        switch(parseInt(oper)){
-            case 0: case 3:case 4:case 5: return true;
-            case 1: case 2: case 6: case 7: case 8:case 9:
-                var row= $('#competicion-listamangas').datagrid('getSelected');
-                if (row )  return true;
-                $.messager.alert('<?php _e('Error'); ?>','<?php _e('There is no selected round'); ?>','error');
-                return false; // no hay ninguna manga seleccionada. retornar
-        }
-        return false;
-    }
-
 	var cats='-';
 	var catstr='';
 	if (typeof(cb)!=="undefined") {
 		cats=$(cb).combobox('getValue');
 		if (cats!=="-") catstr="<?php _e("Selected category");?>: "+$(cb).combobox('getText')+" <br />";
 	}
-    $.messager.radio(
-        '<?php _e("Print form"); ?>',
-        catstr+'<?php _e('Select document type to be generated'); ?>:',
-        isJornadaEqConjunta()?options4:options,
-        function(r){
-            if (!r) return false;
-            if (!checkCanPrint(r)) return false;
-            switch(parseInt(r)){
-                case 0: print_ordenTandas(); break;
-                case 1: print_ordenSalida(cats,false); break;
-				case 2: print_ordenSalida(cats,true); break;
-                case 3: print_trsTemplates(0); break;
-                case 4: print_trsTemplates(1); break;
-                case 5: print_trsTemplates(2); break;
-                case 6: print_asistente(1,cats,false); break;
-                case 7: print_asistente(5,cats,false); break;
-                case 8: print_asistente(15,cats,false); break;
-                case 9: print_asistenteEquipos(cats,false); break;
-            }
-        }).window('resize',{width:450});
+	var rangeobj=$('#printer_dialog-range');
+	// prepare dialog
+    switch(parseInt(def)) {
+        case 0: case 2: case 3: case 4: case 5: rangeobj.textbox('disable');  break;
+        // if cat selected enable range selection on starting order or assistant pages
+        case 1: case 6: case 7: case 8: case 9: rangeobj.textbox( (cats==='-')?'disable':'enable'); break;
+    }
+    $('#printer_dialog-cats').val(cats);
+	$('#printer_dialog-currentcat').html(catstr);
+	$('#printer_dialog-extraopts').css('display',isJornadaEqConjunta()?'inherit':'none');
+	$('#printer_dialog-option'+def.toString()).prop('checked',true);
+	$('#printer_dialog-comments').textbox('setValue','');
+	rangeobj.textbox('setValue','1-99999'); // on window open default is print all
+	// and finally open
+    $('#printer_dialog-dialog').dialog('open');
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
