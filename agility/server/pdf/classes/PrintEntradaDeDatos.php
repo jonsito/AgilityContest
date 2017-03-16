@@ -39,6 +39,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 	protected $categoria; // categoria que estamos listando
 	protected $validcats; // lista de categorias solicitadas
 	protected $fillData=false; // populate sheets with result data
+	protected $rango; // data item to be printed
 
 	// geometria de las celdas
 	protected $cellHeader
@@ -49,27 +50,31 @@ class PrintEntradaDeDatos extends PrintCommon {
 	
 	/**
 	 * Constructor
-	 * @param {integer} $prueba 
-	 * @param {integer} $jornada 
-	 * @param {array[object]} datos de la manga y (si existe) manga hermana
-	 * @param {array} $ordens Lista de inscritos en formato jquery array[count,rows[]]
-	 * @param {integer} $numrows numero de perros a imprimir por cada hoja
-	 * @throws Exception
+     * @param {array} data (prueba,jornada, mangas,ordensalida,numperros,categorias, filldata,rango,comentarios)
+	 * param {integer} $prueba
+	 * param {integer} $jornada
+	 * param {array[object]} mangas datos de la manga y (si existe) manga hermana
+	 * param {array} $ordens Lista de inscritos en formato jquery array[count,rows[]]
+	 * param {integer} $numrows numero de perros a imprimir por cada hoja 1/5/15
+     * param {string} rango [\d]-[\d]
+     * param {string} comentarios
+	 * throws Exception
 	 */
-	function __construct($prueba,$jornada,$mangas,$ordens,$numrows,$validcats,$fill) {
-		parent::__construct('Portrait',"print_entradaDeDatos",$prueba,$jornada);
-		if ( ($prueba<=0) || ($jornada<=0) || ($mangas===null) || ($ordens===null) ) {
+    function __construct($data) {
+		parent::__construct('Portrait',"print_entradaDeDatos",$data['prueba'],$data['jornada'],$data['comentarios']);
+		if ( ($data['prueba']<=0) || ($data['jornada']<=0) || ($data['mangas']===null) || ($data['orden']===null) ) {
 			$this->errormsg="printEntradaDeDatos: either prueba/jornada/ manga/orden data are invalid";
 			throw new Exception($this->errormsg);
 		}
-		$this->manga=$mangas[0];
-		if(array_key_exists(1,$mangas)) $this->manga2=$mangas[1];
-		$this->orden=$ordens;
-		$this->numrows=$numrows;
+		$this->manga=$data['mangas'][0];
+		if(array_key_exists(1,$data['mangas'])) $this->manga2=$data['mangas'][1];
+		$this->orden=$data['orden'];
+		$this->numrows=$data['numrows'];
 		$this->categoria="L";
 		$this->cellHeader[4]=$this->strClub; // fix country/club text
-		$this->validcats=$validcats;
-		$this->fillData=($fill!=0)?true:false;
+		$this->validcats=$data['cats'];
+		$this->fillData=($data['fill']!=0)?true:false;
+		$this->rango=$data['rango'];
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
         $cat=$this->validcats; // categorias del listado
@@ -426,11 +431,22 @@ class PrintEntradaDeDatos extends PrintCommon {
 		
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
+
+        // Rango
+        $fromItem=1;
+        $toItem=99999;
+        $itemcount=1;
+        if (($this->rango!=="") && preg_match('/^\d+-\d+$/',$this->rango)!==FALSE) {
+            $a=explode("-",$this->rango);
+            $fromItem=intval($a[0]);
+            $toItem=intval($a[1]);
+        }
 		// Datos
 		$orden=1;
 		$rowcount=0;
 		foreach($this->orden as $row) {
 			if (!category_match($row['Categoria'],$this->validcats)) continue;
+            if (($itemcount<$fromItem) || ($itemcount>$toItem) ) { $orden++; $itemcount++; continue; } // not in range; skip
 			// if change in categoria, reset orden counter and force page change
 			if ($row['Categoria'] !== $this->categoria) {
 				// $this->myLogger->trace("Nueva categoria es: ".$row['Categoria']);
@@ -458,6 +474,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 			}
 			$rowcount++;
 			$orden++;
+			$itemcount++;
 		}
 		// Línea de cierre
 		$this->Cell(array_sum($this->pos),0,'','T');

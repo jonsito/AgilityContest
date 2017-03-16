@@ -37,35 +37,39 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader;
-	
-	/**
-	 * Constructor
-     * @param {integer} $prueba Prueba ID
-     * @param {integer} $jornada Jormada ID
-     * @param {integer} $manga Manga ID
-	 * @throws Exception
-	 */
-	function __construct($prueba,$jornada,$manga,$categorias) {
-		parent::__construct('Portrait',"print_entradaDeDatosEquipos4",$prueba,$jornada);
-		if ( ($prueba<=0) || ($jornada<=0) ) {
+
+    /**
+     * Constructor
+     * @param {array} data (prueba,jornada, manga, categorias, rango, comentarios)
+     * {integer} Prueba ID
+     * {integer} $jornada Jormada ID
+     * {integer} $manga Manga ID
+     * {string} categorias -LMST
+     * {string} rango [\d]-[\d]
+     * {string} comentarios
+     * @throws Exception
+     */
+	function __construct($data) {
+        parent::__construct('Portrait',"print_ordenDeSalida",$data['prueba'],$data['jornada'],$data['comentarios']);
+		if ( ($data['prueba']<=0) || ($data['jornada']<=0) ) {
 			$this->errormsg="print_datosEquipos4: either prueba or jornada data are invalid";
 			throw new Exception($this->errormsg);
 		}
         // comprobamos que estamos en una jornada por equipos
         $flag=intval($this->jornada->Equipos3)+intval($this->jornada->Equipos4);
         if ($flag==0) {
-            $this->errormsg="print_datosEquipos4: Jornada $jornada has no Team competition declared";
+            $this->errormsg="print_datosEquipos4: Jornada {$data['jornada']} has no Team competition declared";
             throw new Exception($this->errormsg);
         }
         // guardamos info de la manga
-        $this->manga=$this->myDBObject->__getObject("Mangas",$manga);
+        $this->manga=$this->myDBObject->__getObject("Mangas",$data['manga']);
         // Datos del orden de salida de equipos
-        $m = new OrdenSalida("ordenSalidaEquipos4",$manga);
+        $m = new OrdenSalida("ordenSalidaEquipos4",$data['manga']);
         $teams= $m->getTeams();
         $this->equipos=$teams['rows'];
         // anyadimos el array de perros del equipo
         foreach($this->equipos as &$equipo) {$equipo['Perros']=array();}
-        $r= $this->myDBObject->__select("*","Resultados","(Manga=$manga)","","");
+        $r= $this->myDBObject->__select("*","Resultados","(Manga={$data['manga']})","","");
         foreach($r['rows'] as $perro) {
             foreach($this->equipos as &$equipo) {
                 if ($perro['Equipo']==$equipo['ID']) {
@@ -74,7 +78,8 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
                 }
             }
         }
-        $this->validcats=$categorias;
+        $this->validcats=$data['categorias'];
+        $this->rango=$data['rango'];
 
         // set pdf file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
@@ -165,11 +170,21 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
         $index=0;
         $rowcount=0;
         $this->categoria="-";
+        // Rango
+        $fromItem=1;
+        $toItem=99999;
+        $itemcount=1;
+        if (preg_match('/^\d+-\d+$/',$this->rango)!==FALSE) {
+            $a=explode("-",$this->rango);
+            $fromItem=intval($a[0]);
+            $toItem=intval($a[1]);
+        }
 		foreach($this->equipos as $equipo) {
             // skip "-- Sin asignar --" team. Do not print team on unrequested categories
             if ($equipo['Nombre']==="-- Sin asignar --") continue;
             // $this->myLogger->trace("Team:{$equipo['Nombre']} cats:{$equipo['Categorias']} compare to:{$this->validcats}");
             if (!category_match($equipo['Categorias'],$this->validcats)) continue;
+            if (($itemcount<$fromItem) || ($itemcount>$toItem) ) { $index++; $itemcount++; continue; } // team index not in range; skip
             $miembros=$equipo['Perros'];
             $num=count($miembros);
             if ($num==0) continue; // skip empty teams
@@ -183,6 +198,7 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
             $this->printTeamInfo($rowcount,$index,$equipo,$miembros);
             $rowcount++;
             $index++;
+            $itemcount++;
 		}
 		// Línea de cierre
 		$this->myLogger->leave();

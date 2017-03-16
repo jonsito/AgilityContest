@@ -31,21 +31,25 @@ require_once(__DIR__.'/classes/PrintEntradaDeDatos.php');
 
 // Consultamos la base de datos
 try {
-	$prueba=http_request("Prueba","i",0);
-	$jornada=http_request("Jornada","i",0);
-	$manga=http_request("Manga","i",0);
-	$mode=http_request("Mode","i",0);
-	$cats=http_request("Categorias","s","-");
-	$fill=http_request("FillData","i",0); // tell if print data in sheets
+	$data=array(
+        'prueba' 	=> http_request("Prueba","i",0),
+    	'jornada' 	=> http_request("Jornada","i",0),
+    	'manga' 	=> http_request("Manga","i",0),
+    	'numrows'	=> http_request("Mode","i",0), // numero de perros por hoja 1/5/15
+    	'cats' 		=> http_request("Categorias","s","-"),
+    	'fill' 		=> http_request("FillData","i",0), // tell if print entered data in sheets
+        'rango' 	=> http_request("Rango","s","1-99999"),
+        'comentarios' => http_request("Comentarios","s","-")
+	);
 
 	// Datos de la manga y su manga hermana
-	$m = new Mangas("printEntradaDeDatos",$jornada);
-	$mangas= $m->getHermanas($manga);
+	$m = new Mangas("printEntradaDeDatos",$data['jornada']);
+	$data['mangas']= $m->getHermanas($data['manga']);
 	// Datos del orden de salida
-	$o = new OrdenSalida("printEntradaDeDatos",$manga);
-	$orden= $o->getData();
+	$o = new OrdenSalida("printEntradaDeDatos",$data['manga']);
+	$data['orden']= $o->getData()['rows'];
 	// Creamos generador de documento
-	$pdf = new PrintEntradaDeDatos($prueba,$jornada,$mangas,$orden['rows'],$mode,$cats,$fill);
+	$pdf = new PrintEntradaDeDatos($data);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
     $pdf->Output($pdf->get_FileName(),"D"); // "D" web client (download) "F" file save

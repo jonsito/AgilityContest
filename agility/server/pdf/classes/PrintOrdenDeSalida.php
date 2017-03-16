@@ -36,6 +36,7 @@ class PrintOrdenDeSalida extends PrintCommon {
 	protected $orden; // orden de salida
 	protected $categoria; // categoria que estamos listando
 	protected $validcats; // categorias que nos han pedido listar
+    protected $rango; // ordenes a imprimir
 	protected $teams; // lista de equipos de esta jornada
 	
 	// geometria de las celdas
@@ -45,22 +46,26 @@ class PrintOrdenDeSalida extends PrintCommon {
 	
 	/**
 	 * Constructor
-     * @param {integer} $prueba Prueba ID
-     * @param {integer} $jornada Jormada ID
-     * @param {integer} $manga Manga ID
+     * @param {array} data (prueba,jornada, manga, categorias, rango, comentarios)
+     * {integer} Prueba ID
+     * {integer} $jornada Jormada ID
+     * {integer} $manga Manga ID
+     * {string} categorias -LMST
+     * {string} rango [\d]-[\d]
+     * {string} comentarios
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$categorias='') {
-		parent::__construct('Portrait',"print_ordenDeSalida",$prueba,$jornada);
-		if ( ($prueba<=0) || ($jornada<=0) || ($manga<=0) ) {
+    function __construct($data) {
+		parent::__construct('Portrait',"print_ordenDeSalida",$data['prueba'],$data['jornada'],$data['comentarios']);
+		if ( ($data['prueba']<=0) || ($data['jornada']<=0) || ($data['manga']<=0) ) {
 			$this->errormsg="printOrdenDeSalida: either prueba/jornada/ manga/orden data are invalid";
 			throw new Exception($this->errormsg);
 		}
 		// Datos de la manga
-		$m = new Mangas("printOrdenDeSalida",$jornada);
-		$this->manga= $m->selectByID($manga);
+		$m = new Mangas("printOrdenDeSalida",$data['jornada']);
+		$this->manga= $m->selectByID($data['manga']);
 		// Datos del orden de salida
-		$o = new OrdenSalida("printOrdenDeSalida",$manga);
+		$o = new OrdenSalida("printOrdenDeSalida",$data['manga']);
 		$os= $o->getData();
 		$this->orden=$os['rows'];
 		$this->categoria="L";
@@ -71,11 +76,11 @@ class PrintOrdenDeSalida extends PrintCommon {
         $this->pos	=array(  12,      10,     25,        15,      22,    10,      40,   25,     10,    16);
         $this->align=array(  'R',    'R',    'C',        'C',     'R',   'C',     'R',  'R',    'C',   'R');
         // obtenemos los datos de equipos de la jornada indexados por el ID del equipo
-		$eq=new Equipos("print_ordenDeSalida",$prueba,$jornada);
+		$eq=new Equipos("print_ordenDeSalida",$data['prueba'],$data['jornada']);
         $this->teams=array();
         foreach($eq->getTeamsByJornada() as $team) $this->teams[$team['ID']]=$team;
-		$this->validcats=$categorias;
-
+		$this->validcats=$data['categorias'];
+        $this->rango=$data['rango'];
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
         $cat=$this->validcats; // categorias del listado
@@ -147,12 +152,23 @@ class PrintOrdenDeSalida extends PrintCommon {
         if ($this->federation->get('WideLicense') || $this->federation->isInternational()) {
             $this->pos[9]+=$this->pos[3]; $this->pos[3]=0;
         }
+        // Rango
+        $fromItem=1;
+        $toItem=99999;
+        $itemcount=1;
+        if (preg_match('/^\d+-\d+$/',$this->rango)!==FALSE) {
+            $a=explode("-",$this->rango);
+            $fromItem=intval($a[0]);
+            $toItem=intval($a[1]);
+            $this->myLogger->trace("from:$fromItem to:$toItem");
+        }
 		// Datos
 		$rowcount=0;
 		$order=0;
 		$lastTeam=0;
 		foreach($this->orden as $row) {
 			if (!category_match($row['Categoria'],$this->validcats)) continue;
+			if (($itemcount<$fromItem) || ($itemcount>$toItem) ) { $order++;$itemcount++; continue; } // not in range; skip
 			$newTeam=intval($row['Equipo']);
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			// if change in categoria, reset orden counter.
@@ -211,6 +227,7 @@ class PrintOrdenDeSalida extends PrintCommon {
 			$this->Ln();
 			$rowcount++;
 			$order++;
+			$itemcount++;
 		}
 		// Línea de cierre
 		$this->Cell(array_sum($this->pos),0,'','T');

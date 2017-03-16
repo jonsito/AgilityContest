@@ -31,13 +31,18 @@ require_once(__DIR__."/classes/PrintEntradaDeDatosEquipos4.php");
 
 // Consultamos la base de datos
 try {
-	$prueba=http_request("Prueba","i",0);
-	$jornada=http_request("Jornada","i",0);
-    $manga=http_request("Manga","i",0);
-    $cats=http_request("Categorias","s","-");
-    $fill=http_request("FillData","i",0);
+    $data=array(
+        'prueba' 	=> http_request("Prueba","i",0),
+        'jornada' 	=> http_request("Jornada","i",0),
+        'manga' 	=> http_request("Manga","i",0),
+        'numrows'	=> http_request("Mode","i",0), // numero de perros por hoja 1/5/15
+        'cats' 		=> http_request("Categorias","s","-"),
+        'fill' 		=> http_request("FillData","i",0), // tell if print entered data in sheets
+        'rango' 	=> http_request("Rango","s","1-99999"),
+        'comentarios' => http_request("Comentarios","s","-")
+    );
     // 	Creamos generador de documento
-    $pdf=new PrintEntradaDeDatosEquipos4($prueba,$jornada,$manga,$cats,$fill);
+    $pdf=new PrintEntradaDeDatosEquipos4($data);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
     $pdf->Output($pdf->get_FileName(),"D"); // "D" web client (download) "F" file save

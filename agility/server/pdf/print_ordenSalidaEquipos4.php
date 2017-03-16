@@ -31,12 +31,17 @@ require_once(__DIR__.'/classes/PrintOrdenSalidaEquipos4.php');
 
 // Consultamos la base de datos
 try {
-	$prueba=http_request("Prueba","i",0);
-	$jornada=http_request("Jornada","i",0);
-    $manga=http_request("Manga","i",0);
-    $categorias=http_request("Categorias","s","-");
+    $data= array(
+        'prueba' =>     http_request("Prueba","i",0),
+        'jornada' =>    http_request("Jornada","i",0),
+        'manga' =>      http_request("Manga","i",0),
+        'categorias' => http_request("Categorias","s","-"),
+        'rango' =>      http_request("Rango","s","1-99999"),
+        'comentarios' =>http_request("Comentarios","s","-")
+    );
+    //
     // 	Creamos generador de documento
-    $pdf=new PrintOrdenSalidaEquipos4($prueba,$jornada,$manga,$categorias);
+    $pdf=new PrintOrdenSalidaEquipos4($data);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog

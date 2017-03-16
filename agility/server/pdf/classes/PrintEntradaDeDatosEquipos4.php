@@ -36,6 +36,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
     protected $categoria;
     protected $validcats; // categorias de las que se solicita impresion
     protected $fillData;
+    protected $rango;
 	
 	// geometria de las celdas
 	protected $cellHeader;
@@ -51,27 +52,28 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
      * @param {string} $cats "-LMST" based string
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$cats,$fill=0) {
-		parent::__construct('Portrait',"print_entradaDeDatosEquipos4",$prueba,$jornada);
-		if ( ($prueba<=0) || ($jornada<=0) ) {
+    function __construct($data) {
+    //    function __construct($prueba,$jornada,$manga,$cats,$fill=0) {
+		parent::__construct('Portrait',"print_entradaDeDatosEquipos4",$data['prueba'],$data['jornada'],$data['comentarios']);
+		if ( ($data['prueba']<=0) || ($data['jornada']<=0) ) {
 			$this->errormsg="print_datosEquipos4: either prueba or jornada data are invalid";
 			throw new Exception($this->errormsg);
 		}
         // comprobamos que estamos en una jornada por equipos
         $flag=intval($this->jornada->Equipos3)+intval($this->jornada->Equipos4);
         if ($flag==0) {
-            $this->errormsg="print_datosEquipos4: Jornada $jornada has no Team competition declared";
+            $this->errormsg="print_datosEquipos4: Jornada {$data['jornada']} has no Team competition declared";
             throw new Exception($this->errormsg);
         }
         // guardamos info de la manga
-        $this->manga=$this->myDBObject->__getObject("Mangas",$manga);
+        $this->manga=$this->myDBObject->__getObject("Mangas",$data['manga']);
         // Datos del orden de salida de equipos
-        $m = new OrdenSalida("entradaDeDatosEquipos4",$manga);
+        $m = new OrdenSalida("entradaDeDatosEquipos4",$data['manga']);
         $teams= $m->getTeams();
         $this->equipos=$teams['rows'];
         // anyadimos el array de perros del equipo
         foreach($this->equipos as &$equipo) {$equipo['Perros']=array();}
-        $r= $this->myDBObject->__select("*","Resultados","(Manga=$manga)","","");
+        $r= $this->myDBObject->__select("*","Resultados","(Manga={$data['manga']})","","");
         foreach($r['rows'] as $perro) {
             foreach($this->equipos as &$equipo) {
                 if ($perro['Equipo']==$equipo['ID']) {
@@ -80,8 +82,9 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
                 }
             }
         }
-        $this->validcats=$cats;
-        $this->fillData=($fill==0)?false:true;
+        $this->validcats=$data['cats'];
+        $this->fillData=($data['fill']==0)?false:true;
+        $this->rango=$data['rango'];
 
         // set pdf file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
@@ -199,11 +202,21 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
             $this->pos[3] += 20;
             $this->pos[8] -= 15;
         }
+        // Rango
+        $fromItem=1;
+        $toItem=99999;
+        $itemcount=1;
+        if (($this->rango!=="") && preg_match('/^\d+-\d+$/',$this->rango)!==FALSE) {
+            $a=explode("-",$this->rango);
+            $fromItem=intval($a[0]);
+            $toItem=intval($a[1]);
+        }
         $index=0;
         $rowcount=0;
         $this->categoria="-";
 		foreach($this->equipos as $equipo) {
             if(!category_match($equipo['Categorias'],$this->validcats)) continue;
+            if (($itemcount<$fromItem) || ($itemcount>$toItem) ) { $index++; $itemcount++; continue; } // not in range; skip
             $miembros=$equipo['Perros'];
             $num=count($miembros);
             if ($num==0) continue; // skip empty teams

@@ -45,6 +45,7 @@ class PrintCommon extends FPDF {
 	protected $strClub; // _('Country') or _('Club') according federation
 	protected $jornada; // datos de la jornada
 	protected $myDBObject;
+	protected $comments; // comentario adicional en la cabecera de pagina
 	protected $fileName; // name of file to be printed
     protected $authManager;
 	protected $regInfo; // registration info from current license
@@ -171,12 +172,13 @@ class PrintCommon extends FPDF {
      * @param {string} file name of caller to be used in traces
 	 * @param {int} $prueba ID de la jornada
 	 * @param {int} jornada Jornada ID
+	 * @param {string} comentarios String to be added at header
 	 */
-	function __construct($orientacion,$file,$prueba,$jornada=0) {
+	function __construct($orientacion,$file,$prueba,$jornada=0,$comentarios="") {
 		date_default_timezone_set('Europe/Madrid');
+        parent::__construct($orientacion,'mm','A4'); // Portrait or Landscape
 		$this->config=Config::getInstance();
 		$this->myLogger= new Logger($file,$this->config->getEnv("debug_level"));
-		parent::__construct($orientacion,'mm','A4'); // Portrait or Landscape
 		$this->SetAutoPageBreak(true,1.7); // default margin is 2cm. so enlarge a bit
 		$this->installFonts($this->config->getEnv("pdf_fontfamily"));
 		$this->centro=($orientacion==='Portrait')?107:145;
@@ -216,6 +218,7 @@ class PrintCommon extends FPDF {
 		// evaluate number of decimals to show when printing timestamps
 		$this->timeResolution=($this->config->getEnv('crono_miliseconds')=="0")?2:3;
 		// $this->myLogger->trace("Time resolution is ".$this->timeResolution);
+		$this->comments=$comentarios;
 	}
 
 	// return the minimum and maximum nomber of dogs for team on this journey
@@ -335,8 +338,14 @@ class PrintCommon extends FPDF {
 		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
 		$tmanga= _(Mangas::getTipoManga($manga->Tipo,1,$this->federation));
 		$str2 = "$tmanga - $categoria";
-		$this->Cell(90,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
-		$this->Cell(100,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
+		if ($this->comments==="") {
+            $this->Cell(90,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+            $this->Cell(100,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
+		} else {
+            $this->Cell(60,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+            $this->Cell(60,9,$this->comments,0,0,'C',false); // en el centro texto auxiliar
+            $this->Cell(70,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
+		}
 		$this->Ln(9);
 	}
 	
