@@ -223,7 +223,7 @@ function excel_importSendTask(params) {
             WordUpperCase:   ac_import.word_upercase,
             IgnoreWhitespaces:ac_import.ignore_spaces,
             Suffix       :   ac_import.suffix,
-            Count        :   ac_import.count++
+            Count        :   ac_import.count
         },
         contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
         success: function(res) {
@@ -233,6 +233,10 @@ function excel_importSendTask(params) {
             }
             // valid data received fire up client-side import parser
             excel_importHandleResult(res);
+            if (ac_import.count==0) { // start progress monitoring
+                setTimeout(function() {excel_importSendTask({'Operation':'progress'})} ,ac_import.progress_timeout);
+            }
+            ac_import.count++;
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Import from Excel error","Error: "+textStatus + " "+ errorThrown,'error' );
@@ -415,7 +419,6 @@ function real_excelImport(mode) {
     $('#import-excel-progressbar').progressbar('setValue','Upload');
     import_setProgressStatus("running");
     excel_importSendTask({ Operation: 'upload', Data: data});
-    setTimeout(function() {excel_importSendTask({'Operation':'progress'})} ,ac_import.progress_timeout); // start progress monitoring
 }
 
 function perros_excelImport() { return real_excelImport('perros'); }
