@@ -93,7 +93,10 @@ $config =Config::getInstance();
 		<a id="registration-okButton" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-key'"
    			onclick="send_regFile()"><?php _e('Register'); ?></a>
+            <!--
 		<input type="file" name="fichero" required="required" accept=".info" onchange="read_regFile(this)"/><br/>
+		-->
+        <input name="fichero" id="registration-fichero" style="width:350px;" onchange="read_regFile(this)"/>
 		<input id="registrationData" type="hidden" name="Data" value="">
 		</span> 
 		<span style="float:right">
@@ -111,6 +114,17 @@ $config =Config::getInstance();
     $('#rd_Club').textbox();
     $('#rd_Serial').textbox();
     $('#rd_Expires').textbox();
+    var fb=$('#registration-fichero');
+    fb.filebox({
+        accept:  ".info",
+        buttonText: '<?php _e("Select"); ?>',
+        buttonAlign: 'left',
+        buttonIcon: 'icon-search',
+        onChange: function(newfile,oldfile) {
+            read_regFile(fb.next().find('.textbox-value')[0]); // locate real input text
+        }
+    });
+    fb.next().find('.textbox-value').attr('accept', '.info');
 
     $('#dlg_register').window({
         title: '<?php _e("Licensing information"); ?>',
@@ -129,7 +143,8 @@ $config =Config::getInstance();
         onClose: function() {loadContents('/agility/console/frm_main.php','',{'registration':'#dlg_register'});
         }
     });
-        
-	addTooltip($('#registration-okButton').linkbutton(),'<?php _e("Import license file into application"); ?>');
+
+    addTooltip(fb.next().find('.textbox-button'),'<?php _e("Select license file to import"); ?>');
+    addTooltip($('#registration-okButton').linkbutton(),'<?php _e("Import license file into application"); ?>');
 	addTooltip($('#registration-cancelButton').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 </script>
