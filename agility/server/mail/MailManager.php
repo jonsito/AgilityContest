@@ -99,6 +99,8 @@ class MailManager {
         $data=$this->myAuthManager->getRegistrationInfo();
         $myMailer->setFrom($data['Email'], $data['Name']);
         $myMailer->addReplyTo($data['Email'], $data['Name']);
+        $myMailer->CharSet = "UTF-8";
+        $myMailer->Encoding = "base64";
     }
 
     /**
