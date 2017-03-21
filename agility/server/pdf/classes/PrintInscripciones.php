@@ -48,7 +48,12 @@ class PrintCatalogo extends PrintCommon {
 			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
 			throw new Exception($this->errormsg);
 		}
+		/* make sure that catalog is group'd by club  */
 		$this->inscritos=$inscritos['rows'];
+        usort($this->inscritos, function($a, $b) {
+        	if ( strcmp($a['NombreClub'],$b['NombreClub']) == 0) return strcmp($a['Dorsal'],$b['Dorsal']);
+            return strcmp($a['NombreClub'],$b['NombreClub']);
+        });
 		$this->jornadas=$jornadas['rows'];
         $this->set_FileName("Catalogo_inscripciones.pdf");
 	}

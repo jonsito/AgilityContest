@@ -58,7 +58,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 	 * param {integer} $numrows numero de perros a imprimir por cada hoja 1/5/15
      * param {string} rango [\d]-[\d]
      * param {string} comentarios
-	 * throws Exception
+	 * @throws Exception on invalid data
 	 */
     function __construct($data) {
 		parent::__construct('Portrait',"print_entradaDeDatos",$data['prueba'],$data['jornada'],$data['comentarios']);
