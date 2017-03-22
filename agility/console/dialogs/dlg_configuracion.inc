@@ -533,6 +533,14 @@ $config =Config::getInstance();
 	}
 
     function emailCheck() {
+        // check for registered application
+        if (ac_regInfo.Serial==="00000000") {
+            $.messager.alert('<?php _e("Mail services"); ?>',
+                '<p><?php _e("Electronic mail operations<br/>are not allowed for unregistered licenses"); ?></p>',
+                "info").window('resize',{width:480});
+            return false;
+        }
+        // call to server
         $('#config-Operation').val('check');
         $.ajax({
             type: 'GET',
