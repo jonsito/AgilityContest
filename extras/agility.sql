@@ -541,7 +541,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1088 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1089 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -744,7 +744,7 @@ INSERT INTO `clubes` VALUES
 (71,'Tercans','\"\"','Reibon, 192-A  -  Meira','36955 Moaña (Pontevedra)','Pontevedra','ESP',' + 34 617 34 07 63 ','','','','','tercans@gmail.com','','','','tercans.png',3,'',0),
 (72,'Torrevieja','\"\"','Moriones, 43, 3º E','03182 Torrevieja (Alicante)','Alicante/Alacant','ESP','+ 34 635 41 30 31','','','','','info.agilitytorrevieja@gmail.com','','','','torrevieja.png',3,'',0),
 (73,'Toskahua','\"\"','Cmno Santa Pau, 233 Garrapinillos-ZARAGOZA','','Zaragoza','ESP','Tel.- 976-780583 movil.-666-436111','','','','http://perso.wanadoo.es/vjuan/agility.htm','grupotoskahua@eresmas.com','','','','toskaua.png',1,'',0),
-(74,'Valles Club Cani','\"\"','08140 Caldes de Montbui (Barcelona)','','Barcelona','ESP',' telèfon:    619 28 68 82 ','','',' N 41º 37\' 07\'\'    E 2º 10\' 31.7\'\'','','info@vallesgrupcani.org','','','','valles_club_cani.png',1,'',0),
+(74,'Valles Club Cani','\"\"','08140 Caldes de Montbui (Barcelona)','','Barcelona','ESP',' telèfon:    619 28 68 82 ','','',' N 41º 37\' 07\'\'    E 2º 10\' 31.7\'\'','','vallesclubcani@gmail.com','','','','valles_club_cani.png',1,'',0),
 (75,'Vallgorguina','\"\"','Vila Carina Ctra. C-61, Km. 15,5','08471 Vallgorguina (Barcelona)','Barcelona','ESP','+ 34 93 867 93 18 ','+ 34 600 00 54 99 ','','','','info@centrecani.cat','','','','vallgorguina.png',1,'',0),
 (76,'Vila-Real','\"\"','Padre Lluis María Llop, 54, 1º B','12540 Vila-real (Castellón)','Castellón/Castelló','ESP','+ 34 964 52 40 09','','','','http://www.agilityvila-real.es/','agilityvilareal@gmail.com','','','','vila_real.png',1,'',0),
 (77,'Vilcan','\"\"','Nou, 20','46270 Villanueva de Castellón (Valencia)','Valencia/Valéncia','ESP','+ 34 96 245 31 81','','','','','jonatanguillem@hotmail.com','','','','vilcan.png',1,'',0),
@@ -770,23 +770,23 @@ INSERT INTO `clubes` VALUES
 (97,'Kronos','\"\"','Carretera Reus','Ruidoms kmt 2.7','Tarragona','ESP','','','','','','agilitykronos@gmail.com','','','','kronos.png',1,'',0),
 (98,'Alto Aragón','\"\"','Barbastro','','Huesca','ESP','','','','','','clubagilityaltoaragon@gmail.com','','','','alto_aragn.png',2,'',0),
 (99,'Principado','\"\"','Hipica Porceyo','Porceyo, Gijón','Asturias','ESP','630958559','664365264','','','http://www.agilityprincipado.com/','info@agilityprincipado.com','','','','principado.png',2,'',0),
-(100,'Petercan','\"\"','','','Madrid','ESP','','','','','','','','','','petercan.png',6,'',0),
+(100,'Petercan','\"\"','','','Madrid','ESP','','','','','','clubpetercan@gmail.com','','','','petercan.png',6,'',0),
 (101,'Agility Pinto','\"\"','','','Madrid','ESP','','','','','','agilitypinto@educandoperros.com','','','','agility_pinto.png',7,'',0),
-(102,'Agility Valladolid','\"\"','','','Valladolid','ESP','','','','','','','','','','agility_valladolid.png',6,'',0),
+(102,'Agility Valladolid','\"\"','','','Valladolid','ESP','','','','','','agilityvalladolid@agilityvalladolid.es','','','','agility_valladolid.png',6,'',0),
 (103,'Formadog','\"\"','','','Madrid','ESP','','','','','','info@formadog.com','','','','formadog.png',7,'',0),
-(104,'Narub','\"\"','','','Madrid','ESP','','','','','','','','','','narub.png',6,'',0),
+(104,'Narub','\"\"','','','Madrid','ESP','','','','','','clubagilitynarub@narub.com','','','','narub.png',6,'',0),
 (105,'Black&White','\"\"','','','Madrid','ESP','','','','','','','','','','blackwhite.png',6,'',0),
 (106,'Real Sociedad Canina Española','\"\"','','','Madrid','ESP','','','','','','agility@rsce.es','','','','rsce.png',1,'',0),
-(107,'Real Federación Española de Caza','\"\"','','','Madrid','ESP','','','','','','','','','','rfec.png',2,'',0),
+(107,'Real Federación Española de Caza','\"\"','','','Madrid','ESP','','','','','','yvonneagility@fecaza.com','','','','rfec.png',2,'',0),
 (108,'Unión de Clubes de Agility','\"\"','','','Madrid','ESP','','','','','','','','','','uca.png',4,'',0),
 (109,'El Almendral','\"\"','Carretera de Puerto Real A Paterna','11510 Puerto Real','Cádiz','ESP','687549471','661766368','856211468','','http://www.educatuperro.net/index.html','club@elalmendral.es','','','','el_almendral.png',1,'',0),
-(110,'Careacan León','\"\"','','','León','ESP','','','','','','','','','','careacan_len.png',1,'',0),
+(110,'Careacan León','\"\"','','','León','ESP','627661916','','','','http://carealeones.blogspot.com/','rubiopunk76@hotmail.es','','','','careacan_len.png',1,'',0),
 (111,'Salve','\"\"','Barrio Sámano, 36','39709 Castro Urdiales','Cantabria','ESP','+ 34 609 42 42 23 ','','','','https://www.facebook.com/agilitysalve','agilitysalve7@hotmail.com','','','','salve.png',3,'',0),
 (112,'Catuga','\"\"','','','-- Sin asignar --','POR','','','','','','','','','','rsce.png',1,'',0),
 (113,'Agility Coruña','\"\"','Lugar de Samoedo, s/n','15160 Sada','Coruña, A','ESP','+ 34 617 20 36 66','+ 34 981 77 41 56','','','http://www.agilitycoruna.es/','agilitycoruna@galicia.com','','','','agility_corua.png',1,'',0),
 (114,'Future Dogs','\"\"','','','-- Sin asignar --','POR','','','','','','','','','','just_agility.png',1,'',0),
 (115,'Agility Indoor Madrid','\"\"','Avenida de Madrid, 74','28500 Arganda del Rey','Madrid','ESP',' +34 687 99 38 16 ','+ 34 627 98 55 65','','','http://www.agilityindoormadrid.com/','info@agilityindoormadrid.com','','','','agility_indoor_madrid.png',3,'',0),
-(116,'Magic Aility Team','\"\"','','','Balears, Illes','ERI','','','','','','','','','','rsce.png',1,'',0),
+(116,'Magic Aiglity Team','\"\"','Carretera calvia/palmanova','Calviá','Balears, Illes','ESP','','','','','http://www.magic-agility.com/','magicagilityteam@gmail.com','','','','magic_aiglity_team.png',1,'',0),
 (381,'Córdoba','\"\"','Ctra de Palma del Río, kmt 9.5','14710 Villarrubia','Córdoba','ESP','686937520','609490979','','','','info@adiestramientocordoba.com','','','','crdoba.png',3,'',0),
 (382,'Afghanistan','Afghanistan','','','-- Sin asignar --','AFG','','','','','','','','','','../../server/i18n/AF.png',512,'',0),
 (383,'Albania','Albania','','','-- Sin asignar --','ALB','','','','','','','','','','../../server/i18n/AL.png',512,'',0),
@@ -1074,7 +1074,7 @@ INSERT INTO `clubes` VALUES
 (666,'Parque del Alamillo','\"\"','','','Sevilla','ESP','','','','','','','','','','rsce.png',0,'',0),
 (667,'Madocan','\"\"','Partida de Balsamora, 11 B','30710 Los Alcázares','Murcia','ESP','34 647 212 991','','','','http://www.madocan.com/','maria@madocan.com','','','','madocan.png',1,'',0),
 (668,'Sa Roca','\"\"','Camino Perdiguera, 15','50059 Montañana ','Zaragoza','ESP','34 629 62 99 29',' 34 618 79 44 71','','','http://www.clubagilitysaroca.wixsite.com/saroca','clubagilitysaroca@gmail.com','','','','sa_roca.png',3,'',0),
-(669,'Aradog Agilty & Frisbee','\"\"','Camino la casilla 15','','Zaragoza','ESP','659 28 00 58','','','','','aradogzaragoza@gmail.com','https://www.facebook.com/aradogzaragoza/','','','aradog_agilty_frisbee.png',3,'',0),
+(669,'Aradog Agilty & Frisbee','\"\"','Camino la casilla 15','','Zaragoza','ESP','659 28 00 58','','','','','aradogzgz@gmail.com','https://www.facebook.com/aradogzaragoza/','','','aradog_agilty_frisbee.png',3,'',0),
 (670,'PalmaCan Sport','\"\"','Carretera General 7A Pk4','38730 Villa de Mazo (Tenerife)','Santa Cruz de Te','ESP',' 34 699 32 80 70 ','','','','','palmacansport@gmail.com','','','','palma_can_sport.png',1,'',0),
 (671,'Alpicat','\"\"','','','Lleida/Lérida','ESP','34 679 48 90 70 ','','','','http://www.agilityalpicant-lleida.blogspot.com/','clubagilitylleida@gmail.com','','','','alpicat.png',1,'',0),
 (672,'Terra de Gossos','\"\"','','','Alicante/Alacant','ESP','34 636 35 08 81','','','','http://www.centrodeformacioncanina.com/','agilityterradegossos@hotmail.com','','','','terra_de_gossos.png',1,'',0);
@@ -25844,7 +25844,7 @@ INSERT INTO `sesiones` VALUES
 (890,'Console','mayte - Mayte Pérez',9,'Ut6bwQ9ETDge8nOP',0,0,0,0,'',NULL,NULL,NULL,'2016-09-25 06:24:47'),
 (1082,'Console','jantonio - ',7,'QqiKe0DHvUk4wYAR',0,0,0,0,'',NULL,NULL,NULL,'2017-03-19 09:00:07'),
 (1084,'Console','operator - Operador de consola',4,'HGUNglrwRXaZKo1T',0,0,0,0,'',NULL,NULL,NULL,'2017-03-21 12:36:27'),
-(1087,'Console','admin - Administrador de la aplicacion',3,'3KY0cnDpvjZRb8xJ',0,0,0,0,'',NULL,NULL,NULL,'2017-03-21 17:42:51');
+(1088,'Console','admin - Administrador de la aplicacion',3,'1YnBvlTgVhje5fx4',0,0,0,0,'',NULL,NULL,NULL,'2017-03-22 08:12:47');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
