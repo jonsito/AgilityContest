@@ -252,7 +252,7 @@ function myLlamadaRowStyler(idx,row) {
 //add 'callback' property to store interval references
 $.extend($.fn.window.defaults,{callback:null});
 
-$('#selvw-Vista').combobox({panelHeight:'auto',editable:false});
+$('#selvw-Vista').combobox({valueField:'value',panelHeight:'auto',editable:false});
 
 $('#selvw-dialog').dialog({
 	title: '<?php _e('View to deploy'); ?>',

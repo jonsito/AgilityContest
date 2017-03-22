@@ -105,6 +105,7 @@ $config =Config::getInstance();
     	    pg.combogrid('clear');
     	    pg.combogrid('setValue',data.Guia);
     	    pg.combogrid('setText',data.NombreGuia);
+    	    $('#perros-Genero').combobox('setValue',data.Genero);
     	}
 	});
     // - botones
@@ -138,7 +139,7 @@ $config =Config::getInstance();
     $('#perros-Raza').textbox();
     $('#perros-LOE_RRC').textbox();
     $('#perros-Licencia').textbox();
-    $('#perros-Genero').combobox({panelHeight:'auto'});
+    $('#perros-Genero').combobox({valueField:'value',panelHeight:'auto'});
 
     $('#perros-Grados_Perro').combobox({
 		panelHeight: 'auto',

@@ -49,7 +49,7 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="chperros-Genero"><?php _e('Gender'); ?>:</label>
-                <select id="chperros-Genero" name="Genero"style="width:75px">
+                <select id="chperros-Genero" name="Genero" style="width:75px">
                     <option value="-" selected="selected">-</option>
                     <option value="M"><?php _e('Male'); ?></option>
                     <option value="F"><?php _e('Female'); ?></option>
@@ -104,7 +104,11 @@ $config =Config::getInstance();
 
     // datos del formulario de nuevo/edit perros
     // - declaracion del formulario
-    $('#chperros-form').form();
+    $('#chperros-form').form({
+        onLoadSuccess: function(data) {
+            $('#chperros-Genero').combobox('setValue',data.Genero);
+        }
+    });
     // - botones
     addTooltip($('#chperros-clearBtn').linkbutton(),'<?php _e("Clear dog search to be re-assignated form"); ?>');
     addTooltip($('#chperros-newBtn').linkbutton(),'<?php _e("Declare a new dog belonging to selected handler"); ?>');
@@ -113,6 +117,7 @@ $config =Config::getInstance();
     $('#chperros-clearBtn').bind('click',function() {
         $('#chperros-header').form('clear'); // empty form
         $('#chperros-form').form('reset'); // restore to initial values
+        $('#chperros-Genero').combobox('setValue','-');
     });
     
     // campos del formulario
@@ -171,7 +176,7 @@ $config =Config::getInstance();
     $('#chperros-Raza').textbox();
     $('#chperros-LOE_RRC').textbox();
     $('#chperros-Licencia').textbox();
-    $('#chperros-Genero').combobox({panelHeight:'auto'});
+    $('#chperros-Genero').combobox({valueField:'value',panelHeight:'auto'});
 
     $('#chperros-Grados_Perro').combobox({
 		panelHeight: 'auto',

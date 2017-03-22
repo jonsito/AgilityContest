@@ -257,7 +257,7 @@ $config =Config::getInstance();
         required: true,
         validType: 'length[1,255]'
     });
-    $('#jornadas-MangasPreAgility').combobox({panelHeight:'auto'});
+    $('#jornadas-MangasPreAgility').combobox({valueField:'value',panelHeight:'auto'});
     $('#jornadas-MangasGrado1').combobox({
         panelHeight:'auto',
         valueField: 'value',
@@ -269,7 +269,7 @@ $config =Config::getInstance();
             ]
     });
 
-    $('#jornadas-MangasEquipos').combobox({panelHeight:'auto'});
+    $('#jornadas-MangasEquipos').combobox({valueField:'value',panelHeight:'auto'});
     $('#jornadas-Observaciones').textbox();
 
     $('#jornadas-SlaveOf_List').combobox({

@@ -163,7 +163,7 @@ function myRowStyler2(idx,row) { return pbRowStyler2(idx,row); }
 <script type="text/javascript">
 
 $('#public-form').form();
-$('#public-Operation').combobox({panelHeight:'auto'});
+$('#public-Operation').combobox({valueField:'value',panelHeight:'auto'});
 
 $('#public-Prueba').combogrid({
 	panelWidth: 500,
