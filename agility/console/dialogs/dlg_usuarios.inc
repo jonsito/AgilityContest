@@ -125,7 +125,7 @@ $config =Config::getInstance();
         });
         $('#usuarios-Gecos').textbox();
         $('#usuarios-Phone').textbox();
-        $('#usuarios-Perms').combobox({panelHeight:'auto'});
+        $('#usuarios-Perms').combobox({valueField:'value',panelHeight:'auto'});
 
         $('#usuarios-Club').combogrid({
             panelWidth: 350,

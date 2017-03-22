@@ -191,7 +191,7 @@ class MailManager {
         $result=$this->myDBObj->__select(
         /* SELECT */ "ID,Nombre,Provincia,Pais,Federations,Email",
         /* FROM */ "Clubes",
-        /* WHERE */ "$fedstr AND (ID>1) AND $where", // do not include default club in listing
+        /* WHERE */ "$fedstr AND (Baja=0) AND (ID>1) AND $where", // do not include default and outofbussines clubs in listing
         /* ORDER BY */ "Nombre ASC",
         /* LIMIT */ ""
         );
