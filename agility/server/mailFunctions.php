@@ -43,6 +43,7 @@ try {
         'FedAddress'=>  http_request("FedAddress","s",""), // federation email address
         'Contents'  =>  http_request("Contents","s",""), // federation email address
         'ZipFile'  =>  http_request("ZipFile","i",1), // default is to create single zip file
+        'SendToMe' =>  http_request("SendToMe","i",0), // add CC to sender
         // datos para prueba de configuracion de correo
         'email_server'  => http_request("email_server","s","127.0.0.1"),
         'email_port'    => http_request("email_port","i",25),

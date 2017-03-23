@@ -263,11 +263,17 @@ class MailManager {
      * @return {string} empty on success, else error msg
      */
     public function updateClubMail() {
-        if ($this->myData['Club']<=1)
-            throw new Exception("updateClubMail(): Invalid Club ID {$this->myData['Club']}");
+        $cid=$this->myData['Club'];
+        if ($cid<=1)
+            throw new Exception("updateClubMail(): Invalid Club ID $cid");
         if (!filter_var($this->myData['Email'],FILTER_VALIDATE_EMAIL))
             throw new Exception ("updateClubMail() provided data `{$this->myData['Email']}` is not a valid email address");
-        $str="UPDATE Clubes SET Email='{$this->myData['Email']}' WHERE ID={$this->myData['Club']}";
+        // perform update email in database
+        $str="UPDATE Clubes SET Email='{$this->myData['Email']}' WHERE ID=$cid";
+        $res=$this->myDBObj->query($str);
+        if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
+        // as email changed, remove sent mark if any
+        $str="UPDATE Pruebas SET MailList= REPLACE( MailList , ',$cid,' , ',' ) WHERE ID={$this->pruebaObj->ID}";
         $res=$this->myDBObj->query($str);
         if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
         return "";
@@ -346,8 +352,13 @@ class MailManager {
         $this->setup_mailer_from_config($myMailer); // myMailer is passed by reference
 
         // compose a dummy message to be sent to sender :-)
-        //Set who the message is to be sent to
+        // Set who the message is to be sent to
         $myMailer->addAddress($this->myData['Email']);
+        // add Bcc to sender if instructed to do
+        if( $this->myData['SendToMe'] !=0 ) {
+            $d=$this->myAuthManager->getRegistrationInfo();
+            $myMailer->addBCC($d['Email']);
+        }
         //Set the subject line to Contest Name
         $myMailer->Subject = $this->pruebaObj->Nombre;
 
@@ -584,13 +595,16 @@ class MailManager {
         $list=$this->myData['Email'];
         $jueces=explode(',',$list);
         foreach ($jueces as $juez ) $myMailer->addAddress($juez);
-
         // if requested add federation in Cc:
         if ( $this->myData['SendToFederation'] != 0) {
             $fedm=$this->myData["FedAddress"];
             if ($fedm!="") $myMailer->addCC($fedm);
         }
-
+        // add Bcc to sender if instructed to do
+        if( $this->myData['SendToMe'] != 0) {
+            $d=$this->myAuthManager->getRegistrationInfo();
+            $myMailer->addBCC($d['Email']);
+        }
         // prepare message body
         $d=date("Y/m/d H:i");
         $htmlmsg=$this->myData["Contents"];

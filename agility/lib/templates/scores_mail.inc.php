@@ -34,6 +34,8 @@ $config =Config::getInstance();
     </ul>
     <form id="scores_email-form" method="get" novalidate="novalidate">
         <div class="fitem">
+            <label for="scores_email-SendToMe" style="width:300px;"><?php _e('Send email copy back to sender'); ?></label>
+            <input id="scores_email-SendToMe" type="checkbox" name="SendToMe" value="1"/><br/>
             <label for="scores_email-SendPreAgility" style="width:300px;"><?php _e('Include pre agility results'); ?></label>
             <input id="scores_email-SendPreAgility" type="checkbox" name="SendPreAgility" value="1"/><br/>
             <label for="scores_email-PartialScores" style="width:300px;"><?php _e('Also send scores for each separate round'); ?></label>
@@ -60,7 +62,7 @@ $config =Config::getInstance();
             <h3> !Hola!</h3>
             <dl>
                 Se adjuntan los resultados y clasificaciones en formato PDF correspondientes a nuestra prueba:
-                <dt>Prueba:</dt><dd> XXXXXXXXXXXXXXX </dd>
+                <dt>Prueba:</dt><dd> __CONTEST__ </dd>
                 <dt>Jornada:</dt><dd> XXXXXXXXXXXXXXX </dd>
             </dl>
             <p>

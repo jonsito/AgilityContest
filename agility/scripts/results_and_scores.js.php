@@ -91,6 +91,7 @@ function perform_downloadZip() {
                 Operation: 'getZipFile',
                 PartialScores: $('#scores_email-PartialScores').prop('checked')?1:0,
                 SendPreAgility: $('#scores_email-SendPreAgility').prop('checked')?1:0,
+                SendToMe: $('#scores_email-SendToMe').prop('checked')?1:0,
                 ZipFile: 1 // not really needed, but...
             },
             preparingMessageHtml: '(Get zip) <?php _e("Preparing zip file with scores to download"); ?> ...',
@@ -138,6 +139,7 @@ function perform_emailScores() {
             FedAddress: $('#scores_email-FedAddress').textbox('getValue'),
             PartialScores: $('#scores_email-PartialScores').prop('checked')?1:0,
             SendPreAgility: $('#scores_email-SendPreAgility').prop('checked')?1:0,
+            SendToMe: $('#scores_email-SendToMe').prop('checked')?1:0,
             ZipFile: $('input[name=ZipFile]:checked','#scores_email-form').val(),
             Contents: $('#scores_email-Contents').val()
         },

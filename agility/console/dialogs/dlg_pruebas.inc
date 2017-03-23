@@ -33,6 +33,10 @@ $config =Config::getInstance();
         </ul>
         <form id="pruebas_email-form" method="get" novalidate="novalidate">
             <div class="fitem">
+                <input name="SendToMe" type="hidden" value="0"/>
+                <label for="pruebas_email-SendToMe" style="width:300px;"><?php _e('Send email copy back to sender'); ?></label>
+                <input id="pruebas_email-SendToMe" type="checkbox" name="SendToMe" value="1"/><br/>
+
                 <input name="EmptyTemplate" type="hidden" value="0"/>
                 <label for="pruebas_email-EmptyTemplate" style="width:300px;"><?php _e('Send empty inscription template'); ?></label>
                 <input id="pruebas_email-EmptyTemplate" type="checkbox" name="EmptyTemplate" value="1"/><br/>

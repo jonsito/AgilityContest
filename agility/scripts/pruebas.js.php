@@ -189,7 +189,7 @@ function pruebas_emailEditClub(index,row) {
                     }
                     $('#pruebas_email-Clubs').datagrid('updateRow',{
                             index: index,
-                            row: {Email:r}
+                            row: {Email:r,Sent:0} // set new mail and mark sent flag as false
                     });
                 }
             });
@@ -262,6 +262,9 @@ function prueba_clearSentMark() {
 function perform_emailPrueba() {
     var dg=$('#pruebas_email-Clubs');
     var resend=$('#pruebas_email-ReSend').prop('checked');
+    var sendtome= $('#pruebas_email-SendToMe').prop('checked')?1:0;
+    var emptytemplate=$('#pruebas_email-EmptyTemplate').val();
+    var contents= $('#pruebas_email-Contents').val();
 
     function handleMail(rows,index,size) {
         if (index>=size){
@@ -297,8 +300,9 @@ function perform_emailPrueba() {
                 Operation: 'sendInscriptions',
                 Club: rows[index].ID,
                 Email: rows[index].Email,
-                EmptyTemplate: $('#pruebas_email-EmptyTemplate').val(),
-                Contents: $('#pruebas_email-Contents').val()
+                EmptyTemplate: emptytemplate,
+                SendToMe: sendtome,
+                Contents: contents
             },
             success: function(result) {
                 handleMail(rows,index+1,size);
