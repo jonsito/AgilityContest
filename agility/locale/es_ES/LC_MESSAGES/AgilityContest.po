@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-03-23 09:33+0100\n"
-"PO-Revision-Date: 2017-03-23 09:34+0100\n"
+"POT-Creation-Date: 2017-03-24 13:24+0100\n"
+"PO-Revision-Date: 2017-03-24 13:25+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -504,7 +504,7 @@ msgstr "Dors"
 #: server/pdf/classes/PrintTRSTemplates.php:258
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/index.php:221
 #: tablet/index.php:254 tablet/tablet_main.php:78 tablet/tablet_main.php:287
-#: tablet/tablet_main.php:417 videowall/index.php:289
+#: tablet/tablet_main.php:417 videowall/index.php:292
 #: videowall/vwc_finales.php:82 videowall/vwc_finales.php:215
 #: videowall/vwc_parciales.php:82 videowall/vwc_parciales.php:227
 #: console/dialogs/dlg_chguias.inc:38 console/dialogs/dlg_chguias.inc:113
@@ -629,7 +629,7 @@ msgstr "Ring"
 #: chrono/index.php:106 console/frm_equipos.php:88
 #: console/frm_inscripciones.php:41 console/frm_login.php:57
 #: console/frm_logout.php:35 console/frm_myAdmin.php:63
-#: livestream/index.php:209 tablet/tablet_main.php:58 videowall/index.php:245
+#: livestream/index.php:209 tablet/tablet_main.php:58 videowall/index.php:248
 #: console/dialogs/dlg_clubes.inc:135
 #: console/dialogs/dlg_editInscripcion.inc:98
 #: console/dialogs/dlg_ordentandas.inc:79
@@ -668,7 +668,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/classes/PrintOrdenDeSalida.php:74
 #: server/pdf/classes/PrintOrdenTandas.php:87
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/index.php:222
-#: tablet/tablet_main.php:210 videowall/index.php:290
+#: tablet/tablet_main.php:210 videowall/index.php:293
 #: console/dialogs/dlg_chguias.inc:55 console/dialogs/dlg_clubes.inc:122
 #: console/dialogs/dlg_competicion.inc:140
 #: console/dialogs/dlg_editInscripcion.inc:77
@@ -3499,15 +3499,15 @@ msgstr "Video insertado"
 msgid "Chroma Key"
 msgstr "Chroma Key"
 
-#: livestream/index.php:222 videowall/index.php:258
+#: livestream/index.php:222 videowall/index.php:261
 msgid "View to deploy"
 msgstr "Vista a desplegar"
 
-#: livestream/index.php:235 videowall/index.php:271
+#: livestream/index.php:235 videowall/index.php:274
 msgid "Use selected as working session"
 msgstr "Trabajar con el la sesi&oacute;n seleccionada"
 
-#: livestream/index.php:280 videowall/index.php:316
+#: livestream/index.php:280 videowall/index.php:319
 msgid "You should select a valid session"
 msgstr "Debe seleccionar una sesi&oacute;n v&aacute;lida"
 
@@ -5463,7 +5463,7 @@ msgid "Spd"
 msgstr "Vel"
 
 #: server/excel/classes/Excel_PartialScores.php:102
-#: server/mail/MailManager.php:587
+#: server/mail/MailManager.php:593
 msgid "Results"
 msgstr "Resultados"
 
@@ -5487,11 +5487,11 @@ msgstr "Pagado"
 msgid "Training table"
 msgstr "Horarios de entrenamiento"
 
-#: server/mail/MailManager.php:365 server/mail/MailManager.php:609
+#: server/mail/MailManager.php:371 server/mail/MailManager.php:615
 msgid "Email sent with"
 msgstr "Correo enviado con"
 
-#: server/mail/MailManager.php:369 server/mail/MailManager.php:613
+#: server/mail/MailManager.php:375 server/mail/MailManager.php:619
 msgid "Please enable HTML view in your email application"
 msgstr "Por favor habilite la visualizacion HTML en su app de correo"
 
@@ -5881,7 +5881,15 @@ msgstr "Clasificaci&oacute;n parcial"
 msgid "Final Scores"
 msgstr "Clasificaci&oacute;n final"
 
-#: videowall/index.php:337 videowall/index.php:371
+#: videowall/index.php:237
+msgid "Extra info"
+msgstr "Datos adicionales"
+
+#: videowall/index.php:238
+msgid "Advertising videos"
+msgstr "V&iacute;deos promocionales"
+
+#: videowall/index.php:340 videowall/index.php:379
 msgid "Current license has no permission to handle training sessions"
 msgstr ""
 "Esta licencia no permite la gesti&oacute;n de sesiones de entrenamiento"

@@ -6,7 +6,7 @@ require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
 require_once(__DIR__ . "/../server/auth/AuthManager.php");
 $config =Config::getInstance();
-$am = new AuthManager("Videowall::parciales");
+$am = new AuthManager("Videowall::entrenamientos");
 if ( ! $am->allowed(ENABLE_LIVESTREAM)) { include_once("unregistered.php"); return 0;}
 if ( ! $am->allowed(ENABLE_TRAINING)) { include_once("trainingnotallowed.php"); return 0;}
 $combined=http_request("combined","i",0);
@@ -28,7 +28,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-<!-- Presentacion del orden de salida a traves de videostream -->
+<!-- Presentacion de la sesion de entrenamientos a traves de  videostream -->
 
 <div id="vw_entrenamientos-window">
 
