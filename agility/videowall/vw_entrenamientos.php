@@ -106,6 +106,7 @@ $('#entrenamientos-datagrid').datagrid({
         'aceptar':	null, // operador pulsa aceptar
         'cancelar': null, // operador pulsa cancelar
         'camera':	null, // change video source
+        'videowall': null, // videowall remote control
         'reconfig':	function(event) { loadConfiguration(); }, // reload configuration from server
         'info':	null // click on user defined tandas
     };

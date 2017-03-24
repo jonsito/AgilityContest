@@ -46,16 +46,13 @@ function parseEvent(data) {
 			var data=JSON.parse(received);
 			var lastID=evtID;
 			var n=0;
-			console.log("events received: "+data.total);
-			// si mark=="connect" search for last open to start parsing events
+			// if mark=="connect" search for last open to start parsing events
 			if (mark==="connect") {
 				for (n=data.total-1;n>0;n--) {
 					var tipo=data.rows[n]['Type'];
-					console.log("item:"+n+" event:"+tipo);
 					if (tipo==="open") break;
                 }
 			}
-			console.log("starting at event: "+n);
 			for (;n<parseInt(data.total);n++) {
 				var row=data.rows[n];
                 var response= parseEvent(row.Data);

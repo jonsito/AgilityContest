@@ -177,9 +177,12 @@ var eventHandler= {
 	'camera':	function(event,time){ // change video source
 		console.log(event['Type'] + "- Video source for embedded livestream screans changed");
 	},
-	'reconfig':	function(event,time) {  // reload configuration from server
-		console.log(event['Type'] + " - Configuration changed from main console");
-	},
+    'videowall':	function(event,time) {  // videowall remote control
+        console.log(event['Type'] + " - Received videowall remote comand from main console");
+    },
+    'reconfig':	function(event,time) {  // reload configuration from server
+        console.log(event['Type'] + " - Configuration changed from main console");
+    },
 	'info':	function(event,time) { // click on user defined tandas
 		console.log(event['Type'] + " - Assistant console operator choose a --sin asignar-- ring round");
 		console.log("    Contest : "+ event.NombrePrueba);

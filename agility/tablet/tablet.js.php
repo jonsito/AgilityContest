@@ -876,6 +876,8 @@ function tablet_eventManager(id,evt) {
 		return;
 	case 'camera': // video source for live stream has changed
 		return;
+    case 'videowall': // videowall remote control
+        return;
 	case 'reconfig':	// reload configuration from server
 		loadConfiguration();
 		return;
