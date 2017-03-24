@@ -55,14 +55,13 @@ function parseEvent(data) {
 			}
 			for (;n<parseInt(data.total);n++) {
 				var row=data.rows[n];
-                var response= parseEvent(row.Data);
-                var timestamp= response.TimeStamp; // extract new timestamp from inner row.data field
+                mark= data.TimeStamp;
 				lastID=row.ID;// store last evt id
 				if (row.Type==='reconfig') setTimeout(loadConfiguration,0);
 				else workingData.datosSesion.callback(lastID,row.Data);
 			}
 			// re-queue event
-			setTimeout(function(){ waitForEvents(lastID,timestamp);},1000);
+			setTimeout(function(){ waitForEvents(lastID,mark);},1000);
 		}
 
 		function handleError(data,status,jqXHR) {
@@ -77,7 +76,7 @@ function parseEvent(data) {
 				'Operation' : 'getEvents',
 				'ID'		: evtID,
 				'Session'	: workingData.sesion,
-				'TimeStamp' : timestamp
+				'TimeStamp' : (timestamp==='connect')?0:timestamp
 			},
 			async: true,
 			cache: false,
