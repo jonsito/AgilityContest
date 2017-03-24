@@ -40,16 +40,29 @@ function parseEvent(data) {
 
 // $(function(evtID,timestamp){
 	function waitForEvents(evtID,timestamp){
+		var mark=timestamp; // use inner var to preserve scope in handleSuccess
 
-		function handleSuccess(data,status,jqXHR){
-			var response= parseEvent(data);
-			var timestamp= response.TimeStamp;
+		function handleSuccess(received,status,jqXHR){
+			var data=JSON.parse(received);
 			var lastID=evtID;
-			for (var n=0;n<parseInt(response.total);n++) {
-				var row=response.rows[n];
-				lastID=row['ID'];// store last evt id
-				if (row['Type']==='reconfig') setTimeout(loadConfiguration,0);
-				else workingData.datosSesion.callback(lastID,row['Data']);
+			var n=0;
+			console.log("events received: "+data.total);
+			// si mark=="connect" search for last open to start parsing events
+			if (mark==="connect") {
+				for (n=data.total-1;n>0;n--) {
+					var tipo=data.rows[n]['Type'];
+					console.log("item:"+n+" event:"+tipo);
+					if (tipo==="open") break;
+                }
+			}
+			console.log("starting at event: "+n);
+			for (;n<parseInt(data.total);n++) {
+				var row=data.rows[n];
+                var response= parseEvent(row.Data);
+                var timestamp= response.TimeStamp; // extract new timestamp from inner row.data field
+				lastID=row.ID;// store last evt id
+				if (row.Type==='reconfig') setTimeout(loadConfiguration,0);
+				else workingData.datosSesion.callback(lastID,row.Data);
 			}
 			// re-queue event
 			setTimeout(function(){ waitForEvents(lastID,timestamp);},1000);
@@ -105,7 +118,7 @@ function startEventMgr() {
 			if ( parseInt(response['total'])!=0) {
 				var row=response['rows'][0];
 				var evtID=parseInt(row['ID'])-1; // make sure initial "init" event is received
-				setTimeout(function(){ waitForEvents(evtID,0);},0);
+				setTimeout(function(){ waitForEvents(evtID,"connect");},0);
 			} else {
 				setTimeout(function(){ startEventMgr(); },timeout );
 			}
