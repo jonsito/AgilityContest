@@ -45,8 +45,11 @@ class PrintResultadosByManga extends PrintCommon {
 	
 	/**
 	 * Constructor
-	 * @param {obj} $manga datos de la manga
-	 * @param {obj} $resultados resultados asociados a la manga/categoria pedidas
+     * @param {integer} $prueba prueba ID
+     * @param {integer} $jornada Jornada ID
+     * @param {array} $manga datos tecnicos de la manga
+	 * @param {array} $resultados resultados asociados a la manga/categoria pedidas
+     * @param {integer} $mode manga mode
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$manga,$resultados,$mode) {
