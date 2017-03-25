@@ -40,19 +40,28 @@ function parseEvent(data) {
 
 // $(function(evtID,timestamp){
 	function waitForEvents(evtID,timestamp){
+		var mark=timestamp; // use inner var to preserve scope in handleSuccess
 
-		function handleSuccess(data,status,jqXHR){
-			var response= parseEvent(data);
-			var timestamp= response.TimeStamp;
+		function handleSuccess(received,status,jqXHR){
+			var data=JSON.parse(received);
 			var lastID=evtID;
-			for (var n=0;n<parseInt(response.total);n++) {
-				var row=response.rows[n];
-				lastID=row['ID'];// store last evt id
-				if (row['Type']==='reconfig') setTimeout(loadConfiguration,0);
-				else workingData.datosSesion.callback(lastID,row['Data']);
+			var n=0;
+			// if mark=="connect" search for last open to start parsing events
+			if (mark==="connect") {
+				for (n=data.total-1;n>0;n--) {
+					var tipo=data.rows[n]['Type'];
+					if (tipo==="open") break;
+                }
+			}
+			for (;n<parseInt(data.total);n++) {
+				var row=data.rows[n];
+                mark= data.TimeStamp;
+				lastID=row.ID;// store last evt id
+				if (row.Type==='reconfig') setTimeout(loadConfiguration,0);
+				else workingData.datosSesion.callback(lastID,row.Data);
 			}
 			// re-queue event
-			setTimeout(function(){ waitForEvents(lastID,timestamp);},1000);
+			setTimeout(function(){ waitForEvents(lastID,mark);},1000);
 		}
 
 		function handleError(data,status,jqXHR) {
@@ -67,7 +76,7 @@ function parseEvent(data) {
 				'Operation' : 'getEvents',
 				'ID'		: evtID,
 				'Session'	: workingData.sesion,
-				'TimeStamp' : timestamp
+				'TimeStamp' : (timestamp==='connect')?0:timestamp
 			},
 			async: true,
 			cache: false,
@@ -105,7 +114,7 @@ function startEventMgr() {
 			if ( parseInt(response['total'])!=0) {
 				var row=response['rows'][0];
 				var evtID=parseInt(row['ID'])-1; // make sure initial "init" event is received
-				setTimeout(function(){ waitForEvents(evtID,0);},0);
+				setTimeout(function(){ waitForEvents(evtID,"connect");},0);
 			} else {
 				setTimeout(function(){ startEventMgr(); },timeout );
 			}

@@ -133,19 +133,19 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
-<div id="seltablet-dialog" style="width:450px;height:275px;padding:10px" class="easyui-dialog"
+<div id="seltablet-dialog" style="width:450px;height:auto;padding:10px" class="easyui-dialog"
 	data-options="title: '<?php _e('User,Ring,Contest and Journey selection'); ?>',iconCls: 'icon-list',buttons: '#seltablet-Buttons',collapsible:false, minimizable:false,
 		maximizable:false, closable:true, closed:false, shadow:true, modal:true">
 	<form id="seltablet-form">
        	<div class="fitem">
        		<label for="seltablet-Username"><?php _e('User'); ?>:</label>
        		<input id="seltablet-Username" name="Username" style="width:200px" type="text"
-       			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
+       			class="easyui-textbox" data-options="iconCls:'icon-man',required:true,validType:'length[1,255]'"/>
        	</div>        		
        	<div class="fitem">
        		<label for="seltablet-Password"><?php _e('Password'); ?>:</label>
        		<input id="seltablet-Password" name="Password" style="width:200px" type="password"
-       			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
+       			class="easyui-textbox" data-options="iconCls:'icon-lock',required:true,validType:'length[1,255]'"/>
        	</div>
        	<div>&nbsp;</div>
     	<div class="fitem">

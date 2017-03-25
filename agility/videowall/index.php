@@ -209,7 +209,7 @@ function myLlamadaRowStyler(idx,row) {
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
-<div id="selvw-dialog" class="easyui-dialog" style="position:relative;width:500px;height:220px;padding:20px 20px">
+<div id="selvw-dialog" class="easyui-dialog" style="position:relative;width:500px;height:auto;padding:20px 20px">
 	<form id="selvw-Selection">
     	<div class="fitem">
        		<label for="Prueba"><?php _e('Select Session/Ring'); ?>:</label>
@@ -234,6 +234,9 @@ function myLlamadaRowStyler(idx,row) {
 					<option value="3"><?php _e('Partial Scores'); ?> (<?php _e('simplified'); ?>)</option>
 					<option value="9"><?php _e('Final Scores'); ?> (<?php _e('simplified'); ?>)</option>
 				</optgroup>
+                <optgroup label="<?php _e('Extra info'); ?> ">
+                    <option value="5"><?php _e('Advertising videos'); ?></option>
+                </optgroup>
        		</select>
     	</div>
     	
@@ -345,7 +348,7 @@ function vw_accept() {
 			$('#vw_contenido').load(
 				page,
 				function(response,status,xhr){
-					if (status=='error') $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+					if (status==='error') $('#vw_contenido').load('/agility/console/frm_notavailable.php');
 				}
 			);
 		});
@@ -365,7 +368,12 @@ function vw_accept() {
         ac_config.vw_combined=0;
         ac_config.vwc_simplified=0;
 		break;
-	case 6: // entrenamientos simplificado
+    case 5: // videos promocionales
+        page="/agility/videowall/vw_anuncios.php";
+        ac_config.vw_combined=1; // allow mix video background and foreground data
+        ac_config.vwc_simplified=0;
+        break;
+    case 6: // entrenamientos simplificado
 		check_permissions(access_perms.ENABLE_TRAINING,function(res) {
 			if (res.errorMsg) {
 				$.messager.alert('License error','<?php _e("Current license has no permission to handle training sessions"); ?>',"error");
@@ -404,7 +412,10 @@ function vw_accept() {
 	$('#vw_contenido').load(
 			page,
 			function(response,status,xhr){
-				if (status=='error') $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+				if (status==='error') {
+				    $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+                    return false;
+                }
 			}
 		);
 }

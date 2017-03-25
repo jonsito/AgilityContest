@@ -182,7 +182,7 @@ switch (parseInt(ac_config.vw_dataposition)) {
 		doLayout(layout,"#vwls_NoPresentadoLbl",410,	425,    35,		15	);
 		doLayout(layout,"#vwls_PuestoLbl",		410,	425,    35,		15	);
 		break;
-	default: vwls_showResultsInfo(0) // desactiva visualizacion de resultados
+	default: vwls_showResultsInfo(0); // desactiva visualizacion de resultados
 		break;
 }
 
@@ -344,6 +344,7 @@ var eventHandler= {
 		vwls_showResultsInfo(0); // oculta visualizacion de resultados
 	},
 	'camera':	null, // change video source
+    'videowall': null, // videowall remote control
 	'reconfig':	function(event) { loadConfiguration(); }, // reload configuration from server
 	'info':	null // click on user defined tandas
 };
