@@ -344,7 +344,23 @@ var eventHandler= {
 		vwls_showResultsInfo(0); // oculta visualizacion de resultados
 	},
 	'camera':	null, // change video source
-    'command': null, // videowall remote control
+    'command': function(event){ // livestream remote control
+        handleCommandEvent(
+            event,
+            {
+                EVTCMD_NULL: function(e) {console.log("Received null command"); },
+                EVTCMD_SWITCH_SCREEN: function(e) {livestream_switchConsole(e); },
+                EVTCMD_NEXTFONT: null,
+                EVTCMD_PREVFONT: null,
+                EVTCMD_INCFONTSIZE: null,
+                EVTCMD_DECFONTSIZE: null,
+                EVTCMD_INCDELAY: null,
+                EVTCMD_DECDELAY: null,
+                EVTCMD_MESSAGE: function(e) { livestream_showMessage(e); },
+                EVTCMD_ENABLEOSD: function(e) { livestream_enableOSD(e); }
+            }
+        )
+    },
 	'reconfig':	function(event) { loadConfiguration(); }, // reload configuration from server
 	'info':	null // click on user defined tandas
 };

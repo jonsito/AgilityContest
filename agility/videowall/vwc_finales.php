@@ -371,7 +371,22 @@ Pantalla de de visualizacion combinada llamada/parciales
             crm.Chrono('reset', time);
         },
         'camera':	null, // change video source
-        'command': null, // videowall remote control
+        'command': function(event,time){ // videowall remote control
+            handleCommandEvent(
+                event,
+                {
+                    EVTCMD_NULL: console.log("Received null command"),
+                    EVTCMD_SWITCH_SCREEN: videowall_switchConsole(event),
+                    EVTCMD_NEXTFONT: null,
+                    EVTCMD_PREVFONT: null,
+                    EVTCMD_INCFONTSIZE: null,
+                    EVTCMD_DECFONTSIZE: null,
+                    EVTCMD_INCDELAY: null,
+                    EVTCMD_DECDELAY: null,
+                    EVTCMD_MESSAGE: videowall_showMessage(event)
+                }
+            )
+        },
         'reconfig':	function(event,time) { loadConfiguration(); }, // reload configuration from server
         'info': null // click on user defined tandas
     };

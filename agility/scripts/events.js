@@ -24,6 +24,7 @@ const EVTCMD_DECFONTSIZE=5; // increase/decrease font size ( for simplified vide
 const EVTCMD_INCDELAY=6;
 const EVTCMD_DECDELAY=7; // increase/decrease response time to events ( to sync livestream OSD )
 const EVTCMD_MESSAGE=8; // prompt a message dialog on top of screen
+const EVTCMD_ENABLEOSD=9; // enable / disable OnScreenDisplay
 
 function parseEvent(data) {
 	// var response= eval('(' + data + ')' );
