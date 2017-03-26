@@ -15,6 +15,16 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+const EVTCMD_NULL=0; // nothing; just ping
+const EVTCMD_SWITCH_SCREEN=1; // switch videowall mode
+const EVTCMD_NEXTFONT=2;
+const EVTCMD_PREVFONT=3; // switch font family ) simplified videowalls )
+const EVTCMD_INCFONTSIZE=4;
+const EVTCMD_DECFONTSIZE=5; // increase/decrease font size ( for simplified videowalls )
+const EVTCMD_INCDELAY=6;
+const EVTCMD_DECDELAY=7; // increase/decrease response time to events ( to sync livestream OSD )
+const EVTCMD_MESSAGE=8; // prompt a message dialog on top of screen
+
 function parseEvent(data) {
 	// var response= eval('(' + data + ')' );
 	var response= JSON.parse(data);
@@ -46,6 +56,9 @@ function parseEvent(data) {
 			var data=JSON.parse(received);
 			var lastID=evtID;
 			var n=0;
+			var row=null;
+			/*
+			TO BE REVISITED AS SIMPLIFIED PANELS NEEDS TO PARSE INIT
 			// if mark=="connect" search for last open to start parsing events
 			if (mark==="connect") {
 				for (n=data.total-1;n>0;n--) {
@@ -53,8 +66,9 @@ function parseEvent(data) {
 					if (tipo==="open") break;
                 }
 			}
+			*/
 			for (;n<parseInt(data.total);n++) {
-				var row=data.rows[n];
+				row=data.rows[n];
                 mark= data.TimeStamp;
 				lastID=row.ID;// store last evt id
 				if (row.Type==='reconfig') setTimeout(loadConfiguration,0);
@@ -125,4 +139,16 @@ function startEventMgr() {
 		}
 	});
 	return false;
+}
+
+/**
+ * Handle 'command' event
+ * 'Operation' field in event args contains command to be parsed, 'Value' / 'start' / 'stop'  arguments, and so
+ * @param {Array} event (id,value,start,stop, .... )
+ * @param {Array} callbacks array functions
+ */
+function handleCommandEvent(event,callbacks) {
+	var op=parseInt(event['Operation']);
+	if ( typeof(callback[op]) !== "function") return;
+	setTimeout( function(){callbacks[op](event);},0);
 }

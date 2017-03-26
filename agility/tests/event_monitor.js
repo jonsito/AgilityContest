@@ -177,7 +177,7 @@ var eventHandler= {
 	'camera':	function(event,time){ // change video source
 		console.log(event['Type'] + "- Video source for embedded livestream screans changed");
 	},
-    'videowall':	function(event,time) {  // videowall remote control
+    'command':	function(event,time) {  // videowall remote control
         console.log(event['Type'] + " - Received videowall remote comand from main console");
     },
     'reconfig':	function(event,time) {  // reload configuration from server

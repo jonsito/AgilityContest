@@ -109,7 +109,7 @@ if (!$am->allowed(ENABLE_VIDEOWALL)) {
 
 <script type="text/javascript" charset="utf-8">
 
-var ac_videoWallOpts={'Ring':1,'View':3,'Auto':0};
+var ac_videoWallOpts={'Ring':1,'View':3,'Timeout':0};
 
 function initialize() {
 	// make sure that every ajax call provides sessionKey
@@ -126,8 +126,8 @@ function initialize() {
 	getFederationInfo();
 	ac_videoWallOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
 	ac_videoWallOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
-	ac_videoWallOpts.Timeout=<?php _e(http_request("Auto","i",0)); ?>; // auto start displaying after x seconds. 0 disable
-	if (ac_videoWallOpts.Timeout!=0) setTimeout(function() { vw_accept();	},1000*ac_videoWallOpts.Timeout); // if requested fire autostart
+	ac_videoWallOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // auto start displaying after x seconds. 0 disable
+	if (parseInt(ac_videoWallOpts.Timeout)!==0) setTimeout(function() { vw_accept();},1000*ac_videoWallOpts.Timeout); // if requested fire autostart
 }
 
 /**

@@ -60,7 +60,7 @@ class Eventos extends DBObject {
         // el campo data contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
 		21	=> 'camera',		// cambio de fuente de streaming
 		22	=> 'reconfig',		// se ha cambiado la configuracion en el servidor
-        24  => 'videowall'      // control remoto del videomarcador
+        24  => 'command'      // control remoto del videomarcador
 	);
 	
 	protected $sessionID;
@@ -164,7 +164,7 @@ class Eventos extends DBObject {
 					return array('errorMsg' => 'Current license does not allow LiveStream handling');
 				} // silently ignore
 				break;
-			case 'videowall': // videowall remote control
+			case 'command': // videowall remote control
                 break;
 			case 'reconfig':	// cambio en la configuracion del servidor
 				if (!$this->myAuth->access(PERMS_ADMIN)) {

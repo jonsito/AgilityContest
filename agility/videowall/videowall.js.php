@@ -630,3 +630,27 @@ function videowall_eventManager(id,evt) {
 	var time=event['Value'];
 	if (typeof(eventHandler[event['Type']])==="function") eventHandler[event['Type']](event,time);
 }
+
+function videowall_switchConsole(event) {
+    var from=parseInt(event['start']);
+    var to=parseInt(event['stop']);
+    // if source view is negative or matches current view, reload videowall with new parameters
+    if ( (from <0) || (from==ac_videoWallOpts.View) ) {
+        var url="/agility/videowall/index.php?Ring="+ac_videoWallOpts.Ring+"&View="+to+"&Timeout=2";
+        location.replace(url);
+    } else {
+        console.log("Switch command is not for me:"+from)
+    }
+}
+
+function videowall_showMessage(event) {
+    var msg=event['Value'];
+    var timeout=event['Timeout'];
+    $.messager.show({
+        title:' ', // empty title
+        msg:msg,
+        showType:'fade',
+        timeout: timeout,
+        style:{ right:'', bottom:'' }
+    });
+}

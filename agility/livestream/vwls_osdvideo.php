@@ -344,7 +344,7 @@ var eventHandler= {
 		vwls_showResultsInfo(0); // oculta visualizacion de resultados
 	},
 	'camera':	null, // change video source
-    'videowall': null, // videowall remote control
+    'command': null, // videowall remote control
 	'reconfig':	function(event) { loadConfiguration(); }, // reload configuration from server
 	'info':	null // click on user defined tandas
 };
