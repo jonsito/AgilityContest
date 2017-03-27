@@ -66,6 +66,15 @@ if (!$am->allowed(ENABLE_CHRONO)) {
 <script src="/agility/chrono/chrono.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript" charset="utf-8">
+
+var ac_clientOpts = {
+    'BaseName':'chrono',
+    'Ring':1,
+    'SensorDate':0,
+    'Timeout':0,
+    'SessionName':''
+};
+
 function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
@@ -79,6 +88,10 @@ function initialize() {
 	loadConfiguration( function(config){c_reconocimiento.reset(60*parseInt(config.crono_rectime)); } );
 	getLicenseInfo();
 	getFederationInfo();
+    ac_clientOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
+    ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // auto start displaying after x seconds. 0 disable
+    ac_clientOpts.SessionName=getRandomString(8);
+    if (parseInt(ac_clientOpts.Timeout)!==0) setTimeout(function() { chrono_accept();},1000*ac_clientOpts.Timeout); // if requested fire autostart
 }
 
 </script>
@@ -152,11 +165,21 @@ $('#chrono-Session').combogrid({
 		return true;
 	},
 	onLoadSuccess: function(data) {
+	    /*
+	    // retrieve first available session id
 		var cs=$('#chrono-Session');
 		var def= cs.combogrid('grid').datagrid('getRows')[0].ID; // get first ID
 		cs.combogrid('setValue',def);
+		*/
+	    // set ring according with default parameters
+        setTimeout(function() {
+            $('#chrono-Session').combogrid('setValue', (ac_clientOpts.Ring+1).toString())
+        },0); // also fires onSelect()
 	},
-	onSelect: function(index,row) { setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1); }
+	onSelect: function(index,row) {
+        ac_clientOpts.Ring=row.ID;
+	    setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1);
+	}
 });
 
 function chrono_accept() {

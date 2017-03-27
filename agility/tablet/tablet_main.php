@@ -152,7 +152,7 @@ $config =Config::getInstance();
     $('#tablet-layout').layout({fit:true});
     $('#tablet-layout').layout('panel','west').panel({
         onExpand: function() {
-            tablet_config.DataEntryEnabled=false;
+            ac_clientOpts.DataEntryEnabled=false;
             $('#tdialog-fieldset').prop('disabled',true);
             // retrieve original data from parent datagrid
             var dgname=$('#tdialog-Parent').val();
@@ -163,7 +163,7 @@ $config =Config::getInstance();
             setTimeout(function() {dg.datagrid('resize',{height:h,width:w})},0);
         },
         onCollapse: function () {
-            tablet_config.DataEntryEnabled=true;
+            ac_clientOpts.DataEntryEnabled=true;
             $('#tdialog-fieldset').prop('disabled',false);
         }
     });

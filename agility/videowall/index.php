@@ -109,7 +109,13 @@ if (!$am->allowed(ENABLE_VIDEOWALL)) {
 
 <script type="text/javascript" charset="utf-8">
 
-var ac_videoWallOpts={'Ring':1,'View':3,'Timeout':0};
+var ac_clientOpts = {
+    'BaseName':'videowall',
+    'Ring':1,
+    'View':3,
+    'Timeout':0,
+    'SessionName':''
+};
 
 function initialize() {
 	// make sure that every ajax call provides sessionKey
@@ -124,10 +130,11 @@ function initialize() {
 	loadConfiguration();
 	getLicenseInfo();
 	getFederationInfo();
-	ac_videoWallOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
-	ac_videoWallOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
-	ac_videoWallOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // auto start displaying after x seconds. 0 disable
-	if (parseInt(ac_videoWallOpts.Timeout)!==0) setTimeout(function() { vw_accept();},1000*ac_videoWallOpts.Timeout); // if requested fire autostart
+	ac_clientOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
+	ac_clientOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
+	ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // auto start displaying after x seconds. 0 disable
+    ac_clientOpts.SessionName=getRandomString(8);
+	if (parseInt(ac_clientOpts.Timeout)!==0) setTimeout(function() { vw_accept();},1000*ac_clientOpts.Timeout); // if requested fire autostart
 }
 
 /**
@@ -304,11 +311,14 @@ $('#selvw-Session').combogrid({
 	},
 	onLoadSuccess: function(data) {
 		setTimeout(function() {
-			$('#selvw-Vista').combobox('setValue',ac_videoWallOpts.View.toString());
-			$('#selvw-Session').combogrid('setValue', (ac_videoWallOpts.Ring+1).toString())
+			$('#selvw-Vista').combobox('setValue',ac_clientOpts.View.toString());
+			$('#selvw-Session').combogrid('setValue', (ac_clientOpts.Ring+1).toString())
 		},0); // also fires onSelect()
 	},
-    onSelect: function(index,row) {setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1);}
+    onSelect: function(index,row) {
+        ac_clientOpts.Ring=row.ID;
+	    setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1);
+	}
 });
 
 function vw_accept() {

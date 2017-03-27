@@ -84,6 +84,7 @@ function parseEvent(data) {
 			setTimeout(function(){ waitForEvents(evtID,timestamp);},5000); // retry in 5 seconds
 		}
 
+		var sname=ac_clientOpts.BaseName+"_"+ac_clientOpts.Ring+"_"+ac_clientOpts.SessionName;
 		$.ajax({
 			type: "GET",
 			url: "/agility/server/database/eventFunctions.php",
@@ -91,7 +92,8 @@ function parseEvent(data) {
 				'Operation' : 'getEvents',
 				'ID'		: evtID,
 				'Session'	: workingData.sesion,
-				'TimeStamp' : (timestamp==='connect')?0:timestamp
+				'TimeStamp' : (timestamp==='connect')?0:timestamp,
+				'SessionName': sname
 			},
 			async: true,
 			cache: false,
@@ -108,13 +110,15 @@ function parseEvent(data) {
  * If no response wait two seconds and try again
  * On sucess invoke
  */
-function startEventMgr() {
+function startEventMgr(listener_name) {
+    var sname=ac_clientOpts.BaseName+"_"+ac_clientOpts.Ring+"_"+ac_clientOpts.SessionName;
 	$.ajax({
 		type: "GET",
 		url: "/agility/server/database/eventFunctions.php",
 		data: {
 			'Operation' : 'connect',
-			'Session'	: workingData.sesion
+			'Session'	: workingData.sesion,
+            'SessionName': sname
 		},
 		async: true,
 		cache: false,

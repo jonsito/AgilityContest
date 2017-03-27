@@ -103,8 +103,6 @@ var c_reconocimiento = new Countdown({
     onCounterEnd: function(){ /* empty */    }
 });
 
-var c_sensorDate = 0;
-
 function c_updateHeader() {
 	var mng=workingData.datosManga.Nombre;
 	var jor=workingData.datosJornada.Nombre;
@@ -334,11 +332,11 @@ function chrono_markError() {
  */
 function chrono_sensor(event,data,guard) {
     var cur= Date.now() - startDate;
-	if ( (cur-c_sensorDate) < guard ) {
+	if ( (cur - ac_clientOpts.SensorDate) < guard ) {
 		// not yet guard time: ignore key/button
 		return;
 	}
-	c_sensorDate=cur;
+	ac_clientOpts.SensorDate=cur;
     data.Value=cur;
 	chrono_putEvent(event,data);
 	doBeep();

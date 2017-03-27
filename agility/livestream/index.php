@@ -105,7 +105,14 @@ function myTransparentRowStyler(idx,row) {
 	else { return res+c2+";opacity:0.9"; }
 }
 
-var ac_liveStreamOpts={'Ring':1,'View':2,'Mode':'chroma','Timeout':0};
+var ac_clientOpts={
+    'BaseName':'livestream',
+    'Ring':1,
+    'View':2,
+    'Mode':'chroma',
+    'Timeout':0,
+    'SessionName':''
+};
 
 function initialize() {
 	// make sure that every ajax call provides sessionKey
@@ -120,12 +127,13 @@ function initialize() {
 	loadConfiguration();
 	getLicenseInfo();
 	getFederationInfo();
-	ac_liveStreamOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
-	ac_liveStreamOpts.View=<?php _e(http_request("View","i",1)); ?>; // 0:start/1:live/2:parcial/3:final
-	ac_liveStreamOpts.Mode='<?php _e(http_request("Mode","s","chroma")); ?>'; // "video" / "chroma"
-	ac_liveStreamOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // 0: dont else auto start after x seconds
-	$('#Livestream_Mode_' + ac_liveStreamOpts.Mode).prop('checked',true);
-	if (ac_liveStreamOpts.Timeout!=0) setTimeout(function() { ls_accept();	},1000*ac_liveStreamOpts.Timeout); // on autostart launch window after 10 seconds
+	ac_clientOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
+	ac_clientOpts.View=<?php _e(http_request("View","i",1)); ?>; // 0:start/1:live/2:parcial/3:final
+	ac_clientOpts.Mode='<?php _e(http_request("Mode","s","chroma")); ?>'; // "video" / "chroma"
+	ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // 0: dont else auto start after x seconds
+	$('#Livestream_Mode_' + ac_clientOpts.Mode).prop('checked',true);
+    ac_clientOpts.SessionName=getRandomString(8);
+	if (ac_clientOpts.Timeout!=0) setTimeout(function() { ls_accept();	},1000*ac_clientOpts.Timeout); // on autostart launch window after 10 seconds
 }
 
 /**
@@ -265,11 +273,14 @@ $('#selvw-Session').combogrid({
 	},
     onLoadSuccess: function (data) {
         setTimeout(function() {
-            $('#selvw-Vista').combobox('setValue',ac_liveStreamOpts.View.toString());
-            $('#selvw-Session').combogrid('setValue', (ac_liveStreamOpts.Ring+1).toString())
+            $('#selvw-Vista').combobox('setValue',ac_clientOpts.View.toString());
+            $('#selvw-Session').combogrid('setValue', (ac_clientOpts.Ring+1).toString())
         },0); // also fires onSelect()
     },
-    onSelect: function(index,row) {setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1);}
+    onSelect: function(index,row) {
+        ac_clientOpts.Ring=row.ID;
+	    setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1);
+	}
 });
 
 function ls_accept() {

@@ -253,8 +253,8 @@ function livestream_switchConsole(event) {
     var from=parseInt(event['start']);
     var to=parseInt(event['stop']);
     // if source view is negative or matches current view, reload videowall with new parameters
-    if ( (from <0) || (from==ac_liveStreamOpts.View) ) {
-        var url="/agility/livestream/index.php?Ring="+ac_liveStreamOpts.Ring+"&Mode="+ac_liveStreamOpts.Mode+"&View="+to+"&Timeout=2";
+    if ( (from <0) || (from==ac_clientOpts.View) ) {
+        var url="/agility/livestream/index.php?Ring="+ac_clientOpts.Ring+"&Mode="+ac_clientOpts.Mode+"&View="+to+"&Timeout=2";
         location.replace(url);
     } else {
         console.log("Switch command is not for me:"+from)

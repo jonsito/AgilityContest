@@ -87,10 +87,13 @@ loadConfiguration();
 getLicenseInfo();
 getFederationInfo();
 
-var tablet_config = {
+var ac_clientOpts = {
+    'BaseName':'tablet',
+	'Ring':0,
 	'StartStopMode': 0, // 0:stop, 1:start, -1:auto
 	'DataEntryEnabled':0, // 0: roundSelection enabled 1:dataEntry enabled
-	'CourseWalk':0 // 0 reconocimiento de pista parado else time
+	'CourseWalk':0, // 0 reconocimiento de pista parado else time
+    'SessionName': '' // nombre del cliente utilizado para control de expire-time
 };
 
 function initialize() {
@@ -103,6 +106,7 @@ function initialize() {
 	    return true;
 	  }
 	});
+	ac_clientOpts.SessionName=getRandomString(8);
 }
 
 /**
@@ -232,7 +236,10 @@ $('#seltablet-Sesion').combogrid({
 		var ts=$('#seltablet-Sesion');
 		var def= ts.combogrid('grid').datagrid('getRows')[0].ID; // get first ID
 		ts.combogrid('setValue',def);
-	}
+	},
+    onSelect: function(index,row) {
+        ac_clientOpts.Ring=row.ID;
+    }
 });
 
 $('#seltablet-Prueba').combogrid({

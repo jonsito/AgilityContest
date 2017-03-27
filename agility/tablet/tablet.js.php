@@ -40,14 +40,14 @@ function setDataEntryEnabled(flag) {
 
 function setStartStopMode(mode) {
 	var ssb=$('#tdialog-StartStopBtn');
-	tablet_config.StartStopMode=mode;
+	ac_clientOpts.StartStopMode=mode;
 	if (mode<0) ssb.val("Auto"); // mark running in auto mode
 	if (mode==0) ssb.val("Start"); // mark stopped (ready)
 	if (mode>0) ssb.val("Stop"); // mark running in manual mode
 }
 
 function getStartStopMode() {
-	return tablet_config.StartStopMode;
+	return ac_clientOpts.StartStopMode;
 }
 
 /******************* funciones de manejo del panel de entrada de resultados del tablet *****************/
@@ -374,8 +374,8 @@ var myCounter = new Countdown({
 });
 
 function tablet_reconocimiento() {
-	var time= (tablet_config.CourseWalk==0)?60 * parseInt(ac_config.crono_rectime):0;
-	tablet_config.CourseWalk=time;
+	var time= (ac_clientOpts.CourseWalk==0)?60 * parseInt(ac_config.crono_rectime):0;
+	ac_clientOpts.CourseWalk=time;
 	tablet_putEvent('crono_rec',{
 		'Session': workingData.sesion,
 		'Value' : Date.now() - startDate,
