@@ -70,6 +70,7 @@ if (!$am->allowed(ENABLE_CHRONO)) {
 var ac_clientOpts = {
     'BaseName':'chrono',
     'Ring':1,
+    'View':0,
     'SensorDate':0,
     'Timeout':0,
     'SessionName':''

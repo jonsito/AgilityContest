@@ -84,7 +84,7 @@ function parseEvent(data) {
 			setTimeout(function(){ waitForEvents(evtID,timestamp);},5000); // retry in 5 seconds
 		}
 
-		var sname=ac_clientOpts.BaseName+"_"+ac_clientOpts.Ring+"_"+ac_clientOpts.SessionName;
+		var sname=ac_clientOpts.BaseName+"_"+ac_clientOpts.Ring+"_"+ac_clientOpts.View+"_"+ac_clientOpts.SessionName;
 		$.ajax({
 			type: "GET",
 			url: "/agility/server/database/eventFunctions.php",
@@ -111,7 +111,7 @@ function parseEvent(data) {
  * On sucess invoke
  */
 function startEventMgr(listener_name) {
-    var sname=ac_clientOpts.BaseName+"_"+ac_clientOpts.Ring+"_"+ac_clientOpts.SessionName;
+    var sname=ac_clientOpts.BaseName+"_"+ac_clientOpts.Ring+"_"+ac_clientOpts.View+"_"+ac_clientOpts.SessionName;
 	$.ajax({
 		type: "GET",
 		url: "/agility/server/database/eventFunctions.php",
