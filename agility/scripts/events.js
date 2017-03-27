@@ -52,6 +52,7 @@ function parseEvent(data) {
 // $(function(evtID,timestamp){
 	function waitForEvents(evtID,timestamp){
 		var mark=timestamp; // use inner var to preserve scope in handleSuccess
+        var sname=ac_clientOpts.BaseName+"_"+ac_clientOpts.Ring+"_"+ac_clientOpts.View+"_"+ac_clientOpts.SessionName;
 
 		function handleSuccess(received,status,jqXHR){
 			var data=JSON.parse(received);
@@ -84,7 +85,6 @@ function parseEvent(data) {
 			setTimeout(function(){ waitForEvents(evtID,timestamp);},5000); // retry in 5 seconds
 		}
 
-		var sname=ac_clientOpts.BaseName+"_"+ac_clientOpts.Ring+"_"+ac_clientOpts.View+"_"+ac_clientOpts.SessionName;
 		$.ajax({
 			type: "GET",
 			url: "/agility/server/database/eventFunctions.php",
@@ -110,7 +110,7 @@ function parseEvent(data) {
  * If no response wait two seconds and try again
  * On sucess invoke
  */
-function startEventMgr(listener_name) {
+function startEventMgr() {
     var sname=ac_clientOpts.BaseName+"_"+ac_clientOpts.Ring+"_"+ac_clientOpts.View+"_"+ac_clientOpts.SessionName;
 	$.ajax({
 		type: "GET",

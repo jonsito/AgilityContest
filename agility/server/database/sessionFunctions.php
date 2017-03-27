@@ -24,7 +24,8 @@ require_once(__DIR__."/classes/Sesiones.php");
 try {
 	$result=null;
 	$operation=http_request("Operation","s",null);
-	$id=http_request("ID","i",0);
+    $id=http_request("ID","i",0);
+    $sname=http_request("SessionName","s","noname_0_0_qwertyui");
 	$data=array ();
 	// parse only provided variables
 	$data=testAndSet($data,"Nombre","s","-- Sin asignar --",false);
@@ -52,7 +53,9 @@ try {
 		case "reset": $am->access(PERMS_OPERATOR); $result=$sesion->reset($id); break;
 		case "enumerate": $result=$sesion->enumerate(); break; // no select (yet)
 		case "getByNombre":	$result=$sesion->selectByNombre($data['Nombre']); break;
-		case "getByID":	$result=$sesion->selectByID($id); break;
+        case "getByID":	$result=$sesion->selectByID($id); break;
+        case "getClients":$result=$sesion->getClients($id); break;
+        case "testAndSet":$result=$sesion->testAndSet($sname); break;
 		default: throw new Exception("sessionFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) 
