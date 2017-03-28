@@ -255,13 +255,17 @@ class Sesiones extends DBObject {
      */
 	function getClients($id=0) {
         $res=array();
+        $timestamp=time();
         session_start();
         if (!isset($_SESSION['ac_clients'])) $_SESSION['ac_clients']=array();
         foreach ( $_SESSION['ac_clients'] as $client) {
             $this->myLogger->trace("Session::getClients() parsing clientSession: $client");
             $a=explode(':',$client);
-            $item=array('Source'=>$a[0],'Session'=>$a[1],'View'=>$a[2],'Name'=>$a[3],'LastCall'=>$a[4]);
+            // comprobamos expiracion
+            if ( ($timestamp - intval($a[4]) ) > 300 ) $a[4]=0; // expire after 5 minutes
             if (intval($a[4])==0) continue;  // if expired, skip
+            // compose item and insert into response if requested
+            $item=array('Source'=>$a[0],'Session'=>$a[1],'View'=>$a[2],'Name'=>$a[3],'LastCall'=>$a[4]);
             if ( ($id==0) || ($id==$a[1]) ) array_push($res,$item); // if not requested skip
         }
         session_write_close();
@@ -282,7 +286,7 @@ class Sesiones extends DBObject {
         session_start();
         if (!isset($_SESSION['ac_clients'])) $_SESSION['ac_clients']=array();
         $this->myLogger->trace("Session::testAndSet() looking for clientSession: $name");
-        foreach ( $_SESSION['ac_clients'] as &$client) {
+        foreach ( $_SESSION['ac_clients'] as &$client) { // pass by reference as need to be edited
             $this->myLogger->trace("Session::testAndSet() parsing clientSession: $client");
             if (strpos($client,$name)===FALSE) {  // client name does not match: evaluate expiration
                 $a=explode(':',$client);
