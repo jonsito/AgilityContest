@@ -250,10 +250,10 @@ class Sesiones extends DBObject {
 
     /**
      * Retrieve every $_SESSION['ac_clients'] elements
-     * @param {integer} $id: 0:any session ; else named session
+     * @param {string} $type: "": any type / "livestream" "videowall" "chrono" "tablet"
      * @return array{rows,total}
      */
-	function getClients($id=0) {
+	function getClients($type="") {
         $res=array();
         $timestamp=time();
         session_start();
@@ -266,7 +266,7 @@ class Sesiones extends DBObject {
             if (intval($a[4])==0) continue;  // if expired, skip
             // compose item and insert into response if requested
             $item=array('Source'=>$a[0],'Session'=>$a[1],'View'=>$a[2],'Name'=>$a[3],'LastCall'=>$a[4]);
-            if ( ($id==0) || ($id==$a[1]) ) array_push($res,$item); // if not requested skip
+            if ( ($type==="") || ($type==$a[0]) ) array_push($res,$item); // if not requested skip
         }
         session_write_close();
         return array('total'=>count($res),'rows'=>$res);

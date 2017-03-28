@@ -25,7 +25,8 @@ try {
 	$result=null;
 	$operation=http_request("Operation","s",null);
     $id=http_request("ID","i",0);
-    $sname=http_request("SessionName","s","noname_0_0_qwertyui");
+    $sname=http_request("SessionName","s","");
+    $stype=http_request("SessionType","s","");
 	$data=array ();
 	// parse only provided variables
 	$data=testAndSet($data,"Nombre","s","-- Sin asignar --",false);
@@ -54,7 +55,7 @@ try {
 		case "enumerate": $result=$sesion->enumerate(); break; // no select (yet)
 		case "getByNombre":	$result=$sesion->selectByNombre($data['Nombre']); break;
         case "getByID":	$result=$sesion->selectByID($id); break;
-        case "getClients":$result=$sesion->getClients($id); break;
+        case "getClients":$result=$sesion->getClients($stype); break;
         case "testAndSet":$result=$sesion->testAndSet($sname); break;
 		default: throw new Exception("sessionFunctions:: invalid operation: $operation provided");
 	}

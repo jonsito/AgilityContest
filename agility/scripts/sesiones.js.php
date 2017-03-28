@@ -118,12 +118,6 @@ function session_logout() {
 	$('#sesiones-Login').val('-- Sin asignar --');// set up default user name for new session
 }
 
-function session_sequences() {
-	// TODO: write
-    $.messager.alert("TODO","Edicion de secuencias pendiente de desarrollo","info");
-     // no way to know which dog is selected
-}
-
 function resetSession(dg) {
     var row = $(dg).datagrid('getSelected');
     if (!row) {
@@ -141,4 +135,10 @@ function resetSession(dg) {
             }
         },'json');
     });
+}
+
+function reloadRemoteClientList() {
+    $('#remote-videowall-datagrid').datagrid('reload');
+    $('#remote-livestream-datagrid').datagrid('reload');
+    $('#remote-chronometer-datagrid').datagrid('reload');
 }

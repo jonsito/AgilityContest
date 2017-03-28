@@ -57,11 +57,7 @@ $config =Config::getInstance();
                 <label for="sesiones-LiveStream3"><?php _e('Stream Web-M'); ?></label>
                 <input id="sesiones-LiveStream3" name="LiveStream3" type="text" style="width:375px" />
             </div>
-            <div class="fitem" style="display:inline-block;float:right; padding-right:40px">
-				<a id="sesiones-seqBtn" href="#" class="easyui-linkbutton" 
-                	data-options="iconCls:'icon-video-tv'" onclick="session_sequences()"><?php _e('Sequences'); ?></a>
-            </div>
-            
+
         </form>
     </div>
     
@@ -79,7 +75,6 @@ $config =Config::getInstance();
 		$('#sesiones-form').form({novalidate:true});
         // - botones
 		addTooltip($('#sesiones-logoutBtn').linkbutton(),'<?php _e("Disconnect current user from session"); ?>');
-		addTooltip($('#sesiones-seqBtn').linkbutton(),'<?php _e("View/Edit sequences for"); ?>'+" <br />"+'<?php _e("videowall attached to this session"); ?>');
 		addTooltip($('#sesiones-okBtn').linkbutton(),'<?php _e("Register session information. Upate database"); ?>');
 		addTooltip($('#sesiones-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
         // on ESC key close session

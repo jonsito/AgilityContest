@@ -87,6 +87,8 @@ $config =Config::getInstance();
 					   onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
    			</span>
    			<span style="float:right;padding:5px">
+				<a id="sesiones-seqBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-video-tv'" onclick="$('#remote-dialog').dialog('open');"><?php _e('Display Control'); ?></a>
    				<a id="sesiones-reloadBtn" href="#" class="easyui-linkbutton"
    					data-options="iconCls:'icon-brush'"
    					onclick="
@@ -96,7 +98,8 @@ $config =Config::getInstance();
    					><?php _e('Clear'); ?></a>
    			</span>
 		</div>
-    	<?php require_once("dialogs/dlg_sesiones.inc")?>
+        <?php require_once("dialogs/dlg_sesiones.inc")?>
+        <?php require_once("dialogs/dlg_remotecontrol.inc")?>
    	</div>
    	<div title="<?php _e('Preferences'); ?>" data-options="iconCls:'icon-setup'" style="padding:5px">
     	<?php require_once("dialogs/dlg_configuracion.inc")?>
@@ -211,5 +214,6 @@ addTooltip($('#sesiones-delBtn').linkbutton(),'<?php _e("Remove selected session
 addTooltip($('#sesiones-resetBtn').linkbutton(),'<?php _e("Reset/Clear event log from selected session"); ?>');
 addTooltip($('#sesiones-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update data"); ?>');
 addTooltip($('#sesiones-datagrid-search'),'<?php _e("Look for sessions matching search criteria"); ?>');
+addTooltip($('#sesiones-seqBtn').linkbutton(),'<?php _e("View/control active displays"); ?>'+" <br />"+'<?php _e("on currently defined sessions"); ?>');
 
  </script>
