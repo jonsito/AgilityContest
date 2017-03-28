@@ -23,16 +23,68 @@ $config =Config::getInstance();
 $am=new AuthManager("Chrono");
 ?>
     <!-- ventana de control remoto para los cronos/videomarcadores/livestream definidos en una o varias sesiones -->
-    <div id="remote-dialog" style="width:720px;height:480px;padding:5px;">
+    <div id="remote-dialog" style="width:750px;height:400px;padding:5px;">
         <div id="remote-accordion">
             <div title="<?php _e('Videowall Screens');?>" data-options="iconCls:'icon-video-tv'">
 <?php if( $am->allowed(ENABLE_VIDEOWALL) ) { ?>
-                <p><?php _e('List of currently active Videowall displays');?></p>
-                <table id="remote-videowall-datagrid" style="width:60%"></table>
+                <span style="float:left;display:inline-block;width:55%;padding:5px">
+                    <p>
+                        <?php _e('List of currently active Videowall displays');?><br/><br/>
+                        <?php _e('Choose display(s) to work with');?><br/>
+                        <?php _e('and invoke desired operation');?>
+                    </p>
+                    <table id="remote-videowall-datagrid" style="width:100%"></table>
+                </span>
+                <span style="float:right;display:inline-block;width:40%;padding:5px">
+                    <strong><?php _e('Parameters for display change');?></strong>
+                    <form id="remote-videowall-form" name="remote-videowall-form">
+                        <?php _e('Select');?>
+                        <input type="checkbox" id="remote-videowall-all"/>
+                        <label for="remote-videowall-all"><?php _e('All');?></label>
+                        <input type="checkbox" id="remote-videowall-none"/>
+                        <label for="remote-videowall-none"><?php _e('None');?></label><br/>
+                        <label for="remote-videowall-ring"><?php _e('New ring');?>:</label>
+       		            <select id="remote-videowall-ring" name="Ring" style="width:200px"></select><br/>
+                        <label for="remote-videowall-view"><?php _e('New view');?>:</label>
+                        <select id="remote-videowall-view" style="width:200px"> <!-- combobox -->
+                            <optgroup label="<?php _e('Video Wall');?> ">
+					            <option value="1"><?php _e('Training session'); ?></option>
+                                <option value="0"><?php _e('Starting order'); ?></option>
+					            <option value="2"><?php _e('Partial scores'); ?></option>
+					            <option value="4"><?php _e('Final scores'); ?></option>
+                            </optgroup>
+				            <optgroup label="<?php _e('Combo view');?> ">
+					            <option value="7"><?php _e('Call to ring '); ?> / <?php _e('Partial scores'); ?></option>
+					            <option value="8"><?php _e('Call to ring '); ?> / <?php _e('Final scores'); ?></option>
+				            </optgroup>
+				            <optgroup label="<?php _e('Simplified');?> ">
+					            <option value="6"><?php _e('Training session'); ?> (<?php _e('simplified'); ?>)</option>
+					            <option value="3"><?php _e('Partial Scores'); ?> (<?php _e('simplified'); ?>)</option>
+					            <option value="9"><?php _e('Final Scores'); ?> (<?php _e('simplified'); ?>)</option>
+				            </optgroup>
+                            <optgroup label="<?php _e('Extra info'); ?> ">
+                                <option value="5"><?php _e('Advertising videos'); ?></option>
+                            </optgroup>
+                        </select><br/>
+                        <span style="display:inline-block;width:200px">&nbsp;</span>
+                        <a id="remote-videowall-sendBtn" href="#" class="easyui-linkbutton"
+                             data-options="iconCls:'icon-on'" onclick="alert('send');"><?php _e('Send'); ?></a>
+                        <br>
+                        <strong><?php _e('Simplified videowall controls');?></strong>
+                        <span style="display:inline-block;width:200px"><?php _e("Font family");?>:</span>
+                        <a id="remote-videowall-ffprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('ff-prev');"></a>
+                        <a id="remote-videowall-ffnextBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-next'" onclick="alert('ff-next');"></a>
+                        <br/>
+                        <span style="display:inline-block;width:200px"><?php _e("Font size");?>:</span>
+                        <a id="remote-videowall-fsprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('fs-prev');"></a>
+                        <a id="remote-videowall-fsnextBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-next'" onclick="alert('fs-next');"></a>
+                    </form>
+                </span>
 <?php } else { ?>
                 <p><?php _e('Current license permissions does not allow videowall operations');?></p>
                 <img src="/agility/images/sad_dog.png" alt="triste"/>
                 <table id="remote-videowall-datagrid" style="display:none"></table>
+                <select id="remote-videowall-ring" name="Ring" style="display:none"></select>
 <?php } ?>
             </div>
             <div title="<?php _e('Live Streaming windows');?>" data-options="iconCls:'icon-live'">
@@ -126,6 +178,39 @@ $am=new AuthManager("Chrono");
             rowStyler:myRowStyler
         });
 
+        $('#remote-videowall-view').combobox({
+            valueField:'value',
+            panelHeight:'auto',
+            editable:false
+        });
+
+        $('#remote-videowall-ring').combogrid({
+            panelWidth: 400,
+            panelHeight: 'auto',
+            idField: 'ID',
+            textField: 'Nombre',
+            url: '/agility/server/database/sessionFunctions.php',
+            queryParams: { Operation:'selectring', Hidden:0},
+            method: 'get',
+            mode: 'remote',
+            required: true,
+            rownumber: true,
+            multiple: false,
+            fitColumns: true,
+            singleSelect: true,
+            editable: false, // avoid keyboard deploy
+            columns: [[
+                { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
+                { field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: '<?php _e('Name'); ?>' },
+                { field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: '<?php _e('Description'); ?>' },
+                { field:'Prueba',	    hidden:true },
+                { field:'Jornada',	    hidden:true },
+                { field:'Background',	hidden:true },
+                { field:'LiveStream2',	hidden:true },
+                { field:'LiveStream3',	hidden:true }
+            ]]
+        });
+
         // datos de la tabla de video marcadores
         $('#remote-livestream-datagrid').datagrid({
             // datos del panel padre asociado
@@ -193,6 +278,11 @@ $am=new AuthManager("Chrono");
         });
 
         // tooltips de los botones
+        $('#remote-videowall-ffnextBtn').linkbutton();
+        $('#remote-videowall-ffprevBtn').linkbutton();
+        $('#remote-videowall-fsnextBtn').linkbutton();
+        $('#remote-videowall-fsprevBtn').linkbutton();
+        addTooltip($('#remote-videowall-sendBtn').linkbutton(),'<?php _e("Switch selected displays to choosen ring/view"); ?>');
         addTooltip($('#remote-reloadBtn').linkbutton(),'<?php _e("Reload and update active client lists"); ?>');
         addTooltip($('#remote-okBtn').linkbutton(),'<?php _e("End video display remote control session. Close window"); ?>');
     </script>

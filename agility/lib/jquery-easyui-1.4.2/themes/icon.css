@@ -167,6 +167,12 @@
 .icon-live{
 	 background:url('icons/live.png') no-repeat center center;
 }
+.icon-next{
+         background:url('icons/next.png') no-repeat center center;
+}
+.icon-prev{
+         background:url('icons/prev.png') no-repeat center center;
+}
 /* end added icons */
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;
