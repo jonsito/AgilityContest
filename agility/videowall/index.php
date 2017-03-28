@@ -113,6 +113,7 @@ var ac_clientOpts = {
     'BaseName':'videowall',
     'Ring':1,
     'View':3,
+    'Mode':0,
     'Timeout':0,
     'SessionName':''
 };
@@ -147,7 +148,7 @@ function vwRowStyler(idx,row) {
 	var res="background-color:";
 	var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
 	var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
-	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+	if ( (idx&0x01)===0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 /**
  * rowStyler function for videowall secondary datagrids

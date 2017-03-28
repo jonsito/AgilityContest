@@ -138,7 +138,45 @@ function resetSession(dg) {
 }
 
 function reloadRemoteClientList() {
-    $('#remote-videowall-datagrid').datagrid('reload');
-    $('#remote-livestream-datagrid').datagrid('reload');
-    $('#remote-chronometer-datagrid').datagrid('reload');
+    $('#remote-videowall-datagrid').datagrid('load');
+    $('#remote-livestream-datagrid').datagrid('load');
+    $('#remote-chronometer-datagrid').datagrid('load');
+}
+
+// retrieve ring name from val:session_id
+function formatRingName(val,row,index) {
+    var data=$('#sesiones-datagrid').datagrid('getData')['rows'];
+    for (var n=0; n<data.length;n++) if (data[n]['ID']==val) return data[n]['Nombre'];
+    return "<?php _e('Ring session id');?>: "+val;
+}
+
+// retrieve view mode for Videowall val:mode
+function formatVideowallView(val,row,index) {
+    switch (parseInt(val)) {
+        case 0: return '<?php _e("Starting order"); ?>';
+        case 1: return '<?php _e("Live Stream"); ?>';
+        case 2: return '<?php _e("Partial scores"); ?>';
+        case 3: return '<?php _e("Final scores"); ?>';
+        case 4: return '<?php _e("Training session"); ?>';
+    }
+    // default: ( should not occurs ) return session id as string
+    return "<?php _e('View mode');?>: "+val;
+}
+
+// retrieve View mode from livestream display val:mode
+function formatLiveStreamView(val,row,index) {
+    switch (parseInt(val)) {
+        case 0: return "<?php _e('Starting order'); ?>";
+        case 1: return "<?php _e('Training session'); ?>";
+        case 2: return "<?php _e('Partial scores'); ?>";
+        case 3: return "<?php _e('Partial Scores'); ?> (<?php _e('simplified'); ?>)";
+        case 4: return "<?php _e('Final scores'); ?>";
+        case 5: return "<?php _e('Advertising videos'); ?>";
+        case 6: return "<?php _e('Training session'); ?> (<?php _e('simplified'); ?>)";
+        case 7: return "<?php _e('Call to ring '); ?> / <?php _e('Partial scores'); ?>";
+        case 8: return "<?php _e('Call to ring '); ?> / <?php _e('Final scores'); ?>";
+        case 9: return "<?php _e('Final Scores'); ?> (<?php _e('simplified'); ?>)";
+    }
+    // default: ( should not occurs ) return session id as string
+    return "<?php _e('View mode');?>: "+val;
 }

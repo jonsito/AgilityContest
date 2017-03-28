@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-03-28 10:53+0200\n"
-"PO-Revision-Date: 2017-03-28 10:56+0200\n"
+"POT-Creation-Date: 2017-03-28 16:20+0200\n"
+"PO-Revision-Date: 2017-03-28 16:20+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -189,12 +189,12 @@ msgid "Handler"
 msgstr "Gu&iacute;a"
 
 #: chrono/chrono.inc.php:70 chrono/chrono.js.php:166 chrono/chrono.js.php:263
-#: console/frm_admin.php:144 console/frm_equipos.php:129
-#: console/frm_equipos.php:248 console/frm_guias.php:94
-#: console/frm_inscripciones.php:78 console/frm_inscripciones2.php:252
-#: console/frm_perros.php:139 console/frm_registration.php:62
-#: console/import/import.js.php:83 console/import/import.js.php:96
-#: console/import/import.js.php:109 console/import/import_handlers.inc.php:83
+#: console/frm_equipos.php:129 console/frm_equipos.php:248
+#: console/frm_guias.php:94 console/frm_inscripciones.php:78
+#: console/frm_inscripciones2.php:252 console/frm_perros.php:139
+#: console/frm_registration.php:62 console/import/import.js.php:83
+#: console/import/import.js.php:96 console/import/import.js.php:109
+#: console/import/import_handlers.inc.php:83
 #: console/import/import_perros.inc.php:96 index.php:186
 #: lib/templates/entrenamientos.inc.php:17
 #: lib/templates/final_individual.inc.php:22
@@ -220,13 +220,12 @@ msgstr "Gu&iacute;a"
 #: console/dialogs/dlg_newInscripcion.inc:156
 #: console/dialogs/dlg_ordensalida.inc:170 console/dialogs/dlg_perros.inc:195
 #: console/dialogs/dlg_pruebas.inc:143 console/dialogs/dlg_selectJornada.inc:85
-#: console/dialogs/dlg_usuarios.inc:75
+#: console/dialogs/dlg_usuarios.inc:75 console/dialogs/dlg_usuarios.inc:248
 msgid "Club"
 msgstr "Club"
 
 #: chrono/chrono.inc.php:71 console/dialogs/infomanga.php:78
-#: console/frm_admin.php:145 livestream/vwls_osdvideo.php:90
-#: server/excel/print_ordenSalidaExcel.php:200
+#: livestream/vwls_osdvideo.php:90 server/excel/print_ordenSalidaExcel.php:200
 #: server/pdf/classes/PrintClasificacionExcel.php:158
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:128
@@ -236,7 +235,7 @@ msgstr "Club"
 #: server/pdf/classes/PrintTRSTemplates.php:123 videowall/vwc_finales.php:85
 #: videowall/vwc_parciales.php:85 console/dialogs/dlg_chperros.inc:71
 #: console/dialogs/dlg_editInscripcion.inc:42 console/dialogs/dlg_perros.inc:60
-#: console/dialogs/dlg_usuarios.inc:79
+#: console/dialogs/dlg_usuarios.inc:79 console/dialogs/dlg_usuarios.inc:249
 msgid "Category"
 msgstr "Categor&iacute;a"
 
@@ -345,7 +344,7 @@ msgstr "Eliminado"
 #: scripts/pruebas.js.php:394 scripts/pruebas.js.php:528
 #: scripts/pruebas.js.php:534 scripts/results_and_scores.js.php:48
 #: scripts/results_and_scores.js.php:149 scripts/results_and_scores.js.php:363
-#: scripts/sesiones.js.php:80 scripts/sesiones.js.php:140
+#: scripts/sesiones.js.php:80 scripts/sesiones.js.php:134
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
 #: scripts/usuarios.js.php:86 scripts/usuarios.js.php:150
 #: console/dialogs/dlg_competicion.inc:71
@@ -454,7 +453,7 @@ msgstr "NoPr"
 msgid "Dors"
 msgstr "Dors"
 
-#: chrono/chrono.js.php:150 chrono/index.php:168 console/frm_admin.php:180
+#: chrono/chrono.js.php:150 chrono/index.php:169
 #: console/frm_clasificaciones2.php:154
 #: console/frm_clasificaciones_equipos.php:152 console/frm_clubes.php:99
 #: console/frm_clubes.php:173 console/frm_clubes.php:258
@@ -504,7 +503,7 @@ msgstr "Dors"
 #: server/pdf/classes/PrintTRSTemplates.php:258
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/index.php:226
 #: tablet/index.php:262 tablet/tablet_main.php:78 tablet/tablet_main.php:287
-#: tablet/tablet_main.php:417 videowall/index.php:318
+#: tablet/tablet_main.php:417 videowall/index.php:319
 #: videowall/vwc_finales.php:82 videowall/vwc_finales.php:215
 #: videowall/vwc_parciales.php:82 videowall/vwc_parciales.php:227
 #: console/dialogs/dlg_chguias.inc:38 console/dialogs/dlg_chguias.inc:113
@@ -519,7 +518,7 @@ msgstr "Dors"
 #: console/dialogs/dlg_ordentandas.inc:169 console/dialogs/dlg_perros.inc:29
 #: console/dialogs/dlg_plugins.inc:52 console/dialogs/dlg_pruebas.inc:346
 #: console/dialogs/dlg_selectJornada.inc:83 console/dialogs/dlg_sesiones.inc:28
-#: console/dialogs/dlg_usuarios.inc:55
+#: console/dialogs/dlg_sesiones.inc:158 console/dialogs/dlg_usuarios.inc:55
 msgid "Name"
 msgstr "Nombre"
 
@@ -607,15 +606,18 @@ msgstr "Manual"
 msgid "Sensor failure"
 msgstr "Fallo de sensores"
 
-#: chrono/index.php:111
+#: chrono/index.php:112
 msgid "Select ring and display name (optional)"
 msgstr "Selecciona ring y nombre de la pantalla (opcional)"
 
-#: chrono/index.php:113 livestream/index.php:193 videowall/index.php:223
+#: chrono/index.php:114 livestream/index.php:193 videowall/index.php:224
+#: console/dialogs/dlg_remotecontrol.inc:99
+#: console/dialogs/dlg_remotecontrol.inc:132
+#: console/dialogs/dlg_remotecontrol.inc:165
 msgid "Display name"
 msgstr "Nombre de la pantalla"
 
-#: chrono/index.php:115 lib/templates/entrenamientos.inc.php:24
+#: chrono/index.php:116 lib/templates/entrenamientos.inc.php:24
 #: lib/templates/entrenamientos.inc.php:26
 #: lib/templates/entrenamientos.inc.php:28
 #: lib/templates/entrenamientos.inc.php:30
@@ -631,13 +633,16 @@ msgstr "Nombre de la pantalla"
 #: console/dialogs/dlg_entrenamientos.inc:202
 #: console/dialogs/dlg_entrenamientos.inc:208
 #: console/dialogs/dlg_entrenamientos.inc:214
+#: console/dialogs/dlg_remotecontrol.inc:100
+#: console/dialogs/dlg_remotecontrol.inc:133
+#: console/dialogs/dlg_remotecontrol.inc:166
 msgid "Ring"
 msgstr "Ring"
 
-#: chrono/index.php:123 console/frm_equipos.php:88
+#: chrono/index.php:124 console/frm_equipos.php:88
 #: console/frm_inscripciones.php:41 console/frm_login.php:57
 #: console/frm_logout.php:35 console/frm_myAdmin.php:63
-#: livestream/index.php:220 tablet/tablet_main.php:58 videowall/index.php:260
+#: livestream/index.php:220 tablet/tablet_main.php:58 videowall/index.php:261
 #: console/dialogs/dlg_clubes.inc:135
 #: console/dialogs/dlg_editInscripcion.inc:98
 #: console/dialogs/dlg_ordentandas.inc:79
@@ -645,15 +650,15 @@ msgstr "Ring"
 msgid "Accept"
 msgstr "Aceptar"
 
-#: chrono/index.php:130
+#: chrono/index.php:131
 msgid "Chronometer"
 msgstr "Cronometro"
 
-#: chrono/index.php:143
+#: chrono/index.php:144
 msgid "Work with selected ring/session"
 msgstr "Trabajar con el ring seleccionado"
 
-#: chrono/index.php:169 console/dialogs/infomanga.php:313
+#: chrono/index.php:170 console/dialogs/infomanga.php:313
 #: console/frm_clasificaciones2.php:58
 #: console/frm_clasificaciones_equipos.php:57 console/frm_clubes.php:176
 #: console/frm_equipos.php:173 console/frm_equipos.php:250
@@ -676,7 +681,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/classes/PrintOrdenDeSalida.php:74
 #: server/pdf/classes/PrintOrdenTandas.php:87
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/index.php:227
-#: tablet/tablet_main.php:210 videowall/index.php:319
+#: tablet/tablet_main.php:210 videowall/index.php:320
 #: console/dialogs/dlg_chguias.inc:55 console/dialogs/dlg_clubes.inc:122
 #: console/dialogs/dlg_competicion.inc:140
 #: console/dialogs/dlg_editInscripcion.inc:77
@@ -690,7 +695,7 @@ msgstr "Trabajar con el ring seleccionado"
 msgid "Comments"
 msgstr "Observaciones"
 
-#: chrono/index.php:201
+#: chrono/index.php:202
 msgid "You should select a valid session/ring"
 msgstr "Debe seleccionar un ring v&aacute;lido"
 
@@ -845,7 +850,7 @@ msgstr "Restaurar"
 #: console/dialogs/dlg_entrenamientos.inc:98 console/dialogs/dlg_equipos.inc:56
 #: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:139
 #: console/dialogs/dlg_jueces.inc:80 console/dialogs/dlg_perros.inc:91
-#: console/dialogs/dlg_pruebas.inc:171 console/dialogs/dlg_sesiones.inc:71
+#: console/dialogs/dlg_pruebas.inc:171 console/dialogs/dlg_sesiones.inc:68
 #: console/dialogs/dlg_usuarios.inc:45 console/dialogs/dlg_usuarios.inc:93
 msgid "Save"
 msgstr "Guardar"
@@ -979,160 +984,21 @@ msgstr "Acerca de AgilityContest"
 msgid "Users"
 msgstr "Usuarios"
 
-#: console/frm_admin.php:38 scripts/usuarios.js.php:45
-msgid "New user"
-msgstr "Nuevo usuario"
-
-#: console/frm_admin.php:41
-msgid "Edit user"
-msgstr "Editar usuario"
-
-#: console/frm_admin.php:44
-msgid "Delete user"
-msgstr "Borrar usuario"
-
-#: console/frm_admin.php:45 console/frm_admin.php:56 console/frm_admin.php:86
-#: console/frm_admin.php:94 console/frm_clubes.php:40
-#: console/frm_equipos.php:39 console/frm_guias.php:42
-#: console/frm_inscripciones2.php:109 console/frm_jueces.php:42
-#: console/frm_paises.php:35 console/frm_perros.php:72
-#: console/frm_pruebas.php:42 scripts/common.js.php:950
-#: scripts/common.js.php:951 scripts/common.js.php:964
-#: scripts/common.js.php:976 scripts/equipos.js.php:28 server/tools.php:245
-#: console/dialogs/dlg_newInscripcion.inc:34 console/dialogs/dlg_plugins.inc:17
-msgid "-- Search --"
-msgstr "-- Buscar --"
-
-#: console/frm_admin.php:51 console/frm_login.php:44 console/frm_myAdmin.php:54
-#: tablet/index.php:151 console/dialogs/dlg_configuracion.inc:375
-#: console/dialogs/dlg_usuarios.inc:58
-msgid "Password"
-msgstr "Contrase&ntilde;a"
-
-#: console/frm_admin.php:58 console/frm_admin.php:96 console/frm_clubes.php:46
-#: console/frm_equipos.php:48 console/frm_guias.php:52
-#: console/frm_inscripciones2.php:130 console/frm_jueces.php:52
-#: console/frm_paises.php:41 console/frm_perros.php:88
-#: console/frm_pruebas.php:60 console/import/import_clubes.inc.php:35
-#: console/import/import_handlers.inc.php:33
-#: console/import/import_perros.inc.php:33 console/dialogs/dlg_chguias.inc:32
-#: console/dialogs/dlg_chperros.inc:32 console/dialogs/dlg_competicion.inc:150
-#: console/dialogs/dlg_newInscripcion.inc:46
-#: console/dialogs/dlg_pruebas.inc:112 console/dialogs/dlg_tools.inc:24
-msgid "Clear"
-msgstr "Limpiar"
-
-#: console/frm_admin.php:63
+#: console/frm_admin.php:28
 msgid "Sessions"
 msgstr "Sesiones"
 
-#: console/frm_admin.php:76 scripts/sesiones.js.php:33
-msgid "New session"
-msgstr "Nueva Sesi&oacute;n"
-
-#: console/frm_admin.php:79
-msgid "Edit session"
-msgstr "Editar Sesi&oacute;n"
-
-#: console/frm_admin.php:82 scripts/sesiones.js.php:103
-msgid "Delete session"
-msgstr "Borrar Sesi&oacute;n"
-
-#: console/frm_admin.php:85
-msgid "Reset session"
-msgstr "Reniciar Sesi&oacute;n"
-
-#: console/frm_admin.php:101
+#: console/frm_admin.php:32
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: console/frm_admin.php:104
+#: console/frm_admin.php:35
 msgid "Plugins"
 msgstr "M&oacute;dulos"
 
-#: console/frm_admin.php:107 console/dialogs/dlg_tools.inc:1
+#: console/frm_admin.php:38 console/dialogs/dlg_tools.inc:1
 msgid "Tools"
 msgstr "Herramientas"
-
-#: console/frm_admin.php:123
-msgid "User data management"
-msgstr "Gesti&oacute;n de usuarios"
-
-#: console/frm_admin.php:126
-msgid "Updating users list"
-msgstr "Actualizando lista de usuarios"
-
-#: console/frm_admin.php:140 server/excel/common_writer.php:56
-#: console/dialogs/dlg_usuarios.inc:63
-msgid "Information"
-msgstr "Informaci&oacute;n"
-
-#: console/frm_admin.php:141 console/frm_clubes.php:174
-#: console/frm_jueces.php:91 console/frm_paises.php:138
-#: console/dialogs/dlg_chguias.inc:51 console/dialogs/dlg_guias.inc:41
-#: console/dialogs/dlg_jueces.inc:48 console/dialogs/dlg_usuarios.inc:67
-msgid "Telephone"
-msgstr "Tel&eacute;fono"
-
-#: console/frm_admin.php:164
-msgid "Session (ring) data management"
-msgstr "Gesti&oacute;n de sesiones (rings)"
-
-#: console/frm_admin.php:167
-msgid "Updating session list"
-msgstr "Actualizando lista de sesiones"
-
-#: console/frm_admin.php:181
-msgid "Description"
-msgstr "Descripci&oacute;n"
-
-#: console/frm_admin.php:183 console/frm_logout.php:31 scripts/auth.js.php:80
-#: scripts/auth.js.php:109 tablet/index.php:146 tablet/index.php:377
-#: console/dialogs/dlg_configuracion.inc:372
-#: console/dialogs/dlg_sesiones.inc:35
-msgid "User"
-msgstr "Usuario"
-
-#: console/frm_admin.php:201
-msgid "Create and insert new user<br/> into database"
-msgstr "Crea y a&ntilde;ade nuevo usuario<br /> a la base de datos"
-
-#: console/frm_admin.php:202
-msgid "Modify data on selected user"
-msgstr "Modificar los datos del usuario seleccionado"
-
-#: console/frm_admin.php:203
-msgid "Remove selected user from database"
-msgstr "Borrar el usuario seleccionado de la base de datos"
-
-#: console/frm_admin.php:204 console/frm_admin.php:212
-msgid "Clear search box. Update data"
-msgstr "Borrar casilla de busqueda. Actualizar datos"
-
-#: console/frm_admin.php:205 console/dialogs/dlg_usuarios.inc:106
-msgid "Change user password"
-msgstr "Cambiar la contrase&ntilde;a del usuario"
-
-#: console/frm_admin.php:208
-msgid "Add a new session (ring)<br/>into data base"
-msgstr ""
-"Crear y a&ntilde;adir una nueva sesi&oacute;n (ring)<br /> a la base de datos"
-
-#: console/frm_admin.php:209
-msgid "Modify data on selected session (ring)"
-msgstr "Modificar dats de la sesi&oacute;n (ring) seleccionada"
-
-#: console/frm_admin.php:210
-msgid "Remove selected session from database"
-msgstr "Borrar la sesi&oacute;n (ring) seleccionada de la BBDD"
-
-#: console/frm_admin.php:211
-msgid "Reset/Clear event log from selected session"
-msgstr "Vaciar el registro de eventos de la sesi&oacute;n seleccionada"
-
-#: console/frm_admin.php:213
-msgid "Look for sessions matching search criteria"
-msgstr "Buscar sesiones que coincidan con el criterio de busqueda"
 
 #: console/frm_clasificaciones.php:41
 msgid "Results & Scores"
@@ -1213,6 +1079,7 @@ msgstr "Datos t&eacute;cnicos de las mangas"
 #: console/frm_clasificaciones2.php:76
 #: console/frm_clasificaciones_equipos.php:84 tablet/tablet_main.php:122
 #: console/dialogs/dlg_ordensalida.inc:57 console/dialogs/dlg_plugins.inc:22
+#: console/dialogs/dlg_remotecontrol.inc:45
 msgid "Refresh"
 msgstr "Refrescar"
 
@@ -1347,6 +1214,33 @@ msgstr "Editar club"
 msgid "Delete Club"
 msgstr "Borrar club"
 
+#: console/frm_clubes.php:40 console/frm_equipos.php:39
+#: console/frm_guias.php:42 console/frm_inscripciones2.php:109
+#: console/frm_jueces.php:42 console/frm_paises.php:35
+#: console/frm_perros.php:72 console/frm_pruebas.php:42
+#: scripts/common.js.php:950 scripts/common.js.php:951
+#: scripts/common.js.php:964 scripts/common.js.php:976
+#: scripts/equipos.js.php:28 server/tools.php:245
+#: console/dialogs/dlg_newInscripcion.inc:34 console/dialogs/dlg_plugins.inc:17
+#: console/dialogs/dlg_sesiones.inc:94 console/dialogs/dlg_sesiones.inc:104
+#: console/dialogs/dlg_usuarios.inc:116 console/dialogs/dlg_usuarios.inc:127
+msgid "-- Search --"
+msgstr "-- Buscar --"
+
+#: console/frm_clubes.php:46 console/frm_equipos.php:48
+#: console/frm_guias.php:52 console/frm_inscripciones2.php:130
+#: console/frm_jueces.php:52 console/frm_paises.php:41
+#: console/frm_perros.php:88 console/frm_pruebas.php:60
+#: console/import/import_clubes.inc.php:35
+#: console/import/import_handlers.inc.php:33
+#: console/import/import_perros.inc.php:33 console/dialogs/dlg_chguias.inc:32
+#: console/dialogs/dlg_chperros.inc:32 console/dialogs/dlg_competicion.inc:150
+#: console/dialogs/dlg_newInscripcion.inc:46
+#: console/dialogs/dlg_pruebas.inc:112 console/dialogs/dlg_sesiones.inc:106
+#: console/dialogs/dlg_tools.inc:24 console/dialogs/dlg_usuarios.inc:129
+msgid "Clear"
+msgstr "Limpiar"
+
 #: console/frm_clubes.php:82
 msgid "Clubs data management"
 msgstr "Gesti&oacute;n de clubes"
@@ -1408,6 +1302,13 @@ msgstr "Gu&iacute;as pertenecientes al club"
 #: console/frm_clubes.php:163 console/frm_paises.php:127
 msgid "Loading handlers list"
 msgstr "Cargando lista de gu&iacute;as"
+
+#: console/frm_clubes.php:174 console/frm_jueces.php:91
+#: console/frm_paises.php:138 console/dialogs/dlg_chguias.inc:51
+#: console/dialogs/dlg_guias.inc:41 console/dialogs/dlg_jueces.inc:48
+#: console/dialogs/dlg_usuarios.inc:67 console/dialogs/dlg_usuarios.inc:245
+msgid "Telephone"
+msgstr "Tel&eacute;fono"
 
 #: console/frm_clubes.php:175 console/frm_jueces.php:98
 #: console/frm_paises.php:139 lib/templates/scores_mail.inc.php:193
@@ -1583,12 +1484,13 @@ msgstr "Programa"
 #: livestream/index.php:202 livestream/vwls_ordensalida.php:62
 #: public/pb_ordensalida.php:42 public/pb_ordensalida.php:51
 #: public/pbmenu_ordensalida.php:42 scripts/competicion.js.php:1093
+#: scripts/sesiones.js.php:156 scripts/sesiones.js.php:169
 #: server/excel/print_ordenSalidaExcel.php:107
 #: server/excel/print_ordenSalidaExcel.php:139
 #: server/excel/print_ordenSalidaExcel.php:186
 #: server/pdf/classes/PrintOrdenDeSalida.php:101
 #: server/pdf/classes/PrintOrdenSalidaEquipos4.php:94
-#: server/pdf/old/print_ordenDeSalida_awcfci.php:93 videowall/index.php:236
+#: server/pdf/old/print_ordenDeSalida_awcfci.php:93 videowall/index.php:237
 #: videowall/vw_ordensalida.php:36
 msgid "Starting order"
 msgstr "Orden de salida"
@@ -1646,6 +1548,7 @@ msgstr "Borrar"
 
 #: console/frm_equipos.php:56 scripts/results_and_scores.js.php:151
 #: console/dialogs/dlg_newInscripcion.inc:96
+#: console/dialogs/dlg_remotecontrol.inc:49
 msgid "Done"
 msgstr "Hecho"
 
@@ -1664,7 +1567,7 @@ msgstr "Hecho"
 #: console/dialogs/dlg_ordentandas.inc:81 console/dialogs/dlg_perros.inc:93
 #: console/dialogs/dlg_printer.inc:66 console/dialogs/dlg_pruebas.inc:118
 #: console/dialogs/dlg_pruebas.inc:173 console/dialogs/dlg_selectJornada.inc:44
-#: console/dialogs/dlg_sesiones.inc:73 console/dialogs/dlg_usuarios.inc:47
+#: console/dialogs/dlg_sesiones.inc:70 console/dialogs/dlg_usuarios.inc:47
 #: console/dialogs/dlg_usuarios.inc:95
 msgid "Cancel"
 msgstr "Cancelar"
@@ -2033,8 +1936,8 @@ msgstr "Importar inscripciones desde el fichero Excel seleccionado"
 #: console/dialogs/dlg_jornadas.inc:321 console/dialogs/dlg_jueces.inc:119
 #: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:113
 #: console/dialogs/dlg_printer.inc:96 console/dialogs/dlg_pruebas.inc:204
-#: console/dialogs/dlg_pruebas.inc:206 console/dialogs/dlg_sesiones.inc:84
-#: console/dialogs/dlg_usuarios.inc:108 console/dialogs/dlg_usuarios.inc:111
+#: console/dialogs/dlg_pruebas.inc:206 console/dialogs/dlg_sesiones.inc:117
+#: console/dialogs/dlg_usuarios.inc:143 console/dialogs/dlg_usuarios.inc:146
 msgid "Cancel operation. Close window"
 msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
 
@@ -2113,6 +2016,12 @@ msgstr ""
 msgid "User name"
 msgstr "Nombre de usuario"
 
+#: console/frm_login.php:44 console/frm_myAdmin.php:54 tablet/index.php:151
+#: console/dialogs/dlg_configuracion.inc:375
+#: console/dialogs/dlg_usuarios.inc:58 console/dialogs/dlg_usuarios.inc:122
+msgid "Password"
+msgstr "Contrase&ntilde;a"
+
 #: console/frm_login.php:48 console/frm_pruebas.php:102
 #: server/excel/common_writer.php:72 server/excel/common_writer.php:114
 #: console/dialogs/dlg_plugins.inc:53 console/dialogs/dlg_pruebas.inc:135
@@ -2139,6 +2048,13 @@ msgstr "Iniciar sesi&oacute;n como invitado. Cerrar ventana"
 #: console/frm_logout.php:31
 msgid "Confirm logout on current session"
 msgstr "Confirme que desea cerrar la sesi&oacute;n actual"
+
+#: console/frm_logout.php:31 scripts/auth.js.php:80 scripts/auth.js.php:109
+#: tablet/index.php:146 tablet/index.php:377
+#: console/dialogs/dlg_configuracion.inc:372
+#: console/dialogs/dlg_sesiones.inc:35 console/dialogs/dlg_sesiones.inc:161
+msgid "User"
+msgstr "Usuario"
 
 #: console/frm_logout.php:45
 msgid "Logout session"
@@ -2277,7 +2193,7 @@ msgstr "Nombre del gu&iacute;a"
 
 #: console/frm_perros.php:186 console/import/import_clubes.inc.php:98
 #: console/dialogs/dlg_guias.inc:121 console/dialogs/dlg_pruebas.inc:280
-#: console/dialogs/dlg_pruebas.inc:370 console/dialogs/dlg_usuarios.inc:142
+#: console/dialogs/dlg_pruebas.inc:370 console/dialogs/dlg_usuarios.inc:177
 msgid "Club name"
 msgstr "Nombre del Club"
 
@@ -2675,7 +2591,7 @@ msgstr "Borrar selecci&oacute;n de club"
 #: console/import/import_clubes.inc.php:99 console/dialogs/dlg_clubes.inc:65
 #: console/dialogs/dlg_clubes.inc:195 console/dialogs/dlg_guias.inc:122
 #: console/dialogs/dlg_pruebas.inc:282 console/dialogs/dlg_pruebas.inc:371
-#: console/dialogs/dlg_usuarios.inc:143
+#: console/dialogs/dlg_usuarios.inc:178
 msgid "Province"
 msgstr "Provincia"
 
@@ -2855,7 +2771,7 @@ msgstr "Selecciona la prueba, jornada y vista"
 msgid "Contest"
 msgstr "Prueba"
 
-#: index.php:145 livestream/index.php:199 videowall/index.php:231
+#: index.php:145 livestream/index.php:199 videowall/index.php:232
 msgid "Select View"
 msgstr "Selecciona vista"
 
@@ -2867,9 +2783,10 @@ msgstr "Listado de inscritos"
 
 #: index.php:148 index2.php:302 livestream/index.php:201
 #: livestream/vwls_entrenamientos.php:63 public/pb_entrenamientos.php:36
-#: public/pbmenu_entrenamientos.php:38 videowall/index.php:235
-#: videowall/index.php:245 videowall/vw_entrenamientos.php:36
-#: videowall/vws_entrenamientos.php:36
+#: public/pbmenu_entrenamientos.php:38 scripts/sesiones.js.php:160
+#: scripts/sesiones.js.php:170 scripts/sesiones.js.php:175
+#: videowall/index.php:236 videowall/index.php:246
+#: videowall/vw_entrenamientos.php:36 videowall/vws_entrenamientos.php:36
 msgid "Training session"
 msgstr "Sesi&oacute;n de entrenamientos"
 
@@ -2879,7 +2796,8 @@ msgstr "Sesi&oacute;n de entrenamientos"
 #: public/pb_parciales_equipos.php:38 public/pb_parciales_equipos.php:44
 #: public/pb_parciales_equipos.php:54 public/pbmenu_parciales.php:44
 #: public/pbmenu_parciales_equipos.php:44 scripts/printer.js.php:212
-#: videowall/index.php:237 videowall/index.php:241
+#: scripts/sesiones.js.php:158 scripts/sesiones.js.php:171
+#: scripts/sesiones.js.php:176 videowall/index.php:238 videowall/index.php:242
 #: videowall/vw_parciales.php:43 videowall/vwc_parciales.php:51
 msgid "Partial scores"
 msgstr "Clasificaci&oacute;n parcial"
@@ -2893,10 +2811,11 @@ msgstr "Clasificaci&oacute;n parcial"
 #: public/pb_finales.php:38 public/pb_finales.php:44 public/pb_finales.php:53
 #: public/pb_finales_equipos.php:38 public/pb_finales_equipos.php:44
 #: public/pb_finales_equipos.php:53 public/pbmenu_finales.php:42
-#: public/pbmenu_finales_equipos.php:43
+#: public/pbmenu_finales_equipos.php:43 scripts/sesiones.js.php:159
+#: scripts/sesiones.js.php:173 scripts/sesiones.js.php:177
 #: server/pdf/classes/PrintClasificacion.php:144
-#: server/pdf/classes/PrintClasificacionTeam.php:170 videowall/index.php:238
-#: videowall/index.php:242 videowall/vw_finales.php:46
+#: server/pdf/classes/PrintClasificacionTeam.php:170 videowall/index.php:239
+#: videowall/index.php:243 videowall/vw_finales.php:46
 #: videowall/vwc_finales.php:51
 msgid "Final scores"
 msgstr "Clasificaci&oacute;n final"
@@ -3487,15 +3406,16 @@ msgstr "Internacional"
 msgid "Learning"
 msgstr "Pr&aacute;cticas"
 
-#: livestream/index.php:191 videowall/index.php:222
+#: livestream/index.php:191 videowall/index.php:223
 msgid "Select ring, display name (optional) and view to deploy"
 msgstr "Indica ring, nombre de la pantalla (opcional) y vista a desplegar"
 
-#: livestream/index.php:195 videowall/index.php:227
+#: livestream/index.php:195 videowall/index.php:228
 msgid "Select Session/Ring"
 msgstr "Selecciona Ring"
 
-#: livestream/index.php:203 console/dialogs/dlg_configuracion.inc:225
+#: livestream/index.php:203 scripts/sesiones.js.php:157
+#: console/dialogs/dlg_configuracion.inc:225
 msgid "Live Stream"
 msgstr "Video en directo"
 
@@ -3515,11 +3435,11 @@ msgstr "Chroma Key"
 msgid "LiveStream"
 msgstr "Video en directo"
 
-#: livestream/index.php:260 videowall/index.php:300
+#: livestream/index.php:260 videowall/index.php:301
 msgid "Use selected as working session"
 msgstr "Trabajar con el la sesi&oacute;n seleccionada"
 
-#: livestream/index.php:308 videowall/index.php:348
+#: livestream/index.php:308 videowall/index.php:349
 msgid "You should select a valid session"
 msgstr "Debe seleccionar una sesi&oacute;n v&aacute;lida"
 
@@ -3944,7 +3864,7 @@ msgstr ""
 #: scripts/guias.js.php:151 scripts/jueces.js.php:113 scripts/perros.js.php:105
 #: scripts/perros.js.php:206 scripts/pruebas.js.php:130
 #: scripts/pruebas.js.php:239 scripts/sesiones.js.php:103
-#: scripts/sesiones.js.php:133 scripts/tandas.js.php:123
+#: scripts/sesiones.js.php:127 scripts/tandas.js.php:123
 #: scripts/usuarios.js.php:109 console/dialogs/dlg_competicion.inc:223
 #: console/dialogs/dlg_configuracion.inc:598
 msgid "Confirm"
@@ -3957,7 +3877,7 @@ msgstr "Borrar fichero de errores y trazas (log) de ejecuci&oacute;n"
 #: scripts/admin.js.php:60 scripts/guias.js.php:80 scripts/guias.js.php:151
 #: scripts/jueces.js.php:113 scripts/perros.js.php:105
 #: scripts/perros.js.php:206 scripts/sesiones.js.php:103
-#: scripts/sesiones.js.php:133 scripts/tandas.js.php:123
+#: scripts/sesiones.js.php:127 scripts/tandas.js.php:123
 #: scripts/usuarios.js.php:109 console/dialogs/dlg_competicion.inc:223
 msgid "Sure?"
 msgstr "¿Seguro?"
@@ -4296,7 +4216,7 @@ msgstr "Error al guardar"
 #: scripts/guias.js.php:144 scripts/guias.js.php:148 scripts/jueces.js.php:106
 #: scripts/jueces.js.php:110 scripts/perros.js.php:102
 #: scripts/pruebas.js.php:127 scripts/sesiones.js.php:96
-#: scripts/sesiones.js.php:100 scripts/sesiones.js.php:130
+#: scripts/sesiones.js.php:100 scripts/sesiones.js.php:124
 #: scripts/tandas.js.php:116 scripts/tandas.js.php:120
 #: scripts/usuarios.js.php:102 scripts/usuarios.js.php:106
 msgid "Delete error"
@@ -5185,8 +5105,12 @@ msgstr "Enviando resultados y clasificaciones a"
 msgid "Mail successfully sent"
 msgstr "Correo enviado sin errores"
 
+#: scripts/sesiones.js.php:33 console/dialogs/dlg_sesiones.inc:84
+msgid "New session"
+msgstr "Nueva Sesi&oacute;n"
+
 #: scripts/sesiones.js.php:51 scripts/sesiones.js.php:96
-#: scripts/sesiones.js.php:130
+#: scripts/sesiones.js.php:124
 msgid "There is no session selected"
 msgstr "No se ha indicado ninguna sesi&oacute;n"
 
@@ -5198,9 +5122,46 @@ msgstr "Esta entrada no se puede editar"
 msgid "Modify session data"
 msgstr "Editar informaci&oacute;n de la sesi&oacute;n"
 
-#: scripts/sesiones.js.php:133
+#: scripts/sesiones.js.php:103 console/dialogs/dlg_sesiones.inc:90
+msgid "Delete session"
+msgstr "Borrar Sesi&oacute;n"
+
+#: scripts/sesiones.js.php:127
 msgid "Delete event history on session"
 msgstr "Borrar historial de eventos de esta sesi&oacute;n"
+
+#: scripts/sesiones.js.php:150
+msgid "Ring session id"
+msgstr "Ring ID"
+
+#: scripts/sesiones.js.php:163 scripts/sesiones.js.php:181
+#: console/dialogs/dlg_remotecontrol.inc:101
+#: console/dialogs/dlg_remotecontrol.inc:134
+msgid "View mode"
+msgstr "Modo de pantalla"
+
+#: scripts/sesiones.js.php:172 videowall/index.php:247
+msgid "Partial Scores"
+msgstr "Clasificaci&oacute;n parcial"
+
+#: scripts/sesiones.js.php:172 scripts/sesiones.js.php:175
+#: scripts/sesiones.js.php:178 tests/simplified_final_individual.php:18
+#: videowall/index.php:246 videowall/index.php:247 videowall/index.php:248
+msgid "simplified"
+msgstr "simplificada"
+
+#: scripts/sesiones.js.php:174 videowall/index.php:251
+msgid "Advertising videos"
+msgstr "V&iacute;deos promocionales"
+
+#: scripts/sesiones.js.php:176 scripts/sesiones.js.php:177
+#: videowall/index.php:242 videowall/index.php:243
+msgid "Call to ring "
+msgstr "Llamada a pista"
+
+#: scripts/sesiones.js.php:178 videowall/index.php:248
+msgid "Final Scores"
+msgstr "Clasificaci&oacute;n final"
 
 #: scripts/tandas.js.php:60 scripts/tandas.js.php:116
 msgid "There is no activity selected"
@@ -5233,6 +5194,10 @@ msgstr "Invitado"
 #: scripts/usuarios.js.php:34
 msgid "Unknown"
 msgstr "Desconocido"
+
+#: scripts/usuarios.js.php:45 console/dialogs/dlg_usuarios.inc:109
+msgid "New user"
+msgstr "Nuevo usuario"
 
 #: scripts/usuarios.js.php:61 scripts/usuarios.js.php:102
 msgid "There is no user selected"
@@ -5478,6 +5443,11 @@ msgstr "Vel"
 #: server/mail/MailManager.php:593
 msgid "Results"
 msgstr "Resultados"
+
+#: server/excel/common_writer.php:56 console/dialogs/dlg_usuarios.inc:63
+#: console/dialogs/dlg_usuarios.inc:244
+msgid "Information"
+msgstr "Informaci&oacute;n"
 
 #: server/excel/common_writer.php:81
 msgid "Program info"
@@ -5864,48 +5834,27 @@ msgstr "Abrir el panel de entrada de datos para el dorsal seleccionado"
 msgid "Final individual"
 msgstr "Final individual"
 
-#: tests/simplified_final_individual.php:18 videowall/index.php:245
-#: videowall/index.php:246 videowall/index.php:247
-msgid "simplified"
-msgstr "simplificada"
-
-#: videowall/index.php:233
+#: videowall/index.php:234
 msgid "Video Wall"
 msgstr "Video-Marcadores"
 
-#: videowall/index.php:240
+#: videowall/index.php:241
 msgid "Combo view"
 msgstr "Vista combinada"
 
-#: videowall/index.php:241 videowall/index.php:242
-msgid "Call to ring "
-msgstr "Llamada a pista"
-
-#: videowall/index.php:244
+#: videowall/index.php:245
 msgid "Simplified"
 msgstr "Simplificada"
 
-#: videowall/index.php:246
-msgid "Partial Scores"
-msgstr "Clasificaci&oacute;n parcial"
-
-#: videowall/index.php:247
-msgid "Final Scores"
-msgstr "Clasificaci&oacute;n final"
-
-#: videowall/index.php:249
+#: videowall/index.php:250
 msgid "Extra info"
 msgstr "Datos adicionales"
 
-#: videowall/index.php:250
-msgid "Advertising videos"
-msgstr "V&iacute;deos promocionales"
-
-#: videowall/index.php:287
+#: videowall/index.php:288
 msgid "Videowall"
 msgstr "Video marcador"
 
-#: videowall/index.php:369 videowall/index.php:408
+#: videowall/index.php:370 videowall/index.php:409
 msgid "Current license has no permission to handle training sessions"
 msgstr ""
 "Esta licencia no permite la gesti&oacute;n de sesiones de entrenamiento"
@@ -7389,6 +7338,36 @@ msgstr "Actualizando lista de clubes"
 msgid "Sent"
 msgstr "Enviado"
 
+#: console/dialogs/dlg_remotecontrol.inc:26
+msgid "Videowall Screens"
+msgstr "Pantallas video-marcadores"
+
+#: console/dialogs/dlg_remotecontrol.inc:30
+msgid "Live Streaming windows"
+msgstr "Ventanas de streaming"
+
+#: console/dialogs/dlg_remotecontrol.inc:34
+msgid "Chronometer displays"
+msgstr "Video-cronometros"
+
+#: console/dialogs/dlg_remotecontrol.inc:56
+msgid "Video control dialog"
+msgstr "Control de pantallas"
+
+#: console/dialogs/dlg_remotecontrol.inc:88
+#: console/dialogs/dlg_remotecontrol.inc:121
+#: console/dialogs/dlg_remotecontrol.inc:154
+msgid "Updating videowall session list"
+msgstr "Actualizando lista de pantallas"
+
+#: console/dialogs/dlg_remotecontrol.inc:176
+msgid "Reload and update active client lists"
+msgstr "Actualzar y recargar la lista de pantallas activas"
+
+#: console/dialogs/dlg_remotecontrol.inc:177
+msgid "End video display remote control session. Close window"
+msgstr "Finalizar sesi&oacute;n de control de pantallas. Cerrar ventana"
+
 #: console/dialogs/dlg_resultados_equipos.inc:35
 #: console/dialogs/dlg_resultados_individual.inc:35
 msgid "Results on selected categories"
@@ -7450,25 +7429,70 @@ msgstr "Stream OGV"
 msgid "Stream Web-M"
 msgstr "Stream Web-M"
 
-#: console/dialogs/dlg_sesiones.inc:62
-msgid "Sequences"
-msgstr "Secuencias"
+#: console/dialogs/dlg_sesiones.inc:87
+msgid "Edit session"
+msgstr "Editar Sesi&oacute;n"
 
-#: console/dialogs/dlg_sesiones.inc:81
+#: console/dialogs/dlg_sesiones.inc:93
+msgid "Reset session"
+msgstr "Reniciar Sesi&oacute;n"
+
+#: console/dialogs/dlg_sesiones.inc:99
+msgid "Display Control"
+msgstr "Control de Pantallas"
+
+#: console/dialogs/dlg_sesiones.inc:115
 msgid "Disconnect current user from session"
 msgstr "Desconectar al usuario activo en esta sesi&oacute;n"
 
-#: console/dialogs/dlg_sesiones.inc:82
-msgid "View/Edit sequences for"
-msgstr "Ver/Editar secuencias para"
-
-#: console/dialogs/dlg_sesiones.inc:82
-msgid "videowall attached to this session"
-msgstr "los videomarcadores de esta sesi&oacute;n"
-
-#: console/dialogs/dlg_sesiones.inc:83
+#: console/dialogs/dlg_sesiones.inc:116
 msgid "Register session information. Upate database"
 msgstr "Guardar la informaci&oacute;n de la sesi&oacute;n en la base de datos"
+
+#: console/dialogs/dlg_sesiones.inc:142
+msgid "Session (ring) data management"
+msgstr "Gesti&oacute;n de sesiones (rings)"
+
+#: console/dialogs/dlg_sesiones.inc:145
+msgid "Updating session list"
+msgstr "Actualizando lista de sesiones"
+
+#: console/dialogs/dlg_sesiones.inc:159
+msgid "Description"
+msgstr "Descripci&oacute;n"
+
+#: console/dialogs/dlg_sesiones.inc:179
+msgid "Add a new session (ring)<br/>into data base"
+msgstr ""
+"Crear y a&ntilde;adir una nueva sesi&oacute;n (ring)<br /> a la base de datos"
+
+#: console/dialogs/dlg_sesiones.inc:180
+msgid "Modify data on selected session (ring)"
+msgstr "Modificar dats de la sesi&oacute;n (ring) seleccionada"
+
+#: console/dialogs/dlg_sesiones.inc:181
+msgid "Remove selected session from database"
+msgstr "Borrar la sesi&oacute;n (ring) seleccionada de la BBDD"
+
+#: console/dialogs/dlg_sesiones.inc:182
+msgid "Reset/Clear event log from selected session"
+msgstr "Vaciar el registro de eventos de la sesi&oacute;n seleccionada"
+
+#: console/dialogs/dlg_sesiones.inc:183 console/dialogs/dlg_usuarios.inc:266
+msgid "Clear search box. Update data"
+msgstr "Borrar casilla de busqueda. Actualizar datos"
+
+#: console/dialogs/dlg_sesiones.inc:184
+msgid "Look for sessions matching search criteria"
+msgstr "Buscar sesiones que coincidan con el criterio de busqueda"
+
+#: console/dialogs/dlg_sesiones.inc:185
+msgid "View/control active displays"
+msgstr "Ver/Controlar pantallas conectadas"
+
+#: console/dialogs/dlg_sesiones.inc:185
+msgid "on currently defined sessions"
+msgstr "en las sesiones definidas"
 
 #: console/dialogs/dlg_tools.inc:5
 msgid "Create database backup"
@@ -7567,13 +7591,54 @@ msgstr "Informaci&oacute;n del usuario"
 msgid "Admin"
 msgstr "Administrador"
 
-#: console/dialogs/dlg_usuarios.inc:107
+#: console/dialogs/dlg_usuarios.inc:112
+msgid "Edit user"
+msgstr "Editar usuario"
+
+#: console/dialogs/dlg_usuarios.inc:115
+msgid "Delete user"
+msgstr "Borrar usuario"
+
+#: console/dialogs/dlg_usuarios.inc:141 console/dialogs/dlg_usuarios.inc:267
+msgid "Change user password"
+msgstr "Cambiar la contrase&ntilde;a del usuario"
+
+#: console/dialogs/dlg_usuarios.inc:142
 msgid "Store user information into database"
 msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 
-#: console/dialogs/dlg_usuarios.inc:110
+#: console/dialogs/dlg_usuarios.inc:145
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
+
+#: console/dialogs/dlg_usuarios.inc:227
+msgid "User data management"
+msgstr "Gesti&oacute;n de usuarios"
+
+#: console/dialogs/dlg_usuarios.inc:230
+msgid "Updating users list"
+msgstr "Actualizando lista de usuarios"
+
+#: console/dialogs/dlg_usuarios.inc:263
+msgid "Create and insert new user<br/> into database"
+msgstr "Crea y a&ntilde;ade nuevo usuario<br /> a la base de datos"
+
+#: console/dialogs/dlg_usuarios.inc:264
+msgid "Modify data on selected user"
+msgstr "Modificar los datos del usuario seleccionado"
+
+#: console/dialogs/dlg_usuarios.inc:265
+msgid "Remove selected user from database"
+msgstr "Borrar el usuario seleccionado de la base de datos"
+
+#~ msgid "Sequences"
+#~ msgstr "Secuencias"
+
+#~ msgid "View/Edit sequences for"
+#~ msgstr "Ver/Editar secuencias para"
+
+#~ msgid "videowall attached to this session"
+#~ msgstr "los videomarcadores de esta sesi&oacute;n"
 
 #~ msgid "Select ring"
 #~ msgstr "Selecciona ring"

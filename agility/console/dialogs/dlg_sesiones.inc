@@ -60,14 +60,52 @@ $config =Config::getInstance();
 
         </form>
     </div>
-    
-   	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-   	<div id="sesiones-dlg-buttons">
-   	    <a id="sesiones-okBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-ok'" onclick="saveSession()"><?php _e('Save'); ?></a>
-   	    <a id="sesiones-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="$('#sesiones-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
-   	</div>
+
+
+<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO de edicion de sesiones -->
+<div id="sesiones-dlg-buttons">
+    <a id="sesiones-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls:'icon-ok'" onclick="saveSession()"><?php _e('Save'); ?></a>
+    <a id="sesiones-cancelBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls:'icon-cancel'" onclick="$('#sesiones-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+</div>
+
+<!-- TABLA DE jquery-easyui para listar y editar la BBDD DE SESIONES -->
+<div  style="width:100%;height:500px">
+    <!-- DECLARACION DE LA TABLA DE SESIONES -->
+    <table id="sesiones-datagrid">  </table>
+</div>
+
+<!-- BARRA DE TAREAS DE LA TABLA DE SESIONES -->
+<div id="sesiones-toolbar" style="width:100%;display:inline-block">
+ 			<span style="float:left;padding:5px">
+   				<a id="sesiones-newBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-order'"
+                   onclick="newSession('#sesiones-datagrid',$('#sesiones-datagrid-search').val())"><?php _e('New session'); ?></a>
+   				<a id="sesiones-editBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-edit'"
+                   onclick="editSession('#sesiones-datagrid')"><?php _e('Edit session'); ?></a>
+   				<a id="sesiones-delBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-trash'"
+                   onclick="deleteSession('#sesiones-datagrid')"><?php _e('Delete session'); ?></a>
+   				<a id="sesiones-resetBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-redo'"
+                   onclick="resetSession('#sesiones-datagrid')"><?php _e('Reset session'); ?></a>
+   				<input id="sesiones-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
+                       onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
+   			</span>
+    <span style="float:right;padding:5px">
+				<a id="sesiones-seqBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-video-tv'" onclick="$('#remote-dialog').dialog('open');"><?php _e('Display Control'); ?></a>
+   				<a id="sesiones-reloadBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-brush'"
+                   onclick="
+                           // clear selection and reload table
+                           $('#sesiones-datagrid-search').val('<?php _e('-- Search --'); ?>');
+                           $('#sesiones-datagrid').datagrid('load',{ where: '' });"
+                ><?php _e('Clear'); ?></a>
+   			</span>
+</div>
    	
 	<script type="text/javascript">
 		// declaraciones
@@ -91,4 +129,58 @@ $config =Config::getInstance();
         $('#sesiones-Livestream').textbox();
         $('#sesiones-LiveStream2').textbox();
         $('#sesiones-LiveStream3').textbox();
+
+        // datos de la tabla de sesiones
+        $('#sesiones-datagrid').datagrid({
+            // datos del panel padre asociado
+            fit: true,
+            border: false,
+            closable: false,
+            collapsible: false,
+            expansible: false,
+            collapsed: false,
+            title: '<?php _e('Session (ring) data management'); ?>',
+            // datos de la conexion ajax
+            url: '/agility/server/database/sessionFunctions.php?Operation=select',
+            loadMsg: '<?php _e('Updating session list'); ?>',
+            method: 'get',
+            toolbar: '#sesiones-toolbar',
+            pagination: false,
+            rownumbers: true,
+            fitColumns: true,
+            singleSelect: true,
+            view: scrollview,
+            pageSize: 50,
+            multiSort: true,
+            remoteSort: true,
+            columns: [[
+                { field:'ID',		hidden:true },
+                { field:'Nombre',		width:25, sortable:true,title:'<?php _e('Name'); ?>' },
+                { field:'Comentario',	width:55, sortable:true,title:'<?php _e('Description'); ?>' },
+                { field:'Operador',		hidden:true },
+                { field:'Login',		width:25, sortable:true,title:'<?php _e('User'); ?>' },
+                { field:'Background',	width:30,				title:'Stream MJPEG' },
+                { field:'LiveStream',	width:30,				title:'Stream h264' },
+                { field:'LiveStream2',	width:30,   			title:'Stream Ogg' },
+                { field:'LiveStream3',	width:30,				title:'Stream WebM' }
+            ]],
+            // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+            rowStyler:myRowStyler,
+            // on double click fireup editor dialog
+            onDblClickRow:function() {
+                editSession('#sesiones-datagrid');
+            }
+        });
+
+        // key handler ( notify "null" dialog cause we dont want to close tabs on escape :-)
+        addKeyHandler('#sesiones-datagrid',null,newSession,editSession,deleteSession);
+
+        // tooltips de la tabla de sesiones
+        addTooltip($('#sesiones-newBtn').linkbutton(),'<?php _e("Add a new session (ring)<br/>into data base"); ?>');
+        addTooltip($('#sesiones-editBtn').linkbutton(),'<?php _e("Modify data on selected session (ring)"); ?>');
+        addTooltip($('#sesiones-delBtn').linkbutton(),'<?php _e("Remove selected session from database"); ?>');
+        addTooltip($('#sesiones-resetBtn').linkbutton(),'<?php _e("Reset/Clear event log from selected session"); ?>');
+        addTooltip($('#sesiones-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update data"); ?>');
+        addTooltip($('#sesiones-datagrid-search'),'<?php _e("Look for sessions matching search criteria"); ?>');
+        addTooltip($('#sesiones-seqBtn').linkbutton(),'<?php _e("View/control active displays"); ?>'+" <br />"+'<?php _e("on currently defined sessions"); ?>');
     </script>

@@ -71,6 +71,7 @@ var ac_clientOpts = {
     'BaseName':'chrono',
     'Ring':1,
     'View':0,
+    'Mode':0, // no view nor mode in chrono, but needed
     'SensorDate':0,
     'Timeout':0,
     'SessionName':''

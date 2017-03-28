@@ -161,6 +161,12 @@
 .icon-zipfile{
 	 background:url('icons/zipfile.png') no-repeat center center;
 }
+.icon-clock{
+	 background:url('icons/clock.png') no-repeat center center;
+}
+.icon-live{
+	 background:url('icons/live.png') no-repeat center center;
+}
 /* end added icons */
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;

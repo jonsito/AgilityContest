@@ -23,15 +23,15 @@ $config =Config::getInstance();
     <!-- ventana de control remoto para los cronos/videomarcadores/livestream definidos en una o varias sesiones -->
     <div id="remote-dialog" style="width:720px;height:480px;padding:5px;">
         <div id="remote-accordion">
-            <div title="<?php _e('Videowall Screens');?>">
+            <div title="<?php _e('Videowall Screens');?>" data-options="iconCls:'icon-video-tv'">
                 <p>List of currently active Videowall screens</p>
                 <table id="remote-videowall-datagrid" style="width:60%"></table>
             </div>
-            <div title="<?php _e('Live Streaming windows');?>">
+            <div title="<?php _e('Live Streaming windows');?>" data-options="iconCls:'icon-live'">
                 <p>List of currently active livestream windows</p>
                 <table id="remote-livestream-datagrid" style="width:60%"></table>
             </div>
-            <div title="<?php _e('Chronometer displays');?>">
+            <div title="<?php _e('Chronometer displays');?>" data-options="iconCls:'icon-clock'">
                 <p>List of currently active Video-chronometer displays</p>
                 <table id="remote-chronometer-datagrid" style="width:60%"></table>
             </div>
@@ -56,8 +56,11 @@ $config =Config::getInstance();
             title: '<?php _e("Video control dialog");?>',
             closed:true,
             buttons:'#remote-dlg-buttons',
-            iconCls:'icon-video-tv',
-            modal:true
+            modal:true,
+            onBeforeOpen: function(param) {
+                reloadRemoteClientList();
+                return true;
+            }
 		});
         // on ESC key close session
         $('#remote-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
@@ -90,12 +93,13 @@ $config =Config::getInstance();
             singleSelect: false,
             multiSort: false,
             remoteSort: false,
-            idField:'SessionName',
+            idField:'Name',
             columns: [[
                 { field:'Source',		hidden:true },
                 { field:'Name',	        width:40, sortable:true,title:'<?php _e('Display name'); ?>' },
-                { field:'Session',	    width:10, sortable:true,title:'<?php _e('Ring'); ?>' },// ring name
-                { field:'View',		    width:50, sortable:true,title:'<?php _e('View mode'); ?>' },
+                { field:'Session',	    width:20, sortable:true,title:'<?php _e('Ring'); ?>', formatter: formatRingName },// ring name
+                { field:'View',		    width:40, sortable:true,title:'<?php _e('View mode'); ?>', formatter: formatVideowallView },
+                { field:'Mode',		    hidden:true }, // no sense in videowall
                 { field:'LastCall',		hidden:true }
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
@@ -122,12 +126,13 @@ $config =Config::getInstance();
             singleSelect: false,
             multiSort: false,
             remoteSort: false,
-            idField:'SessionName',
+            idField:'Name',
             columns: [[
                 { field:'Source',		hidden:true },
                 { field:'Name',	        width:40, sortable:true,title:'<?php _e('Display name'); ?>' },
-                { field:'Session',	    width:10, sortable:true,title:'<?php _e('Ring'); ?>' },// ring name
-                { field:'View',		    width:50, sortable:true,title:'<?php _e('View mode'); ?>' },
+                { field:'Session',	    width:20, sortable:true,title:'<?php _e('Ring'); ?>', formatter:formatRingName },// ring name
+                { field:'View',		    width:40, sortable:true,title:'<?php _e('View mode'); ?>',formatter: formatLiveStreamView },
+                { field:'Mode',		    hidden:true }, // do not show in livestream, but need to retrieve
                 { field:'LastCall',		hidden:true }
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
@@ -145,7 +150,7 @@ $config =Config::getInstance();
             collapsed: false,
             // datos de la conexion ajax
             url: '/agility/server/database/sessionFunctions.php',
-            queryParams: { Operation:'getClients',SessionType:'chronometer' },
+            queryParams: { Operation:'getClients',SessionType:'chrono' },
             loadMsg: '<?php _e('Updating videowall session list'); ?>',
             method: 'get',
             pagination: false,
@@ -154,12 +159,13 @@ $config =Config::getInstance();
             singleSelect: false,
             multiSort: false,
             remoteSort: false,
-            idField:'SessionName',
+            idField:'Name',
             columns: [[
                 { field:'Source',		hidden:true },
-                { field:'Name',	        width:40, sortable:true,title:'<?php _e('Display name'); ?>' },
-                { field:'Session',	    width:10, sortable:true,title:'<?php _e('Ring'); ?>' },// ring name
-                { field:'View',		    width:50, sortable:true,title:'<?php _e('View mode'); ?>' },
+                { field:'Name',	        width:60, sortable:true,title:'<?php _e('Display name'); ?>' },
+                { field:'Session',	    width:40, sortable:true,title:'<?php _e('Ring'); ?>', formatter:formatRingName  },// ring name
+                { field:'View',		    hidden:true }, // no sense in chrono
+                { field:'Mode',		    hidden:true }, // no sense in chrono
                 { field:'LastCall',		hidden:true }
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css

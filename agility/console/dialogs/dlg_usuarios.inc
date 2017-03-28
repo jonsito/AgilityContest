@@ -94,7 +94,42 @@ $config =Config::getInstance();
    	    <a id="usuarios-cancelBtn" href="#" class="easyui-linkbutton" 
    	    	data-options="iconCls:'icon-cancel'" onclick="$('#usuarios-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	</div>
-   	
+
+<!-- TABLA DE jquery-easyui para listar y editar la BBDD DE USUARIOS -->
+<div  style="width:100%;height:500px">
+    <!-- DECLARACION DE LA TABLA DE USUARIOS -->
+    <table id="usuarios-datagrid">  </table>
+</div>
+
+<!-- BARRA DE TAREAS DE LA TABLA DE USUARIOS -->
+<div id="usuarios-toolbar" style="width:100%;display:inline-block">
+ 			<span style="float:left;padding:5px">
+   				<a id="usuarios-newBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-users'"
+                   onclick="newUser('#usuarios-datagrid',$('#usuarios-datagrid-search').val())"><?php _e('New user'); ?></a>
+   				<a id="usuarios-editBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-edit'"
+                   onclick="editUser('#usuarios-datagrid')"><?php _e('Edit user'); ?></a>
+   				<a id="usuarios-delBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-trash'"
+                   onclick="deleteUser('#usuarios-datagrid')"><?php _e('Delete user'); ?></a>
+   				<input id="usuarios-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
+                       onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
+   			</span>
+    <span style="float:right;padding:5px">
+   				<a id="usuarios-keyBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-key'"
+                   onclick="setPassword('#usuarios-datagrid')"><?php _e('Password'); ?></a>
+   				<a id="usuarios-reloadBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-brush'"
+                   onclick="
+                           // clear selection and reload table
+                           $('#usuarios-datagrid-search').val('<?php _e('-- Search --'); ?>');
+                           $('#usuarios-datagrid').datagrid('load',{ where: '' });"
+                ><?php _e('Clear'); ?></a>
+   			</span>
+</div>
+
 	<script type="text/javascript">
 		// declaraciones
 		$('#usuarios-dialog').dialog({ closed:true, buttons:'#usuarios-dlg-buttons', iconCls:'icon-users', modal:true });
@@ -178,4 +213,57 @@ $config =Config::getInstance();
             $('#password-okBtn').click();
             return false;
         });
-	</script>
+
+
+        // datos de la tabla de usuarios
+        $('#usuarios-datagrid').datagrid({
+            // datos del panel padre asociado
+            fit: true,
+            border: false,
+            closable: false,
+            collapsible: false,
+            expansible: false,
+            collapsed: false,
+            title: '<?php _e('User data management'); ?>',
+            // datos de la conexion ajax
+            url: '/agility/server/database/userFunctions.php?Operation=select',
+            loadMsg: '<?php _e('Updating users list'); ?>',
+            method: 'get',
+            toolbar: '#usuarios-toolbar',
+            pagination: false,
+            rownumbers: true,
+            fitColumns: true,
+            singleSelect: true,
+            view: scrollview,
+            pageSize: 50,
+            multiSort: true,
+            remoteSort: true,
+            columns: [[
+                { field:'ID',		hidden:true },
+                { field:'Login',	width:15, sortable:true,	title:'Login' },
+                { field:'Gecos',	width:30, sortable:true,	title:'<?php _e('Information'); ?>' },
+                { field:'Phone',	width:10, 					title:'<?php _e('Telephone'); ?>' },
+                { field:'Email',	width:20, sortable:true,   	title:'E-mail' },
+                { field:'Club',		hidden:true },
+                { field:'NombreClub', width:20, sortable:true,   	title:'<?php _e('Club')?>' },
+                { field:'Perms',	width:15,					title:'<?php _e('Category'); ?>', formatter:formatPermissions }
+            ]],
+            // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+            rowStyler:myRowStyler,
+            // on double click fireup editor dialog
+            onDblClickRow:function() {
+                editUser('#usuarios-datagrid');
+            }
+        });
+
+        // key handler ( notify "null" dialog cause we dont want to close tabs on escape :-)
+        addKeyHandler('#usuarios-datagrid',null,newUser,editUser,deleteUser);
+
+        // tooltips para los botones de gestion de usuarios
+        addTooltip($('#usuarios-newBtn').linkbutton(),'<?php _e("Create and insert new user<br/> into database"); ?>');
+        addTooltip($('#usuarios-editBtn').linkbutton(),'<?php _e("Modify data on selected user"); ?>');
+        addTooltip($('#usuarios-delBtn').linkbutton(),'<?php _e("Remove selected user from database"); ?>');
+        addTooltip($('#usuarios-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update data"); ?>');
+        addTooltip($('#usuarios-keyBtn').linkbutton(),'<?php _e("Change user password"); ?>');
+        addTooltip($('#usuarios-datagrid-search'),"Look for users matching search criteria");
+    </script>

@@ -262,11 +262,11 @@ class Sesiones extends DBObject {
             $this->myLogger->trace("Session::getClients() parsing clientSession: $client");
             $a=explode(':',$client);
             // comprobamos expiracion
-            if ( ($timestamp - intval($a[4]) ) > 300 ) $a[4]=0; // expire after 5 minutes
-            if (intval($a[4])==0) continue;  // if expired, skip
+            if ( ($timestamp - intval($a[5]) ) > 300 ) $a[5]=0; // expire after 5 minutes
+            if (intval($a[5])==0) continue;  // if expired, skip
             // compose item and insert into response if requested
-            $item=array('Source'=>$a[0],'Session'=>$a[1],'View'=>$a[2],'Name'=>$a[3],'LastCall'=>$a[4]);
-            if ( ($type==="") || ($type==$a[0]) ) array_push($res,$item); // if not requested skip
+            $item=array('Source'=>$a[0],'Session'=>$a[1],'View'=>$a[2],'Mode'=>$a[3],'Name'=>$a[4],'LastCall'=>$a[5]);
+            if ( ($type==="") || ($type===$a[0]) ) array_push($res,$item); // if not requested skip
         }
         session_write_close();
         return array('total'=>count($res),'rows'=>$res);
@@ -290,8 +290,8 @@ class Sesiones extends DBObject {
             $this->myLogger->trace("Session::testAndSet() parsing clientSession: $client");
             if (strpos($client,$name)===FALSE) {  // client name does not match: evaluate expiration
                 $a=explode(':',$client);
-                if ( ($timestamp - intval($a[4]) ) <= 300 ) continue; // expire after 5 minutes
-                $a[4]=0;
+                if ( ($timestamp - intval($a[5]) ) <= 300 ) continue; // expire after 5 minutes
+                $a[5]=0;
                 $client=implode(':',$a);
             } else { // item found: update timestamp
                 $client="{$name}:{$timestamp}";
