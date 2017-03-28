@@ -68,7 +68,7 @@ $am=new AuthManager("Chrono");
                         </select><br/>
                         <span style="display:inline-block;width:200px">&nbsp;</span>
                         <a id="remote-videowall-sendBtn" href="#" class="easyui-linkbutton"
-                             data-options="iconCls:'icon-on'" onclick="alert('send');"><?php _e('Send'); ?></a>
+                             data-options="iconCls:'icon-ok'" onclick="alert('send');"><?php _e('Send'); ?></a>
                         <br>
                         <strong><?php _e('Simplified videowall controls');?></strong>
                         <span style="display:inline-block;width:200px"><?php _e("Font family");?>:</span>
@@ -89,12 +89,51 @@ $am=new AuthManager("Chrono");
             </div>
             <div title="<?php _e('Live Streaming windows');?>" data-options="iconCls:'icon-live'">
 <?php if( $am->allowed(ENABLE_LIVESTREAM) ) { ?>
-                <p><?php _e('List of currently active LiveStream screens');?></p>
-                <table id="remote-livestream-datagrid" style="width:60%"></table>
+                <span style="float:left;display:inline-block;width:55%;padding:5px">
+                    <p>
+                        <?php _e('List of currently active LiveStream windows');?><br/><br/>
+                        <?php _e('Choose window(s) to work with');?><br/>
+                        <?php _e('and invoke desired operation');?>
+                    </p>
+                    <table id="remote-livestream-datagrid" style="width:100%"></table>
+                </span>
+                <span style="float:right;display:inline-block;width:40%;padding:5px">
+                    <strong><?php _e('Parameters for window change');?></strong>
+                    <form id="remote-livestream-form" name="remote-livestream-form">
+                        <?php _e('Select');?>
+                        <input type="checkbox" id="remote-livestream-all"/>
+                        <label for="remote-livestream-all"><?php _e('All');?></label>
+                        <input type="checkbox" id="remote-livestream-none"/>
+                        <label for="remote-livestream-none"><?php _e('None');?></label><br/>
+                        <label for="remote-livestream-ring"><?php _e('New ring');?>:</label>
+       		            <select id="remote-livestream-ring" name="Ring" style="width:200px"></select><br/>
+                        <label for="remote-livestream-view"><?php _e('New view');?>:</label>
+                        <select id="remote-livestream-view" style="width:200px"> <!-- combobox -->
+				            <option value="4"><?php _e('Training session'); ?></option>
+				            <option value="0"><?php _e('Starting order'); ?></option>
+				            <option value="1"><?php _e('Live Stream'); ?></option>
+				            <option value="2"><?php _e('Partial scores'); ?></option>
+				            <option value="3"><?php _e('Final scores'); ?></option>
+                        </select><br/>
+                        <span style="display:inline-block;width:200px">&nbsp;</span>
+                        <a id="remote-livestream-sendBtn" href="#" class="easyui-linkbutton"
+                           data-options="iconCls:'icon-ok'" onclick="alert('send');"><?php _e('Send'); ?></a>
+                        <br>
+                        <strong><?php _e('Live Stream controls');?></strong>
+                        <span style="display:inline-block;width:200px"><?php _e("On Screen Display");?>:</span>
+                        <a id="remote-livestream-onBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-on'" onclick="alert('osd-on');"></a>
+                        <a id="remote-livestream-offBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-off'" onclick="alert('osd-off');"></a>
+                        <br/>
+                        <span style="display:inline-block;width:200px"><?php _e("Event Delay");?>:</span>
+                        <a id="remote-livestream-fsprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('ed-prev');"></a>
+                        <a id="remote-livestream-fsnextBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-next'" onclick="alert('ed-next');"></a>
+                    </form>
+                </span>
 <?php } else { ?>
                 <p><?php _e('Current license permissions does not allow live stream operations');?></p>
                 <img src="/agility/images/sad_dog.png" alt="triste"/>
-                <table id="remote-livestreaml-datagrid" style="display:none"></table>
+                <table id="remote-livestream-datagrid" style="display:none"></table>
+                <select id="remote-livestream-ring" name="Ring" style="display:none"></select>
 <?php } ?>
             </div>
             <div title="<?php _e('Chronometer displays');?>" data-options="iconCls:'icon-clock'">
@@ -105,6 +144,7 @@ $am=new AuthManager("Chrono");
                 <p><?php _e('Current license permissions does not allow chronometer operations');?></p>
                 <img src="/agility/images/sad_dog.png" alt="triste"/>
                 <table id="remote-chronometer-datagrid" style="display:none"></table>
+                <select id="remote-chronometer-ring" name="Ring" style="display:none"></select>
 <?php } ?>
             </div>
         </div>
@@ -244,6 +284,39 @@ $am=new AuthManager("Chrono");
             rowStyler:myRowStyler
         });
 
+        $('#remote-livestream-view').combobox({
+            valueField:'value',
+            panelHeight:'auto',
+            editable:false
+        });
+
+        $('#remote-livestream-ring').combogrid({
+            panelWidth: 400,
+            panelHeight: 'auto',
+            idField: 'ID',
+            textField: 'Nombre',
+            url: '/agility/server/database/sessionFunctions.php',
+            queryParams: { Operation:'selectring', Hidden:0},
+            method: 'get',
+            mode: 'remote',
+            required: true,
+            rownumber: true,
+            multiple: false,
+            fitColumns: true,
+            singleSelect: true,
+            editable: false, // avoid keyboard deploy
+            columns: [[
+                { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
+                { field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: '<?php _e('Name'); ?>' },
+                { field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: '<?php _e('Description'); ?>' },
+                { field:'Prueba',	    hidden:true },
+                { field:'Jornada',	    hidden:true },
+                { field:'Background',	hidden:true },
+                { field:'LiveStream2',	hidden:true },
+                { field:'LiveStream3',	hidden:true }
+            ]]
+        });
+
         // datos de la tabla de video marcadores
         $('#remote-chronometer-datagrid').datagrid({
             // datos del panel padre asociado
@@ -278,10 +351,15 @@ $am=new AuthManager("Chrono");
         });
 
         // tooltips de los botones
+        $('#remote-livestream-onBtn').linkbutton();
+        $('#remote-livestream-offBtn').linkbutton();
+        $('#remote-livestream-fsnextBtn').linkbutton();
+        $('#remote-livestream-fsprevBtn').linkbutton();
         $('#remote-videowall-ffnextBtn').linkbutton();
         $('#remote-videowall-ffprevBtn').linkbutton();
         $('#remote-videowall-fsnextBtn').linkbutton();
         $('#remote-videowall-fsprevBtn').linkbutton();
+        addTooltip($('#remote-livestream-sendBtn').linkbutton(),'<?php _e("Switch selected windows to choosen ring/view"); ?>');
         addTooltip($('#remote-videowall-sendBtn').linkbutton(),'<?php _e("Switch selected displays to choosen ring/view"); ?>');
         addTooltip($('#remote-reloadBtn').linkbutton(),'<?php _e("Reload and update active client lists"); ?>');
         addTooltip($('#remote-okBtn').linkbutton(),'<?php _e("End video display remote control session. Close window"); ?>');
