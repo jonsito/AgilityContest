@@ -18,22 +18,42 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php
 require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/auth/Config.php");
+require_once(__DIR__ . "/../../server/auth/AuthManager.php");
 $config =Config::getInstance();
+$am=new AuthManager("Chrono");
 ?>
     <!-- ventana de control remoto para los cronos/videomarcadores/livestream definidos en una o varias sesiones -->
     <div id="remote-dialog" style="width:720px;height:480px;padding:5px;">
         <div id="remote-accordion">
             <div title="<?php _e('Videowall Screens');?>" data-options="iconCls:'icon-video-tv'">
-                <p>List of currently active Videowall screens</p>
+<?php if( $am->allowed(ENABLE_VIDEOWALL) ) { ?>
+                <p><?php _e('List of currently active Videowall displays');?></p>
                 <table id="remote-videowall-datagrid" style="width:60%"></table>
+<?php } else { ?>
+                <p><?php _e('Current license permissions does not allow videowall operations');?></p>
+                <img src="/agility/images/sad_dog.png" alt="triste"/>
+                <table id="remote-videowall-datagrid" style="display:none"></table>
+<?php } ?>
             </div>
             <div title="<?php _e('Live Streaming windows');?>" data-options="iconCls:'icon-live'">
-                <p>List of currently active livestream windows</p>
+<?php if( $am->allowed(ENABLE_LIVESTREAM) ) { ?>
+                <p><?php _e('List of currently active LiveStream screens');?></p>
                 <table id="remote-livestream-datagrid" style="width:60%"></table>
+<?php } else { ?>
+                <p><?php _e('Current license permissions does not allow live stream operations');?></p>
+                <img src="/agility/images/sad_dog.png" alt="triste"/>
+                <table id="remote-livestreaml-datagrid" style="display:none"></table>
+<?php } ?>
             </div>
             <div title="<?php _e('Chronometer displays');?>" data-options="iconCls:'icon-clock'">
-                <p>List of currently active Video-chronometer displays</p>
+<?php if( $am->allowed(ENABLE_CHRONO) ) { ?>
+                <p><?php _e('List of currently active video-chronometers scoreboards');?></p>
                 <table id="remote-chronometer-datagrid" style="width:60%"></table>
+<?php } else { ?>
+                <p><?php _e('Current license permissions does not allow chronometer operations');?></p>
+                <img src="/agility/images/sad_dog.png" alt="triste"/>
+                <table id="remote-chronometer-datagrid" style="display:none"></table>
+<?php } ?>
             </div>
         </div>
     </div>
