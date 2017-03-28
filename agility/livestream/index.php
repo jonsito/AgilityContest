@@ -118,7 +118,7 @@ function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
 	  beforeSend: function(jqXHR,settings) {
-		if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!=null) {
+		if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!==null) {
 			jqXHR.setRequestHeader('X-AC-SessionKey',ac_authInfo.SessionKey);
 		}
 	    return true;
@@ -131,9 +131,9 @@ function initialize() {
 	ac_clientOpts.View=<?php _e(http_request("View","i",1)); ?>; // 0:start/1:live/2:parcial/3:final
 	ac_clientOpts.Mode='<?php _e(http_request("Mode","s","chroma")); ?>'; // "video" / "chroma"
 	ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // 0: dont else auto start after x seconds
+    ac_clientOpts.SessionName='<?php _e(http_request("SessionName","s",random_password(8))); ?>'; // session name. defaults to random string(8)
 	$('#Livestream_Mode_' + ac_clientOpts.Mode).prop('checked',true);
-    ac_clientOpts.SessionName=getRandomString(8);
-	if (ac_clientOpts.Timeout!=0) setTimeout(function() { ls_accept();	},1000*ac_clientOpts.Timeout); // on autostart launch window after 10 seconds
+	if (ac_clientOpts.Timeout!==0) setTimeout(function() { ls_accept();	},1000*ac_clientOpts.Timeout); // on autostart launch window after 10 seconds
 }
 
 /**
@@ -186,14 +186,17 @@ function myLlamadaRowStyler(idx,row) {
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
-<div id="selvw-dialog" class="easyui-dialog" style="position:relative;width:500px;height:220px;padding:20px 20px">
+<div id="selvw-dialog" class="easyui-dialog" style="position:relative;width:500px;height:auto;padding:20px 20px">
 	<form id="selvw-Selection">
+        <p><?php _e('Select ring, display name (optional) and view to deploy');?></p>
     	<div class="fitem">
-       		<label for="Prueba"><?php _e('Select Session/Ring'); ?>:</label>
+            <label for="selvw-SessionName"><?php _e('Display name');?>:</label>
+            <input type="text" id="selvw-SessionName" name="SessioName" value=""/><br/>
+       		<label for="selvw-Session"><?php _e('Select Session/Ring'); ?>:</label>
        		<select id="selvw-Session" name="Session" style="width:200px"></select>
     	</div>
     	<div class="fitem">
-       		<label for="Vista"><?php _e('Select View'); ?>:</label>
+       		<label for="selvw-Vista"><?php _e('Select View'); ?>:</label>
        		<select id="selvw-Vista" name="Vista" style="width:200px">
 				<option value="4"><?php _e('Training session'); ?></option>
 				<option value="0"><?php _e('Starting order'); ?></option>
@@ -202,7 +205,7 @@ function myLlamadaRowStyler(idx,row) {
 				<option value="3"><?php _e('Final scores'); ?></option>
 			</select>
 			<br /><br />
-			<span style="display:inline-block;width:100px"><?php _e("Select mode");?></span>
+			<span style="display:inline-block;width:120px"><?php _e("Select mode");?>:</span>
 			<input id="Livestream_Mode_video" type="radio" name="Livestream_Mode" value="1">
 			<label for="Livestream_Mode_video"><?php _e('Embedded Video');?></label>
 			<input id="Livestream_Mode_chroma" type="radio" name="Livestream_Mode" value="0">
@@ -234,7 +237,7 @@ $('#selvw-Vista').combobox({
 });
 
 $('#selvw-dialog').dialog({
-	title: '<?php _e('View to deploy'); ?>',
+	title: '<?php _e('LiveStream'); ?>',
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
@@ -246,6 +249,13 @@ $('#selvw-dialog').dialog({
 });
 
 $('#selvw-form').form();
+
+$('#selvw-SessionName').textbox({
+    value: ac_clientOpts.SessionName,
+    required:false,
+    validType:'length[1,255]',
+    onChange: function(value) {ac_clientOpts.SessionName=value.replace(/:/g,'');}
+});
 
 addTooltip($('#selvw-okBtn').linkbutton(),'<?php _e("Use selected as working session"); ?>');
 

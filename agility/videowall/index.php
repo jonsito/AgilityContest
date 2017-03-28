@@ -133,7 +133,7 @@ function initialize() {
 	ac_clientOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
 	ac_clientOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
 	ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // auto start displaying after x seconds. 0 disable
-    ac_clientOpts.SessionName=getRandomString(8);
+    ac_clientOpts.SessionName='<?php _e(http_request("SessionName","s",random_password(8))); ?>'; // session name. defaults to random string(8)
 	if (parseInt(ac_clientOpts.Timeout)!==0) setTimeout(function() { vw_accept();},1000*ac_clientOpts.Timeout); // if requested fire autostart
 }
 
@@ -218,12 +218,17 @@ function myLlamadaRowStyler(idx,row) {
 
 <div id="selvw-dialog" class="easyui-dialog" style="position:relative;width:500px;height:auto;padding:20px 20px">
 	<form id="selvw-Selection">
+        <div class="fitem">
+            <p><?php _e('Select ring, display name (optional) and view to deploy');?></p>
+            <label for="selvw-SessionName"><?php _e('Display name');?>:</label>
+            <input type="text" id="selvw-SessionName" name="SessioName" value=""/><br/>
+        </div>
     	<div class="fitem">
-       		<label for="Prueba"><?php _e('Select Session/Ring'); ?>:</label>
+       		<label for="selvw-Session"><?php _e('Select Session/Ring'); ?>:</label>
        		<select id="selvw-Session" name="Session" style="width:200px"></select>
     	</div>
     	<div class="fitem">
-       		<label for="Vista"><?php _e('Select View'); ?>:</label>
+       		<label for="selvw-Vista"><?php _e('Select View'); ?>:</label>
        		<select id="selvw-Vista" name="Vista" style="width:200px">
                 <optgroup label="<?php _e('Video Wall');?> ">
                     <!-- videowall -->
@@ -262,6 +267,13 @@ function myLlamadaRowStyler(idx,row) {
 //add 'callback' property to store interval references
 $.extend($.fn.window.defaults,{callback:null});
 
+$('#selvw-SessionName').textbox({
+    value: ac_clientOpts.SessionName,
+    required:false,
+    validType:'length[1,255]',
+    onChange: function(value) {ac_clientOpts.SessionName=value.replace(/:/g,'');}
+});
+
 $('#selvw-Vista').combobox({
     valueField:'value',
     panelHeight:'auto',
@@ -272,7 +284,7 @@ $('#selvw-Vista').combobox({
 });
 
 $('#selvw-dialog').dialog({
-	title: '<?php _e('View to deploy'); ?>',
+	title: '<?php _e('Videowall'); ?>',
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,

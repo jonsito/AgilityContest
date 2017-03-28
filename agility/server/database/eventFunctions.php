@@ -30,7 +30,8 @@ try {
 	$data=array (
 			// common data for senders and receivers
 			'ID'		=>	http_request("ID","i",0),
-			'Session'	=> 	http_request("Session","i",0),
+            'Session'	=> 	http_request("Session","i",0),
+            'SessionName'	=> 	http_request("SessionName","s",""),
 			'TimeStamp'	=> 	http_request("TimeStamp","i",0), // last timestamp parsed
 			'Type' 		=> 	http_request("Type","s",""),
 			'Source'	=> 	http_request("Source","s",""),

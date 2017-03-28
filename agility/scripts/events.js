@@ -52,7 +52,7 @@ function parseEvent(data) {
 // $(function(evtID,timestamp){
 	function waitForEvents(evtID,timestamp){
 		var mark=timestamp; // use inner var to preserve scope in handleSuccess
-        var sname=ac_clientOpts.BaseName+"_"+ac_clientOpts.Ring+"_"+ac_clientOpts.View+"_"+ac_clientOpts.SessionName;
+        var sname=ac_clientOpts.BaseName+":"+ac_clientOpts.Ring+":"+ac_clientOpts.View+":"+ac_clientOpts.SessionName;
 
 		function handleSuccess(received,status,jqXHR){
 			var data=JSON.parse(received);
@@ -111,7 +111,7 @@ function parseEvent(data) {
  * On sucess invoke
  */
 function startEventMgr() {
-    var sname=ac_clientOpts.BaseName+"_"+ac_clientOpts.Ring+"_"+ac_clientOpts.View+"_"+ac_clientOpts.SessionName;
+    var sname=ac_clientOpts.BaseName+":"+ac_clientOpts.Ring+":"+ac_clientOpts.View+":"+ac_clientOpts.SessionName;
 	$.ajax({
 		type: "GET",
 		url: "/agility/server/database/eventFunctions.php",

@@ -239,7 +239,10 @@ class Eventos extends DBObject {
      */
 	function getEvents($data) { 
 		// $this->myLogger->enter();
-		
+        if ($data['SessionName']!=="") {
+            $ses=new Sesiones("Events::getEvents");
+            $ses->testAndSet($data['SessionName']);
+        }
 		// Close the session prematurely to avoid usleep() from locking other requests
 		// notice that cannot call http_request after this item
 		session_write_close();
@@ -327,6 +330,10 @@ class Eventos extends DBObject {
             die("You cannot use this server as event source");
         }
 		if ($data['Session']<=0) return $this->error("No Session ID specified");
+        if ($data['SessionName']!=="") {
+            $ses=new Sesiones("Events::connect");
+            $ses->testAndSet($data['SessionName']);
+        }
 		$this->myLogger->enter();
 		$result=$this->__select(
 				/* SELECT */ "*",

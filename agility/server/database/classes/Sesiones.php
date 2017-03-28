@@ -259,7 +259,7 @@ class Sesiones extends DBObject {
         if (!isset($_SESSION['ac_clients'])) $_SESSION['ac_clients']=array();
         foreach ( $_SESSION['ac_clients'] as $client) {
             $this->myLogger->trace("Session::getClients() parsing clientSession: $client");
-            $a=explode('_',$client);
+            $a=explode(':',$client);
             $item=array('Source'=>$a[0],'Session'=>$a[1],'View'=>$a[2],'Name'=>$a[3],'LastCall'=>$a[4]);
             if (intval($a[4])==0) continue;  // if expired, skip
             if ( ($id==0) || ($id==$a[1]) ) array_push($res,$item); // if not requested skip
@@ -272,7 +272,11 @@ class Sesiones extends DBObject {
      * @param $name session name: source_sesid_view_name ( timestamp not included
      * @return {string} empty on success; else error message
      */
-    function testAndSet($name) {
+    function testAndSet($name="") {
+        if ($name==="") {
+            $this->myLogger->error("Sesiones::testAndSet() null SessionName provided");
+            return "";
+        }
         $timestamp=time();
         $found=false;
         session_start();
@@ -281,17 +285,17 @@ class Sesiones extends DBObject {
         foreach ( $_SESSION['ac_clients'] as &$client) {
             $this->myLogger->trace("Session::testAndSet() parsing clientSession: $client");
             if (strpos($client,$name)===FALSE) {  // client name does not match: evaluate expiration
-                $a=explode('_',$client);
+                $a=explode(':',$client);
                 if ( ($timestamp - intval($a[4]) ) <= 300 ) continue; // expire after 5 minutes
                 $a[4]=0;
-                $client=implode('_',$a);
+                $client=implode(':',$a);
             } else { // item found: update timestamp
-                $client="{$name}_{$timestamp}";
+                $client="{$name}:{$timestamp}";
                 $found=true;
             }
         }
         // arriving here means item not found, so create and insert
-        if (!$found) array_push($_SESSION['ac_clients'],"{$name}_{$timestamp}");
+        if (!$found) array_push($_SESSION['ac_clients'],"{$name}:{$timestamp}");
         session_write_close();
         return "";
     }

@@ -101,13 +101,13 @@ function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
 	  beforeSend: function(jqXHR,settings) {
-		if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!=null) {
+		if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!==null) {
 			jqXHR.setRequestHeader('X-AC-SessionKey',ac_authInfo.SessionKey);
 		}
 	    return true;
 	  }
 	});
-	ac_clientOpts.SessionName=getRandomString(8);
+    ac_clientOpts.SessionName='<?php _e(http_request("SessionName","s",random_password(8))); ?>'; // session name. defaults to random string(8)
 }
 
 /**

@@ -91,7 +91,7 @@ function initialize() {
 	getFederationInfo();
     ac_clientOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
     ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // auto start displaying after x seconds. 0 disable
-    ac_clientOpts.SessionName=getRandomString(8);
+    ac_clientOpts.SessionName='<?php _e(http_request("SessionName","s",random_password(8))); ?>'; // session name. defaults to random string(8)
     if (parseInt(ac_clientOpts.Timeout)!==0) setTimeout(function() { chrono_accept();},1000*ac_clientOpts.Timeout); // if requested fire autostart
 }
 
@@ -106,9 +106,12 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
-<div id="chrono-dialog" class="easyui-dialog" style="position:relative;width:350px;height:auto;padding:10px 10px">
+<div id="chrono-dialog" class="easyui-dialog" style="position:relative;width:400px;height:auto;padding:10px 10px">
 	<form id="chrono-Selection">
+        <p><?php _e('Select ring and display name (optional)');?></p>
     	<div class="fitem">
+            <label for="chrono-SessionName"><?php _e('Display name');?>:</label>
+            <input type="text" id="chrono-SessionName" name="SessioName" value=""/>
        		<label for="chrono-Session"><?php _e('Ring');?>:</label>
        		<select id="chrono-Session" name="Session" style="width:200px"></select>
     	</div>
@@ -124,7 +127,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <script type="text/javascript">
 $('#chrono-dialog').dialog({
-	title: "<?php _e('Select ring');?>",
+	title: "<?php _e('Chronometer');?>",
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
@@ -132,12 +135,19 @@ $('#chrono-dialog').dialog({
 	closed: false,
 	shadow: true,
 	modal: true,
-	buttons: '#chrono-Buttons' 
+	buttons: '#chrono-Buttons'
 });
 
 $('#chrono-form').form();
 
 addTooltip($('#chrono-okBtn').linkbutton(),"<?php _e('Work with selected ring/session');?>");
+
+$('#chrono-SessionName').textbox({
+    value: ac_clientOpts.SessionName,
+    required:false,
+    validType:'length[1,255]',
+    onChange: function(value) {ac_clientOpts.SessionName=value.replace(/:/g,'');}
+});
 
 $('#chrono-Session').combogrid({
 	panelWidth: 500,
