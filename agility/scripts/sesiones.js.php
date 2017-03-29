@@ -178,6 +178,7 @@ function formatVideowallView(val,row,index) {
         case 7: return "<?php _e('Call to ring '); ?> / <?php _e('Partial scores'); ?>";
         case 8: return "<?php _e('Call to ring '); ?> / <?php _e('Final scores'); ?>";
         case 9: return "<?php _e('Final Scores'); ?> (<?php _e('simplified'); ?>)";
+        case 10:return "<?php _e('Standby screen'); ?>";
     }
     // default: ( should not occurs ) return session id as string
     return "<?php _e('View mode');?>: "+val;
@@ -214,20 +215,27 @@ function remoteSetOnSingleSelection(name) {
 function remote_putEvent(data){
     // setup default elements for this event
     var obj= {
+        // global objects
+        'ID'       : 0, // not used, just for enumeration
         'Operation':'putEvent',
         'Type': 	'command',
         'TimeStamp': Math.floor(Date.now() / 1000),
+        // event inner parameters
         'Source':	'Console_'+data.Session,
         'Session':	data.Session,
         'Prueba':	(typeof data.Prueba==="undefined")?0:data.Prueba,
         'Jornada':	(typeof data.Jornada==="undefined")?0:data.Jornada,
         'Manga':	(typeof data.Manga==="undefined")?0:data.Manga,
         'Tanda':	(typeof data.Tanda==="undefined")?0:data.Tanda,
+        // not used in "command" event
         'Perro':	0,
         'Dorsal':	0,
         'Equipo':	0,
         'Celo':		0,
-        'Value':	0 // may be overriden with 'data' contents
+        // command event parameters. may be overriden with 'data contents
+        'Name':     '', // display name
+        'Oper':     0, // operation to be requested for 'command' event
+        'Value':	0   // csv parameter list
     };
     // send "update" event to every session listeners
     $.ajax({
@@ -249,15 +257,17 @@ function remote_handleEvents(source,data){
 
     for (var n=0; n<rows.length;n++) {
         // retrieve session info ( contest, journey and so ) from proper datagrid
-        var evtdata= $.extend( { Session:0 },data )
-        for (var s=0; s<sesiones.length;s++) if (sesiones[s]['ID']==rows[n]['Session']) {
-            evtdata.Session=sesiones[s]['ID'];
-            evtdata.Prueba=sesiones[s]['Prueba'];
-            evtdata.Jornada=sesiones[s]['Jornada'];
-            evtdata.Manga=sesiones[s]['Manga'];
-            evtdata.Tanda=sesiones[s]['Tanda'];
+        var evtdata= $.extend( { Session:0 ,Name:rows[n]['Name']},data )
+        for (var s=0; s<sesiones.length;s++) { // find session info matching named display session
+            if (sesiones[s]['ID']==rows[n]['Session']) { // found: retrieve session data
+                evtdata.Session=sesiones[s]['ID'];
+                evtdata.Prueba=sesiones[s]['Prueba'];
+                evtdata.Jornada=sesiones[s]['Jornada'];
+                evtdata.Manga=sesiones[s]['Manga'];
+                evtdata.Tanda=sesiones[s]['Tanda'];
+            }
         }
-        if (evtdata.Session===0) {
+        if (evtdata.Session===0) { // cannot find session for named display
             $.messager.alert("<?php _e('No Session');?>","Internal error: cannot locate session data for display:"+rows[n].Name,"error");
             return false;
         }
@@ -267,27 +277,32 @@ function remote_handleEvents(source,data){
 }
 
 function remoteSendChangeEvent(source) {
+    var ring=$(source+'-ring').combogrid('getValue');
+    var view=$(source+'-view').combobox('getValue');
+    var mode=$(source+'-mode').val();
     var data= {
-        Ring: $(source+'-ring').combogrid('getValue'),
-        View: $(source+'-view').combobox('getValue'),
-        Mode: mode=$(source+'-mode').val(),
-        Value: 'switch'
+        Oper: EVTCMD_SWITCH_SCREEN,
+        Value: ""+ring+":"+view+":"+mode
     }
     return remote_handleEvents(source,data);
 }
 
-function remoteSendKeyEvent(source,key) {
+function remoteSendKeyValueEvent(source,key,value) {
     var data = {
-        Value: 'key',
-        Keycode: key
+        Oper: key,
+        Value: value
     }
     return remote_handleEvents(source, data);
 }
 
+function remoteSendButtonEvent(source,keyevent) {
+    return remoteSendKeyValueEvent(source,keyevent,0);
+}
+
 function remoteSendMessageEvent(source,msg) {
     var data = {
-        Value: 'message',
-        Keycode: msg
+        Oper: EVTCMD_MESSAGE,
+        Value: msg
     }
     return remote_handleEvents(source, data);
 }

@@ -153,7 +153,10 @@ function startEventMgr() {
  * @param {Array} callbacks array functions
  */
 function handleCommandEvent(event,callbacks) {
-	var op=parseInt(event['Operation']);
-	if ( typeof(callback[op]) !== "function") return;
+	// if not for me, return
+	var name=event['Name'];
+	if (name!==ac_clientOpts.SessionName) return; // not for me
+	var op=parseInt(event['Oper']);
+	if ( typeof(callbacks[op]) !== "function") return; // function not declared int table
 	setTimeout( function(){callbacks[op](event);},0);
 }

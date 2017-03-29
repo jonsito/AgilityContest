@@ -58,6 +58,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/admin.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/console/import/import.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/clubes.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/guias.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/perros.js.php" type="text/javascript" charset="utf-8" > </script>

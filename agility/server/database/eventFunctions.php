@@ -54,7 +54,10 @@ try {
 			'Value'	=>	http_request("Value","i",-1),
 			// data related to crono operations
 			'stop'	=>	http_request("stop","i",0),
-			'start'	=>	http_request("start","i",0)
+			'start'	=>	http_request("start","i",0),
+            // data related to "command" event
+            'Name'  =>  http_request("Name","s",""), // display name
+            'Oper'  =>  http_request("Oper","i",0), // operation to be issued on display 'name' at session ID
 	);
 	if ($operation===null) throw new Exception("Call to eventFunctions without 'Operation' requested");
 	$eventmgr= new Eventos("eventFunctions",$data['Session'],$am);

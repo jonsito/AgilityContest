@@ -67,6 +67,7 @@ $am=new AuthManager("Chrono");
 				                </optgroup>
                                 <optgroup label="<?php _e('Extra info'); ?> ">
                                     <option value="5"><?php _e('Advertising videos'); ?></option>
+                                    <option value="10"><?php _e('Standby screen'); ?></option>
                                 </optgroup>
                             </select><br/>
                             <input type="hidden" id="remote-videowall-mode" name="remote-videowall-mode" value="0"/>
@@ -77,15 +78,15 @@ $am=new AuthManager("Chrono");
                             <strong><?php _e('Simplified videowall controls');?></strong>
                             <span style="display:inline-block;width:200px"><?php _e("Font family");?>:</span>
                             <a id="remote-videowall-ffprevBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-prev'" onclick="remoteSendKeyEvent('#remote-videowall',37);"></a>
+                               data-options="iconCls:'icon-prev'" onclick="remoteSendButtonEvent('#remote-videowall',EVTCMD_PREVFONT);"></a>
                             <a id="remote-videowall-ffnextBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-next'" onclick="remoteSendKeyEvent('#remote-videowall',39);"></a>
+                               data-options="iconCls:'icon-next'" onclick="remoteSendButtonEvent('#remote-videowall',EVTCMD_NEXTFONT);"></a>
                             <br/>
                             <span style="display:inline-block;width:200px"><?php _e("Font size");?>:</span>
                             <a id="remote-videowall-fsprevBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-prev'" onclick="remoteSendKeyEvent('#remote-videowall',38);"></a>
+                               data-options="iconCls:'icon-prev'" onclick="remoteSendButtonEvent('#remote-videowall',EVTCMD_DECFONTSIZE);"></a>
                             <a id="remote-videowall-fsnextBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-next'" onclick="remoteSendKeyEvent('#remote-videowall',40);"></a>
+                               data-options="iconCls:'icon-next'" onclick="remoteSendButtonEvent('#remote-videowall',EVTCMD_INCFONTSIZE);"></a>
                         </form>
                     </span>
                 </div>
@@ -134,15 +135,15 @@ $am=new AuthManager("Chrono");
                             <strong><?php _e('Live Stream controls');?></strong>
                             <span style="display:inline-block;width:200px"><?php _e("On Screen Display");?>:</span>
                             <a id="remote-livestream-onBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-on'" onclick="remoteSendKeyEvent('#remote-livestream',37);"></a>
+                               data-options="iconCls:'icon-on'" onclick="remoteSendKeyValueEvent('#remote-livestream',EVTCMD_ENABLEOSD,1);"></a>
                             <a id="remote-livestream-offBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-off'" onclick="remoteSendKeyEvent('#remote-livestream',39);"></a>
+                               data-options="iconCls:'icon-off'" onclick="remoteSendKeyValueEvent('#remote-livestream',EVTCMD_ENABLEOSD,0);"></a>
                             <br/>
                             <span style="display:inline-block;width:200px"><?php _e("Event Delay");?>:</span>
                             <a id="remote-livestream-fsprevBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-prev'" onclick="remoteSendKeyEvent('#remote-livestream',38);"></a>
+                               data-options="iconCls:'icon-prev'" onclick="remoteSendButtonEvent('#remote-livestream',EVTCMD_DECDELAY);"></a>
                             <a id="remote-livestream-fsnextBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-next'" onclick="remoteSendKeyEvent('#remote-livestream',40);"></a>
+                               data-options="iconCls:'icon-next'" onclick="remoteSendButtonEvent('#remote-livestream',EVTCMD_INCDELAY);"></a>
                         </form>
                     </span>
                 </div>
