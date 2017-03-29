@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-03-28 16:20+0200\n"
-"PO-Revision-Date: 2017-03-28 16:20+0200\n"
+"POT-Creation-Date: 2017-03-29 12:02+0200\n"
+"PO-Revision-Date: 2017-03-29 12:10+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -210,7 +210,7 @@ msgstr "Gu&iacute;a"
 #: server/pdf/classes/PrintClasificacionExcel.php:161
 #: server/pdf/classes/PrintEntrenamientos.php:58
 #: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:192
-#: tablet/index.php:264 tablet/tablet_main.php:83 tablet/tablet_main.php:291
+#: tablet/index.php:265 tablet/tablet_main.php:83 tablet/tablet_main.php:291
 #: tablet/tablet_main.php:419 videowall/vwc_finales.php:84
 #: videowall/vwc_finales.php:217 videowall/vwc_parciales.php:84
 #: videowall/vwc_parciales.php:229 console/dialogs/dlg_chguias.inc:115
@@ -453,7 +453,7 @@ msgstr "NoPr"
 msgid "Dors"
 msgstr "Dors"
 
-#: chrono/chrono.js.php:150 chrono/index.php:169
+#: chrono/chrono.js.php:150 chrono/index.php:170
 #: console/frm_clasificaciones2.php:154
 #: console/frm_clasificaciones_equipos.php:152 console/frm_clubes.php:99
 #: console/frm_clubes.php:173 console/frm_clubes.php:258
@@ -474,7 +474,7 @@ msgstr "Dors"
 #: lib/templates/parcial_individual.inc.php:20
 #: lib/templates/parcial_last_individual.inc.php:22
 #: lib/templates/parcial_last_teams.inc.php:22
-#: lib/templates/scores_mail.inc.php:192 livestream/index.php:278
+#: lib/templates/scores_mail.inc.php:192 livestream/index.php:279
 #: livestream/vwls_finales.php:96 livestream/vwls_osdvideo.php:87
 #: public/pb_inscripciones.php:103 public/pb_inscripciones_equipos.php:151
 #: public/pbmenu_inscripciones.php:103
@@ -501,9 +501,9 @@ msgstr "Dors"
 #: server/pdf/classes/PrintResultadosByManga.php:62
 #: server/pdf/classes/PrintTRSTemplates.php:255
 #: server/pdf/classes/PrintTRSTemplates.php:258
-#: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/index.php:226
-#: tablet/index.php:262 tablet/tablet_main.php:78 tablet/tablet_main.php:287
-#: tablet/tablet_main.php:417 videowall/index.php:319
+#: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/index.php:227
+#: tablet/index.php:263 tablet/tablet_main.php:78 tablet/tablet_main.php:287
+#: tablet/tablet_main.php:417 videowall/index.php:320
 #: videowall/vwc_finales.php:82 videowall/vwc_finales.php:215
 #: videowall/vwc_parciales.php:82 videowall/vwc_parciales.php:227
 #: console/dialogs/dlg_chguias.inc:38 console/dialogs/dlg_chguias.inc:113
@@ -517,6 +517,9 @@ msgstr "Dors"
 #: console/dialogs/dlg_ordentandas.inc:53
 #: console/dialogs/dlg_ordentandas.inc:169 console/dialogs/dlg_perros.inc:29
 #: console/dialogs/dlg_plugins.inc:52 console/dialogs/dlg_pruebas.inc:346
+#: console/dialogs/dlg_remotecontrol.inc:281
+#: console/dialogs/dlg_remotecontrol.inc:355
+#: console/dialogs/dlg_remotecontrol.inc:426
 #: console/dialogs/dlg_selectJornada.inc:83 console/dialogs/dlg_sesiones.inc:28
 #: console/dialogs/dlg_sesiones.inc:158 console/dialogs/dlg_usuarios.inc:55
 msgid "Name"
@@ -606,18 +609,18 @@ msgstr "Manual"
 msgid "Sensor failure"
 msgstr "Fallo de sensores"
 
-#: chrono/index.php:112
+#: chrono/index.php:113
 msgid "Select ring and display name (optional)"
 msgstr "Selecciona ring y nombre de la pantalla (opcional)"
 
-#: chrono/index.php:114 livestream/index.php:193 videowall/index.php:224
-#: console/dialogs/dlg_remotecontrol.inc:99
-#: console/dialogs/dlg_remotecontrol.inc:132
-#: console/dialogs/dlg_remotecontrol.inc:165
+#: chrono/index.php:115 livestream/index.php:194 videowall/index.php:225
+#: console/dialogs/dlg_remotecontrol.inc:240
+#: console/dialogs/dlg_remotecontrol.inc:314
+#: console/dialogs/dlg_remotecontrol.inc:388
 msgid "Display name"
 msgstr "Nombre de la pantalla"
 
-#: chrono/index.php:116 lib/templates/entrenamientos.inc.php:24
+#: chrono/index.php:117 lib/templates/entrenamientos.inc.php:24
 #: lib/templates/entrenamientos.inc.php:26
 #: lib/templates/entrenamientos.inc.php:28
 #: lib/templates/entrenamientos.inc.php:30
@@ -633,16 +636,16 @@ msgstr "Nombre de la pantalla"
 #: console/dialogs/dlg_entrenamientos.inc:202
 #: console/dialogs/dlg_entrenamientos.inc:208
 #: console/dialogs/dlg_entrenamientos.inc:214
-#: console/dialogs/dlg_remotecontrol.inc:100
-#: console/dialogs/dlg_remotecontrol.inc:133
-#: console/dialogs/dlg_remotecontrol.inc:166
+#: console/dialogs/dlg_remotecontrol.inc:241
+#: console/dialogs/dlg_remotecontrol.inc:315
+#: console/dialogs/dlg_remotecontrol.inc:389
 msgid "Ring"
 msgstr "Ring"
 
-#: chrono/index.php:124 console/frm_equipos.php:88
+#: chrono/index.php:125 console/frm_equipos.php:88
 #: console/frm_inscripciones.php:41 console/frm_login.php:57
 #: console/frm_logout.php:35 console/frm_myAdmin.php:63
-#: livestream/index.php:220 tablet/tablet_main.php:58 videowall/index.php:261
+#: livestream/index.php:221 tablet/tablet_main.php:58 videowall/index.php:262
 #: console/dialogs/dlg_clubes.inc:135
 #: console/dialogs/dlg_editInscripcion.inc:98
 #: console/dialogs/dlg_ordentandas.inc:79
@@ -650,22 +653,22 @@ msgstr "Ring"
 msgid "Accept"
 msgstr "Aceptar"
 
-#: chrono/index.php:131
+#: chrono/index.php:132
 msgid "Chronometer"
 msgstr "Cronometro"
 
-#: chrono/index.php:144
+#: chrono/index.php:145
 msgid "Work with selected ring/session"
 msgstr "Trabajar con el ring seleccionado"
 
-#: chrono/index.php:170 console/dialogs/infomanga.php:313
+#: chrono/index.php:171 console/dialogs/infomanga.php:313
 #: console/frm_clasificaciones2.php:58
 #: console/frm_clasificaciones_equipos.php:57 console/frm_clubes.php:176
 #: console/frm_equipos.php:173 console/frm_equipos.php:250
 #: console/frm_equipos.php:319 console/frm_guias.php:97
 #: console/frm_inscripciones2.php:73 console/frm_paises.php:140
 #: console/frm_pruebas.php:101 console/frm_pruebas.php:156 index.php:217
-#: lib/templates/orden_salida.inc.php:35 livestream/index.php:279
+#: lib/templates/orden_salida.inc.php:35 livestream/index.php:280
 #: public/pb_inscripciones.php:112 public/pb_inscripciones_equipos.php:102
 #: public/pb_inscripciones_equipos.php:160 public/pb_programa.php:102
 #: public/pbmenu_inscripciones.php:112
@@ -680,8 +683,8 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/classes/PrintInscripciones.php:813
 #: server/pdf/classes/PrintOrdenDeSalida.php:74
 #: server/pdf/classes/PrintOrdenTandas.php:87
-#: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/index.php:227
-#: tablet/tablet_main.php:210 videowall/index.php:320
+#: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/index.php:228
+#: tablet/tablet_main.php:210 videowall/index.php:321
 #: console/dialogs/dlg_chguias.inc:55 console/dialogs/dlg_clubes.inc:122
 #: console/dialogs/dlg_competicion.inc:140
 #: console/dialogs/dlg_editInscripcion.inc:77
@@ -695,7 +698,7 @@ msgstr "Trabajar con el ring seleccionado"
 msgid "Comments"
 msgstr "Observaciones"
 
-#: chrono/index.php:202
+#: chrono/index.php:203
 msgid "You should select a valid session/ring"
 msgstr "Debe seleccionar un ring v&aacute;lido"
 
@@ -1041,7 +1044,7 @@ msgstr "Club anfitri&oacute;n"
 #: server/pdf/classes/PrintOrdenTandas.php:63
 #: server/pdf/classes/PrintPodium.php:79
 #: server/pdf/classes/PrintTRSTemplates.php:66
-#: server/pdf/classes/PrintTRSTemplates.php:76 tablet/index.php:165
+#: server/pdf/classes/PrintTRSTemplates.php:76 tablet/index.php:166
 #: videowall/vwc_finales.php:43 videowall/vwc_parciales.php:43
 msgid "Journey"
 msgstr "Jornada"
@@ -1079,7 +1082,7 @@ msgstr "Datos t&eacute;cnicos de las mangas"
 #: console/frm_clasificaciones2.php:76
 #: console/frm_clasificaciones_equipos.php:84 tablet/tablet_main.php:122
 #: console/dialogs/dlg_ordensalida.inc:57 console/dialogs/dlg_plugins.inc:22
-#: console/dialogs/dlg_remotecontrol.inc:45
+#: console/dialogs/dlg_remotecontrol.inc:186
 msgid "Refresh"
 msgstr "Refrescar"
 
@@ -1481,7 +1484,7 @@ msgid "Planning"
 msgstr "Programa"
 
 #: console/frm_competicion2.php:78 index.php:149 index2.php:314
-#: livestream/index.php:202 livestream/vwls_ordensalida.php:62
+#: livestream/index.php:203 livestream/vwls_ordensalida.php:62
 #: public/pb_ordensalida.php:42 public/pb_ordensalida.php:51
 #: public/pbmenu_ordensalida.php:42 scripts/competicion.js.php:1093
 #: scripts/sesiones.js.php:156 scripts/sesiones.js.php:169
@@ -1490,8 +1493,9 @@ msgstr "Programa"
 #: server/excel/print_ordenSalidaExcel.php:186
 #: server/pdf/classes/PrintOrdenDeSalida.php:101
 #: server/pdf/classes/PrintOrdenSalidaEquipos4.php:94
-#: server/pdf/old/print_ordenDeSalida_awcfci.php:93 videowall/index.php:237
-#: videowall/vw_ordensalida.php:36
+#: server/pdf/old/print_ordenDeSalida_awcfci.php:93 videowall/index.php:238
+#: videowall/vw_ordensalida.php:36 console/dialogs/dlg_remotecontrol.inc:55
+#: console/dialogs/dlg_remotecontrol.inc:120
 msgid "Starting order"
 msgstr "Orden de salida"
 
@@ -1548,7 +1552,7 @@ msgstr "Borrar"
 
 #: console/frm_equipos.php:56 scripts/results_and_scores.js.php:151
 #: console/dialogs/dlg_newInscripcion.inc:96
-#: console/dialogs/dlg_remotecontrol.inc:49
+#: console/dialogs/dlg_remotecontrol.inc:190
 msgid "Done"
 msgstr "Hecho"
 
@@ -1748,7 +1752,7 @@ msgstr "Trabajar con la prueba seleccionada"
 msgid "Cancel selection. close window"
 msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
 
-#: console/frm_inscripciones.php:79 index.php:187 tablet/index.php:265
+#: console/frm_inscripciones.php:79 index.php:187 tablet/index.php:266
 #: console/dialogs/dlg_selectJornada.inc:86
 msgid "Fed"
 msgstr "Fed"
@@ -1807,7 +1811,7 @@ msgstr "Importar perros e inscripciones desde fichero Excel"
 msgid "Updating journeys data"
 msgstr "Actualizando datos de la jornada"
 
-#: console/frm_inscripciones2.php:170 tablet/index.php:312
+#: console/frm_inscripciones2.php:170 tablet/index.php:313
 msgid "Name/Comment"
 msgstr "Nombre/Observaciones"
 
@@ -2016,7 +2020,7 @@ msgstr ""
 msgid "User name"
 msgstr "Nombre de usuario"
 
-#: console/frm_login.php:44 console/frm_myAdmin.php:54 tablet/index.php:151
+#: console/frm_login.php:44 console/frm_myAdmin.php:54 tablet/index.php:152
 #: console/dialogs/dlg_configuracion.inc:375
 #: console/dialogs/dlg_usuarios.inc:58 console/dialogs/dlg_usuarios.inc:122
 msgid "Password"
@@ -2050,7 +2054,7 @@ msgid "Confirm logout on current session"
 msgstr "Confirme que desea cerrar la sesi&oacute;n actual"
 
 #: console/frm_logout.php:31 scripts/auth.js.php:80 scripts/auth.js.php:109
-#: tablet/index.php:146 tablet/index.php:377
+#: tablet/index.php:147 tablet/index.php:378
 #: console/dialogs/dlg_configuracion.inc:372
 #: console/dialogs/dlg_sesiones.inc:35 console/dialogs/dlg_sesiones.inc:161
 msgid "User"
@@ -2435,6 +2439,9 @@ msgstr "Cerrar"
 #: console/frm_registration.php:120 console/import/import_clubes.inc.php:49
 #: console/import/import_handlers.inc.php:49
 #: console/import/import_perros.inc.php:49 console/dialogs/dlg_pruebas.inc:49
+#: console/dialogs/dlg_remotecontrol.inc:42
+#: console/dialogs/dlg_remotecontrol.inc:108
+#: console/dialogs/dlg_remotecontrol.inc:157
 msgid "Select"
 msgstr "Seleccionar"
 
@@ -2759,7 +2766,7 @@ msgstr "Selecciona la prueba, jornada y vista"
 #: public/pb_finales.php:137 public/pbmenu_finales.php:78
 #: server/excel/classes/Excel_PartialScores.php:70
 #: server/excel/common_writer.php:64 server/excel/common_writer.php:118
-#: server/pdf/classes/PrintClasificacionExcel.php:96 tablet/index.php:161
+#: server/pdf/classes/PrintClasificacionExcel.php:96 tablet/index.php:162
 #: videowall/vw_finales.php:43 videowall/vw_finales.php:100
 #: videowall/vw_finales.php:114 videowall/vw_parciales.php:40
 #: videowall/vw_parciales.php:92 videowall/vw_parciales.php:106
@@ -2771,7 +2778,7 @@ msgstr "Selecciona la prueba, jornada y vista"
 msgid "Contest"
 msgstr "Prueba"
 
-#: index.php:145 livestream/index.php:199 videowall/index.php:232
+#: index.php:145 livestream/index.php:200 videowall/index.php:233
 msgid "Select View"
 msgstr "Selecciona vista"
 
@@ -2781,24 +2788,30 @@ msgstr "Selecciona vista"
 msgid "Inscription list"
 msgstr "Listado de inscritos"
 
-#: index.php:148 index2.php:302 livestream/index.php:201
+#: index.php:148 index2.php:302 livestream/index.php:202
 #: livestream/vwls_entrenamientos.php:63 public/pb_entrenamientos.php:36
 #: public/pbmenu_entrenamientos.php:38 scripts/sesiones.js.php:160
 #: scripts/sesiones.js.php:170 scripts/sesiones.js.php:175
-#: videowall/index.php:236 videowall/index.php:246
+#: videowall/index.php:237 videowall/index.php:247
 #: videowall/vw_entrenamientos.php:36 videowall/vws_entrenamientos.php:36
+#: console/dialogs/dlg_remotecontrol.inc:54
+#: console/dialogs/dlg_remotecontrol.inc:64
+#: console/dialogs/dlg_remotecontrol.inc:119
 msgid "Training session"
 msgstr "Sesi&oacute;n de entrenamientos"
 
-#: index.php:150 index2.php:341 livestream/index.php:204
+#: index.php:150 index2.php:341 livestream/index.php:205
 #: livestream/vwls_parciales.php:65 public/pb_parciales.php:38
 #: public/pb_parciales.php:44 public/pb_parciales.php:54
 #: public/pb_parciales_equipos.php:38 public/pb_parciales_equipos.php:44
 #: public/pb_parciales_equipos.php:54 public/pbmenu_parciales.php:44
 #: public/pbmenu_parciales_equipos.php:44 scripts/printer.js.php:212
 #: scripts/sesiones.js.php:158 scripts/sesiones.js.php:171
-#: scripts/sesiones.js.php:176 videowall/index.php:238 videowall/index.php:242
+#: scripts/sesiones.js.php:176 videowall/index.php:239 videowall/index.php:243
 #: videowall/vw_parciales.php:43 videowall/vwc_parciales.php:51
+#: console/dialogs/dlg_remotecontrol.inc:56
+#: console/dialogs/dlg_remotecontrol.inc:60
+#: console/dialogs/dlg_remotecontrol.inc:122
 msgid "Partial scores"
 msgstr "Clasificaci&oacute;n parcial"
 
@@ -2806,7 +2819,7 @@ msgstr "Clasificaci&oacute;n parcial"
 #: lib/templates/final_individual_2rondas.inc.php:14
 #: lib/templates/final_last_individual.inc.php:14
 #: lib/templates/final_last_teams.inc.php:14
-#: lib/templates/final_teams.inc.php:13 livestream/index.php:205
+#: lib/templates/final_teams.inc.php:13 livestream/index.php:206
 #: livestream/vwls_finales.php:66 livestream/vwls_finales.php:91
 #: public/pb_finales.php:38 public/pb_finales.php:44 public/pb_finales.php:53
 #: public/pb_finales_equipos.php:38 public/pb_finales_equipos.php:44
@@ -2814,9 +2827,11 @@ msgstr "Clasificaci&oacute;n parcial"
 #: public/pbmenu_finales_equipos.php:43 scripts/sesiones.js.php:159
 #: scripts/sesiones.js.php:173 scripts/sesiones.js.php:177
 #: server/pdf/classes/PrintClasificacion.php:144
-#: server/pdf/classes/PrintClasificacionTeam.php:170 videowall/index.php:239
-#: videowall/index.php:243 videowall/vw_finales.php:46
-#: videowall/vwc_finales.php:51
+#: server/pdf/classes/PrintClasificacionTeam.php:170 videowall/index.php:240
+#: videowall/index.php:244 videowall/vw_finales.php:46
+#: videowall/vwc_finales.php:51 console/dialogs/dlg_remotecontrol.inc:57
+#: console/dialogs/dlg_remotecontrol.inc:61
+#: console/dialogs/dlg_remotecontrol.inc:123
 msgid "Final scores"
 msgstr "Clasificaci&oacute;n final"
 
@@ -3406,45 +3421,46 @@ msgstr "Internacional"
 msgid "Learning"
 msgstr "Pr&aacute;cticas"
 
-#: livestream/index.php:191 videowall/index.php:223
+#: livestream/index.php:192 videowall/index.php:224
 msgid "Select ring, display name (optional) and view to deploy"
 msgstr "Indica ring, nombre de la pantalla (opcional) y vista a desplegar"
 
-#: livestream/index.php:195 videowall/index.php:228
+#: livestream/index.php:196 videowall/index.php:229
 msgid "Select Session/Ring"
 msgstr "Selecciona Ring"
 
-#: livestream/index.php:203 scripts/sesiones.js.php:157
+#: livestream/index.php:204 scripts/sesiones.js.php:157
 #: console/dialogs/dlg_configuracion.inc:225
+#: console/dialogs/dlg_remotecontrol.inc:121
 msgid "Live Stream"
 msgstr "Video en directo"
 
-#: livestream/index.php:208
+#: livestream/index.php:209
 msgid "Select mode"
 msgstr "Selecciona modo"
 
-#: livestream/index.php:210
+#: livestream/index.php:211
 msgid "Embedded Video"
 msgstr "Video insertado"
 
-#: livestream/index.php:212
+#: livestream/index.php:213
 msgid "Chroma Key"
 msgstr "Chroma Key"
 
-#: livestream/index.php:240
+#: livestream/index.php:241
 msgid "LiveStream"
 msgstr "Video en directo"
 
-#: livestream/index.php:260 videowall/index.php:301
+#: livestream/index.php:261 videowall/index.php:302
 msgid "Use selected as working session"
 msgstr "Trabajar con el la sesi&oacute;n seleccionada"
 
-#: livestream/index.php:308 videowall/index.php:349
+#: livestream/index.php:309 videowall/index.php:350
 msgid "You should select a valid session"
 msgstr "Debe seleccionar una sesi&oacute;n v&aacute;lida"
 
 #: livestream/livestream.js.php:117 livestream/livestream.js.php:132
-#: livestream/livestream.js.php:136 tablet/index.php:191
+#: livestream/livestream.js.php:136 tablet/index.php:192
 #: tablet/tablet_main.php:128 videowall/videowall.js.php:446
 #: videowall/videowall.js.php:553 videowall/vws.js.php:449
 #: videowall/vws.js.php:461
@@ -5135,31 +5151,39 @@ msgid "Ring session id"
 msgstr "Ring ID"
 
 #: scripts/sesiones.js.php:163 scripts/sesiones.js.php:181
-#: console/dialogs/dlg_remotecontrol.inc:101
-#: console/dialogs/dlg_remotecontrol.inc:134
+#: console/dialogs/dlg_remotecontrol.inc:242
+#: console/dialogs/dlg_remotecontrol.inc:316
 msgid "View mode"
 msgstr "Modo de pantalla"
 
-#: scripts/sesiones.js.php:172 videowall/index.php:247
+#: scripts/sesiones.js.php:172 videowall/index.php:248
+#: console/dialogs/dlg_remotecontrol.inc:65
 msgid "Partial Scores"
 msgstr "Clasificaci&oacute;n parcial"
 
 #: scripts/sesiones.js.php:172 scripts/sesiones.js.php:175
 #: scripts/sesiones.js.php:178 tests/simplified_final_individual.php:18
-#: videowall/index.php:246 videowall/index.php:247 videowall/index.php:248
+#: videowall/index.php:247 videowall/index.php:248 videowall/index.php:249
+#: console/dialogs/dlg_remotecontrol.inc:64
+#: console/dialogs/dlg_remotecontrol.inc:65
+#: console/dialogs/dlg_remotecontrol.inc:66
 msgid "simplified"
 msgstr "simplificada"
 
-#: scripts/sesiones.js.php:174 videowall/index.php:251
+#: scripts/sesiones.js.php:174 videowall/index.php:252
+#: console/dialogs/dlg_remotecontrol.inc:69
 msgid "Advertising videos"
 msgstr "V&iacute;deos promocionales"
 
 #: scripts/sesiones.js.php:176 scripts/sesiones.js.php:177
-#: videowall/index.php:242 videowall/index.php:243
+#: videowall/index.php:243 videowall/index.php:244
+#: console/dialogs/dlg_remotecontrol.inc:60
+#: console/dialogs/dlg_remotecontrol.inc:61
 msgid "Call to ring "
 msgstr "Llamada a pista"
 
-#: scripts/sesiones.js.php:178 videowall/index.php:248
+#: scripts/sesiones.js.php:178 videowall/index.php:249
+#: console/dialogs/dlg_remotecontrol.inc:66
 msgid "Final Scores"
 msgstr "Clasificaci&oacute;n final"
 
@@ -5742,47 +5766,47 @@ msgstr "P&aacute;gina"
 msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
 
-#: tablet/index.php:142
+#: tablet/index.php:143
 msgid "User,Ring,Contest and Journey selection"
 msgstr "Selecci&oacute;n de usuario, ring, prueba y jornada"
 
-#: tablet/index.php:157
+#: tablet/index.php:158
 msgid "Session"
 msgstr "Sesi&oacute;n"
 
-#: tablet/index.php:277 console/dialogs/dlg_selectJornada.inc:161
+#: tablet/index.php:278 console/dialogs/dlg_selectJornada.inc:161
 msgid "Current license permissions"
 msgstr "Los permisos de la licencia instalada"
 
-#: tablet/index.php:278
+#: tablet/index.php:279
 msgid "does not allow handling of contests"
 msgstr "no permiten la gesti&oacute;n de pruebas"
 
-#: tablet/index.php:278
+#: tablet/index.php:279
 msgid "with more than"
 msgstr "con m&aacute;s de"
 
-#: tablet/index.php:278 console/dialogs/dlg_selectJornada.inc:162
+#: tablet/index.php:279 console/dialogs/dlg_selectJornada.inc:162
 msgid "inscriptions"
 msgstr "inscripciones"
 
-#: tablet/index.php:344
+#: tablet/index.php:345
 msgid "You must"
 msgstr "Debe"
 
-#: tablet/index.php:344
+#: tablet/index.php:345
 msgid "Select session/ring for videowall and chrono"
 msgstr "Selecciona sesi&oacute;n/ring para crono y videomarcadores"
 
-#: tablet/index.php:344
+#: tablet/index.php:345
 msgid "Select contest/journey to play with"
 msgstr "Selecciona la prueba y jornada a manejar"
 
-#: tablet/index.php:348
+#: tablet/index.php:349
 msgid "No user has been selected"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: tablet/index.php:378
+#: tablet/index.php:379
 msgid "Session successfully started"
 msgstr "Sesi&oacute;n iniciada correctamente"
 
@@ -5834,27 +5858,27 @@ msgstr "Abrir el panel de entrada de datos para el dorsal seleccionado"
 msgid "Final individual"
 msgstr "Final individual"
 
-#: videowall/index.php:234
+#: videowall/index.php:235 console/dialogs/dlg_remotecontrol.inc:53
 msgid "Video Wall"
 msgstr "Video-Marcadores"
 
-#: videowall/index.php:241
+#: videowall/index.php:242 console/dialogs/dlg_remotecontrol.inc:59
 msgid "Combo view"
 msgstr "Vista combinada"
 
-#: videowall/index.php:245
+#: videowall/index.php:246 console/dialogs/dlg_remotecontrol.inc:63
 msgid "Simplified"
 msgstr "Simplificada"
 
-#: videowall/index.php:250
+#: videowall/index.php:251 console/dialogs/dlg_remotecontrol.inc:68
 msgid "Extra info"
 msgstr "Datos adicionales"
 
-#: videowall/index.php:288
+#: videowall/index.php:289
 msgid "Videowall"
 msgstr "Video marcador"
 
-#: videowall/index.php:370 videowall/index.php:409
+#: videowall/index.php:371 videowall/index.php:410
 msgid "Current license has no permission to handle training sessions"
 msgstr ""
 "Esta licencia no permite la gesti&oacute;n de sesiones de entrenamiento"
@@ -6455,6 +6479,7 @@ msgid "PDF forms and reports generation"
 msgstr "Generacion de formularios PDF e informes"
 
 #: console/dialogs/dlg_configuracion.inc:258
+#: console/dialogs/dlg_remotecontrol.inc:78
 msgid "Font family"
 msgstr "Tipos de fuentes de caracteres"
 
@@ -6565,6 +6590,9 @@ msgstr "M&eacute;todo de cifrado"
 #: console/dialogs/dlg_configuracion.inc:365
 #: console/dialogs/dlg_configuracion.inc:397
 #: console/dialogs/dlg_configuracion.inc:494 console/dialogs/dlg_pruebas.inc:53
+#: console/dialogs/dlg_remotecontrol.inc:46
+#: console/dialogs/dlg_remotecontrol.inc:112
+#: console/dialogs/dlg_remotecontrol.inc:161
 msgid "None"
 msgstr "Ninguno"
 
@@ -7298,7 +7326,9 @@ msgstr "Enviar plantilla de inscripci&oacute;n vac&iacute;a"
 msgid "Ignore sent mark and send anyway"
 msgstr "Forzar re-envio si ya se ha enviado el correo"
 
-#: console/dialogs/dlg_pruebas.inc:51
+#: console/dialogs/dlg_pruebas.inc:51 console/dialogs/dlg_remotecontrol.inc:44
+#: console/dialogs/dlg_remotecontrol.inc:110
+#: console/dialogs/dlg_remotecontrol.inc:159
 msgid "All"
 msgstr "Todos"
 
@@ -7338,33 +7368,140 @@ msgstr "Actualizando lista de clubes"
 msgid "Sent"
 msgstr "Enviado"
 
-#: console/dialogs/dlg_remotecontrol.inc:26
+#: console/dialogs/dlg_remotecontrol.inc:28
 msgid "Videowall Screens"
 msgstr "Pantallas video-marcadores"
 
-#: console/dialogs/dlg_remotecontrol.inc:30
+#: console/dialogs/dlg_remotecontrol.inc:32
+msgid "List of currently active Videowall displays"
+msgstr "Lista de video-marcadores activos"
+
+#: console/dialogs/dlg_remotecontrol.inc:33
+msgid "Choose display(s) to work with"
+msgstr "Seleccione pantallas con las que trabajar"
+
+#: console/dialogs/dlg_remotecontrol.inc:34
+#: console/dialogs/dlg_remotecontrol.inc:99
+msgid "and invoke desired operation"
+msgstr "y marque la operacion deseada"
+
+#: console/dialogs/dlg_remotecontrol.inc:40
+msgid "Parameters for display change"
+msgstr "Parametros para ajuste de video-marcadores"
+
+#: console/dialogs/dlg_remotecontrol.inc:48
+#: console/dialogs/dlg_remotecontrol.inc:114
+#: console/dialogs/dlg_remotecontrol.inc:163
+msgid "New ring"
+msgstr "Nuevo ring"
+
+#: console/dialogs/dlg_remotecontrol.inc:51
+#: console/dialogs/dlg_remotecontrol.inc:117
+msgid "New view"
+msgstr "Nueva vista"
+
+#: console/dialogs/dlg_remotecontrol.inc:75
+#: console/dialogs/dlg_remotecontrol.inc:128
+#: console/dialogs/dlg_remotecontrol.inc:170
+msgid "Switch"
+msgstr "Cambiar"
+
+#: console/dialogs/dlg_remotecontrol.inc:77
+msgid "Simplified videowall controls"
+msgstr "Controles para marcadores simplificados"
+
+#: console/dialogs/dlg_remotecontrol.inc:82
+msgid "Font size"
+msgstr "Tama&ntilde;o de fuentes de caracteres"
+
+#: console/dialogs/dlg_remotecontrol.inc:89
+msgid "Current license permissions does not allow videowall operations"
+msgstr "La licencia actual no permite operaciones con video-marcadores"
+
+#: console/dialogs/dlg_remotecontrol.inc:93
 msgid "Live Streaming windows"
 msgstr "Ventanas de streaming"
 
-#: console/dialogs/dlg_remotecontrol.inc:34
+#: console/dialogs/dlg_remotecontrol.inc:97
+msgid "List of currently active LiveStream windows"
+msgstr "Lista de ventanas de live-streaming activas"
+
+#: console/dialogs/dlg_remotecontrol.inc:98
+msgid "Choose window(s) to work with"
+msgstr "Selecciona ventanas con las que operar"
+
+#: console/dialogs/dlg_remotecontrol.inc:106
+msgid "Parameters for window change"
+msgstr "Par&aacute;metros de conmutaci&oacute;n de ventanas"
+
+#: console/dialogs/dlg_remotecontrol.inc:130
+msgid "Live Stream controls"
+msgstr "Controles de Video en directo"
+
+#: console/dialogs/dlg_remotecontrol.inc:131
+msgid "On Screen Display"
+msgstr "Datos en pantalla (O.S.D.)"
+
+#: console/dialogs/dlg_remotecontrol.inc:135
+msgid "Event Delay"
+msgstr "Retardo de respuesta"
+
+#: console/dialogs/dlg_remotecontrol.inc:143
+msgid "Current license permissions does not allow live stream operations"
+msgstr "La licencia actual no permite operaciones de video en directo"
+
+#: console/dialogs/dlg_remotecontrol.inc:147
 msgid "Chronometer displays"
 msgstr "Video-cronometros"
 
-#: console/dialogs/dlg_remotecontrol.inc:56
+#: console/dialogs/dlg_remotecontrol.inc:150
+msgid "List of currently active video-chronometers scoreboards"
+msgstr "Lista de pantallas de video-cron&oacute;metro activas"
+
+#: console/dialogs/dlg_remotecontrol.inc:155
+msgid "Parameters for chrono display change"
+msgstr "Parametros de conmutaci&oacute;n de video cron&oacute;metros"
+
+#: console/dialogs/dlg_remotecontrol.inc:175
+msgid "Current license permissions does not allow chronometer operations"
+msgstr ""
+"La licencia actual no permite operaciones de cron&ocute;metro electr&oacute;"
+"nico"
+
+#: console/dialogs/dlg_remotecontrol.inc:197
 msgid "Video control dialog"
 msgstr "Control de pantallas"
 
-#: console/dialogs/dlg_remotecontrol.inc:88
-#: console/dialogs/dlg_remotecontrol.inc:121
-#: console/dialogs/dlg_remotecontrol.inc:154
+#: console/dialogs/dlg_remotecontrol.inc:229
+#: console/dialogs/dlg_remotecontrol.inc:303
+#: console/dialogs/dlg_remotecontrol.inc:377
 msgid "Updating videowall session list"
 msgstr "Actualizando lista de pantallas"
 
-#: console/dialogs/dlg_remotecontrol.inc:176
+#: console/dialogs/dlg_remotecontrol.inc:282
+#: console/dialogs/dlg_remotecontrol.inc:356
+#: console/dialogs/dlg_remotecontrol.inc:427
+#: console/dialogs/dlg_sesiones.inc:159
+msgid "Description"
+msgstr "Descripci&oacute;n"
+
+#: console/dialogs/dlg_remotecontrol.inc:445
+msgid "Switch selected video-chronometers to choosen ring"
+msgstr "Conmutar video-cron&oacute;metros marcados al ring seleccionado"
+
+#: console/dialogs/dlg_remotecontrol.inc:446
+msgid "Switch selected livestreamn windows to choosen ring/view"
+msgstr "Conmutar pantallas de streaming marcadas al ring/vista escogido"
+
+#: console/dialogs/dlg_remotecontrol.inc:447
+msgid "Switch selected scoreboard displays to choosen ring/view"
+msgstr "Conmutar los video-marcadores seleccionados al ring/vista escogido"
+
+#: console/dialogs/dlg_remotecontrol.inc:448
 msgid "Reload and update active client lists"
 msgstr "Actualzar y recargar la lista de pantallas activas"
 
-#: console/dialogs/dlg_remotecontrol.inc:177
+#: console/dialogs/dlg_remotecontrol.inc:449
 msgid "End video display remote control session. Close window"
 msgstr "Finalizar sesi&oacute;n de control de pantallas. Cerrar ventana"
 
@@ -7456,10 +7593,6 @@ msgstr "Gesti&oacute;n de sesiones (rings)"
 #: console/dialogs/dlg_sesiones.inc:145
 msgid "Updating session list"
 msgstr "Actualizando lista de sesiones"
-
-#: console/dialogs/dlg_sesiones.inc:159
-msgid "Description"
-msgstr "Descripci&oacute;n"
 
 #: console/dialogs/dlg_sesiones.inc:179
 msgid "Add a new session (ring)<br/>into data base"
@@ -7756,9 +7889,6 @@ msgstr "Borrar el usuario seleccionado de la base de datos"
 
 #~ msgid "entries"
 #~ msgstr "entradas"
-
-#~ msgid "On Screen Display"
-#~ msgstr "Datos en pantalla (O.S.D.)"
 
 #~ msgid "Export to Excel"
 #~ msgstr "Exportar en formato Excel"

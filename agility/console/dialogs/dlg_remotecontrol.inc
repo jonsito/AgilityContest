@@ -26,156 +26,155 @@ $am=new AuthManager("Chrono");
     <div id="remote-dialog" style="width:750px;height:400px;padding:5px;">
         <div id="remote-accordion">
             <div title="<?php _e('Videowall Screens');?>" data-options="iconCls:'icon-video-tv'">
-<?php if( $am->allowed(ENABLE_VIDEOWALL) ) { ?>
-                <span style="float:left;display:inline-block;width:55%;padding:5px">
-                    <p>
-                        <?php _e('List of currently active Videowall displays');?><br/><br/>
-                        <?php _e('Choose display(s) to work with');?><br/>
-                        <?php _e('and invoke desired operation');?>
-                    </p>
-                    <table id="remote-videowall-datagrid" style="width:100%"></table>
-                </span>
-                <span style="float:right;display:inline-block;width:40%;padding:5px">
-                    <br/>
-                    <strong><?php _e('Parameters for display change');?></strong>
-                    <form id="remote-videowall-form" name="remote-videowall-form">
-                        <?php _e('Select');?>
-                        <input type="checkbox" id="remote-videowall-all" onclick="remoteVideowallAllorNone(1);"/>
-                        <label for="remote-videowall-all"><?php _e('All');?></label>
-                        <input type="checkbox" id="remote-videowall-none" onclick="remoteVideowallAllorNone(0);"/>
-                        <label for="remote-videowall-none"><?php _e('None');?></label><br/>
-
-                        <label for="remote-videowall-ring"><?php _e('New ring');?>:</label>
-       		            <select id="remote-videowall-ring" name="Ring" style="width:200px"></select><br/>
-
-                        <label for="remote-videowall-view"><?php _e('New view');?>:</label>
-                        <select id="remote-videowall-view" style="width:200px"> <!-- combobox -->
-                            <optgroup label="<?php _e('Video Wall');?> ">
-					            <option value="1"><?php _e('Training session'); ?></option>
-                                <option value="0"><?php _e('Starting order'); ?></option>
-					            <option value="2"><?php _e('Partial scores'); ?></option>
-					            <option value="4"><?php _e('Final scores'); ?></option>
-                            </optgroup>
-				            <optgroup label="<?php _e('Combo view');?> ">
-					            <option value="7"><?php _e('Call to ring '); ?> / <?php _e('Partial scores'); ?></option>
-					            <option value="8"><?php _e('Call to ring '); ?> / <?php _e('Final scores'); ?></option>
-				            </optgroup>
-				            <optgroup label="<?php _e('Simplified');?> ">
-					            <option value="6"><?php _e('Training session'); ?> (<?php _e('simplified'); ?>)</option>
-					            <option value="3"><?php _e('Partial Scores'); ?> (<?php _e('simplified'); ?>)</option>
-					            <option value="9"><?php _e('Final Scores'); ?> (<?php _e('simplified'); ?>)</option>
-				            </optgroup>
-                            <optgroup label="<?php _e('Extra info'); ?> ">
-                                <option value="5"><?php _e('Advertising videos'); ?></option>
-                            </optgroup>
-                        </select><br/>
-                        <input type="hidden" id="remote-videowall-mode" name="remote-videowall-mode" value="0"/>
-                        <span style="display:inline-block;width:200px">&nbsp;</span>
-                        <a id="remote-videowall-sendBtn" href="#" class="easyui-linkbutton"
-                             data-options="iconCls:'icon-ok'" onclick="alert('send');"><?php _e('Send'); ?></a>
-                        <br/><br/>
-                        <strong><?php _e('Simplified videowall controls');?></strong>
-                        <span style="display:inline-block;width:200px"><?php _e("Font family");?>:</span>
-                        <a id="remote-videowall-ffprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('ff-prev');"></a>
-                        <a id="remote-videowall-ffnextBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-next'" onclick="alert('ff-next');"></a>
+                <div style="display:<?php echo $am->allowed(ENABLE_VIDEOWALL)?'inherit':'none';?>">
+                    <span style="float:left;display:inline-block;width:55%;padding:5px">
+                        <p>
+                            <?php _e('List of currently active Videowall displays');?><br/><br/>
+                            <?php _e('Choose display(s) to work with');?><br/>
+                            <?php _e('and invoke desired operation');?>
+                        </p>
+                        <table id="remote-videowall-datagrid" style="width:100%"></table>
+                    </span>
+                    <span style="float:right;display:inline-block;width:40%;padding:5px">
                         <br/>
-                        <span style="display:inline-block;width:200px"><?php _e("Font size");?>:</span>
-                        <a id="remote-videowall-fsprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('fs-prev');"></a>
-                        <a id="remote-videowall-fsnextBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-next'" onclick="alert('fs-next');"></a>
-                    </form>
-                </span>
-<?php } else { ?>
-                <p><?php _e('Current license permissions does not allow videowall operations');?></p>
-                <img src="/agility/images/sad_dog.png" alt="triste"/>
-                <table id="remote-videowall-datagrid" style="display:none"></table>
-                <select id="remote-videowall-ring" name="Ring" style="display:none"></select>
-<?php } ?>
+                        <strong><?php _e('Parameters for display change');?></strong>
+                        <form id="remote-videowall-form" name="remote-videowall-form">
+                            <?php _e('Select');?>
+                            <input type="checkbox" id="remote-videowall-all" onclick="remoteVideowallAllorNone(1);"/>
+                            <label for="remote-videowall-all"><?php _e('All');?></label>
+                            <input type="checkbox" id="remote-videowall-none" onclick="remoteVideowallAllorNone(0);"/>
+                            <label for="remote-videowall-none"><?php _e('None');?></label><br/>
+
+                            <label for="remote-videowall-ring"><?php _e('New ring');?>:</label>
+       	    	            <select id="remote-videowall-ring" name="Ring" style="width:200px"></select><br/>
+
+                            <label for="remote-videowall-view"><?php _e('New view');?>:</label>
+                            <select id="remote-videowall-view" style="width:200px"> <!-- combobox -->
+                                <optgroup label="<?php _e('Video Wall');?> ">
+				    	            <option value="1"><?php _e('Training session'); ?></option>
+                                    <option value="0"><?php _e('Starting order'); ?></option>
+					                <option value="2"><?php _e('Partial scores'); ?></option>
+					                <option value="4"><?php _e('Final scores'); ?></option>
+                                </optgroup>
+	    			            <optgroup label="<?php _e('Combo view');?> ">
+		    			            <option value="7"><?php _e('Call to ring '); ?> / <?php _e('Partial scores'); ?></option>
+			    		            <option value="8"><?php _e('Call to ring '); ?> / <?php _e('Final scores'); ?></option>
+				                </optgroup>
+				                <optgroup label="<?php _e('Simplified');?> ">
+					                <option value="6"><?php _e('Training session'); ?> (<?php _e('simplified'); ?>)</option>
+					                <option value="3"><?php _e('Partial Scores'); ?> (<?php _e('simplified'); ?>)</option>
+					                <option value="9"><?php _e('Final Scores'); ?> (<?php _e('simplified'); ?>)</option>
+				                </optgroup>
+                                <optgroup label="<?php _e('Extra info'); ?> ">
+                                    <option value="5"><?php _e('Advertising videos'); ?></option>
+                                </optgroup>
+                            </select><br/>
+                            <input type="hidden" id="remote-videowall-mode" name="remote-videowall-mode" value="0"/>
+                            <span style="display:inline-block;width:200px">&nbsp;</span>
+                            <a id="remote-videowall-sendBtn" href="#" class="easyui-linkbutton"
+                                data-options="iconCls:'icon-reload'" onclick="alert('send');"><?php _e('Switch'); ?></a>
+                            <br/><br/>
+                            <strong><?php _e('Simplified videowall controls');?></strong>
+                            <span style="display:inline-block;width:200px"><?php _e("Font family");?>:</span>
+                            <a id="remote-videowall-ffprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('ff-prev');"></a>
+                            <a id="remote-videowall-ffnextBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-next'" onclick="alert('ff-next');"></a>
+                            <br/>
+                            <span style="display:inline-block;width:200px"><?php _e("Font size");?>:</span>
+                            <a id="remote-videowall-fsprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('fs-prev');"></a>
+                            <a id="remote-videowall-fsnextBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-next'" onclick="alert('fs-next');"></a>
+                        </form>
+                    </span>
+                </div>
+                <div style="display:<?php echo $am->allowed(ENABLE_VIDEOWALL)?'none':'inherit';?>">
+                    <p><?php _e('Current license permissions does not allow videowall operations');?></p>
+                    <img src="/agility/images/sad_dog.png" alt="triste"/>
+                </div>
             </div>
             <div title="<?php _e('Live Streaming windows');?>" data-options="iconCls:'icon-live'">
-<?php if( $am->allowed(ENABLE_LIVESTREAM) ) { ?>
-                <span style="float:left;display:inline-block;width:55%;padding:5px">
-                    <p>
-                        <?php _e('List of currently active LiveStream windows');?><br/><br/>
-                        <?php _e('Choose window(s) to work with');?><br/>
-                        <?php _e('and invoke desired operation');?>
-                    </p>
-                    <table id="remote-livestream-datagrid" style="width:100%"></table>
-                </span>
-                <span style="float:right;display:inline-block;width:40%;padding:5px">
-                    <br/>
-                    <strong><?php _e('Parameters for window change');?></strong>
-                    <form id="remote-livestream-form" name="remote-livestream-form">
-                        <?php _e('Select');?>
-                        <input type="checkbox" id="remote-livestream-all" onclick="remoteLivestreamAllorNone(1);"/>
-                        <label for="remote-livestream-all"><?php _e('All');?></label>
-                        <input type="checkbox" id="remote-livestream-none" onclick="remoteLivestreamAllorNone(0);"/>
-                        <label for="remote-livestream-none"><?php _e('None');?></label><br/>
+                <div style="display:<?php echo $am->allowed(ENABLE_LIVESTREAM)?'inherit':'none';?>">
+                    <span style="float:left;display:inline-block;width:55%;padding:5px">
+                        <p>
+                            <?php _e('List of currently active LiveStream windows');?><br/><br/>
+                            <?php _e('Choose window(s) to work with');?><br/>
+                            <?php _e('and invoke desired operation');?>
+                        </p>
+                        <table id="remote-livestream-datagrid" style="width:100%"></table>
+                    </span>
 
-                        <label for="remote-livestream-ring"><?php _e('New ring');?>:</label>
-       		            <select id="remote-livestream-ring" name="Ring" style="width:200px"></select><br/>
-
-                        <label for="remote-livestream-view"><?php _e('New view');?>:</label>
-                        <select id="remote-livestream-view" style="width:200px"> <!-- combobox -->
-				            <option value="4"><?php _e('Training session'); ?></option>
-				            <option value="0"><?php _e('Starting order'); ?></option>
-				            <option value="1"><?php _e('Live Stream'); ?></option>
-				            <option value="2"><?php _e('Partial scores'); ?></option>
-				            <option value="3"><?php _e('Final scores'); ?></option>
-                        </select><br/>
-                        <input type="hidden" id="remote-livestream-mode" name="remote-livestream-mode" value="0"/>
-                        <span style="display:inline-block;width:200px">&nbsp;</span>
-                        <a id="remote-livestream-sendBtn" href="#" class="easyui-linkbutton"
-                           data-options="iconCls:'icon-ok'" onclick="alert('send');"><?php _e('Send'); ?></a>
-                        <br/> <br/>
-                        <strong><?php _e('Live Stream controls');?></strong>
-                        <span style="display:inline-block;width:200px"><?php _e("On Screen Display");?>:</span>
-                        <a id="remote-livestream-onBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-on'" onclick="alert('osd-on');"></a>
-                        <a id="remote-livestream-offBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-off'" onclick="alert('osd-off');"></a>
+                    <span style="float:right;display:inline-block;width:40%;padding:5px">
                         <br/>
-                        <span style="display:inline-block;width:200px"><?php _e("Event Delay");?>:</span>
-                        <a id="remote-livestream-fsprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('ed-prev');"></a>
-                        <a id="remote-livestream-fsnextBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-next'" onclick="alert('ed-next');"></a>
-                    </form>
-                </span>
-<?php } else { ?>
-                <p><?php _e('Current license permissions does not allow live stream operations');?></p>
-                <img src="/agility/images/sad_dog.png" alt="triste"/>
-                <table id="remote-livestream-datagrid" style="display:none"></table>
-                <select id="remote-livestream-ring" name="Ring" style="display:none"></select>
-<?php } ?>
+                        <strong><?php _e('Parameters for window change');?></strong>
+                        <form id="remote-livestream-form" name="remote-livestream-form">
+                            <?php _e('Select');?>
+                            <input type="checkbox" id="remote-livestream-all" onclick="remoteLivestreamAllorNone(1);"/>
+                            <label for="remote-livestream-all"><?php _e('All');?></label>
+                            <input type="checkbox" id="remote-livestream-none" onclick="remoteLivestreamAllorNone(0);"/>
+                            <label for="remote-livestream-none"><?php _e('None');?></label><br/>
+
+                            <label for="remote-livestream-ring"><?php _e('New ring');?>:</label>
+           		            <select id="remote-livestream-ring" name="Ring" style="width:200px"></select><br/>
+
+                            <label for="remote-livestream-view"><?php _e('New view');?>:</label>
+                            <select id="remote-livestream-view" style="width:200px"> <!-- combobox -->
+				                <option value="4"><?php _e('Training session'); ?></option>
+				                <option value="0"><?php _e('Starting order'); ?></option>
+				                <option value="1"><?php _e('Live Stream'); ?></option>
+				                <option value="2"><?php _e('Partial scores'); ?></option>
+    				            <option value="3"><?php _e('Final scores'); ?></option>
+                            </select><br/>
+                            <input type="hidden" id="remote-livestream-mode" name="remote-livestream-mode" value="0"/>
+                            <span style="display:inline-block;width:200px">&nbsp;</span>
+                            <a id="remote-livestream-sendBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-reload'" onclick="alert('send');"><?php _e('Switch'); ?></a>
+                            <br/> <br/>
+                            <strong><?php _e('Live Stream controls');?></strong>
+                            <span style="display:inline-block;width:200px"><?php _e("On Screen Display");?>:</span>
+                            <a id="remote-livestream-onBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-on'" onclick="alert('osd-on');"></a>
+                            <a id="remote-livestream-offBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-off'" onclick="alert('osd-off');"></a>
+                            <br/>
+                            <span style="display:inline-block;width:200px"><?php _e("Event Delay");?>:</span>
+                            <a id="remote-livestream-fsprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('ed-prev');"></a>
+                            <a id="remote-livestream-fsnextBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-next'" onclick="alert('ed-next');"></a>
+                        </form>
+                    </span>
+                </div>
+
+                <div style="display:<?php echo $am->allowed(ENABLE_LIVESTREAM)?'none':'inherit';?>">
+                    <p><?php _e('Current license permissions does not allow live stream operations');?></p>
+                    <img src="/agility/images/sad_dog.png" alt="triste"/>
+                </div>
             </div>
             <div title="<?php _e('Chronometer displays');?>" data-options="iconCls:'icon-clock'">
-<?php if( $am->allowed(ENABLE_CHRONO) ) { ?>
-                <span style="float:left;display:inline-block;width:55%;padding:5px">
-                    <p><?php _e('List of currently active video-chronometers scoreboards');?></p>
-                    <table id="remote-chronometer-datagrid" style="width:100%"></table>
-                </span>
-                <span style="float:right;display:inline-block;width:40%;padding:5px">
-                    <br/>
-                    <strong><?php _e('Parameters for chrono display change');?></strong>
-                    <form id="remote-chronometer-form" name="remote-chronometer-form">
-                        <?php _e('Select');?>
-                        <input type="checkbox" id="remote-chronometer-all" onclick="remoteChronometerAllorNone(1);"/>
-                        <label for="remote-chronometer-all"><?php _e('All');?></label>
-                        <input type="checkbox" id="remote-chronometer-none" onclick="remoteChronometerAllorNone(0);"/>
-                        <label for="remote-chronometer-none"><?php _e('None');?></label><br/>
-
-                        <label for="remote-chronometer-ring"><?php _e('New ring');?>:</label>
-       		            <select id="remote-chronometer-ring" name="Ring" style="width:200px"></select>
-                        <span style="display:none"><select id="remote-chronometer-view" name="View"></select></span>
+                <div style="display:<?php echo $am->allowed(ENABLE_CHRONO)?'inherit':'none';?>">
+                    <span style="float:left;display:inline-block;width:55%;padding:5px">
+                        <p><?php _e('List of currently active video-chronometers scoreboards');?></p>
+                      <table id="remote-chronometer-datagrid" style="width:100%"></table>
+                    </span>
+                        <span style="float:right;display:inline-block;width:40%;padding:5px">
                         <br/>
-                        <input type="hidden" id="remote-chronometer-mode" name="remote-chronometer-mode" value="0"/>
-                        <span style="display:inline-block;width:200px">&nbsp;</span>
-                        <a id="remote-chronometer-sendBtn" href="#" class="easyui-linkbutton"
-                           data-options="iconCls:'icon-ok'" onclick="alert('send');"><?php _e('Send'); ?></a>
-                    </form>
-                </span>
-<?php } else { ?>
-                <p><?php _e('Current license permissions does not allow chronometer operations');?></p>
-                <img src="/agility/images/sad_dog.png" alt="triste"/>
-                <table id="remote-chronometer-datagrid" style="display:none"></table>
-                <select id="remote-chronometer-ring" name="Ring" style="display:none"></select>
-<?php } ?>
+                        <strong><?php _e('Parameters for chrono display change');?></strong>
+                        <form id="remote-chronometer-form" name="remote-chronometer-form">
+                            <?php _e('Select');?>
+                            <input type="checkbox" id="remote-chronometer-all" onclick="remoteChronometerAllorNone(1);"/>
+                            <label for="remote-chronometer-all"><?php _e('All');?></label>
+                            <input type="checkbox" id="remote-chronometer-none" onclick="remoteChronometerAllorNone(0);"/>
+                            <label for="remote-chronometer-none"><?php _e('None');?></label><br/>
+
+                            <label for="remote-chronometer-ring"><?php _e('New ring');?>:</label>
+           		            <select id="remote-chronometer-ring" name="Ring" style="width:200px"></select>
+                            <span style="display:none"><select id="remote-chronometer-view" name="View"></select></span>
+                            <br/>
+                            <input type="hidden" id="remote-chronometer-mode" name="remote-chronometer-mode" value="0"/>
+                            <span style="display:inline-block;width:200px">&nbsp;</span>
+                            <a id="remote-chronometer-sendBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-reload'" onclick="alert('send');"><?php _e('Switch'); ?></a>
+                        </form>
+                    </span>
+                </div>
+                <div style="display:<?php echo $am->allowed(ENABLE_CHRONO)?'none':'inherit';?>">
+                    <p><?php _e('Current license permissions does not allow chronometer operations');?></p>
+                    <img src="/agility/images/sad_dog.png" alt="triste"/>
+                </div>
             </div>
         </div>
     </div>
