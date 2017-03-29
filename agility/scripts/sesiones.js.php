@@ -268,7 +268,7 @@ function remote_handleEvents(source,data){
             }
         }
         if (evtdata.Session===0) { // cannot find session for named display
-            $.messager.alert("<?php _e('No Session');?>","Internal error: cannot locate session data for display:"+rows[n].Name,"error");
+            $.messager.alert("<?php _e('No session');?>","Internal error: cannot locate session data for display:"+rows[n].Name,"error");
             return false;
         }
         // send an event for each display
