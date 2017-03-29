@@ -39,12 +39,14 @@ $am=new AuthManager("Chrono");
                     <strong><?php _e('Parameters for display change');?></strong>
                     <form id="remote-videowall-form" name="remote-videowall-form">
                         <?php _e('Select');?>
-                        <input type="checkbox" id="remote-videowall-all"/>
+                        <input type="checkbox" id="remote-videowall-all" onclick="remoteVideowallAllorNone(1);"/>
                         <label for="remote-videowall-all"><?php _e('All');?></label>
-                        <input type="checkbox" id="remote-videowall-none"/>
+                        <input type="checkbox" id="remote-videowall-none" onclick="remoteVideowallAllorNone(0);"/>
                         <label for="remote-videowall-none"><?php _e('None');?></label><br/>
+
                         <label for="remote-videowall-ring"><?php _e('New ring');?>:</label>
        		            <select id="remote-videowall-ring" name="Ring" style="width:200px"></select><br/>
+
                         <label for="remote-videowall-view"><?php _e('New view');?>:</label>
                         <select id="remote-videowall-view" style="width:200px"> <!-- combobox -->
                             <optgroup label="<?php _e('Video Wall');?> ">
@@ -101,12 +103,14 @@ $am=new AuthManager("Chrono");
                     <strong><?php _e('Parameters for window change');?></strong>
                     <form id="remote-livestream-form" name="remote-livestream-form">
                         <?php _e('Select');?>
-                        <input type="checkbox" id="remote-livestream-all"/>
+                        <input type="checkbox" id="remote-livestream-all" onclick="remoteLivestreamAllorNone(1);"/>
                         <label for="remote-livestream-all"><?php _e('All');?></label>
-                        <input type="checkbox" id="remote-livestream-none"/>
+                        <input type="checkbox" id="remote-livestream-none" onclick="remoteLivestreamAllorNone(0);"/>
                         <label for="remote-livestream-none"><?php _e('None');?></label><br/>
+
                         <label for="remote-livestream-ring"><?php _e('New ring');?>:</label>
        		            <select id="remote-livestream-ring" name="Ring" style="width:200px"></select><br/>
+
                         <label for="remote-livestream-view"><?php _e('New view');?>:</label>
                         <select id="remote-livestream-view" style="width:200px"> <!-- combobox -->
 				            <option value="4"><?php _e('Training session'); ?></option>
@@ -138,8 +142,27 @@ $am=new AuthManager("Chrono");
             </div>
             <div title="<?php _e('Chronometer displays');?>" data-options="iconCls:'icon-clock'">
 <?php if( $am->allowed(ENABLE_CHRONO) ) { ?>
-                <p><?php _e('List of currently active video-chronometers scoreboards');?></p>
-                <table id="remote-chronometer-datagrid" style="width:60%"></table>
+                <span style="float:left;display:inline-block;width:55%;padding:5px">
+                    <p><?php _e('List of currently active video-chronometers scoreboards');?></p>
+                    <table id="remote-chronometer-datagrid" style="width:60%"></table>
+                </span>
+                <span style="float:right;display:inline-block;width:40%;padding:5px">
+                    <strong><?php _e('Parameters for chrono display change');?></strong>
+                    <form id="remote-chronometer-form" name="remote-chronometer-form">
+                        <?php _e('Select');?>
+                        <input type="checkbox" id="remote-chronometer-all" onclick="remoteChronometerAllorNone(1);"/>
+                        <label for="remote-chronometer-all"><?php _e('All');?></label>
+                        <input type="checkbox" id="remote-chronometer-none" onclick="remoteChronometerAllorNone(0);"/>
+                        <label for="remote-chronometer-none"><?php _e('None');?></label><br/>
+
+                        <label for="remote-chronometer-ring"><?php _e('New ring');?>:</label>
+       		            <select id="remote-chronometer-ring" name="Ring" style="width:200px"></select><br/>
+
+                        <span style="display:inline-block;width:200px">&nbsp;</span>
+                        <a id="remote-chronometer-sendBtn" href="#" class="easyui-linkbutton"
+                           data-options="iconCls:'icon-ok'" onclick="alert('send');"><?php _e('Send'); ?></a>
+                    </form>
+                </span>
 <?php } else { ?>
                 <p><?php _e('Current license permissions does not allow chronometer operations');?></p>
                 <img src="/agility/images/sad_dog.png" alt="triste"/>
@@ -215,7 +238,13 @@ $am=new AuthManager("Chrono");
                 { field:'LastCall',		hidden:true }
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-            rowStyler:myRowStyler
+            rowStyler:myRowStyler,
+            onUnselect: function(index,row) {
+                $('#remote-videowall-all').prop('checked',false);
+            },
+            onSelect: function(index,row) {
+                $('#remote-videowall-none').prop('checked',false);
+            }
         });
 
         $('#remote-videowall-view').combobox({
@@ -281,7 +310,13 @@ $am=new AuthManager("Chrono");
                 { field:'LastCall',		hidden:true }
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-            rowStyler:myRowStyler
+            rowStyler:myRowStyler,
+            onUnselect: function(index,row) {
+                $('#remote-livestream-all').prop('checked',false);
+            },
+            onSelect: function(index,row) {
+                $('#remote-livestream-none').prop('checked',false);
+            }
         });
 
         $('#remote-livestream-view').combobox({
@@ -347,7 +382,13 @@ $am=new AuthManager("Chrono");
                 { field:'LastCall',		hidden:true }
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-            rowStyler:myRowStyler
+            rowStyler:myRowStyler,
+            onUnselect: function(index,row) {
+                $('#remote-chronometer-all').prop('checked',false);
+            },
+            onSelect: function(index,row) {
+                $('#remote-chronometer-none').prop('checked',false);
+            }
         });
 
         // tooltips de los botones
@@ -359,8 +400,9 @@ $am=new AuthManager("Chrono");
         $('#remote-videowall-ffprevBtn').linkbutton();
         $('#remote-videowall-fsnextBtn').linkbutton();
         $('#remote-videowall-fsprevBtn').linkbutton();
-        addTooltip($('#remote-livestream-sendBtn').linkbutton(),'<?php _e("Switch selected windows to choosen ring/view"); ?>');
-        addTooltip($('#remote-videowall-sendBtn').linkbutton(),'<?php _e("Switch selected displays to choosen ring/view"); ?>');
+        addTooltip($('#remote-chronometer-sendBtn').linkbutton(),'<?php _e("Switch selected video-chronometers to choosen ring"); ?>');
+        addTooltip($('#remote-livestream-sendBtn').linkbutton(),'<?php _e("Switch selected livestreamn windows to choosen ring/view"); ?>');
+        addTooltip($('#remote-videowall-sendBtn').linkbutton(),'<?php _e("Switch selected scoreboard displays to choosen ring/view"); ?>');
         addTooltip($('#remote-reloadBtn').linkbutton(),'<?php _e("Reload and update active client lists"); ?>');
         addTooltip($('#remote-okBtn').linkbutton(),'<?php _e("End video display remote control session. Close window"); ?>');
     </script>

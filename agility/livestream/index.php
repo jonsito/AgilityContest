@@ -311,7 +311,7 @@ function ls_accept() {
 	}
 	// load video(1) or chroma(0) mode
 	ac_config.vw_combined=$('input[name=Livestream_Mode]:checked').val();
-	var combinedstr=(ac_config.vw_combined==0)?"chroma":"video";
+	var combinedstr=(ac_config.vw_combined===0)?"chroma":"video";
 	// store selected data into global structure
 	workingData.sesion=s.ID;
 	workingData.nombreSesion=s.Nombre;
@@ -347,11 +347,11 @@ function ls_accept() {
 			page,
 			function(response,status,xhr){
 				document.title=title;
-				if (status=='error') {
+				if (status==='error') {
 					$('#vw_contenido').load('/agility/console/frm_notavailable.php');
 					return;
 				}
-				if (ac_config.vw_combined==0) return; // do not embedd video, just declare chroma key
+				if (ac_config.vw_combined===0) return; // do not embedd video, just declare chroma key
 				var bg=workingData.datosSesion.Background;
 				var ls1=workingData.datosSesion.LiveStream;
 				var ls2=workingData.datosSesion.LiveStream2;

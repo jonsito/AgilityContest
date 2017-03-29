@@ -53,6 +53,8 @@ $('#vw_anuncios-window').window({
     resizable:true,
     callback: null,
     onOpen: function() {
+        // start event manager to receive events
+        startEventMgr();
         // start video playback
         var bg=workingData.datosSesion.Background;
         var ls1=workingData.datosSesion.LiveStream;
@@ -67,9 +69,6 @@ $('#vw_anuncios-window').window({
         if (!video) return; // no video tag found
         video.load();
         video.play();
-
-        // start event manager to receive events
-        startEventMgr();
     }
 });
 

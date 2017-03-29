@@ -151,7 +151,7 @@ function formatRingName(val,row,index) {
 }
 
 // retrieve view mode for Videowall val:mode
-function formatVideowallView(val,row,index) {
+function formatLiveStreamView(val,row,index) {
     switch (parseInt(val)) {
         case 0: return '<?php _e("Starting order"); ?>';
         case 1: return '<?php _e("Live Stream"); ?>';
@@ -164,7 +164,7 @@ function formatVideowallView(val,row,index) {
 }
 
 // retrieve View mode from livestream display val:mode
-function formatLiveStreamView(val,row,index) {
+function formatVideowallView(val,row,index) {
     switch (parseInt(val)) {
         case 0: return "<?php _e('Starting order'); ?>";
         case 1: return "<?php _e('Training session'); ?>";
@@ -179,4 +179,19 @@ function formatLiveStreamView(val,row,index) {
     }
     // default: ( should not occurs ) return session id as string
     return "<?php _e('View mode');?>: "+val;
+}
+
+function remoteAllorNone(val, dg,all,none) {
+    if (val==1) { dg.datagrid('selectAll'); none.prop('checked',false); }
+    if (val==0) { dg.datagrid('unselectAll'); all.prop('checked',false); }
+}
+
+function remoteVideowallAllorNone(val) {
+    remoteAllorNone( val, $('#remote-videowall-datagrid') , $('#remote-videowall-all') ,$('#remote-videowall-none') );
+}
+function remoteLivestreamAllorNone(val) {
+    remoteAllorNone( val, $('#remote-livestream-datagrid') , $('#remote-livestream-all') ,$('#remote-livestream-none') );
+}
+function remoteChronometerAllorNone(val) {
+    remoteAllorNone( val, $('#remote-chronometer-datagrid') , $('#remote-chronometer-all') ,$('#remote-chronometer-none') );
 }
