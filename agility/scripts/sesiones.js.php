@@ -195,3 +195,12 @@ function remoteLivestreamAllorNone(val) {
 function remoteChronometerAllorNone(val) {
     remoteAllorNone( val, $('#remote-chronometer-datagrid') , $('#remote-chronometer-all') ,$('#remote-chronometer-none') );
 }
+
+// when a single row is selected in remote control window, clone status to change dialog
+function remoteSetOnSingleSelection(name) {
+    var rows=$(name+'-datagrid').datagrid('getSelections');
+    if (rows.length!==1) return; // no single selection
+    $(name+'-ring').combogrid('setValue',rows[0].Session);
+    $(name+'-view').combobox('setValue',rows[0].View);
+    $(name+'-mode').val(rows[0].Mode);
+}

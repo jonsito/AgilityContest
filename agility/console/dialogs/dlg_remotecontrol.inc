@@ -36,6 +36,7 @@ $am=new AuthManager("Chrono");
                     <table id="remote-videowall-datagrid" style="width:100%"></table>
                 </span>
                 <span style="float:right;display:inline-block;width:40%;padding:5px">
+                    <br/>
                     <strong><?php _e('Parameters for display change');?></strong>
                     <form id="remote-videowall-form" name="remote-videowall-form">
                         <?php _e('Select');?>
@@ -68,10 +69,11 @@ $am=new AuthManager("Chrono");
                                 <option value="5"><?php _e('Advertising videos'); ?></option>
                             </optgroup>
                         </select><br/>
+                        <input type="hidden" id="remote-videowall-mode" name="remote-videowall-mode" value="0"/>
                         <span style="display:inline-block;width:200px">&nbsp;</span>
                         <a id="remote-videowall-sendBtn" href="#" class="easyui-linkbutton"
                              data-options="iconCls:'icon-ok'" onclick="alert('send');"><?php _e('Send'); ?></a>
-                        <br>
+                        <br/><br/>
                         <strong><?php _e('Simplified videowall controls');?></strong>
                         <span style="display:inline-block;width:200px"><?php _e("Font family");?>:</span>
                         <a id="remote-videowall-ffprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('ff-prev');"></a>
@@ -100,6 +102,7 @@ $am=new AuthManager("Chrono");
                     <table id="remote-livestream-datagrid" style="width:100%"></table>
                 </span>
                 <span style="float:right;display:inline-block;width:40%;padding:5px">
+                    <br/>
                     <strong><?php _e('Parameters for window change');?></strong>
                     <form id="remote-livestream-form" name="remote-livestream-form">
                         <?php _e('Select');?>
@@ -119,10 +122,11 @@ $am=new AuthManager("Chrono");
 				            <option value="2"><?php _e('Partial scores'); ?></option>
 				            <option value="3"><?php _e('Final scores'); ?></option>
                         </select><br/>
+                        <input type="hidden" id="remote-livestream-mode" name="remote-livestream-mode" value="0"/>
                         <span style="display:inline-block;width:200px">&nbsp;</span>
                         <a id="remote-livestream-sendBtn" href="#" class="easyui-linkbutton"
                            data-options="iconCls:'icon-ok'" onclick="alert('send');"><?php _e('Send'); ?></a>
-                        <br>
+                        <br/> <br/>
                         <strong><?php _e('Live Stream controls');?></strong>
                         <span style="display:inline-block;width:200px"><?php _e("On Screen Display");?>:</span>
                         <a id="remote-livestream-onBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-on'" onclick="alert('osd-on');"></a>
@@ -144,9 +148,10 @@ $am=new AuthManager("Chrono");
 <?php if( $am->allowed(ENABLE_CHRONO) ) { ?>
                 <span style="float:left;display:inline-block;width:55%;padding:5px">
                     <p><?php _e('List of currently active video-chronometers scoreboards');?></p>
-                    <table id="remote-chronometer-datagrid" style="width:60%"></table>
+                    <table id="remote-chronometer-datagrid" style="width:100%"></table>
                 </span>
                 <span style="float:right;display:inline-block;width:40%;padding:5px">
+                    <br/>
                     <strong><?php _e('Parameters for chrono display change');?></strong>
                     <form id="remote-chronometer-form" name="remote-chronometer-form">
                         <?php _e('Select');?>
@@ -156,8 +161,10 @@ $am=new AuthManager("Chrono");
                         <label for="remote-chronometer-none"><?php _e('None');?></label><br/>
 
                         <label for="remote-chronometer-ring"><?php _e('New ring');?>:</label>
-       		            <select id="remote-chronometer-ring" name="Ring" style="width:200px"></select><br/>
-
+       		            <select id="remote-chronometer-ring" name="Ring" style="width:200px"></select>
+                        <span style="display:none"><select id="remote-chronometer-view" name="View"></select></span>
+                        <br/>
+                        <input type="hidden" id="remote-chronometer-mode" name="remote-chronometer-mode" value="0"/>
                         <span style="display:inline-block;width:200px">&nbsp;</span>
                         <a id="remote-chronometer-sendBtn" href="#" class="easyui-linkbutton"
                            data-options="iconCls:'icon-ok'" onclick="alert('send');"><?php _e('Send'); ?></a>
@@ -241,9 +248,11 @@ $am=new AuthManager("Chrono");
             rowStyler:myRowStyler,
             onUnselect: function(index,row) {
                 $('#remote-videowall-all').prop('checked',false);
+                remoteSetOnSingleSelection("#remote-videowall");
             },
             onSelect: function(index,row) {
                 $('#remote-videowall-none').prop('checked',false);
+                remoteSetOnSingleSelection("#remote-videowall");
             }
         });
 
@@ -313,9 +322,11 @@ $am=new AuthManager("Chrono");
             rowStyler:myRowStyler,
             onUnselect: function(index,row) {
                 $('#remote-livestream-all').prop('checked',false);
+                remoteSetOnSingleSelection("#remote-livestream");
             },
             onSelect: function(index,row) {
                 $('#remote-livestream-none').prop('checked',false);
+                remoteSetOnSingleSelection("#remote-livestream");
             }
         });
 
@@ -385,10 +396,42 @@ $am=new AuthManager("Chrono");
             rowStyler:myRowStyler,
             onUnselect: function(index,row) {
                 $('#remote-chronometer-all').prop('checked',false);
+                remoteSetOnSingleSelection("#remote-chronometer");
             },
             onSelect: function(index,row) {
                 $('#remote-chronometer-none').prop('checked',false);
+                remoteSetOnSingleSelection("#remote-chronometer");
             }
+        });
+
+        // need for compatibility, but invisible and not used in chronometer
+        $('#remote-chronometer-view').combobox({ panelHeight:'auto', valueField:'value', editable:false });
+
+        $('#remote-chronometer-ring').combogrid({
+            panelWidth: 400,
+            panelHeight: 'auto',
+            idField: 'ID',
+            textField: 'Nombre',
+            url: '/agility/server/database/sessionFunctions.php',
+            queryParams: { Operation:'selectring', Hidden:0},
+            method: 'get',
+            mode: 'remote',
+            required: true,
+            rownumber: true,
+            multiple: false,
+            fitColumns: true,
+            singleSelect: true,
+            editable: false, // avoid keyboard deploy
+            columns: [[
+                { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
+                { field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: '<?php _e('Name'); ?>' },
+                { field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: '<?php _e('Description'); ?>' },
+                { field:'Prueba',	    hidden:true },
+                { field:'Jornada',	    hidden:true },
+                { field:'Background',	hidden:true },
+                { field:'LiveStream2',	hidden:true },
+                { field:'LiveStream3',	hidden:true }
+            ]]
         });
 
         // tooltips de los botones
