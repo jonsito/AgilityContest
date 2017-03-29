@@ -250,6 +250,7 @@ function myLlamadaRowStyler(idx,row) {
 				</optgroup>
                 <optgroup label="<?php _e('Extra info'); ?> ">
                     <option value="5"><?php _e('Advertising videos'); ?></option>
+                    <option value="10"><?php _e('Standby screen'); ?></option>
                 </optgroup>
        		</select>
     	</div>
@@ -438,6 +439,11 @@ function vw_accept() {
 		ac_config.vw_combined=1;
 		ac_config.vwc_simplified=1;
 		break;
+    case 10: // standby mode
+        page="vw_standby.php";
+        ac_config.vw_combined=0;
+        ac_config.vwc_simplified=0;
+        break;
 	}
 	$('#selvw-dialog').dialog('close');
 	$('#vw_contenido').load(
