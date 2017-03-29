@@ -211,6 +211,9 @@ Section "Uninstall"
     StrCpy $PATH "${PROGRAM_NAME}"
     StrCpy $PATH_ACCESO_DIRECTO "${PROGRAM_NAME}"
     SetShellVarContext all
+    ; make sure that application is stopped
+    Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k httpd.exe -q'
+    Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k mysqld.exe -q'
 	; make sure to preserve user config for versions <=1.17
     RMDir /r $SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO
     RMDir /r $INSTDIR
