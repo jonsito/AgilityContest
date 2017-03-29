@@ -137,6 +137,8 @@ function resetSession(dg) {
     });
 }
 
+/************************ funciones de manejo de control remoto de sesiones ********************/
+
 function reloadRemoteClientList() {
     $('#remote-videowall-datagrid').datagrid('load');
     $('#remote-livestream-datagrid').datagrid('load');
@@ -203,4 +205,89 @@ function remoteSetOnSingleSelection(name) {
     $(name+'-ring').combogrid('setValue',rows[0].Session);
     $(name+'-view').combobox('setValue',rows[0].View);
     $(name+'-mode').val(rows[0].Mode);
+}
+
+/**
+ * send events
+ * @param {object} data Event data
+ */
+function remote_putEvent(data){
+    // setup default elements for this event
+    var obj= {
+        'Operation':'putEvent',
+        'Type': 	'command',
+        'TimeStamp': Math.floor(Date.now() / 1000),
+        'Source':	'Console_'+data.Session,
+        'Session':	data.Session,
+        'Prueba':	(typeof data.Prueba==="undefined")?0:data.Prueba,
+        'Jornada':	(typeof data.Jornada==="undefined")?0:data.Jornada,
+        'Manga':	(typeof data.Manga==="undefined")?0:data.Manga,
+        'Tanda':	(typeof data.Tanda==="undefined")?0:data.Tanda,
+        'Perro':	0,
+        'Dorsal':	0,
+        'Equipo':	0,
+        'Celo':		0,
+        'Value':	0 // may be overriden with 'data' contents
+    };
+    // send "update" event to every session listeners
+    $.ajax({
+        type:'GET',
+        url:"/agility/server/database/eventFunctions.php",
+        dataType:'json',
+        data: $.extend({},obj,data)
+    });
+}
+
+function remote_handleEvents(source,data){
+    // if no display selected, alert and ignore
+    var rows=$(source+'-datagrid').datagrid('getSelections');
+    if (rows.length===0) { // no display selected
+        $.messager.alert("<?php _e('No Selection');?>","<?php _e('There are no item(s) selected');?>","error");
+        return false;
+    }
+    var sesiones=$('#sesiones-datagrid').datagrid('getData')['rows'];
+
+    for (var n=0; n<rows.length;n++) {
+        // retrieve session info ( contest, journey and so ) from proper datagrid
+        var evtdata= $.extend( { Session:0 },data )
+        for (var s=0; s<sesiones.length;s++) if (sesiones[s]['ID']==rows[n]['Session']) {
+            evtdata.Session=sesiones[s]['ID'];
+            evtdata.Prueba=sesiones[s]['Prueba'];
+            evtdata.Jornada=sesiones[s]['Jornada'];
+            evtdata.Manga=sesiones[s]['Manga'];
+            evtdata.Tanda=sesiones[s]['Tanda'];
+        }
+        if (evtdata.Session===0) {
+            $.messager.alert("<?php _e('No Session');?>","Internal error: cannot locate session data for display:"+rows[n].Name,"error");
+            return false;
+        }
+        // send an event for each display
+        remote_putEvent(evtdata);
+    }
+}
+
+function remoteSendChangeEvent(source) {
+    var data= {
+        Ring: $(source+'-ring').combogrid('getValue'),
+        View: $(source+'-view').combobox('getValue'),
+        Mode: mode=$(source+'-mode').val(),
+        Value: 'switch'
+    }
+    return remote_handleEvents(source,data);
+}
+
+function remoteSendKeyEvent(source,key) {
+    var data = {
+        Value: 'key',
+        Keycode: key
+    }
+    return remote_handleEvents(source, data);
+}
+
+function remoteSendMessageEvent(source,msg) {
+    var data = {
+        Value: 'message',
+        Keycode: msg
+    }
+    return remote_handleEvents(source, data);
 }

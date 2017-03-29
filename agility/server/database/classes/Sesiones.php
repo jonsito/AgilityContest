@@ -262,7 +262,7 @@ class Sesiones extends DBObject {
             $this->myLogger->trace("Session::getClients() parsing clientSession: $client");
             $a=explode(':',$client);
             // comprobamos expiracion
-            if ( ($timestamp - intval($a[5]) ) > 300 ) $a[5]=0; // expire after 5 minutes
+            if ( ($timestamp - intval($a[5]) ) > 180 ) $a[5]=0; // expire after 3 minutes
             if (intval($a[5])==0) continue;  // if expired, skip
             // compose item and insert into response if requested
             $item=array('Source'=>$a[0],'Session'=>$a[1],'View'=>$a[2],'Mode'=>$a[3],'Name'=>$a[4],'LastCall'=>$a[5]);

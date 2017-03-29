@@ -72,16 +72,20 @@ $am=new AuthManager("Chrono");
                             <input type="hidden" id="remote-videowall-mode" name="remote-videowall-mode" value="0"/>
                             <span style="display:inline-block;width:200px">&nbsp;</span>
                             <a id="remote-videowall-sendBtn" href="#" class="easyui-linkbutton"
-                                data-options="iconCls:'icon-reload'" onclick="alert('send');"><?php _e('Switch'); ?></a>
+                                data-options="iconCls:'icon-reload'" onclick="remoteSendChangeEvent('#remote-videowall')"><?php _e('Switch'); ?></a>
                             <br/><br/>
                             <strong><?php _e('Simplified videowall controls');?></strong>
                             <span style="display:inline-block;width:200px"><?php _e("Font family");?>:</span>
-                            <a id="remote-videowall-ffprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('ff-prev');"></a>
-                            <a id="remote-videowall-ffnextBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-next'" onclick="alert('ff-next');"></a>
+                            <a id="remote-videowall-ffprevBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-prev'" onclick="remoteSendKeyEvent('#remote-videowall',37);"></a>
+                            <a id="remote-videowall-ffnextBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-next'" onclick="remoteSendKeyEvent('#remote-videowall',39);"></a>
                             <br/>
                             <span style="display:inline-block;width:200px"><?php _e("Font size");?>:</span>
-                            <a id="remote-videowall-fsprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('fs-prev');"></a>
-                            <a id="remote-videowall-fsnextBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-next'" onclick="alert('fs-next');"></a>
+                            <a id="remote-videowall-fsprevBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-prev'" onclick="remoteSendKeyEvent('#remote-videowall',38);"></a>
+                            <a id="remote-videowall-fsnextBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-next'" onclick="remoteSendKeyEvent('#remote-videowall',40);"></a>
                         </form>
                     </span>
                 </div>
@@ -125,16 +129,20 @@ $am=new AuthManager("Chrono");
                             <input type="hidden" id="remote-livestream-mode" name="remote-livestream-mode" value="0"/>
                             <span style="display:inline-block;width:200px">&nbsp;</span>
                             <a id="remote-livestream-sendBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-reload'" onclick="alert('send');"><?php _e('Switch'); ?></a>
+                               data-options="iconCls:'icon-reload'" onclick="remoteSendChangeEvent('#remote-livestream');"><?php _e('Switch'); ?></a>
                             <br/> <br/>
                             <strong><?php _e('Live Stream controls');?></strong>
                             <span style="display:inline-block;width:200px"><?php _e("On Screen Display");?>:</span>
-                            <a id="remote-livestream-onBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-on'" onclick="alert('osd-on');"></a>
-                            <a id="remote-livestream-offBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-off'" onclick="alert('osd-off');"></a>
+                            <a id="remote-livestream-onBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-on'" onclick="remoteSendKeyEvent('#remote-livestream',37);"></a>
+                            <a id="remote-livestream-offBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-off'" onclick="remoteSendKeyEvent('#remote-livestream',39);"></a>
                             <br/>
                             <span style="display:inline-block;width:200px"><?php _e("Event Delay");?>:</span>
-                            <a id="remote-livestream-fsprevBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-prev'" onclick="alert('ed-prev');"></a>
-                            <a id="remote-livestream-fsnextBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-next'" onclick="alert('ed-next');"></a>
+                            <a id="remote-livestream-fsprevBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-prev'" onclick="remoteSendKeyEvent('#remote-livestream',38);"></a>
+                            <a id="remote-livestream-fsnextBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-next'" onclick="remoteSendKeyEvent('#remote-livestream',40);"></a>
                         </form>
                     </span>
                 </div>
@@ -167,7 +175,7 @@ $am=new AuthManager("Chrono");
                             <input type="hidden" id="remote-chronometer-mode" name="remote-chronometer-mode" value="0"/>
                             <span style="display:inline-block;width:200px">&nbsp;</span>
                             <a id="remote-chronometer-sendBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-reload'" onclick="alert('send');"><?php _e('Switch'); ?></a>
+                               data-options="iconCls:'icon-reload'" onclick="remoteSendChangeEvent('#remote-chronometer');"><?php _e('Switch'); ?></a>
                         </form>
                     </span>
                 </div>
