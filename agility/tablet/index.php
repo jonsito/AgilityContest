@@ -107,7 +107,8 @@ function initialize() {
 	    return true;
 	  }
 	});
-    ac_clientOpts.SessionName='<?php _e(http_request("SessionName","s",random_password(8))); ?>'; // session name. defaults to random string(8)
+    // session name. defaults to random string(8)@client.ip.address
+    ac_clientOpts.SessionName='<?php echo http_request("SessionName","s",getDefaultSessionName()); ?>';
 }
 
 /**

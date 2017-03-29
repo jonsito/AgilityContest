@@ -131,7 +131,8 @@ function initialize() {
 	ac_clientOpts.View=<?php _e(http_request("View","i",1)); ?>; // 0:start/1:live/2:parcial/3:final
 	ac_clientOpts.Mode='<?php _e(http_request("Mode","s","chroma")); ?>'; // "video" / "chroma"
 	ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // 0: dont else auto start after x seconds
-    ac_clientOpts.SessionName='<?php _e(http_request("SessionName","s",random_password(8))); ?>'; // session name. defaults to random string(8)
+    // session name. defaults to random string(8)@client.ip.address
+    ac_clientOpts.SessionName='<?php echo http_request("SessionName","s",getDefaultSessionName()); ?>';
 	$('#Livestream_Mode_' + ac_clientOpts.Mode).prop('checked',true);
 	if (ac_clientOpts.Timeout!==0) setTimeout(function() { ls_accept();	},1000*ac_clientOpts.Timeout); // on autostart launch window after 10 seconds
 }

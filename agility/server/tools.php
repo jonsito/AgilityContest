@@ -289,6 +289,18 @@ function random_password($chars = 8) {
 function aleatorio($a) { shuffle($a); return $a; }
 
 /**
+ * Generate a default client session name
+ * generate string random(8)@client.ip.address
+ * take care on ipv6 address by replace ':' with ';'
+ * @return {string} default session name
+ */
+function getDefaultSessionName() {
+    $base = random_password(8);
+    $addr = $_SERVER['REMOTE_ADDR'];
+    return str_replace(":",";","{$base}@{$addr}");
+}
+
+/**
  * Remove recursively a directory
  * @param {string} $dir PATH TO remove
  * @return bool operation result

@@ -134,7 +134,8 @@ function initialize() {
 	ac_clientOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
 	ac_clientOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
 	ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // auto start displaying after x seconds. 0 disable
-    ac_clientOpts.SessionName='<?php _e(http_request("SessionName","s",random_password(8))); ?>'; // session name. defaults to random string(8)
+    // session name. defaults to random string(8)@client.ip.address
+    ac_clientOpts.SessionName='<?php echo http_request("SessionName","s",getDefaultSessionName()); ?>';
 	if (parseInt(ac_clientOpts.Timeout)!==0) setTimeout(function() { vw_accept();},1000*ac_clientOpts.Timeout); // if requested fire autostart
 }
 
