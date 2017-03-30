@@ -318,7 +318,7 @@ function ls_accept() {
 	initWorkingData(s.ID,livestream_eventManager);
 
 	var page="'/agility/console/frm_notavailable.php";
-	var title="AgilityContest LiveStream ";
+	var title="LiveStream : " + ac_clientOpts.SessionName + " ";
 	var n=parseInt($('#selvw-Vista').combobox('getValue'));
 	switch (n) {
 		case 0: // Starting order

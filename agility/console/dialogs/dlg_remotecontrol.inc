@@ -138,12 +138,13 @@ $am=new AuthManager("Chrono");
                                data-options="iconCls:'icon-on'" onclick="remoteSendKeyValueEvent('#remote-livestream',EVTCMD_ENABLEOSD,1);"></a>
                             <a id="remote-livestream-offBtn" href="#" class="easyui-linkbutton"
                                data-options="iconCls:'icon-off'" onclick="remoteSendKeyValueEvent('#remote-livestream',EVTCMD_ENABLEOSD,0);"></a>
-                            <br/>
-                            <span style="display:inline-block;width:200px"><?php _e("Event Delay");?>:</span>
-                            <a id="remote-livestream-fsprevBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-prev'" onclick="remoteSendButtonEvent('#remote-livestream',EVTCMD_DECDELAY);"></a>
-                            <a id="remote-livestream-fsnextBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-next'" onclick="remoteSendButtonEvent('#remote-livestream',EVTCMD_INCDELAY);"></a>
+                            <br/><br/>
+                            <div style="width:100%;display:inline-block;">
+                                <span style="float:left;width:50%"><?php _e("Event Delay");?>:</span>
+                                <span style="float:right;width:40%;padding-right:5px;padding-left:5px;">
+                                    <input id="remote-livestream-delay" name="remote-livestream-delay"/>
+                                </span>
+                            </div>
                         </form>
                     </span>
                 </div>
@@ -344,6 +345,20 @@ $am=new AuthManager("Chrono");
             editable:false
         });
 
+        $('#remote-livestream-delay').slider({
+            mode:'h',
+            showTip:true,
+            min: 0,
+            max: 50,
+            value: 10,
+            step: 1,
+            // rule: [ 0,'|',1,'|',2,'|',3,'|',4,'|',5 ],
+            tipFormatter: function(val) { return toFixedT(val/10.0,1); },
+            onChange: function(nval,oval) {
+                remoteSendKeyValueEvent('#remote-livestream',EVTCMD_SETDELAY,nval/10.0);
+            }
+        });
+
         $('#remote-livestream-ring').combogrid({
             panelWidth: 400,
             panelHeight: 'auto',
@@ -445,8 +460,6 @@ $am=new AuthManager("Chrono");
         // tooltips de los botones
         $('#remote-livestream-onBtn').linkbutton();
         $('#remote-livestream-offBtn').linkbutton();
-        $('#remote-livestream-fsnextBtn').linkbutton();
-        $('#remote-livestream-fsprevBtn').linkbutton();
         $('#remote-videowall-ffnextBtn').linkbutton();
         $('#remote-videowall-ffprevBtn').linkbutton();
         $('#remote-videowall-fsnextBtn').linkbutton();

@@ -54,6 +54,13 @@ function vwls_enableOSD(val) {
 	document.title=title.replace(/ -.*/,"")+str;
 }
 
+function vwls_setDelayOSD(dly) {
+    dly=parseFloat(dly);
+    if (dly<0.0) dly=0.0; if (dly>5.0) dly=5.0;
+    ac_config.vw_evtdelay=dly;
+    document.title = document.title.replace(/delay: .*/,"delay: "+toFixedT(dly,1));
+}
+
 function vwls_showRoundInfo(val) {
 	var disp=(val==0)?'none':'initial';
 	if (parseInt(ac_config.vw_infoposition)==0) disp='none';

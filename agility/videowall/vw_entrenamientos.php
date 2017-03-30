@@ -116,8 +116,8 @@ $('#entrenamientos-datagrid').datagrid({
                     /* EVTCMD_PREVFONT:     */ null,
                     /* EVTCMD_INCFONTSIZE:  */ null,
                     /* EVTCMD_DECFONTSIZE:  */ null,
-                    /* EVTCMD_INCDELAY:     */ null,
-                    /* EVTCMD_DECDELAY:     */ null,
+                    /* EVTCMD_SETDELAY:     */ null,
+                    /* EVTCMD_NOTUSED:     */ null,
                     /* EVTCMD_MESSAGE:      */ function(e) {videowall_showMessage(e); },
                     /* EVTCMD_ENABLEOSD:    */ null
                 ]
