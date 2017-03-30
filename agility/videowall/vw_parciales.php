@@ -158,18 +158,18 @@ var eventHandler= {
     'command': function(event){ // videowall remote control
         handleCommandEvent(
             event,
-            {
-                EVTCMD_NULL: function(e) { console.log("Received null command"); },
-                EVTCMD_SWITCH_SCREEN: function(e) {videowall_switchConsole(e); },
-                EVTCMD_NEXTFONT: null,
-                EVTCMD_PREVFONT: null,
-                EVTCMD_INCFONTSIZE: null,
-                EVTCMD_DECFONTSIZE: null,
-                EVTCMD_INCDELAY: null,
-                EVTCMD_DECDELAY: null,
-                EVTCMD_MESSAGE: function(e) { videowall_showMessage(e); },
-                EVTCMD_ENABLEOSD: null
-            }
+            [
+                /* EVTCMD_NULL:         */ function(e) {console.log("Received null command"); },
+                /* EVTCMD_SWITCH_SCREEN:*/ function(e) {videowall_switchConsole(e); },
+                /* EVTCMD_NEXTFONT:     */ null,
+                /* EVTCMD_PREVFONT:     */ null,
+                /* EVTCMD_INCFONTSIZE:  */ null,
+                /* EVTCMD_DECFONTSIZE:  */ null,
+                /* EVTCMD_INCDELAY:     */ null,
+                /* EVTCMD_DECDELAY:     */ null,
+                /* EVTCMD_MESSAGE:      */ function(e) {videowall_showMessage(e); },
+                /* EVTCMD_ENABLEOSD:    */ null
+            ]
         )
     },
     'reconfig':	function(event) { loadConfiguration(); }, // reload configuration from server
