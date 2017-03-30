@@ -466,6 +466,8 @@ $am=new AuthManager("Chrono");
         $('#remote-videowall-fsprevBtn').linkbutton();
         addTooltip($('#remote-chronometer-sendBtn').linkbutton(),'<?php _e("Switch selected video-chronometers to choosen ring"); ?>');
         addTooltip($('#remote-livestream-sendBtn').linkbutton(),'<?php _e("Switch selected livestreamn windows to choosen ring/view"); ?>');
+        addTooltip($('#remote-livestream-offBtn').linkbutton(),'<?php _e("Turn On-Screen-Display overlay OFF"); ?>');
+        addTooltip($('#remote-livestream-onBtn').linkbutton(),'<?php _e("Turn On-Screen-Display overlay ON"); ?>');
         addTooltip($('#remote-videowall-sendBtn').linkbutton(),'<?php _e("Switch selected scoreboard displays to choosen ring/view"); ?>');
         addTooltip($('#remote-reloadBtn').linkbutton(),'<?php _e("Reload and update active client lists"); ?>');
         addTooltip($('#remote-okBtn').linkbutton(),'<?php _e("End video display remote control session. Close window"); ?>');
