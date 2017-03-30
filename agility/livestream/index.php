@@ -127,7 +127,7 @@ function initialize() {
 	loadConfiguration();
 	getLicenseInfo();
 	getFederationInfo();
-	ac_clientOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
+	ac_clientOpts.Ring=<?php _e(http_request("Ring","i",2)); ?>; // defaults to SessID:2 -> ring 1
 	ac_clientOpts.View=<?php _e(http_request("View","i",1)); ?>; // 0:start/1:live/2:parcial/3:final
 	ac_clientOpts.Mode='<?php _e(http_request("Mode","s","chroma")); ?>'; // "video" / "chroma"
 	ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // 0: dont else auto start after x seconds
@@ -292,7 +292,7 @@ $('#selvw-Session').combogrid({
     onLoadSuccess: function (data) {
         setTimeout(function() {
             $('#selvw-Vista').combobox('setValue',ac_clientOpts.View.toString());
-            $('#selvw-Session').combogrid('setValue', (ac_clientOpts.Ring+1).toString())
+            $('#selvw-Session').combogrid('setValue', (ac_clientOpts.Ring).toString())
         },0); // also fires onSelect()
     },
     onSelect: function(index,row) {

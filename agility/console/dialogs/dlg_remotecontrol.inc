@@ -140,7 +140,7 @@ $am=new AuthManager("Chrono");
                                data-options="iconCls:'icon-off'" onclick="remoteSendKeyValueEvent('#remote-livestream',EVTCMD_ENABLEOSD,0);"></a>
                             <br/><br/>
                             <div style="width:100%;display:inline-block;">
-                                <span style="float:left;width:50%"><?php _e("Event Delay");?>:</span>
+                                <span style="float:left;width:50%"><?php _e("OSD/video sync delay");?>:</span>
                                 <span style="float:right;width:40%;padding-right:5px;padding-left:5px;">
                                     <input id="remote-livestream-delay" name="remote-livestream-delay"/>
                                 </span>

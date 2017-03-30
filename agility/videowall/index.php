@@ -111,7 +111,7 @@ if (!$am->allowed(ENABLE_VIDEOWALL)) {
 
 var ac_clientOpts = {
     'BaseName':'videowall',
-    'Ring':1,
+    'Ring':2, // sessid:2 --> ring 1
     'View':3,
     'Mode':0,
     'Timeout':0,
@@ -131,7 +131,7 @@ function initialize() {
 	loadConfiguration();
 	getLicenseInfo();
 	getFederationInfo();
-	ac_clientOpts.Ring=<?php _e(http_request("Ring","i",1)); ?>; // defaults to ring 1
+	ac_clientOpts.Ring=<?php _e(http_request("Ring","i",2)); ?>; // defaults to sessid:2 ring 1
 	ac_clientOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
 	ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // auto start displaying after x seconds. 0 disable
     // session name. defaults to random string(8)@client.ip.address
@@ -334,7 +334,7 @@ $('#selvw-Session').combogrid({
 	onLoadSuccess: function(data) {
 		setTimeout(function() {
 			$('#selvw-Vista').combobox('setValue',ac_clientOpts.View.toString());
-			$('#selvw-Session').combogrid('setValue', (ac_clientOpts.Ring+1).toString())
+			$('#selvw-Session').combogrid('setValue', (ac_clientOpts.Ring).toString())
 		},0); // also fires onSelect()
 	},
     onSelect: function(index,row) {

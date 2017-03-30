@@ -69,7 +69,7 @@ if (!$am->allowed(ENABLE_CHRONO)) {
 
 var ac_clientOpts = {
     'BaseName':'chrono',
-    'Ring':1,
+    'Ring':2, // defaults to session id:2 --> ring 1
     'View':0,
     'Mode':0, // no view nor mode in chrono, but needed
     'SensorDate':0,

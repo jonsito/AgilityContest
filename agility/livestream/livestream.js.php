@@ -257,15 +257,9 @@ function vwls_displayPuesto(flag,time) {
 }
 
 function livestream_switchConsole(event) {
-    var from=parseInt(event['start']);
-    var to=parseInt(event['stop']);
-    // if source view is negative or matches current view, reload videowall with new parameters
-    if ( (from <0) || (from==ac_clientOpts.View) ) {
-        var url="/agility/livestream/index.php?Ring="+ac_clientOpts.Ring+"&Mode="+ac_clientOpts.Mode+"&View="+to+"&Timeout=2";
-        location.replace(url);
-    } else {
-        console.log("Switch command is not for me:"+from)
-    }
+    var data=event['Value'].split(':');// ring : view : mode
+    var url="/agility/livestream/index.php?Ring="+data[0]+"&Mode="+data[1]+"&View="+data[2]+"&Timeout=2&SessionName="+ac_clientOpts.SessionName;
+    window.location.replace(url);
 }
 
 function livestream_showMessage(event) {
