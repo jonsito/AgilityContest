@@ -633,7 +633,7 @@ function videowall_eventManager(id,evt) {
 
 function videowall_switchConsole(event) {
     var data=event['Value'].split(':');// ring : view : mode
-    var url="/agility/videowall/index.php?Ring="+data[0]+"&Mode="+data[1]+"&View="+data[2]+"&Timeout=2&SessionName="+ac_clientOpts.SessionName;
+    var url="/agility/videowall/index.php?Ring="+data[0]+"&View="+data[1]+"&Mode="+data[2]+"&Timeout=2&SessionName="+ac_clientOpts.SessionName;
     window.location.replace(url);
 }
 

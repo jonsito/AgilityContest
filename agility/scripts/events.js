@@ -50,39 +50,44 @@ function parseEvent(data) {
 }
 
 // $(function(evtID,timestamp){
-	function waitForEvents(evtID,timestamp){
-		var mark=timestamp; // use inner var to preserve scope in handleSuccess
+	function waitForEvents(evtID,timestamp,firstcall){
         var sname=ac_clientOpts.BaseName+":"+ac_clientOpts.Ring+":"+ac_clientOpts.View+":"+ac_clientOpts.Mode+":"+ac_clientOpts.SessionName;
+        // use inner vars to preserve scope in handleSuccess
+		var mark=timestamp;
+		var lastID=evtID;
+		var fcall=firstcall;
 
 		function handleSuccess(received,status,jqXHR){
 			var data=JSON.parse(received);
-			var lastID=evtID;
-			var n=0;
 			var row=null;
-			/*
-			TO BE REVISITED AS SIMPLIFIED PANELS NEEDS TO PARSE INIT
-			// if mark=="connect" search for last open to start parsing events
-			if (mark==="connect") {
-				for (n=data.total-1;n>0;n--) {
-					var tipo=data.rows[n]['Type'];
-					if (tipo==="open") break;
-                }
-			}
-			*/
-			for (;n<parseInt(data.total);n++) {
+			for (var n=0;n<parseInt(data.total);n++) {
+				var parse=true;
 				row=data.rows[n];
-                mark= data.TimeStamp;
-				lastID=row.ID;// store last evt id
-				if (row.Type==='reconfig') setTimeout(loadConfiguration,0);
-				else workingData.datosSesion.callback(lastID,row.Data);
+                lastID=row.ID;
+				mark=row.TimeStamp; // store last event id and timestamp
+				switch(row.Type) {
+					case 'reconfig' :
+						// just call reconfiguration routine. Do not parse event
+						setTimeout(loadConfiguration,0);
+						continue;
+					case 'init':
+						// no break
+					case 'open':
+						workingData.datosSesion.callback(lastID,row.Data);
+						break;
+					default:
+						// on first call ignore any event other than init or open
+						if (! fcall) workingData.datosSesion.callback(lastID,row.Data);
+						break;
+				}
 			}
 			// re-queue event
-			setTimeout(function(){ waitForEvents(lastID,mark);},1000);
+			setTimeout(function(){ waitForEvents(lastID,mark,false);},1000);
 		}
 
 		function handleError(data,status,jqXHR) {
 			console.log(status);
-			setTimeout(function(){ waitForEvents(evtID,timestamp);},5000); // retry in 5 seconds
+			setTimeout(function(){ waitForEvents(evtID,timestamp,fcall);},5000); // retry in 5 seconds
 		}
 
 		$.ajax({
@@ -92,7 +97,7 @@ function parseEvent(data) {
 				'Operation' : 'getEvents',
 				'ID'		: evtID,
 				'Session'	: workingData.sesion,
-				'TimeStamp' : (timestamp==='connect')?0:timestamp,
+				'TimeStamp' : mark,
 				'SessionName': sname
 			},
 			async: true,
@@ -130,10 +135,10 @@ function startEventMgr() {
 				setTimeout(function(){ startEventMgr();},timeout );
 				return;
 			}
-			if ( parseInt(response['total'])!=0) {
+			if ( parseInt(response['total'])!==0) {
 				var row=response['rows'][0];
 				var evtID=parseInt(row['ID'])-1; // make sure initial "init" event is received
-				setTimeout(function(){ waitForEvents(evtID,"connect");},0);
+				setTimeout(function(){ waitForEvents(evtID,0,true);},0);
 			} else {
 				setTimeout(function(){ startEventMgr(); },timeout );
 			}
