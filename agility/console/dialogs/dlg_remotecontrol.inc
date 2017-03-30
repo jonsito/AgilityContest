@@ -78,15 +78,15 @@ $am=new AuthManager("Chrono");
                             <strong><?php _e('Simplified videowall controls');?></strong>
                             <span style="display:inline-block;width:200px"><?php _e("Font family");?>:</span>
                             <a id="remote-videowall-ffprevBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-prev'" onclick="remoteSendButtonEvent('#remote-videowall',EVTCMD_PREVFONT);"></a>
+                               data-options="iconCls:'icon-prev'" onclick="remoteSendKeyValueEvent('#remote-videowall',EVTCMD_SETFONTFAMILY,-1);"></a>
                             <a id="remote-videowall-ffnextBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-next'" onclick="remoteSendButtonEvent('#remote-videowall',EVTCMD_NEXTFONT);"></a>
+                               data-options="iconCls:'icon-next'" onclick="remoteSendKeyValueEvent('#remote-videowall',EVTCMD_SETFONTFAMILY,1);"></a>
                             <br/>
                             <span style="display:inline-block;width:200px"><?php _e("Font size");?>:</span>
                             <a id="remote-videowall-fsprevBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-prev'" onclick="remoteSendButtonEvent('#remote-videowall',EVTCMD_DECFONTSIZE);"></a>
+                               data-options="iconCls:'icon-prev'" onclick="remoteSendKeyValueEvent('#remote-videowall',EVTCMD_SETFONTSIZE,-0.1);"></a>
                             <a id="remote-videowall-fsnextBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-next'" onclick="remoteSendButtonEvent('#remote-videowall',EVTCMD_INCFONTSIZE);"></a>
+                               data-options="iconCls:'icon-next'" onclick="remoteSendKeyValueEvent('#remote-videowall',EVTCMD_SETFONTSIZE,0.1);"></a>
                         </form>
                     </span>
                 </div>

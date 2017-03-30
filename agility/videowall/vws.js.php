@@ -162,53 +162,56 @@ function vws_trainingGotoNext(delta) {
     setTimeout(function() {vws_trainingPopulate(idx)},0);
 }
 
+function vws_setFontSize(delta) {
+    var classid=".vws_entry";
+    var size=parseFloat(ac_config.vws_fontsize)+parseFloat(delta);
+    if ( (size>=1.0) && (size<=5.0) ) ac_config.vws_fontsize=size;
+    $(classid).css('font-size',''+size+'vw');
+    $(classid+' input').css('font-size',''+size+'vw');
+    $('.vws_training span').css('font-size',''+(1.8*size)+'vw');
+    document.title="font-size: "+toFixedT(size,1);
+}
+
+function vws_setFontFamily(delta) {// change font
+    var classid=".vws_entry";
+    if (typeof(ac_config.cur_fontindex)==="undefined") ac_config.cur_fontindex=7;
+    var fonts= [
+        "Helvetica, monospace",
+        "futura_condensedbold",
+        "roadgeek_2005_engschriftRg",
+        "roadgeek_2005_series_b",
+        "Helvetica Neue LT Std 67 Medium Condensed",
+        "Helvetica Neue LT Std 67 Bold Condensed",
+        "Stint Ultra Condensed Regular",
+        "Steelfish Regular"
+    ];
+    var idx=parseInt(ac_config.cur_fontindex)+parseInt(delta);
+    if (idx>=fonts.length) idx=0;
+    if (idx<0) idx=fonts.length-1;
+    ac_config.cur_fontindex=idx;
+    $(classid).css('font-family',fonts[idx]);
+    $(classid+' input').css('font-family',fonts[idx]);
+    document.title="idx:"+idx+" font-family: "+fonts[idx];
+}
+
 /**
  * use keys up/down to increase/decrease font size
  * @param inScoreMode false:training true:scores
  */
 function vws_keyBindings(inScoreMode) {
-    var classid=".vws_entry";
-    var class2id=
     // capture <space> key to switch OSD on/off
     $(document).keydown(function(e) {
         var keycode=e.which;
         var ctrl=e.ctrlKey;
+        e.preventDefault();
         var delta=0;
         if (keycode == 38) delta=0.1; //  key up
         if (keycode == 40) delta=-0.1; // key down
-        if (delta!=0){
-            var size=parseFloat(ac_config.vws_fontsize)+delta;
-            if ( (size>=1.0) && (size<=5.0) ) ac_config.vws_fontsize=size;
-            $(classid).css('font-size',''+size+'vw');
-            $(classid+' input').css('font-size',''+size+'vw');
-            $('.vws_training span').css('font-size',''+(1.8*size)+'vw');
-            document.title="font-size: "+toFixedT(size,1);
-            e.preventDefault();
-        }
+        if (delta!=0) vws_setFontSize(delta);
         delta=0;
         if (keycode == 37) delta=-1; //  key left
         if (keycode == 39) delta=1; // key right
-        if (delta!=0) { // change font
-            if (typeof(ac_config.cur_fontindex)==="undefined") ac_config.cur_fontindex=7;
-             var fonts= [
-                "Helvetica, monospace",
-                "futura_condensedbold",
-                "roadgeek_2005_engschriftRg",
-                "roadgeek_2005_series_b",
-                "Helvetica Neue LT Std 67 Medium Condensed",
-                "Helvetica Neue LT Std 67 Bold Condensed",
-                "Stint Ultra Condensed Regular",
-                "Steelfish Regular"
-            ];
-            var idx=ac_config.cur_fontindex+delta;
-            if (idx>=fonts.length) idx=0;
-            if (idx<0) idx=fonts.length-1;
-            ac_config.cur_fontindex=idx;
-            $(classid).css('font-family',fonts[idx]);
-            $(classid+' input').css('font-family',fonts[idx]);
-            document.title="idx:"+idx+" font-family: "+fonts[idx];
-            e.preventDefault();
-        }
+        if (delta!=0) vws_setFontFamily(delta);
         if (inScoreMode) { // showing scores dog test
             if(keycode == 72) /*H: happy */ vws_animation("happy");
             if(keycode == 83) /*S: sad */ vws_animation("excused");

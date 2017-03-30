@@ -121,12 +121,12 @@ $('#ordensalida-datagrid').datagrid({
                 [
                     /* EVTCMD_NULL:         */ function(e) {console.log("Received null command"); },
                     /* EVTCMD_SWITCH_SCREEN:*/ function(e) {videowall_switchConsole(e); },
-                    /* EVTCMD_NEXTFONT:     */ null,
-                    /* EVTCMD_PREVFONT:     */ null,
-                    /* EVTCMD_INCFONTSIZE:  */ null,
-                    /* EVTCMD_DECFONTSIZE:  */ null,
-                    /* EVTCMD_SETDELAY:     */ null,
-                    /* EVTCMD_NOTUSED:     */ null,
+                    /* EVTCMD_SETFONTFAMILY:*/ null,
+                    /* EVTCMD_NOTUSED3:     */ null,
+                    /* EVTCMD_SETFONTSIZE:  */ null,
+                    /* EVTCMD_NOTUSED5:     */ null,
+                    /* EVTCMD_OSDSETDELAY:  */ null,
+                    /* EVTCMD_NOTUSED7:     */ null,
                     /* EVTCMD_MESSAGE:      */ function(e) {videowall_showMessage(e); },
                     /* EVTCMD_ENABLEOSD:    */ null
                 ]

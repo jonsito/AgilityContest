@@ -152,12 +152,12 @@ var eventHandler= {
             [
                 /* EVTCMD_NULL:         */ function(e) { console.log("Received null command"); },
                 /* EVTCMD_SWITCH_SCREEN:*/ function(e) { livestream_switchConsole(e); },
-                /* EVTCMD_NEXTFONT:     */ null,
-                /* EVTCMD_PREVFONT:     */ null,
-                /* EVTCMD_INCFONTSIZE:  */ null,
-                /* EVTCMD_DECFONTSIZE:  */ null,
-                /* EVTCMD_SETDELAY:     */ function(e) { vwls_setDelayOSD(e['Value']); },
-                /* EVTCMD_NOTUSED:     */ null,
+                /* EVTCMD_SETFONTFAMILY:*/ null,
+                /* EVTCMD_NOTUSED3:     */ null,
+                /* EVTCMD_SETFONTSIZE:  */ null,
+                /* EVTCMD_NOTUSED5:     */ null,
+                /* EVTCMD_OSDSETDELAY:  */ function(e) { vwls_setDelayOSD(e['Value']); },
+                /* EVTCMD_NOTUSED7:     */ null,
                 /* EVTCMD_MESSAGE:      */ function(e) { livestream_showMessage(e); },
                 /* EVTCMD_ENABLEOSD:    */ function(e) { vwls_enableOSD(e['Value']); }
             ]

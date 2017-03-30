@@ -193,12 +193,12 @@ events
                 [
                     /* EVTCMD_NULL:         */ function(e) {console.log("Received null command"); },
                     /* EVTCMD_SWITCH_SCREEN:*/ function(e) {videowall_switchConsole(e); },
-                    /* EVTCMD_NEXTFONT:     */ null,
-                    /* EVTCMD_PREVFONT:     */ null,
-                    /* EVTCMD_INCFONTSIZE:  */ null,
-                    /* EVTCMD_DECFONTSIZE:  */ null,
-                    /* EVTCMD_SETDELAY:     */ null,
-                    /* EVTCMD_NOTUSED:     */ null,
+                    /* EVTCMD_SETFONTFAMILY:*/ function(e) { vws_setFontFamily(e['Value']);}, // -1/+1 dec/inc
+                    /* EVTCMD_NOTUSED3:     */ null,
+                    /* EVTCMD_SETFONTSIZE:  */ function(e) { vws_setFontSize(e['Value']);}, // delta dec/inc
+                    /* EVTCMD_NOTUSED5:     */ null,
+                    /* EVTCMD_OSDSETDELAY:  */ null,
+                    /* EVTCMD_NOTUSED7:     */ null,
                     /* EVTCMD_MESSAGE:      */ function(e) {videowall_showMessage(e); },
                     /* EVTCMD_ENABLEOSD:    */ null
                 ]

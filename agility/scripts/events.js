@@ -17,12 +17,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 const EVTCMD_NULL=0; // nothing; just ping
 const EVTCMD_SWITCH_SCREEN=1; // switch videowall mode
-const EVTCMD_NEXTFONT=2;
-const EVTCMD_PREVFONT=3; // switch font family ) simplified videowalls )
-const EVTCMD_INCFONTSIZE=4;
-const EVTCMD_DECFONTSIZE=5; // increase/decrease font size ( for simplified videowalls )
-const EVTCMD_SETDELAY=6; // set response time to events ( to sync livestream OSD )
-const EVTCMD_NOTUSED=7;
+const EVTCMD_SETFONTFAMILY=2;
+const EVTCMD_NOTUSED3=3; // switch font family ) simplified videowalls )
+const EVTCMD_SETFONTSIZE=4;
+const EVTCMD_NOTUSED5=5; // increase/decrease font size ( for simplified videowalls )
+const EVTCMD_OSDSETDELAY=6; // set response time to events ( to sync livestream OSD )
+const EVTCMD_NOTUSED7=7;
 const EVTCMD_MESSAGE=8; // prompt a message dialog on top of screen
 const EVTCMD_ENABLEOSD=9; // enable / disable OnScreenDisplay
 
