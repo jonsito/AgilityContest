@@ -229,6 +229,13 @@ SectionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Function .onInit
+
+  ; make sure that application is stopped before uninstall/reinstall
+  ifFileExists "$INSTDIR\xampp\apache\bin\pv.exe" 0 dontExecKillProc
+  Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k httpd.exe -q'
+  Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k mysqld.exe -q'
+
+  dontExecKillProc:
   StrCpy $1 ${esp} ; Spanish is selected by default
 
   ReadRegStr $R0 HKLM \
