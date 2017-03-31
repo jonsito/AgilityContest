@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-03-31 13:23+0200\n"
-"PO-Revision-Date: 2017-03-31 13:27+0200\n"
+"POT-Creation-Date: 2017-03-31 19:54+0200\n"
+"PO-Revision-Date: 2017-03-31 19:55+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -118,8 +118,8 @@ msgstr "R"
 #: server/pdf/classes/PrintEntradaDeDatos.php:169
 #: server/pdf/classes/PrintEntradaDeDatos.php:344
 #: server/pdf/classes/PrintEquiposByJornada.php:80
-#: server/pdf/classes/PrintInscripciones.php:619
-#: server/pdf/classes/PrintInscripciones.php:813
+#: server/pdf/classes/PrintInscripciones.php:622
+#: server/pdf/classes/PrintInscripciones.php:820
 #: server/pdf/classes/PrintOrdenDeSalida.php:74
 #: server/pdf/classes/PrintPodium.php:105
 #: server/pdf/classes/PrintResultadosByEquipos3.php:92
@@ -170,8 +170,8 @@ msgstr "Perro"
 #: server/pdf/classes/PrintEntradaDeDatos.php:346
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:130
-#: server/pdf/classes/PrintInscripciones.php:619
-#: server/pdf/classes/PrintInscripciones.php:813
+#: server/pdf/classes/PrintInscripciones.php:622
+#: server/pdf/classes/PrintInscripciones.php:820
 #: server/pdf/classes/PrintOrdenDeSalida.php:74
 #: server/pdf/classes/PrintPodium.php:117
 #: server/pdf/classes/PrintResultadosByEquipos3.php:92
@@ -229,8 +229,8 @@ msgstr "Club"
 #: server/pdf/classes/PrintClasificacionExcel.php:158
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:128
-#: server/pdf/classes/PrintInscripciones.php:623
-#: server/pdf/classes/PrintInscripciones.php:820
+#: server/pdf/classes/PrintInscripciones.php:626
+#: server/pdf/classes/PrintInscripciones.php:827
 #: server/pdf/classes/PrintTRSTemplates.php:77
 #: server/pdf/classes/PrintTRSTemplates.php:123 videowall/vwc_finales.php:85
 #: videowall/vwc_parciales.php:85 console/dialogs/dlg_chperros.inc:71
@@ -270,8 +270,8 @@ msgstr "Grado"
 #: server/pdf/classes/PrintEntradaDeDatos.php:170
 #: server/pdf/classes/PrintEntradaDeDatos.php:263
 #: server/pdf/classes/PrintEquiposByJornada.php:80
-#: server/pdf/classes/PrintInscripciones.php:619
-#: server/pdf/classes/PrintInscripciones.php:813
+#: server/pdf/classes/PrintInscripciones.php:622
+#: server/pdf/classes/PrintInscripciones.php:820
 #: server/pdf/classes/PrintOrdenDeSalida.php:74
 #: server/pdf/classes/PrintOrdenDeSalida.php:224
 #: server/pdf/classes/PrintTRSTemplates.php:253
@@ -492,8 +492,8 @@ msgstr "Dors"
 #: server/pdf/classes/PrintEntradaDeDatos.php:345
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:121
-#: server/pdf/classes/PrintInscripciones.php:619
-#: server/pdf/classes/PrintInscripciones.php:813
+#: server/pdf/classes/PrintInscripciones.php:622
+#: server/pdf/classes/PrintInscripciones.php:820
 #: server/pdf/classes/PrintOrdenDeSalida.php:74
 #: server/pdf/classes/PrintPodium.php:107
 #: server/pdf/classes/PrintPodium.php:109
@@ -552,8 +552,8 @@ msgstr "Gu&iacute;a"
 #: server/pdf/classes/PrintClasificacion.php:186
 #: server/pdf/classes/PrintClasificacionTeam.php:239
 #: server/pdf/classes/PrintInscripciones.php:126
-#: server/pdf/classes/PrintInscripciones.php:619
-#: server/pdf/classes/PrintInscripciones.php:813
+#: server/pdf/classes/PrintInscripciones.php:622
+#: server/pdf/classes/PrintInscripciones.php:820
 #: server/pdf/classes/PrintPodium.php:113
 #: server/pdf/classes/PrintPodium.php:115
 #: server/pdf/classes/PrintResultadosByEquipos3.php:92
@@ -679,8 +679,8 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/classes/PrintEntradaDeDatos.php:264
 #: server/pdf/classes/PrintEntradaDeDatos.php:349
 #: server/pdf/classes/PrintEquiposByJornada.php:80
-#: server/pdf/classes/PrintInscripciones.php:619
-#: server/pdf/classes/PrintInscripciones.php:813
+#: server/pdf/classes/PrintInscripciones.php:622
+#: server/pdf/classes/PrintInscripciones.php:820
 #: server/pdf/classes/PrintOrdenDeSalida.php:74
 #: server/pdf/classes/PrintOrdenTandas.php:87
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/index.php:229
@@ -1040,7 +1040,7 @@ msgstr "Club anfitri&oacute;n"
 #: server/pdf/classes/PrintClasificacionExcel.php:100
 #: server/pdf/classes/PrintClasificacionTeam.php:122
 #: server/pdf/classes/PrintEquiposByJornada.php:93
-#: server/pdf/classes/PrintInscripciones.php:856
+#: server/pdf/classes/PrintInscripciones.php:863
 #: server/pdf/classes/PrintOrdenTandas.php:63
 #: server/pdf/classes/PrintPodium.php:79
 #: server/pdf/classes/PrintTRSTemplates.php:66
@@ -1223,10 +1223,11 @@ msgstr "Borrar club"
 #: console/frm_perros.php:72 console/frm_pruebas.php:42
 #: scripts/common.js.php:950 scripts/common.js.php:951
 #: scripts/common.js.php:964 scripts/common.js.php:976
-#: scripts/equipos.js.php:28 server/tools.php:245
-#: console/dialogs/dlg_newInscripcion.inc:34 console/dialogs/dlg_plugins.inc:17
-#: console/dialogs/dlg_sesiones.inc:94 console/dialogs/dlg_sesiones.inc:104
-#: console/dialogs/dlg_usuarios.inc:116 console/dialogs/dlg_usuarios.inc:127
+#: scripts/equipos.js.php:28 scripts/inscripciones.js.php:484
+#: server/tools.php:245 console/dialogs/dlg_newInscripcion.inc:34
+#: console/dialogs/dlg_plugins.inc:17 console/dialogs/dlg_sesiones.inc:94
+#: console/dialogs/dlg_sesiones.inc:104 console/dialogs/dlg_usuarios.inc:116
+#: console/dialogs/dlg_usuarios.inc:127
 msgid "-- Search --"
 msgstr "-- Buscar --"
 
@@ -1380,8 +1381,8 @@ msgstr "Cat."
 #: public/pbmenu_inscripciones_equipos.php:158
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:122
-#: server/pdf/classes/PrintInscripciones.php:619
-#: server/pdf/classes/PrintInscripciones.php:813
+#: server/pdf/classes/PrintInscripciones.php:622
+#: server/pdf/classes/PrintInscripciones.php:820
 #: server/pdf/classes/PrintOrdenDeSalida.php:74
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73
 #: console/dialogs/dlg_chperros.inc:59 console/dialogs/dlg_perros.inc:48
@@ -1651,8 +1652,8 @@ msgstr "Leyendo lista de inscritos"
 #: server/pdf/classes/PrintClasificacionTeam.php:237
 #: server/pdf/classes/PrintEntradaDeDatos.php:174
 #: server/pdf/classes/PrintEquiposByJornada.php:80
-#: server/pdf/classes/PrintInscripciones.php:619
-#: server/pdf/classes/PrintInscripciones.php:813
+#: server/pdf/classes/PrintInscripciones.php:622
+#: server/pdf/classes/PrintInscripciones.php:820
 #: server/pdf/classes/PrintOrdenDeSalida.php:74
 #: server/pdf/classes/PrintPodium.php:110
 #: server/pdf/classes/PrintResultadosByEquipos3.php:92
@@ -2727,7 +2728,7 @@ msgstr "CLASIFICACIONES"
 msgid "Scores - Contest and Journey selection"
 msgstr "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
 
-#: console/index.php:227 scripts/inscripciones.js.php:463
+#: console/index.php:227 scripts/inscripciones.js.php:467
 #: server/pdf/classes/PrintInscripciones.php:257
 msgid "Statistics"
 msgstr "Estad&iacute;sticas"
@@ -4775,33 +4776,37 @@ msgstr "Selecciona una de las operaciones disponibles"
 msgid "Creating Excel file. Please wait"
 msgstr "Generando fichero Excel. Por favor, espere"
 
-#: scripts/inscripciones.js.php:425 scripts/inscripciones.js.php:488
+#: scripts/inscripciones.js.php:425 scripts/inscripciones.js.php:504
 msgid "There was a problem generating your report, please try again"
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
 "nuevo"
 
-#: scripts/inscripciones.js.php:463
+#: scripts/inscripciones.js.php:464
 msgid "Simple listing"
 msgstr "Listado simple"
 
-#: scripts/inscripciones.js.php:463
+#: scripts/inscripciones.js.php:465
 msgid "Catalog"
 msgstr "Cat&aacute;logo"
 
-#: scripts/inscripciones.js.php:469
+#: scripts/inscripciones.js.php:466
+msgid "Current selection/order"
+msgstr "Selecci&oacute;n actual"
+
+#: scripts/inscripciones.js.php:474
 msgid "Inscriptions for journey"
 msgstr "Inscritos en la jornada"
 
-#: scripts/inscripciones.js.php:473
+#: scripts/inscripciones.js.php:478
 msgid "Select form"
 msgstr "Selecciona formulario"
 
-#: scripts/inscripciones.js.php:474
+#: scripts/inscripciones.js.php:479
 msgid "Select type of document to be generated"
 msgstr "Selecciona el tipo de documento a generar"
 
-#: scripts/inscripciones.js.php:487
+#: scripts/inscripciones.js.php:503
 msgid "Printing inscriptions. Please wait"
 msgstr "Imprimiendo inscripciones. Por favor, espere"
 
@@ -5706,17 +5711,18 @@ msgstr "Equipos 2"
 msgid "Team 3"
 msgstr "Equipos 3"
 
-#: server/pdf/classes/PrintInscripciones.php:619
-#: server/pdf/classes/PrintInscripciones.php:813
+#: server/pdf/classes/PrintInscripciones.php:622
+#: server/pdf/classes/PrintInscripciones.php:820
 msgid "Grado"
 msgstr "Grado"
 
-#: server/pdf/classes/PrintInscripciones.php:640
-msgid "Competitors list"
-msgstr "Listado de participantes"
+#: server/pdf/classes/PrintInscripciones.php:646
+msgid "Competitors list (personalized)"
+msgstr "Lista de participantes (personalizada)"
 
-#: server/pdf/classes/PrintInscripciones.php:844
-msgid "Competitors listing"
+#: server/pdf/classes/PrintInscripciones.php:647
+#: server/pdf/classes/PrintInscripciones.php:851
+msgid "Competitors list"
 msgstr "Listado de participantes"
 
 #: server/pdf/classes/PrintListaPerros.php:72
@@ -7806,6 +7812,9 @@ msgstr "Modificar los datos del usuario seleccionado"
 #: console/dialogs/dlg_usuarios.inc:265
 msgid "Remove selected user from database"
 msgstr "Borrar el usuario seleccionado de la base de datos"
+
+#~ msgid "Competitors listing"
+#~ msgstr "Listado de participantes"
 
 #~ msgid "Event Delay"
 #~ msgstr "Retardo de respuesta"

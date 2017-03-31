@@ -590,6 +590,7 @@ class PrintInscritos extends PrintCommon {
 	
 	protected $inscritos;
 	protected $jornadas;
+	protected $special;
 
 	// geometria de las celdas
 	protected $cellHeader;
@@ -603,10 +604,12 @@ class PrintInscritos extends PrintCommon {
 	/**
 	 * Constructor
 	 * @param {integer} $prueba Prueba ID
-	 * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
+     * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
+     * @param {array} $jornadas Lista de jornadas de la prueba
+	 * @param {bool} special: true to indicate a not-global listing
 	 * @throws Exception
 	 */
-	function __construct($prueba,$inscritos,$jornadas) {
+	function __construct($prueba,$inscritos,$jornadas,$special=false) {
 		parent::__construct('Portrait','print_inscritosByPrueba',$prueba,0);
 		if ( ($prueba==0) || ($inscritos===null) ) {
 			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
@@ -631,13 +634,17 @@ class PrintInscritos extends PrintCommon {
 			$this->pos[8]=0;
         }
         // set file name
-        $this->set_FileName("Listado_Participantes.pdf");
+        $this->special=$special;
+        if ($special) $this->set_FileName("Listado_Personalizado.pdf");
+        else $this->set_FileName("Listado_Participantes.pdf");
 	}
 	
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		$this->print_commonHeader(_("Competitors list"));
+		if ($this->special)
+			 $this->print_commonHeader(_("Competitors list (personalized)"));
+		else $this->print_commonHeader(_("Competitors list"));
 		$this->Ln(5);
 		$this->myLogger->leave();
 	}
@@ -841,7 +848,7 @@ class PrintInscritosByJornada extends PrintCommon {
 
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader(_("Competitors listing"));
+		$this->print_commonHeader(_("Competitors list"));
 	}
 
 	// Pie de página

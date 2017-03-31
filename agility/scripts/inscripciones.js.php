@@ -460,7 +460,12 @@ function importExportInscripciones() {
 function printInscripciones() {
 	// en el caso de que haya alguna jornada seleccionada.
 	// anyadir al menu la posibilidad de imprimir solo los inscritos en dicha jornada
-	var options= { 0:'<?php _e('Simple listing'); ?>',1:'<?php _e('Catalog'); ?>',2:'<?php _e('Statistics'); ?>'};
+	var options= {
+	    0:'<?php _e('Simple listing'); ?>',
+        1:'<?php _e('Catalog'); ?>',
+        4:'<?php _e('Current selection/order'); ?>',
+        2:'<?php _e('Statistics'); ?>'
+	};
 	// buscamos la jornada seleccionada
 	var row=$('#inscripciones-jornadas').datagrid('getSelected');
     var jornada=0;
@@ -475,6 +480,12 @@ function printInscripciones() {
 		options,
 		function(r){
 			if (!r) return;
+			var where= $('#inscripciones-datagrid-search').val();
+            if (where==="<?php _e('-- Search --');?>") where="";
+			var dg=$('#inscripciones-datagrid');
+			var order= dg.datagrid('options').sortOrder;
+			var sort= dg.datagrid('options').sortName;
+			if ( (sort==null) || (sort=="" )) { order=""; sort=""; }
 			$.fileDownload(
 				'/agility/server/pdf/print_inscritosByPrueba.php',
 					{
@@ -482,7 +493,12 @@ function printInscripciones() {
 						data: {
                             Prueba: workingData.prueba,
                             Jornada: jornada,
-                            Mode: parseInt(r)
+                            Mode: parseInt(r),
+                            page: 0,
+                            rows: 0,
+                            where: where,
+                            sort: sort,
+                            order: order
                         },
 						preparingMessageHtml: '<?php _e("Printing inscriptions. Please wait"); ?> ...',
 						failMessageHtml: '<?php _e("There was a problem generating your report, please try again"); ?>.'

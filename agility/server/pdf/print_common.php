@@ -288,25 +288,25 @@ class PrintCommon extends FPDF {
 		$this->Image($this->icon2,$this->GetX(),$this->GetY(),25.4);
 
 		// pintamos nombre de la prueba
-		$this->SetXY($this->centro -50,10);
+		$this->SetXY($this->centro -65,10);
 		$this->SetFont($this->getFontName(),'BI',10); // bold italic 10
         if (intval($this->prueba->ID)>1) { // solo apuntamos nombre de la prueba si no es la prueba por defecto
             $str=$this->prueba->Nombre." - ".$this->club->Nombre;
-            $this->Cell(100,10,$str,0,0,'C',false);// Nombre de la prueba centrado
+            $this->Cell(130,10,$str,0,0,'C',false);// Nombre de la prueba centrado
         }
 		$this->Ln(); // Salto de línea
 
 		// pintamos el titulo en un recuadro
 		$this->SetFont($this->getFontName(),'B',20); // bold 20
-		$this->SetXY($this->centro -60,20);
-		$this->Cell(120,10,$title,1,0,'C',false);// Titulo del listado en el centro
+		$this->SetXY($this->centro -65,20);
+		$this->Cell(130,10,$title,1,0,'C',false);// Titulo del listado en el centro
         // si la jornada esta definida, debajo del recuadro imprimimos modalidad de competicion
 		$this->Ln(10);
 		if ($this->jornada!=null) {
             $this->SetFont($this->getFontName(),'I',8); // bold 20
-            $this->SetXY($this->centro -60,30);
+            $this->SetXY($this->centro -65,30);
             $cname=Competitions::getCompetition($this->prueba,$this->jornada)->getModuleInfo()['Nombre'];
-            $this->Cell(120,5,$cname,0,0,'C',false);// Titulo del listado en el centro
+            $this->Cell(130,5,$cname,0,0,'C',false);// Titulo del listado en el centro
 		}
 		$this->Ln(5);
 

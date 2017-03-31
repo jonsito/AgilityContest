@@ -45,10 +45,22 @@ try {
 	$inscritos= $inscripciones->enumerate();
 	// Creamos generador de documento
 	switch ($mode) {
-		case 0: $pdf=new PrintInscritos($pruebaid,$inscritos,$jornadas); break;
-		case 1: $pdf=new PrintCatalogo($pruebaid,$inscritos,$jornadas); break;
-		case 2: $pdf=new PrintEstadisticas($pruebaid,$inscritos,$jornadas); break;
-		case 3: $pdf=new PrintInscritosByJornada($pruebaid,$inscritos,$jornadas,$jornadaid); break;
+		case 0: // imprimir inscripciones
+			$pdf=new PrintInscritos($pruebaid,$inscritos,$jornadas);
+			break;
+		case 1: // imprimir catalogo
+			$pdf=new PrintCatalogo($pruebaid,$inscritos,$jornadas);
+			break;
+		case 2: // imprimir estadisticas
+			$pdf=new PrintEstadisticas($pruebaid,$inscritos,$jornadas);
+			break;
+		case 3: // inscripciones de una jornada
+			$pdf=new PrintInscritosByJornada($pruebaid,$inscritos,$jornadas,$jornadaid);
+			break;
+        case 4: // imprimir segun el listado que aparece en pantalla
+			$inscritos=$inscripciones->inscritos(true);
+        	$pdf=new PrintInscritos($pruebaid,$inscritos,$jornadas,true);
+        break;
 		default: throw new Exception ("Inscripciones::print() Invalid print mode selected $mode");
 	}
 	$pdf->AliasNbPages();
