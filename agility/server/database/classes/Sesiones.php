@@ -266,14 +266,17 @@ class Sesiones extends DBObject {
             if (intval($a[5])==0) continue;  // if expired, skip
             // compose item and insert into response if requested
             $item=array('Source'=>$a[0],'Session'=>$a[1],'View'=>$a[2],'Mode'=>$a[3],'Name'=>$a[4],'LastCall'=>$a[5]);
-            if ( ($type==="") || ($type===$a[0]) ) array_push($res,$item); // if not requested skip
+            if ( ($type==="") || ($type===$a[0]) ) {
+                $key="{$a[0]}:{$a[1]}:{$a[4]}"; // source:session:name
+                $res[$key]=$item; // use key/value array to remove duplicates
+            }
         }
         session_write_close();
-        return array('total'=>count($res),'rows'=>$res);
+        return array('total'=>count($res),'rows'=>array_values($res));
     }
 
     /**
-     * @param $name session name: source_sesid_view_name ( timestamp not included
+     * @param $name session name: source:sesid:view:mode:name ( timestamp not included
      * @return {string} empty on success; else error message
      */
     function testAndSet($name="") {
@@ -283,23 +286,25 @@ class Sesiones extends DBObject {
         }
         $timestamp=time();
         $found=false;
+        $e=explode(":",$name);
+        $k="{$e[0]}:{$e[1]}:{$e[4]}"; // source:sesid:name as search key
         session_start();
         if (!isset($_SESSION['ac_clients'])) $_SESSION['ac_clients']=array();
         $this->myLogger->trace("Session::testAndSet() looking for clientSession: $name");
-        foreach ( $_SESSION['ac_clients'] as &$client) { // pass by reference as need to be edited
-            $this->myLogger->trace("Session::testAndSet() parsing clientSession: $client");
-            if (strpos($client,$name)===FALSE) {  // client name does not match: evaluate expiration
+
+        foreach ( $_SESSION['ac_clients'] as $key => &$client) { // pass by reference as need to be edited
+            if ($key!==$k) { // client name does not match: evaluate expiration
                 $a=explode(':',$client);
                 if ( ($timestamp - intval($a[5]) ) <= 300 ) continue; // expire after 5 minutes
                 $a[5]=0;
                 $client=implode(':',$a);
-            } else { // item found: update timestamp
+            } else {// item found: update timestamp
                 $client="{$name}:{$timestamp}";
                 $found=true;
             }
         }
-        // arriving here means item not found, so create and insert
-        if (!$found) array_push($_SESSION['ac_clients'],"{$name}:{$timestamp}");
+        // if arriving here and client not found, insert
+        if (!$found) $_SESSION['ac_clients'][$k]="{$name}:{$timestamp}";
         session_write_close();
         return "";
     }

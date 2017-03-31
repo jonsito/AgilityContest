@@ -45,11 +45,11 @@ $am=new AuthManager("Chrono");
                             <input type="checkbox" id="remote-videowall-none" onclick="remoteVideowallAllorNone(0);"/>
                             <label for="remote-videowall-none"><?php _e('None');?></label><br/>
 
-                            <label for="remote-videowall-ring"><?php _e('New ring');?>:</label>
-       	    	            <select id="remote-videowall-ring" name="Ring" style="width:200px"></select><br/>
+                            <label for="remote-videowall-ring" style="display:inline-block;width:100px"><?php _e('New ring');?>:</label>
+       	    	            <select id="remote-videowall-ring" name="Ring" style="width:175px"></select><br/>
 
-                            <label for="remote-videowall-view"><?php _e('New view');?>:</label>
-                            <select id="remote-videowall-view" style="width:200px"> <!-- combobox -->
+                            <label for="remote-videowall-view" style="display:inline-block;width:100px"><?php _e('New view');?>:</label>
+                            <select id="remote-videowall-view" style="width:175px"> <!-- combobox -->
                                 <optgroup label="<?php _e('Video Wall');?> ">
 				    	            <option value="1"><?php _e('Training session'); ?></option>
                                     <option value="0"><?php _e('Starting order'); ?></option>
@@ -71,10 +71,12 @@ $am=new AuthManager("Chrono");
                                 </optgroup>
                             </select><br/>
                             <input type="hidden" id="remote-videowall-mode" name="remote-videowall-mode" value="0"/>
-                            <span style="display:inline-block;width:200px">&nbsp;</span>
+                            <span style="display:inline-block;width:175px">&nbsp;</span>
                             <a id="remote-videowall-sendBtn" href="#" class="easyui-linkbutton"
                                 data-options="iconCls:'icon-reload'" onclick="remoteSendChangeEvent('#remote-videowall')"><?php _e('Switch'); ?></a>
-                            <br/><br/>
+                            <br/>
+
+                            <br/>
                             <strong><?php _e('Simplified videowall controls');?></strong>
                             <span style="display:inline-block;width:200px"><?php _e("Font family");?>:</span>
                             <a id="remote-videowall-ffprevBtn" href="#" class="easyui-linkbutton"
@@ -87,6 +89,22 @@ $am=new AuthManager("Chrono");
                                data-options="iconCls:'icon-prev'" onclick="remoteSendKeyValueEvent('#remote-videowall',EVTCMD_SETFONTSIZE,-0.1);"></a>
                             <a id="remote-videowall-fsnextBtn" href="#" class="easyui-linkbutton"
                                data-options="iconCls:'icon-next'" onclick="remoteSendKeyValueEvent('#remote-videowall',EVTCMD_SETFONTSIZE,0.1);"></a>
+                            <br/>
+
+                            <br/>
+                            <strong><?php _e('Videowall message handling');?></strong><br/>
+                            <label for="remote-videowall-msg" style="display:inline-block;width:100px"><?php _e('Message');?>:</label>
+                            <input id="remote-videowall-msg" name="remote-videowall-msg" value="" style="width:175px">
+                            <br/><br/>
+                            <div style="width:100%;display:inline-block;">
+                                <span style="float:left;width:50%"><?php _e("Duration (secs)");?>:</span>
+                                <span style="float:right;width:40%;padding-right:10px;padding-left:5px;">
+                                    <input id="remote-videowall-msgtimeout" name="remote-videowall-msgtimeout"/>
+                                </span>
+                            </div>
+                            <span style="display:inline-block;width:175px">&nbsp;</span>
+                            <a id="remote-videowall-msgBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-alert'" onclick="remoteSendMessageEvent('#remote-videowall')"><?php _e('Show'); ?></a>
                         </form>
                     </span>
                 </div>
@@ -298,6 +316,16 @@ $am=new AuthManager("Chrono");
             ]]
         });
 
+        $('#remote-videowall-msg').textbox();
+        $('#remote-videowall-msgtimeout').slider({
+            mode:'h',
+            showTip:true,
+            min: 0,
+            max: 10,
+            value: 15,
+            step: 1
+        });
+
         // datos de la tabla de video marcadores
         $('#remote-livestream-datagrid').datagrid({
             // datos del panel padre asociado
@@ -458,8 +486,6 @@ $am=new AuthManager("Chrono");
         });
 
         // tooltips de los botones
-        $('#remote-livestream-onBtn').linkbutton();
-        $('#remote-livestream-offBtn').linkbutton();
         $('#remote-videowall-ffnextBtn').linkbutton();
         $('#remote-videowall-ffprevBtn').linkbutton();
         $('#remote-videowall-fsnextBtn').linkbutton();
@@ -468,6 +494,7 @@ $am=new AuthManager("Chrono");
         addTooltip($('#remote-livestream-sendBtn').linkbutton(),'<?php _e("Switch selected livestreamn windows to choosen ring/view"); ?>');
         addTooltip($('#remote-livestream-offBtn').linkbutton(),'<?php _e("Turn On-Screen-Display overlay OFF"); ?>');
         addTooltip($('#remote-livestream-onBtn').linkbutton(),'<?php _e("Turn On-Screen-Display overlay ON"); ?>');
+        addTooltip($('#remote-videowall-msgBtn').linkbutton(),'<?php _e("Show text message on selected screen with specified duration"); ?>');
         addTooltip($('#remote-videowall-sendBtn').linkbutton(),'<?php _e("Switch selected scoreboard displays to choosen ring/view"); ?>');
         addTooltip($('#remote-reloadBtn').linkbutton(),'<?php _e("Reload and update active client lists"); ?>');
         addTooltip($('#remote-okBtn').linkbutton(),'<?php _e("End video display remote control session. Close window"); ?>');
