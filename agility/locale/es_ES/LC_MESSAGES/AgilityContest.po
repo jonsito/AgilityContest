@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-03-30 00:52+0200\n"
-"PO-Revision-Date: 2017-03-30 00:52+0200\n"
+"POT-Creation-Date: 2017-03-31 13:23+0200\n"
+"PO-Revision-Date: 2017-03-31 13:27+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -416,7 +416,7 @@ msgid "Start 15 seconds countdown"
 msgstr "Iniciar cuenta atras de 15 segundos"
 
 #: chrono/chrono.js.php:133 chrono/chrono.js.php:214 chrono/chrono.js.php:282
-#: chrono/chrono.js.php:383 livestream/livestream.js.php:179
+#: chrono/chrono.js.php:383 livestream/livestream.js.php:186
 #: modules/Competitions.php:127 modules/competiciones/Liga_RFEC.php:140
 #: modules/competiciones/Liga_RFEC_Madrid.php:77
 #: modules/competiciones/Liga_UCA.php:42
@@ -427,17 +427,17 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 #: tablet/tablet_main.php:104 videowall/videowall.js.php:214
 #: videowall/videowall.js.php:298 videowall/videowall.js.php:328
 #: videowall/videowall.js.php:399 videowall/videowall.js.php:462
-#: videowall/videowall.js.php:569 videowall/vws.js.php:388
+#: videowall/videowall.js.php:569 videowall/vws.js.php:391
 #: console/dialogs/dlg_competicion.inc:138
 msgid "Elim"
 msgstr "Elim"
 
 #: chrono/chrono.js.php:138 chrono/chrono.js.php:210 chrono/chrono.js.php:287
-#: chrono/chrono.js.php:390 livestream/livestream.js.php:184
+#: chrono/chrono.js.php:390 livestream/livestream.js.php:191
 #: videowall/videowall.js.php:219 videowall/videowall.js.php:255
 #: videowall/videowall.js.php:294 videowall/videowall.js.php:327
 #: videowall/videowall.js.php:465 videowall/videowall.js.php:572
-#: videowall/vws.js.php:387 videowall/vws.js.php:745
+#: videowall/vws.js.php:390 videowall/vws.js.php:748
 msgid "NoPr"
 msgstr "NoPr"
 
@@ -517,9 +517,9 @@ msgstr "Dors"
 #: console/dialogs/dlg_ordentandas.inc:53
 #: console/dialogs/dlg_ordentandas.inc:169 console/dialogs/dlg_perros.inc:29
 #: console/dialogs/dlg_plugins.inc:52 console/dialogs/dlg_pruebas.inc:346
-#: console/dialogs/dlg_remotecontrol.inc:290
-#: console/dialogs/dlg_remotecontrol.inc:364
-#: console/dialogs/dlg_remotecontrol.inc:435
+#: console/dialogs/dlg_remotecontrol.inc:309
+#: console/dialogs/dlg_remotecontrol.inc:409
+#: console/dialogs/dlg_remotecontrol.inc:480
 #: console/dialogs/dlg_selectJornada.inc:83 console/dialogs/dlg_sesiones.inc:28
 #: console/dialogs/dlg_sesiones.inc:158 console/dialogs/dlg_usuarios.inc:55
 msgid "Name"
@@ -614,9 +614,9 @@ msgid "Select ring and display name (optional)"
 msgstr "Selecciona ring y nombre de la pantalla (opcional)"
 
 #: chrono/index.php:115 livestream/index.php:194 videowall/index.php:225
-#: console/dialogs/dlg_remotecontrol.inc:249
-#: console/dialogs/dlg_remotecontrol.inc:323
-#: console/dialogs/dlg_remotecontrol.inc:397
+#: console/dialogs/dlg_remotecontrol.inc:268
+#: console/dialogs/dlg_remotecontrol.inc:354
+#: console/dialogs/dlg_remotecontrol.inc:442
 msgid "Display name"
 msgstr "Nombre de la pantalla"
 
@@ -636,9 +636,9 @@ msgstr "Nombre de la pantalla"
 #: console/dialogs/dlg_entrenamientos.inc:202
 #: console/dialogs/dlg_entrenamientos.inc:208
 #: console/dialogs/dlg_entrenamientos.inc:214
-#: console/dialogs/dlg_remotecontrol.inc:250
-#: console/dialogs/dlg_remotecontrol.inc:324
-#: console/dialogs/dlg_remotecontrol.inc:398
+#: console/dialogs/dlg_remotecontrol.inc:269
+#: console/dialogs/dlg_remotecontrol.inc:355
+#: console/dialogs/dlg_remotecontrol.inc:443
 msgid "Ring"
 msgstr "Ring"
 
@@ -817,8 +817,8 @@ msgstr "TRM fijo"
 #: server/pdf/classes/PrintResultadosByEquipos3.php:127
 #: server/pdf/classes/PrintResultadosByEquipos4.php:108
 #: server/pdf/classes/PrintResultadosByManga.php:95
-#: server/pdf/classes/PrintTRSTemplates.php:123 videowall/vws.js.php:308
-#: videowall/vws.js.php:309 videowall/vws.js.php:339
+#: server/pdf/classes/PrintTRSTemplates.php:123 videowall/vws.js.php:311
+#: videowall/vws.js.php:312 videowall/vws.js.php:342
 #: console/dialogs/inforesultados.inc:45 console/dialogs/inforesultados.inc:53
 #: console/dialogs/inforesultados.inc:61 console/dialogs/inforesultados.inc:69
 msgid "SCT"
@@ -1082,7 +1082,7 @@ msgstr "Datos t&eacute;cnicos de las mangas"
 #: console/frm_clasificaciones2.php:76
 #: console/frm_clasificaciones_equipos.php:84 tablet/tablet_main.php:122
 #: console/dialogs/dlg_ordensalida.inc:57 console/dialogs/dlg_plugins.inc:22
-#: console/dialogs/dlg_remotecontrol.inc:195
+#: console/dialogs/dlg_remotecontrol.inc:214
 msgid "Refresh"
 msgstr "Refrescar"
 
@@ -1454,8 +1454,8 @@ msgstr "Equipos (4 conjunta)"
 
 #: console/frm_competicion.php:57 server/database/classes/Jornadas.php:71
 #: server/database/classes/poedit.php:25 server/database/classes/poedit.php:30
-#: server/database/classes/poedit.php:34 videowall/vws.js.php:303
-#: videowall/vws.js.php:335
+#: server/database/classes/poedit.php:34 videowall/vws.js.php:306
+#: videowall/vws.js.php:338
 msgid "Individual"
 msgstr "Individual"
 
@@ -1495,7 +1495,7 @@ msgstr "Programa"
 #: server/pdf/classes/PrintOrdenSalidaEquipos4.php:94
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:93 videowall/index.php:238
 #: videowall/vw_ordensalida.php:36 console/dialogs/dlg_remotecontrol.inc:55
-#: console/dialogs/dlg_remotecontrol.inc:125
+#: console/dialogs/dlg_remotecontrol.inc:143
 msgid "Starting order"
 msgstr "Orden de salida"
 
@@ -1552,7 +1552,7 @@ msgstr "Borrar"
 
 #: console/frm_equipos.php:56 scripts/results_and_scores.js.php:151
 #: console/dialogs/dlg_newInscripcion.inc:96
-#: console/dialogs/dlg_remotecontrol.inc:199
+#: console/dialogs/dlg_remotecontrol.inc:218
 msgid "Done"
 msgstr "Hecho"
 
@@ -2440,8 +2440,8 @@ msgstr "Cerrar"
 #: console/import/import_handlers.inc.php:49
 #: console/import/import_perros.inc.php:49 console/dialogs/dlg_pruebas.inc:49
 #: console/dialogs/dlg_remotecontrol.inc:42
-#: console/dialogs/dlg_remotecontrol.inc:113
-#: console/dialogs/dlg_remotecontrol.inc:166
+#: console/dialogs/dlg_remotecontrol.inc:131
+#: console/dialogs/dlg_remotecontrol.inc:185
 msgid "Select"
 msgstr "Seleccionar"
 
@@ -2796,7 +2796,7 @@ msgstr "Listado de inscritos"
 #: videowall/vw_entrenamientos.php:36 videowall/vws_entrenamientos.php:36
 #: console/dialogs/dlg_remotecontrol.inc:54
 #: console/dialogs/dlg_remotecontrol.inc:64
-#: console/dialogs/dlg_remotecontrol.inc:124
+#: console/dialogs/dlg_remotecontrol.inc:142
 msgid "Training session"
 msgstr "Sesi&oacute;n de entrenamientos"
 
@@ -2811,7 +2811,7 @@ msgstr "Sesi&oacute;n de entrenamientos"
 #: videowall/vw_parciales.php:43 videowall/vwc_parciales.php:51
 #: console/dialogs/dlg_remotecontrol.inc:56
 #: console/dialogs/dlg_remotecontrol.inc:60
-#: console/dialogs/dlg_remotecontrol.inc:127
+#: console/dialogs/dlg_remotecontrol.inc:145
 msgid "Partial scores"
 msgstr "Clasificaci&oacute;n parcial"
 
@@ -2831,7 +2831,7 @@ msgstr "Clasificaci&oacute;n parcial"
 #: videowall/index.php:244 videowall/vw_finales.php:46
 #: videowall/vwc_finales.php:51 console/dialogs/dlg_remotecontrol.inc:57
 #: console/dialogs/dlg_remotecontrol.inc:61
-#: console/dialogs/dlg_remotecontrol.inc:128
+#: console/dialogs/dlg_remotecontrol.inc:146
 msgid "Final scores"
 msgstr "Clasificaci&oacute;n final"
 
@@ -3156,8 +3156,8 @@ msgstr "Datos de la manga"
 #: server/pdf/classes/PrintClasificacionExcel.php:135
 #: server/pdf/classes/PrintClasificacionTeam.php:136
 #: server/pdf/classes/PrintClasificacionTeam.php:149
-#: server/pdf/classes/PrintTRSTemplates.php:123 videowall/vws.js.php:308
-#: videowall/vws.js.php:309 videowall/vws.js.php:339
+#: server/pdf/classes/PrintTRSTemplates.php:123 videowall/vws.js.php:311
+#: videowall/vws.js.php:312 videowall/vws.js.php:342
 msgid "Dist"
 msgstr "Dist"
 
@@ -3382,6 +3382,7 @@ msgid "Text editor"
 msgstr "Editor de texto"
 
 #: lib/templates/scores_mail.inc.php:81 console/dialogs/dlg_pruebas.inc:110
+#: console/dialogs/dlg_remotecontrol.inc:96
 msgid "Message"
 msgstr "Mensaje"
 
@@ -3431,7 +3432,7 @@ msgstr "Selecciona Ring"
 
 #: livestream/index.php:204 scripts/sesiones.js.php:159
 #: console/dialogs/dlg_configuracion.inc:225
-#: console/dialogs/dlg_remotecontrol.inc:126
+#: console/dialogs/dlg_remotecontrol.inc:144
 msgid "Live Stream"
 msgstr "Video en directo"
 
@@ -3459,11 +3460,11 @@ msgstr "Trabajar con el la sesi&oacute;n seleccionada"
 msgid "You should select a valid session"
 msgstr "Debe seleccionar una sesi&oacute;n v&aacute;lida"
 
-#: livestream/livestream.js.php:117 livestream/livestream.js.php:132
-#: livestream/livestream.js.php:136 tablet/index.php:193
+#: livestream/livestream.js.php:124 livestream/livestream.js.php:139
+#: livestream/livestream.js.php:143 tablet/index.php:193
 #: tablet/tablet_main.php:128 videowall/videowall.js.php:446
-#: videowall/videowall.js.php:553 videowall/vws.js.php:449
-#: videowall/vws.js.php:461
+#: videowall/videowall.js.php:553 videowall/vws.js.php:452
+#: videowall/vws.js.php:464
 msgid "Test dog"
 msgstr "Perro en blanco"
 
@@ -5151,8 +5152,8 @@ msgid "Ring session id"
 msgstr "Ring ID"
 
 #: scripts/sesiones.js.php:165 scripts/sesiones.js.php:184
-#: console/dialogs/dlg_remotecontrol.inc:251
-#: console/dialogs/dlg_remotecontrol.inc:325
+#: console/dialogs/dlg_remotecontrol.inc:270
+#: console/dialogs/dlg_remotecontrol.inc:356
 msgid "View mode"
 msgstr "Modo de pantalla"
 
@@ -6496,7 +6497,7 @@ msgid "PDF forms and reports generation"
 msgstr "Generacion de formularios PDF e informes"
 
 #: console/dialogs/dlg_configuracion.inc:258
-#: console/dialogs/dlg_remotecontrol.inc:79
+#: console/dialogs/dlg_remotecontrol.inc:81
 msgid "Font family"
 msgstr "Tipos de fuentes de caracteres"
 
@@ -6608,8 +6609,8 @@ msgstr "M&eacute;todo de cifrado"
 #: console/dialogs/dlg_configuracion.inc:397
 #: console/dialogs/dlg_configuracion.inc:494 console/dialogs/dlg_pruebas.inc:53
 #: console/dialogs/dlg_remotecontrol.inc:46
-#: console/dialogs/dlg_remotecontrol.inc:117
-#: console/dialogs/dlg_remotecontrol.inc:170
+#: console/dialogs/dlg_remotecontrol.inc:135
+#: console/dialogs/dlg_remotecontrol.inc:189
 msgid "None"
 msgstr "Ninguno"
 
@@ -7344,8 +7345,8 @@ msgid "Ignore sent mark and send anyway"
 msgstr "Forzar re-envio si ya se ha enviado el correo"
 
 #: console/dialogs/dlg_pruebas.inc:51 console/dialogs/dlg_remotecontrol.inc:44
-#: console/dialogs/dlg_remotecontrol.inc:115
-#: console/dialogs/dlg_remotecontrol.inc:168
+#: console/dialogs/dlg_remotecontrol.inc:133
+#: console/dialogs/dlg_remotecontrol.inc:187
 msgid "All"
 msgstr "Todos"
 
@@ -7398,7 +7399,7 @@ msgid "Choose display(s) to work with"
 msgstr "Seleccione pantallas con las que trabajar"
 
 #: console/dialogs/dlg_remotecontrol.inc:34
-#: console/dialogs/dlg_remotecontrol.inc:104
+#: console/dialogs/dlg_remotecontrol.inc:122
 msgid "and invoke desired operation"
 msgstr "y marque la operacion deseada"
 
@@ -7407,118 +7408,143 @@ msgid "Parameters for display change"
 msgstr "Parametros para ajuste de video-marcadores"
 
 #: console/dialogs/dlg_remotecontrol.inc:48
-#: console/dialogs/dlg_remotecontrol.inc:119
-#: console/dialogs/dlg_remotecontrol.inc:172
+#: console/dialogs/dlg_remotecontrol.inc:137
+#: console/dialogs/dlg_remotecontrol.inc:191
 msgid "New ring"
 msgstr "Nuevo ring"
 
 #: console/dialogs/dlg_remotecontrol.inc:51
-#: console/dialogs/dlg_remotecontrol.inc:122
+#: console/dialogs/dlg_remotecontrol.inc:140
 msgid "New view"
 msgstr "Nueva vista"
 
 #: console/dialogs/dlg_remotecontrol.inc:76
-#: console/dialogs/dlg_remotecontrol.inc:133
-#: console/dialogs/dlg_remotecontrol.inc:179
+#: console/dialogs/dlg_remotecontrol.inc:151
+#: console/dialogs/dlg_remotecontrol.inc:198
 msgid "Switch"
 msgstr "Cambiar"
 
-#: console/dialogs/dlg_remotecontrol.inc:78
+#: console/dialogs/dlg_remotecontrol.inc:80
 msgid "Simplified videowall controls"
 msgstr "Controles para marcadores simplificados"
 
-#: console/dialogs/dlg_remotecontrol.inc:85
+#: console/dialogs/dlg_remotecontrol.inc:87
 msgid "Font size"
 msgstr "Tama&ntilde;o de fuentes de caracteres"
 
-#: console/dialogs/dlg_remotecontrol.inc:94
+#: console/dialogs/dlg_remotecontrol.inc:95
+msgid "Videowall message handling"
+msgstr "Env&iacute;o de mensajes al marcador"
+
+#: console/dialogs/dlg_remotecontrol.inc:100
+msgid "Duration (secs)"
+msgstr "Duraci&oacute;n (segs)"
+
+#: console/dialogs/dlg_remotecontrol.inc:107
+msgid "Show"
+msgstr "Mostrar"
+
+#: console/dialogs/dlg_remotecontrol.inc:112
 msgid "Current license permissions does not allow videowall operations"
 msgstr "La licencia actual no permite operaciones con video-marcadores"
 
-#: console/dialogs/dlg_remotecontrol.inc:98
+#: console/dialogs/dlg_remotecontrol.inc:116
 msgid "Live Streaming windows"
 msgstr "Ventanas de streaming"
 
-#: console/dialogs/dlg_remotecontrol.inc:102
+#: console/dialogs/dlg_remotecontrol.inc:120
 msgid "List of currently active LiveStream windows"
 msgstr "Lista de ventanas de live-streaming activas"
 
-#: console/dialogs/dlg_remotecontrol.inc:103
+#: console/dialogs/dlg_remotecontrol.inc:121
 msgid "Choose window(s) to work with"
 msgstr "Selecciona ventanas con las que operar"
 
-#: console/dialogs/dlg_remotecontrol.inc:111
+#: console/dialogs/dlg_remotecontrol.inc:129
 msgid "Parameters for window change"
 msgstr "Par&aacute;metros de conmutaci&oacute;n de ventanas"
 
-#: console/dialogs/dlg_remotecontrol.inc:135
+#: console/dialogs/dlg_remotecontrol.inc:153
 msgid "Live Stream controls"
 msgstr "Controles de Video en directo"
 
-#: console/dialogs/dlg_remotecontrol.inc:136
+#: console/dialogs/dlg_remotecontrol.inc:154
 msgid "On Screen Display"
 msgstr "Datos en pantalla (O.S.D.)"
 
-#: console/dialogs/dlg_remotecontrol.inc:142
-msgid "Event Delay"
-msgstr "Retardo de respuesta"
+#: console/dialogs/dlg_remotecontrol.inc:161
+msgid "OSD/video sync delay"
+msgstr "OSD/Video ajuste de retardo"
 
-#: console/dialogs/dlg_remotecontrol.inc:152
+#: console/dialogs/dlg_remotecontrol.inc:171
 msgid "Current license permissions does not allow live stream operations"
 msgstr "La licencia actual no permite operaciones de video en directo"
 
-#: console/dialogs/dlg_remotecontrol.inc:156
+#: console/dialogs/dlg_remotecontrol.inc:175
 msgid "Chronometer displays"
 msgstr "Video-cronometros"
 
-#: console/dialogs/dlg_remotecontrol.inc:159
+#: console/dialogs/dlg_remotecontrol.inc:178
 msgid "List of currently active video-chronometers scoreboards"
 msgstr "Lista de pantallas de video-cron&oacute;metro activas"
 
-#: console/dialogs/dlg_remotecontrol.inc:164
+#: console/dialogs/dlg_remotecontrol.inc:183
 msgid "Parameters for chrono display change"
 msgstr "Parametros de conmutaci&oacute;n de video cron&oacute;metros"
 
-#: console/dialogs/dlg_remotecontrol.inc:184
+#: console/dialogs/dlg_remotecontrol.inc:203
 msgid "Current license permissions does not allow chronometer operations"
 msgstr ""
 "La licencia actual no permite operaciones de cron&ocute;metro electr&oacute;"
 "nico"
 
-#: console/dialogs/dlg_remotecontrol.inc:206
+#: console/dialogs/dlg_remotecontrol.inc:225
 msgid "Video control dialog"
 msgstr "Control de pantallas"
 
-#: console/dialogs/dlg_remotecontrol.inc:238
-#: console/dialogs/dlg_remotecontrol.inc:312
-#: console/dialogs/dlg_remotecontrol.inc:386
+#: console/dialogs/dlg_remotecontrol.inc:257
+#: console/dialogs/dlg_remotecontrol.inc:343
+#: console/dialogs/dlg_remotecontrol.inc:431
 msgid "Updating videowall session list"
 msgstr "Actualizando lista de pantallas"
 
-#: console/dialogs/dlg_remotecontrol.inc:291
-#: console/dialogs/dlg_remotecontrol.inc:365
-#: console/dialogs/dlg_remotecontrol.inc:436
+#: console/dialogs/dlg_remotecontrol.inc:310
+#: console/dialogs/dlg_remotecontrol.inc:410
+#: console/dialogs/dlg_remotecontrol.inc:481
 #: console/dialogs/dlg_sesiones.inc:159
 msgid "Description"
 msgstr "Descripci&oacute;n"
 
-#: console/dialogs/dlg_remotecontrol.inc:454
+#: console/dialogs/dlg_remotecontrol.inc:495
 msgid "Switch selected video-chronometers to choosen ring"
 msgstr "Conmutar video-cron&oacute;metros marcados al ring seleccionado"
 
-#: console/dialogs/dlg_remotecontrol.inc:455
+#: console/dialogs/dlg_remotecontrol.inc:496
 msgid "Switch selected livestreamn windows to choosen ring/view"
 msgstr "Conmutar pantallas de streaming marcadas al ring/vista escogido"
 
-#: console/dialogs/dlg_remotecontrol.inc:456
+#: console/dialogs/dlg_remotecontrol.inc:497
+msgid "Turn On-Screen-Display overlay OFF"
+msgstr "Desactivar la sobreimpresi&oacute;n de datos en pantalla"
+
+#: console/dialogs/dlg_remotecontrol.inc:498
+msgid "Turn On-Screen-Display overlay ON"
+msgstr "Activar la sobreimpresi&oacute;n de datos en pantalla"
+
+#: console/dialogs/dlg_remotecontrol.inc:499
+msgid "Show text message on selected screen with specified duration"
+msgstr ""
+"Mostrar el mensaje indicado durante el tiempo especificado en las pantallas"
+
+#: console/dialogs/dlg_remotecontrol.inc:500
 msgid "Switch selected scoreboard displays to choosen ring/view"
 msgstr "Conmutar los video-marcadores seleccionados al ring/vista escogido"
 
-#: console/dialogs/dlg_remotecontrol.inc:457
+#: console/dialogs/dlg_remotecontrol.inc:501
 msgid "Reload and update active client lists"
 msgstr "Actualzar y recargar la lista de pantallas activas"
 
-#: console/dialogs/dlg_remotecontrol.inc:458
+#: console/dialogs/dlg_remotecontrol.inc:502
 msgid "End video display remote control session. Close window"
 msgstr "Finalizar sesi&oacute;n de control de pantallas. Cerrar ventana"
 
@@ -7780,6 +7806,9 @@ msgstr "Modificar los datos del usuario seleccionado"
 #: console/dialogs/dlg_usuarios.inc:265
 msgid "Remove selected user from database"
 msgstr "Borrar el usuario seleccionado de la base de datos"
+
+#~ msgid "Event Delay"
+#~ msgstr "Retardo de respuesta"
 
 #~ msgid "Sequences"
 #~ msgstr "Secuencias"

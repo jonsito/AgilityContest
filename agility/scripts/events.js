@@ -60,11 +60,11 @@ function parseEvent(data) {
 		function handleSuccess(received,status,jqXHR){
 			var data=JSON.parse(received);
 			var row=null;
+            mark=data.TimeStamp; // store last event timestamp
 			for (var n=0;n<parseInt(data.total);n++) {
 				var parse=true;
 				row=data.rows[n];
-                lastID=row.ID;
-				mark=row.TimeStamp; // store last event id and timestamp
+                lastID=row.ID; // update last id
 				switch(row.Type) {
 					case 'reconfig' :
 						// just call reconfiguration routine. Do not parse event

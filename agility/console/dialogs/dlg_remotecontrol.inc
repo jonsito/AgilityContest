@@ -316,13 +316,15 @@ $am=new AuthManager("Chrono");
             ]]
         });
 
-        $('#remote-videowall-msg').textbox();
+        $('#remote-videowall-msg').textbox({
+            validType:'lenght[0,25]'
+        });
         $('#remote-videowall-msgtimeout').slider({
             mode:'h',
             showTip:true,
-            min: 0,
-            max: 10,
-            value: 15,
+            min: 1,
+            max: 30,
+            value: 5,
             step: 1
         });
 

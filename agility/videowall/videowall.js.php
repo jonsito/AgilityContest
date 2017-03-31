@@ -638,13 +638,24 @@ function videowall_switchConsole(event) {
 }
 
 function videowall_showMessage(event) {
-    var msg=event['Value'];
-    var timeout=event['Timeout'];
+    var data=event['Value'].split(':',2);
+    if (data[1].length==0) return; // nothing to show :-)
+    var size = 100.0 / parseFloat(data[1].length);
+    var msg='<div style="line-height:100px;text-align:center;color:#fff;background:#000">'+
+        '<span style="display:inline-block;vertical-align:middle;line-height:normal;font-size:60px;font-weight:bold;font-style:italic;">'+
+        data[1]+
+        '</span></div>'
+    var tout=parseInt(data[0]);
+    tout= (tout<=0)?1:tout;
+    tout= (tout>=30)?30:tout;
+
     $.messager.show({
         title:' ', // empty title
         msg:msg,
         showType:'fade',
-        timeout: timeout,
-        style:{ right:'', bottom:'' }
+        height:150,
+        width: 50*data[1].length,
+        timeout: 1000*tout,
+        style:{ opacity:0.7,right:'', bottom:'' }
     });
 }

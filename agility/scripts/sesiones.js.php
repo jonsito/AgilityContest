@@ -299,10 +299,12 @@ function remoteSendButtonEvent(source,keyevent) {
     return remoteSendKeyValueEvent(source,keyevent,0);
 }
 
-function remoteSendMessageEvent(source,msg) {
+function remoteSendMessageEvent(source) {
+    var t=$('#remote-videowall-msgtimeout').slider('getValue');
+    var m=$('#remote-videowall-msg').textbox('getValue');
     var data = {
         Oper: EVTCMD_MESSAGE,
-        Value: msg
+        Value: ''+t+':'+m
     }
     return remote_handleEvents(source, data);
 }
