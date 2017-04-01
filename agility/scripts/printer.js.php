@@ -321,6 +321,7 @@ function print_performCommonDesarollo() {
         case 6: if (!row) break; print_asistente(1,cats,false,range,comments); return false; // hojas asistente 1 perro/pag
         case 7: if (!row) break; print_asistente(5,cats,false,range,comments); return false; // hojas asistente 5 perros/pag
         case 8: if (!row) break; print_asistente(15,cats,false,range,comments); return false; // hojas asistente 15 perros/pag
+        case 10: if (!row) break; print_asistente(10,cats,false,range,comments); return false; // hojas asistente 10 perros/pag
         case 9: if (!row) break; print_asistenteEquipos(cats,false,range,comments); return false; // hojas asistente team4 conjunta
     }
     // arriving here means round required but not selected. notify and abort
@@ -356,7 +357,7 @@ function print_commonDesarrollo(def,cb) {
     switch(parseInt(def)) {
         case 0: case 2: case 3: case 4: case 5: rangeobj.textbox('disable');  break;
         // if cat selected enable range selection on starting order or assistant pages
-        case 1: case 6: case 7: case 8: case 9: rangeobj.textbox( (cats==='-')?'disable':'enable'); break;
+        case 1: case 6: case 7: case 8: case 9: case 10: rangeobj.textbox( (cats==='-')?'disable':'enable'); break;
     }
     $('#printer_dialog-cats').val(cats);
 	$('#printer_dialog-currentcat').html(catstr);

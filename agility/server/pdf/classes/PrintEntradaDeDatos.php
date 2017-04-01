@@ -116,7 +116,7 @@ class PrintEntradaDeDatos extends PrintCommon {
      * @param {array} $row
 	 * @param {integer} $orden . Starting order in their category
      */
-	function writeTableCell_compacto($row,$orden) {
+	function writeTableCell_15($row,$orden) {
 		$wide=$this->federation->get('WideLicense'); // if required use long cell for license
 		$logo=$this->getLogoName($row['Perro']);
 		$this->ac_header(1,20);
@@ -210,15 +210,116 @@ class PrintEntradaDeDatos extends PrintCommon {
         else if($row['Eliminado']!=0)  $this->Cell(19,5,_('Eliminated'),  '',0,'L',false);
         $this->Ln(6);
 	}
-	
-	/**
+
+    /**
+     * Prints 15 dogs / page
+     * @param {number} $rowcount
+     * @param {array} $row
+     * @param {integer} $orden . Starting order in their category
+     */
+    function writeTableCell_10($row,$orden) {
+        $wide=$this->federation->get('WideLicense'); // if required use long cell for license
+        $logo=$this->getLogoName($row['Perro']);
+        $this->ac_header(1,20);
+        // save cursor position
+        $x=$this->getX();
+        $y=$this->GetY();
+
+        // fase 1: contenido de cada celda de la cabecera
+        // Cell( width,height,message,border,cursor,align,fill)
+        // pintamos logo
+        $this->Cell(15,19,'','LTBR',0,'L',false);
+        $this->SetXY($x+1,$y+2); // restore cursor position
+        $this->Image($logo,$this->getX()+0.5,$this->getY(),12);
+        // pintamos numero de orden
+        $this->ac_header(2,12);
+        $this->SetXY($x+16,$y+7);
+        $this->Cell(14,5,$orden,'',0,'L',true);
+
+        // bordes cabecera de celda
+        $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // color de fondo 2
+        $this->SetXY($x+15,$y); // restore cursor position
+        $this->SetFont($this->getFontName(),'B',10); // bold 10px
+        $this->Cell(15,6,'',	'LTR',0,'L',true); // dorsal
+        $this->Cell(10,6,'',	'TR',0,'L',true); // celo
+        if ($wide) {
+            $this->Cell(50,6,'',	'TR',0,'L',true); // perro
+        } else {
+            $this->Cell(20, 6, '', 'TR', 0, 'L', true); // licencia
+            $this->Cell(30,6,'',	'TR',0,'L',true); // perro
+        }
+        $this->Cell(60,6,'',	'TR',0,'L',true); // guia
+        $this->Cell(40,6,'',	'TR',0,'L',true); // club
+        // datos cabecera de celda
+        $this->SetXY($x+15,$y+2); // restore cursor position
+        $this->Cell(15,4,$row['Dorsal'],		'',0,'R',false); // display order
+        $this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
+        if ($wide) {
+            $this->Cell(50,4,$row['Nombre'],		'',0,'R',false);
+        } else {
+            $this->Cell(20,4,$row['Licencia'],		'',0,'R',false);
+            $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
+        }
+        $this->Cell(60,4,$row['NombreGuia'],	'',0,'R',false);
+        $this->Cell(40,4,$row['NombreClub'],	'',0,'R',false);
+
+        // titulos cabecera de celda
+        $this->SetXY($x+15,$y); // restore cursor position
+        $this->SetTextColor(0,0,0); // negro
+        $this->SetFont($this->getFontName(),'I',8); // italic 8px
+        $this->Cell(15,4,_('Dorsal'),	'',0,'L',false); // display order
+        $this->Cell(10,4,_('Heat'),	'',0,'L',false);
+        if ($wide) {
+            $this->Cell(50,4,_('Name'),	'',0,'L',false);
+        } else {
+            $this->Cell(20,4,_('Lic'),'',0,'L',false);
+            $this->Cell(30,4,_('Name'),	'',0,'L',false);
+        }
+        $this->Cell(60,4,_('Handler'),	'',0,'L',false);
+        $this->Cell(40,4,$this->strClub,	'',0,'L',false);
+
+        // ahora pintamos zona de escritura de palotes
+        $this->SetXY($x+15,$y+6);
+        $this->Cell(60,13,'','TRB',0,'',false); // palotes faltas
+        $this->Cell(40,13,'','TRB',0,'',false); // palotes rehuses
+        $this->Cell(25,13,'','TRB',0,'',false); // palotes tocados
+        $this->Cell(7, 13,'','TRB',0,'',false); // total faltas
+        $this->Cell(7, 13,'','TRB',0,'',false); // total rehuses
+        $this->Cell(7, 13,'','TRB',0,'',false); // total tocados
+        $this->Cell(29,13,'','TRB',0,'',false); // tiempo
+        $this->SetXY($x+30,$y+6);
+        $this->Cell(45,5,_('Faults'),	'',0,'L',false);
+        $this->Cell(40,5,_('Refusals'),	'',0,'L',false);
+        $this->Cell(25,5,_('Touchs'),	'',0,'L',false);
+        $this->Cell(7, 5,_('Flt'),	'',0,'C',false);
+        $this->Cell(7, 5,_('Ref'),	'',0,'C',false);
+        $this->Cell(7, 5,_('Tch'),	'',0,'C',false);
+        $this->Cell(29,5,_('Time'),  '',0,'L',false);
+        if (! $this->fillData) { $this->Ln(15); return; }
+        // arriving here means populate results
+        $this->SetFont($this->getFontName(),'B',9); //
+        $this->SetXY($x+40,$y+8);
+        $this->Cell(45,5,$this->palotes($row['Faltas']),	'',0,'L',false);
+        $this->Cell(40,5,$this->palotes($row['Rehuses']),	'',0,'L',false);
+        $this->Cell(15,5,$this->palotes($row['Tocados']),	'',0,'L',false);
+        $this->Cell(7, 5,$row['Faltas'],	'',0,'C',false);
+        $this->Cell(7, 5,$row['Rehuses'],	'',0,'C',false);
+        $this->Cell(7, 5,$row['Tocados'],	'',0,'C',false);
+        $this->Cell(9,5,$row['Tiempo'],  '',0,'L',false);
+        if($row['Pendiente']!=0)  $this->Cell(20,5,_('Pending'),  '',0,'L',false);
+        else if($row['NoPresentado']!=0)  $this->Cell(19,5,_('Not Present'),  '',0,'L',false);
+        else if($row['Eliminado']!=0)  $this->Cell(19,5,_('Eliminated'),  '',0,'L',false);
+        $this->Ln(6);
+    }
+
+    /**
 	 * Prints 5 dogs / page
 	 * @param {number} $rowcount Row index
 	 * @param {number} $row Row data
 	 * @param {number} $f width factor (to be reused on extended print)
 	 * @param {integer} $orden . Starting order in their category
 	 */
-	function writeTableCell_normal($row,$orden) {
+	function writeTableCell_5($row,$orden) {
         // remember that this method is called iteratively ... so make sure first time license goes to zero
         if ($this->federation->get('WideLicense')) {
             $this->pos[1]+=$this->pos[2]; $this->pos[2]=0; // on wide license ID skip license info
@@ -297,7 +398,7 @@ class PrintEntradaDeDatos extends PrintCommon {
      * @param {array} $row
 	 * @param {integer} $orden . Startin order in their category
      */
-	function writeTableCell_extendido($row,$orden) {
+	function writeTableCell_1($row,$orden) {
 		$logo=$this->getLogoName($row['Perro']);
 		// cada celda tiene una cabecera con los datos del participante
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
@@ -467,9 +568,10 @@ class PrintEntradaDeDatos extends PrintCommon {
 				}
 			}
 			switch($this->numrows) {
-				case 1: $this->writeTableCell_extendido($row,$orden);break;
-				case 5: $this->writeTableCell_normal($row,$orden);break;
-				case 15: $this->writeTableCell_compacto($row,$orden);break;
+				case 1: $this->writeTableCell_1($row,$orden);break;
+				case 5: $this->writeTableCell_5($row,$orden);break;
+                case 10: $this->writeTableCell_10($row,$orden);break;
+                case 15: $this->writeTableCell_15($row,$orden);break;
 			}
 			$rowcount++;
 			$orden++;

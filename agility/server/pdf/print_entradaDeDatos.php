@@ -35,7 +35,7 @@ try {
         'prueba' 	=> http_request("Prueba","i",0),
     	'jornada' 	=> http_request("Jornada","i",0),
     	'manga' 	=> http_request("Manga","i",0),
-    	'numrows'	=> http_request("Mode","i",0), // numero de perros por hoja 1/5/15
+    	'numrows'	=> http_request("Mode","i",0), // numero de perros por hoja 1/5/10/15
     	'cats' 		=> http_request("Categorias","s","-"),
     	'fill' 		=> http_request("FillData","i",0), // tell if print entered data in sheets
         'rango' 	=> http_request("Rango","s","1-99999"),

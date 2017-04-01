@@ -44,6 +44,8 @@ $config =Config::getInstance();
         <label for="printer_dialog-option6"><?php _e('Judge assistant sheets (1 dog/page)'); ?></label><br/>
         <input type="radio" name="printer_dialog-option" id="printer_dialog-option7" value="7" onclick="print_changeSelection(7)"/>
         <label for="printer_dialog-option7"><?php _e('Judge assistant sheets (5 dogs/page)'); ?></label><br/>
+        <input type="radio" name="printer_dialog-option" id="printer_dialog-option10" value="10" onclick="print_changeSelection(10)"/>
+        <label for="printer_dialog-option8"><?php _e('Judge assistant sheets (10 dogs/page)'); ?></label><br/>
         <input type="radio" name="printer_dialog-option" id="printer_dialog-option8" value="8" onclick="print_changeSelection(8)"/>
         <label for="printer_dialog-option8"><?php _e('Judge assistant sheets (15 dogs/page)'); ?></label><br/>
         <span id="printer_dialog-extraopts" >

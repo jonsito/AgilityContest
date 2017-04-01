@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-03-31 19:54+0200\n"
-"PO-Revision-Date: 2017-03-31 19:55+0200\n"
+"POT-Creation-Date: 2017-04-01 15:50+0200\n"
+"PO-Revision-Date: 2017-04-01 15:50+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -116,7 +116,8 @@ msgstr "R"
 #: server/pdf/classes/PrintClasificacionExcel.php:155
 #: server/pdf/classes/PrintClasificacionTeam.php:232
 #: server/pdf/classes/PrintEntradaDeDatos.php:169
-#: server/pdf/classes/PrintEntradaDeDatos.php:344
+#: server/pdf/classes/PrintEntradaDeDatos.php:270
+#: server/pdf/classes/PrintEntradaDeDatos.php:445
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:622
 #: server/pdf/classes/PrintInscripciones.php:820
@@ -166,8 +167,9 @@ msgstr "Perro"
 #: server/pdf/classes/PrintClasificacionExcel.php:160
 #: server/pdf/classes/PrintClasificacionTeam.php:240
 #: server/pdf/classes/PrintEntradaDeDatos.php:177
-#: server/pdf/classes/PrintEntradaDeDatos.php:261
-#: server/pdf/classes/PrintEntradaDeDatos.php:346
+#: server/pdf/classes/PrintEntradaDeDatos.php:278
+#: server/pdf/classes/PrintEntradaDeDatos.php:362
+#: server/pdf/classes/PrintEntradaDeDatos.php:447
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:130
 #: server/pdf/classes/PrintInscripciones.php:622
@@ -268,7 +270,8 @@ msgstr "Grado"
 #: server/excel/print_ordenSalidaExcel.php:171
 #: server/excel/print_ordenSalidaExcel.php:228
 #: server/pdf/classes/PrintEntradaDeDatos.php:170
-#: server/pdf/classes/PrintEntradaDeDatos.php:263
+#: server/pdf/classes/PrintEntradaDeDatos.php:271
+#: server/pdf/classes/PrintEntradaDeDatos.php:364
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:622
 #: server/pdf/classes/PrintInscripciones.php:820
@@ -308,8 +311,9 @@ msgstr "Reh&uacute;se"
 #: modules/competiciones/Liga_UCA.php:41
 #: modules/competiciones/Selectiva_PastorBelga.php:83
 #: server/pdf/classes/PrintEntradaDeDatos.php:210
-#: server/pdf/classes/PrintEntradaDeDatos.php:392
-#: server/pdf/classes/PrintEntradaDeDatos.php:413
+#: server/pdf/classes/PrintEntradaDeDatos.php:311
+#: server/pdf/classes/PrintEntradaDeDatos.php:493
+#: server/pdf/classes/PrintEntradaDeDatos.php:514
 #: server/pdf/classes/PrintEntradaDeDatosEquipos4.php:183
 #: server/printer/RawPrinter.php:143 tablet/tablet_main.php:61
 msgid "Eliminated"
@@ -336,9 +340,9 @@ msgstr "Eliminado"
 #: scripts/inscripciones.js.php:289 scripts/inscripciones.js.php:376
 #: scripts/jueces.js.php:90 scripts/perros.js.php:183 scripts/perros.js.php:203
 #: scripts/perros.js.php:212 scripts/perros.js.php:264
-#: scripts/perros.js.php:291 scripts/printer.js.php:327
-#: scripts/printer.js.php:384 scripts/printer.js.php:421
-#: scripts/printer.js.php:463 scripts/printer.js.php:499
+#: scripts/perros.js.php:291 scripts/printer.js.php:328
+#: scripts/printer.js.php:385 scripts/printer.js.php:422
+#: scripts/printer.js.php:464 scripts/printer.js.php:500
 #: scripts/pruebas.js.php:111 scripts/pruebas.js.php:139
 #: scripts/pruebas.js.php:187 scripts/pruebas.js.php:250
 #: scripts/pruebas.js.php:394 scripts/pruebas.js.php:528
@@ -422,7 +426,7 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 #: modules/competiciones/Liga_UCA.php:42
 #: modules/competiciones/Selectiva_PastorBelga.php:84
 #: scripts/datagrid_formatters.js.php:164
-#: server/pdf/classes/PrintEntradaDeDatos.php:284
+#: server/pdf/classes/PrintEntradaDeDatos.php:385
 #: server/pdf/classes/PrintResultadosByEquipos4.php:206
 #: tablet/tablet_main.php:104 videowall/videowall.js.php:214
 #: videowall/videowall.js.php:298 videowall/videowall.js.php:328
@@ -488,8 +492,10 @@ msgstr "Dors"
 #: server/pdf/classes/PrintClasificacionTeam.php:236
 #: server/pdf/classes/PrintEntradaDeDatos.php:172
 #: server/pdf/classes/PrintEntradaDeDatos.php:175
-#: server/pdf/classes/PrintEntradaDeDatos.php:259
-#: server/pdf/classes/PrintEntradaDeDatos.php:345
+#: server/pdf/classes/PrintEntradaDeDatos.php:273
+#: server/pdf/classes/PrintEntradaDeDatos.php:276
+#: server/pdf/classes/PrintEntradaDeDatos.php:360
+#: server/pdf/classes/PrintEntradaDeDatos.php:446
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:121
 #: server/pdf/classes/PrintInscripciones.php:622
@@ -676,8 +682,8 @@ msgstr "Trabajar con el ring seleccionado"
 #: public/pbmenu_inscripciones_equipos.php:165 public/pbmenu_programa.php:106
 #: server/excel/classes/Excel_Entrenamientos.php:52
 #: server/excel/common_writer.php:114
-#: server/pdf/classes/PrintEntradaDeDatos.php:264
-#: server/pdf/classes/PrintEntradaDeDatos.php:349
+#: server/pdf/classes/PrintEntradaDeDatos.php:365
+#: server/pdf/classes/PrintEntradaDeDatos.php:450
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:622
 #: server/pdf/classes/PrintInscripciones.php:820
@@ -1164,7 +1170,7 @@ msgstr "Lista de dorsales"
 #: console/frm_inscripciones2.php:124 console/frm_perros.php:81
 #: console/dialogs/dlg_entrenamientos.inc:113
 #: console/dialogs/dlg_ordensalida.inc:59
-#: console/dialogs/dlg_ordentandas.inc:46 console/dialogs/dlg_printer.inc:64
+#: console/dialogs/dlg_ordentandas.inc:46 console/dialogs/dlg_printer.inc:66
 #: console/dialogs/dlg_resultados_equipos.inc:41
 #: console/dialogs/dlg_resultados_individual.inc:41
 msgid "Print"
@@ -1406,8 +1412,8 @@ msgstr "LOE/RRC"
 #: console/frm_paises.php:229 console/frm_perros.php:135
 #: lib/templates/orden_salida.inc.php:26
 #: server/pdf/classes/PrintClasificacionExcel.php:157
-#: server/pdf/classes/PrintEntradaDeDatos.php:260
-#: server/pdf/classes/PrintEntradaDeDatos.php:346
+#: server/pdf/classes/PrintEntradaDeDatos.php:361
+#: server/pdf/classes/PrintEntradaDeDatos.php:447
 #: server/pdf/classes/PrintInscripciones.php:124 videowall/vwc_finales.php:214
 #: videowall/vwc_parciales.php:226 console/dialogs/dlg_editInscripcion.inc:40
 #: console/dialogs/dlg_ordensalida.inc:167
@@ -1570,7 +1576,7 @@ msgstr "Hecho"
 #: console/dialogs/dlg_entrenamientos.inc:100 console/dialogs/dlg_guias.inc:62
 #: console/dialogs/dlg_jornadas.inc:141 console/dialogs/dlg_jueces.inc:82
 #: console/dialogs/dlg_ordentandas.inc:81 console/dialogs/dlg_perros.inc:93
-#: console/dialogs/dlg_printer.inc:66 console/dialogs/dlg_pruebas.inc:118
+#: console/dialogs/dlg_printer.inc:68 console/dialogs/dlg_pruebas.inc:118
 #: console/dialogs/dlg_pruebas.inc:173 console/dialogs/dlg_selectJornada.inc:44
 #: console/dialogs/dlg_sesiones.inc:70 console/dialogs/dlg_usuarios.inc:47
 #: console/dialogs/dlg_usuarios.inc:95
@@ -1651,6 +1657,7 @@ msgstr "Leyendo lista de inscritos"
 #: server/pdf/classes/PrintClasificacion.php:181
 #: server/pdf/classes/PrintClasificacionTeam.php:237
 #: server/pdf/classes/PrintEntradaDeDatos.php:174
+#: server/pdf/classes/PrintEntradaDeDatos.php:275
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:622
 #: server/pdf/classes/PrintInscripciones.php:820
@@ -1940,7 +1947,7 @@ msgstr "Importar inscripciones desde el fichero Excel seleccionado"
 #: console/dialogs/dlg_entrenamientos.inc:292 console/dialogs/dlg_guias.inc:79
 #: console/dialogs/dlg_jornadas.inc:321 console/dialogs/dlg_jueces.inc:119
 #: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:113
-#: console/dialogs/dlg_printer.inc:96 console/dialogs/dlg_pruebas.inc:204
+#: console/dialogs/dlg_printer.inc:98 console/dialogs/dlg_pruebas.inc:204
 #: console/dialogs/dlg_pruebas.inc:206 console/dialogs/dlg_sesiones.inc:117
 #: console/dialogs/dlg_usuarios.inc:143 console/dialogs/dlg_usuarios.inc:146
 msgid "Cancel operation. Close window"
@@ -2939,9 +2946,10 @@ msgstr "Datos del participante"
 #: server/pdf/classes/PrintClasificacionTeam.php:261
 #: server/pdf/classes/PrintClasificacionTeam.php:267
 #: server/pdf/classes/PrintEntradaDeDatos.php:196
-#: server/pdf/classes/PrintEntradaDeDatos.php:275
-#: server/pdf/classes/PrintEntradaDeDatos.php:393
-#: server/pdf/classes/PrintEntradaDeDatos.php:414
+#: server/pdf/classes/PrintEntradaDeDatos.php:297
+#: server/pdf/classes/PrintEntradaDeDatos.php:376
+#: server/pdf/classes/PrintEntradaDeDatos.php:494
+#: server/pdf/classes/PrintEntradaDeDatos.php:515
 #: server/pdf/classes/PrintEntradaDeDatosEquipos4.php:184
 #: server/pdf/classes/PrintPodium.php:124
 #: server/pdf/classes/PrintPodium.php:136
@@ -3522,8 +3530,9 @@ msgstr "Estrellas"
 #: modules/competiciones/Liga_UCA.php:36
 #: modules/competiciones/Selectiva_PastorBelga.php:78
 #: server/pdf/classes/PrintEntradaDeDatos.php:209
-#: server/pdf/classes/PrintEntradaDeDatos.php:391
-#: server/pdf/classes/PrintEntradaDeDatos.php:412 tablet/tablet_main.php:60
+#: server/pdf/classes/PrintEntradaDeDatos.php:310
+#: server/pdf/classes/PrintEntradaDeDatos.php:492
+#: server/pdf/classes/PrintEntradaDeDatos.php:513 tablet/tablet_main.php:60
 msgid "Not Present"
 msgstr "No Presentado"
 
@@ -3532,7 +3541,7 @@ msgstr "No Presentado"
 #: modules/competiciones/Liga_UCA.php:37
 #: modules/competiciones/Selectiva_PastorBelga.php:79
 #: scripts/datagrid_formatters.js.php:165
-#: server/pdf/classes/PrintEntradaDeDatos.php:285
+#: server/pdf/classes/PrintEntradaDeDatos.php:386
 #: server/pdf/classes/PrintResultadosByEquipos4.php:207
 #: videowall/videowall.js.php:400 console/dialogs/dlg_competicion.inc:139
 msgid "N.P."
@@ -4525,8 +4534,8 @@ msgstr "Imprimiendo lista de equipos. Por favor, espere"
 #: scripts/printer.js.php:73 scripts/printer.js.php:95
 #: scripts/printer.js.php:130 scripts/printer.js.php:155
 #: scripts/printer.js.php:178 scripts/printer.js.php:202
-#: scripts/printer.js.php:405 scripts/printer.js.php:482
-#: scripts/printer.js.php:521 scripts/pruebas.js.php:161
+#: scripts/printer.js.php:406 scripts/printer.js.php:483
+#: scripts/printer.js.php:522 scripts/pruebas.js.php:161
 msgid "There was a problem generating your report, please try again."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
@@ -4895,9 +4904,9 @@ msgstr "Actualizar lista de perros con datos obtenidos de un fichero Excel"
 #: scripts/printer.js.php:94 scripts/printer.js.php:129
 #: scripts/printer.js.php:154 scripts/printer.js.php:177
 #: scripts/printer.js.php:201 scripts/printer.js.php:239
-#: scripts/printer.js.php:256 scripts/printer.js.php:404
-#: scripts/printer.js.php:442 scripts/printer.js.php:481
-#: scripts/printer.js.php:520 scripts/pruebas.js.php:160
+#: scripts/printer.js.php:256 scripts/printer.js.php:405
+#: scripts/printer.js.php:443 scripts/printer.js.php:482
+#: scripts/printer.js.php:521 scripts/pruebas.js.php:160
 msgid "We are preparing your report, please wait"
 msgstr "Preparando el informe, por favor, espere"
 
@@ -4930,20 +4939,20 @@ msgstr "Perros pendientes de introducci&oacute;n de datos"
 msgid "Invalid data"
 msgstr "Datos inv&aacute;lidos"
 
-#: scripts/printer.js.php:327 tablet/tablet.js.php:672
+#: scripts/printer.js.php:328 tablet/tablet.js.php:672
 msgid "There is no selected round"
 msgstr "No hay ninguna manga seleccionada"
 
-#: scripts/printer.js.php:352
+#: scripts/printer.js.php:353
 msgid "Selected category"
 msgstr "Categoria seleccionada"
 
-#: scripts/printer.js.php:384 scripts/printer.js.php:421
-#: scripts/printer.js.php:463 scripts/printer.js.php:499
+#: scripts/printer.js.php:385 scripts/printer.js.php:422
+#: scripts/printer.js.php:464 scripts/printer.js.php:500
 msgid "There is no selected round on this journey"
 msgstr "No hay ninguna manga seleccionada en la jornada"
 
-#: scripts/printer.js.php:443
+#: scripts/printer.js.php:444
 msgid "There was a problem generating your report, please contact the author."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Contacte con el autor"
@@ -5534,6 +5543,7 @@ msgstr "Cat./Grado"
 #: server/pdf/classes/PrintClasificacionTeam.php:244
 #: server/pdf/classes/PrintClasificacionTeam.php:252
 #: server/pdf/classes/PrintEntradaDeDatos.php:194
+#: server/pdf/classes/PrintEntradaDeDatos.php:295
 #: server/pdf/classes/PrintPodium.php:123
 #: server/pdf/classes/PrintPodium.php:135
 #: server/pdf/classes/PrintPodium.php:147
@@ -5554,9 +5564,10 @@ msgstr "Calif"
 #: server/pdf/classes/PrintClasificacionExcel.php:162
 #: server/pdf/classes/PrintClasificacionExcel.php:170
 #: server/pdf/classes/PrintEntradaDeDatos.php:190
-#: server/pdf/classes/PrintEntradaDeDatos.php:272
-#: server/pdf/classes/PrintEntradaDeDatos.php:376
-#: server/pdf/classes/PrintEntradaDeDatos.php:397
+#: server/pdf/classes/PrintEntradaDeDatos.php:291
+#: server/pdf/classes/PrintEntradaDeDatos.php:373
+#: server/pdf/classes/PrintEntradaDeDatos.php:477
+#: server/pdf/classes/PrintEntradaDeDatos.php:498
 #: server/pdf/classes/PrintEntradaDeDatosEquipos4.php:180
 #: server/pdf/classes/PrintTRSTemplates.php:273 tablet/tablet_main.php:91
 msgid "Faults"
@@ -5565,9 +5576,10 @@ msgstr "Faltas"
 #: server/pdf/classes/PrintClasificacionExcel.php:163
 #: server/pdf/classes/PrintClasificacionExcel.php:171
 #: server/pdf/classes/PrintEntradaDeDatos.php:191
-#: server/pdf/classes/PrintEntradaDeDatos.php:282
-#: server/pdf/classes/PrintEntradaDeDatos.php:384
-#: server/pdf/classes/PrintEntradaDeDatos.php:405
+#: server/pdf/classes/PrintEntradaDeDatos.php:292
+#: server/pdf/classes/PrintEntradaDeDatos.php:383
+#: server/pdf/classes/PrintEntradaDeDatos.php:485
+#: server/pdf/classes/PrintEntradaDeDatos.php:506
 #: server/pdf/classes/PrintEntradaDeDatosEquipos4.php:181
 #: server/pdf/classes/PrintTRSTemplates.php:274 tablet/tablet_main.php:95
 msgid "Refusals"
@@ -5597,15 +5609,17 @@ msgid "Scr. Teams"
 msgstr "Cl Equipos"
 
 #: server/pdf/classes/PrintEntradaDeDatos.php:192
-#: server/pdf/classes/PrintEntradaDeDatos.php:277
-#: server/pdf/classes/PrintEntradaDeDatos.php:380
-#: server/pdf/classes/PrintEntradaDeDatos.php:401
+#: server/pdf/classes/PrintEntradaDeDatos.php:293
+#: server/pdf/classes/PrintEntradaDeDatos.php:378
+#: server/pdf/classes/PrintEntradaDeDatos.php:481
+#: server/pdf/classes/PrintEntradaDeDatos.php:502
 #: server/pdf/classes/PrintEntradaDeDatosEquipos4.php:182
 #: server/pdf/classes/PrintTRSTemplates.php:275 tablet/tablet_main.php:93
 msgid "Touchs"
 msgstr "Tocados"
 
 #: server/pdf/classes/PrintEntradaDeDatos.php:193
+#: server/pdf/classes/PrintEntradaDeDatos.php:294
 #: server/pdf/classes/PrintResultadosByEquipos3.php:92
 #: server/pdf/classes/PrintResultadosByEquipos4.php:203
 #: server/pdf/classes/PrintResultadosByManga.php:62
@@ -5615,6 +5629,7 @@ msgid "Flt"
 msgstr "Flt"
 
 #: server/pdf/classes/PrintEntradaDeDatos.php:195
+#: server/pdf/classes/PrintEntradaDeDatos.php:296
 #: server/pdf/classes/PrintResultadosByEquipos3.php:92
 #: server/pdf/classes/PrintResultadosByEquipos4.php:205
 #: server/pdf/classes/PrintResultadosByManga.php:62
@@ -5623,20 +5638,21 @@ msgid "Tch"
 msgstr "Toc"
 
 #: server/pdf/classes/PrintEntradaDeDatos.php:208
+#: server/pdf/classes/PrintEntradaDeDatos.php:309
 msgid "Pending"
 msgstr "Pendiente"
 
-#: server/pdf/classes/PrintEntradaDeDatos.php:420
-#: server/pdf/classes/PrintEntradaDeDatos.php:421
-#: server/pdf/classes/PrintEntradaDeDatos.php:463
+#: server/pdf/classes/PrintEntradaDeDatos.php:521
+#: server/pdf/classes/PrintEntradaDeDatos.php:522
+#: server/pdf/classes/PrintEntradaDeDatos.php:564
 #: server/pdf/classes/PrintEntradaDeDatosEquipos4.php:114
 #: server/pdf/classes/PrintTRSTemplates.php:213
 msgid "Record by"
 msgstr "Apunta"
 
-#: server/pdf/classes/PrintEntradaDeDatos.php:422
-#: server/pdf/classes/PrintEntradaDeDatos.php:423
-#: server/pdf/classes/PrintEntradaDeDatos.php:465
+#: server/pdf/classes/PrintEntradaDeDatos.php:523
+#: server/pdf/classes/PrintEntradaDeDatos.php:524
+#: server/pdf/classes/PrintEntradaDeDatos.php:566
 #: server/pdf/classes/PrintEntradaDeDatosEquipos4.php:116
 #: server/pdf/classes/PrintTRSTemplates.php:215
 msgid "Review by"
@@ -7288,26 +7304,30 @@ msgid "Judge assistant sheets (5 dogs/page)"
 msgstr "Hojas del asistente de pista (5 perros/p&aacute;gina)"
 
 #: console/dialogs/dlg_printer.inc:48
+msgid "Judge assistant sheets (10 dogs/page)"
+msgstr "Hojas del asistente de pista (10 perros/p&aacute;gina)"
+
+#: console/dialogs/dlg_printer.inc:50
 msgid "Judge assistant sheets (15 dogs/page)"
 msgstr "Hojas del asistente de pista (15 perros/p&aacute;gina)"
 
-#: console/dialogs/dlg_printer.inc:51
+#: console/dialogs/dlg_printer.inc:53
 msgid "Judge assistant sheets (combined for team 4)"
 msgstr "Hojas del asistente de pista (pruebas equipos 4)"
 
-#: console/dialogs/dlg_printer.inc:54
+#: console/dialogs/dlg_printer.inc:56
 msgid "PDF Header comment"
 msgstr "Texto adicional en cabecera"
 
-#: console/dialogs/dlg_printer.inc:56
+#: console/dialogs/dlg_printer.inc:58
 msgid "First and last dog/team to print"
 msgstr "Primer y ultimo perro/equipo a listar"
 
-#: console/dialogs/dlg_printer.inc:88
+#: console/dialogs/dlg_printer.inc:90
 msgid "Print form"
 msgstr "Imprimir formulario"
 
-#: console/dialogs/dlg_printer.inc:95
+#: console/dialogs/dlg_printer.inc:97
 msgid "Generate selected document"
 msgstr "Generar documento solicitado"
 
@@ -7857,9 +7877,6 @@ msgstr "Borrar el usuario seleccionado de la base de datos"
 #~ msgstr ""
 #~ "Hubo un problema en la generaci&oacute;n del informe. Contacte con el "
 #~ "autor"
-
-#~ msgid "Judge assistant sheets (10 dogs/page)"
-#~ msgstr "Hojas del asistente de pista (10 perros/p&aacute;gina)"
 
 #~ msgid "Ex 0"
 #~ msgstr "Ex 0"
