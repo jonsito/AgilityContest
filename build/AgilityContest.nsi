@@ -231,9 +231,6 @@ Section "Uninstall"
     ; make sure that application is stopped
     Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k httpd.exe -q'
     Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k mysqld.exe -q'
-	; Preserve configuration files
-	!insertmacro BackupFile "$INSTDIR\agility\server\auth" "registration.info" "$TEMP"
-	!insertmacro BackupFile "$INSTDIR\agility\server\auth" "config.ini" "$TEMP"
     RMDir /r $SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO
     RMDir /r $INSTDIR
     Delete "$INSTDIR\uninstall_AgilityContest.exe"
@@ -249,6 +246,9 @@ SectionEnd
 
 Function .onInit
 
+  ; Preserve configuration files (if exists)
+  !insertmacro BackupFile "$INSTDIR\agility\server\auth" "registration.info" "$TEMP"
+  !insertmacro BackupFile "$INSTDIR\agility\server\auth" "config.ini" "$TEMP"
   ; make sure that application is stopped before uninstall/reinstall
   ifFileExists "$INSTDIR\xampp\apache\bin\pv.exe" 0 dontExecKillProc
   Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k httpd.exe -q'
