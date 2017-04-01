@@ -38,6 +38,20 @@ SetCompressor lzma
     !define MUI_HEADERIMAGE_BITMAP "installer.bmp" ; optional
 
 ;--------------------------------
+; macros para hacer backup y restore de la licencia y ficheros de configuracion
+    !macro BackupFile FILE_DIR FILE BACKUP_TO
+        IfFileExists "${BACKUP_TO}\*.*" +2
+            CreateDirectory "${BACKUP_TO}"
+        IfFileExists "${FILE_DIR}\${FILE}" 0 +2
+            Rename "${FILE_DIR}\${FILE}" "${BACKUP_TO}\${FILE}"
+    !macroend
+
+    !macro RestoreFile BUP_DIR FILE RESTORE_TO
+        IfFileExists "${BUP_DIR}\${FILE}" 0 +2
+            Rename "${BUP_DIR}\${FILE}" "${RESTORE_TO}\${FILE}"
+    !macroend
+
+;--------------------------------
 ;Pages
 
   ;Mostramos la pagina de bienvenida 
@@ -172,6 +186,9 @@ SetShellVarContext all
     AccessControl::GrantOnFile "$INSTDIR\agility\images\logos" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
 	; Access control for configuration files
 	AccessControl::GrantOnFile "$INSTDIR\agility\server\auth" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
+; recuperamos ficheros de configuracion de la desinstalacion previa
+    !insertmacro RestoreFile "$TMP" "registration.info" "$INSTDIR\agility\server\auth"
+    !insertmacro RestoreFile "$TMP" "config.ini" "$INSTDIR\agility\server\auth"
 SectionEnd
 
 ; Optional section (can be disabled by the user)
@@ -214,7 +231,9 @@ Section "Uninstall"
     ; make sure that application is stopped
     Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k httpd.exe -q'
     Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k mysqld.exe -q'
-	; make sure to preserve user config for versions <=1.17
+	; Preserve configuration files
+	!insertmacro BackupFile "$INSTDIR\agility\server\auth" "registration.info" "$TEMP"
+	!insertmacro BackupFile "$INSTDIR\agility\server\auth" "config.ini" "$TEMP"
     RMDir /r $SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO
     RMDir /r $INSTDIR
     Delete "$INSTDIR\uninstall_AgilityContest.exe"
