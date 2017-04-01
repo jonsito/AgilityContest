@@ -214,7 +214,8 @@ function print_parcial(mode) {
         {
             0: '*<?php _e("Create PDF Report");?>',
             1: '<?php _e("Create Excel File"); ?>',
-            2: '<?php _e("Print filled assistant sheets"); ?>'
+            2: '<?php _e("Print filled assistant sheets 10 dogs/pages"); ?>',
+            3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>'
         },
         function (r) {
             if (!r) return false;
@@ -259,6 +260,9 @@ function print_parcial(mode) {
                     );
                     break;
                 case 2:
+                    print_asistente(10, "-", true);
+                    break;
+                case 3:
                     print_asistente(15, "-", true);
                     break;
             }

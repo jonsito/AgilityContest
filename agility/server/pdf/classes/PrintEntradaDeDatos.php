@@ -212,7 +212,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 	}
 
     /**
-     * Prints 15 dogs / page
+     * Prints 10 dogs / page
      * @param {number} $rowcount
      * @param {array} $row
      * @param {integer} $orden . Starting order in their category
@@ -233,8 +233,9 @@ class PrintEntradaDeDatos extends PrintCommon {
         $this->Image($logo,$this->getX()+0.5,$this->getY(),12);
         // pintamos numero de orden
         $this->ac_header(2,12);
-        $this->SetXY($x+16,$y+7);
-        $this->Cell(14,5,$orden,'',0,'L',true);
+        // $this->SetXY($x+16,$y+7);
+        $this->SetXY($x+1.5,$y+14);
+        $this->Cell(12,4,$orden,'',0,'R',true);
 
         // bordes cabecera de celda
         $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // color de fondo 2
@@ -287,8 +288,8 @@ class PrintEntradaDeDatos extends PrintCommon {
         $this->Cell(7, 13,'','TRB',0,'',false); // total rehuses
         $this->Cell(7, 13,'','TRB',0,'',false); // total tocados
         $this->Cell(29,13,'','TRB',0,'',false); // tiempo
-        $this->SetXY($x+30,$y+6);
-        $this->Cell(45,5,_('Faults'),	'',0,'L',false);
+        $this->SetXY($x+15,$y+6);
+        $this->Cell(60,5,_('Faults'),	'',0,'L',false);
         $this->Cell(40,5,_('Refusals'),	'',0,'L',false);
         $this->Cell(25,5,_('Touchs'),	'',0,'L',false);
         $this->Cell(7, 5,_('Flt'),	'',0,'C',false);
@@ -297,9 +298,9 @@ class PrintEntradaDeDatos extends PrintCommon {
         $this->Cell(29,5,_('Time'),  '',0,'L',false);
         if (! $this->fillData) { $this->Ln(15); return; }
         // arriving here means populate results
-        $this->SetFont($this->getFontName(),'B',9); //
-        $this->SetXY($x+40,$y+8);
-        $this->Cell(45,5,$this->palotes($row['Faltas']),	'',0,'L',false);
+        $this->SetFont($this->getFontName(),'B',10); //
+        $this->SetXY($x+25,$y+12);
+        $this->Cell(60,5,$this->palotes($row['Faltas']),	'',0,'L',false);
         $this->Cell(40,5,$this->palotes($row['Rehuses']),	'',0,'L',false);
         $this->Cell(15,5,$this->palotes($row['Tocados']),	'',0,'L',false);
         $this->Cell(7, 5,$row['Faltas'],	'',0,'C',false);
@@ -309,7 +310,7 @@ class PrintEntradaDeDatos extends PrintCommon {
         if($row['Pendiente']!=0)  $this->Cell(20,5,_('Pending'),  '',0,'L',false);
         else if($row['NoPresentado']!=0)  $this->Cell(19,5,_('Not Present'),  '',0,'L',false);
         else if($row['Eliminado']!=0)  $this->Cell(19,5,_('Eliminated'),  '',0,'L',false);
-        $this->Ln(6);
+        $this->Ln(9);
     }
 
     /**
