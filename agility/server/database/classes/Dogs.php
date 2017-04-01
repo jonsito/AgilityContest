@@ -241,7 +241,47 @@ class Dogs extends DBObject {
 		$this->myLogger->leave();
 		return $result;
 	}
-	
+
+
+    /**
+     * Like select(), but only with dogs with duplicate licenses
+     * Enumerate all dogs that matches requested criteria and order
+     * @return null on error, else requested data
+     */
+    function duplicates() {
+        $this->myLogger->enter();
+        // evaluate offset and row count for query
+        $sort=getOrderString( //needed to properly handle multisort requests from datagrid
+            http_request("sort","s",""),
+            http_request("order","s",""),
+            "Licencia ASC,ID ASC"
+        );
+        $this->myLogger->debug("Sort order is: $sort");
+        $search=http_request("where","s","");
+        $page=http_request("page","i",1);
+        $rows=http_request("rows","i",50);
+        $federation=http_request("Federation","i",-1);
+        $fed="1";
+        if ($federation >=0) $fed="( Federation = $federation )";
+        $dups= "Licencia IN (SELECT Licencia FROM PerroGuiaClub GROUP BY Licencia HAVING COUNT('Licencia') > 1)";
+        $where = "1";
+        $limit = "";
+        if ($page!=0 && $rows!=0 ) {
+            $offset=($page-1)*$rows;
+            $limit="".$offset.",".$rows;
+        }
+        if ($search!=="") $where="( (Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') OR ( NombreClub LIKE '%$search%') )";
+        $result=$this->__select(
+        /* SELECT */ "*",
+            /* FROM */ "PerroGuiaClub",
+            /* WHERE */ "$fed AND $dups AND $where",
+            /* ORDER BY */ $sort,
+            /* LIMIT */ $limit
+        );
+        $this->myLogger->leave();
+        return $result;
+    }
+
 	/** 
 	 * enumera todos los perros asociados a un guia
 	 * @param {integer} $guia ID del guia

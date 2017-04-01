@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-04-01 15:50+0200\n"
-"PO-Revision-Date: 2017-04-01 15:50+0200\n"
+"POT-Creation-Date: 2017-04-01 17:22+0200\n"
+"PO-Revision-Date: 2017-04-01 17:23+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -136,7 +136,7 @@ msgstr "R"
 msgid "Dorsal"
 msgstr "Dorsal"
 
-#: chrono/chrono.inc.php:68 console/frm_perros.php:133
+#: chrono/chrono.inc.php:68 console/frm_perros.php:136
 #: console/import/import.js.php:164 console/import/import.js.php:176
 #: console/import/import.js.php:190 console/import/import_perros.inc.php:92
 #: scripts/competicion.js.php:1292 scripts/printer.js.php:289
@@ -147,7 +147,7 @@ msgstr "Perro"
 
 #: chrono/chrono.inc.php:69 console/frm_equipos.php:128
 #: console/frm_equipos.php:247 console/frm_inscripciones2.php:251
-#: console/frm_perros.php:138 console/import/import.js.php:124
+#: console/frm_perros.php:141 console/import/import.js.php:124
 #: console/import/import.js.php:136 console/import/import.js.php:149
 #: console/import/import_perros.inc.php:95
 #: lib/templates/final_individual.inc.php:21
@@ -193,7 +193,7 @@ msgstr "Gu&iacute;a"
 #: chrono/chrono.inc.php:70 chrono/chrono.js.php:166 chrono/chrono.js.php:263
 #: console/frm_equipos.php:129 console/frm_equipos.php:248
 #: console/frm_guias.php:94 console/frm_inscripciones.php:78
-#: console/frm_inscripciones2.php:252 console/frm_perros.php:139
+#: console/frm_inscripciones2.php:252 console/frm_perros.php:142
 #: console/frm_registration.php:62 console/import/import.js.php:83
 #: console/import/import.js.php:96 console/import/import.js.php:109
 #: console/import/import_handlers.inc.php:83
@@ -244,7 +244,7 @@ msgstr "Categor&iacute;a"
 #: chrono/chrono.inc.php:72 console/frm_clubes.php:261
 #: console/frm_equipos.php:246 console/frm_guias.php:150
 #: console/frm_inscripciones2.php:250 console/frm_paises.php:226
-#: console/frm_perros.php:137 console/frm_perros.php:182
+#: console/frm_perros.php:140 console/frm_perros.php:185
 #: console/import/import_perros.inc.php:94 livestream/vwls_osdvideo.php:91
 #: public/pb_inscripciones.php:107 public/pb_inscripciones_equipos.php:155
 #: public/pbmenu_inscripciones.php:107
@@ -467,7 +467,7 @@ msgstr "Dors"
 #: console/frm_inscripciones.php:76 console/frm_inscripciones2.php:247
 #: console/frm_jueces.php:87 console/frm_login.php:123
 #: console/frm_paises.php:82 console/frm_paises.php:137
-#: console/frm_paises.php:222 console/frm_perros.php:175
+#: console/frm_paises.php:222 console/frm_perros.php:178
 #: console/frm_pruebas.php:156 console/frm_registration.php:54
 #: console/import/import_handlers.inc.php:81 index.php:184 index.php:217
 #: lib/templates/final_individual.inc.php:18
@@ -539,7 +539,7 @@ msgstr "Gu&iacute;a"
 #: console/frm_equipos.php:126 console/frm_equipos.php:172
 #: console/frm_equipos.php:245 console/frm_equipos.php:318
 #: console/frm_guias.php:149 console/frm_inscripciones2.php:249
-#: console/frm_perros.php:136 console/frm_perros.php:181
+#: console/frm_perros.php:139 console/frm_perros.php:184
 #: console/import/import_perros.inc.php:93
 #: lib/templates/final_individual.inc.php:20
 #: lib/templates/final_individual_2rondas.inc.php:24
@@ -1167,7 +1167,7 @@ msgstr "Lista de dorsales"
 
 #: console/frm_clasificaciones2.php:118
 #: console/frm_clasificaciones_equipos.php:117 console/frm_equipos.php:46
-#: console/frm_inscripciones2.php:124 console/frm_perros.php:81
+#: console/frm_inscripciones2.php:124 console/frm_perros.php:84
 #: console/dialogs/dlg_entrenamientos.inc:113
 #: console/dialogs/dlg_ordensalida.inc:59
 #: console/dialogs/dlg_ordentandas.inc:46 console/dialogs/dlg_printer.inc:66
@@ -1226,7 +1226,7 @@ msgstr "Borrar club"
 #: console/frm_clubes.php:40 console/frm_equipos.php:39
 #: console/frm_guias.php:42 console/frm_inscripciones2.php:109
 #: console/frm_jueces.php:42 console/frm_paises.php:35
-#: console/frm_perros.php:72 console/frm_pruebas.php:42
+#: console/frm_perros.php:75 console/frm_pruebas.php:42
 #: scripts/common.js.php:950 scripts/common.js.php:951
 #: scripts/common.js.php:964 scripts/common.js.php:976
 #: scripts/equipos.js.php:28 scripts/inscripciones.js.php:484
@@ -1240,7 +1240,7 @@ msgstr "-- Buscar --"
 #: console/frm_clubes.php:46 console/frm_equipos.php:48
 #: console/frm_guias.php:52 console/frm_inscripciones2.php:130
 #: console/frm_jueces.php:52 console/frm_paises.php:41
-#: console/frm_perros.php:88 console/frm_pruebas.php:60
+#: console/frm_perros.php:91 console/frm_pruebas.php:60
 #: console/import/import_clubes.inc.php:35
 #: console/import/import_handlers.inc.php:33
 #: console/import/import_perros.inc.php:33 console/dialogs/dlg_chguias.inc:32
@@ -1381,7 +1381,7 @@ msgid "Cat."
 msgstr "Cat."
 
 #: console/frm_clubes.php:262 console/frm_guias.php:151
-#: console/frm_paises.php:227 console/frm_perros.php:177
+#: console/frm_paises.php:227 console/frm_perros.php:180
 #: lib/templates/orden_salida.inc.php:27 public/pb_inscripciones.php:105
 #: public/pb_inscripciones_equipos.php:153 public/pbmenu_inscripciones.php:105
 #: public/pbmenu_inscripciones_equipos.php:158
@@ -1396,7 +1396,7 @@ msgid "Breed"
 msgstr "Raza"
 
 #: console/frm_clubes.php:263 console/frm_guias.php:152
-#: console/frm_perros.php:134 console/frm_perros.php:178
+#: console/frm_perros.php:137 console/frm_perros.php:181
 #: server/pdf/classes/PrintOrdenDeSalida.php:74
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73
 #: console/dialogs/dlg_chperros.inc:51 console/dialogs/dlg_perros.inc:40
@@ -1404,12 +1404,12 @@ msgid "Gender"
 msgstr "G&eacute;nero"
 
 #: console/frm_clubes.php:264 console/frm_guias.php:153
-#: console/frm_paises.php:228 console/frm_perros.php:179
+#: console/frm_paises.php:228 console/frm_perros.php:182
 msgid "KC id"
 msgstr "LOE/RRC"
 
 #: console/frm_clubes.php:265 console/frm_guias.php:154
-#: console/frm_paises.php:229 console/frm_perros.php:135
+#: console/frm_paises.php:229 console/frm_perros.php:138
 #: lib/templates/orden_salida.inc.php:26
 #: server/pdf/classes/PrintClasificacionExcel.php:157
 #: server/pdf/classes/PrintEntradaDeDatos.php:361
@@ -1644,7 +1644,7 @@ msgid "Reading inscription list"
 msgstr "Leyendo lista de inscritos"
 
 #: console/frm_equipos.php:244 console/frm_inscripciones2.php:248
-#: console/frm_perros.php:180 lib/templates/final_individual.inc.php:19
+#: console/frm_perros.php:183 lib/templates/final_individual.inc.php:19
 #: lib/templates/final_individual_2rondas.inc.php:23
 #: lib/templates/final_last_individual.inc.php:29
 #: lib/templates/final_last_teams.inc.php:30
@@ -1795,7 +1795,7 @@ msgstr "Ajustar dorsal"
 msgid "Reorder"
 msgstr "Reordenar"
 
-#: console/frm_inscripciones2.php:119 console/frm_perros.php:78
+#: console/frm_inscripciones2.php:119 console/frm_perros.php:81
 #: scripts/entrenamientos.js.php:133 scripts/perros.js.php:309
 #: console/dialogs/dlg_entrenamientos.inc:109
 msgid "Import/Export"
@@ -1940,7 +1940,7 @@ msgid "Import Inscriptions data from selected Excel file"
 msgstr "Importar inscripciones desde el fichero Excel seleccionado"
 
 #: console/frm_inscripciones2.php:304 console/frm_myAdmin.php:101
-#: console/frm_perros.php:208 console/frm_perros.php:210
+#: console/frm_perros.php:212 console/frm_perros.php:214
 #: console/frm_registration.php:149 lib/templates/scores_mail.inc.php:98
 #: console/dialogs/dlg_chguias.inc:82 console/dialogs/dlg_chperros.inc:116
 #: console/dialogs/dlg_clubes.inc:145 console/dialogs/dlg_clubes.inc:147
@@ -2005,7 +2005,7 @@ msgstr "Modificar los datos del juez seleccionado"
 msgid "Remove selected judge from database"
 msgstr "Borrar el juez seleccionado de la base de datos"
 
-#: console/frm_jueces.php:115 console/frm_perros.php:205
+#: console/frm_jueces.php:115 console/frm_perros.php:209
 #: console/frm_pruebas.php:133
 msgid "Clear search box. Update list"
 msgstr "Borrar casilla de b&uacute;squeda. Actualizar datos"
@@ -2044,7 +2044,7 @@ msgstr "Federaci&oacute;n"
 msgid "Session init"
 msgstr "Inicio de sesi&oacute;n"
 
-#: console/frm_login.php:121 console/frm_perros.php:131
+#: console/frm_login.php:121 console/frm_perros.php:134
 #: console/dialogs/dlg_pruebas.inc:344
 msgid "ID"
 msgstr "ID"
@@ -2183,67 +2183,75 @@ msgstr "Nuevo perro"
 msgid "Delete dog"
 msgstr "Borrar perro"
 
-#: console/frm_perros.php:71 console/frm_perros.php:114
+#: console/frm_perros.php:71 console/frm_perros.php:117
 msgid "Join dog"
 msgstr "Unir perros"
 
-#: console/frm_perros.php:100
+#: console/frm_perros.php:74
+msgid "Duplicates"
+msgstr "Duplicados"
+
+#: console/frm_perros.php:103
 msgid "Import dogs information from Excel file"
 msgstr "Importar datos de perros desde fichero Excel"
 
-#: console/frm_perros.php:157
+#: console/frm_perros.php:160
 msgid "Database dog handling"
 msgstr "Gesti&oacute;n de datos de perros"
 
-#: console/frm_perros.php:160 console/dialogs/dlg_newInscripcion.inc:143
+#: console/frm_perros.php:163 console/dialogs/dlg_newInscripcion.inc:143
 msgid "Updating dog list"
 msgstr "Actualizando lista de perros"
 
-#: console/frm_perros.php:184 console/dialogs/dlg_perros.inc:193
+#: console/frm_perros.php:187 console/dialogs/dlg_perros.inc:193
 msgid "Handler name"
 msgstr "Nombre del gu&iacute;a"
 
-#: console/frm_perros.php:186 console/import/import_clubes.inc.php:98
+#: console/frm_perros.php:189 console/import/import_clubes.inc.php:98
 #: console/dialogs/dlg_guias.inc:121 console/dialogs/dlg_pruebas.inc:280
 #: console/dialogs/dlg_pruebas.inc:370 console/dialogs/dlg_usuarios.inc:177
 msgid "Club name"
 msgstr "Nombre del Club"
 
-#: console/frm_perros.php:199
-msgid "Insert new dog <br/>into database"
+#: console/frm_perros.php:202
+msgid "Declare new dog <br/>into database"
 msgstr "A&ntilde;adir un nuevo perro en la base de datos"
 
-#: console/frm_perros.php:200
+#: console/frm_perros.php:203
 msgid "Modify data on selected dog"
 msgstr "Modificar los datos del perro seleccionado"
 
-#: console/frm_perros.php:201
+#: console/frm_perros.php:204
 msgid "Remove selected dog from database"
 msgstr "Borrar el perro seleccionado de la base de datos"
 
-#: console/frm_perros.php:202
+#: console/frm_perros.php:205
 msgid "Mark two dogs as duplicated and join them in the database"
 msgstr "Marcar dos perros como duplicados y unirlos en la base de datos"
 
-#: console/frm_perros.php:203 scripts/perros.js.php:310
+#: console/frm_perros.php:206
+msgid "List dogs having duplicate license number"
+msgstr "Listar perros con numero de licencia duplicado"
+
+#: console/frm_perros.php:207 scripts/perros.js.php:310
 msgid "Import/Export dog data from/to Excel file"
 msgstr "Importar/Exportar datos de perros desde/hacia fichero Excel"
 
-#: console/frm_perros.php:204
+#: console/frm_perros.php:208
 msgid "Print dog list with current search/sort criteria"
 msgstr ""
 "Imprimir lista de perros conforme a los criterios de <br/>b&uacute;squeda y "
 "ordenaci&oacute;n actuales"
 
-#: console/frm_perros.php:206
+#: console/frm_perros.php:210
 msgid "Look into database for dogs matching search criteria"
 msgstr "Buscar perros que coincidan con el criterio de b&uacute;squeda"
 
-#: console/frm_perros.php:207
+#: console/frm_perros.php:211
 msgid "Import dog data from selected Excel file"
 msgstr "Importar datos de perros desde el fichero Excel seleccionado"
 
-#: console/frm_perros.php:209
+#: console/frm_perros.php:213
 msgid "Mark dog as duplicate. Convert to newly selected one"
 msgstr "Marcar como duplicado. Reemplazar por la nueva selecci&oacute;n"
 

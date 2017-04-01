@@ -41,7 +41,8 @@ try {
         case "orphan": $am->access(PERMS_OPERATOR); $result=$perros->orphan($idperro); break; // unassign from handler
         case "join":   $am->access(PERMS_OPERATOR); $result=$perros->joinTo($idfrom,$idto); break; // join two dogs
 		case "select": $result=$perros->select(); break; // list with order, index, count and where
-		case "enumerate":	$result=$perros->enumerate(); break; // list with where
+        case "enumerate":	$result=$perros->enumerate(); break; // list with where
+        case "duplicates":	$result=$perros->duplicates(); break; // with same license number
 		case "getbyguia":	$result=$perros->selectByGuia($idguia); break;
 		case "getbyidperro":	$result=$perros->selectByID($idperro); break;
 		case "categorias":	$result=$perros->categoriasPerro($federation); break;

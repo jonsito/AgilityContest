@@ -69,6 +69,9 @@ $config =Config::getInstance();
    		<a id="perros-joinBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-sum'"
 		   onclick="joinDog('open')"><?php _e('Join dog'); ?></a>
+        <a id="perros-dupBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-duplicate'"
+           onclick="reloadWithSearch('#perros-datagrid','duplicates',true);"><?php _e('Duplicates'); ?></a>
    		<input id="perros-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
 			   onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
    	</span>
@@ -196,10 +199,11 @@ $config =Config::getInstance();
 		// key handler
        	addKeyHandler('#perros-datagrid',null,newDog,editDog,deleteDog);
 		// tooltips
-		addTooltip($('#perros-newBtn').linkbutton(),'<?php _e("Insert new dog <br/>into database"); ?>');
+		addTooltip($('#perros-newBtn').linkbutton(),'<?php _e("Declare new dog <br/>into database"); ?>');
 		addTooltip($('#perros-editBtn').linkbutton(),'<?php _e("Modify data on selected dog"); ?>');
 		addTooltip($('#perros-delBtn').linkbutton(),'<?php _e("Remove selected dog from database"); ?>');
-		addTooltip($('#perros-joinBtn').linkbutton(),'<?php _e("Mark two dogs as duplicated and join them in the database"); ?>');
+        addTooltip($('#perros-joinBtn').linkbutton(),'<?php _e("Mark two dogs as duplicated and join them in the database"); ?>');
+        addTooltip($('#perros-dupBtn').linkbutton(),'<?php _e("List dogs having duplicate license number"); ?>');
 		addTooltip($('#perros-excelBtn').linkbutton(),'<?php _e("Import/Export dog data from/to Excel file"); ?>');
 		addTooltip($('#perros-printBtn').linkbutton(),'<?php _e("Print dog list with current search/sort criteria"); ?>');
         addTooltip($('#perros-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update list"); ?>');
