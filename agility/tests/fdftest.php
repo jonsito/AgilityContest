@@ -24,12 +24,12 @@ require_once (__DIR__."/../server/pdf/fpdm/fpdm.php");
 
 $fields= array (
     'Titulo' => 'hola mundillo',
-    'Check' => '*'
+    'Check' => 'True'
 );
 
-// $pdf = new FPDM("Listado_Participantes2.pdf");
-// $pdf ->Load($fields,true); // false iso-8859-1 ; true:utf-8
-$pdf = new FPDM("Listado_Participantes2.pdf","Listado_Participantes2.fdf");
+$pdf = new FPDM("Listado_Participantes2.pdf");
+$pdf ->Load($fields,true); // false iso-8859-1 ; true:utf-8
+// $pdf = new FPDM("Listado_Participantes2.pdf","Listado_Participantes2.fdf");
 $pdf ->Merge();
 $pdf ->Output();
 

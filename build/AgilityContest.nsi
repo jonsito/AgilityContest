@@ -187,8 +187,8 @@ SetShellVarContext all
 	; Access control for configuration files
 	AccessControl::GrantOnFile "$INSTDIR\agility\server\auth" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
 ; recuperamos ficheros de configuracion de la desinstalacion previa
-    !insertmacro RestoreFile "$TMP" "registration.info" "$INSTDIR\agility\server\auth"
-    !insertmacro RestoreFile "$TMP" "config.ini" "$INSTDIR\agility\server\auth"
+    !insertmacro RestoreFile "$TEMP" "registration.info" "$INSTDIR\agility\server\auth"
+    !insertmacro RestoreFile "$TEMP" "config.ini" "$INSTDIR\agility\server\auth"
 SectionEnd
 
 ; Optional section (can be disabled by the user)
@@ -228,9 +228,12 @@ Section "Uninstall"
     StrCpy $PATH "${PROGRAM_NAME}"
     StrCpy $PATH_ACCESO_DIRECTO "${PROGRAM_NAME}"
     SetShellVarContext all
+    ; on uninistall do not preserve license and config
+    ; as we are uninstalling... :-).... but make sure installer does it on reinstall
+    ;
     ; make sure that application is stopped
-    Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k httpd.exe -q'
-    Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k mysqld.exe -q'
+    Exec '"$INSTDIR\xampp\apache\bin\pv.exe" -f -k httpd.exe -q'
+    Exec '"$INSTDIR\xampp\apache\bin\pv.exe" -f -k mysqld.exe -q'
     RMDir /r $SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO
     RMDir /r $INSTDIR
     Delete "$INSTDIR\uninstall_AgilityContest.exe"
@@ -251,8 +254,8 @@ Function .onInit
   !insertmacro BackupFile "$INSTDIR\agility\server\auth" "config.ini" "$TEMP"
   ; make sure that application is stopped before uninstall/reinstall
   ifFileExists "$INSTDIR\xampp\apache\bin\pv.exe" 0 dontExecKillProc
-  Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k httpd.exe -q'
-  Exec '"$INSTDIR\xampp\apache\bin\pv" -f -k mysqld.exe -q'
+  Exec '"$INSTDIR\xampp\apache\bin\pv.exe" -f -k httpd.exe -q'
+  Exec '"$INSTDIR\xampp\apache\bin\pv.exe" -f -k mysqld.exe -q'
 
   dontExecKillProc:
   StrCpy $1 ${esp} ; Spanish is selected by default

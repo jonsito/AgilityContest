@@ -567,9 +567,9 @@ if (!call_user_func_array('class_exists', $__tmp)) {
 			
 			if($this->support == "pdftk") {
 				//As PDFTK can only merge FDF files not data directly,
-				require_once("lib/url.php"); //we will need a url support because relative urls for pdf inside fdf files are not supported by PDFTK...
-				require_once("export/fdf/fdf.php"); //...conjointly with my patched/bridged forge_fdf that provides fdf file generation support from array data. 
-				require_once("export/pdf/pdftk.php");//Of course don't forget to bridge to PDFTK!
+				require_once(__DIR__."/lib/url.php"); //we will need a url support because relative urls for pdf inside fdf files are not supported by PDFTK...
+				require_once(__DIR__."/export/fdf/fdf.php"); //...conjointly with my patched/bridged forge_fdf that provides fdf file generation support from array data.
+				require_once(__DIR__."/export/pdf/pdftk.php");//Of course don't forget to bridge to PDFTK!
 
 				$tmp_file=false;
 				$pdf_file=resolve_path(fix_path(dirname(__FILE__).'/'.$this->pdf_source));      //string: full pathname to the input pdf , a form file
