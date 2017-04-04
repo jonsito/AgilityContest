@@ -39,11 +39,11 @@ $FPDM_REGEXPS= array(
 );
 
 //Major stream filters come from FPDI's stuff but I've added some :)
-require_once("filters/FilterASCIIHex.php");
-require_once("filters/FilterASCII85.php");
-require_once("filters/FilterFlate.php");
-require_once("filters/FilterLZW.php");
-require_once("filters/FilterStandard.php");
+require_once(__DIR__."/filters/FilterASCIIHex.php");
+require_once(__DIR__."/filters/FilterASCII85.php");
+require_once(__DIR__."/filters/FilterFlate.php");
+require_once(__DIR__."/filters/FilterLZW.php");
+require_once(__DIR__."/filters/FilterStandard.php");
 
 
 $__tmp = version_compare(phpversion(), "5") == -1 ? array('FPDM') : array('FPDM', false);
@@ -1587,6 +1587,7 @@ if (!call_user_func_array('class_exists', $__tmp)) {
 			$creator='';
 			$producer='';
 			$creationDate='';
+            $refs_count=0;
 			
 			$verbose_parsing=($this->verbose&&($this->verbose_level>3));
 			$verbose_decoding=($this->verbose&&($this->verbose_level>4));
@@ -1879,7 +1880,6 @@ if (!call_user_func_array('class_exists', $__tmp)) {
 					//We are inside the xref table
 					//$this->dumpContent($CurLine,"");
 					$xref_table=$xref_table+1;
-					$refs_count=0;
 					switch($xref_table) {
 						case 2: 
 							if(preg_match("/^(\d+) (\d+)/",$CurLine,$match)) {
