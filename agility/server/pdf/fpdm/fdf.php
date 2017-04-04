@@ -52,40 +52,40 @@ class FDF {
 
     }
 
-    function ntk_fdf_header() {
+    function header() {
         header('Content-type: application/vnd.fdf');
     }
 
-    function ntk_fdf_create() {
+    function create() {
         $this->header = "%FDF-1.2\n%����\n1 0 obj \n<< /FDF ";
         $this->trailer = ">>\nendobj\ntrailer\n<<\n/Root 1 0 R \n\n>>\n%%EOF";
     }
 
-    function ntk_fdf_close() {
+    function close() {
         // unset($fdf);
     }
 
-    function ntk_fdf_set_file($pdfFile) {
+    function set_file($pdfFile) {
         $this->file = $pdfFile;
     }
 
-    function ntk_fdf_set_target_frame($target) {
+    function set_target_frame($target) {
         $this->target = $target;
     }
 
-    function ntk_fdf_set_value( $fieldName, $fieldValue) {
+    function set_value( $fieldName, $fieldValue) {
         $this->values = array_merge($this->values, array($fieldName => $fieldValue));
     }
 
-    function ntk_fdf_add_doc_javascript( $scriptName, $script) {
+    function add_doc_javascript( $scriptName, $script) {
         $this->docscripts = array_merge($this->docscripts, array($scriptName => $script));
     }
 
-    function ntk_fdf_set_javascript_action( $fieldName, $trigger, $script) {
+    function set_javascript_action( $fieldName, $trigger, $script) {
         $this->fieldscripts = array_merge($this->fieldscripts, array($fieldName => array($script, $trigger)));
     }
 
-    function ntk_fdf_save( $fdfFile = null) {
+    function save( $fdfFile = null) {
         $search = array('\\', '(', ')');
         $replace = array('\\\\', '\(', '\)');
         $fdfStr = $this->header;
