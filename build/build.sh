@@ -119,7 +119,13 @@ mkisofs -A AgilityContest \
     -V ${VERSION}_${DATE} \
     -J -r -o AgilityContest-${VERSION}-${DATE}.dmg \
     -graft-points /.background/=.background ${FILES}
+
+# prepare zip file
+mv AgilityContest-master.zip AgilityContest-${VERSION}-${DATE}.zip
+
+# move generated files to dropbox
+#mv AgilityContest-${VERSION}-${DATE}.* ${DROPBOX}
+
 # cleanups
 rm -rf AgilityContest-master AgilityContest-master.zip osx_install.command .background
-
 echo "That's all folks!"

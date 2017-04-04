@@ -38,20 +38,6 @@ SetCompressor lzma
     !define MUI_HEADERIMAGE_BITMAP "installer.bmp" ; optional
 
 ;--------------------------------
-; macros para hacer backup y restore de la licencia y ficheros de configuracion
-    !macro BackupFile FILE_DIR FILE BACKUP_TO
-        IfFileExists "${BACKUP_TO}\*.*" +2
-            CreateDirectory "${BACKUP_TO}"
-        IfFileExists "${FILE_DIR}\${FILE}" 0 +2
-            Rename "${FILE_DIR}\${FILE}" "${BACKUP_TO}\${FILE}"
-    !macroend
-
-    !macro RestoreFile BUP_DIR FILE RESTORE_TO
-        IfFileExists "${BUP_DIR}\${FILE}" 0 +2
-            Rename "${BUP_DIR}\${FILE}" "${RESTORE_TO}\${FILE}"
-    !macroend
-
-;--------------------------------
 ;Pages
 
   ;Mostramos la pagina de bienvenida 
@@ -63,7 +49,7 @@ SetCompressor lzma
   ;pagina donde se selecciona el directorio donde instalar nuestra aplicacion 
   !insertmacro MUI_PAGE_DIRECTORY 
   ;pagina de instalacion de ficheros 
-  !insertmacro MUI_PAGE_INSTFILES 
+  !insertmacro MUI_PAGE_INSTFILES
   ;pagina final
   !insertmacro MUI_PAGE_FINISH
 
@@ -155,7 +141,6 @@ File /r docs
 FILE /r extras
 FILE /r logs
 FILE /r xampp
-SetOutPath $INSTDIR
 
 ;Hacemos que la instalacion se realice para todos los usuarios del sistema
 SetShellVarContext all
@@ -186,9 +171,6 @@ SetShellVarContext all
     AccessControl::GrantOnFile "$INSTDIR\agility\images\logos" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
 	; Access control for configuration files
 	AccessControl::GrantOnFile "$INSTDIR\agility\server\auth" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
-; recuperamos ficheros de configuracion de la desinstalacion previa
-    !insertmacro RestoreFile "$TEMP" "registration.info" "$INSTDIR\agility\server\auth"
-    !insertmacro RestoreFile "$TEMP" "config.ini" "$INSTDIR\agility\server\auth"
 SectionEnd
 
 ; Optional section (can be disabled by the user)
@@ -243,6 +225,13 @@ Section "Uninstall"
         Software\Microsoft\Windows\CurrentVersion\Uninstall\$PATH
 SectionEnd
 
+;; recuperamos ficheros de configuracion tras la instalacion
+Function .onInstSuccess
+  ; recuperamos ficheros de configuracion de la desinstalacion previa
+  CopyFiles $TEMP\registration.info $INSTDIR\agility\server\auth
+  CopyFiles $TEMP\config.ini $INSTDIR\agility\server\auth
+FunctionEnd
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Funcion que detecta si hay una version previa instalada             ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -250,8 +239,8 @@ SectionEnd
 Function .onInit
 
   ; Preserve configuration files (if exists)
-  !insertmacro BackupFile "$INSTDIR\agility\server\auth" "registration.info" "$TEMP"
-  !insertmacro BackupFile "$INSTDIR\agility\server\auth" "config.ini" "$TEMP"
+  CopyFiles $INSTDIR\agility\server\auth\registration.info $TEMP
+  CopyFiles $INSTDIR\agility\server\auth\config.ini $TEMP
   ; make sure that application is stopped before uninstall/reinstall
   ifFileExists "$INSTDIR\xampp\apache\bin\pv.exe" 0 dontExecKillProc
   Exec '"$INSTDIR\xampp\apache\bin\pv.exe" -f -k httpd.exe -q'
