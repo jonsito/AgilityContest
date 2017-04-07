@@ -82,7 +82,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<!-- call to ring order number (first:1) -->
 				<span class="vwls_label vwls_dorsal" id="vwls_Numero"><?php _e('Number'); ?></span>
 				<!-- logogipo -->
-				<img id="vwls_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="70" height="70" class="vwls_logo"/>
+				<img id="vwls_Logo" alt="Logo" src="/agility/images/logos/agilitycontest.png" width="70" height="70" class="vwls_logo"/>
 				<span class="vwls_label" id="vwls_Dorsal"><?php _e('Dorsal'); ?></span>
 				<span class="vwls_label" id="vwls_Nombre"><?php _e('Name'); ?></span>
 				<span class="vwls_label" id="vwls_NombreGuia"><?php _e('Handler'); ?></span>

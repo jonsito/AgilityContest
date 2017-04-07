@@ -59,10 +59,10 @@ class PrintEtiquetasCSV  {
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
 		$this->resultados=$resultados;
-		// evaluage logo info
-		$this->icon="rsce.png";
-		if (isset($this->club)) $this->icon=$this->club->Logo;
         $this->federation=Federations::getFederation( intval($this->prueba->RSCE) );
+		// evaluage logo info
+		$this->icon=$this->federation->get('Logo');
+		if (isset($this->club)) $this->icon=$this->club->Logo;
 	}
 	
 	// No tenemos cabecera: no cabe
