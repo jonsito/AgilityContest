@@ -125,7 +125,7 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
         $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
         if (intval($m->Tipo)==11) $pts=array("20","16","12","8","6","5","4","3","2","1"); // puntuacion manga de jumping
         // solo puntuan los 10 primeros
-        $puesto=$puestocat[$perro['Categoria']]-$this->pfoffset[$perro['Categoria']];
+        $puesto=$puestocat[$perro['Categoria']]-$this->poffset[$perro['Categoria']];
         if ( ($puesto>10) || ($puesto<=0) ) {
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
