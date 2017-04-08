@@ -30,7 +30,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="vw_entrenamientos-window">
 	<div id="vw_entrenamientos-layout" style="width:100%">
 		<div id="vw_entrenamientos-Cabecera" data-options="region:'north',split:false" style="height:100px" class="vw_floatingheader">
-            <img id="vw_header-logo" src="/agility/images/logos/rsce.png" style="float:left;width:75px" />
+            <img id="vw_header-logo" src="/agility/images/logos/agilitycontest.png" style="float:left;width:75px" />
 		    <span style="float:left;padding:10px;" id="vw_header-infoprueba"><?php _e('Header'); ?></span>
 			<div style="float:right;padding:10px;text-align:right;">
                 <span id="vw_header-texto"><?php _e('Training session'); ?></span>

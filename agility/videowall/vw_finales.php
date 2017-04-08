@@ -37,7 +37,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <table width="100%">
                 <tr>
                     <td rowspan="2">
-                        <span style="float:left;background:rgba(255,255,255,0.5);"> <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="100"/> </span>
+                        <span style="float:left;background:rgba(255,255,255,0.5);"> <img id="vw_header-logo" src="/agility/images/logos/agilitycontest.png" width="100"/> </span>
                     </td>
                     <td align="left">
                         <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Contest'); ?></span>

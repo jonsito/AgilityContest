@@ -54,7 +54,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <div id="vw_ordensalida-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader"
                       style="height:75px;font-size:1.0em;" >
                     <span style="float:left;background:rgba(255,255,255,0.5);">
-                        <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="50"/>
+                        <img id="vw_header-logo" src="/agility/images/logos/agilitycontest.png" width="50"/>
                     </span>
                     <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Header'); ?></span>
 
