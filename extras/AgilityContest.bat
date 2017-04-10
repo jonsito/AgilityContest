@@ -53,3 +53,4 @@ echo Opening AgilityContest console...
 start /WAIT /MAX "AgilityContest" https://localhost/agility/console
 
 :wait_for_end
+exit
