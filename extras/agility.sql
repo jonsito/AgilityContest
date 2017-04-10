@@ -54,7 +54,7 @@ CREATE TABLE `clubes` (
   `Facebook` varchar(255) DEFAULT NULL,
   `Google` varchar(255) DEFAULT NULL,
   `Twitter` varchar(255) DEFAULT NULL,
-  `Logo` varchar(255) DEFAULT 'rsce.png',
+  `Logo` varchar(255) DEFAULT 'agilitycontest.png',
   `Federations` int(4) NOT NULL DEFAULT '1',
   `Observaciones` varchar(255) DEFAULT NULL,
   `Baja` tinyint(1) NOT NULL DEFAULT '0',
