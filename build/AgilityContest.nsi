@@ -131,7 +131,7 @@ StrCpy $PATH_ACCESO_DIRECTO "${PROGRAM_NAME}"
 SetOutPath $INSTDIR
 
 ;Incluimos todos los ficheros que componen nuestra aplicacion
-File AgilityContest.exe
+File AgilityContest.bat
 File License.txt
 File COPYING
 FILE README.md
@@ -147,7 +147,7 @@ SetShellVarContext all
 ;Creamos los directorios, acesos directos y claves del registro que queramos...
     CreateDirectory "$SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO"
     CreateShortCut "$SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO\AgilityContest.lnk" \
-                    "$INSTDIR\AgilityContest.exe" "" \
+                    "$INSTDIR\AgilityContest.bat" "" \
                     "$INSTDIR\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
 
 ;Datos del registr de Windows
@@ -179,7 +179,7 @@ Section "Desktop Shortcut" desk
     SetOutPath $INSTDIR
 	SetShellVarContext all
     CreateShortcut "$DESKTOP\AgilityContest.lnk" \
-                       "$INSTDIR\AgilityContest.exe" "" \
+                       "$INSTDIR\AgilityContest.bat" "" \
                        "$INSTDIR\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
 SectionEnd
 
