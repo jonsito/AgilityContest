@@ -25,16 +25,14 @@ rm -f /tmp/config.ini
 echo ""
 
 echo "Unziping into $BASEDIR ... "
-# make a backup copy if directory exists
-if [ -f $CONFDIR ]; then
-    cp $CONFDIR/registration.info /tmp
-    cp $CONFDIR/config.ini /tmp
-fi
+# make a backup copy of configuration and license
+[ -f $CONFDIR/registration.info ] && cp $CONFDIR/registration.info /tmp
+[ -f $CONFDIR/config.ini ] && cp $CONFDIR/config.ini /tmp
+
 # create a backup of old application
 rm -rf $BASEDIR.old
-if [ -d $BASEDIR ]; then
-    mv $BASEDIR $BASEDIR.old
-fi
+[ -d $BASEDIR ] && mv $BASEDIR $BASEDIR.old
+
 # and unzip files
 cd $HTDOCS;
 unzip -q $BASE/AgilityContest-master.zip
