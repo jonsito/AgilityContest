@@ -78,14 +78,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 </div>
 
                 <!-- tabla de datos: se cargan la de individual y de equipos, y en runtime se selecciona una u otra -->
-                <div id="vw_finales-data" data-options="region:'center'" style="background-color:transparent;">
+                <div id="vw_tabla" data-options="region:'center'" style="background-color:transparent">
 
                     <!-- datagrid para resultados individuales -->
-                    <div id="finales_individual-table" class="scores_table" style="display:none;width:98%">
+                    <div id="finales_individual-table" class="scores_table" style="display:none;width:98%;">
                         <table id="finales_individual-datagrid">
                             <thead>
                             <tr>
-                                <th colspan="4"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
+                                <th colspan="5"> <span class="main_theader" ><?php _e('Competitor data'); ?></span></th>
                                 <th colspan="3"> <span class="main_theader" id="finales_individual_roundname_m1"><?php _e('Round'); ?> 1</span></th>
                                 <th colspan="3"> <span class="main_theader" id="finales_individual_roundname_m2"><?php _e('Round'); ?> 2</span></th>
                                 <th colspan="3"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
@@ -93,6 +93,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                             <tr>
                                 <th width="5" data-options="field:'LogoClub',		align:'left',formatter:formatLogo" > &nbsp;</th>
                                 <th width="5" data-options="field:'Dorsal',		align:'left'" > <?php _e('Dors'); ?>.</th>
+                                <th width="0" data-options="field:'Licencia',	hidden:true" ></th>
                                 <th width="10" data-options="field:'Nombre',		align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
                                 <th width="18" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
                                 <th width="7" data-options="field:'T1',			align:'right',formatter:formatT1,styler:formatBorder"> <?php _e('Time'); ?>.</th>
@@ -109,7 +110,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                         </table>
                     </div>
                     <!-- datagrid para resultados por equipos -->
-                    <div id="finales_equipos-table" class="scores_table" style="display:none;width:103%">
+                    <div id="finales_equipos-table" class="scores_table" style="display:none;width:103%;">
                         <?php include_once(__DIR__."/../lib/templates/final_teams.inc.php"); ?>
                     </div>
                 </div>
@@ -164,7 +165,7 @@ $('#finales_individual-datagrid').datagrid({
     pageSize: 500, // enought bit to make it senseless
     // columns declared at html section to show additional headers
     scrollbarSize:0,
-    rowStyler:myTransparentRowStyler,
+    rowStyler:lsRowStyler,
     onBeforeLoad: function (param) {
         // do not update until 'open' received
         if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
@@ -178,7 +179,7 @@ $('#finales_individual-datagrid').datagrid({
 
 var fed=$('#finales_equipos-datagrid');
 fed.datagrid({
-    rowStyler:myTransparentRowStyler,
+    rowStyler:lsRowStyler,
     onBeforeLoad: function (param) {
         // do not update until 'open' received
         if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;

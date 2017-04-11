@@ -93,17 +93,13 @@ if (!$am->allowed(ENABLE_LIVESTREAM)) {
             border: 0px none transparent;
         }
 
+        #vw_tabla .panel-body {
+            background-color: transparent;
+        }
+
     </style>
 
 <script type="text/javascript" charset="utf-8">
-
-function myTransparentRowStyler(idx,row) {
-	var res="background-color:";
-	var c1='<?php echo $config->getEnv('ls_rowcolor1'); ?>';
-	var c2='<?php echo $config->getEnv('ls_rowcolor2'); ?>';
-	if ( (idx&0x01)==0) { return res+c1+";opacity:0.9"; }
-	else { return res+c2+";opacity:0.9"; }
-}
 
 var ac_clientOpts={
     'BaseName':'livestream',
@@ -144,10 +140,9 @@ function initialize() {
  * @return {string} proper row style for given idx
  */
 function lsRowStyler(idx,row) {
-	var res="background-color:";
-	var c1='<?php echo $config->getEnv('ls_rowcolor1'); ?>';
-	var c2='<?php echo $config->getEnv('ls_rowcolor2'); ?>';
-	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+	var c=( (idx&0x01)===0)?'<?php echo $config->getEnv('ls_rowcolor1'); ?>':'<?php echo $config->getEnv('ls_rowcolor2'); ?>';
+	var rgb=hexToRGB(c);
+	return "background-color:rgba("+rgb.r+","+rgb.g+","+rgb.b+",<?php echo $config->getEnv('ls_alpha')?>)";
 }
 
 /**
@@ -157,10 +152,9 @@ function lsRowStyler(idx,row) {
  * @return {string} proper row style for given idx
  */
 function lsRowStyler2(idx,row) {
-	var res="background-color:";
-	var c1='<?php echo $config->getEnv('ls_rowcolor3'); ?>';
-	var c2='<?php echo $config->getEnv('ls_rowcolor4'); ?>';
-	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+    var c=( (idx&0x01)===0)?'<?php echo $config->getEnv('ls_rowcolor3'); ?>':'<?php echo $config->getEnv('ls_rowcolor4'); ?>';
+    var rgb=hexToRGB(c);
+    return "background-color:rgba("+rgb.r+","+rgb.g+","+rgb.b+",<?php echo $config->getEnv('ls_alpha')?>)";
 }
 
 function myRowStyler(idx,row) { return lsRowStyler(idx,row); }

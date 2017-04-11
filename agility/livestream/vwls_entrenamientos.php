@@ -68,7 +68,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
                 </div>
 
-                <div id="vw_tabla" data-options="region:'center'">
+                <div id="vw_tabla" data-options="region:'center'" style="background-color:transparent">
                     <?php include_once(__DIR__."/../lib/templates/entrenamientos.inc.php");?>
                 </div>
 
@@ -102,11 +102,13 @@ $('#vw_entrenamientos-window').window({
 });
 
 $('#entrenamientos-datagrid').datagrid({
+    rowstyler: lsRowStyler, // override previous definition
     onBeforeLoad:function(params) {
         // do not update until 'open' received
         if( $('#vw_header-infoprueba').html()==='<?php _e('Header'); ?>') return false;
         return true;
     }
+
 });
 
 var eventHandler= {

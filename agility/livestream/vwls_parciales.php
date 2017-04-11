@@ -77,14 +77,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 </div>
 
                 <!-- tabla de datos: se cargan la de individual y de equipos, y en runtime se selecciona una u otra -->
-                <div id="vw_parciales-data" data-options="region:'center'" style="background-color:transparent;">
+                <div id="vw_tabla" data-options="region:'center'" style="background-color:transparent">
 
                     <!-- datagrid para resultados individuales -->
-                    <div id="parciales_individual-table" class="scores_table" style="display:none;width:100%">
+                    <div id="parciales_individual-table" class="scores_table" style="display:none;width:100%;">
                         <?php include_once(__DIR__."/../lib/templates/parcial_individual.inc.php"); ?>
                     </div>
                     <!-- datagrid para resultados por equipos -->
-                    <div id="parciales_equipos-table" class="scores_table" style="display:none;width:100%">
+                    <div id="parciales_equipos-table" class="scores_table" style="display:none;width:100%;">
                         <?php include_once(__DIR__."/../lib/templates/parcial_teams.inc.php"); ?>
                     </div>
                 </div>
@@ -121,7 +121,7 @@ $('#vw_parciales-window').window({
 var pid=$('#parciales_individual-datagrid');
 pid.datagrid({
     scrollbarSize:0,
-    rowStyler:myTransparentRowStyler,
+    rowStyler:lsRowStyler,
     onBeforeLoad: function (param) {
         // do not update until 'open' received
         if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
@@ -138,7 +138,7 @@ pid.datagrid('hideColumn','Licencia');
 pid.datagrid('fitColumns');
 
 $('#parciales_equipos-datagrid').datagrid({
-    rowStyler:myTransparentRowStyler,
+    rowStyler:lsRowStyler,
     onBeforeLoad: function (param) {
         // do not update until 'open' received
         if( $('#vw_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
