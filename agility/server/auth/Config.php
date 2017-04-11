@@ -62,14 +62,26 @@ define('AC_VW_ROWCOLOR1','#ffffff');
 define('AC_VW_ROWCOLOR2','#e0ebff');
 define('AC_VW_ROWCOLOR3','#ffffcf');
 define('AC_VW_ROWCOLOR4','#e0ebcf');
-define('AC_VW_ALPHA',0.5);
-define('AC_VW_EVTDELAY',1.0);
-define('AC_VW_CRHOMAKEY','#00ff00');
-define('AC_VW_DATAPOSITION',1); // 0:hidden 1:top/right 2:down/rignt 3:down/center
-define('AC_VW_INFOPOSITION',1); // 0:hidden 1:top/left 2:on top of dog info
-define('AC_VW_TOBEFIRST',1); // enable evaluate time to get first place ( computing time consumer )
 
-/** personalizacion del videowall **/
+// personalizacion del live streaming
+define('AC_LS_HDRFG1','#000000');
+define('AC_LS_HDRBG1','#FF7F00');
+define('AC_LS_HDRFG2','#0000ff');
+define('AC_LS_HDRBG2','#808080');
+define('AC_LS_HDRFG3','#000000');
+define('AC_LS_HDRBG3','#808080');
+define('AC_LS_ROWCOLOR1','#ffffff');
+define('AC_LS_ROWCOLOR2','#e0ebff');
+define('AC_LS_ROWCOLOR3','#ffffcf');
+define('AC_LS_ROWCOLOR4','#e0ebcf');
+define('AC_LS_ALPHA',0.5);
+define('AC_LS_EVTDELAY',1.0);
+define('AC_LS_CRHOMAKEY','#00ff00');
+define('AC_LS_DATAPOSITION',1); // 0:hidden 1:top/right 2:down/rignt 3:down/center
+define('AC_LS_INFOPOSITION',1); // 0:hidden 1:top/left 2:on top of dog info
+define('AC_LS_TOBEFIRST',1); // enable evaluate time to get first place ( computing time consumer )
+
+/** personalizacion del videowall simplificado **/
 define('AC_VWS_POLLTIME',5);
 define('AC_VWS_USELOGO',5);
 define('AC_VWS_LOGOURL',"/agility/images/agilityawc2016.png");
@@ -211,14 +223,9 @@ Class Config {
 		'easyui_rowcolor2'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR2),
 		'easyui_rowcolor3'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR3),
 		'easyui_rowcolor4'	=> array(	'c',	false,	AC_EASYUI_ROWCOLOR4),
+
 		// configuracion del videowall
-		'vw_tobefirst'		=> array(	'i',	false,	AC_VW_TOBEFIRST),
 		'vw_polltime'		=> array(	'i',	false,	AC_VW_POLLTIME),
-		'vw_alpha'			=> array(	'f',	false,	AC_VW_ALPHA),
-		'vw_evtdelay'		=> array(	'f',	false,	AC_VW_EVTDELAY),
-		'vw_chromakey'		=> array(	'c',	false,	AC_VW_CRHOMAKEY),
-		'vw_dataposition'	=> array(	'i',	false,	AC_VW_DATAPOSITION),
-		'vw_infoposition'	=> array(	'i',	false,	AC_VW_INFOPOSITION),
 		'vw_hdrfg1'			=> array(	'c',	false,	AC_VW_HDRFG1),
 		'vw_hdrbg1'			=> array(	'c',	false,	AC_VW_HDRBG1),
 		'vw_hdrfg2'			=> array(	'c',	false,	AC_VW_HDRFG2),
@@ -229,7 +236,26 @@ Class Config {
 		'vw_rowcolor2'		=> array(	'c',	false,	AC_VW_ROWCOLOR2),
 		'vw_rowcolor3'		=> array(	'c',	false,	AC_VW_ROWCOLOR3),
 		'vw_rowcolor4'		=> array(	'c',	false,	AC_VW_ROWCOLOR4),
-		// configuracion del alternate videowall
+
+        // configuracion del live stream
+        'ls_hdrfg1'			=> array(	'c',	false,	AC_LS_HDRFG1),
+        'ls_hdrbg1'			=> array(	'c',	false,	AC_LS_HDRBG1),
+        'ls_hdrfg2'			=> array(	'c',	false,	AC_LS_HDRFG2),
+        'ls_hdrbg2'			=> array(	'c',	false,	AC_LS_HDRBG2),
+        'ls_hdrfg3'			=> array(	'c',	false,	AC_LS_HDRFG3),
+        'ls_hdrbg3'			=> array(	'c',	false,	AC_LS_HDRBG3),
+        'ls_rowcolor1'		=> array(	'c',	false,	AC_LS_ROWCOLOR1),
+        'ls_rowcolor2'		=> array(	'c',	false,	AC_LS_ROWCOLOR2),
+        'ls_rowcolor3'		=> array(	'c',	false,	AC_LS_ROWCOLOR3),
+        'ls_rowcolor4'		=> array(	'c',	false,	AC_LS_ROWCOLOR4),
+        'ls_tobefirst'		=> array(	'i',	false,	AC_LS_TOBEFIRST),
+        'ls_alpha'			=> array(	'f',	false,	AC_LS_ALPHA),
+        'ls_evtdelay'		=> array(	'f',	false,	AC_LS_EVTDELAY),
+        'ls_chromakey'		=> array(	'c',	false,	AC_LS_CRHOMAKEY),
+        'ls_dataposition'	=> array(	'i',	false,	AC_LS_DATAPOSITION),
+        'ls_infoposition'	=> array(	'i',	false,	AC_LS_INFOPOSITION),
+
+		// configuracion del simplified videowall
 		'vws_polltime'		=> array(	'i',	false,	AC_VWS_POLLTIME),
 		'vws_uselogo'		=> array(	'i',	false,	AC_VWS_USELOGO),
 		'vws_logourl'		=> array(	's',	false,	AC_VWS_LOGOURL),
@@ -360,7 +386,7 @@ Class Config {
             if ($key==="email_user") $data[$key]=base64_encode($val);
             if ($key==="email_pass") $data[$key]=base64_encode($val);
 		}
-		$this->write_ini_file($data,$file,false);
+		return $this->write_ini_file($data,$file,false);
 	}
 
 	private function __construct() {
@@ -370,9 +396,9 @@ Class Config {
 			$this->config[$key]=$info[2];
 		}
 		// leemos fichero de sistema
-		$sys=$this->readAC_configFile(AC_SYSTEM_FILE); // false: don't parse subsections
+		$sys=$this->readAC_configFile(AC_SYSTEM_FILE);
 		// leemos ahora el fichero de configuracion
-		$res=$this->readAC_configFile(AC_CONFIG_FILE,false); // false: don't parse subsections
+		$res=$this->readAC_configFile(AC_CONFIG_FILE);
 		if ( ($res===FALSE) || ($sys===FALSE ) ){
 			$this->config['configured'] =false; // mark initialization code to be executed
 			return;

@@ -137,7 +137,7 @@ $('#vwls_LiveStream-window').window({
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 
 // layout for results box
-switch (parseInt(ac_config.vw_dataposition)) {
+switch (parseInt(ac_config.ls_dataposition)) {
 	case 1: // upper left corner
 		doLayout(layout,"#vwls_Resultados",		740,	10,		40,		85 ); // background box
 		doLayout(layout,"#vwls_FaltasTocadosLbl",750,	15,		12,		15	);
@@ -199,7 +199,7 @@ doLayout(layout,"#vwls_Celo",			370,	412,	30,		20	);
 // doLayout(layout,"#vwls_Categoria",		510,	412,	140,	20	); // already shown in infomanga
 
 // data for infomanga box
-switch (parseInt(ac_config.vw_infoposition)) {
+switch (parseInt(ac_config.ls_infoposition)) {
 	case 0: // hidden
 		$("#vwls_InfoManga").css('display','none');
 		$("#vwls_Manga").css('display','none');
@@ -258,7 +258,7 @@ var eventHandler= {
 	'salida': function(event,time){     // orden de salida
 		vwls_displayPuesto(false,0); // clear puesto
 		vwls_showResultsInfo(1); // activa visualizacion de datos del competidor
-		if (ac_config.vw_tobefirst!=="0") vwls_displayToBeFirst(event['Perro']);
+		if (ac_config.ls_tobefirst!=="0") vwls_displayToBeFirst(event['Perro']);
 		myCounter.start();
 	},
 	'start': function(event,time) {      // start crono manual

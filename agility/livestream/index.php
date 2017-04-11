@@ -99,8 +99,8 @@ if (!$am->allowed(ENABLE_LIVESTREAM)) {
 
 function myTransparentRowStyler(idx,row) {
 	var res="background-color:";
-	var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
-	var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
+	var c1='<?php echo $config->getEnv('ls_rowcolor1'); ?>';
+	var c2='<?php echo $config->getEnv('ls_rowcolor2'); ?>';
 	if ( (idx&0x01)==0) { return res+c1+";opacity:0.9"; }
 	else { return res+c2+";opacity:0.9"; }
 }
@@ -145,8 +145,8 @@ function initialize() {
  */
 function lsRowStyler(idx,row) {
 	var res="background-color:";
-	var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
-	var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
+	var c1='<?php echo $config->getEnv('ls_rowcolor1'); ?>';
+	var c2='<?php echo $config->getEnv('ls_rowcolor2'); ?>';
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
@@ -158,8 +158,8 @@ function lsRowStyler(idx,row) {
  */
 function lsRowStyler2(idx,row) {
 	var res="background-color:";
-	var c1='<?php echo $config->getEnv('vw_rowcolor3'); ?>';
-	var c2='<?php echo $config->getEnv('vw_rowcolor4'); ?>';
+	var c1='<?php echo $config->getEnv('ls_rowcolor3'); ?>';
+	var c2='<?php echo $config->getEnv('ls_rowcolor4'); ?>';
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
@@ -170,10 +170,10 @@ function myRowStyler2(idx,row) { return lsRowStyler2(idx,row); }
 function myLlamadaRowStyler(idx,row) {
 	var height=(ac_config.vwc_simplified==0)?40:50;
 	var res="height:"+height+"px;line-height:"+height+"px;background-color:";
-    var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
-    var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
-    var tnd='<?php echo $config->getEnv('vw_hdrbg2'); ?>';
-    var eqp='<?php echo $config->getEnv('vw_hdrbg3'); ?>';
+    var c1='<?php echo $config->getEnv('ls_rowcolor1'); ?>';
+    var c2='<?php echo $config->getEnv('ls_rowcolor2'); ?>';
+    var tnd='<?php echo $config->getEnv('ls_hdrbg2'); ?>';
+    var eqp='<?php echo $config->getEnv('ls_hdrbg3'); ?>';
     if (parseInt(row.Orden)==-1) return res+tnd+";";
     if (parseInt(row.Orden)==0) return res+eqp+";";
     if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }

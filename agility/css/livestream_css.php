@@ -84,7 +84,7 @@ color: white;
 
 
 .vwls_fondo_combined {
-    background-color: rgba(127,127,127,<?php echo $config->getEnv('vw_alpha')?>);
+    background-color: rgba(127,127,127,<?php echo $config->getEnv('ls_alpha')?>);
     border: 3px solid black;
     border-radius: 15px;
 }

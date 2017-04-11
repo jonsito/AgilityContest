@@ -25,7 +25,7 @@ $images=$images = glob($imagesDir . '*.{jpg,jpeg}', GLOB_BRACE);
 $image=$images[rand(0, count($images) - 1)];
 header('Content-type: image/png');
 $im = @imagecreate(1920, 1080) or die("Cannot Initialize new GD image stream");
-$rgb=hex2rgb($config->getEnv('vw_chromakey'));
+$rgb=hex2rgb($config->getEnv('ls_chromakey'));
 $color_fondo = imagecolorallocate($im, $rgb[0], $rgb[1], $rgb[2]);
 imagepng($im);
 imagedestroy($im);

@@ -97,11 +97,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     border-radius: 10px;
 }
 
+/* informacion de crono que aparece en el livestream */
 .chrono_flogo { background-color: '#ffffff'; }
-.chrono_fheader { background-color: <?php echo $config->getEnv('vw_hdrbg1'); ?>; }
-.chrono_ftiempo { background-color: rgba(192,192,192,<?php echo $config->getEnv('vw_alpha')?>); }
-.chrono_fdata {	background-color: <?php echo $config->getEnv('vw_hdrbg2'); ?>; }
-.chrono_finfo {	background-color: <?php echo $config->getEnv('vw_hdrbg3'); ?>; }
+.chrono_fheader { background-color: <?php echo $config->getEnv('ls_hdrbg1'); ?>; }
+.chrono_ftiempo { background-color: rgba(192,192,192,<?php echo $config->getEnv('ls_alpha')?>); }
+.chrono_fdata {	background-color: <?php echo $config->getEnv('ls_hdrbg2'); ?>; }
+.chrono_finfo {	background-color: <?php echo $config->getEnv('ls_hdrbg3'); ?>; }
 
 #chrono_video {
 	width: 100%;

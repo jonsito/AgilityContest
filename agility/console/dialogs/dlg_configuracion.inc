@@ -224,29 +224,55 @@ $config =Config::getInstance();
 
 		<div title="<?php _e('Live Stream'); ?>" style="padding:10px">
 			<h3><?php _e('Live Stream configurable parameters'); ?></h3>
-			<label for="vw_tobefirst"><?php _e('Evaluate and show time to get first place'); ?></label>
-			<input type="hidden" name="vw_tobefirst" value="0"/>
-			<input id="vw_tobefirst" name="vw_tobefirst" type="checkbox" value="1"/><br />
 
-			<label for="vw_alpha"><?php _e('Transparency level for OnScreenDisplay'); ?></label>
-			<input id="vw_alpha" name="vw_alpha" type="text" size="3" value="0.5" class="easyui-textbox"/> (0.0-1.0)<br />
+            <label for="ls_hdrbg1"><?php _e('Background color for main header'); ?></label>
+            <input id="ls_hdrbg1" name="ls_hdrbg1" type="color" value="#0000ff"/>
+            <label class="space" for="ls_hdrfg1"><?php _e('Text color for main header'); ?></label>
+            <input id="ls_hdrfg1" name="ls_hdrfg1" type="color" value="#ffffff"/><br />
 
-			<label for="vw_evtdelay"><?php _e('Delay for LiveStream event parsing'); ?></label>
-			<input id="vw_evtdelay" name="vw_evtdelay" type="number" style="width:40px;" value="1.0" min="0" max="5" step="0.1"/> (<?php _e('sec');?>)<br />
+            <label for="ls_hdrbg2"><?php _e('Background color for secondary header'); ?></label>
+            <input id="ls_hdrbg2" name="ls_hdrbg2" type="color" value="#c0c0c0"/>
+            <label class="space" for="ls_hdrfg2"><?php _e('Text color for secondary header'); ?></label>
+            <input id="ls_hdrfg2" name="ls_hdrfg2" type="color" value="#ffffff"/><br />
 
-			<label for="vw_chromakey"><?php _e('Color for Chroma Keyer'); ?></label>
-			<input id="vw_chromakey" name="vw_chromakey" type="color" value="#00ff00"/><br />
+            <label for="ls_hdrbg3"><?php _e('Background color for tertiary header'); ?></label>
+            <input id="ls_hdrbg3" name="ls_hdrbg3" type="color" value="#c0c0c0"/>
+            <label class="space" for="ls_hdrfg3"><?php _e('Text color for tertiary header'); ?></label>
+            <input id="ls_hdrfg3" name="ls_hdrfg3" type="color" value="#000000"/><br />
 
-			<label for="vw_dataposition"><?php _e('Timming data screen location'); ?></label>
-			<select id="vw_dataposition" name="vw_dataposition" class="easyui-combobox">
+            <label for="ls_rowcolor1"><?php _e('Background color for even table rows'); ?></label>
+            <input id="ls_rowcolor1" name="ls_rowcolor1" type="color" value="#e0e0e0"/>
+            <label class="space" for="ls_rowcolor2"><?php _e('Background color for odd table rows'); ?></label>
+            <input id="ls_rowcolor2" name="ls_rowcolor2" type="color" value="#c0c0c0"/><br />
+
+            <label for="ls_rowcolor3"><?php _e('Color for even secondary table rows'); ?></label>
+            <input id="ls_rowcolor3" name="ls_rowcolor3" type="color" value="#e0e0e0"/>
+            <label class="space" for="ls_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
+            <input id="ls_rowcolor4" name="ls_rowcolor4" type="color" value="#c0c0c0"/><br />
+
+			<label for="ls_tobefirst"><?php _e('Evaluate and show time to get first place'); ?></label>
+			<input type="hidden" name="ls_tobefirst" value="0"/>
+			<input id="ls_tobefirst" name="ls_tobefirst" type="checkbox" value="1"/><br />
+
+			<label for="ls_alpha"><?php _e('Transparency level for OnScreenDisplay'); ?></label>
+			<input id="ls_alpha" name="ls_alpha" type="text" size="3" value="0.5" class="easyui-textbox"/> (0.0-1.0)<br />
+
+			<label for="ls_evtdelay"><?php _e('Delay for LiveStream event parsing'); ?></label>
+			<input id="ls_evtdelay" name="ls_evtdelay" type="number" style="width:40px;" value="1.0" min="0" max="5" step="0.1"/> (<?php _e('sec');?>)<br />
+
+			<label for="ls_chromakey"><?php _e('Color for Chroma Keyer'); ?></label>
+			<input id="ls_chromakey" name="ls_chromakey" type="color" value="#00ff00"/><br />
+
+			<label for="ls_dataposition"><?php _e('Timming data screen location'); ?></label>
+			<select id="ls_dataposition" name="ls_dataposition" class="easyui-combobox">
 				<option value="0"><?php _e('Not visible');?></option>
 				<option value="1" selected="selected"><?php _e('Upper right corner');?></option>
 				<option value="2"><?php _e('Lower right corner');?></option>
 				<option value="3"><?php _e('Next to competitor info');?></option>
 			</select><br />
 
-			<label for="vw_infoposition"><?php _e('Round data screen location'); ?></label>
-			<select id="vw_infoposition" name="vw_infoposition" class="easyui-combobox">
+			<label for="ls_infoposition"><?php _e('Round data screen location'); ?></label>
+			<select id="ls_infoposition" name="ls_infoposition" class="easyui-combobox">
 				<option value="0"><?php _e('Not visible');?></option>
 				<option value="1" selected="selected"><?php _e('Screen top');?></option>
 				<option value="2"><?php _e('On top of competitor info');?></option>

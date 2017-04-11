@@ -34,14 +34,14 @@ function livestream_eventManager(id,evt) {
 	if (typeof(eventHandler[event['Type']])==="function") {
 		setTimeout(function() {
 			eventHandler[event['Type']](event,time);
-		}, ac_config.vw_evtdelay*1000);
+		}, ac_config.ls_evtdelay*1000);
 	}
 }
 
 function vwls_enableOSD(val) {
 	var title=document.title;
 	var str="-";
-	var dly=toFixedT(ac_config.vw_evtdelay,1);
+	var dly=toFixedT(ac_config.ls_evtdelay,1);
 	if (val==0) {
 		str=" - OSD:OFF - delay: "+dly;
 		$('#vwls_common').css('display','none');
@@ -57,13 +57,13 @@ function vwls_enableOSD(val) {
 function vwls_setDelayOSD(dly) {
     dly=parseFloat(dly);
     if (dly<0.0) dly=0.0; if (dly>5.0) dly=5.0;
-    ac_config.vw_evtdelay=dly;
+    ac_config.ls_evtdelay=dly;
     document.title = document.title.replace(/delay: .*/,"delay: "+toFixedT(dly,1));
 }
 
 function vwls_showRoundInfo(val) {
 	var disp=(val==0)?'none':'initial';
-	if (parseInt(ac_config.vw_infoposition)==0) disp='none';
+	if (parseInt(ac_config.ls_infoposition)==0) disp='none';
 	else $('#vwls_mangasInfo').css('display',disp);
 }
 
@@ -75,7 +75,7 @@ function vwls_showCompetitorInfo(val) {
 
 function vwls_showResultsInfo(val) {
 	var disp=(val==0)?'none':'initial';
-	if (parseInt(ac_config.vw_dataposition)==0) disp='none';
+	if (parseInt(ac_config.ls_dataposition)==0) disp='none';
 	if (!ac_config.dogInRing) disp='none'; // to avoid show info data in course walk changes
 	$('#vwls_resultadosInfo').css('display',disp);
 }
@@ -83,18 +83,18 @@ function vwls_showResultsInfo(val) {
 function vwls_keyBindings() {
 	// capture <space> key to switch OSD on/off
 	$(document).keydown(function(e) {
-		var dly=parseFloat(ac_config.vw_evtdelay);
+		var dly=parseFloat(ac_config.ls_evtdelay);
 		var kcode=e.which;
 		var state = ( document.title.indexOf("OSD:ON") >= 0) ? true : false;
 		switch (parseInt(kcode)) {
 			case 38: // key up
 				dly+=0.1;
-				if (ac_config.vw_evtdelay<4.9) ac_config.vw_evtdelay=(dly>5)?5:dly;
+				if (ac_config.ls_evtdelay<4.9) ac_config.ls_evtdelay=(dly>5)?5:dly;
 				vwls_enableOSD((state) ? 1 : 0);
 				break;
 			case 40: // key down
 				dly-=0.1
-				if (ac_config.vw_evtdelay>0.1)  ac_config.vw_evtdelay=(dly<0)?0:dly;
+				if (ac_config.ls_evtdelay>0.1)  ac_config.ls_evtdelay=(dly<0)?0:dly;
 				vwls_enableOSD((state) ? 1 : 0);
 				break;
 			case 32: // space
