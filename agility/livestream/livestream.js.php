@@ -74,7 +74,9 @@ function vwls_setAlphaOSD(alpha,tableid) {
     console.log ("new alpha is "+alpha);
     if (typeof(tableid)==="undefined") return;
     if (tableid==="OSD") { // live video
-
+        $('#vwls_InfoManga').css('background-color',"rgba(127,127,127,"+a+")");
+        $('#vwls_Resultados').css('background-color',"rgba(127,127,127,"+a+")");
+        $('#vwls_Datos').css('background-color',"rgba(127,127,127,"+a+")");
     } else { // other livestream screens
         var rgb1=hexToRGB(ac_config.ls_rowcolor1);
         var rgb2=hexToRGB(ac_config.ls_rowcolor2);
