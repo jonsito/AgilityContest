@@ -42,7 +42,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <span style="position:absolute; top:50%;right:35%;font-size:2.5vw;">Ring 2</span>
             <span style="position:absolute; top:50%;right:10%;font-size:2.5vw;">Ring 3</span>
 		</div>
-		<div class="vws_results" id="vw_tabla" data-options="region:'center'" >
+		<div class="vws_results" id="vw_table" data-options="region:'center'" >
 <?php for ($entry=9;$entry>=0; $entry--) {
             $type=($entry==0)?'text':'hidden';
             $type2=($entry==0)?'hidden':'text';
@@ -219,7 +219,7 @@ var vws_counter3= new Countdown({
                     /* EVTCMD_SETFONTFAMILY:*/ function(e) { vws_setFontFamily(e['Value']);}, // -1/+1 dec/inc
                     /* EVTCMD_NOTUSED3:     */ null,
                     /* EVTCMD_SETFONTSIZE:  */ function(e) { vws_setFontSize(e['Value']);}, // delta dec/inc
-                    /* EVTCMD_NOTUSED5:     */ null,
+                    /* EVTCMD_OSDSETALPHA:  */ null,
                     /* EVTCMD_OSDSETDELAY:  */ null,
                     /* EVTCMD_NOTUSED7:     */ null,
                     /* EVTCMD_MESSAGE:      */ function(e) {videowall_showMessage(e); },

@@ -117,7 +117,7 @@ var eventHandler= {
                 /* EVTCMD_SETFONTFAMILY:*/ null,
                 /* EVTCMD_NOTUSED3:     */ null,
                 /* EVTCMD_SETFONTSIZE:  */ null,
-                /* EVTCMD_NOTUSED5:     */ null,
+                /* EVTCMD_OSDSETALPHA:  */ null,
                 /* EVTCMD_OSDSETDELAY   */ null,
                 /* EVTCMD_NOTUSED7:     */ null,
                 /* EVTCMD_MESSAGE:      */ function(e) {videowall_showMessage(e); },

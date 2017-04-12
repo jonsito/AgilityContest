@@ -353,7 +353,7 @@ var eventHandler= {
                 /* EVTCMD_SETFONTFAMILY:*/ null,
                 /* EVTCMD_NOTUSED3:     */ null,
                 /* EVTCMD_SETFONTSIZE:  */ null,
-                /* EVTCMD_NOTUSED5:     */ null,
+                /* EVTCMD_OSDSETALPHA:  */ function(e) { vwls_setAlphaOSD(e['Value'],"OSD"); },
                 /* EVTCMD_OSDSETDELAY:  */ function(e) { vwls_setDelayOSD(e['Value']); },
                 /* EVTCMD_NOTUSED7:     */ null,
                 /* EVTCMD_MESSAGE:      */ function(e) { livestream_showMessage(e); },

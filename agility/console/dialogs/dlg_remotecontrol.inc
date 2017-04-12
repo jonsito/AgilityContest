@@ -156,12 +156,18 @@ $am=new AuthManager("Chrono");
                                data-options="iconCls:'icon-on'" onclick="remoteSendKeyValueEvent('#remote-livestream',EVTCMD_ENABLEOSD,1);"></a>
                             <a id="remote-livestream-offBtn" href="#" class="easyui-linkbutton"
                                data-options="iconCls:'icon-off'" onclick="remoteSendKeyValueEvent('#remote-livestream',EVTCMD_ENABLEOSD,0);"></a>
-                            <br/><br/>
+                            <br/>&nbsp;<br/>
                             <div style="width:100%;display:inline-block;">
                                 <span style="float:left;width:50%"><?php _e("OSD/video sync delay");?>:</span>
                                 <span style="float:right;width:40%;padding-right:5px;padding-left:5px;">
                                     <input id="remote-livestream-delay" name="remote-livestream-delay"/>
                                 </span>
+                            </div>
+                            <br/>&nbsp;<br/>
+                            <div style="width:100%;display:inline-block;">
+                                <span style="float:left;width:50%"><?php _e("OSD Transparency level");?>:</span>
+                                <span style="float:right;width:40%;padding-right:5px;padding-left:5px;">
+                                    <input id="remote-livestream-alpha" name="remote-livestream-alpha"/>
                             </div>
                         </form>
                     </span>
@@ -385,7 +391,21 @@ $am=new AuthManager("Chrono");
             // rule: [ 0,'|',1,'|',2,'|',3,'|',4,'|',5 ],
             tipFormatter: function(val) { return toFixedT(val/10.0,1); },
             onChange: function(nval,oval) {
-                remoteSendKeyValueEvent('#remote-livestream',EVTCMD_SETDELAY,nval/10.0);
+                remoteSendKeyValueEvent('#remote-livestream',EVTCMD_OSDSETDELAY,nval/10.0);
+            }
+        });
+
+        $('#remote-livestream-alpha').slider({
+            mode:'h',
+            showTip:true,
+            min: 0,
+            max: 100,
+            value: 50,
+            step: 1,
+            // rule: [ 0,'|',1,'|',2,'|',3,'|',4,'|',5 ],
+            tipFormatter: function(val) { return toFixedT(val/100.0,2); },
+            onChange: function(nval,oval) {
+                remoteSendKeyValueEvent('#remote-livestream',EVTCMD_OSDSETALPHA,nval/100.0);
             }
         });
 

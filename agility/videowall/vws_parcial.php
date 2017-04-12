@@ -196,7 +196,7 @@ events
                     /* EVTCMD_SETFONTFAMILY:*/ function(e) { vws_setFontFamily(e['Value']);}, // -1/+1 dec/inc
                     /* EVTCMD_NOTUSED3:     */ null,
                     /* EVTCMD_SETFONTSIZE:  */ function(e) { vws_setFontSize(e['Value']);}, // delta dec/inc
-                    /* EVTCMD_NOTUSED5:     */ null,
+                    /* EVTCMD_OSDSETALPHA:  */ null,
                     /* EVTCMD_OSDSETDELAY:  */ null,
                     /* EVTCMD_NOTUSED7:     */ null,
                     /* EVTCMD_MESSAGE:      */ function(e) {videowall_showMessage(e); },

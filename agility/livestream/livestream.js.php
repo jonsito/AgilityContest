@@ -57,8 +57,30 @@ function vwls_enableOSD(val) {
 function vwls_setDelayOSD(dly) {
     dly=parseFloat(dly);
     if (dly<0.0) dly=0.0; if (dly>5.0) dly=5.0;
+    // store new osd delay in configuration
     ac_config.ls_evtdelay=dly;
+    // mark change in display
     document.title = document.title.replace(/delay: .*/,"delay: "+toFixedT(dly,1));
+}
+
+function vwls_setAlphaOSD(alpha,tableid) {
+    alpha=parseFloat(alpha);
+    if (alpha<0.0) alpha=0.0; if (alpha>1.0) alpha=1.0;
+    // store new value
+    ac_config.ls_alpha=alpha;
+    // change css to activate new value
+    // PENDING
+    var a=parseFloat(ac_config.ls_alpha);
+    console.log ("new alpha is "+alpha);
+    if (typeof(tableid)==="undefined") return;
+    if (tableid==="OSD") { // live video
+
+    } else { // other livestream screens
+        var rgb1=hexToRGB(ac_config.ls_rowcolor1);
+        var rgb2=hexToRGB(ac_config.ls_rowcolor2);
+        $(tableid+" .datagrid-btable tr:odd").css('background-color',"rgba("+rgb1.r+","+rgb1.g+","+rgb1.b+","+a+")");
+        $(tableid+" .datagrid-btable tr:even").css('background-color',"rgba("+rgb2.r+","+rgb2.g+","+rgb2.b+","+a+")");
+    }
 }
 
 function vwls_showRoundInfo(val) {

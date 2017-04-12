@@ -39,7 +39,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <span id="vw_header-infomanga" style="width:200px">(<?php _e('No round selected'); ?>)</span>
             </div>
 		</div>
-		<div id="vw_tabla" data-options="region:'center'">
+		<div id="vw_table" data-options="region:'center'">
             <?php include_once(__DIR__."/../lib/templates/orden_salida.inc.php");?>
 		</div>
         <div id="vw_ordensalida-footer" data-options="region:'south',split:false" class="vw_floatingfooter">
@@ -124,7 +124,7 @@ $('#ordensalida-datagrid').datagrid({
                     /* EVTCMD_SETFONTFAMILY:*/ null,
                     /* EVTCMD_NOTUSED3:     */ null,
                     /* EVTCMD_SETFONTSIZE:  */ null,
-                    /* EVTCMD_NOTUSED5:     */ null,
+                    /* EVTCMD_OSDSETALPHA:     */ null,
                     /* EVTCMD_OSDSETDELAY:  */ null,
                     /* EVTCMD_NOTUSED7:     */ null,
                     /* EVTCMD_MESSAGE:      */ function(e) {videowall_showMessage(e); },

@@ -93,7 +93,7 @@ if (!$am->allowed(ENABLE_LIVESTREAM)) {
             border: 0px none transparent;
         }
 
-        #vw_tabla .panel-body {
+        #vw_table .panel-body {
             background-color: transparent;
         }
 
@@ -140,9 +140,10 @@ function initialize() {
  * @return {string} proper row style for given idx
  */
 function lsRowStyler(idx,row) {
-	var c=( (idx&0x01)===0)?'<?php echo $config->getEnv('ls_rowcolor1'); ?>':'<?php echo $config->getEnv('ls_rowcolor2'); ?>';
+	var c=( (idx&0x01)===0)?ac_config.ls_rowcolor1:ac_config.ls_rowcolor2;
 	var rgb=hexToRGB(c);
-	return "background-color:rgba("+rgb.r+","+rgb.g+","+rgb.b+",<?php echo $config->getEnv('ls_alpha')?>)";
+	var a=parseFloat(ac_config.ls_alpha);
+	return "background-color:rgba("+rgb.r+","+rgb.g+","+rgb.b+","+a+")";
 }
 
 /**
@@ -152,9 +153,10 @@ function lsRowStyler(idx,row) {
  * @return {string} proper row style for given idx
  */
 function lsRowStyler2(idx,row) {
-    var c=( (idx&0x01)===0)?'<?php echo $config->getEnv('ls_rowcolor3'); ?>':'<?php echo $config->getEnv('ls_rowcolor4'); ?>';
+    var c=( (idx&0x01)===0)?ac_config.ls_rowcolor3:ac_config.ls_rowcolor4;
     var rgb=hexToRGB(c);
-    return "background-color:rgba("+rgb.r+","+rgb.g+","+rgb.b+",<?php echo $config->getEnv('ls_alpha')?>)";
+    var a=parseFloat(ac_config.ls_alpha);
+    return "background-color:rgba("+rgb.r+","+rgb.g+","+rgb.b+","+a+")";
 }
 
 function myRowStyler(idx,row) { return lsRowStyler(idx,row); }

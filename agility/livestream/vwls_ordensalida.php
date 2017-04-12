@@ -67,7 +67,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
                 </div>
 
-                <div id="vw_tabla" data-options="region:'center'" style="background-color:transparent">
+                <div id="vw_table" data-options="region:'center'" style="background-color:transparent">
                     <?php include_once(__DIR__."/../lib/templates/orden_salida.inc.php");?>
                 </div>
 
@@ -162,7 +162,7 @@ var eventHandler= {
                 /* EVTCMD_SETFONTSIZE:  */ null,
                 /* EVTCMD_NOTUSED3:     */ null,
                 /* EVTCMD_SETFONTSIZE:  */ null,
-                /* EVTCMD_NOTUSED5:     */ null,
+                /* EVTCMD_OSDSETALPHA:  */ function(e) { vwls_setAlphaOSD(e['Value'],"#vw_table"); },
                 /* EVTCMD_OSDSETDELAY:  */ function(e) { vwls_setDelayOSD(e['Value']); },
                 /* EVTCMD_NOTUSED7:     */ null,
                 /* EVTCMD_MESSAGE:      */ function(e) { livestream_showMessage(e); },
