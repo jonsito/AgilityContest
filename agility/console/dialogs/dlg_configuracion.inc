@@ -338,7 +338,7 @@ $config =Config::getInstance();
 		</div>
 		
 		<div title="<?php _e('Internet'); ?>" style="padding:10px">
-		<h3><?php _e('Public access from internet'); ?></h3>
+		    <h3><?php _e('Public access from internet'); ?></h3>
 			<label for="web_refreshtime"><?php _e('Data auto-refresh interval'); ?></label>
 			<input type="hidden" name="web_refreshtime" value="0"/> <!-- trick for select with value 0 -->
 			<select id="web_refreshtime" name="web_refreshtime" class="easyui-combobox">
@@ -372,6 +372,7 @@ $config =Config::getInstance();
 			<label class="space" for="pb_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
 			<input id="pb_rowcolor4" name="pb_rowcolor4" type="color" value="#c0c0c0"/><br />
 		</div>
+
 		<div title="<?php _e('E-mail'); ?>" style="padding:10px">
             <h3><?php _e('Options for sending electronic mail related functions'); ?></h3>
             <label for="email_address"><?php _e('Email address'); ?> (<?php _e('From license info'); ?>)</label>
@@ -379,7 +380,8 @@ $config =Config::getInstance();
             <br/>
             <label for="email_server"><?php _e('SMTP Server'); ?></label>
             <input id="email_server" name="email_server" type="text" size="20" value="" class="easyui-textbox"/>
-            <?php _e('Port'); ?>
+            <br/>
+            <label for="email_port"><?php _e('Port'); ?></label>
             <select id="email_port" name="email_port" class="easyui-combobox" data-options="panelHeight:'auto'">
                 <option value="25">25 - SMTP</option>
                 <option value="465">465 - SMTP on SSL</option>
@@ -392,6 +394,7 @@ $config =Config::getInstance();
                 <option value="STARTTLS"><?php _e("StartTLS after connection");?></option>
                 <option value="TLS"><?php _e("SSL/TLS on dedicated port");?></option>
             </select>
+            <br/>
             <label for="email_auth"><?php _e('Authentication method'); ?></label>
             <input id="email_auth" name="email_auth" value="PLAIN"/> <!-- redefined bellow -->
             <br/>
