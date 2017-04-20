@@ -238,7 +238,9 @@ FunctionEnd
 
 Function .onInit
 
-  ; Preserve configuration files (if exists)
+  ; Preserve configuration files (if exists).
+  ; Make sure previous temp config is deleted
+  Delete $TEMP\config.ini
   CopyFiles $INSTDIR\agility\server\auth\registration.info $TEMP
   CopyFiles $INSTDIR\agility\server\auth\config.ini $TEMP
   ; make sure that application is stopped before uninstall/reinstall
