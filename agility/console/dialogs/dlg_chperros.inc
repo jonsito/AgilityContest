@@ -49,11 +49,16 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="chperros-Genero"><?php _e('Gender'); ?>:</label>
-                <select id="chperros-Genero" name="Genero" style="width:75px">
-                    <option value="-" selected="selected">-</option>
-                    <option value="M"><?php _e('Male'); ?></option>
-                    <option value="F"><?php _e('Female'); ?></option>
-                </select>
+                <input class="easyui-combobox" id="chperros-Genero" name="Genero" style="width:75px;"
+                       data-options="
+                            valueField:'value',
+                            textField: 'text',
+                            panelHeight:'auto',
+                            data: [
+                                {value:'-',text:'-'},
+                                {value:'M',text:'<?php _e('Male'); ?>'},
+                                {value:'F',text:'<?php _e('Female'); ?>'}
+                            ]"/>
             </div>
             <div class="fitem">
                 <label for="chperros-Raza"><?php _e('Breed'); ?>:</label>
@@ -135,7 +140,7 @@ $config =Config::getInstance();
         }
         */
     }).dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
-    	if (e.keyCode == 27){ $('#chperros-dialog').dialog('close');
+    	    if (e.keyCode === 27){ $('#chperros-dialog').dialog('close');
     	}
     });
 
@@ -176,7 +181,7 @@ $config =Config::getInstance();
     $('#chperros-Raza').textbox();
     $('#chperros-LOE_RRC').textbox();
     $('#chperros-Licencia').textbox();
-    $('#chperros-Genero').combobox({valueField:'value',panelHeight:'auto'});
+    $('#chperros-Genero').combobox();
 
     $('#chperros-Grados_Perro').combobox({
 		panelHeight: 'auto',
