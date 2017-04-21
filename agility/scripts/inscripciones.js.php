@@ -84,9 +84,10 @@ function deleteInscripcion() {
 		$.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no inscription(s) selected"); ?>',"warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
     }
-	$.messager.confirm('Confirm',
+	$.messager.confirm(
+	        'Confirm',
 			"<p><b><?php _e('Notice'); ?>:</b></p>" +
-			"<p><?php _e('If you delete this inscription'); ?> <br/>" +
+			"<p><?php _e('If you delete this inscription'); ?> ("+row.Nombre+")<br/>" +
 			"<?php _e('<b>youll loose</b> every related results and data on this contest'); ?><br />" +
 			"<?php _e('afecting journeys not marked as <em>closed</em>'); ?><br/>" +
 			"<?php _e('Really want to delete selected inscription'); ?>?</p>",
@@ -105,7 +106,7 @@ function deleteInscripcion() {
 						// on Success function
 						function(result){
 							if (result.success) {
-								$('#inscripciones-datagrid').datagrid('reload',{ // reload the inscripciones table
+								$('#inscripciones-datagrid').datagrid('unselectAll').datagrid('reload',{ // load the inscripciones table
 									where: $('#inscripciones-search').val()
 								});
 							} else {

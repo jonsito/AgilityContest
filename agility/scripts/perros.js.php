@@ -106,7 +106,7 @@ function deleteDog(dg){
        	if (!r) return;
         $.get('/agility/server/database/dogFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
-                $('#perros-datagrid').datagrid('reload');    // reload the dog data
+                $(dg).datagrid('unselectAll').datagrid('reload');    // reload the dog data. PENDING: what about using reloadPerrosDatagrid()?
             } else { // show error message
                 $.messager.show({ title: 'Error',  msg: result.errorMsg });
             }

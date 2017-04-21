@@ -104,7 +104,7 @@ function deleteSession(dg){
       	if (!r) return;
         $.get('/agility/server/database/sessionFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
-                $(dg).datagrid('reload');    // reload the session data
+                $(dg).datagrid('unselectAll').datagrid('reload');    // reload the session data
             } else {
             	// show error message
                 $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});

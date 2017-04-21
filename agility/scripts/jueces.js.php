@@ -114,7 +114,7 @@ function deleteJuez(dg){
       	if (!r) return;
         $.get('/agility/server/database/juezFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
-                $(dg).datagrid('reload');    // reload the juez data
+                $(dg).datagrid('unselectAll').datagrid('reload');    // reload the juez data
             } else {
             	// show error message
                 $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});

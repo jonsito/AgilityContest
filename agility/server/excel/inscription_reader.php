@@ -101,8 +101,8 @@ class InscriptionReader extends DogReader {
             // parse result to join categories on same team
             $teams=array();
             foreach ($res['rows']as $team) {
-                $nequipo=$team['NombreEquipo'];
-                if (! is_null( parseYesNo( trim($nequipo) ) ) ) continue; // not inscribed or in default team
+                $nequipo=trim($team['NombreEquipo']);
+                if (! is_null( parseYesNo( $nequipo ) ) ) continue; // not inscribed or in default team
                 if (!array_key_exists($nequipo,$teams)) $teams[$nequipo]=''; // team not yet declared.
                 if (strpos($teams[$nequipo],$team['Categoria'])===FALSE) $teams[$nequipo] .= $team['Categoria'];
             }
@@ -135,6 +135,7 @@ class InscriptionReader extends DogReader {
                 $numero=intval(explode(':',$key)[1]) - 1;
                 $nombre=$item[$val[3]];
                 $yn=parseYesNo(trim($nombre));
+                $this->myLogger->trace("Nombre:$nombre yn:$yn");
                 if (is_null($yn) || ($yn==true)) $jornadas |= (1<<$numero); // field not empty means need to inscribe
             }
 

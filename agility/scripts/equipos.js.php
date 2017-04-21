@@ -243,7 +243,7 @@ function deleteTeam(dg){
             $.get('/agility/server/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba,Jornada:row.Jornada},function(result){
                 if (result.success){
                     $(dg).datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});    // reload the prueba data 
-                    $('#selteam-Equipo').combogrid('grid').datagrid('load'); // update assignment combogrid list
+                    $('#selteam-Equipo').combogrid('grid').datagrid('unselectAll').datagrid('load'); // update assignment combogrid list
                 } else {
                     $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
                 }

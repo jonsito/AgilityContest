@@ -73,7 +73,7 @@ function editTanda(dg){
 function reloadOrdenTandas() {
     if (workingData.prueba==0) return;
     if (workingData.jornada==0) return;
-    $('#ordentandas-datagrid').datagrid(
+    $('#ordentandas-datagrid').datagrid('unselectAll').datagrid(
         'load',
         {
             Prueba: workingData.prueba,

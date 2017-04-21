@@ -81,7 +81,7 @@ function delGuiaFromClub(dg,club) {
         if (r){
             $.get('/agility/server/database/guiaFunctions.php',{'Operation':'orphan','ID':row.ID},function(result){
                 if (result.success){
-                	$(dg).datagrid('reload');
+                	$(dg).datagrid('unselectAll').datagrid('reload');
                 } else {
                 	// show error message
                     $.messager.show({ title: '<?php _e('Error'); ?>', width: 300, height: 200, msg: result.errorMsg });
