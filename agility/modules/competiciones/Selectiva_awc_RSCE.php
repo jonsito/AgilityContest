@@ -80,9 +80,12 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
         $loe=str_replace(" ","",$loe);
         $loe=str_replace("-","",$loe);
         $loe=str_replace(".","",$loe);
-        $loe=strtoupper($loe);
-        return ($loe!="")?true:false;
+        // algunos cachondos ponen "si/no" para indicar que si/no tiene loe/rrc
+        $yn=parseYesNo($loe);
+        if ($yn!==null) return $yn;
+        return ($loe!=="")?true:false;
         /*
+        $loe=strtoupper($loe);
         if (strlen($loe)<4) {
             if (is_numeric($loe)) return true; // licenses from 0 to 999
             return false;
