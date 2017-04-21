@@ -51,7 +51,7 @@ class PrintCatalogo extends PrintCommon {
 		/* make sure that catalog is group'd by club  */
 		$this->inscritos=$inscritos['rows'];
         usort($this->inscritos, function($a, $b) {
-        	if ( strcmp($a['NombreClub'],$b['NombreClub']) == 0) return strcmp($a['Dorsal'],$b['Dorsal']);
+        	if ( strcmp($a['NombreClub'],$b['NombreClub']) == 0) return ($a['Dorsal']>$b['Dorsal'])?1:-1;
             return strcmp($a['NombreClub'],$b['NombreClub']);
         });
 		$this->jornadas=$jornadas['rows'];
