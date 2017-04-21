@@ -133,9 +133,9 @@ class InscriptionReader extends DogReader {
             foreach ($this->fieldList as $key => $val) {
                 if (strpos($key,'Jornada')===FALSE) continue; // not a journey field
                 $numero=intval(explode(':',$key)[1]) - 1;
-                $nombre=$item[$val[3]];
-                $yn=parseYesNo(trim($nombre));
-                $this->myLogger->trace("Nombre:$nombre yn:$yn");
+                $nombre=trim($item[$val[3]]);
+                if ($nombre==="") continue; // not inscribed
+                $yn=parseYesNo($nombre);
                 if (is_null($yn) || ($yn==true)) $jornadas |= (1<<$numero); // field not empty means need to inscribe
             }
 
