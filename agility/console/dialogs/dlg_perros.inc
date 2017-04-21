@@ -38,11 +38,16 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="perros-Genero"><?php _e('Gender'); ?>:</label>
-                <select id="perros-Genero" name="Genero" style="width:75px">
-                    <option value="-" selected="selected">-</option>
-                    <option value="M"><?php _e('Male'); ?></option>
-                    <option value="F"><?php _e('Female'); ?></option>
-                </select>
+                <input class="easyui-combobox" id="perros-Genero" name="Genero" style="width:75px;"
+                        data-options="
+                            valueField:'value',
+                            textField: 'text',
+                            panelHeight:'auto',
+                            data: [
+                                {value:'-',text:'-'},
+                                {value:'M',text:'<?php _e('Male'); ?>'},
+                                {value:'F',text:'<?php _e('Female'); ?>'}
+                            ]"/>
             </div>
             <div class="fitem">
                 <label for="perros-Raza"><?php _e('Breed'); ?>:</label>
@@ -57,14 +62,14 @@ $config =Config::getInstance();
                 <input id="perros-Licencia" type="text" name="Licencia" style="width:155px"/>
             </div>
             <div class="fitem">
-                <label for="perros-Categoria"><?php _e('Category'); ?>:</label>
+                <label for="perros-Categorias_Perro"><?php _e('Category'); ?>:</label>
                 <select id="perros-Categorias_Perro" 
                 		name="Categoria" 
                 		class="easyui-combobox" 
                 		style="width:155px"></select>
             </div>
             <div class="fitem">
-                <label for="perros-Grado"><?php _e('Grade'); ?>:</label>
+                <label for="perros-Grados_Perro"><?php _e('Grade'); ?>:</label>
                 <select id="perros-Grados_Perro" 
                 		name="Grado" 
                 		class="easyui-combobox" 
@@ -126,7 +131,7 @@ $config =Config::getInstance();
         buttons:'#perros-dlg-buttons',
         iconCls: 'icon-dog'
     }).dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
-    	if (e.keyCode == 27){
+    	if (e.keyCode === 27){
     	    $('#perros-dialog').dialog('close');
     	}
     });
@@ -139,7 +144,7 @@ $config =Config::getInstance();
     $('#perros-Raza').textbox();
     $('#perros-LOE_RRC').textbox();
     $('#perros-Licencia').textbox();
-    $('#perros-Genero').combobox({valueField:'value',panelHeight:'auto'});
+    $('#perros-Genero').combobox();
 
     $('#perros-Grados_Perro').combobox({
 		panelHeight: 'auto',
@@ -157,7 +162,7 @@ $config =Config::getInstance();
 			for(var i=0; i<data.length; i++){
 				var row = data[i];
 				// the row with 'selected' property set to true will be acted as the selected row
-				if (row.selected==1){  
+				if (row.selected==1){
     				// alert('selected value is: '+row.Grado);
 					$(this).combobox('setValue',row.Grado);
 				}
