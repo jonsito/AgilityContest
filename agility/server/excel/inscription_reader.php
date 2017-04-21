@@ -101,8 +101,11 @@ class InscriptionReader extends DogReader {
             // parse result to join categories on same team
             $teams=array();
             foreach ($res['rows']as $team) {
+                // recuerda que se han eliminado los que tienen la inscripcion en esta jornada en blanco
                 $nequipo=trim($team['NombreEquipo']);
-                if (! is_null( parseYesNo( $nequipo ) ) ) continue; // not inscribed or in default team
+                // si la respuesta es si/no/X no hay que declarar equipo: se asigna al equipo por defecto
+                if (! is_null( parseYesNo( $nequipo ) ) ) continue;
+                // else, miramos si el equipo esta ya declarado
                 if (!array_key_exists($nequipo,$teams)) $teams[$nequipo]=''; // team not yet declared.
                 if (strpos($teams[$nequipo],$team['Categoria'])===FALSE) $teams[$nequipo] .= $team['Categoria'];
             }
@@ -162,7 +165,7 @@ class InscriptionReader extends DogReader {
                     $name=preg_replace('/\s+/', '', $jornada['Nombre']); // remove spaces to get friendly with database field naming
                     $itemTeam=trim($item[$name]);
                     if (!is_null(parseYesNo($itemTeam))) continue; // not inscribed or inscribed into default team
-                    // need to inscribe: locate team id and perform inscription into requested team
+                    // need to inscribe in non-default team: locate team id and perform inscription into requested team
                     $eq= new Equipos("excelImport",$this->prueba['ID'],$jornada['ID']);
                     $tbj=$eq->getTeamsByJornada();
                     foreach($tbj as $team) {
