@@ -52,14 +52,15 @@ class Competitions {
      * @param $contact email address for contacg
      */
     public function getModuleInfo($contact=null) {
-        if (!$contact) $contact=Federations::getFederation($this->federationID)->get("Email");
+        $fed=Federations::getFederation($this->federationID);
+        if (!$contact) $contact=$fed->get("Email");
         return array(
             // for compatibility with getModuleList($fed)
             "ID" => $this->competitionID,
             "Nombre" => $this->competitionName,
             // module information name
             "ModuleName" => $this->competitionName,
-            "FederationName" => Federations::getFederation($this->federationID)->get("Name"),
+            "FederationName" => $fed->get("Name"),
             "ModuleID" => $this->competitionID,
             "FederationID" => $this->federationID,
             "ModuleVersion" => $this->moduleVersion,

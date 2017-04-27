@@ -45,15 +45,15 @@
 		view: scrollview,
 		pageSize: 50,
 		multiSort: true,
-		remoteSort: true,
+		remoteSort: false,
 		columns: [[
-			{ field:'ModuleID',		hidden:true },
 			{ field:'FederationID',		hidden:true },
 			{ field:'ModuleName',		width:35, sortable:true,title:'<?php _e('Name'); ?>' },
             { field:'FederationName',	width:10, sortable:true,title:'<?php _e('Federation'); ?>' },
             { field:'Email',	        width:25, sortable:true,title:'<?php _e('Email'); ?>' },
-			{ field:'ModuleVersion',		width:10, sortable:true,title:'<?php _e('Version'); ?>' },
-			{ field:'ModuleRevision',		width:20, sortable:true,title:'<?php _e('Revision'); ?>' }
+            { field:'ModuleID',		    width:5,  sortable:true,title:'<?php _e('ID'); ?>'},
+			{ field:'ModuleVersion',	width:10, sortable:true,title:'<?php _e('Version'); ?>' },
+			{ field:'ModuleRevision',	width:20, sortable:true,title:'<?php _e('Revision'); ?>' }
 		]],
 		// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
 		rowStyler:myRowStyler
