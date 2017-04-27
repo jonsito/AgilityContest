@@ -246,6 +246,7 @@ class Updater {
                 `perros`.`NombreLargo` AS `NombreLargo`,
                 `perros`.`Genero` AS `Genero`,
                 `perros`.`Raza` AS `Raza`,
+                `perros`.`Chip` AS `Chip`,
                 `perros`.`Licencia` AS `Licencia`,
                 `perros`.`LOE_RRC` AS `LOE_RRC`,
                 `perros`.`Categoria` AS `Categoria`,
@@ -474,17 +475,18 @@ try {
     // when not in first install, process database to make it compliant with sofwtare version
     $upg->removeUpdateMark();
     $upg->updateVersionHistory();
-    $upg->updatePerroGuiaClub();
     $upg->addCountries();
     $upg->addColumnUnlessExists("Mangas", "Orden_Equipos", "TEXT");
     $upg->addColumnUnlessExists("Resultados", "TIntermedio", "double", "0.0");
     $upg->addColumnUnlessExists("Resultados", "Games", "int(4)", "0");
     $upg->addColumnUnlessExists("Perros", "NombreLargo", "varchar(255)");
+    $upg->addColumnUnlessExists("Perros", "Chip", "varchar(255)", "");
     $upg->addColumnUnlessExists("Perros", "Genero", "varchar(16)");
     $upg->addColumnUnlessExists("Provincias", "Pais", "varchar(2)", "ES");
     $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
     $upg->addColumnUnlessExists("Jornadas", "Games", "int(4)", "0");
     $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
+    $upg->updatePerroGuiaClub();
     $upg->updateInscripciones();
     $upg->upgradeTeams();
     $upg->setTRStoFloat();

@@ -29,8 +29,8 @@ class Excel_ListaPerros extends XLSX_Writer {
 
 	protected $lista; // listado de perros
 
-    protected $cols = array( 'Name','LongName','Gender','Breed','License','KC id','Category','Grade','Handler','Club','Province','Country');
-    protected $fields = array( 'Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Provincia','Pais');
+    protected $cols = array( 'Name','LongName','Gender','Breed','Chip','License','KC id','Category','Grade','Handler','Club','Province','Country');
+    protected $fields = array( 'Nombre','NombreLargo','Genero','Raza','Chip','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Provincia','Pais');
 
 	/**
 	 * Constructor

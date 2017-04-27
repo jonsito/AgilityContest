@@ -40,7 +40,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
 
     protected $cols = array(
 		'Dorsal',
-		'Name','LongName','Gender','Breed','License','KC id','Category','Grade','Handler','Club','Country', // datos del perro
+		'Name','LongName','Gender','Breed','Chip','License','KC id','Category','Grade','Handler','Club','Country', // datos del perro
 		'Team','Heat','Comments', // datos de la inscripcion en la jornada
 		'F1','R1','E1','N1','Tiempo1','Penal1', // datos de la manga 1
 		'F2','R2','E2','N2','Tiempo2','Penal2', // datos de la manga 2
@@ -158,7 +158,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
 		// componemos la fila Excel anyiadiendo datos personales
 		//
 		// 'Dorsal',
-		// 'Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Pais', // datos del perro
+		// 'Nombre','NombreLargo','Genero','Raza','Chip','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Pais', // datos del perro
 		// 'Equipo','Celo','Observaciones', // datos de la inscripcion en la jornada
 		// 'F1','R1','E1','N1','Tiempo1','Penal1', // datos de la manga 1
 		// 'F2','R2','E2','N2','Tiempo2','Penal2', // datos de la manga 2
@@ -178,7 +178,8 @@ class Excel_Clasificaciones extends XLSX_Writer {
 			$row[]=$pdata['Nombre'];
 			$row[]=$pdata['NombreLargo'];
 			$row[]=$pdata['Genero'];
-			$row[]=$pdata['Raza'];
+            $row[]=$pdata['Raza'];
+            $row[]=$pdata['Chip'];
 			$row[]=$pdata['Licencia'];
 			$row[]=$pdata['LOE_RRC'];
 			$row[]=$pdata['Categoria'];
@@ -222,6 +223,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
             $row[]=$pdata['NombreLargo'];
             $row[]=$pdata['Genero'];
             $row[]=$pdata['Raza'];
+            $row[]=$pdata['Chip'];
             $row[]=$pdata['Licencia'];
             $row[]=$pdata['LOE_RRC'];
             $row[]=$pdata['Categoria'];

@@ -65,6 +65,10 @@ $config =Config::getInstance();
                 <input id="chperros-Raza" name="Raza" type="text"  style="width:150px;"/>
             </div>
             <div class="fitem">
+                <label for="chperros-Chip"><?php _e('MicroChip'); ?>:</label>
+                <input id="chperros-Chip" name="Chip" type="text"  style="width:150px;"/>
+            </div>
+            <div class="fitem">
                 <label for="chperros-LOE_RRC"><?php _e('Kennel Club ID'); ?>:</label>
                 <input id="chperros-LOE_RRC" name="LOE_RRC" type="text"  style="width:150px;"/>
             </div>
@@ -179,6 +183,7 @@ $config =Config::getInstance();
     });
     $('#chperros-NombreLargo').textbox();
     $('#chperros-Raza').textbox();
+    $('#chperros-Chip').textbox();
     $('#chperros-LOE_RRC').textbox();
     $('#chperros-Licencia').textbox();
     $('#chperros-Genero').combobox();

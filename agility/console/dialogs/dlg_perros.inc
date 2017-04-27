@@ -54,6 +54,10 @@ $config =Config::getInstance();
                 <input id="perros-Raza" type="text" name="Raza" style="width:155px"/>
             </div>
             <div class="fitem">
+                <label for="perros-Chip"><?php _e('MicroChip'); ?>:</label>
+                <input id="perros-Chip" name="Chip" type="text"  style="width:150px;"/>
+            </div>
+            <div class="fitem">
                 <label for="perros-LOE_RRC"><?php _e('Kennel Club ID'); ?>:</label>
                 <input id="perros-LOE_RRC" type="text" name="LOE_RRC" style="width:155px"/>
             </div>
@@ -127,6 +131,7 @@ $config =Config::getInstance();
     
     // campos del formulario
     $('#perros-dialog').dialog({
+        modal:true,
         closed:true,
         buttons:'#perros-dlg-buttons',
         iconCls: 'icon-dog'
@@ -142,6 +147,7 @@ $config =Config::getInstance();
     });
     $('#perros-NombreLargo').textbox();
     $('#perros-Raza').textbox();
+    $('#perros-Chip').textbox();
     $('#perros-LOE_RRC').textbox();
     $('#perros-Licencia').textbox();
     $('#perros-Genero').combobox();
