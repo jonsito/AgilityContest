@@ -335,7 +335,8 @@ class Equipos extends DBObject {
                             Resultados.Nombre, Resultados.Raza, Resultados.Licencia, Resultados.Categoria, Resultados.Grado,
                             Resultados.Celo,Resultados.NombreGuia,Resultados.NombreClub, Resultados.Equipo,
                             PerroGuiaClub.Club AS Club, PerroGuiaClub.Guia AS Guia, PerroGuiaClub.LogoClub AS LogoClub, 
-                            PerroGuiaClub.NombreLargo AS NombreLargo, Inscripciones.Observaciones AS Observaciones,
+                            PerroGuiaClub.NombreLargo AS NombreLargo, PerroGuiaClub.Chip AS Chip, 
+                            Inscripciones.Observaciones AS Observaciones,
                             '$tname' AS NombreEquipo",
             /* from */	"Resultados,PerroGuiaClub,Inscripciones",
             /* where */ "( PerroGuiaClub.ID = Resultados.Perro)	AND ( Resultados.Jornada={$teamobj->Jornada} ) 

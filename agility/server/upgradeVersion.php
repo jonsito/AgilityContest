@@ -199,7 +199,7 @@ class Updater {
     function addColumnUnlessExists($table,$field,$data,$def=null) {
         // $this->myLogger->enter();
         $str="";
-        if ($def!=null) {
+        if (!is_null($def)) {
             // check for enclose default into single quotes
             $type=strtolower($data);
             $isStr=false;

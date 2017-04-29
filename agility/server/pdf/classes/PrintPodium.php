@@ -82,9 +82,9 @@ class PrintPodium extends PrintCommon {
 	}
 	
 	function writeTableHeader($mode) {
-        $tm1=($this->manga1!=null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)):"";
-        $tm2=($this->manga2!=null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)):"";
-        $tm3=($this->manga3!=null)?_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)):"";
+        $tm1=(!is_null($this->manga1))?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)):"";
+        $tm2=(!is_null($this->manga2))?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)):"";
+        $tm3=(!is_null($this->manga3))?_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)):"";
         $factor=($tm3==="")?1:0.75;
 		$this->ac_header(1,12);
 		
@@ -118,7 +118,7 @@ class PrintPodium extends PrintCommon {
 		$this->Cell(20,6,$this->strClub,0,0,'C',true);	// nombreClub
 
 		// manga 1
-        if ($this->manga1!=null) {
+        if (!is_null($this->manga1)) {
             $this->Cell(7*$factor,6,_('F/T'),0,0,'C',true);	// 1- Faltas+Tocados
             $this->Cell(7*$factor,6,_('Ref'),0,0,'C',true);	// 1- Rehuses
             $this->Cell(12*$factor,6,_('Time'),0,0,'C',true);	// 1- Tiempo
@@ -130,7 +130,7 @@ class PrintPodium extends PrintCommon {
         }
 
 		// manga 2
-		if ($this->manga2!=null) {
+		if (!is_null($this->manga2)) {
 			$this->Cell(7*$factor,6,_('F/T'),0,0,'C',true);	// 2- Faltas+Tocados
 			$this->Cell(7*$factor,6,_('Ref'),0,0,'C',true);	// 2- Rehuses
 			$this->Cell(12*$factor,6,_('Time'),0,0,'C',true);	// 2- Tiempo
@@ -142,7 +142,7 @@ class PrintPodium extends PrintCommon {
 		}
 
         // manga 3
-        if ($this->manga3!=null) {
+        if (!is_null($this->manga3)) {
             $this->Cell(7*$factor,6,_('F/T'),0,0,'C',true);	// 2- Faltas+Tocados
             $this->Cell(7*$factor,6,_('Ref'),0,0,'C',true);	// 2- Rehuses
             $this->Cell(12*$factor,6,_('Time'),0,0,'C',true);	// 2- Tiempo
@@ -175,17 +175,17 @@ class PrintPodium extends PrintCommon {
 		$penal=number_format($row['Penalizacion'],$this->timeResolution);
 		$tiempo=number_format($row['Tiempo'],$this->timeResolution);
         $factor=1;
-        if ($this->manga1!=null) {
+        if (!is_null($this->manga1)) {
             $v1= ($row['P1']>=200)?"-":number_format($row['V1'],2);
             $t1= ($row['P1']>=200)?"-":number_format($row['T1'],$this->timeResolution);
             $p1=number_format($row['P1'],$this->timeResolution);
         } else { $v1="";$t1="";$p1=""; }
-        if ($this->manga2!=null) {
+        if (!is_null($this->manga2)) {
             $v2= ($row['P2']>=200)?"-":number_format($row['V2'],2);
             $t2= ($row['P2']>=200)?"-":number_format($row['T2'],$this->timeResolution);
             $p2=number_format($row['P2'],$this->timeResolution);
         } else { $v2="";$t2="";$p2=""; }
-        if ($this->manga3!=null) {
+        if (!is_null($this->manga3)) {
             $factor=0.75;
             $v3= ($row['P3']>=200)?"-":number_format($row['V3'],2);
             $t3= ($row['P3']>=200)?"-":number_format($row['T3'],$this->timeResolution);
@@ -214,7 +214,7 @@ class PrintPodium extends PrintCommon {
 		$this->Cell(20,6,$row['NombreClub'],0,0,'R',true);	// nombreClub
 
         // manga 1
-        if($this->manga1!=null) {
+        if(!is_null($this->manga1)) {
             // manga 1
             $this->Cell(7*$factor,6,$row['F1'],0,0,'C',true);	// 1- Faltas+Tocados
             $this->Cell(7*$factor,6,$row['R1'],0,0,'C',true);	// 1- Rehuses
@@ -227,7 +227,7 @@ class PrintPodium extends PrintCommon {
         }
 
 		// manga 2
-		if ($this->manga2!=null) {
+		if (!is_null($this->manga2)) {
 			$this->Cell(7*$factor,6,$row['F2'],0,0,'C',true);	// 2- Faltas+Tocados
 			$this->Cell(7*$factor,6,$row['R2'],0,0,'C',true);	// 2- Rehuses
 			$this->Cell(12*$factor,6,$t2,0,0,'C',true);	// 2- Tiempo
@@ -239,7 +239,7 @@ class PrintPodium extends PrintCommon {
 		}
 
         // manga 3
-        if ($this->manga3!=null) {
+        if (!is_null($this->manga3)) {
             $this->Cell(7*$factor,6,$row['F3'],0,0,'C',true);	// 2- Faltas+Tocados
             $this->Cell(7*$factor,6,$row['R3'],0,0,'C',true);	// 2- Rehuses
             $this->Cell(12*$factor,6,$t3,0,0,'C',true);	// 2- Tiempo
@@ -261,7 +261,7 @@ class PrintPodium extends PrintCommon {
 		$this->Line(10+115,$y,10+115,$y+6);
 		$this->Line(10+115+59*$factor,$y,10+115+59*$factor,$y+6);
 		$this->Line(10+115+59*2*$factor,$y,10+115+59*2*$factor,$y+6);
-		if($this->manga3!=null) {
+		if(!is_null($this->manga3)) {
             $this->Line(10+115+59*3*$factor,$y,10+115+59*3*$factor,$y+6);
             $this->Line(10+115+(59*3+42)*$factor,$y,10+115+(59*3+42)*$factor,$y+6);
         } else {
