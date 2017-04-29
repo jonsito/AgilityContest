@@ -186,8 +186,8 @@ class VideoWall {
         $res= array(
             'Prueba' => $this->prueba,
             'Jornada' => $this->jornada,
-            'Manga' => ($this->manga==null)? array() : $this->manga,
-            'Tanda' => ($this->tanda==null)? array() : $this->tanda,
+            'Manga' => ($this->manga===null)? array() : $this->manga,
+            'Tanda' => ($this->tanda===null)? array() : $this->tanda,
             'Club' => $this->club, // club organizador
             'Sesion' => $this->session,
             'Ronda' => $this->ronda

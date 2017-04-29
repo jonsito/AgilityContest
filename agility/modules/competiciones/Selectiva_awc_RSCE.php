@@ -209,13 +209,13 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
 
         // manga 1
         $pt1 = "0";
-        if ($resultados[0] != null) { // extraemos los puntos de la primera manga
+        if ($resultados[0] !== null) { // extraemos los puntos de la primera manga
             $x=trim(substr($perro['C1'],-2));
             $pt1=(is_numeric($x))?$x:"0";
         }
         // manga 2
         $pt2="0";
-        if ($resultados[1]!=null) { // extraemos los puntos de la segunda manga
+        if ($resultados[1] !== null) { // extraemos los puntos de la segunda manga
             $x=trim(substr($perro['C2'],-2));
             $pt2=(is_numeric($x))?$x:"0";
         }
@@ -223,7 +223,7 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
         $pfin="0";
         if ( (trim($pt1)=="") || ($pt1==0) ) $pt1="-";
         if ( (trim($pt2)=="") || ($pt2==0) ) $pt2="-";
-        if ( ($resultados[0]==null) || ($resultados[1]==null)) { // si falta alguna manga no puntua en conjunta
+        if ( ($resultados[0]===null) || ($resultados[1]===null)) { // si falta alguna manga no puntua en conjunta
             $perro['Calificacion']= "$pt1 / $pt2 / -";
             return;
         }

@@ -67,7 +67,7 @@ class Inscripciones extends DBObject {
 			/* FROM */ "Inscripciones",
 			/* WHERE */ "( Prueba=".$this->pruebaID.") AND ( Perro=$idperro )"
 		);
-		if($res!=null){ // already inscribed, try to update
+		if($res!==null){ // already inscribed, try to update
             if (!is_object($res)) return $res;
             $this->myLogger->notice("El perro con ID:$idperro ya esta inscrito en la prueba:{$this->pruebaID}");
             $this->real_update($jornadas,$celo,$observaciones,$pagado,$res->ID);

@@ -72,9 +72,9 @@ class PrintClasificacion extends PrintCommon {
 		$jobj=new Jueces("print_Clasificaciones");
 		$juez1=$jobj->selectByID($this->manga1->Juez1);
 		$juez2=$jobj->selectByID($this->manga1->Juez2); // asume mismos jueces en dos mangas
-        $tm1=($this->manga1!=null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $this->categoria:null;
-        $tm2=($this->manga2!=null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $this->categoria:null;
-        $tm3=($this->manga3!=null)?_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)) . " - " . $this->categoria:null;
+        $tm1=($this->manga1!==null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $this->categoria:null;
+        $tm2=($this->manga2!==null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $this->categoria:null;
+        $tm3=($this->manga3!==null)?_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)) . " - " . $this->categoria:null;
 
 		$this->SetFont($this->getFontName(),'B',11); // bold 9px
 		$this->Cell(80,6,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
@@ -151,9 +151,9 @@ class PrintClasificacion extends PrintCommon {
 	
 	function writeTableHeader() {
 		$wide=$this->federation->get('WideLicense'); // some federations need extra space to show license id
-        $tm1=($this->manga1!=null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)):"";
-        $tm2=($this->manga2!=null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)):"";
-        $tm3=($this->manga3!=null)?_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)):"";
+        $tm1=($this->manga1!==null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)):"";
+        $tm2=($this->manga2!==null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)):"";
+        $tm3=($this->manga3!==null)?_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)):"";
         $factor=($tm3==="")?1:0.75;
 		$this->ac_header(1,12);
 		$this->SetXY(10,65);// first page has 3 extra header lines
@@ -189,7 +189,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->Cell(($wide)?15:20,7,$this->strClub,0,0,'C',true);	// nombreClub
 
 		// manga 1
-        if ($this->manga1!=null) {
+        if ($this->manga1!==null) {
             $this->Cell(7*$factor,7,_('F/T'),0,0,'C',true);	// 1- Faltas+Tocados
             $this->Cell(7*$factor,7,_('Ref'),0,0,'C',true);	// 1- Rehuses
             $this->Cell(12*$factor,7,_('Time'),0,0,'C',true);	// 1- Tiempo
@@ -201,7 +201,7 @@ class PrintClasificacion extends PrintCommon {
         }
 
 		// manga 2
-		if ($this->manga2!=null) {
+		if ($this->manga2!==null) {
 			$this->Cell(7*$factor,7,_('F/T'),0,0,'C',true);	// 2- Faltas+Tocados
 			$this->Cell(7*$factor,7,_('Ref'),0,0,'C',true);	// 2- Rehuses
 			$this->Cell(12*$factor,7,_('Time'),0,0,'C',true);	// 2- Tiempo
@@ -213,7 +213,7 @@ class PrintClasificacion extends PrintCommon {
 		}
 
 		// manga 3
-        if ($this->manga3!=null) {
+        if ($this->manga3!==null) {
             $this->Cell(7*$factor,7,_('F/T'),0,0,'C',true);	// 3- Faltas+Tocados
             $this->Cell(7*$factor,7,_('Ref'),0,0,'C',true);	// 3- Rehuses
             $this->Cell(12*$factor,7,_('Time'),0,0,'C',true);	// 3- Tiempo
@@ -247,17 +247,17 @@ class PrintClasificacion extends PrintCommon {
 		$penal=number_format($row['Penalizacion'],$this->timeResolution);
 		$tiempo=number_format($row['Tiempo'],$this->timeResolution);
 		$factor=1;
-		if ($this->manga1!=null) {
+		if ($this->manga1!==null) {
             $v1= ($row['P1']>=200)?"-":number_format($row['V1'],2);
             $t1= ($row['P1']>=200)?"-":number_format($row['T1'],$this->timeResolution);
             $p1=number_format($row['P1'],$this->timeResolution);
         } else { $v1="";$t1="";$p1=""; }
-        if ($this->manga2!=null) {
+        if ($this->manga2!==null) {
             $v2= ($row['P2']>=200)?"-":number_format($row['V2'],2);
             $t2= ($row['P2']>=200)?"-":number_format($row['T2'],$this->timeResolution);
             $p2=number_format($row['P2'],$this->timeResolution);
         } else { $v2="";$t2="";$p2=""; }
-        if ($this->manga3!=null) {
+        if ($this->manga3!==null) {
 		    $factor=0.75;
             $v3= ($row['P3']>=200)?"-":number_format($row['V3'],2);
             $t3= ($row['P3']>=200)?"-":number_format($row['T3'],$this->timeResolution);
@@ -287,7 +287,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->Cell(($wide)?30:35,6,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
 		$this->Cell(($wide)?15:20,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
 		// manga 1
-        if ($this->manga1!=null) {
+        if ($this->manga1!==null) {
             $this->Cell(7*$factor,6,$row['F1'],0,0,'C',$fill);	// 1- Faltas+Tocados
             $this->Cell(7*$factor,6,$row['R1'],0,0,'C',$fill);	// 1- Rehuses
             $this->Cell(12*$factor,6,$t1,0,0,'C',$fill);	// 1- Tiempo
@@ -300,7 +300,7 @@ class PrintClasificacion extends PrintCommon {
             $this->Cell(57*$factor,6,'',0,0,'C',$fill);	// espacio en blanco
         }
 		// manga 2
-		if ($this->manga2!=null) {
+		if ($this->manga2!==null) {
 			$this->Cell(7*$factor,6,$row['F2'],0,0,'C',$fill);	// 2- Faltas+Tocados
 			$this->Cell(7*$factor,6,$row['R2'],0,0,'C',$fill);	// 2- Rehuses
 			$this->Cell(12*$factor,6,$t2,0,0,'C',$fill);	// 2- Tiempo
@@ -313,7 +313,7 @@ class PrintClasificacion extends PrintCommon {
 			$this->Cell(57*$factor,6,'',0,0,'C',$fill);	// espacio en blanco
 		}
 		// manga 3
-        if ($this->manga3!=null) {
+        if ($this->manga3!==null) {
             $this->Cell(7*$factor,6,$row['F3'],0,0,'C',$fill);	// 2- Faltas+Tocados
             $this->Cell(7*$factor,6,$row['R3'],0,0,'C',$fill);	// 2- Rehuses
             $this->Cell(12*$factor,6,$t3,0,0,'C',$fill);	// 2- Tiempo
@@ -336,7 +336,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->Line(10+115,$offset + 6*$idx,10+115,$offset + 6*($idx+1));
 		$this->Line(10+115+57*$factor,$offset + 6*$idx,10+115+57*$factor,$offset + 6*($idx+1));
 		$this->Line(10+115+57*2*$factor,$offset + 6*$idx,10+115+57*2*$factor,$offset + 6*($idx+1));
-		if ($this->manga3!=null) {
+		if ($this->manga3!==null) {
             $this->Line(10+115+57*3*$factor,$offset + 6*$idx,10+115+57*3*$factor,$offset + 6*($idx+1));
             $this->Line(10+115+(57*3+46)*$factor,$offset + 6*$idx,10+115+(57*3+46)*$factor,$offset + 6*($idx+1));
         } else {
@@ -348,7 +348,7 @@ class PrintClasificacion extends PrintCommon {
 	
 	function composeTable() {
 		$this->myLogger->enter();
-        $len=(($this->manga3)!=null)?115+(57*3+46)*0.75:115+57*2+46; // lenght of closing line
+        $len=(($this->manga3)!==null)?115+(57*3+46)*0.75:115+57*2+46; // lenght of closing line
 
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
 		$this->SetTextColor(0,0,0); // negro

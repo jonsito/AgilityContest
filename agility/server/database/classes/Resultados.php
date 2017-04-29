@@ -39,7 +39,7 @@ class Resultados extends DBObject {
 	protected $federation=null;
 
 	function getDatosManga() {
-		if ($this->dmanga!=null) return $this->dmanga;
+		if ($this->dmanga!==null) return $this->dmanga;
 		$idmanga=$this->IDManga;
 		// si no los tenemos todavia consultamos la base de datos
 		$obj=$this->__getObject("Mangas", $idmanga);
@@ -56,7 +56,7 @@ class Resultados extends DBObject {
 	}
 	
 	function getDatosJornada() {
-		if ($this->djornada!=null) return $this->djornada;
+		if ($this->djornada!==null) return $this->djornada;
 		$manga=$this->getDatosManga();
 		$this->IDJornada=$manga->Jornada;
 		$obj=$this->__getObject("Jornadas", $this->IDJornada);
@@ -69,7 +69,7 @@ class Resultados extends DBObject {
 	}
 
 	function getDatosPrueba() {
-		if ($this->dprueba!=null) return $this->dprueba;
+		if ($this->dprueba!==null) return $this->dprueba;
 		$obj=$this->__getObject("Pruebas", $this->IDPrueba);
 		if (!is_object($obj)) {
 			$this->error("Cannot locate PruebaID: {$this->IDPrueba} in database");
@@ -87,7 +87,7 @@ class Resultados extends DBObject {
     }
 
 	function getDatosEquipos() {
-        if ($this->dequipos!=null) return $this->dequipos;
+        if ($this->dequipos!==null) return $this->dequipos;
         $eqobj=new Equipos("Resultados",$this->getDatosPrueba()->ID,$this->getDatosJornada()->ID);
         $teams=$eqobj->getTeamsByJornada();
         $res=array(); // reindex teams by ID
@@ -97,7 +97,7 @@ class Resultados extends DBObject {
     }
 
 	function getFederation() {
-		if ($this->federation != null) return $this->federation;
+		if ($this->federation !== null) return $this->federation;
         $prb=$this->getDatosPrueba();
 		$this->federation= Federations::getFederation(intval($prb->RSCE));
         // $this->myLogger->trace("Datos prueba: ".json_encode($prb)." Datos federacion ".json_encode($this->federation));
@@ -567,7 +567,7 @@ class Resultados extends DBObject {
         // FASE 0: en funcion del tipo de recorrido y modo pedido
         $idperro=0;
         $where="(Manga=$idmanga) AND (Pendiente=0) ";
-        if ($perro!=null) {
+        if ($perro!==null) {
             $idperro=intval($perro['Perro']);
             // ajustamos el criterio de busqueda de la tabla de resultados
             $where="(Manga=$idmanga) AND (Pendiente=0) AND (Perro!=$idperro)";

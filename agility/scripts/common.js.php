@@ -503,7 +503,7 @@ function Countdown(options) {
 
 	this.start = function () {
 		onstart();
-		if (timer!=null) clearInterval(timer);
+		if (timer!==null) clearInterval(timer);
 		paused=false;
 		count = seconds*10; // count tenths of seconds
 		timer = setInterval(decrementCounter, 50);
@@ -511,7 +511,7 @@ function Countdown(options) {
 
 	this.stop = function () {
 		onstop();
-		if (timer!=null) clearInterval(timer);
+		if (timer!==null) clearInterval(timer);
 		paused=false;
 		count=0;
 		updateStatus(count);

@@ -85,7 +85,7 @@ class Clasificaciones extends DBObject {
                         // F1,R1,T1,V1,P1,C1,F2,R2,T2,V2,P2,C2, [....] Penalizacion,Calificacion
         // procesamos cada una de las 8 posibles mangas
         for ($i=0;$i<8;$i++) {
-            if($resultados[$i]==null) continue; // no info for round $i
+            if($resultados[$i]===null) continue; // no info for round $i
             $dogcount=count($resultados[$i]['rows']);
             // iterate over every rounds and compose array
             foreach($resultados[$i]['rows'] as $item){
@@ -118,7 +118,7 @@ class Clasificaciones extends DBObject {
                     );
                     // anyadimos datos de cada manga
                     for($j=1;$j<9;$j++) {
-                        if ($resultados[$j-1]==null) continue;
+                        if ($resultados[$j-1]===null) continue;
                         $participante["F{$j}"]=0;
                         $participante["R{$j}"]=0;
                         $participante["E{$j}"]=0;
@@ -239,15 +239,15 @@ class Clasificaciones extends DBObject {
             if ($first['P1']==400) { // current tanda is jumping
                 $fp=floatval($first['P2']);
                 $ft=($fp>=100)?0:floatval($first['T2']);
-                $cp=($this->current==null)? 0 : floatval($this->current['P2']);
-                $ct=($this->current==null)? 0 : ($cp>=100)?0:floatval($this->current['T2']);
+                $cp=($this->current===null)? 0 : floatval($this->current['P2']);
+                $ct=($this->current===null)? 0 : ($cp>=100)?0:floatval($this->current['T2']);
                 $trs=$result['trs2']['trs'];
                 $trm=$result['trs2']['trm'];
             } else { // current tanda is agility
                 $fp=floatval($first['P1']);
                 $ft=($fp>=100)?0:floatval($first['T1']);
-                $cp=($this->current==null)? 0 : floatval($this->current['P1']);
-                $ct=($this->current==null)? 0 : ($cp>=100)?0:floatval($this->current['T1']);
+                $cp=($this->current===null)? 0 : floatval($this->current['P1']);
+                $ct=($this->current===null)? 0 : ($cp>=100)?0:floatval($this->current['T1']);
                 $trs=$result['trs1']['trs'];
                 $trm=$result['trs1']['trm'];
             }
@@ -304,7 +304,7 @@ class Clasificaciones extends DBObject {
         }
         // procesamos manga 1. Se asume que los resultados ya vienen ordenados por puesto,
         // de manera que se contabilizan solo los mindogs primeros perros de cada equipo
-        if ($r1!=null) foreach($r1['rows'] as $resultado) {
+        if ($r1!==null) foreach($r1['rows'] as $resultado) {
             $eq=$resultado['Equipo'];
             if (!array_key_exists($eq,$teams)) {
                 $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:1 Equipo:$eq no existe");
@@ -327,7 +327,7 @@ class Clasificaciones extends DBObject {
 			if (!array_key_exists('LogoTeam',$teams[$eq])) $teams[$eq]['LogoTeam']=$resultado['LogoClub'];
         }
         // procesamos manga 2
-        if ($r2!=null) foreach($r2['rows'] as $resultado) {
+        if ($r2!==null) foreach($r2['rows'] as $resultado) {
             $eq=$resultado['Equipo'];
             if (!array_key_exists($eq,$teams)) {
                 $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:2 Equipo:$eq no existe");
@@ -421,7 +421,7 @@ class Clasificaciones extends DBObject {
 			);
 			$final[$item['Perro']]=$participante;
 		}
-		if ($c2!=null) { // Procesamos la segunda manga
+		if ($c2!==null) { // Procesamos la segunda manga
 			foreach($c2['rows'] as $item) {
 				if (!isset($final[$item['Perro']])) {
 					$this->myLogger->notice("El perro con ID:{$item['Perro']} no tiene datos en la primera manga.");
@@ -637,14 +637,14 @@ class Clasificaciones extends DBObject {
         $r1= new Resultados("Clasificaciones::getPuestoFinal",$this->prueba->ID,$id1);
         $c1=$r1->getPenalizaciones($mode,($myManga==$id1)?$perro:null);
         $c2=null;
-        if($hermanas[1]!=null) {
+        if($hermanas[1]!==null) {
             $id2=intval($hermanas[1]->ID);
             $r2= new Resultados("Clasificaciones::getPuestoFinal",$this->prueba->ID,$id2);
             $c2=$r2->getPenalizaciones($mode,($myManga==$id2)?$perro:null);
         }
         $result= $this->evalPenalizacionFinal(array($id1,$id2),$c1,$c2);
 
-		if($result==null) return null; // null result -> error
+		if($result===null) return null; // null result -> error
 		if (!is_array($result)) {
 			$this->myLogger->error($result);
 			return $result;

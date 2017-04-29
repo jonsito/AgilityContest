@@ -214,7 +214,7 @@ class Tandas extends DBObject {
 		$j=$this->jornada->ID;
 		// locate latest order in manga
 		$obj=$this->__selectObject("MAX(Orden) AS Last","Tandas","(Prueba=$p) AND (Jornada=$j)");
-		$o=($obj!=null)?1+intval($obj->Last):1; // evaluate latest in order
+		$o=($obj!==null)?1+intval($obj->Last):1; // evaluate latest in order
 		$s=$data['Sesion'];
 		$n=$data['Nombre'];
 		$h=$data['Horario'];
@@ -568,10 +568,10 @@ class Tandas extends DBObject {
 			// locate latest order in manga
 			$obj=$this->__selectObject("MAX(Orden) AS Last","Tandas","(Prueba=$p) AND (Jornada=$j)");
 			$last=1;
-			if ($obj!=null) $last=1+intval($obj->Last); // evaluate latest in order
+			if ($obj!==null) $last=1+intval($obj->Last); // evaluate latest in order
 			// check for already inserted into Tandas
 			$obj=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)");
-			if ($obj==null) { // insert into list at end.
+			if ($obj===null) { // insert into list at end.
                 $n=$fed->getTandaName($tipo);
 				// $n=_(Tandas::$tipo_tanda[$tipo]['Nombre']); // should be handled by federation module
 				$c=Tandas::$tipo_tanda[$tipo]['Categoria'];

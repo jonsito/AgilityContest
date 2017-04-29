@@ -272,7 +272,7 @@ class PrintPodium extends PrintCommon {
 	
 	function composeTable() {
 		$this->myLogger->enter();
-        $len=(($this->manga3)!=null)?115+(59*3+42)*0.75:115+59*2+42; // lenght of closing line
+        $len=(($this->manga3)!==null)?115+(59*3+42)*0.75:115+59*2+42; // lenght of closing line
 
 		$this->AddPage();
 		$this->print_InfoJornada();

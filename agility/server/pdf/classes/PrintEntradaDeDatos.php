@@ -456,12 +456,12 @@ class PrintEntradaDeDatos extends PrintCommon {
 		// Datos de manga
 		$this->ac_header(1,15);
 		$strcat=$this->getCatString($this->categoria);
-		if($this->manga!=null) {
+		if($this->manga!==null) {
 			$str=_(Mangas::getTipoManga($this->manga->Tipo,1,$this->federation));
 			$str="$str - $strcat";
 			$this->ac_Cell(10,85,90,10,$str,"LTBR","C",false);
 		}
-		if($this->manga2!=null) {
+		if($this->manga2!==null) {
 			$str=_(Mangas::getTipoManga($this->manga2->Tipo,1,$this->federation));
 			$str="$str - $strcat";
 			$this->ac_Cell(110,85,90,10,$str,"LTBR","C",false);
@@ -474,7 +474,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$this->SetTextColor(0,0,0); // negro
 		
 		// datos manga 1
-		if ($this->manga !=null) {
+		if ($this->manga !==null) {
 			$this->ac_Cell(10,100,72,10,_("Faults").":","LTBR","L",false);
 			$this->ac_Cell(82,100,18,20,"F:","LTBR","L",true);
 			for ($n=0;$n<9;$n++)$this->ac_Cell(10+(8*$n),110,8,10,$n+1,"LB","C",(($n%2)!=0)?true:false);
@@ -495,7 +495,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 			$this->ac_Cell(70,175,30,10,_("Time").":","","L",false);
 		}
 		// datos manga 2
-		if ($this->manga2 !=null) {
+		if ($this->manga2 !==null) {
 			$this->ac_Cell(110,100,72,10,_("Faults").":","LTBR","L",false);
 			$this->ac_Cell(182,100,18,20,"F:","LTBR","L",true);
 			for ($n=0;$n<9;$n++)$this->ac_Cell(110+(8*$n),110,8,10,$n+1,"LB","C",(($n%2)!=0)?true:false);
@@ -519,10 +519,10 @@ class PrintEntradaDeDatos extends PrintCommon {
 
 		// Asistentes de pista
 		$this->ac_header(2,12);
-		if($this->manga!=null) 	$this->ac_Cell(10,200,90,10,_("Record by").":","LTBR","L",true);
-		if($this->manga2!=null)	$this->ac_Cell(110,200,90,10,_("Record by").":","LTBR","L",true);
-		if($this->manga!=null) 	$this->ac_Cell(10,215,90,10,_("Review by").":","LTBR","L",true);
-		if($this->manga2!=null)	$this->ac_Cell(110,215,90,10,_("Review by").":","LTBR","L",true);
+		if($this->manga!==null) 	$this->ac_Cell(10,200,90,10,_("Record by").":","LTBR","L",true);
+		if($this->manga2!==null)	$this->ac_Cell(110,200,90,10,_("Record by").":","LTBR","L",true);
+		if($this->manga!==null) 	$this->ac_Cell(10,215,90,10,_("Review by").":","LTBR","L",true);
+		if($this->manga2!==null)	$this->ac_Cell(110,215,90,10,_("Review by").":","LTBR","L",true);
 		
 		$this->SetTextColor(0,0,0); // restore color on footer
 	}

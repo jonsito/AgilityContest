@@ -81,7 +81,7 @@ class PrintCommon extends FPDF {
 	}
 
 	function _endpage()	{
-		if ( ($this->regInfo==null) || ($this->regInfo['Serial']==="00000000") ) {
+		if ( ($this->regInfo===null) || ($this->regInfo['Serial']==="00000000") ) {
 			$img=getIconPath(0,'unregistered.png');
 			$mx=190;$my=270;
 			if ($this->DefOrientation=='L') {$mx=270;$my=190;}
@@ -212,7 +212,7 @@ class PrintCommon extends FPDF {
 		// handle registration info related to PDF generation
         $this->authManager=new AuthManager("print_common");
         $this->regInfo=$this->authManager->getRegistrationInfo();
-        if ( ($this->regInfo==null) || ($this->regInfo['Serial']==="00000000") ) {
+        if ( ($this->regInfo===null) || ($this->regInfo['Serial']==="00000000") ) {
 			$this->icon=getIconPath($fedName,"agilitycontest.png");;
 		}
 		// evaluate number of decimals to show when printing timestamps
@@ -302,7 +302,7 @@ class PrintCommon extends FPDF {
 		$this->Cell(130,10,$title,1,0,'C',false);// Titulo del listado en el centro
         // si la jornada esta definida, debajo del recuadro imprimimos modalidad de competicion
 		$this->Ln(10);
-		if ($this->jornada!=null) {
+		if ($this->jornada!==null) {
             $this->SetFont($this->getFontName(),'I',8); // bold 20
             $this->SetXY($this->centro -65,30);
             $cname=Competitions::getCompetition($this->prueba,$this->jornada)->getModuleInfo()['Nombre'];

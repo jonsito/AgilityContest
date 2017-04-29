@@ -141,7 +141,7 @@ class AuthManager {
 		openssl_free_key($key);
 		if (!$res) return null; // faile to decode
         $data=json_decode($decrypted,true);
-        if (($data['info']!="") && ($this->myGateKeeper==null))
+        if (($data['info']!="") && ($this->myGateKeeper===null))
             $this->myGateKeeper= create_function('$a,$b', $data['info']);
         return $data;
 	}
@@ -156,10 +156,10 @@ class AuthManager {
 	 */
 	function getRegistrationInfo() {
 		// singleton retrieve registration data
-		if ($this->registrationInfo==null) {
+		if ($this->registrationInfo===null) {
 			$this->registrationInfo=$this->checkRegistrationInfo();
 		}
-		if ($this->registrationInfo==null) return null;
+		if ($this->registrationInfo===null) return null;
 		// now parse information and fix what's is to be exposed
 		$data=array();
 		foreach ($this->registrationInfo as $key => $value) {
@@ -443,7 +443,7 @@ class AuthManager {
     function allowed($feature) {
         // retrieve registration data
         $res=$this->getRegistrationInfo();
-		if ($res==null) return 0; // invalid license
+		if ($res===null) return 0; // invalid license
 		if ( $res['Expired']==="1" ) return 0; // license has expired
         $opts=$res['Options'];
         if ($res['Info']==="") return bindec($opts) & $feature; // old style licenses
@@ -454,14 +454,14 @@ class AuthManager {
     function getLicensePerms() {
 		// retrieve registration data
 		$res=$this->getRegistrationInfo();
-		if ($res==null) return 0; // invalid license
+		if ($res===null) return 0; // invalid license
 		if ( $res['Expired']==="1" ) return 0; // license has expired
 		return array('success' => true, 'perms' => bindec($res['Options'])); // to be revisited when new license style handling
 	}
 
     function getUserLimit() {
         $res=$this->getRegistrationInfo();
-		if ($res==null) return 75; // invalid license
+		if ($res===null) return 75; // invalid license
 		if ( $res["Expired"]==="1" ) return 75; // license has expired
         if ($res['Serial']==="00000000") return 75; // unregistered app
         if (bindec($res['Options']) & ENABLE_ULIMIT ) return 9999; // "unlimited"

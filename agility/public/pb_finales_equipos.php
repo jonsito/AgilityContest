@@ -143,7 +143,7 @@ function pb_updateFinalesEquipos() {
     if (rtime!=0) workingData.timeout=setTimeout(pb_updateFinalesEquipos,1000*rtime);
 }
 
-if (workingData.timeout!=null) clearTimeout(workingData.timeout);
+if (workingData.timeout!==null) clearTimeout(workingData.timeout);
 pb_updateFinalesEquipos();
 
 </script>

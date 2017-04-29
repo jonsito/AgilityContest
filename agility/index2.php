@@ -93,7 +93,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             // make sure that every ajax call provides sessionKey
             $.ajaxSetup({
                 beforeSend: function(jqXHR,settings) {
-                    if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!=null) {
+                    if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!==null) {
                         jqXHR.setRequestHeader('X-AC-SessionKey',ac_authInfo.SessionKey);
                     }
                     return true;
@@ -134,7 +134,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             p.layout('panel','east').panel('options').width='60%';
             p.layout('expand','east');
             $('#pb_back-link').css('display','none');
-            if (workingData.timeout != null ) {
+            if (workingData.timeout !== null ) {
                 clearTimeout(workingData.timeoout);
                 workingData.timeout=null;
             }

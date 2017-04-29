@@ -26,7 +26,7 @@ class Jueces extends DBObject {
 		parent::__construct($file);
 		if ($federation == -1) return; // do not initialize federation info
 		$this->curFederation=Federations::getFederation(intval($federation));
-		if ($this->curFederation==null)
+		if ($this->curFederation===null)
 			throw new Exception("Jueces::construct() Federation ID:$federation does not exist");
 	}
 
@@ -157,7 +157,7 @@ class Jueces extends DBObject {
 			$limit="".$offset.",".$rows;
 		}
 		$fedstr = "1";
-		if ($this->curFederation!=null) {
+		if ($this->curFederation!==null) {
 			$fed=intval($this->curFederation->get('ID'));
 			$intlmask=Federations::getInternationalMask(); // select non-international fedmask
 			$natmask=~$intlmask;
@@ -182,7 +182,7 @@ class Jueces extends DBObject {
 		$q=http_request("q","s","");
 		$where="1";
 		$fedstr="1";
-		if ($this->curFederation!=null) {
+		if ($this->curFederation!==null) {
 			$fed=intval($this->curFederation->get('ID'));
 			$mask=1<<$fed;
 			$this->myLogger->trace("Jueces: fed:{$this->curFederation->get('ID')} mask:$mask");

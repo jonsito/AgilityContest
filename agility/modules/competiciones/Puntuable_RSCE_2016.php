@@ -138,14 +138,14 @@ class Puntuable_RSCE_2016 extends Competitions {
             $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
             if (intval($mangas[0]->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
             $perro['C1']="";
-            if (  ($resultados[0]!=null) && ($perro['P1']<6.0) && ($perro['Pcat1']<=10) && ($perro['Pcat1']>0)) {
+            if (  ($resultados[0]!==null) && ($perro['P1']<6.0) && ($perro['Pcat1']<=10) && ($perro['Pcat1']>0)) {
                 $perro['C1']=$pts[$perro['Pcat1']-1];
             }
             // manga 2 - puntuan los 10 primeros en cada manga con excelente
             $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
             if (intval($mangas[2]->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
             $perro['C2']="";
-            if ( ($resultados[1]!=null) && ($perro['P2']<6.0) && ($perro['Pcat2']<=10) && ($perro['Pcat2']>0)) {
+            if ( ($resultados[1]!==null) && ($perro['P2']<6.0) && ($perro['Pcat2']<=10) && ($perro['Pcat2']>0)) {
                 $perro['C2']=$pts[$perro['Pcat2']-1];
             }
             // conjunta - puntuan los 10 primeros si tienen doble excelente

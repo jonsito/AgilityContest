@@ -136,7 +136,7 @@ class PrintTRSTemplates extends PrintCommon {
             // cabecera
             $this->ac_header(2,12);
             $this->Cell(90,10,$manga1['Descripcion'],'LTBR',0,'L',true);
-            if ($manga2!=null) {
+            if ($manga2!==null) {
                 $this->Cell(10,10,"",0,0,0,false);
                 $this->Cell(90,10,$manga2['Descripcion'],'LTBR',0,'L',true);
             }
@@ -145,7 +145,7 @@ class PrintTRSTemplates extends PrintCommon {
             $this->ac_row(1,10);
             $this->Cell(20,10,$cols[0],'LRB',0,'C',true);
             for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,$cols[$n],"RB",0,"C",true);
-            if ($manga2!=null) {
+            if ($manga2!==null) {
                 $this->Cell(10,10,"",0,0,0,false);
                 $this->Cell(20,10,$cols[0],'LRB',0,'C',true);
                 for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,$cols[$n],"RB",0,"C",true);
@@ -155,7 +155,7 @@ class PrintTRSTemplates extends PrintCommon {
             $this->ac_row(0,10);
             $this->Cell(20,10,$this->federation->getCategory('L'),'LRB',0,'C',true);
             for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
-            if ($manga2!=null) {
+            if ($manga2!==null) {
                 $this->Cell(10,10,"",0,0,0,false);
                 $this->Cell(20,10,$this->federation->getCategory('L'),'LRB',0,'C',true);
                 for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
@@ -163,7 +163,7 @@ class PrintTRSTemplates extends PrintCommon {
             $this->Ln();
             $this->Cell(20,10,$this->federation->getCategory('M'),'LRB',0,'C',true);
             for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
-            if ($manga2!=null) {
+            if ($manga2!==null) {
                 $this->Cell(10,10,"",0,0,0,false);
                 $this->Cell(20,10,$this->federation->getCategory('M'),'LRB',0,'C',true);
                 for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
@@ -171,7 +171,7 @@ class PrintTRSTemplates extends PrintCommon {
             $this->Ln();
             $this->Cell(20,10,$this->federation->getCategory('S'),'LRB',0,'C',true);
             for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
-            if ($manga2!=null) {
+            if ($manga2!==null) {
                 $this->Cell(10,10,"",0,0,0,false);
                 $this->Cell(20,10,$this->federation->getCategory('S'),'LRB',0,'C',true);
                 for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
@@ -180,7 +180,7 @@ class PrintTRSTemplates extends PrintCommon {
             if(intval($this->federation->get('Heights'))==4) {
                 $this->Cell(20,10,$this->federation->getCategory('T'),'LRB',0,'C',true);
                 for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
-                if ($manga2!=null) {
+                if ($manga2!==null) {
                     $this->Cell(10,10,"",0,0,0,false);
                     $this->Cell(20,10,$this->federation->getCategory('T'),'LRB',0,'C',true);
                     for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);

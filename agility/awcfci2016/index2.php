@@ -152,7 +152,7 @@ $poster="/agility/images/agilityawc2016.png";
             // make sure that every ajax call provides sessionKey
             $.ajaxSetup({
                 beforeSend: function(jqXHR,settings) {
-                    if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!=null) {
+                    if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!==null) {
                         jqXHR.setRequestHeader('X-AC-SessionKey',ac_authInfo.SessionKey);
                     }
                     return true;
@@ -168,7 +168,7 @@ $poster="/agility/images/agilityawc2016.png";
          * @param {boolean} flag unused, just for compatibility
          */
         function pbmenu_expandMenu(flag) {
-            if (workingData.timeout != null ) {
+            if (workingData.timeout !== null ) {
                 clearTimeout(workingData.timeoout);
                 workingData.timeout=null;
             }

@@ -84,7 +84,7 @@ if (rtime!=0) {
 		pb_updateEntrenamientos();
 		workingData.timeout= setTimeout(update,1000*rtime);
 	}
-	if (workingData.timeout!=null) clearTimeout(workingData.timeout);
+	if (workingData.timeout!==null) clearTimeout(workingData.timeout);
 	update();
 }
 

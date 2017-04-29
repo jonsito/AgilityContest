@@ -139,13 +139,13 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
 
         // manga 1
         $pt1 = "0";
-        if ($resultados[0] != null) { // extraemos los puntos de la primera manga
+        if ($resultados[0] !== null) { // extraemos los puntos de la primera manga
             $x=trim(substr($perro['C1'],-2));
             $pt1=(is_numeric($x))?$x:"0";
         }
         // manga 2
         $pt2="0";
-        if ($resultados[1]!=null) { // extraemos los puntos de la segunda manga
+        if ($resultados[1] !== null) { // extraemos los puntos de la segunda manga
             $x=trim(substr($perro['C2'],-2));
             $pt2=(is_numeric($x))?$x:"0";
         }

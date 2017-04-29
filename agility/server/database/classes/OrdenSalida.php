@@ -63,7 +63,7 @@ class OrdenSalida extends DBObject {
 			throw new Exception($this->errormsg);
 		}
 		$this->federation=Federations::getFederation(intval($this->prueba['RSCE']));
-		if ($this->federation==null) {
+		if ($this->federation===null) {
 			$this->errormsg="OrdenSalida::construct(): Cannot get federation info on prueba:{$this->jornada['Prueba']} jornada:{$this->manga['Jornada']} manga:$manga";
 			throw new Exception($this->errormsg);
 		}
@@ -545,7 +545,7 @@ class OrdenSalida extends DBObject {
 		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada['ID']);
 		$hermanas=$mhandler->getHermanas($this->manga['ID']);
 		if (!is_array($hermanas)) return $this->error("Error find hermanas info for jornada:{$this->jornada['ID']} and manga:{$this->manga['ID']}");
-		if ($hermanas[1]==null) return $this->error("Cannot clone order: Manga:{$this->manga['ID']} of Jornada:{$this->jornada['ID']} has no brother");
+		if ($hermanas[1]===null) return $this->error("Cannot clone order: Manga:{$this->manga['ID']} of Jornada:{$this->jornada['ID']} has no brother");
 
 		// spliteamos manga propia y hermana, y las mezclamos en funcion de la categoria
 		$lista=$this->splitPerrosByMode($hermanas[0]->Orden_Salida,$catmode); // manga actual "splitteada"
@@ -647,7 +647,7 @@ class OrdenSalida extends DBObject {
 		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada['ID']);
 		$hermanas=$mhandler->getHermanas($this->manga['ID']);
 		if (!is_array($hermanas)) return $this->error("Error find hermanas info for jornada:{$this->jornada['ID']} and manga:{$this->manga['ID']}");
-		if ($hermanas[1]==null) return $this->error("Cannot reverse order: Manga:{$this->manga['ID']} of Jornada:{$this->jornada['ID']} has no brother");
+		if ($hermanas[1]===null) return $this->error("Cannot reverse order: Manga:{$this->manga['ID']} of Jornada:{$this->jornada['ID']} has no brother");
 	
 		// fase 2: evaluamos resultados de la manga hermana
 		$this->myLogger->trace("El orden de salida original para manga:{$this->manga['ID']} jornada:{$this->jornada['ID']} es:\n{$hermanas[0]->Orden_Salida}");

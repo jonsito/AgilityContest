@@ -76,7 +76,7 @@ pbdg.datagrid( {
 
 function pbmenu_handleTrainingRefresh() {
 	var rtime=parseInt(ac_config.web_refreshtime);
-	if ((rtime!=0) && (workingData.timeout!=null)) return;
+	if ((rtime!=0) && (workingData.timeout!==null)) return;
 	pb_updateEntrenamientos();
 	workingData.timeout=setTimeout(pbmenu_handleTrainingRefresh,1000*rtime);
 }

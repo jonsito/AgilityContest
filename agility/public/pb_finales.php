@@ -152,7 +152,7 @@ function pb_updateFinalesIndividual() {
     if (rtime!=0) workingData.timeout=setTimeout(pb_updateFinalesIndividual,1000*rtime);
 }
 
-if (workingData.timeout!=null) clearTimeout(workingData.timeout);
+if (workingData.timeout!==null) clearTimeout(workingData.timeout);
 vwcf_configureScreenLayout(null); // dirty, but works: remove license, hanndle club/country and so
 pb_updateFinalesIndividual();
 

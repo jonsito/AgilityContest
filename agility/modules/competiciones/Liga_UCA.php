@@ -87,7 +87,7 @@ class Liga_UCA extends Competitions {
         $pts=array("10","8","6","4","3","2","1");
         // manga 1
         $pt1=0;
-        if($resultados[0]!=null) {
+        if($resultados[0]!==null) {
             if ($perro['P1']>=26) $pt1=0; // NC o eliminado: no puntua
             if ($perro['P1']<26) $pt1=2;
             if ($perro['P1']<16) $pt1=3;
@@ -97,7 +97,7 @@ class Liga_UCA extends Competitions {
         $perro['C1']=($pt1==0)?" ":strval($pt1);
         // manga 2
         $pt2=0;
-        if ($resultados[1]!=null) {
+        if ($resultados[1]!==null) {
             if ($perro['P2']>=26) $pt2=0; // NC o eliminado: no puntua
             if ($perro['P2']<26) $pt2=2;
             if ($perro['P2']<16) $pt2=3;

@@ -323,7 +323,7 @@ class Admin extends DBObject {
 
 	public function checkForUpgrades($fireException=true) {
         $info=retrieveFileFromURL(UPDATE_INFO);
-        if ( ($info==null) || ($info===FALSE) || (!is_string($info)) ) {
+        if ( ($info===null) || ($info===FALSE) || (!is_string($info)) ) {
             if ($fireException)  throw new Exception("checkForUpgrade(): cannot retrieve version info from internet");
             $info="version_name = \"0.0.0\"\nversion_date = \"19700101_0000\"\n"; // escape quotes to get newlines into string
         }

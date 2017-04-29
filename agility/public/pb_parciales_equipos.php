@@ -149,7 +149,7 @@ function pb_updateParcialesEquipos() {
 	if (rtime!=0) workingData.timeout=setTimeout(pb_updateParcialesEquipos,1000*rtime);
 }
 
-if (workingData.timeout!=null) clearTimeout(workingData.timeout);
+if (workingData.timeout!==null) clearTimeout(workingData.timeout);
 pb_updateParcialesEquipos();
 	
 </script>

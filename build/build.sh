@@ -103,8 +103,8 @@ cp ${BASE_DIR}/build/{installer.bmp,License.txt,wellcome.bmp} ${BUILD_DIR}
 # prepare dmg image for MAC-OSX
 echo "Creating disk image for Mac-OSX"
 #strip quotes in version
-VERSION=`echo $VERSION |sed -e 's/"//g'`
-DATE=`echo $DATE |sed -e 's/"//g'`
+VERSION=`echo ${VERSION} |sed -e 's/"//g'`
+DATE=`echo ${DATE} |sed -e 's/"//g'`
 mkdir -p ${BUILD_DIR}/AgilityContest-master
 cd ${BUILD_DIR}
 cp extras/osx_install.command .

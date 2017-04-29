@@ -88,7 +88,7 @@ class Equipos extends DBObject {
 
         // look for duplicate team
         $res= $this->__selectObject( "*", "Equipos", "( Prueba=$prueba) AND ( Jornada=$jornada ) AND (nombre='$nombre')"  );
-        if($res!=null){ // already created, try to update
+        if($res!==null){ // already created, try to update
             if (!is_object($res)) return $res; // error in trying locate team
             $this->myLogger->notice("El Equipo '$nombre' '$categorias' ya esta inscrito en la prueba:$prueba jornada:$jornada");
             return $this->real_update($res->ID,$nombre,$observaciones,$categorias);

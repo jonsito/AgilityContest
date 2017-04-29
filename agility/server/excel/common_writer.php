@@ -60,13 +60,13 @@ class XLSX_Writer {
         $this->myWriter->addRowsWithStyle([[$title],[""]], $this->titleStyle);
 
         // en caso de estar definido, informacion de Prueba, jornada, y en su caso federacion
-        if ($this->prueba != null )
+        if ($this->prueba !== null )
             $this->myWriter->addRowWithStyle([ _utf("Contest").":",$this->prueba['Nombre']], $this->rowHeaderStyle);
-        if ($this->jornada != null )
+        if ($this->jornada !== null )
             $this->myWriter->addRowWithStyle([ _utf("Journey").":",$this->jornada['Nombre']], $this->rowHeaderStyle);
         if ($federation>=0) {
             $fed=Federations::getFederation(intval($federation));
-            if ($fed==null) {
+            if ($fed===null) {
                 $this->myLogger->trace("Invalid federation ID:$federation");
             } else {
                 $this->myWriter->addRowWithStyle([ _utf("Federation").":",$fed->get('Name')], $this->rowHeaderStyle);
@@ -141,7 +141,7 @@ class XLSX_Writer {
             $row[]=$jornada['Fecha'];
             $row[]=$jornada['Hora'];
             $row[]=$jornada['Cerrada'];
-            if ( ($jornada['Observaciones']!=null) && ($jornada['Observaciones']!=="(sin especificar)")){
+            if ( ($jornada['Observaciones']!==null) && ($jornada['Observaciones']!=="(sin especificar)")){
                 $row[]=$jornada['Observaciones']; // add name for special rounds
             }
             $this->myWriter->addRow($row);

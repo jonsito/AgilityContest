@@ -128,7 +128,7 @@ class Selectiva_PastorBelga extends Competitions {
         // manga 1
         // puntos a los 10 primeros por manga/categoria si no estan eliminados
         $perro['C1']="";
-        if ($resultados[0]!=null) {
+        if ($resultados[0]!==null) {
             if ( ($perro['Pcat1']>0) && ($perro['P1']<100) && ($perro['Pcat1']<=10) ) {
                 $puesto=$perro['Pcat1'];
                 $this->finalp1[$puesto][]=&$perro; // important: store by reference
@@ -143,7 +143,7 @@ class Selectiva_PastorBelga extends Competitions {
         }
         // manga 2
         $perro['C2']="";
-        if ($resultados[1]!=null) {
+        if ($resultados[1]!==null) {
             // puntos a los 10 primeros por manga/categoria si no estan eliminados
             if ( ($perro['Pcat2']>0) && ($perro['P2']<100) && ($perro['Pcat2']<=10) ) {
                 $puesto=$perro['Pcat2'];

@@ -151,7 +151,7 @@ function pb_updateParcialesIndividual() {
 	updateParciales(/* empty to retrieve data from combogrid */);
 	if (rtime!=0) workingData.timeout=setTimeout(pb_updateParcialesIndividual,1000*rtime);
 }
-if (workingData.timeout!=null) clearTimeout(workingData.timeout);
+if (workingData.timeout!==null) clearTimeout(workingData.timeout);
 vwcp_configureScreenLayout(null); // dirty, but works: remove license, hanndle club/country and so
 pb_updateParcialesIndividual();
 

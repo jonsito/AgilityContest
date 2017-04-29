@@ -115,7 +115,7 @@ class PrintClasificacionTeam extends PrintCommon {
 		$juez2=$jobj->selectByID($this->manga1->Juez2); // asume mismos jueces en dos mangas
 		$tm1=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $this->categoria;
 		$tm2=null;
-		if ($this->manga2!=null)
+		if ($this->manga2!==null)
 			$tm2=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $this->categoria;
 
 		$this->SetFont($this->getFontName(),'B',11); // bold 9px
@@ -139,7 +139,7 @@ class PrintClasificacionTeam extends PrintCommon {
 		$this->Cell(25,5,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
 		$this->Cell(25,5,_('Vel').".: {$trs['vel']}m/s","LTRB",0,'L',false);
 		$this->Ln();
-		if ($this->trs2==null) { $this->Ln(); return; }
+		if ($this->trs2===null) { $this->Ln(); return; }
 		$trs=$this->trs2;
 		$ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
 		$this->SetFont($this->getFontName(),'B',11); // bold 9px
@@ -215,7 +215,7 @@ class PrintClasificacionTeam extends PrintCommon {
 		$wide=$this->federation->get('WideLicense');
 		$tm1=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation));
 		$tm2=null;
-		if ($this->manga2!=null) $tm2=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation));
+		if ($this->manga2!==null) $tm2=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation));
 		
 		$this->ac_header(2,8);
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
@@ -247,7 +247,7 @@ class PrintClasificacionTeam extends PrintCommon {
 		$this->Cell(10,4,_('Penal'),'B',0,'C',true);	// 1- Penalizacion
 		$this->Cell(10,4,_('Calif'),'B',0,'C',true);	// 1- calificacion
 		// manga 2
-		if ($this->manga2!=null) {
+		if ($this->manga2!==null) {
 			$this->Cell(5,4,_('F/T'),'B',0,'C',true);	// 2- Faltas+Tocados
 			$this->Cell(5,4,_('Ref'),'B',0,'C',true);	// 2- Rehuses
 			$this->Cell(10,4,_('Time'),'B',0,'C',true);	// 2- Tiempo
@@ -307,7 +307,7 @@ class PrintClasificacionTeam extends PrintCommon {
 			$this->Cell(30,4,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
 			$this->Cell(16,4,$row['NombreClub'],0,0,'R',true);	// nombreClub
 			// manga 1
-			if ($this->manga1!=null) {
+			if ($this->manga1!==null) {
 			    $this->SetTextColor( ($row['Out1']==0)?0:128 );
 				$this->Cell(5,4,$row['F1'],'L',0,'C',true);	// 1- Faltas+Tocados
 				$this->Cell(5,4,$row['R1'],0,0,'C',true);	// 1- Rehuses
@@ -319,7 +319,7 @@ class PrintClasificacionTeam extends PrintCommon {
 				$this->Cell(47,4,'','L',0,'C',true);	// espacio en blanco
 			}
 			// manga 2
-			if ($this->manga2!=null) {
+			if ($this->manga2!==null) {
                 $this->SetTextColor( ($row['Out2']==0)?0:128 );
 				$this->Cell(5,4,$row['F2'],'L',0,'C',true);	// 2- Faltas+Tocados
 				$this->Cell(5,4,$row['R2'],0,0,'C',true);	// 2- Rehuses

@@ -178,7 +178,7 @@ class Clubes extends DBObject {
 		$rows=http_request("rows","i",50);
 		// evaluate federation for club/country search according intl status
 		$fedstr = "1";
-		if ($this->curFederation!=null) {
+		if ($this->curFederation!==null) {
 			$fed=intval($this->curFederation->get('ID'));
 			$intlmask=Federations::getInternationalMask(); // select non-international fedmask
 			$natmask=~$intlmask;
@@ -231,7 +231,7 @@ class Clubes extends DBObject {
         $c=http_request("Combo","i",0);
 		// evaluate federation for club/country filtering
 		$fedstr = "1";
-		if ($this->curFederation!=null) {
+		if ($this->curFederation!==null) {
 			$fed=intval($this->curFederation->get('ID'));
 			$mask=1<<$fed;
 			$intlmask=Federations::getInternationalMask();
