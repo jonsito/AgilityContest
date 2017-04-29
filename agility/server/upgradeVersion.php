@@ -122,8 +122,10 @@ class Updater {
             if (substr(trim($line), -1, 1) == ';') {
                 // Perform the query
                 if (! $this->conn->query($templine) ){
-                    $this->myLogger->error('Error performing query \'<strong>' . $templine . '\': ' . $this->conn->error . '<br />');
-                    $this->install_log( " Error: {$this->conn->error} <br/>");
+                    $error=$this->conn->error;
+                    $this->myLogger->error("Error performing query '$templine': $error <br />");
+                    $this->install_log( " Error: $error <br/>");
+                    return $error;
                 } else {
                     if ($need_ack) $this->install_log(" OK<br/>");
                     $need_ack=false;
@@ -469,7 +471,8 @@ try {
     // check for (re)install database request
     if ($installdb !== 0) {
         ob_implicit_flush(true);
-        $upg->installDB();
+        $res=$upg->installDB();
+        if ($res!=="") die("Install DB error: $res . Please contact author");
         ob_implicit_flush(false);
     }
     // when not in first install, process database to make it compliant with sofwtare version

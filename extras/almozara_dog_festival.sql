@@ -8699,7 +8699,8 @@ INSERT INTO `tipo_manga` VALUES
 (13,'Jumping Equipos (3 mejores)','-'),
 (14,'Jumping Equipos (Conjunta)','-'),
 (15,'Ronda K.O.','-'),
-(16,'Manga Especial','-');
+(16,'Manga Especial','-'),
+(17,'Agility Grado 1 Manga 3','GI');
 /*!40000 ALTER TABLE `tipo_manga` ENABLE KEYS */;
 UNLOCK TABLES;
 
