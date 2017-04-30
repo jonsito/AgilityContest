@@ -102,7 +102,12 @@ function initialize() {
 	initAuthInfo();
 	// load login page
 	loadContents("/agility/console/frm_login.php","");
-	$('#upgradeVersion').css('display','none'); // hide install log
+	var upgdiv=$('#upgradeVersion');
+	if (typeof (ac_installdb) !== "undefined") {
+        upgdiv.css('display','none'); // hide install log
+    } else {
+        upgdiv.scrollTop = upgdiv[0].scrollHeight;
+    }
 }
 
 /**
@@ -169,13 +174,15 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 </head>
 
 <body onload="initialize();">
-<div id="upgradeVersion" style="color:#fff;display:block">
-	<h1>Installing database... please wait</h1><p>
-		<?php
-		// perform automatic upgrades in database when needed
-		require_once(__DIR__ . "/../server/upgradeVersion.php");
-		?>
+<div id="upgradeVersion" style="color:#fff;display:block;">
+	<h1>Installing database... please wait</h1>
+    <p>
+		    <?php
+            // perform automatic upgrades in database when needed
+            require_once(__DIR__ . "/../server/upgradeVersion.php");
+            ?>
         <script type="text/javascript">
+            var ac_installdb=true;
             history.replaceState('data to be passed', 'AgilityContest Console', '/agility/console');
         </script>
 	</p>

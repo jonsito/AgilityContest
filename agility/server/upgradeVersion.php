@@ -62,7 +62,7 @@ class Updater {
         }
     }
 
-    private function install_log($str) {
+    function install_log($str) {
         $f=fopen(INSTALL_LOG,"a"); // open for append-only
         if (!$f) { $this->myLogger->error("fopen() cannot create file: ".INSTALL_LOG); return;}
         echo "$str\n"; flush(); ob_flush();
@@ -136,7 +136,7 @@ class Updater {
         }
         fclose($fp);
         $this->install_log("Install Database Done<br/>");
-        $this->myLogger->info("database install success");
+        $this->myLogger->info("Database install success");
         return "";
     }
 
@@ -472,7 +472,10 @@ try {
     if ($installdb !== 0) {
         ob_implicit_flush(true);
         $res=$upg->installDB();
-        if ($res!=="") die("Install DB error: $res . Please contact author");
+        if ($res!=="") {
+            $upg->install_log("Database installation failed: $res<br/>&nbsp;</p></div></body></html>");
+            die("Install DB error: $res . Please contact author");
+        }
         ob_implicit_flush(false);
     }
     // when not in first install, process database to make it compliant with sofwtare version
