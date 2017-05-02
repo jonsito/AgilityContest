@@ -57,10 +57,7 @@ $config =Config::getInstance();
                 <label for="jornadas-PreAgilityChk" style="width:150px" ><span id="jornadas-PreAgilityName">Pre-Agility</span></label>
                 <input id="jornadas-PreAgilityChk" name="PreAgilityChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-PreAgilityChk',0x0003)"/>
-                <select id="jornadas-MangasPreAgility" name="MangasPreAgility" style="width:130px">
-                <option value="1"> <?php _e('Single round'); ?> </option>
-                <option value="2"> <?php _e('Double round'); ?></option>
-                </select>
+                <input id="jornadas-MangasPreAgility" name="MangasPreAgility" style="width:130px"/>
             </div>
             
             <div class="fitem">
@@ -95,14 +92,7 @@ $config =Config::getInstance();
                 <label for="jornadas-EquiposChk" style="width:150px" ><?php _e('Teams'); ?></label>
                 <input id="jornadas-EquiposChk" name="EquiposChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x1CC0)"/>
-                <select id="jornadas-MangasEquipos" name="MangasEquipos" style="width:140px">
-                    <!-- reserve values 1,2 for backward compatibility -->
-                    <option value="3"><?php _e('2 best of 3'); ?></option>
-                    <option value="4"><?php _e('3 best of 4'); ?></option>
-                    <option value="5"><?php _e('2 combined'); ?></option>
-                    <option value="6"><?php _e('3 combined'); ?></option>
-                    <option value="7"><?php _e('4 combined'); ?></option>
-                </select>
+                <input id="jornadas-MangasEquipos" name="MangasEquipos" style="width:140px"/>
             </div>
             
             <div class="fitem">
@@ -257,7 +247,15 @@ $config =Config::getInstance();
         required: true,
         validType: 'length[1,255]'
     });
-    $('#jornadas-MangasPreAgility').combobox({valueField:'value',panelHeight:'auto'});
+    $('#jornadas-MangasPreAgility').combobox({
+        valueField:'value',
+        panelHeight:'auto',
+        textField: 'text',
+        data: [
+            {text:'<?php _e("Single round"); ?>',value:'1'},
+            {text:'<?php _e("Double round"); ?>',value:'2'}
+        ]
+    });
     $('#jornadas-MangasGrado1').combobox({
         panelHeight:'auto',
         valueField: 'value',
@@ -268,8 +266,19 @@ $config =Config::getInstance();
             {text:'<?php _e("Triple round"); ?>',value:'3'}
             ]
     });
-
-    $('#jornadas-MangasEquipos').combobox({valueField:'value',panelHeight:'auto'});
+    $('#jornadas-MangasEquipos').combobox({
+        valueField:'value',
+        panelHeight:'auto',
+        textField: 'text',
+        data: [
+            // reserve values 1,2 for backward compatibility
+            {text:'<?php _e("2 best of 3"); ?>',value:'3'},
+            {text:'<?php _e("3 best of 4"); ?>',value:'4'},
+            {text:'<?php _e("2 combined"); ?>',value:'5'},
+            {text:'<?php _e("3 combined"); ?>',value:'6'},
+            {text:'<?php _e("4 combined"); ?>',value:'7'}
+        ]
+    });
     $('#jornadas-Observaciones').textbox();
 
     $('#jornadas-SlaveOf_List').combobox({
