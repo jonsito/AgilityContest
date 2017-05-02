@@ -43,8 +43,7 @@ $config =Config::getInstance();
 			<span id="import_excelBlindCheck" style="display:none">
                <br />
                <label for="import-excelBlindMode"><?php _e("Blind (non-interactive) mode");?></label>
-               <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1" checked="checked"
-				   onchange="import_showHideBlind();">
+               <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1" checked="checked">
                 <br />
            </span>
 			<!-- opciones para el modo blind -->

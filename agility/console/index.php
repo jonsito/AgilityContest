@@ -27,7 +27,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="UTF-8"/>
 <meta name="application-name" content="Agility Contest" />
 <meta name="copyright" content="© 2013-2015 Juan Antonio Martinez" />
 <meta name="author" lang="en" content="Juan Antonio Martinez" />
@@ -256,8 +256,8 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 </li>
 <li><?php _e('TOOLS'); ?>
 	<ul>
-	<li> <a href="javascript:loadContents('/agility/console/frm_admin.php','<?php _e('Configuration');?>',{e:'#remote-dialog'})"><?php _e('Configuration'); ?></a></li>
-	<li><a id="menu-Login" href="javascript:showMyAdminWindow();"><?php _e('Direct DB Access'); ?></a></li>
+	<li><a href="javascript:loadContents('/agility/console/frm_admin.php','<?php _e('Configuration');?>',{e:'#remote-dialog'})"><?php _e('Configuration'); ?></a></li>
+	<li><a href="javascript:showMyAdminWindow();"><?php _e('Direct DB Access'); ?></a></li>
 	</ul>
 </li>
 <li><?php _e('DOCUMENTATION'); ?>

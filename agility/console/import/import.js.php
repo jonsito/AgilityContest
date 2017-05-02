@@ -53,17 +53,6 @@ function import_setProgressStatus(status) {
 
 /*************************************** importacion de datos desde fichero excel **************************/
 
-/**
- * Show/hide Blind options according checkbox status
- */
-function import_showHideBlind() {
-    ac_import.blind=$('#import-excelBlindMode').prop('checked')?1:0;
-    ac_import.db_priority=$('input[name=excelPreference]:checked').val();
-    ac_import.word_upercase=$('input[name=excelUpperCase]:checked').val();
-    ac_import.ignore_spaces=$('input[name=excelEmpty]:checked').val();
-    // $("#import-excelBlindOptions").css("display",(ac_import.blind!=0)?"inherit":"none");
-}
-
 function searchDataToString(search) {
     var lic=search.Licencia;
     if (lic!=="") lic="Lic:"+lic+" - ";
@@ -406,10 +395,13 @@ function read_excelFile(input) {
 function real_excelImport(mode) {
     var data=$('#import-excelData').val();
     ac_import.mode=mode;
+    // checkbox
     ac_import.blind=$('#import-excelBlindMode').prop('checked')?1:0;
+    // comboboxes: use checked value
     ac_import.db_priority=$('input[name=excelPreference]:checked').val();
     ac_import.word_upercase=$('input[name=excelUpperCase]:checked').val();
     ac_import.ignore_spaces=$('input[name=excelEmpty]:checked').val();
+    // prepare randon string for report notifier
     ac_import.suffix=getRandomString(8);
     ac_import.count=0;
     if (data=="") {

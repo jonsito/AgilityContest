@@ -26,8 +26,7 @@ $config =Config::getInstance();
             <span id="import_excelBlindCheck">
                 <br />
                 <label for="import-excelBlindMode"><?php _e("Blind (non-interactive) mode");?></label>
-                <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1" checked="checked"
-                       onchange="import_showHideBlind();">
+                <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1">
                 <br />
             </span>
             <!-- opciones para el modo blind -->
@@ -71,5 +70,5 @@ $config =Config::getInstance();
 
     $('#import-excelFederation').html(workingData.datosFederation.LongName);
 
-    addTooltip($('#import-excelBlindMode').linkbutton(),'<?php _e("Assume no coherency errors with current database data"); ?>');
+    addTooltip($('#import-excelBlindMode'),'<?php _e("Assume no coherency errors with current database data"); ?>');
 </script>
