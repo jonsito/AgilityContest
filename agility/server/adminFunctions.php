@@ -57,9 +57,10 @@ try {
 			$am->permissions($perms); $result=array('success'=>true); break;
 		case "capabilities":
 			$am->access(PERMS_NONE); $result=$am->getLicensePerms(); break;
-		case "backup":
-			/* $am->access(PERMS_ADMIN); */
-			$result=$adm->backup();	break;
+        case "backup":
+        	/* $am->access(PERMS_ADMIN); */ $result=$adm->backup();	break;
+        case "autobackup":
+        	/* $am->access(PERMS_ADMIN); */ $result=$adm->autobackup();	break;
 		case "restore":
 			$am->access(PERMS_ADMIN); $result=$adm->restore(); break;
 		case "reset":

@@ -127,7 +127,88 @@ class Admin extends DBObject {
         return "";
 	}
 
-	public function backup() {
+	/**
+	 * Automatic backup to log file
+	 * and -if defined- to user specified file
+	 * @param {integer} mode 0: numerated backup to ${HOME}; 1: try to backup to specified file
+	*/
+    public function autobackup($mode=1) {
+        $dbname=$this->dbname;
+        $dbhost=$this->dbhost;
+        $dbuser=$this->dbuser;
+        $dbpass=$this->dbpass;
+        set_time_limit(0); // some windozes are too slow dumping databases
+		// for linux
+        $cmd="mysqldump"; // unix
+		// for windows
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $path=str_replace("\\apache\\bin\\httpd.exe","",PHP_BINARY);
+            $cmd="start /B ".$path."\\mysql\\bin\\mysqldump.exe";
+            // $drive=substr(__FILE__, 0, 1);
+            // $cmd='start /B '.$drive.':\AgilityContest\xampp\mysql\bin\mysqldump.exe';
+        }
+        // for Mac-OSX
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'DAR') { // Darwin (MacOSX)
+            $cmd='/Applications/XAMPP/xamppfiles/bin/mysqldump';
+        }
+
+        // phase 1: dump structure
+        $cmd1 = "$cmd --opt --no-data --single-transaction --routines --triggers -h $dbhost -u$dbuser -p$dbpass $dbname";
+        $this->myLogger->info("Ejecutando comando: '$cmd1'");
+        $input = popen($cmd1, 'r');
+        if ($input===FALSE) { $this->errorMsg="adminFunctions::popen() failed"; return null;}
+
+        // rename ( if any ) previous backup
+        $oldname="{$this->restore_dir}/{$dbname}_oldbkp.sql";
+        $fname="{$this->restore_dir}/{$dbname}_backup.sql";
+        @rename($fname,$oldname); // @ to ignore errors in case of
+
+		// PENDING: replace "echo" for fwrite, to allow use a file stream or stdout
+		// this must be done either in backup(), autobackup() and processLine()
+
+        // insert AgilityContest Tag Info at begining of backup file
+        $ver=$this->myConfig->getEnv("version_name");
+        $rev=$this->myConfig->getEnv("version_date");
+        echo "-- AgilityContest Version: $ver Revision: $rev\n";
+        // now send to client database backup
+        while(!feof($input)) {
+            $line = fgets($input);
+            if (substr($line, 0, 6) === 'INSERT') {
+                $this->process_line($line);
+            } else {
+                echo $line;
+            }
+        }
+        pclose($input);
+        // phase 2: dump data. Exclude ImportData and (if configured to) Eventos table contents
+        $noexport="--ignore-table=agility.ImportData";
+        if (intval($this->myConfig->getEnv("full_backup"))==0) $noexport .= " --ignore-table=agility.Eventos";
+
+        $cmd2 = "$cmd --opt --no-create-info --single-transaction --routines --triggers $noexport -h $dbhost -u$dbuser -p$dbpass $dbname";
+        $this->myLogger->info("Ejecutando comando: '$cmd2'");
+        $input = popen($cmd2, 'r');
+        if ($input===FALSE) { $this->errorMsg="adminFunctions::popen() failed"; return null;}
+        while(!feof($input)) {
+            $line = fgets($input);
+            if (substr($line, 0, 6) === 'INSERT') {
+                $this->process_line($line);
+            } else {
+                echo $line;
+            }
+        }
+        pclose($input);
+
+        // now decide what to do with generated file:
+		// on mode=0 copy to $HOME as numerated (date+hour) backup
+		// on mode=1 check configuration
+		// 		if enabled ( a filename is provided ) try to copy there
+		// 		else do nothing
+
+		// and finally return ok
+        return "ok";
+    }
+
+    public function backup() {
 		
 		$dbname=$this->dbname;
 		$dbhost=$this->dbhost;
