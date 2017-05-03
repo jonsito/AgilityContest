@@ -54,12 +54,18 @@ class Admin extends DBObject {
 		$this->dbuser=base64_decode($this->myConfig->getEnv('database_user'));
 		$this->dbpass=base64_decode($this->myConfig->getEnv('database_pass'));
 	}
-	
-	// FROM: https://gist.github.com/lavoiesl/9a08e399fc9832d12794
-	private function process_line($line) {
+
+    /**
+     * Parse mysql dump and pretty-print output
+     * FROM: https://gist.github.com/lavoiesl/9a08e399fc9832d12794
+     * @param {resource} $stream where to write to ( file or php://output )
+     * @param {string} $line parsed line
+     * @throws Exception on mysqldump syntax error
+     */
+	private function process_line($stream,$line) {
 		$length = strlen($line);
 		$pos = strpos($line, ' VALUES ') + 8;
-		echo substr($line, 0, $pos);
+		@fwrite($stream, substr($line, 0, $pos));
 		$parenthesis = false;
 		$quote = false;
 		$escape = false;
@@ -70,7 +76,7 @@ class Admin extends DBObject {
 						if ($parenthesis) {
 							throw new Exception('double open parenthesis');
 						} else {
-							echo PHP_EOL;
+							fwrite($stream, PHP_EOL);
 							$parenthesis = true;
 						}
 					}
@@ -100,7 +106,7 @@ class Admin extends DBObject {
 					$escape = false;
 					break;
 			}
-			echo $line[$i];
+			@fwrite($stream, $line[$i]);
 		}
 	}
 
@@ -156,27 +162,26 @@ class Admin extends DBObject {
         $cmd1 = "$cmd --opt --no-data --single-transaction --routines --triggers -h $dbhost -u$dbuser -p$dbpass $dbname";
         $this->myLogger->info("Ejecutando comando: '$cmd1'");
         $input = popen($cmd1, 'r');
-        if ($input===FALSE) { $this->errorMsg="adminFunctions::popen() failed"; return null;}
+        if ($input===FALSE) { $this->errorMsg="adminFunctions::AutoBackup():popen() failed"; return null;}
 
         // rename ( if any ) previous backup
         $oldname="{$this->restore_dir}/{$dbname}_oldbkp.sql";
         $fname="{$this->restore_dir}/{$dbname}_backup.sql";
         @rename($fname,$oldname); // @ to ignore errors in case of
-
-		// PENDING: replace "echo" for fwrite, to allow use a file stream or stdout
-		// this must be done either in backup(), autobackup() and processLine()
+        $resource=@fopen($fname,"w");
+        if (!$resource) { $this->errorMsg="adminFunctions::AutoBackup():fopen() failed"; return null;}
 
         // insert AgilityContest Tag Info at begining of backup file
         $ver=$this->myConfig->getEnv("version_name");
         $rev=$this->myConfig->getEnv("version_date");
-        echo "-- AgilityContest Version: $ver Revision: $rev\n";
+        @fwrite($resource, "-- AgilityContest Version: $ver Revision: $rev\n");
         // now send to client database backup
         while(!feof($input)) {
             $line = fgets($input);
             if (substr($line, 0, 6) === 'INSERT') {
-                $this->process_line($line);
+                $this->process_line($resource,$line);
             } else {
-                echo $line;
+                @fwrite($resource, $line);
             }
         }
         pclose($input);
@@ -191,12 +196,13 @@ class Admin extends DBObject {
         while(!feof($input)) {
             $line = fgets($input);
             if (substr($line, 0, 6) === 'INSERT') {
-                $this->process_line($line);
+                $this->process_line($resource,$line);
             } else {
-                echo $line;
+                @fwrite($resource, $line);
             }
         }
         pclose($input);
+        fclose($resource);
 
         // now decide what to do with generated file:
         // on mode=-1 do nothing ( just backup to log file )
@@ -230,8 +236,11 @@ class Admin extends DBObject {
 		$cmd1 = "$cmd --opt --no-data --single-transaction --routines --triggers -h $dbhost -u$dbuser -p$dbpass $dbname";
 		$this->myLogger->info("Ejecutando comando: '$cmd1'");
 		$input = popen($cmd1, 'r');
-		if ($input===FALSE) { $this->errorMsg="adminFunctions::popen() failed"; return null;}
-		
+		if ($input===FALSE) { $this->errorMsg="adminFunctions::backup():popen() failed"; return null;}
+        // open stdout as file handler
+        $resource=fopen("php://output","w");
+        if ($resource===FALSE) { $this->errorMsg="adminFunctions::backup():popen() failed"; return null;}
+        // prepare html response header
 		$fname="$dbname-".date("Ymd_Hi").".sql";
 		header('Set-Cookie: fileDownload=true; path=/');
 		header('Cache-Control: max-age=60, must-revalidate');
@@ -240,14 +249,14 @@ class Admin extends DBObject {
 		// insert AgilityContest Info at begining of backup file
         $ver=$this->myConfig->getEnv("version_name");
         $rev=$this->myConfig->getEnv("version_date");
-        echo "-- AgilityContest Version: $ver Revision: $rev\n";
+        @fwrite($resource, "-- AgilityContest Version: $ver Revision: $rev\n");
         // now send to client database backup
 		while(!feof($input)) {
 			$line = fgets($input);
 			if (substr($line, 0, 6) === 'INSERT') {
-				$this->process_line($line);
+				$this->process_line($resource,$line);
 			} else {
-				echo $line;
+				@fwrite($resource, $line);
 			}
 		}
 		pclose($input);
@@ -262,12 +271,13 @@ class Admin extends DBObject {
         while(!feof($input)) {
             $line = fgets($input);
             if (substr($line, 0, 6) === 'INSERT') {
-                $this->process_line($line);
+                $this->process_line($resource,$line);
             } else {
-                echo $line;
+                fwrite($resource, $line);
             }
         }
         pclose($input);
+        fclose($resource);
 		return "ok";
 	}	
 
