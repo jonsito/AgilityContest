@@ -130,7 +130,7 @@ class Admin extends DBObject {
 	/**
 	 * Automatic backup to log file
 	 * and -if defined- to user specified file
-	 * @param {integer} mode 0: numerated backup to ${HOME}; 1: try to backup to specified file
+	 * @param {integer} mode -1: no copy; 0: numerated backup copy to ${HOME}; 1: try to copy backup to specified file
 	*/
     public function autobackup($mode=1) {
         $dbname=$this->dbname;
@@ -199,6 +199,7 @@ class Admin extends DBObject {
         pclose($input);
 
         // now decide what to do with generated file:
+        // on mode=-1 do nothing ( just backup to log file )
 		// on mode=0 copy to $HOME as numerated (date+hour) backup
 		// on mode=1 check configuration
 		// 		if enabled ( a filename is provided ) try to copy there
