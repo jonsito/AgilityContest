@@ -132,7 +132,11 @@ function backupDatabase(){
     return false;
 }
 
-function autoBackupDatabase() {
+/**
+ * call server to perform automatic backup
+ * @param mode -1:system 0:user-datetime 1:user-usbcopy
+ */
+function autoBackupDatabase(mode) {
     setTimeout(function(){
         $.ajax({
             type: 'GET',
@@ -140,7 +144,7 @@ function autoBackupDatabase() {
             dataType: 'json',
             data: {
                 Operation: 'autobackup',
-                Mode: 1 // handle user preferences
+                Mode: mode
             },
             success: function (res) {
                 if (res.errorMsg) {

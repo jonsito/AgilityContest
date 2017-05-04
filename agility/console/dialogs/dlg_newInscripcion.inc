@@ -127,8 +127,8 @@ $('#new_inscripcion-dialog').dialog({
 	buttons:'#new_inscripcion-buttons',
 	onOpen: newInscripcion_onOpenSuccess, // on display setup jornada's 'checkboxes info
 	onClose: function() {
-	    $('#new_inscripcion-datagrid').datagrid('unselectAll')
-        autoBackupDatabase();
+	    $('#new_inscripcion-datagrid').datagrid('unselectAll');
+        autoBackupDatabase(1);
 	}
 	});
 	

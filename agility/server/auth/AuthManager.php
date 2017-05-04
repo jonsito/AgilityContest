@@ -287,9 +287,6 @@ class AuthManager {
 			$this->mySessionMgr->insert($data);
 			// retrieve new session ID
 			$data['SessionID']=$this->mySessionMgr->conn->insert_id;
-            // create a numerated backup
-            $adm=new Admin("Login success",$this,"");
-            $adm->autobackup(0); // create a numerated backup file
 		} else {
 			// to join to a named session we need at least Assistant permission level
 			$this->access(PERMS_ASSISTANT); // on fail throw exception
@@ -365,9 +362,6 @@ class AuthManager {
 			SET SessionKey=NULL, Operador=1, Prueba=0, Jornada=0, Manga=0, Tanda=0 
 			WHERE ( SessionKey='{$this->mySessionKey}' )";
 		$this->mySessionMgr->query($str);
-		// create a numerated backup
-		$adm=new Admin("Logout success",$this,"");
-		$adm->autobackup(0); // create a numerated backup file
         return "";
 	}
 	
