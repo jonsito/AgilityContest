@@ -40,8 +40,14 @@ class Admin extends DBObject {
 	private $dbpass;
 	public $logfile;
 
+    /**
+     * Admin constructor.
+     * @param {string} $file name of module to be registered in logs
+     * @param {object} $am Auth Manager to be used
+     * @param {string} $suffix suffix to be added to progress information file
+     */
 	function __construct($file,$am,$suffix="") {
-        parent::__construct("adminFunctions");
+        parent::__construct($file);
         $this->restore_dir=__DIR__."/../../../../logs/";
 		// connect database
 		$this->file=$file;
@@ -58,14 +64,14 @@ class Admin extends DBObject {
     /**
      * Parse mysql dump and pretty-print output
      * FROM: https://gist.github.com/lavoiesl/9a08e399fc9832d12794
-     * @param {resource} $stream where to write to ( file or php://output )
+     * @param {resource} $stream where to write to default backup ( file or php://output )
      * @param {string} $line parsed line
      * @throws Exception on mysqldump syntax error
      */
 	private function process_line($stream,$line) {
 		$length = strlen($line);
 		$pos = strpos($line, ' VALUES ') + 8;
-		@fwrite($stream, substr($line, 0, $pos));
+        @fwrite($stream, substr($line, 0, $pos));
 		$parenthesis = false;
 		$quote = false;
 		$escape = false;
@@ -76,7 +82,7 @@ class Admin extends DBObject {
 						if ($parenthesis) {
 							throw new Exception('double open parenthesis');
 						} else {
-							fwrite($stream, PHP_EOL);
+							@fwrite($stream, PHP_EOL);
 							$parenthesis = true;
 						}
 					}
@@ -106,7 +112,7 @@ class Admin extends DBObject {
 					$escape = false;
 					break;
 			}
-			@fwrite($stream, $line[$i]);
+            @fwrite($stream, $line[$i]);
 		}
 	}
 
@@ -139,6 +145,7 @@ class Admin extends DBObject {
 	 * @param {integer} mode -1: no copy; 0: numerated backup copy to ${HOME}; 1: try to copy backup to specified file
 	*/
     public function autobackup($mode=1) {
+        $this->myLogger->enter();
         $dbname=$this->dbname;
         $dbhost=$this->dbhost;
         $dbuser=$this->dbuser;
@@ -158,23 +165,31 @@ class Admin extends DBObject {
             $cmd='/Applications/XAMPP/xamppfiles/bin/mysqldump';
         }
 
+        // prepare auto backup file
+        // rename ( if any ) previous backup
+        // notice name uses '_' (underscore) whilst named backup uses '-' (minus sign)
+        // this is done to preserve autobackups on temporary directory clear
+        $oldname="{$this->restore_dir}/{$dbname}_backup_old.sql";
+        $fname="{$this->restore_dir}/{$dbname}_backup.sql";
+        @rename($fname,$oldname); // @ to ignore errors in case of
+        $resource=@fopen($fname,"w");
+        if (!$resource) {
+            $this->myLogger->error("Cannot fopen system backup file {$fname}");
+            $this->errorMsg="adminFunctions::AutoBackup('fopen') failed";
+            return null;
+        }
+
         // phase 1: dump structure
         $cmd1 = "$cmd --opt --no-data --single-transaction --routines --triggers -h $dbhost -u$dbuser -p$dbpass $dbname";
         $this->myLogger->info("Ejecutando comando: '$cmd1'");
         $input = popen($cmd1, 'r');
         if ($input===FALSE) { $this->errorMsg="adminFunctions::AutoBackup('popen 1') failed"; return null;}
 
-        // rename ( if any ) previous backup
-        $oldname="{$this->restore_dir}/{$dbname}-backup_old.sql";
-        $fname="{$this->restore_dir}/{$dbname}-backup.sql";
-        @rename($fname,$oldname); // @ to ignore errors in case of
-        $resource=@fopen($fname,"w");
-        if (!$resource) { $this->errorMsg="adminFunctions::AutoBackup('fopen') failed"; return null;}
-
         // insert AgilityContest Tag Info at begining of backup file
         $ver=$this->myConfig->getEnv("version_name");
         $rev=$this->myConfig->getEnv("version_date");
         @fwrite($resource, "-- AgilityContest Version: $ver Revision: $rev\n");
+
         // now send to client database backup
         while(!feof($input)) {
             $line = fgets($input);
@@ -204,18 +219,17 @@ class Admin extends DBObject {
         pclose($input);
         fclose($resource);
 
-        // now decide what to do with generated file:
-        // on mode=-1 do nothing ( just backup to log file )
-        if ($mode<0) return "ok";
+        // prepare user-requested backup file (if any)
         $tname="";
+        $dt=date("Ymd_Hi");
         // on mode=0 copy to $HOME as numerated (date+hour) backup
-        if ($mode==0) $tname="{$this->restore_dir}/{$dbname}-{$ver}_{$rev}.sql";
+        if ($mode==0) $tname="{$this->restore_dir}/{$dbname}-{$dt}.sql";
         // on mode=1 copy backup to file specified in configuration
         if ($mode>0) $tname=$this->myConfig->getEnv("backup_file");
-        if ($tname=="") return "ok"; // no filename to save backup into. just return
-        $res=@copy($fname,$tname);
-        if (!$res) $this->myLogger->error("adminFunctions::AutoBackup({$tname}) failed");
+        if ($tname!="") @copy($fname,$tname);
+
 		// and finally return ok
+        $this->myLogger->leave();
         return "ok";
     }
 
@@ -395,7 +409,7 @@ class Admin extends DBObject {
 		// borramos ficheros relacionados con actualizaciones
 		$this->myLogger->trace("Clearing update related tmp files");
 		array_map('unlink',glob("{$this->restore_dir}AgilityContest*.zip"));
-        array_map('unlink',glob("{$this->restore_dir}/update.log"));
+        array_map('unlink',glob("{$this->restore_dir}update.log"));
 
 		// ficheros excel importados
         $this->myLogger->trace("Clearing update related tmp files");
@@ -415,6 +429,9 @@ class Admin extends DBObject {
         $this->myLogger->trace("Clearing update related tmp files");
         array_map('unlink',glob("{$this->restore_dir}mail_*/*.*"));
         array_map('rmdir',glob("{$this->restore_dir}mail_*"));
+
+        // finally clear also named backup files, but preserve autobackups
+        array_map('unlink',glob("{$this->restore_dir}agility-*.sql"));
 	}
 
 	public function checkForUpgrades($fireException=true) {

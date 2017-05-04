@@ -221,7 +221,8 @@ class AuthManager {
 	 * On Login success create session and if needed send login event
 	 * @param {string} $login user name
 	 * @param {string} $password user password
-	 * @param {integer} $sid requested session id to join to
+     * @param {integer} $sid requested session id to join to
+     * @param {boolean} $nossesion true: emit session event
 	 * @throws Exception if something goes wrong
 	 * @return {array} errorMessage or result data
 	 */
@@ -272,7 +273,9 @@ class AuthManager {
 
 		);
 		// if "nosession" is requested, just check password, do not create any session
-		if ($nosession==true) return $data;
+		if ($nosession==true) {
+			return $data;
+        }
 		// create/join to a session
 		if ($sid<=0) { //  if session id is not defined, create a new session
 			// remove all other console sessions from same user
@@ -282,8 +285,11 @@ class AuthManager {
 			$data['Nombre']="Console";
 			$data['Comentario']=$obj->Login." - ".$obj->Gecos;
 			$this->mySessionMgr->insert($data);
-			// and retrieve new session ID
+			// retrieve new session ID
 			$data['SessionID']=$this->mySessionMgr->conn->insert_id;
+            // create a numerated backup
+            $adm=new Admin("Login success",$this,"");
+            $adm->autobackup(0); // create a numerated backup file
 		} else {
 			// to join to a named session we need at least Assistant permission level
 			$this->access(PERMS_ASSISTANT); // on fail throw exception
@@ -359,6 +365,9 @@ class AuthManager {
 			SET SessionKey=NULL, Operador=1, Prueba=0, Jornada=0, Manga=0, Tanda=0 
 			WHERE ( SessionKey='{$this->mySessionKey}' )";
 		$this->mySessionMgr->query($str);
+		// create a numerated backup
+		$adm=new Admin("Logout success",$this,"");
+		$adm->autobackup(0); // create a numerated backup file
         return "";
 	}
 	
