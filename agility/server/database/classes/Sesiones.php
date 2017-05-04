@@ -20,9 +20,66 @@ require_once("DBObject.php");
 require_once("Eventos.php");
 require_once(__DIR__."/../../auth/AuthManager.php");
 
+// Default php session handler uses different files for each connection.
+// this is a hack from php docs to share session file
+class FileSessionHandler {
+    private $savePath;
+
+    function open($savePath, $sessionName)  {
+        $this->savePath = $savePath;
+        if (!is_dir($this->savePath)) {
+            mkdir($this->savePath, 0777);
+        }
+        return true;
+    }
+
+    function close() {
+        return true;
+    }
+
+    function read($id) {
+        return (string)@file_get_contents("$this->savePath/registered_sessions");
+    }
+
+    function write($id, $data) {
+        return file_put_contents("$this->savePath/registered_sessions", $data) === false ? false : true;
+    }
+
+    function destroy($id) {
+        $file = "$this->savePath/registered_sessions";
+        if (file_exists($file)) {
+            unlink($file);
+        }
+        return true;
+    }
+
+    function gc($maxlifetime) {
+        foreach (glob("$this->savePath/registered_sessions") as $file) {
+            if (filemtime($file) + $maxlifetime < time() && file_exists($file)) {
+                unlink($file);
+            }
+        }
+        return true;
+    }
+}
+
 class Sesiones extends DBObject {
-	
-	/**
+
+    function __construct($file) {
+        parent::__construct($file);
+        // prepare custom session handler
+        $handler = new FileSessionHandler();
+        session_set_save_handler(
+            array($handler, 'open'),
+            array($handler, 'close'),
+            array($handler, 'read'),
+            array($handler, 'write'),
+            array($handler, 'destroy'),
+            array($handler, 'gc')
+        );
+    }
+
+    /**
 	 * retrieve list of stored sessions
      * @param {array} data received data query parameters
      * @param {boolean} ring: if true exclude "-- Sin asignar --" session 1
@@ -256,6 +313,7 @@ class Sesiones extends DBObject {
 	function getClients($type="") {
         $res=array();
         $timestamp=time();
+        register_shutdown_function('session_write_close');
         session_start();
         if (!isset($_SESSION['ac_clients'])) $_SESSION['ac_clients']=array();
         foreach ( $_SESSION['ac_clients'] as $client) {
@@ -288,6 +346,7 @@ class Sesiones extends DBObject {
         $found=false;
         $e=explode(":",$name);
         $k="{$e[0]}:{$e[1]}:{$e[4]}"; // source:sesid:name as search key
+        register_shutdown_function('session_write_close');
         session_start();
         if (!isset($_SESSION['ac_clients'])) $_SESSION['ac_clients']=array();
         $this->myLogger->trace("Session::testAndSet() looking for clientSession: $name");

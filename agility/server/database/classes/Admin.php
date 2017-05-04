@@ -371,9 +371,6 @@ class Admin extends DBObject {
         $rconn=DBConnection::getRootConnection();
         if ($rconn->connect_error)
 			throw new Exception("Cannot perform upgrade process: database::dbConnect()");
-		session_start();
-		unset($_SESSION['progress']);
-		session_write_close();
 		// phase 1: retrieve file from http request
         $data=$this->retrieveDBFile();
         // phase 2: verify received file

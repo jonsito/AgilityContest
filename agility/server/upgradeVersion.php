@@ -72,11 +72,6 @@ class Updater {
 
     function installDB() {
 
-        // check if this is really needed
-        // session_start();
-        // unset($_SESSION['progress']);
-        // session_write_close();
-
         // phase 1: retrieve database file from "extras" directory
         $fp=fopen(__DIR__."/../../extras/agility.sql", "r");
         if (!$fp) die("Cannot load database file to be installed");
