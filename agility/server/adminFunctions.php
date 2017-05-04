@@ -32,7 +32,8 @@ try {
 	$result=null;
     $config=Config::getInstance();
 	$operation=http_request("Operation","s","");
-	$perms=http_request("Perms","i",PERMS_NONE);
+    $perms=http_request("Perms","i",PERMS_NONE);
+    $mode=http_request("Mode","i",-1); // default for autobackup is do not handle user config, just backup
     $suffix=http_request("Suffix","s","");
     $version=http_request("Version","s","");
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
@@ -60,7 +61,7 @@ try {
         case "backup":
         	/* $am->access(PERMS_ADMIN); */ $result=$adm->backup();	break;
         case "autobackup":
-        	/* $am->access(PERMS_ADMIN); */ $result=$adm->autobackup();	break;
+        	/* $am->access(PERMS_ADMIN); */ $result=$adm->autobackup($mode);	break;
 		case "restore":
 			$am->access(PERMS_ADMIN); $result=$adm->restore(); break;
 		case "reset":

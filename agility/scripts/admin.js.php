@@ -116,6 +116,7 @@ function clearTempDir(){
         height: 200
     });
 }
+
 function backupDatabase(){
     $.fileDownload(
         '/agility/server/adminFunctions.php',
@@ -129,6 +130,35 @@ function backupDatabase(){
         }
     );
     return false;
+}
+
+function autoBackupDatabase() {
+    setTimeout(function(){
+        $.ajax({
+            type: 'GET',
+            url: "/agility/server/adminFunctions.php",
+            dataType: 'json',
+            data: {
+                Operation: 'autobackup',
+                Mode: 1 // handle user preferences
+            },
+            success: function (res) {
+                if (res.errorMsg) {
+                    $.messager.show({title:"Error",msg:"Autobackup() Error: <br/>" + res.errorMsg,timeout:3000});
+                }
+                $.messager.show({
+                    width: 300,
+                    height: 75,
+                    timeout: 1000,
+                    title: '<?php _e('AutoBackup'); ?>',
+                    msg: '<?php _e('Automatic database backup done');?>'
+                });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.messager.show({title:"Error",msg:"ClearTempDir() Error: " + textStatus + " " + errorThrown,timeout:3000});
+            }
+        });
+    },0);
 }
 
 function performClearDatabase(oper,pass,callback) {
