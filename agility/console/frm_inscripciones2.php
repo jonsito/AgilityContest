@@ -144,7 +144,10 @@ $('#inscripciones-excel-dialog').dialog( {
 		ac_import.mode='inscripciones';
 		$('#import-excel-progressbar').progressbar('setValue',"");
 	},
-	onClose: function() { ac_import.progres_status='paused'; }
+	onClose: function() {
+	    ac_import.progres_status='paused';
+	    autoBackupDatabase();
+	}
 } );
 
 $('#inscripciones-pruebas').form('load','/agility/server/database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);

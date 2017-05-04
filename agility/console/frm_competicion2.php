@@ -93,7 +93,8 @@ $('#competicion_info').panel({
 	border:true,
 	closable:true,
 	collapsible:false,
-	collapsed:false
+	collapsed:false,
+    onClose:function() {autoBackupDatabase();}
 });
 
 $('#competicion_infolayout').layout();
@@ -148,6 +149,7 @@ $('#competicion-listamangas').datagrid({
             reloadCompeticion();
             setupResultadosWindow(row.Recorrido);
         });
+        autoBackupDatabase();
     }
 });
 

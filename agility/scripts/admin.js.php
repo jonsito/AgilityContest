@@ -148,7 +148,7 @@ function autoBackupDatabase() {
                 }
                 $.messager.show({
                     width: 300,
-                    height: 75,
+                    height: 60,
                     timeout: 1000,
                     title: '<?php _e('AutoBackup'); ?>',
                     msg: '<?php _e('Automatic database backup done');?>'

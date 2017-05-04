@@ -230,7 +230,7 @@ class Admin extends DBObject {
 
 		// and finally return ok
         $this->myLogger->leave();
-        return "ok";
+        return ""; // return empty string to let json response work
     }
 
     public function backup() {

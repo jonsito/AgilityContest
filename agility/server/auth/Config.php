@@ -25,8 +25,12 @@ define('AC_BATCH_FILE',__DIR__."/../../../settings.bat"); // to store lang info 
 define('AC_LANG','es_ES');
 define('AC_ACCEPT_LANG','0');
 
+/** Copia de seguridad automatica **/
+define('AC_BACKUP_PERIOD','0');
+define('AC_BACKUP_FILE',"");
+
 /** logging **/
-define('AC_DEBUG_LEVEL',0);
+define('AC_DEBUG_LEVEL','0');
 define('AC_REGISTER_EVENTS',"0");
 define('AC_RESET_EVENTS',"1");
 define('AC_SEARCH_UPDATES',"1");
@@ -195,6 +199,9 @@ Class Config {
 		// Internacionalizacion
 		'lang'				=> array(	's',	false,	AC_LANG),
 		'accept_lang'		=> array(	'b',	false,	AC_ACCEPT_LANG),
+		// backups
+        'backup_period'		=> array(	'b',	false,	AC_BACKUP_PERIOD),
+        'backup_file'		=> array(	'b',	false,	AC_BACKUP_FILE),
 		// configuracion de la prueba
 		'proximity_alert'	=> array(	'i',	false,	AC_PROXIMITY_ALERT),
 		'training_time'		=> array(	'i',	false,	AC_TRAINING_TIME),

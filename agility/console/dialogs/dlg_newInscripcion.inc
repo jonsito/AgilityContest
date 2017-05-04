@@ -126,7 +126,10 @@ $('#new_inscripcion-dialog').dialog({
 	title:'<?php _e("Add inscriptions to contest"); ?>'+": '"+workingData.datosPrueba.Nombre+"'",
 	buttons:'#new_inscripcion-buttons',
 	onOpen: newInscripcion_onOpenSuccess, // on display setup jornada's 'checkboxes info
-	onClose: function() {$('#new_inscripcion-datagrid').datagrid('unselectAll')}
+	onClose: function() {
+	    $('#new_inscripcion-datagrid').datagrid('unselectAll')
+        autoBackupDatabase();
+	}
 	});
 	
 // datagrid de inscripcion de participantes
@@ -232,7 +235,7 @@ function newInscripcion_onOpenSuccess() {
 addTooltip($('#new_inscripcion-okBtn').linkbutton(),'<?php _e("Inscribe selected dog(s) into contest"); ?>');
 addTooltip($('#new_inscripcion-doneBtn').linkbutton(),'<?php _e("Close window"); ?>'+"<br />"+'<?php _e("Return to inscription handling form"); ?>');
 addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),'<?php _e("Clear selection. Refresh list"); ?>');
-addTooltip($('#new_inscripcion-dogBtn').linkbutton(),'<?php _e("Insert a new dog into database"); ?>');
+addTooltip($('#new_inscripcion-dogBtn').linkbutton(),'<?php _e("Insert new dog into database"); ?>');
 
 
 

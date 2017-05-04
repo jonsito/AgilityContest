@@ -147,7 +147,10 @@ $('#team_datagrid-dialog').dialog({
 	resizable:true,
 	title:'<?php _e("Team management on contest");?>'+": '"+workingData.datosPrueba.Nombre+"'",
 	closed:true,
-	onClose: function() { $('#inscripciones-datagrid').datagrid('reload'); }
+	onClose: function() {
+	    $('#inscripciones-datagrid').datagrid('reload');
+	    autoBackupDatabase();
+	}
 });
 
 // datos de la tabla de equipos
