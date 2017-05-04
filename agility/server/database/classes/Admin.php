@@ -162,14 +162,14 @@ class Admin extends DBObject {
         $cmd1 = "$cmd --opt --no-data --single-transaction --routines --triggers -h $dbhost -u$dbuser -p$dbpass $dbname";
         $this->myLogger->info("Ejecutando comando: '$cmd1'");
         $input = popen($cmd1, 'r');
-        if ($input===FALSE) { $this->errorMsg="adminFunctions::AutoBackup():popen() failed"; return null;}
+        if ($input===FALSE) { $this->errorMsg="adminFunctions::AutoBackup('popen 1') failed"; return null;}
 
         // rename ( if any ) previous backup
-        $oldname="{$this->restore_dir}/{$dbname}_oldbkp.sql";
-        $fname="{$this->restore_dir}/{$dbname}_backup.sql";
+        $oldname="{$this->restore_dir}/{$dbname}-backup_old.sql";
+        $fname="{$this->restore_dir}/{$dbname}-backup.sql";
         @rename($fname,$oldname); // @ to ignore errors in case of
         $resource=@fopen($fname,"w");
-        if (!$resource) { $this->errorMsg="adminFunctions::AutoBackup():fopen() failed"; return null;}
+        if (!$resource) { $this->errorMsg="adminFunctions::AutoBackup('fopen') failed"; return null;}
 
         // insert AgilityContest Tag Info at begining of backup file
         $ver=$this->myConfig->getEnv("version_name");
@@ -192,7 +192,7 @@ class Admin extends DBObject {
         $cmd2 = "$cmd --opt --no-create-info --single-transaction --routines --triggers $noexport -h $dbhost -u$dbuser -p$dbpass $dbname";
         $this->myLogger->info("Ejecutando comando: '$cmd2'");
         $input = popen($cmd2, 'r');
-        if ($input===FALSE) { $this->errorMsg="adminFunctions::popen() failed"; return null;}
+        if ($input===FALSE) { $this->errorMsg="adminFunctions::AutoBackup('popen 2') failed"; return null;}
         while(!feof($input)) {
             $line = fgets($input);
             if (substr($line, 0, 6) === 'INSERT') {
@@ -206,11 +206,15 @@ class Admin extends DBObject {
 
         // now decide what to do with generated file:
         // on mode=-1 do nothing ( just backup to log file )
-		// on mode=0 copy to $HOME as numerated (date+hour) backup
-		// on mode=1 check configuration
-		// 		if enabled ( a filename is provided ) try to copy there
-		// 		else do nothing
-
+        if ($mode<0) return "ok";
+        $tname="";
+        // on mode=0 copy to $HOME as numerated (date+hour) backup
+        if ($mode==0) $tname="{$this->restore_dir}/{$dbname}-{$ver}_{$rev}.sql";
+        // on mode=1 copy backup to file specified in configuration
+        if ($mode>0) $tname=$this->myConfig->getEnv("backup_file");
+        if ($tname=="") return "ok"; // no filename to save backup into. just return
+        $res=@copy($fname,$tname);
+        if (!$res) $this->myLogger->error("adminFunctions::AutoBackup({$tname}) failed");
 		// and finally return ok
         return "ok";
     }
