@@ -134,9 +134,10 @@ function backupDatabase(){
 
 /**
  * call server to perform automatic backup
- * @param mode -1:system 0:user-datetime 1:user-usbcopy
+ * @param {integer} mode -1:system 0:user-datetime 1:user-usbcopy
+ * @param {string} server directory to dump user backup, or "" to use configuration settings
  */
-function autoBackupDatabase(mode) {
+function autoBackupDatabase(mode,dir) {
     setTimeout(function(){
         $.ajax({
             type: 'GET',
@@ -144,12 +145,19 @@ function autoBackupDatabase(mode) {
             dataType: 'json',
             data: {
                 Operation: 'autobackup',
-                Mode: mode
+                Mode: mode,
+                Directory: dir
             },
             success: function (res) {
                 if (res.errorMsg) {
+                    // warn user on error update
                     $.messager.show({title:"Error",msg:"Autobackup() Error: <br/>" + res.errorMsg,timeout:3000});
+                    return;
                 }
+                // reset counters
+                ac_config.dogs_before_backup=0;
+                ac_config.time_of_last_backup=Math.floor(new Date().getTime() / 1000);
+                // and inform user on backup done
                 $.messager.show({
                     width: 300,
                     height: 75,
@@ -163,6 +171,10 @@ function autoBackupDatabase(mode) {
             }
         });
     },0);
+}
+
+function backupCheck() {
+    autoBackupDatabase(1,$('#backup_dir').textbox('getValue'));
 }
 
 function performClearDatabase(oper,pass,callback) {

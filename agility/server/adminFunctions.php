@@ -36,6 +36,7 @@ try {
     $mode=http_request("Mode","i",-1); // default for autobackup is do not handle user config, just backup
     $suffix=http_request("Suffix","s","");
     $version=http_request("Version","s","");
+    $directory=http_request("Directory","s",""); // where to store user backup or null to use defaults
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
 	if ($operation==="progress") {
 		$logfile=RESTORE_DIR."restore_{$suffix}.log";
@@ -61,7 +62,7 @@ try {
         case "backup":
         	/* $am->access(PERMS_ADMIN); */ $result=$adm->backup();	break;
         case "autobackup":
-        	/* $am->access(PERMS_ADMIN); */ $result=$adm->autobackup($mode);	break;
+        	/* $am->access(PERMS_ADMIN); */ $result=$adm->autobackup($mode,$directory);	break;
 		case "restore":
 			$am->access(PERMS_ADMIN); $result=$adm->restore(); break;
 		case "reset":

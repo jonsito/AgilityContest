@@ -143,8 +143,9 @@ class Admin extends DBObject {
 	 * Automatic backup to log file
 	 * and -if defined- to user specified file
 	 * @param {integer} mode -1: no copy; 0: numerated backup copy to ${HOME}; 1: try to copy backup to specified file
+     * @param {integer} directory to store user copy, or empty to use configuration value
 	*/
-    public function autobackup($mode=1) {
+    public function autobackup($mode=1,$directory="") {
         $this->myLogger->enter();
         $dbname=$this->dbname;
         $dbhost=$this->dbhost;
@@ -175,15 +176,14 @@ class Admin extends DBObject {
         $resource=@fopen($fname,"w");
         if (!$resource) {
             $this->myLogger->error("Cannot fopen system backup file {$fname}");
-            $this->errorMsg="adminFunctions::AutoBackup('fopen') failed";
-            return null;
+            return "adminFunctions::AutoBackup('fopen') failed";
         }
 
         // phase 1: dump structure
         $cmd1 = "$cmd --opt --no-data --single-transaction --routines --triggers -h $dbhost -u$dbuser -p$dbpass $dbname";
         $this->myLogger->info("Ejecutando comando: '$cmd1'");
         $input = popen($cmd1, 'r');
-        if ($input===FALSE) { $this->errorMsg="adminFunctions::AutoBackup('popen 1') failed"; return null;}
+        if ($input===FALSE) return "adminFunctions::AutoBackup('popen 1') failed";
 
         // insert AgilityContest Tag Info at begining of backup file
         $ver=$this->myConfig->getEnv("version_name");
@@ -207,7 +207,7 @@ class Admin extends DBObject {
         $cmd2 = "$cmd --opt --no-create-info --single-transaction --routines --triggers $noexport -h $dbhost -u$dbuser -p$dbpass $dbname";
         $this->myLogger->info("Ejecutando comando: '$cmd2'");
         $input = popen($cmd2, 'r');
-        if ($input===FALSE) { $this->errorMsg="adminFunctions::AutoBackup('popen 2') failed"; return null;}
+        if ($input===FALSE) return "adminFunctions::AutoBackup('popen 2') failed";
         while(!feof($input)) {
             $line = fgets($input);
             if (substr($line, 0, 6) === 'INSERT') {
@@ -225,9 +225,18 @@ class Admin extends DBObject {
         // on mode=0 copy to $HOME as numerated (date+hour) backup
         if ($mode==0) $tname="{$this->restore_dir}/{$dbname}-{$dt}.sql";
         // on mode=1 copy backup to file specified in configuration
-        if ($mode>0) $tname=$this->myConfig->getEnv("backup_file");
+        if ($mode>0) {
+            $dirname=($directory=="")?$this->myConfig->getEnv("backup_dir"):$directory;
+            if ($dirname=="") return "adminFunctions::AutoBAckup) empty user directory";
+            if (!is_dir($dirname)) return "adminFunctions::AutoBAckup) invalid user directory {$dirname}";
+            if (!is_writeable($dirname)) return "adminFunctions::AutoBAckup) cannot write into user directory {$dirname}";
+            $tname="{$dirname}/{$dbname}-userbackup.sql";
+        }
+        $this->myLogger->trace("Copying backup to destination file {$tname}");
+        // notice that apache/php may restrict access permissions
+        // and copy will silently fail
         if ($tname!="") @copy($fname,$tname);
-
+        if (!file_exists($tname)) return "adminFunctions::AutoBAckup) couldn't create user backup {$tname}";
 		// and finally return ok
         $this->myLogger->leave();
         return ""; // return empty string to let json response work

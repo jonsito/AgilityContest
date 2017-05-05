@@ -409,8 +409,9 @@ $config =Config::getInstance();
             <br/>
             <label for="email_workstation"><?php _e('NTLM auth workstation'); ?></label>
             <input id="email_workstation" name="email_workstation" size="20" type="password" value="" class="easyui-textbox"/>
-            <br/>
-            <input id="email-checkBtn" type="button" value="<?php _e("Check");?>" onclick="emailCheck();"/>
+            <br/>&nbsp;<br/>
+            <a id="email-checkBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-mail'" onclick="emailCheck();"><?php _e('Check'); ?></a>
             <br/>
         </div>
 		<div title="<?php _e('General'); ?>" style="padding:10px">
@@ -445,7 +446,8 @@ $config =Config::getInstance();
 			<label for="wide_printer80" style="width:70px;">
 				<input type="radio" id="wide_printer80" name="wide_printer" value="1"/>	80mm
 			</label>
-			<input id="printer-checkBtn" type="button" value="<?php _e("Check");?>" onclick="printerCheck();"/>
+            <a id="printer-checkBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-print'" onclick="printerCheck();"><?php _e('Check'); ?></a>
 			<br />
 
             <label for="reset_events"><?php _e('Clear event registration on tablet init session'); ?></label>
@@ -462,12 +464,16 @@ $config =Config::getInstance();
 
             <h3><?php _e('Auto backup options'); ?></h3>
 
-            <label for="backup_results"><?php _e('Perform database backup after '); ?></label>
-            <input type="number" min="0" max="50" step="5" id="backup_results" name="backup_dogs"/> <?php _e('results entered');?><br/>
+            <label for="backup_dogs"><?php _e('Perform database backup after '); ?></label>
+            <input type="number" min="0" max="50" step="5" id="backup_dogs" name="backup_dogs" style="width:75px;"/> <?php _e('results entered');?><br/>
             <label for="backup_period"><?php _e('Perform database backup every'); ?></label>
-            <input  type="number" min="0" max="50" step="2"id="backup_period" name="backup_period"/> <?php _e('minutes');?><br/>
-            <label for="backup_file"><?php _e('Folder to store user-defined backup'); ?></label>
-            <input id="backup_file" name="backup_file" type="text" size="20" value="" class="easyui-textbox"/> (<?php _e('must exist in server');?>)<br/>
+            <input  type="number" min="0" max="50" step="2"id="backup_period" name="backup_period" style="width:75px;"/> <?php _e('minutes');?><br/>
+            <label for="backup_dir"><?php _e('Folder to store user-defined backup'); ?></label>
+            <input id="backup_dir" name="backup_dir" type="text" size="20" value="" class="easyui-textbox"/>
+                (<?php _e('must exist in server');?>)
+            <a id="backup-checkBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-db_backup'" onclick="backupCheck();"><?php _e('Check'); ?></a>
+            <br/>
 
 		</div>
 
@@ -522,6 +528,7 @@ $config =Config::getInstance();
 	addTooltip($('#config-okBtn').linkbutton(),'<?php _e("Accept changes. Save as new configuration"); ?>');
     addTooltip($('#printer-checkBtn').linkbutton(),'<?php _e("Send sample report to check printer"); ?>');
     addTooltip($('#email-checkBtn').linkbutton(),'<?php _e("Send yourself a sample mail to check parameters"); ?>');
+    addTooltip($('#backup-checkBtn').linkbutton(),'<?php _e("Test backup into user provided directory"); ?>');
 
     // enable/disable NTLM auth boxes according auth type method
     $('#email_auth').combobox({

@@ -146,7 +146,7 @@ $('#inscripciones-excel-dialog').dialog( {
 	},
 	onClose: function() {
 	    ac_import.progres_status='paused';
-	    autoBackupDatabase(1);
+	    autoBackupDatabase(1,"");
 	}
 } );
 

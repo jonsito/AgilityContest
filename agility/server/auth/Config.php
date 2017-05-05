@@ -27,7 +27,8 @@ define('AC_ACCEPT_LANG','0');
 
 /** Copia de seguridad automatica **/
 define('AC_BACKUP_PERIOD','0');
-define('AC_BACKUP_FILE',"");
+define('AC_BACKUP_DIR',"");
+define('AC_BACKUP_DOGS',"0");
 
 /** logging **/
 define('AC_DEBUG_LEVEL','0');
@@ -201,7 +202,8 @@ Class Config {
 		'accept_lang'		=> array(	'b',	false,	AC_ACCEPT_LANG),
 		// backups
         'backup_period'		=> array(	'b',	false,	AC_BACKUP_PERIOD),
-        'backup_file'		=> array(	'b',	false,	AC_BACKUP_FILE),
+        'backup_dir'		=> array(	's',	false,	AC_BACKUP_DIR),
+        'backup_dogs'		=> array(	'i',	false,	AC_BACKUP_DOGS),
 		// configuracion de la prueba
 		'proximity_alert'	=> array(	'i',	false,	AC_PROXIMITY_ALERT),
 		'training_time'		=> array(	'i',	false,	AC_TRAINING_TIME),

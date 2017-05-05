@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-05-04 14:22+0200\n"
-"PO-Revision-Date: 2017-05-04 14:22+0200\n"
+"POT-Creation-Date: 2017-05-05 11:59+0200\n"
+"PO-Revision-Date: 2017-05-05 12:00+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -321,7 +321,7 @@ msgstr "Eliminado"
 
 #: chrono/chrono.inc.php:100 console/import/import.js.php:408
 #: scripts/admin.js.php:38 scripts/admin.js.php:57 scripts/admin.js.php:82
-#: scripts/admin.js.php:362 scripts/common.js.php:338 scripts/common.js.php:362
+#: scripts/admin.js.php:378 scripts/common.js.php:338 scripts/common.js.php:362
 #: scripts/common.js.php:385 scripts/common.js.php:623
 #: scripts/common.js.php:635 scripts/common.js.php:647
 #: scripts/common.js.php:662 scripts/competicion.js.php:418
@@ -352,7 +352,7 @@ msgstr "Eliminado"
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
 #: scripts/usuarios.js.php:86 scripts/usuarios.js.php:150
 #: console/dialogs/dlg_competicion.inc:71
-#: console/dialogs/dlg_configuracion.inc:671
+#: console/dialogs/dlg_configuracion.inc:687
 #: console/dialogs/dlg_selectJornada.inc:156
 msgid "Error"
 msgstr "Error"
@@ -847,15 +847,15 @@ msgstr "TRS Small"
 msgid "Templates"
 msgstr "Plantillas"
 
-#: console/dialogs/infomanga.php:324 console/dialogs/dlg_configuracion.inc:476
-#: console/dialogs/dlg_configuracion.inc:489
-#: console/dialogs/dlg_configuracion.inc:685 console/dialogs/dlg_tools.inc:12
+#: console/dialogs/infomanga.php:324 console/dialogs/dlg_configuracion.inc:491
+#: console/dialogs/dlg_configuracion.inc:504
+#: console/dialogs/dlg_configuracion.inc:701 console/dialogs/dlg_tools.inc:12
 msgid "Restore"
 msgstr "Restaurar"
 
 #: console/dialogs/infomanga.php:329 console/dialogs/dlg_competicion.inc:145
-#: console/dialogs/dlg_configuracion.inc:495
-#: console/dialogs/dlg_configuracion.inc:550
+#: console/dialogs/dlg_configuracion.inc:510
+#: console/dialogs/dlg_configuracion.inc:566
 #: console/dialogs/dlg_entrenamientos.inc:97 console/dialogs/dlg_equipos.inc:56
 #: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:129
 #: console/dialogs/dlg_jueces.inc:80 console/dialogs/dlg_perros.inc:100
@@ -2061,7 +2061,7 @@ msgstr "Iniciar sesi&oacute;n como invitado. Cerrar ventana"
 msgid "Confirm logout on current session"
 msgstr "Confirme que desea cerrar la sesi&oacute;n actual"
 
-#: console/frm_logout.php:31 scripts/auth.js.php:80 scripts/auth.js.php:109
+#: console/frm_logout.php:31 scripts/auth.js.php:80 scripts/auth.js.php:110
 #: tablet/index.php:148 tablet/index.php:379
 #: console/dialogs/dlg_configuracion.inc:401
 #: console/dialogs/dlg_sesiones.inc:35 console/dialogs/dlg_sesiones.inc:161
@@ -2581,7 +2581,7 @@ msgstr "Importar datos de Clubs"
 #: console/import/import_handlers.inc.php:30
 #: console/import/import_perros.inc.php:30 console/dialogs/dlg_chguias.inc:29
 #: console/dialogs/dlg_chperros.inc:29
-#: console/dialogs/dlg_configuracion.inc:478
+#: console/dialogs/dlg_configuracion.inc:493
 #: console/dialogs/dlg_newInscripcion.inc:33
 msgid "Search"
 msgstr "Buscar"
@@ -3225,7 +3225,7 @@ msgid "Database backup is recommended before import"
 msgstr "Se recomienda una copia de seguridad antes de la importacion"
 
 #: lib/templates/import_dialog.inc.php:13
-#: console/dialogs/dlg_configuracion.inc:473
+#: console/dialogs/dlg_configuracion.inc:488
 #: console/dialogs/dlg_entrenamientos.inc:30 console/dialogs/dlg_tools.inc:7
 msgid "Backup"
 msgstr "Backup"
@@ -3901,7 +3901,7 @@ msgstr ""
 #: scripts/pruebas.js.php:239 scripts/sesiones.js.php:103
 #: scripts/sesiones.js.php:127 scripts/tandas.js.php:123
 #: scripts/usuarios.js.php:109 console/dialogs/dlg_competicion.inc:223
-#: console/dialogs/dlg_configuracion.inc:627
+#: console/dialogs/dlg_configuracion.inc:643
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -3968,20 +3968,20 @@ msgstr ""
 "Hubo un problema en la generaci&oacute;n del backup. Por favor pruebe de "
 "nuevo"
 
-#: scripts/admin.js.php:153
+#: scripts/admin.js.php:165
 msgid "AutoBackup"
 msgstr "AutoBackup"
 
-#: scripts/admin.js.php:154
+#: scripts/admin.js.php:166
 msgid "Automatic database backup done"
 msgstr "Copia de seguridad autom&aacute;tica realizada"
 
-#: scripts/admin.js.php:198 scripts/admin.js.php:277 scripts/admin.js.php:298
-#: scripts/admin.js.php:317
+#: scripts/admin.js.php:214 scripts/admin.js.php:293 scripts/admin.js.php:314
+#: scripts/admin.js.php:333
 msgid "<strong>Notice:</strong><br/>"
 msgstr "<strong>Aviso:</strong><br/>"
 
-#: scripts/admin.js.php:199
+#: scripts/admin.js.php:215
 msgid ""
 "This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>. "
 "before trying restore<br/>"
@@ -3989,50 +3989,50 @@ msgstr ""
 "Esta operaci&oacute;n <strong>BORRARA <em>TODOS</em> LOS DATOS </"
 "strong>antes de restaurar <br/>"
 
-#: scripts/admin.js.php:200 scripts/admin.js.php:281 scripts/admin.js.php:324
+#: scripts/admin.js.php:216 scripts/admin.js.php:297 scripts/admin.js.php:340
 msgid "Be aware of making a backup copy before continue<br/><br/>"
 msgstr "Asegurese de hacer una copia de seguridad antes de seguir<br/><br/>"
 
-#: scripts/admin.js.php:201 scripts/admin.js.php:282 scripts/admin.js.php:301
+#: scripts/admin.js.php:217 scripts/admin.js.php:298 scripts/admin.js.php:317
 msgid "To continue enter administrator password and press <em>Accept</em>"
 msgstr ""
 "Para proceder, introduzca la contrase&ntilde;a del usuario administrador y "
 "pulse <em>Aceptar</em>"
 
-#: scripts/admin.js.php:204
+#: scripts/admin.js.php:220
 msgid "You should specify an <em>.sql</em> file with a previous backup"
 msgstr "Debe especificar un fichero <em>.sql</em> con un backup anterior"
 
-#: scripts/admin.js.php:207
+#: scripts/admin.js.php:223
 msgid "DataBase restore"
 msgstr "Restaurar base de datos"
 
-#: scripts/admin.js.php:217
+#: scripts/admin.js.php:233
 msgid "Restoreing database"
 msgstr "Recuperando base de datos"
 
-#: scripts/admin.js.php:233
+#: scripts/admin.js.php:249
 msgid "Database Restore Error"
 msgstr "Error en recuperacion de base de datos"
 
-#: scripts/admin.js.php:236
+#: scripts/admin.js.php:252
 msgid "Restore Database"
 msgstr "Restaurar base de datos"
 
-#: scripts/admin.js.php:237
+#: scripts/admin.js.php:253
 msgid "Database restore success<br />Press Accept to re-init application"
 msgstr ""
 "Recuperaci&oacute;n de base de datos completa<br /> pulse Aceptar para "
 "reiniciar aplicaci&oacute;n"
 
-#: scripts/admin.js.php:278
+#: scripts/admin.js.php:294
 msgid ""
 "This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>.<br/>"
 msgstr ""
 "Esta operaci&oacute;n <strong>BORRARRA <em>TODOS</em> LOS DATOS</strong>.<br/"
 ">"
 
-#: scripts/admin.js.php:279
+#: scripts/admin.js.php:295
 msgid ""
 "Including contests, inscriptions, scores, judges, dogs, handlers and "
 "clubs<br/>"
@@ -4040,7 +4040,7 @@ msgstr ""
 "Incluyendo pruebas, inscripciones, resultados, jueces, perros, gu&iacute;s y "
 "clubes<br/>"
 
-#: scripts/admin.js.php:280
+#: scripts/admin.js.php:296
 msgid ""
 "This is intended to be used ONLY as a previous step from importing new data "
 "from Excel file<br/> "
@@ -4048,54 +4048,54 @@ msgstr ""
 "SOLO debe ser usada como paso previo a una importaci&oacute;n de datos desde "
 "un fichero Excel<br/>"
 
-#: scripts/admin.js.php:284
+#: scripts/admin.js.php:300
 msgid "Factory Reset"
 msgstr "Reset de f&aacute;brica"
 
-#: scripts/admin.js.php:288
+#: scripts/admin.js.php:304
 msgid "Database Reset Error"
 msgstr "Error en borrado de base de datos"
 
-#: scripts/admin.js.php:290
+#: scripts/admin.js.php:306
 msgid "Reset Database"
 msgstr "Borrar base de datos"
 
-#: scripts/admin.js.php:290
+#: scripts/admin.js.php:306
 msgid "Data base cleared<br />Please reinit application"
 msgstr ""
 "Base de datos vac&iacute;a<br />Por favor, reinicie la aplicaci&oacute;n"
 
-#: scripts/admin.js.php:299
+#: scripts/admin.js.php:315
 msgid "This operation WILL ERASE every contests,"
 msgstr "Esta operaci&oacute;n BORRARA todas las pruebas,"
 
-#: scripts/admin.js.php:300
+#: scripts/admin.js.php:316
 msgid "inscriptions and scores from data base<br/><br/>"
 msgstr "inscripciones y resultados de la base de datos<br/><br/>"
 
-#: scripts/admin.js.php:303 scripts/admin.js.php:309
+#: scripts/admin.js.php:319 scripts/admin.js.php:325
 msgid "Erase contests"
 msgstr "Borrar pruebas"
 
-#: scripts/admin.js.php:307
+#: scripts/admin.js.php:323
 msgid "Contests clear Error"
 msgstr "Error en borrado de pruebas"
 
-#: scripts/admin.js.php:309
+#: scripts/admin.js.php:325
 msgid "Every contests have been erased<br />Please, reinit application"
 msgstr ""
 "Todas las pruebas han sido borradas<br />Por favor, reinicie la "
 "aplicaci&oacute;n"
 
-#: scripts/admin.js.php:319 scripts/admin.js.php:328
+#: scripts/admin.js.php:335 scripts/admin.js.php:344
 msgid "Update AgilityContest"
 msgstr "Actualizar AgilityContest"
 
-#: scripts/admin.js.php:320
+#: scripts/admin.js.php:336
 msgid "Auto-Update is not allowed for unregistered installs"
 msgstr "No se permite actualizar una versi&oacute;n sin licencia registrada"
 
-#: scripts/admin.js.php:325
+#: scripts/admin.js.php:341
 msgid ""
 "To proceed with AgilityContest update, enter administrator password and "
 "press <em>Accept</em>"
@@ -4103,52 +4103,52 @@ msgstr ""
 "Para proceder con la actualizaci&oacute;n, introduzca la contrase&ntilde;a "
 "del usuario administrador y pulse <em>Aceptar</em>"
 
-#: scripts/admin.js.php:337
+#: scripts/admin.js.php:353
 msgid "Downloading"
 msgstr "Descargando"
 
-#: scripts/admin.js.php:338
+#: scripts/admin.js.php:354
 msgid "Downloading new version into server"
 msgstr "Descargando actualizaci&oacute;n en el servidor"
 
-#: scripts/admin.js.php:353
+#: scripts/admin.js.php:369
 msgid "Download update failed"
 msgstr "Descarga de actualizaci&oacute;n fallida"
 
-#: scripts/admin.js.php:356 console/dialogs/dlg_plugins.inc:11
+#: scripts/admin.js.php:372 console/dialogs/dlg_plugins.inc:11
 #: console/dialogs/dlg_tools.inc:29
 msgid "Upgrade"
 msgstr "Actualizar"
 
-#: scripts/admin.js.php:356
+#: scripts/admin.js.php:372
 msgid "Download complete. Press Acccept to start upgrade"
 msgstr "Descarga completada. Pulse Aceptar para iniciar actualizaci&oacute;n"
 
-#: scripts/admin.js.php:394
+#: scripts/admin.js.php:410
 msgid "Current Version"
 msgstr "Versi&oacute;n actual"
 
-#: scripts/admin.js.php:394
+#: scripts/admin.js.php:410
 msgid "Current Release"
 msgstr "Revisi&oacute;n actual"
 
-#: scripts/admin.js.php:403
+#: scripts/admin.js.php:419
 msgid "Check for Upgrades"
 msgstr "Buscar actualizaciones"
 
-#: scripts/admin.js.php:407
+#: scripts/admin.js.php:423
 msgid "<p>AgilityContest is up to date</p>"
 msgstr "<p>AgilityContest est&aacute; actualizado</p>"
 
-#: scripts/admin.js.php:410
+#: scripts/admin.js.php:426
 msgid "Last Version"
 msgstr "Nueva Versi&oacute;n"
 
-#: scripts/admin.js.php:410
+#: scripts/admin.js.php:426
 msgid "Last Release"
 msgstr "Nueva revisi&oacute;n"
 
-#: scripts/auth.js.php:34 scripts/auth.js.php:110
+#: scripts/auth.js.php:34 scripts/auth.js.php:111
 msgid "Init session"
 msgstr "Iniciar Sesi&oacute;n"
 
@@ -4184,39 +4184,39 @@ msgstr "Nueva versi&oacute;n disponible"
 msgid "session login success"
 msgstr "sesi&oacute;n iniciada correctamente"
 
-#: scripts/auth.js.php:109
+#: scripts/auth.js.php:110
 msgid "Session has been closed by user"
 msgstr "El usuario ha finalizado la sesi&oacute;n"
 
-#: scripts/auth.js.php:140
+#: scripts/auth.js.php:142
 msgid "No user specified"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:148
+#: scripts/auth.js.php:150
 msgid "Current user has no <em>admin</em> privileges"
 msgstr "El usuario actual no tiene privilegios de administrador"
 
-#: scripts/auth.js.php:158
+#: scripts/auth.js.php:160
 msgid "No user provided"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:158
+#: scripts/auth.js.php:160
 msgid "Starting session read-only (guest)"
 msgstr "Iniciando sesi&oacute;n en modo solo consulta (invitado)"
 
-#: scripts/auth.js.php:199
+#: scripts/auth.js.php:201
 msgid "Licensing"
 msgstr "Licencia"
 
-#: scripts/auth.js.php:199
+#: scripts/auth.js.php:201
 msgid "Licensing data successfully loaded"
 msgstr "Datos de la licencia actualizados correctamente"
 
-#: scripts/auth.js.php:239
+#: scripts/auth.js.php:241
 msgid "User level"
 msgstr "Nivel de usuario"
 
-#: scripts/auth.js.php:240
+#: scripts/auth.js.php:242
 msgid ""
 "Current user has not enought level to make changes <br/>Read-only access "
 "enabled"
@@ -5019,12 +5019,12 @@ msgid "Mailer error"
 msgstr "Error de envio"
 
 #: scripts/pruebas.js.php:211 scripts/results_and_scores.js.php:70
-#: console/dialogs/dlg_configuracion.inc:567
+#: console/dialogs/dlg_configuracion.inc:583
 msgid "Mail services"
 msgstr "Servicios de correo"
 
 #: scripts/pruebas.js.php:212 scripts/results_and_scores.js.php:71
-#: console/dialogs/dlg_configuracion.inc:568
+#: console/dialogs/dlg_configuracion.inc:584
 msgid ""
 "Electronic mail operations<br/>are not allowed for unregistered licenses"
 msgstr ""
@@ -6662,8 +6662,8 @@ msgid "Encryption method"
 msgstr "M&eacute;todo de cifrado"
 
 #: console/dialogs/dlg_configuracion.inc:393
-#: console/dialogs/dlg_configuracion.inc:426
-#: console/dialogs/dlg_configuracion.inc:523 console/dialogs/dlg_pruebas.inc:53
+#: console/dialogs/dlg_configuracion.inc:427
+#: console/dialogs/dlg_configuracion.inc:539 console/dialogs/dlg_pruebas.inc:53
 #: console/dialogs/dlg_remotecontrol.inc:46
 #: console/dialogs/dlg_remotecontrol.inc:135
 #: console/dialogs/dlg_remotecontrol.inc:195
@@ -6690,228 +6690,261 @@ msgstr "Dominio de autenticaci&oacute;n NTLM"
 msgid "NTLM auth workstation"
 msgstr "Servidor de autenticaci&oacute;n NTLM"
 
-#: console/dialogs/dlg_configuracion.inc:413
-#: console/dialogs/dlg_configuracion.inc:448
-#: console/dialogs/dlg_configuracion.inc:610
+#: console/dialogs/dlg_configuracion.inc:414
+#: console/dialogs/dlg_configuracion.inc:450
+#: console/dialogs/dlg_configuracion.inc:475
+#: console/dialogs/dlg_configuracion.inc:626
 #: console/dialogs/dlg_ordensalida.inc:54
 msgid "Check"
 msgstr "Verificar"
 
-#: console/dialogs/dlg_configuracion.inc:416
+#: console/dialogs/dlg_configuracion.inc:417
 msgid "General"
 msgstr "General"
 
-#: console/dialogs/dlg_configuracion.inc:417
+#: console/dialogs/dlg_configuracion.inc:418
 msgid "General configuration"
 msgstr "Configuraci&oacute;n general"
 
-#: console/dialogs/dlg_configuracion.inc:418
+#: console/dialogs/dlg_configuracion.inc:419
 msgid "Default language"
 msgstr "Idioma por defecto"
 
-#: console/dialogs/dlg_configuracion.inc:420
+#: console/dialogs/dlg_configuracion.inc:421
 msgid "Choose language from browser preferences"
 msgstr "Seleccionar el idioma seg&uacute;n preferencias del navegador"
 
-#: console/dialogs/dlg_configuracion.inc:423
+#: console/dialogs/dlg_configuracion.inc:424
 msgid "Debug level"
 msgstr "Nivel de depuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:427
+#: console/dialogs/dlg_configuracion.inc:428
 msgid "Unusable syetem"
 msgstr "Sistema inutilizable"
 
-#: console/dialogs/dlg_configuracion.inc:428
+#: console/dialogs/dlg_configuracion.inc:429
 msgid "Non recoverable errors"
 msgstr "Errores no recuperables"
 
-#: console/dialogs/dlg_configuracion.inc:429
+#: console/dialogs/dlg_configuracion.inc:430
 msgid "Recoverable error"
 msgstr "Errores recuperables"
 
-#: console/dialogs/dlg_configuracion.inc:430
+#: console/dialogs/dlg_configuracion.inc:431
 msgid "Notice alerts"
 msgstr "Avisos a tener en cuenta"
 
-#: console/dialogs/dlg_configuracion.inc:431
+#: console/dialogs/dlg_configuracion.inc:432
 msgid "Informative messages"
 msgstr "Mensajes informativos"
 
-#: console/dialogs/dlg_configuracion.inc:432
+#: console/dialogs/dlg_configuracion.inc:433
 msgid "Debugging information"
 msgstr "Informaci&oacute;n de depuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:433
+#: console/dialogs/dlg_configuracion.inc:434
 msgid "Execution trace registering"
 msgstr "Trazas de ejecucion"
 
-#: console/dialogs/dlg_configuracion.inc:434
+#: console/dialogs/dlg_configuracion.inc:435
 msgid "Register everything"
 msgstr "Registrar absolutamente todo"
 
-#: console/dialogs/dlg_configuracion.inc:436
+#: console/dialogs/dlg_configuracion.inc:437
 msgid "Provide raw file copy for system events"
 msgstr "Generar fichero con registro de eventos del sistema"
 
-#: console/dialogs/dlg_configuracion.inc:440
+#: console/dialogs/dlg_configuracion.inc:441
 msgid "Printer device name to write tablet reports"
 msgstr "Nombre de la impresora de registro del tablet"
 
-#: console/dialogs/dlg_configuracion.inc:441
+#: console/dialogs/dlg_configuracion.inc:442
 msgid "Paper size"
 msgstr "Tamaño del papel"
 
-#: console/dialogs/dlg_configuracion.inc:451
+#: console/dialogs/dlg_configuracion.inc:453
 msgid "Clear event registration on tablet init session"
 msgstr "Borrar historial de eventos al iniciar sesi&oacute;n en el tablet"
 
-#: console/dialogs/dlg_configuracion.inc:455
+#: console/dialogs/dlg_configuracion.inc:457
 msgid "Include event history in backup"
 msgstr "Incluir historial de eventos en la copia de seguridad"
 
-#: console/dialogs/dlg_configuracion.inc:459
+#: console/dialogs/dlg_configuracion.inc:461
 msgid "Search for updates at startup"
 msgstr "Buscar actualizaciones al inicio"
 
 #: console/dialogs/dlg_configuracion.inc:465
+msgid "Auto backup options"
+msgstr "Copia de seguridad autom&aacute;tica"
+
+#: console/dialogs/dlg_configuracion.inc:467
+msgid "Perform database backup after "
+msgstr "Realizar copia de seguridad cada"
+
+#: console/dialogs/dlg_configuracion.inc:468
+msgid "results entered"
+msgstr "resultados introducidos"
+
+#: console/dialogs/dlg_configuracion.inc:469
+msgid "Perform database backup every"
+msgstr "Copia de seguridad peri&oacute;dica cada"
+
+#: console/dialogs/dlg_configuracion.inc:470
+msgid "minutes"
+msgstr "minutos"
+
+#: console/dialogs/dlg_configuracion.inc:471
+msgid "Folder to store user-defined backup"
+msgstr "Carpeta donde guardar backup del usuario"
+
+#: console/dialogs/dlg_configuracion.inc:473
+msgid "must exist in server"
+msgstr "debe existir en el servidor"
+
+#: console/dialogs/dlg_configuracion.inc:480
 msgid "System"
 msgstr "Sistema"
 
-#: console/dialogs/dlg_configuracion.inc:466
+#: console/dialogs/dlg_configuracion.inc:481
 msgid "Additional server information"
 msgstr "Informaci&oacute;n adicional del servidor"
 
-#: console/dialogs/dlg_configuracion.inc:467
+#: console/dialogs/dlg_configuracion.inc:482
 msgid "IP address(es)"
 msgstr "Direcci&oacute;n(es) IP"
 
-#: console/dialogs/dlg_configuracion.inc:471
+#: console/dialogs/dlg_configuracion.inc:486
 msgid "Save and Restore configuration"
 msgstr "Guardar y Recuperar configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:472
+#: console/dialogs/dlg_configuracion.inc:487
 msgid "Download configuration to file"
 msgstr "Guardar configuraci&oacute;n en fichero"
 
-#: console/dialogs/dlg_configuracion.inc:475
+#: console/dialogs/dlg_configuracion.inc:490
 msgid "Restore configuration from file"
 msgstr "Recuperar configuraci&oacute;n desde fichero"
 
-#: console/dialogs/dlg_configuracion.inc:491
+#: console/dialogs/dlg_configuracion.inc:506
 msgid "Default"
 msgstr "Defecto"
 
-#: console/dialogs/dlg_configuracion.inc:510
+#: console/dialogs/dlg_configuracion.inc:525
 msgid "Enter printer name/device or leave empty to disable"
 msgstr ""
 "Nombre o Dispositivo de impresi&oacute;n <br/>Dejar vac&iacute;o para "
 "desactivar"
 
-#: console/dialogs/dlg_configuracion.inc:511
+#: console/dialogs/dlg_configuracion.inc:526
 msgid "Cancel changes. Restore information from server"
 msgstr ""
 "Anular cambios. Recuperar informaci&oacute;n de configuraci&oacute;n del "
 "servidor"
 
-#: console/dialogs/dlg_configuracion.inc:512
+#: console/dialogs/dlg_configuracion.inc:527
 msgid "Factory reset. Configure with default data"
 msgstr ""
 "Configurar aplicaci&oacute;n con los valores por defecto de f&aacute;brica. "
 
-#: console/dialogs/dlg_configuracion.inc:513
+#: console/dialogs/dlg_configuracion.inc:528
 msgid "Accept changes. Save as new configuration"
 msgstr "Aceptar cambios. Guardar como nueva configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:514
+#: console/dialogs/dlg_configuracion.inc:529
 msgid "Send sample report to check printer"
 msgstr "Enviar informe de prueba para comprobar impresora"
 
-#: console/dialogs/dlg_configuracion.inc:515
+#: console/dialogs/dlg_configuracion.inc:530
 msgid "Send yourself a sample mail to check parameters"
 msgstr "Enviar un correo de prueba para probar configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:525
+#: console/dialogs/dlg_configuracion.inc:531
+msgid "Test backup into user provided directory"
+msgstr "Comprobar si se genera backup en carpeta de usuario"
+
+#: console/dialogs/dlg_configuracion.inc:541
 msgid "User / Password"
 msgstr "Usuario / Contraseña"
 
-#: console/dialogs/dlg_configuracion.inc:527
+#: console/dialogs/dlg_configuracion.inc:543
 msgid "NTLM"
 msgstr "NTLM"
 
-#: console/dialogs/dlg_configuracion.inc:529
+#: console/dialogs/dlg_configuracion.inc:545
 msgid "CRAM-MD5"
 msgstr "CRAM-MD5"
 
-#: console/dialogs/dlg_configuracion.inc:551
+#: console/dialogs/dlg_configuracion.inc:567
 msgid "New configuration successfully saved"
 msgstr "Nueva configuraci&oacute;n guardada correctamente"
 
-#: console/dialogs/dlg_configuracion.inc:552
-#: console/dialogs/dlg_configuracion.inc:632
-#: console/dialogs/dlg_configuracion.inc:687
+#: console/dialogs/dlg_configuracion.inc:568
+#: console/dialogs/dlg_configuracion.inc:648
+#: console/dialogs/dlg_configuracion.inc:703
 msgid "You should close session and reload page"
 msgstr "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"
 
-#: console/dialogs/dlg_configuracion.inc:553
-#: console/dialogs/dlg_configuracion.inc:633
-#: console/dialogs/dlg_configuracion.inc:688
+#: console/dialogs/dlg_configuracion.inc:569
+#: console/dialogs/dlg_configuracion.inc:649
+#: console/dialogs/dlg_configuracion.inc:704
 msgid "for changes to become active"
 msgstr "para que los cambios se activen"
 
-#: console/dialogs/dlg_configuracion.inc:584
+#: console/dialogs/dlg_configuracion.inc:600
 msgid "Mail Check"
 msgstr "Verificar Correo"
 
-#: console/dialogs/dlg_configuracion.inc:585
+#: console/dialogs/dlg_configuracion.inc:601
 msgid "Mail has been successfully sent to address: "
 msgstr "Se ha enviado un correo a la direcci&oacute;n:"
 
-#: console/dialogs/dlg_configuracion.inc:586
+#: console/dialogs/dlg_configuracion.inc:602
 msgid "Please check email inbox for received mail"
 msgstr "Por favor compruebe el buz&oacute;n de entrada"
 
-#: console/dialogs/dlg_configuracion.inc:611
+#: console/dialogs/dlg_configuracion.inc:627
 msgid "A test page has been sent to event recording printer"
 msgstr "Se ha enviado una pagina de prueba a la impresora de registro"
 
-#: console/dialogs/dlg_configuracion.inc:612
+#: console/dialogs/dlg_configuracion.inc:628
 msgid "Please check for proper output"
 msgstr "Compruebe que la impresi&oacute;n es correcta"
 
-#: console/dialogs/dlg_configuracion.inc:613
+#: console/dialogs/dlg_configuracion.inc:629
 msgid "Remember to save changes before exiting"
 msgstr "Recuerde guardar los cambios antes de salir del men&uacute;"
 
-#: console/dialogs/dlg_configuracion.inc:627
+#: console/dialogs/dlg_configuracion.inc:643
 msgid "Restore factory default values. Sure?"
 msgstr "Restaurar valores por defecto. ¿Seguro?"
 
-#: console/dialogs/dlg_configuracion.inc:630
+#: console/dialogs/dlg_configuracion.inc:646
 msgid "Factory reset"
 msgstr "Reset de f&aacute;brica"
 
-#: console/dialogs/dlg_configuracion.inc:631
+#: console/dialogs/dlg_configuracion.inc:647
 msgid "Restored default configuration options"
 msgstr "Recuperada configuraci&oacute;n por defecto"
 
-#: console/dialogs/dlg_configuracion.inc:658
+#: console/dialogs/dlg_configuracion.inc:674
 msgid "Downloading configuration, please wait"
 msgstr "Descargando fichero de configuraci&oacute;n. Espere..."
 
-#: console/dialogs/dlg_configuracion.inc:659
+#: console/dialogs/dlg_configuracion.inc:675
 msgid "There was a problem in configuration download. Please try again"
 msgstr ""
 "Hubo un problema en la descarga de la configuraci&oacute;n. Pruebe de nuevo"
 
-#: console/dialogs/dlg_configuracion.inc:671
+#: console/dialogs/dlg_configuracion.inc:687
 msgid "No config file selected"
 msgstr "No se ha indicado ning&uacute;n fichero"
 
-#: console/dialogs/dlg_configuracion.inc:682
+#: console/dialogs/dlg_configuracion.inc:698
 msgid "Restore configuration from file error"
 msgstr "Error al restaurar configuraci&oacute;n desde fichero"
 
-#: console/dialogs/dlg_configuracion.inc:686
+#: console/dialogs/dlg_configuracion.inc:702
 msgid "Configuration file successfully restored"
 msgstr "Configuraci&oacute;n restaurada correctamente"
 

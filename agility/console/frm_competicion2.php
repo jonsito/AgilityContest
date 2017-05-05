@@ -94,7 +94,7 @@ $('#competicion_info').panel({
 	closable:true,
 	collapsible:false,
 	collapsed:false,
-    onClose:function() {autoBackupDatabase(1);}
+    onClose:function() {autoBackupDatabase(1,"");}
 });
 
 $('#competicion_infolayout').layout();
@@ -149,7 +149,7 @@ $('#competicion-listamangas').datagrid({
             reloadCompeticion();
             setupResultadosWindow(row.Recorrido);
         });
-        autoBackupDatabase(1);
+        autoBackupDatabase(1,"");
     }
 });
 

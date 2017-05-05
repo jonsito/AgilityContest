@@ -83,7 +83,7 @@ function acceptLogin() {
 					initAuthInfo(data);
 				});
                 w.window('resize',{width:400,height:'auto'}).window('center');
-                autoBackupDatabase(0);
+                autoBackupDatabase(0,"");
        		} 
        	},
    		error: function() { alert("error");	}
@@ -111,7 +111,7 @@ function acceptLogout() {
            		$('#login_menu-text').html('<?php _e("Init session");?>');
            		initAuthInfo();
            		setFederation(0); // on logout defaults to RSCE
-                autoBackupDatabase(0);
+                autoBackupDatabase(0,"");
        		} 
        	},
    		error: function() { alert("error");	}

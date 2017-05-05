@@ -149,7 +149,7 @@ $('#team_datagrid-dialog').dialog({
 	closed:true,
 	onClose: function() {
 	    $('#inscripciones-datagrid').datagrid('reload');
-	    autoBackupDatabase(1);
+	    autoBackupDatabase(1,"");
 	}
 });
 
