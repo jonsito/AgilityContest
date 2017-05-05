@@ -227,7 +227,10 @@ class Admin extends DBObject {
         // on mode=1 copy backup to file specified in configuration
         if ($mode>0) {
             $dirname=($directory=="")?$this->myConfig->getEnv("backup_dir"):$directory;
-            if ($dirname=="") return "adminFunctions::AutoBAckup) empty user directory";
+            if ($dirname=="") {
+                $this->myLogger->trace( "adminFunctions::AutoBAckup) empty user directory");
+                return ""; // not an error, just skip generating user defined backup
+            }
             if (!is_dir($dirname)) return "adminFunctions::AutoBAckup) invalid user directory {$dirname}";
             if (!is_writeable($dirname)) return "adminFunctions::AutoBAckup) cannot write into user directory {$dirname}";
             $tname="{$dirname}/{$dbname}-userbackup.sql";
