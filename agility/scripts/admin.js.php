@@ -167,14 +167,19 @@ function autoBackupDatabase(mode,dir) {
                 });
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $.messager.show({title:"Error",msg:"ClearTempDir() Error: " + textStatus + " " + errorThrown,timeout:3000});
+                $.messager.show({title:"Error",msg:"AutoBakup() Error: " + textStatus + " " + errorThrown,timeout:3000});
             }
         });
     },0);
 }
 
 function backupCheck() {
-    autoBackupDatabase(1,$('#backup_dir').textbox('getValue'));
+    var dir=$('#backup_dir').textbox('getValue');
+    if (dir==="") {
+        $.messager.alert('No data','<?php _e("Must provide a valid directory in Agiltiycontest server");?>','error');
+        return false;
+    }
+    autoBackupDatabase(1,dir);
 }
 
 function performClearDatabase(oper,pass,callback) {
