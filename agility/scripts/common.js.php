@@ -333,6 +333,7 @@ function loadConfiguration(callback) {
 				// extra configuration data to speedup
 				ac_config.numdecs=(ac_config.crono_miliseconds=="0")?2:3;
 				ac_config.dogInRing=false; // to be used in videowall and livestream to show dog info and timings
+                ac_config.dogs_before_backup=0; // to handle auto-backup on save result
 				if (typeof(callback)!=="undefined") callback(ac_config);
 			} else {
 				$.messager.alert('<?php _e("Error"); ?>','<?php _e("loadConfiguration(): cannot retrieve configuration from server"); ?>',"error")

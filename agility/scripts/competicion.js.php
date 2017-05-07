@@ -676,6 +676,7 @@ function swapMangas() {
     });
     w.window('resize',{width:450}).window('center');
 }
+
 var autoUpdateID=null;
 
 function autoUpdateCompeticion() {
@@ -947,14 +948,22 @@ function saveCompeticionData(idx,data) {
 			Pendiente: data['Pendiente']
 		},
 		success: function(dat) {
+
 		    // generate an event to track console modifications
             sendEvent(data);
 			if (dat.Manga!=workingData.manga) return; // window changed
 			$('#competicion-datagrid').datagrid('updateRow',{index: idx,row: dat});
 			$('#lnkb1_'+idx).linkbutton();
 			$('#lnkb2_'+idx).linkbutton();
+
+			// increase nextToBackup counter and fire on limit
+            var bd=parseInt(ac_config.backup_dogs)
+            if (bd==0) return;
+            ac_config.dogs_before_backup++;
+            if (ac_config.dogs_before_backup>=ac_config.backup_dogs) autoBackupDatabase(1,"");
 		}
 	});
+
 }
 
 // genera un nuevo orden aleatorio
