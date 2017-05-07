@@ -456,18 +456,27 @@ $config =Config::getInstance();
 
             <label for="full_backup"><?php _e('Include event history in backup'); ?></label>
             <input type="hidden" name="full_backup" value="0"/> <!-- trick for checkboxes -->
-            <input type="checkbox" name="full_backup" id="backup" value="1"/><br />
+            <input type="checkbox" name="full_backup" id="full_backup" value="1"/><br />
 
             <label for="search_updates"><?php _e('Search for updates at startup'); ?></label>
             <input type="hidden" name="search_updates" value="0"/> <!-- trick for checkboxes -->
-            <input type="checkbox" name="search_updates" id="backup" value="1"/><br />
+            <input type="checkbox" name="search_updates" id="search_updates" value="1"/><br />
 
             <h3><?php _e('Auto backup options'); ?></h3>
 
+            <label for="backup_disabled"><?php _e('Disable auto-backup'); ?> </label>
+            <input type="hidden" name="backup_disabled" value="0"/> <!-- trick for checkboxes -->
+            <span  style="width:90px;display:inline-block;">
+                <input type="checkbox" name="backup_disabled" id="backup_disabled" value="1" style="float:left"/>
+            </span>
+            <?php _e('Dangerous! Use at your own risk');?><br />
+
             <label for="backup_dogs"><?php _e('Perform database backup after '); ?></label>
             <input type="number" min="0" max="50" step="5" id="backup_dogs" name="backup_dogs" style="width:75px;"/> <?php _e('results entered');?><br/>
+
             <label for="backup_period"><?php _e('Perform database backup every'); ?></label>
             <input  type="number" min="0" max="50" step="2"id="backup_period" name="backup_period" style="width:75px;"/> <?php _e('minutes');?><br/>
+
             <label for="backup_dir"><?php _e('Folder to store user-defined backup'); ?></label>
             <input id="backup_dir" name="backup_dir" type="text" size="20" value="" class="easyui-textbox"/>
                 (<?php _e('must exist in server');?>)

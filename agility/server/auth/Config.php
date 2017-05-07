@@ -26,6 +26,7 @@ define('AC_LANG','es_ES');
 define('AC_ACCEPT_LANG','0');
 
 /** Copia de seguridad automatica **/
+define('AC_BACKUP_DISABLED','0'); // default is perform auto-backups
 define('AC_BACKUP_PERIOD','0');
 define('AC_BACKUP_DIR',"");
 define('AC_BACKUP_DOGS',"0");
@@ -201,7 +202,8 @@ Class Config {
 		'lang'				=> array(	's',	false,	AC_LANG),
 		'accept_lang'		=> array(	'b',	false,	AC_ACCEPT_LANG),
 		// backups
-        'backup_period'		=> array(	'b',	false,	AC_BACKUP_PERIOD),
+        'backup_disabled'	=> array(	'i',	false,	AC_BACKUP_DISABLED),
+        'backup_period'		=> array(	'i',	false,	AC_BACKUP_PERIOD),
         'backup_dir'		=> array(	's',	false,	AC_BACKUP_DIR),
         'backup_dogs'		=> array(	'i',	false,	AC_BACKUP_DOGS),
 		// configuracion de la prueba

@@ -135,9 +135,13 @@ function backupDatabase(){
 /**
  * call server to perform automatic backup
  * @param {integer} mode -1:system 0:user-datetime 1:user-usbcopy
- * @param {string} server directory to dump user backup, or "" to use configuration settings
+ * @param {string} dir server  directory to dump user backup, or "" to use configuration settings
  */
 function autoBackupDatabase(mode,dir) {
+    if (parseInt(ac_config.backup_disabled)!==0) {
+        console.log("auto-backup is disabled. Skip");
+        return;
+    }
     setTimeout(function(){
         $.ajax({
             type: 'GET',
@@ -157,6 +161,7 @@ function autoBackupDatabase(mode,dir) {
                 // reset counters
                 ac_config.dogs_before_backup=0;
                 ac_config.time_of_last_backup=Math.floor(new Date().getTime() / 1000);
+                console.log('autobackup done at '+ac_config.time_of_last_backup);
                 // and inform user on backup done
                 $.messager.show({
                     width: 300,
@@ -182,12 +187,19 @@ function backupCheck() {
     autoBackupDatabase(1,dir);
 }
 
-function trigger_autobackup(minutes) {
-    var current=Math.floor(new Date().getTime() / 1000);
+function trigger_autoBackup(minutes) {
+    var last=ac_config.time_of_last_backup;              // last backup, seconds
+    var current=Math.floor(new Date().getTime() / 1000); // current time, seconds
+    var next=last+minutes*60;                            // next pending backup, seconds
     // check for timeout
-    var when=ac_config.time_of_last_backup+60*minutes;
-    if (when<current) autoBackupDatabase(1,"");
-    setTimeout(function(){trigger_autobackup(minutes)},minutes*60*1000); // miliseconds till next backup REVISE
+    if (next <= current){
+        autoBackupDatabase(1,"");         // it's time to trigger backup
+        setTimeout(function(){trigger_autoBackup(minutes)},minutes*60*1000); // wait minutes to fire again
+    } else {
+        // trigger next backup
+        setTimeout(function(){trigger_autoBackup(minutes)},(next-current)*1000); // miliseconds till next backup
+    }
+
 }
 
 function performClearDatabase(oper,pass,callback) {

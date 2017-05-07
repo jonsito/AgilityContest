@@ -72,8 +72,11 @@ function acceptLogin() {
        			str =str+'<?php _e("License registered by");?>'+": "+data.User+"<br />";
        			str =str+'<?php _e("For use at club");?>'+": "+data.Club+"<br />";
 				if (data.Expired==="1")  {
-					str = str+'<br /><strong><span class="blink">'+'<?php _e("License expired");?>'+'</span></strong>';
+					str = str+'<br/><strong><span class="blink">'+'<?php _e("License expired");?>'+'</span></strong>';
 				}
+				if(parseInt(ac_config.backup_disabled)!==0) {
+				    str = str+'<br/><strong><span class="blink">'+'<?php _e("Automatic backup is disabled");?>'+'</span></strong>';
+                }
 				if (data.NewVersion>vers) {
 				    str = str+'<br /><?php _e("New version available");?>: '+data.NewVersion;
                 }
