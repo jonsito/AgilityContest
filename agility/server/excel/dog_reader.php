@@ -56,13 +56,13 @@ class DogReader {
         // dog related data
         // 'ID' =>      array (  -1,  0,  "i", "ID",        " `ID` int(4) UNIQUE NOT NULL, "), // automatically added
         'DogID' =>      array (  -2,  0,  "i", "DogID",     " `DogID` int(4) NOT NULL DEFAULT 0, "), // to be filled by importer
-        'Name'   =>      array (  -3,  1,  "s","Nombre",    " `Nombre` varchar(255) NOT NULL, "), // Dog name
+        'Name'   =>     array (  -3,  1,  "s", "Nombre",    " `Nombre` varchar(255) NOT NULL, "), // Dog name
         'LongName' =>   array (  -4,  -1, "s", "NombreLargo"," `NombreLargo` varchar(255) DEFAULT '', "), // dog pedigree long name
         'Gender' =>     array (  -5,  -1, "s", "Genero",    " `Genero` varchar(16) DEFAULT '', "), // M, F, Male/Female
         'Breed' =>      array (  -6,  -1, "s", "Raza",      " `Raza` varchar(255) DEFAULT '', "), // dog breed, optional
         'Chip' =>       array (  -16, -1, "s", "Chip",      " `Chip` varchar(255) DEFAULT '', "), // dog pedigree long name
         'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '', "), // dog license. required for A2-A3;
-        'KC_ID' =>      array (  -8,  -1, "s", "LOE_RRC",   " `LOE_RRC` varchar(255) DEFAULT '', "), // LOE_RRC kennel club dog id
+        'KC id' =>      array (  -8,  -1, "s", "LOE_RRC",   " `LOE_RRC` varchar(255) DEFAULT '', "), // LOE_RRC kennel club dog id
         'Category' =>   array (  -9,   1, "s", "Categoria", " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
         'Grade' =>       array (  -10, 1, "s", "Grado",     " `Grado` varchar(16) DEFAULT '-', "), // required
          // handler related data
@@ -144,8 +144,9 @@ class DogReader {
                 $name=$header[$index];
                 $name=preg_replace('/\s+/', '', $name);
                 $name=$this->myDBObject->conn->real_escape_string($name);
-                // search by index or by _(index). Try to take care on special chars
-                if ( ($name==$toSearch) || ($name==_utf($toSearch))) {
+                // search header item in available values from fieldlist
+                // Try to take care on special chars and i18n issues
+                if ( ($name==$toSearch) || ($name==_($toSearch)) || ($name==_utf($toSearch)) || ($name==$data[3]) ) {
                     $this->myLogger->trace("Found key $name at index $index");
                     $data[0]=$index; break;
                 }
@@ -476,7 +477,7 @@ class DogReader {
             $nombre=$this->import_mixData($nombre,$item['Nombre']);
             $nlargo=$this->import_mixData($nlargo,isset($item['NombreLargo'])?$item['NombreLargo']:"");
             $raza=$this->import_mixData($raza,isset($item['Raza'])?$item['Raza']:"");
-            $chip=$this->import_mixData($raza,isset($item['Chip'])?$item['Chip']:"");
+            $chip=$this->import_mixData($chip,isset($item['Chip'])?$item['Chip']:"");
             $lic=$this->import_mixData($lic,isset($item['Licencia'])?$item['Licencia']:"",false);
             $loe=$this->import_mixData($loe,isset($item['LOE_RRC'])?$item['LOE_RRC']:"",false);
             $cat=$this->import_mixData($cat,$item['Categoria'],false);
@@ -517,7 +518,9 @@ class DogReader {
             " VALUES ( '$nombre','$nlargo','$loe',$h,'$c','$g','$raza','$chip','$lic','$s',$f)";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
-        $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
+        $id=$this->myDBObject->conn->insert_id;
+        // retrieve insertID and update temporary table.
+        // Notice that some items may alread be set, so a bit redundant ( just only really need insert id )
         $str="UPDATE $t SET DogID=$id, Nombre='$nombre',LOE_RRC='$loe',Raza='$raza',Chip='$chip',Licencia='$lic',NombreLargo='$nlargo' ".
             "WHERE (Nombre = '$a') AND (HandlerID=$h)";
         $res=$this->myDBObject->query($str);
@@ -591,11 +594,11 @@ class DogReader {
             $c=$obj->Categoria;
             $g=$obj->Grado;
             $s=$obj->Genero;
-            $loe=isset($item['LOE_RRC'])?$this->myDBObject->conn->real_escape_string($obj->LOE_RRC):"";
-            $raza=isset($item['Raza'])?$this->myDBObject->conn->real_escape_string($obj->Raza):"";
-            $lic=isset($item['Licencia'])?$this->myDBObject->conn->real_escape_string($obj->Licencia):"";
-            $chip=isset($item['Chip'])?$this->myDBObject->conn->real_escape_string($obj->Chip):"";
-            $nlargo=isset($item['NombreLargo'])?$this->myDBObject->conn->real_escape_string($obj->NombreLargo):"";
+            $loe=$this->myDBObject->conn->real_escape_string($obj->LOE_RRC);
+            $raza=$this->myDBObject->conn->real_escape_string($obj->Raza);
+            $lic=$this->myDBObject->conn->real_escape_string($obj->Licencia);
+            $chip=$this->myDBObject->conn->real_escape_string($obj->Chip);
+            $nlargo=$this->myDBObject->conn->real_escape_string($obj->NombreLargo);
             $nombre=$this->myDBObject->conn->real_escape_string($obj->Nombre);
             $h=$obj->HandlerID;
             // check precedence on DB or Excel
@@ -603,14 +606,16 @@ class DogReader {
                 $nombre= toUpperCaseWords($nombre);
                 $raza= toUpperCaseWords($raza);
                 $nlargo= toUpperCaseWords($nlargo);
+                $lic= strtoupper($lic);
             }
             $str="INSERT INTO Perros (Nombre,NombreLargo,LOE_RRC,Guia,Categoria,Grado,Raza,Licencia,Chip,Genero,Federation)".
                 " VALUES ( '$nombre','$nlargo','$loe',$h,'$c','$g','$raza','$lic','$chip','$s',$f)";
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEntry(): InsertDog '$nombre' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID
-            // and update temporary table with fixed data. No need to update genero/cat/grad cause they already exists
-            $str="UPDATE $t SET DogID=$id, Nombre='$nombre',LOE_RRC='$loe',Raza='$raza',Licencia='$lic',Chip='$chip',NombreLargo='$nlargo' ".
+            // and update temporary table with processed data and add insertid.
+            // Leave as is unchanged fields
+            $str="UPDATE $t SET DogID=$id, Nombre='$nombre',Licencia='$lic',Raza='$raza',NombreLargo='$nlargo' ".
                 "WHERE (Nombre = '$nombre') AND (HandlerID=$h)";
             $res=$this->myDBObject->query($str);
             if (!$res) return "Create(): temp table update dog '$nombre' error:".$this->myDBObject->conn->error; // invalid update; mark error

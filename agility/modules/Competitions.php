@@ -16,9 +16,10 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-// for poedit
+// to make sure that poedit gets data to be translated
 $dummy= _('Points');
 $dummy= _('Stars');
+$dummy= _('KC_ID'); // LOE_RRC ( also exists 'KC id' that goes to 'LOE/RRC' )
 
 /*
  * This class handles every available kind of competitions on each federations
