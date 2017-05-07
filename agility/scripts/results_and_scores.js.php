@@ -176,7 +176,7 @@ function autoscroll(dg,pos,time) {
         if ( pos==(size-1)) pos=0; // at end: go to beging
         else pos+=10;
         if (pos>=size) pos=size-1; // next to end: pos at end
-        autoscroll(dg,pos);
+        autoscroll(dg,pos,time);
     },1000*pTime);
 }
 
