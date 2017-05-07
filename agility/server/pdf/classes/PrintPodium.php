@@ -249,12 +249,12 @@ class PrintPodium extends PrintCommon {
         }
 
 		// global
-		$this->Cell(12*$factor,6,$tiempo,0,0,'C',true);	// Tiempo
-		$this->Cell(12*$factor,6,$penal,0,0,'C',true);	// Penalizacion
-		$this->Cell(10*$factor,6,$row['Calificacion'],0,0,'C',true);	// Calificacion
-		$this->SetFont($this->getFontName(),'B',9); // default font
+		$this->Cell(11*$factor,6,$tiempo,0,0,'C',true);	// Tiempo
+		$this->Cell(11*$factor,6,$penal,0,0,'C',true);	// Penalizacion
+        $this->SetFont($this->getFontName(),'B',6); // default font
+		$this->Cell(12*$factor,6,$row['Calificacion'],0,0,'C',true);	// Calificacion
+        $this->SetFont($this->getFontName(),'B',10); // default font
 		$this->Cell(8*$factor,6,$puesto,0,0,'R',true);	// Puesto
-		$this->SetFont($this->getFontName(),'',9); // default font
 		// lineas rojas
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->Line(10    ,$y,10,    $y+6);
