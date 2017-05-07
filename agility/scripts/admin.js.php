@@ -182,6 +182,14 @@ function backupCheck() {
     autoBackupDatabase(1,dir);
 }
 
+function trigger_autobackup(minutes) {
+    var current=Math.floor(new Date().getTime() / 1000);
+    // check for timeout
+    var when=ac_config.time_of_last_backup+60*minutes;
+    if (when<current) autoBackupDatabase(1,"");
+    setTimeout(function(){trigger_autobackup(minutes)},minutes*60*1000); // miliseconds till next backup REVISE
+}
+
 function performClearDatabase(oper,pass,callback) {
     // comprobamos si el password es correcto
     checkPassword(ac_authInfo.Login,pass,function(data) {

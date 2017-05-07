@@ -174,6 +174,7 @@ class Admin extends DBObject {
         $fname="{$this->restore_dir}/{$dbname}_backup.sql";
         @rename($fname,$oldname); // @ to ignore errors in case of
         $resource=@fopen($fname,"w");
+        @flock($resource,LOCK_EX);
         if (!$resource) {
             $this->myLogger->error("Cannot fopen system backup file {$fname}");
             return "adminFunctions::AutoBackup('fopen') failed";
@@ -245,6 +246,7 @@ class Admin extends DBObject {
 		// and finally return ok
         $this->myLogger->leave();
         return ""; // return empty string to let json response work
+        // notice that exit procedure releases flock on agility_backup.sql
     }
 
     public function backup() {

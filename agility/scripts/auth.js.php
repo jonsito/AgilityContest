@@ -83,7 +83,12 @@ function acceptLogin() {
 					initAuthInfo(data);
 				});
                 w.window('resize',{width:400,height:'auto'}).window('center');
+
+                // force backup on login success
                 autoBackupDatabase(0,"");
+                // if configured, trigger autobackup every "n" minutes
+                var bp=parseInt(ac_config.backup_period);
+                if (bp!=0) setTimeout(function() {trigger_autoBackup(bp);},60*bp*1000);
        		} 
        	},
    		error: function() { alert("error");	}

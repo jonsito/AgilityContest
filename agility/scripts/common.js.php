@@ -334,6 +334,7 @@ function loadConfiguration(callback) {
 				ac_config.numdecs=(ac_config.crono_miliseconds=="0")?2:3;
 				ac_config.dogInRing=false; // to be used in videowall and livestream to show dog info and timings
                 ac_config.dogs_before_backup=0; // to handle auto-backup on save result
+                ac_config.time_of_last_backup=Math.floor(new Date().getTime() / 1000);
 				if (typeof(callback)!=="undefined") callback(ac_config);
 			} else {
 				$.messager.alert('<?php _e("Error"); ?>','<?php _e("loadConfiguration(): cannot retrieve configuration from server"); ?>',"error")

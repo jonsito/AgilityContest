@@ -956,7 +956,7 @@ function saveCompeticionData(idx,data) {
 			$('#lnkb1_'+idx).linkbutton();
 			$('#lnkb2_'+idx).linkbutton();
 
-			// increase nextToBackup counter and fire on limit
+			// increase nextToBackup counter and fire autobackup on limit
             var bd=parseInt(ac_config.backup_dogs)
             if (bd==0) return;
             ac_config.dogs_before_backup++;
