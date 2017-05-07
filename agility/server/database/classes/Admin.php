@@ -235,11 +235,13 @@ class Admin extends DBObject {
             if (!is_writeable($dirname)) return "adminFunctions::AutoBAckup) cannot write into user directory {$dirname}";
             $tname="{$dirname}/{$dbname}-userbackup.sql";
         }
-        $this->myLogger->trace("Copying backup to destination file {$tname}");
         // notice that apache/php may restrict access permissions
         // and copy will silently fail
-        if ($tname!="") @copy($fname,$tname);
-        if (!file_exists($tname)) return "adminFunctions::AutoBAckup) couldn't create user backup {$tname}";
+        if ($tname!=="") {
+            $this->myLogger->trace("Copying backup to destination user file {$tname}");
+            @copy($fname,$tname);
+            if (!file_exists($tname)) return "adminFunctions::AutoBAckup) couldn't create user backup {$tname}";
+        }
 		// and finally return ok
         $this->myLogger->leave();
         return ""; // return empty string to let json response work

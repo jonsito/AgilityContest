@@ -3,6 +3,7 @@
 require_once __DIR__.'/PHPMailer-5.2.22/PHPMailerAutoload.php';
 require_once __DIR__.'/../auth/Config.php';
 require_once __DIR__.'/../auth/AuthManager.php';
+require_once __DIR__.'/../database/classes/Admin.php';
 require_once __DIR__.'/../database/classes/Mangas.php';
 require_once __DIR__.'/../database/classes/Resultados.php';
 require_once __DIR__.'/../excel/classes/Excel_Inscripciones.php';
@@ -550,6 +551,15 @@ class MailManager {
         $excelObj->composeTable();
         $excelObj->close();
         array_push($filelist,"Inscripciones.xlsx");
+
+        // database backup
+        $adm=new Admin("CreateJourneyReportFiles",$this->myAuthManager);
+        $res=$adm->autobackup(1,$maildir);
+        if($res==="") {
+            $dbname=$this->myConfig->getEnv('database_name');
+            array_push($filelist, "{$dbname}-userbackup.sql");
+        }
+        else $this->myLogger->error("Failed to create backup file to be stored");
 
         // return list of composed files
         $this->myLogger->trace("filelist is ".json_encode($filelist));
