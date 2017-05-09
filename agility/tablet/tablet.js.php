@@ -574,7 +574,7 @@ function tablet_accept() {
 	// save current data and send "accept" event
 	var rowindex=tablet_save(dg);
 	if (rowindex<0) return false;
-	
+
 	// check "accept" behaviour in config. If 'tablet_next' = false, just return to round selection
 	if (ac_config.tablet_next==="0") { // no go to next row entry
 		setDataEntryEnabled(false);
@@ -759,9 +759,11 @@ function tablet_eventManager(id,evt) {
 		return;
 	case 'init': // operator starts tablet application
 		return;
-	case 'open': // operator select tanda:
+	case 'open': // operator select tanda: just fire backup if enabled
+        autoBackupDatabase(1,"");
 		return;
-	case 'close': // no more dogs in tanda
+    case 'close': // no more dogs in tanda: fire backup if enabled
+        autoBackupDatabase(1,"");
 		return;
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		return;
@@ -869,8 +871,14 @@ function tablet_eventManager(id,evt) {
 		},0);
 		return;
 	case 'cancelar': // operador pulsa cancelar
+        autoBackupDatabase(1,"");
 		return;
-	case 'aceptar':	// operador pulsa aceptar
+    case 'aceptar':	// operador pulsa aceptar
+        // increase dog count for autobackup. trigger on success
+        if (ac_config.backup_dogs==="0") return; // no trigger
+        ac_config.dogs_before_backup++;
+        // on limit fire backup. this proccess will reset counter
+        if (ac_config.dogs_before_backup>=ac_config.backup_dogs) autoBackupDatabase(1,"");
 		return;
 	case 'info':	// click on user defined tandas
 		return;
