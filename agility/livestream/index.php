@@ -123,6 +123,7 @@ function initialize() {
 	loadConfiguration();
 	getLicenseInfo();
 	getFederationInfo();
+	ac_config.pending_event=null; // used to queue pending 'llamada' events
 	ac_clientOpts.Ring=<?php _e(http_request("Ring","i",2)); ?>; // defaults to SessID:2 -> ring 1
 	ac_clientOpts.View=<?php _e(http_request("View","i",1)); ?>; // 0:start/1:live/2:parcial/3:final
 	ac_clientOpts.Mode='<?php _e(http_request("Mode","s","chroma")); ?>'; // "video" / "chroma"

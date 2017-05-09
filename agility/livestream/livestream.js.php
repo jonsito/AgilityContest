@@ -38,6 +38,16 @@ function livestream_eventManager(id,evt) {
 	}
 }
 
+function livestream_handlePendingEvent(evt,time) {
+    // Si el cronometro esta corriendo, no debemos procesar la llamada
+    // sino dejarla retenida hasta que el crono este parado o se le haga un reset
+    ac_config.pending_event=event;
+    if ( ! running) {
+        ac_config.pending_event=null;
+        vwls_showData(event);
+    }
+}
+
 function vwls_enableOSD(val) {
 	var title=document.title;
 	var str="-";
