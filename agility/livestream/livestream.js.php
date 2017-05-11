@@ -39,14 +39,18 @@ function livestream_eventManager(id,evt) {
 }
 
 function livestream_handlePendingEvent(event) {
-    // Si el cronometro esta corriendo, no debemos procesar la llamada
+    var last_event=ac_config.pending_event;
     var running=$('#cronometro').Chrono('started');
-    // sino dejarla retenida hasta que el crono este parado o se le haga un reset
-    ac_config.pending_event=event;
-    if ( ! running) {
-        ac_config.pending_event=null;
-        vwls_showData(event);
-    }
+    if (event['Type']==='llamada') ac_config.pending_event=event;
+    // Si el cronometro esta corriendo, no debemos procesar la llamada
+    // salvo que _ya_ hubiera una llamada pendiente, en cuyo caso hay que actualizar
+    // doble aceptar en el tablet
+    if ( (last_event===null) && (running) ) return;
+    if (ac_config.pending_event===null) return; // crono parado, no next perro: no hacer nada
+    // crono parado y perro pendiente: mostrar
+    vwls_showResultsInfo(running);
+    vwls_showData(ac_config.pending_event);
+    ac_config.pending_event=null;
 }
 
 function vwls_enableOSD(val) {

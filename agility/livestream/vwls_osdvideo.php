@@ -243,14 +243,12 @@ var eventHandler= {
 		vwls_updateData(event);
 	},
 	'llamada': function(event,time) {    // llamada a pista
-        var running=$('#cronometro').Chrono('started');
 		ac_config.dogInRing=true;
 		// do not stop nor reset chrono in 'aceptar' or 'llamada'. Just stop countdown
 		myCounter.stop();
 		vwls_enableOSD(1); 	// activa visualizacion de OSD
 		vwls_showRoundInfo(1); // activa visualizacion de datos de la manga
 		vwls_showCompetitorInfo(1); // activa visualizacion de datos del competidor
-		vwls_showResultsInfo(running); // desactiva visualizacion de resultados si crono parado
         livestream_handlePendingEvent(event); // if pending call event, process it
 	},
 	'salida': function(event,time){     // orden de salida 15 segundos
