@@ -251,14 +251,14 @@ var eventHandler= {
 		vwls_showRoundInfo(1); // activa visualizacion de datos de la manga
 		vwls_showCompetitorInfo(1); // activa visualizacion de datos del competidor
 		vwls_showResultsInfo(running); // desactiva visualizacion de resultados si crono parado
-        livestream_handlePendingEvent(event,time); // if pending call event, process it
+        livestream_handlePendingEvent(event); // if pending call event, process it
 	},
 	'salida': function(event,time){     // orden de salida 15 segundos
 		vwls_displayPuesto(false,0); // clear puesto
 		vwls_showResultsInfo(1); // activa visualizacion de datos del competidor
 		if (ac_config.ls_tobefirst!=="0") vwls_displayToBeFirst(event['Perro']);
 		myCounter.start();
-        livestream_handlePendingEvent(event,time); // if pending call event, process it
+        livestream_handlePendingEvent(event); // if pending call event, process it
 	},
 	'start': function(event,time) {      // start crono manual
 		vwls_displayPuesto(false,0); // clear puesto
@@ -280,7 +280,7 @@ var eventHandler= {
 		myCounter.stop();
 		crm.Chrono('stop',time);
 		vwls_displayPuesto(true,crm.Chrono('getValue')/1000);
-        livestream_handlePendingEvent(event,time); // if pending call event, process it
+        livestream_handlePendingEvent(event); // if pending call event, process it
 	},
 	'crono_start':  function(event,time){ // arranque crono automatico
 		vwls_displayPuesto(false,0);
@@ -315,7 +315,7 @@ var eventHandler= {
 		$('#vwls_StartStopFlag').text("Start");
 		crm.Chrono('stop',time);
 		vwls_displayPuesto(true,crm.Chrono('getValue')/1000);
-        livestream_handlePendingEvent(event,time); // if pending call event, process it
+        livestream_handlePendingEvent(event); // if pending call event, process it
 	},
 	'crono_reset':  function(event,time){	// puesta a cero del crono electronico
 		var crm=$('#cronometro');
@@ -324,7 +324,7 @@ var eventHandler= {
 		crm.Chrono('stop',time);
 		crm.Chrono('reset',time);
 		vwls_displayPuesto(false,0);
-        livestream_handlePendingEvent(event,time); // if pending call event, process it
+        livestream_handlePendingEvent(event); // if pending call event, process it
 	},
 	'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
 		vwls_updateChronoData(event);

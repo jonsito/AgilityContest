@@ -434,6 +434,17 @@ function bindKeysToChrono() {
 	});
 }
 
+function chrono_handlePendingEvent(event) {
+    // Si el cronometro esta corriendo, no debemos procesar la llamada
+    var running=$('#cronoauto').Chrono('started');
+    // sino dejarla retenida hasta que el crono este parado o se le haga un reset
+    ac_config.pending_event=event;
+    if ( ! running) {
+        ac_config.pending_event=null;
+        c_showData(event);
+    }
+}
+
 function chrono_eventManager(id,evt) {
 	var cra=$('#cronoauto');
 	var crm=$('#chrono_Manual'); // Texto "manual"
@@ -461,7 +472,8 @@ function chrono_eventManager(id,evt) {
 		c_updateData(event);
 		return;
 	case 'llamada':	// llamada a pista
-		c_showData(event);
+		// c_showData(event);
+        chrono_handlePendingEvent(event);
 		return;
 	case 'salida': // orden de salida
         crm.text('').removeClass('blink');
@@ -485,6 +497,7 @@ function chrono_eventManager(id,evt) {
 		ssf.text("Start");
 		cra.Chrono('stop',time);
 		c_displayPuesto(true,cra.Chrono('getValue')/1000);
+        chrono_handlePendingEvent(event);
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
 		c_displayPuesto(false,0);
@@ -518,6 +531,7 @@ function chrono_eventManager(id,evt) {
 		cra.Chrono('stop',time);
 		cra.Chrono('reset');
 		c_displayPuesto(false,0);
+        chrono_handlePendingEvent(event);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
 		if (!cra.Chrono('started')) return;		// si crono no esta activo, ignorar
@@ -533,6 +547,7 @@ function chrono_eventManager(id,evt) {
 		ssf.text("Start");
 		cra.Chrono('stop',time);
 		c_displayPuesto(true,cra.Chrono('getValue')/1000);
+        chrono_handlePendingEvent(event);
 		return;
 	case 'crono_dat': // operador pulsa botonera del crono
 		c_updateDataFromChrono(event);

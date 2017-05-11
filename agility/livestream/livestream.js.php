@@ -38,8 +38,9 @@ function livestream_eventManager(id,evt) {
 	}
 }
 
-function livestream_handlePendingEvent(evt,time) {
+function livestream_handlePendingEvent(event) {
     // Si el cronometro esta corriendo, no debemos procesar la llamada
+    var running=$('#cronometro').Chrono('started');
     // sino dejarla retenida hasta que el crono este parado o se le haga un reset
     ac_config.pending_event=event;
     if ( ! running) {
