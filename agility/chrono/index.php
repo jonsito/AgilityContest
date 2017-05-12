@@ -81,16 +81,18 @@ function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
 	  beforeSend: function(jqXHR,settings) {
-		if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!=null) {
+		if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!==null) {
 			jqXHR.setRequestHeader('X-AC-SessionKey',ac_authInfo.SessionKey);
 		}
 	    return true;
 	  }
 	});
-	loadConfiguration( function(config){c_reconocimiento.reset(60*parseInt(config.crono_rectime)); } );
+	loadConfiguration( function(config){
+	    c_reconocimiento.reset(60*parseInt(config.crono_rectime));
+        config.pending_events={'llamada':null,'aceptar':null}; // to store events that need to be parsed
+	} );
 	getLicenseInfo();
 	getFederationInfo();
-    ac_config.pending_events={}; // used to store pending events
     ac_clientOpts.Ring=<?php echo http_request("Ring","i",1); ?>; // defaults to ring 1
     ac_clientOpts.Timeout=<?php echo http_request("Timeout","i",0); ?>; // auto start displaying after x seconds. 0 disable
     // session name. defaults to random string(8)@client.ip.address

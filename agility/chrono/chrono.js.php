@@ -274,7 +274,7 @@ function c_showData(data) {
 	$('#chrono_Faltas').html(data["Faltas"]);
 	$('#chrono_Tocados').html(data["Tocados"]);
 	$('#chrono_Rehuses').html(data["Rehuses"]);
-	$('#chrono_Tiempo').html(data["Tiempo"]);
+	$('#chrono_Tiempo').html( toFixedT(parseFloat(data["Tiempo"]),ac_config.numdecs));
 	$('#chrono_PuestoLbl').html(''); // solo se muestra puesto al final
 	var e=parseInt(data["Eliminado"]);
 	if (e>=0) {
@@ -435,12 +435,49 @@ function bindKeysToChrono() {
 }
 
 function chrono_handlePendingEvent(event) {
-    // Si el cronometro esta corriendo, no debemos procesar la llamada
+
+    var last_event=ac_config.pending_events['llamada'];
     var running=$('#cronoauto').Chrono('started');
-    // sino dejarla retenida hasta que el crono este parado o se le haga un reset
-    if ( ! running) {
-        ac_config.pending_events[event['Type']]=null;
-        c_showData(event);
+
+    function cr_handleCallEvent() {
+        c_showData(ac_config.pending_events['llamada']);
+    }
+
+    switch(event['Type']) {
+        case 'llamada':
+            var flag=false;
+            var eli=false;
+            if (ac_config.pending_events['aceptar']===null) eli=false;
+            else eli=(ac_config.pending_events['aceptar']['Eliminado']==1)
+            // en pruebas equipos conjunta, se procesa como siempre
+            // PENDING
+            // si crono parado se procesa como siempre
+            if (!running) flag=true;
+            // si crono corriendo pero ultimo no eliminado se procesa como siempre
+            // esto ocurre cuando se da aceptar o se selecciona directamente un perro
+            // para que el resultado quede como "pendiente"
+            if (running && !eli) flag=true;
+            // si crono corriendo pero eliminado, se retiene la llamada
+            if (running && eli) flag=false;
+            if (flag) { // procesamos evento de llamada y luego lo borramos
+                cr_handleCallEvent();
+                ac_config.pending_events['llamada']=null;
+                // eliminamos ultimo evento "aceptar"
+                ac_config.pending_events['aceptar']=null;
+            }
+            break;
+        case 'stop':
+        case 'crono_stop':
+        case 'reset':
+            // si llamada pendiente se procesa la llamada
+            if (ac_config.pending_events['aceptar']!==null) {
+                $('#chrono_Manual').text('').removeClass('blink');
+                cr_handleCallEvent();
+            }
+            // eliminamos ultimo evento llamada
+            ac_config.pending_events['aceptar']=null;
+            break;
+        default: console.log("unexpected call to handle pending event: "+event['Type']);
     }
 }
 
