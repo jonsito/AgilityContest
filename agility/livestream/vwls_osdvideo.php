@@ -256,7 +256,6 @@ var eventHandler= {
 		vwls_showResultsInfo(1); // activa visualizacion de datos del competidor
 		if (ac_config.ls_tobefirst!=="0") vwls_displayToBeFirst(event['Perro']);
 		myCounter.start();
-        livestream_handlePendingEvent(event); // if pending call event, process it
 	},
 	'start': function(event,time) {      // start crono manual
 		vwls_displayPuesto(false,0); // clear puesto

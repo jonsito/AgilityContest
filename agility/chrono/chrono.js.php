@@ -438,9 +438,8 @@ function chrono_handlePendingEvent(event) {
     // Si el cronometro esta corriendo, no debemos procesar la llamada
     var running=$('#cronoauto').Chrono('started');
     // sino dejarla retenida hasta que el crono este parado o se le haga un reset
-    ac_config.pending_event=event;
     if ( ! running) {
-        ac_config.pending_event=null;
+        ac_config.pending_events[event['Type']]=null;
         c_showData(event);
     }
 }
@@ -452,7 +451,8 @@ function chrono_eventManager(id,evt) {
 	var ssf=$('#chrono_StartStopFlag');
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
-	var time=event['Value']; // miliseconds 
+	var time=event['Value']; // miliseconds
+    ac_config.pending_events[event['Type']]=event; // store last received event
 	switch (event['Type']) {
 	case 'null': // null event: no action taken
 		return;

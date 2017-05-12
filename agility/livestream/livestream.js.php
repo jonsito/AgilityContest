@@ -30,6 +30,7 @@ $config =Config::getInstance();
 function livestream_eventManager(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
+    ac_config.pending_events[event['Type']]=event; // store received event
 	var time=event['Value'];
 	if (typeof(eventHandler[event['Type']])==="function") {
 		setTimeout(function() {
@@ -39,18 +40,49 @@ function livestream_eventManager(id,evt) {
 }
 
 function livestream_handlePendingEvent(event) {
-    var last_event=ac_config.pending_event;
+
+    var last_event=ac_config.pending_events['llamada'];
     var running=$('#cronometro').Chrono('started');
-    if (event['Type']==='llamada') ac_config.pending_event=event;
-    // Si el cronometro esta corriendo, no debemos procesar la llamada
-    // salvo que _ya_ hubiera una llamada pendiente, en cuyo caso hay que actualizar
-    // doble aceptar en el tablet
-    if ( (last_event===null) && (running) ) return;
-    if (ac_config.pending_event===null) return; // crono parado, no next perro: no hacer nada
-    // crono parado y perro pendiente: mostrar
-    vwls_showResultsInfo(running);
-    vwls_showData(ac_config.pending_event);
-    ac_config.pending_event=null;
+
+    function ls_handleCallEvent() {
+        // crono parado y perro pendiente: mostrar
+        vwls_showResultsInfo(running);
+        vwls_showData(ac_config.pending_events['llamada']);
+    }
+
+    switch(event['Type']) {
+        case 'llamada':
+            var flag=false;
+            var eli=false;
+            if (ac_config.pending_events['aceptar']===null) eli=false;
+            else eli=(ac_config.pending_events['aceptar']['Eliminado']==1)
+            // en pruebas equipos conjunta, se procesa como siempre
+            // PENDING
+            // si crono parado se procesa como siempre
+            if (!running) flag=true;
+            // si crono corriendo pero ultimo no eliminado se procesa como siempre
+            // esto ocurre cuando se da aceptar o se selecciona directamente un perro
+            // para que el resultado quede como "pendiente"
+            if (running && !eli) flag=true;
+            // si crono corriendo pero eliminado, se retiene la llamada
+            if (running && eli) flag=false;
+            if (flag) { // procesamos evento de llamada y luego lo borramos
+                ls_handleCallEvent();
+                ac_config.pending_events['llamada']=null;
+                // eliminamos ultimo evento "aceptar"
+                ac_config.pending_events['aceptar']=null;
+            }
+            break;
+        case 'stop':
+        case 'crono_stop':
+        case 'reset':
+            // si llamada pendiente se procesa la llamada
+            if (ac_config.pending_events['aceptar']!==null) ls_handleCallEvent();
+            // eliminamos ultimo evento llamada
+            ac_config.pending_events['aceptar']=null;
+            break;
+        default: console.log("unexpected call to handle pending event: "+event['Type']);
+    }
 }
 
 function vwls_enableOSD(val) {
