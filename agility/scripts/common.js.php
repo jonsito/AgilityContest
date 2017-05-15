@@ -76,6 +76,7 @@ function toFixedT(value,numdecs) {
     if (value==null) return "";
     if (value==="") return "";
 	if (isNaN(value)) return value;
+	if (value<0) value=0; // PENDING should not happen. need to study
 	/*
 	return Number ( value - 5/Math.pow(10,numdecs+1)).toFixed(numdecs);
 	*/
