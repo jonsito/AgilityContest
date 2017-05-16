@@ -800,7 +800,7 @@ function initWorkingData(id,evtmgr) {
 	workingData.manga2= 0; // ID de la segunda manga para el calculo de resultados
 	workingData.tanda=0; // tanda (pareja manga/categoria) activa
 	workingData.nombreTanda = ""; 
-	workingData.sesion=0; // ID de la sesion para videomarcadores
+	workingData.sesion=1; // ID de sesion. 1: broadcast 2:ring 1 ....
 	workingData.nombreSesion=""; // nombre de la sesion
 	setFederation(0); // defaults to RSCE;
 	if (typeof(workingData.federation)==="undefined") setFederation(0); // select RSCE as default federation

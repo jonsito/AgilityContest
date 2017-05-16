@@ -301,12 +301,21 @@ class Eventos extends DBObject {
 	function listEvents($data) {
 		// $this->myLogger->enter();
 		if ($data['Session']<=0) return $this->error("No Session ID specified");
+
+        // sessionID 1 means allow events from _any_ source
+        $ses="";
+        if ($data['Session']<=0) return $this->error("No Session ID specified");
+        if ($data['Session']>1) $ses="( ( Session = {$data['Session']} ) OR ( Type = 'reconfig' ) ) AND";
+
+        // check for search specific event type
 		$extra="";
 		if ($data['Type']!=="") $extra=" AND ( Type = {$data['Type']} )";
+
+		// perform query
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Eventos",
-				/* WHERE */ "( ( Type = 'reconfig' ) OR ( Session = {$data['Session']} ) ) AND ( ID > {$data['ID']} ) $extra",
+				/* WHERE */ "$ses ( ID > {$data['ID']} ) $extra",
 				/* ORDER BY */ "ID",
 				/* LIMIT */ ""
 		);
@@ -325,24 +334,32 @@ class Eventos extends DBObject {
 	 * @return {array} data about last "open" event with provided session id
 	 */
 	function connect($data) {
+        // $this->myLogger->enter();
+
         if (intval($this->myConfig->getEnv('restricted'))!=0) { // in slave config do not allow "connect" operations
             header('HTTP/1.0 403 Forbidden');
             die("You cannot use this server as event source");
         }
+        $str="";
+
+        // sessionID 1 means allow events from _any_ source
 		if ($data['Session']<=0) return $this->error("No Session ID specified");
+        if ($data['Session']>1) $str=" AND ( Session = {$data['Session']} )";
+
+        // store named sessions into persistent storage
         if ($data['SessionName']!=="") {
             $ses=new Sesiones("Events::connect");
             $ses->testAndSet($data['SessionName']);
         }
-		$this->myLogger->enter();
+
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Eventos",
-				/* WHERE */ "( Session = {$data['Session']} ) AND ( Type = 'init' )",
+				/* WHERE */ "( Type = 'init' ) $str",
 				/* ORDER BY */ "ID DESC",
 				/* LIMIT */ "0,1"
 						);
-		$this->myLogger->leave();
+		// $this->myLogger->leave();
 		return $result;
 	}
 }

@@ -76,6 +76,16 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/scripts/printer.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript">
+
+var ac_clientOpts = {
+    'BaseName':'console',
+    'Ring':1, // sessid:1 --> console (broadcast ring)
+    'View':0,
+    'Mode':0,
+    'Timeout':0,
+    'SessionName':''
+};
+
 function initialize() {
     var mm=$('#mymenu');
 	// expand/collapse menu on mouse enter/exit
@@ -153,6 +163,14 @@ function myRowStyler2(idx,row) { return consoleRowStyler2(idx,row); }
  * @param evt {object} Event data
  */
 function console_eventManager(id,evt) {
+    var accept=false;
+    // si el evento es para la consola ( session = 1 ) se acepta
+    if (evt['Session']==="1") flag=true;
+    // si no es para la consola, pero es "init" o "reconfig" se acepta
+    if (evt['Type']==='init') flag=true;
+    if (evt['Type']==='reconfig') flag=true;
+    // else se rechaza
+    if (!accept) return;
     var event=parseEvent(evt); // remember that event was coded in DB as an string
     if (typeof(eventHandler[event['Type']])==="function") {
         event['ID']=id; // fix real id on stored eventData
@@ -174,13 +192,15 @@ function console_showMessage(evt) {
         height: 75,
         timeout: 1000*tout,
         title: '<?php _e('Console'); ?>',
-        msg: evt['Value'];
+        msg: data
     })
 }
 
 var eventHandler= {
     'null': null,// null event: no action taken
-    'init': null, // operator starts tablet application. PENDING: notify to console every "init" event
+    'init': function(event){ // PENDING: notify to console every "init" event
+        console.log("received init event: "+JSON.stringify(event));
+    },
     'open': null,// operator select tanda
     'close': null,    // no more dogs in tanda
     'datos': null,      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
