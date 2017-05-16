@@ -73,11 +73,11 @@ function parseEvent(data) {
 					case 'init':
 						// no break
 					case 'open':
-						workingData.datosSesion.callback(lastID,row.Data);
+						ac_config.event_handler(lastID,row.Data);
 						break;
 					default:
 						// on first call ignore any event other than init or open
-						if (! fcall) workingData.datosSesion.callback(lastID,row.Data);
+						if (! fcall) ac_config.event_handler(lastID,row.Data);
 						break;
 				}
 			}

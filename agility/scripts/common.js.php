@@ -774,10 +774,10 @@ function setRonda(data) {
 var workingData = {};
 /**
  * @param {int} id SessionID
- * @param {function} callback method to handle events
+ * @param {function} evtmgr method to handle events
  * Initialize working data information object
  */
-function initWorkingData(id,callback) {
+function initWorkingData(id,evtmgr) {
 	workingData.logoChanged=false;
 	workingData.perro= 0; // IDPerro del perro en edicion
 	workingData.guia= 0; // ID del guia en edicion
@@ -826,7 +826,7 @@ function initWorkingData(id,callback) {
 				workingData.nombreSesion	= data.Nombre;
 				workingData.datosSesion = data;
 				// if provided store event manager for this session
-				if (typeof(callback)!=="undefined") workingData.datosSesion.callback=callback;
+				if (typeof(evtmgr)!=="undefined") ac_config.event_handler=evtmgr;
 			},
 			error: function(msg){ alert("error setting workingData: "+msg);}
 		});
