@@ -145,6 +145,81 @@ function consoleRowStyler2(idx,row) {
 
 function myRowStyler(idx,row) { return consoleRowStyler(idx,row); }
 function myRowStyler2(idx,row) { return consoleRowStyler2(idx,row); }
+
+/**
+ * Generic event handler for console screens
+ * Console has a 'eventHandler' table with pointer to functions to be called
+ * @param id {number} Event ID
+ * @param evt {object} Event data
+ */
+function console_eventManager(id,evt) {
+    var event=parseEvent(evt); // remember that event was coded in DB as an string
+    if (typeof(eventHandler[event['Type']])==="function") {
+        event['ID']=id; // fix real id on stored eventData
+        eventHandler[event['Type']](event); // and call specific event manager routine
+    }
+}
+
+// handle showMessage event command
+function console_showMessage(evt) {
+    // value is in form timeout:text
+    var data=event['Value'].split(':',2);
+    if (data[1].length===0) return; // nothing to show :-)
+    var tout=parseInt(data[0]);
+    tout= (tout<=0)?1:tout;
+    tout= (tout>=30)?30:tout;
+    // and send message to console
+    $.messager.show({
+        width: 300,
+        height: 75,
+        timeout: 1000*tout,
+        title: '<?php _e('Console'); ?>',
+        msg: evt['Value'];
+    })
+}
+
+var eventHandler= {
+    'null': null,// null event: no action taken
+    'init': null, // operator starts tablet application. PENDING: notify to console every "init" event
+    'open': null,// operator select tanda
+    'close': null,    // no more dogs in tanda
+    'datos': null,      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+    'llamada': null,    // llamada a pista
+    'salida': null,     // orden de salida
+    'start': null,      // start crono manual
+    'stop': null,       // stop crono manual
+    // nada que hacer aqui: el crono automatico se procesa en el tablet
+    'crono_start':  null, // arranque crono automatico
+    'crono_restart': null,// paso de tiempo intermedio a manual
+    'crono_int':  	null, // tiempo intermedio crono electronico
+    'crono_stop':  null, // parada crono electronico
+    'crono_reset':  null, // puesta a cero del crono electronico
+    'crono_error':  null, // fallo en los sensores de paso
+    'crono_dat':    null, // datos desde crono electronico
+    'crono_ready':    null, // chrono ready and listening
+    'aceptar':	null, // operador pulsa aceptar
+    'cancelar': null, // operador pulsa cancelar
+    'camera':	null, // change video source
+    'command': function(event){ // videowall remote control
+        handleCommandEvent(
+            event,
+            [
+                /* EVTCMD_NULL:         */ function(e) {console.log("Received null command"); },
+                /* EVTCMD_SWITCH_SCREEN:*/ null,
+                /* EVTCMD_SETFONTFAMILY:*/ null,
+                /* EVTCMD_NOTUSED3:     */ null,
+                /* EVTCMD_SETFONTSIZE:  */ null,
+                /* EVTCMD_OSDSETALPHA:  */ null,
+                /* EVTCMD_OSDSETDELAY:  */ null,
+                /* EVTCMD_NOTUSED7:     */ null,
+                /* EVTCMD_MESSAGE:      */ function(e) {console_showMessage(e); },
+                /* EVTCMD_ENABLEOSD:    */ null
+            ]
+        )
+    },
+    'reconfig':	function(event) { loadConfiguration(); }, // reload configuration from server
+    'info':	null // click on user defined tandas
+};
 	
 </script>
 <style>

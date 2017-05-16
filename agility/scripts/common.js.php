@@ -329,7 +329,8 @@ function loadConfiguration(callback) {
 		cache: false,
 		dataType: 'json',
 		success: function(config){
-			if ( typeof (config.program_name) !== "undefined") {
+		    // check and initialize extra runtime variables
+			if ( typeof (config.program_name) !== "undefined") { // check for successfull server call
 				ac_config=config;
 
 				// extra configuration data to speedup
@@ -339,7 +340,14 @@ function loadConfiguration(callback) {
                 // auto-backup related variables
                 ac_config.dogs_before_backup=0; // to handle auto-backup on save result
                 ac_config.time_of_last_backup=Math.floor(new Date().getTime() / 1000);
-                ac_config.backup_handler=null; // to allow clearTimeout() on logout
+                if (typeof(ac_config.backup_timeoutHandler)==="undefined")
+                    ac_config.backup_timeoutHandler=null; // to allow clearTimeout(backupmgr) on logout
+
+                // event management. Take care on "reconfig" event (that calls loadConfiguration() )
+                if (typeof(ac_config.event_handler)==="undefined")
+                    ac_config.event_handler=null; // used to store event manager callback
+                if (typeof(ac_config.event_timeoutHandler)==="undefined")
+                    ac_config.event_timeoutHandler=null; // to allow clearTimeout(evtmgr) on logout
 
                 // if callback defined call it
 				if (typeof(callback)!=="undefined") callback(ac_config);

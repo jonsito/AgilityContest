@@ -81,13 +81,19 @@ function parseEvent(data) {
 						break;
 				}
 			}
-			// re-queue event
-			setTimeout(function(){ waitForEvents(lastID,mark,false);},1000);
+			// re-queue event if event handler is alive
+			if (ac_config.event_handler!==null) {
+                ac_config.backup_timeoutHandler = setTimeout(function(){ waitForEvents(lastID,mark,false);},1000);
+            }
 		}
 
 		function handleError(data,status,jqXHR) {
+			// register error
 			console.log(status);
-			setTimeout(function(){ waitForEvents(evtID,timestamp,fcall);},5000); // retry in 5 seconds
+			// and if event handler is still alive fire up again with extra delay
+            if (ac_config.event_handler!==null){ // retry in 5 seconds
+                ac_config.backup_timeoutHandler = setTimeout(function(){ waitForEvents(evtID,timestamp,fcall);},5000);
+            }
 		}
 
 		$.ajax({
@@ -138,7 +144,7 @@ function startEventMgr() {
 			if ( parseInt(response['total'])!==0) {
 				var row=response['rows'][0];
 				var evtID=parseInt(row['ID'])-1; // make sure initial "init" event is received
-				setTimeout(function(){ waitForEvents(evtID,0,true);},0);
+                ac_config.backup_timeoutHandler = setTimeout(function(){ waitForEvents(evtID,0,true);},0);
 			} else {
 				setTimeout(function(){ startEventMgr(); },timeout );
 			}
