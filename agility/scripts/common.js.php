@@ -331,11 +331,17 @@ function loadConfiguration(callback) {
 		success: function(config){
 			if ( typeof (config.program_name) !== "undefined") {
 				ac_config=config;
+
 				// extra configuration data to speedup
 				ac_config.numdecs=(ac_config.crono_miliseconds=="0")?2:3;
 				ac_config.dogInRing=false; // to be used in videowall and livestream to show dog info and timings
+
+                // auto-backup related variables
                 ac_config.dogs_before_backup=0; // to handle auto-backup on save result
                 ac_config.time_of_last_backup=Math.floor(new Date().getTime() / 1000);
+                ac_config.backup_handler=null; // to allow clearTimeout() on logout
+
+                // if callback defined call it
 				if (typeof(callback)!=="undefined") callback(ac_config);
 			} else {
 				$.messager.alert('<?php _e("Error"); ?>','<?php _e("loadConfiguration(): cannot retrieve configuration from server"); ?>',"error")

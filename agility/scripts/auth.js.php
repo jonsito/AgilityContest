@@ -91,7 +91,7 @@ function acceptLogin() {
                 autoBackupDatabase(0,"");
                 // if configured, trigger autobackup every "n" minutes
                 var bp=parseInt(ac_config.backup_period);
-                if (bp!=0) setTimeout(function() {trigger_autoBackup(bp);},60*bp*1000);
+                if (bp!=0) ac_config.backup_handler=setTimeout(function() {trigger_autoBackup(bp);},60*bp*1000);
        		} 
        	},
    		error: function() { alert("error");	}
@@ -119,7 +119,10 @@ function acceptLogout() {
            		$('#login_menu-text').html('<?php _e("Init session");?>');
            		initAuthInfo();
            		setFederation(0); // on logout defaults to RSCE
+                // fire named backup
                 autoBackupDatabase(0,"");
+                // and disable timer based auto-backup
+                if (ac_config.backup_handler!==null) clearTimeout(ac_config.backup_handler);
        		} 
        	},
    		error: function() { alert("error");	}

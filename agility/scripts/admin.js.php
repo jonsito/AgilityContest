@@ -194,10 +194,10 @@ function trigger_autoBackup(minutes) {
     // check for timeout
     if (next <= current){
         autoBackupDatabase(1,"");         // it's time to trigger backup
-        setTimeout(function(){trigger_autoBackup(minutes)},minutes*60*1000); // wait minutes to fire again
+        ac_config.backup_handler=setTimeout(function(){trigger_autoBackup(minutes)},minutes*60*1000); // wait minutes to fire again
     } else {
         // trigger next backup
-        setTimeout(function(){trigger_autoBackup(minutes)},(next-current)*1000); // miliseconds till next backup
+        ac_config.backup_handler=setTimeout(function(){trigger_autoBackup(minutes)},(next-current)*1000); // miliseconds till next backup
     }
 
 }
