@@ -290,14 +290,19 @@ class AuthManager {
 		} else {
             // to join to a named session we need at least Assistant permission level
             $this->access(PERMS_ASSISTANT); // on fail throw exception
+            $name=$data['Nombre'];
             unset($data['Nombre']); // to avoid override Session Name
             // TODO: check and alert on busy session ID
             // else join to declared session
             $data['SessionID'] = $sid;
             $this->mySessionMgr->update($sid, $data);
+            $data['Nombre']=$name; // restore session name
         }
 		// and fire 'init' event
 		$evtMgr=new Eventos("AuthManager",($sid<=0)?1:$sid,$this);
+		// genera informacion: usuario|consola/tablet|sesion|ipaddr
+        $ipstr=str_replace(':',';',$_SERVER['REMOTE_ADDR']);
+		$valuestr="{$login}:{$data['Nombre']}:{$data['SessionID']}:{$ipstr}";
 		$event=array(
 				// datos identificativos del evento
 				"ID" => 0, 							// Event ID
@@ -320,7 +325,7 @@ class AuthManager {
 				"Eli" => -1,				// Eliminado,
 				"Tim" => -1,				// Tiempo,
 				// marca de tiempo en los eventos de crono
-				"Value" => 0				// Value
+				"Value" => $valuestr		// Value
 		);
 		$evtMgr->putEvent($event);
 

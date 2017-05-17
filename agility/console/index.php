@@ -96,7 +96,7 @@ function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
 	  beforeSend: function(jqXHR,settings) {
-		if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!=null) {
+		if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!==null) {
 			jqXHR.setRequestHeader('X-AC-SessionKey',ac_authInfo.SessionKey);
 		}
 	    return true;
@@ -133,7 +133,7 @@ function consoleRowStyler(idx,row) {
 	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>'; // odd rows
 	var c3='<?php echo $config->getEnv('easyui_rowcolor3'); ?>'; // extra color for special rows
 	if (idx<0) return res+c3+";";
-    if ((idx & 0x01) == 0) {
+    if ((idx & 0x01) === 0) {
         return res + c1 + ";";
     } else {
         return res + c2 + ";";
@@ -150,7 +150,7 @@ function consoleRowStyler2(idx,row) {
 	var res="background-color:";
 	var c1='<?php echo $config->getEnv('easyui_rowcolor3'); ?>';
 	var c2='<?php echo $config->getEnv('easyui_rowcolor4'); ?>';
-	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+	if ( (idx&0x01)===0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
 function myRowStyler(idx,row) { return consoleRowStyler(idx,row); }
@@ -160,22 +160,38 @@ function myRowStyler2(idx,row) { return consoleRowStyler2(idx,row); }
  * Generic event handler for console screens
  * Console has a 'eventHandler' table with pointer to functions to be called
  * @param id {number} Event ID
- * @param evt {object} Event data
+ * @param e {object} Event data
  */
-function console_eventManager(id,evt) {
+function console_eventManager(id,e) {
+    var evt=parseEvent(e); // remember that event was coded in DB as an string
     var accept=false;
     // si el evento es para la consola ( session = 1 ) se acepta
-    if (evt['Session']==="1") flag=true;
+    if (evt['Session']==="1") accept=true;
     // si no es para la consola, pero es "init" o "reconfig" se acepta
-    if (evt['Type']==='init') flag=true;
-    if (evt['Type']==='reconfig') flag=true;
+    if (evt['Type']==='init') accept=true;
+    if (evt['Type']==='reconfig') accept=true;
     // else se rechaza
     if (!accept) return;
-    var event=parseEvent(evt); // remember that event was coded in DB as an string
-    if (typeof(eventHandler[event['Type']])==="function") {
-        event['ID']=id; // fix real id on stored eventData
-        eventHandler[event['Type']](event); // and call specific event manager routine
+    if (typeof(eventHandler[evt['Type']])==="function") {
+        evt['ID']=id; // fix real id on stored eventData
+        eventHandler[evt['Type']](evt); // and call specific event manager routine
     }
+}
+
+// alert login events on console
+function console_noticeLogin(evt) {
+    var data=evt['Value'].split(':');
+    var str="<?php _e('Session init');?>:<br/>"+
+        "<?php _e('User');?>: "+data[0] + " <br/>"+
+        "<?php _e('On');?>: "  +data[1] + " <?php _e('Session ID');?>: "+data[2]+"<br/>"+
+        "<?php _e('From');?>: "+ replaceAll(';',':',data[3]);
+    $.messager.show({
+        width: 300,
+        height: 125,
+        timeout: 2500,
+        title: '<?php _e('Notice'); ?>',
+        msg: str
+    })
 }
 
 // handle showMessage event command
@@ -199,7 +215,7 @@ function console_showMessage(evt) {
 var eventHandler= {
     'null': null,// null event: no action taken
     'init': function(event){ // PENDING: notify to console every "init" event
-        console.log("received init event: "+JSON.stringify(event));
+        console_noticeLogin(event);
     },
     'open': null,// operator select tanda
     'close': null,    // no more dogs in tanda
