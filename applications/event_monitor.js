@@ -143,7 +143,7 @@ var eventHandler= {
 	},
 	'crono_rec':  function(event,time) { // course walk
 		var val=event.start;
-		if (val==0) {
+		if (val===0) {
 			var elapsed=(parseInt(event.Value)-workingData.coursewalk)/1000;
 			workingData.coursewalk=0;
 			console.log(event['Type'] + " - Course walk stop");
@@ -159,13 +159,13 @@ var eventHandler= {
 	'crono_error':  function(event,time) { // fallo en los sensores de paso
 		var val=parseInt(event.Value);
 		console.log(event['Type'] + " - Chronometer notifies sensor error event:"+val);
-        if (val==1) console.log("    Sensor status: Failed");
+        if (val===1) console.log("    Sensor status: Failed");
         else console.log("    Sensor status: OK");
 	},
 	'crono_ready':  function(event,time) { // crono activo y escuchando
 		var val=parseInt(event.Value);
 		console.log(event['Type'] + " - Chronometer notifies chrono is ready and listening state:"+val);
-		if (val==1) console.log("    Sensor status: Failed");
+		if (val===1) console.log("    Sensor status: Failed");
 		else console.log("    Sensor status: OK");
 	},
 	'aceptar':	function(event,time){ // operador pulsa aceptar
@@ -178,7 +178,21 @@ var eventHandler= {
 		console.log(event['Type'] + "- Video source for embedded livestream screans changed");
 	},
     'command':	function(event,time) {  // videowall remote control
-        console.log(event['Type'] + " - Received videowall remote comand from main console");
+        console.log(event['Type'] + " - Remote comand from main console");
+        var str=""+event['Oper']+"EVT_CMD_UNKNOWN";
+        switch (parseInt(event['Oper'])) {
+            case 0: str= "0 EVTCMD_NULL"; break;
+            case 1: str= "1 EVTCMD_SWITCH_SCREEN"; break;
+            case 2: str= "2 EVTCMD_SETFONTFAMILY"; break;
+            case 3: str= "3 EVTCMD_NOTUSED3"; break;
+            case 4: str= "4 EVTCMD_SETFONTSIZE"; break;
+            case 5: str= "5 EVTCMD_OSDSETALPHA"; break;
+            case 6: str= "6 EVTCMD_OSDSETDELAY"; break;
+            case 7: str= "7 EVTCMD_NOTUSED7"; break;
+            case 8: str= "8 EVTCMD_MESSAGE"; break;
+            case 9: str= "9 EVTCMD_ENABLEOSD"; break;
+        }
+        console.log("Command: "+str+ "Value: "+event['Value']);
     },
     'reconfig':	function(event,time) {  // reload configuration from server
         console.log(event['Type'] + " - Configuration changed from main console");
@@ -373,7 +387,7 @@ function startEventMgr() {
                 setTimeout(function(){ startEventMgr();},timeout );
                 return;
             }
-            if ( parseInt(response['total'])!=0) {
+            if ( parseInt(response['total'])!==0) {
                 var row=response['rows'][0];
                 var evtID=parseInt(row['ID'])-1; /* dont loose first "init" event */
 				console.log("Connected to AgilityContest Event bus");
@@ -401,5 +415,6 @@ function startEventMgr() {
 if (workingData.hostname==='0.0.0.0') {
 	if (!findServer(workingData.ring)) process.exit(1);
 }
+
 // start event manager
 startEventMgr();

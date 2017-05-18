@@ -1,0 +1,8 @@
+This folder contains several applications that are not part of AgilityContest package but related.
+
+Normally make use of Event API Protocol, either as server ( cronometer implementations for arduino and raspberry pi )
+or client ( a connector for OBS Studio streaming software )
+
+I made no guarantee about this software:
+It's just experimental code, just for testing and reference implementation
+So may be incomplete, prone to errors or show lack of features, revise and use with care
