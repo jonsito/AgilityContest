@@ -1,0 +1,12 @@
+{
+  "name": "OBS_Studio_Connector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "obs_studio_connector.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juan Antonio Martinez (jonsito)",
+  "license": "GPL",
+  "dependencies": {}
+}

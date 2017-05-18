@@ -16,26 +16,29 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 /***************************************************************************************************************/
 /*
-* browser-less implementation of AgilityContest event protocol parser
+* A very simple app to connect AgilityContest Event API with OBS Studio websocket remote protocol
+* to enable handling of streaming just by controls from tablet and chronometer
 *
-* Requires nodejs >=4
-* Required npm modules http sync-request querystring os ip
+* Requires nodejs >=7
+* Required npm modules http sync-request querystring os ip obs-websocket-js
 *
 */
 /***************************************************************************************************************/
-var querystring = require('querystring');
-var http = require('http');
+const querystring = require('querystring');
+const http = require('http');
+const OBSWebSocket = require('obs-websocket-js');
+const obs = new OBSWebSocket();
 
 var workingData = {
-	// Comment as desired
-	//************ Option 1- when server hostname is not set you must provide ring name to search for
-	ring: 1, // must be set by user in range (1..4)
-	hostname: '0.0.0.0', // set to '0.0.0.0' to let the app find server by itself
-	sesionID: 0,
-	//************* Option 2 we already know hostname and sessionID
-	// ring: 0, // ignored as implicit in sessionID
-	// hostname: 'localhost',
-	// sessionID: 2,
+	// OBS Studio parameters
+	obshost: 'localhost:4444',
+	obspass: '',
+
+	// AgilityContest connection parameters
+	ring: 1,
+    // hostname: '0.0.0.0', // set to '0.0.0.0' to let the app find server by itself
+	hostname: 'localhost',
+	sessionID: 0, // will be evaluated from ac server response
 
 	// variables to store start timestamp mark
 	cronomanual: 0,
@@ -90,6 +93,9 @@ var eventHandler= {
         console.log("    Eliminated   : "+ event.Eli);
         console.log("    Not present  : "+ event.NPr);
         console.log("    Time         : "+ event.Tim);
+
+        // OBS: switch to Scene 1
+        obs.setCurrentScene({'scene-name':'Salida'});
 	},
 	'salida': function(event,time){     // orden de salida
 		console.log(event['Type'] + " - Start 15 seconds countdown");
@@ -98,17 +104,27 @@ var eventHandler= {
 		console.log(event['Type'] + " - Manual chrono started");
         console.log("    Value: "+event.Value);
         workingData.cronomanual=parseInt(event.Value);
+
+        // OBS: switch to Scene 1 and hide logo
+        obs.setCurrentScene({'scene-name':'Camara central'});
+        obs.setSourceRender({'source':'Logo','render':false,'scene-name':'Camara central'});
 	},
 	'stop': function(event,time){      // stop crono manual
 		console.log(event['Type'] + " - Manual chrono stopped");
         console.log("    Value: "+event.Value);
         console.log("    Time:  "+(parseInt(event.Value)-workingData.cronomanual).toString()+" msecs");
+
+        // OBS: Show logo on camera central
+        obs.setSourceRender({'source':'Logo','render':true,'scene-name':'Camara central'});
 	},
 	// nada que hacer aqui: el crono automatico se procesa en el tablet
 	'crono_start':  function(event,time){ // arranque crono automatico
 		console.log(event['Type'] + " - Electronic chrono starts");
         console.log("    Value: "+event.Value);
         workingData.cronoauto=parseInt(event.Value);
+
+        // OBS: switch to Scene 1
+		obs.setCurrentScene({'scene-name':'Camara central'});
 	},
 	'crono_restart': function(event,time){	// paso de tiempo manual a automatico
 		console.log(event['Type'] + " - Manual-to-Electronic chrono transition");
@@ -219,6 +235,37 @@ function event_parser(id,event) {
 }
 
 /**
+ * Try to connect AgilityContest server.
+ * on success retrieve Session ID and update working Data
+ * @param hostaddr IP address of host to check
+ * @param ring Ring number ( 1..4, different from SessionID )
+ * @return true on success; otherwise false
+ */
+function connectServer(hostaddr,ring){
+    var url="http://"+hostaddr+"/agility/server/database/sessionFunctions.php?Operation=selectring";
+    var request = require('sync-request');
+    try {
+        var res = request('GET', url, {
+            timeout: 250,
+            headers: { // this is for some routers that return "Auth required" to fail and send proper error code
+                authorization: 'Basic ' + new Buffer('AgilityContest' + ':' + 'AgilityContest', 'ascii').toString('base64')
+            }
+        });
+        if (res.statusCode!==200) return false; // http request failed
+        console.log("Found AgilityContest server at: "+hostaddr);
+        var data = JSON.parse(res.getBody('utf8'));
+        // this code assumes that first returned row matches ring 1, second ring 2 and so
+        workingData.hostname=hostaddr;
+        workingData.sessionID=parseInt(data['rows'][ring-1]['ID']);
+        console.log("SessionID for ring:"+ring+" is:"+workingData.sessionID);
+        return true;
+    } catch (err) {
+        console.log("Host: '"+hostaddr+"' Error: "+err);
+        return false;
+    }
+}
+
+/**
  * This function explores network trying to locate an AgilityContest server
  * When found, deduce desired sesion ID and set up working data parameters
  *
@@ -246,36 +293,6 @@ function findServer(ring) {
 		}
 	}
 
-	/**
-	 * Try to connect AgilityContest server.
-	 * on success retrieve Session ID and update working Data
-	 * @param hostaddr IP address of host to check
-	 * @return true on success; otherwise false
-     */
-	function connectServer(hostaddr){
-		var url="http://"+hostaddr+"/agility/server/database/sessionFunctions.php?Operation=selectring";
-		var request = require('sync-request');
-		try {
-			var res = request('GET', url, {
-				timeout: 250,
-				headers: { // this is for some routers that return "Auth required" to fail and send proper error code
-					authorization: 'Basic ' + new Buffer('AgilityContest' + ':' + 'AgilityContest', 'ascii').toString('base64')
-				}
-			});
-			if (res.statusCode!==200) return false; // http request failed
-			console.log("Found AgilityContest server at: "+hostaddr);
-			var data = JSON.parse(res.getBody('utf8'));
-			// this code assumes that first returned row matches ring 1, second ring 2 and so
-			workingData.hostname=hostaddr;
-			workingData.sessionID=parseInt(data['rows'][ring-1]['ID']);
-			console.log("SessionID for ring:"+ring+" is:"+workingData.sessionID);
-			return true;
-		} catch (err) {
-			console.log("Host: "+hostname+" Error: "+err);
-			return false;
-		}
-	}
-
 	getInterfaces(); // retrieve network interface information
 	var ip=require('ip');
 	for (var item in addresses) { // iterate on every ip/mask found
@@ -285,7 +302,7 @@ function findServer(ring) {
 		var stop=ip.toLong(ip.subnet(ipaddr,mask).lastAddress);
 		for (var n=start;n<=stop;n++) {
 			var hostname=ip.fromLong(n).toString();
-			if (connectServer(hostname) ) return true;
+			if (connectServer(hostname,ring) ) return true;
 		}
 	}
 	// arriving here means server not found. Notify and return
@@ -411,9 +428,25 @@ function startEventMgr() {
 	return false;
 }
 
-// if server address not declared try to locate server. on fail exit
+// try to connect to OBS-Studio
+obs.connect({ address: workingData.obshost, password: workingData.obspass });
+
+// Declare some events to listen for.
+obs.onConnectionOpened(function() {
+    console.log('OBS Studio Connection Opened');
+
+    // retrieve scene list (PENDING: store for later use )
+    obs.getSceneList(null, function (err, data) { console.log(err, data); });
+
+    // not really needed, just for sample
+    //  obs.onSwitchScenes(function (err, data) { console.log(err, data); });
+});
+
+// if AgilityContest server address not declared try to locate server. on fail exit
 if (workingData.hostname==='0.0.0.0') {
 	if (!findServer(workingData.ring)) process.exit(1);
+} else {
+    if (!connectServer(workingData.hostname,workingData.ring)) process.exit(1);
 }
 
 // start event manager
