@@ -52,9 +52,9 @@ var ac_config = {
 
 function obs_handlePendingEvent(event) {
 
-    console.log ("obs_handlePendingEvent called");
-    console.log ("event received: "+JSON.stringify(event));
-    console.log ("chrono running: "+ac_config.running);
+    // console.log ("obs_handlePendingEvent called");
+    // console.log ("event received: "+JSON.stringify(event));
+    // console.log ("chrono running: "+ac_config.running);
 
     var last_event=ac_config.pending_events['llamada'];
 
