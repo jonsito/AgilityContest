@@ -448,7 +448,7 @@ function chrono_handlePendingEvent(event) {
             var flag=false;
             var eli=false;
             if (ac_config.pending_events['aceptar']===null) eli=false;
-            else eli=(ac_config.pending_events['aceptar']['Eliminado']==1)
+            else eli=(parseInt(ac_config.pending_events['aceptar']['Eliminado'])===1);
             // en pruebas equipos conjunta, se procesa como siempre
             // PENDING
             // si crono parado se procesa como siempre

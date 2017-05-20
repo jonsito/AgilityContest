@@ -249,7 +249,8 @@ var eventHandler= {
 		vwls_enableOSD(1); 	// activa visualizacion de OSD
 		vwls_showRoundInfo(1); // activa visualizacion de datos de la manga
 		vwls_showCompetitorInfo(1); // activa visualizacion de datos del competidor
-        livestream_handlePendingEvent(event); // if pending call event, process it
+        // if can process (or pending) call event, process it; else enqueue
+        livestream_handlePendingEvent(event);
 	},
 	'salida': function(event,time){     // orden de salida 15 segundos
 		vwls_displayPuesto(false,0); // clear puesto

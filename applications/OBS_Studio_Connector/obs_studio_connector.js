@@ -29,7 +29,7 @@ const http = require('http');
 const OBSWebSocket = require('obs-websocket-js');
 const obs = new OBSWebSocket();
 
-var workingData = {
+var ac_config = {
 	// OBS Studio parameters
 	obshost: 'localhost:4444',
 	obspass: '',
@@ -44,9 +44,80 @@ var workingData = {
 	cronomanual: 0,
 	cronoauto: 0,
 	coursewalk: 0,
+	running: false,
+	pending_events: { 'llamada':null,'aceptar':null },
 	// method to handle received events
 	callback: event_parser
 };
+
+function obs_handlePendingEvent(event) {
+
+    console.log ("obs_handlePendingEvent called");
+    console.log ("event received: "+JSON.stringify(event));
+    console.log ("chrono running: "+ac_config.running);
+
+    var last_event=ac_config.pending_events['llamada'];
+
+    function obs_handleCallEvent() { // real parsing of 'llamada' event
+        console.log(event['Type'] + " - Competitor call to ring");
+        console.log("    Dog name  : "+ event.Nombre);
+        console.log("    Long name : "+ event.NombreLargo);
+        console.log("    Handler   : "+ event.NombreGuia);
+        console.log("    Club      : "+ event.NombreClub);
+        console.log("    Team      : "+ event.NombreEquipo);
+        console.log("    Category  : "+ event.Categoria);
+        console.log("    Grade     : "+ event.Grado);
+        console.log("    Heat      : "+ event.Hot);
+
+        console.log("    - Previously stored competitor data ");
+        console.log("    Faults       : "+ event.Flt);
+        console.log("    Touchs       : "+ event.Toc);
+        console.log("    Refusals     : "+ event.Reh);
+        console.log("    Eliminated   : "+ event.Eli);
+        console.log("    Not present  : "+ event.NPr);
+        console.log("    Time         : "+ event.Tim);
+        ac_config.running=false;
+        // OBS: switch to Scene 1
+        obs.setCurrentScene({'scene-name':'Salida'});
+    }
+
+    switch(event['Type']) {
+        case 'llamada':
+            var flag=false;
+            var eli=false;
+            // notice 'Eli' instead of 'Eliminado' due to incomplete events handle (differs from gui apps)
+            if (ac_config.pending_events['aceptar']===null) eli=false;
+            else eli=(parseInt(ac_config.pending_events['aceptar']['Eli'])===1);
+            // en pruebas equipos conjunta, se procesa como siempre
+            // PENDING
+
+            // si crono parado se procesa como siempre
+            if (!ac_config.running) flag=true;
+            // si crono corriendo pero ultimo no eliminado se procesa como siempre
+            // esto ocurre cuando se da aceptar o se selecciona directamente un perro
+            // para que el resultado quede como "pendiente"
+            if (ac_config.running && !eli) flag=true;
+            // si crono corriendo pero eliminado, se retiene la llamada
+            if (ac_config.running && eli) flag=false;
+            if (flag) { // procesamos evento de llamada y luego lo borramos
+                obs_handleCallEvent();
+                ac_config.pending_events['llamada']=null;
+                // eliminamos ultimo evento "aceptar"
+                ac_config.pending_events['aceptar']=null;
+            }
+            break;
+        case 'stop':
+        case 'crono_stop':
+        case 'reset':
+            // si llamada pendiente se procesa la llamada
+            if (ac_config.pending_events['aceptar']!==null) obs_handleCallEvent();
+            // eliminamos ultimo evento llamada
+            ac_config.pending_events['aceptar']=null;
+            break;
+        default: console.log("unexpected call to handle pending event: "+event['Type']);
+    }
+
+}
 
 var eventHandler= {
 	'null': null,// null event: no action taken
@@ -59,9 +130,10 @@ var eventHandler= {
 		console.log("    Journey : "+ event.NombreJornada);
 		console.log("    Round   : "+ event.NombreManga);
 		console.log("    Ring    : "+ event.NombreRing);
-        workingData.cronomanual=0;
-		workingData.cronoauto=0;
-		workingData.coursewalk=0;
+        ac_config.cronomanual=0;
+		ac_config.cronoauto=0;
+		ac_config.coursewalk=0;
+		ac_config.running=false;
 	},
 	'close': function(event,time){ // no more dogs in tabla
 		console.log(event['Type'] + " - Operator ends tablet session");
@@ -76,26 +148,8 @@ var eventHandler= {
 		console.log("    Time         : "+ event.Tim);
 	},
 	'llamada': function(event,time) {    // llamada a pista
-		console.log(event['Type'] + " - Competitor call to ring");
-		console.log("    Dog name  : "+ event.Nombre);
-		console.log("    Long name : "+ event.NombreLargo);
-		console.log("    Handler   : "+ event.NombreGuia);
-		console.log("    Club      : "+ event.NombreClub);
-		console.log("    Team      : "+ event.NombreEquipo);
-		console.log("    Category  : "+ event.Categoria);
-        console.log("    Grade     : "+ event.Grado);
-        console.log("    Heat      : "+ event.Hot);
-
-        console.log("    - Previously stored competitor data ");
-        console.log("    Faults       : "+ event.Flt);
-        console.log("    Touchs       : "+ event.Toc);
-        console.log("    Refusals     : "+ event.Reh);
-        console.log("    Eliminated   : "+ event.Eli);
-        console.log("    Not present  : "+ event.NPr);
-        console.log("    Time         : "+ event.Tim);
-
-        // OBS: switch to Scene 1
-        obs.setCurrentScene({'scene-name':'Salida'});
+        // check crono and eliminated status before doing anything
+		obs_handlePendingEvent(event);
 	},
 	'salida': function(event,time){     // orden de salida
 		console.log(event['Type'] + " - Start 15 seconds countdown");
@@ -103,7 +157,8 @@ var eventHandler= {
 	'start': function(event,time) {      // start crono manual
 		console.log(event['Type'] + " - Manual chrono started");
         console.log("    Value: "+event.Value);
-        workingData.cronomanual=parseInt(event.Value);
+        ac_config.cronomanual=parseInt(event.Value);
+        ac_config.running=true;
 
         // OBS: switch to Scene 1 and hide logo
         obs.setCurrentScene({'scene-name':'Camara central'});
@@ -112,16 +167,20 @@ var eventHandler= {
 	'stop': function(event,time){      // stop crono manual
 		console.log(event['Type'] + " - Manual chrono stopped");
         console.log("    Value: "+event.Value);
-        console.log("    Time:  "+(parseInt(event.Value)-workingData.cronomanual).toString()+" msecs");
+        console.log("    Time:  "+(parseInt(event.Value)-ac_config.cronomanual).toString()+" msecs");
+        ac_config.running=false;
 
         // OBS: Show logo on camera central
         obs.setSourceRender({'source':'Logo','render':true,'scene-name':'Camara central'});
+        // OBS: and switch to next competitor if pending
+        obs_handlePendingEvent(event);
 	},
 	// nada que hacer aqui: el crono automatico se procesa en el tablet
 	'crono_start':  function(event,time){ // arranque crono automatico
 		console.log(event['Type'] + " - Electronic chrono starts");
         console.log("    Value: "+event.Value);
-        workingData.cronoauto=parseInt(event.Value);
+        ac_config.cronoauto=parseInt(event.Value);
+        ac_config.running=true;
 
         // OBS: switch to Scene 1
 		obs.setCurrentScene({'scene-name':'Camara central'});
@@ -130,22 +189,34 @@ var eventHandler= {
 		console.log(event['Type'] + " - Manual-to-Electronic chrono transition");
         console.log("    Start: "+event.start);
         console.log("    Stop:  "+event.stop);
+        ac_config.running=true;
 	},
 	'crono_int':  	function(event,time){	// tiempo intermedio crono electronico
 		console.log(event['Type'] + "- Intermediate time mark");
         console.log("    Value:             "+event.Value);
-        console.log("    Intermediate Time: "+(parseInt(event.Value)-workingData.cronoauto).toString()+" msecs");
+        console.log("    Intermediate Time: "+(parseInt(event.Value)-ac_config.cronoauto).toString()+" msecs");
+        ac_config.running=true;
 	},
 	'crono_stop':  function(event,time){	// parada crono electronico
 		console.log(event['Type'] + " - Electronic chrono stop");
         console.log("    Value: "+event.Value);
-        console.log("    Time:  "+(parseInt(event.Value)-workingData.cronoauto).toString()+" msecs");
+        console.log("    Time:  "+(parseInt(event.Value)-ac_config.cronoauto).toString()+" msecs");
+        ac_config.running=false;
+
+        // OBS: Show logo on camera central
+        obs.setSourceRender({'source':'Logo','render':true,'scene-name':'Camara central'});
+        // OBS: and switch to next competitor if pending
+        obs_handlePendingEvent(event);
 	},
 	'crono_reset':  function(event,time){	// puesta a cero del crono electronico
 		console.log(event['Type'] + "- Reset all counters");
-        workingData.cronomanual=0;
-		workingData.cronoauto=0;
-		workingData.coursewalk=0;
+        ac_config.cronomanual=0;
+		ac_config.cronoauto=0;
+		ac_config.coursewalk=0;
+        ac_config.running=false;
+
+        // OBS: switch to next competitor if pending
+        obs_handlePendingEvent(event);
 	},
 	'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
 		console.log(event['Type'] + " - Competitor data from electronic chronometer");
@@ -160,13 +231,13 @@ var eventHandler= {
 	'crono_rec':  function(event,time) { // course walk
 		var val=event.start;
 		if (val===0) {
-			var elapsed=(parseInt(event.Value)-workingData.coursewalk)/1000;
-			workingData.coursewalk=0;
+			var elapsed=(parseInt(event.Value)-ac_config.coursewalk)/1000;
+			ac_config.coursewalk=0;
 			console.log(event['Type'] + " - Course walk stop");
             console.log("    Timestamp value:"+event.Value);
 			console.log("    Elapsed time: "+elapsed+" secs.");
 		} else {
-			workingData.coursewalk=parseInt(event.Value);
+			ac_config.coursewalk=parseInt(event.Value);
 			console.log(event['Type'] + " - Course walk start");
             console.log("    Timestamp value:"+event.Value);
 			console.log("    Remaining Time: "+val+" secs");
@@ -186,6 +257,14 @@ var eventHandler= {
 	},
 	'aceptar':	function(event,time){ // operador pulsa aceptar
 		console.log(event['Type'] + " - Assistant console operator accepts competitor result");
+        console.log("Stored competitor data:");
+        console.log("    Faults       : "+ event.Flt);
+        console.log("    Touchs       : "+ event.Toc);
+        console.log("    Refusals     : "+ event.Reh);
+        console.log("    Eliminated   : "+ event.Eli);
+        console.log("    Not present  : "+ event.NPr);
+        console.log("    Interm. time : "+ event.TInt);
+        console.log("    Time         : "+ event.Tim);
 	},
 	'cancelar': function(event,time){  // operador pulsa cancelar
 		console.log(event['Type'] + " - Assistant console operator cancels current competitor data");
@@ -230,6 +309,7 @@ var eventHandler= {
  */
 function event_parser(id,event) {
 	event['ID']=id; // fix real id on stored eventData
+    ac_config.pending_events[event['Type']]=event; // store received event
 	var time=event['Value'];
 	if (typeof(eventHandler[event['Type']])==="function") eventHandler[event['Type']](event,time);
 }
@@ -255,9 +335,9 @@ function connectServer(hostaddr,ring){
         console.log("Found AgilityContest server at: "+hostaddr);
         var data = JSON.parse(res.getBody('utf8'));
         // this code assumes that first returned row matches ring 1, second ring 2 and so
-        workingData.hostname=hostaddr;
-        workingData.sessionID=parseInt(data['rows'][ring-1]['ID']);
-        console.log("SessionID for ring:"+ring+" is:"+workingData.sessionID);
+        ac_config.hostname=hostaddr;
+        ac_config.sessionID=parseInt(data['rows'][ring-1]['ID']);
+        console.log("SessionID for ring:"+ring+" is:"+ac_config.sessionID);
         return true;
     } catch (err) {
         console.log("Host: '"+hostaddr+"' Error: "+err);
@@ -314,7 +394,7 @@ function findServer(ring) {
 /**
  * This function call to server and waits for events to be returned ( or empty data on timeout )
  * When one or several events are received iterate on them by calling callback function declared
- * in workingData structure
+ * in ac_config structure
  * @param evtID Last received event ID
  * @param timestamp last timestamp mark received from server
  */
@@ -323,13 +403,13 @@ function waitForEvents(evtID,timestamp){
     var postData = querystring.stringify({
         'Operation'   : 'getEvents',
         'ID'		  : evtID,
-        'Session'     : workingData.sessionID,
+        'Session'     : ac_config.sessionID,
         'TimeStamp'   : timestamp
     });
 
     var options = {
         protocol: 'http:',
-        hostname: workingData.hostname,
+        hostname: ac_config.hostname,
         port: 80,
         path: '/agility/server/database/eventFunctions.php',
         method: 'POST',
@@ -347,7 +427,7 @@ function waitForEvents(evtID,timestamp){
 			var row=response.rows[n];
 			lastID=row['ID'];// store last evt id
 			if (row['Type']==='reconfig') setTimeout(loadConfiguration,0);
-			else workingData.callback(lastID,JSON.parse(row['Data']));
+			else ac_config.callback(lastID,JSON.parse(row['Data']));
 		}
 		// re-queue event
 		setTimeout(function(){ waitForEvents(lastID,timestamp);},1000);
@@ -379,12 +459,12 @@ function startEventMgr() {
 
     var postData = querystring.stringify({
         'Operation':'connect',
-        'Session': workingData.sessionID
+        'Session': ac_config.sessionID
     });
 
     var options = {
         protocol: 'http:',
-        hostname: workingData.hostname,
+        hostname: ac_config.hostname,
         port: 80,
         path: '/agility/server/database/eventFunctions.php',
         method: 'POST',
@@ -429,7 +509,7 @@ function startEventMgr() {
 }
 
 // try to connect to OBS-Studio
-obs.connect({ address: workingData.obshost, password: workingData.obspass });
+obs.connect({ address: ac_config.obshost, password: ac_config.obspass });
 
 // Declare some events to listen for.
 obs.onConnectionOpened(function() {
@@ -443,10 +523,10 @@ obs.onConnectionOpened(function() {
 });
 
 // if AgilityContest server address not declared try to locate server. on fail exit
-if (workingData.hostname==='0.0.0.0') {
-	if (!findServer(workingData.ring)) process.exit(1);
+if (ac_config.hostname==='0.0.0.0') {
+	if (!findServer(ac_config.ring)) process.exit(1);
 } else {
-    if (!connectServer(workingData.hostname,workingData.ring)) process.exit(1);
+    if (!connectServer(ac_config.hostname,ac_config.ring)) process.exit(1);
 }
 
 // start event manager

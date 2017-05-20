@@ -41,7 +41,6 @@ function livestream_eventManager(id,evt) {
 
 function livestream_handlePendingEvent(event) {
 
-    var last_event=ac_config.pending_events['llamada'];
     var running=$('#cronometro').Chrono('started');
 
     function ls_handleCallEvent() {
@@ -55,7 +54,7 @@ function livestream_handlePendingEvent(event) {
             var flag=false;
             var eli=false;
             if (ac_config.pending_events['aceptar']===null) eli=false;
-            else eli=(ac_config.pending_events['aceptar']['Eliminado']==1)
+            else eli=(parseInt(ac_config.pending_events['aceptar']['Eliminado'])===1);
             // en pruebas equipos conjunta, se procesa como siempre
             // PENDING
             // si crono parado se procesa como siempre
