@@ -203,7 +203,6 @@ function parseCategory($cat) {
 	if (in_array($cat,$m)) return 'M';
 	if (in_array($cat,$s)) return 'S';
 	if (in_array($cat,$t)) return 'T';
-	// perhaps should try to detect here if first letter is m/h/f
 	return '-';
 }
 
@@ -227,6 +226,25 @@ function parseGrade($grad) {
 	if (strpos($grad,'2')!==false) return 'GII';
 	if (strpos($grad,'1')!==false) return 'GI';
 	return '-';
+}
+
+function parseHandlerCat($cat) {
+    static $i = array('i','children','infantil','infantiles');
+    static $j = array('j','junior','juvenil','juveniles');
+    static $a = array('a','adult','adulto','adultos');
+    static $s = array('s','senior','seniors');
+    static $v = array('v','veteran','veterano','veteranos');
+    static $p = array('p','para-agility');
+    if (is_null($cat)) return '-';
+    $cat=strtolower(trim(utf8_decode($cat)));
+    if ($cat==="") return '-';
+    if (in_array($cat,$i)) return 'I';
+    if (in_array($cat,$j)) return 'J';
+    if (in_array($cat,$a)) return 'A';
+    if (in_array($cat,$s)) return 'S';
+    if (in_array($cat,$v)) return 'V';
+    if (in_array($cat,$p)) return 'P';
+    return '-';
 }
 
 /**

@@ -53,6 +53,15 @@ class INTL4 extends Federations {
                 'S' => 'Small - 40',
                 'T' => 'Toy - 30'
             ),
+            'ListaCatGuias' => array (
+                '-' => 'Not specified',
+                'I' => 'Children',
+                'J' => 'Junior',
+                'A' => 'Adult',
+                'S' => 'Senior',
+                'V' => 'Veterans',
+                'P' => 'Para-Agility',
+            ),
             'InfoManga' => array(
                 array('L' => _('Large'),         'M' => _('Medium'), 'S' => _('Small'),      'T' => _('Tiny')), // separate courses
                 array('L' => _('Large+Medium'),  'M' => '',          'S' => _('Small+Tiny'), 'T' => ''), // mixed courses

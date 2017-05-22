@@ -77,6 +77,15 @@ class Federations {
             'S' => 'Small - Mini - 40',
             'T' => 'Tiny - Toy - 30'
         ),
+        'ListaCatGuias' => array (
+            '-' => 'Not specified',
+            'I' => 'Children',
+            'J' => 'Junior',
+            'A' => 'Adult',
+            'S' => 'Senior',
+            'V' => 'Veterans',
+            'P' => 'Para-Agility',
+        ),
         'InfoManga' => array (
             array('L' => 'Large',         'M' => 'Medium', 'S' => 'Small',      'T' => 'Tiny'), // separate courses
             array('L' => 'Large+Medium',  'M' => '',       'S' => 'Small+Tiny', 'T' => ''), // mixed courses

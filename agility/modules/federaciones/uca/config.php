@@ -53,6 +53,15 @@ class UCA extends Federations {
                 'S' => 'Cat. 40',
                 'T' => 'Cat. 30'
             ),
+            'ListaCatGuias' => array (
+                '-' => 'Sin especificar',
+                // 'I' => 'Infantil',
+                // 'J' => 'Junior',
+                'A' => 'Adultos',
+                // 'S' => 'Senior',
+                // 'V' => 'Veteranos',
+                // 'P' => 'Para-Agility',
+            ),
             'InfoManga' => array(
                 array('L' => _('Cat. 60'),     'M' => _('Cat. 50'),'S' => _('Cat. 40'),    'T' => _('Cat. 30')), // separate courses
                 array('L' => _('Cat. 60+50'),  'M' => '',          'S' => _('Cat. 40+30'), 'T' => ''), // mixed courses

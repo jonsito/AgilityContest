@@ -53,6 +53,15 @@ class RFEC extends Federations {
                 'S' => 'Small - 40',
                 'T' => 'Toy - 30'
             ),
+            'ListaCatGuias' => array (
+                '-' => 'Sin especificar',
+                // 'I' => 'Infantil',
+                'J' => 'Junior',
+                'A' => 'Adultos',
+                // 'S' => 'Senior',
+                // 'V' => 'Veteranos',
+                'P' => 'Para-Agility',
+            ),
             'InfoManga' => array(
                 array('L' => _('Large'),         'M' => _('Medium'), 'S' => _('Small'),     'T' => _('Toy')), // separate courses
                 array('L' => _('Large+Medium'),  'M' => '',          'S' => _('Small+Toy'), 'T' => ''), // mixed courses

@@ -253,6 +253,7 @@ class Updater {
                 `perros`.`Guia` AS `Guia`,
                 `guias`.`Nombre` AS `NombreGuia`,
                 `guias`.`Club` AS `Club`,
+                `guias`.`Categoria` AS `CatGuia`,
                 `clubes`.`Nombre` AS `NombreClub`,
                 `clubes`.`Provincia` AS `Provincia`,
                 `clubes`.`Pais` AS `Pais`,
@@ -482,7 +483,8 @@ try {
     $upg->addColumnUnlessExists("Resultados", "Games", "int(4)", "0");
     $upg->addColumnUnlessExists("Perros", "NombreLargo", "varchar(255)");
     $upg->addColumnUnlessExists("Perros", "Chip", "varchar(255)", "");
-    $upg->addColumnUnlessExists("Perros", "Genero", "varchar(16)");
+    $upg->addColumnUnlessExists("Perros", "Genero", "varchar(16)", "-"); // -,M,F
+    $upg->addColumnUnlessExists("Guias", "Categoria", "varchar(16)","A");// -,I,J,A,S,V,P
     $upg->addColumnUnlessExists("Provincias", "Pais", "varchar(2)", "ES");
     $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
     $upg->addColumnUnlessExists("Jornadas", "Games", "int(4)", "0");
