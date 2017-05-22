@@ -20,10 +20,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * genera fichero excel de perros seleccionada desde el menu de la base de datos en el orden especificado en la pantalla
 */
 
-require_once(__DIR__ . "/../tools.php");
-require_once(__DIR__ . "/../logging.php");
-require_once(__DIR__ . '/../database/classes/Dogs.php');
-require_once(__DIR__ . "/common_writer.php");
+require_once(__DIR__ . "/../../tools.php");
+require_once(__DIR__ . "/../../logging.php");
+require_once(__DIR__ . '/../../database/classes/Dogs.php');
+require_once(__DIR__ . "/../common_writer.php");
 
 class Excel_ListaPerros extends XLSX_Writer {
 
