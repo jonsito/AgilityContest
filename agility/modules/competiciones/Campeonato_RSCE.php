@@ -7,8 +7,15 @@
  * Time: 10:58
  */
 class Campeonato_RSCE extends Competitions {
+
+    // en el campeonato de España 2017 aparte de la clasificacion absoluta
+    // hay trofeos al primer equipo Junior y Senior
+    // por ello es preciso llevar un contador para cada categoria
+    protected $pJunior=1;
+    protected $pSenior=1;
+
     function __construct() {
-        parent::__construct("Prueba Open / Campeonato RSCE");
+        parent::__construct("Campeonato RSCE 2017");
         $this->federationID=0;
         $this->competitionID=7;
         $this->moduleVersion="1.0.0";
@@ -16,4 +23,24 @@ class Campeonato_RSCE extends Competitions {
     }
 
     function useLongNames() { return true; }
+
+    /**
+     * Evalua la calificacion final del perro
+     * @param {array} $mangas informacion {object} de las diversas mangas
+     * @param {array} $resultados informacion {array} de los resultados de cada manga
+     * @param {array} $perro datos de puntuacion del perro. Passed by reference
+     * @param {array} $puestocat puesto en funcion de la categoria
+     */
+    public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat){
+        // no hay categorias ni grados: la final individual es una prueba open
+        // simplemente hay que llevar la cuenta de junior y senior
+        if ($perro['CatGuia']==="J") { // junior
+            $perro['Calificacion']= "{$this->pJunior}º - Junior";
+            $this->pJunior++;
+        }
+        if ($perro['CatGuia']==="S") { // senior
+            $perro['Calificacion']= "{$this->pSenior}º - Senior";
+            $this->pSenior++;
+        }
+    }
 }
