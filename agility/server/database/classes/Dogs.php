@@ -21,18 +21,19 @@ require_once(__DIR__."/DBObject.php");
 require_once(__DIR__."/../procesaInscripcion.php"); // to update inscription data
 
 class Dogs extends DBObject {
-
-	function __construct() {
-		parent::__construct("Dogs");
+    protected $federation;
+	function __construct($name="Dogs",$fed=-1) {
+		parent::__construct($name);
+		$this->federation=intval($fed);
 	}
 
 	/**
 	 * Insert a new dog into database
 	 * @return {string} "" if ok; null on error
 	 */
-	function insert($fed) {
+	function insert() {
 		$this->myLogger->enter();
-		if($fed<0) return $this->error("Dogs::insert() invalid federation value");
+		if($this->federation<0) return $this->error("Dogs::insert() invalid federation value");
         // iniciamos los valores, chequeando su existencia
         $nombre =	http_request("Nombre","s",null,false);
         $raza =		http_request("Raza","s",null,false);
@@ -44,7 +45,7 @@ class Dogs extends DBObject {
         $guia =		http_request("Guia","i",0);
 		$nombrelargo= http_request("NombreLargo","s","",false);
 		$genero= http_request("Genero","s","",false);
-        $federation=$fed;
+        $federation=$this->federation;
 		// componemos un prepared statement (para evitar sql injection)
 		$sql ="INSERT INTO Perros (Nombre,Raza,Chip,LOE_RRC,Licencia,Categoria,Grado,Guia,NombreLargo,Genero,Federation)
 			   VALUES(?,?,?,?,?,?,?,?,?,?,?)";
@@ -198,9 +199,8 @@ class Dogs extends DBObject {
 		$search=http_request("where","s","");
 		$page=http_request("page","i",1);
 		$rows=http_request("rows","i",50);
-		$federation=http_request("Federation","i",-1);
 		$fed="1";
-		if ($federation >=0) $fed="( Federation = $federation )";
+		if ($this->federation >=0) $fed="( Federation = {$this->federation} )";
 		$where = "1";
 		$limit = "";
 		if ($page!=0 && $rows!=0 ) {
@@ -225,9 +225,8 @@ class Dogs extends DBObject {
 	 */
 	function enumerate() {
 		$this->myLogger->enter();
-		$federation=http_request("Federation","i",-1);
 		$fed="1 ";
-		if ($federation >=0) $fed="( Federation = $federation )";
+		if ($this->federation >=0) $fed="( Federation = {$this->federation} )";
 		// evaluate search criteria for query
 		$q=http_request("q","s","");
 		$where =  ($q==="") ? "1" : " ( ( Nombre LIKE '%$q%' ) OR ( NombreGuia LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
@@ -262,9 +261,8 @@ class Dogs extends DBObject {
         $search=http_request("where","s","");
         $page=http_request("page","i",1);
         $rows=http_request("rows","i",50);
-        $federation=http_request("Federation","i",-1);
         $fed="1";
-        if ($federation >=0) $fed="( Federation = $federation )";
+        if ($this->federation >=0) $fed="( Federation = {$this->federation} )";
         $dups= "Licencia IN (SELECT Licencia FROM PerroGuiaClub GROUP BY Licencia HAVING COUNT('Licencia') > 1)";
         $where = "1";
         $limit = "";
@@ -291,9 +289,8 @@ class Dogs extends DBObject {
 	function selectByGuia($idguia) {
 		$this->myLogger->enter();
 		if ($idguia<=0) return $this->error("Invalid Guia ID:$idguia");
-		$federation=http_request("Federation","i",-1);
 		$fed="";
-		if ($federation >=0) $fed="( Federation = $federation ) AND ";
+		if ($this->federation >=0) $fed="( Federation = {$this->federation} ) AND ";
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "*",
@@ -311,10 +308,9 @@ class Dogs extends DBObject {
 	 * Obtiene los datos del perro con el idperro indicado
 	 * Usado para rellenar formularios:  formid.form('load',url);
 	 * @param {integer} $idperro dog primary key
-	 * @param {integer} $federation federation module id if any
 	 * @return null on error; array() with data on success
 	 */
-	function selectByID($idperro,$federation=-1){
+	function selectByID($idperro){
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("Invalid Perro ID:$idperro");
 		// make query
@@ -334,20 +330,17 @@ class Dogs extends DBObject {
 	/**
 	 * Enumerate categorias ( std, small, medium, tiny 
 	 * Notice that this is not a combogrid, just combobox, so dont result count
-	 * @param {integer} federation module ID;  -1:any
 	 * @return null on error; result on success
 	 */
-	function categoriasPerro($fed=-1) {
+	function categoriasPerro() {
 		$this->myLogger->enter();
-        // evaluate category search argument
-        $fed=intval($fed);
         // default federation info
-        $fedinfo=$fedinfo=new Federations();
+        $fedinfo=new Federations();
         // search requested federation
-        if ($fed>=0) {
-            $f=Federations::getFederation(intval($fed));
+        if ($this->federation>=0) {
+            $f=Federations::getFederation(intval($this->federation));
             if ($f) $fedinfo=$f;
-            else $this->myLogger->error("CategoriasPerro: invalid federation ID:$fed");
+            else $this->myLogger->error("CategoriasPerro: invalid federation ID:{$this->federation}");
         }
         // compose result
         $result =array();
@@ -362,22 +355,19 @@ class Dogs extends DBObject {
 	}
 	
 	/**
-	 * Enumerate grados 
-	 * @param {integer} federation ID; -1:any
+	 * Enumerate grados
 	 * @return null on error; result on success
 	 * Notice that this is not a combogrid, just combobox, so dont result count
 	 */
-	function gradosPerro($fed=-1) {
+	function gradosPerro() {
         $this->myLogger->enter();
-        // evaluate category search argument
-        $fed=intval($fed);
         // default federation info
-        $fedinfo=$fedinfo=new Federations();
+        $fedinfo=new Federations();
         // search requested federation
-        if ($fed>=0) {
-            $f=Federations::getFederation(intval($fed));
+        if ($this->federation>=0) {
+            $f=Federations::getFederation(intval($this->federation));
             if ($f) $fedinfo=$f;
-            else $this->myLogger->error("GradosPerro: invalid federation ID:$fed");
+            else $this->myLogger->error("GradosPerro: invalid federation ID:{$this->federation}");
         }
         // compose result
         $result =array();

@@ -25,7 +25,6 @@ require_once(__DIR__."/classes/Dogs.php");
 
 try {
 	$result=null;
-	$perros= new Dogs("dogFunctions");
 	$am= new AuthManager("dogFunctions");
 	$operation=http_request("Operation","s",null);
 	$idperro=http_request("ID","i",0);
@@ -33,9 +32,10 @@ try {
 	$federation=http_request("Federation","i",-1);
     $idfrom=http_request("From","i",0);
     $idto=http_request("To","i",0);
+    $perros= new Dogs("dogFunctions",$federation);
 	if ($operation===null) throw new Exception("Call to dogFunctions without 'Operation' requested");
 	switch ($operation) {
-		case "insert": $am->access(PERMS_OPERATOR); $result=$perros->insert($federation); break;
+		case "insert": $am->access(PERMS_OPERATOR); $result=$perros->insert(); break;
 		case "update": $am->access(PERMS_OPERATOR); $result=$perros->update($idperro); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$perros->delete($idperro); break;
         case "orphan": $am->access(PERMS_OPERATOR); $result=$perros->orphan($idperro); break; // unassign from handler
@@ -45,8 +45,8 @@ try {
         case "duplicates":	$result=$perros->duplicates(); break; // with same license number
 		case "getbyguia":	$result=$perros->selectByGuia($idguia); break;
 		case "getbyidperro":	$result=$perros->selectByID($idperro); break;
-		case "categorias":	$result=$perros->categoriasPerro($federation); break;
-		case "grados":		$result=$perros->gradosPerro($federation); break;
+		case "categorias":	$result=$perros->categoriasPerro(); break;
+		case "grados":		$result=$perros->gradosPerro(); break;
 		default: throw new Exception("dogFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) 

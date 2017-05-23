@@ -44,15 +44,15 @@ class PrintListaPerros extends PrintCommon {
 	function __construct($federation) {
 		date_default_timezone_set('Europe/Madrid');
 		parent::__construct('Portrait',"print_listaPerros",1,0); // use default prueba. not really needed
-        $d=new Dogs("print_listaPerros");
+        $d=new Dogs("print_listaPerros",$federation);
         $res=$d->select();
         if (!is_array($res)){
 			$this->errormsg="print_listaPerros: select() failed";
 			throw new Exception($this->errormsg);
 		}
         $this->lista=$res['rows'];
-		// rework federation handling as parent got it from senseless prueba ID
-		$this->federation=Federations::getFederation(intval($federation));
+        // rework federation handling as parent got it from senseless prueba ID
+        $this->federation=Federations::getFederation(intval($federation));
 		$this->strClub=($this->federation->isInternational())?_('Country'):_('Club');
 		$this->icon=getIconPath($this->federation->get('Name'),"agilitycontest.png");
         $this->icon2=getIconPath($this->federation->get('Name'),$this->federation->get('Logo'));

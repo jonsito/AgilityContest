@@ -21,8 +21,11 @@ require_once("DBObject.php");
 require_once(__DIR__."/../procesaInscripcion.php");// to update inscription data
 
 class Guias extends DBObject {
-	function __construct() {
-		parent::__construct("Guias");
+    protected $federation;
+
+	function __construct($name="Guias",$fed=-1) {
+		parent::__construct($name);
+		$this->federation=intval($fed);
 	}
 
 	function insert() {
@@ -35,14 +38,13 @@ class Guias extends DBObject {
 		$club	= http_request('Club',"i",0); // not null
         $observaciones= http_request('Observaciones',"s",null,false);
         $categoria= http_request('Categoria',"s","A",false); // default adult
-		$federation= http_request('Federation',"i",0);
 
 		// componemos un prepared statement
 		$sql ="INSERT INTO Guias (Nombre,Telefono,Email,Club,Observaciones,Categoria,Federation)
 			   VALUES(?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('sssissi',$nombre,$telefono,$email,$club,$observaciones,$categoria,$federation);
+		$res=$stmt->bind_param('sssissi',$nombre,$telefono,$email,$club,$observaciones,$categoria,$this->federation);
 		if (!$res) return $this->error($stmt->error);  
 
 		$this->myLogger->info("Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
@@ -145,9 +147,8 @@ class Guias extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		$federation=http_request("Federation","i",-1);
 		$fed="1";
-		if ($federation >=0) $fed="( Federation = $federation )";
+		if ($this->federation >=0) $fed="( Federation = {$this->federation} )";
 		$where = "(Guias.Club=Clubes.ID)";
 		if ($search!=='') $where="(Guias.Club=Clubes.ID) AND ( (Guias.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') ) ";
 		$result=$this->__select(
@@ -165,9 +166,8 @@ class Guias extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search string
 		$q=http_request("q","s","");
-		$federation=http_request("Federation","i",-1);
 		$fed="1";
-		if ($federation >=0) $fed="( Federation = $federation )";
+		if ($this->federation >=0) $fed="( Federation = {$this->federation} )";
 		$where="(Guias.Club=Clubes.ID)";
 		if ($q!=="") $where="(Guias.Club=Clubes.ID) AND ( ( Guias.Nombre LIKE '%$q%' ) OR ( Clubes.Nombre LIKE '%$q%' ) )";
 		$result=$this->__select(
@@ -188,9 +188,8 @@ class Guias extends DBObject {
 	 */
 	function selectByClub($club) {
 		$this->myLogger->enter();
-		$federation=http_request("Federation","i",-1);
 		$fed="1";
-		if ($federation >=0) $fed="( Federation = $federation )";
+		if ($this->federation >=0) $fed="( Federation = {$this->federation} )";
 		if ($club<=0) return $this->error("Invalid Club ID provided");
 		$result=$this->__select(
 				/* SELECT */ "*",
@@ -222,19 +221,17 @@ class Guias extends DBObject {
     /**
      * Enumerate categorias ( children, junior,adults, senior, veterans, para-agility )
      * Notice that this is not a combogrid, just combobox, so don't result count
-     * @param {integer} federation module ID;  -1:any
      * @return null on error; result on success
      */
-    function categoriasGuia($fed=-1) {
+    function categoriasGuia() {
         $this->myLogger->enter();
 
         // evaluate category search argument
-        $fed=intval($fed);
-        $fedinfo=$fedinfo=new Federations();
-        if ($fed>=0) {
-            $f=Federations::getFederation(intval($fed));
+        $fedinfo=new Federations();
+        if ($this->federation>=0) {
+            $f=Federations::getFederation(intval($this->federation));
             if ($f) $fedinfo=$f;
-            else $this->myLogger->error("CategoriasGuia: invalid federation ID:$fed");
+            else $this->myLogger->error("CategoriasGuia: invalid federation ID:{$this->federation}");
         }
         $result =array();
         foreach ($fedinfo->get('ListaCatGuias') as $cat => $name) {

@@ -29,6 +29,8 @@ require_once(__DIR__."/classes/Guias.php");
 		$operation=http_request("Operation","s",null);
 		$guiaid=http_request("ID","i",0);
 		$clubid=http_request("Club","i",0);
+        $federation=http_request("Federation","i",-1);
+        $guias= new Guias("guiaFunctions",$federation);
 		if ($operation===null) throw new Exception("Call to guiaFunctions without 'Operation' requested");
 		switch ($operation) {
 			case "insert": $am->access(PERMS_OPERATOR); $result=$guias->insert(); break;
@@ -36,9 +38,10 @@ require_once(__DIR__."/classes/Guias.php");
 			case "delete": $am->access(PERMS_OPERATOR); $result=$guias->delete($guiaid); break;
 			case "select": $result=$guias->select(); break; // select *
 			case "orphan": $am->access(PERMS_OPERATOR); $result=$guias->orphan($guiaid); break; // unassign from club
-			case "enumerate": $result=$guias->enumerate(); break; // block select
-			case "getbyclub": $result=$guias->selectByClub($clubid); break; 
-			case "getbyid": $result=$guias->selectByID($guiaid); break;
+			case "enumerate":   $result=$guias->enumerate(); break; // block select
+			case "getbyclub":   $result=$guias->selectByClub($clubid); break;
+			case "getbyid":     $result=$guias->selectByID($guiaid); break;
+            case "categorias":	$result=$guias->categoriasGuia(); break;
 			default: throw new Exception("guiaFunctions:: invalid operation: $operation provided");
 		}
 		if ($result===null) 

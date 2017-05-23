@@ -176,7 +176,7 @@ class VideoWall {
 		/* recupera los datos de un perro y le añade informacion de celo */
 		$celo = http_request("Celo","i",0);
 		$id= http_request("Perro","i",0);
-		$pmgr= new Dogs("VideoWall_LiveSTream");
+		$pmgr= new Dogs("VideoWall_LiveSTream",$this->prueba['RSCE']);
 		$data=$pmgr->selectByID($id);
 		$data["Celo"]=$celo;
 		return $data;
