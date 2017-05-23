@@ -148,8 +148,8 @@ class PrintOrdenDeSalida extends PrintCommon {
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 
-        // on wide license federations or international contests suppress license information
-        if ($this->federation->get('WideLicense') || $this->federation->isInternational()) {
+        // on wide license federations or long name required contests suppress license information
+        if ($this->federation->get('WideLicense') || $this->useLongNames) {
             $this->pos[9]+=$this->pos[3]; $this->pos[3]=0;
         }
         // Rango

@@ -185,7 +185,7 @@ class PrintResultadosByEquipos3 extends PrintCommon {
         // en la cabecera texto siempre centrado. Si caza or internacional skip licencia
 		if ($this->federation->get('WideLicense') ) {
             $this->pos[1]+=5; $this->pos[2]=0; $this->pos[3]+=5;$this->pos[4]+=5;
-        } else if ( $this->federation->isInternational()) {
+        } else if ( $this->useLongNames) {
             $this->pos[1]+=20; $this->pos[2]=0; $this->pos[4]-=5;
         }
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
@@ -222,7 +222,7 @@ class PrintResultadosByEquipos3 extends PrintCommon {
                 $this->Cell($this->pos[0],5,$row['Dorsal'],			'LBR',	0,		$this->align[0],	true);
                 $this->SetFont($this->getFontName(),'B',8); // mark Nombre as bold
                 $nombre=$row['Nombre'];
-                if ($this->federation->isInternational()) $nombre .= " - " . $row['NombreLargo'];
+                if ($this->useLongNames) $nombre .= " - " . $row['NombreLargo'];
                 $this->Cell($this->pos[1],5,$nombre,			'LBR',	0,		$this->align[1],	true);
                 $this->SetFont($this->getFontName(),'',8); // set data font size
                 if ($this->pos[2]!=0) $this->Cell($this->pos[2],5,$row['Licencia'],		'LBR',	0,		$this->align[2],	true);

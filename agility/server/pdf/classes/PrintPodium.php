@@ -103,7 +103,7 @@ class PrintPodium extends PrintCommon {
 
 		// datos del participante
 		$this->Cell(10,6,_('Dorsal'),0,0,'C',true); 	// dorsal
-        if ($this->federation->isInternational()){
+        if ($this->useLongNames){
             $this->Cell(40,6,_('Name'),0,0,'C',true);	// nombre
         } else {
             $this->Cell(25,6,_('Name'),0,0,'C',true);	// nombre
@@ -196,7 +196,7 @@ class PrintPodium extends PrintCommon {
 		// datos del participante
 		$this->Cell(10,6,$row['Dorsal'],0,0,'R',true); 	// dorsal
 		$this->SetFont($this->getFontName(),'B',9); // bold font
-        if ($this->federation->isInternational()) {
+        if ($this->useLongNames) {
             $nombre=$row['Nombre']." - ".$row['NombreLargo'];
             $this->Cell(40,6,$nombre,0,0,'L',true);	// nombre (20,y
             $this->SetFont($this->getFontName(),'',9); // default font

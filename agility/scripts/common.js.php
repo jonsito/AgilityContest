@@ -261,6 +261,11 @@ function howManyHeights(fed) {
 
 }
 
+function useLongNames() {
+        if (typeof(workingData.datosCompeticion.Data)==="undefined") return false;
+        return workingData.datosCompeticion.Data.useLongNames;
+}
+
 function isInternational(fed){
 	if (typeof(fed)==="undefined") fed=workingData.federation;
 	if (fed==null) fed=workingData.federation;
@@ -744,10 +749,23 @@ function setJornada(data) {
 	workingData.jornada=0;
 	workingData.nombreJornada="";
 	workingData.datosJornada={};
+    workingData.datosCompeticion={};
 	if (typeof(data) === 'undefined') return;
 	workingData.jornada=parseInt(data.ID);
 	workingData.nombreJornada=data.Nombre;
 	workingData.datosJornada=data;
+    $.ajax({
+        url:"/agility/modules/moduleFunctions.php",
+        dataType:'json',
+        data: {
+            Operation: 'moduleinfo',
+            Federation: workingData.federation,
+            Competition: workingData.datosJornada.Tipo_Competicion
+        },
+        success: function(dc) {
+            workingData.datosCompeticion=dc;
+        }
+    });
 }
 
 function setManga(data) {

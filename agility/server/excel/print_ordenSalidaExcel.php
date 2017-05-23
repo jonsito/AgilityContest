@@ -36,6 +36,7 @@ class excel_ordenSalida extends XLSX_Writer {
     protected $orden; // orden de salida
     protected $validcats; // categorias que nos han pedido listar
     protected $equipos; // tell to print standard or team4 mode
+    protected $useLongNames;
 
     protected $header;
     protected $fields;
@@ -54,9 +55,10 @@ class excel_ordenSalida extends XLSX_Writer {
         $this->prueba= $myDBObject->__getArray("Pruebas",$prueba);
         $this->jornada= $myDBObject->__getArray("Jornadas",$jornada);
         $this->federation=Federations::getFederation(intval($this->prueba['RSCE']));
+        $this->useLongNames=Competitions::getCompetition($this->prueba,$this->jornada)->useLongNames();
         $this->validcats=$categorias;
         // set up fields according international or national contests
-        if ($this->federation->isInternational()) {
+        if ($this->useLongNames) {
             $this->header = array( 'Order','Dorsal','Name','LongName','Gender','Breed','Category','Grade','Handler','Country','Heat','Comments','LOE_RRC');
             $this->fields = array( 'Orden','Dorsal','Nombre','NombreLargo','Genero','Raza','Categoria','Grado','NombreGuia','Pais','Celo','Observaciones','LOE_RRC');
         } else {

@@ -133,7 +133,7 @@ class PrintResultadosByManga extends PrintCommon {
 		$this->SetLineWidth(.3);
 		if ($this->federation->get('WideLicense')) {
             $this->pos[1]+=5;$this->pos[2]=0;$this->pos[3]+=5;$this->pos[4]+=5;
-        } else if ($this->federation->isInternational()) {
+        } else if ($this->useLongNames) {
             $this->pos[1]+=20;$this->pos[2]=0;$this->pos[4]-=5; // remove license. leave space for LongName
         }
 		// Datos
@@ -161,7 +161,7 @@ class PrintResultadosByManga extends PrintCommon {
 			$this->Cell($this->pos[0],6,$row['Dorsal'],			'LR',	0,		$this->align[0],	true);
 			$this->SetFont($this->getFontName(),'B',8); // mark Nombre as bold
             $nombre=$row['Nombre'];
-            if ($this->federation->isInternational()) $nombre .= " - " . $row['NombreLargo'];
+            if ($this->useLongNames) $nombre .= " - " . $row['NombreLargo'];
 			$this->Cell($this->pos[1],6,$nombre,			'LR',	0,		$this->align[1],	true);
 			$this->SetFont($this->getFontName(),'',8); // set data font size
 			if ($this->pos[2]!=0) $this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	true);

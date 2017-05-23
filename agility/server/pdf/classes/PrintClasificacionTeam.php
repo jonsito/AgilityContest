@@ -230,7 +230,7 @@ class PrintClasificacionTeam extends PrintCommon {
 		$this->SetFont($this->getFontName(),'',8); // default font
 		// datos del participante
 		$this->Cell(8,4,_('Dorsal'),'BL',0,'C',true); 	// dorsal
-        if ($this->federation->isInternational()){
+        if ($this->useLongNames){
             $this->Cell(20+($wide)?28:13,4,_('Name'),'B',0,'C',true);	// nombre (20,y
         } else {
             $this->Cell(20,4,_('Name'),'B',0,'C',true);	// nombre (20,y
@@ -292,7 +292,7 @@ class PrintClasificacionTeam extends PrintCommon {
 			$this->SetFont($this->getFontName(),'',8); // default font
 			// datos del participante
 			$this->Cell(8,4,$row['Dorsal'],'L',0,'L',true); 	// dorsal
-            if ($this->federation->isInternational()) {
+            if ($this->useLongNames) {
                 $this->SetFont($this->getFontName(),'B',8); // Display Nombre in bold typeface
                 $nombre=$row['Nombre']." - ".$row['NombreLargo'];
                 $this->Cell(20+($wide)?28:13,4,$nombre,0,0,'L',true);	// nombre (20,y

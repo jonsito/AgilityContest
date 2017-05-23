@@ -128,7 +128,7 @@ class PrintEquiposByJornada extends PrintCommon {
 
         // campos de la cabecera. texto centrado
         $this->Cell($this->pos[0],6,$this->cellHeader[0],1,0,'C',true); // dorsal
-        if ($this->federation->isInternational()) {
+        if ($this->useLongNames) {
             $this->Cell($this->pos[1]+$this->pos[2],6,$this->cellHeader[1],1,0,'C',true); // nombre
         } else {
             $this->Cell($this->pos[1],6,$this->cellHeader[1],1,0,'C',true); // nombre
@@ -173,7 +173,7 @@ class PrintEquiposByJornada extends PrintCommon {
             foreach($miembros as $row) {
                 $this->ac_SetFillColor( (($order&0x01)==0)?$bg1:$bg2);
     			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',0,$this->align[0],true);
-                if ($this->federation->isInternational()) { // long name, skip license
+                if ($this->useLongNames) { // long name, skip license
                     $this->SetFont($this->getFontName(),'B',8); // bold 9px
                     $nombre=$row['Nombre']." - ".$row['NombreLargo'];
                     $this->Cell($this->pos[1]+$this->pos[2],5,$nombre,		'LR',0,'L',true);

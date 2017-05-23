@@ -173,11 +173,16 @@ class PrintClasificacion extends PrintCommon {
 		$this->SetFont($this->getFontName(),'',8); // default font
 
 		// datos del participante
-		$this->Cell(10,7,_('Dorsal'),0,0,'C',true); 	// dorsal
+		$this->Cell(8,7,_('Dorsal'),0,0,'C',true); 	// dorsal
         if ($this->useLongNames) {
-            $this->Cell(($wide)?50:40,7,_('Name'),0,0,'C',true);	// nombre
+            if ($this->federation->isInternational()) {
+                $this->Cell(($wide)?52:42,7,_('Name'),0,0,'C',true);	// nombre
+            } else {
+                $this->Cell(($wide)?37:32,7,_('Name'),0,0,'C',true);	// nombre
+                $this->Cell(($wide)?15:10,7,_('Lic'),0,0,'C',true);	// licencia
+            }
         } else {
-            $this->Cell(($wide)?20:25,7,_('Name'),0,0,'C',true);	// nombre
+            $this->Cell(($wide)?22:27,7,_('Name'),0,0,'C',true);	// nombre
             $this->Cell(($wide)?30:15,7,_('Lic'),0,0,'C',true);	// licencia
         }
 		if (Jornadas::hasGrades($this->jornada)) {
@@ -268,13 +273,18 @@ class PrintClasificacion extends PrintCommon {
 
 		$this->SetFont($this->getFontName(),'',8); // default font
 		// datos del participante
-		$this->Cell(10,6,$row['Dorsal'],0,0,'L',$fill); 	// dorsal
-		$this->SetFont($this->getFontName(),'B',8); // Display Nombre in bold typeface
+		$this->Cell(8,6,$row['Dorsal'],0,0,'L',$fill); 	// dorsal
+		$this->SetFont($this->getFontName(),'B',7); // Display Nombre in bold typeface
         if ($this->useLongNames) {
             $nombre=$row['Nombre']." - ".$row['NombreLargo'];
-            $this->Cell(($wide)?50:40,6,$nombre,0,0,'L',$fill);	// nombre
+            if ($this->federation->isInternational()) {
+                $this->Cell(($wide)?52:42,6,$nombre,0,0,'L',$fill);	// nombre
+            } else {
+                $this->Cell(($wide)?37:32,6,$nombre,0,0,'L',$fill);	// nombre
+                $this->Cell(($wide)?15:10,6,$row['Licencia'],0,0,'L',$fill);	// licencia
+            }
         } else {
-            $this->Cell(($wide)?20:25,6,$row['Nombre'],0,0,'L',$fill);	// nombre
+            $this->Cell(($wide)?22:27,6,$row['Nombre'],0,0,'L',$fill);	// nombre
             $this->SetFont($this->getFontName(),'',($wide)?6:8); // default font
             $this->Cell(($wide)?30:15,6,$row['Licencia'],0,0,'C',$fill);	// licencia
         }
@@ -282,7 +292,8 @@ class PrintClasificacion extends PrintCommon {
 		if (Jornadas::hasGrades($this->jornada)) {
 			$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
 		} else {
-			$this->Cell(10,6,"{$row['Categoria']}",0,0,'C',$fill);	// categoria/grado
+		    $catstr=$this->getCatString($row['Categoria']);
+			$this->Cell(10,6,"{$catstr}",0,0,'C',$fill);	// categoria/grado
 		}
 		$this->Cell(($wide)?30:35,6,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
 		$this->Cell(($wide)?15:20,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub

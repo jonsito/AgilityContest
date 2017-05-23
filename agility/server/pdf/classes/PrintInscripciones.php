@@ -198,8 +198,8 @@ class PrintCatalogo extends PrintCommon {
         if ($this->federation->get('WideLicense')) {
             $this->width[0] -= 7;  $this->width[1] -= 7; $this->width[2] +=14;
         }
-        // si la prueba es internacional quitamos licencia y la sumamos al nombre
-        if ($this->federation->isInternational()) {
+        // si la prueba lo requiere quitamos licencia y sumamos el espacio al nombre
+        if ($this->useLongNames) {
             $this->width[0]+=$this->width[2];
             $this->width[2]=0;
         }
@@ -627,7 +627,7 @@ class PrintInscritos extends PrintCommon {
             $this->pos[4]+=$this->pos[5];
             $this->pos[5]=0;
         }
-        if ($this->federation->isInternational()) { // remove license and heat column
+        if ($this->useLongNames) { // remove license and heat column
             $this->pos[1]+=$this->pos[2]; // remove license and add to name
             $this->pos[2]=0;
 			$this->pos[3]+=$this->pos[8]; // remove heat and add to breed
@@ -707,7 +707,7 @@ class PrintInscritos extends PrintCommon {
 				$this->cellHeader[10+$row]=$jornada['Nombre'];
 			}
 		}
-		if (!$this->federation->isInternational()) {
+		if (!$this->useLongNames) {
             // si estamos en caza ajustamos para que quepa la licencia
             if ($this->federation->get('WideLicense')) {
 				// dorsal         nombre          	licencia           categoria         grado             observaciones
@@ -737,7 +737,7 @@ class PrintInscritos extends PrintCommon {
 				$this->Cell($this->pos[7],5,$row['NombreClub'],	'LR',	0,		$this->align[7],	$fill); // club
 			}
 			$this->SetFont($this->getFontName(),'B',8); // bold 8px
-            if ($this->federation->isInternational()) {
+            if ($this->useLongNames) {
                 $n=$row['Nombre']." - ".$row['NombreLargo'];
                 $this->Cell($this->pos[1],5,$n,		'LR',	0,		$this->align[1],	$fill);
             } else {
@@ -829,7 +829,7 @@ class PrintInscritosByJornada extends PrintCommon {
 					$this->pos[7]=0;  // to fit grade
 				}
 				// remove "License" in international contests
-				if($this->federation->isInternational()) {
+				if($this->useLongNames) {
 					$this->pos[1]+=$this->pos[2]; // increase name size
 					$this->pos[2]=0;  // and remove license
 				}
@@ -912,7 +912,7 @@ class PrintInscritosByJornada extends PrintCommon {
             $this->SetFont($this->getFontName(),'',8); // normal 8px
 			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
 			$this->SetFont($this->getFontName(),'B',9); // bold 9px
-			if ($this->federation->isInternational()) {
+			if ($this->useLongNames) {
 				$n=$row['Nombre']." - ".$row['NombreLargo'];
 				$this->Cell($this->pos[1],5,$n,		'LR',	0,		'L',	$fill);
 			} else {

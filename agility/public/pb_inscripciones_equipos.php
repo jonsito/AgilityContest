@@ -166,8 +166,8 @@ function showInscripcionesByTeam(index,team){
             $('#pb_inscripciones_eq3-datagrid').datagrid('fixDetailRowHeight',index);
         },
         onLoadSuccess:function(){
-            // on international contests hide license, and enlarge name to allow pedigree name
-            if (isInternational(workingData.federation)) {
+            // on some competitions mode hide license, and enlarge name to allow pedigree name
+            if (useLongNames()) {
                 $(this).datagrid('hideColumn','Licencia');
                 $(this).datagrid('autoSizeColumn','Nombre');
             }

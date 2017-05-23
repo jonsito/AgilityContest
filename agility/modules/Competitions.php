@@ -50,7 +50,7 @@ class Competitions {
 
     /**
      * Retrieve module information
-     * @param $contact email address for contacg
+     * @param $contact email address for contac
      */
     public function getModuleInfo($contact=null) {
         $fed=Federations::getFederation($this->federationID);
@@ -66,7 +66,11 @@ class Competitions {
             "FederationID" => $this->federationID,
             "ModuleVersion" => $this->moduleVersion,
             "ModuleRevision" => $this->moduleRevision,
-            "Email" => $contact
+            "Email" => $contact,
+            // Specific configuration for each module
+            "Data" => array (
+                "UseLongNames" => $this->useLongNames()
+            )
         );
     }
 
