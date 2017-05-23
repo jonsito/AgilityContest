@@ -83,7 +83,7 @@ class Federations {
             'J' => 'Junior',
             'A' => 'Adult',
             'S' => 'Senior',
-            'V' => 'Veterans',
+            'R' => 'Retired',
             'P' => 'Para-Agility',
         ),
         'InfoManga' => array (

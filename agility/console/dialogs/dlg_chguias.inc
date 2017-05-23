@@ -52,6 +52,13 @@ $config =Config::getInstance();
                 <input id="chguias-Telefono" name="Telefono" type="text" style="width:200px"/>
             </div>
             <div class="fitem">
+                <label for="chguias-Categoria"><?php _e('Category'); ?>:</label>
+                <select id="chguias-Categoria"
+                        name="Categoria"
+                        class="easyui-combobox"
+                        style="width:155px" ></select>
+            </div>
+            <div class="fitem">
                 <label for="chguias-Observaciones"><?php _e('Comments'); ?>:</label>
                 <textarea id="chguias-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
@@ -125,6 +132,19 @@ $config =Config::getInstance();
     			$('#chguias-Club').val($('#chguias-newClub').val()); // restore "Club" field
     		}
     	});
+        $('#chguias-Categoria').combobox({
+            panelHeight: 'auto',
+            valueField:'Categoria',
+            textField:'Observaciones',
+            method: 'get',
+            mode: 'remote',
+            required: true,
+            url:'/agility/server/database/guiaFunctions.php',
+            queryParams: {
+                Operation:'categorias',
+                Federation: workingData.federation
+            }
+        });
 
         // datos de la ventana
         $('#chguias-dialog').dialog( {

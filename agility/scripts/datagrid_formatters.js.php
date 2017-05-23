@@ -128,6 +128,12 @@ function formatCategoria(val,row,idx) {
     if (typeof (ac_fedInfo[fed].ListaCategoriasShort[val]) === "undefined") return val;
     return ac_fedInfo[fed].ListaCategoriasShort[val];
 }
+function formatCatGuia(val,row,idx) {
+    var fed=workingData.federation;
+    if (typeof (ac_fedInfo[fed]) === "undefined") return val;
+    if (typeof (ac_fedInfo[fed].ListaCatGuias[val]) === "undefined") return val;
+    return ac_fedInfo[fed].ListaCatGuias[val];
+}
 function formatCatGrad(val,row,idx) {
     var hasGrade=true;
     if (isJornadaEquipos(null)) hasGrade=false;

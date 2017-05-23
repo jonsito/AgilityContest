@@ -57,9 +57,9 @@ class RFEC extends Federations {
                 '-' => 'Sin especificar',
                 // 'I' => 'Infantil',
                 'J' => 'Junior',
-                'A' => 'Adultos',
+                'A' => 'Adulto',
                 // 'S' => 'Senior',
-                // 'V' => 'Veteranos',
+                'R' => 'Retirado',
                 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(

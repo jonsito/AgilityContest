@@ -229,11 +229,11 @@ function parseGrade($grad) {
 }
 
 function parseHandlerCat($cat) {
-    static $i = array('i','children','infantil','infantiles');
+    static $i = array('i','child','children','infantil','infantiles');
     static $j = array('j','junior','juvenil','juveniles');
-    static $a = array('a','adult','adulto','adultos');
+    static $a = array('a','adult','adults','adulto','adultos');
     static $s = array('s','senior','seniors');
-    static $v = array('v','veteran','veterano','veteranos');
+    static $r = array('r','retired','retirado','retirados','baja');
     static $p = array('p','para-agility');
     if (is_null($cat)) return '-';
     $cat=strtolower(trim(utf8_decode($cat)));
@@ -242,7 +242,7 @@ function parseHandlerCat($cat) {
     if (in_array($cat,$j)) return 'J';
     if (in_array($cat,$a)) return 'A';
     if (in_array($cat,$s)) return 'S';
-    if (in_array($cat,$v)) return 'V';
+    if (in_array($cat,$r)) return 'R';
     if (in_array($cat,$p)) return 'P';
     return '-';
 }

@@ -90,6 +90,7 @@ $config =Config::getInstance();
                 { field:'ID',			hidden:true },
                 { field:'Federation',	hidden:true },
                 { field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Name');?>', formatter:formatBold },
+                { field:'Categoria',    width:10, sortable:true,    title: '<?php _e('Category');?>',formatter:formatCatGuia },
                 { field:'Club',			hidden:true},
                 { field:'NombreClub',	width:20, sortable:true,	title: '<?php _e('Club');?>'},
                 { field:'Telefono',		width:10, sortable:true,	title: '<?php _e('Phone');?>' },

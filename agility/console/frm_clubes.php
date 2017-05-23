@@ -171,7 +171,8 @@ $config =Config::getInstance();
         	    columns: [[
         	        { field:'ID',			hidden:true },	
         	    	{ field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Name'); ?>',formatter:formatBold },
-        	    	{ field:'Telefono',	width:15, sortable:true,	title: '<?php _e('Telephone'); ?>' },
+                    { field:'Categoria',     width:10, sortable:true,    title: '<?php _e('Category');?>',formatter:formatCatGuia },
+        	    	{ field:'Telefono',	    width:15, sortable:true,	title: '<?php _e('Telephone'); ?>' },
         	    	{ field:'Email',		width:25, sortable:true,    title: '<?php _e('Electronic mail'); ?>' },
         	    	{ field:'Observaciones',width:15,					title: '<?php _e('Comments'); ?>'}
             	]],

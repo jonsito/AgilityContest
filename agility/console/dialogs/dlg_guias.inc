@@ -22,7 +22,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  ?>
 
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE GUIAS -->
-    <div id="guias-dialog" style="width:500px;height:350px;padding:10px 20px">
+    <div id="guias-dialog" style="width:500px;height:auto;padding:10px 20px">
         <div class="ftitle"><?php _e('Handler information'); ?></div>
         <form id="guias-form" method="get" novalidate>
             <div class="fitem">
@@ -40,6 +40,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <div class="fitem">
                 <label for="guias-Telefono"><?php _e('Telephone'); ?>:</label>
                 <input id="guias-Telefono" name="Telefono" type="text" style="width:250px"/>
+            </div>
+            <div class="fitem">
+                <label for="guias-Categoria"><?php _e('Category'); ?>:</label>
+                <select id="guias-Categoria"
+                        name="Categoria"
+                        class="easyui-combobox"
+                        style="width:155px" ></select>
             </div>
             <div class="fitem">
                 <label for="guias-Club"><?php _e('Club'); ?>:</label>
@@ -106,6 +113,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             validType: 'email'
         });
         $('#guias-Telefono').textbox();
+        $('#guias-Categoria').combobox({
+            panelHeight: 'auto',
+            valueField:'Categoria',
+            textField:'Observaciones',
+            method: 'get',
+            mode: 'remote',
+            required: true,
+            url:'/agility/server/database/guiaFunctions.php',
+            queryParams: {
+                Operation:'categorias',
+                Federation: workingData.federation
+            }
+        });
         $('#guias-Club').combogrid({
 			panelWidth: 350,
 			panelHeight: 200,
