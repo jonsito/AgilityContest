@@ -693,7 +693,7 @@ class Resultados extends DBObject {
 		
 		// FASE 0: en funcion del tipo de recorrido y modo pedido
 		// ajustamos el criterio de busqueda de la tabla de resultados
-		$where="(Manga=$idmanga) AND (Pendiente=0) AND (Perros.ID=Resultados.Perro) ";
+		$where="(Manga=$idmanga) AND (Pendiente=0) AND (PerroGuiaClub.ID=Resultados.Perro) ";
 		$cat="";
 		switch ($mode) {
 			case 0: /* Large */		$cat= "AND (Resultados.Categoria='L')"; break;
@@ -709,11 +709,12 @@ class Resultados extends DBObject {
 		}
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
-				"Resultados.Dorsal,Resultados.Perro,Resultados.Nombre,NombreLargo,Resultados.Raza,Equipo,Resultados.Licencia,Resultados.Categoria,Resultados.Grado,NombreGuia,NombreClub,
-				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,Resultados.Celo, Perros.LOE_RRC,
+				"Resultados.Dorsal,Resultados.Perro,Resultados.Nombre,NombreLargo,Resultados.Raza,Equipo,Resultados.Licencia,Resultados.Categoria,Resultados.Grado,
+				    PerroGuiaClub.NombreGuia,PerroGuiaClub.NombreClub,PerroGuiaClub.LOE_RRC,PerroGuiaClub.CatGuia,
+				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,Resultados.Celo, 
 					GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,
 					0 AS PTiempo, 0 AS Penalizacion, '' AS Calificacion, 0 AS Velocidad", 
-				"Resultados,Perros",
+				"Resultados,PerroGuiaClub",
 				"$where $cat",
 				" PRecorrido ASC, Tiempo ASC", 
 				"");
