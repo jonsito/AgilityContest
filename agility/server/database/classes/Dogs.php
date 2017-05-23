@@ -339,48 +339,26 @@ class Dogs extends DBObject {
 	 */
 	function categoriasPerro($fed=-1) {
 		$this->myLogger->enter();
+        // evaluate category search argument
+        $fed=intval($fed);
+        // default federation info
+        $fedinfo=$fedinfo=new Federations();
+        // search requested federation
+        if ($fed>=0) {
+            $f=Federations::getFederation(intval($fed));
+            if ($f) $fedinfo=$f;
+            else $this->myLogger->error("CategoriasPerro: invalid federation ID:$fed");
+        }
+        // compose result
+        $result =array();
+        foreach ($fedinfo->get('ListaCategorias') as $cat => $name) {
+            if ($cat==="-")
+                array_push($result,array("Categoria"=>$cat,"Observaciones"=>$name,"selected"=>1));
+            else array_push($result,array("Categoria"=>$cat,"Observaciones"=>$name,"selected"=>0));
+        }
+        $this->myLogger->leave();
+        return $result;
 
-		// evaluate category search argument
-		$f="1";
-		if ($fed>=0) {
-			// ask how many heights has selected federation
-			$fedinfo=Federations::getFederation(intval($fed));
-			if ($fedinfo) {
-				$result =array();
-				foreach ($fedinfo->get('ListaCategorias') as $cat => $name) {
-					if ($cat==="-")
-						array_push($result,array("Categoria"=>$cat,"Observaciones"=>$name,"selected"=>1));
-					else array_push($result,array("Categoria"=>$cat,"Observaciones"=>$name,"selected"=>0));
-				}
-				return $result;
-			}
-			$this->myLogger->error("CategoriasPerro: invalid federation ID:$fed");
-		}
-		// if federation is not provided or invalid, extract all  available values from database
-
-		// evaluate search string for query
-		$q=http_request("q","s","");
-		$like="";
-		if ($q=="") $like= "WHERE Categoria LIKE '%".$q."%'";
-	
-		// query to retrieve table data
-		$sql="SELECT Categoria,Observaciones FROM Categorias_Perro ".$like." ORDER BY Categoria";
-		$this->myLogger->query($sql);
-		$rs=$this->query($sql);
-		if (!$rs) return $this->error($this->conn->error); 
-		// retrieve result into an array
-		$result = array();
-		while($row = $rs->fetch_array(MYSQLI_ASSOC)){
-			// add a default state for comobobox
-			if ($row["Categoria"]==='-') { $row["selected"]=1; $row[2]=1;}
-			else { $row["selected"]=0; $row[2]=0;}
-			// and store into result array
-			array_push($result, $row);
-		}
-		// clean and return
-		$rs->free();
-		$this->myLogger->leave();
-		return $result;
 	}
 	
 	/**
@@ -390,52 +368,26 @@ class Dogs extends DBObject {
 	 * Notice that this is not a combogrid, just combobox, so dont result count
 	 */
 	function gradosPerro($fed=-1) {
-		$this->myLogger->enter();
-
-		// evaluate federation search argument
-		$f="1";
-		if ($fed>=0) {
-			// ask how many grades has selected federation
-			$fedinfo=Federations::getFederation(intval($fed));
-			if ($fedinfo) {
-				if ($fedinfo->get('Grades')===2) $f="(Grado <> 'GIII') ";
-
-                $result =array();
-                foreach ($fedinfo->get('ListaGrados') as $cat => $name) {
-                    if ($cat==="-")
-                        array_push($result,array("Grado"=>$cat,"Comentarios"=>$name,"selected"=>1));
-                    else array_push($result,array("Grado"=>$cat,"Comentarios"=>$name,"selected"=>0));
-                }
-                return $result;
-			}
-            $this->myLogger->error("CategoriasPerro: invalid federation ID:$fed");
-		}
-
-        // if federation is not provided or invalid, extract all  available values from database
-		// evaluate search string for query
-		$q=http_request("q","s","");
-        $like="";
-        if ($q=="") $like= " WHERE Grado LIKE '%".$q."%'";
-
-		// query to retrieve table data
-		$sql="SELECT Grado,Comentarios FROM Grados_Perro ".$like." ORDER BY Grado";
-		$this->myLogger->query($sql);
-		$rs=$this->query($sql);
-		if (!$rs) return $this->error($this->conn->error);
-		// retrieve result into an array
-		$result = array();
-		while($row = $rs->fetch_array(MYSQLI_ASSOC)){
-			// add a default state for comobobox
-			if ($row["Grado"]==='-') 
-				{ $row["selected"]=1; $row[2]=1;}
-			else { $row["selected"]=0; $row[2]=0;}
-			// and store into result array
-			array_push($result, $row);
-		}
-		// clean and return
-		$rs->free();
-		$this->myLogger->leave();
-		return $result;
+        $this->myLogger->enter();
+        // evaluate category search argument
+        $fed=intval($fed);
+        // default federation info
+        $fedinfo=$fedinfo=new Federations();
+        // search requested federation
+        if ($fed>=0) {
+            $f=Federations::getFederation(intval($fed));
+            if ($f) $fedinfo=$f;
+            else $this->myLogger->error("GradosPerro: invalid federation ID:$fed");
+        }
+        // compose result
+        $result =array();
+        foreach ($fedinfo->get('ListaGrados') as $cat => $name) {
+            if ($cat==="-")
+                array_push($result,array("Grado"=>$cat,"Comentarios"=>$name,"selected"=>1));
+            else array_push($result,array("Grado"=>$cat,"Comentarios"=>$name,"selected"=>0));
+        }
+        $this->myLogger->leave();
+        return $result;
 	}
 }
 	

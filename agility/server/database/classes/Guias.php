@@ -33,15 +33,16 @@ class Guias extends DBObject {
 		$telefono = http_request('Telefono',"s",null,false);
 		$email = http_request('Email',"s",null,false);
 		$club	= http_request('Club',"i",0); // not null
-		$observaciones= http_request('Observaciones',"s",null,false);
+        $observaciones= http_request('Observaciones',"s",null,false);
+        $categoria= http_request('Categoria',"s","A",false); // default adult
 		$federation= http_request('Federation',"i",0);
 
 		// componemos un prepared statement
-		$sql ="INSERT INTO Guias (Nombre,Telefono,Email,Club,Observaciones,Federation)
-			   VALUES(?,?,?,?,?,?)";
+		$sql ="INSERT INTO Guias (Nombre,Telefono,Email,Club,Observaciones,Categoria,Federation)
+			   VALUES(?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('sssisi',$nombre,$telefono,$email,$club,$observaciones,$federation);
+		$res=$stmt->bind_param('sssissi',$nombre,$telefono,$email,$club,$observaciones,$categoria,$federation);
 		if (!$res) return $this->error($stmt->error);  
 
 		$this->myLogger->info("Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
@@ -81,14 +82,15 @@ class Guias extends DBObject {
         $email = http_request('Email',"s",null,false);
         $club	= http_request('Club',"i",0); // not null
         $observaciones= http_request('Observaciones',"s",null,false);
+        $categoria= http_request('Categoria',"s","A",false); // adult
         $guiaid 	= $id; // primary key
         $this->myLogger->info("ID: $id Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 
 		// componemos un prepared statement
-		$sql ="UPDATE Guias SET Nombre=? , Telefono=? , Email=? , Club=? , Observaciones=? WHERE ( ID=? )";
+		$sql ="UPDATE Guias SET Nombre=? , Telefono=? , Email=? , Club=? , Observaciones=?, Categoria=? WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('sssisi',$nombre,$telefono,$email,$club,$observaciones,$guiaid);
+		$res=$stmt->bind_param('sssissi',$nombre,$telefono,$email,$club,$observaciones,$categoria,$guiaid);
 		if (!$res) return $this->error($stmt->error); 
 
 		// invocamos la orden SQL y devolvemos el resultado
@@ -149,7 +151,7 @@ class Guias extends DBObject {
 		$where = "(Guias.Club=Clubes.ID)";
 		if ($search!=='') $where="(Guias.Club=Clubes.ID) AND ( (Guias.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') ) ";
 		$result=$this->__select(
-				/* SELECT */ "Guias.ID, Guias.Federation, Guias.Nombre, Telefono, Guias.Email, Club, Clubes.Nombre AS NombreClub, Guias.Observaciones",
+				/* SELECT */ "Guias.ID, Guias.Federation, Guias.Nombre, Telefono, Categoria, Guias.Email, Club, Clubes.Nombre AS NombreClub, Guias.Observaciones",
 				/* FROM */ "Guias,Clubes",
 				/* WHERE */ "$fed AND $where",
 				/* ORDER BY */ $sort,
@@ -216,6 +218,33 @@ class Guias extends DBObject {
 		$this->myLogger->leave();
 		return $data;
 	}
+
+    /**
+     * Enumerate categorias ( children, junior,adults, senior, veterans, para-agility )
+     * Notice that this is not a combogrid, just combobox, so don't result count
+     * @param {integer} federation module ID;  -1:any
+     * @return null on error; result on success
+     */
+    function categoriasGuia($fed=-1) {
+        $this->myLogger->enter();
+
+        // evaluate category search argument
+        $fed=intval($fed);
+        $fedinfo=$fedinfo=new Federations();
+        if ($fed>=0) {
+            $f=Federations::getFederation(intval($fed));
+            if ($f) $fedinfo=$f;
+            else $this->myLogger->error("CategoriasGuia: invalid federation ID:$fed");
+        }
+        $result =array();
+        foreach ($fedinfo->get('ListaCatGuias') as $cat => $name) {
+            if ($cat==="-")
+                array_push($result,array("Categoria"=>$cat,"Observaciones"=>$name,"selected"=>1));
+            else array_push($result,array("Categoria"=>$cat,"Observaciones"=>$name,"selected"=>0));
+        }
+        $this->myLogger->leave();
+        return $result;
+    }
 }
 	
 ?>

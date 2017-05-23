@@ -24,7 +24,7 @@ class RFEC extends Federations {
                 'Baja' => 'Baja',
                 'GI' => 'G1',
                 'GII'=> 'G2',
-                'GIII' => 'G3',
+                // 'GIII' => 'G3',
                 'P.A.' => 'G0',
                 'P.B.' => 'P.B.', // "perro en blanco"
                 'Ret.' => 'Ret.'
@@ -33,7 +33,7 @@ class RFEC extends Federations {
                 '-' => 'Sin especificar',
                 'GI' => 'Promocion (G1)',
                 'GII'=> 'Competicion (G2)',
-                'GIII' => '(G3) no disponible',
+                // 'GIII' => '(G3) no disponible',
                 'P.A.' => 'Iniciacion (G0)',
                 'P.B.' => 'Perro en Blanco',
                 'Baja' => 'Baja temporal ',
