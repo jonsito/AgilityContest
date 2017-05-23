@@ -14,4 +14,6 @@ class Campeonato_RSCE extends Competitions {
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20170427_1840";
     }
+
+    function useLongNames() { return true; }
 }

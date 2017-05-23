@@ -12,4 +12,6 @@ class Standard_intl4 extends Competitions {
         $this->federationID=8;
         $this->competitionID=0;
     }
+
+    function useLongNames() { return true; }
 }

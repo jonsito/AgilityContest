@@ -12,4 +12,6 @@ class EuropeanOpen extends Competitions {
         $this->federationID=9;
         $this->competitionID=1;
     }
+
+    function useLongNames() { return true; }
 }

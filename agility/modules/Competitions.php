@@ -189,6 +189,14 @@ class Competitions {
         return $data;
     }
 
+    /**
+     * Request if current competition module requires show short-long dog names
+     * @return {boolean} true or false
+     */
+    public function useLongNames() {
+        return false; // default use short name
+    }
+
     /**************************************** static functions comes here *************************************/
 
     /**

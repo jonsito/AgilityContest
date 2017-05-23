@@ -12,4 +12,6 @@ class WorldAgilityOpen extends Competitions {
         $this->federationID=8;
         $this->competitionID=1;
     }
+
+    function useLongNames() { return true; }
 }

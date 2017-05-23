@@ -12,4 +12,6 @@ class FCI_AgilityWorldChampionship extends Competitions {
         $this->federationID=9;
         $this->competitionID=2;
     }
+
+    function useLongNames() { return true; }
 }

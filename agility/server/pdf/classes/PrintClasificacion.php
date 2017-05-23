@@ -174,7 +174,7 @@ class PrintClasificacion extends PrintCommon {
 
 		// datos del participante
 		$this->Cell(10,7,_('Dorsal'),0,0,'C',true); 	// dorsal
-        if ($this->federation->isInternational()) {
+        if ($this->useLongNames) {
             $this->Cell(($wide)?50:40,7,_('Name'),0,0,'C',true);	// nombre
         } else {
             $this->Cell(($wide)?20:25,7,_('Name'),0,0,'C',true);	// nombre
@@ -270,7 +270,7 @@ class PrintClasificacion extends PrintCommon {
 		// datos del participante
 		$this->Cell(10,6,$row['Dorsal'],0,0,'L',$fill); 	// dorsal
 		$this->SetFont($this->getFontName(),'B',8); // Display Nombre in bold typeface
-        if ($this->federation->isInternational()) {
+        if ($this->useLongNames) {
             $nombre=$row['Nombre']." - ".$row['NombreLargo'];
             $this->Cell(($wide)?50:40,6,$nombre,0,0,'L',$fill);	// nombre
         } else {

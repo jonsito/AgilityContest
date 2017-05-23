@@ -54,6 +54,7 @@ class PrintCommon extends FPDF {
 
 	protected $centro;
 	protected $useUTF8=false;
+	protected $useLongNames=false;
 	protected $myFontName="Helvetica";
 	protected $errormsg;
 
@@ -199,6 +200,7 @@ class PrintCommon extends FPDF {
 		$this->jornada=null;
 		if ($jornada!=0) {
 			$this->jornada=$this->myDBObject->__getObject("Jornadas",$jornada);
+			$this->useLongNames=Competitions::getCompetition($this->prueba,$this->jornada)->useLongNames();
 		}
 		// on international contests, use logos from federation
         $this->icon=getIconPath($fedName,$this->federation->get('OrganizerLogo'));
