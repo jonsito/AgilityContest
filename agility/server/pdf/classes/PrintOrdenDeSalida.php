@@ -144,6 +144,7 @@ class PrintOrdenDeSalida extends PrintCommon {
 	
 	// Tabla coloreada
 	function composeTable() {
+        $rowsperpage=38;
 		$this->myLogger->enter();
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
@@ -175,7 +176,7 @@ class PrintOrdenDeSalida extends PrintCommon {
                 $this->Cell(array_sum($this->pos),0,'','T'); // forzamos linea de cierre
 			    // if new category header fits in page show it; else force new page
                 if($rowcount > 32) {
-                    $rowcount=37;
+                    $rowcount=$rowsperpage;
                 } else if ($rowcount!=0) {
                     $this->Ln(10);
                     $this->print_identificacionManga($this->manga,$this->getCatString($this->categoria));
@@ -187,9 +188,9 @@ class PrintOrdenDeSalida extends PrintCommon {
 			}
             if ( (($order+1)<$fromItem) || (($order+1)>$toItem) ) { $order++; continue; } // not in range; skip
 			// on team, if team change, make sure that new team fits in page. Else force new page
-			if ( $this->isTeam() && ($newTeam!=$lastTeam) && ($rowcount>=32) ) $rowcount=37;
+			if ( $this->isTeam() && ($newTeam!=$lastTeam) && ($rowcount>=32) ) $rowcount=$rowsperpage;
 
-			if ( ($rowcount==0) || ($rowcount>=37) ) { // assume 38 rows per page ( rowWidth = 6mmts )
+			if ( ($rowcount==0) || ($rowcount>=$rowsperpage) ) { // assume 38 rows per page ( rowWidth = 6mmts )
                 $this->Cell(array_sum($this->pos),0,'','T');// linea de cierre en cambio de pagina$this->AddPage();
 				$rowcount=0;
 				$this->AddPage();

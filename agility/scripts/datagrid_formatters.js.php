@@ -501,7 +501,7 @@ function ordenSalida_configureScreenLayout(dg) {
         dg.datagrid('showColumn','NombreClub');
     }
     // on international contests hide license, and enlarge name to allow pedigree name
-    if (useLongNames()) {
+    if (isInternational(workingData.federation)) {
         dg.datagrid('setFieldTitle',{'field':'NombreClub','title':'<?php _e("Country");?>'});
         dg.datagrid('hideColumn','Licencia');
         dg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
@@ -511,7 +511,7 @@ function ordenSalida_configureScreenLayout(dg) {
 
 function inscripciones_configureScreenLayout(dg) {
     // on international contests hide license, and enlarge name to allow pedigree name
-    if (useLongNames(workingData.federation)) {
+    if (isInternational(workingData.federation)) {
         dg.datagrid('setFieldTitle',{'field':'NombreClub','title':'<?php _e("Country");?>'});
         dg.datagrid('hideColumn','Licencia');
         dg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
