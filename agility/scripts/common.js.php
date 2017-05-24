@@ -263,7 +263,7 @@ function howManyHeights(fed) {
 
 function useLongNames() {
         if (typeof(workingData.datosCompeticion.Data)==="undefined") return false;
-        return workingData.datosCompeticion.Data.useLongNames;
+        return workingData.datosCompeticion.Data.UseLongNames;
 }
 
 function isInternational(fed){

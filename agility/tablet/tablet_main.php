@@ -224,21 +224,24 @@ $config =Config::getInstance();
             var dg=$('#tablet-datagrid');
             // collapse previous expanded row
             var oldRow=dg.datagrid('options').expandedRow;
-            if ( (oldRow!=-1) && (oldRow!=idx) )  {
-                // unselect and close previous selection
-                var oldID=dg.datagrid('getRows')[oldRow]['ID'];
-                $("#tablet-datagrid-"+oldID).datagrid('unselectAll');
+            if ( (oldRow!==-1) && (oldRow!==idx) )  {
+                var old=dg.datagrid('getRows')[oldRow];
+                if (old['Tipo']!=="0") { // rows with type 0 has no subgrid
+                    $("#tablet-datagrid-"+old['ID']).datagrid('unselectAll');
+                }
                 dg.datagrid('collapseRow',oldRow);
             }
             dg.datagrid('options').expandedRow=idx;
             // update session dataassistant
             tablet_updateSession(row);
-            if (row.Tipo!=0) setTimeout( function(){tablet_showPerrosByTanda(idx,row)},0);
+            if (row.Tipo!=="0") setTimeout( function(){tablet_showPerrosByTanda(idx,row)},0);
         },
         onCollapseRow: function(idx,row) {
             row.expanded=0;
-            var dg="#tablet-datagrid-" + parseInt(row.ID);
-            $(dg).datagrid('unselectAll');
+            if (row.Tipo!=="0") { // rows with type=0 has no subgrid
+                var dg="#tablet-datagrid-" + parseInt(row.ID);
+                $(dg).datagrid('unselectAll');
+            }
             doBeep();
         }
     });
