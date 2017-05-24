@@ -199,8 +199,11 @@ class Inscripciones extends DBObject {
 		$fed =  http_request("Federation","i",0);
 		$search =  http_request("where","s","");
 		$extra = "AND (PerroGuiaClub.Grado<>'Baja') AND (PerroGuiaClub.Grado<>'Ret.') " ;
-		if ($search!=='') $extra .= " AND ( (PerroGuiaClub.Nombre LIKE '%$search%')
-		OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) ) ";
+		if ($search!=='') {
+		    $extra .= " AND ( (PerroGuiaClub.Nombre LIKE '%$search%') ";
+		    $extra .= " OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) ";
+		    $extra .= " OR ( PerroGuiaClub.NombreLargo LIKE '%$search%') OR ( PerroGuiaClub.Licencia LIKE '%$search%') ) ";
+        }
 
 		$page=http_request("page","i",0);
 		$rows=http_request("rows","i",0);
