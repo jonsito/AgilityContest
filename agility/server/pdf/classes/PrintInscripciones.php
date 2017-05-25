@@ -627,11 +627,25 @@ class PrintInscritos extends PrintCommon {
             $this->pos[4]+=$this->pos[5];
             $this->pos[5]=0;
         }
-        if ($this->useLongNames) { // remove license and heat column
+        // check for need to show long names by iterating every journeys
+		$flag=0;
+		foreach ($this->jornadas as $jornada) {
+        	if ($jornada['Nombre']==='-- Sin asignar --') continue;
+        	if (Competitions::getCompetition($this->prueba,(object) $jornada)->useLongNames()) $flag++;
+		}
+        $this->useLongNames=($flag!=0);
+		// set up field sizes according evaluated parameters
+		if ($this->federation->isInternational()) {
+			// on international contest, remove license
             $this->pos[1]+=$this->pos[2]; // remove license and add to name
             $this->pos[2]=0;
-			$this->pos[3]+=$this->pos[8]; // remove heat and add to breed
-			$this->pos[8]=0;
+            $this->pos[3]+=$this->pos[8]; // remove heat and add to breed
+            $this->pos[8]=0;
+        }
+        else if ($this->useLongNames) { // enlarge name, enshort license and comments
+            $this->pos[1]+=15;
+            $this->pos[2]-=6;
+            $this->pos[9]-=9;
         }
         // set file name
         $this->special=$special;
@@ -737,11 +751,12 @@ class PrintInscritos extends PrintCommon {
 				$this->Cell($this->pos[7],5,$row['NombreClub'],	'LR',	0,		$this->align[7],	$fill); // club
 			}
 			$this->SetFont($this->getFontName(),'B',8); // bold 8px
-            if ($this->useLongNames) {
+			if ($this->federation->isInternational()) { // skip license
                 $n=$row['Nombre']." - ".$row['NombreLargo'];
                 $this->Cell($this->pos[1],5,$n,		'LR',	0,		$this->align[1],	$fill);
             } else {
-                $this->Cell($this->pos[1],5,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
+				$n=($this->useLongNames)? $row['Nombre']." - ".$row['NombreLargo']: $row['Nombre'];
+                $this->Cell($this->pos[1],5,$n,		'LR',	0,		$this->align[1],	$fill);
                 if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',7); // normal 7px
                 else $this->SetFont($this->getFontName(),'',8); // normal 8px
                 $this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
