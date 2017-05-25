@@ -74,7 +74,7 @@ class PrintOrdenDeSalida extends PrintCommon {
                 array(_('Order'),_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Gender'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
         //                  orden    dorsal  nombre    licencia raza Genero     guia club   celo   observaciones
         $this->pos	=array(  12,      10,     25,        15,      22,    10,      40,   25,     10,    16);
-        $this->align=array(  'R',    'R',    'C',        'C',     'R',   'C',     'R',  'R',    'C',   'R');
+        $this->align=array(  'R',    'R',    'L',        'C',     'R',   'C',     'R',  'R',    'C',   'R');
         // obtenemos los datos de equipos de la jornada indexados por el ID del equipo
 		$eq=new Equipos("print_ordenDeSalida",$data['prueba'],$data['jornada']);
         $this->teams=array();
@@ -87,6 +87,11 @@ class PrintOrdenDeSalida extends PrintCommon {
         $str=($cat=='-')?$grad:"{$grad}_{$cat}";
         $res=normalize_filename($str);
         $this->set_FileName("OrdenDeSalida_{$res}.pdf");
+        if ($this->useLongNames) {
+            $this->pos[2]+=15;
+            $this->pos[3]-=5;
+            $this->pos[9]-=10;
+        }
 	}
 
 	private function isTeam() {
@@ -150,7 +155,7 @@ class PrintOrdenDeSalida extends PrintCommon {
 		$this->SetLineWidth(.3);
 
         // on wide license federations or long name required contests suppress license information
-        if ($this->federation->get('WideLicense') || $this->useLongNames) {
+        if ($this->federation->get('WideLicense') || $this->federation->isInternational()) {
             $this->pos[9]+=$this->pos[3]; $this->pos[3]=0;
         }
         // Rango
@@ -212,8 +217,9 @@ class PrintOrdenDeSalida extends PrintCommon {
             }
 			$this->Cell($this->pos[1],6,$row['Dorsal'],		'LR',0,$this->align[1],true);
             // not enought space for long name in international contests
-            $this->SetFont($this->getFontName(),'B',11); // bold 9px
-            $this->Cell($this->pos[2],6,$row['Nombre'],		'LR',0,$this->align[2],true);
+            $this->SetFont($this->getFontName(),'B',($this->useLongNames)?7:11); // bold 9px
+            $n=($this->useLongNames)? $row['Nombre']." - ".$row['NombreLargo']:$row['Nombre'];
+            $this->Cell($this->pos[2],6,$n,		'LR',0,$this->align[2],true);
             $this->SetFont($this->getFontName(),'',9); // remove bold 9px
             if ($this->pos[3]!=0) $this->Cell($this->pos[3],6,$row['Licencia'],	'LR',0,$this->align[3],true);
             $this->Cell($this->pos[4],6,$row['Raza'],		'LR',0,$this->align[4],true);
