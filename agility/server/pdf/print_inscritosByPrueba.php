@@ -60,7 +60,11 @@ try {
         case 4: // imprimir segun el listado que aparece en pantalla
 			$inscritos=$inscripciones->inscritos(true);
         	$pdf=new PrintInscritos($pruebaid,$inscritos,$jornadas,true);
-        break;
+        	break;
+        case 5: // imprimir seleccion de pantalla en modo tarjeta de visita
+            $inscritos=$inscripciones->inscritos(true);
+            $pdf=new PrintTarjetasDeVisita($pruebaid,$inscritos,$jornadas);
+        	break;
 		default: throw new Exception ("Inscripciones::print() Invalid print mode selected $mode");
 	}
 	$pdf->AliasNbPages();

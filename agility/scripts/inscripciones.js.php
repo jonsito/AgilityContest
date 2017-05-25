@@ -465,7 +465,8 @@ function printInscripciones() {
 	    0:'<?php _e('Simple listing'); ?>',
         1:'<?php _e('Catalog'); ?>',
         4:'<?php _e('Current selection/order'); ?>',
-        2:'<?php _e('Statistics'); ?>'
+        2:'<?php _e('Statistics'); ?>',
+        5:'<?php _e('Competition ID Cards'); ?>'
 	};
 	// buscamos la jornada seleccionada
 	var row=$('#inscripciones-jornadas').datagrid('getSelected');

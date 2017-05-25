@@ -959,4 +959,93 @@ class PrintInscritosByJornada extends PrintCommon {
 		$this->myLogger->leave();
 	}
 }
+
+/**
+ * Class PrintTarjetasDeVisita
+ * Imprime en formato de tarjeta de visita las inscripciones indicadas
+ * Por cada dorsal se imprimen dos tarjetas
+ */
+class PrintTarjetasDeVisita extends PrintCommon{
+    protected $inscritos; // inscritos en la prueba
+	protected $hasGrades=false;
+    /**
+     * Constructor
+     * @param {integer} $pruebaid Prueba ID
+     * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
+     * @param {array} $jornadas lista de jornadas de la prueba
+     * @param {integer} $jornadaid id de la prueba que buscamos
+     * @throws Exception
+     */
+    function __construct($pruebaid,$inscritos,$jornadas) {
+        parent::__construct('Portrait','print_tarjetaDeVisita',$pruebaid,0);
+        if ( ($pruebaid==0) || ($inscritos===null) ) {
+            $this->errormsg="printTarjetaDeVisita: either prueba or inscription data are invalid";
+            throw new Exception($this->errormsg);
+        }
+        // ordenamos inscripciones por dorsal
+        usort($inscritos['rows'],function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
+        $this->inscritos=$inscritos['rows'];
+        // miramos si alguna jornada tiene grado para ponerlo
+		foreach ($jornadas['rows'] as $jornada) {
+        	if ($jornada['Nombre']==='-- Sin asignar --') continue;
+        	if (Jornadas::hasGrades((object)$jornada)) $this->hasGrades=true;
+		}
+		// ajustamos nombre del fichero
+        $this->set_FileName("Tarjetas_de_visita.pdf");
+    }
+
+    private function printCard($x,$y,$item) {
+        // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+		// borde de la tarjeta
+		$this->SetXY($x,$y);
+        $this->Cell(85,55, '','TBLR',0,'C',false);
+    	// nombre de la prueba
+        $this->SetXY($x+1,$y+1);
+		$this->ac_header(1,15);
+		$this->Cell(83,9, $this->prueba->Nombre,'',0,'C',true);
+		// Dorsal
+        $this->SetXY($x+1,$y+10+1);
+        $this->ac_header(2,70);
+        $this->Cell(63,28, sprintf("%03d",$item['Dorsal']),'',0,'C',true);
+		// Nombre del perro y Pedigree
+		$n=$item['Nombre']." - ".$item['NombreLargo'];
+        $this->SetXY($x,$y+40);
+		$this->ac_row(1,11);
+        $this->Cell(65,5, $n,'',0,'L',false);
+		// Nombre del guia
+        $this->SetXY($x,$y+45);
+        $this->ac_row(1,10);
+        $this->Cell(65,5, $item['NombreGuia'],'',0,'R',false);
+		// categoria/grado si se requiere
+        $catstr=$this->federation->getCategory($item['Categoria']);
+        $grstr="";
+		if ($this->hasGrades) {
+			$grstr= " - ".$this->federation->getGrade($item['Grado']);
+		}
+        $this->SetXY($x,$y+50);
+        $this->Cell(25,5, $catstr.$grstr,'',0,'C',false);
+		// club
+        $this->SetXY($x+25,$y+50);
+        $this->Cell(60,5, $item['NombreClub'],'',0,'R',false);
+		// logotipo de la organizacion
+        $this->SetXY($x+65+1,$y+10+1);
+        $this->Image($this->icon,$this->GetX(),$this->GetY(),18);
+		// logotipo del club/pais
+        $logo=$this->getLogoName($item['Perro']);
+        $this->SetXY($x+65+1,$y+30+1);
+        $this->Image($logo,$this->GetX(),$this->GetY(),18);
+	}
+
+    function composeTable() {
+    	$rowcount=0;
+    	$this->AddPage();
+    	foreach($this->inscritos as $item) {
+            if ( $rowcount>4) { $this->AddPage(); $rowcount=0; }
+            $this->printCard(10,10+55*$rowcount,$item);
+            $this->printCard(10+85+10,10+55*$rowcount,$item);
+            $rowcount++;
+		}
+	}
+}
+
 ?>
