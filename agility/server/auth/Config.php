@@ -610,10 +610,11 @@ Class Config {
 			switch(Config::$config_options[$key][0]) {
 				case 's': if (is_string($value)) $type="string";break;
 				case 'c': if (is_color($value)) $type="color";	break;
-				case 'f': // trick to detect if an string contains a float
-                    if ( is_numeric($value) && (strpos($value,'.')!==false) )$type="float"; break;
+				case 'f': // any numeric value (int or float are valid )
+                    if ( is_numeric($value) )$type="float";
 					break;
-				case 'i': if ( is_numeric($value) && (strpos($value,'.')==false) )$type="int"; break;
+				case 'i':  // only integer values are valid. try to detect float
+					if ( is_numeric($value) && (strpos($value,'.')==false) )$type="int"; break;
 				case 'b': if (($value=="1") || ($value=="0")) $type="bool";	break;
 			}
 			if ($type=="") {
@@ -626,7 +627,7 @@ Class Config {
 		}
 		// finally write file:
 		$res=array_merge($this->config,$data);
-		$wres=$this->$this->writeAC_configFile($res,AC_CONFIG_FILE);
+		$wres=$this->writeAC_configFile($res,AC_CONFIG_FILE);
 		if ($wres===FALSE) return array("errorMsg" => "restoreConfig()::save() error saving .ini file");
 		return array('data'=>join('<br />',$result));
 	}
