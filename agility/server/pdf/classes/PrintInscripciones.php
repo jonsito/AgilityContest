@@ -1040,9 +1040,9 @@ class PrintTarjetasDeVisita extends PrintCommon{
     	$rowcount=0;
     	$this->AddPage();
     	foreach($this->inscritos as $item) {
-            if ( $rowcount>4) { $this->AddPage(); $rowcount=0; }
-            $this->printCard(10,10+55*$rowcount,$item);
-            $this->printCard(10+85+10,10+55*$rowcount,$item);
+            if ( $rowcount>9) { $this->AddPage(); $rowcount=0; }
+            $dx=(($rowcount%2)==0)?0:85+10;
+            $this->printCard(10+$dx,10+55*intval($rowcount/2),$item);
             $rowcount++;
 		}
 	}
