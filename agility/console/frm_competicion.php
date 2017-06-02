@@ -57,11 +57,16 @@ $('#seljornada-window').window({
 			extra=" ( <?php _e('Individual');?> )";
 			// use default dialogs
 		}
-		if (workingData.datosJornada.KO!=0) { // number shows how many rounds for series
-			page="/agility/console/frm_competicion_ko.php";
+		if (workingData.datosJornada.KO!=0) {
+			page="/agility/console/frm_competicion2.php?tipo=ko";
 			extra=" ( <?php _e('K.O. Rounds');?> )";
-			dialogs= {};
+            // use default dialogs
 		}
+        if (workingData.datosJornada.Games!=0) { // number shows how many rounds for series
+            page="/agility/console/frm_competicion2.php?tipo=games";
+            extra=" ( <?php _e('Games / WAO');?> )";
+            // use default dialogs
+        }
 		check_softLevel( access_level.PERMS_OPERATOR,	function() { loadContents( page, '<?php _e('Journey deployment');?>'+extra, dialogs ); } );
 	} 
 }).window('open');

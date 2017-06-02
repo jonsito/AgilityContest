@@ -1,5 +1,5 @@
 <!--
-dlg_resultados_ko.inc
+dlg_resultados_games.inc
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 

@@ -434,6 +434,7 @@ function saveJornada(){
         eq4.val(0);
     }
     $('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?'1':'0');
+    $('#jornadas-Games').val( $('#jornadas-Games').is(':checked')?'1':'0');
     $('#jornadas-Especial').val( $('#jornadas-Especial').is(':checked')?'1':'0');
     $('#jornadas-Cerrada').val( $('#jornadas-Cerrada').is(':checked')?'1':'0');
     // handle fecha
@@ -478,6 +479,7 @@ function saveJornada(){
  * 0x0400, 'eq 2of3'
  * 0x0800, 'eq 2combined'
  * 0x1000, 'eq 3combined'
+ * 0x2000, 'wao/games'
  */
 function checkPrueba(id,mask) {
 	var pruebas=0;
@@ -513,25 +515,32 @@ function checkPrueba(id,mask) {
 	}
 	// pruebas |= $('#jornadas-Equipos3').is(':checked')?0x0040:0;
 	// pruebas |= $('#jornadas-Equipos4').is(':checked')?0x0080:0;
-	pruebas |= $('#jornadas-KO').is(':checked')?0x0100:0;
+    pruebas |= $('#jornadas-KO').is(':checked')?0x0100:0;
+    pruebas |= $('#jornadas-Games').is(':checked')?0x2000:0;
+
 	if ( $('#jornadas-Especial').is(':checked') ) {
 		$('#jornadas-Observaciones').textbox('enable');
 		pruebas |= 0x0200;
 	} else {
 		$('#jornadas-Observaciones').textbox('disable');
 	}
+
 	// si no hay prueba seleccionada no hacer nada
-	if (pruebas==0) return;
-	// si estamos seleccionando una prueba ko/open/equipos, no permitir ninguna otra
-	if ( (mask & 0x1DE0) != 0 ) {
+	if (pruebas==0) {
+	    console.log("WARN: Journey with no item(s) declared. Skip")
+	    return;
+    }
+
+	// si estamos seleccionando una prueba ko/open/games/equipos, no permitir ninguna otra
+	if ( (mask & 0x3DE0) != 0 ) {
 		if (mask!=pruebas) {
-			$.messager.alert('<?php _e('Error'); ?>','<?php _e('KO, Individual (Open), or team rounds must be declared in a separate journey'); ?>','error');
+			$.messager.alert('<?php _e('Error'); ?>','<?php _e('KO, Games (WAO), Individual (Open), or team rounds must be declared in a separate journey'); ?>','error');
 			$(id).prop('checked',false);
 			if (id==='#jornadas-EquiposChk') $('#jornadas-MangasEquipos').combobox('disable');
 		}
 	} else {
-		if ( (pruebas & 0x1DE0) != 0 ) {
-			$.messager.alert('<?php _e('Error'); ?>','<?php _e('You cannot add additional rounds when KO, Individual (Open) or team rounds are already declared in a journey'); ?>','error');
+		if ( (pruebas & 0x3DE0) != 0 ) {
+			$.messager.alert('<?php _e('Error'); ?>','<?php _e('You cannot add additional rounds when KO, Games (WAO), Individual (Open) or team rounds are already declared in a journey'); ?>','error');
 			$(id).prop('checked',false);
 			if (id==='#jornadas-PreAgilityChk') $('#jornadas-MangasPreAgility').combobox('disable');
 			if (id==='#jornadas-Especial') $('#jornadas-Observaciones').textbox('disable');

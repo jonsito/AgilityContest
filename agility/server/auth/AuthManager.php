@@ -34,7 +34,7 @@ define ("PERMS_CHRONO",6); // special case to handle electronic chrono hardware.
 define ("ENABLE_IMPORT",1);		// permite importar datos desde ficheros excel
 define ("ENABLE_TEAMS",2);		// permite gestionar pruebas de equipos
 define ("ENABLE_KO",4);			// permite gestionar pruebas K.O
-define ("ENABLE_SPECIAL",8);	// permite gestionar pruebas de mangas multiples
+define ("ENABLE_SPECIAL",8);	// permite gestionar pruebas de mangas multiples / games
 define ("ENABLE_VIDEOWALL",16); // permite acceso desde videomarcador
 define ("ENABLE_PUBLIC",32);    // permite acceso publico web
 define ("ENABLE_CHRONO",64);    // permite gestion desde cronometro

@@ -41,8 +41,16 @@ switch(http_request("tipo","s","std")) {
         }
         require_once("dialogs/dlg_resultados_ko.inc");
         break;
+    case "games":
+        if ( ! $am->allowed(ENABLE_SPECIAL)) {
+            require_once("unregistered.html");
+            return 0;
+        }
+        require_once("dialogs/dlg_resultados_games.inc");
+        break;
     case "std":
     case "open":
+    case "special": // single round
     default:
         require_once("dialogs/dlg_resultados_individual.inc");
         break;

@@ -181,7 +181,8 @@ $('#inscripciones-jornadas').datagrid({
 			{ field:'Open',			width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Open ');?>' },
 			{ field:'PreAgility',	width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('PA. 1');?>' },
 			{ field:'PreAgility2',	width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('PA. 2');?>' },
-			{ field:'KO',			width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('K.O. ');?>' },
+            { field:'KO',			width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('K.O. ');?>' },
+            { field:'Games',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Games');?>' },
 			{ field:'Especial',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Special');?>' },
 			{ field:'Cerrada',		width:10, sortable:false, formatter: formatCerrada,	align:'center', title: '<?php _e('Closed');?>' }
     ]],

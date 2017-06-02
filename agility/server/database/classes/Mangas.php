@@ -21,6 +21,7 @@ require_once("DBObject.php");
 class Mangas extends DBObject {
 	protected $jornadaObj;
 	protected $pruebaObj;
+	protected $defaultTeamObj;
 	
 	/* copia de la estructura de la base de datos, para ahorrar consultas */
 	public static $tipo_manga= array(
@@ -39,9 +40,25 @@ class Mangas extends DBObject {
 		12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual',   false), // Open
 		13 =>	array( 13,'Jumping Teams'				,'-',   'Jmp Teams',	'Teams',        false), // team best
 		14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp Teams',	'Teams',        false), // team combined
-		15 =>	array( 15,'K.O. Round', 				'-',	'K.O. Round',	'K.O.',         false),
+		15 =>	array( 15,'K.O. First round',			'-',	'K.O. Round 1',	'K.O. R1',      false),
 		16 =>	array( 16,'Special Round', 			    '-',	'Special Round','Individual',   true), // special round, no grades
-		17 => 	array( 17,'Agility Grade I Round 3',	'GI',	'Agility-3 GI',	'Grade I',      true) // on RFEC special G1 3rd round
+		17 => 	array( 17,'Agility Grade I Round 3',	'GI',	'Agility-3 GI',	'Grade I',      true), // on RFEC special G1 3rd round
+        // mangas extra para K.O.
+        18 =>	array( 18,'K.O. Second round',			'-',	'K.O. Round 2',	'K.O. R2',      false),
+        19 =>	array( 19,'K.O. Third round',			'-',	'K.O. Round 3',	'K.O. R3',      false),
+        20 =>	array( 20,'K.O. Fourth round',			'-',	'K.O. Round 4',	'K.O. R4',      false),
+        21 =>	array( 21,'K.O. Fifth round',			'-',	'K.O. Round 5',	'K.O. R5',      false),
+        22 =>	array( 22,'K.O. Sixth round',			'-',	'K.O. Round 6',	'K.O. R6',      false),
+        23 =>	array( 23,'K.O. Seventh round',			'-',	'K.O. Round 7',	'K.O. R7',      false),
+        24 =>	array( 24,'K.O. Eight round',			'-',	'K.O. Round 8',	'K.O. R8',      false),
+        // mandas extras para wao
+        25 =>	array( 25,'Agility A',			        '-',	'Agility A',	'Ag. A',        true),
+        26 =>	array( 26,'Agility B',			        '-',	'Agility B',	'Ag. B',        true),
+        27 =>	array( 27,'Jumping A',			        '-',	'Jumping A',	'Jp. A',        false),
+        28 =>	array( 28,'Jumping B',			        '-',	'Jumping B',	'Jp. B',        false),
+        29 =>	array( 29,'Snooker',			        '-',	'Snooker',	    'Snkr',         true),
+        30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        false),
+        31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       true), // single round
 	);
 
 	public static function getTipoManga($tipo,$idx,$fed=null) {
@@ -68,7 +85,23 @@ class Mangas extends DBObject {
 		9,	/* 14,'Jumping Equipos (Conjunta)', '-' */
 		0,	/* 15,'Ronda K.O.', '-' */
 		0,	/* 16,'Manga Especial', '-' */
-		3	/* 17,'Agility Grado I Manga 3', 'GI' */
+		3,	/* 17,'Agility Grado I Manga 3', 'GI' */
+        /* mangas extra para K.O. */
+        0, /* 18 ,'K.O. Second round',	*/
+        0, /* 19 ,'K.O. Third round',*/
+        0, /* 20 ,'K.O. Fourth round',*/
+        0, /* 21 ,'K.O. Fifth round',*/
+        0, /* 22 ,'K.O. Sixth round',*/
+        0, /* 23 ,'K.O. Seventh round',*/
+        0, /* 24 ,'K.O. Eight round',*/
+        /* mandas extras para wao */
+        27, /* 25 ,'Agility A',	*/
+        28, /* 26 ,'Agility B',	*/
+        25, /* 27 ,'Jumping A',	*/
+        26, /* 28 ,'Jumping B',	*/
+        30, /* 29 ,'Snooker',	*/
+        29, /* 30 ,'Gambler',	*/
+        0/* 31 ,'SpeedStakes',*/
 	);
 	
 	public static $manga_modes= array (
@@ -102,6 +135,7 @@ class Mangas extends DBObject {
 		}
 		$this->jornadaObj=$this->__selectObject("*","Jornadas","(ID=$jornada)" );
 		$this->pruebaObj=$this->__selectObject("*","Pruebas","(ID={$this->jornadaObj->Prueba})");
+        $this->defaultTeamObj=$this->__selectObject("*","Equipos","(Jornada=$jornada) AND (DefaultTeam=1)");
 	}
 	
 	/**
@@ -122,10 +156,7 @@ class Mangas extends DBObject {
 			$mangaid=$res['rows'][0]['ID'];  // should exist only one. so take id from it
 		} else {
             // buscamos el equipo por defecto de la jornada y lo insertamos
-            $res=$this->__selectObject("*","Equipos","(Jornada=$j) AND (DefaultTeam=1)");
-            if(!is_object($res))
-                return $this->error("Cannot get default Team for Jornada:$j");
-            $team=$res->ID;
+            $team=$this->defaultTeamObj->ID;
 			$observaciones = http_request("Observaciones","s","");
 			$str="INSERT INTO Mangas ( Jornada,Tipo,Grado,Observaciones,Orden_Salida,Orden_Equipos ) VALUES ( $j,$tipo,'$grado','$observaciones','BEGIN,END','BEGIN,$team,END' )";
 			$rs=$this->query($str);
@@ -281,7 +312,7 @@ class Mangas extends DBObject {
 	 */
 	function delete($tipo) {
 		$this->myLogger->enter();
-		if ( ($tipo<=0) || ($tipo>17) ) return $this->error("Invalid value for 'Tipo'");
+		if ( ($tipo<=0) || ($tipo>31) ) return $this->error("Invalid value for 'Tipo'");
 		// si la manga existe, borrarla; si no existe, no hacer nada
 		$str="DELETE FROM Mangas WHERE ( Jornada = {$this->jornadaObj->ID} ) AND  ( Tipo = $tipo )";
 		$rs=$this->query($str);
@@ -419,12 +450,13 @@ class Mangas extends DBObject {
 	 * @param {integer} $equipos4 la jornada tiene (1) o no (0) una manga por equipos (conjunta)
 	 * @param {integer} $preagility la jornada tiene (1) o no (0) manga de preagility a una vuelta
 	 * @param {integer} $preagility2 la jornada tiene (1) o no (0) mangas de preagility a dos vueltas
-	 * @param {integer} $ko la jornada contiene (1) o no (0) una prueba k0
+     * @param {integer} $ko la jornada contiene (1) o no (0) una prueba k0
+     * @param {integer} $games la jornada contiene (1) o no (0) una sesion games/wao
 	 * @param {integer} $especial la jornada tiene (1) o no (0) mangas especial a una vuelta
 	 * @param {integer} $observaciones nombre con el que se denominara la manga especial
 	 * // TODO: handle ko, exhibicion and otras
 	 */
-	function prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$especial,$observaciones) {
+	function prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$games,$especial,$observaciones) {
 		$this->myLogger->enter();
 
 		/*  0,'','' */
@@ -471,14 +503,46 @@ class Mangas extends DBObject {
 		if ($equipos4) {	$this->insert(9,'-');	$this->insert(14,'-');	}
 		else { $this->delete(9);	$this->delete(14);	}
 
-
 		/* 16,'Ronda de Exhibición', '-' */
 		if ($especial) { $this->insert(16,'-');}
 		else { $this->delete(16); }
 
 		/* 15,'Ronda K.O.', '-' */
+        /* 18 ,'K.O. Second round',	*/
+        /* 19 ,'K.O. Third round',*/
+        /* 20 ,'K.O. Fourth round',*/
+        /* 21 ,'K.O. Fifth round',*/
+        /* 22 ,'K.O. Sixth round',*/
+        /* 23 ,'K.O. Seventh round',*/
+        /* 24 ,'K.O. Eight round',*/
 		// TODO: las mangas KO hay que crearlas dinamicamente en funcion del numero de participantes
-		
+		if ($ko) {
+            $this->insert(15,'-');	$this->insert(18,'-');
+            $this->insert(19,'-');	$this->insert(20,'-');
+            $this->insert(21,'-');	$this->insert(22,'-');
+            $this->insert(23,'-');	$this->insert(24,'-');
+        } else {
+            $this->delete(15);	$this->delete(18); $this->delete(19);	$this->delete(20);
+            $this->delete(21);	$this->delete(22); $this->delete(23);	$this->delete(24);
+        }
+
+        /* mangas para games / wao */
+        /* 25 ,'Agility A',	*/
+        /* 26 ,'Agility B',	*/
+        /* 27 ,'Jumping A',	*/
+        /* 28 ,'Jumping B',	*/
+        /* 29 ,'Snooker',	*/
+        /* 30 ,'Gambler',	*/
+        /* 31 ,'SpeedStakes',*/
+        if ($games) {
+            $this->insert(25,'-');	$this->insert(26,'-');
+            $this->insert(27,'-');	$this->insert(28,'-');
+            $this->insert(29,'-');	$this->insert(30,'-');
+            $this->insert(31,'-');
+        } else {
+            $this->delete(25);	$this->delete(26); $this->delete(27);	$this->delete(28);
+            $this->delete(29);	$this->delete(30); $this->delete(31);
+        }
 		$this->myLogger->leave();
 	}
 }

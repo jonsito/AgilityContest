@@ -164,7 +164,8 @@ $config =Config::getInstance();
             		{ field:'Open',			width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Open   ' },
             		{ field:'Equipos3',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Eq.Best' },
             		{ field:'Equipos4',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Eq.Comb' },
-            		{ field:'KO',			width:8, sortable:false, formatter:	formatOk,	   align:'center', title: 'K.O.   ' },
+                    { field:'KO',			width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'K.O.   ' },
+                    { field:'Games',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Games  ' },
             		{ field:'Especial',	    width:8, sortable:false, formatter:	formatOk,	align:'center', title: '<?php _e('Special'); ?>'},
             	    { field:'Observaciones',hidden:true }, // texto para el caso de Manga especial
             		{ field:'Cerrada',		width:8, sortable:false, formatter:	formatCerrada,	align:'center', title: '<?php _e('Closed'); ?>' }

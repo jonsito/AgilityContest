@@ -79,7 +79,7 @@ class Tandas extends DBObject {
 			35	=> array('Tipo'=>35,	'TipoManga'=> 14,	'Nombre'=>'Jp. Teams Large',		'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'L',	'Grado'=>'-'), // team combined
 			36	=> array('Tipo'=>36,	'TipoManga'=> 14,	'Nombre'=>'Jp. Teams Med/Small',	'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'MS',	'Grado'=>'-'), // team combined
 			// en las rondas KO, los perros compiten todos contra todos
-			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'Nombre'=>'Manga K.O.',				'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
+			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'Nombre'=>'Manga K.O. 1',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
 			38	=> array('Tipo'=>38,	'TipoManga'=> 16,	'Nombre'=>'Special Round Large',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'-'),
 			39	=> array('Tipo'=>39,	'TipoManga'=> 16,	'Nombre'=>'Special Round Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'-'),
 			40	=> array('Tipo'=>40,	'TipoManga'=> 16,	'Nombre'=>'Special Round Small',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'-'),
@@ -104,8 +104,45 @@ class Tandas extends DBObject {
             56	=> array('Tipo'=>56,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Large',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'GI'), // extra rounds for GI RFEC
             57	=> array('Tipo'=>57,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'GI'),
             58	=> array('Tipo'=>58,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'GI'),
-            59	=> array('Tipo'=>59,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Tiny',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GI')
-	);
+            59	=> array('Tipo'=>59,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Tiny',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GI'),
+            // resto de las rondas KO. Los perros compiten todos contra todos
+            60	=> array('Tipo'=>60,	'TipoManga'=> 18,	'Nombre'=>'Manga K.O. 2',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
+            61	=> array('Tipo'=>61,	'TipoManga'=> 19,	'Nombre'=>'Manga K.O. 3',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
+            62	=> array('Tipo'=>62,	'TipoManga'=> 20,	'Nombre'=>'Manga K.O. 4',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
+            63	=> array('Tipo'=>63,	'TipoManga'=> 21,	'Nombre'=>'Manga K.O. 5',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
+            64	=> array('Tipo'=>64,	'TipoManga'=> 22,	'Nombre'=>'Manga K.O. 6',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
+            65	=> array('Tipo'=>65,	'TipoManga'=> 23,	'Nombre'=>'Manga K.O. 7',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
+            66	=> array('Tipo'=>66,	'TipoManga'=> 24,	'Nombre'=>'Manga K.O. 8',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
+            // tandas para games ( cuatro categorias, siete mangas distintas
+            67	=> array('Tipo'=>67,	'TipoManga'=> 25,	'Nombre'=>'Agility A 650',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
+            68	=> array('Tipo'=>68,	'TipoManga'=> 25,	'Nombre'=>'Agility A 525',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
+            69	=> array('Tipo'=>69,	'TipoManga'=> 25,	'Nombre'=>'Agility A 400',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
+            70	=> array('Tipo'=>70,	'TipoManga'=> 25,	'Nombre'=>'Agility A 300',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-'),
+            71	=> array('Tipo'=>71,	'TipoManga'=> 26,	'Nombre'=>'Agility B 650',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
+            72	=> array('Tipo'=>72,	'TipoManga'=> 26,	'Nombre'=>'Agility B 525',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
+            73	=> array('Tipo'=>73,	'TipoManga'=> 26,	'Nombre'=>'Agility B 400',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
+            74	=> array('Tipo'=>74,	'TipoManga'=> 26,	'Nombre'=>'Agility B 300',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-'),
+            75	=> array('Tipo'=>75,	'TipoManga'=> 27,	'Nombre'=>'Jumping A 650',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
+            76	=> array('Tipo'=>76,	'TipoManga'=> 27,	'Nombre'=>'Jumping A 525',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
+            77	=> array('Tipo'=>77,	'TipoManga'=> 27,	'Nombre'=>'Jumping A 400',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
+            78	=> array('Tipo'=>78,	'TipoManga'=> 27,	'Nombre'=>'Jumping A 300',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-'),
+            79	=> array('Tipo'=>79,	'TipoManga'=> 28,	'Nombre'=>'Jumping B 650',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
+            80	=> array('Tipo'=>80,	'TipoManga'=> 28,	'Nombre'=>'Jumping B 525',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
+            81	=> array('Tipo'=>81,	'TipoManga'=> 28,	'Nombre'=>'Jumping B 400',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
+            82	=> array('Tipo'=>82,	'TipoManga'=> 28,	'Nombre'=>'Jumping B 300',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-'),
+            83	=> array('Tipo'=>83,	'TipoManga'=> 29,	'Nombre'=>'Snooker 650',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
+            84	=> array('Tipo'=>84,	'TipoManga'=> 29,	'Nombre'=>'Snooker 525',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
+            85	=> array('Tipo'=>85,	'TipoManga'=> 29,	'Nombre'=>'Snooker 400',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
+            86	=> array('Tipo'=>86,	'TipoManga'=> 29,	'Nombre'=>'Snooker 300',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-'),
+            87	=> array('Tipo'=>87,	'TipoManga'=> 30,	'Nombre'=>'Gambler 650',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
+            88	=> array('Tipo'=>88,	'TipoManga'=> 30,	'Nombre'=>'Gambler 525',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
+            89	=> array('Tipo'=>89,	'TipoManga'=> 30,	'Nombre'=>'Gambler 400',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
+            90	=> array('Tipo'=>90,	'TipoManga'=> 30,	'Nombre'=>'Gambler 300',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-'),
+            91	=> array('Tipo'=>91,	'TipoManga'=> 31,	'Nombre'=>'SpeedStakes 650',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
+            92	=> array('Tipo'=>92,	'TipoManga'=> 31,	'Nombre'=>'SpeedStakes 525',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
+            93	=> array('Tipo'=>93,	'TipoManga'=> 31,	'Nombre'=>'SpeedStakes 400',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
+            94	=> array('Tipo'=>94,	'TipoManga'=> 31,	'Nombre'=>'SpeedStakes 300',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-')
+    );
 
     static function isAgility($tipo) {
         if (!array_key_exists($tipo,Tandas::$tipo_tanda)) return false; // key not found: return false
@@ -626,17 +663,39 @@ class Tandas extends DBObject {
             default: // no grado1
             $this->insert_remove($f,3,false);$this->insert_remove($f,4,false);$this->insert_remove($f,17,false);
         }
+        // grado 2
         $this->insert_remove($f,5,($j->Grado2 != 0)?true:false);		// Agility Grado II
 		$this->insert_remove($f,10,($j->Grado2 != 0)?true:false);		// Jumping Grado II
+        // grado 3
 		$this->insert_remove($f,6,($j->Grado3 != 0)?true:false);		// Agility Grado III
 		$this->insert_remove($f,11,($j->Grado3 != 0)?true:false);		// Jumping Grado III
+        // open
 		$this->insert_remove($f,7,($j->Open != 0)?true:false);			// Agility Abierta
 		$this->insert_remove($f,12,($j->Open != 0)?true:false);			// Jumping Abierta
+        // equipos (mejores)
 		$this->insert_remove($f,8,($j->Equipos3 != 0)?true:false);		// Agility Equipos (3 mejores)
 		$this->insert_remove($f,13,($j->Equipos3 != 0)?true:false);		// Jumping Equipos (3 mejores)
+        // equipos (conjunta)
 		$this->insert_remove($f,9,($j->Equipos4 != 0)?true:false);		// Agility Equipos (Conjunta)
 		$this->insert_remove($f,14,($j->Equipos4 != 0)?true:false);		// Jumping Equipos (Conjunta)
-		$this->insert_remove($f,15,($j->KO != 0)?true:false);			// Ronda K.O.
+        // mangas para prueba ko
+        $this->insert_remove($f,15,($j->KO != 0)?true:false);			// Ronda K.O. 1
+        $this->insert_remove($f,18,($j->KO != 0)?true:false);			// Ronda K.O. 2
+        $this->insert_remove($f,19,($j->KO != 0)?true:false);			// Ronda K.O. 3
+        $this->insert_remove($f,20,($j->KO != 0)?true:false);			// Ronda K.O. 4
+        $this->insert_remove($f,21,($j->KO != 0)?true:false);			// Ronda K.O. 5
+        $this->insert_remove($f,22,($j->KO != 0)?true:false);			// Ronda K.O. 6
+        $this->insert_remove($f,23,($j->KO != 0)?true:false);			// Ronda K.O. 7
+        $this->insert_remove($f,24,($j->KO != 0)?true:false);			// Ronda K.O. 8
+        // mangas para prueba games/wao
+        $this->insert_remove($f,25,($j->Games != 0)?true:false);			// Agility A
+        $this->insert_remove($f,26,($j->Games != 0)?true:false);			// Agility B
+        $this->insert_remove($f,27,($j->Games != 0)?true:false);			// Jumping A
+        $this->insert_remove($f,28,($j->Games != 0)?true:false);			// Jumping B
+        $this->insert_remove($f,29,($j->Games != 0)?true:false);			// Snooker
+        $this->insert_remove($f,30,($j->Games != 0)?true:false);			// Gambler
+        $this->insert_remove($f,31,($j->Games != 0)?true:false);			// SpeedStakes
+        // manga especial
 		$this->insert_remove($f,16,($j->Especial != 0)?true:false);		// Manga especial
 		$this->myLogger->leave();
 	}

@@ -102,6 +102,12 @@ $config =Config::getInstance();
             </div>
 
             <div class="fitem">
+                <label for="jornadas-Games" style="width:150px" ><?php _e('Games / WAO'); ?></label>
+                <input id="jornadas-Games" name="Games" class="easyui-checkbox"
+                       type="checkbox" value="1" onClick="checkPrueba('#jornadas-Games',0x2000);"/>
+            </div>
+
+            <div class="fitem">
                 <label for="jornadas-Especial" style="width:150px" ><?php _e('Special round'); ?></label>
                 <input id="jornadas-Especial" name="Especial" class="easyui-checkbox"
                        type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Especial',0x0200)"/>
@@ -200,6 +206,7 @@ $config =Config::getInstance();
             $('#jornadas-Equipos4').prop('checked',(data.Equipos4 != 0));
             $('#jornadas-Open').prop('checked',(data.Open == 1));
             $('#jornadas-KO').prop('checked',(data.KO == 1));
+            $('#jornadas-Games').prop('checked',(data.Games == 1));
             $('#jornadas-Especial').prop('checked',(data.Especial == 1));
         	$('#jornadas-Observaciones').textbox( (data.Especial==0)?'disable':'enable');
             $('#jornadas-Cerrada').prop('checked',(data.Cerrada == 1));
