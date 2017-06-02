@@ -420,10 +420,24 @@ class Updater {
      * insert into database information for Agility Grade 1 Round 3
      * @return
      */
-    function addAgility3Grade1() {
+    function addNewMangaTypes() {
         $dbobj=new DBObject("addAgiltiy3Grade1");
         $cmds= array(
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(17,'Agility Grado 1 Manga 3','GI')"
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(17,'Agility Grado 1 Manga 3','GI')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(18,'K.O. Round 2','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(19,'K.O. Round 3','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(20,'K.O. Round 4','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(21,'K.O. Round 5','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(22,'K.O. Round 6','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(23,'K.O. Round 7','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(24,'K.O. Round 8','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(25,'Agility A','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(26,'Agility B','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(27,'Jumping A','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(28,'Jumping B','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(29,'Snooker','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(30,'Gumbler','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(31,'SpeedStakes','-')"
         );
         foreach ($cmds as $query) { $dbobj->query($query); }
         return 0;
@@ -495,7 +509,7 @@ try {
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
     $upg->populateTeamMembers();
-    $upg->addAgility3Grade1();
+    $upg->addNewMangaTypes();
     $upg->fixLOERRC2017();
     $upg->addColumnUnlessExists("Usuarios", "Club", "int(4)", "1");
     $upg->addMailList();

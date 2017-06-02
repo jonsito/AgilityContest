@@ -188,8 +188,10 @@ $config =Config::getInstance();
             $('#jornadas-Grado2').prop('checked',(data.Grado2 == 1));
             if(howManyGrades(workingData.datosPrueba.RSCE)==3) {
             	$('#jornadas-Grado3').prop('disabled',false).prop('checked',(data.Grado3 == 1));
+                $('#jornadas-Games').prop('disabled',true).prop('checked',(data.Games == 1));
             } else {
             	$('#jornadas-Grado3').prop('disabled',true).prop('checked',false);
+                $('#jornadas-Games').prop('disabled',false).prop('checked',(data.Games == 1));
             }
             if (data.Equipos3!=0) {
                 $('#jornadas-EquiposChk').prop('checked',true);

@@ -153,7 +153,7 @@ class Federations {
             35	=> 'Jp. Teams Large',// team combined
             36	=> 'Jp. Teams Med/Small', // team combined
             // en las rondas KO, los perros compiten todos contra todos
-            37	=> 'K.O. Round',
+            37	=> 'K.O. Round 1',
             38	=> 'Special Round Large',
             39	=> 'Special Round Medium',
             40	=> 'Special Round Small',
@@ -168,6 +168,7 @@ class Federations {
             // en equipos4  cuatro alturas  agrupamos por LM y ST
             47	=> 'Ag. teams Large/Medium', // team combined
             48	=> 'Ag. teams Small/Tiny', // team combined
+
             49	=> 'Jumping GII Tiny',
             50	=> 'Jumping GIII Tiny', // no existe
             51	=> 'Jumping Tiny', //  Individual-Open
@@ -178,7 +179,45 @@ class Federations {
             56	=> 'Agility-3 GI Large',	 // extra rounds for GI RFEC
             57	=> 'Agility-3 GI Medium',
             58	=> 'Agility-3 GI Small',
-            59	=> 'Agility-3 GI Tiny'
+            59	=> 'Agility-3 GI Tiny',
+            // resto de las rondas KO. Los perros compiten todos contra todos
+            60	=> 'K.O. Round 2',
+            61	=> 'K.O. Round 3',
+            62	=> 'K.O. Round 4',
+            63	=> 'K.O. Round 5',
+            64	=> 'K.O. Round 6',
+            65	=> 'K.O. Round 7',
+            66	=> 'K.O. Round 8',
+            // tandas para games/wao ( cuatro categorias, siete mangas distintas )
+            67	=> 'Agility A 650',
+            68	=> 'Agility A 525',
+            69	=> 'Agility A 400',
+            70	=> 'Agility A 300',
+            71	=> 'Agility B 650',
+            72	=> 'Agility B 525',
+            73	=> 'Agility B 400',
+            74	=> 'Agility B 300',
+            75	=> 'Jumping A 650',
+            76	=> 'Jumping A 525',
+            77	=> 'Jumping A 400',
+            78	=> 'Jumping A 300',
+            79	=> 'Jumping B 650',
+            80	=> 'Jumping B 525',
+            81	=> 'Jumping B 400',
+            82	=> 'Jumping B 300',
+            83	=> 'Snooker 650',
+            84	=> 'Snooker 525',
+            85	=> 'Snooker 400',
+            86	=> 'Snooker 300',
+            87	=> 'Gambler 650',
+            88	=> 'Gambler 525',
+            89	=> 'Gambler 400',
+            90	=> 'Gambler 300',
+            91	=> 'SpeedStakes 650',
+            92	=> 'SpeedStakes 525',
+            93	=> 'SpeedStakes 400',
+            94	=> 'SpeedStakes 300',
+
         ),
         'TipoMangas' => array(
             0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo',  'IsAgility'),
@@ -198,7 +237,23 @@ class Federations {
             14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp. Teams',	'Teams',        false), // team combined
             15 =>	array( 15,'K.O. Round', 				'-',	'K.O. Round',	'K.O.',         false),
             16 =>	array( 16,'Special Round', 			    '-',	'Special Round','Individual',   true), // special round, no grades
-            17 => 	array( 17,'Agility Grade I Round 3',	'GI',	'Agility-3 GI',	'Grade I',      true) // on RFEC special G1 3rd round
+            17 => 	array( 17,'Agility Grade I Round 3',	'GI',	'Agility-3 GI',	'Grade I',      true), // on RFEC special G1 3rd round
+            // mangas extra para K.O.
+            18 =>	array( 18,'K.O. Second round',			'-',	'K.O. Round 2',	'K.O. R2',      false),
+            19 =>	array( 19,'K.O. Third round',			'-',	'K.O. Round 3',	'K.O. R3',      false),
+            20 =>	array( 20,'K.O. Fourth round',			'-',	'K.O. Round 4',	'K.O. R4',      false),
+            21 =>	array( 21,'K.O. Fifth round',			'-',	'K.O. Round 5',	'K.O. R5',      false),
+            22 =>	array( 22,'K.O. Sixth round',			'-',	'K.O. Round 6',	'K.O. R6',      false),
+            23 =>	array( 23,'K.O. Seventh round',			'-',	'K.O. Round 7',	'K.O. R7',      false),
+            24 =>	array( 24,'K.O. Eight round',			'-',	'K.O. Round 8',	'K.O. R8',      false),
+            // mandas extras para wao
+            25 =>	array( 25,'Agility A',			        '-',	'Agility A',	'Ag. A',        true),
+            26 =>	array( 26,'Agility B',			        '-',	'Agility B',	'Ag. B',        true),
+            27 =>	array( 27,'Jumping A',			        '-',	'Jumping A',	'Jp. A',        false),
+            28 =>	array( 28,'Jumping B',			        '-',	'Jumping B',	'Jp. B',        false),
+            29 =>	array( 29,'Snooker',			        '-',	'Snooker',	    'Snkr',         true),
+            30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        false),
+            31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       true) // single round
         )
     );
 
