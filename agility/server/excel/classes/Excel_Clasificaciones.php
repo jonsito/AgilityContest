@@ -97,7 +97,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
         // obtenemos la lista de mangas de la jornada
         $res=Jornadas::enumerateMangasByJornada($jornada['ID'])['rows'];
         foreach($res as $manga) {
-            $results=new Resultados("excel_Clasificicaciones",$this->prueba['ID'],$manga['Manga']);
+            $results=Resultados::getInstance("excel_Clasificicaciones",$manga['Manga']);
             $row=array();
 			array_push($row,$manga['TipoManga']); // tipo de manga
 			array_push($row,$manga['Nombre']); // nombre de la manga

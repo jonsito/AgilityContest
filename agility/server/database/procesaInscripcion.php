@@ -39,23 +39,23 @@ require_once(__DIR__."/classes/Equipos.php");
  * elimina las referencias de una inscripcion en la jornada dada
  * @param {object} $inscripcion Datos de la inscripcion
  * @param {object} $jornada Datos de la jornada
- * @param {object} $perro Datos del perro
  * @throws Exception on invalid jornada ID
  */
-function borraPerroDeJornada($inscripcion,$jornada,$perro) {
+function borraPerroDeJornada($inscripcion,$jornada) {
 	$j=$jornada['ID'];
 	$p=$jornada['Prueba'];
 	// buscamos la lista de mangas de esta jornada
 	$mobj=new Mangas("borraPerroDeJornada",$jornada['ID']);
 	$mangas=$mobj->selectByJornada();
 	if (!$mangas) throw new Exception("No hay mangas definidas para la jornada $j de la prueba $p");
+	$perro=$inscripcion['Perro'];
 	foreach($mangas['rows'] as $manga) {
 		// eliminamos el perro del orden de salida de todas las mangas de esta jornada
 		$os=OrdenSalida::getInstance("borraPerroDeJornada",$manga['ID']);
-		$os->removeFromList($inscripcion['Perro']);
+		$os->removeFromList($perro);
 		// eliminamos el perro de la tabla de resultados de todas las mangas de esta jornada
-		$rs=new Resultados("borraPerroDeJornada",$jornada['Prueba'],$manga['ID']);
-		$rs->delete($inscripcion['Perro']);
+		$rs=Resultados::getInstance("borraPerroDeJornada",$manga['ID']);
+		$rs->delete($perro);
 	}
 }
 
@@ -132,7 +132,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 		$myLogger->info("Nuevo OrdenDeSalidada: \n$orden");
 		
 		// verificamos la tabla de resultados de esta manga
-		$rs=new Resultados("inscribePerroEnJornada::Resultados",$jornada['Prueba'],$mid);
+		$rs=Resultados::getInstance("inscribePerroEnJornada::Resultados",$mid);
 		if ($inscribir==false) {
 			$myLogger->info("Borrando Perro:$idperro Grado:$g de Resultados manga:$mid");
 			// borramos entrada del perro en la tabla de resultados de la manga

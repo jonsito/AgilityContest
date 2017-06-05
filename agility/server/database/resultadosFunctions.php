@@ -42,7 +42,7 @@ try {
 	}
 	if ($operation===null) throw new Exception("Call to resultadosFunction without 'Operation' requested");
 	if ($mangaID==0) throw new Exception("Call to resultadosFunction without 'Manga' provided");
-	$resultados= new Resultados("resultadosFunctions",$pruebaID,$mangaID);
+	$resultados= Resultados::getInstance("resultadosFunctions",$mangaID);
 	$am= new AuthManager("resultadosFunctions");
 	switch ($operation) {
 		// no insert as done by mean of procesa_inscripcion

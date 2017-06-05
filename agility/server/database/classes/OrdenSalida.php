@@ -578,7 +578,7 @@ class OrdenSalida extends DBObject {
 	private function invierteResultados($from,$mode,$catmode) {
 
         // FASE 1: invertimos orden de salida de perros
-		$r =new Resultados("OrdenSalida::invierteResultados", $this->prueba->ID,$from->ID);
+		$r =Resultados::getInstance("OrdenSalida::invierteResultados",$from->ID);
 		$res=$r->getResultados($mode);
         $data=$res['rows'];
 		$size= count($data);

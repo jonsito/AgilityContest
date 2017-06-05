@@ -38,46 +38,9 @@ class Resultados extends DBObject {
 
 	protected $federation=null;
 
-	function getDatosManga() {
-		if ($this->dmanga!==null) return $this->dmanga;
-		$idmanga=$this->IDManga;
-		// si no los tenemos todavia consultamos la base de datos
-		$obj=$this->__getObject("Mangas", $idmanga);
-		if (!is_object($obj)) {
-			$this->error("Manga $idmanga does not exists in database");
-			return null;
-		}
-		// add some extra info
-        $obj->NombreJuez1=$this->__getObject("Jueces",$obj->Juez1)->Nombre;
-        $obj->NombreJuez2=$this->__getObject("Jueces",$obj->Juez2)->Nombre;
-		$obj->TipoManga=_(Mangas::getTipoManga($obj->Tipo,1,$this->getFederation()));
-		$this->dmanga=$obj;
-		return $this->dmanga;
-	}
-	
-	function getDatosJornada() {
-		if ($this->djornada!==null) return $this->djornada;
-		$manga=$this->getDatosManga();
-		$this->IDJornada=$manga->Jornada;
-		$obj=$this->__getObject("Jornadas", $this->IDJornada);
-		if (!is_object($obj)) {
-			$this->error("Cannot locate JornadaID: {$this->IDJornada} for MangaID:{$this->IDManga} in database");
-			return null;
-		}
-		$this->djornada=$obj;
-		return $this->djornada;
-	}
-
-	function getDatosPrueba() {
-		if ($this->dprueba!==null) return $this->dprueba;
-		$obj=$this->__getObject("Pruebas", $this->IDPrueba);
-		if (!is_object($obj)) {
-			$this->error("Cannot locate PruebaID: {$this->IDPrueba} in database");
-			return null;
-		}
-		$this->dprueba=$obj;
-		return $this->dprueba;
-	}
+	function getDatosManga() { return $this->dmanga; }
+	function getDatosJornada() { return $this->djornada; }
+	function getDatosPrueba() { return $this->dprueba; }
 
 	function getDatosCompeticion() {
         if ($this->dcompetition==null) {
@@ -112,28 +75,26 @@ class Resultados extends DBObject {
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
-	 * @param {integer} $manga Manga ID
+     * @param {object} $prueba Prueba ID
+     * @param {object} $jornada Jornada ID
+     * @param {object} $manga Manga ID
 	 * @throws Exception when
 	 * - cannot contact database
 	 * - invalid manga ID
 	 * - manga is closed
 	 */
-	function __construct($file,$prueba,$manga) {
+	function __construct($file,$prueba,$jornada,$manga) {
 		parent::__construct($file);
-		if ($manga<=0) {
-			$this->errormsg="Resultados::Construct invalid Manga ID: $manga";
-			throw new Exception($this->errormsg);
-		}
-		if ($prueba<=0) {
-			$this->errormsg="Resultados::Construct invalid Prueba ID: $prueba";
-			throw new Exception($this->errormsg);
-		}
-		$this->IDPrueba=$prueba;
-        $this->IDManga=$manga;
-		$this->IDJornada=0; // to be filled
-		$this->dmanga=null;
-		$this->djornada=null;
-        $this->dequipos=null;
+        $this->dprueba=$prueba;
+        $this->IDPrueba=$prueba->ID;
+        $this->djornada=$jornada;
+        $this->IDJornada=$jornada->ID;
+		// add additional info to manga
+        $manga->NombreJuez1=$this->__getObject("Jueces",$manga->Juez1)->Nombre;
+        $manga->NombreJuez2=$this->__getObject("Jueces",$manga->Juez2)->Nombre;
+        $manga->TipoManga=_(Mangas::getTipoManga($manga->Tipo,1,$this->getFederation()));
+		$this->dmanga=$manga;
+        $this->IDManga=$manga->ID;
 	}
 	
 	/**
@@ -328,7 +289,7 @@ class Resultados extends DBObject {
         foreach ($lst['rows'] as $mng) {
             $jid=$mng['Jornada'];
             $mid=$mng['ID'];
-            $subRes=new Resultados("reset round:$mid on journey:$jid childOf:{$this->IDJornada}",$this->IDPrueba,$mid);
+            $subRes=Resultados::getInstance("reset round:$mid on journey:$jid childOf:{$this->IDJornada}",$mid);
             $res=$subRes->reset($catsmode);
             if ($res!="") return $this->error($res);
         }
@@ -390,7 +351,7 @@ class Resultados extends DBObject {
         foreach ($lst['rows'] as $mng) {
             $jid=$mng['Jornada'];
             $mid=$mng['ID'];
-            $subRes=new Resultados("swap round:$mid on journey:$jid childOf:{$this->IDJornada}",$this->IDPrueba,$mid);
+            $subRes=Resultados::getInstance("swap round:$mid on journey:$jid childOf:{$this->IDJornada}",$mid);
             $res=$subRes->swapMangas($cats);
             if ($res!="") return $this->error($res);
         }
@@ -476,7 +437,7 @@ class Resultados extends DBObject {
         foreach ($lst['rows'] as $mng) {
             $jid=$mng['Jornada'];
             $mid=$mng['ID'];
-            $subRes=new Resultados("update round:$mid on journey:$jid childOf:{$this->IDJornada}",$this->IDPrueba,$mid);
+            $subRes=Resultados::getInstance("update round:$mid on journey:$jid childOf:{$this->IDJornada}",$mid);
             $res=$subRes->update($idperro);
             if (is_string($res)) return $this->error($res);
         }
@@ -911,6 +872,25 @@ class Resultados extends DBObject {
             return ($a['Penalizacion']>$b['Penalizacion'])?1:-1;
         });
         return $teams;
+    }
+
+    /**
+     * Instead of using direct constructor use factory to get proper instance of ordensalida
+     * By this way we can override main function to rewrite clone/random/reverse and so methods
+     * to be used in special rounds
+     *
+     * @param {string} $file Filename to be used in debug functions
+     * @param {integer} $manga Manga ID
+     * @return {class} Resultados instance
+     */
+    public static function getInstance($file="Resultados",$manga) {
+        $dbobj=new DBObject($file);
+        $mangaobj=$dbobj->__getObject("Mangas",$manga);
+        $jornadaobj=$dbobj->__getObject("Jornadas",$mangaobj->Jornada);
+        $pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
+        // retrieve OrdenSalida handler from competition module
+        $compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
+        return $compobj->getResultadosInstance($file,$pruebaobj,$jornadaobj,$mangaobj);
     }
 }
 ?>

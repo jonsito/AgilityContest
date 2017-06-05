@@ -36,7 +36,7 @@ try {
 
     $mngobj= new Mangas("excelResultadosByManga",$idjornada);
     $manga=$mngobj->selectByID($idmanga);
-    $resobj= new Resultados("excelResultadosByManga",$idprueba,$idmanga);
+    $resobj= Resultados::getInstance("excelResultadosByManga",$idmanga);
 
     // retrieve results
     $resultados=$resobj->getResultados($mode); // throw exception if pending dogs

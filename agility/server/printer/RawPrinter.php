@@ -84,7 +84,7 @@ class RawPrinter {
     }
 
     private function rawprinter_retrieveData($event){
-        $obj=new Resultados("RawPrinter",$event['Pru'],$event['Mng']);
+        $obj=Resultados::getInstance("RawPrinter",$event['Mng']);
         $data=array(
             'Prueba' =>     $obj->getDatosPrueba(),
             'Jornada' =>    $obj->getDatosJornada(),

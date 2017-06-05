@@ -214,6 +214,19 @@ class Competitions {
         return new OrdenSalida($file,$prueba,$jornada,$manga);
     }
 
+    /**
+     * Retrieve handler for manage Resultados functions.
+     * Default is use standard Resultados, but may be overriden ( eg wao. Rounds )
+     * @param {string} $file
+     * @param {object} $prueba
+     * @param {object} $jornada
+     * @param {object} $manga
+     * @return {Resultados} instance of requested Resultados object
+     */
+    public function getResultadosInstance($file,$prueba,$jornada,$manga) {
+        return new Resultados($file,$prueba,$jornada,$manga);
+    }
+
     /**************************************** static functions comes here *************************************/
 
     /**

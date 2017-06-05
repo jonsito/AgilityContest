@@ -498,7 +498,7 @@ class MailManager {
                 // $m['ID'] es de la forma "mangaid,mode"; el ID viene en $m['Manga']
                 $mngobj= new Mangas("EmailResultadosByManga",$this->myData['Jornada']);
                 $manga=$mngobj->selectByID($m['Manga']);
-                $resobj= new Resultados("EmailResultadosByManga",$this->myData['Prueba'],$m['Manga']);
+                $resobj= Resultados::getInstance("EmailResultadosByManga",$m['Manga']);
                 $pdf=null;
                 switch(intval($m['TipoManga'])) {
                     // miramos si es una prueba por equipos
