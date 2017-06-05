@@ -201,6 +201,19 @@ class Competitions {
         return false; // default use short name
     }
 
+    /**
+     * Retrieve handler for manage ordensalida functions.
+     * Default is use standard OrdenSalida, but may be overriden ( eg KO. Rounds )
+     * @param {string} $file
+     * @param {object} $prueba
+     * @param {object} $jornada
+     * @param {object} $manga
+     * @return {OrdenSalida} instance of requested OrdenSalida object
+     */
+    public function getOrdenSalidaInstance($file,$prueba,$jornada,$manga) {
+        return new OrdenSalida($file,$prueba,$jornada,$manga);
+    }
+
     /**************************************** static functions comes here *************************************/
 
     /**
@@ -231,7 +244,7 @@ class Competitions {
      * Retrieve a competition object based in prueba/jornada information
      * @param {object} $prueba
      * @param {object} $jornada
-     * @return requested competition module, or default if not found
+     * @return {Competitions} requested competition module, or default if not found
      */
     static function getCompetition($prueba,$jornada) {
         $fed=intval($prueba->RSCE);
@@ -257,6 +270,12 @@ class Competitions {
         return new Competitions("Default for Fed:$fed Type:$type");
     }
 
+    /**
+     * @param {integer} $fed federation id
+     * @param {integer} $type competition type
+     * @return {array|string} requested data or error string
+     * @throws Exception
+     */
     static function moduleInfo($fed,$type) {
         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
             $name=str_replace(".php","",basename($filename));

@@ -244,7 +244,7 @@ class VideoWall {
         $this->myLogger->enter();
         $nitems=$before+$after+1;
         // obtenemos listado ordenado de perros de la manga
-        $osobj=new OrdenSalida("VideoWall-ng",$this->mangaid);
+        $osobj=OrdenSalida::getInstance("VideoWall-ng",$this->mangaid);
         $os=$osobj->getData(false); // omit inserting team info rows
         // obtenemos categoria y grado de la tanda
         $catstr=Tandas::$tipo_tanda[$this->tandatype]['Categoria']; // categoria
@@ -335,7 +335,7 @@ class VideoWall {
         $this->myLogger->enter();
         $nitems=$before+$after+1;
         // obtenemos listado ordenado de perros de la manga
-        $osobj=new OrdenSalida("VideoWall-ng",$this->mangaid);
+        $osobj=OrdenSalida::getInstance("VideoWall-ng",$this->mangaid);
         $os=$osobj->getData(false); // omit inserting team info rows
         // obtenemos categoria y grado de la tanda
         $catstr=Tandas::$tipo_tanda[$this->tandatype]['Categoria']; // categoria

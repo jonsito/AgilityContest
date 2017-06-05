@@ -46,7 +46,7 @@ try {
 	$m = new Mangas("printEntradaDeDatos",$data['jornada']);
 	$data['mangas']= $m->getHermanas($data['manga']);
 	// Datos del orden de salida
-	$o = new OrdenSalida("printEntradaDeDatos",$data['manga']);
+	$o = OrdenSalida::getInstance("printEntradaDeDatos",$data['manga']);
 	$data['orden']= $o->getData()['rows'];
 	// Creamos generador de documento
 	$pdf = new PrintEntradaDeDatos($data);

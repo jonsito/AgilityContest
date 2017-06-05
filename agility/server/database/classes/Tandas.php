@@ -491,7 +491,7 @@ class Tandas extends DBObject {
 			if ($manga!=$tanda['Manga']) { // cambio de manga
 				$manga=$tanda['Manga'];
 				// en cada manga cogemos  los perros ordenados segun el orden de salida
-				$os=new OrdenSalida("Tandas::getListaPerros()",$manga);
+				$os=OrdenSalida::getInstance("Tandas::getListaPerros()",$manga);
 				$perrosmanga=$os->getData(false); // false: do not include extra team information row
 			}
 			// OK ya tenemos la lista ordenada de los perros de cada manga

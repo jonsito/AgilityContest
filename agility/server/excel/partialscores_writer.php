@@ -40,7 +40,7 @@ try {
 
     // retrieve results
     $resultados=$resobj->getResultados($mode); // throw exception if pending dogs
-    $osobj= new OrdenSalida("excelResultadosByManga",$idmanga);
+    $osobj= OrdenSalida::getInstance("excelResultadosByManga",$idmanga);
     // reindex resultados in starting order
     $res=$osobj->getData(false,$mode,$resultados);
     // add trs/trm information

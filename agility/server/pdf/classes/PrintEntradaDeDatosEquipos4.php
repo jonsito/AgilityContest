@@ -46,10 +46,13 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
 	
 	/**
 	 * Constructor
-     * @param {integer} $prueba Prueba ID
-     * @param {integer} $jornada Jormada ID
-     * @param {integer} $manga Manga ID
-     * @param {string} $cats "-LMST" based string
+     * @param {array} $data constructor parameters: 'prueba','jornada','manga','cats','fill','rango','comentarios'
+     * {integer} prueba Prueba ID
+     * {integer} jornada Jornada ID
+     * {integer} manga Manga ID
+     * {string} cats categorias -LMST
+     * {string} rango [\d]-[\d]
+     * {string} comentarios
 	 * @throws Exception
 	 */
     function __construct($data) {
@@ -68,7 +71,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         // guardamos info de la manga
         $this->manga=$this->myDBObject->__getObject("Mangas",$data['manga']);
         // Datos del orden de salida de equipos
-        $m = new OrdenSalida("entradaDeDatosEquipos4",$data['manga']);
+        $m = OrdenSalida::getInstance("entradaDeDatosEquipos4",$data['manga']);
         $teams= $m->getTeams();
         $this->equipos=$teams['rows'];
         // anyadimos el array de perros del equipo

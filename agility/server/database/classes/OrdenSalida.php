@@ -28,10 +28,10 @@ class OrdenSalida extends DBObject {
 	// tablas utilizadas para componer e insertar los idperroes en el string de orden de salida
 	public static $default_orden = "BEGIN,END";
 	
-	var $prueba=null; // {array} prueba data
-	var $jornada=null; // {array} jornada data
-	var $manga=null; // {array} manga data
-	var $federation=null; // object federation
+	var $prueba=null; // {object} prueba data
+	var $jornada=null; // {object} jornada data
+	var $manga=null; // {object} manga data
+	var $federation=null; // {object} federation info
 	
 	/**
 	 * Constructor
@@ -41,30 +41,27 @@ class OrdenSalida extends DBObject {
 	 * - cannot contact database
 	 * - invalid manga ID
 	 */
-	function __construct($file,$manga) {
+	function __construct($file,$prueba=null,$jornada=null,$manga=null) {
 		parent::__construct($file);
-		if ($manga<=0) {
-			$this->errormsg="Resultados::Construct invalid Manga ID: $manga";
+		if ($manga==null) {
+			$this->errormsg="OrdenSalida::construct(): manga is null";
 			throw new Exception($this->errormsg);
 		}
-		$this->manga=$this->__getArray("Mangas",$manga);
-		if (!is_array($this->manga)) {
-			$this->errormsg="OrdenSalida::construct(): Cannot get info on manga:$manga";
+        $this->manga=$manga;
+		if ($jornada==null) {
+			$this->errormsg="OrdenSalida::construct(): jornada is null on  manga:{$this->manga->ID}";
 			throw new Exception($this->errormsg);
 		}
-		$this->jornada=$this->__getArray("Jornadas",$this->manga['Jornada']);
-		if (!is_array($this->jornada)) {
-			$this->errormsg="OrdenSalida::construct(): Cannot get jornada info on jornada:{$this->manga['Jornada']} manga:$manga";
+        $this->jornada=$jornada;
+		if ($prueba==null) {
+			$this->errormsg="OrdenSalida::construct(): prueba is null on jornada:{$this->jornada->ID} manga:{$this->manga->ID}";
 			throw new Exception($this->errormsg);
 		}
-		$this->prueba=$this->__getArray("Pruebas",$this->jornada['Prueba']);
-		if (!is_array($this->prueba)) {
-			$this->errormsg="OrdenSalida::construct(): Cannot get prueba info on prueba:{$this->jornada['Prueba']} jornada:{$this->manga['Jornada']} manga:$manga";
-			throw new Exception($this->errormsg);
-		}
-		$this->federation=Federations::getFederation(intval($this->prueba['RSCE']));
+        $this->prueba=$prueba;
+		$this->federation=Federations::getFederation(intval($this->prueba->RSCE));
 		if ($this->federation===null) {
-			$this->errormsg="OrdenSalida::construct(): Cannot get federation info on prueba:{$this->jornada['Prueba']} jornada:{$this->manga['Jornada']} manga:$manga";
+			$this->errormsg="OrdenSalida::construct(): Cannot get federation info on prueba:{$this->prueba->ID} ".
+                            "jornada:{$this->jornada->ID} manga:{$this->manga->ID}";
 			throw new Exception($this->errormsg);
 		}
 	}
@@ -74,11 +71,11 @@ class OrdenSalida extends DBObject {
 	 * @return {string} orden de salida.
 	 */
 	function getOrden() {
-        if ($this->manga['Orden_Salida']==="") {
-            $this->manga['Orden_Salida']=OrdenSalida::$default_orden;
+        if ($this->manga->Orden_Salida==="") {
+            $this->manga->Orden_Salida=OrdenSalida::$default_orden;
             $this->setOrden(OrdenSalida::$default_orden);
         }
-		return $this->manga['Orden_Salida'];
+		return $this->manga->Orden_Salida;
 	}
 
 	/**
@@ -92,11 +89,11 @@ class OrdenSalida extends DBObject {
 			$this->myLogger->error($this->errormsg);
 			return $this->errormsg;
 		}
-		$sql = "UPDATE Mangas SET Orden_Salida = '$orden' WHERE ( ID={$this->manga['ID']} )";
+		$sql = "UPDATE Mangas SET Orden_Salida = '$orden' WHERE ( ID={$this->manga->ID} )";
 		$rs = $this->query ($sql);
 		// do not call $rs->free() as no resultset returned
 		if (!$rs) return $this->error($this->conn->error);
-		$this->manga['Orden_Salida']=$orden;
+		$this->manga->Orden_Salida=$orden;
 		return "";
 	}
 
@@ -105,12 +102,12 @@ class OrdenSalida extends DBObject {
 	 * @return {string} orden de salida.
 	 */
 	function getOrdenEquipos() {
-		$defOrden="BEGIN,{$this->jornada['Default_Team']},END";
-		if ($this->manga['Orden_Equipos']==="") {
-			$this->manga['Orden_Equipos']= $defOrden;
+		$defOrden="BEGIN,{$this->jornada->Default_Team},END";
+		if ($this->manga->Orden_Equipos==="") {
+			$this->manga->Orden_Equipos = $defOrden;
 			$this->setOrdenEquipos($defOrden);
 		}
-		return $this->manga['Orden_Equipos'];
+		return $this->manga->Orden_Equipos;
 	}
 
     /**
@@ -125,11 +122,11 @@ class OrdenSalida extends DBObject {
             // return $this->errormsg;
             $orden=$this->getOrdenEquipos(); // use default order for backward compatibility
         }
-        $sql = "UPDATE Mangas SET Orden_Equipos = '$orden' WHERE ( ID={$this->manga['ID']} )";
+        $sql = "UPDATE Mangas SET Orden_Equipos = '$orden' WHERE ( ID={$this->manga->ID} )";
         $rs = $this->query ($sql);
         // do not call $rs->free() as no resultset returned
         if (!$rs) return $this->error($this->conn->error);
-        $this->manga['Orden_Equipos']=$orden;
+        $this->manga->Orden_Equipos=$orden;
         return "";
     }
 
@@ -227,7 +224,7 @@ class OrdenSalida extends DBObject {
      */
     function getTeams() {
         // obtenemos los equipos de la manga y reindexamos segun el ID
-        $eq=$this->__select("*","Equipos","(Jornada={$this->jornada['ID']})","","");
+        $eq=$this->__select("*","Equipos","(Jornada={$this->jornada->ID})","","");
         if (!is_array($eq)) return $this->error($this->conn->error);
         $equipos=array();
         foreach($eq['rows'] as $equipo) { $equipos[$equipo['ID']]=$equipo; }
@@ -239,7 +236,8 @@ class OrdenSalida extends DBObject {
             if ($equipo==="BEGIN") continue;
             if ($equipo==="END") continue;
             if (!array_key_exists($equipo,$equipos)) {
-                $this->myLogger->error("El equipo $equipo no esta en la jornada {$this->jornada['ID']} pero figura en el orden de salida de la manga {$this->manga['ID']}");
+                $this->myLogger->error("El equipo $equipo no esta en la jornada {$this->jornada->ID} ".
+                                        "pero figura en el orden de salida de la manga {$this->manga->ID}");
             } else {
                 $res[]=$equipos[$equipo];
             }
@@ -254,11 +252,11 @@ class OrdenSalida extends DBObject {
     function getDataByTeam($team) {
         $this->myLogger->enter();
         // obtenemos datos del equipo
-        $eqdata= $this->__selectAsArray("*","Equipos","(ID=$team) AND (Jornada={$this->jornada['ID']})");
+        $eqdata= $this->__selectAsArray("*","Equipos","(ID=$team) AND (Jornada={$this->jornada->ID})");
         if (!is_array($eqdata)) return $this->error($this->conn->error);
 
         // obtenemos los perros de la manga/equipo
-        $rs= $this->__select("*","Resultados","(Manga={$this->manga['ID']}) AND (Equipo=$team)","","");
+        $rs= $this->__select("*","Resultados","(Manga={$this->manga->ID}) AND (Equipo=$team)","","");
         if(!is_array($rs)) return $this->error($this->conn->error);
         // recreamos el array de perros anyadiendo el ID del perro como clave, así como el nombre del equipo
         $p1=array();
@@ -313,7 +311,7 @@ class OrdenSalida extends DBObject {
 	 */
 	function  splitPerrosByMode($lista,$mode) {
 		// cogemos todos los perros de la manga e indexamos en función del perroID
-		$res=$this->__select("*","Resultados","Manga={$this->manga['ID']}","","");
+		$res=$this->__select("*","Resultados","Manga={$this->manga->ID}","","");
 		$listaperros=array();
 		foreach ($res['rows'] as $perro)  $listaperros[$perro['Perro']]=$perro;
 		// split de los datos originales
@@ -345,7 +343,7 @@ class OrdenSalida extends DBObject {
 	 */
 	function splitEquiposByMode($lista,$mode) {
 		// buscamos los equipos de la jornada y lo reindexamos en funcion del ID
-		$res=$this->__select("*","Equipos","Jornada={$this->jornada['ID']}","","");
+		$res=$this->__select("*","Equipos","Jornada={$this->jornada->ID}","","");
 		$listaequipos=array();
 		foreach($res['rows'] as $equipo) $listaequipos[$equipo['ID']]=$equipo;
 		// cogemos el orden del equipo
@@ -388,11 +386,12 @@ class OrdenSalida extends DBObject {
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
 		if (!$rs) $rs= $this->__select(
 			"Resultados.*,Equipos.Nombre AS NombreEquipo,
-			PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS LogoClub,PerroGuiaClub.Pais,PerroGuiaClub.Genero,PerroGuiaClub.LOE_RRC AS LOE_RRC,
+			PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS LogoClub,
+			PerroGuiaClub.Pais,PerroGuiaClub.Genero,PerroGuiaClub.LOE_RRC AS LOE_RRC,
 			Inscripciones.Observaciones AS Observaciones, 1 AS PerrosPorGuia",
 			"Resultados,Equipos,PerroGuiaClub,Inscripciones",
-			"(Inscripciones.Prueba={$this->prueba['ID']}) AND (Inscripciones.Perro=Resultados.Perro) AND
-			(Manga={$this->manga['ID']}) AND (Resultados.Equipo=Equipos.ID) AND (Resultados.Perro=PerroGuiaClub.ID)",
+			"(Inscripciones.Prueba={$this->prueba->ID}) AND (Inscripciones.Perro=Resultados.Perro) AND
+			(Manga={$this->manga->ID}) AND (Resultados.Equipo=Equipos.ID) AND (Resultados.Perro=PerroGuiaClub.ID)",
 			"",
 			""
 		);
@@ -440,7 +439,7 @@ class OrdenSalida extends DBObject {
         // en la modalidad equipos 4 los cuatro perros corren juntos,
         // con independencia de celo/categoria
         $p5=$p3;
-        if ($this->jornada['Equipos4']==0) {
+        if ($this->jornada->Equipos4==0) {
             // tercera pasada: ordenar por celo
             $p4=array();
             foreach(array(0,1) as $celo) {
@@ -452,12 +451,12 @@ class OrdenSalida extends DBObject {
             // cuarta pasada: ordenar por categoria
 			// respetando el orden definido en el programa de la jornada
 			// miramos el orden de tandas:
-			$cats=implode(',',Tandas::getTandasByTipoManga($this->manga['Tipo'])); // tipos de tanda asociados a la manga
-			$this->myLogger->trace("Cats:'$cats' tipomanga:{$this->manga['Tipo']} ");
+			$cats=implode(',',Tandas::getTandasByTipoManga($this->manga->Tipo)); // tipos de tanda asociados a la manga
+			$this->myLogger->trace("Cats:'$cats' tipomanga:{$this->manga->Tipo} ");
             $res=$this->__select(
             	"Categoria",
 				"Tandas",
-				"(Tandas.Jornada={$this->jornada['ID']}) AND (Tandas.Tipo IN ($cats)) ","
+				"(Tandas.Jornada={$this->jornada->ID}) AND (Tandas.Tipo IN ($cats)) ","
 				Orden ASC"
 			);
             // ordenamos segun el orden de categorias establecido en las tandas
@@ -542,10 +541,12 @@ class OrdenSalida extends DBObject {
 		$this->myLogger->enter();
 
 		// buscamos la "manga hermana"
-		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada['ID']);
-		$hermanas=$mhandler->getHermanas($this->manga['ID']);
-		if (!is_array($hermanas)) return $this->error("Error find hermanas info for jornada:{$this->jornada['ID']} and manga:{$this->manga['ID']}");
-		if ($hermanas[1]===null) return $this->error("Cannot clone order: Manga:{$this->manga['ID']} of Jornada:{$this->jornada['ID']} has no brother");
+		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada->ID);
+		$hermanas=$mhandler->getHermanas($this->manga->ID);
+		if (!is_array($hermanas))
+		    return $this->error("Error find hermanas info for jornada:{$this->jornada->ID} and manga:{$this->manga->ID}");
+		if ($hermanas[1]===null)
+		    return $this->error("Cannot clone order: Manga:{$this->manga->ID} of Jornada:{$this->jornada->ID} has no brother");
 
 		// spliteamos manga propia y hermana, y las mezclamos en funcion de la categoria
 		$lista=$this->splitPerrosByMode($hermanas[0]->Orden_Salida,$catmode); // manga actual "splitteada"
@@ -577,7 +578,7 @@ class OrdenSalida extends DBObject {
 	private function invierteResultados($from,$mode,$catmode) {
 
         // FASE 1: invertimos orden de salida de perros
-		$r =new Resultados("OrdenSalida::invierteResultados", $this->prueba['ID'],$from->ID);
+		$r =new Resultados("OrdenSalida::invierteResultados", $this->prueba->ID,$from->ID);
 		$res=$r->getResultados($mode);
         $data=$res['rows'];
 		$size= count($data);
@@ -599,23 +600,23 @@ class OrdenSalida extends DBObject {
 		$this->setOrden($ordensalida);
 
         // FASE 2: ahora invertimos el orden de los equipos en funcion del resultado
-        if (intval($this->jornada['Equipos3'])==0 ) return;
+        if (intval($this->jornada->Equipos3)==0 ) return;
         $this->myLogger->trace("invirtiendo orden de equipos");
 		$mindogs=0;
-		switch(intval($this->jornada['Equipos3'])) {
+		switch(intval($this->jornada->Equipos3)) {
 			case 1:$mindogs=3; break; // old style 3 best of 4
 			case 2:$mindogs=2; break; // 2 besto of 3
 			case 3:$mindogs=3; break; // 3 best of 4
 			default: break;
 		}
-		switch(intval($this->jornada['Equipos4'])) {
+		switch(intval($this->jornada->Equipos4)) {
 			case 1:$mindogs=4; break; // old style 4 combined
 			case 2:$mindogs=2; break; // 2 combined
 			case 3:$mindogs=3; break; // 3 combined
 			case 4:$mindogs=4; break; // 4 combined
 			default: break;
 		}
-        $res=Resultados::getTeamResults($res['rows'],$this->prueba['ID'],$this->jornada['ID'],$mindogs);
+        $res=Resultados::getTeamResults($res['rows'],$this->prueba->ID,$this->jornada->ID,$mindogs);
         $size= count($res);
         // recorremos los resultados en orden inverso generando el nuevo orden de equipos
         $ordenequipos=$this->getOrdenEquipos();
@@ -644,13 +645,16 @@ class OrdenSalida extends DBObject {
 	function reverse($catmode=8) {
 		$this->myLogger->enter();
 		// fase 1: buscamos la "manga hermana"
-		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada['ID']);
-		$hermanas=$mhandler->getHermanas($this->manga['ID']);
-		if (!is_array($hermanas)) return $this->error("Error find hermanas info for jornada:{$this->jornada['ID']} and manga:{$this->manga['ID']}");
-		if ($hermanas[1]===null) return $this->error("Cannot reverse order: Manga:{$this->manga['ID']} of Jornada:{$this->jornada['ID']} has no brother");
+		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada->ID);
+		$hermanas=$mhandler->getHermanas($this->manga->ID);
+		if (!is_array($hermanas))
+		    return $this->error("Error find hermanas info for jornada:{$this->jornada->ID} and manga:{$this->manga->ID}");
+		if ($hermanas[1]===null)
+		    return $this->error("Cannot reverse order: Manga:{$this->manga->ID} of Jornada:{$this->jornada->ID} has no brother");
 	
 		// fase 2: evaluamos resultados de la manga hermana
-		$this->myLogger->trace("El orden de salida original para manga:{$this->manga['ID']} jornada:{$this->jornada['ID']} es:\n{$hermanas[0]->Orden_Salida}");
+		$this->myLogger->trace("El orden de salida original para manga:{$this->manga->ID} ".
+                                    "jornada:{$this->jornada->ID} es:\n{$hermanas[0]->Orden_Salida}");
 		// En funcion del tipo de recorrido tendremos que leer diversos conjuntos de Resultados
 		switch($hermanas[0]->Recorrido) {
 			case 0: // Large,medium,small (3-heighs) Large,medium,small,tiny (4-heights)
@@ -677,7 +681,7 @@ class OrdenSalida extends DBObject {
 				break;
 		}
 		$nuevo=$this->getOrden();
-		$this->myLogger->trace("El orden de salida nuevo para manga:{$this->manga['ID']} jornada:{$this->jornada['ID']} es:\n$nuevo");
+		$this->myLogger->trace("El orden de salida nuevo para manga:{$this->manga->ID} jornada:{$this->jornada->ID} es:\n$nuevo");
 		$this->myLogger->leave();
 		return $nuevo;
 	}
@@ -692,14 +696,33 @@ class OrdenSalida extends DBObject {
         foreach($o as $perro){
             if ($perro=="BEGIN") continue;
             if ($perro=="END") continue;
-            echo "Prueba:{$this->prueba['ID']} Jornada:{$this->jornada['ID']} Manga:{$this->manga['ID']} Dorsal: $dorsal Perro:$perro\n";
-            $str1="UPDATE Inscripciones SET DORSAL=$dorsal WHERE (Prueba={$this->prueba['ID']}) AND (Perro=$perro)";
+            echo "Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:{$this->manga->ID} Dorsal: $dorsal Perro:$perro\n";
+            $str1="UPDATE Inscripciones SET DORSAL=$dorsal WHERE (Prueba={$this->prueba->ID}) AND (Perro=$perro)";
             $this->query($str1);
-            $str2="UPDATE Resultados SET DORSAL=$dorsal WHERE (Jornada={$this->jornada['ID']}) AND (Perro=$perro)";
+            $str2="UPDATE Resultados SET DORSAL=$dorsal WHERE (Jornada={$this->jornada->ID}) AND (Perro=$perro)";
             $this->query($str2);
             $dorsal++;
         }
     }
+
+    /**
+	 * Instead of using direct constructor use factory to get proper instance of ordensalida
+	 * By this way we can override main function to rewrite clone/random/reverse and so methods
+	 * to be used in special rounds
+	 *
+     * @param {string} $file Filename to be used in debug functions
+     * @param {integer} $manga Manga ID
+     * @return {class} OrdenSalida instance
+     */
+    public static function getInstance($file="OrdenSalida",$manga) {
+    	$dbobj=new DBObject($file);
+    	$mangaobj=$dbobj->__getObject("Mangas",$manga);
+    	$jornadaobj=$dbobj->__getObject("Jornadas",$mangaobj->Jornada);
+    	$pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
+		// retrieve OrdenSalida handler from competition module
+		$compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
+		return $compobj->getOrdenSalidaInstance($file,$pruebaobj,$jornadaobj,$mangaobj);
+	}
 
 } // class
 

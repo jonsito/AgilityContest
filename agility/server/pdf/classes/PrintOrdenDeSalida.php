@@ -48,7 +48,7 @@ class PrintOrdenDeSalida extends PrintCommon {
 	 * Constructor
      * @param {array} data (prueba,jornada, manga, categorias, rango, comentarios)
      * {integer} Prueba ID
-     * {integer} $jornada Jormada ID
+     * {integer} $jornada Jornada ID
      * {integer} $manga Manga ID
      * {string} categorias -LMST
      * {string} rango [\d]-[\d]
@@ -65,7 +65,7 @@ class PrintOrdenDeSalida extends PrintCommon {
 		$m = new Mangas("printOrdenDeSalida",$data['jornada']);
 		$this->manga= $m->selectByID($data['manga']);
 		// Datos del orden de salida
-		$o = new OrdenSalida("printOrdenDeSalida",$data['manga']);
+		$o = OrdenSalida::getInstance("printOrdenDeSalida",$data['manga']);
 		$os= $o->getData();
 		$this->orden=$os['rows'];
 		$this->categoria="L";

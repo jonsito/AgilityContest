@@ -21,6 +21,6 @@ require_once(__DIR__."/../server/logging.php");
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/database/classes/OrdenSalida.php");
 
-$os=new OrdenSalida("reassign",11);
+$os=OrdenSalida::getInstance("reassign",11);
 $os->reassignDorsal();
 ?>

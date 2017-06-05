@@ -64,7 +64,7 @@ class OrdenDeSalida extends PrintCommon {
 		$m = new Mangas("printOrdenDeSalida",$jornada);
 		$this->manga= $m->selectByID($manga);
 		// Datos del orden de salida
-		$o = new OrdenSalida("printOrdenDeSalida",$manga);
+		$o = OrdenSalida::getInstance("printOrdenDeSalida",$manga);
 		$os= $o->getData();
 		$this->orden=$os['rows'];
 		$this->categoria="L";
