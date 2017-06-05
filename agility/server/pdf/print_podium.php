@@ -52,7 +52,7 @@ try {
 	$dbobj=new DBObject("print_clasificacion");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("Pruebas",$prueba);
-	$c= new Clasificaciones("print_podium_pdf",$prueba,$jornada);
+	$c= Clasificaciones::getInstance("print_podium_pdf",$jornada);
 	$result=array();
 	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
 	switch($mng->Recorrido) {

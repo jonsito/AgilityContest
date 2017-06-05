@@ -459,7 +459,7 @@ class MailManager {
             if ($j['ID']!=$this->myData['Jornada']) continue;
             set_time_limit($timeout);
             // clasificacion final
-            $cobj=new Clasificaciones("EmailClasificaciones",$this->pruebaObj->ID,$this->jornadaObj->ID);
+            $cobj=Clasificaciones::getInstance("EmailClasificaciones",$this->jornadaObj->ID);
             foreach($j['Series'] as $s) {
                 $mangas=array(
                     intval($s['Manga1']), intval($s['Manga2']), intval($s['Manga3']), intval($s['Manga4']),

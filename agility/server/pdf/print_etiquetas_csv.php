@@ -57,7 +57,7 @@ try {
 	$dbobj=new DBObject("print_etiquetas_csv");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("Pruebas",$prueba);
-	$c= new Clasificaciones("print_etiquetas_csv",$prueba,$jornada);
+	$c= Clasificaciones::getInstance("print_etiquetas_csv",$jornada);
 	$result=array();
 	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
 	switch($mng->Recorrido) {

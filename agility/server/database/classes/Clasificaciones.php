@@ -26,8 +26,8 @@ require_once(__DIR__."/Resultados.php");
 require_once(__DIR__."/../../../modules/Federations.php");
 
 class Clasificaciones extends DBObject {
-	protected $prueba;
-	protected $jornada;
+	protected $prueba; // object
+	protected $jornada; // object
 	protected $ronda;
 	protected $mangas;
     protected $currentDog;
@@ -36,8 +36,8 @@ class Clasificaciones extends DBObject {
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
-	 * @param {integer} $prueba prueba ID
-	 * @param {integer} $jornada jornada ID
+	 * @param {object} $prueba prueba object
+	 * @param {object} $jornada jornada object
      * @param {integer} $perro Dog id used to evaluate position
 	 * @throws Exception if cannot contact database or invalid prueba/jornada ID
 	 */
@@ -47,17 +47,8 @@ class Clasificaciones extends DBObject {
 			$this->errormsg="Clasificaciones::Construct invalid prueba ID:$prueba";
 			throw new Exception($this->errormsg);
 		}
-		$obj=$this->__getObject("Pruebas",$prueba);
-		if (!is_object($obj)) throw new Exception($obj);
-		$this->prueba=$obj;
-	
-		if ($jornada<=0) {
-			$this->errormsg="Clasificaciones::Construct invalid jornada ID:$jornada";
-			throw new Exception($this->errormsg);
-		}
-		$obj=$this->__getObject("Jornadas",$jornada);
-		if (!is_object($obj)) throw new Exception($obj);
-		$this->jornada=$obj;
+		$this->prueba=$prueba;
+		$this->jornada=$jornada;
 		$this->mangas=array();
         // when perro is requested, but we are in first round, it's possible that dog has no data yet,
         // and doesn't appears in clasification, so make sure that at least a dummy entry is returned
@@ -667,5 +658,23 @@ class Clasificaciones extends DBObject {
 		//arriving here means error: perro not found
 		return $this->error("Perro:$idperro not found in clasificaciones::getPuesto()");
 	}
+
+    /**
+     * Instead of using direct constructor use factory to get proper instance of ordensalida
+     * By this way we can override main function to rewrite clone/random/reverse and so methods
+     * to be used in special rounds
+     *
+     * @param {string} $file Filename to be used in debug functions
+     * @param {integer} $jornada Jornada ID
+     * @return {class} Resultados instance
+     */
+    public static function getInstance($file="Clasificaciones",$jornada,$perro=0) {
+        $dbobj=new DBObject($file);
+        $jornadaobj=$dbobj->__getObject("Jornadas",$jornada);
+        $pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
+        // retrieve OrdenSalida handler from competition module
+        $compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
+        return $compobj->getClasificacionesInstance($file,$pruebaobj,$jornadaobj,$perro);
+    }
 }
 ?>

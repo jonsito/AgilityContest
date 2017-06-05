@@ -242,7 +242,7 @@ try {
 	$dbobj=new DBObject("print_etiquetas_csv");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("Pruebas",$prueba);
-	$c= new Clasificaciones("print_etiquetas_pdf",$prueba,$jornada);
+	$c= Clasificaciones::getInstance("print_etiquetas_pdf",$jornada);
 	
 	// obtenemos la clasificacion de la tanda seleccionada
 	$r=$c->clasificacionFinal($rondas,$mangas,$mode);

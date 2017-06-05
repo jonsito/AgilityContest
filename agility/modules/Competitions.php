@@ -227,6 +227,18 @@ class Competitions {
         return new Resultados($file,$prueba,$jornada,$manga);
     }
 
+    /**
+     * Retrieve handler for manage Clasificaciones functions.
+     * Default is use standard Clasificaciones, but may be overriden ( eg wao and eo )
+     * @param {string} $file
+     * @param {object} $prueba
+     * @param {object} $jornada
+     * @param {integer} $perro Dog ID to evaluate position ( if any )
+     * @return {Resultados} instance of requested Resultados object
+     */
+    public function getClasificacionesInstance($file,$prueba,$jornada,$perro) {
+        return new Clasificaciones($file,$prueba,$jornada,$perro);
+    }
     /**************************************** static functions comes here *************************************/
 
     /**

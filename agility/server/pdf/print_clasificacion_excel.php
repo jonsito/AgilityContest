@@ -47,7 +47,7 @@ try {
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
 	
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
-	$c= new Clasificaciones("print_etiquetas_pdf",$prueba,$jornada);
+	$c= Clasificaciones::getInstance("print_etiquetas_pdf",$jornada);
 	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
 
 	// Creamos generador de documento
@@ -65,7 +65,7 @@ try {
 	$base=$excel->write_PageHeader($prueba,$jornada,$mangas);
 	
 	// buscamos los recorridos asociados a la mangas
-	$c= new Clasificaciones("print_clasificacion_excel",$prueba,$jornada);
+	$c= Clasificaciones::getInstance("print_clasificacion_excel",$jornada);
 	
 	$result=array();
 	$heights=intval(Federations::getFederation( intval($excel->prueba->RSCE) )->get('Heights'));
