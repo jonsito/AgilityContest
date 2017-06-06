@@ -28,10 +28,10 @@ class OrdenSalida extends DBObject {
 	// tablas utilizadas para componer e insertar los idperroes en el string de orden de salida
 	public static $default_orden = "BEGIN,END";
 	
-	var $prueba=null; // {object} prueba data
-	var $jornada=null; // {object} jornada data
-	var $manga=null; // {object} manga data
-	var $federation=null; // {object} federation info
+	protected $prueba=null; // {object} prueba data
+	protected $jornada=null; // {object} jornada data
+	protected $manga=null; // {object} manga data
+	protected $federation=null; // {object} federation info
 	
 	/**
 	 * Constructor
@@ -136,7 +136,7 @@ class OrdenSalida extends DBObject {
 	 * @param $s1
 	 * @param $s2
 	 */
-	private function joinOrders($s1,$s2) {
+	protected function joinOrders($s1,$s2) {
 		$a=($s1==="")?"":",$s1";
 		$b=($s2==="")?"":",$s2";
 		$res="BEGIN".$a.$b.",END";
@@ -575,7 +575,7 @@ class OrdenSalida extends DBObject {
 	 * @param {integer} $mode categorias de la manga (L,M,S,MS,LMS,T,LM,ST,LMST)
 	 * @param {integer} $catmode categorias que hay que ordenar en la manga (L,M,S,T,LMST)
 	 */
-	private function invierteResultados($from,$mode,$catmode) {
+	protected function invierteResultados($from,$mode,$catmode) {
 
         // FASE 1: invertimos orden de salida de perros
 		$r =Resultados::getInstance("OrdenSalida::invierteResultados",$from->ID);
