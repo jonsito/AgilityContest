@@ -10,8 +10,8 @@ require_once(__DIR__."/lib/OrdenSalida_KO.php");
 class KO_Contest_3Heights extends Competitions {
     function __construct() {
         parent::__construct("Prueba K.O. ( 3-alturas )");
-        $this->federationID=0;
-        $this->competitionID=9;
+        $this->federationID=3;
+        $this->competitionID=0;
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20170506_1404";
     }

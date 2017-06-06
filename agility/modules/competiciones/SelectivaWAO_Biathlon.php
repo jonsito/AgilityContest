@@ -11,6 +11,8 @@ class SelectivaWAO_Biathlon extends Competitions {
         parent::__construct("Selectiva WAO - Biathlon");
         $this->federationID=2;
         $this->competitionID=2;
+        $this->moduleVersion="1.0.0";
+        $this->moduleRevision="20170506_1929";
     }
 
     function useLongNames() { return false; }

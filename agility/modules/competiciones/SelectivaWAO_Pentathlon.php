@@ -11,6 +11,8 @@ class SelectivaWAO_Pentathlon extends Competitions {
         parent::__construct("Selectiva WAO - Pentathlon");
         $this->federationID=2;
         $this->competitionID=1;
+        $this->moduleVersion="1.0.0";
+        $this->moduleRevision="20170506_1929";
     }
 
     function useLongNames() { return false; }
