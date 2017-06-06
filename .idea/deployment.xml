@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" promptOnRemoteOverwrite="CHECK_CONTENT" serverName="Localhost" createEmptyFolders="true" notifyRemoteChanges="true">
+  <component name="PublishConfigData" autoUpload="Always" promptOnRemoteOverwrite="CHECK_CONTENT" serverName="Localhost" deleteMissingItems="true" createEmptyFolders="true" notifyRemoteChanges="true">
     <serverData>
       <paths name="Localhost">
         <serverdata>

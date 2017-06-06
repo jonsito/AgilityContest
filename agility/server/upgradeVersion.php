@@ -38,6 +38,7 @@ class Updater {
     public $last_version;
     protected $myLogger;
     protected $conn;
+    protected $myDBObject;
 
     function __construct() {
         // extract version info from configuration file
@@ -60,6 +61,7 @@ class Updater {
                 throw new Exception($str);
             }
         }
+        $this->myDBObject=new DBObject("upgradeDatabase");
     }
 
     function install_log($str) {
@@ -396,12 +398,11 @@ class Updater {
      * till now these field was unused with default value 'BEGIN,END'
      */
     function populateTeamMembers() {
-        $dbobj=new DBObject("populateTeamMembers");
-        $teams=$dbobj->__select("*","Equipos","(Miembros='BEGIN,END') AND (DefaultTeam=0)","","");
+        $teams=$this->myDBObject->__select("*","Equipos","(Miembros='BEGIN,END') AND (DefaultTeam=0)","","");
         foreach ($teams['rows'] as $team) {
             $j=$team['Jornada'];
             $t=$team['ID'];
-            $res=$dbobj->__select(
+            $res=$this->myDBObject->__select(
                 /*SELECT */ "GROUP_CONCAT(DISTINCT Perro SEPARATOR ',') AS Lista",
                 /* FROM */  "Resultados",
                 /* WHERE */ "(Jornada=$j) AND (equipo=$t)",
@@ -412,7 +413,7 @@ class Updater {
             if ( is_null($data) || (trim($data)==="") ) continue;
             $lista="BEGIN,$data,END";
             $str="UPDATE Equipos SET Miembros='$lista' WHERE ID=$t";
-            $dbobj->query($str);
+            $this->myDBObject->query($str);
         }
     }
 
@@ -421,7 +422,6 @@ class Updater {
      * @return
      */
     function addNewMangaTypes() {
-        $dbobj=new DBObject("addAgiltiy3Grade1");
         $cmds= array(
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(17,'Agility Grado 1 Manga 3','GI')",
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(18,'K.O. Round 2','-')",
@@ -439,7 +439,7 @@ class Updater {
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(30,'Gumbler','-')",
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(31,'SpeedStakes','-')"
         );
-        foreach ($cmds as $query) { $dbobj->query($query); }
+        foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
     }
 
@@ -447,24 +447,32 @@ class Updater {
      * as license convention changes, use Loe/ RRC to check if a dog is elegible for puntuaction in selectives
      */
     function fixLOERRC2017() {
-        $dbobj=new DBObject("addAgiltiy3Grade1");
         $cmds= array(
             "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like '0%')",
             "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'A%')",
             "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'B%')",
             "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'C%')"
         );
-        foreach ($cmds as $query) { $dbobj->query($query); }
+        foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
     }
 
     function addMailList() {
         $this->addColumnUnlessExists("Pruebas", "MailList", "TEXT"); // text column cannot have default values
-        $dbobj=new DBObject("addAgiltiy3Grade1");
         $cmds= array(
             "UPDATE Pruebas SET MailList='BEGIN,END' WHERE MailList IS NULL"
         );
-        foreach ($cmds as $query) { $dbobj->query($query); }
+        foreach ($cmds as $query) { $this->myDBObject->query($query); }
+        return 0;
+    }
+
+    // make default club and judge belong to every national federations (0..4)
+    function updateDefaultJuezClub() {
+        $cmds= array(
+            "UPDATE Clubes SET Federations=31 WHERE ID=1",
+            "UPDATE Jueces SET Federations=31 WHERE ID=1",
+        );
+        foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
     }
 }
@@ -513,6 +521,7 @@ try {
     $upg->fixLOERRC2017();
     $upg->addColumnUnlessExists("Usuarios", "Club", "int(4)", "1");
     $upg->addMailList();
+    $upg->updateDefaultJuezClub();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }

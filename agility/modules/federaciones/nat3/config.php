@@ -1,0 +1,96 @@
+<?php
+class NAT3 extends Federations {
+
+    function __construct() {
+        $this->config= array (
+            'ID'    => 3,
+            'Name'  => 'Nat-3',
+            'LongName' => 'Competiciones nacionales - 3 alturas',
+            // use basename http absolute path for icons, as need to be used in client side
+            'OrganizerLogo'        => '/agility/modules/federaciones/nat3/pirineos_dog_festival.png',
+            'Logo'        => '/agility/modules/federaciones/nat3/almozara.png',
+            'ParentLogo'  => '/agility/modules/federaciones/nat3/almozara.png',
+            'WebURL' => 'http://www.pirineosdogfestival.org',
+            'ParentWebURL' => 'http://www.clubagilitylalmozara.com/',
+            'Email' => 'info@pirineosdogfestival.com',
+            'Heights' => 3,
+            'Grades' => 3,
+            'International' => 0,
+            'WideLicense' => false, // some federations need extra print space to show license ID
+            'RoundsG1' => 2,
+            'Recorridos' => array("Recorrido comun","Large / Med + Small","Recorridos separados"),
+            'ListaGradosShort' => array(
+                '-' => '-',
+                'Baja' => 'Out',
+                'GI' => 'G1',
+                'GII'=> 'G2',
+                'GIII' => 'G3',
+                'P.A.' => 'P.A.',
+                'P.B.' => 'P.B.', // "Test dog"
+                'Ret.' => 'Ret.'
+            ),
+            'ListaGrados'    => array (
+                '-' => 'Individual',
+                'GI' => 'Grado I',
+                'GII'=> 'Grado II',
+                'GIII' => 'Grado III',
+                'P.A.' => 'Pre-Agility',
+                'P.B.' => 'Perro en Blanco',
+                'Baja' => 'Baja temporal',
+                'Ret.' => 'Retirado',
+            ),
+            'ListaCategoriasShort' => array (
+                '-' => '-',
+                'L' => 'Large',
+                'M' => 'Med',
+                'S' => 'Small',
+                // 'T' => 'Tiny'
+            ),
+            'ListaCategorias' => array (
+                '-' => '-',
+                'L' => 'Large',
+                'M' => 'Medium',
+                'S' => 'Small',
+                // 'T' => 'Tiny'
+            ),
+            'ListaCatGuias' => array (
+                '-' => 'Not specified',
+                'I' => 'Infantil',
+                'J' => 'Junior',
+                'A' => 'Adulto',
+                'S' => 'Senior',
+                'R' => 'Retirado',
+                'P' => 'Para-Agility',
+            ),
+            'InfoManga' => array(
+                array('L' => _('Large'),         'M' => _('Medium'),         'S' => _('Small'), 'T' => ''), // separate courses
+                array('L' => _('Large'),         'M' => _('Medium+Small'),   'S' => '',         'T' => ''), // mixed courses
+                array('L' => _('Common course'), 'M' => '',                  'S' => '',         'T' => '') // common
+            ),
+            'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3, -1), array(/* conjunto */ 4, 4, 4, -1 )),
+            'ModeStrings' => array( // text to be shown on each category
+                array(/* separado */ "Large", "Medium", "Small", "Invalid"),
+                array(/* mixto */ "Large", "Medium+Small", "Medium+Small", "Invalid"),
+                array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid")
+            ),
+            'IndexedModes' => array ( // modes 5 to 8 are invalid in this federation
+                "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
+            ),
+            'IndexedModeStrings' => array(
+                "-" => "",
+                "L"=>"Large",
+                "M"=>"Medium",
+                "S"=>"Small",
+                "T"=>"Tiny", // invalid
+                "LM"=>"Large/Medium", // invalid
+                "ST"=>"Small/Tiny", // invalid
+                "MS"=>"Medium/Small",
+                "LMS" => 'Common LMS',
+                "LMST" => 'Common LMST',
+                "-LMST" => ''
+            )
+        );
+    }
+
+}
+?>

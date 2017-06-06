@@ -1,15 +1,15 @@
 <?php
-class UCA extends Federations {
+class NAT4 extends Federations {
 
     function __construct() {
         $this->config= array (
             'ID'    => 2,
-            'Name'  => 'UCA',
-            'LongName' => 'Union de Clubes de Agility',
+            'Name'  => 'Nat-4',
+            'LongName' => 'Competiciones nacionales - 4 alturas',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => '/agility/modules/federaciones/uca/uca.png',
-            'Logo'     => '/agility/modules/federaciones/uca/uca.png',
-            'ParentLogo'   => '/agility/modules/federaciones/uca/rfec.png',
+            'OrganizerLogo'     => '/agility/modules/federaciones/nat4/uca.png',
+            'Logo'     => '/agility/modules/federaciones/nat4/uca.png',
+            'ParentLogo'   => '/agility/modules/federaciones/nat4/rfec.png',
             'WebURL' => 'http://www.agilityuca.org/',
             'ParentWebURL' => 'http://www.fecaza.com/',
             'Email' => '',
@@ -24,7 +24,7 @@ class UCA extends Federations {
                 'Baja' => 'Baja',
                 'GI' => 'G1',
                 'GII'=> 'G2',
-                'GIII' => 'G3', // invalid in UCA federation
+                'GIII' => 'G3',
                 'P.A.' => 'G0',
                 'P.B.' => 'P.B.', // "perro en blanco"
                 'Ret.' => 'Ret.'
@@ -34,7 +34,7 @@ class UCA extends Federations {
                 'Baja' => 'Baja temporal',
                 'GI' => 'Grado 1',
                 'GII'=> 'Grado 2',
-                'GIII' => 'G3 no disponible', // no existe
+                'GIII' => 'G3 no disponible',
                 'P.A.' => 'Grado 0',
                 'P.B.' => 'Perro en Blanco',
                 'Ret.' => 'Retirado',

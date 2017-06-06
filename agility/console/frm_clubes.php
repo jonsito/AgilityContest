@@ -68,7 +68,7 @@ $config =Config::getInstance();
 			} else {
 				fnames[n].Title=ac_fedInfo[n].Name;  //change column name to proper federation name
 				fnames[n].Hidden=false;
-				fnames[n].Width=2;
+				fnames[n].Width=4;
 			}
 		}
 		$('#clubes-datagrid').datagrid({
@@ -97,11 +97,11 @@ $config =Config::getInstance();
 			columns: [[
 				{ field:'ID',			hidden:true},
 				{ field:'Nombre',		width:16, sortable:true,	title: '<?php _e('Name'); ?>',formatter:formatBold},
-				{ field:'Direccion1',	width:14, sortable:true,	title: '<?php _e('Address'); ?>'+' 1' },
-				{ field:'Direccion2',	width:10, sortable:false,	title: '<?php _e('Address'); ?>'+' 2' },
-				{ field:'Provincia',	width:7, sortable:false,    title: '<?php _e('State'); ?>' , hidden:hp},
+				{ field:'Direccion1',	width:13, sortable:true,	title: '<?php _e('Address'); ?>'+' 1' },
+				{ field:'Direccion2',	width:11, sortable:false,	title: '<?php _e('Address'); ?>'+' 2' },
+				{ field:'Provincia',	width:8, sortable:false,    title: '<?php _e('State'); ?>' , hidden:hp},
 				{ field:'Pais',	        width:3, sortable:false,    align: 'center', title: '<?php _e('Country'); ?>' },
-				{ field:'Contacto1',	width:10, sortable:false,   title: '<?php _e('Contact'); ?>'+' 1' },
+				{ field:'Contacto1',	width:9, sortable:false,   title: '<?php _e('Contact'); ?>'+' 1' },
 				{ field:'Contacto2',	hidden:true, width:0, sortable:true,    title: '<?php _e('Contact'); ?>'+' 2' },
                 { field:'Contacto3',	hidden:true},
 				{ field:'GPS',			hidden:true},

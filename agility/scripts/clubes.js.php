@@ -25,8 +25,8 @@ $config =Config::getInstance();
 function clubes_FederationMark(row,mask) { return ( (parseInt(row.Federations)&mask)==0)?" ":"&#x2714;";}
 function clubes_Fed1(val,row,idx) { return clubes_FederationMark(row,1); } // RSCE Federation module
 function clubes_Fed2(val,row,idx) { return clubes_FederationMark(row,2); } // RFEC Federation module
-function clubes_Fed3(val,row,idx)  { return clubes_FederationMark(row,4); } // UCA Federation module
-function clubes_Fed4(val,row,idx)  { return clubes_FederationMark(row,8); } // (not defined yet) Federation module
+function clubes_Fed3(val,row,idx)  { return clubes_FederationMark(row,4); } // Nat4 Federation module
+function clubes_Fed4(val,row,idx)  { return clubes_FederationMark(row,8); } // Nat3 Federation module
 function clubes_Fed5(val,row,idx)  { return clubes_FederationMark(row,16); } // (not defined yet) Federation module
 function clubesBaja(val,row,idx) { return ( parseInt(val)==0)?" ":"&#x26D4;"; }
 
@@ -155,7 +155,8 @@ function editClub(dg){
     // set up federation checkboxes
     $('#clubes-RSCE').prop('checked',( (row.Federations & 1)!=0)?true:false);
     $('#clubes-RFEC').prop('checked',( (row.Federations & 2)!=0)?true:false);
-    $('#clubes-UCA').prop('checked',( (row.Federations & 4)!=0)?true:false);
+    $('#clubes-Nat4').prop('checked',( (row.Federations & 4)!=0)?true:false);
+    $('#clubes-Nat3').prop('checked',( (row.Federations & 8)!=0)?true:false);
 }
 
 /**
@@ -174,7 +175,8 @@ function saveClub(){
     var fed=0;
     if ( $('#clubes-RSCE').is(':checked') ) fed |=1;
     if ( $('#clubes-RFEC').is(':checked') ) fed |=2;
-    if ( $('#clubes-UCA').is(':checked') ) fed |=4;
+    if ( $('#clubes-Nat4').is(':checked') ) fed |=4;
+    if ( $('#clubes-Nat3').is(':checked') ) fed |=8;
     $('#clubes-Federations').val(fed);
     $.ajax({
         type: 'GET',

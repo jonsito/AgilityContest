@@ -92,10 +92,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <span><?php _e('Fed.');?>: </span>
             <label for="clubes-RSCE" style="text-align:right;"><?php _e('RSCE'); ?></label>
             <input id="clubes-RSCE" type="checkbox" value="1" name="RSCE"/>
-            <label for="clubes-RFEC" style="text-align:right;"><?php _e('RFEC'); ?></label>
+            <label for="clubes-RFEC" style="text-align:right;width:50px;"><?php _e('RFEC'); ?></label>
             <input id="clubes-RFEC" type="checkbox" value="2" name="RFEC"/>
-            <label for="clubes-UCA" style="text-align:right;"><?php _e('UCA'); ?></label>
-            <input id="clubes-UCA" type="checkbox" value="4" name="UCA"/>
+            <label for="clubes-Nat4" style="text-align:right;width:50px;"><?php _e('Nat4'); ?></label>
+            <input id="clubes-Nat4" type="checkbox" value="4" name="Nat4"/>
+            <label for="clubes-Nat3" style="text-align:right;width:50px;"><?php _e('Nat3'); ?></label>
+            <input id="clubes-Nat3" type="checkbox" value="8" name="Nat3"/>
             <input id="clubes-Federations" name="Federations" type="hidden"/>
         </div>
         <div class="fitem">

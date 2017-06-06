@@ -57,7 +57,7 @@ $config =Config::getInstance();
                 <label for="jornadas-PreAgilityChk" style="width:150px" ><span id="jornadas-PreAgilityName">Pre-Agility</span></label>
                 <input id="jornadas-PreAgilityChk" name="PreAgilityChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-PreAgilityChk',0x0003)"/>
-                <input id="jornadas-MangasPreAgility" name="MangasPreAgility" style="width:130px"/>
+                <input id="jornadas-MangasPreAgility" name="MangasPreAgility" style="width:140px"/>
             </div>
             
             <div class="fitem">
@@ -65,7 +65,7 @@ $config =Config::getInstance();
                 <input type="hidden" id="jornadas-Grado1" name="Grado1" value="1">
                 <input id="jornadas-Grado1Chk" name="Grado1Chk" class="easyui-checkbox"
                     type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado1',0x0004)"/>
-                <input id="jornadas-MangasGrado1" name="MangasGrado1" style="width:130px"/>
+                <input id="jornadas-MangasGrado1" name="MangasGrado1" style="width:140px"/>
             </div>
             
             <div class="fitem">
@@ -111,19 +111,19 @@ $config =Config::getInstance();
                 <label for="jornadas-Especial" style="width:150px" ><?php _e('Special round'); ?></label>
                 <input id="jornadas-Especial" name="Especial" class="easyui-checkbox"
                        type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Especial',0x0200)"/>
-                <input id="jornadas-Observaciones" name="Observaciones" type="text" value="(Especificar)" style="width:125px"/>
+                <input id="jornadas-Observaciones" name="Observaciones" type="text" value="(Especificar)" style="width:140px"/>
             </div>
 
             <div class="fitem">
                 <label for="jornadas-SlaveOf_List" style="width:150px" ><?php _e('Subordinate of'); ?></label>
                 <input id="jornadas-SlaveOf" name="SlaveOf" type="hidden" value="0"/>
-                <input id="jornadas-SlaveOf_List" name="SlaveOf_List" value="0" style="width:150px"/>
+                <input id="jornadas-SlaveOf_List" name="SlaveOf_List" value="0" style="width:165px"/>
             </div>
 
             <div class="fitem">
                 <label for="jornadas-Tipo_Competicion_List" style="width:150px" ><?php _e('Competition Mode'); ?></label>
                 <input id="jornadas-Tipo_Competicion" name="Tipo_Competicion" type="hidden" value="0"/>
-                <input id="jornadas-Tipo_Competicion_List" name="Tipo_Competicion_List" value="0" style="width:150px"/>
+                <input id="jornadas-Tipo_Competicion_List" name="Tipo_Competicion_List" value="0" style="width:165px"/>
             </div>
         </form>
             

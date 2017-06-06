@@ -60,7 +60,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	    <label for="jueces-Federations"><?php _e('Federations'); ?>:</label>
         	    RSCE <input id="jueces-RSCE" type="checkbox" value="1" name="RSCE"/>
         	    RFEC <input id="jueces-RFEC" type="checkbox" value="2" name="RFEC"/>
-        	    UCA<input id="jueces-UCA" type="checkbox" value="4" name="UCA"/>
+                Nat3<input id="jueces-Nat4" type="checkbox" value="8" name="Nat4"/>
+                Nat4<input id="jueces-Nat4" type="checkbox" value="4" name="Nat4"/>
         	    <input id="jueces-Federations" name="Federations" type="hidden"/>
         	</div>
             <div class="fitem">

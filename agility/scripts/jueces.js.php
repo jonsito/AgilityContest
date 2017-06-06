@@ -25,7 +25,8 @@ $config =Config::getInstance();
 
 function juecesRSCE(val,row,idx) { return ( (parseInt(row.Federations)&1)==0)?" ":"&#x2714;"; }
 function juecesRFEC(val,row,idx) { return ( (parseInt(row.Federations)&2)==0)?" ":"&#x2714;"; }
-function juecesUCA(val,row,idx)  { return ( (parseInt(row.Federations)&4)==0)?" ":"&#x2714;"; }
+function juecesNat4(val,row,idx)  { return ( (parseInt(row.Federations)&8)==0)?" ":"&#x2714;"; }
+function juecesNat3(val,row,idx)  { return ( (parseInt(row.Federations)&4)==0)?" ":"&#x2714;"; }
 function juecesBaja(val,row,idx) { return ( parseInt(val)==0)?" ":"&#x26D4;"; }
 
 /**
@@ -62,7 +63,8 @@ function editJuez(dg){
     // set up federation checkboxes
     $('#jueces-RSCE').prop('checked',( (row.Federations & 1) != 0));
     $('#jueces-RFEC').prop('checked',( (row.Federations & 2) != 0));
-    $('#jueces-UCA').prop('checked',( (row.Federations & 4) != 0));
+    $('#jueces-Nat4').prop('checked',( (row.Federations & 4) != 0));
+    $('#jueces-Nat3').prop('checked',( (row.Federations & 8) != 0));
 }
 
 /**
@@ -78,7 +80,8 @@ function saveJuez(){
     var fed=0;
     if ( $('#jueces-RSCE').is(':checked') ) fed |=1;
     if ( $('#jueces-RFEC').is(':checked') ) fed |=2;
-    if ( $('#jueces-UCA').is(':checked') ) fed |=4;
+    if ( $('#jueces-Nat4').is(':checked') ) fed |=4;
+    if ( $('#jueces-Nat3').is(':checked') ) fed |=8;
     $('#jueces-Federations').val(fed);
     $.ajax({
         type: 'GET',
