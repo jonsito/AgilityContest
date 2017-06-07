@@ -20,7 +20,7 @@ require_once(__DIR__ . "/../tools.php");
 require_once(__DIR__ . "/PublicWeb.php");
 
 $operacion = http_request("Operation","s",null);
-$pendientes = http_request("Pendientes","i",10);
+$lastEvent = http_request("LastEvent","i",0);
 // on session==0, use this elements as IDentifiers
 $prueba = http_request("Prueba","i",0);
 $jornada = http_request("Jornada","i",0);
@@ -36,6 +36,10 @@ try {
             break;
         case "deploy":   
             $res=$pb->publicweb_deploy(); 
+            echo json_encode($res);
+            break;
+        case "getEvents":
+            $res=$pb->getEvents($lastEvent);
             echo json_encode($res);
             break;
         default:throw new Exception("publicFunctions.php: operacion invalida:'$operacion'"); break;

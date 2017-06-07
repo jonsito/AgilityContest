@@ -312,7 +312,13 @@ function remoteSendMessageEvent(source) {
 function remoteSendInternetNotification(source) {
     // en el acceso por internet no hay sesiones abiertas, luego no tiene sentido
     // especificar destino. Por consiguiente, lo que haremos sera mandar un evento
-    // de tipo CMD_MESSAGE a la sesion 1 de nombre "Internet"
+    // de tipo CMD_MESSAGE a la sesion 1 de nombre "Internet" con la prueba seleccionada
+    var p=$('#remote-internet-prueba').combogrid('grid').datagrid('getSelected');
+    if (p==null) {
+        // indica error
+        $.messager.alert("Error",'<?php _e("No contest selected");?>',"error");
+        return;
+    }
     var t=$(source+'-msgtimeout').slider('getValue');
     var m=$(source+'-msg').textbox('getValue');
     var evtdata = {
@@ -320,7 +326,7 @@ function remoteSendInternetNotification(source) {
         Value: ''+t+':'+m,
         Session: 1,
         Name: 'Internet',
-        Prueba: 0,
+        Prueba: p.ID,
         Jornada: 0,
         Manga: 0,
         Tanda: 0

@@ -215,6 +215,11 @@ $am=new AuthManager("Chrono");
                 <div style="display:<?php echo $am->allowed(ENABLE_PUBLIC)?'inherit':'none';?>">
                     <span style="float:left;display:inline-block;width:55%;padding:5px">
                         <p><?php _e('Control panel for remote public access');?></p>
+
+        		        <div class="fitem">
+					        <label for="remote-internet-prueba"><?php _e('Select contest');?>:</label>
+            		        <select id="remote-internet-prueba" name="remote-internet-prueba" style="width:200px"></select>
+        		        </div>
                     </span>
                     <span style="float:right;display:inline-block;width:40%;padding:5px">
                         <form id="remote-internet-form" name="remote-internet-form">
@@ -232,7 +237,7 @@ $am=new AuthManager("Chrono");
                             </div>
                             <span style="display:inline-block;width:175px">&nbsp;</span>
                             <a id="remote-internet-msgBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-alert'" onclick="remoteSendInternetNotification('#remote-internet')"><?php _e('Show'); ?></a>
+                               data-options="iconCls:'icon-mail'" onclick="remoteSendInternetNotification('#remote-internet')"><?php _e('Send'); ?></a>
                         </form>
                     </span>
                 </div>
@@ -357,6 +362,30 @@ $am=new AuthManager("Chrono");
             validType:'lenght[0,25]'
         });
         $('#remote-videowall-msgtimeout').slider({ mode:'h', showTip:true, min:1, max:30, value:5,   step:1 });
+
+        $('#remote-internet-prueba').combogrid({
+            panelWidth: 400,
+            panelHeight: 125,
+            idField: 'ID',
+            textField: 'Nombre',
+            url: '/agility/server/database/pruebaFunctions.php?Operation=enumerate',
+            method: 'get',
+            mode: 'remote',
+            required: true,
+            editable: isMobileDevice()?false:true, //disable keyboard deploy on mobile devices
+            columns: [[
+                {field:'ID',hidden:true},
+                {field:'Nombre',        title:'<?php _e('Name');?>', width:50,align:'right'},
+                {field:'Club',hidden:true},
+                {field:'NombreClub',    title:'<?php _e('Club');?>',   width:30,align:'right'},
+                {field:'RSCE',			title:'<?php _e('Fed');?>.',	width:10,	align:'center', formatter:formatFederation},
+                {field:'Observaciones', hidden:true }
+            ]],
+            multiple: false,
+            fitColumns: true,
+            singleSelect: true,
+            selectOnNavigation: false
+        });
 
         $('#remote-internet-msg').textbox({
             validType:'lenght[0,127]'
@@ -547,7 +576,7 @@ $am=new AuthManager("Chrono");
         addTooltip($('#remote-livestream-onBtn').linkbutton(),'<?php _e("Turn On-Screen-Display overlay ON"); ?>');
         addTooltip($('#remote-videowall-msgBtn').linkbutton(),'<?php _e("Show text message on selected screen with specified duration"); ?>');
         addTooltip($('#remote-videowall-sendBtn').linkbutton(),'<?php _e("Switch selected scoreboard displays to choosen ring/view"); ?>');
-        addTooltip($('#remote-internet-msgBtn').linkbutton(),'<?php _e("Send text message to connected internet clients"); ?>');
+        addTooltip($('#remote-internet-msgBtn').linkbutton(),'<?php _e("Send text message to connected internet clients<br/>listening to selected contest"); ?>');
         addTooltip($('#remote-reloadBtn').linkbutton(),'<?php _e("Reload and update active client lists"); ?>');
         addTooltip($('#remote-okBtn').linkbutton(),'<?php _e("End video display remote control session. Close window"); ?>');
     </script>

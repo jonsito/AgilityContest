@@ -148,8 +148,36 @@ function pb_setTrainingLayout(dg) {
 
 /**
  * Call server for events
+ * This is done every RefreshTime
+ * Remember: internet events are not received by push, just by polling.
+ * So need to last received event id to query news
+ * At server side, receiving as last event "0" means return a "hello world" message with last event
+ * for requested contest ( to avoid receiving all the contest event history )
  */
 function pb_lookForMessages() {
-    // TO BE WRITTEN
-    ac_clientOpts.
+    if (workingData.Prueba==0) return; // no choosen contest, so do not enable reception
+    // call to server for new events
+    $.ajax( {
+        type: "GET",
+        dataType: 'json',
+        url: "/agility/server/web/publicFunctions.php",
+        data: {
+            Operation: 'getEvents',
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada,
+            Manga: workingData.manga,
+            Tanda: workingData.tanda,
+            Mode: workingData.mode
+        },
+        success: function(data,status,jqxhr) {
+            if (data.errorMsg) {
+                console.log("Error: "+data.errorMsg);
+                return;
+            }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            alert("pb_lookForMessages() error: "+textStatus + " "+ errorThrown );
+        }
+    });
+
 }

@@ -81,11 +81,10 @@ class PublicWeb
             $jornada['Series']=Jornadas::enumerateRondasByJornada($jornada['ID'])['rows'];
         }
         // obtenemos finalmente la sesion activa
-        $id=$this->prueba['ID'];
         $res=$this->myDBObject->__select(
             /* select */    "*",
             /* from */      "Eventos",
-            /* where */     "(Type='open') AND (Data LIKE '%\"Pru\":".$id.",%')",
+            /* where */     "(Type='open') AND (Data LIKE '%\"Pru\":{$this->prueba['ID']},%')",
             /* order by */  "ID DESC",
             /* limit */     "",
             /* group by */  ""
@@ -95,6 +94,31 @@ class PublicWeb
         $result['Current']=json_decode($ses);
         // $this->myLogger->trace(json_encode($result));
         return $result;
+    }
+
+    function getEvents($last) {
+        $data=$this->myDBObject->__select(
+            "*",
+            "Eventos",
+            "( Session=1 ) AND (Type='command') AND (Data LIKE '%\"Pru\":{$this->prueba['ID']},%') AND (ID>{$last})",
+            "ID ASC"
+        );
+        $res=array('total'=>0,'rows'=>array());
+        if ($last==0) { // on first call create a dummy hello world message and skip every other
+            // evaluate last Event ID
+            $lastEvent=($data['total']===0)?1:0;$data['rows'][$data['total']-1]['ID'];
+            $res['total']=1;
+            $res['rows'][]=array( 'LastEvent'=>"{$lastEvent}", 'Message' => "5:hola mundo" );
+        } else {
+            foreach ($data as $event) {
+                $evtdata=json_decode($event['Data']);
+                if (!isset($evtdata->Name) ) continue;
+                if ($evtdata->Name !=='Internet') continue;
+                $res['total']++;
+                $res['rows'][]= array ( 'LastEvent'=>"{$event['ID']}", 'Message' => $evtdata->Value );
+            }
+        }
+        return $res;
     }
 }
 ?>
