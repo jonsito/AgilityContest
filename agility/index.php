@@ -75,7 +75,8 @@ if (!$am->allowed(ENABLE_PUBLIC)) {
 
 var pb_config = {
     'Timeout':null,
-    'LastEvent':0
+    'LastEvent':0,
+    'ConsoleMessages':''
 };
 loadConfiguration();
 getLicenseInfo();

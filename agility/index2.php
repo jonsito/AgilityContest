@@ -85,7 +85,8 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         /* make sure configuration is loaded from server before onLoad() event */
         var pb_config = {
             'Timeout':null,
-            'LastEvent':0
+            'LastEvent':0,
+            'ConsoleMessages':''
         };
         loadConfiguration();
         getLicenseInfo();

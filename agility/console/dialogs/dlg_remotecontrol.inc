@@ -390,7 +390,7 @@ $am=new AuthManager("Chrono");
         $('#remote-internet-msg').textbox({
             validType:'lenght[0,127]'
         });
-        $('#remote-internet-msgtimeout').slider({ mode:'h', showTip:true, min:1, max:30, value:5,   step:1 });
+        $('#remote-internet-msgtimeout').slider({ mode:'h', showTip:true, min:1, max:15, value:5,   step:1 });
 
         // datos de la tabla de video marcadores
         $('#remote-livestream-datagrid').datagrid({

@@ -108,14 +108,22 @@ class PublicWeb
             // evaluate last Event ID
             $lastEvent=($data['total']===0)?1:0;$data['rows'][$data['total']-1]['ID'];
             $res['total']=1;
-            $res['rows'][]=array( 'LastEvent'=>"{$lastEvent}", 'Message' => "5:hola mundo" );
+            $res['rows'][]=array(
+                'LastEvent'=>"{$lastEvent}",
+                'Message' => "5:"._e("Web notification system started"),
+                'TimeStamp' => date('Y/m/d G:i:s')
+                );
         } else {
-            foreach ($data as $event) {
+            foreach ($data['rows'] as $event) {
                 $evtdata=json_decode($event['Data']);
                 if (!isset($evtdata->Name) ) continue;
                 if ($evtdata->Name !=='Internet') continue;
                 $res['total']++;
-                $res['rows'][]= array ( 'LastEvent'=>"{$event['ID']}", 'Message' => $evtdata->Value );
+                $res['rows'][]= array (
+                    'LastEvent'=>"{$event['ID']}",
+                    'Message' => $evtdata->Value,
+                    'TimeStamp' => date('Y/m/d G:i:s')
+                );
             }
         }
         return $res;

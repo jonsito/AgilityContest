@@ -167,12 +167,30 @@ function pb_lookForMessages() {
             Jornada: workingData.jornada,
             Manga: workingData.manga,
             Tanda: workingData.tanda,
-            Mode: workingData.mode
+            LastEvent: pb_config.LastEvent
         },
         success: function(data,status,jqxhr) {
             if (data.errorMsg) {
                 console.log("Error: "+data.errorMsg);
                 return;
+            }
+            for (var n=0;n<data.total;n++) {
+                // extract message 'n'
+                var item=data.rows[n];
+                var a=item.Message.split(':');
+                // show in botton rignt corner
+                $.messager.show({
+                    width: 300,
+                    height: 100,
+                    title:  "<?php _e('Message');?>",
+                    msg:a[1],
+                    timeout:1000*parseInt(a[0]),
+                    showType:'slide'
+                });
+                // store lastEvent and save msg into message buffer
+                var str="</br>" + item.TimeStamp + " "  +a[1];
+                pb_config.consoleMessages += str;
+                pb_config.LastEvent=item.LastEvent;
             }
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
