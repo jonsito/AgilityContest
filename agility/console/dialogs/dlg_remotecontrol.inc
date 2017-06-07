@@ -210,6 +210,37 @@ $am=new AuthManager("Chrono");
                     <img src="/agility/images/sad_dog.png" alt="triste"/>
                 </div>
             </div>
+
+            <div title="<?php _e('Internet access');?>" data-options="iconCls:'icon-web'">
+                <div style="display:<?php echo $am->allowed(ENABLE_PUBLIC)?'inherit':'none';?>">
+                    <span style="float:left;display:inline-block;width:55%;padding:5px">
+                        <p><?php _e('Control panel for remote public access');?></p>
+                    </span>
+                    <span style="float:right;display:inline-block;width:40%;padding:5px">
+                        <form id="remote-internet-form" name="remote-internet-form">
+                            <br/>
+                            <strong><?php _e('Internet messaging board');?></strong>
+                            <br/><br/>
+                            <label for="remote-internet-msg" style="display:inline-block;width:100px"><?php _e('Message');?>:</label>
+                            <input id="remote-internet-msg" name="remote-internet-msg" value="" style="width:175px">
+                            <br/><br/>
+                            <div style="width:100%;display:inline-block;">
+                                <span style="float:left;width:50%"><?php _e("Duration (secs)");?>:</span>
+                                <span style="float:right;width:40%;padding-right:10px;padding-left:5px;">
+                                    <input id="remote-internet-msgtimeout" name="remote-internet-msgtimeout"/>
+                                </span>
+                            </div>
+                            <span style="display:inline-block;width:175px">&nbsp;</span>
+                            <a id="remote-internet-msgBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-alert'" onclick="remoteSendInternetNotification('#remote-internet')"><?php _e('Show'); ?></a>
+                        </form>
+                    </span>
+                </div>
+                <div style="display:<?php echo $am->allowed(ENABLE_PUBLIC)?'none':'inherit';?>">
+                    <p><?php _e('Current license permissions does not allow internet public access');?></p>
+                    <img src="/agility/images/sad_dog.png" alt="triste"/>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -325,14 +356,12 @@ $am=new AuthManager("Chrono");
         $('#remote-videowall-msg').textbox({
             validType:'lenght[0,25]'
         });
-        $('#remote-videowall-msgtimeout').slider({
-            mode:'h',
-            showTip:true,
-            min: 1,
-            max: 30,
-            value: 5,
-            step: 1
+        $('#remote-videowall-msgtimeout').slider({ mode:'h', showTip:true, min:1, max:30, value:5,   step:1 });
+
+        $('#remote-internet-msg').textbox({
+            validType:'lenght[0,127]'
         });
+        $('#remote-internet-msgtimeout').slider({ mode:'h', showTip:true, min:1, max:30, value:5,   step:1 });
 
         // datos de la tabla de video marcadores
         $('#remote-livestream-datagrid').datagrid({
@@ -518,6 +547,7 @@ $am=new AuthManager("Chrono");
         addTooltip($('#remote-livestream-onBtn').linkbutton(),'<?php _e("Turn On-Screen-Display overlay ON"); ?>');
         addTooltip($('#remote-videowall-msgBtn').linkbutton(),'<?php _e("Show text message on selected screen with specified duration"); ?>');
         addTooltip($('#remote-videowall-sendBtn').linkbutton(),'<?php _e("Switch selected scoreboard displays to choosen ring/view"); ?>');
+        addTooltip($('#remote-internet-msgBtn').linkbutton(),'<?php _e("Send text message to connected internet clients"); ?>');
         addTooltip($('#remote-reloadBtn').linkbutton(),'<?php _e("Reload and update active client lists"); ?>');
         addTooltip($('#remote-okBtn').linkbutton(),'<?php _e("End video display remote control session. Close window"); ?>');
     </script>

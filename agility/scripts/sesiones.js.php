@@ -300,11 +300,36 @@ function remoteSendButtonEvent(source,keyevent) {
 }
 
 function remoteSendMessageEvent(source) {
-    var t=$('#remote-videowall-msgtimeout').slider('getValue');
-    var m=$('#remote-videowall-msg').textbox('getValue');
+    var t=$(source+'-msgtimeout').slider('getValue');
+    var m=$(source+'-msg').textbox('getValue');
     var data = {
         Oper: EVTCMD_MESSAGE,
         Value: ''+t+':'+m
     }
     return remote_handleEvents(source, data);
+}
+
+function remoteSendInternetNotification(source) {
+    // en el acceso por internet no hay sesiones abiertas, luego no tiene sentido
+    // especificar destino. Por consiguiente, lo que haremos sera mandar un evento
+    // de tipo CMD_MESSAGE a la sesion 1 de nombre "Internet"
+    var t=$(source+'-msgtimeout').slider('getValue');
+    var m=$(source+'-msg').textbox('getValue');
+    var evtdata = {
+        Oper: EVTCMD_MESSAGE,
+        Value: ''+t+':'+m,
+        Session: 1,
+        Name: 'Internet',
+        Prueba: 0,
+        Jornada: 0,
+        Manga: 0,
+        Tanda: 0
+    }
+    // send event
+    // every 30 seconds internet clients request for new cmd_events addressed to "Internet" and display them
+    // a bit of work is needed in order to avoid receiving tons of (outdated) message data
+    //
+    // also: notice that internet server does not use event messaging system (unpractical with thousands of client
+    // connections), just poll event database table
+    remote_putEvent(evtdata);
 }
