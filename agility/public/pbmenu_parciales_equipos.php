@@ -78,7 +78,7 @@ $('#pb_parciales-panel').panel({
 function pbmenu_updateParcialesEquipos() {
     // do nothing if asked to stop
     var rtime=parseInt(ac_config.web_refreshtime);
-    if ( (rtime===0) || (workingData.timeout===null) ) return;
+    if ( (rtime===0) || (pb_config.Timeout===null) ) return;
 
     // if no expanded rows, refresh screen
     var options=$('#parciales_equipos-datagrid').datagrid('options');
@@ -88,7 +88,7 @@ function pbmenu_updateParcialesEquipos() {
     }
     pb_lookForMessages();
     // re-ttrigger timeout
-    workingData.timeout=setTimeout(pbmenu_updateParcialesEquipos,1000*rtime);
+    pb_config.Timeout=setTimeout(pbmenu_updateParcialesEquipos,1000*rtime);
 }
 
 // update round name in header
@@ -99,6 +99,6 @@ setTimeout( function(){
     pb_setFooterInfo();
     $('#enumerateParciales').text(workingData.datosManga.Nombre);
 }, 0);
-if (workingData.timeout==="readyToRun") pbmenu_updateParcialesEquipos();
+if (pb_config.Timeout==="readyToRun") pbmenu_updateParcialesEquipos();
     
 </script>

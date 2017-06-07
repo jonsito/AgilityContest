@@ -72,10 +72,14 @@ if (!$am->allowed(ENABLE_PUBLIC)) {
 <script type="text/javascript" charset="utf-8">
 
 /* make sure configuration is loaded from server before onLoad() event */
+
+var pb_config = {
+    'Timeout':null,
+    'LastEvent':0
+};
 loadConfiguration();
 getLicenseInfo();
 getFederationInfo();
-workingData.timeout=null;
 
 /* not really needed for public access, but stay here for compatibility */
 function initialize() {

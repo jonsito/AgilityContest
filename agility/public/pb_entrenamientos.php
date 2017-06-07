@@ -83,9 +83,9 @@ if (rtime!==0) {
 	function update() {
 		pb_updateEntrenamientos();
 		pb_lookForMessages();
-		workingData.timeout= setTimeout(update,1000*rtime);
+		pb_config.Timeout= setTimeout(update,1000*rtime);
 	}
-	if (workingData.timeout!==null) clearTimeout(workingData.timeout);
+	if (pb_config.Timeout!==null) clearTimeout(pb_config.Timeout);
 	update();
 }
 

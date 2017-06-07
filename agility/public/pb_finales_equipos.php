@@ -141,10 +141,10 @@ function pb_updateFinalesEquipos() {
         updateFinales(0);
     }
     pb_lookForMessages();
-    if (rtime!=0) workingData.timeout=setTimeout(pb_updateFinalesEquipos,1000*rtime);
+    if (rtime!=0) pb_config.Timeout=setTimeout(pb_updateFinalesEquipos,1000*rtime);
 }
 
-if (workingData.timeout!==null) clearTimeout(workingData.timeout);
+if (pb_config.Timeout!==null) clearTimeout(pb_config.Timeout);
 pb_updateFinalesEquipos();
 
 </script>

@@ -76,12 +76,12 @@ pbdg.datagrid( {
 
 function pbmenu_handleTrainingRefresh() {
 	var rtime=parseInt(ac_config.web_refreshtime);
-	if ((rtime!==0) && (workingData.timeout!==null)) return;
+	if ((rtime!==0) && (pb_config.Timeout!==null)) return;
 	pb_updateEntrenamientos();
 	pb_lookForMessages();
-	workingData.timeout=setTimeout(pbmenu_handleTrainingRefresh,1000*rtime);
+	pb_config.Timeout=setTimeout(pbmenu_handleTrainingRefresh,1000*rtime);
 }
 pb_setTrainingLayout(pbdg);
-if (workingData.timeout==="readyToRun")  pbmenu_handleTrainingRefresh();
+if (pb_config.Timeout==="readyToRun")  pbmenu_handleTrainingRefresh();
 
 </script>

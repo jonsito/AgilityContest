@@ -150,10 +150,10 @@ function pb_updateFinalesIndividual() {
     var rtime=parseInt(ac_config.web_refreshtime);
     updateFinales(0);
     pb_lookForMessages();
-    if (rtime!==0) workingData.timeout=setTimeout(pb_updateFinalesIndividual,1000*rtime);
+    if (rtime!==0) pb_config.Timeout=setTimeout(pb_updateFinalesIndividual,1000*rtime);
 }
 
-if (workingData.timeout!==null) clearTimeout(workingData.timeout);
+if (pb_config.Timeout!==null) clearTimeout(pb_config.Timeout);
 vwcf_configureScreenLayout(null); // dirty, but works: remove license, hanndle club/country and so
 pb_updateFinalesIndividual();
 

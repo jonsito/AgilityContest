@@ -87,12 +87,12 @@ $('#ordensalida-datagrid').datagrid({
 function pbmenu_ordenSalida_timeoutHandler() {
     // check for request to stop
     var rtime=parseInt(ac_config.web_refreshtime);
-    if ((rtime===0) || (workingData.timeout===null)) return;
+    if ((rtime===0) || (pb_config.Timeout===null)) return;
     // refresh data
     pb_updateOrdenSalida2(workingData.tanda);
     pb_lookForMessages();
     // re-trigger event
-    workingData.timeout=setTimeout(pbmenu_ordenSalida_timeoutHandler,1000*rtime);
+    pb_config.Timeout=setTimeout(pbmenu_ordenSalida_timeoutHandler,1000*rtime);
 }
 // update header title
 setTimeout( function(){
@@ -101,6 +101,6 @@ setTimeout( function(){
     $('#pb_enumerateMangas').text(workingData.nombreTanda);
 },0);
 // and fire up refresh
-if (workingData.timeout==="readyToRun")  pbmenu_ordenSalida_timeoutHandler();
+if (pb_config.Timeout==="readyToRun")  pbmenu_ordenSalida_timeoutHandler();
 
 </script>

@@ -89,10 +89,10 @@ $('#finales_individual-datagrid').datagrid({
 // fire autorefresh if configured
 function pbmenu_updateFinalesIndividual() {
     var rtime=parseInt(ac_config.web_refreshtime);
-    if ( (rtime===0) || (workingData.timeout===null) ) return;
+    if ( (rtime===0) || (pb_config.Timeout===null) ) return;
     updateFinales(0,workingData.datosRonda);
     pb_lookForMessages();
-    workingData.timeout=setTimeout(pbmenu_updateFinalesIndividual,1000*rtime);
+    pb_config.Timeout=setTimeout(pbmenu_updateFinalesIndividual,1000*rtime);
 }
 // dirty, but works: remove license, hanndle club/country and so
 vwcf_configureScreenLayout(null);
@@ -105,6 +105,6 @@ setTimeout(function(){
     $('#enumerateFinales').text(workingData.datosRonda.Nombre);
 },0);
 // and fire timeout if enabled
-if (workingData.timeout==="readyToRun")  pbmenu_updateFinalesIndividual();
+if (pb_config.Timeout==="readyToRun")  pbmenu_updateFinalesIndividual();
 
 </script>

@@ -77,7 +77,7 @@ $('#pb_finales-panel').panel({
 function pbmenu_updateFinalesEquipos() {
     // stop refresh is request to do so
     var rtime=parseInt(ac_config.web_refreshtime);
-    if ((rtime===0) || (workingData.timeout===null) ) return;
+    if ((rtime===0) || (pb_config.Timeout===null) ) return;
     // if no expanded rows, refresh screen
     var options= $('#finales_equipos-datagrid').datagrid('options');
     if ( options.expandCount <= 0 ){
@@ -86,7 +86,7 @@ function pbmenu_updateFinalesEquipos() {
     }
     pb_lookForMessages();
     // retrigger refresh
-    workingData.timeout=setTimeout(pbmenu_updateFinalesEquipos,1000*rtime);
+    pb_config.Timeout=setTimeout(pbmenu_updateFinalesEquipos,1000*rtime);
 }
 
 setTimeout(function(){
@@ -96,6 +96,6 @@ setTimeout(function(){
     pb_setFooterInfo();
     $('#enumerateFinales').text(workingData.datosRonda.Nombre);
 },0);
-if (workingData.timeout==="readyToRun") pbmenu_updateFinalesEquipos();
+if (pb_config.Timeout==="readyToRun") pbmenu_updateFinalesEquipos();
 
 </script>

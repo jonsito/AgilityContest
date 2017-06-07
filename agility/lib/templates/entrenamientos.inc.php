@@ -53,7 +53,7 @@ $config =Config::getInstance();
         onLoadSuccess: function(data) {
             if (data['total']!=0) return;
             $.messager.alert("No data",'<?php _e("This contest has no training session defined");?>','info');
-            workingData.timeout=null; // disable auto-refresh as no sense
+            pb_config.Timeout=null; // disable auto-refresh as no sense
         }
         // other parameters will be initializated later
     });

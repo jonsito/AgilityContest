@@ -150,9 +150,9 @@ function pb_updateParcialesIndividual() {
 	var rtime=parseInt(ac_config.web_refreshtime);
 	updateParciales(/* empty to retrieve data from combogrid */);
 	pb_lookForMessages();
-	if (rtime!==0) workingData.timeout=setTimeout(pb_updateParcialesIndividual,1000*rtime);
+	if (rtime!==0) pb_config.Timeout=setTimeout(pb_updateParcialesIndividual,1000*rtime);
 }
-if (workingData.timeout!==null) clearTimeout(workingData.timeout);
+if (pb_config.Timeout!==null) clearTimeout(pb_config.Timeout);
 vwcp_configureScreenLayout(null); // dirty, but works: remove license, hanndle club/country and so
 pb_updateParcialesIndividual();
 

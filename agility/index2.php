@@ -83,10 +83,13 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
     <script type="text/javascript" charset="utf-8">
 
         /* make sure configuration is loaded from server before onLoad() event */
+        var pb_config = {
+            'Timeout':null,
+            'LastEvent':0
+        };
         loadConfiguration();
         getLicenseInfo();
         getFederationInfo();
-        workingData.timeout=null;
 
         /* not really needed for public access, but stay here for compatibility */
         function initialize() {
@@ -109,7 +112,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
          * @param {boolean} flag ask for closing also left banner
          */
         function pbmenu_collapseMenu(flag) {
-            workingData.timeout="readyToRun";
+            pb_config.Timeout="readyToRun";
             var p=$('#pb_layout');
             if (flag) {
                 p.layout('panel','west').panel('options').width='1%';
@@ -134,9 +137,9 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             p.layout('panel','east').panel('options').width='60%';
             p.layout('expand','east');
             $('#pb_back-link').css('display','none');
-            if (workingData.timeout !== null ) {
-                clearTimeout(workingData.timeoout);
-                workingData.timeout=null;
+            if (pb_config.Timeout !== null ) {
+                clearTimeout(pb_config.Timeout);
+                pb_config.Timeout=null;
             }
         }
 

@@ -138,10 +138,14 @@ $poster="/agility/images/agilityawc2016.png";
     <script type="text/javascript" charset="utf-8">
 
         /* make sure configuration is loaded from server before onLoad() event */
+        var pb_config = {
+            'Timeout':null,
+            'LastEvent':0
+        };
         loadConfiguration();
         getLicenseInfo();
         getFederationInfo(); // calls in turn initWorkingData()
-        workingData.timeout=null;
+
         workingData.requestedJornada='<?php echo $requestedJornada;?>';
         workingData.requestedCategoria='<?php echo $requestedCategoria;?>';
         workingData.requestedManga='<?php echo $requestedManga;?>';
@@ -168,9 +172,9 @@ $poster="/agility/images/agilityawc2016.png";
          * @param {boolean} flag unused, just for compatibility
          */
         function pbmenu_expandMenu(flag) {
-            if (workingData.timeout !== null ) {
-                clearTimeout(workingData.timeoout);
-                workingData.timeout=null;
+            if (pb_config.Timeout !== null ) {
+                clearTimeout(pb_config.Timeout);
+                pb_config.Timeout=null;
             }
             // jump to back page if available, else to generic one
             document.location.href=
@@ -193,14 +197,14 @@ $poster="/agility/images/agilityawc2016.png";
             var page="/agility/public/pbmenu_inscripciones.php";
             if (isJornadaEqMejores() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
             if (isJornadaEqConjunta() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
-            workingData.timeout="readyToRun";
+            pb_config.Timeout="readyToRun";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
 
         function pbmenu_loadTrainingSession(prueba) {
             var p=<?php echo json_encode($ptree['Prueba']); ?>;
             setPrueba(p);
-            workingData.timeout="readyToRun";
+            pb_config.Timeout="readyToRun";
             $('#public-contenido').panel('refresh',"/agility/public/pbmenu_entrenamientos.php");
         }
 
@@ -213,7 +217,7 @@ $poster="/agility/images/agilityawc2016.png";
                 setJornada(j[n]);
                 break;
             }
-            workingData.timeout="readyToRun";
+            pb_config.Timeout="readyToRun";
             $('#public-contenido').panel('refresh',"/agility/public/pbmenu_programa.php");
         }
 
@@ -226,7 +230,7 @@ $poster="/agility/images/agilityawc2016.png";
                 setTanda(tandas[n]);
                 break;
             }
-            workingData.timeout="readyToRun";
+            pb_config.Timeout="readyToRun";
             $('#public-contenido').panel('refresh',"/agility/public/pbmenu_ordensalida.php");
         }
 
@@ -240,7 +244,7 @@ $poster="/agility/images/agilityawc2016.png";
                 setManga(mangas[n]);
                 break;
             }
-            workingData.timeout="readyToRun";
+            pb_config.Timeout="readyToRun";
             var page="/agility/public/pbmenu_parciales.php";
             if (isJornadaEquipos(null) ) page="/agility/public/pbmenu_parciales_equipos.php";
             $('#public-contenido').panel('refresh',page);
@@ -251,7 +255,7 @@ $poster="/agility/images/agilityawc2016.png";
             workingData.datosRonda=workingData.datosJornada.Series[serie];
             var page="/agility/public/pbmenu_finales.php";
             if (isJornadaEquipos(null) ) page="/agility/public/pbmenu_finales_equipos.php";
-            workingData.timeout="readyToRun";
+            pb_config.Timeout="readyToRun";
             $('#public-contenido').panel('refresh',page);
         }
 
