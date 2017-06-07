@@ -137,7 +137,7 @@ $('#parciales_individual-datagrid').datagrid({
         return true;
     },
 	onLoadSuccess: function(data) {
-		if (data.total==0) return; // no data yet
+		if (parseInt(data.total)===0) return; // no data yet
 		$(this).datagrid('autoSizeColumn','Nombre');
 		$(this).datagrid('fitColumns'); // expand to max width
 		// $(this).datagrid('scrollTo',0); // do not autoscroll: let the user decide
@@ -149,7 +149,8 @@ $('#parciales_individual-datagrid').datagrid({
 function pb_updateParcialesIndividual() {
 	var rtime=parseInt(ac_config.web_refreshtime);
 	updateParciales(/* empty to retrieve data from combogrid */);
-	if (rtime!=0) workingData.timeout=setTimeout(pb_updateParcialesIndividual,1000*rtime);
+	pb_lookForMessages();
+	if (rtime!==0) workingData.timeout=setTimeout(pb_updateParcialesIndividual,1000*rtime);
 }
 if (workingData.timeout!==null) clearTimeout(workingData.timeout);
 vwcp_configureScreenLayout(null); // dirty, but works: remove license, hanndle club/country and so

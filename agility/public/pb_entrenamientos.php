@@ -79,9 +79,10 @@ pb_setTrainingLayout(pbdg);
 
 // fire autorefresh if configured
 var rtime=parseInt(ac_config.web_refreshtime);
-if (rtime!=0) {
+if (rtime!==0) {
 	function update() {
 		pb_updateEntrenamientos();
+		pb_lookForMessages();
 		workingData.timeout= setTimeout(update,1000*rtime);
 	}
 	if (workingData.timeout!==null) clearTimeout(workingData.timeout);

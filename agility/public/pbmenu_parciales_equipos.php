@@ -78,7 +78,7 @@ $('#pb_parciales-panel').panel({
 function pbmenu_updateParcialesEquipos() {
     // do nothing if asked to stop
     var rtime=parseInt(ac_config.web_refreshtime);
-    if ( (rtime==0) || (workingData.timeout==null) ) return;
+    if ( (rtime===0) || (workingData.timeout===null) ) return;
 
     // if no expanded rows, refresh screen
     var options=$('#parciales_equipos-datagrid').datagrid('options');
@@ -86,6 +86,7 @@ function pbmenu_updateParcialesEquipos() {
         options.expandCount=0;
         updateParciales(workingData.datosManga.Mode,workingData.datosManga);
     }
+    pb_lookForMessages();
     // re-ttrigger timeout
     workingData.timeout=setTimeout(pbmenu_updateParcialesEquipos,1000*rtime);
 }

@@ -140,6 +140,7 @@ function pb_updateFinalesEquipos() {
 		options.expandCount=0;
         updateFinales(0);
     }
+    pb_lookForMessages();
     if (rtime!=0) workingData.timeout=setTimeout(pb_updateFinalesEquipos,1000*rtime);
 }
 

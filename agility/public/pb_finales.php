@@ -149,7 +149,8 @@ $('#finales_individual-datagrid').datagrid({
 function pb_updateFinalesIndividual() {
     var rtime=parseInt(ac_config.web_refreshtime);
     updateFinales(0);
-    if (rtime!=0) workingData.timeout=setTimeout(pb_updateFinalesIndividual,1000*rtime);
+    pb_lookForMessages();
+    if (rtime!==0) workingData.timeout=setTimeout(pb_updateFinalesIndividual,1000*rtime);
 }
 
 if (workingData.timeout!==null) clearTimeout(workingData.timeout);

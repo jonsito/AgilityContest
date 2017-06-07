@@ -146,7 +146,8 @@ function pb_updateParcialesEquipos() {
 		options.expandCount=0;
 		updateParciales(/* empty to retrieve data from combogrid */);
 	}
-	if (rtime!=0) workingData.timeout=setTimeout(pb_updateParcialesEquipos,1000*rtime);
+	pb_lookForMessages();
+	if (rtime!==0) workingData.timeout=setTimeout(pb_updateParcialesEquipos,1000*rtime);
 }
 
 if (workingData.timeout!==null) clearTimeout(workingData.timeout);

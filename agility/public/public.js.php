@@ -145,3 +145,10 @@ function pb_setTrainingLayout(dg) {
     dg.datagrid((cats==3)?'hideColumn':'showColumn','Value4');
     dg.datagrid('fitColumns');
 }
+
+/**
+ * Call server for events
+ */
+function pb_lookForMessages() {
+    // TO BE WRITTEN
+}

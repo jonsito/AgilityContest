@@ -87,9 +87,10 @@ $('#ordensalida-datagrid').datagrid({
 function pbmenu_ordenSalida_timeoutHandler() {
     // check for request to stop
     var rtime=parseInt(ac_config.web_refreshtime);
-    if ((rtime==0) || (workingData.timeout==null)) return;
+    if ((rtime===0) || (workingData.timeout===null)) return;
     // refresh data
     pb_updateOrdenSalida2(workingData.tanda);
+    pb_lookForMessages();
     // re-trigger event
     workingData.timeout=setTimeout(pbmenu_ordenSalida_timeoutHandler,1000*rtime);
 }

@@ -77,13 +77,14 @@ $('#pb_finales-panel').panel({
 function pbmenu_updateFinalesEquipos() {
     // stop refresh is request to do so
     var rtime=parseInt(ac_config.web_refreshtime);
-    if ((rtime==0) || (workingData.timeout==null) ) return;
+    if ((rtime===0) || (workingData.timeout===null) ) return;
     // if no expanded rows, refresh screen
     var options= $('#finales_equipos-datagrid').datagrid('options');
     if ( options.expandCount <= 0 ){
         options.expandCount=0;
         updateFinales(0,workingData.datosRonda);
     }
+    pb_lookForMessages();
     // retrigger refresh
     workingData.timeout=setTimeout(pbmenu_updateFinalesEquipos,1000*rtime);
 }

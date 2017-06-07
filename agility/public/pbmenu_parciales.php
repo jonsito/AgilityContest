@@ -91,9 +91,10 @@ $('#parciales_individual-datagrid').datagrid({
 function pbmenu_updateParcialesIndividual() {
     // if asked to stop grant request
     var rtime=parseInt(ac_config.web_refreshtime);
-    if ((rtime==0) || (workingData.timeout==null)) return;
+    if ((rtime===0) || (workingData.timeout===null)) return;
     // refresh data
     updateParciales(workingData.datosManga.Mode,workingData.datosManga);
+    pb_lookForMessages();
     // re-trigger timeout
     workingData.timeout=setTimeout(pbmenu_updateParcialesIndividual,1000*rtime);
 }
