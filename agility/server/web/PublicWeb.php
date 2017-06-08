@@ -122,7 +122,7 @@ class PublicWeb
                 $res['rows'][]= array (
                     'LastEvent'=>"{$event['ID']}",
                     'Message' => $evtdata->Value,
-                    'TimeStamp' => date('Y/m/d G:i:s')
+                    'TimeStamp' => $event['Timestamp']
                 );
             }
         }
