@@ -139,10 +139,10 @@ function pb_updatePrograma() {
 function pb_setTrainingLayout(dg) {
     $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
     // fix country/club and reload datagrid
-    dg.datagrid('setFieldTitle',{'field':'NombreClub','title':clubOrCountry()});
+    dg.datagrid('setFieldTitle', {'field': 'NombreClub', 'title': clubOrCountry()});
     // en funcion de la federacion se ajusta el numero de categorias
-    var cats=howManyHeights(workingData.federation);
-    dg.datagrid((cats==3)?'hideColumn':'showColumn','Value4');
+    var cats = howManyHeights(workingData.federation);
+    dg.datagrid((cats == 3) ? 'hideColumn' : 'showColumn', 'Value4');
     dg.datagrid('fitColumns');
 }
 
@@ -153,8 +153,9 @@ function pb_setTrainingLayout(dg) {
  * So need to last received event id to query news
  * At server side, receiving as last event "0" means return a "hello world" message with last event
  * for requested contest ( to avoid receiving all the contest event history )
+ * @param {function} callback if defined, invoke instead of displaying mesage at bottom right
  */
-function pb_lookForMessages() {
+function pb_lookForMessages(callback) {
     if (workingData.Prueba==0) return; // no choosen contest, so do not enable reception
     // call to server for new events
     $.ajax( {
@@ -178,24 +179,41 @@ function pb_lookForMessages() {
                 // extract message 'n'
                 var item=data.rows[n];
                 var a=item.Message.split(':');
+                // store lastEvent and save msg into message buffer
+                pb_config.ConsoleMessages +=
+                    "<hr/>" + item.TimeStamp + "<br/>"  +item.Message.substr(item.Message.indexOf(':')+1) +"<br/>&nbsp;<br/>";
+                pb_config.LastEvent=item.LastEvent;
+                // decide what to do: show message or call callback
+                if (typeof (callback)!=="undefined") continue;
                 // show in botton rignt corner
                 $.messager.show({
                     width: 300,
                     height: 100,
                     title:  "<?php _e('Message');?>",
-                    msg:a[1],
+                    msg:item.Message.substr(item.Message.indexOf(':')+1),
                     timeout:1000*parseInt(a[0]),
                     showType:'slide'
                 });
-                // store lastEvent and save msg into message buffer
-                var str="</br>" + item.TimeStamp + " "  +a[1];
-                pb_config.consoleMessages += str;
-                pb_config.LastEvent=item.LastEvent;
             }
+            if (typeof (callback)!=="undefined") callback();
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             alert("pb_lookForMessages() error: "+textStatus + " "+ errorThrown );
         }
     });
 
+}
+
+function pbmenu_displayNofifications() {
+    pb_lookForMessages(function(){
+            $.messager.alert({
+                title: "<?php _e('Received messages');?>",
+                icon: null,
+                msg: '<div style="height:325px;overflow:auto">'+pb_config.ConsoleMessages+'</div>',
+                width: 480,
+                // height: 'auto',
+                maxHeight: 425
+            });
+        }
+    );
 }

@@ -86,7 +86,8 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         var pb_config = {
             'Timeout':null,
             'LastEvent':0,
-            'ConsoleMessages':''
+            'ConsoleMessages':'',
+            'SelectedDorsal': 0
         };
         loadConfiguration();
         getLicenseInfo();
@@ -291,11 +292,19 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                 foreach ($jornada['Tandas'] as $tanda) {
                     if ( ($tanda['Manga']==$mng) && ($tanda['ID']==$t) ) {
                         // ok. ahora hay que adivinar el mode.
-                        // como solucion de emergencia, y dado que estamos en el awfci el modo solo puede ser 0,1 o 2
+                        // PENDING: not sure about multicat modes. need to revise
                         $mode=-1;
-                        if ($tanda['Categoria']==="L") $mode=0;
-                        if ($tanda['Categoria']==="M") $mode=1;
-                        if ($tanda['Categoria']==="S") $mode=2;
+                        switch($tanda['Categoria']){
+                            case 'L':   $mode=0; break;
+                            case 'M':   $mode=1; break;
+                            case 'S':   $mode=2; break;
+                            case 'MS':  $mode=3; break;
+                            case 'LMS': $mode=4; break;
+                            case 'T':   $mode=5; break;
+                            case 'LM':  $mode=6; break;
+                            case 'ST':  $mode=7; break;
+                            case 'LMST':$mode=8; break;
+                        }
                         echon('<dt>Live session now: <a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$mode.');">'.$tanda['Nombre'].'</a></dt><dd>&nbsp;</dd>');
                     }
                 }
@@ -358,6 +367,22 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             }
             echon('</dl>');
             ?>
+        <h2> <?php _e("Options and Messages");?></h2>
+        <dl class="menu_enum">
+            <dd>
+                <ul style="list-style-type:none">
+                    <li>
+                        <!-- button to display message dialog -->
+                        <a class="easyui-linkbutton" href="javascript:pbmenu_displayNofifications();"><?php _e("Web notifications");?></a>
+                    </li>
+                    <li>
+                        <!-- textbox to enter dorsal to be highligthed on listings -->
+                        <label for="pbmenu-Dorsal"><?php _e("Dorsal to track info"); ?>:</label>
+                        <input id="pbmenu-Dorsal" name="Dorsal" type="text"  style="width:50px;" value="0"/>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
     </div>
 
     <div id="data_panel" data-options="region:'east',split:true,collapsed:true" style="width:20%">
@@ -379,6 +404,17 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         onBeforeCollapse: function() { 
             ac_config.allow_scroll=true; 
             return true; 
+        }
+    });
+
+    $('#pbmenu-Dorsal').numberbox({
+        required: true,
+        min: 0,
+        max: 9999,
+        precision:0,
+        onChange: function(newval,oldval) {
+            console.log(newval);
+            pb_config.SelectedDorsal=parseInt(newval);
         }
     });
 

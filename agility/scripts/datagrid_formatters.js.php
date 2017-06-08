@@ -95,6 +95,8 @@ function pbRowStyler(idx,row) {
     var res="background-color:";
     var c1='<?php echo $config->getEnv('pb_rowcolor1'); ?>';
     var c2='<?php echo $config->getEnv('pb_rowcolor2'); ?>';
+    var c3='<?php echo $config->getEnv('pb_rowcolor5'); ?>';
+    if (row.Dorsal==pb_config.SelectedDorsal) return res+c3+";";
     if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
@@ -108,6 +110,8 @@ function pbRowStyler2(idx,row) {
     var res="background-color:";
     var c1='<?php echo $config->getEnv('pb_rowcolor3'); ?>';
     var c2='<?php echo $config->getEnv('pb_rowcolor4'); ?>';
+    var c3='<?php echo $config->getEnv('pb_rowcolor5'); ?>';
+    if (row.Dorsal==pb_config.SelectedDorsal) return res+c3+";";
     if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 

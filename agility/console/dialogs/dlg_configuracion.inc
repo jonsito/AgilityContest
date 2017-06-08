@@ -371,6 +371,9 @@ $config =Config::getInstance();
 			<input id="pb_rowcolor3" name="pb_rowcolor3" type="color" value="#e0e0e0"/>
 			<label class="space" for="pb_rowcolor4"><?php _e('Color for odd secondary table rows'); ?></label>
 			<input id="pb_rowcolor4" name="pb_rowcolor4" type="color" value="#c0c0c0"/><br />
+
+            <label for="pb_rowcolor5"><?php _e('Color for dog with selected dorsal'); ?></label>
+            <input id="pb_rowcolor5" name="pb_rowcolor5" type="color" value="#e0d0e0"/><br />
 		</div>
 
 		<div title="<?php _e('E-mail'); ?>" style="padding:10px">

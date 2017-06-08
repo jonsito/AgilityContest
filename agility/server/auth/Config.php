@@ -142,6 +142,7 @@ define('AC_PB_ROWCOLOR1','#ffffff'); // color de filas tablas principales
 define('AC_PB_ROWCOLOR2','#e0ebff');
 define('AC_PB_ROWCOLOR3','#ffffcf'); // color de filas tablas secundarias
 define('AC_PB_ROWCOLOR4','#e0ebcf');
+define('AC_PB_ROWCOLOR5','#e0d0e0'); // color de la fila del perro cuyo dorsal esta seleccionado
 
 /** personalizacion del crono electronico */
 define('AC_CRONO_RESYNC',"0");		// si crono manual continua (1) o restart (0) al paso por crono electronico
@@ -317,7 +318,8 @@ Class Config {
 		'pb_rowcolor1'		=> array(	'c',	false,	AC_PB_ROWCOLOR1),
 		'pb_rowcolor2'		=> array(	'c',	false,	AC_PB_ROWCOLOR2),
 		'pb_rowcolor3'		=> array(	'c',	false,	AC_PB_ROWCOLOR3),
-		'pb_rowcolor4'		=> array(	'c',	false,	AC_PB_ROWCOLOR4),
+        'pb_rowcolor4'		=> array(	'c',	false,	AC_PB_ROWCOLOR4),
+        'pb_rowcolor5'		=> array(	'c',	false,	AC_PB_ROWCOLOR5),
 		// personalizacion del crono
 		'crono_resync'		=> array(	'b',	false,	AC_CRONO_RESYNC),
 		'crono_miliseconds'	=> array(	'b',	false,	AC_CRONO_MILISECONDS),

@@ -74,9 +74,10 @@ if (!$am->allowed(ENABLE_PUBLIC)) {
 /* make sure configuration is loaded from server before onLoad() event */
 
 var pb_config = {
-    'Timeout':null,
-    'LastEvent':0,
-    'ConsoleMessages':''
+    'Timeout': null,
+    'LastEvent': 0,
+    'ConsoleMessages': '',
+    'SelectedDorsal': 0
 };
 loadConfiguration();
 getLicenseInfo();
