@@ -104,9 +104,9 @@ class PublicWeb
             "ID ASC"
         );
         $res=array('total'=>0,'rows'=>array());
-        if ($last==0) { // on first call create a dummy hello world message and skip every other
-            // evaluate last Event ID
-            $lastEvent=($data['total']===0)?1:0;$data['rows'][$data['total']-1]['ID'];
+        if ($last==0) {
+            // on first call create a dummy hello world message and skip every other messages,
+            $lastEvent=($last===0)?1:$data['rows'][$data['total']-1]['ID'];
             $res['total']=1;
             $res['rows'][]=array(
                 'LastEvent'=>"{$lastEvent}",
