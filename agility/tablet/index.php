@@ -342,7 +342,7 @@ function tablet_acceptSelectJornada() {
 	var j=$('#seltablet-Jornada').combogrid('grid').datagrid('getSelected');
 	var user=$('#seltablet-Username').val();
 	var pass=$('#seltablet-Password').val();
-	if ( (p==null) || (j==null) ) {
+	if ( (p===null) || (j===null) ) {
 		// indica error
 		$.messager.alert("Error","<?php _e('You must'); ?><br />- <?php _e('Select session/ring for videowall and chrono'); ?><br />- <?php _e('Select contest/journey to play with'); ?>","error");
 		return;
@@ -364,7 +364,6 @@ function tablet_acceptSelectJornada() {
 		'Tanda'   : 0,
 		'Perro'   : 0
 	};
-	
 	$.ajax({
 		type: 'POST',
   		url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
@@ -376,6 +375,8 @@ function tablet_acceptSelectJornada() {
         		$.messager.alert("Error",data.errorMsg,"error"); 
         		initAuthInfo(); // initialize to null
         	} else {
+                // close dialog
+                $('#seltablet-dialog').dialog('close');
         		$.messager.alert(
         	    	"<?php _e('User');?>: "+data.Login,
         	    	'<?php _e("Session successfully started");?>',
@@ -390,18 +391,17 @@ function tablet_acceptSelectJornada() {
                         workingData.datosJornada=j;
                         // jornadas "normales", equipos3 e Individual-Open comparten el mismo fichero
         	    		var page="/agility/tablet/tablet_main.php";
-        	    		if (workingData.datosJornada.Equipos4==1) {
+        	    		if (parseInt(workingData.datosJornada.Equipos4)>1) {
         	    			page="/agility/tablet/tablet_main.php"; // parche temporal
         	    		}
-        	    		if (workingData.datosJornada.KO==1) {
+        	    		if (parseInt(workingData.datosJornada.KO)===1) {
         	    			page="/agility/tablet/tablet_main_ko.php";
         	    		}
-        	    		$('#seltablet-dialog').dialog('close');
-        	    		// and load page
+                        // load requested page
         	    		$('#tablet_contenido').load(	
         	    				page,
         	    				function(response,status,xhr){
-        	    					if (status=='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
+        	    					if (status==='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
         	        	    		// start event manager
         	        	    		startEventMgr();
 									setDataEntryEnabled(false);
@@ -414,7 +414,9 @@ function tablet_acceptSelectJornada() {
         	    ); // alert calback
         	} // if no ajax error
     	}, // success function
-   		error: function() { alert("error");	}
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            alert("tablet_acceptSelectJornada() error: "+textStatus + " "+ errorThrown );
+        }
 	}); // ajax call
 }
 
