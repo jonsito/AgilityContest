@@ -179,18 +179,26 @@ function pb_lookForMessages(callback) {
                 // extract message 'n'
                 var item=data.rows[n];
                 var a=item.Message.split(':');
+                var msg=item.Message.substr(item.Message.indexOf(':')+1)
                 // store lastEvent and save msg into message buffer
                 pb_config.ConsoleMessages +=
                     "<hr/>" + item.TimeStamp + "<br/>"  +item.Message.substr(item.Message.indexOf(':')+1) +"<br/>&nbsp;<br/>";
                 pb_config.LastEvent=item.LastEvent;
                 // decide what to do: show message or call callback
                 if (typeof (callback)!=="undefined") continue;
-                // show in botton rignt corner
+
+                // if system notifications are enabled, use it
+                if (pb_config.Notifications===true) {
+                    new Notification(msg);
+                    return;
+                }
+
+                // otherwise show message in botton rignt corner
                 $.messager.show({
                     width: 300,
                     height: 100,
                     title:  "<?php _e('Message');?>",
-                    msg:item.Message.substr(item.Message.indexOf(':')+1),
+                    msg: msg,
                     timeout:1000*parseInt(a[0]),
                     showType:'slide'
                 });
@@ -216,4 +224,37 @@ function pbmenu_displayNofifications() {
             });
         }
     );
+}
+
+function pbmenu_enableSystemNotifications() {
+        // Let's check if the browser supports notifications
+        if (!("Notification" in window)) {
+            $.messger.alert(
+                '<?php _e("Not available");?>',
+                '<?php _e("This browser does not support desktop notification");?>',
+                'error');
+            pb_config.Notifications = false;
+            return;
+        }
+
+        // Let's check whether notification permissions have already been granted
+        else if (Notification.permission === "granted") {
+            // If it's okay let's create a notification
+            pb_config.Notifications = true;
+            new Notification("<?php _e('System Notifications already enabled');?>");
+        }
+
+        // Otherwise, we need to ask the user for permission
+        else if (Notification.permission !== "denied") {
+            Notification.requestPermission(function (permission) {
+                // If the user accepts, let's create a notification
+                if (permission === "granted") {
+                    pb_config.Notifications = true;
+                    new Notification("<?php _e('System Notifications enabled');?>");
+                }
+            });
+        }
+
+        // At last, if the user has denied notifications, and you
+        // want to be respectful there is no need to bother them any more.
 }

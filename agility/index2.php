@@ -87,7 +87,8 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             'Timeout':null,
             'LastEvent':0,
             'ConsoleMessages':'',
-            'SelectedDorsal': 0
+            'SelectedDorsal': 0,
+            'Notifications': null // null-true-false to use (when available) Notification API
         };
         loadConfiguration();
         getLicenseInfo();
@@ -373,7 +374,12 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                 <ul style="list-style-type:none">
                     <li>
                         <!-- button to display message dialog -->
-                        <a class="easyui-linkbutton" href="javascript:pbmenu_displayNofifications();"><?php _e("Web notifications");?></a>
+                        <?php _e('Display received messages since session start');?>
+                        <a class="easyui-linkbutton" href="javascript:pbmenu_displayNofifications();"><?php _e("Display");?></a>
+                    </li>
+                    <li>
+                        <?php _e('Activate -if available- notifications by system messager');?>
+                        <a class="easyui-linkbutton" href="javascript:pbmenu_enableSystemNotifications();"><?php _e("Activate");?></a>
                     </li>
                     <li>
                         <!-- textbox to enter dorsal to be highligthed on listings -->
