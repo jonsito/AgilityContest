@@ -157,7 +157,6 @@ function pb_setTrainingLayout(dg) {
  */
 function pb_lookForMessages(callback) {
 
-
     if (workingData.Prueba==0) return; // no choosen contest, so do not enable reception
     // call to server for new events
     $.ajax( {
@@ -173,18 +172,27 @@ function pb_lookForMessages(callback) {
             LastEvent: pb_config.LastEvent
         },
         success: function(data,status,jqxhr) {
+            function isForMe(list) {
+                var l=','+list+',';
+                var me=','+$('#pbmenu-Dorsal').numberbox('getValue')+',';
+                if (l.indexOf(',0,') >=0 ) return true; // 0 means "any"
+                return ( l.indexOf(me) >= 0 );
+            }
+
             if (data.errorMsg) {
                 console.log("Error: "+data.errorMsg);
                 return;
             }
             for (var n=0;n<data.total;n++) {
-                // extract message 'n'
+                // extract message
                 var item=data.rows[n];
+                // dorsal_list:timeout:message
                 var a=item.Message.split(':');
-                var msg=item.Message.substr(item.Message.indexOf(':')+1)
+                var msg=item.Message.substr(item.Message.lastIndexOf(':')+1);
+                if (!isForMe(a[0]) ) continue;
                 // store lastEvent and save msg into message buffer
                 pb_config.ConsoleMessages +=
-                    "<hr/>" + item.TimeStamp + "<br/>"  +item.Message.substr(item.Message.indexOf(':')+1) +"<br/>&nbsp;<br/>";
+                    "<hr/>" + item.TimeStamp + "<br/>"  + msg +"<br/>&nbsp;<br/>";
                 pb_config.LastEvent=item.LastEvent;
 
                 // decide what to do: show message or call callback
@@ -197,7 +205,7 @@ function pb_lookForMessages(callback) {
                     // otherwise show message in botton rignt corner
                     $.messager.show({
                         width: 300, height: 100, title:  "<?php _e('Message');?>",
-                        msg: msg, timeout:1000*parseInt(a[0]), showType:'slide'
+                        msg: msg, timeout:1000*parseInt(a[1]), showType:'slide'
                     });
                 }
             }
@@ -281,5 +289,5 @@ function pbmenu_enableSystemNotifications() {
 
     // fire up timer
     var ntimer=parseInt(ac_config.web_refreshtime);
-    if (ntimer!==0) setTimeout(pbmenu_notificationTimer,1000*ntimer);
+    if (ntimer!==0) setTimeout(pbmenu_notificationTimer,0); // do not wait for timeout
 }

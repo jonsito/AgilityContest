@@ -313,6 +313,7 @@ function remoteSendInternetNotification(source) {
     // en el acceso por internet no hay sesiones abiertas, luego no tiene sentido
     // especificar destino. Por consiguiente, lo que haremos sera mandar un evento
     // de tipo CMD_MESSAGE a la sesion 1 de nombre "Internet" con la prueba seleccionada
+    // indicamos tambien el timeout y la lista de dorsales a notificar (o cero)
     var p=$('#remote-internet-prueba').combogrid('grid').datagrid('getSelected');
     if (p==null) {
         // indica error
@@ -321,9 +322,10 @@ function remoteSendInternetNotification(source) {
     }
     var t=$(source+'-msgtimeout').slider('getValue');
     var m=$(source+'-msg').textbox('getValue');
+    var d=$(source+'-dorsals').textbox('getValue');
     var evtdata = {
         Oper: EVTCMD_MESSAGE,
-        Value: ''+t+':'+m,
+        Value: (d==='')?'0':d+':'+t+':'+m,
         Session: 1,
         Name: 'Internet',
         Prueba: p.ID,

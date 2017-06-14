@@ -110,7 +110,7 @@ class PublicWeb
             $res['total']=1;
             $res['rows'][]=array(
                 'LastEvent'=>"{$lastEvent}",
-                'Message' => "5:"._("Web notification system started"),
+                'Message' => "0:5:"._("Web notification system started"),
                 'TimeStamp' => date('Y/m/d G:i:s')
                 );
         } else {

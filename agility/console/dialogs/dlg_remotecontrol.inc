@@ -229,6 +229,9 @@ $am=new AuthManager("Chrono");
                             <label for="remote-internet-msg" style="display:inline-block;width:100px"><?php _e('Message');?>:</label>
                             <input id="remote-internet-msg" name="remote-internet-msg" value="" style="width:175px">
                             <br/><br/>
+                            <label for="remote-internet-dorsals" style="display:inline-block;width:100px"><?php _e('Dorsals');?>:</label>
+                            <input id="remote-internet-dorsals" name="remote-internet-dorsals" value="" style="width:175px">
+                            <br/><br/>
                             <div style="width:100%;display:inline-block;">
                                 <span style="float:left;width:50%"><?php _e("Duration (secs)");?>:</span>
                                 <span style="float:right;width:40%;padding-right:10px;padding-left:5px;">
@@ -249,7 +252,7 @@ $am=new AuthManager("Chrono");
         </div>
     </div>
 
-    <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+    <!-- BOTONES DE REFRESH/DONE DEL CUADRO DE DIALOGO -->
     <div id="remote-dlg-buttons" style="width:100%;display:inline-block">
         <span style="float:left;">
         <a id="remote-reloadBtn" href="#" class="easyui-linkbutton"
@@ -361,6 +364,9 @@ $am=new AuthManager("Chrono");
         $('#remote-videowall-msg').textbox({
             validType:'lenght[0,25]'
         });
+        $('#remote-videowall-dorsals').textbox({
+            validType:'lenght[0,25]'
+        });
         $('#remote-videowall-msgtimeout').slider({ mode:'h', showTip:true, min:1, max:30, value:5,   step:1 });
 
         $('#remote-internet-prueba').combogrid({
@@ -388,7 +394,11 @@ $am=new AuthManager("Chrono");
         });
 
         $('#remote-internet-msg').textbox({
+            required: true,
             validType:'lenght[0,127]'
+        });
+        $('#remote-internet-dorsals').textbox({
+            validType:'lenght[0,256]'
         });
         $('#remote-internet-msgtimeout').slider({ mode:'h', showTip:true, min:1, max:15, value:5,   step:1 });
 
@@ -577,6 +587,8 @@ $am=new AuthManager("Chrono");
         addTooltip($('#remote-videowall-msgBtn').linkbutton(),'<?php _e("Show text message on selected screen with specified duration"); ?>');
         addTooltip($('#remote-videowall-sendBtn').linkbutton(),'<?php _e("Switch selected scoreboard displays to choosen ring/view"); ?>');
         addTooltip($('#remote-internet-msgBtn').linkbutton(),'<?php _e("Send text message to connected internet clients<br/>listening to selected contest"); ?>');
+        addTooltip($('#remote-internet-dorsals').textbox('textbox'),'<?php _e("Comma separated list of dorsals to send message to (or empty)"); ?>');
         addTooltip($('#remote-reloadBtn').linkbutton(),'<?php _e("Reload and update active client lists"); ?>');
         addTooltip($('#remote-okBtn').linkbutton(),'<?php _e("End video display remote control session. Close window"); ?>');
+
     </script>

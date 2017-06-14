@@ -392,7 +392,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                     </li>
                     <li>
                         <!-- textbox to enter dorsal to be highligthed on listings -->
-                        <label for="pbmenu-Dorsal"><?php _e("Dorsal to track info"); ?>:</label>
+                        <label for="pbmenu-Dorsal"><?php _e("Dorsal to track info "); ?>:</label>
                         <input id="pbmenu-Dorsal" name="Dorsal" type="text"  style="width:50px;" value="0"/>
                     </li>
                 </ul>
@@ -423,16 +423,8 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
         }
     });
 
-    $('#pbmenu-Dorsal').numberbox({
-        required: true,
-        min: 0,
-        max: 9999,
-        precision:0,
-        onChange: function(newval,oldval) {
-            console.log(newval);
-            pb_config.SelectedDorsal=parseInt(newval);
-        }
-    });
+    $('#pbmenu-Dorsal').numberbox({ required: true, min: 0, max: 9999, precision:0 }).numberbox('setValue',0);
+    addTooltip($('#pbmenu-Dorsal').numberbox('textbox'),'<?php _e("Dorsal to track info. Set to zero if no dorsal selected"); ?>');
 
 </script>
 </body>
