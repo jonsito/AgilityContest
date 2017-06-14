@@ -105,26 +105,32 @@ class PublicWeb
         );
         $res=array('total'=>0,'rows'=>array());
         if ($last==0) {
-            // on first call create a dummy hello world message and skip every other messages,
-            $lastEvent=($last===0)?1:$data['rows'][$data['total']-1]['ID'];
+            // first call, no pending events: return dummy created one
             $res['total']=1;
-            $res['rows'][]=array(
-                'LastEvent'=>"{$lastEvent}",
-                'Message' => "0:5:"._("Web notification system started"),
-                'TimeStamp' => date('Y/m/d G:i:s')
+            if ($data['total']==0) {
+                $res['rows'][]=array(
+                    'LastEvent'=>"1",
+                    'Message' => "0:5:"._("Web notification system started"),
+                    'TimeStamp' => date('Y/m/d G:i:s')
                 );
-        } else {
-            foreach ($data['rows'] as $event) {
-                $evtdata=json_decode($event['Data']);
-                if (!isset($evtdata->Name) ) continue;
-                if ($evtdata->Name !=='Internet') continue;
-                $res['total']++;
-                $res['rows'][]= array (
-                    'LastEvent'=>"{$event['ID']}",
-                    'Message' => $evtdata->Value,
-                    'TimeStamp' => $event['Timestamp']
-                );
+                return $res;
             }
+            // arriving here means first call with events pending. Just return last event
+            $data['rows']=array( $data['rows'][$data['total']-1] ); // array with last element
+            $data['total']=1;
+        }
+        $res=array('total'=>0,'rows'=>array());
+        foreach ($data['rows'] as $event) {
+            $this->myLogger->trace("Parsing event: ".$event['Data']);
+            $evtdata=json_decode($event['Data']);
+            if (!isset($evtdata->Name) ) continue;
+            if ($evtdata->Name !=='Internet') continue;
+            $res['total']++;
+            $res['rows'][]= array (
+                'LastEvent'=>"{$event['ID']}",
+                'Message' => $evtdata->Value,
+                'TimeStamp' => $event['Timestamp']
+            );
         }
         return $res;
     }

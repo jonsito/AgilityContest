@@ -200,7 +200,14 @@ function pb_lookForMessages(callback) {
 
                 // if system notifications are enabled, use it
                 if (pb_config.Notifications===true) {
-                    new Notification(msg);
+                    // android chrome needs service workers to do the job
+                    if (navigator.serviceWorker) {
+                        navigator.serviceWorker.ready.then(function(registration) {
+                            registration.showNotification(msg);
+                        });
+                    } else {
+                        new Notification(msg);
+                    }
                 } else {
                     // otherwise show message in botton rignt corner
                     $.messager.show({
@@ -256,6 +263,10 @@ function pbmenu_enableSystemNotifications() {
         pb_config.Notifications=null;
         return;
     }
+
+    if (navigator.serviceWorker) // android chrome requires this
+        navigator.serviceWorker.register('/agility/public/serviceworker.js');
+
     // if browser support notifications use it; else use $.messager.show
     if (!("Notification" in window)) {
         $.messager.show({
@@ -273,14 +284,12 @@ function pbmenu_enableSystemNotifications() {
     else if (Notification.permission === "granted") {
         // If it's okay let's create a notification
         pb_config.Notifications = true;
-        new Notification("<?php _e('System Notifications already enabled');?>");
     }
      // Otherwise, we need to ask the user for permission
     else if (Notification.permission !== "denied") {
         Notification.requestPermission(function (permission) {
             if (permission === "granted") { // If the user accepts, let's create a notification
                 pb_config.Notifications = true;
-                new Notification("<?php _e('System Notifications enabled');?>");
             } else { // user denied system notifications: use messager
                 pb_config.Notifications = false;
             }

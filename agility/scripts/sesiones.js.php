@@ -325,7 +325,7 @@ function remoteSendInternetNotification(source) {
     var d=$(source+'-dorsals').textbox('getValue');
     var evtdata = {
         Oper: EVTCMD_MESSAGE,
-        Value: (d==='')?'0':d+':'+t+':'+m,
+        Value: ((d==='')?'0':d)+':'+t+':'+m,
         Session: 1,
         Name: 'Internet',
         Prueba: p.ID,
