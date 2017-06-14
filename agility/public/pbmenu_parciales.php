@@ -94,7 +94,6 @@ function pbmenu_updateParcialesIndividual() {
     if ((rtime===0) || (pb_config.Timeout===null)) return;
     // refresh data
     updateParciales(workingData.datosManga.Mode,workingData.datosManga);
-    pb_lookForMessages();
     // re-trigger timeout
     pb_config.Timeout=setTimeout(pbmenu_updateParcialesIndividual,1000*rtime);
 }

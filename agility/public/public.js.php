@@ -156,6 +156,8 @@ function pb_setTrainingLayout(dg) {
  * @param {function} callback if defined, invoke instead of displaying mesage at bottom right
  */
 function pb_lookForMessages(callback) {
+
+
     if (workingData.Prueba==0) return; // no choosen contest, so do not enable reception
     // call to server for new events
     $.ajax( {
@@ -164,8 +166,8 @@ function pb_lookForMessages(callback) {
         url: "/agility/server/web/publicFunctions.php",
         data: {
             Operation: 'getEvents',
-            Prueba: workingData.prueba,
-            Jornada: workingData.jornada,
+            Prueba: pb_config.PruebaID,
+            Jornada: workingData.jornada, // or cero, just ignored
             Manga: workingData.manga,
             Tanda: workingData.tanda,
             LastEvent: pb_config.LastEvent
@@ -184,24 +186,20 @@ function pb_lookForMessages(callback) {
                 pb_config.ConsoleMessages +=
                     "<hr/>" + item.TimeStamp + "<br/>"  +item.Message.substr(item.Message.indexOf(':')+1) +"<br/>&nbsp;<br/>";
                 pb_config.LastEvent=item.LastEvent;
+
                 // decide what to do: show message or call callback
                 if (typeof (callback)!=="undefined") continue;
 
                 // if system notifications are enabled, use it
                 if (pb_config.Notifications===true) {
                     new Notification(msg);
-                    return;
+                } else {
+                    // otherwise show message in botton rignt corner
+                    $.messager.show({
+                        width: 300, height: 100, title:  "<?php _e('Message');?>",
+                        msg: msg, timeout:1000*parseInt(a[0]), showType:'slide'
+                    });
                 }
-
-                // otherwise show message in botton rignt corner
-                $.messager.show({
-                    width: 300,
-                    height: 100,
-                    title:  "<?php _e('Message');?>",
-                    msg: msg,
-                    timeout:1000*parseInt(a[0]),
-                    showType:'slide'
-                });
             }
             if (typeof (callback)!=="undefined") callback();
         },
@@ -226,35 +224,62 @@ function pbmenu_displayNofifications() {
     );
 }
 
+
+/**
+ * Handle enable/disable notification button
+ * On disable set to null
+ * On enable, try to use system notifier; on unavailable or denied fall down into $.messager
+ * Start timer to monitorize events
+ */
 function pbmenu_enableSystemNotifications() {
-        // Let's check if the browser supports notifications
-        if (!("Notification" in window)) {
-            $.messger.alert(
-                '<?php _e("Not available");?>',
-                '<?php _e("This browser does not support desktop notification");?>',
-                'error');
-            pb_config.Notifications = false;
-            return;
-        }
+    // fire autorefresh if configured
+    function pbmenu_notificationTimer() {
+        // if asked to stop grant request
+        var rtime=parseInt(ac_config.web_refreshtime);
+        if ((rtime===0) || (pb_config.Notifications===null)) return;
+        pb_lookForMessages();
+        // re-trigger timeout
+        setTimeout(pbmenu_notificationTimer,1000*rtime);
+    }
 
-        // Let's check whether notification permissions have already been granted
-        else if (Notification.permission === "granted") {
-            // If it's okay let's create a notification
-            pb_config.Notifications = true;
-            new Notification("<?php _e('System Notifications already enabled');?>");
-        }
+    var bstate= $('#pbmenu-Notifications').prop('checked');
+    if (bstate===false) {
+        // disable notifications
+        pb_config.Notifications=null;
+        return;
+    }
+    // if browser support notifications use it; else use $.messager.show
+    if (!("Notification" in window)) {
+        $.messager.show({
+            width: 300,
+            height: 110,
+            title:  'warn',
+            msg:  '<?php _e("This browser does not support notifications");?><br/>'+
+                    '<?php _e("Using internal messager");?>',
+            timeout:1000,
+            showType:'slide'
+        });
+        pb_config.Notifications = false; // mark use $.messager
+    }
+    // Let's check whether notification permissions have already been granted
+    else if (Notification.permission === "granted") {
+        // If it's okay let's create a notification
+        pb_config.Notifications = true;
+        new Notification("<?php _e('System Notifications already enabled');?>");
+    }
+     // Otherwise, we need to ask the user for permission
+    else if (Notification.permission !== "denied") {
+        Notification.requestPermission(function (permission) {
+            if (permission === "granted") { // If the user accepts, let's create a notification
+                pb_config.Notifications = true;
+                new Notification("<?php _e('System Notifications enabled');?>");
+            } else { // user denied system notifications: use messager
+                pb_config.Notifications = false;
+            }
+        });
+    }
 
-        // Otherwise, we need to ask the user for permission
-        else if (Notification.permission !== "denied") {
-            Notification.requestPermission(function (permission) {
-                // If the user accepts, let's create a notification
-                if (permission === "granted") {
-                    pb_config.Notifications = true;
-                    new Notification("<?php _e('System Notifications enabled');?>");
-                }
-            });
-        }
-
-        // At last, if the user has denied notifications, and you
-        // want to be respectful there is no need to bother them any more.
+    // fire up timer
+    var ntimer=parseInt(ac_config.web_refreshtime);
+    if (ntimer!==0) setTimeout(pbmenu_notificationTimer,1000*ntimer);
 }

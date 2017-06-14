@@ -82,7 +82,6 @@ var rtime=parseInt(ac_config.web_refreshtime);
 if (rtime!==0) {
 	function update() {
 		pb_updateEntrenamientos();
-		pb_lookForMessages();
 		pb_config.Timeout= setTimeout(update,1000*rtime);
 	}
 	if (pb_config.Timeout!==null) clearTimeout(pb_config.Timeout);

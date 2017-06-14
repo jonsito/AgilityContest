@@ -61,6 +61,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
     <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
     <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
     <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/agility/css/switchbutton.css" />
     <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
     <link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
     <link rel="stylesheet" type="text/css" href="/agility/css/public_css.php" />
@@ -88,7 +89,10 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             'LastEvent':0,
             'ConsoleMessages':'',
             'SelectedDorsal': 0,
-            'Notifications': null // null-true-false to use (when available) Notification API
+            // null-true-false to use (when available) Notification API
+            'Notifications': null,
+            // required for notifications as working data is not yet set
+            'PruebaID': <?php echo $pruebaID ;?>
         };
         loadConfiguration();
         getLicenseInfo();
@@ -373,13 +377,18 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             <dd>
                 <ul style="list-style-type:none">
                     <li>
+                        <?php _e('Activate notifications');?>
+                        <label class="switch">
+                            <input id="pbmenu-Notifications" type="checkbox" class="switch-input"
+                                onchange="pbmenu_enableSystemNotifications();" checked=""/>
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </li>
+                    <li>
                         <!-- button to display message dialog -->
                         <?php _e('Display received messages since session start');?>
                         <a class="easyui-linkbutton" href="javascript:pbmenu_displayNofifications();"><?php _e("Display");?></a>
-                    </li>
-                    <li>
-                        <?php _e('Activate -if available- notifications by system messager');?>
-                        <a class="easyui-linkbutton" href="javascript:pbmenu_enableSystemNotifications();"><?php _e("Activate");?></a>
                     </li>
                     <li>
                         <!-- textbox to enter dorsal to be highligthed on listings -->
@@ -397,6 +406,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
     </div>
 </div>
 <script type="text/javascript">
+    $('#pbmenu-Notifications').removeAttr('checked');
     // define the layout structure
     $('#pb_layout').layout({fit:true});
     $('#pb_layout').layout('panel','west').panel({

@@ -90,7 +90,6 @@ function pbmenu_ordenSalida_timeoutHandler() {
     if ((rtime===0) || (pb_config.Timeout===null)) return;
     // refresh data
     pb_updateOrdenSalida2(workingData.tanda);
-    pb_lookForMessages();
     // re-trigger event
     pb_config.Timeout=setTimeout(pbmenu_ordenSalida_timeoutHandler,1000*rtime);
 }

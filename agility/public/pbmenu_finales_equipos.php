@@ -84,7 +84,6 @@ function pbmenu_updateFinalesEquipos() {
         options.expandCount=0;
         updateFinales(0,workingData.datosRonda);
     }
-    pb_lookForMessages();
     // retrigger refresh
     pb_config.Timeout=setTimeout(pbmenu_updateFinalesEquipos,1000*rtime);
 }

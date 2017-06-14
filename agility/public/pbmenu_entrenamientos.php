@@ -78,7 +78,6 @@ function pbmenu_handleTrainingRefresh() {
 	var rtime=parseInt(ac_config.web_refreshtime);
 	if ((rtime!==0) && (pb_config.Timeout!==null)) return;
 	pb_updateEntrenamientos();
-	pb_lookForMessages();
 	pb_config.Timeout=setTimeout(pbmenu_handleTrainingRefresh,1000*rtime);
 }
 pb_setTrainingLayout(pbdg);

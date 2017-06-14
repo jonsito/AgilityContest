@@ -86,7 +86,6 @@ function pbmenu_updateParcialesEquipos() {
         options.expandCount=0;
         updateParciales(workingData.datosManga.Mode,workingData.datosManga);
     }
-    pb_lookForMessages();
     // re-ttrigger timeout
     pb_config.Timeout=setTimeout(pbmenu_updateParcialesEquipos,1000*rtime);
 }
