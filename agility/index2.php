@@ -395,6 +395,11 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                         <label for="pbmenu-Dorsal"><?php _e("Dorsal to track info "); ?>:</label>
                         <input id="pbmenu-Dorsal" name="Dorsal" type="text"  style="width:50px;" value="0"/>
                     </li>
+                    <li>
+                        <!-- button to display message dialog -->
+                        <?php _e('Personalize notifications');?>
+                        <a id="pbmenu-Options" class="easyui-linkbutton" href="javascript:pbmenu_notificationOptions();"><?php _e("Setup");?></a>
+                    </li>
                 </ul>
             </dd>
         </dl>
@@ -425,6 +430,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
 
     $('#pbmenu-Dorsal').numberbox({ required: true, min: 0, max: 9999, precision:0 }).numberbox('setValue',0);
     addTooltip($('#pbmenu-Dorsal').numberbox('textbox'),'<?php _e("Dorsal to track info. Set to zero if no dorsal selected"); ?>');
+    addTooltip($('#pbmenu-Options').linkbutton(),'<?php _e("Not available yet"); ?>');
 
 </script>
 </body>

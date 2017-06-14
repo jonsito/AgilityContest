@@ -291,3 +291,7 @@ function pbmenu_enableSystemNotifications() {
     var ntimer=parseInt(ac_config.web_refreshtime);
     if (ntimer!==0) setTimeout(pbmenu_notificationTimer,0); // do not wait for timeout
 }
+
+function pbmenu_notificationOptions() {
+    // TO BE DONE
+}
