@@ -146,6 +146,23 @@ function pb_setTrainingLayout(dg) {
     dg.datagrid('fitColumns');
 }
 
+function send_Notification(msg){
+    if ( !('serviceWorker' in navigator) ) { // si no tenemos service worker pero si notificaciones
+        return new Notification(msg,{icon: "/agility/images/logos/agilitycontest.png"});
+    }
+    // si tenemos service worker enviamos mensaje con el texto a presentar
+    return new Promise(function(resolve, reject){
+        var msg_chan = new MessageChannel(); // Create a Message Channel
+        // Handler for recieving message reply from service worker
+        msg_chan.port1.onmessage = function(event){
+            if(event.data.error){ reject(event.data.error); }
+            else { resolve(event.data); }
+        };
+        // Send message to service worker along with port for reply
+        navigator.serviceWorker.controller.postMessage(msg, [msg_chan.port2]);
+    });
+}
+
 /**
  * Call server for events
  * This is done every RefreshTime
@@ -201,7 +218,7 @@ function pb_lookForMessages(callback) {
                 // null:->do noting; true->notifications; false->messager
                 // if system notifications are enabled, use it
                 if (pb_config.Notifications===true) {
-                    new Notification(msg,{icon: "/agility/images/logos/agilitycontest.png"});
+                    send_Notification(msg);
                 }
                 if (pb_config.Notifications===false) {
                     // otherwise show message in botton rignt corner
@@ -257,6 +274,16 @@ function pbmenu_enableSystemNotifications() {
         // disable notifications
         pb_config.Notifications=null;
         return;
+    }
+
+    // register service worker in client
+    if('serviceWorker' in navigator){
+        // Register service worker
+        navigator.serviceWorker.register('/agility/service-worker.js').then(function(reg){
+            console.log("SW registration succeeded. Scope is "+reg.scope);
+        }).catch(function(err){
+            console.error("SW registration failed with error "+err);
+        });
     }
 
     // if browser support notifications use it; else use $.messager.show
