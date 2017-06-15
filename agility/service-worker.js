@@ -17,7 +17,9 @@ self.addEventListener('activate', function(event){
 
 self.addEventListener('message', function(event){
     console.log("SW Received Message: " + event.data);
-    self.registration.showNotification(event.data, {icon: "/agility/images/logos/agilitycontest.png"}).
-        then(function(NotificationEvent) { event.ports[0].postMessage("SW Says 'Hello back!'"); });
+    self.registration.showNotification(event.data, {
+        icon: "/agility/images/logos/agilitycontest.png",
+        vibrate: [200, 100, 200, 100, 200, 100, 200]
+    }).then(function(NotificationEvent) { event.ports[0].postMessage("SW Says 'Hello back!'"); });
 
 });
