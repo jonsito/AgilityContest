@@ -264,8 +264,18 @@ function pbmenu_enableSystemNotifications() {
         return;
     }
 
-    if (navigator.serviceWorker) // android chrome requires this
-        navigator.serviceWorker.register('/agility/public/serviceworker.js');
+    if ( 'serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/agility/public/serviceworker.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }).catch(function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+
+    }
 
     // if browser support notifications use it; else use $.messager.show
     if (!("Notification" in window)) {
