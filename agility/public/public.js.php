@@ -196,19 +196,14 @@ function pb_lookForMessages(callback) {
                 pb_config.LastEvent=item.LastEvent;
 
                 // decide what to do: show message or call callback
-                if (typeof (callback)!=="undefined") continue;
+                if (typeof (callback)!=="undefined") continue; // on callback defined do not notify
 
+                // null:->do noting; true->notifications; false->messager
                 // if system notifications are enabled, use it
                 if (pb_config.Notifications===true) {
-                    // android chrome needs service workers to do the job
-                    if (navigator.serviceWorker) {
-                        navigator.serviceWorker.ready.then(function(registration) {
-                            registration.showNotification(msg);
-                        });
-                    } else {
-                        new Notification(msg);
-                    }
-                } else {
+                    new Notification(msg,{icon: "/agility/images/logos/agilitycontest.png"});
+                }
+                if (pb_config.Notifications===false) {
                     // otherwise show message in botton rignt corner
                     $.messager.show({
                         width: 300, height: 100, title:  "<?php _e('Message');?>",
@@ -262,19 +257,6 @@ function pbmenu_enableSystemNotifications() {
         // disable notifications
         pb_config.Notifications=null;
         return;
-    }
-
-    if ( 'serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/agility/public/serviceworker.js').then(function(registration) {
-                // Registration was successful
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }).catch(function(err) {
-                // registration failed :(
-                console.log('ServiceWorker registration failed: ', err);
-            });
-        });
-
     }
 
     // if browser support notifications use it; else use $.messager.show
