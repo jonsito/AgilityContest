@@ -1023,10 +1023,10 @@ class PrintTarjetasDeVisita extends PrintCommon{
 			$grstr= " - ".$this->federation->getGrade($item['Grado']);
 		}
         $this->SetXY($x,$y+50);
-        $this->Cell(25,5, $catstr.$grstr,'',0,'C',false);
+        $this->Cell(35,5, $catstr.$grstr,'',0,'L',false);
 		// club
-        $this->SetXY($x+25,$y+50);
-        $this->Cell(60,5, $item['NombreClub'],'',0,'R',false);
+        $this->SetXY($x+35,$y+50);
+        $this->Cell(50,5, $item['NombreClub'],'',0,'R',false);
 		// logotipo de la organizacion
         $this->SetXY($x+65+1,$y+10+1);
         $this->Image($this->icon,$this->GetX(),$this->GetY(),18);
