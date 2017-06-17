@@ -205,7 +205,7 @@ function pb_lookForMessages(callback) {
                 var item=data.rows[n];
                 // dorsal_list:timeout:message
                 var a=item.Message.split(':');
-                var msg=item.Message.substr(item.Message.lastIndexOf(':msg:')+1);
+                var msg=item.Message.substr(item.Message.lastIndexOf(':msg:')+5);
                 if (!isForMe(a[0]) ) continue;
                 // store lastEvent and save msg into message buffer
                 pb_config.ConsoleMessages +=
