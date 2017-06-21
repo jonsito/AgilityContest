@@ -1,5 +1,5 @@
 <?php
-
+require_once(__DIR__."/../competiciones/lib/resultados/Resultados_EO_Team_Qualifications.php");
 /**
  * Created by PhpStorm.
  * User: jantonio
@@ -20,7 +20,8 @@
  *   de la suma total de ambas pistas.
  *
  * - En caso de empate se tendrá en cuenta la puntuación del 4º componente del equipo.
- * - Si continuara el empate se tendrá en cuenta  la mayor puntuación individual que tenga el Equipo.
+ * - Si continuara el empate ( por ejemplo, cuando los cuartos estan eliminados)
+ *   se tendrá en cuenta  la mayor puntuación individual que tenga el Equipo.
  *
  */
 class EuropeanOpen_Team_Qualification extends Competitions {
@@ -55,70 +56,83 @@ class EuropeanOpen_Team_Qualification extends Competitions {
      */
     public function evalPartialCalification($m,&$perro,$puestocat) {
 
-        $cat=$perro['Categoria'];
-        $pt1="";
-        $puesto=$puestocat[$cat];
-        $this->parciales[$puesto][]=&$perro; // important: store by reference
+        $this->parciales[]=&$perro; // important: store by reference
+        $size=count($this->parciales);
+        // los puntos se asignan en funcion del puesto y el numero de perros
+        // por consiguiente vamos a recorrer el array incrementando el contador de puntos
+        // para saber los que hay que asignar
+        for ($n=0;$n<$size;$n++) {
+            // esto es un poco chapuza: en cada iteraccion hay que incrementar en uno el valor de
+            // los puntos. Idealmente habria que hacerlo al final del bucle for en lugar de hacerlo
+            // en cada perro, pero de momento es lo que hay
+            if($this->parciales[$n]['Puntos']!==0){
+                $this->parciales[$n]['Puntos']++;
+                $this->parciales[$n]['CShort']=$this->parciales[$n]['Puntos'];
+            }
+        }
 
-        $perro['Puntos']=0;
         $perro['Estrellas']=0;
+        $perro['Puntos']=0;
         /* los perros pendientes, no presentados o eliminados se contabilizan, pero tienen cero puntos */
         if ($perro['Penalizacion']>=400)  {
             $perro['Penalizacion']=400.0;
             $perro['Calificacion'] = "- 0";
-            $perro['CShort'] = "- 0";
+            $perro['CShort'] = "0";
             return;
         }
         if ($perro['Penalizacion']>=200)  {
             $perro['Penalizacion']=200.0;
             $perro['Calificacion'] = _("Not Present - 0");
-            $perro['CShort'] = _("N.P. - 0");
+            $perro['CShort'] = "0";
             return;
         }
         if ($perro['Penalizacion']>=100) {
             $perro['Penalizacion']=100.0;
             $perro['Calificacion'] = _("Eliminated - 0");
-            $perro['CShort'] = _("Elim - 0");
+            $perro['CShort'] = "0";
             return;
         }
 
-        // los puntos se asignan en funcion del puesto y el numero de perros
-        // por consiguiente vamos a recorrer el array incrementando el contador de puntos
-        // para saber los que hay que asignar
-        // puntos a los 10 primeros por manga/categoria si no estan eliminados
-        if ( ($puesto>0) && ($perro['Penalizacion']<100) && ($puesto<=10) ) {
-            $this->parciales[$puesto][]=&$perro; // important: store by reference
-            // evaluate points to assign according number of dogs with same puesto
-            $nperros=count($this->parciales[$puesto]);
-            $pt1=0;
-            for ($n=0;$n<$nperros;$n++) $pt1+=$this->ptsmanga[$puesto-1+$n];
-            $pt1 =$pt1/$nperros;
-            // assign evaluated points to every dogs with same puesto
-            for ($n=0;$n<$nperros;$n++) $this->parciales[$puesto][$n]['Calificacion']=
-                preg_replace('/(\w+) - (\d+)/i','${1} - '.$pt1,$this->parciales[$puesto][$n]['Calificacion']);
+        // si el perro esta en el mismo puesto que el anterior, se le dan los mismos puntos.
+
+        $perro['Puntos']=1;
+        // en caso contrario, se queda como esta ( un punto )
+        if ($size>1) { // on first dog nothing to compare to :-)
+            $lastperro=$this->parciales[$size-2];
+            if ($perro['Penalizacion']==$lastperro['Penalizacion']) {
+                if (($perro['Tiempo']==$lastperro['Tiempo'])) $perro['Puntos']=$lastperro['Puntos'];
+            }
         }
 
+        // y ahora dejamos "potito" el campo de calificacion
+        $perro['CShort'] = "{$perro['Puntos']}";
         if ($perro['Penalizacion']>=26)	{
-            $perro['Calificacion'] = _("Not Clasified")." - ".$pt1;
-            $perro['CShort'] = _("N.C.")." - ".$pt1;
+            $perro['Calificacion'] = _("N.C.")." - ".$perro['Puntos'];
         }
         else if ($perro['Penalizacion']>=16)	{
-            $perro['Calificacion'] = _("Good")." - ".$pt1;
-            $perro['CShort'] = _("Good");
+            $perro['Calificacion'] = _("Good")." - ".$perro['Puntos'];
         }
         else if ($perro['Penalizacion']>=6)	{
-            $perro['Calificacion'] = _("V.G.")." - ".$pt1;
-            $perro['CShort'] = _("V.G.");
+            $perro['Calificacion'] = _("V.G.")." - ".$perro['Puntos'];
         }
         else if ($perro['Penalizacion']>0)	{
-            $perro['Calificacion'] = _("Exc")." - ".$pt1;
-            $perro['CShort'] = _("Exc");
+            $perro['Calificacion'] = _("Exc")." - ".$perro['Puntos'];
         }
         else if ($perro['Penalizacion']==0)	{
-            $perro['Calificacion'] = _("Exc")." - ".$pt1;
-            $perro['CShort'] = _("Exc");
+            $perro['Calificacion'] = _("Exc")." - ".$perro['Puntos'];
         }
-        $perro['Puntos']=$pt1;
-        $perro['Estrellas']=0;
+    }
+
+    /**
+     * Retrieve handler for manage Resultados functions.
+     * Default is use standard Resultados, but may be overriden ( eg wao. Rounds )
+     * @param {string} $file
+     * @param {object} $prueba
+     * @param {object} $jornada
+     * @param {object} $manga
+     * @return {Resultados} instance of requested Resultados object
+     */
+    public function getResultadosInstance($file,$prueba,$jornada,$manga) {
+        return new Resultados_EO_Team_Qualifications($file,$prueba,$jornada,$manga);
     }
 }

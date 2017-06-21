@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__."/lib/OrdenSalida_KO.php");
+require_once(__DIR__ . "/lib/ordensalida/OrdenSalida_KO.php");
 
 /**
  * Created by PhpStorm.

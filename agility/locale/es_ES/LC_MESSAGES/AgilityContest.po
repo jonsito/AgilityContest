@@ -590,7 +590,7 @@ msgstr "Grd"
 #: lib/templates/final_teams.inc.php:21 lib/templates/orden_salida.inc.php:23
 #: lib/templates/parcial_last_teams.inc.php:31
 #: lib/templates/parcial_teams.inc.php:15
-#: modules/competiciones/lib/OrdenSalida_KO.php:204
+#: modules/competiciones/lib/ordensalida/OrdenSalida_KO.php:204
 #: public/pb_inscripciones_equipos.php:100
 #: public/pbmenu_inscripciones_equipos.php:95
 #: server/database/classes/OrdenSalida.php:493

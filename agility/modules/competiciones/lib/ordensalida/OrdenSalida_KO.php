@@ -307,7 +307,7 @@ class OrdenSalida_KO extends OrdenSalida {
 				$this->invierteResultados($mpadre,0,$catmode);
 				$this->invierteResultados($mpadre,1,$catmode);
 				$this->invierteResultados($mpadre,2,$catmode);
-				if ($this->federation->get('Heights')==4) $this->invierteResultados($hermanas[1],5,$catmode);
+				if ($this->federation->get('Heights')==4) $this->invierteResultados($mpadre,5,$catmode);
 				break;
 			case 1: // Large,medium+small (3heights) Large+medium,Small+tiny (4heights)
 				if ($this->federation->get('Heights')==3) {

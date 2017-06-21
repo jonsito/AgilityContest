@@ -616,7 +616,7 @@ class OrdenSalida extends DBObject {
 			case 4:$mindogs=4; break; // 4 combined
 			default: break;
 		}
-        $res=Resultados::getTeamResults($res['rows'],$this->prueba->ID,$this->jornada->ID,$mindogs);
+        $res=$r->getTeamResults($res['rows'],$this->prueba->ID,$this->jornada->ID,$mindogs);
         $size= count($res);
         // recorremos los resultados en orden inverso generando el nuevo orden de equipos
         $ordenequipos=$this->getOrdenEquipos();

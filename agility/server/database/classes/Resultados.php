@@ -103,7 +103,7 @@ class Resultados extends DBObject {
 	 * @param {array} $dat current _ordered_ results data according $mode
 	 * @return array('dist','obst','trs','trm','vel') or null on error
 	 */
-	private function evalTRS($mode,$data) {
+	protected function evalTRS($mode,$data) {
         // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
         // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
         // manga actual, sino de la manga padre.
@@ -818,7 +818,7 @@ class Resultados extends DBObject {
      * @param {int} $mindogs minimun number of dogs on a team
      * @return {array} datos de equipos de la manga ordenados por resultados de equipo
      */
-    static function getTeamResults($resultados,$prueba,$jornada,$mindogs=4) {
+    function getTeamResults($resultados,$prueba,$jornada,$mindogs=4) {
         // Datos de equipos de la jornada. obtenemos prueba y jornada del primer elemento del array
         $m=new Equipos("getTeamResults",$prueba,$jornada);
         $teams=$m->getTeamsByJornada();

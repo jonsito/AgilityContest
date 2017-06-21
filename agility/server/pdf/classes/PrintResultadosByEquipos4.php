@@ -62,17 +62,18 @@ class PrintResultadosByEquipos4 extends PrintCommon {
      * @param {integer} $prueba Prueba ID
      * @param {integer} $jornada
      * @param {integer} $manga Manga ID
-     * @param {object} $resultados
+     * @param {object} $resobj Instance of Resultados (or any child)
      * @param {integer} $mode
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$resultados,$mode) {
+	function __construct($prueba,$jornada,$manga,$resobj,$mode) {
         parent::__construct('Portrait',"print_resultadosEquipos4",$prueba,$jornada);
         $this->manga=$manga;
-        $this->resultados=$resultados;
         $this->mode=$mode;
         $this->mindogs=$this->getMinDogs();
-        $this->equipos=Resultados::getTeamResults($resultados['rows'],$prueba,$jornada,$this->mindogs);
+
+        $this->resultados=$resobj->getResultados($mode); // throw exception if pending dogs
+        $this->equipos=$resobj->getTeamResults($this->resultados['rows'],$prueba,$jornada,$this->mindogs);
         $this->eqmgr=new Equipos("print_resultadosByEquipos4",$prueba,$jornada);
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga

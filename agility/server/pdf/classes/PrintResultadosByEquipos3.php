@@ -65,14 +65,18 @@ class PrintResultadosByEquipos3 extends PrintCommon {
 	
 	/**
 	 * Constructor
+     * @param {int} $prueba PruebaID
+     * @param {int} $jornada JornadaID
 	 * @param {obj} $manga datos de la manga
-	 * @param {obj} $resultados resultados asociados a la manga/categoria pedidas
+	 * @param {obj} $resobj instance of Resultados (or any child)
+     * @param {int} $mode how dogs are grouped by category
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$resultados,$mode) {
+	function __construct($prueba,$jornada,$manga,$resobj,$mode) {
 		parent::__construct('Portrait',"print_resultadosEquipos3",$prueba,$jornada);
 		$this->manga=$manga;
-		$this->resultados=$resultados;
+
+        $this->resultados=$resobj->getResultados($mode); // throw exception if pending dogs
         $this->mode=$mode;
         $mindogs=0;
         switch(intval($this->jornada->Equipos3)) {
@@ -91,7 +95,7 @@ class PrintResultadosByEquipos3 extends PrintCommon {
         $this->cellHeader=
             array(_('Dorsal'),_('Name'),_('Lic').'.',_('Handler'),$this->strClub,_('Cat').'.',_('Flt').'.',_('Tch').'.',_('Ref').'.',
                   _('Time'),_('Vel').'.',_('Penal').'.',_('Calification'),_('Position'),_('Team global'));
-        $this->equipos=Resultados::getTeamResults($resultados['rows'],$prueba,$jornada,$mindogs);
+        $this->equipos=$resobj->getTeamResults($this->resultados['rows'],$prueba,$jornada,$mindogs);
         $this->eqmgr=new Equipos("print_resultadosByEquipos",$prueba,$jornada);
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
@@ -201,7 +205,7 @@ class PrintResultadosByEquipos3 extends PrintCommon {
                 $this->AddPage();
             }
             // evaluate puesto del equipo
-            // $this->myLogger->trace("imprimiendo datos del equipo {$equipo['ID']} - {$equipo['Nombre']}");
+            $this->myLogger->trace("Equipo: ".json_encode($equipo));
             $this->printTeamInformation($teamcount,$equipo);
             // print team header/data
             for ($n=0;$n<4;$n++) {
@@ -248,6 +252,10 @@ class PrintResultadosByEquipos3 extends PrintCommon {
                 if ($n==1) {
                     $pg=number_format($equipo['Penalizacion'],$this->timeResolution);
                     $this->Cell($this->pos[14],5,_("Penaliz").".: $pg",	'LBR',	0,		$this->align[14],	true);
+                }
+                // si la clasificacion va por puntos, se incluye tambien
+                if ( ($n==2) && ($equipo['Puntos']!=0)) {
+                    $this->Cell($this->pos[14],5,_("Points").".: {$equipo['Puntos']}",	'LBR',	0,		$this->align[14],	true);
                 }
                 $this->ac_row(2,9);
                 $this->Ln(5);
