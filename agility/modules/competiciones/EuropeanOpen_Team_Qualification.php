@@ -1,5 +1,7 @@
 <?php
 require_once(__DIR__."/../competiciones/lib/resultados/Resultados_EO_Team_Qualifications.php");
+require_once(__DIR__."/../competiciones/lib/clasificaciones/Clasificaciones_EO_Team_Qualifications.php");
+
 /**
  * Created by PhpStorm.
  * User: jantonio
@@ -123,6 +125,8 @@ class EuropeanOpen_Team_Qualification extends Competitions {
         }
     }
 
+
+
     /**
      * Retrieve handler for manage Resultados functions.
      * Default is use standard Resultados, but may be overriden ( eg wao. Rounds )
@@ -134,5 +138,18 @@ class EuropeanOpen_Team_Qualification extends Competitions {
      */
     public function getResultadosInstance($file,$prueba,$jornada,$manga) {
         return new Resultados_EO_Team_Qualifications($file,$prueba,$jornada,$manga);
+    }
+
+    /**
+     * Retrieve handler for manage Clasificaciones functions.
+     * Default is use standard Clasificaciones, but may be overriden ( eg wao and eo )
+     * @param {string} $file
+     * @param {object} $prueba
+     * @param {object} $jornada
+     * @param {integer} $perro Dog ID to evaluate position ( if any )
+     * @return {Resultados} instance of requested Resultados object
+     */
+    public function getClasificacionesInstance($file,$prueba,$jornada,$perro) {
+        return new Clasificaciones_EO_Team_Qualifications($file,$prueba,$jornada,$perro);
     }
 }

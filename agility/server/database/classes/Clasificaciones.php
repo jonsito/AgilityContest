@@ -220,7 +220,7 @@ class Clasificaciones extends DBObject {
      * When currentDog!=0 try to evaluate time required to get first (assume no course penalization :-)
      * @param {array} $result clasificaciones de la prueba
      */
-	private function eval_timeToBeFirst($result) {
+	protected function eval_timeToBeFirst($result) {
         // if no dogs yet, just do nothing :-)
         if (count($result['rows'])==0)  { $this->current['toBeFirst']=""; return; }
         $first=$result['rows'][0]; // pointer to first dog in scores
