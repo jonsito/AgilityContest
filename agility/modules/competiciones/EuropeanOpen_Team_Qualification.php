@@ -125,7 +125,17 @@ class EuropeanOpen_Team_Qualification extends Competitions {
         }
     }
 
-
+    /**
+     * Evalua la calificacion final del perro
+     * @param {array} $mangas informacion {object} de las diversas mangas
+     * @param {array} $resultados informacion {array} de los resultados de cada manga
+     * @param {array} $perro datos de puntuacion del perro. Passed by reference
+     * @param {array} $puestocat puesto en funcion de la categoria
+     */
+    public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat) {
+        $perro['Puntos']=$perro['Pt1']+$perro['Pt2'];
+        $perro['Calificacion']=$perro['Puntos'];
+    }
 
     /**
      * Retrieve handler for manage Resultados functions.

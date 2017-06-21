@@ -231,9 +231,9 @@ class PrintClasificacionTeam extends PrintCommon {
 		// datos del participante
 		$this->Cell(8,4,_('Dorsal'),'BL',0,'C',true); 	// dorsal
         if ($this->useLongNames){
-            $this->Cell(20+($wide)?28:13,4,_('Name'),'B',0,'C',true);	// nombre (20,y
+            $this->Cell(25+($wide)?28:13,4,_('Name'),'B',0,'C',true);	// nombre (20,y
         } else {
-            $this->Cell(20,4,_('Name'),'B',0,'C',true);	// nombre (20,y
+            $this->Cell(25,4,_('Name'),'B',0,'C',true);	// nombre (20,y
             $this->Cell(($wide)?28:13,4,_('Lic'),'B',0,'C',true);	// licencia
         }
 		$this->Cell(8,4,_('Cat'),'B',0,'C',true);	// categoria ( en equipos no se considera el grado )
@@ -274,7 +274,7 @@ class PrintClasificacionTeam extends PrintCommon {
         $this->ac_row($idx,8);
 		if ( ($row==$this->defaultPerro) && ($idx>=$this->getMinDogs() ) ){
 			// no dogs, and no dog to show as "no inscrito"
-			$this->Cell(($wide)?238:223,4,'',0,0,'',false);
+			$this->Cell(($wide)?233:218,4,'',0,0,'',false);
 		} else {
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			// fomateamos datos
@@ -295,10 +295,10 @@ class PrintClasificacionTeam extends PrintCommon {
             if ($this->useLongNames) {
                 $this->SetFont($this->getFontName(),'B',8); // Display Nombre in bold typeface
                 $nombre=$row['Nombre']." - ".$row['NombreLargo'];
-                $this->Cell(20+($wide)?28:13,4,$nombre,0,0,'L',true);	// nombre (20,y
+                $this->Cell(25+($wide)?28:13,4,$nombre,0,0,'L',true);	// nombre (20,y
             } else {
                 $this->SetFont($this->getFontName(),'B',8); // Display Nombre in bold typeface
-                $this->Cell(20,4,$row['Nombre'],0,0,'L',true);	// nombre (20,y
+                $this->Cell(25,4,$row['Nombre'],0,0,'L',true);	// nombre (20,y
                 $this->SetFont($this->getFontName(),'',($wide)?6:8); // default font for licencia
                 $this->Cell(($wide)?28:13,4,$row['Licencia'],0,0,'C',true);	// licencia
             }
@@ -358,10 +358,18 @@ class PrintClasificacionTeam extends PrintCommon {
                 break;
             case 2: // global
                 $this->SetFont($this->getFontName(),'BI',8); // default font
-                $this->Cell(($wide)?17:22,4,"Final",'B',0,'L',true);
+                $this->Cell(($wide)?17:22,4,_("Final"),'B',0,'L',true);
                 $this->SetFont($this->getFontName(),'B',8); // default font
                 $this->Cell(($wide)?10:15,4,number_format($team['Tiempo'],$this->timeResolution),'B',0,'R',true);	// tiempo final
                 $this->Cell(($wide)?10:15,4,number_format($team['Penalizacion'],$this->timeResolution),'RB',0,'R',true);	// penalizacion final
+                break;
+            case 3: // puntos (si se requieren )
+                if ($team['Puntos']==0) break;
+                $this->SetFont($this->getFontName(),'BI',8); // default font
+                $this->Cell(($wide)?17:22,4,_("Points"),'B',0,'L',true);
+                $this->SetFont($this->getFontName(),'B',8); // default font
+                $this->Cell(($wide)?10:15,4,"",'B',0,'R',true);	// tiempo final
+                $this->Cell(($wide)?10:15,4,$team['Puntos'],'RB',0,'R',true);	// penalizacion final
                 break;
         }
 		$this->Ln();

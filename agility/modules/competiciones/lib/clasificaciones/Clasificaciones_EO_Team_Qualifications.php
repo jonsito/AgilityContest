@@ -56,7 +56,8 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
 		for ($i=0;$i<8;$i++) $mangas[$i]=$this->__getObject("Mangas",$idmangas[$i]);
 		$resultados=array($c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
         $final=array(); // puesto,dorsal, nombre, licencia,categoria,grado, nombreguia, nombreclub,
-                        // F1,R1,T1,V1,P1,C1,F2,R2,T2,V2,P2,C2, [....] Penalizacion,Calificacion
+                // F1,R1,T1,V1,P1,C1,Pt1,St1,F2,R2,T2,V2,P2,C2,Pt2,St2,
+                // Tiempo, Penalizacion,Calificacion,Puntos,Estrellas
         // procesamos cada una de las 8 posibles mangas
         for ($i=0;$i<8;$i++) {
             if($resultados[$i]===null) continue; // no info for round $i
@@ -88,10 +89,11 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
                         'Penalizacion' => 0,
                         'Calificacion' => '',
                         'Puntos' => 0,
+                        'Estrellas' => 0,
                         'Puesto' => 0,
                         'Pcat' => 0
                     );
-                    // anyadimos datos de cada manga
+                    // anyadimos datos (vacios) de cada manga
                     for($j=1;$j<9;$j++) {
                         if ($resultados[$j-1]===null) continue;
                         $participante["F{$j}"]=0;
@@ -111,9 +113,10 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
                     }
                     // insertamos el array en la lista de participantes
                     $final[$dogID]=$participante;
-                    // do_log("round:{$mangas[$i]->ID} Create Participante:{$dogID}: ".json_encode($participante));
-                }
-                // una vez creado -si es necesario, claro - nos ponemos y rellenamos los elementos especificos de esta manga
+                } //if !array_key_exists
+                // una vez creado -si es necesario, claro - nos ponemos y rellenamos los elementos especificos
+                // de esta manga
+                // recuerda que $i=0..7, pero los nombres de las mangas van de 1..8
                 $j=$i+1;
                 $final[$dogID]["F{$j}"] = $item['Faltas']+ $item['Tocados'];
                 $final[$dogID]["R{$j}"] = $item['Rehuses'];
@@ -173,11 +176,8 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
             if ($lastcat[$cat]!=$now) { $lastcat[$cat]=$now; $puestocat[$cat]=$countcat[$cat]; }
             $final[$idx]['Pcat']=$puestocat[$cat];
 
-			// on special journeys do not evaluate calification
-			if($this->jornada->Equipos3!=0) continue;
-			if($this->jornada->Equipos4!=0) continue;
-			if($this->jornada->KO!=0) continue;
             // call to competition module to get calification points and related data
+            // notice that this module has implicit 3-Team rounds
 			$comp->evalFinalCalification($mangas,$resultados,$final[$idx],$puestocat);
 		}
 
@@ -220,7 +220,7 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
             // comprobamos la categoria. si no coincide tiramos el equipo
             $modes=array("L","M","S","MS","LMS","T","LM","ST","LMST");
             if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
-            $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Puesto1'=>0,'Puesto2'=>0,'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0));
+            $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Puesto1'=>0,'Puesto2'=>0,'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0,'Puntos'=>0));
             $teams[$id]=$r;
 			$teams[$id]['Equipo']=$id; // guardamos el teamID 
         }
@@ -240,7 +240,7 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
                 }
                 continue;
             }
-            $teams[$eq]['C1']++;
+            $teams[$eq]['C1']++; //count1
             $teams[$eq]['T1']+=$resultado['Tiempo'];
             $teams[$eq]['P1']+=$resultado['Penalizacion'];
             $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
@@ -264,10 +264,11 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
                 }
                 continue;
             }
-            $teams[$eq]['C2']++;
+            $teams[$eq]['C2']++; //count 2
             $teams[$eq]['T2']+=$resultado['Tiempo'];
             $teams[$eq]['P2']+=$resultado['Penalizacion'];
             $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
+            $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
             $teams[$eq]['Puntos']+=$resultado['Puntos'];
 			// cogemos como logo del equipo el logo del primer perro que encontremos de dicho equipo
 			if (!array_key_exists('LogoTeam',$teams[$eq])) $teams[$eq]['LogoTeam']=$resultado['LogoClub'];
@@ -281,7 +282,7 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
 		// calculamos y almacenamos puestos de manga 1
 		$manga1=array_values($teams);
 		usort($manga1, function($a, $b) {
-			return ( $a['Pt1'] < $b['Pt1'])?1:-1;
+			return ( $a['Puntos'] < $b['Puntos'])?1:-1;
 		});
         // dado que array_values retorna una copia y no el array original
         // es preciso asignar valores usando éste e indexando segun el orden devuelto
@@ -290,7 +291,7 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
 		// calculamos y almacenamos puestos de manga 2
 		$manga2=array_values($teams);
 		usort($manga2, function($a, $b) {
-			return ( $a['Pt2'] < $b['Pt2'])?1:-1;
+			return ( $a['Puntos'] < $b['Puntos'])?1:-1;
 		});
 		for ($n=0;$n<count($manga2);$n++) $teams[$manga2[$n]['ID']]['Puesto2']=$n+1;
 		// calculamos y almacenamos puesto en la clasificacion final
