@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__."/../competiciones/lib/resultados/Resultados_EO_Team_Final.php");
 
 /**
  * Created by PhpStorm.
@@ -26,6 +27,18 @@ class EuropeanOpen_Team_Final extends Competitions {
         parent::__construct("European Open - Team Final");
         $this->federationID=9;
         $this->competitionID=3;
+    }
+    /**
+     * Retrieve handler for manage Resultados functions.
+     * Default is use standard Resultados, but may be overriden ( eg wao. Rounds )
+     * @param {string} $file
+     * @param {object} $prueba
+     * @param {object} $jornada
+     * @param {object} $manga
+     * @return {Resultados} instance of requested Resultados object
+     */
+    public function getResultadosInstance($file,$prueba,$jornada,$manga) {
+        return new Resultados_EO_Team_Qualifications($file,$prueba,$jornada,$manga);
     }
 
     function useLongNames() { return true; }

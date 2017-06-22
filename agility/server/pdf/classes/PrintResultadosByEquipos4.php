@@ -71,7 +71,7 @@ class PrintResultadosByEquipos4 extends PrintCommon {
         $this->mode=$mode;
 
         $this->resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
-        $this->equipos=$resobj->getResultadosEquipos($this->resultados['rows']);
+        $this->equipos=$resobj->getResultadosEquipos($this->resultados);
         $this->eqmgr=new Equipos("print_resultadosByEquipos4",$prueba,$jornada);
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga

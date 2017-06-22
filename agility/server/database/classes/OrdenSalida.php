@@ -602,8 +602,7 @@ class OrdenSalida extends DBObject {
         // FASE 2: ahora invertimos el orden de los equipos en funcion del resultado
         if (intval($this->jornada->Equipos3)==0 ) return;
         $this->myLogger->trace("invirtiendo orden de equipos");
-		$mindogs=Jornadas::getTeamDogs($this->jornada)[0]; // get mindogs
-        $res=$r->getResultadosEquipos($res['rows'],$mindogs);
+        $res=$r->getResultadosEquipos($res);
         $size= count($res);
         // recorremos los resultados en orden inverso generando el nuevo orden de equipos
         $ordenequipos=$this->getOrdenEquipos();

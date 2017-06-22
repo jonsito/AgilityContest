@@ -98,7 +98,7 @@ class Resultados extends DBObject {
 	}
 	
 	/**
-	 * gets distance, obstacles, trs and trm
+	 * gets distance, obstacles, trs, trm, and velocity
 	 * @param {integer} $mode 0:Large 1:Medium 2:Small 3:M+S 4:L+M+S
 	 * @param {array} $dat current _ordered_ results data according $mode
 	 * @return array('dist','obst','trs','trm','vel') or null on error
@@ -754,17 +754,18 @@ class Resultados extends DBObject {
         // obtenemos resultados individuales
         $resultados=$this->getResultadosIndividual($mode);
         $resultados['individual']=$resultados['rows'];
-        $resultados['equipos']=$this->getResultadosEquipos($resultados['rows']);
+        $resultados['equipos']=$this->getResultadosEquipos($resultados);
         return $resultados;
     }
 
     /**
      * Gestion de resultados en Equipos3/Equipos4
      * Agrupa los resultados por equipos y genera una lista de equipos ordenados por resultados
-     * @param {array} resultados de la manga ordenados por participante. La categoria (mode) ya debe estar filtrada
+     * @param {array} results obtenidos de getResultadosIndividual($mode)
      * @return {array} datos de equipos de la manga ordenados por resultados de equipo
      */
-    function getResultadosEquipos($resultados) {
+    function getResultadosEquipos($results) {
+        $resultados=$results['rows'];
         // evaluamos mindogs
         $mindogs=Jornadas::getTeamDogs($this->getDatosJornada())[0]; // get mindogs
 

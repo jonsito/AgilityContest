@@ -18,7 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../../../../server/database/classes/Resultados.php");
 
-class Resultados_EO_Team_Qualifications extends Resultados {
+class Resultados_EO_Team_Final extends Resultados {
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
@@ -44,15 +44,26 @@ class Resultados_EO_Team_Qualifications extends Resultados {
     }
 
     /**
-     * Gestion de resultados en Equipos3/Equipos4
+     * Gestion de resultados en EO Final team
+     *
+     * La final del TEAM EO es una manga única a cuatro conjunta sobre un recorrido compartido
+     * - Los perros corren uno detras de otro
+     * - El crono arranca con el primer perro y para con el ultimo
+     * - Perro eliminado implica 100 de penalizacion y TRM para el equipo
+     * - Si menos de cuatro perros, un perro debe correr dos veces
+     *
+     * Internamente Resultados::update() tiene en cuenta si la prueba es equipos4
+     * - Tiempo cero no implica no presentado
+     * - Se pueden poner mas de tres rehuses sin eliminar
+     *
      * Agrupa los resultados por equipos y genera una lista de equipos ordenados por resultados
-     * @param {array} $results resultados de invocar getResultadosIndividual($mode)
+     * @param {array} $results resultado de invocar getResultadosIndividual(mode)
      * @return {array} datos de equipos de la manga ordenados por resultados de equipo
      */
     function getResultadosEquipos($results) {
         $resultados=$results['rows'];
         // evaluamos mindogs
-        $mindogs=Jornadas::getTeamDogs($this->getDatosJornada())[0]; // get mindogs
+        $maxdogs=Jornadas::getTeamDogs($this->getDatosJornada())[1]; // get maxdogs
         // Datos de equipos de la jornada. obtenemos prueba y jornada del primer elemento del array
         $m=new Equipos("getResultadosEquipos",$this->IDPrueba,$this->IDJornada);
         $teams=$m->getTeamsByJornada();
@@ -64,61 +75,45 @@ class Resultados_EO_Team_Qualifications extends Resultados {
             $equipo['Resultados']=array();
             $equipo['Tiempo']=0.0;
             $equipo['Penalizacion']=0.0;
-            $equipo['Puntos']=0;
-            $equipo['Extra']=0;
-            $equipo['Best']=0;
+            $equipo['Puntos']=0; // points are not used here
+            $equipo['Eliminados']=0;
             $equipos[$equipo['ID']]=$equipo;
         }
         // now fill team members array.
-        // notice that $resultados is already sorted by results
+        // notice that $resultados is already sorted by individual results
         foreach($resultados as &$result) {
             $teamid=$result['Equipo'];
             $equipo=&$equipos[$teamid];
             array_push($equipo['Resultados'],$result);
+            $equipo['Ausentes']--;
             // suma el tiempo y penalizaciones de los tres/cuatro primeros
             // almacena los puntos del mejor y del cuarto
-            if (count($equipo['Resultados'])<=$mindogs) {
-                $equipo['Tiempo']+=floatval($result['Tiempo']);
-                $equipo['Penalizacion']+=floatval($result['Penalizacion']);
-                $equipo['Puntos']+=$result['Puntos'];
-                if (count($equipo['Resultados'])==1) $equipo['Best']=$result['Puntos'];
-            } else {
-                $equipo['Extra']=+$result['Puntos'];
+            if (count($equipo['Resultados'])>$maxdogs) { // hey! more dogs in team than required
+                $this->myLogger->notice("Team {$equipo['ID']} has more than {$maxdogs} dogs");
+                continue;
             }
-        }
-
-        // rastrea los equipos con menos de $mindogs participantes y marca los que faltan
-        // no presentados
-        $teams=array();
-        foreach($equipos as &$equipo) {
-            switch(count($equipo['Resultados'])){
-                case 0: continue; // ignore team (category doesnt match with results )
-					break;
-                case 1: $equipo['Penalizacion']+=400.0; // required team member undeclared
-                    // no break
-                case 2: if ($mindogs==3) $equipo['Penalizacion']+=400.0; // required team member undeclared
-                    // no break;
-                case 3: if ($mindogs==4) $equipo['Penalizacion']+=400.0; // required team member undeclared
-                    // no break;
-                case 4:
-                    array_push($teams,$equipo); // add team to result to remove unused/empty teams
-                    break;
-                default:
-                    $myLogger=new Logger("Resultados::getTreamResults()");
-                    $myLogger->error("Equipo {$equipo['ID']} : '{$equipo['Nombre']}' con exceso de participantes:".count($equipo['Resultados']));
-                    break;
+            if ($result['Penalizacion']>=200) continue; // not present or not yet run
+            if ($result['Penalizacion']>=100) {
+                $equipo['Eliminados']++;
+                $equipo['Penalizacion']+=100.0; // question to ask: eliminated clears other penalizations ???
+                continue;
             }
+            $equipo['Tiempo']+=floatval($result['Tiempo']);
+            $equipo['Penalizacion']+=floatval($result['Penalizacion']);
         }
-        // re-ordenamos los datos en base a la puntuacion
+        // repasamos los equipos; si hay algun eliminado, se pone como tiempo del equipo el TRM
+        foreach($teams as &$team) { // pass by refence as need to modify inner data
+            if ($team['Eliminados']==0) continue;
+            $team['Tiempo']=floatval($results['trs']['trm']);
+        }
+        // re-ordenamos los datos en base a penalizacion/tiempo
         usort($teams, function($a, $b) {
-            if ( $a['Puntos'] == $b['Puntos'] )	{
-                if ($a['Extra']==$b['Extra']) {
-                    return ($a['Best'] < $b['Best'])? 1:-1;
-                }
-                return ($a['Extra'] < $b['Extra'])? 1:-1;
+            if ( $a['Penalizacion'] == $b['Penalizacion'] )	{
+                return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
             }
-            return ( $a['Puntos'] < $b['Puntos'])?1:-1;
+            return ( $a['Penaliacion'] > $b['Penalizacion'])?1:-1;
         });
+        // retornamos el resultado final
         return $teams;
     }
 

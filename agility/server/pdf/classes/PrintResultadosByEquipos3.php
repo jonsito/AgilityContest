@@ -81,7 +81,7 @@ class PrintResultadosByEquipos3 extends PrintCommon {
         $this->cellHeader=
             array(_('Dorsal'),_('Name'),_('Lic').'.',_('Handler'),$this->strClub,_('Cat').'.',_('Flt').'.',_('Tch').'.',_('Ref').'.',
                   _('Time'),_('Vel').'.',_('Penal').'.',_('Calification'),_('Position'),_('Team global'));
-        $this->equipos=$resobj->getResultadosEquipos($this->resultados['rows']);
+        $this->equipos=$resobj->getResultadosEquipos($this->resultados);
         $this->eqmgr=new Equipos("print_resultadosByEquipos",$prueba,$jornada);
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
