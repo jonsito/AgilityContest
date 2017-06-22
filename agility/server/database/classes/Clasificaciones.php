@@ -43,7 +43,7 @@ class Clasificaciones extends DBObject {
 	 */
 	function __construct($file,$prueba,$jornada,$perro=0) {
 		parent::__construct($file);
-		if ($prueba<=0) {
+		if ($prueba->ID <= 0) {
 			$this->errormsg="Clasificaciones::Construct invalid prueba ID:$prueba";
 			throw new Exception($this->errormsg);
 		}
@@ -279,6 +279,11 @@ class Clasificaciones extends DBObject {
      * @param {integer} $mode modo de la prueba
      */
 	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$mode) {
+
+        // indexamos las clasificaciones por id de perro
+        $indexedc=array();
+        foreach ($c as &$item) $indexedc[$item['Perro']]=&$item;
+
         // Datos de equipos de la jornada
         $eobj=new Equipos("evalFinalEquipos",$this->prueba->ID,$this->jornada->ID);
         $tbj=$eobj->getTeamsByJornada();
@@ -302,12 +307,10 @@ class Clasificaciones extends DBObject {
                 $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:1 Equipo:$eq no existe");
                 continue;
             }
+            // si ya hemos registrado "mindogs" en el equipo, los siguientes perros del equipo no puntuan
+            // anyadimos una marca "Out1" para que salgan en gris en el listado
             if ($teams[$eq]['C1']>=$mindogs) {
-                for ($fidx=0;$fidx < count($c); $fidx++) {
-                    if ($resultado['Perro']!=$c[$fidx]['Perro']) continue;
-                    $c[$fidx]['Out1']=1;
-                    break;
-                }
+                $indexedc[$resultado['Perro']]['Out1']=1; // marcar para imprimir en gris
                 continue;
             }
             $teams[$eq]['C1']++;
@@ -325,12 +328,10 @@ class Clasificaciones extends DBObject {
                 $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:2 Equipo:$eq no existe");
                 continue;
             }
+            // si ya hemos registrado "mindogs" en el equipo, los siguientes perros del equipo no puntuan
+            // anyadimos una marca "Out2" para que salgan en gris en el listado
             if ($teams[$eq]['C2']>=$mindogs) {
-                for ($fidx=0;$fidx < count($c); $fidx++) {
-                    if ($resultado['Perro']!=$c[$fidx]['Perro']) continue;
-                    $c[$fidx]['Out2']=1;
-                    break;
-                }
+                $indexedc[$resultado['Perro']]['Out2']=1; // marcar para imprimir en gris
                 continue;
             }
             $teams[$eq]['C2']++;
@@ -357,6 +358,7 @@ class Clasificaciones extends DBObject {
         // es preciso asignar valores usando éste e indexando segun el orden devuelto
         // por manga1
 		for ($n=0;$n<count($manga1);$n++) $teams[$manga1[$n]['ID']]['Puesto1']=$n+1;
+
 		// calculamos y almacenamos puestos de manga 2
 		$manga2=array_values($teams);
 		usort($manga2, function($a, $b) {
@@ -364,6 +366,7 @@ class Clasificaciones extends DBObject {
 			return ( $a['P2'] > $b['P2'])?1:-1;
 		});
 		for ($n=0;$n<count($manga2);$n++) $teams[$manga2[$n]['ID']]['Puesto2']=$n+1;
+
 		// calculamos y almacenamos puesto en la clasificacion final
         $final=array_values($teams);
         usort($final, function($a, $b) {

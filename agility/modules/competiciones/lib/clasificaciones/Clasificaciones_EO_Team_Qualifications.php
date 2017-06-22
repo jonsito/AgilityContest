@@ -209,6 +209,9 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
      * @param {integer} $mode modo de la prueba
      */
 	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$mode) {
+
+
+
         // Datos de equipos de la jornada
         $eobj=new Equipos("evalFinalEquipos",$this->prueba->ID,$this->jornada->ID);
         $tbj=$eobj->getTeamsByJornada();
@@ -220,27 +223,38 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
             // comprobamos la categoria. si no coincide tiramos el equipo
             $modes=array("L","M","S","MS","LMS","T","LM","ST","LMST");
             if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
-            $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Puesto1'=>0,'Puesto2'=>0,'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0,'Puntos'=>0));
+            $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Puesto1'=>0,'Puesto2'=>0,
+                'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0,'Puntos'=>0,'Extra'=>0,'Best'=>0));
             $teams[$id]=$r;
 			$teams[$id]['Equipo']=$id; // guardamos el teamID 
         }
+
+        // indexamos las clasificaciones por id de perro. Almacenamos el mejor perro de cada equipo
+        $indexedc=array();
+        foreach ($c as &$item) {
+            $eq=$item['Equipo'];
+            if ($teams[$eq]['Best']==0) $teams[$eq]['Best']=$item['Puntos'];
+            $indexedc[$item['Perro']]=&$item;
+        }
+
         // procesamos manga 1. Se asume que los resultados ya vienen ordenados por puesto,
-        // de manera que se contabilizan solo los mindogs primeros perros de cada equipo
+        // de manera que se contabilizan solo los puntos de los "mindogs" primeros perros de cada equipo
+        // y se almacenan los restantes para caso de empate
         if ($r1!==null) foreach($r1['rows'] as $resultado) {
             $eq=$resultado['Equipo'];
             if (!array_key_exists($eq,$teams)) {
                 $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:1 Equipo:$eq no existe");
                 continue;
             }
+            // si ya hemos registrado "mindogs" en el equipo, los siguientes perros del equipo no puntuan
+            // anyadimos una marca "Out1" para que salgan en gris en el listado
+            // adicionalmente, para el EO hay que tener en cuenta la puntuacion del cuarto perro y del mejor del equipo
             if ($teams[$eq]['C1']>=$mindogs) {
-                for ($fidx=0;$fidx < count($c); $fidx++) {
-                    if ($resultado['Perro']!=$c[$fidx]['Perro']) continue;
-                    $c[$fidx]['Out1']=1;
-                    break;
-                }
+                $teams[$eq]['Extra']+=$resultado['Puntos']; // resultado del cuarto perro
+                $indexedc[$resultado['Perro']]['Out1']=1; // marcar para imprimir en gris
                 continue;
             }
-            $teams[$eq]['C1']++; //count1
+            $teams[$eq]['C1']++; // numero de perros que han sido registrados
             $teams[$eq]['T1']+=$resultado['Tiempo'];
             $teams[$eq]['P1']+=$resultado['Penalizacion'];
             $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
@@ -256,12 +270,12 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
                 $this->myLogger->notice("evalFinalEquipos(): Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:2 Equipo:$eq no existe");
                 continue;
             }
+            // si ya hemos registrado "mindogs" en el equipo, los siguientes perros del equipo no puntuan
+            // anyadimos una marca "Out2" para que salgan en gris en el listado
+            // adicionalmente, para el EO hay que tener en cuenta la puntuacion del cuarto perro y del mejor del equipo
             if ($teams[$eq]['C2']>=$mindogs) {
-                for ($fidx=0;$fidx < count($c); $fidx++) {
-                    if ($resultado['Perro']!=$c[$fidx]['Perro']) continue;
-                    $c[$fidx]['Out2']=1;
-                    break;
-                }
+                $teams[$eq]['Extra']+=$resultado['Puntos']; // resultado del cuarto perro
+                $indexedc[$resultado['Perro']]['Out2']=1; // marcar para imprimir en gris
                 continue;
             }
             $teams[$eq]['C2']++; //count 2
@@ -279,24 +293,18 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
             for($n=$team['C1'];$n<$mindogs;$n++) { $team['P1']+=400; $team['Penalizacion']+=400; }
             for($n=$team['C2'];$n<$mindogs;$n++) { $team['P2']+=400; $team['Penalizacion']+=400; }
         }
-		// calculamos y almacenamos puestos de manga 1
-		$manga1=array_values($teams);
-		usort($manga1, function($a, $b) {
-			return ( $a['Puntos'] < $b['Puntos'])?1:-1;
-		});
-        // dado que array_values retorna una copia y no el array original
-        // es preciso asignar valores usando éste e indexando segun el orden devuelto
-        // por manga1
-		for ($n=0;$n<count($manga1);$n++) $teams[$manga1[$n]['ID']]['Puesto1']=$n+1;
-		// calculamos y almacenamos puestos de manga 2
-		$manga2=array_values($teams);
-		usort($manga2, function($a, $b) {
-			return ( $a['Puntos'] < $b['Puntos'])?1:-1;
-		});
-		for ($n=0;$n<count($manga2);$n++) $teams[$manga2[$n]['ID']]['Puesto2']=$n+1;
+
 		// calculamos y almacenamos puesto en la clasificacion final
+
+        // localizamos los mejores de cada equipo y guardarlos en el campo "Best"
         $final=array_values($teams);
         usort($final, function($a, $b) {
+            if ( $a['Puntos'] == $b['Puntos'] )	{
+                if ($a['Extra']==$b['Extra']) {
+                    return ($a['Best'] < $b['Best'])? 1:-1;
+                }
+                return ($a['Extra'] < $b['Extra'])? 1:-1;
+            }
             return ( $a['Puntos'] < $b['Puntos'])?1:-1;
         });
 		for ($n=0;$n<count($final);$n++) {
