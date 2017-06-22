@@ -38,7 +38,7 @@ class EuropeanOpen_Team_Final extends Competitions {
      * @return {Resultados} instance of requested Resultados object
      */
     public function getResultadosInstance($file,$prueba,$jornada,$manga) {
-        return new Resultados_EO_Team_Qualifications($file,$prueba,$jornada,$manga);
+        return new Resultados_EO_Team_Final($file,$prueba,$jornada,$manga);
     }
 
     function useLongNames() { return true; }

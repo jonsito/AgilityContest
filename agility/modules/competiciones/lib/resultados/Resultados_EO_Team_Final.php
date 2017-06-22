@@ -85,7 +85,6 @@ class Resultados_EO_Team_Final extends Resultados {
             $teamid=$result['Equipo'];
             $equipo=&$equipos[$teamid];
             array_push($equipo['Resultados'],$result);
-            $equipo['Ausentes']--;
             // suma el tiempo y penalizaciones de los tres/cuatro primeros
             // almacena los puntos del mejor y del cuarto
             if (count($equipo['Resultados'])>$maxdogs) { // hey! more dogs in team than required
@@ -101,10 +100,10 @@ class Resultados_EO_Team_Final extends Resultados {
             $equipo['Tiempo']+=floatval($result['Tiempo']);
             $equipo['Penalizacion']+=floatval($result['Penalizacion']);
         }
-        // repasamos los equipos; si hay algun eliminado, se pone como tiempo del equipo el TRM
+        // iterate teams to check/parse eliminated
         foreach($teams as &$team) { // pass by refence as need to modify inner data
-            if ($team['Eliminados']==0) continue;
-            $team['Tiempo']=floatval($results['trs']['trm']);
+            // on one or more eliminated, set tiempo as TRM
+            if ($team['Eliminados']>0) $team['Tiempo']=floatval($results['trs']['trm']);
         }
         // re-ordenamos los datos en base a penalizacion/tiempo
         usort($teams, function($a, $b) {
