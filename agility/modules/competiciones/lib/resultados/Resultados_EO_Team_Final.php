@@ -83,37 +83,37 @@ class Resultados_EO_Team_Final extends Resultados {
         // notice that $resultados is already sorted by individual results
         foreach($resultados as &$result) {
             $teamid=$result['Equipo'];
-            $equipo=&$equipos[$teamid];
-            array_push($equipo['Resultados'],$result);
+            array_push($equipos[$teamid]['Resultados'],$result);
             // suma el tiempo y penalizaciones de los tres/cuatro primeros
             // almacena los puntos del mejor y del cuarto
-            if (count($equipo['Resultados'])>$maxdogs) { // hey! more dogs in team than required
-                $this->myLogger->notice("Team {$equipo['ID']} has more than {$maxdogs} dogs");
+            if (count($equipos[$teamid]['Resultados'])>$maxdogs) { // hey! more dogs in team than required
+                $this->myLogger->notice("Team {$equipos[$teamid]['ID']} has more than {$maxdogs} dogs");
                 continue;
             }
             if ($result['Penalizacion']>=200) continue; // not present or not yet run
             if ($result['Penalizacion']>=100) {
-                $equipo['Eliminados']++;
-                $equipo['Penalizacion']+=100.0; // question to ask: eliminated clears other penalizations ???
+                $equipos[$teamid]['Eliminados']++;
+                $equipos[$teamid]['Penalizacion']+=100.0; // question to ask: eliminated clears other penalizations ???
                 continue;
             }
-            $equipo['Tiempo']+=floatval($result['Tiempo']);
-            $equipo['Penalizacion']+=floatval($result['Penalizacion']);
+            $equipos[$teamid]['Tiempo']+=floatval($result['Tiempo']);
+            $equipos[$teamid]['Penalizacion']+=floatval($result['Penalizacion']);
         }
-        // iterate teams to check/parse eliminated
-        foreach($teams as &$team) { // pass by refence as need to modify inner data
+        // iterate teams to check/parse eliminated and remove every unwanted teams
+        $final=array();
+        foreach($equipos as $equipo) { // pass by refence as need to modify inner data
+            if (count($equipo['Resultados'])==0) continue; // skip empty teams
             // on one or more eliminated, set tiempo as TRM
-            if ($team['Eliminados']>0) $team['Tiempo']=floatval($results['trs']['trm']);
+            if ($equipo['Eliminados']>0) $equipo['Tiempo']=floatval(4*$results['trs']['trm']);
+            $final[]=$equipo;
         }
         // re-ordenamos los datos en base a penalizacion/tiempo
-        usort($teams, function($a, $b) {
-            if ( $a['Penalizacion'] == $b['Penalizacion'] )	{
-                return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
-            }
-            return ( $a['Penaliacion'] > $b['Penalizacion'])?1:-1;
+        usort($final, function($a, $b) {
+            if ($a['Penalizacion']==$b['Penalizacion']) return ($a['Tiempo']>$b['Tiempo'])?1:-1;
+            return ($a['Penalizacion']>$b['Penalizacion'])?1:-1;
         });
         // retornamos el resultado final
-        return $teams;
+        return $final;
     }
 
 }
