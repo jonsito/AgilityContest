@@ -609,7 +609,7 @@ function vws_updateParciales(data) {
             url:"/agility/server/database/resultadosFunctions.php",
             dataType:'json',
             data: {
-            Operation:	(isJornadaEquipos(null))?'getResultadosEquipos':'getResultados',
+            Operation:	(isJornadaEquipos(null))?'getResultadosIndividualyEquipos':'getResultadosIndividual',
             Prueba:		workingData.prueba,
             Jornada:	workingData.jornada,
             Manga:		workingData.manga,
@@ -631,7 +631,7 @@ function vws_updateParciales(data) {
                 // fill if required 'result' table data
                 if (n < nitems) {
                     var logo = items[n][(team) ? 'LogoTeam' : 'LogoClub'];
-                    // en pruebas por equipos getTeamResults, retorna datos tanto para equipos completos
+                    // en pruebas por equipos getResultadosEquipos, retorna datos tanto para equipos completos
                     // como sin completar e incluso vacios. Por ello lo tenemos en cuenta
                     var data=items[n];
                     if (team && data['Penalizacion']>=(400*getMinDogsByTeam())) data=vws_getEmptyResults(/*final*/false,team);

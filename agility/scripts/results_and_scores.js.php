@@ -372,7 +372,7 @@ function consoleReloadParcial(val,fill) {
         url:"/agility/server/database/resultadosFunctions.php",
         dataType:'json',
         data: {
-            Operation:	(isJornadaEquipos(null))?'getResultadosEquipos':'getResultados',
+            Operation:	(isJornadaEquipos(null))?'getResultadosIndividualyEquipos':'getResultadosIndividual',
             Prueba:		workingData.prueba,
             Jornada:	workingData.jornada,
             Manga:		workingData.manga,
@@ -434,7 +434,7 @@ function updateParciales(mode,row) {
         url:"/agility/server/database/resultadosFunctions.php",
         dataType:'json',
         data: {
-            Operation:	(isJornadaEquipos(null))?'getResultadosEquipos':'getResultados',
+            Operation:	(isJornadaEquipos(null))?'getResultadosIndividualyEquipos':'getResultadosIndividual',
             Prueba:		workingData.prueba,
             Jornada:	workingData.jornada,
             Manga:		workingData.manga,

@@ -224,31 +224,18 @@ class PrintCommon extends FPDF {
 	}
 
 	// return the minimum and maximum nomber of dogs for team on this journey
-	function getNumberOfDogs() {
-		switch(intval($this->jornada->Equipos3)) {
-			case 1:	return array(3,4); // old style 3 best of 4
-			case 2:	return array(2,3); // 2 best of 3
-			case 3: return array(3,4); // 3 best of 4
-			default: break;
-		}
-		switch(intval($this->jornada->Equipos4)) {
-			case 1:	return array(4,4); // old style 4 combined
-			case 2:	return array(2,2); // 2 combined
-			case 3: return array(3,3); // 3 combined
-			case 4: return array(4,4); // 4 combined
-			default: break;
-		}
-		return array(1,1); // default
+	function getMinDogs() {
+        return Jornadas::getTeamDogs($this->jornada)[0]; // get mindogs
 	}
+    function getMaxDogs() {
+        return Jornadas::getTeamDogs($this->jornada)[1]; // get maxdogs
+    }
 
-	function getMinDogs() { return $this->getNumberOfDogs()[0];}
-	function getMaxDogs() { return $this->getNumberOfDogs()[1];}
-
+    // several functions to stringify modes cat and grades
 	function getCatString($cat) {
 		$catstr=$this->federation->get('IndexedModeStrings');
 		return $catstr[$cat];
 	}
-
 	function getModeString($mode) {
 		$modestr=$this->federation->get('IndexedModes');
 		return $modestr[$mode];

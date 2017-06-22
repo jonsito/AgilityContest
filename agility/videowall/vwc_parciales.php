@@ -208,7 +208,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         //    Jornada: workingData.jornada,
         //    Manga: workingData.manga,
         //     Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
-        //    Operation: 'getResultados'
+        //    Operation: 'getResultadosIndividual'
         // },
         // loadMsg: "<?php _e('Updating list of teams to be called to ring');?> ...",
         pagination: false,

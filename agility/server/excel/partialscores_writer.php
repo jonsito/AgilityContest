@@ -39,7 +39,7 @@ try {
     $resobj= Resultados::getInstance("excelResultadosByManga",$idmanga);
 
     // retrieve results
-    $resultados=$resobj->getResultados($mode); // throw exception if pending dogs
+    $resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
     $osobj= OrdenSalida::getInstance("excelResultadosByManga",$idmanga);
     // reindex resultados in starting order
     $res=$osobj->getData(false,$mode,$resultados);

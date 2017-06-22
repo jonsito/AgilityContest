@@ -33,89 +33,27 @@ class Resultados_EO_Team_Qualifications extends Resultados {
 	function __construct($file,$prueba,$jornada,$manga) {
 		parent::__construct($file,$prueba,$jornada,$manga);
 	}
-	
-	function getResultadosEquipos($mode) {
-		// obtenemos resultados individuales
-		$resultados=$this->getResultados($mode);
-		// obtenemos los equipos de la jornada cuya categoria coincide con la buscada
-		$teams=array();
-		foreach ($this->getDatosEquipos() as $equipo) {
-			if ($equipo['Nombre']==="-- Sin asignar --") continue;
-			// comprobamos la categoria. si no coincide tiramos el equipo
-			$modes=array("L","M","S","MS","LMS","T","LM","ST","LMST");
-			if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
-			$r=array_merge($equipo,array(
-			    'Count'=>0,
-                'PTiempo'=>0,'PRecorrido'=>0,
-                'Tiempo'=>0,'Penalizacion'=>0,
-                'Puesto'=>0,
-                'Puntos'=>0,'Extra'=>0,'Best'=>0 ));
-			$teams[$equipo['ID']]=$r;
-		}
-        // procesamos manga Se asume que los resultados ya vienen ordenados por puesto,
-        $mindogs=Jornadas::getTeamDogs($this->getDatosJornada())[0]; // get mindogs
-        // de manera que se contabilizan solo los mindogs primeros perros de cada equipo
-        foreach($resultados['rows'] as $resultado) {
-            $eq=$resultado['Equipo'];
-            if (!array_key_exists($eq,$teams)) {
-                $this->myLogger->notice("evalParcialEquipos(): Prueba:{$this->IDPrueba} Jornada:{$this->IDJornada} Manga:1 Equipo:$eq no existe");
-                continue;
-            }
-            if ($teams[$eq]['Count']>=$mindogs) {
-                // guardamos los puntos del cuarto perro para caso de empate
-                $teams[$eq]['Extra']+=$resultado['Puntos'];
-                continue;
-            }
-            // almacenamos el mejor resultado del equipo
-            if ($teams[$eq]['Count']==0) $teams[$eq]['Best']=$resultado['Puntos'];
-            // computamos sumas de tiempo y penalizaciones
-            $teams[$eq]['Count']++;
-            $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
-            $teams[$eq]['PTiempo']+=$resultado['PTiempo'];
-            $teams[$eq]['PRecorrido']+=$resultado['PRecorrido'];
-            $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
-            // European Open Qualification teams uses points as sorting method
-            $teams[$eq]['Puntos']+=$resultado['Puntos'];
-			// cogemos como logo del equipo el logo del primer perro que encontremos de dicho equipo
-			if (!array_key_exists('LogoTeam',$teams[$eq])) $teams[$eq]['LogoTeam']=$resultado['LogoClub'];
-        }
-        // rellenamos huecos hasta completar mindogs
-        foreach ($teams as &$team ) {
-            // 100:Eliminado 200:NoPresentado 400:Pendiente
-            for($n=$team['Count'];$n<$mindogs;$n++) { $team['Penalizacion']+=400; }
-        }
-        // eliminamos el indice del array
-        $equipos=array_values($teams);
-        // re-ordenamos los datos en base a la puntuacion
-        usort($equipos, function($a, $b) {
-            if ( $a['Puntos'] == $b['Puntos'] )	{
-                if ($a['Extra']==$b['Extra']) {
-                    return ($a['Best'] < $b['Best'])? 1:-1;
-                }
-                return ($a['Extra'] < $b['Extra'])? 1:-1;
-            }
-            return ( $a['Puntos'] < $b['Puntos'])?1:-1;
-        });
-        // asignamos el puesto a los equipos una vez ordenados
-		for ($n=0;$n<count($equipos);$n++) $equipos[$n]['Puesto']=$n+1;
-        // retornamos resultado
+
+	function getResultadosIndividualyEquipos($mode) {
+        // obtenemos resultados individuales
+        $resultados=$this->getResultadosIndividual($mode);
         $resultados['individual']=$resultados['rows'];
-        $resultados['equipos']=$equipos;
+        $resultados['equipos']=$this->getResultadosEquipos($resultados['rows']);
         return $resultados;
-	}
+    }
 
     /**
      * Gestion de resultados en Equipos3/Equipos4
      * Agrupa los resultados por equipos y genera una lista de equipos ordenados por resultados
-     * @param {array} resultados de la manga ordenados por participante
-     * @param {int} prueba PruebaID
-     * @param {int} jornada JornadaID
+     * @param {array} resultados de la manga ordenados por participante ( ya se ha tenido en cuenta el mode )
      * @param {int} $mindogs minimun number of dogs on a team
      * @return {array} datos de equipos de la manga ordenados por resultados de equipo
      */
-    function getTeamResults($resultados,$prueba,$jornada,$mindogs=4) {
+    function getResultadosEquipos($resultados) {
+        // evaluamos mindogs
+        $mindogs=Jornadas::getTeamDogs($this->getDatosJornada())[0]; // get mindogs
         // Datos de equipos de la jornada. obtenemos prueba y jornada del primer elemento del array
-        $m=new Equipos("getTeamResults",$prueba,$jornada);
+        $m=new Equipos("getResultadosEquipos",$this->IDPrueba,$this->IDJornada);
         $teams=$m->getTeamsByJornada();
 
         // reindexamos por ID y anyadimos campos extra:
@@ -153,7 +91,7 @@ class Resultados_EO_Team_Qualifications extends Resultados {
         $teams=array();
         foreach($equipos as &$equipo) {
             switch(count($equipo['Resultados'])){
-                case 0: continue; // ignore team
+                case 0: continue; // ignore team (category doesnt match with results )
 					break;
                 case 1: $equipo['Penalizacion']+=400.0; // required team member undeclared
                     // no break

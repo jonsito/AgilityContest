@@ -503,18 +503,18 @@ class MailManager {
                 switch(intval($m['TipoManga'])) {
                     // miramos si es una prueba por equipos
                     case 8: case 13:
-                        $resultados=$resobj->getResultadosEquipos($m['Mode']);
+                        $resultados=$resobj->getResultadosIndividualyEquipos($m['Mode']);
                         $pdf=new PrintResultadosByEquipos3($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
                         break;
                     case 9: case 14:
-                        $resultados=$resobj->getResultadosEquipos($m['Mode']);
+                        $resultados=$resobj->getResultadosIndividualyEquipos($m['Mode']);
                         $pdf=new PrintResultadosByEquipos4($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
                         break;
                     case 1: case 2: // pre-agility
                         if ($this->myData['SendPreAgility']==0) continue;
                     // no break
                     default:
-                        $resultados=$resobj->getResultados($m['Mode']);
+                        $resultados=$resobj->getResultadosIndividual($m['Mode']);
                         $pdf=new PrintResultadosByManga($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
                         break;
                 }

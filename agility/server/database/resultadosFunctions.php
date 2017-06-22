@@ -52,8 +52,8 @@ try {
 		case "reset": $am->access(PERMS_OPERATOR); $result=$resultados->reset($catmode); break;
 		case "swap": $am->access(PERMS_OPERATOR); $result=$resultados->swapMangas($cats); break;
 		case "getPendientes": $result=$resultados->getPendientes($mode); break;
-		case "getResultados":$result=$resultados->getResultados($mode); break;
-		case "getResultadosEquipos":$result=$resultados->getResultadosEquipos($mode); break;
+		case "getResultadosIndividual":$result=$resultados->getResultadosIndividual($mode); break;
+		case "getResultadosIndividualyEquipos":$result=$resultados->getResultadosIndividualyEquipos($mode); break;
 		case "getPuesto":
 			$data=array(
 				'Perro' => $idperro,

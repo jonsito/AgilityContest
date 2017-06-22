@@ -35,7 +35,6 @@ class PrintResultadosByEquipos4 extends PrintCommon {
     protected $equipos; // lista de equipos
     protected $mode; // modo de la manga
     protected $eqmgr; // objeto "Equipos"
-    protected $mindogs; // to evaluate NotPresent count
 
     protected $defaultPerro = array( // participante por defecto para garantizar que haya 4perros/equipo
         'Dorsal' => '-',
@@ -70,10 +69,9 @@ class PrintResultadosByEquipos4 extends PrintCommon {
         parent::__construct('Portrait',"print_resultadosEquipos4",$prueba,$jornada);
         $this->manga=$manga;
         $this->mode=$mode;
-        $this->mindogs=$this->getMinDogs();
 
-        $this->resultados=$resobj->getResultados($mode); // throw exception if pending dogs
-        $this->equipos=$resobj->getTeamResults($this->resultados['rows'],$prueba,$jornada,$this->mindogs);
+        $this->resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
+        $this->equipos=$resobj->getResultadosEquipos($this->resultados['rows']);
         $this->eqmgr=new Equipos("print_resultadosByEquipos4",$prueba,$jornada);
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
@@ -167,7 +165,7 @@ class PrintResultadosByEquipos4 extends PrintCommon {
             $team['Eliminados']+=$perro['Eliminado'];
             $team['NoPresentados']+=$perro['NoPresentado'];
         }
-        for($n=count($members);$n<$this->mindogs;$n++) $team['NoPresentados']++;
+        for($n=count($members);$n<$this->getMinDogs();$n++) $team['NoPresentados']++;
 
         // caja de datos del equipo
         $this->SetXY(70,$y);

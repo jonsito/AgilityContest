@@ -153,19 +153,19 @@ class Resultados extends DBObject {
 				else $result['trs']= $best3 * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 			case 3: // trs standard +xxx						
-				$result_std=$this->getResultados(0)['trs'];
+				$result_std=$this->getResultadosIndividual(0)['trs'];
 				if ($this->getDatosManga()->{"TRS_{$suffix}_Unit"}==="s")
 					$result['trs']= $result_std['trs'] + $factor; // ( + X segundos )
 				else $result['trs']= $result_std['trs'] * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 			case 4: // trs medium + xx						
-				$result_med=$this->getResultados(1)['trs'];
+				$result_med=$this->getResultadosIndividual(1)['trs'];
 				if ($this->getDatosManga()->{"TRS_{$suffix}_Unit"}==="s")
 					$result['trs']= $result_med['trs'] + $factor; // ( + X segundos )
 				else $result['trs']= $result_med['trs'] * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 			case 5: // trs small + xx
-				$result_med=$this->getResultados(2)['trs'];
+				$result_med=$this->getResultadosIndividual(2)['trs'];
 				if ($this->getDatosManga()->{"TRS_{$suffix}_Unit"}==="s")
 					$result['trs']= $result_med['trs'] + $factor; // ( + X segundos )
 				else $result['trs']= $result_med['trs'] * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
@@ -648,7 +648,7 @@ class Resultados extends DBObject {
 	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8 L+M+S+T
 	 *@return {array} requested data or error
 	 */
-	function getResultados($mode) {
+	function getResultadosIndividual($mode) {
 		$this->myLogger->enter();
 		$idmanga=$this->IDManga;
 		
@@ -688,10 +688,9 @@ class Resultados extends DBObject {
 		// FASE 2: evaluamos TRS Y TRM
 		$tdata=$this->evalTRS($mode,$table); // array( 'dist' 'obst' 'trs' 'trm', 'vel')
 		$res['trs']=$tdata; // store trs data into result
-		$trs=$tdata['trs'];
-		$trm=$tdata['trm'];
+
 		// FASE 3: añadimos ptiempo, puntuacion, clasificacion y logo
-        $clubes=new Clubes("Resultados::getResultados",$this->getDatosPrueba()->RSCE);
+        $clubes=new Clubes("Resultados::getResultadosIndividual",$this->getDatosPrueba()->RSCE);
 		$size=count($table);
 		$comp=$this->getDatosCompeticion();
 		for ($idx=0;$idx<$size;$idx++ ){
@@ -722,7 +721,6 @@ class Resultados extends DBObject {
         $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
         $countcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
 
-        $fed=$this->getFederation();
 		for($idx=0;$idx<$size;$idx++) {
             // vemos la categoria y actualizamos contadores de categoria
             $cat=$table[$idx]['Categoria'];
@@ -751,76 +749,27 @@ class Resultados extends DBObject {
         $this->myLogger->leave();
 		return $res;
 	}
-	
-	function getResultadosEquipos($mode) {
-		// obtenemos resultados individuales
-		$resultados=$this->getResultados($mode);
-		// obtenemos los equipos de la jornada cuya categoria coincide con la buscada
-		$teams=array();
-		foreach ($this->getDatosEquipos() as $equipo) {
-			if ($equipo['Nombre']==="-- Sin asignar --") continue;
-			// comprobamos la categoria. si no coincide tiramos el equipo
-			$modes=array("L","M","S","MS","LMS","T","LM","ST","LMST");
-			if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
-			$r=array_merge($equipo,array('Count'=>0,'PTiempo'=>0,'PRecorrido'=>0,'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0));
-			$teams[$equipo['ID']]=$r;
-		}
-        // procesamos manga Se asume que los resultados ya vienen ordenados por puesto,
-        $mindogs=Jornadas::getTeamDogs($this->getDatosJornada())[0]; // get mindogs
-        // de manera que se contabilizan solo los mindogs primeros perros de cada equipo
-        foreach($resultados['rows'] as $resultado) {
-            $eq=$resultado['Equipo'];
-            if (!array_key_exists($eq,$teams)) {
-                $this->myLogger->notice("evalParcialEquipos(): Prueba:{$this->IDPrueba} Jornada:{$this->IDJornada} Manga:1 Equipo:$eq no existe");
-                continue;
-            }
-            if ($teams[$eq]['Count']>=$mindogs) continue;
-            $teams[$eq]['Count']++;
-            $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
-            $teams[$eq]['PTiempo']+=$resultado['PTiempo'];
-            $teams[$eq]['PRecorrido']+=$resultado['PRecorrido'];
-            $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
-			// cogemos como logo del equipo el logo del primer perro que encontremos de dicho equipo
-			if (!array_key_exists('LogoTeam',$teams[$eq])) $teams[$eq]['LogoTeam']=$resultado['LogoClub'];
-        }
-        // rellenamos huecos hasta completar mindogs
-        foreach ($teams as &$team ) {
-            // 100:Eliminado 200:NoPresentado 400:Pendiente
-            for($n=$team['Count'];$n<$mindogs;$n++) { $team['Penalizacion']+=400; }
-        }
-        // eliminamos el indice del array
-        $equipos=array_values($teams);
-        // re-ordenamos los datos en base a la puntuacion
-        usort($equipos, function($a, $b) {
-            if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
-            return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
-        });
-		for ($n=0;$n<count($equipos);$n++) $equipos[$n]['Puesto']=$n+1;
-        // retornamos resultado
+
+    function getResultadosIndividualyEquipos($mode) {
+        // obtenemos resultados individuales
+        $resultados=$this->getResultadosIndividual($mode);
         $resultados['individual']=$resultados['rows'];
-        $resultados['equipos']=$equipos;
+        $resultados['equipos']=$this->getResultadosEquipos($resultados['rows']);
         return $resultados;
-	}
-	
-	function getTRS($mode) {
-		$this->myLogger->enter();
-		$trs=$this->getResultados($mode)['trs'];
-		$this->myLogger->leave();
-		return $trs;
-	}
+    }
 
     /**
      * Gestion de resultados en Equipos3/Equipos4
      * Agrupa los resultados por equipos y genera una lista de equipos ordenados por resultados
-     * @param {array} resultados de la manga ordenados por participante
-     * @param {int} prueba PruebaID
-     * @param {int} jornada JornadaID
-     * @param {int} $mindogs minimun number of dogs on a team
+     * @param {array} resultados de la manga ordenados por participante. La categoria (mode) ya debe estar filtrada
      * @return {array} datos de equipos de la manga ordenados por resultados de equipo
      */
-    function getTeamResults($resultados,$prueba,$jornada,$mindogs=4) {
+    function getResultadosEquipos($resultados) {
+        // evaluamos mindogs
+        $mindogs=Jornadas::getTeamDogs($this->getDatosJornada())[0]; // get mindogs
+
         // Datos de equipos de la jornada. obtenemos prueba y jornada del primer elemento del array
-        $m=new Equipos("getTeamResults",$prueba,$jornada);
+        $m=new Equipos("getResultadosEquipos",$this->IDPrueba,$this->IDJornada);
         $teams=$m->getTeamsByJornada();
 
         // reindexamos por ID y anyadimos un campos extra Tiempo, penalizacion y el array de resultados del equipo

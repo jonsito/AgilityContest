@@ -41,7 +41,7 @@ try {
 	$mngobj= new Mangas("printResultadosByManga",$idjornada);
 	$manga=$mngobj->selectByID($idmanga);
 	$resobj= Resultados::getInstance("printResultadosByManga",$idmanga);
-	$resultados=$resobj->getResultados($mode); // throw exception if pending dogs
+	$resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
 
 	// Creamos generador de documento
 	$pdf = new PrintResultadosByManga($idprueba,$idjornada,$manga,$resultados,$mode);

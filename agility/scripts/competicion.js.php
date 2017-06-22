@@ -1140,7 +1140,7 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 		type:'GET',
 		url:"/agility/server/database/resultadosFunctions.php",
 		dataType:'json',
-		data: {	Operation:'getResultados', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:idmanga, Mode: mode },
+		data: {	Operation:'getResultadosIndividual', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:idmanga, Mode: mode },
 		success: function(dat) {
 			var suffix='L';
 			switch (mode) {

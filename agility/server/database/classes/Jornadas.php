@@ -933,9 +933,9 @@ class Jornadas extends DBObject {
 	}
 
 	/**
-	 * Evalua en numero minimo y maximo de perros por jornada
-	 * @param $jobj objeto/array de tipo jornada
-	 * @return array (mindogs,maxdogs)
+	 * Evalua en numero minimo y maximo de perros por equipo y jornada
+	 * @param {mixed} $jobj objeto/array de tipo jornada
+	 * @return {array} (mindogs,maxdogs)
 	 */
 	static function getTeamDogs($jornada) {
 		$eq3=0;$eq4=0;

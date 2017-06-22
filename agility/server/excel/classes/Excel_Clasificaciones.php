@@ -101,7 +101,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
             $row=array();
 			array_push($row,$manga['TipoManga']); // tipo de manga
 			array_push($row,$manga['Nombre']); // nombre de la manga
-            $resultados=$results->getResultados($manga['Mode']);
+            $resultados=$results->getResultadosIndividual($manga['Mode']);
             $trs=$resultados['trs'];
             array_push($row,$trs['dist']);
             array_push($row,$trs['obst']);

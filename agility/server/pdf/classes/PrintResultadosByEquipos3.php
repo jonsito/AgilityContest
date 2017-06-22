@@ -76,26 +76,12 @@ class PrintResultadosByEquipos3 extends PrintCommon {
 		parent::__construct('Portrait',"print_resultadosEquipos3",$prueba,$jornada);
 		$this->manga=$manga;
 
-        $this->resultados=$resobj->getResultados($mode); // throw exception if pending dogs
+        $this->resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
         $this->mode=$mode;
-        $mindogs=0;
-        switch(intval($this->jornada->Equipos3)) {
-            case 1:$mindogs=3; break; // old style 3 best of 4
-            case 2:$mindogs=2; break; // 2 besto of 3
-            case 3:$mindogs=3; break; // 3 best of 4
-            default: break;
-        }
-        switch(intval($this->jornada->Equipos4)) {
-            case 1:$mindogs=4; break; // old style 4 combined
-            case 2:$mindogs=2; break; // 2 combined
-            case 3:$mindogs=3; break; // 3 combined
-            case 4:$mindogs=4; break; // 4 combined
-            default: break;
-        }
         $this->cellHeader=
             array(_('Dorsal'),_('Name'),_('Lic').'.',_('Handler'),$this->strClub,_('Cat').'.',_('Flt').'.',_('Tch').'.',_('Ref').'.',
                   _('Time'),_('Vel').'.',_('Penal').'.',_('Calification'),_('Position'),_('Team global'));
-        $this->equipos=$resobj->getTeamResults($this->resultados['rows'],$prueba,$jornada,$mindogs);
+        $this->equipos=$resobj->getResultadosEquipos($this->resultados['rows']);
         $this->eqmgr=new Equipos("print_resultadosByEquipos",$prueba,$jornada);
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
