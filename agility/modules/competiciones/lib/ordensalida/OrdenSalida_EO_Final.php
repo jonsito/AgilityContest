@@ -1,6 +1,6 @@
 <?php
 /*
-OrdenSalida_KO.php
+OrdenSalida_EO_Final.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -38,7 +38,7 @@ class OrdenSalida_EO_Final extends OrdenSalida {
 	 * - invalid manga ID
 	 */
 	function __construct($file,$prueba=null,$jornada=null,$manga=null) {
-		parent::__construct("{$file} (K.O.)",$prueba,$jornada,$manga);
+		parent::__construct("{$file} (EO Final Individual)",$prueba,$jornada,$manga);
 
 	}
 
@@ -67,8 +67,8 @@ class OrdenSalida_EO_Final extends OrdenSalida {
             }
             // now assign Agility to round 0 and Jumping to Round 1
 			$result=array(null,null);
-			if (Mangas::isAgility($res['rows'][0])) $result[0]=$res['rows'][0]; else $result[1]=$res['rows'][0];
-            if (Mangas::isAgility($res['rows'][1])) $result[0]=$res['rows'][1]; else $result[1]=$res['rows'][1];
+			if (Mangas::isAgility($res['rows'][0]['Tipo'])) $result[0]=$res['rows'][0]; else $result[1]=$res['rows'][0];
+            if (Mangas::isAgility($res['rows'][1]['Tipo'])) $result[0]=$res['rows'][1]; else $result[1]=$res['rows'][1];
             $this->mangas=$result;
         }
         return $this->mangas;
@@ -90,7 +90,7 @@ class OrdenSalida_EO_Final extends OrdenSalida {
 
 		// spliteamos manga propia y hermana, y las mezclamos en funcion de la categoria
 		$lista=$this->splitPerrosByMode($this->manga->Orden_Salida,$catmode); // manga actual "splitteada"
-		$lista2=$this->splitPerrosByMode($mpadre[0]->Orden_Salida,$catmode); // manga padre "splitteada"
+		$lista2=$this->splitPerrosByMode($mpadre[0]['Orden_Salida'],$catmode); // manga padre "splitteada"
         $str1=$lista[2];
         $str2=$lista2[1];
         $ordensalida=$this->joinOrders($str1,$str2);
@@ -98,7 +98,7 @@ class OrdenSalida_EO_Final extends OrdenSalida {
 
         // hacemos lo mismo con el orden de equipos
         $lista=$this->splitEquiposByMode($this->manga->Orden_Equipos,$catmode); // manga actual "splitteada"
-        $lista2=$this->splitEquiposByMode($mpadre[0]->Orden_Equipos,$catmode); // manga padre "splitteada"
+        $lista2=$this->splitEquiposByMode($mpadre[0]['Orden_Equipos'],$catmode); // manga padre "splitteada"
         $str1=$lista[2];
         $str2=$lista2[1];
         $ordenequipos=$this->joinOrders($str1,$str2);
@@ -133,44 +133,46 @@ class OrdenSalida_EO_Final extends OrdenSalida {
         $orden_agility=$this->getOrden();
         $orden_jumping=$this->getOrden();
 		// invertimos el resultado para la manga de agility
+        $magility=$clasa = json_decode(json_encode($mpadre[0]));
+        $mjumping=$clasa = json_decode(json_encode($mpadre[1]));
 		switch($this->manga->Recorrido) {
 			case 0: // Large,medium,small (3-heighs) Large,medium,small,tiny (4-heights)
 
 				// agility
-				$this->invierteResultados($mpadre[0],0,$catmode);
-				$this->invierteResultados($mpadre[0],1,$catmode);
-				$this->invierteResultados($mpadre[0],2,$catmode);
+				$this->invierteResultados($magility,0,$catmode);
+				$this->invierteResultados($magility,1,$catmode);
+				$this->invierteResultados($magility,2,$catmode);
 				if ($this->federation->get('Heights')==4)
-					$this->invierteResultados($mpadre[0],5,$catmode);
+					$this->invierteResultados($magility,5,$catmode);
                 $orden_agility=$this->getOrden();
 
                 // jumping
-                $this->invierteResultados($mpadre[1],0,$catmode);
-                $this->invierteResultados($mpadre[1],1,$catmode);
-                $this->invierteResultados($mpadre[1],2,$catmode);
+                $this->invierteResultados($mjumping,0,$catmode);
+                $this->invierteResultados($mjumping,1,$catmode);
+                $this->invierteResultados($mjumping,2,$catmode);
                 if ($this->federation->get('Heights')==4)
-                    $this->invierteResultados($mpadre[1],5,$catmode);
+                    $this->invierteResultados($mjumping,5,$catmode);
                 $orden_jumping=$this->getOrden();
 				break;
 			case 1: // Large,medium+small (3heights) Large+medium,Small+tiny (4heights)
 
 				// agility
 				if ($this->federation->get('Heights')==3) {
-					$this->invierteResultados($mpadre[0],0,$catmode);
-					$this->invierteResultados($mpadre[0],3,$catmode);
+					$this->invierteResultados($magility,0,$catmode);
+					$this->invierteResultados($magility,3,$catmode);
 				} else {
-					$this->invierteResultados($mpadre[0],6,$catmode);
-					$this->invierteResultados($mpadre[0],7,$catmode);
+					$this->invierteResultados($magility,6,$catmode);
+					$this->invierteResultados($magility,7,$catmode);
 				}
                 $orden_agility=$this->getOrden();
 
 				// jumping
                 if ($this->federation->get('Heights')==3) {
-                    $this->invierteResultados($mpadre[1],0,$catmode);
-                    $this->invierteResultados($mpadre[1],3,$catmode);
+                    $this->invierteResultados($mjumping,0,$catmode);
+                    $this->invierteResultados($mjumping,3,$catmode);
                 } else {
-                    $this->invierteResultados($mpadre[1],6,$catmode);
-                    $this->invierteResultados($mpadre[1],7,$catmode);
+                    $this->invierteResultados($mjumping,6,$catmode);
+                    $this->invierteResultados($mjumping,7,$catmode);
                 }
                 $orden_jumping=$this->getOrden();
 				break;
@@ -178,17 +180,17 @@ class OrdenSalida_EO_Final extends OrdenSalida {
 
 				// agility
 				if ($this->federation->get('Heights')==3) {
-					$this->invierteResultados($mpadre[0],4,$catmode);
+					$this->invierteResultados($magility,4,$catmode);
 				} else  {
-					$this->invierteResultados($mpadre[0],8,$catmode);
+					$this->invierteResultados($magility,8,$catmode);
 				}
                 $orden_agility=$this->getOrden();
 
 				// jumping
                 if ($this->federation->get('Heights')==3) {
-                    $this->invierteResultados($mpadre[1],4,$catmode);
+                    $this->invierteResultados($mjumping,4,$catmode);
                 } else  {
-                    $this->invierteResultados($mpadre[1],8,$catmode);
+                    $this->invierteResultados($mjumping,8,$catmode);
                 }
                 $orden_jumping=$this->getOrden();
 				break;

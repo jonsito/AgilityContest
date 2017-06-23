@@ -468,8 +468,8 @@ class OrdenSalida extends DBObject {
             $res=$this->__select(
             	"Categoria",
 				"Tandas",
-				"(Tandas.Jornada={$this->jornada->ID}) AND (Tandas.Tipo IN ($cats)) ","
-				Orden ASC"
+				"(Tandas.Jornada={$this->jornada->ID}) AND (Tandas.Tipo IN ($cats)) ",
+                "Orden ASC"
 			);
             // ordenamos segun el orden de categorias establecido en las tandas
             $p5=array();
@@ -600,7 +600,6 @@ class OrdenSalida extends DBObject {
 		for($idx=$size-1; $idx>=0; $idx--) {
 		    // si el resultado indica un perro que no existe en orden de salida actual, skip
             // esto ocurre cuando from corresponde a una manga de calificacion
-            if (strpos(",{$data[$idx]['Perro']},")===FALSE) continue;
 			if (! mode_match($data[$idx]['Categoria'],$catmode) ) continue;
 			$idperro=$data[$idx]['Perro'];
 			// lo borramos para evitar una posible doble insercion

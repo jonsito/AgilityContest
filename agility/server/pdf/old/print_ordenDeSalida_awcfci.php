@@ -231,7 +231,7 @@ try {
 	$manga=http_request("Manga","i",0);
 	$categorias=http_request("Categorias","s","-");
 	// 	Creamos generador de documento
-	$pdf = new OrdenDeSalida($prueba,$jornada,$manga,$categorias);
+	$pdf = OrdenSalida::getInstance($prueba,$jornada,$manga,$categorias);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("ordenDeSalida.pdf","D"); // "D" means open download dialog	
