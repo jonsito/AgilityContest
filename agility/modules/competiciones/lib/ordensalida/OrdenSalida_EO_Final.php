@@ -89,23 +89,18 @@ class OrdenSalida_EO_Final extends OrdenSalida {
             return $this->error("Error: Cannot find Qualification Agility Round in this contest");
 
 		// spliteamos manga propia y hermana, y las mezclamos en funcion de la categoria
-		$lista=$this->splitPerrosByMode($this->manga->Orden_Salida,$catmode); // manga actual "splitteada"
+		$lista=$this->splitPerrosByMode($this->getOrden(),$catmode); // manga actual "splitteada"
 		$lista2=$this->splitPerrosByMode($mpadre[0]['Orden_Salida'],$catmode); // manga padre "splitteada"
         $str1=$lista[2];
         $str2=$lista2[1];
         $ordensalida=$this->joinOrders($str1,$str2);
         $this->setOrden($ordensalida);
 
-        // hacemos lo mismo con el orden de equipos
-        $lista=$this->splitEquiposByMode($this->manga->Orden_Equipos,$catmode); // manga actual "splitteada"
-        $lista2=$this->splitEquiposByMode($mpadre[0]['Orden_Equipos'],$catmode); // manga padre "splitteada"
-        $str1=$lista[2];
-        $str2=$lista2[1];
-        $ordenequipos=$this->joinOrders($str1,$str2);
-        $this->setOrdenEquipos($ordenequipos);
-
+        // NO SE TOCA EL ORDEN DE LOS EQUIPOS:
+		// - Esta es una prueba individual
+		// - Los id del equipo por defecto difieren
 		$this->myLogger->leave();
-		return $ordenequipos;
+		return $this->getOrdenEquipos();
 	}
 
 	/**
@@ -131,7 +126,7 @@ class OrdenSalida_EO_Final extends OrdenSalida {
 		// En funcion del tipo de recorrido tendremos que leer diversos conjuntos de Resultados
 
         $orden_agility=$this->getOrden();
-        $orden_jumping=$this->getOrden();
+        $orden_jumping=$this->getOrden(); // just initialize with current data
 		// invertimos el resultado para la manga de agility
         $magility=$clasa = json_decode(json_encode($mpadre[0]));
         $mjumping=$clasa = json_decode(json_encode($mpadre[1]));
@@ -198,14 +193,14 @@ class OrdenSalida_EO_Final extends OrdenSalida {
 
         // ok. ahora tenemos los ordenes de salida de agility y jumping invertidos
 		// con unicamente los perros clasificados
-		// generamos el orden final alternando mangas de jumping y agility
+		// generamos el orden final alternando mangas de agility y jumping
         $oagility=explode(",",getInnerString($orden_agility,"BEGIN,",",END"));
         $ojumping=explode(",",getInnerString($orden_jumping,"BEGIN,",",END"));
         $orden="BEGIN,END";
         $size=max(count($oagility),count($ojumping));
         for($n=0;$n<$size;$n++) {
-            if (array_key_exists($n,$ojumping)) $orden=list_insert($ojumping[$n],$orden);
             if (array_key_exists($n,$oagility)) $orden=list_insert($oagility[$n],$orden);
+            if (array_key_exists($n,$ojumping)) $orden=list_insert($ojumping[$n],$orden);
 		}
 		// ok. retornamos nuevo orden
 		$this->myLogger->trace("El nuevo orden de salida manga:{$this->manga->ID} jornada:{$this->jornada->ID} es:\n$orden");

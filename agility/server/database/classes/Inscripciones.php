@@ -585,7 +585,7 @@ class Inscripciones extends DBObject {
         // las sesiones no se clonan: no tiene sentido pues esta jornada no existe todavia
         // por lo que no puede tener sesiones asignadas
 
-        // actualizamos lista de equipos
+        // actualizamos lista de equipos. No se incluye defaultteam, que se define al crear la jornada
         $str  = "INSERT INTO Equipos ( Prueba,Jornada,Categorias,Nombre,Observaciones,Miembros,DefaultTeam ) "
                 ."SELECT Prueba,$jornada AS Jornada,Categorias,Nombre,Observaciones,Miembros,DefaultTeam "
                 ."FROM Equipos WHERE Jornada=$from AND DefaultTeam=0";
@@ -633,8 +633,13 @@ class Inscripciones extends DBObject {
                 $found=true;
                 // update Orden_Equipos by mean of translate old to new
                 $oe=explode(",",$f['Orden_Equipos']);
-                foreach($oe as &$item) { if ($item==="BEGIN") continue; if ($item==="END") continue; $item=$teamlistByID[$item]; }
-                $t['Orden_Equipos']=implode(",",$oe);
+                $newoe=array();
+                foreach($oe as &$item) {
+                    if ($item==="BEGIN") $newoe[]='BEGIN';
+                    else if ($item==="END") $newoe[]='END';
+                    else $newoe[]=$teamlistByID[$item];
+                }
+                $t['Orden_Equipos']=implode(",",$newoe);
                 // clone manga info with new team information
                 $str = "UPDATE Mangas SET Mangas.Recorrido={$f['Recorrido']} ,"
                     ."Mangas.Dist_L={$f['Dist_L']}, Mangas.Obst_L={$f['Obst_L']}, Mangas.Dist_M={$f['Dist_M']}, Mangas.Obst_M={$f['Obst_M']}, "
@@ -660,7 +665,7 @@ class Inscripciones extends DBObject {
                 $resultados=$this->__select("*","Resultados","Manga={$f['ID']}");
                 $sqlvalues="";
                 foreach($resultados['rows'] as &$resultado) {
-                    unset($resultado['ID']);// remove id field
+                    unset($resultado['ID']);// remove id field. not really needed, but...
                     // scape strings
                     foreach($resultado as &$field) if (is_string($field)) $field=$this->conn->real_escape_string($field);
                     $resultado['Jornada']=$jornada;

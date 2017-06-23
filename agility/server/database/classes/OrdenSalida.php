@@ -464,13 +464,13 @@ class OrdenSalida extends DBObject {
 			// respetando el orden definido en el programa de la jornada
 			// miramos el orden de tandas:
 			$cats=implode(',',Tandas::getTandasByTipoManga($this->manga->Tipo)); // tipos de tanda asociados a la manga
-			$this->myLogger->trace("Cats:'$cats' tipomanga:{$this->manga->Tipo} ");
             $res=$this->__select(
             	"Categoria",
 				"Tandas",
 				"(Tandas.Jornada={$this->jornada->ID}) AND (Tandas.Tipo IN ($cats)) ",
                 "Orden ASC"
 			);
+
             // ordenamos segun el orden de categorias establecido en las tandas
             $p5=array();
             foreach ($res['rows'] as $item) {
@@ -583,7 +583,7 @@ class OrdenSalida extends DBObject {
 	/**
 	 * Evalua los resultados de la manga from segun mode
 	 * y recalcula el orden de salida de la manga from
-	 * @param {integer} $from manga donde buscar resultados
+	 * @param {object} $from manga donde buscar resultados
 	 * @param {integer} $mode categorias de la manga (L,M,S,MS,LMS,T,LM,ST,LMST)
 	 * @param {integer} $catmode categorias que hay que ordenar en la manga (L,M,S,T,LMST)
 	 */
