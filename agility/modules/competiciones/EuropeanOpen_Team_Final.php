@@ -27,6 +27,7 @@ class EuropeanOpen_Team_Final extends Competitions {
         parent::__construct("European Open - Final Round - Teams");
         $this->federationID=9;
         $this->competitionID=3;
+        $this->moduleRevision="20170623_1151";
     }
     /**
      * Retrieve handler for manage Resultados functions.

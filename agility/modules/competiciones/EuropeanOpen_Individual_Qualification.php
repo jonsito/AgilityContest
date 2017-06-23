@@ -57,6 +57,7 @@ class EuropeanOpen_Individual_Qualification extends Competitions {
         parent::__construct("European Open - Qualification Series - Individual");
         $this->federationID=9;
         $this->competitionID=4;
+        $this->moduleRevision="20170623_1151";
     }
 
     function useLongNames() { return true; }

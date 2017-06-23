@@ -146,6 +146,7 @@ class Clasificaciones extends DBObject {
                 $final[$dogID]["Puesto{$j}"] = $item['Puesto'];
                 $final[$dogID]["Pcat{$j}"] = $item['Pcat'];
                 $final[$dogID]["Tiempo"] += $final[$dogID]["T{$j}"];
+                $final[$dogID]["Puntos"] += $final[$dogID]["Pt{$j}"];
                 $final[$dogID]['Penalizacion'] = $final[$dogID]['Penalizacion'] - 400 + $final[$dogID]["P{$j}"];
                 // do_log("round:{$mangas[$i]->ID} inserted Participante:{$dogID}: ".json_encode($participante));
             }

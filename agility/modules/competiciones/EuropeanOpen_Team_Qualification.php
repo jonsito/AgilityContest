@@ -46,6 +46,7 @@ class EuropeanOpen_Team_Qualification extends Competitions {
         parent::__construct("European Open - Qualifications Series - Teams");
         $this->federationID=9;
         $this->competitionID=1;
+        $this->moduleRevision="20170623_1151";
     }
 
     function useLongNames() { return true; }

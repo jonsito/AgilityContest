@@ -37,6 +37,7 @@ class EuropeanOpen_Individual_Final extends Competitions {
         parent::__construct("European Open - Final Round - Individual");
         $this->federationID=9;
         $this->competitionID=5;
+        $this->moduleRevision="20170623_1151";
     }
 
     function useLongNames() { return true; }

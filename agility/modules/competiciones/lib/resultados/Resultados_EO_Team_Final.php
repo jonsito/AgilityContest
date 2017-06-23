@@ -104,7 +104,7 @@ class Resultados_EO_Team_Final extends Resultados {
         foreach($equipos as $equipo) { // pass by refence as need to modify inner data
             if (count($equipo['Resultados'])==0) continue; // skip empty teams
             // on one or more eliminated, set tiempo as TRM
-            if ($equipo['Eliminados']>0) $equipo['Tiempo']=floatval(4*$results['trs']['trm']);
+            if ($equipo['Eliminados']>0) $equipo['Tiempo']=floatval($results['trs']['trm']);
             $final[]=$equipo;
         }
         // re-ordenamos los datos en base a penalizacion/tiempo

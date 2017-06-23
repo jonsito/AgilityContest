@@ -559,8 +559,13 @@ class Inscripciones extends DBObject {
         if ($fobj->Grado1!=$tobj->Grado1) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Grado1");
         if ($fobj->Grado2!=$tobj->Grado2) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Grado2");
         if ($fobj->Grado3!=$tobj->Grado3) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Grado3");
-        if ($fobj->Equipos3!=$tobj->Equipos3) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Equipos3");
-        if ($fobj->Equipos4!=$tobj->Equipos4) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Equipos4");
+        // en las competiciones por equipos se pueden clonar eq3 en eq4 y viceversa (i.e: open europeo)
+        if ( $fobj->Equipos3!=0 ) {
+            if ( ($tobj->Equipos3==0) && ($tobj->Equipos4==0) ) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Equipos3");
+        }
+        if ( $fobj->Equipos4!=0 ) {
+            if ( ($tobj->Equipos3==0) && ($tobj->Equipos4==0) ) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Equipos4");
+        }
         if ($fobj->PreAgility!=$tobj->PreAgility) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": PreAgility");
         if ($fobj->PreAgility2!=$tobj->PreAgility2) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": PreAgility-2");
         if ($fobj->Open!=$tobj->Open) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Open");
@@ -612,7 +617,19 @@ class Inscripciones extends DBObject {
             set_time_limit($timeout); // to avoid timeout in slow computers
             $found=false;
             foreach ($mangasto['rows'] as &$t) { // use reference instead of copy
-                if ($t['Tipo']!=$f['Tipo']) continue;
+                $flag=false;
+                switch ($f['Tipo']) {
+                    case 8: // agility 3-best
+                    case 9: // agility 4 conjunta
+                        $flag=( ($t['Tipo']==8) || ($t['Tipo']==9) );
+                        break;
+                    case 13: // jumping team 3-best
+                    case 14: // jumping team 4 conjunta
+                        $flag=( ($t['Tipo']==13) || ($t['Tipo']==14) );
+                        break;
+                    default: $flag=($t['Tipo']==$f['Tipo']);
+                }
+                if (!$flag)  continue; // no round type match
                 $found=true;
                 // update Orden_Equipos by mean of translate old to new
                 $oe=explode(",",$f['Orden_Equipos']);
@@ -657,7 +674,7 @@ class Inscripciones extends DBObject {
                 if (!$res) $this->myLogger->error($this->conn->error);
             }
             // arriving here means no brohter round found. this is an error.
-            if (!$found) $this->myLogger->error("No equivalent round fournd for Journey $from round {$t['ID']} of type {$f['Tipo']} in journey $jornada");
+            if (!$found) $this->myLogger->error("No equivalent round found for Journey $from round {$t['ID']} of type {$f['Tipo']} in journey $jornada");
         }
 
         $this->myLogger->leave();
