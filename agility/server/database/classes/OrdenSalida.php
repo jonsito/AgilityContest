@@ -320,7 +320,12 @@ class OrdenSalida extends DBObject {
 		$listas=array( 0=>array(),1=>array(),2=>array());
 		foreach($ordenperros as $perro) {
 			if ($perro=="") continue; // skip if no data
-			array_push($listas[0],$perro);
+			// skip items that not belong to current round
+			// this happens in final rounds where starting order depends on qualification round results
+			if (!array_key_exists($perro,$listaperros)) continue;
+            // add unconditionally to main list
+            array_push($listas[0],$perro);
+			// compare categories, and insert in proper list
 			if (mode_match($listaperros[$perro]['Categoria'],$mode)) {
                 array_push($listas[1],$perro);
             } else {
@@ -328,9 +333,10 @@ class OrdenSalida extends DBObject {
             }
 		}
 		// retornamos el array de strings
-        $str0=implode(",",$listas[0]);
-        $str1=implode(",",$listas[1]);
-        $str2=implode(",",$listas[2]);
+        // solo se incluyen aquellos perros que aparecen en la lista de resultados de la manga
+        $str0=implode(",",$listas[0]); // lista original
+        $str1=implode(",",$listas[1]); // perros incluidos en lista nueva
+        $str2=implode(",",$listas[2]); // perros excluidos de lista nueva
 		return array($str0,$str1,$str2);
 	}
 
@@ -351,7 +357,13 @@ class OrdenSalida extends DBObject {
 		// clasificamos los equipos por categorias
 		$listas=array( 0=>array(),1=>array(),2=>array());
 		foreach($ordenequipos as $equipo) {
+		    if ($equipo=='') continue; // empty entry
+            // skip items that not belong to current round
+            // this happens in final rounds where starting order depends on qualification round results
+            if (!array_key_exists($equipo,$listaequipos)) continue;
+            // add unconditionally to main list
 			array_push($listas[0],$equipo);
+            // compare categories, and insert in proper list
 			if (mode_match($listaequipos[$equipo]['Categorias'],$mode)) {
                 array_push($listas[1],$equipo);
             } else {
@@ -586,6 +598,9 @@ class OrdenSalida extends DBObject {
 		$ordensalida=$this->getOrden();
 		// y reinsertamos los perros actualizando el orden si la categoria coincide
 		for($idx=$size-1; $idx>=0; $idx--) {
+		    // si el resultado indica un perro que no existe en orden de salida actual, skip
+            // esto ocurre cuando from corresponde a una manga de calificacion
+            if (strpos(",{$data[$idx]['Perro']},")===FALSE) continue;
 			if (! mode_match($data[$idx]['Categoria'],$catmode) ) continue;
 			$idperro=$data[$idx]['Perro'];
 			// lo borramos para evitar una posible doble insercion

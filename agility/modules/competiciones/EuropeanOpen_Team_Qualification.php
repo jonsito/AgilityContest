@@ -43,7 +43,7 @@ class EuropeanOpen_Team_Qualification extends Competitions {
     private $finales=array();
 
     function __construct() {
-        parent::__construct("European Open - Team Qualifications");
+        parent::__construct("European Open - Qualifications Series - Teams");
         $this->federationID=9;
         $this->competitionID=1;
     }

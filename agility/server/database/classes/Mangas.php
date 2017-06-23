@@ -65,6 +65,9 @@ class Mangas extends DBObject {
         if (!$fed) return Mangas::$tipo_manga[$tipo][$idx];
         return $fed->getTipoManga($tipo,$idx);
     }
+    public static function isAgility($tipo,$fed=null) {
+	    return getTipoManga($tipo,5,$fed);
+    }
 
 	/* tabla para obtener facilmente la manga complementaria a una manga dada */
 	public static $manga_hermana= array(

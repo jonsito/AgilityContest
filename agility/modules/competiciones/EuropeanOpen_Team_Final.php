@@ -24,7 +24,7 @@ require_once(__DIR__."/../competiciones/lib/resultados/Resultados_EO_Team_Final.
 
 class EuropeanOpen_Team_Final extends Competitions {
     function __construct() {
-        parent::__construct("European Open - Team Final");
+        parent::__construct("European Open - Final Round - Teams");
         $this->federationID=9;
         $this->competitionID=3;
     }
