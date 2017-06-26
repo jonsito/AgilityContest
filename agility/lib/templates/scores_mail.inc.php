@@ -140,8 +140,8 @@ $config =Config::getInstance();
                     Federation: workingData.federation,
                     Competition: workingData.datosJornada.Tipo_Competicion
                 },
-                success: function(data) {
-                    $('#scores_email-FedAddress').textbox('setValue',data.Email);
+                success: function(res) {
+                    $('#scores_email-FedAddress').textbox('setValue',res.Data.Email);
                 }
             });
             // retrieve judge list
