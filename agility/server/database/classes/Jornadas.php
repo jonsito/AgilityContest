@@ -59,6 +59,7 @@ class Jornadas extends DBObject {
             /*13 */ array(2048,	_('Teams (2)') ),
             /*14 */ array(4096,	_('Teams (3)') ),
             /*15 */ array(8192,	_('Games / WAO') ),
+            /*16 */ array(16384,_('Junior') ),
         );
 	}
 	
@@ -364,6 +365,25 @@ class Jornadas extends DBObject {
 		if (!is_array($mangas)) return $this->error("No Mangas with Jornada ID=$jornadaid");
 		// retrieve result into an array
 		$data=array();
+        if ($row->Junior!=0) {
+            $manga1= $this->fetchManga($mangas['rows'],$jornadaid,32); // Junior Manga 1
+            $manga2= $this->fetchManga($mangas['rows'],$jornadaid,33); // Junior Manga 2
+            array_push($data,array(
+                "Rondas" => $this->tipo_ronda[16][0],
+                "Nombre" => $this->tipo_ronda[16][1],
+                "Manga1" => $manga1['ID'],
+                "Manga2" => $manga2['ID'],
+                "Manga3" => 0,"Manga4" => 0,"Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
+                "NombreManga1" => Mangas::getTipoManga(32,3), // 'Junior Manga 1',
+                "NombreManga2" => Mangas::getTipoManga(33,3), // 'Junior Manga 2',
+                "Recorrido1" => $manga1['Recorrido'],
+                "Recorrido2" => $manga2['Recorrido'],
+                "Juez11" => $this->fetchJuez($manga1['Juez1']),
+                "Juez12" => $this->fetchJuez($manga1['Juez2']),
+                "Juez21" => $this->fetchJuez($manga2['Juez1']),
+                "Juez22" => $this->fetchJuez($manga2['Juez2'])
+            ) );
+        }
 		if ($row->Grado1==1) { // g1 double round (1 for compatibility)
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,3); // 'Agility-1 GI'
             $manga2= $this->fetchManga($mangas['rows'],$jornadaid,4); // 'Agility-2 GI'
@@ -464,25 +484,6 @@ class Jornadas extends DBObject {
 				"Juez22" => $this->fetchJuez($manga2['Juez2'])
 			) );
 		}
-        if ($row->Junior!=0) {
-            $manga1= $this->fetchManga($mangas['rows'],$jornadaid,32); // Junior Manga 1
-            $manga2= $this->fetchManga($mangas['rows'],$jornadaid,33); // Junior Manga 2
-            array_push($data,array(
-                "Rondas" => $this->tipo_ronda[5][0],
-                "Nombre" => $this->tipo_ronda[5][1],
-                "Manga1" => $manga1['ID'],
-                "Manga2" => $manga2['ID'],
-                "Manga3" => 0,"Manga4" => 0,"Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
-                "NombreManga1" => Mangas::getTipoManga(6,3), // 'Agility GIII',
-                "NombreManga2" => Mangas::getTipoManga(11,3), // 'Jumping GIII',
-                "Recorrido1" => $manga1['Recorrido'],
-                "Recorrido2" => $manga2['Recorrido'],
-                "Juez11" => $this->fetchJuez($manga1['Juez1']),
-                "Juez12" => $this->fetchJuez($manga1['Juez2']),
-                "Juez21" => $this->fetchJuez($manga2['Juez1']),
-                "Juez22" => $this->fetchJuez($manga2['Juez2'])
-            ) );
-        }
 		if ($row->Open!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,7); // 'Agility Individual'
 			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,12); // 'Jumping Individual'
@@ -881,6 +882,11 @@ class Jornadas extends DBObject {
 			$m1=Jornadas::__searchManga(1,$mangas); // PA-1
 			Jornadas::__compose($data, $prueba, $jornada, 1, $m1, null);
 		}
+        if ($jornada['Junior']!=0) {  // Jornadas::tiporonda=16
+            $m1 = Jornadas::__searchManga(32, $mangas); // Junior Manga 1
+            $m2 = Jornadas::__searchManga(33, $mangas); // Junior Manga 2
+            Jornadas::__compose($data, $prueba, $jornada, 16, $m1, $m2);
+        }
 		if ($jornada['Grado1']!=0) {  // Jornadas::tiporonda=3 (0:no G1 1:2rounds 2:1round 3:3rounds )
 			$m1 = Jornadas::__searchManga(3, $mangas); // Agility 1 Grado I
             $m2=($jornada['Grado1']==1)?Jornadas::__searchManga(4, $mangas):null; // Agility 2 Grado I
@@ -940,13 +946,15 @@ class Jornadas extends DBObject {
 			if (intval($jobj->Open)!=0) $flag=false;
 			if (intval($jobj->Equipos3)!=0) $flag=false;
 			if (intval($jobj->Equipos4)!=0) $flag=false;
-			if (intval($jobj->KO)!=0) $flag=false;
+            if (intval($jobj->KO)!=0) $flag=false;
+            if (intval($jobj->Junior)!=0) $flag=false; // en junior no hay grados
 		}
 		if (is_array($jobj)) {
 			if (intval($jobj['Open'])!=0) $flag=false;
 			if (intval($jobj['Equipos3'])!=0) $flag=false;
 			if (intval($jobj['Equipos4'])!=0) $flag=false;
-			if (intval($jobj['KO'])!=0) $flag=false;
+            if (intval($jobj['KO'])!=0) $flag=false;
+            if (intval($jobj['Junior'])!=0) $flag=false;
 
 		}
 		return $flag;
