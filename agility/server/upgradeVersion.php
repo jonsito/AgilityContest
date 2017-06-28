@@ -437,7 +437,9 @@ class Updater {
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(28,'Jumping B','-')",
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(29,'Snooker','-')",
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(30,'Gumbler','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(31,'SpeedStakes','-')"
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(31,'SpeedStakes','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(32,'Junior 1','-')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(33,'Junior 2','-')"
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
@@ -510,6 +512,7 @@ try {
     $upg->addColumnUnlessExists("Provincias", "Pais", "varchar(2)", "ES");
     $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
     $upg->addColumnUnlessExists("Jornadas", "Games", "int(4)", "0");
+    $upg->addColumnUnlessExists("Jornadas", "Junior", "tinyint(1)", "0");
     $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
     $upg->updatePerroGuiaClub();
     $upg->updateInscripciones();

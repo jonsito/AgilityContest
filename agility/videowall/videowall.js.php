@@ -345,11 +345,11 @@ function vwcf_evalPenalizacion () {
 	var trs=0;
 	var trm=0;
     var time=parseFloat($('#vwls_Tiempo').text());
-	if ( isAgility(workingData.datosTanda.Tipo) ) {
+	if ( workingData.datosTanda.IsAgility ) { // agility
 		trs=parseFloat($('#finales-TRS1').text());
 		trm=parseFloat($('#finales-TRM1').text());
 	}
-	if ( isJumping(workingData.datosTanda.Tipo) ) {
+	if ( ! workingData.datosTanda.IsAgility ) { // jumping
 		trs=parseFloat($('#finales-TRS2').text());
 		trm=parseFloat($('#finales-TRM2').text());
 	}

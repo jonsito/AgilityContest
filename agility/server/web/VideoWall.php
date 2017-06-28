@@ -77,6 +77,7 @@ class VideoWall {
         }
         if ($tandaid!=0) {
             $this->tanda=$this->myDBObject->__getArray("Tandas",$tandaid);
+            $this->tanda['IsAgility']=Tandas::isAgility($this->tanda['Tipo']);
             $this->tandatype=$this->tanda['Tipo'];
         }
         // retrieve rounds for this journey

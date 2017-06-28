@@ -242,6 +242,10 @@ function formatFederation(val,row,idx) {
 }
 
 /* stylers para formateo de celdas especificas */
+function formatPreAgility(val,row,idx) {
+    var pa=parseInt(row.PreAgility)+parseInt(row.PreAgility2);
+    return (pa==0)?"":"&#x2714;";
+}
 function formatOk(val,row,idx) { return (parseInt(val)==0)?"":"&#x2714;"; }
 function formatNotOk(val,row,idx) { return (parseInt(val)!=0)?"":"&#x2714;"; }
 function formatCerrada(val,row,idx) { return (parseInt(val)==0)?"":"&#x26D4;"; }

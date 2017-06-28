@@ -141,7 +141,16 @@ class Tandas extends DBObject {
             91	=> array('Tipo'=>91,	'TipoManga'=> 31,	'Nombre'=>'SpeedStakes 650',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
             92	=> array('Tipo'=>92,	'TipoManga'=> 31,	'Nombre'=>'SpeedStakes 525',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
             93	=> array('Tipo'=>93,	'TipoManga'=> 31,	'Nombre'=>'SpeedStakes 400',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
-            94	=> array('Tipo'=>94,	'TipoManga'=> 31,	'Nombre'=>'SpeedStakes 300',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-')
+            94	=> array('Tipo'=>94,	'TipoManga'=> 31,	'Nombre'=>'SpeedStakes 300',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-'),
+            // tandas para categoria Junior
+            95	=> array('Tipo'=>95,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 Large',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
+            96	=> array('Tipo'=>96,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
+            97	=> array('Tipo'=>97,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
+            98	=> array('Tipo'=>98,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 Toy',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-'),
+            99	=> array('Tipo'=>99,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Large',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
+            100 => array('Tipo'=>100,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Medium',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
+            101	=> array('Tipo'=>101,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Small',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
+            102	=> array('Tipo'=>102,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Toy',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-'),
     );
 
     static function isAgility($tipo) {
@@ -639,7 +648,7 @@ class Tandas extends DBObject {
 		// actualizamos la lista de tandas de cada ronda
 		
 		// preagility necesita tratamiento especial
-		if (($j->PreAgility2 != 0)){ // preagility2 also handles preagility1
+		if (($j->PreAgility2 == 1)){ // preagility2 also handles preagility1
 			$this->insert_remove($f,1,true);	// Pre-Agility Manga 1
 			$this->insert_remove($f,2,true);	// Pre-Agility Manga 2
 		} else 	if (($j->PreAgility != 0)){
@@ -649,7 +658,10 @@ class Tandas extends DBObject {
             $this->insert_remove($f,1,false);	// Pre-Agility Manga 1
             $this->insert_remove($f,2,false);	// Pre-Agility Manga 2
         }
-        // grado 1 puede tener 1, 2 o 3 mangas
+        // Junior
+        $this->insert_remove($f,32,($j->Junior != 0)?true:false);		// Junior Manga1
+        $this->insert_remove($f,33,($j->Junior != 0)?true:false);		// Junior Manga2
+        // grado 1 puede tener 1, 2 o 3 mangas. Por compatibilidad los posibles valores son 1:2mangas 2:1manga 3:3mangas 0:nogrado1
         switch($j->Grado1) {
             case 3: // 3- round grado1
                 $this->insert_remove($f,3,true);$this->insert_remove($f,4,true);$this->insert_remove($f,17,true);

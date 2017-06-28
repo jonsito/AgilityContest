@@ -572,6 +572,7 @@ class Inscripciones extends DBObject {
         if ($fobj->Especial!=$tobj->Especial) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Especial");
         if ($fobj->KO!=$tobj->KO) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": K.O");
         if ($fobj->Games!=$tobj->Games) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Games");
+        if ($fobj->Junior!=$tobj->Junior) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Junior");
 
         // buscamos numero de orden de jornada origen y destino para actualizar la tabla de inscripciones
         $fmask=1<<(($fobj->Numero)-1);

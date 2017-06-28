@@ -229,8 +229,9 @@ $('#public-Jornada').combogrid({
 		{ field:'Open',		    width:8, sortable:false,	align:'center', title: 'Open   ' },
 		{ field:'Equipos3',		width:8, sortable:false,	align:'center', title: 'Eq.Best' },
 		{ field:'Equipos4',		width:8, sortable:false,	align:'center', title: 'Eq.Comb' },
-		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'Pre. 1 ' },
-		{ field:'PreAgility2',	width:8, sortable:false,	align:'center', title: 'Pre. 2 ' },
+		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'PreAg. ' },
+        { field:'PreAgility2',	hidden:true },
+		{ field:'Junior',	    width:8, sortable:false,	align:'center', title: 'Junior ' },
 		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ' },
 		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' }
 	]],

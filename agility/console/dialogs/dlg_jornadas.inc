@@ -59,6 +59,12 @@ $config =Config::getInstance();
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-PreAgilityChk',0x0003)"/>
                 <input id="jornadas-MangasPreAgility" name="MangasPreAgility" style="width:140px"/>
             </div>
+
+            <div class="fitem">
+                <label for="jornadas-Junior" style="width:150px" ><span id="jornadas-JuniorName">Junior</span></label>
+                <input id="jornadas-Junior" name="Junior" class="easyui-checkbox"
+                       type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Junior',0x4000)"/>
+            </div>
             
             <div class="fitem">
                 <label for="jornadas-Grado1" style="width:150px" ><span id="jornadas-Grado1Name">Grade I</span></label>
@@ -147,6 +153,7 @@ $config =Config::getInstance();
         onBeforeOpen: function() {
             // fix names for PreAgility, Grade 1,II and III
             $('#jornadas-PreAgilityName').html(workingData.datosFederation.ListaGrados['P.A.']);
+            // Junior is really a handler's category... default grade is "-", but perhaps needs to re-visit..
             $('#jornadas-Grado1Name').html(workingData.datosFederation.ListaGrados['GI']);
             $('#jornadas-Grado2Name').html(workingData.datosFederation.ListaGrados['GII']);
             $('#jornadas-Grado3Name').html(workingData.datosFederation.ListaGrados['GIII']);
@@ -177,6 +184,7 @@ $config =Config::getInstance();
             }
             $('#jornadas-PreAgility').prop('checked',(data.PreAgility == 1));
 
+            // grado 1
             if (data.Grado1!=0) {
                 $('#jornadas-Grado1Chk').prop('checked',true);
                 $('#jornadas-MangasGrado1').combobox('enable').combobox('setValue',data.Grado1);
@@ -185,14 +193,21 @@ $config =Config::getInstance();
                 $('#jornadas-MangasGrado1').combobox('disable').combobox('setValue',1); // on disable, set default to 2 rounds
             }
 
+            // grado 2
             $('#jornadas-Grado2').prop('checked',(data.Grado2 == 1));
-            if(howManyGrades(workingData.datosPrueba.RSCE)==3) {
+
+            // grado 3, junior y juegos
+            if(howManyGrades(workingData.datosPrueba.RSCE)==3) { // en RSCE no hay ni junior ni juegos
+                $('#jornadas-Junior').prop('disabled',true).prop('checked',false);
             	$('#jornadas-Grado3').prop('disabled',false).prop('checked',(data.Grado3 == 1));
-                $('#jornadas-Games').prop('disabled',true).prop('checked',(data.Games == 1));
-            } else {
+                $('#jornadas-Games').prop('disabled',true).prop('checked',false);
+            } else { // en RFEC puede haber junior y/o juegos, pero no hay grado 3
+                $('#jornadas-Junior').prop('disabled',false).prop('checked',(data.Junior == 1));
             	$('#jornadas-Grado3').prop('disabled',true).prop('checked',false);
                 $('#jornadas-Games').prop('disabled',false).prop('checked',(data.Games == 1));
             }
+
+            // equipos-3
             if (data.Equipos3!=0) {
                 $('#jornadas-EquiposChk').prop('checked',true);
                 $('#jornadas-MangasEquipos').combobox('enable').combobox('setValue',(data.Equipos3==2)?3:4); // 0:noteam 1:3of4 2:2of3 3:3of4
@@ -204,6 +219,8 @@ $config =Config::getInstance();
                 $('#jornadas-EquiposChk').prop('checked',false);
             	$('#jornadas-MangasEquipos').combobox('disable');
             }
+
+            // el resto de mangas son "normales" ( estan siempre presentes )
             $('#jornadas-Equipos3').prop('checked',(data.Equipos3 != 0));
             $('#jornadas-Equipos4').prop('checked',(data.Equipos4 != 0));
             $('#jornadas-Open').prop('checked',(data.Open == 1));

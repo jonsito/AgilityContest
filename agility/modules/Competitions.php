@@ -71,8 +71,8 @@ class Competitions {
                 "UseLongNames" => $this->useLongNames(),
                 "Email" => $contact,
                 /*    1 0000 0000 0000 0001 -> Pre-Agility 1 */
-                /*    2 0000 0000 0000 0010 -> Pre-Agility 2 */
-                /*    4 0000 0000 0000 0100 -> Grade A1      */
+                /*    2 0000 0000 0000 0010 -> Pre-Agility 2 */ // TO BE REMOVED
+                /*    4 0000 0000 0000 0100 -> Grade A1      */ // 1:2rounds 2:1round 3:3rounds
                 /*    8 0000 0000 0000 1000 -> Grade A2      */
                 /*   16 0000 0000 0001 0000 -> Grade A3      */
                 /*   32 0000 0000 0010 0000 -> Open          */
@@ -84,9 +84,9 @@ class Competitions {
                 /* 2048 0000 1000 0000 0000 -> Teams 2       */ /*need to revise. may be false */
                 /* 4096 0001 0000 0000 0000 -> Teams 3       */ /*need to revise. may be false */
                 /* 8192 0010 0000 0000 0000 -> Games / WAO   */
-                /*16384 0100 0000 0000 0000 -> undefined     */
+                /*16384 0100 0000 0000 0000 -> Junior */
                 /*32768 1000 0000 0000 0000 -> undefined     */
-                "ValidRounds" => bindec('0000011111111111')
+                "ValidRounds" => bindec('1111111111111111')
             )
         );
     }

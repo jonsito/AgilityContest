@@ -498,12 +498,13 @@ class Clasificaciones extends DBObject {
 			case 0x0002: // pre-agility a dos vueltas
 			case 0x0004: // Grado I
 			case 0x0008: // Grado II
-			case 0x0010: // Grado III
+            case 0x0010: // Grado III
+            case 0x4000: // Junior
 			case 0x0020: // Open - Individual
 			case 0x0018: // Conjunta GII - GIII
 			case 0x0100: // ronda KO 1..8 vueltas
 			case 0x0200: // manga especial (una vuelta)
-				$this->errormsg= "ClasificacionEquipos(): choosen series ($rondas) is not a Team Serie";
+				$this->errormsg= "ClasificacionEquipos(): choosen series ($rondas) is not a Team Series";
 				return null;
 			case 0x0400: // equipos 2 mejores de 3
                 $mindogs=2;$maxdogs=3;break;
@@ -568,6 +569,7 @@ class Clasificaciones extends DBObject {
 			case 0x0008: // Grado II
 			case 0x0010: // Grado III
 			case 0x0020: // Open - Individual
+            case 0x4000: // Junior
 				$r1=Resultados::getInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$idmangas[0]); // Agility
 				$r2=Resultados::getInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$idmangas[1]); // Jumping
 				$c1=$r1->getResultadosIndividual($mode);

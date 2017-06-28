@@ -32,7 +32,28 @@ $tipo_manga= array(
 		14 =>	array( 14,_('Jumping Teams')			,'-',  	_('Jmp Teams'),	    _('Teams'),        false), // team combined
 		15 =>	array( 15,_('K.O. Round'), 				'-',	_('K.O. Round'),	_('K.O.'),         false),
 		16 =>	array( 16,_('Special Round'), 			'-',	_('Special Round'), _('Individual'),   true), // special round, no grades
-		17 => 	array( 17,_('Agility Grade I Round 3'),	'GI',	_('Agility-3 GI'),	_('Grade I'),      true) // on RFEC special G1 3rd round
+		17 => 	array( 17,_('Agility Grade I Round 3'),	'GI',	_('Agility-3 GI'),	_('Grade I'),      true), // on RFEC special G1 3rd round
+
+        // mangas extra para K.O.
+        18 =>	array( 18,_('K.O. Second round'),		'-',	_('K.O. Round 2'),	_('K.O. R2'),      false),
+        19 =>	array( 19,_('K.O. Third round'),		'-',	_('K.O. Round 3'),	_('K.O. R3'),      false),
+        20 =>	array( 20,_('K.O. Fourth round'),		'-',	_('K.O. Round 4'),	_('K.O. R4'),      false),
+        21 =>	array( 21,_('K.O. Fifth round'),		'-',	_('K.O. Round 5'),	_('K.O. R5'),      false),
+        22 =>	array( 22,_('K.O. Sixth round'),		'-',	_('K.O. Round 6'),	_('K.O. R6'),      false),
+        23 =>	array( 23,_('K.O. Seventh round'),		'-',	_('K.O. Round 7'),	_('K.O. R7'),      false),
+        24 =>	array( 24,_('K.O. Eight round'),		'-',	_('K.O. Round 8'),	_('K.O. R8'),      false),
+        // mandas extras para wao
+        25 =>	array( 25,_('Agility A'),			    '-',	_('Agility A'),	    _('Ag. A'),        true),
+        26 =>	array( 26,_('Agility B'),			    '-',	_('Agility B'),	    _('Ag. B'),        true),
+        27 =>	array( 27,_('Jumping A'),			    '-',	_('Jumping A'),	    _('Jp. A'),        false),
+        28 =>	array( 28,_('Jumping B'),			    '-',	_('Jumping B'),	    _('Jp. B'),        false),
+        29 =>	array( 29,_('Snooker'),			        '-',	_('Snooker'),	    _('Snkr'),         true),
+        30 =>	array( 30,_('Gambler'),			        '-',	_('Gambler'),	    _('Gmblr'),        false),
+        31 =>	array( 31,_('SpeedStakes'),			    '-',	_('SpeedStakes'),	_('SpdStk'),       true), // single round
+        // junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
+        // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
+        32 =>	array( 32,_('Junior Round 1'),	        '-',	_('Junior 1'),	    _('Jr. 1'),        true),
+        33 => 	array( 33,_('Junior Round 2'),	        '-',	_('Junior 2'),	    _('Jr. 2'),        false),
 );
 
 ?>

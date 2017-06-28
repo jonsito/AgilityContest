@@ -411,6 +411,7 @@ function saveJornada(){
     	$('#jornadas-PreAgility').val(0);
     	$('#jornadas-PreAgility2').val(0);
     }
+    $('#jornadas-Junior').val( $('#jornadas-Junior').is(':checked')?'1':'0');
     $('#jornadas-Grado1').val( $('#jornadas-Grado1Chk').is(':checked')?$('#jornadas-MangasGrado1').combobox('getValue'):'0');
     $('#jornadas-Grado2').val( $('#jornadas-Grado2').is(':checked')?'1':'0');
     $('#jornadas-Grado3').val( $('#jornadas-Grado3').is(':checked')?'1':'0');
@@ -480,6 +481,7 @@ function saveJornada(){
  * 0x0800, 'eq 2combined'
  * 0x1000, 'eq 3combined'
  * 0x2000, 'wao/games'
+ * 0x4000, 'Junior'
  */
 function checkPrueba(id,mask) {
 	var pruebas=0;
@@ -503,7 +505,8 @@ function checkPrueba(id,mask) {
         $('#jornadas-Grado1').val(0);
     }
 
-	pruebas |= $('#jornadas-Grado2').is(':checked')?0x0008:0;
+    pruebas |= $('#jornadas-Junior').is(':checked')?0x4000:0;
+    pruebas |= $('#jornadas-Grado2').is(':checked')?0x0008:0;
 	pruebas |= $('#jornadas-Grado3').is(':checked')?0x0010:0;
 	pruebas |= $('#jornadas-Open').is(':checked')?0x0020:0;
 

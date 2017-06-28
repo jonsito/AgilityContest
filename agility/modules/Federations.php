@@ -217,6 +217,14 @@ class Federations {
             92	=> 'SpeedStakes 525',
             93	=> 'SpeedStakes 400',
             94	=> 'SpeedStakes 300',
+            95  => 'Junior 1 Large',
+            96  => 'Junior 1 Medium',
+            97  => 'Junior 1 Small',
+            98  => 'Junior 1 Toy',
+            99  => 'Junior 2 Large',
+            100  => 'Junior 2 Medium',
+            101  => 'Junior 2 Small',
+            102  => 'Junior 2 Toy',
 
         ),
         'TipoMangas' => array(
@@ -253,7 +261,10 @@ class Federations {
             28 =>	array( 28,'Jumping B',			        '-',	'Jumping B',	'Jp. B',        false),
             29 =>	array( 29,'Snooker',			        '-',	'Snooker',	    'Snkr',         true),
             30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        false),
-            31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       true) // single round
+            31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       true), // single round
+            // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
+            32 =>	array( 32,'Junior Round 1',	            '-',	'Junior 1',	    'Jr. 1',        true),
+            33 => 	array( 33,'Junior Round 2',	            '-',	'Junior 2',	    'Jr. 2',        false),
         )
     );
 

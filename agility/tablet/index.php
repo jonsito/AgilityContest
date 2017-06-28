@@ -315,16 +315,16 @@ $('#seltablet-Jornada').combogrid({
 		{ field:'Nombre',		width:40, sortable:false,   align:'right',  title: '<?php _e('Name/Comment');?>' },
 		{ field:'Fecha',		hidden:true},
 		{ field:'Hora',			hidden:true},
-		{ field:'Grado1',		width:7, sortable:false,	align:'center', title: 'G-I    ' },
-		{ field:'Grado2',		width:7, sortable:false,	align:'center', title: 'G-II   ' },
-		{ field:'Grado3',		width:7, sortable:false,	align:'center', title: 'G-III  ' },
-		{ field:'Open',		    width:7, sortable:false,	align:'center', title: 'Open   ' },
-		{ field:'Equipos3',		width:7, sortable:false,	align:'center', title: 'Eq.Best' },
-		{ field:'Equipos4',		width:7, sortable:false,	align:'center', title: 'Eq.Comb' },
-		{ field:'PreAgility',	width:7, sortable:false,	align:'center', title: 'Pre. 1 ' },
-		{ field:'PreAgility2',	width:7, sortable:false,	align:'center', title: 'Pre. 2 ' },
-		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.   ' },
-		{ field:'Especial',		width:7, sortable:false,	align:'center', title: 'Show   ' }
+        { field:'PreAgility',	width:7, sortable:false,	align:'center', title: 'PreAg. ', formatter:formatPreAgility },
+        { field:'Junior',	    width:7, sortable:false,	align:'center', title: 'Junior ', formatter:formatOK },
+		{ field:'Grado1',		width:7, sortable:false,	align:'center', title: 'G-I    ', formatter:formatOK },
+		{ field:'Grado2',		width:7, sortable:false,	align:'center', title: 'G-II   ', formatter:formatOK },
+		{ field:'Grado3',		width:7, sortable:false,	align:'center', title: 'G-III  ', formatter:formatOK },
+		{ field:'Open',		    width:7, sortable:false,	align:'center', title: 'Open   ', formatter:formatOK },
+		{ field:'Equipos3',		width:7, sortable:false,	align:'center', title: 'Eq.Best', formatter:formatOK },
+		{ field:'Equipos4',		width:7, sortable:false,	align:'center', title: 'Eq.Comb', formatter:formatOK },
+		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.   ', formatter:formatOK },
+		{ field:'Especial',		width:7, sortable:false,	align:'center', title: 'Show   ', formatter:formatOK }
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerate';

@@ -74,7 +74,10 @@ class Puntuable_RSCE_2017 extends Competitions {
      * @param {array} $puestocat puesto en funcion de la categoria
      */
     public function evalPartialCalification($m,&$perro,$puestocat) {
-        // si estamos en preagility, grado 1 o tiene 6 o mas puntos de penalizacion, utiliza la puntuacion estandard
+
+        // en teoria aqui no deberian llegar las mangas de Junior... habra que poner una comprobacion
+
+        // si estamos en preagility, grado 1 o no tiene cero puntos de penalizacion, utiliza la puntuacion estandard
         if ($perro['Grado']==="P.A.") {
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;

@@ -305,7 +305,7 @@ function vwsf_updateHeader(mode,data) {
     if (mode.indexOf("manga")>=0) { // fix round name
         var team=(isJornadaEquipos(null))?"":" - <?php _e('Individual');?>";
         $('#vws_hdr_manga').val(data.Tanda.Nombre+team);
-        vws_selectAgilityOrJumping(isAgility(data.Tanda.Tipo));
+        vws_selectAgilityOrJumping(data.Tanda.IsAgility);
     }
     if ( mode.indexOf("trs")>=0) { // fix sct/mct
         var trs1=(typeof(data.trs1)==="undefined")?"<?php _e('Dist');?>/<?php _e('SCT');?>": data.trs1.dist+ "m. / " +data.trs1.trs+"s.";

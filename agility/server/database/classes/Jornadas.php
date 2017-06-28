@@ -90,7 +90,8 @@ class Jornadas extends DBObject {
         $equipos3 = http_request("Equipos3","i",0);
         $equipos4 = http_request("Equipos4","i",0);
         $preagility = http_request("PreAgility","i",0);
-        $preagility2 = http_request("PreAgility2","i",0);
+        $preagility2 = http_request("PreAgility2","i",0); // TODO: remove redundant and senseless preagility2
+        $junior = http_request("Junior","i",0);
         $ko = http_request("KO","i",0);
         $games = http_request("Games","i",0);
         $especial = http_request("Especial","i",0);
@@ -116,13 +117,13 @@ class Jornadas extends DBObject {
         }
 		// componemos un prepared statement
 		$sql ="UPDATE Jornadas
-				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, SlaveOf=?, Tipo_Competicion=?,Grado1=?, Grado2=?, Grado3=?,
+				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, SlaveOf=?, Tipo_Competicion=?,Grado1=?, Grado2=?, Grado3=?, Junior=?,
 					Open=?, Equipos3=?, Equipos4=?, PreAgility=?, PreAgility2=?, KO=?, Games=?,Especial=?, Observaciones=?, Cerrada=?
 				WHERE ( ID=? );";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('isssiiiiiiiiiiiiisii',
-				$prueba,$nombre,$fecha,$hora,$slaveof,$tipo_competicion,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$games,$especial,$observaciones,$cerrada,$id);
+		$res=$stmt->bind_param('isssiiiiiiiiiiiiiisii',
+				$prueba,$nombre,$fecha,$hora,$slaveof,$tipo_competicion,$grado1,$grado2,$grado3,$junior,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$games,$especial,$observaciones,$cerrada,$id);
 		if (!$res) return $this->error($this->conn->error); 
 
 		// invocamos la orden SQL y devolvemos el resultado
@@ -131,7 +132,7 @@ class Jornadas extends DBObject {
 		$stmt->close();
 		if (!$cerrada) {
 			$mangas =new Mangas("jornadaFunctions",$id);
-			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$games,$especial,$observaciones);
+			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$junior,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$games,$especial,$observaciones);
 			$ot= new Tandas("jornadas::update",$this->prueba,$id);
 			$ot->populateJornada();
         }
@@ -463,6 +464,25 @@ class Jornadas extends DBObject {
 				"Juez22" => $this->fetchJuez($manga2['Juez2'])
 			) );
 		}
+        if ($row->Junior!=0) {
+            $manga1= $this->fetchManga($mangas['rows'],$jornadaid,32); // Junior Manga 1
+            $manga2= $this->fetchManga($mangas['rows'],$jornadaid,33); // Junior Manga 2
+            array_push($data,array(
+                "Rondas" => $this->tipo_ronda[5][0],
+                "Nombre" => $this->tipo_ronda[5][1],
+                "Manga1" => $manga1['ID'],
+                "Manga2" => $manga2['ID'],
+                "Manga3" => 0,"Manga4" => 0,"Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
+                "NombreManga1" => Mangas::getTipoManga(6,3), // 'Agility GIII',
+                "NombreManga2" => Mangas::getTipoManga(11,3), // 'Jumping GIII',
+                "Recorrido1" => $manga1['Recorrido'],
+                "Recorrido2" => $manga2['Recorrido'],
+                "Juez11" => $this->fetchJuez($manga1['Juez1']),
+                "Juez12" => $this->fetchJuez($manga1['Juez2']),
+                "Juez21" => $this->fetchJuez($manga2['Juez1']),
+                "Juez22" => $this->fetchJuez($manga2['Juez2'])
+            ) );
+        }
 		if ($row->Open!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,7); // 'Agility Individual'
 			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,12); // 'Jumping Individual'
