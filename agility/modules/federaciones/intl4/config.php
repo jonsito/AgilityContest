@@ -22,6 +22,8 @@ class INTL4 extends Federations {
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Baja' => 'Out',
+                'Jr' => 'Jr.',
+                'Sr' => 'Sr.',
                 'GI' => 'A1',
                 'GII'=> 'A2',
                 'GIII' => 'A3', //  invalid for 2-grades contests
@@ -31,6 +33,8 @@ class INTL4 extends Federations {
             ),
             'ListaGrados'    => array (
                 '-' => 'Not specified ',
+                'Jr' => 'Junior',
+                'Sr' => 'Senior',
                 'GI' => 'Grade I',
                 'GII'=> 'Grade II',
                 'GIII' => 'Grade III', // no existe

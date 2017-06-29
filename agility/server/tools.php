@@ -215,14 +215,18 @@ function parseGrade($grad) {
 	if (is_null($grad)) return '-';
 	$grad=strtolower(trim(utf8_decode($grad)));
 	if ($grad==="") return '-';
+	if (strpos($grad, 'Jr')!==false) return 'Jr';
+	if (strpos($grad, 'Sr')!==false) return 'Sr';
+	if (strpos($grad, 'Junior')!==false) return 'Jr';
+	if (strpos($grad, 'Senior')!==false) return 'Sr';
 	if (strpos($grad,'pre')!==false) return 'P.A.';
 	if (strpos($grad,'pa')!==false) return 'P.A.';
 	if (strpos($grad,'p.a')!==false) return 'P.A.';
 	if (strpos($grad,'0')!==false) return 'P.A.';
-	if (strpos($grad,'iii')!==false) return 'GIII';
+	if (strpos($grad,'iii')!==false) return 'GIII'; // cuidado con el orden de estas comparaciones
 	if (strpos($grad,'ii')!==false) return 'GII';
-	if (strpos($grad,'i')!==false) return 'GI'; // cuidado con el orden de estos tres ultimos
-	if (strpos($grad,'3')!==false) return 'GIII';
+	if (strpos($grad,'i')!==false) return 'GI';
+	if (strpos($grad,'3')!==false) return 'GIII'; // cuidado con el orden de estas comparaciones
 	if (strpos($grad,'2')!==false) return 'GII';
 	if (strpos($grad,'1')!==false) return 'GI';
 	return '-';
@@ -231,7 +235,7 @@ function parseGrade($grad) {
 function parseHandlerCat($cat) {
     static $i = array('i','child','children','infantil','infantiles');
     static $j = array('j','junior','juvenil','juveniles');
-    static $a = array('a','adult','adults','adulto','adultos');
+    static $a = array('a','adult','adults','adulto','adultos','absolut','absoluta');
     static $s = array('s','senior','seniors');
     static $r = array('r','retired','retirado','retirados','baja');
     static $p = array('p','para-agility');

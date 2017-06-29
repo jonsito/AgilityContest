@@ -21,6 +21,8 @@ class INTL3 extends Federations {
             'Recorridos' => array('Common course',"Large / Med + Small","Separate courses"),
             'ListaGradosShort' => array(
                 '-' => '-',
+                'Jr' => 'Jr.',
+                'Sr' => 'Sr.',
                 'Baja' => 'Out',
                 'GI' => 'A1',
                 'GII'=> 'A2',
@@ -31,6 +33,8 @@ class INTL3 extends Federations {
             ),
             'ListaGrados'    => array (
                 '-' => 'Individual',
+                'Jr' => 'Junior',
+                'Sr' => 'Senior',
                 'GI' => 'Grade I',
                 'GII'=> 'Grade II',
                 'GIII' => 'Grade III',

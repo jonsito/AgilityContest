@@ -438,8 +438,39 @@ class Updater {
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(29,'Snooker','-')",
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(30,'Gumbler','-')",
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(31,'SpeedStakes','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(32,'Junior 1','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(33,'Junior 2','-')"
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(32,'Junior 1','Jr')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(33,'Junior 2','Jr')"
+        );
+        foreach ($cmds as $query) { $this->myDBObject->query($query); }
+        return 0;
+    }
+    /**
+     * insert into database information for Agility Grade 1 Round 3
+     * @return
+     */
+
+    /**
+     * Prepare Grados_Perro to new module based grades
+     * @return {int} 0 on success
+     */
+    function addNewGradeTypes() {
+        $cmds= array(
+            // temporary hack for Junior and Senior grades
+            // this sucks: Jr and Sr are handler categories, not dog ones, but...
+            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('Jr','Junior')",
+            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('Sr','Senior')",
+            // new model for module based competitions and federations
+            // use numeric strings to allow easy int-to-string conversion
+            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('0','Grade 0')", // old Pre-Agility
+            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('1','Grade 1')", // old Grade 1
+            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('2','Grade 2')", // old Grade 2
+            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('3','Grade 3')", // old Grade 3
+            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('4','Grade 4')",
+            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('5','Grade 5')",
+            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('6','Grade 6')",
+            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('7','Grade 7')",
+            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('8','Grade 8')",
+            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('9','Grade 9')",
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
@@ -513,6 +544,7 @@ try {
     $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
     $upg->addColumnUnlessExists("Jornadas", "Games", "int(4)", "0");
     $upg->addColumnUnlessExists("Jornadas", "Junior", "tinyint(1)", "0");
+    $upg->addColumnUnlessExists("Jornadas", "Senior", "tinyint(1)", "0");
     $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
     $upg->updatePerroGuiaClub();
     $upg->updateInscripciones();
@@ -520,6 +552,7 @@ try {
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
     $upg->populateTeamMembers();
+    $upg->addNewGradeTypes();
     $upg->addNewMangaTypes();
     $upg->fixLOERRC2017();
     $upg->addColumnUnlessExists("Usuarios", "Club", "int(4)", "1");

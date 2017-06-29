@@ -22,6 +22,8 @@ class NAT4 extends Federations {
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja',
+                'Jr' => 'Jr.',
+                'Sr' => 'Sr.',
                 'GI' => 'G1',
                 'GII'=> 'G2',
                 'GIII' => 'G3',
@@ -32,6 +34,8 @@ class NAT4 extends Federations {
             'ListaGrados'    => array (
                 '-' => ' ',
                 'Baja' => 'Baja temporal',
+                'Jr' => 'Junior',
+                'Sr' => 'Senior',
                 'GI' => 'Grado 1',
                 'GII'=> 'Grado 2',
                 'GIII' => 'G3 no disponible',

@@ -947,7 +947,7 @@ class Jornadas extends DBObject {
 			if (intval($jobj->Equipos3)!=0) $flag=false;
 			if (intval($jobj->Equipos4)!=0) $flag=false;
             if (intval($jobj->KO)!=0) $flag=false;
-            if (intval($jobj->Junior)!=0) $flag=false; // en junior no hay grados
+            if (intval($jobj->Junior)!=0) $flag=false; // en junior no hay grados... por ahora
 		}
 		if (is_array($jobj)) {
 			if (intval($jobj['Open'])!=0) $flag=false;

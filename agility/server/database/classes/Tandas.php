@@ -143,14 +143,14 @@ class Tandas extends DBObject {
             93	=> array('Tipo'=>93,	'TipoManga'=> 31,	'Nombre'=>'SpeedStakes 400',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
             94	=> array('Tipo'=>94,	'TipoManga'=> 31,	'Nombre'=>'SpeedStakes 300',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-'),
             // tandas para categoria Junior
-            95	=> array('Tipo'=>95,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 Large',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
-            96	=> array('Tipo'=>96,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
-            97	=> array('Tipo'=>97,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
-            98	=> array('Tipo'=>98,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 Toy',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-'),
-            99	=> array('Tipo'=>99,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Large',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
-            100 => array('Tipo'=>100,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Medium',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
-            101	=> array('Tipo'=>101,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Small',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'-'),
-            102	=> array('Tipo'=>102,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Toy',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'-'),
+            95	=> array('Tipo'=>95,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 Large',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'Jr'),
+            96	=> array('Tipo'=>96,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'Jr'),
+            97	=> array('Tipo'=>97,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'Jr'),
+            98	=> array('Tipo'=>98,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 Toy',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Jr'),
+            99	=> array('Tipo'=>99,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Large',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'Jr'),
+            100 => array('Tipo'=>100,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Medium',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'Jr'),
+            101	=> array('Tipo'=>101,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Small',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'Jr'),
+            102	=> array('Tipo'=>102,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Toy',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Jr'),
     );
 
     static function isAgility($tipo) {

@@ -232,6 +232,7 @@ $('#public-Jornada').combogrid({
 		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'PreAg. ' },
         { field:'PreAgility2',	hidden:true },
 		{ field:'Junior',	    width:8, sortable:false,	align:'center', title: 'Junior ' },
+        { field:'Senior',   	hidden:true }, // not used yet
 		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ' },
 		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' }
 	]],

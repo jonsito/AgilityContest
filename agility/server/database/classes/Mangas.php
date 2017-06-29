@@ -61,8 +61,8 @@ class Mangas extends DBObject {
         31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       true), // single round
         // junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
         // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
-        32 =>	array( 32,'Junior Round 1',	            '-',	'Junior 1',	    'Jr. 1',        true),
-        33 => 	array( 33,'Junior Round 2',	            '-',	'Junior 2',	    'Jr. 2',        false),
+        32 =>	array( 32,'Junior Round 1',	            'Jr',	'Junior 1',	    'Jr. 1',        true),
+        33 => 	array( 33,'Junior Round 2',	            'Jr',	'Junior 2',	    'Jr. 2',        false),
 	);
 
 	public static function getTipoManga($tipo,$idx,$fed=null) {
@@ -109,8 +109,8 @@ class Mangas extends DBObject {
         30, /* 29 ,'Snooker',	*/
         29, /* 30 ,'Gambler',	*/
         0,  /* 31 ,'SpeedStakes',*/
-		33,	/* 32, 'Junior Manga 1', 'G2' */
-		32,	/* 33, 'Junior Manga 2', 'G2' */
+		33,	/* 32, 'Junior Manga 1', 'Jr' */
+		32,	/* 33, 'Junior Manga 2', 'Jr' */
 	);
 	
 	public static $manga_modes= array (
@@ -480,9 +480,9 @@ class Mangas extends DBObject {
 			else { $this->delete(1); }
 		}
 
-        /* 32, 'Agility Grado II', 'GII' */
-        /* 33,'Jumping Grado II', 'GII' */
-        if ($junior) { $this->insert(32,'-'); $this->insert(33,'-'); }
+        /* 32,'Junior Manga 1', 'Jr' */
+        /* 33,'Junior Manga 2', 'Jr' */
+        if ($junior) { $this->insert(32,'Jr'); $this->insert(33,'Jr'); }
 
 		/* 3, 'Agility Grado I Manga 1', 'GI' */
         /* 4, 'Agility Grado I Manga 2', 'GI' */

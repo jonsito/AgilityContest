@@ -22,6 +22,8 @@ class NAT3 extends Federations {
             'ListaGradosShort' => array(
                 '-' => '-',
                 'Baja' => 'Out',
+                'Jr' => 'Jr.',
+                'Sr' => 'Sr.',
                 'GI' => 'G1',
                 'GII'=> 'G2',
                 'GIII' => 'G3',
@@ -31,6 +33,8 @@ class NAT3 extends Federations {
             ),
             'ListaGrados'    => array (
                 '-' => 'Individual',
+                'Jr' => 'Junior',
+                'Sr' => 'Senior',
                 'GI' => 'Grado I',
                 'GII'=> 'Grado II',
                 'GIII' => 'Grado III',
@@ -48,6 +52,7 @@ class NAT3 extends Federations {
             ),
             'ListaCategorias' => array (
                 '-' => '-',
+                // 'E' => 'Extra Large',
                 'L' => 'Large',
                 'M' => 'Medium',
                 'S' => 'Small',

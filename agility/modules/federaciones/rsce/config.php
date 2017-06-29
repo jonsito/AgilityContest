@@ -22,6 +22,8 @@ class RSCE extends Federations {
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Baja' => 'Out',
+                'Jr' => 'Jr.',
+                'Sr' => 'Sr.',
                 'GI' => 'GI',
                 'GII'=> 'GII',
                 'GIII' => 'GIII',
@@ -31,6 +33,8 @@ class RSCE extends Federations {
             ),
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
+                'Jr' => 'Junior',
+                'Sr' => 'Senior',
                 'GI' => 'Grado I',
                 'GII'=> 'Grado II',
                 'GIII' => 'Grado III',
@@ -41,6 +45,7 @@ class RSCE extends Federations {
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',
+                // 'E' => 'Extra',
                 'L' => 'Std',
                 'M' => 'Midi',
                 'S' => 'Mini',
@@ -48,6 +53,7 @@ class RSCE extends Federations {
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',
+                // 'E' => 'Extra Large',
                 'L' => 'Standard',
                 'M' => 'Midi',
                 'S' => 'Mini',
@@ -244,8 +250,8 @@ class RSCE extends Federations {
                 31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       true), // single round
                 // junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
                 // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
-                32 =>	array( 32,'Junior Manga 1',	            '-',	'Junior 1',	    'Jr. 1',        true),
-                33 => 	array( 33,'Junior Manga 2',	            '-',	'Junior 2',	    'Jr. 2',        false),
+                32 =>	array( 32,'Junior Manga 1',	            'Jr',	'Junior 1',	    'Jr. 1',        true),
+                33 => 	array( 33,'Junior Manga 2',	            'Jr',	'Junior 2',	    'Jr. 2',        false),
             )
         );
     }

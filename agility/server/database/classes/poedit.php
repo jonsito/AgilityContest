@@ -52,8 +52,8 @@ $tipo_manga= array(
         31 =>	array( 31,_('SpeedStakes'),			    '-',	_('SpeedStakes'),	_('SpdStk'),       true), // single round
         // junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
         // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
-        32 =>	array( 32,_('Junior Round 1'),	        '-',	_('Junior 1'),	    _('Jr. 1'),        true),
-        33 => 	array( 33,_('Junior Round 2'),	        '-',	_('Junior 2'),	    _('Jr. 2'),        false),
+        32 =>	array( 32,_('Junior Round 1'),	        'Jr',	_('Junior 1'),	    _('Jr. 1'),        true),
+        33 => 	array( 33,_('Junior Round 2'),	        'Jr',	_('Junior 2'),	    _('Jr. 2'),        false)
 );
 
 ?>
