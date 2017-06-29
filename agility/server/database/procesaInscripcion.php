@@ -106,11 +106,30 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			case 12:// 'Jumping Abierta', '-'
 			case 13:// 'Jumping Equipos (3 mejores)', '-'
 			case 14:// 'Jumping Equipos (Conjunta)', '-'
-			case 15:// 'Ronda K.O.', '-'
+			case 15:// 'Ronda K.O. 1', '-'
 			case 16:// 'Manga especial', '-'
 				$inscribir=true; break;
             case 17: // 'Agility Grado I Manga 3', 'GI'
                 if ($g==='GI') $inscribir=true; break;
+            case 18:// 'Ronda K.O. 2', '-'
+            case 19:// 'Ronda K.O. 3', '-'
+            case 20:// 'Ronda K.O. 4', '-'
+            case 21:// 'Ronda K.O. 5', '-'
+            case 22:// 'Ronda K.O. 6', '-'
+            case 23:// 'Ronda K.O. 7', '-'
+            case 24:// 'Ronda K.O. 8', '-'
+                $inscribir=true; break;
+            case 25:// WAO Agility A
+            case 26:// WAO Agility B
+            case 27:// WAO Jumping A
+            case 28:// WAO Jumping B
+            case 29:// Snooker
+            case 30:// Gambler
+            case 31:// SpeedSTakes
+                $inscribir=true; break;
+            case 32: // Junior Manga 1
+            case 33: // Junior Manga 2
+            if ($g==='Jr') $inscribir=true; break;
 			default: 
 				throw new Exception("Tipo de manga $mtype desconocido. Manga:$mid Jornada:$j Prueba:$p");
 				break;

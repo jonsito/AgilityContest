@@ -134,7 +134,7 @@ class RFEC extends Federations {
                 35	=> 'Jp. Equipos Large',// team combined
                 36	=> 'Jp. Equipos Med/Small', // team combined
                 // en las rondas KO, los perros compiten todos contra todos
-                37	=> 'Manga K.O.',
+                37	=> 'K.O. Manga 1',
                 38	=> 'Manga Especial Large',
                 39	=> 'Manga Especial Medium',
                 40	=> 'Manga Especial Small',
@@ -159,7 +159,52 @@ class RFEC extends Federations {
                 56	=> 'Agility-3 GI Large',	 // extra rounds for GI RFEC
                 57	=> 'Agility-3 GI Medium',
                 58	=> 'Agility-3 GI Small',
-                59	=> 'Agility-3 GI Toy'
+                59	=> 'Agility-3 GI Toy',
+                // resto de las rondas KO. Los perros compiten todos contra todos
+                60	=> 'K.O. Manga 2',
+                61	=> 'K.O. Manga 3',
+                62	=> 'K.O. Manga 4',
+                63	=> 'K.O. Manga 5',
+                64	=> 'K.O. Manga 6',
+                65	=> 'K.O. Manga 7',
+                66	=> 'K.O. Manga 8',
+                // tandas para games/wao ( cuatro categorias, siete mangas distintas )
+                67	=> 'Agility A 650',
+                68	=> 'Agility A 525',
+                69	=> 'Agility A 400',
+                70	=> 'Agility A 300',
+                71	=> 'Agility B 650',
+                72	=> 'Agility B 525',
+                73	=> 'Agility B 400',
+                74	=> 'Agility B 300',
+                75	=> 'Jumping A 650',
+                76	=> 'Jumping A 525',
+                77	=> 'Jumping A 400',
+                78	=> 'Jumping A 300',
+                79	=> 'Jumping B 650',
+                80	=> 'Jumping B 525',
+                81	=> 'Jumping B 400',
+                82	=> 'Jumping B 300',
+                83	=> 'Snooker 650',
+                84	=> 'Snooker 525',
+                85	=> 'Snooker 400',
+                86	=> 'Snooker 300',
+                87	=> 'Gambler 650',
+                88	=> 'Gambler 525',
+                89	=> 'Gambler 400',
+                90	=> 'Gambler 300',
+                91	=> 'SpeedStakes 650',
+                92	=> 'SpeedStakes 525',
+                93	=> 'SpeedStakes 400',
+                94	=> 'SpeedStakes 300',
+                95  => 'Junior 1 Large',
+                96  => 'Junior 1 Medium',
+                97  => 'Junior 1 Small',
+                98  => 'Junior 1 Toy',
+                99  => 'Junior 2 Large',
+                100  => 'Junior 2 Medium',
+                101  => 'Junior 2 Small',
+                102  => 'Junior 2 Toy',
             ),
             'TipoMangas' => array(
                 0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo', 'IsAgility'),
@@ -173,13 +218,32 @@ class RFEC extends Federations {
                 8 =>	array( 8, 'Agility Equipos',			'-',	'Ag. Teams',	'Teams',       true), // team best
                 9 =>	array( 9, 'Agility Equipos'				,'-',	'Ag. Teams.',	'Teams',       true), // team combined
                 10 =>	array( 10,'Jumping Competicion',		'GII',	'Jumping GII',	'Competicion', false),
-                11 =>	array( 11,'Jumping Grade III',			'GIII',	'Jumping GIII',	'Grade III',   false), // no existe en caza
+                11 =>	array( 11,'Jumping Grade III',			'GIII',	'Jumping GIII',	'Grado III',   false), // no existe en caza
                 12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual',  false), // Open
                 13 =>	array( 13,'Jumping Equipos'				,'-',   'Jp Equipos',	'Equipos',     false), // team best
                 14 =>	array( 14,'Jumping Equipos'				,'-',  	'Jp Equipos',	'Equipos',     false), // team combined
-                15 =>	array( 15,'Manga K.O.', 				'-',	'Manga K.O.',	'K.O.',        false),
+                15 =>	array( 15,'K.O. Manga 1', 				'-',	'K.O. - 1',	    'K.O.',        false),
                 16 =>	array( 16,'Manga Especial', 			'-',	'Manga Especial','Individual', true), // special round, no grades
-                17 => 	array( 17,'Agility Promocion Manga 3',	'GI',	'Agility-3 GI',	'Promocion',   true) // on RFEC special G1 3rd round
+                17 => 	array( 17,'Agility Promocion Manga 3',	'GI',	'Agility-3 GI',	'Promocion',   true), // on RFEC special G1 3rd round
+                // mangas extra para K.O.
+                18 =>	array( 18,'K.O. Segunda manga',			'-',	'K.O. - 2',     'K.O.',         false),
+                19 =>	array( 19,'K.O. Tercera manga',			'-',	'K.O. - 3',	    'K.O.',         false),
+                20 =>	array( 20,'K.O. Cuarta manga',			'-',	'K.O. - 4',	    'K.O.',         false),
+                21 =>	array( 21,'K.O. Quinta manga',			'-',	'K.O. - 5',	    'K.O.',         false),
+                22 =>	array( 22,'K.O. Sexta manga',			'-',	'K.O. - 6',	    'K.O.',         false),
+                23 =>	array( 23,'K.O. Septima manga',			'-',	'K.O. - 7',	    'K.O.',         false),
+                24 =>	array( 24,'K.O. Octava manga',			'-',	'K.O. - 8',	    'K.O.',         false),
+                // mandas extras para wao
+                25 =>	array( 25,'Agility A',			        '-',	'Agility A',	'Ag. A',        true),
+                26 =>	array( 26,'Agility B',			        '-',	'Agility B',	'Ag. B',        true),
+                27 =>	array( 27,'Jumping A',			        '-',	'Jumping A',	'Jp. A',        false),
+                28 =>	array( 28,'Jumping B',			        '-',	'Jumping B',	'Jp. B',        false),
+                29 =>	array( 29,'Snooker',			        '-',	'Snooker',	    'Snkr ',         true),
+                30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        false),
+                31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       true), // single round
+                // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
+                32 =>	array( 32,'Junior Manga 1',	            'Jr',	'Junior 1',	    'Jr. 1',        true),
+                33 => 	array( 33,'Junior Manga 2',	            'Jr',	'Junior 2',	    'Jr. 2',        false)
             )
         );
     }

@@ -263,8 +263,8 @@ class Federations {
             30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        false),
             31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       true), // single round
             // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
-            32 =>	array( 32,'Junior Round 1',	            '-',	'Junior 1',	    'Jr. 1',        true),
-            33 => 	array( 33,'Junior Round 2',	            '-',	'Junior 2',	    'Jr. 2',        false),
+            32 =>	array( 32,'Junior Round 1',	            'Jr',	'Junior 1',	    'Jr. 1',        true),
+            33 => 	array( 33,'Junior Round 2',	            'Jr',	'Junior 2',	    'Jr. 2',        false),
         )
     );
 

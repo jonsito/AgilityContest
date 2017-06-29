@@ -587,6 +587,11 @@ class Tandas extends DBObject {
 				$this->removeFromList($tipo);
 				continue;
 			}
+            if( ($grados==3) && ($item['Grado']==='Jr') ) {
+                // remove every Junior Rounds in RSCE contests
+                $this->removeFromList($tipo);
+                continue;
+            }
             // equipos 4 (tipomanga=9,14) tienen tratamiento especial
             // pues mezclan categorias
             if( ($alturas==3) && ( ($tipomanga==9)||($tipomanga==14) ) ) {
