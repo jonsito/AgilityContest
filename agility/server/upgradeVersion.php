@@ -444,10 +444,20 @@ class Updater {
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
     }
+
     /**
-     * insert into database information for Agility Grade 1 Round 3
-     * @return
+     * Update database to release 3.4 by remove usage of redundant PreAgility2 field
+     * @return 0 on success
      */
+    function updatePreAgility() {
+        $cmds= array(
+            // new usage is PreAgility: 0:none 1:single_round 2:double_round
+            // leave PreAgility2 unchanged to maintain backward compatibility, but next thing is to remove
+            "UPDATE Jornadas SET PreAgility=2 WHERE PreAgility2=1"
+        );
+        foreach ($cmds as $query) { $this->myDBObject->query($query); }
+        return 0;
+    }
 
     /**
      * Prepare Grados_Perro to new module based grades
@@ -546,6 +556,7 @@ try {
     $upg->addColumnUnlessExists("Jornadas", "Junior", "tinyint(1)", "0");
     $upg->addColumnUnlessExists("Jornadas", "Senior", "tinyint(1)", "0");
     $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
+    $upg->updatePreAgility();
     $upg->updatePerroGuiaClub();
     $upg->updateInscripciones();
     $upg->upgradeTeams();

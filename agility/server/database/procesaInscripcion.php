@@ -84,8 +84,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 		$inscribir=false;
 		// comprobamos si el perro tiene que estar en esta manga
 		switch ($mtype) {
-			case 1: //  'Pre Agility Manga 1', 'P.A.'
-				if ($g==='P.A.') $inscribir=true; break;
+			case 1: // 'Pre Agility Manga 1', 'P.A.'
 			case 2: // 'Pre Agility Manga 2', 'P.A.'
 				if ($g==='P.A.') $inscribir=true; break;
 			case 3: // 'Agility Grado I Manga 1', 'GI'

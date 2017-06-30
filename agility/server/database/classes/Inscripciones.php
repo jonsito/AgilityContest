@@ -567,7 +567,6 @@ class Inscripciones extends DBObject {
             if ( ($tobj->Equipos3==0) && ($tobj->Equipos4==0) ) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Equipos4");
         }
         if ($fobj->PreAgility!=$tobj->PreAgility) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": PreAgility");
-        if ($fobj->PreAgility2!=$tobj->PreAgility2) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": PreAgility-2");
         if ($fobj->Open!=$tobj->Open) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Open");
         if ($fobj->Especial!=$tobj->Especial) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": Especial");
         if ($fobj->KO!=$tobj->KO) throw new Exception( "cloneInscripciones: "._("Round information missmatch").": K.O");

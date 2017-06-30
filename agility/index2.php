@@ -320,7 +320,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                 echon( '<dt><a class="easyui-linkbutton" href="javascript:pbmenu_loadTrainingSession('.$pruebaID.');">'._("Training session").'</a></dt><br/>');
             }
 
-            // enumermos jornadas
+            // enumeramos jornadas
             foreach ($ptree['Jornadas'] as $jornada) {
                 if ($jornada['Nombre']==='-- Sin asignar --') continue;
                 if (count($jornada['Mangas'])==0) continue; // no rounds, no print
@@ -347,9 +347,9 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
                         $roundstr="";
                         $mng=0;
                         foreach ($jornada['Mangas'] as $manga ){
-                            // on single round series (special or preagility1) skip partial scores
-                            if ($manga['TipoManga']==16) continue; // special single round
-                            if ( ($manga['TipoManga']==1) && ($jornada['PreAgility2']==0) ) continue;
+                            if ($manga['TipoManga']==16) continue; // special single round: skip show partial scores
+                            // first round in single round pre-agility: skip showing partial scores
+                            if ( ($manga['TipoManga']==1) && ($jornada['PreAgility']==1) ) continue;
                             if ($manga['Manga']!=$mng) $roundstr .= ($mng==0)? '<tr>' : '</tr><tr>';
                             $mng=$manga['Manga'];
                             $roundstr .= '<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$pruebaID .','.$jornada['ID'].','.$manga['Manga'].','.$manga['Mode'].')">'.$manga['Nombre']."</a> </td>\n";

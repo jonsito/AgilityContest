@@ -404,15 +404,13 @@ function closeJornadaFromPrueba(pruebaID,datagridID) {
  */
 function saveJornada(){
 	// take care on bool-to-int translation from checkboxes to database
-    if ($('#jornadas-PreAgilityChk').is(':checked')) {
-        $('#jornadas-PreAgility').val( ($('#jornadas-MangasPreAgility').combobox('getValue')==1)?'1':'0');
-        $('#jornadas-PreAgility2').val( ($('#jornadas-MangasPreAgility').combobox('getValue')==2)?'1':'0');
-    } else {
-    	$('#jornadas-PreAgility').val(0);
-    	$('#jornadas-PreAgility2').val(0);
-    }
+    $('#jornadas-PreAgility').val(
+        ($('#jornadas-PreAgilityChk').is(':checked'))? $('#jornadas-MangasPreAgility').combobox('getValue') : 0
+    );
     $('#jornadas-Junior').val( $('#jornadas-Junior').is(':checked')?'1':'0');
-    $('#jornadas-Grado1').val( $('#jornadas-Grado1Chk').is(':checked')?$('#jornadas-MangasGrado1').combobox('getValue'):'0');
+    $('#jornadas-Grado1').val(
+        $('#jornadas-Grado1Chk').is(':checked')? $('#jornadas-MangasGrado1').combobox('getValue') : '0'
+    );
     $('#jornadas-Grado2').val( $('#jornadas-Grado2').is(':checked')?'1':'0');
     $('#jornadas-Grado3').val( $('#jornadas-Grado3').is(':checked')?'1':'0');
     $('#jornadas-Open').val( $('#jornadas-Open').is(':checked')?'1':'0');
@@ -468,7 +466,7 @@ function saveJornada(){
  * @param {checkbox} id checkbox que se acaba de (de) seleccionar
  * @param {bitmap} mask mascara de la prueba marcada (seleccionada o de-seleccionada)
  * 0x0001, 'PreAgility 1 Manga'
- * 0x0002, 'PreAgility 2 Mangas'
+ * 0x0002, 'PreAgility 2 Mangas' // not used since 3.4
  * 0x0004, 'Grado1',
  * 0x0008, 'Grado2',
  * 0x0010, 'Grado3',
@@ -493,7 +491,7 @@ function checkPrueba(id,mask) {
 		$('#jornadas-MangasPreAgility').combobox('disable');
 	}
 	// pruebas |= $('#jornadas-PreAgility').is(':checked')?0x0001:0;
-	// pruebas |= $('#jornadas-PreAgility2').is(':checked')?0x0002:0;
+	// pruebas |= $('#jornadas-PreAgility2').is(':checked')?0x0002:0; /* not used since 3.4 */
 
     // grado 1 puede tener 1 2 o 3 mangas
     if ($('#jornadas-Grado1Chk').is(':checked')) {

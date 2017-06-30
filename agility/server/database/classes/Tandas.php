@@ -651,17 +651,20 @@ class Tandas extends DBObject {
 		$f=Federations::getFederation(intval(intval($p->RSCE)));
 		// $this->myLogger->trace("call to getFederation({$p->RSCE}) returns: ".print_r($f,true));
 		// actualizamos la lista de tandas de cada ronda
-		
-		// preagility necesita tratamiento especial
-		if (($j->PreAgility2 == 1)){ // preagility2 also handles preagility1
-			$this->insert_remove($f,1,true);	// Pre-Agility Manga 1
-			$this->insert_remove($f,2,true);	// Pre-Agility Manga 2
-		} else 	if (($j->PreAgility != 0)){
-			$this->insert_remove($f,1,true);	// Pre-Agility Manga 1
-			$this->insert_remove($f,2,false);	// Pre-Agility Manga 2
-		} else {
-            $this->insert_remove($f,1,false);	// Pre-Agility Manga 1
-            $this->insert_remove($f,2,false);	// Pre-Agility Manga 2
+        switch($j->PreAgility) {
+            case 2:
+                $this->insert_remove($f,1,true);	// Pre-Agility Manga 1
+                $this->insert_remove($f,2,true);	// Pre-Agility Manga 2
+                break;
+            case 1:
+                $this->insert_remove($f,1,true);	// Pre-Agility Manga 1
+                $this->insert_remove($f,2,false);	// Pre-Agility Manga 2
+                break;
+            default:
+                if ($j->PreAgility>2) $this->myLogger->error("PreAgility: invalid number of rounds: {$j->PreAgility}");
+                $this->insert_remove($f,1,false);	// Pre-Agility Manga 1
+                $this->insert_remove($f,2,false);	// Pre-Agility Manga 2
+                break;
         }
         // Junior
         $this->insert_remove($f,32,($j->Junior != 0)?true:false);		// Junior Manga1

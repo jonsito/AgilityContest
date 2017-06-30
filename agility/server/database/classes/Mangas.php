@@ -458,27 +458,27 @@ class Mangas extends DBObject {
      * @param {integer} $open la jornada tiene (1) o no (0) una prueba abierta
 	 * @param {integer} $equipos3 la jornada tiene (1) o no (0) una manga por equipos (3 de 4)
 	 * @param {integer} $equipos4 la jornada tiene (1) o no (0) una manga por equipos (conjunta)
-	 * @param {integer} $preagility la jornada tiene (1) o no (0) manga de preagility a una vuelta
-	 * @param {integer} $preagility2 la jornada tiene (1) o no (0) mangas de preagility a dos vueltas
+	 * @param {integer} $preagility la jornada tiene (1/2) o no (0) mangas de preagility
      * @param {integer} $ko la jornada contiene (1) o no (0) una prueba k0
      * @param {integer} $games la jornada contiene (1) o no (0) una sesion games/wao
 	 * @param {integer} $especial la jornada tiene (1) o no (0) mangas especial a una vuelta
 	 * @param {integer} $observaciones nombre con el que se denominara la manga especial
 	 * // TODO: handle ko, exhibicion and otras
 	 */
-	function prepareMangas($id,$grado1,$grado2,$grado3,$junior,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$games,$especial,$observaciones) {
+	function prepareMangas($id,$grado1,$grado2,$grado3,$junior,$open,$equipos3,$equipos4,$preagility,$ko,$games,$especial,$observaciones) {
 		$this->myLogger->enter();
 
 		/*  0,'','' */
+
 		/* 1, 'Pre Agility (una manga)', 'P.A.' */
 		/* 2, 'Pre Agility (dos mangas)', 'P.A.' */
-		// truco para discernir si el pre agility tiene una manga o dos
-		if ($preagility2) { $this->insert(1,'P.A.'); $this->insert(2,'P.A.');}
-		else {
-			$this->delete(2);
-			if ($preagility) { $this->insert(1,'P.A.'); }
-			else { $this->delete(1); }
-		}
+        if ($preagility==2) { // pre-agility 2 mangas
+            $this->insert(1,'P.A.'); $this->insert(2,'P.A.');
+        } else if($preagility==1) { // pre-agility 1 manga
+            $this->insert(1,'P.A.'); $this->delete(2);
+        } else { // no hay pre-agility
+            $this->delete(1); $this->delete(2);
+        }
 
         /* 32,'Junior Manga 1', 'Jr' */
         /* 33,'Junior Manga 2', 'Jr' */

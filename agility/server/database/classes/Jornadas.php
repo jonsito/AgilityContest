@@ -91,7 +91,6 @@ class Jornadas extends DBObject {
         $equipos3 = http_request("Equipos3","i",0);
         $equipos4 = http_request("Equipos4","i",0);
         $preagility = http_request("PreAgility","i",0);
-        $preagility2 = http_request("PreAgility2","i",0); // TODO: remove redundant and senseless preagility2
         $junior = http_request("Junior","i",0);
         $ko = http_request("KO","i",0);
         $games = http_request("Games","i",0);
@@ -119,12 +118,12 @@ class Jornadas extends DBObject {
 		// componemos un prepared statement
 		$sql ="UPDATE Jornadas
 				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, SlaveOf=?, Tipo_Competicion=?,Grado1=?, Grado2=?, Grado3=?, Junior=?,
-					Open=?, Equipos3=?, Equipos4=?, PreAgility=?, PreAgility2=?, KO=?, Games=?,Especial=?, Observaciones=?, Cerrada=?
+					Open=?, Equipos3=?, Equipos4=?, PreAgility=?, KO=?, Games=?,Especial=?, Observaciones=?, Cerrada=?
 				WHERE ( ID=? );";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('isssiiiiiiiiiiiiiisii',
-				$prueba,$nombre,$fecha,$hora,$slaveof,$tipo_competicion,$grado1,$grado2,$grado3,$junior,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$games,$especial,$observaciones,$cerrada,$id);
+		$res=$stmt->bind_param('isssiiiiiiiiiiiiisii',
+				$prueba,$nombre,$fecha,$hora,$slaveof,$tipo_competicion,$grado1,$grado2,$grado3,$junior,$open,$equipos3,$equipos4,$preagility,$ko,$games,$especial,$observaciones,$cerrada,$id);
 		if (!$res) return $this->error($this->conn->error); 
 
 		// invocamos la orden SQL y devolvemos el resultado
@@ -133,7 +132,7 @@ class Jornadas extends DBObject {
 		$stmt->close();
 		if (!$cerrada) {
 			$mangas =new Mangas("jornadaFunctions",$id);
-			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$junior,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$games,$especial,$observaciones);
+			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$junior,$open,$equipos3,$equipos4,$preagility,$ko,$games,$especial,$observaciones);
 			$ot= new Tandas("jornadas::update",$this->prueba,$id);
 			$ot->populateJornada();
         }
@@ -503,7 +502,7 @@ class Jornadas extends DBObject {
                 "Juez22" => $this->fetchJuez($manga2['Juez2'])
             ) );
 		}
-		if ($row->PreAgility!=0) {
+		if ($row->PreAgility==1) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,1); // 'Pre-Agility (1 manga)'
 			$manga2= null;
             array_push($data,array(
@@ -521,7 +520,7 @@ class Jornadas extends DBObject {
                 "Juez22" => $this->fetchJuez(1)
             ) );
 		}
-        if ($row->PreAgility2!=0) {
+        if ($row->PreAgility==2) {
             $manga1= $this->fetchManga($mangas['rows'],$jornadaid,1); // 'Pre-Agility (2 mangas)
             $manga2= $this->fetchManga($mangas['rows'],$jornadaid,2); // 'Pre-Agility (2 mangas)
             array_push($data,array(
@@ -870,14 +869,13 @@ class Jornadas extends DBObject {
 		$prueba=$dbobj->__getArray("pruebas",$jornada['Prueba']);
 		$mangas=$dbobj->__select("*","Mangas","(Jornada=$jornadaid)","TIPO ASC","")['rows'];
 		$data=array();
-		if ($jornada['PreAgility2']!=0) {
-			// $dbobj->myLogger->trace("Procesando mangas de preagility-2");
+		if ($jornada['PreAgility']==2) { // pre-Agility 2 mangas
 			/* Pre-Agility siempre tiene recorrido comun para todas las categorias */
 			$m1=Jornadas::__searchManga(1,$mangas); // PA-1
 			$m2=Jornadas::__searchManga(2,$mangas); // PA-2
 			Jornadas::__compose($data, $prueba, $jornada, 2, $m1, $m2);
-		} else if ($jornada['PreAgility']!=0) {
-			// $dbobj->myLogger->trace("Procesando mangas de preagility-1");
+		}
+		if ($jornada['PreAgility']==1) { // pre-Agility 1 manga
 			/* Pre-Agility siempre tiene recorrido comun para todas las categorias */
 			$m1=Jornadas::__searchManga(1,$mangas); // PA-1
 			Jornadas::__compose($data, $prueba, $jornada, 1, $m1, null);
@@ -918,15 +916,32 @@ class Jornadas extends DBObject {
 			$m2 = Jornadas::__searchManga(14, $mangas); // Jumping Equipos3
 			Jornadas::__compose($data, $prueba, $jornada, 8, $m1, $m2);
 		}
-		if ($jornada['KO']!=0) {
-			// $dbobj->myLogger->trace("Procesando mangas K.O.");
-			// TODO: write
-			return null;
+		if ($jornada['KO']!=0) { // Jornadas::tiporonda=9
+            $m1 = Jornadas::__searchManga(15, $mangas); // KO manga 1
+            $m2 = Jornadas::__searchManga(18, $mangas); // KO manga 2
+            $m3 = Jornadas::__searchManga(19, $mangas); // KO manga 3
+            $m4 = Jornadas::__searchManga(20, $mangas); // KO manga 4
+            $m5 = Jornadas::__searchManga(21, $mangas); // KO manga 5
+            $m6 = Jornadas::__searchManga(22, $mangas); // KO manga 6
+            $m7 = Jornadas::__searchManga(23, $mangas); // KO manga 7
+            $m8 = Jornadas::__searchManga(24, $mangas); // KO manga 8
+            Jornadas::__compose($data, $prueba, $jornada, 9, $m1, $m2,$m3,$m4,$m5,$m6,$m7,$m8);
 		}
 		if ($jornada['Especial']!=0) { // Jornadas::tiporonda=10
 			$m1=Jornadas::__searchManga(16,$mangas); // Manga especial a una vuelta
 			Jornadas::__compose($data,$prueba,$jornada,10,$m1,null);
 		}
+
+        if ($jornada['Games']!=0) { // Jornadas::tiporonda=15
+            $m1 = Jornadas::__searchManga(25, $mangas); // Agility A
+            $m2 = Jornadas::__searchManga(26, $mangas); // Agility B
+            $m3 = Jornadas::__searchManga(27, $mangas); // Jumping A
+            $m4 = Jornadas::__searchManga(28, $mangas); // Jumping B
+            $m5 = Jornadas::__searchManga(29, $mangas); // Snooker
+            $m6 = Jornadas::__searchManga(30, $mangas); // Gambler
+            $m7 = Jornadas::__searchManga(31, $mangas); // SpeedStakes
+            Jornadas::__compose($data, $prueba, $jornada, 15, $m1, $m2,$m3,$m4,$m5,$m6,$m7);
+        }
 		// TODO: evaluate conjuntas Grado II y III
 		$result=array('total'=>count($data),'rows'=>$data);
 		return $result;

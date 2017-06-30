@@ -52,8 +52,7 @@ $config =Config::getInstance();
             </div>
             
             <div class="fitem">
-            	<input type="hidden" id="jornadas-PreAgility" name="PreAgility" value="1">
-            	<input type="hidden" id="jornadas-PreAgility2" name="PreAgility2" value="2">
+                <input type="hidden" id="jornadas-PreAgility" name="PreAgility" value="1">
                 <label for="jornadas-PreAgilityChk" style="width:150px" ><span id="jornadas-PreAgilityName">Pre-Agility</span></label>
                 <input id="jornadas-PreAgilityChk" name="PreAgilityChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-PreAgilityChk',0x0003)"/>
@@ -153,7 +152,7 @@ $config =Config::getInstance();
         onBeforeOpen: function() {
             // fix names for PreAgility, Grade 1,II and III
             $('#jornadas-PreAgilityName').html(workingData.datosFederation.ListaGrados['P.A.']);
-            // Junior is really a handler's category... default grade is "-", but perhaps needs to re-visit..
+            $('#jornadas-JuniorName').html(workingData.datosFederation.ListaGrados['Jr']);
             $('#jornadas-Grado1Name').html(workingData.datosFederation.ListaGrados['GI']);
             $('#jornadas-Grado2Name').html(workingData.datosFederation.ListaGrados['GII']);
             $('#jornadas-Grado3Name').html(workingData.datosFederation.ListaGrados['GIII']);
@@ -171,18 +170,27 @@ $config =Config::getInstance();
                     :
                     [{text:'<?php _e("Single round"); ?>',value:'2'},{text:'<?php _e("Double round"); ?>',value:'1'}]
             );
+
             // fix date and checkboxes value into datebox in "onLoadSuccess" event declaration
-            if (data.PreAgility==1) {
-                $('#jornadas-PreAgilityChk').prop('checked',true);
-                $('#jornadas-MangasPreAgility').combobox('enable').combobox('setValue',1);
-            } else if (data.PreAgility2==1) {
-                $('#jornadas-PreAgilityChk').prop('checked',true);
-            	$('#jornadas-MangasPreAgility').combobox('enable').combobox('setValue',2);
-            } else {
-                $('#jornadas-PreAgilityChk').prop('checked',false);
-            	$('#jornadas-MangasPreAgility').combobox('disable');
+            switch (parseInt(data.PreAgility)) {
+                case 0: // no pre-agility rounds
+                    $('#jornadas-PreAgilityChk').prop('checked',false);
+                    $('#jornadas-MangasPreAgility').combobox('disable');
+                    break;
+                case 1: // Pre-Agility 1 round
+                    $('#jornadas-PreAgilityChk').prop('checked',true);
+                    $('#jornadas-MangasPreAgility').combobox('enable').combobox('setValue',1);
+                    break;
+                case 2: // Pre-Agility 2 rounds
+                    $('#jornadas-PreAgilityChk').prop('checked',true);
+                    $('#jornadas-MangasPreAgility').combobox('enable').combobox('setValue',2);
+                    break;
+                default: // error: disable and notify
+                    $('#jornadas-PreAgilityChk').prop('checked',false);
+                    $('#jornadas-MangasPreAgility').combobox('disable');
+                    console.log("Invalid number of pre-agility rounds: "+data.PreAgility);
+                    break;
             }
-            $('#jornadas-PreAgility').prop('checked',(data.PreAgility == 1));
 
             // grado 1
             if (data.Grado1!=0) {

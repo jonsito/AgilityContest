@@ -230,7 +230,7 @@ $('#public-Jornada').combogrid({
 		{ field:'Equipos3',		width:8, sortable:false,	align:'center', title: 'Eq.Best' },
 		{ field:'Equipos4',		width:8, sortable:false,	align:'center', title: 'Eq.Comb' },
 		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'PreAg. ' },
-        { field:'PreAgility2',	hidden:true },
+        { field:'PreAgility2',	hidden:true }, /* not used since 3.4 */
 		{ field:'Junior',	    width:8, sortable:false,	align:'center', title: 'Junior ' },
         { field:'Senior',   	hidden:true }, // not used yet
 		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ' },
