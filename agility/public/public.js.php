@@ -216,6 +216,7 @@ function pb_lookForMessages(callback) {
                 if (typeof (callback)!=="undefined") continue; // on callback defined do not notify
 
                 // null:->do noting; true->notifications; false->messager
+                if (pb_config.Notifications===null) return;
                 // if system notifications are enabled, use it
                 if (pb_config.Notifications===true) {
                     send_Notification(msg);
@@ -276,6 +277,10 @@ function pbmenu_enableSystemNotifications() {
         return;
     }
 
+    /** JAMC 5-jul-2017 disable notification system, just use easyui messager for notifications */
+    pb_config.Notifications=false;
+
+    /*****************
     // register service worker in client
     if('serviceWorker' in navigator){
         // Register service worker
@@ -315,6 +320,7 @@ function pbmenu_enableSystemNotifications() {
         });
     }
 
+     **********************/
     // fire up timer
     var ntimer=parseInt(ac_config.web_refreshtime);
     if (ntimer!==0) setTimeout(pbmenu_notificationTimer,0); // do not wait for timeout
