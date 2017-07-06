@@ -18,7 +18,7 @@ class RFEC extends Federations {
             'International' => 0,
             'WideLicense' => true, // some federations need extra print space to show license ID
             'RoundsG1' => 3,
-            'Recorridos' => array('Common course',"Large+Medium / Small+Toy","Separate courses"),
+            'Recorridos' => array('Common course',"Clases 60+50 / 40+30","Separate courses"),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja',
@@ -52,10 +52,10 @@ class RFEC extends Federations {
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',
-                'L' => 'Large - 60',
-                'M' => 'Medium - 50',
-                'S' => 'Small - 40',
-                'T' => 'Toy - 30'
+                'L' => 'Clase 60',
+                'M' => 'Clase 50',
+                'S' => 'Clase 40',
+                'T' => 'Clase 30'
             ),
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',
@@ -67,99 +67,99 @@ class RFEC extends Federations {
                 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(
-                array('L' => _('Large'),         'M' => _('Medium'), 'S' => _('Small'),     'T' => _('Toy')), // separate courses
-                array('L' => _('Large+Medium'),  'M' => '',          'S' => _('Small+Toy'), 'T' => ''), // mixed courses
-                array('L' => _('L+M+S+T'),     'M' => '',          'S' => '',              'T' => '') // common
+                array('L' => _('Clase 60'),  'M' => _('Clase 50'), 'S' => _('Clase 40'),'T' => _('Clase 30')), // separate courses
+                array('L' => _('60+50+40'),  'M' => '',          'S' => _('Cl. 40+30'), 'T' => ''), // mixed courses
+                array('L' => _('60+50+40+30'),     'M' => '',          'S' => '',              'T' => '') // common
             ),
             'Modes' => array(array(/* separado */ 0, 1, 2, 5 ), array(/* mixto */ 6, 6, 7, 7 ), array(/* conjunto */ 8, 8, 8, 8 )),
             'ModeStrings' => array( // text to be shown on each category
-                array(/* separado */ "Large", "Medium", "Small", "Toy"),
-                array(/* mixto */ "Large+Medium", "Large+Medium", "Small+Toy", "Small+Toy"),
-                array(/* conjunto */ "Common course", "Common course", "Common course", "Common course")
+                array(/* separado */ "Clase 60", "Clase 50", "Clase 40", "Clase 30"),
+                array(/* mixto */ "Clase 60+50", "Clase 60+50", "Clase 40+30", "Clase 40+30"),
+                array(/* conjunto */ "Recorrido conjunto", "Recorrido conjunto", "Recorrido conjunto", "Recorrido conjunto")
             ),
             'IndexedModes' => array (
-                "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Toy", "Large+Medium", "Small+Toy", "Conjunta L/M/S/T"
+                "Clase 60", "Clase 50", "Clase 40", "Cl. 50+40", "Conjunta 60/50/40", "Clase 30", "Cl. 60+50", "Cl. 40+30", "Conjunta 60/50/40/30"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
-                "L"=>"Large",
-                "M"=>"Medium",
-                "S"=>"Small",
-                "T"=>"Toy",
-                "LM"=>"Large/Medium",
-                "ST"=>"Small/Toy",
-                "MS"=>"Medium/Small",
-                "LMS" => 'Conjunta LMS',
-                "LMST" => 'Conjunta LMST',
+                "L"=>"Clase 60",
+                "M"=>"Clase 50",
+                "S"=>"Clase 40",
+                "T"=>"Clase 30",
+                "LM"=>"Clase 60/50",
+                "ST"=>"Clase 40/30",
+                "MS"=>"Clase 50/40",
+                "LMS" => 'Conjunta 60/50/40',
+                "LMST" => 'Conjunta 60/50/40/30',
                 "-LMST" => ''
             ),
             'NombreTandas' => array(
                 0	=> '-- Sin especificar --',
                 1	=> 'Iniciacion 1',
                 2	=> 'Iniciacion 2',
-                3	=> 'Agility-1 GI Large',
-                4	=> 'Agility-1 GI Medium',
-                5	=> 'Agility-1 GI Small',
-                6	=> 'Agility-2 GI Large',
-                7	=> 'Agility-2 GI Medium',
-                8	=> 'Agility-2 GI Small',
-                9	=> 'Agility GII Large',
-                10	=> 'Agility GII Medium',
-                11	=> 'Agility GII Small',
-                12	=> 'Agility GIII Large',
-                13	=> 'Agility GIII Medium',
-                14	=> 'Agility GIII Small',
-                15	=> 'Agility Large', //  Individual-Open
-                16	=> 'Agility Medium',	//  Individual-Open
-                17	=> 'Agility Small', //  Individual-Open
-                18	=> 'Agility Equipos Large', // team best
-                19	=> 'Agility Equipos Medium',// team best
-                20	=> 'Agility Equipos Small',	 // team best
+                3	=> 'Agility-1 GI 60',
+                4	=> 'Agility-1 GI 50',
+                5	=> 'Agility-1 GI 40',
+                6	=> 'Agility-2 GI 60',
+                7	=> 'Agility-2 GI 50',
+                8	=> 'Agility-2 GI 50',
+                9	=> 'Agility GII 60',
+                10	=> 'Agility GII 50',
+                11	=> 'Agility GII 50',
+                12	=> 'Agility GIII 60',
+                13	=> 'Agility GIII 50',
+                14	=> 'Agility GIII 40',
+                15	=> 'Agility Clase 60', //  Individual-Open
+                16	=> 'Agility Clase 50',	//  Individual-Open
+                17	=> 'Agility Clase 40', //  Individual-Open
+                18	=> 'Agility Equipos 60', // team best
+                19	=> 'Agility Equipos 50',// team best
+                20	=> 'Agility Equipos 40',	 // team best
                 // en jornadas por equipos conjunta tres alturas se mezclan categorias M y S
-                21	=> 'Ag. Equipos Large',// team combined
-                22	=> 'Ag. Equipos Med/Small', // team combined
-                23	=> 'Jumping GII Large',
-                24	=> 'Jumping GII Medium',
-                25	=> 'Jumping GII Small',
-                26	=> 'Jumping GIII Large',
-                27	=> 'Jumping GIII Medium',
-                28	=> 'Jumping GIII Small',
-                29	=> 'Jumping Large',//  Individual-Open
-                30	=> 'Jumping Medium',	//  Individual-Open
-                31	=> 'Jumping Small', //  Individual-Open
-                32	=> 'Jumping Equipos Large',	// team best
-                33	=> 'Jumping Equipos Medium',// team best
-                34	=> 'Jumping Equipos Small',	// team best
+                21	=> 'Ag. Equipos 60',// team combined
+                22	=> 'Ag. Equipos 50/40', // team combined
+                23	=> 'Jumping GII 60',
+                24	=> 'Jumping GII 50',
+                25	=> 'Jumping GII 40',
+                26	=> 'Jumping GIII 60',
+                27	=> 'Jumping GIII 50',
+                28	=> 'Jumping GIII 40',
+                29	=> 'Jumping Clase 60',//  Individual-Open
+                30	=> 'Jumping Clase 50',	//  Individual-Open
+                31	=> 'Jumping Clase 40', //  Individual-Open
+                32	=> 'Jumping Equipos 60',	// team best
+                33	=> 'Jumping Equipos 50',// team best
+                34	=> 'Jumping Equipos 40',	// team best
                 // en jornadas por equipos conjunta 3 alturas se mezclan categorias M y S
-                35	=> 'Jp. Equipos Large',// team combined
-                36	=> 'Jp. Equipos Med/Small', // team combined
+                35	=> 'Jp. Equipos 60',// team combined
+                36	=> 'Jp. Equipos 50/40', // team combined
                 // en las rondas KO, los perros compiten todos contra todos
                 37	=> 'K.O. Manga 1',
-                38	=> 'Manga Especial Large',
-                39	=> 'Manga Especial Medium',
-                40	=> 'Manga Especial Small',
+                38	=> 'Manga Especial 60',
+                39	=> 'Manga Especial 50',
+                40	=> 'Manga Especial 40',
 
                 // "Tiny" support for Pruebas de cuatro alturas
-                41	=> 'Agility-1 GI Toy',
-                42	=> 'Agility-2 GI Toy',
-                43	=> 'Agility GII Toy',
-                44	=> 'Agility GIII Toy',	// no existe
-                45	=> 'Agility Toy', //  Individual-Open
-                46	=> 'Agility Equipos Toy',// team best
+                41	=> 'Agility-1 GI 30',
+                42	=> 'Agility-2 GI 30',
+                43	=> 'Agility GII 30',
+                44	=> 'Agility GIII 30',	// no existe
+                45	=> 'Agility Clase 30', //  Individual-Open
+                46	=> 'Agility Equipos 30',// team best
                 // en equipos4  cuatro alturas  agrupamos por LM y ST
-                47	=> 'Ag. Equipos Large/Medium', // team combined
-                48	=> 'Ag. Equipos Small/Toy', // team combined
-                49	=> 'Jumping GII Toy',
-                50	=> 'Jumping GIII Toy', // no existe
-                51	=> 'Jumping Toy', //  Individual-Open
-                52	=> 'Jumping Equipos Toy',	 // team best
-                53	=> 'Jp. Equipos Large/Medium',  // team combined
-                54	=> 'Jp. Equipos Small/Toy',// team combined
-                55	=> 'Manga Especial Toy',
-                56	=> 'Agility-3 GI Large',	 // extra rounds for GI RFEC
-                57	=> 'Agility-3 GI Medium',
-                58	=> 'Agility-3 GI Small',
-                59	=> 'Agility-3 GI Toy',
+                47	=> 'Ag. Equipos 60/50', // team combined
+                48	=> 'Ag. Equipos 40/30', // team combined
+                49	=> 'Jumping GII 30',
+                50	=> 'Jumping GIII 30', // no existe
+                51	=> 'Jumping Clase 30', //  Individual-Open
+                52	=> 'Jumping Equipos 30',	 // team best
+                53	=> 'Jp. Equipos 60/50',  // team combined
+                54	=> 'Jp. Equipos 40/30',// team combined
+                55	=> 'Manga Especial 30',
+                56	=> 'Agility-3 GI 60',	 // extra rounds for GI RFEC
+                57	=> 'Agility-3 GI 50',
+                58	=> 'Agility-3 GI 40',
+                59	=> 'Agility-3 GI 30',
                 // resto de las rondas KO. Los perros compiten todos contra todos
                 60	=> 'K.O. Manga 2',
                 61	=> 'K.O. Manga 3',
@@ -197,14 +197,14 @@ class RFEC extends Federations {
                 92	=> 'SpeedStakes 525',
                 93	=> 'SpeedStakes 400',
                 94	=> 'SpeedStakes 300',
-                95  => 'Junior 1 Large',
-                96  => 'Junior 1 Medium',
-                97  => 'Junior 1 Small',
-                98  => 'Junior 1 Toy',
-                99  => 'Junior 2 Large',
-                100  => 'Junior 2 Medium',
-                101  => 'Junior 2 Small',
-                102  => 'Junior 2 Toy',
+                95  => 'Junior 1 60 (40)',
+                96  => 'Junior 1 50 (40)',
+                97  => 'Junior 1 40 (20)',
+                98  => 'Junior 1 30 (20)',
+                99  => 'Junior 2 60 (40)',
+                100  => 'Junior 2 50 (40)',
+                101  => 'Junior 2 40 (20)',
+                102  => 'Junior 2 30 (20)',
             ),
             'TipoMangas' => array(
                 0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo', 'IsAgility'),
