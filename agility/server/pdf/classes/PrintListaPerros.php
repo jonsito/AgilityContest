@@ -106,7 +106,10 @@ class PrintListaPerros extends PrintCommon {
             $this->setX(10);
             for ($n=0;$n<count($this->cols);$n++){
 				if ($this->pos[$n]==0) continue;
-                $this->Cell($this->pos[$n],5,$perro[$this->fields[$n]],'LBR',0,$this->align[$n],true);
+				$data=$perro[$this->fields[$n]];
+                if ($this->fields[$n]=="Categoria") $data=$this->federation->getCategoryShort($data);
+                if ($this->fields[$n]=="Grado") $data=$this->federation->getGradeShort($data);
+                $this->Cell($this->pos[$n],5,$data,'LBR',0,$this->align[$n],true);
             }
             $this->Ln();
 			$rowcount++;

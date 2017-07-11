@@ -39,7 +39,7 @@ $config =Config::getInstance();
 				</td>
 			</tr>
 			<tr id="datos_manga<?php echo $nmanga; ?>-LargeRow">
-				<th id="datos_manga<?php echo $nmanga; ?>-LargeLbl">Large</th>
+				<th id="dm<?php echo $nmanga; ?>_Lbl_L">Large</th>
 				<td><?php _e('Distance');?>: <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_DIST_L"></td>
 				<td><?php _e('Obstacles');?>: <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_OBST_L"></td>
 				<td><?php _e('SCT');?>:<input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_TRS_L"></td>
@@ -47,7 +47,7 @@ $config =Config::getInstance();
 				<td><?php _e('Vel');?>. <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_VEL_L"></td>
 			</tr>
 			<tr id="datos_manga<?php echo $nmanga; ?>-MediumRow">
-				<th id="datos_manga<?php echo $nmanga; ?>-MediumLbl">Medium</th>
+				<th id="dm<?php echo $nmanga; ?>_Lbl_M">Medium</th>
 				<td><?php _e('Distance');?>: <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_DIST_M"></td>
 				<td><?php _e('Obstacles');?>: <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_OBST_M"></td>
 				<td><?php _e('SCT');?>:<input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_TRS_M"></td>
@@ -55,7 +55,7 @@ $config =Config::getInstance();
 				<td><?php _e('Vel');?>. <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_VEL_M"></td>
 			</tr>
 			<tr id="datos_manga<?php echo $nmanga; ?>-SmallRow">
-				<th id="datos_manga<?php echo $nmanga; ?>-SmallLbl">Small</th>
+				<th id="dm<?php echo $nmanga; ?>_Lbl_S">Small</th>
 				<td><?php _e('Distance');?>: <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_DIST_S"></td>
 				<td><?php _e('Obstacles');?>: <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_OBST_S"></td>
 				<td><?php _e('SCT');?>:<input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_TRS_S"></td>
@@ -63,7 +63,7 @@ $config =Config::getInstance();
 				<td><?php _e('Vel');?>. <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_VEL_S"></td>
 			</tr>
 			<tr id="datos_manga<?php echo $nmanga; ?>-TinyRow">
-				<th id="datos_manga<?php echo $nmanga; ?>-TinyLbl">Tiny</th>
+				<th id="dm<?php echo $nmanga; ?>_Lbl_T">Tiny</th>
 				<td><?php _e('Distance');?>: <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_DIST_T"></td>
 				<td><?php _e('Obstacles');?>: <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_OBST_T"></td>
 				<td><?php _e('SCT');?>:<input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_TRS_T"></td>

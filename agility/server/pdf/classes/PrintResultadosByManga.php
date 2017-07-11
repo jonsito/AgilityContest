@@ -168,7 +168,9 @@ class PrintResultadosByManga extends PrintCommon {
 			$this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	true);
 			$this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	true);
 			if (Jornadas::hasGrades($this->jornada->ID)) {
-				$this->Cell($this->pos[5],6,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	true);
+                $cat=$this->federation->getCategoryShort($row['Categoria']);
+                $grad=$this->federation->getGradeShort($row['Grado']);
+				$this->Cell($this->pos[5],6,"{$cat} - {$grad}",	'LR',	0,		$this->align[5],	true);
 			} else {
 				// $catstr=$row['Categoria'];
 				$catstr=$this->federation->getCategory($row['Categoria']);

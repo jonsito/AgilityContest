@@ -159,11 +159,12 @@ class PrintCatalogo extends PrintCommon {
             $this->Cell( $this->width[2], 7, $row['Licencia'],	'LB', 0, 'C',	true);
         $this->SetFont($this->getFontName(),'',8); // bold 8px
 		$grad="";
-		if (intval($this->config->getEnv("pdf_grades"))!=0) {
-			$grad=" - {$row['Grado']}";
+		if (intval($this->config->getEnv("pdf_grades"))!=0) { // if config requires print grade
+			$grad=" - {$this->federation->getGradeShort($row['Grado'])}";
 			if ($grad==" - -") $grad="";
 		}
-		$this->Cell( $this->width[3], 7, $this->getCatString($row['Categoria']).$grad,	'LB', 0, 'C',	true);
+		$cat=$this->federation->getCategoryShort($row['Categoria']);
+		$this->Cell( $this->width[3], 7, $cat.$grad,	'LB', 0, 'C',	true);
 		$this->SetFont($this->getFontName(),'B',9); // bold 9px
 		$this->Cell( $this->width[4], 7, $row['NombreGuia'],'LBR', 0, 'R',	true);
 		
@@ -597,7 +598,7 @@ class PrintInscritos extends PrintCommon {
     protected $pos =
 			//  0         1     2       3      4       5       6         7    8      9        10   11  12  13  14  15  16  17
 			// dorsal   name   license  Breed  cat     grade   handler  club  heat comments   J1  J2  J3  J4  J5  J6  J7  J8
-        array(  7,       25,   16,     14,     9,      8,      34,     24,    9,       1,     6,  6,  6,  6,  6,  6,  6,  6 );
+        array(  7,       25,   16,     14,     10,     10,      31,     24,    9,       1,     6,  6,  6,  6,  6,  6,  6,  6 );
     protected $align=
         array(  'C',     'L',  'C',   'R',    'C',     'L',    'R',    'R',   'C',    'L',    'C','C','C','C','C','C','C','C');
 	
@@ -763,11 +764,13 @@ class PrintInscritos extends PrintCommon {
             }
             $this->SetFont($this->getFontName(),'',7); // normal 7px
 			$this->Cell($this->pos[3],5,$row['Raza'],		'LR',	0,		$this->align[3],	$fill); // breed
+            $cat=$this->federation->getCategoryShort($row['Categoria']);
 			if (intval($this->config->getEnv("pdf_grades"))!=0) { // properly handle cat/grad
-				$this->Cell($this->pos[4],5,$row['Categoria'],	'LR',	0,		$this->align[4],	$fill); // cat
-				$this->Cell($this->pos[5],5,$row['Grado'],		'LR',	0,		$this->align[5],	$fill); // grad
+                $grad=$this->federation->getGradeShort($row['Grado']);
+				$this->Cell($this->pos[4],5,$cat,	'LR',	0,		$this->align[4],	$fill); // cat
+				$this->Cell($this->pos[5],5,$grad,		'LR',	0,		$this->align[5],	$fill); // grad
 			} else {
-				$this->Cell($this->pos[4]+$this->pos[5],5,$this->getCatString($row['Categoria']),'LR',0,$this->align[4],$fill); // catgrad
+				$this->Cell($this->pos[4]+$this->pos[5],5,$cat,'LR',0,$this->align[4],$fill); // catgrad
 			}
 			$this->Cell($this->pos[6],5,$row['NombreGuia'],	'LR',	0,		$this->align[6],	$fill); // handler
 			if (!$this->federation->isInternational()){ // if not intl here comes club
@@ -941,12 +944,13 @@ class PrintInscritosByJornada extends PrintCommon {
             $this->Cell($this->pos[4],5,$row['NombreGuia'],	'LR',	0,		$this->align[4],	$fill);
 			$this->Cell($this->pos[5],5,$row['NombreClub'],	'LR',	0,		$this->align[5],	$fill);
 			if ($this->pos[7]==0) { // journey has no grades
-				// $catstr=$row['Categoria'];
-				$catstr=$this->federation->getCategory($row['Categoria']);
-				$this->Cell($this->pos[6],5,$catstr,	'LR',	0,		$this->align[6],	$fill);
+				$cat=$this->federation->getCategory($row['Categoria']);
+				$this->Cell($this->pos[6],5,$cat,	'LR',	0,		$this->align[6],	$fill);
 			} else {
-				$this->Cell($this->pos[6],5,$row['Categoria'],	'LR',	0,		$this->align[6],	$fill);
-				$this->Cell($this->pos[7],5,$row['Grado'],		'LR',	0,		$this->align[7],	$fill);
+                $cat=$this->federation->getCategoryShort($row['Categoria']);
+                $grad=$this->federation->getGradeShort($row['Grado']);
+				$this->Cell($this->pos[6],5,$cat,	'LR',	0,		$this->align[6],	$fill);
+				$this->Cell($this->pos[7],5,$grad,		'LR',	0,		$this->align[7],	$fill);
 			}
 			$this->Cell($this->pos[8],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[8],	$fill);
 			$this->Cell($this->pos[9],5,$row['Observaciones'],'LR',	0,		$this->align[9],	$fill);
@@ -1014,7 +1018,7 @@ class PrintTarjetasDeVisita extends PrintCommon{
         $this->Cell(65,5, $n,'',0,'L',false);
 		// Nombre del guia
         $this->SetXY($x,$y+45);
-        $this->ac_row(1,10);
+        $this->ac_row(1,9);
         $this->Cell(65,5, $item['NombreGuia'],'',0,'R',false);
 		// categoria/grado si se requiere
         $catstr=$this->federation->getCategory($item['Categoria']);
@@ -1023,10 +1027,10 @@ class PrintTarjetasDeVisita extends PrintCommon{
 			$grstr= " - ".$this->federation->getGrade($item['Grado']);
 		}
         $this->SetXY($x,$y+50);
-        $this->Cell(35,5, $catstr.$grstr,'',0,'L',false);
+        $this->Cell(40,5, $catstr.$grstr,'',0,'L',false);
 		// club
-        $this->SetXY($x+35,$y+50);
-        $this->Cell(50,5, $item['NombreClub'],'',0,'R',false);
+        $this->SetXY($x+40,$y+50);
+        $this->Cell(45,5, $item['NombreClub'],'',0,'R',false);
 		// logotipo de la organizacion
         $this->SetXY($x+65+1,$y+10+1);
         $this->Image($this->icon,$this->GetX(),$this->GetY(),18);

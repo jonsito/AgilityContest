@@ -205,10 +205,12 @@ class PrintPodium extends PrintCommon {
             $this->SetFont($this->getFontName(),'',9); // default font
             $this->Cell(15,6,$row['Licencia'],0,0,'C',true);	// licencia
         }
+        $cat=$this->federation->getCategoryShort($row['Categoria']);
 		if (Jornadas::hasGrades($this->jornada)) {
-			$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',true);	// categoria/grado
+            $grad=$this->federation->getGradeShort($row['Grado']);
+			$this->Cell(10,6,"{$cat} {$grad}",0,0,'C',true);	// categoria/grado
 		} else {
-			$this->Cell(10,6,"{$row['Categoria']}",0,0,'C',true);	// solo categoria (Individual-Open/Teams/KO)
+			$this->Cell(10,6,"{$cat}",0,0,'C',true);	// solo categoria (Individual-Open/Teams/KO)
 		}
 		$this->Cell(35,6,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
 		$this->Cell(20,6,$row['NombreClub'],0,0,'R',true);	// nombreClub

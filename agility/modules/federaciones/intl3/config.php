@@ -2,7 +2,9 @@
 class INTL3 extends Federations {
 
     function __construct() {
-        $this->config= array (
+        parent::__construct();
+        // combine global data with specific data for this federation
+        $this->config= array_merge ($this->config, array(
             'ID'    => 9,
             'Name'  => 'Intl-3',
             'LongName' => 'International Contest - 3 heights',
@@ -45,6 +47,7 @@ class INTL3 extends Federations {
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',
+                // 'E' => 'Extra',
                 'L' => 'Large',
                 'M' => 'Med',
                 'S' => 'Small',
@@ -52,6 +55,7 @@ class INTL3 extends Federations {
             ),
             'ListaCategorias' => array (
                 '-' => '-',
+                // 'E' => 'Extra',
                 'L' => 'Large',
                 'M' => 'Medium',
                 'S' => 'Small',
@@ -93,7 +97,7 @@ class INTL3 extends Federations {
                 "LMST" => 'Common LMST',
                 "-LMST" => ''
             )
-        );
+        ));
     }
 
 }

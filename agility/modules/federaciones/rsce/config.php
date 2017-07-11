@@ -2,7 +2,9 @@
 class RSCE extends Federations {
 
     function __construct() {
-        $this->config= array (
+        parent::__construct();
+        // combine global data with specific data for this federation
+        $this->config= array_merge ($this->config, array(
             'ID'    => 0,
             'Name'  => 'RSCE',
             'LongName' => 'Real Sociedad Canina de España',
@@ -18,12 +20,12 @@ class RSCE extends Federations {
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2, // on rfec may be 3
-            'Recorridos' => array('Common course',"Standard / Midi + Mini","Separate courses"),
+            'Recorridos' => array('Recorrido comun',"Standard / Midi + Mini","Recorridos separados"),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Baja' => 'Out',
-                'Jr' => 'Jr.',
-                'Sr' => 'Sr.',
+                // 'Jr' => 'Jr.',
+                // 'Sr' => 'Sr.',
                 'GI' => 'GI',
                 'GII'=> 'GII',
                 'GIII' => 'GIII',
@@ -33,8 +35,8 @@ class RSCE extends Federations {
             ),
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
-                'Jr' => 'Junior',
-                'Sr' => 'Senior',
+                // 'Jr' => 'Junior',
+                // 'Sr' => 'Senior',
                 'GI' => 'Grado I',
                 'GII'=> 'Grado II',
                 'GIII' => 'Grado III',
@@ -253,7 +255,7 @@ class RSCE extends Federations {
                 32 =>	array( 32,'Junior Manga 1',	            'Jr',	'Junior 1',	    'Jr. 1',        true),
                 33 => 	array( 33,'Junior Manga 2',	            'Jr',	'Junior 2',	    'Jr. 2',        false),
             )
-        );
+        ));
     }
 
 }

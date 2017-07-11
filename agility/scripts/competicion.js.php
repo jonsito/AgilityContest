@@ -1074,6 +1074,7 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 			case 5: suffix='T'; break;
 			}
 			$('#dm'+idxmanga+'_Nombre').textbox('setValue',dat['manga'].TipoManga);
+			$('#dm'+idxmanga+'_Lbl_'+suffix).html(ac_fedInfo[workingData.federation].IndexedModes[mode]);
 			$('#dm'+idxmanga+'_DIST_'+suffix).textbox('setValue',dat['trs'].dist);
 			$('#dm'+idxmanga+'_OBST_'+suffix).textbox('setValue',dat['trs'].obst);
 			$('#dm'+idxmanga+'_TRS_'+suffix).textbox('setValue',dat['trs'].trs);

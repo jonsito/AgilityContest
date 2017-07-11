@@ -623,8 +623,7 @@ class Tandas extends DBObject {
 			// check for already inserted into Tandas
 			$obj=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)");
 			if ($obj===null) { // insert into list at end.
-                $n=$fed->getTandaName($tipo);
-				// $n=_(Tandas::$tipo_tanda[$tipo]['Nombre']); // should be handled by federation module
+                $n=$fed->getTandaName($tipo); // use fed module to retrieve tanda name
 				$c=Tandas::$tipo_tanda[$tipo]['Categoria'];
 				$g=Tandas::$tipo_tanda[$tipo]['Grado'];
 				$str="INSERT INTO Tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Categoria,Grado) 

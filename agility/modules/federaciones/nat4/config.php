@@ -2,7 +2,9 @@
 class NAT4 extends Federations {
 
     function __construct() {
-        $this->config= array (
+        parent::__construct();
+        // combine global data with specific data for this federation
+        $this->config= array_merge ($this->config, array(
             'ID'    => 2,
             'Name'  => 'Nat-4',
             'LongName' => 'Competiciones nacionales - 4 alturas',
@@ -22,11 +24,11 @@ class NAT4 extends Federations {
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja',
-                'Jr' => 'Jr.',
-                'Sr' => 'Sr.',
+                // 'Jr' => 'Jr.',
+                // 'Sr' => 'Sr.',
                 'GI' => 'G1',
                 'GII'=> 'G2',
-                'GIII' => 'G3',
+                // 'GIII' => 'G3',
                 'P.A.' => 'G0',
                 'P.B.' => 'P.B.', // "perro en blanco"
                 'Ret.' => 'Ret.'
@@ -34,11 +36,11 @@ class NAT4 extends Federations {
             'ListaGrados'    => array (
                 '-' => ' ',
                 'Baja' => 'Baja temporal',
-                'Jr' => 'Junior',
-                'Sr' => 'Senior',
+                // 'Jr' => 'Junior',
+                // 'Sr' => 'Senior',
                 'GI' => 'Grado 1',
                 'GII'=> 'Grado 2',
-                'GIII' => 'G3 no disponible',
+                // 'GIII' => 'G3 no disponible',
                 'P.A.' => 'Grado 0',
                 'P.B.' => 'Perro en Blanco',
                 'Ret.' => 'Retirado',
@@ -93,7 +95,7 @@ class NAT4 extends Federations {
                 "LMST" =>'Conjunta 6+5+4+3',
                 "-LMST"=> ''
             )
-        );
+        ));
     }
 }
 ?>

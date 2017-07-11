@@ -2,7 +2,9 @@
 class INTL4 extends Federations {
 
     function __construct() {
-        $this->config= array (
+        parent::__construct();
+        // combine global data with specific data for this federation
+        $this->config= array_merge ($this->config, array(
             'ID'    => 8,
             'Name'  => 'Intl-4',
             'LongName' => 'International Contest - 4 heights',
@@ -93,7 +95,7 @@ class INTL4 extends Federations {
                 "LMST" => 'Common LMST',
                 "-LMST" => ''
             )
-        );
+        ));
     }
 
 }

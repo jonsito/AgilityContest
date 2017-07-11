@@ -290,10 +290,12 @@ class PrintClasificacion extends PrintCommon {
         }
         $this->SetFont($this->getFontName(),'',7); // a bit little font to allow califications
 		if (Jornadas::hasGrades($this->jornada)) {
-			$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
+            $cat=$this->federation->getCategoryShort($row['Categoria']);
+            $grad=$this->federation->getGradeShort($row['Grado']);
+			$this->Cell(10,6,"{$cat} {$grad}",0,0,'C',$fill);	// categoria/grado
 		} else {
-		    $catstr=$this->getCatString($row['Categoria']);
-			$this->Cell(10,6,"{$catstr}",0,0,'C',$fill);	// categoria/grado
+            $cat=$this->federation->getCategory($row['Categoria']);
+			$this->Cell(10,6,"{$cat}",0,0,'C',$fill);	// categoria/grado
 		}
 		$this->Cell(($wide)?30:35,6,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
 		$this->Cell(($wide)?15:20,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub

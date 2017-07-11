@@ -2,7 +2,9 @@
 class NAT3 extends Federations {
 
     function __construct() {
-        $this->config= array (
+        parent::__construct();
+        // combine global data with specific data for this federation
+        $this->config= array_merge ($this->config, array(
             'ID'    => 3,
             'Name'  => 'Nat-3',
             'LongName' => 'Competiciones nacionales - 3 alturas',
@@ -22,8 +24,8 @@ class NAT3 extends Federations {
             'ListaGradosShort' => array(
                 '-' => '-',
                 'Baja' => 'Out',
-                'Jr' => 'Jr.',
-                'Sr' => 'Sr.',
+                // 'Jr' => 'Jr.',
+                // 'Sr' => 'Sr.',
                 'GI' => 'G1',
                 'GII'=> 'G2',
                 'GIII' => 'G3',
@@ -33,8 +35,8 @@ class NAT3 extends Federations {
             ),
             'ListaGrados'    => array (
                 '-' => 'Individual',
-                'Jr' => 'Junior',
-                'Sr' => 'Senior',
+                // 'Jr' => 'Junior',
+                // 'Sr' => 'Senior',
                 'GI' => 'Grado I',
                 'GII'=> 'Grado II',
                 'GIII' => 'Grado III',
@@ -60,7 +62,7 @@ class NAT3 extends Federations {
             ),
             'ListaCatGuias' => array (
                 '-' => 'Not specified',
-                'I' => 'Infantil',
+                //'I' => 'Infantil',
                 'J' => 'Junior',
                 'A' => 'Adulto',
                 'S' => 'Senior',
@@ -94,7 +96,7 @@ class NAT3 extends Federations {
                 "LMST" => 'Common LMST',
                 "-LMST" => ''
             )
-        );
+        ));
     }
 
 }
