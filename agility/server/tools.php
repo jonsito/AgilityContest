@@ -199,6 +199,7 @@ function parseCategory($cat) {
 	if (is_null($cat)) return '-';
 	$cat=strtolower(trim(utf8_decode($cat)));
 	if ($cat==="") return '-';
+	$cat = preg_replace('/\D+(\d+)/i','${1}',$cat); // try to resolve RFEC patterns
 	if (in_array($cat,$l)) return 'L';
 	if (in_array($cat,$m)) return 'M';
 	if (in_array($cat,$s)) return 'S';
@@ -215,11 +216,12 @@ function parseGrade($grad) {
 	if (is_null($grad)) return '-';
 	$grad=strtolower(trim(utf8_decode($grad)));
 	if ($grad==="") return '-';
-	if (strpos($grad, 'Jr')!==false) return 'Jr';
-	if (strpos($grad, 'Sr')!==false) return 'Sr';
-	if (strpos($grad, 'Junior')!==false) return 'Jr';
-	if (strpos($grad, 'Senior')!==false) return 'Sr';
-	if (strpos($grad,'pre')!==false) return 'P.A.';
+	if (strpos($grad,'Jr')!==false) return 'Jr';
+	if (strpos($grad,'Sr')!==false) return 'Sr';
+	if (strpos($grad,'Junior')!==false) return 'Jr';
+	if (strpos($grad,'Senior')!==false) return 'Sr';
+    if (strpos($grad,'ini')!==false) return 'P.A.';
+    if (strpos($grad,'pre')!==false) return 'P.A.';
 	if (strpos($grad,'pa')!==false) return 'P.A.';
 	if (strpos($grad,'p.a')!==false) return 'P.A.';
 	if (strpos($grad,'0')!==false) return 'P.A.';
@@ -228,7 +230,9 @@ function parseGrade($grad) {
 	if (strpos($grad,'i')!==false) return 'GI';
 	if (strpos($grad,'3')!==false) return 'GIII'; // cuidado con el orden de estas comparaciones
 	if (strpos($grad,'2')!==false) return 'GII';
-	if (strpos($grad,'1')!==false) return 'GI';
+    if (strpos($grad,'1')!==false) return 'GI';
+    if (strpos($grad,'pro')!==false) return 'GI'; // promocion
+    if (strpos($grad,'com')!==false) return 'GiI'; // competicion
 	return '-';
 }
 

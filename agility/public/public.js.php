@@ -216,6 +216,7 @@ function pb_lookForMessages(callback) {
                 if (typeof (callback)!=="undefined") continue; // on callback defined do not notify
 
                 // null:->do noting; true->notifications; false->messager
+                if (typeof (pb_config.Notifications) === "undefined") pb_config.Notifications=null;
                 if (pb_config.Notifications===null) return;
                 // if system notifications are enabled, use it
                 if (pb_config.Notifications===true) {
