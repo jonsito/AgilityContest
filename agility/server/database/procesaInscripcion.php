@@ -137,14 +137,13 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 		// Verificamos el orden de salida de la manga	
 		$os=OrdenSalida::getInstance("inscribePerroEnJornada",$manga['ID']);
 		$orden=$os->getOrden();
-		$myLogger->info("OrdenDeSalida Prueba:$p Jornada:$j Manga:$mid Tipo:$mtype Grado:$mgrado es:\n$orden");
+		// $myLogger->info("OrdenDeSalida Prueba:$p Jornada:$j Manga:$mid Tipo:$mtype Grado:$mgrado es:\n$orden");
 		if ($inscribir==false) {
-			$myLogger->info("Eliminando Perro:$idperro Grado:$g del orden de salida grado:$mgrado");
+			$myLogger->info("Eliminando Perro:$idperro Grado:$g del orden de salida de la manga $mid grado:$mgrado");
 			$os->removeFromList($idperro);
 		} else {
-			$myLogger->info("Insertando Perro:$idperro Grado:$g en del orden de salida gradp:$mgrado");
+			$myLogger->info("Insertando Perro:$idperro Grado:$g en del orden de salida de la manga $mid grado:$mgrado");
 			$os->insertIntoList($idperro);
-		
 		}
 		$orden=$os->getOrden();
 		$myLogger->info("Nuevo OrdenDeSalidada: \n$orden");
@@ -162,7 +161,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			// en la tabla de resultados de esta manga para este perro
 			$res = $rs->insertByData($perro, $inscripcion,$eqobj->getTeamByPerro($idperro));
 			if ($res!=="") {
-				// esta funcion es in "insert on duplicate key update"...
+				// esta funcion es del tipo "insert on duplicate key update"...
 				// no deberia fallar si ya existe una entrada en la tabla de resultados
 				$myLogger->error("Failed: Insert into Resultados perro:$idperro Prueba:$p Jornada:$j Manga:$mid");
 				$myLogger->error($res);

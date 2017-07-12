@@ -35,13 +35,15 @@ class OrdenSalida extends DBObject {
 	
 	/**
 	 * Constructor
-	 * @param {string} Name for this object
-	 * @param {integer} $manga Manga ID
+	 * @param {string} $file Name for this object
+     * @param {object} $prueba Current prueba data
+     * @param {object} $jornada Current prueba data
+	 * @param {object} $manga manga data
 	 * @throws Exception when
 	 * - cannot contact database
-	 * - invalid manga ID
+	 * - invalid prueba/jornada/manga
 	 */
-	function __construct($file,$prueba=null,$jornada=null,$manga=null) {
+	function __construct($file,$prueba,$jornada=null,$manga=null) {
 		parent::__construct($file);
 		if ($manga==null) {
 			$this->errormsg="OrdenSalida::construct(): manga is null";
