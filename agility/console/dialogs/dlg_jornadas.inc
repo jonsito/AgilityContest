@@ -24,7 +24,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE JORNADAS -->
-<div id="jornadas-dialog" style="width:400px;padding:25px">
+<div id="jornadas-dialog" style="padding: 5px 15px">
 		<div class="ftitle"><?php _e('Journey information');?><br /></div>
         <form id="jornadas-form" method="get" novalidate>
             <div class="fitem">
@@ -78,7 +78,7 @@ $config =Config::getInstance();
                 <input id="jornadas-Grado2" name="Grado2" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado2',0x0008)"/>
             </div>
-            
+
             <div class="fitem">
                 <label for="jornadas-Grado3" style="width:150px" ><span id="jornadas-Grado3Name">Grade III</span></label>
                 <input id="jornadas-Grado3" name="Grado3" class="easyui-checkbox" 
@@ -145,7 +145,9 @@ $config =Config::getInstance();
 <script type="text/javascript">
     // datos del formulario de nuevo/edit jornada
     $('#jornadas-dialog').dialog({
+        width:375,
         height:'auto',
+        top:50,
         modal:true,
         closed:true,
         buttons:'#jornadas-dlg-buttons',
@@ -287,7 +289,7 @@ $config =Config::getInstance();
         textField: 'text',
         data: [
             {text:'<?php _e("Single round"); ?>',value:'1'},
-            {text:'<?php _e("Double round"); ?>',value:'2'}
+            {text:'<?php _e("Double round"); ?>',value:'2',selected:true}
         ]
     });
     $('#jornadas-MangasGrado1').combobox({
@@ -296,7 +298,7 @@ $config =Config::getInstance();
         textField: 'text',
         data: [
             {text:'<?php _e("Single round"); ?>',value:'2'},
-            {text:'<?php _e("Double round"); ?>',value:'1'},
+            {text:'<?php _e("Double round"); ?>',value:'1',selected:true},
             {text:'<?php _e("Triple round"); ?>',value:'3'}
             ]
     });
@@ -307,7 +309,7 @@ $config =Config::getInstance();
         data: [
             // reserve values 1,2 for backward compatibility
             {text:'<?php _e("2 best of 3"); ?>',value:'3'},
-            {text:'<?php _e("3 best of 4"); ?>',value:'4'},
+            {text:'<?php _e("3 best of 4"); ?>',value:'4',selected:true},
             {text:'<?php _e("2 combined"); ?>',value:'5'},
             {text:'<?php _e("3 combined"); ?>',value:'6'},
             {text:'<?php _e("4 combined"); ?>',value:'7'}

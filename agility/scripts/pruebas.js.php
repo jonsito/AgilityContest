@@ -470,7 +470,7 @@ function saveJornada(){
  * 0x0004, 'Grado1',
  * 0x0008, 'Grado2',
  * 0x0010, 'Grado3',
- * 0x0020, 'Individual', (pen)
+ * 0x0020, 'Individual', (open)
  * 0x0040, 'Equipos3',
  * 0x0080, 'Equipos4',
  * 0x0100, 'KO',
