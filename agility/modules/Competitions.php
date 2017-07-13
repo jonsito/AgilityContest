@@ -29,6 +29,7 @@ $dummy= _('KC_ID'); // LOE_RRC ( also exists 'KC id' that goes to 'LOE/RRC' )
  * This field eventually will replace and override functionality of "Selectiva" from Pruebas
  */
 require_once(__DIR__."/Federations.php");
+require_once(__DIR__."/competiciones/lib/ordensalida/OrdenSalida_KO.php");
 class Competitions {
 
         // in order to update modules, we assume that moduleRevision must be greater or equal
@@ -228,6 +229,10 @@ class Competitions {
      * @return {OrdenSalida} instance of requested OrdenSalida object
      */
     public function getOrdenSalidaInstance($file,$prueba,$jornada,$manga) {
+        // la gestion del orden de salida en una manga KO es comun a todas las competiciones
+        if ( in_array ($manga->Tipo, array(15,18,19,20,21,22,23,24) ) ) {
+            return new OrdenSalida_KO($file,$prueba,$jornada,$manga);
+        }
         return new OrdenSalida($file,$prueba,$jornada,$manga);
     }
 

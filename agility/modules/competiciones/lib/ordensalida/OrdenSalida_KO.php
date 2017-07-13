@@ -150,7 +150,8 @@ class OrdenSalida_KO extends OrdenSalida {
             }
         }
 
-		// tercera pasada: ordenar por categoria respetando el orden de tandas definido en el programa de la jornada
+		// tercera pasada:
+		// ordenar por categoria respetando el orden de tandas definido en el programa de la jornada
 
 		// en las pruebas KO se intenta que perros de la misma categoria compitan entre si,
 		// hasta que no haya mas remedio que mezclarlos
@@ -175,30 +176,29 @@ class OrdenSalida_KO extends OrdenSalida {
             }
         }
 
-		// cuarta: agrupar los perros de dos en dos para que aparezcan por parejas
+		// cuarta:
+		// si nos lo piden, agrupamos los perros de dos en dos para que aparezcan por parejas
 		// en el menu de introduccion de datos de la consola
-		//
-		// adicionalmente, en las pruebas por equipos anyadimos al resultado un array
-		// extra indicando los equipos y su orden de salida. Este array es distinto al
-		// obtenido con getOrdenEquipos, pues si un equipo tiene perros en varias categorias,
-		// el equipo aparecera varias veces en este resultado
-        $p5=array();
-        $count=0;
-        foreach ($p4 as $perro) {
-            if (($count%2) === 0){ // nueva pareja
-                // intercala info de la pareja en orden de salida general
-                $a=array(
-                    'Dorsal' => '*',
-                    'Nombre'=>_('Pair'),
-                    'NombreGuia'=> strval(intval($count/2)+1),
-                    'Eliminado'=>0,
-                    'NoPresentado'=>0
-                );
-                array_push($p5,$a);
+        $p5=$p4;
+        if ($teamView) {
+        	$p5=array();
+            $count=0;
+            foreach ($p4 as $perro) {
+                if ( ($count%2) === 0 ){ // nueva pareja
+                    // intercala info de la pareja en orden de salida general
+                    $a=array(
+                        'Dorsal' => '*',
+                        'Nombre'=>_('Pair'),
+                        'NombreGuia'=> strval(intval($count/2)+1),
+                        'Eliminado'=>0,
+                        'NoPresentado'=>0
+                    );
+                    array_push($p5,$a);
+                }
+                array_push($p5,$perro); // introduce datos de perro
+                $count++;
             }
-            array_push($p5,$perro); // introduce datos de perro
-			$count++;
-        }
+		}
         // that's all folks. Compose result data and return
 		return array("total" => count($p5), "rows" => $p5);
 	}
@@ -228,10 +228,11 @@ class OrdenSalida_KO extends OrdenSalida {
             if (!$res) $this->myLogger->error($this->conn->error);
 
             // contamos los participantes de la primera manga. metodo simple: hacer un count(split(ordensalida)) - 2
-            $number=count(explode(',',$this->getOrden()))-2;
+            $perros=explode(",",getInnerString($this->getOrden(),"BEGIN,",",END"));
+            $number=count($perros);
 
             // buscamos la potencia de dos mas proxima al numero de participantes y cogemos la diferencia
-            $powerof2=256; // to revise
+			for($powerof2=1;$powerof2<$number;$powerof2<<=1) { /* empty */ };
 
             if ($number==$powerof2) {
                 // si el numero de participantes es potencia de dos, la primera manga ya esta lista;
@@ -244,7 +245,33 @@ class OrdenSalida_KO extends OrdenSalida {
                 if (!$res) $this->myLogger->error($this->conn->error);
             } else {
                 // si no, por cada perro que sobra, cogemos dos perros de la segunda manga
+				$leading=$number - ($powerof2>>1);
+				$cmds=array();
+				$games=0; $perro=0; $manga=0; // just to avoid error in IDE
                 // y los movemos a la primera setGames(perro,round1)=1; setGames(perro,round2)=0
+				for($n=0;$n<$leading;$n++) {
+					// vamos componiendo la lista de operaciones a realizar por cada dos perros
+					$cmds=array_merge($cmds, array(
+						//  Games=X 	Perro=Y 		Manga=Z
+                        array (0,	$perros[2*$n],		$this->mangas[1]['ID']),
+                    	array (0,	$perros[2*$n],		$this->mangas[1]['ID']),
+                    	array (1,	$perros[1 + 2*$n],	$this->mangas[0]['ID']),
+                    	array (1,	$perros[1 + 2*$n],	$this->mangas[0]['ID'])
+					));
+				}
+				// ejecutamos todos los comandos de una tacada
+				$str= "UPDATE Resultados SET Games=? WHERE (Perro=?) AND Manga=?";
+				$stmt= $this->conn->prepare($str);
+				$res=$stmt->bind_param("iii",$games,$perro,$manga);
+                if (!$res) $this->myLogger->error($stmt->error);
+                foreach ($cmds as $cmd) {
+                	$games=$cmd[0];
+                	$perro=$cmd[1];
+                	$manga=$cmd[2];
+                    $res=$stmt->execute();
+                    if (!$res) $this->myLogger->error($this->conn->error);
+                }
+                $stmt->close();
             }
         }
 
@@ -259,6 +286,74 @@ class OrdenSalida_KO extends OrdenSalida {
         return;
 	}
 
+    /**
+     * Esta funcion busca los resultados de la manga anterior y ajusta los valores del campo
+	 * Games de la manga actual
+     * @param {boolean} $orden How to eval winners: false->use starting order. true->use results order
+     * @return {null|array} null on first round, else Ordered results
+     */
+	private function handleParentResults($orden) {
+	    $this->myLogger->enter();
+	    // get parent round
+        $pmanga=$this->getParentRound();
+        if (!$pmanga) return null; // on first round do nothing
+
+        if ($orden) {   // if $orden==true sort results according time/penalization
+
+            // get sorted results
+            $res=$this->__select(
+                "*",
+                "Resultados,GREATEST(400*Pendiente,200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido",
+                "Manga={$pmanga->ID} AND Games=1", // excluir los que no participan en la manga
+                "PRecorrido ASC, Tiempo ASC",
+                ""
+            );
+            // cogemos la mitad superior de los resultados y ponemos Games=1 en la manga actual
+            // lo hacemos mediante un prepared statement para optimizar llamadas
+            $perro=0;
+            $str="UPDATE Resultados SET Games=1 WHERE Perro=? AND Manga={$this->manga->ID}";
+            $stmt= $this->conn->prepare($str);
+            if (! $stmt->bind_param("i",$perro)) $this->myLogger->error($stmt->error);
+            for($n=0;$n<$res['total']/2; $n++) {
+                $perro=$res['rows'][$n]['Perro'];
+                if (!$stmt->execute() ) $this->myLogger->error($stmt->error);
+            }
+            $stmt->close();
+            $this->myLogger->leave();
+            // return ordered results from parent round
+            return $res['rows'];
+        } else {        // if $orden==false sort results by starting order checking winner on each pair round
+
+            // retrieve results in starting order with no pair separators and no cats
+            $mobj=OrdenSalida::getInstance("getParentResults()",$pmanga->ID);
+            $data=$mobj->getData(false,8,null);
+
+            // evaluate PRecorrido
+            foreach ($data['rows'] as &$res) {
+                $res['PRecorrido']=max(400*$res['Pendiente'],200*$res['NoPresentado'],
+                    100*$res['Eliminado'],5*($res['Tocados']+$res['Faltas']+$res['Rehuses']));
+            }
+
+            // generate a prepared statement to set Games on current round
+            $winner=0;
+            $str="UPDATE Resultados SET Games=1 WHERE Perro=? AND Manga={$this->manga->ID}";
+            $stmt= $this->conn->prepare($str);
+            if (! $stmt->bind_param("i",$winner)) $this->myLogger->error($stmt->error);
+
+            // re-iterate data, compare 2by2 and set Games=1 on current round for winner
+            for ($n=0;$n<$data['total'];$n+=2) { // KO rounds _allways_ have odd number of participants
+                // use 1000*Precorrido+Tiempo as sorting key
+                $p1=1000*$data['rows'][$n]['Precorrido'] + $data['rows'][$n]['Tiempo'];
+                $p2=1000*$data['rows'][$n+1]['Precorrido'] + $data['rows'][$n+1]['Tiempo'];
+                $winner=($p1<$p2)? $data['rows'][$n]['Perro']: $data['rows'][$n+1]['Perro'];
+                if (!$stmt->execute() ) $this->myLogger->error($stmt->error);
+            }
+            $this->myLogger->leave();
+            // return ordered results from parent round
+            return $data['rows'];
+        }
+	}
+
 	/**
 	 * Reordena el orden de salida de las categorias indicadas de una manga al azar
 	 * En mangas KO catsmode se ignora (entran todos )
@@ -266,10 +361,12 @@ class OrdenSalida_KO extends OrdenSalida {
 	 * @return {string} nuevo orden de salida
 	 */
 	function random($catmode=8) {
-		// si estamos en la primera manga hay que hacer sorteo completo
-		// si no, hay que ver los ganadores de la manga anterior, y marcar su campo Games de la manga actual a 1
+		$this->myLogger->enter();
+		// fase 1:
+		// actualiza el campo "Games" en funcion de los resultados de la manga anterior
+		$this->handleParentResults(false);
 
-		// fase 1 aleatorizamos la manga
+		// fase2:  aleatorizamos la manga
 		$orden=$this->getOrden();
 		// buscamos los perros de la categoria seleccionada. En mangas KO catsmode se ignora ( entran todos )
 		$listas=$this->splitPerrosByMode($orden,8);
@@ -279,96 +376,68 @@ class OrdenSalida_KO extends OrdenSalida {
         $this->setOrden($ordensalida);
 
 		// En rondas KO solo esta el equipo por defecto. no hay que reordenar equipos
-		return $ordensalida;
+
+		// una vez aleatorizada la manga, llamamos a prepareMangas() para clonar el orden de salida
+		// y, si estamos en la primera manga decidir quien sale
+		$this->prepareMangas();
+		$this->myLogger->leave();
+        return $this->getOrden();
 	}
 
 	/**
 	 * Pone el mismo orden de salida que la manga KO anterior en las categorias solicitadas
-     * Si se trata de la primera manga equivale a un random()
-	 * @param	{int} $catmode categorias a las que tiene que afectar este cambio
+     * En la primera manga, simplemente ajusta los que tienen que salir en funcion del numero de participantes
+	 * @param	{int} $catmode categorias a las que tiene que afectar este cambio. En Mangas KO se ignora
 	 * @return {string} nuevo orden de salida; null on error
 	 */
 	function sameorder($catmode=8) {
 		$this->myLogger->enter();
 
-        // fase 1: buscamos la "manga padre"
+        // fase 1:
+        // actualiza el campo "Games" en funcion de los resultados de la manga anterior
+        $this->handleParentResults(false);
+
+        // fase 2: cogemos el orden de salida de la manga padre y lo copiamos en la actual
         $mpadre=$this->getParentRound();
-        if(!$mpadre)
-            return $this->error("Error find parent round for KO journey:{$this->jornada->ID} and manga:{$this->manga->ID}");
-        if ($mpadre==$this->manga) {
-            $this->myLogger->notice("Current round:{$this->manga->ID} is already first for KO Journey:{$this->jornada->ID} ");
-            return $this->getOrden();
-        }
+        if ($mpadre!==null) $this->setOrden($mpadre->OrdenSalida);
 
-		// spliteamos manga propia y hermana, y las mezclamos en funcion de la categoria
-		$lista=$this->splitPerrosByMode($this->manga->Orden_Salida,$catmode); // manga actual "splitteada"
-		$lista2=$this->splitPerrosByMode($mpadre->Orden_Salida,$catmode); // manga hermana "splitteada"
-        $str1=$lista[2];
-        $str2=$lista2[1];
-        $ordensalida=$this->joinOrders($str1,$str2);
-        $this->setOrden($ordensalida);
-
-        // hacemos lo mismo con el orden de equipos
-        $lista=$this->splitEquiposByMode($this->manga->Orden_Equipos,$catmode); // manga actual "splitteada"
-        $lista2=$this->splitEquiposByMode($mpadre->Orden_Equipos,$catmode); // manga hermana "splitteada"
-        $str1=$lista[2];
-        $str2=$lista2[1];
-        $ordenequipos=$this->joinOrders($str1,$str2);
-        $this->setOrdenEquipos($ordenequipos);
-
-		$this->myLogger->leave();
-		return $ordenequipos;
+		// fase 3: llamamos a preparaManga para ajustar los perros que salen en esta manga
+		// y clonar ordenes de salida en las mangas siguientes
+		$this->prepareMangas();
+        $this->myLogger->leave();
+        return $this->getOrden();
 	}
 
 	/**
-	 * Calcula el orden de salida de la(s) categoria(s) indicadas
-	 * de manga en funcion del orden inverso al resultado de la manga KO anterior
-     * Si estamos en la primera manga retorna la manga actual
+	 * Calcula el orden de salida de la manga en funcion
+	 * del orden inverso al resultado de la manga KO anterior
+     * Si estamos en la primera manga no se cambia el orden
+	 *
+	 * En este caso no se miran los resultados de cada pareja, sino que se ordenan los resultados de la manga anterior,
+	 * cogemos la mitad superior ( count(manga-1)/2 ), y se emparejan de manera que los mejores compiten entre si.
+	 * Realmente no sé si es útil pero por uniformidad se mantiene esta opción
+	 *
 	 * @return {string} nuevo orden de salida; null on error
 	 */
 	function reverse($catmode=8) {
 		$this->myLogger->enter();
-		// fase 1: buscamos la "manga padre"
-        $mpadre=$this->getParentRound();
-        if(!$mpadre)
-            return $this->error("Error find parent round for KO journey:{$this->jornada->ID} and manga:{$this->manga->ID}");
-        if ($mpadre==$this->manga) {
-            $this->myLogger->notice("Current round:{$this->manga->ID} is already first for KO Journey:{$this->jornada->ID} ");
-            return $this->getOrden();
+
+        // fase 1:
+        // actualiza el campo "Games" en funcion de los resultados de la manga anterior
+        $data=$this->handleParentResults(true);
+
+        // fase 2: returned data contains new starting order. use it
+        if ($data!= null) { // on first round there is no previous results, so do nothing
+            $ordensalida=$this->getOrden();
+            foreach($data as $item) $ordensalida=list_insert($item['Perro'],$ordensalida);
+            $this->setOrden($ordensalida);
         }
-	
-		// fase 2: evaluamos resultados de la manga padre
-		$this->myLogger->trace("El orden de salida original para manga:{$this->manga->ID} ".
-                                    "jornada:{$this->jornada->ID} es:\n{$this->manga->Orden_Salida}");
-		// En funcion del tipo de recorrido tendremos que leer diversos conjuntos de Resultados
-		switch($this->manga->Recorrido) {
-			case 0: // Large,medium,small (3-heighs) Large,medium,small,tiny (4-heights)
-				$this->invierteResultados($mpadre,0,$catmode);
-				$this->invierteResultados($mpadre,1,$catmode);
-				$this->invierteResultados($mpadre,2,$catmode);
-				if ($this->federation->get('Heights')==4) $this->invierteResultados($mpadre,5,$catmode);
-				break;
-			case 1: // Large,medium+small (3heights) Large+medium,Small+tiny (4heights)
-				if ($this->federation->get('Heights')==3) {
-					$this->invierteResultados($mpadre,0,$catmode);
-					$this->invierteResultados($mpadre,3,$catmode);
-				} else {
-					$this->invierteResultados($mpadre,6,$catmode);
-					$this->invierteResultados($mpadre,7,$catmode);
-				}
-				break;
-			case 2: // conjunta L+M+S (3 heights) L+M+S+T (4heights)
-				if ($this->federation->get('Heights')==3) {
-					$this->invierteResultados($mpadre,4,$catmode);
-				} else  {
-					$this->invierteResultados($mpadre,8,$catmode);
-				}
-				break;
-		}
-		$nuevo=$this->getOrden();
-		$this->myLogger->trace("El orden de salida nuevo para manga:{$this->manga->ID} jornada:{$this->jornada->ID} es:\n$nuevo");
+
+        // fase 3: llamamos a preparaManga para ajustar los perros que salen en esta manga
+        // y clonar ordenes de salida en las mangas siguientes
+        $this->prepareMangas();
 		$this->myLogger->leave();
-		return $nuevo;
+		return $this->getOrden();
 	}
 
 } // class
