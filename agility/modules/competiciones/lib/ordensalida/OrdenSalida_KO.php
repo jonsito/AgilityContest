@@ -279,7 +279,7 @@ class OrdenSalida_KO extends OrdenSalida {
 		// En esta jornada solo puede haber mangas KO, y que el tipo de manga esta ordenado por rondas
 		// por lo que esta query es suficiente
 		$orden=$this->getOrden();
-		$sql="UPDATE Mangas SET OrdenSalida = '{$orden}' WHERE Jornada={$this->manga->Jornada} AND Tipo>{$this->manga->Tipo}";
+		$sql="UPDATE Mangas SET Orden_Salida = '{$orden}' WHERE Jornada={$this->manga->Jornada} AND Tipo>{$this->manga->Tipo}";
         $res=$this->query($sql);
         if (!$res) $this->myLogger->error($this->conn->error);
         // that's all
@@ -296,7 +296,7 @@ class OrdenSalida_KO extends OrdenSalida {
 	    $this->myLogger->enter();
 	    // get parent round
         $pmanga=$this->getParentRound();
-        if (!$pmanga) return null; // on first round do nothing
+        if ($pmanga->ID==$this->mangas[0]['ID']) return null; // on first round do nothing
 
         if ($orden) {   // if $orden==true sort results according time/penalization
 
@@ -342,9 +342,9 @@ class OrdenSalida_KO extends OrdenSalida {
 
             // re-iterate data, compare 2by2 and set Games=1 on current round for winner
             for ($n=0;$n<$data['total'];$n+=2) { // KO rounds _allways_ have odd number of participants
-                // use 1000*Precorrido+Tiempo as sorting key
-                $p1=1000*$data['rows'][$n]['Precorrido'] + $data['rows'][$n]['Tiempo'];
-                $p2=1000*$data['rows'][$n+1]['Precorrido'] + $data['rows'][$n+1]['Tiempo'];
+                // use 1000*PRecorrido+Tiempo as sorting key
+                $p1=1000*$data['rows'][$n]['PRecorrido'] + $data['rows'][$n]['Tiempo'];
+                $p2=1000*$data['rows'][$n+1]['PRecorrido'] + $data['rows'][$n+1]['Tiempo'];
                 $winner=($p1<$p2)? $data['rows'][$n]['Perro']: $data['rows'][$n+1]['Perro'];
                 if (!$stmt->execute() ) $this->myLogger->error($stmt->error);
             }
@@ -399,7 +399,7 @@ class OrdenSalida_KO extends OrdenSalida {
 
         // fase 2: cogemos el orden de salida de la manga padre y lo copiamos en la actual
         $mpadre=$this->getParentRound();
-        if ($mpadre!==null) $this->setOrden($mpadre->OrdenSalida);
+        if ($mpadre->ID!==$this->mangas[0]['ID']) $this->setOrden($mpadre->Orden_Salida);
 
 		// fase 3: llamamos a preparaManga para ajustar los perros que salen en esta manga
 		// y clonar ordenes de salida en las mangas siguientes
