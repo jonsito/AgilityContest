@@ -254,8 +254,8 @@ class OrdenSalida_KO extends OrdenSalida {
 					$cmds=array_merge($cmds, array(
 						//  Games=X 	Perro=Y 		Manga=Z
                         array (0,	$perros[2*$n],		$this->mangas[1]['ID']),
-                    	array (0,	$perros[2*$n],		$this->mangas[1]['ID']),
-                    	array (1,	$perros[1 + 2*$n],	$this->mangas[0]['ID']),
+                    	array (0,	$perros[1 + 2*$n],	$this->mangas[1]['ID']),
+                    	array (1,	$perros[2*$n],		$this->mangas[0]['ID']),
                     	array (1,	$perros[1 + 2*$n],	$this->mangas[0]['ID'])
 					));
 				}
@@ -268,6 +268,7 @@ class OrdenSalida_KO extends OrdenSalida {
                 	$games=$cmd[0];
                 	$perro=$cmd[1];
                 	$manga=$cmd[2];
+                	$this->myLogger->trace("PreparedStatement: UPDATE resultados SET Games=$games WHERE (Perro=$perro) AND Manga=$manga");
                     $res=$stmt->execute();
                     if (!$res) $this->myLogger->error($this->conn->error);
                 }
@@ -296,7 +297,10 @@ class OrdenSalida_KO extends OrdenSalida {
 	    $this->myLogger->enter();
 	    // get parent round
         $pmanga=$this->getParentRound();
-        if ($pmanga->ID==$this->mangas[0]['ID']) return null; // on first round do nothing
+        if ($pmanga->ID==$this->manga->ID) {
+        	$this->myLogger->info("At first KO round: {$pmanga->ID}. Nothing to do");
+        	return null;
+        } // on first round do nothing
 
         if ($orden) {   // if $orden==true sort results according time/penalization
 
