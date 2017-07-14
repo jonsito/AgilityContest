@@ -102,15 +102,14 @@ function print_entrenamientos(mode) {
 
 /**
  * manda a la impresora el orden de salida
- * @param cats lista de categorias a imprimir
- * @param excel lista de categorias a imprimir
- * @param rango lista de perros a imprimir ( turnos de reconocimiento )
- * @param comentarios texto extra a anyadir a la cabecera
+ * @param {string} cats categorias a imprimir (-,L,M,S,T)
+ * @param {boolean} excel false:PDF true:Excel
+ * @param {string} rango lista de perros a imprimir ( turnos de reconocimiento )
+ * @param {string} comentarios texto extra a anyadir a la cabecera
  * @returns {Boolean}
  */
 function print_ordenSalida(cats,excel,rango,comentarios) {
     var url='/agility/server/pdf/print_ordenDeSalida.php';
-    if (isJornadaEqConjunta()) url='/agility/server/pdf/print_ordenSalidaEquipos4.php';
 	if (excel) url='/agility/server/excel/print_ordenSalidaExcel.php';
     $.fileDownload(
         url,
@@ -123,6 +122,7 @@ function print_ordenSalida(cats,excel,rango,comentarios) {
 				Categorias: cats,
 				Excel: excel,
 				EqConjunta: isJornadaEqConjunta()?1:0,
+                JornadaKO: isJornadaKO()?1:0,
                 Rango: rango,
                 Comentarios: comentarios
             },

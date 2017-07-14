@@ -27,7 +27,8 @@ header('Set-Cookie: fileDownload=true; path=/');
 require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
-require_once(__DIR__.'/classes/PrintOrdenDeSalida.php');
+require_once(__DIR__.'/classes/PrintOrdenSalida.php');
+require_once(__DIR__.'/classes/PrintOrdenSalidaKO.php');
 
 // Consultamos la base de datos
 try {
@@ -37,10 +38,14 @@ try {
         'manga' =>      http_request("Manga","i",0),
         'categorias' => http_request("Categorias","s","-"),
         'rango' =>      http_request("Rango","s","1-99999"),
-        'comentarios' =>http_request("Comentarios","s","-")
+        'comentarios' =>http_request("Comentarios","s","-"),
+        'equipos4' =>   http_request("EqConjunta","i",0),
+        'ko' =>         http_request("JornadaKO","i",0)
     );
 	// 	Creamos generador de documento
-	$pdf = new PrintOrdenDeSalida($data);
+    $pdf = new PrintOrdenSalida($data);
+    if($data['equipos4']!=0) $pdf= new PrintOrdenSalidaEquipos4($data);
+    if($data['ko']!=0)      $pdf= new PrintOrdenSalidaKO($data);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog

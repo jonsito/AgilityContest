@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-07-14 10:03+0200\n"
-"PO-Revision-Date: 2017-07-14 10:03+0200\n"
+"POT-Creation-Date: 2017-07-14 13:30+0200\n"
+"PO-Revision-Date: 2017-07-14 13:31+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -121,7 +121,8 @@ msgstr "R"
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:623
 #: server/pdf/classes/PrintInscripciones.php:838
-#: server/pdf/classes/PrintOrdenDeSalida.php:74
+#: server/pdf/classes/PrintOrdenSalida.php:74
+#: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/classes/PrintPodium.php:105
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
 #: server/pdf/classes/PrintResultadosByManga.php:62
@@ -174,7 +175,8 @@ msgstr "Perro"
 #: server/pdf/classes/PrintInscripciones.php:130
 #: server/pdf/classes/PrintInscripciones.php:623
 #: server/pdf/classes/PrintInscripciones.php:838
-#: server/pdf/classes/PrintOrdenDeSalida.php:74
+#: server/pdf/classes/PrintOrdenSalida.php:74
+#: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/classes/PrintPodium.php:117
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
 #: server/pdf/classes/PrintResultadosByManga.php:62
@@ -280,8 +282,10 @@ msgstr "Grado"
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:623
 #: server/pdf/classes/PrintInscripciones.php:838
-#: server/pdf/classes/PrintOrdenDeSalida.php:74
-#: server/pdf/classes/PrintOrdenDeSalida.php:231
+#: server/pdf/classes/PrintOrdenSalida.php:74
+#: server/pdf/classes/PrintOrdenSalida.php:233
+#: server/pdf/classes/PrintOrdenSalidaKO.php:74
+#: server/pdf/classes/PrintOrdenSalidaKO.php:205
 #: server/pdf/classes/PrintTRSTemplates.php:253
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:215 tablet/tablet_main.php:89
@@ -506,7 +510,8 @@ msgstr "Dors"
 #: server/pdf/classes/PrintInscripciones.php:121
 #: server/pdf/classes/PrintInscripciones.php:623
 #: server/pdf/classes/PrintInscripciones.php:838
-#: server/pdf/classes/PrintOrdenDeSalida.php:74
+#: server/pdf/classes/PrintOrdenSalida.php:74
+#: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/classes/PrintPodium.php:107
 #: server/pdf/classes/PrintPodium.php:109
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
@@ -567,6 +572,7 @@ msgstr "Gu&iacute;a"
 #: server/pdf/classes/PrintInscripciones.php:126
 #: server/pdf/classes/PrintInscripciones.php:623
 #: server/pdf/classes/PrintInscripciones.php:838
+#: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/classes/PrintPodium.php:113
 #: server/pdf/classes/PrintPodium.php:115
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
@@ -694,7 +700,8 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:623
 #: server/pdf/classes/PrintInscripciones.php:838
-#: server/pdf/classes/PrintOrdenDeSalida.php:74
+#: server/pdf/classes/PrintOrdenSalida.php:74
+#: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/classes/PrintOrdenTandas.php:87
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/index.php:230
 #: tablet/tablet_main.php:210 videowall/index.php:322
@@ -1400,7 +1407,8 @@ msgstr "Cat."
 #: server/pdf/classes/PrintInscripciones.php:122
 #: server/pdf/classes/PrintInscripciones.php:623
 #: server/pdf/classes/PrintInscripciones.php:838
-#: server/pdf/classes/PrintOrdenDeSalida.php:74
+#: server/pdf/classes/PrintOrdenSalida.php:74
+#: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73
 #: console/dialogs/dlg_chperros.inc:64 console/dialogs/dlg_perros.inc:53
 msgid "Breed"
@@ -1408,7 +1416,8 @@ msgstr "Raza"
 
 #: console/frm_clubes.php:264 console/frm_guias.php:153
 #: console/frm_perros.php:137 console/frm_perros.php:181
-#: server/pdf/classes/PrintOrdenDeSalida.php:74
+#: server/pdf/classes/PrintOrdenSalida.php:74
+#: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73
 #: console/dialogs/dlg_chperros.inc:51 console/dialogs/dlg_perros.inc:40
 msgid "Gender"
@@ -1480,7 +1489,7 @@ msgstr "Individual"
 
 #: console/frm_competicion.php:62
 msgid "K.O. Rounds"
-msgstr "Ronda K.O."
+msgstr "Rondas K.O."
 
 #: console/frm_competicion.php:67 modules/Federations.php:300
 #: modules/federaciones/rfec/config.php:268
@@ -1516,8 +1525,9 @@ msgstr "Programa"
 #: server/excel/print_ordenSalidaExcel.php:109
 #: server/excel/print_ordenSalidaExcel.php:141
 #: server/excel/print_ordenSalidaExcel.php:188
-#: server/pdf/classes/PrintOrdenDeSalida.php:106
+#: server/pdf/classes/PrintOrdenSalida.php:111
 #: server/pdf/classes/PrintOrdenSalidaEquipos4.php:94
+#: server/pdf/classes/PrintOrdenSalidaKO.php:104
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:93 videowall/index.php:238
 #: videowall/vw_ordensalida.php:36 console/dialogs/dlg_remotecontrol.inc:55
 #: console/dialogs/dlg_remotecontrol.inc:143
@@ -1680,7 +1690,8 @@ msgstr "Leyendo lista de inscritos"
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:623
 #: server/pdf/classes/PrintInscripciones.php:838
-#: server/pdf/classes/PrintOrdenDeSalida.php:74
+#: server/pdf/classes/PrintOrdenSalida.php:74
+#: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/classes/PrintPodium.php:110
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
 #: server/pdf/classes/PrintResultadosByManga.php:62
@@ -2445,7 +2456,7 @@ msgstr "Pruebas por Equipos"
 
 #: console/frm_registration.php:77
 msgid "KO and Games rounds"
-msgstr "Rondas K.O. y Games"
+msgstr "Rondas K.O. y Juegos"
 
 #: console/frm_registration.php:78
 msgid "Series with more than 2 rounds"
@@ -3823,6 +3834,7 @@ msgid "ExP"
 msgstr "Ex P"
 
 #: modules/competiciones/lib/ordensalida/OrdenSalida_KO.php:191
+#: server/pdf/classes/PrintOrdenSalidaKO.php:74
 msgid "Pair"
 msgstr "Pareja"
 
@@ -6093,7 +6105,7 @@ msgstr "Listado de participantes"
 msgid "List of registered dogs"
 msgstr "Lista de perros registrados"
 
-#: server/pdf/classes/PrintOrdenDeSalida.php:74
+#: server/pdf/classes/PrintOrdenSalida.php:74
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73
 msgid "Order"
 msgstr "Orden"

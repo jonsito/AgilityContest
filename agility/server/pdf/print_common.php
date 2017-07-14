@@ -326,7 +326,7 @@ class PrintCommon extends FPDF {
 		$this->SetFont($this->getFontName(),'B',12); // bold 15
 		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
 		$tmanga= _(Mangas::getTipoManga($manga->Tipo,1,$this->federation));
-		$str2 = "$tmanga - $categoria";
+        $str2=($categoria==="")? "$tmanga":"$tmanga - $categoria";
 		if ($this->comments==="") {
             $this->Cell(90,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
             $this->Cell(100,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga

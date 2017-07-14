@@ -230,7 +230,7 @@ class RSCE extends Federations {
                 12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual',   false), // Open
                 13 =>	array( 13,'Jumping Equipos'				,'-',   'Jp. Equipos',	'Equipos',      false), // team best
                 14 =>	array( 14,'Jumping Equipos'				,'-',  	'Jp. Equipos',	'Equipos',      false), // team combined
-                15 =>	array( 15,'K.O Primera manga', 			'-',	'K.O. manga 1',	'K.O. 1',         false),
+                15 =>	array( 15,'K.O. Primera manga',			'-',	'K.O. manga 1',	'K.O. 1',         false),
                 16 =>	array( 16,'Manga Especial', 			'-',	'Manga Especial','Individual',  true), // special round, no grades
                 17 => 	array( 17,'Agility Grado I Manga 3',	'GI',	'Agility-3 GI',	'Grado I',      true), // on RFEC special G1 3rd round
                 // mangas extra para K.O.

@@ -1,6 +1,6 @@
 <?php
 /*
-print_ordenDeSalida_awcfci.php
+PrintOrdenSalida.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -30,7 +30,7 @@ require_once(__DIR__.'/../../database/classes/Mangas.php');
 require_once(__DIR__.'/../../database/classes/OrdenSalida.php');
 require_once(__DIR__."/../print_common.php");
 
-class PrintOrdenDeSalida extends PrintCommon {
+class PrintOrdenSalida extends PrintCommon {
 
 	protected $manga; // datos de la manga
 	protected $orden; // orden de salida
@@ -46,13 +46,13 @@ class PrintOrdenDeSalida extends PrintCommon {
 	
 	/**
 	 * Constructor
-     * @param {array} data (prueba,jornada, manga, categorias, rango, comentarios)
-     * {integer} Prueba ID
-     * {integer} $jornada Jornada ID
-     * {integer} $manga Manga ID
-     * {string} categorias -LMST
-     * {string} rango [\d]-[\d]
-     * {string} comentarios
+     * @param array $data (prueba,jornada, manga, categorias, rango, comentarios)
+     *      {integer} Prueba ID
+     *      {integer} jornada Jornada ID
+     *      {integer} manga Manga ID
+     *      {string} categorias -LMST
+     *      {string} rango [\d]-[\d]
+     *      {string} comentarios
 	 * @throws Exception
 	 */
     function __construct($data) {
@@ -66,7 +66,7 @@ class PrintOrdenDeSalida extends PrintCommon {
 		$this->manga= $m->selectByID($data['manga']);
 		// Datos del orden de salida
 		$o = OrdenSalida::getInstance("printOrdenDeSalida",$data['manga']);
-		$os= $o->getData();
+        $os= $o->getData(/*false,8,null*/); // no team view, no categories, no previous resultset
 		$this->orden=$os['rows'];
 		$this->categoria="L";
         $this->cellHeader =
@@ -87,10 +87,15 @@ class PrintOrdenDeSalida extends PrintCommon {
         $str=($cat=='-')?$grad:"{$grad}_{$cat}";
         $res=normalize_filename($str);
         $this->set_FileName("OrdenDeSalida_{$res}.pdf");
+        // fix name field length according parameters
         if ($this->useLongNames) {
-            $this->pos[2]+=15;
-            $this->pos[3]-=5;
-            $this->pos[9]-=10;
+            $this->pos[2]+=15; // increase name width
+            $this->pos[3]-=5;  // decrease license
+            $this->pos[9]-=10; // decrease comments
+        }
+        // on wide license federations or long name required contests suppress license information
+        if ($this->federation->get('WideLicense') || $this->federation->isInternational()) {
+            $this->pos[9]+=$this->pos[3]; $this->pos[3]=0;
         }
 	}
 
@@ -154,17 +159,14 @@ class PrintOrdenDeSalida extends PrintCommon {
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 
-        // on wide license federations or long name required contests suppress license information
-        if ($this->federation->get('WideLicense') || $this->federation->isInternational()) {
-            $this->pos[9]+=$this->pos[3]; $this->pos[3]=0;
-        }
+
         // Rango
         $fromItem=1;
         $toItem=99999;
         if (preg_match('/^\d+-\d+$/',$this->rango)!==FALSE) {
             $a=explode("-",$this->rango);
-            $fromItem=intval($a[0]);
-            $toItem=intval($a[1]);
+            $fromItem=( intval($a[0]) <= 0 )? 1 : intval($a[0]);
+            $toItem=( intval($a[1]) > count($this->orden) )? count($this->orden) : intval($a[1]);
             $this->myLogger->trace("from:$fromItem to:$toItem");
         }
 		// Datos
