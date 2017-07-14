@@ -461,6 +461,10 @@ $config =Config::getInstance();
             <input type="hidden" name="full_backup" value="0"/> <!-- trick for checkboxes -->
             <input type="checkbox" name="full_backup" id="full_backup" value="1"/><br />
 
+            <label for="console_events"><?php _e('Track login events in console'); ?></label>
+            <input type="hidden" name="console_events" value="0"/> <!-- trick for checkboxes -->
+            <input type="checkbox" name="console_events" id="console_events" value="1"/><br />
+
             <label for="search_updates"><?php _e('Search for updates at startup'); ?></label>
             <input type="hidden" name="search_updates" value="0"/> <!-- trick for checkboxes -->
             <input type="checkbox" name="search_updates" id="search_updates" value="1"/><br />

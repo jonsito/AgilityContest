@@ -94,7 +94,8 @@ function acceptLogin() {
                 if (bp!=0) ac_config.backup_timeoutHandler=setTimeout(function() {trigger_autoBackup(bp);},60*bp*1000);
                 // fire up console event manager
                 ac_config.event_handler=console_eventManager;
-                startEventMgr();
+                var ce=parseInt(ac_config.console_events);
+                if (ce!=0) startEventMgr();
        		} 
        	},
    		error: function() { alert("error");	}

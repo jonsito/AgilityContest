@@ -33,10 +33,11 @@ define('AC_BACKUP_DOGS',"0");
 
 /** logging **/
 define('AC_DEBUG_LEVEL','0');
-define('AC_REGISTER_EVENTS',"0");
-define('AC_RESET_EVENTS',"1");
-define('AC_SEARCH_UPDATES',"1");
-define('AC_FULL_BACKUP',"0");
+define('AC_REGISTER_EVENTS',"0"); // write events into file
+define('AC_CONSOLE_EVENTS',"0"); // track and show events in cosole
+define('AC_RESET_EVENTS',"1"); // clear event registry on login
+define('AC_SEARCH_UPDATES',"1"); // look for updates at startup
+define('AC_FULL_BACKUP',"0"); // include events in database backup
 define('AC_EVENT_PRINTER','');
 define('AC_WIDE_PRINTER','0'); // defaults to 58mm wide POS printer
 
@@ -194,7 +195,8 @@ Class Config {
 		// version, logging y depuracion
 		'debug_level' 		=> array(	'i',	false,	AC_DEBUG_LEVEL),
 		'register_events'	=> array(	'b',	false,	AC_REGISTER_EVENTS),
-		'reset_events'		=> array(	'b',	false,	AC_RESET_EVENTS),
+        'reset_events'		=> array(	'b',	false,	AC_RESET_EVENTS),
+        'console_events'	=> array(	'b',	false,	AC_CONSOLE_EVENTS),
         'event_printer'		=> array(	's',	false,	AC_EVENT_PRINTER),
         'full_backup'		=> array(	'i',	false,	AC_FULL_BACKUP),
         'search_updates' 	=> array(	'b',	false,	AC_SEARCH_UPDATES),
