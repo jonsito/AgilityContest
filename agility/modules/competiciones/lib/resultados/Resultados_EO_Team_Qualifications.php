@@ -34,15 +34,6 @@ class Resultados_EO_Team_Qualifications extends Resultados {
 		parent::__construct($file,$prueba,$jornada,$manga);
 	}
 
-	function getResultadosIndividualyEquipos($mode) {
-        // obtenemos resultados individuales y TRS
-        $resultados=$this->getResultadosIndividual($mode);
-        // buscamos los resultados por equipos
-        $resultados['individual']=$resultados['rows'];
-        $resultados['equipos']=$this->getResultadosEquipos($resultados);
-        return $resultados;
-    }
-
     /**
      * Gestion de resultados en Equipos3/Equipos4
      * Agrupa los resultados por equipos y genera una lista de equipos ordenados por resultados

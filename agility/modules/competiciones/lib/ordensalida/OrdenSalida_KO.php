@@ -96,7 +96,7 @@ class OrdenSalida_KO extends OrdenSalida {
 	 * 
 	 * @param {boolean} teamview true->intercalar información de equipos en el listado 
 	 * @param {integer} catmode categorias a tener en cuenta en el listado que hay que presentar
-	 * @param {array} rs lista de resultados a presentar. Se utiliza para reordenar resultados en funcion del orden de salida
+	 * @param {array(total,rows} rs lista de resultados a presentar. Se utiliza para reordenar resultados en funcion del orden de salida
 	 */
 	function getData($teamView=false,$catmode=8,$rs=null) {
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
@@ -116,6 +116,8 @@ class OrdenSalida_KO extends OrdenSalida {
 		$p1=array();
 		$guias=array();
 		foreach ($rs['rows'] as $resultado) {
+			// dado que nos pueden haber pasado un "$rs alien", porsiaca filtramos los resultados con Games=0;
+			if($resultado['Games']==0) continue;
 			// recreamos el array de perros anyadiendo el ID del perro como clave
 			$p1[$resultado['Perro']]=$resultado;
 			// generamos lista de guias y los perros que tiene cada uno
@@ -191,7 +193,10 @@ class OrdenSalida_KO extends OrdenSalida {
                         'Nombre'=>_('Pair'),
                         'NombreGuia'=> strval(intval($count/2)+1),
                         'Eliminado'=>0,
-                        'NoPresentado'=>0
+                        'NoPresentado'=>0,
+						'Faltas'=>0,'Tocados'=>0,'Rehuses'=>0,
+						'Tiempo'=>0,'Velocidad'=>0,'Penalizacion'=>0,
+						'Puesto'=>'','Calificacion'=>'','CShort'=>''
                     );
                     array_push($p5,$a);
                 }

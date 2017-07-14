@@ -1,6 +1,6 @@
 <?php
 /*
-PrintResultadosByManga.php
+PrintResultadosKO.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -31,7 +31,7 @@ require_once(__DIR__.'/../../database/classes/Mangas.php');
 require_once(__DIR__.'/../../database/classes/Resultados.php');
 require_once(__DIR__."/../print_common.php");
 
-class PrintResultadosByManga extends PrintCommon {
+class PrintResultadosKO extends PrintCommon {
 	
 	protected $manga;
 	protected $resultados;
@@ -49,30 +49,24 @@ class PrintResultadosByManga extends PrintCommon {
      * @param integer $jornada Jornada ID
      * @param array $manga datos tecnicos de la manga
 	 * @param array $resultados resultados asociados a la manga/categoria pedidas
-     * @param integer $mode manga mode
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$resultados,$mode) {
+	function __construct($prueba,$jornada,$manga,$resultados) {
 		parent::__construct('Portrait',"print_resultadosByManga",$prueba,$jornada);
 		$this->manga=$manga;
 		$this->resultados=$resultados;
-		$this->mode=$mode;
 		$catgrad=(Jornadas::hasGrades($this->jornada))?_('Cat').'/'._('Grade'):_('Cat').".";
 		$this->cellHeader=
 			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Pos'));
         // set file name
-        $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
-        $cat=$this->federation->getMangaMode($mode,0);
-        $str=($cat=='-')?$grad:"{$grad}_{$cat}";
-        $res=normalize_filename($str);
-        $this->set_FileName("ResultadosManga_{$res}.pdf");
+        $this->set_FileName("ResultadosManga_KO.pdf");
 	}
 	
 	// Cabecera de página
 	function Header() {
         $str=($this->manga->Tipo==16)?_("Resultados"):_("Round scores");
 		$this->print_commonHeader($str);
-		$this->print_identificacionManga($this->manga,$this->getModeString(intval($this->mode)));
+		$this->print_identificacionManga($this->manga,"");
 		
 		// Si es la primera hoja pintamos datos tecnicos de la manga
 		if ($this->PageNo()!=1) return;

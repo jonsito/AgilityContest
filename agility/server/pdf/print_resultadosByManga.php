@@ -30,6 +30,7 @@ require_once (__DIR__."/../logging.php");
 require_once(__DIR__.'/../database/classes/Mangas.php');
 require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__."/classes/PrintResultadosByManga.php");
+require_once(__DIR__."/classes/PrintResultadosKO.php");
 
 // Consultamos la base de datos
 try {
@@ -44,7 +45,11 @@ try {
 	$resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
 
 	// Creamos generador de documento
-	$pdf = new PrintResultadosByManga($idprueba,$idjornada,$manga,$resultados,$mode);
+    if ( in_array ($manga->Tipo, array(15,18,19,20,21,22,23,24) ) ) {
+        $pdf = new PrintResultadosKO($idprueba,$idjornada,$manga,$resultados);
+    } else {
+        $pdf = new PrintResultadosByManga($idprueba,$idjornada,$manga,$resultados,$mode);
+    }
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog

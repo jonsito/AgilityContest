@@ -672,7 +672,7 @@ class Resultados extends DBObject {
 		$res=$this->__select(
 				"Resultados.Dorsal,Resultados.Perro,Resultados.Nombre,NombreLargo,Resultados.Raza,Equipo,Resultados.Licencia,Resultados.Categoria,Resultados.Grado,
 				    Resultados.NombreGuia,Resultados.NombreClub,PerroGuiaClub.LOE_RRC,PerroGuiaClub.CatGuia,
-				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,Resultados.Celo, 
+				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,Resultados.Celo, Resultados.Games,
 					GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,
 					0 AS PTiempo, 0 AS Penalizacion, '' AS Calificacion, 0 AS Velocidad", 
 				"Resultados,PerroGuiaClub",
