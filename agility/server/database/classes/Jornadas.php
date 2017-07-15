@@ -937,8 +937,8 @@ class Jornadas extends DBObject {
 	 */
 	static function hasGrades($jobj) {
 		if (is_numeric($jobj)) {
-			$obj=new Jornadas("hasGrades",0); // dummy prueba id
-			$jobj=$obj->selectByID($jobj);
+		    $obj=new DBObject("hasGrades");
+		    $jobj=$obj->__selectObject("*","Jornadas","ID=$jobj");
 		}
 		$flag=true;
 		if (is_object($jobj)) {

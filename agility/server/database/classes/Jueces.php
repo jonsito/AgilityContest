@@ -111,12 +111,10 @@ class Jueces extends DBObject {
 	 * @return "" on success ; otherwise null
 	 */
 	function delete($id) {
-		$this->myLogger->enter();
 		if ($id<=1) return $this->error("Invalid Juez ID"); // cannot delete if juez<=default 
 		$str="DELETE FROM Jueces WHERE ( ID=$id )";
 		$res= $this->query($str);
 		if (!$res) return $this->error($this->conn->error);
-		$this->myLogger->leave();
 		return "";
 	}	
 	
@@ -126,7 +124,6 @@ class Jueces extends DBObject {
 	 * @return "" on success ; otherwise null
 	 */
 	function selectByID($id) {
-		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Juez ID"); // Juez ID must be positive greater than 0 
 
 		// make query
@@ -134,7 +131,6 @@ class Jueces extends DBObject {
 		if (!is_object($obj))	return $this->error("No Juez found with provided ID=$id");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
-		$this->myLogger->leave();
 		return $data;
 	} 
 	

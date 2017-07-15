@@ -36,11 +36,14 @@ class PrintResultadosKO extends PrintCommon {
 	protected $manga;
 	protected $resultados;
 	protected $mode;
+	protected $hasGrades;
 	
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos	=array(  8,		17,		15,		30,		20,		15,		   6,      6,    6,       12,     7,    12,      24,			10 );
-	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
+    //                     pair  dorsal name lic handler club  cat  fault touch refs time speed penal  pos calification
+    //                       0     1     2    3    4     5      6     7     8     9    10   11    12    13    14
+	protected $pos	=array(  10,   8,	17,	 15,  30,	 20,	15,	  6,    6,    6,   10,   7,   12,   7,    20 );
+	protected $align=array(  'C', 'L',  'L', 'C', 'R',   'R',   'C',  'C',  'C',  'C', 'R', 'R',  'R',  'C',  'L');
 
 	
 	/**
@@ -55,22 +58,23 @@ class PrintResultadosKO extends PrintCommon {
 		parent::__construct('Portrait',"print_resultadosByManga",$prueba,$jornada);
 		$this->manga=$manga;
 		$this->resultados=$resultados;
-		$catgrad=(Jornadas::hasGrades($this->jornada))?_('Cat').'/'._('Grade'):_('Cat').".";
+        $this->hasGrades=Jornadas::hasGrades($this->jornada);
+		$catgrad=($this->hasGrades)?_('Cat').'/'._('Grade'):_('Cat').".";
 		$this->cellHeader=
-			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Pos'));
+			array(_('Pair'),_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Pos'),_('Calification'));
         // set file name
         $this->set_FileName("ResultadosManga_KO.pdf");
 	}
 	
 	// Cabecera de página
 	function Header() {
-        $str=($this->manga->Tipo==16)?_("Resultados"):_("Round scores");
-		$this->print_commonHeader($str);
-		$this->print_identificacionManga($this->manga,"");
-		
-		// Si es la primera hoja pintamos datos tecnicos de la manga
-		if ($this->PageNo()!=1) return;
+        $str = ($this->manga->Tipo == 16) ? _("Resultados") : _("Round scores");
+        $this->print_commonHeader($str);
+        $this->print_identificacionManga($this->manga, "");
+    }
 
+    function writeCourseData() {
+	    $this->myLogger->enter();
 		$this->SetFont($this->getFontName(),'B',9); // bold 9px
 		$jobj=new Jueces("print_resultadosByManga");
 		$juez1=$jobj->selectByID($this->manga->Juez1);
@@ -92,7 +96,8 @@ class PrintResultadosKO extends PrintCommon {
 		$this->Cell(20,7,"{$this->resultados['trs']['trm']} "._('Secs'),"B",0,'L',false);
 		$this->Cell(20,7,_('Speed').":","B",0,'L',false);
 		$this->Cell(18,7,"{$this->resultados['trs']['vel']} m/s","BR",0,'L',false);
-		$this->Ln(14); // en total tres lineas extras en la primera hoja
+		$this->Ln(10); // en total tres lineas extras en la primera hoja
+        $this->myLogger->leave();
 	}
 	
 	// Pie de página
@@ -122,68 +127,89 @@ class PrintResultadosKO extends PrintCommon {
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
-		
+		$this->AddPage();
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
-		if ($this->federation->get('WideLicense')) {
-            $this->pos[1]+=5;$this->pos[2]=0;$this->pos[3]+=5;$this->pos[4]+=5;
-        } else if ($this->useLongNames) {
-            $this->pos[1]+=20;$this->pos[2]=0;$this->pos[4]-=5; // remove license. leave space for LongName
+        //  old    0     1    2    3      4      5
+        //  pair  dorsal name lic handler club  cat  fault touch refs time speed penal  pos calification
+        //   0     1     2    3    4      5      6     7     8     9    10   11    12    13    14
+        if ($this->federation->get('WideLicense')) { // on wide license, remove it enlarge name,handler, & club
+            $this->pos[2]+=5;$this->pos[3]=0;$this->pos[4]+=5;$this->pos[5]+=5;
+        } else if ($this->useLongNames) { // else if long name remove license and shorten club
+            $this->pos[2]+=20;$this->pos[3]=0;$this->pos[5]-=5; // remove license shorten club.leave space for LongName
         }
 		// Datos
-
 		$rowcount=0;
-		$numrows=($this->PageNo()==1)?30:33;
-		$this->myLogger->trace("before foreach");
+		$rowsperpage=33; // let space for TRS/TRM data
+		$firstOfpair=true;
 		foreach($this->resultados['rows'] as $row) {
-			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			if( ($rowcount%$numrows) == 0 ) { // assume $numrows rows per page ( rowWidth = 7mmts )
-				if ($rowcount>0) 
-					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
-				$this->AddPage();
-				$this->writeTableHeader();
-			}
+            if ($row['Dorsal']==='*') { // pair separator. add newline and draw pair name
+                $firstOfpair=true;
+                $this->Ln(2);
+                continue; // skip row as senseless
+            }
+		    if ($rowcount==0) {
+                if ($this->PageNo()==1) $this->writeCourseData();
+		        $this->writeTableHeader();
+            }
+            if( $firstOfpair) { // on first colum of each pair, draw pair number
+                $this->ac_row( intval($rowcount/2),9); // alternate pairs background color
+                $this->SetFont($this->getFontName(),'B',12); // bold 12px
+                $this->Cell($this->pos[0],10,(intval($rowcount/2)+1)." - ",'LRTB',0,$this->align[0],true); // display order
+                $border='LRT';
+            } else {
+                $this->SetX($this->GetX()+$this->pos[0]);
+                $border='LRB';
+            }
 			// properly format special fields
-
 			$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}";
 			$veloc= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],2);
 			$tiempo= ($row['Penalizacion']>=200)?"-":number_format($row['Tiempo'],$this->timeResolution);
 			$penal=number_format($row['Penalizacion'],$this->timeResolution);
-			$this->ac_row($rowcount,8);
+
+			$this->ac_row($rowcount,7);
 			// print row data
-			$this->SetFont($this->getFontName(),'',8); // set data font size
-			$this->Cell($this->pos[0],6,$row['Dorsal'],			'LR',	0,		$this->align[0],	true);
-			$this->SetFont($this->getFontName(),'B',8); // mark Nombre as bold
+			$this->SetFont($this->getFontName(),'',7); // set data font size
+			$this->Cell($this->pos[1],5,$row['Dorsal'],			$border,	0,		$this->align[1],	true);
+			$this->SetFont($this->getFontName(),'B',7); // mark Nombre as bold
             $nombre=$row['Nombre'];
             if ($this->useLongNames) $nombre .= " - " . $row['NombreLargo'];
-			$this->Cell($this->pos[1],6,$nombre,			'LR',	0,		$this->align[1],	true);
-			$this->SetFont($this->getFontName(),'',8); // set data font size
-			if ($this->pos[2]!=0) $this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	true);
-			$this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	true);
-			$this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	true);
-			if (Jornadas::hasGrades($this->jornada->ID)) {
+			$this->Cell($this->pos[2],5,$nombre,			$border,	0,		$this->align[2],	true);
+			$this->SetFont($this->getFontName(),'',7); // set data font size
+			if ($this->pos[3]!=0) $this->Cell($this->pos[3],5,$row['Licencia'],$border,0,	$this->align[3],true);
+			$this->Cell($this->pos[4],5,$row['NombreGuia'],		$border,	0,		$this->align[4],	true);
+			$this->Cell($this->pos[5],5,$row['NombreClub'],		$border,	0,		$this->align[5],	true);
+			if ($this->hasGrades) {
                 $cat=$this->federation->getCategoryShort($row['Categoria']);
                 $grad=$this->federation->getGradeShort($row['Grado']);
-				$this->Cell($this->pos[5],6,"{$cat} - {$grad}",	'LR',	0,		$this->align[5],	true);
+				$this->Cell($this->pos[6],5,"{$cat} - {$grad}",	$border,	0,	$this->align[6],	true);
 			} else {
 				// $catstr=$row['Categoria'];
 				$catstr=$this->federation->getCategory($row['Categoria']);
-				$this->Cell($this->pos[5],6,$catstr,	'LR',	0,		$this->align[5],	true);
+				$this->Cell($this->pos[6],5,$catstr,	$border,	0,		$this->align[6],	true);
 			}
-			$this->Cell($this->pos[6],6,$row['Faltas'],			'LR',	0,		$this->align[6],	true);
-			$this->Cell($this->pos[7],6,$row['Tocados'],		'LR',	0,		$this->align[7],	true);
-			$this->Cell($this->pos[8],6,$row['Rehuses'],		'LR',	0,		$this->align[8],	true);
-			$this->Cell($this->pos[9],6,$tiempo,				'LR',	0,		$this->align[9],	true);
-			$this->Cell($this->pos[10],6,$veloc,				'LR',	0,		$this->align[10],	true);
-			$this->Cell($this->pos[11],6,$penal,				'LR',	0,		$this->align[11],	true);
-			$this->Cell($this->pos[12],6,$row['Calificacion'],	'LR',	0,		$this->align[12],	true);
-			$this->SetFont($this->getFontName(),'B',11); // bold 11px
-			$this->Cell($this->pos[13],6,$puesto,			'LR',	0,		$this->align[13],	true);
+			$this->Cell($this->pos[7],5,$row['Faltas'],		$border,	0,		$this->align[7],	true);
+			$this->Cell($this->pos[8],5,$row['Tocados'],		$border,	0,		$this->align[8],	true);
+			$this->Cell($this->pos[9],5,$row['Rehuses'],		$border,	0,		$this->align[9],	true);
+			$this->Cell($this->pos[10],5,$tiempo,				$border,	0,		$this->align[10],	true);
+			$this->Cell($this->pos[11],5,$veloc,				$border,	0,		$this->align[11],	true);
+			$this->Cell($this->pos[12],5,$penal,				$border,	0,		$this->align[12],	true);
+            $this->SetFont($this->getFontName(),'B',8); // bold 11px
+            $this->Cell($this->pos[13],5,$puesto,			$border,	0,		$this->align[13],	true);
+            $this->SetFont($this->getFontName(),'I',7); // bold 11px
+			$this->Cell($this->pos[14],5,$row['Calificacion'],	$border,	0,		$this->align[14],	true);
 			$this->Ln();
 			$rowcount++;
+			$firstOfpair = !$firstOfpair;
+
+            // check for end of page
+            if ( ($rowcount>=$rowsperpage) ) { // assume 34/38 rows per page ( rowWidth = 6mmts )
+                $rowsperpage=37; // next pages has no TRS/TRM data
+                $rowcount=0;
+                $this->AddPage();
+            }
 		}
 		// Línea de cierre
-		$this->Cell(array_sum($this->pos),0,'','T');
 		$this->myLogger->leave();
 	}
 }

@@ -36,6 +36,7 @@ class PrintResultadosByManga extends PrintCommon {
 	protected $manga;
 	protected $resultados;
 	protected $mode;
+	protected $hasGrades;
 	
 	// geometria de las celdas
 	protected $cellHeader;
@@ -57,7 +58,8 @@ class PrintResultadosByManga extends PrintCommon {
 		$this->manga=$manga;
 		$this->resultados=$resultados;
 		$this->mode=$mode;
-		$catgrad=(Jornadas::hasGrades($this->jornada))?_('Cat').'/'._('Grade'):_('Cat').".";
+        $this->hasGrades=Jornadas::hasGrades($this->jornada);
+		$catgrad=($this->hasGrades)?_('Cat').'/'._('Grade'):_('Cat').".";
 		$this->cellHeader=
 			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Pos'));
         // set file name
@@ -167,7 +169,7 @@ class PrintResultadosByManga extends PrintCommon {
 			if ($this->pos[2]!=0) $this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	true);
 			$this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	true);
 			$this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	true);
-			if (Jornadas::hasGrades($this->jornada->ID)) {
+			if ($this->hasGrades) {
                 $cat=$this->federation->getCategoryShort($row['Categoria']);
                 $grad=$this->federation->getGradeShort($row['Grado']);
 				$this->Cell($this->pos[5],6,"{$cat} - {$grad}",	'LR',	0,		$this->align[5],	true);

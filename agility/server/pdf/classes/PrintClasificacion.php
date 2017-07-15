@@ -43,6 +43,7 @@ class PrintClasificacion extends PrintCommon {
     protected $trs2;
     protected $trs3;
 	protected $categoria;
+	protected $hasGrades;
 
 	 /** Constructor
       * @param {int} $prueba prueba id
@@ -63,6 +64,7 @@ class PrintClasificacion extends PrintCommon {
         $this->trs2=(($mangas[1]!=0)!=0)?$results['trs2']:null;
         $this->trs3=(($mangas[2]!=0)!=0)?$results['trs3']:null;
 		$this->categoria=$this->getModeString(intval($mode));
+		$this->hasGrades=Jornadas::hasGrades($this->jornada);
 	}
 	
 	function print_datosMangas() {
@@ -185,7 +187,7 @@ class PrintClasificacion extends PrintCommon {
             $this->Cell(($wide)?22:27,7,_('Name'),0,0,'C',true);	// nombre
             $this->Cell(($wide)?30:15,7,_('Lic'),0,0,'C',true);	// licencia
         }
-		if (Jornadas::hasGrades($this->jornada)) {
+		if ($this->hasGrades) {
 			$this->Cell(10,7,_('Cat/Gr'),0,0,'C',true);	// categoria/grado
 		} else {
 			$this->Cell(10,7,_('Cat'),0,0,'C',true);	// categoria (jornadas Open / KO )
@@ -289,7 +291,7 @@ class PrintClasificacion extends PrintCommon {
             $this->Cell(($wide)?30:15,6,$row['Licencia'],0,0,'C',$fill);	// licencia
         }
         $this->SetFont($this->getFontName(),'',7); // a bit little font to allow califications
-		if (Jornadas::hasGrades($this->jornada)) {
+		if ($this->hasGrades) {
             $cat=$this->federation->getCategoryShort($row['Categoria']);
             $grad=$this->federation->getGradeShort($row['Grado']);
 			$this->Cell(10,6,"{$cat} {$grad}",0,0,'C',$fill);	// categoria/grado

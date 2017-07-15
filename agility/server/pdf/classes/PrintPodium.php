@@ -38,6 +38,7 @@ class PrintPodium extends PrintCommon {
     protected $manga2;
     protected $manga3;
 	protected $resultados;
+	protected $hasGrades;
 
 	 /** Constructor
      *@param {int} $prueba
@@ -53,6 +54,7 @@ class PrintPodium extends PrintCommon {
         $this->manga2=($mangas[1]!=0)?$dbobj->__getObject("Mangas",$mangas[1]):null;
         $this->manga3=($mangas[2]!=0)?$dbobj->__getObject("Mangas",$mangas[2]):null;
 		$this->resultados=$results;
+		$this->hasGrades=Jornadas::hasGrades($this->jornada);
 
         // set file name
         $grad=$this->federation->getTipoManga($this->manga1->Tipo,4); // nombre de la serie
@@ -109,7 +111,7 @@ class PrintPodium extends PrintCommon {
             $this->Cell(25,6,_('Name'),0,0,'C',true);	// nombre
             $this->Cell(15,6,_('Lic').'.',0,0,'C',true);	// licencia
         }
-		if (Jornadas::hasGrades($this->jornada)){
+		if ($this->hasGrades){
 			$this->Cell(10,6,_('Cat').'/'._('Grd'),0,0,'C',true);	// categoria/grado
 		} else {
 			$this->Cell(10,6,_('Cat'),0,0,'C',true);	// categoria/grado
@@ -206,7 +208,7 @@ class PrintPodium extends PrintCommon {
             $this->Cell(15,6,$row['Licencia'],0,0,'C',true);	// licencia
         }
         $cat=$this->federation->getCategoryShort($row['Categoria']);
-		if (Jornadas::hasGrades($this->jornada)) {
+		if ($this->hasGrades) {
             $grad=$this->federation->getGradeShort($row['Grado']);
 			$this->Cell(10,6,"{$cat} {$grad}",0,0,'C',true);	// categoria/grado
 		} else {

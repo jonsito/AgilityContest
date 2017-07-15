@@ -165,7 +165,6 @@ class PrintOrdenSalidaKO extends PrintCommon {
             if ( (($order+1)<$fromItem) || (($order+1)>$toItem) ) { $order++; continue; } // not in range; skip
 
 			if ( ($rowcount==0) || ($rowcount>=$rowsperpage) ) { // assume 38 rows per page ( rowWidth = 6mmts )
-                $this->Cell(array_sum($this->pos),0,'','T');// linea de cierre en cambio de pagina$this->AddPage();
 				$rowcount=0;
 				$this->AddPage();
                 $this->writeTableHeader();
