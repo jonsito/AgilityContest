@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-07-14 13:30+0200\n"
-"PO-Revision-Date: 2017-07-14 13:31+0200\n"
+"POT-Creation-Date: 2017-07-15 13:15+0200\n"
+"PO-Revision-Date: 2017-07-15 13:19+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -112,7 +112,7 @@ msgstr "R"
 #: public/pbmenu_inscripciones.php:102
 #: public/pbmenu_inscripciones_equipos.php:144 scripts/competicion.js.php:1226
 #: scripts/printer.js.php:293 scripts/results_and_scores.js.php:320
-#: server/pdf/classes/PrintClasificacion.php:176
+#: server/pdf/classes/PrintClasificacion.php:178
 #: server/pdf/classes/PrintClasificacionExcel.php:155
 #: server/pdf/classes/PrintClasificacionTeam.php:233
 #: server/pdf/classes/PrintEntradaDeDatos.php:169
@@ -123,9 +123,10 @@ msgstr "R"
 #: server/pdf/classes/PrintInscripciones.php:838
 #: server/pdf/classes/PrintOrdenSalida.php:74
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
-#: server/pdf/classes/PrintPodium.php:105
+#: server/pdf/classes/PrintPodium.php:107
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:252
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/tablet.js.php:633
 #: tablet/tablet.js.php:668 tablet/tablet.js.php:673 tablet/tablet_main.php:77
@@ -164,7 +165,7 @@ msgstr "Perro"
 #: public/pbmenu_inscripciones_equipos.php:151 scripts/competicion.js.php:1226
 #: scripts/printer.js.php:293 scripts/results_and_scores.js.php:255
 #: scripts/results_and_scores.js.php:327
-#: server/pdf/classes/PrintClasificacion.php:193
+#: server/pdf/classes/PrintClasificacion.php:195
 #: server/pdf/classes/PrintClasificacionExcel.php:160
 #: server/pdf/classes/PrintClasificacionTeam.php:241
 #: server/pdf/classes/PrintEntradaDeDatos.php:177
@@ -177,9 +178,10 @@ msgstr "Perro"
 #: server/pdf/classes/PrintInscripciones.php:838
 #: server/pdf/classes/PrintOrdenSalida.php:74
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
-#: server/pdf/classes/PrintPodium.php:117
+#: server/pdf/classes/PrintPodium.php:119
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:260
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/tablet_main.php:81
 #: tablet/tablet_main.php:293 tablet/tablet_main.php:421
@@ -258,7 +260,8 @@ msgstr "Categor&iacute;a"
 #: public/pbmenu_inscripciones_equipos.php:150
 #: server/pdf/classes/PrintClasificacionExcel.php:159
 #: server/pdf/classes/PrintInscripciones.php:126
-#: server/pdf/classes/PrintResultadosByManga.php:60
+#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosKO.php:62
 #: server/pdf/classes/PrintTRSTemplates.php:77 tablet/tablet_main.php:87
 #: tablet/tablet_main.php:296 videowall/vwc_finales.php:86
 #: videowall/vwc_parciales.php:86 console/dialogs/dlg_chperros.inc:87
@@ -285,7 +288,7 @@ msgstr "Grado"
 #: server/pdf/classes/PrintOrdenSalida.php:74
 #: server/pdf/classes/PrintOrdenSalida.php:233
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
-#: server/pdf/classes/PrintOrdenSalidaKO.php:205
+#: server/pdf/classes/PrintOrdenSalidaKO.php:204
 #: server/pdf/classes/PrintTRSTemplates.php:253
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:215 tablet/tablet_main.php:89
@@ -314,11 +317,13 @@ msgstr "Falta"
 msgid "Refusal"
 msgstr "Reh&uacute;se"
 
-#: chrono/chrono.inc.php:98 modules/Competitions.php:150
+#: chrono/chrono.inc.php:98 modules/Competitions.php:152
 #: modules/competiciones/Liga_RFEC.php:139
 #: modules/competiciones/Liga_RFEC_Madrid.php:76
 #: modules/competiciones/Liga_UCA.php:41
 #: modules/competiciones/Selectiva_PastorBelga.php:83
+#: modules/competiciones/lib/resultados/Resultados_KO.php:72
+#: modules/competiciones/lib/resultados/Resultados_KO.php:82
 #: server/pdf/classes/PrintEntradaDeDatos.php:210
 #: server/pdf/classes/PrintEntradaDeDatos.php:312
 #: server/pdf/classes/PrintEntradaDeDatos.php:494
@@ -430,7 +435,7 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 
 #: chrono/chrono.js.php:133 chrono/chrono.js.php:214 chrono/chrono.js.php:282
 #: chrono/chrono.js.php:383 livestream/livestream.js.php:256
-#: modules/Competitions.php:151 modules/competiciones/Liga_RFEC.php:140
+#: modules/Competitions.php:153 modules/competiciones/Liga_RFEC.php:140
 #: modules/competiciones/Liga_RFEC_Madrid.php:77
 #: modules/competiciones/Liga_UCA.php:42
 #: modules/competiciones/Selectiva_PastorBelga.php:84
@@ -494,9 +499,9 @@ msgstr "Dors"
 #: public/pbmenu_inscripciones_equipos.php:146
 #: scripts/results_and_scores.js.php:250 scripts/results_and_scores.js.php:322
 #: server/excel/common_writer.php:114 server/excel/common_writer.php:134
-#: server/pdf/classes/PrintClasificacion.php:179
 #: server/pdf/classes/PrintClasificacion.php:181
-#: server/pdf/classes/PrintClasificacion.php:185
+#: server/pdf/classes/PrintClasificacion.php:183
+#: server/pdf/classes/PrintClasificacion.php:187
 #: server/pdf/classes/PrintClasificacionExcel.php:156
 #: server/pdf/classes/PrintClasificacionTeam.php:235
 #: server/pdf/classes/PrintClasificacionTeam.php:237
@@ -512,10 +517,11 @@ msgstr "Dors"
 #: server/pdf/classes/PrintInscripciones.php:838
 #: server/pdf/classes/PrintOrdenSalida.php:74
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
-#: server/pdf/classes/PrintPodium.php:107
 #: server/pdf/classes/PrintPodium.php:109
+#: server/pdf/classes/PrintPodium.php:111
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:255
 #: server/pdf/classes/PrintTRSTemplates.php:258
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73 tablet/index.php:229
@@ -567,16 +573,17 @@ msgstr "Gu&iacute;a"
 #: public/pbmenu_inscripciones_equipos.php:96
 #: public/pbmenu_inscripciones_equipos.php:149
 #: scripts/results_and_scores.js.php:252 scripts/results_and_scores.js.php:324
-#: server/pdf/classes/PrintClasificacion.php:191
+#: server/pdf/classes/PrintClasificacion.php:193
 #: server/pdf/classes/PrintClasificacionTeam.php:240
 #: server/pdf/classes/PrintInscripciones.php:126
 #: server/pdf/classes/PrintInscripciones.php:623
 #: server/pdf/classes/PrintInscripciones.php:838
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
-#: server/pdf/classes/PrintPodium.php:113
 #: server/pdf/classes/PrintPodium.php:115
+#: server/pdf/classes/PrintPodium.php:117
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
-#: server/pdf/classes/PrintResultadosByManga.php:60 tablet/tablet_main.php:85
+#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosKO.php:62 tablet/tablet_main.php:85
 #: tablet/tablet_main.php:295 console/dialogs/dlg_chperros.inc:165
 #: console/dialogs/dlg_competicion.inc:38
 #: console/dialogs/dlg_competicion.inc:125
@@ -728,8 +735,8 @@ msgstr "Debe seleccionar un ring v&aacute;lido"
 #: lib/templates/parcial_round_data.inc.php:14
 #: lib/templates/parcial_round_data.inc.php:15
 #: server/excel/classes/Excel_Clasificaciones.php:94
-#: server/pdf/classes/PrintClasificacion.php:82
-#: server/pdf/classes/PrintClasificacion.php:85
+#: server/pdf/classes/PrintClasificacion.php:84
+#: server/pdf/classes/PrintClasificacion.php:87
 #: server/pdf/classes/PrintClasificacionExcel.php:119
 #: server/pdf/classes/PrintClasificacionExcel.php:121
 #: server/pdf/classes/PrintClasificacionTeam.php:124
@@ -738,8 +745,10 @@ msgstr "Debe seleccionar un ring v&aacute;lido"
 #: server/pdf/classes/PrintResultadosByEquipos3.php:109
 #: server/pdf/classes/PrintResultadosByEquipos4.php:96
 #: server/pdf/classes/PrintResultadosByEquipos4.php:99
-#: server/pdf/classes/PrintResultadosByManga.php:84
-#: server/pdf/classes/PrintResultadosByManga.php:87
+#: server/pdf/classes/PrintResultadosByManga.php:86
+#: server/pdf/classes/PrintResultadosByManga.php:89
+#: server/pdf/classes/PrintResultadosKO.php:82
+#: server/pdf/classes/PrintResultadosKO.php:85
 msgid "Judge"
 msgstr "Juez"
 
@@ -758,7 +767,8 @@ msgstr "Recorridos"
 #: lib/templates/parcial_console_round_data.inc.php:40
 #: server/pdf/classes/PrintResultadosByEquipos3.php:113
 #: server/pdf/classes/PrintResultadosByEquipos4.php:103
-#: server/pdf/classes/PrintResultadosByManga.php:91
+#: server/pdf/classes/PrintResultadosByManga.php:93
+#: server/pdf/classes/PrintResultadosKO.php:89
 #: console/dialogs/inforesultados.inc:43 console/dialogs/inforesultados.inc:51
 #: console/dialogs/inforesultados.inc:59 console/dialogs/inforesultados.inc:67
 msgid "Distance"
@@ -771,7 +781,8 @@ msgstr "Distancia"
 #: lib/templates/parcial_console_round_data.inc.php:41
 #: server/pdf/classes/PrintResultadosByEquipos3.php:115
 #: server/pdf/classes/PrintResultadosByEquipos4.php:105
-#: server/pdf/classes/PrintResultadosByManga.php:93
+#: server/pdf/classes/PrintResultadosByManga.php:95
+#: server/pdf/classes/PrintResultadosKO.php:91
 #: console/dialogs/inforesultados.inc:44 console/dialogs/inforesultados.inc:52
 #: console/dialogs/inforesultados.inc:60 console/dialogs/inforesultados.inc:68
 msgid "Obstacles"
@@ -809,8 +820,10 @@ msgstr "Velocidad"
 #: console/dialogs/infomanga.php:167 console/dialogs/infomanga.php:190
 #: console/dialogs/infomanga.php:224 console/dialogs/infomanga.php:247
 #: console/dialogs/infomanga.php:283 console/dialogs/infomanga.php:306
-#: server/pdf/classes/PrintResultadosByManga.php:96
 #: server/pdf/classes/PrintResultadosByManga.php:98
+#: server/pdf/classes/PrintResultadosByManga.php:100
+#: server/pdf/classes/PrintResultadosKO.php:94
+#: server/pdf/classes/PrintResultadosKO.php:96
 msgid "Secs"
 msgstr "Segs"
 
@@ -827,16 +840,17 @@ msgstr "TRM fijo"
 #: lib/templates/parcial_console_round_data.inc.php:42
 #: server/excel/classes/Excel_Clasificaciones.php:94
 #: server/excel/classes/Excel_PartialScores.php:76
-#: server/pdf/classes/PrintClasificacion.php:97
-#: server/pdf/classes/PrintClasificacion.php:111
-#: server/pdf/classes/PrintClasificacion.php:125
+#: server/pdf/classes/PrintClasificacion.php:99
+#: server/pdf/classes/PrintClasificacion.php:113
+#: server/pdf/classes/PrintClasificacion.php:127
 #: server/pdf/classes/PrintClasificacionExcel.php:128
 #: server/pdf/classes/PrintClasificacionExcel.php:137
 #: server/pdf/classes/PrintClasificacionTeam.php:138
 #: server/pdf/classes/PrintClasificacionTeam.php:151
 #: server/pdf/classes/PrintResultadosByEquipos3.php:117
 #: server/pdf/classes/PrintResultadosByEquipos4.php:107
-#: server/pdf/classes/PrintResultadosByManga.php:95
+#: server/pdf/classes/PrintResultadosByManga.php:97
+#: server/pdf/classes/PrintResultadosKO.php:93
 #: server/pdf/classes/PrintTRSTemplates.php:123 videowall/vws.js.php:311
 #: videowall/vws.js.php:312 videowall/vws.js.php:342
 #: console/dialogs/inforesultados.inc:45 console/dialogs/inforesultados.inc:53
@@ -950,11 +964,11 @@ msgstr "Versi&oacute;n"
 #: server/excel/classes/Excel_Entrenamientos.php:52
 #: server/excel/common_writer.php:134
 #: server/excel/print_ordenSalidaExcel.php:122
-#: server/pdf/classes/PrintClasificacion.php:92
+#: server/pdf/classes/PrintClasificacion.php:94
 #: server/pdf/classes/PrintClasificacionExcel.php:102
 #: server/pdf/classes/PrintClasificacionTeam.php:133
 #: server/pdf/classes/PrintEntrenamientos.php:61
-#: server/pdf/classes/PrintPodium.php:80
+#: server/pdf/classes/PrintPodium.php:82
 #: server/pdf/classes/PrintTRSTemplates.php:76 server/pdf/print_common.php:314
 #: console/dialogs/dlg_entrenamientos.inc:180
 #: console/dialogs/dlg_jornadas.inc:43
@@ -1030,7 +1044,7 @@ msgstr "Resultados y Clasificaciones"
 #: console/frm_clasificaciones.php:47 console/frm_clasificaciones2.php:101
 #: console/frm_clasificaciones_equipos.php:100 console/index.php:364
 #: server/excel/classes/Excel_Clasificaciones.php:241
-#: server/pdf/classes/PrintClasificacion.php:171
+#: server/pdf/classes/PrintClasificacion.php:173
 #: server/pdf/classes/PrintClasificacionExcel.php:152
 msgid "Scores"
 msgstr "Clasificaciones"
@@ -1056,13 +1070,13 @@ msgstr "Club anfitri&oacute;n"
 #: server/excel/classes/Excel_PartialScores.php:71
 #: server/excel/common_writer.php:66 server/excel/common_writer.php:139
 #: server/excel/print_ordenSalidaExcel.php:126
-#: server/pdf/classes/PrintClasificacion.php:80
+#: server/pdf/classes/PrintClasificacion.php:82
 #: server/pdf/classes/PrintClasificacionExcel.php:100
 #: server/pdf/classes/PrintClasificacionTeam.php:122
 #: server/pdf/classes/PrintEquiposByJornada.php:93
 #: server/pdf/classes/PrintInscripciones.php:881
 #: server/pdf/classes/PrintOrdenTandas.php:63
-#: server/pdf/classes/PrintPodium.php:79
+#: server/pdf/classes/PrintPodium.php:81
 #: server/pdf/classes/PrintTRSTemplates.php:66
 #: server/pdf/classes/PrintTRSTemplates.php:76 tablet/index.php:168
 #: videowall/vwc_finales.php:43 videowall/vwc_parciales.php:43
@@ -1084,7 +1098,7 @@ msgstr "Jornada"
 #: server/excel/classes/Excel_Clasificaciones.php:94
 #: server/excel/classes/Excel_PartialScores.php:72
 #: server/excel/print_ordenSalidaExcel.php:130
-#: server/pdf/classes/PrintClasificacion.php:106
+#: server/pdf/classes/PrintClasificacion.php:108
 #: server/pdf/classes/PrintClasificacionExcel.php:123
 #: server/pdf/classes/PrintClasificacionExcel.php:132
 #: server/pdf/classes/PrintClasificacionTeam.php:146
@@ -1145,7 +1159,7 @@ msgstr "Selecciona formato"
 
 #: console/frm_clasificaciones2.php:98
 #: console/frm_clasificaciones_equipos.php:97
-#: server/pdf/classes/PrintPodium.php:65
+#: server/pdf/classes/PrintPodium.php:67
 msgid "Podium"
 msgstr "Podium"
 
@@ -1297,6 +1311,8 @@ msgid "Email"
 msgstr "Correo Electr&oacute;nico"
 
 #: console/frm_clubes.php:119
+#: modules/competiciones/lib/resultados/Resultados_KO.php:73
+#: modules/competiciones/lib/resultados/Resultados_KO.php:83
 msgid "Out"
 msgstr "Baja"
 
@@ -1682,8 +1698,8 @@ msgstr "Leyendo lista de inscritos"
 #: public/pb_inscripciones_equipos.php:152 public/pbmenu_inscripciones.php:104
 #: public/pbmenu_inscripciones_equipos.php:147
 #: scripts/results_and_scores.js.php:251 scripts/results_and_scores.js.php:323
-#: server/pdf/classes/PrintClasificacion.php:182
-#: server/pdf/classes/PrintClasificacion.php:186
+#: server/pdf/classes/PrintClasificacion.php:184
+#: server/pdf/classes/PrintClasificacion.php:188
 #: server/pdf/classes/PrintClasificacionTeam.php:238
 #: server/pdf/classes/PrintEntradaDeDatos.php:174
 #: server/pdf/classes/PrintEntradaDeDatos.php:276
@@ -1692,9 +1708,10 @@ msgstr "Leyendo lista de inscritos"
 #: server/pdf/classes/PrintInscripciones.php:838
 #: server/pdf/classes/PrintOrdenSalida.php:74
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
-#: server/pdf/classes/PrintPodium.php:110
+#: server/pdf/classes/PrintPodium.php:112
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:257
 #: server/pdf/old/print_ordenDeSalida_awcfci.php:73
 #: console/dialogs/dlg_newInscripcion.inc:155
@@ -2900,7 +2917,7 @@ msgstr "Clasificaci&oacute;n parcial"
 #: public/pb_finales_equipos.php:53 public/pbmenu_finales.php:42
 #: public/pbmenu_finales_equipos.php:43 scripts/sesiones.js.php:161
 #: scripts/sesiones.js.php:175 scripts/sesiones.js.php:179
-#: server/pdf/classes/PrintClasificacion.php:144
+#: server/pdf/classes/PrintClasificacion.php:146
 #: server/pdf/classes/PrintClasificacionTeam.php:170 videowall/index.php:240
 #: videowall/index.php:244 videowall/vw_finales.php:46
 #: videowall/vwc_finales.php:51 console/dialogs/dlg_remotecontrol.inc:57
@@ -3010,7 +3027,7 @@ msgstr "Esta prueba no tiene sesi&oacute;n de entrenamientos"
 #: lib/templates/final_individual_2rondas.inc.php:10
 #: lib/templates/final_last_individual.inc.php:11
 #: lib/templates/final_last_teams.inc.php:11 livestream/vwls_finales.php:88
-#: server/pdf/classes/PrintClasificacion.php:167
+#: server/pdf/classes/PrintClasificacion.php:169
 #: server/pdf/classes/PrintClasificacionExcel.php:149
 #: server/pdf/classes/PrintClasificacionTeam.php:225
 msgid "Competitor data"
@@ -3036,10 +3053,10 @@ msgstr "Datos del participante"
 #: scripts/datagrid_formatters.js.php:390 scripts/results_and_scores.js.php:259
 #: scripts/results_and_scores.js.php:265 scripts/results_and_scores.js.php:269
 #: scripts/results_and_scores.js.php:332
-#: server/pdf/classes/PrintClasificacion.php:200
-#: server/pdf/classes/PrintClasificacion.php:212
-#: server/pdf/classes/PrintClasificacion.php:224
-#: server/pdf/classes/PrintClasificacion.php:232
+#: server/pdf/classes/PrintClasificacion.php:202
+#: server/pdf/classes/PrintClasificacion.php:214
+#: server/pdf/classes/PrintClasificacion.php:226
+#: server/pdf/classes/PrintClasificacion.php:234
 #: server/pdf/classes/PrintClasificacionExcel.php:164
 #: server/pdf/classes/PrintClasificacionExcel.php:172
 #: server/pdf/classes/PrintClasificacionExcel.php:178
@@ -3053,14 +3070,15 @@ msgstr "Datos del participante"
 #: server/pdf/classes/PrintEntradaDeDatos.php:495
 #: server/pdf/classes/PrintEntradaDeDatos.php:516
 #: server/pdf/classes/PrintEntradaDeDatosEquipos4.php:187
-#: server/pdf/classes/PrintPodium.php:124
-#: server/pdf/classes/PrintPodium.php:136
-#: server/pdf/classes/PrintPodium.php:148
-#: server/pdf/classes/PrintPodium.php:156
+#: server/pdf/classes/PrintPodium.php:126
+#: server/pdf/classes/PrintPodium.php:138
+#: server/pdf/classes/PrintPodium.php:150
+#: server/pdf/classes/PrintPodium.php:158
 #: server/pdf/classes/PrintResultadosByEquipos3.php:83
 #: server/pdf/classes/PrintResultadosByEquipos3.php:237
 #: server/pdf/classes/PrintResultadosByEquipos4.php:207
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:279 tablet/tablet_main.php:97
 #: tablet/tablet_main.php:300 videowall/vws_parcial_equipos.php:57
 #: console/dialogs/dlg_competicion.inc:129
@@ -3075,13 +3093,13 @@ msgstr "Tiempo"
 #: lib/templates/parcial_last_individual.inc.php:43
 #: lib/templates/parcial_last_teams.inc.php:45 livestream/vwls_finales.php:106
 #: scripts/results_and_scores.js.php:270
-#: server/pdf/classes/PrintClasificacion.php:233
+#: server/pdf/classes/PrintClasificacion.php:235
 #: server/pdf/classes/PrintClasificacionExcel.php:166
 #: server/pdf/classes/PrintClasificacionExcel.php:174
 #: server/pdf/classes/PrintClasificacionExcel.php:179
 #: server/pdf/classes/PrintClasificacionTeam.php:263
 #: server/pdf/classes/PrintClasificacionTeam.php:269
-#: server/pdf/classes/PrintPodium.php:157
+#: server/pdf/classes/PrintPodium.php:159
 #: server/pdf/classes/PrintResultadosByEquipos3.php:241
 #: server/pdf/classes/PrintResultadosByEquipos4.php:208
 msgid "Penaliz"
@@ -3095,13 +3113,13 @@ msgstr "Penal"
 #: lib/templates/parcial_last_individual.inc.php:44
 #: lib/templates/parcial_last_teams.inc.php:46
 #: scripts/results_and_scores.js.php:271 scripts/results_and_scores.js.php:335
-#: server/pdf/classes/PrintClasificacion.php:203
-#: server/pdf/classes/PrintClasificacion.php:215
-#: server/pdf/classes/PrintClasificacion.php:227
+#: server/pdf/classes/PrintClasificacion.php:205
+#: server/pdf/classes/PrintClasificacion.php:217
+#: server/pdf/classes/PrintClasificacion.php:229
 #: server/pdf/classes/PrintClasificacionTeam.php:249
 #: server/pdf/classes/PrintClasificacionTeam.php:257
-#: server/pdf/classes/PrintPodium.php:139
-#: server/pdf/classes/PrintPodium.php:151
+#: server/pdf/classes/PrintPodium.php:141
+#: server/pdf/classes/PrintPodium.php:153
 msgid "Calif"
 msgstr "Calif"
 
@@ -3113,10 +3131,10 @@ msgstr "Calif"
 #: lib/templates/parcial_last_individual.inc.php:45
 #: lib/templates/parcial_last_teams.inc.php:47 livestream/vwls_finales.php:107
 #: scripts/results_and_scores.js.php:272 scripts/results_and_scores.js.php:336
-#: server/pdf/classes/PrintClasificacion.php:235
+#: server/pdf/classes/PrintClasificacion.php:237
 #: server/pdf/classes/PrintClasificacionExcel.php:181
 #: server/pdf/classes/PrintClasificacionTeam.php:265
-#: server/pdf/classes/PrintPodium.php:159
+#: server/pdf/classes/PrintPodium.php:161
 #: server/pdf/classes/PrintResultadosByEquipos3.php:83
 msgid "Position"
 msgstr "Puesto"
@@ -3133,14 +3151,14 @@ msgstr "Puesto"
 #: lib/templates/parcial_last_teams.inc.php:32
 #: scripts/results_and_scores.js.php:257 scripts/results_and_scores.js.php:263
 #: scripts/results_and_scores.js.php:329
-#: server/pdf/classes/PrintClasificacion.php:198
-#: server/pdf/classes/PrintClasificacion.php:210
-#: server/pdf/classes/PrintClasificacion.php:222
+#: server/pdf/classes/PrintClasificacion.php:200
+#: server/pdf/classes/PrintClasificacion.php:212
+#: server/pdf/classes/PrintClasificacion.php:224
 #: server/pdf/classes/PrintClasificacionTeam.php:244
 #: server/pdf/classes/PrintClasificacionTeam.php:252
-#: server/pdf/classes/PrintPodium.php:122
-#: server/pdf/classes/PrintPodium.php:134
-#: server/pdf/classes/PrintPodium.php:146
+#: server/pdf/classes/PrintPodium.php:124
+#: server/pdf/classes/PrintPodium.php:136
+#: server/pdf/classes/PrintPodium.php:148
 msgid "F/T"
 msgstr "F/T"
 
@@ -3163,23 +3181,24 @@ msgstr "F/T"
 #: scripts/results_and_scores.js.php:260 scripts/results_and_scores.js.php:266
 #: scripts/results_and_scores.js.php:333
 #: server/excel/classes/Excel_Clasificaciones.php:94
-#: server/pdf/classes/PrintClasificacion.php:99
-#: server/pdf/classes/PrintClasificacion.php:113
-#: server/pdf/classes/PrintClasificacion.php:127
-#: server/pdf/classes/PrintClasificacion.php:201
-#: server/pdf/classes/PrintClasificacion.php:213
-#: server/pdf/classes/PrintClasificacion.php:225
+#: server/pdf/classes/PrintClasificacion.php:101
+#: server/pdf/classes/PrintClasificacion.php:115
+#: server/pdf/classes/PrintClasificacion.php:129
+#: server/pdf/classes/PrintClasificacion.php:203
+#: server/pdf/classes/PrintClasificacion.php:215
+#: server/pdf/classes/PrintClasificacion.php:227
 #: server/pdf/classes/PrintClasificacionExcel.php:131
 #: server/pdf/classes/PrintClasificacionExcel.php:140
 #: server/pdf/classes/PrintClasificacionTeam.php:140
 #: server/pdf/classes/PrintClasificacionTeam.php:153
 #: server/pdf/classes/PrintClasificacionTeam.php:247
 #: server/pdf/classes/PrintClasificacionTeam.php:255
-#: server/pdf/classes/PrintPodium.php:125
-#: server/pdf/classes/PrintPodium.php:137
-#: server/pdf/classes/PrintPodium.php:149
+#: server/pdf/classes/PrintPodium.php:127
+#: server/pdf/classes/PrintPodium.php:139
+#: server/pdf/classes/PrintPodium.php:151
 #: server/pdf/classes/PrintResultadosByEquipos3.php:83
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosKO.php:64
 #: console/dialogs/inforesultados.inc:47 console/dialogs/inforesultados.inc:55
 #: console/dialogs/inforesultados.inc:63 console/dialogs/inforesultados.inc:71
 msgid "Vel"
@@ -3195,16 +3214,17 @@ msgstr "Vel"
 #: livestream/vwls_finales.php:100 livestream/vwls_finales.php:103
 #: scripts/datagrid_formatters.js.php:390 scripts/results_and_scores.js.php:261
 #: scripts/results_and_scores.js.php:267 scripts/results_and_scores.js.php:334
-#: server/pdf/classes/PrintClasificacion.php:202
-#: server/pdf/classes/PrintClasificacion.php:214
-#: server/pdf/classes/PrintClasificacion.php:226
+#: server/pdf/classes/PrintClasificacion.php:204
+#: server/pdf/classes/PrintClasificacion.php:216
+#: server/pdf/classes/PrintClasificacion.php:228
 #: server/pdf/classes/PrintClasificacionTeam.php:248
 #: server/pdf/classes/PrintClasificacionTeam.php:256
-#: server/pdf/classes/PrintPodium.php:126
-#: server/pdf/classes/PrintPodium.php:138
-#: server/pdf/classes/PrintPodium.php:150
+#: server/pdf/classes/PrintPodium.php:128
+#: server/pdf/classes/PrintPodium.php:140
+#: server/pdf/classes/PrintPodium.php:152
 #: server/pdf/classes/PrintResultadosByEquipos3.php:83
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosKO.php:64
 #: videowall/vws_parcial_equipos.php:58 videowall/vws_parcial_individual.php:57
 msgid "Penal"
 msgstr "Penal"
@@ -3226,7 +3246,8 @@ msgstr "Cal"
 #: lib/templates/final_last_teams.inc.php:44
 #: lib/templates/final_last_teams.inc.php:51 livestream/vwls_finales.php:101
 #: livestream/vwls_finales.php:104
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosKO.php:64
 #: videowall/vws_parcial_equipos.php:59 videowall/vws_parcial_individual.php:58
 msgid "Pos"
 msgstr "Pos"
@@ -3245,7 +3266,7 @@ msgstr "Actualizando clasificaci&oacute;n final"
 #: lib/templates/parcial_individual.inc.php:24
 #: lib/templates/parcial_last_individual.inc.php:26
 #: lib/templates/parcial_last_teams.inc.php:28
-#: server/pdf/classes/PrintPodium.php:113
+#: server/pdf/classes/PrintPodium.php:115
 msgid "Grd"
 msgstr "Grd"
 
@@ -3260,9 +3281,9 @@ msgstr "Datos de la manga"
 #: lib/templates/parcial_round_data.inc.php:18
 #: server/excel/classes/Excel_Clasificaciones.php:94
 #: server/excel/classes/Excel_PartialScores.php:74
-#: server/pdf/classes/PrintClasificacion.php:95
-#: server/pdf/classes/PrintClasificacion.php:109
-#: server/pdf/classes/PrintClasificacion.php:123
+#: server/pdf/classes/PrintClasificacion.php:97
+#: server/pdf/classes/PrintClasificacion.php:111
+#: server/pdf/classes/PrintClasificacion.php:125
 #: server/pdf/classes/PrintClasificacionExcel.php:126
 #: server/pdf/classes/PrintClasificacionExcel.php:135
 #: server/pdf/classes/PrintClasificacionTeam.php:136
@@ -3277,9 +3298,9 @@ msgstr "Dist"
 #: lib/templates/parcial_round_data.inc.php:19
 #: server/excel/classes/Excel_Clasificaciones.php:94
 #: server/excel/classes/Excel_PartialScores.php:75
-#: server/pdf/classes/PrintClasificacion.php:96
-#: server/pdf/classes/PrintClasificacion.php:110
-#: server/pdf/classes/PrintClasificacion.php:124
+#: server/pdf/classes/PrintClasificacion.php:98
+#: server/pdf/classes/PrintClasificacion.php:112
+#: server/pdf/classes/PrintClasificacion.php:126
 #: server/pdf/classes/PrintClasificacionExcel.php:127
 #: server/pdf/classes/PrintClasificacionExcel.php:136
 #: server/pdf/classes/PrintClasificacionTeam.php:137
@@ -3408,15 +3429,16 @@ msgstr "Datos t&eacute;cnicos de la manga"
 #: lib/templates/parcial_console_round_data.inc.php:43
 #: server/excel/classes/Excel_Clasificaciones.php:94
 #: server/excel/classes/Excel_PartialScores.php:77
-#: server/pdf/classes/PrintClasificacion.php:98
-#: server/pdf/classes/PrintClasificacion.php:112
-#: server/pdf/classes/PrintClasificacion.php:126
+#: server/pdf/classes/PrintClasificacion.php:100
+#: server/pdf/classes/PrintClasificacion.php:114
+#: server/pdf/classes/PrintClasificacion.php:128
 #: server/pdf/classes/PrintClasificacionExcel.php:129
 #: server/pdf/classes/PrintClasificacionExcel.php:138
 #: server/pdf/classes/PrintClasificacionTeam.php:139
 #: server/pdf/classes/PrintClasificacionTeam.php:152
 #: server/pdf/classes/PrintResultadosByEquipos3.php:119
-#: server/pdf/classes/PrintResultadosByManga.php:97
+#: server/pdf/classes/PrintResultadosByManga.php:99
+#: server/pdf/classes/PrintResultadosKO.php:95
 #: server/pdf/classes/PrintTRSTemplates.php:123
 #: console/dialogs/inforesultados.inc:46 console/dialogs/inforesultados.inc:54
 #: console/dialogs/inforesultados.inc:62 console/dialogs/inforesultados.inc:70
@@ -3635,7 +3657,7 @@ msgstr "Estrellas"
 msgid "KC_ID"
 msgstr "LOE_RRC"
 
-#: modules/Competitions.php:145 modules/competiciones/Liga_RFEC.php:134
+#: modules/Competitions.php:147 modules/competiciones/Liga_RFEC.php:134
 #: modules/competiciones/Liga_RFEC_Madrid.php:71
 #: modules/competiciones/Liga_UCA.php:36
 #: modules/competiciones/Selectiva_PastorBelga.php:78
@@ -3646,7 +3668,7 @@ msgstr "LOE_RRC"
 msgid "Not Present"
 msgstr "No Presentado"
 
-#: modules/Competitions.php:146 modules/competiciones/Liga_RFEC.php:135
+#: modules/Competitions.php:148 modules/competiciones/Liga_RFEC.php:135
 #: modules/competiciones/Liga_RFEC_Madrid.php:72
 #: modules/competiciones/Liga_UCA.php:37
 #: modules/competiciones/Selectiva_PastorBelga.php:79
@@ -3657,14 +3679,14 @@ msgstr "No Presentado"
 msgid "N.P."
 msgstr "N.P."
 
-#: modules/Competitions.php:154 modules/competiciones/Liga_RFEC.php:143
+#: modules/Competitions.php:156 modules/competiciones/Liga_RFEC.php:143
 #: modules/competiciones/Liga_RFEC_Madrid.php:80
 #: modules/competiciones/Liga_UCA.php:45
 #: modules/competiciones/Selectiva_PastorBelga.php:87
 msgid "Not Clasified"
 msgstr "No Clasificado"
 
-#: modules/Competitions.php:155
+#: modules/Competitions.php:157
 #: modules/competiciones/EuropeanOpen_Team_Qualification.php:113
 #: modules/competiciones/Liga_RFEC.php:144
 #: modules/competiciones/Liga_RFEC_Madrid.php:81
@@ -3674,7 +3696,7 @@ msgstr "No Clasificado"
 msgid "N.C."
 msgstr "N.C."
 
-#: modules/Competitions.php:158 modules/Competitions.php:159
+#: modules/Competitions.php:160 modules/Competitions.php:161
 #: modules/competiciones/EuropeanOpen_Team_Qualification.php:116
 #: modules/competiciones/Liga_RFEC.php:147
 #: modules/competiciones/Liga_RFEC.php:148
@@ -3687,13 +3709,13 @@ msgstr "N.C."
 msgid "Good"
 msgstr "Bien"
 
-#: modules/Competitions.php:162 modules/competiciones/Liga_RFEC.php:151
+#: modules/Competitions.php:164 modules/competiciones/Liga_RFEC.php:151
 #: modules/competiciones/Liga_RFEC_Madrid.php:88
 #: modules/competiciones/Liga_UCA.php:54
 msgid "Very good"
 msgstr "Muy bien"
 
-#: modules/Competitions.php:163
+#: modules/Competitions.php:165
 #: modules/competiciones/EuropeanOpen_Team_Qualification.php:119
 #: modules/competiciones/Liga_RFEC.php:152
 #: modules/competiciones/Liga_RFEC_Madrid.php:89
@@ -3704,7 +3726,7 @@ msgstr "Muy bien"
 msgid "V.G."
 msgstr "M.B."
 
-#: modules/Competitions.php:166 modules/competiciones/Liga_RFEC.php:155
+#: modules/Competitions.php:168 modules/competiciones/Liga_RFEC.php:155
 #: modules/competiciones/Liga_RFEC.php:159
 #: modules/competiciones/Liga_RFEC_Madrid.php:92
 #: modules/competiciones/Liga_RFEC_Madrid.php:96
@@ -3718,7 +3740,7 @@ msgstr "M.B."
 msgid "Excellent"
 msgstr "Excelente"
 
-#: modules/Competitions.php:167 modules/Competitions.php:171
+#: modules/Competitions.php:169 modules/Competitions.php:173
 #: modules/competiciones/EuropeanOpen_Team_Qualification.php:122
 #: modules/competiciones/EuropeanOpen_Team_Qualification.php:125
 #: modules/competiciones/Liga_RFEC.php:156
@@ -3742,7 +3764,7 @@ msgstr "Excelente"
 msgid "Exc"
 msgstr "Exc"
 
-#: modules/Competitions.php:170
+#: modules/Competitions.php:172
 msgid "Excellent (0)"
 msgstr "Excelente (0)"
 
@@ -3833,10 +3855,31 @@ msgstr "Ex P"
 msgid "ExP"
 msgstr "Ex P"
 
-#: modules/competiciones/lib/ordensalida/OrdenSalida_KO.php:191
+#: modules/competiciones/lib/ordensalida/OrdenSalida_KO.php:193
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
+#: server/pdf/classes/PrintResultadosKO.php:64
 msgid "Pair"
 msgstr "Pareja"
+
+#: modules/competiciones/lib/resultados/Resultados_KO.php:70
+#: modules/competiciones/lib/resultados/Resultados_KO.php:84
+msgid "Promote to next"
+msgstr "Siguiente ronda"
+
+#: modules/competiciones/lib/resultados/Resultados_KO.php:71
+#: modules/competiciones/lib/resultados/Resultados_KO.php:85
+msgid "Pass"
+msgstr "Pasa"
+
+#: modules/competiciones/lib/resultados/Resultados_KO.php:76
+#: modules/competiciones/lib/resultados/Resultados_KO.php:78
+msgid "Need to run again"
+msgstr "Repetir carrera"
+
+#: modules/competiciones/lib/resultados/Resultados_KO.php:77
+#: modules/competiciones/lib/resultados/Resultados_KO.php:79
+msgid "Again"
+msgstr "Otra vez"
 
 #: modules/federaciones/intl3/config.php:74
 #: modules/federaciones/intl3/config.php:75
@@ -5888,31 +5931,32 @@ msgstr "Correo enviado con"
 msgid "Please enable HTML view in your email application"
 msgstr "Por favor habilite la visualizacion HTML en su app de correo"
 
-#: server/pdf/classes/PrintClasificacion.php:189
+#: server/pdf/classes/PrintClasificacion.php:191
 msgid "Cat/Gr"
 msgstr "Cat./Grado"
 
-#: server/pdf/classes/PrintClasificacion.php:199
-#: server/pdf/classes/PrintClasificacion.php:211
-#: server/pdf/classes/PrintClasificacion.php:223
+#: server/pdf/classes/PrintClasificacion.php:201
+#: server/pdf/classes/PrintClasificacion.php:213
+#: server/pdf/classes/PrintClasificacion.php:225
 #: server/pdf/classes/PrintClasificacionTeam.php:245
 #: server/pdf/classes/PrintClasificacionTeam.php:253
 #: server/pdf/classes/PrintEntradaDeDatos.php:194
 #: server/pdf/classes/PrintEntradaDeDatos.php:296
-#: server/pdf/classes/PrintPodium.php:123
-#: server/pdf/classes/PrintPodium.php:135
-#: server/pdf/classes/PrintPodium.php:147
+#: server/pdf/classes/PrintPodium.php:125
+#: server/pdf/classes/PrintPodium.php:137
+#: server/pdf/classes/PrintPodium.php:149
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
 #: server/pdf/classes/PrintResultadosByEquipos4.php:203
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:277
 #: console/dialogs/dlg_competicion.inc:127
 msgid "Ref"
 msgstr "Reh"
 
-#: server/pdf/classes/PrintClasificacion.php:234
+#: server/pdf/classes/PrintClasificacion.php:236
 #: server/pdf/classes/PrintClasificacionTeam.php:264
-#: server/pdf/classes/PrintPodium.php:158
+#: server/pdf/classes/PrintPodium.php:160
 msgid "Calific"
 msgstr "Calif"
 
@@ -5944,14 +5988,15 @@ msgstr "Reh&uacute;ses"
 #: server/pdf/classes/PrintClasificacionExcel.php:173
 #: server/pdf/classes/PrintResultadosByEquipos3.php:121
 #: server/pdf/classes/PrintResultadosByEquipos4.php:111
-#: server/pdf/classes/PrintResultadosByManga.php:99
+#: server/pdf/classes/PrintResultadosByManga.php:101
+#: server/pdf/classes/PrintResultadosKO.php:97
 msgid "Speed"
 msgstr "Velocidad"
 
 #: server/pdf/classes/PrintClasificacionExcel.php:167
 #: server/pdf/classes/PrintClasificacionExcel.php:175
 #: server/pdf/classes/PrintClasificacionExcel.php:180
-#: server/pdf/classes/PrintPodium.php:100
+#: server/pdf/classes/PrintPodium.php:102
 msgid "Score"
 msgstr "Clasificaci&oacute;n"
 
@@ -5982,7 +6027,8 @@ msgstr "Tocados"
 #: server/pdf/classes/PrintEntradaDeDatos.php:295
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
 #: server/pdf/classes/PrintResultadosByEquipos4.php:202
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:276
 #: console/dialogs/dlg_competicion.inc:126
 msgid "Flt"
@@ -5992,7 +6038,8 @@ msgstr "Flt"
 #: server/pdf/classes/PrintEntradaDeDatos.php:297
 #: server/pdf/classes/PrintResultadosByEquipos3.php:82
 #: server/pdf/classes/PrintResultadosByEquipos4.php:204
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:278
 msgid "Tch"
 msgstr "Toc"
@@ -6131,7 +6178,8 @@ msgid "Competitors"
 msgstr "Participantes"
 
 #: server/pdf/classes/PrintResultadosByEquipos3.php:83
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosKO.php:64
 msgid "Calification"
 msgstr "Calificaci&oacute;n"
 
@@ -6141,11 +6189,13 @@ msgstr "Gobal equipo"
 
 #: server/pdf/classes/PrintResultadosByEquipos3.php:96
 #: server/pdf/classes/PrintResultadosByEquipos4.php:86
-#: server/pdf/classes/PrintResultadosByManga.php:73
+#: server/pdf/classes/PrintResultadosByManga.php:75
+#: server/pdf/classes/PrintResultadosKO.php:71
 msgid "Round scores"
 msgstr "Resultados de la manga"
 
-#: server/pdf/classes/PrintResultadosByManga.php:73
+#: server/pdf/classes/PrintResultadosByManga.php:75
+#: server/pdf/classes/PrintResultadosKO.php:71
 msgid "Resultados"
 msgstr "Resultados"
 

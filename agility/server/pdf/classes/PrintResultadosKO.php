@@ -42,7 +42,7 @@ class PrintResultadosKO extends PrintCommon {
 	protected $cellHeader;
     //                     pair  dorsal name lic handler club  cat  fault touch refs time speed penal  pos calification
     //                       0     1     2    3    4     5      6     7     8     9    10   11    12    13    14
-	protected $pos	=array(  10,   8,	17,	 15,  30,	 20,	15,	  6,    6,    6,   10,   7,   12,   7,    20 );
+	protected $pos	=array(  10,   8,	17,	 15,  30,	 20,	12,	  6,    6,    6,   10,   7,   12,   7,    23 );
 	protected $align=array(  'C', 'L',  'L', 'C', 'R',   'R',   'C',  'C',  'C',  'C', 'R', 'R',  'R',  'C',  'L');
 
 	
