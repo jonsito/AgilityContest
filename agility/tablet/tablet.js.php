@@ -166,8 +166,8 @@ function doBeep() {
 
 function tablet_add(val) {
 	doBeep();
-	var maxlen=(ac_config.crono_miliseconds=="0")?6:7;
-	var declen=(ac_config.crono_miliseconds=="0")?2:3;
+	var maxlen=(ac_config.crono_milliseconds=="0")?6:7;
+	var declen=(ac_config.crono_milliseconds=="0")?2:3;
 	var tdt=$('#tdialog-Tiempo');
 	var str=tdt.val();
 	if (parseInt(str)==0) str=''; // clear espurious zeroes

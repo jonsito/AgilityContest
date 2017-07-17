@@ -37,15 +37,24 @@ $config =Config::getInstance();
 
 			<label><?php _e('Time data precision shown'); ?></label>
 			<label for="crono_cents" style="width:130px;margin-top:5px;">
-				<input type="radio" id="crono_cents" name="crono_miliseconds" value="0" checked="checked" /><?php _e('cents'); ?>
+				<input type="radio" id="crono_cents" name="crono_milliseconds" value="0" checked="checked" /><?php _e('cents'); ?>
 			</label>
-			<label for="crono_milis" style="width:130px;margin-top:5px;">
-				<input type="radio" id="crono_milis" name="crono_miliseconds" value="1"/><?php _e('millis'); ?>
+			<label for="crono_milliseconds" style="width:130px;margin-top:5px;">
+				<input type="radio" id="crono_milliseconds" name="crono_milliseconds" value="1"/><?php _e('millis'); ?>
 			</label><br />
 
-			<h3><?php _e('Training session parameters'); ?></h3>
+            <h3><?php _e('Team competitions behaviour'); ?></h3>
+            <label><?php _e('What to do when eliminated in Team-4'); ?>:</label>
+            <select name="team4_mode" class="easyui-combobox" data-options="panelHeight:'auto'">
+                <option value="0" selected="selected"><?php _e('100 penalty points and crono continues');?> </option>
+                <option value="1"><?php _e('100 points and set time to MCT (EO mode)');?> </option>
+                <option value="2"><?php _e('Whole team is eliminated');?> </option>
+            </select>
+            <br />
+
+            <h3><?php _e('Training session parameters'); ?></h3>
 			<label><?php _e('Club/Country Training time assignment mode'); ?></label>
-			<select name="training_type" class="easyui-combobox">
+			<select name="training_type" class="easyui-combobox" data-options="panelHeight:'auto'">
 				<option value="1" selected="selected"><?php _e('Individual time * Max number of dogs/category');?> </option>
 				<option value="0"><?php _e('Individual time * Number of dogs on each County or Club');?> </option>
 			</select>

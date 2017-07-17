@@ -218,7 +218,7 @@ class PrintCommon extends FPDF {
 			$this->icon=getIconPath($fedName,"agilitycontest.png");;
 		}
 		// evaluate number of decimals to show when printing timestamps
-		$this->timeResolution=($this->config->getEnv('crono_miliseconds')=="0")?2:3;
+		$this->timeResolution=($this->config->getEnv('crono_milliseconds')=="0")?2:3;
 		// $this->myLogger->trace("Time resolution is ".$this->timeResolution);
 		$this->comments=$comentarios;
 	}

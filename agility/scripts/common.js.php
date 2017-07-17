@@ -339,7 +339,7 @@ function loadConfiguration(callback) {
 				ac_config=config;
 
 				// extra configuration data to speedup
-				ac_config.numdecs=(ac_config.crono_miliseconds=="0")?2:3;
+				ac_config.numdecs=(ac_config.crono_milliseconds=="0")?2:3;
 				ac_config.dogInRing=false; // to be used in videowall and livestream to show dog info and timings
 
                 // auto-backup related variables

@@ -51,7 +51,7 @@ class Excel_PartialScores extends XLSX_Writer {
         $this->manga=$manga;
         $this->resultados=$resultados;
         $this->mode=$mode;
-        $this->timeResolution=($this->myConfig->getEnv('crono_miliseconds')=="0")?2:3;
+        $this->timeResolution=($this->myConfig->getEnv('crono_milliseconds')=="0")?2:3;
         // populate cols and fields
         $this->fields=array( 'Licencia','Categoria','Grado','Nombre','NombreLargo','Raza','NombreGuia','NombreClub','Faltas','Rehuses','Velocidad','Tiempo','Penalizacion','Calificacion','Puntos','Estrellas');
         $this->cols=array( 'License','Category','Grade','Name','LongName','Breed','Handler','Club','Faults','Refusals','Speed','Time','Penalization','Calification','Points','Stars');

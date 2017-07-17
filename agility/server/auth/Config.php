@@ -147,9 +147,12 @@ define('AC_PB_ROWCOLOR5','#e0d0e0'); // color de la fila del perro cuyo dorsal e
 
 /** personalizacion del crono electronico */
 define('AC_CRONO_RESYNC',"0");		// si crono manual continua (1) o restart (0) al paso por crono electronico
-define('AC_CRONO_MILISECONDS',"0");	// presentar (1) milesimas o centesimas (0) de segundos
+define('AC_CRONO_MILLISECONDS',"0");	// presentar (1) milesimas o centesimas (0) de segundos
 define('AC_CRONO_INTERMEDIATE',"0");// presentar (1) o no (0) datos de crono intermedio
 define('AC_CRONO_RECTIME',"7");		// tiempo (minutos) de reconocimiento de pista (4..10)
+
+/** configuracion de pruebas */
+define('AC_TEAM4_MODE',"0"); // 0->100+tiempo corre 1->100+tiempo=TRM 2->EquipoEliminado
 
 /** datos de correo electronico defaults are for google */
 define('AC_EMAIL_SERVER',"smtp.gmail.com"); // SMTP Server name
@@ -324,9 +327,13 @@ Class Config {
         'pb_rowcolor5'		=> array(	'c',	false,	AC_PB_ROWCOLOR5),
 		// personalizacion del crono
 		'crono_resync'		=> array(	'b',	false,	AC_CRONO_RESYNC),
-		'crono_miliseconds'	=> array(	'b',	false,	AC_CRONO_MILISECONDS),
+		'crono_milliseconds'=> array(	'b',	false,	AC_CRONO_MILLISECONDS),
 		'crono_intermediate'=> array(	'b',	false,	AC_CRONO_INTERMEDIATE),
 		'crono_rectime'		=> array(	'i',	false,	AC_CRONO_RECTIME),
+
+		// personalizacion de competiciones
+		'team4_mode'		=> array(	'i',	false,	AC_TEAM4_MODE),
+
 		// correo electronico
 		'email_server'		=> array(	's',	false,	AC_EMAIL_SERVER),
 		'email_port'		=> array(	'i',	false,	AC_EMAIL_PORT),

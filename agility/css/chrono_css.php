@@ -79,8 +79,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	text-align: center;
 	background-color: transparent;
 	color: red;
-	font-size: <?php echo ($config->getEnv('crono_miliseconds=="0'))?11:10; ?>.0em;
-	font-size: <?php echo ($config->getEnv('crono_miliseconds=="0'))?20:19; ?>vw;
+	font-size: <?php echo ($config->getEnv('crono_milliseconds=="0'))?11:10; ?>.0em;
+	font-size: <?php echo ($config->getEnv('crono_milliseconds=="0'))?20:19; ?>vw;
 	letter-spacing: 0.11em;
 }
 

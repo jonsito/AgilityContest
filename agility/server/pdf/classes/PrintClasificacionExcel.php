@@ -59,7 +59,7 @@ class PrintClasificacionExcel {
 		$this->manga2	= $this->dbobj->__getObject("Mangas",$mangas[1]);
 		$this->myConfig = Config::getInstance();
 		// evaluate number of decimals to show when printing timestamps
-		$this->timeResolution=($this->myConfig->getEnv('crono_miliseconds')=="0")?2:3;
+		$this->timeResolution=($this->myConfig->getEnv('crono_milliseconds')=="0")?2:3;
 		$this->federation=Federations::getFederation( intval($this->prueba->RSCE) );
 	}
 	
