@@ -192,7 +192,19 @@ class Competitions {
      * @return {array} trs array or null if no changes
      */
     public function presetTRSData($tipo) {
-        return null;
+        // on KO rounds preset to TRS=0:TRM=100 mode=8
+        if ( ! in_array ($tipo, array(15,18,19,20,21,22,23,24) ) ) return null; // no KO->no preset
+        $manga=array();
+        $manga['Recorrido']=2; // 0:separados 1:mixto 2:conjunto
+        $manga['TRS_L_Tipo']=0;$manga['TRS_L_Factor']=0;$manga['TRS_L_Unit']='s'; // no TRS
+        $manga['TRM_L_Tipo']=0;$manga['TRM_L_Factor']=100;$manga['TRM_L_Unit']='s'; // TRM=100 segs
+        $manga['TRS_M_Tipo']=0;$manga['TRS_M_Factor']=0;$manga['TRS_M_Unit']='s';
+        $manga['TRM_M_Tipo']=0;$manga['TRM_M_Factor']=100;$manga['TRM_M_Unit']='s';
+        $manga['TRS_S_Tipo']=0;$manga['TRS_S_Factor']=0;$manga['TRS_S_Unit']='s';
+        $manga['TRM_S_Tipo']=0;$manga['TRM_S_Factor']=100;$manga['TRM_S_Unit']='s';
+        $manga['TRS_T_Tipo']=0;$manga['TRS_T_Factor']=0;$manga['TRS_T_Unit']='s';
+        $manga['TRM_T_Tipo']=0;$manga['TRM_T_Factor']=100;$manga['TRM_T_Unit']='s';
+        return $manga;
     }
 
     /**

@@ -34,7 +34,7 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
      * @return {array} trs array or null if no changes
      */
     public function presetTRSData($tipo) {
-        if ( ($tipo!=6) && ($tipo!=11) ) return null; // Not grade 3, no preset
+        if ( ($tipo!=6) && ($tipo!=11) ) return parent::presetTRSData($tipo); // Not grade 3, use parent
         $manga=array();
         $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
         $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=0;$manga['TRS_L_Unit']='s'; // best dog + 0s no roundup

@@ -36,7 +36,9 @@ class Copa_PastorBelga extends Selectiva_PastorBelga  {
      * @return {array} trs array or null if no changes
      */
     public function presetTRSData($tipo) {
-        // any grade is allowed, so no check tipo
+        // on KO rounds preset to TRS=0:TRM=100 mode=8
+        if ( in_array ($tipo, array(15,18,19,20,21,22,23,24) ) ) return parent::presetTRSData($tipo);
+        // in std copa pastor belga any grade is allowed, so no check tipo
         $manga=array();
         $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
         $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=15;$manga['TRS_L_Unit']='%'; // mejor + 15%  roundup
