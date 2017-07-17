@@ -768,6 +768,7 @@ class Resultados extends DBObject {
         $resultados=$results['rows'];
         // evaluamos mindogs
         $mindogs=Jornadas::getTeamDogs($this->getDatosJornada())[0]; // get mindogs
+        $maxdogs=Jornadas::getTeamDogs($this->getDatosJornada())[1]; // get maxdogs
 
         // Datos de equipos de la jornada. obtenemos prueba y jornada del primer elemento del array
         $m=new Equipos("getResultadosEquipos",$this->IDPrueba,$this->IDJornada);
@@ -779,6 +780,7 @@ class Resultados extends DBObject {
             $equipo['Resultados']=array();
             $equipo['Tiempo']=0.0;
             $equipo['Penalizacion']=0.0;
+            $equipo['Eliminados']=0;
             $equipos[$equipo['ID']]=$equipo;
         }
         // now fill team members array.
@@ -791,6 +793,7 @@ class Resultados extends DBObject {
             if (count($equipo['Resultados'])<=$mindogs) {
                 $equipo['Tiempo']+=floatval($result['Tiempo']);
                 $equipo['Penalizacion']+=floatval($result['Penalizacion']);
+                if ($result['Penalizacion']>=100) $equipo['Eliminados']++;
             }
         }
 
@@ -808,6 +811,18 @@ class Resultados extends DBObject {
                 case 3: if ($mindogs==4) $equipo['Penalizacion']+=400.0; // required team member undeclared
                 // no break;
                 case 4:
+                    if ($mindogs==$maxdogs) {
+                        // in team4 check what to do in Team4mode
+                        // 0: 100 penalty points. Team time goes on. Nothing to do
+                        // 1: 100 penalty points. Team time set to MCT ( European open mode )
+                        if ($this->myConfig->getEnv('team4_mode')==1){
+                            $equipo['Tiempo']=$results['trs']['trm'];
+                        }
+                        // 2: entire team is eliminated
+                        if ($this->myConfig->getEnv('team4_mode')==2){
+                            $equipo['Penalizacion']=max(100*$mindogs,$equipo['Penalizacion']);
+                        }
+                    }
                     array_push($teams,$equipo); // add team to result to remove unused/empty teams
                     break;
                 default:
@@ -816,6 +831,7 @@ class Resultados extends DBObject {
                     break;
             }
         }
+
         // finally sort equipos by result instead of id
         usort($teams,function($a,$b){
             if ($a['Penalizacion']==$b['Penalizacion']) return ($a['Tiempo']>$b['Tiempo'])?1:-1;

@@ -27,6 +27,7 @@ class DBObject {
 	protected $file;
 	public $errormsg; // should be public to access to from caller
 	protected $myLogger;
+	protected $myConfig;
 	
 	private $fall; // boolean to notice use of fetch_all() or fetch_array loop
 	/**
@@ -37,12 +38,12 @@ class DBObject {
 	function __construct($file) {
 		// connect database
 		$this->file=$file;
-		$config=Config::getInstance();
-		$h=$config->getEnv("database_host");
-		$n=$config->getEnv("database_name");
-		$u=base64_decode($config->getEnv("database_user"));
-		$p=base64_decode($config->getEnv("database_pass"));
-		$l=$config->getEnv("debug_level");
+		$this->myConfig=Config::getInstance();
+		$h=$this->myConfig->getEnv("database_host");
+		$n=$this->myConfig->getEnv("database_name");
+		$u=base64_decode($this->myConfig->getEnv("database_user"));
+		$p=base64_decode($this->myConfig->getEnv("database_pass"));
+		$l=$this->myConfig->getEnv("debug_level");
 		$this->myLogger= new Logger($file,$l);
 		$this->conn=DBConnection::getConnection($h,$n,$u,$p);
 		if (!$this->conn) {
