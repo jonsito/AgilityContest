@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-07-17 19:14+0200\n"
-"PO-Revision-Date: 2017-07-17 19:17+0200\n"
+"POT-Creation-Date: 2017-07-18 09:49+0200\n"
+"PO-Revision-Date: 2017-07-18 09:50+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -6557,7 +6557,7 @@ msgid "Search a competitor by entering dorsal"
 msgstr "Buscar un participante por dorsal"
 
 #: console/dialogs/dlg_competicion.inc:257
-#: console/dialogs/dlg_ordensalida.inc:221
+#: console/dialogs/dlg_ordensalida.inc:226
 msgid "Select categories to work with"
 msgstr "Selecciona las categor&iacute;as a mostrar"
 
@@ -7642,40 +7642,50 @@ msgstr "Actualizando orden de salida de equipos"
 msgid "Def"
 msgstr "Def"
 
-#: console/dialogs/dlg_ordensalida.inc:213
+#: console/dialogs/dlg_ordensalida.inc:185
+msgid "No data yet"
+msgstr "No hay datos todav&iacute;a"
+
+#: console/dialogs/dlg_ordensalida.inc:186
+msgid "Need to choose starting order to show valid data on this round"
+msgstr ""
+"Es necesario sortear orden de salida para poder visualizar datos v&aacute;"
+"lidos"
+
+#: console/dialogs/dlg_ordensalida.inc:218
 msgid "Move entry before selected possition"
 msgstr "No puedo mover al destino seleccionado"
 
-#: console/dialogs/dlg_ordensalida.inc:214
+#: console/dialogs/dlg_ordensalida.inc:219
 msgid "Look for <em>proximity alerts</em>"
 msgstr "Buscar alertas de proximidad"
 
-#: console/dialogs/dlg_ordensalida.inc:214
+#: console/dialogs/dlg_ordensalida.inc:219
 msgid "with dogs belonging same handler"
 msgstr "con perros pertenecientes al mismo gu&iacute;a"
 
-#: console/dialogs/dlg_ordensalida.inc:215
+#: console/dialogs/dlg_ordensalida.inc:220
 msgid "Generate a new, random, starting order"
 msgstr "Generar un nuevo orden de salida aleatorio"
 
-#: console/dialogs/dlg_ordensalida.inc:216
+#: console/dialogs/dlg_ordensalida.inc:221
 msgid "Reverse starting order according with results in the coupled round"
 msgstr ""
 "Invertir el orden de salida respecto de los resultados de la otra manga"
 
-#: console/dialogs/dlg_ordensalida.inc:217
+#: console/dialogs/dlg_ordensalida.inc:222
 msgid "Clone starting order from coupled round"
 msgstr "Seleccionar el mismo orden de salida que la otra manga"
 
-#: console/dialogs/dlg_ordensalida.inc:218
+#: console/dialogs/dlg_ordensalida.inc:223
 msgid "Manual setting of teams starting order"
 msgstr "Ajuste manual del orden de salida de equipos"
 
-#: console/dialogs/dlg_ordensalida.inc:219
+#: console/dialogs/dlg_ordensalida.inc:224
 msgid "Print starting order"
 msgstr "Imprimir orden de salida"
 
-#: console/dialogs/dlg_ordensalida.inc:220
+#: console/dialogs/dlg_ordensalida.inc:225
 msgid "Reload starting order. Update window"
 msgstr "Recargar orden de salida. Refrescar ventana"
 
@@ -8581,9 +8591,6 @@ msgstr "Borrar el usuario seleccionado de la base de datos"
 
 #~ msgid "Categ"
 #~ msgstr "Categ"
-
-#~ msgid "No data yet"
-#~ msgstr "No hay datos todav&iacute;a"
 
 #~ msgid "Color for extra rows in tables"
 #~ msgstr "Color de filas extras en las tablas"
