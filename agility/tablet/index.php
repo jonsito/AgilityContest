@@ -315,16 +315,16 @@ $('#seltablet-Jornada').combogrid({
 		{ field:'Nombre',		width:40, sortable:false,   align:'right',  title: '<?php _e('Name/Comment');?>' },
 		{ field:'Fecha',		hidden:true},
 		{ field:'Hora',			hidden:true},
-        { field:'PreAgility',	width:7, sortable:false,	align:'center', title: 'PreAg. ', formatter:formatPreAgility },
-        { field:'Junior',	    width:7, sortable:false,	align:'center', title: 'Junior ', formatter:formatOK },
-		{ field:'Grado1',		width:7, sortable:false,	align:'center', title: 'G-I    ', formatter:formatOK },
-		{ field:'Grado2',		width:7, sortable:false,	align:'center', title: 'G-II   ', formatter:formatOK },
-		{ field:'Grado3',		width:7, sortable:false,	align:'center', title: 'G-III  ', formatter:formatOK },
-		{ field:'Open',		    width:7, sortable:false,	align:'center', title: 'Open   ', formatter:formatOK },
-		{ field:'Equipos3',		width:7, sortable:false,	align:'center', title: 'Eq.Best', formatter:formatOK },
-		{ field:'Equipos4',		width:7, sortable:false,	align:'center', title: 'Eq.Comb', formatter:formatOK },
-		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.   ', formatter:formatOK },
-		{ field:'Especial',		width:7, sortable:false,	align:'center', title: 'Show   ', formatter:formatOK }
+        { field:'PreAgility',	width:7, sortable:false,	align:'center', title: 'PreAg. ', formatter:formatOk },
+        { field:'Junior',	    width:7, sortable:false,	align:'center', title: 'Junior ', formatter:formatOk },
+		{ field:'Grado1',		width:7, sortable:false,	align:'center', title: 'G-I    ', formatter:formatOk },
+		{ field:'Grado2',		width:7, sortable:false,	align:'center', title: 'G-II   ', formatter:formatOk },
+		{ field:'Grado3',		width:7, sortable:false,	align:'center', title: 'G-III  ', formatter:formatOk },
+		{ field:'Open',		    width:7, sortable:false,	align:'center', title: 'Open   ', formatter:formatOk },
+		{ field:'Equipos3',		width:7, sortable:false,	align:'center', title: 'Eq.Best', formatter:formatOk },
+		{ field:'Equipos4',		width:7, sortable:false,	align:'center', title: 'Eq.Comb', formatter:formatOk },
+		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.   ', formatter:formatOk },
+		{ field:'Especial',		width:7, sortable:false,	align:'center', title: 'Show   ', formatter:formatOk }
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerate';
@@ -395,7 +395,9 @@ function tablet_acceptSelectJornada() {
         	    			page="/agility/tablet/tablet_main.php"; // parche temporal
         	    		}
         	    		if (parseInt(workingData.datosJornada.KO)===1) {
-        	    			page="/agility/tablet/tablet_main_ko.php";
+        	    		    $.messager.alert("Not available yet","Tablet layout for KO rounds is not yet available<br/>Usin std one","info");
+                            // page="/agility/tablet/tablet_main_ko.php";
+                            page="/agility/tablet/tablet_main.php";
         	    		}
                         // load requested page
         	    		$('#tablet_contenido').load(	
