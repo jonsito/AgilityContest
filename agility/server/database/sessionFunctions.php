@@ -57,6 +57,7 @@ try {
         case "getByID":	$result=$sesion->selectByID($id); break;
         case "getClients":$result=$sesion->getClients($stype); break;
         case "testAndSet":$result=$sesion->testAndSet($sname); break;
+        case "playlist":$result=$sesion->playlist(); break;
 		default: throw new Exception("sessionFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) 

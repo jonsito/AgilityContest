@@ -76,6 +76,11 @@ $am=new AuthManager("Chrono");
                                 data-options="iconCls:'icon-reload'" onclick="remoteSendChangeEvent('#remote-videowall')"><?php _e('Switch'); ?></a>
                             <br/>
 
+                            <strong><?php _e('Video selection');?></strong><br/>
+                            <label for="remote-videowall-playlist" style="display:inline-block;width:100px"><?php _e('Video');?>:</label>
+       	    	            <select id="remote-videowall-playlist" name="PlayList" style="width:175px"></select>
+                            <br/>
+
                             <br/>
                             <strong><?php _e('Simplified videowall controls');?></strong>
                             <span style="display:inline-block;width:200px"><?php _e("Font family");?>:</span>
@@ -328,6 +333,27 @@ $am=new AuthManager("Chrono");
             }
         });
 
+        $('#remote-videowall-playlist').combogrid({
+            panelWidth: 400,
+            panelHeight: 'auto',
+            idField: 'ID',
+            textField: 'Name',
+            url: '/agility/server/database/sessionFunctions.php',
+            queryParams: { Operation:'playlist' },
+            method: 'get',
+            mode: 'remote',
+            required: true,
+            rownumber: false,
+            multiple: false,
+            fitColumns: true,
+            singleSelect: true,
+            editable: false, // avoid keyboard deploy
+            columns: [[
+                { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
+                { field:'Name',		width:'75%', sortable:false,   align:'left',  title: '<?php _e('Name'); ?>' },
+                { field:'Type',	width:'0%', sortable:false,   align:'right',  title: '<?php _e('Type'); ?>' }
+            ]]
+        });
         $('#remote-videowall-view').combobox({
             valueField:'value',
             panelHeight:'auto',

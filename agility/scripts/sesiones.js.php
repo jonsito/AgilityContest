@@ -276,13 +276,19 @@ function remote_handleEvents(source,data){
     }
 }
 
+/**
+ * Send videowall change switch command
+ * @param source 'videowall'
+ * @returns {*}
+ */
 function remoteSendChangeEvent(source) {
     var ring=$(source+'-ring').combogrid('getValue');
     var view=$(source+'-view').combobox('getValue');
     var mode=$(source+'-mode').val();
+    var id=$(source+'-playlist').combogrid('getValue');
     var data= {
         Oper: EVTCMD_SWITCH_SCREEN,
-        Value: ""+ring+":"+view+":"+mode
+        Value: ""+ring+":"+view+":"+mode+":"+id
     }
     return remote_handleEvents(source,data);
 }

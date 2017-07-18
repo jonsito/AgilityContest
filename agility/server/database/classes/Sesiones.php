@@ -367,5 +367,20 @@ class Sesiones extends DBObject {
         session_write_close();
         return "";
     }
+
+    /**
+     * Retrieve list of videos stored in BASE/agility/videos.
+     * Notice that indexes is disabled in httpd.conf, so need to manually parse and return this directory
+     */
+    function playlist() {
+        $videos=array(array('ID'=>0,'Name'=>_("Use session default"),'Type'=>"") );
+        $dir=__DIR__."/../../../videos/";
+        $count=1;
+        foreach(glob($dir.'*') as $filename){
+            if (is_dir($filename)) continue;
+            $videos[] =  array('ID'=>$count++,'Name'=>pathinfo($filename,PATHINFO_FILENAME),'Type'=> pathinfo($filename,PATHINFO_EXTENSION));
+        }
+        return array('total'=>count($videos),'rows'=>$videos);
+    }
 }
 ?>
