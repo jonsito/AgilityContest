@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../../auth/Config.php");
 require_once(__DIR__."/../../printer/RawPrinter.php");
+require_once(__DIR__."/Sesiones.php");
 
 // How often to poll, in micro-seconds
 define('EVENT_POLL_MICROSECONDS', 500000); 
@@ -177,14 +178,14 @@ class Eventos extends DBObject {
 				break;
 			case 'command': // remote control
                 // trap switch screen commands to check need for update livestream video info
-                if ($data['Oper']==EVTCMD_SWITCH_SCREEN ) {
+                if (intval($data['Oper'])===EVTCMD_SWITCH_SCREEN ) {
 			        if (!$this->myAuth->allowed(ENABLE_VIDEOWALL) && !$this->myAuth->allowed(ENABLE_LIVESTREAM)) {
                         $this->myLogger->info("Ignore videowall/livestream remote control events: licencse forbids");
                         return array('errorMsg' => 'Current license does not allow VideoWall handling');
                     }
 			        $sess=new Sesiones("switch_screen_event");
 			        // data: name:sessid:view:mode:playlistidx ... get playlist index
-			        $sess->updateVideoInfo($sid,intval( substring( 1 + strrchr(':',$data['Value']) ) ) );
+			        $sess->updateVideoInfo($sid,intval( substr(strrchr($data['Value'], ":"), 1 ) ) );
                 }
                 break;
 			case 'reconfig':	// cambio en la configuracion del servidor

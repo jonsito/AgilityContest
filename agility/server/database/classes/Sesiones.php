@@ -387,16 +387,21 @@ class Sesiones extends DBObject {
      * Update video links
      * @param integer $sessid
      * @param int $value index to playlist
+     * @return string "" on success; else error message
      */
     function updateVideoInfo($sessid,$value) {
-        if ($value==0) return; // use defaults for session
+        $this->myLogger->enter();
+        if ($value==0) return ""; // use defaults for session
         $pl=$this->playlist()['rows'];
-        if (count($pl)>=value) {
+        $this->myLogger->trace("Value:$value playlist:".json_encode($pl));
+        if ($value>=count($pl)) {
             $this->myLogger->error("Try to change non-existent video");
         }
         $item=$pl[$value];
         $img="";$mp4="";$webm=""; $ogv="";
-        switch ($value['Type']) {
+        switch ($item['Type']) {
+            // default
+            case '': return ""; // shouldn't arrive here. return in case of
             // images
             case 'png':
             case 'jpg':
@@ -414,21 +419,22 @@ class Sesiones extends DBObject {
                 break;
             // video webm
             case 'webm':
-                $mp4="/agility/videos/{$item['Name']}.{$item['Type']}";
+                $webm="/agility/videos/{$item['Name']}.{$item['Type']}";
                 break;
             // video ogv
             case 'ogv':
-                $mp4="/agility/videos/{$item['Name']}.{$item['Type']}";
+            case 'ogg': // audio, but still may work
+                $ogv="/agility/videos/{$item['Name']}.{$item['Type']}";
                 break;
             // default
             default:
-                $this->myLogger->error("don't know how to handle video format {$value['Type']}" );
-                return;
-                $str="UPDATE Sesiones SET Background='{$img}',Livestream='{$mp4}',webm='{$webm}',ogv='{$ogv}' WHERE ID={$sessid}";
-                $res=$this->query($str);
-                if(!$res) return $this->conn->error;
-                return "";
+                return $this->error("don't know how to handle video format {$item['Type']}" );
         }
+        $str="UPDATE Sesiones SET Background='{$img}',LiveStream='{$mp4}',LiveStream2='{$ogv}',LiveStream3='{$webm}' WHERE ID={$sessid}";
+        $res=$this->query($str);
+        if(!$res) return $this->conn->error;
+        $this->myLogger->leave();
+        return "";
     }
 }
 ?>

@@ -278,6 +278,7 @@ $am=new AuthManager("Chrono");
             modal:true,
             onBeforeOpen: function(param) {
                 reloadRemoteClientList();
+                $('#remote-videowall-playlist').combogrid('grid').datagrid('reload');
                 return true;
             }
 		});
