@@ -382,5 +382,53 @@ class Sesiones extends DBObject {
         }
         return array('total'=>count($videos),'rows'=>$videos);
     }
+
+    /**
+     * Update video links
+     * @param integer $sessid
+     * @param int $value index to playlist
+     */
+    function updateVideoInfo($sessid,$value) {
+        if ($value==0) return; // use defaults for session
+        $pl=$this->playlist()['rows'];
+        if (count($pl)>=value) {
+            $this->myLogger->error("Try to change non-existent video");
+        }
+        $item=$pl[$value];
+        $img="";$mp4="";$webm=""; $ogv="";
+        switch ($value['Type']) {
+            // images
+            case 'png':
+            case 'jpg':
+            case 'mjpg':
+            case 'mjpeg':
+            case 'jpeg':
+            case 'gif':
+                $img="/agility/videos/{$item['Name']}.{$item['Type']}";
+                break;
+            // video mp4
+            case 'mp4':
+            case 'avi':
+            case 'h264':
+                $mp4="/agility/videos/{$item['Name']}.{$item['Type']}";
+                break;
+            // video webm
+            case 'webm':
+                $mp4="/agility/videos/{$item['Name']}.{$item['Type']}";
+                break;
+            // video ogv
+            case 'ogv':
+                $mp4="/agility/videos/{$item['Name']}.{$item['Type']}";
+                break;
+            // default
+            default:
+                $this->myLogger->error("don't know how to handle video format {$value['Type']}" );
+                return;
+                $str="UPDATE Sesiones SET Background='{$img}',Livestream='{$mp4}',webm='{$webm}',ogv='{$ogv}' WHERE ID={$sessid}";
+                $res=$this->query($str);
+                if(!$res) return $this->conn->error;
+                return "";
+        }
+    }
 }
 ?>

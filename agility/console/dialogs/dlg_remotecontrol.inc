@@ -316,7 +316,7 @@ $am=new AuthManager("Chrono");
             columns: [[
                 { field:'Source',		hidden:true },
                 { field:'Name',	        width:40, sortable:true,title:'<?php _e('Display name'); ?>' },
-                { field:'Session',	    width:20, sortable:true,title:'<?php _e('Ring'); ?>', formatter: formatRingName },// ring name
+                { field:'Session',	    width:20, sortable:true,title:'<?php _e('Ring'); ?>', formatter: formatRingName },// sess id
                 { field:'View',		    width:40, sortable:true,title:'<?php _e('View mode'); ?>', formatter: formatVideowallView },
                 { field:'Mode',		    hidden:true }, // no sense in videowall
                 { field:'LastCall',		hidden:true }

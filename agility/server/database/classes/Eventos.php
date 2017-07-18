@@ -26,6 +26,17 @@ define('EVENT_TIMEOUT_SECONDS', 30);
 // Timeout padding in seconds, to avoid a premature timeout in case the last call in the loop is taking a while
 define('EVENT_TIMEOUT_SECONDS_BUFFER', 5);
 
+define('EVTCMD_NULL',0); // nothing; just ping
+define('EVTCMD_SWITCH_SCREEN',1); // switch videowall mode
+define('EVTCMD_SETFONTFAMILY',2);
+define('EVTCMD_NOTUSED3',3); // switch font family ) simplified videowalls )
+define('EVTCMD_SETFONTSIZE',4);
+define('EVTCMD_OSDSETALPHA',5); // increase/decrease OSD transparency level
+define('EVTCMD_OSDSETDELAY',6); // set response time to events ( to sync livestream OSD )
+define('EVTCMD_NOTUSED7',7);
+define('EVTCMD_MESSAGE',8); // prompt a message dialog on top of screen
+define('EVTCMD_ENABLEOSD',9); // enable / disable OnScreenDisplay
+
 require_once("DBObject.php");
 
 class Eventos extends DBObject {
@@ -164,7 +175,17 @@ class Eventos extends DBObject {
 					return array('errorMsg' => 'Current license does not allow LiveStream handling');
 				} // silently ignore
 				break;
-			case 'command': // videowall remote control
+			case 'command': // remote control
+                // trap switch screen commands to check need for update livestream video info
+                if ($data['Oper']==EVTCMD_SWITCH_SCREEN ) {
+			        if (!$this->myAuth->allowed(ENABLE_VIDEOWALL) && !$this->myAuth->allowed(ENABLE_LIVESTREAM)) {
+                        $this->myLogger->info("Ignore videowall/livestream remote control events: licencse forbids");
+                        return array('errorMsg' => 'Current license does not allow VideoWall handling');
+                    }
+			        $sess=new Sesiones("switch_screen_event");
+			        // data: name:sessid:view:mode:playlistidx ... get playlist index
+			        $sess->updateVideoInfo($sid,intval( substring( 1 + strrchr(':',$data['Value']) ) ) );
+                }
                 break;
 			case 'reconfig':	// cambio en la configuracion del servidor
 				if (!$this->myAuth->access(PERMS_ADMIN)) {
