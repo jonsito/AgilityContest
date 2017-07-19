@@ -211,6 +211,10 @@ class PrintCommon extends FPDF {
             $this->icon2=getIconPath($fedName,$this->federation->get('Logo'));
             if ($this->icon==$this->icon2) $this->icon2=getIconPath($fedName,$this->federation->get('ParentLogo'));
         }
+        // on KO events use AgilityContest Logo instead of federation logo
+		if ($this->jornada->KO!=0) {
+            $this->icon2=getIconPath($fedName,"agilitycontest.png");
+		}
 		// handle registration info related to PDF generation
         $this->authManager=new AuthManager("print_common");
         $this->regInfo=$this->authManager->getRegistrationInfo();
@@ -294,7 +298,12 @@ class PrintCommon extends FPDF {
 		if ($this->jornada!==null) {
             $this->SetFont($this->getFontName(),'I',8); // bold 20
             $this->SetXY($this->centro -65,30);
-            $cname=Competitions::getCompetition($this->prueba,$this->jornada)->getModuleInfo()['Nombre'];
+            // pending revision to extend competition name for more generic data (games, open, special and so )
+            if ($this->jornada->KO !=0){
+            	$cname=_("K.O. Round");
+			} else {
+                $cname=Competitions::getCompetition($this->prueba,$this->jornada)->getModuleInfo()['Nombre'];
+			}
             $this->Cell(130,5,$cname,0,0,'C',false);// Titulo del listado en el centro
 		}
 		$this->Ln(5);
