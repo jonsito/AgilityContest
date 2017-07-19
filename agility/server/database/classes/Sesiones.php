@@ -373,12 +373,18 @@ class Sesiones extends DBObject {
      * Notice that indexes is disabled in httpd.conf, so need to manually parse and return this directory
      */
     function playlist() {
+        $validTypes=array('png','jpg','mjpg','mjpeg','jpeg','gif','mp4','webm','ogv','ogg');
         $videos=array(array('ID'=>0,'Name'=>_("Use session default"),'Type'=>"") );
         $dir=__DIR__."/../../../videos/";
         $count=1;
         foreach(glob($dir.'*') as $filename){
             if (is_dir($filename)) continue;
-            $videos[] =  array('ID'=>$count++,'Name'=>pathinfo($filename,PATHINFO_FILENAME),'Type'=> pathinfo($filename,PATHINFO_EXTENSION));
+            if (! in_array(pathinfo($filename,PATHINFO_EXTENSION),$validTypes)) continue;
+            $videos[] =  array(
+                    'ID'=>$count++,
+                    'Name'=>pathinfo($filename,PATHINFO_FILENAME),
+                    'Type'=> pathinfo($filename,PATHINFO_EXTENSION)
+                );
         }
         return array('total'=>count($videos),'rows'=>$videos);
     }
@@ -413,8 +419,8 @@ class Sesiones extends DBObject {
                 break;
             // video mp4
             case 'mp4':
-            case 'avi':
-            case 'h264':
+            // case 'avi':
+            // case 'h264':
                 $mp4="/agility/videos/{$item['Name']}.{$item['Type']}";
                 break;
             // video webm

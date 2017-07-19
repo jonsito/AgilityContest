@@ -30,7 +30,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- Presentacion de anuncios promocionales en pantalla -->
 
 <div id="vw_anuncios-window">
-        <!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
         <video id="vw_video" autoplay="autoplay" preload="auto" muted="muted"
                loop="loop" poster="/agility/server/getRandomImage.php" style="width=100%;height:auto">
             <!-- http://guest:@192.168.122.168/videostream.cgi -->
@@ -56,11 +55,11 @@ $('#vw_anuncios-window').window({
         // start event manager to receive events
         startEventMgr();
         // start video playback
-        var bg=workingData.datosSesion.Background;
-        var ls1=workingData.datosSesion.LiveStream;
-        var ls2=workingData.datosSesion.LiveStream2;
-        var ls3=workingData.datosSesion.LiveStream3;
-        if ( bg !== '' ) $('#vw_video').attr('poster', bg);
+        var bg=workingData.datosSesion.Background; // mjpeg
+        var ls1=workingData.datosSesion.LiveStream; // mp4
+        var ls2=workingData.datosSesion.LiveStream2; // ogv
+        var ls3=workingData.datosSesion.LiveStream3; // webm
+        if ( bg !== '' ) $('#vw_video').attr('src', bg);
         if ( ls1!== '' ) $('#vw_videomp4').attr('src', ls1); else $('#vw_videomp4').remove();
         if ( ls2!== '' ) $('#vw_videoogv').attr('src', ls2); else $('#vw_videoogv').remove();
         if ( ls3!== '' ) $('#vw_videowebm').attr('src', ls3); else $('#vw_videowebm').remove();

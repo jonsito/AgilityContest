@@ -216,10 +216,10 @@ function parseGrade($grad) {
 	if (is_null($grad)) return '-';
 	$grad=strtolower(trim(utf8_decode($grad)));
 	if ($grad==="") return '-';
-	if (strpos($grad,'Jr')!==false) return 'Jr';
-	if (strpos($grad,'Sr')!==false) return 'Sr';
-	if (strpos($grad,'Junior')!==false) return 'Jr';
-	if (strpos($grad,'Senior')!==false) return 'Sr';
+	if (strpos($grad,'jr')!==false) return 'Jr';
+	if (strpos($grad,'sr')!==false) return 'Sr';
+	if (strpos($grad,'junior')!==false) return 'Jr';
+	if (strpos($grad,'senior')!==false) return 'Sr';
     if (strpos($grad,'ini')!==false) return 'P.A.';
     if (strpos($grad,'pre')!==false) return 'P.A.';
 	if (strpos($grad,'pa')!==false) return 'P.A.';
