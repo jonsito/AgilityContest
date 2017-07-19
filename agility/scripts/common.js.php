@@ -126,8 +126,8 @@ function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); }
 const access_perms = {
     ENABLE_IMPORT   :  1,  // permite importar datos desde Excel
     ENABLE_TEAMS    :  2,  // permite gestionar pruebas de equipos
-    ENABLE_KO       :  4,  // permite gestionar pruebas K.O
-    ENABLE_SPECIAL  :  8,  // permite gestionar pruebas de mangas multiples
+    ENABLE_KO       :  4,  // permite gestionar pruebas K.O y Juegos
+    ENABLE_SPECIAL  :  8,  // permite gestionar pruebas de mangas multiples/subordinadas
     ENABLE_VIDEOWALL:  16, // permite acceso desde videomarcador
     ENABLE_PUBLIC   :  32, // permite acceso publico web
     ENABLE_CHRONO   :  64, // permite gestion desde cronometro

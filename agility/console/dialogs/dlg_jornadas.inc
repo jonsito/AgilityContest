@@ -230,12 +230,26 @@ $config =Config::getInstance();
             	$('#jornadas-MangasEquipos').combobox('disable');
             }
 
+            <?php    if ( ! $am->allowed(ENABLE_TEAMS)) { ?>
+            // si la licencia no tiene permisos para jornadas por equipos, desactivamos la opcion
+            $('#jornadas-EquiposChk').prop('disabled',true);
+            $('#jornadas-MangasEquipos').combobox('disable');
+            <?php    } ?>
+
             // el resto de mangas son "normales" ( estan siempre presentes )
             $('#jornadas-Equipos3').prop('checked',(data.Equipos3 != 0));
             $('#jornadas-Equipos4').prop('checked',(data.Equipos4 != 0));
             $('#jornadas-Open').prop('checked',(data.Open == 1));
+
             $('#jornadas-KO').prop('checked',(data.KO == 1));
             $('#jornadas-Games').prop('checked',(data.Games == 1));
+
+            <?php    if ( ! $am->allowed(ENABLE_KO)) { ?>
+            // si la licencia no tiene permisos para jornadas KO o Games, desactivamos la opcion
+            $('#jornadas-Games').prop('disabled',true);
+            $('#jornadas-KO').prop('disabled',true);
+            <?php    } ?>
+
             $('#jornadas-Especial').prop('checked',(data.Especial == 1));
         	$('#jornadas-Observaciones').textbox( (data.Especial==0)?'disable':'enable');
             $('#jornadas-Cerrada').prop('checked',(data.Cerrada == 1));
@@ -344,6 +358,7 @@ $config =Config::getInstance();
 
     $('#jornadas-Tipo_Competicion_List').combobox({
         panelHeight: 'auto',
+        panelWidth: 200,
         valueField:'ID',
         textField:'Nombre',
         method: 'get',
