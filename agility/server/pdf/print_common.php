@@ -212,7 +212,7 @@ class PrintCommon extends FPDF {
             if ($this->icon==$this->icon2) $this->icon2=getIconPath($fedName,$this->federation->get('ParentLogo'));
         }
         // on KO events use AgilityContest Logo instead of federation logo
-		if ($this->jornada->KO!=0) {
+		if ($this->jornada && $this->jornada->KO!=0) {
             $this->icon2=getIconPath($fedName,"agilitycontest.png");
 		}
 		// handle registration info related to PDF generation
