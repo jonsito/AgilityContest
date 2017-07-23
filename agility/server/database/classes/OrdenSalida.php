@@ -17,6 +17,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 require_once(__DIR__."/../../../modules/Federations.php");
+require_once(__DIR__."/../../../modules/Competitions.php");
 require_once("DBObject.php");
 require_once("Equipos.php");
 require_once("Resultados.php");
