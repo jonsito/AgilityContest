@@ -23,7 +23,6 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf con los participantes ordenados segun los resultados de la manga
  */
 
-require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once (__DIR__."/../logging.php");
 require_once(__DIR__.'/../database/classes/Mangas.php');

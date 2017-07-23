@@ -24,7 +24,6 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf con la secuencia ordenada de tandas de la jornada y los participantes de cada tanda
 */
 
-require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__.'/classes/PrintOrdenTandas.php');

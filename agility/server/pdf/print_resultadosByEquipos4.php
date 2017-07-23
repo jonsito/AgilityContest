@@ -24,7 +24,6 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf ordenado con los participantes en jornada de prueba por equipos
 */
 
-require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__.'/../database/classes/Mangas.php');

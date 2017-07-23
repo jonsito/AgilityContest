@@ -27,7 +27,6 @@ header('Set-Cookie: fileDownload=true; path=/');
 require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
-require_once(__DIR__.'/../database/classes/Equipos.php');
 require_once(__DIR__."/classes/PrintEquiposByJornada.php");
 
 // Consultamos la base de datos

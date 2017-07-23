@@ -17,21 +17,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 define('FPDF_FONTPATH', __DIR__."/font/");
+require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
-require_once(__DIR__."/fpdf.php");
 require_once(__DIR__.'/../../modules/Federations.php');
 require_once(__DIR__.'/../database/classes/DBObject.php');
-require_once(__DIR__.'/../database/classes/Clubes.php');
-require_once(__DIR__.'/../database/classes/Pruebas.php');
-require_once(__DIR__.'/../database/classes/Jueces.php');
 require_once(__DIR__.'/../database/classes/Jornadas.php');
 require_once(__DIR__.'/../database/classes/Mangas.php');
-require_once(__DIR__.'/../database/classes/Resultados.php');
-require_once(__DIR__.'/../database/classes/Clasificaciones.php');
-require_once(__DIR__."/print_common.php");
 
 class PrintCommon extends FPDF {
 

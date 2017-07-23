@@ -24,7 +24,6 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf lista de perros seleccionada desde el menu de la base de datos en el orden especificado en la pantalla
 */
 
-require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/classes/PrintListaPerros.php");

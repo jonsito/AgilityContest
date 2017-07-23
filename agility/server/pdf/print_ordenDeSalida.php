@@ -24,10 +24,10 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf ordenado por club, categoria y nombre con una pagina por cada jornada
 */
 
-require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__.'/classes/PrintOrdenSalida.php');
+require_once(__DIR__.'/classes/PrintOrdenSalidaEquipos4.php');
 require_once(__DIR__.'/classes/PrintOrdenSalidaKO.php');
 
 // Consultamos la base de datos

@@ -17,9 +17,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 require_once (__DIR__."/../logging.php");
 require_once (__DIR__."/../tools.php");
+require_once (__DIR__."/Config.php");
 require_once (__DIR__."/../database/classes/Sesiones.php");
 require_once (__DIR__."/../database/classes/Eventos.php");
-require_once (__DIR__."/Config.php");
 
 // permisos de acceso
 define ("PERMS_ROOT",0);

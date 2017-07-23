@@ -24,10 +24,9 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf con la tabla y horarios de entrenamiento
 */
 
-require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
-require_once(__DIR__.'/../database/classes/Entrenamientos.php');
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__.'/classes/PrintEntrenamientos.php');
 
 // Consultamos la base de datos

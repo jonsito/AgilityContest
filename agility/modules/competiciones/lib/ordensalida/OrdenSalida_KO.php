@@ -33,6 +33,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * En el metodo getData() no se ordenan por equipos (pues no hay equipos), pero se agrupan de dos en dos
  *
  */
+require_once(__DIR__."/../../../../server/database/classes/OrdenSalida.php");
+
 class OrdenSalida_KO extends OrdenSalida {
 
 	protected $mangas=null; // lista ordenada de las ocho posibles mangas de una jornada K.O.

@@ -24,7 +24,6 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf con diversas plantillas
 */
 
-require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__.'/classes/PrintTRSTemplates.php');

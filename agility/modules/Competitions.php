@@ -25,8 +25,8 @@ require_once(__DIR__."/Federations.php");
 require_once(__DIR__."/../server/database/classes/Clasificaciones.php");
 require_once(__DIR__."/../server/database/classes/Resultados.php");
 require_once(__DIR__."/../server/database/classes/OrdenSalida.php");
-require_once(__DIR__."/competiciones/lib/resultados/Resultados_KO.php");
 require_once(__DIR__."/competiciones/lib/ordensalida/OrdenSalida_KO.php");
+require_once(__DIR__."/competiciones/lib/resultados/Resultados_KO.php");
 
 /*
  * This class handles every available kind of competitions on each federations
