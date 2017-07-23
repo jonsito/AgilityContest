@@ -18,13 +18,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 require_once(__DIR__."/DBObject.php");
-require_once(__DIR__."/OrdenSalida.php");
-require_once(__DIR__."/../../../modules/Competitions.php");
 require_once(__DIR__."/../../../modules/Federations.php");
+require_once(__DIR__."/../../../modules/Competitions.php");
+require_once(__DIR__."/OrdenSalida.php");
 require_once(__DIR__."/Mangas.php");
 require_once(__DIR__."/Jornadas.php");
 require_once(__DIR__."/Clubes.php");
-require_once(__DIR__."/Jueces.php");
 
 class Resultados extends DBObject {
     protected $IDPrueba; // ID de la manga

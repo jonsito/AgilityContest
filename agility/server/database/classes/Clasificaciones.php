@@ -18,10 +18,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 require_once(__DIR__."/DBObject.php");
+require_once(__DIR__."/../../../modules/Federations.php");
 require_once(__DIR__."/Mangas.php");
 require_once(__DIR__."/Equipos.php");
 require_once(__DIR__."/Resultados.php");
-require_once(__DIR__."/../../../modules/Federations.php");
 
 class Clasificaciones extends DBObject {
 	protected $prueba; // object

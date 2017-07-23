@@ -16,9 +16,10 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+require_once("DBObject.php");
 require_once(__DIR__."/../../auth/Config.php");
-require_once(__DIR__."/../../printer/RawPrinter.php");
 require_once(__DIR__."/Sesiones.php");
+require_once(__DIR__."/../../printer/RawPrinter.php");
 
 // How often to poll, in micro-seconds
 define('EVENT_POLL_MICROSECONDS', 500000); 
@@ -38,7 +39,6 @@ define('EVTCMD_NOTUSED7',7);
 define('EVTCMD_MESSAGE',8); // prompt a message dialog on top of screen
 define('EVTCMD_ENABLEOSD',9); // enable / disable OnScreenDisplay
 
-require_once("DBObject.php");
 
 class Eventos extends DBObject {
 	
