@@ -159,7 +159,7 @@ class Pruebas extends DBObject {
 			"Nombre ASC"
 		);
 		$search=http_Request("where","s","");
-		$closed= http_request("closed","i",0); // si esta declarada, se incluyen las pruebas cerradas
+		$closed=http_request("closed","i",0); // si esta declarada, se incluyen las pruebas cerradas
 		$page=http_request("page","i",1);
 		$rows=http_request("rows","i",50);
 		$limit="";
@@ -205,7 +205,7 @@ class Pruebas extends DBObject {
         $inscritos=$this->__select("Prueba, count(*) AS Inscritos","Inscripciones","1 GROUP BY Prueba","","");
 
 		// evaluate search criteria for query
-		$q=http_request("q","s",null);
+		$q=http_request("q","s","");
 		$where= "(Pruebas.Club=Clubes.ID) AND ( Pruebas.Cerrada=0 ) ";
 		if($q!=="") $where="$where AND ( (Pruebas.Nombre LIKE '%$q%' ) OR (Clubes.Nombre LIKE '%$q%') OR (Pruebas.Observaciones LIKE '%$q%') )";
 		// retrieve result from parent __select() call

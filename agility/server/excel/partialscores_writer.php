@@ -23,8 +23,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__.'/../database/classes/Mangas.php');
-require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__.'/../database/classes/OrdenSalida.php');
+require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__."/classes/Excel_PartialScores.php");
 
 // Consultamos la base de datos

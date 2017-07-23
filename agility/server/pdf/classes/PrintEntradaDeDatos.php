@@ -27,7 +27,6 @@ require_once(__DIR__.'/../../database/classes/DBObject.php');
 require_once(__DIR__.'/../../database/classes/Pruebas.php');
 require_once(__DIR__.'/../../database/classes/Jornadas.php');
 require_once(__DIR__.'/../../database/classes/Mangas.php');
-require_once(__DIR__.'/../../database/classes/OrdenSalida.php');
 require_once(__DIR__."/../print_common.php");
 
 class PrintEntradaDeDatos extends PrintCommon {

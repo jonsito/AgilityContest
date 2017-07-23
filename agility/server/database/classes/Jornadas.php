@@ -36,12 +36,12 @@ class Jornadas extends DBObject {
 	 */
 	function __construct($file,$prueba) {
 		parent::__construct($file);
-		if ($prueba<0){
+		if ($this->prueba<0){
 			$this->errormsg="$file::construct() invalid prueba ID";
 			throw new Exception($this->errormsg);
 		}
-        $this->prueba=$prueba;
-		$this->pruebaobj=$this->__getObject("Pruebas",$prueba);
+        $this->prueba= ($prueba==0)?1:$prueba; // make sure there is a valid contest ID
+		$this->pruebaobj=$this->__getObject("Pruebas",$this->prueba);
 		$this->myLogger->trace("Prueba: ".json_encode($this->pruebaobj));
 		$this->federation=Federations::getFederation($this->pruebaobj->RSCE);
         $this->myLogger->trace("Federation: ".json_encode($this->federation));

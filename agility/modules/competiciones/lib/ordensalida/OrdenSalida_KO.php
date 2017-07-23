@@ -22,7 +22,7 @@ require_once(__DIR__ . "/../../../../server/database/classes/Equipos.php");
 require_once(__DIR__ . "/../../../../server/database/classes/Resultados.php");
 require_once(__DIR__ . "/../../../../server/database/classes/Clasificaciones.php");
 require_once(__DIR__ . "/../../../../server/database/classes/Inscripciones.php");
-require_once(__DIR__ . "/../../../../server/database/classes/OrdenSalida.php");
+// require_once(__DIR__ . "/../../../../server/database/classes/OrdenSalida.php");
 
 /**
  * Class OrdenSalida_KO

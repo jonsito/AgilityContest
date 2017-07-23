@@ -19,10 +19,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__ . "/../../../Federations.php");
 require_once(__DIR__ . "/../../../../server/database/classes/DBObject.php");
 require_once(__DIR__ . "/../../../../server/database/classes/Equipos.php");
+require_once(__DIR__ . "/../../../../server/database/classes/OrdenSalida.php");
 require_once(__DIR__ . "/../../../../server/database/classes/Resultados.php");
 require_once(__DIR__ . "/../../../../server/database/classes/Clasificaciones.php");
 require_once(__DIR__ . "/../../../../server/database/classes/Inscripciones.php");
-require_once(__DIR__ . "/../../../../server/database/classes/OrdenSalida.php");
 
 class OrdenSalida_EO_Final extends OrdenSalida {
 
