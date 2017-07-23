@@ -1,6 +1,6 @@
 <?php
 /*
-Resultados.php
+Resultados_EO_Team_Qualifications.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -16,7 +16,6 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-require_once(__DIR__."/../../../../server/database/classes/Resultados.php");
 
 class Resultados_EO_Team_Qualifications extends Resultados {
 	/**

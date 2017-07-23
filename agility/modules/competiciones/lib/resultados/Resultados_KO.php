@@ -1,6 +1,6 @@
 <?php
 /*
-Resultados.php
+Resultados_KO.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -16,10 +16,10 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-require_once(__DIR__."/../../../../server/database/classes/OrdenSalida.php");
-require_once(__DIR__."/../../../../server/database/classes/Resultados.php");
-
 class Resultados_KO extends Resultados {
+    // to avoid circular requires, instead of require_once ordensalida, just retrieve
+    // an instance from constructor
+    private $osobj;
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
@@ -31,8 +31,9 @@ class Resultados_KO extends Resultados {
 	 * - invalid manga ID
 	 * - manga is closed
 	 */
-	function __construct($file,$prueba,$jornada,$manga) {
+	function __construct($file,$prueba,$jornada,$manga,$osobj) {
 		parent::__construct($file,$prueba,$jornada,$manga);
+		$this->osobj=$osobj;
 	}
 
     /**
@@ -58,9 +59,7 @@ class Resultados_KO extends Resultados {
         $res=parent::getResultadosIndividual(8); // ignore categories, just group all
 
         // le pasamos estos datos a OrdenSalida::getData()
-        // $res contiene un entero 'total' y tres arrays: 'rows','trs','manga'
-        $os=OrdenSalida::getInstance("getResuldatosIndividual",$res['manga']->ID);
-        $osres=$os->getData(true,8,$res);
+        $osres=$this->osobj->getData(true,8,$res);
 
         // y ahora evaluamos las calificaciones dos a dos
         for ($n=1;$n<$osres['total'];$n+=3) {

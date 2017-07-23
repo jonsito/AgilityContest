@@ -22,8 +22,11 @@ $dummy= _('Stars');
 $dummy= _('KC_ID'); // LOE_RRC ( also exists 'KC id' that goes to 'LOE/RRC' )
 
 require_once(__DIR__."/Federations.php");
-require_once(__DIR__."/competiciones/lib/ordensalida/OrdenSalida_KO.php");
+require_once(__DIR__."/../server/database/classes/Clasificaciones.php");
+require_once(__DIR__."/../server/database/classes/Resultados.php");
+require_once(__DIR__."/../server/database/classes/OrdenSalida.php");
 require_once(__DIR__."/competiciones/lib/resultados/Resultados_KO.php");
+require_once(__DIR__."/competiciones/lib/ordensalida/OrdenSalida_KO.php");
 
 /*
  * This class handles every available kind of competitions on each federations
@@ -257,12 +260,14 @@ class Competitions {
      * @param {object} $prueba
      * @param {object} $jornada
      * @param {object} $manga
+     * @param {object} $manga
      * @return {Resultados} instance of requested Resultados object
      */
     public function getResultadosInstance($file,$prueba,$jornada,$manga) {
         // la gestion del orden de salida en una manga KO es comun a todas las competiciones
         if ( in_array ($manga->Tipo, array(15,18,19,20,21,22,23,24) ) ) {
-            return new Resultados_KO($file,$prueba,$jornada,$manga);
+            $os=$this->getOrdenSalidaInstance($file,$prueba,$jornada,$manga);
+            return new Resultados_KO($file,$prueba,$jornada,$manga,$os);
         }
         return new Resultados($file,$prueba,$jornada,$manga);
     }
