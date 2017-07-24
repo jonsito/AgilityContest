@@ -23,17 +23,16 @@ class Resultados_KO extends Resultados {
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
-     * @param {object} $prueba Prueba ID
-     * @param {object} $jornada Jornada ID
-     * @param {object} $manga Manga ID
+     * @param {object} $prueba Prueba
+     * @param {object} $jornada Jornada
+     * @param {object} $manga Manga
 	 * @throws Exception when
 	 * - cannot contact database
 	 * - invalid manga ID
 	 * - manga is closed
 	 */
-	function __construct($file,$prueba,$jornada,$manga,$osobj) {
+	function __construct($file,$prueba,$jornada,$manga) {
 		parent::__construct($file,$prueba,$jornada,$manga);
-		$this->osobj=$osobj;
 	}
 
     /**
@@ -59,7 +58,8 @@ class Resultados_KO extends Resultados {
         $res=parent::getResultadosIndividual(8); // ignore categories, just group all
 
         // le pasamos estos datos a OrdenSalida::getData()
-        $osres=$this->osobj->getData(true,8,$res);
+        $osobj=Competitions::getOrdenSalidaInstance("Resultados KO",$this->getDatosManga()->ID);
+        $osres=$osobj->getData(true,8,$res);
 
         // y ahora evaluamos las calificaciones dos a dos
         for ($n=1;$n<$osres['total'];$n+=3) {

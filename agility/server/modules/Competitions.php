@@ -285,8 +285,7 @@ class Competitions {
     protected function getResultadosObject($file,$prueba,$jornada,$manga) {
         // la gestion del orden de salida en una manga KO es comun a todas las competiciones
         if ( in_array ($manga->Tipo, array(15,18,19,20,21,22,23,24) ) ) {
-            $os=$this->getOrdenSalidaInstance($file,$prueba,$jornada,$manga);
-            return new Resultados_KO($file,$prueba,$jornada,$manga,$os);
+            return new Resultados_KO($file,$prueba,$jornada,$manga);
         }
         return new Resultados($file,$prueba,$jornada,$manga);
     }

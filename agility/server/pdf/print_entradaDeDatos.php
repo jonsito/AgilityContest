@@ -25,7 +25,7 @@ header('Set-Cookie: fileDownload=true; path=/');
 
 require_once(__DIR__."/../tools.php");
 require_once (__DIR__."/../logging.php");
-require_once(__DIR__.'/../database/classes/OrdenSalida.php');
+require_once(__DIR__.'/../modules/Competitions.php');
 require_once(__DIR__.'/classes/PrintEntradaDeDatos.php');
 
 // Consultamos la base de datos

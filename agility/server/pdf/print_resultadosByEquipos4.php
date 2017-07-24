@@ -26,8 +26,8 @@ header('Set-Cookie: fileDownload=true; path=/');
 
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__.'/../modules/Competitions.php');
 require_once(__DIR__.'/../database/classes/Mangas.php');
-require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__."/classes/PrintResultadosByEquipos4.php");
 
 
