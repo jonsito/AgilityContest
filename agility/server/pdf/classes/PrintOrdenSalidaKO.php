@@ -65,7 +65,7 @@ class PrintOrdenSalidaKO extends PrintCommon {
 		$m = new Mangas("printOrdenDeSalida",$data['jornada']);
 		$this->manga= $m->selectByID($data['manga']);
 		// Datos del orden de salida
-		$o = OrdenSalida::getInstance("printOrdenDeSalida",$data['manga']);
+		$o = Competitions::getOrdenSalidaInstance("printOrdenDeSalida",$data['manga']);
 		$os= $o->getData(/*false,8,null*/); // no team view, no categories, no previous resultset
 		$this->orden=$os['rows'];
 		$this->categoria="L";

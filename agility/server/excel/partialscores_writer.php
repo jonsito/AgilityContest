@@ -36,11 +36,11 @@ try {
 
     $mngobj= new Mangas("excelResultadosByManga",$idjornada);
     $manga=$mngobj->selectByID($idmanga);
-    $resobj= Resultados::getInstance("excelResultadosByManga",$idmanga);
+    $resobj= Competitions::getResultadosInstance("excelResultadosByManga",$idmanga);
 
     // retrieve results
     $resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
-    $osobj= OrdenSalida::getInstance("excelResultadosByManga",$idmanga);
+    $osobj= Competitions::getOrdenSalidaInstance("excelResultadosByManga",$idmanga);
     // reindex resultados in starting order
     $res=$osobj->getData(false,$mode,$resultados);
     // add trs/trm information

@@ -1,6 +1,6 @@
 <?php
-require_once(__DIR__."/../competiciones/lib/resultados/Resultados_EO_Team_Qualifications.php");
-require_once(__DIR__."/../competiciones/lib/clasificaciones/Clasificaciones_EO_Team_Qualifications.php");
+require_once(__DIR__ . "/../competiciones/lib/resultados/Resultados_EO_Team_Qualifications.php");
+require_once(__DIR__ . "/../competiciones/lib/clasificaciones/Clasificaciones_EO_Team_Qualifications.php");
 
 /**
  * Created by PhpStorm.
@@ -147,7 +147,7 @@ class EuropeanOpen_Team_Qualification extends Competitions {
      * @param {object} $manga
      * @return {Resultados} instance of requested Resultados object
      */
-    public function getResultadosInstance($file,$prueba,$jornada,$manga) {
+    protected function getResultadosObject($file,$prueba,$jornada,$manga) {
         return new Resultados_EO_Team_Qualifications($file,$prueba,$jornada,$manga);
     }
 
@@ -160,7 +160,7 @@ class EuropeanOpen_Team_Qualification extends Competitions {
      * @param {integer} $perro Dog ID to evaluate position ( if any )
      * @return {Resultados} instance of requested Resultados object
      */
-    public function getClasificacionesInstance($file,$prueba,$jornada,$perro) {
+    protected function getClasificacionesObject($file,$prueba,$jornada,$perro) {
         return new Clasificaciones_EO_Team_Qualifications($file,$prueba,$jornada,$perro);
     }
 }

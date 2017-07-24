@@ -22,7 +22,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__ . "/../../tools.php");
 require_once(__DIR__ . "/../../logging.php");
-require_once(__DIR__ . "/../../../modules/Federations.php");
+require_once(__DIR__ . "/../../modules/Federations.php");
 require_once(__DIR__ . '/../../database/classes/Entrenamientos.php');
 require_once(__DIR__ . "/../common_writer.php");
 

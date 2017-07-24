@@ -9,9 +9,9 @@ class NAT4 extends Federations {
             'Name'  => 'Nat-4',
             'LongName' => 'Competiciones nacionales - 4 alturas',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => '/agility/modules/federaciones/nat4/uca.png',
-            'Logo'     => '/agility/modules/federaciones/nat4/uca.png',
-            'ParentLogo'   => '/agility/modules/federaciones/nat4/rfec.png',
+            'OrganizerLogo'     => '/agility/server/modules/federaciones/nat4/uca.png',
+            'Logo'     => '/agility/server/modules/federaciones/nat4/uca.png',
+            'ParentLogo'   => '/agility/server/modules/federaciones/nat4/rfec.png',
             'WebURL' => 'http://www.agilityuca.org/',
             'ParentWebURL' => 'http://www.fecaza.com/',
             'Email' => '',

@@ -18,7 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php
 require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/auth/Config.php");
-require_once(__DIR__ . "/../../modules/Federations.php");
+require_once(__DIR__ . "/../../server/modules/Federations.php");
 $config =Config::getInstance();
 // retrieve federation info
 $f=intval(http_request("Federation","i",0));

@@ -9,9 +9,9 @@ class RFEC extends Federations {
             'Name'  => 'RFEC',
             'LongName' => 'Real Federacion Española de Caza',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => '/agility/modules/federaciones/rfec/rfec.png',
-            'Logo'     => '/agility/modules/federaciones/rfec/rfec.png',
-            'ParentLogo'   => '/agility/modules/federaciones/rfec/csd.png',
+            'OrganizerLogo'     => '/agility/server/modules/federaciones/rfec/rfec.png',
+            'Logo'     => '/agility/server/modules/federaciones/rfec/rfec.png',
+            'ParentLogo'   => '/agility/server/modules/federaciones/rfec/csd.png',
             'WebURL' => 'http://www.fecaza.com/',
             'ParentWebURL' => 'http://www.csd.gob.es/',
             'Email' => 'yvonneagility@fecaza.com',

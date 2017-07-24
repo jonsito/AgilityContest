@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__."/../database/classes/DBObject.php");
-require_once(__DIR__."/../../modules/Federations.php");
-require_once(__DIR__."/../../modules/Competitions.php");
+require_once(__DIR__ . "/../modules/Federations.php");
+require_once(__DIR__ . "/../modules/Competitions.php");
 /*
 MacroParser.php
 

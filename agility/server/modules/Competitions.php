@@ -21,12 +21,12 @@ $dummy= _('Points');
 $dummy= _('Stars');
 $dummy= _('KC_ID'); // LOE_RRC ( also exists 'KC id' that goes to 'LOE/RRC' )
 
-require_once(__DIR__."/Federations.php");
-require_once(__DIR__."/../server/database/classes/Clasificaciones.php");
-require_once(__DIR__."/../server/database/classes/Resultados.php");
-require_once(__DIR__."/../server/database/classes/OrdenSalida.php");
-require_once(__DIR__."/competiciones/lib/ordensalida/OrdenSalida_KO.php");
-require_once(__DIR__."/competiciones/lib/resultados/Resultados_KO.php");
+require_once(__DIR__ . "/Federations.php");
+require_once(__DIR__ . "/../database/classes/Clasificaciones.php");
+require_once(__DIR__ . "/../database/classes/Resultados.php");
+require_once(__DIR__ . "/../database/classes/OrdenSalida.php");
+require_once(__DIR__ . "/competiciones/lib/ordensalida/OrdenSalida_KO.php");
+require_once(__DIR__ . "/competiciones/lib/resultados/Resultados_KO.php");
 
 /*
  * This class handles every available kind of competitions on each federations
@@ -245,12 +245,31 @@ class Competitions {
      * @param {object} $manga
      * @return {OrdenSalida} instance of requested OrdenSalida object
      */
-    public function getOrdenSalidaInstance($file,$prueba,$jornada,$manga) {
+    protected function getOrdenSalidaObject($file,$prueba,$jornada,$manga) {
         // la gestion del orden de salida en una manga KO es comun a todas las competiciones
         if ( in_array ($manga->Tipo, array(15,18,19,20,21,22,23,24) ) ) {
             return new OrdenSalida_KO($file,$prueba,$jornada,$manga);
         }
         return new OrdenSalida($file,$prueba,$jornada,$manga);
+    }
+
+    /**
+     * Instead of using direct constructor use factory to get proper instance of ordensalida
+     * By this way we can override main function to rewrite clone/random/reverse and so methods
+     * to be used in special rounds
+     *
+     * @param {string} $file Filename to be used in debug functions
+     * @param {integer} $manga Manga ID
+     * @return {class} OrdenSalida instance
+     */
+    public static function getOrdenSalidaInstance($file="OrdenSalida",$manga) {
+        $dbobj=new DBObject($file);
+        $mangaobj=$dbobj->__getObject("Mangas",$manga);
+        $jornadaobj=$dbobj->__getObject("Jornadas",$mangaobj->Jornada);
+        $pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
+        // retrieve OrdenSalida handler from competition module
+        $compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
+        return $compobj->getOrdenSalidaObject($file,$pruebaobj,$jornadaobj,$mangaobj);
     }
 
     /**
@@ -263,13 +282,31 @@ class Competitions {
      * @param {object} $manga
      * @return {Resultados} instance of requested Resultados object
      */
-    public function getResultadosInstance($file,$prueba,$jornada,$manga) {
+    protected function getResultadosObject($file,$prueba,$jornada,$manga) {
         // la gestion del orden de salida en una manga KO es comun a todas las competiciones
         if ( in_array ($manga->Tipo, array(15,18,19,20,21,22,23,24) ) ) {
             $os=$this->getOrdenSalidaInstance($file,$prueba,$jornada,$manga);
             return new Resultados_KO($file,$prueba,$jornada,$manga,$os);
         }
         return new Resultados($file,$prueba,$jornada,$manga);
+    }
+
+    /**
+     * Retrieve proper object of class Resultados
+     * Place factory here instead of resultados file to avoid circular require_once issue
+     *
+     * @param {string} $file Filename to be used in debug functions
+     * @param {integer} $manga Manga ID
+     * @return {class} Resultados instance
+     */
+    public static function getResultadosInstance($file="Resultados",$manga) {
+        $dbobj=new DBObject($file);
+        $mangaobj=$dbobj->__getObject("Mangas",$manga);
+        $jornadaobj=$dbobj->__getObject("Jornadas",$mangaobj->Jornada);
+        $pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
+        // retrieve OrdenSalida handler from competition module
+        $compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
+        return $compobj->getResultadosObject($file,$pruebaobj,$jornadaobj,$mangaobj);
     }
 
     /**
@@ -281,9 +318,28 @@ class Competitions {
      * @param {integer} $perro Dog ID to evaluate position ( if any )
      * @return {Resultados} instance of requested Resultados object
      */
-    public function getClasificacionesInstance($file,$prueba,$jornada,$perro) {
+    protected function getClasificacionesObject($file,$prueba,$jornada,$perro) {
         return new Clasificaciones($file,$prueba,$jornada,$perro);
     }
+
+    /**
+     * Instead of using direct constructor use factory to get proper instance of ordensalida
+     * By this way we can override main function to rewrite clone/random/reverse and so methods
+     * to be used in special rounds
+     *
+     * @param {string} $file Filename to be used in debug functions
+     * @param {integer} $jornada Jornada ID
+     * @return {class} Resultados instance
+     */
+    public static function getClasificacionesInstance($file="Clasificaciones",$jornada,$perro=0) {
+        $dbobj=new DBObject($file);
+        $jornadaobj=$dbobj->__getObject("Jornadas",$jornada);
+        $pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
+        // retrieve OrdenSalida handler from competition module
+        $compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
+        return $compobj->getClasificacionesObject($file,$pruebaobj,$jornadaobj,$perro);
+    }
+
     /**************************************** static functions comes here *************************************/
 
     /**

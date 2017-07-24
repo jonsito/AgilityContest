@@ -52,7 +52,7 @@ class EuropeanOpen_Individual_Final extends Competitions {
      * @param {object} $manga
      * @return {OrdenSalida} instance of requested OrdenSalida object
      */
-    public function getOrdenSalidaInstance($file,$prueba,$jornada,$manga) {
+    protected function getOrdenSalidaObject($file,$prueba,$jornada,$manga) {
         return new OrdenSalida_EO_Final($file,$prueba,$jornada,$manga);
     }
 }

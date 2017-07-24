@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__."/../competiciones/lib/resultados/Resultados_EO_Team_Final.php");
+require_once(__DIR__ . "/../competiciones/lib/resultados/Resultados_EO_Team_Final.php");
 
 /**
  * Created by PhpStorm.
@@ -38,7 +38,7 @@ class EuropeanOpen_Team_Final extends Competitions {
      * @param {object} $manga
      * @return {Resultados} instance of requested Resultados object
      */
-    public function getResultadosInstance($file,$prueba,$jornada,$manga) {
+    protected function getResultadosObject($file,$prueba,$jornada,$manga) {
         return new Resultados_EO_Team_Final($file,$prueba,$jornada,$manga);
     }
 

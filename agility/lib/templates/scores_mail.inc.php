@@ -133,7 +133,7 @@ $config =Config::getInstance();
             $('#scores_email-SendToFederation').prop('checked',false);
             // retrieve default email address to contact federation
             $.ajax({
-                url:"/agility/modules/moduleFunctions.php",
+                url:"/agility/server/modules/moduleFunctions.php",
                 dataType:'json',
                 data: {
                     Operation: 'moduleinfo',

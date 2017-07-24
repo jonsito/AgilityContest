@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__."/Liga_RFEC.php");
+require_once(__DIR__ . "/Liga_RFEC.php");
 
 /*
 Liga_RFEC.php

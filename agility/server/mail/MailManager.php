@@ -459,7 +459,7 @@ class MailManager {
             if ($j['ID']!=$this->myData['Jornada']) continue;
             set_time_limit($timeout);
             // clasificacion final
-            $cobj=Clasificaciones::getInstance("EmailClasificaciones",$this->jornadaObj->ID);
+            $cobj=Competitions::getClasificacionesInstance("EmailClasificaciones",$this->jornadaObj->ID);
             foreach($j['Series'] as $s) {
                 $mangas=array(
                     intval($s['Manga1']), intval($s['Manga2']), intval($s['Manga3']), intval($s['Manga4']),
@@ -498,7 +498,7 @@ class MailManager {
                 // $m['ID'] es de la forma "mangaid,mode"; el ID viene en $m['Manga']
                 $mngobj= new Mangas("EmailResultadosByManga",$this->myData['Jornada']);
                 $manga=$mngobj->selectByID($m['Manga']);
-                $resobj= Resultados::getInstance("EmailResultadosByManga",$m['Manga']);
+                $resobj= Competitions::getResultadosInstance("EmailResultadosByManga",$m['Manga']);
                 $pdf=null;
                 switch(intval($m['TipoManga'])) {
                     // miramos si es una prueba por equipos

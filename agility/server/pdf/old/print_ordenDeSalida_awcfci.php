@@ -64,7 +64,7 @@ class OrdenDeSalida extends PrintCommon {
 		$m = new Mangas("printOrdenDeSalida",$jornada);
 		$this->manga= $m->selectByID($manga);
 		// Datos del orden de salida
-		$o = OrdenSalida::getInstance("printOrdenDeSalida",$manga);
+		$o = Competitions::getOrdenSalidaInstance("printOrdenDeSalida",$manga);
 		$os= $o->getData();
 		$this->orden=$os['rows'];
 		$this->categoria="L";
@@ -231,7 +231,7 @@ try {
 	$manga=http_request("Manga","i",0);
 	$categorias=http_request("Categorias","s","-");
 	// 	Creamos generador de documento
-	$pdf = OrdenSalida::getInstance($prueba,$jornada,$manga,$categorias);
+	$pdf = Competitions::getOrdenSalidaInstance($prueba,$jornada,$manga,$categorias);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("ordenDeSalida.pdf","D"); // "D" means open download dialog	

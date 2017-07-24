@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__."/../../server/database/classes/DBObject.php");
+require_once(__DIR__ . "/../../database/classes/DBObject.php");
 /*
 Liga_RFEC.php
 

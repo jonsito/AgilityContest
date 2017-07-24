@@ -111,7 +111,7 @@ class Equipos extends DBObject {
         $mng=$this->__select("*","Mangas","(Jornada=$jornada)","","");
         foreach($mng['rows'] as $manga) {
             $this->myLogger->trace("Insertando al equipo $insert_id en Orden_Equipos jornada:$jornada manga:{$manga['ID']}");
-            $osobj=OrdenSalida::getInstance("Equipos::insert",$manga['ID']);
+            $osobj=Competitions::getOrdenSalidaInstance("Equipos::insert",$manga['ID']);
             // add team to Orden_Equipos in every related mangas
             $osobj->insertIntoTeamList($insert_id);
         }
@@ -172,7 +172,7 @@ class Equipos extends DBObject {
         $mng=$this->__select("*","Mangas","(Jornada=$jornada)","",""); // list of mangas for this jornada
         foreach($mng['rows'] as $manga) {
             $this->myLogger->trace("Eliminando el equipo:$id de Orden_Equipos jornada:$jornada manga:{$manga['ID']}");
-            $osobj=OrdenSalida::getInstance("Equipos::remove",$manga['ID']);
+            $osobj=Competitions::getOrdenSalidaInstance("Equipos::remove",$manga['ID']);
             // add team to Orden_Equipos in every related mangas
             $osobj->removeFromTeamList($id);
         }

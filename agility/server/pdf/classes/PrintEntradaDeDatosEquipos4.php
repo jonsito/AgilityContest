@@ -71,7 +71,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         // guardamos info de la manga
         $this->manga=$this->myDBObject->__getObject("Mangas",$data['manga']);
         // Datos del orden de salida de equipos
-        $m = OrdenSalida::getInstance("entradaDeDatosEquipos4",$data['manga']);
+        $m = Competitions::getOrdenSalidaInstance("entradaDeDatosEquipos4",$data['manga']);
         $teams= $m->getTeams();
         $this->equipos=$teams['rows'];
         // anyadimos el array de perros del equipo

@@ -50,10 +50,10 @@ function borraPerroDeJornada($inscripcion,$jornada) {
 	$perro=$inscripcion['Perro'];
 	foreach($mangas['rows'] as $manga) {
 		// eliminamos el perro del orden de salida de todas las mangas de esta jornada
-		$os=OrdenSalida::getInstance("borraPerroDeJornada",$manga['ID']);
+		$os=Competitions::getOrdenSalidaInstance("borraPerroDeJornada",$manga['ID']);
 		$os->removeFromList($perro);
 		// eliminamos el perro de la tabla de resultados de todas las mangas de esta jornada
-		$rs=Resultados::getInstance("borraPerroDeJornada",$manga['ID']);
+		$rs=Competitions::getResultadosInstance("borraPerroDeJornada",$manga['ID']);
 		$rs->delete($perro);
 	}
 }
@@ -134,7 +134,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 		}
 		
 		// Verificamos el orden de salida de la manga	
-		$os=OrdenSalida::getInstance("inscribePerroEnJornada",$manga['ID']);
+		$os=Competitions::getOrdenSalidaInstance("inscribePerroEnJornada",$manga['ID']);
 		$orden=$os->getOrden();
 		// $myLogger->info("OrdenDeSalida Prueba:$p Jornada:$j Manga:$mid Tipo:$mtype Grado:$mgrado es:\n$orden");
 		if ($inscribir==false) {
@@ -148,7 +148,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 		$myLogger->info("Nuevo OrdenDeSalidada: \n$orden");
 		
 		// verificamos la tabla de resultados de esta manga
-		$rs=Resultados::getInstance("inscribePerroEnJornada::Resultados",$mid);
+		$rs=Competitions::getResultadosInstance("inscribePerroEnJornada::Resultados",$mid);
 		if ($inscribir==false) {
 			$myLogger->info("Borrando Perro:$idperro Grado:$g de Resultados manga:$mid");
 			// borramos entrada del perro en la tabla de resultados de la manga

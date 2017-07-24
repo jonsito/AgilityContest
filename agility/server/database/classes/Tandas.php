@@ -17,7 +17,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 require_once("DBObject.php");
-require_once(__DIR__."/../../../modules/Federations.php");
+require_once(__DIR__ . "/../../modules/Federations.php");
 require_once("OrdenSalida.php");
 require_once("Clubes.php");
 
@@ -502,7 +502,7 @@ class Tandas extends DBObject {
 			if ($manga!=$tanda['Manga']) { // cambio de manga
 				$manga=$tanda['Manga'];
 				// en cada manga cogemos  los perros ordenados segun el orden de salida
-				$os=OrdenSalida::getInstance("Tandas::getListaPerros()",$manga);
+				$os=Competitions::getOrdenSalidaInstance("Tandas::getListaPerros()",$manga);
 				$perrosmanga=$os->getData(false); // false: do not include extra team information row
 			}
 			// OK ya tenemos la lista ordenada de los perros de cada manga

@@ -53,7 +53,7 @@ try {
 	}
 	if (($p<=0) || ($j<=0) || ($m<=0)) 
 		throw new Exception("Call to ordenSalidaFunctions with Invalid Prueba:$p Jornada:$j or manga:$m ID");
-	$os=OrdenSalida::getInstance($file,$m);
+	$os=Competitions::getOrdenSalidaInstance($file,$m);
 	switch ($operation) {
 		case "random": $am->access(PERMS_OPERATOR);	$result = $os->random($catmode); break;
 		case "reverse": $am->access(PERMS_OPERATOR); $result = $os->reverse($catmode); break;

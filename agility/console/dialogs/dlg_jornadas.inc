@@ -364,7 +364,7 @@ $config =Config::getInstance();
         method: 'get',
         mode: 'remote',
         required: true,
-        url:'/agility/modules/moduleFunctions.php',
+        url:'/agility/server/modules/moduleFunctions.php',
         onChange:function(newval,oldval) {
             $('#jornadas-Tipo_Competicion').val(newval);
         },

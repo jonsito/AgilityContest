@@ -27,7 +27,7 @@ header('Set-Cookie: fileDownload=true; path=/');
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../auth/Config.php");
-require_once(__DIR__.'/../../modules/Federations.php');
+require_once(__DIR__ . '/../modules/Federations.php');
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 require_once(__DIR__.'/classes/PrintEtiquetasCSV.php');
@@ -57,7 +57,7 @@ try {
 	$dbobj=new DBObject("print_etiquetas_csv");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("Pruebas",$prueba);
-	$c= Clasificaciones::getInstance("print_etiquetas_csv",$jornada);
+	$c= Competitions::getClasificacionesInstance("print_etiquetas_csv",$jornada);
 	$result=array();
 	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
 	switch($mng->Recorrido) {

@@ -73,7 +73,7 @@ class excel_ordenSalida extends XLSX_Writer {
         $m = new Mangas("excel_OrdenDeSalida",$jornada);
         $this->manga= $m->selectByID($manga);
         // orden de salida de los perros
-        $o = OrdenSalida::getInstance("excel_OrdenDeSalida",$manga);
+        $o = Competitions::getOrdenSalidaInstance("excel_OrdenDeSalida",$manga);
         $os= $o->getData();
         $this->orden=$os['rows'];
         // orden de salida de los equipos de la jornada

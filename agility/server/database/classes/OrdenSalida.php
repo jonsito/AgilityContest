@@ -17,8 +17,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 require_once("DBObject.php");
-require_once(__DIR__."/../../../modules/Federations.php");
-require_once(__DIR__."/../../../modules/Competitions.php");
+require_once(__DIR__ . "/../../modules/Federations.php");
+require_once(__DIR__ . "/../../modules/Competitions.php");
 require_once("Resultados.php");
 
 class OrdenSalida extends DBObject {
@@ -590,7 +590,7 @@ class OrdenSalida extends DBObject {
 	protected function invierteResultados($from,$mode,$catmode) {
 
         // FASE 1: invertimos orden de salida de perros
-		$r =Resultados::getInstance("OrdenSalida::invierteResultados",$from->ID);
+		$r =Competitions::getResultadosInstance("OrdenSalida::invierteResultados",$from->ID);
 		$res=$r->getResultadosIndividual($mode);
         $data=$res['rows'];
 		$size= count($data);
@@ -704,25 +704,6 @@ class OrdenSalida extends DBObject {
             $dorsal++;
         }
     }
-
-    /**
-	 * Instead of using direct constructor use factory to get proper instance of ordensalida
-	 * By this way we can override main function to rewrite clone/random/reverse and so methods
-	 * to be used in special rounds
-	 *
-     * @param {string} $file Filename to be used in debug functions
-     * @param {integer} $manga Manga ID
-     * @return {class} OrdenSalida instance
-     */
-    public static function getInstance($file="OrdenSalida",$manga) {
-    	$dbobj=new DBObject($file);
-    	$mangaobj=$dbobj->__getObject("Mangas",$manga);
-    	$jornadaobj=$dbobj->__getObject("Jornadas",$mangaobj->Jornada);
-    	$pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
-		// retrieve OrdenSalida handler from competition module
-		$compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
-		return $compobj->getOrdenSalidaInstance($file,$pruebaobj,$jornadaobj,$mangaobj);
-	}
 
 } // class
 

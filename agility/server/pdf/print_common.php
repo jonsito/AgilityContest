@@ -22,7 +22,7 @@ require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
-require_once(__DIR__.'/../../modules/Federations.php');
+require_once(__DIR__ . '/../modules/Federations.php');
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Jornadas.php');
 require_once(__DIR__.'/../database/classes/Mangas.php');

@@ -1,52 +1,53 @@
 <?php
-class NAT3 extends Federations {
+class INTL3 extends Federations {
 
     function __construct() {
         parent::__construct();
         // combine global data with specific data for this federation
         $this->config= array_merge ($this->config, array(
-            'ID'    => 3,
-            'Name'  => 'Nat-3',
-            'LongName' => 'Competiciones nacionales - 3 alturas',
+            'ID'    => 9,
+            'Name'  => 'Intl-3',
+            'LongName' => 'International Contest - 3 heights',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'        => '/agility/modules/federaciones/nat3/pirineos_dog_festival.png',
-            'Logo'        => '/agility/modules/federaciones/nat3/almozara.png',
-            'ParentLogo'  => '/agility/modules/federaciones/nat3/almozara.png',
-            'WebURL' => 'http://www.pirineosdogfestival.org',
-            'ParentWebURL' => 'http://www.clubagilitylalmozara.com/',
-            'Email' => 'info@pirineosdogfestival.com',
+            'OrganizerLogo'        => '/agility/server/modules/federaciones/intl3/fciawc2016.png',
+            'Logo'        => '/agility/server/modules/federaciones/intl3/rsce.png',
+            'ParentLogo'  => '/agility/server/modules/federaciones/intl3/fci.png',
+            'WebURL' => 'http://www.fci.org',
+            'ParentWebURL' => 'http://www.fci.org',
+            'Email' => 'info@fci.be',
             'Heights' => 3,
             'Grades' => 3,
-            'International' => 0,
+            'International' => 1,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2,
-            'Recorridos' => array("Recorrido comun","Large / Med + Small","Recorridos separados"),
+            'Recorridos' => array('Common course',"Large / Med + Small","Separate courses"),
             'ListaGradosShort' => array(
                 '-' => '-',
+                'Jr' => 'Jr.',
+                'Sr' => 'Sr.',
                 'Baja' => 'Out',
-                // 'Jr' => 'Jr.',
-                // 'Sr' => 'Sr.',
-                'GI' => 'G1',
-                'GII'=> 'G2',
-                'GIII' => 'G3',
-                'P.A.' => 'P.A.',
-                'P.B.' => 'P.B.', // "Test dog"
+                'GI' => 'A1',
+                'GII'=> 'A2',
+                'GIII' => 'A3',
+                'P.A.' => 'A0',
+                'P.B.' => 'T.d.', // "Test dog"
                 'Ret.' => 'Ret.'
             ),
             'ListaGrados'    => array (
                 '-' => 'Individual',
-                // 'Jr' => 'Junior',
-                // 'Sr' => 'Senior',
-                'GI' => 'Grado I',
-                'GII'=> 'Grado II',
-                'GIII' => 'Grado III',
+                'Jr' => 'Junior',
+                'Sr' => 'Senior',
+                'GI' => 'Grade I',
+                'GII'=> 'Grade II',
+                'GIII' => 'Grade III',
                 'P.A.' => 'Pre-Agility',
-                'P.B.' => 'Perro en Blanco',
-                'Baja' => 'Baja temporal',
-                'Ret.' => 'Retirado',
+                'P.B.' => 'Test dog',
+                'Baja' => 'Temporary out',
+                'Ret.' => 'Retired',
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',
+                // 'E' => 'Extra',
                 'L' => 'Large',
                 'M' => 'Med',
                 'S' => 'Small',
@@ -54,7 +55,7 @@ class NAT3 extends Federations {
             ),
             'ListaCategorias' => array (
                 '-' => '-',
-                // 'E' => 'Extra Large',
+                // 'E' => 'Extra',
                 'L' => 'Large',
                 'M' => 'Medium',
                 'S' => 'Small',
@@ -62,11 +63,11 @@ class NAT3 extends Federations {
             ),
             'ListaCatGuias' => array (
                 '-' => 'Not specified',
-                //'I' => 'Infantil',
+                'I' => 'Children',
                 'J' => 'Junior',
-                'A' => 'Adulto',
+                'A' => 'Adult',
                 'S' => 'Senior',
-                'R' => 'Retirado',
+                'R' => 'Retired',
                 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(

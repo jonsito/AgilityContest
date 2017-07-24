@@ -394,7 +394,7 @@ var ac_fedInfo={};
 function getFederationInfo() {
 	$.ajax({
 		type: "GET",
-		url: '/agility/modules/moduleFunctions.php',
+		url: '/agility/server/modules/moduleFunctions.php',
 		data: {	'Operation' : 'list' },
 		async: true,
 		cache: false,
@@ -755,7 +755,7 @@ function setJornada(data) {
 	workingData.nombreJornada=data.Nombre;
 	workingData.datosJornada=data;
     $.ajax({
-        url:"/agility/modules/moduleFunctions.php",
+        url:"/agility/server/modules/moduleFunctions.php",
         dataType:'json',
         data: {
             Operation: 'moduleinfo',

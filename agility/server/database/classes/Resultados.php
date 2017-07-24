@@ -18,8 +18,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 require_once(__DIR__."/DBObject.php");
-require_once(__DIR__."/../../../modules/Federations.php");
-require_once(__DIR__."/../../../modules/Competitions.php");
+require_once(__DIR__ . "/../../modules/Federations.php");
+require_once(__DIR__ . "/../../modules/Competitions.php");
 require_once(__DIR__."/OrdenSalida.php");
 require_once(__DIR__."/Mangas.php");
 require_once(__DIR__."/Jornadas.php");
@@ -288,7 +288,7 @@ class Resultados extends DBObject {
         foreach ($lst['rows'] as $mng) {
             $jid=$mng['Jornada'];
             $mid=$mng['ID'];
-            $subRes=Resultados::getInstance("reset round:$mid on journey:$jid childOf:{$this->IDJornada}",$mid);
+            $subRes=Competitions::getResultadosInstance("reset round:$mid on journey:$jid childOf:{$this->IDJornada}",$mid);
             $res=$subRes->reset($catsmode);
             if ($res!="") return $this->error($res);
         }
@@ -350,7 +350,7 @@ class Resultados extends DBObject {
         foreach ($lst['rows'] as $mng) {
             $jid=$mng['Jornada'];
             $mid=$mng['ID'];
-            $subRes=Resultados::getInstance("swap round:$mid on journey:$jid childOf:{$this->IDJornada}",$mid);
+            $subRes=Competitions::getResultadosInstance("swap round:$mid on journey:$jid childOf:{$this->IDJornada}",$mid);
             $res=$subRes->swapMangas($cats);
             if ($res!="") return $this->error($res);
         }
@@ -436,7 +436,7 @@ class Resultados extends DBObject {
         foreach ($lst['rows'] as $mng) {
             $jid=$mng['Jornada'];
             $mid=$mng['ID'];
-            $subRes=Resultados::getInstance("update round:$mid on journey:$jid childOf:{$this->IDJornada}",$mid);
+            $subRes=Competitions::getResultadosInstance("update round:$mid on journey:$jid childOf:{$this->IDJornada}",$mid);
             $res=$subRes->update($idperro);
             if (is_string($res)) return $this->error($res);
         }

@@ -40,7 +40,7 @@ try {
 
     $mngobj= new Mangas("printResultadosByManga",$idjornada);
     $manga=$mngobj->selectByID($idmanga);
-    $resobj= Resultados::getInstance("printResultadosByManga",$idmanga);
+    $resobj= Competitions::getResultadosInstance("printResultadosByManga",$idmanga);
 
     // 	Creamos generador de documento
     $pdf=new PrintResultadosByEquipos4($idprueba,$idjornada,$manga,$resobj,$mode);

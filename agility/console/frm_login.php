@@ -108,7 +108,7 @@ $('#login-Federation').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'LongName',
-	url: '/agility/modules/moduleFunctions.php?Operation=enumerate',
+	url: '/agility/server/modules/moduleFunctions.php?Operation=enumerate',
 	method: 'get',
 	mode: 'remote',
 	required: true,

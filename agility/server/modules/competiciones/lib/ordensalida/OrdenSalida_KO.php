@@ -33,7 +33,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * En el metodo getData() no se ordenan por equipos (pues no hay equipos), pero se agrupan de dos en dos
  *
  */
-require_once(__DIR__."/../../../../server/database/classes/OrdenSalida.php");
+require_once(__DIR__ . "/../../../../database/classes/OrdenSalida.php");
 
 class OrdenSalida_KO extends OrdenSalida {
 
@@ -328,7 +328,7 @@ class OrdenSalida_KO extends OrdenSalida {
         } else {        // if $orden==false sort results by starting order checking winner on each pair round
 
             // retrieve results in starting order with no pair separators and no cats
-            $mobj=OrdenSalida::getInstance("getParentResults()",$pmanga->ID);
+            $mobj=Competitions::getOrdenSalidaInstance("getParentResults()",$pmanga->ID);
             $data=$mobj->getData(false,8,null);
 
             // evaluate PRecorrido

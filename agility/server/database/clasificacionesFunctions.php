@@ -27,7 +27,7 @@ try {
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
     $perro= http_request("Perro","i",0); // used to evaluate puesto or time to get first
     $op=http_request("Operation","s","clasificacionIndividual");
-	$c= Clasificaciones::getInstance("clasificacionesFunctions",$jornada,$perro);
+	$c= Competitions::getClasificacionesInstance("clasificacionesFunctions",$jornada,$perro);
 	switch($op) {
 		case "clasificacionIndividual":
 			$mangas=array();
