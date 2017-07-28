@@ -28,6 +28,7 @@ require_once(__DIR__."/classes/OrdenSalida.php");
 require_once(__DIR__."/classes/Resultados.php");
 require_once(__DIR__."/classes/Dogs.php");
 require_once(__DIR__."/classes/Equipos.php");
+require_once(__DIR__."/classes/Inscripciones.php");
 
 /* 
  * Cada vez que se anyade/borra/edita una inscripcion, se ejecuta este script, que ajusta los datos

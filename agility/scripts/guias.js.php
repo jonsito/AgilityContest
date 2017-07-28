@@ -133,6 +133,24 @@ function editGuia(dg){
     $('#guias-okBtn').one('click',reload_guiasDatagrid);
 }
 
+function editGuiaFromPerros(){ // editar guia desde el dialogo de edicion de perros
+    var r=$('#perros-Guia').combogrid('grid').datagrid('getSelected');
+    if (!r) return; // no handler selected, cannot edit :-)
+    $('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('Modify handler data'); ?>'+' - '+fedName(workingData.federation));
+    // add extra required parameters to dialog
+    $('#guias-Operation').val('update');
+    // stupid trick to make dialog's clubs combogrid display right data
+    $('#guias-form').form('load',r); // load row data into guia edit form
+
+    // on accept, display correct data in modify dog data
+    $('#guias-okBtn').one('click',function(){
+        var cname=$('#guias-Club').combogrid('grid').datagrid('getSelected');
+        if (!cname) return;
+        $("#perros-Guia").combogrid('grid').datagrid('reload',{Operation:'enumerate',Federation:workingData.federation});
+        $('#perros-Club').textbox('setValue',cname.Nombre);
+    });
+}
+
 /**
  * Borra de la BBDD los datos del guia seleccionado. 
  * Invocada desde el menu de guias

@@ -82,8 +82,14 @@ $config =Config::getInstance();
             <div class="fitem">
                 <label for="perros-Guia"><?php _e('Handler'); ?>:</label>
                 <select id="perros-Guia" name="Guia" style="width:225px" class="easyui-combogrid"></select>
-            	<a id="perros-newGuiaBtn" href="#" class="easyui-linkbutton" 
-            		data-options="iconCls:'icon-users'" style="float:right"><?php _e('New handler'); ?></a>
+                <a id="perros-newGuiaBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-users'" style="float:right"><?php _e('New handler'); ?></a>
+            </div>
+            <div class="fitem">
+                <label for="perros-Guia"><?php _e('Club'); ?>:</label>
+                <input id="perros-Club" name="Club" style="width:225px"/>
+                <a id="perros-editGuiaBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-edit'" style="float:right"><?php _e('Edit handler'); ?></a>
             </div>
         </form>
         <span id="perros-warning">
@@ -120,7 +126,8 @@ $config =Config::getInstance();
     // - botones
 	addTooltip($('#perros-okBtn').linkbutton(),'<?php _e("Register dog information. Update database"); ?>');
 	addTooltip($('#perros-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
-	addTooltip($('#perros-newGuiaBtn').linkbutton(),'<?php _e("Register a new handler"); ?>');
+    addTooltip($('#perros-newGuiaBtn').linkbutton(),'<?php _e("Register a new handler"); ?>');
+    addTooltip($('#perros-editGuiaBtn').linkbutton(),'<?php _e("Edit current handler"); ?>');
 	$('#perros-newGuiaBtn').bind('click',function() {
         newGuia(
             $('#perros-Guia').combogrid('getText'), // default name
@@ -128,7 +135,10 @@ $config =Config::getInstance();
             	$('#perros-Guia').combogrid('reset');
             });
     });
-    
+    $('#perros-editGuiaBtn').bind('click',function() {
+         editGuiaFromPerros();
+    });
+
     // campos del formulario
     $('#perros-dialog').dialog({
         modal:true,
@@ -152,6 +162,11 @@ $config =Config::getInstance();
     $('#perros-Licencia').textbox();
     $('#perros-Genero').combobox();
 
+    $('#perros-Club').textbox({
+        required:false,
+        readonly:true,
+        disabled:true
+    });
     $('#perros-Grados_Perro').combobox({
 		panelHeight: 'auto',
     	valueField:'Grado',
@@ -207,6 +222,10 @@ $config =Config::getInstance();
 		]],
 		multiple: false,
 		fitColumns: true,
-		selectOnNavigation: false
+		selectOnNavigation: false,
+        onChange: function (newval,oldval) {
+		    var r=$('#perros-Guia').combogrid('grid').datagrid('getSelected');
+            if (r) $('#perros-Club').textbox('setValue',r.NombreClub);
+        }
     });
     </script>
