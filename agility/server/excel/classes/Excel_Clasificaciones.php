@@ -199,12 +199,14 @@ class Excel_Clasificaciones extends XLSX_Writer {
 			$row[]=$perro['T1']; // manga 1: tiempo
 			$row[]=$perro['P1']; // manga 1: penalizacion
 			// resultados manga 2
-			$row[]=$perro['F2']; // Manga 2: faltas + tocados
-			$row[]=$perro['R2']; // Manga 2: rehuses
-			$row[]=$perro['E2']; // Manga 2: eliminado
-			$row[]=$perro['N2']; // manga 2: no presentado
-			$row[]=$perro['T2']; // manga 2: tiempo
-			$row[]=$perro['P2']; // manga 2: penalizacion
+            $flag=false;
+            if (array_key_exists('F2',$perro)) $flag=true;
+			$row[]=($flag)? $perro['F2']:'-'; // Manga 2: faltas + tocados
+			$row[]=($flag)? $perro['R2']:'-'; // Manga 2: rehuses
+			$row[]=($flag)? $perro['E2']:'-'; // Manga 2: eliminado
+			$row[]=($flag)? $perro['N2']:'-'; // manga 2: no presentado
+			$row[]=($flag)? $perro['T2']:'-'; // manga 2: tiempo
+			$row[]=($flag)? $perro['P2']:'-'; // manga 2: penalizacion
 			// datos globales de clasificacion
 			$row[]=$perro['Tiempo'];
 			$row[]=$perro['Penalizacion'];

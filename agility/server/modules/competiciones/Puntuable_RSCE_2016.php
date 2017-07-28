@@ -45,6 +45,16 @@ class Puntuable_RSCE_2016 extends Competitions {
      * @param {array} $puestocat puesto en funcion de la categoria
      */
     public function evalPartialCalification($m,&$perro,$puestocat) {
+        // comprueba que las mangas sean puntuables
+        $flag=false;
+        $tipo=$m->Tipo;
+        if ($tipo==3) $flag=true; // agility G1 primera manga
+        if ($tipo==4) $flag=true; // agility G1 segunda manga
+        if ($tipo==5) $flag=true; // agility G2
+        if ($tipo==6) $flag=true; // agility G3
+        if ($tipo==10) $flag=true;// jumping G3
+        if ($tipo==11) $flag=true;// jumping G3
+        if (!$flag) return parent::evalPartialCalification($m,$perro,$puestocat);
         if ($perro['Grado']!=="GIII") {
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
@@ -95,8 +105,17 @@ class Puntuable_RSCE_2016 extends Competitions {
      * @param {array} $puestocat puesto en funcion de la categoria
      */
     public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat){
-        $grad=$perro['Grado']; // cogemos la categoria
+        $flag=false;
+        $tipo=$mangas[0]->Tipo;
+        if ($tipo==3) $flag=true; // agility G1 primera manga
+        if ($tipo==4) $flag=true; // agility G1 segunda manga
+        if ($tipo==5) $flag=true; // agility G2
+        if ($tipo==6) $flag=true; // agility G3
+        if ($tipo==10) $flag=true;// jumping G3
+        if ($tipo==11) $flag=true;// jumping G3
+        if (!$flag) return parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
 
+        $grad=$perro['Grado']; // cogemos la categoria
         if ($grad==="GI") { // en grado uno se puntua por cada manga
             $pts=0;
             if ($perro['P1']==0.0) $pts++;
@@ -167,6 +186,6 @@ class Puntuable_RSCE_2016 extends Competitions {
             // finalmente componemos el string a presentar
             $perro['Calificacion']=strval($pteam);
         }
-        return; // should be overriden
+        return;
     }
 }

@@ -75,7 +75,16 @@ class Puntuable_RSCE_2017 extends Competitions {
      */
     public function evalPartialCalification($m,&$perro,$puestocat) {
 
-        // en teoria aqui no deberian llegar las mangas de Junior... habra que poner una comprobacion
+        // comprueba que las mangas sean puntuables
+        $flag=false;
+        $tipo=$m->Tipo;
+        if ($tipo==3) $flag=true; // agility G1 primera manga
+        if ($tipo==4) $flag=true; // agility G1 segunda manga
+        if ($tipo==5) $flag=true; // agility G2
+        if ($tipo==6) $flag=true; // agility G3
+        if ($tipo==10) $flag=true;// jumping G3
+        if ($tipo==11) $flag=true;// jumping G3
+        if (!$flag) return parent::evalPartialCalification($m,$perro,$puestocat);
 
         // si estamos en preagility, grado 1 o no tiene cero puntos de penalizacion, utiliza la puntuacion estandard
         if ($perro['Grado']==="P.A.") {
@@ -120,6 +129,17 @@ class Puntuable_RSCE_2017 extends Competitions {
      * @param {array} $puestocat puesto en funcion de la categoria
      */
     public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat){
+        // si las mangas no son puntuables utiliza los criterios de la clase padre
+        $flag=false;
+        $tipo=$mangas[0]->Tipo;
+        if ($tipo==3) $flag=true; // agility G1 primera manga
+        if ($tipo==4) $flag=true; // agility G1 segunda manga
+        if ($tipo==5) $flag=true; // agility G2
+        if ($tipo==6) $flag=true; // agility G3
+        if ($tipo==10) $flag=true;// jumping G3
+        if ($tipo==11) $flag=true;// jumping G3
+        if (!$flag) return parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
+
         $grad=$perro['Grado']; // cogemos la categoria
         if ($grad==="P.A.") {
             parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
