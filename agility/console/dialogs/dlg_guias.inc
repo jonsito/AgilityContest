@@ -95,6 +95,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         });
         $('#guias-dialog').dialog({
         	closed:true,
+            modal:true,
         	buttons:'#guias-dlg-buttons',
         	iconCls:'icon-users'
         });
