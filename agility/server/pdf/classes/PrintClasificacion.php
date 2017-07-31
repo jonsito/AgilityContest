@@ -57,76 +57,104 @@ class PrintClasificacion extends PrintCommon {
 		parent::__construct('Landscape',"print_clasificacion",$prueba,$jornada);
 		$dbobj=new DBObject("print_clasificacion");
 		$this->resultados=$results['rows'];
-        $this->manga1=(($mangas[0]!=0)!=0)?$dbobj->__getObject("Mangas",$mangas[0]):null;
-        $this->manga2=(($mangas[1]!=0)!=0)?$dbobj->__getObject("Mangas",$mangas[1]):null;
-        $this->manga3=(($mangas[2]!=0)!=0)?$dbobj->__getObject("Mangas",$mangas[2]):null;
-        $this->trs1=(($mangas[0]!=0)!=0)?$results['trs1']:null;
-        $this->trs2=(($mangas[1]!=0)!=0)?$results['trs2']:null;
-        $this->trs3=(($mangas[2]!=0)!=0)?$results['trs3']:null;
+        $this->manga1=($mangas[0]!=0)?$dbobj->__getObject("Mangas",$mangas[0]):null;
+        $this->manga2=($mangas[1]!=0)?$dbobj->__getObject("Mangas",$mangas[1]):null;
+        $this->manga3=($mangas[2]!=0)?$dbobj->__getObject("Mangas",$mangas[2]):null;
+        $this->trs1=($mangas[0]!=0)?$results['trs1']:null;
+        $this->trs2=($mangas[1]!=0)?$results['trs2']:null;
+        $this->trs3=($mangas[2]!=0)?$results['trs3']:null;
 		$this->categoria=$this->getModeString(intval($mode));
 		$this->hasGrades=Jornadas::hasGrades($this->jornada);
 	}
 	
 	function print_datosMangas() {
-		$this->setXY(10,40);
-		$this->SetFont($this->getFontName(),'B',9); // bold 9px
-		
-		$jobj=new Jueces("print_Clasificaciones");
-		$juez1=$jobj->selectByID($this->manga1->Juez1);
-		$juez2=$jobj->selectByID($this->manga1->Juez2); // asume mismos jueces en dos mangas
-        $tm1=($this->manga1!==null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $this->categoria:null;
-        $tm2=($this->manga2!==null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $this->categoria:null;
-        $tm3=($this->manga3!==null)?_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)) . " - " . $this->categoria:null;
 
+	    // objeto para buscar jueces
+		$jobj=new Jueces("print_Clasificaciones");
+
+        // imprimimos informacion de la manga
+        $this->setXY(10,40);
 		$this->SetFont($this->getFontName(),'B',11); // bold 9px
 		$this->Cell(80,6,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
-		$this->SetFont($this->getFontName(),'B',9); // bold 9px
-		$this->Cell(20,6,_('Judge')." 1:","LT",0,'L',false);
-		$n=$juez1['Nombre'];
-		$this->Cell(75,6,($n==="-- Sin asignar --")?"":$n,"T",0,'L',false);
-		$this->Cell(20,6,_('Judge')." 2:","T",0,'L',false);
-		$n=$juez2['Nombre'];
-		$this->Cell(80,6,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
-		$this->Ln();
-		// primera manga
-		$trs=$this->trs1;
-		$this->SetFont($this->getFontName(),'B',11); // bold 9px
-		$this->Cell(80,6,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
-		$this->SetFont($this->getFontName(),'B',9); // bold 9px
-		$this->Cell(70,6,$tm1,"LTB",0,'L',false);
-		$this->Cell(25,6,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
-		$this->Cell(25,6,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
-		$this->Cell(25,6,_('SCT').": {$trs['trs']}s","LTB",0,'L',false);
-		$this->Cell(25,6,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
-		$this->Cell(25,6,_('Vel').".: {$trs['vel']}m/s","LTRB",0,'L',false);
-		$this->Ln();
-		// segunda manga
-		if ($this->trs2==null) { $this->Ln(); return; }
-		$trs=$this->trs2;
-		$ronda=$this->getGradoString(intval($this->manga1->Tipo)); // todas las mangas comparten grado
-		$this->SetFont($this->getFontName(),'B',11); // bold 9px
-		$this->Cell(80,6,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
-		$this->SetFont($this->getFontName(),'B',9); // bold 9px
-		$this->Cell(70,6,$tm2,"LTB",0,'L',false);
-		$this->Cell(25,6,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
-		$this->Cell(25,6,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
-		$this->Cell(25,6,_('SCT').": {$trs['trs']}s","LTB",0,'L',false);
-		$this->Cell(25,6,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
-		$this->Cell(25,6,_('Vel').".: {$trs['vel']}m/s","LTBR",0,'L',false);
-		$this->Ln();
-		// tercera manga
-        if ($this->trs3==null) { $this->Ln(); return; }
-		$trs=$this->trs3;
+		$this->Ln(6);
+        $this->Cell(80,6,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
+        $this->Ln(6);
         $ronda=$this->getGradoString(intval($this->manga1->Tipo)); // todas las mangas comparten grado
-        $this->SetFont($this->getFontName(),'B',11); // bold 9px
-        $this->Cell(80,6,"",0,0,'',false);
-        $this->SetFont($this->getFontName(),'B',9); // bold 9px
-        $this->Cell(70,6,$tm3,"LTB",0,'L',false);
-        $this->Cell(25,6,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
-        $this->Cell(25,6,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
-        $this->Cell(25,6,_('SCT').": {$trs['trs']}s","LTB",0,'L',false);
-        $this->Cell(25,6,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
-        $this->Cell(25,6,_('Vel').".: {$trs['vel']}m/s","LTBR",0,'L',false);
+        $this->Cell(80,6,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
+
+        // ahora los datos de cada manga individual
+        // manga 1:
+        if ($this->manga1!=null) {
+            // pintamos los datos de TRS
+            $trs=$this->trs1;
+            $this->setXY(80,40);
+            $this->SetFont($this->getFontName(),'B',10); // bold 9px
+            $this->Cell(90,8,"","LTB",0,'L',false);// caja vacia
+            $this->Cell(20,8,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
+            $this->Cell(20,8,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
+            $this->Cell(25,8,_('SCT').": {$trs['trs']}s","LTB",0,'L',false);
+            $this->Cell(25,8,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
+            $this->Cell(25,8,_('Vel').".: {$trs['vel']}m/s","LTRB",0,'L',false);
+            // ahora el nombre de la manga y los jueces
+            $nmanga=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $this->categoria;
+            $juez1=$jobj->selectByID($this->manga1->Juez1); $juez2=$jobj->selectByID($this->manga1->Juez2);
+            $this->setXY(81,41);
+            $this->SetFont($this->getFontName(),'B',9); // bold 9px
+            $this->Cell( 88,4,$nmanga,"",0,'L',false);
+            $this->setXY(81,44);
+            $this->SetFont($this->getFontName(),'I',7); // bold 9px
+            $jueces = _('Judge') .": ". $juez1['Nombre'];
+            $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
+            $this->Cell( 88,4,$jueces,"",0,'R',false);
+        } else { $this->Ln(8); }
+        // manga 2:
+        if ($this->manga2!=null) {
+            // pintamos los datos de TRS
+            $trs = $this->trs2;
+            $this->setXY(80, 48);
+            $this->SetFont($this->getFontName(),'B',10); // bold 9px
+            $this->Cell(90,8,"","LTB",0,'L',false);// caja vacia
+            $this->Cell(20, 8, _('Dist') . ".: {$trs['dist']}m", "LTB", 0, 'L', false);
+            $this->Cell(20, 8, _('Obst') . ".: {$trs['obst']}", "LTB", 0, 'L', false);
+            $this->Cell(25, 8, _('SCT') . ": {$trs['trs']}s", "LTB", 0, 'L', false);
+            $this->Cell(25, 8, _('MCT') . ": {$trs['trm']}s", "LTB", 0, 'L', false);
+            $this->Cell(25, 8, _('Vel') . ".: {$trs['vel']}m/s", "LTBR", 0, 'L', false);
+            // ahora el nombre de la manga y los jueces
+            $nmanga=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $this->categoria;
+            $juez1=$jobj->selectByID($this->manga2->Juez1); $juez2=$jobj->selectByID($this->manga2->Juez2);
+            $this->setXY(81,49);
+            $this->SetFont($this->getFontName(),'B',9); // bold 9px
+            $this->Cell( 88,4,$nmanga,"",0,'L',false);
+            $this->setXY(81,52);
+            $this->SetFont($this->getFontName(),'I',7); // bold 9px
+            $jueces = _('Judge') .": ". $juez1['Nombre'];
+            $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
+            $this->Cell( 88,4,$jueces,"",0,'R',false);
+        } else { $this->Ln(8); }
+        // manga 3:
+        if ($this->manga3!=null) {
+            // pintamos los datos de TRS
+            $trs=$this->trs3;
+            $this->setXY(80,56);
+            $this->SetFont($this->getFontName(),'B',10); // bold 9px
+            $this->Cell(90,8,"","LTB",0,'L',false); // caja vacia
+            $this->Cell(20,8,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
+            $this->Cell(20,8,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
+            $this->Cell(25,8,_('SCT').": {$trs['trs']}s","LTB",0,'L',false);
+            $this->Cell(25,8,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
+            $this->Cell(25,8,_('Vel').".: {$trs['vel']}m/s","LTBR",0,'L',false);
+            // ahora el nombre de la manga y los jueces
+            $nmanga=_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)) . " - " . $this->categoria;
+            $juez1=$jobj->selectByID($this->manga3->Juez1); $juez2=$jobj->selectByID($this->manga3->Juez2);
+            $this->setXY(81,57);
+            $this->SetFont($this->getFontName(),'B',9); // bold 9px
+            $this->Cell( 88,4,$nmanga,"",0,'L',false);
+            $this->setXY(81,60);
+            $this->SetFont($this->getFontName(),'I',7); // bold 9px
+            $jueces = _('Judge') .": ". $juez1['Nombre'];
+            $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
+            $this->Cell( 88,4,$jueces,"",0,'R',false);
+        } else { $this->Ln(8); }
         $this->Ln();
 	}
 

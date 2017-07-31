@@ -112,7 +112,7 @@ class PrintClasificacionTeam extends PrintCommon {
 		
 		$jobj=new Jueces("print_Clasificaciones_eq3");
 		$juez1=$jobj->selectByID($this->manga1->Juez1);
-		$juez2=$jobj->selectByID($this->manga1->Juez2); // asume mismos jueces en dos mangas
+		$juez2=$jobj->selectByID($this->manga2->Juez1);
 		$tm1=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $this->categoria;
 		$tm2=null;
 		if ($this->manga2!==null)

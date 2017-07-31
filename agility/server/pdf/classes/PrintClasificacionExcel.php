@@ -55,8 +55,9 @@ class PrintClasificacionExcel {
 		$this->prueba	= $this->dbobj->__getObject("Pruebas",$prueba);
 		$this->club		= $this->dbobj->__getObject("Clubes",$this->prueba->Club); // club organizador
 		$this->jornada	= $this->dbobj->__getObject("Jornadas",$jornada);
-		$this->manga1	= $this->dbobj->__getObject("Mangas",$mangas[0]);
-		$this->manga2	= $this->dbobj->__getObject("Mangas",$mangas[1]);
+        $this->manga1=($mangas[0]!=0)?$this->dbobj->__getObject("Mangas",$mangas[0]):null;
+        $this->manga2=($mangas[1]!=0)?$this->dbobj->__getObject("Mangas",$mangas[1]):null;
+        $this->manga3=($mangas[2]!=0)?$this->dbobj->__getObject("Mangas",$mangas[2]):null;
 		$this->myConfig = Config::getInstance();
 		// evaluate number of decimals to show when printing timestamps
 		$this->timeResolution=($this->myConfig->getEnv('crono_milliseconds')=="0")?2:3;
@@ -109,7 +110,8 @@ class PrintClasificacionExcel {
 	function write_datosMangas($result,$row, $mode) {
 		$jobj=new Jueces("print_Clasificaciones");
 		$juez1=$jobj->selectByID($this->manga1->Juez1);
-		$juez2=$jobj->selectByID($this->manga1->Juez2);
+		if ($this->manga2!==null) $juez2=$jobj->selectByID($this->manga2->Juez1);
+        else $juez2=$jobj->selectByID($this->manga1->Juez2);
 		$j1=$juez1['Nombre'];
 		$j2=$juez2['Nombre'];
 		$categoria = Mangas::getMangaMode($mode,0,$this->federation);
