@@ -37,6 +37,8 @@ class PrintEtiquetas_PDF extends PrintCommon {
 	
 	protected $manga1;
 	protected $manga2;
+	protected $juez1;
+	protected $juez2;
 	public $resultados;
 	protected $serialno;
 	
@@ -48,8 +50,11 @@ class PrintEtiquetas_PDF extends PrintCommon {
 	function __construct($prueba,$jornada,$mangas) {
 		parent::__construct('Portrait',"print_etiquetasPDF",$prueba,$jornada);
 		$dbobj=new DBObject("print_etiquetas_pdf");
-		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
-		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
+        $this->manga1=($mangas[0]!=0)?$dbobj->__getObject("Mangas",$mangas[0]):null;
+        $this->manga2=($mangas[1]!=0)?$dbobj->__getObject("Mangas",$mangas[1]):null;
+        $this->juez1=$dbobj->__selectAsArray("*",'Jueces',"ID={$this->manga1->Juez1}");
+        $this->juez2=$dbobj->__selectAsArray("*",'Jueces',"ID={$this->manga2->Juez1}");
+        $this->myLogger->trace("Juez 1: ".json_encode($this->juez1));
         // add version date and license serial to every label
         $ser= substr( $this->regInfo['Serial'],4,4);
         $ver= substr( $this->config->getEnv("version_date"),2,6) ;
@@ -86,14 +91,25 @@ class PrintEtiquetas_PDF extends PrintCommon {
         $y9=  $top + $height * $idx + 9;
 		$y10= $top + $height * $idx + 10;
         $y12=  $top+ $height * $idx + 12;
+        $y13=  $top+ $height * $idx + 13;
 		$y17=  $top+ $height * $idx + 17;
 		$ynext=$top+ $height * ($idx+1);
 		
 		$this->SetFont($this->getFontName(),'B',24); // bold 11px
 		$this->setXY($left,$y1-1);
-		$this->Cell(20,17,$row['Dorsal'],'L',0,'C',false);
-		$this->SetFont($this->getFontName(),'I',8); // font for prueba,name
-		
+        // $this->Cell(20,17,$row['Dorsal'],'L',0,'C',false);
+        $this->Cell(20,8,$row['Dorsal'],'L',0,'C',false);
+        // en el margen izquierdo de las etiquetas
+        // ponemos info de perro guia y club
+        $this->SetFont($this->getFontName(),'BI',7); // font size for results data
+        $this->SetXY($left,$y7);
+        $this->Cell(23,4,$row['Nombre'],'L',0,'L',false);
+        $this->SetXY($left,$y10);
+        $this->Cell(23,4,$row['NombreGuia'],'L',0,'L',false);
+        $this->SetXY($left,$y13);
+        $this->Cell(23,4,$row['NombreClub'],'L',0,'L',false);
+
+        $this->SetFont($this->getFontName(),'I',8); // font for prueba,name
 		// caja izquierda (35,y,35,15)
 		$this->SetXY($left+22,$y1); // margins are 10mm each
 		$this->Cell(55,15,'','L',0,'L',false);
@@ -175,14 +191,12 @@ class PrintEtiquetas_PDF extends PrintCommon {
 		$this->Line($left,$ynext,$left+190,$ynext);
 		
 		// en el margen izquierdo de las etiquetas
-		// ponemos info de perro guia y club
-		$this->SetFont($this->getFontName(),'B',10); // font size for results data
-		$this->SetXY($left+170,$y1);
-		$this->Cell(25,5,$row['Nombre'],'',0,'L',false);
-		$this->SetXY($left+170,$y5);
-		$this->Cell(25,5,$row['NombreGuia'],'',0,'L',false);
-		$this->SetXY($left+170,$y9);
-		$this->Cell(25,5,$row['NombreClub'],'',0,'L',false);
+		// ponemos el juez de la manga
+		$this->SetFont($this->getFontName(),'I',8); // font size for results data
+		$this->SetXY($left+161,$y1);
+		$this->Cell(29,7,$this->juez1['Nombre'],'B',0,'L',false);
+        $this->SetXY($left+161,$y9);
+        $this->Cell(29,7,$this->juez2['Nombre'],'',0,'L',false);
 	}
 	
 	function composeTable($rowcount=0,$listadorsales="") {

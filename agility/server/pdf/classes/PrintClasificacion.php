@@ -99,10 +99,10 @@ class PrintClasificacion extends PrintCommon {
             $nmanga=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $this->categoria;
             $juez1=$jobj->selectByID($this->manga1->Juez1); $juez2=$jobj->selectByID($this->manga1->Juez2);
             $this->setXY(81,41);
-            $this->SetFont($this->getFontName(),'B',9); // bold 9px
+            $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell( 88,4,$nmanga,"",0,'L',false);
             $this->setXY(81,44);
-            $this->SetFont($this->getFontName(),'I',7); // bold 9px
+            $this->SetFont($this->getFontName(),'I',8); // bold 9px
             $jueces = _('Judge') .": ". $juez1['Nombre'];
             $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
             $this->Cell( 88,4,$jueces,"",0,'R',false);
@@ -123,10 +123,10 @@ class PrintClasificacion extends PrintCommon {
             $nmanga=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $this->categoria;
             $juez1=$jobj->selectByID($this->manga2->Juez1); $juez2=$jobj->selectByID($this->manga2->Juez2);
             $this->setXY(81,49);
-            $this->SetFont($this->getFontName(),'B',9); // bold 9px
+            $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell( 88,4,$nmanga,"",0,'L',false);
             $this->setXY(81,52);
-            $this->SetFont($this->getFontName(),'I',7); // bold 9px
+            $this->SetFont($this->getFontName(),'I',8); // bold 9px
             $jueces = _('Judge') .": ". $juez1['Nombre'];
             $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
             $this->Cell( 88,4,$jueces,"",0,'R',false);
@@ -147,10 +147,10 @@ class PrintClasificacion extends PrintCommon {
             $nmanga=_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)) . " - " . $this->categoria;
             $juez1=$jobj->selectByID($this->manga3->Juez1); $juez2=$jobj->selectByID($this->manga3->Juez2);
             $this->setXY(81,57);
-            $this->SetFont($this->getFontName(),'B',9); // bold 9px
+            $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell( 88,4,$nmanga,"",0,'L',false);
             $this->setXY(81,60);
-            $this->SetFont($this->getFontName(),'I',7); // bold 9px
+            $this->SetFont($this->getFontName(),'I',8); // bold 9px
             $jueces = _('Judge') .": ". $juez1['Nombre'];
             $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
             $this->Cell( 88,4,$jueces,"",0,'R',false);
