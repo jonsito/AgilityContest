@@ -87,7 +87,10 @@ function do_log($str) {
 }
 
 date_default_timezone_set("Europe/Madrid");
-// ini_set('display_errors', 1); /* dont send errors to http response */
+// also send error to display
+ini_set('display_errors', 'On');
+ini_set('html_errors', 0);
+// track erros and write to own log file
 ini_set("log_errors",1);
 ini_set("error_log",__DIR__."/../../logs/trace.log");
 // on MAC-OSX tmpdir is set to login user tmp directory.
