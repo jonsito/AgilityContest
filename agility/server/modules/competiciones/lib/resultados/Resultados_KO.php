@@ -17,9 +17,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 class Resultados_KO extends Resultados {
-    // to avoid circular requires, instead of require_once ordensalida, just retrieve
-    // an instance from constructor
-    private $osobj;
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
@@ -66,7 +63,7 @@ class Resultados_KO extends Resultados {
             $p1=$osres['rows'][$n]['Puesto'];
             $p2=$osres['rows'][$n+1]['Puesto'];
             if ($p1<$p2) {
-                $osres['rows'][$n]['Calificacion'] = _("Promote to next");
+                $osres['rows'][$n]['Calificacion'] = _("Promote to next")/*." &#x2714;"*/;
                 $osres['rows'][$n]['CShort'] = _("Pass");
                 $osres['rows'][$n+1]['Calificacion'] = _("Eliminated");
                 $osres['rows'][$n+1]['CShort'] = _("Out");
@@ -80,7 +77,7 @@ class Resultados_KO extends Resultados {
             if ($p1>$p2) {
                 $osres['rows'][$n]['Calificacion'] = _("Eliminated");
                 $osres['rows'][$n]['CShort'] = _("Out");
-                $osres['rows'][$n+1]['Calificacion'] = _("Promote to next");
+                $osres['rows'][$n+1]['Calificacion'] = _("Promote to next")/*." &#x2714;"*/;
                 $osres['rows'][$n+1]['CShort'] = _("Pass");
             }
         }

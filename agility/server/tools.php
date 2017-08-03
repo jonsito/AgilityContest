@@ -153,7 +153,7 @@ function parseYesNo($var) {
     $t=array (1,true,"x","1","t","true","on","s","si","sí","y","yes","ja","oui","da");
     if ( in_array($var,$t) ) return true;
     $f=array (0,false,"","0","f","false","off","n","no","ez","non","nein","niet");
-    if ( in_array($var,$t) ) return false;
+    if ( in_array($var,$f) ) return false;
     // arriving here means neither true nor false valid items, so return nothing
     return null;
 }
@@ -189,7 +189,7 @@ function parseGender($gender) {
 /**
  * Try to obtain dog grade according provided string
  * @param {string} $cat user provided category
- * @return L,M,S,T,- detected category
+ * @return {string} L,M,S,T,- detected category
  */
 function parseCategory($cat) {
 	static $l = array('l','large','standard','estandar','std','60','6');
@@ -479,17 +479,18 @@ function getOrderString($sort,$order,$def) {
  * On invalid path or not provided,search into iconpath
  * @param $fedname ( federation 'Name' -not ID- )
  * @param $name (icon path or name )
- * @return full path name to load image from (server side)
+ * @return $string full path name to load image from (server side)
  */
 function getIconPath($fedname,$name) {
 	static $iconPathTable = array();
 	$fedname=strtolower($fedname);
 	$name=basename($name); // to avoid sniffing extract name from path and force use own iconpaths
 	$iconpath=array(
-		__DIR__."/../images/logos", // standard club icon location
-		__DIR__."/i18n",			// standard countri flags location
-		__DIR__."/../images/supporters", // where to store supporters logos
-        __DIR__ . "/modules/federaciones/$fedname", // federation logos
+		__DIR__. "/../images/logos", // standard club icon location
+		__DIR__. "/i18n",			// standard countri flags location
+		__DIR__. "/../images/supporters", // where to store supporters logos
+        __DIR__. "/../lib/jquery-easyui-1.4.2/themes/icons", // app logos
+        __DIR__. "/modules/federaciones/$fedname" // federation logos
 	);
 	if (array_key_exists("$fedname - $name",$iconPathTable)) return $iconPathTable["$fedname - $name"];
 	foreach ($iconpath as $path) {
@@ -554,7 +555,7 @@ class networkInterfaces {
 	var $osName;
 	var $interfaces;
 
-	function networkInterfaces() {
+	function __construct() {
 		$this->osName = strtoupper(PHP_OS);
 	}
 

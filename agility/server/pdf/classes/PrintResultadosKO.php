@@ -197,7 +197,12 @@ class PrintResultadosKO extends PrintCommon {
             $this->SetFont($this->getFontName(),'B',8); // bold 11px
             $this->Cell($this->pos[13],5,$puesto,			$border,	0,		$this->align[13],	true);
             $this->SetFont($this->getFontName(),'I',7); // bold 11px
-			$this->Cell($this->pos[14],5,$row['Calificacion'],	$border,	0,		$this->align[14],	true);
+            if($row['CShort']!==_('Pass')) {
+                $this->Cell($this->pos[14],5,$row['Calificacion'],	$border,	0,		$this->align[14],	true);
+            } else {
+                $this->Cell($this->pos[14],5,$row['Calificacion'],	$border,	0,		$this->align[14],	true);
+                $this->Image(getIconPath($this->federation->get('Name'),"ok.png"),$this->GetX()-4.5,$this->GetY()+0.5,4,4);
+            }
 			$this->Ln();
 			$rowcount++;
 			$firstOfpair = !$firstOfpair;
