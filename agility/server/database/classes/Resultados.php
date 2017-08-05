@@ -810,9 +810,10 @@ class Resultados extends DBObject {
                 case 3: if ($mindogs==4) $equipo['Penalizacion']+=400.0; // required team member undeclared
                 // no break;
                 case 4:
-                    if ($mindogs==$maxdogs) {
-                        // in team4 check what to do in Team4mode
+                    // in team4 check what to do in Team4mode when a team member is eliminated
+                    if ( ($mindogs==$maxdogs) && ($equipo['Eliminados']>0) ) {
                         // 0: 100 penalty points. Team time goes on. Nothing to do
+
                         // 1: 100 penalty points. Team time set to MCT ( European open mode )
                         if ($this->myConfig->getEnv('team4_mode')==1){
                             $equipo['Tiempo']=$results['trs']['trm'];
