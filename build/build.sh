@@ -86,7 +86,7 @@ unix2dos ${BUILD_DIR}/settings_de.bat
 mkdir -p ${BUILD_DIR}/docs
 if [ -d ${DROPBOX} ]; then
     echo "Adding a bit of documentation ..."
-    for i in AgilityContest_despliegue.pdf ReferenciasPegatinas.txt AgilityContest-1000x800.png Tarifas_2016.pdf ac_obs_livestreaming.pdf; do
+    for i in ac_despliegue.pdf ReferenciasPegatinas.txt AgilityContest-1000x800.png Tarifas_2017.pdf ac_obs_livestreaming.pdf; do
     cp ${DROPBOX}/${i} ${BUILD_DIR}/docs
     done
     cp ${BASE_DIR}/README* ${BUILD_DIR}/docs
