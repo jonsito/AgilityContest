@@ -561,14 +561,11 @@ class Inscripciones extends DBObject {
         if ($fobj->Grado2!=$tobj->Grado2) $msg="Grado 2";
         if ($fobj->Grado3!=$tobj->Grado3) $msg="Grado 3";
         // grado 1 puede tener 1, dos, o tres mangas, siendo compatibles entre ellos
-        if ( ($fobj->Grado1!=0) && ($fobj->Grado1==0) ) $msg="Grado 1";
-        if ( ($fobj->Grado1==0) && ($fobj->Grado1!=0) ) $msg="Grado 1";
+        if ( ($fobj->Grado1!=0) && ($tobj->Grado1==0) ) $msg="Grado 1";
+        if ( ($fobj->Grado1==0) && ($tobj->Grado1!=0) ) $msg="Grado 1";
         // preagility puede tener una o dos mangas
-        if ( ($fobj->PreAgility!=0) && ($fobj->PreAgility==0) ) $msg="PreAgility";
-        if ( ($fobj->PreAgility==0) && ($fobj->PreAgility!=0) ) $msg="PreAgility";
-        // Mangas especiales son compatibles entre si, con independencia del numero de mangas
-        if ( ($fobj->Especial!=0) && ($fobj->Especial==0) ) $msg="Especial";
-        if ( ($fobj->Especial==0) && ($fobj->Especial!=0) ) $msg="Especial";
+        if ( ($fobj->PreAgility!=0) && ($tobj->PreAgility==0) ) $msg="PreAgility";
+        if ( ($fobj->PreAgility==0) && ($tobj->PreAgility!=0) ) $msg="PreAgility";
 
         // en las competiciones por equipos se pueden clonar eq3 en eq4 y viceversa (i.e: open europeo)
         if ( ( $fobj->Equipos3!=0 ) || ( $fobj->Equipos4!=0 ) ) { // hay alguna prueba por equpos
@@ -577,12 +574,13 @@ class Inscripciones extends DBObject {
         if ( ( $fobj->Equipos3==0 ) && ( $fobj->Equipos4==0 ) ){ // no hay pruebas por equipos
             if ( ($tobj->Equipos3!=0) || ($tobj->Equipos4!=0) )  $msg="Teams";
         }
-        // KO, open y Games son compatibles entre si
-        if ( ($fobj->Open!=0) || ($fobj->KO!=0) ||($fobj->Games!=0) ) { // hay open,ko o games
-            if ( ($tobj->Open==0) && ($tobj->KO==0) && ($tobj->Games==0))  $msg="Open/KO/Games";
+
+        // KO, open y Games, y mangas especiales son compatibles entre si
+        if ( ($fobj->Open!=0) || ($fobj->KO!=0) || ($fobj->Games!=0) || ($fobj->Especial!=0)) { // hay open,ko o games
+            if ( ($tobj->Open==0) && ($tobj->KO==0) && ($tobj->Games==0)&& ($tobj->Especial==0))  $msg="Open/KO/Games/Especial";
         }
-        if ( ($fobj->Open==0) && ($fobj->KO==0) && ($fobj->Games==0) ) { // no hay ni open ni ko ni games
-            if ( ($tobj->Open!=0) || ($tobj->KO!=0) || ($tobj->Games!=0))  $msg="Open/KO/Games";
+        if ( ($fobj->Open==0) && ($fobj->KO==0) && ($fobj->Games==0) && ($fobj->Especial==0)) { // no hay ni open ni ko ni games
+            if ( ($tobj->Open!=0) || ($tobj->KO!=0) || ($tobj->Games!=0)|| ($tobj->Especial!=0))  $msg="Open/KO/Games/Especial";
         }
 
         if ($msg!="")throw new Exception( "cloneInscripciones: "._("Round information missmatch").": $msg");
