@@ -55,7 +55,7 @@ class PrintResultadosKO extends PrintCommon {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$manga,$resultados) {
-		parent::__construct('Portrait',"print_resultadosByManga",$prueba,$jornada);
+		parent::__construct('Portrait',"print_resultadosKO",$prueba,$jornada);
 		$this->manga=$manga;
 		$this->resultados=$resultados;
         $this->hasGrades=Jornadas::hasGrades($this->jornada);
@@ -76,7 +76,7 @@ class PrintResultadosKO extends PrintCommon {
     function writeCourseData() {
 	    $this->myLogger->enter();
 		$this->SetFont($this->getFontName(),'B',9); // bold 9px
-		$jobj=new Jueces("print_resultadosByManga");
+		$jobj=new Jueces("print_resultadosKO");
 		$juez1=$jobj->selectByID($this->manga->Juez1);
 		$juez2=$jobj->selectByID($this->manga->Juez2);
 		$this->Cell(20,7,_('Judge')." 1:","LT",0,'L',false);

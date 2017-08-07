@@ -34,7 +34,7 @@ try {
         'prueba' 	=> http_request("Prueba","i",0),
     	'jornada' 	=> http_request("Jornada","i",0),
     	'manga' 	=> http_request("Manga","i",0),
-    	'numrows'	=> http_request("Mode","i",0), // numero de perros por hoja 1/5/10/15
+    	'numrows'	=> http_request("Mode","i",0), // numero de perros por hoja 1/5/10/15/ 16(KO)
     	'cats' 		=> http_request("Categorias","s","-"),
     	'fill' 		=> http_request("FillData","i",0), // tell if print entered data in sheets
         'rango' 	=> http_request("Rango","s","1-99999"),
@@ -48,7 +48,7 @@ try {
 	$o = Competitions::getOrdenSalidaInstance("printEntradaDeDatos",$data['manga']);
 	$data['orden']= $o->getData()['rows'];
 	// Creamos generador de documento
-	$pdf = new PrintEntradaDeDatos($data);
+	$pdf = new PrintEntradaDeDatosGames($data);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
     $pdf->Output($pdf->get_FileName(),"D"); // "D" web client (download) "F" file save

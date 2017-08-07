@@ -207,7 +207,8 @@ class AuthManager {
 		umask(002);
 		// ok: fichero de registro correcto. copiamos a su ubicacion final
 		copy(AC_REGINFO_FILE,AC_REGINFO_FILE_BACKUP);
-		rename($tmpname,AC_REGINFO_FILE);
+		// in some linux deployments, this works, but fails on change file owner, so protect against warning
+		@rename($tmpname,AC_REGINFO_FILE);
 		// guardamos como "activos" y retornamos datos del nuevo registro
 		$this->registrationInfo=$info;
 		$result=$this->getRegistrationInfo();

@@ -46,6 +46,8 @@ try {
 	// Creamos generador de documento
     if ( in_array ($manga->Tipo, array(15,18,19,20,21,22,23,24) ) ) {
         $pdf = new PrintResultadosKO($idprueba,$idjornada,$manga,$resultados);
+    } else if ( in_array ($manga->Tipo, array(29,30) ) ) { // snooker, gambler
+        $pdf = new PrintResultadosGames($idprueba,$idjornada,$manga,$resultados);
     } else {
         $pdf = new PrintResultadosByManga($idprueba,$idjornada,$manga,$resultados,$mode);
     }

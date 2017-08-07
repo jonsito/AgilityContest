@@ -196,6 +196,7 @@ function hasGradosByJornada(jornada) {
 
 function isJornadaOpen() { return (workingData.datosJornada.Open!=0); }
 function isJornadaKO() { return (workingData.datosJornada.KO!=0); }
+function isJornadaGames() { return (workingData.datosJornada.Games!=0); }
 function isJornadaEqMejores() { return (workingData.datosJornada.Equipos3!=0); }
 function isJornadaEqConjunta() { return (workingData.datosJornada.Equipos4!=0); }
 

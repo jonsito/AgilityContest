@@ -159,7 +159,17 @@ function print_trsTemplates(mode) {
 }
 
 /************************** Hojas del asistente del juez ****************/
-function print_asistente(pages,cats,fill,rango,comentarios) {
+/**
+ * Imprime formularios del asistente en formato standard ( 1,5,10,15 perros/pagina )
+ * @param pagemode 1,5,10,15 perros por pagina
+ * @param cats categorias a mostrar
+ * @param fill indica si rellenar datos con resultados
+ * @param rango rango de perros a imprimir
+ * @param comentarios texto a pintar en la cabecera de la pagina
+ * @returns {boolean}
+ */
+
+function print_asistente(pagemode,cats,fill,rango,comentarios) {
     $.fileDownload(
         '/agility/server/pdf/print_entradaDeDatos.php',
         {
@@ -169,7 +179,7 @@ function print_asistente(pages,cats,fill,rango,comentarios) {
                 Jornada: workingData.jornada,
                 Manga: workingData.manga,
 				Categorias: cats,
-                Mode: pages,
+                Mode: pagemode,
                 FillData:(fill)?1:0,
                 Rango:rango,
                 Comentarios:comentarios
@@ -205,25 +215,65 @@ function print_asistenteEquipos(cats,fill,rango,comentarios) {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
+/**
+ * En las pruebas KO se imprimen 16 perros por pagina, agrupados de dos en dos
+ */
+function print_asistenteKO(cats,fill,rango,comentarios) {
+    return print_asistente(16,cats,fill,rango,comentarios);
+}
+
+/**
+ * En pruebas de equipos 4 conjunta se ofrece la opción de usar una única entrada para el equipo
+ */
+function print_asistenteGames(cats,fill,rango,comentarios) {
+    $.fileDownload(
+        '/agility/server/pdf/print_entradaDeDatos.php',
+        {
+            httpMethod: 'GET',
+            data: {
+                Prueba: workingData.prueba,
+                Jornada: workingData.jornada,
+                Manga: workingData.manga,
+                Categorias: cats,
+                Mode: 16, // on ko rounds allways print 16 dogs/page
+                FillData: (fill)?1:0,
+                Rango:rango,
+                Comentarios:comentarios
+            },
+            preparingMessageHtml:'(assistant sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
+            failMessageHtml:'(assistant sheets) <?php _e("There was a problem generating your report, please try again."); ?>'
+        }
+    );
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
 /********************** impresion de datos parciales ***************/
 
 function print_parcial(mode) {
+    var msgs=  {
+        0: '*<?php _e("Create PDF Report");?>',
+        1: '<?php _e("Create Excel File"); ?>',
+        2: '<?php _e("Print filled assistant sheets 10 dogs/pages"); ?>',
+        3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>'
+    };
+    if (isJornadaKO()) msgs={
+        0: '*<?php _e("Create PDF Report");?>',
+        1: '<?php _e("Create Excel File"); ?>',
+        4: '<?php _e("Print filled assistant sheets 16 dogs/pages"); ?>'
+    };
     $.messager.radio(
         '<?php _e("Partial scores"); ?>',
         '<?php _e("Select output format"); ?>:',
-        {
-            0: '*<?php _e("Create PDF Report");?>',
-            1: '<?php _e("Create Excel File"); ?>',
-            2: '<?php _e("Print filled assistant sheets 10 dogs/pages"); ?>',
-            3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>'
-        },
+        msgs,
         function (r) {
             if (!r) return false;
             switch (parseInt(r)) {
                 case 0: // create pdf
+                    // generic, ko, games
                     var url = '/agility/server/pdf/print_resultadosByManga.php';
+                    // team best
                     if (parseInt(workingData.datosJornada.Equipos3) != 0)
                         url = '/agility/server/pdf/print_resultadosByEquipos.php';
+                    // team combined
                     if (parseInt(workingData.datosJornada.Equipos4) != 0)
                         url = '/agility/server/pdf/print_resultadosByEquipos4.php';
                     $.fileDownload(
@@ -259,12 +309,16 @@ function print_parcial(mode) {
                         }
                     );
                     break;
-                case 2:
-                    print_asistente(10, "-", true);
+                case 2: // filled normal rounds 10 dogs/page
+                    print_asistente(10, "-", true,"1-9999",""); // do not handle 'mode', just print all
                     break;
-                case 3:
-                    print_asistente(15, "-", true);
+                case 3: // filled normal rounds 15 dogs/page
+                    print_asistente(15, "-", true,"1-9999","");
                     break;
+                case 4: // filled ko assistant sheets
+                    print_asistente(16, "-", true,"1-9999","");
+                    break;
+                // PENDING: add filled sheet for snooker/gambler
             }
             return false; // return false to prevetn event keyboard chaining
         }).window('resize', {width: 350});
@@ -327,6 +381,8 @@ function print_performCommonDesarollo() {
         case 8: if (!row) break; print_asistente(15,cats,false,range,comments); return false; // hojas asistente 15 perros/pag
         case 10: if (!row) break; print_asistente(10,cats,false,range,comments); return false; // hojas asistente 10 perros/pag
         case 9: if (!row) break; print_asistenteEquipos(cats,false,range,comments); return false; // hojas asistente team4 conjunta
+        case 11: if (!row) break; print_asistenteKO(cats,false,range,comments); return false; // hojas asistente manga KO
+        case 12: if (!row) break; print_asistenteGames(cats,false,range,comments); return false; // hojas asistente juegos
     }
     // arriving here means round required but not selected. notify and abort
     $.messager.alert('<?php _e('Error'); ?>','<?php _e('There is no selected round'); ?>','error');
@@ -365,7 +421,9 @@ function print_commonDesarrollo(def,cb) {
     }
     $('#printer_dialog-cats').val(cats);
 	$('#printer_dialog-currentcat').html(catstr);
-	$('#printer_dialog-extraopts').css('display',isJornadaEqConjunta()?'inherit':'none');
+    $('#printer_dialog-team4').css('display',isJornadaEqConjunta()?'inherit':'none');
+    $('#printer_dialog-ko').css('display',isJornadaKO()?'inherit':'none');
+    $('#printer_dialog-games').css('display',isJornadaGames()?'inherit':'none');
 	$('#printer_dialog-option'+def.toString()).prop('checked',true);
 	$('#printer_dialog-comments').textbox('setValue','');
 	rangeobj.textbox('setValue','1-99999'); // on window open default is print all

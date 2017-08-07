@@ -48,9 +48,17 @@ $config =Config::getInstance();
         <label for="printer_dialog-option8"><?php _e('Judge assistant sheets (10 dogs/page)'); ?></label><br/>
         <input type="radio" name="printer_dialog-option" id="printer_dialog-option8" value="8" onclick="print_changeSelection(8)"/>
         <label for="printer_dialog-option8"><?php _e('Judge assistant sheets (15 dogs/page)'); ?></label><br/>
-        <span id="printer_dialog-extraopts" >
+        <span id="printer_dialog-team4" >
             <input type="radio" name="printer_dialog-option" id="printer_dialog-option9" value="9" onclick="print_changeSelection(9)"/>
             <label for="printer_dialog-option9"><?php _e('Judge assistant sheets (combined for team 4)'); ?></label><br/><br/>
+        </span>
+        <span id="printer_dialog-ko" >
+            <input type="radio" name="printer_dialog-option" id="printer_dialog-option11" value="11" onclick="print_changeSelection(11)"/>
+            <label for="printer_dialog-option11"><?php _e('Judge assistant sheets (KO rounds)'); ?></label><br/><br/>
+        </span>
+        <span id="printer_dialog-games" >
+            <input type="radio" name="printer_dialog-option" id="printer_dialog-option12" value="12" onclick="print_changeSelection(12)"/>
+            <label for="printer_dialog-option12"><?php _e('Judge assistant sheets (Games)'); ?></label><br/><br/>
         </span>
         <p>
             <label for="printer_dialog-comments"><?php _e('PDF Header comment');?> </label>
