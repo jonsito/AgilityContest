@@ -111,7 +111,6 @@ class PrintEntradaDeDatos extends PrintCommon {
 
     /**
 	 * Prints 15 dogs / page
-     * @param {number} $rowcount
      * @param {array} $row
 	 * @param {integer} $orden . Starting order in their category
      */

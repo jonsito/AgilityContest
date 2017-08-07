@@ -35,12 +35,14 @@ class PrintEntradaDeDatosKO extends PrintCommon {
     protected $validcats; // categorias de las que se solicita impresion
     protected $fillData;
     protected $rango;
-	
-	// geometria de las celdas
-	protected $cellHeader;
-    //                      Dorsal  nombre raza licencia Categoria guia club  celo  observaciones
-	protected $pos	=array( 10,     25,     27,    10,    18,      40,   25,  10,    25);
-	protected $align=array( 'R',    'C',    'R',    'C',  'C',     'R',  'R', 'C',   'R');
+    protected $orden; // lista de perros segun el orden de salida
+
+    // geometria de las celdas
+    protected $cellHeader
+        =array('Dorsal','Nombre','Lic.','Guía','Club','Celo', 'Observaciones');
+    protected $pos	=array(  15,       25,     18,    50,   42,     10,    30);
+    protected $align=array(  'C',      'R',    'C',   'L',  'R',    'C',   'R');
+    protected $fmt	=array(  'i',      's',    's',   's',  's',    'b',   's');
 	
 	/**
 	 * Constructor
@@ -61,16 +63,17 @@ class PrintEntradaDeDatosKO extends PrintCommon {
 			throw new Exception($this->errormsg);
 		}
         // comprobamos que estamos en una jornada por equipos
-        $flag=intval($this->jornada->Equipos3)+intval($this->jornada->Equipos4);
-        if ($flag==0) {
-            $this->errormsg="print_datosEquipos4: Jornada {$data['jornada']} has no Team competition declared";
-            throw new Exception($this->errormsg);
-        }
+        $flag=intval($this->jornada->KO);
+        // if ($flag==0) {
+        //    $this->errormsg="print_entradaDatos_KO: Jornada {$data['jornada']} has no KO competition declared";
+        //    throw new Exception($this->errormsg);
+        // }
         // guardamos info de la manga
         $this->manga=$this->myDBObject->__getObject("Mangas",$data['manga']);
         $this->validcats=$data['cats'];
         $this->fillData=($data['fill']==0)?false:true;
         $this->rango= (preg_match('/^\d+-\d+$/',$data['rango']))? $data['rango'] : "1-99999";
+        $this->orden=$data['orden'];
 
         // set pdf file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
@@ -101,7 +104,7 @@ class PrintEntradaDeDatosKO extends PrintCommon {
         $this->Cell(90,7,_("Record by").":",'LTBR',0,'L',true);
         $this->Cell(10,7,'',0,'L',false);
         $this->Cell(90,7,_("Review by").":",'LTBR',0,'L',true);
-        $this->Ln();
+        $this->Ln(9);
 	}
 	
 	// Pie de página
@@ -109,9 +112,114 @@ class PrintEntradaDeDatosKO extends PrintCommon {
 		$this->print_commonFooter();
 	}
 
-	function writeTableCell_1($row,$orden) {
-        // cada 2 entradas (orden impar) ponemos numero de pareja
-        // pintamos dato del perro
+    private function palotes($count) { $str=""; for (;$count>0;$count--) $str.="| "; return $str; }
+
+    /**
+     * Prints 15 dogs / page
+     * @param {array} $row
+     * @param {integer} $orden . Starting order in their category
+     */
+    function writeTableCell_16($row,$orden) {
+        $wide=$this->federation->get('WideLicense'); // if required use long cell for license
+        // save cursor position
+        $x=$this->getX();
+        $y=$this->GetY();
+
+        // fase 1: contenido de cada celda de la cabecera
+        // Cell( width,height,message,border,cursor,align,fill)
+
+        // pintamos Numero de orden de la pareja del KO si estamos en orden impar
+        if ($orden%2!=0) {
+            $this->ac_header(1,20);
+            $this->Cell(15,13,'','LTBR',0,'L',false);
+            $this->SetXY($x+1,$y+1); // restore cursor position
+            $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // color de fondo 1
+            $this->Cell(13,11,1+intval($orden/2),'',0,'R',true);
+        } else {
+            // en pareja par no se pone numero de orden
+            $this->Cell(15,13,'','R',0,'L',false);
+        }
+
+        // pintamos logo
+        $this->ac_header(2,12);
+        $this->SetXY($x+15,$y+6);
+        $logo=$this->getLogoName($row['Perro']);
+        $this->Image($logo,$this->getX()+0.5,$this->getY(),6.5);
+
+        // bordes cabecera de celda
+        $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // color de fondo 2
+        $this->SetXY($x+15,$y); // restore cursor position
+        $this->SetFont($this->getFontName(),'B',10); // bold 10px
+        $this->Cell(15,5,'',	'LTR',0,'L',true); // dorsal
+        $this->Cell(10,5,'',	'TR',0,'L',true); // celo
+        if ($wide) {
+            $this->Cell(50,5,'',	'TR',0,'L',true); // perro
+        } else {
+            $this->Cell(20, 5, '', 'TR', 0, 'L', true); // licencia
+            $this->Cell(30,5,'',	'TR',0,'L',true); // perro
+        }
+        $this->Cell(60,5,'',	'TR',0,'L',true); // guia
+        $this->Cell(40,5,'',	'TR',0,'L',true); // club
+        // datos cabecera de celda
+        $this->SetXY($x+15,$y+1); // restore cursor position
+        $this->Cell(15,4,$row['Dorsal'],		'',0,'R',false); // display order
+        $this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
+        if ($wide) {
+            $this->Cell(50,4,$row['Nombre'],		'',0,'R',false);
+        } else {
+            $this->Cell(20,4,$row['Licencia'],		'',0,'R',false);
+            $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
+        }
+        $this->Cell(60,4,$row['NombreGuia'],	'',0,'R',false);
+        $this->Cell(40,4,$row['NombreClub'],	'',0,'R',false);
+
+        // titulos cabecera de celda
+        $this->SetXY($x+15,$y); // restore cursor position
+        $this->SetTextColor(0,0,0); // negro
+        $this->SetFont($this->getFontName(),'I',7); // italic 8px
+        $this->Cell(15,4,_('Dorsal'),	'',0,'L',false); // display order
+        $this->Cell(10,4,_('Heat'),	'',0,'L',false);
+        if ($wide) {
+            $this->Cell(50,4,_('Name'),	'',0,'L',false);
+        } else {
+            $this->Cell(20,4,_('Lic'),'',0,'L',false);
+            $this->Cell(30,4,_('Name'),	'',0,'L',false);
+        }
+        $this->Cell(60,4,_('Handler'),	'',0,'L',false);
+        $this->Cell(40,4,$this->strClub,	'',0,'L',false);
+
+        // ahora pintamos zona de escritura de palotes
+        $this->SetXY($x+15,$y+5);
+        $this->Cell(60,8,'','TRB',0,'',false); // palotes faltas
+        $this->Cell(40,8,'','TRB',0,'',false); // palotes rehuses
+        $this->Cell(25,8,'','TRB',0,'',false); // palotes tocados
+        $this->Cell(7, 8,'','TRB',0,'',false); // total faltas
+        $this->Cell(7, 8,'','TRB',0,'',false); // total rehuses
+        $this->Cell(7, 8,'','TRB',0,'',false); // total tocados
+        $this->Cell(29,8,'','TRB',0,'',false); // tiempo
+        $this->SetXY($x+30,$y+5);
+        $this->Cell(45,5,_('Faults'),	'',0,'L',false);
+        $this->Cell(40,5,_('Refusals'),	'',0,'L',false);
+        $this->Cell(25,5,_('Touchs'),	'',0,'L',false);
+        $this->Cell(7, 5,_('Flt'),	'',0,'C',false);
+        $this->Cell(7, 5,_('Ref'),	'',0,'C',false);
+        $this->Cell(7, 5,_('Tch'),	'',0,'C',false);
+        $this->Cell(29,5,_('Time'),  '',0,'L',false);
+        if (! $this->fillData) { $this->Ln(9); return; }
+        // arriving here means populate results
+        $this->SetFont($this->getFontName(),'B',9); //
+        $this->SetXY($x+40,$y+8);
+        $this->Cell(45,5,$this->palotes($row['Faltas']),	'',0,'L',false);
+        $this->Cell(40,5,$this->palotes($row['Rehuses']),	'',0,'L',false);
+        $this->Cell(15,5,$this->palotes($row['Tocados']),	'',0,'L',false);
+        $this->Cell(7, 5,$row['Faltas'],	'',0,'C',false);
+        $this->Cell(7, 5,$row['Rehuses'],	'',0,'C',false);
+        $this->Cell(7, 5,$row['Tocados'],	'',0,'C',false);
+        $this->Cell(9,5,$row['Tiempo'],  '',0,'L',false);
+        if($row['Pendiente']!=0)  $this->Cell(20,5,_('Pending'),  '',0,'L',false);
+        else if($row['NoPresentado']!=0)  $this->Cell(19,5,_('Not Present'),  '',0,'L',false);
+        else if($row['Eliminado']!=0)  $this->Cell(19,5,_('Eliminated'),  '',0,'L',false);
+        $this->Ln( ($orden%2!=0)?5:7);
     }
 
 	// La hoja de asistente de pista es parecida a la hoja normal, solo que con 16 perros, agrupados de 2 en dos
@@ -150,14 +258,8 @@ class PrintEntradaDeDatosKO extends PrintCommon {
             // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
             if( ($rowcount % 16) == 0 ) { // assume $numrows entries per page
                 $this->AddPage();
-                // indicamos nombre del operador que rellena la hoja
-                $this->ac_header(2,12);
-                $this->Cell(90,7,_('Record by').':','LTBR',0,'L',true);
-                $this->Cell(10,7,'',0,'L',false);
-                $this->Cell(90,7,_('Review by').':','LTBR',0,'L',true);
-                $this->Ln(15);
             }
-            $this->writeTableCell_1($row,$orden);
+            $this->writeTableCell_16($row,$orden);
             $rowcount++;
             $orden++;
         }
