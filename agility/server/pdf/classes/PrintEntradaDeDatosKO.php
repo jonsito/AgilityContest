@@ -17,7 +17,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 /**
- * genera un pdf con las hojas de asistente de pista en jornadas Snooker/Gambler
+ * genera un pdf con las hojas de asistente de pista en jornadas KO
 */
 
 require_once(__DIR__."/../fpdf.php");
@@ -28,7 +28,7 @@ require_once(__DIR__.'/../../database/classes/Pruebas.php');
 require_once(__DIR__.'/../../database/classes/Jornadas.php');
 require_once(__DIR__."/../print_common.php");
 
-class PrintEntradaDeDatosGames extends PrintCommon {
+class PrintEntradaDeDatosKO extends PrintCommon {
     protected $perros; // lista de participantes en esta jornada
     protected $manga; // datos de la manga
     protected $categoria;
@@ -109,11 +109,61 @@ class PrintEntradaDeDatosGames extends PrintCommon {
 		$this->print_commonFooter();
 	}
 
-	// Tabla coloreada
+	function writeTableCell_1($row,$orden) {
+        // cada 2 entradas (orden impar) ponemos numero de pareja
+        // pintamos dato del perro
+    }
+
+	// La hoja de asistente de pista es parecida a la hoja normal, solo que con 16 perros, agrupados de 2 en dos
 	function composeTable() {
-		$this->myLogger->enter();
-		// PENDING: write
-		$this->myLogger->leave();
+        $this->myLogger->enter();
+
+        $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
+        $this->SetLineWidth(.3);
+
+        // Rango.
+        $fromItem=1;
+        $toItem=99999;
+        if (($this->rango!=="") && preg_match('/^\d+-\d+$/',$this->rango)!==FALSE) {
+            $a=explode("-",$this->rango);
+            $fromItem=intval($a[0]);
+            $toItem=intval($a[1]);
+            // Debemos asegurarnos que origen y final son multiplos de 16
+            $fromItem=( ($fromItem-1)%16==0) ? $fromItem : $fromItem - ($fromItem-1)%16;
+            $toItem=($toItem%16==0)?$toItem:$toItem-$toItem%16;
+            if ($fromItem==$toItem) $toItem+=16;
+        }
+        // Datos
+        $orden=1;
+        $rowcount=0;
+        foreach($this->orden as $row) {
+            if (!category_match($row['Categoria'],$this->validcats)) continue;
+            // if change in categoria, reset orden counter and force page change
+            if ($row['Categoria'] !== $this->categoria) {
+                // $this->myLogger->trace("Nueva categoria es: ".$row['Categoria']);
+                $this->categoria = $row['Categoria'];
+                // $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre de categoria
+                $rowcount=0;
+                $orden=1;
+            }
+            if (($orden<$fromItem) || ($orden>$toItem) ) { $orden++; continue; } // not in range; skip
+            // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+            if( ($rowcount % 16) == 0 ) { // assume $numrows entries per page
+                $this->AddPage();
+                // indicamos nombre del operador que rellena la hoja
+                $this->ac_header(2,12);
+                $this->Cell(90,7,_('Record by').':','LTBR',0,'L',true);
+                $this->Cell(10,7,'',0,'L',false);
+                $this->Cell(90,7,_('Review by').':','LTBR',0,'L',true);
+                $this->Ln(15);
+            }
+            $this->writeTableCell_1($row,$orden);
+            $rowcount++;
+            $orden++;
+        }
+        // Línea de cierre
+        $this->Cell(array_sum($this->pos),0,'','T');
+        $this->myLogger->leave();
 	}
 }
 

@@ -192,6 +192,20 @@ function print_asistente(pagemode,cats,fill,rango,comentarios) {
 }
 
 /**
+ * En las pruebas KO se imprimen 16 perros por pagina, agrupados de dos en dos
+ */
+function print_asistenteKO(cats,fill,rango,comentarios) {
+    return print_asistente(16,cats,fill,rango,comentarios);
+}
+
+/**
+ * En snooker / gambler la hoja no da para imprimir más que 8 entradas
+ */
+function print_asistenteGames(cats,fill,rango,comentarios) {
+    return print_asistente(8,cats,fill,rango,comentarios);
+}
+
+/**
  * En pruebas de equipos 4 conjunta se ofrece la opción de usar una única entrada para el equipo
  */
 function print_asistenteEquipos(cats,fill,rango,comentarios) {
@@ -215,37 +229,6 @@ function print_asistenteEquipos(cats,fill,rango,comentarios) {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
-/**
- * En las pruebas KO se imprimen 16 perros por pagina, agrupados de dos en dos
- */
-function print_asistenteKO(cats,fill,rango,comentarios) {
-    return print_asistente(16,cats,fill,rango,comentarios);
-}
-
-/**
- * En pruebas de equipos 4 conjunta se ofrece la opción de usar una única entrada para el equipo
- */
-function print_asistenteGames(cats,fill,rango,comentarios) {
-    $.fileDownload(
-        '/agility/server/pdf/print_entradaDeDatos.php',
-        {
-            httpMethod: 'GET',
-            data: {
-                Prueba: workingData.prueba,
-                Jornada: workingData.jornada,
-                Manga: workingData.manga,
-                Categorias: cats,
-                Mode: 16, // on ko rounds allways print 16 dogs/page
-                FillData: (fill)?1:0,
-                Rango:rango,
-                Comentarios:comentarios
-            },
-            preparingMessageHtml:'(assistant sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
-            failMessageHtml:'(assistant sheets) <?php _e("There was a problem generating your report, please try again."); ?>'
-        }
-    );
-    return false; //this is critical to stop the click event which will trigger a normal file download!
-}
 /********************** impresion de datos parciales ***************/
 
 function print_parcial(mode) {
