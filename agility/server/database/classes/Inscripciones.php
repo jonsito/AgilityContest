@@ -563,7 +563,8 @@ class Inscripciones extends DBObject {
         $tmask=1<<(($tobj['Numero'])-1);
 
         // actualizamos tabla de inscripciones
-        $sql="UPDATE Inscripciones SET Jornadas=(Jornadas|{$tmask}) WHERE (Prueba={$this->pruebaID}) AND ((Jornadas&{$fmask}) != 0)";
+        $sql="UPDATE Inscripciones SET Jornadas=(Jornadas|{$tmask}) ".
+                    "WHERE (Prueba={$this->pruebaID}) AND ((Jornadas&{$fmask}) != 0)";
         $res=$this->query($sql);
         if (!$res) $this->myLogger->error($this->conn->error);
 
@@ -582,7 +583,10 @@ class Inscripciones extends DBObject {
         // procesamos la inscripcion de los perros seleccionados
         for($n=0;$n<$inscripciones['total']; $n++) {
             $inscripcion=$inscripciones['rows'][$n];
-            if ( $inscripcion['Jornadas'] & $tmask  == 0 ) continue; // no need to be cloned
+            if ( (intval($inscripcion['Jornadas']) & $tmask ) == 0 ) {  // not inscribed in journey, so no need to process
+                $this->myLogger->trace("Dog {$perros['rows'][$n]['ID']} {$perros['rows'][$n]['Nombre']} Not inscribed. Skip clone");
+                continue;
+            }
             set_time_limit($timeout);
             $this->myLogger->trace("Procesando inscripcion {$inscripcion['Perro']} del perro: {$perros['rows'][$n]['ID']} {$perros['rows'][$n]['Nombre']}");
             inscribePerroEnJornada($inscripcion,$tobj,$perros['rows'][$n]);
@@ -600,7 +604,7 @@ class Inscripciones extends DBObject {
                 $teamID=$defteam['ID'];
             } else {
                 $sql="INSERT INTO Equipos (Prueba,Jornada,Nombre,Observaciones,Miembros,DefaultTeam)
-				      VALUES ({$fobj['Prueba']},{$jornada},'{$fobj['Nombre']}','{$fobj['Observaciones']}','BEGIN,END',0 )";
+				      VALUES ({$fobj['Prueba']},{$jornada},'{$equipo['Nombre']}','{$equipo['Observaciones']}','BEGIN,END',0 )";
                 $res=$this->query($sql);
                 if (!$res) $this->myLogger->error($this->conn->error);
                 $teamID=$this->conn->insert_id;
