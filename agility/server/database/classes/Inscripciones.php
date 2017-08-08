@@ -581,7 +581,7 @@ class Inscripciones extends DBObject {
             "ID ASC");
         // procesamos la inscripcion de los perros seleccionados
         for($n=0;$n<$inscripciones['total']; $n++) {
-            $inscripcion=$inscripciones['rows']['n'];
+            $inscripcion=$inscripciones['rows'][$n];
             if ( $inscripcion['Jornadas'] & $tmask  == 0 ) continue; // no need to be cloned
             set_time_limit($timeout);
             $this->myLogger->trace("Procesando inscripcion {$inscripcion['Perro']} del perro: {$perros['rows'][$n]['ID']} {$perros['rows'][$n]['Nombre']}");
@@ -611,8 +611,10 @@ class Inscripciones extends DBObject {
             if (!$res) $this->myLogger->error($this->conn->error);
             // ahora actualizamos el campo equipo de los resultados de la jornada
             // en que el ID del perro esta en la lista de miembros
-            $sql="UPDATE Resultados SET Equipo={$teamID} WHERE Jornada={$jornada} AND Perro IN ($members)";
-            $res=$this->query($sql);
+            if ($members!="") { // skip empty team lists
+                $sql="UPDATE Resultados SET Equipo={$teamID} WHERE Jornada={$jornada} AND Perro IN ($members)";
+                $res=$this->query($sql);
+            }
             if (!$res) $this->myLogger->error($this->conn->error);
         }
 

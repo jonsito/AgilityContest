@@ -31,18 +31,10 @@ require_once(__DIR__."/../print_common.php");
 class PrintEntradaDeDatosKO extends PrintCommon {
     protected $perros; // lista de participantes en esta jornada
     protected $manga; // datos de la manga
-    protected $categoria;
     protected $validcats; // categorias de las que se solicita impresion
     protected $fillData;
     protected $rango;
     protected $orden; // lista de perros segun el orden de salida
-
-    // geometria de las celdas
-    protected $cellHeader
-        =array('Dorsal','Nombre','Lic.','Guía','Club','Celo', 'Observaciones');
-    protected $pos	=array(  15,       25,     18,    50,   42,     10,    30);
-    protected $align=array(  'C',      'R',    'C',   'L',  'R',    'C',   'R');
-    protected $fmt	=array(  'i',      's',    's',   's',  's',    'b',   's');
 	
 	/**
 	 * Constructor
@@ -95,7 +87,7 @@ class PrintEntradaDeDatosKO extends PrintCommon {
 
         // pintamos tipo y categoria de la manga
         $tmanga= _(Mangas::getTipoManga($this->manga->Tipo,1,$this->federation));
-        $categoria=$this->getCatString($this->categoria);
+        $categoria=$this->getCatString($this->validcats);
         $str2 = "$tmanga - $categoria";
         $this->Cell(100,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
         $this->Ln(12);
@@ -150,7 +142,8 @@ class PrintEntradaDeDatosKO extends PrintCommon {
         $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // color de fondo 2
         $this->SetXY($x+15,$y); // restore cursor position
         $this->SetFont($this->getFontName(),'B',10); // bold 10px
-        $this->Cell(15,5,'',	'LTR',0,'L',true); // dorsal
+        $this->Cell(13,5,'',	'LTR',0,'L',true); // dorsal
+        $this->Cell(12,5,'',	'LTR',0,'L',true); // dorsal
         $this->Cell(10,5,'',	'TR',0,'L',true); // celo
         if ($wide) {
             $this->Cell(50,5,'',	'TR',0,'L',true); // perro
@@ -158,11 +151,13 @@ class PrintEntradaDeDatosKO extends PrintCommon {
             $this->Cell(20, 5, '', 'TR', 0, 'L', true); // licencia
             $this->Cell(30,5,'',	'TR',0,'L',true); // perro
         }
-        $this->Cell(60,5,'',	'TR',0,'L',true); // guia
+        $this->Cell(50,5,'',	'TR',0,'L',true); // guia
         $this->Cell(40,5,'',	'TR',0,'L',true); // club
         // datos cabecera de celda
         $this->SetXY($x+15,$y+1); // restore cursor position
-        $this->Cell(15,4,$row['Dorsal'],		'',0,'R',false); // display order
+        $this->Cell(13,4,$row['Dorsal'],		'',0,'R',false); // display order
+        $cat=$this->federation->getCategoryShort($row['Categoria']);
+        $this->Cell(12,4,$cat,	'',0,'R',false); // display order
         $this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
         if ($wide) {
             $this->Cell(50,4,$row['Nombre'],		'',0,'R',false);
@@ -170,23 +165,24 @@ class PrintEntradaDeDatosKO extends PrintCommon {
             $this->Cell(20,4,$row['Licencia'],		'',0,'R',false);
             $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
         }
-        $this->Cell(60,4,$row['NombreGuia'],	'',0,'R',false);
+        $this->Cell(50,4,$row['NombreGuia'],	'',0,'R',false);
         $this->Cell(40,4,$row['NombreClub'],	'',0,'R',false);
 
         // titulos cabecera de celda
-        $this->SetXY($x+15,$y); // restore cursor position
+        $this->SetXY($x+14,$y); // restore cursor position
         $this->SetTextColor(0,0,0); // negro
         $this->SetFont($this->getFontName(),'I',7); // italic 8px
-        $this->Cell(15,4,_('Dorsal'),	'',0,'L',false); // display order
-        $this->Cell(10,4,_('Heat'),	'',0,'L',false);
+        $this->Cell(13,3,_('Dorsal'),	'',0,'L',false); // display order
+        $this->Cell(12,3,_('Cat'),	'',0,'L',false); // display order
+        $this->Cell(10,3,_('Heat'),	'',0,'L',false);
         if ($wide) {
-            $this->Cell(50,4,_('Name'),	'',0,'L',false);
+            $this->Cell(50,3,_('Name'),	'',0,'L',false);
         } else {
-            $this->Cell(20,4,_('Lic'),'',0,'L',false);
-            $this->Cell(30,4,_('Name'),	'',0,'L',false);
+            $this->Cell(20,3,_('Lic'),'',0,'L',false);
+            $this->Cell(30,3,_('Name'),	'',0,'L',false);
         }
-        $this->Cell(60,4,_('Handler'),	'',0,'L',false);
-        $this->Cell(40,4,$this->strClub,	'',0,'L',false);
+        $this->Cell(50,3,_('Handler'),	'',0,'L',false);
+        $this->Cell(40,3,$this->strClub,	'',0,'L',false);
 
         // ahora pintamos zona de escritura de palotes
         $this->SetXY($x+15,$y+5);
@@ -205,7 +201,10 @@ class PrintEntradaDeDatosKO extends PrintCommon {
         $this->Cell(7, 5,_('Ref'),	'',0,'C',false);
         $this->Cell(7, 5,_('Tch'),	'',0,'C',false);
         $this->Cell(29,5,_('Time'),  '',0,'L',false);
-        if (! $this->fillData) { $this->Ln(9); return; }
+        if (! $this->fillData) {
+            $this->Ln(($orden%2!=0)?8:10.5);
+            return;
+        }
         // arriving here means populate results
         $this->SetFont($this->getFontName(),'B',9); //
         $this->SetXY($x+40,$y+8);
@@ -219,7 +218,7 @@ class PrintEntradaDeDatosKO extends PrintCommon {
         if($row['Pendiente']!=0)  $this->Cell(20,5,_('Pending'),  '',0,'L',false);
         else if($row['NoPresentado']!=0)  $this->Cell(19,5,_('Not Present'),  '',0,'L',false);
         else if($row['Eliminado']!=0)  $this->Cell(19,5,_('Eliminated'),  '',0,'L',false);
-        $this->Ln( ($orden%2!=0)?5:7);
+        $this->Ln( ($orden%2!=0)?4:7);
     }
 
 	// La hoja de asistente de pista es parecida a la hoja normal, solo que con 16 perros, agrupados de 2 en dos
@@ -245,15 +244,9 @@ class PrintEntradaDeDatosKO extends PrintCommon {
         $orden=1;
         $rowcount=0;
         foreach($this->orden as $row) {
+            // remember: in ko rounds heigths are grouped. so just skip if not selected, but no add new page
             if (!category_match($row['Categoria'],$this->validcats)) continue;
-            // if change in categoria, reset orden counter and force page change
-            if ($row['Categoria'] !== $this->categoria) {
-                // $this->myLogger->trace("Nueva categoria es: ".$row['Categoria']);
-                $this->categoria = $row['Categoria'];
-                // $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre de categoria
-                $rowcount=0;
-                $orden=1;
-            }
+
             if (($orden<$fromItem) || ($orden>$toItem) ) { $orden++; continue; } // not in range; skip
             // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
             if( ($rowcount % 16) == 0 ) { // assume $numrows entries per page
@@ -263,8 +256,6 @@ class PrintEntradaDeDatosKO extends PrintCommon {
             $rowcount++;
             $orden++;
         }
-        // Línea de cierre
-        $this->Cell(array_sum($this->pos),0,'','T');
         $this->myLogger->leave();
 	}
 }

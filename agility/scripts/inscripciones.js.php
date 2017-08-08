@@ -208,7 +208,7 @@ function clearJourneyInscriptions(current){
         $.messager.alert('<?php _e("Undeclared"); ?>','<?php _e("Selected journey to clear is empty"); ?>',"warning");
         return false; // no hay ninguna jornada seleccionada para clonar
     }
-    $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Clearing inscriptions in journey");?>'+"'"+row.Nombre+"'" });
+    $.messager.progress({title:'<?php _e("Clear inscriptions"); ?>',text:'<?php _e("Clearing inscriptions in journey");?>'+"'"+row.Nombre+"'" });
     $.ajax({
         cache: false,
         timeout: 60000, // 60 segundos
@@ -242,7 +242,7 @@ function inscribeAllIntoJourney(current){
         $.messager.alert('<?php _e("Undeclared"); ?>','<?php _e("Must declare this journey first"); ?>',"warning");
         return false; // no hay ninguna jornada seleccionada para clonar
     }
-    $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Cloning all inscriptions into journey");?>'+"'"+row.Nombre+"'" });
+    $.messager.progress({title:'<?php _e("Inscribe all"); ?>',text:'<?php _e("Inscribe all dogs into journey");?>'+"'"+row.Nombre+"'" });
     $.ajax({
         cache: false,
         timeout: 60000, // 60 segundos
@@ -272,7 +272,7 @@ function inscribeAllIntoJourney(current){
 
 function inscribeSelectedIntoJourney(current){
     function doInscribeSelectedIntoJourney(tojourney) {
-        $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Cloning inscriptions from selected journey into ");?>'+"'"+tojourney.Nombre+"'" });
+        $.messager.progress({title:'<?php _e("Inscribe selection"); ?>',text:'<?php _e("Cloning inscriptions from selected journey into ");?>'+"'"+tojourney.Nombre+"'" });
         $.ajax({
             cache: false,
             timeout: 60000, // 60 segundos
