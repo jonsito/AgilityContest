@@ -2,6 +2,7 @@
 call settings.bat
 cd /d %~dp0\xampp
 rem echo AgilityContest Launch Script
+start "" /B mshta "javascript:var sh=new ActiveXObject( 'WScript.Shell' ); sh.Popup( 'AgilityContest is starting. Please wait', 20, 'Working...', 64 );close()"
 
 rem notice that this may require admin privileges
 rem for windows 8 and 10 disable w3svc service
