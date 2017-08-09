@@ -39,7 +39,8 @@ var ac_import = {
 var ac_import_table = {
     'perros' :          [ '#perros-excel-dialog','#perros-datagrid' ],
     'inscripciones' :   [ '#inscripciones-excel-dialog','#inscripciones-datagrid' ],
-    'entrenamientos' :  [ '#entrenamientos-excel-dialog','#entrenamientos-datagrid' ]
+    'entrenamientos' :  [ '#entrenamientos-excel-dialog','#entrenamientos-datagrid' ],
+    'resultados' :      [ '#resultadosmanga-excel-dialog','#resultados-datagrid' ]
 };
 
 function import_setProgressStatus(status) {
@@ -416,3 +417,4 @@ function real_excelImport(mode) {
 function perros_excelImport() { return real_excelImport('perros'); }
 function inscripciones_excelImport() { return real_excelImport('inscripciones'); }
 function entrenamientos_excelImport() { return real_excelImport('entrenamientos'); }
+function resultadosmanga_excelImport() { return real_excelImport('resultados'); }

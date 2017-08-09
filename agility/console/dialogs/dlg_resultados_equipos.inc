@@ -21,6 +21,19 @@ require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
+<!-- Ventana de seleccion de fichero para importacion de datos excel -->
+<div id="resultadosmanga-excel-dialog" style="width:640px;height:auto;padding:10px; display=none;">
+    <?php require_once(__DIR__."/../../lib/templates/import_results.inc.php"); ?>
+</div>
+
+<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE IMPORTACION -->
+<div id="resultadosmanga-excel-buttons">
+    <a id="resultadosmanga-excel-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-ok'" onclick="resultadosmanga_excelImport()"><?php _e('Import'); ?></a>
+    <a id="resultadosmanga-excel-cancelBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-cancel'" onclick="$('#resultadosmanga-excel-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+</div>
+
 <!--  dialogo de presentacion de resultados parciales de una manga -->
 <div id="resultadosmanga-dialog" style="width:800px;height:450px;padding:0 10px 100px 10px">
 
@@ -52,7 +65,21 @@ $config =Config::getInstance();
 </div>
 <script type="text/javascript">
 
-$('#resultadosmanga-dialog').dialog({
+    // tell jquery to convert declared elements to jquery easyui Objects
+    $('#resultadosmanga-excel-dialog').dialog( {
+        title:' <?php _e('Import partial scores results on this round from Excel file'); ?>',
+        closed:true,
+        modal:true,
+        buttons:'#resultadosmanga-excel-buttons',
+        iconCls:'icon-table',
+        onOpen: function() {
+            ac_import.mode='resultados';
+            $('#import-excel-progressbar').progressbar('setValue',"");
+        },
+        onClose: function() { ac_import.progress_status='paused'; }
+    } );
+
+    $('#resultadosmanga-dialog').dialog({
 	collapsible:	false,
 	minimizable:	false,
 	maximizable:	false,
@@ -76,5 +103,7 @@ addSimpleKeyHandler('#parciales_equipos-datagrid','#resultadosmanga-dialog');
 addTooltip($('#resultadosmanga-reloadBtn').linkbutton(),'<?php _e("Update results on selected round/category"); ?>');
 addTooltip($('#resultadosmanga-printBtn').linkbutton(),'<?php _e("Print round results"); ?>');
 addTooltip($('#resultadosmanga-excelBtn').linkbutton(),'<?php _e("Import/Export partial scores from/to excel file"); ?>');
+addTooltip($('#resultadosmanga-excel-okBtn').linkbutton(),'<?php _e("Import round result data from selected Excel file"); ?>');
+addTooltip($('#resultadosmanga-excel-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 
 </script>
