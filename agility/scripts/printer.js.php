@@ -230,17 +230,61 @@ function print_asistenteEquipos(cats,fill,rango,comentarios) {
 }
 
 /********************** impresion de datos parciales ***************/
+function importExportParcial(mode) {
+    $.messager.radio(
+        '<?php _e("Import/Export"); ?>',
+        '<?php _e("Import/Export partial scores from/to Excel file"); ?>:',
+        {
+            0:'*<?php _e("Create Excel file with current round results"); ?>',
+            1:'<?php _e("Import partial scores on this round from Excel file"); ?>'
+        },
+        function(r){
+            if (!r) return false;
+            switch(parseInt(r)){
+                case 0:
+                    $.fileDownload(
+                        '/agility/server/excel/partialscores_writer.php',
+                        {
+                            httpMethod: 'GET',
+                            data: {
+                                Prueba: workingData.prueba,
+                                Jornada: workingData.jornada,
+                                Manga: workingData.manga,
+                                Mode: mode,
+                                Operation: 'excel'
+                            },
+                            preparingMessageHtml: '(Excel partial scores) <?php _e("We are preparing your report, please wait"); ?> ...',
+                            failMessageHtml: '(Excel partial scores) <?php _e("There was a problem generating your report, please contact author."); ?>'
+                        }
+                    );
+                    break;
+                case 1:
+                    // import
+                    check_permissions(access_perms.ENABLE_IMPORT, function (res) {
+                        if (res.errorMsg) {
+                            $.messager.alert('License error','<?php _e("Current license has no Excel import function enabled"); ?>', "error");
+                        } else {
+                            alert("pending");
+                        }
+                        return false; // prevent default fireup of event trigger
+                    });
+                    break;
+            }
+        }).window('resize',{width:400});
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+
+}
 
 function print_parcial(mode) {
     var msgs=  {
         0: '*<?php _e("Create PDF Report");?>',
-        1: '<?php _e("Create Excel File"); ?>',
+        // 1: '<?php _e("Create Excel File"); ?>',
         2: '<?php _e("Print filled assistant sheets 10 dogs/pages"); ?>',
         3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>'
     };
     if (isJornadaKO()) msgs={
         0: '*<?php _e("Create PDF Report");?>',
-        1: '<?php _e("Create Excel File"); ?>',
+        // 1: '<?php _e("Create Excel File"); ?>',
         4: '<?php _e("Print filled assistant sheets 16 dogs/pages"); ?>'
     };
     $.messager.radio(
@@ -304,7 +348,7 @@ function print_parcial(mode) {
                 // PENDING: add filled sheet for snooker/gambler
             }
             return false; // return false to prevetn event keyboard chaining
-        }).window('resize', {width: 350});
+        }).window('resize', {width: 450});
     return false;
 }
 

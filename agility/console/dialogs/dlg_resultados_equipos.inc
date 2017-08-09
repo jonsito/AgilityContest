@@ -35,6 +35,8 @@ $config =Config::getInstance();
 			<strong><?php _e('Results on selected categories'); ?>:</strong>
 		</span>
 		<span style="float:right;padding:5px">
+		   	<a id="resultadosmanga-excelBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-db_restore'" onclick="importExportParcial($('input:radio[name=rRecorrido]:checked').val())"><?php _e('Import/Export'); ?></a>
 		   	<a id="resultadosmanga-reloadBtn" href="#" class="easyui-linkbutton"
 			   data-options="iconCls:'icon-reload'" onclick="consoleReloadParcial($('input:radio[name=rRecorrido]:checked').val(),true)"><?php _e('Update'); ?></a>
 	   		<a id="resultadosmanga-printBtn" href="#" class="easyui-linkbutton"
@@ -73,5 +75,6 @@ addSimpleKeyHandler('#parciales_equipos-datagrid','#resultadosmanga-dialog');
 //- botones del panel de resultados de la manga
 addTooltip($('#resultadosmanga-reloadBtn').linkbutton(),'<?php _e("Update results on selected round/category"); ?>');
 addTooltip($('#resultadosmanga-printBtn').linkbutton(),'<?php _e("Print round results"); ?>');
+addTooltip($('#resultadosmanga-excelBtn').linkbutton(),'<?php _e("Import/Export partial scores from/to excel file"); ?>');
 
 </script>
