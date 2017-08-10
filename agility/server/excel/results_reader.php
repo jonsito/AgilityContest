@@ -5,7 +5,7 @@
  * User: jantonio
  * Date: 2/04/16
  * Time: 16:20
-trainingtable_reader.php
+results_reader.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -25,21 +25,21 @@ require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
-require_once(__DIR__ . "/../modules/Federations.php");
+require_once(__DIR__."/../modules/Federations.php");
 require_once(__DIR__."/../database/classes/DBObject.php");
 require_once(__DIR__."/../database/classes/Entrenamientos.php");
 require_once(__DIR__.'/Spout/Autoloader/autoload.php');
 require_once(__DIR__.'/dog_reader.php');
 
-class EntrenamientosReader extends DogReader {
+class ResultsReader extends DogReader {
 
     protected $prueba;
 
     public function __construct($name,$options) {
         $this->myDBObject = new DBObject($name);
-        $this->prueba=$this->myDBObject->__selectAsArray("*","Pruebas","ID={$options['Prueba']}");
+        $this->manga=$this->myDBObject->__selectAsArray("*","Mangas","ID={$options['Manga']}");
         if (!is_array($this->prueba))
-            throw new Exception("{$name}::construct(): invalid Prueba ID: {$options['Prueba']}");
+            throw new Exception("{$name}::construct(): invalid Manga ID: {$options['Manga']}");
         parent::__construct($name,$options);
 
         // instead of using parent field list, use our own one
@@ -76,7 +76,7 @@ class EntrenamientosReader extends DogReader {
         $fedobj=Federations::getFederation($this->federation);
         if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=0; $this->fieldList['Country'][1]=1; } // country/club
         if ($fedobj->get('Heights')==4) { $this->fieldList['Key4'][1]=1; $this->fieldList['Value4'][1]=1; } // required on 4 heights
-        $this->validPageNames=array("Results","Resultados");
+        $this->validPageNames=array("Trainings");
     }
 
     /** convert an excel date format into unix epoch seconds */

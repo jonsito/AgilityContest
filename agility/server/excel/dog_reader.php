@@ -75,8 +75,8 @@ class DogReader {
         'Country' =>    array (  -15, -1, "s", "Pais",      " `Pais` varchar(255) NOT NULL,")  // Country. optional
     );
 
-    public function __construct($name,$fed,$options) {
-        $this->federation = intval($fed);
+    public function __construct($name,$options) {
+        $this->federation = intval($options['Federation']);
         $this->myOptions=$options;
         $this->name=$name;
         $this->myConfig=Config::getInstance();
@@ -84,7 +84,7 @@ class DogReader {
         if (php_sapi_name()!="cli") {
             $this->myAuthMgr= new AuthManager($this->name);
             if (! $this->myAuthMgr->allowed(ENABLE_IMPORT) )
-                throw new Exception ("{$this->name}: Unlicensed copy or Feature disabled in current license");
+                throw new Exception ("{$name}: Unlicensed copy or Feature disabled in current license");
             $this->myAuthMgr->access(PERMS_OPERATOR); // throw exception on fail
         }
         $this->tablename= TABLE_NAME;

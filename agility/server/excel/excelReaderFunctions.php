@@ -5,7 +5,7 @@
  * User: jantonio
  * Date: 2/04/16
  * Time: 16:20
-inscription_reader.php
+excelReaderFunctions.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -25,12 +25,13 @@ require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
-require_once(__DIR__ . "/../modules/Federations.php");
+require_once(__DIR__."/../modules/Federations.php");
 require_once(__DIR__."/../database/classes/DBObject.php");
 require_once(__DIR__.'/Spout/Autoloader/autoload.php');
 require_once(__DIR__.'/dog_reader.php');
 require_once(__DIR__.'/inscription_reader.php');
-require_once(__DIR__ . '/trainingtable_reader.php');
+require_once(__DIR__.'/trainingtable_reader.php');
+require_once(__DIR__.'/results_reader.php');
 
 $options=array();
 $options['Suffix']=http_request("Suffix","s","");
@@ -52,8 +53,6 @@ if ($op==='progress') {
 // Consultamos la base de datos
 try {
     // 	Creamos generador de documento
-    $fed=http_request("Federation","i",-1);
-    $prueba=http_request("Prueba","i",0);
     $mode=http_request("Mode","s","");
     if ($mode==="") throw new Exception("excelReaderFunctions(): no mode selected");
     if ($mode==="resultados") throw new Exception("excelResultsReader(): not yet implemented");
@@ -65,18 +64,34 @@ try {
     $options['Object']=http_request("Object","s",""); // 'Perro' 'Guia' 'Club'
     $options['DatabaseID']=http_request("DatabaseID","i",0); // -1:ignore 0:create else:update
     $options['ExcelID']=http_request("ExcelID","i",0); // ID of affected ExcelImport table row
+    $options['ParseCourseData']=http_request("ParseCourseData","i",0); // on result import handle SCT data
+    $options['AllowNoLicense']=http_request("AllowNoLicense","i",0); // do not ignore result when no license provided
+    $options['Federation']=http_request("Federation","i",-1);
+    $options['Prueba']=http_request("Prueba","i",0);
+    $options['Jornada']=http_request("Jornada","i",0);
+    $options['Manga']=http_request("Manga","i",0);
 
+    // some shortcuts
+    $f=intval($options['Federation']);
+    $p=intval($options['Prueba']);
+    $j=intval($options['Jornada']);
+    $m=intval($options['Manga']);
+    // create propper importer instance
     if ($mode==="perros") {
-        if ($fed<0) throw new Exception("dog_reader::ImportExcel(): invalid Federation ID: $fed");
-        $er=new DogReader("ImportExcel(dogs)",$fed,$options);
+        if ($f<0) throw new Exception("dog_reader::ImportExcel(): invalid Federation ID: $f");
+        $er=new DogReader("ImportExcel(dogs)",$options);
     } else  if ($mode==="inscripciones") {
-        if ($prueba==0) throw new Exception("inscription_reader::ImportExcel(): invalid Prueba ID: $prueba");
-        $er=new InscriptionReader("ExcelImport(inscriptions)",$prueba,$options);
+        if ($p==0) throw new Exception("inscription_reader::ImportExcel(): invalid Prueba ID: $p");
+        $er=new InscriptionReader("ExcelImport(inscriptions)",$options);
     } else if ($mode==="entrenamientos") {
-        if ($prueba==0) throw new Exception("inscription_reader::ImportExcel(): invalid Prueba ID: $prueba");
-        $er=new EntrenamientosReader("ExcelImport(training session)",$prueba,$options);
+        if ($p==0) throw new Exception("inscription_reader::ImportExcel(): invalid Prueba ID: $p");
+        $er=new EntrenamientosReader("ExcelImport(training session)",$options);
+    } else if ($mode==="resultados") {
+        if ($p==0) throw new Exception("results_reader::ImportExcel(): invalid Prueba ID: $p");
+        if ($j==0) throw new Exception("results_reader::ImportExcel(): invalid Jornada ID: $j");
+        if ($m==0) throw new Exception("results_reader::ImportExcel(): invalid Manga ID: $m");
+        $er=new ResultsReader("ExcelImport(round results)",$options);
     } else {
-        // import pruebas when ready
         throw new Exception("excelReaderFunctions(): invalid mode selected: ".$mode);
     }
 
@@ -134,9 +149,9 @@ try {
     if ( ($result==="") || ($result===0) )  // empty or zero on success
          $retcode= json_encode(array('operation'=> $op, 'success'=>'ok'));
     else $retcode= json_encode($result);         // else return data already has been set
-    do_log("inscriptionReader returns: '$retcode'");
+    do_log("Excel $mode Reader returns: '$retcode'");
     echo $retcode;
 } catch (Exception $e) {
-    do_log("inscriptionReader Exception: ".$e->getMessage());
+    do_log("Excel $mode Reader Exception: ".$e->getMessage());
     echo json_encode(array("operation"=>$op, 'success'=>'fail', 'errorMsg'=>$e->getMessage()));
 }

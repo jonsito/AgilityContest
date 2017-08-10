@@ -35,13 +35,13 @@ class InscriptionReader extends DogReader {
     protected $prueba;
     protected $jornadas;
 
-    public function __construct($name,$pruebaID,$options) {
+    public function __construct($name,$options) {
         $pay=_('Pay'); // stupid poedit
         $this->myDBObject = new DBObject($name);
-        $this->prueba=$this->myDBObject->__selectAsArray("*","Pruebas","ID=$pruebaID");
+        $this->prueba=$this->myDBObject->__selectAsArray("*","Pruebas","ID={$options['Prueba']}");
         if (!is_array($this->prueba))
-            throw new Exception("InscriptionReader::construct(): invalid Prueba ID: $pruebaID");
-        parent::__construct("ImportExcel(inscriptions)",$this->prueba['RSCE'],$options);
+            throw new Exception("{$name}::construct(): invalid Prueba ID: {$options['Prueba']}");
+        parent::__construct($name,$options);
 
         // add additional fields required to handle inscriptions
         $inscList= array(
@@ -55,8 +55,8 @@ class InscriptionReader extends DogReader {
         foreach ($inscList as $key => $data) $this->fieldList[$key]=$data;
 
         // add as columns for contest journeys
-        $res=$this->myDBObject->__select("*","Jornadas","(Prueba=$pruebaID)","","");
-        if (!$res) throw new Exception("InscriptionReader::construct(): cannot retrieve list of journeys for prueba: $pruebaID");
+        $res=$this->myDBObject->__select("*","Jornadas","(Prueba={$options['Prueba']})","","");
+        if (!$res) throw new Exception("InscriptionReader::construct(): cannot retrieve list of journeys for prueba: {$options['Prueba']}");
         $this->jornadas=$res['rows'];
         $index=-21;
         foreach ($this->jornadas as $jornada) {
