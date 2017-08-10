@@ -5,7 +5,11 @@ header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",
 require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
 if (!isset($config) ) $config=Config::getInstance();
+/* check for navigator */
 
+if (!in_array(get_browser_name(),array('Firefox','Chrome','Safari'))) {
+    die("Invalid browser: you should use either Firefox, Chrome or Safari. Otherwise correct behaviour is not guaranteed");
+}
 /* check for properly installed xampp */
 if( ! function_exists('openssl_get_publickey')) {
 	die("Invalid configuration: please uncomment line 'module=php_openssl.dll' in file '\\xampp\\php\\php.ini'");
