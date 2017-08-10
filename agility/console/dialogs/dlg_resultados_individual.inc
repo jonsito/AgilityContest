@@ -76,6 +76,7 @@ $('#resultadosmanga-excel-dialog').dialog( {
     onOpen: function() {
         ac_import.mode='resultados';
         $('#import-excel-progressbar').progressbar('setValue',"");
+        $('#import-excelRoundInfo').html(workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga);
     },
     onClose: function() { ac_import.progress_status='paused'; }
 } );

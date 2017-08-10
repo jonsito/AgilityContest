@@ -7,8 +7,8 @@ $config =Config::getInstance();
 <div style="width=100%">
     <form name="excel-importOpts">
         <p>
-            <?php _e("Current round to import data into");?>:
-            <span style="font-style:italic;" id="import-excelRoundInfo"></span><br/><br/>
+            <?php _e("Current round to import data into");?>:<br/>
+            <span style="font-style:italic;" id="import-excelRoundInfo"></span><br/>
             <?php _e("Database backup is recommended before import");?> &nbsp; &nbsp;
             <input type="button" class="icon_button icon-db_backup" name="<?php _e('Backup');?>" value="<?php _e('Backup');?>" onClick="backupDatabase();"/>
         </p>
@@ -34,18 +34,26 @@ $config =Config::getInstance();
             <span id="import_excelBlindCheck"> <!-- modo blind (no interactivo -->
                 <br />
                 <label for="import-excelBlindMode"><?php _e("Blind (non-interactive) mode");?></label>
-                <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1">
+                <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1"/>
                 <br />
             </span>
             <!-- opciones para el modo blind. En la importacion de resultados no se usa, por lo que lo ponemos oculto-->
-            <span id="import-excelBlindOptions" style="display:none">
-				<input id="import-excelPrefDB"   type="radio" name="excelPreference" value="1">
-				<input id="import-excelPrefFile" type="radio" name="excelPreference" value="0" checked="checked">
-				<input id="import-excelUpperCase" type="radio" name="excelUpperCase" value="1" checked="checked">
-				<input id="import-excelLeave" type="radio" name="excelUpperCase" value="0">
-				<input id="import-excelEmptyIgnore"   type="radio" name="excelEmpty" value="0" checked="checked">
-				<input id="import-excelEmptyUse" type="radio" name="excelEmpty" value="1">
+            <span style="display:none">
+				<input id="import-excelPrefDB"   type="radio" name="excelPreference" value="1"/>
+				<input id="import-excelPrefFile" type="radio" name="excelPreference" value="0" checked="checked"/>
+				<input id="import-excelUpperCase" type="radio" name="excelUpperCase" value="1" checked="checked"/>
+				<input id="import-excelLeave" type="radio" name="excelUpperCase" value="0"/>
+				<input id="import-excelEmptyIgnore"   type="radio" name="excelEmpty" value="0" checked="checked"/>
+				<input id="import-excelEmptyUse" type="radio" name="excelEmpty" value="1"/>
 			</span>
+            <span id="import-excelBlindOptions">
+				<br/><strong><?php _e("Excel import options");?>:</strong> <br/>
+                <label for="import-excelParseCourseData"><?php _e("Also read (if available) course data");?></label>
+                <input id="import-excelParseCourseData"  type=checkbox name="excelParseCourseData" value="1" checked="checked"/>
+                <br/>
+                <label for="import-excelAllowNoLicense"><?php _e("Try to deal entry when no license provided");?></label>
+                <input id="import-excelAllowNoLicense" type="checkbox" name="excelAllowNoLicense" value="1" checked="checked"/>
+            </span>
             <br />
         </p>
     </form>
@@ -63,8 +71,6 @@ $config =Config::getInstance();
         value: 0,
         text: '{value}'
     });
-
-    $('#import-excelRoundInfo').html(workingData.datosFederation.LongName);
 
     addTooltip($('#import-excelBlindMode'),'<?php _e("Assume no coherency errors with current database data"); ?>');
 </script>

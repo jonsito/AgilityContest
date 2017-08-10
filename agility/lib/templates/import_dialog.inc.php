@@ -31,26 +31,33 @@ $config =Config::getInstance();
             </span>
             <!-- opciones para el modo blind -->
             <span id="import-excelBlindOptions">
-				<br/> <?php _e("Options for non-interactive import");?>:<br/>
+				<br/><strong><?php _e("Excel import options");?>:</strong> <br/>
 				<span style="display:inline-block;width:275px"><?php _e("Precedence on DB/Excel entry match");?>:</span>
-				<input id="import-excelPrefDB"   type="radio" name="excelPreference" value="1">
+				<input id="import-excelPrefDB"   type="radio" name="excelPreference" value="1"/>
 				<label for="import-excelPrefDB"><?php _e('Database')?></label>
-				<input id="import-excelPrefFile" type="radio" name="excelPreference" value="0" checked="checked">
-				<label for="import-excelPrefFile"><?php _e('Excel file')?></label><br/>
-
+				<input id="import-excelPrefFile" type="radio" name="excelPreference" value="0" checked="checked"/>
+				<label for="import-excelPrefFile"><?php _e('Excel file')?></label>
+                <br/>
 				<span style="display:inline-block;width:275px"><?php _e("Text Conversion");?>:</span>
-				<input id="import-excelUpperCase" type="radio" name="excelUpperCase" value="1" checked="checked">
+				<input id="import-excelUpperCase" type="radio" name="excelUpperCase" value="1" checked="checked"/>
 				<label for="import-excelUpperCase"><?php _e("Capitalize words");?></label>
-				<input id="import-excelLeave" type="radio" name="excelUpperCase" value="0">
-				<label for="import-excelLeave"><?php _e("Leave as is");?></label><br/>
-
+				<input id="import-excelLeave" type="radio" name="excelUpperCase" value="0"/>
+				<label for="import-excelLeave"><?php _e("Leave as is");?></label>
+                <br/>
 				<span style="display:inline-block;width:275px;"><?php _e('Action on empty fields');?>:</span>
-				<input id="import-excelEmptyIgnore"   type="radio" name="excelEmpty" value="0" checked="checked">
+				<input id="import-excelEmptyIgnore"   type="radio" name="excelEmpty" value="0" checked="checked"/>
 				<label for="import-excelEmptyIgnore"><?php _e('Ignore')?></label>
-				<input id="import-excelEmptyUse" type="radio" name="excelEmpty" value="1">
-				<label for="import-excelEmptyUse"><?php _e('Overwrite')?></label><br/>
+				<input id="import-excelEmptyUse" type="radio" name="excelEmpty" value="1"/>
+				<label for="import-excelEmptyUse"><?php _e('Overwrite')?></label>
+                <br/>
 			</span>
-            <br />
+            <span style="display:none">
+                <label for="import-excelParseCourseData"><?php _e("Also read (if available) course data");?></label>
+                <input id="import-excelParseCourseData"  type=checkbox name="excelParseCourseData" value="1" checked="checked"/>
+                <label for="import-excelAllowNoLicense"><?php _e("Try to deal entry when no license provided");?></label>
+                <input id="import-excelAllowNoLicense" type="checkbox" name="excelAllowNoLicense" value="1" checked="checked"/>
+                <br />
+            </span>
         </p>
     </form>
     <p>
