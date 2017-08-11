@@ -171,6 +171,14 @@ function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5em;fon
 function formatVelocidad(val,row,idx) { return (row.Penalizacion>=200)?"-":toFixedT(parseFloat(val),1); }
 function formatTiempo(val,row,idx) { return (row.Penalizacion>=200)?"-":toFixedT(parseFloat(val),ac_config.numdecs); }
 function formatPenalizacion(val,row,idx) { return toFixedT(parseFloat(val),ac_config.numdecs); }
+function formatTiempoBold(val,row,idx) {
+    var t=toFixedT(parseFloat(val),ac_config.numdecs);
+    return '<span style="font-weight:bold">'+t+'</span>';
+}
+function formatPenalizacionBold(val,row,idx) {
+    var t=toFixedT(parseFloat(val),ac_config.numdecs);
+    return '<span style="font-weight:bold">'+t+'</span>';
+}
 function formatEliminado(val,row,idx) { return (row.Eliminado==0)?"":'<?php _e("Elim"); ?>'; }
 function formatNoPresentado(val,row,idx) { return (row.NoPresentado==0)?"":'<?php _e("N.P."); ?>'; }
 

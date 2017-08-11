@@ -14,8 +14,8 @@ $config =Config::getInstance();
         <th width="20%" data-options="field:'Logo',		    sortable:false, formatter:formatTeamLogos">&nbsp</th>
         <th width="43%" data-options="field:'Nombre',		sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
         <th width="5%"  data-options="field:'Categorias',	sortable:false, formatter:formatCategoria"><?php _e('Cat'); ?></th>
-        <th width="15%" data-options="field:'Tiempo',		sortable:false,align:'center',formatter:formatBold"><?php _e('Time'); ?></th>
-        <th width="15%" data-options="field:'Penalizacion', sortable:false,align:'center',formatter:formatBold"><?php _e('Penalization'); ?></th>
+        <th width="15%" data-options="field:'Tiempo',		sortable:false,align:'center',formatter:formatTiempoBold"><?php _e('Time'); ?></th>
+        <th width="15%" data-options="field:'Penalizacion', sortable:false,align:'center',formatter:formatPenalizacionBold"><?php _e('Penalization'); ?></th>
     </tr>
     </thead>
 </table>

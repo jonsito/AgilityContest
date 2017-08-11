@@ -42,20 +42,29 @@ class Excel_PartialScores extends XLSX_Writer {
 	 * Constructor
 	 * @throws Exception
 	 */
-	function __construct($idprueba,$idjornada,$manga,$resultados,$mode) {
-		parent::__construct("partial_scores.xlsx");
-		setcookie('fileDownload','true',time()+30,"/"); // tell browser to hide "downloading" message box
-        $this->myDBObject=new DBObject("partial_scores.xlsx");
-        $this->prueba=$this->myDBObject->__getObject("Pruebas",$idprueba);
-        $this->jornada=$this->myDBObject->__getObject("Jornadas",$idjornada);
-        $this->manga=$manga;
-        $this->resultados=$resultados;
-        $this->mode=$mode;
-        $this->timeResolution=($this->myConfig->getEnv('crono_milliseconds')=="0")?2:3;
+	function __construct($idprueba,$idjornada,$manga,$resultados,$mode)
+    {
+        parent::__construct("partial_scores.xlsx");
+        setcookie('fileDownload', 'true', time() + 30, "/"); // tell browser to hide "downloading" message box
+        $this->myDBObject = new DBObject("partial_scores.xlsx");
+        $this->prueba = $this->myDBObject->__getObject("Pruebas", $idprueba);
+        $this->jornada = $this->myDBObject->__getObject("Jornadas", $idjornada);
+        $this->manga = $manga;
+        $this->resultados = $resultados;
+        $this->mode = $mode;
+        $this->timeResolution = ($this->myConfig->getEnv('crono_milliseconds') == "0") ? 2 : 3;
         // populate cols and fields
-        $this->fields=array( 'Licencia','Categoria','Grado','Nombre','NombreLargo','Raza','NombreGuia','NombreClub','Faltas','Rehuses','Velocidad','Tiempo','Penalizacion','Calificacion','Puntos','Estrellas');
-        $this->cols=array( 'License','Category','Grade','Name','LongName','Breed','Handler','Club','Faults','Refusals','Speed','Time','Penalization','Calification','Points','Stars');
-	}
+        if (in_array($manga->Tipo, array(29, 30))) { // Snooker,Gambler
+            $this->fields = array('Licencia', 'Categoria', 'Grado', 'Nombre', 'NombreLargo', 'Raza', 'NombreGuia', 'NombreClub', 'Faltas', 'Rehuses', 'Games', 'Velocidad', 'Tiempo', 'Penalizacion', 'Calificacion', 'Puntos');
+            $this->cols = array('License', 'Category', 'Grade', 'Name', 'LongName', 'Breed', 'Handler', 'Club', 'Faults', 'Refusals', 'Games', 'Speed', 'Time', 'Penalization', 'Calification', 'Points');
+        } else if (in_array($manga->Tipo, array(8, 9, 13, 14))) { // teams
+            $this->fields = array('Licencia', 'Categoria', 'Grado', 'Nombre', 'NombreLargo', 'Raza', 'NombreGuia', 'NombreEquipo','NombreClub', 'Faltas', 'Rehuses', 'Velocidad', 'Tiempo', 'Penalizacion', 'Calificacion', 'Puntos', 'Estrellas');
+            $this->cols = array('License', 'Category', 'Grade', 'Name', 'LongName', 'Breed', 'Handler', 'Team','Club', 'Faults', 'Refusals', 'Speed', 'Time', 'Penalization', 'Calification', 'Points', 'Stars');
+        } else {
+            $this->fields = array('Licencia', 'Categoria', 'Grado', 'Nombre', 'NombreLargo', 'Raza', 'NombreGuia', 'NombreClub', 'Faltas', 'Rehuses', 'Velocidad', 'Tiempo', 'Penalizacion', 'Calificacion', 'Puntos', 'Estrellas');
+            $this->cols = array('License', 'Category', 'Grade', 'Name', 'LongName', 'Breed', 'Handler', 'Club', 'Faults', 'Refusals', 'Speed', 'Time', 'Penalization', 'Calification', 'Points', 'Stars');
+        }
+    }
 
     // Cabecera de página
     function writeCourseData() {
