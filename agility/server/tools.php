@@ -85,6 +85,15 @@ function is_https(){
 	return false;
 }
 
+function normalize_license($license) {
+    // remove special chars
+    $license=str_replace(" ","",$license);
+    $license=str_replace("-","",$license);
+    $license=str_replace("_","",$license);
+    // PENDING convert [0ABCD]xx to proper format (3 digits)
+    return strtoupper($license);
+}
+
 function normalize_filename($fname) {
     $fname=trim($fname);
     $fname=str_replace(" ","_",$fname);

@@ -479,6 +479,7 @@ class DogReader {
             $raza=$this->import_mixData($raza,isset($item['Raza'])?$item['Raza']:"");
             $chip=$this->import_mixData($chip,isset($item['Chip'])?$item['Chip']:"");
             $lic=$this->import_mixData($lic,isset($item['Licencia'])?$item['Licencia']:"",false);
+            $lic=normalize_license($lic);
             $loe=$this->import_mixData($loe,isset($item['LOE_RRC'])?$item['LOE_RRC']:"",false);
             $cat=$this->import_mixData($cat,$item['Categoria'],false);
             $grad=$this->import_mixData($grad,$item['Grado'],false);
@@ -504,6 +505,7 @@ class DogReader {
         $s=$item['Genero'];
         $chip=isset($item['Chip'])?$this->myDBObject->conn->real_escape_string($item['Chip']):"";
         $lic=isset($item['Licencia'])?$this->myDBObject->conn->real_escape_string($item['Licencia']):"";
+        $lic=normalize_license($lic);
         $loe=isset($item['LOE_RRC'])?$this->myDBObject->conn->real_escape_string($item['LOE_RRC']):"";
         $raza=isset($item['Raza'])?$this->myDBObject->conn->real_escape_string($item['Raza']):"";
         $nlargo=isset($item['NombreLargo'])?$this->myDBObject->conn->real_escape_string($item['NombreLargo']):"";
@@ -597,6 +599,7 @@ class DogReader {
             $loe=$this->myDBObject->conn->real_escape_string($obj->LOE_RRC);
             $raza=$this->myDBObject->conn->real_escape_string($obj->Raza);
             $lic=$this->myDBObject->conn->real_escape_string($obj->Licencia);
+            $lic=normalize_license($lic);
             $chip=$this->myDBObject->conn->real_escape_string($obj->Chip);
             $nlargo=$this->myDBObject->conn->real_escape_string($obj->NombreLargo);
             $nombre=$this->myDBObject->conn->real_escape_string($obj->Nombre);
@@ -685,6 +688,7 @@ class DogReader {
             $nlargo=$this->import_mixData($nlargo,isset($obj->NombreLargo)?$obj->NombreLargo:"");
             $raza=$this->import_mixData($raza,isset($obj->Raza)?$obj->Raza:"");
             $lic=$this->import_mixData($lic,isset($obj->Licencia)?$obj->Licencia:"",false);
+            $lic=normalize_license($lic);
             $chip=$this->import_mixData($chip,isset($obj->Chip)?$obj->Chip:"",false);
             $loe=$this->import_mixData($loe,isset($obj->LOE_RRC)?$obj->LOE_RRC:"",false);
             $cat=$this->import_mixData($cat,$obj->Categoria,false);

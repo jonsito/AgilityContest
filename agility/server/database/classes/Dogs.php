@@ -46,6 +46,7 @@ class Dogs extends DBObject {
 		$nombrelargo= http_request("NombreLargo","s","",false);
 		$genero= http_request("Genero","s","",false);
         $federation=$this->federation;
+        $licencia=normalize_license($licencia);
 		// componemos un prepared statement (para evitar sql injection)
 		$sql ="INSERT INTO Perros (Nombre,Raza,Chip,LOE_RRC,Licencia,Categoria,Grado,Guia,NombreLargo,Genero,Federation)
 			   VALUES(?,?,?,?,?,?,?,?,?,?,?)";
@@ -101,6 +102,7 @@ class Dogs extends DBObject {
 		$nombrelargo= http_request("NombreLargo","s","",false);
 		$genero= http_request("Genero","s","",false);
         $idperro =	$id;
+        $licencia=normalize_license($licencia);
 		// componemos un prepared statement
 		$sql ="UPDATE Perros SET Nombre=? , Raza=? , Chip=?, LOE_RRC=? , Licencia=? , Categoria=? , Grado=? , Guia=?, NombreLargo=?, Genero=?
 		       WHERE ( ID=? )";
