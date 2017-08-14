@@ -117,7 +117,23 @@ class PartialScoresReader extends DogReader {
 
     function beginImport() {
         $this->myLogger->enter();
-        // PENDING: write
+        // PENDING: si se han definido, se guardan los datos de la manga
+        // ahora guardamos los datos de resultados
+        $from=$this->myDBObject->__select(
+          "*",
+          TABLE_NAME,
+          "( DogID != 0 )",
+          "DogID ASC",
+          ""
+        );
+        $mid=$this->manga['ID'];
+        $is_ko=in_array($this->manga['Tipo'],array(15,18,19,20,21,22,23,24));
+        $resobj=Competitions::getResultadosInstance("update round:{$mid} on journey:{$this->jornada['ID']}",$mid);
+        foreach ($from['rows'] as $resultado) {
+            $resultado['Pendiente']=0;
+            if ($is_ko) $resultado['Games']=1;
+            $resobj->real_update($resultado['DogID'],$resultado);
+        }
         $this->myLogger->leave();
         return array( 'operation'=>'import','success'=>'close');
     }

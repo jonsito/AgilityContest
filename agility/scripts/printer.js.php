@@ -230,7 +230,9 @@ function print_asistenteEquipos(cats,fill,rango,comentarios) {
 }
 
 /********************** impresion de datos parciales ***************/
-function importExportParcial(mode) {
+function importExportParcial(recorrido) {
+    var value=parseInt(recorrido);
+    var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,value);
     $.messager.radio(
         '<?php _e("Import/Export"); ?>',
         '<?php _e("Import/Export partial scores from/to Excel file"); ?>:',
@@ -354,10 +356,10 @@ function print_parcial(mode) {
 
 /**
  * imprime los resultados de la manga/categoria solicitadas
- * @param val 0:L 1:M 2:S 3:T
+ * @param {integer} recorrido 0:L 1:M 2:S 3:T
  */
-function checkAndPrintParcial(val) {
-	var value=parseInt(val); // stupid javascript!!
+function checkAndPrintParcial(recorrido) {
+	var value=parseInt(recorrido); // stupid javascript!!
 	// obtenemos informacion sobre los datos a imprimir
 	var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,value);
 	$.ajax({

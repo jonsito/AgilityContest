@@ -227,6 +227,8 @@ function deleterow(target){
 			data.Faltas=0;
 			data.Tocados=0;
 			data.Rehuses=0;
+			data.Games=0;
+            if (isJornadaKO()) data.Games=1; // trick to mark dog is runing in this round
 			data.Tiempo=0.0;
 			data.Eliminado=0;
 			data.NoPresentado=0;
@@ -242,6 +244,7 @@ function saverow(target){
 	dg.datagrid('endEdit', editIndex );
 	var data=dg.datagrid('getRows')[editIndex];
 	data.Pendiente=0;
+	if (isJornadaKO()) data.Games=1; // trick to mark dog is competing in this ko round
 	saveCompeticionData(editIndex,data);
 }
 function cancelrow(target){

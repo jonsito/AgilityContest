@@ -380,26 +380,48 @@ class Resultados extends DBObject {
 	 * @return {array} datos actualizados desde la DB; null on error
 	 */
 	function update($idperro) {
-		$this->myLogger->enter();
-		$idmanga=$this->IDManga;
-		if ($idperro<=0) return $this->error("No Perro ID specified");
-		if ($this->isCerrada()) 
-			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
-		// buscamos la lista de parametros a actualizar
-		$entrada=http_request("Entrada","s",date("Y-m-d H:i:s"));
-		$comienzo=http_request("Comienzo","s",date("Y-m-d H:i:s"));
-		$faltas=http_request("Faltas","i",0);
-		$rehuses=http_request("Rehuses","i",0);
-		$tocados=http_request("Tocados","i",0);
-		$nopresentado=http_request("NoPresentado","i",0);
-		$eliminado=http_request("Eliminado","i",0);
-		$tiempo=http_request("Tiempo","d",0.0);
-		$tintermedio=http_request("TIntermedio","d",0.0);
-		$observaciones=http_request("Observaciones","s","");
-		// si la actualizacion esta marcada como pendiente
-		$pendiente=http_request("Pendiente","i",1);
+        // buscamos la lista de parametros a actualizar
+        $data['Entrada'] = http_request("Entrada", "s", date("Y-m-d H:i:s"));
+        $data['Comienzo'] = http_request("Comienzo", "s", date("Y-m-d H:i:s"));
+        $data['Faltas'] = http_request("Faltas", "i", 0);
+        $data['Rehuses'] = http_request("Rehuses", "i", 0);
+        $data['Tocados'] = http_request("Tocados", "i", 0);
+        $data['Games'] = http_request("Games", "i", 0);
+        $data['NoPresentado'] = http_request("NoPresentado", "i", 0);
+        $data['Eliminado'] = http_request("Eliminado", "i", 0);
+        $data['Tiempo'] = http_request("Tiempo", "d", 0.0);
+        $data['TIntermedio'] = http_request("TIntermedio", "d", 0.0);
+        $data['Observaciones'] = http_request("Observaciones", "s", "");
+        $data['Pendiente'] = http_request("Pendiente", "i", 1);
+        // invocamos a la funcion que "hace las cosas" :-)
+        return $this->real_update($idperro,$data);
+    }
+
+	function real_update($idperro,$data) {
+        $this->myLogger->enter();
+        $idmanga = $this->IDManga;
+        if ($idperro <= 0) return $this->error("No Perro ID specified");
+        if ($this->isCerrada())
+            return $this->error("Manga $idmanga comes from closed Jornada:" . $this->IDJornada);
+
+        // buscamos la lista de parametros a actualizar
+
+        // algunos parametros opcionales los describimos como texto sql con coma al final
+        // los demas los ponemos con su valor numerico, por si hay que modificarlos
+        $entrada=isset($data['Entrada'])?" Entrada='{$data['Entrada']}' ,":""; // texto sql
+        $comienzo=isset($data['Comienzo'])?" Comienzo='{$data['Comienzo']}' ,":""; // texto sql
+        $faltas=$data['Faltas'];
+        $rehuses=$data['Rehuses'];
+        $tocados=isset($data['Tocados'])?$data['Tocados']:0;
+        $games=isset($data['Games'])?" Games={$data['Games']} ,":""; // texto sql
+        $nopresentado=$data['NoPresentado'];
+        $eliminado=$data['Eliminado'];
+        $tiempo=$data['Tiempo'];
+        $tintermedio=isset($data['TIntermedio'])?$data['TIntermedio']:0;
+        $observaciones=isset($data['Observaciones'])?" Observaciones='{$data['Observaciones']}' ,":""; // texto sql
+        $pendiente=$data['Pendiente'];
 		if ($pendiente==0) {
-            // cuando pendiente es !=0 tenemos datos del recorrido definitivos.
+            // cuando pendiente es ==0 tenemos datos del recorrido definitivos ( ya no esta pendiente :-)
             //
             // comprobamos la coherencia de los datos recibidos y ajustamos
             // NOTA: el orden de estas comprobaciones es MUY importantee
@@ -423,10 +445,10 @@ class Resultados extends DBObject {
 		}
 		// efectuamos el update, marcando "pendiente" como false
 		$sql="UPDATE Resultados 
-			SET Entrada='$entrada' , Comienzo='$comienzo' , 
-				Faltas=$faltas , Rehuses=$rehuses , Tocados=$tocados ,
+			SET $entrada $comienzo 
+				Faltas=$faltas , Rehuses=$rehuses , Tocados=$tocados , $games
 				NoPresentado=$nopresentado , Eliminado=$eliminado , 
-				Tiempo='$tiempo' , TIntermedio='$tintermedio' , Observaciones='$observaciones' , Pendiente=$pendiente
+				Tiempo='$tiempo' , TIntermedio='$tintermedio' , $observaciones Pendiente=$pendiente
 			WHERE (Perro=$idperro) AND (Manga=$this->IDManga)";
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);
@@ -437,7 +459,7 @@ class Resultados extends DBObject {
             $jid=$mng['Jornada'];
             $mid=$mng['ID'];
             $subRes=Competitions::getResultadosInstance("update round:$mid on journey:$jid childOf:{$this->IDJornada}",$mid);
-            $res=$subRes->update($idperro);
+            $res=$subRes->real_update($idperro,$data);
             if (is_string($res)) return $this->error($res);
         }
 		$this->myLogger->leave();

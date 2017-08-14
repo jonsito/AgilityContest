@@ -709,6 +709,7 @@ function competicionKeyEventHandler(evt) {
         	dg.datagrid('endEdit', editIndex );
         	var data=dg.datagrid('getRows')[editIndex];
         	data.Pendiente=0;
+            if (isJornadaKO()) data.Games=1; // trick to mark dog is competing in this ko round
         	saveCompeticionData(editIndex,data);
         	// and open edition on next row
         	dg.datagrid('selectRow', editIndex); // previous focus is lost
@@ -835,7 +836,8 @@ function saveCompeticionData(idx,data) {
             'Eliminado':	evtdata['Eliminado'],
             'NoPresentado':	evtdata['NoPresentado'],
             'Observaciones':data['Observaciones'],
-            'Pendiente':    evtdata['Pendiente']
+            'Pendiente':    evtdata['Pendiente'],
+            'Games':        evtdata['Games']
         };
         // send "update" event to every session listeners
         $.ajax({
@@ -869,7 +871,8 @@ function saveCompeticionData(idx,data) {
 			Eliminado:	data['Eliminado'],
 			NoPresentado:	data['NoPresentado'],
 			Observaciones:	data['Observaciones'],
-			Pendiente: data['Pendiente']
+			Pendiente: data['Pendiente'],
+            Games: data['Games']
 		},
 		success: function(dat) {
 

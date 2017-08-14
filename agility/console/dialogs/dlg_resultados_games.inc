@@ -66,6 +66,7 @@ $config =Config::getInstance();
 <script type="text/javascript">
 
     // tell jquery to convert declared elements to jquery easyui Objects
+
     $('#resultadosmanga-excel-dialog').dialog( {
         title:' <?php _e('Import partial scores results on this round from Excel file'); ?>',
         closed:true,
@@ -79,7 +80,6 @@ $config =Config::getInstance();
         },
         onClose: function() { ac_import.progress_status='paused'; }
     } );
-
 
     $('#resultadosmanga-dialog').dialog({
         collapsible:	false,
