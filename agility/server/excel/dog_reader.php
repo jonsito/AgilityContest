@@ -51,6 +51,9 @@ class DogReader {
     protected $isInternational;
     protected $validPageNames;
 
+    protected $excelVars=array(); // variables declared in top of sheet ( fields: name-value )
+
+    // NOTICE: limitation of the code: required fields in $fieldList must be greater than 3
     protected $fieldList=array (
         // name => index, required (1:true 0:false-to-evaluate -1:optional), default
         // dog related data
@@ -292,27 +295,40 @@ class DogReader {
                 break; // just break at one and only sheet
             }
         }
-        // arriving here means "Dogs" page not found
+
+        // arriving here means requested page ("dogs","inscriptions", etc ) not found
         if (!$found) throw new Exception ("No valid sheet name found in excel file");
+
         // OK: now parse sheet
-        $index=0;
+        $index=0; // parsed line. Used as ID key in temporary table
+        $state=0; // parse status 0:vars  1:header 2:data
         $timeout=ini_get('max_execution_time');
         foreach ($sheet->getRowIterator() as $row) {
+            // if row width equals 2 means that we have some internal variables to add from sheet
             // first line must contain field names
-            if ($index==0) {
-                // check that every required field is present
-                $this->validateHeader($row); // throw exception on fail
-                // create temporary table in database to store and analyze Excel data
-                if ($droptable) $this->dropTable();
-                $this->createTemporaryTable(); // throw exception when an import is already running
-                $index++;
-                continue; // jump to first row with data
+            switch ($state) {
+                case 0: // parse and store (if any) provided variables
+                    if (count($row)==2) { $this->excelVars[$row[0]]=$row[1]; break; }
+                    if (count($row)==3) { $this->excelVars[$row[0]]=array($row[1],$row[2]); break; }
+                    // no break. no increase ID key
+                case 1: // validate header and create table
+                    // check that every required field is present
+                    $this->validateHeader($row); // throw exception on fail
+                    // create temporary table in database to store and analyze Excel data
+                    if ($droptable) $this->dropTable();
+                    $this->createTemporaryTable(); // throw exception when an import is already running
+                    $index++; // start on ID 1 to store into temporary table
+                    $state=2; // on next iteration start store into temporary table
+                    break;
+                case 2: // dump excel data into temporary database table
+                    set_time_limit($timeout); // avoid php to be killed on very slow systems
+                    $this->saveStatus("Parsing excel row #$index");
+                    $this->import_storeExcelRowIntoDB($index,$row);
+                    $index++;
+                    break;
+                default:
+                    throw new Exception ("Invalid parser excel file state:$state"); // should never happen
             }
-            // dump excel data into temporary database table
-            set_time_limit($timeout); // avoid php to be killed on very slow systems
-            $this->saveStatus("Parsing excel row #$index");
-            $this->import_storeExcelRowIntoDB($index,$row);
-            $index++;
         }
         $this->saveStatus("Read Excel Done.");
         // fine. we can start parsing data in DB database table

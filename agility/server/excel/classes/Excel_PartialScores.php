@@ -42,8 +42,7 @@ class Excel_PartialScores extends XLSX_Writer {
 	 * Constructor
 	 * @throws Exception
 	 */
-	function __construct($idprueba,$idjornada,$manga,$resultados,$mode)
-    {
+	function __construct($idprueba,$idjornada,$manga,$resultados,$mode) {
         parent::__construct("partial_scores.xlsx");
         setcookie('fileDownload', 'true', time() + 30, "/"); // tell browser to hide "downloading" message box
         $this->myDBObject = new DBObject("partial_scores.xlsx");

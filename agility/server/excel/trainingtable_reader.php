@@ -79,11 +79,6 @@ class EntrenamientosReader extends DogReader {
         $this->validPageNames=array("Results","Resultados");
     }
 
-    /** convert an excel date format into unix epoch seconds */
-    private function excelTimeToSeconds($exceldate) {
-        return intval(floor(($exceldate - 25569) * 86400));
-    }
-
     protected function import_storeExcelRowIntoDB($index,$row) {
         $this->myLogger->enter();
         // compose insert sequence
@@ -108,7 +103,7 @@ class EntrenamientosReader extends DogReader {
                     break;
                 case 'Date':
                     // excel provides dates as an integer indicating number of days after 1900
-                    $fecha= $this->excelTimeToSeconds($item);
+                    $fecha= excelTimeToSeconds($item);
                     $s=gmdate("Y-m-d",$fecha); // also, excel use CET, so use gmdate to evaluate properly
                     $str2.=" '{$s}', ";
                     break;
@@ -118,7 +113,7 @@ class EntrenamientosReader extends DogReader {
                     /* no break */
                 case 'Start':
                     // also excel declares times as a 24 hour decimal fraction
-                    $seconds=$this->excelTimeToSeconds($item);
+                    $seconds=excelTimeToSeconds($item);
                     if ($item<1) $seconds+=$fecha; // check for full datetime provided
                     $s=gmdate("Y-m-d H:i:s",$seconds);
                     $str2.=" '{$s}', ";

@@ -5,7 +5,7 @@
  * User: jantonio
  * Date: 2/04/16
  * Time: 16:20
-results_reader.php
+partialscores_reader.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -31,57 +31,45 @@ require_once(__DIR__."/../database/classes/Entrenamientos.php");
 require_once(__DIR__.'/Spout/Autoloader/autoload.php');
 require_once(__DIR__.'/dog_reader.php');
 
-class ResultsReader extends DogReader {
+class PartialScoresReader extends DogReader {
 
     protected $prueba;
+    protected $jornada;
+    protected $manga;
 
     public function __construct($name,$options) {
         $this->myDBObject = new DBObject($name);
+        $this->prueba=$this->myDBObject->__selectAsArray("*","Pruebas","ID={$options['Prueba']}");
+        $this->jornada=$this->myDBObject->__selectAsArray("*","Jornada","ID={$options['Jornada']}");
         $this->manga=$this->myDBObject->__selectAsArray("*","Mangas","ID={$options['Manga']}");
-        if (!is_array($this->prueba))
+        if (!is_array($this->manga)) // realmente prueba y jornada no son necesarias, pero por consistencia se ponen
             throw new Exception("{$name}::construct(): invalid Manga ID: {$options['Manga']}");
         parent::__construct($name,$options);
 
-        // instead of using parent field list, use our own one
-        $this->fieldList= array(
-            // name => index, required (1:true 0:false-to-evaluate -1:optional), default
-            // 'ID' =>      array (  -1,  0,  "i", "ID",        " `ID` int(4) UNIQUE NOT NULL, "), // automatically added
-            // Prueba: fixed
-            // Orden: to be evaluated
-            // club related data
-            // in international contests user can provide ISO country name either in "Club" or in "Country" field
-            'ClubID' =>     array (  -2,    0, "i", "ClubID",    " `ClubID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
-            'Club' =>       array (  -3,    1, "s", "NombreClub"," `NombreClub` varchar(255) NOT NULL,"),  // Club's Name. required
-            'Country' =>    array (  -4,   -1, "s", "Pais",      " `Pais` varchar(255) NOT NULL,"),  // Country. optional
-            // datos de horarios y duracion del entrenamiento
-            'Date' =>       array (  -5,    1, "s", "Fecha",     " `Fecha` date DEFAULT '2016-01-01', "), // required
-            'Check-in' =>    array (  -6,   1, "s", "Firma",     " `Firma` datetime  DEFAULT 0 , "), // required
-            'Veterinary' => array (  -7,    1, "s", "Veterinario"," `Veterinario` datetime DEFAULT  0 , "), // required
-            'Start' =>      array (  -8,    1, "s", "Comienzo",  " `Comienzo` datetime DEFAULT  0 , "), // required
-            'Duration' =>   array (  -9,    1, "i", "Duracion",  " `Duracion` int(4) NOT NULL DEFAULT 0, "), // required segundos
-            // datos de los cuatro rings
-            'Key1' =>       array (  -10,   1, "s", "Key1",      " `Key1` varchar(32) DEFAULT 'L', "), // required
-            'Value1' =>     array (  -11,  -1, "i", "Value1",    " `Value1` int(4) NOT NULL DEFAULT 0, "), // optional
-            'Key2' =>       array (  -12,   1, "s", "Key2",      " `Key2` varchar(32) DEFAULT 'M', "), // required
-            'Value2' =>     array (  -13,  -1, "i", "Value2",    " `Value2` int(4) NOT NULL DEFAULT 0, "), // optional
-            'Key3' =>       array (  -14,   1, "s", "Key3",      " `Key3` varchar(32) DEFAULT 'S', "), // required
-            'Value3' =>     array (  -15,  -1, "i", "Value3",    " `Value3` int(4) NOT NULL DEFAULT 0, "), // optional
-            'Key4' =>       array (  -16,  -1, "s", "Key4",      " `Key4` varchar(32) DEFAULT 'T', "), // 4th ring is optional in 3 height
-            'Value4' =>     array (  -17,  -1, "i", "Value4",    " `Value4` int(4) NOT NULL DEFAULT 0, "), // 4th ring is optional in 3 height
-            // comentarios
-            'Comments' =>   array (  -18,  -1, "s", "Observaciones", " `Observaciones` varchar(255) DEFAULT '', "),  // optional
-            // Estado: default -1
+        // extend default field list
+        // name => index, required (1:true 0:false-to-evaluate -1:optional), default
+        // add additional fields required to handle inscriptions
+        $inscList= array(
+            'Team' =>     array (  -17, 0, "i", "Equipo",   " `Equipo` int(4) NOT NULL DEFAULT 0, "), // equipo, a calcular
+            'TeamName' => array (  -18,-1, "s", "NombreEquipo"," `NombreEquipo` varchar(255) NOT NULL DEFAULT '', "), // nombre equipo, opcional
+            'Games'=>     array (  -19,-1, "i", "Games",    " `Games` int(4) NOT NULL DEFAULT 0, "), // required on games rounds
+            'Faults' =>   array (  -20, 1, "i", "Faltas",   " `Faltas` int(4) NOT NULL DEFAULT 0, "), // faltas, requerido
+            'Touchs' =>   array (  -21,-1, "i", "Tocados",  " `Tocados` int(4) NOT NULL DEFAULT 0, "), // tocados, opcional
+            'Refusals' => array (  -22, 1, "i", "Rehuses",  " `Rehuses` int(4) NOT NULL DEFAULT 0, "), // rehuses, requerido
+            'Eliminated'=>array (  -23, 1, "i", "Eliminado"," `Eliminado` int(4) NOT NULL DEFAULT 0, "), // eliminado, requerido
+            'NotPresent'=>array (  -24, 1, "i", "NoPresentado", " `NoPresentado` int(4) NOT NULL DEFAULT 0, "), // nopresentado, requerido
+            'Tiempo' =>   array (  -25, 1, "f", "Tiempo",   " `Tiempo` double NOT NULL DEFAULT 0, "), // tiempo, requerido
+            // los campos penalizacion, calificacion, puntos, y estrellas se calculan en runtime, no se importan
         );
+        foreach ($inscList as $key => $data) $this->fieldList[$key]=$data;
         // fix fields according contest type
         $fedobj=Federations::getFederation($this->federation);
         if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=0; $this->fieldList['Country'][1]=1; } // country/club
-        if ($fedobj->get('Heights')==4) { $this->fieldList['Key4'][1]=1; $this->fieldList['Value4'][1]=1; } // required on 4 heights
-        $this->validPageNames=array("Trainings");
-    }
-
-    /** convert an excel date format into unix epoch seconds */
-    private function excelTimeToSeconds($exceldate) {
-        return intval(floor(($exceldate - 25569) * 86400));
+        // on team rounds, make teamname required
+        if (in_array($this->manga['Tipo'],array(8,9,13,14))) $this->fieldList['NombreEquipo'][1]=0;
+        // on games rounds, make games required
+        if (in_array($this->manga['Tipo'],array(29,30))) $this->fieldList['Games'][1]=0;
+        $this->validPageNames=array("Results");
     }
 
     protected function import_storeExcelRowIntoDB($index,$row) {
@@ -108,7 +96,7 @@ class ResultsReader extends DogReader {
                     break;
                 case 'Date':
                     // excel provides dates as an integer indicating number of days after 1900
-                    $fecha= $this->excelTimeToSeconds($item);
+                    $fecha= excelTimeToSeconds($item);
                     $s=gmdate("Y-m-d",$fecha); // also, excel use CET, so use gmdate to evaluate properly
                     $str2.=" '{$s}', ";
                     break;
@@ -118,7 +106,7 @@ class ResultsReader extends DogReader {
                     /* no break */
                 case 'Start':
                     // also excel declares times as a 24 hour decimal fraction
-                    $seconds=$this->excelTimeToSeconds($item);
+                    $seconds= excelTimeToSeconds($item);
                     if ($item<1) $seconds+=$fecha; // check for full datetime provided
                     $s=gmdate("Y-m-d H:i:s",$seconds);
                     $str2.=" '{$s}', ";

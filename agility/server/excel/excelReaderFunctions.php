@@ -31,7 +31,7 @@ require_once(__DIR__.'/Spout/Autoloader/autoload.php');
 require_once(__DIR__.'/dog_reader.php');
 require_once(__DIR__.'/inscription_reader.php');
 require_once(__DIR__.'/trainingtable_reader.php');
-require_once(__DIR__.'/results_reader.php');
+require_once(__DIR__.'/partialscores_reader.php');
 
 $options=array();
 $options['Suffix']=http_request("Suffix","s","");
@@ -87,10 +87,10 @@ try {
         if ($p==0) throw new Exception("inscription_reader::ImportExcel(): invalid Prueba ID: $p");
         $er=new EntrenamientosReader("ExcelImport(training session)",$options);
     } else if ($mode==="resultados") {
-        if ($p==0) throw new Exception("results_reader::ImportExcel(): invalid Prueba ID: $p");
-        if ($j==0) throw new Exception("results_reader::ImportExcel(): invalid Jornada ID: $j");
-        if ($m==0) throw new Exception("results_reader::ImportExcel(): invalid Manga ID: $m");
-        $er=new ResultsReader("ExcelImport(round results)",$options);
+        if ($p==0) throw new Exception("partialscores_reader::ImportExcel(): invalid Prueba ID: $p");
+        if ($j==0) throw new Exception("partialscores_reader::ImportExcel(): invalid Jornada ID: $j");
+        if ($m==0) throw new Exception("partialscores_reader::ImportExcel(): invalid Manga ID: $m");
+        $er=new PartialScoresReader("ExcelImport(round results)",$options);
     } else {
         throw new Exception("excelReaderFunctions(): invalid mode selected: ".$mode);
     }

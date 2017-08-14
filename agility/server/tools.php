@@ -85,6 +85,11 @@ function is_https(){
 	return false;
 }
 
+/** convert an excel date format into unix epoch seconds */
+function excelTimeToSeconds($exceldate) {
+    return intval(floor(($exceldate - 25569) * 86400));
+}
+
 function normalize_license($license) {
     // remove special chars
     $license=str_replace(" ","",$license);
