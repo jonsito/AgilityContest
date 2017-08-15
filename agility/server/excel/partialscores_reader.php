@@ -66,9 +66,9 @@ class PartialScoresReader extends DogReader {
         $fedobj=Federations::getFederation($this->federation);
         if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=0; $this->fieldList['Country'][1]=1; } // country/club
         // on team rounds, make teamname required
-        if (in_array($this->manga['Tipo'],array(8,9,13,14))) $this->fieldList['NombreEquipo'][1]=0;
+        if (isMangaEquipos($this->manga['Tipo'])) $this->fieldList['NombreEquipo'][1]=0;
         // on games rounds, make games required
-        if (in_array($this->manga['Tipo'],array(29,30))) $this->fieldList['Games'][1]=0;
+        if (isMangaGames($this->manga['Tipo'])) $this->fieldList['Games'][1]=0;
         $this->validPageNames=array("Results");
     }
 
@@ -127,7 +127,7 @@ class PartialScoresReader extends DogReader {
           ""
         );
         $mid=$this->manga['ID'];
-        $is_ko=in_array($this->manga['Tipo'],array(15,18,19,20,21,22,23,24));
+        $is_ko=isMangaKO($this->manga['Tipo']);
         $resobj=Competitions::getResultadosInstance("update round:{$mid} on journey:{$this->jornada['ID']}",$mid);
         foreach ($from['rows'] as $resultado) {
             $resultado['Pendiente']=0;

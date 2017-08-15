@@ -196,7 +196,7 @@ class Competitions {
      */
     public function presetTRSData($tipo) {
         // on KO rounds preset to TRS=0:TRM=100 mode=8
-        if ( ! in_array ($tipo, array(15,18,19,20,21,22,23,24) ) ) return null; // no KO->no preset
+        if ( ! isMangaKO($tipo) ) return null; // no KO->no preset
         $manga=array();
         $manga['Recorrido']=2; // 0:separados 1:mixto 2:conjunto
         $manga['TRS_L_Tipo']=0;$manga['TRS_L_Factor']=0;$manga['TRS_L_Unit']='s'; // no TRS
@@ -247,7 +247,7 @@ class Competitions {
      */
     protected function getOrdenSalidaObject($file,$prueba,$jornada,$manga) {
         // la gestion del orden de salida en una manga KO es comun a todas las competiciones
-        if ( in_array ($manga->Tipo, array(15,18,19,20,21,22,23,24) ) ) {
+        if ( isMangaKO($manga->Tipo) ) {
             return new OrdenSalida_KO($file,$prueba,$jornada,$manga);
         }
         return new OrdenSalida($file,$prueba,$jornada,$manga);
@@ -284,7 +284,7 @@ class Competitions {
      */
     protected function getResultadosObject($file,$prueba,$jornada,$manga) {
         // la gestion del orden de salida en una manga KO es comun a todas las competiciones
-        if ( in_array ($manga->Tipo, array(15,18,19,20,21,22,23,24) ) ) {
+        if ( isMangaKO($manga->Tipo) ) {
             return new Resultados_KO($file,$prueba,$jornada,$manga);
         }
         return new Resultados($file,$prueba,$jornada,$manga);

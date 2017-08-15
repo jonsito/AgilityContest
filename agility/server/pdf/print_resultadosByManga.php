@@ -44,9 +44,9 @@ try {
 	$resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
 
 	// Creamos generador de documento
-    if ( in_array ($manga->Tipo, array(15,18,19,20,21,22,23,24) ) ) {
+    if ( isMangaKO($manga->Tipo)) {
         $pdf = new PrintResultadosKO($idprueba,$idjornada,$manga,$resultados);
-    } else if ( in_array ($manga->Tipo, array(29,30) ) ) { // snooker, gambler
+    } else if ( isMangaGames($manga->Tipo) ) { // snooker, gambler
         $pdf = new PrintResultadosGames($idprueba,$idjornada,$manga,$resultados);
     } else {
         $pdf = new PrintResultadosByManga($idprueba,$idjornada,$manga,$resultados,$mode);

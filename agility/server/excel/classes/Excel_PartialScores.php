@@ -53,10 +53,10 @@ class Excel_PartialScores extends XLSX_Writer {
         $this->mode = $mode;
         $this->timeResolution = ($this->myConfig->getEnv('crono_milliseconds') == "0") ? 2 : 3;
         // populate cols and fields
-        if (in_array($manga->Tipo, array(29, 30))) { // Snooker,Gambler
+        if (isMangaGames($manga->Tipo)) { // Snooker,Gambler
             $this->fields = array('Licencia', 'Categoria', 'Grado', 'Nombre', 'NombreLargo', 'Raza', 'NombreGuia', 'NombreClub', 'Faltas', 'Rehuses', 'Games', 'Velocidad', 'Tiempo', 'Penalizacion', 'Calificacion', 'Puntos');
             $this->cols = array('License', 'Category', 'Grade', 'Name', 'LongName', 'Breed', 'Handler', 'Club', 'Faults', 'Refusals', 'Games', 'Speed', 'Time', 'Penalization', 'Calification', 'Points');
-        } else if (in_array($manga->Tipo, array(8, 9, 13, 14))) { // teams
+        } else if (isMangaEquipos($manga->Tipo)) { // teams
             $this->fields = array('Licencia', 'Categoria', 'Grado', 'Nombre', 'NombreLargo', 'Raza', 'NombreGuia', 'NombreEquipo','NombreClub', 'Faltas', 'Rehuses', 'Velocidad', 'Tiempo', 'Penalizacion', 'Calificacion', 'Puntos', 'Estrellas');
             $this->cols = array('License', 'Category', 'Grade', 'Name', 'LongName', 'Breed', 'Handler', 'Team','Club', 'Faults', 'Refusals', 'Speed', 'Time', 'Penalization', 'Calification', 'Points', 'Stars');
         } else {

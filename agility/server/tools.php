@@ -573,6 +573,16 @@ function mode_match($cat,$mode) {
 	}
 	return false; // invalid mode
 }
+
+// comodity functions from Mangas.php
+function isMangaAgility($tipo) { return in_array($tipo,array(1,3,5,6,7,8,9,16,17,25,26,32)); }
+function isMangaJumping($tipo) { return in_array($tipo,array(2,4,10,11,12,13,14,27,28,29,33)); }
+function isMangaKO($tipo) { return in_array($tipo,array(15,18,19,20,21,22,23,24)); }
+function isMangaGames($tipo) { return in_array($tipo,array(29,30)); }
+function isMangaEquipos3($tipo) { return in_array($tipo,array(8,13)); }
+function isMangaEquipos4($tipo) { return in_array($tipo,array(9,14)); }
+function isMangaEquipos($tipo) { return in_array($tipo,array(8,9,13,14)); }
+
 /**
  * Clase para enumerar los interfaces de red del servidor
  */
