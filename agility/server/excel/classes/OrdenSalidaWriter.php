@@ -1,6 +1,6 @@
 <?php
 /*
-excel_listaPerros.php
+OrdenSalidaWriter.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -20,14 +20,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * genera fichero excel de perros seleccionada desde el menu de la base de datos en el orden especificado en la pantalla
  */
 
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__.'/../i18n/Country.php');
-require_once(__DIR__.'/../database/classes/DBObject.php');
-require_once(__DIR__.'/../database/classes/Dogs.php');
-require_once(__DIR__."/common_writer.php");
+require_once(__DIR__ . "/../../tools.php");
+require_once(__DIR__ . "/../../logging.php");
+require_once(__DIR__ . '/../../i18n/Country.php');
+require_once(__DIR__ . '/../../database/classes/DBObject.php');
+require_once(__DIR__ . '/../../database/classes/Dogs.php');
+require_once(__DIR__ . "/XLSXWriter.php");
 
-class excel_ordenSalida extends XLSX_Writer {
+class OrdenSalidaWriter extends XLSX_Writer {
     protected $errormsg;
     protected $prueba;
     protected $jornada;
@@ -236,23 +236,5 @@ class excel_ordenSalida extends XLSX_Writer {
         }
         $this->myLogger->leave();
     }
-}
-
-// Consultamos la base de datos
-try {
-    $prueba=http_request("Prueba","i",0);
-    $jornada=http_request("Jornada","i",0);
-    $manga=http_request("Manga","i",0);
-    $categorias=http_request("Categorias","s","-");
-    $conjunta=http_request("EqConjunta","i",0);
-    // 	Creamos generador de documento
-    $excel = new excel_ordenSalida($prueba,$jornada,$manga,$categorias,$conjunta);
-    $excel->open();
-    if (! $conjunta) $excel->composeTable();
-    else $excel->composeTableConjunta();
-    $excel->close();
-    return 0;
-} catch (Exception $e) {
-    die ("Error accessing database: ".$e->getMessage());
 }
 ?>

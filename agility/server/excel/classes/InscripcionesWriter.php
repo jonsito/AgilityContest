@@ -25,9 +25,9 @@ require_once(__DIR__ . "/../../logging.php");
 require_once(__DIR__ . '/../../database/classes/Pruebas.php');
 require_once(__DIR__ . '/../../database/classes/Jornadas.php');
 require_once(__DIR__ . '/../../database/classes/Inscripciones.php');
-require_once(__DIR__ . "/../common_writer.php");
+require_once(__DIR__ . "/XLSXWriter.php");
 
-class Excel_Inscripciones extends XLSX_Writer {
+class InscripcionesWriter extends XLSX_Writer {
 
 	protected $jornadas=array(); // lista de jornadas de la prueba
     protected $club=-1; // -1:inscriptiones 0:header x:template for club x

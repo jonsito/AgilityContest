@@ -21,14 +21,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/classes/Excel_Inscripciones.php");
+require_once(__DIR__ . "/classes/InscripcionesWriter.php");
 
 // Consultamos la base de datos
 try {
 	// 	Creamos generador de documento
     $prueba=http_request("Prueba","i",-1);
     $club=http_request("Club","i",0); // -1:empty template 0:inscriptions x:club template
-	$excel = new Excel_Inscripciones($prueba,$club);
+	$excel = new InscripcionesWriter($prueba,$club);
 	$excel->open();
 	$excel->composeTable();
 	$excel->close();

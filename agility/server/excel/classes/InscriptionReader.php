@@ -5,7 +5,7 @@
  * User: jantonio
  * Date: 2/04/16
  * Time: 16:20
-inscription_reader.php
+InscriptionReader.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -21,14 +21,14 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../auth/Config.php");
-require_once(__DIR__."/../auth/AuthManager.php");
-require_once(__DIR__ . "/../modules/Federations.php");
-require_once(__DIR__."/../database/classes/DBObject.php");
-require_once(__DIR__.'/Spout/Autoloader/autoload.php');
-require_once(__DIR__.'/dog_reader.php');
+require_once(__DIR__ . "/../../logging.php");
+require_once(__DIR__ . "/../../tools.php");
+require_once(__DIR__ . "/../../auth/Config.php");
+require_once(__DIR__ . "/../../auth/AuthManager.php");
+require_once(__DIR__ . "/../../modules/Federations.php");
+require_once(__DIR__ . "/../../database/classes/DBObject.php");
+require_once(__DIR__ . '/../Spout/Autoloader/autoload.php');
+require_once(__DIR__ . '/DogReader.php');
 
 class InscriptionReader extends DogReader {
 

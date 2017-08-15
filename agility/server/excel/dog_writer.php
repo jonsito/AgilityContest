@@ -21,13 +21,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/classes/Excel_ListaPerros.php");
+require_once(__DIR__ . "/classes/DogsWriter.php");
 
 // Consultamos la base de datos
 try {
 	// 	Creamos generador de documento
 	$fed=http_request("Federation","i",-1);
-	$excel = new Excel_ListaPerros();
+	$excel = new DogsWriter();
 	$excel->open();
 	$excel->createInfoPage(_utf("Dog Listing"),intval($fed));
 	$excel->composeTable();

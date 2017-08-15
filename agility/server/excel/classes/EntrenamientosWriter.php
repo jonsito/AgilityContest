@@ -24,9 +24,9 @@ require_once(__DIR__ . "/../../tools.php");
 require_once(__DIR__ . "/../../logging.php");
 require_once(__DIR__ . "/../../modules/Federations.php");
 require_once(__DIR__ . '/../../database/classes/Entrenamientos.php');
-require_once(__DIR__ . "/../common_writer.php");
+require_once(__DIR__ . "/XLSXWriter.php");
 
-class Excel_Entrenamientos extends XLSX_Writer {
+class EntrenamientosWriter extends XLSX_Writer {
 
 	protected $lista; // tandas de entrenamientos
 

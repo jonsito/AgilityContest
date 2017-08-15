@@ -5,10 +5,10 @@
  * Date: 30/11/15
  * Time: 13:42
  */
-require_once __DIR__.'/Spout/Autoloader/autoload.php';
-require_once __DIR__.'/../auth/Config.php';
-require_once __DIR__.'/../auth/AuthManager.php';
-require_once __DIR__ . '/../modules/Federations.php';
+require_once __DIR__ . '/../Spout/Autoloader/autoload.php';
+require_once __DIR__ . '/../../auth/Config.php';
+require_once __DIR__ . '/../../auth/AuthManager.php';
+require_once __DIR__ . '/../../modules/Federations.php';
 
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;

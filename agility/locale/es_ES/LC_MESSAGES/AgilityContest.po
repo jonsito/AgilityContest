@@ -736,7 +736,7 @@ msgstr "Debe seleccionar un ring v&aacute;lido"
 #: lib/templates/final_rounds_data.inc.php:12
 #: lib/templates/parcial_round_data.inc.php:14
 #: lib/templates/parcial_round_data.inc.php:15
-#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/ClasificacionesWriter.php:94
 #: server/pdf/classes/PrintClasificacion.php:84
 #: server/pdf/classes/PrintClasificacion.php:87
 #: server/pdf/classes/PrintClasificacionExcel.php:119
@@ -840,7 +840,7 @@ msgstr "TRM fijo"
 #: lib/templates/parcial_console_round_data.inc.php:24
 #: lib/templates/parcial_console_round_data.inc.php:33
 #: lib/templates/parcial_console_round_data.inc.php:42
-#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/ClasificacionesWriter.php:94
 #: server/excel/classes/Excel_PartialScores.php:76
 #: server/pdf/classes/PrintClasificacion.php:99
 #: server/pdf/classes/PrintClasificacion.php:113
@@ -1045,7 +1045,7 @@ msgstr "Resultados y Clasificaciones"
 
 #: console/frm_clasificaciones.php:47 console/frm_clasificaciones2.php:101
 #: console/frm_clasificaciones_equipos.php:100 console/index.php:364
-#: server/excel/classes/Excel_Clasificaciones.php:241
+#: server/excel/classes/ClasificacionesWriter.php:241
 #: server/pdf/classes/PrintClasificacion.php:173
 #: server/pdf/classes/PrintClasificacionExcel.php:152
 msgid "Scores"
@@ -1097,7 +1097,7 @@ msgstr "Jornada"
 #: livestream/vwls_finales.php:89 livestream/vwls_finales.php:90
 #: livestream/vwls_osdvideo.php:53 public/pb_parciales.php:55
 #: public/pb_parciales_equipos.php:55
-#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/ClasificacionesWriter.php:94
 #: server/excel/classes/Excel_PartialScores.php:72
 #: server/excel/print_ordenSalidaExcel.php:130
 #: server/pdf/classes/PrintClasificacion.php:108
@@ -3182,7 +3182,7 @@ msgstr "F/T"
 #: lib/templates/parcial_round_data.inc.php:22
 #: scripts/results_and_scores.js.php:260 scripts/results_and_scores.js.php:266
 #: scripts/results_and_scores.js.php:333
-#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/ClasificacionesWriter.php:94
 #: server/pdf/classes/PrintClasificacion.php:101
 #: server/pdf/classes/PrintClasificacion.php:115
 #: server/pdf/classes/PrintClasificacion.php:129
@@ -3281,7 +3281,7 @@ msgstr "Datos de la manga"
 #: lib/templates/final_rounds_data.inc.php:16
 #: lib/templates/final_rounds_data.inc.php:24
 #: lib/templates/parcial_round_data.inc.php:18
-#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/ClasificacionesWriter.php:94
 #: server/excel/classes/Excel_PartialScores.php:74
 #: server/pdf/classes/PrintClasificacion.php:97
 #: server/pdf/classes/PrintClasificacion.php:111
@@ -3298,7 +3298,7 @@ msgstr "Dist"
 #: lib/templates/final_rounds_data.inc.php:17
 #: lib/templates/final_rounds_data.inc.php:25
 #: lib/templates/parcial_round_data.inc.php:19
-#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/ClasificacionesWriter.php:94
 #: server/excel/classes/Excel_PartialScores.php:75
 #: server/pdf/classes/PrintClasificacion.php:98
 #: server/pdf/classes/PrintClasificacion.php:112
@@ -3429,7 +3429,7 @@ msgstr "Datos t&eacute;cnicos de la manga"
 #: lib/templates/parcial_console_round_data.inc.php:25
 #: lib/templates/parcial_console_round_data.inc.php:34
 #: lib/templates/parcial_console_round_data.inc.php:43
-#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/ClasificacionesWriter.php:94
 #: server/excel/classes/Excel_PartialScores.php:77
 #: server/pdf/classes/PrintClasificacion.php:100
 #: server/pdf/classes/PrintClasificacion.php:114
@@ -5549,7 +5549,7 @@ msgstr "Junior 2"
 msgid "Jr. 2"
 msgstr "Jr. 2"
 
-#: server/excel/classes/Excel_Clasificaciones.php:94
+#: server/excel/classes/ClasificacionesWriter.php:94
 #: console/dialogs/dlg_remotecontrol.inc:355
 msgid "Type"
 msgstr "Tipo"

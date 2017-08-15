@@ -110,7 +110,7 @@ function print_entrenamientos(mode) {
  */
 function print_ordenSalida(cats,excel,rango,comentarios) {
     var url='/agility/server/pdf/print_ordenDeSalida.php';
-	if (excel) url='/agility/server/excel/print_ordenSalidaExcel.php';
+	if (excel) url='/agility/server/excel/ordensalida_writer.php';
     $.fileDownload(
         url,
         {

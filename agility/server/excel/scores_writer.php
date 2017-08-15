@@ -21,13 +21,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/classes/Excel_Clasificaciones.php");
+require_once(__DIR__ . "/classes/ClasificacionesWriter.php");
 
 // Consultamos la base de datos
 try {
 	// 	Creamos generador de documento
 	$prueba=http_request("Prueba","i",-1);
-	$excel = new Excel_Clasificaciones($prueba);
+	$excel = new ClasificacionesWriter($prueba);
 	$excel->open();
 	$excel->composeTable();
 	$excel->close();

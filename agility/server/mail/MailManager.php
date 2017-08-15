@@ -6,8 +6,8 @@ require_once __DIR__.'/../auth/AuthManager.php';
 require_once __DIR__.'/../database/classes/Admin.php';
 require_once __DIR__.'/../database/classes/Mangas.php';
 require_once __DIR__.'/../database/classes/Resultados.php';
-require_once __DIR__.'/../excel/classes/Excel_Inscripciones.php';
-require_once __DIR__.'/../excel/classes/Excel_Clasificaciones.php';
+require_once __DIR__ . '/../excel/classes/InscripcionesWriter.php';
+require_once __DIR__ . '/../excel/classes/ClasificacionesWriter.php';
 require_once __DIR__.'/../pdf/classes/PrintInscripciones.php';
 require_once __DIR__.'/../pdf/classes/PrintResultadosByEquipos3.php';
 require_once __DIR__.'/../pdf/classes/PrintResultadosByEquipos4.php';
@@ -341,7 +341,7 @@ class MailManager {
         $empty=intval($this->myData["EmptyTemplate"]);
         $excelclub=( $empty!=0 )? $this->myData['Club']:0;
         if ( ! file_exists("$maildir/Inscripciones_{$excelclub}.xlsx") ) {
-            $excelObj=new Excel_Inscripciones($this->pruebaObj->ID,$excelclub);
+            $excelObj=new InscripcionesWriter($this->pruebaObj->ID,$excelclub);
             $excelObj->open("$maildir/Inscripciones_${excelclub}.xlsx");
             $excelObj->composeTable();
             $excelObj->close();
@@ -539,14 +539,14 @@ class MailManager {
         array_push($filelist,"Inscripciones.pdf");
 
         // generate excel clasifications file
-        $excelObj=new Excel_Clasificaciones($this->myData['Prueba']);
+        $excelObj=new ClasificacionesWriter($this->myData['Prueba']);
         $excelObj->open("$maildir/Clasificaciones.xlsx");
         $excelObj->composeTable();
         $excelObj->close();
         array_push($filelist,"Clasificaciones.xlsx");
 
         // generate excel inscriptions file
-        $excelObj=new Excel_Inscripciones($this->myData['Prueba'],0); // 0 means everyone
+        $excelObj=new InscripcionesWriter($this->myData['Prueba'],0); // 0 means everyone
         $excelObj->open("$maildir/Inscripciones.xlsx");
         $excelObj->composeTable();
         $excelObj->close();

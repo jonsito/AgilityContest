@@ -1,6 +1,6 @@
 <?php
 /*
-print_listaPerros.php
+ClasificacionesWriter.php
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -30,9 +30,9 @@ require_once(__DIR__ . '/../../database/classes/Inscripciones.php');
 require_once(__DIR__ . '/../../database/classes/Mangas.php');
 require_once(__DIR__ . '/../../database/classes/Jueces.php');
 require_once(__DIR__ . '/../../database/classes/Resultados.php');
-require_once(__DIR__ . "/../common_writer.php");
+require_once(__DIR__ . "/XLSXWriter.php");
 
-class Excel_Clasificaciones extends XLSX_Writer {
+class ClasificacionesWriter extends XLSX_Writer {
 
     protected $federation;
 	protected $jornadas=array(); // lista de jornadas de la prueba
@@ -56,17 +56,17 @@ class Excel_Clasificaciones extends XLSX_Writer {
 	function __construct($prueba) {
 		parent::__construct("clasifications.xlsx");
 		setcookie('fileDownload','true',time()+30,"/"); // tell browser to hide "downloading" message box
-        $p=new Pruebas("excel_Clasificaciones");
+        $p=new Pruebas("ClasificacionesWriter");
         $res=$p->selectByID($prueba);
         if (!is_array($res)){
-			$this->errormsg="excel_Clasificaciones: getPruebaByID($prueba) failed";
+			$this->errormsg="ClasificacionesWriter: getPruebaByID($prueba) failed";
 			throw new Exception($this->errormsg);
 		}
         $this->prueba=$res;
-		$j=new Jornadas("excel_Clasificaciones",$prueba);
+		$j=new Jornadas("ClasificacionesWriter",$prueba);
 		$res=$j->selectByPrueba();
 		if (!is_array($res)){
-			$this->errormsg="excel_Clasificaciones: getJornadasByPrueba($prueba) failed";
+			$this->errormsg="ClasificacionesWriter: getJornadasByPrueba($prueba) failed";
 			throw new Exception($this->errormsg);
 		}
 		$this->jornadas=$res['rows'];
@@ -141,7 +141,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
 		}
 
 		// obtenemos todas las clasificaciones de la jornada
-		$clas=Competitions::getClasificacionesInstance("excel_Clasificaciones",$jornada['ID']);
+		$clas=Competitions::getClasificacionesInstance("ClasificacionesWriter",$jornada['ID']);
 		$results=array();
 		foreach ($rondas as $ronda) {
 			$mangas=array($ronda['Manga1'],$ronda['Manga2'],$ronda['Manga3'],$ronda['Manga4'],$ronda['Manga5'],$ronda['Manga6'],$ronda['Manga7'],$ronda['Manga8']);
@@ -242,7 +242,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
 		$this->myLogger->enter();
         $this->createInfoPage(_utf('Scores'),$this->prueba['RSCE']);
         $this->createPruebaInfoPage($this->prueba,$this->jornadas);
-		$insc=new Inscripciones("excel_Clasificaciones",$this->prueba['ID']);
+		$insc=new Inscripciones("ClasificacionesWriter",$this->prueba['ID']);
 		// iterate on every valid journeys
 		foreach ($this->jornadas as $jornada) {
 			if ($jornada['Nombre']==='-- Sin asignar --') continue; // skip empty journeys

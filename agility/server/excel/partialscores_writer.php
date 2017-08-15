@@ -25,7 +25,7 @@ require_once(__DIR__."/../logging.php");
 require_once(__DIR__.'/../database/classes/Mangas.php');
 require_once(__DIR__.'/../database/classes/OrdenSalida.php');
 require_once(__DIR__.'/../database/classes/Resultados.php');
-require_once(__DIR__."/classes/Excel_PartialScores.php");
+require_once(__DIR__ . "/classes/PartialScoresWriter.php");
 
 // Consultamos la base de datos
 try {
@@ -47,7 +47,7 @@ try {
     $res['trs']=$resultados['trs'];
 
     // Creamos generador de documento
-    $excel = new Excel_PartialScores($idprueba,$idjornada,$manga,$res,$mode);
+    $excel = new PartialScoresWriter($idprueba,$idjornada,$manga,$res,$mode);
     $excel->open();
     $excel->composeTable();
     $excel->close();
