@@ -102,7 +102,7 @@ class Clasificaciones extends DBObject {
                         'Tiempo' => 0,
                         'Penalizacion' => 0,
                         'Calificacion' => '',
-                        'Puntos' => '',
+                        'Puntos' => 0,
                         'Puesto' => 0,
                         'Pcat' => 0
                     );

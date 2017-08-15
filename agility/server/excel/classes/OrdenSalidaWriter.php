@@ -55,7 +55,9 @@ class OrdenSalidaWriter extends XLSX_Writer {
         $this->prueba= $myDBObject->__getArray("Pruebas",$prueba);
         $this->jornada= $myDBObject->__getArray("Jornadas",$jornada);
         $this->federation=Federations::getFederation(intval($this->prueba['RSCE']));
-        $this->useLongNames=Competitions::getCompetition($this->prueba,$this->jornada)->useLongNames();
+        $p=json_decode (json_encode ($this->prueba));
+        $j=json_decode (json_encode ($this->jornada));
+        $this->useLongNames=Competitions::getCompetition($p,$j)->useLongNames();
         $this->validcats=$categorias;
         // set up fields according international or national contests
         if ($this->useLongNames) {
@@ -104,8 +106,8 @@ class OrdenSalidaWriter extends XLSX_Writer {
             default: return false;
         }
     }
-    public function open() {
-        parent::open();
+    public function open($file=null) {
+        parent::open($file);
         $this->createInfoPage(_utf("Starting order"),$this->federation->get('ID'));
     }
 

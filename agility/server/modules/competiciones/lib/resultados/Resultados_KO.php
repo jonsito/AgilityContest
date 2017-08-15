@@ -61,20 +61,23 @@ class Resultados_KO extends Resultados {
         // y ahora evaluamos las calificaciones dos a dos
         for ($n=1;$n<$osres['total'];$n+=3) {
             $p1=$osres['rows'][$n]['Puesto'];
-            $p2=$osres['rows'][$n+1]['Puesto'];
-            if ($p1<$p2) {
+            $p2=isset($osres['rows'][$n+1])?$osres['rows'][$n+1]['Puesto']:0;
+            $osres['rows'][$n]['Puntos']=0;
+            $osres['rows'][$n+1]['Puntos']=0;
+            if ($p2==0) { // el ultimo perro no tiene resultados
+                $osres['rows'][$n]['Calificacion'] = _("Promote to next")/*." &#x2714;"*/;
+                $osres['rows'][$n]['CShort'] = _("Pass");
+            } else if ($p1<$p2) {
                 $osres['rows'][$n]['Calificacion'] = _("Promote to next")/*." &#x2714;"*/;
                 $osres['rows'][$n]['CShort'] = _("Pass");
                 $osres['rows'][$n+1]['Calificacion'] = _("Eliminated");
                 $osres['rows'][$n+1]['CShort'] = _("Out");
-            }
-            if ($p1==$p2) {
+            } else if ($p1==$p2) {
                 $osres['rows'][$n]['Calificacion'] = _("Need to run again");
                 $osres['rows'][$n]['CShort'] = _("Again");
                 $osres['rows'][$n+1]['Calificacion'] = _("Need to run again");
                 $osres['rows'][$n+1]['CShort'] = _("Again");
-            }
-            if ($p1>$p2) {
+            } else if ($p1>$p2) {
                 $osres['rows'][$n]['Calificacion'] = _("Eliminated");
                 $osres['rows'][$n]['CShort'] = _("Out");
                 $osres['rows'][$n+1]['Calificacion'] = _("Promote to next")/*." &#x2714;"*/;
