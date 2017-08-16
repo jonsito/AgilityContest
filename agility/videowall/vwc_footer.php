@@ -30,17 +30,21 @@ if ($file) {
         $nitems=count($datos);
         if ($nitems<3) continue; // invalid format
         $cat=($nitems==3)?"bronze":strtolower($datos[3]); // "gold","silver","bronze"
-        if ($cat=="bronze") {
-            array_push($sponsors_b,$datos[0]); array_push($logos_b,$datos[1]);  array_push($urls_b,$datos[2]);
-        }
         if ($cat=="gold") {
             array_push($sponsors_g,$datos[0]); array_push($logos_g,$datos[1]);  array_push($urls_g,$datos[2]);
         }
         if ($cat=="silver") {
             array_push($sponsors_s,$datos[0]); array_push($logos_s,$datos[1]);  array_push($urls_s,$datos[2]);
         }
+        if ($cat=="bronze") {
+            array_push($sponsors_b,$datos[0]); array_push($logos_b,$datos[1]);  array_push($urls_b,$datos[2]);
+        }
     }
     fclose($file); // this also removes temporary file
+    // make sure that we have enought sponsors to fill footer
+    while (count($sponsors_g)<3) {$sponsors_g[]="null"; $logos_g[]="null.png"; $urls_g[]="http://www.agilitycontest.es"; }
+    while (count($sponsors_s)<5) {$sponsors_s[]="null"; $logos_s[]="null.png"; $urls_s[]="http://www.agilitycontest.es"; }
+    while (count($sponsors_b)<9) {$sponsors_b[]="null"; $logos_b[]="null.png"; $urls_b[]="http://www.agilitycontest.es"; }
 }
 ?>
 <div id="vw_footer">
