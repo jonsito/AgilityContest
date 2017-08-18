@@ -220,7 +220,7 @@ function print_asistenteEquipos(cats,fill,rango,comentarios) {
 				Categorias: cats,
                 FillData:(fill)?1:0,
                 Rango:rango,
-                Comentarios,comentarios
+                Comentarios:comentarios
             },
             preparingMessageHtml: '(assistant team sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
             failMessageHtml:'(assistant team sheets) <?php _e("There was a problem generating your report, please try again."); ?>'
