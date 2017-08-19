@@ -132,6 +132,7 @@ class DBObject {
 	 * @param {string} $select SELECT clause (required)
 	 * @param {string} $from FROM clause (required)
 	 * @param {string} $where WHERE clause
+     * @return {object|string} object on success; else error string
 	 */
 	function __selectObject($select,$from,$where) {
 		// compose SQL query
@@ -152,6 +153,7 @@ class DBObject {
 	 * @param {string} $select SELECT clause (required)
 	 * @param {string} $from FROM clause (required)
 	 * @param {string} $where WHERE clause
+     * @return {array|string} array on success; else error string
 	 */
 	function __selectAsArray($select,$from,$where="") {
 		$obj=$this->__selectObject($select,$from,$where);
@@ -163,7 +165,7 @@ class DBObject {
 	 * Retrieves objects from database by given (table,id) pair
 	 * @param {string} $table where to search object from
 	 * @param {integer} $id primary key of requested object
-	 * @return {object/string} obj if found, else error string
+	 * @return {object|string} obj if found, else error string
 	 */
 	function __getObject($table,$id) { return $this->__selectObject("*",$table,"(ID=$id)"); }
 	function __getArray($table,$id) { return $this->__selectAsArray("*",$table,"(ID=$id)"); }
