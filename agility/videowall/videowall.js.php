@@ -378,7 +378,6 @@ function vwc_eval_lastParciales(items) {
         dat.Rehuses=parseInt(dat.Rehuses);
         dat.Eliminado=parseInt(dat.Eliminado);
         dat.NoPresentado=parseInt(dat.NoPresentado);
-        console.log("before"+JSON.stringify(dat));
 		if (dat.Orden=="") { // entrada vacia
 			dat.PTiempo=400;
 			dat.PRecorrido=0;
@@ -407,7 +406,6 @@ function vwc_eval_lastParciales(items) {
 		if (dat.Penalizacion>=100.0) dat.Calificacion="<?php _e('Elim');?>";
 		if (dat.Penalizacion>=200.0) dat.Calificacion="<?php _e('N.P.');?>";
 		if (dat.Penalizacion>=400.0) dat.Calificacion="-";
-        console.log("after"+JSON.stringify(dat));
 		// evaluamos posicion
         if (typeof(workingData.individual) === "undefined") return;
 		for (var n=0; n<workingData.individual.length;n++) {
