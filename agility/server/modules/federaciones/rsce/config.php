@@ -219,7 +219,7 @@ class RSCE extends Federations {
                 1 =>	array( 1, 'Pre-Agility Manga 1', 		'P.A.',	'PreAgility 1',	'Pre-Agility',  true),
                 2 => 	array( 2, 'Pre-Agility Manga 2', 		'P.A.',	'PreAgility 2',	'Pre-Agility',  false),
                 3 =>	array( 3, 'Agility Grado I Manga 1',	'GI',	'Agility-1 GI',	'Grado I',      true),
-                4 => 	array( 4, 'Agility Grado I Manga 2',	'GI',	'Agility-2 GI',	'Grado I',      true),
+                4 => 	array( 4, 'Agility Grado I Manga 2',	'GI',	'Agility-2 GI',	'Grado I',      false),
                 5 =>	array( 5, 'Agility Grado II', 			'GII',	'Agility GII',	'Grado II',     true),
                 6 =>	array( 6, 'Agility Grado III', 			'GIII',	'Agility GIII',	'Grado III',    true),
                 7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual',   true), // Open
@@ -230,7 +230,7 @@ class RSCE extends Federations {
                 12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual',   false), // Open
                 13 =>	array( 13,'Jumping Equipos'				,'-',   'Jp. Equipos',	'Equipos',      false), // team best
                 14 =>	array( 14,'Jumping Equipos'				,'-',  	'Jp. Equipos',	'Equipos',      false), // team combined
-                15 =>	array( 15,'K.O. Primera manga',			'-',	'K.O. manga 1',	'K.O. 1',         false),
+                15 =>	array( 15,'K.O. Primera manga',			'-',	'K.O. manga 1',	'K.O. 1',       false),
                 16 =>	array( 16,'Manga Especial', 			'-',	'Manga Especial','Individual',  true), // special round, no grades
                 17 => 	array( 17,'Agility Grado I Manga 3',	'GI',	'Agility-3 GI',	'Grado I',      true), // on RFEC special G1 3rd round
                 // mangas extra para K.O.
