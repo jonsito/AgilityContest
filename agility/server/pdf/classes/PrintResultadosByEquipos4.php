@@ -26,6 +26,7 @@ require_once(__DIR__.'/../../database/classes/DBObject.php');
 require_once(__DIR__.'/../../database/classes/Pruebas.php');
 require_once(__DIR__.'/../../database/classes/Jornadas.php');
 require_once(__DIR__.'/../../database/classes/Equipos.php');
+require_once(__DIR__.'/../../database/classes/Jueces.php');
 require_once(__DIR__."/../print_common.php");
 
 class PrintResultadosByEquipos4 extends PrintCommon {

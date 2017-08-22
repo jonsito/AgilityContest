@@ -150,8 +150,8 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
         if ($puesto>1) return;
         foreach ( $this->puntos as $item) {
             if ($perro['Grado']!==$item[0]) continue;
-            // comprobamos si estamos en agility o en jumping
-            $offset=(Mangas::$tipo_manga[$m->Tipo][5])?0/*agility*/:3/*jumping*/;
+            // comprobamos si estamos en agility o en jumping (1:agility,2:jumping,3:third round and so )
+            $offset=( (Mangas::$tipo_manga[$m->Tipo][5]) == 1)?0/*agility*/:3/*jumping*/;
             $base=2;
             if ($perro['Categoria']==="M") $base=3;
             if ($perro['Categoria']==="S") $base=4;
