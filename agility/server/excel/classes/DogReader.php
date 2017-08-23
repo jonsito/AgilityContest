@@ -265,6 +265,15 @@ class DogReader {
         return $count;
     }
 
+    // seems that xlsx reader parse also empty rows, so this is a dirty hack to take care on
+    protected function isEmptyRow($index,$row) {
+        // $nitems=count($row);
+        // $data=json_encode($row);
+        // $this->myLogger->debug("Line:$index count:$nitems data:$data");
+        foreach($row as $cell) if ($cell!="") return false;
+        return true;
+    }
+
     public function validateFile( $filename,$droptable=true) {
         $this->myLogger->enter();
         $this->saveStatus("Validating received file...");
@@ -304,12 +313,14 @@ class DogReader {
         $state=0; // parse status 0:vars  1:header 2:data
         $timeout=ini_get('max_execution_time');
         foreach ($sheet->getRowIterator() as $row) {
-            // if row width equals 2 means that we have some internal variables to add from sheet
+            if ($this->isEmptyRow($index,$row)) continue;
             // first line must contain field names
             switch ($state) {
+                // if row width equals 2 means that we have some internal variables to add from sheet
                 case 0: // parse and store (if any) provided variables
-                    if (count($row)==2) { $this->excelVars[$row[0]]=$row[1]; break; }
-                    if (count($row)==3) { $this->excelVars[$row[0]]=array($row[1],$row[2]); break; }
+                    $nitems=count($row);
+                    if ($nitems==2) { $this->excelVars[$row[0]]=$row[1]; break; }
+                    if ($nitems==3) { $this->excelVars[$row[0]]=array($row[1],$row[2]); break; }
                     // no break. no increase ID key
                 case 1: // validate header and create table
                     // check that every required field is present
@@ -776,20 +787,24 @@ class DogReader {
         if ($this->myOptions['Blind']==0) { // do not update clubs in blind mode
             // import clubes data
             $this->saveStatus("Importing resulting clubs data");
-            $str="UPDATE Clubes INNER JOIN $t ON $t.ClubID = Clubes.ID SET Clubes.Nombre = $t.NombreClub ";
+            $str="UPDATE Clubes INNER JOIN $t ON ( $t.ClubID = Clubes.ID ) ".
+                "SET Clubes.Nombre = $t.NombreClub ";
             $res=$this->myDBObject->query($str);
             if (!$res) return "beginImport(clubes): update error:".$this->myDBObject->conn->error;
         }
 
         // import handler data
         $this->saveStatus("Importing resulting handlers data");
-        $str="UPDATE Guias INNER JOIN $t ON ($t.HandlerID = Guias.ID) AND ($t.ClubID = Guias.Club) SET Guias.Nombre = $t.NombreGuia ";
+        $str="UPDATE Guias INNER JOIN $t ON ($t.HandlerID = Guias.ID) ".
+            "SET Guias.Nombre = $t.NombreGuia ".
+            ", Guias.Club = $t.ClubID ";
         $res=$this->myDBObject->query($str);
         if (!$res) return "beginImport(handlers): update error:".$this->myDBObject->conn->error;
 
         // import dog data
         $this->saveStatus("Importing resulting dogs data");
-        $str="UPDATE Perros INNER JOIN $t ON ($t.DogID = Perros.ID) AND ($t.HandlerID = Perros.Guia) ".
+        // $str="UPDATE Perros INNER JOIN $t ON ($t.DogID = Perros.ID) AND ($t.HandlerID = Perros.Guia) ".
+        $str="UPDATE Perros INNER JOIN $t ON ($t.DogID = Perros.ID) ".
             "SET Perros.Nombre = $t.Nombre ".
             ", Perros.NombreLargo = $t.NombreLargo ".
             ", Perros.Raza = $t.Raza ".
