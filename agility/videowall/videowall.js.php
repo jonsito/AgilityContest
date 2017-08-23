@@ -371,6 +371,13 @@ function vwc_eval_lastParciales(items) {
 	var trm=parseInt($('#parciales-TRM').text());
 	for (var idx=0;idx<items.length;idx++) {
 		var dat=items[idx];
+		// need to conver to number due to "+" operator behaviour with strings in Math.max() line
+        dat.Tiempo=parseFloat(dat.Tiempo);
+        dat.Faltas=parseInt(dat.Faltas);
+        dat.Tocados=parseInt(dat.Tocados);
+        dat.Rehuses=parseInt(dat.Rehuses);
+        dat.Eliminado=parseInt(dat.Eliminado);
+        dat.NoPresentado=parseInt(dat.NoPresentado);
 		if (dat.Orden=="") { // entrada vacia
 			dat.PTiempo=400;
 			dat.PRecorrido=0;

@@ -632,7 +632,7 @@ class PrintInscritos extends PrintCommon {
 		$flag=0;
 		foreach ($this->jornadas as $jornada) {
         	if ($jornada['Nombre']==='-- Sin asignar --') continue;
-        	if (Competitions::getCompetition($this->prueba,(object) $jornada)->useLongNames()) $flag++;
+        	if (Competitions::getCompetition($this->prueba,json_decode(json_encode($jornada)) )->useLongNames() ) $flag++;
 		}
         $this->useLongNames=($flag!=0);
 		// set up field sizes according evaluated parameters

@@ -88,15 +88,6 @@ class PartialScoresWriter extends XLSX_Writer {
     }
 
 	private function writeTableHeader() {
-	    /*
-        $suffix= (Mangas::$tipo_manga[$this->manga->Tipo][5])?"_A":"_J";
-		// internationalize header texts
-		for($n=0;$n<count($this->cols);$n++) {
-            if ($this->cols[$n]==="Points") $this->cols[$n]=_utf($this->cols[$n]).$suffix;
-            else if ($this->cols[$n]==="Stars") $this->cols[$n]=_utf($this->cols[$n]).$suffix;
-            else $this->cols[$n]=_utf($this->cols[$n]);
-		}
-	    */
 	    // translate header to i18n
 	    for($n=0;$n<count($this->cols);$n++) $this->cols[$n]=_utf($this->cols[$n]);
 		// send to excel

@@ -310,7 +310,6 @@ function vwsf_updateHeader(mode,data) {
     if ( mode.indexOf("trs")>=0) { // fix sct/mct
         var trs1=(typeof(data.trs1)==="undefined")?"<?php _e('Dist');?>/<?php _e('SCT');?>": data.trs1.dist+ "m. / " +data.trs1.trs+"s.";
         var trs2=(typeof(data.trs2)==="undefined")?"<?php _e('Dist');?>/<?php _e('SCT');?>": data.trs2.dist+ "m. / " +data.trs2.trs+"s.";
-        // $('#vws_hdr_trs').val(isAgility(workingData.datosTanda.Tipo)?trs1:trs2);
         // current round is always first one:
         $('#vws_hdr_trs').val(trs1);
     }

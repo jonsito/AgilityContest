@@ -216,44 +216,44 @@ class RSCE extends Federations {
             ),
             'TipoMangas' => array(
                 0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo',  'IsAgility'),
-                1 =>	array( 1, 'Pre-Agility Manga 1', 		'P.A.',	'PreAgility 1',	'Pre-Agility',  true),
-                2 => 	array( 2, 'Pre-Agility Manga 2', 		'P.A.',	'PreAgility 2',	'Pre-Agility',  false),
-                3 =>	array( 3, 'Agility Grado I Manga 1',	'GI',	'Agility-1 GI',	'Grado I',      true),
-                4 => 	array( 4, 'Agility Grado I Manga 2',	'GI',	'Agility-2 GI',	'Grado I',      true),
-                5 =>	array( 5, 'Agility Grado II', 			'GII',	'Agility GII',	'Grado II',     true),
-                6 =>	array( 6, 'Agility Grado III', 			'GIII',	'Agility GIII',	'Grado III',    true),
-                7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual',   true), // Open
-                8 =>	array( 8, 'Agility Equipos',			'-',	'Ag. Equipos',	'Equipos',      true), // team best
-                9 =>	array( 9, 'Agility Equipos'				,'-',	'Ag. Equipos.',	'Equipos',      true), // team combined
-                10 =>	array( 10,'Jumping Grado II',			'GII',	'Jumping GII',	'Grado II',     false),
-                11 =>	array( 11,'Jumping Grado III',			'GIII',	'Jumping GIII',	'Grado III',    false),
-                12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual',   false), // Open
-                13 =>	array( 13,'Jumping Equipos'				,'-',   'Jp. Equipos',	'Equipos',      false), // team best
-                14 =>	array( 14,'Jumping Equipos'				,'-',  	'Jp. Equipos',	'Equipos',      false), // team combined
-                15 =>	array( 15,'K.O. Primera manga',			'-',	'K.O. manga 1',	'K.O. 1',         false),
-                16 =>	array( 16,'Manga Especial', 			'-',	'Manga Especial','Individual',  true), // special round, no grades
-                17 => 	array( 17,'Agility Grado I Manga 3',	'GI',	'Agility-3 GI',	'Grado I',      true), // on RFEC special G1 3rd round
+                1 =>	array( 1, 'Pre-Agility Manga 1', 		'P.A.',	'PreAgility 1',	'Pre-Agility',  1),
+                2 => 	array( 2, 'Pre-Agility Manga 2', 		'P.A.',	'PreAgility 2',	'Pre-Agility',  2),
+                3 =>	array( 3, 'Agility Grado I Manga 1',	'GI',	'Agility-1 GI',	'Grado I',      1),
+                4 => 	array( 4, 'Agility Grado I Manga 2',	'GI',	'Agility-2 GI',	'Grado I',      2),
+                5 =>	array( 5, 'Agility Grado II', 			'GII',	'Agility GII',	'Grado II',     1),
+                6 =>	array( 6, 'Agility Grado III', 			'GIII',	'Agility GIII',	'Grado III',    1),
+                7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual',   1), // Open
+                8 =>	array( 8, 'Agility Equipos',			'-',	'Ag. Equipos',	'Equipos',      1), // team best
+                9 =>	array( 9, 'Agility Equipos'				,'-',	'Ag. Equipos.',	'Equipos',      1), // team combined
+                10 =>	array( 10,'Jumping Grado II',			'GII',	'Jumping GII',	'Grado II',     2),
+                11 =>	array( 11,'Jumping Grado III',			'GIII',	'Jumping GIII',	'Grado III',    2),
+                12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual',   2), // Open
+                13 =>	array( 13,'Jumping Equipos'				,'-',   'Jp. Equipos',	'Equipos',      2), // team best
+                14 =>	array( 14,'Jumping Equipos'				,'-',  	'Jp. Equipos',	'Equipos',      2), // team combined
+                15 =>	array( 15,'K.O. Primera manga',			'-',	'K.O. manga 1',	'K.O. 1',       1),
+                16 =>	array( 16,'Manga Especial', 			'-',	'Manga Especial','Individual',  1), // special round, no grades
+                17 => 	array( 17,'Agility Grado I Manga 3',	'GI',	'Agility-3 GI',	'Grado I',      3), // on RFEC special G1 3rd round
                 // mangas extra para K.O.
-                18 =>	array( 18,'K.O. Segunda manga',			'-',	'K.O. Manga 2',	'K.O. - 2',      false),
-                19 =>	array( 19,'K.O. Tercera manga',			'-',	'K.O. Manga 3',	'K.O. - 3',      false),
-                20 =>	array( 20,'K.O. Cuarta manga',			'-',	'K.O. Manga 4',	'K.O. - 4',      false),
-                21 =>	array( 21,'K.O. Quinta manga',			'-',	'K.O. Manga 5',	'K.O. - 5',      false),
-                22 =>	array( 22,'K.O. Sexta manga',			'-',	'K.O. Manga 6',	'K.O. - 6',      false),
-                23 =>	array( 23,'K.O. Septima manga',			'-',	'K.O. Manga 7',	'K.O. - 7',      false),
-                24 =>	array( 24,'K.O. Octava manga',			'-',	'K.O. Manga 8',	'K.O. - 8',      false),
+                18 =>	array( 18,'K.O. Segunda manga',			'-',	'K.O. Manga 2',	'K.O. - 2',      2),
+                19 =>	array( 19,'K.O. Tercera manga',			'-',	'K.O. Manga 3',	'K.O. - 3',      3),
+                20 =>	array( 20,'K.O. Cuarta manga',			'-',	'K.O. Manga 4',	'K.O. - 4',      4),
+                21 =>	array( 21,'K.O. Quinta manga',			'-',	'K.O. Manga 5',	'K.O. - 5',      5),
+                22 =>	array( 22,'K.O. Sexta manga',			'-',	'K.O. Manga 6',	'K.O. - 6',      6),
+                23 =>	array( 23,'K.O. Septima manga',			'-',	'K.O. Manga 7',	'K.O. - 7',      7),
+                24 =>	array( 24,'K.O. Octava manga',			'-',	'K.O. Manga 8',	'K.O. - 8',      8),
                 /**** estas mangas no existen en rsce. se ponen por compatibilidad *********/
                 // mandas extras para wao
-                25 =>	array( 25,'Agility A',			        '-',	'Agility A',	'Ag. A',        true),
-                26 =>	array( 26,'Agility B',			        '-',	'Agility B',	'Ag. B',        true),
-                27 =>	array( 27,'Jumping A',			        '-',	'Jumping A',	'Jp. A',        false),
-                28 =>	array( 28,'Jumping B',			        '-',	'Jumping B',	'Jp. B',        false),
-                29 =>	array( 29,'Snooker',			        '-',	'Snooker',	    'Snkr',         true),
-                30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        false),
-                31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       true), // single round
+                25 =>	array( 25,'Agility A',			        '-',	'Agility A',	'Ag. A',        1),
+                26 =>	array( 26,'Agility B',			        '-',	'Agility B',	'Ag. B',        2),
+                27 =>	array( 27,'Jumping A',			        '-',	'Jumping A',	'Jp. A',        3),
+                28 =>	array( 28,'Jumping B',			        '-',	'Jumping B',	'Jp. B',        4),
+                29 =>	array( 29,'Snooker',			        '-',	'Snooker',	    'Snkr',         5),
+                30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        6),
+                31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       7), // single round
                 // junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
                 // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
-                32 =>	array( 32,'Junior Manga 1',	            'Jr',	'Junior 1',	    'Jr. 1',        true),
-                33 => 	array( 33,'Junior Manga 2',	            'Jr',	'Junior 2',	    'Jr. 2',        false),
+                32 =>	array( 32,'Junior Manga 1',	            'Jr',	'Junior 1',	    'Jr. 1',        1),
+                33 => 	array( 33,'Junior Manga 2',	            'Jr',	'Junior 2',	    'Jr. 2',        2),
             )
         ));
     }

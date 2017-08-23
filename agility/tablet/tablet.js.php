@@ -81,7 +81,16 @@ function tablet_putEvent(type,data){
 		type:'GET',
 		url:"/agility/server/database/eventFunctions.php",
 		dataType:'json',
-		data: $.extend({},obj,data)
+		data: $.extend({},obj,data),
+        // on system errors ( connection lost, timeouts, or so ) display an alarm
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.show({
+                title:'putEvent',
+                msg:'tablet::putEvent( '+type+' ) error: '+textStatus + ' '+ errorThrown,
+                timeout:500,
+                showType:'slide'
+            });
+        }
 	});
 }
 
