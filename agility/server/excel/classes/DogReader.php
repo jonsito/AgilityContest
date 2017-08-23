@@ -700,6 +700,7 @@ class DogReader {
             $dbobj=$this->myDBObject->__selectObject("*","Perros","ID={$options['DatabaseID']}");
 
             // escapamos todos los textos para evitar problemas con las operaciones de la base de datos
+            $tnombre=$this->myDBObject->conn->real_escape_string($obj->Nombre); // nombre del perro en tabla temporal
             $nombre=$this->myDBObject->conn->real_escape_string($dbobj->Nombre); // nombre del perro
             $nlargo=$this->myDBObject->conn->real_escape_string($dbobj->NombreLargo); // nombre largo
             $raza=$this->myDBObject->conn->real_escape_string($dbobj->Raza); // raza
@@ -725,7 +726,7 @@ class DogReader {
             // update temporary table with evaluated data
             $str="UPDATE $t SET DogID={$dbobj->ID},Nombre='$nombre',NombreLargo='$nlargo',Genero='$sex',Raza='$raza',".
                 "Licencia='$lic',Chip='$chip',LOE_RRC='$loe', Categoria='$cat', Grado='$grad' ".
-                "WHERE (Nombre = '{$obj->Nombre}')  AND (HandlerID={$obj->HandlerID})";
+                "WHERE (Nombre = '{$tnombre}')  AND (HandlerID={$obj->HandlerID})";
             $res=$this->myDBObject->query($str);
             if (!$res) return "UpdateEntry(): update dog '{obj->Nombre}' Set Dog Data error:".$this->myDBObject->conn->error;
             // notice that no need to update data in database, this is done in "import" phase
