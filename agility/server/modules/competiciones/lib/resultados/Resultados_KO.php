@@ -33,6 +33,45 @@ class Resultados_KO extends Resultados {
 	}
 
     /**
+     * Inserta perro en la lista de resultados de la manga
+     * los datos del perro se toman de la tabla perroguiaclub
+     * @param {array} $objperro datos perroguiaclub
+     * @param {array} $inscripcion datos de la inscripcion
+     * @param {array} $eqdata datos del equipo por defecto de la jornada
+     * @return "" on success; else error string
+     */
+    function insertByData($objperro,$inscripcion,$eqdata){
+        $res=parent::insertByData($objperro,$inscripcion,$eqdata);
+        if ($res!=="") return $res;
+        // en pruebas ko, la insercion/borrado de un perro obliga a reorganizar toda la prueba,
+        // por lo que hay que reajustar el campo games de todos los participantes a 1(primera manga) o cero(resto de mangas)
+        $firstround=($this->getDatosManga()->Tipo==15)?1:0;
+        $mid=($this->getDatosManga())->ID;
+        $str="UPDATE Resultados SET Games={$firstround} WHERE Manga={$mid}";
+        $res=$this->query($str);
+        if (!$res)$this->myLogger->error("insertByData(KO): ".$this->conn->error);
+        return "";
+    }
+
+    /**
+     * Borra el idperro de la lista de resultados de la manga
+     * @param {integer} $idperro
+     * @return "" on success; null on error
+     */
+    function delete($idperro) {
+        $res=parent::delete($idperro);
+        if ($res!=="") return $res;
+        // en pruebas ko, la insercion/borrado de un perro obliga a reorganizar toda la prueba,
+        // por lo que hay que reajustar el campo games de todos los participantes a 1(primera manga) o cero(resto de mangas)
+        $firstround=($this->getDatosManga()->Tipo==15)?1:0;
+        $mid=($this->getDatosManga())->ID;
+        $str="UPDATE Resultados SET Games={$firstround} WHERE Manga={$mid}";
+        $res=$this->query($str);
+        if (!$res)$this->myLogger->error("insertByData(KO): ".$this->conn->error);
+        return "";
+    }
+
+    /**
      * Presenta una tabla ordenada segun los resultados de la manga
      *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8 L+M+S+T
      *@return {array} requested data or error

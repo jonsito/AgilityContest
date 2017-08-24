@@ -180,10 +180,17 @@ $('#ordensalida-datagrid').datagrid({
     onBeforeLoad: function(param) { return (workingData.manga > 0); }, // do not load if no manga selected
     onLoadSuccess: function(data) {
 		// show/hide 'NombreEquipo' based of manga type
-        if (isJornadaKO() && (data.total==0) &&  $('#ordensalida-dialog').dialog('options').closed ) {
-            $.messager.alert(
-                "<?php _e('No data yet');?>",
-                "<?php _e('Need to choose starting order to show valid data on this round');?>","warning");
+        if (isJornadaKO() &&  $('#ordensalida-dialog').dialog('options').closed ) {
+            if (parseInt(data.total)===0) {
+                $.messager.alert(
+                    "<?php _e('No data yet');?>",
+                    "<?php _e('Need to choose starting order to show valid data on this round');?>","warning");
+            }
+            if ( parseInt(workingData.datosManga.Tipo)===15) { // on first round
+                $.messager.alert(
+                    "<?php _e('On first round');?>",
+                    "<?php _e('Make sure to select competitors and starting order to organize rounds');?>","warning");
+            }
         }
 		if (isTeam(workingData.datosManga.Tipo) ) $(this).datagrid('showColumn','NombreEquipo');
 		else  $(this).datagrid('hideColumn','NombreEquipo');
