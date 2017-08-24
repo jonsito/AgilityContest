@@ -1054,15 +1054,25 @@ function addSimpleKeyHandler(datagrid,dialog,onEnter){
 		//main code
 		var t = $(datagrid);
 	    switch(e.keyCode){
-	    case 27:    /* Esc */   if (dialog!==null) $(dialog).window('close'); return false;
-	    case 38:	/* Up */	selectRow(t,true); return false;
-	    case 40:    /* Down */	selectRow(t,false); return false;
-	    case 13:	/* Enter */	if (e.ctrlKey) { displayRowData(t); return false; }
-	    			if (typeof(onEnter)!=='undefined') onEnter(datagrid,$(datagrid).datagrid('getSelected'));
-                    return false;
-	    default:    // no break
-	    			return false;
+	    case 27:    /* Esc */
+            if (dialog!==null) $(dialog).window('close'); return false;
+	    case 38:	/* Up */
+            selectRow(t,true); return false;
+	    case 40:    /* Down */
+            selectRow(t,false); return false;
+	    case 13:	/* Enter */
+            if (e.ctrlKey) {
+                displayRowData(t);
+                return false;
+            }
+	    	if (typeof(onEnter)!=='undefined') {
+	            onEnter(datagrid,$(datagrid).datagrid('getSelected'));
+                return false;
+            }
+            return true;
 	    }
+	    // arriving here return true to allow upper window key capture work
+        return true;
 	});
     return false;
 }
@@ -1158,8 +1168,11 @@ function addKeyHandler(dgid,dialog,insertfn,updatefn,deletefn) {
         case 9: 	/* Tab */
             // if (e.shiftkey) return false; // shift+Tab
             return false;
-		case 27:	/* Esc */   if (dialog!==null) $(dialog).window('close');
+		case 27:	/* Esc */
+            if (dialog!==null) $(dialog).window('close');
 			return false;
+		case 70: /* Allow Ctrl-F work */
+            return (e.ctrlKey);
         case 16:	/* Shift */
         case 17:	/* Ctrl */
         case 18:	/* Alt */
