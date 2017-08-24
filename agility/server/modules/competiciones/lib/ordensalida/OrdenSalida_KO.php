@@ -432,7 +432,7 @@ class OrdenSalida_KO extends OrdenSalida {
         // fase 2: returned data contains new starting order. use it
         if ($data!= null) { // on first round there is no previous results, so do nothing
             $ordensalida=$this->getOrden();
-            foreach($data as $item) $ordensalida=list_insert($item['Perro'],$ordensalida);
+            foreach($data as $item) $ordensalida=list_insert($item['Perro'],list_remove($item['Perro'],$ordensalida));
             $this->setOrden($ordensalida);
         }
 

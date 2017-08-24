@@ -191,8 +191,8 @@ class OrdenSalida_EO_Final extends OrdenSalida {
         $orden="BEGIN,END";
         $size=max(count($oagility),count($ojumping));
         for($n=0;$n<$size;$n++) {
-            if (array_key_exists($n,$oagility)) $orden=list_insert($oagility[$n],$orden);
-            if (array_key_exists($n,$ojumping)) $orden=list_insert($ojumping[$n],$orden);
+            if (array_key_exists($n,$oagility)) $orden=list_insert($oagility[$n],list_remove($oagility[$n],$orden));
+            if (array_key_exists($n,$ojumping)) $orden=list_insert($ojumping[$n],list_remove($ojumping[$n],$orden));
 		}
 		// ok. retornamos nuevo orden
 		$this->myLogger->trace("El nuevo orden de salida manga:{$this->manga->ID} jornada:{$this->jornada->ID} es:\n$orden");

@@ -395,7 +395,7 @@ function endsWith($haystack, $needle) {
 }
 
 /**
- * Insert item at the end of a comma-separated list
+ * Insert item (if not already present) at the end of a comma-separated list
  * @param {int} $item
  * @param {string} $list
  * @return {string} new list
@@ -403,11 +403,11 @@ function endsWith($haystack, $needle) {
 function list_insert($item,$list='BEGIN,END') {
     // lo borramos para evitar una posible doble insercion
     $str = ",$item,";
-    $newlist = str_replace ( $str, ",", $list );
+    if (strpos($list,$str)!==false) return $list; // already present
     // componemos el tag que hay que insertar
     $myTag="$item,END";
     // y lo insertamos en lugar que corresponde ( al final )
-    return str_replace ( "END", $myTag, $newlist );
+    return str_replace ( "END", $myTag, $list );
 }
 
 /**
