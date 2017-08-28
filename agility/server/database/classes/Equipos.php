@@ -232,7 +232,6 @@ class Equipos extends DBObject {
             // gives a different row count than count() does, so need to fix it
             $result['total']=1;
         }
-        $this->myLogger->trace("total: {$result['total']} count: ".count($result['rows']));
         $addLogo=http_request("AddLogo","i",0);
         if ($addLogo!=0) {
             $clb=new Clubes("Equpos::TeamLogo");

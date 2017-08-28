@@ -194,10 +194,8 @@ $('#team_datagrid').datagrid({
         showInscripcionesByTeam(idx,row);
     },
     onLoadSuccess: function(data){
-        console.log("onLoadSuccess "+data.total);
 	    // if only one row, expand it
 	    if (parseInt(data.total)===1) setTimeout( function(){
-	        console.log("onLoadSuccess=1");
 	        $('#team_datagrid').datagrid('expandRow',0)
         },0);
     }
