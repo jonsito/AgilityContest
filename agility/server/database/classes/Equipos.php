@@ -222,13 +222,17 @@ class Equipos extends DBObject {
                 "AND ( (Resultados.Nombre LIKE '%$search%') OR (Resultados.NombreGuia LIKE '%$search%') ".
                 " $dorsal OR ( Resultados.Licencia='$search') )";
             $result=$this->__select(
-                /* SELECT */ "*,'null.png' as LogoTeam",
+                /* SELECT */ " DISTINCT Equipos.*,'null.png' as LogoTeam",
                 /* FROM */ "Resultados,Equipos",
                 /* WHERE */ $where.$extra.$hdef,
                 /* ORDER BY */ $sort,
-                /* LIMIT */ 1 // only get first result
+                /* LIMIT */ 1 // only get first result. Remeber that may be 1 to 8 rounds result matching
             );
+            // notice that __select has a first count() call, but here we have a "Distinct" keyword, that
+            // gives a different row count than count() does, so need to fix it
+            $result['total']=1;
         }
+        $this->myLogger->trace("total: {$result['total']} count: ".count($result['rows']));
         $addLogo=http_request("AddLogo","i",0);
         if ($addLogo!=0) {
             $clb=new Clubes("Equpos::TeamLogo");
