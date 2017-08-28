@@ -17,7 +17,7 @@ if(!isset($config)) $config =Config::getInstance();
     <meta charset="UTF-8">
     <title><?php _e("Final individual");?>(<?php _e("simplified");?>)</title>
     <link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
-    <script src="/agility/lib/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="/agility/lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
 </head>
 <body style="padding:0;margin:0;height:100%;min-height:100%">
 <table class="simple_table">
