@@ -205,15 +205,30 @@ class Equipos extends DBObject {
 		}
 		$hideDefault=http_request("HideDefault","i",0);
         $hdef = ($hideDefault==0)?"":" AND (Equipos.DefaultTeam!=1)";
+        $extra= "";
 		$where = "(Equipos.Prueba={$this->pruebaID}) AND (Equipos.Jornada={$this->jornadaID})";
-		if ($search!=='') $where=$where." AND ( (Equipos.Nombre LIKE '%$search%') OR ( Equipos.Observaciones LIKE '%$search%') ) ";
+		if ($search!=='') $extra=" AND ( (Equipos.Nombre LIKE '%$search%') OR ( Equipos.Observaciones LIKE '%$search%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "* , 'null.png' as LogoTeam",
 				/* FROM */ "Equipos",
-				/* WHERE */ $where.$hdef,
+				/* WHERE */ $where.$extra.$hdef,
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
+        // arriving here if no rows, use "where" to find first team that contains named dog/handler/dorsal/license
+        if ( ($result['total']==0) && ($search!=='') ){
+            $dorsal=is_numeric($search)?" OR (Resultados.Dorsal=$search)":"";
+            $extra=" AND (Resultados.Jornada={$this->jornadaID}) AND (Equipos.ID=Resultados.Equipo) ".
+                "AND ( (Resultados.Nombre LIKE '%$search%') OR (Resultados.NombreGuia LIKE '%$search%') ".
+                " $dorsal OR ( Resultados.Licencia='$search') )";
+            $result=$this->__select(
+                /* SELECT */ "*,'null.png' as LogoTeam",
+                /* FROM */ "Resultados,Equipos",
+                /* WHERE */ $where.$extra.$hdef,
+                /* ORDER BY */ $sort,
+                /* LIMIT */ 1 // only get first result
+            );
+        }
         $addLogo=http_request("AddLogo","i",0);
         if ($addLogo!=0) {
             $clb=new Clubes("Equpos::TeamLogo");
