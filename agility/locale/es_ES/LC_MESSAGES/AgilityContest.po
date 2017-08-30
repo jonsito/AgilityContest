@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-08-30 23:29+0200\n"
-"PO-Revision-Date: 2017-08-30 23:30+0200\n"
+"POT-Creation-Date: 2017-08-30 23:39+0200\n"
+"PO-Revision-Date: 2017-08-30 23:39+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -364,8 +364,8 @@ msgstr "Eliminado"
 #: scripts/printer.js.php:555 scripts/printer.js.php:591
 #: scripts/pruebas.js.php:111 scripts/pruebas.js.php:139
 #: scripts/pruebas.js.php:187 scripts/pruebas.js.php:250
-#: scripts/pruebas.js.php:410 scripts/pruebas.js.php:557
-#: scripts/pruebas.js.php:563 scripts/results_and_scores.js.php:48
+#: scripts/pruebas.js.php:412 scripts/pruebas.js.php:559
+#: scripts/pruebas.js.php:565 scripts/results_and_scores.js.php:48
 #: scripts/results_and_scores.js.php:149 scripts/results_and_scores.js.php:363
 #: scripts/sesiones.js.php:80 scripts/sesiones.js.php:134
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
@@ -7293,7 +7293,7 @@ msgstr "Ya enviado"
 msgid "No mail declared"
 msgstr "Sin correo definido"
 
-#: scripts/pruebas.js.php:289
+#: scripts/pruebas.js.php:289 scripts/pruebas.js.php:403
 msgid "Processing"
 msgstr "Procesando"
 
@@ -7349,7 +7349,7 @@ msgstr "Puede originar inconsistencias en resultados y clasificaciones"
 msgid "Cannot close an already closed journey"
 msgstr "No se puede cerrar una jornada ya cerrada"
 
-#: scripts/pruebas.js.php:557
+#: scripts/pruebas.js.php:559
 msgid ""
 "KO, Games (WAO), Individual (Open), or team rounds must be declared in a "
 "separate journey"
@@ -7357,7 +7357,7 @@ msgstr ""
 "Las rondas KO, Juegos (WAO), Individual (Open) o Equipos deben ser "
 "declaradas en una jornada separada"
 
-#: scripts/pruebas.js.php:563
+#: scripts/pruebas.js.php:565
 msgid ""
 "You cannot add additional rounds when KO, Games (WAO), Individual (Open) or "
 "team rounds are already declared in a journey"

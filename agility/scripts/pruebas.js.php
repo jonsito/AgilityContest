@@ -400,7 +400,7 @@ function closeJornadaFromPrueba(datagridID,event) {
             msg,
     		function(r) { 
     	    	if(r) {
-                    $.messager.progress({title:'<?php _e(""); ?>',text:'<?php _e("Processing");?>...'});
+                    $.messager.progress({title:'',text:'<?php _e("Processing");?>...'});
     	            $.get(
     	                '/agility/server/database/jornadaFunctions.php',
                         {Operation:'close',ID:row.ID,Mode:mode},
