@@ -156,13 +156,14 @@ class Jornadas extends DBObject {
 	/**
 	 * Close jornada with provided ID
 	 * @param {integer} jornada name primary key
+     * @param {boolean} closeflag 0:open 1:close
 	 * @return "" on success ; otherwise null
 	 */
-	function close($jornadaid) {
+	function close($jornadaid,$closeflag=1) {
 		$this->myLogger->enter();
 		if ($jornadaid<=0) return $this->error("Invalid Jornada ID");
 		// marcamos la jornada con ID=$jornadaid como cerrada
-		$res= $this->query("UPDATE Jornadas SET Cerrada=1 WHERE ( ID=$jornadaid ) ;");
+		$res= $this->query("UPDATE Jornadas SET Cerrada=$closeflag WHERE ( ID=$jornadaid ) ;");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";

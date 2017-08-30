@@ -363,10 +363,10 @@ function editJornadaFromPrueba(pruebaID,row) {
 
 /**
  * Cierra la jornada seleccionada
- *@param pruebaID objeto que contiene los datos de la prueba
+ *@param event para detectar si se pulsa ctrl-key para re-abrir una prueba
  *@param datagridID identificador del datagrid del que se toman los datos
  */
-function closeJornadaFromPrueba(pruebaID,datagridID) {
+function closeJornadaFromPrueba(datagridID) {
 	// obtenemos datos de la JORNADA seleccionada
 	var row= $(datagridID).datagrid('getSelected');
     // var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
@@ -387,13 +387,18 @@ function closeJornadaFromPrueba(pruebaID,datagridID) {
     		'<?php _e("Continue?"); ?>',
     		function(r) { 
     	    	if(r) {
-    	            $.get('/agility/server/database/jornadaFunctions.php',{Operation:'close',ID:row.ID},function(result){
-    	                if (result.success){
-    	                    $(datagridID).datagrid('reload');    // reload the pruebas data
-    	                } else {
-    	                    $.messager.show({ width:300, height:200, title:'<?php _e('Error'); ?>', msg:result.errorMsg });
-    	                }
-    	            },'json');
+    	            $.get(
+    	                '/agility/server/database/jornadaFunctions.php',
+                        {Operation:'close',ID:row.ID,Mode:1},
+                        function(result){
+    	                    if (result.success){
+    	                        $(datagridID).datagrid('reload');    // reload the pruebas data
+    	                    } else {
+    	                        $.messager.show({ width:300, height:200, title:'<?php _e('Error'); ?>', msg:result.errorMsg });
+    	                    }
+    	                },
+                        'json'
+                    );
     	    	}
     		});
     w.window('resize',{width:400,height:150}).window('center');
