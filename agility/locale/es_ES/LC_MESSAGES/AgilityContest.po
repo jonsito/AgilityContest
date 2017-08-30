@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-08-30 13:55+0200\n"
-"PO-Revision-Date: 2017-08-30 13:55+0200\n"
+"POT-Creation-Date: 2017-08-30 23:29+0200\n"
+"PO-Revision-Date: 2017-08-30 23:30+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -364,8 +364,8 @@ msgstr "Eliminado"
 #: scripts/printer.js.php:555 scripts/printer.js.php:591
 #: scripts/pruebas.js.php:111 scripts/pruebas.js.php:139
 #: scripts/pruebas.js.php:187 scripts/pruebas.js.php:250
-#: scripts/pruebas.js.php:394 scripts/pruebas.js.php:538
-#: scripts/pruebas.js.php:544 scripts/results_and_scores.js.php:48
+#: scripts/pruebas.js.php:410 scripts/pruebas.js.php:557
+#: scripts/pruebas.js.php:563 scripts/results_and_scores.js.php:48
 #: scripts/results_and_scores.js.php:149 scripts/results_and_scores.js.php:363
 #: scripts/sesiones.js.php:80 scripts/sesiones.js.php:134
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
@@ -919,7 +919,7 @@ msgstr "Reasignar el perro seleccionado al gu&iacute;a"
 #: console/dialogs/dlg_resultados_ko.inc:54 console/frm_clubes.php:224
 #: console/frm_clubes.php:303 console/frm_guias.php:192
 #: console/frm_paises.php:187 console/frm_paises.php:266
-#: console/frm_pruebas.php:206
+#: console/frm_pruebas.php:207
 msgid "Update"
 msgstr "Actualizar"
 
@@ -2803,7 +2803,7 @@ msgstr "Editar gu&iacute;a"
 #: console/dialogs/dlg_perros.inc:96 console/frm_competicion.php:73
 #: console/frm_myAdmin.php:31 console/index.php:196
 #: scripts/inscripciones.js.php:89 scripts/pruebas.js.php:131
-#: scripts/pruebas.js.php:383 server/pdf/classes/PrintOrdenTandas.php:77
+#: scripts/pruebas.js.php:371 server/pdf/classes/PrintOrdenTandas.php:77
 msgid "Notice"
 msgstr "Aviso"
 
@@ -5124,15 +5124,15 @@ msgstr "Editar jornada"
 msgid "Close journey"
 msgstr "Cerrar jornada"
 
-#: console/frm_pruebas.php:216
+#: console/frm_pruebas.php:217
 msgid "Edit data on selected journey"
 msgstr "Modificar los datos de la jornada seleccionada"
 
-#: console/frm_pruebas.php:217
+#: console/frm_pruebas.php:218
 msgid "Close journey. Store data as inmutable"
 msgstr "Cerrar jornada. Marcar esta jornada como no-modificable"
 
-#: console/frm_pruebas.php:218
+#: console/frm_pruebas.php:219
 msgid "Update journey list for this contest"
 msgstr "Actualizar la lista de jornadas de esta prueba"
 
@@ -6157,7 +6157,8 @@ msgstr ""
 "Asegurese de que no hay ninguna actualizaci&oacute;n, importaci&oacute;n, "
 "env&iacute;o de correo <br/> o similar operaci&oacute;n en proceso "
 
-#: scripts/admin.js.php:89 scripts/pruebas.js.php:387
+#: scripts/admin.js.php:89 scripts/pruebas.js.php:376
+#: scripts/pruebas.js.php:391
 msgid "Continue?"
 msgstr "Realmente desea continuar?"
 
@@ -6826,7 +6827,7 @@ msgstr "Debe seleccionar un equipo v&aacute;lido"
 #: scripts/inscripciones.js.php:84 scripts/inscripciones.js.php:163
 #: scripts/inscripciones.js.php:305 scripts/inscripciones.js.php:353
 #: scripts/pruebas.js.php:317 scripts/pruebas.js.php:352
-#: scripts/pruebas.js.php:374 scripts/results_and_scores.js.php:116
+#: scripts/pruebas.js.php:381 scripts/results_and_scores.js.php:116
 msgid "No selection"
 msgstr "No seleccionado"
 
@@ -6966,7 +6967,7 @@ msgid "Cloning inscriptions from selected journey into "
 msgstr "Clonando las inscripciones de la jornada seleccionada en"
 
 #: scripts/inscripciones.js.php:305 scripts/pruebas.js.php:352
-#: scripts/pruebas.js.php:374
+#: scripts/pruebas.js.php:381
 msgid "There is no journey selected"
 msgstr "No se ha seleccionado ninguna jornada"
 
@@ -7304,7 +7305,7 @@ msgstr "No se ha seleccionado ning&uacute;n club al que enviar correo"
 msgid "Current user has not enought permissions to send mail"
 msgstr "El usuario actual no tiene suficientes permisos para enviar correo"
 
-#: scripts/pruebas.js.php:356 scripts/pruebas.js.php:378
+#: scripts/pruebas.js.php:356 scripts/pruebas.js.php:393
 msgid "Invalid selection"
 msgstr "Selecci&oacute;n inv&aacute;lida"
 
@@ -7316,23 +7317,39 @@ msgstr "No se puede modificar una jornada marcada como cerrada"
 msgid "Modify journey data"
 msgstr "Editar datos de de la jornada"
 
-#: scripts/pruebas.js.php:378
-msgid "Cannot close an already closed journey"
-msgstr "No se puede cerrar una jornada ya cerrada"
-
-#: scripts/pruebas.js.php:384
+#: scripts/pruebas.js.php:373
 msgid "Setting a journey as closed"
 msgstr "Marcando la jornada como cerrada"
 
-#: scripts/pruebas.js.php:385
+#: scripts/pruebas.js.php:374
 msgid "Youll be no longer able to edit,delete or modify,"
 msgstr "No ser&aacute; posible editar o borrar datos de esta"
 
-#: scripts/pruebas.js.php:386
+#: scripts/pruebas.js.php:375
 msgid "inscriptions or scores"
 msgstr "inscripciones o resultados"
 
-#: scripts/pruebas.js.php:538
+#: scripts/pruebas.js.php:387
+msgid "Warning"
+msgstr "Aviso"
+
+#: scripts/pruebas.js.php:388
+msgid "You are about to re-open a closed journey"
+msgstr "Ha solicitado re-abrir una jornada ya cerrada"
+
+#: scripts/pruebas.js.php:389
+msgid "This is a very dangerous operation "
+msgstr "Esta es una operaci&oacute;n muy peligrosa"
+
+#: scripts/pruebas.js.php:390
+msgid "May generate scores and result data inconsistencies"
+msgstr "Puede originar inconsistencias en resultados y clasificaciones"
+
+#: scripts/pruebas.js.php:393
+msgid "Cannot close an already closed journey"
+msgstr "No se puede cerrar una jornada ya cerrada"
+
+#: scripts/pruebas.js.php:557
 msgid ""
 "KO, Games (WAO), Individual (Open), or team rounds must be declared in a "
 "separate journey"
@@ -7340,7 +7357,7 @@ msgstr ""
 "Las rondas KO, Juegos (WAO), Individual (Open) o Equipos deben ser "
 "declaradas en una jornada separada"
 
-#: scripts/pruebas.js.php:544
+#: scripts/pruebas.js.php:563
 msgid ""
 "You cannot add additional rounds when KO, Games (WAO), Individual (Open) or "
 "team rounds are already declared in a journey"
@@ -7477,7 +7494,7 @@ msgstr "Info"
 msgid "Password changed successfully"
 msgstr "Contrase&ntilde;a cambiada con &eacute;xito"
 
-#: server/database/classes/Jornadas.php:237
+#: server/database/classes/Jornadas.php:238
 msgid "Independent Journey"
 msgstr "Jornada independiente"
 

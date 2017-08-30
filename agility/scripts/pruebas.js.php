@@ -363,33 +363,46 @@ function editJornadaFromPrueba(pruebaID,row) {
 
 /**
  * Cierra la jornada seleccionada
- *@param event para detectar si se pulsa ctrl-key para re-abrir una prueba
  *@param datagridID identificador del datagrid del que se toman los datos
+ *@param event para detectar si se pulsa ctrl-key para re-abrir una prueba
  */
-function closeJornadaFromPrueba(datagridID) {
+function closeJornadaFromPrueba(datagridID,event) {
+    var mode=1;
+    var title='<?php _e("Notice"); ?>';
+    var msg=
+        '<?php _e("Setting a journey as closed"); ?><br/>' +
+        '<?php _e("Youll be no longer able to edit,delete or modify,"); ?><br/>' +
+        '<?php _e("inscriptions or scores"); ?><br/>' +
+        '<?php _e("Continue?"); ?>'
 	// obtenemos datos de la JORNADA seleccionada
 	var row= $(datagridID).datagrid('getSelected');
     // var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
     if (!row) {
         $.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no journey selected"); ?>',"warning");
-    	return; // no hay ninguna jornada seleccionada. retornar
+    	return false; // no hay ninguna jornada seleccionada. retornar
     }
-    if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
-    	$.messager.alert('<?php _e("Invalid selection"); ?>','<?php _e("Cannot close an already closed journey"); ?>',"error");
-        return;
+    if (row.Cerrada==true) { // controla si se quiere reabrir una prueba ya cerrada
+        if (event && event.ctrlKey) {
+            mode=0;
+            title='<?php _e("Warning"); ?>';
+            msg='<?php _e("You are about to re-open a closed journey"); ?><br/>' +
+                '<?php _e("This is a very dangerous operation "); ?><br/>' +
+                '<?php _e("May generate scores and result data inconsistencies"); ?><br/>' +
+                '<?php _e("Continue?"); ?>'
+        } else {
+            $.messager.alert('<?php _e("Invalid selection"); ?>','<?php _e("Cannot close an already closed journey"); ?>',"error");
+            return false;
+        }
     }
     // $.messager.defaults={ ok:"Cerrar", cancel:"Cancelar" };
     var w=$.messager.confirm(
-    		'<?php _e("Notice"); ?>',
-    		'<?php _e("Setting a journey as closed"); ?><br/>' +
-    		'<?php _e("Youll be no longer able to edit,delete or modify,"); ?><br/>' +
-    		'<?php _e("inscriptions or scores"); ?><br/>' +
-    		'<?php _e("Continue?"); ?>',
+    		title,
+            msg,
     		function(r) { 
     	    	if(r) {
     	            $.get(
     	                '/agility/server/database/jornadaFunctions.php',
-                        {Operation:'close',ID:row.ID,Mode:1},
+                        {Operation:'close',ID:row.ID,Mode:mode},
                         function(result){
     	                    if (result.success){
     	                        $(datagridID).datagrid('reload');    // reload the pruebas data
@@ -402,6 +415,7 @@ function closeJornadaFromPrueba(datagridID) {
     	    	}
     		});
     w.window('resize',{width:400,height:150}).window('center');
+    return false;
 }
 
 /**

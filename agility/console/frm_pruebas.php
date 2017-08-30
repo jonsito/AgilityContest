@@ -200,7 +200,7 @@ $config =Config::getInstance();
     				id: 'jornadasbyprueba-closeBtn'+prueba.ID,
             		text: '<?php _e('Close journey'); ?>',
         			iconCls: 'icon-forbidden',
-       				handler: function(){closeJornadaFromPrueba(datagridID);}
+       				// handler: function(){closeJornadaFromPrueba(datagridID);}
                     // onClick: function(e) { closeJornadaFromPrueba(datagridID,e); }
     			},{
     				id: 'jornadasbyprueba-reloadBtn'+prueba.ID,
@@ -217,6 +217,10 @@ $config =Config::getInstance();
 			addTooltip($('#jornadasbyprueba-editBtn'+prueba.ID).linkbutton(),'<?php _e("Edit data on selected journey"); ?>');
 			addTooltip($('#jornadasbyprueba-closeBtn'+prueba.ID).linkbutton(),'<?php _e("Close journey. Store data as inmutable"); ?>');
 			addTooltip($('#jornadasbyprueba-reloadBtn'+prueba.ID).linkbutton(),'<?php _e("Update journey list for this contest"); ?>');
+
+            $('#jornadasbyprueba-closeBtn'+prueba.ID).bind('click',function(e) {
+                closeJornadaFromPrueba(datagridID,e);
+            });
        }
 
 </script>
