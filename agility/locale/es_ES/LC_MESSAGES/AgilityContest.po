@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-08-30 13:45+0200\n"
-"PO-Revision-Date: 2017-08-30 13:49+0200\n"
+"POT-Creation-Date: 2017-08-30 13:55+0200\n"
+"PO-Revision-Date: 2017-08-30 13:55+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -8439,6 +8439,10 @@ msgstr "P&aacute;gina"
 #: server/pdf/print_common.php:323
 msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
+
+#: server/tools.php:587
+msgid "Current journey is closed. cannot modify"
+msgstr "La jornada actual est&aacute; cerrada. No se puede modificar"
 
 #: server/web/PublicWeb.php:113
 msgid "Web notification system started"

@@ -584,8 +584,9 @@ function isMangaEquipos4($tipo) { return in_array($tipo,array(9,14)); }
 function isMangaEquipos($tipo) { return in_array($tipo,array(8,9,13,14)); }
 
 function assertClosedJourney($jornada) {
-    if (is_object($jornada) && ($jornada->Cerrada!=0)) throw new Exception("Current journey is closed. cannot modify");
-    if (is_array($jornada) && ($jornada['Cerrada']!=0)) throw new Exception("Current journey is closed. cannot modify");
+    $msg=_("Current journey is closed. cannot modify");
+    if (is_object($jornada) && ($jornada->Cerrada!=0)) throw new Exception($msg);
+    if (is_array($jornada) && ($jornada['Cerrada']!=0)) throw new Exception($msg);
 }
 
 /**
