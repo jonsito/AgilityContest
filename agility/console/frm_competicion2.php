@@ -167,6 +167,5 @@ addTooltip($('#competicion-ordentandasBtn').linkbutton(),"<?php _e('View/Edit Ro
 addTooltip($('#competicion-ordensalidaBtn').linkbutton(),"<?php _e('View/Edit Starting order on selected round');?>");
 addTooltip($('#competicion-competicionBtn').linkbutton(),"<?php _e('Insert/Edit competitors results');?>");
 addTooltip($('#competicion-resultmangaBtn').linkbutton(),"<?php _e('Review Partial results on selected round');?>");
-
 </script>
     

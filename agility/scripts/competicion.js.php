@@ -561,7 +561,10 @@ function resetCompeticion() {
                 Categorias: $('#competicion-categoria').combobox('getValue'),
                 Operation: 'reset'
             }
-        }).done( function(msg) {
+        }).done( function(result) {
+            if (result.errorMsg) {
+                $.messager.alert('<?php _e('Error'); ?>',result.errorMsg,'error');
+            }
             reloadCompeticion();
         });
     });
@@ -912,7 +915,10 @@ function evalOrdenSalida(oper) {
                     Categorias: $('#ordensalida-categoria').combobox('getValue'),
 					Operation: oper
 				}
-			}).done( function(msg) {
+			}).done( function(result) {
+			    if (result.errorMsg){
+			        $.messager.show({title:"Error",msg:result.errorMsg,timeout:5000,showType:'slide'})
+                }
 				reloadOrdenSalida();
 			});
 		});
@@ -928,7 +934,10 @@ function evalOrdenSalida(oper) {
                 Categorias: $('#ordensalida-categoria').combobox('getValue'),
 				Operation: oper
 			}
-		}).done( function(msg) {
+		}).done( function(result) {
+            if (result.errorMsg){
+                $.messager.show({title:"Error",msg:result.errorMsg,timeout:5000,showType:'slide'})
+            }
 			reloadOrdenSalida();
 		});
 	}
@@ -953,7 +962,10 @@ function dragAndDropOrdenSalida(from,to,where,whenDone) {
             From: from,
             To: to,Where: where
 		}
-	}).done( function(msg) {
+	}).done( function(result) {
+        if (result.errorMsg){
+            $.messager.show({title:"Error",msg:result.errorMsg,timeout:5000,showType:'slide'})
+        }
 		whenDone();
 	});
 }
@@ -1032,6 +1044,17 @@ function competicionDialog(name) {
         reloadOrdenSalida();
     }
     if (name==='competicion') {
+        // disable "data entry button" on closed journeys
+        if (parseInt(workingData.datosJornada.Cerrada)!==0){
+            $.messager.show({
+                width:350,
+                height:100,
+                timeout:2000,
+                title: '<?php _e('Error'); ?>',
+                msg: '<?php _e("Cannot edit/modify results on closed journey");?>'
+            });
+            return false;
+        }
         // abrimos ventana de dialogo
         $('#competicion-dialog').dialog('open').dialog('setTitle',' <?php _e("Data entry"); ?>'+": "+title);
         // cargamos ventana de entrada de datos

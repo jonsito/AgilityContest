@@ -257,6 +257,7 @@ class Tandas extends DBObject {
 	 * @param {array} $data
 	 */
 	function insert($data) {
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// arriving here means update and/or insert
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
@@ -296,6 +297,7 @@ class Tandas extends DBObject {
 	 */
 	function update($id,$data){
 		if ($id<=0) throw new Exception ("Invalid Tanda ID:$id");
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
 		$s=$data['Sesion'];
 		$n=$data['Nombre'];
 		$h=$data['Horario'];
@@ -311,6 +313,7 @@ class Tandas extends DBObject {
 	}
 	
 	function delete($id){
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// only remove those tandas with "Tipo"=0
 		// for remaining tipos, removeFromList must be issued
 		$str="DELETE FROM Tandas WHERE (ID=$id) AND (Tipo=0)";
@@ -320,6 +323,7 @@ class Tandas extends DBObject {
 	}
 	
 	function removeFromList($tipo) {
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		$str="DELETE FROM Tandas WHERE (Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)";
@@ -342,6 +346,7 @@ class Tandas extends DBObject {
 	 */
 	function dragAndDrop($from,$to,$where) {
 		$this->myLogger->enter();
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		// get from/to Tanda's ID
@@ -371,6 +376,7 @@ class Tandas extends DBObject {
 	 */
 	function swap($from,$to) {
 		$this->myLogger->enter();
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		// get from/to Tanda's ID

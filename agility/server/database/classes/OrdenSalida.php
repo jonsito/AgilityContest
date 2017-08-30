@@ -196,6 +196,7 @@ class OrdenSalida extends DBObject {
 		if ( ($from<=0) || ($to<=0) ) {
 			return $this->error("dnd: SrcIDPerro:$from or DestIDPerro:$to are invalid");
 		}
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
 		$ordensalida = $this->getOrden();
 		$res=list_move($from,$to,$where,$ordensalida);
 		$this->setOrden($res);
@@ -213,6 +214,7 @@ class OrdenSalida extends DBObject {
         if ( ($from<=0) || ($to<=0) ) {
             return $this->error("dnd: SrcIDTeam:$from or DestIDTeam:$to are invalid");
         }
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
         $ordenequipos = $this->getOrdenEquipos();
         $res=list_move($from,$to,$where,$ordenequipos);
         $this->setOrdenEquipos($res);
@@ -524,6 +526,8 @@ class OrdenSalida extends DBObject {
 	 * @return {string} nuevo orden de salida
 	 */
 	function random($catmode=8) {
+		$this->myLogger->enter();
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// fase 1 aleatorizamos la manga
 		$orden=$this->getOrden();
 		// buscamos los perros de la categoria seleccionada
@@ -540,7 +544,7 @@ class OrdenSalida extends DBObject {
         $str2=implode(",",aleatorio(explode(",", $listas[1])));
         $ordenequipos=$this->joinOrders($str1,$str2);
         $this->setOrdenEquipos($ordenequipos);
-
+        $this->myLogger->leave();
 		return $ordensalida;
 	}
 
@@ -551,7 +555,7 @@ class OrdenSalida extends DBObject {
 	 */
 	function sameorder($catmode=8) {
 		$this->myLogger->enter();
-
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// buscamos la "manga hermana"
 		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada->ID);
 		$hermanas=$mhandler->getHermanas($this->manga->ID);
@@ -644,6 +648,7 @@ class OrdenSalida extends DBObject {
 	 */
 	function reverse($catmode=8) {
 		$this->myLogger->enter();
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// fase 1: buscamos la "manga hermana"
 		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada->ID);
 		$hermanas=$mhandler->getHermanas($this->manga->ID);
@@ -691,6 +696,7 @@ class OrdenSalida extends DBObject {
      * ESTA FUNCION SOLO DEBE USARSE EN PRUEBAS EN QUE EL ORDEN DE SALIDA SEA EL MISMO PARA TODAS LAS MANGAS
      */
     function reassignDorsal() {
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
         $o=explode(',',$this->getOrden());
         $dorsal=1;
         foreach($o as $perro){

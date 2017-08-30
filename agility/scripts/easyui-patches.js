@@ -126,7 +126,7 @@ $.extend($.fn.datagrid.methods, {
 
 /**
  * Extension del messager para permitir una coleccion de radiobuttons en lugar de un prompt
- * Se anyade la opcion $messager.radio(title,text{val:text},callback)
+ * Se anyade la opcion $.messager.radio(title,text{val:text},callback)
  */
 (function($){
 	function createDialog(title,content, buttons){

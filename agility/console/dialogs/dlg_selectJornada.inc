@@ -105,7 +105,7 @@ $('#seljornada-Prueba').combogrid({
 });
 
 $('#seljornada-Jornada').combogrid({
-	panelWidth: 550,
+	panelWidth: 575,
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
@@ -116,7 +116,7 @@ $('#seljornada-Jornada').combogrid({
 	multiple: false,
 	fitColumns: true,
 	singleSelect: true,
-	editable: isMobileDevice()?false:true, //disable keyboard deploy on mobile devices
+	editable: ( ! isMobileDevice() ), //disable keyboard deploy on mobile devices
 	columns: [[
 	    { field:'ID',			hidden:true }, // ID de la jornada
 	    { field:'Prueba',		hidden:true }, // ID de la prueba
@@ -133,7 +133,8 @@ $('#seljornada-Jornada').combogrid({
 		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'PreAg. ' },
 		{ field:'Junior',	    width:8, sortable:false,	align:'center', title: 'Junior ' },
 		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ' },
-		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' }
+        { field:'Especial',		width:8, sortable:false,	align:'center', title: '<?php _e('Special');?>' },
+        { field:'Cerrada',		width:8, sortable:false,	align:'center', formatter: formatCerrada,title: '<?php _e('Closed');?>' }
     ]],
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerate';
@@ -143,7 +144,7 @@ $('#seljornada-Jornada').combogrid({
 		return true;
 	},
 	onLoadSuccess: function(data) {
-		if (workingData.jornada!=0) $('#seljornada-Jornada').combogrid('setValue',workingData.jornada);
+		if (parseInt(workingData.jornada)!==0) $('#seljornada-Jornada').combogrid('setValue',workingData.jornada);
 	}
 });
 
@@ -177,6 +178,8 @@ function acceptSelectJornada() {
 }
 
 function cancelSelectJornada() {
+    setPrueba(null);
+    setJornada(null);
 	$('#seljornada-window').window('close');
 }
 </script>

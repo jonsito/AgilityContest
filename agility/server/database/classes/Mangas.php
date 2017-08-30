@@ -200,7 +200,7 @@ class Mangas extends DBObject {
 	function update($mangaid) {
 		$this->myLogger->enter();
 		if ($mangaid <=0) return $this->error("Invalid Manga ID");
-
+        assertClosedJourney($this->jornadaObj); // throw exception on closed journeys
 		// retrieve http request variables
 		/*
 		 * ID		(PRIMARY KEY)
@@ -305,6 +305,7 @@ class Mangas extends DBObject {
 	}
 	
 	function shareJuez() {
+	    assertClosedJourney($this->jornadaObj); // throw exception on closed journeys
 		$juez1 = http_request("Juez1","i",1);
 		$juez2 = http_request("Juez2","i",1);
 		$sql="UPDATE Mangas SET Juez1=$juez1, Juez2=$juez2 WHERE ( Jornada={$this->jornadaObj->ID} )";

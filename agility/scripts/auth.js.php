@@ -259,7 +259,7 @@ function check_softLevel(perm,callback) {
 			'<?php _e("Current user has not enought level to make changes <br/>Read-only access enabled");?>',
 			'warning',
 			null
-		);
+		).window('resize',{width:400});
 	}
 	callback();
 }

@@ -365,6 +365,7 @@ class OrdenSalida_KO extends OrdenSalida {
 	 */
 	function random($catmode=8) {
 		$this->myLogger->enter();
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// fase 1:
 		// actualiza el campo "Games" en funcion de los resultados de la manga anterior
 		$this->handleParentResults(false);
@@ -395,7 +396,7 @@ class OrdenSalida_KO extends OrdenSalida {
 	 */
 	function sameorder($catmode=8) {
 		$this->myLogger->enter();
-
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
         // fase 1:
         // actualiza el campo "Games" en funcion de los resultados de la manga anterior
         $this->handleParentResults(false);
@@ -424,7 +425,7 @@ class OrdenSalida_KO extends OrdenSalida {
 	 */
 	function reverse($catmode=8) {
 		$this->myLogger->enter();
-
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
         // fase 1:
         // actualiza el campo "Games" en funcion de los resultados de la manga anterior
         $data=$this->handleParentResults(true);

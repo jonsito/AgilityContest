@@ -304,7 +304,7 @@ class Resultados extends DBObject {
 	 */
 	function swapMangas($cats) {
 		$this->myLogger->enter();
-
+        assertClosedJourney($this->getDatosJornada());
 		$tipo1=$this->getDatosManga()->Tipo;
         $tipo2=Mangas::$manga_hermana[$tipo1];
 		if ($tipo2==0) {

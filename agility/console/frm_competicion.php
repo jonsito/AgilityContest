@@ -19,7 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
-$allowClosed=0; 
+$allowClosed=1; // enable open closed journeys, but in readonly mode
 require_once("dialogs/dlg_selectJornada.inc")
 ?>
 
@@ -34,40 +34,54 @@ $('#seljornada-window').window({
         // default dialogs
 		
 		// no jornada selected load main menu
-		if (workingData.jornada==0) {
+		if (parseInt(workingData.jornada)===0) {
 			loadContents(page,'');
 			return;
 		}
         // default page and dialogs
 		page="/agility/console/frm_competicion2.php?tipo=std";
         var dialogs={'e':'#entrenamientos-dialog','t':'#ordentandas-dialog','s':'#ordensalida-dialog','c':'#competicion-dialog','r':'#resultadosmanga-dialog'};
-		if (workingData.datosJornada.Equipos3!=0) {
+		if (parseInt(workingData.datosJornada.Equipos3)!==0) {
 			page="/agility/console/frm_competicion2.php?tipo=eq3";
 			extra=" ( <?php _e('Teams 3');?> )";
             // use default dialogs
 		}
-		if (workingData.datosJornada.Equipos4!=0) {
+		if (parseInt(workingData.datosJornada.Equipos4)!==0) {
 			page="/agility/console/frm_competicion2.php?tipo=eq4";
 			extra=" ( <?php _e('Teams 4');?> )";
             // use default dialogs
 		}
-		if (workingData.datosJornada.Open!=0) {
+		if (parseInt(workingData.datosJornada.Open)!==0) {
 			// an Individual - Open Contest is like a normal with no Grades but only categories
 			page="/agility/console/frm_competicion2.php?tipo=open";
 			extra=" ( <?php _e('Individual');?> )";
 			// use default dialogs
 		}
-		if (workingData.datosJornada.KO!=0) {
+		if (parseInt(workingData.datosJornada.KO)!==0) {
 			page="/agility/console/frm_competicion2.php?tipo=ko";
 			extra=" ( <?php _e('K.O. Rounds');?> )";
             // use default dialogs
 		}
-        if (workingData.datosJornada.Games!=0) { // number shows how many rounds for series
+        if (parseInt(workingData.datosJornada.Games)!==0) { // number shows how many rounds for series
             page="/agility/console/frm_competicion2.php?tipo=games";
             extra=" ( <?php _e('Games / WAO');?> )";
             // use default dialogs
         }
-		check_softLevel( access_level.PERMS_OPERATOR,	function() { loadContents( page, '<?php _e('Journey deployment');?>'+extra, dialogs ); } );
+        if (parseInt(workingData.datosJornada.Cerrada)!==0) {
+		    // allow deploy closed journeys, but do not allow modify
+            $.messager.alert(
+                "<?php _e('Notice');?>",
+                "<?php _e('Selected journey is marked as closed<br/>You cannot add nor modify data');?>",
+                "warning",
+                function() {
+                    loadContents( page, '<?php _e('Journey deployment');?>'+extra, dialogs );
+                }
+            ).window('resize',{width:350});
+        } else {
+            check_softLevel( access_level.PERMS_OPERATOR,	function() {
+                loadContents( page, '<?php _e('Journey deployment');?>'+extra, dialogs );
+            } );
+        }
 	} 
 }).window('open');
 

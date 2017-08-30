@@ -751,7 +751,7 @@ function setJornada(data) {
 	workingData.nombreJornada="";
 	workingData.datosJornada={};
     workingData.datosCompeticion={};
-	if (typeof(data) === 'undefined') return;
+	if ( (typeof(data) === 'undefined') || (data==null) ) return;
 	workingData.jornada=parseInt(data.ID);
 	workingData.nombreJornada=data.Nombre;
 	workingData.datosJornada=data;

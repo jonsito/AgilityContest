@@ -336,6 +336,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 	<span id="infomanga_readonly" class="blink" style="display:none;color:#ff0000;text-align:center;font-size:17px">
 		<?php _e('Current user has NO WRITE PERMISSIONS');?>
 	</span>
+    <span id="infomanga_closed" class="blink" style="display:none;color:#ff0000;text-align:center;font-size:17px">
+		<?php _e('Journey closed. CANNOT ADD/MODIFY DATA');?>
+	</span>
 </p>
 <script type="text/javascript">
 
@@ -444,4 +447,5 @@ addTooltip($('#dmanga_SameJuez').linkbutton(),'<?php _e("Clone judge information
 // if user has no write permission, show proper message info
 // TODO: force reload on logout session
 $('#infomanga_readonly').css('display',(check_softLevel(access_level.PERMS_OPERATOR,null))?'none':'inline-block');
+$('#infomanga_closed').css('display',(parseInt(workingData.datosJornada.Cerrada)===0)?'none':'inline-block');
 </script>

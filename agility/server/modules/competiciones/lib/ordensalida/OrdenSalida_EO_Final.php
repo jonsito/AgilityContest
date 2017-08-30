@@ -74,7 +74,7 @@ class OrdenSalida_EO_Final extends OrdenSalida {
 	 */
 	function sameorder($catmode=8) {
 		$this->myLogger->enter();
-
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
         // fase 1: buscamos la "manga padre"
         $mpadre=$this->getParentRounds();
         if(!$mpadre || !$mpadre[0])
@@ -107,6 +107,7 @@ class OrdenSalida_EO_Final extends OrdenSalida {
 	 */
 	function reverse($catmode=8) {
 		$this->myLogger->enter();
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// fase 1: buscamos la "manga padre"
         $mpadre=$this->getParentRounds();
         if(!$mpadre || !$mpadre[0] || !$mpadre[1])
