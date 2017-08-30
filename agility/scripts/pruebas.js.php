@@ -383,6 +383,7 @@ function closeJornadaFromPrueba(datagridID,event) {
     }
     if (row.Cerrada==true) { // controla si se quiere reabrir una prueba ya cerrada
         if (event && event.ctrlKey) {
+            event.preventDefault(); // do not propagate key events up
             mode=0;
             title='<?php _e("Warning"); ?>';
             msg='<?php _e("You are about to re-open a closed journey"); ?><br/>' +
@@ -411,6 +412,7 @@ function closeJornadaFromPrueba(datagridID,event) {
     	                    } else {
     	                        $.messager.show({ width:300, height:200, title:'<?php _e('Error'); ?>', msg:result.errorMsg });
     	                    }
+    	                    return false;
     	                },
                         'json'
                     );
