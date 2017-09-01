@@ -396,6 +396,15 @@ function reload_manga(id) {
     $('#competicion-formdatosmanga').form('load',url); // notice that "onBeforeLoad is declared"
 }
 
+function open_clasificaciones() {
+    var page="/agility/console/frm_clasificaciones2.php";
+    if (isJornadaEquipos(null)) page="/agility/console/frm_clasificaciones_equipos.php";
+    if (parseInt(workingData.datosJornada.Open)!==0) page="/agility/console/frm_clasificaciones2.php";
+    if (parseInt(workingData.datosJornada.KO)!==0) page="/agility/console/resultados_ko.php";
+    $('#competicion_info').panel('close');
+    loadContents(page,'<?php _e('Results & Scores');?>');
+    return false;
+}
 
 function proximityAlert() {
 	var data=$('#ordensalida-datagrid').datagrid('getRows');

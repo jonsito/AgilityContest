@@ -30,14 +30,14 @@ $('#seljornada-window').window({
 	onClose: function () {
 		var page="/agility/console/frm_main.php";
 		// no jornada selected load main menu
-		if (workingData.jornada==0) {
+		if (parseInt(workingData.jornada)===0) {
 			loadContents(page,"");
 			return;
 		}
 		page="/agility/console/frm_clasificaciones2.php";
 		if (isJornadaEquipos(null)) page="/agility/console/frm_clasificaciones_equipos.php";
-		if (workingData.datosJornada.Open!=0) page="/agility/console/frm_clasificaciones2.php";
-		if (workingData.datosJornada.KO!=0) page="/agility/console/resultados_ko.php";
+		if (parseInt(workingData.datosJornada.Open)!==0) page="/agility/console/frm_clasificaciones2.php";
+		if (parseInt(workingData.datosJornada.KO)!==0) page="/agility/console/resultados_ko.php";
 		loadContents(page,'<?php _e('Results & Scores');?>');
 	} 
 }).window('open');

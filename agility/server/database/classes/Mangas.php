@@ -372,7 +372,7 @@ class Mangas extends DBObject {
 			/* SELECT */"ID,Tipo,Recorrido,Grado",
 			/* FROM */ "Mangas",
 			/* WHERE */ "(Jornada = {$this->jornadaObj->ID} )",
-			/* ORDER */ "Tipo ASC",
+			/* ORDER */ "ID ASC", // se asume que las mangas se crean por orden agility/jumping
 			/* LIMIT */ ""
 		);
 		foreach ( $result['rows'] as &$item) {

@@ -318,12 +318,17 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
                    id="dmanga_Templates" onclick="print_commonDesarrollo(3);"><?php _e('Templates'); ?></a>
             </td>
-			<td colspan="4">&nbsp;</td>
+			<td colspan="2">&nbsp&nbsp;</td>
+            <td>
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-flag'"
+                   id="dmanga_Clasificaciones" onclick="open_clasificaciones();"><?php _e('Scores'); ?></a>
+            </td>
+            <td colspan="2">&nbsp;</td>
 			<td>
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" 
 					id="dmanga_Restaurar" onclick="reload_manga(workingData.manga);"><?php _e('Restore'); ?></a>
 			</td>
-			<td colspan="3">&nbsp;</td>
+			<td colspan="2">&nbsp;</td>
 			<td>
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" 
 					id="dmanga_Guardar" onclick="save_manga(workingData.manga);"><?php _e('Save'); ?></a>
@@ -441,6 +446,7 @@ addTooltip($('#dmanga_Recorrido_1'),'<?php _e("Separate courses Standard/Medium 
 addTooltip($('#dmanga_Recorrido_2'),'<?php _e("Independent courses for all categories"); ?>');
 addTooltip($('#dmanga_Restaurar').linkbutton(),'<?php _e("Restore original round info from database"); ?>');
 addTooltip($('#dmanga_Templates').linkbutton(),'<?php _e("Open print form selection dialog"); ?>');
+addTooltip($('#dmanga_Clasificaciones').linkbutton(),'<?php _e("Jump to Result and Scores window"); ?>');
 addTooltip($('#dmanga_Guardar').linkbutton(),'<?php _e("Save round technical data into database"); ?>');
 addTooltip($('#dmanga_SameJuez').linkbutton(),'<?php _e("Clone judge information on every rounds for this journey"); ?>');
 
