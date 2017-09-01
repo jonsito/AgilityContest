@@ -22,8 +22,8 @@ require_once("DBObject.php");
 
 class Usuarios extends DBObject {
 
-	function __construct() {
-		parent::__construct("Usuarios");
+	function __construct($file="Usuarios") {
+		parent::__construct($file);
 	}
 
 	/**
