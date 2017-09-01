@@ -52,6 +52,8 @@ try {
 	$am= new AuthManager("adminFunctions");
     $adm= new Admin("adminFunctions",$am,$suffix);
 	switch ($operation) {
+		case "searchClub":
+            $result=$am->searchClub(); break;
 		case "userlevel":
 			$am->access($perms); $result=array('success'=>true); break;
 		case "permissions":

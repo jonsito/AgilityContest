@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once (__DIR__."/../logging.php");
 require_once (__DIR__."/../tools.php");
 require_once (__DIR__."/Config.php");
+require_once (__DIR__."/../database/classes/DBObject.php");
 require_once (__DIR__."/../database/classes/Sesiones.php");
 require_once (__DIR__."/../database/classes/Eventos.php");
 
@@ -215,6 +216,26 @@ class AuthManager {
 		// $result['filename']=$tmpname;
 		$this->myLogger->leave();
 		return $result;
+	}
+
+    /**
+     * find club data that matches license info
+     */
+	function searchClub() {
+		$lclub=$this->getRegistrationInfo()['Club'];
+        $lclub=preg_replace("/[^A-Za-z0-9 ]/", '', strtolower($lclub));
+		$dbobj=new DBObject("Auth::searchClub");
+		$res=$dbobj->__select("*","Clubes","1");
+		$better=array(0,array('ID'=>0,'Nombre'=>'') ); // percentage, data
+		for ($idx=0; $idx<$res['total']; $idx++) {
+			$club=$res['rows'][$idx];
+			$dclub=preg_replace("/[^A-Za-z0-9 ]/", '', strtolower($club['Nombre']));
+			if ($dclub==='') continue; // skip blank. should not occur
+			similar_text ( $lclub ,$dclub, $p );
+			if (bccomp($p,$better[0])<=0) continue; // el nuevo "se parece menos", skip
+			$better[0]=$p; $better[1]=$res['rows'][$idx]; // el nuevo "se parece mas", almacena
+		}
+		return $better[1];
 	}
 
 	/**
