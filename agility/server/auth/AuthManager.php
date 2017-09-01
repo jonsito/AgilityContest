@@ -222,7 +222,11 @@ class AuthManager {
      * find club data that matches license info
      */
 	function searchClub() {
-		$lclub=$this->getRegistrationInfo()['Club'];
+		$ri=$this->getRegistrationInfo();
+		$lclub=$ri['Club'];
+		// on anonymous o root license matching club is default "-- Sin asignar --"
+		if (intval($ri['Serial'])<=2) $lclub="-- Sin asignar --";
+		// remove extra chars to properly make club string likeness evaluation
         $lclub=preg_replace("/[^A-Za-z0-9 ]/", '', strtolower($lclub));
 		$dbobj=new DBObject("Auth::searchClub");
 		$res=$dbobj->__select("*","Clubes","1");
