@@ -76,6 +76,37 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 </div> <!-- panel de informacion -->
 
 <div id="resultados-toolbar" style="width:100%;display:inline-block">
+    <table style="width:100%;padding:2px;">
+        <tr>
+            <td><?php _e('Category');?></td>
+            <td>
+                <input id="resultados-selectCategoria" name="Categoria">
+            </td>
+            <td style="width:10%">&nbsp;</td>
+            <td>
+                <a id="resultados-competicionBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-endflag'" onclick="loadCompetitionWindow();"><?php _e('Competition'); ?></a>
+            </td>
+            <td style="width:10%">&nbsp;</td>
+            <td>
+                <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();"><?php _e('Refresh'); ?></a>
+            </td>
+            <td>
+                <a id="resultados-verifyBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-search'" onclick="verifyClasificaciones();"><?php _e('Verify'); ?></a>
+            </td>
+            <td>
+                <a id="resultados-emailBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-mail'" onclick="emailClasificaciones(false);"><?php _e('Mail'); ?></a>
+            </td>
+            <td>
+                <a id="resultados-printBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');"><?php _e('Reports'); ?></a>
+            </td>
+        </tr>
+    </table>
+    <!--
    	<span style="float:left;padding:5px">
    	    <input id="resultados-selectCategoria" name="Categoria">
    	</span>
@@ -89,6 +120,7 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
    		<a id="resultados-printBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');"><?php _e('Reports'); ?></a>
    	</span>
+   	-->
 </div>
 
 <div id="resultados-printDialog" class="easyui-dialog" 

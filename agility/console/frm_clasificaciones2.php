@@ -68,19 +68,36 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 
 		<div id="resultados-dataregion" class="scores_table" data-options="region:'south',split:true,collapsed:false,collapsible:false" style="height:70%;">
             <div id="resultados-toolbar" style="width:100%;display:none"> <!-- hide until datagrid gets loaded -->
-   	            <span style="float:left;padding:5px">
-   	                <input id="resultados-selectCategoria" name="Categoria">
-   	            </span>
-                <span style="float:right;padding:5px">
-   		            <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton"
-                        data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();"><?php _e('Refresh'); ?></a>
-   		            <a id="resultados-verifyBtn" href="#" class="easyui-linkbutton"
-                        data-options="iconCls:'icon-search'" onclick="verifyClasificaciones();"><?php _e('Verify'); ?></a>
-   		            <a id="resultados-emailBtn" href="#" class="easyui-linkbutton"
-                       data-options="iconCls:'icon-mail'" onclick="emailClasificaciones(false);"><?php _e('Mail'); ?></a>
-   		            <a id="resultados-printBtn" href="#" class="easyui-linkbutton"
-                        data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');"><?php _e('Reports'); ?></a>
-   	            </span>
+                <table style="width:100%;padding:2px;">
+                    <tr>
+                        <td><?php _e('Category');?></td>
+                        <td>
+                            <input id="resultados-selectCategoria" name="Categoria">
+                        </td>
+                        <td style="width:10%">&nbsp;</td>
+                        <td>
+                            <a id="resultados-competicionBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-endflag'" onclick="loadCompetitionWindow();"><?php _e('Competition'); ?></a>
+                        </td>
+                        <td style="width:10%">&nbsp;</td>
+                        <td>
+                            <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();"><?php _e('Refresh'); ?></a>
+                        </td>
+                        <td>
+                            <a id="resultados-verifyBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-search'" onclick="verifyClasificaciones();"><?php _e('Verify'); ?></a>
+                        </td>
+                        <td>
+                            <a id="resultados-emailBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-mail'" onclick="emailClasificaciones(false);"><?php _e('Mail'); ?></a>
+                        </td>
+                        <td>
+                            <a id="resultados-printBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');"><?php _e('Reports'); ?></a>
+                        </td>
+                    </tr>
+                </table>
             </div>
 			<!-- tabla con las clasificaciones. se carga dinamicamente -->
             <div id="resultados-data" class="scores_table">
@@ -179,6 +196,7 @@ $('#resultados-info-prueba').form('load',{
 });
 
 //tooltips
+addTooltip($('#resultados-competicionBtn').linkbutton(),'<?php _e("Jump to Journey development window"); ?>');
 addTooltip($('#resultados-refreshBtn').linkbutton(),'<?php _e("Update score tables"); ?>');
 addTooltip($('#resultados-verifyBtn').linkbutton(),'<?php _e("Check for dogs without registered data"); ?>');
 addTooltip($('#resultados-printBtn').linkbutton(),'<?php _e("Print scores on current round"); ?>');

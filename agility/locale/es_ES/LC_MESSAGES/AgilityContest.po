@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-09-01 18:29+0200\n"
-"PO-Revision-Date: 2017-09-01 18:30+0200\n"
+"POT-Creation-Date: 2017-09-02 20:02+0200\n"
+"PO-Revision-Date: 2017-09-02 20:03+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -111,7 +111,7 @@ msgstr "R"
 #: lib/templates/orden_salida.inc.php:24 livestream/vwls_osdvideo.php:86
 #: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:149
 #: public/pbmenu_inscripciones.php:102
-#: public/pbmenu_inscripciones_equipos.php:144 scripts/competicion.js.php:1261
+#: public/pbmenu_inscripciones_equipos.php:144 scripts/competicion.js.php:1322
 #: scripts/printer.js.php:376 scripts/results_and_scores.js.php:320
 #: server/pdf/classes/PrintClasificacion.php:206
 #: server/pdf/classes/PrintClasificacionExcel.php:157
@@ -142,7 +142,7 @@ msgstr "Dorsal"
 #: console/dialogs/dlg_newInscripcion.inc:154 console/frm_perros.php:136
 #: console/import/import.js.php:156 console/import/import.js.php:168
 #: console/import/import.js.php:182 console/import/import_perros.inc.php:92
-#: scripts/competicion.js.php:1261 scripts/printer.js.php:376
+#: scripts/competicion.js.php:1322 scripts/printer.js.php:376
 msgid "Dog"
 msgstr "Perro"
 
@@ -165,7 +165,7 @@ msgstr "Perro"
 #: lib/templates/parcial_last_teams.inc.php:30 livestream/vwls_finales.php:98
 #: livestream/vwls_osdvideo.php:88 public/pb_inscripciones.php:108
 #: public/pb_inscripciones_equipos.php:156 public/pbmenu_inscripciones.php:108
-#: public/pbmenu_inscripciones_equipos.php:151 scripts/competicion.js.php:1261
+#: public/pbmenu_inscripciones_equipos.php:151 scripts/competicion.js.php:1322
 #: scripts/printer.js.php:376 scripts/results_and_scores.js.php:255
 #: scripts/results_and_scores.js.php:327
 #: server/pdf/classes/PrintClasificacion.php:223
@@ -218,7 +218,7 @@ msgstr "Gu&iacute;a"
 #: lib/templates/orden_salida.inc.php:33
 #: lib/templates/parcial_individual.inc.php:27
 #: lib/templates/parcial_last_individual.inc.php:29
-#: livestream/vwls_osdvideo.php:89 scripts/competicion.js.php:1261
+#: livestream/vwls_osdvideo.php:89 scripts/competicion.js.php:1322
 #: scripts/datagrid_formatters.js.php:164 scripts/results_and_scores.js.php:256
 #: server/excel/classes/XLSXWriter.php:114 server/modules/Federations.php:408
 #: server/pdf/classes/PrintClasificacionExcel.php:99
@@ -237,8 +237,9 @@ msgstr "Club"
 #: console/dialogs/dlg_editInscripcion.inc:42 console/dialogs/dlg_guias.inc:45
 #: console/dialogs/dlg_perros.inc:69 console/dialogs/dlg_usuarios.inc:79
 #: console/dialogs/dlg_usuarios.inc:249 console/dialogs/infomanga.php:78
-#: console/frm_clubes.php:174 console/frm_guias.php:93
-#: livestream/vwls_osdvideo.php:90
+#: console/frm_clasificaciones2.php:73
+#: console/frm_clasificaciones_equipos.php:81 console/frm_clubes.php:174
+#: console/frm_guias.php:93 livestream/vwls_osdvideo.php:90
 #: server/excel/classes/OrdenSalidaWriter.php:204
 #: server/pdf/classes/PrintClasificacionExcel.php:160
 #: server/pdf/classes/PrintEquiposByJornada.php:80
@@ -342,14 +343,14 @@ msgstr "Eliminado"
 #: scripts/admin.js.php:403 scripts/common.js.php:361 scripts/common.js.php:385
 #: scripts/common.js.php:408 scripts/common.js.php:646
 #: scripts/common.js.php:658 scripts/common.js.php:670
-#: scripts/common.js.php:685 scripts/competicion.js.php:342
-#: scripts/competicion.js.php:371 scripts/competicion.js.php:453
-#: scripts/competicion.js.php:460 scripts/competicion.js.php:472
-#: scripts/competicion.js.php:575 scripts/competicion.js.php:749
-#: scripts/competicion.js.php:768 scripts/competicion.js.php:1001
-#: scripts/competicion.js.php:1019 scripts/competicion.js.php:1062
-#: scripts/competicion.js.php:1184 scripts/competicion.js.php:1188
-#: scripts/competicion.js.php:1280 scripts/competicion.js.php:1364
+#: scripts/common.js.php:685 scripts/competicion.js.php:403
+#: scripts/competicion.js.php:432 scripts/competicion.js.php:514
+#: scripts/competicion.js.php:521 scripts/competicion.js.php:533
+#: scripts/competicion.js.php:636 scripts/competicion.js.php:810
+#: scripts/competicion.js.php:829 scripts/competicion.js.php:1062
+#: scripts/competicion.js.php:1080 scripts/competicion.js.php:1123
+#: scripts/competicion.js.php:1245 scripts/competicion.js.php:1249
+#: scripts/competicion.js.php:1341 scripts/competicion.js.php:1425
 #: scripts/entrenamientos.js.php:84 scripts/entrenamientos.js.php:180
 #: scripts/equipos.js.php:70 scripts/equipos.js.php:123
 #: scripts/equipos.js.php:352 scripts/guias.js.php:87 scripts/guias.js.php:176
@@ -492,8 +493,8 @@ msgstr "Dors"
 #: console/dialogs/dlg_remotecontrol.inc:595
 #: console/dialogs/dlg_selectJornada.inc:83 console/dialogs/dlg_sesiones.inc:28
 #: console/dialogs/dlg_sesiones.inc:158 console/dialogs/dlg_usuarios.inc:55
-#: console/frm_clasificaciones2.php:154
-#: console/frm_clasificaciones_equipos.php:152 console/frm_clubes.php:99
+#: console/frm_clasificaciones2.php:171
+#: console/frm_clasificaciones_equipos.php:184 console/frm_clubes.php:99
 #: console/frm_clubes.php:173 console/frm_clubes.php:259
 #: console/frm_equipos.php:124 console/frm_equipos.php:174
 #: console/frm_equipos.php:252 console/frm_equipos.php:326
@@ -1163,7 +1164,7 @@ msgstr "Editar"
 
 #: console/dialogs/dlg_competicion.inc:223
 #: console/dialogs/dlg_configuracion.inc:668 scripts/admin.js.php:60
-#: scripts/clubes.js.php:220 scripts/competicion.js.php:914
+#: scripts/clubes.js.php:220 scripts/competicion.js.php:975
 #: scripts/guias.js.php:80 scripts/guias.js.php:169 scripts/jueces.js.php:116
 #: scripts/perros.js.php:105 scripts/perros.js.php:206
 #: scripts/pruebas.js.php:130 scripts/pruebas.js.php:239
@@ -1657,8 +1658,9 @@ msgid "On top of competitor info"
 msgstr "Encima de los datos del competidor"
 
 #: console/dialogs/dlg_configuracion.inc:291
-#: console/frm_clasificaciones2.php:82
-#: console/frm_clasificaciones_equipos.php:90
+#: console/frm_clasificaciones2.php:97
+#: console/frm_clasificaciones_equipos.php:105
+#: console/frm_clasificaciones_equipos.php:121
 msgid "Reports"
 msgstr "Informes"
 
@@ -2284,8 +2286,8 @@ msgstr "Importar/Exportar"
 #: console/dialogs/dlg_resultados_games.inc:56
 #: console/dialogs/dlg_resultados_individual.inc:57
 #: console/dialogs/dlg_resultados_ko.inc:56
-#: console/frm_clasificaciones2.php:118
-#: console/frm_clasificaciones_equipos.php:117 console/frm_equipos.php:46
+#: console/frm_clasificaciones2.php:135
+#: console/frm_clasificaciones_equipos.php:149 console/frm_equipos.php:46
 #: console/frm_inscripciones2.php:124 console/frm_perros.php:84
 msgid "Print"
 msgstr "Imprimir"
@@ -2449,7 +2451,7 @@ msgstr "Equipos"
 msgid "K.O. Round"
 msgstr "Ronda K.O."
 
-#: console/dialogs/dlg_jornadas.inc:110 console/frm_competicion.php:67
+#: console/dialogs/dlg_jornadas.inc:110 scripts/competicion.js.php:69
 #: server/modules/Federations.php:300
 #: server/modules/federaciones/rfec/config.php:268
 msgid "Games / WAO"
@@ -2652,8 +2654,9 @@ msgstr "Mover"
 
 #: console/dialogs/dlg_ordensalida.inc:57 console/dialogs/dlg_plugins.inc:22
 #: console/dialogs/dlg_remotecontrol.inc:264
-#: console/frm_clasificaciones2.php:76
-#: console/frm_clasificaciones_equipos.php:84 tablet/tablet_main.php:122
+#: console/frm_clasificaciones2.php:85
+#: console/frm_clasificaciones_equipos.php:93
+#: console/frm_clasificaciones_equipos.php:115 tablet/tablet_main.php:122
 msgid "Refresh"
 msgstr "Refrescar"
 
@@ -2747,7 +2750,7 @@ msgstr "Sesi&oacute;n - Ring"
 #: console/dialogs/dlg_ordentandas.inc:67
 #: console/dialogs/dlg_ordentandas.inc:136 index2.php:330
 #: public/pb_programa.php:97 public/pbmenu_programa.php:101
-#: scripts/competicion.js.php:1043
+#: scripts/competicion.js.php:1104
 msgid "Timetable"
 msgstr "Horario"
 
@@ -2800,8 +2803,8 @@ msgstr "Nuevo Gu&iacute;a"
 msgid "Edit handler"
 msgstr "Editar gu&iacute;a"
 
-#: console/dialogs/dlg_perros.inc:96 console/frm_competicion.php:73
-#: console/frm_myAdmin.php:31 console/index.php:196
+#: console/dialogs/dlg_perros.inc:96 console/frm_myAdmin.php:31
+#: console/index.php:196 scripts/competicion.js.php:75
 #: scripts/inscripciones.js.php:89 scripts/pruebas.js.php:131
 #: scripts/pruebas.js.php:371 server/pdf/classes/PrintOrdenTandas.php:77
 msgid "Notice"
@@ -3159,7 +3162,7 @@ msgstr "Sesi&oacute;n de entrenamientos"
 #: index.php:155 index2.php:332 livestream/index.php:201
 #: livestream/vwls_ordensalida.php:62 public/pb_ordensalida.php:42
 #: public/pb_ordensalida.php:51 public/pbmenu_ordensalida.php:42
-#: scripts/competicion.js.php:1050 scripts/sesiones.js.php:158
+#: scripts/competicion.js.php:1111 scripts/sesiones.js.php:158
 #: scripts/sesiones.js.php:171 server/excel/classes/OrdenSalidaWriter.php:111
 #: server/excel/classes/OrdenSalidaWriter.php:143
 #: server/excel/classes/OrdenSalidaWriter.php:190
@@ -3945,8 +3948,8 @@ msgid "Templates"
 msgstr "Plantillas"
 
 #: console/dialogs/infomanga.php:324 console/frm_clasificaciones.php:47
-#: console/frm_clasificaciones2.php:101
-#: console/frm_clasificaciones_equipos.php:100 console/index.php:368
+#: console/frm_clasificaciones2.php:118
+#: console/frm_clasificaciones_equipos.php:132 console/index.php:368
 #: server/excel/classes/ClasificacionesWriter.php:243
 #: server/pdf/classes/PrintClasificacion.php:201
 #: server/pdf/classes/PrintClasificacionExcel.php:154
@@ -4169,7 +4172,7 @@ msgstr "Preferencias"
 msgid "Plugins"
 msgstr "M&oacute;dulos"
 
-#: console/frm_clasificaciones.php:41 scripts/competicion.js.php:405
+#: console/frm_clasificaciones.php:41 scripts/competicion.js.php:466
 msgid "Results & Scores"
 msgstr "Resultados y Clasificaciones"
 
@@ -4213,17 +4216,24 @@ msgstr "Jornada"
 msgid "Technical data on current round series"
 msgstr "Datos t&eacute;cnicos de las mangas"
 
-#: console/frm_clasificaciones2.php:78
-#: console/frm_clasificaciones_equipos.php:86 console/frm_equipos.php:44
+#: console/frm_clasificaciones2.php:80
+#: console/frm_clasificaciones_equipos.php:88
+msgid "Competition"
+msgstr "Competici&oacute;n"
+
+#: console/frm_clasificaciones2.php:89
+#: console/frm_clasificaciones_equipos.php:97
+#: console/frm_clasificaciones_equipos.php:117 console/frm_equipos.php:44
 msgid "Verify"
 msgstr "Verificar"
 
-#: console/frm_clasificaciones2.php:80
-#: console/frm_clasificaciones_equipos.php:88 console/frm_pruebas.php:51
+#: console/frm_clasificaciones2.php:93
+#: console/frm_clasificaciones_equipos.php:101
+#: console/frm_clasificaciones_equipos.php:119 console/frm_pruebas.php:51
 msgid "Mail"
 msgstr "Correo"
 
-#: console/frm_clasificaciones2.php:87
+#: console/frm_clasificaciones2.php:104
 #: lib/templates/final_rounds_data.inc.php:10
 #: lib/templates/parcial_round_data.inc.php:11
 #: livestream/vwls_entrenamientos.php:66 livestream/vwls_finales.php:69
@@ -4239,79 +4249,83 @@ msgstr "Correo"
 msgid "No round selected"
 msgstr "No se ha indicado ninguna manga"
 
-#: console/frm_clasificaciones2.php:96
-#: console/frm_clasificaciones_equipos.php:95
+#: console/frm_clasificaciones2.php:113
+#: console/frm_clasificaciones_equipos.php:127
 msgid "Select format"
 msgstr "Selecciona formato"
 
-#: console/frm_clasificaciones2.php:98
-#: console/frm_clasificaciones_equipos.php:97
+#: console/frm_clasificaciones2.php:115
+#: console/frm_clasificaciones_equipos.php:129
 #: server/pdf/classes/PrintPodium.php:67
 msgid "Podium"
 msgstr "Podium"
 
-#: console/frm_clasificaciones2.php:99
-#: console/frm_clasificaciones_equipos.php:98
+#: console/frm_clasificaciones2.php:116
+#: console/frm_clasificaciones_equipos.php:130
 msgid "Text export"
 msgstr "Exportar como texto"
 
-#: console/frm_clasificaciones2.php:100
-#: console/frm_clasificaciones_equipos.php:99
+#: console/frm_clasificaciones2.php:117
+#: console/frm_clasificaciones_equipos.php:131
 msgid "R.S.C.E. Report"
 msgstr "Informe R.S.C.E."
 
-#: console/frm_clasificaciones2.php:104
-#: console/frm_clasificaciones_equipos.php:103
+#: console/frm_clasificaciones2.php:121
+#: console/frm_clasificaciones_equipos.php:135
 msgid "Label sheets"
 msgstr "Hojas de etiquetas"
 
-#: console/frm_clasificaciones2.php:105
-#: console/frm_clasificaciones_equipos.php:104
+#: console/frm_clasificaciones2.php:122
+#: console/frm_clasificaciones_equipos.php:136
 msgid "Isolated labels"
 msgstr "Etiquetas sueltas"
 
-#: console/frm_clasificaciones2.php:108
-#: console/frm_clasificaciones_equipos.php:107
+#: console/frm_clasificaciones2.php:125
+#: console/frm_clasificaciones_equipos.php:139
 msgid "Initial label"
 msgstr "Etiqueta inicial"
 
-#: console/frm_clasificaciones2.php:111
-#: console/frm_clasificaciones_equipos.php:110
+#: console/frm_clasificaciones2.php:128
+#: console/frm_clasificaciones_equipos.php:142
 msgid "Dorsal list"
 msgstr "Lista de dorsales"
 
-#: console/frm_clasificaciones2.php:182
-#: console/frm_clasificaciones_equipos.php:180
+#: console/frm_clasificaciones2.php:199
+msgid "Jump to Journey development window"
+msgstr "Abrir ventana de desarrollo de la jornada"
+
+#: console/frm_clasificaciones2.php:200
+#: console/frm_clasificaciones_equipos.php:212
 msgid "Update score tables"
 msgstr "Actualizar tablas de resultados"
 
-#: console/frm_clasificaciones2.php:183
-#: console/frm_clasificaciones_equipos.php:181
+#: console/frm_clasificaciones2.php:201
+#: console/frm_clasificaciones_equipos.php:213
 msgid "Check for dogs without registered data"
 msgstr "Comprobar si hay perros sin datos anotados"
 
-#: console/frm_clasificaciones2.php:184
-#: console/frm_clasificaciones_equipos.php:183
+#: console/frm_clasificaciones2.php:202
+#: console/frm_clasificaciones_equipos.php:215
 msgid "Print scores on current round"
 msgstr "Imprimir clasificaci&oacute;n de la manga"
 
-#: console/frm_clasificaciones2.php:185
-#: console/frm_clasificaciones_equipos.php:182
+#: console/frm_clasificaciones2.php:203
+#: console/frm_clasificaciones_equipos.php:214
 msgid "Share results and scores by electronic mail"
 msgstr "Enviar resultados y clasificaciones por correo electr&oacute;nico"
 
-#: console/frm_clasificaciones2.php:186
-#: console/frm_clasificaciones_equipos.php:184
+#: console/frm_clasificaciones2.php:204
+#: console/frm_clasificaciones_equipos.php:216
 msgid "Print data in selected format"
 msgstr "Imprimir los datos en el formato seleccionado"
 
-#: console/frm_clasificaciones2.php:187
-#: console/frm_clasificaciones_equipos.php:185
+#: console/frm_clasificaciones2.php:205
+#: console/frm_clasificaciones_equipos.php:217
 msgid "where to start printing<br/>in labels sheet"
 msgstr "Posici&oacute;n inicial <br /> en la hoja de etiquetas"
 
-#: console/frm_clasificaciones2.php:188
-#: console/frm_clasificaciones_equipos.php:186
+#: console/frm_clasificaciones2.php:206
+#: console/frm_clasificaciones_equipos.php:218
 msgid "Comma separated list of dorsals to be printed"
 msgstr "Lista de dorsales a imprimir separada por comas"
 
@@ -4442,36 +4456,6 @@ msgstr "Desasignar perro seleccionado del gu&iacute;a"
 msgid "Update list of dogs belonging to"
 msgstr "Actualizar lista de perros asignados a"
 
-#: console/frm_competicion.php:46
-msgid "Teams 3"
-msgstr "Equipos (3)"
-
-#: console/frm_competicion.php:51
-msgid "Teams 4"
-msgstr "Equipos (4 conjunta)"
-
-#: console/frm_competicion.php:57 server/database/classes/poedit.php:25
-#: server/database/classes/poedit.php:30 server/database/classes/poedit.php:34
-#: server/modules/Federations.php:291
-#: server/modules/federaciones/rfec/config.php:259 videowall/vws.js.php:306
-#: videowall/vws.js.php:337
-msgid "Individual"
-msgstr "Individual"
-
-#: console/frm_competicion.php:62
-msgid "K.O. Rounds"
-msgstr "Rondas K.O."
-
-#: console/frm_competicion.php:74
-msgid "Selected journey is marked as closed<br/>You cannot add nor modify data"
-msgstr ""
-"La jornada est&aacute; marcada como cerrada<br/>No podr&aacute; a&ntilde;"
-"adir ni modificar datos"
-
-#: console/frm_competicion.php:77 console/frm_competicion.php:82
-msgid "Journey deployment"
-msgstr "Desarrollo de la jornada"
-
 #: console/frm_competicion2.php:65
 msgid "Journey rounds"
 msgstr "Mangas de la jornada"
@@ -4488,7 +4472,7 @@ msgstr "Entrenamiento"
 msgid "Planning"
 msgstr "Programa"
 
-#: console/frm_competicion2.php:89 scripts/competicion.js.php:1068
+#: console/frm_competicion2.php:89 scripts/competicion.js.php:1129
 #: server/pdf/classes/PrintEntradaDeDatos.php:87
 #: server/pdf/classes/PrintEntradaDeDatosGames.php:85
 #: server/pdf/classes/PrintEntradaDeDatosKO.php:80
@@ -4496,7 +4480,7 @@ msgstr "Programa"
 msgid "Data entry"
 msgstr "Introducci&oacute;n de datos"
 
-#: console/frm_competicion2.php:92 scripts/competicion.js.php:1074
+#: console/frm_competicion2.php:92 scripts/competicion.js.php:1135
 msgid "Round results"
 msgstr "Resultados de la manga"
 
@@ -6525,182 +6509,212 @@ msgstr "Informaci&oacute;n de pa&iacute;ses en la BBDD"
 msgid "Countries"
 msgstr "Pa&iacute;ses"
 
-#: scripts/competicion.js.php:41 scripts/competicion.js.php:66
-#: scripts/competicion.js.php:87 scripts/competicion.js.php:234
+#: scripts/competicion.js.php:48
+msgid "Teams 3"
+msgstr "Equipos (3)"
+
+#: scripts/competicion.js.php:53
+msgid "Teams 4"
+msgstr "Equipos (4 conjunta)"
+
+#: scripts/competicion.js.php:59 server/database/classes/poedit.php:25
+#: server/database/classes/poedit.php:30 server/database/classes/poedit.php:34
+#: server/modules/Federations.php:291
+#: server/modules/federaciones/rfec/config.php:259 videowall/vws.js.php:306
+#: videowall/vws.js.php:337
+msgid "Individual"
+msgstr "Individual"
+
+#: scripts/competicion.js.php:64
+msgid "K.O. Rounds"
+msgstr "Rondas K.O."
+
+#: scripts/competicion.js.php:76
+msgid "Selected journey is marked as closed<br/>You cannot add nor modify data"
+msgstr ""
+"La jornada est&aacute; marcada como cerrada<br/>No podr&aacute; a&ntilde;"
+"adir ni modificar datos"
+
+#: scripts/competicion.js.php:79 scripts/competicion.js.php:84
+msgid "Journey deployment"
+msgstr "Desarrollo de la jornada"
+
+#: scripts/competicion.js.php:102 scripts/competicion.js.php:127
+#: scripts/competicion.js.php:148 scripts/competicion.js.php:295
 msgid "Invalid or undefined Federation"
 msgstr "Federaci&oacute;n no definida o inv&aacute;lida"
 
-#: scripts/competicion.js.php:45 scripts/competicion.js.php:70
-#: scripts/competicion.js.php:91 scripts/competicion.js.php:238
+#: scripts/competicion.js.php:106 scripts/competicion.js.php:131
+#: scripts/competicion.js.php:152 scripts/competicion.js.php:299
 msgid "Invalid course mode"
 msgstr "ID de recorrido inv&aacute;lido"
 
-#: scripts/competicion.js.php:345
+#: scripts/competicion.js.php:406
 msgid "Data exported"
 msgstr "Datos exportados"
 
-#: scripts/competicion.js.php:345
+#: scripts/competicion.js.php:406
 msgid "Judge data exported to all rounds"
 msgstr "Datos de jueces exportados a todas las mangas"
 
-#: scripts/competicion.js.php:374
+#: scripts/competicion.js.php:435
 msgid "Data saved"
 msgstr "Datos guardados"
 
-#: scripts/competicion.js.php:374
+#: scripts/competicion.js.php:435
 msgid "Data on current round stored"
 msgstr "Datos de la manga guardados"
 
-#: scripts/competicion.js.php:437
+#: scripts/competicion.js.php:498
 msgid "OK"
 msgstr "OK"
 
-#: scripts/competicion.js.php:437
+#: scripts/competicion.js.php:498
 msgid "There are no dogs from same handler close together"
 msgstr ""
 "No se encuentran perros del mismo gu&iacute;a demasiado pr&oacute;ximos"
 
-#: scripts/competicion.js.php:439
+#: scripts/competicion.js.php:500
 msgid "Proximity alert"
 msgstr "Aviso de proximidad"
 
-#: scripts/competicion.js.php:439
+#: scripts/competicion.js.php:500
 msgid "List of handlers with dogs so close together"
 msgstr "Lista de gu&iacute;as con perros demasiado juntos"
 
-#: scripts/competicion.js.php:453 scripts/competicion.js.php:460
+#: scripts/competicion.js.php:514 scripts/competicion.js.php:521
 msgid "There is no item selected"
 msgstr "No hay ning&uacute;n elemento seleccionado"
 
-#: scripts/competicion.js.php:472
+#: scripts/competicion.js.php:533
 msgid "Cannot move to selected destination"
 msgstr "No puedo mover al destino seleccionado"
 
-#: scripts/competicion.js.php:489
+#: scripts/competicion.js.php:550
 msgid "Dog stored into clipboard"
 msgstr "Datos almacenados en el portapapeles"
 
-#: scripts/competicion.js.php:489
+#: scripts/competicion.js.php:550
 msgid "To move, select new position and press Move"
 msgstr "Para mover, seleccionar nueva posici&oacute;n y pulsar Mover"
 
-#: scripts/competicion.js.php:533 scripts/competicion.js.php:554
-#: scripts/competicion.js.php:588
+#: scripts/competicion.js.php:594 scripts/competicion.js.php:615
+#: scripts/competicion.js.php:649
 msgid "Busy"
 msgstr "Ocupado"
 
-#: scripts/competicion.js.php:533
+#: scripts/competicion.js.php:594
 msgid "Cannot update: a cell is being edited"
 msgstr "No se puede actualizar: hay una edici&oacute;n activa"
 
-#: scripts/competicion.js.php:554
+#: scripts/competicion.js.php:615
 msgid "Cannot reset: a cell is being edited"
 msgstr "No se puede borrar: hay una edici&oacute;n activa"
 
-#: scripts/competicion.js.php:557
+#: scripts/competicion.js.php:618
 msgid "You will lost <strong>EVERY</strong> inserted results"
 msgstr "Se perder&aacute;n <strong>TODOS</strong> los datos de la manga"
 
-#: scripts/competicion.js.php:558
+#: scripts/competicion.js.php:619
 msgid "in selected categories on this round"
 msgstr "en las categor&iacute;as seleccionadas de esta manga"
 
-#: scripts/competicion.js.php:559 scripts/competicion.js.php:593
+#: scripts/competicion.js.php:620 scripts/competicion.js.php:654
 msgid "Do you really want to continue?"
 msgstr "Realmende desea continuar?"
 
-#: scripts/competicion.js.php:560
+#: scripts/competicion.js.php:621
 msgid "Erase results"
 msgstr "Borrar resultados"
 
-#: scripts/competicion.js.php:588
+#: scripts/competicion.js.php:649
 msgid "Cannot swap: a cell is being edited"
 msgstr "No se pueden intercambiar datos: hay una edici&oacute;n activa"
 
-#: scripts/competicion.js.php:591
+#: scripts/competicion.js.php:652
 msgid "This action will exchange <strong>EVERY</strong> inserted results"
 msgstr "Esta accion intercambiar&aacute; <strong>TODOS</strong> los resultados"
 
-#: scripts/competicion.js.php:592
+#: scripts/competicion.js.php:653
 msgid ""
 "in selected categories with the Agility/Jumping counterpart of this round"
 msgstr ""
 "en las categorias seleccionadas de esta manga con su correspondiente de "
 "Agility/Jumping"
 
-#: scripts/competicion.js.php:594
+#: scripts/competicion.js.php:655
 msgid "Swaps results"
 msgstr "Intercambiar resultados"
 
-#: scripts/competicion.js.php:596
+#: scripts/competicion.js.php:657
 msgid "Working"
 msgstr "Procesando"
 
-#: scripts/competicion.js.php:641
+#: scripts/competicion.js.php:702
 msgid "Not found"
 msgstr "No encontrado"
 
-#: scripts/competicion.js.php:641
+#: scripts/competicion.js.php:702
 msgid "Cannot find dog with dorsal"
 msgstr "No encuentro al perro con dorsal"
 
-#: scripts/competicion.js.php:749 scripts/results_and_scores.js.php:363
+#: scripts/competicion.js.php:810 scripts/results_and_scores.js.php:363
 msgid "Internal error: invalid Federation/Course/Category combination"
 msgstr ""
 "Error interno: combinaci&oacute;n de Federacion/Recorrido/Categor&iacute;a "
 "inv&aacute;lida"
 
-#: scripts/competicion.js.php:914
+#: scripts/competicion.js.php:975
 msgid "Every changes done till now will be lost<br />Continue?"
 msgstr "Se perder&aacute;n todos los ajustes hechos hasta ahora<br/>Continuar?"
 
-#: scripts/competicion.js.php:1019
+#: scripts/competicion.js.php:1080
 msgid "There is no round selected"
 msgstr "No se ha indicado ninguna manga"
 
-#: scripts/competicion.js.php:1031
+#: scripts/competicion.js.php:1092
 msgid "This license has no permission to handle training sessions"
 msgstr ""
 "Esta licencia no permite la gesti&oacute;n de sesiones de entrenamiento"
 
-#: scripts/competicion.js.php:1034
+#: scripts/competicion.js.php:1095
 msgid "Training sesion"
 msgstr "Sesi&oacute;n de entrenamientos"
 
-#: scripts/competicion.js.php:1063
+#: scripts/competicion.js.php:1124
 msgid "Cannot edit/modify results on closed journey"
 msgstr "No se pueden editar ni modificar datos en una jornada cerrada"
 
-#: scripts/competicion.js.php:1184
+#: scripts/competicion.js.php:1245
 msgid "No defined journey"
 msgstr "No hay jornada declarada"
 
-#: scripts/competicion.js.php:1188
+#: scripts/competicion.js.php:1249
 msgid "Requested federation module is not installed"
 msgstr ""
 "El m&oacute;dulo para la federaci&oacute;n solicitada no est&aacute; "
 "instalado"
 
-#: scripts/competicion.js.php:1260
+#: scripts/competicion.js.php:1321
 msgid "<strong>These dogs are pending to provide course data in round"
 msgstr ""
 "<strong>Hay perros pendientes de introducci&oacute;n de datos en la manga"
 
-#: scripts/competicion.js.php:1280 scripts/competicion.js.php:1364
+#: scripts/competicion.js.php:1341 scripts/competicion.js.php:1425
 msgid "There is no selected round for this journey"
 msgstr "No hay ninguna manga seleccionada en la jornada"
 
-#: scripts/competicion.js.php:1300 scripts/competicion.js.php:1324
-#: scripts/competicion.js.php:1346
+#: scripts/competicion.js.php:1361 scripts/competicion.js.php:1385
+#: scripts/competicion.js.php:1407
 msgid "Verify OK"
 msgstr "Verificaci&oacute;n correcta"
 
-#: scripts/competicion.js.php:1300 scripts/competicion.js.php:1324
-#: scripts/competicion.js.php:1346
+#: scripts/competicion.js.php:1361 scripts/competicion.js.php:1385
+#: scripts/competicion.js.php:1407
 msgid "No dogs found without their course results"
 msgstr "No se han encontrado perros sin datos de la manga"
 
-#: scripts/competicion.js.php:1326 scripts/competicion.js.php:1348
+#: scripts/competicion.js.php:1387 scripts/competicion.js.php:1409
 msgid "Verify Error"
 msgstr "Error al verificar"
 
