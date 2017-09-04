@@ -192,7 +192,25 @@ $('#inscripciones-jornadas').datagrid({
 	onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
 		setJornada(row);
     	editJornadaFromPrueba(workingData.prueba,row);
-	}
+	},
+    onLoadSuccess:function(data) {
+	    var count=0;
+	    for (var n=0; n<8 ;n++) {
+	        if( (data.rows[n].Nombre==="-- Sin asignar --") || (parseInt(data.rows[n].Cerrada)===1) ) count++;
+        }
+        if (count===8) {
+	        var msg1="<?php _e('There are no valid nor open journeys to inscribe into');?>";
+            var msg2="<?php _e('New inscriptions will have no effect');?>";
+            var msg3="<?php _e('Please edit Journey list to create/define valid entries');?>";
+	        $.messager.alert({
+                title:  "<?php _e('Notice');?>",
+                msg: msg1+"<br/>"+msg2+"<br/>&nbsp;<br/>"+msg3,
+                icon: 'warning',
+                width: 450
+            });
+        }
+    }
+
 });
 
 var menuJornadas;
