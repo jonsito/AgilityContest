@@ -228,12 +228,14 @@ class AuthManager {
 		if (intval($ri['Serial'])<=2) $lclub="-- Sin asignar --";
 		// remove extra chars to properly make club string likeness evaluation
         $lclub=preg_replace("/[^A-Za-z0-9 ]/", '', strtolower($lclub));
+        $lclub=str_replace("agility","",$lclub);
 		$dbobj=new DBObject("Auth::searchClub");
 		$res=$dbobj->__select("*","Clubes","1");
 		$better=array(0,array('ID'=>0,'Nombre'=>'') ); // percentage, data
 		for ($idx=0; $idx<$res['total']; $idx++) {
 			$club=$res['rows'][$idx];
 			$dclub=preg_replace("/[^A-Za-z0-9 ]/", '', strtolower($club['Nombre']));
+            $dclub=str_replace("agility","",$dclub);
 			if ($dclub==='') continue; // skip blank. should not occur
 			similar_text ( $lclub ,$dclub, $p );
 			if (bccomp($p,$better[0])<=0) continue; // el nuevo "se parece menos", skip
