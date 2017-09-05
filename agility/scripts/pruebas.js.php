@@ -131,6 +131,10 @@ function savePrueba() {
         if ( (ser>1) && (cid!==ac_regInfo.clubInfo.ID)  ) {
             var cl=$('#pruebas-Club').combogrid('getText');
             var lcl=ac_regInfo.clubInfo.Nombre;
+            var ok=$.messager.defaults.ok;
+            var cancel=$.messager.defaults.cancel;
+            $.messager.defaults.ok="<?php _e('Continue');?>";
+            $.messager.defaults.cancel="<?php _e('Back');?>";
             $.messager.confirm({
                 title:"<?php _e('License notice');?>",
                 msg:"<?php _e('Organizer club');?>"+' ('+cl+') '+
@@ -145,8 +149,13 @@ function savePrueba() {
                 width:550,
                 height:'auto',
                 icon:'warning',
-                // buttons:[{text:"<?php _e('Continue');?>"},{text:"<?php _e('Back');?>"}],
-                fn: function(r) { if (r) real_save();}
+                fn: function(r) {
+                        // restore text
+                        $.messager.defaults.ok=ok;
+                        $.messager.defaults.cancel=cancel;
+                        // on request call save
+                        if (r) real_save();
+                    }
             });
             return false;
         }

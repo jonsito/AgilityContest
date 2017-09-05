@@ -227,7 +227,7 @@ class AuthManager {
         $lclub=str_replace("agility","",$lclub);
         $lclub=str_replace("club","",$lclub);
 		// on anonymous o root license matching club is default "-- Sin asignar --"
-		if (intval($ri['Serial'])<=2) $lclub="-- sin asignar --"; // remind lowercase!
+		if (intval($ri['Serial'])<2) $lclub="-- sin asignar --"; // remind lowercase!
 		// remove extra chars to properly make club string likeness evaluation
         $lclub=preg_replace("/[^A-Za-z0-9 ]/", '', $lclub);
 		$dbobj=new DBObject("Auth::searchClub");

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-09-05 14:41+0200\n"
-"PO-Revision-Date: 2017-09-05 14:41+0200\n"
+"POT-Creation-Date: 2017-09-05 18:30+0200\n"
+"PO-Revision-Date: 2017-09-05 18:31+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -363,10 +363,10 @@ msgstr "Eliminado"
 #: scripts/perros.js.php:291 scripts/printer.js.php:417
 #: scripts/printer.js.php:476 scripts/printer.js.php:513
 #: scripts/printer.js.php:555 scripts/printer.js.php:591
-#: scripts/pruebas.js.php:113 scripts/pruebas.js.php:176
-#: scripts/pruebas.js.php:224 scripts/pruebas.js.php:287
-#: scripts/pruebas.js.php:450 scripts/pruebas.js.php:598
-#: scripts/pruebas.js.php:604 scripts/results_and_scores.js.php:48
+#: scripts/pruebas.js.php:113 scripts/pruebas.js.php:185
+#: scripts/pruebas.js.php:233 scripts/pruebas.js.php:296
+#: scripts/pruebas.js.php:459 scripts/pruebas.js.php:607
+#: scripts/pruebas.js.php:613 scripts/results_and_scores.js.php:48
 #: scripts/results_and_scores.js.php:149 scripts/results_and_scores.js.php:363
 #: scripts/sesiones.js.php:80 scripts/sesiones.js.php:134
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
@@ -1167,7 +1167,7 @@ msgstr "Editar"
 #: scripts/clubes.js.php:220 scripts/competicion.js.php:975
 #: scripts/guias.js.php:80 scripts/guias.js.php:169 scripts/jueces.js.php:116
 #: scripts/perros.js.php:105 scripts/perros.js.php:206
-#: scripts/pruebas.js.php:167 scripts/pruebas.js.php:276
+#: scripts/pruebas.js.php:176 scripts/pruebas.js.php:285
 #: scripts/sesiones.js.php:103 scripts/sesiones.js.php:127
 #: scripts/tandas.js.php:123 scripts/usuarios.js.php:109
 msgid "Confirm"
@@ -2056,12 +2056,12 @@ msgstr "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"
 msgid "for changes to become active"
 msgstr "para que los cambios se activen"
 
-#: console/dialogs/dlg_configuracion.inc:608 scripts/pruebas.js.php:248
+#: console/dialogs/dlg_configuracion.inc:608 scripts/pruebas.js.php:257
 #: scripts/results_and_scores.js.php:70
 msgid "Mail services"
 msgstr "Servicios de correo"
 
-#: console/dialogs/dlg_configuracion.inc:609 scripts/pruebas.js.php:249
+#: console/dialogs/dlg_configuracion.inc:609 scripts/pruebas.js.php:258
 #: scripts/results_and_scores.js.php:71
 msgid ""
 "Electronic mail operations<br/>are not allowed for unregistered licenses"
@@ -2806,7 +2806,7 @@ msgstr "Editar gu&iacute;a"
 #: console/dialogs/dlg_perros.inc:96 console/frm_inscripciones2.php:206
 #: console/frm_myAdmin.php:31 console/index.php:197
 #: scripts/competicion.js.php:75 scripts/inscripciones.js.php:89
-#: scripts/pruebas.js.php:168 scripts/pruebas.js.php:408
+#: scripts/pruebas.js.php:177 scripts/pruebas.js.php:417
 #: server/pdf/classes/PrintOrdenTandas.php:77
 msgid "Notice"
 msgstr "Aviso"
@@ -6160,8 +6160,8 @@ msgstr ""
 "Asegurese de que no hay ninguna actualizaci&oacute;n, importaci&oacute;n, "
 "env&iacute;o de correo <br/> o similar operaci&oacute;n en proceso "
 
-#: scripts/admin.js.php:89 scripts/pruebas.js.php:413
-#: scripts/pruebas.js.php:429
+#: scripts/admin.js.php:89 scripts/pruebas.js.php:422
+#: scripts/pruebas.js.php:438
 msgid "Continue?"
 msgstr "Realmente desea continuar?"
 
@@ -6472,7 +6472,7 @@ msgstr "Error al guardar"
 #: scripts/equipos.js.php:236 scripts/guias.js.php:54 scripts/guias.js.php:77
 #: scripts/guias.js.php:162 scripts/guias.js.php:166 scripts/jueces.js.php:109
 #: scripts/jueces.js.php:113 scripts/perros.js.php:102
-#: scripts/pruebas.js.php:164 scripts/sesiones.js.php:96
+#: scripts/pruebas.js.php:173 scripts/sesiones.js.php:96
 #: scripts/sesiones.js.php:100 scripts/sesiones.js.php:124
 #: scripts/tandas.js.php:116 scripts/tandas.js.php:120
 #: scripts/usuarios.js.php:102 scripts/usuarios.js.php:106
@@ -6799,7 +6799,7 @@ msgstr "Imprimiendo lista de equipos. Por favor, espere"
 #: scripts/printer.js.php:130 scripts/printer.js.php:155
 #: scripts/printer.js.php:188 scripts/printer.js.php:226
 #: scripts/printer.js.php:497 scripts/printer.js.php:574
-#: scripts/printer.js.php:613 scripts/pruebas.js.php:198
+#: scripts/printer.js.php:613 scripts/pruebas.js.php:207
 msgid "There was a problem generating your report, please try again."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
@@ -6864,8 +6864,8 @@ msgstr "Debe seleccionar un equipo v&aacute;lido"
 #: scripts/equipos.js.php:363 scripts/inscripciones.js.php:43
 #: scripts/inscripciones.js.php:84 scripts/inscripciones.js.php:163
 #: scripts/inscripciones.js.php:305 scripts/inscripciones.js.php:353
-#: scripts/pruebas.js.php:354 scripts/pruebas.js.php:389
-#: scripts/pruebas.js.php:418 scripts/results_and_scores.js.php:116
+#: scripts/pruebas.js.php:363 scripts/pruebas.js.php:398
+#: scripts/pruebas.js.php:427 scripts/results_and_scores.js.php:116
 msgid "No selection"
 msgstr "No seleccionado"
 
@@ -6874,7 +6874,7 @@ msgid "There is no marked dog to change team for"
 msgstr "No ha seleccionado ning&uacute;n perro para cambiar de equipo"
 
 #: scripts/equipos.js.php:369 scripts/inscripciones.js.php:167
-#: scripts/pruebas.js.php:358 scripts/results_and_scores.js.php:112
+#: scripts/pruebas.js.php:367 scripts/results_and_scores.js.php:112
 msgid "No permission"
 msgstr "Permisos insuficientes"
 
@@ -7004,8 +7004,8 @@ msgstr "Inscribir selecci&oacute;n"
 msgid "Cloning inscriptions from selected journey into "
 msgstr "Clonando las inscripciones de la jornada seleccionada en"
 
-#: scripts/inscripciones.js.php:305 scripts/pruebas.js.php:389
-#: scripts/pruebas.js.php:418
+#: scripts/inscripciones.js.php:305 scripts/pruebas.js.php:398
+#: scripts/pruebas.js.php:427
 msgid "There is no journey selected"
 msgstr "No se ha seleccionado ninguna jornada"
 
@@ -7182,7 +7182,7 @@ msgstr "Actualizar lista de perros con datos obtenidos de un fichero Excel"
 #: scripts/printer.js.php:319 scripts/printer.js.php:336
 #: scripts/printer.js.php:496 scripts/printer.js.php:534
 #: scripts/printer.js.php:573 scripts/printer.js.php:612
-#: scripts/pruebas.js.php:197
+#: scripts/pruebas.js.php:206
 msgid "We are preparing your report, please wait"
 msgstr "Preparando el informe, por favor, espere"
 
@@ -7258,8 +7258,8 @@ msgstr ""
 msgid "Nueva Prueba"
 msgstr "Nueva Prueba"
 
-#: scripts/pruebas.js.php:90 scripts/pruebas.js.php:164
-#: scripts/pruebas.js.php:187 scripts/pruebas.js.php:244
+#: scripts/pruebas.js.php:90 scripts/pruebas.js.php:173
+#: scripts/pruebas.js.php:196 scripts/pruebas.js.php:253
 msgid "There is no contest selected"
 msgstr "No hay ninguna prueba seleccionada"
 
@@ -7267,47 +7267,47 @@ msgstr "No hay ninguna prueba seleccionada"
 msgid "Modify contest data"
 msgstr "Modificar datos de la prueba"
 
-#: scripts/pruebas.js.php:135
+#: scripts/pruebas.js.php:136
+msgid "Continue"
+msgstr "Continuar"
+
+#: scripts/pruebas.js.php:137
+msgid "Back"
+msgstr "Volver"
+
+#: scripts/pruebas.js.php:139
 msgid "License notice"
 msgstr "Aviso sobre la licencia"
 
-#: scripts/pruebas.js.php:136
+#: scripts/pruebas.js.php:140
 msgid "Organizer club"
 msgstr "El club organizador"
 
-#: scripts/pruebas.js.php:138
+#: scripts/pruebas.js.php:142
 msgid "does not match with licenser club information"
 msgstr "no coincide con el club indicado en la licencia"
 
-#: scripts/pruebas.js.php:140
+#: scripts/pruebas.js.php:144
 msgid ""
 "This is a copyright violation, as you are only allowed to create contests "
 "for your club"
 msgstr ""
-"Esto constituye una violaci&oacute;n de la licencia: solo se pueden "
-"organizar pruebas para el club indicado en &eacute;sta"
+"Esto constituye una violaci&oacute;n de la licencia: solo se pueden crear "
+"pruebas para el club indicado en &eacute;sta"
 
-#: scripts/pruebas.js.php:142
+#: scripts/pruebas.js.php:146
 msgid "Future application versions may enforce copyright issues"
 msgstr ""
 "Actualizaciones futuras de la aplicaci&oacute;n pueden forzar los t&eacute;"
 "rminos del copyright"
 
-#: scripts/pruebas.js.php:144
+#: scripts/pruebas.js.php:148
 msgid "Some features may be disabled. Continue at your own risk"
 msgstr ""
 "Algunas funcionalidades pueden haber sido desactivadas. Continue bajo su "
 "responsabilidad"
 
-#: scripts/pruebas.js.php:148
-msgid "Continue"
-msgstr "Continuar"
-
-#: scripts/pruebas.js.php:148
-msgid "Back"
-msgstr "Volver"
-
-#: scripts/pruebas.js.php:169
+#: scripts/pruebas.js.php:178
 msgid ""
 "<p>By deleting this contest <b>youll loose</b> every associated data and "
 "scores"
@@ -7315,119 +7315,119 @@ msgstr ""
 "<p>Si borra la prueba <b>se perder&aacute;n</b> todas las inscripciones, "
 "equipos y resultados asociados"
 
-#: scripts/pruebas.js.php:170
+#: scripts/pruebas.js.php:179
 msgid "Do you really want to delete this contest"
 msgstr "Realmente desea borrar esta prueba"
 
-#: scripts/pruebas.js.php:187
+#: scripts/pruebas.js.php:196
 msgid "Export error"
 msgstr "Error al exportar"
 
-#: scripts/pruebas.js.php:206 scripts/results_and_scores.js.php:30
+#: scripts/pruebas.js.php:215 scripts/results_and_scores.js.php:30
 msgid "Change Email"
 msgstr "Cambiar e-mail"
 
-#: scripts/pruebas.js.php:207
+#: scripts/pruebas.js.php:216
 msgid "Enter new email for club"
 msgstr "Nueva direcci&oacute;n de correo para el club"
 
-#: scripts/pruebas.js.php:244
+#: scripts/pruebas.js.php:253
 msgid "Mailer error"
 msgstr "Error de envio"
 
-#: scripts/pruebas.js.php:256
+#: scripts/pruebas.js.php:265
 msgid "Missing data"
 msgstr "Faltan datos"
 
-#: scripts/pruebas.js.php:257
+#: scripts/pruebas.js.php:266
 msgid "Contest has poster and/or tryptich undefined"
 msgstr "La prueba no tiene p&oacute;ster o tr&iacute;ptico definido"
 
-#: scripts/pruebas.js.php:257
+#: scripts/pruebas.js.php:266
 msgid "Continue anyway?"
 msgstr "Continuar ¿seguro?"
 
-#: scripts/pruebas.js.php:261 scripts/pruebas.js.php:267
+#: scripts/pruebas.js.php:270 scripts/pruebas.js.php:276
 msgid "Email contest info to clubs"
 msgstr "Enviar informaci&oacute;n a los clubes"
 
-#: scripts/pruebas.js.php:277
+#: scripts/pruebas.js.php:286
 msgid "Mark every club as pending to receive mail"
 msgstr "Marcar todos los clubes como pendientes de recibir correo"
 
-#: scripts/pruebas.js.php:277
+#: scripts/pruebas.js.php:286
 msgid "Sure"
 msgstr "¿Seguro?"
 
-#: scripts/pruebas.js.php:316 scripts/pruebas.js.php:322
+#: scripts/pruebas.js.php:325 scripts/pruebas.js.php:331
 msgid "Skipping"
 msgstr "Omitiendo"
 
-#: scripts/pruebas.js.php:316
+#: scripts/pruebas.js.php:325
 msgid "Already sent"
 msgstr "Ya enviado"
 
-#: scripts/pruebas.js.php:322
+#: scripts/pruebas.js.php:331
 msgid "No mail declared"
 msgstr "Sin correo definido"
 
-#: scripts/pruebas.js.php:326 scripts/pruebas.js.php:441
+#: scripts/pruebas.js.php:335 scripts/pruebas.js.php:450
 msgid "Processing"
 msgstr "Procesando"
 
-#: scripts/pruebas.js.php:354
+#: scripts/pruebas.js.php:363
 msgid "There is no selected clubs to send mail to"
 msgstr "No se ha seleccionado ning&uacute;n club al que enviar correo"
 
-#: scripts/pruebas.js.php:358 scripts/results_and_scores.js.php:112
+#: scripts/pruebas.js.php:367 scripts/results_and_scores.js.php:112
 msgid "Current user has not enought permissions to send mail"
 msgstr "El usuario actual no tiene suficientes permisos para enviar correo"
 
-#: scripts/pruebas.js.php:393 scripts/pruebas.js.php:431
+#: scripts/pruebas.js.php:402 scripts/pruebas.js.php:440
 msgid "Invalid selection"
 msgstr "Selecci&oacute;n inv&aacute;lida"
 
-#: scripts/pruebas.js.php:393
+#: scripts/pruebas.js.php:402
 msgid "Cannot edit a journey stated as closed"
 msgstr "No se puede modificar una jornada marcada como cerrada"
 
-#: scripts/pruebas.js.php:397
+#: scripts/pruebas.js.php:406
 msgid "Modify journey data"
 msgstr "Editar datos de de la jornada"
 
-#: scripts/pruebas.js.php:410
+#: scripts/pruebas.js.php:419
 msgid "Setting a journey as closed"
 msgstr "Marcando la jornada como cerrada"
 
-#: scripts/pruebas.js.php:411
+#: scripts/pruebas.js.php:420
 msgid "Youll be no longer able to edit,delete or modify,"
 msgstr "No ser&aacute; posible editar o borrar datos de esta"
 
-#: scripts/pruebas.js.php:412
+#: scripts/pruebas.js.php:421
 msgid "inscriptions or scores"
 msgstr "inscripciones o resultados"
 
-#: scripts/pruebas.js.php:425
+#: scripts/pruebas.js.php:434
 msgid "Warning"
 msgstr "Aviso"
 
-#: scripts/pruebas.js.php:426
+#: scripts/pruebas.js.php:435
 msgid "You are about to re-open a closed journey"
 msgstr "Ha solicitado re-abrir una jornada ya cerrada"
 
-#: scripts/pruebas.js.php:427
+#: scripts/pruebas.js.php:436
 msgid "This is a very dangerous operation "
 msgstr "Esta es una operaci&oacute;n muy peligrosa"
 
-#: scripts/pruebas.js.php:428
+#: scripts/pruebas.js.php:437
 msgid "May generate scores and result data inconsistencies"
 msgstr "Puede originar inconsistencias en resultados y clasificaciones"
 
-#: scripts/pruebas.js.php:431
+#: scripts/pruebas.js.php:440
 msgid "Cannot close an already closed journey"
 msgstr "No se puede cerrar una jornada ya cerrada"
 
-#: scripts/pruebas.js.php:598
+#: scripts/pruebas.js.php:607
 msgid ""
 "KO, Games (WAO), Individual (Open), or team rounds must be declared in a "
 "separate journey"
@@ -7435,7 +7435,7 @@ msgstr ""
 "Las rondas KO, Juegos (WAO), Individual (Open) o Equipos deben ser "
 "declaradas en una jornada separada"
 
-#: scripts/pruebas.js.php:604
+#: scripts/pruebas.js.php:613
 msgid ""
 "You cannot add additional rounds when KO, Games (WAO), Individual (Open) or "
 "team rounds are already declared in a journey"
