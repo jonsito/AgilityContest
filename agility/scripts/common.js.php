@@ -367,7 +367,7 @@ function loadConfiguration(callback) {
 	});
 }
 
-var ac_regInfo={};
+var ac_regInfo={'clubInfo':{'ID':0,'Nombre':''}};
 function getLicenseInfo() {
 	$.ajax({
 		type: "GET",
@@ -380,6 +380,7 @@ function getLicenseInfo() {
 		dataType: 'json',
 		success: function(reginfo){
 			if ( typeof (reginfo.Serial) !== "undefined") {
+			    reginfo.clubInfo=ac_regInfo.clubInfo;
 				ac_regInfo=reginfo;
 			} else {
 				$.messager.alert('<?php _e("Error"); ?>','<?php _e("getLicenseInfo(): cannot retrieve License info from server"); ?>',"error")
@@ -389,6 +390,30 @@ function getLicenseInfo() {
 			alert("getLicenseInfo() error: "+textStatus + " "+ errorThrown );
 		}
 	});
+}
+
+function getLicensedClubInfo() {
+    $.ajax({
+        type: "GET",
+        url: "/agility/server/adminFunctions.php",
+        data: {
+            'Operation' : 'searchClub'
+        },
+        async: true,
+        cache: false,
+        dataType: 'json',
+        success: function(data){
+            if ( typeof (data.ID) !== "undefined") {
+                ac_regInfo.clubInfo=data;
+            } else {
+                ac_regInfo.clubInfo={'ID':0,'Nombre':''};
+                console.log('<?php _e("getLicensedClubInfo(): cannot retrieve License info from server"); ?>');
+            }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            alert("getLicensedClubInfo() error: "+textStatus + " "+ errorThrown );
+        }
+    });
 }
 
 var ac_fedInfo={};
