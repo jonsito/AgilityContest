@@ -1009,28 +1009,29 @@ class PrintTarjetasDeVisita extends PrintCommon{
 		$this->Cell(83,9, $this->prueba->Nombre,'',0,'C',true);
 		// Dorsal
         $this->SetXY($x+1,$y+10+1);
-        $this->ac_header(2,70);
-        $this->Cell(63,28, sprintf("%03d",$item['Dorsal']),'',0,'C',true);
+        $this->ac_header(2,65);
+        $this->Cell(63,20, sprintf("%03d",$item['Dorsal']),'',0,'C',true);
 		// Nombre del perro y Pedigree
 		$n=$item['Nombre']." - ".$item['NombreLargo'];
-        $this->SetXY($x,$y+40);
-		$this->ac_row(1,11);
-        $this->Cell(65,5, $n,'',0,'L',false);
+        $this->SetXY($x,$y+30);
+		$this->ac_row(1,13,'BI');
+        $this->Cell(65,8, $n,'',0,'L',false);
 		// Nombre del guia
-        $this->SetXY($x,$y+45);
-        $this->ac_row(1,9);
-        $this->Cell(65,5, $item['NombreGuia'],'',0,'R',false);
+        $this->SetXY($x,$y+38);
+        $this->ac_row(1,12,'B');
+        $this->Cell(65,8, $item['NombreGuia'],'',0,'R',false);
 		// categoria/grado si se requiere
         $catstr=$this->federation->getCategory($item['Categoria']);
         $grstr="";
 		if ($this->hasGrades) {
 			$grstr= " - ".$this->federation->getGrade($item['Grado']);
 		}
-        $this->SetXY($x,$y+50);
+        $this->SetXY($x,$y+48);
         $this->Cell(40,5, $catstr.$grstr,'',0,'L',false);
 		// club
-        $this->SetXY($x+40,$y+50);
+        $this->SetXY($x+40,$y+48);
         $this->Cell(45,5, $item['NombreClub'],'',0,'R',false);
+
 		// logotipo de la organizacion
         $this->SetXY($x+65+1,$y+10+1);
         $this->Image($this->icon,$this->GetX(),$this->GetY(),18);

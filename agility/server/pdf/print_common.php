@@ -384,10 +384,10 @@ class PrintCommon extends FPDF {
 		$this->SetLineWidth(.3); // ancho de linea
 	}
 	
-	function ac_row($idx,$size) {
+	function ac_row($idx,$size,$style='') {
 		$bg=$this->config->getEnv('pdf_rowcolor1');
 		if ( ($idx&0x01)==1)$bg=$this->config->getEnv('pdf_rowcolor2');
-		$this->SetFont($this->getFontName(),'',$size);
+		$this->SetFont($this->getFontName(),$style,$size);
 		$this->ac_SetFillColor($bg); // color de la fila
 		$this->ac_SetTextColor('#000000'); // negro
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
