@@ -136,6 +136,8 @@ function savePrueba() {
             $.messager.defaults.ok="<?php _e('Continue');?>";
             $.messager.defaults.cancel="<?php _e('Back');?>";
             $.messager.confirm({
+                // ok:"<?php _e('Continue');?>",
+                // cancel:"<?php _e('Back');?>",
                 title:"<?php _e('License notice');?>",
                 msg:"<?php _e('Organizer club');?>"+' ('+cl+') '+
                     '<br/>'+
