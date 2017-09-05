@@ -223,19 +223,22 @@ class AuthManager {
      */
 	function searchClub() {
 		$ri=$this->getRegistrationInfo();
-		$lclub=$ri['Club'];
-		// on anonymous o root license matching club is default "-- Sin asignar --"
-		if (intval($ri['Serial'])<=2) $lclub="-- Sin asignar --";
-		// remove extra chars to properly make club string likeness evaluation
-        $lclub=preg_replace("/[^A-Za-z0-9 ]/", '', strtolower($lclub));
+		$lclub=strtolower($ri['Club']);
         $lclub=str_replace("agility","",$lclub);
+        $lclub=str_replace("club","",$lclub);
+		// on anonymous o root license matching club is default "-- Sin asignar --"
+		if (intval($ri['Serial'])<=2) $lclub="-- sin asignar --"; // remind lowercase!
+		// remove extra chars to properly make club string likeness evaluation
+        $lclub=preg_replace("/[^A-Za-z0-9 ]/", '', $lclub);
 		$dbobj=new DBObject("Auth::searchClub");
 		$res=$dbobj->__select("*","Clubes","1");
 		$better=array(0,array('ID'=>0,'Nombre'=>'') ); // percentage, data
 		for ($idx=0; $idx<$res['total']; $idx++) {
 			$club=$res['rows'][$idx];
-			$dclub=preg_replace("/[^A-Za-z0-9 ]/", '', strtolower($club['Nombre']));
+			$dclub=strtolower($club['Nombre']);
             $dclub=str_replace("agility","",$dclub);
+            $dclub=str_replace("club","",$dclub);
+			$dclub=preg_replace("/[^A-Za-z0-9 ]/", '', $dclub);
 			if ($dclub==='') continue; // skip blank. should not occur
 			similar_text ( $lclub ,$dclub, $p );
 			if (bccomp($p,$better[0])<=0) continue; // el nuevo "se parece menos", skip
