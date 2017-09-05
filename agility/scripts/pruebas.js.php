@@ -43,8 +43,12 @@ function doSearchPrueba() {
  *@param {function} onAccept what to do when a new prueba is created
  */
 function newPrueba(dg,def,onAccept){
+    var pc=$('#pruebas-Club');
 	$('#pruebas-dialog').dialog('open').dialog('setTitle','<?php _e('Nueva Prueba'); ?>');
 	$('#pruebas-form').form('clear');
+    pc.combogrid('clear');
+    pc.combogrid('setValue',ac_regInfo.clubInfo.ID);
+    pc.combogrid('setText',ac_regInfo.clubInfo.Nombre);
     $('#pruebas-Federation').combogrid('readonly',false);
 	if (!strpos(def,"Buscar")) $('#pruebas-Nombre').val(def.capitalize());// fill prueba Name
 	$('#pruebas-Operation').val('insert');
@@ -96,25 +100,58 @@ function editPrueba(dg){
  * Ask server routines for add/edit a prueba into BBDD
  */
 function savePrueba() {
+
+    function real_save() {
+        $.ajax({
+            type: 'GET',
+            url: '/agility/server/database/pruebaFunctions.php',
+            data: frm.serialize(),
+            dataType: 'json',
+            // beforeSend: function(jqXHR,settings){ return frm.form('validate'); },
+            success: function (result) {
+                if (result.errorMsg){
+                    $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
+                } else {
+                    $('#pruebas-dialog').dialog('close');        // close the dialog
+                    $('#pruebas-datagrid').datagrid('reload');    // reload the prueba data
+                }
+            }
+        });
+    }
+
 	// take care on bool-to-int translation from checkboxes to database
     $('#pruebas-Cerrada').val( $('#pruebas-Cerrada').is(':checked')?'1':'0');
     var frm = $('#pruebas-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
-    $.ajax({
-        type: 'GET',
-        url: '/agility/server/database/pruebaFunctions.php',
-        data: frm.serialize(),
-        dataType: 'json',
-        // beforeSend: function(jqXHR,settings){ return frm.form('validate'); },
-        success: function (result) {
-            if (result.errorMsg){ 
-            	$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
-            } else {
-                $('#pruebas-dialog').dialog('close');        // close the dialog
-                $('#pruebas-datagrid').datagrid('reload');    // reload the prueba data
-            }
+
+    // on new contests, check license data and warn user when club does not match ID
+    if ( $('#pruebas-Operation').val()==='insert' ){
+        var ser=parseInt(ac_regInfo.Serial);
+        var cid=$('#pruebas-Club').combogrid('getValue');
+        if ( (ser>1) && (cid!==ac_regInfo.clubInfo.ID)  ) {
+            var cl=$('#pruebas-Club').combogrid('getText');
+            var lcl=ac_regInfo.clubInfo.Nombre;
+            $.messager.confirm({
+                title:"<?php _e('License notice');?>",
+                msg:"<?php _e('Organizer club');?>"+' ('+cl+') '+
+                    '<br/>'+
+                    "<?php _e('does not match with licenser club information');?>"+' ('+lcl+')'+
+                    '<br/>&nbsp;<br/>'+
+                    "<?php _e('This is a copyright violation, as you are only allowed to create contests for your club');?>"+
+                    '<br/>&nbsp;<br/>'+
+                    "<?php _e('Future application versions may enforce copyright issues');?>"+
+                    '<br/>&nbsp;<br/>'+
+                    "<?php _e('Some features may be disabled. Continue at your own risk');?>",
+                width:550,
+                height:'auto',
+                icon:'warning',
+                // buttons:[{text:"<?php _e('Continue');?>"},{text:"<?php _e('Back');?>"}],
+                fn: function(r) { if (r) real_save();}
+            });
+            return false;
         }
-    });
+    }
+    real_save();
 }
 
 /**
