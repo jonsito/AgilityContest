@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-09-07 10:50+0200\n"
-"PO-Revision-Date: 2017-09-07 10:51+0200\n"
+"POT-Creation-Date: 2017-09-07 11:57+0200\n"
+"PO-Revision-Date: 2017-09-07 12:01+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -6423,19 +6423,31 @@ msgstr "No se ha indicado ning&uacute;n usuario"
 msgid "Starting session read-only (guest)"
 msgstr "Iniciando sesi&oacute;n en modo solo consulta (invitado)"
 
-#: scripts/auth.js.php:218
+#: scripts/auth.js.php:219
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: scripts/auth.js.php:220 scripts/pruebas.js.php:137
+msgid "Back"
+msgstr "Volver"
+
+#: scripts/auth.js.php:223
 msgid "Licensing"
 msgstr "Licencia"
 
-#: scripts/auth.js.php:218
+#: scripts/auth.js.php:224
 msgid "Licensing data successfully loaded"
 msgstr "Datos de la licencia actualizados correctamente"
 
-#: scripts/auth.js.php:258
+#: scripts/auth.js.php:225
+msgid "Restart app to make changes to take effect"
+msgstr "Reinicie la aplicaci&oacute;n para activar los cambios"
+
+#: scripts/auth.js.php:278
 msgid "User level"
 msgstr "Nivel de usuario"
 
-#: scripts/auth.js.php:259
+#: scripts/auth.js.php:279
 msgid ""
 "Current user has not enought level to make changes <br/>Read-only access "
 "enabled"
@@ -7271,10 +7283,6 @@ msgstr "Modificar datos de la prueba"
 #: scripts/pruebas.js.php:136
 msgid "Continue"
 msgstr "Continuar"
-
-#: scripts/pruebas.js.php:137
-msgid "Back"
-msgstr "Volver"
 
 #: scripts/pruebas.js.php:139
 msgid "License notice"
