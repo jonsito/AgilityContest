@@ -106,10 +106,10 @@ class RFEC extends Federations {
                 5	=> 'Agility-1 Promocion 40',
                 6	=> 'Agility-2 Promocion 60',
                 7	=> 'Agility-2 Promocion 50',
-                8	=> 'Agility-2 Promocion 50',
+                8	=> 'Agility-2 Promocion 40',
                 9	=> 'Agility Competicion 60',
                 10	=> 'Agility Competicion 50',
-                11	=> 'Agility Competicion 50',
+                11	=> 'Agility Competicion 40',
                 12	=> 'Agility GIII 60', // no existe en rfec
                 13	=> 'Agility GIII 50', // no existe en rfec
                 14	=> 'Agility GIII 40', // no existe en rfec
@@ -205,7 +205,7 @@ class RFEC extends Federations {
                 96  => 'Junior 1 50 (40)',
                 97  => 'Junior 1 40 (20)',
                 98  => 'Junior 1 30 (20)',
-                99  => 'Junior 2 60 (40)',
+                99   => 'Junior 2 60 (40)',
                 100  => 'Junior 2 50 (40)',
                 101  => 'Junior 2 40 (20)',
                 102  => 'Junior 2 30 (20)',
