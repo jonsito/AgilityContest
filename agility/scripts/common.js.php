@@ -516,6 +516,25 @@ function strpos (pajar, aguja, offset) {
 	return i === -1 ? false : i;
 }
 
+/**
+ * Set element in full screen mode
+ * @param element dom object to be maximized ( normally document.body )
+ */
+function requestFullScreen(element) {
+    // Supports most browsers and their versions.
+    var requestMethod = element.requestFullScreen ||
+        element.webkitRequestFullScreen ||
+        element.mozRequestFullScreen ||
+        element.msRequestFullScreen;
+
+    if (requestMethod) { // Native full screen on real browsers
+        requestMethod.call(element);
+    } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+        var wscript = new ActiveXObject("WScript.Shell");
+        if (wscript !== null) { wscript.SendKeys("{F11}"); }
+    }
+}
+
 /*
  * A downcounter in seconds
  * from: http://stackoverflow.com/questions/1191865/code-for-a-simple-javascript-countdown-timer

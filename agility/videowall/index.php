@@ -309,6 +309,7 @@ $('#selvw-Session').combogrid({
 	textField: 'Nombre',
 	url: '/agility/server/database/sessionFunctions.php',
 	method: 'get',
+    queryParams: {'Operation':'selectring','Hidden':0 },
 	mode: 'remote',
 	required: true,
 	rownumber: true,
@@ -326,17 +327,17 @@ $('#selvw-Session').combogrid({
 		{ field:'LiveStream2',	hidden:true },
 		{ field:'LiveStream3',	hidden:true }
 	]],
-	onBeforeLoad: function(param) { 
-		param.Operation='selectring';
-		param.Hidden=0;
-		return true;
-	},
 	onLoadSuccess: function(data) {
 		setTimeout(function() {
 			$('#selvw-Vista').combobox('setValue',ac_clientOpts.View.toString());
-			$('#selvw-Session').combogrid('setValue', (ac_clientOpts.Ring).toString())
+			$('#selvw-Session').combogrid('setValue', (ac_clientOpts.Ring).toString());
 		},0); // also fires onSelect()
 	},
+    onBeforeSelect: function(index,row) {
+	    if (parseInt(row.Prueba)!==0) return true;
+	    $.messager.alert("<?php _e('Error');?>","<?php _e('No active contest being played in this ring');?>","error");
+	    return false;
+    },
     onSelect: function(index,row) {
         ac_clientOpts.Ring=row.ID;
 	    setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1);
@@ -351,7 +352,7 @@ function vw_accept() {
 		$.messager.alert("Error",'<?php _e("You should select a valid session"); ?>',"error");
 		return;
 	}
-	
+    requestFullScreen(document.body);
 	// store selected data into global structure
 	workingData.sesion=s.ID;
 	workingData.nombreSesion=s.Nombre;
@@ -380,7 +381,10 @@ function vw_accept() {
 			$('#vw_contenido').load(
 				page,
 				function(response,status,xhr){
-					if (status==='error') $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+					if (status==='error') {
+					    $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+					    return false;
+                    }
 				}
 			);
 		});
@@ -410,7 +414,7 @@ function vw_accept() {
 			if (res.errorMsg) {
 				$.messager.alert('License error','<?php _e("Current license has no permission to handle training sessions"); ?>',"error");
 				page=null;
-				return;
+				return false;
 			}
 			page="/agility/videowall/vws_entrenamientos.php";
 			ac_config.vw_combined=0;
@@ -419,7 +423,10 @@ function vw_accept() {
 			$('#vw_contenido').load(
 				page,
 				function(response,status,xhr){
-					if (status=='error') $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+					if (status=='error') {
+					    $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+					    return false;
+                    }
 				}
 			);
 		});

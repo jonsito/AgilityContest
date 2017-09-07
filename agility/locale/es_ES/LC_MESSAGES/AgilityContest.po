@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-09-05 18:30+0200\n"
-"PO-Revision-Date: 2017-09-05 18:31+0200\n"
+"POT-Creation-Date: 2017-09-07 10:50+0200\n"
+"PO-Revision-Date: 2017-09-07 10:51+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -341,9 +341,9 @@ msgstr "Eliminado"
 #: console/dialogs/dlg_selectJornada.inc:157 console/import/import.js.php:417
 #: scripts/admin.js.php:38 scripts/admin.js.php:57 scripts/admin.js.php:82
 #: scripts/admin.js.php:403 scripts/common.js.php:361 scripts/common.js.php:386
-#: scripts/common.js.php:433 scripts/common.js.php:671
-#: scripts/common.js.php:683 scripts/common.js.php:695
-#: scripts/common.js.php:710 scripts/competicion.js.php:403
+#: scripts/common.js.php:433 scripts/common.js.php:690
+#: scripts/common.js.php:702 scripts/common.js.php:714
+#: scripts/common.js.php:729 scripts/competicion.js.php:403
 #: scripts/competicion.js.php:432 scripts/competicion.js.php:514
 #: scripts/competicion.js.php:521 scripts/competicion.js.php:533
 #: scripts/competicion.js.php:636 scripts/competicion.js.php:810
@@ -371,6 +371,7 @@ msgstr "Eliminado"
 #: scripts/sesiones.js.php:80 scripts/sesiones.js.php:134
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
 #: scripts/usuarios.js.php:86 scripts/usuarios.js.php:150
+#: videowall/index.php:338
 msgid "Error"
 msgstr "Error"
 
@@ -550,7 +551,7 @@ msgstr "Dors"
 #: server/pdf/classes/PrintTRSTemplates.php:255
 #: server/pdf/classes/PrintTRSTemplates.php:258 tablet/index.php:229
 #: tablet/index.php:265 tablet/tablet_main.php:78 tablet/tablet_main.php:290
-#: tablet/tablet_main.php:420 videowall/index.php:321
+#: tablet/tablet_main.php:420 videowall/index.php:322
 #: videowall/vwc_finales.php:82 videowall/vwc_finales.php:215
 #: videowall/vwc_parciales.php:82 videowall/vwc_parciales.php:227
 msgid "Name"
@@ -727,7 +728,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/classes/PrintOrdenSalida.php:74
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/classes/PrintOrdenTandas.php:87 tablet/index.php:230
-#: tablet/tablet_main.php:210 videowall/index.php:322
+#: tablet/tablet_main.php:210 videowall/index.php:323
 msgid "Comments"
 msgstr "Observaciones"
 
@@ -2534,8 +2535,8 @@ msgstr "Registrar informaci&oacute;n del juez en la base de datos"
 #: console/frm_guias.php:42 console/frm_inscripciones2.php:109
 #: console/frm_jueces.php:42 console/frm_paises.php:35
 #: console/frm_perros.php:75 console/frm_pruebas.php:42
-#: scripts/common.js.php:1026 scripts/common.js.php:1027
-#: scripts/common.js.php:1040 scripts/common.js.php:1052
+#: scripts/common.js.php:1045 scripts/common.js.php:1046
+#: scripts/common.js.php:1059 scripts/common.js.php:1071
 #: scripts/equipos.js.php:28 scripts/inscripciones.js.php:486
 #: server/tools.php:296
 msgid "-- Search --"
@@ -5423,7 +5424,7 @@ msgstr "Iniciar Sesi&oacute;n"
 msgid "DATABASE"
 msgstr "BASE DE DATOS"
 
-#: console/index.php:336 scripts/common.js.php:752
+#: console/index.php:336 scripts/common.js.php:771
 msgid "Clubs"
 msgstr "Clubes"
 
@@ -5950,7 +5951,7 @@ msgstr "Video en directo"
 msgid "Use selected as working session"
 msgstr "Trabajar con el la sesi&oacute;n seleccionada"
 
-#: livestream/index.php:307 videowall/index.php:351
+#: livestream/index.php:307 videowall/index.php:352
 msgid "You should select a valid session"
 msgstr "Debe seleccionar una sesi&oacute;n v&aacute;lida"
 
@@ -6524,7 +6525,7 @@ msgstr "Gesti&oacute;n de datos de Clubes"
 msgid "Countries Database Info"
 msgstr "Informaci&oacute;n de pa&iacute;ses en la BBDD"
 
-#: scripts/common.js.php:749
+#: scripts/common.js.php:768
 msgid "Countries"
 msgstr "Pa&iacute;ses"
 
@@ -8631,7 +8632,11 @@ msgstr "Final individual"
 msgid "Videowall"
 msgstr "Video marcador"
 
-#: videowall/index.php:372 videowall/index.php:411
+#: videowall/index.php:338
+msgid "No active contest being played in this ring"
+msgstr "No hay pruebas activas registradas en este ring"
+
+#: videowall/index.php:373 videowall/index.php:415
 msgid "Current license has no permission to handle training sessions"
 msgstr ""
 "Esta licencia no permite la gesti&oacute;n de sesiones de entrenamiento"

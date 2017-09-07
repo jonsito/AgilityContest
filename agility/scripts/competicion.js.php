@@ -471,7 +471,7 @@ function proximityAlert() {
 	var data=$('#ordensalida-datagrid').datagrid('getRows');
 	var guias= [];
 	var lista="<br />";
-	for (var idx=0;idx<data.length;idx++) {
+	for (var idx=0; idx < data.length; idx++) {
 		var NombreGuia=data[idx].NombreGuia;
 		// not yet declared: store perro and orden
 		if ( !(NombreGuia in guias) ) {
@@ -480,7 +480,7 @@ function proximityAlert() {
 		} 
 		// already declared: eval distance
 		var dist=idx-guias[NombreGuia].index;
-		if (dist>parseInt(ac_config.proximity_alert)) {
+		if (dist > parseInt(ac_config.proximity_alert)) {
 			// declared but more than 5 dogs ahead. reset index and continue
 			guias[NombreGuia] = { 'index': idx, 'perro': data[idx].Nombre }; 
 			continue;
