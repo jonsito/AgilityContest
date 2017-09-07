@@ -214,11 +214,31 @@ function send_regFile() {
             if (data.errorMsg){
                 $.messager.show({ width:300, height:150, title: 'Error', msg: data.errorMsg });
             } else {
-                $('#registration_data').form('load',data);
-            	$.messager.alert('<?php _e("Licensing");?>','<?php _e("Licensing data successfully loaded");?>',"info");
+                var dok=$.messager.defaults.ok;
+                var dcancel=$.messager.defaults.cancel;
+                $.messager.defaults.ok="<?php _e('Restart');?>";
+                $.messager.defaults.cancel="<?php _e('Back');?>";
+                $('#registration_data').form('load',data); // update registration info form
+                $.messager.confirm({
+                    title:"<?php _e('Licensing');?>",
+                    msg:'<?php _e("Licensing data successfully loaded");?>'+'<br/>&nbsp;<br/>'+
+                        '<?php _e("Restart app to make changes to take effect");?>',
+                    width:450,
+                    height:'auto',
+                    icon:'info',
+                    fn: function(r) {
+                        // restore text
+                        $.messager.defaults.ok=dok;
+                        $.messager.defaults.cancel=dcancel;
+                        // on request call save
+                        if (r) window.location.reload();
+                    }
+                });
             }
     	},
-    	error: function() { alert("error");	}
+    	error: function() {
+            $.messager.show({ width:350, height:150, title: 'Error', msg: "Error in request for registration license file" });
+  		}
    	});
 }
 
