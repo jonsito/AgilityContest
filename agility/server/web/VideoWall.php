@@ -86,7 +86,7 @@ class VideoWall {
             // and search current round
             foreach($rondas as $ronda) {
                 $mngs=array ('Manga1','Manga2','Manga3','Manga4','Manga5','Manga6','Manga7','Manga8');
-                $cat=Tandas::$tipo_tanda[$this->tandatype]['Categoria'];
+                $cat=Tandas::getCategoriaByTipo($this->tandatype);
                 foreach ($mngs as $mng) {
                     if($this->mangaid!=$ronda[$mng]) continue;
                     foreach( str_split($cat) as $c) {
@@ -248,8 +248,8 @@ class VideoWall {
         $osobj=Competitions::getOrdenSalidaInstance("VideoWall-ng",$this->mangaid);
         $os=$osobj->getData(false); // omit inserting team info rows
         // obtenemos categoria y grado de la tanda
-        $catstr=Tandas::$tipo_tanda[$this->tandatype]['Categoria']; // categoria
-        $gradostr =Tandas::$tipo_tanda[$this->tandatype]['Grado']; // grado ("-" means any grade)
+        $catstr=Tandas::getCategoriaByTipo($this->tandatype); // categoria
+        $gradostr =Tandas::getGradoByTipo($this->tandatype); // grado ("-" means any grade)
         // componemos un array de $before+1+$after perros
         $result=array();
         // reserve $before +1 empty slots before dog list
@@ -339,8 +339,8 @@ class VideoWall {
         $osobj=Competitions::getOrdenSalidaInstance("VideoWall-ng",$this->mangaid);
         $os=$osobj->getData(false); // omit inserting team info rows
         // obtenemos categoria y grado de la tanda
-        $catstr=Tandas::$tipo_tanda[$this->tandatype]['Categoria']; // categoria
-        $gradostr =Tandas::$tipo_tanda[$this->tandatype]['Grado']; // grado ("-" means any grade)
+        $catstr=Tandas::getCategoriaByTipo($this->tandatype); // categoria
+        $gradostr =Tandas::getGradoByTipo($this->tandatype); // grado ("-" means any grade)
         // componemos un array de $before+1+$after perros
         $result=array();
         // reserve $before +1 empty slots before team list

@@ -38,7 +38,7 @@ class Tandas extends DBObject {
 	 * Categoria:	List of supported categorias in this tanda
 	 * Grado:		Tanda's grado 
 	 */
-	public static $tipo_tanda = array (
+	 static $tipo_tanda = array (
 			0	=> array('Tipo'=>0,		'TipoManga'=>0,		'Nombre'=>'-- Sin especificar --',  'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-',	'Grado'=>'-'),
 			// en pre-agility no hay categorias
 			1	=> array('Tipo'=>1,		'TipoManga'=> 1,	'Nombre'=>'Pre-Agility 1',			'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'P.A.'),
@@ -154,6 +154,31 @@ class Tandas extends DBObject {
             102	=> array('Tipo'=>102,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Toy',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Jr'),
     );
 
+    /**
+     * Translate requested tanda index to federation dependent i18n'd Tanda Name
+     * @param {integer} $tipo tanda index as declared in Tandas.php
+     * @param {integer|object} $fed federation id or federation object
+     * @return string resulting i18n'd string
+     */
+	static function getNombreByTipo($tipo,$fed) {
+	    if (!array_key_exists($tipo,Tandas::$tipo_tanda)) return "(unknown)"; // key not found should notice error
+        if (is_int($fed)) $fed=Federations::getFederation($fed);
+        $config=$fed->getConfig();
+        if (!array_key_exists('NombreTandas',$config)) return _(Tandas::$tipo_tanda[$tipo]['Nombre']);
+        if (!array_key_exists($tipo,$config['NombreTandas'])) return _(Tandas::$tipo_tanda[$tipo]['Nombre']);
+        return $config['NombreTandas'][$tipo]; // already i18n'd
+    }
+
+	static function getCategoriaByTipo($tipo) {
+        if (!array_key_exists($tipo,Tandas::$tipo_tanda)) return "-"; // key not found: return default (any)
+        return Tandas::$tipo_tanda[$tipo]['Categoria'];
+    }
+
+    static function getGradoByTipo($tipo) {
+        if (!array_key_exists($tipo,Tandas::$tipo_tanda)) return "-"; // key not found: return default (any)
+        return Tandas::$tipo_tanda[$tipo]['Grado'];
+    }
+
     static function isAgility($tipo) {
         if (!array_key_exists($tipo,Tandas::$tipo_tanda)) return false; // key not found: return false
         return Tandas::$tipo_tanda[$tipo]['isAgility'];
@@ -182,7 +207,7 @@ class Tandas extends DBObject {
 	*/
 	static function getTandasInfo($key,$value) {
 		$res=array();
-		if (!array_key_exists($key,Tandas::$tipo_tanda[0])) { // use index0 to check valid key
+		if (!array_key_exists($key,Tandas::$tipo_tanda[0])) { // use index 0 to check valid key
             // key not found: notify and return empty array
 		    do_log("Invalid search key for Tandas array:$key");
 		    return $res;
@@ -193,7 +218,7 @@ class Tandas extends DBObject {
 		return $res;
 	}
 	
-	function getSessionName($id){
+	private function getSessionName($id){
 		foreach($this->sesiones as $sesion) {
 			if ($sesion['ID']==$id) return $sesion['Nombre'];
 		}
@@ -201,7 +226,7 @@ class Tandas extends DBObject {
 		return ""; // no session name found
 	}
 	
-	function getMangaByTipo($tipomanga) {
+	private function getMangaByTipo($tipomanga) {
 		foreach($this->mangas as $manga) {
 			if ($manga['Tipo']==$tipomanga) return $manga;
 		}
@@ -631,9 +656,9 @@ class Tandas extends DBObject {
 			// check for already inserted into Tandas
 			$obj=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)");
 			if ($obj===null) { // insert into list at end.
-                $n=$fed->getTandaName($tipo); // use fed module to retrieve tanda name
-				$c=Tandas::$tipo_tanda[$tipo]['Categoria'];
-				$g=Tandas::$tipo_tanda[$tipo]['Grado'];
+                $n=Tandas::getNombreByTipo($tipo,$fed); // use fed module to retrieve tanda name
+                $c=Tandas::getCategoriaByTipo($tipo);
+                $g=Tandas::getGradoByTipo($tipo);
 				$str="INSERT INTO Tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Categoria,Grado) 
 					VALUES ($tipo,$p,$j,2,$last,'$n','$c','$g')"; // Default session is 2->Ring 1
 				$rs=$this->query($str);

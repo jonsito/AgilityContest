@@ -309,16 +309,7 @@ class Federations {
 
     function getTipoRondas(){ return $this->config['TipoRondas']; }
 
-    /**
-     * Translate requested tanda index to federation dependent i18n'd Tanda Name
-     * @param {integer} $idx tanda index 0..45 as declared in Tandas.php
-     * @return string resulting i18n'd string
-     */
-    public function getTandaName($idx) {
-        if (!array_key_exists('NombreTandas',$this->config)) return _(Tandas::$tipo_tanda[$idx]['Nombre']);
-        if (!array_key_exists($idx,$this->config['NombreTandas'])) return _(Tandas::$tipo_tanda[$idx]['Nombre']);
-        return $this->config['NombreTandas'][$idx];
-    }
+
 
     /**
      * Translate requested manga type and index to federation dependent i18n'd Manga data
