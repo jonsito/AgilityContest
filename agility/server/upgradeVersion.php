@@ -334,20 +334,21 @@ class Updater {
     function setTRStoFloat() {
         $cmds= array(
             "ALTER TABLE `Mangas` MODIFY `TRS_L_Factor` float(5);",
-            "ALTER TABLE `Mangas` MODIFY `TRM_L_Factor` float(5);",
+            "ALTER TABLE `Mangas` MODIFY `TRM_L_Factor` float(5) NOT NULL DEFAULT '50.0';",
             "ALTER TABLE `Mangas` MODIFY `TRS_M_Factor` float(5);",
-            "ALTER TABLE `Mangas` MODIFY `TRM_M_Factor` float(5);",
+            "ALTER TABLE `Mangas` MODIFY `TRM_M_Factor` float(5) NOT NULL DEFAULT '50.0';",
             "ALTER TABLE `Mangas` MODIFY `TRS_S_Factor` float(5);",
-            "ALTER TABLE `Mangas` MODIFY `TRM_S_Factor` float(5);",
+            "ALTER TABLE `Mangas` MODIFY `TRM_S_Factor` float(5) NOT NULL DEFAULT '50.0';",
             "ALTER TABLE `Mangas` MODIFY `TRS_T_Factor` float(5);",
-            "ALTER TABLE `Mangas` MODIFY `TRM_T_Factor` float(5);"
+            "ALTER TABLE `Mangas` MODIFY `TRM_T_Factor` float(5) NOT NULL DEFAULT '50.0';"
         );
         // comprobamos si es necesario hacerlo
-        $str= "SELECT data_type FROM information_schema.COLUMNS WHERE table_schema='agility' AND table_name='Mangas' AND column_name='TRS_L_Factor'";
+        $str= "SELECT Column_Default FROM information_schema.COLUMNS ".
+            "WHERE table_schema='agility' AND table_name='Mangas' AND column_name='TRM_L_Factor'";
         $rs=$this->conn->query($str);
         if (!$rs) throw new Exception ("upgrade::setTRStoFloat(): ".$this->conn->error);
         $res = $rs->fetch_array(MYSQLI_ASSOC);
-        if (strpos($res['data_type'],'int')===false) return 0; // already done
+        if (floatval($res['Column_Default'])===50.0) return 0; // already done
         // not done: change every TRS/TRM field to float
         foreach ($cmds as $query) { $this->conn->query($query); }
         return 0;

@@ -234,30 +234,30 @@ class Mangas extends DBObject {
 		$trs_s_tipo = http_request("TRS_S_Tipo","i",0);
 		$trs_t_tipo = http_request("TRS_T_Tipo","i",0);
 		// tipo TRM
-		$trm_l_tipo = http_request("TRM_L_Tipo","i",0);
-		$trm_m_tipo = http_request("TRM_M_Tipo","i",0);
-		$trm_s_tipo = http_request("TRM_S_Tipo","i",0);
-		$trm_t_tipo = http_request("TRM_T_Tipo","i",0);
+		$trm_l_tipo = http_request("TRM_L_Tipo","i",1);
+		$trm_m_tipo = http_request("TRM_M_Tipo","i",1);
+		$trm_s_tipo = http_request("TRM_S_Tipo","i",1);
+		$trm_t_tipo = http_request("TRM_T_Tipo","i",1);
 		// factor TRS
 		$trs_l_factor = http_request("TRS_L_Factor","f",0.0);
 		$trs_m_factor = http_request("TRS_M_Factor","f",0.0);
 		$trs_s_factor = http_request("TRS_S_Factor","f",0.0);
 		$trs_t_factor = http_request("TRS_T_Factor","f",0.0);
 		// factor TRM
-		$trm_l_factor = http_request("TRM_L_Factor","f",0.0);
-		$trm_m_factor = http_request("TRM_M_Factor","f",0.0);
-		$trm_s_factor = http_request("TRM_S_Factor","f",0.0);
-		$trm_t_factor = http_request("TRM_T_Factor","f",0.0);
+		$trm_l_factor = http_request("TRM_L_Factor","f",50.0);
+		$trm_m_factor = http_request("TRM_M_Factor","f",50.0);
+		$trm_s_factor = http_request("TRM_S_Factor","f",50.0);
+		$trm_t_factor = http_request("TRM_T_Factor","f",50.0);
 		// Unidad TRS
 		$trs_l_unit = http_request("TRS_L_Unit","s","s",false);
 		$trs_m_unit = http_request("TRS_M_Unit","s","s",false);
 		$trs_s_unit = http_request("TRS_S_Unit","s","s",false);
 		$trs_t_unit = http_request("TRS_T_Unit","s","s",false);
 		// Unidad TRM
-		$trm_l_unit = http_request("TRM_L_Unit","s","s",false);
-		$trm_m_unit = http_request("TRM_M_Unit","s","s",false);
-		$trm_s_unit = http_request("TRM_S_Unit","s","s",false);
-		$trm_t_unit = http_request("TRM_T_Unit","s","s",false);
+		$trm_l_unit = http_request("TRM_L_Unit","s","%",false);
+		$trm_m_unit = http_request("TRM_M_Unit","s","%",false);
+		$trm_s_unit = http_request("TRM_S_Unit","s","%",false);
+		$trm_t_unit = http_request("TRM_T_Unit","s","%",false);
 		// Jueces y observaciones
 		$juez1 = http_request("Juez1","i",1);
 		$juez2 = http_request("Juez2","i",1);
