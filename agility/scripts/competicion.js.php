@@ -478,7 +478,7 @@ function save_manga(id) {
         msg:"<?php _e('Some category has missing values for');?><br/>"+
             "<?php _e('either distance, SCT or MCT');?><br/>"+
             "<?php _e('Continue');?>?",
-        width:450,
+        width:400,
         height:'auto',
         icon:'warning',
         fn: function(r) {
