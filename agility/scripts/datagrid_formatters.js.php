@@ -316,9 +316,15 @@ function formatTeamLogos(val,row,idx) {
 }
 
 /* comodity function to set up round SCT unit based on SCT type */
-function round_setUnit(tipo,dest) {
-    if (tipo==0) $(dest).combobox('setValue','s'); // fixed SCT: set unit to seconds
-    if (tipo==6) $(dest).combobox('setValue','m/s'); // Velocity instead of time/percent: set unit to mts/sec
+function round_setUnit(unit,dest) {
+    if (unit==0) $(dest).combobox('setValue','s'); // fixed SCT: set unit to seconds
+    if (unit==6) $(dest).combobox('setValue','m'); // Velocity instead of time/percent: set unit to mts/sec
+}
+
+/* comodity function to set up round SCT mode based on SCT unit */
+function round_setMode(tipo,dest) {
+    if (tipo==='s') $(dest).combobox('setValue',0); // on change to seconds assume fixed sct (most of the cases will match)
+    if (tipo==='m') $(dest).combobox('setValue',6); // on change to m/s force speed defined sct
 }
 
 function formatTeamResults( name,value , rows ) {
@@ -326,8 +332,7 @@ function formatTeamResults( name,value , rows ) {
     var time=0.0;
     var penal=0.0;
     var logos="";
-    // var width=($('#header-combinadaFlag').text()==='true')?500:1000;
-    var width= 0.9 * parseInt($(name).css('width').replace('px',''));
+    var width=toPercent($(name).datagrid('getPanel').panel('options').width,90);
     var mindogs=getMinDogsByTeam();
     function addLogo(logo) {
         if (logos.indexOf(logo)>=0) return;
@@ -343,7 +348,6 @@ function formatTeamResults( name,value , rows ) {
             addLogo(rows[n].LogoClub);
         }
     }
-    var width=toPercent($(name).datagrid('getPanel').panel('options').width,90);
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
     return '<div class="vw_equipos3" style="width:'+width+'px">'+
         '<span style="width:'+toPercent(width,20)+'px;text-align:left;">'+logos+'</span>'+

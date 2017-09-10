@@ -418,29 +418,77 @@ function dmanga_shareJuez() {
  * @param {int} id Identificador de la manga
  */
 function save_manga(id) {
+
+    function real_saveManga() {
+        var frm = $('#competicion-formdatosmanga');
+        $.ajax({
+            type: 'GET',
+            url: '/agility/server/database/mangaFunctions.php',
+            data: frm.serialize(),
+            dataType: 'json',
+            success: function (result) {
+                if (result.hasOwnProperty('errorMsg')){
+                    $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
+                } else {// on submit success, reload results
+                    var recorrido=$("input:radio[name=Recorrido]:checked").val();
+                    $.messager.alert('<?php _e('Data saved'); ?>','<?php _e('Data on current round stored'); ?>','info');
+                    workingData.datosManga.Recorrido=recorrido;
+                    // update tspeed value
+                    dmanga_evalTimeSpeed();
+                    // refresh result window if required
+                    setupResultadosWindow(recorrido);
+                }
+            }
+        });
+    }
+
+    // PENDING:
+    // more elaborate checks are needed for parsing sct
+    function check_dmanga(cat) {
+        var dist = parseInt($('#dmanga_Dist' + cat).textbox('getValue'));
+        var trst = parseInt($('#dmanga_TRS_' + cat + '_Tipo').combobox('getValue'));
+        var trsf = parseInt($('#dmanga_TRS_' + cat + '_Factor').textbox('getValue'));
+        var trm = parseInt($('#dmanga_TRM_' + cat + '_Factor').textbox('getValue'));
+        if (dist === 0) missing = true;
+        if (trm === 0) missing = true;
+        if (trst === 0 && trsf === 0) missing = true; // fixed sct and empty data
+        if (trst === 6 && trsf === 0) missing = true; // speed based sct and empty data
+    }
+
+    var missing=false;
+    var rec=$("input:radio[name=Recorrido]:checked").val();
+    var data=ac_fedInfo[workingData.federation]['InfoManga'][rec];// {object{L,M,S,T} } data
     $('#dmanga_Operation').val('update');
     $('#dmanga_Jornada').val(workingData.jornada);
     $('#dmanga_Manga').val(id);
-    var frm = $('#competicion-formdatosmanga');
-    $.ajax({
-        type: 'GET',
-        url: '/agility/server/database/mangaFunctions.php',
-        data: frm.serialize(),
-        dataType: 'json',
-        success: function (result) {
-            if (result.hasOwnProperty('errorMsg')){
-            	$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
-            } else {// on submit success, reload results
-    			var recorrido=$("input:radio[name=Recorrido]:checked").val();
-    			$.messager.alert('<?php _e('Data saved'); ?>','<?php _e('Data on current round stored'); ?>','info');
-    			workingData.datosManga.Recorrido=recorrido;
-    			// update tspeed value
-                dmanga_evalTimeSpeed();
-                // refresh result window if required
-    			setupResultadosWindow(recorrido);
-            }
+
+    if (data['L']!=='') check_dmanga('L');
+    if (data['M']!=='') check_dmanga('M');
+    if (data['S']!=='') check_dmanga('S');
+    if (data['T']!=='') check_dmanga('T');
+    if (missing===false ) { real_saveManga(); return false; }
+
+    // missing data found: warn user before continue
+    var ok=$.messager.defaults.ok;
+    var cancel=$.messager.defaults.cancel;
+    $.messager.defaults.ok="<?php _e('Continue');?>";
+    $.messager.defaults.cancel="<?php _e('Back');?>";
+    $.messager.confirm({
+        title:"<?php _e('Missing data');?>",
+        msg:"<?php _e('Some category has missing values for');?><br/>"+
+            "<?php _e('either distance, SCT or MCT');?><br/>"+
+            "<?php _e('Continue');?>?",
+        width:450,
+        height:'auto',
+        icon:'warning',
+        fn: function(r) {
+            // restore text
+            $.messager.defaults.ok=ok;
+            $.messager.defaults.cancel=cancel;
+            if (r) real_saveManga();
         }
     });
+    return false;
 }
 
 /**

@@ -58,15 +58,15 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 		</tr>
 		<tr> <!-- fila 1 tipos de recorrido -->
 			<td><?php _e('Courses'); ?>: </td>
-			<td colspan="3">
+			<td colspan="3"> <!-- comun -->
 				<input type="radio" id="dmanga_Recorrido_0" name="Recorrido" value="2" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_0"><?php echo $fed->getRecorrido(0); ?></label>
 			</td>
-			<td colspan="3">
+			<td colspan="3"> <!-- mixto -->
 				<input type="radio" id="dmanga_Recorrido_1" name="Recorrido" value="1" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_1"><?php echo $fed->getRecorrido(1); ?></label>
 			</td>
-			<td colspan="3">
+			<td colspan="3"> <!-- recorridos separados -->
 				<input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="0" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_2"><?php echo $fed->getRecorrido(2);  ?></label>
 			</td>
@@ -362,10 +362,10 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
     $('#dmanga_TRS_T_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_T_Unit')}});
     $('#dmanga_TRS_L_Factor').textbox(); $('#dmanga_TRS_M_Factor').textbox();
     $('#dmanga_TRS_S_Factor').textbox(); $('#dmanga_TRS_T_Factor').textbox();
-    $('#dmanga_TRS_L_Unit').combobox({valueField:'value',panelHeight:'auto'});
-    $('#dmanga_TRS_M_Unit').combobox({valueField:'value',panelHeight:'auto'});
-    $('#dmanga_TRS_S_Unit').combobox({valueField:'value',panelHeight:'auto'});
-    $('#dmanga_TRS_T_Unit').combobox({valueField:'value',panelHeight:'auto'});
+    $('#dmanga_TRS_L_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_L_Tipo')}});
+    $('#dmanga_TRS_M_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_M_Tipo')}});
+    $('#dmanga_TRS_S_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_S_Tipo')}});
+    $('#dmanga_TRS_T_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_T_Tipo')}});
     $('#dmanga_TRS_L_TimeSpeed').textbox(); $('#dmanga_TRS_M_TimeSpeed').textbox();
     $('#dmanga_TRS_S_TimeSpeed').textbox(); $('#dmanga_TRS_T_TimeSpeed').textbox();
     $('#dmanga_TRM_L_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_L_Unit')}});
