@@ -38,10 +38,14 @@ class PartialScoresWriter extends XLSX_Writer {
     protected $cols = null;
     protected $fields = null;
 
-	/**
-	 * Constructor
-	 * @throws Exception
-	 */
+    /**
+     * PartialScoresWriter constructor.
+     * @param {integer} $idprueba
+     * @param {integer} $idjornada
+     * @param {object} $manga
+     * @param {array} $resultados
+     * @param {integer} $mode
+     */
 	function __construct($idprueba,$idjornada,$manga,$resultados,$mode) {
         parent::__construct("partial_scores.xlsx");
         setcookie('fileDownload', 'true', time() + 30, "/"); // tell browser to hide "downloading" message box

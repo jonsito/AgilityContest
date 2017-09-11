@@ -32,6 +32,7 @@ require_once(__DIR__."/classes/EntrenamientosWriter.php");
 require_once(__DIR__."/classes/InscripcionesWriter.php");
 require_once(__DIR__."/classes/DogsWriter.php");
 require_once(__DIR__."/classes/ClasificacionesWriter.php");
+require_once(__DIR__."/classes/PartialScoresWriter.php");
 
 // Obtenemos parametros de la peticion
 $club=http_request("Club","i",0); // -1:empty template 0:inscriptions x:club template
@@ -53,20 +54,18 @@ try {
             break;
         case "PartialScores":
             // get required objects
+            // round
             $mngobj= new Mangas("excelResultadosByManga",$jornada);
-            $manga=$mngobj->selectByID($manga);
+            $mng=$mngobj->selectByID($manga);
+            // results
             $resobj= Competitions::getResultadosInstance("excelResultadosByManga",$manga);
-
-            // retrieve results
             $resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
+            // starting order
             $osobj= Competitions::getOrdenSalidaInstance("excelResultadosByManga",$manga);
-            // reindex resultados in starting order
-            $res=$osobj->getData(false,$mode,$resultados);
-            // add trs/trm information
-            $res['trs']=$resultados['trs'];
-
+            $res=$osobj->getData(false,$mode,$resultados); // reindex resultados in starting order
+            $res['trs']=$resultados['trs']; // add trs/trm information
             // Creamos generador de documento
-            $excel = new PartialScoresWriter($prueba,$jornada,$manga,$res,$mode);
+            $excel = new PartialScoresWriter($prueba,$jornada,$mng,$res,$mode);
             break;
         case "Dogs":
             $excel = new DogsWriter($federation);

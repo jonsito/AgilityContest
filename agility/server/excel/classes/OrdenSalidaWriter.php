@@ -113,13 +113,6 @@ class OrdenSalidaWriter extends XLSX_Writer {
     }
 
     private function writeTableHeader() {
-        // internationalize header texts
-        $cols=array();
-        for($n=0;$n<count($this->header);$n++) {
-            $cols[$n]=_utf($this->header[$n]);
-        }
-        // send to excel
-        $this->myWriter->addRowWithStyle($cols,$this->rowHeaderStyle);
         // add round information
         $row=array();
         array_push($row,_('Date'));
@@ -133,6 +126,14 @@ class OrdenSalidaWriter extends XLSX_Writer {
         array_push($row,_('Round'));
         array_push($row,_(Mangas::getTipoManga($this->manga->Tipo,1,$this->federation)));
         $this->myWriter->addRow($row);
+
+        // now add table header
+        $cols=array();
+        for($n=0;$n<count($this->header);$n++) {
+            $cols[$n]=_utf($this->header[$n]);
+        }
+        // send to excel
+        $this->myWriter->addRowWithStyle($cols,$this->rowHeaderStyle);
     }
 
     function composeTableConjunta() {
