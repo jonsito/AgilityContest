@@ -313,16 +313,18 @@ class DogReader {
         $state=0; // parse status 0:vars  1:header 2:data
         $timeout=ini_get('max_execution_time');
         foreach ($sheet->getRowIterator() as $row) {
-            if ($this->isEmptyRow($index,$row)) continue;
+            // count the number of non-empty cells in this row
+            for($nitems=0,$n=0;$n<count($row);$n++) if ($row[$n]!=="") $nitems++;
+            if($nitems===0) continue;
             // first line must contain field names
             switch ($state) {
-                // if row width equals 2 means that we have some internal variables to add from sheet
+                // if row width equals 2 or 3 means that we have some internal variables to add from sheet
                 case 0: // parse and store (if any) provided variables
-                    $nitems=count($row);
-                    if ($nitems==2) { $this->excelVars[$row[0]]=$row[1]; break; }
-                    if ($nitems==3) { $this->excelVars[$row[0]]=array($row[1],$row[2]); break; }
+                    if ($nitems===2) { $this->excelVars[$row[0]]=$row[1]; break; }
+                    if ($nitems===3) { $this->excelVars[$row[0]]=array($row[1],$row[2]); break; }
                     // no break. no increase ID key
                 case 1: // validate header and create table
+                    $this->myLogger->trace("parsing header: ".json_encode($row));
                     // check that every required field is present
                     $this->validateHeader($row); // throw exception on fail
                     // create temporary table in database to store and analyze Excel data

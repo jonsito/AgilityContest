@@ -54,8 +54,8 @@ if ($op==='progress') {
 try {
     // 	Creamos generador de documento
     $mode=http_request("Mode","s","");
-    if ($mode==="") throw new Exception("excelReaderFunctions(): no mode selected");
-    if ($mode==="resultados") throw new Exception("excelResultsReader(): not yet implemented");
+    if ($mode==="") throw new Exception("excelReaderFunctions(): no import mode selected");
+    // if ($mode==="resultados") throw new Exception("excelResultsReader(): not yet implemented");
 
     $options['Blind']=http_request("Blind","i",0);
     $options['DBPriority']=http_request("DBPriority","i",1);
