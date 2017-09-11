@@ -33,13 +33,14 @@ $config =Config::getInstance();
  */
 function print_listaPerros(mode) {
     var url='/agility/server/pdf/print_listaPerros.php';
-    if (mode==="excel") url='/agility/server/excel/dog_writer.php';
+    if (mode==="excel") url='/agility/server/excel/excelWriterFunctions.php';
     var options=$('#perros-datagrid').datagrid('options');
     $.fileDownload(
         url,
         {
             httpMethod: 'GET',
             data: {
+                Operation: 'Dogs',
                 Federation: workingData.federation,
                 where:$('#perros-datagrid-search').val(),
                 sort: options.sortName,
@@ -82,12 +83,13 @@ function print_ordenTandas(comments) {
  */
 function print_entrenamientos(mode) {
 	var url='/agility/server/pdf/print_entrenamientos.php';
-	if (mode==="excel") url='/agility/server/excel/trainingtable_writer.php';
+	if (mode==="excel") url='/agility/server/excel/excelWriterFunctions.php';
 	$.fileDownload(
 		url,
 		{
 			httpMethod: 'GET',
 			data: {
+			    Operation: 'TrainingTable',
 				Federation: workingData.federation,
 				Prueba: workingData.prueba
 			},
@@ -110,12 +112,13 @@ function print_entrenamientos(mode) {
  */
 function print_ordenSalida(cats,excel,rango,comentarios) {
     var url='/agility/server/pdf/print_ordenDeSalida.php';
-	if (excel) url='/agility/server/excel/ordensalida_writer.php';
+	if (excel) url='/agility/server/excel/excelWriterFunctions.php';
     $.fileDownload(
         url,
         {
             httpMethod: 'GET',
             data: {
+                Operation: 'OrdenSalida',
                 Prueba: workingData.prueba,
                 Jornada: workingData.jornada,
                 Manga: workingData.manga,
@@ -245,7 +248,7 @@ function importExportParcial(recorrido) {
             switch(parseInt(r)){
                 case 0:
                     $.fileDownload(
-                        '/agility/server/excel/partialscores_writer.php',
+                        '/agility/server/excel/excelWriterFunctions.php',
                         {
                             httpMethod: 'GET',
                             data: {
@@ -253,7 +256,7 @@ function importExportParcial(recorrido) {
                                 Jornada: workingData.jornada,
                                 Manga: workingData.manga,
                                 Mode: mode,
-                                Operation: 'excel'
+                                Operation: 'PartialScores'
                             },
                             preparingMessageHtml: '(Excel partial scores) <?php _e("We are preparing your report, please wait"); ?> ...',
                             failMessageHtml: '(Excel partial scores) <?php _e("There was a problem generating your report, please contact author."); ?>'
@@ -323,7 +326,7 @@ function print_parcial(mode) {
                     break;
                 case 1: // create excel file
                     $.fileDownload(
-                        '/agility/server/excel/partialscores_writer.php',
+                        '/agility/server/excel/excelWriterFunctions.php',
                         {
                             httpMethod: 'GET',
                             data: {
@@ -331,7 +334,7 @@ function print_parcial(mode) {
                                 Jornada: workingData.jornada,
                                 Manga: workingData.manga,
                                 Mode: mode,
-                                Operation: 'excel'
+                                Operation: 'PartialScores'
                             },
                             preparingMessageHtml: '(Excel partial scores) <?php _e("We are preparing your report, please wait"); ?> ...',
                             failMessageHtml: '(Excel partial scores) <?php _e("There was a problem generating your report, please contact author."); ?>'

@@ -29,6 +29,7 @@ require_once(__DIR__ . "/XLSXWriter.php");
 class EntrenamientosWriter extends XLSX_Writer {
 
 	protected $lista; // tandas de entrenamientos
+    protected $fedID;
 
     protected $cols = array();
     protected $fields = array( 'NombreClub','Fecha','Firma','Veterinario','Comienzo','Duracion','Key1','Value1','Key2','Value2','Key3','Value3','Key4','Value4','Observaciones');
@@ -47,6 +48,7 @@ class EntrenamientosWriter extends XLSX_Writer {
 			$errormsg="print_listaPerros: select() failed";
 			throw new Exception($errormsg);
 		}
+		$this->fedID=$fed;
 		$clb=Federations::getFederation(intval($fed))->getClubString(); // country or club
 		$this->cols=
             array( $clb,_('Date'),_('Check-in'),_('Veterinary'),_('Start'),_('Duration'),'Key1','Value1','Key2','Value2','Key3','Value3','Key4','Value4',_('Comments'));
@@ -64,13 +66,14 @@ class EntrenamientosWriter extends XLSX_Writer {
 
 	function composeTable() {
 		$this->myLogger->enter();
-
+		// create information page
+        $this->createInfoPage(_utf("Training table"),intval($this->fedID));
 		// Create page
 		$dogspage=$this->myWriter->addNewSheetAndMakeItCurrent();
 		$dogspage->setName(_("Trainings"));
 		// write header
 		$this->writeTableHeader();
-
+        // write rows
 		foreach($this->lista as $item) {
 			$row=array();
 			// extract relevant information from database received dog

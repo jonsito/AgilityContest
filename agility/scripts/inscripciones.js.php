@@ -418,10 +418,10 @@ function importExportInscripciones() {
             if (opt==2) club=0;
             if (opt!=3) { // export
                 $.fileDownload(
-                    '/agility/server/excel/inscription_writer.php',
+                    '/agility/server/excel/excelWriterFunctions.php',
                     {
                         httpMethod: 'GET',
-                        data: {	'Prueba': workingData.prueba, 'Club': club },
+                        data: {	'Operation':'Inscripciones','Prueba': workingData.prueba, 'Club': club },
                         preparingMessageHtml: '<?php _e("Creating Excel file. Please wait"); ?> ...',
                         failMessageHtml: '<?php _e("There was a problem generating your report, please try again"); ?>.'
                     }

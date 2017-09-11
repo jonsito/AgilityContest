@@ -28,18 +28,21 @@ require_once(__DIR__ . "/XLSXWriter.php");
 class DogsWriter extends XLSX_Writer {
 
 	protected $lista; // listado de perros
+    protected $fedID;
 
     protected $cols = array( 'Name','LongName','Gender','Breed','Chip','License','KC id','Category','Grade','Handler','Club','Province','Country');
     protected $fields = array( 'Nombre','NombreLargo','Genero','Raza','Chip','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Provincia','Pais');
 
 	/**
 	 * Constructor
+     * @param {integer} $fed Federation ID
 	 * @throws Exception
 	 */
-	function __construct() {
+	function __construct($fed) {
 		parent::__construct("doglist.xlsx");
 		setcookie('fileDownload','true',time()+30,"/"); // tell browser to hide "downloading" message box
-        $d=new Dogs("excel_listaPerros",$this->federation);
+        $this->fedID=$fed;
+        $d=new Dogs("excel_listaPerros",$this->fedID);
         $res=$d->select();
         if (!is_array($res)){
 			$this->errormsg="print_listaPerros: select() failed";
@@ -59,13 +62,14 @@ class DogsWriter extends XLSX_Writer {
 
 	function composeTable() {
 		$this->myLogger->enter();
-
-		// Create page
+        // create inrormational page
+        $this->createInfoPage(_utf("Dog Listing"),intval($this->fedID));
+		// Create data page
 		$dogspage=$this->myWriter->addNewSheetAndMakeItCurrent();
 		$dogspage->setName(_("Dogs"));
 		// write header
 		$this->writeTableHeader();
-
+        // populate table
 		foreach($this->lista as $perro) {
 			$row=array();
 			// extract relevant information from database received dog

@@ -37,7 +37,7 @@ class OrdenSalidaWriter extends XLSX_Writer {
     protected $validcats; // categorias que nos han pedido listar
     protected $equipos; // tell to print standard or team4 mode
     protected $useLongNames;
-
+    protected $team4;
     protected $header;
     protected $fields;
     /**
@@ -79,6 +79,7 @@ class OrdenSalidaWriter extends XLSX_Writer {
         $os= $o->getData();
         $this->orden=$os['rows'];
         // orden de salida de los equipos de la jornada
+        $this->team4=$team4;
         $teams= $o->getTeams();
         $this->equipos=$teams['rows'];
 
@@ -183,7 +184,7 @@ class OrdenSalidaWriter extends XLSX_Writer {
         $this->myLogger->leave();
     }
 
-    function composeTable() {
+    function composeTableIndividual() {
         $this->myLogger->enter();
         // Create page
         $dogspage=$this->myWriter->addNewSheetAndMakeItCurrent();
@@ -237,6 +238,11 @@ class OrdenSalidaWriter extends XLSX_Writer {
             $index++;
         }
         $this->myLogger->leave();
+    }
+
+    function composeTable() {
+        if ($this->team4===0) return $this->composeTableIndividual();
+        else return $this->composeTableConjunta();
     }
 }
 ?>

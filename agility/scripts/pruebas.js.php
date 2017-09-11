@@ -191,7 +191,7 @@ function deletePrueba(dg){
 
 function exportPrueba(dg) {
     var row = $(dg).datagrid('getSelected');
-    var url='/agility/server/excel/scores_writer.php';
+    var url='/agility/server/excel/excelWriterFunctions.php';
     if (!row) {
         $.messager.alert('<?php _e("Export error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
         return; // no way to know which prueba is selected
@@ -201,6 +201,7 @@ function exportPrueba(dg) {
         {
             httpMethod: 'GET',
             data: {
+                Operation: 'FinalScores',
                 Prueba:row.ID
             },
             preparingMessageHtml: '<?php _e("We are preparing your report, please wait"); ?> ...',
@@ -248,7 +249,6 @@ function pruebas_emailEditClub(index,row) {
 
 function emailPrueba(dg) {
     var row = $(dg).datagrid('getSelected');
-    var url='/agility/server/excel/scores_writer.php';
     if (!row) {
         $.messager.alert('<?php _e("Mailer error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
         return false; // no way to know which prueba is selected
