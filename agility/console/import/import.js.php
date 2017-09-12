@@ -321,7 +321,7 @@ function excel_importHandleResult(data) {
         case "abort": // cancel transaction
             import_setProgressStatus("running");
             dlg.dialog('close'); // close import dialog
-            reloadWithSearch(datagrid,'select',false); // and reload dogs datagrid
+            reloadWithSearch(datagrid,'select',false); // and reload imported datagrid
             break;
         case "import": // import dogs finished.
             import_setProgressStatus("running");
@@ -332,7 +332,7 @@ function excel_importHandleResult(data) {
             import_setProgressStatus("stopped");
             $.messager.alert('<?php _e("Import Done");?>','<?php _e("Import from Excel File Done");?>','info');
             dlg.dialog('close'); // close import dialog
-            reloadWithSearch(datagrid,'select',false); // and reload dogs datagrid
+            reloadWithSearch(datagrid,'select',false); // and reload imported datagrid
             break;
         case "progress": // receive progress status from server
             // iterate until "Done." received
