@@ -54,8 +54,8 @@ $config =Config::getInstance();
             <span style="display:none">
                 <label for="import-excelParseCourseData"><?php _e("Also read (if available) course data");?></label>
                 <input id="import-excelParseCourseData"  type=checkbox name="excelParseCourseData" value="1" checked="checked"/>
-                <label for="import-excelAllowNoLicense"><?php _e("Try to deal entry when no license provided");?></label>
-                <input id="import-excelAllowNoLicense" type="checkbox" name="excelAllowNoLicense" value="1" checked="checked"/>
+                <label for="import-excelIgnoreNotPresent"><?php _e("Try to deal entry when no license provided");?></label>
+                <input id="import-excelIgnoreNotPresent" type="checkbox" name="excelIgnoreNotPresent" value="1" checked="checked"/>
                 <br />
             </span>
         </p>

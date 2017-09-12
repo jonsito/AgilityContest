@@ -33,7 +33,7 @@ var ac_import = {
     'db_priority':1, // blind mode: on match use database data instead of excel data
     'ignore_spaces':1, // blind mode: blank field are ignored, or used to override DB data
     'parse_coursedata': 1, // on result imports also read (if available) course data
-    'allow_nolicense': 1, // on result imports try to hanle data if no license provided
+    'ignore_notpresent': 1, // on result imports skip entries that states "No Presentado"
     'suffix': '',
     'count': 0 // sequence counter
 };
@@ -217,7 +217,7 @@ function excel_importSendTask(params) {
             WordUpperCase:   ac_import.word_upercase,
             IgnoreWhitespaces:ac_import.ignore_spaces,
             ParseCoursedata: ac_import.parse_coursedata,
-            AllowNoLicense: ac_import.allow_nolicense,
+            IgnoreNotPresent: ac_import.ignore_notpresent,
             Suffix       :   ac_import.suffix,
             Count        :   ac_import.count
         },
@@ -404,7 +404,7 @@ function real_excelImport(mode) {
     ac_import.mode=mode;
     // checkboxes
     ac_import.blind=$('#import-excelBlindMode').prop('checked')?1:0;
-    ac_import.allow_nolicense=$('#import-excelAllowNoLicense').prop('checked')?1:0;
+    ac_import.ignore_notpresent=$('#import-excelIgnoreNotPresent').prop('checked')?1:0;
     ac_import.parse_coursedata=$('#import-excelParseCourseData').prop('checked')?1:0;
     // radiobuttons: use checked value
     ac_import.db_priority=$('input[name=excelPreference]:checked').val();

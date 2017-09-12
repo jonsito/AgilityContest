@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-09-10 14:20+0200\n"
-"PO-Revision-Date: 2017-09-10 14:22+0200\n"
+"POT-Creation-Date: 2017-09-12 12:41+0200\n"
+"PO-Revision-Date: 2017-09-12 12:41+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -112,7 +112,7 @@ msgstr "R"
 #: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:149
 #: public/pbmenu_inscripciones.php:102
 #: public/pbmenu_inscripciones_equipos.php:144 scripts/competicion.js.php:1370
-#: scripts/printer.js.php:376 scripts/results_and_scores.js.php:320
+#: scripts/printer.js.php:379 scripts/results_and_scores.js.php:320
 #: server/pdf/classes/PrintClasificacion.php:206
 #: server/pdf/classes/PrintClasificacionExcel.php:157
 #: server/pdf/classes/PrintClasificacionTeam.php:233
@@ -142,7 +142,9 @@ msgstr "Dorsal"
 #: console/dialogs/dlg_newInscripcion.inc:154 console/frm_perros.php:136
 #: console/import/import.js.php:156 console/import/import.js.php:168
 #: console/import/import.js.php:182 console/import/import_perros.inc.php:92
-#: scripts/competicion.js.php:1370 scripts/printer.js.php:376
+#: console/import/import_results.inc.php:91
+#: console/import/import_results.inc.php:92 scripts/competicion.js.php:1370
+#: scripts/printer.js.php:379
 msgid "Dog"
 msgstr "Perro"
 
@@ -155,6 +157,7 @@ msgstr "Perro"
 #: console/frm_inscripciones2.php:273 console/frm_perros.php:141
 #: console/import/import.js.php:116 console/import/import.js.php:128
 #: console/import/import.js.php:141 console/import/import_perros.inc.php:95
+#: console/import/import_results.inc.php:95
 #: lib/templates/final_individual.inc.php:21
 #: lib/templates/final_individual_2rondas.inc.php:28
 #: lib/templates/final_last_individual.inc.php:34
@@ -166,7 +169,7 @@ msgstr "Perro"
 #: livestream/vwls_osdvideo.php:88 public/pb_inscripciones.php:108
 #: public/pb_inscripciones_equipos.php:156 public/pbmenu_inscripciones.php:108
 #: public/pbmenu_inscripciones_equipos.php:151 scripts/competicion.js.php:1370
-#: scripts/printer.js.php:376 scripts/results_and_scores.js.php:255
+#: scripts/printer.js.php:379 scripts/results_and_scores.js.php:255
 #: scripts/results_and_scores.js.php:327
 #: server/pdf/classes/PrintClasificacion.php:223
 #: server/pdf/classes/PrintClasificacionExcel.php:162
@@ -210,7 +213,8 @@ msgstr "Gu&iacute;a"
 #: console/frm_perros.php:142 console/frm_registration.php:62
 #: console/import/import.js.php:75 console/import/import.js.php:88
 #: console/import/import.js.php:101 console/import/import_handlers.inc.php:83
-#: console/import/import_perros.inc.php:96 index.php:192
+#: console/import/import_perros.inc.php:96
+#: console/import/import_results.inc.php:96 index.php:192
 #: lib/templates/entrenamientos.inc.php:17
 #: lib/templates/final_individual.inc.php:22
 #: lib/templates/final_individual_2rondas.inc.php:29
@@ -240,7 +244,7 @@ msgstr "Club"
 #: console/frm_clasificaciones2.php:73
 #: console/frm_clasificaciones_equipos.php:81 console/frm_clubes.php:174
 #: console/frm_guias.php:93 livestream/vwls_osdvideo.php:90
-#: server/excel/classes/OrdenSalidaWriter.php:204
+#: server/excel/classes/OrdenSalidaWriter.php:206
 #: server/pdf/classes/PrintClasificacionExcel.php:160
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:128
@@ -260,8 +264,9 @@ msgstr "Categor&iacute;a"
 #: console/frm_guias.php:151 console/frm_inscripciones2.php:272
 #: console/frm_paises.php:226 console/frm_perros.php:140
 #: console/frm_perros.php:185 console/import/import_perros.inc.php:94
-#: livestream/vwls_osdvideo.php:91 public/pb_inscripciones.php:107
-#: public/pb_inscripciones_equipos.php:155 public/pbmenu_inscripciones.php:107
+#: console/import/import_results.inc.php:94 livestream/vwls_osdvideo.php:91
+#: public/pb_inscripciones.php:107 public/pb_inscripciones_equipos.php:155
+#: public/pbmenu_inscripciones.php:107
 #: public/pbmenu_inscripciones_equipos.php:150
 #: server/pdf/classes/PrintClasificacionExcel.php:161
 #: server/pdf/classes/PrintInscripciones.php:126
@@ -282,8 +287,8 @@ msgstr "Grado"
 #: livestream/vwls_osdvideo.php:92 public/pb_inscripciones.php:111
 #: public/pb_inscripciones_equipos.php:159 public/pbmenu_inscripciones.php:111
 #: public/pbmenu_inscripciones_equipos.php:154
-#: server/excel/classes/OrdenSalidaWriter.php:175
-#: server/excel/classes/OrdenSalidaWriter.php:232
+#: server/excel/classes/OrdenSalidaWriter.php:177
+#: server/excel/classes/OrdenSalidaWriter.php:234
 #: server/pdf/classes/PrintEntradaDeDatos.php:168
 #: server/pdf/classes/PrintEntradaDeDatos.php:270
 #: server/pdf/classes/PrintEntradaDeDatos.php:363
@@ -341,9 +346,9 @@ msgstr "Eliminado"
 #: console/dialogs/dlg_selectJornada.inc:157 console/import/import.js.php:417
 #: scripts/admin.js.php:38 scripts/admin.js.php:57 scripts/admin.js.php:82
 #: scripts/admin.js.php:403 scripts/common.js.php:361 scripts/common.js.php:386
-#: scripts/common.js.php:433 scripts/common.js.php:690
-#: scripts/common.js.php:702 scripts/common.js.php:714
-#: scripts/common.js.php:729 scripts/competicion.js.php:403
+#: scripts/common.js.php:433 scripts/common.js.php:691
+#: scripts/common.js.php:703 scripts/common.js.php:715
+#: scripts/common.js.php:730 scripts/competicion.js.php:403
 #: scripts/competicion.js.php:431 scripts/competicion.js.php:562
 #: scripts/competicion.js.php:569 scripts/competicion.js.php:581
 #: scripts/competicion.js.php:684 scripts/competicion.js.php:858
@@ -360,11 +365,11 @@ msgstr "Eliminado"
 #: scripts/inscripciones.js.php:290 scripts/inscripciones.js.php:377
 #: scripts/jueces.js.php:93 scripts/perros.js.php:183 scripts/perros.js.php:203
 #: scripts/perros.js.php:212 scripts/perros.js.php:264
-#: scripts/perros.js.php:291 scripts/printer.js.php:417
-#: scripts/printer.js.php:476 scripts/printer.js.php:513
-#: scripts/printer.js.php:555 scripts/printer.js.php:591
+#: scripts/perros.js.php:291 scripts/printer.js.php:420
+#: scripts/printer.js.php:479 scripts/printer.js.php:516
+#: scripts/printer.js.php:558 scripts/printer.js.php:594
 #: scripts/pruebas.js.php:113 scripts/pruebas.js.php:185
-#: scripts/pruebas.js.php:233 scripts/pruebas.js.php:296
+#: scripts/pruebas.js.php:234 scripts/pruebas.js.php:296
 #: scripts/pruebas.js.php:459 scripts/pruebas.js.php:607
 #: scripts/pruebas.js.php:613 scripts/results_and_scores.js.php:48
 #: scripts/results_and_scores.js.php:149 scripts/results_and_scores.js.php:363
@@ -572,6 +577,7 @@ msgstr "Gu&iacute;a"
 #: console/frm_equipos.php:327 console/frm_guias.php:150
 #: console/frm_inscripciones2.php:271 console/frm_perros.php:139
 #: console/frm_perros.php:184 console/import/import_perros.inc.php:93
+#: console/import/import_results.inc.php:93
 #: lib/templates/final_individual.inc.php:20
 #: lib/templates/final_individual_2rondas.inc.php:24
 #: lib/templates/final_last_individual.inc.php:30
@@ -616,8 +622,8 @@ msgstr "Grd"
 #: public/pb_inscripciones_equipos.php:100
 #: public/pbmenu_inscripciones_equipos.php:95
 #: server/database/classes/OrdenSalida.php:507
-#: server/excel/classes/OrdenSalidaWriter.php:153
-#: server/excel/classes/OrdenSalidaWriter.php:211 tablet/tablet_main.php:288
+#: server/excel/classes/OrdenSalidaWriter.php:155
+#: server/excel/classes/OrdenSalidaWriter.php:213 tablet/tablet_main.php:288
 #: videowall/vwc_finales.php:218 videowall/vwc_parciales.php:230
 msgid "Team"
 msgstr "Equipo"
@@ -631,7 +637,7 @@ msgstr "Equipo"
 #: scripts/datagrid_formatters.js.php:164
 #: scripts/datagrid_formatters.js.php:527
 #: scripts/datagrid_formatters.js.php:537
-#: server/excel/classes/DogReader.php:392 server/modules/Federations.php:399
+#: server/excel/classes/DogReader.php:394 server/modules/Federations.php:399
 #: server/pdf/classes/PrintEntrenamientos.php:59
 #: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:187
 msgid "Country"
@@ -718,7 +724,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: public/pbmenu_inscripciones.php:112
 #: public/pbmenu_inscripciones_equipos.php:97
 #: public/pbmenu_inscripciones_equipos.php:155 public/pbmenu_programa.php:106
-#: server/excel/classes/EntrenamientosWriter.php:52
+#: server/excel/classes/EntrenamientosWriter.php:54
 #: server/excel/classes/XLSXWriter.php:114
 #: server/pdf/classes/PrintEntradaDeDatos.php:364
 #: server/pdf/classes/PrintEntradaDeDatos.php:449
@@ -746,6 +752,7 @@ msgstr "Re-asignaci&oacute;n de gu&iacute;as"
 #: console/import/import_clubes.inc.php:32
 #: console/import/import_handlers.inc.php:30
 #: console/import/import_perros.inc.php:30
+#: console/import/import_results.inc.php:30
 msgid "Search"
 msgstr "Buscar"
 
@@ -761,6 +768,7 @@ msgstr "Buscar"
 #: console/import/import_clubes.inc.php:35
 #: console/import/import_handlers.inc.php:33
 #: console/import/import_perros.inc.php:33
+#: console/import/import_results.inc.php:33
 msgid "Clear"
 msgstr "Limpiar"
 
@@ -1222,7 +1230,7 @@ msgstr "Selecciona las categor&iacute;as a mostrar"
 #: livestream/vwls_finales.php:185 livestream/vwls_parciales.php:62
 #: livestream/vwls_parciales.php:127 livestream/vwls_parciales.php:144
 #: public/pb_finales.php:137 public/pbmenu_finales.php:78
-#: server/excel/classes/PartialScoresWriter.php:78
+#: server/excel/classes/PartialScoresWriter.php:82
 #: server/excel/classes/XLSXWriter.php:64
 #: server/excel/classes/XLSXWriter.php:118
 #: server/pdf/classes/PrintClasificacionExcel.php:97 tablet/index.php:164
@@ -1250,7 +1258,7 @@ msgstr "Alerta de proximidad en el orden de salida"
 #: console/dialogs/dlg_entrenamientos.inc:210
 #: console/dialogs/dlg_entrenamientos.inc:216 console/index.php:346
 #: public/pb_programa.php:101 public/pbmenu_programa.php:105
-#: server/excel/classes/DogsWriter.php:65
+#: server/excel/classes/DogsWriter.php:69
 msgid "Dogs"
 msgstr "Perros"
 
@@ -1443,6 +1451,7 @@ msgstr "Al finalizar la cuenta de 15 segundos"
 #: console/import/import_clubes.inc.php:52
 #: console/import/import_handlers.inc.php:52
 #: console/import/import_perros.inc.php:52
+#: console/import/import_results.inc.php:52
 #: lib/templates/import_dialog.inc.php:49
 msgid "Ignore"
 msgstr "Ignorar"
@@ -2276,7 +2285,7 @@ msgstr "Calcular"
 #: console/dialogs/dlg_resultados_individual.inc:53
 #: console/dialogs/dlg_resultados_ko.inc:52 console/frm_inscripciones2.php:119
 #: console/frm_perros.php:81 scripts/entrenamientos.js.php:133
-#: scripts/perros.js.php:309 scripts/printer.js.php:237
+#: scripts/perros.js.php:309 scripts/printer.js.php:240
 msgid "Import/Export"
 msgstr "Importar/Exportar"
 
@@ -2303,8 +2312,8 @@ msgstr "Actualizando sesi&oacute;n de entrenamientos de la prueba"
 #: console/frm_clasificaciones_equipos.php:49
 #: console/frm_inscripciones2.php:174 console/frm_pruebas.php:157
 #: lib/templates/entrenamientos.inc.php:18
-#: server/excel/classes/EntrenamientosWriter.php:52
-#: server/excel/classes/OrdenSalidaWriter.php:124
+#: server/excel/classes/EntrenamientosWriter.php:54
+#: server/excel/classes/OrdenSalidaWriter.php:118
 #: server/excel/classes/XLSXWriter.php:134
 #: server/pdf/classes/PrintClasificacion.php:80
 #: server/pdf/classes/PrintClasificacionExcel.php:103
@@ -2317,27 +2326,27 @@ msgstr "Fecha"
 
 #: console/dialogs/dlg_entrenamientos.inc:183
 #: lib/templates/entrenamientos.inc.php:19
-#: server/excel/classes/EntrenamientosWriter.php:52
+#: server/excel/classes/EntrenamientosWriter.php:54
 msgid "Check-in"
 msgstr "Firma"
 
 #: console/dialogs/dlg_entrenamientos.inc:186
 #: lib/templates/entrenamientos.inc.php:20
-#: server/excel/classes/EntrenamientosWriter.php:52
+#: server/excel/classes/EntrenamientosWriter.php:54
 #: server/pdf/classes/PrintEntrenamientos.php:61
 msgid "Veterinary"
 msgstr "Veterinario"
 
 #: console/dialogs/dlg_entrenamientos.inc:189
 #: lib/templates/entrenamientos.inc.php:21
-#: server/excel/classes/EntrenamientosWriter.php:52
+#: server/excel/classes/EntrenamientosWriter.php:54
 #: server/pdf/classes/PrintEntrenamientos.php:61
 msgid "Start"
 msgstr "Inicio"
 
 #: console/dialogs/dlg_entrenamientos.inc:192
 #: lib/templates/entrenamientos.inc.php:22
-#: server/excel/classes/EntrenamientosWriter.php:52
+#: server/excel/classes/EntrenamientosWriter.php:54
 #: server/pdf/classes/PrintEntrenamientos.php:61
 msgid "Duration"
 msgstr "Duracion"
@@ -2535,8 +2544,8 @@ msgstr "Registrar informaci&oacute;n del juez en la base de datos"
 #: console/frm_guias.php:42 console/frm_inscripciones2.php:109
 #: console/frm_jueces.php:42 console/frm_paises.php:35
 #: console/frm_perros.php:75 console/frm_pruebas.php:42
-#: scripts/common.js.php:1045 scripts/common.js.php:1046
-#: scripts/common.js.php:1059 scripts/common.js.php:1071
+#: scripts/common.js.php:1046 scripts/common.js.php:1047
+#: scripts/common.js.php:1060 scripts/common.js.php:1072
 #: scripts/equipos.js.php:28 scripts/inscripciones.js.php:486
 #: server/tools.php:296
 msgid "-- Search --"
@@ -3021,6 +3030,7 @@ msgstr "Forzar re-envio si ya se ha enviado el correo"
 #: console/import/import_clubes.inc.php:49
 #: console/import/import_handlers.inc.php:49
 #: console/import/import_perros.inc.php:49
+#: console/import/import_results.inc.php:49
 msgid "Select"
 msgstr "Seleccionar"
 
@@ -3165,9 +3175,9 @@ msgstr "Sesi&oacute;n de entrenamientos"
 #: livestream/vwls_ordensalida.php:62 public/pb_ordensalida.php:42
 #: public/pb_ordensalida.php:51 public/pbmenu_ordensalida.php:42
 #: scripts/competicion.js.php:1159 scripts/sesiones.js.php:158
-#: scripts/sesiones.js.php:171 server/excel/classes/OrdenSalidaWriter.php:111
-#: server/excel/classes/OrdenSalidaWriter.php:143
-#: server/excel/classes/OrdenSalidaWriter.php:190
+#: scripts/sesiones.js.php:171 server/excel/classes/OrdenSalidaWriter.php:112
+#: server/excel/classes/OrdenSalidaWriter.php:145
+#: server/excel/classes/OrdenSalidaWriter.php:192
 #: server/pdf/classes/PrintOrdenSalida.php:111
 #: server/pdf/classes/PrintOrdenSalidaEquipos4.php:94
 #: server/pdf/classes/PrintOrdenSalidaKO.php:104 videowall/index.php:238
@@ -3183,7 +3193,7 @@ msgstr "Orden de salida"
 #: public/pb_parciales.php:54 public/pb_parciales_equipos.php:38
 #: public/pb_parciales_equipos.php:44 public/pb_parciales_equipos.php:54
 #: public/pbmenu_parciales.php:44 public/pbmenu_parciales_equipos.php:44
-#: scripts/printer.js.php:293 scripts/sesiones.js.php:160
+#: scripts/printer.js.php:296 scripts/sesiones.js.php:160
 #: scripts/sesiones.js.php:173 scripts/sesiones.js.php:178
 #: videowall/index.php:239 videowall/index.php:243
 #: videowall/vw_parciales.php:43 videowall/vwc_parciales.php:51
@@ -3914,7 +3924,7 @@ msgstr "TRM fijo"
 #: lib/templates/parcial_console_round_data.inc.php:33
 #: lib/templates/parcial_console_round_data.inc.php:42
 #: server/excel/classes/ClasificacionesWriter.php:94
-#: server/excel/classes/PartialScoresWriter.php:84
+#: server/excel/classes/PartialScoresWriter.php:88
 #: server/pdf/classes/PrintClasificacion.php:95
 #: server/pdf/classes/PrintClasificacion.php:119
 #: server/pdf/classes/PrintClasificacion.php:143
@@ -4034,8 +4044,8 @@ msgstr ""
 #: livestream/vwls_osdvideo.php:53 public/pb_parciales.php:55
 #: public/pb_parciales_equipos.php:55
 #: server/excel/classes/ClasificacionesWriter.php:94
-#: server/excel/classes/OrdenSalidaWriter.php:132
-#: server/excel/classes/PartialScoresWriter.php:80
+#: server/excel/classes/OrdenSalidaWriter.php:126
+#: server/excel/classes/PartialScoresWriter.php:84
 #: server/pdf/classes/PrintClasificacion.php:83
 #: server/pdf/classes/PrintClasificacionExcel.php:125
 #: server/pdf/classes/PrintClasificacionExcel.php:134
@@ -4046,7 +4056,7 @@ msgid "Round"
 msgstr "Manga"
 
 #: console/dialogs/inforesultados.inc:36 console/index.php:351
-#: server/excel/classes/PartialScoresWriter.php:81
+#: server/excel/classes/PartialScoresWriter.php:85
 msgid "Judges"
 msgstr "Jueces"
 
@@ -4057,7 +4067,7 @@ msgstr "Jueces"
 #: lib/templates/parcial_console_round_data.inc.php:34
 #: lib/templates/parcial_console_round_data.inc.php:43
 #: server/excel/classes/ClasificacionesWriter.php:94
-#: server/excel/classes/PartialScoresWriter.php:85
+#: server/excel/classes/PartialScoresWriter.php:89
 #: server/pdf/classes/PrintClasificacion.php:96
 #: server/pdf/classes/PrintClasificacion.php:120
 #: server/pdf/classes/PrintClasificacion.php:144
@@ -4196,8 +4206,8 @@ msgstr "Club anfitri&oacute;n"
 #: console/frm_clasificaciones2.php:46
 #: console/frm_clasificaciones_equipos.php:45 index.php:147
 #: scripts/equipos.js.php:73 scripts/equipos.js.php:126
-#: server/excel/classes/OrdenSalidaWriter.php:128
-#: server/excel/classes/PartialScoresWriter.php:79
+#: server/excel/classes/OrdenSalidaWriter.php:122
+#: server/excel/classes/PartialScoresWriter.php:83
 #: server/excel/classes/XLSXWriter.php:66
 #: server/excel/classes/XLSXWriter.php:139
 #: server/pdf/classes/PrintClasificacion.php:78
@@ -5360,11 +5370,13 @@ msgstr "Importar gu&iacute;a"
 
 #: console/import/import_handlers.inc.php:44
 #: console/import/import_perros.inc.php:44
+#: console/import/import_results.inc.php:44
 msgid "Create"
 msgstr "Crear"
 
 #: console/import/import_handlers.inc.php:61
 #: console/import/import_perros.inc.php:65
+#: console/import/import_results.inc.php:65
 msgid "Clear selection"
 msgstr "Borrar selecci&oacute;n"
 
@@ -5381,18 +5393,22 @@ msgid "Ignore handler and their entries from imported Excel data"
 msgstr "Ignorar todas las entradas a importar en que aparezca este gu&iacute;a"
 
 #: console/import/import_perros.inc.php:26
+#: console/import/import_results.inc.php:26
 msgid "Dog import"
 msgstr "Importar perros"
 
 #: console/import/import_perros.inc.php:62
+#: console/import/import_results.inc.php:62
 msgid "Create a new dog with Excel provided data"
 msgstr "Crear un nuevo perro con los datos a importar"
 
 #: console/import/import_perros.inc.php:63
+#: console/import/import_results.inc.php:63
 msgid "Use selected dog to be used in requested Excel import data"
 msgstr "Usar el perro seleccionado en los datos a importar"
 
 #: console/import/import_perros.inc.php:64
+#: console/import/import_results.inc.php:64
 msgid "Ignore data. Do not import Excel dog entry into database"
 msgstr "Ignorar este perro en los datos a importar"
 
@@ -5424,7 +5440,7 @@ msgstr "Iniciar Sesi&oacute;n"
 msgid "DATABASE"
 msgstr "BASE DE DATOS"
 
-#: console/index.php:336 scripts/common.js.php:771
+#: console/index.php:336 scripts/common.js.php:772
 msgid "Clubs"
 msgstr "Clubes"
 
@@ -5752,7 +5768,7 @@ msgstr "Datos de la manga"
 #: lib/templates/final_rounds_data.inc.php:24
 #: lib/templates/parcial_round_data.inc.php:18
 #: server/excel/classes/ClasificacionesWriter.php:94
-#: server/excel/classes/PartialScoresWriter.php:82
+#: server/excel/classes/PartialScoresWriter.php:86
 #: server/pdf/classes/PrintClasificacion.php:93
 #: server/pdf/classes/PrintClasificacion.php:117
 #: server/pdf/classes/PrintClasificacion.php:141
@@ -5769,7 +5785,7 @@ msgstr "Dist"
 #: lib/templates/final_rounds_data.inc.php:25
 #: lib/templates/parcial_round_data.inc.php:19
 #: server/excel/classes/ClasificacionesWriter.php:94
-#: server/excel/classes/PartialScoresWriter.php:83
+#: server/excel/classes/PartialScoresWriter.php:87
 #: server/pdf/classes/PrintClasificacion.php:94
 #: server/pdf/classes/PrintClasificacion.php:118
 #: server/pdf/classes/PrintClasificacion.php:142
@@ -5817,12 +5833,10 @@ msgid "Also read (if available) course data"
 msgstr "Importar datos de pista si est&aacute;n disponibles"
 
 #: lib/templates/import_dialog.inc.php:57
-#: lib/templates/import_results.inc.php:54
 msgid "Try to deal entry when no license provided"
 msgstr "Buscar perro si no se proporciona licencia"
 
 #: lib/templates/import_dialog.inc.php:80
-#: lib/templates/import_results.inc.php:75
 msgid "Assume no coherency errors with current database data"
 msgstr "Asumir que no hay incoherencias con los datos existentes en la BBDD"
 
@@ -5833,6 +5847,14 @@ msgstr "Manga actual donde importar los datos"
 #: lib/templates/import_results.inc.php:17
 msgid "Select Excel file to retrieve round result data from"
 msgstr "Selecciona fichero Excel de donde importar resultados parciales"
+
+#: lib/templates/import_results.inc.php:54
+msgid "Ignore excel entries marked as 'Not Present'"
+msgstr "Omitir entradas excel marcadas como 'No Presentado'"
+
+#: lib/templates/import_results.inc.php:75
+msgid "Silently ignore result when no license/name match found"
+msgstr "Ignorar entradas cuando no coincide ni la licencia ni el nombre"
 
 #: lib/templates/parcial_console_round_data.inc.php:9
 msgid "Technical data on selected round"
@@ -6538,7 +6560,7 @@ msgstr "Gesti&oacute;n de datos de Clubes"
 msgid "Countries Database Info"
 msgstr "Informaci&oacute;n de pa&iacute;ses en la BBDD"
 
-#: scripts/common.js.php:768
+#: scripts/common.js.php:769
 msgid "Countries"
 msgstr "Pa&iacute;ses"
 
@@ -6797,7 +6819,7 @@ msgid "Update training timetable with imported data from Excel file"
 msgstr "Actualizar tabla de entrenamientos desde fichero Excel"
 
 #: scripts/entrenamientos.js.php:149 scripts/inscripciones.js.php:432
-#: scripts/perros.js.php:325 scripts/printer.js.php:267
+#: scripts/perros.js.php:325 scripts/printer.js.php:270
 msgid "Current license has no Excel import function enabled"
 msgstr "La licencia actual no permite la importaci&oacute;n de ficheros Excel"
 
@@ -6825,18 +6847,18 @@ msgstr "Equipos incompletos"
 msgid "Printing team lists; please wait"
 msgstr "Imprimiendo lista de equipos. Por favor, espere"
 
-#: scripts/equipos.js.php:99 scripts/printer.js.php:51
-#: scripts/printer.js.php:73 scripts/printer.js.php:95
-#: scripts/printer.js.php:130 scripts/printer.js.php:155
-#: scripts/printer.js.php:188 scripts/printer.js.php:226
-#: scripts/printer.js.php:497 scripts/printer.js.php:574
-#: scripts/printer.js.php:613 scripts/pruebas.js.php:207
+#: scripts/equipos.js.php:99 scripts/printer.js.php:52
+#: scripts/printer.js.php:74 scripts/printer.js.php:97
+#: scripts/printer.js.php:133 scripts/printer.js.php:158
+#: scripts/printer.js.php:191 scripts/printer.js.php:229
+#: scripts/printer.js.php:500 scripts/printer.js.php:577
+#: scripts/printer.js.php:616 scripts/pruebas.js.php:208
 msgid "There was a problem generating your report, please try again."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
 "nuevo"
 
-#: scripts/equipos.js.php:134 scripts/printer.js.php:384
+#: scripts/equipos.js.php:134 scripts/printer.js.php:387
 msgid "Print anyway"
 msgstr "Imprimir de todas maneras"
 
@@ -7206,81 +7228,81 @@ msgstr ""
 msgid "Update database with imported data from Excel file"
 msgstr "Actualizar lista de perros con datos obtenidos de un fichero Excel"
 
-#: scripts/printer.js.php:50 scripts/printer.js.php:72
-#: scripts/printer.js.php:94 scripts/printer.js.php:129
-#: scripts/printer.js.php:154 scripts/printer.js.php:187
-#: scripts/printer.js.php:225 scripts/printer.js.php:258
-#: scripts/printer.js.php:319 scripts/printer.js.php:336
-#: scripts/printer.js.php:496 scripts/printer.js.php:534
-#: scripts/printer.js.php:573 scripts/printer.js.php:612
-#: scripts/pruebas.js.php:206
+#: scripts/printer.js.php:51 scripts/printer.js.php:73
+#: scripts/printer.js.php:96 scripts/printer.js.php:132
+#: scripts/printer.js.php:157 scripts/printer.js.php:190
+#: scripts/printer.js.php:228 scripts/printer.js.php:261
+#: scripts/printer.js.php:322 scripts/printer.js.php:339
+#: scripts/printer.js.php:499 scripts/printer.js.php:537
+#: scripts/printer.js.php:576 scripts/printer.js.php:615
+#: scripts/pruebas.js.php:207
 msgid "We are preparing your report, please wait"
 msgstr "Preparando el informe, por favor, espere"
 
-#: scripts/printer.js.php:238
+#: scripts/printer.js.php:241
 msgid "Import/Export partial scores from/to Excel file"
 msgstr "Importar/Exportar resultados parciales desde/hacia fichero Excel"
 
-#: scripts/printer.js.php:240
+#: scripts/printer.js.php:243
 msgid "Create Excel file with current round results"
 msgstr "Generar un fichero Excel con los resultados de la manga actual"
 
-#: scripts/printer.js.php:241
+#: scripts/printer.js.php:244
 msgid "Import partial scores on this round from Excel file"
 msgstr "Importar resultados parciales de la manga desde fichero Excel"
 
-#: scripts/printer.js.php:259 scripts/printer.js.php:320
-#: scripts/printer.js.php:337
+#: scripts/printer.js.php:262 scripts/printer.js.php:323
+#: scripts/printer.js.php:340
 msgid "There was a problem generating your report, please contact author."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Contacte con el autor"
 
-#: scripts/printer.js.php:282 scripts/printer.js.php:288
+#: scripts/printer.js.php:285 scripts/printer.js.php:291
 msgid "Create PDF Report"
 msgstr "Generar informe en PDF"
 
-#: scripts/printer.js.php:283 scripts/printer.js.php:289
+#: scripts/printer.js.php:286 scripts/printer.js.php:292
 msgid "Create Excel File"
 msgstr "Generar fichero Excel"
 
-#: scripts/printer.js.php:284
+#: scripts/printer.js.php:287
 msgid "Print filled assistant sheets 10 dogs/pages"
 msgstr "Hojas de asistente autorrellenadas (10perros/pagina)"
 
-#: scripts/printer.js.php:285
+#: scripts/printer.js.php:288
 msgid "Print filled assistant sheets 15 dogs/pages"
 msgstr "Hojas de asistente autorellenadas (15 perros/pagina)"
 
-#: scripts/printer.js.php:290
+#: scripts/printer.js.php:293
 msgid "Print filled assistant sheets 16 dogs/pages"
 msgstr "Hojas de asistente autorrellenadas (16 perros/pagina)"
 
-#: scripts/printer.js.php:294
+#: scripts/printer.js.php:297
 msgid "Select output format"
 msgstr "Selecciona formato de salida"
 
-#: scripts/printer.js.php:375
+#: scripts/printer.js.php:378
 msgid "Dogs with pending data to be entered"
 msgstr "Perros pendientes de introducci&oacute;n de datos"
 
-#: scripts/printer.js.php:385
+#: scripts/printer.js.php:388
 msgid "Invalid data"
 msgstr "Datos inv&aacute;lidos"
 
-#: scripts/printer.js.php:417 tablet/tablet.js.php:681
+#: scripts/printer.js.php:420 tablet/tablet.js.php:681
 msgid "There is no selected round"
 msgstr "No hay ninguna manga seleccionada"
 
-#: scripts/printer.js.php:442
+#: scripts/printer.js.php:445
 msgid "Selected category"
 msgstr "Categoria seleccionada"
 
-#: scripts/printer.js.php:476 scripts/printer.js.php:513
-#: scripts/printer.js.php:555 scripts/printer.js.php:591
+#: scripts/printer.js.php:479 scripts/printer.js.php:516
+#: scripts/printer.js.php:558 scripts/printer.js.php:594
 msgid "There is no selected round on this journey"
 msgstr "No hay ninguna manga seleccionada en la jornada"
 
-#: scripts/printer.js.php:535
+#: scripts/printer.js.php:538
 msgid "There was a problem generating your report, please contact the author."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Contacte con el autor"
@@ -7346,11 +7368,11 @@ msgstr "Realmente desea borrar esta prueba"
 msgid "Export error"
 msgstr "Error al exportar"
 
-#: scripts/pruebas.js.php:215 scripts/results_and_scores.js.php:30
+#: scripts/pruebas.js.php:216 scripts/results_and_scores.js.php:30
 msgid "Change Email"
 msgstr "Cambiar e-mail"
 
-#: scripts/pruebas.js.php:216
+#: scripts/pruebas.js.php:217
 msgid "Enter new email for club"
 msgstr "Nueva direcci&oacute;n de correo para el club"
 
@@ -7890,7 +7912,15 @@ msgstr "Junior 2"
 msgid "Jr. 2"
 msgstr "Jr. 2"
 
+#: server/excel/classes/DogsWriter.php:66
+msgid "Dog Listing"
+msgstr "Listado de perros"
+
 #: server/excel/classes/EntrenamientosWriter.php:70
+msgid "Training table"
+msgstr "Horarios de entrenamiento"
+
+#: server/excel/classes/EntrenamientosWriter.php:73
 msgid "Trainings"
 msgstr "Entrenamientos"
 
@@ -7906,12 +7936,12 @@ msgstr "Pagado"
 msgid "Pay"
 msgstr "Pagado"
 
-#: server/excel/classes/PartialScoresWriter.php:86
+#: server/excel/classes/PartialScoresWriter.php:90
 #: server/pdf/classes/PrintTRSTemplates.php:123
 msgid "Spd"
 msgstr "Vel"
 
-#: server/excel/classes/PartialScoresWriter.php:101
+#: server/excel/classes/PartialScoresWriter.php:105
 #: server/mail/MailManager.php:603
 msgid "Results"
 msgstr "Resultados"
@@ -7923,14 +7953,6 @@ msgstr "Datos de la aplicaci&oacute;n"
 #: server/excel/classes/XLSXWriter.php:94
 msgid "License Info"
 msgstr "Datos de Licencia"
-
-#: server/excel/dog_writer.php:32
-msgid "Dog Listing"
-msgstr "Listado de perros"
-
-#: server/excel/trainingtable_writer.php:33
-msgid "Training table"
-msgstr "Horarios de entrenamiento"
 
 #: server/mail/MailManager.php:372 server/mail/MailManager.php:625
 msgid "Email sent with"
@@ -8698,6 +8720,9 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "Ignore excel entries marked as not present"
+#~ msgstr "Omitir entradas excel  marcadas como No Presentado"
 
 #~ msgid "Cloning all inscriptions into journey"
 #~ msgstr "Registrando todas las inscripciones en la jornada"

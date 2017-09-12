@@ -72,6 +72,13 @@ class PartialScoresReader extends DogReader {
         $this->validPageNames=array("Results");
     }
 
+    private function removeTmpEntry($item) {
+        // remove entry from temporary table
+        $str="DELETE FROM ".TABLE_NAME." WHERE ID={$item['ID']}";
+        $this->myDBObject->conn->query($str);
+        return null;
+    }
+
     /*
      * In results import, no need to handle Team,Club/Country nor handler: they must be already declared
      * in inscriptions.
@@ -83,35 +90,33 @@ class PartialScoresReader extends DogReader {
      */
     protected function findAndSetResult($item) {
         $this->myLogger->enter();
+        if ( ($this->myOptions['IgnoreNotPresent']==1) && ($item['NoPresentado']==1) ) {
+            $this->myLogger->notice("findAndSetResult(): ignore 'not present' row: ".json_encode($item));
+            return $this->removeTmpEntry($item);
+        };
         if ( ($item['Licencia']==="") && ($item['Nombre']==="") ){
             // no way to assign result to anyone: remove from temporary table
-            $this->myLogger->notice("findAndSetResult(): not enought data to parse row: ".json_encode($item));
-            // remove entry from temporary table
-            $str="DELETE FROM ".TABLE_NAME." WHERE ID={$item['ID']}";
-            $this->myDBObject->conn->query($str);
-            return null;
+            $this->myLogger->notice("findAndSetResult(): no data to parse row: ".json_encode($item));
+            return $this->removeTmpEntry($item);
         }
         $l=$this->myDBObject->conn->real_escape_string($item['Licencia']);
         $n=$this->myDBObject->conn->real_escape_string($item['Nombre']);
         $this->saveStatus("Analyzing result entry '$n'");
-        $lic= ($l==="")?"": " AND (Licencia='{$l}')";
-        $dog= ($n==="")?"":" AND (Nombre='{$n}')";
+        $lic= ($l==="")?"": " OR (Licencia='{$l}')";
+        $dog= ($n==="")?"0":" (Nombre='{$n}')";
         $search=$this->myDBObject->__select("*",
             "Resultados",
-            "(Manga={$this->manga['ID']}) {$lic} {$dog}",
+            "(Manga={$this->manga['ID']}) AND ( {$dog} {$lic} )",
             "",
             "");
         if ( !is_array($search) ) return "findAndSeResult(): Invalid search term: '{$l} - {$n}' "; // invalid search. mark error
-        if ($this->myOptions['Blind']!=0){ // blind mode on
-            if($search['total']!==1) {  // not found or multiple posibility: in blind mode ignore(delete) entry
-                $str="DELETE FROM ".TABLE_NAME." WHERE ID={$item['ID']}";
-                $this->myDBObject->conn->query($str);
-                return null;
-            }
-        }
-        if ($search['total']==0) return false; // no search found ask user to select or create
+        // if blind mode and cannot decide, just ignore and remove entry from tmptable
+        if ( ($search['total']!==1) && ($this->myOptions['Blind']!=0)) return $this->removeTmpEntry($item);
+        if ($search['total']==0) return false; // no search found: ask user to select or ignore
         if ($search['total']>1) return $search; // more than 1 compatible item found. Ask user to choose
+
         // match found: update results entry with provided data
+        $dogID=$search['rows'][0]['Perro'];
         $f=" Faltas={$item['Faltas']}";
         $t= (array_key_exists('Tocados',$item))?", Tocados={$item['Tocados']}":"";
         $r=", Rehuses={$item['Rehuses']}";
@@ -120,11 +125,18 @@ class PartialScoresReader extends DogReader {
         $n=", NoPresentado={$item['NoPresentado']}";
         $tim=", Tiempo={$item['Tiempo']}";
         $str="UPDATE Resultados SET {$f} {$t} {$r} {$g} {$e} {$n} {$tim} , Pendiente=0  ".
-            "WHERE Manga={$this->manga['ID']} AND Perro={$search['rows'][0]['Perro']}";
+            "WHERE Manga={$this->manga['ID']} AND Perro={$dogID}";
         $res=$this->myDBObject->conn->query($str);
-        if (!$res) return "findAndSetResult(): update result '{$l} - {$item['Nombre']}' error:".$this->myDBObject->conn->error; // invalid search. mark error
+        if (!$res) return "findAndSetResult(): update result '{$l} - {$item['Nombre']}' error:".$this->myDBObject->conn->error;
+
+        // mark entry done in temporary table.
+        $str="UPDATE ".TABLE_NAME." SET DogID={$dogID} WHERE ID={$item['ID']}";
+        $res=$this->myDBObject->conn->query($str);
+        if (!$res) return "findAndSetResult(): update tmptable '{$l} - {$item['Nombre']}' error:".$this->myDBObject->conn->error;
+
+        // return true to notify caller item found. proceed with next
         $this->myLogger->leave();
-        return true; // tell parent item found. proceed with next
+        return true;
     }
 
     /**

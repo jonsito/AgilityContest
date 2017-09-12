@@ -1055,6 +1055,10 @@ function handleSearchBox(box,action) {
  * @param {boolean} clear on true clear search field before query
  */
 function reloadWithSearch(dg,op,clear) {
+    if (dg==='#resultados-datagrid') { // called from resultados_excelImport()
+        consoleReloadParcial($('input:radio[name=rRecorrido]:checked').val(),true);
+        return false;
+    }
 	var w=$(dg+'-search').val();
     var fed=workingData.federation;
 	if (strpos(w,"<?php _e('-- Search --'); ?>",0)) w='';
