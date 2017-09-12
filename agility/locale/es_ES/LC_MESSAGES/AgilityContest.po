@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-09-12 12:41+0200\n"
-"PO-Revision-Date: 2017-09-12 12:41+0200\n"
+"POT-Creation-Date: 2017-09-12 21:45+0200\n"
+"PO-Revision-Date: 2017-09-12 21:46+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -1802,7 +1802,7 @@ msgstr "M&eacute;todo de cifrado"
 #: console/dialogs/dlg_configuracion.inc:564 console/dialogs/dlg_pruebas.inc:53
 #: console/dialogs/dlg_remotecontrol.inc:46
 #: console/dialogs/dlg_remotecontrol.inc:140
-#: console/dialogs/dlg_remotecontrol.inc:200
+#: console/dialogs/dlg_remotecontrol.inc:200 server/auth/AuthManager.php:97
 msgid "None"
 msgstr "Ninguno"
 
@@ -2545,7 +2545,7 @@ msgstr "Registrar informaci&oacute;n del juez en la base de datos"
 #: console/frm_jueces.php:42 console/frm_paises.php:35
 #: console/frm_perros.php:75 console/frm_pruebas.php:42
 #: scripts/common.js.php:1046 scripts/common.js.php:1047
-#: scripts/common.js.php:1060 scripts/common.js.php:1072
+#: scripts/common.js.php:1064 scripts/common.js.php:1076
 #: scripts/equipos.js.php:28 scripts/inscripciones.js.php:486
 #: server/tools.php:296
 msgid "-- Search --"
@@ -3745,19 +3745,22 @@ msgstr "Informaci&oacute;n del usuario"
 msgid "Information"
 msgstr "Informaci&oacute;n"
 
-#: console/dialogs/dlg_usuarios.inc:81
+#: console/dialogs/dlg_usuarios.inc:81 server/auth/AuthManager.php:97
 msgid "Admin"
 msgstr "Administrador"
 
 #: console/dialogs/dlg_usuarios.inc:82 scripts/usuarios.js.php:30
+#: server/auth/AuthManager.php:97
 msgid "Operator"
 msgstr "Operador"
 
 #: console/dialogs/dlg_usuarios.inc:83 scripts/usuarios.js.php:31
+#: server/auth/AuthManager.php:97
 msgid "Assistant"
 msgstr "Asistente"
 
 #: console/dialogs/dlg_usuarios.inc:84 scripts/usuarios.js.php:33
+#: server/auth/AuthManager.php:97
 msgid "Guest"
 msgstr "Invitado"
 
@@ -7612,6 +7615,18 @@ msgstr "Info"
 #: scripts/usuarios.js.php:172
 msgid "Password changed successfully"
 msgstr "Contrase&ntilde;a cambiada con &eacute;xito"
+
+#: server/auth/AuthManager.php:97
+msgid "Root"
+msgstr "Root"
+
+#: server/auth/AuthManager.php:474
+msgid "Insufficient credentials"
+msgstr "Permisos insuficientes"
+
+#: server/auth/AuthManager.php:474
+msgid "Required level is"
+msgstr "El nivel requerido es"
 
 #: server/database/classes/Jornadas.php:238
 msgid "Independent Journey"
