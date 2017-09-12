@@ -57,6 +57,7 @@ class AuthManager {
 	protected $mySessionMgr;
     protected $myGateKeeper=null;
 	protected $registrationInfo=null;
+	protected $levelStr;
 
 	// due to a bug in php-5.5 (solved in php-5.6 )
 	// we cannot concatenate strings in class properties
@@ -93,6 +94,7 @@ class AuthManager {
 		$config=Config::getInstance();
 		$this->myLogger=new Logger($file,$config->getEnv("debug_level"));
 		$this->mySessionMgr=new Sesiones("AuthManager");
+        $this->levelStr=array( _('Root'),_('Admin'),_('Operator'),_('Assistant'),_('Guest'),_('None') );
 		/* try to retrieve session token */
 		$hdrs= getAllHeaders();
 		if (!array_key_exists("X-AC-SessionKey",$hdrs)) {
@@ -467,7 +469,10 @@ class AuthManager {
 			return true;
 		}
 		if ($requiredlevel>=$this->level) return true;
-		throw new Exception("Insufficient credentials:({$this->level}) required: $requiredlevel");
+        $cur="{$this->level} - {$this->levelStr[intval($this->level)]}";
+        $req="{$requiredlevel} - {$this->levelStr[intval($requiredlevel)]}";
+        $str=_("Insufficient credentials").": {$cur}<br/>". _("Required level is").": {$req}";
+		throw new Exception($str);
 	}
 
 	/**
