@@ -36,6 +36,8 @@ require_once(__DIR__.'/classes/PartialScoresReader.php');
 $options=array();
 $options['Suffix']=http_request("Suffix","s","");
 $op=http_request("Operation","s","");
+
+// do not process entire data to just retrieve progress info
 if ($op==='progress') {
     // retrieve last line of progress file
     $importFileName=IMPORT_DIR."import_{$options['Suffix']}.log";
@@ -50,32 +52,31 @@ if ($op==='progress') {
     return;
 }
 
-// Consultamos la base de datos
+
+// retrieve parameters from http request
+$options['Blind']=http_request("Blind","i",0);
+$options['DBPriority']=http_request("DBPriority","i",1);
+$options['WordUpperCase']=http_request("WordUpperCase","i",1);
+$options['IgnoreWhiteSpaces']=http_request("IgnoreWhitespaces","i",1);
+$options['Object']=http_request("Object","s",""); // 'Perro' 'Guia' 'Club'
+$options['DatabaseID']=http_request("DatabaseID","i",0); // -1:ignore 0:create else:update
+$options['ExcelID']=http_request("ExcelID","i",0); // ID of affected ExcelImport table row
+$options['ParseCourseData']=http_request("ParseCourseData","i",0); // on result import handle SCT data
+$options['AllowNoLicense']=http_request("AllowNoLicense","i",0); // do not ignore result when no license provided
+$options['Federation']=http_request("Federation","i",-1);
+$options['Prueba']=http_request("Prueba","i",0);
+$options['Jornada']=http_request("Jornada","i",0);
+$options['Manga']=http_request("Manga","i",0);
+
+// some shortcuts
+$mode=http_request("Mode","s","");
+$f=intval($options['Federation']);
+$p=intval($options['Prueba']);
+$j=intval($options['Jornada']);
+$m=intval($options['Manga']);
 try {
     // 	Creamos generador de documento
-    $mode=http_request("Mode","s","");
     if ($mode==="") throw new Exception("excelReaderFunctions(): no import mode selected");
-    // if ($mode==="resultados") throw new Exception("excelResultsReader(): not yet implemented");
-
-    $options['Blind']=http_request("Blind","i",0);
-    $options['DBPriority']=http_request("DBPriority","i",1);
-    $options['WordUpperCase']=http_request("WordUpperCase","i",1);
-    $options['IgnoreWhiteSpaces']=http_request("IgnoreWhitespaces","i",1);
-    $options['Object']=http_request("Object","s",""); // 'Perro' 'Guia' 'Club'
-    $options['DatabaseID']=http_request("DatabaseID","i",0); // -1:ignore 0:create else:update
-    $options['ExcelID']=http_request("ExcelID","i",0); // ID of affected ExcelImport table row
-    $options['ParseCourseData']=http_request("ParseCourseData","i",0); // on result import handle SCT data
-    $options['AllowNoLicense']=http_request("AllowNoLicense","i",0); // do not ignore result when no license provided
-    $options['Federation']=http_request("Federation","i",-1);
-    $options['Prueba']=http_request("Prueba","i",0);
-    $options['Jornada']=http_request("Jornada","i",0);
-    $options['Manga']=http_request("Manga","i",0);
-
-    // some shortcuts
-    $f=intval($options['Federation']);
-    $p=intval($options['Prueba']);
-    $j=intval($options['Jornada']);
-    $m=intval($options['Manga']);
     // create propper importer instance
     if ($mode==="perros") {
         if ($f<0) throw new Exception("DogReader::ImportExcel(): invalid Federation ID: $f");
@@ -149,9 +150,9 @@ try {
     if ( ($result==="") || ($result===0) )  // empty or zero on success
          $retcode= json_encode(array('operation'=> $op, 'success'=>'ok'));
     else $retcode= json_encode($result);         // else return data already has been set
-    do_log("Excel $mode Reader returns: '$retcode'");
+    do_log("Excel '$mode' Reader returns: '$retcode'");
     echo $retcode;
 } catch (Exception $e) {
-    do_log("Excel $mode Reader Exception: ".$e->getMessage());
+    do_log("Excel '$mode'' Reader Exception: ".$e->getMessage());
     echo json_encode(array("operation"=>$op, 'success'=>'fail', 'errorMsg'=>$e->getMessage()));
 }

@@ -72,5 +72,5 @@ $config =Config::getInstance();
         text: '{value}'
     });
 
-    addTooltip($('#import-excelBlindMode'),'<?php _e("Assume no coherency errors with current database data"); ?>');
+    addTooltip($('#import-excelBlindMode'),'<?php _e("Silently ignore result when no license/name match found"); ?>');
 </script>

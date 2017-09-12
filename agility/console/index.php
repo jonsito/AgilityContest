@@ -403,8 +403,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 	<div id="importclubes" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
 	<div id="importhandlers" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
 	<div id="importdogs" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
-	<div id="importinscriptions" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
-	<div id="importcontest" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
+	<div id="importresults" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
 </div> <!-- to be filled -->
 
 </body>

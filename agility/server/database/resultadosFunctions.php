@@ -50,7 +50,8 @@ try {
 		case "delete": $am->access(PERMS_OPERATOR); $result=$resultados->delete($idperro); break;
 		case "select": $result=$resultados->select($idperro); break;
 		case "reset": $am->access(PERMS_OPERATOR); $result=$resultados->reset($catmode); break;
-		case "swap": $am->access(PERMS_OPERATOR); $result=$resultados->swapMangas($cats); break;
+        case "swap": $am->access(PERMS_OPERATOR); $result=$resultados->swapMangas($cats); break;
+        case "enumerate": $result=$resultados->enumerate(); break;
 		case "getPendientes": $result=$resultados->getPendientes($mode); break;
 		case "getResultadosIndividual":$result=$resultados->getResultadosIndividual($mode); break;
 		case "getResultadosIndividualyEquipos":$result=$resultados->getResultadosIndividualyEquipos($mode); break;

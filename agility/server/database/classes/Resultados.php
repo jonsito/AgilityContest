@@ -260,6 +260,26 @@ class Resultados extends DBObject {
 		return "";
 	}
 
+    /**
+     * Used in excel import to find round entries that matches with provided search criteria
+     */
+    function enumerate() {
+        $this->myLogger->enter();
+        // evaluate search criteria for query
+        $q=http_request("q","s","");
+        $where="1";
+        if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
+        $result=$this->__select(
+        /* SELECT */ "*",
+            /* FROM */ "Resultados",
+            /* WHERE */ "( Manga={$this->IDManga} ) AND {$where}",
+            /* ORDER BY */ "Nombre ASC",
+            /* LIMIT */ ""
+        );
+        $this->myLogger->leave();
+        return $result;
+    }
+
 	function reset($catsmode) {
 		$this->myLogger->enter();
 		$where="";
