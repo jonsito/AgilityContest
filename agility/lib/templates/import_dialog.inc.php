@@ -17,9 +17,9 @@ $config =Config::getInstance();
             <?php _e("Select Excel file to retrieve Dog data from");?><br />
             <?php _e("Press import to start, or cancel to abort import"); ?>
             <br />&nbsp;<br />
-            <input type="file" name="import-excel" value="" id="import-excel-fileSelect"
+            <input type="file" name="import-excel-fileSelect" value="" id="import-excel-fileSelect"
                    class="icon_button icon-search"
-                   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this)">
+                   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this,'')">
             <br />
             <input id="import-excelData" type="hidden" name="excelData" value="">
             <!-- modo blind (no interactivo -->

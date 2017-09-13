@@ -23,7 +23,7 @@ $config =Config::getInstance();
 
 <!-- FORMULARIO DE IMPORTACION DE UN RESULTADO -->
     <div id="importResult-dialog" style="width:550px;height:auto;padding:10px 20px;">
-        <div id="importResult-title" class="ftitle"><?php _e('Dog import'); ?></div>
+        <div id="importResult-title" class="ftitle"><?php _e('Results import'); ?></div>
         <p><span id="importResult-Text"></span></p>
         <form id="importResult-header">
         	<div class="fitem">
@@ -31,7 +31,7 @@ $config =Config::getInstance();
                 <select id="importResult-Search" name="Search" style="width:250px"></select>&nbsp;
                 <a id="importResult-clearBtn" href="#" class="easyui-linkbutton"
                 	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
-                <input type="hidden" id="importResult-DogID" value="0"/>
+                <input type="hidden" id="importResult-Perro" value="0"/>
         	</div>
         </form>
     </div>
@@ -44,10 +44,10 @@ $config =Config::getInstance();
         -->
         <span style="float:right">
         	<a id="importResult-okBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('Result','update',$('#importResult-DogID').val(),$('#importResult-Search').combogrid('getValue'))"
+                onclick="importAction('Result','update',$('#importResult-Perro').val(),$('#importResult-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-ok'"><?php _e('Select'); ?></a>
         	<a id="importResult-cancelBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('Result','ignore',$('#importResult-DogID').val(),$('#importResult-Search').combogrid('getValue'))"
+                onclick="importAction('Result','ignore',$('#importResult-Perro').val(),$('#importResult-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-cancel'"><?php _e('Ignore'); ?></a>
         </span>
     </div>
@@ -58,8 +58,8 @@ $config =Config::getInstance();
     // - declaracion del formulario
     $('#importResult-form').form();
     // - botones
-    addTooltip($('#importResult-okBtn').linkbutton(),'<?php _e("Use selected dog to be used in requested Excel import data"); ?>');
-    addTooltip($('#importResult-cancelBtn').linkbutton(),'<?php _e("Ignore data. Do not import Excel dog entry into database"); ?>');
+    addTooltip($('#importResult-okBtn').linkbutton(),'<?php _e("Use selected dog for requested Excel import data"); ?>');
+    addTooltip($('#importResult-cancelBtn').linkbutton(),'<?php _e("Ignore data. Do not import Excel result entry into database"); ?>');
     addTooltip($('#importResult-clearBtn').linkbutton(),'<?php _e("Clear selection"); ?>');
     $('#importResult-clearBtn').bind('click',function() {
         $('#importResult-header').form('reset'); // restore to initial values

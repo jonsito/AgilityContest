@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- Ventana de seleccion de fichero para importacion de datos excel -->
-<div id="entrenamientos-import-dialog" style="width:640px;height:auto;padding:10px; display=none;">
+<div id="entrenamientos-excel-dialog" style="width:640px;height:auto;padding:10px; display=none;">
 	<form id="entrenamientos-import-importOpts" name="entrenamientos-importOpts">
 		<p>
 			<?php _e("Import training session timetable from Excel file");?><br/>
@@ -36,7 +36,7 @@ $config =Config::getInstance();
 			<br />&nbsp;<br />
 			<input type="file" id="entrenamientos-import-excelFileSelect" name="entrenamientos-excelFileSelect" value=""
 				   class="icon_button icon-search"
-				   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this)">
+				   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this,'entrenamientos-')">
 			<br />
 			<input id="entrenamientos-import-excelData" type="hidden" name="entrenamientos-excelData" value="">
 			<!-- modo blind (no interactivo -->
@@ -82,7 +82,7 @@ $config =Config::getInstance();
 	<a id="entrenamientos-import-excel-okBtn" href="#" class="easyui-linkbutton"
 	   data-options="iconCls: 'icon-ok'" onclick="entrenamientos_excelImport()"><?php _e('Import'); ?></a>
 	<a id="entrenamientos-import-excel-cancelBtn" href="#" class="easyui-linkbutton"
-	   data-options="iconCls: 'icon-cancel'" onclick="$('#entrenamientos-import-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+	   data-options="iconCls: 'icon-cancel'" onclick="$('#entrenamientos-excel-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
 </div>
 
 
@@ -124,7 +124,7 @@ $('#entrenamientos-import-excel-progressbar').progressbar({
 	text: '{value}'
 });
 
-$('#entrenamientos-import-dialog').dialog( {
+$('#entrenamientos-excel-dialog').dialog( {
 	title:' <?php _e('Import training session timetable from Excel file'); ?>',
 	closed:true,
 	modal:true,

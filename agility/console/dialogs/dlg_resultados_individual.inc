@@ -23,7 +23,7 @@ $config =Config::getInstance();
 
 <!-- Ventana de seleccion de fichero para importacion de datos excel -->
 <div id="resultadosmanga-excel-dialog" style="width:640px;height:auto;padding:10px; display=none;">
-    <?php require_once(__DIR__."/../../lib/templates/import_results.inc.php"); ?>
+    <?php require_once(__DIR__."/../../lib/templates/import_results_dialog.inc.php"); ?>
 </div>
 
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE IMPORTACION -->

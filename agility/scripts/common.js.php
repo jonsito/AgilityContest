@@ -465,6 +465,7 @@ function loadCountryOrClub() {
 function loadContents(page,title,slaves) {
     var cont=$('#contenido');
 	$('#mymenu').panel('collapse');
+	if(typeof(slaveDialogs)==="undefined") slaveDialogs={};
 	$.each(slaveDialogs,function(key,val) {
 		$(val).dialog('panel').panel('clear'); 
 	} ); 

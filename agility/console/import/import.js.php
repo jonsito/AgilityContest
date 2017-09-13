@@ -35,6 +35,7 @@ var ac_import = {
     'parse_coursedata': 1, // on result imports also read (if available) course data
     'ignore_notpresent': 1, // on result imports skip entries that states "No Presentado"
     'suffix': '',
+    'prefix': '', // used to avoid duplicate id's in DOM
     'count': 0 // sequence counter
 };
 
@@ -200,7 +201,7 @@ function resultNotFound(search) {
     var msg3=" <?php _e('Please select existing one, or ignore entry');?></p>";
     var msg=hdr+msg1+search.Nombre+msg2+msg3;
     $("#importResult-Text").html(msg);
-    $("#importResult-DogID").val(search.Perro);
+    $("#importResult-Perro").val(search.Perro);
     $("#importResult-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
 }
 
@@ -213,7 +214,7 @@ function resultMissmatch(search) {
     var msg3=" <?php _e('Please fix it in inscription menu and select right values');?></p>";
     var msg=hdr+msg1+search.Nombre+msg2+msg3;
     $("#importResult-Text").html(msg);
-    $("#importResult-DogID").val(search.Perro);
+    $("#importResult-Perro").val(search.Perro);
     $("#importResult-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
     return false;
 }
@@ -228,7 +229,7 @@ function resultMustChoose(search) {
     var msg4=" <?php _e('Please select right one or ask to ignore entry');?></p>";
     var msg=hdr+msg1+search.Nombre+msg2+msg3+msg4;
     $("#importResult-Text").html(msg);
-    $("#importResult-DogID").val(search.Perro);
+    $("#importResult-Perro").val(search.Perro);
     $("#importResult-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
     return false;
 }
@@ -401,7 +402,7 @@ function excel_importHandleResult(data) {
  * @param {number} dbkey ID of database row to be used in matching, 0 on create/ignore
  */
 function importAction(item,action,fromkey,dbkey) {
-    var label="#import"+item+"-dialog";
+    var dlg="#import"+item+"-dialog";
     var search="#import"+item+"-Search";
     var key="key"; // original search key from server
     var value=0; // database object ID from choosen item (if any), or zero
@@ -420,7 +421,7 @@ function importAction(item,action,fromkey,dbkey) {
     setTimeout(function() { excel_importSendTask(options); },0);
     // close selection window
     $(search).combogrid('clear');
-    $(label).dialog('close');
+    $(dlg).dialog('close');
     // restart progressbar polling
     import_setProgressStatus("running");
     // return false to dont't propagate event chain
@@ -428,7 +429,8 @@ function importAction(item,action,fromkey,dbkey) {
 }
 
 // retrieve excel file for imput file button and store into a temporary variable
-function read_excelFile(input) {
+function read_excelFile(input,prefix) {
+    ac_import.prefix=prefix;
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
