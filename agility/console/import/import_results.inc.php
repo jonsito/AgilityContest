@@ -38,11 +38,10 @@ $config =Config::getInstance();
     
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     <div id="importResult-dlg-buttons" style="display:inline-block;">
-    	<span style="float:left">
-        	<a id="importResult-newBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('Result','create',$('#importResult-DogID').val(),$('#importResult-Search').combogrid('getValue'))"
-        		data-options="iconCls:'icon-dog'"><?php _e('Create'); ?></a>
-        </span>
+        <!--
+        No se pueden crear al vuelo inscripciones:hay que usar una ventana separada
+        Por eso en este dialogo no hay boton de "create"
+        -->
         <span style="float:right">
         	<a id="importResult-okBtn" href="#" class="easyui-linkbutton"
                 onclick="importAction('Result','update',$('#importResult-DogID').val(),$('#importResult-Search').combogrid('getValue'))"
@@ -59,7 +58,6 @@ $config =Config::getInstance();
     // - declaracion del formulario
     $('#importResult-form').form();
     // - botones
-    addTooltip($('#importResult-newBtn').linkbutton(),'<?php _e("Create a new dog with Excel provided data"); ?>');
     addTooltip($('#importResult-okBtn').linkbutton(),'<?php _e("Use selected dog to be used in requested Excel import data"); ?>');
     addTooltip($('#importResult-cancelBtn').linkbutton(),'<?php _e("Ignore data. Do not import Excel dog entry into database"); ?>');
     addTooltip($('#importResult-clearBtn').linkbutton(),'<?php _e("Clear selection"); ?>');
@@ -73,13 +71,13 @@ $config =Config::getInstance();
         closable: false,
     	closed: true,
     	buttons: '#importResult-dlg-buttons',
-        iconCls: 'icon-dog'
+        iconCls: 'icon-flag'
     });
 
     $('#importResult-Search').combogrid({
 		panelWidth: 350,
 		panelHeight: 200,
-		idField: 'ID',
+		idField: 'Perro',
         delay: 500,
 		textField: 'Nombre',
 		url: '/agility/server/database/resultadosFunctions.php',

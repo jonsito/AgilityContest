@@ -42,7 +42,15 @@ function loadCompetitionWindow() {
     }
     // default page and dialogs
     page="/agility/console/frm_competicion2.php?tipo=std";
-    var dialogs={'e':'#entrenamientos-dialog','t':'#ordentandas-dialog','s':'#ordensalida-dialog','c':'#competicion-dialog','r':'#resultadosmanga-dialog'};
+    var dialogs={
+        'e':'#entrenamientos-dialog',
+        't':'#ordentandas-dialog',
+        's':'#ordensalida-dialog',
+        'c':'#competicion-dialog',
+        'r':'#resultadosmanga-dialog',
+        'e1':'#entrenamientos-excel-dialog',
+        'e2':'#resultadosmanga-excel-dialog'
+    };
     if (parseInt(workingData.datosJornada.Equipos3)!==0) {
         page="/agility/console/frm_competicion2.php?tipo=eq3";
         extra=" ( <?php _e('Teams 3');?> )";

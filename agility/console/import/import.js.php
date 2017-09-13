@@ -42,7 +42,7 @@ var ac_import_table = {
     'perros' :          [ '#perros-excel-dialog','#perros-datagrid' ],
     'inscripciones' :   [ '#inscripciones-excel-dialog','#inscripciones-datagrid' ],
     'entrenamientos' :  [ '#entrenamientos-excel-dialog','#entrenamientos-datagrid' ],
-    'resultados' :      [ '#resultadosmanga-excel-dialog','#resultados-datagrid' ]
+    'resultados' :      [ '#resultadosmanga-excel-dialog','#resultados-datagrid' ] // resultados-datagrid is runtime replaced
 };
 
 function import_setProgressStatus(status) {
@@ -161,6 +161,7 @@ function dogNotFound(search) {
     $("#importPerro-DogID").val(search.ID);
     $("#importPerro-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
 }
+
 function dogMissmatch(search) {
     var data=searchDataToString(search);
     var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
@@ -190,6 +191,47 @@ function dogMustChoose(search) {
     return false;
 }
 
+function resultNotFound(search) {
+    var data=searchDataToString(search);
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
+
+    var msg1="<p><?php _e('Entry');?> '";
+    var msg2="': <?php _e('Not found in inscriptions for this round');?> <br/>";
+    var msg3=" <?php _e('Please select existing one, or ignore entry');?></p>";
+    var msg=hdr+msg1+search.Nombre+msg2+msg3;
+    $("#importResult-Text").html(msg);
+    $("#importResult-DogID").val(search.Perro);
+    $("#importResult-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
+}
+
+function resultMissmatch(search) {
+    var data=searchDataToString(search);
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
+
+    var msg1="<p><?php _e('Entry');?> '";
+    var msg2="': <?php _e('data missmatch with existing one for this round');?> <br/>";
+    var msg3=" <?php _e('Please fix it in inscription menu and select right values');?></p>";
+    var msg=hdr+msg1+search.Nombre+msg2+msg3;
+    $("#importResult-Text").html(msg);
+    $("#importResult-DogID").val(search.Perro);
+    $("#importResult-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
+    return false;
+}
+
+function resultMustChoose(search) {
+    var data=searchDataToString(search);
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
+
+    var msg1="<p><?php _e('Entry');?> '";
+    var msg2="': <?php _e('provided data are compatible with');?> ";
+    var msg3=" <?php _e('more than one entry found on this round');?> <br/>";
+    var msg4=" <?php _e('Please select right one or ask to ignore entry');?></p>";
+    var msg=hdr+msg1+search.Nombre+msg2+msg3+msg4;
+    $("#importResult-Text").html(msg);
+    $("#importResult-DogID").val(search.Perro);
+    $("#importResult-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
+    return false;
+}
 /**
  * Send command to excel importer
  * @param params list of parameters to be sent to server
@@ -252,7 +294,7 @@ function excel_importHandleResult(data) {
 
     var dlg=$(ac_import_table[ac_import.mode][0]);
     var datagrid=ac_import_table[ac_import.mode][1];
-    var pb=$('#import-excel-progressbar');
+    var pb=$('#'+ac_import.prefix+'import-excel-progressbar');
     if (data.errorMsg) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
         import_setProgressStatus('stopped'); // tell progress monitor to pause
@@ -278,7 +320,9 @@ function excel_importHandleResult(data) {
             if (data.success=='fail') { // user action required. study cases
                 var funcs={};
                 import_setProgressStatus('paused'); // tell progress monitor to pause progress bar refresh
-                if (parseInt(data.search.ClubID)==0) {
+                if (ac_import.mode==="resultados") {
+                    funcs= {'notf':resultNotFound,'miss':resultMissmatch,'multi':resultMustChoose};
+                } else if (parseInt(data.search.ClubID)==0) {
                     if (ac_import.blind==1) {
                         var str1='<?php _e("Club/Country not found or missmatch");?>: '+data.search.NombreClub;
                         var str2='<?php _e("This is not allowed when importing in blind mode");?>';
@@ -295,7 +339,7 @@ function excel_importHandleResult(data) {
                     funcs= {'notf': clubNotFound,'miss':clubMissmatch,'multi':clubMustChoose};
                 } else if (parseInt(data.search.HandlerID)==0) {
                     funcs= {'notf':handlerNotFound,'miss':handlerMissmatch,'multi':handlerMustChoose};
-                } else {
+                } else { // arriving here means need to handle with perros
                     funcs= {'notf':dogNotFound,'miss':dogMissmatch,'multi':dogMustChoose};
                 }
 
@@ -351,7 +395,7 @@ function excel_importHandleResult(data) {
 
 /**
  * Respond to user actions when required
- * @param {string} item dialog class 'clubs', 'handlers', 'dogs'
+ * @param {string} item dialog class 'clubs', 'handlers', 'dogs', 'results'
  * @param {string} action 'create', 'update', 'ignore'
  * @param {number} fromkey  ID of temporary table row being parsed
  * @param {number} dbkey ID of database row to be used in matching, 0 on create/ignore
@@ -388,7 +432,7 @@ function read_excelFile(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
-            $('#import-excelData').val(e.target.result);
+            $('#'+ac_import.prefix+'import-excelData').val(e.target.result);
         };
         reader.readAsDataURL(input.files[0]);
     }
@@ -397,19 +441,21 @@ function read_excelFile(input) {
 /**
  * Llamada al servidor para importar datos de perros
  * desde el fichero excel seleccionado
- * @param{string} mode 'perros', 'inscripciones' 'pruebas'
+ * @param{string} mode 'perros', 'inscripciones' 'resultados' 'entrenamientos'
+ * @param{string} prefix prefijo de las variables del doom
  */
-function real_excelImport(mode) {
-    var data=$('#import-excelData').val();
+function real_excelImport(mode,prefix) {
+    var data=$('#'+prefix+'import-excelData').val();
     ac_import.mode=mode;
+    ac_import.prefix=prefix;
     // checkboxes
-    ac_import.blind=$('#import-excelBlindMode').prop('checked')?1:0;
-    ac_import.ignore_notpresent=$('#import-excelIgnoreNotPresent').prop('checked')?1:0;
-    ac_import.parse_coursedata=$('#import-excelParseCourseData').prop('checked')?1:0;
+    ac_import.blind=$('#'+prefix+'import-excelBlindMode').prop('checked')?1:0;
+    ac_import.ignore_notpresent=$('#'+prefix+'import-excelIgnoreNotPresent').prop('checked')?1:0;
+    ac_import.parse_coursedata=$('#'+prefix+'import-excelParseCourseData').prop('checked')?1:0;
     // radiobuttons: use checked value
-    ac_import.db_priority=$('input[name=excelPreference]:checked').val();
-    ac_import.word_upercase=$('input[name=excelUpperCase]:checked').val();
-    ac_import.ignore_spaces=$('input[name=excelEmpty]:checked').val();
+    ac_import.db_priority=$('input[name='+prefix+'excelPreference]:checked').val();
+    ac_import.word_upercase=$('input[name='+prefix+'excelUpperCase]:checked').val();
+    ac_import.ignore_spaces=$('input[name='+prefix+'excelEmpty]:checked').val();
     // prepare randon string for report notifier
     ac_import.suffix=getRandomString(8);
     ac_import.count=0;
@@ -417,12 +463,13 @@ function real_excelImport(mode) {
         $.messager.alert("<?php _e('Error');?>","<?php _e('No import file selected');?>",'error');
         return;
     }
-    $('#import-excel-progressbar').progressbar('setValue','Upload');
+    $('#'+prefix+'import-excel-progressbar').progressbar('setValue','Upload');
     import_setProgressStatus("running");
     excel_importSendTask({ Operation: 'upload', Data: data});
 }
 
-function perros_excelImport() { return real_excelImport('perros'); }
-function inscripciones_excelImport() { return real_excelImport('inscripciones'); }
-function entrenamientos_excelImport() { return real_excelImport('entrenamientos'); }
-function resultadosmanga_excelImport() { return real_excelImport('resultados'); }
+// to avoid duplicate ids in doom , some import dialogs needs add a prefix to provided variables
+function perros_excelImport() { return real_excelImport('perros',''); }
+function inscripciones_excelImport() { return real_excelImport('inscripciones',''); }
+function entrenamientos_excelImport() { return real_excelImport('entrenamientos','entrenamientos-'); }
+function resultadosmanga_excelImport() { return real_excelImport('resultados',''); }

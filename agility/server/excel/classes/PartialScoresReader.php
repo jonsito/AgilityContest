@@ -92,12 +92,12 @@ class PartialScoresReader extends DogReader {
         $this->myLogger->enter();
         if ( ($this->myOptions['IgnoreNotPresent']==1) && ($item['NoPresentado']==1) ) {
             $this->myLogger->notice("findAndSetResult(): ignore 'not present' row: ".json_encode($item));
-            return $this->removeTmpEntry($item);
+            return $this->removeTmpEntry($item); // returns null
         };
         if ( ($item['Licencia']==="") && ($item['Nombre']==="") ){
             // no way to assign result to anyone: remove from temporary table
             $this->myLogger->notice("findAndSetResult(): no data to parse row: ".json_encode($item));
-            return $this->removeTmpEntry($item);
+            return $this->removeTmpEntry($item); // returns null
         }
         $l=$this->myDBObject->conn->real_escape_string($item['Licencia']);
         $n=$this->myDBObject->conn->real_escape_string($item['Nombre']);
@@ -111,7 +111,8 @@ class PartialScoresReader extends DogReader {
             "");
         if ( !is_array($search) ) return "findAndSeResult(): Invalid search term: '{$l} - {$n}' "; // invalid search. mark error
         // if blind mode and cannot decide, just ignore and remove entry from tmptable
-        if ( ($search['total']!==1) && ($this->myOptions['Blind']!=0)) return $this->removeTmpEntry($item);
+        $this->myLogger->trace("Blind: {$this->myOptions['Blind']} Search {$n} results:".json_encode($search));
+        if ( ($search['total']!==1) && ($this->myOptions['Blind']!=0)) return $this->removeTmpEntry($item); // returns null
         if ($search['total']==0) return false; // no search found: ask user to select or ignore
         if ($search['total']>1) return $search; // more than 1 compatible item found. Ask user to choose
 
