@@ -275,7 +275,7 @@ function importExportParcial(recorrido) {
                     });
                     break;
             }
-        }).window('resize',{width:400});
+        }).window('resize',{width:500});
     return false; //this is critical to stop the click event which will trigger a normal file download!
 
 }

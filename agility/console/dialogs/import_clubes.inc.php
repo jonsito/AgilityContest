@@ -21,9 +21,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  $config =Config::getInstance();
  ?>
 
-
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE importclubes -->
- <div id="importClub-dialog" style="width:550px;height:auto;padding:10px 20px;" >
+ <div id="importClub-dialog" class="easyui-dialog" style="width:550px;height:auto;padding:10px 20px;"
+    data-options="modal:true,closable:false,closed:true,buttons:'#importClub-dlg-buttons',iconCls:'icon-flag'">
     <div class="ftitle"><?php _e('Club data Import'); ?></div>
      <p><span id="importClub-Text"></span></p>
      <form id="importClub-header">
@@ -55,16 +55,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     
 <script type="text/javascript">
 
-        $('#importClub-dialog').dialog( {
-            modal:true,
-            closable:false,
-            closed:true,
-            buttons:'#importClub-dlg-buttons',
-            iconCls:'icon-flag'
-        } );
-
         // - declaracion del formulario
         $('#importClub-form').form();
+
         // - botones
     	addTooltip($('#importClub-newBtn').linkbutton(),'<?php _e("Open dialog to create new club"); ?>');
         $('#importClub-newBtn').bind('click',function() {

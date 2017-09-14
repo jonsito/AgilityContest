@@ -445,16 +445,16 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <!-- Entrada para insertar dialogos de importacion de ficheros desde excel -->
 <div id="myimport">
-	<div id="importclubes" class="easyui-panel" style="display:none" data-options="width:'100%',fit:true,border:false">
+	<div id="importclubes" style="display:none">
         <?php include_once("dialogs/import_clubes.inc.php"); ?>
     </div>
-	<div id="importhandlers" class="easyui-panel" style="display:none" data-options="width:'100%',fit:true,border:false">
+	<div id="importhandlers" style="display:none">
         <?php include_once("dialogs/import_handlers.inc.php"); ?>
     </div>
-	<div id="importdogs" class="easyui-panel" style="display:none" data-options="width:'100%',fit:true,border:false">
+	<div id="importdogs" style="display:none">
         <?php include_once("dialogs/import_perros.inc.php"); ?>
     </div>
-	<div id="importresults" class="easyui-panel" style="display:none" data-options="width:'100%',fit:true,border:false">
+	<div id="importresults" style="display:none">
         <?php include_once("dialogs/import_results.inc.php"); ?>
     </div>
 </div>

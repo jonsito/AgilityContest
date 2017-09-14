@@ -22,7 +22,8 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE IMPORTACION DE UN PERRO-->
-    <div id="importPerro-dialog" style="width:550px;height:auto;padding:10px 20px;">
+    <div id="importPerro-dialog" class="easyui-dialog" style="width:550px;height:auto;padding:10px 20px;"
+        data-options="modal:true,closable:false,closed:true,buttons:'#importPerro-dlg-buttons',iconCls:'icon-dog'">
         <div id="importPerro-title" class="ftitle"><?php _e('Dog import'); ?></div>
         <p><span id="importPerro-Text"></span></p>
         <form id="importPerro-header">
@@ -58,6 +59,7 @@ $config =Config::getInstance();
     // datos del formulario de nuevo/edit perros
     // - declaracion del formulario
     $('#importPerro-form').form();
+
     // - botones
     addTooltip($('#importPerro-newBtn').linkbutton(),'<?php _e("Create a new dog with Excel provided data"); ?>');
     addTooltip($('#importPerro-okBtn').linkbutton(),'<?php _e("Use selected dog to be used in requested Excel import data"); ?>');
@@ -66,18 +68,10 @@ $config =Config::getInstance();
     $('#importPerro-clearBtn').bind('click',function() {
         $('#importPerro-header').form('reset'); // restore to initial values
     });
-    
-    // campos del formulario
-    $('#importPerro-dialog').dialog({
-        modal:true,
-        closable: false,
-    	closed: true,
-    	buttons: '#importPerro-dlg-buttons',
-        iconCls: 'icon-dog'
-    });
 
+    // casilla de busqueda/seleccion
     $('#importPerro-Search').combogrid({
-		panelWidth: 350,
+		panelWidth: 400,
 		panelHeight: 200,
 		idField: 'ID',
         delay: 500,

@@ -22,7 +22,9 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE IMPORTACION DE GUIAS -->
-    <div id="importGuia-dialog" style="width:550px;height:auto;padding:10px 20px;">
+    <div id="importGuia-dialog" class="easyui-dialog" style="width:550px;height:auto;padding:10px 20px;"
+         data-options="modal:true,closable:false,closed:true,buttons:'#importGuia-dlg-buttons',iconCls:'icon-users'">
+
         <div id="importGuia-title" class="ftitle"><?php _e('Handler import'); ?></div>
         <p><span id="importGuia-Text"></span></p>
         <form id="importGuia-header">

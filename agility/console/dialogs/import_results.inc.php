@@ -22,7 +22,8 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE IMPORTACION DE UN RESULTADO -->
-    <div id="importResult-dialog" style="width:550px;height:auto;padding:10px 20px;">
+    <div id="importResult-dialog" class="easyui-dialog" style="width:550px;height:auto;padding:10px 20px;"
+        data-options="modal:true,closable: false,closed: true,buttons: '#importResult-dlg-buttons',iconCls: 'icon-flag'">
         <div id="importResult-title" class="ftitle"><?php _e('Results import'); ?></div>
         <p><span id="importResult-Text"></span></p>
         <form id="importResult-header">
@@ -36,20 +37,23 @@ $config =Config::getInstance();
         </form>
     </div>
     
-    <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+    <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO
+    <div id="importResult-dlg-buttons" style="display:inline-block;">
+    -->
     <div id="importResult-dlg-buttons" style="display:inline-block;">
         <!--
         No se pueden crear al vuelo inscripciones:hay que usar una ventana separada
         Por eso en este dialogo no hay boton de "create"
-        -->
+        <span style="float:left;">&nbsp;</span>
         <span style="float:right">
+        -->
         	<a id="importResult-okBtn" href="#" class="easyui-linkbutton"
                 onclick="importAction('Result','update',$('#importResult-Perro').val(),$('#importResult-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-ok'"><?php _e('Select'); ?></a>
         	<a id="importResult-cancelBtn" href="#" class="easyui-linkbutton"
                 onclick="importAction('Result','ignore',$('#importResult-Perro').val(),$('#importResult-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-cancel'"><?php _e('Ignore'); ?></a>
-        </span>
+        <!-- </span> -->
     </div>
     
     <script type="text/javascript">
@@ -57,6 +61,7 @@ $config =Config::getInstance();
     // datos del formulario de select/ignore
     // - declaracion del formulario
     $('#importResult-form').form();
+
     // - botones
     addTooltip($('#importResult-okBtn').linkbutton(),'<?php _e("Use selected dog for requested Excel import data"); ?>');
     addTooltip($('#importResult-cancelBtn').linkbutton(),'<?php _e("Ignore data. Do not import Excel result entry into database"); ?>');
@@ -64,18 +69,10 @@ $config =Config::getInstance();
     $('#importResult-clearBtn').bind('click',function() {
         $('#importResult-header').form('reset'); // restore to initial values
     });
-    
-    // campos del formulario
-    $('#importResult-dialog').dialog({
-        modal:true,
-        closable: false,
-    	closed: true,
-    	buttons: '#importResult-dlg-buttons',
-        iconCls: 'icon-flag'
-    });
 
+    // combo de busqueda/seleccion de perro inscrito
     $('#importResult-Search').combogrid({
-		panelWidth: 350,
+		panelWidth: 400,
 		panelHeight: 200,
 		idField: 'Perro',
         delay: 500,
