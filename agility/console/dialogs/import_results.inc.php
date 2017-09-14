@@ -73,7 +73,7 @@ $config =Config::getInstance();
     // combo de busqueda/seleccion de perro inscrito
     $('#importResult-Search').combogrid({
 		panelWidth: 400,
-		panelHeight: 200,
+		panelHeight: 150,
 		idField: 'Perro',
         delay: 500,
 		textField: 'Nombre',

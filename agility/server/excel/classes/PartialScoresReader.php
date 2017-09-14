@@ -76,7 +76,7 @@ class PartialScoresReader extends DogReader {
         $id=(is_array($item))?$item['ID']:intval($item);
         // remove entry from temporary table
         $str="DELETE FROM ".TABLE_NAME." WHERE ID={$id}";
-        $this->myDBObject->conn->query($str);
+        $this->myDBObject->query($str);
         return null;
     }
 
@@ -128,12 +128,12 @@ class PartialScoresReader extends DogReader {
         $tim=", Tiempo={$item['Tiempo']}";
         $str="UPDATE Resultados SET {$f} {$t} {$r} {$g} {$e} {$n} {$tim} , Pendiente=0  ".
             "WHERE Manga={$this->manga['ID']} AND Perro={$dogID}";
-        $res=$this->myDBObject->conn->query($str);
+        $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetResult(): update result '{$l} - {$item['Nombre']}' error:".$this->myDBObject->conn->error;
 
         // mark entry done in temporary table.
         $str="UPDATE ".TABLE_NAME." SET DogID={$dogID} WHERE ID={$item['ID']}";
-        $res=$this->myDBObject->conn->query($str);
+        $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetResult(): update tmptable '{$l} - {$item['Nombre']}' error:".$this->myDBObject->conn->error;
 
         // return true to notify caller item found. proceed with next
@@ -179,6 +179,34 @@ class PartialScoresReader extends DogReader {
         // tell client to continue parse
         $this->myLogger->leave();
         return array('operation'=> 'ignore', 'success'=> 'done');
+    }
+
+    public function updateEntry($options) {
+        $this->myLogger->enter();
+        $perro=$options['DatabaseID']; // results has no ID key, but manga-perro key
+        $item=$this->myDBObject->__selectAsArray("*",TABLE_NAME,"ID={$options['ExcelID']}");
+        if (!$item) return "UpdateEntry(): cannot locate tmpdata for perro: '$perro':".$this->myDBObject->conn->error;
+
+        $f=" Faltas={$item['Faltas']}";
+        $t= (array_key_exists('Tocados',$item))?", Tocados={$item['Tocados']}":"";
+        $r=", Rehuses={$item['Rehuses']}";
+        $g= (array_key_exists('Games',$item))?", Games={$item['Games']}":"";
+        $e=", Eliminado={$item['Eliminado']}";
+        $n=", NoPresentado={$item['NoPresentado']}";
+        $tim=", Tiempo={$item['Tiempo']}";
+        $str="UPDATE Resultados SET {$f} {$t} {$r} {$g} {$e} {$n} {$tim} , Pendiente=0  ".
+             "WHERE (Resultados.Manga= {$this->manga['ID']} ) AND (Resultados.Perro = {$perro})";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "updateEntry(): update db result for perro '{$perro}' error:".$this->myDBObject->conn->error;
+
+        // mark entry done in temporary table.
+        $str="UPDATE ".TABLE_NAME." SET DogID={$perro} WHERE ID={$item['ID']}";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "updateEntry(): update tmptable for perro '{$perro}' error:".$this->myDBObject->conn->error;
+
+        // return success to proceed with next
+        $this->myLogger->leave();
+        return array('operation'=> 'update', 'success'=> 'done');
     }
 
     function beginImport() {
