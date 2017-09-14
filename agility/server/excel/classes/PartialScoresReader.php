@@ -73,8 +73,9 @@ class PartialScoresReader extends DogReader {
     }
 
     private function removeTmpEntry($item) {
+        $id=(is_array($item))?$item['ID']:intval($item);
         // remove entry from temporary table
-        $str="DELETE FROM ".TABLE_NAME." WHERE ID={$item['ID']}";
+        $str="DELETE FROM ".TABLE_NAME." WHERE ID={$id}";
         $this->myDBObject->conn->query($str);
         return null;
     }
@@ -169,6 +170,15 @@ class PartialScoresReader extends DogReader {
         // arriving here means no more items to analyze. So tell user to proccedd with import
         $this->myLogger->leave();
         return array('operation'=> 'parse', 'success'=> 'done');
+    }
+
+    // just remove temporary table entry with provided ID
+    public function ignoreEntry($options) {
+        $this->myLogger->enter();
+        $this->removeTmpEntry($options['ExcelID']);
+        // tell client to continue parse
+        $this->myLogger->leave();
+        return array('operation'=> 'ignore', 'success'=> 'done');
     }
 
     function beginImport() {

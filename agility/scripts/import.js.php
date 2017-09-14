@@ -201,7 +201,7 @@ function resultNotFound(search) {
     var msg3=" <?php _e('Please select existing one, or ignore entry');?></p>";
     var msg=hdr+msg1+search.Nombre+msg2+msg3;
     $("#importResult-Text").html(msg);
-    $("#importResult-Perro").val(search.Perro);
+    $("#importResult-ResultID").val(search.ID);
     $("#importResult-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
 }
 
@@ -214,7 +214,7 @@ function resultMissmatch(search) {
     var msg3=" <?php _e('Please fix it in inscription menu and select right values');?></p>";
     var msg=hdr+msg1+search.Nombre+msg2+msg3;
     $("#importResult-Text").html(msg);
-    $("#importResult-Perro").val(search.Perro);
+    $("#importResult-ResultID").val(search.ID);
     $("#importResult-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
     return false;
 }
@@ -229,7 +229,7 @@ function resultMustChoose(search) {
     var msg4=" <?php _e('Please select right one or ask to ignore entry');?></p>";
     var msg=hdr+msg1+search.Nombre+msg2+msg3+msg4;
     $("#importResult-Text").html(msg);
-    $("#importResult-Perro").val(search.Perro);
+    $("#importResult-ResultID").val(search.ID);
     $("#importResult-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
     return false;
 }

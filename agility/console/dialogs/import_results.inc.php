@@ -32,7 +32,7 @@ $config =Config::getInstance();
                 <select id="importResult-Search" name="Search" style="width:250px"></select>&nbsp;
                 <a id="importResult-clearBtn" href="#" class="easyui-linkbutton"
                 	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
-                <input type="hidden" id="importResult-Perro" value="0"/>
+                <input type="hidden" id="importResult-ResultID" value="0"/>
         	</div>
         </form>
     </div>
@@ -48,10 +48,10 @@ $config =Config::getInstance();
         <span style="float:right">
         -->
         	<a id="importResult-okBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('Result','update',$('#importResult-Perro').val(),$('#importResult-Search').combogrid('getValue'))"
+                onclick="importAction('Result','update',$('#importResult-ResultID').val(),$('#importResult-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-ok'"><?php _e('Select'); ?></a>
         	<a id="importResult-cancelBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('Result','ignore',$('#importResult-Perro').val(),$('#importResult-Search').combogrid('getValue'))"
+                onclick="importAction('Result','ignore',$('#importResult-ResultID').val(),$('#importResult-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-cancel'"><?php _e('Ignore'); ?></a>
         <!-- </span> -->
     </div>
