@@ -654,7 +654,8 @@ class DogReader {
         } else {
             // invalid object: notice error and return
             return "CreateEntry(): Invalid Object to search for update in temporary table: {$options['Object']}";
-        }// tell client to continue parse
+        }
+        // tell client to continue parse
         $this->myLogger->leave();
         return array('operation'=> 'create', 'success'=> 'done');
     }    
@@ -736,7 +737,6 @@ class DogReader {
         else {
             // invalid object: notice error and return
             return "UpdateEntry(): Invalid Object to search for update in temporary table: {$options['Object']}";
-
         }// tell client to continue parse
         $this->myLogger->leave();
         return array('operation'=> 'update', 'success'=> 'done');

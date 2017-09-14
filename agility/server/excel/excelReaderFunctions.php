@@ -54,22 +54,22 @@ if ($op==='progress') {
 
 
 // retrieve parameters from http request
-$options['Blind']=http_request("Blind","i",0);
-$options['DBPriority']=http_request("DBPriority","i",1);
-$options['WordUpperCase']=http_request("WordUpperCase","i",1);
-$options['IgnoreWhiteSpaces']=http_request("IgnoreWhitespaces","i",1);
-$options['Object']=http_request("Object","s",""); // 'Perro' 'Guia' 'Club'
-$options['DatabaseID']=http_request("DatabaseID","i",0); // -1:ignore 0:create else:update
-$options['ExcelID']=http_request("ExcelID","i",0); // ID of affected ExcelImport table row
-$options['ParseCourseData']=http_request("ParseCourseData","i",0); // on result import handle SCT data
-$options['IgnoreNotPresent']=http_request("IgnoreNotPresent","i",0); // skip results marked as "No Presentado"
-$options['Federation']=http_request("Federation","i",-1);
-$options['Prueba']=http_request("Prueba","i",0);
-$options['Jornada']=http_request("Jornada","i",0);
-$options['Manga']=http_request("Manga","i",0);
+$options['Blind']=http_request('Blind',"i",0);
+$options['DBPriority']=http_request('DBPriority',"i",1);
+$options['WordUpperCase']=http_request('WordUpperCase',"i",1);
+$options['IgnoreWhiteSpaces']=http_request('IgnoreWhitespaces',"i",1);
+$options['Object']=http_request('Object',"s",""); // 'Perro' 'Guia' 'Club'
+$options['DatabaseID']=http_request('DatabaseID',"i",0); // -1:ignore 0:create else:update
+$options['ExcelID']=http_request('ExcelID',"i",0); // ID of affected ExcelImport table row
+$options['ParseCourseData']=http_request('ParseCourseData',"i",0); // on result import handle SCT data
+$options['IgnoreNotPresent']=http_request('IgnoreNotPresent',"i",0); // skip results marked as "No Presentado"
+$options['Federation']=http_request('Federation',"i",-1);
+$options['Prueba']=http_request('Prueba',"i",0);
+$options['Jornada']=http_request('Jornada',"i",0);
+$options['Manga']=http_request('Manga',"i",0);
 
 // some shortcuts
-$mode=http_request("Mode","s","");
+$mode=http_request('Mode',"s","");
 $f=intval($options['Federation']);
 $p=intval($options['Prueba']);
 $j=intval($options['Jornada']);

@@ -238,7 +238,7 @@ function importExportParcial(recorrido) {
     var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,value);
     $.messager.radio(
         '<?php _e("Import/Export"); ?>',
-        '<?php _e("Import/Export partial scores from/to Excel file"); ?>:',
+        '<?php _e("Import/Export partial scores from/to Excel file"); ?>:<br/>&nbsp;<br/>',
         {
             0:'*<?php _e("Create Excel file with current round results"); ?>',
             1:'<?php _e("Import partial scores on this round from Excel file"); ?>'

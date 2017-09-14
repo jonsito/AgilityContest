@@ -16,8 +16,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 <?php
-require_once(__DIR__ . "/../../server/auth/Config.php");
-require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../server/auth/Config.php");
+require_once(__DIR__ . "/../server/tools.php");
 $config =Config::getInstance();
 ?>
 
@@ -396,7 +396,7 @@ function excel_importHandleResult(data) {
 
 /**
  * Respond to user actions when required
- * @param {string} item dialog class 'clubs', 'handlers', 'dogs', 'results'
+ * @param {string} item dialog class 'Club', 'Handler', 'Dog', 'Result'
  * @param {string} action 'create', 'update', 'ignore'
  * @param {number} fromkey  ID of temporary table row being parsed
  * @param {number} dbkey ID of database row to be used in matching, 0 on create/ignore
@@ -404,8 +404,6 @@ function excel_importHandleResult(data) {
 function importAction(item,action,fromkey,dbkey) {
     var dlg="#import"+item+"-dialog";
     var search="#import"+item+"-Search";
-    var key="key"; // original search key from server
-    var value=0; // database object ID from choosen item (if any), or zero
     var options = {
       Operation: action, // create update ignore
       Object: item, // Perro Guia Club

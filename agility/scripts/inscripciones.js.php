@@ -409,7 +409,7 @@ function importExportInscripciones() {
 	};
 	$.messager.radio(
 		'<?php _e('Excel import/export'); ?>',
-		'<?php _e('Choose from available operations'); ?>:',
+		'<?php _e('Choose from available operations'); ?>:<br/>&nbsp;<br/>',
 		options,
 		function(r) {
             var opt=parseInt(r);
@@ -431,7 +431,6 @@ function importExportInscripciones() {
                     if (res.errorMsg) {
                         $.messager.alert('License error','<?php _e("Current license has no Excel import function enabled"); ?>', "error");
                     } else {
-                        loadImportPages(); // make sure dialogs and scripts for interactive import are loaded into page
                         $('#inscripciones-excel-dialog').dialog('open');
                     }
                     return false; // prevent default fireup of event trigger

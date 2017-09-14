@@ -81,12 +81,12 @@ $config =Config::getInstance();
         delay: 500,
 		textField: 'Nombre',
 		url: '/agility/server/database/resultadosFunctions.php',
-		queryParams: { Operation:'enumerate', Manga: workingData.manga },
+		queryParams: { Operation:'enumerate' },
 		method: 'get',
 		mode: 'remote',
 		columns: [[
 			{field:'Perro',hidden:'true'},
-            {field:'Licencia',title:'<?php _e('Dog'); ?>',width:10,align:'right'},
+            {field:'Licencia',title:'<?php _e('Lic'); ?>',width:10,align:'right'},
             {field:'Nombre',title:'<?php _e('Dog'); ?>',width:15,align:'right'},
 			{field:'Categoria',title:'<?php _e('Cat'); ?>.',width:5,align:'center',formatter:formatCategoria},
 			{field:'Grado',title:'<?php _e('Grade'); ?>',width:5,align:'center',formatter:formatGrado},
@@ -95,6 +95,12 @@ $config =Config::getInstance();
 		]],
 		multiple: false,
 		fitColumns: true,
-		singleSelect: true
+		singleSelect: true,
+        onBeforeLoad: function(params) { // don't invoke if no manga declared (ie: at startup )
+            if (typeof(workingData.manga)==="undefined") return false;
+            if (parseInt(workingData.manga)===0) return false;
+            params.Manga=workingData.manga;
+            return true;
+        }
 	});
     </script>
