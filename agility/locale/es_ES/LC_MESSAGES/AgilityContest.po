@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-09-14 19:35+0200\n"
-"PO-Revision-Date: 2017-09-14 19:40+0200\n"
+"POT-Creation-Date: 2017-09-14 19:43+0200\n"
+"PO-Revision-Date: 2017-09-14 19:46+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -6951,7 +6951,7 @@ msgstr "No se encuentra en las inscripciones de esta manga"
 
 #: scripts/import.js.php:201
 msgid "Please select existing one, or ignore entry"
-msgstr "Seleccione y/o edite una entrada existente o pulse Ignorar"
+msgstr "Seleccione y/o edite una entrada existente, o pulse Ignorar"
 
 #: scripts/import.js.php:213
 msgid "data missmatch with existing one for this round"
