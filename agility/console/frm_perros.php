@@ -106,7 +106,7 @@ $config =Config::getInstance();
 		buttons:'#perros-excel-buttons',
 		iconCls:'icon-table',
 		onOpen: function() {
-			ac_import.mode='perros';
+			ac_import.type='perros';
 			$('#import-excel-progressbar').progressbar('setValue',"");
 		},
 		onClose: function() { ac_import.progress_status='paused'; }

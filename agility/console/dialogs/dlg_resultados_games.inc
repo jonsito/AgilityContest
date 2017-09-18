@@ -74,7 +74,7 @@ $config =Config::getInstance();
         buttons:'#resultadosmanga-excel-buttons',
         iconCls:'icon-table',
         onOpen: function() {
-            ac_import.mode='resultados';
+            ac_import.type='resultados';
             $('#import-excel-progressbar').progressbar('setValue',"");
             $('#import-excelRoundInfo').html(workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga);
         },

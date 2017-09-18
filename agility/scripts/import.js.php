@@ -25,7 +25,7 @@ $config =Config::getInstance();
 variables used to store import status
  */
 var ac_import = {
-    'mode' :'perros', // perros, inscripciones, pruebas
+    'type' :'perros', // perros, inscripciones, entrenamientos, resultados
     'progress_status': "paused",
     'progress_timeout': 2000, // default is 2 seconds for progress bar monitoring
     'blind': 1, // default blind (non interactive ) import mode
@@ -238,7 +238,7 @@ function resultMustChoose(search) {
  * @param params list of parameters to be sent to server
  */
 function excel_importSendTask(params) {
-    var dlg=$(ac_import_table[ac_import.mode][0]);
+    var dlg=$(ac_import_table[ac_import.type][0]);
     $.ajax({
         type:'POST', // use post to send file
         url:"/agility/server/excel/excelReaderFunctions.php",
@@ -247,7 +247,7 @@ function excel_importSendTask(params) {
             Operation    :   params.Operation,
             Filename     :   (typeof(params.Filename)==="undefined")?"":params.Filename,
             Data         :   (typeof(params.Data)==="undefined")?"":params.Data,
-            Mode         :   ac_import.mode,
+            Type         :   ac_import.type,
             DatabaseID   :   (typeof(params.DatabaseID)==="undefined")?0:params.DatabaseID,
             ExcelID      :   (typeof(params.ExcelID)==="undefined")?0:params.ExcelID,
             Object       :   (typeof(params.Object)==="undefined")?"":params.Object,
@@ -293,8 +293,8 @@ function excel_importSendTask(params) {
  */
 function excel_importHandleResult(data) {
 
-    var dlg=$(ac_import_table[ac_import.mode][0]);
-    var datagrid=ac_import_table[ac_import.mode][1];
+    var dlg=$(ac_import_table[ac_import.type][0]);
+    var datagrid=ac_import_table[ac_import.type][1];
     var pb=$('#'+ac_import.prefix+'import-excel-progressbar');
     if (data.errorMsg) {
         $.messager.show({ width:300, height:150, title: '<?php _e('Import from Excel error'); ?><br />', msg: data.errorMsg });
@@ -321,7 +321,7 @@ function excel_importHandleResult(data) {
             if (data.success=='fail') { // user action required. study cases
                 var funcs={};
                 import_setProgressStatus('paused'); // tell progress monitor to pause progress bar refresh
-                if (ac_import.mode==="resultados") {
+                if (ac_import.type==="resultados") {
                     funcs= {'notf':resultNotFound,'miss':resultMissmatch,'multi':resultMustChoose};
                 } else if (parseInt(data.search.ClubID)==0) {
                     if (ac_import.blind==1) {
@@ -441,12 +441,12 @@ function read_excelFile(input,prefix) {
 /**
  * Llamada al servidor para importar datos de perros
  * desde el fichero excel seleccionado
- * @param{string} mode 'perros', 'inscripciones' 'resultados' 'entrenamientos'
+ * @param{string} type 'perros', 'inscripciones' 'resultados' 'entrenamientos'
  * @param{string} prefix prefijo de las variables del doom
  */
-function real_excelImport(mode,prefix) {
+function real_excelImport(type,prefix) {
     var data=$('#'+prefix+'import-excelData').val();
-    ac_import.mode=mode;
+    ac_import.type=type;
     ac_import.prefix=prefix;
     // checkboxes
     ac_import.blind=$('#'+prefix+'import-excelBlindMode').prop('checked')?1:0;

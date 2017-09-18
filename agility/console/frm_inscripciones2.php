@@ -141,7 +141,7 @@ $('#inscripciones-excel-dialog').dialog( {
 	buttons:'#inscripciones-excel-buttons',
 	iconCls:'icon-table',
 	onOpen: function() {
-		ac_import.mode='inscripciones';
+		ac_import.type='inscripciones';
 		$('#import-excel-progressbar').progressbar('setValue',"");
 	},
 	onClose: function() {

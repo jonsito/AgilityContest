@@ -131,7 +131,7 @@ $('#entrenamientos-excel-dialog').dialog( {
 	buttons:'#entrenamientos-import-excel-buttons',
 	iconCls:'icon-table',
 	onOpen: function() {
-		ac_import.mode='entrenamientos';
+		ac_import.type='entrenamientos';
 		$('#entrenamientos-import-excel-progressbar').progressbar('setValue',"");
 	},
 	onClose: function() { ac_import.progress_status='paused'; }
