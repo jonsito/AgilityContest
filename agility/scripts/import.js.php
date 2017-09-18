@@ -255,6 +255,7 @@ function excel_importSendTask(params) {
             Jornada      :   workingData.jornada,
             Manga        :   workingData.manga,
             Federation   :   workingData.federation,
+            Mode         :   workingData.mode,
             Blind        :   ac_import.blind,
             DBPriority   :   ac_import.db_priority,
             WordUpperCase:   ac_import.word_upercase,
@@ -472,4 +473,8 @@ function real_excelImport(type,prefix) {
 function perros_excelImport() { return real_excelImport('perros',''); }
 function inscripciones_excelImport() { return real_excelImport('inscripciones',''); }
 function entrenamientos_excelImport() { return real_excelImport('entrenamientos','entrenamientos-'); }
-function resultadosmanga_excelImport() { return real_excelImport('resultados',''); }
+function resultadosmanga_excelImport() {
+    var val=$('input[name=rRecorrido]:checked').val(); // to tell server which categories to parse (LMST-)
+    ac_import.mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,parseInt(val));
+    return real_excelImport('resultados','');
+}
