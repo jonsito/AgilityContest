@@ -559,6 +559,22 @@ function category_match($from,$to="-LMST") {
 	return ($common==="")?false:true;
 }
 
+function sqlFilterCategoryByMode($mode,$prefix=""){
+    // select category according mode
+    switch($mode) {
+        case 0: /* Large */     return "AND ( {$prefix}Categoria='L' ) "; break;
+        case 1: /* Medium */    return "AND ( {$prefix}Categoria='M' ) "; break;
+        case 2: /* Small */     return "AND ( {$prefix}Categoria='S' ) "; break;
+        case 3: /* Med+Small */ return "AND ( {$prefix}Categoria IN ('M','S') ) "; break;
+        case 4: /* L+M+S */     return "AND ( {$prefix}Categoria IN ('L','M','S') )"; break;
+        case 5: /* Toy */       return "AND ( {$prefix}Categoria='T' ) "; break;
+        case 6: /* L+M */       return "AND ( {$prefix}Categoria IN ('L','M') ) "; break;
+        case 7: /* M+S */       return "AND ( {$prefix}Categoria IN ('S','T') ) "; break;
+        case 8: /* L+M+S+T */   return "AND ( {$prefix}Categoria IN ('L','M','S','T') ) "; break;
+        default: return null;
+    }
+}
+
 function mode_match($cat,$mode) {
 	switch ($mode) {
 		case 0: return category_match($cat,"L");

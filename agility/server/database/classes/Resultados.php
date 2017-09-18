@@ -283,16 +283,7 @@ class Resultados extends DBObject {
 	function reset($catsmode) {
 		$this->myLogger->enter();
 		$where="";
-		switch ($catsmode) {
-			case 0:  $where= " AND ( Categoria='L' )"; break;
-			case 1:  $where= " AND ( Categoria='M' )"; break;
-			case 2:  $where= " AND ( Categoria='S' )"; break;
-			case 3:  $where= " AND ( (Categoria='M') OR (Categoria='S') )" ; break;
-			case 4:  $where= " AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
-			case 5:  $where= " AND ( Categoria='T' )"; break;
-			case 6:  $where= " AND ( (Categoria='L') OR (Categoria='M') )"; break;
-			case 7:  $where= " AND ( (Categoria='S') OR (Categoria='T') )"; break;
-		}
+		if ($catsmode!==8) $where=sqlFilterCategoryByMode($catsmode,"");
 		$this->getDatosJornada(); // also implies getDatosManga
 		$idmanga=$this->IDManga;
 		if ($this->isCerrada())
@@ -494,27 +485,18 @@ class Resultados extends DBObject {
 		$idmanga=$this->IDManga;
 		$where="(Manga=$idmanga) AND (Pendiente=1) "; // para comprobar pendientes
 		$cat="";
-		switch ($mode) {
-			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
-			case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
-			case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
-			case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
-			case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
-			case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
-			case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
-			case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
-			case 8: /* L+M+S+T */	break; // no check categoria
-			default: return $this->error("modo de recorrido desconocido:$mode");
-		}
-        $this->myLogger->leave();
-		// FASE 0: comprobamos si hay perros pendientes de salir
-		return $this->__select(
+		if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"");
+		if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
+		// comprobamos si hay perros pendientes de salir
+		$res= $this->__select(
 			/* SELECT */	"*",
 			/* FROM */		"Resultados",
 			/* WHERE */		"$where $cat",
 			/* ORDER BY */	"Nombre ASC",
 			/* LIMIT */		""
 		);
+        $this->myLogger->leave();
+        return $res;
 	}
 
 	/**
@@ -529,18 +511,8 @@ class Resultados extends DBObject {
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga={$this->IDManga}) AND (Pendiente=0) ";
 		$cat="";
-		switch ($mode) {
-			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
-			case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
-			case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
-			case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
-			case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
-			case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
-			case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
-			case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
-			case 8: /* L+M+S+T */	break; // no check categoria
-			default: return $this->error("modo de recorrido desconocido:$mode");
-		}
+		if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"");
+		if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		//  evaluamos mejores tiempos intermedios y totales
 		$best=$this->__select(
 			/* SELECT */ "min(TIntermedio) AS BestIntermedio, min(Tiempo) AS BestFinal",
@@ -575,18 +547,8 @@ class Resultados extends DBObject {
             $where="(Manga=$idmanga) AND (Pendiente=0) AND (Perro!=$idperro)";
         }
 		$cat="";
-		switch ($mode) {
-			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
-			case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
-			case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
-			case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
-			case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
-			case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
-			case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
-			case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
-			case 8: /* L+M+S+T */	break; // no check categoria
-			default: return $this->error("modo de recorrido desconocido:$mode");
-		}
+        if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"");
+        if ($cat===null)  return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
 			"Perro,	GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido, Tiempo, 0 AS PTiempo, 0 AS Penalizacion",
@@ -697,18 +659,8 @@ class Resultados extends DBObject {
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga=$idmanga) AND (Pendiente=0) AND (PerroGuiaClub.ID=Resultados.Perro) ";
 		$cat="";
-		switch ($mode) {
-			case 0: /* Large */		$cat= "AND (Resultados.Categoria='L')"; break;
-			case 1: /* Medium */	$cat= "AND (Resultados.Categoria='M')"; break;
-			case 2: /* Small */		$cat= "AND (Resultados.Categoria='S')"; break;
-			case 3: /* Med+Small */ $cat= "AND ( (Resultados.Categoria='M') OR (Resultados.Categoria='S') )"; break;
-			case 4: /* L+M+S */ 	$cat= "AND ( (Resultados.Categoria='L') OR (Resultados.Categoria='M') OR (Resultados.Categoria='S') )"; break;
-			case 5: /* Tiny */		$cat= "AND (Resultados.Categoria='T')"; break;
-			case 6: /* L+M */		$cat= "AND ( (Resultados.Categoria='L') OR (Resultados.Categoria='M') )"; break;
-			case 7: /* S+T */		$cat= "AND ( (Resultados.Categoria='S') OR (Resultados.Categoria='T') )"; break;
-			case 8: /* L+M+S+T */	break; // no check categoria
-			default: return $this->error("modo de recorrido desconocido:$mode");
-		}
+		if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"Resultados."); // notice the ending dot '.'
+        if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
 				"Resultados.Dorsal,Resultados.Perro,Resultados.Nombre,NombreLargo,Resultados.Raza,Equipo,Resultados.Licencia,Resultados.Categoria,Resultados.Grado,

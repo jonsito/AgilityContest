@@ -37,6 +37,7 @@ class PartialScoresReader extends DogReader {
     protected $jornada;
     protected $manga;
     protected $equipos;
+    protected $cats="";
 
     public function __construct($name,$options) {
         $this->myDBObject = new DBObject($name);
@@ -70,6 +71,7 @@ class PartialScoresReader extends DogReader {
         // on games rounds, make games required
         if (isMangaGames($this->manga['Tipo'])) $this->fieldList['Games'][1]=1;
         $this->validPageNames=array("Results");
+        $this->cats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']),"");
     }
 
     private function removeTmpEntry($item) {
@@ -100,6 +102,7 @@ class PartialScoresReader extends DogReader {
             $this->myLogger->notice("findAndSetResult(): no data to parse row: ".json_encode($item));
             return $this->removeTmpEntry($item); // returns null
         }
+        $cats="";
         $l=$this->myDBObject->conn->real_escape_string($item['Licencia']);
         $n=$this->myDBObject->conn->real_escape_string($item['Nombre']);
         $this->saveStatus("Analyzing result entry '$n'");
