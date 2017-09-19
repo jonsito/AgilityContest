@@ -113,6 +113,24 @@ class DogReader {
         fclose($f);
     }
 
+    public function saveExcelVars() {
+        $fname=IMPORT_DIR."import_{$this->myOptions['Suffix']}.json";
+        $f=fopen($fname,"w");
+        if (!$f) {
+            $this->myLogger->error("fopen() cannot create file: $fname");
+            return;
+        }
+        fwrite($f,json_encode($this->excelVars));
+        fclose($f);
+    }
+
+    public function loadExcelVars() {
+        $fname=IMPORT_DIR."import_{$this->myOptions['Suffix']}.json";
+        $str=file_get_contents($fname);
+        $this->excelVars=json_decode($str,true);
+        return $this->excelVars;
+    }
+
     public function retrieveExcelFile() {
         // phase 1 retrieve data from browser
         $this->myLogger->enter();
@@ -349,6 +367,8 @@ class DogReader {
         // fine. we can start parsing data in DB database table
         $reader->close();
         @unlink($filename); // remove temporary file if no named file provided
+        // save variables imported from excel and exit
+        $this->saveExcelVars();
         $this->myLogger->leave();
         return 0;
     }

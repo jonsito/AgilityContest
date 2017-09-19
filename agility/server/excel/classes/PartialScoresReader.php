@@ -242,24 +242,26 @@ class PartialScoresReader extends DogReader {
             default: $this->myLogger->error("Import Round Data error: invalid mode: {$this->myOptions['Mode']} ");
             return array( 'operation'=>'import','success'=>'close');
         }
-        $this->myLogger->trace("ExcelVars: ".json_encode($this->excelVars));
-        $str="UPDATE Mangas SET ";
-        foreach ($this->excelVars as $key => $value) {
+        $vars= $this->loadExcelVars();
+        $str="UPDATE Mangas SET";
+        foreach ($vars as $key => $value) {
             if ( ($key==='Dist') || ($key===_('Dist')) ) {
-                foreach($items as $cat){ $str .= "Dist_{$cat}={$value}, "; }
-            }
-            if ( ($key==='Obst') || ($key===_('Obst')) ) {
-                foreach($items as $cat){ $str .= "Obst_{$cat}={$value}, "; }
-
-            }
-            if ( ($key==='SCT') || ($key===_('SCT')) ) {
+                $value=intval($value);
+                foreach($items as $cat){ $str .= " Dist_{$cat}={$value}, "; }
+            } else if ( ($key==='Obst') || ($key===_('Obst')) ) {
+                $value=intval($value);
+                foreach($items as $cat){ $str .= " Obst_{$cat}={$value}, "; }
+            } else if ( ($key==='SCT') || ($key===_('SCT')) ) {
+                $value=floatval($value);
                 foreach($items as $cat) $str .= " TRS_{$cat}_Tipo=0, TRS_{$cat}_Factor={$value}, TRS_{$cat}_Unit='s', ";
-            }
-            if ( ($key==='MCT') || ($key===_('MCT')) ) {
+            } else if ( ($key==='MCT') || ($key===_('MCT')) ) {
+                $value=floatval($value);
                 foreach($items as $cat)$str .= " TRM_{$cat}_Tipo=0, TRM_{$cat}_Factor={$value}, TRM_{$cat}_Unit='s', ";
+            } else {
+                $this->myLogger->info("Skip current excel variable: {$key}");
             }
         }
-        $str .= " Observaciones='imported' WHERE ID={$this->manga['ID']}";
+        $str .= " Observaciones='Excel Imported' WHERE ID={$this->manga['ID']}";
         $res=$this->myDBObject->query($str);
         if (!$res) $this->myLogger->error($this->myDBObject->conn->error);
         // PENDING: importar jueces
