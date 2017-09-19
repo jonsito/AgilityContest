@@ -30,28 +30,37 @@ try {
 	$jornadaID=http_request("Jornada","i",0);
 	$mangaID=http_request("Manga","i",0);
 	$idperro=http_request("Perro","i",0);
-	$mode=http_request("Mode","i",0);	
+	$mode=http_request("Mode","i",8);
 	$cats= http_request("Categorias","s","-"); // sort everything LMST by default
-	$catmode=8;
-	switch ($cats) {
-		case "-": $catmode=8; break; // use 8 instead of 4 because this mode is already includede in 8
-		case "L": $catmode=0; break;
-		case "M": $catmode=1; break;
-		case "S": $catmode=2; break;
-		case "T": $catmode=5; break;
-	}
+
+    // preliminary checks
 	if ($operation===null) throw new Exception("Call to resultadosFunction without 'Operation' requested");
 	if ($mangaID==0) throw new Exception("Call to resultadosFunction without 'Manga' provided");
+
+	// get aut manager and resultados instance
 	$resultados= Competitions::getResultadosInstance("resultadosFunctions",$mangaID);
 	$am= new AuthManager("resultadosFunctions");
+
+	// invoke proper operation
 	switch ($operation) {
 		// no insert as done by mean of procesa_inscripcion
 		case "update": $am->access(PERMS_ASSISTANT); $result=$resultados->update($idperro); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$resultados->delete($idperro); break;
 		case "select": $result=$resultados->select($idperro); break;
-		case "reset": $am->access(PERMS_OPERATOR); $result=$resultados->reset($catmode); break;
+		case "reset":
+            $catmode=8;
+            switch ($cats) {
+                case "-": $catmode=8; break; // use 8 instead of 4 because this mode is already includede in 8
+                case "L": $catmode=0; break;
+                case "M": $catmode=1; break;
+                case "S": $catmode=2; break;
+                case "T": $catmode=5; break;
+            }
+		    $am->access(PERMS_OPERATOR);
+		    $result=$resultados->reset($catmode);
+		    break;
         case "swap": $am->access(PERMS_OPERATOR); $result=$resultados->swapMangas($cats); break;
-        case "enumerate": $result=$resultados->enumerate(); break;
+        case "enumerate": $result=$resultados->enumerate($mode); break;
 		case "getPendientes": $result=$resultados->getPendientes($mode); break;
 		case "getResultadosIndividual":$result=$resultados->getResultadosIndividual($mode); break;
 		case "getResultadosIndividualyEquipos":$result=$resultados->getResultadosIndividualyEquipos($mode); break;

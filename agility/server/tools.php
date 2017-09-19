@@ -552,6 +552,20 @@ function tempnam_sfx($path, $prefix="tmp_",$suffix="") {
  * return {boolean} true or false
  */
 function category_match($from,$to="-LMST") {
+    if (is_numeric($to)) {
+        switch (intval($to)) {
+            case 0: $to='L'; break;
+            case 1: $to='M'; break;
+            case 2: $to='S'; break;
+            case 3: $to='MS'; break;
+            case 4: $to='LMS'; break;
+            case 5: $to='T'; break;
+            case 6: $to='LM'; break;
+            case 7: $to='ST'; break;
+            case 8: $to='LMST'; break;
+            default: $to='-LMST'; break;
+        }
+    }
 	if (strpos($to,"-")!==false) return true; // "-" matches any
 	$a_arr = str_split($from);
     $r_arr = str_split($to);

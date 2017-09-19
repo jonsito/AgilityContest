@@ -151,7 +151,7 @@ try {
     if ( ($result==="") || ($result===0) )  // empty or zero on success
          $retcode= json_encode(array('operation'=> $op, 'success'=>'ok'));
     else $retcode= json_encode($result);         // else return data already has been set
-    do_log("Excel '$mode' Reader returns: '$retcode'");
+    do_log("Excel '$type' Reader returns: '$retcode'");
     echo $retcode;
 } catch (Exception $e) {
     do_log("Excel '$type'' Reader Exception: ".$e->getMessage());

@@ -37,7 +37,7 @@ class PartialScoresReader extends DogReader {
     protected $jornada;
     protected $manga;
     protected $equipos;
-    protected $cats="";
+    protected $sqlcats="";
 
     public function __construct($name,$options) {
         $this->myDBObject = new DBObject($name);
@@ -71,7 +71,7 @@ class PartialScoresReader extends DogReader {
         // on games rounds, make games required
         if (isMangaGames($this->manga['Tipo'])) $this->fieldList['Games'][1]=1;
         $this->validPageNames=array("Results");
-        $this->cats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']),"");
+        $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']),"");
     }
 
     private function removeTmpEntry($item) {
@@ -93,24 +93,29 @@ class PartialScoresReader extends DogReader {
      */
     protected function findAndSetResult($item) {
         $this->myLogger->enter();
-        if ( ($this->myOptions['IgnoreNotPresent']==1) && ($item['NoPresentado']==1) ) {
-            $this->myLogger->notice("findAndSetResult(): ignore 'not present' row: ".json_encode($item));
-            return $this->removeTmpEntry($item); // returns null
-        };
         if ( ($item['Licencia']==="") && ($item['Nombre']==="") ){
             // no way to assign result to anyone: remove from temporary table
             $this->myLogger->notice("findAndSetResult(): no data to parse row: ".json_encode($item));
             return $this->removeTmpEntry($item); // returns null
         }
-        $cats="";
+        if ( ($this->myOptions['IgnoreNotPresent']==1) && ($item['NoPresentado']==1) ) {
+            $this->myLogger->info("findAndSetResult(): ignore 'Not Present' row: ".json_encode($item));
+            $this->saveStatus("Ignore 'Not Present' entry: {$item['Nombre']}");
+            return $this->removeTmpEntry($item); // returns null
+        };
         $l=$this->myDBObject->conn->real_escape_string($item['Licencia']);
         $n=$this->myDBObject->conn->real_escape_string($item['Nombre']);
+        if (! category_match($item['Categoria'],$this->myOptions['Mode'])) {
+            $this->myLogger->info("findAndSetResult(): not matching category: ".json_encode($item));
+            $this->saveStatus("Ignore entry with non-matching category: {$n} {$item['Categoria']}");
+            return $this->removeTmpEntry($item); // returns null
+        }
         $this->saveStatus("Analyzing result entry '$n'");
         $lic= ($l==="")?"": " OR (Licencia='{$l}')";
         $dog= ($n==="")?"0":" (Nombre='{$n}')";
         $search=$this->myDBObject->__select("*",
             "Resultados",
-            "(Manga={$this->manga['ID']}) AND ( {$dog} {$lic} )",
+            "(Manga={$this->manga['ID']}) {$this->sqlcats} AND ( {$dog} {$lic} )",
             "",
             "");
         if ( !is_array($search) ) return "findAndSeResult(): Invalid search term: '{$l} - {$n}' "; // invalid search. mark error

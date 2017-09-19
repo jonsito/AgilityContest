@@ -97,6 +97,7 @@ $config =Config::getInstance();
             if (typeof(workingData.manga)==="undefined") return false;
             if (parseInt(workingData.manga)===0) return false;
             params.Manga=workingData.manga;
+            params.Mode=ac_import.mode;
             return true;
         }
 	});

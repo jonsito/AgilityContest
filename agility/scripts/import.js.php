@@ -255,7 +255,7 @@ function excel_importSendTask(params) {
             Jornada      :   workingData.jornada,
             Manga        :   workingData.manga,
             Federation   :   workingData.federation,
-            Mode         :   workingData.mode,
+            Mode         :   ac_import.mode,
             Blind        :   ac_import.blind,
             DBPriority   :   ac_import.db_priority,
             WordUpperCase:   ac_import.word_upercase,
