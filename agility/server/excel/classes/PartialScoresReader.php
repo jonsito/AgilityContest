@@ -198,6 +198,8 @@ class PartialScoresReader extends DogReader {
         $f=" Faltas={$item['Faltas']}";
         $t= (array_key_exists('Tocados',$item))?", Tocados={$item['Tocados']}":"";
         $r=", Rehuses={$item['Rehuses']}";
+        // trick for KO rounds
+        if (isMangaKO($this->manga['Tipo']) ) $item['Games']=1;
         $g= (array_key_exists('Games',$item))?", Games={$item['Games']}":"";
         $e=", Eliminado={$item['Eliminado']}";
         $n=", NoPresentado={$item['NoPresentado']}";
@@ -220,22 +222,48 @@ class PartialScoresReader extends DogReader {
     function beginImport() {
         $this->myLogger->enter();
         // PENDING: si se han definido, se guardan los datos de la manga
-        // ahora guardamos los datos de resultados
-        $from=$this->myDBObject->__select(
-          "*",
-          TABLE_NAME,
-          "( DogID != 0 )",
-          "DogID ASC",
-          ""
-        );
-        $mid=$this->manga['ID'];
-        $is_ko=isMangaKO($this->manga['Tipo']);
-        $resobj=Competitions::getResultadosInstance("update round:{$mid} on journey:{$this->jornada['ID']}",$mid);
-        foreach ($from['rows'] as $resultado) {
-            $resultado['Pendiente']=0;
-            if ($is_ko) $resultado['Games']=1;
-            $resobj->real_update($resultado['DogID'],$resultado);
+        if ($this->myOptions['ParseCourseData']==0) {
+            $this->saveStatus("Skip parse course data");
+            $this->myLogger->info("Course data import cancelled by user");
+            return array( 'operation'=>'import','success'=>'close');
         }
+        $this->saveStatus("Parsing course data if available");
+        // evaluate categories to store round information into
+        switch($this->myOptions['Mode']) {
+            case 0: $items=array('L'); break;
+            case 1: $items=array('M'); break;
+            case 2: $items=array('S'); break;
+            case 3: $items=array('M','S'); break;
+            case 4: $items=array('L','M','S'); break;
+            case 5: $items=array('T'); break;
+            case 6: $items=array('L','M'); break;
+            case 7: $items=array('S','T'); break;
+            case 8: $items=array('L','M','S','T'); break;
+            default: $this->myLogger->error("Import Round Data error: invalid mode: {$this->myOptions['Mode']} ");
+            return array( 'operation'=>'import','success'=>'close');
+        }
+        $this->myLogger->trace("ExcelVars: ".json_encode($this->excelVars));
+        $str="UPDATE Mangas SET ";
+        foreach ($this->excelVars as $key => $value) {
+            if ( ($key==='Dist') || ($key===_('Dist')) ) {
+                foreach($items as $cat){ $str .= "Dist_{$cat}={$value}, "; }
+            }
+            if ( ($key==='Obst') || ($key===_('Obst')) ) {
+                foreach($items as $cat){ $str .= "Obst_{$cat}={$value}, "; }
+
+            }
+            if ( ($key==='SCT') || ($key===_('SCT')) ) {
+                foreach($items as $cat) $str .= " TRS_{$cat}_Tipo=0, TRS_{$cat}_Factor={$value}, TRS_{$cat}_Unit='s', ";
+            }
+            if ( ($key==='MCT') || ($key===_('MCT')) ) {
+                foreach($items as $cat)$str .= " TRM_{$cat}_Tipo=0, TRM_{$cat}_Factor={$value}, TRM_{$cat}_Unit='s', ";
+            }
+        }
+        $str .= " Observaciones='imported' WHERE ID={$this->manga['ID']}";
+        $res=$this->myDBObject->query($str);
+        if (!$res) $this->myLogger->error($this->myDBObject->conn->error);
+        // PENDING: importar jueces
+
         $this->myLogger->leave();
         return array( 'operation'=>'import','success'=>'close');
     }

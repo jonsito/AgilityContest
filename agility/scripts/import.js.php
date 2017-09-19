@@ -260,7 +260,7 @@ function excel_importSendTask(params) {
             DBPriority   :   ac_import.db_priority,
             WordUpperCase:   ac_import.word_upercase,
             IgnoreWhitespaces:ac_import.ignore_spaces,
-            ParseCoursedata: ac_import.parse_coursedata,
+            ParseCourseData: ac_import.parse_coursedata,
             IgnoreNotPresent: ac_import.ignore_notpresent,
             Suffix       :   ac_import.suffix,
             Count        :   ac_import.count
