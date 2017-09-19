@@ -215,7 +215,9 @@ class DogReader {
                     $str2.="'{$a}', ";
                     break;
                 case "i":
-                    $a=intval($item);
+                    // take care on boolean-as-integer case
+                    if (is_numeric($item)) $a=intval($item);
+                    else $a=(toBoolean($item))?1:0;
                     $str2 .= " {$a}, "; // integer
                     break;
                 case "b":
