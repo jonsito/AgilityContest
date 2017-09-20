@@ -94,7 +94,7 @@ $config =Config::getInstance();
     $('#parciales_individual-datagrid').datagrid({
         toolbar: '#resultadosmanga-toolbar',
         onBeforeLoad: function(param) { return (param.Manga > 0); }, // do not load if no manga selected
-        onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes)
+        onLoadSuccess: function(data) { // get focus on datagrid (to bind keystrokes)
             $(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
         }
     });
