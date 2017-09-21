@@ -434,13 +434,9 @@ class DogReader {
         // arriving here means match found. So replace all instances with found data and return to continue import
         $t=TABLE_NAME;
         $i=$search['rows'][0]['ID']; // Club ID
-        $nombre=$this->myDBObject->conn->real_escape_string($search['rows'][0]['Nombre']); // Club Name
-        if ($this->myOptions['Blind']!=0) {
-            // check precedence on DB or Excel
-            if ($this->myOptions['DBPriority']==0) $nombre= $a; // tomamos el nombre del guia del excel
-            // check precedence on DB or Excel
-            if ($this->myOptions['WordUpperCase']!=0) $nombre= toUpperCaseWords($nombre); // formato mayuscula inicial
-        }
+        $nombre=$this->myDBObject->conn->real_escape_string($search['rows'][0]['Nombre']);
+        // fix Club name according importing rules
+        $nombre=$this->import_mixData($nombre,$a);
         $str="UPDATE $t SET ClubID=$i, NombreClub='$nombre' WHERE (NombreClub = '$old')";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetClub(): update club '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
@@ -467,9 +463,8 @@ class DogReader {
             // arriving here means match found. So replace all instances with found data and return to continue import
             $id=$search['rows'][$index]['ID']; // id del guia
             $nombre= $this->myDBObject->conn->real_escape_string($search['rows'][$index]['Nombre']); // nombre del guia (DB)
-            if ($this->myOptions['Blind']!=0) {
-                $nombre=$this->import_mixData($nombre,$item['NombreGuia']);
-            }
+            // fix handler's name according importing rules
+            $nombre=$this->import_mixData($nombre,$item['NombreGuia']);
             $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '$a')  AND (ClubID=$c)"; // exact match
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
