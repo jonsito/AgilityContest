@@ -258,6 +258,7 @@ function excel_importSendTask(params) {
             Mode         :   ac_import.mode,
             Blind        :   ac_import.blind,
             DBPriority   :   ac_import.db_priority,
+            UseExcelNames:   (typeof(params.UseExcelNames)==="undefined")?(ac_import.db_priority==0)?1:0:params.UseExcelNames,
             WordUpperCase:   ac_import.word_upercase,
             IgnoreWhitespaces:ac_import.ignore_spaces,
             ParseCourseData: ac_import.parse_coursedata,
@@ -406,10 +407,11 @@ function importAction(item,action,fromkey,dbkey) {
     var dlg="#import"+item+"-dialog";
     var search="#import"+item+"-Search";
     var options = {
-      Operation: action, // create update ignore
-      Object: item, // Perro Guia Club
-      ExcelID: fromkey,
-      DatabaseID: dbkey
+        Operation: action, // create update ignore
+        Object: item, // Perro Guia Club
+        ExcelID: fromkey,
+        DatabaseID: dbkey,
+        UseExcelNames: $('input[name=import'+item+'-UseExcelNames]:checked').val()
     };
     if (!dbkey || !dbkey.length) dbkey=0; // prevent null or empty values in dbkey
     if ( (action==="update") && (parseInt(dbkey)==0) ) {

@@ -34,6 +34,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
              <a id="importClub-clearBtn" href="#" class="easyui-linkbutton"
                 data-options="iconCls: 'icon-brush'"><?php _e('Clear'); ?></a>
              <input type="hidden" id="importClub-ClubID" value="0"/>
+             <input type="hidden" name="importClub-UseExcelNames" value="0"/>
          </div>
      </form>
 </div>  

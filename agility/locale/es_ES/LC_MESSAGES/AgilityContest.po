@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-09-14 19:43+0200\n"
-"PO-Revision-Date: 2017-09-14 19:46+0200\n"
+"POT-Creation-Date: 2017-09-21 12:06+0200\n"
+"PO-Revision-Date: 2017-09-21 12:10+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -140,8 +140,8 @@ msgstr "Dorsal"
 
 #: chrono/chrono.inc.php:68 console/dialogs/dlg_chperros.inc:164
 #: console/dialogs/dlg_newInscripcion.inc:154
-#: console/dialogs/import_perros.inc.php:86
-#: console/dialogs/import_results.inc.php:87 console/frm_perros.php:136
+#: console/dialogs/import_perros.inc.php:91
+#: console/dialogs/import_results.inc.php:88 console/frm_perros.php:136
 #: scripts/competicion.js.php:1378 scripts/import.js.php:157
 #: scripts/import.js.php:170 scripts/import.js.php:184
 #: scripts/printer.js.php:379
@@ -153,8 +153,8 @@ msgstr "Perro"
 #: console/dialogs/dlg_editInscripcion.inc:46
 #: console/dialogs/dlg_newInscripcion.inc:158
 #: console/dialogs/dlg_ordensalida.inc:169 console/dialogs/dlg_perros.inc:83
-#: console/dialogs/import_perros.inc.php:89
-#: console/dialogs/import_results.inc.php:90 console/frm_equipos.php:128
+#: console/dialogs/import_perros.inc.php:94
+#: console/dialogs/import_results.inc.php:91 console/frm_equipos.php:128
 #: console/frm_equipos.php:256 console/frm_inscripciones2.php:273
 #: console/frm_perros.php:141 lib/templates/final_individual.inc.php:21
 #: lib/templates/final_individual_2rondas.inc.php:28
@@ -207,9 +207,9 @@ msgstr "Gu&iacute;a"
 #: console/dialogs/dlg_remotecontrol.inc:413
 #: console/dialogs/dlg_selectJornada.inc:85 console/dialogs/dlg_usuarios.inc:75
 #: console/dialogs/dlg_usuarios.inc:248
-#: console/dialogs/import_handlers.inc.php:85
-#: console/dialogs/import_perros.inc.php:90
-#: console/dialogs/import_results.inc.php:91 console/frm_equipos.php:129
+#: console/dialogs/import_handlers.inc.php:90
+#: console/dialogs/import_perros.inc.php:95
+#: console/dialogs/import_results.inc.php:92 console/frm_equipos.php:129
 #: console/frm_equipos.php:257 console/frm_guias.php:95
 #: console/frm_inscripciones.php:78 console/frm_inscripciones2.php:274
 #: console/frm_perros.php:142 console/frm_registration.php:62 index.php:192
@@ -260,8 +260,8 @@ msgstr "Categor&iacute;a"
 #: console/dialogs/dlg_chperros.inc:166
 #: console/dialogs/dlg_editInscripcion.inc:44
 #: console/dialogs/dlg_newInscripcion.inc:157 console/dialogs/dlg_perros.inc:76
-#: console/dialogs/import_perros.inc.php:88
-#: console/dialogs/import_results.inc.php:89 console/frm_clubes.php:262
+#: console/dialogs/import_perros.inc.php:93
+#: console/dialogs/import_results.inc.php:90 console/frm_clubes.php:262
 #: console/frm_equipos.php:255 console/frm_guias.php:151
 #: console/frm_inscripciones2.php:272 console/frm_paises.php:226
 #: console/frm_perros.php:140 console/frm_perros.php:185
@@ -360,7 +360,7 @@ msgstr "Eliminado"
 #: scripts/equipos.js.php:70 scripts/equipos.js.php:123
 #: scripts/equipos.js.php:352 scripts/guias.js.php:87 scripts/guias.js.php:176
 #: scripts/guias.js.php:199 scripts/guias.js.php:227 scripts/guias.js.php:257
-#: scripts/import.js.php:463 scripts/inscripciones.js.php:68
+#: scripts/import.js.php:466 scripts/inscripciones.js.php:68
 #: scripts/inscripciones.js.php:192 scripts/inscripciones.js.php:225
 #: scripts/inscripciones.js.php:259 scripts/inscripciones.js.php:290
 #: scripts/inscripciones.js.php:377 scripts/jueces.js.php:93
@@ -500,7 +500,7 @@ msgstr "Dors"
 #: console/dialogs/dlg_remotecontrol.inc:595
 #: console/dialogs/dlg_selectJornada.inc:83 console/dialogs/dlg_sesiones.inc:28
 #: console/dialogs/dlg_sesiones.inc:158 console/dialogs/dlg_usuarios.inc:55
-#: console/dialogs/import_handlers.inc.php:83
+#: console/dialogs/import_handlers.inc.php:88
 #: console/frm_clasificaciones2.php:171
 #: console/frm_clasificaciones_equipos.php:184 console/frm_clubes.php:99
 #: console/frm_clubes.php:173 console/frm_clubes.php:259
@@ -574,8 +574,8 @@ msgstr "Gu&iacute;a"
 #: console/dialogs/dlg_ordensalida.inc:47
 #: console/dialogs/dlg_ordensalida.inc:104
 #: console/dialogs/dlg_ordensalida.inc:168
-#: console/dialogs/import_perros.inc.php:87
-#: console/dialogs/import_results.inc.php:88 console/frm_equipos.php:126
+#: console/dialogs/import_perros.inc.php:92
+#: console/dialogs/import_results.inc.php:89 console/frm_equipos.php:126
 #: console/frm_equipos.php:175 console/frm_equipos.php:254
 #: console/frm_equipos.php:327 console/frm_guias.php:150
 #: console/frm_inscripciones2.php:271 console/frm_perros.php:139
@@ -632,12 +632,12 @@ msgstr "Equipo"
 #: chrono/chrono.js.php:162 chrono/chrono.js.php:259
 #: console/dialogs/dlg_clubes.inc:72 console/dialogs/dlg_clubes.inc:172
 #: console/dialogs/dlg_entrenamientos.inc:182 console/dialogs/dlg_jueces.inc:44
-#: console/dialogs/dlg_jueces.inc:111 console/dialogs/import_clubes.inc.php:93
+#: console/dialogs/dlg_jueces.inc:111 console/dialogs/import_clubes.inc.php:94
 #: console/frm_clubes.php:103 console/frm_jueces.php:90
 #: console/frm_paises.php:81 scripts/datagrid_formatters.js.php:164
 #: scripts/datagrid_formatters.js.php:527
 #: scripts/datagrid_formatters.js.php:537
-#: server/excel/classes/DogReader.php:394 server/modules/Federations.php:399
+#: server/excel/classes/DogReader.php:416 server/modules/Federations.php:399
 #: server/pdf/classes/PrintEntrenamientos.php:59
 #: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:187
 msgid "Country"
@@ -788,7 +788,7 @@ msgid "Telephone"
 msgstr "Tel&eacute;fono"
 
 #: console/dialogs/dlg_chguias.inc:73 console/dialogs/dlg_chperros.inc:101
-#: console/dialogs/import_clubes.inc.php:44 console/frm_equipos.php:34
+#: console/dialogs/import_clubes.inc.php:45 console/frm_equipos.php:34
 #: console/frm_inscripciones2.php:99
 msgid "New"
 msgstr "Nuevo"
@@ -947,7 +947,7 @@ msgstr "Direcci&oacute;n"
 #: console/dialogs/dlg_clubes.inc:65 console/dialogs/dlg_clubes.inc:197
 #: console/dialogs/dlg_guias.inc:143 console/dialogs/dlg_pruebas.inc:282
 #: console/dialogs/dlg_pruebas.inc:371 console/dialogs/dlg_usuarios.inc:178
-#: console/dialogs/import_clubes.inc.php:92
+#: console/dialogs/import_clubes.inc.php:93
 msgid "Province"
 msgstr "Provincia"
 
@@ -1448,10 +1448,10 @@ msgstr "Al finalizar la cuenta de 15 segundos"
 
 #: console/dialogs/dlg_configuracion.inc:136
 #: console/dialogs/dlg_entrenamientos.inc:67
-#: console/dialogs/import_clubes.inc.php:52
-#: console/dialogs/import_handlers.inc.php:54
-#: console/dialogs/import_perros.inc.php:53
-#: console/dialogs/import_results.inc.php:55
+#: console/dialogs/import_clubes.inc.php:53
+#: console/dialogs/import_handlers.inc.php:59
+#: console/dialogs/import_perros.inc.php:58
+#: console/dialogs/import_results.inc.php:56
 #: lib/templates/import_dialog.inc.php:49
 msgid "Ignore"
 msgstr "Ignorar"
@@ -2422,7 +2422,7 @@ msgstr "Registrar un nuevo club en la base de datos"
 
 #: console/dialogs/dlg_guias.inc:142 console/dialogs/dlg_pruebas.inc:280
 #: console/dialogs/dlg_pruebas.inc:370 console/dialogs/dlg_usuarios.inc:177
-#: console/dialogs/import_clubes.inc.php:91 console/frm_perros.php:189
+#: console/dialogs/import_clubes.inc.php:92 console/frm_perros.php:189
 msgid "Club name"
 msgstr "Nombre del Club"
 
@@ -2587,7 +2587,7 @@ msgid "Updating dog list"
 msgstr "Actualizando lista de perros"
 
 #: console/dialogs/dlg_newInscripcion.inc:155
-#: console/dialogs/import_results.inc.php:86 console/frm_equipos.php:253
+#: console/dialogs/import_results.inc.php:87 console/frm_equipos.php:253
 #: console/frm_inscripciones2.php:270 console/frm_perros.php:183
 #: lib/templates/final_individual.inc.php:19
 #: lib/templates/final_individual_2rondas.inc.php:23
@@ -2619,31 +2619,31 @@ msgstr "Actualizando lista de perros"
 msgid "Lic"
 msgstr "Lic"
 
-#: console/dialogs/dlg_newInscripcion.inc:231
+#: console/dialogs/dlg_newInscripcion.inc:235
 msgid "Search available competitors"
 msgstr "Buscar posibles participantes"
 
-#: console/dialogs/dlg_newInscripcion.inc:231
+#: console/dialogs/dlg_newInscripcion.inc:235
 msgid "matching search criteria"
 msgstr "que coincidan con el criterio de b&uacute;squeda"
 
-#: console/dialogs/dlg_newInscripcion.inc:235
+#: console/dialogs/dlg_newInscripcion.inc:239
 msgid "Inscribe selected dog(s) into contest"
 msgstr "Inscribir el/los perro(s) seleccionados en la prueba"
 
-#: console/dialogs/dlg_newInscripcion.inc:236
+#: console/dialogs/dlg_newInscripcion.inc:240
 msgid "Close window"
 msgstr "Cerrar ventana"
 
-#: console/dialogs/dlg_newInscripcion.inc:236
+#: console/dialogs/dlg_newInscripcion.inc:240
 msgid "Return to inscription handling form"
 msgstr "Volver a la pantalla de gesti&oacute;n de inscripciones"
 
-#: console/dialogs/dlg_newInscripcion.inc:237
+#: console/dialogs/dlg_newInscripcion.inc:241
 msgid "Clear selection. Refresh list"
 msgstr "Borrar selecci&oacute;n. Actualizar lista"
 
-#: console/dialogs/dlg_newInscripcion.inc:238
+#: console/dialogs/dlg_newInscripcion.inc:242
 msgid "Insert new dog into database"
 msgstr "A&ntilde;adir un nuevo perro en la base de datos"
 
@@ -3028,10 +3028,10 @@ msgstr "Forzar re-envio si ya se ha enviado el correo"
 #: console/dialogs/dlg_pruebas.inc:49 console/dialogs/dlg_remotecontrol.inc:42
 #: console/dialogs/dlg_remotecontrol.inc:136
 #: console/dialogs/dlg_remotecontrol.inc:196
-#: console/dialogs/import_clubes.inc.php:49
-#: console/dialogs/import_handlers.inc.php:51
-#: console/dialogs/import_perros.inc.php:50
-#: console/dialogs/import_results.inc.php:52 console/frm_registration.php:120
+#: console/dialogs/import_clubes.inc.php:50
+#: console/dialogs/import_handlers.inc.php:56
+#: console/dialogs/import_perros.inc.php:55
+#: console/dialogs/import_results.inc.php:53 console/frm_registration.php:120
 msgid "Select"
 msgstr "Seleccionar"
 
@@ -3813,19 +3813,19 @@ msgstr "Borrar el usuario seleccionado de la base de datos"
 msgid "Club data Import"
 msgstr "Importar datos de Clubs"
 
-#: console/dialogs/import_clubes.inc.php:62
+#: console/dialogs/import_clubes.inc.php:63
 msgid "Open dialog to create new club"
 msgstr "Abrir di&aacute;logo de creaci&oacute;n de clubes"
 
-#: console/dialogs/import_clubes.inc.php:71
+#: console/dialogs/import_clubes.inc.php:72
 msgid "Use selected club and update club info"
 msgstr "Usar el club seleccionado en los datos importados"
 
-#: console/dialogs/import_clubes.inc.php:72
+#: console/dialogs/import_clubes.inc.php:73
 msgid "Ignore entry. do not import into database"
 msgstr "Ignorar esta entrada y las relacionadas. no importar en base de datos"
 
-#: console/dialogs/import_clubes.inc.php:73
+#: console/dialogs/import_clubes.inc.php:74
 msgid "Clear club selection"
 msgstr "Borrar selecci&oacute;n de club"
 
@@ -3833,26 +3833,41 @@ msgstr "Borrar selecci&oacute;n de club"
 msgid "Handler import"
 msgstr "Importar gu&iacute;a"
 
-#: console/dialogs/import_handlers.inc.php:46
-#: console/dialogs/import_perros.inc.php:45
+#: console/dialogs/import_handlers.inc.php:39
+#: console/dialogs/import_perros.inc.php:38
+msgid "On selection preserve name from"
+msgstr "Pulsando `Seleccionar`, preservar nombre desde"
+
+#: console/dialogs/import_handlers.inc.php:40
+#: console/dialogs/import_perros.inc.php:39
+msgid "DataBase"
+msgstr "Base de datos"
+
+#: console/dialogs/import_handlers.inc.php:41
+#: console/dialogs/import_perros.inc.php:40
+msgid "Excel File"
+msgstr "Fichero excel"
+
+#: console/dialogs/import_handlers.inc.php:51
+#: console/dialogs/import_perros.inc.php:50
 msgid "Create"
 msgstr "Crear"
 
-#: console/dialogs/import_handlers.inc.php:63
-#: console/dialogs/import_perros.inc.php:67
-#: console/dialogs/import_results.inc.php:68
+#: console/dialogs/import_handlers.inc.php:68
+#: console/dialogs/import_perros.inc.php:72
+#: console/dialogs/import_results.inc.php:69
 msgid "Clear selection"
 msgstr "Borrar selecci&oacute;n"
 
-#: console/dialogs/import_handlers.inc.php:64
+#: console/dialogs/import_handlers.inc.php:69
 msgid "Use selected handler to be used in imported data"
 msgstr "Usar gu&iacute;a seleccionado para los datos a importar"
 
-#: console/dialogs/import_handlers.inc.php:65
+#: console/dialogs/import_handlers.inc.php:70
 msgid "Use Excel imported data to create a new handler"
 msgstr "Crear un nuevo gu&iacute;a a partir de los datos importados"
 
-#: console/dialogs/import_handlers.inc.php:66
+#: console/dialogs/import_handlers.inc.php:71
 msgid "Ignore handler and their entries from imported Excel data"
 msgstr "Ignorar todas las entradas a importar en que aparezca este gu&iacute;a"
 
@@ -3860,15 +3875,15 @@ msgstr "Ignorar todas las entradas a importar en que aparezca este gu&iacute;a"
 msgid "Dog import"
 msgstr "Importar perros"
 
-#: console/dialogs/import_perros.inc.php:64
+#: console/dialogs/import_perros.inc.php:69
 msgid "Create a new dog with Excel provided data"
 msgstr "Crear un nuevo perro con los datos a importar"
 
-#: console/dialogs/import_perros.inc.php:65
+#: console/dialogs/import_perros.inc.php:70
 msgid "Use selected dog to be used in requested Excel import data"
 msgstr "Usar el perro seleccionado en los datos a importar"
 
-#: console/dialogs/import_perros.inc.php:66
+#: console/dialogs/import_perros.inc.php:71
 msgid "Ignore data. Do not import Excel dog entry into database"
 msgstr "Ignorar este perro en los datos a importar"
 
@@ -3876,11 +3891,11 @@ msgstr "Ignorar este perro en los datos a importar"
 msgid "Results import"
 msgstr "Importaci&oacute;n de resultados"
 
-#: console/dialogs/import_results.inc.php:66
+#: console/dialogs/import_results.inc.php:67
 msgid "Use selected dog for requested Excel import data"
 msgstr "Usar el perro seleccionado en los datos Excel a importar"
 
-#: console/dialogs/import_results.inc.php:67
+#: console/dialogs/import_results.inc.php:68
 msgid "Ignore data. Do not import Excel result entry into database"
 msgstr "Ignorar entrada. No importar este resultado a la base de datos"
 
@@ -4003,6 +4018,7 @@ msgstr "TRM fijo"
 #: lib/templates/parcial_console_round_data.inc.php:33
 #: lib/templates/parcial_console_round_data.inc.php:42
 #: server/excel/classes/ClasificacionesWriter.php:94
+#: server/excel/classes/PartialScoresReader.php:254
 #: server/excel/classes/PartialScoresWriter.php:88
 #: server/pdf/classes/PrintClasificacion.php:95
 #: server/pdf/classes/PrintClasificacion.php:119
@@ -4146,6 +4162,7 @@ msgstr "Jueces"
 #: lib/templates/parcial_console_round_data.inc.php:34
 #: lib/templates/parcial_console_round_data.inc.php:43
 #: server/excel/classes/ClasificacionesWriter.php:94
+#: server/excel/classes/PartialScoresReader.php:257
 #: server/excel/classes/PartialScoresWriter.php:89
 #: server/pdf/classes/PrintClasificacion.php:96
 #: server/pdf/classes/PrintClasificacion.php:120
@@ -5675,6 +5692,7 @@ msgstr "Datos de la manga"
 #: lib/templates/final_rounds_data.inc.php:24
 #: lib/templates/parcial_round_data.inc.php:18
 #: server/excel/classes/ClasificacionesWriter.php:94
+#: server/excel/classes/PartialScoresReader.php:248
 #: server/excel/classes/PartialScoresWriter.php:86
 #: server/pdf/classes/PrintClasificacion.php:93
 #: server/pdf/classes/PrintClasificacion.php:117
@@ -5692,6 +5710,7 @@ msgstr "Dist"
 #: lib/templates/final_rounds_data.inc.php:25
 #: lib/templates/parcial_round_data.inc.php:19
 #: server/excel/classes/ClasificacionesWriter.php:94
+#: server/excel/classes/PartialScoresReader.php:251
 #: server/excel/classes/PartialScoresWriter.php:87
 #: server/pdf/classes/PrintClasificacion.php:94
 #: server/pdf/classes/PrintClasificacion.php:118
@@ -6971,47 +6990,47 @@ msgstr "mas de una inscripci&oacute;n compatible en esta manga"
 msgid "Please select right one or ask to ignore entry"
 msgstr "Seleccione y/o edite la entrada correcta o pulse Ignorar"
 
-#: scripts/import.js.php:270 scripts/import.js.php:300
+#: scripts/import.js.php:272 scripts/import.js.php:302
 msgid "Import from Excel error"
 msgstr "Error de importaci&oacute;n desde Excel"
 
-#: scripts/import.js.php:308
+#: scripts/import.js.php:310
 msgid "Checking Excel File"
 msgstr "Verificando fichero Excel"
 
-#: scripts/import.js.php:313
+#: scripts/import.js.php:315
 msgid "Starting data import"
 msgstr "Comienzo de importacion"
 
-#: scripts/import.js.php:328
+#: scripts/import.js.php:330
 msgid "Club/Country not found or missmatch"
 msgstr "Club/pa&iacute;s no encontrado o no coincidente"
 
-#: scripts/import.js.php:329
+#: scripts/import.js.php:331
 msgid "This is not allowed when importing in blind mode"
 msgstr "Esto no est&aacute; permitido importando en modo no interactivo"
 
-#: scripts/import.js.php:330
+#: scripts/import.js.php:332
 msgid "Import aborted."
 msgstr "Importaci&oacute;n cancelada"
 
-#: scripts/import.js.php:332
+#: scripts/import.js.php:334
 msgid "Blind mode import"
 msgstr "Importaci&oacute;n no interactiva"
 
-#: scripts/import.js.php:378
+#: scripts/import.js.php:380
 msgid "Import Done"
 msgstr "Importaci&oacute;n completada"
 
-#: scripts/import.js.php:378
+#: scripts/import.js.php:380
 msgid "Import from Excel File Done"
 msgstr "Proceso de importaci&oacute;n desde Excel completado"
 
-#: scripts/import.js.php:415
+#: scripts/import.js.php:418
 msgid "Must select a valid entry for requesting update"
 msgstr "Debe seleccionar una entrada v&aacute;lida para actualizar"
 
-#: scripts/import.js.php:463
+#: scripts/import.js.php:466
 msgid "No import file selected"
 msgstr "No se ha indicado fichero a importar"
 
@@ -8105,8 +8124,8 @@ msgstr "M.B."
 #: server/modules/competiciones/Puntuable_RSCE_2017.php:116
 #: server/modules/competiciones/Selectiva_awc_RSCE.php:139
 #: server/modules/competiciones/Selectiva_awc_RSCE.php:143
-#: server/modules/competiciones/Selectiva_eo_RSCE.php:152
-#: server/modules/competiciones/Selectiva_eo_RSCE.php:156
+#: server/modules/competiciones/Selectiva_eo_RSCE.php:143
+#: server/modules/competiciones/Selectiva_eo_RSCE.php:147
 msgid "Excellent"
 msgstr "Excelente"
 
@@ -8127,7 +8146,7 @@ msgstr "Excelente"
 #: server/modules/competiciones/Selectiva_PastorBelga.php:103
 #: server/modules/competiciones/Selectiva_PastorBelga.php:104
 #: server/modules/competiciones/Selectiva_awc_RSCE.php:140
-#: server/modules/competiciones/Selectiva_eo_RSCE.php:153
+#: server/modules/competiciones/Selectiva_eo_RSCE.php:144
 #: server/modules/competiciones/Trofeo_Interclubes_2017.php:75
 #: server/modules/competiciones/Trofeo_Interclubes_2017.php:76
 #: server/modules/competiciones/Trofeo_Interclubes_2017.php:79
@@ -8199,7 +8218,7 @@ msgid "Ex P"
 msgstr "Ex P"
 
 #: server/modules/competiciones/Selectiva_awc_RSCE.php:144
-#: server/modules/competiciones/Selectiva_eo_RSCE.php:157
+#: server/modules/competiciones/Selectiva_eo_RSCE.php:148
 msgid "ExP"
 msgstr "Ex P"
 
@@ -8627,7 +8646,7 @@ msgstr "P&aacute;gina"
 msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
 
-#: server/tools.php:587
+#: server/tools.php:617
 msgid "Current journey is closed. cannot modify"
 msgstr "La jornada actual est&aacute; cerrada. No se puede modificar"
 

@@ -33,6 +33,7 @@ $config =Config::getInstance();
                 <a id="importResult-clearBtn" href="#" class="easyui-linkbutton"
                 	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
                 <input type="hidden" id="importResult-ResultID" value="0"/>
+                <input type="hidden" name="importResult-UseExcelNames" value="0"/>
         	</div>
         </form>
     </div>

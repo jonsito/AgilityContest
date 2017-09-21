@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE IMPORTACION DE UN PERRO-->
-    <div id="importPerro-dialog" class="easyui-dialog" style="width:550px;height:auto;padding:10px 20px;"
+    <div id="importPerro-dialog" class="easyui-dialog" style="width:600px;height:auto;padding:10px 20px;"
         data-options="modal:true,closable:false,closed:true,buttons:'#importPerro-dlg-buttons',iconCls:'icon-dog'">
         <div id="importPerro-title" class="ftitle"><?php _e('Dog import'); ?></div>
         <p><span id="importPerro-Text"></span></p>
@@ -34,6 +34,12 @@ $config =Config::getInstance();
                 	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
                 <input type="hidden" id="importPerro-DogID" value="0"/>
         	</div>
+            <div>
+                <br/><?php _e("On selection preserve name from"); ?> :
+                <input type="radio" name="importPerro-UseExcelNames" value="0"/><?php _e("DataBase");?>
+                <input type="radio" name="importPerro-UseExcelNames" value="1" checked="checked"/><?php _e("Excel File");?>
+                <br/>
+            </div>
         </form>
     </div>
     

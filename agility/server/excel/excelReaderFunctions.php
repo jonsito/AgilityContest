@@ -52,10 +52,12 @@ if ($op==='progress') {
     return;
 }
 
-
 // retrieve parameters from http request
 $options['Blind']=http_request('Blind',"i",0);
+// DB Priority is global and states where to extract cat, grad, club, license and so
 $options['DBPriority']=http_request('DBPriority',"i",1);
+// UseExcelName is particular for each request and says which handler/dog name is to be preserved
+$options['UseExcelNames']=http_request('UseExcelNames',"i",0);
 $options['WordUpperCase']=http_request('WordUpperCase',"i",1);
 $options['IgnoreWhiteSpaces']=http_request('IgnoreWhitespaces',"i",1);
 $options['Object']=http_request('Object',"s",""); // 'Perro' 'Guia' 'Club'

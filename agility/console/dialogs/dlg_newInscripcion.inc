@@ -1,4 +1,4 @@
-<!-- 
+<!--
 dlg_newInscripcion.inc
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
@@ -127,9 +127,9 @@ $('#new_inscripcion-dialog').dialog({
 	buttons:'#new_inscripcion-buttons',
 	onOpen: newInscripcion_onOpenSuccess, // on display setup jornada's 'checkboxes info
 	onClose: function() {
-	    $('#new_inscripcion-datagrid').datagrid('unselectAll');
-        autoBackupDatabase(1,"");
-	}
+	        $('#new_inscripcion-datagrid').datagrid('unselectAll');
+            autoBackupDatabase(1,"");
+	    }
 	});
 	
 // datagrid de inscripcion de participantes
@@ -168,9 +168,8 @@ $('#new_inscripcion-datagrid').datagrid({
 	pageSize: 25,
 	onDblClickRow: function(idx,row) {insertInscripcion('#new_inscripcion-datagrid'); },
 	onLoadSuccess: function(data) {
-	    console.log("Data is: "+JSON.stringify(data));
 	    if (data.total===1) $('#new_inscripcion-datagrid').datagrid('selectRow',0);
-        return;
+	    return true;
     }
 });
 

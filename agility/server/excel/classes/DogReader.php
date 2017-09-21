@@ -457,14 +457,24 @@ class DogReader {
         else    $search=$this->myDBObject->__select("*","Guias","( Nombre = '$a' ) AND ( Federation = $f ) ","","");
         if ( !is_array($search) ) return "findAndSetHandler(): Invalid search term: '$a'"; // invalid search. mark error
         // parse found entries looking for match
+
+        // POSSIBLE BUG: if in a club exists two handlers named, ie: "Pedro" and "Pedro Perez",
+        // interactive import will match and process first entry found in DB ( as of "LIKE '%$a%' search )
+        // so make sure database is consistent :-)
         for ($index=0;$index<$search['total'];$index++) {
             // find right entry. if not found ask user
             if ($search['rows'][$index]['Club']!=$item['ClubID']) continue;
-            // arriving here means match found. So replace all instances with found data and return to continue import
-            $id=$search['rows'][$index]['ID']; // id del guia
+
+            // arriving here means handler and club matches. so process
+
+            // Replace all instances in tmptable with found data and return to continue import
+            $id=$search['rows'][$index]['ID']; // id del guia en la base de datos
             $nombre= $this->myDBObject->conn->real_escape_string($search['rows'][$index]['Nombre']); // nombre del guia (DB)
-            // fix handler's name according importing rules
-            $nombre=$this->import_mixData($nombre,$item['NombreGuia']);
+            // handle name according excelname rules
+            $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$item['NombreGuia'];
+            if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
+
+            // fix handler's name in temporary table according importing rules
             $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '$a')  AND (ClubID=$c)"; // exact match
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
@@ -520,7 +530,11 @@ class DogReader {
             $sex=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Genero']); // sexo
 
             // rework data according translate rules
-            $nombre=$this->import_mixData($nombre,$item['Nombre']);
+
+            // handle name according excelname rules
+            $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$item['Nombre'];
+            if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
+            // remaining  data are handler according import rules
             $nlargo=$this->import_mixData($nlargo,isset($item['NombreLargo'])?$item['NombreLargo']:"");
             $raza=$this->import_mixData($raza,isset($item['Raza'])?$item['Raza']:"");
             $chip=$this->import_mixData($chip,isset($item['Chip'])?$item['Chip']:"");
@@ -705,7 +719,11 @@ class DogReader {
             // ajustamos el id y el nombre del guia en la tabla excel
             $dbname=$this->myDBObject->conn->real_escape_string($dbobj->Nombre);
             $name=$this->myDBObject->conn->real_escape_string($obj->NombreGuia);
-            $n=$this->import_mixData($dbname,$name);
+
+            // handle name according excelname rules
+            $n=($this->myOptions['UseExcelNames']==0)?$dbname:$name;
+            if ($this->myOptions['WordUpperCase']!=0) $n=toUpperCaseWords($n);
+
             // actualizamos nombre en la tabla temporal
             $str="UPDATE $t SET HandlerID={$dbobj->ID}, NombreGuia='$n' WHERE (NombreGuia = '$name')";
             $res=$this->myDBObject->query($str);
@@ -732,7 +750,11 @@ class DogReader {
             $sex=$this->myDBObject->conn->real_escape_string($dbobj->Genero); // sexo
 
             // evaluamos todos los parametros en funcion de los modos de imporatacion
-            $nombre=$this->import_mixData($nombre,$obj->Nombre);
+
+            // handle name according excelname rules
+            $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$obj->Nombre;
+            if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
+            // remaining  data are handler according import rules
             $nlargo=$this->import_mixData($nlargo,isset($obj->NombreLargo)?$obj->NombreLargo:"");
             $raza=$this->import_mixData($raza,isset($obj->Raza)?$obj->Raza:"");
             $lic=$this->import_mixData($lic,isset($obj->Licencia)?$obj->Licencia:"",false);
