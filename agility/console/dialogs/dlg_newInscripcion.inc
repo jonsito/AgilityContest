@@ -166,7 +166,12 @@ $('#new_inscripcion-datagrid').datagrid({
 	multiSort: true,
 	remoteSort: true,
 	pageSize: 25,
-	onDblClickRow: function(idx,row) {insertInscripcion('#new_inscripcion-datagrid'); }
+	onDblClickRow: function(idx,row) {insertInscripcion('#new_inscripcion-datagrid'); },
+	onLoadSuccess: function(data) {
+	    console.log("Data is: "+JSON.stringify(data));
+	    if (data.total===1) $('#new_inscripcion-datagrid').datagrid('selectRow',0);
+        return;
+    }
 });
 
 // setup form on windows open
