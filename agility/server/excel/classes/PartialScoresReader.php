@@ -45,8 +45,10 @@ class PartialScoresReader extends DogReader {
         $this->jornada=$this->myDBObject->__selectAsArray("*","Jornada","ID={$options['Jornada']}");
         $this->manga=$this->myDBObject->__selectAsArray("*","Mangas","ID={$options['Manga']}");
         $this->equipos=$this->myDBObject->__selectAsArray("*","Equipos","Jornada={$options['Jornada']}");
-        if (!is_array($this->manga)) // realmente prueba y jornada no son necesarias, pero por consistencia se ponen
+        if (!is_array($this->manga)) // realmente prueba no es necesaria, pero por consistencia se pone
             throw new Exception("{$name}::construct(): invalid Manga ID: {$options['Manga']}");
+        if (intval($this->jornada['Cerrada'])!==0) // do not allow import in closed journeys
+            throw new Exception("{$name}::construct(): Cannot import when in a closed journey: {$options['Jornada']}");
         parent::__construct($name,$options);
 
         // extend default field list

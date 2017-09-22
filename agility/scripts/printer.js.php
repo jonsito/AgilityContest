@@ -269,6 +269,14 @@ function importExportParcial(recorrido) {
                         if (res.errorMsg) {
                             $.messager.alert('License error','<?php _e("Current license has no Excel import function enabled"); ?>', "error");
                         } else {
+                            if (parseInt(workingData.datosJornada.Cerrada)!==0) {
+                                $.messager.alert(
+                                    "<?php _e('Not allowed');?>",
+                                    "<?php _e('Cannot import round results in a closed journey');?>",
+                                    "error"
+                                );
+                                return;
+                            }
                             $('#resultadosmanga-excel-dialog').dialog('open');
                         }
                         return false; // prevent default fireup of event trigger
