@@ -193,20 +193,28 @@ $.extend($.fn.datagrid.methods, {
 		return win;
 	};
     $.messager.password =function(title,msg,fn){
-        var content="<div class=\"messager-icon messager-warning\"></div>"+"<div>"+msg+"</div>"+"<br />"+"<div style=\"clear:both;\"/>"+"<div><input class=\"messager-input\" type=\"password\"/></div>";
+        var content="<div class=\"messager-icon messager-warning\"></div>"+
+            "<div>"+msg+"</div>"+"<br />"+"<div style=\"clear:both;\"/>"+
+            "<div><input class=\"messager-input\" type=\"password\"/></div>";
         var buttons={};
         buttons[$.messager.defaults.ok]=function(){
-            win.window("close");
-            if(fn){
-                fn($(".messager-input",win).val());
-                return false;
-            }
+            win.window('close');
+            if (fn) { fn($(".messager-input",win).val()); }
+            return false;
         };
         buttons[$.messager.defaults.cancel]=function(){
             win.window("close");
             return false;
         };
         var win=createDialog(title,content,buttons);
+        // when enter is pressed in input box, assume "Accept" button
+        $(".messager-input",win).change(
+            function(){
+                win.window('close');
+                if (fn) { fn($(".messager-input",win).val()); }
+                return false;
+            }
+        );
         win.find("input.messager-input").focus();
         return win;
     }
