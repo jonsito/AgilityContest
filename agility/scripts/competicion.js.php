@@ -30,18 +30,9 @@ $config =Config::getInstance();
  * o desde la ventana de clasificaciones
  */
 function loadCompetitionWindow() {
-    // default values
+    // default values for titles, page-to-load and need-to-close dialogs
     var extra="";
-    var page="/agility/console/frm_main.php";
-    // default dialogs
-
-    // no jornada selected load main menu
-    if (parseInt(workingData.jornada)===0) {
-        loadContents(page,'');
-        return;
-    }
-    // default page and dialogs
-    page="/agility/console/frm_competicion2.php?tipo=std";
+    var page="/agility/console/frm_competicion2.php?tipo=std";
     var dialogs={
         'e':'#entrenamientos-dialog',
         't':'#ordentandas-dialog',

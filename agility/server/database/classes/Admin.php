@@ -428,6 +428,7 @@ class Admin extends DBObject {
         $this->myLogger->trace("Clearing update related tmp files");
         array_map('unlink',glob("{$this->restore_dir}import*.xlsx"));
         array_map('unlink',glob("{$this->restore_dir}import*.log"));
+        array_map('unlink',glob("{$this->restore_dir}import*.json"));
 
         // restore operations log
         $this->myLogger->trace("Clearing update related tmp files");

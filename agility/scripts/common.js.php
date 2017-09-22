@@ -756,6 +756,7 @@ function setFederation(f) {
  * @param {object} data prueba data
  */
 function setPrueba(data) {
+    if (data===null) data = { ID:0, Nombre:'', RSCE:0 };
 	workingData.prueba=parseInt(data.ID);
 	workingData.nombrePrueba=data.Nombre;
 	workingData.datosPrueba=data;

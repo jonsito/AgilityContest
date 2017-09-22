@@ -27,7 +27,14 @@ require_once("dialogs/dlg_selectJornada.inc")
 
 // display prueba selection dialog
 $('#seljornada-window').window({
-	onClose: loadCompetitionWindow
+	onClose: function(){
+        // when no jornada selected load main menu
+        if (parseInt(workingData.jornada)===0) {
+            loadContents("/agility/console/frm_main.php",'');
+            return;
+        }
+	    loadCompetitionWindow();
+    }
 }).window('open');
 
 </script>
