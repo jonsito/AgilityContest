@@ -1198,8 +1198,6 @@ function addKeyHandler(dgid,dialog,insertfn,updatefn,deletefn) {
 		case 27:	/* Esc */
             if (dialog!==null) $(dialog).window('close');
 			return false;
-		case 70: /* Allow Ctrl-F work */
-            return (e.ctrlKey);
         case 16:	/* Shift */
         case 17:	/* Ctrl */
         case 18:	/* Alt */
