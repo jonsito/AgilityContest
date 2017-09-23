@@ -366,7 +366,7 @@ class PrintClasificacionTeam extends PrintCommon {
                 $this->Cell(12,4,number_format($team['Penalizacion'],$this->timeResolution),'RB',0,'R',true);	// penalizacion final
                 break;
             case 3: // puntos (si se requieren )
-                if ($team['Puntos']==0) break;
+                if (!array_key_exists('Puntos',$team) || $team['Puntos']==0) break;
                 $this->SetFont($this->getFontName(),'BI',8); // default font
                 $this->Cell(21,4,_("Points"),'B',0,'L',true);
                 $this->SetFont($this->getFontName(),'B',8); // default font
