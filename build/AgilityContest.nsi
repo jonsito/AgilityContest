@@ -202,6 +202,12 @@ Section /o "Initial language: Hungarian" hun
     SetOutPath $INSTDIR
     File /oname=settings.bat settings_hu.bat
 SectionEnd
+
+Section /o "Initial language: Portuguese" prt
+    SetOutPath $INSTDIR
+    File /oname=settings.bat settings_pt.bat
+SectionEnd
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ; Uninstall settings ;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -295,6 +301,7 @@ Function .onSelChange
     !insertmacro RadioButton ${eng}
     !insertmacro RadioButton ${ger}
     !insertmacro RadioButton ${hun}
+    !insertmacro RadioButton ${prt}
   !insertmacro EndRadioButtons
 
 FunctionEnd
@@ -320,5 +327,8 @@ Function .onMouseOverSection
 
     StrCmp $0 5 "" +2
         SendMessage $R0 ${WM_SETTEXT} 0 "STR:FirstBoot in Hungarian. You may change later"
+
+    StrCmp $0 6 "" +2
+        SendMessage $R0 ${WM_SETTEXT} 0 "STR:FirstBoot in Portuguese. You may change later"
 
 FunctionEnd
