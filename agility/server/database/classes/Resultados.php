@@ -41,7 +41,7 @@ class Resultados extends DBObject {
 	function getDatosJornada() { return $this->djornada; }
 	function getDatosPrueba() { return $this->dprueba; }
 
-	function getDatosCompeticion() {
+	function getCompetitionObject() {
         if ($this->dcompetition==null) {
             $this->dcompetition=Competitions::getCompetition($this->getDatosPrueba(),$this->getDatosJornada());
         }
@@ -107,7 +107,7 @@ class Resultados extends DBObject {
         // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
         // manga actual, sino de la manga padre.
         // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
-        $comp=$this->getDatosCompeticion();
+        $comp=$this->getCompetitionObject();
         $data=$comp->checkAndFixTRSData($this->getDatosManga(),$data,$mode);
 		$result= array();
 		// vemos de donde tenemos que tomar los datos
@@ -601,7 +601,7 @@ class Resultados extends DBObject {
 		$tdata=$this->evalTRS($mode,$table); // array( 'dist' 'obst' 'trs' 'trm', 'vel')
 
 		// FASE 4: añadimos ptiempo, penalizacion total
-        $comp=$this->getDatosCompeticion();
+        $comp=$this->getCompetitionObject();
 		for ($idx=0;$idx<$size;$idx++ ){
 		    $comp->evalPartialPenalization($table[$idx],$tdata);
 		}
@@ -687,7 +687,7 @@ class Resultados extends DBObject {
 		// FASE 3: añadimos ptiempo, puntuacion, clasificacion y logo
         $clubes=new Clubes("Resultados::getResultadosIndividual",$this->getDatosPrueba()->RSCE);
 		$size=count($table);
-		$comp=$this->getDatosCompeticion();
+		$comp=$this->getCompetitionObject();
 		for ($idx=0;$idx<$size;$idx++ ){
             $table[$idx]['Puntos'] = 0; // to be re-evaluated later
             $table[$idx]['Estrellas'] = 0; // to be re-evaluated later

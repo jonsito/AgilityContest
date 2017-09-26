@@ -108,25 +108,28 @@ class Competitions {
      * @param {array} $tdata sct data
      */
     public function evalPartialPenalization(&$perro,$tdata) {
-        $trs=$tdata['trs'];
-        $trm=$tdata['trm'];
+        $trs=floatval($tdata['trs']);
+        $trm=floatval($tdata['trm']);
+        $tiempo=floatval($perro['Tiempo']);
         if ($trs==0) {
             // si TRS==0 no hay penalizacion por tiempo
             $perro['PTiempo']		= 	0.0;
             $perro['Penalizacion']=	$perro['PRecorrido'];
         } else {
             // evaluamos penalizacion por tiempo y penalizacion final
-            if ($perro['Tiempo']<$trs) { // Por debajo del TRS
+            if ($tiempo>=$trm) { // Superado TRM: eliminado
+                $perro['PTiempo']=100.0;
+                $perro['Penalizacion']=	100.0;
+            }
+            else if ($tiempo>=$trs) { // Superado TRS
+                $perro['PTiempo']		=	$tiempo 		-	$trs;
+                $perro['Penalizacion']=	floatval($perro['PRecorrido'])	+	$perro['PTiempo'];
+            }
+            else { // Por debajo del TRS
                 $perro['PTiempo']		= 	0.0;
                 $perro['Penalizacion']=	$perro['PRecorrido'];
             }
-            if ($perro['Tiempo']>=$trs) { // Superado TRS
-                $perro['PTiempo']		=	$perro['Tiempo'] 		-	$trs;
-                $perro['Penalizacion']=	floatval($perro['PRecorrido'])	+	$perro['PTiempo'];
-            }
-            if ($perro['Tiempo']>$trm) { // Superado TRM: eliminado
-                $perro['Penalizacion']=	100.0;
-            }
+
         }
     }
 
