@@ -590,10 +590,10 @@ $config =Config::getInstance();
 	                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
 	            } else {
 		            $.messager.alert('<?php _e("Save"); ?>',
-				            '<?php _e("New configuration successfully saved"); ?>'+" <br />"+
+				            '<?php _e("New configuration successfully saved"); ?>'+" <br/> &nbsp;<br/> "+
 				            '<?php _e("You should close session and reload page"); ?> '+
 				            '<?php _e("for changes to become active"); ?>',
-				            "info");
+				            "info").window('resize',{width:400});
 					loadConfiguration(function(config) { $('#config-form').form('load',config);	});
 	            }
 	        },
