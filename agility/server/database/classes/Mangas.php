@@ -157,10 +157,10 @@ class Mangas extends DBObject {
 		$this->myLogger->enter();
 		$j=$this->jornadaObj->ID;
 		// truco para cambiar al vuelo las mangas por equipos entre modalidades x-mejores y x-conjunta
-        if ($tipo==8) $this->conn->query("UPDATE Mangas set Tipo=8 WHERE (Jornada=$j) AND (Tipo=9)");
-        if ($tipo==9) $this->conn->query("UPDATE Mangas set Tipo=9 WHERE (Jornada=$j) AND (Tipo=8)");
-        if ($tipo==13) $this->conn->query("UPDATE Mangas set Tipo=13 WHERE (Jornada=$j) AND (Tipo=14)");
-        if ($tipo==14) $this->conn->query("UPDATE Mangas set Tipo=14 WHERE (Jornada=$j) AND (Tipo=13)");
+        if ($tipo==8) $this->query("UPDATE Mangas set Tipo=8 WHERE (Jornada=$j) AND (Tipo=9)");
+        if ($tipo==9) $this->query("UPDATE Mangas set Tipo=9 WHERE (Jornada=$j) AND (Tipo=8)");
+        if ($tipo==13) $this->query("UPDATE Mangas set Tipo=13 WHERE (Jornada=$j) AND (Tipo=14)");
+        if ($tipo==14) $this->query("UPDATE Mangas set Tipo=14 WHERE (Jornada=$j) AND (Tipo=13)");
 		$mangaid=0;
 		// si la manga existe no hacer nada; si no existe crear manga
         $res=$this->__select("*","Mangas","( Jornada=$j ) AND  ( Tipo=$tipo ) AND ( Grado='$grado' )");
@@ -518,8 +518,8 @@ class Mangas extends DBObject {
         /* 9, 'Agility Equipos (Conjunta)', '-' */
         /* 14,'Jumping Equipos (Conjunta)', '-' */
 		if ($equipos3 || $equipos4 )  { // trick to allow change team round type "on the fly"
-            if ($equipos3) $this->insert(8,'-');	$this->insert(13,'-');
-            if ($equipos4) $this->insert(9,'-');	$this->insert(14,'-');
+            if ($equipos3) { $this->insert(8,'-');	$this->insert(13,'-'); }
+            if ($equipos4) { $this->insert(9,'-');	$this->insert(14,'-'); }
         }
 		else { $this->delete(8); $this->delete(9); $this->delete(13);	$this->delete(14);}
 

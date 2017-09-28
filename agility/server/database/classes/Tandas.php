@@ -637,7 +637,7 @@ class Tandas extends DBObject {
                     continue;
                 }
                 // en RFEC eliminanos todas las tandas con tipomanga 9(Ag) 14(Jp) relacionadas con RSCE
-                if ( ($alturas==4) && (in_array($tipo,array(21,2,35,36))) ) { // Ag (L,MS) Jp (L,MS)
+                if ( ($alturas==4) && (in_array($tipo,array(21,22,35,36))) ) { // Ag (L,MS) Jp (L,MS)
                     $this->removeFromList($tipo);
                     continue;
                 }
@@ -702,7 +702,8 @@ class Tandas extends DBObject {
         // Junior
         $this->insert_remove($f,32,($j->Junior != 0)?true:false);		// add/remove Junior Manga1
         $this->insert_remove($f,33,($j->Junior != 0)?true:false);		// add/remove Junior Manga2
-        // grado 1 puede tener 1, 2 o 3 mangas. Por compatibilidad los posibles valores son 1:2mangas 2:1manga 3:3mangas 0:nogrado1
+        // grado 1 puede tener 1, 2 o 3 mangas.
+        // Por compatibilidad los posibles valores son 1:2mangas 2:1manga 3:3mangas 0:nogrado1
         switch($j->Grado1) {
             case 3: // 3- round grado1
                 $this->insert_remove($f,3,true); // add Grado1 manga 1
