@@ -83,7 +83,7 @@ $config =Config::getInstance();
         delay: 500,
 		textField: 'Nombre',
 		url: '/agility/server/database/dogFunctions.php',
-		queryParams: { Operation:'enumerate', Federation: workingData.federation },
+		queryParams: { Operation:'enumerate' },
 		method: 'get',
 		mode: 'remote',
 		columns: [[
@@ -95,6 +95,11 @@ $config =Config::getInstance();
 			{field:'NombreGuia',title:'<?php _e('Handler'); ?>',width:40,align:'right'},
 			{field:'NombreClub',title:'<?php _e('Club'); ?>',width:20,align:'right'}
 		]],
+        onBeforeLoad:function(params) {
+		    params.Federation=workingData.federation;
+		    params.Operation='enumerate';
+		    return true;
+        },
 		multiple: false,
 		fitColumns: true,
 		singleSelect: true

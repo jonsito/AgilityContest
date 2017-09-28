@@ -97,6 +97,8 @@ $config =Config::getInstance();
         onBeforeLoad: function(params) { // don't invoke if no manga declared (ie: at startup )
             if (typeof(workingData.manga)==="undefined") return false;
             if (parseInt(workingData.manga)===0) return false;
+            params.Operation='enumerate';
+            params.Federation=workingData.federation;
             params.Manga=workingData.manga;
             params.Mode=ac_import.mode;
             return true;

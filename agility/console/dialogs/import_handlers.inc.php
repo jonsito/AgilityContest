@@ -81,7 +81,7 @@ $config =Config::getInstance();
             delay: 500,
     		textField: 'Nombre',
     		url: '/agility/server/database/guiaFunctions.php',
-            queryParams: { Operation:'enumerate', Federation: workingData.federation },
+            queryParams: { Operation:'enumerate' },
     		method: 'get',
     		mode: 'remote',
     		columns: [[
@@ -94,6 +94,11 @@ $config =Config::getInstance();
     		fitColumns: true,
     		singleSelect: true,
     		selectOnNavigation: false ,
+            onBeforeLoad:function(params) {
+                params.Federation=workingData.federation;
+                params.Operation='enumerate';
+                return true;
+            },
     		onSelect: function(index,row) {
     			var id=row.ID;
     			if (id<=0) return;
