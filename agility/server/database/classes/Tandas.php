@@ -201,8 +201,9 @@ class Tandas extends DBObject {
 
 	/**
 	 * return every array items that matches with provided key
-	 * @param {string} $key
-	 * @param {value} $value
+     * usage example: getTandasInfo("TipoManga",9); // to get every teambest agility tandas
+	 * @param {string} $key Item to search
+	 * @param {value} $value value to match in key
 	 * @return {array} List of Tandas that matches with requested key/value pair
 	*/
 	static function getTandasInfo($key,$value) {
@@ -607,8 +608,10 @@ class Tandas extends DBObject {
 	private function insert_remove($fed,$tipomanga,$oper) {
 		$alturas=intval($fed->get('Heights'));
 		$grados=intval($fed->get('Grades'));
+		// obtenemos las tandas cuyo tipo de manga coincide con el indicado
         $tandas=$this->getTandasInfo('TipoManga',$tipomanga);
 		foreach( $tandas as $item) {
+            // hacemos limpieza de la lista de tandas obtenidas, eliminando las que no nos interesan
             $tipo=$item['Tipo'];
 			if( ($alturas==3) && ($item['Categoria']==='T') ) {
 				// remove every "tiny" tandas on RSCE contests
@@ -625,18 +628,16 @@ class Tandas extends DBObject {
                 $this->removeFromList($tipo);
                 continue;
             }
-            // equipos 4 (tipomanga=9,14) tienen tratamiento especial
-            // pues mezclan categorias
-            if( ($alturas==3) && ( ($tipomanga==9)||($tipomanga==14) ) ) {
-                // remove every 4-heights rounds on 3-heights 4team modes
-                if (($tipo==47) || ($tipo==48) || ($tipo==53) || ($tipo==54)) {
+            // si estamos en equipos conjunta, hay que tener en cuenta las alturas
+            // pues las tandas van com L-MS (3 alturas) o bien LM-ST (4 alturas)
+            if( in_array($tipomanga,array(9,14)) ) {
+			    // en RSCE eliminanos todas las tandas con tipomanga 9(Ag) 14(Jp) relacionadas con RFEC
+                if ( ($alturas==3) && (in_array($tipo,array(45,47,48,52,53,54))) ) { // Ag (T,LM,ST) Jp (T,LM,ST)
                     $this->removeFromList($tipo);
                     continue;
                 }
-            }
-            if( ($alturas==4) && ( ($tipomanga==9)||($tipomanga==14) ) ) {
-                // remove every 3-heights rounds on 4-heights 4team modes
-                if (($tipo==21) || ($tipo==22) || ($tipo==35) || ($tipo==36)) {
+                // en RFEC eliminanos todas las tandas con tipomanga 9(Ag) 14(Jp) relacionadas con RSCE
+                if ( ($alturas==4) && (in_array($tipo,array(21,2,35,36))) ) { // Ag (L,MS) Jp (L,MS)
                     $this->removeFromList($tipo);
                     continue;
                 }
@@ -685,35 +686,43 @@ class Tandas extends DBObject {
 		// actualizamos la lista de tandas de cada ronda
         switch($j->PreAgility) {
             case 2:
-                $this->insert_remove($f,1,true);	// Pre-Agility Manga 1
-                $this->insert_remove($f,2,true);	// Pre-Agility Manga 2
+                $this->insert_remove($f,1,true);	// add Pre-Agility Manga 1
+                $this->insert_remove($f,2,true);	// add añadir Pre-Agility Manga 2
                 break;
             case 1:
-                $this->insert_remove($f,1,true);	// Pre-Agility Manga 1
-                $this->insert_remove($f,2,false);	// Pre-Agility Manga 2
+                $this->insert_remove($f,1,true);	// add Pre-Agility Manga 1
+                $this->insert_remove($f,2,false);	// remove Pre-Agility Manga 2
                 break;
             default:
                 if ($j->PreAgility>2) $this->myLogger->error("PreAgility: invalid number of rounds: {$j->PreAgility}");
-                $this->insert_remove($f,1,false);	// Pre-Agility Manga 1
-                $this->insert_remove($f,2,false);	// Pre-Agility Manga 2
+                $this->insert_remove($f,1,false);	// remove Pre-Agility Manga 1
+                $this->insert_remove($f,2,false);	// remove Pre-Agility Manga 2
                 break;
         }
         // Junior
-        $this->insert_remove($f,32,($j->Junior != 0)?true:false);		// Junior Manga1
-        $this->insert_remove($f,33,($j->Junior != 0)?true:false);		// Junior Manga2
+        $this->insert_remove($f,32,($j->Junior != 0)?true:false);		// add/remove Junior Manga1
+        $this->insert_remove($f,33,($j->Junior != 0)?true:false);		// add/remove Junior Manga2
         // grado 1 puede tener 1, 2 o 3 mangas. Por compatibilidad los posibles valores son 1:2mangas 2:1manga 3:3mangas 0:nogrado1
         switch($j->Grado1) {
             case 3: // 3- round grado1
-                $this->insert_remove($f,3,true);$this->insert_remove($f,4,true);$this->insert_remove($f,17,true);
+                $this->insert_remove($f,3,true); // add Grado1 manga 1
+                $this->insert_remove($f,4,true); // add Grado1 manga 2
+                $this->insert_remove($f,17,true); // add Grado1 manga 3
                 break;
             case 2: // 1- round grado1
-                $this->insert_remove($f,3,true);$this->insert_remove($f,4,false);$this->insert_remove($f,17,false);
+                $this->insert_remove($f,3,true); // add grado1 manga 1
+                $this->insert_remove($f,4,false); // remove grado1 manga 2
+                $this->insert_remove($f,17,false); // remove grado1 manga 3
                 break;
             case 1: // 2- round grado1
-                $this->insert_remove($f,3,true);$this->insert_remove($f,4,true);$this->insert_remove($f,17,false);
+                $this->insert_remove($f,3,true); // add grado1 manga 1
+                $this->insert_remove($f,4,true); // add grado1 manga 2
+                $this->insert_remove($f,17,false); // remove grado1 manga 3
                 break;
             default: // no grado1
-            $this->insert_remove($f,3,false);$this->insert_remove($f,4,false);$this->insert_remove($f,17,false);
+            $this->insert_remove($f,3,false); // remove grado1 manga 1
+            $this->insert_remove($f,4,false); // remove grado1 manga 2
+            $this->insert_remove($f,17,false); // remove grado1 manga 3
         }
         // grado 2
         $this->insert_remove($f,5,($j->Grado2 != 0)?true:false);		// Agility Grado II
@@ -725,9 +734,13 @@ class Tandas extends DBObject {
 		$this->insert_remove($f,7,($j->Open != 0)?true:false);			// Agility Abierta
 		$this->insert_remove($f,12,($j->Open != 0)?true:false);			// Jumping Abierta
         // equipos (mejores)
+        // a efectos practicos las mangas de equipos en modalidad tres mejores
+        // son como pruebas open, en las que los resultados se agrupan
 		$this->insert_remove($f,8,($j->Equipos3 != 0)?true:false);		// Agility Equipos (3 mejores)
 		$this->insert_remove($f,13,($j->Equipos3 != 0)?true:false);		// Jumping Equipos (3 mejores)
         // equipos (conjunta)
+        // en cambio las pruebas de equipos conjunta necesitan tratamiento
+        // especial para agrupar las categorias en función de las alturas
 		$this->insert_remove($f,9,($j->Equipos4 != 0)?true:false);		// Agility Equipos (Conjunta)
 		$this->insert_remove($f,14,($j->Equipos4 != 0)?true:false);		// Jumping Equipos (Conjunta)
         // mangas para prueba ko
