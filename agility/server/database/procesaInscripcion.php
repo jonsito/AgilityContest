@@ -140,7 +140,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			$myLogger->info("Eliminando Perro:$idperro Grado:$g del orden de salida de la manga $mid grado:$mgrado");
 			$os->removeFromList($idperro);
 		} else {
-			$myLogger->info("Insertando Perro:$idperro Grado:$g en del orden de salida de la manga $mid grado:$mgrado");
+			$myLogger->info("Insertando Perro:$idperro Grado:$g en el orden de salida de la manga $mid grado:$mgrado");
 			$os->insertIntoList($idperro);
 		}
 		
