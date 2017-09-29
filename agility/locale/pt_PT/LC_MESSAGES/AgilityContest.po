@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
 "POT-Creation-Date: 2017-09-27 00:56+0100\n"
-"PO-Revision-Date: 2017-09-27 20:18+0100\n"
+"PO-Revision-Date: 2017-09-29 00:16+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -73,7 +73,6 @@ msgid "Contest data"
 msgstr "Dados da Prova"
 
 #: chrono/chrono.inc.php:44
-#, fuzzy
 msgid "Journey data"
 msgstr "Dados da Jornada"
 
@@ -278,7 +277,6 @@ msgstr "Grau"
 #: videowall/videowall.js.php:563 videowall/vwc_finales.php:87
 #: videowall/vwc_finales.php:219 videowall/vwc_parciales.php:87
 #: videowall/vwc_parciales.php:231
-#, fuzzy
 msgid "Heat"
 msgstr "Manga"
 
@@ -593,12 +591,10 @@ msgid "Sensor failure"
 msgstr "Falha dos sensores"
 
 #: chrono/index.php:116
-#, fuzzy
 msgid "Select ring and display name (optional)"
 msgstr "Escolher ring e nome a exibir (Opcional)"
 
 #: chrono/index.php:118 livestream/index.php:192 videowall/index.php:225
-#, fuzzy
 msgid "Display name"
 msgstr "Nome a exibir"
 
@@ -614,7 +610,6 @@ msgstr "Nome a exibir"
 #: videowall/vw_ordensalida.php:37 videowall/vw_parciales.php:44
 #: videowall/vwc_finales.php:45 videowall/vwc_parciales.php:45
 #: videowall/vws_entrenamientos.php:37
-#, fuzzy
 msgid "Ring"
 msgstr "Ring"
 
@@ -673,7 +668,7 @@ msgstr "Importar dados de Clubes"
 #: console/dialogs/import_perros.inc.php:31
 #: console/dialogs/import_results.inc.php:31
 msgid "Search"
-msgstr "Procurar"
+msgstr "Pesquisar"
 
 #: console/dialogs/import_clubes.inc.php:35
 #: console/dialogs/import_handlers.inc.php:35
@@ -707,7 +702,6 @@ msgid "Ignore"
 msgstr "Ignorar"
 
 #: console/dialogs/import_clubes.inc.php:63
-#, fuzzy
 msgid "Open dialog to create new club"
 msgstr "Abrir formulário de criação de clubes"
 
@@ -717,9 +711,7 @@ msgstr "Usar clube selecionado e atualizar informação"
 
 #: console/dialogs/import_clubes.inc.php:73
 msgid "Ignore entry. do not import into database"
-msgstr ""
-"Ignorar esta enta entrada e as relacionadas. Não importar para a base de "
-"dados"
+msgstr "Ignorar esta entrada não importar para a base de dados"
 
 #: console/dialogs/import_clubes.inc.php:74
 msgid "Clear club selection"
@@ -739,9 +731,8 @@ msgstr "Importar condutor"
 
 #: console/dialogs/import_handlers.inc.php:39
 #: console/dialogs/import_perros.inc.php:38
-#, fuzzy
 msgid "On selection preserve name from"
-msgstr "Pulsando `Seleccionar`, preservar nombre desde"
+msgstr "Ao pressionar `Selecionar', guarde o nome de"
 
 #: console/dialogs/import_handlers.inc.php:40
 #: console/dialogs/import_perros.inc.php:39
@@ -751,7 +742,7 @@ msgstr "Base de dados"
 #: console/dialogs/import_handlers.inc.php:41
 #: console/dialogs/import_perros.inc.php:40
 msgid "Excel File"
-msgstr "Ficheiro excel"
+msgstr "Ficheiro Excel"
 
 #: console/dialogs/import_handlers.inc.php:52
 #: console/dialogs/import_perros.inc.php:51
@@ -774,7 +765,7 @@ msgstr "Criar um novo condutor a partir dos dados importados do Excel"
 
 #: console/dialogs/import_handlers.inc.php:72
 msgid "Ignore handler and their entries from imported Excel data"
-msgstr "Ignorar todas as entradas a importar em que apareça este condutor "
+msgstr "Ignorar todas as entradas a importar em que apareça este condutor"
 
 #: console/dialogs/import_perros.inc.php:27
 msgid "Dog import"
@@ -1003,7 +994,6 @@ msgid "Save"
 msgstr "Guardar"
 
 #: console/dialogs/infomanga.php:342
-#, fuzzy
 msgid "Current user has NO WRITE PERMISSIONS"
 msgstr "O utilizador atual NÂO TEM PERMISSÕES DE EDIÇÃO"
 
@@ -1029,7 +1019,6 @@ msgid "Main judge data"
 msgstr "Dados do juiz principal"
 
 #: console/dialogs/infomanga.php:439
-#, fuzzy
 msgid "Auxiliar/Practice judge data"
 msgstr "Dados do juiz auxiliar"
 
@@ -1091,7 +1080,7 @@ msgstr "Data"
 
 #: console/frm_about.php:32
 msgid " is CopyRight &copy; 2013-2015 from "
-msgstr " é CopyRight &copy; 2013-2017 de "
+msgstr " é Copyright &copy; 2013-2017 de "
 
 #: console/frm_about.php:35
 msgid "Source code available at"
@@ -1120,7 +1109,7 @@ msgstr "Este logo é distribuído com autorização do autor original."
 
 #: console/frm_about.php:46
 msgid "This copyright notice must be included in every copy"
-msgstr "Esta nota de CopyRight deve ser incluída em todas as cópias"
+msgstr "Esta nota de Copyright deve ser incluída em todas as cópias"
 
 #: console/frm_about.php:51
 msgid "Registered in"
@@ -1128,7 +1117,7 @@ msgstr "Registado em"
 
 #: console/frm_about.php:71 console/index.php:431
 msgid "About AgilityContest"
-msgstr "Sobre AgilityContest"
+msgstr "Sobre AgiliteContest"
 
 #: console/frm_admin.php:25
 msgid "Users"
@@ -1161,9 +1150,8 @@ msgstr "Dados da prova"
 
 #: console/frm_clasificaciones2.php:37
 #: console/frm_clasificaciones_equipos.php:36 console/frm_inscripciones2.php:65
-#, fuzzy
 msgid "Title"
-msgstr "Titulo"
+msgstr "Nome da Prova"
 
 #: console/frm_clasificaciones2.php:42
 #: console/frm_clasificaciones_equipos.php:41 console/frm_inscripciones2.php:69
@@ -1283,7 +1271,7 @@ msgstr "Exportar como texto"
 #: console/frm_clasificaciones2.php:117
 #: console/frm_clasificaciones_equipos.php:131
 msgid "R.S.C.E. Report"
-msgstr "Relatório R.S.C.E."
+msgstr "Roatório R.S.C.E."
 
 #: console/frm_clasificaciones2.php:121
 #: console/frm_clasificaciones_equipos.php:135
@@ -1343,7 +1331,7 @@ msgstr "Imprimir os dados no formato selecionado"
 #: console/frm_clasificaciones2.php:205
 #: console/frm_clasificaciones_equipos.php:217
 msgid "where to start printing<br/>in labels sheet"
-msgstr "Posici&oacute;n inicial <br /> en la hoja de etiquetas"
+msgstr "Posição inicial <br /> na folha das etiquetas"
 
 #: console/frm_clasificaciones2.php:206
 #: console/frm_clasificaciones_equipos.php:218
@@ -1371,7 +1359,7 @@ msgstr "Apagar Clube"
 #: scripts/equipos.js.php:28 scripts/inscripciones.js.php:485
 #: server/tools.php:296
 msgid "-- Search --"
-msgstr "-- Procurar --"
+msgstr "-- Pesquisar --"
 
 #: console/frm_clubes.php:82
 msgid "Clubs data management"
@@ -1419,11 +1407,11 @@ msgstr "Apagar o clube selecionado da base de dados"
 #: console/frm_clubes.php:146 console/frm_guias.php:126
 #: console/frm_paises.php:110
 msgid "Clear search box. Update table"
-msgstr "Apagar procura. Atualizar tabela"
+msgstr "Apagar pesquisa. Atualizar tabela"
 
 #: console/frm_clubes.php:147
 msgid "Look for clubes matching search criteria"
-msgstr "Procurar clubes que coincidam com critérios de procura"
+msgstr "Pesquisar clubes que coincidam com critérios de pesquisa"
 
 #: console/frm_clubes.php:162
 msgid "Handlers belonging to club"
@@ -1471,13 +1459,12 @@ msgid "Edit data on handler belonging club"
 msgstr "Editar dados de condutor associado ao clube"
 
 #: console/frm_clubes.php:234
-#, fuzzy
 msgid "Unassign selected handler from club"
 msgstr "Retirar condutor selecionado do clube"
 
 #: console/frm_clubes.php:235
 msgid "Update handlers list on club"
-msgstr "Atualizar lista de condutores no clube"
+msgstr "Atualizar lista de condutores do clube"
 
 #: console/frm_clubes.php:252 console/frm_paises.php:215
 msgid "Loading list of dogs"
@@ -1612,7 +1599,7 @@ msgstr "Ver/Editar sessão de treinos para a prova"
 
 #: console/frm_competicion2.php:166
 msgid "View/Edit Rounds and series order<br />on this journey"
-msgstr "Ver/editar a ordem das mangas e rondas<br /> da jornada"
+msgstr "Ver/Editar a ordem das mangas e rondas<br /> da jornada"
 
 #: console/frm_competicion2.php:167
 msgid "View/Edit Starting order on selected round"
@@ -1624,7 +1611,7 @@ msgstr "Inserir/Editar resultados de cada participante"
 
 #: console/frm_competicion2.php:169
 msgid "Review Partial results on selected round"
-msgstr "Ver resultados parciais de la manga selecionada"
+msgstr "Ver resultados parciais da manga selecionada"
 
 #: console/frm_equipos.php:36 console/frm_inscripciones2.php:102
 msgid "Edit"
@@ -1664,11 +1651,11 @@ msgstr "A atualizar lista de equipas"
 
 #: console/frm_equipos.php:207
 msgid "Show teams matching search criteria"
-msgstr "Procurar equipas que coincidam com critério de procura"
+msgstr "Pesquisar equipas que coincidam com critério de pesquisa"
 
 #: console/frm_equipos.php:208
 msgid "Declare a new team on this contest"
-msgstr "Declarar nova equipa nesta prova"
+msgstr "Publicar nova equipa nesta prova"
 
 #: console/frm_equipos.php:209
 msgid "Edit data on selected team"
@@ -1680,7 +1667,7 @@ msgstr "Apagar a equipa desta prova"
 
 #: console/frm_equipos.php:211
 msgid "Clear search box. Update team list"
-msgstr "Apagar procura. Atualizar lista de equipa"
+msgstr "Apagar pesquisa. Atualizar lista de equipa"
 
 #: console/frm_equipos.php:212
 msgid "Verify teams. Enumerate found problems"
@@ -1704,7 +1691,7 @@ msgstr "Inscrições registadas na equipa"
 
 #: console/frm_equipos.php:228
 msgid "Reading inscription list"
-msgstr "Lendo a lista de inscrições "
+msgstr "Lendo a lista de inscrições"
 
 #: console/frm_equipos.php:288
 msgid "Select new team"
@@ -1732,67 +1719,67 @@ msgstr "Gestão de dados de condutor"
 
 #: console/frm_guias.php:77
 msgid "Updating handlers list"
-msgstr "Actualizando lista de gu&iacute;as"
+msgstr "A actualizar a lista de condutores"
 
 #: console/frm_guias.php:96
 msgid "Phone"
-msgstr "Tel&eacute;fono"
+msgstr "Telefone"
 
 #: console/frm_guias.php:123
 msgid "Insert a new handler<br/>into DataBase"
-msgstr "A&ntilde;adir un nuevo gu&iacute;a<br />en la base de datos"
+msgstr "Inserir novo condutor<br />na base de dados"
 
 #: console/frm_guias.php:124
 msgid "Edit data on selected handler"
-msgstr "Modificar los datos del gu&iacute;a seleccionado"
+msgstr "Editar os dados do condutor selecionado"
 
 #: console/frm_guias.php:125
 msgid "Remove selected handler from Database"
-msgstr "Borrar el gu&iacute;a seleccionado de la base de datos"
+msgstr "Apagar condutor selecionado da base de dados"
 
 #: console/frm_guias.php:127
 msgid "Show handlers matching search criteria"
-msgstr "Buscar gu&iacute;as que coincidan con el criterio de b&uacute;squeda"
+msgstr "Pesquisar condutores que coincidam com o critério de pesquisa"
 
 #: console/frm_guias.php:136
 msgid "Dogs registered to"
-msgstr "Perros registrados a"
+msgstr "Cães registados para"
 
 #: console/frm_guias.php:141
 msgid "Updating dogs list"
-msgstr "Actualizando lista de perros"
+msgstr "A atualizar lista de cães"
 
 #: console/frm_guias.php:200
 msgid "Assign dog to handler"
-msgstr "Asignar perro al gu&iacute;a"
+msgstr "Atribuir cão ao condutor"
 
 #: console/frm_guias.php:201
 msgid "Dettach dog from handler"
-msgstr "Desasignar perro del gu&iacute;a"
+msgstr "Retirar cão do condutor"
 
 #: console/frm_guias.php:202
 msgid "Editar data on dog assigned to"
-msgstr "Editar datos del perro perteneciente a"
+msgstr "Editar dados do cão pertencente a"
 
 #: console/frm_guias.php:203
 msgid "Update dog list from handler"
-msgstr "Actualizar datos del perro asignado al gu&iacute;a"
+msgstr "Atualizar os dados do cão atribuído ao condutor"
 
 #: console/frm_inscripciones.php:33
 msgid "Select contest"
-msgstr "Selecciona prueba"
+msgstr "Selecionar prova"
 
 #: console/frm_inscripciones.php:51
 msgid "Select active contest"
-msgstr "Selecciona prueba activa"
+msgstr "Selecionar prova ativa"
 
 #: console/frm_inscripciones.php:61
 msgid "Continue working with selected contest"
-msgstr "Trabajar con la prueba seleccionada"
+msgstr "Trabalhar com a prova selecionada"
 
 #: console/frm_inscripciones.php:62
 msgid "Cancel selection. close window"
-msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
+msgstr "Cancelar seleção, fechar janela"
 
 #: console/frm_inscripciones.php:79 index.php:193 tablet/index.php:268
 msgid "Fed"
@@ -1800,11 +1787,11 @@ msgstr "Fed"
 
 #: console/frm_inscripciones.php:98
 msgid "You should select a valid contest"
-msgstr "Debe seleccionar una prueba v&aacute;lida"
+msgstr "Deve selecionar uma prova válida"
 
 #: console/frm_inscripciones.php:104
 msgid "Inscriptions - Registering form"
-msgstr "Inscripciones - Formulario de registro"
+msgstr "Inscrições - Formulário de inscrição "
 
 #: console/frm_inscripciones2.php:46 console/frm_perros.php:32
 msgid "Import"
@@ -1812,16 +1799,16 @@ msgstr "Importar"
 
 #: console/frm_inscripciones2.php:80
 msgid "Journey list for this contest"
-msgstr "Lista de jornadas de esta prueba"
+msgstr "Lista de jornadas da prova"
 
 #: console/frm_inscripciones2.php:86
 msgid "Inscription list on this contest"
-msgstr "Inscripciones registradas en la prueba"
+msgstr "Inscrições registadas na prova"
 
 #: console/frm_inscripciones2.php:108 scripts/inscripciones.js.php:357
 #: scripts/inscripciones.js.php:361
 msgid "Set dorsal"
-msgstr "Ajustar dorsal"
+msgstr "Definir dorsal"
 
 #: console/frm_inscripciones2.php:116
 msgid "Reorder"
@@ -1840,19 +1827,19 @@ msgstr "Importar/Exportar"
 #: server/pdf/classes/PrintResultadosByEquipos3.php:96
 #: server/pdf/classes/PrintResultadosByEquipos4.php:87
 msgid "Teams"
-msgstr "Equipos"
+msgstr "Equipas"
 
 #: console/frm_inscripciones2.php:138
 msgid "Import dogs and inscriptions from Excel file"
-msgstr "Importar perros e inscripciones desde fichero Excel"
+msgstr "Importar cães e inscrições a partir do ficheiro Excel"
 
 #: console/frm_inscripciones2.php:168
 msgid "Updating journeys data"
-msgstr "Actualizando datos de la jornada"
+msgstr "Atualizar dados da Jornada"
 
 #: console/frm_inscripciones2.php:173 tablet/index.php:315
 msgid "Name/Comment"
-msgstr "Nombre/Observaciones"
+msgstr "Nome/Observações"
 
 #: console/frm_inscripciones2.php:175 console/frm_pruebas.php:158
 #: server/excel/classes/XLSXWriter.php:134
@@ -1882,7 +1869,7 @@ msgstr "Eq. 4"
 
 #: console/frm_inscripciones2.php:181
 msgid "Open  "
-msgstr "Abierta"
+msgstr "Abrir"
 
 #: console/frm_inscripciones2.php:182
 msgid "PreAg."
@@ -1899,7 +1886,7 @@ msgstr "K.O. "
 
 #: console/frm_inscripciones2.php:185
 msgid "Games "
-msgstr "Juegos"
+msgstr "Jogos"
 
 #: console/frm_inscripciones2.php:186 console/frm_pruebas.php:169
 msgid "Special"
@@ -1908,20 +1895,19 @@ msgstr "Especial"
 #: console/frm_inscripciones2.php:187 console/frm_pruebas.php:104
 #: console/frm_pruebas.php:171 server/excel/classes/XLSXWriter.php:134
 msgid "Closed"
-msgstr "Cerrada"
+msgstr "Fechada"
 
 #: console/frm_inscripciones2.php:202
 msgid "There are no valid nor open journeys to inscribe into"
-msgstr ""
-"No hay definida ninguna jornada abierta donde realizar las inscripciones"
+msgstr "Não existe nenhuma jornada aberta onde realizar as inscrições"
 
 #: console/frm_inscripciones2.php:203
 msgid "New inscriptions will have no effect"
-msgstr "Las inscripciones que se hagan no tendr&aacute;n ning&uacute;n efecto"
+msgstr "As novas inscrições efetuadas não terão efeito"
 
 #: console/frm_inscripciones2.php:204
 msgid "Please edit Journey list to create/define valid entries"
-msgstr "Por favor, edite la lista de jornadas para corregir el problema"
+msgstr "Por favor, edite a lista das jornadas para corrigir o problema"
 
 #: console/frm_inscripciones2.php:206 console/frm_myAdmin.php:31
 #: console/index.php:198 scripts/competicion.js.php:74
@@ -1932,93 +1918,89 @@ msgstr "Aviso"
 
 #: console/frm_inscripciones2.php:229
 msgid "Clear all inscriptions on this journey"
-msgstr "Borrar todas las inscripciones de la jornada"
+msgstr "Apagar todas as inscrições da jornada"
 
 #: console/frm_inscripciones2.php:230
 msgid "Register all inscriptions into this journey"
-msgstr "Inscribir todos los perros de la prueba en esta jornada"
+msgstr "Inscrever todos os cães da prova na jornada"
 
 #: console/frm_inscripciones2.php:231
 msgid "Clone inscriptions on selected journey into this one"
-msgstr ""
-"Clonar inscripciones, datos y resultados de la manga seleccionada en &eacute;"
-"sta"
+msgstr "Clonar inscrições, dados e resultados da manga selecionada para esta"
 
 #: console/frm_inscripciones2.php:256
 msgid "Updating inscriptions data"
-msgstr "Actualizar datos de inscripci&oacute;n"
+msgstr "A atualizar dados de inscrições"
 
 #: console/frm_inscripciones2.php:314
 msgid "Register new inscriptions"
-msgstr "Introducir nuevas inscripciones"
+msgstr "Introduzir novas inscrições"
 
 #: console/frm_inscripciones2.php:315
 msgid "Modify selected inscription"
-msgstr "Modificar la inscripci&oacute;n seleccionada"
+msgstr "Modificar a inscrição selecionada"
 
 #: console/frm_inscripciones2.php:316
 msgid "Remove selected inscription from database"
-msgstr "Borrar la inscripci&oacute;n seleccionada de la BBDD"
+msgstr "Apagar inscrição selecionada da BD"
 
 #: console/frm_inscripciones2.php:317
 msgid "Change dorsal number for selected inscription"
-msgstr "Cambiar el dorsal en la inscripcion selecccionada"
+msgstr "Modificar dorsal na inscrição selecionada"
 
 #: console/frm_inscripciones2.php:318
 msgid "Import/Export Inscriptions from/to Excel file"
-msgstr "Importar/Exportar inscripciones desde/hacia fichero Excel"
+msgstr "Importar/Exportar inscrições de/para ficheiro Excel"
 
 #: console/frm_inscripciones2.php:319
 msgid "Reassign dorsals ordering by Club,Category,Grade, and Name"
-msgstr ""
-"Reasignar dorsales ordenando por Club, Categor&iacute;a, Grado y Nombre"
+msgstr "Reatribuir dorsais ordenando por Clube, Categoria, Grau e Nome"
 
 #: console/frm_inscripciones2.php:320
 msgid "Open Team handling window for selected journey"
-msgstr ""
-"Abrir ventana de gesti&oacute;n de equipos para la jornada seleccionada"
+msgstr "Abrir janela de gestão de equipas para a jornada selecionada"
 
 #: console/frm_inscripciones2.php:321
 msgid "Print inscriptions list on this contest"
-msgstr "Imprimir lista de inscritos en esta prueba"
+msgstr "Imprimir lista de inscritos nesta prova"
 
 #: console/frm_inscripciones2.php:322
 msgid "Clear search box<br/>Update inscriptions list"
-msgstr "Borrar casilla de b&uacute;squeda. Actualizar lista de inscritos"
+msgstr "Apagar pesquisa<br/>atualizar lista de inscrições"
 
 #: console/frm_inscripciones2.php:323
 msgid "Search inscriptions matching search criteria"
-msgstr "Buscar inscripciones que coincidan con el criterio de b&uacute;squeda"
+msgstr "Pesquisar inscrições que coincidam com o critério da pesquisa"
 
 #: console/frm_inscripciones2.php:325
 msgid "Import Inscriptions data from selected Excel file"
-msgstr "Importar inscripciones desde el fichero Excel seleccionado"
+msgstr "Importar inscrições a partir do ficheiro Excel selecionado"
 
 #: console/frm_inscripciones2.php:326 console/frm_myAdmin.php:101
 #: console/frm_perros.php:212 console/frm_perros.php:214
 #: console/frm_registration.php:149 lib/templates/scores_mail.inc.php:98
 msgid "Cancel operation. Close window"
-msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
+msgstr "Cancelar operação. Fechar janela"
 
 #: console/frm_jueces.php:35 scripts/jueces.js.php:39
 msgid "New judge"
-msgstr "Nuevo juez"
+msgstr "Novo Juiz"
 
 #: console/frm_jueces.php:38
 msgid "Edit judge"
-msgstr "Editar juez"
+msgstr "Editar Juiz"
 
 #: console/frm_jueces.php:41
 msgid "Delete judge"
-msgstr "Borrar juez"
+msgstr "Apagar Juiz"
 
 #: console/frm_jueces.php:69
 msgid "Judge database handling"
-msgstr "Gesti&oacute;n de datos de jueces"
+msgstr "Gestão de dados de juízes"
 
 #: console/frm_jueces.php:73
 msgid "Updating judge list"
-msgstr "Actualizando lista de jueces"
+msgstr "A atualizar a lista de juízes"
 
 #: console/frm_jueces.php:93
 msgid "RSCE"
@@ -2046,24 +2028,24 @@ msgstr "Pract"
 
 #: console/frm_jueces.php:113
 msgid "Add a new judge to database"
-msgstr "A&ntilde;adir un nuevo juez a la base de datos"
+msgstr "Adicionar novo juiz á base de dados"
 
 #: console/frm_jueces.php:114
 msgid "Modify data on selected judge"
-msgstr "Modificar los datos del juez seleccionado"
+msgstr "Modificar os dados do juiz selecionado"
 
 #: console/frm_jueces.php:115
 msgid "Remove selected judge from database"
-msgstr "Borrar el juez seleccionado de la base de datos"
+msgstr "Apagar o juiz selecionado da base de dados"
 
 #: console/frm_jueces.php:116 console/frm_perros.php:209
 #: console/frm_pruebas.php:133
 msgid "Clear search box. Update list"
-msgstr "Borrar casilla de b&uacute;squeda. Actualizar datos"
+msgstr "Apagar pesquisa. Atualizar lista"
 
 #: console/frm_jueces.php:117
 msgid "Look for judges matching search criteria"
-msgstr "Buscar jueces que coincidan con el criterio de b&uacute;squeda"
+msgstr "Pesquisar juízes que coincidam com o critério de pesquisa"
 
 #: console/frm_login.php:32
 msgid "Some operations require a valid user to be logged in"
@@ -2097,15 +2079,15 @@ msgstr "ID"
 
 #: console/frm_login.php:130
 msgid "Start session with provided user privileges"
-msgstr "Sessão iniciada com o usuário indicado"
+msgstr "Iniciar sessão com privilégios de usuário fornecidos"
 
 #: console/frm_login.php:131
 msgid "Start session as <em>guest</em> user. Close window"
-msgstr "Iniciar sesi&oacute;n como invitado. Cerrar ventana"
+msgstr "Iniciar sessão como utilizador<em>convidado</em>. Fechar Janela"
 
 #: console/frm_logout.php:31
 msgid "Confirm logout on current session"
-msgstr "Confirma que deseja encerrar a sessão actual"
+msgstr "Confirma que deseja terminar a sessão atual?"
 
 #: console/frm_logout.php:31 console/index.php:191 scripts/auth.js.php:83
 #: scripts/auth.js.php:122 tablet/index.php:149 tablet/index.php:381
@@ -2118,43 +2100,43 @@ msgstr "Encerrar sessão"
 
 #: console/frm_logout.php:59
 msgid "Close current user session"
-msgstr "Cerrar Sesi&oacute;n actual"
+msgstr "Terminar a sessão"
 
 #: console/frm_logout.php:60
 msgid "Cancel logout. Close window"
-msgstr "Cancelar fin de sesi&oacute;n. Cerrar ventana"
+msgstr "Cancelar fim de sessão. Fechar Janela"
 
 #: console/frm_myAdmin.php:34
 msgid "Direct database access is a delicate operation"
-msgstr "El manejo directo de la base de datos es una operaci&oacute;n delicada"
+msgstr "O acesso direto à base de dados é uma operação delicada"
 
 #: console/frm_myAdmin.php:35
 msgid ""
 "and should be performed <br />by people with <em>real</em> knowledge about "
 "AgilityContest internals"
 msgstr ""
-"que solo deber&iacute;a ser realizada<br/> por gente con conocimiento "
-"<em>real</em> del funcionamiento de AgilityContest"
+"que só deverá ser realizada<br/> por utilizadores com conhecimento <em>real</"
+"em> do funcionamento do AgilityContest"
 
 #: console/frm_myAdmin.php:39
 msgid ""
 "Incorrect handing of database contents may result in data loss and "
 "inconsistencies"
 msgstr ""
-"El manejo incorrecto de la base de datos puede derivar en p&eacute;rdida de "
-"datos e inconsistencias"
+"O manuseamento incorreto da base de dados pode resultar na perda de dados e "
+"inconsistências"
 
 #: console/frm_myAdmin.php:40
 msgid "and let the application un-usable"
-msgstr "y dejar la aplicacion inutilizable"
+msgstr "e deixar a aplicação inutilizável"
 
 #: console/frm_myAdmin.php:43
 msgid ""
 "Please provide username and password for an user with<em> admin permissions</"
 "em> to continue"
 msgstr ""
-"Por favor, indique nombre de usuario y contrase&ntilde;a  de un usuario con "
-"permisos de administraci&oacute;n  para continuar"
+"Por favor, indique nome de utilizador e palavra-passe com<em> permissões de "
+"administração</em> para continuar"
 
 #: console/frm_myAdmin.php:50
 msgid "Admin user"
@@ -2166,47 +2148,47 @@ msgstr "Acesso à base de dados"
 
 #: console/frm_myAdmin.php:100
 msgid "Validate user. Open phpMyAdmin database manager panel"
-msgstr "Validar usuario. Abrir consola de gesti&oacute;n de BBDD phpMyAdmin"
+msgstr "Validar utilizador. Abrir consola de gestão da BD  phpMeAdmin"
 
 #: console/frm_paises.php:63
 msgid "Country database"
-msgstr "Datos de pa&iacute;ses"
+msgstr "Dados de dados de países"
 
 #: console/frm_paises.php:66
 msgid "Updating Country list"
-msgstr "Actualizando lista de pa&iacute;ses"
+msgstr "A atualizar lista de países"
 
 #: console/frm_paises.php:111
 msgid "Look for countries matching search criteria"
-msgstr "Buscar pa&iacute;ses que coincidan con el criterio de b&uacute;squeda"
+msgstr "Pesquisar países que coincidam com critério de pesquisa"
 
 #: console/frm_paises.php:126
 msgid "Handlers from country"
-msgstr "Gu&iacute;as del pa&iacute;s"
+msgstr "Condutores do país"
 
 #: console/frm_paises.php:195
 msgid "Create/Assign handler to country"
-msgstr "Crear/Asignar gu&iacute;a al pa&iacute;s"
+msgstr "Criar/Atribuir condutor ao país"
 
 #: console/frm_paises.php:196
 msgid "Edit data on handler belonging country"
-msgstr "Editar datos del gu&iacute;a del pa&iacute;s"
+msgstr "Editar dados do condutor do país"
 
 #: console/frm_paises.php:197
 msgid "Unassign selected handler from country"
-msgstr "Desasignar el gu&iacute;a selecionado del pa&iacute;s"
+msgstr "Retirar condutor selecionado do país"
 
 #: console/frm_paises.php:198
 msgid "Update handlers list on country"
-msgstr "Actualizar lista de gu&iacute;as del pa&iacute;s"
+msgstr "Atualizar lista de condutores do pais"
 
 #: console/frm_perros.php:39
 msgid ""
 "Choose a dog and <br/>replace current (duplicated) selection with this "
 "(right) new one"
 msgstr ""
-"Escoge un perro y <br/> reemplaza la selecci&oacute;n anterior (duplicada) "
-"con la nueva (correcta) "
+"Escoge un cão e <br/> reemplaza la soecci&oacute;n anterior (duplicada) con "
+"la nova (correcta) "
 
 #: console/frm_perros.php:46
 msgid "Join"
@@ -2214,15 +2196,15 @@ msgstr "Unir"
 
 #: console/frm_perros.php:62 scripts/perros.js.php:40
 msgid "New dog"
-msgstr "Nuevo perro"
+msgstr "Novo cão"
 
 #: console/frm_perros.php:68 scripts/perros.js.php:105
 msgid "Delete dog"
-msgstr "Borrar perro"
+msgstr "Apagar cão"
 
 #: console/frm_perros.php:71 console/frm_perros.php:117
 msgid "Join dog"
-msgstr "Unir perros"
+msgstr "Unir cães"
 
 #: console/frm_perros.php:74
 msgid "Duplicates"
@@ -2230,35 +2212,35 @@ msgstr "Duplicados"
 
 #: console/frm_perros.php:103
 msgid "Import dogs information from Excel file"
-msgstr "Importar datos de perros desde fichero Excel"
+msgstr "Importar cães a partir do ficheiro Excel"
 
 #: console/frm_perros.php:160
 msgid "Database dog handling"
-msgstr "Gesti&oacute;n de datos de perros"
+msgstr "Gestão dos dados dos cães"
 
 #: console/frm_perros.php:163
 msgid "Updating dog list"
-msgstr "Actualizando lista de perros"
+msgstr "A atualizar a lista de cães"
 
 #: console/frm_perros.php:187
 msgid "Handler name"
-msgstr "Nombre del gu&iacute;a"
+msgstr "Nome do condutor"
 
 #: console/frm_perros.php:202
 msgid "Declare new dog <br/>into database"
-msgstr "A&ntilde;adir un nuevo perro en la base de datos"
+msgstr "Adicionar um novo cão à base de dados"
 
 #: console/frm_perros.php:203
 msgid "Modify data on selected dog"
-msgstr "Modificar los datos del perro seleccionado"
+msgstr "Modificar os dados do cão selecionado"
 
 #: console/frm_perros.php:204
 msgid "Remove selected dog from database"
-msgstr "Borrar el perro seleccionado de la base de datos"
+msgstr "Apagar o cão selecionado da base de dados"
 
 #: console/frm_perros.php:205
 msgid "Mark two dogs as duplicated and join them in the database"
-msgstr "Marcar dos perros como duplicados y unirlos en la base de datos"
+msgstr "Marcar dois cães como duplicados para unirem na base de dados"
 
 #: console/frm_perros.php:206
 msgid "List dogs having duplicate license number"
@@ -2266,41 +2248,41 @@ msgstr "Listar cães com número de licença duplicado"
 
 #: console/frm_perros.php:207 scripts/perros.js.php:310
 msgid "Import/Export dog data from/to Excel file"
-msgstr "Importar/Exportar datos de perros desde/hacia fichero Excel"
+msgstr "Importar/Exportar dados de cães de/para ficheiro Excel"
 
 #: console/frm_perros.php:208
 msgid "Print dog list with current search/sort criteria"
 msgstr ""
-"Imprimir lista de perros conforme a los criterios de <br/>b&uacute;squeda y "
-"ordenaci&oacute;n actuales"
+"Imprimir lista de cães conforme os critérios de <br/>pesquisa e ordenação "
+"atuais"
 
 #: console/frm_perros.php:210
 msgid "Look into database for dogs matching search criteria"
-msgstr "Buscar perros que coincidan con el criterio de b&uacute;squeda"
+msgstr "Pesquisar cães que coincidam com o critério de pesquisa"
 
 #: console/frm_perros.php:211
 msgid "Import dog data from selected Excel file"
-msgstr "Importar datos de perros desde el fichero Excel seleccionado"
+msgstr "Importar dados de cães do ficheiro Excel selecionado"
 
 #: console/frm_perros.php:213
 msgid "Mark dog as duplicate. Convert to newly selected one"
-msgstr "Marcar como duplicado. Reemplazar por la nueva selecci&oacute;n"
+msgstr "Marcar como duplicado. Converter para um novo selecionado"
 
 #: console/frm_pruebas.php:35
 msgid "New contest"
-msgstr "Nueva prueba"
+msgstr "Nova prova"
 
 #: console/frm_pruebas.php:38
 msgid "Edit contest"
-msgstr "Editar prueba"
+msgstr "Editar prova"
 
 #: console/frm_pruebas.php:41
 msgid "Remove contest"
-msgstr "Borrar prueba"
+msgstr "Apagar prova"
 
 #: console/frm_pruebas.php:46
 msgid "Incl. closed"
-msgstr "Incl. cerradas"
+msgstr "Incl. fechadas"
 
 #: console/frm_pruebas.php:54
 msgid "Export"
@@ -2308,73 +2290,73 @@ msgstr "Exportar"
 
 #: console/frm_pruebas.php:79
 msgid "Contest data handling"
-msgstr "Gesti&oacute;n de pruebas"
+msgstr "Gestão de provas"
 
 #: console/frm_pruebas.php:81
 msgid "Updating contest list"
-msgstr "Actualizando lista de pruebas"
+msgstr "A atualizar lista de provas"
 
 #: console/frm_pruebas.php:95
 msgid "Contest name"
-msgstr "Nombre de la prueba"
+msgstr "Nome da prova"
 
 #: console/frm_pruebas.php:97
 msgid "Organizing club"
-msgstr "Club anfitri&oacute;n"
+msgstr "Clube Organizador"
 
 #: console/frm_pruebas.php:98
 msgid "Event location"
-msgstr "Lugar de realizaci&oacute;n"
+msgstr "Local da Prova"
 
 #: console/frm_pruebas.php:99
 msgid "Triptych URL"
-msgstr "URL del tr&iacute;ptico"
+msgstr "URL do Tríptico"
 
 #: console/frm_pruebas.php:100
 msgid "Brochure URL"
-msgstr "URL del cartel"
+msgstr "URL do Brochura"
 
 #: console/frm_pruebas.php:103 server/excel/classes/XLSXWriter.php:114
 msgid "Selective"
-msgstr "Selectiva"
+msgstr "Seletiva"
 
 #: console/frm_pruebas.php:128
 msgid "Declare a new contest and include into database"
-msgstr "Declara y a&ntilde;ade nueva prueba a la base de datos"
+msgstr "Publicar nova prova e incluir na base de dados"
 
 #: console/frm_pruebas.php:129
 msgid "Edit information on selected contest"
-msgstr "Modificar los datos de la prueba eleccionada"
+msgstr "Modificar os dados da prova selecionada"
 
 #: console/frm_pruebas.php:130
 msgid "Remove selected contest"
-msgstr "Borrar prueba seleccionada"
+msgstr "Apagar prova selecionada"
 
 #: console/frm_pruebas.php:131
 msgid "Export selected contest data in Excel format"
-msgstr "Exportar la prueba seleccionada en formato Excel"
+msgstr "Exportar a prova selecionada no formato Excel"
 
 #: console/frm_pruebas.php:132
 msgid "Send mail to clubs with contest info and inscription templates"
 msgstr ""
-"Enviar correo a los clubes con informaci&oacute;n de la prueba y plantillas "
-"de inscripci&oacute;n"
+"Enviar email a os clubes com as informações da prova e os formulários de "
+"inscrição"
 
 #: console/frm_pruebas.php:134
 msgid "Include finished (closed) contest into listing"
-msgstr "Incluir pruebas finalizadas (cerradas) en el listado"
+msgstr "Incluir provas finalizadas (fechadas) na listagem"
 
 #: console/frm_pruebas.php:135
 msgid "Look for contests matching search criteria"
-msgstr "Buscar pruebas que coincidan con el criterio de b&uacute;squeda"
+msgstr "Pesquisar provas que coincidem com o critério de pesquisa"
 
 #: console/frm_pruebas.php:142
 msgid "Journeys on this contest"
-msgstr "Lista de jornadas de esta prueba"
+msgstr "Lista de jornadas desta prova"
 
 #: console/frm_pruebas.php:150
 msgid "Loading list of journeys"
-msgstr "Cargando lista de jornadas"
+msgstr "A carregar lista de jornadas"
 
 #: console/frm_pruebas.php:196
 msgid "Edit journey"
@@ -2382,81 +2364,80 @@ msgstr "Editar jornada"
 
 #: console/frm_pruebas.php:201
 msgid "Close journey"
-msgstr "Cerrar jornada"
+msgstr "Fechar jornada"
 
 #: console/frm_pruebas.php:217
 msgid "Edit data on selected journey"
-msgstr "Modificar los datos de la jornada seleccionada"
+msgstr "Modificar os dados da jornada selecionada"
 
 #: console/frm_pruebas.php:218
 msgid "Close journey. Store data as inmutable"
-msgstr "Cerrar jornada. Marcar esta jornada como no-modificable"
+msgstr "Fechar jornada. Marcar esta jornada como não editável"
 
 #: console/frm_pruebas.php:219
 msgid "Update journey list for this contest"
-msgstr "Actualizar la lista de jornadas de esta prueba"
+msgstr "Atualizar a lista de jornadas desta prova"
 
 #: console/frm_registration.php:33
 msgid "is Copyright &copy; 2013-2017 by"
-msgstr "es Copyright &copy; 2013-2017 de"
+msgstr "é Copyright &copy; 2013-2017 por"
 
 #: console/frm_registration.php:36
 msgid "Source code is available at"
-msgstr "El c&oacute;digo fuente disponible en"
+msgstr "O código fonte está disponível em"
 
 #: console/frm_registration.php:37
 msgid "You can use, copy, modify and re-distribute under terms of"
 msgstr ""
-"Se permite la copia, modificaci&oacute;n y re-distribuci&oacute;n bajo los "
-"t&eacute;rminos de"
+"É permitida a cópia, modificação e redistribuição ao abrigo dos termos de"
 
 #: console/frm_registration.php:38
 msgid "GNU General Public License"
-msgstr "Licencia General P&uacute;blica de GNU versi&oacute;n 2"
+msgstr "Licencia Pública General  GNU versão 2"
 
 #: console/frm_registration.php:42
 msgid "Registered at"
-msgstr "Inscrito en el"
+msgstr "Registado em"
 
 #: console/frm_registration.php:48 console/frm_registration.php:130
 msgid "Licensing information"
-msgstr "Informaci&oacute;n de registro"
+msgstr "Informação de registo"
 
 #: console/frm_registration.php:49
 msgid "Current License Capabilities"
-msgstr "Permissões de licença actual"
+msgstr "Permissões de licença atual"
 
 #: console/frm_registration.php:66
 msgid "Serial num"
-msgstr "Num. serie"
+msgstr "Num. série"
 
 #: console/frm_registration.php:70
 msgid "Expiration date"
-msgstr "Fecha de expiraci&oacute;n"
+msgstr "Data de expiração"
 
 #: console/frm_registration.php:75
 msgid "Import from Excel files"
-msgstr "Importar desde ficheros Excel"
+msgstr "Importar a partir dos ficheiros Excel"
 
 #: console/frm_registration.php:76
 msgid "Team contests"
-msgstr "Pruebas por Equipos"
+msgstr "provas por Equipos"
 
 #: console/frm_registration.php:77
 msgid "KO and Games rounds"
-msgstr "Rondas K.O. y Juegos"
+msgstr "Rondas K.O. e Jogos"
 
 #: console/frm_registration.php:78
 msgid "Series with more than 2 rounds"
-msgstr "Series multiples (m&aacute;s de 2 rondas)"
+msgstr "Series múltiplas (mais de 2 rondas)"
 
 #: console/frm_registration.php:79
 msgid "VideoWall and ScoreBoard"
-msgstr "Paneles informativos - Marcador"
+msgstr "Painéis informativos - Marcador"
 
 #: console/frm_registration.php:80
 msgid "Internet/Wifi public Access"
-msgstr "Acceso p&uacute;blico por Internet/WiFi"
+msgstr "Acesso público  por Internet/WiFi"
 
 #: console/frm_registration.php:81
 msgid "Chronometer connection"
@@ -2464,15 +2445,15 @@ msgstr "Conexi&oacute;n con cron&oacute;metro"
 
 #: console/frm_registration.php:82
 msgid "Unlimited inscriptions in a contest"
-msgstr "Pruebas sin l&iacute;mite de inscripciones"
+msgstr "provas sin l&iacute;mite de inscripciones"
 
 #: console/frm_registration.php:83
 msgid "LiveStream OnScreenDisplay signal"
-msgstr "Se&ntilde;al OnScreenDisplay para Streaming"
+msgstr "Sinal OnScreenDisplay para Streaming"
 
 #: console/frm_registration.php:84
 msgid "Trainning sessions handling"
-msgstr "Gesti&oacute;n de sesiones de entrenamiento"
+msgstr "Gestão de sessões de Treino"
 
 #: console/frm_registration.php:95
 msgid "Register"
@@ -2480,23 +2461,23 @@ msgstr "Registrar"
 
 #: console/frm_registration.php:105
 msgid "Close"
-msgstr "Cerrar"
+msgstr "Fechar"
 
 #: console/frm_registration.php:147
 msgid "Select license file to import"
-msgstr "Selecciona fichero de licencia a importar"
+msgstr "Selecionar ficheiro de licença a importar"
 
 #: console/frm_registration.php:148
 msgid "Import license file into application"
-msgstr "Importar fichero de licencia en la aplicaci&oacute;n"
+msgstr "Importar fichiero de licença para a aplicação"
 
 #: console/index.php:192
 msgid "On"
-msgstr "En"
+msgstr "Em"
 
 #: console/index.php:192
 msgid "Session ID"
-msgstr "ID de sesi&oacute;n"
+msgstr "ID de sessão"
 
 #: console/index.php:193
 msgid "From"
@@ -2512,7 +2493,7 @@ msgstr "Menu"
 
 #: console/index.php:329
 msgid "Init Session"
-msgstr "Iniciar Sesi&oacute;n"
+msgstr "Iniciar Sessão"
 
 #: console/index.php:333
 msgid "DATABASE"
@@ -2524,7 +2505,7 @@ msgstr "Clubes"
 
 #: console/index.php:343
 msgid "Handlers Database Management"
-msgstr "Gesti&oacute;n de datos de Gu&iacute;as"
+msgstr "Gestão de dados de condutores"
 
 #: console/index.php:345
 msgid "Handlers"
@@ -2532,7 +2513,7 @@ msgstr "Condutores"
 
 #: console/index.php:351
 msgid "Dogs Database Management"
-msgstr "Gesti&oacute;n de datos de Perros"
+msgstr "Gestão de dados de cães"
 
 #: console/index.php:354 public/pb_programa.php:101
 #: public/pbmenu_programa.php:105 server/excel/classes/DogsWriter.php:69
@@ -2541,7 +2522,7 @@ msgstr "Cães"
 
 #: console/index.php:360
 msgid "Judges Database Management"
-msgstr "Gesti&oacute;n de datos de Jueces"
+msgstr "Gestão de dados de juízes"
 
 #: console/index.php:362 server/excel/classes/PartialScoresWriter.php:85
 msgid "Judges"
@@ -2561,7 +2542,7 @@ msgstr "Criação de Provas"
 
 #: console/index.php:379
 msgid "Inscriptions - Contest selection"
-msgstr "Inscripciones registradas en el equipo"
+msgstr "Inscrições - Seleção de prova"
 
 #: console/index.php:381
 msgid "Handle Inscriptions"
@@ -2569,7 +2550,7 @@ msgstr "Gestão das Inscrições"
 
 #: console/index.php:386
 msgid "Competition - Contest and Journey selection"
-msgstr "Competici&oacute;n - Selecci&oacute;n de Prueba y Jornada"
+msgstr "Competição - Seleção de Prova e Jornada"
 
 #: console/index.php:387
 msgid "Running Contests"
@@ -2581,7 +2562,7 @@ msgstr "CLASSIFICAÇÕES"
 
 #: console/index.php:396
 msgid "Scores - Contest and Journey selection"
-msgstr "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
+msgstr "Classificações - Seleção de prova e Jornada"
 
 #: console/index.php:402 console/index.php:403 scripts/inscripciones.js.php:467
 #: server/pdf/classes/PrintInscripciones.php:258
@@ -2614,7 +2595,7 @@ msgstr "Acerca de"
 
 #: index.php:139
 msgid "Select contest, journey and view"
-msgstr "Selecciona la prueba, jornada y vista"
+msgstr "Seleciona prova, jornada e vista"
 
 #: index.php:143 livestream/vwls_finales.php:63 livestream/vwls_finales.php:171
 #: livestream/vwls_finales.php:185 livestream/vwls_parciales.php:62
@@ -2632,17 +2613,17 @@ msgstr "Selecciona la prueba, jornada y vista"
 #: videowall/vwc_parciales.php:42 videowall/vwc_parciales.php:170
 #: videowall/vwc_parciales.php:184 videowall/vwc_parciales.php:236
 msgid "Contest"
-msgstr "Prueba"
+msgstr "Prova"
 
 #: index.php:151 livestream/index.php:198 videowall/index.php:233
 msgid "Select View"
-msgstr "Selecciona vista"
+msgstr "Seleciona vista"
 
 #: index.php:153 public/pb_inscripciones.php:35
 #: public/pb_inscripciones_equipos.php:35 public/pbmenu_inscripciones.php:38
 #: public/pbmenu_inscripciones_equipos.php:38
 msgid "Inscription list"
-msgstr "Listado de inscritos"
+msgstr "Listagem de inscritos"
 
 #: index.php:154 index2.php:320 livestream/index.php:200
 #: livestream/vwls_entrenamientos.php:63 public/pb_entrenamientos.php:36
@@ -2651,7 +2632,7 @@ msgstr "Listado de inscritos"
 #: videowall/index.php:237 videowall/index.php:247
 #: videowall/vw_entrenamientos.php:36 videowall/vws_entrenamientos.php:36
 msgid "Training session"
-msgstr "Sesi&oacute;n de entrenamientos"
+msgstr "Sessão de treino"
 
 #: index.php:156 index2.php:359 livestream/index.php:203
 #: livestream/vwls_parciales.php:65 public/pb_parciales.php:38
@@ -2663,7 +2644,7 @@ msgstr "Sesi&oacute;n de entrenamientos"
 #: scripts/sesiones.js.php:178 videowall/index.php:239 videowall/index.php:243
 #: videowall/vw_parciales.php:43 videowall/vwc_parciales.php:51
 msgid "Partial scores"
-msgstr "Clasificaci&oacute;n parcial"
+msgstr "Classificação parcial"
 
 #: index.php:157 index2.php:362 lib/templates/final_individual.inc.php:12
 #: lib/templates/final_individual_2rondas.inc.php:14
@@ -2681,44 +2662,44 @@ msgstr "Clasificaci&oacute;n parcial"
 #: videowall/index.php:244 videowall/vw_finales.php:46
 #: videowall/vwc_finales.php:51
 msgid "Final scores"
-msgstr "Clasificaci&oacute;n final"
+msgstr "Classificação final"
 
 #: index.php:158
 msgid "Journey activities timetable"
-msgstr "Programa de la jornada"
+msgstr "Programa da jornada"
 
 #: index.php:255
 msgid "You should select contest, journey and view to continue"
-msgstr "Debe seleccionar prueba, jornada y vista para continuar"
+msgstr "Deve selecionar prova, jornada e vista para continuar"
 
 #: index2.php:47
 msgid "Web access"
-msgstr "Acceso internet"
+msgstr "Acesso internet"
 
 #: index2.php:286
 msgid "Online information"
-msgstr "Informaci&oacute;n en l&iacute;nea"
+msgstr "Informação online"
 
 #: index2.php:330 public/pb_programa.php:97 public/pbmenu_programa.php:101
 #: scripts/competicion.js.php:1151
 msgid "Timetable"
-msgstr "Horario"
+msgstr "Horário"
 
 #: index2.php:331 server/excel/classes/InscripcionesWriter.php:109
 msgid "Inscriptions"
-msgstr "Inscripciones"
+msgstr "Inscrições"
 
 #: index2.php:375
 msgid "Options and Messages"
-msgstr "Ajustes y Notificaciones"
+msgstr "Ajustes e Notificações"
 
 #: index2.php:380
 msgid "Activate notifications"
-msgstr "Activar Notificaciones"
+msgstr "Ativar Notificações"
 
 #: index2.php:390
 msgid "Display received messages since session start"
-msgstr "Mostrar mensajes recibidos desde el inicio de sesi&oacute;n"
+msgstr "Mostrar mensagem recebidas desde o inicio da sessão"
 
 #: index2.php:391
 msgid "Display"
@@ -2730,30 +2711,31 @@ msgstr "Dorsal al que hacer seguimiento"
 
 #: index2.php:400
 msgid "Personalize notifications"
-msgstr "Ajustes de notificaciones"
+msgstr "Ajustar notificações"
 
 #: index2.php:401
 msgid "Setup"
-msgstr "Ajuste"
+msgstr "Ajustar"
 
 #: index2.php:432
 msgid "Dorsal to track info. Set to zero if no dorsal selected"
-msgstr "Dorsal al que seguir. Poner a cero si no se selecciona ninguno"
+msgstr "Dorsal a seguir. Redefinir para zero se nenhum for selecionado"
 
 #: index2.php:433
 msgid "Not available yet"
-msgstr "No disponible todav&iacute;a"
+msgstr "Ainda não disponível"
 
 #: lib/templates/entrenamientos.inc.php:19
 #: server/excel/classes/EntrenamientosWriter.php:54
+#, fuzzy
 msgid "Check-in"
-msgstr "Firma"
+msgstr "Check-in"
 
 #: lib/templates/entrenamientos.inc.php:20
 #: server/excel/classes/EntrenamientosWriter.php:54
 #: server/pdf/classes/PrintEntrenamientos.php:61
 msgid "Veterinary"
-msgstr "Veterinario"
+msgstr "Veterinário"
 
 #: lib/templates/entrenamientos.inc.php:21
 #: server/excel/classes/EntrenamientosWriter.php:54
@@ -2765,15 +2747,15 @@ msgstr "Inicio"
 #: server/excel/classes/EntrenamientosWriter.php:54
 #: server/pdf/classes/PrintEntrenamientos.php:61
 msgid "Duration"
-msgstr "Duracion"
+msgstr "Duração"
 
 #: lib/templates/entrenamientos.inc.php:45
 msgid "Updating training session order"
-msgstr "Actualizando el orden de los entrenamientos"
+msgstr "A atualizar a ordem dos treinos"
 
 #: lib/templates/entrenamientos.inc.php:55
 msgid "This contest has no training session defined"
-msgstr "Esta prueba no tiene sesi&oacute;n de entrenamientos"
+msgstr "Esta prova não tem sessão de treinos definida"
 
 #: lib/templates/final_individual.inc.php:11
 #: lib/templates/final_individual_2rondas.inc.php:10
@@ -2783,7 +2765,7 @@ msgstr "Esta prueba no tiene sesi&oacute;n de entrenamientos"
 #: server/pdf/classes/PrintClasificacionExcel.php:151
 #: server/pdf/classes/PrintClasificacionTeam.php:225
 msgid "Competitor data"
-msgstr "Datos del participante"
+msgstr "Dados do concorrente"
 
 #: lib/templates/final_individual.inc.php:24
 #: lib/templates/final_individual.inc.php:40
@@ -2836,7 +2818,7 @@ msgstr "Datos del participante"
 #: server/pdf/classes/PrintTRSTemplates.php:279 tablet/tablet_main.php:97
 #: tablet/tablet_main.php:300 videowall/vws_parcial_equipos.php:57
 msgid "Time"
-msgstr "Tiempo"
+msgstr "Tempo"
 
 #: lib/templates/final_individual.inc.php:25
 #: lib/templates/final_individual_2rondas.inc.php:40
@@ -2890,7 +2872,7 @@ msgstr "Calif"
 #: server/pdf/classes/PrintPodium.php:161
 #: server/pdf/classes/PrintResultadosByEquipos3.php:83
 msgid "Position"
-msgstr "Puesto"
+msgstr "Posto"
 
 # Abrev de Faltas/Tocados
 #: lib/templates/final_individual.inc.php:38
@@ -2989,6 +2971,7 @@ msgstr "Penal"
 #: lib/templates/final_last_teams.inc.php:43
 #: lib/templates/final_last_teams.inc.php:50
 #: scripts/results_and_scores.js.php:262 scripts/results_and_scores.js.php:268
+#, fuzzy
 msgid "Cal"
 msgstr "Cal"
 
@@ -3012,7 +2995,7 @@ msgstr "Pos"
 #: lib/templates/final_last_teams.inc.php:72
 #: lib/templates/final_teams.inc.php:43 livestream/vwls_finales.php:157
 msgid "Updating final scores"
-msgstr "Actualizando clasificaci&oacute;n final"
+msgstr "A atualizar classificação final"
 
 #: lib/templates/final_individual_2rondas.inc.php:26
 #: lib/templates/final_last_individual.inc.php:32
@@ -3028,7 +3011,7 @@ msgstr "Grd"
 #: lib/templates/final_rounds_data.inc.php:23
 #: scripts/results_and_scores.js.php:202 scripts/results_and_scores.js.php:208
 msgid "Data info for round"
-msgstr "Datos de la manga"
+msgstr "Dados da manga"
 
 #: lib/templates/final_rounds_data.inc.php:16
 #: lib/templates/final_rounds_data.inc.php:24
@@ -3069,31 +3052,31 @@ msgstr "Obst"
 #: lib/templates/final_rounds_data.inc.php:26
 #: lib/templates/parcial_round_data.inc.php:20
 msgid "S.C.T."
-msgstr "T.R.S."
+msgstr "T.P.S."
 
 #: lib/templates/final_rounds_data.inc.php:19
 #: lib/templates/final_rounds_data.inc.php:27
 #: lib/templates/parcial_round_data.inc.php:21
 msgid "M.C.T."
-msgstr "T.R.M."
+msgstr "T.P.M"
 
 #: lib/templates/final_teams.inc.php:10 videowall/vws_final_equipos.php:53
 #: videowall/vws_parcial_equipos.php:53
 msgid "Team data"
-msgstr "Datos del equipo"
+msgstr "Dados da equipa"
 
 #: lib/templates/final_teams.inc.php:28 lib/templates/parcial_teams.inc.php:18
 msgid "Penalization"
-msgstr "Penalizaci&oacute;n"
+msgstr "Penalização"
 
 #: lib/templates/import_dialog.inc.php:10
 msgid "Current federation to import data into"
-msgstr "Federaci&oacute;n donde importar datos"
+msgstr "Federação para importar dados"
 
 #: lib/templates/import_dialog.inc.php:12
 #: lib/templates/import_results_dialog.inc.php:12
 msgid "Database backup is recommended before import"
-msgstr "Se recomienda una copia de seguridad antes de la importacion"
+msgstr "Recomenda-se uma cópia de segurança antes da importação"
 
 #: lib/templates/import_dialog.inc.php:13
 #: lib/templates/import_results_dialog.inc.php:13
@@ -3102,42 +3085,42 @@ msgstr "Backup"
 
 #: lib/templates/import_dialog.inc.php:17
 msgid "Select Excel file to retrieve Dog data from"
-msgstr "Selecciona fichero Excel de donde importar datos de perros"
+msgstr "Seleciona ficheiro Excel para importar dados do cão"
 
 #: lib/templates/import_dialog.inc.php:18
 #: lib/templates/import_results_dialog.inc.php:18
 msgid "Press import to start, or cancel to abort import"
-msgstr "Puslsa Importar para empezar, o Cancelar para anular"
+msgstr "Carregue Importar para começar, ou cancelar para anular"
 
 #: lib/templates/import_dialog.inc.php:28
 #: lib/templates/import_results_dialog.inc.php:36
 msgid "Blind (non-interactive) mode"
-msgstr "Importaci&oacute;n no interactiva"
+msgstr "Importação não interativa"
 
 #: lib/templates/import_dialog.inc.php:34
 #: lib/templates/import_results_dialog.inc.php:50
 msgid "Excel import options"
-msgstr "Opciones de importaci&oacute;n"
+msgstr "Opções de importação do Excel"
 
 #: lib/templates/import_dialog.inc.php:35
 msgid "Precedence on DB/Excel entry match"
-msgstr "Prioridad en caso de coincidencia"
+msgstr "Prioridade em caso de coincidência"
 
 #: lib/templates/import_dialog.inc.php:37
 msgid "Database"
-msgstr "Base de datos"
+msgstr "Base de dados"
 
 #: lib/templates/import_dialog.inc.php:39
 msgid "Excel file"
-msgstr "Fichero excel"
+msgstr "Ficheiro Excel"
 
 #: lib/templates/import_dialog.inc.php:41
 msgid "Text Conversion"
-msgstr "Conversi&oacute;n del texto"
+msgstr "Conversão do texto"
 
 #: lib/templates/import_dialog.inc.php:43
 msgid "Capitalize words"
-msgstr "Inicial en may&uacute;sculas"
+msgstr "Inicial em maiúsculas"
 
 #: lib/templates/import_dialog.inc.php:45
 msgid "Leave as is"
@@ -3145,20 +3128,22 @@ msgstr "Dejar como est&aacute;"
 
 #: lib/templates/import_dialog.inc.php:47
 msgid "Action on empty fields"
-msgstr "Acci&oacute;n ante campos vac&iacute;os"
+msgstr "Ação nos campos vazios"
 
 #: lib/templates/import_dialog.inc.php:51
 msgid "Overwrite"
-msgstr "Sobre-escribir"
+msgstr "Sobrescrever"
 
 #: lib/templates/import_dialog.inc.php:55
 #: lib/templates/import_results_dialog.inc.php:51
+#, fuzzy
 msgid "Also read (if available) course data"
-msgstr "Importar datos de pista si est&aacute;n disponibles"
+msgstr "Importar dados de pista si est&aacute;n disponívels"
 
 #: lib/templates/import_dialog.inc.php:57
+#, fuzzy
 msgid "Try to deal entry when no license provided"
-msgstr "Buscar perro si no se proporciona licencia"
+msgstr "Pesquisar cão si no se proporciona licencia"
 
 #: lib/templates/import_dialog.inc.php:64
 #: lib/templates/import_results_dialog.inc.php:61
@@ -3167,31 +3152,31 @@ msgstr "Importar estado"
 
 #: lib/templates/import_dialog.inc.php:80
 msgid "Assume no coherency errors with current database data"
-msgstr "Asumir que no hay incoherencias con los datos existentes en la BBDD"
+msgstr "Assumir que não há incoerências com os dados existentes na BD"
 
 #: lib/templates/import_results_dialog.inc.php:10
 msgid "Current round to import data into"
-msgstr "Manga actual donde importar los datos"
+msgstr "Manga actual para onde importar os dados"
 
 #: lib/templates/import_results_dialog.inc.php:17
 msgid "Select Excel file to retrieve round result data from"
-msgstr "Selecciona fichero Excel de donde importar resultados parciales"
+msgstr "Seleciona o ficheiro Excel de onde importar os resultados parciais "
 
 #: lib/templates/import_results_dialog.inc.php:54
 msgid "Ignore excel entries marked as 'Not Present'"
-msgstr "Omitir entradas excel marcadas como 'No Presentado'"
+msgstr "Ignorar entradas Excel marcadas como \"Não presentes\""
 
 #: lib/templates/import_results_dialog.inc.php:75
 msgid "Silently ignore result when no license/name match found"
-msgstr "Ignorar entradas cuando no coincide ni la licencia ni el nombre"
+msgstr "Ignorar entradas quando não existe coincidência no nome nem na licença"
 
 #: lib/templates/orden_salida.inc.php:55
 msgid "Updating starting order"
-msgstr "Actualizando orden de salida"
+msgstr "Atualizar ordem de saída"
 
 #: lib/templates/parcial_console_round_data.inc.php:9
 msgid "Technical data on selected round"
-msgstr "Datos t&eacute;cnicos de la manga"
+msgstr "Dados técnicos da manga"
 
 #: lib/templates/parcial_console_round_data.inc.php:16
 #: lib/templates/parcial_console_round_data.inc.php:25
@@ -3213,72 +3198,73 @@ msgstr "Datos t&eacute;cnicos de la manga"
 #: server/pdf/classes/PrintResultadosKO.php:95
 #: server/pdf/classes/PrintTRSTemplates.php:123
 msgid "MCT"
-msgstr "TRM"
+msgstr "TPM"
 
 #: lib/templates/parcial_individual.inc.php:63
 #: lib/templates/parcial_last_individual.inc.php:64
 #: lib/templates/parcial_last_teams.inc.php:66
 #: lib/templates/parcial_teams.inc.php:34
 msgid "Updating partial scores"
-msgstr "Actualizando resultados de la manga"
+msgstr "A atualizar resultados parciais da manga"
 
 #: lib/templates/scores_mail.inc.php:26
 msgid "Before sending email with contest results to judge(s), please:"
-msgstr "Antes de enviar correo con los resultados a los jueces, por favor:"
+msgstr ""
+"Por favor, antes de enviar o email com os resultados da prova aos juízes:"
 
 #: lib/templates/scores_mail.inc.php:28
 msgid "Revise email addresses and select judge(s) to send email to"
-msgstr "Seleccione destinatarios y compruebe las direcciones de correo"
+msgstr "Selecione destinatário e confirme os endereços de email"
 
 #: lib/templates/scores_mail.inc.php:29
 msgid "Also decide whether to send mail copy to Federation"
-msgstr "Indique si desea enviar copia a la federaci&oacute;n"
+msgstr "Indique se pretende enviar uma cópia para a federação"
 
 #: lib/templates/scores_mail.inc.php:30
 msgid "Choose also if you want to send partial (round) scores"
-msgstr ""
-"Indique tambi&eacute;n si desea enviar resultados parciales (por mangas)"
+msgstr "Indique igualmente se deseja enviar resultados parciais (por mangas)"
 
 #: lib/templates/scores_mail.inc.php:31
 msgid "Choose if sending every results in a single '.zip' file"
 msgstr ""
-"Decidir si se env&iacute;a un &uacute;nico fichero .zip o ficheros separados"
+"Decida se envia todos os resultados num ficheiro '.zip' ou ficheiros "
+"separados"
 
 #: lib/templates/scores_mail.inc.php:32
 msgid "Revise and edit message body"
-msgstr "Revisar y si es necesario editar el mensaje"
+msgstr "Verifique se é necessário editar a mensagem"
 
 #: lib/templates/scores_mail.inc.php:33
 msgid "Press double-click on judge to set/change email"
-msgstr "DobleClick en el juez para ajustar/cambiar correo"
+msgstr "Carregue com duplo-clique no juiz para definir/alterar o email"
 
 #: lib/templates/scores_mail.inc.php:37
 msgid "Send email copy back to sender"
-msgstr "Enviar copia del correo al remitente"
+msgstr "Enviar cópia ao remetente"
 
 #: lib/templates/scores_mail.inc.php:39
 msgid "Include pre agility results"
-msgstr "Incluir resultados de pre-agility"
+msgstr "Incluir resultados de pré-agility"
 
 #: lib/templates/scores_mail.inc.php:41
 msgid "Also send scores for each separate round"
-msgstr "Incluir tambien puntuaciones por mangas separadas"
+msgstr "Incluir igualmente pontuações por mangas separadas"
 
 #: lib/templates/scores_mail.inc.php:43
 msgid "Attach single zip file"
-msgstr "Enviar resultados en un fichero .zip"
+msgstr "Enviar resultados num ficheiro .zip"
 
 #: lib/templates/scores_mail.inc.php:45
 msgid "Separate files"
-msgstr "Ficheros separados"
+msgstr "Ficheiros separados"
 
 #: lib/templates/scores_mail.inc.php:47
 msgid "Send a copy to federation"
-msgstr "Enviar copia a la federaci&oacute;n"
+msgstr "Enviar copia à federação"
 
 #: lib/templates/scores_mail.inc.php:49
 msgid "Federation Email"
-msgstr "Correo de la federaci&oacute;n"
+msgstr "Correio eletrónico da Federação"
 
 #: lib/templates/scores_mail.inc.php:60
 msgid "Text editor"
@@ -3286,7 +3272,7 @@ msgstr "Editor de texto"
 
 #: lib/templates/scores_mail.inc.php:81 public/public.js.php:228
 msgid "Message"
-msgstr "Mensaje"
+msgstr "Mensagem"
 
 #: lib/templates/scores_mail.inc.php:85
 msgid "Send"
@@ -3298,23 +3284,23 @@ msgstr "Fich. Zip"
 
 #: lib/templates/scores_mail.inc.php:95
 msgid "Edit mail template text to be sent"
-msgstr "Editar el texto del mensaje a enviar"
+msgstr "Editar o texto da mensagem a enviar"
 
 #: lib/templates/scores_mail.inc.php:96
 msgid "Accept data. Start mailing procedure"
-msgstr "Aceptar datos. Comenzar envio de correo"
+msgstr "Aceitar dados. Começar o procedimento de envio"
 
 #: lib/templates/scores_mail.inc.php:97
 msgid "Download zip file with scores instead of send mail"
-msgstr "Descargar fichero zip con los resultados en lugar de enviar correo"
+msgstr "Descarregar ficheiro zip com os resultados invés de enviar email"
 
 #: lib/templates/scores_mail.inc.php:168
 msgid "Judges for this journey"
-msgstr "Jueces de esta jornada"
+msgstr "Juízes desta jornada"
 
 #: lib/templates/scores_mail.inc.php:169
 msgid "Updating judge(s) list"
-msgstr "Actualizando lista de jueces"
+msgstr "A atualizar lista de juízes"
 
 #: lib/templates/scores_mail.inc.php:194
 msgid "International"
@@ -3322,43 +3308,43 @@ msgstr "Internacional"
 
 #: lib/templates/scores_mail.inc.php:195
 msgid "Learning"
-msgstr "Pr&aacute;cticas"
+msgstr "Aprendendo"
 
 #: livestream/index.php:190 videowall/index.php:224
 msgid "Select ring, display name (optional) and view to deploy"
-msgstr "Indica ring, nombre de la pantalla (opcional) y vista a desplegar"
+msgstr "Selecione ring, nome a exibir ( opcional ) e vista para implantar"
 
 #: livestream/index.php:194 videowall/index.php:229
 msgid "Select Session/Ring"
-msgstr "Selecciona Ring"
+msgstr "Selecionar Sessão/Ring"
 
 #: livestream/index.php:202 scripts/sesiones.js.php:159
 msgid "Live Stream"
-msgstr "Video en directo"
+msgstr "Transmissão ao vivo"
 
 #: livestream/index.php:207
 msgid "Select mode"
-msgstr "Selecciona modo"
+msgstr "Selecione modo"
 
 #: livestream/index.php:209
 msgid "Embedded Video"
-msgstr "Video insertado"
+msgstr "Video embutido"
 
 #: livestream/index.php:211
 msgid "Chroma Key"
-msgstr "Chroma Key"
+msgstr "Chroma key"
 
 #: livestream/index.php:239
 msgid "LiveStream"
-msgstr "Video en directo"
+msgstr "Transmissão ao vivo"
 
 #: livestream/index.php:259 videowall/index.php:303
 msgid "Use selected as working session"
-msgstr "Trabajar con el la sesi&oacute;n seleccionada"
+msgstr "Usar a sessão selecionada para trabalhar"
 
 #: livestream/index.php:307 videowall/index.php:352
 msgid "You should select a valid session"
-msgstr "Debe seleccionar una sesi&oacute;n v&aacute;lida"
+msgstr "Deve selecionar uma sessão válida"
 
 #: livestream/livestream.js.php:194 livestream/livestream.js.php:209
 #: livestream/livestream.js.php:213 tablet/index.php:194
@@ -3366,11 +3352,11 @@ msgstr "Debe seleccionar una sesi&oacute;n v&aacute;lida"
 #: videowall/videowall.js.php:560 videowall/vws.js.php:451
 #: videowall/vws.js.php:463
 msgid "Test dog"
-msgstr "Perro en blanco"
+msgstr "Cão Branco"
 
 #: livestream/unregistered.php:10
 msgid "Current license does not allow handling of LiveStream operations"
-msgstr "La licencia actual no permite las operaciones de live-streaming"
+msgstr "A licença atual não permite a gestão das operações do LiveStreaming"
 
 #: livestream/unregistered.php:12 public/unregistered.php:11
 #: videowall/unregistered.php:12
@@ -3378,8 +3364,8 @@ msgid ""
 "Please, review, and -if desired- update AgilityContest registration license "
 "data"
 msgstr ""
-" Por favor, revise y -en su caso- actualice los datos de registro y licencia "
-"de la aplicaci&oacute;n"
+" Por favor, revise e -en su caso- actualice os dados de registro e licencia "
+"da aplicaci&oacute;n"
 
 #: livestream/vwls_entrenamientos.php:60 livestream/vwls_entrenamientos.php:108
 #: livestream/vwls_finales.php:208 livestream/vwls_ordensalida.php:59
@@ -3398,15 +3384,15 @@ msgstr ""
 #: videowall/vw_ordensalida.php:34 videowall/vw_ordensalida.php:78
 #: videowall/vw_parciales.php:125 videowall/vws_entrenamientos.php:34
 msgid "Header"
-msgstr "Cabecera"
+msgstr "Cabeçalho"
 
 #: livestream/vwls_osdvideo.php:83
 msgid "Number"
-msgstr "N&uacute;mero"
+msgstr "Numero"
 
 #: public/pb_entrenamientos.php:49 public/pbmenu_entrenamientos.php:51
 msgid "Update training session info"
-msgstr "Actualizando datos de entrenamientos"
+msgstr "A atualizar dados de treinos"
 
 #: public/pb_finales.php:54 public/pb_finales_equipos.php:54
 msgid "Series"
@@ -3415,64 +3401,64 @@ msgstr "Manga"
 #: public/pb_finales.php:92 public/pb_finales_equipos.php:94
 #: public/pb_parciales.php:97 public/pb_parciales_equipos.php:97
 msgid "Available scores"
-msgstr "Resultados disponibles"
+msgstr "Resultados disponíveis"
 
 #: public/pb_finales.php:114 public/pb_finales_equipos.php:78
 #: public/pbmenu_finales.php:61 public/pbmenu_finales_equipos.php:62
 msgid "Update scores"
-msgstr "Actualizar resultados"
+msgstr "Atualizar resultados"
 
 #: public/pb_inscripciones.php:52 public/pb_inscripciones_equipos.php:52
 #: public/pbmenu_inscripciones.php:52
 #: public/pbmenu_inscripciones_equipos.php:51
 msgid "Update inscription list"
-msgstr "Actualizar listado de inscritos"
+msgstr "Atualizar listagem de inscritos"
 
 #: public/pb_inscripciones.php:84 public/pb_inscripciones_equipos.php:88
 #: public/pb_inscripciones_equipos.php:133 public/pbmenu_inscripciones.php:80
 #: public/pbmenu_inscripciones_equipos.php:83
 #: public/pbmenu_inscripciones_equipos.php:128
 msgid "Updating inscriptions"
-msgstr "Actualizando inscripciones"
+msgstr "A atualizar inscrições"
 
 #: public/pb_ordensalida.php:36
 msgid "Round selection"
-msgstr "Seleccion de manga"
+msgstr "Seleção de manga"
 
 #: public/pb_ordensalida.php:72 public/pbmenu_ordensalida.php:57
 #: tablet/tablet_main.php:265
 msgid "Update starting order"
-msgstr "Actualizando orden de salida"
+msgstr "Actualizar Ordem de Saída"
 
 #: public/pb_ordensalida.php:123
 msgid "List of rounds in this journey"
-msgstr "Lista de mangas de la jornada"
+msgstr "Lista de mangas na jornada"
 
 #: public/pb_parciales.php:79 public/pb_parciales_equipos.php:79
 #: public/pbmenu_parciales.php:63 public/pbmenu_parciales_equipos.php:63
 msgid "Update partial scores table"
-msgstr "Actualizar resultados parciales"
+msgstr "Atualizar resultados parciais"
 
 #: public/pb_programa.php:37 public/pbmenu_programa.php:40
 msgid "Journey activities info"
-msgstr "Programa de la jornada"
+msgstr "Programa da jornada"
 
 #: public/pb_programa.php:50 public/pbmenu_programa.php:53
 msgid "Update schedule info on this journey"
-msgstr "Actualizar programa de la jornada"
+msgstr "Atualizar programa da jornada"
 
 #: public/pb_programa.php:86 public/pbmenu_programa.php:90
 msgid "Updating schedule time on this journey"
-msgstr "Actualizando el programa de la jornada"
+msgstr "A atualizar o programa da jornada"
 
 #: public/pb_programa.php:98 public/pbmenu_programa.php:102
 #: server/pdf/classes/PrintOrdenTandas.php:84 tablet/tablet_main.php:209
 msgid "Activity"
-msgstr "Actividad"
+msgstr "Actividade"
 
 #: public/pb_programa.php:100 public/pbmenu_programa.php:104
 msgid "Session - Ring"
-msgstr "Sesi&oacute;n - Ring"
+msgstr "Sessão - Ring"
 
 #: public/pbmenu_entrenamientos.php:52 public/pbmenu_finales.php:62
 #: public/pbmenu_finales_equipos.php:63 public/pbmenu_inscripciones.php:53
@@ -3480,33 +3466,31 @@ msgstr "Sesi&oacute;n - Ring"
 #: public/pbmenu_parciales.php:64 public/pbmenu_parciales_equipos.php:64
 #: public/pbmenu_programa.php:54
 msgid "Back to contest menu"
-msgstr "Volver al men&uacute; principal"
+msgstr "Voltar ao menu principal"
 
 #: public/public.js.php:245
 msgid "Received messages"
-msgstr "Mensajes recibidos"
+msgstr "Mensagem recebidas"
 
 #: public/public.js.php:301
 msgid "This browser does not support notifications"
-msgstr "Este navegador no soporta notificaciones"
+msgstr "Este navegador não suporta notificações"
 
 #: public/public.js.php:302
 msgid "Using internal messager"
-msgstr "Usando mensajer&iacute;a interna"
+msgstr "Utilizando mensageiro interno"
 
 #: public/trainingnotallowed.php:9
 msgid "Current license does not allow view/handle training sessions"
-msgstr "La licencia actual no permite la gesti&oacute;n de entrenamientos"
+msgstr "A licença atual não permite a gestão de treinos"
 
 #: public/trainingnotallowed.php:11
 msgid "Please contact with contest organization"
-msgstr "Contacte con el organizador de la prueba"
+msgstr "Por favor Contacte com o organizador da prova"
 
 #: public/unregistered.php:9
 msgid "Current license does not allow public (internet) access operations"
-msgstr ""
-"La licencia actual no permite las operaciones de consulta y acceso p&uacute;"
-"blico"
+msgstr "A licença atual não permite as operação de consulta e acesso público"
 
 #: scripts/admin.js.php:30
 msgid "Invalid user"
@@ -3514,32 +3498,32 @@ msgstr "Utilizador não é válido"
 
 #: scripts/admin.js.php:30
 msgid "Current user"
-msgstr "El usuario actual"
+msgstr "Utilizador atual"
 
 #: scripts/admin.js.php:30
 msgid "has not enought privileges"
-msgstr "no tiene suficientes permisos"
+msgstr "não tem permissões suficientes"
 
 #: scripts/admin.js.php:38
 msgid "ViewLog(): Must log in with 'admin' or 'operator' access level"
 msgstr ""
-"ViewLog(): Debe iniciar sesi&oacute;n con un usuario con permisos de "
-"administrador u operador"
+"ViewLog(): Deve iniciar a sessão com um utilizador com permissões de "
+"administrador ou operador"
 
 #: scripts/admin.js.php:48
 msgid "We are preparing your log file download, please wait"
-msgstr "Preparando el registro del sistema. Por favor, espere"
+msgstr "Estamos a preparar o download do ficheiro de log, por favor aguarde"
 
 #: scripts/admin.js.php:49
 msgid "There was a problem generating your log file, please report author."
 msgstr ""
-"Hubo un problema en la generaci&oacute;n del informe. Por favor contacte con "
-"el autor"
+"Hubo un problema na generaci&oacute;n do informe. Por favor contacte con o "
+"autor"
 
 #: scripts/admin.js.php:57
 msgid "ResetLog(): Must log in with 'admin' access level"
 msgstr ""
-"ResetLog(): Debe iniciar sesi&oacute;n con un usuario con permisos de "
+"ResetLog(): Deve iniciar a sessão com um utilizador com permissões de "
 "administrador"
 
 #: scripts/admin.js.php:60 scripts/clubes.js.php:220
@@ -3554,7 +3538,7 @@ msgstr "Confirmar"
 
 #: scripts/admin.js.php:60
 msgid "Clear trace and debugging log file"
-msgstr "Borrar fichero de errores y trazas (log) de ejecuci&oacute;n"
+msgstr "Limpar ficheiro de registro de erros e depuração (log)"
 
 #: scripts/admin.js.php:60 scripts/guias.js.php:80 scripts/guias.js.php:169
 #: scripts/jueces.js.php:116 scripts/perros.js.php:105
@@ -3562,59 +3546,60 @@ msgstr "Borrar fichero de errores y trazas (log) de ejecuci&oacute;n"
 #: scripts/sesiones.js.php:127 scripts/tandas.js.php:123
 #: scripts/usuarios.js.php:109
 msgid "Sure?"
-msgstr "¿Seguro?"
+msgstr "Certo?"
 
 #: scripts/admin.js.php:70
 msgid "Log Cleared"
-msgstr "Registro borrado"
+msgstr "Registro limpo"
 
 #: scripts/admin.js.php:70
 msgid "Debug and trace log file successfully cleared"
-msgstr "Fichero de registro de errores y trazas de ejecuci&oacute;n borrado"
+msgstr "Ficheiro de registro de erros e depuração (log) apagado com sucesso"
 
 #: scripts/admin.js.php:82
 msgid "ClearTempDir(): Must log in with 'admin' access level"
 msgstr ""
-"ClearTempDir(): Debe iniciar sesi&oacute;n con un usuario administrador"
+"ClearTempDir(): Deve iniciar a sessão com um utilizador com permissões de "
+"administrador"
 
 #: scripts/admin.js.php:86
 msgid "Clear tempdir"
-msgstr "Limpiar carpeta temporal"
+msgstr "Limpar pasta temporária"
 
 #: scripts/admin.js.php:87
 msgid "This will remove every unneeded temporary files and logs"
-msgstr "Esto limpiara todos los ficheros no necesarios de la carpeta temporal"
+msgstr ""
+"Isto irá limpar todos os ficheiros e logs não necessários da pasta temporária"
 
 #: scripts/admin.js.php:88
 msgid ""
 "Be sure that no update, import, restore, mail or similar action is in "
 "progress"
 msgstr ""
-"Asegurese de que no hay ninguna actualizaci&oacute;n, importaci&oacute;n, "
+"Asegurese de que no hae ninguna actualizaci&oacute;n, importaci&oacute;n, "
 "env&iacute;o de correo <br/> o similar operaci&oacute;n en proceso "
 
 #: scripts/admin.js.php:89 scripts/pruebas.js.php:422
 #: scripts/pruebas.js.php:438
 msgid "Continue?"
-msgstr "Realmente desea continuar?"
+msgstr "Deseja continuar?"
 
 #: scripts/admin.js.php:106
 msgid "TmpDir Cleared"
-msgstr "Carpeta temporal limpia"
+msgstr "Pasta temporária limpa"
 
 #: scripts/admin.js.php:107
 msgid "Temporary directory successfully cleared"
-msgstr "Directorio de ficheros temporales limpiado sin errores"
+msgstr "Diretório dos ficheiros temporários limpo com sucesso"
 
 #: scripts/admin.js.php:128
 msgid "We are preparing your backup, please wait"
-msgstr "Preparando la copia de seguridad, por favor, espere"
+msgstr "Estamos a preparar a sua cópia de segurança, por favor aguarde"
 
 #: scripts/admin.js.php:129
 msgid "There was a problem generating your backup, please try again."
 msgstr ""
-"Hubo un problema en la generaci&oacute;n del backup. Por favor pruebe de "
-"nuevo"
+"Hubo un problema na generaci&oacute;n do backup. Por favor pruebe de nuevo"
 
 #: scripts/admin.js.php:170
 msgid "AutoBackup"
@@ -3622,11 +3607,12 @@ msgstr "AutoBackup"
 
 #: scripts/admin.js.php:171
 msgid "Automatic database backup done"
-msgstr "Copia de seguridad autom&aacute;tica realizada"
+msgstr "Cópia de segurança automática efetuada"
 
 #: scripts/admin.js.php:184
+#, fuzzy
 msgid "Must provide a valid directory in Agiltiycontest server"
-msgstr "Debe indicar una carpeta v&aacute;lida del servidor"
+msgstr "Deve indicar uma pasta válida no servidor do Agilitycontest "
 
 #: scripts/admin.js.php:239 scripts/admin.js.php:318 scripts/admin.js.php:339
 #: scripts/admin.js.php:358
@@ -3638,43 +3624,44 @@ msgid ""
 "This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>. "
 "before trying restore<br/>"
 msgstr ""
-"Esta operaci&oacute;n <strong>BORRARA <em>TODOS</em> LOS DATOS </"
-"strong>antes de restaurar <br/>"
+"Esta operação <strong>APAGARÁ <em>TODOS</em> OS DADOS </strong>antes de "
+"restaurar <br/>"
 
 #: scripts/admin.js.php:241 scripts/admin.js.php:322 scripts/admin.js.php:365
 msgid "Be aware of making a backup copy before continue<br/><br/>"
-msgstr "Asegurese de hacer una copia de seguridad antes de seguir<br/><br/>"
+msgstr ""
+"Assegure-se que efetua uma cópia de segurança antes de continuar<br/><br/>"
 
 #: scripts/admin.js.php:242 scripts/admin.js.php:323 scripts/admin.js.php:342
 msgid "To continue enter administrator password and press <em>Accept</em>"
 msgstr ""
-"Para proceder, introduzca la contrase&ntilde;a del usuario administrador y "
+"Para proceder, introduzca la contrase&ntilde;a do usuario administrador e "
 "pulse <em>Aceptar</em>"
 
 #: scripts/admin.js.php:245
 msgid "You should specify an <em>.sql</em> file with a previous backup"
-msgstr "Debe especificar un fichero <em>.sql</em> con un backup anterior"
+msgstr "Debe especificar un ficheiro <em>.sql</em> con un backup anterior"
 
 #: scripts/admin.js.php:248
 msgid "DataBase restore"
-msgstr "Restaurar base de datos"
+msgstr "Restaurar base de dados"
 
 #: scripts/admin.js.php:258
 msgid "Restoreing database"
-msgstr "Recuperando base de datos"
+msgstr "Recuperando base de dados"
 
 #: scripts/admin.js.php:274
 msgid "Database Restore Error"
-msgstr "Error en recuperacion de base de datos"
+msgstr "Error en recuperacion de base de dados"
 
 #: scripts/admin.js.php:277
 msgid "Restore Database"
-msgstr "Restaurar base de datos"
+msgstr "Restaurar base de dados"
 
 #: scripts/admin.js.php:278
 msgid "Database restore success<br />Press Accept to re-init application"
 msgstr ""
-"Recuperaci&oacute;n de base de datos completa<br /> pulse Aceptar para "
+"Recuperaci&oacute;n de base de dados completa<br /> pulse Aceptar para "
 "reiniciar aplicaci&oacute;n"
 
 #: scripts/admin.js.php:319
@@ -3689,7 +3676,7 @@ msgid ""
 "Including contests, inscriptions, scores, judges, dogs, handlers and "
 "clubs<br/>"
 msgstr ""
-"Incluyendo pruebas, inscripciones, resultados, jueces, perros, gu&iacute;s y "
+"Inclueendo provas, inscripciones, resultados, jueces, cães, gu&iacute;s e "
 "clubes<br/>"
 
 #: scripts/admin.js.php:321
@@ -3697,8 +3684,8 @@ msgid ""
 "This is intended to be used ONLY as a previous step from importing new data "
 "from Excel file<br/> "
 msgstr ""
-"SOLO debe ser usada como paso previo a una importaci&oacute;n de datos desde "
-"un fichero Excel<br/>"
+"SOLO debe ser usada como paso previo a una importaci&oacute;n de dados desde "
+"un ficheiro Excel<br/>"
 
 #: scripts/admin.js.php:325
 msgid "Factory Reset"
@@ -3706,42 +3693,42 @@ msgstr "Reset de f&aacute;brica"
 
 #: scripts/admin.js.php:329
 msgid "Database Reset Error"
-msgstr "Error en borrado de base de datos"
+msgstr "Error en borrado de base de dados"
 
 #: scripts/admin.js.php:331
 msgid "Reset Database"
-msgstr "Borrar base de datos"
+msgstr "Apagar base de dados"
 
 #: scripts/admin.js.php:331
 msgid "Data base cleared<br />Please reinit application"
 msgstr ""
-"Base de datos vac&iacute;a<br />Por favor, reinicie la aplicaci&oacute;n"
+"Base de dados vac&iacute;a<br />Por favor, reinicie la aplicaci&oacute;n"
 
 #: scripts/admin.js.php:340
 msgid "This operation WILL ERASE every contests,"
-msgstr "Esta operaci&oacute;n BORRARA todas las pruebas,"
+msgstr "Esta operaci&oacute;n BORRARA todas las provas,"
 
 #: scripts/admin.js.php:341
 msgid "inscriptions and scores from data base<br/><br/>"
-msgstr "inscripciones y resultados de la base de datos<br/><br/>"
+msgstr "inscripciones e resultados da base de dados<br/><br/>"
 
 #: scripts/admin.js.php:344 scripts/admin.js.php:350
 msgid "Erase contests"
-msgstr "Borrar pruebas"
+msgstr "Apagar provas"
 
 #: scripts/admin.js.php:348
 msgid "Contests clear Error"
-msgstr "Error en borrado de pruebas"
+msgstr "Error en borrado de provas"
 
 #: scripts/admin.js.php:350
 msgid "Every contests have been erased<br />Please, reinit application"
 msgstr ""
-"Todas las pruebas han sido borradas<br />Por favor, reinicie la "
+"Todas las provas han sido borradas<br />Por favor, reinicie la "
 "aplicaci&oacute;n"
 
 #: scripts/admin.js.php:360 scripts/admin.js.php:369
 msgid "Update AgilityContest"
-msgstr "Actualizar AgilityContest"
+msgstr "Actualizar AgiliteContest"
 
 #: scripts/admin.js.php:361
 msgid "Auto-Update is not allowed for unregistered installs"
@@ -3753,7 +3740,7 @@ msgid ""
 "press <em>Accept</em>"
 msgstr ""
 "Para proceder con la actualizaci&oacute;n, introduzca la contrase&ntilde;a "
-"del usuario administrador y pulse <em>Aceptar</em>"
+"do usuario administrador e pulse <em>Aceptar</em>"
 
 #: scripts/admin.js.php:378
 msgid "Downloading"
@@ -3761,7 +3748,7 @@ msgstr "Descargando"
 
 #: scripts/admin.js.php:379
 msgid "Downloading new version into server"
-msgstr "Descargando actualizaci&oacute;n en el servidor"
+msgstr "Descargando actualizaci&oacute;n en o servidor"
 
 #: scripts/admin.js.php:394
 msgid "Download update failed"
@@ -3785,19 +3772,19 @@ msgstr "Revisi&oacute;n actual"
 
 #: scripts/admin.js.php:444
 msgid "Check for Upgrades"
-msgstr "Buscar actualizaciones"
+msgstr "Pesquisar actualizaciones"
 
 #: scripts/admin.js.php:448
 msgid "<p>AgilityContest is up to date</p>"
-msgstr "<p>AgilityContest est&aacute; actualizado</p>"
+msgstr "<p>AgiliteContest est&aacute; actualizado</p>"
 
 #: scripts/admin.js.php:451
 msgid "Last Version"
-msgstr "Nueva Versi&oacute;n"
+msgstr "Nova Versi&oacute;n"
 
 #: scripts/admin.js.php:451
 msgid "Last Release"
-msgstr "Nueva revisi&oacute;n"
+msgstr "Nova revisi&oacute;n"
 
 #: scripts/auth.js.php:34 scripts/auth.js.php:123
 msgid "Init session"
@@ -3833,7 +3820,7 @@ msgstr "Copia de seguridad autom&aacute;tica desactivada"
 
 #: scripts/auth.js.php:81
 msgid "New version available"
-msgstr "Nueva versi&oacute;n disponible"
+msgstr "Nova versi&oacute;n disponível"
 
 #: scripts/auth.js.php:83
 msgid "session login success"
@@ -3874,15 +3861,15 @@ msgstr "Licencia"
 
 #: scripts/auth.js.php:224
 msgid "Licensing data successfully loaded"
-msgstr "Datos de la licencia actualizados correctamente"
+msgstr "Datos da licencia actualizados correctamente"
 
 #: scripts/auth.js.php:225
 msgid "Restart app to make changes to take effect"
-msgstr "Reinicie la aplicaci&oacute;n para activar los cambios"
+msgstr "Reinicie la aplicaci&oacute;n para activar os cambios"
 
 #: scripts/auth.js.php:278
 msgid "User level"
-msgstr "Nivel de usuario"
+msgstr "Nivo de usuario"
 
 #: scripts/auth.js.php:279
 msgid ""
@@ -3894,7 +3881,7 @@ msgstr ""
 
 #: scripts/clubes.js.php:120
 msgid "New club"
-msgstr "Nuevo Club"
+msgstr "Nuevo Clube"
 
 #: scripts/clubes.js.php:141 scripts/clubes.js.php:145
 #: scripts/entrenamientos.js.php:60 scripts/equipos.js.php:205
@@ -3907,7 +3894,7 @@ msgstr "Error de edici&oacute;n"
 
 #: scripts/clubes.js.php:141 scripts/clubes.js.php:208
 msgid "There is no club selected"
-msgstr "No hay ning&uacute;n club seleccionado"
+msgstr "No hae ning&uacute;n clube soeccionado"
 
 #: scripts/clubes.js.php:145 scripts/clubes.js.php:170
 msgid "Country information is not editable"
@@ -3915,7 +3902,7 @@ msgstr "No se permite la edici&oacute;n de pa&iacute;ses"
 
 #: scripts/clubes.js.php:153
 msgid "Modify club data"
-msgstr "Editar datos del club"
+msgstr "Editar dados do clube"
 
 #: scripts/clubes.js.php:170
 msgid "Save Error"
@@ -3931,28 +3918,28 @@ msgstr "Error al guardar"
 #: scripts/tandas.js.php:116 scripts/tandas.js.php:120
 #: scripts/usuarios.js.php:102 scripts/usuarios.js.php:106
 msgid "Delete error"
-msgstr "Error al borrar"
+msgstr "Error al apagar"
 
 #: scripts/clubes.js.php:212
 msgid "This entry cannot be erased"
-msgstr "Esta entrada no se puede borrar"
+msgstr "Esta entrada no se puede apagar"
 
 #: scripts/clubes.js.php:217
 msgid "Countries cannot be deleted"
-msgstr "No se pueden borrar pa&iacute;ses de la base de datos"
+msgstr "No se pueden apagar pa&iacute;ses da base de dados"
 
 #: scripts/clubes.js.php:220
 msgid "Clear club"
-msgstr "Borrar club"
+msgstr "Apagar clube"
 
 #: scripts/clubes.js.php:220
 msgid "from database. Sure?"
-msgstr "de la base de datos. ¿Seguro?"
+msgstr "da base de dados. ¿Seguro?"
 
 #: scripts/common.js.php:361
 msgid "loadConfiguration(): cannot retrieve configuration from server"
 msgstr ""
-"loadConfiguration(); no puedo recuperar la configuraci&oacute;n desde el "
+"loadConfiguration(); no puedo recuperar la configuraci&oacute;n desde o "
 "servidor"
 
 #: scripts/common.js.php:386
@@ -3962,13 +3949,12 @@ msgstr "getLicenseInfo() no se puede leer la informaci&oacute;n de registro"
 #: scripts/common.js.php:410
 msgid "getLicensedClubInfo(): cannot retrieve License info from server"
 msgstr ""
-"getLicensedClubInfo(): no puedo leer la informacion de licencia del servidor"
+"getLicensedClubeInfo(): no puedo leer la informacion de licencia do servidor"
 
 #: scripts/common.js.php:433
 msgid "getFederationsInfo(): cannot retrieve federations info from server"
 msgstr ""
-"getFederationsInfo() no se puede obtener la lista de federaciones del "
-"servidor"
+"getFederationsInfo() no se puede obtener la lista de federaciones do servidor"
 
 #: scripts/common.js.php:455
 msgid "Clubs Database Management"
@@ -3976,7 +3962,7 @@ msgstr "Gestão de dados de clube"
 
 #: scripts/common.js.php:456
 msgid "Countries Database Info"
-msgstr "Informaci&oacute;n de pa&iacute;ses en la BBDD"
+msgstr "Informaci&oacute;n de pa&iacute;ses na BBDD"
 
 #: scripts/common.js.php:746
 msgid "Countries"
@@ -4011,11 +3997,11 @@ msgstr "Juegos / WAO"
 msgid "Selected journey is marked as closed<br/>You cannot add nor modify data"
 msgstr ""
 "La jornada est&aacute; marcada como cerrada<br/>No podr&aacute; a&ntilde;"
-"adir ni modificar datos"
+"adir ni modificar dados"
 
 #: scripts/competicion.js.php:78 scripts/competicion.js.php:83
 msgid "Journey deployment"
-msgstr "Desarrollo de la jornada"
+msgstr "Desarrollo da jornada"
 
 #: scripts/competicion.js.php:101 scripts/competicion.js.php:126
 #: scripts/competicion.js.php:147 scripts/competicion.js.php:294
@@ -4041,7 +4027,7 @@ msgstr "Datos guardados"
 
 #: scripts/competicion.js.php:433
 msgid "Data on current round stored"
-msgstr "Datos de la manga guardados"
+msgstr "Datos da manga guardados"
 
 #: scripts/competicion.js.php:473 scripts/competicion.js.php:479
 #: scripts/pruebas.js.php:136
@@ -4050,15 +4036,15 @@ msgstr "Continuar"
 
 #: scripts/competicion.js.php:476 scripts/pruebas.js.php:265
 msgid "Missing data"
-msgstr "Faltan datos"
+msgstr "Faltan dados"
 
 #: scripts/competicion.js.php:477
 msgid "Some category has missing values for"
-msgstr "En alguna de las categor&iacute;as faltan"
+msgstr "En alguna das categor&iacute;as faltan"
 
 #: scripts/competicion.js.php:478
 msgid "either distance, SCT or MCT"
-msgstr "datos de distancia, TRS o TRM"
+msgstr "dados de distancia, TRS o TRM"
 
 #: scripts/competicion.js.php:545
 msgid "OK"
@@ -4066,8 +4052,7 @@ msgstr "OK"
 
 #: scripts/competicion.js.php:545
 msgid "There are no dogs from same handler close together"
-msgstr ""
-"No se encuentran perros del mismo gu&iacute;a demasiado pr&oacute;ximos"
+msgstr "No se encuentran cães do mismo gu&iacute;a demasiado pr&oacute;ximos"
 
 #: scripts/competicion.js.php:547
 msgid "Proximity alert"
@@ -4075,23 +4060,23 @@ msgstr "Aviso de proximidad"
 
 #: scripts/competicion.js.php:547
 msgid "List of handlers with dogs so close together"
-msgstr "Lista de gu&iacute;as con perros demasiado juntos"
+msgstr "Lista de gu&iacute;as con cães demasiado juntos"
 
 #: scripts/competicion.js.php:561 scripts/competicion.js.php:568
 msgid "There is no item selected"
-msgstr "No hay ning&uacute;n elemento seleccionado"
+msgstr "No hae ning&uacute;n oemento soeccionado"
 
 #: scripts/competicion.js.php:580
 msgid "Cannot move to selected destination"
-msgstr "No puedo mover al destino seleccionado"
+msgstr "No puedo mover al destino soeccionado"
 
 #: scripts/competicion.js.php:597
 msgid "Dog stored into clipboard"
-msgstr "Datos almacenados en el portapapeles"
+msgstr "Datos almacenados en o portapapoes"
 
 #: scripts/competicion.js.php:597
 msgid "To move, select new position and press Move"
-msgstr "Para mover, seleccionar nueva posici&oacute;n y pulsar Mover"
+msgstr "Para mover, soeccionar nova posici&oacute;n e pulsar Mover"
 
 #: scripts/competicion.js.php:641 scripts/competicion.js.php:662
 #: scripts/competicion.js.php:696
@@ -4100,19 +4085,19 @@ msgstr "Ocupado"
 
 #: scripts/competicion.js.php:641
 msgid "Cannot update: a cell is being edited"
-msgstr "No se puede actualizar: hay una edici&oacute;n activa"
+msgstr "No se puede actualizar: hae una edici&oacute;n activa"
 
 #: scripts/competicion.js.php:662
 msgid "Cannot reset: a cell is being edited"
-msgstr "No se puede borrar: hay una edici&oacute;n activa"
+msgstr "No se puede apagar: hae una edici&oacute;n activa"
 
 #: scripts/competicion.js.php:665
 msgid "You will lost <strong>EVERY</strong> inserted results"
-msgstr "Se perder&aacute;n <strong>TODOS</strong> los datos de la manga"
+msgstr "Se perder&aacute;n <strong>TODOS</strong> os dados da manga"
 
 #: scripts/competicion.js.php:666
 msgid "in selected categories on this round"
-msgstr "en las categor&iacute;as seleccionadas de esta manga"
+msgstr "nas categor&iacute;as selecionadas desta manga"
 
 #: scripts/competicion.js.php:667 scripts/competicion.js.php:701
 msgid "Do you really want to continue?"
@@ -4120,22 +4105,22 @@ msgstr "Realmende desea continuar?"
 
 #: scripts/competicion.js.php:668
 msgid "Erase results"
-msgstr "Borrar resultados"
+msgstr "Apagar resultados"
 
 #: scripts/competicion.js.php:696
 msgid "Cannot swap: a cell is being edited"
-msgstr "No se pueden intercambiar datos: hay una edici&oacute;n activa"
+msgstr "No se pueden intercambiar dados: hae una edici&oacute;n activa"
 
 #: scripts/competicion.js.php:699
 msgid "This action will exchange <strong>EVERY</strong> inserted results"
-msgstr "Esta accion intercambiar&aacute; <strong>TODOS</strong> los resultados"
+msgstr "Esta accion intercambiar&aacute; <strong>TODOS</strong> os resultados"
 
 #: scripts/competicion.js.php:700
 msgid ""
 "in selected categories with the Agility/Jumping counterpart of this round"
 msgstr ""
-"en las categorias seleccionadas de esta manga con su correspondiente de "
-"Agility/Jumping"
+"nas categorias selecionadas desta manga con su correspondiente de Agilite/"
+"Jumping"
 
 #: scripts/competicion.js.php:702
 msgid "Swaps results"
@@ -4151,7 +4136,7 @@ msgstr "No encontrado"
 
 #: scripts/competicion.js.php:749
 msgid "Cannot find dog with dorsal"
-msgstr "No encuentro al perro con dorsal"
+msgstr "No encuentro al cão con dorsal"
 
 #: scripts/competicion.js.php:857 scripts/results_and_scores.js.php:363
 msgid "Internal error: invalid Federation/Course/Category combination"
@@ -4161,7 +4146,7 @@ msgstr ""
 
 #: scripts/competicion.js.php:1022
 msgid "Every changes done till now will be lost<br />Continue?"
-msgstr "Se perder&aacute;n todos los ajustes hechos hasta ahora<br/>Continuar?"
+msgstr "Se perder&aacute;n todos os ajustes hechos hasta ahora<br/>Continuar?"
 
 #: scripts/competicion.js.php:1127
 msgid "There is no round selected"
@@ -4178,11 +4163,11 @@ msgstr "Sesi&oacute;n de entrenamientos"
 
 #: scripts/competicion.js.php:1171
 msgid "Cannot edit/modify results on closed journey"
-msgstr "No se pueden editar ni modificar datos en una jornada cerrada"
+msgstr "No se pueden editar ni modificar dados en una jornada cerrada"
 
 #: scripts/competicion.js.php:1292
 msgid "No defined journey"
-msgstr "No hay jornada declarada"
+msgstr "No hae jornada declarada"
 
 #: scripts/competicion.js.php:1296
 msgid "Requested federation module is not installed"
@@ -4192,12 +4177,11 @@ msgstr ""
 
 #: scripts/competicion.js.php:1368
 msgid "<strong>These dogs are pending to provide course data in round"
-msgstr ""
-"<strong>Hay perros pendientes de introducci&oacute;n de datos en la manga"
+msgstr "<strong>Hae cães pendientes de introducci&oacute;n de dados na manga"
 
 #: scripts/competicion.js.php:1388 scripts/competicion.js.php:1472
 msgid "There is no selected round for this journey"
-msgstr "No hay ninguna manga seleccionada en la jornada"
+msgstr "No hae ninguna manga selecionada na jornada"
 
 #: scripts/competicion.js.php:1408 scripts/competicion.js.php:1432
 #: scripts/competicion.js.php:1454
@@ -4207,7 +4191,7 @@ msgstr "Verificaci&oacute;n correcta"
 #: scripts/competicion.js.php:1408 scripts/competicion.js.php:1432
 #: scripts/competicion.js.php:1454
 msgid "No dogs found without their course results"
-msgstr "No se han encontrado perros sin datos de la manga"
+msgstr "No se han encontrado cães sin dados da manga"
 
 #: scripts/competicion.js.php:1434 scripts/competicion.js.php:1456
 msgid "Verify Error"
@@ -4226,7 +4210,7 @@ msgstr "N.P."
 
 #: scripts/entrenamientos.js.php:38 scripts/tandas.js.php:38
 msgid "New activity"
-msgstr "Nueva actividad"
+msgstr "Nova actividad"
 
 #: scripts/entrenamientos.js.php:60
 msgid "There is no training session selected"
@@ -4234,36 +4218,36 @@ msgstr "No se ha indicado ninguna sesi&oacute;n"
 
 #: scripts/entrenamientos.js.php:68
 msgid "Modify training entry information"
-msgstr "Modificar la entrada seleccionada"
+msgstr "Modificar la entrada selecionada"
 
 #: scripts/entrenamientos.js.php:95
 msgid "Please close edition before update"
-msgstr "Por favor, salga del editor antes de actualizar"
+msgstr "Por favor, salga do editor antes de actualizar"
 
 #: scripts/entrenamientos.js.php:128
 msgid "Please close edition before import"
-msgstr "Por favor, salga del editor antes de importar"
+msgstr "Por favor, salga do editor antes de importar"
 
 #: scripts/entrenamientos.js.php:134
 msgid "Import/Export training timetable from/to Excel file"
-msgstr "Importar/Exportar tabla de entrenamientos de/hacia fichero Excel"
+msgstr "Importar/Exportar tabla de entrenamientos de/hacia ficheiro Excel"
 
 #: scripts/entrenamientos.js.php:136
 msgid "Create Excel file with current training table data"
-msgstr "Generar un fichero Excel con la tabla de entrenamientos actual"
+msgstr "Generar un ficheiro Excel con la tabla de entrenamientos actual"
 
 #: scripts/entrenamientos.js.php:137
 msgid "Update training timetable with imported data from Excel file"
-msgstr "Actualizar tabla de entrenamientos desde fichero Excel"
+msgstr "Actualizar tabla de entrenamientos desde ficheiro Excel"
 
 #: scripts/entrenamientos.js.php:149 scripts/inscripciones.js.php:432
 #: scripts/perros.js.php:325 scripts/printer.js.php:270
 msgid "Current license has no Excel import function enabled"
-msgstr "La licencia actual no permite la importaci&oacute;n de ficheros Excel"
+msgstr "La licencia actual no permite la importaci&oacute;n de ficheiros Excel"
 
 #: scripts/equipos.js.php:73 scripts/equipos.js.php:126
 msgid "Registered teams revision"
-msgstr "Comprobaci&oacute;n de los equipos"
+msgstr "Comprobaci&oacute;n de os equipos"
 
 #: scripts/equipos.js.php:74 scripts/equipos.js.php:127
 msgid "Number of teams"
@@ -4275,7 +4259,7 @@ msgstr "Perros sin equipo asignado"
 
 #: scripts/equipos.js.php:78 scripts/equipos.js.php:132
 msgid "Teams with excess dogs"
-msgstr "Equipos con exceso de perros"
+msgstr "Equipos con exceso de cães"
 
 #: scripts/equipos.js.php:79 scripts/equipos.js.php:133
 msgid "Incomplete teams"
@@ -4293,8 +4277,7 @@ msgstr "Imprimiendo lista de equipos. Por favor, espere"
 #: scripts/printer.js.php:624 scripts/pruebas.js.php:208
 msgid "There was a problem generating your report, please try again."
 msgstr ""
-"Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
-"nuevo"
+"Hubo un problema na generaci&oacute;n do informe. Por favor pruebe de nuevo"
 
 #: scripts/equipos.js.php:134 scripts/printer.js.php:395
 msgid "Print anyway"
@@ -4306,19 +4289,19 @@ msgstr "Problemas encontrados"
 
 #: scripts/equipos.js.php:158
 msgid "You must select a journey with team rounds"
-msgstr "Debe seleccionar una jornada con pruebas por equipos"
+msgstr "Debe soeccionar una jornada con provas por equipos"
 
 #: scripts/equipos.js.php:162
 msgid "Selected journey has no team rounds"
-msgstr "La jornada seleccionada no tiene pruebas por equipos"
+msgstr "La jornada selecionada no tiene provas por equipos"
 
 #: scripts/equipos.js.php:169
 msgid "Current License has no permissions to handle Team Journeys"
-msgstr "La licencia actual no permite la gesti&oacute;n de pruebas por equipos"
+msgstr "La licencia actual no permite la gesti&oacute;n de provas por equipos"
 
 #: scripts/equipos.js.php:205 scripts/equipos.js.php:232
 msgid "There is no team selected"
-msgstr "No hay ning&uacute;n equipo seleccionado"
+msgstr "No hae ning&uacute;n equipo soeccionado"
 
 #: scripts/equipos.js.php:209
 msgid "Default team cannot be edited"
@@ -4326,23 +4309,23 @@ msgstr "El equipo por defecto no se puede editar"
 
 #: scripts/equipos.js.php:212
 msgid "Modify team data"
-msgstr "Editar datos del equipo"
+msgstr "Editar dados do equipo"
 
 #: scripts/equipos.js.php:236
 msgid "Default team cannot be deleted"
-msgstr "El equipo por defecto no se puede borrar"
+msgstr "El equipo por defecto no se puede apagar"
 
 #: scripts/equipos.js.php:240
 msgid "This operation will remove selected team from journey"
-msgstr "Esta operacion borrar&aacute; el equipo seleccionado de la jornada"
+msgstr "Esta operacion apagar&aacute; o equipo soeccionado da jornada"
 
 #: scripts/equipos.js.php:241
 msgid "Do you really want to delete team"
-msgstr "Realmende desea borrar el equipo"
+msgstr "Realmende desea apagar o equipo"
 
 #: scripts/equipos.js.php:241
 msgid "from this journey"
-msgstr "de esta jornada"
+msgstr "desta jornada"
 
 #: scripts/equipos.js.php:271
 msgid "This team has no assigned categories"
@@ -4350,7 +4333,7 @@ msgstr "Este equipo no tiene ninguna categor&iacute;a asignada"
 
 #: scripts/equipos.js.php:352
 msgid "You must select a valid team"
-msgstr "Debe seleccionar un equipo v&aacute;lido"
+msgstr "Debe soeccionar un equipo v&aacute;lido"
 
 #: scripts/equipos.js.php:363 scripts/inscripciones.js.php:43
 #: scripts/inscripciones.js.php:84 scripts/inscripciones.js.php:163
@@ -4358,11 +4341,11 @@ msgstr "Debe seleccionar un equipo v&aacute;lido"
 #: scripts/pruebas.js.php:363 scripts/pruebas.js.php:398
 #: scripts/pruebas.js.php:427 scripts/results_and_scores.js.php:116
 msgid "No selection"
-msgstr "No seleccionado"
+msgstr "No soeccionado"
 
 #: scripts/equipos.js.php:363
 msgid "There is no marked dog to change team for"
-msgstr "No ha seleccionado ning&uacute;n perro para cambiar de equipo"
+msgstr "No ha soeccionado ning&uacute;n cão para cambiar de equipo"
 
 #: scripts/equipos.js.php:369 scripts/inscripciones.js.php:167
 #: scripts/pruebas.js.php:367 scripts/results_and_scores.js.php:112
@@ -4377,7 +4360,7 @@ msgstr ""
 
 #: scripts/guias.js.php:42
 msgid "Reassign/Declare a handler as belonging to club"
-msgstr "Reasignar/Declarar un gu&iacute;a como perteneciente al club"
+msgstr "Reasignar/Declarar un gu&iacute;a como perteneciente al clube"
 
 #: scripts/guias.js.php:43
 msgid "Assign/Register a handler"
@@ -4386,33 +4369,33 @@ msgstr "Asignar/Registrar un gu&iacute;a"
 #: scripts/guias.js.php:54 scripts/guias.js.php:77 scripts/guias.js.php:123
 #: scripts/guias.js.php:162
 msgid "There is no handler selected"
-msgstr "No se ha seleccionado ningun gu&iacute;a"
+msgstr "No se ha soeccionado ningun gu&iacute;a"
 
 #: scripts/guias.js.php:62
 msgid "Modify data on handler belonging to club"
-msgstr "Editar datos del gu&iacute;a asociado al club"
+msgstr "Editar dados do gu&iacute;a asociado al clube"
 
 #: scripts/guias.js.php:80
 msgid "Delete assignation for handler"
-msgstr "Borrar asignaci&oacute;n del gu&iacute;a"
+msgstr "Apagar asignaci&oacute;n do gu&iacute;a"
 
 #: scripts/guias.js.php:80
 msgid "to club"
-msgstr "al club"
+msgstr "al clube"
 
 #: scripts/guias.js.php:126 scripts/guias.js.php:139
 msgid "Modify handler data"
-msgstr "Editar datos del gu&iacute;a"
+msgstr "Editar dados do gu&iacute;a"
 
 #: scripts/guias.js.php:166 scripts/jueces.js.php:113 scripts/modules.js.php:44
 #: scripts/sesiones.js.php:100 scripts/tandas.js.php:120
 #: scripts/usuarios.js.php:106 scripts/usuarios.js.php:125
 msgid "This entry cannot be deleted"
-msgstr "Esta entrada no se puede borrar"
+msgstr "Esta entrada no se puede apagar"
 
 #: scripts/guias.js.php:169
 msgid "Delete data on handler"
-msgstr "Borrar datos del gu&iacute;a"
+msgstr "Apagar dados do gu&iacute;a"
 
 #: scripts/import.js.php:74 scripts/import.js.php:87 scripts/import.js.php:100
 #: scripts/import.js.php:115 scripts/import.js.php:127
@@ -4425,11 +4408,11 @@ msgstr "Analizando fila Excel"
 
 #: scripts/import.js.php:77 scripts/import.js.php:118 scripts/import.js.php:158
 msgid "not found in database"
-msgstr "no encontrado en la base de datos"
+msgstr "no encontrado na base de dados"
 
 #: scripts/import.js.php:78 scripts/import.js.php:119 scripts/import.js.php:159
 msgid "Please select/edit existing one or create new entry"
-msgstr "Seleccione y/o edite una entrada existente o cree una nueva"
+msgstr "Soeccione e/o edite una entrada existente o cree una nova"
 
 #: scripts/import.js.php:82 scripts/import.js.php:123 scripts/import.js.php:163
 #: scripts/import.js.php:205
@@ -4438,12 +4421,12 @@ msgstr "Entrada no encontrada"
 
 #: scripts/import.js.php:90 scripts/import.js.php:130 scripts/import.js.php:171
 msgid "data missmatch (*) with existing one in database"
-msgstr "datos en conflicto con los existentes en la base de datos"
+msgstr "dados en conflicto con os existentes na base de dados"
 
 #: scripts/import.js.php:91 scripts/import.js.php:131 scripts/import.js.php:172
 msgid "Please enter right values and accept or create new entry"
 msgstr ""
-"Por favor, indique los valores correctos y pulse aceptar, o cree una nueva "
+"Por favor, indique os valores correctos e pulse aceptar, o cree una nova "
 "entrada"
 
 #: scripts/import.js.php:95 scripts/import.js.php:135 scripts/import.js.php:176
@@ -4454,22 +4437,22 @@ msgstr "Datos no compatibles"
 #: scripts/import.js.php:103 scripts/import.js.php:143
 #: scripts/import.js.php:185 scripts/import.js.php:227
 msgid "provided data are compatible with"
-msgstr "los datos indicados son compatibles con"
+msgstr "os dados indicados son compatibles con"
 
 #: scripts/import.js.php:104 scripts/import.js.php:144
 #: scripts/import.js.php:186
 msgid "more than one existing in database"
-msgstr "mas de una entrada existente en la base de datos"
+msgstr "mas de una entrada existente na base de dados"
 
 #: scripts/import.js.php:105 scripts/import.js.php:145
 #: scripts/import.js.php:187
 msgid "Please select right one or create new entry"
-msgstr "Seleccione y/o edite la entrada correcta o cree una nueva"
+msgstr "Soeccione e/o edite la entrada correcta o cree una nova"
 
 #: scripts/import.js.php:109 scripts/import.js.php:149
 #: scripts/import.js.php:191 scripts/import.js.php:233
 msgid "Must choose"
-msgstr "Seleccion requerida"
+msgstr "Soeccion requerida"
 
 #: scripts/import.js.php:199 scripts/import.js.php:212
 #: scripts/import.js.php:226
@@ -4478,20 +4461,20 @@ msgstr "Entrada"
 
 #: scripts/import.js.php:200
 msgid "Not found in inscriptions for this round"
-msgstr "No se encuentra en las inscripciones de esta manga"
+msgstr "No se encuentra nas inscripciones desta manga"
 
 #: scripts/import.js.php:201
 msgid "Please select existing one, or ignore entry"
-msgstr "Seleccione y/o edite una entrada existente, o pulse Ignorar"
+msgstr "Soeccione e/o edite una entrada existente, o pulse Ignorar"
 
 #: scripts/import.js.php:213
 msgid "data missmatch with existing one for this round"
-msgstr "datos en conflicto con los existentes en esta manga"
+msgstr "dados en conflicto con os existentes en esta manga"
 
 #: scripts/import.js.php:214
 msgid "Please fix it in inscription menu and select right values"
 msgstr ""
-"Por favor, corrija la inscripción en otra ventana y seleccione el valor "
+"Por favor, corrija la inscripción en otra ventana e soeccione o valor "
 "correcto"
 
 #: scripts/import.js.php:228
@@ -4500,7 +4483,7 @@ msgstr "mas de una inscripci&oacute;n compatible en esta manga"
 
 #: scripts/import.js.php:229
 msgid "Please select right one or ask to ignore entry"
-msgstr "Seleccione y/o edite la entrada correcta o pulse Ignorar"
+msgstr "Soeccione e/o edite la entrada correcta o pulse Ignorar"
 
 #: scripts/import.js.php:272 scripts/import.js.php:302
 msgid "Import from Excel error"
@@ -4508,7 +4491,7 @@ msgstr "Error de importaci&oacute;n desde Excel"
 
 #: scripts/import.js.php:310
 msgid "Checking Excel File"
-msgstr "Verificando fichero Excel"
+msgstr "Verificando ficheiro Excel"
 
 #: scripts/import.js.php:315
 msgid "Starting data import"
@@ -4516,7 +4499,7 @@ msgstr "Comienzo de importacion"
 
 #: scripts/import.js.php:330
 msgid "Club/Country not found or missmatch"
-msgstr "Club/pa&iacute;s no encontrado o no coincidente"
+msgstr "Clube/pa&iacute;s no encontrado o no coincidente"
 
 #: scripts/import.js.php:331
 msgid "This is not allowed when importing in blind mode"
@@ -4524,7 +4507,7 @@ msgstr "Esto no est&aacute; permitido importando en modo no interactivo"
 
 #: scripts/import.js.php:332
 msgid "Import aborted."
-msgstr "Importaci&oacute;n cancelada"
+msgstr "Importaci&oacute;n cancoada"
 
 #: scripts/import.js.php:334
 msgid "Blind mode import"
@@ -4540,20 +4523,20 @@ msgstr "Proceso de importaci&oacute;n desde Excel completado"
 
 #: scripts/import.js.php:418
 msgid "Must select a valid entry for requesting update"
-msgstr "Debe seleccionar una entrada v&aacute;lida para actualizar"
+msgstr "Debe soeccionar una entrada v&aacute;lida para actualizar"
 
 #: scripts/import.js.php:466
 msgid "No import file selected"
-msgstr "No se ha indicado fichero a importar"
+msgstr "No se ha indicado ficheiro a importar"
 
 #: scripts/inscripciones.js.php:33
 msgid "New inscriptions"
-msgstr "Nuevas inscripciones"
+msgstr "Novas inscripciones"
 
 #: scripts/inscripciones.js.php:43 scripts/inscripciones.js.php:84
 #: scripts/inscripciones.js.php:353
 msgid "There is no inscription(s) selected"
-msgstr "No hay ninguna inscripci&oacute;n seleccionada"
+msgstr "No hae ninguna inscripci&oacute;n selecionada"
 
 #: scripts/inscripciones.js.php:90
 msgid "If you delete this inscription"
@@ -4562,16 +4545,16 @@ msgstr "Si borra esta inscripci&oacute;n"
 #: scripts/inscripciones.js.php:91
 msgid "<b>youll loose</b> every related results and data on this contest"
 msgstr ""
-"<b>se perder&aacute;n</b> todos los datos y resultados del participante en "
-"esta prueba"
+"<b>se perder&aacute;n</b> todos os dados e resultados do participante en "
+"esta prova"
 
 #: scripts/inscripciones.js.php:92
 msgid "afecting journeys not marked as <em>closed</em>"
-msgstr "de aquellas jornadas que no hayan sido marcadas como <em>cerradas</em>"
+msgstr "de aquolas jornadas que no haean sido marcadas como <em>cerradas</em>"
 
 #: scripts/inscripciones.js.php:93
 msgid "Really want to delete selected inscription"
-msgstr "Realmente desea borrar la inscripci&oacute;n seleccionada"
+msgstr "Realmente desea apagar la inscripci&oacute;n selecionada"
 
 #: scripts/inscripciones.js.php:137
 msgid "Enrolling"
@@ -4579,7 +4562,7 @@ msgstr "Inscribiendo a"
 
 #: scripts/inscripciones.js.php:163
 msgid "There is no marked dog to be inscribed"
-msgstr "No hay ning&uacute;n perro seleccionado para ser inscrito"
+msgstr "No hae ning&uacute;n cão soeccionado para ser inscrito"
 
 #: scripts/inscripciones.js.php:167
 msgid "Current user has not enought permissions to handle inscriptions"
@@ -4601,15 +4584,15 @@ msgstr "No declarado"
 
 #: scripts/inscripciones.js.php:208
 msgid "Selected journey to clear is empty"
-msgstr "La jornada seleccionada para borrar est&aacute; vac&iacute;a"
+msgstr "La jornada selecionada para apagar est&aacute; vac&iacute;a"
 
 #: scripts/inscripciones.js.php:211
 msgid "Clear inscriptions"
-msgstr "Borrar inscripciones"
+msgstr "Apagar inscripciones"
 
 #: scripts/inscripciones.js.php:211
 msgid "Clearing inscriptions in journey"
-msgstr "Borrando las inscripciones de la jornada"
+msgstr "Borrando las inscripciones da jornada"
 
 #: scripts/inscripciones.js.php:242
 msgid "Must declare this journey first"
@@ -4621,35 +4604,35 @@ msgstr "Inscribir todos"
 
 #: scripts/inscripciones.js.php:245
 msgid "Inscribe all dogs into journey"
-msgstr "Inscribir todos los perros de la prueba en la jornada"
+msgstr "Inscribir todos os cães da prova na jornada"
 
 #: scripts/inscripciones.js.php:275
 msgid "Inscribe selection"
-msgstr "Inscribir selecci&oacute;n"
+msgstr "Inscribir soecci&oacute;n"
 
 #: scripts/inscripciones.js.php:275
 msgid "Cloning inscriptions from selected journey into "
-msgstr "Clonando las inscripciones de la jornada seleccionada en"
+msgstr "Clonando las inscripciones da jornada selecionada en"
 
 #: scripts/inscripciones.js.php:305 scripts/pruebas.js.php:398
 #: scripts/pruebas.js.php:427
 msgid "There is no journey selected"
-msgstr "No se ha seleccionado ninguna jornada"
+msgstr "No se ha soeccionado ninguna jornada"
 
 #: scripts/inscripciones.js.php:309
 msgid "Selected journey to clone has no data"
-msgstr "La jornada seleccionada para clonar no est&aacute; definida"
+msgstr "La jornada selecionada para clonar no est&aacute; definida"
 
 #: scripts/inscripciones.js.php:314
 msgid "Selected journey to clone into is not defined. Create?"
-msgstr "La jornada seleccionada para clonar no est&aacute; definida. ¿Crearla?"
+msgstr "La jornada selecionada para clonar no est&aacute; definida. ¿Crearla?"
 
 #: scripts/inscripciones.js.php:358
 msgid ""
 "Please type new dorsal<br />If already assigned, <br/>dorsals will be swapped"
 msgstr ""
-"Indique nuevo dorsal<br /> Si el dorsal ya esta asignado<br /> se "
-"intercambiaran los dorsales"
+"Indique nuevo dorsal<br /> Si o dorsal ea esta asignado<br /> se "
+"intercambiaran os dorsales"
 
 #: scripts/inscripciones.js.php:361
 msgid "Setting new dorsal..."
@@ -4657,19 +4640,19 @@ msgstr "Ajustando nuevo dorsal..."
 
 #: scripts/inscripciones.js.php:405
 msgid "Generate empty excel inscription template"
-msgstr "Crear plantilla de datos Excel vac&iacute;a"
+msgstr "Crear plantilla de dados Excel vac&iacute;a"
 
 #: scripts/inscripciones.js.php:406
 msgid "Generate inscription template for club"
-msgstr "Generar plantilla de inscripciones para el club"
+msgstr "Generar plantilla de inscripciones para o clube"
 
 #: scripts/inscripciones.js.php:407
 msgid "Export current inscriptions to Excel file"
-msgstr "Exportar inscripciones a fichero Excel"
+msgstr "Exportar inscripciones a ficheiro Excel"
 
 #: scripts/inscripciones.js.php:408
 msgid "Import inscriptions from Excel file"
-msgstr "Importar inscripciones desde fichero Excel"
+msgstr "Importar inscripciones desde ficheiro Excel"
 
 #: scripts/inscripciones.js.php:411
 msgid "Excel import/export"
@@ -4677,17 +4660,16 @@ msgstr "Importar/exportar .xlsx"
 
 #: scripts/inscripciones.js.php:412
 msgid "Choose from available operations"
-msgstr "Selecciona una de las operaciones disponibles"
+msgstr "Soecciona una das operaciones disponívels"
 
 #: scripts/inscripciones.js.php:425
 msgid "Creating Excel file. Please wait"
-msgstr "Generando fichero Excel. Por favor, espere"
+msgstr "Generando ficheiro Excel. Por favor, espere"
 
 #: scripts/inscripciones.js.php:426 scripts/inscripciones.js.php:505
 msgid "There was a problem generating your report, please try again"
 msgstr ""
-"Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
-"nuevo"
+"Hubo un problema na generaci&oacute;n do informe. Por favor pruebe de nuevo"
 
 #: scripts/inscripciones.js.php:464
 msgid "Simple listing"
@@ -4699,7 +4681,7 @@ msgstr "Cat&aacute;logo"
 
 #: scripts/inscripciones.js.php:466
 msgid "Current selection/order"
-msgstr "Selecci&oacute;n actual"
+msgstr "Soecci&oacute;n actual"
 
 #: scripts/inscripciones.js.php:468
 msgid "Competition ID Cards"
@@ -4707,15 +4689,15 @@ msgstr "Dorsales Identificativos"
 
 #: scripts/inscripciones.js.php:475
 msgid "Inscriptions for journey"
-msgstr "Inscritos en la jornada"
+msgstr "Inscritos na jornada"
 
 #: scripts/inscripciones.js.php:479
 msgid "Select form"
-msgstr "Selecciona formulario"
+msgstr "Soecciona formulario"
 
 #: scripts/inscripciones.js.php:480
 msgid "Select type of document to be generated"
-msgstr "Selecciona el tipo de documento a generar"
+msgstr "Soecciona o tipo de documento a generar"
 
 #: scripts/inscripciones.js.php:504
 msgid "Printing inscriptions. Please wait"
@@ -4723,40 +4705,40 @@ msgstr "Imprimiendo inscripciones. Por favor, espere"
 
 #: scripts/jueces.js.php:54 scripts/jueces.js.php:109
 msgid "There is no judge selected"
-msgstr "No se ha seleccionado ning&uacute;n juez"
+msgstr "No se ha soeccionado ning&uacute;n juez"
 
 #: scripts/jueces.js.php:60
 msgid "Modify judge data"
-msgstr "Editar datos del juez"
+msgstr "Editar dados do juez"
 
 #: scripts/jueces.js.php:116
 msgid "Delete data on judge"
-msgstr "Borrar datos del juez"
+msgstr "Apagar dados do juez"
 
 #: scripts/modules.js.php:31 scripts/modules.js.php:40
 msgid "There is no module selected"
-msgstr "No se ha seleccionado ning&uacute;n m&oacute;dulo"
+msgstr "No se ha soeccionado ning&uacute;n m&oacute;dulo"
 
 #: scripts/modules.js.php:40 scripts/modules.js.php:44
 msgid "Delete Error"
-msgstr "Error al borrar"
+msgstr "Error al apagar"
 
 #: scripts/perros.js.php:55 scripts/perros.js.php:102 scripts/perros.js.php:183
 #: scripts/perros.js.php:203
 msgid "There is no selected dog"
-msgstr "No hay ning&uacute;n perro seleccionado"
+msgstr "No hae ning&uacute;n cão soeccionado"
 
 #: scripts/perros.js.php:58
 msgid "Modify data on dog"
-msgstr "Modificar los datos del perro"
+msgstr "Modificar os dados do cão"
 
 #: scripts/perros.js.php:72
 msgid "Modify data on dog to be inscribed"
-msgstr "Editar datos del perro a inscribir"
+msgstr "Editar dados do cão a inscribir"
 
 #: scripts/perros.js.php:105
 msgid "from database"
-msgstr "de la base de datos"
+msgstr "da base de dados"
 
 #: scripts/perros.js.php:124 scripts/perros.js.php:134
 msgid "Join error"
@@ -4764,29 +4746,28 @@ msgstr "Error al unificar"
 
 #: scripts/perros.js.php:124
 msgid "There is no selected dog for join"
-msgstr "No se ha seleccionado ning&uacute;n perro para unificar"
+msgstr "No se ha soeccionado ning&uacute;n cão para unificar"
 
 #: scripts/perros.js.php:134
 msgid "There is no selected dog to join with"
 msgstr ""
-"No se ha escogido ning&uacute;n perro al que juntar la selecci&oacute;n "
-"anterior"
+"No se ha escogido ning&uacute;n cão al que juntar la soecci&oacute;n anterior"
 
 #: scripts/perros.js.php:169
 msgid "Search dog/Declare new dog and assign to"
-msgstr "Buscar perro / Declarar nuevo perro y asignarlo a"
+msgstr "Pesquisar cão / Declarar nuevo cão e asignarlo a"
 
 #: scripts/perros.js.php:170
 msgid "Reassign / Declare dog"
-msgstr "Reasignar / Declarar perro"
+msgstr "Reasignar / Declarar cão"
 
 #: scripts/perros.js.php:190
 msgid "Modify data on dog assigned to"
-msgstr "Editar datos del perro perteneciente a"
+msgstr "Editar dados do cão perteneciente a"
 
 #: scripts/perros.js.php:206
 msgid "Delete assignment from dog"
-msgstr "Borrar asignaci&oacute;n del perro"
+msgstr "Apagar asignaci&oacute;n do cão"
 
 #: scripts/perros.js.php:206
 msgid "to handler"
@@ -4795,12 +4776,11 @@ msgstr "al gu&iacute;a"
 #: scripts/perros.js.php:312
 msgid "Create Excel file with current search/sort criteria"
 msgstr ""
-"Generar un fichero Excel con los datos de la selecci&oacute;n y orden "
-"actuales"
+"Generar un ficheiro Excel con os dados da soecci&oacute;n e orden actuales"
 
 #: scripts/perros.js.php:313
 msgid "Update database with imported data from Excel file"
-msgstr "Actualizar lista de perros con datos obtenidos de un fichero Excel"
+msgstr "Actualizar lista de cães con dados obtenidos de un ficheiro Excel"
 
 #: scripts/printer.js.php:51 scripts/printer.js.php:73
 #: scripts/printer.js.php:96 scripts/printer.js.php:132
@@ -4811,25 +4791,24 @@ msgstr "Actualizar lista de perros con datos obtenidos de un fichero Excel"
 #: scripts/printer.js.php:584 scripts/printer.js.php:623
 #: scripts/pruebas.js.php:207
 msgid "We are preparing your report, please wait"
-msgstr "Preparando el informe, por favor, espere"
+msgstr "Preparando o informe, por favor, espere"
 
 #: scripts/printer.js.php:241
 msgid "Import/Export partial scores from/to Excel file"
-msgstr "Importar/Exportar resultados parciales desde/hacia fichero Excel"
+msgstr "Importar/Exportar resultados parciales desde/hacia ficheiro Excel"
 
 #: scripts/printer.js.php:243
 msgid "Create Excel file with current round results"
-msgstr "Generar un fichero Excel con los resultados de la manga actual"
+msgstr "Generar un ficheiro Excel con os resultados da manga actual"
 
 #: scripts/printer.js.php:244
 msgid "Import partial scores on this round from Excel file"
-msgstr "Importar resultados parciales de la manga desde fichero Excel"
+msgstr "Importar resultados parciales da manga desde ficheiro Excel"
 
 #: scripts/printer.js.php:262 scripts/printer.js.php:331
 #: scripts/printer.js.php:348
 msgid "There was a problem generating your report, please contact author."
-msgstr ""
-"Hubo un problema en la generaci&oacute;n del informe. Contacte con el autor"
+msgstr "Hubo un problema na generaci&oacute;n do informe. Contacte con o autor"
 
 #: scripts/printer.js.php:274
 msgid "Not allowed"
@@ -4837,7 +4816,7 @@ msgstr "No permitido"
 
 #: scripts/printer.js.php:275
 msgid "Cannot import round results in a closed journey"
-msgstr "No se pueden importar datos de la manga en una jornada cerrada"
+msgstr "No se pueden importar dados da manga en una jornada cerrada"
 
 #: scripts/printer.js.php:293 scripts/printer.js.php:299
 msgid "Create PDF Report"
@@ -4845,27 +4824,27 @@ msgstr "Generar informe en PDF"
 
 #: scripts/printer.js.php:294 scripts/printer.js.php:300
 msgid "Create Excel File"
-msgstr "Generar fichero Excel"
+msgstr "Generar ficheiro Excel"
 
 #: scripts/printer.js.php:295
 msgid "Print filled assistant sheets 10 dogs/pages"
-msgstr "Hojas de asistente autorrellenadas (10perros/pagina)"
+msgstr "Hojas de asistente autorrolenadas (10cães/pagina)"
 
 #: scripts/printer.js.php:296
 msgid "Print filled assistant sheets 15 dogs/pages"
-msgstr "Hojas de asistente autorellenadas (15 perros/pagina)"
+msgstr "Hojas de asistente autorolenadas (15 cães/pagina)"
 
 #: scripts/printer.js.php:301
 msgid "Print filled assistant sheets 16 dogs/pages"
-msgstr "Hojas de asistente autorrellenadas (16 perros/pagina)"
+msgstr "Hojas de asistente autorrolenadas (16 cães/pagina)"
 
 #: scripts/printer.js.php:305
 msgid "Select output format"
-msgstr "Selecciona formato de salida"
+msgstr "Soecciona formato de salida"
 
 #: scripts/printer.js.php:386
 msgid "Dogs with pending data to be entered"
-msgstr "Perros pendientes de introducci&oacute;n de datos"
+msgstr "Perros pendientes de introducci&oacute;n de dados"
 
 #: scripts/printer.js.php:396
 msgid "Invalid data"
@@ -4873,34 +4852,33 @@ msgstr "Datos inv&aacute;lidos"
 
 #: scripts/printer.js.php:428 tablet/tablet.js.php:681
 msgid "There is no selected round"
-msgstr "No hay ninguna manga seleccionada"
+msgstr "No hae ninguna manga selecionada"
 
 #: scripts/printer.js.php:453
 msgid "Selected category"
-msgstr "Classe seleccionada"
+msgstr "Classe selecionada"
 
 #: scripts/printer.js.php:487 scripts/printer.js.php:524
 #: scripts/printer.js.php:566 scripts/printer.js.php:602
 msgid "There is no selected round on this journey"
-msgstr "No hay ninguna manga seleccionada en la jornada"
+msgstr "No hae ninguna manga selecionada na jornada"
 
 #: scripts/printer.js.php:546
 msgid "There was a problem generating your report, please contact the author."
-msgstr ""
-"Hubo un problema en la generaci&oacute;n del informe. Contacte con el autor"
+msgstr "Hubo un problema na generaci&oacute;n do informe. Contacte con o autor"
 
 #: scripts/pruebas.js.php:47
 msgid "Nueva Prueba"
-msgstr "Nueva Prueba"
+msgstr "Nova Prueba"
 
 #: scripts/pruebas.js.php:90 scripts/pruebas.js.php:173
 #: scripts/pruebas.js.php:196 scripts/pruebas.js.php:253
 msgid "There is no contest selected"
-msgstr "No hay ninguna prueba seleccionada"
+msgstr "No hae ninguna prova selecionada"
 
 #: scripts/pruebas.js.php:95
 msgid "Modify contest data"
-msgstr "Modificar datos de la prueba"
+msgstr "Modificar dados da prova"
 
 #: scripts/pruebas.js.php:139
 msgid "License notice"
@@ -4908,25 +4886,25 @@ msgstr "Aviso sobre la licencia"
 
 #: scripts/pruebas.js.php:140
 msgid "Organizer club"
-msgstr "El club organizador"
+msgstr "El clube organizador"
 
 #: scripts/pruebas.js.php:142
 msgid "does not match with licenser club information"
-msgstr "no coincide con el club indicado en la licencia"
+msgstr "no coincide con o clube indicado na licencia"
 
 #: scripts/pruebas.js.php:144
 msgid ""
 "This is a copyright violation, as you are only allowed to create contests "
 "for your club"
 msgstr ""
-"Esto constituye una violaci&oacute;n de la licencia: solo se pueden crear "
-"pruebas para el club indicado en &eacute;sta"
+"Esto constituee una violaci&oacute;n da licencia: solo se pueden crear "
+"provas para o clube indicado en &eacute;sta"
 
 #: scripts/pruebas.js.php:146
 msgid "Future application versions may enforce copyright issues"
 msgstr ""
-"Actualizaciones futuras de la aplicaci&oacute;n pueden forzar los t&eacute;"
-"rminos del copyright"
+"Actualizaciones futuras da aplicaci&oacute;n pueden forzar os t&eacute;"
+"rminos do coperight"
 
 #: scripts/pruebas.js.php:148
 msgid "Some features may be disabled. Continue at your own risk"
@@ -4939,12 +4917,12 @@ msgid ""
 "<p>By deleting this contest <b>youll loose</b> every associated data and "
 "scores"
 msgstr ""
-"<p>Si borra la prueba <b>se perder&aacute;n</b> todas las inscripciones, "
-"equipos y resultados asociados"
+"<p>Si borra la prova <b>se perder&aacute;n</b> todas las inscripciones, "
+"equipos e resultados asociados"
 
 #: scripts/pruebas.js.php:179
 msgid "Do you really want to delete this contest"
-msgstr "Realmente desea borrar esta prueba"
+msgstr "Realmente desea apagar esta prova"
 
 #: scripts/pruebas.js.php:196
 msgid "Export error"
@@ -4956,7 +4934,7 @@ msgstr "Cambiar e-mail"
 
 #: scripts/pruebas.js.php:217
 msgid "Enter new email for club"
-msgstr "Nueva direcci&oacute;n de correo para el club"
+msgstr "Nova direcci&oacute;n de correo para o clube"
 
 #: scripts/pruebas.js.php:253
 msgid "Mailer error"
@@ -4970,12 +4948,12 @@ msgstr "Servicios de correo"
 msgid ""
 "Electronic mail operations<br/>are not allowed for unregistered licenses"
 msgstr ""
-"No se permiten operaciones de correo electr&oacute;nico <br/> sin licencia "
+"No se permiten operaciones de correo oectr&oacute;nico <br/> sin licencia "
 "registrada"
 
 #: scripts/pruebas.js.php:266
 msgid "Contest has poster and/or tryptich undefined"
-msgstr "La prueba no tiene p&oacute;ster o tr&iacute;ptico definido"
+msgstr "La prova no tiene p&oacute;ster o tr&iacute;ptico definido"
 
 #: scripts/pruebas.js.php:266
 msgid "Continue anyway?"
@@ -4983,11 +4961,11 @@ msgstr "Continuar ¿seguro?"
 
 #: scripts/pruebas.js.php:270 scripts/pruebas.js.php:276
 msgid "Email contest info to clubs"
-msgstr "Enviar informaci&oacute;n a los clubes"
+msgstr "Enviar informaci&oacute;n a os clubes"
 
 #: scripts/pruebas.js.php:286
 msgid "Mark every club as pending to receive mail"
-msgstr "Marcar todos los clubes como pendientes de recibir correo"
+msgstr "Marcar todos os clubes como pendientes de recibir correo"
 
 #: scripts/pruebas.js.php:286
 msgid "Sure"
@@ -5011,7 +4989,7 @@ msgstr "Procesando"
 
 #: scripts/pruebas.js.php:363
 msgid "There is no selected clubs to send mail to"
-msgstr "No se ha seleccionado ning&uacute;n club al que enviar correo"
+msgstr "No se ha soeccionado ning&uacute;n clube al que enviar correo"
 
 #: scripts/pruebas.js.php:367 scripts/results_and_scores.js.php:112
 msgid "Current user has not enought permissions to send mail"
@@ -5019,7 +4997,7 @@ msgstr "El usuario actual no tiene suficientes permisos para enviar correo"
 
 #: scripts/pruebas.js.php:402 scripts/pruebas.js.php:440
 msgid "Invalid selection"
-msgstr "Selecci&oacute;n inv&aacute;lida"
+msgstr "Soecci&oacute;n inv&aacute;lida"
 
 #: scripts/pruebas.js.php:402
 msgid "Cannot edit a journey stated as closed"
@@ -5027,7 +5005,7 @@ msgstr "No se puede modificar una jornada marcada como cerrada"
 
 #: scripts/pruebas.js.php:406
 msgid "Modify journey data"
-msgstr "Editar datos de de la jornada"
+msgstr "Editar dados de da jornada"
 
 #: scripts/pruebas.js.php:419
 msgid "Setting a journey as closed"
@@ -5035,7 +5013,7 @@ msgstr "Marcando la jornada como cerrada"
 
 #: scripts/pruebas.js.php:420
 msgid "Youll be no longer able to edit,delete or modify,"
-msgstr "No ser&aacute; posible editar o borrar datos de esta"
+msgstr "No ser&aacute; posible editar o apagar dados desta"
 
 #: scripts/pruebas.js.php:421
 msgid "inscriptions or scores"
@@ -5047,19 +5025,19 @@ msgstr "Aviso"
 
 #: scripts/pruebas.js.php:435
 msgid "You are about to re-open a closed journey"
-msgstr "Ha solicitado re-abrir una jornada ya cerrada"
+msgstr "Ha solicitado re-abrir una jornada ea cerrada"
 
 #: scripts/pruebas.js.php:436
 msgid "This is a very dangerous operation "
-msgstr "Esta es una operaci&oacute;n muy peligrosa"
+msgstr "Esta es una operaci&oacute;n mue poigrosa"
 
 #: scripts/pruebas.js.php:437
 msgid "May generate scores and result data inconsistencies"
-msgstr "Puede originar inconsistencias en resultados y clasificaciones"
+msgstr "Puede originar inconsistencias en resultados e clasificaciones"
 
 #: scripts/pruebas.js.php:440
 msgid "Cannot close an already closed journey"
-msgstr "No se puede cerrar una jornada ya cerrada"
+msgstr "No se puede cerrar una jornada ea cerrada"
 
 #: scripts/pruebas.js.php:607
 msgid ""
@@ -5074,12 +5052,12 @@ msgid ""
 "You cannot add additional rounds when KO, Games (WAO), Individual (Open) or "
 "team rounds are already declared in a journey"
 msgstr ""
-"No se pueden declarar mangas adicionales cuando en la jornada est&aacute;n "
+"No se pueden declarar mangas adicionales cuando na jornada est&aacute;n "
 "declaradas rondas KO, Juegos(WAO), Open o Equipos"
 
 #: scripts/results_and_scores.js.php:31
 msgid "Enter new email for judge"
-msgstr "Nuevo correo para el juez"
+msgstr "Nuevo correo para o juez"
 
 #: scripts/results_and_scores.js.php:75
 msgid "Email results"
@@ -5087,17 +5065,17 @@ msgstr "Enviar resultados"
 
 #: scripts/results_and_scores.js.php:97
 msgid "Preparing zip file with scores to download"
-msgstr "Preparando fichero zip para descarga"
+msgstr "Preparando ficheiro zip para descarga"
 
 #: scripts/results_and_scores.js.php:98
 msgid "There was a problem generating zip file. Please try again."
 msgstr ""
-"Ha ocurrido alg&uacute;n problema con la generaci&oacute;n del fichero zip."
-"<br/>Por favor intentelo de nuevo"
+"Ocorreu um problema com a criação do ficheiro zip<br/>Por favor tente de "
+"novo."
 
 #: scripts/results_and_scores.js.php:116
 msgid "There is no selected judge to send mail to"
-msgstr "No ha seleccionado ning&uacute;n juez para el envio de mensajes"
+msgstr "No ha soeccionado ning&uacute;n juez para o envio de mensajes"
 
 #: scripts/results_and_scores.js.php:123
 msgid "Sending"
@@ -5105,7 +5083,7 @@ msgstr "Enviando"
 
 #: scripts/results_and_scores.js.php:123
 msgid "Sending results and scores to"
-msgstr "Enviando resultados y clasificaciones a"
+msgstr "Enviando resultados e clasificaciones a"
 
 #: scripts/results_and_scores.js.php:151
 msgid "Mail successfully sent"
@@ -5113,7 +5091,7 @@ msgstr "Correo enviado sin errores"
 
 #: scripts/sesiones.js.php:33
 msgid "New session"
-msgstr "Nueva Sesi&oacute;n"
+msgstr "Nova Sesi&oacute;n"
 
 #: scripts/sesiones.js.php:51 scripts/sesiones.js.php:96
 #: scripts/sesiones.js.php:124
@@ -5126,15 +5104,15 @@ msgstr "Esta entrada no se puede editar"
 
 #: scripts/sesiones.js.php:61
 msgid "Modify session data"
-msgstr "Editar informaci&oacute;n de la sesi&oacute;n"
+msgstr "Editar informaci&oacute;n da sesi&oacute;n"
 
 #: scripts/sesiones.js.php:103
 msgid "Delete session"
-msgstr "Borrar Sesi&oacute;n"
+msgstr "Apagar Sesi&oacute;n"
 
 #: scripts/sesiones.js.php:127
 msgid "Delete event history on session"
-msgstr "Borrar historial de eventos de esta sesi&oacute;n"
+msgstr "Apagar historial de eventos desta sesi&oacute;n"
 
 #: scripts/sesiones.js.php:152
 msgid "Ring session id"
@@ -5161,7 +5139,7 @@ msgstr "V&iacute;deos promocionales"
 #: scripts/sesiones.js.php:178 scripts/sesiones.js.php:179
 #: videowall/index.php:243 videowall/index.php:244
 msgid "Call to ring "
-msgstr "Llamada a pista"
+msgstr "Chamado à pista"
 
 #: scripts/sesiones.js.php:180 videowall/index.php:249
 msgid "Final Scores"
@@ -5173,11 +5151,11 @@ msgstr "Pantalla de reposo"
 
 #: scripts/sesiones.js.php:253
 msgid "No Selection"
-msgstr "Sin seleccion"
+msgstr "Sin soeccion"
 
 #: scripts/sesiones.js.php:253
 msgid "There are no item(s) selected"
-msgstr "No hay ning&uacute;n elemento seleccionado"
+msgstr "No hae ning&uacute;n oemento soeccionado"
 
 #: scripts/sesiones.js.php:271
 msgid "No session"
@@ -5185,15 +5163,15 @@ msgstr "Sin sesion"
 
 #: scripts/sesiones.js.php:326
 msgid "No contest selected"
-msgstr "No se ha seleccionado ninguna prueba"
+msgstr "No se ha soeccionado ninguna prova"
 
 #: scripts/tandas.js.php:60 scripts/tandas.js.php:116
 msgid "There is no activity selected"
-msgstr "No hay ninguna actividad seleccionada"
+msgstr "No hae ninguna actividad selecionada"
 
 #: scripts/tandas.js.php:68
 msgid "Modify activity information"
-msgstr "Modificar la actividad seleccionada"
+msgstr "Modificar la actividad selecionada"
 
 #: scripts/tandas.js.php:123
 msgid "Remove activity"
@@ -5225,15 +5203,15 @@ msgstr "Nuevo usuario"
 
 #: scripts/usuarios.js.php:61 scripts/usuarios.js.php:102
 msgid "There is no user selected"
-msgstr "No se ha seleccionado ning&uacute;n usuario"
+msgstr "No se ha soeccionado ning&uacute;n usuario"
 
 #: scripts/usuarios.js.php:67
 msgid "Modify user data"
-msgstr "Editar datos del usuario"
+msgstr "Editar dados do usuario"
 
 #: scripts/usuarios.js.php:109
 msgid "Delete data on user"
-msgstr "Borrar datos del usuario"
+msgstr "Apagar dados do usuario"
 
 #: scripts/usuarios.js.php:125
 msgid "Password Error"
@@ -5279,7 +5257,7 @@ msgstr "Permisos insuficientes"
 
 #: server/auth/AuthManager.php:474
 msgid "Required level is"
-msgstr "El nivel requerido es"
+msgstr "El nivo requerido es"
 
 #: server/database/classes/Jornadas.php:238
 msgid "Independent Journey"
@@ -5287,36 +5265,36 @@ msgstr "Jornada independiente"
 
 #: server/database/classes/Sesiones.php:377
 msgid "Use session default"
-msgstr "Usar datos actuales de la sesi&oacute;n"
+msgstr "Usar dados actuales da sesi&oacute;n"
 
 #: server/database/classes/poedit.php:19
 msgid "Pre-Agility Round 1"
-msgstr "Pre-Agility Manga 1"
+msgstr "Pre-Agilite Manga 1"
 
 #: server/database/classes/poedit.php:19
 msgid "PreAgility 1"
-msgstr "PreAgility 1"
+msgstr "PreAgilite 1"
 
 #: server/database/classes/poedit.php:19 server/database/classes/poedit.php:20
 #: server/modules/Federations.php:286 server/modules/Federations.php:287
 msgid "Pre-Agility"
-msgstr "Pre-Agility"
+msgstr "Pre-Agilite"
 
 #: server/database/classes/poedit.php:20
 msgid "Pre-Agility Round 2"
-msgstr "Pre-Agility Manga 2"
+msgstr "Pre-Agilite Manga 2"
 
 #: server/database/classes/poedit.php:20
 msgid "PreAgility 2"
-msgstr "PreAgility 2"
+msgstr "PreAgilite 2"
 
 #: server/database/classes/poedit.php:21
 msgid "Agility Grade I Round 1"
-msgstr "Agility Grado I Manga 1"
+msgstr "Agilite Grado I Manga 1"
 
 #: server/database/classes/poedit.php:21
 msgid "Agility-1 GI"
-msgstr "Agility-1 GI"
+msgstr "Agilite-1 GI"
 
 #: server/database/classes/poedit.php:21 server/database/classes/poedit.php:22
 #: server/database/classes/poedit.php:35 server/modules/Federations.php:288
@@ -5325,19 +5303,19 @@ msgstr "Grado I"
 
 #: server/database/classes/poedit.php:22
 msgid "Agility Grade I Round 2"
-msgstr "Agility Grado II Manga 2"
+msgstr "Agilite Grado II Manga 2"
 
 #: server/database/classes/poedit.php:22
 msgid "Agility-2 GI"
-msgstr "Agility-2 GI"
+msgstr "Agilite-2 GI"
 
 #: server/database/classes/poedit.php:23
 msgid "Agility Grade II"
-msgstr "Agility Grado II"
+msgstr "Agilite Grado II"
 
 #: server/database/classes/poedit.php:23
 msgid "Agility GII"
-msgstr "Agility GII"
+msgstr "Agilite GII"
 
 #: server/database/classes/poedit.php:23 server/database/classes/poedit.php:28
 #: server/modules/Federations.php:289
@@ -5346,11 +5324,11 @@ msgstr "Grado II"
 
 #: server/database/classes/poedit.php:24
 msgid "Agility Grade III"
-msgstr "Agility Grado III"
+msgstr "Agilite Grado III"
 
 #: server/database/classes/poedit.php:24
 msgid "Agility GIII"
-msgstr "Agility GIII"
+msgstr "Agilite GIII"
 
 #: server/database/classes/poedit.php:24 server/database/classes/poedit.php:29
 #: server/modules/Federations.php:290
@@ -5360,11 +5338,11 @@ msgstr "Grado III"
 
 #: server/database/classes/poedit.php:25
 msgid "Agility"
-msgstr "Agility"
+msgstr "Agilite"
 
 #: server/database/classes/poedit.php:26 server/database/classes/poedit.php:27
 msgid "Agility Teams"
-msgstr "Agility Equipos"
+msgstr "Agilite Equipos"
 
 #: server/database/classes/poedit.php:26 server/database/classes/poedit.php:27
 msgid "Ag. Teams"
@@ -5402,7 +5380,7 @@ msgstr "Jp. Equipos"
 #: server/modules/federaciones/rfec/config.php:262
 #: server/pdf/print_common.php:297
 msgid "K.O. Round"
-msgstr "Ronda K.O."
+msgstr "Ronda K.O"
 
 #: server/database/classes/poedit.php:33
 #: server/pdf/classes/PrintInscripciones.php:613
@@ -5416,11 +5394,11 @@ msgstr "Manga especial"
 
 #: server/database/classes/poedit.php:35
 msgid "Agility Grade I Round 3"
-msgstr "Agility Grado I Manga 3"
+msgstr "Agilite Grado I Manga 3"
 
 #: server/database/classes/poedit.php:35
 msgid "Agility-3 GI"
-msgstr "Agility-3 GI"
+msgstr "Agilite-3 GI"
 
 #: server/database/classes/poedit.php:38
 msgid "K.O. Second round"
@@ -5508,7 +5486,7 @@ msgstr "K.O. - 8"
 
 #: server/database/classes/poedit.php:46
 msgid "Agility A"
-msgstr "Agility A"
+msgstr "Agilite A"
 
 #: server/database/classes/poedit.php:46
 msgid "Ag. A"
@@ -5516,7 +5494,7 @@ msgstr "Ag. A"
 
 #: server/database/classes/poedit.php:47
 msgid "Agility B"
-msgstr "Agility B"
+msgstr "Agilite B"
 
 #: server/database/classes/poedit.php:47
 msgid "Ag. B"
@@ -5592,7 +5570,7 @@ msgstr "Tipo"
 
 #: server/excel/classes/DogsWriter.php:66
 msgid "Dog Listing"
-msgstr "Listado de perros"
+msgstr "Listado de cães"
 
 #: server/excel/classes/EntrenamientosWriter.php:70
 msgid "Training table"
@@ -5617,7 +5595,7 @@ msgstr "Pagado"
 #: server/excel/classes/PartialScoresWriter.php:90
 #: server/pdf/classes/PrintTRSTemplates.php:123
 msgid "Spd"
-msgstr "Vel"
+msgstr "Vo"
 
 #: server/excel/classes/PartialScoresWriter.php:105
 #: server/mail/MailManager.php:623
@@ -5630,7 +5608,7 @@ msgstr "Informaci&oacute;n"
 
 #: server/excel/classes/XLSXWriter.php:81
 msgid "Program info"
-msgstr "Datos de la aplicaci&oacute;n"
+msgstr "Datos da aplicaci&oacute;n"
 
 #: server/excel/classes/XLSXWriter.php:94
 msgid "License Info"
@@ -5656,7 +5634,7 @@ msgstr "Puntos"
 #: server/pdf/classes/PrintClasificacionExcel.php:171
 #: server/pdf/classes/PrintClasificacionExcel.php:179
 msgid "Stars"
-msgstr "Estrellas"
+msgstr "Estrolas"
 
 #: server/modules/Competitions.php:22
 msgid "KC_ID"
@@ -5712,7 +5690,7 @@ msgstr "Bien"
 #: server/modules/competiciones/Liga_RFEC_Madrid.php:88
 #: server/modules/competiciones/Liga_UCA.php:54
 msgid "Very good"
-msgstr "Muy bien"
+msgstr "Mue bien"
 
 #: server/modules/Competitions.php:171
 #: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:122
@@ -5783,7 +5761,7 @@ msgstr "Recorridos separados"
 
 #: server/modules/Federations.php:25
 msgid "LongName"
-msgstr "NombreLargo"
+msgstr "NomeLargo"
 
 #: server/modules/Federations.php:292
 #: server/modules/federaciones/rfec/config.php:260
@@ -5824,10 +5802,8 @@ msgid "Eliminated - 0"
 msgstr "Eliminado - 0"
 
 #: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:113
-#, fuzzy
-#| msgid "Elim"
 msgid "Elim."
-msgstr "Elim"
+msgstr "Elim."
 
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:92
 #: server/modules/competiciones/Trofeo_Interclubes_2017.php:80
@@ -5897,7 +5873,7 @@ msgstr "Medium+Small"
 
 #: server/modules/federaciones/intl4/config.php:72
 msgid "Tiny"
-msgstr "Tiny"
+msgstr "Tine"
 
 #: server/modules/federaciones/intl4/config.php:73
 msgid "Large+Medium"
@@ -5905,7 +5881,7 @@ msgstr "Large+Medium"
 
 #: server/modules/federaciones/intl4/config.php:73
 msgid "Small+Tiny"
-msgstr "Small+Tiny"
+msgstr "Small+Tine"
 
 #: server/modules/federaciones/nat4/config.php:72
 #: server/modules/federaciones/nat4/config.php:78
@@ -6065,7 +6041,7 @@ msgstr "Reh&uacute;ses"
 #: server/pdf/classes/PrintResultadosGames.php:97
 #: server/pdf/classes/PrintResultadosKO.php:97
 msgid "Speed"
-msgstr "Velocidad"
+msgstr "Voocidad"
 
 #: server/pdf/classes/PrintClasificacionExcel.php:169
 #: server/pdf/classes/PrintClasificacionExcel.php:177
@@ -6150,7 +6126,7 @@ msgstr "Revisa"
 
 #: server/pdf/classes/PrintEntradaDeDatosEquipos4.php:102
 msgid "Data entry (Teams-4)"
-msgstr "Entrada de datos (Equipos-4)"
+msgstr "Entrada de dados (Equipos-4)"
 
 #: server/pdf/classes/PrintEntrenamientos.php:61
 msgid "Check in"
@@ -6166,11 +6142,11 @@ msgstr "Listado de equipos"
 
 #: server/pdf/classes/PrintEquiposByJornada.php:192
 msgid "Celo"
-msgstr "Celo"
+msgstr "Coo"
 
 #: server/pdf/classes/PrintEtiquetasCSV.php:70
 msgid "Dorsal:Contest:Date:License:Name:Handler:Club:Category:Grade:"
-msgstr "Dorsal:Prueba:Fecha:Licencia:Nombre:Guia:Club:Categoria:Grado:"
+msgstr "Dorsal:Prueba:Fecha:Licencia:Nome:Guia:Clube:Categoria:Grado:"
 
 #: server/pdf/classes/PrintEtiquetasCSV.php:71
 msgid "Round1:Penalization1:Calification1:Position1:"
@@ -6233,7 +6209,7 @@ msgstr "Listado de participantes"
 
 #: server/pdf/classes/PrintListaPerros.php:72
 msgid "List of registered dogs"
-msgstr "Lista de perros registrados"
+msgstr "Lista de cães registrados"
 
 #: server/pdf/classes/PrintOrdenSalida.php:74
 msgid "Order"
@@ -6241,7 +6217,7 @@ msgstr "Orden"
 
 #: server/pdf/classes/PrintOrdenTandas.php:60
 msgid "Journey timetable"
-msgstr "Programa de la jornada"
+msgstr "Programa da jornada"
 
 #: server/pdf/classes/PrintOrdenTandas.php:66
 #: server/pdf/classes/PrintTRSTemplates.php:69
@@ -6276,7 +6252,7 @@ msgstr "Gobal equipo"
 #: server/pdf/classes/PrintResultadosGames.php:71
 #: server/pdf/classes/PrintResultadosKO.php:71
 msgid "Round scores"
-msgstr "Resultados de la manga"
+msgstr "Resultados da manga"
 
 #: server/pdf/classes/PrintResultadosByManga.php:75
 #: server/pdf/classes/PrintResultadosGames.php:71
@@ -6286,11 +6262,11 @@ msgstr "Resultados"
 
 #: server/pdf/classes/PrintTRSTemplates.php:60
 msgid "SheetCalc to evaluate SCT and MCT"
-msgstr "Hoja de c&aacute;lculo para el TRS y TRM"
+msgstr "Hoja de c&aacute;lculo para o TRS e TRM"
 
 #: server/pdf/classes/PrintTRSTemplates.php:63
 msgid "SCT / MCT data form"
-msgstr "Datos de TRS y TRM"
+msgstr "Datos de TRS e TRM"
 
 #: server/pdf/print_common.php:319
 msgid "Page"
@@ -6310,7 +6286,7 @@ msgstr "Servicio de notificaciones iniciado"
 
 #: tablet/index.php:145
 msgid "User,Ring,Contest and Journey selection"
-msgstr "Selecci&oacute;n de usuario, ring, prueba y jornada"
+msgstr "Soecci&oacute;n de usuario, ring, prova e jornada"
 
 #: tablet/index.php:160
 msgid "Session"
@@ -6318,11 +6294,11 @@ msgstr "Sesi&oacute;n"
 
 #: tablet/index.php:280
 msgid "Current license permissions"
-msgstr "Los permisos de la licencia instalada"
+msgstr "Los permisos da licencia instalada"
 
 #: tablet/index.php:281
 msgid "does not allow handling of contests"
-msgstr "no permiten la gesti&oacute;n de pruebas"
+msgstr "no permitna gesti&oacute;n de provas"
 
 #: tablet/index.php:281
 msgid "with more than"
@@ -6338,11 +6314,11 @@ msgstr "Debe"
 
 #: tablet/index.php:347
 msgid "Select session/ring for videowall and chrono"
-msgstr "Selecciona sesi&oacute;n/ring para crono y videomarcadores"
+msgstr "Soecciona sesi&oacute;n/ring para crono e videomarcadores"
 
 #: tablet/index.php:347
 msgid "Select contest/journey to play with"
-msgstr "Selecciona la prueba y jornada a manejar"
+msgstr "Soecciona la prova e jornada a manejar"
 
 #: tablet/index.php:351
 msgid "No user has been selected"
@@ -6354,11 +6330,11 @@ msgstr "Sesi&oacute;n iniciada correctamente"
 
 #: tablet/tablet.js.php:406
 msgid "You must select a running round"
-msgstr "Debe seleccionar una manga v&aacute;lida"
+msgstr "Debe soeccionar una manga v&aacute;lida"
 
 #: tablet/tablet.js.php:641
 msgid "Dog with dorsal"
-msgstr "El perro con dorsal"
+msgstr "El cão con dorsal"
 
 #: tablet/tablet.js.php:641
 msgid "does not run in this series"
@@ -6366,7 +6342,7 @@ msgstr "no participa en esta manga"
 
 #: tablet/tablet_main.php:26
 msgid "Activities on this journey"
-msgstr "Programa de la jornada"
+msgstr "Programa da jornada"
 
 #: tablet/tablet_main.php:53 tablet/tablet_main.php:54
 msgid "Touch"
@@ -6378,15 +6354,15 @@ msgstr "No Pr"
 
 #: tablet/tablet_main.php:190
 msgid "Updating series order"
-msgstr "Actualizando orden de mangas"
+msgstr "A atualizar orden de mangas"
 
 #: tablet/tablet_main.php:438
 msgid "Update session data"
-msgstr "Actualizar datos de la sesi&oacute;n"
+msgstr "Actualizar dados da sesi&oacute;n"
 
 #: tablet/tablet_main.php:439
 msgid "Mark test dog enter into ring"
-msgstr "Indicar la entrada a ring de perro en blanco"
+msgstr "Indicar la entrada a ring de cão en blanco"
 
 #: tablet/tablet_main.php:440
 msgid "Tell chronometer to start Course walk"
@@ -6394,7 +6370,7 @@ msgstr "Indicar al crono comienzo/fin de reconocimiento de pista"
 
 #: tablet/tablet_main.php:441
 msgid "Activate data entry panel on selected dorsal"
-msgstr "Abrir el panel de entrada de datos para el dorsal seleccionado"
+msgstr "Abrir o pano de entrada de dados para o dorsal soeccionado"
 
 #: tests/simplified_final_individual.php:18
 msgid "Final individual"
@@ -6422,7 +6398,7 @@ msgstr "Video marcador"
 
 #: videowall/index.php:338
 msgid "No active contest being played in this ring"
-msgstr "No hay pruebas activas registradas en este ring"
+msgstr "No hae provas activas registradas en este ring"
 
 #: videowall/index.php:373 videowall/index.php:415
 msgid "Current license has no permission to handle training sessions"
@@ -6446,16 +6422,16 @@ msgstr "Num"
 
 #: videowall/vwc_parciales.php:213
 msgid "Updating list of teams to be called to ring"
-msgstr "Actualizando orden de llamada a pista"
+msgstr "A atualizar orden de llamada a pista"
 
 #: videowall/vws_final.php:35 videowall/vws_parcial.php:35
 msgid "Waiting for connection with event server"
-msgstr "Esperando conexi&oacute;n con el servidor de eventos"
+msgstr "Esperando conexi&oacute;n con o servidor de eventos"
 
 #: videowall/vws_final_individual.php:54
 #: videowall/vws_parcial_individual.php:53
 msgid "Competitor's data"
-msgstr "Datos del participante"
+msgstr "Datos do participante"
 
 #: videowall/vws_parcial_equipos.php:55
 msgid "CP"
