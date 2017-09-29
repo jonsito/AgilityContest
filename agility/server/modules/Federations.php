@@ -464,6 +464,7 @@ class Federations {
             $id=$fed->get('ID');
             $fedList[$id]=$fed->getConfig();
         }
+        ksort($fedList);
         return $fedList;
     }
 
