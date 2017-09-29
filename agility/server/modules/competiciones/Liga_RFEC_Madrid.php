@@ -21,7 +21,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 class Liga_RFEC_Madrid extends Liga_RFEC {
 
     function __construct() {
-        parent::__construct("Prueba puntuable Liga RFEC Madrid");
+        parent::__construct("Prueba puntuable Liga RFEC Madrid - 2018");
         $this->federationID=1;
         $this->competitionID=2;
     }
@@ -48,14 +48,14 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
             Competitions::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
-        $ptsmanga=array("5","4","3","2","1"); // puntos por manga y puesto
+        $ptsmanga=array("7","5","3","2","1"); // puntos por manga y puesto
         $pt1=0;
         if ($perro['Penalizacion']<6.0) $pt1++; // 1 punto por excelente
-        if ($perro['Penalizacion']==0.0) $pt1++; // 2 puntos por cero
-        // puntos a los 5 primeros de la zona liguera por manga/categoria si no estan eliminados
+        if ($perro['Penalizacion']==0.0) $pt1+=2; // 3 puntos por cero
+        // puntos a los 5 primeros de la zona liguera por manga/categoria tienen excelente o muy bueno
         // en madrid se permite que los perros NC puntuen
         $puesto=$puestocat[$cat]-$this->poffset[$cat];
-        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<100) ) {
+        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<16) ) {
             if ($puesto<=5) $pt1+= $ptsmanga[$puesto-1];
         } else { // no points or not qualified; discard
             parent::evalPartialCalification($m,$perro,$puestocat);
@@ -135,7 +135,7 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
             return;
         }
 
-        $ptsglobal = array("15", "12", "9", "7", "6", "5", "4", "3", "2", "1"); //puestos por general (si no NC o Elim en alguna manga)
+        $ptsglobal = array("15", "12", "9", "7", "6", "5", "4", "3", "2", "1"); //puestos por general si tiene excelente o muy bueno
 
         // manga 1
         $pt1 = "0";
@@ -151,18 +151,11 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         }
         // conjunta
         $pfin="0";
-        // en madrid se permite puntuar por conjunta los perros que tengan una manga a eliminado/NC
-        // no obstante, si eliminado en ambas mangas no puntua
-        if ( ($perro['P1']>=100.0) && ($perro['P2']>=100.0) ) {
+        // Temporada 2018 no puntuan en conjunta si tienen alguna manga con mas de 15.99
+        if ( ($perro['P1']>=16.0) || ($perro['P2']>=16.0) ) {
             $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
             return;
         }
-        // En teoría un perro que no se presenta no debería puntuar en conjunta
-        // pero en madrid son así de raritos
-        // if ( ($perro['P1']>=200.0) || ($perro['P2']>=200.0) ) {
-        //    $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
-        //    return;
-        // }
         // evaluamos puesto real una vez eliminados los "extranjeros"
         $puesto=$puestocat[$cat]-$this->pfoffset[$cat];
         // si esta entre los 10 primeros cogemos los puntos

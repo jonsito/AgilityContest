@@ -40,14 +40,14 @@ $config =Config::getInstance();
 				<input id="jornadas-Operation" type="hidden" name="Operation"/>
         	</div>
             <div class="fitem">
-                <label for="jornadas-Fecha"><?php _e('Date'); ?></label>
-                <select id="jornadas-Fecha" name="Fecha" class="easyui-datebox" style="width:250px;text-align:right"></select>
+                <label for="jornadas-Fecha"style="width:150px"><?php _e('Date'); ?></label>
+                <select id="jornadas-Fecha" name="Fecha"  style="text-align:right"></select>
             </div>
             <div class="fitem">
-                <label for="jornadas-Hora"><?php _e('Hour'); ?></label>
-                <input id="jornadas-Hora" name="Hora" class="easyui-timespinner" style="width:250px;text-align:right"/>
+                <label for="jornadas-Hora" style="width:150px"><?php _e('Hour'); ?></label>
+                <input id="jornadas-Hora" name="Hora"  style="text-align:right"/>
             </div>
-            <div class="fitem">
+            <div class="ftitle">
             	<label style="width:250px"><?php _e('Rounds on this journey'); ?>:</label>
             </div>
             
@@ -262,7 +262,8 @@ $config =Config::getInstance();
     });
 
     // fechas
-    $('#jornadas-Fecha').datebox({ 
+    $('#jornadas-Fecha').datebox({
+        width:170,
         required: true,
         formatter: function(date) {
             		var y = date.getFullYear();
@@ -288,15 +289,19 @@ $config =Config::getInstance();
     	if (q.indexOf('-') >= 0) { q = replaceAll('-', '/',q);	}
     	$(this).datebox('setValue', q);
     };
+
     // hora
     $('#jornadas-Hora').timespinner({
+        width: 170,
         required: true
     });
+
 	// Nombre/comentarios
     $('#jornadas-Nombre').textbox({
         required: true,
         validType: 'length[1,255]'
     });
+
     $('#jornadas-MangasPreAgility').combobox({
         valueField:'value',
         panelHeight:'auto',
@@ -306,6 +311,7 @@ $config =Config::getInstance();
             {text:'<?php _e("Double round"); ?>',value:'2',selected:true}
         ]
     });
+
     $('#jornadas-MangasGrado1').combobox({
         panelHeight:'auto',
         valueField: 'value',
@@ -316,6 +322,7 @@ $config =Config::getInstance();
             {text:'<?php _e("Triple round"); ?>',value:'3'}
             ]
     });
+
     $('#jornadas-MangasEquipos').combobox({
         valueField:'value',
         panelHeight:'auto',
@@ -329,6 +336,7 @@ $config =Config::getInstance();
             {text:'<?php _e("4 combined"); ?>',value:'7'}
         ]
     });
+
     $('#jornadas-Observaciones').textbox();
 
     $('#jornadas-SlaveOf_List').combobox({
@@ -358,7 +366,7 @@ $config =Config::getInstance();
 
     $('#jornadas-Tipo_Competicion_List').combobox({
         panelHeight: 'auto',
-        panelWidth: 200,
+        panelWidth: 300,
         valueField:'ID',
         textField:'Nombre',
         method: 'get',
@@ -377,6 +385,7 @@ $config =Config::getInstance();
             return true;
         }
     });
+
 	addTooltip($('#jornadas-okBtn').linkbutton(),'<?php _e("Register journey into database"); ?>');
 	addTooltip($('#jornadas-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
     
