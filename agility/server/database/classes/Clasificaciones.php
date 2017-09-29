@@ -281,7 +281,9 @@ class Clasificaciones extends DBObject {
 
         // indexamos las clasificaciones por id de perro
         $indexedc=array();
-        foreach ($c as &$item) $indexedc[$item['Perro']]=&$item;
+        foreach ($c as &$item) {
+            $indexedc[$item['Perro']]=&$item;
+        }
 
         // Datos de equipos de la jornada
         $eobj=new Equipos("evalFinalEquipos",$this->prueba->ID,$this->jornada->ID);
@@ -308,6 +310,7 @@ class Clasificaciones extends DBObject {
             }
             // si ya hemos registrado "mindogs" en el equipo, los siguientes perros del equipo no puntuan
             // anyadimos una marca "Out1" para que salgan en gris en el listado
+            $indexedc[$resultado['Perro']]['Out1']=0; // marcar para imprimir en negro
             if ($teams[$eq]['C1']>=$mindogs) {
                 $indexedc[$resultado['Perro']]['Out1']=1; // marcar para imprimir en gris
                 continue;
@@ -328,6 +331,7 @@ class Clasificaciones extends DBObject {
                 continue;
             }
             // si ya hemos registrado "mindogs" en el equipo, los siguientes perros del equipo no puntuan
+            $indexedc[$resultado['Perro']]['Out2']=0; // marcar para imprimir en negro
             // anyadimos una marca "Out2" para que salgan en gris en el listado
             if ($teams[$eq]['C2']>=$mindogs) {
                 $indexedc[$resultado['Perro']]['Out2']=1; // marcar para imprimir en gris

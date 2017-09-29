@@ -206,9 +206,6 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
      * @param {integer} $mode modo de la prueba
      */
 	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$mode) {
-
-
-
         // Datos de equipos de la jornada
         $eobj=new Equipos("evalFinalEquipos",$this->prueba->ID,$this->jornada->ID);
         $tbj=$eobj->getTeamsByJornada();
@@ -245,6 +242,7 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
             }
             // si ya hemos registrado "mindogs" en el equipo, los siguientes perros del equipo no puntuan
             // anyadimos una marca "Out1" para que salgan en gris en el listado
+            $indexedc[$resultado['Perro']]['Out1']=0; // marcar para imprimir en negro
             // adicionalmente, para el EO hay que tener en cuenta la puntuacion del cuarto perro y del mejor del equipo
             if ($teams[$eq]['C1']>=$mindogs) {
                 $teams[$eq]['Extra']+=$resultado['Puntos']; // resultado del cuarto perro
@@ -269,6 +267,7 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
             }
             // si ya hemos registrado "mindogs" en el equipo, los siguientes perros del equipo no puntuan
             // anyadimos una marca "Out2" para que salgan en gris en el listado
+            $indexedc[$resultado['Perro']]['Out2']=0; // marcar para imprimir en negro
             // adicionalmente, para el EO hay que tener en cuenta la puntuacion del cuarto perro y del mejor del equipo
             if ($teams[$eq]['C2']>=$mindogs) {
                 $teams[$eq]['Extra']+=$resultado['Puntos']; // resultado del cuarto perro
