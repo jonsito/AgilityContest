@@ -77,6 +77,7 @@ class Jornadas extends DBObject {
         $equipos4 = http_request("Equipos4","i",0);
         $preagility = http_request("PreAgility","i",0);
         $junior = http_request("Junior","i",0);
+        $senior = http_request("Senior","i",0);
         $ko = http_request("KO","i",0);
         $games = http_request("Games","i",0);
         $especial = http_request("Especial","i",0);
@@ -103,12 +104,12 @@ class Jornadas extends DBObject {
 		// componemos un prepared statement
 		$sql ="UPDATE Jornadas
 				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, SlaveOf=?, Tipo_Competicion=?,Grado1=?, Grado2=?, Grado3=?, Junior=?,
-					Open=?, Equipos3=?, Equipos4=?, PreAgility=?, KO=?, Games=?,Especial=?, Observaciones=?, Cerrada=?
+					Senior=?, Open=?, Equipos3=?, Equipos4=?, PreAgility=?, KO=?, Games=?,Especial=?, Observaciones=?, Cerrada=?
 				WHERE ( ID=? );";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('isssiiiiiiiiiiiiisii',
-				$prueba,$nombre,$fecha,$hora,$slaveof,$tipo_competicion,$grado1,$grado2,$grado3,$junior,$open,$equipos3,$equipos4,$preagility,$ko,$games,$especial,$observaciones,$cerrada,$id);
+		$res=$stmt->bind_param('isssiiiiiiiiiiiiiisii',
+				$prueba,$nombre,$fecha,$hora,$slaveof,$tipo_competicion,$grado1,$grado2,$grado3,$junior,$senior,$open,$equipos3,$equipos4,$preagility,$ko,$games,$especial,$observaciones,$cerrada,$id);
 		if (!$res) return $this->error($this->conn->error); 
 
 		// invocamos la orden SQL y devolvemos el resultado
@@ -117,7 +118,7 @@ class Jornadas extends DBObject {
 		$stmt->close();
 		if (!$cerrada) {
 			$mangas =new Mangas("jornadaFunctions",$id);
-			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$junior,$open,$equipos3,$equipos4,$preagility,$ko,$games,$especial,$observaciones);
+			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$junior,$senior,$open,$equipos3,$equipos4,$preagility,$ko,$games,$especial,$observaciones);
 			$ot= new Tandas("jornadas::update",$this->prueba,$id);
 			$ot->populateJornada();
         }

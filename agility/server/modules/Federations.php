@@ -41,6 +41,7 @@ class Federations {
             'Email' => 'jonsito@www.agilitycontest.es',
             'Heights' => 3,
             'Grades' => 3,
+            'Games' => 0,
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2, // on rfec may be 3
@@ -401,6 +402,30 @@ class Federations {
      * @return bool
      */
     public function isInternational() { return ( intval($this->config['International']) !=0)?true:false; }
+
+    /**
+     * Ask if current federation has Junior rounds
+     * @return bool
+     */
+    public function hasJunior() {
+        return array_key_exists('Jr',$this->config['ListaGrados']);
+    }
+
+    /**
+     * Ask if current federation has Senior rounds
+     * @return bool
+     */
+    public function hasSenior() {
+        return array_key_exists('Sr',$this->config['ListaGrados']);
+    }
+
+    /**
+     * Ask if this federation has Games rounds.
+     * @return bool
+     */
+    public function hasGames() {
+        return ($this->config['Games']!==0)?true:false;
+    }
 
     /**
      * @return string either i18n'd 'Club' or 'Contry' according federation

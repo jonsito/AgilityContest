@@ -27,6 +27,7 @@ class Tandas extends DBObject {
 	protected $jornada;
 	protected $sesiones; // used to store current sesions
 	protected $mangas; // used to store mangas of this journey
+    protected $federation;
 	
 	/**
 	 * Tandas database only contains 'Tipo' field. Extract remaining data from this table
@@ -271,6 +272,7 @@ class Tandas extends DBObject {
 		$this->sesiones=$s['rows'];
 		$m=$this->__select("*","Mangas","(Jornada=$jornada)","","");
 		$this->mangas=$m['rows'];
+		$this->federation=Federations::getFederation($this->prueba->RSCE);
 	}
 	
 	function getHttpData() {
@@ -632,7 +634,12 @@ class Tandas extends DBObject {
 				$this->removeFromList($tipo);
 				continue;
 			}
-            if( ($grados==3) && ($item['Grado']==='Jr') ) {
+            if( (!$this->federation->hasJunior()) && ($item['Grado']==='Jr') ) {
+                // remove every Junior Rounds in RSCE contests
+                $this->removeFromList($tipo);
+                continue;
+            }
+            if( (!$this->federation->hasSenior()) && ($item['Grado']==='Sr') ) {
                 // remove every Junior Rounds in RSCE contests
                 $this->removeFromList($tipo);
                 continue;
@@ -711,6 +718,11 @@ class Tandas extends DBObject {
         // Junior
         $this->insert_remove($f,32,($j->Junior != 0)?true:false);		// add/remove Junior Manga1
         $this->insert_remove($f,33,($j->Junior != 0)?true:false);		// add/remove Junior Manga2
+
+        // Senior
+        $this->insert_remove($f,34,($j->Senior != 0)?true:false);		// add/remove Senior Manga1
+        $this->insert_remove($f,35,($j->Senior != 0)?true:false);		// add/remove Senior Manga2
+
         // grado 1 puede tener 1, 2 o 3 mangas.
         // Por compatibilidad los posibles valores son 1:2mangas 2:1manga 3:3mangas 0:nogrado1
         switch($j->Grado1) {

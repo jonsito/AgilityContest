@@ -17,6 +17,7 @@ class RSCE extends Federations {
             'Email' => 'agility@rsce.es',
             'Heights' => 3,
             'Grades' => 3,
+            'Games' => 0,
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2, // on rfec may be 3

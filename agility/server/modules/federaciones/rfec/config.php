@@ -17,6 +17,7 @@ class RFEC extends Federations {
             'Email' => 'yvonneagility@fecaza.com',
             'Heights' => 4,
             'Grades' => 2,
+            'Games' => 0,
             'International' => 0,
             'WideLicense' => true, // some federations need extra print space to show license ID
             'RoundsG1' => 3,

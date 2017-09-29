@@ -60,13 +60,11 @@ $config =Config::getInstance();
             </div>
 
             <div class="fitem">
-                <label for="jornadas-Junior" style="width:150px" ><span id="jornadas-JuniorName">Junior</span></label>
+                <label for="jornadas-Junior" style="text-align:left;width:150px" ><span id="jornadas-JuniorName">Junior</span></label>
                 <input id="jornadas-Junior" name="Junior" class="easyui-checkbox"
                        type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Junior',0x4000)"/>
-            </div>
-
-            <div class="fitem">
-                <label for="jornadas-Senior" style="width:150px" ><span id="jornadas-SeniorName">Senior</span></label>
+                <span style="width:25px">&nbsp;</span>
+                <label for="jornadas-Senior" style="text-align:left;width:100px" ><span id="jornadas-SeniorName">Senior</span></label>
                 <input id="jornadas-Senior" name="Senior" class="easyui-checkbox"
                        type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Senior',0x8000)"/>
             </div>
@@ -202,7 +200,7 @@ $config =Config::getInstance();
             }
 
             // grado 1
-            if (data.Grado1!=0) {
+            if (parseInt(data.Grado1)!==0) {
                 $('#jornadas-Grado1Chk').prop('checked',true);
                 $('#jornadas-MangasGrado1').combobox('enable').combobox('setValue',data.Grado1);
             } else {
@@ -210,28 +208,45 @@ $config =Config::getInstance();
                 $('#jornadas-MangasGrado1').combobox('disable').combobox('setValue',1); // on disable, set default to 2 rounds
             }
 
-            // grado 2
-            $('#jornadas-Grado2').prop('checked',(data.Grado2 == 1));
-
-            // grado 3, junior y juegos
-            if(howManyGrades(workingData.datosPrueba.RSCE)==3) { // en RSCE no hay ni junior ni juegos
+            // (des)habilitar Mangas Junior
+            if (hasJunior(workingData.datosPrueba.RSCE)) {
+                $('#jornadas-Junior').prop('disabled',false).prop('checked',(parseInt(data.Junior) === 1));
+            } else {
                 $('#jornadas-Junior').prop('disabled',true).prop('checked',false);
-            	$('#jornadas-Grado3').prop('disabled',false).prop('checked',(data.Grado3 == 1));
+            }
+
+            // (des)habilitar Mangas Senior
+            if (hasSenior(workingData.datosPrueba.RSCE)) {
+                $('#jornadas-Senior').prop('disabled',false).prop('checked',(parseInt(data.Senior) === 1));
+            } else {
+                $('#jornadas-Senior').prop('disabled',true).prop('checked',false);
+            }
+
+            // (des)habilitar juegos
+            if (hasGames(workingData.datosPrueba.RSCE)) {
+                $('#jornadas-Games').prop('disabled',false).prop('checked',(parseInt(data.Games) === 1));
+            } else {
                 $('#jornadas-Games').prop('disabled',true).prop('checked',false);
-            } else { // en RFEC puede haber junior y/o juegos, pero no hay grado 3
-                $('#jornadas-Junior').prop('disabled',false).prop('checked',(data.Junior == 1));
+            }
+
+            // Ajuste del grado 2
+            $('#jornadas-Grado2').prop('checked',(parseInt(data.Grado2) === 1));
+
+            // (des)Habilitar grado 3
+            if(howManyGrades(workingData.datosPrueba.RSCE)===3) {
+            	$('#jornadas-Grado3').prop('disabled',false).prop('checked',(parseInt(data.Grado3) === 1));
+            } else {
             	$('#jornadas-Grado3').prop('disabled',true).prop('checked',false);
-                $('#jornadas-Games').prop('disabled',false).prop('checked',(data.Games == 1));
             }
 
             // equipos-3
-            if (data.Equipos3!=0) {
+            if (parseInt(data.Equipos3)!==0) {
                 $('#jornadas-EquiposChk').prop('checked',true);
-                $('#jornadas-MangasEquipos').combobox('enable').combobox('setValue',(data.Equipos3==2)?3:4); // 0:noteam 1:3of4 2:2of3 3:3of4
-            } else if (data.Equipos4!=0) {
-                var val=data.Equipos4; // 0:noteam 1:4combined 2:2combined 3:3combined 4:4combined
+                $('#jornadas-MangasEquipos').combobox('enable').combobox('setValue',(parseInt(data.Equipos3)===2)?3:4); // 0:noteam 1:3of4 2:2of3 3:3of4
+            } else if (parseInt(data.Equipos4)!==0) {
+                var val=parseInt(data.Equipos4); // 0:noteam 1:4combined 2:2combined 3:3combined 4:4combined
                 $('#jornadas-EquiposChk').prop('checked',true);
-            	$('#jornadas-MangasEquipos').combobox('enable').combobox('setValue',(val==1)?7:(val==2)?5:(val==3)?6:7);
+            	$('#jornadas-MangasEquipos').combobox('enable').combobox('setValue',(val===1)?7:(val===2)?5:(val===3)?6:7);
             } else {
                 $('#jornadas-EquiposChk').prop('checked',false);
             	$('#jornadas-MangasEquipos').combobox('disable');
@@ -244,12 +259,12 @@ $config =Config::getInstance();
             <?php    } ?>
 
             // el resto de mangas son "normales" ( estan siempre presentes )
-            $('#jornadas-Equipos3').prop('checked',(data.Equipos3 != 0));
-            $('#jornadas-Equipos4').prop('checked',(data.Equipos4 != 0));
-            $('#jornadas-Open').prop('checked',(data.Open == 1));
+            $('#jornadas-Equipos3').prop('checked',(parseInt(data.Equipos3) !== 0));
+            $('#jornadas-Equipos4').prop('checked',(parseInt(data.Equipos4) !== 0));
+            $('#jornadas-Open').prop('checked',(parseInt(data.Open) === 1));
 
-            $('#jornadas-KO').prop('checked',(data.KO == 1));
-            $('#jornadas-Games').prop('checked',(data.Games == 1));
+            $('#jornadas-KO').prop('checked',(parseInt(data.KO) === 1));
+            $('#jornadas-Games').prop('checked',(parseInt(data.Games) === 1));
 
             <?php    if ( ! $am->allowed(ENABLE_KO)) { ?>
             // si la licencia no tiene permisos para jornadas KO o Games, desactivamos la opcion
@@ -257,9 +272,9 @@ $config =Config::getInstance();
             $('#jornadas-KO').prop('disabled',true);
             <?php    } ?>
 
-            $('#jornadas-Especial').prop('checked',(data.Especial == 1));
-        	$('#jornadas-Observaciones').textbox( (data.Especial==0)?'disable':'enable');
-            $('#jornadas-Cerrada').prop('checked',(data.Cerrada == 1));
+            $('#jornadas-Especial').prop('checked',(parseInt(data.Especial) === 1));
+        	$('#jornadas-Observaciones').textbox( (parseInt(data.Especial)===0)?'disable':'enable');
+            $('#jornadas-Cerrada').prop('checked',(parseInt(data.Cerrada)=== 1));
         	$('#jornadas-Prueba').val(data.Prueba);
         	$('#jornadas-Operation').val('update');
             // fix slaveof combobox according value

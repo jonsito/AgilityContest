@@ -17,6 +17,7 @@ class INTL4 extends Federations {
             'Email' => 'info@worldagilityopen.com',
             'Heights' => 4,
             'Grades' => 2,
+            'Games' => 1,
             'International' => 1,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2,

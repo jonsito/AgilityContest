@@ -17,6 +17,7 @@ class INTL3 extends Federations {
             'Email' => 'info@fci.be',
             'Heights' => 3,
             'Grades' => 3,
+            'Games' => 0,
             'International' => 1,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2,
