@@ -7,7 +7,7 @@ class CPC extends Federations {
         $this->config= array_merge ($this->config, array(
             'ID'    => 4,
             'Name'  => 'CPC',
-            'LongName' => 'Clube Portugues de Canicultura',
+            'LongName' => 'Clube Portugu'.json_decode('"\u1EBD"').'s de Canicultura',
             // use basename http absolute path for icons, as need to be used in client side
             'OrganizerLogo'     => '/agility/server/modules/federaciones/cpc/cpc.png',
             'Logo'     => '/agility/server/modules/federaciones/cpc/cpc.png',
