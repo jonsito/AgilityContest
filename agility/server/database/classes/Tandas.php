@@ -152,7 +152,16 @@ class Tandas extends DBObject {
             100 => array('Tipo'=>100,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Medium',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'Jr'),
             101	=> array('Tipo'=>101,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Small',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'Jr'),
             102	=> array('Tipo'=>102,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 Toy',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Jr'),
-    );
+            // tandas para categoria Senior
+            103	=> array('Tipo'=>103,	'TipoManga'=> 34,	'Nombre'=>'Senior 1 Large',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'Sr'),
+            104 => array('Tipo'=>104,	'TipoManga'=> 34,	'Nombre'=>'Senior 1 Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'Sr'),
+            105 => array('Tipo'=>105,	'TipoManga'=> 34,	'Nombre'=>'Senior 1 Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'Sr'),
+            106	=> array('Tipo'=>106,	'TipoManga'=> 34,	'Nombre'=>'Senior 1 Toy',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Sr'),
+            107	=> array('Tipo'=>107,	'TipoManga'=> 35,	'Nombre'=>'Senior 2 Large',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'Sr'),
+            108 => array('Tipo'=>108,	'TipoManga'=> 35,	'Nombre'=>'Senior 2 Medium',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'Sr'),
+            109	=> array('Tipo'=>109,	'TipoManga'=> 35,	'Nombre'=>'Senior 2 Small',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'Sr'),
+            110	=> array('Tipo'=>110,	'TipoManga'=> 35,	'Nombre'=>'Senior 2 Toy',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Sr')
+     );
 
     /**
      * Translate requested tanda index to federation dependent i18n'd Tanda Name

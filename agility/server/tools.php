@@ -265,7 +265,7 @@ function parseHandlerCat($cat) {
     static $i = array('i','child','children','infantil','infantiles');
     static $j = array('j','junior','juvenil','juveniles');
     static $a = array('a','adult','adults','adulto','adultos','absolut','absoluta');
-    static $s = array('s','senior','seniors');
+    static $s = array('s','senior','seniors','veterans','veterano','veteranos');
     static $r = array('r','retired','retirado','retirados','baja');
     static $p = array('p','para-agility');
     if (is_null($cat)) return '-';

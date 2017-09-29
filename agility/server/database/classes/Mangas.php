@@ -63,6 +63,8 @@ class Mangas extends DBObject {
         // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
         32 =>	array( 32,'Junior Round 1',	            'Jr',	'Junior 1',	    'Jr. 1',        1),
         33 => 	array( 33,'Junior Round 2',	            'Jr',	'Junior 2',	    'Jr. 2',        2),
+        34 =>	array( 34,'Senior Round 1',	            'Sr',	'Senior 1',	    'Sr. 1',        1),
+        35 => 	array( 35,'Senior Round 2',	            'Sr',	'Senior 2',	    'Sr. 2',        2),
 	);
 
 	public static function getTipoManga($tipo,$idx,$fed=null) {
@@ -109,8 +111,10 @@ class Mangas extends DBObject {
         30, /* 29 ,'Snooker',	*/
         29, /* 30 ,'Gambler',	*/
         0,  /* 31 ,'SpeedStakes',*/
-		33,	/* 32, 'Junior Manga 1', 'Jr' */
-		32,	/* 33, 'Junior Manga 2', 'Jr' */
+        33,	/* 32, 'Junior Manga 1', 'Jr' */
+        32,	/* 33, 'Junior Manga 2', 'Jr' */
+        35,	/* 34, 'Senior Manga 1', 'Sr' */
+        34,	/* 35, 'Senior Manga 2', 'Sr' */
 	);
 	
 	public static $manga_modes= array (
@@ -461,6 +465,7 @@ class Mangas extends DBObject {
 	 * @param {integer} $grado2 la jornada tiene (1) o no (0) mangas de grado 2
 	 * @param {integer} $grado3 la jornada tiene (1) o no (0) mangas de grado 3
      * @param {integer} $junior la jornada tiene (1) o no (0) mangas de categoria junior
+     * @param {integer} $senior la jornada tiene (1) o no (0) mangas de categoria senior
      * @param {integer} $open la jornada tiene (1) o no (0) una prueba abierta
 	 * @param {integer} $equipos3 la jornada tiene (1) o no (0) una manga por equipos (3 de 4)
 	 * @param {integer} $equipos4 la jornada tiene (1) o no (0) una manga por equipos (conjunta)
@@ -471,7 +476,7 @@ class Mangas extends DBObject {
 	 * @param {integer} $observaciones nombre con el que se denominara la manga especial
 	 * // TODO: handle ko, exhibicion and otras
 	 */
-	function prepareMangas($id,$grado1,$grado2,$grado3,$junior,$open,$equipos3,$equipos4,$preagility,$ko,$games,$especial,$observaciones) {
+	function prepareMangas($id,$grado1,$grado2,$grado3,$junior,$senior,$open,$equipos3,$equipos4,$preagility,$ko,$games,$especial,$observaciones) {
 		$this->myLogger->enter();
 
 		/*  0,'','' */
@@ -489,6 +494,10 @@ class Mangas extends DBObject {
         /* 32,'Junior Manga 1', 'Jr' */
         /* 33,'Junior Manga 2', 'Jr' */
         if ($junior) { $this->insert(32,'Jr'); $this->insert(33,'Jr'); }
+
+        /* 34,'Senior Manga 1', 'Sr' */
+        /* 35,'Senior Manga 2', 'Sr' */
+        if ($senior) { $this->insert(34,'Sr'); $this->insert(35,'Sr'); }
 
 		/* 3, 'Agility Grado I Manga 1', 'GI' */
         /* 4, 'Agility Grado I Manga 2', 'GI' */

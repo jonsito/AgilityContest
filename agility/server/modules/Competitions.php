@@ -90,8 +90,8 @@ class Competitions {
                 /* 2048 0000 1000 0000 0000 -> Teams 2       */ /*need to revise. may be false */
                 /* 4096 0001 0000 0000 0000 -> Teams 3       */ /*need to revise. may be false */
                 /* 8192 0010 0000 0000 0000 -> Games / WAO   */
-                /*16384 0100 0000 0000 0000 -> Junior */
-                /*32768 1000 0000 0000 0000 -> undefined     */
+                /*16384 0100 0000 0000 0000 -> Junior       */
+                /*32768 1000 0000 0000 0000 -> Senior       */
                 "ValidRounds" => bindec('1111111111111111')
             )
         );

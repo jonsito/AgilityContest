@@ -131,10 +131,11 @@ $('#seljornada-Jornada').combogrid({
 		{ field:'Equipos3',		width:8, sortable:false,	align:'center', title: 'Eq.Best' },
 		{ field:'Equipos4',		width:8, sortable:false,	align:'center', title: 'Eq.Comb' },
 		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'PreAg. ' },
-		{ field:'Junior',	    width:8, sortable:false,	align:'center', title: 'Junior ' },
+        { field:'Junior',	    width:8, sortable:false,	align:'center', title: 'Junior ' },
+        { field:'Senior',	    width:8, sortable:false,	align:'center', title: 'Senior ' },
 		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ' },
         { field:'Especial',		width:8, sortable:false,	align:'center', title: '<?php _e('Special');?>' },
-        { field:'Cerrada',		width:8, sortable:false,	align:'center', formatter: formatCerrada,title: '<?php _e('Closed');?>' }
+        { field:'Cerrada',		width:6, sortable:false,	align:'center', formatter: formatCerrada,title: '<?php _e('Closed');?>' }
     ]],
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerate';

@@ -240,7 +240,14 @@ class Federations {
                 100 => 'Junior 2 Medium',
                 101 => 'Junior 2 Small',
                 102 => 'Junior 2 Toy',
-
+                103 => 'Senior 1 Large',
+                104 => 'Senior 1 Medium',
+                105 => 'Senior 1 Small',
+                106 => 'Senior 1 Toy',
+                107 => 'Senior 2 Large',
+                108 => 'Senior 2 Medium',
+                109 => 'Senior 2 Small',
+                110 => 'Senior 2 Toy'
             ),
             'TipoMangas' => array(
                 0 => array(0, 'Nombre Manga largo', 'Grado corto', 'Nombre manga', 'Grado largo', 'IsAgility'),
@@ -280,6 +287,8 @@ class Federations {
                 // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
                 32 => array(32, 'Junior Round 1', 'Jr', 'Junior 1', 'Jr. 1', 1),
                 33 => array(33, 'Junior Round 2', 'Jr', 'Junior 2', 'Jr. 2', 2),
+                34 => array(34, 'Senior Round 1', 'Sr', 'Senior 1', 'Sr. 1', 1),
+                35 => array(35, 'Senior Round 2', 'Sr', 'Senior 2', 'Sr. 2', 2),
             ),
             'TipoRondas' => array(
                 /* 0 */ array(0,	''),
@@ -299,6 +308,7 @@ class Federations {
                 /*14 */ array(4096,	_('Teams (3)') ),
                 /*15 */ array(8192,	_('Games / WAO') ),
                 /*16 */ array(16384,_('Junior') ),
+                /*16 */ array(32768,_('Senior') )
             )
         );
     }

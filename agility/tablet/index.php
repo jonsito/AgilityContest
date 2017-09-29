@@ -317,6 +317,7 @@ $('#seltablet-Jornada').combogrid({
 		{ field:'Hora',			hidden:true},
         { field:'PreAgility',	width:7, sortable:false,	align:'center', title: 'PreAg. ', formatter:formatOk },
         { field:'Junior',	    width:7, sortable:false,	align:'center', title: 'Junior ', formatter:formatOk },
+        { field:'Senior',	    width:7, sortable:false,	align:'center', title: 'Senior ', formatter:formatOk },
 		{ field:'Grado1',		width:7, sortable:false,	align:'center', title: 'G-I    ', formatter:formatOk },
 		{ field:'Grado2',		width:7, sortable:false,	align:'center', title: 'G-II   ', formatter:formatOk },
 		{ field:'Grado3',		width:7, sortable:false,	align:'center', title: 'G-III  ', formatter:formatOk },
@@ -324,7 +325,7 @@ $('#seltablet-Jornada').combogrid({
 		{ field:'Equipos3',		width:7, sortable:false,	align:'center', title: 'Eq.Best', formatter:formatOk },
 		{ field:'Equipos4',		width:7, sortable:false,	align:'center', title: 'Eq.Comb', formatter:formatOk },
 		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.   ', formatter:formatOk },
-		{ field:'Especial',		width:7, sortable:false,	align:'center', title: 'Show   ', formatter:formatOk }
+		{ field:'Especial',		width:6, sortable:false,	align:'center', title: 'Show   ', formatter:formatOk }
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerate';

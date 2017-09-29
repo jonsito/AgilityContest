@@ -64,7 +64,13 @@ $config =Config::getInstance();
                 <input id="jornadas-Junior" name="Junior" class="easyui-checkbox"
                        type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Junior',0x4000)"/>
             </div>
-            
+
+            <div class="fitem">
+                <label for="jornadas-Senior" style="width:150px" ><span id="jornadas-SeniorName">Senior</span></label>
+                <input id="jornadas-Senior" name="Senior" class="easyui-checkbox"
+                       type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Senior',0x8000)"/>
+            </div>
+
             <div class="fitem">
                 <label for="jornadas-Grado1" style="width:150px" ><span id="jornadas-Grado1Name">Grade I</span></label>
                 <input type="hidden" id="jornadas-Grado1" name="Grado1" value="1">
@@ -155,6 +161,7 @@ $config =Config::getInstance();
             // fix names for PreAgility, Grade 1,II and III
             $('#jornadas-PreAgilityName').html(workingData.datosFederation.ListaGrados['P.A.']);
             $('#jornadas-JuniorName').html(workingData.datosFederation.ListaGrados['Jr']);
+            $('#jornadas-SeniorName').html(workingData.datosFederation.ListaGrados['Sr']);
             $('#jornadas-Grado1Name').html(workingData.datosFederation.ListaGrados['GI']);
             $('#jornadas-Grado2Name').html(workingData.datosFederation.ListaGrados['GII']);
             $('#jornadas-Grado3Name').html(workingData.datosFederation.ListaGrados['GIII']);
