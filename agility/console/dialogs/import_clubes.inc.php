@@ -84,7 +84,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             idField: 'ID',
             textField: 'Nombre',
             url: '/agility/server/database/clubFunctions.php',
-            queryParams: { Operation:'enumerate', Federation: workingData.federation },
+            queryParams: { Operation:'enumerate' },
             method: 'get',
             mode: 'remote',
             columns: [[
@@ -93,6 +93,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 {field:'Provincia', title:'<?php _e("Province"); ?>',   width:'25%',align:'right'},
                 {field:'Pais',      title:'<?php _e("Country"); ?>',    width:'15%',align:'right'}
             ]],
+            onBeforeLoad:function(params) {
+                params.Federation=workingData.federation;
+                params.Operation='enumerate';
+                return true;
+            },
             multiple: false,
             fitColumns: true,
             singleSelect: true
