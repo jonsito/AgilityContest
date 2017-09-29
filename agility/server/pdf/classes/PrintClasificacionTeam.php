@@ -271,7 +271,7 @@ class PrintClasificacionTeam extends PrintCommon {
 	}
 	
 	function writeCell($idx,$row,$team) {
-	    $this->myLogger->trace("row: ".json_encode($row));
+	    // $this->myLogger->trace("row: ".json_encode($row));
 		$wide=$this->federation->get('WideLicense');
 		if ($this->useLongNames) $wide=false;
         $this->ac_row($idx,8);
