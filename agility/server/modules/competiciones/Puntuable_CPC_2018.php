@@ -1,6 +1,5 @@
 <?php
-require_once(__DIR__ . "/Liga_RFEC.php");
-
+require_once(__DIR__ . "/../../database/classes/DBObject.php");
 /*
 Liga_RFEC.php
 
@@ -18,18 +17,31 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-class Liga_RFEC_Madrid extends Liga_RFEC {
+class Puntuable_CPC_2018 extends Competitions {
 
-    function __construct() {
-        parent::__construct("Prueba puntuable Liga RFEC Madrid - 2018");
-        $this->federationID=1;
-        $this->competitionID=2;
-        $this->moduleVersion="1.1.0";
+    protected $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
+    protected $pfoffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
+
+    protected $myDBObject;
+
+    function __construct($name="Prueba puntuable CPC 2018") {
+        parent::__construct($name);
+        $this->federationID=4;
+        $this->competitionID=0;
         $this->moduleRevision="20170930_1427";
+        $this->myDBObject=new DBObject("Prueba untuable CPC 2018");
     }
 
-    function getModuleInfo($contact = null)  {
-        return parent::getModuleInfo("yvonneagility@fecaza.com");
+    /**
+     * @param {array} $perro dog data
+     * @return bool
+     */
+    protected function isInLeague($perro) {
+        // como los datos del perro vienen de la tabla resultado, el DogID se obtiene del campo 'Perro'
+        $str="SELECT Pais from PerroGuiaClub WHERE ID={$perro['Perro']}";
+        $obj=$this->myDBObject->__selectObject("*","PerroGuiaClub","ID={$perro['Perro']}");
+        // si el perro no es de un club portugues se retorna false; else true
+        return ($obj->Pais==="POR");
     }
 
     /**
@@ -41,23 +53,22 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
     public function evalPartialCalification($m,&$perro,$puestocat) {
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
-        if ($grad!=="GII") { // solo se puntua en grado II
+        if ($grad!=="GIII") { // solo se puntua en grado III
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         if (!$this->isInLeague($perro)) { // do not get league points if competitor does not belong to current zone
             $this->poffset[$cat]++; // properly handle puestocat offset
-            Competitions::evalPartialCalification($m,$perro,$puestocat);
+            parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
-        $ptsmanga=array("7","5","3","2","1"); // puntos por manga y puesto
+        $ptsmanga=array("5","4","3","2","1"); // puntos por manga y puesto
         $pt1=0;
         if ($perro['Penalizacion']<6.0) $pt1++; // 1 punto por excelente
-        if ($perro['Penalizacion']==0.0) $pt1+=2; // 3 puntos por cero
-        // puntos a los 5 primeros de la zona liguera por manga/categoria tienen excelente o muy bueno
-        // en madrid se permite que los perros NC puntuen
+        if ($perro['Penalizacion']==0.0) $pt1++; // 2 puntos por cero
+        // puntos a los 5 primeros de la zona liguera por manga/categoria si no estan eliminados o NC
         $puesto=$puestocat[$cat]-$this->poffset[$cat];
-        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<16) ) {
+        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<26) ) {
             if ($puesto<=5) $pt1+= $ptsmanga[$puesto-1];
         } else { // no points or not qualified; discard
             parent::evalPartialCalification($m,$perro,$puestocat);
@@ -114,7 +125,7 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         $grad = $perro['Grado']; // cogemos el grado
         $cat = $perro['Categoria']; // cogemos la categoria
 
-        // si no grado II no se puntua
+        // si no grado III no se puntua
         if ($grad !== "GII") {
             if ( ($resultados[0]==null) || ($resultados[1]==null)) {
                 $perro['Calificacion']= " ";
@@ -137,7 +148,7 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
             return;
         }
 
-        $ptsglobal = array("15", "12", "9", "7", "6", "5", "4", "3", "2", "1"); //puestos por general si tiene excelente o muy bueno
+        $ptsglobal = array("15", "12", "9", "7", "6", "5", "4", "3", "2", "1"); //puestos por general (si no NC o Elim en alguna manga)
 
         // manga 1
         $pt1 = "0";
@@ -147,14 +158,19 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         }
         // manga 2
         $pt2="0";
-        if ($resultados[1] !== null) { // extraemos los puntos de la segunda manga
+        if ($resultados[1]!==null) { // extraemos los puntos de la segunda manga
             $x=trim(substr($perro['C2'],-2));
             $pt2=(is_numeric($x))?$x:"0";
         }
         // conjunta
         $pfin="0";
-        // Temporada 2018 no puntuan en conjunta si tienen alguna manga con mas de 15.99
-        if ( ($perro['P1']>=16.0) || ($perro['P2']>=16.0) ) {
+        // si falta alguna manga no puntua
+        if ( ($resultados[0]===null) || ($resultados[1]===null)) {
+            $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
+            return;
+        }
+        // si eliminado o no clasificado en alguna manga no puntua
+        if ( ($perro['P1']>=26.0) || ($perro['P2']>=26.0) ) {
             $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
             return;
         }
