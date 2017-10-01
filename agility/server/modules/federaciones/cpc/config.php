@@ -7,7 +7,7 @@ class CPC extends Federations {
         $this->config= array_merge ($this->config, array(
             'ID'    => 4,
             'Name'  => 'CPC',
-            'LongName' => 'Clube Portugu'.json_decode('"\u1EBD"').'s de Canicultura',
+            'LongName' => 'Clube Português de Canicultura',
             // use basename http absolute path for icons, as need to be used in client side
             'OrganizerLogo'     => '/agility/server/modules/federaciones/cpc/cpc.png',
             'Logo'     => '/agility/server/modules/federaciones/cpc/cpc.png',
@@ -214,14 +214,14 @@ class CPC extends Federations {
                 101  => 'Infantil 2 Small',
                 102  => 'Infantil 2 Toy',
                 // mangas para senior
-                103  => 'Veteranos 1 Large',
-                104  => 'Veteranos 1 Medium',
-                105  => 'Veteranos 1 Small',
-                106  => 'Veteranos 1 Toy',
-                107  => 'Veteranos 2 Large',
-                108  => 'Veteranos 2 Medium',
-                109  => 'Veteranos 2 Small',
-                110  => 'Veteranos 2 Toy',
+                103  => 'Agility Veteranos Large',
+                104  => 'Agility Veteranos Medium',
+                105  => 'Agility Veteranos Small',
+                106  => 'Agility Veteranos Toy',
+                107  => 'Jumping Veteranos Large',
+                108  => 'Jumping Veteranos Medium',
+                109  => 'Jumping Veteranos Small',
+                110  => 'Jumping Veteranos Toy',
             ),
             'TipoMangas' => array(
                 0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo',  'IsAgility'),
@@ -263,8 +263,8 @@ class CPC extends Federations {
                 // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
                 32 =>	array( 32,'Infantil Manga 1',	            'Jr',	'Infantil 1',	    'Jr. 1',        1),
                 33 => 	array( 33,'Infantil Manga 2',	            'Jr',	'Infantil 2',	    'Jr. 2',        2),
-                34 =>	array( 32,'Veteranos Manga 1',	            'Sr',	'Veteranos 1',	    'Sr. 1',        1),
-                35 => 	array( 33,'Veteranos Manga 2',	            'Sr',	'Veteranos 2',	    'Sr. 2',        2),
+                34 =>	array( 32,'Agility Veteranos',	            'Sr',	'Agility Vet.',	    'Ag Sr.',        1),
+                35 => 	array( 33,'Jumping Veteranos',	            'Sr',	'Jumping Vet',	    'Jp Sr.',        2),
             )
         ));
     }

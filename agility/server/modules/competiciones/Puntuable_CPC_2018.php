@@ -19,6 +19,32 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 class Puntuable_CPC_2018 extends Competitions {
 
+    // asignacion de puntos en la temporada 2018
+
+    // solo se obtienen puntos en grado 3, infantil y veteranos
+    // en infantil y veteranos se sigue el esquema 'B' de puntos
+    // NOTA IMPORTANTE: PENDING esta implementacion no asigna puntos a infantil/veteranos
+
+    // en grado 3 el esquema a usar depende del numero de perros con licencia en cada categoria
+    // grado 1 y 2 siguen el sistema habitual de excelentes
+
+    // puntos por cada manga
+    // mestizos y extranjeros no puntuan
+    protected $pts_agility=array(
+        'A'=>array(20,17,14,12,10,8,6,4,2,1), // cuando hay mas de 10 perros censados en la categoria/manga
+        'B'=>array(11,8,5,3,1) // cuando hay 10 o menos perros en la categoria/manga
+    );
+    protected $pts_jumping=array(
+        'A'=>array(17,14,11,9,7,5,3,2,1), // cuando hay mas de 10 perros censados en la categoria/manga
+        'B'=>array(8,5,3,1) // cuando hay 10 o menos perros censados en la categoria/manga
+    );
+    // Adicionalmente, en cada manga
+    // 3 puntos por cero
+    // 2 punto por excelente no cero
+
+    // en conjunta adicionalmente si tienen doble cero se puntua el podium tal que
+    protected $ptsglobal = array("3", "2", "1"); //puntos por general (si no NC o Elim en alguna manga)
+
     protected $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
     protected $pfoffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
 
@@ -33,10 +59,13 @@ class Puntuable_CPC_2018 extends Competitions {
     }
 
     /**
+     * Evaluate if a dog is able to obtain qualification points
      * @param {array} $perro dog data
      * @return bool
      */
     protected function isInLeague($perro) {
+        // PENDING los perros mestizos no puntuan
+
         // como los datos del perro vienen de la tabla resultado, el DogID se obtiene del campo 'Perro'
         $str="SELECT Pais from PerroGuiaClub WHERE ID={$perro['Perro']}";
         $obj=$this->myDBObject->__selectObject("*","PerroGuiaClub","ID={$perro['Perro']}");
@@ -62,15 +91,23 @@ class Puntuable_CPC_2018 extends Competitions {
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
-        $ptsmanga=array("5","4","3","2","1"); // puntos por manga y puesto
+        switch ($cat) {
+            // en la temporada 2018 Standard usa el esquema 'A', y mini-midi usan el esquema 'B'
+            case 'L': $ptsmanga=(isMangaAgility($m->Tipo))? $this->pts_agility['A']: $this->pts_jumping['A']; break;
+            case 'M': $ptsmanga=(isMangaAgility($m->Tipo))? $this->pts_agility['B']: $this->pts_jumping['B']; break;
+            case 'S': $ptsmanga=(isMangaAgility($m->Tipo))? $this->pts_agility['B']: $this->pts_jumping['B']; break;
+            default: $ptsmanga=array(); // should not happen
+        }
         $pt1=0;
-        if ($perro['Penalizacion']<6.0) $pt1++; // 1 punto por excelente
-        if ($perro['Penalizacion']==0.0) $pt1++; // 2 puntos por cero
-        // puntos a los 5 primeros de la zona liguera por manga/categoria si no estan eliminados o NC
+        if ($perro['Penalizacion']<6.0) $pt1+=2; // 2 punto por excelente
+        if ($perro['Penalizacion']==0.0) $pt1++; // 3 puntos por cero
+        // puntos a los count(ptsmanga) primeros por manga/categoria si no estan eliminados o NC
         $puesto=$puestocat[$cat]-$this->poffset[$cat];
         if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<26) ) {
-            if ($puesto<=5) $pt1+= $ptsmanga[$puesto-1];
-        } else { // no points or not qualified; discard
+            // if puesto has points assign them
+            if ($puesto<=count($ptsmanga)) $pt1+= $ptsmanga[$puesto-1];
+        } else {
+            // no points or not qualified; discard
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
@@ -126,7 +163,7 @@ class Puntuable_CPC_2018 extends Competitions {
         $cat = $perro['Categoria']; // cogemos la categoria
 
         // si no grado III no se puntua
-        if ($grad !== "GII") {
+        if ($grad !== "GIII") {
             if ( ($resultados[0]==null) || ($resultados[1]==null)) {
                 $perro['Calificacion']= " ";
             } else { // se coge la peor calificacion
@@ -136,7 +173,7 @@ class Puntuable_CPC_2018 extends Competitions {
             return;
         }
 
-        // los "extranjeros no puntuan
+        // los "extranjeros" y "mestizos" no puntuan
         if (!$this->isInLeague($perro)) {
             $this->pfoffset[$cat]++; // properly handle puestocat offset
             if ( ($resultados[0]==null) || ($resultados[1]==null)) {
@@ -147,8 +184,6 @@ class Puntuable_CPC_2018 extends Competitions {
             }
             return;
         }
-
-        $ptsglobal = array("15", "12", "9", "7", "6", "5", "4", "3", "2", "1"); //puestos por general (si no NC o Elim en alguna manga)
 
         // manga 1
         $pt1 = "0";
@@ -169,15 +204,15 @@ class Puntuable_CPC_2018 extends Competitions {
             $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
             return;
         }
-        // si eliminado o no clasificado en alguna manga no puntua
-        if ( ($perro['P1']>=26.0) || ($perro['P2']>=26.0) ) {
+        // si no tiene doble excelente no puntua en la general
+        if ( ($perro['P1']!=0) || ($perro['P2']!=0) ) {
             $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
             return;
         }
         // evaluamos puesto real una vez eliminados los "extranjeros"
         $puesto=$puestocat[$cat]-$this->pfoffset[$cat];
-        // si esta entre los 10 primeros cogemos los puntos
-        if ($puesto<11) $pfin=$ptsglobal[$puesto-1];
+        // si esta entre los puestos con derecho a punto, se coge
+        if ($puesto<=count($this->ptsglobal)) $pfin=$this->ptsglobal[$puesto-1];
         // y asignamos la calificacion final
         $perro['Calificacion']="$pt1 - $pt2 - $pfin";
     }
