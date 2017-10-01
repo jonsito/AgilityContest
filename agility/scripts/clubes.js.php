@@ -177,6 +177,7 @@ function saveClub(){
     if ( $('#clubes-RFEC').is(':checked') ) fed |=2;
     if ( $('#clubes-Nat4').is(':checked') ) fed |=4;
     if ( $('#clubes-Nat3').is(':checked') ) fed |=8;
+    if ( $('#clubes-CPC').is(':checked') ) fed |=16;
     $('#clubes-Federations').val(fed);
     $.ajax({
         type: 'GET',

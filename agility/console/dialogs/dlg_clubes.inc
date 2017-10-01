@@ -89,14 +89,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <input id="clubes-GPS" name="GPS" type="text" style="width:250px"/>
         </div>
         <div class="fitem">
-            <span><?php _e('Fed.');?>: </span>
+            <span><?php _e('Feds');?>.: </span>
             <label for="clubes-RSCE" style="text-align:right;"><?php _e('RSCE'); ?></label>
             <input id="clubes-RSCE" type="checkbox" value="1" name="RSCE"/>
-            <label for="clubes-RFEC" style="text-align:right;width:50px;"><?php _e('RFEC'); ?></label>
+            <label for="clubes-RFEC" style="text-align:right;width:40px;"><?php _e('RFEC'); ?></label>
             <input id="clubes-RFEC" type="checkbox" value="2" name="RFEC"/>
-            <label for="clubes-Nat4" style="text-align:right;width:50px;"><?php _e('Nat4'); ?></label>
+            <label for="clubes-CPC" style="text-align:right;width:40px;"><?php _e('CPC'); ?></label>
+            <input id="clubes-CPC" type="checkbox" value="16" name="CPC"/>
+            <label for="clubes-Nat4" style="text-align:right;width:40px;"><?php _e('Nat4'); ?></label>
             <input id="clubes-Nat4" type="checkbox" value="4" name="Nat4"/>
-            <label for="clubes-Nat3" style="text-align:right;width:50px;"><?php _e('Nat3'); ?></label>
+            <label for="clubes-Nat3" style="text-align:right;width:40px;"><?php _e('Nat3'); ?></label>
             <input id="clubes-Nat3" type="checkbox" value="8" name="Nat3"/>
             <input id="clubes-Federations" name="Federations" type="hidden"/>
         </div>
