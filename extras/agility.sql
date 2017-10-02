@@ -142,7 +142,7 @@ CREATE TABLE `eventos` (
   PRIMARY KEY (`ID`),
   KEY `Eventos_Session` (`Session`),
   CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`Session`) REFERENCES `sesiones` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1460 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1462 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -179,7 +179,7 @@ CREATE TABLE `guias` (
   KEY `Guias_Nombre` (`Nombre`),
   KEY `Guias_Club` (`Club`),
   CONSTRAINT `Guias_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `clubes` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2360 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2371 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +207,7 @@ CREATE TABLE `importdata` (
   `NombreClub` varchar(255) NOT NULL,
   `Pais` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -422,7 +422,7 @@ CREATE TABLE `perros` (
   CONSTRAINT `Perros_ibfk_1` FOREIGN KEY (`Categoria`) REFERENCES `categorias_perro` (`Categoria`) ON UPDATE CASCADE,
   CONSTRAINT `Perros_ibfk_2` FOREIGN KEY (`Grado`) REFERENCES `grados_perro` (`Grado`) ON UPDATE CASCADE,
   CONSTRAINT `Perros_ibfk_3` FOREIGN KEY (`Guia`) REFERENCES `guias` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3167 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3188 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -540,7 +540,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1149 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1151 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3959,7 +3959,18 @@ INSERT INTO `guias` VALUES
 (2356,'Rocio Moral',NULL,NULL,70,1,NULL,'A'),
 (2357,'Raquel Garrido Ortiz',NULL,NULL,70,1,NULL,'A'),
 (2358,'Javier Martin',NULL,NULL,88,1,NULL,'A'),
-(2359,'Javier Rosado Rodriguez','','',115,1,'','-');
+(2359,'Javier Rosado Rodriguez','','',115,1,'','-'),
+(2360,'Livia	Nogueira',NULL,NULL,114,4,NULL,'A'),
+(2361,'Zsuzsa Veres',NULL,NULL,114,4,NULL,'A'),
+(2362,'Marta Martins',NULL,NULL,114,4,NULL,'A'),
+(2363,'Hugo Santos',NULL,NULL,114,4,NULL,'A'),
+(2364,'Vera	Neves',NULL,NULL,114,4,NULL,'A'),
+(2365,'Sofia	Narciso',NULL,NULL,114,4,NULL,'A'),
+(2366,'Luís	Narciso',NULL,NULL,114,4,NULL,'A'),
+(2367,'Isabel Guedes',NULL,NULL,652,4,NULL,'A'),
+(2368,'Luis Sousa',NULL,NULL,652,4,NULL,'A'),
+(2369,'Joao Sousa',NULL,NULL,652,4,NULL,'A'),
+(2370,'Sergio Sousa',NULL,NULL,664,4,NULL,'A');
 /*!40000 ALTER TABLE `guias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -12339,7 +12350,28 @@ INSERT INTO `perros` VALUES
 (3163,'Vera','','','','S',2355,0,'P.A.','','F',''),
 (3164,'Vilma','','','2017280393P160000009','M',2356,1,'GII','','',''),
 (3165,'Magic','','','2017280393P160000008','M',2357,1,'GII','','',''),
-(3166,'Arashi','','','2016280395P160000003','M',2358,1,'GII','','','');
+(3166,'Arashi','','','2016280395P160000003','M',2358,1,'GII','','',''),
+(3167,'Carolina','Cocker Spaniel','','1588','S',2360,4,'GIII','','-',''),
+(3168,'Zahara','Pastor De	Shetland','','1587','S',2360,4,'GIII','','-',''),
+(3169,'Eta','','','','M',2361,4,'GIII','','-',''),
+(3170,'Up','Border Collie','','','L',2361,4,'P.A.','','-',''),
+(3171,'Evita','Parson Terrier','','1341','S',2362,4,'GIII','','-',''),
+(3172,'Sushi','Border Collie','','1340','L',2362,4,'GIII','','-',''),
+(3173,'Just','Border Collie','','','L',2363,4,'GIII','','-',''),
+(3174,'Nikki','Border Collie','','1753','L',2364,4,'GII','','-',''),
+(3175,'Rhia','Yorkshire','','1353','S',2364,4,'P.A.','','-',''),
+(3176,'Salina','Pastor De Shetland','','1839','M',2365,4,'GII','','-',''),
+(3177,'Salty','Pastor De Shetland','','1098','S',2365,4,'GIII','','-',''),
+(3178,'Sheepy','Pastor De Shetland','','1253','S',2365,4,'GIII','','-',''),
+(3179,'Spicy','Pastor De	Shetland','','1126','M',2366,4,'GIII','','-',''),
+(3180,'Chanelle','Border Collie','','871','L',2367,4,'GIII','','-',''),
+(3181,'Shakira Iii','Border Collie','','1834','L',2367,4,'GII','','-',''),
+(3182,'Lash','Border Collie','','1073','L',2368,4,'GIII','','-',''),
+(3183,'Sunday','Parson Russel','','','S',2368,4,'P.A.','','-',''),
+(3184,'Toffy','Border Collie','','916','L',2368,4,'GIII','','-',''),
+(3185,'Stradi','Border Collie','','1337','L',2369,4,'GIII','','-',''),
+(3186,'Cat','','','','L',2370,4,'GII','','F',''),
+(3187,'Turbo Toby','','','','L',2370,4,'GIII','','M','');
 /*!40000 ALTER TABLE `perros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -27877,7 +27909,7 @@ INSERT INTO `sesiones` VALUES
 (890,'Console','mayte - Mayte Pérez',9,'Ut6bwQ9ETDge8nOP',0,0,0,0,'',NULL,NULL,NULL,'2016-09-25 06:24:47'),
 (1056,'Console','jantonio - ',7,'ym1V8OMAajGIegPh',0,0,0,0,'',NULL,NULL,NULL,'2017-02-18 12:49:16'),
 (1145,'Console','operator - Operador de consola',4,'27JYt5MezuHNPKGg',0,0,0,0,'',NULL,NULL,NULL,'2017-09-28 15:25:57'),
-(1148,'Console','admin - Administrador de la aplicacion',3,'whExYgQIU2jtTZsM',0,0,0,0,'',NULL,NULL,NULL,'2017-10-02 10:06:25');
+(1150,'Console','admin - Administrador de la aplicacion',3,'pP1y0mbnhuq37lZX',0,0,0,0,'',NULL,NULL,NULL,'2017-10-02 12:40:39');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
