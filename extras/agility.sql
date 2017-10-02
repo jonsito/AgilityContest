@@ -62,7 +62,7 @@ CREATE TABLE `clubes` (
   KEY `Clubes_Nombre` (`Nombre`),
   KEY `Clubes_Provincia` (`Provincia`),
   CONSTRAINT `Clubes_ibfk_1` FOREIGN KEY (`Provincia`) REFERENCES `provincias` (`Provincia`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=674 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=680 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +142,7 @@ CREATE TABLE `eventos` (
   PRIMARY KEY (`ID`),
   KEY `Eventos_Session` (`Session`),
   CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`Session`) REFERENCES `sesiones` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1459 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1460 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -540,7 +540,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1148 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1149 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -587,7 +587,7 @@ CREATE TABLE `tipo_manga` (
   KEY `Descripcion` (`Descripcion`),
   KEY `Grado` (`Grado`),
   CONSTRAINT `Tipo_Manga_ibfk_1` FOREIGN KEY (`Grado`) REFERENCES `grados_perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -782,9 +782,8 @@ INSERT INTO `clubes` VALUES
 (109,'El Almendral','\"\"','Carretera de Puerto Real A Paterna','11510 Puerto Real','Cádiz','ESP','687549471','661766368','856211468','','http://www.educatuperro.net/index.html','club@elalmendral.es','','','','el_almendral.png',1,'',0),
 (110,'Careacan León','\"\"','','','León','ESP','','','','','','','','','','careacan_len.png',1,'',0),
 (111,'Salve','\"\"','Barrio Sámano, 36','39709 Castro Urdiales','Cantabria','ESP','+ 34 609 42 42 23 ','','','','https://www.facebook.com/agilitysalve','agilitysalve7@hotmail.com','','','','salve.png',3,'',0),
-(112,'Catuga','\"\"','','','-- Sin asignar --','POR','','','','','','','','','','rsce.png',1,'',0),
 (113,'Agility Coruña','\"\"','Lugar de Samoedo, s/n','15160 Sada','Coruña, A','ESP','+ 34 617 20 36 66','+ 34 981 77 41 56','','','http://www.agilitycoruna.es/','agilitycoruna@galicia.com','','','','agility_corua.png',1,'',0),
-(114,'Future Dogs','\"\"','','','-- Sin asignar --','POR','','','','','','','','','','just_agility.png',1,'',0),
+(114,'Future Dogs','\"\"','Rua dos Cedros, nº1','2635-033 Albarraque Sintra','-- Sin asignar --','POR','351 918 624 155','','','','http://www.futuredogs.com','vfuturedogs@sapo.pt','https://www.facebook.com/pg/futuredogsportugal','','@futuredogsportugal','just_agility.png',17,'',0),
 (115,'Agility Indoor Madrid','\"\"','Avenida de Madrid, 74','28500 Arganda del Rey','Madrid','ESP',' +34 687 99 38 16 ','+ 34 627 98 55 65','','','http://www.agilityindoormadrid.com/','info@agilityindoormadrid.com','','','','agility_indoor_madrid.png',3,'',0),
 (116,'Magic Aility Team','\"\"','','','Balears, Illes','ERI','','','','','','','','','','rsce.png',1,'',0),
 (381,'Córdoba','\"\"','Ctra de Palma del Río, kmt 9.5','14710 Villarrubia','Córdoba','ESP','686937520','609490979','','','','info@adiestramientocordoba.com','','','','crdoba.png',3,'',0),
@@ -1056,8 +1055,8 @@ INSERT INTO `clubes` VALUES
 (647,'A. C. Yelcan','\"\"','','Yeles','Toledo','ESP','Antonio 616995412','David 639629758','Raquel 654995745','','','acyelcan@gmail.com','','','','ac_yelcan.png',2,'',0),
 (648,'Rivalcan','\"\"','','','Barcelona','ESP','','','','','','','','','','rivalcan.png',1,'',0),
 (649,'Wecan','\"\"','','','-- Sin asignar --','ESP','','','','','','','','','','rsce.png',0,'',0),
-(651,'Caniclube','\"\"','','','-- Sin asignar --','POR','','','','','','','','','','rsce.png',1,'',0),
-(652,'Educacão','\"\"','','','-- Sin asignar --','POR','','','','','','','','','','rsce.png',1,'',0),
+(651,'Caniclube','\"\"','','','-- Sin asignar --','POR','96 2818230','','','','http://caniclube.blogspot.com.es/','caniclube@sapo.pt','https://www.facebook.com/pg/caniclube/','','@caniclube','caniclube.png',17,'',0),
+(652,'Educacão','\"\"','Alvide','CASCAIS','-- Sin asignar --','POR','','','','','http://educa-cao.blogspot.com/','fseducacao@gmail.com','','','','educaco.png',17,'',0),
 (653,'Auba\'s Can','\"\"','07810 Cala de San Vicente (Ibiza)','','Balears, Illes','ESP','661 02 12 68 ','637 13 62 73','','','http://rsce.es/web/aubascan.wordpress.com','aubascanmallorca@gmail.com','','','','aubas_can.png',1,'',0),
 (654,'Agility Artá','\"\"','','','Balears, Illes','ESP','','','','','https://www.facebook.com/pages/Club-Agility-Art%C3%A0/732138980235205','miqueleducadorcanino@hotmail.es','https://www.facebook.com/pages/Club-Agility-Art%C3%A0/732138980235205?','','','agility_art.png',2,'',0),
 (655,'Gran Canaria','\"\"','','','Palmas, Las','ESP','616590910','','','','','','','','','gran_canaria.png',7,'',0),
@@ -1068,7 +1067,7 @@ INSERT INTO `clubes` VALUES
 (661,'Topcan','\"\"',' c/ Molí des Compte 111, ','Establiments, 07010 Palma de Mallorca','Balears, Illes','ESP','670 93 38 85','','','','http://www.topcanagility.com/','daniela@topcanagility.com.','https://www.facebook.com/Club-Agility-TopCan-774824939235014/','','','topcan.png',6,'',0),
 (662,'Wecan','\"\"','Camós, Nigrán','','Pontevedra','ESP','653 90 26 51','','','','','agilitywican@gmail.com','https://www.facebook.com/Wecan-Agility-1685360148409166/about/','','','wecan.png',6,'',0),
 (663,'Dog & Roll','\"\"','La Barraca s/n','33152 Oviedo','Asturias','ESP','639831281','','','','','dog.roll.agility@gmail.com','','','','dog_roll.png',1,'',0),
-(664,'Niki Ladra','\"\"','','','-- Sin asignar --','POR','+351 962 081 987','','','','http://www.nikiladra.com/','nikiladra@gmail.com','','','','niki_ladra.png',1,'',0),
+(664,'Niki Ladra','\"\"','','','-- Sin asignar --','POR','+351 962 081 987','','','','http://www.nikiladra.com/','nikiladra@gmail.com','','','','niki_ladra.png',17,'',0),
 (665,'Sa Roca','\"\"','Carretera Montañana a Peñaflor Km 9,300 ','','Zaragoza','ESP','618 79 44 71','','','','http://www.agilityzaragozasaroca.com/','clubagilitysaroca@gmail.com','','','','sa_roca.png',1,'',0),
 (666,'Aradog','\"\"','Camino la casilla 15','','Zaragoza','ESP','659 28 00 58','','','','','aradogzaragoza@gmail.com','','','','aradog.png',1,'',0),
 (667,'Madocan','\"\"','30710 Paraje Balsamora, 11B','Los Alcázares.','Murcia','ESP','+34 647 212 991','','','','','maria@madocan.com','','','','madocan.png',3,'',0),
@@ -1077,7 +1076,13 @@ INSERT INTO `clubes` VALUES
 (670,'La Japonesa','\"\"','Mexico 13, 4ºA','03008 Alicante','Alicante/Alacant','ESP','','','','','','lajaponesadesax@gmail.com','','','','la_japonesa.png',1,'',0),
 (671,'Gurekan','\"\"','santa apolonia 23','Durango','Bizkaia/Vizcaya','ESP','','','','','http://www.gurekan.com/','info@gurekan.com','','','','rsce.png',3,'',0),
 (672,'Divertidog','\"\"','Pablo Neruda s/n','Casarrubelos','Madrid','ESP','','','','','','xihom@yahoo.es','','','','divertidog.png',1,'',0),
-(673,'Ilion','\"\"',' Barrio Sámano, 66B, ','39709 Castro Urdiales, Cantabria','Cantabria','ESP','','','','','','agilityilion5@hotmail.com','','','','ilion.png',1,'',0);
+(673,'Ilion','\"\"',' Barrio Sámano, 66B, ','39709 Castro Urdiales, Cantabria','Cantabria','ESP','','','','','','agilityilion5@hotmail.com','','','','ilion.png',1,'',0),
+(674,'Quinta dos Patudos','\"\"','','','-- Sin asignar --','POR','','','','','http://www.quintadospatudos.pt/index.php','quinta.patudos@gmail.com','','','','quinta_dos_patudos.png',17,'',0),
+(675,'No Stress','\"\"','Rua 25 de Abril-Travessa do lavadouro','Sintra','-- Sin asignar --','POR','351 912 369 978','','','','https://nostressteam.wordpress.com','paula.russa@gmail.com','','','@equipano.stress','no_stress.png',17,'',0),
+(676,'Alldogs','\"\"','','','-- Sin asignar --','POR','351 969 975 974','','','37.215630, -8.646998','https://www.facebook.com/centrotreinocanino.alldogs/','alldogstreinocanino@hotmail.com','','','@centrotreinocanino.alldogs','alldogs.png',17,'',0),
+(677,'Bom Cãoportamento','\"\"','Largo do Souto, 227','4460-830 CUSTÓIAS MTS','-- Sin asignar --','POR','916 251 327','','','','http://bomcaoportamento.blogspot.com/','bomcaoportamento.team@gmail.com','','','','bom_coportamento.png',17,'',0),
+(678,'C. C. Alentejo','\"\"','Bairro Residencial da BA11, B-3 - 4.º Dt.º','7800-399 BEJA','-- Sin asignar --','POR','','','','','http://www.ccalentejo.org/','ccalentejo@hotmail.com','','','','c_c_alentejo.png',17,'',0),
+(679,'Os Cãogurus','\"\"','Largo do Mercado, 3 - 2.º Frente','2795-141 LINDA-A-VELHA','-- Sin asignar --','POR','917 219 033','914 016 564','','','http://oscaogurus97.blogspot.com/','oscaogurus@netcabo.pt','','','','os_cogurus.png',17,'',0);
 /*!40000 ALTER TABLE `clubes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2797,7 +2802,7 @@ INSERT INTO `guias` VALUES
 (1130,'Pablo de la Nava','','',60,0,'','A'),
 (1131,'Ana Soto Romero','','',91,0,'','A'),
 (1132,'Jose Ignacio Jordan Moreno','','',91,0,'','A'),
-(1133,'Jorge Pires','','',112,0,'','A'),
+(1133,'Jorge Pires','','',1,0,'','A'),
 (1134,'Elena Giner','','',23,0,'','A'),
 (1135,'Anna Aguilella Segura','','',23,0,'','A'),
 (1136,'Carmen Jurado','','',29,0,'','A'),
@@ -27872,7 +27877,7 @@ INSERT INTO `sesiones` VALUES
 (890,'Console','mayte - Mayte Pérez',9,'Ut6bwQ9ETDge8nOP',0,0,0,0,'',NULL,NULL,NULL,'2016-09-25 06:24:47'),
 (1056,'Console','jantonio - ',7,'ym1V8OMAajGIegPh',0,0,0,0,'',NULL,NULL,NULL,'2017-02-18 12:49:16'),
 (1145,'Console','operator - Operador de consola',4,'27JYt5MezuHNPKGg',0,0,0,0,'',NULL,NULL,NULL,'2017-09-28 15:25:57'),
-(1147,'Console','admin - Administrador de la aplicacion',3,'rsCnIbWMXNlRqvcT',0,0,0,0,'',NULL,NULL,NULL,'2017-09-28 15:43:33');
+(1148,'Console','admin - Administrador de la aplicacion',3,'whExYgQIU2jtTZsM',0,0,0,0,'',NULL,NULL,NULL,'2017-10-02 10:06:25');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -29043,7 +29048,9 @@ INSERT INTO `tipo_manga` VALUES
 (30,'Gumbler','-'),
 (31,'SpeedStakes','-'),
 (32,'Junior 1','Jr'),
-(33,'Junior 2','Jr');
+(33,'Junior 2','Jr'),
+(34,'Senior 1','Sr'),
+(35,'Senior 2','Sr');
 /*!40000 ALTER TABLE `tipo_manga` ENABLE KEYS */;
 UNLOCK TABLES;
 
