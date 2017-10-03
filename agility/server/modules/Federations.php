@@ -358,44 +358,25 @@ class Federations {
     }
 
     /**
-     * Translate requested grade key to federation dependent i18n'd one
-     * @param {string} $key grade as stored in database
-     * @return string resulting i18n'd string
+     * Common function to retrieve i18n'd string matching requested category/grade in long/short format
+     * @param {string} $key Value to search for
+     * @param {string} $name Array to search into
+     * @return {string} i18n'd requested name
      */
-    public function getGrade($key) {
-        if (!array_key_exists($key,$this->config['ListaGrados'])) return _($key);
-        return _($this->config['ListaGrados'][$key]);
+    public function getI18nCatGrade($key,$name) {
+        if (!array_key_exists($name,$this->config)) return _($key);
+        if (!array_key_exists($key,$this->config[$name])) return _($key);
+        return _($this->config[$name][$key]);
     }
 
-    /**
-     * Translate requested category key to federation dependent i18n'd one
-     * @param {string} $key category as stored in database
-     * @return string resulting i18n'd string
-     */
-    public function getCategory($key) {
-        if (!array_key_exists($key,$this->config['ListaCategorias'])) return _($key);
-        return _($this->config['ListaCategorias'][$key]);
-    }
-
-    /**
-     * Translate requested grade key to federation dependent i18n'd one (short name)
-     * @param {string} $key grade as stored in database
-     * @return string resulting i18n'd string
-     */
-    public function getGradeShort($key) {
-        if (!array_key_exists($key,$this->config['ListaGradosShort'])) return _($key);
-        return _($this->config['ListaGradosShort'][$key]);
-    }
-
-    /**
-     * Translate requested category key to federation dependent i18n'd one (short name)
-     * @param {string} $key category as stored in database
-     * @return string resulting i18n'd string
-     */
-    public function getCategoryShort($key) {
-        if (!array_key_exists($key,$this->config['ListaCategoriasShort'])) return _($key);
-        return _($this->config['ListaCategoriasShort'][$key]);
-    }
+    // Translate requested grade key to federation dependent i18n'd one ( long format )
+    public function getGrade($key) { return $this->getI18nCatGrade($key,'ListaGrados');  }
+    // Translate requested category key to federation dependent i18n'd one (long format)
+    public function getCategory($key) { return $this->getI18nCatGrade($key,'ListaCategorias');  }
+    // Translate requested grade key to federation dependent i18n'd one (short name)
+    public function getGradeShort($key) { return $this->getI18nCatGrade($key,'ListaGradosShort');  }
+    // Translate requested category key to federation dependent i18n'd one (short name)
+    public function getCategoryShort($key) { return $this->getI18nCatGrade($key,'ListaCategoriasShort');  }
 
     /**
      * Reserve FedID 0..4 to national events; 5..9 to internationals
@@ -404,35 +385,28 @@ class Federations {
     public function isInternational() { return ( intval($this->config['International']) !=0)?true:false; }
 
     /**
-     * Ask if current federation has Junior rounds
+     * Ask if current federation has rounds of requested type
      * @return bool
      */
-    public function hasJunior() {
-        return array_key_exists('Jr',$this->config['ListaGrados']);
+    public function hasRoundsOf($grade) {
+        return array_key_exists($grade,$this->config['ListaGrados']);
     }
 
-    /**
-     * Ask if current federation has Senior rounds
-     * @return bool
-     */
-    public function hasSenior() {
-        return array_key_exists('Sr',$this->config['ListaGrados']);
-    }
+    public function hasPreAgility() { return $this->hasRoundsOf('P.A.'); }
+    public function hasJunior() { return $this->hasRoundsOf('Jr'); }
+    public function hasSenior() { return $this->hasRoundsOf('Sr'); }
+    public function hasGrade3() { return $this->hasRoundsOf('GIII'); }
 
     /**
      * Ask if this federation has Games rounds.
      * @return bool
      */
-    public function hasGames() {
-        return ($this->config['Games']!==0)?true:false;
-    }
+    public function hasGames() { return ($this->config['Games']!==0)?true:false; }
 
     /**
      * @return string either i18n'd 'Club' or 'Contry' according federation
      */
-    public function getClubString() {
-        return $this->isInternational()?_('Country'):_('Club');
-    }
+    public function getClubString() { return $this->isInternational()?_('Country'):_('Club'); }
 
     /**
      * Generic data getter
