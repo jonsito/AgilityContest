@@ -64,7 +64,7 @@ $config =Config::getInstance();
                 <input id="jornadas-Junior" name="Junior" class="easyui-checkbox"
                        type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Junior',0x4000)"/>
                 <span style="width:25px">&nbsp;</span>
-                <label for="jornadas-Senior" style="text-align:left;width:100px" ><span id="jornadas-SeniorName">Senior</span></label>
+                <label for="jornadas-Senior" style="text-align:right;width:110px" ><span id="jornadas-SeniorName">Senior</span></label>
                 <input id="jornadas-Senior" name="Senior" class="easyui-checkbox"
                        type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Senior',0x8000)"/>
             </div>
@@ -105,13 +105,11 @@ $config =Config::getInstance();
             </div>
             
             <div class="fitem">
-                <label for="jornadas-KO" style="width:150px" ><?php _e('K.O. Round'); ?></label>
+                <label for="jornadas-KO" style="text-align:left;width:150px" ><?php _e('K.O. Round'); ?></label>
                 <input id="jornadas-KO" name="KO" class="easyui-checkbox" 
                 	type="checkbox" value="1" onClick="checkPrueba('#jornadas-KO',0x0100);"/>
-            </div>
-
-            <div class="fitem">
-                <label for="jornadas-Games" style="width:150px" ><?php _e('Games / WAO'); ?></label>
+                <span style="width:25px">&nbsp;</span>
+                <label for="jornadas-Games" style="text-align:right;width:110px" ><?php _e('Games / WAO'); ?></label>
                 <input id="jornadas-Games" name="Games" class="easyui-checkbox"
                        type="checkbox" value="1" onClick="checkPrueba('#jornadas-Games',0x2000);"/>
             </div>
