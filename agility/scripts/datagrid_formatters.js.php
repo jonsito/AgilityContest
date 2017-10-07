@@ -318,13 +318,15 @@ function formatTeamLogos(val,row,idx) {
 /* comodity function to set up round SCT unit based on SCT type */
 function round_setUnit(unit,dest) {
     if (unit==0) $(dest).combobox('setValue','s'); // fixed SCT: set unit to seconds
-    if (unit==6) $(dest).combobox('setValue','m'); // Velocity instead of time/percent: set unit to mts/sec
+    else if (unit==6) $(dest).combobox('setValue','m'); // Velocity instead of time/percent: set unit to mts/sec
+    else $(dest).combobox('setValue','%'); // else assume percentages
 }
 
 /* comodity function to set up round SCT mode based on SCT unit */
 function round_setMode(tipo,dest) {
     if (tipo==='s') $(dest).combobox('setValue',0); // on change to seconds assume fixed sct (most of the cases will match)
     if (tipo==='m') $(dest).combobox('setValue',6); // on change to m/s force speed defined sct
+    if (tipo==='%') $(dest).combobox('setValue',1); // on percentage: assume result plus something
 }
 
 function formatTeamResults( name,value , rows ) {

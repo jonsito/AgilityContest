@@ -183,14 +183,20 @@ class Resultados extends DBObject {
 		// en caso de tener que redondear hacia arriba, procedemos
 		if ($roundUp) $result['trs']=ceil($result['trs']); // redondeamos hacia arriba
 		// Evaluamos TRM
+        $trm_factor=$this->getDatosManga()->{"TRM_{$suffix}_Factor"};
 		switch($this->getDatosManga()->{"TRM_{$suffix}_Tipo"}) {
+            case 6:
+                // Velocidad ( se aplica en wao, donde el trm es 2.8 - 3.0 m/s )
+                // si factor==0 error: ignora y asume trm fijo=0, para que cante en el listado
+                if ($trm_factor!=0) { $result['trm']=ceil($result['dist']/$trm_factor); break; }
+                // no break;
 			case 0: // TRM Fijo
-				$result['trm']=$this->getDatosManga()->{"TRM_{$suffix}_Factor"};
+				$result['trm']=$trm_factor;
 				break;
 			case 1: // TRS + (segs o porcentaje)
 				if ($this->getDatosManga()->{"TRM_{$suffix}_Unit"}==="s")
-				    $result['trm']=$result['trs'] + $this->getDatosManga()->{"TRM_{$suffix}_Factor"}; // ( + X segundos )
-				else $result['trm'] = $result['trs'] * ( (100.0+$this->getDatosManga()->{"TRM_{$suffix}_Factor"}) / 100.0) ; // (+ X por ciento)
+				    $result['trm']=$result['trs'] + $trm_factor; // ( + X segundos )
+				else $result['trm'] = $result['trs'] * ( (100.0+$trm_factor) / 100.0) ; // (+ X por ciento)
 				break;
 		}
 		if ($roundUp) $result['trm']=ceil($result['trm']); // redondeamos hacia arriba
