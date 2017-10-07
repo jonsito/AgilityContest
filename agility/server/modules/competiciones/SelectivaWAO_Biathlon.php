@@ -39,7 +39,7 @@ class SelectivaWAO_Biathlon extends Competitions {
     public function evalPartialCalification($m,&$perro,$puestocat) {
         $cat=$perro['Categoria']; // cogemos la categoria
         // puntos por manga y puesto a los 10 mejores de cada categoria si tienen excelente o muy bien
-        $ptsmanga=array("15","12","18","8","7","6","5","4","3","2");
+        $ptsmanga=array("15","12","10","8","7","6","5","4","3","2");
         $pt1=0;
         $puesto=$puestocat[$cat];
         if ( ($puesto>0) && ($perro['Penalizacion']<16) ) {
