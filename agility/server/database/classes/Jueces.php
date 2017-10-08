@@ -159,7 +159,7 @@ class Jueces extends DBObject {
 			$fedstr=$this->curFederation->isInternational()?"((Internacional!=0) OR (Federations & $intlmask)!=0)":"((Federations & $natmask)!=0)";
 		}
 		$where = "1";
-		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') ) ";
+		if ($search!=='') $where="( (Nombre LIKE '%{$search}%') OR ( Email LIKE '%{$search}%') OR (Pais LIKE '%{$search}%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Jueces",

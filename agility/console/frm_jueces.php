@@ -87,7 +87,7 @@ $config =Config::getInstance();
                 { field:'Nombre',		width:40, sortable:true,	title: '<?php _e('Name'); ?>',formatter:formatBold },
             	{ field:'Direccion1',	width:35,					title: '<?php _e('Address'); ?> 1' },
                 { field:'Direccion2',	width:30,                   title: '<?php _e('Address'); ?> 2' },
-                { field:'Pais',	        width:7,  align:'center',   title: '<?php _e('Country'); ?>' },
+                { field:'Pais',	        width:7, sortable:true,     align:'center',   title: '<?php _e('Country'); ?>' },
             	{ field:'Telefono',		width:25, sortable:true,	title: '<?php _e('Telephone'); ?>' },
               	{ field:'Federations',	hidden:true},
         		{ field:'RSCE',			width:6, sortable:true,    align: 'center', title: '<?php _e('RSCE'); ?>', formatter:juecesRSCE },

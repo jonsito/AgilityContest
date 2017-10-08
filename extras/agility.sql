@@ -1,4 +1,4 @@
--- AgilityContest Version: 3.5.1 Revision: 20170928_1445
+-- AgilityContest Version: 3.5.1 Revision: 20171008_0945
 -- MySQL dump 10.16  Distrib 10.1.26-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: agility
@@ -142,7 +142,7 @@ CREATE TABLE `eventos` (
   PRIMARY KEY (`ID`),
   KEY `Eventos_Session` (`Session`),
   CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`Session`) REFERENCES `sesiones` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1462 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1466 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,7 +295,7 @@ CREATE TABLE `jueces` (
   `Observaciones` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Jueces_Nombre` (`Nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -540,7 +540,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1151 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1155 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -8998,7 +8998,17 @@ INSERT INTO `jueces` VALUES
 (45,'Stefanie Semkat','','','GER','',1,0,'',1,''),
 (46,'Petr Pupik','','','CZE','',1,0,'',1,''),
 (47,'Anabel Arribas','','','ESP','',0,0,'',2,''),
-(48,'Juan Carlos Redondo','','','ESP','',0,0,'',2,'');
+(48,'Juan Carlos Redondo','','','ESP','',0,0,'',2,''),
+(49,'Domingos Carneiro','','CUSTOIAS','POR','',1,0,'bomcaoportamento@gmail.com',16,''),
+(50,'Ana Faria','','LISBOA','POR','',1,0,'casadatais@netcabo.pt',16,''),
+(51,'José Venäncio Pires','','ALCABIDECHE','POR','',1,0,'',16,''),
+(52,'Joäo Sá','','LINDA-A-VELHA','POR','',1,0,'oscaogurus@sapo.pt',17,''),
+(53,'Fernando Silva','','ALCABIDECHE','POR','',1,0,'',16,''),
+(54,'Belmiro Sousa','','RIO TINTO','POR','',1,0,'belmiro68@gmail.com',16,''),
+(55,'Sérgio Sousa','','ESTORIL','POR','',1,0,'sergiopcsousa@gmail.com',16,''),
+(56,'M Edite Vaz','','ERMESINDE','POR','',0,0,'',16,''),
+(57,'Hugo Santos','','ALMARGEM DO BISPO','POR','',1,0,'justagility@gmail.com',17,''),
+(58,'José Caldeira','','ALENQUER','POR','',1,0,'jcaldeira99@gmail.com',16,'');
 /*!40000 ALTER TABLE `jueces` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -27909,7 +27919,7 @@ INSERT INTO `sesiones` VALUES
 (890,'Console','mayte - Mayte Pérez',9,'Ut6bwQ9ETDge8nOP',0,0,0,0,'',NULL,NULL,NULL,'2016-09-25 06:24:47'),
 (1056,'Console','jantonio - ',7,'ym1V8OMAajGIegPh',0,0,0,0,'',NULL,NULL,NULL,'2017-02-18 12:49:16'),
 (1145,'Console','operator - Operador de consola',4,'27JYt5MezuHNPKGg',0,0,0,0,'',NULL,NULL,NULL,'2017-09-28 15:25:57'),
-(1150,'Console','admin - Administrador de la aplicacion',3,'pP1y0mbnhuq37lZX',0,0,0,0,'',NULL,NULL,NULL,'2017-10-02 12:40:39');
+(1154,'Console','admin - Administrador de la aplicacion',3,'hfbVxKGH4OzFYcuI',0,0,0,0,'',NULL,NULL,NULL,'2017-10-08 18:40:49');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -29174,7 +29184,8 @@ INSERT INTO `versionhistory` VALUES
 ('20170808_1441','2017-08-23 10:45:57'),
 ('20170823_2033','2017-08-31 09:18:34'),
 ('20170920_1717','2017-09-20 16:29:46'),
-('20170928_1445','2017-09-28 14:59:13');
+('20170928_1445','2017-09-28 14:59:13'),
+('20171008_0945','2017-10-08 18:33:16');
 /*!40000 ALTER TABLE `versionhistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
