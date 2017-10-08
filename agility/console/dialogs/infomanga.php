@@ -403,7 +403,9 @@ $('#dmanga_Juez1').combogrid({
 	required: false,
 	columns: [[
 	    {field:'ID', hidden:true},
-		{field:'Nombre',title:"<?php _e('Judge name'); ?>",width:70,align:'right'},
+        {field:'Nombre',title:"<?php _e('Judge name'); ?>",width:70,align:'left'},
+        {field:'Internacional',title:"<?php _e('Intl'); ?>",width:10,align:'center',formatter:juecesInternacional},
+        {field:'Practicas',title:"<?php _e('Pract'); ?>",width:10,align:'center',formatter:juecesPracticas},
 		{field:'Email',title:"<?php _e('E-mail'); ?>",width:50,align:'right'}
     ]],
 	multiple: false,
@@ -426,7 +428,9 @@ $('#dmanga_Juez2').combogrid({
 	required: false,
 	columns: [[
 	   	{field:'ID', hidden:true},
-		{field:'Nombre',title:"<?php _e('Judge name'); ?>",width:70,align:'right'},
+		{field:'Nombre',title:"<?php _e('Judge name'); ?>",width:70,align:'left'},
+        {field:'Internacional',title:"<?php _e('Intl'); ?>",width:10,align:'center',formatter:juecesInternacional},
+        {field:'Practicas',title:"<?php _e('Pract'); ?>",width:10,align:'center',formatter:juecesPracticas},
 		{field:'Email',title:"<?php _e('E-mail'); ?>",width:50,align:'right'}
     ]],
 	multiple: false,
