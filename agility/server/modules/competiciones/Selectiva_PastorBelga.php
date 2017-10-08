@@ -54,7 +54,7 @@ class Selectiva_PastorBelga extends Competitions {
     public function evalPartialCalification($m,&$perro,$puestocat) {
         // cogemos la categoria, que en el pastor belga siempre deberia ser L
         $cat=$perro['Categoria'];
-        $pt1="";
+        $pt1=0;
         $puesto=$puestocat[$cat];
         // puntos a los 10 primeros por manga/categoria si no estan eliminados
         if ( ($puesto>0) && ($perro['Penalizacion']<100) && ($puesto<=10) ) {
