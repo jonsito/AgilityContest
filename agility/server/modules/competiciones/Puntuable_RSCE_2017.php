@@ -59,11 +59,14 @@ class Puntuable_RSCE_2017 extends Competitions {
      * @param {object} $manga Round data and trs parameters
      * @param {array} $data Original results provided for evaluation
      * @param {integer} $mode which categories have to be selected
+     * @param {boolean} $roundUp on true round UP SCT and MCT to nearest second
      * @return {array} final data to be used to evaluate trs/trm
      */
-    public function checkAndFixTRSData($manga,$data,$mode=0) {
+    public function checkAndFixTRSData($manga,$data,$mode,&$roundUp) {
         // remember that prueba,jornada and manga are objects, so passed by reference
         $this->prueba->Selectiva = 0; // not really required, just to be sure
+        // en grado 3 el trs lo marca el perro mas rapido + 15% sin redondeo
+        if (($manga->Tipo==6) || ($manga->Tipo==11)) $roundUp=false;
         return $data;
     }
 

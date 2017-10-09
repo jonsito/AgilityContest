@@ -103,12 +103,6 @@ class Resultados extends DBObject {
 	 * @return array('dist','obst','trs','trm','vel') or null on error
 	 */
 	protected function evalTRS($mode,$data) {
-        // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
-        // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
-        // manga actual, sino de la manga padre.
-        // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
-        $comp=$this->getCompetitionObject();
-        $data=$comp->checkAndFixTRSData($this->getDatosManga(),$data,$mode);
 		$result= array();
 		// vemos de donde tenemos que tomar los datos
 		$suffix='L';
@@ -124,6 +118,18 @@ class Resultados extends DBObject {
 			case 7: $suffix='S'; break; // S+T
 			case 8: $suffix="L"; break; // L+M+S+T
 		}
+
+        // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
+        // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
+        // manga actual, sino de la manga padre.
+        // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
+        $roundUp=true; // default is round up SCT and MCT to nearest integer second
+        $comp=$this->getCompetitionObject();
+        $data=$comp->checkAndFixTRSData($this->getDatosManga(),$data,$mode,$roundUp);
+        // si el trs esta especificado con decimales, no se redondea
+        $t=$this->getDatosManga()->{"TRS_{$suffix}_Factor"};
+        if ( $t - (int)$t != 0) $roundUp=false;
+
 		// evaluamos distancia y obstaculos
 		$result['dist']= $this->getDatosManga()->{"Dist_$suffix"};
 		$result['obst']= $this->getDatosManga()->{"Obst_$suffix"};
@@ -174,12 +180,7 @@ class Resultados extends DBObject {
 				$result['trs']=ceil($result['dist']/$factor);
 				break;
 		}
-		// si estamos en una selectiva RSCE, y el factor es 0.0 _NO_ se redondea
-		$roundUp=true;
-		$t=$this->getDatosManga()->{"TRS_{$suffix}_Factor"};
-		if ( ($this->getDatosPrueba()->Selectiva==1) && ($t==0)) $roundUp=false;
-		// si el trs esta especificado con decimales, tampoco se redondea
-		if ( $t - (int)$t != 0) $roundUp=false;
+
 		// en caso de tener que redondear hacia arriba, procedemos
 		if ($roundUp) $result['trs']=ceil($result['trs']); // redondeamos hacia arriba
 		// Evaluamos TRM

@@ -52,7 +52,7 @@ class Copa_PastorBelga extends Selectiva_PastorBelga  {
         return $manga;
     }
 
-    function checkAndFixTRSData($manga,$data,$mode=0) {
+    function checkAndFixTRSData($manga,$data,$mode,&$roundUp) {
         // override selectiva declaration: just use default ( do nothing )
         return $data;
     }
