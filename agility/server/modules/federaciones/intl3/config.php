@@ -21,7 +21,7 @@ class INTL3 extends Federations {
             'International' => 1,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2,
-            'Recorridos' => array('Common course',"Large / Med + Small","Separate courses"),
+            'Recorridos' => array(_('Common course'),_("Large / Med + Small"),_("Separate courses")),
             'ListaGradosShort' => array(
                 '-' => '-',
                 'Jr' => 'Jr.',

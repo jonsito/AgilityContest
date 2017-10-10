@@ -45,7 +45,7 @@ class Federations {
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2, // on rfec may be 3
-            'Recorridos' => array('Common course', 'Standard / Midi + Mini', 'Separate courses'),
+            'Recorridos' => array(_('Common course'), _('Standard / Midi + Mini'), _('Separate courses')),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Jr' => 'Jr.',
@@ -114,7 +114,7 @@ class Federations {
                     "Common course", "Common course", "Common course", "Invalid")
             ),
             'IndexedModes' => array(
-                "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
+                "Large", "Medium", "Small", "Medium+Small", "Common L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",

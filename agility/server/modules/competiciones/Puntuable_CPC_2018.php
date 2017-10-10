@@ -50,12 +50,12 @@ class Puntuable_CPC_2018 extends Competitions {
 
     protected $myDBObject;
 
-    function __construct($name="Prueba puntuable CPC 2018") {
+    function __construct($name="Prova Pontuável Campeonato CPC") {
         parent::__construct($name);
         $this->federationID=4;
         $this->competitionID=0;
         $this->moduleRevision="20170930_1427";
-        $this->myDBObject=new DBObject("Prueba untuable CPC 2018");
+        $this->myDBObject=new DBObject("Prueba puntuable CPC 2018");
     }
 
     /**
