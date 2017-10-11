@@ -17,12 +17,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
-	protected $prueba; // object
-	protected $jornada; // object
-	protected $ronda;
-	protected $mangas;
-    protected $currentDog;
-    protected $current=null;
 
 	/**
 	 * Constructor

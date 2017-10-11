@@ -610,6 +610,18 @@ class Clasificaciones extends DBObject {
 				$r1= Competitions::getResultadosInstance("Clasificaciones::Manga Especial",$idmangas[0]);
 				$c1=$r1->getResultadosIndividual($mode);
 				return $this->evalFinal($idmangas,$c1,null);
+            case 0x1000: // manga games
+                // vemos la modalidad
+                switch( intval($this->jornada->Tipo_Competicion)){
+                    case 1: // penthatlon
+                        // no break;
+                    case 2: // biathlon
+                        break;
+                    case 3: // games
+                        break;
+                    default: $this->errormsg= "Clasificaciones:: Ronda $rondas is not yet supported";
+                        return null;
+                }
 		}
         // arriving here means error
         return null;

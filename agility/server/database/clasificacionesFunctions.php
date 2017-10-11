@@ -39,7 +39,7 @@ try {
 			$mangas[4]=http_request("Manga5","i",0);
 			$mangas[5]=http_request("Manga6","i",0);
 			$mangas[6]=http_request("Manga7","i",0);
-			$mangas[7]=http_request("Manga8","i",0);// mangas 3..8 are used in KO rondas
+			$mangas[7]=http_request("Manga8","i",0);// mangas 3..8 are used in KO and games rounds
 			$result=$c->clasificacionFinal($rondas,$mangas,$mode);
 			break;
 		case "clasificacionEquipos":
