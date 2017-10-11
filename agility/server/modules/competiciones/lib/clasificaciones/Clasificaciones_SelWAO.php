@@ -21,15 +21,40 @@ class Clasificaciones_SelWAO extends Clasificaciones {
     }
 
     /**
-     * Evalua las clasificaciones en funcion de los datos pedidos
-     * @param {integer} $rondas bitfield Jornadas::$tipo_ronda
-     * @param {array[{integer}]} $idmangas array con los ID's de las mangas a evaluar
-     * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T
+     * Method to short final scores based in penalization/time
+     *
+     * for Penthatlon use Penalization scores
+     *  - on same score decide by speedstakes
+     *  - on same decide by AgilityB, Then JumpingB, then AgilityA and last JumpingA
+     *
+     * for biathlon use score points
+     *  - on same scores decide AgilityA+B, then Jumping A+B points
+     *
+     * for games use score points as sorting method
+     *  - on same score decide Gamblers
+     *
+     * @param {array} $final scores
+     * @param {array} $c1 scores for round 1
+     * @param {array} $c2 scores for round 2
+     * @param {array} $c3 scores for round 3
+     * @param {array} $c4 scores for round 4
+     * @param {array} $c5 scores for round 5
+     * @param {array} $c6 scores for round 6
+     * @param {array} $c7 scores for round 7
+     * @param {array} $c8 scores for round 8
      */
-    function clasificacionFinal($rondas,$idmangas,$mode) {
-        // evaluate which journey modality we are playing
-        // penthatlon
-        // biathlon
-        // games
+    protected function sortFinal(&$final,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8) {
+        $tj= intval($this->jornada->Tipo_Competicion);
+        switch ($tj) {
+            case 1: // penthatlon
+                break;
+            case 2: // biathlon
+                break;
+            case 3: // games
+                break;
+            default: // this is not supposed to occur. notify and use default
+                $this->myLogger->error("Clasificaciones:: invalid Tipo_Competicion:{$tj} in jornada:{$this->jornada->ID} in Games rounds");
+                return parent::sortFinal($final,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
+        }
     }
 }
