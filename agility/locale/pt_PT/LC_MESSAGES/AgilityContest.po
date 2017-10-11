@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-10-10 12:22+0200\n"
-"PO-Revision-Date: 2017-10-10 12:24+0200\n"
+"POT-Creation-Date: 2017-10-11 13:12+0200\n"
+"PO-Revision-Date: 2017-10-11 13:14+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -1237,7 +1237,7 @@ msgstr "Pesquisar um concorrente por dorsal"
 #: console/dialogs/dlg_competicion.inc:260
 #: console/dialogs/dlg_ordensalida.inc:233
 msgid "Select categories to work with"
-msgstr "Selecione as categorias a mostrar"
+msgstr "Selecionar as categorias a mostrar"
 
 #: console/dialogs/dlg_configuracion.inc:32 index.php:143
 #: livestream/vwls_finales.php:63 livestream/vwls_finales.php:171
@@ -1417,8 +1417,7 @@ msgstr "Permitir modificações da ordem de saída a partir do tablet"
 
 #: console/dialogs/dlg_configuracion.inc:108
 msgid "Accept button save data and goes to next participant"
-msgstr ""
-"Botão <em>Aceitar</em> guarda dados e salta para o participante seguinte"
+msgstr "<em>Aceitar</em> guarda dados e muda para o concorrente seguinte"
 
 #: console/dialogs/dlg_configuracion.inc:112
 msgid "Enable keyboard when running in laptop/netbook"
@@ -1458,7 +1457,7 @@ msgstr "Mostrar estatísticas de tempo intermédio no vídeo-marcador"
 
 #: console/dialogs/dlg_configuracion.inc:135
 msgid "Action to perform at 15sec countdown end"
-msgstr "Ação para executar no final da contagem decrescente de 15sec"
+msgstr "Após final da contagem decrescente de 15sec"
 
 #: console/dialogs/dlg_configuracion.inc:136
 #: console/dialogs/dlg_entrenamientos.inc:67
@@ -1480,8 +1479,7 @@ msgstr "Eliminar participante"
 
 #: console/dialogs/dlg_configuracion.inc:140
 msgid "On sensor detection when manual chrono is active"
-msgstr ""
-"Ação a tomar quando é o sensor é ativado e o cronómetro está em modo manual"
+msgstr "Sensor é ativado e o cronómetro está em modo manual"
 
 #: console/dialogs/dlg_configuracion.inc:141
 msgid "Start electronic chrono"
@@ -1630,7 +1628,7 @@ msgstr "Parâmetros da transmissão ao vivo"
 
 #: console/dialogs/dlg_configuracion.inc:262
 msgid "Evaluate and show time to get first place"
-msgstr "Calcular e mostrar o tempo necessários para o 1º posto"
+msgstr "Calcular e mostrar o tempo preciso para 1º posto"
 
 #: console/dialogs/dlg_configuracion.inc:266
 msgid "Transparency level for OnScreenDisplay"
@@ -2211,7 +2209,7 @@ msgstr "Recomenda-se uma cópia de segurança antes da importação"
 #: console/dialogs/dlg_entrenamientos.inc:34
 #: lib/templates/import_dialog.inc.php:17
 msgid "Select Excel file to retrieve Dog data from"
-msgstr "Selecione ficheiro Excel para importar dados do cão"
+msgstr "Selecionar ficheiro Excel para importar dados do cão"
 
 #: console/dialogs/dlg_entrenamientos.inc:35
 #: lib/templates/import_dialog.inc.php:18
@@ -2916,7 +2914,7 @@ msgstr "Atualizar lista de módulos de competição"
 
 #: console/dialogs/dlg_printer.inc:25
 msgid "Select document type to be generated"
-msgstr "Selecione o tipo de documento a criar"
+msgstr "Selecionar o tipo de documento a criar"
 
 #: console/dialogs/dlg_printer.inc:32
 msgid "Activities and timetable on this journey"
@@ -3005,7 +3003,7 @@ msgstr "Decidir se pretende enviar o formulário de inscrição em branco"
 
 #: console/dialogs/dlg_pruebas.inc:30
 msgid "Select club(s) to send email to, or choose all"
-msgstr "Selecione clubes e envia correio, ou seleciona todos"
+msgstr "Selecionar clubes e envia correio, ou seleciona todos"
 
 #: console/dialogs/dlg_pruebas.inc:31
 msgid "Make sure that every selected club has a valid email address declared"
@@ -3093,11 +3091,11 @@ msgstr "Local da Prova"
 
 #: console/dialogs/dlg_pruebas.inc:153 console/frm_pruebas.php:99
 msgid "Triptych URL"
-msgstr "URL do Cartaz da prova"
+msgstr "URL do Cartaz"
 
 #: console/dialogs/dlg_pruebas.inc:157 console/frm_pruebas.php:100
 msgid "Brochure URL"
-msgstr "URL do Catálogo da prova"
+msgstr "URL do Catálogo"
 
 #: console/dialogs/dlg_pruebas.inc:201 lib/templates/scores_mail.inc.php:95
 msgid "Edit mail template text to be sent"
@@ -3137,7 +3135,7 @@ msgstr "Lista de vídeo-marcadores ativos"
 
 #: console/dialogs/dlg_remotecontrol.inc:33
 msgid "Choose display(s) to work with"
-msgstr "Selecione os ecrãs para trabalhar com"
+msgstr "Selecionar os ecrãs para trabalhar com"
 
 #: console/dialogs/dlg_remotecontrol.inc:34
 #: console/dialogs/dlg_remotecontrol.inc:127
@@ -3518,11 +3516,11 @@ msgstr "Importar resultados da manga a partir do ficheiro Excel selecionado"
 
 #: console/dialogs/dlg_selectJornada.inc:34
 msgid "Select journey"
-msgstr "Selecione jornada"
+msgstr "Selecionar jornada"
 
 #: console/dialogs/dlg_selectJornada.inc:51
 msgid "Select contest and journey to work with"
-msgstr "Selecione a prova e jornada para trabalhar com"
+msgstr "Selecionar a prova e jornada para trabalhar com"
 
 #: console/dialogs/dlg_selectJornada.inc:124
 msgid "Name/Comments"
@@ -4103,19 +4101,19 @@ msgstr "Dados do juiz auxiliar"
 
 #: console/dialogs/infomanga.php:452
 msgid "Same course for every categories"
-msgstr "Mesmo percurso para todas as classes"
+msgstr "Pista conjunta"
 
 #: console/dialogs/infomanga.php:454
 msgid "Separate courses Standard and Midi/mini"
-msgstr "Percursos separados para Standard e Mini-Midi"
+msgstr "Standard / Midi + Mini"
 
 #: console/dialogs/infomanga.php:456
 msgid "Separate courses Standard/Medium and Small/Tiny"
-msgstr "Percursos separados para Standard/Midi e Mini"
+msgstr "Standard/Midi e Mini"
 
 #: console/dialogs/infomanga.php:458
 msgid "Independent courses for all categories"
-msgstr "Percursos separados para todas as classes"
+msgstr "Pistas Separadas"
 
 #: console/dialogs/infomanga.php:459
 msgid "Restore original round info from database"
@@ -4370,7 +4368,7 @@ msgstr "Nenhuma manga selecionada"
 #: console/frm_clasificaciones2.php:113
 #: console/frm_clasificaciones_equipos.php:127
 msgid "Select format"
-msgstr "Selecione formato"
+msgstr "Selecionar formato"
 
 #: console/frm_clasificaciones2.php:115
 #: console/frm_clasificaciones_equipos.php:129
@@ -5449,11 +5447,11 @@ msgstr "Acerca de"
 
 #: index.php:139
 msgid "Select contest, journey and view"
-msgstr "Selecione prova, jornada e vista"
+msgstr "Selecionar prova, jornada e vista"
 
 #: index.php:151 livestream/index.php:198 videowall/index.php:233
 msgid "Select View"
-msgstr "Selecione a vista"
+msgstr "Selecionar vista"
 
 #: index.php:153 public/pb_inscripciones.php:35
 #: public/pb_inscripciones_equipos.php:35 public/pbmenu_inscripciones.php:38
@@ -5770,7 +5768,7 @@ msgstr "Manga actual para onde importar os dados"
 
 #: lib/templates/import_results_dialog.inc.php:17
 msgid "Select Excel file to retrieve round result data from"
-msgstr "Selecione o ficheiro Excel de onde importar os resultados parciais"
+msgstr "Selecionar o ficheiro Excel de onde importar os resultados parciais"
 
 #: lib/templates/import_results_dialog.inc.php:54
 msgid "Ignore excel entries marked as 'Not Present'"
@@ -5798,7 +5796,7 @@ msgstr ""
 
 #: lib/templates/scores_mail.inc.php:28
 msgid "Revise email addresses and select judge(s) to send email to"
-msgstr "Selecione destinatário e confirme os endereços de email"
+msgstr "Selecionar destinatário e confirme os endereços de email"
 
 #: lib/templates/scores_mail.inc.php:29
 msgid "Also decide whether to send mail copy to Federation"
@@ -5872,7 +5870,7 @@ msgstr "A aprender"
 
 #: livestream/index.php:190 videowall/index.php:224
 msgid "Select ring, display name (optional) and view to deploy"
-msgstr "Selecione ring, nome a exibir ( opcional ) e vista para implantar"
+msgstr "Selecionar ring, nome a exibir ( opcional ) e vista para implantar"
 
 #: livestream/index.php:194 videowall/index.php:229
 msgid "Select Session/Ring"
@@ -5880,7 +5878,7 @@ msgstr "Selecionar Sessão/Ring"
 
 #: livestream/index.php:207
 msgid "Select mode"
-msgstr "Selecione modo"
+msgstr "Selecionar modo"
 
 #: livestream/index.php:209
 msgid "Embedded Video"
@@ -6938,7 +6936,7 @@ msgstr "mais do que uma entrada existente na base de dados"
 #: scripts/import.js.php:105 scripts/import.js.php:145
 #: scripts/import.js.php:187
 msgid "Please select right one or create new entry"
-msgstr "Por favor selecione a correta ou crie uma nova"
+msgstr "Por favor selecionar a correta ou crie uma nova"
 
 #: scripts/import.js.php:109 scripts/import.js.php:149
 #: scripts/import.js.php:191 scripts/import.js.php:233
@@ -6956,7 +6954,7 @@ msgstr "Não encontrado nas inscrições para esta manga"
 
 #: scripts/import.js.php:201
 msgid "Please select existing one, or ignore entry"
-msgstr "Selecione uma entrada existente, ou ignore"
+msgstr "Selecionar uma entrada existente, ou ignore"
 
 #: scripts/import.js.php:213
 msgid "data missmatch with existing one for this round"
@@ -6973,7 +6971,7 @@ msgstr "mais de uma inscrição compatível encontrada nesta manga"
 
 #: scripts/import.js.php:229
 msgid "Please select right one or ask to ignore entry"
-msgstr "Selecione a entrada correta ou carregue ignorar"
+msgstr "Selecionar a entrada correta ou carregue ignorar"
 
 #: scripts/import.js.php:272 scripts/import.js.php:302
 msgid "Import from Excel error"
@@ -7144,7 +7142,7 @@ msgstr "Importar/exportar ficheiro Excel"
 
 #: scripts/inscripciones.js.php:412
 msgid "Choose from available operations"
-msgstr "Selecione uma das operações disponíveis"
+msgstr "Selecionar uma das operações disponíveis"
 
 #: scripts/inscripciones.js.php:425
 msgid "Creating Excel file. Please wait"
@@ -7176,11 +7174,11 @@ msgstr "Inscritos na jornada"
 
 #: scripts/inscripciones.js.php:479
 msgid "Select form"
-msgstr "Selecione formulário"
+msgstr "Selecionar formulário"
 
 #: scripts/inscripciones.js.php:480
 msgid "Select type of document to be generated"
-msgstr "Selecione o tipo de documento a criar"
+msgstr "Selecionar o tipo de documento a criar"
 
 #: scripts/inscripciones.js.php:504
 msgid "Printing inscriptions. Please wait"
@@ -7321,7 +7319,7 @@ msgstr "Imprimir folhas do assistente preenchidas (16 cães/página)"
 
 #: scripts/printer.js.php:305
 msgid "Select output format"
-msgstr "Selecione formato de saída"
+msgstr "Selecionar formato de saída"
 
 #: scripts/printer.js.php:386
 msgid "Dogs with pending data to be entered"
@@ -8186,7 +8184,7 @@ msgstr "Excelente (0)"
 #: server/modules/federaciones/rfec/config.php:24
 #: server/modules/federaciones/rsce/config.php:24
 msgid "Common course"
-msgstr "Recorrigo comum"
+msgstr "Percurso comum"
 
 #: server/modules/Federations.php:24 server/modules/Federations.php:48
 #: server/modules/federaciones/cpc/config.php:23
@@ -8197,7 +8195,7 @@ msgstr "Recorrigo comum"
 #: server/modules/federaciones/rfec/config.php:24
 #: server/modules/federaciones/rsce/config.php:24
 msgid "Separate courses"
-msgstr "Pistas separadas"
+msgstr "Percursos separados"
 
 #: server/modules/Federations.php:25
 msgid "LongName"
@@ -8322,7 +8320,7 @@ msgstr "Std+Midi+Mini"
 #: server/modules/federaciones/intl3/config.php:24
 #: server/modules/federaciones/nat3/config.php:24
 msgid "Large / Med + Small"
-msgstr "Standard / Mini + Midi"
+msgstr "Standard / Midi + Mini"
 
 #: server/modules/federaciones/intl3/config.php:75
 #: server/modules/federaciones/intl3/config.php:76
