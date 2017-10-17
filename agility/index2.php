@@ -288,29 +288,31 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             echon("<h2>{$ptree['Prueba']['Nombre']}</h2>");
             echon('<dl class="menu_enum">');
 
-            // evaluamos datos de la sesion actual
-            $p=$ptree['Current']->Pru;
-            $j=$ptree['Current']->Jor;
-            $mng=$ptree['Current']->Mng;
-            $t=$ptree['Current']->Tnd;
-            foreach($ptree['Jornadas'] as $jornada) {
-                foreach ($jornada['Tandas'] as $tanda) {
-                    if ( ($tanda['Manga']==$mng) && ($tanda['ID']==$t) ) {
-                        // ok. ahora hay que adivinar el mode.
-                        // PENDING: not sure about multicat modes. need to revise
-                        $mode=-1;
-                        switch($tanda['Categoria']){
-                            case 'L':   $mode=0; break;
-                            case 'M':   $mode=1; break;
-                            case 'S':   $mode=2; break;
-                            case 'MS':  $mode=3; break;
-                            case 'LMS': $mode=4; break;
-                            case 'T':   $mode=5; break;
-                            case 'LM':  $mode=6; break;
-                            case 'ST':  $mode=7; break;
-                            case 'LMST':$mode=8; break;
+            // evaluamos datos de la sesion actual si el tablet esta activo
+            if (array_key_exists('Current',$ptree)) {
+                $p=$ptree['Current']->Pru;
+                $j=$ptree['Current']->Jor;
+                $mng=$ptree['Current']->Mng;
+                $t=$ptree['Current']->Tnd;
+                foreach($ptree['Jornadas'] as $jornada) {
+                    foreach ($jornada['Tandas'] as $tanda) {
+                        if ( ($tanda['Manga']==$mng) && ($tanda['ID']==$t) ) {
+                            // ok. ahora hay que adivinar el mode.
+                            // PENDING: not sure about multicat modes. need to revise
+                            $mode=-1;
+                            switch($tanda['Categoria']){
+                                case 'L':   $mode=0; break;
+                                case 'M':   $mode=1; break;
+                                case 'S':   $mode=2; break;
+                                case 'MS':  $mode=3; break;
+                                case 'LMS': $mode=4; break;
+                                case 'T':   $mode=5; break;
+                                case 'LM':  $mode=6; break;
+                                case 'ST':  $mode=7; break;
+                                case 'LMST':$mode=8; break;
+                            }
+                            echon('<dt>Live session now: <a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$mode.');">'.$tanda['Nombre'].'</a></dt><dd>&nbsp;</dd>');
                         }
-                        echon('<dt>Live session now: <a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$mode.');">'.$tanda['Nombre'].'</a></dt><dd>&nbsp;</dd>');
                     }
                 }
             }

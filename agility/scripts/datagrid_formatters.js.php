@@ -96,7 +96,9 @@ function pbRowStyler(idx,row) {
     var c1='<?php echo $config->getEnv('pb_rowcolor1'); ?>';
     var c2='<?php echo $config->getEnv('pb_rowcolor2'); ?>';
     var c3='<?php echo $config->getEnv('pb_rowcolor5'); ?>';
-    if (row.Dorsal == $('#pbmenu-Dorsal').numberbox('getValue') ) return res+c3+";";
+    // pbmenu-Dorsal does not exist in public/index.php, only in index2.php
+    var d=($('#pbmenu-Dorsal').length)?$('#pbmenu-Dorsal').numberbox('getValue'):0;
+    if (row.Dorsal == d ) return res+c3+";";
     if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
@@ -111,7 +113,9 @@ function pbRowStyler2(idx,row) {
     var c1='<?php echo $config->getEnv('pb_rowcolor3'); ?>';
     var c2='<?php echo $config->getEnv('pb_rowcolor4'); ?>';
     var c3='<?php echo $config->getEnv('pb_rowcolor5'); ?>';
-    if (row.Dorsal == $('#pbmenu-Dorsal').numberbox('getValue') ) return res+c3+";";
+    // pbmenu-Dorsal does not exist in public/index.php, only in index2.php
+    var d=($('#pbmenu-Dorsal').length)?$('#pbmenu-Dorsal').numberbox('getValue'):0;
+    if (row.Dorsal == d ) return res+c3+";";
     if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
