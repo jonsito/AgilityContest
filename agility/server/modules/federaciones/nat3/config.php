@@ -17,10 +17,11 @@ class NAT3 extends Federations {
             'Email' => 'info@pirineosdogfestival.com',
             'Heights' => 3,
             'Grades' => 3,
+            'Games' => 0,
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2,
-            'Recorridos' => array("Recorrido comun","Large / Med + Small","Recorridos separados"),
+            'Recorridos' => array(_("Common course"),_("Large / Med + Small"),_("Separate courses")),
             'ListaGradosShort' => array(
                 '-' => '-',
                 'Baja' => 'Out',

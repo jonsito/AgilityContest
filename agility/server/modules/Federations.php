@@ -41,10 +41,11 @@ class Federations {
             'Email' => 'jonsito@www.agilitycontest.es',
             'Heights' => 3,
             'Grades' => 3,
+            'Games' => 0,
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2, // on rfec may be 3
-            'Recorridos' => array('Common course', 'Standard / Midi + Mini', 'Separate courses'),
+            'Recorridos' => array(_('Common course'), _('Standard / Midi + Mini'), _('Separate courses')),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Jr' => 'Jr.',
@@ -113,7 +114,7 @@ class Federations {
                     "Common course", "Common course", "Common course", "Invalid")
             ),
             'IndexedModes' => array(
-                "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
+                "Large", "Medium", "Small", "Medium+Small", "Common L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -240,7 +241,14 @@ class Federations {
                 100 => 'Junior 2 Medium',
                 101 => 'Junior 2 Small',
                 102 => 'Junior 2 Toy',
-
+                103 => 'Senior 1 Large',
+                104 => 'Senior 1 Medium',
+                105 => 'Senior 1 Small',
+                106 => 'Senior 1 Toy',
+                107 => 'Senior 2 Large',
+                108 => 'Senior 2 Medium',
+                109 => 'Senior 2 Small',
+                110 => 'Senior 2 Toy'
             ),
             'TipoMangas' => array(
                 0 => array(0, 'Nombre Manga largo', 'Grado corto', 'Nombre manga', 'Grado largo', 'IsAgility'),
@@ -280,6 +288,8 @@ class Federations {
                 // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
                 32 => array(32, 'Junior Round 1', 'Jr', 'Junior 1', 'Jr. 1', 1),
                 33 => array(33, 'Junior Round 2', 'Jr', 'Junior 2', 'Jr. 2', 2),
+                34 => array(34, 'Senior Round 1', 'Sr', 'Senior 1', 'Sr. 1', 1),
+                35 => array(35, 'Senior Round 2', 'Sr', 'Senior 2', 'Sr. 2', 2),
             ),
             'TipoRondas' => array(
                 /* 0 */ array(0,	''),
@@ -299,6 +309,7 @@ class Federations {
                 /*14 */ array(4096,	_('Teams (3)') ),
                 /*15 */ array(8192,	_('Games / WAO') ),
                 /*16 */ array(16384,_('Junior') ),
+                /*16 */ array(32768,_('Senior') )
             )
         );
     }
@@ -347,44 +358,25 @@ class Federations {
     }
 
     /**
-     * Translate requested grade key to federation dependent i18n'd one
-     * @param {string} $key grade as stored in database
-     * @return string resulting i18n'd string
+     * Common function to retrieve i18n'd string matching requested category/grade in long/short format
+     * @param {string} $key Value to search for
+     * @param {string} $name Array to search into
+     * @return {string} i18n'd requested name
      */
-    public function getGrade($key) {
-        if (!array_key_exists($key,$this->config['ListaGrados'])) return _($key);
-        return _($this->config['ListaGrados'][$key]);
+    public function getI18nCatGrade($key,$name) {
+        if (!array_key_exists($name,$this->config)) return _($key);
+        if (!array_key_exists($key,$this->config[$name])) return _($key);
+        return _($this->config[$name][$key]);
     }
 
-    /**
-     * Translate requested category key to federation dependent i18n'd one
-     * @param {string} $key category as stored in database
-     * @return string resulting i18n'd string
-     */
-    public function getCategory($key) {
-        if (!array_key_exists($key,$this->config['ListaCategorias'])) return _($key);
-        return _($this->config['ListaCategorias'][$key]);
-    }
-
-    /**
-     * Translate requested grade key to federation dependent i18n'd one (short name)
-     * @param {string} $key grade as stored in database
-     * @return string resulting i18n'd string
-     */
-    public function getGradeShort($key) {
-        if (!array_key_exists($key,$this->config['ListaGradosShort'])) return _($key);
-        return _($this->config['ListaGradosShort'][$key]);
-    }
-
-    /**
-     * Translate requested category key to federation dependent i18n'd one (short name)
-     * @param {string} $key category as stored in database
-     * @return string resulting i18n'd string
-     */
-    public function getCategoryShort($key) {
-        if (!array_key_exists($key,$this->config['ListaCategoriasShort'])) return _($key);
-        return _($this->config['ListaCategoriasShort'][$key]);
-    }
+    // Translate requested grade key to federation dependent i18n'd one ( long format )
+    public function getGrade($key) { return $this->getI18nCatGrade($key,'ListaGrados');  }
+    // Translate requested category key to federation dependent i18n'd one (long format)
+    public function getCategory($key) { return $this->getI18nCatGrade($key,'ListaCategorias');  }
+    // Translate requested grade key to federation dependent i18n'd one (short name)
+    public function getGradeShort($key) { return $this->getI18nCatGrade($key,'ListaGradosShort');  }
+    // Translate requested category key to federation dependent i18n'd one (short name)
+    public function getCategoryShort($key) { return $this->getI18nCatGrade($key,'ListaCategoriasShort');  }
 
     /**
      * Reserve FedID 0..4 to national events; 5..9 to internationals
@@ -393,11 +385,28 @@ class Federations {
     public function isInternational() { return ( intval($this->config['International']) !=0)?true:false; }
 
     /**
+     * Ask if current federation has rounds of requested type
+     * @return bool
+     */
+    public function hasRoundsOf($grade) {
+        return array_key_exists($grade,$this->config['ListaGrados']);
+    }
+
+    public function hasPreAgility() { return $this->hasRoundsOf('P.A.'); }
+    public function hasJunior() { return $this->hasRoundsOf('Jr'); }
+    public function hasSenior() { return $this->hasRoundsOf('Sr'); }
+    public function hasGrade3() { return $this->hasRoundsOf('GIII'); }
+
+    /**
+     * Ask if this federation has Games rounds.
+     * @return bool
+     */
+    public function hasGames() { return ($this->config['Games']!==0)?true:false; }
+
+    /**
      * @return string either i18n'd 'Club' or 'Contry' according federation
      */
-    public function getClubString() {
-        return $this->isInternational()?_('Country'):_('Club');
-    }
+    public function getClubString() { return $this->isInternational()?_('Country'):_('Club'); }
 
     /**
      * Generic data getter
@@ -454,6 +463,7 @@ class Federations {
             $id=$fed->get('ID');
             $fedList[$id]=$fed->getConfig();
         }
+        ksort($fedList);
         return $fedList;
     }
 

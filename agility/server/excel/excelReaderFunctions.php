@@ -52,48 +52,51 @@ if ($op==='progress') {
     return;
 }
 
-
 // retrieve parameters from http request
-$options['Blind']=http_request("Blind","i",0);
-$options['DBPriority']=http_request("DBPriority","i",1);
-$options['WordUpperCase']=http_request("WordUpperCase","i",1);
-$options['IgnoreWhiteSpaces']=http_request("IgnoreWhitespaces","i",1);
-$options['Object']=http_request("Object","s",""); // 'Perro' 'Guia' 'Club'
-$options['DatabaseID']=http_request("DatabaseID","i",0); // -1:ignore 0:create else:update
-$options['ExcelID']=http_request("ExcelID","i",0); // ID of affected ExcelImport table row
-$options['ParseCourseData']=http_request("ParseCourseData","i",0); // on result import handle SCT data
-$options['IgnoreNotPresent']=http_request("IgnoreNotPresent","i",0); // skip results marked as "No Presentado"
-$options['Federation']=http_request("Federation","i",-1);
-$options['Prueba']=http_request("Prueba","i",0);
-$options['Jornada']=http_request("Jornada","i",0);
-$options['Manga']=http_request("Manga","i",0);
+$options['Blind']=http_request('Blind',"i",0);
+// DB Priority is global and states where to extract cat, grad, club, license and so
+$options['DBPriority']=http_request('DBPriority',"i",1);
+// UseExcelName is particular for each request and says which handler/dog name is to be preserved
+$options['UseExcelNames']=http_request('UseExcelNames',"i",0);
+$options['WordUpperCase']=http_request('WordUpperCase',"i",1);
+$options['IgnoreWhiteSpaces']=http_request('IgnoreWhitespaces',"i",1);
+$options['Object']=http_request('Object',"s",""); // 'Perro' 'Guia' 'Club'
+$options['DatabaseID']=http_request('DatabaseID',"i",0); // -1:ignore 0:create else:update
+$options['ExcelID']=http_request('ExcelID',"i",0); // ID of affected ExcelImport table row
+$options['ParseCourseData']=http_request('ParseCourseData',"i",0); // on result import handle SCT data
+$options['IgnoreNotPresent']=http_request('IgnoreNotPresent',"i",0); // skip results marked as "No Presentado"
+$options['Federation']=http_request('Federation',"i",-1);
+$options['Prueba']=http_request('Prueba',"i",0);
+$options['Jornada']=http_request('Jornada',"i",0);
+$options['Manga']=http_request('Manga',"i",0);
+$options['Mode']=http_request('Mode',"i",0); // manga mode
 
 // some shortcuts
-$mode=http_request("Mode","s","");
+$type=http_request('Type',"s","");
 $f=intval($options['Federation']);
 $p=intval($options['Prueba']);
 $j=intval($options['Jornada']);
 $m=intval($options['Manga']);
 try {
     // 	Creamos generador de documento
-    if ($mode==="") throw new Exception("excelReaderFunctions(): no import mode selected");
+    if ($type==="") throw new Exception("excelReaderFunctions(): no import type selected");
     // create propper importer instance
-    if ($mode==="perros") {
+    if ($type==="perros") {
         if ($f<0) throw new Exception("DogReader::ImportExcel(): invalid Federation ID: $f");
         $er=new DogReader("ImportExcel(dogs)",$options);
-    } else  if ($mode==="inscripciones") {
+    } else  if ($type==="inscripciones") {
         if ($p==0) throw new Exception("InscriptionReader::ImportExcel(): invalid Prueba ID: $p");
         $er=new InscriptionReader("ExcelImport(inscriptions)",$options);
-    } else if ($mode==="entrenamientos") {
+    } else if ($type==="entrenamientos") {
         if ($p==0) throw new Exception("InscriptionReader::ImportExcel(): invalid Prueba ID: $p");
         $er=new EntrenamientosReader("ExcelImport(training session)",$options);
-    } else if ($mode==="resultados") {
+    } else if ($type==="resultados") {
         if ($p==0) throw new Exception("PartialScoresReader::ImportExcel(): invalid Prueba ID: $p");
         if ($j==0) throw new Exception("PartialScoresReader::ImportExcel(): invalid Jornada ID: $j");
         if ($m==0) throw new Exception("PartialScoresReader::ImportExcel(): invalid Manga ID: $m");
         $er=new PartialScoresReader("ExcelImport(round results)",$options);
     } else {
-        throw new Exception("excelReaderFunctions(): invalid mode selected: ".$mode);
+        throw new Exception("excelReaderFunctions(): invalid $type selected: ".$type);
     }
 
     switch ($op) {
@@ -143,16 +146,16 @@ try {
             // end of import. clear and return;
             $result = $er->endImport();
             break;
-        default: throw new Exception("excel_import($mode): invalid operation '$op' requested");
+        default: throw new Exception("excel_import($type): invalid operation '$op' requested");
     }
     if ($result===null) throw new Exception($er->errormsg);// null on error
     if (is_string($result)) throw new Exception($result);
     if ( ($result==="") || ($result===0) )  // empty or zero on success
          $retcode= json_encode(array('operation'=> $op, 'success'=>'ok'));
     else $retcode= json_encode($result);         // else return data already has been set
-    do_log("Excel '$mode' Reader returns: '$retcode'");
+    do_log("Excel '$type' Reader returns: '$retcode'");
     echo $retcode;
 } catch (Exception $e) {
-    do_log("Excel '$mode'' Reader Exception: ".$e->getMessage());
+    do_log("Excel '$type'' Reader Exception: ".$e->getMessage());
     echo json_encode(array("operation"=>$op, 'success'=>'fail', 'errorMsg'=>$e->getMessage()));
 }

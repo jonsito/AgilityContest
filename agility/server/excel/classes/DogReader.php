@@ -113,6 +113,24 @@ class DogReader {
         fclose($f);
     }
 
+    public function saveExcelVars() {
+        $fname=IMPORT_DIR."import_{$this->myOptions['Suffix']}.json";
+        $f=fopen($fname,"w");
+        if (!$f) {
+            $this->myLogger->error("fopen() cannot create file: $fname");
+            return;
+        }
+        fwrite($f,json_encode($this->excelVars));
+        fclose($f);
+    }
+
+    public function loadExcelVars() {
+        $fname=IMPORT_DIR."import_{$this->myOptions['Suffix']}.json";
+        $str=file_get_contents($fname);
+        $this->excelVars=json_decode($str,true);
+        return $this->excelVars;
+    }
+
     public function retrieveExcelFile() {
         // phase 1 retrieve data from browser
         $this->myLogger->enter();
@@ -215,7 +233,9 @@ class DogReader {
                     $str2.="'{$a}', ";
                     break;
                 case "i":
-                    $a=intval($item);
+                    // take care on boolean-as-integer case
+                    if (is_numeric($item)) $a=intval($item);
+                    else $a=(toBoolean($item))?1:0;
                     $str2 .= " {$a}, "; // integer
                     break;
                 case "b":
@@ -347,6 +367,8 @@ class DogReader {
         // fine. we can start parsing data in DB database table
         $reader->close();
         @unlink($filename); // remove temporary file if no named file provided
+        // save variables imported from excel and exit
+        $this->saveExcelVars();
         $this->myLogger->leave();
         return 0;
     }
@@ -412,13 +434,9 @@ class DogReader {
         // arriving here means match found. So replace all instances with found data and return to continue import
         $t=TABLE_NAME;
         $i=$search['rows'][0]['ID']; // Club ID
-        $nombre=$this->myDBObject->conn->real_escape_string($search['rows'][0]['Nombre']); // Club Name
-        if ($this->myOptions['Blind']!=0) {
-            // check precedence on DB or Excel
-            if ($this->myOptions['DBPriority']==0) $nombre= $a; // tomamos el nombre del guia del excel
-            // check precedence on DB or Excel
-            if ($this->myOptions['WordUpperCase']!=0) $nombre= toUpperCaseWords($nombre); // formato mayuscula inicial
-        }
+        $nombre=$this->myDBObject->conn->real_escape_string($search['rows'][0]['Nombre']);
+        // fix Club name according importing rules
+        $nombre=$this->import_mixData($nombre,$a);
         $str="UPDATE $t SET ClubID=$i, NombreClub='$nombre' WHERE (NombreClub = '$old')";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetClub(): update club '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
@@ -439,15 +457,24 @@ class DogReader {
         else    $search=$this->myDBObject->__select("*","Guias","( Nombre = '$a' ) AND ( Federation = $f ) ","","");
         if ( !is_array($search) ) return "findAndSetHandler(): Invalid search term: '$a'"; // invalid search. mark error
         // parse found entries looking for match
+
+        // POSSIBLE BUG: if in a club exists two handlers named, ie: "Pedro" and "Pedro Perez",
+        // interactive import will match and process first entry found in DB ( as of "LIKE '%$a%' search )
+        // so make sure database is consistent :-)
         for ($index=0;$index<$search['total'];$index++) {
             // find right entry. if not found ask user
             if ($search['rows'][$index]['Club']!=$item['ClubID']) continue;
-            // arriving here means match found. So replace all instances with found data and return to continue import
-            $id=$search['rows'][$index]['ID']; // id del guia
+
+            // arriving here means handler and club matches. so process
+
+            // Replace all instances in tmptable with found data and return to continue import
+            $id=$search['rows'][$index]['ID']; // id del guia en la base de datos
             $nombre= $this->myDBObject->conn->real_escape_string($search['rows'][$index]['Nombre']); // nombre del guia (DB)
-            if ($this->myOptions['Blind']!=0) {
-                $nombre=$this->import_mixData($nombre,$item['NombreGuia']);
-            }
+            // handle name according excelname rules
+            $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$item['NombreGuia'];
+            if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
+
+            // fix handler's name in temporary table according importing rules
             $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '$a')  AND (ClubID=$c)"; // exact match
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
@@ -503,7 +530,11 @@ class DogReader {
             $sex=$this->myDBObject->conn->real_escape_string($search['rows'][$index]['Genero']); // sexo
 
             // rework data according translate rules
-            $nombre=$this->import_mixData($nombre,$item['Nombre']);
+
+            // handle name according excelname rules
+            $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$item['Nombre'];
+            if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
+            // remaining  data are handler according import rules
             $nlargo=$this->import_mixData($nlargo,isset($item['NombreLargo'])?$item['NombreLargo']:"");
             $raza=$this->import_mixData($raza,isset($item['Raza'])?$item['Raza']:"");
             $chip=$this->import_mixData($chip,isset($item['Chip'])?$item['Chip']:"");
@@ -654,7 +685,8 @@ class DogReader {
         } else {
             // invalid object: notice error and return
             return "CreateEntry(): Invalid Object to search for update in temporary table: {$options['Object']}";
-        }// tell client to continue parse
+        }
+        // tell client to continue parse
         $this->myLogger->leave();
         return array('operation'=> 'create', 'success'=> 'done');
     }    
@@ -687,13 +719,17 @@ class DogReader {
             // ajustamos el id y el nombre del guia en la tabla excel
             $dbname=$this->myDBObject->conn->real_escape_string($dbobj->Nombre);
             $name=$this->myDBObject->conn->real_escape_string($obj->NombreGuia);
-            // notese que en el caso del nombre del guia se hace caso a la base de datos, no a las preferencias
-            // de importacion. Esto permite poder ajustar al nombre en la DB "antes" de darle a seleccionar guia
-            $str="UPDATE $t SET HandlerID={$dbobj->ID}, NombreGuia='$dbname' WHERE (NombreGuia = '$name')";
+
+            // handle name according excelname rules
+            $n=($this->myOptions['UseExcelNames']==0)?$dbname:$name;
+            if ($this->myOptions['WordUpperCase']!=0) $n=toUpperCaseWords($n);
+
+            // actualizamos nombre en la tabla temporal
+            $str="UPDATE $t SET HandlerID={$dbobj->ID}, NombreGuia='$n' WHERE (NombreGuia = '$name')";
             $res=$this->myDBObject->query($str);
             if (!$res) return "UpdateEntry(): update handler '$name' Set Name/ID error:".$this->myDBObject->conn->error;
-            // ajustamos el club en la base de datos en función del club de la tabla excel
-            $str="UPDATE Guias SET Club={$obj->ClubID} WHERE (ID={$dbobj->ID})";
+            // ajustamos nombre del guia y el club en la base de datos
+            $str="UPDATE Guias SET Nombre='{$n}' , Club={$obj->ClubID} WHERE (ID={$dbobj->ID})";
             $res=$this->myDBObject->query($str);
             if (!$res) return "UpdateEntry(): update handler '$name' Set Club error:".$this->myDBObject->conn->error;
         }
@@ -714,7 +750,11 @@ class DogReader {
             $sex=$this->myDBObject->conn->real_escape_string($dbobj->Genero); // sexo
 
             // evaluamos todos los parametros en funcion de los modos de imporatacion
-            $nombre=$this->import_mixData($nombre,$obj->Nombre);
+
+            // handle name according excelname rules
+            $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$obj->Nombre;
+            if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
+            // remaining  data are handler according import rules
             $nlargo=$this->import_mixData($nlargo,isset($obj->NombreLargo)?$obj->NombreLargo:"");
             $raza=$this->import_mixData($raza,isset($obj->Raza)?$obj->Raza:"");
             $lic=$this->import_mixData($lic,isset($obj->Licencia)?$obj->Licencia:"",false);
@@ -736,7 +776,6 @@ class DogReader {
         else {
             // invalid object: notice error and return
             return "UpdateEntry(): Invalid Object to search for update in temporary table: {$options['Object']}";
-
         }// tell client to continue parse
         $this->myLogger->leave();
         return array('operation'=> 'update', 'success'=> 'done');

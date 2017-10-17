@@ -37,6 +37,7 @@ class PartialScoresReader extends DogReader {
     protected $jornada;
     protected $manga;
     protected $equipos;
+    protected $sqlcats="";
 
     public function __construct($name,$options) {
         $this->myDBObject = new DBObject($name);
@@ -44,8 +45,10 @@ class PartialScoresReader extends DogReader {
         $this->jornada=$this->myDBObject->__selectAsArray("*","Jornada","ID={$options['Jornada']}");
         $this->manga=$this->myDBObject->__selectAsArray("*","Mangas","ID={$options['Manga']}");
         $this->equipos=$this->myDBObject->__selectAsArray("*","Equipos","Jornada={$options['Jornada']}");
-        if (!is_array($this->manga)) // realmente prueba y jornada no son necesarias, pero por consistencia se ponen
+        if (!is_array($this->manga)) // realmente prueba no es necesaria, pero por consistencia se pone
             throw new Exception("{$name}::construct(): invalid Manga ID: {$options['Manga']}");
+        if (intval($this->jornada['Cerrada'])!==0) // do not allow import in closed journeys
+            throw new Exception("{$name}::construct(): Cannot import when in a closed journey: {$options['Jornada']}");
         parent::__construct($name,$options);
 
         // extend default field list
@@ -70,12 +73,14 @@ class PartialScoresReader extends DogReader {
         // on games rounds, make games required
         if (isMangaGames($this->manga['Tipo'])) $this->fieldList['Games'][1]=1;
         $this->validPageNames=array("Results");
+        $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']),"");
     }
 
     private function removeTmpEntry($item) {
+        $id=(is_array($item))?$item['ID']:intval($item);
         // remove entry from temporary table
-        $str="DELETE FROM ".TABLE_NAME." WHERE ID={$item['ID']}";
-        $this->myDBObject->conn->query($str);
+        $str="DELETE FROM ".TABLE_NAME." WHERE ID={$id}";
+        $this->myDBObject->query($str);
         return null;
     }
 
@@ -90,28 +95,35 @@ class PartialScoresReader extends DogReader {
      */
     protected function findAndSetResult($item) {
         $this->myLogger->enter();
-        if ( ($this->myOptions['IgnoreNotPresent']==1) && ($item['NoPresentado']==1) ) {
-            $this->myLogger->notice("findAndSetResult(): ignore 'not present' row: ".json_encode($item));
-            return $this->removeTmpEntry($item);
-        };
         if ( ($item['Licencia']==="") && ($item['Nombre']==="") ){
             // no way to assign result to anyone: remove from temporary table
             $this->myLogger->notice("findAndSetResult(): no data to parse row: ".json_encode($item));
-            return $this->removeTmpEntry($item);
+            return $this->removeTmpEntry($item); // returns null
         }
+        if ( ($this->myOptions['IgnoreNotPresent']==1) && ($item['NoPresentado']==1) ) {
+            $this->myLogger->info("findAndSetResult(): ignore 'Not Present' row: ".json_encode($item));
+            $this->saveStatus("Ignore 'Not Present' entry: {$item['Nombre']}");
+            return $this->removeTmpEntry($item); // returns null
+        };
         $l=$this->myDBObject->conn->real_escape_string($item['Licencia']);
         $n=$this->myDBObject->conn->real_escape_string($item['Nombre']);
+        if (! category_match($item['Categoria'],$this->myOptions['Mode'])) {
+            $this->myLogger->info("findAndSetResult(): not matching category: ".json_encode($item));
+            $this->saveStatus("Ignore entry with non-matching category: {$n} {$item['Categoria']}");
+            return $this->removeTmpEntry($item); // returns null
+        }
         $this->saveStatus("Analyzing result entry '$n'");
         $lic= ($l==="")?"": " OR (Licencia='{$l}')";
         $dog= ($n==="")?"0":" (Nombre='{$n}')";
         $search=$this->myDBObject->__select("*",
             "Resultados",
-            "(Manga={$this->manga['ID']}) AND ( {$dog} {$lic} )",
+            "(Manga={$this->manga['ID']}) {$this->sqlcats} AND ( {$dog} {$lic} )",
             "",
             "");
         if ( !is_array($search) ) return "findAndSeResult(): Invalid search term: '{$l} - {$n}' "; // invalid search. mark error
         // if blind mode and cannot decide, just ignore and remove entry from tmptable
-        if ( ($search['total']!==1) && ($this->myOptions['Blind']!=0)) return $this->removeTmpEntry($item);
+        $this->myLogger->trace("Blind: {$this->myOptions['Blind']} Search {$n} results:".json_encode($search));
+        if ( ($search['total']!==1) && ($this->myOptions['Blind']!=0)) return $this->removeTmpEntry($item); // returns null
         if ($search['total']==0) return false; // no search found: ask user to select or ignore
         if ($search['total']>1) return $search; // more than 1 compatible item found. Ask user to choose
 
@@ -126,12 +138,12 @@ class PartialScoresReader extends DogReader {
         $tim=", Tiempo={$item['Tiempo']}";
         $str="UPDATE Resultados SET {$f} {$t} {$r} {$g} {$e} {$n} {$tim} , Pendiente=0  ".
             "WHERE Manga={$this->manga['ID']} AND Perro={$dogID}";
-        $res=$this->myDBObject->conn->query($str);
+        $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetResult(): update result '{$l} - {$item['Nombre']}' error:".$this->myDBObject->conn->error;
 
         // mark entry done in temporary table.
         $str="UPDATE ".TABLE_NAME." SET DogID={$dogID} WHERE ID={$item['ID']}";
-        $res=$this->myDBObject->conn->query($str);
+        $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetResult(): update tmptable '{$l} - {$item['Nombre']}' error:".$this->myDBObject->conn->error;
 
         // return true to notify caller item found. proceed with next
@@ -170,25 +182,92 @@ class PartialScoresReader extends DogReader {
         return array('operation'=> 'parse', 'success'=> 'done');
     }
 
+    // just remove temporary table entry with provided ID
+    public function ignoreEntry($options) {
+        $this->myLogger->enter();
+        $this->removeTmpEntry($options['ExcelID']);
+        // tell client to continue parse
+        $this->myLogger->leave();
+        return array('operation'=> 'ignore', 'success'=> 'done');
+    }
+
+    public function updateEntry($options) {
+        $this->myLogger->enter();
+        $perro=$options['DatabaseID']; // results has no ID key, but manga-perro key
+        $item=$this->myDBObject->__selectAsArray("*",TABLE_NAME,"ID={$options['ExcelID']}");
+        if (!$item) return "UpdateEntry(): cannot locate tmpdata for perro: '$perro':".$this->myDBObject->conn->error;
+
+        $f=" Faltas={$item['Faltas']}";
+        $t= (array_key_exists('Tocados',$item))?", Tocados={$item['Tocados']}":"";
+        $r=", Rehuses={$item['Rehuses']}";
+        // trick for KO rounds
+        if (isMangaKO($this->manga['Tipo']) ) $item['Games']=1;
+        $g= (array_key_exists('Games',$item))?", Games={$item['Games']}":"";
+        $e=", Eliminado={$item['Eliminado']}";
+        $n=", NoPresentado={$item['NoPresentado']}";
+        $tim=", Tiempo={$item['Tiempo']}";
+        $str="UPDATE Resultados SET {$f} {$t} {$r} {$g} {$e} {$n} {$tim} , Pendiente=0  ".
+             "WHERE (Resultados.Manga= {$this->manga['ID']} ) AND (Resultados.Perro = {$perro})";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "updateEntry(): update db result for perro '{$perro}' error:".$this->myDBObject->conn->error;
+
+        // mark entry done in temporary table.
+        $str="UPDATE ".TABLE_NAME." SET DogID={$perro} WHERE ID={$item['ID']}";
+        $res=$this->myDBObject->query($str);
+        if (!$res) return "updateEntry(): update tmptable for perro '{$perro}' error:".$this->myDBObject->conn->error;
+
+        // return success to proceed with next
+        $this->myLogger->leave();
+        return array('operation'=> 'update', 'success'=> 'done');
+    }
+
     function beginImport() {
         $this->myLogger->enter();
         // PENDING: si se han definido, se guardan los datos de la manga
-        // ahora guardamos los datos de resultados
-        $from=$this->myDBObject->__select(
-          "*",
-          TABLE_NAME,
-          "( DogID != 0 )",
-          "DogID ASC",
-          ""
-        );
-        $mid=$this->manga['ID'];
-        $is_ko=isMangaKO($this->manga['Tipo']);
-        $resobj=Competitions::getResultadosInstance("update round:{$mid} on journey:{$this->jornada['ID']}",$mid);
-        foreach ($from['rows'] as $resultado) {
-            $resultado['Pendiente']=0;
-            if ($is_ko) $resultado['Games']=1;
-            $resobj->real_update($resultado['DogID'],$resultado);
+        if ($this->myOptions['ParseCourseData']==0) {
+            $this->saveStatus("Skip parse course data");
+            $this->myLogger->info("Course data import cancelled by user");
+            return array( 'operation'=>'import','success'=>'close');
         }
+        $this->saveStatus("Parsing course data if available");
+        // evaluate categories to store round information into
+        switch($this->myOptions['Mode']) {
+            case 0: $items=array('L'); break;
+            case 1: $items=array('M'); break;
+            case 2: $items=array('S'); break;
+            case 3: $items=array('M','S'); break;
+            case 4: $items=array('L','M','S'); break;
+            case 5: $items=array('T'); break;
+            case 6: $items=array('L','M'); break;
+            case 7: $items=array('S','T'); break;
+            case 8: $items=array('L','M','S','T'); break;
+            default: $this->myLogger->error("Import Round Data error: invalid mode: {$this->myOptions['Mode']} ");
+            return array( 'operation'=>'import','success'=>'close');
+        }
+        $vars= $this->loadExcelVars();
+        $str="UPDATE Mangas SET";
+        foreach ($vars as $key => $value) {
+            if ( ($key==='Dist') || ($key===_('Dist')) ) {
+                $value=intval($value);
+                foreach($items as $cat){ $str .= " Dist_{$cat}={$value}, "; }
+            } else if ( ($key==='Obst') || ($key===_('Obst')) ) {
+                $value=intval($value);
+                foreach($items as $cat){ $str .= " Obst_{$cat}={$value}, "; }
+            } else if ( ($key==='SCT') || ($key===_('SCT')) ) {
+                $value=floatval($value);
+                foreach($items as $cat) $str .= " TRS_{$cat}_Tipo=0, TRS_{$cat}_Factor={$value}, TRS_{$cat}_Unit='s', ";
+            } else if ( ($key==='MCT') || ($key===_('MCT')) ) {
+                $value=floatval($value);
+                foreach($items as $cat)$str .= " TRM_{$cat}_Tipo=0, TRM_{$cat}_Factor={$value}, TRM_{$cat}_Unit='s', ";
+            } else {
+                $this->myLogger->info("Skip current excel variable: {$key}");
+            }
+        }
+        $str .= " Observaciones='Excel Imported' WHERE ID={$this->manga['ID']}";
+        $res=$this->myDBObject->query($str);
+        if (!$res) $this->myLogger->error($this->myDBObject->conn->error);
+        // PENDING: importar jueces
+
         $this->myLogger->leave();
         return array( 'operation'=>'import','success'=>'close');
     }

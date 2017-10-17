@@ -17,10 +17,11 @@ class RFEC extends Federations {
             'Email' => 'yvonneagility@fecaza.com',
             'Heights' => 4,
             'Grades' => 2,
+            'Games' => 0,
             'International' => 0,
             'WideLicense' => true, // some federations need extra print space to show license ID
             'RoundsG1' => 3,
-            'Recorridos' => array('Common course',"Clases 60+50 / 40+30","Separate courses"),
+            'Recorridos' => array(_('Common course'),"Clases 60+50 / 40+30",_("Separate courses")),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja',
@@ -79,7 +80,7 @@ class RFEC extends Federations {
             'ModeStrings' => array( // text to be shown on each category
                 array(/* separado */ "Clase 60", "Clase 50", "Clase 40", "Clase 30"),
                 array(/* mixto */ "Clase 60+50", "Clase 60+50", "Clase 40+30", "Clase 40+30"),
-                array(/* conjunto */ "Recorrido conjunto", "Recorrido conjunto", "Recorrido conjunto", "Recorrido conjunto")
+                array(/* conjunto */ "Recorrido comun", "Recorrido comun", "Recorrido comun", "Recorrido comun")
             ),
             'IndexedModes' => array (
                 "Clase 60", "Clase 50", "Clase 40", "Cl. 50+40", "Conjunta 60/50/40", "Clase 30", "Cl. 60+50", "Cl. 40+30", "Conjunta 60/50/40/30"

@@ -23,7 +23,7 @@ $config =Config::getInstance();
 
 <!-- Ventana de seleccion de fichero para importacion de datos excel -->
 <div id="resultadosmanga-excel-dialog" style="width:640px;height:auto;padding:10px; display=none;">
-    <?php require_once(__DIR__."/../../lib/templates/import_results.inc.php"); ?>
+    <?php require_once(__DIR__."/../../lib/templates/import_results_dialog.inc.php"); ?>
 </div>
 
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE IMPORTACION -->
@@ -74,7 +74,7 @@ $config =Config::getInstance();
         buttons:'#resultadosmanga-excel-buttons',
         iconCls:'icon-table',
         onOpen: function() {
-            ac_import.mode='resultados';
+            ac_import.type='resultados';
             $('#import-excel-progressbar').progressbar('setValue',"");
             $('#import-excelRoundInfo').html(workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga);
         },
@@ -93,7 +93,7 @@ $config =Config::getInstance();
 
     $('#parciales_individual-datagrid').datagrid({
         toolbar: '#resultadosmanga-toolbar',
-        onBeforeLoad: function(param) { return (param.Manga > 0); }, // do not load if no manga selected
+        onBeforeLoad: function(param) { return (parseInt(param.Manga) > 0); }, // do not load if no manga selected
         onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes)
             $(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
         }

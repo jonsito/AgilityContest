@@ -397,6 +397,7 @@ class OrdenSalida extends DBObject {
 	 * @param {array} rs lista de resultados a presentar. Se utiliza para reordenar resultados en funcion del orden de salida
 	 */
 	function getData($teamView=false,$catmode=8,$rs=null) {
+		$this->myLogger->enter();
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
 		if (!$rs) $rs= $this->__select(
 			"Resultados.*,Equipos.Nombre AS NombreEquipo,
@@ -419,7 +420,6 @@ class OrdenSalida extends DBObject {
 			if (array_key_exists($resultado['NombreGuia'],$guias)) $guias[$resultado['NombreGuia']]++;
 			else $guias[$resultado['NombreGuia']]=1;
 		}
-
 		// primera pasada: ajustamos los perros segun el orden de salida que figura en Orden_Salida
 		// excluyendo a aquellos cuya categoria no coincide con la solicitada
 		$p2=array();
@@ -452,6 +452,7 @@ class OrdenSalida extends DBObject {
 
         // en la modalidad equipos 4 los cuatro perros corren juntos,
         // con independencia de celo/categoria
+		// en caso contrario hay que separar por categoria/celo
         $p5=$p3;
         if ($this->jornada->Equipos4==0) {
             // tercera pasada: ordenar por celo
@@ -494,6 +495,7 @@ class OrdenSalida extends DBObject {
 		// extra indicando los equipos y su orden de salida. Este array es distinto al
 		// obtenido con getOrdenEquipos, pues si un equipo tiene perros en varias categorias,
 		// el equipo aparecera varias veces en este resultado
+
 		$p6=$p5;
 		if ($teamView) {
             $p6=array();
@@ -515,8 +517,10 @@ class OrdenSalida extends DBObject {
 			}
 		}
 		$result = array();
+
 		$result["total"] = count($p6);
 		$result["rows"] = $p6;
+		$this->myLogger->leave();
 		return $result;
 	}
 

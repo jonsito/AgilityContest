@@ -194,6 +194,21 @@ function hasGradosByJornada(jornada) {
     return true;
 }
 
+function hasJunior(fed) {
+    if (typeof(fed)==="undefined") fed=workingData.federation;
+    return typeof(ac_fedInfo[fed].ListaGrados.Jr)!=="undefined";
+}
+
+function hasSenior(fed) {
+    if (typeof(fed)==="undefined") fed=workingData.federation;
+    return typeof(ac_fedInfo[fed].ListaGrados.Sr)!=="undefined";
+}
+
+function hasGames(fed) {
+    if (typeof(fed)==="undefined") fed=workingData.federation;
+    return (parseInt(ac_fedInfo[fed].Games)!==0);
+}
+
 function isJornadaOpen() { return (workingData.datosJornada.Open!=0); }
 function isJornadaKO() { return (workingData.datosJornada.KO!=0); }
 function isJornadaGames() { return (workingData.datosJornada.Games!=0); }
@@ -465,6 +480,7 @@ function loadCountryOrClub() {
 function loadContents(page,title,slaves) {
     var cont=$('#contenido');
 	$('#mymenu').panel('collapse');
+	if(typeof(slaveDialogs)==="undefined") slaveDialogs={};
 	$.each(slaveDialogs,function(key,val) {
 		$(val).dialog('panel').panel('clear'); 
 	} ); 
@@ -472,30 +488,6 @@ function loadContents(page,title,slaves) {
 	cont.panel('clear');
 	cont.panel('refresh',page);
 	setHeader(title);
-}
-
-/**
- * Load (if required pages and scripts associated with data importing from excel
- */
-function loadImportPages() {
-	var import_flag=$('#importflag');
-	if (import_flag.html() != "") return false; // already loaded
-
-	// load javascript files for import operations
-	var fileref=document.createElement('script');
-	if (typeof(fileref)!=="undefined") {
-		fileref.setAttribute("type","text/javascript");
-		fileref.setAttribute("src", "/agility/console/import/import.js.php");
-		document.getElementsByTagName("head")[0].appendChild(fileref); // append at the end of head
-	}
-
-	// load html pages
-	$('#importclubes').panel('refresh', '/agility/console/import/import_clubes.inc.php');
-	$('#importhandlers').panel('refresh', '/agility/console/import/import_handlers.inc.php');
-    $('#importdogs').panel('refresh', '/agility/console/import/import_perros.inc.php');
-    $('#importresults').panel('refresh', '/agility/console/import/import_results.inc.php');
-	import_flag.html("ready"); // mark as ready
-	return true;
 }
 
 /**
@@ -779,6 +771,7 @@ function setFederation(f) {
  * @param {object} data prueba data
  */
 function setPrueba(data) {
+    if (data===null) data = { ID:0, Nombre:'', RSCE:0 };
 	workingData.prueba=parseInt(data.ID);
 	workingData.nombrePrueba=data.Nombre;
 	workingData.datosPrueba=data;
@@ -1220,8 +1213,6 @@ function addKeyHandler(dgid,dialog,insertfn,updatefn,deletefn) {
 		case 27:	/* Esc */
             if (dialog!==null) $(dialog).window('close');
 			return false;
-		case 70: /* Allow Ctrl-F work */
-            return (e.ctrlKey);
         case 16:	/* Shift */
         case 17:	/* Ctrl */
         case 18:	/* Alt */

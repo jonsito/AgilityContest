@@ -122,6 +122,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<select id="dmanga_TRM_L_Tipo" name="TRM_L_Tipo">
 				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
 				<option value="1"><?php _e('SCT');?> + </option>
+                <option value="6"><?php _e('Velocity');?> </option>
 				</select>
 			</td>
 			<td>
@@ -133,6 +134,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<select id="dmanga_TRM_L_Unit" name="TRM_L_Unit" >
 				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
+                <option value="m">m/s</option>
 				</select>
 			</td>
 		</tr>
@@ -178,6 +180,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<select id="dmanga_TRM_M_Tipo" name="TRM_M_Tipo">
 				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
 				<option value="1"><?php _e('SCT');?> + </option>
+                <option value="6"><?php _e('Velocity');?> </option>
 				</select>
 			</td>
 			<td>
@@ -189,6 +192,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<select id="dmanga_TRM_M_Unit" name="TRM_M_Unit">
 				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
+                <option value="m">m/s</option>
 				</select>
 			</td>		
 		</tr>
@@ -235,6 +239,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<select id="dmanga_TRM_S_Tipo" name="TRM_S_Tipo">
 				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
 				<option value="1"><?php _e('SCT');?> + </option>
+                <option value="6"><?php _e('Velocity');?> </option>
 				</select>
 			</td>
 			<td>
@@ -246,6 +251,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<select id="dmanga_TRM_S_Unit" name="TRM_S_Unit">
 				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
+                <option value="m">m/s</option>
 				</select>
 			</td>
 		</tr>
@@ -294,6 +300,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<select id="dmanga_TRM_T_Tipo" name="TRM_T_Tipo">
 				<option value="0" selected="selected"><?php _e('Fixed MCT'); ?></option>
 				<option value="1"><?php _e('SCT'); ?> + </option>
+                <option value="6"><?php _e('Velocity');?> </option>
 				</select>
 			</td>
 			<td>
@@ -305,6 +312,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<select id="dmanga_TRM_T_Unit" name="TRM_T_Unit">
 				<option value="s" selected="selected"><?php _e('Secs'); ?>.</option>
 				<option value="%">%</option>
+                <option value="m">m/s</option>
 				</select>
 			</td>
 		</tr>
@@ -374,10 +382,10 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
     $('#dmanga_TRM_T_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_T_Unit')}});
     $('#dmanga_TRM_L_Factor').textbox(); $('#dmanga_TRM_M_Factor').textbox();
     $('#dmanga_TRM_S_Factor').textbox(); $('#dmanga_TRM_T_Factor').textbox();
-    $('#dmanga_TRM_L_Unit').combobox({valueField:'value',panelHeight:'auto'});
-    $('#dmanga_TRM_M_Unit').combobox({valueField:'value',panelHeight:'auto'});
-    $('#dmanga_TRM_S_Unit').combobox({valueField:'value',panelHeight:'auto'});
-    $('#dmanga_TRM_T_Unit').combobox({valueField:'value',panelHeight:'auto'});
+    $('#dmanga_TRM_L_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_L_Tipo')}});
+    $('#dmanga_TRM_M_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_M_Tipo')}});
+    $('#dmanga_TRM_S_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_S_Tipo')}});
+    $('#dmanga_TRM_T_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_T_Tipo')}});
     $('#dmanga_Observaciones').textbox();
 
 $('#dmanga_Juez1').combogrid({
@@ -395,7 +403,9 @@ $('#dmanga_Juez1').combogrid({
 	required: false,
 	columns: [[
 	    {field:'ID', hidden:true},
-		{field:'Nombre',title:"<?php _e('Judge name'); ?>",width:70,align:'right'},
+        {field:'Nombre',title:"<?php _e('Judge name'); ?>",width:70,align:'left'},
+        {field:'Internacional',title:"<?php _e('Intl'); ?>",width:10,align:'center',formatter:juecesInternacional},
+        {field:'Practicas',title:"<?php _e('Pract'); ?>",width:10,align:'center',formatter:juecesPracticas},
 		{field:'Email',title:"<?php _e('E-mail'); ?>",width:50,align:'right'}
     ]],
 	multiple: false,
@@ -418,7 +428,9 @@ $('#dmanga_Juez2').combogrid({
 	required: false,
 	columns: [[
 	   	{field:'ID', hidden:true},
-		{field:'Nombre',title:"<?php _e('Judge name'); ?>",width:70,align:'right'},
+		{field:'Nombre',title:"<?php _e('Judge name'); ?>",width:70,align:'left'},
+        {field:'Internacional',title:"<?php _e('Intl'); ?>",width:10,align:'center',formatter:juecesInternacional},
+        {field:'Practicas',title:"<?php _e('Pract'); ?>",width:10,align:'center',formatter:juecesPracticas},
 		{field:'Email',title:"<?php _e('E-mail'); ?>",width:50,align:'right'}
     ]],
 	multiple: false,

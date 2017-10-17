@@ -45,23 +45,15 @@ class Selectiva_eo_RSCE extends Selectiva_awc_RSCE {
      * @param {object} $manga Round data and trs parameters
      * @param {array} $data Original results provided for evaluation
      * @param {integer} $mode which categories have to be selected
+     * @param {boolean} $roundUp on true round UP SCT and MCT to nearest second
      * @return {array} final data to be used to evaluate trs/trm
      */
-    public function checkAndFixTRSData($manga,$data,$mode=0) {
+    public function checkAndFixTRSData($manga,$data,$mode,&$roundUp) {
         // remember that prueba,jornada and manga are objects, so passed by reference
         $cat="";
-        switch ($mode) { // en el EO solo puede valer 0,1,2, pero bueno...
-            case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
-            case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
-            case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
-            case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
-            case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
-            case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
-            case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
-            case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
-            case 8: /* L+M+S+T */	break; // no check categoria
-            default: return $this->error("modo de recorrido desconocido:$mode");
-        }
+        // on mode=8 no need to check category in sql, so skip
+        if ($mode!==8) $cat=sqlFilterCategoryByMode($mode,"");
+        if ($cat==null) return $this->error("modo de recorrido desconocido:$mode");
         // fase 0: buscamos la jornada padre
         $this->prueba->Selectiva = 1; // not really required, just to be sure
         $parent=intval($this->jornada->SlaveOf);

@@ -53,8 +53,8 @@ class PrintClasificacionTeam extends PrintCommon {
         'NombreClub' => '-',
         'Licencia' => '-',
         'Categoria' => '-','Grado' => '-',
-        'F1' => 0, 'T1' => 0, 'R1' => 0, 'P1' => 0, 'V1' => 0, 'C1' => '',
-        'F2' => 0, 'T2' => 0, 'R2' => 0, 'P2' => 0, 'V2' => 0, 'C2' => '',
+        'F1' => 0, 'T1' => 0, 'R1' => 0, 'P1' => 0, 'V1' => 0, 'C1' => '','Out1'=>0,
+        'F2' => 0, 'T2' => 0, 'R2' => 0, 'P2' => 0, 'V2' => 0, 'C2' => '','Out2'=>0,
         'Tiempo' => '0.0',
         'Velocidad' => '0.0',
         'Penalizacion' => 800.0,
@@ -271,6 +271,7 @@ class PrintClasificacionTeam extends PrintCommon {
 	}
 	
 	function writeCell($idx,$row,$team) {
+	    // $this->myLogger->trace("row: ".json_encode($row));
 		$wide=$this->federation->get('WideLicense');
 		if ($this->useLongNames) $wide=false;
         $this->ac_row($idx,8);
@@ -366,7 +367,7 @@ class PrintClasificacionTeam extends PrintCommon {
                 $this->Cell(12,4,number_format($team['Penalizacion'],$this->timeResolution),'RB',0,'R',true);	// penalizacion final
                 break;
             case 3: // puntos (si se requieren )
-                if ($team['Puntos']==0) break;
+                if (!array_key_exists('Puntos',$team) || $team['Puntos']==0) break;
                 $this->SetFont($this->getFontName(),'BI',8); // default font
                 $this->Cell(21,4,_("Points"),'B',0,'L',true);
                 $this->SetFont($this->getFontName(),'B',8); // default font

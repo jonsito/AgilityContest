@@ -439,7 +439,9 @@ class Updater {
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(30,'Gumbler','-')",
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(31,'SpeedStakes','-')",
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(32,'Junior 1','Jr')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(33,'Junior 2','Jr')"
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(33,'Junior 2','Jr')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(34,'Senior 1','Sr')",
+            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(35,'Senior 2','Sr')"
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;

@@ -307,7 +307,7 @@ function saveDog(){
 function perros_importExportDogs() {
     $.messager.radio(
         '<?php _e("Import/Export"); ?>',
-        '<?php _e("Import/Export dog data from/to Excel file"); ?>:',
+        '<?php _e("Import/Export dog data from/to Excel file"); ?>:<br/>&nbsp;<br/>',
         {
             0:'*<?php _e("Create Excel file with current search/sort criteria"); ?>',
             1:'<?php _e("Update database with imported data from Excel file"); ?>'
@@ -324,7 +324,6 @@ function perros_importExportDogs() {
                         if (res.errorMsg) {
                             $.messager.alert('License error','<?php _e("Current license has no Excel import function enabled"); ?>', "error");
                         } else {
-                            loadImportPages(); // make sure dialogs and scripts for interactive import are loaded into page
                             $('#perros-excel-dialog').dialog('open');
                         }
                         return false; // prevent default fireup of event trigger

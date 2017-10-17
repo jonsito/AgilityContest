@@ -9,18 +9,19 @@ class NAT4 extends Federations {
             'Name'  => 'Nat-4',
             'LongName' => 'Competiciones nacionales - 4 alturas',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => '/agility/server/modules/federaciones/nat4/uca.png',
-            'Logo'     => '/agility/server/modules/federaciones/nat4/uca.png',
-            'ParentLogo'   => '/agility/server/modules/federaciones/nat4/rfec.png',
-            'WebURL' => 'http://www.agilityuca.org/',
-            'ParentWebURL' => 'http://www.fecaza.com/',
+            'OrganizerLogo'     => '/agility/server/modules/federaciones/nat4/wao.png',
+            'Logo'     => '/agility/server/modules/federaciones/nat4/wao.png',
+            'ParentLogo'   => '/agility/server/modules/federaciones/nat4/wao.png',
+            'WebURL' => 'http://formadog.com/club-agilty/selectiva%20wao%202017.html',
+            'ParentWebURL' => 'http://www.worldagilityopen.com/',
             'Email' => '',
             'Heights' => 4,
             'Grades' => 2,
+            'Games' => 1,
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2, // on rfec may be 3
-            'Recorridos' => array('Common course',"60 + 50 / 40 + 30","Separate courses"),
+            'Recorridos' => array(_('Common course'),"60 + 50 / 40 + 30",_("Separate courses")),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja',

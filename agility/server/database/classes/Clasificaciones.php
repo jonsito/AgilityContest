@@ -53,7 +53,27 @@ class Clasificaciones extends DBObject {
         $this->currentDog=$perro;
         $this->current=array('Perro' => $perro );
 	}
-	
+
+    /**
+     * Method to short final scores based in penalization/time
+     * May be overriden for other subclases to change sorting method
+     * @param {array} $final scores
+     * @param {array} $c1 scores for round 1
+     * @param {array} $c2 scores for round 2
+     * @param {array} $c3 scores for round 3
+     * @param {array} $c4 scores for round 4
+     * @param {array} $c5 scores for round 5
+     * @param {array} $c6 scores for round 6
+     * @param {array} $c7 scores for round 7
+     * @param {array} $c8 scores for round 8
+     */
+	protected function sortFinal(&$final,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8) {
+        usort($final, function($a, $b) {
+            if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
+            return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
+        });
+    }
+
 	/**
 	 * genera la tabla de resultados finales y evalua el orden de clasificacion
 	 * @param {array} $c1 clasificacion primera manga
@@ -159,11 +179,9 @@ class Clasificaciones extends DBObject {
         }
 		$final=$final2;
 
-		// re-ordenamos los datos en base a la puntuacion 
-		usort($final, function($a, $b) {
-			if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
-			return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
-		});
+		// re-ordenamos los datos en base a la puntuacion
+		$this->sortFinal($final,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
+
 		// calculamos campo "Puesto", "Calificacion" y Puntos
         $puestocat=array( 'C'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
         $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
@@ -281,7 +299,9 @@ class Clasificaciones extends DBObject {
 
         // indexamos las clasificaciones por id de perro
         $indexedc=array();
-        foreach ($c as &$item) $indexedc[$item['Perro']]=&$item;
+        foreach ($c as &$item) {
+            $indexedc[$item['Perro']]=&$item;
+        }
 
         // Datos de equipos de la jornada
         $eobj=new Equipos("evalFinalEquipos",$this->prueba->ID,$this->jornada->ID);
@@ -308,6 +328,7 @@ class Clasificaciones extends DBObject {
             }
             // si ya hemos registrado "mindogs" en el equipo, los siguientes perros del equipo no puntuan
             // anyadimos una marca "Out1" para que salgan en gris en el listado
+            $indexedc[$resultado['Perro']]['Out1']=0; // marcar para imprimir en negro
             if ($teams[$eq]['C1']>=$mindogs) {
                 $indexedc[$resultado['Perro']]['Out1']=1; // marcar para imprimir en gris
                 continue;
@@ -328,6 +349,7 @@ class Clasificaciones extends DBObject {
                 continue;
             }
             // si ya hemos registrado "mindogs" en el equipo, los siguientes perros del equipo no puntuan
+            $indexedc[$resultado['Perro']]['Out2']=0; // marcar para imprimir en negro
             // anyadimos una marca "Out2" para que salgan en gris en el listado
             if ($teams[$eq]['C2']>=$mindogs) {
                 $indexedc[$resultado['Perro']]['Out2']=1; // marcar para imprimir en gris
@@ -498,6 +520,7 @@ class Clasificaciones extends DBObject {
 			case 0x0008: // Grado II
             case 0x0010: // Grado III
             case 0x4000: // Junior
+            case 0x8000: // Senior
 			case 0x0020: // Open - Individual
 			case 0x0018: // Conjunta GII - GIII
 			case 0x0100: // ronda KO 1..8 vueltas
@@ -542,12 +565,14 @@ class Clasificaciones extends DBObject {
 	 * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T
 	 */
 	function clasificacionFinal($rondas,$idmangas,$mode) {
+
+        $c8=null;$c7=null;$c6=null;$c5=null;$c4=null;$c3=null;$c2=null;$c1=null;
 		// vamos a ver que tipo de clasificacion nos estan pidiendo
 		switch ($rondas) {
 			case 0x0001: // pre-agility a una vuelta
 				$r1= Competitions::getResultadosInstance("Clasificaciones::Preagility 1",$idmangas[0]);
 				$c1=$r1->getResultadosIndividual($mode);
-				return $this->evalFinal($idmangas,$c1,null);
+				return $this->evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
 			case 0x0004: // Grado I
                 $r1=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$idmangas[0]); // Agility manga 1
                 $c1=$r1->getResultadosIndividual($mode);
@@ -561,18 +586,19 @@ class Clasificaciones extends DBObject {
                     $r3=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[2]}",$idmangas[2]); // Agility manga 3
                     $c3=$r3->getResultadosIndividual($mode);
                 }
-                return $this->evalFinal($idmangas,$c1,$c2,$c3);
+                return $this->evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
                 break;
             case 0x0002: // pre-agility a dos vueltas
 			case 0x0008: // Grado II
 			case 0x0010: // Grado III
 			case 0x0020: // Open - Individual
             case 0x4000: // Junior
+            case 0x8000: // Senior
 				$r1=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$idmangas[0]); // Agility
 				$r2=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$idmangas[1]); // Jumping
 				$c1=$r1->getResultadosIndividual($mode);
 				$c2=$r2->getResultadosIndividual($mode);
-				return $this->evalFinal($idmangas,$c1,$c2);
+                return $this->evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
 				break;
 			case 0x0018: // Conjunta GII - GIII
 				$r1=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$idmangas[0]); // Agility GII
@@ -581,14 +607,14 @@ class Clasificaciones extends DBObject {
 				$r4=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[3]}",$idmangas[3]); // Jumping GIII
 				$c1=$this->combina( $r1->getResultadosIndividual($mode), $r3->getResultadosIndividual($mode));
 				$c2=$this->combina( $r2->getResultadosIndividual($mode), $r4->getResultadosIndividual($mode));
-				return $this->evalFinal($idmangas,$c1,$c2);
+                return $this->evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
 			case 0x0400: // equipos 2 mejores de 3
 			case 0x0040: // equipos 3 mejores de 4
                 $r1=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$idmangas[0]); // Agility Equipos best
                 $r2=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$idmangas[1]); // Jumping Equipos best
                 $c1=$r1->getResultadosIndividual($mode);
                 $c2=$r2->getResultadosIndividual($mode);
-                return $this->evalFinal($idmangas,$c1,$c2);
+                return $this->evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
 			case 0x0800: // equipos 2 conjunta
 			case 0x1000: // equipos 3 conjunta
 			case 0x0080: // equipos 4 conjunta
@@ -596,14 +622,47 @@ class Clasificaciones extends DBObject {
                 $r2=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$idmangas[1]); // Jumping Equipos combined
                 $c1=$r1->getResultadosIndividual($mode);
                 $c2=$r2->getResultadosIndividual($mode);
-                return $this->evalFinal($idmangas,$c1,$c2);
+                return $this->evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
 			case 0x0100: // ronda KO 1..8 vueltas
+                // this should never happen, as KO rounds are handled in a separate Clasification module
 				$this->errormsg= "Clasificaciones:: Ronda $rondas is not yet supported";
 				return null;
 			case 0x0200: // manga especial (una vuelta)
 				$r1= Competitions::getResultadosInstance("Clasificaciones::Manga Especial",$idmangas[0]);
 				$c1=$r1->getResultadosIndividual($mode);
-				return $this->evalFinal($idmangas,$c1,null);
+                return $this->evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
+            case 0x1000: // manga games
+                $tj= intval($this->jornada->Tipo_Competicion);
+                // vemos la modalidad y extraemos las mangas relevantes para la clasificacion
+                // existira un modulo de clasificacion para cada manga
+                // 0:AgilityA 1:AgilityB 2:JumpingA 3:JumpingB 4:Snooker 5:Gambler 6:SpeedStakes
+                switch($tj){
+                    case 1: // penthatlon
+                        $r5=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[6]}",$idmangas[6]); // speed stakes
+                        $c5=$r5->getResultadosIndividual($mode);
+                        // no break
+                    case 2: // biathlon
+                        $r4=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[3]}",$idmangas[3]); // Jumping B
+                        $c4=$r4->getResultadosIndividual($mode);
+                        $r3=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[2]}",$idmangas[2]); // Jumping A
+                        $c3=$r3->getResultadosIndividual($mode);
+                        $r2=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$idmangas[1]); // Agility B
+                        $c2=$r2->getResultadosIndividual($mode);
+                        $r1=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$idmangas[0]); // Agility A
+                        $c1=$r1->getResultadosIndividual($mode);
+                        break;
+                    case 3: // Games
+                        $r2=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[5]}",$idmangas[5]); // Gambler
+                        $c2=$r2->getResultadosIndividual($mode);
+                        $r1=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[4]}",$idmangas[4]); // Snooker
+                        $c1=$r1->getResultadosIndividual($mode);
+                        break;// games
+                    default: $this->errormsg= "Clasificaciones:: invalid Tipo_Competicion:{$tj} in jornada:{$this->jornada->ID} in Games rounds";
+                        return null;
+                }
+                return $this->evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
+                break;
+            default: $this->errormsg= "Clasificaciones:: Ronda $rondas is not yet supported";
 		}
         // arriving here means error
         return null;

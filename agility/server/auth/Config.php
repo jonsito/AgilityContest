@@ -166,31 +166,7 @@ define('AC_EMAIL_WORKSTATION',""); // domain workstation for ntlm auth
 
 Class Config {
 	
-	var $config=array();
-
-	static function getAvailableLanguages()	{
-		return array(
-			['ID' => 'en_US', 'Name' => "English"],
-			['ID' => 'es_ES', 'Name' => "Spanish"],
-			['ID' => 'de_DE', 'Name' => "German"],
-			['ID' => 'hu_HU', 'Name' => "Hungarian"]
-		);
-	}
-
-	public static $locale_list= array( // stupid ms-windows :-(
-		"es_ES" => Array('es_ES','es','es_ES.UTF-8','esp','spanish','spanish.1252'),
-		"en_US" => Array('en_us','en','en_US.UTF-8','eng','english','english.1252'),
-		"de_DE" => Array('de_DE','de','de_DE.UTF-8','ger','german','german.1252'),
-		"hu_HU" => Array('hu_HU','hu','hu_HU.UTF-8','hun','hungarian','hungarian.1252'),
-		"es" => Array('es_ES','es','es_ES.UTF-8','esp','spanish','spanish.1252'),
-		"en" => Array('en_us','en','en_US.UTF-8','eng','english','english.1252'),
-		"de" => Array('de_DE','de','de_DE.UTF-8','ger','german','german.1252'),
-		"hu" => Array('hu_HU','hu','hu_HU.UTF-8','hun','hungarian','hungarian.1252'),
-		"es-ES" => Array('es_ES','es','es_ES.UTF-8','esp','spanish','spanish.1252'),
-		"en-US" => Array('en_us','en','en_US.UTF-8','eng','english','english.1252'),
-		"de-DE" => Array('de_DE','de','de_DE.UTF-8','ger','german','german.1252'),
-		"hu-HU" => Array('hu_HU','hu','hu_HU.UTF-8','hun','hungarian','hungarian.1252')
-	);
+	protected $config=array();
 
 	public static $config_options = array (
 		/* name  => type system default */
@@ -345,6 +321,27 @@ Class Config {
 		'email_workstation'	=> array(	's',	false,	AC_EMAIL_WORKSTATION)
 	);
 
+    function getAvailableLanguages() {
+        $result=array();
+        $dirs=array_filter(glob(__DIR__."/../../locale/*"), 'is_dir');
+        foreach ($dirs as $dir) {
+            $lang=basename($dir);
+            $result[]= array('ID'=>$lang,'Name'=>Locale::getDisplayLanguage($lang));
+        }
+        return $result;
+    }
+
+    public function getLocaleList() {
+        $result=array();
+        $langfiles=array_filter(glob(__DIR__."/../../locale/*/lang.json"), 'is_file');
+        foreach ($langfiles as $file) {
+            $var=file_get_contents($file);
+            $data=json_decode($var,true);
+            $result=array_merge($result,$data);
+        }
+        return $result;
+    }
+
 	// singleton pattern
 	private static $instance=null;   
 	public static function getInstance() {
@@ -437,8 +434,9 @@ Class Config {
 		$locale=$this->getPreferredLanguage($this->config['lang']);
 
         // check for navigator preferences; on fail use default from config
-        if (!array_key_exists($locale,Config::$locale_list)) $locale=$this->config['lang'];
-		$locales=Config::$locale_list[$locale];
+        $locale_list=$this->getLocaleList();
+        if (!array_key_exists($locale,$locale_list)) $locale=$this->config['lang'];
+		$locales=$locale_list[$locale];
 		$sel=setlocale(LC_ALL, $locales);
 		putenv("LC_ALL=$sel");
 		// setlocale(LC_ALL, $locale);

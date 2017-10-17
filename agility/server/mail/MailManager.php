@@ -6,8 +6,9 @@ require_once __DIR__.'/../auth/AuthManager.php';
 require_once __DIR__.'/../database/classes/Admin.php';
 require_once __DIR__.'/../database/classes/Mangas.php';
 require_once __DIR__.'/../database/classes/Resultados.php';
-require_once __DIR__ . '/../excel/classes/InscripcionesWriter.php';
-require_once __DIR__ . '/../excel/classes/ClasificacionesWriter.php';
+require_once __DIR__.'/../excel/classes/InscripcionesWriter.php';
+require_once __DIR__.'/../excel/classes/ClasificacionesWriter.php';
+require_once __DIR__.'/../excel/classes/PartialScoresWriter.php';
 require_once __DIR__.'/../pdf/classes/PrintInscripciones.php';
 require_once __DIR__.'/../pdf/classes/PrintResultadosByEquipos3.php';
 require_once __DIR__.'/../pdf/classes/PrintResultadosByEquipos4.php';
@@ -484,7 +485,7 @@ class MailManager {
                 // Creamos generador de documento
                 $pdf->AliasNbPages();
                 $pdf->composeTable();
-                $pdfname=normalize_filename($s['Nombre']);
+                $pdfname=normalize_filename("Clasificaciones_{$s['Nombre']}");
                 array_push($filelist,"{$pdfname}.pdf");
                 $pdf->Output("$maildir/$pdfname.pdf","F"); // "F" means save to file; "D" send to client; "O" store in variable
             }
@@ -500,8 +501,10 @@ class MailManager {
                 $manga=$mngobj->selectByID($m['Manga']);
                 $resobj= Competitions::getResultadosInstance("EmailResultadosByManga",$m['Manga']);
                 $pdf=null;
+                $excel=null;
                 switch(intval($m['TipoManga'])) {
                     // miramos si es una prueba por equipos
+                    // PENDING: de momento no vamos a generar excel para parciales por equipos
                     case 8: case 13:
                         $resultados=$resobj->getResultadosIndividualyEquipos($m['Mode']);
                         $pdf=new PrintResultadosByEquipos3($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
@@ -514,16 +517,33 @@ class MailManager {
                         if ($this->myData['SendPreAgility']==0) continue;
                     // no break
                     default:
+                        // obtenemos los resultados
                         $resultados=$resobj->getResultadosIndividual($m['Mode']);
+                        // necesitamos el orden de salida para generar el excel
+                        $osobj= Competitions::getOrdenSalidaInstance("excelResultadosByManga",$m['Manga']);
+                        $res=$osobj->getData(false,$m['Mode'],$resultados); // reindex resultados in starting order
+                        $res['trs']=$resultados['trs']; // add trs/trm information
+
+                        // creamos generador de PDF
                         $pdf=new PrintResultadosByManga($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
+
+                        // Creamos generador de documento Excel
+                        $excel = new PartialScoresWriter($this->myData['Prueba'],$this->myData['Jornada'],$manga,$res,$m['Mode']);
                         break;
                 }
-                if ($pdf==null) continue;
-                $pdf->AliasNbPages();
-                $pdf->composeTable();
-                $pdfname=normalize_filename($m['Nombre']);
-                array_push($filelist,"{$pdfname}.pdf");
-                $pdf->Output("$maildir/$pdfname.pdf","F"); // "D" means open download dialog
+                $parcial_filename=normalize_filename($m['Nombre']);
+                if ($pdf!==null) {
+                    $pdf->AliasNbPages();
+                    $pdf->composeTable();
+                    array_push($filelist,"{$parcial_filename}.pdf");
+                    $pdf->Output("{$maildir}/{$parcial_filename}.pdf","F"); // "D" means open download dialog
+                }
+                if ($excel!==null) {
+                    array_push($filelist,"{$parcial_filename}.xlsx");
+                    $excel->open("{$maildir}/{$parcial_filename}.xlsx");
+                    $excel->composeTable();
+                    $excel->close();
+                }
             }
         }
 

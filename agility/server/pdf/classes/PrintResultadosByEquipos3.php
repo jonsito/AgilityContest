@@ -241,8 +241,10 @@ class PrintResultadosByEquipos3 extends PrintCommon {
                     $this->Cell($this->pos[14],5,_("Penaliz").".: $pg",	'LBR',	0,		$this->align[14],	true);
                 }
                 // si la clasificacion va por puntos, se incluye tambien
-                if ( ($n==2) && ($equipo['Puntos']!=0)) {
-                    $this->Cell($this->pos[14],5,_("Points").".: {$equipo['Puntos']}",	'LBR',	0,		$this->align[14],	true);
+                if (array_key_exists('Puntos',$equipo)) {
+                    if ( ($n==2) && ($equipo['Puntos']!=0)) {
+                        $this->Cell($this->pos[14],5,_("Points").".: {$equipo['Puntos']}",	'LBR',	0,		$this->align[14],	true);
+                    }
                 }
                 $this->ac_row(2,9);
                 $this->Ln(5);

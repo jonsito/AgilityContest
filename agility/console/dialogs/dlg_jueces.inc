@@ -49,28 +49,28 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="jueces-Telefono" name="Telefono" type="text"  style="width:200px"/>
             </div>
             <div class="fitem">
-                <label for="jueces-Internacional"><?php _e('International judge'); ?>:</label>
-                <input id="jueces-Internacional" name="Internacional" class="easyui-checkbox" type="checkbox" value="1" />
-            </div>
-            <div class="fitem">
-                <label for="jueces-Practicas"><?php _e('Learning judge'); ?>:</label>
-                <input id="jueces-Practicas" name="Practicas" class="easyui-checkbox" type="checkbox" value="1" />
-            </div>
-        	<div class="fitem">
-        	    <label for="jueces-Federations"><?php _e('Federations'); ?>:</label>
-        	    RSCE <input id="jueces-RSCE" type="checkbox" value="1" name="RSCE"/>
-        	    RFEC <input id="jueces-RFEC" type="checkbox" value="2" name="RFEC"/>
-                Nat3<input id="jueces-Nat4" type="checkbox" value="8" name="Nat4"/>
-                Nat4<input id="jueces-Nat4" type="checkbox" value="4" name="Nat4"/>
-        	    <input id="jueces-Federations" name="Federations" type="hidden"/>
-        	</div>
-            <div class="fitem">
                 <label for="jueces-Email"><?php _e('Electronic mail'); ?>:</label>
                 <input id="jueces-Email" name="Email" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
+                <label for="jueces-Internacional"><?php _e('International judge'); ?>:</label>
+                <input id="jueces-Internacional" name="Internacional" class="easyui-checkbox" type="checkbox" value="1" />
+                <span style="display:inline-block;width:50px;text-align:right">&nbsp;</span>
+                <label for="jueces-Practicas"><?php _e('Learning judge'); ?>: </label>
+                <input id="jueces-Practicas" name="Practicas" class="easyui-checkbox" type="checkbox" value="1" />
+            </div>
+        	<div class="fitem">
+        	    <label for="jueces-Federations"><?php _e('Federations'); ?>:</label><br/>
+        	    RSCE <input id="jueces-RSCE" type="checkbox" value="1" name="RSCE"/>
+        	    RFEC <input id="jueces-RFEC" type="checkbox" value="2" name="RFEC"/>
+                CPC<input id="jueces-CPC" type="checkbox" value="16" name="CPC"/>
+                Nat3<input id="jueces-Nat4" type="checkbox" value="8" name="Nat3"/>
+                Nat4<input id="jueces-Nat4" type="checkbox" value="4" name="Nat4"/>
+        	    <input id="jueces-Federations" name="Federations" type="hidden"/>
+        	</div>
+            <div class="fitem">
                 <label for="jueces-Observaciones"><?php _e('Comments'); ?>:</label>
-                <textarea id="jueces-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
+                <textarea id="jueces-Observaciones" name="Observaciones" style="height:50px;width:350px"></textarea>
             </div>
         </form>
     </div>
@@ -98,8 +98,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
         // despliegue del selector de paises
         $('#jueces-Pais').combogrid({
-            panelWidth: 300,
-            panelHeight: 200,
+            panelWidth: 400,
+            panelHeight: 'auto',
             idField: 'ID',
             textField: 'Country',
             url: '/agility/server/database/juezFunctions.php?Operation=countries',

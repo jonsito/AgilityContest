@@ -141,7 +141,7 @@ $('#inscripciones-excel-dialog').dialog( {
 	buttons:'#inscripciones-excel-buttons',
 	iconCls:'icon-table',
 	onOpen: function() {
-		ac_import.mode='inscripciones';
+		ac_import.type='inscripciones';
 		$('#import-excel-progressbar').progressbar('setValue',"");
 	},
 	onClose: function() {
@@ -173,18 +173,19 @@ $('#inscripciones-jornadas').datagrid({
 			{ field:'Nombre',		width:60, sortable:false,   align:'right',  title: '<?php _e('Name/Comment');?>',formatter:formatBold },
 			{ field:'Fecha',		width:30, sortable:false,	align:'right',  title: '<?php _e('Date');?>: ' },
 			{ field:'Hora',			width:25, sortable:false,	align:'right',  title: '<?php _e('Hour');?>:  ' },
-			{ field:'Grado1',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-I   ');?>' },
-			{ field:'Grado2',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-II  ');?>' },
-			{ field:'Grado3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-III ');?>' },
-			{ field:'Equipos3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Team3 ');?>' },
-			{ field:'Equipos4',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Team4 ');?>' },
-			{ field:'Open',			width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Open  ');?>' },
-			{ field:'PreAgility',	width:15, sortable:false, formatter: formatPreAgility,	align:'center', title: '<?php _e('PreAg.');?>' },
-			{ field:'Junior',	    width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Junior');?>' },
-            { field:'KO',			width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('K.O.  ');?>' },
-            { field:'Games',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Games ');?>' },
-			{ field:'Especial',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Special');?>' },
-			{ field:'Cerrada',		width:10, sortable:false, formatter: formatCerrada,	align:'center', title: '<?php _e('Closed');?>' }
+			{ field:'Grado1',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-I   ');?>' },
+			{ field:'Grado2',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-II  ');?>' },
+			{ field:'Grado3',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-III ');?>' },
+			{ field:'Equipos3',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Team3 ');?>' },
+			{ field:'Equipos4',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Team4 ');?>' },
+			{ field:'Open',			width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Open  ');?>' },
+			{ field:'PreAgility',	width:14, sortable:false, formatter: formatPreAgility,	align:'center', title: '<?php _e('PreAg.');?>' },
+            { field:'Junior',	    width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Junior');?>' },
+            { field:'Senior',	    width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Senior');?>' },
+            { field:'KO',			width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('K.O.  ');?>' },
+            { field:'Games',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Games ');?>' },
+			{ field:'Especial',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Special');?>' },
+			{ field:'Cerrada',		width:9, sortable:false, formatter: formatCerrada,	align:'center', title: '<?php _e('Closed');?>' }
     ]],
     rowStyler:myRowStyler,
 	// on click mark as active; on double click fireup editor dialog

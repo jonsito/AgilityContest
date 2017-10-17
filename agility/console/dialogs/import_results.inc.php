@@ -22,8 +22,9 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE IMPORTACION DE UN RESULTADO -->
-    <div id="importResult-dialog" style="width:550px;height:auto;padding:10px 20px;">
-        <div id="importResult-title" class="ftitle"><?php _e('Dog import'); ?></div>
+    <div id="importResult-dialog" class="easyui-dialog" style="width:550px;height:auto;padding:10px 20px;"
+        data-options="modal:true,closable: false,closed: true,buttons: '#importResult-dlg-buttons',iconCls: 'icon-flag'">
+        <div id="importResult-title" class="ftitle"><?php _e('Results import'); ?></div>
         <p><span id="importResult-Text"></span></p>
         <form id="importResult-header">
         	<div class="fitem">
@@ -31,26 +32,29 @@ $config =Config::getInstance();
                 <select id="importResult-Search" name="Search" style="width:250px"></select>&nbsp;
                 <a id="importResult-clearBtn" href="#" class="easyui-linkbutton"
                 	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
-                <input type="hidden" id="importResult-DogID" value="0"/>
+                <input type="hidden" id="importResult-ResultID" value="0"/>
+                <input type="hidden" name="importResult-UseExcelNames" value="0"/>
         	</div>
         </form>
     </div>
     
-    <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+    <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO
     <div id="importResult-dlg-buttons" style="display:inline-block;">
-    	<span style="float:left">
-        	<a id="importResult-newBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('Result','create',$('#importResult-DogID').val(),$('#importResult-Search').combogrid('getValue'))"
-        		data-options="iconCls:'icon-dog'"><?php _e('Create'); ?></a>
-        </span>
+    -->
+    <div id="importResult-dlg-buttons" style="display:inline-block;">
+        <!--
+        No se pueden crear al vuelo inscripciones:hay que usar una ventana separada
+        Por eso en este dialogo no hay boton de "create"
+        <span style="float:left;">&nbsp;</span>
         <span style="float:right">
+        -->
         	<a id="importResult-okBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('Result','update',$('#importResult-DogID').val(),$('#importResult-Search').combogrid('getValue'))"
+                onclick="importAction('Result','update',$('#importResult-ResultID').val(),$('#importResult-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-ok'"><?php _e('Select'); ?></a>
         	<a id="importResult-cancelBtn" href="#" class="easyui-linkbutton"
-                onclick="importAction('Result','ignore',$('#importResult-DogID').val(),$('#importResult-Search').combogrid('getValue'))"
+                onclick="importAction('Result','ignore',$('#importResult-ResultID').val(),$('#importResult-Search').combogrid('getValue'))"
         		data-options="iconCls:'icon-cancel'"><?php _e('Ignore'); ?></a>
-        </span>
+        <!-- </span> -->
     </div>
     
     <script type="text/javascript">
@@ -58,37 +62,29 @@ $config =Config::getInstance();
     // datos del formulario de select/ignore
     // - declaracion del formulario
     $('#importResult-form').form();
+
     // - botones
-    addTooltip($('#importResult-newBtn').linkbutton(),'<?php _e("Create a new dog with Excel provided data"); ?>');
-    addTooltip($('#importResult-okBtn').linkbutton(),'<?php _e("Use selected dog to be used in requested Excel import data"); ?>');
-    addTooltip($('#importResult-cancelBtn').linkbutton(),'<?php _e("Ignore data. Do not import Excel dog entry into database"); ?>');
+    addTooltip($('#importResult-okBtn').linkbutton(),'<?php _e("Use selected dog for requested Excel import data"); ?>');
+    addTooltip($('#importResult-cancelBtn').linkbutton(),'<?php _e("Ignore data. Do not import Excel result entry into database"); ?>');
     addTooltip($('#importResult-clearBtn').linkbutton(),'<?php _e("Clear selection"); ?>');
     $('#importResult-clearBtn').bind('click',function() {
         $('#importResult-header').form('reset'); // restore to initial values
     });
-    
-    // campos del formulario
-    $('#importResult-dialog').dialog({
-        modal:true,
-        closable: false,
-    	closed: true,
-    	buttons: '#importResult-dlg-buttons',
-        iconCls: 'icon-dog'
-    });
 
+    // combo de busqueda/seleccion de perro inscrito
     $('#importResult-Search').combogrid({
-		panelWidth: 350,
-		panelHeight: 200,
-		idField: 'ID',
+		panelWidth: 400,
+		panelHeight: 150,
+		idField: 'Perro',
         delay: 500,
 		textField: 'Nombre',
 		url: '/agility/server/database/resultadosFunctions.php',
-		queryParams: { Operation:'enumerate', Manga: workingData.manga },
+		queryParams: { Operation:'enumerate' },
 		method: 'get',
 		mode: 'remote',
 		columns: [[
 			{field:'Perro',hidden:'true'},
-            {field:'Licencia',title:'<?php _e('Dog'); ?>',width:10,align:'right'},
+            {field:'Licencia',title:'<?php _e('Lic'); ?>',width:10,align:'right'},
             {field:'Nombre',title:'<?php _e('Dog'); ?>',width:15,align:'right'},
 			{field:'Categoria',title:'<?php _e('Cat'); ?>.',width:5,align:'center',formatter:formatCategoria},
 			{field:'Grado',title:'<?php _e('Grade'); ?>',width:5,align:'center',formatter:formatGrado},
@@ -97,6 +93,15 @@ $config =Config::getInstance();
 		]],
 		multiple: false,
 		fitColumns: true,
-		singleSelect: true
+		singleSelect: true,
+        onBeforeLoad: function(params) { // don't invoke if no manga declared (ie: at startup )
+            if (typeof(workingData.manga)==="undefined") return false;
+            if (parseInt(workingData.manga)===0) return false;
+            params.Operation='enumerate';
+            params.Federation=workingData.federation;
+            params.Manga=workingData.manga;
+            params.Mode=ac_import.mode;
+            return true;
+        }
 	});
     </script>

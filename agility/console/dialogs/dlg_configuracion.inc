@@ -69,7 +69,7 @@ $config =Config::getInstance();
 		<div title="<?php _e('Desktop'); ?>" style="padding:10px">
 			<h3><?php _e('Desktop look and feel'); ?></h3>
 			<label for="config_theme"><?php _e('Dekstop theme'); ?></label>
-			<select id="config_theme" name="easyui_theme" class="easyui-combobox">
+			<select id="config_theme" name="easyui_theme" class="easyui-combobox" data-options="panelHeight:'auto'">
 				<option value="default" selected="selected"><?php _e('Default theme'); ?></option>
 				<option value="metro"><?php _e('Metro'); ?></option>
 				<option value="gray"><?php _e('Grey'); ?></option>
@@ -114,7 +114,7 @@ $config =Config::getInstance();
 			<input id="tablet_keyboard" name="tablet_keyboard" type="checkbox" value="1"/><br />
 
 			<label for="tablet_dblckick"><?php _e('Action at double click in round list'); ?></label>
-			<select id="tablet_dblclick" name="tablet_dblckick" class="easyui-combobox">
+			<select id="tablet_dblclick" name="tablet_dblckick" class="easyui-combobox" data-options="panelHeight:'auto'">
 				<option value="0"><?php _e('Cancel and select');?></option>
 				<option value="1" selected="selected"><?php _e('Save and select');?></option>
 			</select><br />
@@ -188,7 +188,7 @@ $config =Config::getInstance();
 			<input type="checkbox" name="vws_animation" id="vws_animation" value="1"/><br />
 
 			<label for="vws_font"><?php _e('Font family for text in cells'); ?></label>
-			<select id="vws_font" name="vws_font" class="easyui-combobox">
+			<select id="vws_font" name="vws_font" class="easyui-combobox" data-options="panelHeight:'auto'">
 				<option value="Helvetica, monospace"><?php _e('Default system font'); ?></option>
 				<option value="futura_condensedbold">Futura Condensed Bold</option>
 				<option value="roadgeek_2005_engschriftRg">RoadGeek 2005 Engschrift</option>
@@ -273,7 +273,7 @@ $config =Config::getInstance();
 			<input id="ls_chromakey" name="ls_chromakey" type="color" value="#00ff00"/><br />
 
 			<label for="ls_dataposition"><?php _e('Timming data screen location'); ?></label>
-			<select id="ls_dataposition" name="ls_dataposition" class="easyui-combobox">
+			<select id="ls_dataposition" name="ls_dataposition" class="easyui-combobox" data-options="panelHeight:'auto'">
 				<option value="0"><?php _e('Not visible');?></option>
 				<option value="1" selected="selected"><?php _e('Upper right corner');?></option>
 				<option value="2"><?php _e('Lower right corner');?></option>
@@ -281,7 +281,7 @@ $config =Config::getInstance();
 			</select><br />
 
 			<label for="ls_infoposition"><?php _e('Round data screen location'); ?></label>
-			<select id="ls_infoposition" name="ls_infoposition" class="easyui-combobox">
+			<select id="ls_infoposition" name="ls_infoposition" class="easyui-combobox" data-options="panelHeight:'auto'">
 				<option value="0"><?php _e('Not visible');?></option>
 				<option value="1" selected="selected"><?php _e('Screen top');?></option>
 				<option value="2"><?php _e('On top of competitor info');?></option>
@@ -291,7 +291,7 @@ $config =Config::getInstance();
 		<div title="<?php _e('Reports'); ?>" style="padding:10px">
 			<h3><?php _e('PDF forms and reports generation'); ?></h3>
 			<label for="pdf_fontfamily"><?php _e('Font family'); ?></label>
-			<select id="pdf_fontfamily" name="pdf_fontfamily" class="easyui-combobox">
+			<select id="pdf_fontfamily" name="pdf_fontfamily" class="easyui-combobox" data-options="panelHeight:'auto'">
 				<option value="DejaVu" selected="selected">DejaVu (UTF-8)</option>
 				<option value="Free">GNU Free (UTF-8)</option>
 				<option value="Courier">Courier (iso-latin1)</option>
@@ -350,7 +350,7 @@ $config =Config::getInstance();
 		    <h3><?php _e('Public access from internet'); ?></h3>
 			<label for="web_refreshtime"><?php _e('Data auto-refresh interval'); ?></label>
 			<input type="hidden" name="web_refreshtime" value="0"/> <!-- trick for select with value 0 -->
-			<select id="web_refreshtime" name="web_refreshtime" class="easyui-combobox">
+			<select id="web_refreshtime" name="web_refreshtime" class="easyui-combobox" data-options="panelHeight:'auto'">
 				<option value="0" selected="selected"><?php _e('No refresh'); ?></option>
 				<option value="30">30 sec.</option>
 				<option value="45">45 sec.</option>
@@ -434,7 +434,7 @@ $config =Config::getInstance();
 			<input type="hidden" name="accept_lang" value="0"/> <!-- trick for checkboxes -->
 			<input type="checkbox" name="accept_lang" id="accept_lang" value="1"/><br />
 			<label for="debug_level"><?php _e('Debug level'); ?></label>
-			<select id="debug_level" name="debug_level" class="easyui-combobox">
+			<select id="debug_level" name="debug_level" class="easyui-combobox" data-options="panelHeight:'auto'">
 				<!-- "PANIC","ALERT","ERROR","WARN","NOTICE","INFO","DEBUG","TRACE","ALL" -->
 				<option value="0" ><?php _e('None'); ?>.</option>
 				<option value="1" ><?php _e('Unusable syetem'); ?></option>
@@ -542,6 +542,7 @@ $config =Config::getInstance();
     $('#email_address').val(ac_regInfo.Email); // uneditable
 
 	$('#config_lang').combobox({
+        panelHeight:'auto',
         url:'/agility/server/adminFunctions.php?Operation=getAvailableLanguages',
         valueField:'ID',
         textField:'Name'
@@ -589,10 +590,10 @@ $config =Config::getInstance();
 	                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
 	            } else {
 		            $.messager.alert('<?php _e("Save"); ?>',
-				            '<?php _e("New configuration successfully saved"); ?>'+" <br />"+
+				            '<?php _e("New configuration successfully saved"); ?>'+" <br/> &nbsp;<br/> "+
 				            '<?php _e("You should close session and reload page"); ?> '+
 				            '<?php _e("for changes to become active"); ?>',
-				            "info");
+				            "info").window('resize',{width:400});
 					loadConfiguration(function(config) { $('#config-form').form('load',config);	});
 	            }
 	        },

@@ -131,7 +131,7 @@ function importExportEntrenamientos() {
 
     $.messager.radio(
         '<?php _e("Import/Export"); ?>',
-        '<?php _e("Import/Export training timetable from/to Excel file"); ?>:',
+        '<?php _e("Import/Export training timetable from/to Excel file"); ?>:<br/>&nbsp;<br/>',
         {
             0:'*<?php _e("Create Excel file with current training table data"); ?>',
             1:'<?php _e("Update training timetable with imported data from Excel file"); ?>'
@@ -148,7 +148,6 @@ function importExportEntrenamientos() {
                         if (res.errorMsg) {
                             $.messager.alert('License error','<?php _e("Current license has no Excel import function enabled"); ?>', "error");
                         } else {
-                            loadImportPages(); // make sure dialogs and scripts for interactive import are loaded into page
                             $('#entrenamientos-excel-dialog').dialog('open');
                         }
                         return false; // prevent default fireup of event trigger

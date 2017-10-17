@@ -103,7 +103,7 @@ try {
 			$ev->reconfigure();
 			break;
         case "getAvailableLanguages":
-            $result= Config::getAvailableLanguages();
+            $result= $config->getAvailableLanguages();
             break;
 		case "printerCheck":
 			$am->access(PERMS_OPERATOR);

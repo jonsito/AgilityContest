@@ -61,7 +61,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/admin.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/console/import/import.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/import.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/clubes.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/guias.js.php" type="text/javascript" charset="utf-8" > </script>
@@ -78,6 +78,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/printer.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/import.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript">
 
@@ -337,17 +338,27 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
         </a>
     </li>
 	<li><a href="javascript:check_softLevel(access_level.PERMS_OPERATOR,function(){
-	        loadContents('/agility/console/frm_guias.php','<?php _e('Handlers Database Management');?>');
+	        loadContents(
+	            '/agility/console/frm_guias.php',
+	            '<?php _e('Handlers Database Management');?>'
+	        );
 	    });"><?php _e('Handlers'); ?>
         </a>
     </li>
 	<li><a href="javascript:check_softLevel(access_level.PERMS_OPERATOR,function(){
-	        loadContents('/agility/console/frm_perros.php','<?php _e('Dogs Database Management');?>',{'p':'#perros-dialog'});
+	        loadContents(
+	            '/agility/console/frm_perros.php',
+	            '<?php _e('Dogs Database Management');?>',
+	            {'e':'#perros-excel-dialog','p':'#perros-dialog'}
+	        );
 	    });"><?php _e('Dogs'); ?>
         </a>
     </li>
 	<li><a href="javascript:check_softLevel(access_level.PERMS_OPERATOR,function(){
-	        loadContents('/agility/console/frm_jueces.php','<?php _e('Judges Database Management');?>');
+	        loadContents(
+	            '/agility/console/frm_jueces.php',
+	            '<?php _e('Judges Database Management');?>'
+	        );
 	    });"><?php _e('Judges'); ?>
         </a>
     </li>
@@ -356,31 +367,71 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <li><?php _e('CONTESTS'); ?>
 	<ul>
 	<li><a href="javascript:check_softLevel(access_level.PERMS_OPERATOR,function(){
-	        loadContents('/agility/console/frm_pruebas.php','<?php _e('Create and Edit Contests');?>');
+	        loadContents(
+	            '/agility/console/frm_pruebas.php',
+	            '<?php _e('Create and Edit Contests');?>'
+	        );
 	    });"><?php _e('Create Contests'); ?>
         </a>
     </li>
-	<li><a href="javascript:loadContents('/agility/console/frm_inscripciones.php','<?php _e('Inscriptions - Contest selection');?>',{'s':'#selprueba-window'});"><?php _e('Handle Inscriptions'); ?></a></li>
-	<li><a href="javascript:loadContents('/agility/console/frm_competicion.php','<?php _e('Competition - Contest and Journey selection');?>');"><?php _e('Running Contests'); ?></a></li>
+	<li><a href="javascript:loadContents(
+	        '/agility/console/frm_inscripciones.php',
+	        '<?php _e('Inscriptions - Contest selection');?>',
+	        {'s':'#selprueba-window'}
+	    );"><?php _e('Handle Inscriptions'); ?>
+        </a>
+    </li>
+	<li><a href="javascript:loadContents(
+	        '/agility/console/frm_competicion.php',
+	        '<?php _e('Competition - Contest and Journey selection');?>'
+	    );"><?php _e('Running Contests'); ?>
+        </a>
+    </li>
 	</ul>
 </li>
 <li><?php _e('REPORTS'); ?>
 	<ul>
-	<li><a href="javascript:loadContents('/agility/console/frm_clasificaciones.php','<?php _e('Scores - Contest and Journey selection');?>');"><?php _e('Scores'); ?></a></li>
-	<li><a href="javascript:loadContents('/agility/console/frm_estadisticas.php','<?php _e('Statistics');?>');"><?php _e('Statistics'); ?></a></li>
+	<li><a href="javascript:loadContents(
+	        '/agility/console/frm_clasificaciones.php',
+	        '<?php _e('Scores - Contest and Journey selection');?>'
+	        );"><?php _e('Scores'); ?>
+        </a>
+    </li>
+	<li><a href="javascript:loadContents(
+	        '/agility/console/frm_estadisticas.php',
+	        '<?php _e('Statistics');?>'
+	    );"><?php _e('Statistics'); ?>
+        </a>
+    </li>
 	</ul>
 </li>
 <li><?php _e('TOOLS'); ?>
 	<ul>
-	<li><a href="javascript:loadContents('/agility/console/frm_admin.php','<?php _e('Configuration');?>',{e:'#remote-dialog'})"><?php _e('Configuration'); ?></a></li>
+	<li><a href="javascript:loadContents(
+	        '/agility/console/frm_admin.php',
+	        '<?php _e('Configuration');?>',
+	        {e:'#remote-dialog'}
+	    )"><?php _e('Configuration'); ?>
+        </a>
+    </li>
 	<li><a href="javascript:showMyAdminWindow();"><?php _e('Direct DB Access'); ?></a></li>
 	</ul>
 </li>
 <li><?php _e('DOCUMENTATION'); ?>
 	<ul>
 	<li> <a target="documentacion" href="/agility/console/manual.html"><?php _e('OnLine Manual'); ?></a></li>
-	<li> <a href="javascript:loadContents('/agility/console/frm_registration.php','<?php _e('License information');?>')"><?php _e('License information'); ?></a></li>
-	<li> <a href="javascript:loadContents('/agility/console/frm_about.php','<?php _e('About AgilityContest');?>...')"><?php _e('About'); ?>...</a></li>
+	<li> <a href="javascript:loadContents(
+	        '/agility/console/frm_registration.php',
+	        '<?php _e('License information');?>'
+	    )"><?php _e('License information'); ?>
+        </a>
+    </li>
+	<li> <a href="javascript:loadContents(
+	        '/agility/console/frm_about.php',
+	        '<?php _e('About AgilityContest');?>...'
+	    )"><?php _e('About'); ?>...
+        </a>
+    </li>
 	</ul>
 </li>
 </ul>
@@ -392,19 +443,21 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 	<div id="contenido" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
 </div>
 
-<!--
-	Entrada para insertar dialogos de importacion de ficheros desde excel
-	Debido a que se utilizan en varios frames, no se pueden cargar directamente desde loadcontents
-	sino que hay que cargarlos "bajo" demanda
-	Para depuracion usamos php_include()
-	 -->
+<!-- Entrada para insertar dialogos de importacion de ficheros desde excel -->
 <div id="myimport">
-	<div id="importflag" style="display:none"></div> <!-- "" (empty) or "ready" -->
-	<div id="importclubes" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
-	<div id="importhandlers" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
-	<div id="importdogs" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
-	<div id="importresults" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
-</div> <!-- to be filled -->
+	<div id="importclubes" style="display:none">
+        <?php include_once("dialogs/import_clubes.inc.php"); ?>
+    </div>
+	<div id="importhandlers" style="display:none">
+        <?php include_once("dialogs/import_handlers.inc.php"); ?>
+    </div>
+	<div id="importdogs" style="display:none">
+        <?php include_once("dialogs/import_perros.inc.php"); ?>
+    </div>
+	<div id="importresults" style="display:none">
+        <?php include_once("dialogs/import_results.inc.php"); ?>
+    </div>
+</div>
 
 </body>
 

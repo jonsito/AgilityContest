@@ -129,6 +129,9 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
             case 32: // Junior Manga 1
             case 33: // Junior Manga 2
             if ($g==='Jr') $inscribir=true; break;
+            case 34: // Senior Manga 1
+            case 35: // Senior Manga 2
+                if ($g==='Sr') $inscribir=true; break;
 			default: 
 				throw new Exception("Tipo de manga $mtype desconocido. Manga:$mid Jornada:$j Prueba:$p");
 				break;
@@ -140,7 +143,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			$myLogger->info("Eliminando Perro:$idperro Grado:$g del orden de salida de la manga $mid grado:$mgrado");
 			$os->removeFromList($idperro);
 		} else {
-			$myLogger->info("Insertando Perro:$idperro Grado:$g en del orden de salida de la manga $mid grado:$mgrado");
+			$myLogger->info("Insertando Perro:$idperro Grado:$g en el orden de salida de la manga $mid grado:$mgrado");
 			$os->insertIntoList($idperro);
 		}
 		

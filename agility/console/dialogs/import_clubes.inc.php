@@ -21,9 +21,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  $config =Config::getInstance();
  ?>
 
-
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE importclubes -->
- <div id="importClub-dialog" style="width:550px;height:auto;padding:10px 20px;" >
+ <div id="importClub-dialog" class="easyui-dialog" style="width:550px;height:auto;padding:10px 20px;"
+    data-options="modal:true,closable:false,closed:true,buttons:'#importClub-dlg-buttons',iconCls:'icon-flag'">
     <div class="ftitle"><?php _e('Club data Import'); ?></div>
      <p><span id="importClub-Text"></span></p>
      <form id="importClub-header">
@@ -34,6 +34,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
              <a id="importClub-clearBtn" href="#" class="easyui-linkbutton"
                 data-options="iconCls: 'icon-brush'"><?php _e('Clear'); ?></a>
              <input type="hidden" id="importClub-ClubID" value="0"/>
+             <input type="hidden" name="importClub-UseExcelNames" value="0"/>
          </div>
      </form>
 </div>  
@@ -55,16 +56,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     
 <script type="text/javascript">
 
-        $('#importClub-dialog').dialog( {
-            modal:true,
-            closable:false,
-            closed:true,
-            buttons:'#importClub-dlg-buttons',
-            iconCls:'icon-flag'
-        } );
-
         // - declaracion del formulario
         $('#importClub-form').form();
+
         // - botones
     	addTooltip($('#importClub-newBtn').linkbutton(),'<?php _e("Open dialog to create new club"); ?>');
         $('#importClub-newBtn').bind('click',function() {
@@ -90,7 +84,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             idField: 'ID',
             textField: 'Nombre',
             url: '/agility/server/database/clubFunctions.php',
-            queryParams: { Operation:'enumerate', Federation: workingData.federation },
+            queryParams: { Operation:'enumerate' },
             method: 'get',
             mode: 'remote',
             columns: [[
@@ -99,6 +93,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 {field:'Provincia', title:'<?php _e("Province"); ?>',   width:'25%',align:'right'},
                 {field:'Pais',      title:'<?php _e("Country"); ?>',    width:'15%',align:'right'}
             ]],
+            onBeforeLoad:function(params) {
+                params.Federation=workingData.federation;
+                params.Operation='enumerate';
+                return true;
+            },
             multiple: false,
             fitColumns: true,
             singleSelect: true

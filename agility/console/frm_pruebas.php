@@ -157,7 +157,8 @@ $config =Config::getInstance();
             		{ field:'Fecha',		width:12, sortable:true,	title: '<?php _e('Date'); ?>' },
             		{ field:'Hora',			width:10, sortable:false,	title: '<?php _e('Hour'); ?>' },
             		{ field:'PreAgility',	width:8, sortable:false, formatter:	formatPreAgility, align:'center', title: 'PreAg. ' },
-            		{ field:'Junior',	    width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'Junior ' },
+                    { field:'Junior',	    width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'Junior ' },
+                    { field:'Senior',	    width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'Senior ' },
             		{ field:'Grado1',		width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'G-I    ' },
             		{ field:'Grado2',		width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'G-II   ' },
             		{ field:'Grado3',		width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'G-III  ' },
@@ -168,7 +169,7 @@ $config =Config::getInstance();
                     { field:'Games',		width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'Games  ' },
             		{ field:'Especial',	    width:8, sortable:false, formatter:	formatOk,	align:'center',     title: '<?php _e('Special'); ?>'},
             	    { field:'Observaciones',hidden:true }, // texto para el caso de Manga especial
-            		{ field:'Cerrada',		width:8, sortable:false, formatter:	formatCerrada,	align:'center', title: '<?php _e('Closed'); ?>' }
+            		{ field:'Cerrada',		width:5, sortable:false, formatter:	formatCerrada,	align:'center', title: '<?php _e('Closed'); ?>' }
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             	rowStyler:myRowStyler,

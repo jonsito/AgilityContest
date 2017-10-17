@@ -238,7 +238,7 @@ function importExportParcial(recorrido) {
     var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,value);
     $.messager.radio(
         '<?php _e("Import/Export"); ?>',
-        '<?php _e("Import/Export partial scores from/to Excel file"); ?>:',
+        '<?php _e("Import/Export partial scores from/to Excel file"); ?>:<br/>&nbsp;<br/>',
         {
             0:'*<?php _e("Create Excel file with current round results"); ?>',
             1:'<?php _e("Import partial scores on this round from Excel file"); ?>'
@@ -269,13 +269,21 @@ function importExportParcial(recorrido) {
                         if (res.errorMsg) {
                             $.messager.alert('License error','<?php _e("Current license has no Excel import function enabled"); ?>', "error");
                         } else {
+                            if (parseInt(workingData.datosJornada.Cerrada)!==0) {
+                                $.messager.alert(
+                                    "<?php _e('Not allowed');?>",
+                                    "<?php _e('Cannot import round results in a closed journey');?>",
+                                    "error"
+                                );
+                                return;
+                            }
                             $('#resultadosmanga-excel-dialog').dialog('open');
                         }
                         return false; // prevent default fireup of event trigger
                     });
                     break;
             }
-        }).window('resize',{width:400});
+        }).window('resize',{width:500});
     return false; //this is critical to stop the click event which will trigger a normal file download!
 
 }

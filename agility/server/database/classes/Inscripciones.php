@@ -557,14 +557,16 @@ class Inscripciones extends DBObject {
         $this->clearInscripciones($jornada);
         $fobj=$this->__getArray("Jornadas",$from);
         $tobj=$this->__getArray("Jornadas",$jornada);
-        if (!$tobj) throw new Exception("updateInscripciones: Invalid JornadaID to clone into");
+        if (!$fobj) throw new Exception("updateInscripciones: Invalid JornadaID:{$from} to clone from");
+        if (!$tobj) throw new Exception("updateInscripciones: Invalid JornadaID:{$jornada} to clone into");
         $timeout=ini_get('max_execution_time');
         $fmask=1<<(($fobj['Numero'])-1);
         $tmask=1<<(($tobj['Numero'])-1);
 
         // actualizamos tabla de inscripciones
+        // esto es sencillo: basta con actualizar la mascar de inscripciones
         $sql="UPDATE Inscripciones SET Jornadas=(Jornadas|{$tmask}) ".
-                    "WHERE (Prueba={$this->pruebaID}) AND ((Jornadas&{$fmask}) != 0)";
+                    "WHERE (Prueba={$this->pruebaID}) AND ((Jornadas & {$fmask}) != 0)";
         $res=$this->query($sql);
         if (!$res) $this->myLogger->error($this->conn->error);
 
@@ -595,6 +597,7 @@ class Inscripciones extends DBObject {
         // ahora clonamos los equipos. Recuerda que se ha hecho un clearInscripciones primero, por lo que
         // se parte de una tabla "en blanco"
         $equipos=$this->__select("*","Equipos","Jornada={$from}");
+        $ordenEquipos="BEGIN,";
         foreach($equipos['rows'] as $equipo) {
             $members=getInnerString($equipo['Miembros'],'BEGIN,',',END');
             // si se trata del equipo por defecto no se inserta: ya viene pre-definido
@@ -603,12 +606,14 @@ class Inscripciones extends DBObject {
                 $defteam=$this->__selectAsArray("*","Equipos","Jornada={$jornada} AND DefaultTeam=1");
                 $teamID=$defteam['ID'];
             } else {
+                // insertamos nuevo equipo en la lista de equipos
                 $sql="INSERT INTO Equipos (Prueba,Jornada,Nombre,Observaciones,Miembros,DefaultTeam)
 				      VALUES ({$fobj['Prueba']},{$jornada},'{$equipo['Nombre']}','{$equipo['Observaciones']}','BEGIN,END',0 )";
                 $res=$this->query($sql);
                 if (!$res) $this->myLogger->error($this->conn->error);
                 $teamID=$this->conn->insert_id;
             }
+            $ordenEquipos.="${teamID},";
             // actualiza los miembros del equipo
             $sql="UPDATE Equipos SET Miembros='{$equipo['Miembros']}' WHERE ID={$teamID}";
             $res=$this->query($sql);
@@ -621,6 +626,14 @@ class Inscripciones extends DBObject {
             }
             if (!$res) $this->myLogger->error($this->conn->error);
         }
+
+        // ajustamos el orden del equipos.
+        // Como clonar el orden de equipos de cada manga es complicado, ( ya que las dos jornadas no tienen por qué
+        // tener las mismas mangas, vamos a poner el mismo orden para todas las mangas de la nueva jornada
+        $ordenEquipos.="END";
+        $sql="UPDATE Mangas SET Orden_Equipos='{$ordenEquipos}' WHERE Jornada={$jornada}";
+        $res=$this->query($sql);
+        if (!$res) $this->myLogger->error($this->conn->error);
 
         // las tandas no se clonan, (las tandas por defecto ya estan generadas )
         // como mucho caso habría que clonar el orden y anyadir las tandas definidas por el usuario

@@ -20,6 +20,68 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * used in AgilityContest project
  */
 
+// this is a patch from easyui 1.4.5 to add extra functions. It's needed for newer scrollview code
+$.easyui={
+    indexOfArray:function(a,o,id){
+        for(var i=0,_1=a.length;i<_1;i++){
+            if(id==undefined){
+                if(a[i]==o){
+                    return i;
+                }
+            }else{
+                if(a[i][o]==id){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    },
+    removeArrayItem:function(a,o,id){
+        if(typeof o=="string"){
+            for(var i=0,_2=a.length;i<_2;i++){
+                if(a[i][o]==id){
+                    a.splice(i,1);
+                    return;
+                }
+            }
+        }else{
+            var _3=this.indexOfArray(a,o);
+            if(_3!=-1){
+                a.splice(_3,1);
+            }
+        }
+    },
+    addArrayItem:function(a,o,r){
+        var _4=this.indexOfArray(a,o,r?r[o]:undefined);
+        if(_4==-1){
+            a.push(r?r:o);
+        }else{
+            a[_4]=r?r:o;
+        }
+    },
+    getArrayItem:function(a,o,id){
+        var _5=this.indexOfArray(a,o,id);
+        return _5==-1?null:a[_5];
+    },
+    forEach:function(_6,_7,_8){
+        var _9=[];
+        for(var i=0;i<_6.length;i++){
+            _9.push(_6[i]);
+        }
+        while(_9.length){
+            var _a=_9.shift();
+            if(_8(_a)==false){
+                return;
+            }
+            if(_7&&_a.children){
+                for(var i=_a.children.length-1;i>=0;i--){
+                    _9.unshift(_a.children[i]);
+                }
+            }
+        }
+    }
+};
+
 /**
  * Extension of datagrid methods to add "align" property on array declared toolbars
  * http://www.jeasyui.com/forum/index.php?topic=3540.msg8090#msg8090
@@ -193,20 +255,28 @@ $.extend($.fn.datagrid.methods, {
 		return win;
 	};
     $.messager.password =function(title,msg,fn){
-        var content="<div class=\"messager-icon messager-warning\"></div>"+"<div>"+msg+"</div>"+"<br />"+"<div style=\"clear:both;\"/>"+"<div><input class=\"messager-input\" type=\"password\"/></div>";
+        var content="<div class=\"messager-icon messager-warning\"></div>"+
+            "<div>"+msg+"</div>"+"<br />"+"<div style=\"clear:both;\"/>"+
+            "<div><input class=\"messager-input\" type=\"password\"/></div>";
         var buttons={};
         buttons[$.messager.defaults.ok]=function(){
-            win.window("close");
-            if(fn){
-                fn($(".messager-input",win).val());
-                return false;
-            }
+            win.window('close');
+            if (fn) { fn($(".messager-input",win).val()); }
+            return false;
         };
         buttons[$.messager.defaults.cancel]=function(){
             win.window("close");
             return false;
         };
         var win=createDialog(title,content,buttons);
+        // when enter is pressed in input box, assume "Accept" button
+        $(".messager-input",win).change(
+            function(){
+                win.window('close');
+                if (fn) { fn($(".messager-input",win).val()); }
+                return false;
+            }
+        );
         win.find("input.messager-input").focus();
         return win;
     }

@@ -68,8 +68,8 @@ function saveInscripcion(close) {
             	$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
             } else {
             	// on save done refresh related data/combo grids and close dialog
-            	if (!close) $('#inscripciones-datagrid').datagrid('reload');
-            	else $('#edit_inscripcion-dialog').dialog('close');
+                $('#inscripciones-datagrid').datagrid('reload');
+            	if (close)  $('#edit_inscripcion-dialog').dialog('close');
             }
         }
     });
@@ -409,7 +409,7 @@ function importExportInscripciones() {
 	};
 	$.messager.radio(
 		'<?php _e('Excel import/export'); ?>',
-		'<?php _e('Choose from available operations'); ?>:',
+		'<?php _e('Choose from available operations'); ?>:<br/>&nbsp;<br/>',
 		options,
 		function(r) {
             var opt=parseInt(r);
@@ -431,7 +431,6 @@ function importExportInscripciones() {
                     if (res.errorMsg) {
                         $.messager.alert('License error','<?php _e("Current license has no Excel import function enabled"); ?>', "error");
                     } else {
-                        loadImportPages(); // make sure dialogs and scripts for interactive import are loaded into page
                         $('#inscripciones-excel-dialog').dialog('open');
                     }
                     return false; // prevent default fireup of event trigger

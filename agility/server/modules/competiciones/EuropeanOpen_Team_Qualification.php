@@ -109,7 +109,10 @@ class EuropeanOpen_Team_Qualification extends Competitions {
 
         // y ahora dejamos "potito" el campo de calificacion
         $perro['CShort'] = "{$perro['Puntos']}";
-        if ($perro['Penalizacion']>=26)	{
+        if ($perro['Penalizacion']>=100)	{
+            $perro['Calificacion'] = _("Elim.")." - 0"; // should not arrive here. need to revise
+        }
+        else if ($perro['Penalizacion']>=26)	{
             $perro['Calificacion'] = _("N.C.")." - ".$perro['Puntos'];
         }
         else if ($perro['Penalizacion']>=16)	{

@@ -271,6 +271,7 @@ class PrintEstadisticas extends PrintCommon {
 		if ($item['Grado']==='-') return;
         if ($item['Grado']==='P.B.') return; // perro en blanco no se toma en cuenta
         // if ($item['Grado']==='Jr') return; // PENDING: procesar perros Junior
+        // if ($item['Grado']==='Sr') return; // PENDING: procesar perros Senior
 		if ($item['Grado']==='Baja') return; // PENDING: no se deberia admitir la inscripcion
 		if ($item['Grado']==='Ret.') return; // PENDING: no se deberia admitir la inscripcion
 		$data[$jornada]['G']['C']++;
@@ -287,6 +288,8 @@ class PrintEstadisticas extends PrintCommon {
 		$est['Prueba']['G']['C']=0;$est['Prueba']['G']['L']=0;$est['Prueba']['G']['M']=0;$est['Prueba']['G']['S']=0;$est['Prueba']['G']['T']=0;
         $est['Prueba']['Jr']=array();
         $est['Prueba']['Jr']['C']=0;$est['Prueba']['Jr']['L']=0;$est['Prueba']['Jr']['M']=0;$est['Prueba']['Jr']['S']=0;$est['Prueba']['Jr']['T']=0;
+        $est['Prueba']['Sr']=array();
+        $est['Prueba']['Sr']['C']=0;$est['Prueba']['Sr']['L']=0;$est['Prueba']['Sr']['M']=0;$est['Prueba']['Sr']['S']=0;$est['Prueba']['Sr']['T']=0;
 		$est['Prueba']['P.A.']=array();
 		$est['Prueba']['P.A.']['C']=0;$est['Prueba']['P.A.']['L']=0;$est['Prueba']['P.A.']['M']=0;$est['Prueba']['P.A.']['S']=0;$est['Prueba']['P.A.']['T']=0;	
 		$est['Prueba']['GI']=array();
@@ -295,119 +298,26 @@ class PrintEstadisticas extends PrintCommon {
 		$est['Prueba']['GII']['C']=0;$est['Prueba']['GII']['L']=0;$est['Prueba']['GII']['M']=0;$est['Prueba']['GII']['S']=0;$est['Prueba']['GII']['T']=0;	
 		$est['Prueba']['GIII']=array();
 		$est['Prueba']['GIII']['C']=0;$est['Prueba']['GIII']['L']=0;$est['Prueba']['GIII']['M']=0;$est['Prueba']['GIII']['S']=0;$est['Prueba']['GIII']['T']=0;
-		// Jornada 1		
-		$est['J1']=array();
-		$est['J1']['G']=array();
-		$est['J1']['G']['C']=0;$est['J1']['G']['L']=0;$est['J1']['G']['M']=0;$est['J1']['G']['S']=0;$est['J1']['G']['T']=0;
-        $est['J1']['Jr']=array();
-        $est['J1']['Jr']['C']=0;$est['J1']['Jr']['L']=0;$est['J1']['Jr']['M']=0;$est['J1']['Jr']['S']=0;$est['J1']['Jr']['T']=0;
-		$est['J1']['P.A.']=array();
-		$est['J1']['P.A.']['C']=0;$est['J1']['P.A.']['L']=0;$est['J1']['P.A.']['M']=0;$est['J1']['P.A.']['S']=0;$est['J1']['P.A.']['T']=0;	
-		$est['J1']['GI']=array();
-		$est['J1']['GI']['C']=0;$est['J1']['GI']['L']=0;$est['J1']['GI']['M']=0;$est['J1']['GI']['S']=0;$est['J1']['GI']['T']=0;	
-		$est['J1']['GII']=array();
-		$est['J1']['GII']['C']=0;$est['J1']['GII']['L']=0;$est['J1']['GII']['M']=0;$est['J1']['GII']['S']=0;$est['J1']['GII']['T']=0;	
-		$est['J1']['GIII']=array();
-		$est['J1']['GIII']['C']=0;$est['J1']['GIII']['L']=0;$est['J1']['GIII']['M']=0;$est['J1']['GIII']['S']=0;$est['J1']['GIII']['T']=0;
-		// Jornada 2
-		$est['J2']=array();
-		$est['J2']['G']=array();
-		$est['J2']['G']['C']=0;$est['J2']['G']['L']=0;$est['J2']['G']['M']=0;$est['J2']['G']['S']=0;$est['J2']['G']['T']=0;
-        $est['J2']['Jr']=array();
-        $est['J2']['Jr']['C']=0;$est['J2']['Jr']['L']=0;$est['J2']['Jr']['M']=0;$est['J2']['Jr']['S']=0;$est['J2']['Jr']['T']=0;
-		$est['J2']['P.A.']=array();
-		$est['J2']['P.A.']['C']=0;$est['J2']['P.A.']['L']=0;$est['J2']['P.A.']['M']=0;$est['J2']['P.A.']['S']=0;$est['J2']['P.A.']['T']=0;
-		$est['J2']['GI']=array();
-		$est['J2']['GI']['C']=0;$est['J2']['GI']['L']=0;$est['J2']['GI']['M']=0;$est['J2']['GI']['S']=0;$est['J2']['GI']['T']=0;
-		$est['J2']['GII']=array();
-		$est['J2']['GII']['C']=0;$est['J2']['GII']['L']=0;$est['J2']['GII']['M']=0;$est['J2']['GII']['S']=0;$est['J2']['GII']['T']=0;
-		$est['J2']['GIII']=array();
-		$est['J2']['GIII']['C']=0;$est['J2']['GIII']['L']=0;$est['J2']['GIII']['M']=0;$est['J2']['GIII']['S']=0;$est['J2']['GIII']['T']=0;
-		// Jornada 3
-		$est['J3']=array();
-		$est['J3']['G']=array();
-		$est['J3']['G']['C']=0;$est['J3']['G']['L']=0;$est['J3']['G']['M']=0;$est['J3']['G']['S']=0;$est['J3']['G']['T']=0;
-        $est['J3']['Jr']=array();
-        $est['J3']['Jr']['C']=0;$est['J3']['Jr']['L']=0;$est['J3']['Jr']['M']=0;$est['J3']['Jr']['S']=0;$est['J3']['Jr']['T']=0;
-		$est['J3']['P.A.']=array();
-		$est['J3']['P.A.']['C']=0;$est['J3']['P.A.']['L']=0;$est['J3']['P.A.']['M']=0;$est['J3']['P.A.']['S']=0;$est['J3']['P.A.']['T']=0;
-		$est['J3']['GI']=array();
-		$est['J3']['GI']['C']=0;$est['J3']['GI']['L']=0;$est['J3']['GI']['M']=0;$est['J3']['GI']['S']=0;$est['J3']['GI']['T']=0;
-		$est['J3']['GII']=array();
-		$est['J3']['GII']['C']=0;$est['J3']['GII']['L']=0;$est['J3']['GII']['M']=0;$est['J3']['GII']['S']=0;$est['J3']['GII']['T']=0;
-		$est['J3']['GIII']=array();
-		$est['J3']['GIII']['C']=0;$est['J3']['GIII']['L']=0;$est['J3']['GIII']['M']=0;$est['J3']['GIII']['S']=0;$est['J3']['GIII']['T']=0;
-		// Jornada 4
-		$est['J4']=array();
-		$est['J4']['G']=array();
-		$est['J4']['G']['C']=0;$est['J4']['G']['L']=0;$est['J4']['G']['M']=0;$est['J4']['G']['S']=0;$est['J4']['G']['T']=0;
-        $est['J4']['Jr']=array();
-        $est['J4']['Jr']['C']=0;$est['J4']['Jr']['L']=0;$est['J4']['Jr']['M']=0;$est['J4']['Jr']['S']=0;$est['J4']['Jr']['T']=0;
-		$est['J4']['P.A.']=array();
-		$est['J4']['P.A.']['C']=0;$est['J4']['P.A.']['L']=0;$est['J4']['P.A.']['M']=0;$est['J4']['P.A.']['S']=0;$est['J4']['P.A.']['T']=0;
-		$est['J4']['GI']=array();
-		$est['J4']['GI']['C']=0;$est['J4']['GI']['L']=0;$est['J4']['GI']['M']=0;$est['J4']['GI']['S']=0;$est['J4']['GI']['T']=0;
-		$est['J4']['GII']=array();
-		$est['J4']['GII']['C']=0;$est['J4']['GII']['L']=0;$est['J4']['GII']['M']=0;$est['J4']['GII']['S']=0;$est['J4']['GII']['T']=0;
-		$est['J4']['GIII']=array();
-		$est['J4']['GIII']['C']=0;$est['J4']['GIII']['L']=0;$est['J4']['GIII']['M']=0;$est['J4']['GIII']['S']=0;$est['J4']['GIII']['T']=0;
-		// Jornada 5
-		$est['J5']=array();
-		$est['J5']['G']=array();
-		$est['J5']['G']['C']=0;$est['J5']['G']['L']=0;$est['J5']['G']['M']=0;$est['J5']['G']['S']=0;$est['J5']['G']['T']=0;
-        $est['J5']['Jr']=array();
-        $est['J5']['Jr']['C']=0;$est['J5']['Jr']['L']=0;$est['J5']['Jr']['M']=0;$est['J5']['Jr']['S']=0;$est['J5']['Jr']['T']=0;
-		$est['J5']['P.A.']=array();
-		$est['J5']['P.A.']['C']=0;$est['J5']['P.A.']['L']=0;$est['J5']['P.A.']['M']=0;$est['J5']['P.A.']['S']=0;$est['J5']['P.A.']['T']=0;
-		$est['J5']['GI']=array();
-		$est['J5']['GI']['C']=0;$est['J5']['GI']['L']=0;$est['J5']['GI']['M']=0;$est['J5']['GI']['S']=0;$est['J5']['GI']['T']=0;
-		$est['J5']['GII']=array();
-		$est['J5']['GII']['C']=0;$est['J5']['GII']['L']=0;$est['J5']['GII']['M']=0;$est['J5']['GII']['S']=0;$est['J5']['GII']['T']=0;
-		$est['J5']['GIII']=array();
-		$est['J5']['GIII']['C']=0;$est['J5']['GIII']['L']=0;$est['J5']['GIII']['M']=0;$est['J5']['GIII']['S']=0;$est['J5']['GIII']['T']=0;
-		// Jornada 6
-		$est['J6']=array();
-		$est['J6']['G']=array();
-		$est['J6']['G']['C']=0;$est['J6']['G']['L']=0;$est['J6']['G']['M']=0;$est['J6']['G']['S']=0;$est['J6']['G']['T']=0;
-        $est['J6']['Jr']=array();
-        $est['J6']['Jr']['C']=0;$est['J6']['Jr']['L']=0;$est['J6']['Jr']['M']=0;$est['J6']['Jr']['S']=0;$est['J6']['Jr']['T']=0;
-		$est['J6']['P.A.']=array();
-		$est['J6']['P.A.']['C']=0;$est['J6']['P.A.']['L']=0;$est['J6']['P.A.']['M']=0;$est['J6']['P.A.']['S']=0;$est['J6']['P.A.']['T']=0;
-		$est['J6']['GI']=array();
-		$est['J6']['GI']['C']=0;$est['J6']['GI']['L']=0;$est['J6']['GI']['M']=0;$est['J6']['GI']['S']=0;$est['J6']['GI']['T']=0;
-		$est['J6']['GII']=array();
-		$est['J6']['GII']['C']=0;$est['J6']['GII']['L']=0;$est['J6']['GII']['M']=0;$est['J6']['GII']['S']=0;$est['J6']['GII']['T']=0;
-		$est['J6']['GIII']=array();
-		$est['J6']['GIII']['C']=0;$est['J6']['GIII']['L']=0;$est['J6']['GIII']['M']=0;$est['J6']['GIII']['S']=0;$est['J6']['GIII']['T']=0;
-		// Jornada 7
-		$est['J7']=array();
-		$est['J7']['G']=array();
-		$est['J7']['G']['C']=0;$est['J7']['G']['L']=0;$est['J7']['G']['M']=0;$est['J7']['G']['S']=0;$est['J7']['G']['T']=0;
-        $est['J7']['Jr']=array();
-        $est['J7']['Jr']['C']=0;$est['J7']['Jr']['L']=0;$est['J7']['Jr']['M']=0;$est['J7']['Jr']['S']=0;$est['J7']['Jr']['T']=0;
-		$est['J7']['P.A.']=array();
-		$est['J7']['P.A.']['C']=0;$est['J7']['P.A.']['L']=0;$est['J7']['P.A.']['M']=0;$est['J7']['P.A.']['S']=0;$est['J7']['P.A.']['T']=0;
-		$est['J7']['GI']=array();
-		$est['J7']['GI']['C']=0;$est['J7']['GI']['L']=0;$est['J7']['GI']['M']=0;$est['J7']['GI']['S']=0;$est['J7']['GI']['T']=0;
-		$est['J7']['GII']=array();
-		$est['J7']['GII']['C']=0;$est['J7']['GII']['L']=0;$est['J7']['GII']['M']=0;$est['J7']['GII']['S']=0;$est['J7']['GII']['T']=0;
-		$est['J7']['GIII']=array();
-		$est['J7']['GIII']['C']=0;$est['J7']['GIII']['L']=0;$est['J7']['GIII']['M']=0;$est['J7']['GIII']['S']=0;$est['J7']['GIII']['T']=0;
-		// Jornada 8
-		$est['J8']=array();
-		$est['J8']['G']=array();
-		$est['J8']['G']['C']=0;$est['J8']['G']['L']=0;$est['J8']['G']['M']=0;$est['J8']['G']['S']=0;$est['J8']['G']['T']=0;
-        $est['J8']['Jr']=array();
-        $est['J8']['Jr']['C']=0;$est['J8']['Jr']['L']=0;$est['J8']['Jr']['M']=0;$est['J8']['Jr']['S']=0;$est['J8']['Jr']['T']=0;
-		$est['J8']['P.A.']=array();
-		$est['J8']['P.A.']['C']=0;$est['J8']['P.A.']['L']=0;$est['J8']['P.A.']['M']=0;$est['J8']['P.A.']['S']=0;$est['J8']['P.A.']['T']=0;
-		$est['J8']['GI']=array();
-		$est['J8']['GI']['C']=0;$est['J8']['GI']['L']=0;$est['J8']['GI']['M']=0;$est['J8']['GI']['S']=0;$est['J8']['GI']['T']=0;
-		$est['J8']['GII']=array();
-		$est['J8']['GII']['C']=0;$est['J8']['GII']['L']=0;$est['J8']['GII']['M']=0;$est['J8']['GII']['S']=0;$est['J8']['GII']['T']=0;
-		$est['J8']['GIII']=array();
-		$est['J8']['GIII']['C']=0;$est['J8']['GIII']['L']=0;$est['J8']['GIII']['M']=0;$est['J8']['GIII']['S']=0;$est['J8']['GIII']['T']=0;
-		
+
+		foreach (array('1','2','3','4','5','6','7','8') as $j) { // creamos arrays para las ocho posibles jornadas
+            // Jornada 1
+            $est['J'.$j]=array();
+            $est['J'.$j]['G']=array();
+            $est['J'.$j]['G']['C']=0;$est['J'.$j]['G']['L']=0;$est['J'.$j]['G']['M']=0;$est['J'.$j]['G']['S']=0;$est['J'.$j]['G']['T']=0;
+            $est['J'.$j]['Jr']=array();
+            $est['J'.$j]['Jr']['C']=0;$est['J'.$j]['Jr']['L']=0;$est['J'.$j]['Jr']['M']=0;$est['J'.$j]['Jr']['S']=0;$est['J'.$j]['Jr']['T']=0;
+            $est['J'.$j]['Sr']=array();
+            $est['J'.$j]['Sr']['C']=0;$est['J'.$j]['Sr']['L']=0;$est['J'.$j]['Sr']['M']=0;$est['J'.$j]['Sr']['S']=0;$est['J'.$j]['Sr']['T']=0;
+            $est['J'.$j]['P.A.']=array();
+            $est['J'.$j]['P.A.']['C']=0;$est['J'.$j]['P.A.']['L']=0;$est['J'.$j]['P.A.']['M']=0;$est['J'.$j]['P.A.']['S']=0;$est['J'.$j]['P.A.']['T']=0;
+            $est['J'.$j]['GI']=array();
+            $est['J'.$j]['GI']['C']=0;$est['J'.$j]['GI']['L']=0;$est['J'.$j]['GI']['M']=0;$est['J'.$j]['GI']['S']=0;$est['J'.$j]['GI']['T']=0;
+            $est['J'.$j]['GII']=array();
+            $est['J'.$j]['GII']['C']=0;$est['J'.$j]['GII']['L']=0;$est['J'.$j]['GII']['M']=0;$est['J'.$j]['GII']['S']=0;$est['J'.$j]['GII']['T']=0;
+            $est['J'.$j]['GIII']=array();
+            $est['J'.$j]['GIII']['C']=0;$est['J'.$j]['GIII']['L']=0;$est['J'.$j]['GIII']['M']=0;$est['J'.$j]['GIII']['S']=0;$est['J'.$j]['GIII']['T']=0;
+        }
+
 		foreach($this->inscritos as $item){
 			$j=$item['Jornadas'];
 			$this->evalItem('Prueba',$est,$item);
@@ -430,128 +340,112 @@ class PrintEstadisticas extends PrintCommon {
 		$this->Cell(190,10,$text,'LRTB',0,'L',true);
 		$this->Ln();	
 	}
-	
+
+    // $this->cell( width, height, data, borders, where, align, fill)
 	function printTableData($data,$name,$alturas) {
 		$this->ac_header(2,9);
 		$this->SetX(10);
-		if ($alturas==3) {
-			$this->SetFont($this->getFontName(),'B',9);
-			// $this->cell( width, height, data, borders, where, align, fill)
-			$this->cell(35,7,'','LRB',0,'L',true);
-			$this->cell(30,7,$this->federation->getCategory('L'),'TRB',0,'C',true);
-			$this->cell(30,7,$this->federation->getCategory('M'),'TRB',0,'C',true);
-			$this->cell(30,7,$this->federation->getCategory('S'),'TRB',0,'C',true);
-			$this->cell(30,7,'Total','TRB',0,'C',true);
-			$this->Ln(7);
 
-			$this->ac_header(2,9); // pre-agility
-			$this->cell(35,7,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
-			$this->ac_row(0,9);
-			$this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['P.A.']['S'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['P.A.']['C'],'RB',0,'C',true);
-			$this->Ln(7);
+		// Pintamos la cabecera de la tabla
+        $this->SetFont($this->getFontName(),'B',9);
+        $this->cell(35,7,'','LRB',0,'L',true);
+        $this->cell(30,7,$this->federation->getCategory('L'),'TRB',0,'C',true);
+        $this->cell(30,7,$this->federation->getCategory('M'),'TRB',0,'C',true);
+        $this->cell(30,7,$this->federation->getCategory('S'),'TRB',0,'C',true);
+        if ($alturas==4)
+            $this->cell(30,7,$this->federation->getCategory('T'),'TRB',0,'C',true);
+        $this->cell(30,7,'Total','TRB',0,'C',true);
+        $this->Ln(7);
 
-			$this->ac_header(2,9); // grado I
-			$this->cell(35,7,$this->federation->getGrade('GI'),'LRB',0,'L',true);
-			$this->ac_row(1,9);
-			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GI']['S'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GI']['C'],'RB',0,'C',true);
-			$this->Ln(7);
-			
-			$this->ac_header(2,9); // grado II
-			$this->cell(35,7,$this->federation->getGrade('GII'),'LRB',0,'L',true);
-			$this->ac_row(2,9);
-			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GII']['S'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GII']['C'],'RB',0,'C',true);
-			$this->Ln(7);
-			
-			$this->ac_header(2,9); // grado III
-			$this->cell(35,7,$this->federation->getGrade('GIII'),'LRB',0,'L',true);
-			$this->ac_row(3,9);
-			$this->cell(30,7,$data[$name]['GIII']['L'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GIII']['M'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GIII']['S'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GIII']['C'],'RB',0,'C',true);
-			$this->Ln(7);
+		// Pre Agility
+        $this->ac_header(2,9); // pre-agility
+        $this->cell(35,7,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
+        $this->ac_row(0,9);
+        $this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
+        $this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
+        $this->cell(30,7,$data[$name]['P.A.']['S'],'RB',0,'C',true);
+        if ($alturas==4)
+        	$this->cell(30,7,$data[$name]['P.A.']['T'],'RB',0,'C',true);
+        $this->cell(30,7,$data[$name]['P.A.']['C'],'RB',0,'C',true);
+        $this->Ln(7);
 
-			$this->ac_header(2,9); // Total
-			$this->cell(35,7,_('Total'),'LRB',0,'L',true);
-			$this->ac_row(4,9);
-			$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['G']['S'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['G']['C'],'RB',0,'C',true);
-			$this->Ln(10);
+        // grado 1
+        $this->ac_header(2,9);
+        $this->cell(35,7,$this->federation->getGrade('GI'),'LRB',0,'L',true);
+        $this->ac_row(1,9);
+        $this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
+        $this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
+        $this->cell(30,7,$data[$name]['GI']['S'],'RB',0,'C',true);
+        if ($alturas==4)
+        	$this->cell(30,7,$data[$name]['GI']['T'],'RB',0,'C',true);
+        $this->cell(30,7,$data[$name]['GI']['C'],'RB',0,'C',true);
+        $this->Ln(7);
+
+        // grado II
+        $this->ac_header(2,9);
+        $this->cell(35,7,$this->federation->getGrade('GII'),'LRB',0,'L',true);
+        $this->ac_row(2,9);
+        $this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
+        $this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
+        $this->cell(30,7,$data[$name]['GII']['S'],'RB',0,'C',true);
+        if ($alturas==4)
+        	$this->cell(30,7,$data[$name]['GII']['T'],'RB',0,'C',true);
+        $this->cell(30,7,$data[$name]['GII']['C'],'RB',0,'C',true);
+        $this->Ln(7);
+
+
+        if ($this->federation->hasGrade3()) {
+            $this->ac_header(2,9); // grado III
+            $this->cell(35,7,$this->federation->getGrade('GIII'),'LRB',0,'L',true);
+            $this->ac_row(3,9);
+            $this->cell(30,7,$data[$name]['GIII']['L'],'RB',0,'C',true);
+            $this->cell(30,7,$data[$name]['GIII']['M'],'RB',0,'C',true);
+            $this->cell(30,7,$data[$name]['GIII']['S'],'RB',0,'C',true);
+            if ($alturas==4)
+            	$this->cell(30,7,$data[$name]['GIII']['T'],'RB',0,'C',true);
+            $this->cell(30,7,$data[$name]['GIII']['C'],'RB',0,'C',true);
+            $this->Ln(7);
 		}
-		if ($alturas==4) {
-			$this->SetFont($this->getFontName(),'B',9);
-			// $this->cell( width, height, data, borders, where, align, fill)
-			$this->cell(35,7,'','LRB',0,'L',true);
-			$this->cell(30,7,$this->federation->getCategory('L'),'TRB',0,'C',true);
-			$this->cell(30,7,$this->federation->getCategory('M'),'TRB',0,'C',true);
-			$this->cell(30,7,$this->federation->getCategory('S'),'TRB',0,'C',true);
-			$this->cell(30,7,$this->federation->getCategory('T'),'TRB',0,'C',true);
-			$this->cell(30,7,_('Total'),'TRB',0,'C',true);
-			$this->Ln(7);
 
-			if ($data[$name]['Jr']['C']!==0) {
-                $this->ac_header(2,9); // Junior
-                $this->cell(35,7,$this->federation->getGrade('Jr'),'LRB',0,'L',true);
-                $this->ac_row(0,9);
-                $this->cell(30,7,$data[$name]['Jr']['L'],'RB',0,'C',true);
-                $this->cell(30,7,$data[$name]['Jr']['M'],'RB',0,'C',true);
-                $this->cell(30,7,$data[$name]['Jr']['S'],'RB',0,'C',true);
-                $this->cell(30,7,$data[$name]['Jr']['T'],'RB',0,'C',true);
-                $this->cell(30,7,$data[$name]['Jr']['C'],'RB',0,'C',true);
-                $this->Ln(7);
-			}
+        // Junior
+		if ($this->federation->hasJunior()) {
+            $this->ac_header(2,9);
+            $this->cell(35,7,$this->federation->getGrade('Jr'),'LRB',0,'L',true);
+            $this->ac_row(0,9);
+            $this->cell(30,7,$data[$name]['Jr']['L'],'RB',0,'C',true);
+            $this->cell(30,7,$data[$name]['Jr']['M'],'RB',0,'C',true);
+            $this->cell(30,7,$data[$name]['Jr']['S'],'RB',0,'C',true);
+            if($alturas==4)
+            	$this->cell(30,7,$data[$name]['Jr']['T'],'RB',0,'C',true);
+            $this->cell(30,7,$data[$name]['Jr']['C'],'RB',0,'C',true);
+            $this->Ln(7);
+        }
 
-			$this->ac_header(2,9); // pre-agility
-			$this->cell(35,7,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
-			$this->ac_row(0,9);
-			$this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['P.A.']['S'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['P.A.']['T'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['P.A.']['C'],'RB',0,'C',true);
-			$this->Ln(7);
-
-			$this->ac_header(2,9); // grado I
-			$this->cell(35,7,$this->federation->getGrade('GI'),'LRB',0,'L',true);
-			$this->ac_row(1,9);
-			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GI']['S'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GI']['T'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GI']['C'],'RB',0,'C',true);
-			$this->Ln(7);
-			
-			$this->ac_header(2,9); // grado II
-			$this->cell(35,7,$this->federation->getGrade('GII'),'LRB',0,'L',true);
-			$this->ac_row(2,9);
-			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GII']['S'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GII']['T'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['GII']['C'],'RB',0,'C',true);
-			$this->Ln(7);
-
-			$this->ac_header(2,9); // Total
-			$this->cell(35,7,_('Total'),'LRB',0,'L',true);
-			$this->ac_row(3,9);
-			$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['G']['S'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['G']['T'],'RB',0,'C',true);
-			$this->cell(30,7,$data[$name]['G']['C'],'RB',0,'C',true);
-			$this->Ln(10);
+        // Senior
+		if ($this->federation->hasSenior()) {
+            $this->ac_header(2,9);
+            $this->cell(35,7,$this->federation->getGrade('Sr'),'LRB',0,'L',true);
+            $this->ac_row(0,9);
+            $this->cell(30,7,$data[$name]['Sr']['L'],'RB',0,'C',true);
+            $this->cell(30,7,$data[$name]['Sr']['M'],'RB',0,'C',true);
+            $this->cell(30,7,$data[$name]['Sr']['S'],'RB',0,'C',true);
+            if($alturas==4)
+                $this->cell(30,7,$data[$name]['Sr']['T'],'RB',0,'C',true);
+            $this->cell(30,7,$data[$name]['Sr']['C'],'RB',0,'C',true);
+            $this->Ln(7);
 		}
+
+        // Total
+        $this->ac_header(2,9);
+        $this->cell(35,7,_('Total'),'LRB',0,'L',true);
+        $this->ac_row(4,9);
+        $this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
+        $this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
+        $this->cell(30,7,$data[$name]['G']['S'],'RB',0,'C',true);
+        if ($alturas==4)
+        	$this->cell(30,7,$data[$name]['G']['T'],'RB',0,'C',true);
+        $this->cell(30,7,$data[$name]['G']['C'],'RB',0,'C',true);
+        $this->Ln(10);
 	}
 
 	/**
@@ -567,7 +461,8 @@ class PrintEstadisticas extends PrintCommon {
 		$this->cell(30,7,$this->federation->getCategory('L'),'TRB',0,'C',true);
 		$this->cell(30,7,$this->federation->getCategory('M'),'TRB',0,'C',true);
 		$this->cell(30,7,$this->federation->getCategory('S'),'TRB',0,'C',true);
-		if ($alturas==4) $this->cell(30,7,$this->federation->getCategory('T'),'TRB',0,'C',true);
+		if ($alturas==4)
+			$this->cell(30,7,$this->federation->getCategory('T'),'TRB',0,'C',true);
 		$this->cell(30,7,_('Total'),'TRB',0,'C',true);
 		$this->Ln(7);
 
@@ -577,7 +472,8 @@ class PrintEstadisticas extends PrintCommon {
 		$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
 		$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
 		$this->cell(30,7,$data[$name]['G']['S'],'RB',0,'C',true);
-		if ($alturas==4) $this->cell(30,7,$data[$name]['G']['T'],'RB',0,'C',true);
+		if ($alturas==4)
+			$this->cell(30,7,$data[$name]['G']['T'],'RB',0,'C',true);
 		$this->cell(30,7,$data[$name]['G']['C'],'RB',0,'C',true);
 		$this->Ln(10);
 	}

@@ -270,9 +270,9 @@ class PrintCommon extends FPDF {
 		// 		$this->Cell( width, height, data, borders, where, align, fill)
 		// 		los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
 		$this->SetXY(10,10); // margins are 10mm each
-		$this->Image($this->icon,$this->GetX(),$this->GetY(),25.4);
+		$this->Image($this->icon,$this->GetX(),$this->GetY(),25.4,25.4);
 		$this->SetXY($this->w - 35.4,10);
-		$this->Image($this->icon2,$this->GetX(),$this->GetY(),25.4);
+		$this->Image($this->icon2,$this->GetX(),$this->GetY(),25.4,25.4);
 
 		// pintamos nombre de la prueba
 		$this->SetXY($this->centro -65,10);

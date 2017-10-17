@@ -90,8 +90,8 @@ class Competitions {
                 /* 2048 0000 1000 0000 0000 -> Teams 2       */ /*need to revise. may be false */
                 /* 4096 0001 0000 0000 0000 -> Teams 3       */ /*need to revise. may be false */
                 /* 8192 0010 0000 0000 0000 -> Games / WAO   */
-                /*16384 0100 0000 0000 0000 -> Junior */
-                /*32768 1000 0000 0000 0000 -> undefined     */
+                /*16384 0100 0000 0000 0000 -> Junior       */
+                /*32768 1000 0000 0000 0000 -> Senior       */
                 "ValidRounds" => bindec('1111111111111111')
             )
         );
@@ -108,25 +108,28 @@ class Competitions {
      * @param {array} $tdata sct data
      */
     public function evalPartialPenalization(&$perro,$tdata) {
-        $trs=$tdata['trs'];
-        $trm=$tdata['trm'];
+        $trs=floatval($tdata['trs']);
+        $trm=floatval($tdata['trm']);
+        $tiempo=floatval($perro['Tiempo']);
         if ($trs==0) {
             // si TRS==0 no hay penalizacion por tiempo
             $perro['PTiempo']		= 	0.0;
             $perro['Penalizacion']=	$perro['PRecorrido'];
         } else {
             // evaluamos penalizacion por tiempo y penalizacion final
-            if ($perro['Tiempo']<$trs) { // Por debajo del TRS
+            if ($tiempo>=$trm) { // Superado TRM: eliminado
+                $perro['PTiempo']=100.0;
+                $perro['Penalizacion']=	100.0;
+            }
+            else if ($tiempo>=$trs) { // Superado TRS
+                $perro['PTiempo']		=	$tiempo 		-	$trs;
+                $perro['Penalizacion']=	floatval($perro['PRecorrido'])	+	$perro['PTiempo'];
+            }
+            else { // Por debajo del TRS
                 $perro['PTiempo']		= 	0.0;
                 $perro['Penalizacion']=	$perro['PRecorrido'];
             }
-            if ($perro['Tiempo']>=$trs) { // Superado TRS
-                $perro['PTiempo']		=	$perro['Tiempo'] 		-	$trs;
-                $perro['Penalizacion']=	floatval($perro['PRecorrido'])	+	$perro['PTiempo'];
-            }
-            if ($perro['Tiempo']>$trm) { // Superado TRM: eliminado
-                $perro['Penalizacion']=	100.0;
-            }
+
         }
     }
 
@@ -216,9 +219,10 @@ class Competitions {
      * @param {object} $manga Round data and trs parameters
      * @param {array} $data Original results provided for evaluation
      * @param {integer} $mode to evaluate which categories are to be used
+     * @roundUp {boolean} tell if SCT and MCT should be rounded up to nearest second
      * @return {array} final data to be used to evaluate trs/trm
      */
-    public function checkAndFixTRSData($manga,$data,$mode=0) {
+    public function checkAndFixTRSData($manga,$data,$mode,&$roundUp) {
         // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
         // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
         // manga actual, sino de la manga padre.

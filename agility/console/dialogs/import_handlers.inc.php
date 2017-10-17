@@ -22,7 +22,9 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE IMPORTACION DE GUIAS -->
-    <div id="importGuia-dialog" style="width:550px;height:auto;padding:10px 20px;">
+    <div id="importGuia-dialog" class="easyui-dialog" style="width:600px;height:auto;padding:10px 20px;"
+         data-options="modal:true,closable:false,closed:true,buttons:'#importGuia-dlg-buttons',iconCls:'icon-users'">
+
         <div id="importGuia-title" class="ftitle"><?php _e('Handler import'); ?></div>
         <p><span id="importGuia-Text"></span></p>
         <form id="importGuia-header">
@@ -33,6 +35,12 @@ $config =Config::getInstance();
                 	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
                 <input type="hidden" id="importGuia-HandlerID" value="0"/>
         	</div>
+            <div>
+                <br/><?php _e("On selection preserve name from"); ?> :
+                <input type="radio" name="importGuia-UseExcelNames" value="0"/><?php _e("DataBase");?>
+                <input type="radio" name="importGuia-UseExcelNames" value="1" checked="checked"/><?php _e("Excel File");?>
+                <br/>
+            </div>
         </form>
     </div>
 
@@ -73,7 +81,7 @@ $config =Config::getInstance();
             delay: 500,
     		textField: 'Nombre',
     		url: '/agility/server/database/guiaFunctions.php',
-            queryParams: { Operation:'enumerate', Federation: workingData.federation },
+            queryParams: { Operation:'enumerate' },
     		method: 'get',
     		mode: 'remote',
     		columns: [[
@@ -86,6 +94,11 @@ $config =Config::getInstance();
     		fitColumns: true,
     		singleSelect: true,
     		selectOnNavigation: false ,
+            onBeforeLoad:function(params) {
+                params.Federation=workingData.federation;
+                params.Operation='enumerate';
+                return true;
+            },
     		onSelect: function(index,row) {
     			var id=row.ID;
     			if (id<=0) return;

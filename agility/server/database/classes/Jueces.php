@@ -154,13 +154,12 @@ class Jueces extends DBObject {
 		}
 		$fedstr = "1";
 		if ($this->curFederation!==null) {
-			$fed=intval($this->curFederation->get('ID'));
 			$intlmask=Federations::getInternationalMask(); // select non-international fedmask
 			$natmask=~$intlmask;
 			$fedstr=$this->curFederation->isInternational()?"((Internacional!=0) OR (Federations & $intlmask)!=0)":"((Federations & $natmask)!=0)";
 		}
 		$where = "1";
-		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') ) ";
+		if ($search!=='') $where="( (Nombre LIKE '%{$search}%') OR ( Email LIKE '%{$search}%') OR (Pais LIKE '%{$search}%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Jueces",
@@ -182,8 +181,14 @@ class Jueces extends DBObject {
 			$fed=intval($this->curFederation->get('ID'));
 			$mask=1<<$fed;
 			$this->myLogger->trace("Jueces: fed:{$this->curFederation->get('ID')} mask:$mask");
-			$intlmask=Federations::getInternationalMask();
-			$fedstr=$this->curFederation->isInternational()?"((Internacional!=0) OR (Federations & $intlmask)!=0)":"((Federations & $mask)!=0)";
+            $intlmask=Federations::getInternationalMask();
+            if ($this->curFederation->isInternational() ){
+                // si la prueba es internacional listar solo los internacionales
+                $fedstr="(Internacional!=0)";
+            } else {
+                // si la prueba es nacional listar los internacionales mas la lista de federados
+                $fedstr="( (Internacional !=0 ) OR ( (Federations&{$mask}) != 0) )";
+            }
 		}
 		if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
 		$result=$this->__select(

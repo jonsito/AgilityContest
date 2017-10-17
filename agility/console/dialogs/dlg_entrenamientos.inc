@@ -23,7 +23,7 @@ $config =Config::getInstance();
 
 <!-- Ventana de seleccion de fichero para importacion de datos excel -->
 <div id="entrenamientos-excel-dialog" style="width:640px;height:auto;padding:10px; display=none;">
-	<form name="excel-importOpts">
+	<form id="entrenamientos-import-importOpts" name="entrenamientos-importOpts">
 		<p>
 			<?php _e("Import training session timetable from Excel file");?><br/>
 			<?php _e("Database backup is recommended before import");?> &nbsp; &nbsp;
@@ -34,51 +34,54 @@ $config =Config::getInstance();
 			<?php _e("Select Excel file to retrieve Dog data from");?><br />
 			<?php _e("Press import to start, or cancel to abort import"); ?>
 			<br />&nbsp;<br />
-			<input type="file" name="import-excel" value="" id="import-excel-fileSelect"
+			<input type="file" id="entrenamientos-import-excelFileSelect" name="entrenamientos-excelFileSelect" value=""
 				   class="icon_button icon-search"
-				   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this)">
+				   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this,'entrenamientos-')">
 			<br />
-			<input id="import-excelData" type="hidden" name="excelData" value="">
+			<input id="entrenamientos-import-excelData" type="hidden" name="entrenamientos-excelData" value="">
 			<!-- modo blind (no interactivo -->
-			<span id="import_excelBlindCheck" style="display:none">
+			<span id="entrenamientos-import_excelBlindCheck" style="display:none">
                <br />
-               <label for="import-excelBlindMode"><?php _e("Blind (non-interactive) mode");?></label>
-               <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1" checked="checked">
+               <label for="entrenamientos-import-excelBlindMode"><?php _e("Blind (non-interactive) mode");?></label>
+               <input id="entrenamientos-import-excelBlindMode" type="checkbox" name="entrenamientos-excelBlindMode" value="1" checked="checked">
                 <br />
            </span>
 			<!-- opciones para el modo blind -->
-			<span id="import-excelBlindOptions">
+			<span id="entrenamientos-import-excelBlindOptions">
 				<br/> <?php _e("Options for non-interactive import");?>:<br/>
-				<span style="display:inline-block;width:275px"><?php _e("Precedence on DB/Excel entry match");?>:</span>
-				<input id="import-excelPrefDB"   type="radio" name="excelPreference" value="1">
-				<label for="import-excelPrefDB"><?php _e('Database')?></label>
-				<input id="import-excelPrefFile" type="radio" name="excelPreference" value="0" checked="checked">
-				<label for="import-excelPrefFile"><?php _e('Excel file')?></label><br/>
+
+                <span style="display:inline-block;width:275px"><?php _e("Precedence on DB/Excel entry match");?>:</span>
+				<input id="entrenamientos-import-excelPrefDB"   type="radio" name="entrenamientos-excelPreference" value="1">
+				<label for="entrenamientos-import-excelPrefDB"><?php _e('Database')?></label>
+				<input id="entrenamientos-import-excelPrefFile" type="radio" name="entrenamientos-excelPreference" value="0" checked="checked">
+				<label for="entrenamientos-import-excelPrefFile"><?php _e('Excel file')?></label><br/>
+
 				<span style="display:inline-block;width:275px"><?php _e("Text Conversion");?>:</span>
-				<input id="import-excelUpperCase" type="radio" name="excelUpperCase" value="1" checked="checked">
-				<label for="import-excelUpperCase"><?php _e("Capitalize words");?></label>
-				<input id="import-excelLeave" type="radio" name="excelUpperCase" value="0">
-				<label for="import-excelLeave"><?php _e("Leave as is");?></label><br/>
-				<span style="display:inline-block;width:275px;"><?php _e('Action on empty fields');?>:</span>
-				<input id="import-excelEmptyIgnore"   type="radio" name="excelEmpty" value="0" checked="checked">
-				<label for="import-excelEmptyIgnore"><?php _e('Ignore')?></label>
-				<input id="import-excelEmptyUse" type="radio" name="excelEmpty" value="1">
-				<label for="import-excelEmptyUse"><?php _e('Overwrite')?></label><br/>
+				<input id="entrenamientos-import-excelUpperCase" type="radio" name="entrenamientos-excelUpperCase" value="1" checked="checked">
+				<label for="entrenamientos-import-excelUpperCase"><?php _e("Capitalize words");?></label>
+				<input id="entrenamientos-import-excelLeave" type="radio" name="entrenamientos-excelUpperCase" value="0">
+				<label for="entrenamientos-import-excelLeave"><?php _e("Leave as is");?></label><br/>
+
+                <span style="display:inline-block;width:275px;"><?php _e('Action on empty fields');?>:</span>
+				<input id="entrenamientos-import-excelEmptyIgnore"   type="radio" name="entrenamientos-excelEmpty" value="0" checked="checked">
+				<label for="entrenamientos-import-excelEmptyIgnore"><?php _e('Ignore')?></label>
+				<input id="entrenamientos-import-excelEmptyUse" type="radio" name="entrenamientos-excelEmpty" value="1">
+				<label for="entrenamientos-import-excelEmptyUse"><?php _e('Overwrite')?></label><br/>
 			</span>
 			<br />
 		</p>
 	</form>
 	<p>
 		<span style="float:left"><?php _e('Import status'); ?>:	</span>
-		<span id="import-excel-progressbar" style="float:right;text-align:center;"></span>
+		<span id="entrenamientos-import-excel-progressbar" style="float:right;text-align:center;"></span>
 	</p>
 
 </div>
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE IMPORTACION -->
-<div id="entrenamientos-excel-buttons">
-	<a id="entrenamientos-excel-okBtn" href="#" class="easyui-linkbutton"
+<div id="entrenamientos-import-excel-buttons">
+	<a id="entrenamientos-import-excel-okBtn" href="#" class="easyui-linkbutton"
 	   data-options="iconCls: 'icon-ok'" onclick="entrenamientos_excelImport()"><?php _e('Import'); ?></a>
-	<a id="entrenamientos-excel-cancelBtn" href="#" class="easyui-linkbutton"
+	<a id="entrenamientos-import-excel-cancelBtn" href="#" class="easyui-linkbutton"
 	   data-options="iconCls: 'icon-cancel'" onclick="$('#entrenamientos-excel-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
 </div>
 
@@ -115,7 +118,7 @@ $config =Config::getInstance();
 
 <script type="text/javascript">
 
-$('#import-excel-progressbar').progressbar({
+$('#entrenamientos-import-excel-progressbar').progressbar({
 	width: '70%',
 	value: 0,
 	text: '{value}'
@@ -125,11 +128,11 @@ $('#entrenamientos-excel-dialog').dialog( {
 	title:' <?php _e('Import training session timetable from Excel file'); ?>',
 	closed:true,
 	modal:true,
-	buttons:'#entrenamientos-excel-buttons',
+	buttons:'#entrenamientos-import-excel-buttons',
 	iconCls:'icon-table',
 	onOpen: function() {
-		ac_import.mode='entrenamientos';
-		$('#import-excel-progressbar').progressbar('setValue',"");
+		ac_import.type='entrenamientos';
+		$('#entrenamientos-import-excel-progressbar').progressbar('setValue',"");
 	},
 	onClose: function() { ac_import.progress_status='paused'; }
 } );
@@ -287,7 +290,7 @@ addTooltip($('#entrenamientos-reloadBtn').linkbutton(),'<?php _e("Refresh traini
 addTooltip($('#entrenamientos-excelBtn').linkbutton(),'<?php _e("Import/export session from/to Excel file"); ?>');
 addTooltip($('#entrenamientos-printBtn').linkbutton(),'<?php _e("Print training session timetable"); ?>');
 addTooltip($('#entrenamientos-evalBtn').linkbutton(),'<?php _e("Recalculate timetable values starting at selected row"); ?>');
-addTooltip($('#entrenamientos-excel-okBtn').linkbutton(),'<?php _e("Import training session data from selected Excel file"); ?>');
-addTooltip($('#entrenamientos-excel-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
+addTooltip($('#entrenamientos-import-excel-okBtn').linkbutton(),'<?php _e("Import training session data from selected Excel file"); ?>');
+addTooltip($('#entrenamientos-import-excel-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 
 </script>

@@ -54,13 +54,15 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
      * @param {object} $manga Round data and trs parameters
      * @param {array} $data Original results provided for evaluation
      * @param {integer} $mode which categories have to be selected
+     * @param {boolean} $roundUp on true round UP SCT and MCT to nearest second
      * @return {array} final data to be used to evaluate trs/trm
      */
-    public function checkAndFixTRSData($manga,$data,$mode=0) {
+    public function checkAndFixTRSData($manga,$data,$mode,&$roundUp) {
         // just mark contest as selective.
         // it's overriden by European open declaration
         // remember that prueba,jornada and manga are objects, so passed by reference
         $this->prueba->Selectiva = 1; // not really required, just to be sure
+        if (($manga->Tipo==6) || ($manga->Tipo==11)) $roundUp=false;
         return $data;
     }
 

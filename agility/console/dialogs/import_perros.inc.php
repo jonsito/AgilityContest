@@ -22,7 +22,8 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE IMPORTACION DE UN PERRO-->
-    <div id="importPerro-dialog" style="width:550px;height:auto;padding:10px 20px;">
+    <div id="importPerro-dialog" class="easyui-dialog" style="width:600px;height:auto;padding:10px 20px;"
+        data-options="modal:true,closable:false,closed:true,buttons:'#importPerro-dlg-buttons',iconCls:'icon-dog'">
         <div id="importPerro-title" class="ftitle"><?php _e('Dog import'); ?></div>
         <p><span id="importPerro-Text"></span></p>
         <form id="importPerro-header">
@@ -33,6 +34,12 @@ $config =Config::getInstance();
                 	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
                 <input type="hidden" id="importPerro-DogID" value="0"/>
         	</div>
+            <div>
+                <br/><?php _e("On selection preserve name from"); ?> :
+                <input type="radio" name="importPerro-UseExcelNames" value="0"/><?php _e("DataBase");?>
+                <input type="radio" name="importPerro-UseExcelNames" value="1" checked="checked"/><?php _e("Excel File");?>
+                <br/>
+            </div>
         </form>
     </div>
     
@@ -58,6 +65,7 @@ $config =Config::getInstance();
     // datos del formulario de nuevo/edit perros
     // - declaracion del formulario
     $('#importPerro-form').form();
+
     // - botones
     addTooltip($('#importPerro-newBtn').linkbutton(),'<?php _e("Create a new dog with Excel provided data"); ?>');
     addTooltip($('#importPerro-okBtn').linkbutton(),'<?php _e("Use selected dog to be used in requested Excel import data"); ?>');
@@ -66,24 +74,16 @@ $config =Config::getInstance();
     $('#importPerro-clearBtn').bind('click',function() {
         $('#importPerro-header').form('reset'); // restore to initial values
     });
-    
-    // campos del formulario
-    $('#importPerro-dialog').dialog({
-        modal:true,
-        closable: false,
-    	closed: true,
-    	buttons: '#importPerro-dlg-buttons',
-        iconCls: 'icon-dog'
-    });
 
+    // casilla de busqueda/seleccion
     $('#importPerro-Search').combogrid({
-		panelWidth: 350,
+		panelWidth: 400,
 		panelHeight: 200,
 		idField: 'ID',
         delay: 500,
 		textField: 'Nombre',
 		url: '/agility/server/database/dogFunctions.php',
-		queryParams: { Operation:'enumerate', Federation: workingData.federation },
+		queryParams: { Operation:'enumerate' },
 		method: 'get',
 		mode: 'remote',
 		columns: [[
@@ -95,6 +95,11 @@ $config =Config::getInstance();
 			{field:'NombreGuia',title:'<?php _e('Handler'); ?>',width:40,align:'right'},
 			{field:'NombreClub',title:'<?php _e('Club'); ?>',width:20,align:'right'}
 		]],
+        onBeforeLoad:function(params) {
+		    params.Federation=workingData.federation;
+		    params.Operation='enumerate';
+		    return true;
+        },
 		multiple: false,
 		fitColumns: true,
 		singleSelect: true

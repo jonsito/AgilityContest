@@ -41,7 +41,7 @@ class Resultados extends DBObject {
 	function getDatosJornada() { return $this->djornada; }
 	function getDatosPrueba() { return $this->dprueba; }
 
-	function getDatosCompeticion() {
+	function getCompetitionObject() {
         if ($this->dcompetition==null) {
             $this->dcompetition=Competitions::getCompetition($this->getDatosPrueba(),$this->getDatosJornada());
         }
@@ -103,12 +103,6 @@ class Resultados extends DBObject {
 	 * @return array('dist','obst','trs','trm','vel') or null on error
 	 */
 	protected function evalTRS($mode,$data) {
-        // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
-        // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
-        // manga actual, sino de la manga padre.
-        // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
-        $comp=$this->getDatosCompeticion();
-        $data=$comp->checkAndFixTRSData($this->getDatosManga(),$data,$mode);
 		$result= array();
 		// vemos de donde tenemos que tomar los datos
 		$suffix='L';
@@ -124,6 +118,18 @@ class Resultados extends DBObject {
 			case 7: $suffix='S'; break; // S+T
 			case 8: $suffix="L"; break; // L+M+S+T
 		}
+
+        // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
+        // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
+        // manga actual, sino de la manga padre.
+        // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
+        $roundUp=true; // default is round up SCT and MCT to nearest integer second
+        $comp=$this->getCompetitionObject();
+        $data=$comp->checkAndFixTRSData($this->getDatosManga(),$data,$mode,$roundUp);
+        // si el trs esta especificado con decimales, no se redondea
+        $t=$this->getDatosManga()->{"TRS_{$suffix}_Factor"};
+        if ( $t - (int)$t != 0) $roundUp=false;
+
 		// evaluamos distancia y obstaculos
 		$result['dist']= $this->getDatosManga()->{"Dist_$suffix"};
 		$result['obst']= $this->getDatosManga()->{"Obst_$suffix"};
@@ -174,23 +180,24 @@ class Resultados extends DBObject {
 				$result['trs']=ceil($result['dist']/$factor);
 				break;
 		}
-		// si estamos en una selectiva RSCE, y el factor es 0.0 _NO_ se redondea
-		$roundUp=true;
-		$t=$this->getDatosManga()->{"TRS_{$suffix}_Factor"};
-		if ( ($this->getDatosPrueba()->Selectiva==1) && ($t==0)) $roundUp=false;
-		// si el trs esta especificado con decimales, tampoco se redondea
-		if ( $t - (int)$t != 0) $roundUp=false;
+
 		// en caso de tener que redondear hacia arriba, procedemos
 		if ($roundUp) $result['trs']=ceil($result['trs']); // redondeamos hacia arriba
 		// Evaluamos TRM
+        $trm_factor=$this->getDatosManga()->{"TRM_{$suffix}_Factor"};
 		switch($this->getDatosManga()->{"TRM_{$suffix}_Tipo"}) {
+            case 6:
+                // Velocidad ( se aplica en wao, donde el trm es 2.8 - 3.0 m/s )
+                // si factor==0 error: ignora y asume trm fijo=0, para que cante en el listado
+                if ($trm_factor!=0) { $result['trm']=ceil($result['dist']/$trm_factor); break; }
+                // no break;
 			case 0: // TRM Fijo
-				$result['trm']=$this->getDatosManga()->{"TRM_{$suffix}_Factor"};
+				$result['trm']=$trm_factor;
 				break;
 			case 1: // TRS + (segs o porcentaje)
 				if ($this->getDatosManga()->{"TRM_{$suffix}_Unit"}==="s")
-				    $result['trm']=$result['trs'] + $this->getDatosManga()->{"TRM_{$suffix}_Factor"}; // ( + X segundos )
-				else $result['trm'] = $result['trs'] * ( (100.0+$this->getDatosManga()->{"TRM_{$suffix}_Factor"}) / 100.0) ; // (+ X por ciento)
+				    $result['trm']=$result['trs'] + $trm_factor; // ( + X segundos )
+				else $result['trm'] = $result['trs'] * ( (100.0+$trm_factor) / 100.0) ; // (+ X por ciento)
 				break;
 		}
 		if ($roundUp) $result['trm']=ceil($result['trm']); // redondeamos hacia arriba
@@ -263,16 +270,18 @@ class Resultados extends DBObject {
     /**
      * Used in excel import to find round entries that matches with provided search criteria
      */
-    function enumerate() {
+    function enumerate($mode=8) {
         $this->myLogger->enter();
         // evaluate search criteria for query
         $q=http_request("q","s","");
         $where="1";
         if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
+        $cats="";
+        if ($mode!=8) $cats=sqlFilterCategoryByMode($mode,"");
         $result=$this->__select(
         /* SELECT */ "*",
             /* FROM */ "Resultados",
-            /* WHERE */ "( Manga={$this->IDManga} ) AND {$where}",
+            /* WHERE */ "( Manga={$this->IDManga} ) {$cats} AND {$where}",
             /* ORDER BY */ "Nombre ASC",
             /* LIMIT */ ""
         );
@@ -283,16 +292,7 @@ class Resultados extends DBObject {
 	function reset($catsmode) {
 		$this->myLogger->enter();
 		$where="";
-		switch ($catsmode) {
-			case 0:  $where= " AND ( Categoria='L' )"; break;
-			case 1:  $where= " AND ( Categoria='M' )"; break;
-			case 2:  $where= " AND ( Categoria='S' )"; break;
-			case 3:  $where= " AND ( (Categoria='M') OR (Categoria='S') )" ; break;
-			case 4:  $where= " AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
-			case 5:  $where= " AND ( Categoria='T' )"; break;
-			case 6:  $where= " AND ( (Categoria='L') OR (Categoria='M') )"; break;
-			case 7:  $where= " AND ( (Categoria='S') OR (Categoria='T') )"; break;
-		}
+		if ($catsmode!==8) $where=sqlFilterCategoryByMode($catsmode,"");
 		$this->getDatosJornada(); // also implies getDatosManga
 		$idmanga=$this->IDManga;
 		if ($this->isCerrada())
@@ -494,27 +494,18 @@ class Resultados extends DBObject {
 		$idmanga=$this->IDManga;
 		$where="(Manga=$idmanga) AND (Pendiente=1) "; // para comprobar pendientes
 		$cat="";
-		switch ($mode) {
-			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
-			case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
-			case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
-			case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
-			case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
-			case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
-			case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
-			case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
-			case 8: /* L+M+S+T */	break; // no check categoria
-			default: return $this->error("modo de recorrido desconocido:$mode");
-		}
-        $this->myLogger->leave();
-		// FASE 0: comprobamos si hay perros pendientes de salir
-		return $this->__select(
+		if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"");
+		if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
+		// comprobamos si hay perros pendientes de salir
+		$res= $this->__select(
 			/* SELECT */	"*",
 			/* FROM */		"Resultados",
 			/* WHERE */		"$where $cat",
 			/* ORDER BY */	"Nombre ASC",
 			/* LIMIT */		""
 		);
+        $this->myLogger->leave();
+        return $res;
 	}
 
 	/**
@@ -529,18 +520,8 @@ class Resultados extends DBObject {
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga={$this->IDManga}) AND (Pendiente=0) ";
 		$cat="";
-		switch ($mode) {
-			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
-			case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
-			case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
-			case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
-			case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
-			case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
-			case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
-			case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
-			case 8: /* L+M+S+T */	break; // no check categoria
-			default: return $this->error("modo de recorrido desconocido:$mode");
-		}
+		if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"");
+		if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		//  evaluamos mejores tiempos intermedios y totales
 		$best=$this->__select(
 			/* SELECT */ "min(TIntermedio) AS BestIntermedio, min(Tiempo) AS BestFinal",
@@ -575,18 +556,8 @@ class Resultados extends DBObject {
             $where="(Manga=$idmanga) AND (Pendiente=0) AND (Perro!=$idperro)";
         }
 		$cat="";
-		switch ($mode) {
-			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
-			case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
-			case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
-			case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
-			case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
-			case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
-			case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
-			case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
-			case 8: /* L+M+S+T */	break; // no check categoria
-			default: return $this->error("modo de recorrido desconocido:$mode");
-		}
+        if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"");
+        if ($cat===null)  return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
 			"Perro,	GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido, Tiempo, 0 AS PTiempo, 0 AS Penalizacion",
@@ -637,7 +608,7 @@ class Resultados extends DBObject {
 		$tdata=$this->evalTRS($mode,$table); // array( 'dist' 'obst' 'trs' 'trm', 'vel')
 
 		// FASE 4: añadimos ptiempo, penalizacion total
-        $comp=$this->getDatosCompeticion();
+        $comp=$this->getCompetitionObject();
 		for ($idx=0;$idx<$size;$idx++ ){
 		    $comp->evalPartialPenalization($table[$idx],$tdata);
 		}
@@ -697,18 +668,8 @@ class Resultados extends DBObject {
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga=$idmanga) AND (Pendiente=0) AND (PerroGuiaClub.ID=Resultados.Perro) ";
 		$cat="";
-		switch ($mode) {
-			case 0: /* Large */		$cat= "AND (Resultados.Categoria='L')"; break;
-			case 1: /* Medium */	$cat= "AND (Resultados.Categoria='M')"; break;
-			case 2: /* Small */		$cat= "AND (Resultados.Categoria='S')"; break;
-			case 3: /* Med+Small */ $cat= "AND ( (Resultados.Categoria='M') OR (Resultados.Categoria='S') )"; break;
-			case 4: /* L+M+S */ 	$cat= "AND ( (Resultados.Categoria='L') OR (Resultados.Categoria='M') OR (Resultados.Categoria='S') )"; break;
-			case 5: /* Tiny */		$cat= "AND (Resultados.Categoria='T')"; break;
-			case 6: /* L+M */		$cat= "AND ( (Resultados.Categoria='L') OR (Resultados.Categoria='M') )"; break;
-			case 7: /* S+T */		$cat= "AND ( (Resultados.Categoria='S') OR (Resultados.Categoria='T') )"; break;
-			case 8: /* L+M+S+T */	break; // no check categoria
-			default: return $this->error("modo de recorrido desconocido:$mode");
-		}
+		if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"Resultados."); // notice the ending dot '.'
+        if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
 				"Resultados.Dorsal,Resultados.Perro,Resultados.Nombre,NombreLargo,Resultados.Raza,Equipo,Resultados.Licencia,Resultados.Categoria,Resultados.Grado,
@@ -733,7 +694,7 @@ class Resultados extends DBObject {
 		// FASE 3: añadimos ptiempo, puntuacion, clasificacion y logo
         $clubes=new Clubes("Resultados::getResultadosIndividual",$this->getDatosPrueba()->RSCE);
 		$size=count($table);
-		$comp=$this->getDatosCompeticion();
+		$comp=$this->getCompetitionObject();
 		for ($idx=0;$idx<$size;$idx++ ){
             $table[$idx]['Puntos'] = 0; // to be re-evaluated later
             $table[$idx]['Estrellas'] = 0; // to be re-evaluated later

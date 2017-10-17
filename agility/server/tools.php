@@ -265,7 +265,7 @@ function parseHandlerCat($cat) {
     static $i = array('i','child','children','infantil','infantiles');
     static $j = array('j','junior','juvenil','juveniles');
     static $a = array('a','adult','adults','adulto','adultos','absolut','absoluta');
-    static $s = array('s','senior','seniors');
+    static $s = array('s','senior','seniors','veterans','veterano','veteranos');
     static $r = array('r','retired','retirado','retirados','baja');
     static $p = array('p','para-agility');
     if (is_null($cat)) return '-';
@@ -552,11 +552,41 @@ function tempnam_sfx($path, $prefix="tmp_",$suffix="") {
  * return {boolean} true or false
  */
 function category_match($from,$to="-LMST") {
+    if (is_numeric($to)) {
+        switch (intval($to)) {
+            case 0: $to='L'; break;
+            case 1: $to='M'; break;
+            case 2: $to='S'; break;
+            case 3: $to='MS'; break;
+            case 4: $to='LMS'; break;
+            case 5: $to='T'; break;
+            case 6: $to='LM'; break;
+            case 7: $to='ST'; break;
+            case 8: $to='LMST'; break;
+            default: $to='-LMST'; break;
+        }
+    }
 	if (strpos($to,"-")!==false) return true; // "-" matches any
 	$a_arr = str_split($from);
     $r_arr = str_split($to);
     $common = implode(array_unique(array_intersect($a_arr, $r_arr)));
 	return ($common==="")?false:true;
+}
+
+function sqlFilterCategoryByMode($mode,$prefix=""){
+    // select category according mode
+    switch($mode) {
+        case 0: /* Large */     return "AND ( {$prefix}Categoria='L' ) "; break;
+        case 1: /* Medium */    return "AND ( {$prefix}Categoria='M' ) "; break;
+        case 2: /* Small */     return "AND ( {$prefix}Categoria='S' ) "; break;
+        case 3: /* Med+Small */ return "AND ( {$prefix}Categoria IN ('M','S') ) "; break;
+        case 4: /* L+M+S */     return "AND ( {$prefix}Categoria IN ('L','M','S') )"; break;
+        case 5: /* Toy */       return "AND ( {$prefix}Categoria='T' ) "; break;
+        case 6: /* L+M */       return "AND ( {$prefix}Categoria IN ('L','M') ) "; break;
+        case 7: /* M+S */       return "AND ( {$prefix}Categoria IN ('S','T') ) "; break;
+        case 8: /* L+M+S+T */   return "AND ( {$prefix}Categoria IN ('L','M','S','T') ) "; break;
+        default: return null;
+    }
 }
 
 function mode_match($cat,$mode) {
