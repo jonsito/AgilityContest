@@ -178,6 +178,11 @@ function saveClub(){
     if ( $('#clubes-Nat4').is(':checked') ) fed |=4;
     if ( $('#clubes-Nat3').is(':checked') ) fed |=8;
     if ( $('#clubes-CPC').is(':checked') ) fed |=16;
+    // do not allow empty federation list
+    if (fed==0) {
+        $.messager.alert("<?php _e('Save Error');?>:",'<?php _e("There is no Federation selected"); ?>',"error");
+        return; // do not allow editing country information
+    }
     $('#clubes-Federations').val(fed);
     $.ajax({
         type: 'GET',

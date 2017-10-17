@@ -59,6 +59,8 @@ class Clubes extends DBObject {
         $twitter	= http_request('Twitter',"s",null,false);
         $observaciones = http_request('Observaciones',"s",null,false);
         $baja		= http_request('Baja',"i",0);
+        // no permitimos insert/update cuando el club no se asigna a ninguna federacion
+        if ($federations==0) return $this->error("Clubes::insert(): Federations field cannot be empty");
 		// componemos un prepared statement
 		$sql ="INSERT INTO Clubes (Nombre,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,
 				Web,Email,Federations,Facebook,Google,Twitter,Observaciones,Baja)
@@ -103,7 +105,7 @@ class Clubes extends DBObject {
 	function update($id) {
 		$this->myLogger->enter();
 		// cannot delete default club id or null club id
-		if ($id<=1)  return $this->error("No club or invalid Club ID '$id' provided");
+		if ($id<=1)  return $this->error("Clubes::update(): No club or invalid Club ID '$id' provided");
 
         // iniciamos los valores, chequeando su existencia
         // no need to escape http data: using prepared statements
@@ -124,6 +126,8 @@ class Clubes extends DBObject {
         $twitter	= http_request('Twitter',"s",null,false);
         $observaciones = http_request('Observaciones',"s",null,false);
         $baja		= http_request('Baja',"i",0);
+        // no permitimos insert/update cuando el club no se asigna a ninguna federacion
+        if ($federations==0) return $this->error("Clubes::update(): Federations field cannot be empty");
 		// componemos un prepared statement
 		$sql ="UPDATE Clubes
 				SET Nombre=? , Direccion1=? , Direccion2=? , Provincia=? , Pais=?,
