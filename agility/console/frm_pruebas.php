@@ -114,9 +114,10 @@ $config =Config::getInstance();
             detailFormatter:function(index,row){
                 return '<div style="padding:2px"><table id="jornadas-datagrid-' + row.ID + '"/></div>';
             },
-            onExpandRow: function(index,row) { 
-                setPrueba(row);
-                showJornadasByPrueba(index,row);
+            onExpandRow: function(index,row) { // on scrollview row may be undefined, so ignore
+                var r = $(this).datagrid('getRow',index);
+                setPrueba(r);
+                showJornadasByPrueba(index,r);
             },
             onClickRow: function(index,row) { setPrueba(row); } // mark prueba as active
             

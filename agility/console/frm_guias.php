@@ -108,7 +108,10 @@ $config =Config::getInstance();
                 var dg="guias-perros-datagrid-" + replaceAll(' ','_',row.ID);
                 return '<div style="padding:2px"><table id="'+dg+'"></table></div>';
             },
-            onExpandRow: function(idx,row) { showPerrosByGuia(idx,row); } /*,
+            onExpandRow: function(idx,row) { // on scrollview row may be undefined, so ignore
+                var r = $(this).datagrid('getRow',idx);
+                showPerrosByGuia(idx,r);
+            } /*,
             onCollapseRow: function(idx,row) {
                 var dg = "#guias-perros-datagrid-" + replaceAll(' ', '_', row.ID);
                 $(dg).remove();

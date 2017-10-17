@@ -114,8 +114,9 @@ $('#pb_inscripciones_eq3-datagrid').datagrid({
     detailFormatter:function(idx,row){
         return '<div style="padding:2px"><table id="pb_inscripciones_eq3-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
     },
-    onExpandRow: function(idx,row) {
-        showInscripcionesByTeam(idx,row);
+    onExpandRow: function(idx,row) {// on scrollview row may be undefined, so ignore
+        var r = $(this).datagrid('getRow',idx);
+        showInscripcionesByTeam(idx,r);
     }
 });
 

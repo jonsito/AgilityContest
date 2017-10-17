@@ -129,7 +129,10 @@ $config =Config::getInstance();
 				var dg = "clubes-guias-datagrid-" + replaceAll(' ', '_', row.ID);
 				return '<div style="padding:2px"><table id="'+dg+'"></table></div>';
 			},
-			onExpandRow: function(idx,row) { showGuiasByClub(idx,row); }/*,
+			onExpandRow: function(idx,row) { // on scrollview row may be undefined, so ignore
+                var r = $(this).datagrid('getRow',idx);
+			    showGuiasByClub(idx,r);
+			}/*,
 			onCollapseRow: function(idx,row) {
 			    var dg = "#clubes-guias-datagrid-" + replaceAll(' ', '_', row.ID);
 			    $(dg).remove();
@@ -195,7 +198,9 @@ $config =Config::getInstance();
                     var dg = "clubes-guias-perros-datagrid-" + replaceAll(' ', '_', row.ID);
                     return '<div style="padding:2px"><table id="'+dg+'"></table></div>';
                 },
-                onExpandRow: function(idx,row) { showPerrosByGuiaByClub(idx,row,club); } /*,
+                onExpandRow: function(idx,row) {
+                    showPerrosByGuiaByClub(idx,row,club);
+                } /*,
                 onCollapseRow: function(idx,row) {
                     var dg = "#clubes-guias-perros-datagrid-" + replaceAll(' ', '_', row.ID);
                     $(dg).remove();
