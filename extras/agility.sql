@@ -1064,7 +1064,6 @@ INSERT INTO `clubes` VALUES
 (646,'C. D. E. Conectas','\"\"','','28590 Villarejo de Salvanés','Madrid','ESP','665 52 66 50','','','','','kiko1980@me.com','','','','conectas_agility.png',3,'',0),
 (647,'A. C. Yelcan','\"\"','','Yeles','Toledo','ESP','Antonio 616995412','David 639629758','Raquel 654995745','','','acyelcan@gmail.com','','','','ac_yelcan.png',2,'',0),
 (648,'Rivalcan','\"\"','','','Barcelona','ESP','','','','','','','','','','rivalcan.png',1,'',0),
-(649,'Wecan','\"\"','','','-- Sin asignar --','ESP','','','','','','','','','','rsce.png',0,'',0),
 (651,'Caniclube','\"\"','','','-- Sin asignar --','POR','96 2818230','','','','http://caniclube.blogspot.com.es/','caniclube@sapo.pt','https://www.facebook.com/pg/caniclube/','','@caniclube','caniclube.png',17,'',0),
 (652,'Educacão','\"\"','Alvide','CASCAIS','-- Sin asignar --','POR','','','','','http://educa-cao.blogspot.com/','fseducacao@gmail.com','','','','educaco.png',17,'',0),
 (653,'Auba\'s Can','\"\"','07810 Cala de San Vicente (Ibiza)','','Balears, Illes','ESP','661 02 12 68 ','637 13 62 73','','','http://rsce.es/web/aubascan.wordpress.com','aubascanmallorca@gmail.com','','','','aubas_can.png',15,'',0),
