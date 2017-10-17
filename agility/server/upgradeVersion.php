@@ -281,7 +281,6 @@ class Updater {
             "ALTER TABLE `Inscripciones` DROP FOREIGN KEY `Inscripciones_ibfk_2`;",
             "ALTER TABLE `Inscripciones` ADD CONSTRAINT `Inscripciones_ibfk_2`
                 FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;"
-        ,
         );
         foreach ($cmds as $query) { $this->conn->query($query); }
         return 0;
