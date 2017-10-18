@@ -97,7 +97,7 @@ class InscriptionReader extends DogReader {
 
             $this->saveStatus("Creating teams for Journey: $jname");
             // select distinct jornadaname from temporary tabla where jornadaname!="" group by jornadaname
-            $res=$this->myDBObject->__select("DISTINCT Categoria , $jname AS NombreEquipo",TABLE_NAME,"($jname<>'')","","");
+            $res=$this->myDBObject->__select("DISTINCT Categoria , $jname AS NombreEquipo",TABLE_NAME,"($jname<>'')","NombreEquipo ASC, Categoria ASC","");
             // parse result to join categories on same team
             $teams=array();
             foreach ($res['rows']as $team) {
@@ -106,15 +106,15 @@ class InscriptionReader extends DogReader {
                 // si la respuesta es si/no/X no hay que declarar equipo: se asigna al equipo por defecto
                 if (! is_null( parseYesNo( $nequipo ) ) ) continue;
                 // else, miramos si el equipo esta ya declarado
-                if (!array_key_exists($nequipo,$teams)) $teams[$nequipo]=''; // team not yet declared.
+                if (!array_key_exists($nequipo,$teams)) $teams[$nequipo]=''; // team not yet declared. So create
                 if (strpos($teams[$nequipo],$team['Categoria'])===FALSE) $teams[$nequipo] .= $team['Categoria'];
             }
             // and now iterate result and store teams into database
+            $eq=new Equipos("importInscriptions",$this->prueba['ID'],$jornada['ID']);
             foreach ($teams as $team => $cat) {
                 // create teams for this journey
                 $this->saveStatus("Creating team: $jname -> $team - $cat");
                 // evaluate categories
-                $eq=new Equipos("importInscriptions",$this->prueba['ID'],$jornada['ID']);
                 $eq->realInsert($cat,$team,/* "Excel imported"*/ "");
             }
         }

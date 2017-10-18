@@ -163,7 +163,7 @@ function toBoolean($var) {
 	if (is_bool($var)) return $var;
 	if (is_string($var)) $var=strtolower(trim($var));
 	$t=array (1,true,"1","t","true","on","s","si","sí","y","yes","ja","oui","da");
-	if ( in_array($var,$t) ) return true;
+	if ( in_array($var,$t,true) ) return true;
 	return false;
 }
 
@@ -176,9 +176,9 @@ function parseYesNo($var) {
     if (is_bool($var)) return $var;
     if (is_string($var)) $var=strtolower(trim($var));
     $t=array (1,true,"x","1","t","true","on","s","si","sí","y","yes","ja","oui","da");
-    if ( in_array($var,$t) ) return true;
+    if ( in_array($var,$t,true) ) return true;
     $f=array (0,false,"","0","f","false","off","n","no","ez","non","nein","niet");
-    if ( in_array($var,$f) ) return false;
+    if ( in_array($var,$f,true) ) return false;
     // arriving here means neither true nor false valid items, so return nothing
     return null;
 }
