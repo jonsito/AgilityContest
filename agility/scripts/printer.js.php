@@ -126,6 +126,7 @@ function print_ordenSalida(cats,excel,rango,comentarios) {
 				Excel: excel,
 				EqConjunta: isJornadaEqConjunta()?1:0,
                 JornadaKO: isJornadaKO()?1:0,
+                JornadaGames: isJornadaGames()?1:0,
                 Rango: rango,
                 Comentarios: comentarios
             },
@@ -185,6 +186,9 @@ function print_asistente(pagemode,cats,fill,rango,comentarios) {
                 Mode: pagemode,
                 FillData:(fill)?1:0,
                 Rango:rango,
+                EqConjunta: isJornadaEqConjunta()?1:0,
+                JornadaKO: isJornadaKO()?1:0,
+                JornadaGames: isJornadaGames()?1:0,
                 Comentarios:comentarios
             },
             preparingMessageHtml:'(assistant sheets) <?php _e("We are preparing your report, please wait"); ?> ...',

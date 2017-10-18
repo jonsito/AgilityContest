@@ -49,9 +49,9 @@ class PrintEntradaDeDatosKO extends PrintCommon {
 	 */
     function __construct($data) {
     //    function __construct($prueba,$jornada,$manga,$cats,$fill=0) {
-		parent::__construct('Portrait',"print_entradaDeDatosEquipos4",$data['prueba'],$data['jornada'],$data['comentarios']);
+		parent::__construct('Portrait',"print_entradaDeDatosKO",$data['prueba'],$data['jornada'],$data['comentarios']);
 		if ( ($data['prueba']<=0) || ($data['jornada']<=0) ) {
-			$this->errormsg="print_datosEquipos4: either prueba or jornada data are invalid";
+			$this->errormsg="print_datosKO: either prueba or jornada data are invalid";
 			throw new Exception($this->errormsg);
 		}
         // comprobamos que estamos en una jornada por equipos

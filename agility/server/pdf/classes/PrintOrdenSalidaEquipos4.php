@@ -50,15 +50,15 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
      * @throws Exception
      */
 	function __construct($data) {
-        parent::__construct('Portrait',"print_ordenDeSalida",$data['prueba'],$data['jornada'],$data['comentarios']);
+        parent::__construct('Portrait',"print_ordenDeSalidaEquipos4",$data['prueba'],$data['jornada'],$data['comentarios']);
 		if ( ($data['prueba']<=0) || ($data['jornada']<=0) ) {
-			$this->errormsg="print_datosEquipos4: either prueba or jornada data are invalid";
+			$this->errormsg="print_ordenDeSalidaEquipos4: either prueba or jornada data are invalid";
 			throw new Exception($this->errormsg);
 		}
         // comprobamos que estamos en una jornada por equipos
         $flag=intval($this->jornada->Equipos3)+intval($this->jornada->Equipos4);
         if ($flag==0) {
-            $this->errormsg="print_datosEquipos4: Jornada {$data['jornada']} has no Team competition declared";
+            $this->errormsg="print_ordenDeSalidaEquipos4: Jornada {$data['jornada']} has no Team competition declared";
             throw new Exception($this->errormsg);
         }
         // guardamos info de la manga

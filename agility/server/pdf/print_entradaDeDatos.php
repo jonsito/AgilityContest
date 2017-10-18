@@ -39,7 +39,10 @@ try {
     	'cats' 		=> http_request("Categorias","s","-"),
     	'fill' 		=> http_request("FillData","i",0), // tell if print entered data in sheets
         'rango' 	=> http_request("Rango","s","1-99999"),
-        'comentarios' => http_request("Comentarios","s","-")
+        'comentarios' => http_request("Comentarios","s","-"),
+        'eqconjunta' => http_request("EqConjunta","i",0),
+        'ko' 		=> http_request("JornadaKO","i",0),
+        'games' 	=> http_request("JornadaGames","i",0)
 	);
 
 	// Datos de la manga y su manga hermana
@@ -49,10 +52,19 @@ try {
 	$o = Competitions::getOrdenSalidaInstance("printEntradaDeDatos",$data['manga']);
 	$data['orden']= $o->getData()['rows'];
 	// Creamos generador de documento
-	switch($data['numrows']) {
-        case 1:case 5:case 10:case 15: $pdf = new PrintEntradaDeDatos($data); break;
-        case 8: $pdf = new PrintEntradaDeDatosGames($data); break;
-        case 16: $pdf = new PrintEntradaDeDatosKO($data); break;
+	// para ello vemos el tipo de manga
+	$mng=$m->selectByID($data['manga']);
+	$data['datosmanga']=$mng;
+	switch ( $mng->Tipo ) {
+		case 15:case 18:case 19:case 20:case 21:case 22:case 23:case 24: // ko rounds
+        	$pdf = new PrintEntradaDeDatosKO($data);
+        	break;
+		case 29:case 30: // snooker, gambler
+        	$pdf = new PrintEntradaDeDatosGames($data);
+        	break;
+		default:
+            $pdf = new PrintEntradaDeDatos($data);
+            break;
 	}
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
