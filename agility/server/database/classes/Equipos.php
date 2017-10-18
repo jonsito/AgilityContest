@@ -305,10 +305,10 @@ class Equipos extends DBObject {
         $res = $this->query($sql);
         if (!$res) return $this->error("Error removing team member $idperro from old team:" . $this->conn->error);
         // si el nuevo equipo no es el default, insertamos en lista de miembros
-        if ($newteam['DefaultTeam'] != 0) {
+        if ($newteam['DefaultTeam'] == 0) {
             $sql = "UPDATE Equipos SET Miembros=REPLACE(Miembros,',END',',$idperro,END') WHERE ID=$idteam";
             $res = $this->query($sql);
-            if (!$res) return $this->error("Error removing team member $idperro from old team:" . $this->conn->error);
+            if (!$res) return $this->error("Error adding team member $idperro to new team:" . $this->conn->error);
         }
         // finalmente asignamos el perro en la tabla de resultados
         $res=$this->query("UPDATE Resultados SET Equipo=$idteam WHERE (Perro=$idperro) AND (Jornada={$this->jornadaID})");
