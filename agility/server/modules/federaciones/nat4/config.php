@@ -21,7 +21,7 @@ class NAT4 extends Federations {
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2, // on rfec may be 3
-            'Recorridos' => array(_('Common course'),"60 + 50 / 40 + 30",_("Separate courses")),
+            'Recorridos' => array(_('Common course'),"65 + 52 / 40 + 30",_("Separate courses")),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja',
@@ -48,17 +48,17 @@ class NAT4 extends Federations {
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',
-                'L' => '60',
-                'M' => '50',
-                'S' => '40',
-                'T' => '30'
+                'L' => '650',
+                'M' => '525',
+                'S' => '400',
+                'T' => '300'
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',
-                'L' => 'Cat. 60',
-                'M' => 'Cat. 50',
-                'S' => 'Cat. 40',
-                'T' => 'Cat. 30'
+                'L' => 'Cat. 650',
+                'M' => 'Cat. 525',
+                'S' => 'Cat. 400',
+                'T' => 'Cat. 300'
             ),
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',
@@ -70,28 +70,28 @@ class NAT4 extends Federations {
                 // 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(
-                array('L' => _('Cat. 60'),     'M' => _('Cat. 50'),'S' => _('Cat. 40'),    'T' => _('Cat. 30')), // separate courses
-                array('L' => _('Cat. 60+50'),  'M' => '',          'S' => _('Cat. 40+30'), 'T' => ''), // mixed courses
-                array('L' => _('60+50+40+30'), 'M' => '',          'S' => '',              'T' => '') // common
+                array('L' => _('Cat. 65'),     'M' => _('Cat. 52'),'S' => _('Cat. 40'),    'T' => _('Cat. 30')), // separate courses
+                array('L' => _('Cat. 65+52'),  'M' => '',          'S' => _('Cat. 40+30'), 'T' => ''), // mixed courses
+                array('L' => _('65+52+40+30'), 'M' => '',          'S' => '',              'T' => '') // common
             ),
             'Modes' => array(array(/* separado */ 0, 1, 2, 5 ), array(/* mixto */ 6, 6, 7, 7 ), array(/* conjunto */ 8, 8, 8, 8 )),
             'ModeStrings' => array( // text to be shown on each category
-                array(/* separado */ _('Cat. 60'), _('Cat. 50'), _('Cat. 40'), _('Cat. 30')),
-                array(/* mixto */ _('Cat. 60+50'), _('Cat. 60+50'), _('Cat. 40+30'), _('Cat. 40+30')),
-                array(/* conjunto */ _('60+50+40+30'), _('60+50+40+30'), _('60+50+40+30'),_('60+50+40+30'))
+                array(/* separado */ _('Cat. 65'), _('Cat. 52'), _('Cat. 40'), _('Cat. 30')),
+                array(/* mixto */ _('Cat. 65+52'), _('Cat. 65+52'), _('Cat. 40+30'), _('Cat. 40+30')),
+                array(/* conjunto */ _('65+52+40+30'), _('65+52+40+30'), _('65+52+40+30'),_('65+52+40+30'))
             ),
             'IndexedModes' => array (
-                "Cat. 60", "Cat. 50", "Cat 40", "Cat 50+40", "Conjunta 60+50+40", "Cat. 30", "Cat. 60+50", "Cat. 40+30", "Cat. 60+50+40+30"
+                "Cat. 650", "Cat. 525", "Cat 400", "Cat 525+400", "Conjunta 65+52+40", "Cat. 30", "Cat. 65+52", "Cat. 40+30", "Cat. 65+52+40+30"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
-                "L"=>"Cat. 60",
-                "M"=>"Cat. 50",
-                "S"=>"Cat. 40",
-                "T"=>"Cat. 30",
-                "LM"=>"Cat. 60+50",
+                "L"=>"Cat. 650",
+                "M"=>"Cat. 525",
+                "S"=>"Cat. 400",
+                "T"=>"Cat. 300",
+                "LM"=>"Cat. 65+52",
                 "ST"=>"Cat. 40+30",
-                "MS"=>"Cat. 50+40", // invalid
+                "MS"=>"Cat. 52+40", // invalid
                 "LMS" => 'Conjunta 6+5+4', // invalid
                 "LMST" =>'Conjunta 6+5+4+3',
                 "-LMST"=> ''
