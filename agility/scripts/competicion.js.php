@@ -56,17 +56,17 @@ function loadCompetitionWindow() {
         // an Individual - Open Contest is like a normal with no Grades but only categories
         page="/agility/console/frm_competicion2.php?tipo=open";
         extra=" ( <?php _e('Individual');?> )";
-        // use default dialogs
     }
     if (parseInt(workingData.datosJornada.KO)!==0) {
         page="/agility/console/frm_competicion2.php?tipo=ko";
         extra=" ( <?php _e('K.O. Rounds');?> )";
-        // use default dialogs
     }
     if (parseInt(workingData.datosJornada.Games)!==0) { // number shows how many rounds for series
+        var t=parseInt(workingData.datosJornada.Tipo_Competicion);
         page="/agility/console/frm_competicion2.php?tipo=games";
-        extra=" ( <?php _e('Games / WAO');?> )";
-        // use default dialogs
+        if (t===1) extra=" ( <?php _e('WAO / Penthatlon');?> )";
+        if (t===2) extra=" ( <?php _e('WAO / Biathlon');?> )";
+        if (t===3) extra=" ( <?php _e('WAO / Games');?> )";
     }
     if (parseInt(workingData.datosJornada.Cerrada)!==0) {
         // allow deploy closed journeys, but do not allow modify
