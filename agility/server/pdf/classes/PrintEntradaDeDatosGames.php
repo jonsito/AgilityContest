@@ -168,24 +168,82 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         $this->Cell(40,4,$this->strClub,	'',0,'L',false);
     }
 
-	private function writeTableCell_snooker($row,$orden) {
+    private function paintBall($x,$y,$fg,$bg,$txt){
+        $img=createNumberedBall($fg,$bg,$txt);
+        $tmpfile=tempnam_sfx(__DIR__."/../../../../logs","ball_","png");
+        imagepng($img,$tmpfile);
+        $this->Image($tmpfile,$x,$y,6,6);
+        imagedestroy($img);
+        @unlink($tmpfile);
+    }
+
+	private function writeTableCell_snooker($row,$orden) {        // save cursor position
+        $x=$this->getX();
+        $y=$this->GetY();
+
+        $h0=array("1",     " ","1",     " ","1",     " ","2","3","4","5","6","7");
+        $h1=array(_('red')," ",_('red')," ",_('red')," ",_('yellow'), _('green'), _('brown'), _('blue'), _('pink'), _('black'));
+
         $this->writeTableCell_common($row,$orden);
-        // PENDING WRITE
-        $this->Ln(25);
+
+        // ahora pintamos zona de escritura de palotes
+        $this->SetXY($x+15,$y+6); // pintamos recuadro cabecera
+        $this->ac_header(0,9);
+        for($n=0;$n<count($h0);$n++) { $this->Cell(10.5,7,"",'LT',0,'C',($n&1)); }
+        $this->SetXY($x+15,$y+6); // pintamos bolitas cabecera
+        $c1=$this->config->getEnv('pdf_rowcolor1');
+        $c2=$this->config->getEnv('pdf_rowcolor2');
+        for($n=0;$n<count($h0);$n++) {
+            switch($n){
+                case 0: $bg=$c1; $fg="F00"; break;// 1- red
+                case 1: $bg=$c2; $fg="FFF"; break;// ?- white,grey
+                case 2: $bg=$c1; $fg="F00"; break;// 1- red
+                case 3: $bg=$c2; $fg="FFF"; break;// ?- white,grey
+                case 4: $bg=$c1; $fg="F00"; break;// 1- red
+                case 5: $bg=$c2; $fg="FFF"; break;// ?- white,grey
+                case 6: $bg=$c1; $fg="FF0"; break;// 2- yellow
+                case 7: $bg=$c2; $fg="0F0"; break;// 3- green,grey
+                case 8: $bg=$c1; $fg="841"; break;// 4- brown
+                case 9: $bg=$c2; $fg="00F"; break;// 5- blue,grey
+                case 10: $bg=$c1; $fg="F19"; break;// 6- pink
+                case 11: $bg=$c2; $fg="000"; break;// 7- black,grey
+            }
+            $this->paintBall($this->GetX()+10.5*$n+2,0.5+$this->GetY(),$fg,$bg,$h0[$n]);
+        }
+        $this->ac_row(0,7);
+        $this->SetXY($x+15,$y+13);
+        for($n=0;$n<count($h1);$n++) { $this->Cell(10.5,3,$h1[$n],'LTB',0,'C',($n&1)); }
+        $this->SetXY($x+15,$y+16);
+        for($n=0;$n<count($h1);$n++) { $this->Cell(10.5,5,"",'LTB',0,'C',($n&1)); }
+        // tiempo  y total
+        $this->SetXY($x+141,$y+6);
+        $this->ac_header(0,9);
+        $this->Cell(29,5,_('Time').":",'LT',0,'L',false);
+        $this->Cell(20,5,_('Total points').":",'LTR',0,'C',true);
+        // gambler 10 + puntos
+        $this->SetXY($x+141,$y+11);
+        $this->Cell(29,5,"",'LT',0,'L',false);
+        $this->Cell(20,5,"",'LTR',0,'L',false);
+        // gambler 20 + Puntos
+        $this->SetXY($x+141,$y+16);
+        $this->Cell(29,5,"",'LB',0,'L',false);
+        $this->Cell(20,5,"",'LBR',0,'L',false);
+        // next row
+        $this->Ln(12);
     }
 
     private function writeTableCell_gambler($row,$orden) {
         // save cursor position
         $x=$this->getX();
         $y=$this->GetY();
+        $h0=array("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","A","B","C","D");
+        $h1=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "");
+        $h2=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "");
 
         $this->writeTableCell_common($row,$orden);
 
         // ahora pintamos zona de escritura de palotes
         $this->SetXY($x+15,$y+6);
-        $h0=array("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","A","B","C","D");
-        $h1=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "");
-        $h2=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "");
         // paint open part for gambler
         $this->ac_header(0,9);
         for($n=0;$n<count($h0);$n++) { $this->Cell(5,5,$h0[$n],'TR',0,'C',!($n&1)); }

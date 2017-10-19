@@ -25,24 +25,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 $color=http_request("Color","s","FFF");
 $bgcolor=http_request("Background","s","000");
 $number=http_request("Number","s"," ");
-$logo=http_request("Logo","s","null.png");
-// crear una imagen "vacia"
-$imagen = imagecreate(51, 51);
-// color de fondo
-$c=hex2rgb($bgcolor); // primer colorallocate sets background
-$fondo=imagecolorallocate($imagen, $c[0], $c[1], $c[2]);
-//color para la bola
-$c=hex2rgb($color);
-$bola = imagecolorallocate($imagen, $c[0], $c[1], $c[2]);
-// colores blanco y negro
-$black=imagecolorallocate($imagen,0,0,0);
-$white=imagecolorallocate($imagen, 255,255, 255);
-// pintamos bola coloreada
-imagefilledellipse($imagen, 25, 25, 49, 49, $bola);
-// pintamos centro de la bola y el texto
-imagefilledellipse($imagen, 25, 25, 30, 30, $white);
-$font = "./arial.ttf";
-imagettftext($imagen, 20, 0, (strlen($number)==1)?17:11, 35, $black, $font, $number);
+$imagen=createNumberedBall($color,$bgcolor,$number);
 // imprimir la imagen
 header("Content-type: image/png");
 imagepng($imagen);
