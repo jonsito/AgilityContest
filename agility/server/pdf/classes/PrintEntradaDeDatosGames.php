@@ -168,11 +168,11 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         $this->Cell(40,4,$this->strClub,	'',0,'L',false);
     }
 
-    private function paintBall($x,$y,$fg,$bg,$txt){
+    private function paintBall($x,$y,$fg,$bg,$txt,$w=6){
         $img=createNumberedBall($fg,$bg,$txt);
         $tmpfile=tempnam_sfx(__DIR__."/../../../../logs","ball_","png");
         imagepng($img,$tmpfile);
-        $this->Image($tmpfile,$x,$y,6,6);
+        $this->Image($tmpfile,$x,$y,$w,$w);
         imagedestroy($img);
         @unlink($tmpfile);
     }
@@ -246,7 +246,15 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         $this->SetXY($x+15,$y+6);
         // paint open part for gambler
         $this->ac_header(0,9);
-        for($n=0;$n<count($h0);$n++) { $this->Cell(5,5,$h0[$n],'TR',0,'C',!($n&1)); }
+        for($n=0;$n<count($h0);$n++) { $this->Cell(5,5,/*$h0[$n]*/"",'TR',0,'C',!($n&1)); }
+        // paint balls
+        $this->SetXY($x+15,$y+6);
+        $c1=$this->config->getEnv('pdf_rowcolor1');
+        $c2=$this->config->getEnv('pdf_rowcolor2');
+        for($n=0;$n<count($h0);$n++) {
+            $this->paintBall($this->GetX()+5*$n,$this->GetY(),"000",($n&1)?$c1:$c2,$h0[$n],5);
+        }
+
         $this->ac_row(0,9);
         $this->SetXY($x+15,$y+11);
         for($n=0;$n<count($h1);$n++) { $this->Cell(5,5,$h1[$n],'RTB',0,'C',false); }
