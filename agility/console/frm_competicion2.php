@@ -133,7 +133,24 @@ $('#competicion-listamangas').datagrid({
       	    } // texto del tipo de manga
     ]],
     rowStyler:myRowStyler,
-    onClickRow: function (index,row) {
+    onBeforeSelect: function(index,row) {
+	    if (index<0) return false; // no row selected
+        if (parseInt(workingData.datosJornada.Games)===0) return true; // no games
+        // en funcion de la modalidad de juegos y del tipo de jornada se debe permitir o no
+        // penthathlon
+        var a=["Desconocida",-1];
+        var t=parseInt(row.Tipo);
+        if (parseInt(workingData.datosJornada.Tipo_Competicion)===1) a=['Penthathlon', $.inArray(t,[25,26,27,28,31])];
+        if (parseInt(workingData.datosJornada.Tipo_Competicion)===2) a=['Biathlon', $.inArray(t,[25,26,27,28])];
+        if (parseInt(workingData.datosJornada.Tipo_Competicion)===3) a=['Games',$.inArray(t,[29,30])];
+        if (a[1]<0) {
+            $.messager.alert("<?php _e('Notice');?>",
+                "'"+row.Descripcion+"' <?php _e('round is not available on journey');?> "+a[0],
+                "error");
+        }
+        return (a[1]>=0);
+    },
+    onSelect: function (index,row) {
         if (index<0) { // no manga selected
             $('#competicion-datosmanga').html("");
         	workingData.manga=0;
