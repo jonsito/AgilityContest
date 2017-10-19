@@ -175,9 +175,40 @@ class PrintEntradaDeDatosGames extends PrintCommon {
     }
 
     private function writeTableCell_gambler($row,$orden) {
+        // save cursor position
+        $x=$this->getX();
+        $y=$this->GetY();
+
         $this->writeTableCell_common($row,$orden);
-        // PENDING WRITE
-        $this->Ln(25);
+
+        // ahora pintamos zona de escritura de palotes
+        $this->SetXY($x+15,$y+6);
+        $h0=array("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","A","B","C","D");
+        $h1=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "");
+        $h2=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "");
+        // paint open part for gambler
+        $this->ac_header(0,9);
+        for($n=0;$n<count($h0);$n++) { $this->Cell(5,5,$h0[$n],'TR',0,'C',!($n&1)); }
+        $this->ac_row(0,9);
+        $this->SetXY($x+15,$y+11);
+        for($n=0;$n<count($h1);$n++) { $this->Cell(5,5,$h1[$n],'RTB',0,'C',false); }
+        $this->SetXY($x+15,$y+16);
+        for($n=0;$n<count($h2);$n++) { $this->Cell(5,5,$h2[$n],'LBR',0,'C',false); }
+        // tiempo  y total
+        $this->SetXY($x+140,$y+6);
+        $this->ac_header(0,9);
+        $this->Cell(30,5,_('Time').":",'TR',0,'L',false);
+        $this->Cell(20,5,_('Total points').":",'LTR',0,'C',true);
+        // gambler 10 + puntos
+        $this->SetXY($x+140,$y+11);
+        $this->Cell(30,5,"Gambler 10",'TR',0,'L',false);
+        $this->Cell(20,5,"",'TR',0,'L',false);
+        // gambler 20 + Puntos
+        $this->SetXY($x+140,$y+16);
+        $this->Cell(30,5,"Gambler 20",'TRB',0,'L',false);
+        $this->Cell(20,5,"",'BR',0,'L',false);
+        // next row
+        $this->Ln(12);
     }
 
 	// Tabla coloreada
