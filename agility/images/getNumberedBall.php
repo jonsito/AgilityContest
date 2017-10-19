@@ -33,16 +33,14 @@ $c=hex2rgb($bgcolor); // primer colorallocate sets background
 $fondo=imagecolorallocate($imagen, $c[0], $c[1], $c[2]);
 //color para la bola
 $c=hex2rgb($color);
-$col_elipse = imagecolorallocate($imagen, $c[0], $c[1], $c[2]);
+$bola = imagecolorallocate($imagen, $c[0], $c[1], $c[2]);
 // colores blanco y negro
 $black=imagecolorallocate($imagen,0,0,0);
 $white=imagecolorallocate($imagen, 255,255, 255);
-
-// pintamos bola
-imagefilledellipse($imagen, 25, 25, 49, 49, $col_elipse);
-// pintamos centro de la bola
+// pintamos bola coloreada
+imagefilledellipse($imagen, 25, 25, 49, 49, $bola);
+// pintamos centro de la bola y el texto
 imagefilledellipse($imagen, 25, 25, 30, 30, $white);
-
 $font = "./arial.ttf";
 imagettftext($imagen, 20, 0, (strlen($number)==1)?17:11, 35, $black, $font, $number);
 // imprimir la imagen
