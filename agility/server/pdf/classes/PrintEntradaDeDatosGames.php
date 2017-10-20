@@ -218,15 +218,15 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         // tiempo  y total
         $this->SetXY($x+141,$y+6);
         $this->ac_header(0,9);
-        $this->Cell(29,5,_('Time').":",'LT',0,'L',false);
-        $this->Cell(20,5,_('Total points').":",'LTR',0,'C',true);
+        $this->Cell(29,5,_('Time').":",'LT',0,'L',true);
+        $this->Cell(20,5,"",'LTR',0,'C',false);
         // gambler 10 + puntos
         $this->SetXY($x+141,$y+11);
-        $this->Cell(29,5,"",'LT',0,'L',false);
-        $this->Cell(20,5,"",'LTR',0,'L',false);
+        $this->Cell(29,5,_('Opening points'),'LTB',0,'L',true);
+        $this->Cell(20,5,"",'LTRB',0,'L',false);
         // gambler 20 + Puntos
         $this->SetXY($x+141,$y+16);
-        $this->Cell(29,5,"",'LB',0,'L',false);
+        $this->Cell(29,5,_('Closing points'),'LB',0,'L',true);
         $this->Cell(20,5,"",'LBR',0,'L',false);
         // next row
         $this->Ln(12);
