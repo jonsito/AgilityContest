@@ -82,9 +82,51 @@ $config =Config::getInstance();
 <!-- botones del dialogo de snooker-->
 <div id="competicion-dialog-snooker-Buttons" data-options="border:false" style="text-align:right;padding:5px 0 0;">
     <a id="cds-okBtn" href="#" class="easyui-linkbutton"
-       data-options="iconCls: 'icon-ok'" onclick="saveSnooker()"><?php _e('Accept'); ?></a>
+       data-options="iconCls: 'icon-db_backup'" onclick="saveSnooker()"><?php _e('Accept'); ?></a>
     <a id="cds-cancelBtn" href="#" class="easyui-linkbutton"
        data-options="iconCls: 'icon-cancel'" onclick="$('#competicion-dialog-snooker').dialog('close');"><?php _e('Cancel'); ?></a>
+</div>
+
+<!-- dialogo de entrada de datos para gambler -->
+<div id="competicion-dialog-gambler" style="width:360px;padding:5px">
+    <form id="competicion-dialog-gambler-form">
+        <input type="hidden" id="cdg-Index"/>
+        <table>
+            <!-- datos del perro y guia -->
+            <tr>
+                <th colspan="1"><label for="cdg-Dog"><?php _e('Dog');?></label></th>
+                <td colspan="5"><input id="cdg-Dog" name="cdg-Dog" readonly="readonly" data-options="width:175"></td>
+            </tr>
+            <tr>
+                <th colspan="1"><label for="cdg-Handler"><?php _e('Handler');?></label></th>
+                <td colspan="5"><input id="cdg-Handler" name="cdg-Handler" readonly="readonly" data-options="width:175"></td>
+            </tr>
+            <tr>
+                <th colspan="1"><label for="cdg-Time"><?php _e('Time');?></label></th>
+                <td colspan="5"><input id="cdg-Time" name="cdg-Time" data-options="width:50"></td>
+            </tr>
+            <!-- datos de la secuencia de apertura -->
+            <tr><th colspan="6"><br/><?php _e('Opening Sequence');?></th></tr>
+            <!-- datos de la secuencia de cierre -->
+            <tr><th colspan="6"><br/><?php _e('Gambler Scoring');?></th></tr>
+            <tr>
+                <th><label for="cdg-Gambler1">No Gambler</label></th>
+                <td><input id="cdg-Gambler1" type="radio" name="cdg-Gambler" value="0"/></td>
+                <th><label for="cdg-Gambler2">10 points</label></th>
+                <td><input id="cdg-Gambler2" type="radio" name="cdg-Gambler" value="10"/></td>
+                <th><label for="cdg-Gambler3">20 points</label></th>
+                <td><input id="cdg-Gambler3" type="radio" name="cdg-Gambler" value="20"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<!-- botones del dialogo de gambler-->
+<div id="competicion-dialog-gambler-Buttons" data-options="border:false" style="text-align:right;padding:5px 0 0;">
+    <a id="cdg-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-db_backup'" onclick="saveGambler()"><?php _e('Accept'); ?></a>
+    <a id="cdg-cancelBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-cancel'" onclick="$('#competicion-dialog-gambler').dialog('close');"><?php _e('Cancel'); ?></a>
 </div>
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
@@ -131,12 +173,29 @@ $config =Config::getInstance();
         buttons:'#competicion-dialog-snooker-Buttons'
     });
 
+    $('#competicion-dialog-gambler').dialog({
+        icon: 'edit',
+        title: "Gambler",
+        collapsible:false,
+        minimizable:false,
+        maximizable:false,
+        resizable:true,
+        iconCls:'icon-table',
+        closed:true,
+        closable:false,
+        modal:true,
+        buttons:'#competicion-dialog-gambler-Buttons'
+    });
+
     $('#cds-Dog').textbox();
     $('#cds-Handler').textbox();
     $('#cds-Time').numberbox();
     $('#cds-White1').numberbox();
     $('#cds-White2').numberbox();
     $('#cds-White3').numberbox();
+    $('#cdg-Dog').textbox();
+    $('#cdg-Handler').textbox();
+    $('#cdg-Time').numberbox();
 
 $('#competicion-dialog').dialog({
 	collapsible:false,
@@ -213,8 +272,8 @@ $('#competicion-datagrid').datagrid({
       	{ field:'Categoria',	width:10, align:'center',title: '<?php _e('Cat'); ?>.',formatter:formatCategoria },
         { field:'Grado',        hidden:true},
         // datos a editar
-      	{ field:'Faltas',		width:15, align:'right', title: '<?php _e('Opening'); ?>.',	editor:'numberbox' },
-      	{ field:'Tocados',		width:15, align:'right', title: '<?php _e('Closing'); ?>.',editor:'numberbox' },
+      	{ field:'Faltas',		width:15, align:'right', title: '<?php _e('Opening'); ?>',	editor:'numberbox' },
+      	{ field:'Tocados',		width:15, align:'right', title: '<?php _e('Closing'); ?>',editor:'numberbox' },
         { field:'Rehuses',       hidden:true},
       	{ field:'Tiempo',		width:15, align:'right', title: '<?php _e('Time'); ?>',
           	editor:{
@@ -247,7 +306,13 @@ $('#competicion-datagrid').datagrid({
       	}	
     ]],
     rowStyler:competicionRowStyler,
-    onBeforeLoad: function(param) { return (workingData.manga > 0); }, // do not load if no manga selected
+    onBeforeLoad: function(param) {
+        // do not load if no manga selected
+        if (parseInt(workingData.manga) <= 0) return false;
+        var name=( parseInt(workingData.datosManga.Tipo)===29)?"<?php _e('Closing'); ?>":'Gambler';
+        // adjust field to "Closing" or "Gambler" acording mode
+        $('#competicion-datagrid').datagrid('setFieldTitle',{field:'Tocados',title:name});
+    },
 	onLoadSuccess:function(){
 		// mark no row is being edited
 		$(this).datagrid('options').editIndex=-1;
@@ -310,9 +375,11 @@ function getRowIndex(target){
 	var tr = $(target).closest('tr.datagrid-row');
 	return parseInt(tr.attr('datagrid-row-index'));
 }
+
 function editrow(target){
 	$('#competicion-datagrid').datagrid('beginEdit', getRowIndex(target));
 }
+
 function deleterow(target){
 	$.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Clear competitor results');?>'+'<br/>'+'<?php _e('Sure?'); ?>',function(r){
 		if (r){
@@ -332,6 +399,7 @@ function deleterow(target){
 		}
 	});
 }
+
 function saverow(target){
     var dg=$('#competicion-datagrid');
 	var editIndex=getRowIndex(target);
@@ -352,12 +420,38 @@ function showAssistantSheet(target) {
     var idx=getRowIndex(target);
     if (dg.datagrid('options').editIndex!==idx) return false;
     var data=dg.datagrid('getRows')[idx];
-    $('#cds-Dog').textbox('setText',data.Nombre);
-    $('#cds-Handler').textbox('setText',data.NombreGuia);
-    $('#cds-Index').val(idx);
     // en funcion del tipo de juego abrimos dialogo de snooker o de gambler
-    if (parseInt(workingData.datosManga.Tipo)===29) $('#competicion-dialog-snooker').dialog('open');
-    if (parseInt(workingData.datosManga.Tipo)===30) $('#competicion-dialog-gambler').dialog('open');
+    if (parseInt(workingData.datosManga.Tipo)===29) { // snooker
+        $('#cds-Dog').textbox('setText',data.Nombre);
+        $('#cds-Handler').textbox('setText',data.NombreGuia);
+        $('#cds-Index').val(idx);
+        $('#competicion-dialog-snooker').dialog('open');
+    }
+    if (parseInt(workingData.datosManga.Tipo)===30) { // gambler
+        $('#cdg-Dog').textbox('setText',data.Nombre);
+        $('#cdg-Handler').textbox('setText',data.NombreGuia);
+        $('#cdg-Index').val(idx);
+        $('#competicion-dialog-gambler').dialog('open');
+    }
+}
+
+function saveGambler() {
+    var dg=$('#competicion-datagrid');
+    // guardamos los puntos de la secuencia de apertura
+    var idx=$('#cdg-Index').val();
+    var ed=dg.datagrid('getEditor',{index:idx,field:'Faltas'});
+    var score=0;
+
+    // guardamos los puntos de la secuencia gambler
+    ed=dg.datagrid('getEditor',{index:idx,field:'Tocados'});
+    score=$('input[name=cdg-Gambler]:checked').val();
+    $(ed.target).numberbox('setValue',score);
+
+    // guardamos el tiempo
+    ed=dg.datagrid('getEditor',{index:idx,field:'Tiempo'});
+    $(ed.target).numberbox('setValue',$('#cdg-Time').numberbox('getValue'));
+    // finally close gambler dialog
+    $('#competicion-dialog-gambler').dialog('close');
 }
 
 function saveSnooker() {
@@ -369,6 +463,7 @@ function saveSnooker() {
             parseInt( $('#cds-Red2').prop('checked')?$('#cds-Red2').val():0 ) + parseInt($('#cds-White2').numberbox('getValue')) +
             parseInt( $('#cds-Red3').prop('checked')?$('#cds-Red3').val():0 ) + parseInt($('#cds-White3').numberbox('getValue'));
     $(ed.target).numberbox('setValue',score);
+
     // guardamos los puntos de la secuencia de cierre
     ed=dg.datagrid('getEditor',{index:idx,field:'Tocados'});
     score= parseInt( $('#cds-Yellow').prop('checked')?$('#cds-Yellow').val():0 ) +
@@ -378,24 +473,28 @@ function saveSnooker() {
             parseInt( $('#cds-Pink').prop('checked')?$('#cds-Pink').val():0 ) +
             parseInt( $('#cds-Black').prop('checked')?$('#cds-Black').val():0 );
     $(ed.target).numberbox('setValue',score);
+
     // guardamos el tiempo
     ed=dg.datagrid('getEditor',{index:idx,field:'Tiempo'});
     $(ed.target).numberbox('setValue',$('#cds-Time').numberbox('getValue'));
+
     // finally close snooker dialog
     $('#competicion-dialog-snooker').dialog('close');
 }
 
-//- botones del panel de entrada de datos
-addTooltip($('#competicion-reloadBtn').linkbutton(),'<?php _e("Reload competition data on this round"); ?>');
-addTooltip($('#competicion-swapBtn').linkbutton(),'<?php _e("Swap data and results from Agility/Jumping matching round"); ?>');
-addTooltip($('#competicion-resetBtn').linkbutton(),'<?php _e("Delete every competitors data on this round"); ?>');
-addTooltip($('#competicion-printBtn').linkbutton(),'<?php _e("Print judge assistant forms"); ?>');
-addTooltip($('#competicion-autoUpdateBtn'),'<?php _e("(de)activate periodic refresh of results for this round"); ?>');
-addTooltip($('#competicion-search'),'<?php _e("Search a competitor by entering dorsal"); ?>');
-addTooltip($('#competicion-categoria').combobox('textbox'),'<?php _e("Select categories to work with"); ?>');
-
-addTooltip($('#cds-okBtn').linkbutton(),'<?php _e("Validate data. Store into row being editing"); ?>');
-addTooltip($('#cds-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
+    //- botones del panel de entrada de datos
+    addTooltip($('#competicion-reloadBtn').linkbutton(),'<?php _e("Reload competition data on this round"); ?>');
+    addTooltip($('#competicion-swapBtn').linkbutton(),'<?php _e("Swap data and results from Agility/Jumping matching round"); ?>');
+    addTooltip($('#competicion-resetBtn').linkbutton(),'<?php _e("Delete every competitors data on this round"); ?>');
+    addTooltip($('#competicion-printBtn').linkbutton(),'<?php _e("Print judge assistant forms"); ?>');
+    addTooltip($('#competicion-autoUpdateBtn'),'<?php _e("(de)activate periodic refresh of results for this round"); ?>');
+    addTooltip($('#competicion-search'),'<?php _e("Search a competitor by entering dorsal"); ?>');
+    addTooltip($('#competicion-categoria').combobox('textbox'),'<?php _e("Select categories to work with"); ?>');
+    // botones de dialogos de snooker y gambler
+    addTooltip($('#cds-okBtn').linkbutton(),'<?php _e("Validate data. Store into row being editing"); ?>');
+    addTooltip($('#cds-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
+    addTooltip($('#cdg-okBtn').linkbutton(),'<?php _e("Validate data. Store into row being editing"); ?>');
+    addTooltip($('#cdg-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 
 // key handling
 $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).bind('keydown',competicionKeyEventHandler);
