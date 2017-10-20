@@ -24,6 +24,7 @@ $config =Config::getInstance();
 <!-- dialogo de entrada de datos para snooker -->
 <div id="competicion-dialog-snooker" style="width:360px;padding:5px">
     <form id="competicion-dialog-snooker-form">
+        <input type="hidden" id="cds-Index"/>
         <table>
             <!-- datos del perro y guia -->
             <tr>
@@ -353,13 +354,34 @@ function showAssistantSheet(target) {
     var data=dg.datagrid('getRows')[idx];
     $('#cds-Dog').textbox('setText',data.Nombre);
     $('#cds-Handler').textbox('setText',data.NombreGuia);
+    $('#cds-Index').val(idx);
     // en funcion del tipo de juego abrimos dialogo de snooker o de gambler
     if (parseInt(workingData.datosManga.Tipo)===29) $('#competicion-dialog-snooker').dialog('open');
     if (parseInt(workingData.datosManga.Tipo)===30) $('#competicion-dialog-gambler').dialog('open');
 }
 
 function saveSnooker() {
-    // PENDING: store results
+    var dg=$('#competicion-datagrid');
+    // guardamos los puntos de la secuencia de apertura
+    var idx=$('#cds-Index').val();
+    var ed=dg.datagrid('getEditor',{index:idx,field:'Faltas'});
+    var score= parseInt( $('#cds-Red1').prop('checked')?$('#cds-Red1').val():0 ) + parseInt($('#cds-White1').numberbox('getValue')) +
+            parseInt( $('#cds-Red2').prop('checked')?$('#cds-Red2').val():0 ) + parseInt($('#cds-White2').numberbox('getValue')) +
+            parseInt( $('#cds-Red3').prop('checked')?$('#cds-Red3').val():0 ) + parseInt($('#cds-White3').numberbox('getValue'));
+    $(ed.target).numberbox('setValue',score);
+    // guardamos los puntos de la secuencia de cierre
+    ed=dg.datagrid('getEditor',{index:idx,field:'Tocados'});
+    score= parseInt( $('#cds-Yellow').prop('checked')?$('#cds-Yellow').val():0 ) +
+            parseInt( $('#cds-Green').prop('checked')?$('#cds-Green').val():0 ) +
+            parseInt( $('#cds-Brown').prop('checked')?$('#cds-Brown').val():0 ) +
+            parseInt( $('#cds-Blue').prop('checked')?$('#cds-Blue').val():0 ) +
+            parseInt( $('#cds-Pink').prop('checked')?$('#cds-Pink').val():0 ) +
+            parseInt( $('#cds-Black').prop('checked')?$('#cds-Black').val():0 );
+    $(ed.target).numberbox('setValue',score);
+    // guardamos el tiempo
+    ed=dg.datagrid('getEditor',{index:idx,field:'Tiempo'});
+    $(ed.target).numberbox('setValue',$('#cds-Time').numberbox('getValue'));
+    // finally close snooker dialog
     $('#competicion-dialog-snooker').dialog('close');
 }
 
