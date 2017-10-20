@@ -236,9 +236,9 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         // save cursor position
         $x=$this->getX();
         $y=$this->GetY();
-        $h0=array("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","A","B","C","D");
-        $h1=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "");
-        $h2=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "");
+        $h0=array("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","A","B","C","D","E");
+        $h1=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "","");
+        $h2=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "","");
 
         $this->writeTableCell_common($row,$orden);
 
@@ -252,7 +252,7 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         $c1=$this->config->getEnv('pdf_rowcolor1');
         $c2=$this->config->getEnv('pdf_rowcolor2');
         for($n=0;$n<count($h0);$n++) {
-            $this->paintBall($this->GetX()+5*$n,$this->GetY(),"000",($n&1)?$c1:$c2,$h0[$n],5);
+            $this->paintBall($this->GetX()+5*$n,$this->GetY(),"888",($n&1)?$c1:$c2,$h0[$n],5);
         }
 
         $this->ac_row(0,9);
@@ -261,17 +261,17 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         $this->SetXY($x+15,$y+16);
         for($n=0;$n<count($h2);$n++) { $this->Cell(5,5,$h2[$n],'LBR',0,'C',false); }
         // tiempo  y total
-        $this->SetXY($x+140,$y+6);
+        $this->SetXY($x+145,$y+6);
         $this->ac_header(0,9);
-        $this->Cell(30,5,_('Time').":",'TR',0,'L',false);
+        $this->Cell(25,5,_('Time').":",'TR',0,'L',false);
         $this->Cell(20,5,_('Total points').":",'LTR',0,'C',true);
         // gambler 10 + puntos
-        $this->SetXY($x+140,$y+11);
-        $this->Cell(30,5,"Gambler 10",'TR',0,'L',false);
+        $this->SetXY($x+145,$y+11);
+        $this->Cell(25,5,"Gambler 1",'TR',0,'L',false);
         $this->Cell(20,5,"",'TR',0,'L',false);
         // gambler 20 + Puntos
-        $this->SetXY($x+140,$y+16);
-        $this->Cell(30,5,"Gambler 20",'TRB',0,'L',false);
+        $this->SetXY($x+145,$y+16);
+        $this->Cell(25,5,"Gambler 2",'TRB',0,'L',false);
         $this->Cell(20,5,"",'BR',0,'L',false);
         // next row
         $this->Ln(12);

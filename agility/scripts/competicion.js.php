@@ -63,7 +63,7 @@ function loadCompetitionWindow() {
     }
     if (parseInt(workingData.datosJornada.Games)!==0) { // number shows how many rounds for series
         var t=parseInt(workingData.datosJornada.Tipo_Competicion);
-        page="/agility/console/frm_competicion2.php?tipo=games";
+        page="/agility/console/frm_competicion2.php?tipo=games&mode="+t;
         if (t===1) extra=" ( <?php _e('WAO / Penthatlon');?> )";
         if (t===2) extra=" ( <?php _e('WAO / Biathlon');?> )";
         if (t===3) extra=" ( <?php _e('WAO / Games');?> )";

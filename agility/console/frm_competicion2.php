@@ -24,7 +24,6 @@ require_once("dialogs/dlg_printer.inc");
 require_once("dialogs/dlg_entrenamientos.inc");
 require_once("dialogs/dlg_ordentandas.inc");
 require_once("dialogs/dlg_ordensalida.inc");
-require_once("dialogs/dlg_competicion.inc");
 switch(http_request("tipo","s","std")) {
     case "eq3":
     case "eq4":
@@ -32,6 +31,7 @@ switch(http_request("tipo","s","std")) {
             require_once("unregistered.html");
             return 0;
         }
+        require_once("dialogs/dlg_competicion.inc");
         require_once("dialogs/dlg_resultados_equipos.inc");
         break;
     case "ko":
@@ -39,6 +39,7 @@ switch(http_request("tipo","s","std")) {
             require_once("unregistered.html");
             return 0;
         }
+        require_once("dialogs/dlg_competicion.inc");
         require_once("dialogs/dlg_resultados_ko.inc");
         break;
     case "games":
@@ -46,12 +47,20 @@ switch(http_request("tipo","s","std")) {
             require_once("unregistered.html");
             return 0;
         }
-        require_once("dialogs/dlg_resultados_games.inc");
+        $t=http_request('mode',"i",0);
+        if ($t!==3)  { // agility,jumping,speedstakes
+            require_once("dialogs/dlg_competicion.inc");
+            require_once("dialogs/dlg_resultados_ko.inc");
+        } else { // snooker,gambler
+            require_once("dialogs/dlg_competicion_games.inc");
+            require_once("dialogs/dlg_resultados_games.inc");
+        }
         break;
     case "std":
     case "open":
     case "special": // single round
     default:
+        require_once("dialogs/dlg_competicion.inc");
         require_once("dialogs/dlg_resultados_individual.inc");
         break;
 }

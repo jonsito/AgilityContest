@@ -1,5 +1,5 @@
 <!-- 
-dlg_competicion.inc
+dlg_competicion_games.inc
 
 Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -105,7 +105,7 @@ $('#competicion-datagrid').datagrid({
     pagination: false,
 	// these two fields are required in 1.4.2 editable datagrid, due to bad rownumber cell height evaluation
 	// and poor rendering performance. To be removed in a newer jeasyui version
-	autoRowHeight:false, // as specific css is needed, for rownumbers do not autoevaluate row height
+	autoRowHeight:false, // as specific css is needed for rownumbers, do not autoevaluate row height
     rownumbers: true, // fix rownumber cell height to take care on editable datagrid
     fitColumns: true,
 	idField: 'Dorsal',
@@ -123,9 +123,11 @@ $('#competicion-datagrid').datagrid({
         { field:'NombreGuia',	width:40, align:'right', title: '<?php _e('Handler'); ?>' },
         { field:'NombreClub',	width:30, align:'right', title: '<?php _e('Club'); ?>' },
       	{ field:'Categoria',	width:10, align:'center',title: '<?php _e('Cat'); ?>.',formatter:formatCategoria },
-      	{ field:'Faltas',		width:7, align:'right', title: '<?php _e('Flt'); ?>.',	editor:'numberbox' },
-      	{ field:'Rehuses',		width:7, align:'right', title: '<?php _e('Ref'); ?>.',	editor:'numberbox' },
-      	{ field:'Tocados',		width:7, align:'right', title: '<?php _e('Tch.'); ?>.',	editor:'numberbox' },
+        { field:'Grado',        hidden:true},
+        // datos a editar
+      	{ field:'Faltas',		width:15, align:'right', title: '<?php _e('Opening'); ?>.',	editor:'numberbox' },
+      	{ field:'Tocados',		width:15, align:'right', title: '<?php _e('Closing'); ?>.',editor:'numberbox' },
+        { field:'Rehuses',       hidden:true},
       	{ field:'Tiempo',		width:15, align:'right', title: '<?php _e('Time'); ?>',
           	editor:{
           		type:'numberbox',
@@ -134,21 +136,24 @@ $('#competicion-datagrid').datagrid({
         			parser:function(s){	var v = parseFloat(s);	return isNaN(v)?'':v; }
             	}
           	}
-        }, 
-      	{ field:'Eliminado',	width:10, align:'center',title: '<?php _e('Elim'); ?>.',formatter:formatEliminado,	editor:{type:'checkbox',options:{on:1,off:0}}	},
-      	{ field:'NoPresentado',	width:10, align:'center',title: '<?php _e('N.P.'); ?>',formatter:formatNoPresentado,	editor:{type:'checkbox',options:{on:1,off:0}}	},
-      	{ field:'Observaciones',width:25, align:'left',	 title: '<?php _e('Comments'); ?>',	editor:'text'  },
-      	{ field:'action',		width:47, align:'center',title: '',
+        },
+        { field:'Eliminado',hidden:true},
+      	{ field:'NoPresentado',	width:10, align:'center',title: '<?php _e('N.P.'); ?>',
+            formatter:formatNoPresentado, editor:{type:'checkbox',options:{on:1,off:0}}	},
+      	{ field:'Observaciones',width:17, align:'left',	 title: '<?php _e('Comments'); ?>',	editor:'text'  },
+        // botones de edicion
+      	{ field:'action',		width:48, align:'center',title: '',
       		formatter:function(value,row,index){
 				if(row.Dorsal==='*') return "&nbsp;";
           		if (row.editing){
+          		    var h = '<a href="#" id="lnkb3_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-notes\'" onclick="showAssistantSheet(this);"></a>';
     				var s = '<a href="#" id="lnkb1_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="saverow(this);"><?php _e('Save'); ?></a> ';
     				var c = '<a href="#" id="lnkb2_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-undo\'" onclick="cancelrow(this);"><?php _e('Cancel'); ?></a>';
-    				return s+c;
+    				return h+s+c;
     			} else {
     				var e = '<a href="#" id="lnkb1_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-edit\'" onclick="editrow(this);"><?php _e('Edit'); ?></a> ';
     				var d = '<a href="#" id="lnkb2_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-trash\'" onclick="deleterow(this);"><?php _e('Clear'); ?></a>';
-    				return e+d;
+    				return "&nbsp;"+e+d;
     			}
       		}
       	}	
@@ -206,7 +211,8 @@ function updateActions(index){
 		row:{}
 	});
 	$('#lnkb1_'+index).linkbutton();
-	$('#lnkb2_'+index).linkbutton();
+    $('#lnkb2_'+index).linkbutton();
+    $('#lnkb3_'+index).linkbutton();
 	// enable/disable search textbox acording edit state
 	$('#competicion-search').prop('disabled',( editIndex===-1)?false:true);
 	$('#competicion-categoria').combobox( (editIndex===-1)?'enable':'disable');
@@ -247,9 +253,20 @@ function saverow(target){
 	if (isJornadaKO()) data.Games=1; // trick to mark dog is competing in this ko round
 	saveCompeticionData(editIndex,data);
 }
+
 function cancelrow(target){
 	$('#competicion-datagrid').datagrid('cancelEdit', getRowIndex(target));
 }
+
+function showAssistantSheet(target) {
+    // si no estoy en edicion, ignorar
+    var idx=getRowIndex(target);
+    if ($('#competicion-datagrid').datagrid('options').editIndex!==idx) return false;
+    alert('hola');
+    // en funcion del tipo de juego abrimos dialogo de snooker o de gambler
+    // PENDING: write
+}
+
 //- botones del panel de entrada de datos
 addTooltip($('#competicion-reloadBtn').linkbutton(),'<?php _e("Reload competition data on this round"); ?>');
 addTooltip($('#competicion-swapBtn').linkbutton(),'<?php _e("Swap data and results from Agility/Jumping matching round"); ?>');
