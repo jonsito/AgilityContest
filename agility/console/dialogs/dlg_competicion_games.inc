@@ -21,6 +21,71 @@ require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
+<!-- dialogo de entrada de datos para snooker -->
+<div id="competicion-dialog-snooker" style="width:360px;padding:5px">
+    <form id="competicion-dialog-snooker-form">
+        <table>
+            <!-- datos del perro y guia -->
+            <tr>
+                <th colspan="1"><label for="cds-Dog"><?php _e('Dog');?></label></th>
+                <td colspan="5"><input id="cds-Dog" name="cds-Dog" readonly="readonly" data-options="width:175"></td>
+            </tr>
+            <tr>
+                <th colspan="1"><label for="cds-Handler"><?php _e('Handler');?></label></th>
+                <td colspan="5"><input id="cds-Handler" name="cds-Handler" readonly="readonly" data-options="width:175"></td>
+            </tr>
+            <tr>
+                <th colspan="1"><label for="cds-Time"><?php _e('Time');?></label></th>
+                <td colspan="5"><input id="cds-Time" name="cds-Time" data-options="width:50"></td>
+            </tr>
+            <!-- datos de la secuencia de apertura -->
+            <tr><th colspan="6"><br/><?php _e('Opening Sequence');?></th></tr>
+            <tr>
+                <td><img src="/agility/images/getNumberedBall.php?Number=1&Color=F00&Background=FFF" alt="red" width="40"/></td>
+                <td><img src="/agility/images/getNumberedBall.php?Number=%20&Color=FFF&Background=888" alt="white" width="40"/></td>
+                <td><img src="/agility/images/getNumberedBall.php?Number=1&Color=F00&Background=FFF" alt="red" width="40"/></td>
+                <td><img src="/agility/images/getNumberedBall.php?Number=%20&Color=FFF&Background=888" alt="white" width="40"/></td>
+                <td><img src="/agility/images/getNumberedBall.php?Number=1&Color=F00&Background=FFF" alt="red" width="40"/></td>
+                <td><img src="/agility/images/getNumberedBall.php?Number=%20&Color=FFF&Background=888" alt="white" width="40"/></td>
+            </tr>
+            <tr>
+                <td align="center"><input type="checkbox" id="cds-Red1" value="1"/></td>
+                <td><input type="text" id="cds-White1" value="0" data-options="width:40"/></td>
+                <td align="center"><input type="checkbox" id="cds-Red2" value="1"/></td>
+                <td><input type="text" id="cds-White2" value="0"data-options="width:40"/></td>
+                <td align="center"><input type="checkbox" id="cds-Red3" value="1"/></td>
+                <td><input type="text" id="cds-White3" value="0"data-options="width:40"/></td>
+            </tr>
+            <!-- datos de la secuencia de cierre -->
+            <tr><th colspan="6"><br/><?php _e('Closing Sequence');?></th></tr>
+            <tr>
+                <td><img src="/agility/images/getNumberedBall.php?Number=2&Color=FF0&Background=FFF" alt="yellow" width="40"/></td>
+                <td><img src="/agility/images/getNumberedBall.php?Number=3&Color=0F0&Background=888" alt="green" width="40"/></td>
+                <td><img src="/agility/images/getNumberedBall.php?Number=4&Color=841&Background=FFF" alt="brown" width="40"/></td>
+                <td><img src="/agility/images/getNumberedBall.php?Number=5&Color=00F&Background=888" alt="blue" width="40"/></td>
+                <td><img src="/agility/images/getNumberedBall.php?Number=6&Color=F19&Background=FFF" alt="pink" width="40"/></td>
+                <td><img src="/agility/images/getNumberedBall.php?Number=7&Color=000&Background=888" alt="black" width="40"/></td>
+            </tr>
+            <tr>
+                <td align="center"><input type="checkbox" id="cds-Yellow" value="2"/></td>
+                <td align="center"><input type="checkbox" id="cds-Green" value="3"/></td>
+                <td align="center"><input type="checkbox" id="cds-Brown" value="4"/></td>
+                <td align="center"><input type="checkbox" id="cds-Blue" value="5"/></td>
+                <td align="center"><input type="checkbox" id="cds-Pink" value="6"/></td>
+                <td align="center"><input type="checkbox" id="cds-Black" value="7"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<!-- botones del dialogo de snooker-->
+<div id="competicion-dialog-snooker-Buttons" data-options="border:false" style="text-align:right;padding:5px 0 0;">
+    <a id="cds-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-ok'" onclick="saveSnooker()"><?php _e('Accept'); ?></a>
+    <a id="cds-cancelBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-cancel'" onclick="$('#competicion-dialog-snooker').dialog('close');"><?php _e('Cancel'); ?></a>
+</div>
+
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
 <div id="competicion-dialog" class="editable-datagrid" style="width:900px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
@@ -50,6 +115,28 @@ $config =Config::getInstance();
 </div>
 
 <script type="text/javascript">
+
+    $('#competicion-dialog-snooker').dialog({
+        icon: 'edit',
+        title: "Snooker",
+        collapsible:false,
+        minimizable:false,
+        maximizable:false,
+        resizable:true,
+        iconCls:'icon-table',
+        closed:true,
+        closable:false,
+        modal:true,
+        buttons:'#competicion-dialog-snooker-Buttons'
+    });
+
+    $('#cds-Dog').textbox();
+    $('#cds-Handler').textbox();
+    $('#cds-Time').numberbox();
+    $('#cds-White1').numberbox();
+    $('#cds-White2').numberbox();
+    $('#cds-White3').numberbox();
+
 $('#competicion-dialog').dialog({
 	collapsible:false,
 	minimizable:false,
@@ -259,12 +346,21 @@ function cancelrow(target){
 }
 
 function showAssistantSheet(target) {
+    var dg=$('#competicion-datagrid');
     // si no estoy en edicion, ignorar
     var idx=getRowIndex(target);
-    if ($('#competicion-datagrid').datagrid('options').editIndex!==idx) return false;
-    alert('hola');
+    if (dg.datagrid('options').editIndex!==idx) return false;
+    var data=dg.datagrid('getRows')[idx];
+    $('#cds-Dog').textbox('setText',data.Nombre);
+    $('#cds-Handler').textbox('setText',data.NombreGuia);
     // en funcion del tipo de juego abrimos dialogo de snooker o de gambler
-    // PENDING: write
+    if (parseInt(workingData.datosManga.Tipo)===29) $('#competicion-dialog-snooker').dialog('open');
+    if (parseInt(workingData.datosManga.Tipo)===30) $('#competicion-dialog-gambler').dialog('open');
+}
+
+function saveSnooker() {
+    // PENDING: store results
+    $('#competicion-dialog-snooker').dialog('close');
 }
 
 //- botones del panel de entrada de datos
@@ -275,6 +371,9 @@ addTooltip($('#competicion-printBtn').linkbutton(),'<?php _e("Print judge assist
 addTooltip($('#competicion-autoUpdateBtn'),'<?php _e("(de)activate periodic refresh of results for this round"); ?>');
 addTooltip($('#competicion-search'),'<?php _e("Search a competitor by entering dorsal"); ?>');
 addTooltip($('#competicion-categoria').combobox('textbox'),'<?php _e("Select categories to work with"); ?>');
+
+addTooltip($('#cds-okBtn').linkbutton(),'<?php _e("Validate data. Store into row being editing"); ?>');
+addTooltip($('#cds-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 
 // key handling
 $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).bind('keydown',competicionKeyEventHandler);
