@@ -37,7 +37,7 @@ $config =Config::getInstance();
             </tr>
             <tr>
                 <th colspan="1"><label for="cds-Time"><?php _e('Time');?></label></th>
-                <td colspan="5"><input id="cds-Time" name="cds-Time" data-options="width:50"></td>
+                <td colspan="5"><input id="cds-Time" name="cds-Time" data-options="width:50,min:0,precision:3"></td>
             </tr>
             <!-- datos de la secuencia de apertura -->
             <tr><th colspan="6"><br/><?php _e('Opening Sequence');?></th></tr>
@@ -88,34 +88,100 @@ $config =Config::getInstance();
 </div>
 
 <!-- dialogo de entrada de datos para gambler -->
-<div id="competicion-dialog-gambler" style="width:360px;padding:5px">
+<div id="competicion-dialog-gambler" style="width:640px;padding:5px">
     <form id="competicion-dialog-gambler-form">
         <input type="hidden" id="cdg-Index"/>
         <table>
             <!-- datos del perro y guia -->
             <tr>
-                <th colspan="1"><label for="cdg-Dog"><?php _e('Dog');?></label></th>
-                <td colspan="5"><input id="cdg-Dog" name="cdg-Dog" readonly="readonly" data-options="width:175"></td>
+                <th colspan="2"><label for="cdg-Dog"><?php _e('Dog');?></label></th>
+                <td colspan="6"><input id="cdg-Dog" name="cdg-Dog" readonly="readonly" data-options="width:175"></td>
             </tr>
             <tr>
-                <th colspan="1"><label for="cdg-Handler"><?php _e('Handler');?></label></th>
-                <td colspan="5"><input id="cdg-Handler" name="cdg-Handler" readonly="readonly" data-options="width:175"></td>
+                <th colspan="2"><label for="cdg-Handler"><?php _e('Handler');?></label></th>
+                <td colspan="6"><input id="cdg-Handler" name="cdg-Handler" readonly="readonly" data-options="width:175"></td>
             </tr>
             <tr>
-                <th colspan="1"><label for="cdg-Time"><?php _e('Time');?></label></th>
-                <td colspan="5"><input id="cdg-Time" name="cdg-Time" data-options="width:50"></td>
+                <th colspan="2"><label for="cdg-Time"><?php _e('Time');?></label></th>
+                <td colspan="6"><input id="cdg-Time" name="cdg-Time" data-options="width:50,min:0,precision:3"></td>
             </tr>
             <!-- datos de la secuencia de apertura -->
-            <tr><th colspan="6"><br/><?php _e('Opening Sequence');?></th></tr>
+            <tr><th colspan="11"><br/><?php _e('Opening Sequence');?></th></tr>
             <!-- datos de la secuencia de cierre -->
-            <tr><th colspan="6"><br/><?php _e('Gambler Scoring');?></th></tr>
+            <?php
+            // primera fila
+            echo "<tr>";
+            $a1=array(
+                array("1",5,"00F"),array("2",5,"00F"),array("3",4,"841"),array("4",3,"0F0"),array("5",3,"0F0"),
+                array("6",2,"FF0"),array("7",2,"FF0"),array("8",2,"FF0"),array("9",2,"FF0"),array("10",2,"FF0"),array("11",2,"FF0")
+            );
+            for($n=0;$n<count($a1);$n++){
+                echo '<td style="width:60px;" align="center"><img src="/agility/images/getNumberedBall.php?Number='.$a1[$n][0].'&Color='.$a1[$n][2].'&Background=888" alt="img'.$n.'" width="40"/></td>';
+            }
+            echo "</tr><tr>";
+            for($n=0;$n<count($a1);$n++){
+                echo '<th style="width:60px;" align="center">'.$a1[$n][1].' Pt.</th>';
+            }
+            echo "</tr><tr>";
+            for($n=0;$n<count($a1);$n++){
+                echo '<td style="width:60px;" align="center">';
+                echo '<input type="checkbox" value="'.$a1[$n][1].'" onclick="computeGambler(this);">';
+                echo '<input type="checkbox" value="'.$a1[$n][1].'" onclick="computeGambler(this);">';
+                echo '</td>';
+            }
+            echo "</tr>";
+            // segunda fila
+            echo "<tr><td>&nbsp;</td></tr><tr>";
+            $a2=array(
+                array("12",1,"F00"),array("13",1,"F00"),array("14",1,"F00"),array("15",1,"F00"),array("16",1,"F00"),
+                array("17",1,"F00"),array("18",1,"F00"),array("19",1,"F00"),array("20",1,"F00"),array("21",1,"F00")
+            );
+            for($n=0;$n<count($a2);$n++){
+                echo '<td style="width:60px;" align="center"><img src="/agility/images/getNumberedBall.php?Number='.$a2[$n][0].'&Color='.$a2[$n][2].'&Background=888" alt="img'.$n.'" width="40"/></td>';
+            }
+            echo "</tr><tr>";
+            for($n=0;$n<count($a2);$n++){
+                echo '<th style="width:60px;" align="center">'.$a2[$n][1].' Pt.</th>';
+            }
+            echo "</tr><tr>";
+            for($n=0;$n<count($a2);$n++){
+                echo '<td style="width:60px;" align="center">';
+                echo '<input type="checkbox" value="'.$a2[$n][1].'" onclick="computeGambler(this);">';
+                echo '<input type="checkbox" value="'.$a2[$n][1].'" onclick="computeGambler(this);">';
+                echo '</td>';
+            }
+            echo "</tr>";
+            // tercera fila
+            echo "<tr><td>&nbsp;</td></tr><tr>";
+            $a3=array(
+                array("A","6","0F0"),array("B","7","841"),array("C","8","00F"),array("D","9","819"),array("E","10","000")
+            );
+            for($n=0;$n<count($a3);$n++){
+                echo '<td style="width:60px;" align="center"><img src="/agility/images/getNumberedBall.php?Number='.$a3[$n][0].'&Color='.$a3[$n][2].'&Background=888" alt="img'.$n.'" width="40"/></td>';
+            }
+            echo '<th colspan="3" rowspan="3" align="right">'._('Total').':</th>';
+            echo '<th colspan="2" rowspan="3" align="left"><input type="text" style="width:40px" id="cdg-Score" value="0" readonly="readonly"/>&nbsp;'._('Points').'</th>';
+            echo "</tr><tr>";
+            for($n=0;$n<count($a3);$n++){
+                echo '<th style="width:60px;" align="center">'.$a3[$n][1].' Pt.</th>';
+            }
+            echo "</tr><tr>";
+            for($n=0;$n<count($a3);$n++){
+                echo '<td style="width:60px;" align="center">';
+                echo '<input type="checkbox" value="'.$a3[$n][1].'" onclick="computeGambler(this);">';
+                echo '<input type="checkbox" value="'.$a3[$n][1].'" onclick="computeGambler(this);">';
+                echo '</td>';
+            }
+            echo "</tr>";
+            ?>
+            <tr><th colspan="11"><br/><?php _e('Gambler Scoring');?></th></tr>
             <tr>
                 <th><label for="cdg-Gambler1">No Gambler</label></th>
-                <td><input id="cdg-Gambler1" type="radio" name="cdg-Gambler" value="0"/></td>
+                <td colspan="2"><input id="cdg-Gambler1" type="radio" name="cdg-Gambler" value="0" checked="checked"/></td>
                 <th><label for="cdg-Gambler2">10 points</label></th>
-                <td><input id="cdg-Gambler2" type="radio" name="cdg-Gambler" value="10"/></td>
+                <td colspan="2"><input id="cdg-Gambler2" type="radio" name="cdg-Gambler" value="10"/></td>
                 <th><label for="cdg-Gambler3">20 points</label></th>
-                <td><input id="cdg-Gambler3" type="radio" name="cdg-Gambler" value="20"/></td>
+                <td colspan="2"><input id="cdg-Gambler3" type="radio" name="cdg-Gambler" value="20"/></td>
             </tr>
         </table>
     </form>
@@ -196,6 +262,7 @@ $config =Config::getInstance();
     $('#cdg-Dog').textbox();
     $('#cdg-Handler').textbox();
     $('#cdg-Time').numberbox();
+    $('#cdg-Score').numberbox();
 
 $('#competicion-dialog').dialog({
 	collapsible:false,
@@ -431,8 +498,15 @@ function showAssistantSheet(target) {
         $('#cdg-Dog').textbox('setText',data.Nombre);
         $('#cdg-Handler').textbox('setText',data.NombreGuia);
         $('#cdg-Index').val(idx);
+        $('#cdg-Score').val(0);
         $('#competicion-dialog-gambler').dialog('open');
     }
+}
+
+function computeGambler(cb) {
+    var cur=$('#cdg-Score').numberbox('getValue');
+    var inc=parseInt(cb.value) * ( (cb.checked)?1:-1 );
+    $('#cdg-Score').numberbox('setValue',parseInt(cur)+inc);
 }
 
 function saveGambler() {
@@ -440,7 +514,8 @@ function saveGambler() {
     // guardamos los puntos de la secuencia de apertura
     var idx=$('#cdg-Index').val();
     var ed=dg.datagrid('getEditor',{index:idx,field:'Faltas'});
-    var score=0;
+    var score=($('#cdg-Score').numberbox('getValue'));
+    $(ed.target).numberbox('setValue',score);
 
     // guardamos los puntos de la secuencia gambler
     ed=dg.datagrid('getEditor',{index:idx,field:'Tocados'});
