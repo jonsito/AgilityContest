@@ -154,7 +154,11 @@ $config =Config::getInstance();
             // tercera fila
             echo "<tr><td>&nbsp;</td></tr><tr>";
             $a3=array(
-                array("A","6","0F0"),array("B","7","841"),array("C","8","00F"),array("D","9","819"),array("E","10","000")
+                array("A",$config->getEnv('gambler_bonus1'),"0F0"),
+                array("B",$config->getEnv('gambler_bonus2'),"841"),
+                array("C",$config->getEnv('gambler_bonus3'),"00F"),
+                array("D",$config->getEnv('gambler_bonus4'),"819"),
+                array("E",$config->getEnv('gambler_bonus5'),"000")
             );
             for($n=0;$n<count($a3);$n++){
                 echo '<td style="width:60px;" align="center"><img src="/agility/images/getNumberedBall.php?Number='.$a3[$n][0].'&Color='.$a3[$n][2].'&Background=888" alt="img'.$n.'" width="40"/></td>';
@@ -178,10 +182,10 @@ $config =Config::getInstance();
             <tr>
                 <th><label for="cdg-Gambler1">No Gambler</label></th>
                 <td colspan="2"><input id="cdg-Gambler1" type="radio" name="cdg-Gambler" value="0" checked="checked"/></td>
-                <th><label for="cdg-Gambler2">10 points</label></th>
-                <td colspan="2"><input id="cdg-Gambler2" type="radio" name="cdg-Gambler" value="10"/></td>
-                <th><label for="cdg-Gambler3">20 points</label></th>
-                <td colspan="2"><input id="cdg-Gambler3" type="radio" name="cdg-Gambler" value="20"/></td>
+                <th><label for="cdg-Gambler2"><?php echo $config->getEnv('gambler_seq1');?> points</label></th>
+                <td colspan="2"><input id="cdg-Gambler2" type="radio" name="cdg-Gambler" value="<?php echo $config->getEnv('gambler_seq1');?>"/></td>
+                <th><label for="cdg-Gambler3"><?php echo $config->getEnv('gambler_seq2');?> points</label></th>
+                <td colspan="2"><input id="cdg-Gambler3" type="radio" name="cdg-Gambler" value="<?php echo $config->getEnv('gambler_seq2');?>"/></td>
             </tr>
         </table>
     </form>
