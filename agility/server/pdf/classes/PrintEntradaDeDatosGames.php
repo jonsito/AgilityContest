@@ -233,12 +233,15 @@ class PrintEntradaDeDatosGames extends PrintCommon {
     }
 
     private function writeTableCell_gambler($row,$orden) {
+        $c=$this->config;
         // save cursor position
         $x=$this->getX();
         $y=$this->GetY();
         $h0=array("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","A","B","C","D","E");
-        $h1=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "","");
-        $h2=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "","");
+        $h1=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+            $c->getEnv('gambler_bonus1'), $c->getEnv('gambler_bonus2'), $c->getEnv('gambler_bonus3'), $c->getEnv('gambler_bonus4'),$c->getEnv('gambler_bonus5'));
+        $h2=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+            $c->getEnv('gambler_bonus1'), $c->getEnv('gambler_bonus2'), $c->getEnv('gambler_bonus3'), $c->getEnv('gambler_bonus4'),$c->getEnv('gambler_bonus5'));
         $h3=array("00F","00F","841","0F0","0F0","FF0","FF0","FF0","FF0","FF0","FF0",
                   "F00","F00","F00","F00","F00","F00","F00","F00","F00","F00", "0F0", "841", "00F", "F19","000");
 
