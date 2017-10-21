@@ -239,6 +239,8 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         $h0=array("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","A","B","C","D","E");
         $h1=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "","");
         $h2=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", "", "","");
+        $h3=array("00F","00F","841","0F0","0F0","FF0","FF0","FF0","FF0","FF0","FF0",
+                  "F00","F00","F00","F00","F00","F00","F00","F00","F00","F00", "0F0", "841", "00F", "F19","000");
 
         $this->writeTableCell_common($row,$orden);
 
@@ -252,7 +254,7 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         $c1=$this->config->getEnv('pdf_rowcolor1');
         $c2=$this->config->getEnv('pdf_rowcolor2');
         for($n=0;$n<count($h0);$n++) {
-            $this->paintBall($this->GetX()+5*$n,$this->GetY(),"888",($n&1)?$c1:$c2,$h0[$n],5);
+            $this->paintBall($this->GetX()+5*$n,$this->GetY(),$h3[$n],($n&1)?$c1:$c2,$h0[$n],5);
         }
 
         $this->ac_row(0,9);

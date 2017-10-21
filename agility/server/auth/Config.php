@@ -153,6 +153,13 @@ define('AC_CRONO_RECTIME',"7");		// tiempo (minutos) de reconocimiento de pista 
 
 /** configuracion de pruebas */
 define('AC_TEAM4_MODE',"0"); // 0->100+tiempo corre 1->100+tiempo=TRM 2->EquipoEliminado
+define('AC_GAMBLER_SEQ1',"10"); // puntos de la secuencia corta del gambler
+define('AC_GAMBLER_SEQ2',"20"); // puntos de la secuencia corta del gambler
+define('AC_GAMBLER_BONUS1',"6"); // puntos de bonus recorrido 1
+define('AC_GAMBLER_BONUS2',"7"); // puntos de bonus recorrido 2
+define('AC_GAMBLER_BONUS3',"8"); // puntos de bonus recorrido 3
+define('AC_GAMBLER_BONUS4',"9"); // puntos de bonus recorrido 4
+define('AC_GAMBLER_BONUS5',"10"); // puntos de bonus recorrido 5
 
 /** datos de correo electronico defaults are for google */
 define('AC_EMAIL_SERVER',"smtp.gmail.com"); // SMTP Server name
@@ -308,7 +315,14 @@ Class Config {
 		'crono_rectime'		=> array(	'i',	false,	AC_CRONO_RECTIME),
 
 		// personalizacion de competiciones
-		'team4_mode'		=> array(	'i',	false,	AC_TEAM4_MODE),
+        'team4_mode'		=> array(	'i',	false,	AC_TEAM4_MODE),
+        'gambler_seq1'		=> array(	'i',	false,	AC_GAMBLER_SEQ1),
+        'gambler_seq2'		=> array(	'i',	false,	AC_GAMBLER_SEQ2),
+        'gambler_bonus1'	=> array(	'i',	false,	AC_GAMBLER_BONUS1),
+        'gambler_bonus2'	=> array(	'i',	false,	AC_GAMBLER_BONUS2),
+        'gambler_bonus3'	=> array(	'i',	false,	AC_GAMBLER_BONUS3),
+        'gambler_bonus4'	=> array(	'i',	false,	AC_GAMBLER_BONUS4),
+        'gambler_bonus5'	=> array(	'i',	false,	AC_GAMBLER_BONUS5),
 
 		// correo electronico
 		'email_server'		=> array(	's',	false,	AC_EMAIL_SERVER),

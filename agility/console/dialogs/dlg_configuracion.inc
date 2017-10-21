@@ -52,6 +52,33 @@ $config =Config::getInstance();
             </select>
             <br />
 
+            <h3><?php _e('Games competitions behaviour'); ?></h3>
+            <span style="display:inline-block;width:300px"><?php _e('Points for Gambler sequences'); ?></span>
+            <input type="number" min="1" max="20" size="2" value="10" name="gambler_seq1" id="gambler_seq1" style="width:30px"/>
+            <label for="gambler_seq1" style="width:100px"><?php _e('Sequence');?> 1</label>
+            <input type="number" min="1" max="20" size="2" value="20" name="gambler_seq2" id="gambler_seq2" style="width:30px"/>
+            <label for="gambler_seq2" style="width:100px"><?php _e('Sequence');?> 2</label>
+            <br/>
+            <table>
+                <tr><td>&nbsp;</td></tr>
+                <tr>
+                    <td rowspan="2" style="width:300px;"><?php _e('Gambler extra Bonus Points'); ?></td>
+                    <td style="width:70px;"><img src="/agility/images/getNumberedBall.php?Number=A&Color=0F0&Background=888" alt="green" width="30"/></td>
+                    <td style="width:70px;"><img src="/agility/images/getNumberedBall.php?Number=B&Color=841&Background=FFF" alt="brown" width="30"/></td>
+                    <td style="width:70px;"><img src="/agility/images/getNumberedBall.php?Number=C&Color=00F&Background=888" alt="blue" width="30"/></td>
+                    <td style="width:70px;"><img src="/agility/images/getNumberedBall.php?Number=D&Color=F19&Background=FFF" alt="pink" width="30"/></td>
+                    <td style="width:70px;"><img src="/agility/images/getNumberedBall.php?Number=E&Color=000&Background=888" alt="black" width="30"/></td>
+                </tr>
+                <tr>
+                    <td style="width:70px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus1" id="gambler_bonus1" style="width:30px"/></td>
+                    <td style="width:70px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus2" id="gambler_bonus2" style="width:30px"/></td>
+                    <td style="width:70px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus3" id="gambler_bonus3" style="width:30px"/></td>
+                    <td style="width:70px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus4" id="gambler_bonus4" style="width:30px"/></td>
+                    <td style="width:70px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus5" id="gambler_bonus5" style="width:30px"/></td>
+                </tr>
+            </table>
+            <br/>
+
             <h3><?php _e('Training session parameters'); ?></h3>
 			<label><?php _e('Club/Country Training time assignment mode'); ?></label>
 			<select name="training_type" class="easyui-combobox" data-options="panelHeight:'auto'">
