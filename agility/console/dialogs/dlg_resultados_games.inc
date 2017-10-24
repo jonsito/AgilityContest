@@ -59,7 +59,7 @@ $config =Config::getInstance();
 
     <!-- TABLA DE PRESENTACION DE RESULTADOS DE CADA MANGA -->
     <div id="resultadosmanga-data">
-        <?php include_once(__DIR__."/../../lib/templates/parcial_individual.inc.php"); ?>
+        <?php include_once(__DIR__."/../../lib/templates/parcial_games.inc.php"); ?>
     </div>
 
 </div>
@@ -100,7 +100,7 @@ $config =Config::getInstance();
     });
 
     //Activa tecla ESC (escape) para cerrar ventana,up,down y control+enter para ver fila
-    addSimpleKeyHandler('#parciales_individual-datagrid','#resultadosmanga-dialog');
+    addSimpleKeyHandler('#parciales_games-datagrid','#resultadosmanga-dialog');
     //- botones del panel de resultados de la manga
     addTooltip($('#resultadosmanga-reloadBtn').linkbutton(),'<?php _e("Update results on selected round/category"); ?>');
     addTooltip($('#resultadosmanga-printBtn').linkbutton(),'<?php _e("Print round results"); ?>');
