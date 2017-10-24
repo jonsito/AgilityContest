@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-10-21 21:39+0200\n"
-"PO-Revision-Date: 2017-10-21 21:44+0200\n"
+"POT-Creation-Date: 2017-10-24 13:54+0200\n"
+"PO-Revision-Date: 2017-10-24 13:56+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -107,7 +107,7 @@ msgstr "R"
 
 #: chrono/chrono.inc.php:67 console/dialogs/dlg_competicion.inc:121
 #: console/dialogs/dlg_competicion_games.inc:339
-#: console/dialogs/dlg_ordensalida.inc:165 console/frm_equipos.php:123
+#: console/dialogs/dlg_ordensalida.inc:183 console/frm_equipos.php:123
 #: console/frm_equipos.php:251 console/frm_inscripciones2.php:269
 #: lib/templates/orden_salida.inc.php:24 livestream/vwls_osdvideo.php:86
 #: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:150
@@ -159,7 +159,7 @@ msgstr "Perro"
 #: console/dialogs/dlg_competicion_games.inc:341
 #: console/dialogs/dlg_editInscripcion.inc:46
 #: console/dialogs/dlg_newInscripcion.inc:158
-#: console/dialogs/dlg_ordensalida.inc:169 console/dialogs/dlg_perros.inc:83
+#: console/dialogs/dlg_ordensalida.inc:187 console/dialogs/dlg_perros.inc:83
 #: console/dialogs/import_perros.inc.php:95
 #: console/dialogs/import_results.inc.php:91 console/frm_equipos.php:128
 #: console/frm_equipos.php:256 console/frm_inscripciones2.php:274
@@ -211,7 +211,7 @@ msgstr "Gu&iacute;a"
 #: console/dialogs/dlg_editInscripcion.inc:48
 #: console/dialogs/dlg_entrenamientos.inc:182 console/dialogs/dlg_guias.inc:52
 #: console/dialogs/dlg_newInscripcion.inc:159
-#: console/dialogs/dlg_ordensalida.inc:170 console/dialogs/dlg_perros.inc:89
+#: console/dialogs/dlg_ordensalida.inc:188 console/dialogs/dlg_perros.inc:89
 #: console/dialogs/dlg_perros.inc:221 console/dialogs/dlg_pruebas.inc:143
 #: console/dialogs/dlg_remotecontrol.inc:413
 #: console/dialogs/dlg_selectJornada.inc:85 console/dialogs/dlg_usuarios.inc:75
@@ -291,7 +291,7 @@ msgstr "Grado"
 #: chrono/chrono.inc.php:73 chrono/chrono.js.php:266
 #: console/dialogs/dlg_editInscripcion.inc:74
 #: console/dialogs/dlg_newInscripcion.inc:76
-#: console/dialogs/dlg_ordensalida.inc:171 console/frm_equipos.php:260
+#: console/dialogs/dlg_ordensalida.inc:189 console/frm_equipos.php:260
 #: console/frm_inscripciones2.php:276 lib/templates/orden_salida.inc.php:34
 #: livestream/vwls_osdvideo.php:92 public/pb_inscripciones.php:111
 #: public/pb_inscripciones_equipos.php:160 public/pbmenu_inscripciones.php:111
@@ -507,8 +507,8 @@ msgstr "Dors"
 #: console/dialogs/dlg_editInscripcion.inc:38
 #: console/dialogs/dlg_equipos.inc:33 console/dialogs/dlg_guias.inc:29
 #: console/dialogs/dlg_jornadas.inc:31 console/dialogs/dlg_jueces.inc:30
-#: console/dialogs/dlg_ordensalida.inc:103
-#: console/dialogs/dlg_ordensalida.inc:166
+#: console/dialogs/dlg_ordensalida.inc:121
+#: console/dialogs/dlg_ordensalida.inc:184
 #: console/dialogs/dlg_ordentandas.inc:53
 #: console/dialogs/dlg_ordentandas.inc:169 console/dialogs/dlg_perros.inc:29
 #: console/dialogs/dlg_plugins.inc:51 console/dialogs/dlg_pruebas.inc:346
@@ -594,9 +594,9 @@ msgstr "Gu&iacute;a"
 #: console/dialogs/dlg_competicion_games.inc:216
 #: console/dialogs/dlg_competicion_games.inc:343
 #: console/dialogs/dlg_newInscripcion.inc:156
-#: console/dialogs/dlg_ordensalida.inc:47
-#: console/dialogs/dlg_ordensalida.inc:104
-#: console/dialogs/dlg_ordensalida.inc:168
+#: console/dialogs/dlg_ordensalida.inc:44
+#: console/dialogs/dlg_ordensalida.inc:122
+#: console/dialogs/dlg_ordensalida.inc:186
 #: console/dialogs/import_perros.inc.php:93
 #: console/dialogs/import_results.inc.php:89 console/frm_equipos.php:126
 #: console/frm_equipos.php:175 console/frm_equipos.php:254
@@ -638,14 +638,14 @@ msgid "Grad"
 msgstr "Grd"
 
 #: chrono/chrono.js.php:158 chrono/chrono.js.php:255
-#: console/dialogs/dlg_ordensalida.inc:164 console/frm_equipos.php:79
+#: console/dialogs/dlg_ordensalida.inc:182 console/frm_equipos.php:79
 #: lib/templates/final_last_teams.inc.php:37
 #: lib/templates/final_teams.inc.php:21 lib/templates/orden_salida.inc.php:23
 #: lib/templates/parcial_last_teams.inc.php:31
 #: lib/templates/parcial_teams.inc.php:15
 #: public/pb_inscripciones_equipos.php:100
 #: public/pbmenu_inscripciones_equipos.php:95
-#: server/database/classes/OrdenSalida.php:509
+#: server/database/classes/OrdenSalida.php:511
 #: server/excel/classes/OrdenSalidaWriter.php:155
 #: server/excel/classes/OrdenSalidaWriter.php:213 tablet/tablet_main.php:288
 #: videowall/vwc_finales.php:218 videowall/vwc_parciales.php:230
@@ -733,7 +733,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/dialogs/dlg_editInscripcion.inc:77
 #: console/dialogs/dlg_equipos.inc:47 console/dialogs/dlg_guias.inc:58
 #: console/dialogs/dlg_jornadas.inc:31 console/dialogs/dlg_jueces.inc:72
-#: console/dialogs/dlg_ordensalida.inc:105
+#: console/dialogs/dlg_ordensalida.inc:123
 #: console/dialogs/dlg_ordentandas.inc:71
 #: console/dialogs/dlg_ordentandas.inc:137
 #: console/dialogs/dlg_ordentandas.inc:170 console/dialogs/dlg_pruebas.inc:161
@@ -1284,7 +1284,7 @@ msgstr "Buscar un participante por dorsal"
 
 #: console/dialogs/dlg_competicion.inc:260
 #: console/dialogs/dlg_competicion_games.inc:571
-#: console/dialogs/dlg_ordensalida.inc:233
+#: console/dialogs/dlg_ordensalida.inc:249
 msgid "Select categories to work with"
 msgstr "Selecciona las categor&iacute;as a mostrar"
 
@@ -1965,7 +1965,7 @@ msgstr "Servidor de autenticaci&oacute;n NTLM"
 #: console/dialogs/dlg_configuracion.inc:489
 #: console/dialogs/dlg_configuracion.inc:527
 #: console/dialogs/dlg_configuracion.inc:679
-#: console/dialogs/dlg_ordensalida.inc:54
+#: console/dialogs/dlg_ordensalida.inc:51
 msgid "Check"
 msgstr "Verificar"
 
@@ -2267,7 +2267,7 @@ msgid "Inscription data"
 msgstr "Datos de la inscripci&oacute;n"
 
 #: console/dialogs/dlg_editInscripcion.inc:40
-#: console/dialogs/dlg_ordensalida.inc:167 console/frm_clubes.php:271
+#: console/dialogs/dlg_ordensalida.inc:185 console/frm_clubes.php:271
 #: console/frm_guias.php:158 console/frm_paises.php:232
 #: console/frm_perros.php:138 lib/templates/orden_salida.inc.php:26
 #: server/pdf/classes/PrintClasificacionExcel.php:159
@@ -2412,7 +2412,7 @@ msgid "Import/Export"
 msgstr "Importar/Exportar"
 
 #: console/dialogs/dlg_entrenamientos.inc:115
-#: console/dialogs/dlg_ordensalida.inc:59
+#: console/dialogs/dlg_ordensalida.inc:56
 #: console/dialogs/dlg_ordentandas.inc:46 console/dialogs/dlg_printer.inc:74
 #: console/dialogs/dlg_resultados_equipos.inc:56
 #: console/dialogs/dlg_resultados_games.inc:56
@@ -2566,10 +2566,9 @@ msgstr "Mangas de la jornada"
 msgid "No grades - Open"
 msgstr "Sin grados - Open"
 
-#: console/dialogs/dlg_jornadas.inc:101 console/dialogs/dlg_ordensalida.inc:46
-#: console/frm_inscripciones2.php:122 server/database/classes/poedit.php:26
-#: server/database/classes/poedit.php:27 server/database/classes/poedit.php:31
-#: server/database/classes/poedit.php:32
+#: console/dialogs/dlg_jornadas.inc:101 console/frm_inscripciones2.php:122
+#: server/database/classes/poedit.php:26 server/database/classes/poedit.php:27
+#: server/database/classes/poedit.php:31 server/database/classes/poedit.php:32
 #: server/pdf/classes/PrintOrdenSalidaEquipos4.php:94
 #: server/pdf/classes/PrintResultadosByEquipos3.php:96
 #: server/pdf/classes/PrintResultadosByEquipos4.php:87
@@ -2769,23 +2768,19 @@ msgstr "Borrar selecci&oacute;n. Actualizar lista"
 msgid "Insert new dog into database"
 msgstr "A&ntilde;adir un nuevo perro en la base de datos"
 
-#: console/dialogs/dlg_ordensalida.inc:40
-msgid "Random"
-msgstr "Aleatorio"
+#: console/dialogs/dlg_ordensalida.inc:39
+msgid "Method"
+msgstr "M&eacute;todo"
 
-#: console/dialogs/dlg_ordensalida.inc:42
-msgid "Reverse"
-msgstr "Inverso"
+#: console/dialogs/dlg_ordensalida.inc:43 scripts/inscripciones.js.php:179
+msgid "Sort"
+msgstr "Ordenar"
 
-#: console/dialogs/dlg_ordensalida.inc:44
-msgid "Clone"
-msgstr "Clonar"
-
-#: console/dialogs/dlg_ordensalida.inc:52
+#: console/dialogs/dlg_ordensalida.inc:49
 msgid "Move"
 msgstr "Mover"
 
-#: console/dialogs/dlg_ordensalida.inc:57 console/dialogs/dlg_plugins.inc:22
+#: console/dialogs/dlg_ordensalida.inc:54 console/dialogs/dlg_plugins.inc:22
 #: console/dialogs/dlg_remotecontrol.inc:264
 #: console/frm_clasificaciones2.php:85
 #: console/frm_clasificaciones_equipos.php:93
@@ -2793,75 +2788,84 @@ msgstr "Mover"
 msgid "Refresh"
 msgstr "Refrescar"
 
-#: console/dialogs/dlg_ordensalida.inc:66
+#: console/dialogs/dlg_ordensalida.inc:63
 msgid "Manual setting of teams order for this round"
 msgstr "Ajuste manual del orden de salida de equipos de esta manga"
 
-#: console/dialogs/dlg_ordensalida.inc:92
+#: console/dialogs/dlg_ordensalida.inc:84
+msgid "Random order"
+msgstr "Orden de salida aleatorio"
+
+#: console/dialogs/dlg_ordensalida.inc:85
+msgid "Reverse results"
+msgstr "Orden inverso a resultados"
+
+#: console/dialogs/dlg_ordensalida.inc:86
+msgid "Same order"
+msgstr "Mismo orden que anterior manga"
+
+#: console/dialogs/dlg_ordensalida.inc:87
+msgid "Reverse order"
+msgstr "Orden inverso a manga anterior"
+
+#: console/dialogs/dlg_ordensalida.inc:110
 msgid "Updating teams starting order"
 msgstr "Actualizando orden de salida de equipos"
 
-#: console/dialogs/dlg_ordensalida.inc:107
+#: console/dialogs/dlg_ordensalida.inc:125
 msgid "Def"
 msgstr "Def"
 
-#: console/dialogs/dlg_ordensalida.inc:154
+#: console/dialogs/dlg_ordensalida.inc:172
 #: lib/templates/orden_salida.inc.php:55
 msgid "Updating starting order"
 msgstr "Actualizando orden de salida"
 
-#: console/dialogs/dlg_ordensalida.inc:186
+#: console/dialogs/dlg_ordensalida.inc:204
 msgid "No data yet"
 msgstr "No hay datos todav&iacute;a"
 
-#: console/dialogs/dlg_ordensalida.inc:187
+#: console/dialogs/dlg_ordensalida.inc:205
 msgid "Need to choose starting order to show valid data on this round"
 msgstr ""
 "Es necesario sortear orden de salida para poder visualizar datos v&aacute;"
 "lidos"
 
-#: console/dialogs/dlg_ordensalida.inc:191
+#: console/dialogs/dlg_ordensalida.inc:209
 msgid "On first round"
 msgstr "En la primera manga"
 
-#: console/dialogs/dlg_ordensalida.inc:192
+#: console/dialogs/dlg_ordensalida.inc:210
 msgid "Make sure to select competitors and starting order to organize rounds"
 msgstr "Ajuste competidores y orden de salida para organizar la manga"
 
-#: console/dialogs/dlg_ordensalida.inc:225
+#: console/dialogs/dlg_ordensalida.inc:243
+msgid "Re-evaluate starting order according sort method"
+msgstr ""
+"Recalcular orden de salida seg&uacute;n el m&eacute;todo de ordenaci&oacute;"
+"n seleccionado"
+
+#: console/dialogs/dlg_ordensalida.inc:244
 msgid "Move entry before selected possition"
 msgstr "No puedo mover al destino seleccionado"
 
-#: console/dialogs/dlg_ordensalida.inc:226
+#: console/dialogs/dlg_ordensalida.inc:245
 msgid "Look for <em>proximity alerts</em>"
 msgstr "Buscar alertas de proximidad"
 
-#: console/dialogs/dlg_ordensalida.inc:226
+#: console/dialogs/dlg_ordensalida.inc:245
 msgid "with dogs belonging same handler"
 msgstr "con perros pertenecientes al mismo gu&iacute;a"
 
-#: console/dialogs/dlg_ordensalida.inc:227
-msgid "Generate a new, random, starting order"
-msgstr "Generar un nuevo orden de salida aleatorio"
-
-#: console/dialogs/dlg_ordensalida.inc:228
-msgid "Reverse starting order according with results in the coupled round"
-msgstr ""
-"Invertir el orden de salida respecto de los resultados de la otra manga"
-
-#: console/dialogs/dlg_ordensalida.inc:229
-msgid "Clone starting order from coupled round"
-msgstr "Seleccionar el mismo orden de salida que la otra manga"
-
-#: console/dialogs/dlg_ordensalida.inc:230
+#: console/dialogs/dlg_ordensalida.inc:246
 msgid "Manual setting of teams starting order"
 msgstr "Ajuste manual del orden de salida de equipos"
 
-#: console/dialogs/dlg_ordensalida.inc:231
+#: console/dialogs/dlg_ordensalida.inc:247
 msgid "Print starting order"
 msgstr "Imprimir orden de salida"
 
-#: console/dialogs/dlg_ordensalida.inc:232
+#: console/dialogs/dlg_ordensalida.inc:248
 msgid "Reload starting order. Update window"
 msgstr "Recargar orden de salida. Refrescar ventana"
 
@@ -7221,10 +7225,6 @@ msgstr ""
 "El usuario actual no tiene suficientes permisos para manejar inscripciones"
 
 #: scripts/inscripciones.js.php:179
-msgid "Sort"
-msgstr "Ordenar"
-
-#: scripts/inscripciones.js.php:179
 msgid "Re-ordering Dorsals"
 msgstr "Reasignar dorsales"
 
@@ -9047,6 +9047,25 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "Random"
+#~ msgstr "Aleatorio"
+
+#~ msgid "Reverse"
+#~ msgstr "Inverso"
+
+#~ msgid "Clone"
+#~ msgstr "Clonar"
+
+#~ msgid "Generate a new, random, starting order"
+#~ msgstr "Generar un nuevo orden de salida aleatorio"
+
+#~ msgid "Reverse starting order according with results in the coupled round"
+#~ msgstr ""
+#~ "Invertir el orden de salida respecto de los resultados de la otra manga"
+
+#~ msgid "Clone starting order from coupled round"
+#~ msgstr "Seleccionar el mismo orden de salida que la otra manga"
 
 #~ msgid "Fed."
 #~ msgstr "Fed."

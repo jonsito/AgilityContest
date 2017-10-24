@@ -73,11 +73,12 @@ $('#ordeneq3-dialog').dialog({
 
 $('#ordensalida-selection').combobox({
     width:150,
+    panelWidth:250,
+    panelHeight: 'auto',
     textField:'text',
     valueField:'value',
     showItemIcon: true,
     editable: false,
-    panelHeight: 'auto',
     label: 'Perform Action:',
     labelPosition: 'top',
     data: [
@@ -86,7 +87,7 @@ $('#ordensalida-selection').combobox({
         {value:'clone',text:"<?php _e('Same order'); ?>",icon:"downdown.png"},
         {value:'reverse',text:"<?php _e('Reverse order'); ?>",icon:"updown.png"}
     ],
-    formatter: function(row) {
+    formatter: function(row) { // add an icon to each combobox option
         var imgfile="/agility/lib/jquery-easyui-1.4.2/themes/icons/"+row.icon;
         return '<img class="item-img" src="'+imgfile+'"/>&nbsp;<span class="item-text">'+row.text+'</span>';
     }

@@ -363,7 +363,7 @@ class OrdenSalida_KO extends OrdenSalida {
 	 * @param	{int} $catmode categorias a las que tiene que afectar este cambio
 	 * @return {string} nuevo orden de salida
 	 */
-	function random($catmode=8) {
+	function randomOrder($catmode=8) {
 		$this->myLogger->enter();
         assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// fase 1:
@@ -392,9 +392,10 @@ class OrdenSalida_KO extends OrdenSalida {
 	 * Pone el mismo orden de salida que la manga KO anterior en las categorias solicitadas
      * En la primera manga, simplemente ajusta los que tienen que salir en funcion del numero de participantes
 	 * @param	{int} $catmode categorias a las que tiene que afectar este cambio. En Mangas KO se ignora
+     * @param {boolean} reverse on true return selected dogs/teams in reverse order
 	 * @return {string} nuevo orden de salida; null on error
 	 */
-	function sameorder($catmode=8) {
+	function sameOrder($catmode=8,$reverse=false) {
 		$this->myLogger->enter();
         assertClosedJourney($this->jornada); // throw exception on closed journeys
         // fase 1:
@@ -403,7 +404,15 @@ class OrdenSalida_KO extends OrdenSalida {
 
         // fase 2: cogemos el orden de salida de la manga padre y lo copiamos en la actual
         $mpadre=$this->getParentRound();
-        if ($mpadre->ID!==$this->mangas[0]['ID']) $this->setOrden($mpadre->Orden_Salida);
+        if ($mpadre->ID!==$this->mangas[0]['ID']) {
+        	$orden=$mpadre->Orden_Salida;
+        	if ($reverse) { // en el caso de que "reverse" este activo, invertimos el orden de los datos
+        		$str=getInnerString($orden,"BEGIN,",",END");
+        		$d=array_reverse(explode(",",$str));
+        		$orden="BEGIN,".join(",",$d).",END";
+			}
+        	$this->setOrden($orden);
+        }
 
 		// fase 3: llamamos a preparaManga para ajustar los perros que salen en esta manga
 		// y clonar ordenes de salida en las mangas siguientes
@@ -423,7 +432,7 @@ class OrdenSalida_KO extends OrdenSalida {
 	 *
 	 * @return {string} nuevo orden de salida; null on error
 	 */
-	function reverse($catmode=8) {
+	function orderByResults($catmode=8) {
 		$this->myLogger->enter();
         assertClosedJourney($this->jornada); // throw exception on closed journeys
         // fase 1:

@@ -1039,7 +1039,7 @@ function evalOrdenSalida(oper) {
 				reloadOrdenSalida();
 			});
 		});
-	} else { // 'reverse' o 'clone'
+	} else { // 'reverse', 'clone' o 'results'
 		$.ajax({
 			type:'GET',
 			url:"/agility/server/database/ordenSalidaFunctions.php",
