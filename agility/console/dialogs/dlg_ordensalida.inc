@@ -36,14 +36,11 @@ $config =Config::getInstance();
 <!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 <div id="ordensalida-toolbar" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
-	   	<a id="ordensalida-randomBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-dice'" onclick="evalOrdenSalida('random')"><?php _e('Random'); ?></a>
-	   	<a id="ordensalida-reverseBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-updown'" onclick="evalOrdenSalida('reverse')"><?php _e('Reverse'); ?></a>
-	   	<a id="ordensalida-cloneBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-downdown'" onclick="evalOrdenSalida('sameorder')"><?php _e('Clone'); ?></a>
-	   	<a id="ordensalida-eqBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-huella'" onclick="$('#ordeneq3-dialog').dialog('open');"><?php _e('Teams'); ?></a>
+        <label for="ordensalida-selection"><?php _e("Method");?></label>
+        <input id="ordensalida-selection"/>
+	   	<a id="ordensalida-sortBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-reload'"
+           onclick="evalOrdenSalida($('#ordensalida-selection').combobox('getValue'))"><?php _e('Sort'); ?></a>
         <label for="ordensalida-categoria"><?php _e('Cat');?></label>
         <select id="ordensalida-categoria" style="width:100px"></select>
    	</span>
@@ -72,6 +69,27 @@ $('#ordeneq3-dialog').dialog({
     closed:			true,
     modal:			true,
     onBeforeOpen:   reloadSimpleOrdenEquipos
+});
+
+$('#ordensalida-selection').combobox({
+    width:150,
+    textField:'text',
+    valueField:'value',
+    showItemIcon: true,
+    editable: false,
+    panelHeight: 'auto',
+    label: 'Perform Action:',
+    labelPosition: 'top',
+    data: [
+        {value:'random',text:"<?php _e('Random order'); ?>",icon:"dice.png"},
+        {value:'results',text:"<?php _e('Reverse results'); ?>",icon:"endflag.png",selected:true},
+        {value:'clone',text:"<?php _e('Same order'); ?>",icon:"downdown.png"},
+        {value:'reverse',text:"<?php _e('Reverse order'); ?>",icon:"updown.png"}
+    ],
+    formatter: function(row) {
+        var imgfile="/agility/lib/jquery-easyui-1.4.2/themes/icons/"+row.icon;
+        return '<img class="item-img" src="'+imgfile+'"/>&nbsp;<span class="item-text">'+row.text+'</span>';
+    }
 });
 
 $('#ordensalida-categoria').combobox({
@@ -222,11 +240,9 @@ $('#ordensalida-datagrid').datagrid({
 addSimpleKeyHandler('#ordensalida-datagrid','#ordensalida-dialog');
 
 // botones
+addTooltip($('#ordensalida-sortBtn').linkbutton(),'<?php _e("Re-evaluate starting order according sort method"); ?>');
 addTooltip($('#ordensalida-pasteBtn').linkbutton(),'<?php _e("Move entry before selected possition"); ?>');
 addTooltip($('#ordensalida-checkBtn').linkbutton(),'<?php _e("Look for <em>proximity alerts</em>"); ?>'+" <br/>"+'<?php _e("with dogs belonging same handler"); ?>');
-addTooltip($('#ordensalida-randomBtn').linkbutton(),'<?php _e("Generate a new, random, starting order"); ?>');
-addTooltip($('#ordensalida-reverseBtn').linkbutton(),'<?php _e("Reverse starting order according with results in the coupled round"); ?>');
-addTooltip($('#ordensalida-cloneBtn').linkbutton(),'<?php _e("Clone starting order from coupled round"); ?>');
 addTooltip($('#ordensalida-eqBtn').linkbutton(),'<?php _e("Manual setting of teams starting order"); ?>');
 addTooltip($('#ordensalida-printBtn').linkbutton(),'<?php _e("Print starting order"); ?>');
 addTooltip($('#ordensalida-reloadBtn').linkbutton(),'<?php _e("Reload starting order. Update window"); ?>');
