@@ -26,7 +26,7 @@ $config =Config::getInstance();
         <th data-options="field:'Grado',		width:3, align:'center', formatter:formatGrado" > <?php _e('Grd'); ?>.</th>
         -->
         <th width="9%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
-        <th width="7%" data-options="field:'NombreClub',	align:'right'" id="finales_individual-Club"> <?php _e('Club'); ?></th>
+        <th width="7%" data-options="field:'NombreClub',	align:'right'" id="finales_individual-ClubOrCountry"> <?php _e('Club'); ?></th>
 <?php for ($nmanga=1;$nmanga<9; $nmanga++ ) { ?>
         <th width="2%" data-options="field:'F<?php echo $nmanga;?>',    align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
         <th width="2%" data-options="field:'R<?php echo $nmanga;?>',	align:'center'"> <?php _e('R'); ?>.</th>

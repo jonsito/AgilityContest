@@ -24,7 +24,7 @@ $config =Config::getInstance();
         <th data-options="field:'Grado',		width:3, align:'center', formatter:formatGrado" > <?php _e('Grd'); ?>.</th>
         -->
         <th width="18%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
-        <th width="15%" data-options="field:'NombreClub',	align:'right'" id="parciales_individual-Club"> <?php _e('Club'); ?></th>
+        <th width="15%" data-options="field:'NombreClub',	align:'right'" id="parciales_individual-ClubOrCountry"> <?php _e('Club'); ?></th>
         <th width="4%" data-options="field:'Faltas',		align:'center',formatter:formatFaltasTocados,styler:formatBorder"> <?php _e('F/T'); ?></th>
         <!--
         <th data-options="field:'Tocados',	hidden:true ">/th>

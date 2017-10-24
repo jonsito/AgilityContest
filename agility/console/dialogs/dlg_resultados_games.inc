@@ -93,14 +93,24 @@ $config =Config::getInstance();
 
     $('#parciales_individual-datagrid').datagrid({
         toolbar: '#resultadosmanga-toolbar',
-        onBeforeLoad: function(param) { return (parseInt(param.Manga) > 0); }, // do not load if no manga selected
+        onBeforeLoad: function(param) {
+            console.log ("name is: "+name);
+            // do not load if no manga selected
+            if (parseInt(workingData.manga) <= 0) return false;
+            var name=( parseInt(workingData.datosManga.Tipo)===29)?"<?php _e('Closing'); ?>":"Gambler";        // adjust field to "Closing" or "Gambler" acording mode
+            console.log ("name is: "+name);
+            setTimeout(function() {
+                $('#parciales_individual-datagrid').datagrid('setFieldTitle',{'field':'Tocados','title':name});
+            },0);
+            return true;
+        },
         onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes)
             $(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
         }
     });
 
     //Activa tecla ESC (escape) para cerrar ventana,up,down y control+enter para ver fila
-    addSimpleKeyHandler('#parciales_games-datagrid','#resultadosmanga-dialog');
+    addSimpleKeyHandler('#parciales_individual-datagrid','#resultadosmanga-dialog');
     //- botones del panel de resultados de la manga
     addTooltip($('#resultadosmanga-reloadBtn').linkbutton(),'<?php _e("Update results on selected round/category"); ?>');
     addTooltip($('#resultadosmanga-printBtn').linkbutton(),'<?php _e("Print round results"); ?>');

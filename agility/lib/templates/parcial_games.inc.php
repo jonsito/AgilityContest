@@ -4,7 +4,7 @@ require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
-<table id="parciales_games-datagrid">
+<table id="parciales_individual-datagrid"><!-- notice the name "individual" -->
     <thead>
     <tr>
         <!--
@@ -26,7 +26,7 @@ $config =Config::getInstance();
         <th data-options="field:'Grado',		width:3, align:'center', formatter:formatGrado" > <?php _e('Grd'); ?>.</th>
         -->
         <th width="15%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
-        <th width="10%" data-options="field:'NombreClub',	align:'right'" id="parciales_individual-Club"> <?php _e('Club'); ?></th>
+        <th width="10%" data-options="field:'NombreClub',	align:'right'" id="parciales_individual-ClubOrCountry"> <?php _e('Club'); ?></th>
         <th width="10%" data-options="field:'Faltas',		align:'center',styler:formatBorder"> <?php _e('Opening'); ?></th>
         <th width="10%" data-options="field:'Tocados',		align:'center'"> <?php _e('Closing'); ?></th>
         <!--
@@ -50,7 +50,7 @@ $config =Config::getInstance();
 </table>
 
 <script type="text/javascript">
-    $('#parciales_games-datagrid').datagrid({
+    $('#parciales_individual-datagrid').datagrid({ // again: games is an individual round, use common name
         // declared by me. not used in individual scores
         expandCount: 0,
         // propiedades del panel asociado
@@ -69,14 +69,6 @@ $config =Config::getInstance();
         singleSelect: true,
         autoRowHeight: false,
         idField: 'Perro',
-        rowStyler:myRowStyler,
-        onBeforeLoad: function(param) {
-            // do not load if no manga selected
-            if (parseInt(workingData.manga) <= 0) return false;
-            var name=( parseInt(workingData.datosManga.Tipo)===29)?"<?php _e('Closing'); ?>":'Gambler';
-            // adjust field to "Closing" or "Gambler" acording mode
-            $('#parciales_games-datagrid').datagrid('setFieldTitle',{field:'Tocados',title:name});
-            return true;
-        }
+        rowStyler:myRowStyler
     });
 </script>

@@ -382,7 +382,10 @@ $('#competicion-datagrid').datagrid({
         if (parseInt(workingData.manga) <= 0) return false;
         var name=( parseInt(workingData.datosManga.Tipo)===29)?"<?php _e('Closing'); ?>":'Gambler';
         // adjust field to "Closing" or "Gambler" acording mode
-        $('#competicion-datagrid').datagrid('setFieldTitle',{field:'Tocados',title:name});
+        setTimeout(function() {
+            $('#competicion-datagrid').datagrid('setFieldTitle',{'field':'Tocados','title':name});
+        },0);
+        return true;
     },
 	onLoadSuccess:function(){
 		// mark no row is being edited

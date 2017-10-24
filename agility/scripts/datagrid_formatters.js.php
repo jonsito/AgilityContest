@@ -463,10 +463,10 @@ function vwcf_configureScreenLayout() {
     resdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
     lastdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
     $('#finales_individual_teaminfo').parents('td').attr('colspan',(intl)?6:7);
-    $('#finales_individual-Club').html(clubOrCountry());
-    $('#finales_last_individual-Club').html(clubOrCountry());
-    // $('#finales_equipos-Club').html(clubOrCountry()); // doesn't exist :-)
-    $('#finales_last_equipos-Club').html(clubOrCountry());
+    $('#finales_individual-ClubOrCountry').html(clubOrCountry());
+    $('#finales_last_individual-ClubOrCountry').html(clubOrCountry());
+    // $('#finales_equipos-ClubOrCountry').html(clubOrCountry()); // doesn't exist :-)
+    $('#finales_last_equipos-ClubOrCountry').html(clubOrCountry());
 
     // reload datagrid with new options and fill with empty data and expand to max width
     resetDatagrid(resdg);
@@ -487,6 +487,7 @@ function vwcp_configureScreenLayout() {
     var calldg=$('#vwc_llamada-datagrid');
     var team=isJornadaEquipos(null);
     var intl=isInternational(null);
+    var games=isJornadaGames(null);
 
     // on intl move country to right of country flag
     if (intl && !team) {
@@ -501,15 +502,15 @@ function vwcp_configureScreenLayout() {
     calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
     calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
     // show hide license according national or international
-    resdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
-    lastdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    resdg.datagrid((intl||games)?'hideColumn':'showColumn','Licencia');
+    lastdg.datagrid((intl||games)?'hideColumn':'showColumn','Licencia');
     // restdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
     // lasttdg.datagrid((intl)?'hideColumn':'showColumn','Licencia'); // no existe campo 'Licencia' en resultados  equipos
 
-    $('#parciales_individual-Club').html(clubOrCountry());
-    $('#parciales_last_individual-Club').html(clubOrCountry());
-    // $('#finales_equipos-Club').html(clubOrCountry()); // doesn't exist :-)
-    $('#parciales_last_equipos-Club').html(clubOrCountry());
+    $('#parciales_individual-ClubOrCountry').html(clubOrCountry());
+    $('#parciales_last_individual-ClubOrCountry').html(clubOrCountry());
+    // $('#finales_equipos-ClubOrCountry').html(clubOrCountry()); // doesn't exist :-)
+    $('#parciales_last_equipos-ClubOrCountry').html(clubOrCountry());
 
     // reload datagrid with new options and fill with empty data and expand to max width
     resetDatagrid(resdg);

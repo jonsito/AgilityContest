@@ -396,13 +396,15 @@ function consoleReloadParcial(val,fill) {
 
             // actualizar datagrid
             if (!fill) return;
-            if ( isJornadaEquipos(null) ) {
-                var dg=$('#parciales_equipos-datagrid');
+            var dg="";
+            var t=parseInt(workingData.datosManga.Tipo);
+            if (isJornadaEquipos(null)) { // mangas de equipos
+                dg=$('#parciales_equipos-datagrid');
                 workingData.individual=dat.individual;
                 dg.datagrid('options').expandCount = 0;
                 dg.datagrid('loadData',dat.equipos);
             } else {
-                var dg=$('#parciales_individual-datagrid');
+                dg=$('#parciales_individual-datagrid');
                 workingData.individual=dat.rows;
                 dg.datagrid('loadData',dat.rows);
             }
@@ -452,13 +454,14 @@ function updateParciales(mode,row) {
             $('#parciales-TRM').text(dat['trs'].trm);
             $('#parciales-Velocidad').text(dat['trs'].vel);
             // actualizar datagrid
+            var dg="";
             if ( isJornadaEquipos(null) ) {
-                var dg=$('#parciales_equipos-datagrid');
+                dg=$('#parciales_equipos-datagrid');
                 workingData.individual=dat.individual;
                 dg.datagrid('options').expandCount = 0;
                 dg.datagrid('loadData',dat.equipos);
             } else {
-                var dg=$('#parciales_individual-datagrid');
+                dg=$('#parciales_individual-datagrid');
                 workingData.individual=dat.rows;
                 dg.datagrid('loadData',dat.rows);
             }

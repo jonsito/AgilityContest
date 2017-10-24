@@ -32,7 +32,7 @@ $config =Config::getInstance();
         <th data-options="field:'Grado',		width:3, align:'center', formatter:formatGrado" > <?php _e('Grd'); ?>.</th>
         -->
         <th width="9%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
-        <th width="7%" data-options="field:'NombreClub',	align:'right'" id="finales_last_individual-Club"> <?php _e('Club'); ?></th>
+        <th width="7%" data-options="field:'NombreClub',	align:'right'" id="finales_last_individual-ClubOrCountry"> <?php _e('Club'); ?></th>
 
         <!-- datos globales -->
         <th width="4%" data-options="field:'Tiempo',		align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
