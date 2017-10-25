@@ -27,8 +27,9 @@ $config =Config::getInstance();
         -->
         <th width="15%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
         <th width="10%" data-options="field:'NombreClub',	align:'right'" id="parciales_individual-ClubOrCountry"> <?php _e('Club'); ?></th>
-        <th width="10%" data-options="field:'Faltas',		align:'center',styler:formatBorder"> <?php _e('Opening'); ?></th>
-        <th width="10%" data-options="field:'Tocados',		align:'center'"> <?php _e('Closing'); ?></th>
+        <th width="7%" data-options="field:'Faltas',		align:'center',styler:formatBorder"> <?php _e('Opening'); ?></th>
+        <th width="7%" data-options="field:'Tocados',		align:'center'"> <?php _e('Closing'); ?></th>
+        <th width="7%" data-options="field:'Penalizacion',	align:'center'" > <?php _e('Total'); ?>.</th>
         <!--
         <th data-options="field:'Tocados',	hidden:true ">/th>
         <th data-options="field:'Rehuses',	hidden:true ">/th>
@@ -39,9 +40,8 @@ $config =Config::getInstance();
         <th data-options="field:'PTiempo',	hidden:true ">/th>
         <th data-options="field:'Velocidad',	hidden:true ">/th>
         -->
-        <th width="10%" data-options="field:'Penalizacion',	align:'right',formatter:formatPenalizacionFinal,styler:formatBorder" > <?php _e('Points'); ?>.</th>
-        <th width="6%" data-options="field:'Calificacion',	align:'center'" > <?php _e('Calif'); ?>.</th>
-        <th width="6%" data-options="field:'Puesto',		align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
+        <th width="13%" data-options="field:'Calificacion',	align:'center',styler:formatBorder" > <?php _e('Calif'); ?>.</th>
+        <th width="8%" data-options="field:'Puesto',		align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
         <!--
         <th data-options="field:'CShort',	hidden:true ">/th>
         -->
