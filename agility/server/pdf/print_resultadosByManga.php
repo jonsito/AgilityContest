@@ -30,6 +30,7 @@ require_once(__DIR__.'/../modules/Competitions.php');
 require_once(__DIR__.'/../database/classes/Mangas.php');
 require_once(__DIR__."/classes/PrintResultadosByManga.php");
 require_once(__DIR__."/classes/PrintResultadosKO.php");
+require_once(__DIR__."/classes/PrintResultadosGames.php");
 
 // Consultamos la base de datos
 try {
@@ -45,9 +46,9 @@ try {
 
 	// Creamos generador de documento
     if ( isMangaKO($manga->Tipo)) {
-        $pdf = new PrintResultadosKO($idprueba,$idjornada,$manga,$resultados);
+        $pdf = new PrintResultadosKO($idprueba,$idjornada,$manga,$resultados,$mode);
     } else if ( isMangaGames($manga->Tipo) ) { // snooker, gambler
-        $pdf = new PrintResultadosGames($idprueba,$idjornada,$manga,$resultados);
+        $pdf = new PrintResultadosGames($idprueba,$idjornada,$manga,$resultados,$mode);
     } else {
         $pdf = new PrintResultadosByManga($idprueba,$idjornada,$manga,$resultados,$mode);
     }

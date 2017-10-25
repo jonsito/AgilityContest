@@ -40,63 +40,56 @@ class PrintResultadosGames extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader;
-    //                     pair  dorsal name lic handler club  cat  fault touch refs time speed penal  pos calification
-    //                       0     1     2    3    4     5      6     7     8     9    10   11    12    13    14
-	protected $pos	=array(  10,   8,	17,	 15,  30,	 20,	12,	  6,    6,    6,   10,   7,   12,   7,    23 );
-	protected $align=array(  'C', 'L',  'L', 'C', 'R',   'R',   'C',  'C',  'C',  'C', 'R', 'R',  'R',  'C',  'L');
+	protected $pos;
+	protected $align;
 
-	
 	/**
 	 * Constructor
      * @param integer $prueba prueba ID
      * @param integer $jornada Jornada ID
-     * @param array $manga datos tecnicos de la manga
+     * @param object $manga datos tecnicos de la manga
 	 * @param array $resultados resultados asociados a la manga/categoria pedidas
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$resultados) {
+	function __construct($prueba,$jornada,$manga,$resultados,$mode) {
 		parent::__construct('Portrait',"print_resultadosGames",$prueba,$jornada);
+		$name=(intval($manga->Tipo)==29)?'Snooker':'Gambler';
 		$this->manga=$manga;
+        $this->mode=$mode;
 		$this->resultados=$resultados;
         $this->hasGrades=Jornadas::hasGrades($this->jornada);
-		$catgrad=($this->hasGrades)?_('Cat').'/'._('Grade'):_('Cat').".";
+		$seqname=(intval($manga->Tipo)==29)?_('Closing Seq'):'Gambler';
 		$this->cellHeader=
-			array(_('Pair'),_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Pos'),_('Calification'));
+			array(_('Dorsal'),_('Name'),_('Cat'),_('Handler'),$this->strClub,_('Opening Seq'),$seqname,_('Total'),_('Time'),_('Calification'),_('Pos'),);
+		$this->pos=
+            array(    10,         24,      10,      38,          25,                12,             12,     12,         15,     20,                 10);
+		$this->align=
+            array(  'C',         'L',      'C',     'R',         'R',             'R',            'R',    'R',        'R',    'R',    'C');
         // set file name
-        $this->set_FileName("ResultadosManga_Games.pdf");
+        $this->set_FileName("ResultadosManga_{$name}.pdf");
 	}
 	
 	// Cabecera de página
 	function Header() {
-        $str = ($this->manga->Tipo == 16) ? _("Resultados") : _("Round scores");
-        $this->print_commonHeader($str);
-        $this->print_identificacionManga($this->manga, "");
-    }
+        $this->print_commonHeader(_("Round Scores"));
+        $this->print_identificacionManga($this->manga,$this->getModeString(intval($this->mode)));
 
-    function writeCourseData() {
+        // Si es la primera hoja pintamos datos tecnicos de la manga
+        if ($this->PageNo()!==1) return;
+
 	    $this->myLogger->enter();
 		$this->SetFont($this->getFontName(),'B',9); // bold 9px
 		$jobj=new Jueces("print_resultadosByManga");
 		$juez1=$jobj->selectByID($this->manga->Juez1);
 		$juez2=$jobj->selectByID($this->manga->Juez2);
-		$this->Cell(20,7,_('Judge')." 1:","LT",0,'L',false);
+		$this->Cell(20,7,_('Judge')." 1:","LTB",0,'L',false);
 		$str=($juez1['Nombre']==="-- Sin asignar --")?"":$juez1['Nombre'];
-		$this->Cell(70,7,$str,"T",0,'L',false);
-		$this->Cell(20,7,_('Judge')." 2:","T",0,'L',false);
+		$this->Cell(70,7,$str,"TB",0,'L',false);
+		$this->Cell(20,7,_('Judge')." 2:","TB",0,'L',false);
 		$str=($juez2['Nombre']==="-- Sin asignar --")?"":$juez2['Nombre'];
-		$this->Cell(78,7,$str,"TR",0,'L',false);
-		$this->Ln(7);
-		$this->Cell(20,7,_('Distance').":","LB",0,'L',false);
-		$this->Cell(25,7,"{$this->resultados['trs']['dist']} mts","B",0,'L',false);
-		$this->Cell(20,7,_('Obstacles').":","B",0,'L',false);
-		$this->Cell(25,7,$this->resultados['trs']['obst'],"B",0,'L',false);
-		$this->Cell(10,7,_('SCT').":","B",0,'L',false);
-		$this->Cell(20,7,"{$this->resultados['trs']['trs']} "._('Secs'),"B",0,'L',false);
-		$this->Cell(10,7,_('MCT').":","B",0,'L',false);
-		$this->Cell(20,7,"{$this->resultados['trs']['trm']} "._('Secs'),"B",0,'L',false);
-		$this->Cell(20,7,_('Speed').":","B",0,'L',false);
-		$this->Cell(18,7,"{$this->resultados['trs']['vel']} m/s","BR",0,'L',false);
-		$this->Ln(10); // en total tres lineas extras en la primera hoja
+		$this->Cell(78,7,$str,"TRB",0,'L',false);
+		$this->Ln(17);
+		// en snooker-gambler no hay datos de TRS
         $this->myLogger->leave();
 	}
 	
@@ -124,17 +117,49 @@ class PrintResultadosGames extends PrintCommon {
 		$this->myLogger->leave();
 	}
 
-    function composeTableSnooker() {
-        // PENDING: write
-    }
-    function composeTableGambler() {
-        // PENDING: write
+	function writeCell($row,$count) {
+        $data=array();
+        array_push($data,$row['Dorsal']);
+        array_push($data,($this->useLongNames)? "{$row['Nombre']} - {$row['NombreLargo']}":$row['Nombre']);
+        array_push($data,$this->federation->getCategoryShort($row['Categoria'])); // no grades in games
+        array_push($data,$row['NombreGuia']);
+        array_push($data,($this->federation->isInternational())?$row['Pais']:$row['NombreClub']);
+        array_push($data,$row['PRecorrido']);
+        array_push($data,$row['PTiempo']);
+        array_push($data,$row['Penalizacion']);
+        array_push($data,number_format($row['Tiempo'],$this->timeResolution));
+        array_push($data,$row['Calificacion']);
+        array_push($data,$row['Puesto']);
+        $this->ac_row($count,8);
+        $this->SetFont($this->getFontName(),'',8); // set data font size
+        for($n=0; $n<count($data);$n++) {
+            if ($this->pos[$n]!=0) {
+                $this->Cell($this->pos[$n],6,$data[$n],'LTR',0,$this->align[$n],true);
+            }
+        }
+        $this->Ln();
     }
 
     function composeTable() {
-        if ($this->manga->Tipo==29) return $this->composeTableSnooker();
-        if ($this->manga->Tipo==30) return $this->composeTableGambler();
-        $this->myLogger->error("Round type:{$this->manga->Tipo} is not Snooker/Gamblers");
+        $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
+        $this->SetLineWidth(.3);
+	    $page=0;
+	    $rowcount=37;
+        $this->AddPage();
+	    $this->writeTableHeader();
+	    foreach($this->resultados['rows'] as $row) {
+	        if($rowcount===0) {
+	            $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
+	            $this->AddPage();
+                $this->writeTableHeader();
+	            $page++;
+                $rowcount=40;
+	        }
+	        $this->writeCell($row,$rowcount);
+	        $rowcount --;
+        }
+        // linea final de cierre
+        $this->Cell(array_sum($this->pos),0,'','T');
     }
 }
 ?>
