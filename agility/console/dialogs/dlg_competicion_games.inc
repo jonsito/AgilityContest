@@ -23,10 +23,13 @@ $config =Config::getInstance();
 
 <!-- dialogo de entrada de datos para snooker -->
 <div id="competicion-dialog-snooker" style="width:360px;padding:5px">
-    <form id="competicion-dialog-snooker-form">
+    <form id="competicion-dialog-snooker-header">
         <input type="hidden" id="cds-Index"/>
         <table>
             <!-- datos del perro y guia -->
+            <tr>
+                <th colspan="11"><br/><?php _e('Competitor data');?></th>
+            </tr>
             <tr>
                 <th colspan="1"><label for="cds-Dog"><?php _e('Dog');?></label></th>
                 <td colspan="5"><input id="cds-Dog" name="cds-Dog" readonly="readonly" data-options="width:175"></td>
@@ -35,10 +38,10 @@ $config =Config::getInstance();
                 <th colspan="1"><label for="cds-Handler"><?php _e('Handler');?></label></th>
                 <td colspan="5"><input id="cds-Handler" name="cds-Handler" readonly="readonly" data-options="width:175"></td>
             </tr>
-            <tr>
-                <th colspan="1"><label for="cds-Time"><?php _e('Time');?></label></th>
-                <td colspan="5"><input id="cds-Time" name="cds-Time" data-options="width:50,min:0,precision:3"></td>
-            </tr>
+        </table>
+    </form>
+    <form id="competicion-dialog-snooker-form">
+        <table>
             <!-- datos de la secuencia de apertura -->
             <tr><th colspan="6"><br/><?php _e('Opening Sequence');?></th></tr>
             <tr>
@@ -51,11 +54,11 @@ $config =Config::getInstance();
             </tr>
             <tr>
                 <td align="center"><input type="checkbox" id="cds-Red1" value="1"/></td>
-                <td><input type="text" id="cds-White1" value="0" data-options="width:40"/></td>
+                <td><input type="number" id="cds-White1" value="0" data-options="width:40"/></td>
                 <td align="center"><input type="checkbox" id="cds-Red2" value="1"/></td>
-                <td><input type="text" id="cds-White2" value="0"data-options="width:40"/></td>
+                <td><input type="number" id="cds-White2" value="0"data-options="width:40"/></td>
                 <td align="center"><input type="checkbox" id="cds-Red3" value="1"/></td>
-                <td><input type="text" id="cds-White3" value="0"data-options="width:40"/></td>
+                <td><input type="number" id="cds-White3" value="0"data-options="width:40"/></td>
             </tr>
             <!-- datos de la secuencia de cierre -->
             <tr><th colspan="6"><br/><?php _e('Closing Sequence');?></th></tr>
@@ -75,6 +78,13 @@ $config =Config::getInstance();
                 <td align="center"><input type="checkbox" id="cds-Pink" value="6"/></td>
                 <td align="center"><input type="checkbox" id="cds-Black" value="7"/></td>
             </tr>
+
+            <!-- tiempo -->
+            <tr><th colspan="6"><br/>&nbsp;</th></tr>
+            <tr>
+                <th colspan="1"><label for="cds-Time"><?php _e('Time');?></label></th>
+                <td colspan="5"><input id="cds-Time" name="cds-Time" data-options="width:50,min:0,precision:3"></td>
+            </tr>
         </table>
     </form>
 </div>
@@ -89,10 +99,13 @@ $config =Config::getInstance();
 
 <!-- dialogo de entrada de datos para gambler -->
 <div id="competicion-dialog-gambler" style="width:640px;padding:5px">
-    <form id="competicion-dialog-gambler-form">
+    <form id="competicion-dialog-gambler-header">
         <input type="hidden" id="cdg-Index"/>
         <table>
             <!-- datos del perro y guia -->
+            <tr>
+                <th colspan="11"><br/><?php _e('Competitor data');?></th>
+            </tr>
             <tr>
                 <th colspan="2"><label for="cdg-Dog"><?php _e('Dog');?></label></th>
                 <td colspan="6"><input id="cdg-Dog" name="cdg-Dog" readonly="readonly" data-options="width:175"></td>
@@ -101,10 +114,10 @@ $config =Config::getInstance();
                 <th colspan="2"><label for="cdg-Handler"><?php _e('Handler');?></label></th>
                 <td colspan="6"><input id="cdg-Handler" name="cdg-Handler" readonly="readonly" data-options="width:175"></td>
             </tr>
-            <tr>
-                <th colspan="2"><label for="cdg-Time"><?php _e('Time');?></label></th>
-                <td colspan="6"><input id="cdg-Time" name="cdg-Time" data-options="width:50,min:0,precision:3"></td>
-            </tr>
+        </table>
+    </form>
+    <form id="competicion-dialog-gambler-form">
+        <table>
             <!-- datos de la secuencia de apertura -->
             <tr><th colspan="11"><br/><?php _e('Opening Sequence');?></th></tr>
             <!-- datos de la secuencia de cierre -->
@@ -182,10 +195,18 @@ $config =Config::getInstance();
             <tr>
                 <th><label for="cdg-Gambler1">No Gambler</label></th>
                 <td colspan="2"><input id="cdg-Gambler1" type="radio" name="cdg-Gambler" value="0" checked="checked"/></td>
-                <th><label for="cdg-Gambler2"><?php echo $config->getEnv('gambler_seq1');?> points</label></th>
+                <th><label for="cdg-Gambler2"><?php echo $config->getEnv('gambler_seq1');?> <?php _e('Points');?></label></th>
                 <td colspan="2"><input id="cdg-Gambler2" type="radio" name="cdg-Gambler" value="<?php echo $config->getEnv('gambler_seq1');?>"/></td>
-                <th><label for="cdg-Gambler3"><?php echo $config->getEnv('gambler_seq2');?> points</label></th>
+                <th><label for="cdg-Gambler3"><?php echo $config->getEnv('gambler_seq2');?> <?php _e('Points');?></label></th>
                 <td colspan="2"><input id="cdg-Gambler3" type="radio" name="cdg-Gambler" value="<?php echo $config->getEnv('gambler_seq2');?>"/></td>
+            </tr>
+
+            <!-- datos de tiempo -->
+
+            <tr><th colspan="6"><br/>&nbsp;</th></tr>
+            <tr>
+                <th colspan="2"><label for="cdg-Time"><?php _e('Time');?></label></th>
+                <td colspan="6"><input id="cdg-Time" name="cdg-Time" data-options="width:50,min:0,precision:3"></td>
             </tr>
         </table>
     </form>
@@ -240,7 +261,11 @@ $config =Config::getInstance();
         closed:true,
         closable:false,
         modal:true,
-        buttons:'#competicion-dialog-snooker-Buttons'
+        buttons:'#competicion-dialog-snooker-Buttons',
+        onBeforeOpen: function() {
+            $('#competicion-dialog-snooker-form').form('reset');
+            return true;
+        }
     });
 
     $('#competicion-dialog-gambler').dialog({
@@ -254,7 +279,11 @@ $config =Config::getInstance();
         closed:true,
         closable:false,
         modal:true,
-        buttons:'#competicion-dialog-gambler-Buttons'
+        buttons:'#competicion-dialog-gambler-Buttons',
+        onBeforeOpen: function() {
+            $('#competicion-dialog-gambler-form').form('reset');
+            return true;
+        }
     });
 
     $('#cds-Dog').textbox();
@@ -541,9 +570,12 @@ function saveSnooker() {
     // guardamos los puntos de la secuencia de apertura
     var idx=$('#cds-Index').val();
     var ed=dg.datagrid('getEditor',{index:idx,field:'Faltas'});
-    var score= parseInt( $('#cds-Red1').prop('checked')?$('#cds-Red1').val():0 ) + parseInt($('#cds-White1').numberbox('getValue')) +
-            parseInt( $('#cds-Red2').prop('checked')?$('#cds-Red2').val():0 ) + parseInt($('#cds-White2').numberbox('getValue')) +
-            parseInt( $('#cds-Red3').prop('checked')?$('#cds-Red3').val():0 ) + parseInt($('#cds-White3').numberbox('getValue'));
+    var score= parseInt( $('#cds-Red1').prop('checked')?$('#cds-Red1').val():0 ) +
+            parseInt($('#cds-White1').numberbox('getValue')) +
+            parseInt( $('#cds-Red2').prop('checked')?$('#cds-Red2').val():0 ) +
+            parseInt($('#cds-White2').numberbox('getValue')) +
+            parseInt( $('#cds-Red3').prop('checked')?$('#cds-Red3').val():0 ) +
+            parseInt($('#cds-White3').numberbox('getValue'));
     $(ed.target).numberbox('setValue',score);
 
     // guardamos los puntos de la secuencia de cierre
