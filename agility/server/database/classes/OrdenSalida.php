@@ -608,7 +608,6 @@ class OrdenSalida extends DBObject {
         $this->myLogger->enter();
         assertClosedJourney($this->jornada); // throw exception on closed journeys
 		$data=$this->getData(false,$catmode)['rows'];
-		$this->myLogger->trace(json_encode($data));
         // Ordenamos los perros por orden alfabetico y extraemos la lista de dogID's
         usort($data, function($a, $b) {	return strcasecmp($a['NombreGuia'],$b['NombreGuia']); });
         // generamos la lista de dorsales
