@@ -39,7 +39,7 @@ $config =Config::getInstance();
         <label for="ordensalida-selection"><?php _e("Method");?></label>
         <input id="ordensalida-selection"/>
 	   	<a id="ordensalida-sortBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-reload'"
+           data-options="iconCls:'icon-db_restore'"
            onclick="evalOrdenSalida($('#ordensalida-selection').combobox('getValue'))"><?php _e('Sort'); ?></a>
         <a id="ordensalida-eqBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-huella'" onclick="$('#ordeneq3-dialog').dialog('open');"><?php _e('Teams'); ?></a>
@@ -87,7 +87,8 @@ $('#ordensalida-selection').combobox({
         {value:'random',text:"<?php _e('Random order'); ?>",icon:"dice.png"},
         {value:'results',text:"<?php _e('Reverse results'); ?>",icon:"endflag.png",selected:true},
         {value:'clone',text:"<?php _e('Same order'); ?>",icon:"downdown.png"},
-        {value:'reverse',text:"<?php _e('Reverse order'); ?>",icon:"updown.png"}
+        {value:'reverse',text:"<?php _e('Reverse order'); ?>",icon:"updown.png"},
+        {value:'alpha',text:"<?php _e('Alphabetical (handlers)'); ?>",icon:"order.png"}
     ],
     formatter: function(row) { // add an icon to each combobox option
         var imgfile="/agility/lib/jquery-easyui-1.4.2/themes/icons/"+row.icon;

@@ -43,6 +43,7 @@ try {
     $tv= http_request("TeamView","b",false);
 	$team= http_request("Equipo","i",0);
 	$cats= http_request("Categorias","s","-"); // sort everything LMST by default
+    $method= http_request("SortMethod","s","results");
 	$catmode=8;
 	switch ($cats) {
 		case "-": $catmode=8; break; // use 8 instead of 4 because this mode is already includede in 8
@@ -55,10 +56,7 @@ try {
 		throw new Exception("Call to ordenSalidaFunctions with Invalid Prueba:$p Jornada:$j or manga:$m ID");
 	$os=Competitions::getOrdenSalidaInstance($file,$m);
 	switch ($operation) {
-		case "random": $am->access(PERMS_OPERATOR);	$result = $os->randomOrder($catmode); break;
-        case "reverse": $am->access(PERMS_OPERATOR); $result = $os->reverseOrder($catmode); break;
-        case "results": $am->access(PERMS_OPERATOR); $result = $os->orderByResults($catmode); break;
-		case "clone": $am->access(PERMS_OPERATOR); $result = $os->sameOrder($catmode); break;
+        case "setOrder":  $am->access(PERMS_OPERATOR);	$result = $os->setOrder($method,$catmode); break;
         case "getData":	$result = $os->getData($tv,$catmode); break;
         case "getTeams":	$result = $os->getTeams(); break;
         case "getDataByTeam":	$result = $os->getDataByTeam($team); break;
