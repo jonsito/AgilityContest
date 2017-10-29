@@ -32,6 +32,7 @@ require_once(__DIR__.'/classes/DogReader.php');
 require_once(__DIR__.'/classes/InscriptionReader.php');
 require_once(__DIR__.'/classes/EntrenamientosReader.php');
 require_once(__DIR__.'/classes/PartialScoresReader.php');
+require_once(__DIR__.'/classes/OrdenSalidaReader.php');
 
 $options=array();
 $options['Suffix']=http_request("Suffix","s","");
@@ -95,6 +96,11 @@ try {
         if ($j==0) throw new Exception("PartialScoresReader::ImportExcel(): invalid Jornada ID: $j");
         if ($m==0) throw new Exception("PartialScoresReader::ImportExcel(): invalid Manga ID: $m");
         $er=new PartialScoresReader("ExcelImport(round results)",$options);
+    }  else if ($type==="ordensalida") {
+        if ($p==0) throw new Exception("OrdenSalidaReader::ImportExcel(): invalid Prueba ID: $p");
+        if ($j==0) throw new Exception("OrdenSalidaReader::ImportExcel(): invalid Jornada ID: $j");
+        if ($m==0) throw new Exception("OrdenSalidaReader::ImportExcel(): invalid Manga ID: $m");
+        $er=new OrdenSalidaReader("ExcelImport(Starting order)",$options);
     } else {
         throw new Exception("excelReaderFunctions(): invalid $type selected: ".$type);
     }
