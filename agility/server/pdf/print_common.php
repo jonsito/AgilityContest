@@ -292,12 +292,7 @@ class PrintCommon extends FPDF {
 		if ($this->jornada!==null) {
             $this->SetFont($this->getFontName(),'I',8); // bold 20
             $this->SetXY($this->centro -65,30);
-            // pending revision to extend competition name for more generic data (games, open, special and so )
-            if ($this->jornada->KO !=0){
-            	$cname=_("K.O. Round");
-			} else {
-                $cname=Competitions::getCompetition($this->prueba,$this->jornada)->getModuleInfo()['Nombre'];
-			}
+            $cname=Competitions::getCompetition($this->prueba,$this->jornada)->getPDFCompetitionName();
             $this->Cell(130,5,$cname,0,0,'C',false);// Titulo del listado en el centro
 		}
 		$this->Ln(5);

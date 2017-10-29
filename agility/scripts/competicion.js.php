@@ -1030,7 +1030,8 @@ function evalOrdenSalida(oper) {
 					Jornada: workingData.jornada,
 					Manga: workingData.manga,
                     Categorias: $('#ordensalida-categoria').combobox('getValue'),
-					Operation: oper
+					Operation: 'setOrder',
+                    SortMethod: oper
 				}
 			}).done( function(result) {
 			    if (result.errorMsg){
@@ -1049,7 +1050,8 @@ function evalOrdenSalida(oper) {
 				Jornada: workingData.jornada,
 				Manga: workingData.manga,
                 Categorias: $('#ordensalida-categoria').combobox('getValue'),
-				Operation: oper
+				Operation: 'setOrder',
+                SortMethod: oper
 			}
 		}).done( function(result) {
             if (result.errorMsg){

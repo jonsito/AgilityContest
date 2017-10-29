@@ -133,8 +133,8 @@ class OrdenSalida extends DBObject {
 	/**
 	 * Join two order strings into one
      * NOTICE: input data comes WITHOUT BEGIN/END tags
-	 * @param $s1
-	 * @param $s2
+	 * @param {string} $s1
+	 * @param {string} $s2
 	 */
 	protected function joinOrders($s1,$s2) {
 		$a=($s1==="")?"":",$s1";
@@ -600,6 +600,31 @@ class OrdenSalida extends DBObject {
         return $this->sameOrder($catmode,true);
     }
 
+    /**
+	 * Ordena por orden alfabetico de guias en la categoria indicada
+     * @param int $catmode
+     */
+    function alphaOrder($catmode=8) {
+        $this->myLogger->enter();
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
+		$data=$this->getData(false,$catmode)['rows'];
+        // Ordenamos los perros por orden alfabetico y extraemos la lista de dogID's
+        usort($data, function($a, $b) {	return strcasecmp($a['NombreGuia'],$b['NombreGuia']); });
+        // generamos la lista de dorsales
+		$str="";
+		foreach($data as $item) { $str.=",{$item['Perro']}"; }
+		$str= substr($str,1); // quitamos coma inicial
+
+		// ahora cogemos la manga, extraemos lo que no queremos y metemos el nuevo orden
+        $orden=$this->getOrden();
+        // buscamos los perros de la categoria seleccionada
+        $listas=$this->splitPerrosByMode($orden,$catmode); // 0:All 1:toChange 2:toRemain
+        $str1=$listas[2]; // los que se van a quedar "como están"
+        $ordensalida=$this->joinOrders($str1,$str);
+        $this->setOrden($ordensalida);
+		$this->myLogger->leave();
+	}
+
 	/**
 	 * Evalua los resultados de la manga from segun mode
 	 * y recalcula el orden de salida de la manga from
@@ -705,6 +730,22 @@ class OrdenSalida extends DBObject {
 		$this->myLogger->trace("El orden de salida nuevo para manga:{$this->manga->ID} jornada:{$this->jornada->ID} es:\n$nuevo");
 		$this->myLogger->leave();
 		return $nuevo;
+	}
+
+    /**
+	 * Sort according provided method
+     * @param {string} $method
+     * @param {string} $catmode
+     */
+	function setOrder($method,$catmode) {
+		switch($method) {
+            case "random": return $this->randomOrder($catmode); break;
+            case "reverse": return $this->reverseOrder($catmode); break;
+            case "results": return $this->orderByResults($catmode); break;
+            case "clone": return $this->sameOrder($catmode); break;
+            case "alpha": return $this->alphaOrder($catmode); break;
+			default:return $this->error("Invalid Sorting method: {$method}");
+		}
 	}
 
     /**

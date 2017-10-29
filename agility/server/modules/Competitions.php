@@ -68,6 +68,7 @@ class Competitions {
             // module information name
             "ModuleName" => $this->competitionName,
             "FederationName" => $fed->get("Name"),
+            "FederationLongName" => $fed->get("LongName"),
             "ModuleID" => $this->competitionID,
             "FederationID" => $this->federationID,
             "ModuleVersion" => $this->moduleVersion,
@@ -95,6 +96,20 @@ class Competitions {
                 "ValidRounds" => bindec('1111111111111111')
             )
         );
+    }
+
+    /**
+     * retrieve text to be shown in PDF tittle
+     * May be overriden in subclasses to handle special events/competition modules
+     * @param {object} $jornada
+     */
+    function getPDFCompetitionName() {
+        // pending revision to extend competition name for more generic data (games, open, special and so )
+        if (intval($this->jornada->KO) !==0)return _("K.O. Round");
+        if (intval($this->jornada->Open)!==0) return $this->getModuleInfo()['FederationLongName'];
+        if (intval($this->jornada->Equipos3)!==0) return $this->getModuleInfo()['FederationLongName'];
+        if (intval($this->jornada->Equipos4)!==0) return $this->getModuleInfo()['FederationLongName'];
+        return $this->getModuleInfo()['Nombre'];
     }
 
     /**

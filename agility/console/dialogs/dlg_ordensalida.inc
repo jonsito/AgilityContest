@@ -22,13 +22,13 @@ $config =Config::getInstance();
 ?>
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="ordensalida-dialog" style="width:850px;height:450px;padding:5px">
+<div id="ordensalida-dialog" style="width:875px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="ordensalida-datagrid" style="padding:5px"></table>
 </div>
 
 <!--  dialogo de ajuste manual del orden de equipos en competiciones modalidad eq3 -->
-<div id="ordeneq3-dialog" style="width:640px;height:300px;padding:5px">
+<div id="ordeneq3-dialog" style="width:700px;height:300px;padding:5px">
     <!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
     <table id="ordeneq3-datagrid" style="padding:5px"></table>
 </div>
@@ -39,8 +39,10 @@ $config =Config::getInstance();
         <label for="ordensalida-selection"><?php _e("Method");?></label>
         <input id="ordensalida-selection"/>
 	   	<a id="ordensalida-sortBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-reload'"
+           data-options="iconCls:'icon-db_restore'"
            onclick="evalOrdenSalida($('#ordensalida-selection').combobox('getValue'))"><?php _e('Sort'); ?></a>
+        <a id="ordensalida-eqBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-huella'" onclick="$('#ordeneq3-dialog').dialog('open');"><?php _e('Teams'); ?></a>
         <label for="ordensalida-categoria"><?php _e('Cat');?></label>
         <select id="ordensalida-categoria" style="width:100px"></select>
    	</span>
@@ -72,8 +74,8 @@ $('#ordeneq3-dialog').dialog({
 });
 
 $('#ordensalida-selection').combobox({
-    width:150,
-    panelWidth:250,
+    width:125,
+    panelWidth:300,
     panelHeight: 'auto',
     textField:'text',
     valueField:'value',
@@ -85,7 +87,8 @@ $('#ordensalida-selection').combobox({
         {value:'random',text:"<?php _e('Random order'); ?>",icon:"dice.png"},
         {value:'results',text:"<?php _e('Reverse results'); ?>",icon:"endflag.png",selected:true},
         {value:'clone',text:"<?php _e('Same order'); ?>",icon:"downdown.png"},
-        {value:'reverse',text:"<?php _e('Reverse order'); ?>",icon:"updown.png"}
+        {value:'reverse',text:"<?php _e('Reverse order'); ?>",icon:"updown.png"},
+        {value:'alpha',text:"<?php _e('Alphabetical (handlers)'); ?>",icon:"order.png"}
     ],
     formatter: function(row) { // add an icon to each combobox option
         var imgfile="/agility/lib/jquery-easyui-1.4.2/themes/icons/"+row.icon;
@@ -94,6 +97,7 @@ $('#ordensalida-selection').combobox({
 });
 
 $('#ordensalida-categoria').combobox({
+    width:100,
     value: '-',
     panelHeight: 'auto',
     valueField: 'Categoria',
