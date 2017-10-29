@@ -181,8 +181,6 @@ class Resultados extends DBObject {
 				break;
 		}
 
-		// en caso de tener que redondear hacia arriba, procedemos
-		if ($roundUp) $result['trs']=ceil($result['trs']); // redondeamos hacia arriba
 		// Evaluamos TRM
         $trm_factor=$this->getDatosManga()->{"TRM_{$suffix}_Factor"};
 		switch($this->getDatosManga()->{"TRM_{$suffix}_Tipo"}) {
@@ -200,7 +198,14 @@ class Resultados extends DBObject {
 				else $result['trm'] = $result['trs'] * ( (100.0+$trm_factor) / 100.0) ; // (+ X por ciento)
 				break;
 		}
-		if ($roundUp) $result['trm']=ceil($result['trm']); // redondeamos hacia arriba
+		// ajustamos los datos finales en funcion de si hay que redondear o no
+		if ($roundUp) { // redondeamos hacia arriba
+            $result['trs']=ceil($result['trs']);
+		    $result['trm']=ceil($result['trm']);
+        }  else { // si no, ajustamos a dos decimales
+            $result['trs']=number_format($result['trs'],2);
+            $result['trm']=number_format($result['trm'],2);
+        }
 		if (! array_key_exists('vel',$result) ) {
 			// Finalmente, si no nos la han dado, evaluamos la velocidad de la ronda con dos decimales
 			$result['vel']= ($result['trs']==0)?0:/*'&asymp;'.*/number_format($result['dist']/$result['trs'],2);
