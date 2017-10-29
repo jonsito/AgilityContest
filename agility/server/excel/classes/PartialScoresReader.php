@@ -95,7 +95,7 @@ class PartialScoresReader extends DogReader {
      */
     protected function findAndSetResult($item) {
         $this->myLogger->enter();
-        if ( ($item['Licencia']==="") && ($item['Nombre']==="") ){
+        if ( ($item['Licencia']==="") && ($item['Nombre']==="") && ($item['NombreLargo']==="") ){
             // no way to assign result to anyone: remove from temporary table
             $this->myLogger->notice("findAndSetResult(): no data to parse row: ".json_encode($item));
             return $this->removeTmpEntry($item); // returns null
@@ -107,6 +107,7 @@ class PartialScoresReader extends DogReader {
         };
         $l=$this->myDBObject->conn->real_escape_string($item['Licencia']);
         $n=$this->myDBObject->conn->real_escape_string($item['Nombre']);
+        $nl=$this->myDBObject->conn->real_escape_string($item['NombreLargo']);
         if (! category_match($item['Categoria'],$this->myOptions['Mode'])) {
             $this->myLogger->info("findAndSetResult(): not matching category: ".json_encode($item));
             $this->saveStatus("Ignore entry with non-matching category: {$n} {$item['Categoria']}");
@@ -114,10 +115,11 @@ class PartialScoresReader extends DogReader {
         }
         $this->saveStatus("Analyzing result entry '$n'");
         $lic= ($l==="")?"": " OR (Licencia='{$l}')";
+        $ldog= ($nl==="")?"0": " OR (NombreLargo='{$nl}')";
         $dog= ($n==="")?"0":" (Nombre='{$n}')";
         $search=$this->myDBObject->__select("*",
             "Resultados",
-            "(Manga={$this->manga['ID']}) {$this->sqlcats} AND ( {$dog} {$lic} )",
+            "(Manga={$this->manga['ID']}) {$this->sqlcats} AND ( {$dog} {$ldog} {$lic} )",
             "",
             "");
         if ( !is_array($search) ) return "findAndSeResult(): Invalid search term: '{$l} - {$n}' "; // invalid search. mark error
