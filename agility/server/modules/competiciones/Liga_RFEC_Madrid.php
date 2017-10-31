@@ -34,6 +34,10 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
 
     /**
      * Evalua la calificacion parcial del perro
+     *
+     * Notice that we cannot call parent::evalPartialCalification() cause parent class is Liga_RFEC
+     * And has his own point assignment code. So invoke directly Competitions:: to get generic code
+     *
      * @param {object} $m datos de la manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
@@ -42,7 +46,7 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
         if ($grad!=="GII") { // solo se puntua en grado II
-            parent::evalPartialCalification($m,$perro,$puestocat);
+            Competitions::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         if (!$this->isInLeague($perro)) { // do not get league points if competitor does not belong to current zone
@@ -61,7 +65,7 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         if ( ($puestocat[$cat]>0) && ($penal<16) ) {
             if ($puesto<=5) $pt1+= $ptsmanga[$puesto-1];
         } else { // no points or not qualified; discard
-            parent::evalPartialCalification($m,$perro,$puestocat);
+            Competitions::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
         if ($penal>=400)  {
