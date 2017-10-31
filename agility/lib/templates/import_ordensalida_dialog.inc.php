@@ -14,7 +14,7 @@ $config =Config::getInstance();
         </p>
         <hr />
         <p>
-            <?php _e("Select Excel file to retrieve round result data from");?><br />
+            <?php _e("Select Excel file to retrieve round starting order data from");?><br />
             <?php _e("Press import to start, or cancel to abort import"); ?>
             <br />&nbsp;<br />
             <input type="file" name="import-excel-fileSelect" value="" id="import-excel-fileSelect"
@@ -24,8 +24,8 @@ $config =Config::getInstance();
             <input id="import-excelData" type="hidden" name="excelData" value="">
 
             <!--
-            La importacion de resultados no tiene opciones:
-            - En modo ciego solo actualiza resultados si la licencia existe y coincide
+            La importacion de ordenes de salida no tiene opciones:
+            - En modo ciego solo se cogen los datos si la licencia existe y la categoria seleccionada coincide
               * en el caso de pruebas RFEC en que la misma licencia puede pertenecer a varios perros
                 se intenta buscar tambien del nombre.
             - En modo interactivo, los campos sin licencia del excel tambien se ignoran, pero en caso de
@@ -37,7 +37,7 @@ $config =Config::getInstance();
                 <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1"/>
                 <br />
             </span>
-            <!-- opciones para el modo blind. En la importacion de resultados no se usa, por lo que lo ponemos oculto-->
+            <!-- opciones para el modo blind. En la importacion de ordenes de salida no se usa, por lo que lo ponemos oculto-->
             <span style="display:none">
 				<input id="import-excelPrefDB"   type="radio" name="excelPreference" value="1"/>
 				<input id="import-excelPrefFile" type="radio" name="excelPreference" value="0" checked="checked"/>
@@ -45,13 +45,7 @@ $config =Config::getInstance();
 				<input id="import-excelLeave" type="radio" name="excelUpperCase" value="0"/>
 				<input id="import-excelEmptyIgnore"   type="radio" name="excelEmpty" value="0" checked="checked"/>
 				<input id="import-excelEmptyUse" type="radio" name="excelEmpty" value="1"/>
-			</span>
-            <span id="import-excelBlindOptions">
-				<br/><strong><?php _e("Excel import options");?>:</strong> <br/>
-                <label for="import-excelParseCourseData"><?php _e("Also read (if available) course data");?></label>
                 <input id="import-excelParseCourseData"  type=checkbox name="excelParseCourseData" value="1" checked="checked"/>
-                <br/>
-                <label for="import-excelIgnoreNotPresent"><?php _e("Ignore excel entries marked as 'Not Present'");?></label>
                 <input id="import-excelIgnoreNotPresent" type="checkbox" name="excelIgnoreNotPresent" value="1" checked="checked"/>
             </span>
             <br />
@@ -72,5 +66,5 @@ $config =Config::getInstance();
         text: '{value}'
     });
 
-    addTooltip($('#import-excelBlindMode'),'<?php _e("Silently ignore result when no license/name match found"); ?>');
+    addTooltip($('#import-excelBlindMode'),'<?php _e("Silently ignore result when no license/name/grade match found"); ?>');
 </script>

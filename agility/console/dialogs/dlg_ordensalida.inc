@@ -20,6 +20,18 @@ require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
+<!-- Ventana de seleccion de fichero para importacion de datos excel -->
+<div id="ordensalida-excel-dialog" style="width:640px;height:auto;padding:10px; display=none;">
+    <?php require_once(__DIR__."/../../lib/templates/import_ordensalida_dialog.inc.php"); ?>
+</div>
+
+<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE IMPORTACION -->
+<div id="ordensalida-excel-buttons">
+    <a id="ordensalida-excel-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-ok'" onclick="ordensalida_excelImport()"><?php _e('Import'); ?></a>
+    <a id="ordensalida-excel-cancelBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-cancel'" onclick="$('#ordensalida-excel-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+</div>
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
 <div id="ordensalida-dialog" style="width:875px;height:450px;padding:5px">
@@ -60,6 +72,20 @@ $config =Config::getInstance();
 </div>
 
 <script type="text/javascript">
+
+$('#ordensalida-excel-dialog').dialog( {
+    title:' <?php _e('Import starting order for this round from Excel file'); ?>',
+    closed:true,
+    modal:true,
+    buttons:'#ordensalida-excel-buttons',
+    iconCls:'icon-table',
+    onOpen: function() {
+        ac_import.type='resultados';
+        $('#import-excel-progressbar').progressbar('setValue',"");
+        $('#import-excelRoundInfo').html(workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga);
+    },
+    onClose: function() { ac_import.progress_status='paused'; }
+} );
 
 $('#ordeneq3-dialog').dialog({
     title:         '<?php _e( "Manual setting of teams order for this round"); ?>',
@@ -141,7 +167,7 @@ $('#ordeneq3-datagrid').datagrid({
     onBeforeLoad: function (params) {return (workingData.manga>0) }, // do not load if no manga selected
     onLoadSuccess: function(data) { $(this).datagrid('enableDnd'); },
     onDragEnter: function(dst,src) {
-        return (dst.DefaultTeam!=1 && src.DefaultTeam!=1); // allow dnd if not from/to default team
+        return (parseInt(dst.DefaultTeam)!==1 && parseInt(src.DefaultTeam)!==1); // allow dnd if not from/to default team
     },
     onDrop: function(dst,src,updown) {
         dragAndDropOrdenEquipos(src.ID,dst.ID,(updown==='top')?0:1,reloadSimpleOrdenEquipos);
@@ -174,7 +200,7 @@ $('#ordensalida-datagrid').datagrid({
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
         Manga: workingData.manga,
-        Categorias: $('#ordensalida-categoria').combobox('getValue'),
+        Categorias: $('#ordensalida-categoria').combobox('getValue')
     },
     loadMsg: '<?php _e("Updating starting order"); ?> ...',
     toolbar: '#ordensalida-toolbar',
@@ -197,9 +223,9 @@ $('#ordensalida-datagrid').datagrid({
     ]],
     rowStyler:function(index,row) { // colorize rows. Mark handlers with multiple dogs
         if (row.PerrosPorGuia>1) {
-            return ((index&0x01)==0)?'background-color:#cbc;':'background-color:#ede;';
+            return ((index&0x01)===0)?'background-color:#cbc;':'background-color:#ede;';
         } else {
-            return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+            return ((index&0x01)===0)?'background-color:#ccc;':'background-color:#eee;';
         }
     },
     onBeforeLoad: function(param) { return (workingData.manga > 0); }, // do not load if no manga selected
@@ -254,4 +280,7 @@ addTooltip($('#ordensalida-eqBtn').linkbutton(),'<?php _e("Manual setting of tea
 addTooltip($('#ordensalida-printBtn').linkbutton(),'<?php _e("Print starting order"); ?>');
 addTooltip($('#ordensalida-reloadBtn').linkbutton(),'<?php _e("Reload starting order. Update window"); ?>');
 addTooltip($('#ordensalida-categoria').combobox('textbox'),'<?php _e("Select categories to work with"); ?>');
+addTooltip($('#ordensalida-excel-okBtn').linkbutton(),'<?php _e("Import round result data from selected Excel file"); ?>');
+addTooltip($('#ordensalida-excel-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
+
 </script>

@@ -40,7 +40,8 @@ function loadCompetitionWindow() {
         'c':'#competicion-dialog',
         'r':'#resultadosmanga-dialog',
         'e1':'#entrenamientos-excel-dialog',
-        'e2':'#resultadosmanga-excel-dialog'
+        'e2':'#resultadosmanga-excel-dialog',
+        'os':'#ordensalida-excel-dialog'
     };
     if (parseInt(workingData.datosJornada.Equipos3)!==0) {
         page="/agility/console/frm_competicion2.php?tipo=eq3";
@@ -1040,7 +1041,16 @@ function evalOrdenSalida(oper) {
 				reloadOrdenSalida();
 			});
 		});
-	} else { // 'reverse', 'clone', 'results', 'alpha','dorsal'
+	} else if (oper="excel") {
+        check_permissions(access_perms.ENABLE_IMPORT, function (res) {
+            if (res.errorMsg) {
+                $.messager.alert('License error','<?php _e("Current license has no Excel import function enabled"); ?>', "error");
+            } else {
+                $('#ordensalida-excel-dialog').dialog('open');
+            }
+            return false; // prevent default fireup of event trigger
+        });
+    } else { // 'reverse', 'clone', 'results', 'alpha','dorsal'
 		$.ajax({
 			type:'GET',
 			url:"/agility/server/database/ordenSalidaFunctions.php",

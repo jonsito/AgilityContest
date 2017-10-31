@@ -43,7 +43,8 @@ var ac_import_table = {
     'perros' :          [ '#perros-excel-dialog','#perros-datagrid' ],
     'inscripciones' :   [ '#inscripciones-excel-dialog','#inscripciones-datagrid' ],
     'entrenamientos' :  [ '#entrenamientos-excel-dialog','#entrenamientos-datagrid' ],
-    'resultados' :      [ '#resultadosmanga-excel-dialog','#resultados-datagrid' ] // resultados-datagrid is runtime replaced
+    'resultados' :      [ '#resultadosmanga-excel-dialog','#resultados-datagrid' ], // resultados-datagrid is runtime replaced
+    'ordensalida' :  [ '#ordensalida-excel-dialog','#ordensalida-datagrid' ]
 };
 
 function import_setProgressStatus(status) {
@@ -525,8 +526,7 @@ function resultadosmanga_excelImport() {
     ac_import.mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,parseInt(val));
     return real_excelImport('resultados','');
 }
-
 function ordensalida_excelImport() {
     ac_import.mode=$('#ordensalida-categoria').combobox('getValue');
-    return real_excelImport('ordensalida','ordensalida-');
+    return real_excelImport('ordensalida','');
 }
