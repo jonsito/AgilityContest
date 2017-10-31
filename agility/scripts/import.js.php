@@ -233,6 +233,49 @@ function resultMustChoose(search) {
     $("#importResult-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
     return false;
 }
+
+function ordensalidaNotFound(search) {
+    var data=searchDataToString(search);
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
+
+    var msg1="<p><?php _e('Entry');?> '";
+    var msg2="': <?php _e('Not found in inscriptions for this round');?> <br/>";
+    var msg3=" <?php _e('Please select existing one, or ignore entry');?></p>";
+    var msg=hdr+msg1+search.Nombre+msg2+msg3;
+    $("#importOrdenSalida-Text").html(msg);
+    $("#importOrdenSalida-ResultID").val(search.ID);
+    $("#importOrdenSalida-dialog").dialog('setTitle',"<?php _e('Entry not found')?>").dialog('open');
+}
+
+function ordensalidaMissmatch(search) {
+    var data=searchDataToString(search);
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
+
+    var msg1="<p><?php _e('Entry');?> '";
+    var msg2="': <?php _e('data missmatch with existing one for this round');?> <br/>";
+    var msg3=" <?php _e('Please fix it in inscription menu and select right values');?></p>";
+    var msg=hdr+msg1+search.Nombre+msg2+msg3;
+    $("#importOrdenSalida-Text").html(msg);
+    $("#importOrdenSalida-ResultID").val(search.ID);
+    $("#importOrdenSalida-dialog").dialog('setTitle',"<?php _e('Data missmatch')?>").dialog('open');
+    return false;
+}
+
+function ordensalidaMustChoose(search) {
+    var data=searchDataToString(search);
+    var hdr="<p><?php _e('Analyzing Excel Entry')?>: <em>"+data+"</em></p>";
+
+    var msg1="<p><?php _e('Entry');?> '";
+    var msg2="': <?php _e('provided data are compatible with');?> ";
+    var msg3=" <?php _e('more than one entry found on this round');?> <br/>";
+    var msg4=" <?php _e('Please select right one or ask to ignore entry');?></p>";
+    var msg=hdr+msg1+search.Nombre+msg2+msg3+msg4;
+    $("#importOrdenSalida-Text").html(msg);
+    $("#importOrdenSalida-ResultID").val(search.ID);
+    $("#importOrdenSalida-dialog").dialog('setTitle',"<?php _e('Must choose')?>").dialog('open');
+    return false;
+}
+
 /**
  * Send command to excel importer
  * @param params list of parameters to be sent to server
@@ -321,10 +364,12 @@ function excel_importHandleResult(data) {
                 setTimeout(function(){excel_importSendTask({'Operation':'parse'})},0);
             }
             if (data.success=='fail') { // user action required. study cases
-                var funcs={};
+                var funcs = {};
                 import_setProgressStatus('paused'); // tell progress monitor to pause progress bar refresh
-                if (ac_import.type==="resultados") {
-                    funcs= {'notf':resultNotFound,'miss':resultMissmatch,'multi':resultMustChoose};
+                if (ac_import.type === "resultados") {
+                    funcs = {'notf': resultNotFound, 'miss': resultMissmatch, 'multi': resultMustChoose};
+                } else  if (ac_import.type === "ordensalida") {
+                    funcs = {'notf': ordensalidaNotFound, 'miss': ordensalidaMissmatch, 'multi': ordensalidaMustChoose};
                 } else if (parseInt(data.search.ClubID)==0) {
                     if (ac_import.blind==1) {
                         var str1='<?php _e("Club/Country not found or missmatch");?>: '+data.search.NombreClub;
@@ -479,4 +524,9 @@ function resultadosmanga_excelImport() {
     var val=$('input[name=rRecorrido]:checked').val(); // to tell server which categories to parse (LMST-)
     ac_import.mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,parseInt(val));
     return real_excelImport('resultados','');
+}
+
+function ordensalida_excelImport() {
+    ac_import.mode=$('#ordensalida-categoria').combobox('getValue');
+    return real_excelImport('ordensalida','ordensalida-');
 }
