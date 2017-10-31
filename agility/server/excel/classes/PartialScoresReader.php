@@ -111,13 +111,13 @@ class PartialScoresReader extends DogReader {
             return $this->removeTmpEntry($item); // returns null
         }
         $this->saveStatus("Analyzing result entry '$n'");
-        $lic= ($l==="")?"": " OR (Licencia='{$l}')";
-        $ldog= ($nl==="")?"": " OR (NombreLargo='{$nl}')";
-        $dog= ($n==="")?"0":" (Nombre='{$n}')";
+        $lic= ($l==="")?" 1": " (Licencia='{$l}')"; // en rsce a veces no hay licencia
+        $ldog= ($nl==="")?" 0": " (NombreLargo='{$nl}')"; // siempre existiran nombre o nombrelargo
+        $dog= ($n==="")?" 0":" (Nombre='{$n}')";
         $search=$this->myDBObject->__select("*",
             "Resultados",
-            "(Manga={$this->manga['ID']}) {$this->sqlcats} AND ( {$dog} {$ldog} {$lic} )",
-            "ID ASC",
+            "(Manga={$this->manga['ID']}) {$this->sqlcats} AND {$lic} AND ( {$dog} OR {$ldog} )",
+            "",
             "");
         if ( !is_array($search) ) return "findAndSeResult(): Invalid search term: '{$l} - {$n}' "; // invalid search. mark error
         // if blind mode and cannot decide, just ignore and remove entry from tmptable
