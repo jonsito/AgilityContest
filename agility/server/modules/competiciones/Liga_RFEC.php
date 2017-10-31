@@ -77,8 +77,11 @@ class Liga_RFEC extends Competitions {
         // retrieve club zone and test for matching with competition zone
         if(!array_key_exists($perro['NombreClub'],$this->zonesByClub)) {
             // club not yet in cache: parse it
+            // As club name changes doesn't propagate to table "Resultados" cannot use NombreClub to search provincia
             $res=$this->myDBObject->__selectObject("Comunidad",
-                "Clubes,Provincias"," (Clubes.Nombre='{$perro['NombreClub']}') AND (Clubes.Provincia=Provincias.Provincia)");
+                "PerroGuiaClub,Provincias",
+                " (PerroGuiaClub.ID LIKE '%{$perro['Perro']}%') AND (PerroGuiaClub.Provincia=Provincias.Provincia)"
+            );
             if (!$res) {
                 do_log("Cannot locate comunidad for club: {$perro['NombreClub']}");
                 return false;

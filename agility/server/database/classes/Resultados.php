@@ -714,7 +714,11 @@ class Resultados extends DBObject {
             $eqinfo=$dequipos[$table[$idx]['Equipo']];
             $table[$idx]['NombreEquipo']=$eqinfo['Nombre'];
             // anyadimos logotipo del club
-            $table[$idx]['LogoClub']=$clubes->getLogoName('NombreClub',$table[$idx]['NombreClub']);
+            // los cambios en los nombres del perro, guia y club no se propagan a la tabla de resultados
+            // por lo que la primera llamada puede fallar. usamos la segunda llamada de backup
+            $logo=$clubes->getLogoName('NombreClub',$table[$idx]['NombreClub']);
+            if ($logo=="") $logo=$clubes->getLogoName('Perros',$table[$idx]['Perro']);
+            $table[$idx]['LogoClub']=$logo;
 		}
 		// FASE 4: re-ordenamos los datos en base a la puntuacion y calculamos campo "Puesto"
 		usort($table, function($a, $b) {
