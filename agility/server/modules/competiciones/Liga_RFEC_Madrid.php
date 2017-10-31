@@ -45,6 +45,7 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
     public function evalPartialCalification($m,&$perro,$puestocat) {
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
+        $penal=floatval($perro['Penalizacion']);
         if ($grad!=="GII") { // solo se puntua en grado II
             Competitions::evalPartialCalification($m,$perro,$puestocat);
             return;
@@ -56,12 +57,11 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         }
         $ptsmanga=array("7","5","3","2","1"); // puntos por manga y puesto
         $pt1=0;
-        if ($perro['Penalizacion']<6.0) $pt1++; // 1 punto por excelente
-        if ($perro['Penalizacion']==0.0) $pt1+=2; // 3 puntos por cero
+        if ($penal<6.0) $pt1++; // 1 punto por excelente
+        if ($penal==0.0) $pt1+=2; // 3 puntos por cero
         // puntos a los 5 primeros de la zona liguera por manga/categoria tienen excelente o muy bueno
         // en madrid se permite que los perros NC puntuen
         $puesto=$puestocat[$cat]-$this->poffset[$cat];
-        $penal=intval($perro['Penalizacion']);
         if ( ($puestocat[$cat]>0) && ($penal<16) ) {
             if ($puesto<=5) $pt1+= $ptsmanga[$puesto-1];
         } else { // no points or not qualified; discard
