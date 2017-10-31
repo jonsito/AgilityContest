@@ -209,7 +209,7 @@ class Dogs extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		if ($search!=="") $where="( (Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') OR ( NombreClub LIKE '%$search%') )";
+		if ($search!=="") $where="( (Nombre LIKE '%$search%') OR ( NombreLargo LIKE '%$search%')OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') OR ( NombreClub LIKE '%$search%') )";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "PerroGuiaClub",
@@ -231,7 +231,7 @@ class Dogs extends DBObject {
 		if ($this->federation >=0) $fed="( Federation = {$this->federation} )";
 		// evaluate search criteria for query
 		$q=http_request("q","s","");
-		$where =  ($q==="") ? "1" : " ( ( Nombre LIKE '%$q%' ) OR ( NombreGuia LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
+		$where =  ($q==="") ? "1" : " ( ( Nombre LIKE '%$q%' ) OR ( NombreLargo LIKE '%$q%' ) OR ( NombreGuia LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "*",
@@ -272,7 +272,7 @@ class Dogs extends DBObject {
             $offset=($page-1)*$rows;
             $limit="".$offset.",".$rows;
         }
-        if ($search!=="") $where="( (Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') OR ( NombreClub LIKE '%$search%') )";
+        if ($search!=="") $where="( (Nombre LIKE '%$search%') OR ( NombreLargo LIKE '%$search%' ) OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') OR ( NombreClub LIKE '%$search%') )";
         $result=$this->__select(
         /* SELECT */ "*",
             /* FROM */ "PerroGuiaClub",

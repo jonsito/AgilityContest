@@ -508,8 +508,8 @@ class DogReader {
         $this->saveStatus("Analyzing dog '$a'");
         $f=$this->federation;
         if ($this->myOptions['Blind']==0)
-             $search=$this->myDBObject->__select("*","Perros","( Nombre LIKE '%$a%') AND ( Federation = $f ) ","","");
-        else $search=$this->myDBObject->__select("*","Perros","( Nombre = '$a') AND ( Federation = $f ) ","","");
+             $search=$this->myDBObject->__select("*","Perros","(( Nombre LIKE '%$a%') OR ( NombreLargo LIKE '%$a%')) AND ( Federation = $f ) ","","");
+        else $search=$this->myDBObject->__select("*","Perros","(( Nombre = '$a') OR ( NombreLargo = '$a')) AND ( Federation = $f ) ","","");
         if ( !is_array($search) ) return "findAndSetDog(): Invalid search term: '$a'"; // invalid search. mark error
 
         // parse found entries looking for match
