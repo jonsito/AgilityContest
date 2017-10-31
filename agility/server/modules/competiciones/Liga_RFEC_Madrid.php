@@ -57,44 +57,45 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         // puntos a los 5 primeros de la zona liguera por manga/categoria tienen excelente o muy bueno
         // en madrid se permite que los perros NC puntuen
         $puesto=$puestocat[$cat]-$this->poffset[$cat];
-        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<16) ) {
+        $penal=intval($perro['Penalizacion']);
+        if ( ($puestocat[$cat]>0) && ($penal<16) ) {
             if ($puesto<=5) $pt1+= $ptsmanga[$puesto-1];
         } else { // no points or not qualified; discard
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
-        if ($perro['Penalizacion']>=400)  {
+        if ($penal>=400)  {
             $perro['Penalizacion']=400.0;
             $perro['Calificacion'] = "-";
             $perro['CShort'] = "-";
         }
-        else if ($perro['Penalizacion']>=200)  {
+        else if ($penal>=200)  {
             $perro['Penalizacion']=200.0;
             $perro['Calificacion'] = _("Not Present");
             $perro['CShort'] = _("N.P.");
         }
-        else if ($perro['Penalizacion']>=100) {
+        else if ($penal>=100) {
             $perro['Penalizacion']=100.0;
             $perro['Calificacion'] = _("Eliminated");
             $perro['CShort'] = _("Elim");
         }
-        else if ($perro['Penalizacion']>=26)	{
+        else if ($penal>=26)	{
             $perro['Calificacion'] = _("Not Clasified");
             $perro['CShort'] = _("N.C.");
         }
-        else if ($perro['Penalizacion']>=16)	{
-            $perro['Calificacion'] = _("Good")." ".$pt1;
-            $perro['CShort'] = _("Good")." ".$pt1;
+        else if ($penal>=16)	{ // en el 2018 solo puntuan excelentes y muy buenos
+            $perro['Calificacion'] = _("Good");
+            $perro['CShort'] = _("Good");
         }
-        else if ($perro['Penalizacion']>=6)	{
+        else if ($penal>=6)	{
             $perro['Calificacion'] = _("Very good")." ".$pt1;
             $perro['CShort'] = _("V.G.")." ".$pt1;
         }
-        else if ($perro['Penalizacion']>0)	{
+        else if ($penal>0)	{
             $perro['Calificacion'] = _("Excellent")." ".$pt1;
             $perro['CShort'] = _("Exc")." ".$pt1;
         }
-        else if ($perro['Penalizacion']==0)	{
+        else if ($penal==0)	{
             $perro['Calificacion'] = _("Excellent")." ".$pt1;
             $perro['CShort'] = _("Exc")." ".$pt1;
         }
