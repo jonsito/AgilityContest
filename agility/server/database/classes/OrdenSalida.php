@@ -625,6 +625,40 @@ class OrdenSalida extends DBObject {
 		$this->myLogger->leave();
 	}
 
+    /**
+     * Ordena por orden de dorsales en la categoria indicada
+     * @param int $catmode
+     */
+    function dorsalOrder($catmode=8) {
+        $this->myLogger->enter();
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
+
+		// cogemos la lista de perros inscritos en esta jornada
+		$mask=1<<$this->jornada->Numero;
+		$data=$this->__select(
+			"*",
+			"Inscripciones",
+			"(Prueba={$this->prueba->ID}) AND ( ( Jornadas & {$mask} ) != 0 )",
+			"Dorsal ASC"
+		)['rows'];
+
+        // El query ya nos proporciona la lista ordenada por dorsales
+        $orden=$this->getOrden();
+        $str="";
+        foreach($data as $item) { // recomponemos la lista, eliminando los que no esten en la manga
+			if (strpos($orden,",{$item['Perro']},")===FALSE) continue; // not present, skip
+        	$str.=",{$item['Perro']}";
+        }
+        $str= substr($str,1); // quitamos coma inicial
+
+        // extraemos del orden los perros de la categoria seleccionada e insertamos el nuevo orden
+        $listas=$this->splitPerrosByMode($orden,$catmode); // 0:All 1:toChange 2:toRemain
+        $str1=$listas[2]; // los que se van a quedar "como están"
+        $ordensalida=$this->joinOrders($str1,$str);
+        $this->setOrden($ordensalida);
+        $this->myLogger->leave();
+    }
+
 	/**
 	 * Evalua los resultados de la manga from segun mode
 	 * y recalcula el orden de salida de la manga from
@@ -744,6 +778,7 @@ class OrdenSalida extends DBObject {
             case "results": return $this->orderByResults($catmode); break;
             case "clone": return $this->sameOrder($catmode); break;
             case "alpha": return $this->alphaOrder($catmode); break;
+            case "dorsal": return $this->dorsalOrder($catmode); break;
 			default:return $this->error("Invalid Sorting method: {$method}");
 		}
 	}
