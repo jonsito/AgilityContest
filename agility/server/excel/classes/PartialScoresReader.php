@@ -112,7 +112,7 @@ class PartialScoresReader extends DogReader {
         }
         $this->saveStatus("Analyzing result entry '$n'");
         $lic= ($l==="")?"": " OR (Licencia='{$l}')";
-        $ldog= ($nl==="")?"0": " OR (NombreLargo='{$nl}')";
+        $ldog= ($nl==="")?"": " OR (NombreLargo='{$nl}')";
         $dog= ($n==="")?"0":" (Nombre='{$n}')";
         $search=$this->myDBObject->__select("*",
             "Resultados",

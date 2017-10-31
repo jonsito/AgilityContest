@@ -1041,7 +1041,7 @@ function evalOrdenSalida(oper) {
 				reloadOrdenSalida();
 			});
 		});
-	} else if (oper="excel") {
+	} else if (oper==="excel") {
         check_permissions(access_perms.ENABLE_IMPORT, function (res) {
             if (res.errorMsg) {
                 $.messager.alert('License error','<?php _e("Current license has no Excel import function enabled"); ?>', "error");

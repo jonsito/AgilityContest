@@ -330,38 +330,34 @@ class DogReader {
 
         // OK: now parse sheet
         $index=0; // parsed line. Used as ID key in temporary table
-        $state=0; // parse status 0:vars  1:header 2:data
+        $hasHeader=false; // parse status 0:var 2:data
         $timeout=ini_get('max_execution_time');
         foreach ($sheet->getRowIterator() as $row) {
             // count the number of non-empty cells in this row
             for($nitems=0,$n=0;$n<count($row);$n++) if ($row[$n]!=="") $nitems++;
-            if($nitems===0) continue;
-            // first line must contain field names
-            switch ($state) {
-                // if row width equals 2 or 3 means that we have some internal variables to add from sheet
-                case 0: // parse and store (if any) provided variables
-                    if ($nitems===2) { $this->excelVars[$row[0]]=$row[1]; break; }
-                    if ($nitems===3) { $this->excelVars[$row[0]]=array($row[1],$row[2]); break; }
-                    // no break. no increase ID key
-                case 1: // validate header and create table
-                    $this->myLogger->trace("parsing header: ".json_encode($row));
-                    // check that every required field is present
-                    $this->validateHeader($row); // throw exception on fail
-                    // create temporary table in database to store and analyze Excel data
-                    if ($droptable) $this->dropTable();
-                    $this->createTemporaryTable(); // throw exception when an import is already running
-                    $index++; // start on ID 1 to store into temporary table
-                    $state=2; // on next iteration start store into temporary table
-                    break;
-                case 2: // dump excel data into temporary database table
-                    set_time_limit($timeout); // avoid php to be killed on very slow systems
-                    $this->saveStatus("Parsing excel row #$index");
-                    $this->import_storeExcelRowIntoDB($index,$row);
-                    $index++;
-                    break;
-                default:
-                    throw new Exception ("Invalid parser excel file state:$state"); // should never happen
+            // handle data according number of items
+            // notice cannot use switch inside foreach, as break breaks loop
+            if($nitems===0) continue; // empty row: skip
+            if($nitems===1) continue; // just label: skip
+            if($nitems===2) { $this->excelVars[$row[0]]=$row[1]; continue; } // single value variable
+            if($nitems===3) { $this->excelVars[$row[0]]=array($row[1],$row[2]); continue; } // double value variable
+            if (!$hasHeader) { // first full-filled row contains header
+                // validate header and create table
+                $this->myLogger->trace("parsing header: ".json_encode($row));
+                // check that every required field is present
+                $this->validateHeader($row); // throw exception on fail
+                // create temporary table in database to store and analyze Excel data
+                if ($droptable) $this->dropTable();
+                $this->createTemporaryTable(); // throw exception when an import is already running
+                $hasHeader=true; // on next iteration start store into temporary table
+            } else {
+                // dump excel data into temporary database table
+                set_time_limit($timeout); // avoid php to be killed on very slow systems
+                $this->saveStatus("Parsing excel row #$index");
+                $this->import_storeExcelRowIntoDB($index,$row);
             }
+            // arriving here means header parsed and/or data processed. So mark status and repeat loop
+            $index++; // start on ID 1 to store into temporary table
         }
         $this->saveStatus("Read Excel Done.");
         // fine. we can start parsing data in DB database table

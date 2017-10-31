@@ -401,7 +401,6 @@ function endsWith($haystack, $needle) {
  * @return {string} new list
  */
 function list_insert($item,$list='BEGIN,END') {
-    // lo borramos para evitar una posible doble insercion
     $str = ",$item,";
     if (strpos($list,$str)!==false) return $list; // already present
     // componemos el tag que hay que insertar

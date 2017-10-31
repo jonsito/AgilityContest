@@ -610,7 +610,7 @@ class OrdenSalida extends DBObject {
 		$data=$this->getData(false,$catmode)['rows'];
         // Ordenamos los perros por orden alfabetico y extraemos la lista de dogID's
         usort($data, function($a, $b) {	return strcasecmp($a['NombreGuia'],$b['NombreGuia']); });
-        // generamos la lista de dorsales
+        // generamos la lista de perros
 		$str="";
 		foreach($data as $item) { $str.=",{$item['Perro']}"; }
 		$str= substr($str,1); // quitamos coma inicial
@@ -634,7 +634,7 @@ class OrdenSalida extends DBObject {
         assertClosedJourney($this->jornada); // throw exception on closed journeys
 
 		// cogemos la lista de perros inscritos en esta jornada
-		$mask=1<<$this->jornada->Numero;
+		$mask=1<<($this->jornada->Numero - 1 );
 		$data=$this->__select(
 			"*",
 			"Inscripciones",

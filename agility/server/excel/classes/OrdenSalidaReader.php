@@ -86,20 +86,20 @@ class OrdenSalidaReader extends DogReader {
         $this->myLogger->enter();
         if ( ($item['Licencia']==="") && ($item['Nombre']==="") && ($item['NombreLargo']==="") ){
             // no way to assign result to anyone: remove from temporary table
-            $this->myLogger->notice("findAndSetResult(): no data to parse row: ".json_encode($item));
+            $this->myLogger->notice("findAndSetEntry(): no data to parse row: ".json_encode($item));
             return $this->removeTmpEntry($item); // returns null
         }
         $l=$this->myDBObject->conn->real_escape_string($item['Licencia']);
         $n=$this->myDBObject->conn->real_escape_string($item['Nombre']);
         $nl=$this->myDBObject->conn->real_escape_string($item['NombreLargo']);
         if (! category_match($item['Categoria'],$this->myOptions['Mode'])) {
-            $this->myLogger->info("findAndSetResult(): not matching category: ".json_encode($item));
-            $this->saveStatus("Ignore entry with non-matching category: {$n} {$item['Categoria']}");
+            $this->myLogger->info("findAndSetEntry(): not matching category: ".json_encode($item));
+            $this->saveStatus("Skip category missmatch entry {$n} found: {$item['Categoria']} expected:{$this->myOptions['Mode']}");
             return $this->removeTmpEntry($item); // returns null
         }
         $this->saveStatus("Analyzing result entry '$n'");
         $lic= ($l==="")?"": " OR (Licencia='{$l}')";
-        $ldog= ($nl==="")?"0": " OR (NombreLargo='{$nl}')";
+        $ldog= ($nl==="")?"": " OR (NombreLargo='{$nl}')";
         $dog= ($n==="")?"0":" (Nombre='{$n}')";
         $search=$this->myDBObject->__select("*",
             "Resultados",
@@ -117,7 +117,7 @@ class OrdenSalidaReader extends DogReader {
         $dogID=$search['rows'][0]['Perro'];
         $str="UPDATE ".TABLE_NAME." SET DogID={$dogID} WHERE ID={$item['ID']}";
         $res=$this->myDBObject->query($str);
-        if (!$res) return "findAndSetResult(): update tmptable '{$l} - {$item['Nombre']}' error:".$this->myDBObject->conn->error;
+        if (!$res) return "findAndSetEntry(): update tmptable '{$l} - {$item['Nombre']}' error:".$this->myDBObject->conn->error;
 
         // return true to notify caller item found. proceed with next
         $this->myLogger->leave();
@@ -189,16 +189,16 @@ class OrdenSalidaReader extends DogReader {
     function beginImport() {
         $this->myLogger->enter();
         // retrieve al dogs from temporary table in insertion order
-        $res=$this->myDBObject->__select("Perro,Categoria",TABLE_NAME,"(DogID!=0)","ID ASC" );
-        $ordensalida=$this->manga['OrdenSalida'];
+        $res=$this->myDBObject->__select("DogID,Categoria",TABLE_NAME,"(DogID!=0)","ID ASC" );
+        $ordensalida=$this->manga['Orden_Salida'];
         foreach ($res['rows'] as $entry) {
-            $perro=$entry['Perro'];
+            $perro = $entry['DogID'];
             // insertamos al final
-            if (strstr($ordensalida,$perro)!==FALSE) list_insert($perro,$ordensalida);
-            else $this->myLogger->error("SetOrdenSalida: dog {$perro} is not present in Orden:{$ordensalida}");
+            if (strstr($ordensalida, $perro) !== FALSE) $ordensalida = list_insert($perro, list_remove($perro, $ordensalida));
+            else $this->myLogger->error("SetOrdenSalida: dog {$perro} is not present in Orden:{$this->manga['Orden_Salida']}");
         }
         // finally update ordensalida
-        $str="UPDATE Mangas SET OrdenSalida='{$ordensalida}' WHERE ID={$this->manga['ID']}";
+        $str="UPDATE Mangas SET Orden_Salida='{$ordensalida}' WHERE ID={$this->manga['ID']}";
         $res=$this->myDBObject->query($str);
         if (!$res) return "beginImport(): update OrdenSalida error:".$this->myDBObject->conn->error;
         // that's all folks

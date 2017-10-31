@@ -454,8 +454,11 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 	<div id="importdogs" style="display:none">
         <?php include_once("dialogs/import_perros.inc.php"); ?>
     </div>
-	<div id="importresults" style="display:none">
+    <div id="importresults" style="display:none">
         <?php include_once("dialogs/import_results.inc.php"); ?>
+    </div>
+    <div id="importordensalida" style="display:none">
+        <?php include_once("dialogs/import_ordensalida.inc.php"); ?>
     </div>
 </div>
 

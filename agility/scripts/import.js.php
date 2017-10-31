@@ -454,7 +454,7 @@ function importAction(item,action,fromkey,dbkey) {
     var search="#import"+item+"-Search";
     var options = {
         Operation: action, // create update ignore
-        Object: item, // Perro Guia Club
+        Object: item, // Perro Guia Club Result OrdenSalida
         ExcelID: fromkey,
         DatabaseID: dbkey,
         UseExcelNames: $('input[name=import'+item+'-UseExcelNames]:checked').val()
@@ -527,6 +527,12 @@ function resultadosmanga_excelImport() {
     return real_excelImport('resultados','');
 }
 function ordensalida_excelImport() {
-    ac_import.mode=$('#ordensalida-categoria').combobox('getValue');
+    switch ($('#ordensalida-categoria').combobox('getValue')) {
+        case 'L': ac_import.mode=0; break;
+        case 'M': ac_import.mode=1; break;
+        case 'S': ac_import.mode=2; break;
+        case 'T': ac_import.mode=5; break;
+        default : ac_import.mode=8; break;
+    }
     return real_excelImport('ordensalida','');
 }

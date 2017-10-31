@@ -1052,6 +1052,10 @@ function reloadWithSearch(dg,op,clear) {
         consoleReloadParcial($('input:radio[name=rRecorrido]:checked').val(),true);
         return false;
     }
+    if (dg==='#ordensalida-datagrid') {
+        reloadOrdenSalida();
+        return false;
+    }
 	var w=$(dg+'-search').val();
     var fed=workingData.federation;
 	if (strpos(w,"<?php _e('-- Search --'); ?>",0)) w='';
@@ -1059,11 +1063,11 @@ function reloadWithSearch(dg,op,clear) {
     $(dg).datagrid(
     	'load',
     	{ 
-    	Operation: op, 
-    	where: w, 
-    	Federation: fed,
-        Prueba: workingData.prueba,
-        Jornada: workingData.jornada
+    	    Operation: op,
+    	    where: w,
+    	    Federation: fed,
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada
     	} 
     );
     if (clear==true) $(dg+'-search').val('<?php _e('-- Search --'); ?>');
