@@ -75,7 +75,6 @@ class PrintResultadosByEquipos3 extends PrintCommon {
 	function __construct($prueba,$jornada,$manga,$resobj,$mode) {
 		parent::__construct('Portrait',"print_resultadosEquipos3",$prueba,$jornada);
 		$this->manga=$manga;
-
         $this->resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
         $this->mode=$mode;
         $this->cellHeader=
