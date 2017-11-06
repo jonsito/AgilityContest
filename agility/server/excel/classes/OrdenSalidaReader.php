@@ -55,7 +55,7 @@ class OrdenSalidaReader extends DogReader {
         // PENDING: future implementation will take care on "Order" value.
         // in the meanwhile, just set orden to be just excel rows order
         $inscList= array(
-            'Order'=>     array (  -17,-1, "i", "Orden",    " `Orden` int(4) NOT NULL DEFAULT 0, ") // required on games rounds
+            'Order'=>     array (  -17,-1, "i", "Orden",    " `Orden` int(4) NOT NULL DEFAULT 0, ")
         );
         foreach ($inscList as $key => $data) $this->fieldList[$key]=$data;
         // fix fields according contest type
@@ -189,7 +189,8 @@ class OrdenSalidaReader extends DogReader {
     function beginImport() {
         $this->myLogger->enter();
         // retrieve al dogs from temporary table in insertion order
-        $res=$this->myDBObject->__select("DogID,Categoria",TABLE_NAME,"(DogID!=0)","ID ASC" );
+        $order= ($this->myOptions['ParseCourseData']===0)?"ID ASC":"Orden ASC, ID ASC";
+        $res=$this->myDBObject->__select("DogID,Categoria",TABLE_NAME,"(DogID!=0)",$order );
         $ordensalida=$this->manga['Orden_Salida'];
         foreach ($res['rows'] as $entry) {
             $perro = $entry['DogID'];

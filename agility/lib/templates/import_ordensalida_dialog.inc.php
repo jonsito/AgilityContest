@@ -37,6 +37,13 @@ $config =Config::getInstance();
                 <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1"/>
                 <br />
             </span>
+            <span id="import-excelBlindOptions">
+				<br/><strong><?php _e("Excel import options");?>:</strong> <br/>
+                <!-- usamos parsecoursedata para no crear variables nuevas... ademas, casi tiene sentido :-) -->
+                <label for="import-excelParseCourseData"><?php _e("Process (if available) starting order field");?></label>
+                <input id="import-excelParseCourseData"  type=checkbox name="excelParseCourseData" value="1" checked="checked"/>
+            </span>
+            <br />
             <!-- opciones para el modo blind. En la importacion de ordenes de salida no se usa, por lo que lo ponemos oculto-->
             <span style="display:none">
 				<input id="import-excelPrefDB"   type="radio" name="excelPreference" value="1"/>
@@ -45,7 +52,6 @@ $config =Config::getInstance();
 				<input id="import-excelLeave" type="radio" name="excelUpperCase" value="0"/>
 				<input id="import-excelEmptyIgnore"   type="radio" name="excelEmpty" value="0" checked="checked"/>
 				<input id="import-excelEmptyUse" type="radio" name="excelEmpty" value="1"/>
-                <input id="import-excelParseCourseData"  type=checkbox name="excelParseCourseData" value="1" checked="checked"/>
                 <input id="import-excelIgnoreNotPresent" type="checkbox" name="excelIgnoreNotPresent" value="1" checked="checked"/>
             </span>
             <br />
