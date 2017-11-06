@@ -16,16 +16,19 @@ $config =Config::getInstance();
          <th data-options="field:'ID',			hidden:true"></th>
          <th data-options="field:'Prueba',		hidden:true"></th>
          <th data-options="field:'Jornada',		hidden:true"></th>
+        <th data-options="field:'Outs1',			hidden:true"></th>
+        <th data-options="field:'Outs2',			hidden:true"></th>
          -->
         <th data-options="field:'Logo',		    width:'19%', sortable:false, formatter:formatTeamLogos">&nbsp</th>
         <th data-options="field:'Nombre',		width:'20.5%', sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
         <th data-options="field:'Categorias',	width:'4%', sortable:false, formatter:formatCategoria"><?php _e('Cat'); ?></th>
-        <th data-options="field:'T1',		    align:'center', width:'9.5%', formatter:formatTiempo"><?php _e('Time'); ?> 1</th>
+        <th data-options="field:'T1',		    align:'center', width:'9.5%', formatter:formatTiempoEquipos1"><?php _e('Time'); ?> 1</th>
         <th data-options="field:'P1',		    align:'center',width:'10%', formatter:formatPenalizacion"><?php _e('Penal'); ?> 1</th>
-        <th data-options="field:'T2',		    align:'center',width:'9.5%', formatter:formatTiempo"><?php _e('Time'); ?> 2</th>
+        <th data-options="field:'T2',		    align:'center',width:'9.5%', formatter:formatTiempoEquipos2"><?php _e('Time'); ?> 2</th>
         <th data-options="field:'P2',		    align:'center',width:'10%', formatter:formatPenalizacion"><?php _e('Penal'); ?> 2</th>
         <th data-options="field:'Tiempo',		align:'center',width:'8.5%', formatter:formatTiempoBold"><?php _e('Time'); ?></th>
         <th data-options="field:'Penalizacion',	align:'center',width:'9%', formatter:formatPenalizacionBold"><?php _e('Penalization'); ?></th>
+
     </tr>
     </thead>
 </table>

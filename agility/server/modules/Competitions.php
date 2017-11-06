@@ -135,6 +135,7 @@ class Competitions {
             if ($tiempo>=$trm) { // Superado TRM: eliminado
                 $perro['PTiempo']=100.0;
                 $perro['Penalizacion']=	100.0;
+                $perro['Eliminado']= 1;
             }
             else if ($tiempo>=$trs) { // Superado TRS
                 $perro['PTiempo']		=	$tiempo 		-	$trs;

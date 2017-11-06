@@ -55,6 +55,7 @@ class SelectivaWAO_Pentathlon extends Competitions {
                 $perro['PTiempo']=50.0;
                 $perro['PRecorrido']=50.0;
                 $perro['Penalizacion']=	100.0;
+                $perro['Eliminado']=1;
             } else if ($tiempo>=$trs) { // Superado TRS
                 $perro['PTiempo']		=	min(50.0,$tiempo - $trs);
                 $perro['Penalizacion']=	floatval($perro['PRecorrido'])	+	$perro['PTiempo'] + $perro['Tiempo'];

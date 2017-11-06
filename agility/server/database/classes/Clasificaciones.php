@@ -314,7 +314,7 @@ class Clasificaciones extends DBObject {
             // comprobamos la categoria. si no coincide tiramos el equipo
             $modes=array("L","M","S","MS","LMS","T","LM","ST","LMST");
             if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
-            $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Puesto1'=>0,'Puesto2'=>0,'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0));
+            $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Puesto1'=>0,'Puesto2'=>0,'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0,'Outs1'=>0,'Outs2'=>0));
             $teams[$id]=$r;
 			$teams[$id]['Equipo']=$id; // guardamos el teamID 
         }
@@ -333,11 +333,18 @@ class Clasificaciones extends DBObject {
                 $indexedc[$resultado['Perro']]['Out1']=1; // marcar para imprimir en gris
                 continue;
             }
+            // llegando aqui hay que calcular los puntos de equipo, y si tienen tiempo valido
+            // ( no hay Elim/NP dentro de mindogs )
             $teams[$eq]['C1']++;
             $teams[$eq]['T1']+=$resultado['Tiempo'];
             $teams[$eq]['P1']+=$resultado['Penalizacion'];
             $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
             $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
+            // en el caso de que algun perro dentro de mindogs se haya eliminado, se marca
+            // pues hay que tenerlo en cuenta para evaluar el tiempo del equipo
+            if ( (intval($resultado['Eliminado'])!==0) || (intval($resultado['NoPresentado'])!==0) ) {
+                $teams[$eq]['Outs1']++;
+            }
 			// cogemos como logo del equipo el logo del primer perro que encontremos de dicho equipo
 			if (!array_key_exists('LogoTeam',$teams[$eq])) $teams[$eq]['LogoTeam']=$resultado['LogoClub'];
         }
@@ -355,19 +362,26 @@ class Clasificaciones extends DBObject {
                 $indexedc[$resultado['Perro']]['Out2']=1; // marcar para imprimir en gris
                 continue;
             }
+            // llegando aqui hay que calcular los puntos de equipo, y si tienen tiempo valido
+            // ( no hay Elim/NP dentro de mindogs )
             $teams[$eq]['C2']++;
             $teams[$eq]['T2']+=$resultado['Tiempo'];
             $teams[$eq]['P2']+=$resultado['Penalizacion'];
             $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
             $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
+            // en el caso de que algun perro dentro de mindogs se haya eliminado, se marca
+            // pues hay que tenerlo en cuenta para evaluar el tiempo del equipo
+            if ( (intval($resultado['Eliminado'])!==0) || (intval($resultado['NoPresentado'])!==0) ) {
+                $teams[$eq]['Outs2']++;
+            }
 			// cogemos como logo del equipo el logo del primer perro que encontremos de dicho equipo
 			if (!array_key_exists('LogoTeam',$teams[$eq])) $teams[$eq]['LogoTeam']=$resultado['LogoClub'];
         }
         // rellenamos huecos hasta completar mindogs
         foreach ($teams as &$team ) {
             // 100:Eliminado 200:NoPresentado 400:Pendiente
-            for($n=$team['C1'];$n<$mindogs;$n++) { $team['P1']+=400; $team['Penalizacion']+=400; }
-            for($n=$team['C2'];$n<$mindogs;$n++) { $team['P2']+=400; $team['Penalizacion']+=400; }
+            for($n=$team['C1'];$n<$mindogs;$n++) { $team['P1']+=400; $team['Penalizacion']+=400; $team['Outs1']++;}
+            for($n=$team['C2'];$n<$mindogs;$n++) { $team['P2']+=400; $team['Penalizacion']+=400; $team['Outs2']++;}
         }
 		// calculamos y almacenamos puestos de manga 1
 		$manga1=array_values($teams);

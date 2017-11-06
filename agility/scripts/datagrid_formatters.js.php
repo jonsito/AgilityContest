@@ -174,6 +174,8 @@ function formatPuesto(val,row,idx) { return '<span style="font-weight:bold">'+((
 function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
 function formatVelocidad(val,row,idx) { return (row.Penalizacion>=200)?"-":toFixedT(parseFloat(val),1); }
 function formatTiempo(val,row,idx) { return (row.Penalizacion>=200)?"-":toFixedT(parseFloat(val),ac_config.numdecs); }
+function formatTiempoEquipos1(val,row,idx) { return (row.Outs1>0)?"-":toFixedT(parseFloat(val),ac_config.numdecs); }
+function formatTiempoEquipos2(val,row,idx) { return (row.Outs2>0)?"-":toFixedT(parseFloat(val),ac_config.numdecs); }
 function formatPenalizacion(val,row,idx) { return toFixedT(parseFloat(val),ac_config.numdecs); }
 function formatTiempoBold(val,row,idx) {
     var t=toFixedT(parseFloat(val),ac_config.numdecs);
