@@ -35,6 +35,7 @@ class PrintResultadosByEquipos4 extends PrintCommon {
     protected $resultados; // tabla de resultados individuales
     protected $equipos; // lista de equipos
     protected $mode; // modo de la manga
+    protected $title; // titulo de la cabecera
     protected $eqmgr; // objeto "Equipos"
 
     protected $defaultPerro = array( // participante por defecto para garantizar que haya 4perros/equipo
@@ -64,12 +65,14 @@ class PrintResultadosByEquipos4 extends PrintCommon {
      * @param {integer} $manga Manga ID
      * @param {object} $resobj Instance of Resultados (or any child)
      * @param {integer} $mode
+     * @param {string} $title
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$resobj,$mode) {
+	function __construct($prueba,$jornada,$manga,$resobj,$mode,$title) {
         parent::__construct('Portrait',"print_resultadosEquipos4",$prueba,$jornada);
         $this->manga=$manga;
         $this->mode=$mode;
+        $this->title=$title;
 
         $this->resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
         $this->equipos=$resobj->getResultadosEquipos($this->resultados);
@@ -84,7 +87,7 @@ class PrintResultadosByEquipos4 extends PrintCommon {
 	
 	// Cabecera de página
 	function Header() {
-        $this->print_commonHeader(_("Round scores")." ("._("Teams").")");
+        $this->print_commonHeader($this->title);
         $this->print_identificacionManga($this->manga,$this->getModeString(intval($this->mode)));
 
         // Si es la primera hoja pintamos datos tecnicos de la manga

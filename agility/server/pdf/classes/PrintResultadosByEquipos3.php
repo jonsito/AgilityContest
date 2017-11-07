@@ -37,6 +37,7 @@ class PrintResultadosByEquipos3 extends PrintCommon {
 	protected $resultados;
     protected $equipos;
 	protected $mode;
+	protected $title;
     protected $eqmgr;
     protected $defaultPerro = array( // participante por defecto para garantizar que haya 4perros/equipo
         'Dorsal' => '-',
@@ -70,13 +71,15 @@ class PrintResultadosByEquipos3 extends PrintCommon {
 	 * @param {obj} $manga datos de la manga
 	 * @param {obj} $resobj instance of Resultados (or any child)
      * @param {int} $mode how dogs are grouped by category
+     * @param {string} $title what to show in main header title
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$resobj,$mode) {
+	function __construct($prueba,$jornada,$manga,$resobj,$mode,$title) {
 		parent::__construct('Portrait',"print_resultadosEquipos3",$prueba,$jornada);
 		$this->manga=$manga;
         $this->resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
         $this->mode=$mode;
+        $this->title=$title;
         $this->cellHeader=
             array(_('Dorsal'),_('Name'),_('Lic').'.',_('Handler'),$this->strClub,_('Cat').'.',_('Flt').'.',_('Tch').'.',_('Ref').'.',
                   _('Time'),_('Vel').'.',_('Penal').'.',_('Calification'),_('Position'),_('Team global'));
@@ -92,7 +95,7 @@ class PrintResultadosByEquipos3 extends PrintCommon {
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader(_("Round scores")." ("._("Teams").")");
+		$this->print_commonHeader($this->title);
 		$this->print_identificacionManga($this->manga,$this->getModeString(intval($this->mode)));
 		
 		// Si es la primera hoja pintamos datos tecnicos de la manga

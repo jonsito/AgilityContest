@@ -36,6 +36,7 @@ class PrintResultadosByManga extends PrintCommon {
 	protected $manga;
 	protected $resultados;
 	protected $mode;
+	protected $headertitle;
 	protected $hasGrades;
 	
 	// geometria de las celdas
@@ -51,13 +52,15 @@ class PrintResultadosByManga extends PrintCommon {
      * @param array $manga datos tecnicos de la manga
 	 * @param array $resultados resultados asociados a la manga/categoria pedidas
      * @param integer $mode manga mode
+     * @param string $title header title
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$resultados,$mode) {
+	function __construct($prueba,$jornada,$manga,$resultados,$mode,$title) {
 		parent::__construct('Portrait',"print_resultadosByManga",$prueba,$jornada);
 		$this->manga=$manga;
 		$this->resultados=$resultados;
 		$this->mode=$mode;
+		$this->headertitle=$title;
         $this->hasGrades=Jornadas::hasGrades($this->jornada);
 		$catgrad=($this->hasGrades)?_('Cat').'/'._('Grade'):_('Cat').".";
 		$this->cellHeader=
@@ -72,7 +75,7 @@ class PrintResultadosByManga extends PrintCommon {
 	
 	// Cabecera de página
 	function Header() {
-        $str=($this->manga->Tipo==16)?_("Resultados"):_("Round scores");
+        $str=($this->manga->Tipo==16)?_("Results"):$this->headertitle; // on special round just show "results" string
 		$this->print_commonHeader($str);
 		$this->print_identificacionManga($this->manga,$this->getModeString(intval($this->mode)));
 		

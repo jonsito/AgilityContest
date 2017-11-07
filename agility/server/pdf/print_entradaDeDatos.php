@@ -29,8 +29,8 @@ require_once(__DIR__.'/classes/PrintEntradaDeDatos.php');
 require_once(__DIR__.'/classes/PrintEntradaDeDatosGames.php');
 require_once(__DIR__.'/classes/PrintEntradaDeDatosKO.php');
 
-// Consultamos la base de datos
 try {
+	// extraemos los datos de la llamada
 	$data=array(
         'prueba' 	=> http_request("Prueba","i",0),
     	'jornada' 	=> http_request("Jornada","i",0),
@@ -42,9 +42,11 @@ try {
         'comentarios' => http_request("Comentarios","s","-"),
         'eqconjunta' => http_request("EqConjunta","i",0),
         'ko' 		=> http_request("JornadaKO","i",0),
-        'games' 	=> http_request("JornadaGames","i",0)
+        'games' 	=> http_request("JornadaGames","i",0),
+        'title'     => http_request("Title","s",_("Data Entry"))
 	);
 
+	// Consultamos la base de datos
 	// Datos de la manga y su manga hermana
 	$m = new Mangas("printEntradaDeDatos",$data['jornada']);
 	$data['mangas']= $m->getHermanas($data['manga']);

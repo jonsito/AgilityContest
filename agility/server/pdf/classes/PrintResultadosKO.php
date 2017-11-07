@@ -68,7 +68,7 @@ class PrintResultadosKO extends PrintCommon {
 	
 	// Cabecera de página
 	function Header() {
-        $str = ($this->manga->Tipo == 16) ? _("Resultados") : _("Round scores");
+        $str = ($this->manga->Tipo == 16) ? _("Results") : _("Round scores");
         $this->print_commonHeader($str);
         $this->print_identificacionManga($this->manga, "");
     }

@@ -169,7 +169,7 @@ function print_trsTemplates(mode) {
  * @param cats categorias a mostrar
  * @param fill indica si rellenar datos con resultados
  * @param rango rango de perros a imprimir
- * @param comentarios texto a pintar en la cabecera de la pagina
+ * @param comentarios texto a pintar bajo la cabecera de la pagina
  * @returns {boolean}
  */
 
@@ -201,21 +201,24 @@ function print_asistente(pagemode,cats,fill,rango,comentarios) {
 /**
  * En las pruebas KO se imprimen 16 perros por pagina, agrupados de dos en dos
  */
-function print_asistenteKO(cats,fill,rango,comentarios) {
-    return print_asistente(16,cats,fill,rango,comentarios);
+function print_asistenteKO(cats,fill,rango,comentarios,cabecera) {
+    if (typeof(cabecera)==="undefined") cabecera='<?php _("Data entry");?>';
+    return print_asistente(16,cats,fill,rango,comentarios,cabecera);
 }
 
 /**
  * En snooker / gambler la hoja no da para imprimir más que 8 entradas
  */
-function print_asistenteGames(cats,fill,rango,comentarios) {
-    return print_asistente(8,cats,fill,rango,comentarios);
+function print_asistenteGames(cats,fill,rango,comentarios,cabecera) {
+    if (typeof(cabecera)==="undefined") cabecera='<?php _("Data entry");?>';
+    return print_asistente(8,cats,fill,rango,comentarios,cabecera);
 }
 
 /**
  * En pruebas de equipos 4 conjunta se ofrece la opción de usar una única entrada para el equipo
  */
-function print_asistenteEquipos(cats,fill,rango,comentarios) {
+function print_asistenteEquipos(cats,fill,rango,comentarios,cabecera) {
+    if (typeof(cabecera)==="undefined") cabecera='<?php _("Data entry");?>';
     $.fileDownload(
         '/agility/server/pdf/print_entradaDeDatosEquipos4.php',
         {
@@ -227,7 +230,8 @@ function print_asistenteEquipos(cats,fill,rango,comentarios) {
 				Categorias: cats,
                 FillData:(fill)?1:0,
                 Rango:rango,
-                Comentarios:comentarios
+                Comentarios:comentarios,
+                Title: cabecera
             },
             preparingMessageHtml: '(assistant team sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
             failMessageHtml:'(assistant team sheets) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -293,11 +297,15 @@ function importExportParcial(recorrido) {
 }
 
 function print_parcial(mode) {
+    var title='<span id="pp_header">'+
+        '<br/>&nbsp;<br/><?php _e("Header title");?>:'+
+        '<input id="pp_headertitle" class="easyui-textbox" type="text" value="<?php _e("Partial scores"); ?>"/>'+
+        '</span>';
     var msgs=  {
         0: '*<?php _e("Create PDF Report");?>',
         // 1: '<?php _e("Create Excel File"); ?>',
         2: '<?php _e("Print filled assistant sheets 10 dogs/pages"); ?>',
-        3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>'
+        3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>'+title
     };
     if (isJornadaKO()) msgs={
         0: '*<?php _e("Create PDF Report");?>',
@@ -310,6 +318,7 @@ function print_parcial(mode) {
         msgs,
         function (r) {
             if (!r) return false;
+            var t= $('#pp_headertitle').textbox('getText');
             switch (parseInt(r)) {
                 case 0: // create pdf
                     // generic, ko, games
@@ -329,7 +338,8 @@ function print_parcial(mode) {
                                 Jornada: workingData.jornada,
                                 Manga: workingData.manga,
                                 Mode: mode,
-                                Operation: 'print'
+                                Operation: 'print',
+                                Title: t
                             },
                             preparingMessageHtml: '(partial scores) <?php _e("We are preparing your report, please wait"); ?> ...',
                             failMessageHtml: '(partial scores) <?php _e("There was a problem generating your report, please contact author."); ?>'
@@ -346,7 +356,8 @@ function print_parcial(mode) {
                                 Jornada: workingData.jornada,
                                 Manga: workingData.manga,
                                 Mode: mode,
-                                Operation: 'PartialScores'
+                                Operation: 'PartialScores',
+                                Title: t
                             },
                             preparingMessageHtml: '(Excel partial scores) <?php _e("We are preparing your report, please wait"); ?> ...',
                             failMessageHtml: '(Excel partial scores) <?php _e("There was a problem generating your report, please contact author."); ?>'
@@ -354,18 +365,20 @@ function print_parcial(mode) {
                     );
                     break;
                 case 2: // filled normal rounds 10 dogs/page
-                    print_asistente(10, "-", true,"1-9999",""); // do not handle 'mode', just print all
+                    print_asistente(10, "-", true,"1-9999","",t); // do not handle 'mode', just print all
                     break;
                 case 3: // filled normal rounds 15 dogs/page
-                    print_asistente(15, "-", true,"1-9999","");
+                    print_asistente(15, "-", true,"1-9999","",t);
                     break;
                 case 4: // filled ko assistant sheets
-                    print_asistente(16, "-", true,"1-9999","");
+                    print_asistente(16, "-", true,"1-9999","",t);
                     break;
                 // PENDING: add filled sheet for snooker/gambler
             }
             return false; // return false to prevetn event keyboard chaining
         }).window('resize', {width: 450});
+    $('#pp_headertitle').textbox({required: true, validType: 'length[1,255]'});
+    if (isJornadaKO()) $('#pp_header').css('display','none'); // do not show edit header option in KO journeys
     return false;
 }
 

@@ -38,6 +38,7 @@ try {
 	$idjornada=http_request("Jornada","i",0);
 	$idmanga=http_request("Manga","i",0);
 	$mode=http_request("Mode","i",0);
+    $title=http_request("Title","s",_("Data Entry"));
 	
 	$mngobj= new Mangas("printResultadosByManga",$idjornada);
 	$manga=$mngobj->selectByID($idmanga);
@@ -46,11 +47,11 @@ try {
 
 	// Creamos generador de documento
     if ( isMangaKO($manga->Tipo)) {
-        $pdf = new PrintResultadosKO($idprueba,$idjornada,$manga,$resultados,$mode);
+        $pdf = new PrintResultadosKO($idprueba,$idjornada,$manga,$resultados);
     } else if ( isMangaGames($manga->Tipo) ) { // snooker, gambler
         $pdf = new PrintResultadosGames($idprueba,$idjornada,$manga,$resultados,$mode);
     } else {
-        $pdf = new PrintResultadosByManga($idprueba,$idjornada,$manga,$resultados,$mode);
+        $pdf = new PrintResultadosByManga($idprueba,$idjornada,$manga,$resultados,$mode,$title);
     }
 	$pdf->AliasNbPages();
 	$pdf->composeTable();

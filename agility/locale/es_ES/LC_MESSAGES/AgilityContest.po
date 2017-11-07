@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-11-06 14:01+0100\n"
-"PO-Revision-Date: 2017-11-06 14:05+0100\n"
+"POT-Creation-Date: 2017-11-07 09:49+0100\n"
+"PO-Revision-Date: 2017-11-07 09:49+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -113,7 +113,7 @@ msgstr "R"
 #: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:150
 #: public/pbmenu_inscripciones.php:102
 #: public/pbmenu_inscripciones_equipos.php:145 scripts/competicion.js.php:1381
-#: scripts/printer.js.php:391 scripts/results_and_scores.js.php:320
+#: scripts/printer.js.php:404 scripts/results_and_scores.js.php:320
 #: server/pdf/classes/PrintClasificacion.php:206
 #: server/pdf/classes/PrintClasificacionExcel.php:157
 #: server/pdf/classes/PrintClasificacionTeam.php:233
@@ -128,8 +128,8 @@ msgstr "R"
 #: server/pdf/classes/PrintOrdenSalida.php:74
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/classes/PrintPodium.php:107
-#: server/pdf/classes/PrintResultadosByEquipos3.php:81
-#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosByEquipos3.php:84
+#: server/pdf/classes/PrintResultadosByManga.php:67
 #: server/pdf/classes/PrintResultadosGames.php:63
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:252 tablet/tablet.js.php:642
@@ -149,7 +149,7 @@ msgstr "Dorsal"
 #: console/dialogs/import_results.inc.php:88 console/frm_perros.php:136
 #: scripts/competicion.js.php:1381 scripts/import.js.php:158
 #: scripts/import.js.php:171 scripts/import.js.php:185
-#: scripts/printer.js.php:391
+#: scripts/printer.js.php:404
 msgid "Dog"
 msgstr "Perro"
 
@@ -177,7 +177,7 @@ msgstr "Perro"
 #: public/pb_inscripciones_equipos.php:157 public/pbmenu_inscripciones.php:108
 #: public/pbmenu_inscripciones_equipos.php:152 scripts/competicion.js.php:1381
 #: scripts/import.js.php:118 scripts/import.js.php:130
-#: scripts/import.js.php:143 scripts/printer.js.php:391
+#: scripts/import.js.php:143 scripts/printer.js.php:404
 #: scripts/results_and_scores.js.php:255 scripts/results_and_scores.js.php:327
 #: server/pdf/classes/PrintClasificacion.php:223
 #: server/pdf/classes/PrintClasificacionExcel.php:162
@@ -195,8 +195,8 @@ msgstr "Perro"
 #: server/pdf/classes/PrintOrdenSalida.php:74
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/classes/PrintPodium.php:119
-#: server/pdf/classes/PrintResultadosByEquipos3.php:81
-#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosByEquipos3.php:84
+#: server/pdf/classes/PrintResultadosByManga.php:67
 #: server/pdf/classes/PrintResultadosGames.php:63
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:260 tablet/tablet_main.php:81
@@ -283,7 +283,7 @@ msgstr "Categor&iacute;a"
 #: public/pbmenu_inscripciones_equipos.php:151
 #: server/pdf/classes/PrintClasificacionExcel.php:161
 #: server/pdf/classes/PrintInscripciones.php:126
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByManga.php:65
 #: server/pdf/classes/PrintResultadosKO.php:62
 #: server/pdf/classes/PrintTRSTemplates.php:77 tablet/tablet_main.php:87
 #: tablet/tablet_main.php:296 videowall/vwc_finales.php:86
@@ -384,9 +384,9 @@ msgstr "Eliminado"
 #: scripts/inscripciones.js.php:377 scripts/jueces.js.php:98
 #: scripts/perros.js.php:183 scripts/perros.js.php:203
 #: scripts/perros.js.php:212 scripts/perros.js.php:264
-#: scripts/perros.js.php:291 scripts/printer.js.php:432
-#: scripts/printer.js.php:491 scripts/printer.js.php:528
-#: scripts/printer.js.php:570 scripts/printer.js.php:606
+#: scripts/perros.js.php:291 scripts/printer.js.php:445
+#: scripts/printer.js.php:504 scripts/printer.js.php:541
+#: scripts/printer.js.php:583 scripts/printer.js.php:619
 #: scripts/pruebas.js.php:113 scripts/pruebas.js.php:185
 #: scripts/pruebas.js.php:234 scripts/pruebas.js.php:296
 #: scripts/pruebas.js.php:459 scripts/pruebas.js.php:610
@@ -475,7 +475,7 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:98
 #: server/modules/competiciones/Selectiva_PastorBelga.php:84
 #: server/pdf/classes/PrintEntradaDeDatos.php:384
-#: server/pdf/classes/PrintResultadosByEquipos4.php:206
+#: server/pdf/classes/PrintResultadosByEquipos4.php:209
 #: tablet/tablet_main.php:104 videowall/videowall.js.php:214
 #: videowall/videowall.js.php:298 videowall/videowall.js.php:328
 #: videowall/videowall.js.php:406 videowall/videowall.js.php:469
@@ -577,8 +577,8 @@ msgstr "Dors"
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/classes/PrintPodium.php:109
 #: server/pdf/classes/PrintPodium.php:111
-#: server/pdf/classes/PrintResultadosByEquipos3.php:81
-#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosByEquipos3.php:84
+#: server/pdf/classes/PrintResultadosByManga.php:67
 #: server/pdf/classes/PrintResultadosGames.php:63
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:255
@@ -633,8 +633,8 @@ msgstr "Gu&iacute;a"
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/classes/PrintPodium.php:115
 #: server/pdf/classes/PrintPodium.php:117
-#: server/pdf/classes/PrintResultadosByEquipos3.php:81
-#: server/pdf/classes/PrintResultadosByManga.php:62
+#: server/pdf/classes/PrintResultadosByEquipos3.php:84
+#: server/pdf/classes/PrintResultadosByManga.php:65
 #: server/pdf/classes/PrintResultadosGames.php:63
 #: server/pdf/classes/PrintResultadosKO.php:62 tablet/tablet_main.php:85
 #: tablet/tablet_main.php:295
@@ -1107,9 +1107,9 @@ msgstr "Actualizando datos de la competici&oacute;n"
 #: server/pdf/classes/PrintEntradaDeDatos.php:191
 #: server/pdf/classes/PrintEntradaDeDatos.php:293
 #: server/pdf/classes/PrintEntradaDeDatosKO.php:200
-#: server/pdf/classes/PrintResultadosByEquipos3.php:81
-#: server/pdf/classes/PrintResultadosByEquipos4.php:203
-#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosByEquipos3.php:84
+#: server/pdf/classes/PrintResultadosByEquipos4.php:206
+#: server/pdf/classes/PrintResultadosByManga.php:67
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:276
 msgid "Flt"
@@ -1127,9 +1127,9 @@ msgstr "Flt"
 #: server/pdf/classes/PrintPodium.php:125
 #: server/pdf/classes/PrintPodium.php:137
 #: server/pdf/classes/PrintPodium.php:149
-#: server/pdf/classes/PrintResultadosByEquipos3.php:81
-#: server/pdf/classes/PrintResultadosByEquipos4.php:204
-#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosByEquipos3.php:84
+#: server/pdf/classes/PrintResultadosByEquipos4.php:207
+#: server/pdf/classes/PrintResultadosByManga.php:67
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:277
 msgid "Ref"
@@ -1187,10 +1187,10 @@ msgstr "Toc"
 #: server/pdf/classes/PrintPodium.php:138
 #: server/pdf/classes/PrintPodium.php:150
 #: server/pdf/classes/PrintPodium.php:158
-#: server/pdf/classes/PrintResultadosByEquipos3.php:82
-#: server/pdf/classes/PrintResultadosByEquipos3.php:236
-#: server/pdf/classes/PrintResultadosByEquipos4.php:208
-#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosByEquipos3.php:85
+#: server/pdf/classes/PrintResultadosByEquipos3.php:239
+#: server/pdf/classes/PrintResultadosByEquipos4.php:211
+#: server/pdf/classes/PrintResultadosByManga.php:67
 #: server/pdf/classes/PrintResultadosGames.php:63
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:279 tablet/tablet_main.php:97
@@ -1210,7 +1210,7 @@ msgstr "Tiempo"
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:93
 #: server/modules/competiciones/Selectiva_PastorBelga.php:79
 #: server/pdf/classes/PrintEntradaDeDatos.php:385
-#: server/pdf/classes/PrintResultadosByEquipos4.php:207
+#: server/pdf/classes/PrintResultadosByEquipos4.php:210
 #: videowall/videowall.js.php:407
 msgid "N.P."
 msgstr "N.P."
@@ -1335,7 +1335,7 @@ msgstr "Total"
 #: server/pdf/classes/PrintClasificacionExcel.php:170
 #: server/pdf/classes/PrintClasificacionExcel.php:178
 #: server/pdf/classes/PrintClasificacionTeam.php:372
-#: server/pdf/classes/PrintResultadosByEquipos3.php:245
+#: server/pdf/classes/PrintResultadosByEquipos3.php:248
 msgid "Points"
 msgstr "Puntos"
 
@@ -2444,7 +2444,7 @@ msgstr "Calcular"
 #: console/dialogs/dlg_resultados_individual.inc:53
 #: console/dialogs/dlg_resultados_ko.inc:52 console/frm_inscripciones2.php:119
 #: console/frm_perros.php:81 scripts/entrenamientos.js.php:133
-#: scripts/perros.js.php:309 scripts/printer.js.php:244
+#: scripts/perros.js.php:309 scripts/printer.js.php:248
 msgid "Import/Export"
 msgstr "Importar/Exportar"
 
@@ -2608,8 +2608,8 @@ msgstr "Sin grados - Open"
 #: server/database/classes/poedit.php:27 server/database/classes/poedit.php:31
 #: server/database/classes/poedit.php:32
 #: server/pdf/classes/PrintOrdenSalidaEquipos4.php:94
-#: server/pdf/classes/PrintResultadosByEquipos3.php:95
-#: server/pdf/classes/PrintResultadosByEquipos4.php:87
+#: server/pdf/print_resultadosByEquipos.php:38
+#: server/pdf/print_resultadosByEquipos4.php:40
 msgid "Teams"
 msgstr "Equipos"
 
@@ -2770,8 +2770,8 @@ msgstr "Actualizando lista de perros"
 #: server/pdf/classes/PrintOrdenSalida.php:74
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
 #: server/pdf/classes/PrintPodium.php:112
-#: server/pdf/classes/PrintResultadosByEquipos3.php:81
-#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosByEquipos3.php:84
+#: server/pdf/classes/PrintResultadosByManga.php:67
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:257
 msgid "Lic"
@@ -3383,9 +3383,9 @@ msgstr "Orden de salida"
 #: public/pb_parciales.php:54 public/pb_parciales_equipos.php:38
 #: public/pb_parciales_equipos.php:44 public/pb_parciales_equipos.php:54
 #: public/pbmenu_parciales.php:44 public/pbmenu_parciales_equipos.php:44
-#: scripts/printer.js.php:308 scripts/sesiones.js.php:160
-#: scripts/sesiones.js.php:173 scripts/sesiones.js.php:178
-#: videowall/index.php:239 videowall/index.php:243
+#: scripts/printer.js.php:302 scripts/printer.js.php:316
+#: scripts/sesiones.js.php:160 scripts/sesiones.js.php:173
+#: scripts/sesiones.js.php:178 videowall/index.php:239 videowall/index.php:243
 #: videowall/vw_parciales.php:43 videowall/vwc_parciales.php:51
 msgid "Partial scores"
 msgstr "Clasificaci&oacute;n parcial"
@@ -4101,12 +4101,12 @@ msgstr "Ignorar entrada. No importar este resultado a la base de datos"
 #: server/pdf/classes/PrintClasificacionExcel.php:123
 #: server/pdf/classes/PrintClasificacionTeam.php:124
 #: server/pdf/classes/PrintClasificacionTeam.php:127
-#: server/pdf/classes/PrintResultadosByEquipos3.php:105
 #: server/pdf/classes/PrintResultadosByEquipos3.php:108
-#: server/pdf/classes/PrintResultadosByEquipos4.php:97
+#: server/pdf/classes/PrintResultadosByEquipos3.php:111
 #: server/pdf/classes/PrintResultadosByEquipos4.php:100
-#: server/pdf/classes/PrintResultadosByManga.php:86
+#: server/pdf/classes/PrintResultadosByEquipos4.php:103
 #: server/pdf/classes/PrintResultadosByManga.php:89
+#: server/pdf/classes/PrintResultadosByManga.php:92
 #: server/pdf/classes/PrintResultadosGames.php:85
 #: server/pdf/classes/PrintResultadosGames.php:88
 #: server/pdf/classes/PrintResultadosKO.php:82
@@ -4129,9 +4129,9 @@ msgstr "Recorridos"
 #: lib/templates/parcial_console_round_data.inc.php:22
 #: lib/templates/parcial_console_round_data.inc.php:31
 #: lib/templates/parcial_console_round_data.inc.php:40
-#: server/pdf/classes/PrintResultadosByEquipos3.php:112
-#: server/pdf/classes/PrintResultadosByEquipos4.php:104
-#: server/pdf/classes/PrintResultadosByManga.php:93
+#: server/pdf/classes/PrintResultadosByEquipos3.php:115
+#: server/pdf/classes/PrintResultadosByEquipos4.php:107
+#: server/pdf/classes/PrintResultadosByManga.php:96
 #: server/pdf/classes/PrintResultadosKO.php:89
 msgid "Distance"
 msgstr "Distancia"
@@ -4143,9 +4143,9 @@ msgstr "Distancia"
 #: lib/templates/parcial_console_round_data.inc.php:23
 #: lib/templates/parcial_console_round_data.inc.php:32
 #: lib/templates/parcial_console_round_data.inc.php:41
-#: server/pdf/classes/PrintResultadosByEquipos3.php:114
-#: server/pdf/classes/PrintResultadosByEquipos4.php:106
-#: server/pdf/classes/PrintResultadosByManga.php:95
+#: server/pdf/classes/PrintResultadosByEquipos3.php:117
+#: server/pdf/classes/PrintResultadosByEquipos4.php:109
+#: server/pdf/classes/PrintResultadosByManga.php:98
 #: server/pdf/classes/PrintResultadosKO.php:91
 msgid "Obstacles"
 msgstr "Obst&aacute;culos"
@@ -4184,8 +4184,8 @@ msgstr "Velocidad"
 #: console/dialogs/infomanga.php:169 console/dialogs/infomanga.php:193
 #: console/dialogs/infomanga.php:228 console/dialogs/infomanga.php:252
 #: console/dialogs/infomanga.php:289 console/dialogs/infomanga.php:313
-#: server/pdf/classes/PrintResultadosByManga.php:98
-#: server/pdf/classes/PrintResultadosByManga.php:100
+#: server/pdf/classes/PrintResultadosByManga.php:101
+#: server/pdf/classes/PrintResultadosByManga.php:103
 #: server/pdf/classes/PrintResultadosKO.php:94
 #: server/pdf/classes/PrintResultadosKO.php:96
 msgid "Secs"
@@ -4214,9 +4214,9 @@ msgstr "TRM fijo"
 #: server/pdf/classes/PrintClasificacionExcel.php:139
 #: server/pdf/classes/PrintClasificacionTeam.php:138
 #: server/pdf/classes/PrintClasificacionTeam.php:151
-#: server/pdf/classes/PrintResultadosByEquipos3.php:116
-#: server/pdf/classes/PrintResultadosByEquipos4.php:108
-#: server/pdf/classes/PrintResultadosByManga.php:97
+#: server/pdf/classes/PrintResultadosByEquipos3.php:119
+#: server/pdf/classes/PrintResultadosByEquipos4.php:111
+#: server/pdf/classes/PrintResultadosByManga.php:100
 #: server/pdf/classes/PrintResultadosKO.php:93
 #: server/pdf/classes/PrintTRSTemplates.php:123 videowall/vws.js.php:311
 #: videowall/vws.js.php:312 videowall/vws.js.php:341
@@ -4367,8 +4367,8 @@ msgstr "Jueces"
 #: server/pdf/classes/PrintClasificacionExcel.php:140
 #: server/pdf/classes/PrintClasificacionTeam.php:139
 #: server/pdf/classes/PrintClasificacionTeam.php:152
-#: server/pdf/classes/PrintResultadosByEquipos3.php:118
-#: server/pdf/classes/PrintResultadosByManga.php:99
+#: server/pdf/classes/PrintResultadosByEquipos3.php:121
+#: server/pdf/classes/PrintResultadosByManga.php:102
 #: server/pdf/classes/PrintResultadosKO.php:95
 #: server/pdf/classes/PrintTRSTemplates.php:123
 msgid "MCT"
@@ -4410,8 +4410,8 @@ msgstr "TRM"
 #: server/pdf/classes/PrintPodium.php:127
 #: server/pdf/classes/PrintPodium.php:139
 #: server/pdf/classes/PrintPodium.php:151
-#: server/pdf/classes/PrintResultadosByEquipos3.php:82
-#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosByEquipos3.php:85
+#: server/pdf/classes/PrintResultadosByManga.php:67
 #: server/pdf/classes/PrintResultadosKO.php:64
 msgid "Vel"
 msgstr "Vel"
@@ -4775,7 +4775,8 @@ msgid "Planning"
 msgstr "Programa"
 
 #: console/frm_competicion2.php:98 scripts/competicion.js.php:1188
-#: server/pdf/classes/PrintEntradaDeDatos.php:87
+#: scripts/printer.js.php:205 scripts/printer.js.php:213
+#: scripts/printer.js.php:221 server/pdf/classes/PrintEntradaDeDatos.php:87
 #: server/pdf/classes/PrintEntradaDeDatosGames.php:87
 #: server/pdf/classes/PrintEntradaDeDatosKO.php:80
 #: server/pdf/classes/PrintTRSTemplates.php:73
@@ -5736,8 +5737,8 @@ msgstr "Esta prueba no tiene sesi&oacute;n de entrenamientos"
 #: server/pdf/classes/PrintClasificacionTeam.php:263
 #: server/pdf/classes/PrintClasificacionTeam.php:269
 #: server/pdf/classes/PrintPodium.php:159
-#: server/pdf/classes/PrintResultadosByEquipos3.php:240
-#: server/pdf/classes/PrintResultadosByEquipos4.php:209
+#: server/pdf/classes/PrintResultadosByEquipos3.php:243
+#: server/pdf/classes/PrintResultadosByEquipos4.php:212
 msgid "Penaliz"
 msgstr "Penal"
 
@@ -5773,7 +5774,7 @@ msgstr "Calif"
 #: server/pdf/classes/PrintClasificacionExcel.php:183
 #: server/pdf/classes/PrintClasificacionTeam.php:265
 #: server/pdf/classes/PrintPodium.php:161
-#: server/pdf/classes/PrintResultadosByEquipos3.php:82
+#: server/pdf/classes/PrintResultadosByEquipos3.php:85
 msgid "Position"
 msgstr "Puesto"
 
@@ -5818,8 +5819,8 @@ msgstr "F/T"
 #: server/pdf/classes/PrintPodium.php:128
 #: server/pdf/classes/PrintPodium.php:140
 #: server/pdf/classes/PrintPodium.php:152
-#: server/pdf/classes/PrintResultadosByEquipos3.php:82
-#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosByEquipos3.php:85
+#: server/pdf/classes/PrintResultadosByManga.php:67
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: videowall/vws_parcial_equipos.php:58 videowall/vws_parcial_individual.php:57
 msgid "Penal"
@@ -5842,7 +5843,7 @@ msgstr "Cal"
 #: lib/templates/final_last_teams.inc.php:44
 #: lib/templates/final_last_teams.inc.php:51 livestream/vwls_finales.php:101
 #: livestream/vwls_finales.php:104
-#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosByManga.php:67
 #: server/pdf/classes/PrintResultadosGames.php:63
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: videowall/vws_parcial_equipos.php:59 videowall/vws_parcial_individual.php:58
@@ -6696,11 +6697,13 @@ msgstr "Informaci&oacute;n de pa&iacute;ses en la BBDD"
 msgid "Countries"
 msgstr "Pa&iacute;ses"
 
-#: scripts/competicion.js.php:48
+#: scripts/competicion.js.php:48 server/modules/Federations.php:309
+#: server/modules/federaciones/rfec/config.php:268
 msgid "Teams 3"
 msgstr "Equipos (3)"
 
-#: scripts/competicion.js.php:53
+#: scripts/competicion.js.php:53 server/modules/Federations.php:303
+#: server/modules/federaciones/rfec/config.php:262
 msgid "Teams 4"
 msgstr "Equipos (4 conjunta)"
 
@@ -6886,7 +6889,7 @@ msgstr "Se perder&aacute;n todos los ajustes hechos hasta ahora<br/>Continuar?"
 
 #: scripts/competicion.js.php:1047 scripts/entrenamientos.js.php:149
 #: scripts/inscripciones.js.php:432 scripts/perros.js.php:325
-#: scripts/printer.js.php:274
+#: scripts/printer.js.php:278
 msgid "Current license has no Excel import function enabled"
 msgstr "La licencia actual no permite la importaci&oacute;n de ficheros Excel"
 
@@ -6995,15 +6998,15 @@ msgstr "Imprimiendo lista de equipos. Por favor, espere"
 #: scripts/equipos.js.php:99 scripts/printer.js.php:52
 #: scripts/printer.js.php:74 scripts/printer.js.php:97
 #: scripts/printer.js.php:134 scripts/printer.js.php:159
-#: scripts/printer.js.php:195 scripts/printer.js.php:233
-#: scripts/printer.js.php:512 scripts/printer.js.php:589
-#: scripts/printer.js.php:628 scripts/pruebas.js.php:208
+#: scripts/printer.js.php:195 scripts/printer.js.php:237
+#: scripts/printer.js.php:525 scripts/printer.js.php:602
+#: scripts/printer.js.php:641 scripts/pruebas.js.php:208
 msgid "There was a problem generating your report, please try again."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
 "nuevo"
 
-#: scripts/equipos.js.php:134 scripts/printer.js.php:399
+#: scripts/equipos.js.php:134 scripts/printer.js.php:412
 msgid "Print anyway"
 msgstr "Imprimir de todas maneras"
 
@@ -7508,86 +7511,90 @@ msgstr "Actualizar lista de perros con datos obtenidos de un fichero Excel"
 #: scripts/printer.js.php:51 scripts/printer.js.php:73
 #: scripts/printer.js.php:96 scripts/printer.js.php:133
 #: scripts/printer.js.php:158 scripts/printer.js.php:194
-#: scripts/printer.js.php:232 scripts/printer.js.php:265
-#: scripts/printer.js.php:334 scripts/printer.js.php:351
-#: scripts/printer.js.php:511 scripts/printer.js.php:549
-#: scripts/printer.js.php:588 scripts/printer.js.php:627
+#: scripts/printer.js.php:236 scripts/printer.js.php:269
+#: scripts/printer.js.php:344 scripts/printer.js.php:362
+#: scripts/printer.js.php:524 scripts/printer.js.php:562
+#: scripts/printer.js.php:601 scripts/printer.js.php:640
 #: scripts/pruebas.js.php:207
 msgid "We are preparing your report, please wait"
 msgstr "Preparando el informe, por favor, espere"
 
-#: scripts/printer.js.php:245
+#: scripts/printer.js.php:249
 msgid "Import/Export partial scores from/to Excel file"
 msgstr "Importar/Exportar resultados parciales desde/hacia fichero Excel"
 
-#: scripts/printer.js.php:247
+#: scripts/printer.js.php:251
 msgid "Create Excel file with current round results"
 msgstr "Generar un fichero Excel con los resultados de la manga actual"
 
-#: scripts/printer.js.php:248
+#: scripts/printer.js.php:252
 msgid "Import partial scores on this round from Excel file"
 msgstr "Importar resultados parciales de la manga desde fichero Excel"
 
-#: scripts/printer.js.php:266 scripts/printer.js.php:335
-#: scripts/printer.js.php:352
+#: scripts/printer.js.php:270 scripts/printer.js.php:345
+#: scripts/printer.js.php:363
 msgid "There was a problem generating your report, please contact author."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Contacte con el autor"
 
-#: scripts/printer.js.php:278
+#: scripts/printer.js.php:282
 msgid "Not allowed"
 msgstr "No permitido"
 
-#: scripts/printer.js.php:279
+#: scripts/printer.js.php:283
 msgid "Cannot import round results in a closed journey"
 msgstr "No se pueden importar datos de la manga en una jornada cerrada"
 
-#: scripts/printer.js.php:297 scripts/printer.js.php:303
+#: scripts/printer.js.php:301
+msgid "Header title"
+msgstr "Texto de cabecera"
+
+#: scripts/printer.js.php:305 scripts/printer.js.php:311
 msgid "Create PDF Report"
 msgstr "Generar informe en PDF"
 
-#: scripts/printer.js.php:298 scripts/printer.js.php:304
+#: scripts/printer.js.php:306 scripts/printer.js.php:312
 msgid "Create Excel File"
 msgstr "Generar fichero Excel"
 
-#: scripts/printer.js.php:299
+#: scripts/printer.js.php:307
 msgid "Print filled assistant sheets 10 dogs/pages"
 msgstr "Hojas de asistente autorrellenadas (10perros/pagina)"
 
-#: scripts/printer.js.php:300
+#: scripts/printer.js.php:308
 msgid "Print filled assistant sheets 15 dogs/pages"
 msgstr "Hojas de asistente autorellenadas (15 perros/pagina)"
 
-#: scripts/printer.js.php:305
+#: scripts/printer.js.php:313
 msgid "Print filled assistant sheets 16 dogs/pages"
 msgstr "Hojas de asistente autorrellenadas (16 perros/pagina)"
 
-#: scripts/printer.js.php:309
+#: scripts/printer.js.php:317
 msgid "Select output format"
 msgstr "Selecciona formato de salida"
 
-#: scripts/printer.js.php:390
+#: scripts/printer.js.php:403
 msgid "Dogs with pending data to be entered"
 msgstr "Perros pendientes de introducci&oacute;n de datos"
 
-#: scripts/printer.js.php:400
+#: scripts/printer.js.php:413
 msgid "Invalid data"
 msgstr "Datos inv&aacute;lidos"
 
-#: scripts/printer.js.php:432 tablet/tablet.js.php:681
+#: scripts/printer.js.php:445 tablet/tablet.js.php:681
 msgid "There is no selected round"
 msgstr "No hay ninguna manga seleccionada"
 
-#: scripts/printer.js.php:457
+#: scripts/printer.js.php:470
 msgid "Selected category"
 msgstr "Categoria seleccionada"
 
-#: scripts/printer.js.php:491 scripts/printer.js.php:528
-#: scripts/printer.js.php:570 scripts/printer.js.php:606
+#: scripts/printer.js.php:504 scripts/printer.js.php:541
+#: scripts/printer.js.php:583 scripts/printer.js.php:619
 msgid "There is no selected round on this journey"
 msgstr "No hay ninguna manga seleccionada en la jornada"
 
-#: scripts/printer.js.php:550
+#: scripts/printer.js.php:563
 msgid "There was a problem generating your report, please contact the author."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Contacte con el autor"
@@ -8244,6 +8251,8 @@ msgstr "Vel"
 
 #: server/excel/classes/PartialScoresWriter.php:105
 #: server/mail/MailManager.php:621
+#: server/pdf/classes/PrintResultadosByManga.php:78
+#: server/pdf/classes/PrintResultadosKO.php:71
 msgid "Results"
 msgstr "Resultados"
 
@@ -8451,13 +8460,8 @@ msgstr "Standard / Midi + Mini"
 
 #: server/modules/Federations.php:302
 #: server/modules/federaciones/rfec/config.php:261
-msgid "Teams (3/4)"
-msgstr "Equipos (3/4)"
-
-#: server/modules/Federations.php:303
-#: server/modules/federaciones/rfec/config.php:262
-msgid "Teams (4)"
-msgstr "Equipos (4 conjunta)"
+msgid "Teams 3best"
+msgstr "Eq. 3mejores"
 
 #: server/modules/Federations.php:306
 #: server/modules/federaciones/rfec/config.php:265
@@ -8466,18 +8470,13 @@ msgstr "Grado II-III conjunta"
 
 #: server/modules/Federations.php:307
 #: server/modules/federaciones/rfec/config.php:266
-msgid "Teams (2/3)"
-msgstr "Equipos (2 mejores)"
+msgid "Teams 2best"
+msgstr "Eq. 2mejores"
 
 #: server/modules/Federations.php:308
 #: server/modules/federaciones/rfec/config.php:267
-msgid "Teams (2)"
-msgstr "Equipos parejas"
-
-#: server/modules/Federations.php:309
-#: server/modules/federaciones/rfec/config.php:268
-msgid "Teams (3)"
-msgstr "Equipos (3)"
+msgid "Teams 2"
+msgstr "Equipos 2"
 
 #: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:88
 msgid "Not Present - 0"
@@ -8718,9 +8717,9 @@ msgstr "Reh&uacute;ses"
 
 #: server/pdf/classes/PrintClasificacionExcel.php:167
 #: server/pdf/classes/PrintClasificacionExcel.php:175
-#: server/pdf/classes/PrintResultadosByEquipos3.php:120
-#: server/pdf/classes/PrintResultadosByEquipos4.php:112
-#: server/pdf/classes/PrintResultadosByManga.php:101
+#: server/pdf/classes/PrintResultadosByEquipos3.php:123
+#: server/pdf/classes/PrintResultadosByEquipos4.php:115
+#: server/pdf/classes/PrintResultadosByManga.php:104
 #: server/pdf/classes/PrintResultadosKO.php:97
 msgid "Speed"
 msgstr "Velocidad"
@@ -8759,9 +8758,9 @@ msgstr "Tocados"
 #: server/pdf/classes/PrintEntradaDeDatos.php:193
 #: server/pdf/classes/PrintEntradaDeDatos.php:295
 #: server/pdf/classes/PrintEntradaDeDatosKO.php:202
-#: server/pdf/classes/PrintResultadosByEquipos3.php:81
-#: server/pdf/classes/PrintResultadosByEquipos4.php:205
-#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosByEquipos3.php:84
+#: server/pdf/classes/PrintResultadosByEquipos4.php:208
+#: server/pdf/classes/PrintResultadosByManga.php:67
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:278
 msgid "Tch"
@@ -8937,28 +8936,16 @@ msgstr ""
 msgid "Competitors"
 msgstr "Participantes"
 
-#: server/pdf/classes/PrintResultadosByEquipos3.php:82
-#: server/pdf/classes/PrintResultadosByManga.php:64
+#: server/pdf/classes/PrintResultadosByEquipos3.php:85
+#: server/pdf/classes/PrintResultadosByManga.php:67
 #: server/pdf/classes/PrintResultadosGames.php:63
 #: server/pdf/classes/PrintResultadosKO.php:64
 msgid "Calification"
 msgstr "Calificaci&oacute;n"
 
-#: server/pdf/classes/PrintResultadosByEquipos3.php:82
+#: server/pdf/classes/PrintResultadosByEquipos3.php:85
 msgid "Team global"
 msgstr "Gobal equipo"
-
-#: server/pdf/classes/PrintResultadosByEquipos3.php:95
-#: server/pdf/classes/PrintResultadosByEquipos4.php:87
-#: server/pdf/classes/PrintResultadosByManga.php:75
-#: server/pdf/classes/PrintResultadosKO.php:71
-msgid "Round scores"
-msgstr "Resultados de la manga"
-
-#: server/pdf/classes/PrintResultadosByManga.php:75
-#: server/pdf/classes/PrintResultadosKO.php:71
-msgid "Resultados"
-msgstr "Resultados"
 
 #: server/pdf/classes/PrintResultadosGames.php:61
 msgid "Closing Seq"
@@ -8972,6 +8959,12 @@ msgstr "Cierre"
 msgid "Round Scores"
 msgstr "Puntuaci&oacute;n de la manga"
 
+#: server/pdf/classes/PrintResultadosKO.php:71
+#: server/pdf/print_resultadosByEquipos.php:38
+#: server/pdf/print_resultadosByEquipos4.php:40
+msgid "Round scores"
+msgstr "Resultados de la manga"
+
 #: server/pdf/classes/PrintTRSTemplates.php:63
 msgid "SCT / MCT data form"
 msgstr "Datos de TRS y TRM"
@@ -8983,6 +8976,12 @@ msgstr "P&aacute;gina"
 #: server/pdf/print_common.php:318
 msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
+
+#: server/pdf/print_entradaDeDatos.php:46
+#: server/pdf/print_entradaDeDatosEquipos4.php:42
+#: server/pdf/print_resultadosByManga.php:41
+msgid "Data Entry"
+msgstr "Entrada de datos"
 
 #: server/tools.php:616
 msgid "Current journey is closed. cannot modify"
@@ -9128,6 +9127,24 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "Resultados"
+#~ msgstr "Resultados"
+
+#~ msgid "Teams (3/4)"
+#~ msgstr "Equipos (3/4)"
+
+#~ msgid "Teams (4)"
+#~ msgstr "Equipos (4 conjunta)"
+
+#~ msgid "Teams (2/3)"
+#~ msgstr "Equipos (2 mejores)"
+
+#~ msgid "Teams (2)"
+#~ msgstr "Equipos parejas"
+
+#~ msgid "Teams (3)"
+#~ msgstr "Equipos (3)"
 
 #~ msgid "Random"
 #~ msgstr "Aleatorio"

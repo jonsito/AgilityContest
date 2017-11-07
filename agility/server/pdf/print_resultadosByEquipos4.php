@@ -37,13 +37,14 @@ try {
 	$idjornada=http_request("Jornada","i",0);
     $idmanga=http_request("Manga","i",0);
     $mode=http_request("Mode","i",0);
+    $title=http_request("Title","s",_("Round scores")." ("._("Teams").")");
 
     $mngobj= new Mangas("printResultadosByManga",$idjornada);
     $manga=$mngobj->selectByID($idmanga);
     $resobj= Competitions::getResultadosInstance("printResultadosByManga",$idmanga);
 
     // 	Creamos generador de documento
-    $pdf=new PrintResultadosByEquipos4($idprueba,$idjornada,$manga,$resobj,$mode);
+    $pdf=new PrintResultadosByEquipos4($idprueba,$idjornada,$manga,$resobj,$mode,$title);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog

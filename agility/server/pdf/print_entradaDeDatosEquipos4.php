@@ -28,8 +28,8 @@ require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/classes/PrintEntradaDeDatosEquipos4.php");
 
-// Consultamos la base de datos
 try {
+    // cogemos los datos de la llamada a la funcion
     $data=array(
         'prueba' 	=> http_request("Prueba","i",0),
         'jornada' 	=> http_request("Jornada","i",0),
@@ -38,7 +38,8 @@ try {
         'cats' 		=> http_request("Categorias","s","-"),
         'fill' 		=> http_request("FillData","i",0), // tell if print entered data in sheets
         'rango' 	=> http_request("Rango","s","1-99999"),
-        'comentarios' => http_request("Comentarios","s","-")
+        'comentarios' => http_request("Comentarios","s","-"),
+        'title'     => http_request("Title","s",_("Data Entry"))
     );
     // 	Creamos generador de documento
     $pdf=new PrintEntradaDeDatosEquipos4($data);
