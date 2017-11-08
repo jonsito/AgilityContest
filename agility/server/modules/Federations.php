@@ -292,24 +292,24 @@ class Federations {
                 35 => array(35, 'Senior Round 2', 'Sr', 'Senior 2', 'Sr. 2', 2),
             ),
             'TipoRondas' => array(
-                /* 0 */ array(0,	''),
-                /* 1 */ array(1,	_('Pre-Agility') ),
-                /* 2 */ array(2,	_('Pre-Agility') ), // 2-rounds pre-agility. No longer use since 3.4.X
-                /* 3 */ array(4,	_('Grade I') ),
-                /* 4 */ array(8,	_('Grade II') ),
-                /* 5 */ array(16,	_('Grade III') ),
-                /* 6 */ array(32,	_('Individual') ), // Open
-                /* 7 */ array(64,	_('Teams 3best') ),
-                /* 8 */ array(128,	_('Teams 4') ),
-                /* 9 */ array(256,	_('K.O. Round') ),
-                /*10 */ array(512,	_('Special Round') ),
-                /*11 */ array(24,	_('Grade II-III') ),
-                /*12 */ array(1024,	_('Teams 2best') ),
-                /*13 */ array(2048,	_('Teams 2') ),
-                /*14 */ array(4096,	_('Teams 3') ),
-                /*15 */ array(8192,	_('Games / WAO') ),
-                /*16 */ array(16384,_('Junior') ),
-                /*16 */ array(32768,_('Senior') )
+                /* 0 */ array(/* 0x0000 */ 0,	''),
+                /* 1 */ array(/* 0x0001 */ 1,	    _('Pre-Agility') ),
+                /* 2 */ array(/* 0x0002 */ 2,	    _('Pre-Agility') ), // 2-rounds pre-agility. No longer use since 3.4.X
+                /* 3 */ array(/* 0x0004 */ 4,	    _('Grade I') ),
+                /* 4 */ array(/* 0x0008 */ 8,	    _('Grade II') ),
+                /* 5 */ array(/* 0x0010 */ 16,	    _('Grade III') ),
+                /* 6 */ array(/* 0x0020 */ 32,	    _('Individual') ), // Open
+                /* 7 */ array(/* 0x0040 */ 64,	    _('Teams 3best') ),
+                /* 8 */ array(/* 0x0080 */ 128,	    _('Teams 4') ),
+                /* 9 */ array(/* 0x0100 */ 256,	    _('K.O. Round') ),
+                /*10 */ array(/* 0x0200 */ 512,	    _('Special Round') ),
+                /*11 */ array(/* 0x0018 */ 24,	    _('Grade II-III') ),
+                /*12 */ array(/* 0x0400 */ 1024,	_('Teams 2best') ),
+                /*13 */ array(/* 0x0800 */ 2048,	_('Teams 2') ),
+                /*14 */ array(/* 0x1000 */ 4096,	_('Teams 3') ),
+                /*15 */ array(/* 0x2000 */ 8192,	_('Games / WAO') ),
+                /*16 */ array(/* 0x4000 */ 16384,   _('Junior') ),
+                /*17 */ array(/* 0x8000 */ 32768,   _('Senior') )
             )
         );
     }
