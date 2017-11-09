@@ -241,12 +241,16 @@ class PrintClasificacionTeam extends PrintCommon {
 		$this->Cell(30,4,_('Handler'),'B',0,'C',true);	// nombreGuia
 		$this->Cell(16,4,$this->strClub,'B',0,'C',true);	// nombreClub
 		// manga 1
-		$this->Cell(5,4,_('F/T'),'B',0,'C',true);	// 1- Faltas+Tocados
-		$this->Cell(5,4,_('Ref'),'B',0,'C',true);	// 1- Rehuses
-		$this->Cell(10,4,_('Time'),'B',0,'C',true);	// 1- Tiempo
-		$this->Cell(7,4,_('Vel'),'B',0,'C',true);	// 1- Velocidad
-		$this->Cell(10,4,_('Penal'),'B',0,'C',true);	// 1- Penalizacion
-		$this->Cell(10,4,_('Calif'),'B',0,'C',true);	// 1- calificacion
+        if ($this->manga1!==null) {
+		    $this->Cell(5,4,_('F/T'),'B',0,'C',true);	// 1- Faltas+Tocados
+		    $this->Cell(5,4,_('Ref'),'B',0,'C',true);	// 1- Rehuses
+		    $this->Cell(10,4,_('Time'),'B',0,'C',true);	// 1- Tiempo
+		    $this->Cell(7,4,_('Vel'),'B',0,'C',true);	// 1- Velocidad
+		    $this->Cell(10,4,_('Penal'),'B',0,'C',true);	// 1- Penalizacion
+		    $this->Cell(10,4,_('Calif'),'B',0,'C',true);	// 1- calificacion
+        } else {
+            $this->Cell(47,4,'','B',0,'C',true);	// espacio en blanco
+        }
 		// manga 2
 		if ($this->manga2!==null) {
 			$this->Cell(5,4,_('F/T'),'B',0,'C',true);	// 2- Faltas+Tocados
@@ -256,7 +260,7 @@ class PrintClasificacionTeam extends PrintCommon {
 			$this->Cell(10,4,_('Penal'),'B',0,'C',true);	// 2- Penalizacion
 			$this->Cell(10,4,_('Calif'),'B',0,'C',true);	// 2- calificacion
 		} else {
-			$this->Cell(59,4,'','B',0,'C',true);	// espacio en blanco
+			$this->Cell(47,4,'','B',0,'C',true);	// espacio en blanco
 		}
 		// global individual
 		$this->Cell(9,4,_('Time'),'B',0,'C',true);	// Tiempo total
@@ -277,7 +281,7 @@ class PrintClasificacionTeam extends PrintCommon {
         $this->ac_row($idx,8);
 		if ( ($row==$this->defaultPerro) && ($idx>=$this->getMinDogs() ) ){
 			// no dogs, and no dog to show as "no inscrito"
-			$this->Cell(($wide)?233:218,4,'',0,0,'',false);
+			$this->Cell(230,4,'',0,0,'',false);
 		} else {
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			// fomateamos datos
@@ -346,14 +350,14 @@ class PrintClasificacionTeam extends PrintCommon {
         switch($idx){
             case 0: // manga 1
                 $this->SetFont($this->getFontName(),'BI',8); // default font
-                $this->Cell(21,4,_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)),0,0,'L',true);	// nombre manga 1
+                $this->Cell(21,4,_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)),"L",0,'L',true);	// nombre manga 1
                 $this->SetFont($this->getFontName(),'',8); // default font
                 $this->Cell(12,4,number_format($team['T1'],$this->timeResolution),0,0,'R',true);	// tiempo manga 1
                 $this->Cell(12,4,number_format($team['P1'],$this->timeResolution),'R',0,'R',true);	// penalizacion manga 1
                 break;
             case 1: // manga 2
                 $this->SetFont($this->getFontName(),'BI',8); // default font
-                $this->Cell(21,4,_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)),0,0,'L',true);	// nombre manga 2
+                $this->Cell(21,4,_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)),"L",0,'L',true);	// nombre manga 2
                 $this->SetFont($this->getFontName(),'',8); // default font
                 $this->Cell(12,4,number_format($team['T2'],$this->timeResolution),0,0,'R',true);	// tiempo manga 2
                 $this->SetFont($this->getFontName(),'',8); // default font
@@ -361,7 +365,7 @@ class PrintClasificacionTeam extends PrintCommon {
                 break;
             case 2: // global
                 $this->SetFont($this->getFontName(),'BI',8); // default font
-                $this->Cell(21,4,_("Final"),'B',0,'L',true);
+                $this->Cell(21,4,_("Final"),'LB',0,'L',true);
                 $this->SetFont($this->getFontName(),'B',8); // default font
                 $this->Cell(12,4,number_format($team['Tiempo'],$this->timeResolution),'B',0,'R',true);	// tiempo final
                 $this->Cell(12,4,number_format($team['Penalizacion'],$this->timeResolution),'RB',0,'R',true);	// penalizacion final
@@ -369,7 +373,7 @@ class PrintClasificacionTeam extends PrintCommon {
             case 3: // puntos (si se requieren )
                 if (!array_key_exists('Puntos',$team) || $team['Puntos']==0) break;
                 $this->SetFont($this->getFontName(),'BI',8); // default font
-                $this->Cell(21,4,_("Points"),'B',0,'L',true);
+                $this->Cell(21,4,_("Points"),'LB',0,'L',true);
                 $this->SetFont($this->getFontName(),'B',8); // default font
                 $this->Cell(12,4,"",'B',0,'R',true);	// tiempo final
                 $this->Cell(12,4,$team['Puntos'],'RB',0,'R',true);	// penalizacion final
