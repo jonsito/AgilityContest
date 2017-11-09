@@ -43,6 +43,7 @@ class PrintClasificacionTeam extends PrintCommon {
 	protected $trs2;
 	protected $categoria;
     protected $equipos;
+    protected $headerTitle;
 
     protected $defaultPerro = array( // participante por defecto para garantizar que haya 4perros/equipo
         'Dorsal' => '-',
@@ -63,54 +64,56 @@ class PrintClasificacionTeam extends PrintCommon {
         'Puesto' => '-'
     );
 
+    function pct_setParameters($mangas,$results,$mode,$title) {
+        $dbobj=new DBObject("print_clasificacionEquipos");
+        $this->manga1=null;
+        $this->manga2=null;
+        $this->trs1=null;
+        $this->trs2=null;
+        if ($mangas[0]!=0) {
+            $this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
+            $this->trs1=$results['trs1'];
+        }
+        if ($mangas[1]!=0) {
+            $this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
+            $this->trs2=$results['trs2'];
+        }
+        $this->categoria=$this->getModeString(intval($mode));
+        $this->equipos=$results['equipos']; // recuerda que YA viene indexado por puesto
+        // insertamos perros dentro de cada equipo.
+        // para ello vamos a crear un array indexado por teamID
+        $teams=array();
+        foreach ($this->equipos as &$equipo) {
+            $equipo['Perros']=array();
+            $teams[$equipo['ID']]=$equipo;
+        }
+        // iteramos los perros insertandolos en el equipo. Recuerda que los perros ya vienen ordenados
+        foreach($results['individual'] as &$perro) {
+            if (!array_key_exists($perro['Equipo'],$teams)) {
+                $this->myLogger->error("Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} ".
+                    "El perro {$perro['Perro']} esta asignado al equipo:{$perro['Equipo']} que no pertenece a la jornada");
+                continue; // skip this item, to avoid pdf generation error
+            }
+            array_push($teams[$perro['Equipo']]['Perros'],$perro);
+        }
+        $this->equipos=$teams;
+        $this->headerTitle=$title." - ".$this->categoria;
+    }
+
 	 /** Constructor
       * @param {int} $prueba prueba id
       * @param {int} $jornada jornada id
-	 * @param {array} $mangas datos de la manga
-	 * @param {array} $results resultados asociados a la manga/categoria pedidas
-      * @param {int} $mode manga mode
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$mangas,$results,$mode) {
-		parent::__construct('Landscape',"print_clasificacion_eqBest",$prueba,$jornada);
-		$dbobj=new DBObject("print_clasificacionEquipos");
-		$this->manga1=null;
-		$this->manga2=null;
-		$this->trs1=null;
-		$this->trs2=null;
-		if ($mangas[0]!=0) {
-			$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
-			$this->trs1=$results['trs1'];
-		}
-		if ($mangas[1]!=0) {
-			$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
-			$this->trs2=$results['trs2'];
-		}
-		$this->categoria=$this->getModeString(intval($mode));
-		$this->equipos=$results['equipos']; // recuerda que YA viene indexado por puesto
-		// insertamos perros dentro de cada equipo.
-		// para ello vamos a crear un array indexado por teamID
-		$teams=array();
-		foreach ($this->equipos as &$equipo) {
-			$equipo['Perros']=array();
-			$teams[$equipo['ID']]=$equipo;
-		}
-		// iteramos los perros insertandolos en el equipo. Recuerda que los perros ya vienen ordenados
-		foreach($results['individual'] as &$perro) {
-		    if (!array_key_exists($perro['Equipo'],$teams)) {
-		        $this->myLogger->error("Prueba:$prueba Jornada:$jornada El perro {$perro['Perro']} esta asignado al equipo:{$perro['Equipo']} que no pertenece a la jornada");
-                continue; // skip this item, to avoid pdf generation error
-            }
-			array_push($teams[$perro['Equipo']]['Perros'],$perro);
-		}
-        $this->equipos=$teams;
+	function __construct($prueba,$jornada) {
+		parent::__construct('Landscape',"print_clasificacion_teams",$prueba,$jornada);
 	}
 	
 	function print_datosMangas() {
 		$this->setXY(10,40);
 		$this->SetFont($this->getFontName(),'B',9); // bold 9px
 		
-		$jobj=new Jueces("print_Clasificaciones_eq3");
+		$jobj=new Jueces("print_Clasificaciones_equipos");
 		$juez1=$jobj->selectByID($this->manga1->Juez1);
 		$juez2=$jobj->selectByID($this->manga2->Juez1);
 		$tm1=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $this->categoria;
@@ -167,9 +170,10 @@ class PrintClasificacionTeam extends PrintCommon {
 	}
 
 	function Header() {
-		$this->print_commonHeader(_("Final scores"));
-        if ($this->PageNo()==1) $this->print_datosMangas();
-		else $this->print_datosMangas2();
+		$this->print_commonHeader($this->headerTitle);
+        if ($this->PageNo()==1) { $this->print_datosMangas(); return; }
+        if ( strstr($this->headerTitle,_("Podium"))!==FALSE ) { $this->print_datosMangas(); return; }
+        $this->print_datosMangas2();
 	}
 	
 	// Pie de página: tampoco cabe
@@ -190,7 +194,7 @@ class PrintClasificacionTeam extends PrintCommon {
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
-        $offset=($this->PageNo()==1)?60:40;
+        $offset=($this->PageNo()==1)?60:( strstr($this->headerTitle,_("Podium"))!==FALSE )?60:40;
         $this->SetXY(10,$offset+33*($teamcount%$numrows));
         $this->ac_header(1,18);
 		$this->Cell(15,8,strval(1+$teamcount)." -",'LT',0,'C',true); // imprime puesto del equipo
@@ -382,8 +386,11 @@ class PrintClasificacionTeam extends PrintCommon {
 		$this->Ln();
 	}
 
-    // Tabla coloreada
-    function composeTable() {
+    /**
+     * Imprime la tabla de clasificaciones hasta un maximo de $limit entradas
+     * @param int $limit. 0:any; else print number of rows
+     */
+    function composeTable($limit=0) {
         $this->myLogger->enter();
 
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
@@ -393,7 +400,7 @@ class PrintClasificacionTeam extends PrintCommon {
         $teamcount=0;
 
         foreach($this->equipos as $equipo) {
-
+            if ( ($limit!=0) && ($teamcount>=$limit) ) break;
             $numrows=4; // no space for 5 teams/page
             // $numrows=($this->PageNo()==1)?4:4;
             // si el equipo no tiene participantes es que la categoria no es válida: skip

@@ -15,9 +15,6 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
-
-
-
 header('Set-Cookie: fileDownload=true; path=/');
 // mandatory 'header' to be the first element to be echoed to stdout
 
@@ -48,7 +45,7 @@ try {
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
 	
 	// buscamos los recorridos asociados a la manga
-	$dbobj=new DBObject("print_clasificacion");
+	$dbobj=new DBObject("print_podium_individual");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("Pruebas",$prueba);
 	$c= Competitions::getClasificacionesInstance("print_podium_pdf",$jornada);

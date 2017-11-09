@@ -498,8 +498,7 @@ function print_commonDesarrollo(def,cb) {
 function clasificaciones_printPodium() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='/agility/server/pdf/print_podium.php';
-    if (isJornadaEqMejores()) url='/agility/server/pdf/print_podium_eq3.php';
-    if (isJornadaEqConjunta()) url='/agility/server/pdf/print_podium_eq4.php';
+    if (isJornadaEquipos()) url='/agility/server/pdf/print_podium_equipos.php';
 	if (ronda==null) {
     	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");
     	return false; // no way to know which ronda is selected
