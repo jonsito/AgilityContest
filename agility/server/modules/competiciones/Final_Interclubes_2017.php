@@ -3,7 +3,7 @@ require_once(__DIR__ . "/../competiciones/lib/resultados/Resultados_EO_Team_Fina
 
 /**
  *
- * La Final por Equipos del European Open es una carrera de relevos donde se montan 4 pistas
+ * La Final por Equipos del trofeo interclubes en es una carrera de relevos donde se montan 4 pistas
  * independientes en una misma pista de Agility ampliada, donde algunos obstáculos serán compartidos.
  * El tiempo comienza a contar cuando el primer perro del Equipo sobrepasa su linea de salida,
  * y se para cuando el cuarto y último perro sobrepasa la línea de llegada.
@@ -18,14 +18,13 @@ require_once(__DIR__ . "/../competiciones/lib/resultados/Resultados_EO_Team_Fina
  *
  */
 
-class EuropeanOpen_Team_Final extends Competitions {
+class Final_Interclubes_2017 extends Competitions {
     function __construct() {
-        parent::__construct("European Open - Final Round - Teams");
-        $this->federationID=9;
-        $this->competitionID=3;
-        $this->moduleRevision="20170623_1151";
+        parent::__construct("Trofeo Interclubes - Finales");
+        $this->federationID=0;
+        $this->competitionID=9;
+        $this->moduleRevision="20171109_1153";
     }
-
     /**
      * Retrieve handler for manage Resultados functions.
      * Default is use standard Resultados, but may be overriden ( eg wao. Rounds )

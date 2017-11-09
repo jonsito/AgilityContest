@@ -1,34 +1,11 @@
 <?php
+
+// El trofeo interclubes utiliza el mismo sistema que el european open para las clasificatorias
+
 require_once(__DIR__ . "/../competiciones/lib/resultados/Resultados_EO_Team_Qualifications.php");
 require_once(__DIR__ . "/../competiciones/lib/clasificaciones/Clasificaciones_EO_Team_Qualifications.php");
 
-/**
- * Created by PhpStorm.
- * User: jantonio
- * Date: 16/11/16
- * Time: 10:58
- *
- * - Para clasificarse para la Final por Equipos se realizará una pista de Agility y una pista de Jumping.
- * - Tras cada pista los participantes serán ordenados en función del número de faltas y tiempo total.
- *
- * - El primer clasificado de cada pista recibirá tantos puntos como Equipos participen en la competición
- *   (=número de Equipos x  4), el segundo clasificado lo mismo -1 punto,
- *   el tercero lo mismo -2  puntos y así sucesivamente. Los eliminados obtienen 0 puntos.
- *
- * - Para  obtener la puntuación del Equipo, en cada pista se sumarán los puntos
- *   de los 3 mejores componentes del Equipo.
- *
- * - Pasarán a la final los X primeros Equipos Estandar, Mini y Midi con mayor puntuación obtenida
- *   de la suma total de ambas pistas.
- *
- * - En caso de empate se tendrá en cuenta la puntuación del 4º componente del equipo.
- * - Si continuara el empate ( por ejemplo, cuando los cuartos estan eliminados)
- *   se tendrá en cuenta  la mayor puntuación individual que tenga el Equipo.
- *
- */
-class EuropeanOpen_Team_Qualification extends Competitions {
-
-    /*
+class Clasificatoria_Interclubes_2017 extends Competitions {    /*
     * Como el sistema de asignacion de puntos es iterativo ( puesto->punto ),
     * tenemos que inventar algun tipo de "memoria" donde guardar los perros que han puntuado
     * para detectar los empates y poder actuar en consecuencia
@@ -40,10 +17,10 @@ class EuropeanOpen_Team_Qualification extends Competitions {
     private $parciales=array();
 
     function __construct() {
-        parent::__construct("European Open - Qualifications Series - Teams");
-        $this->federationID=9;
-        $this->competitionID=1;
-        $this->moduleRevision="20170623_1151";
+        parent::__construct("Trofeo Interclubes - Clasificatorias");
+        $this->federationID=0;
+        $this->competitionID=2;
+        $this->moduleRevision="20171109_1145";
     }
 
     function useLongNames() { return true; }
