@@ -203,6 +203,7 @@ class Updater {
             if (strpos($type,"text")!==FALSE) $isStr=true;
             if (strpos($type,"char")!==FALSE) $isStr=true;
             if (strpos($type,"time")!==FALSE) $isStr=true;
+            if (strpos($type,"timestamp")!==FALSE) $isStr=false; // needed to autoupdate
             if (strpos($type,"date")!==FALSE) $isStr=true;
             if ($isStr) $str=" NOT NULL DEFAULT '$def'";
             else        $str=" NOT NULL DEFAULT $def";
@@ -239,7 +240,7 @@ class Updater {
             "DROP TABLE IF EXISTS `perroguiaclub`;",
             "DROP VIEW IF EXISTS `perroguiaclub`;",
             "CREATE VIEW `perroguiaclub` AS
-                select `perros`.`ID` AS `ID`,
+                SELECT `perros`.`ID` AS `ID`,
                 `perros`.`Federation` AS `Federation`,
                 `perros`.`Nombre` AS `Nombre`,
                 `perros`.`NombreLargo` AS `NombreLargo`,
@@ -259,14 +260,15 @@ class Updater {
                 `clubes`.`Nombre` AS `NombreClub`,
                 `clubes`.`Provincia` AS `Provincia`,
                 `clubes`.`Pais` AS `Pais`,
-                `clubes`.`Logo` AS `LogoClub`
-                from ((((`perros` join `guias`) join `clubes`) join `grados_perro`) join `categorias_perro`)
-                where (
+                `clubes`.`Logo` AS `LogoClub`,
+                GREATEST(`Perros`.`LastModified`,`Guias`.`LastModified`,`Clubes`.`LastModified`) AS `LastModified`
+                FROM ((((`perros` join `guias`) join `clubes`) join `grados_perro`) join `categorias_perro`)
+                WHERE (
                     (`perros`.`Guia` = `guias`.`ID`)
-                    and (`guias`.`Club` = `clubes`.`ID`)
-                    and (`perros`.`Categoria` = `categorias_perro`.`Categoria`)
-                    and (`perros`.`Grado` = `grados_perro`.`Grado`))
-                    order by `clubes`.`Nombre`,`perros`.`Categoria`,`perros`.`Nombre`;"
+                    AND (`guias`.`Club` = `clubes`.`ID`)
+                    AND (`perros`.`Categoria` = `categorias_perro`.`Categoria`)
+                    AND (`perros`.`Grado` = `grados_perro`.`Grado`))
+                    ORDER BY `clubes`.`Nombre`,`perros`.`Categoria`,`perros`.`Nombre`;"
         );
         foreach ($cmds as $query) { $this->conn->query($query); }
         return 0;
@@ -551,6 +553,7 @@ try {
     $upg->addColumnUnlessExists("Perros", "NombreLargo", "varchar(255)");
     $upg->addColumnUnlessExists("Perros", "Chip", "varchar(255)", "");
     $upg->addColumnUnlessExists("Perros", "Genero", "varchar(16)", "-"); // -,M,F
+    $upg->addColumnUnlessExists("Perros", "LastModified", "timestamp", "NOW()"); // for updates
     $upg->addColumnUnlessExists("Guias", "Categoria", "varchar(16)","A");// -,I,J,A,S,V,P
     $upg->addColumnUnlessExists("Provincias", "Pais", "varchar(2)", "ES");
     $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
@@ -558,6 +561,11 @@ try {
     $upg->addColumnUnlessExists("Jornadas", "Junior", "tinyint(1)", "0");
     $upg->addColumnUnlessExists("Jornadas", "Senior", "tinyint(1)", "0");
     $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
+    // on server edition need to track modification time
+    $upg->addColumnUnlessExists("Perros", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    $upg->addColumnUnlessExists("Guias", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    $upg->addColumnUnlessExists("Clubes", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    $upg->addColumnUnlessExists("Jueces", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
     $upg->updatePreAgility();
     $upg->updatePerroGuiaClub();
     $upg->updateInscripciones();
