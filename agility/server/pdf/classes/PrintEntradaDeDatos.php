@@ -85,9 +85,25 @@ class PrintEntradaDeDatos extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		$this->print_commonHeader(_("Data entry"));
-		if($this->numrows!=1) { 
+		if($this->numrows!=1) {
 			// normal/compacto: pinta id de la jornada y de la manga
-			$this->print_identificacionManga($this->manga,$this->getCatString($this->categoria));
+            $cat=$this->categoria;
+			// en pruebas por equipos conjuntas mixtas no se pone la categoria individual
+			// sino la asociada al tipo de recorrido
+			// NOTA: se supone que existen hojas especiales para equipos conjunta
+			// pero esto se pone por si acaso el usuario quiere imprimir las hojas "de toda la vida"
+			if ( ($this->manga->Recorrido==1 ) && in_array($this->manga->Tipo,array(9,14)) ) {
+                $alturas=$this->federation->get('Heights');
+                switch ($cat) {
+                    case '-': $cat= ""; break;// cualquier categoria es valida: no cambia pagina
+                    case 'L': $cat=($alturas==3)?'L':'LM'; break;
+                    case 'M': $cat=($alturas==3)?'MS':'LM'; break;
+                    case 'S': $cat=($alturas==3)?'MS':'ST'; break;
+                    case 'T': $cat=($alturas==3)?'ST':'ST'; break;// 'T' no existe en tres alturas
+                    default: $cat=$this->categoria; break; // should not happen
+                }
+			}
+			$this->print_identificacionManga($this->manga,$this->getCatString($cat));
 		} else {
 			// modo extendido: pinta solo identificacion de la jornada
 			$this->SetFont($this->getFontName(),'B',12); // bold 15
@@ -546,13 +562,11 @@ class PrintEntradaDeDatos extends PrintCommon {
 		foreach($this->orden as $row) {
 			if (!category_match($row['Categoria'],$this->validcats)) continue;
 			// if change in categoria, reset orden counter and force page change
-			if ($row['Categoria'] !== $this->categoria) {
-				// $this->myLogger->trace("Nueva categoria es: ".$row['Categoria']);
-				$this->categoria = $row['Categoria'];
-				// $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre de categoria
-				$rowcount=0;
-				$orden=1;
+			if ($this->category_needsNewPage($this->categoria,$row['Categoria'],$this->manga)) {
+                $rowcount=0;
+                $orden=1;
 			}
+			$this->categoria = $row['Categoria'];
             if (($orden<$fromItem) || ($orden>$toItem) ) { $orden++; continue; } // not in range; skip
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			if( ($rowcount % $this->numrows) == 0 ) { // assume $numrows entries per page 

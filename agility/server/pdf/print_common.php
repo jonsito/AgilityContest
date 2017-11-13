@@ -75,6 +75,37 @@ class PrintCommon extends FPDF {
 		parent::AddPage($orientation,$size,$rotation);
 	}
 
+    /**
+     * retorna true o false en funcion de si hay cambio de categoria.
+     * Se usa en la hoja de entrada de datos saber si hay que anyadir pagina nueva en equipos4
+     * @param {string} $from categoria anterior
+     * @param {string} $to categoria nueva
+     * @param {array|object} $manga de donde extraer el tipo y el recorrido
+	 * Recuerda:  0:comun 1:mixto 2:separado
+     */
+    function category_needsNewPage($from,$to,$manga) {
+        if (is_object($manga)) $manga=json_decode(json_encode($manga),true);
+        if ($manga['Recorrido']==0) return false; // conjunto. No hay cambio de pagina, pues todos salen juntos
+        if ($manga['Recorrido']==2) return ($from!==$to); // separados cambia pagina si cambia categoria
+		// llegando aqui tenemos recorridos mixtos. si no manga equipos conjunta compara categorias
+        if ( !in_array($manga['Tipo'],array(9,14) ) ) return ($from!==$to);
+        // en recorrido mixto y equipos conjunta discriminamos por alturas
+		$alturas=$this->federation->get('Heights');
+		switch ($from) {
+			case '-': $result= false; break;// cualquier categoria es valida: no cambia pagina
+            case 'L': $result= category_match($to,($alturas==3)?'L':'LM'); break;
+            case 'M': $result= category_match($to,($alturas==3)?'MS':'LM'); break;
+            case 'S': $result= category_match($to,($alturas==3)?'MS':'ST'); break;
+            case 'T': $result= category_match($to,($alturas==3)?'ST':'ST'); break;// 'T' no existe en tres alturas
+			default:
+                $this->myLogger->notice("invalid category to evaluate newPage $from - $to");
+                $result= false; // should not arrive here. notify error
+				break;
+		}
+        $this->myLogger->trace("from:$from to:$to alturas:$alturas change:$result");
+		return ! $result; // on match do NOT change page
+    }
+
 	function _endpage()	{
 		if ( ($this->regInfo===null) || ($this->regInfo['Serial']==="00000000") ) {
 			$img=getIconPath(0,'unregistered.png');
@@ -325,6 +356,7 @@ class PrintCommon extends FPDF {
 		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
 		$tmanga= _(Mangas::getTipoManga($manga->Tipo,1,$this->federation));
         $str2=($categoria==="")? "$tmanga":"$tmanga - $categoria";
+
 		if ($this->comments==="") {
             $this->Cell(90,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
             $this->Cell(100,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga

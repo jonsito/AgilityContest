@@ -320,8 +320,6 @@ class Federations {
 
     function getTipoRondas(){ return $this->config['TipoRondas']; }
 
-
-
     /**
      * Translate requested manga type and index to federation dependent i18n'd Manga data
      * @param {integer} $type manga type 0..17
