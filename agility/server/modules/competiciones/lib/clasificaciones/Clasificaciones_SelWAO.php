@@ -145,7 +145,7 @@ class Clasificaciones_SelWAO extends Clasificaciones {
                         $participante["Out{$j}"]=0;
                         $participante["Puesto{$j}"]=0;
                         $participante["Pcat{$j}"]=0;
-                        $participante["Penalizacion"] +=400;// default to not processed
+                        $participante["Penalizacion"]=0;// default to not processed
                     }
                     // insertamos el array en la lista de participantes
                     $final[$dogID]=$participante;
@@ -168,7 +168,7 @@ class Clasificaciones_SelWAO extends Clasificaciones {
                 $final[$dogID]["Pcat{$j}"] = $item['Pcat'];
                 $final[$dogID]["Tiempo"] += $final[$dogID]["T{$j}"];
                 $final[$dogID]["Puntos"] += $final[$dogID]["Pt{$j}"];
-                $final[$dogID]['Penalizacion'] = $final[$dogID]['Penalizacion'] - 400 + $final[$dogID]["P{$j}"];
+                $final[$dogID]['Penalizacion'] += $final[$dogID]["P{$j}"];
                 // do_log("round:{$mangas[$i]->ID} inserted Participante:{$dogID}: ".json_encode($participante));
             }
         }
