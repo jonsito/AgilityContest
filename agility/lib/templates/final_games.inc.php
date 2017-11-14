@@ -8,10 +8,9 @@ $config =Config::getInstance();
     <thead>
     <tr>
         <th colspan="7"><span class="main_theader" id="finales_individual_teaminfo"><?php _e('Competitor data'); ?></span> </th>
-<?php for ($nmanga=1;$nmanga<9; $nmanga++ ) { ?>
-        <th colspan="7"><span class="main_theader" id="finales_individual_roundname_m<?php echo $nmanga;?>"><?php _e('Round'); ?> <?php echo $nmanga;?></span></th>
-<?php } ?>
-        <th colspan="4"><span class="main_theader" id="finales_individual_finalscores"><?php _e('Final scores'); ?></span></th>
+        <th colspan="5"><span class="main_theader" id="finales_individual_roundname_m1"><?php _e('Round'); ?> 1</span></th>
+        <th colspan="5"><span class="main_theader" id="finales_individual_roundname_m2"><?php _e('Round'); ?> 2</span></th>
+        <th colspan="3"><span class="main_theader" id="finales_individual_finalscores"><?php _e('Final scores'); ?></span></th>
     </tr>
     <tr>
         <!--
@@ -27,18 +26,32 @@ $config =Config::getInstance();
         -->
         <th width="9%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
         <th width="7%" data-options="field:'NombreClub',	align:'right'" id="finales_individual-ClubOrCountry"> <?php _e('Club'); ?></th>
-<?php for ($nmanga=1;$nmanga<9; $nmanga++ ) { ?>
-        <th width="2%" data-options="field:'F<?php echo $nmanga;?>',    align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
-        <th width="2%" data-options="field:'R<?php echo $nmanga;?>',	align:'center'"> <?php _e('R'); ?>.</th>
-        <th width="4%" data-options="field:'T<?php echo $nmanga;?>',	align:'right',formatter:formatT<?php echo $nmanga;?>"> <?php _e('Time'); ?>.</th>
-        <th width="3%" data-options="field:'V<?php echo $nmanga;?>',	align:'right',formatter:formatV<?php echo $nmanga;?>"> <?php _e('Vel'); ?>.</th>
-        <th width="4%" data-options="field:'P<?php echo $nmanga;?>',	align:'right',formatter:formatP<?php echo $nmanga;?>"> <?php _e('Penal'); ?>.</th>
-        <th width="5%" data-options="field:'C<?php echo $nmanga;?>',	align:'center'"> <?php _e('Cal'); ?>.</th>
-        <th width="3%" data-options="field:'Puesto<?php echo $nmanga;?>',align:'center'"> <?php _e('Pos'); ?>.</th>
-<?php } ?>
-        <th width="4%" data-options="field:'Tiempo',		align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
-        <th width="4%" data-options="field:'Penalizacion',	align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
-        <th width="4%" data-options="field:'Calificacion',	align:'center'" > <?php _e('Calif'); ?>.</th>
+
+
+        <!--
+        usaremos
+        - las faltas para guardar secuencia de apertura
+        - los rehuses para la secuencia de cierre
+        - Penalizacion para el total
+        - Escondemos velocidad y calificacion
+        -->
+        <!-- Snooker -->
+        <th width="6%" data-options="field:'F1',    align:'center',styler:formatBorder"> <?php _e('Opening Seq'); ?></th>
+        <th width="6%" data-options="field:'R1',	align:'center'"> <?php _e('Closing Seq'); ?>.</th>
+        <th width="4%" data-options="field:'T1',	align:'right',formatter:formatT1"> <?php _e('Time'); ?>.</th>
+        <th width="4%" data-options="field:'P1',	align:'right',formatter:formatP1"> <?php _e('Points'); ?>.</th>
+        <th width="3%" data-options="field:'Puesto1',align:'center'"> <?php _e('Pos'); ?>.</th>
+
+        <!-- Gambler -->
+        <th width="6%" data-options="field:'F2',    align:'center',styler:formatBorder"> <?php _e('Opening Seq'); ?></th>
+        <th width="6%" data-options="field:'R2',	align:'center'"> <?php _e('Gambler'); ?>.</th>
+        <th width="4%" data-options="field:'T2',	align:'right',formatter:formatT2"> <?php _e('Time'); ?>.</th>
+        <th width="4%" data-options="field:'P2',	align:'right',formatter:formatP2"> <?php _e('Points'); ?>.</th>
+        <th width="3%" data-options="field:'Puesto2',align:'center'"> <?php _e('Pos'); ?>.</th>
+
+        <!-- clasificacion final -->
+        <th width="7%" data-options="field:'Tiempo',		align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
+        <th width="7%" data-options="field:'Penalizacion',	align:'right',formatter:formatPenalizacionFinal" > <?php _e('Points'); ?>.</th>
         <th width="4%" data-options="field:'Puesto',		align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
     </tr>
     </thead>

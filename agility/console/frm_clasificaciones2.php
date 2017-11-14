@@ -63,7 +63,12 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 		</div> <!-- Datos de Prueba/Jornada/Ronda -->
 	
 		<div data-options="region:'center',title:'<?php _e('Technical data on current round series'); ?>',split:true,collapsed:false,collapsible:false" style="width:70%;font-size:9px">
-			<?php require('dialogs/inforesultados.inc')?>
+			<?php
+                $mode=http_request("Mode","s","");
+                if ($mode=="Games") require('dialogs/inforesultados.inc'); // may change in then future
+                else if ($mode=="KO") require('dialogs/inforesultados.inc'); // may change in then future
+                else require('dialogs/inforesultados.inc');
+            ?>
 		</div> <!-- Layout: center -->
 
 		<div id="resultados-dataregion" class="scores_table" data-options="region:'south',split:true,collapsed:false,collapsible:false" style="height:70%;">

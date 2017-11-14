@@ -1363,9 +1363,15 @@ function resultados_doSelectRonda(row) {
         $('#resultados-toolbar').css('display','inline-block');
         populate_clasificacion();
     } else {
-        var nmangas=2;
-        for(n=8;n>0;n--) if (row['Manga'+n]!=0) {nmangas=n; break } // numero de mangas
-        $('#resultados-data').load("/agility/lib/templates/final_individual.inc.php?NumMangas="+nmangas,
+        var page="";
+        if ( (parseInt(workingData.datosJornada.Games)!==0) && parseInt(workingData.datosCompeticion.ModuleID)===3) {
+            page="/agility/lib/templates/final_games.inc.php";
+        } else {
+            var nmangas=0;
+            for(n=8;n>0;n--) if (row['Manga'+n]!=0) {nmangas=n; break } // numero de mangas
+            page="/agility/lib/templates/final_individual.inc.php?NumMangas="+nmangas;
+        }
+        $('#resultados-data').load(page,
             function() {
                 // anyadimos toolbar y keyhandler al datagrid de clasificaciones
                 // $('#finales_individual-datagrid').datagrid({toolbar: '#resultados-toolbar'});
