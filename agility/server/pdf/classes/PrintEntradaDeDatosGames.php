@@ -237,13 +237,15 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         // save cursor position
         $x=$this->getX();
         $y=$this->GetY();
-        $h0=array("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","A","B","C","D","E");
+        $h0=array("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","A","B","C","D","E","X");
         $h1=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
-            $c->getEnv('gambler_bonus1'), $c->getEnv('gambler_bonus2'), $c->getEnv('gambler_bonus3'), $c->getEnv('gambler_bonus4'),$c->getEnv('gambler_bonus5'));
+            $c->getEnv('gambler_bonus1'), $c->getEnv('gambler_bonus2'), $c->getEnv('gambler_bonus3'),
+            $c->getEnv('gambler_bonus4'),$c->getEnv('gambler_bonus5'),$c->getEnv('gambler_extra'));
         $h2=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
-            $c->getEnv('gambler_bonus1'), $c->getEnv('gambler_bonus2'), $c->getEnv('gambler_bonus3'), $c->getEnv('gambler_bonus4'),$c->getEnv('gambler_bonus5'));
+            $c->getEnv('gambler_bonus1'), $c->getEnv('gambler_bonus2'), $c->getEnv('gambler_bonus3'),
+            $c->getEnv('gambler_bonus4'),$c->getEnv('gambler_bonus5'),$c->getEnv('gambler_bonus5'));
         $h3=array("00F","00F","841","0F0","0F0","FF0","FF0","FF0","FF0","FF0","FF0",
-                  "F00","F00","F00","F00","F00","F00","F00","F00","F00","F00", "0F0", "841", "00F", "F19","000");
+                  "F00","F00","F00","F00","F00","F00","F00","F00","F00","F00", "0F0", "841", "00F", "F19","000",'F00');
 
         $this->writeTableCell_common($row,$orden);
 
@@ -265,19 +267,24 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         for($n=0;$n<count($h1);$n++) { $this->Cell(5,5,$h1[$n],'RTB',0,'C',false); }
         $this->SetXY($x+15,$y+16);
         for($n=0;$n<count($h2);$n++) { $this->Cell(5,5,$h2[$n],'LBR',0,'C',false); }
-        // tiempo  y total
-        $this->SetXY($x+145,$y+6);
-        $this->ac_header(0,9);
-        $this->Cell(25,5,_('Time').":",'TR',0,'L',false);
-        $this->Cell(20,5,_('Total points').":",'LTR',0,'C',true);
-        // gambler 10 + puntos
-        $this->SetXY($x+145,$y+11);
-        $this->Cell(25,5,"Gambler 1",'TR',0,'L',false);
-        $this->Cell(20,5,"",'TR',0,'L',false);
-        // gambler 20 + Puntos
-        $this->SetXY($x+145,$y+16);
-        $this->Cell(25,5,"Gambler 2",'TRB',0,'L',false);
-        $this->Cell(20,5,"",'BR',0,'L',false);
+        // cajas para tiempo y total
+        $this->ac_header(2,9);
+        $this->SetXY($x+165,$y+6);
+        $this->Cell(25,7.5,"",'LTRB',0,'L',true);
+        $this->SetXY($x+165,$y+13.5);
+        $this->Cell(25,7.5,"",'LTRB',0,'L',true);
+        // gambler, tiempo  y total
+        // primera fila
+        $this->SetXY($x+150,$y+6);
+        $this->Cell(15,7.5,_('Gambler'),'TR',0,'L',false);
+        $this->ac_row(0,9);
+        $this->Cell(15,4,_('Time').":",'',0,'L',false);
+        // segunda fila
+        $this->SetXY($x+150,$y+13.5);
+        $this->Cell(5,7.5,"0",'TRB',0,'C',false);
+        $this->Cell(5,7.5,$c->getEnv('gambler_seq1'),'TRB',0,'C',false);
+        $this->Cell(5,7.5,$c->getEnv('gambler_seq2'),'TRB',0,'C',false);
+        $this->Cell(20,4,_("Opening seq").":",'',0,'L',false);
         // next row
         $this->Ln(12);
     }

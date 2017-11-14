@@ -155,11 +155,12 @@ define('AC_CRONO_RECTIME',"7");		// tiempo (minutos) de reconocimiento de pista 
 define('AC_TEAM4_MODE',"0"); // 0->100+tiempo corre 1->100+tiempo=TRM 2->EquipoEliminado
 define('AC_GAMBLER_SEQ1',"10"); // puntos de la secuencia corta del gambler
 define('AC_GAMBLER_SEQ2',"20"); // puntos de la secuencia corta del gambler
-define('AC_GAMBLER_BONUS1',"6"); // puntos de bonus recorrido 1
-define('AC_GAMBLER_BONUS2',"7"); // puntos de bonus recorrido 2
-define('AC_GAMBLER_BONUS3',"8"); // puntos de bonus recorrido 3
-define('AC_GAMBLER_BONUS4',"9"); // puntos de bonus recorrido 4
-define('AC_GAMBLER_BONUS5',"10"); // puntos de bonus recorrido 5
+define('AC_GAMBLER_BONUS1',"6"); // puntos de bonus adicionales 1
+define('AC_GAMBLER_BONUS2',"7"); // puntos de bonus adicionales 2
+define('AC_GAMBLER_BONUS3',"8"); // puntos de bonus adicionales 3
+define('AC_GAMBLER_BONUS4',"9"); // puntos de bonus adicionales 4
+define('AC_GAMBLER_BONUS5',"10"); // puntos de bonus adicionales 5
+define('AC_GAMBLER_EXTRA',"10"); // puntos de bonus secuencia extra
 
 /** datos de correo electronico defaults are for google */
 define('AC_EMAIL_SERVER',"smtp.gmail.com"); // SMTP Server name
@@ -323,6 +324,7 @@ Class Config {
         'gambler_bonus3'	=> array(	'i',	false,	AC_GAMBLER_BONUS3),
         'gambler_bonus4'	=> array(	'i',	false,	AC_GAMBLER_BONUS4),
         'gambler_bonus5'	=> array(	'i',	false,	AC_GAMBLER_BONUS5),
+        'gambler_extra'		=> array(	'i',	false,	AC_GAMBLER_EXTRA),
 
 		// correo electronico
 		'email_server'		=> array(	's',	false,	AC_EMAIL_SERVER),

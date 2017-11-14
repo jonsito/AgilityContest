@@ -62,19 +62,35 @@ $config =Config::getInstance();
             <table>
                 <tr><td>&nbsp;</td></tr>
                 <tr>
-                    <td rowspan="2" style="width:300px;"><?php _e('Gambler extra Bonus Points'); ?></td>
-                    <td style="width:70px;"><img src="/agility/images/getNumberedBall.php?Number=A&Color=0F0&Background=888" alt="green" width="30"/></td>
-                    <td style="width:70px;"><img src="/agility/images/getNumberedBall.php?Number=B&Color=841&Background=FFF" alt="brown" width="30"/></td>
-                    <td style="width:70px;"><img src="/agility/images/getNumberedBall.php?Number=C&Color=00F&Background=888" alt="blue" width="30"/></td>
-                    <td style="width:70px;"><img src="/agility/images/getNumberedBall.php?Number=D&Color=F19&Background=FFF" alt="pink" width="30"/></td>
-                    <td style="width:70px;"><img src="/agility/images/getNumberedBall.php?Number=E&Color=000&Background=888" alt="black" width="30"/></td>
+                    <td rowspan="2" style="width:300px;"><?php _e('Gambler additional points'); ?></td>
+                    <td style="width:55px;">&nbsp;
+                        <img src="/agility/images/getNumberedBall.php?Number=A&Color=0F0&Background=888" alt="green" width="30"/>
+                    </td>
+                    <td style="width:55px;">&nbsp;
+                        <img src="/agility/images/getNumberedBall.php?Number=B&Color=841&Background=FFF" alt="brown" width="30"/>
+                    </td>
+                    <td style="width:55px;">&nbsp;
+                        <img src="/agility/images/getNumberedBall.php?Number=C&Color=00F&Background=888" alt="blue" width="30"/>
+                    </td>
+                    <td style="width:55px;">&nbsp;
+                        <img src="/agility/images/getNumberedBall.php?Number=D&Color=F19&Background=FFF" alt="pink" width="30"/>
+                    </td>
+                    <td style="width:55px;">&nbsp;
+                        <img src="/agility/images/getNumberedBall.php?Number=E&Color=000&Background=888" alt="black" width="30"/>
+                    </td>
+                    <td style="width:60px;text-align:right;" rowspan="2"><?php _e('Bonus points');?></td>
+                    <td style="width:55px;">&nbsp;
+                        <img src="/agility/images/getNumberedBall.php?Number=X&Color=F00&Background=FFF" alt="red" width="30"/>
+                    </td>
                 </tr>
                 <tr>
-                    <td style="width:70px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus1" id="gambler_bonus1" style="width:30px"/></td>
-                    <td style="width:70px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus2" id="gambler_bonus2" style="width:30px"/></td>
-                    <td style="width:70px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus3" id="gambler_bonus3" style="width:30px"/></td>
-                    <td style="width:70px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus4" id="gambler_bonus4" style="width:30px"/></td>
-                    <td style="width:70px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus5" id="gambler_bonus5" style="width:30px"/></td>
+                    <td style="width:55px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus1" id="gambler_bonus1" style="width:30px"/></td>
+                    <td style="width:55px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus2" id="gambler_bonus2" style="width:30px"/></td>
+                    <td style="width:55px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus3" id="gambler_bonus3" style="width:30px"/></td>
+                    <td style="width:55px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus4" id="gambler_bonus4" style="width:30px"/></td>
+                    <td style="width:55px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_bonus5" id="gambler_bonus5" style="width:30px"/></td>
+                    <!-- rowspan comes here -->
+                    <td style="width:55px;"><input type="number" min="1" max="10" size="2" value="3" name="gambler_extra" id="gambler_extra" style="width:30px"/></td>
                 </tr>
             </table>
             <br/>

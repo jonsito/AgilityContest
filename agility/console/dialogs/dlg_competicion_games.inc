@@ -171,22 +171,29 @@ $config =Config::getInstance();
                 array("B",$config->getEnv('gambler_bonus2'),"841"),
                 array("C",$config->getEnv('gambler_bonus3'),"00F"),
                 array("D",$config->getEnv('gambler_bonus4'),"819"),
-                array("E",$config->getEnv('gambler_bonus5'),"000")
+                array("E",$config->getEnv('gambler_bonus5'),"000"),
+                array("",_('Bonus'),""),
+                array("X",$config->getEnv('gambler_extra'),"F00")
             );
             for($n=0;$n<count($a3);$n++){
-                echo '<td style="width:60px;" align="center"><img src="/agility/images/getNumberedBall.php?Number='.$a3[$n][0].'&Color='.$a3[$n][2].'&Background=888" alt="img'.$n.'" width="40"/></td>';
+                if ($a3[$n][0]==="") echo '<td style="width:55px;text-align:right;">'.$a3[$n][1].':</td>';
+                else echo '<td style="width:55px;" align="center"><img src="/agility/images/getNumberedBall.php?Number='.$a3[$n][0].'&Color='.$a3[$n][2].'&Background=888" alt="img'.$n.'" width="40"/></td>';
             }
-            echo '<th colspan="3" rowspan="3" align="right">'._('Total').':</th>';
-            echo '<th colspan="2" rowspan="3" align="left"><input type="text" style="width:40px" id="cdg-Score" value="0" readonly="readonly"/>&nbsp;'._('Points').'</th>';
+            echo '<th colspan="2" rowspan="3" align="right">'._('Total').':<br/>&nbsp;<br/>'._('Time').':</th>';
+            echo '<th colspan="2" rowspan="3" align="left"><input type="text" style="width:40px" id="cdg-Score" value="0" readonly="readonly"/>&nbsp;'._('Points').'<br/>&nbsp;<br/><input id="cdg-Time" name="cdg-Time" data-options="width:50,min:0,precision:3">'._('Seg').'.</th>';
             echo "</tr><tr>";
             for($n=0;$n<count($a3);$n++){
-                echo '<th style="width:60px;" align="center">'.$a3[$n][1].' Pt.</th>';
+                if ($a3[$n][0]==="") echo '<td style="width:55px">&nbsp;</td>';
+                else echo '<th style="width:55px;" align="center">'.$a3[$n][1].' Pt.</th>';
             }
             echo "</tr><tr>";
             for($n=0;$n<count($a3);$n++){
                 echo '<td style="width:60px;" align="center">';
-                echo '<input type="checkbox" value="'.$a3[$n][1].'" onclick="computeGambler(this);">';
-                echo '<input type="checkbox" value="'.$a3[$n][1].'" onclick="computeGambler(this);">';
+                if ($a3[$n][0]==="") echo '&nbsp;';
+                else {
+                    echo '<input type="checkbox" value="'.$a3[$n][1].'" onclick="computeGambler(this);">';
+                    echo '<input type="checkbox" value="'.$a3[$n][1].'" onclick="computeGambler(this);">';
+                }
                 echo '</td>';
             }
             echo "</tr>";
@@ -199,14 +206,6 @@ $config =Config::getInstance();
                 <td colspan="2"><input id="cdg-Gambler2" type="radio" name="cdg-Gambler" value="<?php echo $config->getEnv('gambler_seq1');?>"/></td>
                 <th><label for="cdg-Gambler3"><?php echo $config->getEnv('gambler_seq2');?> <?php _e('Points');?></label></th>
                 <td colspan="2"><input id="cdg-Gambler3" type="radio" name="cdg-Gambler" value="<?php echo $config->getEnv('gambler_seq2');?>"/></td>
-            </tr>
-
-            <!-- datos de tiempo -->
-
-            <tr><th colspan="6"><br/>&nbsp;</th></tr>
-            <tr>
-                <th colspan="2"><label for="cdg-Time"><?php _e('Time');?></label></th>
-                <td colspan="6"><input id="cdg-Time" name="cdg-Time" data-options="width:50,min:0,precision:3"></td>
             </tr>
         </table>
     </form>
