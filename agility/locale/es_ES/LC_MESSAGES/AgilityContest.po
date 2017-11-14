@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-11-14 15:08+0100\n"
-"PO-Revision-Date: 2017-11-14 15:09+0100\n"
+"POT-Creation-Date: 2017-11-14 18:42+0100\n"
+"PO-Revision-Date: 2017-11-14 18:42+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -341,7 +341,7 @@ msgstr "Reh&uacute;se"
 #: server/modules/competiciones/Liga_UCA.php:41
 #: server/modules/competiciones/Puntuable_CPC_2018.php:126
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:61
-#: server/modules/competiciones/SelectivaWAO_Games.php:79
+#: server/modules/competiciones/SelectivaWAO_Games.php:91
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:97
 #: server/modules/competiciones/Selectiva_PastorBelga.php:83
 #: server/modules/competiciones/lib/resultados/Resultados_KO.php:112
@@ -469,7 +469,7 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 #: server/modules/competiciones/Liga_UCA.php:42
 #: server/modules/competiciones/Puntuable_CPC_2018.php:127
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:62
-#: server/modules/competiciones/SelectivaWAO_Games.php:80
+#: server/modules/competiciones/SelectivaWAO_Games.php:92
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:98
 #: server/modules/competiciones/Selectiva_PastorBelga.php:84
 #: server/pdf/classes/PrintEntradaDeDatos.php:400
@@ -1204,7 +1204,7 @@ msgstr "Tiempo"
 #: server/modules/competiciones/Liga_UCA.php:37
 #: server/modules/competiciones/Puntuable_CPC_2018.php:122
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:57
-#: server/modules/competiciones/SelectivaWAO_Games.php:83
+#: server/modules/competiciones/SelectivaWAO_Games.php:95
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:93
 #: server/modules/competiciones/Selectiva_PastorBelga.php:79
 #: server/pdf/classes/PrintEntradaDeDatos.php:401
@@ -5753,7 +5753,7 @@ msgstr "Grd"
 msgid "Opening Seq"
 msgstr "Cierre"
 
-#: lib/templates/final_games.inc.php:40 lib/templates/final_games.inc.php:47
+#: lib/templates/final_games.inc.php:40
 #: server/pdf/classes/PrintResultadosGames.php:61
 msgid "Closing Seq"
 msgstr "Apertura"
@@ -5771,6 +5771,11 @@ msgstr "Apertura"
 #: videowall/vws_parcial_equipos.php:59 videowall/vws_parcial_individual.php:58
 msgid "Pos"
 msgstr "Pos"
+
+#: lib/templates/final_games.inc.php:47 server/database/classes/poedit.php:51
+#: server/pdf/classes/PrintEntradaDeDatosGames.php:279
+msgid "Gambler"
+msgstr "Gambler"
 
 #: lib/templates/final_games.inc.php:55
 #: lib/templates/final_individual.inc.php:27
@@ -8197,11 +8202,6 @@ msgid "Snkr"
 msgstr "Snkr"
 
 #: server/database/classes/poedit.php:51
-#: server/pdf/classes/PrintEntradaDeDatosGames.php:279
-msgid "Gambler"
-msgstr "Gambler"
-
-#: server/database/classes/poedit.php:51
 msgid "Gmblr"
 msgstr "Gmblr"
 
@@ -8309,7 +8309,7 @@ msgstr "LOE_RRC"
 #: server/modules/competiciones/Liga_UCA.php:36
 #: server/modules/competiciones/Puntuable_CPC_2018.php:121
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:56
-#: server/modules/competiciones/SelectivaWAO_Games.php:82
+#: server/modules/competiciones/SelectivaWAO_Games.php:94
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:92
 #: server/modules/competiciones/Selectiva_PastorBelga.php:78
 #: server/pdf/classes/PrintEntradaDeDatos.php:223

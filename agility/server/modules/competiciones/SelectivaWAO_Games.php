@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . "/../competiciones/lib/resultados/Resultados_Games.php");
+require_once(__DIR__ . "/../competiciones/lib/clasificaciones/Clasificaciones_SelWAO.php");
 
 /**
  * Created by PhpStorm.
@@ -31,7 +32,18 @@ class SelectivaWAO_Games extends Competitions {
         return new Resultados_Games($file,$prueba,$jornada,$manga);
     }
 
-
+    /**
+     * Retrieve handler for manage Clasificaciones functions.
+     * Default is use standard Clasificaciones, but may be overriden ( eg wao and eo )
+     * @param {string} $file
+     * @param {object} $prueba
+     * @param {object} $jornada
+     * @param {integer} $perro Dog ID to evaluate position ( if any )
+     * @return {Resultados} instance of requested Resultados object
+     */
+    protected function getClasificacionesObject($file,$prueba,$jornada,$perro) {
+        return new Clasificaciones_SelWAO($file,$prueba,$jornada,$perro);
+    }
     /**
      * Gets Course penalization, Time, and SCT data and compose penalization
      *
