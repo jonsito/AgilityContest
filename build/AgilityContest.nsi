@@ -249,12 +249,6 @@ Function .onInit
   Delete $TEMP\config.ini
   CopyFiles $INSTDIR\agility\server\auth\registration.info $TEMP
   CopyFiles $INSTDIR\agility\server\auth\config.ini $TEMP
-  ; make sure that application is stopped before uninstall/reinstall
-  ifFileExists "$INSTDIR\xampp\apache\bin\pv.exe" 0 dontExecKillProc
-  Exec '"$INSTDIR\xampp\apache\bin\pv.exe" -f -k httpd.exe -q'
-  Exec '"$INSTDIR\xampp\apache\bin\pv.exe" -f -k mysqld.exe -q'
-
-  dontExecKillProc:
   StrCpy $1 ${esp} ; Spanish is selected by default
 
   ReadRegStr $R0 HKLM \
@@ -274,10 +268,16 @@ Function .onInit
  
 ;Run the uninstaller
 uninst:
-  ; TODO: backup session files
+  ; make sure that application is stopped before uninstall/reinstall
+  ifFileExists "$INSTDIR\xampp\apache\bin\pv.exe" 0 dontExecKillProc
+  nsExec::Exec '"$INSTDIR\xampp\apache\bin\pv.exe" -f -k httpd.exe -q'
+  nsExec::Exec '"$INSTDIR\xampp\apache\bin\pv.exe" -f -k mysqld.exe -q'
+
+  dontExecKillProc:
+
   ClearErrors
-  ; invoke uninstaller
-  ExecWait '$R0 /S _?=$INSTDIR' ;Do not copy the uninstaller to a temp file
+  ; invoke uninstaller without /S (silent) option
+  ExecWait '$R0 _?=$INSTDIR' ;Do not copy the uninstaller to a temp file
      
   IfErrors no_remove_uninstaller done
     ;You can either use Delete /REBOOTOK in the uninstaller or add some code
