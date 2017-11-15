@@ -26,6 +26,7 @@ require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__.'/../modules/Competitions.php');
 require_once(__DIR__.'/classes/PrintClasificacion.php');
+require_once(__DIR__.'/classes/PrintClasificacionGames.php');
 
 try {
 	$result=null;
@@ -46,7 +47,9 @@ try {
 	$c= Competitions::getClasificacionesInstance("print_clasificacion_pdf",$jornada);
 	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
 	// Creamos generador de documento
-	$pdf = new PrintClasificacion($prueba,$jornada,$mangas,$result,$mode);
+    if ($c instanceof Clasificaciones_SelWAO)
+        $pdf=new PrintClasificacionGames($prueba,$jornada,$mangas,$result,$mode);
+	else $pdf = new PrintClasificacion($prueba,$jornada,$mangas,$result,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$suffix=$c->getName($mangas,$mode);

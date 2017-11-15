@@ -577,6 +577,7 @@ class Clasificaciones extends DBObject {
 	 * @param {integer} $rondas bitfield Jornadas::$tipo_ronda
 	 * @param {array[{integer}]} $idmangas array con los ID's de las mangas a evaluar
 	 * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T
+     * @return {array} final clasification data
 	 */
 	function clasificacionFinal($rondas,$idmangas,$mode) {
 
