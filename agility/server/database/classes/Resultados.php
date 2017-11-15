@@ -811,6 +811,7 @@ class Resultados extends DBObject {
         // rastrea los equipos con menos de $mindogs participantes y marca los que faltan
         // no presentados
         $teams=array();
+        $this->myLogger->trace("Hola");
         foreach($equipos as &$equipo) {
             switch(count($equipo['Resultados'])){
                 case 0: continue; // ignore team
@@ -822,16 +823,18 @@ class Resultados extends DBObject {
                 case 3: if ($mindogs==4) $equipo['Penalizacion']+=400.0; // required team member undeclared
                 // no break;
                 case 4:
+                    $t4m=intval($this->myConfig->getEnv('team4_mode'));
+                    $this->myLogger->trace("team4 mode is: $t4m");
                     // in team4 check what to do in Team4mode when a team member is eliminated
                     if ( ($mindogs==$maxdogs) && ($equipo['Eliminados']>0) ) {
                         // 0: 100 penalty points. Team time goes on. Nothing to do
 
                         // 1: 100 penalty points. Team time set to MCT ( European open mode )
-                        if ($this->myConfig->getEnv('team4_mode')==1){
+                        if ($t4m===1){
                             $equipo['Tiempo']=$results['trs']['trm'];
                         }
                         // 2: entire team is eliminated
-                        if ($this->myConfig->getEnv('team4_mode')==2){
+                        if ($t4m===2){
                             $equipo['Penalizacion']=max(100*$mindogs,$equipo['Penalizacion']);
                         }
                     }

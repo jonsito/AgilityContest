@@ -143,7 +143,7 @@ CREATE TABLE `eventos` (
   PRIMARY KEY (`ID`),
   KEY `Eventos_Session` (`Session`),
   CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`Session`) REFERENCES `sesiones` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7497 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7500 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -552,7 +552,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1263 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1264 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -9503,7 +9503,7 @@ INSERT INTO `jornadas` VALUES
 (288,37,8,0,550,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0),
 (289,38,1,0,697,'CS Clasificatoria Standard','2017-11-11','08:30:00',0,0,0,0,3,0,0,0,0,0,0,'(sin especificar)',0,2,0,0),
 (290,38,2,0,698,'CM Clasificatorias Mini_Midi','2017-11-11','08:30:00',0,0,0,0,2,0,0,0,0,0,0,'(sin especificar)',0,2,0,0),
-(291,38,3,0,699,'FS Final Standard','2017-11-11','17:00:00',0,0,0,0,0,4,0,0,0,0,0,'(sin especificar)',0,0,0,0),
+(291,38,3,0,699,'FS Final Standard','2017-11-11','17:00:00',0,0,0,0,0,4,0,0,0,0,0,'(sin especificar)',0,9,0,0),
 (292,38,4,0,700,'FM Final Mini_Midi','2013-01-01','00:00:00',0,0,0,0,0,3,0,0,0,0,0,'(sin especificar)',0,9,0,0),
 (293,38,5,0,701,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0),
 (294,38,6,0,702,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0),
@@ -30390,7 +30390,7 @@ INSERT INTO `resultados` VALUES
 (38,291,445,73,1342,740,'Ona','Golden Retriever','10903','L','GII',0,'Monica Mejias Mota','Neo Reus','2017-11-11 17:30:15','2017-11-11 17:30:15',1,0,0,0,0,0,'',0,0,0),
 (38,291,445,20,1506,734,'Nushka','Border Collie','B253','L','GII',0,'Jose Pavon Rodriguez','Depordog','2017-11-11 17:18:04','2017-11-11 17:18:04',0,2,0,0,0,0,'',0,0,0),
 (38,291,445,29,1534,735,'Kiowa','Border Collie','B112','L','GIII',0,'Pedro Martinez Martin','Euskadi','2017-11-11 17:04:56','2017-11-11 17:04:56',1,1,0,0,0,140.91,'',0,0,0),
-(38,291,445,77,1611,741,'Dina','Border Collie','B251','L','GII',0,'Jacob Suarez Carrasco','Palaciego','2017-11-11 17:11:09','2017-11-11 17:11:09',0,0,0,0,0,154.07,'',0,0,0),
+(38,291,445,77,1611,741,'Dina','Border Collie','B251','L','GII',0,'Jacob Suarez Carrasco','Palaciego','2017-11-15 22:06:59','2017-11-15 22:06:59',1,1,0,0,0,154.07,'',0,0,0),
 (38,291,445,62,1640,757,'Wasabi','Border Collie','B036','L','GIII',0,'Sergio Martin Plano','L\'Almozara','2017-11-11 17:23:07','2017-11-11 17:23:07',1,0,0,0,0,0,'',0,0,0),
 (38,291,445,90,1667,742,'Super','Border Collie','B163','L','GIII',0,'Pau Serrano Ciratursa','Toskahua','2017-11-11 17:07:48','2017-11-11 17:07:48',0,1,0,0,0,137.9,'',0,0,0),
 (38,291,445,89,1814,742,'Malibu','Border Collie','10595','L','GIII',0,'Carmen Briceño De La Rosa','Toskahua','2017-11-11 17:06:25','2017-11-11 17:06:25',0,0,0,1,0,0,'',0,0,0),
@@ -30519,9 +30519,9 @@ INSERT INTO `sesiones` VALUES
 (4,'Ring 3','Mangas a realizar en el tercer ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (5,'Ring 4','Mangas a realizar en el cuarto ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (890,'Console','mayte - Mayte Pérez',9,'Ut6bwQ9ETDge8nOP',0,0,0,0,'',NULL,NULL,NULL,'2016-09-25 06:24:47'),
-(1260,'Console','admin - Administrador de la aplicacion',3,'KJrx8ZQsF3lga62A',0,0,0,0,'',NULL,NULL,NULL,'2017-11-11 07:27:34'),
 (1261,'Console','operator - Operador de consola',4,'Xmyxa5i1s6pqrtPF',0,0,0,0,'',NULL,NULL,NULL,'2017-11-11 08:17:15'),
-(1262,'Console','jantonio - ',7,'heuka16SYgOVHiA4',0,0,0,0,'',NULL,NULL,NULL,'2017-11-11 15:21:58');
+(1262,'Console','jantonio - ',7,'heuka16SYgOVHiA4',0,0,0,0,'',NULL,NULL,NULL,'2017-11-11 15:21:58'),
+(1263,'Console','admin - Administrador de la aplicacion',3,'GVw6iOaMRprF5ICc',0,0,0,0,'',NULL,NULL,NULL,'2017-11-15 21:42:32');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -31794,10 +31794,10 @@ INSERT INTO `tandas` VALUES
 (1350,38,290,2,16,'Jumping Equipos Std','L','-',NULL,32,NULL),
 (1351,38,290,2,17,'Jumping Equipos Midi','M','-',NULL,33,NULL),
 (1352,38,290,2,18,'Jumping Equipos Mini','S','-',NULL,34,NULL),
-(1353,38,291,2,5,'Ag. Equipos Std','L','-',NULL,21,NULL),
-(1354,38,291,2,6,'Ag. Equipos Midi/Mini','MS','-',NULL,22,NULL),
-(1355,38,291,2,7,'Jp. Equipos Std','L','-',NULL,35,NULL),
-(1356,38,291,2,8,'Jp. Equipos Midi/Mini','MS','-',NULL,36,NULL),
+(1353,38,291,2,9,'Ag. Equipos Std','L','-',NULL,21,NULL),
+(1354,38,291,2,10,'Ag. Equipos Midi/Mini','MS','-',NULL,22,NULL),
+(1355,38,291,2,11,'Jp. Equipos Std','L','-',NULL,35,NULL),
+(1356,38,291,2,12,'Jp. Equipos Midi/Mini','MS','-',NULL,36,NULL),
 (1357,38,292,2,9,'Ag. Equipos Std','L','-',NULL,21,NULL),
 (1358,38,292,2,10,'Ag. Equipos Midi/Mini','MS','-',NULL,22,NULL),
 (1359,38,292,2,11,'Jp. Equipos Std','L','-',NULL,35,NULL),
