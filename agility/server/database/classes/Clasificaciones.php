@@ -31,6 +31,10 @@ class Clasificaciones extends DBObject {
     protected $currentDog;
     protected $current=null;
 
+    // to make inner objects public
+    function getJornada(){ return $this->jornada; }
+    function getPrueba(){ return $this->jornada; }
+
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
@@ -214,13 +218,18 @@ class Clasificaciones extends DBObject {
 			$comp->evalFinalCalification($mangas,$resultados,$final[$idx],$puestocat);
 		}
 
-		// Esto es (casi) t odo, amigos
+		// Estamos terminandooo
 		$result=array();
 		$result['total']=$size;
 		$result['rows']=$final;
-		$result['trs1']=$c1['trs'];
-        $result['trs2']=$c2['trs'];
-        $result['trs3']=$c3['trs'];
+		$result['trs1']=($c1!=null)?$c1['trs']:null;
+        $result['trs2']=($c2!=null)?$c2['trs']:null;
+        $result['trs3']=($c3!=null)?$c3['trs']:null;
+        $result['trs4']=($c4!=null)?$c4['trs']:null;
+        $result['trs5']=($c5!=null)?$c5['trs']:null;
+        $result['trs6']=($c6!=null)?$c6['trs']:null;
+        $result['trs7']=($c7!=null)?$c7['trs']:null;
+        $result['trs8']=($c8!=null)?$c8['trs']:null;
         // assume same juez in every mangas
         $result['jueces']=array($c1['manga']->NombreJuez1,$c1['manga']->NombreJuez2);
 

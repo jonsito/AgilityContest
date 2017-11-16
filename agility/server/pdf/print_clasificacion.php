@@ -47,7 +47,7 @@ try {
 	$c= Competitions::getClasificacionesInstance("print_clasificacion_pdf",$jornada);
 	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
 	// Creamos generador de documento
-    if ($c instanceof Clasificaciones_SelWAO)
+    if (intval($c->getJornada()->Games)!==0)
         $pdf=new PrintClasificacionGames($prueba,$jornada,$mangas,$result,$mode);
 	else $pdf = new PrintClasificacion($prueba,$jornada,$mangas,$result,$mode);
 	$pdf->AliasNbPages();

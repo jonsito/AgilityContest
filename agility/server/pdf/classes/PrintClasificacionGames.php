@@ -81,11 +81,11 @@ class PrintClasificacionGames extends PrintCommon {
                     _('Time'),_('Penalization'),_('Position') // final
                     );
                 $this->cell_width=array(
-                    10 /* dorsal*/, 20 /* perro */, 40 /*guia*/,30, /*club */
-                    10,10,5, /*agility A*/ 10,10,5, /* agility B */
-                    10,10,5, /*jumping A*/ 10,10,5, /* jumping B */
-                    10,10,5, /*speedstakes*/
-                    15,15,10 /*final */
+                    10 /* dorsal*/, 20 /* perro */, 44 /*guia*/,25, /*club */
+                    11,11,6, /*agility A*/ 11,11,6, /* agility B */
+                    11,11,6, /*jumping A*/ 11,11,6, /* jumping B */
+                    11,11,6, /*speedstakes*/
+                    13,13,10 /*final */
                 );
                 $this->cell_align=array(
                     'R' /* dorsal*/, 'L' /* perro */, 'L' /*guia*/,'R', /*club */
@@ -104,7 +104,7 @@ class PrintClasificacionGames extends PrintCommon {
                 break;
             case 2: // biathlon
                 $this->cell_header=array(
-                    _('Dorsal'),_('Name'),_('Cat'),_('Handler'),$this->strClub,
+                    _('Dorsal'),_('Name'),_('Handler'),$this->strClub,
                     _('Time'),_('Penal'),_('Pts'),_('Pos'), // Agility A
                     _('Time'),_('Penal'),_('Pts'),_('Pos'), // Agility B
                     _('Time'),_('Penal'),_('Pts'),_('Pos'), // Jumping A
@@ -112,10 +112,10 @@ class PrintClasificacionGames extends PrintCommon {
                     _('Time'),_('Penalization'),_('Points'),_('Position') // final
                 );
                 $this->cell_width=array(
-                    10 /* dorsal*/, 20 /* perro */, 40 /*guia*/,30, /*club */
-                    10,10,5,5, /*agility A*/ 10,10,5,5, /* agility B */
-                    10,10,5,5, /*jumping A*/ 10,10,5,5, /* jumping B */
-                    15,15,10,10 /*final */
+                    10 /* dorsal*/, 20 /* perro */, 41 /*guia*/,23, /*club */
+                    12,10,6,6, /*agility A*/ 12,10,6,6, /* agility B */
+                    12,10,6,6, /*jumping A*/ 12,10,6,6, /* jumping B */
+                    13,13,10,10 /*final */
                 );
                 $this->cell_align=array(
                     'R' /* dorsal*/, 'L' /* perro */, 'L' /*guia*/,'R', /*club */
