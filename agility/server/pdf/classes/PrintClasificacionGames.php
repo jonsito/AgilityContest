@@ -42,10 +42,10 @@ class PrintClasificacionGames extends PrintCommon {
 	protected $categoria;
 	protected $hasGrades;
 
-    protected $cell_headers=array();
-    protected $cell_sizes=array();
+    protected $cell_header=array();
+    protected $cell_width=array();
     protected $cell_align=array();
-    protected $cell_fields=array();
+    protected $cell_field=array();
 
 	 /** Constructor
       * @param {int} $prueba prueba id
@@ -61,7 +61,9 @@ class PrintClasificacionGames extends PrintCommon {
 		$this->resultados=$results['rows'];
 		for($n=0;$n<8;$n++){
 		    $this->mangas[$n]=($mangas[$n]!=0)?$dbobj->__getObject("Mangas",$mangas[$n]):null;
-		    $this->trs_data[$n]=($mangas[$n]!=0)?$results["trs".strval($n+1)]:null;
+		    $this->trs_data[$n]=null;
+		    $k="trs".strval($n+1);
+		    if (array_key_exists($k,$results))  $this->trs_data[$n]=$results[$k];
             $this->tipo_mangas[$n]=($mangas[$n]!=0)?_(Mangas::getTipoManga($this->mangas[$n]->Tipo,3,$this->federation)):"";
         }
 		$this->categoria=$this->getModeString(intval($mode));
@@ -69,32 +71,89 @@ class PrintClasificacionGames extends PrintCommon {
         // evaluamos array de contenidos
         switch (intval($this->jornada->Tipo_Competicion)) {
             case 1: // penthathlon
-                $this->cell_headers=array(
-                    _('Dorsal'),_('Name'),_('Cat'),_('Handler'),$this->strClub,
-                    _('Time'),_('Penal'),_('Vel'),_('Pos'), // Agility A
-                    _('Time'),_('Penal'),_('Vel'),_('Pos'), // Agility B
-                    _('Time'),_('Penal'),_('Vel'),_('Pos'), // Jumping A
-                    _('Time'),_('Penal'),_('Vel'),_('Pos'), // Jumping B
-                    _('Time'),_('Penal'),_('Vel'),_('Pos'), // SpeedStakes
+                $this->cell_header=array(
+                    _('Dorsal'),_('Name'),_('Handler'),$this->strClub,
+                    _('Time'),_('Penal'),_('Pos'), // Agility A
+                    _('Time'),_('Penal'),_('Pos'), // Agility B
+                    _('Time'),_('Penal'),_('Pos'), // Jumping A
+                    _('Time'),_('Penal'),_('Pos'), // Jumping B
+                    _('Time'),_('Penal'),_('Pos'), // SpeedStakes
                     _('Time'),_('Penalization'),_('Position') // final
                     );
+                $this->cell_width=array(
+                    10 /* dorsal*/, 20 /* perro */, 40 /*guia*/,30, /*club */
+                    10,10,5, /*agility A*/ 10,10,5, /* agility B */
+                    10,10,5, /*jumping A*/ 10,10,5, /* jumping B */
+                    10,10,5, /*speedstakes*/
+                    15,15,10 /*final */
+                );
+                $this->cell_align=array(
+                    'R' /* dorsal*/, 'L' /* perro */, 'L' /*guia*/,'R', /*club */
+                    'R','R','C', /*agility A*/ 'R','R','C', /* agility B */
+                    'R','R','C', /*jumping A*/ 'R','R','C', /* jumping B */
+                    'R','R','C', /*speedstakes*/
+                    'R','R','C' /*final */
+                );
+                $this->cell_field=array(
+                    'Dorsal' /* dorsal*/, 'Nombre' /* perro */, 'NombreGuia' /*guia*/,'NombreClub', /*club */
+                    'T1','P1','Puesto1', /*agility A*/ 'T2','P2','Puesto2', /* agility B */
+                    'T3','P3','Puesto3', /*jumping A*/ 'T4','P4','Puesto4', /* jumping B */
+                    'T5','P5','Puesto5', /*speedstakes*/
+                    'Tiempo','Penalizacion','Puesto' /*final */
+                );
                 break;
             case 2: // biathlon
-                $this->cell_headers=array(
+                $this->cell_header=array(
                     _('Dorsal'),_('Name'),_('Cat'),_('Handler'),$this->strClub,
-                    _('Time'),_('Penal'),_('Vel'),_('Pts'),_('Pos'), // Agility A
-                    _('Time'),_('Penal'),_('Vel'),_('Pts'),_('Pos'), // Agility B
-                    _('Time'),_('Penal'),_('Vel'),_('Pts'),_('Pos'), // Jumping A
-                    _('Time'),_('Penal'),_('Vel'),_('Pts'),_('Pos'), // Jumping B
+                    _('Time'),_('Penal'),_('Pts'),_('Pos'), // Agility A
+                    _('Time'),_('Penal'),_('Pts'),_('Pos'), // Agility B
+                    _('Time'),_('Penal'),_('Pts'),_('Pos'), // Jumping A
+                    _('Time'),_('Penal'),_('Pts'),_('Pos'), // Jumping B
                     _('Time'),_('Penalization'),_('Points'),_('Position') // final
+                );
+                $this->cell_width=array(
+                    10 /* dorsal*/, 20 /* perro */, 40 /*guia*/,30, /*club */
+                    10,10,5,5, /*agility A*/ 10,10,5,5, /* agility B */
+                    10,10,5,5, /*jumping A*/ 10,10,5,5, /* jumping B */
+                    15,15,10,10 /*final */
+                );
+                $this->cell_align=array(
+                    'R' /* dorsal*/, 'L' /* perro */, 'L' /*guia*/,'R', /*club */
+                    'R','R','R','C', /*agility A*/ 'R','R','R','C', /* agility B */
+                    'R','R','R','C', /*jumping A*/ 'R','R','R','C', /* jumping B */
+                    'R','R','R','C' /*final */
+                );
+                $this->cell_field=array(
+                    'Dorsal' /* dorsal*/, 'Nombre' /* perro */, 'NombreGuia' /*guia*/,'NombreClub', /*club */
+                    'T1','P1','Pt1','Puesto1', /*agility A*/ 'T2','P2','Pt2','Puesto2', /* agility B */
+                    'T3','P3','Pt3','Puesto3', /*jumping A*/ 'T4','P4','Pt4','Puesto4', /* jumping B */
+                    'Tiempo','Penalizacion','Puntos','Puesto' /*final */
                 );
                 break;
             case 3: // games
-                $this->cell_headers=array(
-                    _('Dorsal'),_('Name'),_('Cat'),_('Handler'),$this->strClub,
+                $this->cell_header=array(
+                    _('Dorsal'),_('Name'),_('Handler'),$this->strClub,
                     _('Time'),_('Opening'),_('Closing'),_('Points'),_('Pos'), // Snooker
                     _('Time'),_('Opening'),_('Gambler'),_('Points'),_('Pos'), // Gambler
                     _('Total Time'),_('Total Points'),_('Position') // final
+                );
+
+                $this->cell_width=array(
+                    10 /* dorsal*/, 18 /* perro */, 41 /*guia*/,28, /*club */
+                    13,14,14,13,9, /*agility A*/ 13,14,14,13,9, /* agility B */
+                    20,20,12 /*final */
+                );
+                $this->cell_align=array(
+                    'R' /* dorsal*/, 'L' /* perro */, 'L' /*guia*/,'R', /*club */
+                    'R','R','R','R','C', /* snooker */
+                    'R','R','R','R','C', /* gambler */
+                    'R','R','C' /*final */
+                );
+                $this->cell_field=array(
+                    'Dorsal' /* dorsal*/, 'Nombre' /* perro */, 'NombreGuia' /*guia*/,'NombreClub', /*club */
+                    'T1','F1','R1','P1','Puesto1', /* snooker*/
+                    'T2','F2','R2','P2','Puesto2', /* gambler */
+                    'Tiempo','Penalizacion','Puesto' /*final */
                 );
                 break;
             default:
@@ -118,29 +177,38 @@ class PrintClasificacionGames extends PrintCommon {
         $this->Cell(80,6,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
 
         // ahora los datos de cada manga individual
-        for ($n=0;$n<8;$n++) {
+        $valid=array(); // lista de mangas de las que hay que presentar datos
+        switch (intval($this->jornada->Tipo_Competicion)) {
+            case 1: $valid=array(0,1,2,3,6); break;
+            case 2: $valid=array(0,1,2,3); break;
+            case 3: $valid=array(4,5); break;
+        }
+        $count=0;
+        foreach ($valid as $n) {
             if ($this->mangas[$n]==null) continue;
             $trs=$this->trs_data[$n];
-            $this->setXY(80,40+8*$n);
+            $this->setXY(80,40+7*$count);
 
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
-            $this->Cell(90,8,"","LTB",0,'L',false);// caja vacia
-            $this->Cell(20,8,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
-            $this->Cell(20,8,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
-            $this->Cell(25,8,_('SCT').": {$trs['trs']}s","LTB",0,'L',false);
-            $this->Cell(25,8,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
-            $this->Cell(25,8,_('Vel').".: {$trs['vel']}m/s","LTRB",0,'L',false);
+            $this->Cell(90,7,"","LTB",0,'L',false);// caja vacia
+            $this->Cell(20,7,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
+            $this->Cell(20,7,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
+            $this->Cell(25,7,_('SCT').": {$trs['trs']}s","LTB",0,'L',false);
+            $this->Cell(25,7,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
+            $this->Cell(25,7,_('Vel').".: {$trs['vel']}m/s","LTRB",0,'L',false);
             // ahora el nombre de la manga y los jueces
             $nmanga=_(Mangas::getTipoManga($this->mangas[$n]->Tipo,3,$this->federation)) . " - " . $this->categoria;
             $juez1=$jobj->selectByID($this->mangas[$n]->Juez1); $juez2=$jobj->selectByID($this->mangas[$n]->Juez2);
-            $this->setXY(81,41+8*$n);
+            $this->setXY(81,41+7*$count);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
-            $this->Cell( 88,4,$nmanga,"",0,'L',false);
-            $this->setXY(81,44+8*$n);
+            $this->Cell( 88,3.5,$nmanga,"",0,'L',false);
+            $this->setXY(81,43.5+7*$count);
             $this->SetFont($this->getFontName(),'I',8); // bold 9px
             $jueces = _('Judge') .": ". $juez1['Nombre'];
             $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
-            $this->Cell( 88,4,$jueces,"",0,'R',false);
+            $this->Cell( 88,3.5,$jueces,"",0,'R',false);
+            $this->Ln();
+            $count++;
         }
         $this->Ln();
 	}
@@ -155,6 +223,7 @@ class PrintClasificacionGames extends PrintCommon {
 		$ronda=_(Mangas::getTipoManga($this->mangas[0]->Tipo,4,$this->federation)); // misma que en todas las mangas
 		$this->SetXY(35,30);
 		$this->Cell(80,7,"$ronda - {$this->categoria}",0,0,'',false);
+		$this->Ln();
 	}
 
 	function Header() {
@@ -167,16 +236,25 @@ class PrintClasificacionGames extends PrintCommon {
 	}
 	
 	function writeTableHeader() {
-	    // to be written
+	    $this->ac_header(1,9);
+	    for($n=0;$n<count($this->cell_header);$n++) {
+	        $this->Cell($this->cell_width[$n],6,$this->cell_header[$n],'LTR',0,$this->cell_align[$n],true);
+        }
+        $this->Ln();
 	}
 	
 	function writeCell($idx,$row) {
-        // to be written
+        $this->ac_row($idx,9);
+        $fill=(($idx%2)!=0)?true:false;
+        for($n=0;$n<count($this->cell_header);$n++) {
+            $this->Cell($this->cell_width[$n],6,$row[$this->cell_field[$n]],'LTR',0,$this->cell_align[$n],$fill);
+        }
+        $this->Ln();
 	}
 	
 	function composeTable() {
 		$this->myLogger->enter();
-        $len=(($this->mangas[0])!==null)?115+(57*3+46)*0.75:115+57*2+46; // lenght of closing line
+        $len=array_sum($this->cell_width);
 
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
 		$this->SetTextColor(0,0,0); // negro
