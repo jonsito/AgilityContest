@@ -451,7 +451,7 @@ class Resultados extends DBObject {
             // comprobamos la coherencia de los datos recibidos y ajustamos
             // NOTA: el orden de estas comprobaciones es MUY importantee
             $djornada=$this->getDatosJornada();
-            if ($djornada->Equipos4!=0) { // pruebas por equipos en modalidad de cuatro conjunta
+            if (intval($djornada->Equipos4)!==0) { // pruebas por equipos en modalidad de cuatro conjunta
                 if ($rehuses>=3) { $tiempo=0; $tintermedio=0; $faltas=0; $tocados=0; $eliminado=1; $nopresentado=0;}
                 if ($tiempo>0) {$nopresentado=0;}
                 if ($eliminado==1) { $tiempo=0; $tintermedio=0; $faltas=0; $tocados=0; $rehuses=0; $nopresentado=0; }

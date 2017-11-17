@@ -197,19 +197,20 @@ class PartialScoresReader extends DogReader {
         $item=$this->myDBObject->__selectAsArray("*",TABLE_NAME,"ID={$options['ExcelID']}");
         if (!$item) return "UpdateEntry(): cannot locate tmpdata for perro: '$perro':".$this->myDBObject->conn->error;
 
-        $f=" Faltas={$item['Faltas']}";
-        $t= (array_key_exists('Tocados',$item))?", Tocados={$item['Tocados']}":"";
-        $r=", Rehuses={$item['Rehuses']}";
-        // trick for KO rounds
-        if (isMangaKO($this->manga['Tipo']) ) $item['Games']=1;
-        $g= (array_key_exists('Games',$item))?", Games={$item['Games']}":"";
-        $e=", Eliminado={$item['Eliminado']}";
-        $n=", NoPresentado={$item['NoPresentado']}";
-        $tim=", Tiempo={$item['Tiempo']}";
-        $str="UPDATE Resultados SET {$f} {$t} {$r} {$g} {$e} {$n} {$tim} , Pendiente=0  ".
-             "WHERE (Resultados.Manga= {$this->manga['ID']} ) AND (Resultados.Perro = {$perro})";
-        $res=$this->myDBObject->query($str);
-        if (!$res) return "updateEntry(): update db result for perro '{$perro}' error:".$this->myDBObject->conn->error;
+        // use resultados::update to handle journey dependency and reuse code
+        $data=array(
+            'Faltas'    =>  $item['Faltas'],
+            'Tocados'   => (array_key_exists('Tocados',$item))?$item['Tocados']:0,
+            'Rehuses'   => $item['Rehuses'],
+            'Games'     => (isMangaKO($this->manga['Tipo']) )? 1:(array_key_exists('Tocados',$item))?$item['Tocados']:0,
+            'Eliminado' => $item['Eliminado'],
+            'NoPresentado' => $item['NoPresentado'],
+            'Tiempo'    => $item['Tiempo'],
+            'Pendiente' => 0
+        );
+        $r=Competitions::getResultadosInstance('ImportResults',$this->manga['ID']);
+        $res=$r->real_update($perro,$data);
+        if (!$res) return "updateEntry(): update db result for perro '{$perro}' error:".$r->conn->error;
 
         // mark entry done in temporary table.
         $str="UPDATE ".TABLE_NAME." SET DogID={$perro} WHERE ID={$item['ID']}";
