@@ -1012,6 +1012,7 @@ class Jornadas extends DBObject {
 			if (intval($jobj->Equipos3)!=0) $flag=false;
 			if (intval($jobj->Equipos4)!=0) $flag=false;
             if (intval($jobj->KO)!=0) $flag=false;
+            if (intval($jobj->Games)!=0) $flag=false;
             if (intval($jobj->Junior)!=0) $flag=false; // en junior no hay grados... por ahora
 		}
 		if (is_array($jobj)) {
@@ -1019,8 +1020,8 @@ class Jornadas extends DBObject {
 			if (intval($jobj['Equipos3'])!=0) $flag=false;
 			if (intval($jobj['Equipos4'])!=0) $flag=false;
             if (intval($jobj['KO'])!=0) $flag=false;
+            if (intval($jobj['Games'])!=0) $flag=false;
             if (intval($jobj['Junior'])!=0) $flag=false;
-
 		}
 		return $flag;
 	}

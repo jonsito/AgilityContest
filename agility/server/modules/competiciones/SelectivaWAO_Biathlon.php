@@ -15,7 +15,7 @@ class SelectivaWAO_Biathlon extends Competitions {
         $this->moduleRevision="20170506_1929";
     }
 
-    function useLongNames() { return false; }
+    function useLongNames() { return true; }
 
     /**
      * Se sigue el criterio PFinal= PTiempo + PRecorrido

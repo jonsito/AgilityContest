@@ -17,7 +17,7 @@ class SelectivaWAO_Games extends Competitions {
         $this->moduleRevision="20170506_1929";
     }
 
-    function useLongNames() { return false; }
+    function useLongNames() { return true; }
 
     /**
      * Retrieve handler for manage Resultados functions.
