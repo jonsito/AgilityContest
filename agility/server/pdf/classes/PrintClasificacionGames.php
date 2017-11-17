@@ -41,11 +41,15 @@ class PrintClasificacionGames extends PrintCommon {
 	protected $resultados;
 	protected $categoria;
 	protected $hasGrades;
+	protected $mname;
 
     protected $cell_header=array();
     protected $cell_width=array();
     protected $cell_align=array();
     protected $cell_field=array();
+    protected $cell_bars=array();
+    protected $cell_htop=array();
+    protected $cell_wtop=array();
 
 	 /** Constructor
       * @param {int} $prueba prueba id
@@ -71,6 +75,11 @@ class PrintClasificacionGames extends PrintCommon {
         // evaluamos array de contenidos
         switch (intval($this->jornada->Tipo_Competicion)) {
             case 1: // penthathlon
+                $this->mname='Penthatlon';
+                $this->cell_htop=array(
+                 _('Competitor data'),'Agility A','Agility B','Jumping A','Jumping B','SpeedStakes',_('Final Scores')
+                );
+                $this->cell_wtop=array(99,28,28,28,28,28,36 );
                 $this->cell_header=array(
                     _('Dorsal'),_('Name'),_('Handler'),$this->strClub,
                     _('Time'),_('Penal'),_('Pos'), // Agility A
@@ -87,6 +96,7 @@ class PrintClasificacionGames extends PrintCommon {
                     11,11,6, /*speedstakes*/
                     13,13,10 /*final */
                 );
+                $this->cell_bars=array(10,89,28,28,28,28,28);
                 $this->cell_align=array(
                     'R' /* dorsal*/, 'L' /* perro */, 'L' /*guia*/,'R', /*club */
                     'R','R','C', /*agility A*/ 'R','R','C', /* agility B */
@@ -103,6 +113,7 @@ class PrintClasificacionGames extends PrintCommon {
                 );
                 break;
             case 2: // biathlon
+                $this->mname='Biathlon';
                 $this->cell_header=array(
                     _('Dorsal'),_('Name'),_('Handler'),$this->strClub,
                     _('Time'),_('Penal'),_('Pts'),_('Pos'), // Agility A
@@ -117,6 +128,11 @@ class PrintClasificacionGames extends PrintCommon {
                     12,10,6,6, /*jumping A*/ 12,10,6,6, /* jumping B */
                     13,13,10,10 /*final */
                 );
+                $this->cell_bars=array(10,84,34,34,34,34);
+                $this->cell_htop=array(
+                    _('Competitor data'),'Agility A','Agility B','Jumping A','Jumping B',_('Final Scores')
+                );
+                $this->cell_wtop=array(94,34,34,34,34,46 );
                 $this->cell_align=array(
                     'R' /* dorsal*/, 'L' /* perro */, 'L' /*guia*/,'R', /*club */
                     'R','R','R','C', /*agility A*/ 'R','R','R','C', /* agility B */
@@ -131,18 +147,23 @@ class PrintClasificacionGames extends PrintCommon {
                 );
                 break;
             case 3: // games
+                $this->mname='Games';
                 $this->cell_header=array(
                     _('Dorsal'),_('Name'),_('Handler'),$this->strClub,
                     _('Time'),_('Opening'),_('Closing'),_('Points'),_('Pos'), // Snooker
                     _('Time'),_('Opening'),_('Gambler'),_('Points'),_('Pos'), // Gambler
                     _('Total Time'),_('Total Points'),_('Position') // final
                 );
-
                 $this->cell_width=array(
                     10 /* dorsal*/, 18 /* perro */, 41 /*guia*/,28, /*club */
                     13,14,14,13,9, /*agility A*/ 13,14,14,13,9, /* agility B */
                     20,20,12 /*final */
                 );
+                $this->cell_bars=array(10,87,63,63);
+                $this->cell_htop=array(
+                    _('Competitor data'),'Snooker','Gambler',_('Final Scores')
+                );
+                $this->cell_wtop=array(97,63,63,52 );
                 $this->cell_align=array(
                     'R' /* dorsal*/, 'L' /* perro */, 'L' /*guia*/,'R', /*club */
                     'R','R','R','R','C', /* snooker */
@@ -173,8 +194,7 @@ class PrintClasificacionGames extends PrintCommon {
 		$this->Ln(6);
         $this->Cell(80,6,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
         $this->Ln(6);
-        $ronda=$this->getGradoString(intval($this->mangas[0]->Tipo)); // todas las mangas comparten grado
-        $this->Cell(80,6,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
+        $this->Cell(80,6,_('Round').": {$this->mname} - {$this->categoria}",0,0,'',false);
 
         // ahora los datos de cada manga individual
         $valid=array(); // lista de mangas de las que hay que presentar datos
@@ -236,20 +256,41 @@ class PrintClasificacionGames extends PrintCommon {
 	}
 	
 	function writeTableHeader() {
-	    $this->ac_header(1,9);
+	    $this->ac_header(1,8);
+        for($n=0;$n<count($this->cell_htop);$n++) {
+            $this->Cell($this->cell_wtop[$n],6,$this->cell_htop[$n],'LTR',0,'C',true);
+        }
+        $this->Ln(6);
 	    for($n=0;$n<count($this->cell_header);$n++) {
 	        $this->Cell($this->cell_width[$n],6,$this->cell_header[$n],'LTR',0,$this->cell_align[$n],true);
         }
-        $this->Ln();
+        // rayas de separacion entre mangas
+        $x=10.1;
+        for($n=0;$n<count($this->cell_bars);$n++){
+            $x+=$this->cell_bars[$n];
+            $this->Line($x,$this->GetY(),$x,$this->GetY() + 6);
+        }
+        $this->Ln(6);
 	}
 	
 	function writeCell($idx,$row) {
-        $this->ac_row($idx,9);
         $fill=(($idx%2)!=0)?true:false;
+        // contenidos
         for($n=0;$n<count($this->cell_header);$n++) {
+            $this->ac_row($idx,8);
+            $this->SetFont($this->getFontName(),'',8);
+            if ($this->cell_header[$n]==_('Name')) $this->SetFont($this->getFontName(),'B',8);
+            if ($this->cell_header[$n]==_('Pos')) $this->SetFont($this->getFontName(),'B',8);
+            if ($this->cell_header[$n]==_('Position')) $this->SetFont($this->getFontName(),'B',10);
             $this->Cell($this->cell_width[$n],6,$row[$this->cell_field[$n]],'LTR',0,$this->cell_align[$n],$fill);
         }
-        $this->Ln();
+        // rayas de separacion entre mangas
+        $x=10.2;
+        for($n=0;$n<count($this->cell_bars);$n++){
+            $x+=$this->cell_bars[$n];
+            $this->Line($x,$this->GetY(),$x,$this->GetY() + 6);
+        }
+        $this->Ln(6);
 	}
 	
 	function composeTable() {
@@ -260,7 +301,7 @@ class PrintClasificacionGames extends PrintCommon {
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetFont($this->getFontName(),'',8); // default font
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-		$this->SetLineWidth(.3);
+		$this->SetLineWidth(.5);
 		
 		$rowcount=0;
 		$this->AddPage();
