@@ -76,12 +76,12 @@ class Updater {
 
         // phase 1: retrieve database file from "extras" directory
         $fp=fopen(__DIR__."/../../extras/agility.sql", "r");
-        if (!$fp) die("Cannot load database file to be installed");
+        if (!$fp) return "Cannot load database file to be installed";
 
         // phase 2: verify received file
         $str=fgets($fp);
         if (strpos(substr($str,0,25),"-- AgilityContest")===FALSE)
-            throw new Exception("Provided file is not an AgilityContest backup file");
+            return "Provided install file is not an AgilityContest backup file";
 
         // phase 3: delete all tables and structures from database
         $this->conn->query('SET foreign_key_checks = 0');
@@ -90,6 +90,7 @@ class Updater {
                 $this->install_log("Drop table {$row[0]} ");
                 $res=$this->conn->query('DROP TABLE IF EXISTS '.$row[0]);
                 $this->install_log(($res)? "OK<br/>": "Error: {$this->conn->error} <br/>");
+                if (!$res) return $this->conn->error;
             }
         }
         $this->conn->query('SET foreign_key_checks = 1');
@@ -538,9 +539,11 @@ try {
         ob_implicit_flush(true);
         $res=$upg->installDB();
         if ($res!=="") {
+            $upg->install_log('<script type="text/javascript">alert("Database installation failed: '.$res.'");</script>');
             $upg->install_log("Database installation failed: $res<br/>&nbsp;</p></div></body></html>");
             die("Install DB error: $res . Please contact author");
         }
+        $upg->install_log('<script type="text/javascript">alert("Database installation OK");</script>');
         ob_implicit_flush(false);
     }
     // when not in first install, process database to make it compliant with sofwtare version
