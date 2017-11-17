@@ -659,10 +659,12 @@ class Clasificaciones extends DBObject {
                 $tj= intval($this->jornada->Tipo_Competicion);
                 // vemos la modalidad y extraemos las mangas relevantes para la clasificacion
                 // existira un modulo de clasificacion para cada manga
+                // las mangas reales tienen este indice
                 // 0:AgilityA 1:AgilityB 2:JumpingA 3:JumpingB 4:Snooker 5:Gambler 6:SpeedStakes
+                // pero Jornadas::roundsByJornada() las agrupa, con lo que los indices son los que se indican aqui
                 switch($tj){
                     case 1: // penthatlon
-                        $r5=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[6]}",$idmangas[6]); // speed stakes
+                        $r5=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[4]}",$idmangas[4]); // speed stakes
                         $c5=$r5->getResultadosIndividual($mode);
                         // no break
                     case 2: // biathlon
@@ -676,9 +678,9 @@ class Clasificaciones extends DBObject {
                         $c1=$r1->getResultadosIndividual($mode);
                         break;
                     case 3: // Games
-                        $r2=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[5]}",$idmangas[5]); // Gambler
+                        $r2=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$idmangas[1]); // Gambler
                         $c2=$r2->getResultadosIndividual($mode);
-                        $r1=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[4]}",$idmangas[4]); // Snooker
+                        $r1=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$idmangas[0]); // Snooker
                         $c1=$r1->getResultadosIndividual($mode);
                         break;// games
                     default: $this->errormsg= "Clasificaciones:: invalid Tipo_Competicion:{$tj} in jornada:{$this->jornada->ID} in Games rounds";

@@ -645,54 +645,99 @@ class Jornadas extends DBObject {
             ) );
 		}
         if ($row->Games!=0) {
-            $manga1= $this->fetchManga($mangas['rows'],$jornadaid,25); // Agility A
-            $manga2= $this->fetchManga($mangas['rows'],$jornadaid,26); // Agility B
-            $manga3= $this->fetchManga($mangas['rows'],$jornadaid,27); // Jumpìng A
-            $manga4= $this->fetchManga($mangas['rows'],$jornadaid,28); // Jumping B
-            $manga5= $this->fetchManga($mangas['rows'],$jornadaid,29); // Snooker
-            $manga6= $this->fetchManga($mangas['rows'],$jornadaid,30); // Gambler
-            $manga7= $this->fetchManga($mangas['rows'],$jornadaid,31); // SpeedStakes
-            $manga8= null;
-            array_push($data,array(
-                "Rondas" => $this->federation->getTipoRondas()[15][0],
-                "Nombre" => $this->federation->getTipoRondas()[15][1],
-                "Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],"Manga3" => $manga3['ID'],"Manga4" => $manga4['ID'],
-                "Manga5" => $manga5['ID'],"Manga6" => $manga6['ID'],"Manga7" => $manga7['ID'],"Manga8" => 0,
-                "NombreManga1" => $this->federation->getTipoManga(25,3), // Agility A
-                "NombreManga2" => $this->federation->getTipoManga(26,3), // Agility B
-                "NombreManga3" => $this->federation->getTipoManga(27,3), // Jumping A
-                "NombreManga4" => $this->federation->getTipoManga(28,3), // Jumping B
-                "NombreManga5" => $this->federation->getTipoManga(29,3), // Snooker
-                "NombreManga6" => $this->federation->getTipoManga(30,3), // Gambler
-                "NombreManga7" => $this->federation->getTipoManga(31,3), // SpeedStakes
-                "NombreManga8" => '',
-                "Recorrido1" => $manga1['Recorrido'],
-                "Recorrido2" => $manga2['Recorrido'],
-                "Recorrido3" => $manga3['Recorrido'],
-                "Recorrido4" => $manga4['Recorrido'],
-                "Recorrido5" => $manga5['Recorrido'],
-                "Recorrido6" => $manga6['Recorrido'],
-                "Recorrido7" => $manga7['Recorrido'],
-                "Juez11" => $this->fetchJuez($manga1['Juez1']),
-                "Juez12" => $this->fetchJuez($manga1['Juez2']),
-                "Juez21" => $this->fetchJuez($manga2['Juez1']),
-                "Juez22" => $this->fetchJuez($manga2['Juez2']),
-                "Juez31" => $this->fetchJuez($manga3['Juez1']),
-                "Juez32" => $this->fetchJuez($manga3['Juez2']),
-                "Juez41" => $this->fetchJuez($manga4['Juez1']),
-                "Juez42" => $this->fetchJuez($manga4['Juez2']),
-                "Juez51" => $this->fetchJuez($manga5['Juez1']),
-                "Juez52" => $this->fetchJuez($manga5['Juez2']),
-                "Juez61" => $this->fetchJuez($manga6['Juez1']),
-                "Juez62" => $this->fetchJuez($manga6['Juez2']),
-                "Juez71" => $this->fetchJuez($manga7['Juez1']),
-                "Juez72" => $this->fetchJuez($manga7['Juez2'])
-            ) );
+            $tipo = intval($row->Tipo_Competicion);
+            // depending of games journey type, need to select wich round to peek
+            if ($tipo === 1) { // Penthatlon
+                $manga1= $this->fetchManga($mangas['rows'],$jornadaid,25); // Agility A
+                $manga2= $this->fetchManga($mangas['rows'],$jornadaid,26); // Agility B
+                $manga3= $this->fetchManga($mangas['rows'],$jornadaid,27); // Jumpìng A
+                $manga4= $this->fetchManga($mangas['rows'],$jornadaid,28); // Jumping B
+                $manga5= $this->fetchManga($mangas['rows'],$jornadaid,31); // SpeedStakes
+                $manga6= null;
+                $manga7= null;
+                $manga8= null;
+                array_push($data,array(
+                    "Rondas" => $this->federation->getTipoRondas()[15][0],
+                    "Nombre" => $this->federation->getTipoRondas()[15][1],
+                    "Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
+                    "Manga3" => $manga3['ID'],"Manga4" => $manga4['ID'],
+                    "Manga5" => $manga5['ID'],"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
+                    "NombreManga1" => $this->federation->getTipoManga(25,3), // Agility A
+                    "NombreManga2" => $this->federation->getTipoManga(26,3), // Agility B
+                    "NombreManga3" => $this->federation->getTipoManga(27,3), // Jumping A
+                    "NombreManga4" => $this->federation->getTipoManga(28,3), // Jumping B
+                    "NombreManga5" => $this->federation->getTipoManga(31,3), // SpeedStakes
+                    "Recorrido1" => $manga1['Recorrido'],
+                    "Recorrido2" => $manga2['Recorrido'],
+                    "Recorrido3" => $manga3['Recorrido'],
+                    "Recorrido4" => $manga4['Recorrido'],
+                    "Recorrido5" => $manga5['Recorrido'],
+                    "Juez11" => $this->fetchJuez($manga1['Juez1']),
+                    "Juez12" => $this->fetchJuez($manga1['Juez2']),
+                    "Juez21" => $this->fetchJuez($manga2['Juez1']),
+                    "Juez22" => $this->fetchJuez($manga2['Juez2']),
+                    "Juez31" => $this->fetchJuez($manga3['Juez1']),
+                    "Juez32" => $this->fetchJuez($manga3['Juez2']),
+                    "Juez41" => $this->fetchJuez($manga4['Juez1']),
+                    "Juez42" => $this->fetchJuez($manga4['Juez2']),
+                    "Juez51" => $this->fetchJuez($manga5['Juez1']),
+                    "Juez52" => $this->fetchJuez($manga5['Juez2'])
+                ) );
+            } else if ($tipo === 2) { // Biathlon
+                $manga1= $this->fetchManga($mangas['rows'],$jornadaid,25); // Agility A
+                $manga2= $this->fetchManga($mangas['rows'],$jornadaid,26); // Agility B
+                $manga3= $this->fetchManga($mangas['rows'],$jornadaid,27); // Jumpìng A
+                $manga4= $this->fetchManga($mangas['rows'],$jornadaid,28); // Jumping B
+                $manga5= null; $manga6= null; $manga7= null; $manga8= null;
+                array_push($data,array(
+                    "Rondas" => $this->federation->getTipoRondas()[15][0],
+                    "Nombre" => $this->federation->getTipoRondas()[15][1],
+                    "Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
+                    "Manga3" => $manga3['ID'],"Manga4" => $manga4['ID'],
+                    "Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
+                    "NombreManga1" => $this->federation->getTipoManga(25,3), // Agility A
+                    "NombreManga2" => $this->federation->getTipoManga(26,3), // Agility B
+                    "NombreManga3" => $this->federation->getTipoManga(27,3), // Jumping A
+                    "NombreManga4" => $this->federation->getTipoManga(28,3), // Jumping B
+                    "Recorrido1" => $manga1['Recorrido'],
+                    "Recorrido2" => $manga2['Recorrido'],
+                    "Recorrido3" => $manga3['Recorrido'],
+                    "Recorrido4" => $manga4['Recorrido'],
+                    "Juez11" => $this->fetchJuez($manga1['Juez1']),
+                    "Juez12" => $this->fetchJuez($manga1['Juez2']),
+                    "Juez21" => $this->fetchJuez($manga2['Juez1']),
+                    "Juez22" => $this->fetchJuez($manga2['Juez2']),
+                    "Juez31" => $this->fetchJuez($manga3['Juez1']),
+                    "Juez32" => $this->fetchJuez($manga3['Juez2']),
+                    "Juez41" => $this->fetchJuez($manga4['Juez1']),
+                    "Juez42" => $this->fetchJuez($manga4['Juez2'])
+                ) );
+            } else if ($tipo === 3) { // Games
+                $manga1= $this->fetchManga($mangas['rows'],$jornadaid,29); // Snooker
+                $manga2= $this->fetchManga($mangas['rows'],$jornadaid,30); // Gambler
+                $manga3=null;$manga4=null;$manga5=null;$manga6=null;$manga7=null;$manga8=null;
+                array_push($data,array(
+                    "Rondas" => $this->federation->getTipoRondas()[15][0],
+                    "Nombre" => $this->federation->getTipoRondas()[15][1],
+                    "Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],"Manga3" => 0,"Manga4" => 0,
+                    "Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
+                    "NombreManga1" => $this->federation->getTipoManga(29,3), // Snooker
+                    "NombreManga2" => $this->federation->getTipoManga(30,3), // Gambler
+                    "Recorrido1" => $manga1['Recorrido'],
+                    "Recorrido2" => $manga2['Recorrido'],
+                    "Juez11" => $this->fetchJuez($manga1['Juez1']),
+                    "Juez12" => $this->fetchJuez($manga1['Juez2']),
+                    "Juez21" => $this->fetchJuez($manga2['Juez1']),
+                    "Juez22" => $this->fetchJuez($manga2['Juez2'])
+                ) );
+            } else {
+                $this->myLogger->error("Invalid Tipo_competicion in games journey");
+            }
         }
 		if ($row->Especial!=0) {
 			// TODO: $row->Special indicates number of rounds. Current and default is 1
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,16); // 'Manga especial'
-			$manga2= null;
+            $manga2= null;$manga3= null;$manga4= null;$manga5= null;$manga6= null;$manga7= null;$manga8= null;
             array_push($data,array(
                 "Rondas" => $this->federation->getTipoRondas()[10][0],
                 "Nombre" => $this->federation->getTipoRondas()[10][1],

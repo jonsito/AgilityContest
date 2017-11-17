@@ -199,9 +199,9 @@ class PrintClasificacionGames extends PrintCommon {
         // ahora los datos de cada manga individual
         $valid=array(); // lista de mangas de las que hay que presentar datos
         switch (intval($this->jornada->Tipo_Competicion)) {
-            case 1: $valid=array(0,1,2,3,6); break;
+            case 1: $valid=array(0,1,2,3,4); break;
             case 2: $valid=array(0,1,2,3); break;
-            case 3: $valid=array(4,5); break;
+            case 3: $valid=array(0,1); break;
         }
         $count=0;
         foreach ($valid as $n) {
@@ -306,8 +306,13 @@ class PrintClasificacionGames extends PrintCommon {
 		$rowcount=0;
 		$this->AddPage();
 		$this->print_datosMangas();
+		switch(intval($this->jornada->Tipo_Competicion)) {
+            case 1: $numrows=15; break;//penthathlon
+            case 2: $numrows=16; break;//biathlon
+            case 3: $numrows=18; break;//games
+            default:$numrows=22; break; // should not happen
+        }
 		foreach($this->resultados as $row) {
-			$numrows=($this->PageNo()==1)?18:22;
 			if($rowcount==0) $this->writeTableHeader();	
 			$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 			$this->writeCell( $rowcount % $numrows,$row);
@@ -318,6 +323,7 @@ class PrintClasificacionGames extends PrintCommon {
 				$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 				$this->cell($len,0,'','T'); // celda sin altura y con raya
 				$this->AddPage();
+                $numrows=22;
 				$rowcount=0;
 			}
 		}
