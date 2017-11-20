@@ -159,6 +159,7 @@ class Updater {
         $rs=$this->conn->query($str);
         if (!$rs) throw new Exception ("upgrade::getVersionHistory(): ".$this->conn->error);
         $res = $rs->fetch_array(MYSQLI_ASSOC);
+        $rs->free();
         $this->last_version = ($res)? $res['Version'] : MINVER;
         $this->myLogger->trace("current: {$this->current_version} last_stored: {$this->last_version}");
         if (strcmp($this->current_version,$this->last_version) > 0 ) {
@@ -166,12 +167,16 @@ class Updater {
             $str="INSERT INTO VersionHistory (Version) VALUES ('{$this->current_version}') ";
             $res=$this->conn->query($str);
             if (!$res) throw new Exception ("upgrade::updateHistoryTable(): ".$this->conn->error);
+            $this->myLogger->leave();
+            return true; // new release: mark database to be updated
         }
-        $rs->free();
         $this->myLogger->leave();
+        // same version than installed. No need to update database
+        return false;
     }
 
     function dropColumnIfExists($table,$field) {
+        $this->myLogger->enter();
         $drop = "DROP PROCEDURE IF EXISTS DropColumnIfExists;";
         $create = "
         CREATE PROCEDURE DropColumnIfExists()
@@ -195,7 +200,7 @@ class Updater {
     }
 
     function addColumnUnlessExists($table,$field,$data,$def=null) {
-        // $this->myLogger->enter();
+        $this->myLogger->enter();
         $str="";
         if (!is_null($def)) {
             // check for enclose default into single quotes
@@ -237,6 +242,7 @@ class Updater {
 
     //2.0.0b stupid mysql doesn't properly dump views
     function updatePerroGuiaClub() {
+        $this->myLogger->enter();
         $cmds=array(
             "DROP TABLE IF EXISTS `perroguiaclub`;",
             "DROP VIEW IF EXISTS `perroguiaclub`;",
@@ -277,6 +283,7 @@ class Updater {
 
     // 2.0.0 20150720_0135 add cascade to foreign keys on inscripciones
     function updateInscripciones() {
+        $this->myLogger->enter();
         $cmds=array(
             "ALTER TABLE `Inscripciones` DROP FOREIGN KEY `Inscripciones_ibfk_1`;",
             "ALTER TABLE `Inscripciones` ADD CONSTRAINT `Inscripciones_ibfk_1`
@@ -291,6 +298,7 @@ class Updater {
 
     // add country list if not exist
     function addCountries() {
+        $this->myLogger->enter();
         $country="";
         $lcountry="";
         $name="";
@@ -319,6 +327,7 @@ class Updater {
     }
 
     function upgradeTeams() {
+        $this->myLogger->enter();
         $cmds= array(
             "UPDATE `Jornadas` SET `Equipos3`=3 WHERE (`Equipos3`=1);",
             "UPDATE `Jornadas` SET `Equipos4`=4 WHERE (`Equipos4`=1);"
@@ -329,11 +338,13 @@ class Updater {
 
     // clear (if any) Application Upgrade request
     function removeUpdateMark() {
+        $this->myLogger->enter();
         $f=__DIR__."/../../logs/do_upgrade";
         if (file_exists($f)) unlink($f);
     }
 
     function setTRStoFloat() {
+        $this->myLogger->enter();
         $cmds= array(
             "ALTER TABLE `Mangas` MODIFY `TRS_L_Factor` float(5);",
             "ALTER TABLE `Mangas` MODIFY `TRM_L_Factor` float(5) NOT NULL DEFAULT '50.0';",
@@ -360,6 +371,7 @@ class Updater {
     // definimos hasta cuatro rings por pais, indicando en cada ring
     // la categoria y el tiempo en segundos
     function createTrainingTable() {
+        $this->myLogger->enter();
         $str="
         CREATE TABLE IF NOT EXISTS `Entrenamientos` (
           `ID` int(4) NOT NULL AUTO_INCREMENT,
@@ -401,6 +413,7 @@ class Updater {
      * till now these field was unused with default value 'BEGIN,END'
      */
     function populateTeamMembers() {
+        $this->myLogger->enter();
         $teams=$this->myDBObject->__select("*","Equipos","(Miembros='BEGIN,END') AND (DefaultTeam=0)","","");
         foreach ($teams['rows'] as $team) {
             $j=$team['Jornada'];
@@ -425,6 +438,7 @@ class Updater {
      * @return
      */
     function addNewMangaTypes() {
+        $this->myLogger->enter();
         $cmds= array(
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(17,'Agility Grado 1 Manga 3','GI')",
             "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(18,'K.O. Round 2','-')",
@@ -455,6 +469,7 @@ class Updater {
      * @return 0 on success
      */
     function updatePreAgility() {
+        $this->myLogger->enter();
         $cmds= array(
             // new usage is PreAgility: 0:none 1:single_round 2:double_round
             // leave PreAgility2 unchanged to maintain backward compatibility, but next thing is to remove
@@ -469,6 +484,7 @@ class Updater {
      * @return {int} 0 on success
      */
     function addNewGradeTypes() {
+        $this->myLogger->enter();
         $cmds= array(
             // temporary hack for Junior and Senior grades
             // this sucks: Jr and Sr are handler categories, not dog ones, but...
@@ -495,6 +511,7 @@ class Updater {
      * as license convention changes, use Loe/ RRC to check if a dog is elegible for puntuaction in selectives
      */
     function fixLOERRC2017() {
+        $this->myLogger->enter();
         $cmds= array(
             "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like '0%')",
             "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'A%')",
@@ -506,6 +523,7 @@ class Updater {
     }
 
     function addMailList() {
+        $this->myLogger->enter();
         $this->addColumnUnlessExists("Pruebas", "MailList", "TEXT"); // text column cannot have default values
         $cmds= array(
             "UPDATE Pruebas SET MailList='BEGIN,END' WHERE MailList IS NULL"
@@ -516,6 +534,7 @@ class Updater {
 
     // make default club and judge belong to every national federations (0..4)
     function updateDefaultJuezClub() {
+        $this->myLogger->enter();
         $cmds= array(
             "UPDATE Clubes SET Federations=31 WHERE ID=1",
             "UPDATE Jueces SET Federations=31 WHERE ID=1",
@@ -545,43 +564,45 @@ try {
         }
         $upg->install_log('<script type="text/javascript">alert("Database installation OK");</script>');
         ob_implicit_flush(false);
+    } else {
+        // when not in first install, process database to make it compliant with sofwtare version
+        $upg->removeUpdateMark();
+        $needToUpdate=$upg->updateVersionHistory();
+        if (!$needToUpdate) return; // database already updated. so just return
+        // software version changed. make sure that database is upgraded
+        $upg->addCountries();
+        $upg->addColumnUnlessExists("Mangas", "Orden_Equipos", "TEXT");
+        $upg->addColumnUnlessExists("Resultados", "TIntermedio", "double", "0.0");
+        $upg->addColumnUnlessExists("Resultados", "Games", "int(4)", "0");
+        $upg->addColumnUnlessExists("Perros", "NombreLargo", "varchar(255)");
+        $upg->addColumnUnlessExists("Perros", "Chip", "varchar(255)", "");
+        $upg->addColumnUnlessExists("Perros", "Genero", "varchar(16)", "-"); // -,M,F
+        $upg->addColumnUnlessExists("Guias", "Categoria", "varchar(16)","A");// -,I,J,A,S,V,P
+        $upg->addColumnUnlessExists("Provincias", "Pais", "varchar(2)", "ES");
+        $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
+        $upg->addColumnUnlessExists("Jornadas", "Games", "int(4)", "0");
+        $upg->addColumnUnlessExists("Jornadas", "Junior", "tinyint(1)", "0");
+        $upg->addColumnUnlessExists("Jornadas", "Senior", "tinyint(1)", "0");
+        $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
+        // on server edition need to track modification time
+        $upg->addColumnUnlessExists("Perros", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+        $upg->addColumnUnlessExists("Guias", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+        $upg->addColumnUnlessExists("Clubes", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+        $upg->addColumnUnlessExists("Jueces", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+        $upg->updatePreAgility();
+        $upg->updatePerroGuiaClub();
+        // $upg->updateInscripciones(); not needed as
+        $upg->upgradeTeams();
+        $upg->setTRStoFloat();
+        $upg->createTrainingTable();
+        $upg->populateTeamMembers();
+        $upg->addNewGradeTypes();
+        $upg->addNewMangaTypes();
+        $upg->fixLOERRC2017();
+        $upg->addColumnUnlessExists("Usuarios", "Club", "int(4)", "1");
+        $upg->addMailList();
+        $upg->updateDefaultJuezClub();
     }
-    // when not in first install, process database to make it compliant with sofwtare version
-    $upg->removeUpdateMark();
-    $upg->updateVersionHistory();
-    $upg->addCountries();
-    $upg->addColumnUnlessExists("Mangas", "Orden_Equipos", "TEXT");
-    $upg->addColumnUnlessExists("Resultados", "TIntermedio", "double", "0.0");
-    $upg->addColumnUnlessExists("Resultados", "Games", "int(4)", "0");
-    $upg->addColumnUnlessExists("Perros", "NombreLargo", "varchar(255)");
-    $upg->addColumnUnlessExists("Perros", "Chip", "varchar(255)", "");
-    $upg->addColumnUnlessExists("Perros", "Genero", "varchar(16)", "-"); // -,M,F
-    $upg->addColumnUnlessExists("Perros", "LastModified", "timestamp", "NOW()"); // for updates
-    $upg->addColumnUnlessExists("Guias", "Categoria", "varchar(16)","A");// -,I,J,A,S,V,P
-    $upg->addColumnUnlessExists("Provincias", "Pais", "varchar(2)", "ES");
-    $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
-    $upg->addColumnUnlessExists("Jornadas", "Games", "int(4)", "0");
-    $upg->addColumnUnlessExists("Jornadas", "Junior", "tinyint(1)", "0");
-    $upg->addColumnUnlessExists("Jornadas", "Senior", "tinyint(1)", "0");
-    $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
-    // on server edition need to track modification time
-    $upg->addColumnUnlessExists("Perros", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-    $upg->addColumnUnlessExists("Guias", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-    $upg->addColumnUnlessExists("Clubes", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-    $upg->addColumnUnlessExists("Jueces", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-    $upg->updatePreAgility();
-    $upg->updatePerroGuiaClub();
-    $upg->updateInscripciones();
-    $upg->upgradeTeams();
-    $upg->setTRStoFloat();
-    $upg->createTrainingTable();
-    $upg->populateTeamMembers();
-    $upg->addNewGradeTypes();
-    $upg->addNewMangaTypes();
-    $upg->fixLOERRC2017();
-    $upg->addColumnUnlessExists("Usuarios", "Club", "int(4)", "1");
-    $upg->addMailList();
-    $upg->updateDefaultJuezClub();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }
