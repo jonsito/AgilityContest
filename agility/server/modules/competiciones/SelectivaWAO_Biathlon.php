@@ -1,5 +1,6 @@
 <?php
 
+require_once(__DIR__ . "/../competiciones/lib/clasificaciones/Clasificaciones_SelWAO.php");
 /**
  * Created by PhpStorm.
  * User: jantonio
@@ -66,20 +67,20 @@ class SelectivaWAO_Biathlon extends Competitions {
             $perro['CShort'] = _("N.C.");
         }
         else if ($perro['Penalizacion']>=16)	{
-            $perro['Calificacion'] = _("Good")." ".$pt1;
-            $perro['CShort'] = _("Good")." ".$pt1;
+            $perro['Calificacion'] = _("Good");
+            $perro['CShort'] = _("Good");
         }
         else if ($perro['Penalizacion']>=6)	{
-            $perro['Calificacion'] = _("Very good")." ".$pt1;
-            $perro['CShort'] = _("V.G.")." ".$pt1;
+            $perro['Calificacion'] = $pt1." - "._("Very good");
+            $perro['CShort'] = $pt1." - "._("V.G.");
         }
         else if ($perro['Penalizacion']>0)	{
-            $perro['Calificacion'] = _("Excellent")." ".$pt1;
-            $perro['CShort'] = _("Exc")." ".$pt1;
+            $perro['Calificacion'] = $pt1." - "._("Excellent");
+            $perro['CShort'] = $pt1." - "._("Exc");
         }
         else if ($perro['Penalizacion']==0)	{
-            $perro['Calificacion'] = _("Excellent")." ".$pt1;
-            $perro['CShort'] = _("Exc")." ".$pt1;
+            $perro['Calificacion'] = $pt1." - "._("Excellent");
+            $perro['CShort'] = $pt1." - "._("Exc");
         }
         // datos para la exportacion de parciales en excel
         $perro['Puntos'] = $pt1;
@@ -100,31 +101,25 @@ class SelectivaWAO_Biathlon extends Competitions {
         // la calificacion final es la suma de los puntos
         // de las dos mangas de agility y las dos mangas del jumping
         // si en alguna manga el perro es no presentado, no clasifica en la final
-
-        $hasPoints=true;
-        // manga 1
-        $puntos = 0;
-        if ($resultados[0] !== null) { // extraemos los puntos de la primera manga
-            $x=trim(substr($perro['C1'],-2));
-            $puntos +=(is_numeric($x))?intval($x):0;
-        } else $hasPoints=false;
-        // manga 2
-        if ($resultados[1]!==null) { // extraemos los puntos de la segunda manga
-            $x=trim(substr($perro['C2'],-2));
-            $puntos +=(is_numeric($x))?intval($x):0;
-        } else $hasPoints=false;
-        // manga 3
-        if ($resultados[2] !== null) { // extraemos los puntos de la tercera manga
-            $x=trim(substr($perro['C3'],-2));
-            $puntos +=(is_numeric($x))?intval($x):0;
-        } else $hasPoints=false;
-        // manga 4
-        if ($resultados[3]!==null) { // extraemos los puntos de la cuarta manga
-            $x=trim(substr($perro['C4'],-2));
-            $puntos +=(is_numeric($x))?intval($x):0;
-        } else $hasPoints=false;
+        $hasPoints=intval($perro['N1'])+intval($perro['N2'])+intval($perro['N3'])+intval($perro['N4']);
+        $puntos=intval($perro['Pt1'])+intval($perro['Pt2'])+intval($perro['Pt3'])+intval($perro['Pt4']);
+        do_log("HasPoints:{$hasPoints} PERRO: ".json_encode($perro));
         // conjunta
-        $perro['Calificacion']= ($hasPoints)? strval($puntos): "-";
+        $perro['CShort']= ($hasPoints===0)? $puntos: "-";
+        $perro['Calificacion']= ($hasPoints===0)? $puntos: "-";
         return;
+    }
+
+    /**
+     * Retrieve handler for manage Clasificaciones functions.
+     * Default is use standard Clasificaciones, but may be overriden ( eg wao and eo )
+     * @param {string} $file
+     * @param {object} $prueba
+     * @param {object} $jornada
+     * @param {integer} $perro Dog ID to evaluate position ( if any )
+     * @return {Resultados} instance of requested Resultados object
+     */
+    protected function getClasificacionesObject($file,$prueba,$jornada,$perro) {
+        return new Clasificaciones_SelWAO($file,$prueba,$jornada,$perro);
     }
 }

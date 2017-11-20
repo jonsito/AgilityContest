@@ -143,7 +143,7 @@ class PrintClasificacionGames extends PrintCommon {
                     'Dorsal' /* dorsal*/, 'Nombre' /* perro */, 'NombreGuia' /*guia*/,'NombreClub', /*club */
                     'T1','P1','Pt1','Puesto1', /*agility A*/ 'T2','P2','Pt2','Puesto2', /* agility B */
                     'T3','P3','Pt3','Puesto3', /*jumping A*/ 'T4','P4','Pt4','Puesto4', /* jumping B */
-                    'Tiempo','Penalizacion','Puntos','Puesto' /*final */
+                    'Tiempo','Penalizacion','Calificacion','Puesto' /*final */
                 );
                 break;
             case 3: // games

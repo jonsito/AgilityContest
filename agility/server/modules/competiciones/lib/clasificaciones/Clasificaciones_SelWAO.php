@@ -50,7 +50,36 @@ class Clasificaciones_SelWAO extends Clasificaciones {
                 parent::sortFinal($final,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
                 break;
             case 2: // biathlon
-                parent::sortFinal($final,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
+                usort($final,function($a,$b){
+                    do_log("PERRO:".json_encode($a));
+                    $npa=intval($a['N1'])+intval($a['N2'])+intval($a['N3'])+intval($a['N4']);
+                    $npb=intval($b['N1'])+intval($b['N2'])+intval($b['N3'])+intval($b['N4']);
+
+                    $puntosa=intval($a['Pt1'])+intval($a['Pt2'])+intval($a['Pt3'])+intval($a['Pt4']);
+                    $puntosb=intval($b['Pt1'])+intval($b['Pt2'])+intval($b['Pt3'])+intval($b['Pt4']);
+                    $pagilitya=intval($a['Pt1'])+intval($a['Pt2']);
+                    $pagilityb=intval($b['Pt1'])+intval($b['Pt2']);
+
+                    // no presentado en alguna manga: cero puntos
+                    if ($npa!=0) {$puntosa=0;$pagilitya=0;}
+                    if ($npb!=0) {$puntosb=0;$pagilityb=0;}
+
+                    // se ordena por puntos
+                    if ($puntosa!=$puntosb) return ($puntosa<$puntosb)?1:-1;
+
+                    // a igualdad de puntos se ordena por puntos de agility
+                    if ($pagilitya!=$pagilityb) return ($pagilitya<$pagilityb)?1:-1;
+
+                    // a igualdad de puntos de agility se ordena por penalizacion
+                    $penala=floatval($a['P1'])+floatval($a['P2'])+floatval($a['P3'])+floatval($a['P4']);
+                    $penalb=floatval($b['P1'])+floatval($b['P2'])+floatval($b['P3'])+floatval($b['P4']);
+                    if ($penala!=$penalb) return ($penala>$penalb)?1:-1; // ojo: signo cambia
+
+                    // a igualdad de penalizacion se ordena por tiempo
+                    $tiempoa=floatval($a['T1'])+floatval($a['T2'])+floatval($a['T3'])+floatval($a['T4']);
+                    $tiempob=floatval($b['T1'])+floatval($b['T2'])+floatval($b['T3'])+floatval($b['T4']);
+                    return ($tiempoa>$tiempob)?1:-1;
+                });
                 break;
             case 3: // games
                 usort($final, function($a, $b) {
@@ -89,7 +118,7 @@ class Clasificaciones_SelWAO extends Clasificaciones {
         $this->myLogger->enter();
         // si no estamos en jornada games, usamos la funcion padre
         $tj= intval($this->jornada->Tipo_Competicion);
-        if ($tj!==3) return parent::evalFinal($idmangas,$c1,$c2=null,$c3=null,$c4=null,$c5=null,$c6=null,$c7=null,$c8=null);
+        if ($tj!==3) return parent::evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
         $mangas=array();
         for ($i=0;$i<8;$i++) $mangas[$i]=$this->__getObject("Mangas",$idmangas[$i]);
         $resultados=array($c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
