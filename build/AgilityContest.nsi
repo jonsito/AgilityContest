@@ -236,6 +236,8 @@ Function .onInstSuccess
   ; recuperamos ficheros de configuracion de la desinstalacion previa
   CopyFiles $TEMP\registration.info $INSTDIR\agility\server\auth
   CopyFiles $TEMP\config.ini $INSTDIR\agility\server\auth
+  ; recuperamos backups
+  CopyFiles $TEMP\agility-*.sql $INSTDIR\logs
 FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -244,11 +246,12 @@ FunctionEnd
 
 Function .onInit
 
-  ; Preserve configuration files (if exists).
+  ; Preserve configuration and backup files (if exists).
   ; Make sure previous temp config is deleted
   Delete $TEMP\config.ini
   CopyFiles $INSTDIR\agility\server\auth\registration.info $TEMP
   CopyFiles $INSTDIR\agility\server\auth\config.ini $TEMP
+  CopyFiles $INSTDIR\logs\agility-*.sql $TEMP
   StrCpy $1 ${esp} ; Spanish is selected by default
 
   ReadRegStr $R0 HKLM \
