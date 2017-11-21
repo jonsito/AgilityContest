@@ -1,0 +1,37 @@
+{
+  "__comment1": "On Screen Display custom elements layout for AgilityContest Live Stream display",
+  "__comment2": "There are 3 main areas: InfoMaga, Datos, and Resultados for Round, Competitor and Results info",
+  "__comment3": "Format is [x,y,width,height]. Main grid size is 800x450",
+  "__comment4": "Use bgcolor and bgimage to set up background color (rgba) or bg imagefile (must reside in livestream folder",
+  "InfoManga":{
+    "bgcolor":          [80,127,80,0.5],
+    "bgimage":          "",
+    "InfoManga":        [15, 10, 165, 20],
+    "Manga":            [20, 14, 155, 15]
+  },
+  "Datos":{
+    "bgcolor":          [127,127,127,0.5],
+    "bgimage":          "",
+    "Datos":            [10,	410,  390,	30],
+    "Numero":           [20,	416,  30,	50],
+    "Logo":             [50,	365,  70,	70],
+    "Dorsal":           [125,	412,  25,	20],
+    "Nombre":           [150,	412,  220,	20],
+    "NombreGuia":       [125,	425,  140,	20],
+    "NombreClub":       [265,	425,  145,	20],
+    "Celo":             [370,	412,  30,	20]
+  },
+  "Resultados":{
+    "bgcolor":          [127,127,127,0.5],
+    "bgimage":          "",
+    "Resultados":       [405,	410,  90,   30],
+    "FaltasTocadosLbl": [415,	412,  10,	15],
+    "FaltasTocados":    [425,	412,  10,	15],
+    "RehusesLbl":       [440,	412,  10,	15],
+    "Rehuses":          [450,	412,  10,	15],
+    "Tiempo":           [450,	425,  35,	15],
+    "EliminadoLbl":     [410,	425,  35,	15],
+    "NoPresentadoLbl":  [410,	425,  35,	15],
+    "PuestoLbl":        [410,	425,  35,	15]
+  }
+}

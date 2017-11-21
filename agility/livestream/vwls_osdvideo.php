@@ -5,11 +5,14 @@ header("Pragma: no-cache");
 require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
 require_once(__DIR__ . "/../server/auth/AuthManager.php");
+
 $config =Config::getInstance();
 $am = new AuthManager("Videowall::livestream");
 if ( ! $am->allowed(ENABLE_LIVESTREAM)) { include_once("unregistered.php"); return 0;}
 $combined=http_request("combined","i",0);
+$custom_layout=json_encode(json_decode(file_get_contents(__DIR__."/osd_layout.json")));
 ?>
+
 <!--
 livestream.inc
 
@@ -144,8 +147,6 @@ switch (parseInt(ac_config.ls_dataposition)) {
 		doLayout(layout,"#vwls_FaltasTocados",	762,	15,		10,		15	);
 		doLayout(layout,"#vwls_RehusesLbl",		750,	30,		12,		15	);
 		doLayout(layout,"#vwls_Rehuses",		762,	30,		10,		15	);
-		// doLayout(layout,"#vwls_TocadosLbl",	750,	45,	    12,		15	);
-		// doLayout(layout,"#vwls_Tocados",		762,	45,	    10,		15	);
 		doLayout(layout,"#vwls_Tiempo",			742,	60,     35,		15	);
 		doLayout(layout,"#vwls_EliminadoLbl",	745,	75,     30,		15	);
 		doLayout(layout,"#vwls_NoPresentadoLbl",745,	75,     30,		15	);
@@ -162,8 +163,6 @@ switch (parseInt(ac_config.ls_dataposition)) {
 		doLayout(layout,"#vwls_FaltasTocados",	710,	412,	10,		15	);
 		doLayout(layout,"#vwls_RehusesLbl",		725,	412,	10,		15	);
 		doLayout(layout,"#vwls_Rehuses",		735,	412,	10,		15	);
-		// doLayout(layout,"#vwls_TocadosLbl",		750,	412,    10,		15	);
-		// doLayout(layout,"#vwls_Tocados",		760,	412,    10,		15	);
 		doLayout(layout,"#vwls_Tiempo",			735,	425,    35,		15	);
 		doLayout(layout,"#vwls_EliminadoLbl",	700,	425,    30,		15	);
 		doLayout(layout,"#vwls_NoPresentadoLbl",700,	425,    30,		15	);
@@ -175,28 +174,73 @@ switch (parseInt(ac_config.ls_dataposition)) {
 		doLayout(layout,"#vwls_FaltasTocados",			425,	412,	10,		15	);
 		doLayout(layout,"#vwls_RehusesLbl",		440,	412,	10,		15	);
 		doLayout(layout,"#vwls_Rehuses",		450,	412,	10,		15	);
-		// doLayout(layout,"#vwls_TocadosLbl",	465,	412,    10,		15	);
-		// doLayout(layout,"#vwls_Tocados",		475,	412,    10,		15	);
 		doLayout(layout,"#vwls_Tiempo",			450,	425,    35,		15	);
 		doLayout(layout,"#vwls_EliminadoLbl",	410,	425,    35,		15	);
 		doLayout(layout,"#vwls_NoPresentadoLbl",410,	425,    35,		15	);
 		doLayout(layout,"#vwls_PuestoLbl",		410,	425,    35,		15	);
 		break;
+    case 4: // custom layout
+        var data=JSON.parse('<?php echo $custom_layout?>');
+        res=data.Resultados.Resultados;
+        doLayout(layout,"#vwls_Resultados",		res[0],res[1],res[2],res[3]); // background box
+        res=data.Resultados.FaltasTocadosLbl;
+        doLayout(layout,"#vwls_FaltasTocadosLbl",res[0],res[1],res[2],res[3]	);
+        res=data.Resultados.FaltasTocados;
+        doLayout(layout,"#vwls_FaltasTocados",	res[0],res[1],res[2],res[3]	);
+        res=data.Resultados.RehusesLbl;
+        doLayout(layout,"#vwls_RehusesLbl",		res[0],res[1],res[2],res[3]	);
+        res=data.Resultados.Rehuses;
+        doLayout(layout,"#vwls_Rehuses",		res[0],res[1],res[2],res[3]	);
+        res=data.Resultados.Tiempo;
+        doLayout(layout,"#vwls_Tiempo",			res[0],res[1],res[2],res[3]	);
+        res=data.Resultados.EliminadoLbl;
+        doLayout(layout,"#vwls_EliminadoLbl",	res[0],res[1],res[2],res[3]	);
+        res=data.Resultados.NoPresentadoLbl;
+        doLayout(layout,"#vwls_NoPresentadoLbl",res[0],res[1],res[2],res[3]	);
+        res=data.Resultados.PuestoLbl;
+        doLayout(layout,"#vwls_PuestoLbl",		res[0],res[1],res[2],res[3]	);
+        res=data.Resultados.bgcolor;
+        $('#vwls_Resultados').css('background-color',"rgba(value["+res[0]+","+res[1]+","+res[2]+","+res[3]+")");
+        res=data.Resultados.bgimage;
+        if (res!=="")$('#vwls_Resultados').css('background-image','url("'+res+'")');
+        break;
 	default: vwls_showResultsInfo(0); // desactiva visualizacion de resultados
 		break;
 }
 
-// data for competitor box
-doLayout(layout,"#vwls_Datos",			10,		410,	390,	30 ); // background box
-doLayout(layout,"#vwls_Numero",			20,		416,	30,		50	);
-doLayout(layout,"#vwls_Logo",			50,		365,	70,		70	); // may be redefined later for intl contests
-doLayout(layout,"#vwls_Dorsal",			125,	412,	25,		20	);
-doLayout(layout,"#vwls_Nombre",			150,	412,	220,	20	);
-doLayout(layout,"#vwls_NombreGuia",		125,	425,	140,	20	);
-doLayout(layout,"#vwls_NombreClub",		265,	425,	145,	20	);
-doLayout(layout,"#vwls_Celo",			370,	412,	30,		20	);
-// doLayout(layout,"#vwls_Grado",			400,	415,	100,	20	); // already shown in infomanga
-// doLayout(layout,"#vwls_Categoria",		510,	412,	140,	20	); // already shown in infomanga
+// set up competitors data layout
+if (parseInt(ac_config.ls_dataposition)!==4){ // hardwired
+    doLayout(layout,"#vwls_Datos",			10,		410,	390,	30 ); // background box
+    doLayout(layout,"#vwls_Numero",			20,		416,	30,		50	);
+    doLayout(layout,"#vwls_Logo",			50,		365,	70,		70	); // may be redefined later for intl contests
+    doLayout(layout,"#vwls_Dorsal",			125,	412,	25,		20	);
+    doLayout(layout,"#vwls_Nombre",			150,	412,	220,	20	);
+    doLayout(layout,"#vwls_NombreGuia",		125,	425,	140,	20	);
+    doLayout(layout,"#vwls_NombreClub",		265,	425,	145,	20	);
+    doLayout(layout,"#vwls_Celo",			370,	412,	30,		20	);
+} else { // custom
+    data=JSON.parse('<?php echo $custom_layout?>');
+    res=data.Datos.Datos;
+    doLayout(layout,"#vwls_Datos",			res[0],res[1],res[2],res[3]); // background box
+    res=data.Datos.Numero;
+    doLayout(layout,"#vwls_Numero",			res[0],res[1],res[2],res[3]	);
+    res=data.Datos.Logo;
+    doLayout(layout,"#vwls_Logo",			res[0],res[1],res[2],res[3]	); // may be redefined later for intl contests
+    res=data.Datos.Dorsal;
+    doLayout(layout,"#vwls_Dorsal",			res[0],res[1],res[2],res[3]	);
+    res=data.Datos.Nombre;
+    doLayout(layout,"#vwls_Nombre",			res[0],res[1],res[2],res[3]	);
+    res=data.Datos.NombreGuia;
+    doLayout(layout,"#vwls_NombreGuia",		res[0],res[1],res[2],res[3]	);
+    res=data.Datos.NombreClub;
+    doLayout(layout,"#vwls_NombreClub",		res[0],res[1],res[2],res[3]	);
+    res=data.Datos.Celo;
+    doLayout(layout,"#vwls_Celo",			res[0],res[1],res[2],res[3]	);
+    res=data.Datos.bgcolor;
+    $('#vwls_Datos').css('background-color',"rgba(value["+res[0]+","+res[1]+","+res[2]+","+res[3]+")");
+    res=data.Datos.bgimage;
+    if (res!=="")$('#vwls_Datos').css('background-image','url("'+res+'")');
+}
 
 // data for infomanga box
 switch (parseInt(ac_config.ls_infoposition)) {
@@ -214,6 +258,16 @@ switch (parseInt(ac_config.ls_infoposition)) {
 		doLayout(layout, "#vwls_InfoManga", 125, 391, 170, 20 ); // transparent boxes for infomanga
 		doLayout(layout, "#vwls_Manga", 130, 396, 160, 15);
 		break;
+    case 3: // custom
+        data=JSON.parse('<?php echo $custom_layout?>');
+        res=data.InfoManga.InfoManga;
+        doLayout(layout, "#vwls_InfoManga", res[0],res[1],res[2],res[3] ); // transparent boxes for infomanga
+        res=data.InfoManga.Manga;
+        doLayout(layout, "#vwls_Manga", res[0],res[1],res[2],res[3]);
+        res=data.InfoManga.bgcolor;
+        $('#vwls_InfoManga').css('background-color',"rgba("+res[0]+","+res[1]+","+res[2]+","+res[3]+")");
+        res=data.InfoManga.bgimage;
+        if (res!=="")$('#vwls_InfoManga').css('background-image','url("'+res+'")');
 }
 
 var eventHandler= {

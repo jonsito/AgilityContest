@@ -19,6 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 $config =Config::getInstance();
+$custom_layout=json_encode(json_decode(file_get_contents(__DIR__."/osd_layout.json")));
 ?>
 
 /**
@@ -117,12 +118,16 @@ function vwls_setAlphaOSD(alpha,tableid) {
     // change css to activate new value
     // PENDING
     var a=parseFloat(ac_config.ls_alpha);
-    console.log ("new alpha is "+alpha);
+    var res=[127,127,127,a];
     if (typeof(tableid)==="undefined") return;
     if (tableid==="OSD") { // live video
-        $('#vwls_InfoManga').css('background-color',"rgba(127,127,127,"+a+")");
-        $('#vwls_Resultados').css('background-color',"rgba(127,127,127,"+a+")");
-        $('#vwls_Datos').css('background-color',"rgba(127,127,127,"+a+")");
+        data=JSON.parse('<?php echo $custom_layout?>');
+        if (parseInt(ac_config.ls_infoposition)!==3) res=data.InfoManga.bgcolor;
+        $('#vwls_InfoManga').css('background-color',"rgba("+res[0]+","+res[1]+","+res[2]+","+res[3]+")");
+        if (parseInt(ac_config.ls_dataposition)!==4) res=data.Resultados.bgcolor;
+        $('#vwls_Resultados').css('background-color',"rgba("+res[0]+","+res[1]+","+res[2]+","+res[3]+")");
+        if (parseInt(ac_config.ls_dataposition)!==4) res=data.Datos.bgcolor;
+        $('#vwls_Datos').css('background-color',"rgba("+res[0]+","+res[1]+","+res[2]+","+res[3]+")");
     } else { // other livestream screens
         var rgb1=hexToRGB(ac_config.ls_rowcolor1);
         var rgb2=hexToRGB(ac_config.ls_rowcolor2);

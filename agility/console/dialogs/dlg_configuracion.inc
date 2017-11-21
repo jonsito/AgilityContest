@@ -320,14 +320,16 @@ $config =Config::getInstance();
 				<option value="0"><?php _e('Not visible');?></option>
 				<option value="1" selected="selected"><?php _e('Upper right corner');?></option>
 				<option value="2"><?php _e('Lower right corner');?></option>
-				<option value="3"><?php _e('Next to competitor info');?></option>
+                <option value="3"><?php _e('Next to competitor info');?></option>
+                <option value="4"><?php _e('User defined layout');?></option>
 			</select><br />
 
 			<label for="ls_infoposition"><?php _e('Round data screen location'); ?></label>
 			<select id="ls_infoposition" name="ls_infoposition" class="easyui-combobox" data-options="panelHeight:'auto'">
 				<option value="0"><?php _e('Not visible');?></option>
 				<option value="1" selected="selected"><?php _e('Screen top');?></option>
-				<option value="2"><?php _e('On top of competitor info');?></option>
+                <option value="2"><?php _e('On top of competitor info');?></option>
+                <option value="3"><?php _e('User defined layout');?></option>
 			</select><br />
 		</div>
 		
