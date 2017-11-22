@@ -61,6 +61,9 @@ class Updater {
                 throw new Exception($str);
             }
         }
+
+        // create procedures:
+
         $this->myDBObject=new DBObject("upgradeDatabase");
     }
 
@@ -282,6 +285,7 @@ class Updater {
     }
 
     // 2.0.0 20150720_0135 add cascade to foreign keys on inscripciones
+    // no longer used as takes too much time in reindex
     function updateInscripciones() {
         $this->myLogger->enter();
         $cmds=array(
@@ -564,45 +568,45 @@ try {
         }
         $upg->install_log('<script type="text/javascript">alert("Database installation OK");</script>');
         ob_implicit_flush(false);
-    } else {
-        // when not in first install, process database to make it compliant with sofwtare version
-        $upg->removeUpdateMark();
-        $needToUpdate=$upg->updateVersionHistory();
-        if (!$needToUpdate) return; // database already updated. so just return
-        // software version changed. make sure that database is upgraded
-        $upg->addCountries();
-        $upg->addColumnUnlessExists("Mangas", "Orden_Equipos", "TEXT");
-        $upg->addColumnUnlessExists("Resultados", "TIntermedio", "double", "0.0");
-        $upg->addColumnUnlessExists("Resultados", "Games", "int(4)", "0");
-        $upg->addColumnUnlessExists("Perros", "NombreLargo", "varchar(255)");
-        $upg->addColumnUnlessExists("Perros", "Chip", "varchar(255)", "");
-        $upg->addColumnUnlessExists("Perros", "Genero", "varchar(16)", "-"); // -,M,F
-        $upg->addColumnUnlessExists("Guias", "Categoria", "varchar(16)","A");// -,I,J,A,S,V,P
-        $upg->addColumnUnlessExists("Provincias", "Pais", "varchar(2)", "ES");
-        $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
-        $upg->addColumnUnlessExists("Jornadas", "Games", "int(4)", "0");
-        $upg->addColumnUnlessExists("Jornadas", "Junior", "tinyint(1)", "0");
-        $upg->addColumnUnlessExists("Jornadas", "Senior", "tinyint(1)", "0");
-        $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
-        // on server edition need to track modification time
-        $upg->addColumnUnlessExists("Perros", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-        $upg->addColumnUnlessExists("Guias", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-        $upg->addColumnUnlessExists("Clubes", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-        $upg->addColumnUnlessExists("Jueces", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-        $upg->updatePreAgility();
-        $upg->updatePerroGuiaClub();
-        // $upg->updateInscripciones(); not needed as
-        $upg->upgradeTeams();
-        $upg->setTRStoFloat();
-        $upg->createTrainingTable();
-        $upg->populateTeamMembers();
-        $upg->addNewGradeTypes();
-        $upg->addNewMangaTypes();
-        $upg->fixLOERRC2017();
-        $upg->addColumnUnlessExists("Usuarios", "Club", "int(4)", "1");
-        $upg->addMailList();
-        $upg->updateDefaultJuezClub();
     }
+    // process database to make it compliant with sofwtare version
+    $upg->removeUpdateMark();
+    // as backup does not preserve procedures, always need to recreate
+    $upg->updatePerroGuiaClub();
+    $needToUpdate=$upg->updateVersionHistory();
+    if (!$needToUpdate) return; // database already updated. so just return
+    // software version changed. make sure that database is upgraded
+    // $upg->addCountries();
+    $upg->addColumnUnlessExists("Mangas", "Orden_Equipos", "TEXT");
+    $upg->addColumnUnlessExists("Resultados", "TIntermedio", "double", "0.0");
+    $upg->addColumnUnlessExists("Resultados", "Games", "int(4)", "0");
+    $upg->addColumnUnlessExists("Perros", "NombreLargo", "varchar(255)");
+    $upg->addColumnUnlessExists("Perros", "Chip", "varchar(255)", "");
+    $upg->addColumnUnlessExists("Perros", "Genero", "varchar(16)", "-"); // -,M,F
+    $upg->addColumnUnlessExists("Guias", "Categoria", "varchar(16)","A");// -,I,J,A,S,V,P
+    $upg->addColumnUnlessExists("Provincias", "Pais", "varchar(2)", "ES");
+    $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
+    $upg->addColumnUnlessExists("Jornadas", "Games", "int(4)", "0");
+    $upg->addColumnUnlessExists("Jornadas", "Junior", "tinyint(1)", "0");
+    $upg->addColumnUnlessExists("Jornadas", "Senior", "tinyint(1)", "0");
+    $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
+    // on server edition need to track modification time
+    $upg->addColumnUnlessExists("Perros", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    $upg->addColumnUnlessExists("Guias", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    $upg->addColumnUnlessExists("Clubes", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    $upg->addColumnUnlessExists("Jueces", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    $upg->updatePreAgility();
+    // $upg->updateInscripciones(); not needed and to many time wasted
+    $upg->upgradeTeams();
+    $upg->setTRStoFloat();
+    $upg->createTrainingTable();
+    $upg->populateTeamMembers();
+    $upg->addNewGradeTypes();
+    $upg->addNewMangaTypes();
+    $upg->fixLOERRC2017();
+    $upg->addColumnUnlessExists("Usuarios", "Club", "int(4)", "1");
+    $upg->addMailList();
+    $upg->updateDefaultJuezClub();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }
