@@ -521,7 +521,10 @@ $config =Config::getInstance();
 
             <label for="search_updates"><?php _e('Search for updates at startup'); ?></label>
             <input type="hidden" name="search_updates" value="0"/> <!-- trick for checkboxes -->
-            <input type="checkbox" name="search_updates" id="search_updates" value="1"/><br />
+            <input type="checkbox" name="search_updates" id="search_updates" value="1"/><?php _e('Application'); ?>
+            <span style="display:inline-block;width:50px">&nbsp;</span>
+            <input type="hidden" name="search_updatedb" value="0"/> <!-- trick for checkboxes -->
+            <input type="checkbox" name="search_updatedb" id="search_updatedb" value="1" onChange="warn_updatedb(this);"/><?php _e('Database'); ?><br />
 
             <h3><?php _e('Auto backup options'); ?></h3>
 
@@ -754,7 +757,7 @@ $config =Config::getInstance();
 	 */
 	function restoreConfig() {
 		var data=$('#config_restoreData').val();
-		if (data=="") {
+		if (data==="") {
 			$.messager.alert("<?php _e('Error');?>","<?php _e('No config file selected');?>",'error');
 			return false;
 		}
@@ -797,5 +800,17 @@ $config =Config::getInstance();
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
+
+	function warn_updatedb(box) {
+        if (! box.checked) return;
+        $.messager.confirm("Legal",
+            '<?php _e('Please read and accept legal <a target="lopd" href="http://www.agilitycontest.es/lopd.html">terms and conditions</a> on data sharing');?>',
+            function(r){
+                if (r) return true;
+                // user cancelled operation: clear checkbox
+                 box.checked=false;
+            }
+        );
+    }
 
 </script>
