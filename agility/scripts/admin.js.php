@@ -431,6 +431,10 @@ function askForUpgrade(msg,name,release){
     }).window('resize',{width:480});
 }
 
+function synchronizeDatabase() {
+    alert("DB Synchronization is not (yet) available");
+}
+
 function checkForUpgrades() {
     var msg="<p>"+'<?php _e("Current Version"); ?>'+": "+ac_config.version_name+"<br />"+'<?php _e("Current Release"); ?>'+": "+ac_config.version_date+"</p>";
     $.ajax({

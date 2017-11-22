@@ -29,6 +29,11 @@
 		   data-options="iconCls:'icon-reload'" onclick="checkForUpgrades()"><?php _e('Upgrade')?></a>
 	</p>
     <p>
+        <span style="display:inline-block;width:350px"><?php _e('Synchronize database with server'); ?></span>
+        <a id="tools-syncdbBtn" href="#" class="easyui-linkbutton" style="width:85px"
+           data-options="iconCls:'icon-updown'" onclick="synchronizeDatabase()"><?php _e('Sync')?></a>
+    </p>
+    <p>
         <span style="display:inline-block;width:350px"><?php _e('Debug and log trace file'); ?></span>
         <a id="tools-logResetBtn" href="#" class="easyui-linkbutton" style="width:85px"
            data-options="iconCls:'icon-brush'" onclick="resetLogFile()"><?php _e('Reset');?></a>
@@ -49,6 +54,7 @@ addTooltip($('#tools-restoreBtn').linkbutton(),'<?php _e("Restore database conte
 addTooltip($('#tools-resetBtn').linkbutton(),'<?php _e("Factory reset. Clear EVERY content on database"); ?>');
 addTooltip($('#tools-eraseBtn').linkbutton(),'<?php _e("Clear contests from database"); ?>'+"<br />"+'<?php _e("leaving only dogs/handlers/judges/clubs information"); ?>');
 addTooltip($('#tools-upgradeBtn').linkbutton(),'<?php _e("Search and install AgilityContest updates"); ?>');
+addTooltip($('#tools-syncdbBtn').linkbutton(),'<?php _e("Synchronize current database content with<br/>stored data from AgilityContest server"); ?>');
 addTooltip($('#tools-logResetBtn').linkbutton(),'<?php _e("Clear debugging and trace file"); ?>');
 addTooltip($('#tools-logViewBtn').linkbutton(),'<?php _e("Download debug and trace file"); ?>');
 addTooltip($('#tools-emptyTrashBtn').linkbutton(),'<?php _e("Remove every unneeded files from temporary directory"); ?>');
