@@ -62,7 +62,7 @@ class AuthManager {
 	// due to a bug in php-5.5 (solved in php-5.6 )
 	// we cannot concatenate strings in class properties
 	// So must construct this by hand
-	function getPK() {
+	private function getPK() {
 		$str=
 			"MIIEIjANBgkqhkiG9w0BAQEFAAOCBA8AMIIECgKCBAEAzgeD27TXHKde3iNMtQSq\n".
 			"yAFoeZYVOoPPjGQkFcNamxfGR8rFmgvGrJn28u2bq1dVnIduF9Lj4sPMt9cs/rT+\n".
@@ -88,6 +88,36 @@ class AuthManager {
 			"LHN0iN/VSKutDHrfZ0om7krDSEyY6TZ/rVDewnFQmbIiIORgig7mjH0EXBUiXBJF\n".
 			"VQIDAQAB\n";
 		return $str;
+	}
+
+	/*
+	 * in the future, crypt and/or download bl from server
+	 * and store into local filesystem to allow working offline
+	 */
+	private function getBL() {
+        $str="A71mXEpnU7ELDlRshkkgudW6zLfoyRHIgQdP/NAnf+JpImMz6BIQsb5kGUGeOsC".
+             "vVatuBODGkDkIlDae9ujs7aIIRPpYvtLcv/Qe2xznynVPEKCLN5sXP4CRO07fit".
+             "UjDPLpWmM/AtvD7BbKYwGwDC594WYDJ+QLpH0u/yqB16v1OGlji+XvJ3z4FK8aq".
+             "7FcGHsUWUatLi6tnzEaZGSR46z/wQCUZd3+2BhxveteQiSRullqUJg9Vx7pwwja".
+             "Tu0biL+dpvk1a9vCiCIcp09fVRn/HY+Sz0/FQ6vQ4F73zvAvm1XwsKamzlKB7Mv".
+             "XTEcKdWDBSw7x4EXDvMslg/02Wfpb4VFhxrBMGAIoQkrKW4fFYtyw9krGTqADb8".
+             "OmVXnxOwO9DD4SrcpkaYa4HMg4Zr2ZM7/RiyUxLi4pORN7NPTySRDRPJ8mqnnAP".
+             "K30gw/wMrg+1HPOy6jgC63xUuOmPZ6LxsNTXN3i3eyziwjFfHtxOq0Ue3+coXC4".
+             "otCTfQo7kXvr4hgWC9qXyCQ+So+Qs8OvoxGhaErDZ/9bagSraED+dR3izBDy2ea".
+             "UwUBKeNciq0/sbnuwLs0wX7ozbnsdKZXqkRH5o5kxAPcfo73KIVa83fmiKyCOx8".
+             "0xlbCuWu/4gLaPilVqdGpSUzv2gWirvWZE+zSmXwl6hzcp6ycZyVlwEYJR1i/D5".
+             "VJU67dNzOuVco+Wb5/LIJUkqogrZY+4fodWy5qVR8jWUrhODfmBq1BZROOkaGNM".
+             "YMU0pW2l3izg1zFf9bKem0aQcJ8VETzdPszoeSVks86Cl70X2aDc3Poc/ivjjqH".
+             "L3JtfNmA0EzLuQwDca5Bl9FisQW5KR31LHwGFmZHIR2isOUPUa7PKUtTTZS3jDd".
+             "2N+LBKaIPOVru53X79EwsOD3WzO96Z3VycBdAZGNNAI/pToyaImrQNnUdxm+3Ta".
+             "hD/lvI1E9W3ddd6q2ETqfjQIyQCJbjppmljH/YGDDL/Dn5c3LmZV5Y2y1daN/fF".
+             "fwht74+FU/p25Uy4e/9lzxB93Pn851uCIMnQo0HBkifX0c76tRdquB/+DvslfVo".
+             "OgCFmHefebprPu2DbDCUloUu96SqQlplRyWtlg4EOhmsGGDQmPuNKopr7IDfvkU".
+             "yyeX7LpdTaW4JTVe6do5/xzgsThFw44H2ZvojYTfpPA8xt9OGbqAKlnNeB/41xA".
+             "r6d5WmFiFMcBGQkaE8WTNxOJnU9wuuUSjG8mGMy06UbrEycz2OxPY+/8uLIKgeT".
+             "OHBDArVtZymHCXo2INqHTjuTY920idygrtRYT30KHcv7/t36iWEX6Qzj70F1g+S".
+             "m+3nCqsarHXYPejAB/TI0L5dyciU3j9w0B7orsozbqw==";
+        return $str;
 	}
 
 	function __construct($file) {
@@ -149,6 +179,27 @@ class AuthManager {
         return $data;
 	}
 
+	/*
+	 * return true if license serial name is in black list
+	 */
+	function checkBlackListed($serial) {
+        $pub_key="-----BEGIN PUBLIC KEY-----\n" . $this->getPK() . "-----END PUBLIC KEY-----\n";
+        if (md5($pub_key)!="ff430f62f2e112d176110b704b256542") return true ;
+		$bl=$this->getBL();
+		if (md5($bl)!="ef0af62a7007469811fb2237b87e3479") return true;
+        $key=openssl_get_publickey($pub_key);
+        if (!$key) { /* echo "Cannot get public key";*/	return true; }
+        $res=openssl_public_decrypt(base64_decode($bl),$decrypted,$key);
+        openssl_free_key($key);
+        if (!$res) return true; // faile to decode
+        $data=json_decode($decrypted,true);
+        if (!is_array($data)) return true;
+        foreach($data as $item){
+            if ($item['Serial']===$serial) return true;
+        }
+        return false;
+	}
+
 	function getSessionKey() {
 		return $this->mySessionKey;
 	}
@@ -172,7 +223,11 @@ class AuthManager {
 		unset($data["Extra2"]); // should not to be exposed
 		$data["Info"]=""; // do not unset, just hide
 		$data["User"]=$data["Name"]; // stupid historic naming change
-		$data["Expired"]=( strcmp( $data['Expires'] , date("Ymd") ) <0 )?"1":"0";
+        $data["Expired"]=( strcmp( $data['Expires'] , date("Ymd") ) <0 )?"1":"0";
+        $data["Cancelled"]=( $this->checkBlackListed($data['Serial']) )?"1":"0";
+        $data['Status']="OK";
+        if($data['Expired']==="1") $data['Status']=_("Expired");
+        if($data['Cancelled']==="1") $data['Status']=_("Cancelled");
 
 		// permisos de ejecucion
 		$p=intval($data['Options'],2);
@@ -490,6 +545,7 @@ class AuthManager {
         $res=$this->getRegistrationInfo();
 		if ($res===null) return 0; // invalid license
 		if ( $res['Expired']==="1" ) return 0; // license has expired
+        if ($this->checkBlackListed($res['Serial'])) return 0; // blacklisted app
         $opts=$res['Options'];
         if ($res['Info']==="") return bindec($opts) & $feature; // old style licenses
 		// default: allow. this should be revisited on new license handling
@@ -501,6 +557,7 @@ class AuthManager {
 		$res=$this->getRegistrationInfo();
 		if ($res===null) return 0; // invalid license
 		if ( $res['Expired']==="1" ) return 0; // license has expired
+        if ($this->checkBlackListed($res['Serial'])) return 0; // blacklisted app
 		return array('success' => true, 'perms' => bindec($res['Options'])); // to be revisited when new license style handling
 	}
 
@@ -509,6 +566,7 @@ class AuthManager {
 		if ($res===null) return 75; // invalid license
 		if ( $res["Expired"]==="1" ) return 75; // license has expired
         if ($res['Serial']==="00000000") return 75; // unregistered app
+		if ($this->checkBlackListed($res['Serial'])) return 75; // blacklisted app
         if (bindec($res['Options']) & ENABLE_ULIMIT ) return 9999; // "unlimited"
         return 200; // registered app, but no "unlimited" flag
     }

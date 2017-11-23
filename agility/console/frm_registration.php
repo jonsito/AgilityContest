@@ -70,6 +70,10 @@ $config =Config::getInstance();
 				<label for="rd_Expires"><?php _e('Expiration date'); ?>:</label>
 				<input id="rd_Expires" type="text" readonly="readonly" name="Expires" /><br/>
 			</div>
+            <div class="fitem">
+                <label for="rd_Status"><?php _e('Status'); ?>:</label>
+                <input id="rd_Status" type="text" readonly="readonly" name="Status" /><br/>
+            </div>
 		</td>
 		<td>
 			<input type="checkbox" disabled="disabled" value="1" name="ENABLE_IMPORT" /><?php _e("Import from Excel files");?><br />
@@ -114,6 +118,7 @@ $config =Config::getInstance();
     $('#rd_Club').textbox();
     $('#rd_Serial').textbox();
     $('#rd_Expires').textbox();
+    $('#rd_Status').textbox();
     var fb=$('#registration-fichero');
     fb.filebox({
         accept:  ".info",

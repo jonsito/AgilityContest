@@ -74,6 +74,9 @@ function acceptLogin() {
 				if (data.Expired==="1")  {
 					str = str+'<br/><strong><span class="blink">'+'<?php _e("License expired");?>'+'</span></strong>';
 				}
+                if (data.Cancelled==="1")  {
+                    str = str+'<br/><strong><span class="blink">'+'<?php _e("License cancelled");?>'+'</span></strong>';
+                }
 				if(parseInt(ac_config.backup_disabled)!==0) {
 				    str = str+'<br/><strong><span class="blink">'+'<?php _e("Automatic backup is disabled");?>'+'</span></strong>';
                 }
