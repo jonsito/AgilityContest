@@ -108,8 +108,10 @@ class AuthManager {
 			if  ( ($now - $mtime) > 60*60*24*7 ) $need_to_load=true;
 		}
 		// try to download bl file from master server
-		$res=retrieveFileFromURL(AC_BLACKLIST_URL);
-		if ($res!==FALSE) file_put_contents(AC_BLACKLIST_FILE,$res,LOCK_EX);
+		if ($need_to_load) {
+            $res=retrieveFileFromURL(AC_BLACKLIST_URL);
+            if ($res!==FALSE) @file_put_contents(AC_BLACKLIST_FILE,$res,LOCK_EX);
+		}
 		// ok. now handle current file
 		if (!file_exists(AC_BLACKLIST_FILE)) return ""; // no bl file nor can download. Fatal error
 		$data=file(AC_BLACKLIST_FILE,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
