@@ -44,6 +44,8 @@ define ("ENABLE_LIVESTREAM",256);// permite funciones de live-streaming y chroma
 define ("ENABLE_TRAINING",512); // permite gestion de sesiones de entrenamiento
 
 // datos de registro
+define('AC_BLACKLIST_FILE' , __DIR__."/blacklist.info");
+define('AC_BLACKLIST_URL' , "https://www.agilitycontest.es/agility/master/blacklist.info");
 define('AC_REGINFO_FILE' , __DIR__."/registration.info");
 define('AC_REGINFO_FILE_BACKUP' , __DIR__."/registration.info.old");
 define('AC_REGINFO_FILE_DEFAULT' , __DIR__."/registration.info.default");
@@ -57,6 +59,7 @@ class AuthManager {
 	protected $mySessionMgr;
     protected $myGateKeeper=null;
 	protected $registrationInfo=null;
+	protected $blackList=null;
 	protected $levelStr;
 
 	// due to a bug in php-5.5 (solved in php-5.6 )
@@ -91,33 +94,27 @@ class AuthManager {
 	}
 
 	/*
-	 * in the future, crypt and/or download bl from server
-	 * and store into local filesystem to allow working offline
+	 * Read blacklist file contents
+	 * If file not found or older than 7 days try to retrieve from master server
 	 */
 	private function getBL() {
-        $str="A71mXEpnU7ELDlRshkkgudW6zLfoyRHIgQdP/NAnf+JpImMz6BIQsb5kGUGeOsC".
-             "vVatuBODGkDkIlDae9ujs7aIIRPpYvtLcv/Qe2xznynVPEKCLN5sXP4CRO07fit".
-             "UjDPLpWmM/AtvD7BbKYwGwDC594WYDJ+QLpH0u/yqB16v1OGlji+XvJ3z4FK8aq".
-             "7FcGHsUWUatLi6tnzEaZGSR46z/wQCUZd3+2BhxveteQiSRullqUJg9Vx7pwwja".
-             "Tu0biL+dpvk1a9vCiCIcp09fVRn/HY+Sz0/FQ6vQ4F73zvAvm1XwsKamzlKB7Mv".
-             "XTEcKdWDBSw7x4EXDvMslg/02Wfpb4VFhxrBMGAIoQkrKW4fFYtyw9krGTqADb8".
-             "OmVXnxOwO9DD4SrcpkaYa4HMg4Zr2ZM7/RiyUxLi4pORN7NPTySRDRPJ8mqnnAP".
-             "K30gw/wMrg+1HPOy6jgC63xUuOmPZ6LxsNTXN3i3eyziwjFfHtxOq0Ue3+coXC4".
-             "otCTfQo7kXvr4hgWC9qXyCQ+So+Qs8OvoxGhaErDZ/9bagSraED+dR3izBDy2ea".
-             "UwUBKeNciq0/sbnuwLs0wX7ozbnsdKZXqkRH5o5kxAPcfo73KIVa83fmiKyCOx8".
-             "0xlbCuWu/4gLaPilVqdGpSUzv2gWirvWZE+zSmXwl6hzcp6ycZyVlwEYJR1i/D5".
-             "VJU67dNzOuVco+Wb5/LIJUkqogrZY+4fodWy5qVR8jWUrhODfmBq1BZROOkaGNM".
-             "YMU0pW2l3izg1zFf9bKem0aQcJ8VETzdPszoeSVks86Cl70X2aDc3Poc/ivjjqH".
-             "L3JtfNmA0EzLuQwDca5Bl9FisQW5KR31LHwGFmZHIR2isOUPUa7PKUtTTZS3jDd".
-             "2N+LBKaIPOVru53X79EwsOD3WzO96Z3VycBdAZGNNAI/pToyaImrQNnUdxm+3Ta".
-             "hD/lvI1E9W3ddd6q2ETqfjQIyQCJbjppmljH/YGDDL/Dn5c3LmZV5Y2y1daN/fF".
-             "fwht74+FU/p25Uy4e/9lzxB93Pn851uCIMnQo0HBkifX0c76tRdquB/+DvslfVo".
-             "OgCFmHefebprPu2DbDCUloUu96SqQlplRyWtlg4EOhmsGGDQmPuNKopr7IDfvkU".
-             "yyeX7LpdTaW4JTVe6do5/xzgsThFw44H2ZvojYTfpPA8xt9OGbqAKlnNeB/41xA".
-             "r6d5WmFiFMcBGQkaE8WTNxOJnU9wuuUSjG8mGMy06UbrEycz2OxPY+/8uLIKgeT".
-             "OHBDArVtZymHCXo2INqHTjuTY920idygrtRYT30KHcv7/t36iWEX6Qzj70F1g+S".
-             "m+3nCqsarHXYPejAB/TI0L5dyciU3j9w0B7orsozbqw==";
-        return $str;
+		$need_to_load=false;
+		if (!file_exists(AC_BLACKLIST_FILE)) { // if bl file not found try to get
+			$need_to_load=true;
+        } else {
+            // if bl file older than 1 week try to get
+			$now=time();
+			$mtime=filemtime(AC_BLACKLIST_FILE);
+			if  ( ($now - $mtime) > 60*60*24*7 ) $need_to_load=true;
+		}
+		// try to download bl file from master server
+		$res=retrieveFileFromURL(AC_BLACKLIST_URL);
+		if ($res!==FALSE) file_put_contents(AC_BLACKLIST_FILE,$res,LOCK_EX);
+		// ok. now handle current file
+		if (!file_exists(AC_BLACKLIST_FILE)) return ""; // no bl file nor can download. Fatal error
+		$data=file(AC_BLACKLIST_FILE,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		if ($data===FALSE) return ""; // no data readed: fatal error
+		return implode("",$data);
 	}
 
 	function __construct($file) {
@@ -179,30 +176,40 @@ class AuthManager {
         return $data;
 	}
 
-	/*
-	 * return true if license serial name is in black list
-	 */
-	function checkBlackListed($serial) {
+    /**
+     * retrieve black list. if not available yet, import and install
+     */
+	function retrieveBlackList() {
         $pub_key="-----BEGIN PUBLIC KEY-----\n" . $this->getPK() . "-----END PUBLIC KEY-----\n";
-        if (md5($pub_key)!="ff430f62f2e112d176110b704b256542") return true ;
+        if (md5($pub_key)!="ff430f62f2e112d176110b704b256542") return null ;
 		$bl=$this->getBL();
-		if (md5($bl)!="ef0af62a7007469811fb2237b87e3479") return true;
+		if (md5($bl)!="ef0af62a7007469811fb2237b87e3479") return null;
         $key=openssl_get_publickey($pub_key);
-        if (!$key) { /* echo "Cannot get public key";*/	return true; }
+        if (!$key) { /* echo "Cannot get public key";*/	return null; }
         $res=openssl_public_decrypt(base64_decode($bl),$decrypted,$key);
         openssl_free_key($key);
-        if (!$res) return true; // faile to decode
+        if (!$res) return null; // faile to decode
         $data=json_decode($decrypted,true);
-        if (!is_array($data)) return true;
-        foreach($data as $item){
-            if ($item['Serial']===$serial) return true;
-        }
-        return false;
+        if (!is_array($data)) return null;
+        return $data;
 	}
 
 	function getSessionKey() {
 		return $this->mySessionKey;
 	}
+
+ 	/*
+     * return true if license serial name is in black list
+     */
+    function checkBlackListed($serial) {
+        // singleton retrieve registration data
+        if ($this->blackList===null) {
+            $this->blackList=$this->retrieveBlackList();
+        }
+        if ($this->blackList===null) return false; // no blacklist: block
+        foreach($this->blackList as $item){ if ($item['Serial']===$serial) return true; }
+        return false;
+    }
 
 	/**
 	 * Retrieve only non-critical subset of registration info stored data
