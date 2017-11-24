@@ -100,17 +100,19 @@ class AuthManager {
 	private function getBL() {
 		$need_to_load=false;
 		if (!file_exists(AC_BLACKLIST_FILE)) { // if bl file not found try to get
-			$need_to_load=true;
-        } else {
-            // if bl file older than 1 week try to get
-			$now=time();
-			$mtime=filemtime(AC_BLACKLIST_FILE);
-			if  ( ($now - $mtime) > 60*60*24*7 ) $need_to_load=true;
-		}
+            $need_to_load=true;
+        } else if (filesize(AC_BLACKLIST_FILE)==0){ // file exists, but empty
+            $need_to_load=true;
+		} else {  // if bl file older than 1 week try to download
+            $now=time();
+            $mtime=filemtime(AC_BLACKLIST_FILE);
+            if  ( ($now - $mtime) > 60*60*24*7 ) $need_to_load=true;
+        }
 		// try to download bl file from master server
 		if ($need_to_load) {
             $res=retrieveFileFromURL(AC_BLACKLIST_URL);
             if ($res!==FALSE) @file_put_contents(AC_BLACKLIST_FILE,$res,LOCK_EX);
+            else $this->myLogger->error("Cannot download blacklist file from server");
 		}
 		// ok. now handle current file
 		if (!file_exists(AC_BLACKLIST_FILE)) return ""; // no bl file nor can download. Fatal error
