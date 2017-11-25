@@ -344,7 +344,7 @@ Class Config {
         $dirs=array_filter(glob(__DIR__."/../../locale/*"), 'is_dir');
         foreach ($dirs as $dir) {
             $lang=basename($dir);
-            $result[]= array('ID'=>$lang,'Name'=>Locale::getDisplayLanguage($lang));
+            $result[]= array('ID'=>$lang,'Name'=>locale_get_display_language($lang));
         }
         return $result;
     }
