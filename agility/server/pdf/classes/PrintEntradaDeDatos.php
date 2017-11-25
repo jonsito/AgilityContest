@@ -562,7 +562,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 		foreach($this->orden as $row) {
 			if (!category_match($row['Categoria'],$this->validcats)) continue;
 			// if change in categoria, reset orden counter and force page change
-			if ($this->category_needsNewPage($this->categoria,$row['Categoria'],$this->manga)) {
+			if ($this->category_needsNewPage($this->categoria,$row['Categoria'],$this->manga)===true) {
                 $rowcount=0;
                 $orden=1;
 			}

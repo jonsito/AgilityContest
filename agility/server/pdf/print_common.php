@@ -84,12 +84,16 @@ class PrintCommon extends FPDF {
 	 * Recuerda:  0:comun 1:mixto 2:separado
      */
     function category_needsNewPage($from,$to,$manga) {
+    	$this->myLogger->enter();
         if (is_object($manga)) $manga=json_decode(json_encode($manga),true);
-        if ($manga['Recorrido']==0) return false; // conjunto. No hay cambio de pagina, pues todos salen juntos
-        if ($manga['Recorrido']==2) return ($from!==$to); // separados cambia pagina si cambia categoria
-		// llegando aqui tenemos recorridos mixtos. si no manga equipos conjunta compara categorias
+        $this->myLogger->trace("from:$from to:$to tipo:{$manga['Tipo']} recorrido:{$manga['Recorrido']}");
         if ( !in_array($manga['Tipo'],array(9,14) ) ) return ($from!==$to);
+        // si estamos aqui, tenemos mangas de equipos conjunta.
+        if ($manga['Recorrido']==2) return false; // recorrido conjunto. No hay cambio de pagina, pues todos salen juntos
+        if ($manga['Recorrido']==0) return ($from!==$to); // recorridos separados cambia pagina si cambia categoria
+		// llegando aqui tenemos recorridos mixtos. si no manga equipos conjunta compara categorias
         // en recorrido mixto y equipos conjunta discriminamos por alturas
+        $this->myLogger->trace("hola");
 		$alturas=$this->federation->get('Heights');
 		switch ($from) {
 			case '-': $result= false; break;// cualquier categoria es valida: no cambia pagina
@@ -102,7 +106,9 @@ class PrintCommon extends FPDF {
                 $result= false; // should not arrive here. notify error
 				break;
 		}
-        $this->myLogger->trace("from:$from to:$to alturas:$alturas change:$result");
+		$c=($result)?"0":"1";
+        $this->myLogger->trace("from:$from to:$to alturas:$alturas change:$c");
+        $this->myLogger->leave();
 		return ! $result; // on match do NOT change page
     }
 
