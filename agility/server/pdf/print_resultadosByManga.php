@@ -38,7 +38,7 @@ try {
 	$idjornada=http_request("Jornada","i",0);
 	$idmanga=http_request("Manga","i",0);
 	$mode=http_request("Mode","i",0);
-    $title=http_request("Title","s",_("Data Entry"));
+    $title=http_request("Title","s",_("Partial scores"));
 	
 	$mngobj= new Mangas("printResultadosByManga",$idjornada);
 	$manga=$mngobj->selectByID($idmanga);

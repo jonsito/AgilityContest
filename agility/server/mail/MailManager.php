@@ -523,7 +523,7 @@ class MailManager {
                         $res['trs']=$resultados['trs']; // add trs/trm information
 
                         // creamos generador de PDF
-                        $pdf=new PrintResultadosByManga($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode']);
+                        $pdf=new PrintResultadosByManga($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resultados,$m['Mode'],_('Partial scores'));
 
                         // Creamos generador de documento Excel
                         $excel = new PartialScoresWriter($this->myData['Prueba'],$this->myData['Jornada'],$manga,$res,$m['Mode']);
