@@ -451,8 +451,8 @@ function save_manga(id) {
         var trm = parseInt($('#dmanga_TRM_' + cat + '_Factor').textbox('getValue'));
         if (dist === 0) missing = true;
         if (trm === 0) missing = true;
-        if (trst === 0 && trsf === 0) missing = true; // fixed sct and empty data
-        if (trst === 6 && trsf === 0) missing = true; // speed based sct and empty data
+        if (trst === 0 && trsf <10) missing = true; // fixed sct and empty or invalid data
+        if (trst === 6 && trsf >10) missing = true; // speed based sct and empty or invalid data
     }
 
     var missing=false;
@@ -475,7 +475,7 @@ function save_manga(id) {
     $.messager.defaults.cancel="<?php _e('Back');?>";
     $.messager.confirm({
         title:"<?php _e('Missing data');?>",
-        msg:"<?php _e('Some category has missing values for');?><br/>"+
+        msg:"<?php _e('Some category has missing or invalid values for');?><br/>"+
             "<?php _e('either distance, SCT or MCT');?><br/>"+
             "<?php _e('Continue');?>?",
         width:400,
