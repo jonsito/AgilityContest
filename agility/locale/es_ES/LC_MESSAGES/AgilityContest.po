@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-11-22 14:28+0100\n"
-"PO-Revision-Date: 2017-11-22 14:30+0100\n"
+"POT-Creation-Date: 2017-11-27 09:48+0100\n"
+"PO-Revision-Date: 2017-11-27 09:51+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -244,7 +244,7 @@ msgstr "Gu&iacute;a"
 #: server/pdf/classes/PrintClasificacionExcel.php:99
 #: server/pdf/classes/PrintClasificacionExcel.php:163
 #: server/pdf/classes/PrintEntrenamientos.php:58
-#: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:218
+#: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:219
 #: tablet/index.php:267 tablet/tablet_main.php:83 tablet/tablet_main.php:294
 #: tablet/tablet_main.php:422 videowall/vwc_finales.php:84
 #: videowall/vwc_finales.php:217 videowall/vwc_parciales.php:84
@@ -678,7 +678,7 @@ msgstr "Equipo"
 #: scripts/datagrid_formatters.js.php:546
 #: server/excel/classes/DogReader.php:412 server/modules/Federations.php:407
 #: server/pdf/classes/PrintEntrenamientos.php:59
-#: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:218
+#: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:219
 msgid "Country"
 msgstr "Pa&iacute;s"
 
@@ -891,7 +891,7 @@ msgstr "Limpiar formulario"
 #: console/dialogs/dlg_sesiones.inc:117 console/dialogs/dlg_usuarios.inc:143
 #: console/dialogs/dlg_usuarios.inc:146 console/frm_inscripciones2.php:327
 #: console/frm_myAdmin.php:101 console/frm_perros.php:212
-#: console/frm_perros.php:214 console/frm_registration.php:149
+#: console/frm_perros.php:214 console/frm_registration.php:154
 #: lib/templates/scores_mail.inc.php:98
 msgid "Cancel operation. Close window"
 msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
@@ -1125,8 +1125,8 @@ msgstr "Flt"
 
 #: console/dialogs/dlg_competicion.inc:127
 #: server/pdf/classes/PrintClasificacion.php:229
-#: server/pdf/classes/PrintClasificacion.php:241
-#: server/pdf/classes/PrintClasificacion.php:253
+#: server/pdf/classes/PrintClasificacion.php:242
+#: server/pdf/classes/PrintClasificacion.php:255
 #: server/pdf/classes/PrintClasificacionTeam.php:250
 #: server/pdf/classes/PrintClasificacionTeam.php:261
 #: server/pdf/classes/PrintEntradaDeDatos.php:208
@@ -1172,9 +1172,9 @@ msgstr "Toc"
 #: scripts/results_and_scores.js.php:265 scripts/results_and_scores.js.php:269
 #: scripts/results_and_scores.js.php:332
 #: server/pdf/classes/PrintClasificacion.php:230
-#: server/pdf/classes/PrintClasificacion.php:242
-#: server/pdf/classes/PrintClasificacion.php:254
-#: server/pdf/classes/PrintClasificacion.php:262
+#: server/pdf/classes/PrintClasificacion.php:243
+#: server/pdf/classes/PrintClasificacion.php:256
+#: server/pdf/classes/PrintClasificacion.php:265
 #: server/pdf/classes/PrintClasificacionExcel.php:166
 #: server/pdf/classes/PrintClasificacionExcel.php:174
 #: server/pdf/classes/PrintClasificacionExcel.php:180
@@ -2003,7 +2003,7 @@ msgstr "M&eacute;todo de cifrado"
 #: console/dialogs/dlg_configuracion.inc:613 console/dialogs/dlg_pruebas.inc:53
 #: console/dialogs/dlg_remotecontrol.inc:46
 #: console/dialogs/dlg_remotecontrol.inc:140
-#: console/dialogs/dlg_remotecontrol.inc:200 server/auth/AuthManager.php:97
+#: console/dialogs/dlg_remotecontrol.inc:200 server/auth/AuthManager.php:128
 msgid "None"
 msgstr "Ninguno"
 
@@ -2021,8 +2021,8 @@ msgstr "M&eacute;todo de autenticaci&oacute;n"
 
 #: console/dialogs/dlg_configuracion.inc:458
 #: console/dialogs/dlg_sesiones.inc:35 console/dialogs/dlg_sesiones.inc:161
-#: console/frm_logout.php:31 console/index.php:191 scripts/auth.js.php:83
-#: scripts/auth.js.php:122 tablet/index.php:149 tablet/index.php:382
+#: console/frm_logout.php:31 console/index.php:191 scripts/auth.js.php:86
+#: scripts/auth.js.php:125 tablet/index.php:149 tablet/index.php:382
 msgid "User"
 msgstr "Usuario"
 
@@ -2542,7 +2542,7 @@ msgstr "Actualizando sesi&oacute;n de entrenamientos de la prueba"
 #: server/pdf/classes/PrintClasificacionTeam.php:136
 #: server/pdf/classes/PrintEntrenamientos.php:61
 #: server/pdf/classes/PrintPodium.php:82
-#: server/pdf/classes/PrintTRSTemplates.php:76 server/pdf/print_common.php:343
+#: server/pdf/classes/PrintTRSTemplates.php:76 server/pdf/print_common.php:344
 msgid "Date"
 msgstr "Fecha"
 
@@ -2614,7 +2614,7 @@ msgstr "Datos del equipo"
 msgid "Categories"
 msgstr "Categor&iacute;as"
 
-#: console/dialogs/dlg_equipos.inc:58 console/frm_registration.php:105
+#: console/dialogs/dlg_equipos.inc:58 console/frm_registration.php:109
 msgid "Close"
 msgstr "Cerrar"
 
@@ -3284,7 +3284,7 @@ msgstr "Forzar re-envio si ya se ha enviado el correo"
 #: console/dialogs/import_handlers.inc.php:57
 #: console/dialogs/import_ordensalida.inc.php:53
 #: console/dialogs/import_perros.inc.php:56
-#: console/dialogs/import_results.inc.php:53 console/frm_registration.php:120
+#: console/dialogs/import_results.inc.php:53 console/frm_registration.php:125
 msgid "Select"
 msgstr "Seleccionar"
 
@@ -3450,8 +3450,10 @@ msgstr "Orden de salida"
 #: public/pbmenu_parciales.php:44 public/pbmenu_parciales_equipos.php:44
 #: scripts/printer.js.php:302 scripts/printer.js.php:316
 #: scripts/sesiones.js.php:160 scripts/sesiones.js.php:173
-#: scripts/sesiones.js.php:178 videowall/index.php:239 videowall/index.php:243
-#: videowall/vw_parciales.php:43 videowall/vwc_parciales.php:51
+#: scripts/sesiones.js.php:178 server/mail/MailManager.php:526
+#: server/pdf/print_resultadosByManga.php:41 videowall/index.php:239
+#: videowall/index.php:243 videowall/vw_parciales.php:43
+#: videowall/vwc_parciales.php:51
 msgid "Partial scores"
 msgstr "Clasificaci&oacute;n parcial"
 
@@ -4012,22 +4014,22 @@ msgstr "Informaci&oacute;n del usuario"
 msgid "Information"
 msgstr "Informaci&oacute;n"
 
-#: console/dialogs/dlg_usuarios.inc:81 server/auth/AuthManager.php:97
+#: console/dialogs/dlg_usuarios.inc:81 server/auth/AuthManager.php:128
 msgid "Admin"
 msgstr "Administrador"
 
 #: console/dialogs/dlg_usuarios.inc:82 scripts/usuarios.js.php:30
-#: server/auth/AuthManager.php:97
+#: server/auth/AuthManager.php:128
 msgid "Operator"
 msgstr "Operador"
 
 #: console/dialogs/dlg_usuarios.inc:83 scripts/usuarios.js.php:31
-#: server/auth/AuthManager.php:97
+#: server/auth/AuthManager.php:128
 msgid "Assistant"
 msgstr "Asistente"
 
 #: console/dialogs/dlg_usuarios.inc:84 scripts/usuarios.js.php:33
-#: server/auth/AuthManager.php:97
+#: server/auth/AuthManager.php:128
 msgid "Guest"
 msgstr "Invitado"
 
@@ -4486,8 +4488,8 @@ msgstr "TRM"
 #: server/pdf/classes/PrintClasificacion.php:121
 #: server/pdf/classes/PrintClasificacion.php:145
 #: server/pdf/classes/PrintClasificacion.php:231
-#: server/pdf/classes/PrintClasificacion.php:243
-#: server/pdf/classes/PrintClasificacion.php:255
+#: server/pdf/classes/PrintClasificacion.php:244
+#: server/pdf/classes/PrintClasificacion.php:257
 #: server/pdf/classes/PrintClasificacionExcel.php:133
 #: server/pdf/classes/PrintClasificacionExcel.php:142
 #: server/pdf/classes/PrintClasificacionGames.php:218
@@ -5555,7 +5557,7 @@ msgstr "Licencia General P&uacute;blica de GNU versi&oacute;n 2"
 msgid "Registered at"
 msgstr "Inscrito en el"
 
-#: console/frm_registration.php:48 console/frm_registration.php:130
+#: console/frm_registration.php:48 console/frm_registration.php:135
 msgid "Licensing information"
 msgstr "Informaci&oacute;n de registro"
 
@@ -5571,55 +5573,59 @@ msgstr "Num. serie"
 msgid "Expiration date"
 msgstr "Fecha de expiraci&oacute;n"
 
-#: console/frm_registration.php:75
+#: console/frm_registration.php:74
+msgid "Status"
+msgstr "Estado"
+
+#: console/frm_registration.php:79
 msgid "Import from Excel files"
 msgstr "Importar desde ficheros Excel"
 
-#: console/frm_registration.php:76
+#: console/frm_registration.php:80
 msgid "Team contests"
 msgstr "Pruebas por Equipos"
 
-#: console/frm_registration.php:77
+#: console/frm_registration.php:81
 msgid "KO and Games rounds"
 msgstr "Rondas K.O. y Juegos"
 
-#: console/frm_registration.php:78
+#: console/frm_registration.php:82
 msgid "Series with more than 2 rounds"
 msgstr "Series multiples (m&aacute;s de 2 rondas)"
 
-#: console/frm_registration.php:79
+#: console/frm_registration.php:83
 msgid "VideoWall and ScoreBoard"
 msgstr "Paneles informativos - Marcador"
 
-#: console/frm_registration.php:80
+#: console/frm_registration.php:84
 msgid "Internet/Wifi public Access"
 msgstr "Acceso p&uacute;blico por Internet/WiFi"
 
-#: console/frm_registration.php:81
+#: console/frm_registration.php:85
 msgid "Chronometer connection"
 msgstr "Conexi&oacute;n con cron&oacute;metro"
 
-#: console/frm_registration.php:82
+#: console/frm_registration.php:86
 msgid "Unlimited inscriptions in a contest"
 msgstr "Pruebas sin l&iacute;mite de inscripciones"
 
-#: console/frm_registration.php:83
+#: console/frm_registration.php:87
 msgid "LiveStream OnScreenDisplay signal"
 msgstr "Se&ntilde;al OnScreenDisplay para Streaming"
 
-#: console/frm_registration.php:84
+#: console/frm_registration.php:88
 msgid "Trainning sessions handling"
 msgstr "Gesti&oacute;n de sesiones de entrenamiento"
 
-#: console/frm_registration.php:95
+#: console/frm_registration.php:99
 msgid "Register"
 msgstr "Registrar"
 
-#: console/frm_registration.php:147
+#: console/frm_registration.php:152
 msgid "Select license file to import"
 msgstr "Selecciona fichero de licencia a importar"
 
-#: console/frm_registration.php:148
+#: console/frm_registration.php:153
 msgid "Import license file into application"
 msgstr "Importar fichero de licencia en la aplicaci&oacute;n"
 
@@ -5842,6 +5848,9 @@ msgstr "Apertura"
 #: lib/templates/final_last_teams.inc.php:44
 #: lib/templates/final_last_teams.inc.php:51 livestream/vwls_finales.php:101
 #: livestream/vwls_finales.php:104
+#: server/pdf/classes/PrintClasificacion.php:234
+#: server/pdf/classes/PrintClasificacion.php:247
+#: server/pdf/classes/PrintClasificacion.php:260
 #: server/pdf/classes/PrintClasificacionGames.php:85
 #: server/pdf/classes/PrintClasificacionGames.php:86
 #: server/pdf/classes/PrintClasificacionGames.php:87
@@ -5876,7 +5885,7 @@ msgstr "Gambler"
 #: lib/templates/parcial_last_individual.inc.php:45
 #: lib/templates/parcial_last_teams.inc.php:47 livestream/vwls_finales.php:107
 #: scripts/results_and_scores.js.php:272 scripts/results_and_scores.js.php:336
-#: server/pdf/classes/PrintClasificacion.php:265
+#: server/pdf/classes/PrintClasificacion.php:268
 #: server/pdf/classes/PrintClasificacionExcel.php:183
 #: server/pdf/classes/PrintClasificacionGames.php:90
 #: server/pdf/classes/PrintClasificacionGames.php:123
@@ -5903,7 +5912,7 @@ msgstr "Actualizando clasificaci&oacute;n final"
 #: lib/templates/parcial_last_individual.inc.php:43
 #: lib/templates/parcial_last_teams.inc.php:45 livestream/vwls_finales.php:106
 #: scripts/results_and_scores.js.php:270
-#: server/pdf/classes/PrintClasificacion.php:263
+#: server/pdf/classes/PrintClasificacion.php:266
 #: server/pdf/classes/PrintClasificacionExcel.php:168
 #: server/pdf/classes/PrintClasificacionExcel.php:176
 #: server/pdf/classes/PrintClasificacionExcel.php:181
@@ -5924,8 +5933,8 @@ msgstr "Penal"
 #: lib/templates/parcial_last_teams.inc.php:46
 #: scripts/results_and_scores.js.php:271 scripts/results_and_scores.js.php:335
 #: server/pdf/classes/PrintClasificacion.php:233
-#: server/pdf/classes/PrintClasificacion.php:245
-#: server/pdf/classes/PrintClasificacion.php:257
+#: server/pdf/classes/PrintClasificacion.php:246
+#: server/pdf/classes/PrintClasificacion.php:259
 #: server/pdf/classes/PrintClasificacionTeam.php:254
 #: server/pdf/classes/PrintClasificacionTeam.php:265
 #: server/pdf/classes/PrintPodium.php:141
@@ -5945,8 +5954,8 @@ msgstr "Calif"
 #: scripts/results_and_scores.js.php:257 scripts/results_and_scores.js.php:263
 #: scripts/results_and_scores.js.php:329
 #: server/pdf/classes/PrintClasificacion.php:228
-#: server/pdf/classes/PrintClasificacion.php:240
-#: server/pdf/classes/PrintClasificacion.php:252
+#: server/pdf/classes/PrintClasificacion.php:241
+#: server/pdf/classes/PrintClasificacion.php:254
 #: server/pdf/classes/PrintClasificacionTeam.php:249
 #: server/pdf/classes/PrintClasificacionTeam.php:260
 #: server/pdf/classes/PrintPodium.php:124
@@ -5965,8 +5974,8 @@ msgstr "F/T"
 #: scripts/datagrid_formatters.js.php:410 scripts/results_and_scores.js.php:261
 #: scripts/results_and_scores.js.php:267 scripts/results_and_scores.js.php:334
 #: server/pdf/classes/PrintClasificacion.php:232
-#: server/pdf/classes/PrintClasificacion.php:244
-#: server/pdf/classes/PrintClasificacion.php:256
+#: server/pdf/classes/PrintClasificacion.php:245
+#: server/pdf/classes/PrintClasificacion.php:258
 #: server/pdf/classes/PrintClasificacionGames.php:85
 #: server/pdf/classes/PrintClasificacionGames.php:86
 #: server/pdf/classes/PrintClasificacionGames.php:87
@@ -6646,11 +6655,11 @@ msgstr "Nueva Versi&oacute;n"
 msgid "Last Release"
 msgstr "Nueva revisi&oacute;n"
 
-#: scripts/auth.js.php:34 scripts/auth.js.php:123
+#: scripts/auth.js.php:34 scripts/auth.js.php:126
 msgid "Init session"
 msgstr "Iniciar Sesi&oacute;n"
 
-#: scripts/auth.js.php:37 scripts/auth.js.php:85
+#: scripts/auth.js.php:37 scripts/auth.js.php:88
 msgid "End session"
 msgstr "Finalizar Sesi&oacute;n"
 
@@ -6675,63 +6684,67 @@ msgid "License expired"
 msgstr "La licencia ha caducado"
 
 #: scripts/auth.js.php:78
+msgid "License cancelled"
+msgstr "Licencia anulada"
+
+#: scripts/auth.js.php:81
 msgid "Automatic backup is disabled"
 msgstr "Copia de seguridad autom&aacute;tica desactivada"
 
-#: scripts/auth.js.php:81
+#: scripts/auth.js.php:84
 msgid "New version available"
 msgstr "Nueva versi&oacute;n disponible"
 
-#: scripts/auth.js.php:83
+#: scripts/auth.js.php:86
 msgid "session login success"
 msgstr "sesi&oacute;n iniciada correctamente"
 
-#: scripts/auth.js.php:122
+#: scripts/auth.js.php:125
 msgid "Session has been closed by user"
 msgstr "El usuario ha finalizado la sesi&oacute;n"
 
-#: scripts/auth.js.php:159
+#: scripts/auth.js.php:162
 msgid "No user specified"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:167
+#: scripts/auth.js.php:170
 msgid "Current user has no <em>admin</em> privileges"
 msgstr "El usuario actual no tiene privilegios de administrador"
 
-#: scripts/auth.js.php:177
+#: scripts/auth.js.php:180
 msgid "No user provided"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:177
+#: scripts/auth.js.php:180
 msgid "Starting session read-only (guest)"
 msgstr "Iniciando sesi&oacute;n en modo solo consulta (invitado)"
 
-#: scripts/auth.js.php:219
+#: scripts/auth.js.php:222
 msgid "Restart"
 msgstr "Reiniciar"
 
-#: scripts/auth.js.php:220 scripts/competicion.js.php:475
+#: scripts/auth.js.php:223 scripts/competicion.js.php:475
 #: scripts/pruebas.js.php:137
 msgid "Back"
 msgstr "Volver"
 
-#: scripts/auth.js.php:223
+#: scripts/auth.js.php:226
 msgid "Licensing"
 msgstr "Licencia"
 
-#: scripts/auth.js.php:224
+#: scripts/auth.js.php:227
 msgid "Licensing data successfully loaded"
 msgstr "Datos de la licencia actualizados correctamente"
 
-#: scripts/auth.js.php:225
+#: scripts/auth.js.php:228
 msgid "Restart app to make changes to take effect"
 msgstr "Reinicie la aplicaci&oacute;n para activar los cambios"
 
-#: scripts/auth.js.php:278
+#: scripts/auth.js.php:281
 msgid "User level"
 msgstr "Nivel de usuario"
 
-#: scripts/auth.js.php:279
+#: scripts/auth.js.php:282
 msgid ""
 "Current user has not enought level to make changes <br/>Read-only access "
 "enabled"
@@ -6909,8 +6922,8 @@ msgid "Missing data"
 msgstr "Faltan datos"
 
 #: scripts/competicion.js.php:478
-msgid "Some category has missing values for"
-msgstr "En alguna de las categor&iacute;as faltan"
+msgid "Some category has missing or invalid values for"
+msgstr "En alguna categor&iacute;a faltan datos o son inv&aacute;lidos"
 
 #: scripts/competicion.js.php:479
 msgid "either distance, SCT or MCT"
@@ -8037,15 +8050,23 @@ msgstr "Info"
 msgid "Password changed successfully"
 msgstr "Contrase&ntilde;a cambiada con &eacute;xito"
 
-#: server/auth/AuthManager.php:97
+#: server/auth/AuthManager.php:128
 msgid "Root"
 msgstr "Root"
 
-#: server/auth/AuthManager.php:474
+#: server/auth/AuthManager.php:240
+msgid "Expired"
+msgstr "Expirada"
+
+#: server/auth/AuthManager.php:241
+msgid "Cancelled"
+msgstr "Cancelada"
+
+#: server/auth/AuthManager.php:540
 msgid "Insufficient credentials"
 msgstr "Permisos insuficientes"
 
-#: server/auth/AuthManager.php:474
+#: server/auth/AuthManager.php:540
 msgid "Required level is"
 msgstr "El nivel requerido es"
 
@@ -8815,7 +8836,7 @@ msgstr "Competicion"
 msgid "Cat/Gr"
 msgstr "Cat./Grado"
 
-#: server/pdf/classes/PrintClasificacion.php:264
+#: server/pdf/classes/PrintClasificacion.php:267
 #: server/pdf/classes/PrintClasificacionTeam.php:272
 #: server/pdf/classes/PrintPodium.php:160
 msgid "Calific"
@@ -9108,23 +9129,26 @@ msgstr "Resultados de la manga"
 msgid "SCT / MCT data form"
 msgstr "Datos de TRS y TRM"
 
-#: server/pdf/print_common.php:345
+#: server/pdf/print_common.php:346
 msgid "Page"
 msgstr "P&aacute;gina"
 
-#: server/pdf/print_common.php:349
+#: server/pdf/print_common.php:350
 msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
 
 #: server/pdf/print_entradaDeDatos.php:46
 #: server/pdf/print_entradaDeDatosEquipos4.php:42
-#: server/pdf/print_resultadosByManga.php:41
 msgid "Data Entry"
 msgstr "Entrada de datos"
 
 #: server/tools.php:616
 msgid "Current journey is closed. cannot modify"
 msgstr "La jornada actual est&aacute; cerrada. No se puede modificar"
+
+#: server/tools.php:668
+msgid "Physical"
+msgstr "F&iacute;sica"
 
 #: server/web/PublicWeb.php:113
 msgid "Web notification system started"
@@ -9266,6 +9290,9 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "Some category has missing values for"
+#~ msgstr "En alguna de las categor&iacute;as faltan"
 
 #~ msgid "Gambler extra Bonus Points"
 #~ msgstr "Puntos Bonus secuencia abierta"
