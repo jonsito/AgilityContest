@@ -230,7 +230,7 @@ class DogReader {
             switch ($val[2]) {
                 case "s": // string
                     $a=$this->myDBObject->conn->real_escape_string(trim($item));
-                    $str2.="'{$a}', ";
+                    $str2 .= " '{$a}', ";
                     break;
                 case "i":
                     // take care on boolean-as-integer case
@@ -380,7 +380,7 @@ class DogReader {
         $dbpriority=intval($this->myOptions['DBPriority']);
         $ignorewhitespaces=intval($this->myOptions['IgnoreWhiteSpaces']);
         // dbdata is already escaped, so do only on $filedata
-        $filedata=$this->myDBObject->conn->real_escape_string($filedata);
+        // $filedata=$this->myDBObject->conn->real_escape_string($filedata);
         // handle word uppercase
         if($ucase && ($uppercase!=0) ) {
             $dbdata=toUpperCaseWords($dbdata);

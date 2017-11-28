@@ -298,6 +298,8 @@ class PrintEstadisticas extends PrintCommon {
 		$est['Prueba']['GII']['C']=0;$est['Prueba']['GII']['L']=0;$est['Prueba']['GII']['M']=0;$est['Prueba']['GII']['S']=0;$est['Prueba']['GII']['T']=0;	
 		$est['Prueba']['GIII']=array();
 		$est['Prueba']['GIII']['C']=0;$est['Prueba']['GIII']['L']=0;$est['Prueba']['GIII']['M']=0;$est['Prueba']['GIII']['S']=0;$est['Prueba']['GIII']['T']=0;
+		$est['Prueba']['-']=array();
+        $est['Prueba']['-']['C']=0;$est['Prueba']['-']['L']=0;$est['Prueba']['-']['M']=0;$est['Prueba']['-']['S']=0;$est['Prueba']['-']['T']=0;
 
 		foreach (array('1','2','3','4','5','6','7','8') as $j) { // creamos arrays para las ocho posibles jornadas
             // Jornada 1
@@ -316,6 +318,8 @@ class PrintEstadisticas extends PrintCommon {
             $est['J'.$j]['GII']['C']=0;$est['J'.$j]['GII']['L']=0;$est['J'.$j]['GII']['M']=0;$est['J'.$j]['GII']['S']=0;$est['J'.$j]['GII']['T']=0;
             $est['J'.$j]['GIII']=array();
             $est['J'.$j]['GIII']['C']=0;$est['J'.$j]['GIII']['L']=0;$est['J'.$j]['GIII']['M']=0;$est['J'.$j]['GIII']['S']=0;$est['J'.$j]['GIII']['T']=0;
+            $est['J'.$j]['-']=array();
+            $est['J'.$j]['-']['C']=0;$est['J'.$j]['-']['L']=0;$est['J'.$j]['-']['M']=0;$est['J'.$j]['-']['S']=0;$est['J'.$j]['-']['T']=0;
         }
 
 		foreach($this->inscritos as $item){
@@ -485,7 +489,7 @@ class PrintEstadisticas extends PrintCommon {
 		$count=0;
 		$this->printTableHeader($est,'Prueba',_('Participation global data'));
 		$this->printTableData($est,'Prueba',$alturas);
-		$count++;
+		$count+=2;
 		foreach($this->jornadas as $jornada) {
 			if ($jornada['Nombre']==='-- Sin asignar --') continue;
 			$name="J{$jornada['Numero']}";
@@ -505,14 +509,22 @@ class PrintEstadisticas extends PrintCommon {
 				case 4:$flag=_("Team 4"); break;
 				default: break;
 			}
-			if ($jornada['Open']!=0) /* $flag=_("Individual"); */ $flag=" "; // print space in Individual-Open journeys
-			if ($jornada['KO']!=0) $flag=_("K.O.");
-			if ($flag==="")
-				$this->printTableData($est,$name,$alturas);
-			else
-				$this->printTableDataSpecial($est,$name,$alturas,$flag);
-			$count++;
-			if ($count%4==0) $this->AddPage();
+			if ($jornada['Open']!=0) /* $flag=_("Individual"); */ $flag="Open";
+            if ($jornada['KO']!=0) $flag=_("K.O.");
+            if ($jornada['Games']!=0) {
+            	$flag=_("Games");
+                if ($jornada['Tipo_Competicion']==1) $flag=_("Pentathlon");
+                if ($jornada['Tipo_Competicion']==2) $flag=_("Biathlon");
+                if ($jornada['Tipo_Competicion']==3) $flag=_("Games");
+            }
+			if ($flag===""){
+                $this->printTableData($est,$name,$alturas);
+                $count+=2;
+			} else {
+                $this->printTableDataSpecial($est,$name,$alturas,$flag);
+                $count++;
+			}
+			if ($count>8) $this->AddPage();
 		}
 	}
 }
