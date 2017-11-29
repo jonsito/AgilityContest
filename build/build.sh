@@ -123,6 +123,10 @@ mkisofs -A AgilityContest \
 # prepare zip file
 mv AgilityContest-master.zip AgilityContest-${VERSION}-${DATE}.zip
 
+# create md5 sum file
+rm -f AgilityContest-${VERSION}-${DATE}.md5sums
+md5sum AgilityContest-${VERSION}-${DATE}.{exe,zip,dmg} > AgilityContest-${VERSION}-${DATE}.md5sums
+
 # move generated files to dropbox
 #mv AgilityContest-${VERSION}-${DATE}.* ${DROPBOX}
 
