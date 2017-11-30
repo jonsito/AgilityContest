@@ -123,9 +123,20 @@ mkisofs -A AgilityContest \
 # prepare zip file
 mv AgilityContest-master.zip AgilityContest-${VERSION}-${DATE}.zip
 
-# create md5 sum file
+# create md5 sum file and html page
+
 rm -f AgilityContest-${VERSION}-${DATE}.md5sums
-md5sum AgilityContest-${VERSION}-${DATE}.{exe,zip,dmg} > AgilityContest-${VERSION}-${DATE}.md5sums
+zsum=`md5sum AgilityContest-${VERSION}-${DATE}.zip`
+esum=`md5sum AgilityContest-${VERSION}-${DATE}.exe`
+dsum=`md5sum AgilityContest-${VERSION}-${DATE}.dmg`
+echo $zsum >> AgilityContest-${VERSION}-${DATE}.md5sums
+echo $esum >> AgilityContest-${VERSION}-${DATE}.md5sums
+echo $dsum >> AgilityContest-${VERSION}-${DATE}.md5sums
+cp ${BASE_DIR}/applications/Eval_md5sum.html AgilityContest-${VERSION}-${DATE}_md5check.html
+sed -i "s/__VERSION__/${VERSION}-${DATE}/g" AgilityContest-${VERSION}-${DATE}_md5check.html
+sed -i "s/__ZIPFILE__/${zsum}/g" AgilityContest-${VERSION}-${DATE}_md5check.html
+sed -i "s/__WINFILE__/${esum}/g" AgilityContest-${VERSION}-${DATE}_md5check.html
+sed -i "s/__MACFILE__/${dsum}/g" AgilityContest-${VERSION}-${DATE}_md5check.html
 
 # move generated files to dropbox
 #mv AgilityContest-${VERSION}-${DATE}.* ${DROPBOX}
