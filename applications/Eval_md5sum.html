@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>HTML5 MD5 sum calculation example</title>
+
+    <script type="text/javascript" src="md5.js"></script>
+    <script type="text/javascript">
+
+        // readAsBinaryString is deprecated, so check for existence and replace if not found
+        if (FileReader.prototype.readAsBinaryString === undefined) {
+            FileReader.prototype.readAsBinaryString = function (fileData) {
+                var binary = "";
+                var pt = this;
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var bytes = new Uint8Array(reader.result);
+                    var length = bytes.byteLength;
+                    for (var i = 0; i < length; i++) {
+                        binary += String.fromCharCode(bytes[i]);
+                    }
+                    //pt.result  - readonly so assign content to another property
+                    pt.content = binary;
+                    pt.onload(); // thanks to @Denis comment
+                };
+                reader.readAsArrayBuffer(fileData);
+            }
+        }
+
+        function evalmd5(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var data=(!e)?reader.content:e.target.result;
+                    document.getElementById('result').innerHTML = ''+ CryptoJS.MD5(data).toString();
+                };
+                reader.readAsBinaryString(input.files[0]);
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+<table style="width:100%">
+    <tr>
+        <td>
+            <input type="file" name="SelectedFile" value="" id="SelectedFile" accept="*/*" onchange="evalmd5(this);"/>
+        </td>
+        <td style="text-align:left;">
+            MD5 sum: <span id="result"></span>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

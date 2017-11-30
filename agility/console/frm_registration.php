@@ -97,9 +97,6 @@ $config =Config::getInstance();
 		<a id="registration-okButton" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-key'"
    			onclick="send_regFile()"><?php _e('Register'); ?></a>
-            <!--
-		<input type="file" name="fichero" required="required" accept=".info" onchange="read_regFile(this)"/><br/>
-		-->
         <input name="fichero" id="registration-fichero" style="width:350px;" onchange="read_regFile(this)"/>
 		<input id="registrationData" type="hidden" name="Data" value="">
 		</span> 
