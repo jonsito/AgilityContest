@@ -937,7 +937,7 @@ class PrintTarjetasDeVisita extends PrintCommon{
         	if (Jornadas::hasGrades((object)$jornada)) $this->hasGrades=true;
 		}
 		// ajustamos nombre del fichero
-        $this->set_FileName("Tarjetas_de_visita.pdf");
+        $this->set_FileName("Dorsales_Identificativos.pdf");
     }
 
     private function printCard($x,$y,$item) {
