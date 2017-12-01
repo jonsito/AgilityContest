@@ -264,7 +264,7 @@ class PrintEntradaDeDatosGames extends PrintCommon {
             $c->getEnv('gambler_bonus4'),$c->getEnv('gambler_bonus5'),$c->getEnv('gambler_extra'));
         $h2=array("5","5","4","3","3","2","2","2","2", "2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
             $c->getEnv('gambler_bonus1'), $c->getEnv('gambler_bonus2'), $c->getEnv('gambler_bonus3'),
-            $c->getEnv('gambler_bonus4'),$c->getEnv('gambler_bonus5'),$c->getEnv('gambler_bonus5'));
+            $c->getEnv('gambler_bonus4'),$c->getEnv('gambler_bonus5'),$c->getEnv('gambler_extra'));
         $h3=array("00F","00F","841","0F0","0F0","FF0","FF0","FF0","FF0","FF0","FF0",
                   "F00","F00","F00","F00","F00","F00","F00","F00","F00","F00", "0F0", "841", "00F", "F19","000",'F00');
 
@@ -357,7 +357,7 @@ class PrintEntradaDeDatosGames extends PrintCommon {
             $orden++;
         }
         // Línea de cierre
-        $this->Cell(array_sum($this->pos),0,'','T');
+        // $this->Cell(array_sum($this->pos),0,'','T');
         $this->myLogger->leave();
 	}
 }
