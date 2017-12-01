@@ -501,6 +501,10 @@ class DogReader {
         // notice that arriving here means all clubs and handlers has been parsed and analyzed
         // TODO: search and handle also dog's long (pedigree) name
         $a=$this->myDBObject->conn->real_escape_string($item['Nombre']);
+        $aa="";
+        if(isset($item['NombreLargo'])) {
+            $aa=$this->myDBObject->conn->real_escape_string($item['NombreLargo']);
+        }
         $this->saveStatus("Analyzing dog '$a'");
         $f=$this->federation;
         if ($this->myOptions['Blind']==0)
@@ -531,7 +535,7 @@ class DogReader {
             $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$item['Nombre'];
             if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
             // remaining  data are handler according import rules
-            $nlargo=$this->import_mixData($nlargo,isset($item['NombreLargo'])?$item['NombreLargo']:"");
+            $nlargo=$this->import_mixData($nlargo,$aa); // $aa already set at start of method
             $raza=$this->import_mixData($raza,isset($item['Raza'])?$item['Raza']:"");
             $chip=$this->import_mixData($chip,isset($item['Chip'])?$item['Chip']:"");
             $lic=$this->import_mixData($lic,isset($item['Licencia'])?$item['Licencia']:"",false);
