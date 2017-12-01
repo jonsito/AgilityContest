@@ -214,6 +214,7 @@ function isJornadaKO() { return (workingData.datosJornada.KO!=0); }
 function isJornadaGames() { return (workingData.datosJornada.Games!=0); }
 function isJornadaEqMejores() { return (workingData.datosJornada.Equipos3!=0); }
 function isJornadaEqConjunta() { return (workingData.datosJornada.Equipos4!=0); }
+function isMangaGames() { return ( $.inArray(workingData.datosManga.Tipo,["29","30",29,30]) >=0 ); }
 
 /**
  * Check if provided jornada has Team rounds

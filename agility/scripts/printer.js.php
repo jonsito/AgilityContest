@@ -170,10 +170,11 @@ function print_trsTemplates(mode) {
  * @param fill indica si rellenar datos con resultados
  * @param rango rango de perros a imprimir
  * @param comentarios texto a pintar bajo la cabecera de la pagina
+ * @param empty en juegos, imprimir hoja vacia
  * @returns {boolean}
  */
 
-function print_asistente(pagemode,cats,fill,rango,comentarios) {
+function print_asistente(pagemode,cats,fill,rango,comentarios,empty) {
     $.fileDownload(
         '/agility/server/pdf/print_entradaDeDatos.php',
         {
@@ -189,7 +190,8 @@ function print_asistente(pagemode,cats,fill,rango,comentarios) {
                 EqConjunta: isJornadaEqConjunta()?1:0,
                 JornadaKO: isJornadaKO()?1:0,
                 JornadaGames: isJornadaGames()?1:0,
-                Comentarios:comentarios
+                Comentarios:comentarios,
+                EmptyPage: (empty)?1:0
             },
             preparingMessageHtml:'(assistant sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
             failMessageHtml:'(assistant sheets) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -203,15 +205,15 @@ function print_asistente(pagemode,cats,fill,rango,comentarios) {
  */
 function print_asistenteKO(cats,fill,rango,comentarios,cabecera) {
     if (typeof(cabecera)==="undefined") cabecera='<?php _("Data entry");?>';
-    return print_asistente(16,cats,fill,rango,comentarios,cabecera);
+    return print_asistente(16,cats,fill,rango,comentarios,cabecera,false);
 }
 
 /**
  * En snooker / gambler la hoja no da para imprimir más que 8 entradas
  */
-function print_asistenteGames(cats,fill,rango,comentarios,cabecera) {
+function print_asistenteGames(cats,fill,rango,comentarios,cabecera,empty) {
     if (typeof(cabecera)==="undefined") cabecera='<?php _("Data entry");?>';
-    return print_asistente(8,cats,fill,rango,comentarios,cabecera);
+    return print_asistente(8,cats,fill,rango,comentarios,cabecera,empty);
 }
 
 /**
@@ -365,13 +367,13 @@ function print_parcial(mode) {
                     );
                     break;
                 case 2: // filled normal rounds 10 dogs/page
-                    print_asistente(10, "-", true,"1-9999","",t); // do not handle 'mode', just print all
+                    print_asistente(10, "-", true,"1-9999","",t,false); // do not handle 'mode', just print all
                     break;
                 case 3: // filled normal rounds 15 dogs/page
-                    print_asistente(15, "-", true,"1-9999","",t);
+                    print_asistente(15, "-", true,"1-9999","",t,false);
                     break;
                 case 4: // filled ko assistant sheets
-                    print_asistente(16, "-", true,"1-9999","",t);
+                    print_asistente(16, "-", true,"1-9999","",t,false);
                     break;
                 // PENDING: add filled sheet for snooker/gambler
             }
@@ -432,14 +434,17 @@ function print_performCommonDesarollo() {
         case 2: if (!row) break; print_ordenSalida(cats,true,range,comments); return false; // orden de salida excel
         case 3: print_trsTemplates(0); return false; // tabla trs/trm
         case 4: print_trsTemplates(1); return false; // hoja de anotacion de trs/trm
-        case 5: print_trsTemplates(2); return false; // hoja de asistente vacia
-        case 6: if (!row) break; print_asistente(1,cats,false,range,comments); return false; // hojas asistente 1 perro/pag
-        case 7: if (!row) break; print_asistente(5,cats,false,range,comments); return false; // hojas asistente 5 perros/pag
-        case 8: if (!row) break; print_asistente(15,cats,false,range,comments); return false; // hojas asistente 15 perros/pag
-        case 10: if (!row) break; print_asistente(10,cats,false,range,comments); return false; // hojas asistente 10 perros/pag
+        case 5: // hoja de asistente vacia
+            if ( !isMangaGames() )  { print_trsTemplates(2); return false; } // normal empty template
+            if (row) print_asistenteGames(cats,false,range,comments,true) // snooker, gambler empty template
+            return false;
+        case 6: if (!row) break; print_asistente(1,cats,false,range,comments,false); return false; // hojas asistente 1 perro/pag
+        case 7: if (!row) break; print_asistente(5,cats,false,range,comments,false); return false; // hojas asistente 5 perros/pag
+        case 8: if (!row) break; print_asistente(15,cats,false,range,comments,false); return false; // hojas asistente 15 perros/pag
+        case 10: if (!row) break; print_asistente(10,cats,false,range,comments,false); return false; // hojas asistente 10 perros/pag
         case 9: if (!row) break; print_asistenteEquipos(cats,false,range,comments); return false; // hojas asistente team4 conjunta
         case 11: if (!row) break; print_asistenteKO(cats,false,range,comments); return false; // hojas asistente manga KO
-        case 12: if (!row) break; print_asistenteGames(cats,false,range,comments); return false; // hojas asistente juegos
+        case 12: if (!row) break; print_asistenteGames(cats,false,range,comments,false); return false; // hojas asistente juegos
     }
     // arriving here means round required but not selected. notify and abort
     $.messager.alert('<?php _e('Error'); ?>','<?php _e('There is no selected round'); ?>','error');
@@ -480,7 +485,7 @@ function print_commonDesarrollo(def,cb) {
 	$('#printer_dialog-currentcat').html(catstr);
     $('#printer_dialog-team4').css('display',isJornadaEqConjunta()?'inherit':'none');
     $('#printer_dialog-ko').css('display',isJornadaKO()?'inherit':'none');
-    $('#printer_dialog-games').css('display',isJornadaGames()?'inherit':'none');
+    $('#printer_dialog-games').css('display',isMangaGames()?'inherit':'none');
 	$('#printer_dialog-option'+def.toString()).prop('checked',true);
 	$('#printer_dialog-comments').textbox('setValue','');
 	rangeobj.textbox('setValue','1-99999'); // on window open default is print all

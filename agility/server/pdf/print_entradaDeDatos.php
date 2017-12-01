@@ -43,7 +43,8 @@ try {
         'eqconjunta' => http_request("EqConjunta","i",0),
         'ko' 		=> http_request("JornadaKO","i",0),
         'games' 	=> http_request("JornadaGames","i",0),
-        'title'     => http_request("Title","s",_("Data Entry"))
+        'title'     => http_request("Title","s",_("Data Entry")),
+		'empty'		=> http_request("EmptyPage","i",0), // just template, no data. used for games
 	);
 
 	// Consultamos la base de datos
@@ -51,17 +52,23 @@ try {
 	$m = new Mangas("printEntradaDeDatos",$data['jornada']);
 	$data['mangas']= $m->getHermanas($data['manga']);
 	// Datos del orden de salida
-	$o = Competitions::getOrdenSalidaInstance("printEntradaDeDatos",$data['manga']);
-	$data['orden']= $o->getData()['rows'];
+    do_log("Data contents is: ".json_encode($data));
+	$data['orden']=null;
+	if (intval($data['empty'])===0) {
+        $o = Competitions::getOrdenSalidaInstance("printEntradaDeDatos",$data['manga']);
+        $data['orden']= $o->getData()['rows'];
+	}
 	// Creamos generador de documento
 	// para ello vemos el tipo de manga
 	$mng=$m->selectByID($data['manga']);
 	$data['datosmanga']=$mng;
 	switch ( $mng->Tipo ) {
 		case 15:case 18:case 19:case 20:case 21:case 22:case 23:case 24: // ko rounds
+            $data['numrows']=16; // fixed for ko
         	$pdf = new PrintEntradaDeDatosKO($data);
         	break;
 		case 29:case 30: // snooker, gambler
+            $data['numrows']=8; // fixed for games
         	$pdf = new PrintEntradaDeDatosGames($data);
         	break;
 		default:

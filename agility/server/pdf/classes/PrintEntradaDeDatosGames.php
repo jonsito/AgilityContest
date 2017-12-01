@@ -42,7 +42,21 @@ class PrintEntradaDeDatosGames extends PrintCommon {
     //                      Dorsal  nombre raza licencia Categoria guia club  celo  observaciones
 	protected $pos	=array( 10,     25,     27,    10,    18,      40,   25,  10,    25);
 	protected $align=array( 'R',    'C',    'R',    'C',  'C',     'R',  'R', 'C',   'R');
-	
+
+	protected $default_row=array(
+	    'Dorsal'    => "",
+        'Perro'     => 0,
+        'Nombre'    => "",
+        'NombreLargo' => "",
+        'NombreGuia'=> "",
+        'NombreClub'=> "",
+	    'Licencia'  => "",
+        'Categoria' => "-",
+        'Grado'     => "-",
+        'Observaciones' => "",
+        'Celo'      => 0
+    );
+
 	/**
 	 * Constructor
      * @param {array} $data constructor parameters: 'prueba','jornada','manga','cats','fill','rango','comentarios'
@@ -61,8 +75,14 @@ class PrintEntradaDeDatosGames extends PrintCommon {
 			$this->errormsg="print_entradaDeDatosGames: either prueba or jornada data are invalid";
 			throw new Exception($this->errormsg);
 		}
-        // guardamos info de la manga
+		// si el orden de salida es null ( ojo, no es lo mismo que vacio)
+        // significa que tenemos que rellenar una plantilla vacia
+        if ($data['orden']===null) {
+		    $data['orden']=array();
+		    for ($n=0;$n<8;$n++) array_push($data['orden'],$this->default_row);
+        }
         $this->orden=$data['orden'];
+        // guardamos info de la manga
         $this->manga=$data['datosmanga'];
         $this->numrows=$data['numrows']; // should be 8
         $this->validcats=$data['cats'];
@@ -107,7 +127,8 @@ class PrintEntradaDeDatosGames extends PrintCommon {
 
 	private function writeTableCell_common($row,$orden) {
         $wide=$this->federation->get('WideLicense'); // if required use long cell for license
-        $logo=$this->getLogoName($row['Perro']);
+        if (intval($row['Perro'])!==0) $logo=$this->getLogoName($row['Perro']);
+        else $logo= getIconPath('rsce','agilitycontest.png');
         $this->ac_header(1,20);
         // save cursor position
         $x=$this->getX();
@@ -284,7 +305,7 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         $this->Cell(5,7.5,"0",'TRB',0,'C',false);
         $this->Cell(5,7.5,$c->getEnv('gambler_seq1'),'TRB',0,'C',false);
         $this->Cell(5,7.5,$c->getEnv('gambler_seq2'),'TRB',0,'C',false);
-        $this->Cell(20,4,_("Opening seq").":",'',0,'L',false);
+        $this->Cell(20,4,_('Pts').". "._("Opening seq").":",'',0,'L',false);
         // next row
         $this->Ln(12);
     }

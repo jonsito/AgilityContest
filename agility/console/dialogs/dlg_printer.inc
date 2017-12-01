@@ -58,7 +58,8 @@ $config =Config::getInstance();
         </span>
         <span id="printer_dialog-games" >
             <input type="radio" name="printer_dialog-option" id="printer_dialog-option12" value="12" onclick="print_changeSelection(12)"/>
-            <label for="printer_dialog-option12"><?php _e('Judge assistant sheets (Games)'); ?></label><br/><br/>
+            <label for="printer_dialog-option12"><?php _e('Judge assistant sheets (Games)'); ?></label><br/>
+            <br/>
         </span>
         <p>
             <label for="printer_dialog-comments"><?php _e('PDF Header comment');?> </label>
