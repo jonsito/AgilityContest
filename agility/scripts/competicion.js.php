@@ -1524,9 +1524,9 @@ function reloadClasificaciones() {
             if (isJornadaGames()){
                 // en games las mangas dependen del tipo de competicion
                 switch (workingData.datosCompeticion.ModuleID) {
-                    case 1: mangas=[1,2,3,4,7]; break; // penthatlon
+                    case 1: mangas=[1,2,3,4,5]; break; // penthatlon
                     case 2: mangas=[1,2,3,4]; break;// biathlon
-                    case 3: mangas=[5,6]; break;// games
+                    case 3: mangas=[1,2]; break;// games
                     default: // should not happen. default to "standard" round
                         console.log("invalid module ID: "+workingData.datosCompeticion.ModuleID+" on Games journey");
                         break;
@@ -1534,8 +1534,8 @@ function reloadClasificaciones() {
             }
             // now iterate on valid rounds to compose final scores
             mangas.forEach(function(value,index,source){
-                if (ronda['Manga'+nmanga]<=0) return;
-                $('#finales_individual_roundname_m'+nmanga).text(ronda['NombreManga'+nmanga]);
+                if (ronda['Manga'+value]<=0) return;
+                $('#finales_individual_roundname_m'+value).text(ronda['NombreManga'+value]);
             });
             // and populate table
             workingData.individual=dat.rows;
