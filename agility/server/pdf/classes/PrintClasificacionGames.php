@@ -230,7 +230,7 @@ class PrintClasificacionGames extends PrintCommon {
             $this->Ln();
             $count++;
         }
-        $this->Ln();
+        $this->Ln(7);
 	}
 
 	// on second and consecutive pages print a short description to avoid sheet missorder
@@ -248,6 +248,7 @@ class PrintClasificacionGames extends PrintCommon {
 
 	function Header() {
 		$this->print_commonHeader(_("Final scores"));
+		$this->Ln(7);
 	}
 	
 	// Pie de página: tampoco cabe
@@ -277,12 +278,19 @@ class PrintClasificacionGames extends PrintCommon {
         $fill=(($idx%2)!=0)?true:false;
         // contenidos
         for($n=0;$n<count($this->cell_header);$n++) {
+            $extra="";
             $this->ac_row($idx,8);
             $this->SetFont($this->getFontName(),'',8);
             if ($this->cell_header[$n]==_('Name')) $this->SetFont($this->getFontName(),'B',8);
-            if ($this->cell_header[$n]==_('Pos')) $this->SetFont($this->getFontName(),'B',8);
-            if ($this->cell_header[$n]==_('Position')) $this->SetFont($this->getFontName(),'B',10);
-            $this->Cell($this->cell_width[$n],6,$row[$this->cell_field[$n]],'LTR',0,$this->cell_align[$n],$fill);
+            if ($this->cell_header[$n]==_('Pos')) {
+                $this->SetFont($this->getFontName(),'B',8);
+                $extra="º";
+            }
+            if ($this->cell_header[$n]==_('Position')) {
+                $this->SetFont($this->getFontName(),'B',10);
+                $extra="º";
+            }
+            $this->Cell($this->cell_width[$n],6,$row[$this->cell_field[$n]].$extra,'LTR',0,$this->cell_align[$n],$fill);
         }
         // rayas de separacion entre mangas
         $x=10.2;
@@ -307,10 +315,10 @@ class PrintClasificacionGames extends PrintCommon {
 		$this->AddPage();
 		$this->print_datosMangas();
 		switch(intval($this->jornada->Tipo_Competicion)) {
-            case 1: $numrows=15; break;//penthathlon
-            case 2: $numrows=16; break;//biathlon
-            case 3: $numrows=18; break;//games
-            default:$numrows=22; break; // should not happen
+            case 1: $numrows=16; break;//penthathlon
+            case 2: $numrows=17; break;//biathlon
+            case 3: $numrows=19; break;//games
+            default:$numrows=23; break; // should not happen
         }
 		foreach($this->resultados as $row) {
 			if($rowcount==0) $this->writeTableHeader();	
@@ -323,7 +331,7 @@ class PrintClasificacionGames extends PrintCommon {
 				$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 				$this->cell($len,0,'','T'); // celda sin altura y con raya
 				$this->AddPage();
-                $numrows=22;
+                $numrows=23;
 				$rowcount=0;
 			}
 		}
