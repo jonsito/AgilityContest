@@ -578,7 +578,7 @@ class AuthManager {
 		if ( $res["Expired"]==="1" ) return 75; // license has expired
         if ($res['Serial']==="00000000") return 75; // unregistered app
 		if ($this->checkBlackListed($res['Serial'])) return 75; // blacklisted app
-        if (bindec($res['Options']) & ENABLE_ULIMIT ) return 9999; // "unlimited"
+        if (bindec($res['Options']) & ENABLE_ULIMIT ) return 99999; // "unlimited"
         return 200; // registered app, but no "unlimited" flag
     }
 }

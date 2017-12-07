@@ -1032,7 +1032,8 @@ function evalOrdenSalida(oper) {
 					Manga: workingData.manga,
                     Categorias: $('#ordensalida-categoria').combobox('getValue'),
 					Operation: 'setOrder',
-                    SortMethod: oper
+                    SortMethod: oper,
+                    Range: $('#ordensalida-rango').textbox('getValue')
 				}
 			}).done( function(result) {
 			    if (result.errorMsg){
@@ -1061,7 +1062,8 @@ function evalOrdenSalida(oper) {
 				Manga: workingData.manga,
                 Categorias: $('#ordensalida-categoria').combobox('getValue'),
 				Operation: 'setOrder',
-                SortMethod: oper
+                SortMethod: oper,
+                Range: $('#ordensalida-rango').textbox('getValue')
 			}
 		}).done( function(result) {
             if (result.errorMsg){

@@ -92,7 +92,7 @@ class OrdenSalida_KO extends OrdenSalida {
 	 * @param {integer} catmode categorias a tener en cuenta en el listado que hay que presentar
 	 * @param {array(total,rows} rs lista de resultados a presentar. Se utiliza para reordenar resultados en funcion del orden de salida
 	 */
-	function getData($teamView=false,$catmode=8,$rs=null) {
+	function getData($teamView=false,$catmode=8,$rs=null,$range="0-99999") {
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
 		if (!$rs) $rs= $this->__select(
 			"Resultados.*,Equipos.Nombre AS NombreEquipo,
@@ -122,7 +122,7 @@ class OrdenSalida_KO extends OrdenSalida {
 		// primera pasada: ajustamos los perros segun el orden de salida que figura en Orden_Salida
 		// excluyendo a aquellos cuya categoria no coincide con la solicitada
 		$p2=array();
-		$listas=$this->splitPerrosByMode($this->getOrden(),$catmode);
+		$listas=$this->splitPerrosByMode($this->getOrden(),$catmode,false,$range);
 		$orden=explode(',',$listas[1]); // cogemos la lista de los perros incluidos
 		foreach ($orden as $perro) {
 			if ($perro==="BEGIN") continue;
@@ -363,7 +363,7 @@ class OrdenSalida_KO extends OrdenSalida {
 	 * @param	{int} $catmode categorias a las que tiene que afectar este cambio
 	 * @return {string} nuevo orden de salida
 	 */
-	function randomOrder($catmode=8) {
+	function randomOrder($catmode,$range) {
 		$this->myLogger->enter();
         assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// fase 1:
@@ -373,7 +373,7 @@ class OrdenSalida_KO extends OrdenSalida {
 		// fase2:  aleatorizamos la manga
 		$orden=$this->getOrden();
 		// buscamos los perros de la categoria seleccionada. En mangas KO catsmode se ignora ( entran todos )
-		$listas=$this->splitPerrosByMode($orden,8);
+		$listas=$this->splitPerrosByMode($orden,8,false,$range);
         $str1=$listas[2];
         $str2=implode(",",aleatorio(explode(",", $listas[1])));
         $ordensalida=$this->joinOrders($str1,$str2);
@@ -395,7 +395,7 @@ class OrdenSalida_KO extends OrdenSalida {
      * @param {boolean} reverse on true return selected dogs/teams in reverse order
 	 * @return {string} nuevo orden de salida; null on error
 	 */
-	function sameOrder($catmode=8,$reverse=false) {
+	function sameOrder($catmode,$reverse,$range) {
 		$this->myLogger->enter();
         assertClosedJourney($this->jornada); // throw exception on closed journeys
         // fase 1:
@@ -432,7 +432,7 @@ class OrdenSalida_KO extends OrdenSalida {
 	 *
 	 * @return {string} nuevo orden de salida; null on error
 	 */
-	function orderByResults($catmode=8) {
+	function orderByResults($catmode,$range) {
 		$this->myLogger->enter();
         assertClosedJourney($this->jornada); // throw exception on closed journeys
         // fase 1:

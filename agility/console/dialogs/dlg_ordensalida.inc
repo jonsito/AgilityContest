@@ -34,7 +34,7 @@ $config =Config::getInstance();
 </div>
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="ordensalida-dialog" style="width:875px;height:450px;padding:5px">
+<div id="ordensalida-dialog" style="width:925px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="ordensalida-datagrid" style="padding:5px"></table>
 </div>
@@ -56,7 +56,12 @@ $config =Config::getInstance();
         <a id="ordensalida-eqBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-huella'" onclick="$('#ordeneq3-dialog').dialog('open');"><?php _e('Teams'); ?></a>
         <label for="ordensalida-categoria"><?php _e('Cat');?></label>
-        <select id="ordensalida-categoria" style="width:100px"></select>
+        <select id="ordensalida-categoria" style="width:80px"></select>
+        <span style="display:none;">
+            <!-- need revision. in the meanwhile, hide -->
+            <label for="ordensalida-rango"><?php _e('Range');?></label>
+            <input id="ordensalida-rango" style="width:80px" value="0-99999"/>
+        </span>
    	</span>
    	<span style="float:right;padding:5px">
 	   	<a id="ordensalida-pasteBtn" href="#" class="easyui-linkbutton"
@@ -125,13 +130,20 @@ $('#ordensalida-selection').combobox({
 });
 
 $('#ordensalida-categoria').combobox({
-    width:100,
+    width:80,
     value: '-',
+    panelWidth: '110',
     panelHeight: 'auto',
     valueField: 'Categoria',
     textField: 'Nombre',
     data: getOrdenSalidaCategorias(),
     onSelect: function(rec) { reloadOrdenSalida(); }
+});
+
+$('#ordensalida-rango').textbox({
+    width:80,
+    required:false,
+    validType:'intrange' // created by me at easyui-patches
 });
 
 // datos de la tabla de equipos

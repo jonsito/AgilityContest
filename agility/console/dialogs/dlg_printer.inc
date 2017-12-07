@@ -65,7 +65,7 @@ $config =Config::getInstance();
             <label for="printer_dialog-comments"><?php _e('PDF Header comment');?> </label>
             <input type="text" id="printer_dialog-comments" value=""/><br/>
             <label for="printer_dialog-range"><?php _e('First and last dog/team to print');?> </label>
-            <input type="text" id="printer_dialog-range" name="Range" value="1-9999"/>
+            <input type="text" id="printer_dialog-range" name="Range" value="1-99999"/>
         </p>
     </form>
 </div>
