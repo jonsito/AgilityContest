@@ -89,7 +89,8 @@ $config =Config::getInstance();
 		columns: [[
 			{field:'ID',hidden:'true'},
 			{field:'Federation',hidden:'true'},
-			{field:'Nombre',title:'<?php _e('Dog'); ?>',width:20,align:'right'},
+            {field:'Licencia',title:'<?php _e('Lic'); ?>',width:10,align:'right'},
+            {field:'Nombre',title:'<?php _e('Dog'); ?>',width:20,align:'right'},
 			{field:'Categoria',title:'<?php _e('Cat'); ?>.',width:10,align:'center',formatter:formatCategoria},
 			{field:'Grado',title:'<?php _e('Grade'); ?>',width:10,align:'center',formatter:formatGrado},
 			{field:'NombreGuia',title:'<?php _e('Handler'); ?>',width:40,align:'right'},
