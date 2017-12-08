@@ -72,8 +72,8 @@ class SelectivaWAO_Games extends Competitions {
             $perro['Penalizacion']=0;
             $perro['Puntos']=0;
         } else {
-            $perro['PTiempo']= $perro['Faltas'];
-            $perro['PRecorrido']=$perro['Tocados'];
+            $perro['PRecorrido']= $perro['Faltas'];
+            $perro['PTiempo']=$perro['Tocados'];
             $perro['Penalizacion']=$ptiempo+$precorrido;
             $perro['Puntos']=$ptiempo+$precorrido;
         }
