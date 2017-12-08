@@ -8,6 +8,9 @@ require_once(__DIR__ . "/../competiciones/lib/clasificaciones/Clasificaciones_Se
  * Time: 10:58
  */
 class SelectivaWAO_Biathlon extends Competitions {
+
+    protected $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip wildcard competitors (partial scores)
+
     function __construct() {
         parent::__construct("Selectiva WAO - Biathlon");
         $this->federationID=2;
@@ -42,7 +45,14 @@ class SelectivaWAO_Biathlon extends Competitions {
         // puntos por manga y puesto a los 10 mejores de cada categoria si tienen excelente o muy bien
         $ptsmanga=array("15","12","10","8","7","6","5","4","3","2");
         $pt1=0;
-        $puesto=$puestocat[$cat];
+
+        if (trim(strtolower($perro['Observaciones']))==="wildcard") { // wildcard competitor: do not compute points
+            $this->poffset[$cat]++; // properly handle puestocat offset
+            parent::evalPartialCalification($m,$perro,$puestocat);
+            return;
+        }
+
+        $puesto=$puestocat[$cat]-$this->poffset[$cat];
         if ( ($puesto>0) && ($perro['Penalizacion']<16) ) {
             // puntos a los 10 primeros manga/categoria si tienen excelente o muy bien
             if ($puesto<=count($ptsmanga)) $pt1= $ptsmanga[$puesto-1];

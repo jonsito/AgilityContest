@@ -41,9 +41,10 @@ class PrintResultadosGames extends PrintCommon {
 	// geometria de las celdas
 	protected $cellHeader;
 	protected $pos;
-	protected $align;
+    protected $align;
+    protected $bold;
 
-	/**
+    /**
 	 * Constructor
      * @param integer $prueba prueba ID
      * @param integer $jornada Jornada ID
@@ -65,6 +66,8 @@ class PrintResultadosGames extends PrintCommon {
             array(    10,         24,      10,      38,          25,                12,             12,     12,         15,     20,                 10);
 		$this->align=
             array(  'C',         'L',      'C',     'R',         'R',             'R',            'R',    'R',        'R',    'R',    'C');
+        $this->bold=
+            array(  true,         true,      false,     false,    false,             false,        false,    false,        false,    false,    true);
         // set file name
         $this->set_FileName("ResultadosManga_{$name}.pdf");
 	}
@@ -88,7 +91,7 @@ class PrintResultadosGames extends PrintCommon {
 		$this->Cell(20,7,_('Judge')." 2:","TB",0,'L',false);
 		$str=($juez2['Nombre']==="-- Sin asignar --")?"":$juez2['Nombre'];
 		$this->Cell(78,7,$str,"TRB",0,'L',false);
-		$this->Ln(17);
+		$this->Ln(12);
 		// en snooker-gambler no hay datos de TRS
         $this->myLogger->leave();
 	}
@@ -129,11 +132,13 @@ class PrintResultadosGames extends PrintCommon {
         array_push($data,$row['Penalizacion']);
         array_push($data,number_format($row['Tiempo'],$this->timeResolution));
         array_push($data,$row['Calificacion']);
-        array_push($data,$row['Puesto']);
+        array_push($data,"".$row['Puesto']."º");
         $this->ac_row($count,8);
         $this->SetFont($this->getFontName(),'',8); // set data font size
-        for($n=0; $n<count($data);$n++) {
+        $cnt=count($data)-1;
+        for($n=0; $n<=$cnt;$n++) {
             if ($this->pos[$n]!=0) {
+                $this->SetFont($this->getFontName(),($this->bold[$n])?'B':'',($n==$cnt)?10:8); // set data font size
                 $this->Cell($this->pos[$n],6,$data[$n],'LTR',0,$this->align[$n],true);
             }
         }
@@ -144,7 +149,7 @@ class PrintResultadosGames extends PrintCommon {
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
         $this->SetLineWidth(.3);
 	    $page=0;
-	    $rowcount=37;
+	    $rowcount=36;
         $this->AddPage();
 	    $this->writeTableHeader();
 	    foreach($this->resultados['rows'] as $row) {
@@ -153,7 +158,7 @@ class PrintResultadosGames extends PrintCommon {
 	            $this->AddPage();
                 $this->writeTableHeader();
 	            $page++;
-                $rowcount=40;
+                $rowcount=39;
 	        }
 	        $this->writeCell($row,$rowcount);
 	        $rowcount --;
