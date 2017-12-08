@@ -57,7 +57,7 @@ $config =Config::getInstance();
            data-options="iconCls:'icon-huella'" onclick="$('#ordeneq3-dialog').dialog('open');"><?php _e('Teams'); ?></a>
         <label for="ordensalida-categoria"><?php _e('Cat');?></label>
         <select id="ordensalida-categoria" style="width:80px"></select>
-        <span style="display:none;">
+        <span style="">
             <!-- need revision. in the meanwhile, hide -->
             <label for="ordensalida-rango"><?php _e('Range');?></label>
             <input id="ordensalida-rango" style="width:80px" value="0-99999"/>
