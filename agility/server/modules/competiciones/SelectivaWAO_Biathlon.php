@@ -111,12 +111,15 @@ class SelectivaWAO_Biathlon extends Competitions {
         // la calificacion final es la suma de los puntos
         // de las dos mangas de agility y las dos mangas del jumping
         // si en alguna manga el perro es no presentado, no clasifica en la final
-        $hasPoints=intval($perro['N1'])+intval($perro['N2'])+intval($perro['N3'])+intval($perro['N4']);
-        $puntos=intval($perro['Pt1'])+intval($perro['Pt2'])+intval($perro['Pt3'])+intval($perro['Pt4']);
-        do_log("HasPoints:{$hasPoints} PERRO: ".json_encode($perro));
+        $hasPoints=intval($perro['N1'])+intval($perro['N2'])+intval($perro['N3'])+intval($perro['N4'])+
+            // adicionalmente si tiene dos eliminados en agility o jumping tampoco
+            (intval($perro['E1'])+intval($perro['E2'])===2)?0:1+
+            (intval($perro['E3'])+intval($perro['E4'])===2)?0:1;
+        $puntos=max(intval($perro['Pt1']),intval($perro['Pt2']))+max(intval($perro['Pt3']),intval($perro['Pt4']));
+        // do_log("HasPoints:{$hasPoints} PERRO: ".json_encode($perro));
         // conjunta
-        $perro['CShort']= ($hasPoints===0)? $puntos: "-";
-        $perro['Calificacion']= ($hasPoints===0)? $puntos: "-";
+        $perro['CShort']= ($hasPoints===0)? $puntos: "0";
+        $perro['Calificacion']= ($hasPoints===0)? $puntos: "0";
         return;
     }
 
