@@ -111,7 +111,8 @@ class SelectivaWAO_Biathlon extends Competitions {
         // la calificacion final es la suma de los puntos
         // de las dos mangas de agility y las dos mangas del jumping
         // si en alguna manga el perro es no presentado, no clasifica en la final
-        $hasPoints=intval($perro['N1'])+intval($perro['N2'])+intval($perro['N3'])+intval($perro['N4']);
+        // $hasPoints=intval($perro['N1'])+intval($perro['N2'])+intval($perro['N3'])+intval($perro['N4']);
+        $hasPoints=0;
             /*+
             // adicionalmente si tiene dos eliminados en agility o jumping tampoco
             (intval($perro['E1'])+intval($perro['E2'])===2)?0:1+
