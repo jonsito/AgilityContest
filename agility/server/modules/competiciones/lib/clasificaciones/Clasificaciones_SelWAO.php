@@ -52,14 +52,16 @@ class Clasificaciones_SelWAO extends Clasificaciones {
             case 2: // biathlon
                 usort($final,function($a,$b){
                     // si no presentado an alguna no puntua
-                    $npa=intval($a['N1'])+intval($a['N2'])+intval($a['N3'])+intval($a['N4'])+
+                    $npa=intval($a['N1'])+intval($a['N2'])+intval($a['N3'])+intval($a['N4']);
+                    /*+
                         // adicionalmente si tiene dos eliminados en agility o jumping tampoco
                         (intval($a['E1'])+intval($a['E2'])===2)?0:1+
-                        (intval($a['E3'])+intval($a['E4'])===2)?0:1;
-                    $npb=intval($b['N1'])+intval($b['N2'])+intval($b['N3'])+intval($b['N4'])+
+                        (intval($a['E3'])+intval($a['E4'])===2)?0:1; */
+                    $npb=intval($b['N1'])+intval($b['N2'])+intval($b['N3'])+intval($b['N4']);
+                    /*+
                         // adicionalmente si tiene dos eliminados en agility o jumping tampoco
                         (intval($b['E1'])+intval($b['E2'])===2)?0:1+
-                        (intval($b['E3'])+intval($b['E4'])===2)?0:1;
+                        (intval($b['E3'])+intval($b['E4'])===2)?0:1; */
                     // se coge la suma del mejor agility con la del mejor jumping8
                     $puntosa=max(intval($a['Pt1']),intval($a['Pt2'])) + max(intval($a['Pt3']),intval($a['Pt4']));
                     $puntosb=max(intval($b['Pt1']),intval($b['Pt2']))+ max(intval($b['Pt3']),intval($b['Pt4']));
