@@ -81,7 +81,7 @@ class NAT4 extends Federations {
                 array(/* conjunto */ _('60+50+40+30'), _('60+50+40+30'), _('60+50+40+30'),_('60+50+40+30'))
             ),
             'IndexedModes' => array (
-                "Cat. 600", "Cat. 500", "Cat 400", "Cat 500+400", "Conjunta 60+50+40", "Cat. 30", "Cat. 60+50", "Cat. 40+30", "Cat. 65+52+40+30"
+                "Cat. 600", "Cat. 500", "Cat 400", "Cat 500+400", "Conjunta 60+50+40", "Cat. 300", "Cat. 600+500", "Cat. 400+300", "Cat. 60+50+40+30"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
