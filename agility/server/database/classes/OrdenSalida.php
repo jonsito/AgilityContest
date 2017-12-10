@@ -423,7 +423,7 @@ class OrdenSalida extends DBObject {
 			"Resultados.*,Equipos.Nombre AS NombreEquipo,
 			PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS LogoClub,
 			PerroGuiaClub.Pais,PerroGuiaClub.Genero,PerroGuiaClub.LOE_RRC AS LOE_RRC,
-			Inscripciones.Observaciones AS Observaciones, 1 AS PerrosPorGuia",
+			 1 AS PerrosPorGuia",
 			"Resultados,Equipos,PerroGuiaClub,Inscripciones",
 			"(Inscripciones.Prueba={$this->prueba->ID}) AND (Inscripciones.Perro=Resultados.Perro) AND
 			(Manga={$this->manga->ID}) AND (Resultados.Equipo=Equipos.ID) AND (Resultados.Perro=PerroGuiaClub.ID)",

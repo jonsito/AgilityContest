@@ -8,6 +8,9 @@ require_once(__DIR__ . "/../competiciones/lib/clasificaciones/Clasificaciones_Se
  * Time: 10:58
  */
 class SelectivaWAO_Biathlon extends Competitions {
+
+    protected $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip wildcard competitors (partial scores)
+
     function __construct() {
         parent::__construct("Selectiva WAO - Biathlon");
         $this->federationID=2;
@@ -42,7 +45,14 @@ class SelectivaWAO_Biathlon extends Competitions {
         // puntos por manga y puesto a los 10 mejores de cada categoria si tienen excelente o muy bien
         $ptsmanga=array("15","12","10","8","7","6","5","4","3","2");
         $pt1=0;
-        $puesto=$puestocat[$cat];
+
+        if (trim(strtolower($perro['Observaciones']))==="wildcard") { // wildcard competitor: do not compute points
+            $this->poffset[$cat]++; // properly handle puestocat offset
+            parent::evalPartialCalification($m,$perro,$puestocat);
+            return;
+        }
+
+        $puesto=$puestocat[$cat]-$this->poffset[$cat];
         if ( ($puesto>0) && ($perro['Penalizacion']<16) ) {
             // puntos a los 10 primeros manga/categoria si tienen excelente o muy bien
             if ($puesto<=count($ptsmanga)) $pt1= $ptsmanga[$puesto-1];
@@ -101,12 +111,18 @@ class SelectivaWAO_Biathlon extends Competitions {
         // la calificacion final es la suma de los puntos
         // de las dos mangas de agility y las dos mangas del jumping
         // si en alguna manga el perro es no presentado, no clasifica en la final
-        $hasPoints=intval($perro['N1'])+intval($perro['N2'])+intval($perro['N3'])+intval($perro['N4']);
-        $puntos=intval($perro['Pt1'])+intval($perro['Pt2'])+intval($perro['Pt3'])+intval($perro['Pt4']);
-        do_log("HasPoints:{$hasPoints} PERRO: ".json_encode($perro));
+        // $hasPoints=intval($perro['N1'])+intval($perro['N2'])+intval($perro['N3'])+intval($perro['N4']);
+        $hasPoints=0;
+            /*+
+            // adicionalmente si tiene dos eliminados en agility o jumping tampoco
+            (intval($perro['E1'])+intval($perro['E2'])===2)?0:1+
+            (intval($perro['E3'])+intval($perro['E4'])===2)?0:1;
+            */
+        $puntos=max(intval($perro['Pt1']),intval($perro['Pt2']))+max(intval($perro['Pt3']),intval($perro['Pt4']));
+        // do_log("HasPoints:{$hasPoints} PERRO: ".json_encode($perro));
         // conjunta
-        $perro['CShort']= ($hasPoints===0)? $puntos: "-";
-        $perro['Calificacion']= ($hasPoints===0)? $puntos: "-";
+        $perro['CShort']= ($hasPoints===0)? $puntos: "0";
+        $perro['Calificacion']= ($hasPoints===0)? $puntos: "0";
         return;
     }
 
