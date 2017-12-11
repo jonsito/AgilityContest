@@ -38,15 +38,7 @@ class ClasificacionesWriter extends XLSX_Writer {
 	protected $jornadas=array(); // lista de jornadas de la prueba
     protected $jdbObject; // gestion de jueces
 
-    protected $cols = array(
-		'Dorsal',
-		'Name','LongName','Gender','Breed','Chip','License','KC id','Category','Grade','Handler','Club','Country', // datos del perro
-		'Team','Heat','Comments', // datos de la inscripcion en la jornada
-		'F1','R1','E1','N1','Tiempo1','Penal1', // datos de la manga 1
-		'F2','R2','E2','N2','Tiempo2','Penal2', // datos de la manga 2
-		// TODO: handle series with more than 2 rounds
-		'Time','Penalizacion','Calification'
-	);
+    protected $cols = null; // to be filled later
 
 	/**
 	 * Constructor
@@ -125,8 +117,6 @@ class ClasificacionesWriter extends XLSX_Writer {
         $jdatapage=$this->myWriter->addNewSheetAndMakeItCurrent();
         $name=$this->normalizeSheetName("Data ".$jornada['Nombre']);
         $jdatapage->setName($name);
-        // write table header
-        $this->writeTableHeader();
 		$rondas=Jornadas::enumerateRondasByJornada($jornada['ID'])['rows'];
 
 		// obtenemos los datos "personales" de los perros de la jornada
@@ -155,15 +145,23 @@ class ClasificacionesWriter extends XLSX_Writer {
 			return ($a['Puesto']>$b['Puesto'])?1:-1;
 		});
 
-		// componemos la fila Excel anyiadiendo datos personales
-		//
-		// 'Dorsal',
-		// 'Nombre','NombreLargo','Genero','Raza','Chip','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Pais', // datos del perro
-		// 'Equipo','Celo','Observaciones', // datos de la inscripcion en la jornada
-		// 'F1','R1','E1','N1','Tiempo1','Penal1', // datos de la manga 1
-		// 'F2','R2','E2','N2','Tiempo2','Penal2', // datos de la manga 2
-		//  // TODO: handle series with more than 2 rounds
-		// 'Tiempo','Penalizacion','Calificacion'
+		// componemos la cabecera en funcion de las mangas de la jornada
+        // para ello vamos a coger el primer perro, y vamos a ver los campos que tiene en la clasificacion
+        // si no hay perros no hay resultados :-)
+        $primero=$results[0];
+        $this->cols=array(
+            'Dorsal',
+            'Name','LongName','Gender','Breed','Chip','License','KC id','Category','Grade','Handler','Club','Country', // datos del perro
+            'Team','Heat','Comments'); // datos de la inscripcion en la jornada
+        for ($n=1;$n<9;$n++) {
+            if (!array_key_exists('F'.$n,$primero) ) continue;
+            $this->cols =array_merge($this->cols,array('F'.$n,'R'.$n,'E'.$n,'N'.$n,'Tiempo'.$n,'Penal'.$n));
+        }
+        $this->cols=array_merge($this->cols,array('Time','Penalizacion','Calification' ));
+        // write table header
+        $this->writeTableHeader();
+
+		// componemos cada fila Excel
 		foreach($results as $perro) {
 			$row=array();
 			// si el perro no esta en la lista de inscritos, marca error e ignora entrada
@@ -191,23 +189,16 @@ class ClasificacionesWriter extends XLSX_Writer {
 			$row[]=$pdata['Equipo'];
 			$row[]=$pdata['Celo'];
 			$row[]=$pdata['Observaciones'];
-			// resultados manga 1
-			$row[]=$perro['F1']; // Manga 1: faltas + tocados
-			$row[]=$perro['R1']; // Manga 1: rehuses
-			$row[]=$perro['E1']; // Manga 1: eliminado
-			$row[]=$perro['N1']; // manga 1: no presentado
-			$row[]=$perro['T1']; // manga 1: tiempo
-			$row[]=$perro['P1']; // manga 1: penalizacion
-			// resultados manga 2
-            $flag=false;
-            if (array_key_exists('F2',$perro)) $flag=true;
-			$row[]=($flag)? $perro['F2']:'-'; // Manga 2: faltas + tocados
-			$row[]=($flag)? $perro['R2']:'-'; // Manga 2: rehuses
-			$row[]=($flag)? $perro['E2']:'-'; // Manga 2: eliminado
-			$row[]=($flag)? $perro['N2']:'-'; // manga 2: no presentado
-			$row[]=($flag)? $perro['T2']:'-'; // manga 2: tiempo
-			$row[]=($flag)? $perro['P2']:'-'; // manga 2: penalizacion
-			// datos globales de clasificacion
+			for($n=1;$n<9;$n++) {
+			    if (!array_key_exists('F'.$n,$perro)) continue; // no manga $n defined
+                // resultados manga 1
+                $row[]=$perro['F'.$n]; // Manga $n: faltas + tocados
+                $row[]=$perro['R'.$n]; // Manga $n: rehuses
+                $row[]=$perro['E'.$n]; // Manga $n: eliminado
+                $row[]=$perro['N'.$n]; // manga $n: no presentado
+                $row[]=$perro['T'.$n]; // manga $n: tiempo
+                $row[]=$perro['P'.$n]; // manga $n: penalizacion
+            }
 			$row[]=$perro['Tiempo'];
 			$row[]=$perro['Penalizacion'];
 			$row[]=$perro['Calificacion'];
