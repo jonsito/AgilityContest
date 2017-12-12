@@ -317,7 +317,7 @@ class Sesiones extends DBObject {
         session_start();
         if (!isset($_SESSION['ac_clients'])) $_SESSION['ac_clients']=array();
         foreach ( $_SESSION['ac_clients'] as $client) {
-            $this->myLogger->trace("Session::getClients() parsing clientSession: $client");
+            // $this->myLogger->trace("Session::getClients() parsing clientSession: $client");
             $a=explode(':',$client);
             // comprobamos expiracion
             if ( ($timestamp - intval($a[5]) ) > 180 ) $a[5]=0; // expire after 3 minutes
