@@ -104,7 +104,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
             $.ajaxSetup({
                 beforeSend: function(jqXHR,settings) {
                     if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!==null) {
-                        jqXHR.setRequestHeader('X-AC-SessionKey',ac_authInfo.SessionKey);
+                        jqXHR.setRequestHeader('X-Ac-Sessionkey',ac_authInfo.SessionKey);
                     }
                     return true;
                 }
