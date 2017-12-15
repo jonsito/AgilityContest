@@ -34,7 +34,7 @@ $config =Config::getInstance();
 	   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()"><?php _e('Update'); ?></a>
 	   	<label for="competicion-autoUpdateBtn"><?php _e('Auto'); ?>:</label>
 	   	<input id="competicion-autoUpdateBtn" type="checkbox" class="easyui-checkbox" value="0" onclick="autoUpdateCompeticion()"/>
-   		<input id="competicion-search" type="text" value="--- Dorsal ---" class="search_textfield"  onchange="competicionSelectByDorsal();"/>
+   		<input id="competicion-search" type="text" value="--- Search ---" class="search_textfield"  onchange="competicionSelectByDorsal();"/>
 		<label for="competicion-categoria"><?php _e('Cat');?></label>
         <select id="competicion-categoria" style="width:100px"></select>
    	</span>
@@ -256,7 +256,7 @@ addTooltip($('#competicion-swapBtn').linkbutton(),'<?php _e("Swap data and resul
 addTooltip($('#competicion-resetBtn').linkbutton(),'<?php _e("Delete every competitors data on this round"); ?>');
 addTooltip($('#competicion-printBtn').linkbutton(),'<?php _e("Print judge assistant forms"); ?>');
 addTooltip($('#competicion-autoUpdateBtn'),'<?php _e("(de)activate periodic refresh of results for this round"); ?>');
-addTooltip($('#competicion-search'),'<?php _e("Search a competitor by entering dorsal"); ?>');
+addTooltip($('#competicion-search'),'<?php _e("Search a competitor<br/> by entering dorsal number or dog name"); ?>');
 addTooltip($('#competicion-categoria').combobox('textbox'),'<?php _e("Select categories to work with"); ?>');
 
 // key handling

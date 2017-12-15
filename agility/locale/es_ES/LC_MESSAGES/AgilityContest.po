@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-12-05 17:16+0100\n"
-"PO-Revision-Date: 2017-12-05 17:18+0100\n"
+"POT-Creation-Date: 2017-12-11 20:18+0100\n"
+"PO-Revision-Date: 2017-12-11 20:20+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -106,12 +106,12 @@ msgstr "R"
 
 #: chrono/chrono.inc.php:67 console/dialogs/dlg_competicion.inc:121
 #: console/dialogs/dlg_competicion_games.inc:367
-#: console/dialogs/dlg_ordensalida.inc:216 console/frm_equipos.php:123
+#: console/dialogs/dlg_ordensalida.inc:228 console/frm_equipos.php:123
 #: console/frm_equipos.php:251 console/frm_inscripciones2.php:269
 #: lib/templates/orden_salida.inc.php:24 livestream/vwls_osdvideo.php:89
 #: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:150
 #: public/pbmenu_inscripciones.php:102
-#: public/pbmenu_inscripciones_equipos.php:145 scripts/competicion.js.php:1387
+#: public/pbmenu_inscripciones_equipos.php:145 scripts/competicion.js.php:1395
 #: scripts/printer.js.php:406 scripts/results_and_scores.js.php:320
 #: server/pdf/classes/PrintClasificacion.php:206
 #: server/pdf/classes/PrintClasificacionExcel.php:157
@@ -132,7 +132,7 @@ msgstr "R"
 #: server/pdf/classes/PrintPodium.php:107
 #: server/pdf/classes/PrintResultadosByEquipos3.php:84
 #: server/pdf/classes/PrintResultadosByManga.php:67
-#: server/pdf/classes/PrintResultadosGames.php:63
+#: server/pdf/classes/PrintResultadosGames.php:64
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:252 tablet/tablet.js.php:642
 #: tablet/tablet.js.php:677 tablet/tablet.js.php:682 tablet/tablet_main.php:77
@@ -147,9 +147,9 @@ msgstr "Dorsal"
 #: console/dialogs/dlg_competicion_games.inc:110
 #: console/dialogs/dlg_newInscripcion.inc:154
 #: console/dialogs/import_ordensalida.inc.php:88
-#: console/dialogs/import_perros.inc.php:92
+#: console/dialogs/import_perros.inc.php:93
 #: console/dialogs/import_results.inc.php:88 console/frm_perros.php:136
-#: scripts/competicion.js.php:1387 scripts/import.js.php:158
+#: scripts/competicion.js.php:1395 scripts/import.js.php:158
 #: scripts/import.js.php:171 scripts/import.js.php:185
 #: scripts/printer.js.php:406
 msgid "Dog"
@@ -162,9 +162,9 @@ msgstr "Perro"
 #: console/dialogs/dlg_competicion_games.inc:369
 #: console/dialogs/dlg_editInscripcion.inc:46
 #: console/dialogs/dlg_newInscripcion.inc:158
-#: console/dialogs/dlg_ordensalida.inc:220 console/dialogs/dlg_perros.inc:83
+#: console/dialogs/dlg_ordensalida.inc:232 console/dialogs/dlg_perros.inc:83
 #: console/dialogs/import_ordensalida.inc.php:91
-#: console/dialogs/import_perros.inc.php:95
+#: console/dialogs/import_perros.inc.php:96
 #: console/dialogs/import_results.inc.php:91 console/frm_equipos.php:128
 #: console/frm_equipos.php:256 console/frm_inscripciones2.php:274
 #: console/frm_perros.php:141 lib/templates/final_games.inc.php:27
@@ -177,7 +177,7 @@ msgstr "Perro"
 #: lib/templates/parcial_last_teams.inc.php:30 livestream/vwls_finales.php:98
 #: livestream/vwls_osdvideo.php:91 public/pb_inscripciones.php:108
 #: public/pb_inscripciones_equipos.php:157 public/pbmenu_inscripciones.php:108
-#: public/pbmenu_inscripciones_equipos.php:152 scripts/competicion.js.php:1387
+#: public/pbmenu_inscripciones_equipos.php:152 scripts/competicion.js.php:1395
 #: scripts/import.js.php:118 scripts/import.js.php:130
 #: scripts/import.js.php:143 scripts/printer.js.php:406
 #: scripts/results_and_scores.js.php:255 scripts/results_and_scores.js.php:327
@@ -202,7 +202,7 @@ msgstr "Perro"
 #: server/pdf/classes/PrintPodium.php:119
 #: server/pdf/classes/PrintResultadosByEquipos3.php:84
 #: server/pdf/classes/PrintResultadosByManga.php:67
-#: server/pdf/classes/PrintResultadosGames.php:63
+#: server/pdf/classes/PrintResultadosGames.php:64
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:260 tablet/tablet_main.php:81
 #: tablet/tablet_main.php:293 tablet/tablet_main.php:421
@@ -218,14 +218,14 @@ msgstr "Gu&iacute;a"
 #: console/dialogs/dlg_editInscripcion.inc:48
 #: console/dialogs/dlg_entrenamientos.inc:182 console/dialogs/dlg_guias.inc:52
 #: console/dialogs/dlg_newInscripcion.inc:159
-#: console/dialogs/dlg_ordensalida.inc:221 console/dialogs/dlg_perros.inc:89
+#: console/dialogs/dlg_ordensalida.inc:233 console/dialogs/dlg_perros.inc:89
 #: console/dialogs/dlg_perros.inc:221 console/dialogs/dlg_pruebas.inc:143
 #: console/dialogs/dlg_remotecontrol.inc:413
 #: console/dialogs/dlg_selectJornada.inc:85 console/dialogs/dlg_usuarios.inc:75
 #: console/dialogs/dlg_usuarios.inc:248
 #: console/dialogs/import_handlers.inc.php:91
 #: console/dialogs/import_ordensalida.inc.php:92
-#: console/dialogs/import_perros.inc.php:96
+#: console/dialogs/import_perros.inc.php:97
 #: console/dialogs/import_results.inc.php:92 console/frm_equipos.php:129
 #: console/frm_equipos.php:257 console/frm_guias.php:95
 #: console/frm_inscripciones.php:78 console/frm_inscripciones2.php:275
@@ -236,7 +236,7 @@ msgstr "Gu&iacute;a"
 #: lib/templates/orden_salida.inc.php:33 lib/templates/parcial_games.inc.php:29
 #: lib/templates/parcial_individual.inc.php:27
 #: lib/templates/parcial_last_individual.inc.php:29
-#: livestream/vwls_osdvideo.php:92 scripts/competicion.js.php:1387
+#: livestream/vwls_osdvideo.php:92 scripts/competicion.js.php:1395
 #: scripts/datagrid_formatters.js.php:168 scripts/import.js.php:77
 #: scripts/import.js.php:90 scripts/import.js.php:103
 #: scripts/results_and_scores.js.php:256
@@ -277,7 +277,7 @@ msgstr "Categor&iacute;a"
 #: console/dialogs/dlg_editInscripcion.inc:44
 #: console/dialogs/dlg_newInscripcion.inc:157 console/dialogs/dlg_perros.inc:76
 #: console/dialogs/import_ordensalida.inc.php:90
-#: console/dialogs/import_perros.inc.php:94
+#: console/dialogs/import_perros.inc.php:95
 #: console/dialogs/import_results.inc.php:90 console/frm_clubes.php:267
 #: console/frm_equipos.php:255 console/frm_guias.php:154
 #: console/frm_inscripciones2.php:273 console/frm_paises.php:229
@@ -298,7 +298,7 @@ msgstr "Grado"
 #: chrono/chrono.inc.php:73 chrono/chrono.js.php:266
 #: console/dialogs/dlg_editInscripcion.inc:74
 #: console/dialogs/dlg_newInscripcion.inc:76
-#: console/dialogs/dlg_ordensalida.inc:222 console/frm_equipos.php:260
+#: console/dialogs/dlg_ordensalida.inc:234 console/frm_equipos.php:260
 #: console/frm_inscripciones2.php:276 lib/templates/orden_salida.inc.php:34
 #: livestream/vwls_osdvideo.php:95 public/pb_inscripciones.php:111
 #: public/pb_inscripciones_equipos.php:160 public/pbmenu_inscripciones.php:111
@@ -346,7 +346,7 @@ msgstr "Reh&uacute;se"
 #: server/modules/competiciones/Liga_RFEC_Madrid.php:83
 #: server/modules/competiciones/Liga_UCA.php:41
 #: server/modules/competiciones/Puntuable_CPC_2018.php:126
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:62
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:72
 #: server/modules/competiciones/SelectivaWAO_Games.php:91
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:97
 #: server/modules/competiciones/Selectiva_PastorBelga.php:83
@@ -373,11 +373,11 @@ msgstr "Eliminado"
 #: scripts/common.js.php:723 scripts/competicion.js.php:403
 #: scripts/competicion.js.php:431 scripts/competicion.js.php:562
 #: scripts/competicion.js.php:569 scripts/competicion.js.php:581
-#: scripts/competicion.js.php:684 scripts/competicion.js.php:858
-#: scripts/competicion.js.php:877 scripts/competicion.js.php:1121
-#: scripts/competicion.js.php:1139 scripts/competicion.js.php:1182
-#: scripts/competicion.js.php:1304 scripts/competicion.js.php:1308
-#: scripts/competicion.js.php:1406 scripts/competicion.js.php:1490
+#: scripts/competicion.js.php:684 scripts/competicion.js.php:864
+#: scripts/competicion.js.php:883 scripts/competicion.js.php:1129
+#: scripts/competicion.js.php:1147 scripts/competicion.js.php:1190
+#: scripts/competicion.js.php:1312 scripts/competicion.js.php:1316
+#: scripts/competicion.js.php:1414 scripts/competicion.js.php:1498
 #: scripts/entrenamientos.js.php:84 scripts/entrenamientos.js.php:179
 #: scripts/equipos.js.php:70 scripts/equipos.js.php:123
 #: scripts/equipos.js.php:352 scripts/guias.js.php:87 scripts/guias.js.php:176
@@ -474,7 +474,7 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 #: server/modules/competiciones/Liga_RFEC_Madrid.php:84
 #: server/modules/competiciones/Liga_UCA.php:42
 #: server/modules/competiciones/Puntuable_CPC_2018.php:127
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:63
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:73
 #: server/modules/competiciones/SelectivaWAO_Games.php:92
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:98
 #: server/modules/competiciones/Selectiva_PastorBelga.php:84
@@ -517,8 +517,8 @@ msgstr "Dors"
 #: console/dialogs/dlg_editInscripcion.inc:38
 #: console/dialogs/dlg_equipos.inc:33 console/dialogs/dlg_guias.inc:29
 #: console/dialogs/dlg_jornadas.inc:31 console/dialogs/dlg_jueces.inc:30
-#: console/dialogs/dlg_ordensalida.inc:154
-#: console/dialogs/dlg_ordensalida.inc:217
+#: console/dialogs/dlg_ordensalida.inc:166
+#: console/dialogs/dlg_ordensalida.inc:229
 #: console/dialogs/dlg_ordentandas.inc:53
 #: console/dialogs/dlg_ordentandas.inc:169 console/dialogs/dlg_perros.inc:29
 #: console/dialogs/dlg_plugins.inc:51 console/dialogs/dlg_pruebas.inc:346
@@ -564,7 +564,7 @@ msgstr "Dors"
 #: server/pdf/classes/PrintClasificacionGames.php:84
 #: server/pdf/classes/PrintClasificacionGames.php:118
 #: server/pdf/classes/PrintClasificacionGames.php:152
-#: server/pdf/classes/PrintClasificacionGames.php:282
+#: server/pdf/classes/PrintClasificacionGames.php:284
 #: server/pdf/classes/PrintClasificacionTeam.php:239
 #: server/pdf/classes/PrintClasificacionTeam.php:241
 #: server/pdf/classes/PrintEntradaDeDatos.php:186
@@ -587,7 +587,7 @@ msgstr "Dors"
 #: server/pdf/classes/PrintPodium.php:111
 #: server/pdf/classes/PrintResultadosByEquipos3.php:84
 #: server/pdf/classes/PrintResultadosByManga.php:67
-#: server/pdf/classes/PrintResultadosGames.php:63
+#: server/pdf/classes/PrintResultadosGames.php:64
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:255
 #: server/pdf/classes/PrintTRSTemplates.php:258 tablet/index.php:229
@@ -609,10 +609,10 @@ msgstr "Gu&iacute;a"
 #: console/dialogs/dlg_competicion_games.inc:371
 #: console/dialogs/dlg_newInscripcion.inc:156
 #: console/dialogs/dlg_ordensalida.inc:58
-#: console/dialogs/dlg_ordensalida.inc:155
-#: console/dialogs/dlg_ordensalida.inc:219
+#: console/dialogs/dlg_ordensalida.inc:167
+#: console/dialogs/dlg_ordensalida.inc:231
 #: console/dialogs/import_ordensalida.inc.php:89
-#: console/dialogs/import_perros.inc.php:93
+#: console/dialogs/import_perros.inc.php:94
 #: console/dialogs/import_results.inc.php:89 console/frm_equipos.php:126
 #: console/frm_equipos.php:175 console/frm_equipos.php:254
 #: console/frm_equipos.php:327 console/frm_guias.php:153
@@ -643,7 +643,7 @@ msgstr "Gu&iacute;a"
 #: server/pdf/classes/PrintPodium.php:117
 #: server/pdf/classes/PrintResultadosByEquipos3.php:84
 #: server/pdf/classes/PrintResultadosByManga.php:65
-#: server/pdf/classes/PrintResultadosGames.php:63
+#: server/pdf/classes/PrintResultadosGames.php:64
 #: server/pdf/classes/PrintResultadosKO.php:62 tablet/tablet_main.php:85
 #: tablet/tablet_main.php:295
 msgid "Cat"
@@ -654,14 +654,14 @@ msgid "Grad"
 msgstr "Grd"
 
 #: chrono/chrono.js.php:158 chrono/chrono.js.php:255
-#: console/dialogs/dlg_ordensalida.inc:215 console/frm_equipos.php:79
+#: console/dialogs/dlg_ordensalida.inc:227 console/frm_equipos.php:79
 #: lib/templates/final_last_teams.inc.php:37
 #: lib/templates/final_teams.inc.php:23 lib/templates/orden_salida.inc.php:23
 #: lib/templates/parcial_last_teams.inc.php:31
 #: lib/templates/parcial_teams.inc.php:15
 #: public/pb_inscripciones_equipos.php:100
 #: public/pbmenu_inscripciones_equipos.php:95
-#: server/database/classes/OrdenSalida.php:511
+#: server/database/classes/OrdenSalida.php:529
 #: server/excel/classes/OrdenSalidaWriter.php:155
 #: server/excel/classes/OrdenSalidaWriter.php:213 tablet/tablet_main.php:288
 #: videowall/vwc_finales.php:218 videowall/vwc_parciales.php:230
@@ -749,7 +749,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/dialogs/dlg_editInscripcion.inc:77
 #: console/dialogs/dlg_equipos.inc:47 console/dialogs/dlg_guias.inc:58
 #: console/dialogs/dlg_jornadas.inc:31 console/dialogs/dlg_jueces.inc:72
-#: console/dialogs/dlg_ordensalida.inc:156
+#: console/dialogs/dlg_ordensalida.inc:168
 #: console/dialogs/dlg_ordentandas.inc:71
 #: console/dialogs/dlg_ordentandas.inc:137
 #: console/dialogs/dlg_ordentandas.inc:170 console/dialogs/dlg_pruebas.inc:161
@@ -880,7 +880,7 @@ msgstr "Limpiar formulario"
 #: console/dialogs/dlg_competicion_games.inc:610
 #: console/dialogs/dlg_entrenamientos.inc:294 console/dialogs/dlg_guias.inc:86
 #: console/dialogs/dlg_jornadas.inc:410 console/dialogs/dlg_jueces.inc:120
-#: console/dialogs/dlg_ordensalida.inc:284
+#: console/dialogs/dlg_ordensalida.inc:296
 #: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:128
 #: console/dialogs/dlg_printer.inc:107 console/dialogs/dlg_pruebas.inc:204
 #: console/dialogs/dlg_pruebas.inc:206
@@ -1212,7 +1212,7 @@ msgstr "Toc"
 #: server/pdf/classes/PrintResultadosByEquipos3.php:239
 #: server/pdf/classes/PrintResultadosByEquipos4.php:211
 #: server/pdf/classes/PrintResultadosByManga.php:67
-#: server/pdf/classes/PrintResultadosGames.php:63
+#: server/pdf/classes/PrintResultadosGames.php:64
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: server/pdf/classes/PrintTRSTemplates.php:279 tablet/tablet_main.php:97
 #: tablet/tablet_main.php:300 videowall/vws_parcial_equipos.php:57
@@ -1226,7 +1226,7 @@ msgstr "Tiempo"
 #: server/modules/competiciones/Liga_RFEC_Madrid.php:79
 #: server/modules/competiciones/Liga_UCA.php:37
 #: server/modules/competiciones/Puntuable_CPC_2018.php:122
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:58
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:68
 #: server/modules/competiciones/SelectivaWAO_Games.php:95
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:93
 #: server/modules/competiciones/Selectiva_PastorBelga.php:79
@@ -1259,7 +1259,7 @@ msgstr "Editar"
 #: console/dialogs/dlg_competicion.inc:223
 #: console/dialogs/dlg_competicion_games.inc:486
 #: console/dialogs/dlg_configuracion.inc:717 scripts/admin.js.php:60
-#: scripts/clubes.js.php:226 scripts/competicion.js.php:1023
+#: scripts/clubes.js.php:226 scripts/competicion.js.php:1029
 #: scripts/guias.js.php:80 scripts/guias.js.php:169 scripts/jueces.js.php:121
 #: scripts/perros.js.php:105 scripts/perros.js.php:206
 #: scripts/pruebas.js.php:176 scripts/pruebas.js.php:285
@@ -1310,13 +1310,13 @@ msgstr ""
 "(des)activar el refresco peri&oacute;dico de los resultados de la manga"
 
 #: console/dialogs/dlg_competicion.inc:259
-#: console/dialogs/dlg_competicion_games.inc:604
-msgid "Search a competitor by entering dorsal"
-msgstr "Buscar un participante por dorsal"
+msgid "Search a competitor<br/> by entering dorsal number or dog name"
+msgstr ""
+"Buscar un participante<br/>por n&uacute;mero de dorsal o nombre del perro"
 
 #: console/dialogs/dlg_competicion.inc:260
 #: console/dialogs/dlg_competicion_games.inc:605
-#: console/dialogs/dlg_ordensalida.inc:282
+#: console/dialogs/dlg_ordensalida.inc:294
 msgid "Select categories to work with"
 msgstr "Selecciona las categor&iacute;as a mostrar"
 
@@ -1352,7 +1352,7 @@ msgstr "Bonus"
 #: lib/templates/parcial_games.inc.php:32
 #: server/pdf/classes/PrintInscripciones.php:444
 #: server/pdf/classes/PrintInscripciones.php:470
-#: server/pdf/classes/PrintResultadosGames.php:63
+#: server/pdf/classes/PrintResultadosGames.php:64
 msgid "Total"
 msgstr "Total"
 
@@ -1393,6 +1393,10 @@ msgstr "Apertura"
 #: server/pdf/classes/PrintClasificacionGames.php:153
 msgid "Closing"
 msgstr "Cierre"
+
+#: console/dialogs/dlg_competicion_games.inc:604
+msgid "Search a competitor by entering dorsal"
+msgstr "Buscar un participante por dorsal"
 
 #: console/dialogs/dlg_competicion_games.inc:607
 #: console/dialogs/dlg_competicion_games.inc:609
@@ -2044,7 +2048,7 @@ msgstr "Servidor de autenticaci&oacute;n NTLM"
 #: console/dialogs/dlg_configuracion.inc:507
 #: console/dialogs/dlg_configuracion.inc:548
 #: console/dialogs/dlg_configuracion.inc:700
-#: console/dialogs/dlg_ordensalida.inc:65
+#: console/dialogs/dlg_ordensalida.inc:70
 msgid "Check"
 msgstr "Verificar"
 
@@ -2366,7 +2370,7 @@ msgid "Inscription data"
 msgstr "Datos de la inscripci&oacute;n"
 
 #: console/dialogs/dlg_editInscripcion.inc:40
-#: console/dialogs/dlg_ordensalida.inc:218 console/frm_clubes.php:271
+#: console/dialogs/dlg_ordensalida.inc:230 console/frm_clubes.php:271
 #: console/frm_guias.php:158 console/frm_paises.php:232
 #: console/frm_perros.php:138 lib/templates/orden_salida.inc.php:26
 #: server/pdf/classes/PrintClasificacionExcel.php:159
@@ -2511,7 +2515,7 @@ msgid "Import/Export"
 msgstr "Importar/Exportar"
 
 #: console/dialogs/dlg_entrenamientos.inc:115
-#: console/dialogs/dlg_ordensalida.inc:70
+#: console/dialogs/dlg_ordensalida.inc:75
 #: console/dialogs/dlg_ordentandas.inc:46 console/dialogs/dlg_printer.inc:75
 #: console/dialogs/dlg_resultados_equipos.inc:56
 #: console/dialogs/dlg_resultados_games.inc:56
@@ -2810,6 +2814,7 @@ msgstr "Actualizando lista de perros"
 
 #: console/dialogs/dlg_newInscripcion.inc:155
 #: console/dialogs/import_ordensalida.inc.php:87
+#: console/dialogs/import_perros.inc.php:92
 #: console/dialogs/import_results.inc.php:87 console/frm_equipos.php:253
 #: console/frm_inscripciones2.php:271 console/frm_perros.php:183
 #: lib/templates/final_games.inc.php:22
@@ -2878,11 +2883,15 @@ msgstr "M&eacute;todo"
 msgid "Sort"
 msgstr "Ordenar"
 
-#: console/dialogs/dlg_ordensalida.inc:63
+#: console/dialogs/dlg_ordensalida.inc:62
+msgid "Range"
+msgstr "Rango"
+
+#: console/dialogs/dlg_ordensalida.inc:68
 msgid "Move"
 msgstr "Mover"
 
-#: console/dialogs/dlg_ordensalida.inc:68 console/dialogs/dlg_plugins.inc:22
+#: console/dialogs/dlg_ordensalida.inc:73 console/dialogs/dlg_plugins.inc:22
 #: console/dialogs/dlg_remotecontrol.inc:264
 #: console/frm_clasificaciones2.php:90
 #: console/frm_clasificaciones_equipos.php:93
@@ -2890,104 +2899,104 @@ msgstr "Mover"
 msgid "Refresh"
 msgstr "Refrescar"
 
-#: console/dialogs/dlg_ordensalida.inc:77
+#: console/dialogs/dlg_ordensalida.inc:82
 msgid "Import starting order for this round from Excel file"
 msgstr "Importar orden de salida de la manga desde un fichero Excel"
 
-#: console/dialogs/dlg_ordensalida.inc:91
+#: console/dialogs/dlg_ordensalida.inc:96
 msgid "Manual setting of teams order for this round"
 msgstr "Ajuste manual del orden de salida de equipos de esta manga"
 
-#: console/dialogs/dlg_ordensalida.inc:113
+#: console/dialogs/dlg_ordensalida.inc:118
 msgid "Random order"
 msgstr "Orden de salida aleatorio"
 
-#: console/dialogs/dlg_ordensalida.inc:114
+#: console/dialogs/dlg_ordensalida.inc:119
 msgid "Reverse results"
 msgstr "Inverso a resultados de manga anterior"
 
-#: console/dialogs/dlg_ordensalida.inc:115
+#: console/dialogs/dlg_ordensalida.inc:120
 msgid "Same order"
 msgstr "Mismo orden que anterior manga"
 
-#: console/dialogs/dlg_ordensalida.inc:116
+#: console/dialogs/dlg_ordensalida.inc:121
 msgid "Reverse order"
 msgstr "Inverso de la manga anterior"
 
-#: console/dialogs/dlg_ordensalida.inc:117
+#: console/dialogs/dlg_ordensalida.inc:122
 msgid "Alphabetical (handlers)"
 msgstr "Alfab&eacute;tico (gu&iacute;as)"
 
-#: console/dialogs/dlg_ordensalida.inc:118
+#: console/dialogs/dlg_ordensalida.inc:123
 msgid "Order by dorsal"
 msgstr "Ordenar por dorsal"
 
-#: console/dialogs/dlg_ordensalida.inc:119
+#: console/dialogs/dlg_ordensalida.inc:124
 msgid "Import from Excel"
 msgstr "Importar desde Excel"
 
-#: console/dialogs/dlg_ordensalida.inc:143
+#: console/dialogs/dlg_ordensalida.inc:155
 msgid "Updating teams starting order"
 msgstr "Actualizando orden de salida de equipos"
 
-#: console/dialogs/dlg_ordensalida.inc:158
+#: console/dialogs/dlg_ordensalida.inc:170
 msgid "Def"
 msgstr "Def"
 
-#: console/dialogs/dlg_ordensalida.inc:205
+#: console/dialogs/dlg_ordensalida.inc:217
 #: lib/templates/orden_salida.inc.php:55
 msgid "Updating starting order"
 msgstr "Actualizando orden de salida"
 
-#: console/dialogs/dlg_ordensalida.inc:237
+#: console/dialogs/dlg_ordensalida.inc:249
 msgid "No data yet"
 msgstr "No hay datos todav&iacute;a"
 
-#: console/dialogs/dlg_ordensalida.inc:238
+#: console/dialogs/dlg_ordensalida.inc:250
 msgid "Need to choose starting order to show valid data on this round"
 msgstr ""
 "Es necesario sortear orden de salida para poder visualizar datos v&aacute;"
 "lidos"
 
-#: console/dialogs/dlg_ordensalida.inc:242
+#: console/dialogs/dlg_ordensalida.inc:254
 msgid "On first round"
 msgstr "En la primera manga"
 
-#: console/dialogs/dlg_ordensalida.inc:243
+#: console/dialogs/dlg_ordensalida.inc:255
 msgid "Make sure to select competitors and starting order to organize rounds"
 msgstr "Ajuste competidores y orden de salida para organizar la manga"
 
-#: console/dialogs/dlg_ordensalida.inc:276
+#: console/dialogs/dlg_ordensalida.inc:288
 msgid "Re-evaluate starting order according sort method"
 msgstr ""
 "Recalcular orden de salida seg&uacute;n el m&eacute;todo de ordenaci&oacute;"
 "n seleccionado"
 
-#: console/dialogs/dlg_ordensalida.inc:277
+#: console/dialogs/dlg_ordensalida.inc:289
 msgid "Move entry before selected possition"
 msgstr "No puedo mover al destino seleccionado"
 
-#: console/dialogs/dlg_ordensalida.inc:278
+#: console/dialogs/dlg_ordensalida.inc:290
 msgid "Look for <em>proximity alerts</em>"
 msgstr "Buscar alertas de proximidad"
 
-#: console/dialogs/dlg_ordensalida.inc:278
+#: console/dialogs/dlg_ordensalida.inc:290
 msgid "with dogs belonging same handler"
 msgstr "con perros pertenecientes al mismo gu&iacute;a"
 
-#: console/dialogs/dlg_ordensalida.inc:279
+#: console/dialogs/dlg_ordensalida.inc:291
 msgid "Manual setting of teams starting order"
 msgstr "Ajuste manual del orden de salida de equipos"
 
-#: console/dialogs/dlg_ordensalida.inc:280
+#: console/dialogs/dlg_ordensalida.inc:292
 msgid "Print starting order"
 msgstr "Imprimir orden de salida"
 
-#: console/dialogs/dlg_ordensalida.inc:281
+#: console/dialogs/dlg_ordensalida.inc:293
 msgid "Reload starting order. Update window"
 msgstr "Recargar orden de salida. Refrescar ventana"
 
-#: console/dialogs/dlg_ordensalida.inc:283
+#: console/dialogs/dlg_ordensalida.inc:295
 #: console/dialogs/dlg_resultados_equipos.inc:108
 #: console/dialogs/dlg_resultados_games.inc:118
 #: console/dialogs/dlg_resultados_individual.inc:110
@@ -3013,7 +3022,7 @@ msgstr "Sesi&oacute;n - Ring"
 #: console/dialogs/dlg_ordentandas.inc:67
 #: console/dialogs/dlg_ordentandas.inc:136 index2.php:332
 #: public/pb_programa.php:97 public/pbmenu_programa.php:101
-#: scripts/competicion.js.php:1163
+#: scripts/competicion.js.php:1171
 msgid "Timetable"
 msgstr "Horario"
 
@@ -3428,7 +3437,7 @@ msgstr "Sesi&oacute;n de entrenamientos"
 #: index.php:155 index2.php:334 livestream/index.php:201
 #: livestream/vwls_ordensalida.php:62 public/pb_ordensalida.php:42
 #: public/pb_ordensalida.php:51 public/pbmenu_ordensalida.php:42
-#: scripts/competicion.js.php:1170 scripts/sesiones.js.php:158
+#: scripts/competicion.js.php:1178 scripts/sesiones.js.php:158
 #: scripts/sesiones.js.php:171 server/excel/classes/OrdenSalidaReader.php:64
 #: server/excel/classes/OrdenSalidaWriter.php:112
 #: server/excel/classes/OrdenSalidaWriter.php:145
@@ -4194,8 +4203,8 @@ msgstr "Ignorar entrada. No importar este resultado a la base de datos"
 #: server/pdf/classes/PrintResultadosByEquipos4.php:103
 #: server/pdf/classes/PrintResultadosByManga.php:89
 #: server/pdf/classes/PrintResultadosByManga.php:92
-#: server/pdf/classes/PrintResultadosGames.php:85
 #: server/pdf/classes/PrintResultadosGames.php:88
+#: server/pdf/classes/PrintResultadosGames.php:91
 #: server/pdf/classes/PrintResultadosKO.php:82
 #: server/pdf/classes/PrintResultadosKO.php:85
 msgid "Judge"
@@ -4867,7 +4876,7 @@ msgstr "Entrenamiento"
 msgid "Planning"
 msgstr "Programa"
 
-#: console/frm_competicion2.php:98 scripts/competicion.js.php:1188
+#: console/frm_competicion2.php:98 scripts/competicion.js.php:1196
 #: scripts/printer.js.php:207 scripts/printer.js.php:215
 #: scripts/printer.js.php:223 server/pdf/classes/PrintEntradaDeDatos.php:87
 #: server/pdf/classes/PrintEntradaDeDatosGames.php:107
@@ -4876,7 +4885,7 @@ msgstr "Programa"
 msgid "Data entry"
 msgstr "Introducci&oacute;n de datos"
 
-#: console/frm_competicion2.php:101 scripts/competicion.js.php:1194
+#: console/frm_competicion2.php:101 scripts/competicion.js.php:1202
 msgid "Round results"
 msgstr "Resultados de la manga"
 
@@ -5832,12 +5841,12 @@ msgid "Grd"
 msgstr "Grd"
 
 #: lib/templates/final_games.inc.php:39 lib/templates/final_games.inc.php:46
-#: server/pdf/classes/PrintResultadosGames.php:63
+#: server/pdf/classes/PrintResultadosGames.php:64
 msgid "Opening Seq"
 msgstr "Apertura"
 
 #: lib/templates/final_games.inc.php:40
-#: server/pdf/classes/PrintResultadosGames.php:61
+#: server/pdf/classes/PrintResultadosGames.php:62
 msgid "Closing Seq"
 msgstr "Cierre"
 
@@ -5862,9 +5871,9 @@ msgstr "Cierre"
 #: server/pdf/classes/PrintClasificacionGames.php:122
 #: server/pdf/classes/PrintClasificacionGames.php:153
 #: server/pdf/classes/PrintClasificacionGames.php:154
-#: server/pdf/classes/PrintClasificacionGames.php:283
+#: server/pdf/classes/PrintClasificacionGames.php:285
 #: server/pdf/classes/PrintResultadosByManga.php:67
-#: server/pdf/classes/PrintResultadosGames.php:63
+#: server/pdf/classes/PrintResultadosGames.php:64
 #: server/pdf/classes/PrintResultadosKO.php:64
 #: videowall/vws_parcial_equipos.php:59 videowall/vws_parcial_individual.php:58
 msgid "Pos"
@@ -5890,7 +5899,7 @@ msgstr "Gambler"
 #: server/pdf/classes/PrintClasificacionGames.php:90
 #: server/pdf/classes/PrintClasificacionGames.php:123
 #: server/pdf/classes/PrintClasificacionGames.php:155
-#: server/pdf/classes/PrintClasificacionGames.php:284
+#: server/pdf/classes/PrintClasificacionGames.php:289
 #: server/pdf/classes/PrintClasificacionTeam.php:273
 #: server/pdf/classes/PrintPodium.php:161
 #: server/pdf/classes/PrintResultadosByEquipos3.php:85
@@ -7014,77 +7023,77 @@ msgstr "Intercambiar resultados"
 msgid "Working"
 msgstr "Procesando"
 
-#: scripts/competicion.js.php:750
+#: scripts/competicion.js.php:757
 msgid "Not found"
 msgstr "No encontrado"
 
-#: scripts/competicion.js.php:750
-msgid "Cannot find dog with dorsal"
-msgstr "No encuentro al perro con dorsal"
+#: scripts/competicion.js.php:757
+msgid "Cannot find dog with dorsal/name"
+msgstr "No encuentro al perro con dorsal/nombre"
 
-#: scripts/competicion.js.php:858 scripts/results_and_scores.js.php:363
+#: scripts/competicion.js.php:864 scripts/results_and_scores.js.php:363
 msgid "Internal error: invalid Federation/Course/Category combination"
 msgstr ""
 "Error interno: combinaci&oacute;n de Federacion/Recorrido/Categor&iacute;a "
 "inv&aacute;lida"
 
-#: scripts/competicion.js.php:1023
+#: scripts/competicion.js.php:1029
 msgid "Every changes done till now will be lost<br />Continue?"
 msgstr "Se perder&aacute;n todos los ajustes hechos hasta ahora<br/>Continuar?"
 
-#: scripts/competicion.js.php:1047 scripts/entrenamientos.js.php:149
+#: scripts/competicion.js.php:1054 scripts/entrenamientos.js.php:149
 #: scripts/inscripciones.js.php:432 scripts/perros.js.php:325
 #: scripts/printer.js.php:280
 msgid "Current license has no Excel import function enabled"
 msgstr "La licencia actual no permite la importaci&oacute;n de ficheros Excel"
 
-#: scripts/competicion.js.php:1139
+#: scripts/competicion.js.php:1147
 msgid "There is no round selected"
 msgstr "No se ha indicado ninguna manga"
 
-#: scripts/competicion.js.php:1151
+#: scripts/competicion.js.php:1159
 msgid "This license has no permission to handle training sessions"
 msgstr ""
 "Esta licencia no permite la gesti&oacute;n de sesiones de entrenamiento"
 
-#: scripts/competicion.js.php:1154
+#: scripts/competicion.js.php:1162
 msgid "Training sesion"
 msgstr "Sesi&oacute;n de entrenamientos"
 
-#: scripts/competicion.js.php:1183
+#: scripts/competicion.js.php:1191
 msgid "Cannot edit/modify results on closed journey"
 msgstr "No se pueden editar ni modificar datos en una jornada cerrada"
 
-#: scripts/competicion.js.php:1304
+#: scripts/competicion.js.php:1312
 msgid "No defined journey"
 msgstr "No hay jornada declarada"
 
-#: scripts/competicion.js.php:1308
+#: scripts/competicion.js.php:1316
 msgid "Requested federation module is not installed"
 msgstr ""
 "El m&oacute;dulo para la federaci&oacute;n solicitada no est&aacute; "
 "instalado"
 
-#: scripts/competicion.js.php:1386
+#: scripts/competicion.js.php:1394
 msgid "<strong>These dogs are pending to provide course data in round"
 msgstr ""
 "<strong>Hay perros pendientes de introducci&oacute;n de datos en la manga"
 
-#: scripts/competicion.js.php:1406 scripts/competicion.js.php:1490
+#: scripts/competicion.js.php:1414 scripts/competicion.js.php:1498
 msgid "There is no selected round for this journey"
 msgstr "No hay ninguna manga seleccionada en la jornada"
 
-#: scripts/competicion.js.php:1426 scripts/competicion.js.php:1450
-#: scripts/competicion.js.php:1472
+#: scripts/competicion.js.php:1434 scripts/competicion.js.php:1458
+#: scripts/competicion.js.php:1480
 msgid "Verify OK"
 msgstr "Verificaci&oacute;n correcta"
 
-#: scripts/competicion.js.php:1426 scripts/competicion.js.php:1450
-#: scripts/competicion.js.php:1472
+#: scripts/competicion.js.php:1434 scripts/competicion.js.php:1458
+#: scripts/competicion.js.php:1480
 msgid "No dogs found without their course results"
 msgstr "No se han encontrado perros sin datos de la manga"
 
-#: scripts/competicion.js.php:1452 scripts/competicion.js.php:1474
+#: scripts/competicion.js.php:1460 scripts/competicion.js.php:1482
 msgid "Verify Error"
 msgstr "Error al verificar"
 
@@ -8436,7 +8445,7 @@ msgstr "LOE_RRC"
 #: server/modules/competiciones/Liga_RFEC_Madrid.php:78
 #: server/modules/competiciones/Liga_UCA.php:36
 #: server/modules/competiciones/Puntuable_CPC_2018.php:121
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:57
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:67
 #: server/modules/competiciones/SelectivaWAO_Games.php:94
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:92
 #: server/modules/competiciones/Selectiva_PastorBelga.php:78
@@ -8453,7 +8462,7 @@ msgstr "No Presentado"
 #: server/modules/competiciones/Liga_RFEC_Madrid.php:87
 #: server/modules/competiciones/Liga_UCA.php:45
 #: server/modules/competiciones/Puntuable_CPC_2018.php:130
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:66
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:76
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:101
 #: server/modules/competiciones/Selectiva_PastorBelga.php:87
 msgid "Not Clasified"
@@ -8466,7 +8475,7 @@ msgstr "No Clasificado"
 #: server/modules/competiciones/Liga_RFEC_Madrid.php:88
 #: server/modules/competiciones/Liga_UCA.php:46
 #: server/modules/competiciones/Puntuable_CPC_2018.php:131
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:67
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:77
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:102
 #: server/modules/competiciones/Selectiva_PastorBelga.php:88
 #: videowall/videowall.js.php:405
@@ -8484,8 +8493,8 @@ msgstr "N.C."
 #: server/modules/competiciones/Liga_UCA.php:50
 #: server/modules/competiciones/Puntuable_CPC_2018.php:134
 #: server/modules/competiciones/Puntuable_CPC_2018.php:135
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:70
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:71
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:80
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:81
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:105
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:106
 #: server/modules/competiciones/Selectiva_PastorBelga.php:91
@@ -8499,7 +8508,7 @@ msgstr "Bien"
 #: server/modules/competiciones/Liga_RFEC_Madrid.php:95
 #: server/modules/competiciones/Liga_UCA.php:54
 #: server/modules/competiciones/Puntuable_CPC_2018.php:138
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:74
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:84
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:109
 msgid "Very good"
 msgstr "Muy bien"
@@ -8511,7 +8520,7 @@ msgstr "Muy bien"
 #: server/modules/competiciones/Liga_RFEC_Madrid.php:96
 #: server/modules/competiciones/Liga_UCA.php:55
 #: server/modules/competiciones/Puntuable_CPC_2018.php:139
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:75
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:85
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:110
 #: server/modules/competiciones/Selectiva_PastorBelga.php:95
 #: server/modules/competiciones/Selectiva_PastorBelga.php:96
@@ -8530,8 +8539,8 @@ msgstr "M.B."
 #: server/modules/competiciones/Puntuable_CPC_2018.php:146
 #: server/modules/competiciones/Puntuable_RSCE_2017.php:106
 #: server/modules/competiciones/Puntuable_RSCE_2017.php:119
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:78
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:82
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:88
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:92
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:113
 #: server/modules/competiciones/Selectiva_awc_RSCE.php:141
 #: server/modules/competiciones/Selectiva_awc_RSCE.php:145
@@ -8556,8 +8565,8 @@ msgstr "Excelente"
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:87
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:88
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:91
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:79
-#: server/modules/competiciones/SelectivaWAO_Biathlon.php:83
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:89
+#: server/modules/competiciones/SelectivaWAO_Biathlon.php:93
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:114
 #: server/modules/competiciones/Selectiva_PastorBelga.php:99
 #: server/modules/competiciones/Selectiva_PastorBelga.php:100
@@ -8758,13 +8767,13 @@ msgstr "Small+Tiny"
 
 #: server/modules/federaciones/nat4/config.php:73
 #: server/modules/federaciones/nat4/config.php:79
-msgid "Cat. 65"
+msgid "Cat. 60"
 msgstr "Cat. 60"
 
 #: server/modules/federaciones/nat4/config.php:73
 #: server/modules/federaciones/nat4/config.php:79
-msgid "Cat. 52"
-msgstr "Cat. 52"
+msgid "Cat. 50"
+msgstr "Cat. 50"
 
 #: server/modules/federaciones/nat4/config.php:73
 #: server/modules/federaciones/nat4/config.php:79
@@ -8778,7 +8787,7 @@ msgstr "Cat. 30"
 
 #: server/modules/federaciones/nat4/config.php:74
 #: server/modules/federaciones/nat4/config.php:80
-msgid "Cat. 65+52"
+msgid "Cat. 60+50"
 msgstr "Cat. 60+50"
 
 #: server/modules/federaciones/nat4/config.php:74
@@ -8788,7 +8797,8 @@ msgstr "Cat. 40+30"
 
 #: server/modules/federaciones/nat4/config.php:75
 #: server/modules/federaciones/nat4/config.php:81
-msgid "65+52+40+30"
+#: server/modules/federaciones/rfec/config.php:77
+msgid "60+50+40+30"
 msgstr "60+50+40+30"
 
 #: server/modules/federaciones/rfec/config.php:75
@@ -8814,10 +8824,6 @@ msgstr "Cl. 60+50"
 #: server/modules/federaciones/rfec/config.php:76
 msgid "Cl. 40+30"
 msgstr "Cl. 40+30"
-
-#: server/modules/federaciones/rfec/config.php:77
-msgid "60+50+40+30"
-msgstr "60+50+40+30"
 
 #: server/modules/federaciones/rfec/config.php:255
 #: server/modules/federaciones/rfec/config.php:256
@@ -9120,7 +9126,7 @@ msgstr "Participantes"
 
 #: server/pdf/classes/PrintResultadosByEquipos3.php:85
 #: server/pdf/classes/PrintResultadosByManga.php:67
-#: server/pdf/classes/PrintResultadosGames.php:63
+#: server/pdf/classes/PrintResultadosGames.php:64
 #: server/pdf/classes/PrintResultadosKO.php:64
 msgid "Calification"
 msgstr "Calificaci&oacute;n"
@@ -9129,7 +9135,7 @@ msgstr "Calificaci&oacute;n"
 msgid "Team global"
 msgstr "Gobal equipo"
 
-#: server/pdf/classes/PrintResultadosGames.php:74
+#: server/pdf/classes/PrintResultadosGames.php:77
 msgid "Round Scores"
 msgstr "Puntuaci&oacute;n de la manga"
 
@@ -9304,6 +9310,12 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "Cat. 65+52"
+#~ msgstr "Cat. 60+50"
+
+#~ msgid "65+52+40+30"
+#~ msgstr "60+50+40+30"
 
 #~ msgid "Some category has missing values for"
 #~ msgstr "En alguna de las categor&iacute;as faltan"

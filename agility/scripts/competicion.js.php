@@ -740,25 +740,31 @@ function autoUpdateCompeticion() {
 function competicionSelectByDorsal() {
     var dg = $('#competicion-datagrid');
     var drs = $('#competicion-search');
-    var rows = dg.datagrid('getRows');
-    var dorsal = parseInt(drs.val());
-    drs.val("--- Dorsal ---");
+    // store and reset seach field
+    var toLookFor=drs.val();
+    drs.val("--- Search ---");
     drs.blur();// remove focus to hide tooltip
-    if (dorsal >= 0) {
-        var idx = dg.datagrid('getRowIndex', dorsal);
-        if (idx < 0) {
-            $.messager.alert('<?php _e("Not found"); ?>', '<?php _e("Cannot find dog with dorsal"); ?>'+" "+dorsal, "error");
-            return false;
-        }
-        dg.datagrid('scrollTo', {
-            index: idx,
-            callback: function (index) {
-                dg.datagrid('selectRow', index);
-                // enter focus into datagrid to allow key binding
-                dg.datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
-            }
-        });
+    if (isNaN(toLookFor)) { // value is not a number: search for dog name
+        if (toLookFor==="--- Search ---") return false; // nothing to search
+        dg.datagrid('options').idField="Nombre";
+    } else {
+        toLookFor=parseInt(toLookFor);
+        if (toLookFor<=0) return false; // invalid dorsal to search for
+        dg.datagrid('options').idField="Dorsal";
     }
+    var idx = dg.datagrid('getRowIndex', toLookFor);
+    if (idx < 0) {
+        $.messager.alert('<?php _e("Not found"); ?>', '<?php _e("Cannot find dog with dorsal/name"); ?>'+" "+toLookFor, "error");
+        return false;
+    }
+    dg.datagrid('scrollTo', {
+        index: idx,
+        callback: function (index) {
+            dg.datagrid('selectRow', index);
+            // enter focus into datagrid to allow key binding
+            dg.datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+        }
+    });
     return false;
 }
 
