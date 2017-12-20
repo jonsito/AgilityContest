@@ -77,6 +77,8 @@ $('#selprueba-Search').combogrid({
 		{field:'Club',hidden:true},
 		{field:'NombreClub',    title:'<?php _e('Club');?>',   width:30,align:'right'},
         {field:'RSCE',			title:'<?php _e('Fed');?>.',	width:10,	align:'center', formatter:formatFederation},
+        {field:'OpeningReg',    hidden:true},
+        {field:'ClosingReg',    hidden:true},
 		{field:'Observaciones', hidden:true }
 	]],
 	multiple: false,
@@ -98,6 +100,20 @@ function acceptSelectPrueba() {
 		$.messager.alert("Error",'<?php _e("You should select a valid contest");?>',"error");
 		return;
 	} else {
+	    // comprobamos el periodo de inscripcion
+        // si fuera de plazo avisamos, pero dejamos continuar
+        var current=Date.now();
+        var rfrom=Date.parse(p.OpeningReg); // abre a las 00:00 del primer dia
+        var rto=86400000+Date.parse(p.ClosingReg); // cierra a las 23:59 del ultimo dia
+        if ( (rfrom>current) || (rto<current)) {
+            $.messager.alert({
+                title: '<?php _e("Warning");?>',
+                msg: '<?php _e("Out inscription period for this contest");?>',
+                icon: 'warning',
+                width: 350
+            });
+        }
+        console.log("current:"+current+" from:"+rfrom+" to:"+rto);
 		setPrueba(p);
 		setFederation(p.RSCE);
 		page="/agility/console/frm_inscripciones2.php";

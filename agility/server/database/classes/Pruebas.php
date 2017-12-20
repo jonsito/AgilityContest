@@ -99,15 +99,22 @@ class Pruebas extends DBObject {
         $rsce =	http_request("RSCE","i",0);
         $selectiva =	http_request("Selectiva","i",0);
         $cerrada =	http_request("Cerrada","i",0);
+        // should be declared, but if not assume defaults
+        $openingreg= http_request("OpeningReg","s",date("Y-m-d"));
+        $closingreg= http_request("ClosingReg","s",date("Y-m-d",strtotime($openingreg)+86400));
         $this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
 
 		// componemos un prepared statement
 		$sql ="UPDATE Pruebas
-				SET Nombre=? , Club=? , Ubicacion=? , Triptico=? , Cartel=?, Observaciones=?, RSCE=?, Selectiva=?, Cerrada=?
+				SET Nombre=? , Club=? , Ubicacion=? , Triptico=? , Cartel=?, 
+				Observaciones=?, RSCE=?, Selectiva=?, Cerrada=?, OpeningReg=?, ClosingReg=?
 				WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sissssiiii',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$rsce,$selectiva,$cerrada,$id);
+		$res=$stmt->bind_param(
+		    'sissssiiissi',
+            $nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$rsce,$selectiva,$cerrada,$openingreg,$closingreg,$id
+        );
 		if (!$res) return $this->error($this->conn->error);
 
 		// invocamos la orden SQL y devolvemos el resultado
@@ -180,7 +187,7 @@ class Pruebas extends DBObject {
 		$result=$this->__select(
 				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub, Clubes.Logo AS LogoClub,
 							Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel,
-							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva,
+							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva, Pruebas.OpeningReg AS OpeningReg, Pruebas.ClosingReg AS ClosingReg,
 							Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
 				/* FROM */ "Pruebas,Clubes",
 				/* WHERE */ $where,
@@ -212,6 +219,7 @@ class Pruebas extends DBObject {
 				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub, Clubes.Logo AS LogoClub,
 							Pruebas.Ubicacion AS Ubicacion, Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
 							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva, Pruebas.Cerrada AS Cerrada,
+							Pruebas.OpeningReg AS OpeningReg, Pruebas.ClosingReg AS ClosingReg,
 							Pruebas.Observaciones AS Observaciones, $limit as UserLimit",
 				/* FROM */ "Pruebas,Clubes",
 				/* WHERE */ $where,
@@ -241,7 +249,7 @@ class Pruebas extends DBObject {
 		$data= $this->__selectAsArray(
 				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub, Clubes.Logo AS LogoClub,
 					Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel,
-					Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva,
+					Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva, Pruebas.OpeningReg AS OpeningReg, Pruebas.ClosingReg AS ClosingReg,
 					Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
 				/* FROM */ "Pruebas,Clubes",
 				/* WHERE */ "( Clubes.ID=Pruebas.Club) && ( Pruebas.ID=$id )"

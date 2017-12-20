@@ -597,6 +597,9 @@ try {
     $upg->addColumnUnlessExists("Jueces", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
     $upg->updatePreAgility();
     // $upg->updateInscripciones(); not needed and to many time wasted
+    // for server edition, include inscription dates
+    $upg->addColumnUnlessExists("Pruebas","OpeningReg", "date", "CURRENT_DATE");
+    $upg->addColumnUnlessExists("Pruebas","ClosingReg", "date", "CURRENT_DATE");
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
