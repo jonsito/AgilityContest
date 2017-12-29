@@ -432,6 +432,29 @@ function askForUpgrade(msg,name,release){
 }
 
 function synchronizeDatabase() {
+    // check if license allows it
+    // check for user consent
+    // fire up progress bar
+    // call server
+    $.ajax({
+        url:"/agility/server/database/updater/updateRequest.php",
+        dataType:'json',
+        data: {
+            Operation: 'updateRequest'
+        },
+        success: function(data) {
+            if (typeof(data.errorMsg)!=="undefined") {
+                $.messager.alert('<?php _e("Check for Upgrades"); ?>',data.errorMsg,"error");
+                return;
+            }
+            if (data.success) {
+                msg = '<p><?php _e("Database is synced with server"); ?></p>';
+                $.messager.alert("<?php _e('Done');?>",msg,"info");
+            }
+        }
+    });
+    // start monitoring progress
+
     alert("DB Synchronization is not (yet) available");
 }
 

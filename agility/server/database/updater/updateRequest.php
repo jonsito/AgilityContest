@@ -23,16 +23,23 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/../../logging.php");
 require_once(__DIR__."/../../tools.php");
 require_once(__DIR__."/Uploader.php");
+require_once(__DIR__."/Downloader.php");
 
 try {
     $result=null;
-    $operation=http_request("operation","s","");
-    $timestamp=http_request("timestamp","s","");
-    $data=$_POST['rows'];
+    $operation=http_request("Operation","s","");
+    $timestamp=http_request("timestamp","s",date('Y-m-d H:i:s'));
     switch($operation) {
-        case "updateRequest":
-            $ul=new Downloader();
-            $result=$ul->getUpdatedEntries($timestamp);
+        case "updateRequest": // this is to be executed on client app
+            $ul=new Uploader();
+            // send / receive changes from server
+            $res=$ul->doRequest();
+            // PENDING: import changes from server into local database
+            $result="";
+            break;
+        case "updateResponse": // this is to be executed on server app
+            $dl=new Downloader();
+            $result=$dl->getUpdatedEntries($timestamp);
             break;
         default:
             throw new Exception("updateRequest.php: invalid operation '{$operation}' ");
