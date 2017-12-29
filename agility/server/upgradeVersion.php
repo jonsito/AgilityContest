@@ -574,7 +574,7 @@ try {
     // as backup does not preserve procedures, always need to recreate
     $upg->updatePerroGuiaClub();
     $needToUpdate=$upg->updateVersionHistory();
-    if (!$needToUpdate) return; // database already updated. so just return
+    if ($needToUpdate===false) return; // database already updated. so just return
     // software version changed. make sure that database is upgraded
     // $upg->addCountries();
     $upg->addColumnUnlessExists("Mangas", "Orden_Equipos", "TEXT");
@@ -597,9 +597,14 @@ try {
     $upg->addColumnUnlessExists("Jueces", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
     $upg->updatePreAgility();
     // $upg->updateInscripciones(); not needed and to many time wasted
+
     // for server edition, include inscription dates
-    $upg->addColumnUnlessExists("Pruebas","OpeningReg", "date", "CURRENT_DATE");
-    $upg->addColumnUnlessExists("Pruebas","ClosingReg", "date", "CURRENT_DATE");
+    // notice that mysql does not support CURRENT_DATE as default value, so need to emulate
+    // mariadb does, but not used in ubuntu nor xampp :-(
+    $fdate=date("Y-m-d");
+    $tdate=date("Y-m-d",time()+604800); // time + 1 week
+    $upg->addColumnUnlessExists("Pruebas","OpeningReg", "date", $fdate);
+    $upg->addColumnUnlessExists("Pruebas","ClosingReg", "date", $tdate);
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
