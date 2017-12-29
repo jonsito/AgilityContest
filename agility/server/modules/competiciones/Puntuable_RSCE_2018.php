@@ -15,20 +15,21 @@
  * Para la clasificacion para el C.E. Se exigen seis excelentes a cero en cada manga,
  * en los que al menos 3 de ellos tienen que tener puntos
  */
-class Puntuable_RSCE_2017 extends Competitions {
+class Puntuable_RSCE_2018 extends Competitions {
 
    protected $puntos;
 
-    function __construct($name="Prueba puntuable temporada 2017") {
+    function __construct($name="Prueba puntuable temporada 2018") {
         parent::__construct($name);
         $this->federationID=0;
-        $this->competitionID=0;
+        $this->competitionID=10;
+        $this->moduleVersion="1.0.0";
+        $this->moduleRevision="20171229_1553";
         $this->puntos=array(
+            // en la temporada 2018 desaparecen los puntos dobles
             /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS    pts  stars */
-            array("GII",    "Pv",  3.8,    3.6,   3.6,   4.0,    3.8,    3.8,   1,  1 ),
-            array("GII",    "2P",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3,   2,  2 ), // need to confirm stars value
-            array("GIII",   "Pv",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   1,  1 ),
-            array("GIII",   "2P",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3,   2,  2 ),
+            array("GII",    "Pv",  4.0,    3.8,   3.8,   4.2,    4.0,    4.0,   1,  1 ),
+            array("GIII",   "Pv",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   1,  1 )
         );
     }
 
@@ -39,7 +40,8 @@ class Puntuable_RSCE_2017 extends Competitions {
      * @return {array} trs array or null if no changes
      */
     public function presetTRSData($tipo) {
-        if ( ($tipo!=6) && ($tipo!=11) ) return parent::presetTRSData($tipo); // Not grade 3,use parent default
+        // when not grade 2 or 3,use parent default
+        if (!in_array($tipo,array(5,6,10,11))) return parent::presetTRSData($tipo);
         $manga=array();
         $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
         $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=15;$manga['TRS_L_Unit']='%'; // best dog + 15 %
@@ -66,6 +68,7 @@ class Puntuable_RSCE_2017 extends Competitions {
         // remember that prueba,jornada and manga are objects, so passed by reference
         $this->prueba->Selectiva = 0; // not really required, just to be sure
         // en grado 3 el trs lo marca el perro mas rapido + 15% sin redondeo
+        $roundUp=true;
         if (($manga->Tipo==6) || ($manga->Tipo==11)) $roundUp=false;
         return $data;
     }
