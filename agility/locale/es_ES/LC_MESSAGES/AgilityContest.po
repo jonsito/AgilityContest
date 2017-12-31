@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-12-11 20:18+0100\n"
-"PO-Revision-Date: 2017-12-11 20:20+0100\n"
+"POT-Creation-Date: 2017-12-31 10:08+0100\n"
+"PO-Revision-Date: 2017-12-31 10:09+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -391,10 +391,10 @@ msgstr "Eliminado"
 #: scripts/perros.js.php:291 scripts/printer.js.php:450
 #: scripts/printer.js.php:508 scripts/printer.js.php:545
 #: scripts/printer.js.php:587 scripts/printer.js.php:623
-#: scripts/pruebas.js.php:113 scripts/pruebas.js.php:185
-#: scripts/pruebas.js.php:234 scripts/pruebas.js.php:296
-#: scripts/pruebas.js.php:459 scripts/pruebas.js.php:610
-#: scripts/pruebas.js.php:616 scripts/results_and_scores.js.php:48
+#: scripts/pruebas.js.php:113 scripts/pruebas.js.php:192
+#: scripts/pruebas.js.php:241 scripts/pruebas.js.php:303
+#: scripts/pruebas.js.php:466 scripts/pruebas.js.php:617
+#: scripts/pruebas.js.php:623 scripts/results_and_scores.js.php:48
 #: scripts/results_and_scores.js.php:149 scripts/results_and_scores.js.php:363
 #: scripts/sesiones.js.php:80 scripts/sesiones.js.php:134
 #: scripts/tandas.js.php:100 scripts/tandas.js.php:130
@@ -521,7 +521,7 @@ msgstr "Dors"
 #: console/dialogs/dlg_ordensalida.inc:229
 #: console/dialogs/dlg_ordentandas.inc:53
 #: console/dialogs/dlg_ordentandas.inc:169 console/dialogs/dlg_perros.inc:29
-#: console/dialogs/dlg_plugins.inc:51 console/dialogs/dlg_pruebas.inc:346
+#: console/dialogs/dlg_plugins.inc:51 console/dialogs/dlg_pruebas.inc:352
 #: console/dialogs/dlg_remotecontrol.inc:354
 #: console/dialogs/dlg_remotecontrol.inc:381
 #: console/dialogs/dlg_remotecontrol.inc:411
@@ -540,7 +540,7 @@ msgstr "Dors"
 #: console/frm_jueces.php:87 console/frm_login.php:123
 #: console/frm_paises.php:82 console/frm_paises.php:140
 #: console/frm_paises.php:225 console/frm_perros.php:178
-#: console/frm_pruebas.php:157 console/frm_registration.php:54 index.php:190
+#: console/frm_pruebas.php:159 console/frm_registration.php:54 index.php:190
 #: index.php:223 lib/templates/final_games.inc.php:21
 #: lib/templates/final_individual.inc.php:18
 #: lib/templates/final_last_individual.inc.php:28
@@ -676,7 +676,7 @@ msgstr "Equipo"
 #: console/frm_paises.php:81 scripts/datagrid_formatters.js.php:168
 #: scripts/datagrid_formatters.js.php:536
 #: scripts/datagrid_formatters.js.php:546
-#: server/excel/classes/DogReader.php:412 server/modules/Federations.php:407
+#: server/excel/classes/DogReader.php:414 server/modules/Federations.php:407
 #: server/pdf/classes/PrintEntrenamientos.php:59
 #: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:219
 msgid "Country"
@@ -752,14 +752,14 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/dialogs/dlg_ordensalida.inc:168
 #: console/dialogs/dlg_ordentandas.inc:71
 #: console/dialogs/dlg_ordentandas.inc:137
-#: console/dialogs/dlg_ordentandas.inc:170 console/dialogs/dlg_pruebas.inc:161
+#: console/dialogs/dlg_ordentandas.inc:170 console/dialogs/dlg_pruebas.inc:167
 #: console/dialogs/dlg_selectJornada.inc:87 console/dialogs/dlg_sesiones.inc:41
 #: console/dialogs/infomanga.php:321 console/frm_clasificaciones2.php:58
 #: console/frm_clasificaciones_equipos.php:57 console/frm_clubes.php:180
 #: console/frm_equipos.php:176 console/frm_equipos.php:259
 #: console/frm_equipos.php:328 console/frm_guias.php:98
 #: console/frm_inscripciones2.php:73 console/frm_paises.php:143
-#: console/frm_pruebas.php:101 console/frm_pruebas.php:157 index.php:223
+#: console/frm_pruebas.php:101 console/frm_pruebas.php:159 index.php:223
 #: lib/templates/orden_salida.inc.php:35 livestream/index.php:278
 #: public/pb_inscripciones.php:112 public/pb_inscripciones_equipos.php:102
 #: public/pb_inscripciones_equipos.php:161 public/pb_programa.php:102
@@ -819,7 +819,7 @@ msgstr "Limpiar"
 
 #: console/dialogs/dlg_chguias.inc:47 console/dialogs/dlg_clubes.inc:110
 #: console/dialogs/dlg_guias.inc:37 console/dialogs/dlg_jueces.inc:52
-#: console/dialogs/dlg_pruebas.inc:281 console/dialogs/dlg_usuarios.inc:71
+#: console/dialogs/dlg_pruebas.inc:287 console/dialogs/dlg_usuarios.inc:71
 #: console/frm_clubes.php:179 console/frm_jueces.php:100
 #: console/frm_paises.php:142 lib/templates/scores_mail.inc.php:193
 msgid "Electronic mail"
@@ -855,7 +855,7 @@ msgstr "Reasignar"
 #: console/dialogs/dlg_ordensalida.inc:33
 #: console/dialogs/dlg_ordentandas.inc:81 console/dialogs/dlg_perros.inc:108
 #: console/dialogs/dlg_printer.inc:77 console/dialogs/dlg_pruebas.inc:118
-#: console/dialogs/dlg_pruebas.inc:173
+#: console/dialogs/dlg_pruebas.inc:179
 #: console/dialogs/dlg_resultados_equipos.inc:34
 #: console/dialogs/dlg_resultados_games.inc:34
 #: console/dialogs/dlg_resultados_individual.inc:34
@@ -882,8 +882,8 @@ msgstr "Limpiar formulario"
 #: console/dialogs/dlg_jornadas.inc:410 console/dialogs/dlg_jueces.inc:120
 #: console/dialogs/dlg_ordensalida.inc:296
 #: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:128
-#: console/dialogs/dlg_printer.inc:107 console/dialogs/dlg_pruebas.inc:204
-#: console/dialogs/dlg_pruebas.inc:206
+#: console/dialogs/dlg_printer.inc:107 console/dialogs/dlg_pruebas.inc:210
+#: console/dialogs/dlg_pruebas.inc:212
 #: console/dialogs/dlg_resultados_equipos.inc:109
 #: console/dialogs/dlg_resultados_games.inc:119
 #: console/dialogs/dlg_resultados_individual.inc:111
@@ -982,7 +982,7 @@ msgstr "Reasignar el perro seleccionado al gu&iacute;a"
 #: console/dialogs/dlg_resultados_ko.inc:54 console/frm_clubes.php:229
 #: console/frm_clubes.php:308 console/frm_guias.php:195
 #: console/frm_paises.php:190 console/frm_paises.php:269
-#: console/frm_pruebas.php:209
+#: console/frm_pruebas.php:211
 msgid "Update"
 msgstr "Actualizar"
 
@@ -998,8 +998,8 @@ msgid "Address"
 msgstr "Direcci&oacute;n"
 
 #: console/dialogs/dlg_clubes.inc:65 console/dialogs/dlg_clubes.inc:199
-#: console/dialogs/dlg_guias.inc:143 console/dialogs/dlg_pruebas.inc:282
-#: console/dialogs/dlg_pruebas.inc:371 console/dialogs/dlg_usuarios.inc:178
+#: console/dialogs/dlg_guias.inc:143 console/dialogs/dlg_pruebas.inc:288
+#: console/dialogs/dlg_pruebas.inc:378 console/dialogs/dlg_usuarios.inc:178
 #: console/dialogs/import_clubes.inc.php:93
 msgid "Province"
 msgstr "Provincia"
@@ -1243,7 +1243,7 @@ msgstr "N.P."
 #: console/dialogs/dlg_entrenamientos.inc:100
 #: console/dialogs/dlg_equipos.inc:56 console/dialogs/dlg_guias.inc:67
 #: console/dialogs/dlg_jornadas.inc:142 console/dialogs/dlg_jueces.inc:81
-#: console/dialogs/dlg_perros.inc:106 console/dialogs/dlg_pruebas.inc:171
+#: console/dialogs/dlg_perros.inc:106 console/dialogs/dlg_pruebas.inc:177
 #: console/dialogs/dlg_sesiones.inc:68 console/dialogs/dlg_usuarios.inc:45
 #: console/dialogs/dlg_usuarios.inc:93 console/dialogs/infomanga.php:342
 msgid "Save"
@@ -1262,7 +1262,7 @@ msgstr "Editar"
 #: scripts/clubes.js.php:226 scripts/competicion.js.php:1029
 #: scripts/guias.js.php:80 scripts/guias.js.php:169 scripts/jueces.js.php:121
 #: scripts/perros.js.php:105 scripts/perros.js.php:206
-#: scripts/pruebas.js.php:176 scripts/pruebas.js.php:285
+#: scripts/pruebas.js.php:183 scripts/pruebas.js.php:292
 #: scripts/sesiones.js.php:103 scripts/sesiones.js.php:127
 #: scripts/tandas.js.php:123 scripts/usuarios.js.php:109
 msgid "Confirm"
@@ -2282,12 +2282,12 @@ msgstr "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"
 msgid "for changes to become active"
 msgstr "para que los cambios se activen"
 
-#: console/dialogs/dlg_configuracion.inc:657 scripts/pruebas.js.php:257
+#: console/dialogs/dlg_configuracion.inc:657 scripts/pruebas.js.php:264
 #: scripts/results_and_scores.js.php:70
 msgid "Mail services"
 msgstr "Servicios de correo"
 
-#: console/dialogs/dlg_configuracion.inc:658 scripts/pruebas.js.php:258
+#: console/dialogs/dlg_configuracion.inc:658 scripts/pruebas.js.php:265
 #: scripts/results_and_scores.js.php:71
 msgid ""
 "Electronic mail operations<br/>are not allowed for unregistered licenses"
@@ -2535,7 +2535,7 @@ msgstr "Actualizando sesi&oacute;n de entrenamientos de la prueba"
 #: console/dialogs/dlg_jornadas.inc:43 console/frm_about.php:29
 #: console/frm_clasificaciones2.php:50
 #: console/frm_clasificaciones_equipos.php:49
-#: console/frm_inscripciones2.php:174 console/frm_pruebas.php:158
+#: console/frm_inscripciones2.php:174 console/frm_pruebas.php:160
 #: lib/templates/entrenamientos.inc.php:18
 #: server/excel/classes/EntrenamientosWriter.php:54
 #: server/excel/classes/OrdenSalidaWriter.php:118
@@ -2642,12 +2642,12 @@ msgstr "Nuevo Club"
 msgid "Aceptar handler data. Store into database"
 msgstr "Aceptar datos del gu&iacute;a. Guardar en la base de datos"
 
-#: console/dialogs/dlg_guias.inc:87 console/dialogs/dlg_pruebas.inc:207
+#: console/dialogs/dlg_guias.inc:87 console/dialogs/dlg_pruebas.inc:213
 msgid "Register new club into database"
 msgstr "Registrar un nuevo club en la base de datos"
 
-#: console/dialogs/dlg_guias.inc:142 console/dialogs/dlg_pruebas.inc:280
-#: console/dialogs/dlg_pruebas.inc:370 console/dialogs/dlg_usuarios.inc:177
+#: console/dialogs/dlg_guias.inc:142 console/dialogs/dlg_pruebas.inc:286
+#: console/dialogs/dlg_pruebas.inc:377 console/dialogs/dlg_usuarios.inc:177
 #: console/dialogs/import_clubes.inc.php:92 console/frm_perros.php:189
 msgid "Club name"
 msgstr "Nombre del Club"
@@ -2657,7 +2657,7 @@ msgid "Journey information"
 msgstr "Informaci&oacute;n de la jornada"
 
 #: console/dialogs/dlg_jornadas.inc:47 console/frm_inscripciones2.php:175
-#: console/frm_pruebas.php:159 server/excel/classes/XLSXWriter.php:134
+#: console/frm_pruebas.php:161 server/excel/classes/XLSXWriter.php:134
 #: server/pdf/classes/PrintOrdenTandas.php:88 tablet/tablet_main.php:208
 msgid "Hour"
 msgstr "Hora"
@@ -2773,7 +2773,7 @@ msgstr "Registrar informaci&oacute;n del juez en la base de datos"
 #: scripts/common.js.php:1040 scripts/common.js.php:1041
 #: scripts/common.js.php:1062 scripts/common.js.php:1074
 #: scripts/equipos.js.php:28 scripts/inscripciones.js.php:485
-#: server/tools.php:296
+#: server/tools.php:311
 msgid "-- Search --"
 msgstr "-- Buscar --"
 
@@ -2792,7 +2792,7 @@ msgstr "Inscribir"
 
 #: console/dialogs/dlg_newInscripcion.inc:96
 #: console/dialogs/dlg_remotecontrol.inc:268 console/frm_equipos.php:56
-#: scripts/results_and_scores.js.php:151
+#: scripts/admin.js.php:462 scripts/results_and_scores.js.php:151
 msgid "Done"
 msgstr "Hecho"
 
@@ -3077,9 +3077,9 @@ msgstr "Editar gu&iacute;a"
 
 #: console/dialogs/dlg_perros.inc:96 console/frm_competicion2.php:156
 #: console/frm_inscripciones2.php:207 console/frm_myAdmin.php:31
-#: console/index.php:198 scripts/competicion.js.php:75
-#: scripts/inscripciones.js.php:89 scripts/pruebas.js.php:177
-#: scripts/pruebas.js.php:417 server/pdf/classes/PrintOrdenTandas.php:77
+#: console/index.php:198 scripts/admin.js.php:438 scripts/competicion.js.php:75
+#: scripts/inscripciones.js.php:89 scripts/pruebas.js.php:184
+#: scripts/pruebas.js.php:424 server/pdf/classes/PrintOrdenTandas.php:77
 msgid "Notice"
 msgstr "Aviso"
 
@@ -3140,7 +3140,7 @@ msgstr "Federaci&oacute;n"
 msgid "Email"
 msgstr "Correo Electr&oacute;nico"
 
-#: console/dialogs/dlg_plugins.inc:54 console/dialogs/dlg_pruebas.inc:344
+#: console/dialogs/dlg_plugins.inc:54 console/dialogs/dlg_pruebas.inc:350
 #: console/frm_login.php:121 console/frm_perros.php:134
 msgid "ID"
 msgstr "ID"
@@ -3345,43 +3345,51 @@ msgstr "Selectiva"
 msgid "New Club"
 msgstr "Nuevo Club"
 
-#: console/dialogs/dlg_pruebas.inc:149 console/frm_pruebas.php:98
+#: console/dialogs/dlg_pruebas.inc:149
+msgid "Inscriptions Period"
+msgstr "Periodo de inscripci&oacute;n"
+
+#: console/dialogs/dlg_pruebas.inc:151
+msgid "to"
+msgstr "a"
+
+#: console/dialogs/dlg_pruebas.inc:155 console/frm_pruebas.php:98
 msgid "Event location"
 msgstr "Lugar de realizaci&oacute;n"
 
-#: console/dialogs/dlg_pruebas.inc:153 console/frm_pruebas.php:99
+#: console/dialogs/dlg_pruebas.inc:159 console/frm_pruebas.php:99
 msgid "Triptych URL"
 msgstr "URL del tr&iacute;ptico"
 
-#: console/dialogs/dlg_pruebas.inc:157 console/frm_pruebas.php:100
+#: console/dialogs/dlg_pruebas.inc:163 console/frm_pruebas.php:100
 msgid "Brochure URL"
 msgstr "URL del cartel"
 
-#: console/dialogs/dlg_pruebas.inc:201 lib/templates/scores_mail.inc.php:95
+#: console/dialogs/dlg_pruebas.inc:207 lib/templates/scores_mail.inc.php:95
 msgid "Edit mail template text to be sent"
 msgstr "Editar el texto del mensaje a enviar"
 
-#: console/dialogs/dlg_pruebas.inc:202
+#: console/dialogs/dlg_pruebas.inc:208
 msgid "Remove mail sent mark from every clubs"
 msgstr "Marcar todos los clubes como `pendiente de env&iacute;o`"
 
-#: console/dialogs/dlg_pruebas.inc:203 lib/templates/scores_mail.inc.php:96
+#: console/dialogs/dlg_pruebas.inc:209 lib/templates/scores_mail.inc.php:96
 msgid "Accept data. Start mailing procedure"
 msgstr "Aceptar datos. Comenzar envio de correo"
 
-#: console/dialogs/dlg_pruebas.inc:205
+#: console/dialogs/dlg_pruebas.inc:211
 msgid "Accept data. Register contest into database"
 msgstr "Aceptar datos. Registrar la prueba en la base de datos"
 
-#: console/dialogs/dlg_pruebas.inc:257
+#: console/dialogs/dlg_pruebas.inc:263
 msgid "Club selection"
 msgstr "Selecci&oacute;n de clubes"
 
-#: console/dialogs/dlg_pruebas.inc:258
+#: console/dialogs/dlg_pruebas.inc:264
 msgid "Updating club list"
 msgstr "Actualizando lista de clubes"
 
-#: console/dialogs/dlg_pruebas.inc:283
+#: console/dialogs/dlg_pruebas.inc:289
 msgid "Sent"
 msgstr "Enviado"
 
@@ -3672,7 +3680,7 @@ msgid "View mode"
 msgstr "Modo de pantalla"
 
 #: console/dialogs/dlg_remotecontrol.inc:355
-#: server/excel/classes/ClasificacionesWriter.php:94
+#: server/excel/classes/ClasificacionesWriter.php:86
 msgid "Type"
 msgstr "Tipo"
 
@@ -3786,12 +3794,12 @@ msgid "Name/Comments"
 msgstr "Nombre / Observaciones"
 
 #: console/dialogs/dlg_selectJornada.inc:137 console/frm_inscripciones2.php:187
-#: console/frm_pruebas.php:171
+#: console/frm_pruebas.php:173
 msgid "Special"
 msgstr "Especial"
 
 #: console/dialogs/dlg_selectJornada.inc:138 console/frm_inscripciones2.php:188
-#: console/frm_pruebas.php:104 console/frm_pruebas.php:173
+#: console/frm_pruebas.php:104 console/frm_pruebas.php:175
 #: server/excel/classes/XLSXWriter.php:134
 msgid "Closed"
 msgstr "Cerrada"
@@ -4188,7 +4196,7 @@ msgstr "Ignorar entrada. No importar este resultado a la base de datos"
 #: lib/templates/final_rounds_data.inc.php:12
 #: lib/templates/parcial_round_data.inc.php:14
 #: lib/templates/parcial_round_data.inc.php:15
-#: server/excel/classes/ClasificacionesWriter.php:94
+#: server/excel/classes/ClasificacionesWriter.php:86
 #: server/pdf/classes/PrintClasificacion.php:106
 #: server/pdf/classes/PrintClasificacion.php:130
 #: server/pdf/classes/PrintClasificacion.php:154
@@ -4300,7 +4308,7 @@ msgstr "TRM fijo"
 #: lib/templates/parcial_console_round_data.inc.php:24
 #: lib/templates/parcial_console_round_data.inc.php:33
 #: lib/templates/parcial_console_round_data.inc.php:42
-#: server/excel/classes/ClasificacionesWriter.php:94
+#: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/PartialScoresReader.php:257
 #: server/excel/classes/PartialScoresWriter.php:88
 #: server/pdf/classes/PrintClasificacion.php:95
@@ -4340,7 +4348,7 @@ msgstr "Plantillas"
 #: console/dialogs/infomanga.php:332 console/frm_clasificaciones.php:51
 #: console/frm_clasificaciones2.php:123
 #: console/frm_clasificaciones_equipos.php:132 console/index.php:397
-#: server/excel/classes/ClasificacionesWriter.php:243
+#: server/excel/classes/ClasificacionesWriter.php:234
 #: server/pdf/classes/PrintClasificacion.php:201
 #: server/pdf/classes/PrintClasificacionExcel.php:154
 msgid "Scores"
@@ -4431,7 +4439,7 @@ msgstr ""
 #: livestream/vwls_finales.php:89 livestream/vwls_finales.php:90
 #: livestream/vwls_osdvideo.php:56 public/pb_parciales.php:55
 #: public/pb_parciales_equipos.php:55
-#: server/excel/classes/ClasificacionesWriter.php:94
+#: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/OrdenSalidaWriter.php:126
 #: server/excel/classes/PartialScoresWriter.php:84
 #: server/pdf/classes/PrintClasificacion.php:83
@@ -4455,7 +4463,7 @@ msgstr "Jueces"
 #: lib/templates/parcial_console_round_data.inc.php:25
 #: lib/templates/parcial_console_round_data.inc.php:34
 #: lib/templates/parcial_console_round_data.inc.php:43
-#: server/excel/classes/ClasificacionesWriter.php:94
+#: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/PartialScoresReader.php:260
 #: server/excel/classes/PartialScoresWriter.php:89
 #: server/pdf/classes/PrintClasificacion.php:96
@@ -4492,7 +4500,7 @@ msgstr "TRM"
 #: lib/templates/parcial_round_data.inc.php:22
 #: scripts/results_and_scores.js.php:260 scripts/results_and_scores.js.php:266
 #: scripts/results_and_scores.js.php:333
-#: server/excel/classes/ClasificacionesWriter.php:94
+#: server/excel/classes/ClasificacionesWriter.php:86
 #: server/pdf/classes/PrintClasificacion.php:97
 #: server/pdf/classes/PrintClasificacion.php:121
 #: server/pdf/classes/PrintClasificacion.php:145
@@ -5057,11 +5065,19 @@ msgstr "Trabajar con la prueba seleccionada"
 msgid "Cancel selection. close window"
 msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
 
-#: console/frm_inscripciones.php:98
+#: console/frm_inscripciones.php:100
 msgid "You should select a valid contest"
 msgstr "Debe seleccionar una prueba v&aacute;lida"
 
-#: console/frm_inscripciones.php:104
+#: console/frm_inscripciones.php:110 scripts/pruebas.js.php:441
+msgid "Warning"
+msgstr "Aviso"
+
+#: console/frm_inscripciones.php:111
+msgid "Out inscription period for this contest"
+msgstr "Fuera del periodo de inscripciones"
+
+#: console/frm_inscripciones.php:120
 msgid "Inscriptions - Registering form"
 msgstr "Inscripciones - Formulario de registro"
 
@@ -5250,7 +5266,7 @@ msgid "Remove selected judge from database"
 msgstr "Borrar el juez seleccionado de la base de datos"
 
 #: console/frm_jueces.php:117 console/frm_perros.php:209
-#: console/frm_pruebas.php:134
+#: console/frm_pruebas.php:136
 msgid "Clear search box. Update list"
 msgstr "Borrar casilla de b&uacute;squeda. Actualizar datos"
 
@@ -5486,61 +5502,61 @@ msgstr "Nombre de la prueba"
 msgid "Organizing club"
 msgstr "Club anfitri&oacute;n"
 
-#: console/frm_pruebas.php:129
+#: console/frm_pruebas.php:131
 msgid "Declare a new contest and include into database"
 msgstr "Declara y a&ntilde;ade nueva prueba a la base de datos"
 
-#: console/frm_pruebas.php:130
+#: console/frm_pruebas.php:132
 msgid "Edit information on selected contest"
 msgstr "Modificar los datos de la prueba eleccionada"
 
-#: console/frm_pruebas.php:131
+#: console/frm_pruebas.php:133
 msgid "Remove selected contest"
 msgstr "Borrar prueba seleccionada"
 
-#: console/frm_pruebas.php:132
+#: console/frm_pruebas.php:134
 msgid "Export selected contest data in Excel format"
 msgstr "Exportar la prueba seleccionada en formato Excel"
 
-#: console/frm_pruebas.php:133
+#: console/frm_pruebas.php:135
 msgid "Send mail to clubs with contest info and inscription templates"
 msgstr ""
 "Enviar correo a los clubes con informaci&oacute;n de la prueba y plantillas "
 "de inscripci&oacute;n"
 
-#: console/frm_pruebas.php:135
+#: console/frm_pruebas.php:137
 msgid "Include finished (closed) contest into listing"
 msgstr "Incluir pruebas finalizadas (cerradas) en el listado"
 
-#: console/frm_pruebas.php:136
+#: console/frm_pruebas.php:138
 msgid "Look for contests matching search criteria"
 msgstr "Buscar pruebas que coincidan con el criterio de b&uacute;squeda"
 
-#: console/frm_pruebas.php:143
+#: console/frm_pruebas.php:145
 msgid "Journeys on this contest"
 msgstr "Lista de jornadas de esta prueba"
 
-#: console/frm_pruebas.php:151
+#: console/frm_pruebas.php:153
 msgid "Loading list of journeys"
 msgstr "Cargando lista de jornadas"
 
-#: console/frm_pruebas.php:198
+#: console/frm_pruebas.php:200
 msgid "Edit journey"
 msgstr "Editar jornada"
 
-#: console/frm_pruebas.php:203
+#: console/frm_pruebas.php:205
 msgid "Close journey"
 msgstr "Cerrar jornada"
 
-#: console/frm_pruebas.php:219
+#: console/frm_pruebas.php:221
 msgid "Edit data on selected journey"
 msgstr "Modificar los datos de la jornada seleccionada"
 
-#: console/frm_pruebas.php:220
+#: console/frm_pruebas.php:222
 msgid "Close journey. Store data as inmutable"
 msgstr "Cerrar jornada. Marcar esta jornada como no-modificable"
 
-#: console/frm_pruebas.php:221
+#: console/frm_pruebas.php:223
 msgid "Update journey list for this contest"
 msgstr "Actualizar la lista de jornadas de esta prueba"
 
@@ -6024,7 +6040,7 @@ msgstr "Datos de la manga"
 #: lib/templates/final_rounds_data.inc.php:16
 #: lib/templates/final_rounds_data.inc.php:24
 #: lib/templates/parcial_round_data.inc.php:18
-#: server/excel/classes/ClasificacionesWriter.php:94
+#: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/PartialScoresReader.php:251
 #: server/excel/classes/PartialScoresWriter.php:86
 #: server/pdf/classes/PrintClasificacion.php:93
@@ -6043,7 +6059,7 @@ msgstr "Dist"
 #: lib/templates/final_rounds_data.inc.php:17
 #: lib/templates/final_rounds_data.inc.php:25
 #: lib/templates/parcial_round_data.inc.php:19
-#: server/excel/classes/ClasificacionesWriter.php:94
+#: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/PartialScoresReader.php:254
 #: server/excel/classes/PartialScoresWriter.php:87
 #: server/pdf/classes/PrintClasificacion.php:94
@@ -6462,8 +6478,8 @@ msgstr ""
 "Asegurese de que no hay ninguna actualizaci&oacute;n, importaci&oacute;n, "
 "env&iacute;o de correo <br/> o similar operaci&oacute;n en proceso "
 
-#: scripts/admin.js.php:89 scripts/pruebas.js.php:422
-#: scripts/pruebas.js.php:438
+#: scripts/admin.js.php:89 scripts/pruebas.js.php:429
+#: scripts/pruebas.js.php:445
 msgid "Continue?"
 msgstr "Realmente desea continuar?"
 
@@ -6641,26 +6657,39 @@ msgid "Download complete. Press Acccept to start upgrade"
 msgstr "Descarga completada. Pulse Aceptar para iniciar actualizaci&oacute;n"
 
 #: scripts/admin.js.php:439
+msgid "You need to enable sharing data in configuration menu"
+msgstr ""
+"Necesita habilitar compartir datos en el men&uacute; de configuraci&oacute;n"
+
+#: scripts/admin.js.php:457
+msgid "Sync database"
+msgstr "Sincronizar base de datos"
+
+#: scripts/admin.js.php:461
+msgid "Database is synced with server"
+msgstr "La base de datos est&aacute; sincronizada con el servidor"
+
+#: scripts/admin.js.php:472
 msgid "Current Version"
 msgstr "Versi&oacute;n actual"
 
-#: scripts/admin.js.php:439
+#: scripts/admin.js.php:472
 msgid "Current Release"
 msgstr "Revisi&oacute;n actual"
 
-#: scripts/admin.js.php:448
+#: scripts/admin.js.php:481
 msgid "Check for Upgrades"
 msgstr "Buscar actualizaciones"
 
-#: scripts/admin.js.php:452
+#: scripts/admin.js.php:485
 msgid "<p>AgilityContest is up to date</p>"
 msgstr "<p>AgilityContest est&aacute; actualizado</p>"
 
-#: scripts/admin.js.php:455
+#: scripts/admin.js.php:488
 msgid "Last Version"
 msgstr "Nueva Versi&oacute;n"
 
-#: scripts/admin.js.php:455
+#: scripts/admin.js.php:488
 msgid "Last Release"
 msgstr "Nueva revisi&oacute;n"
 
@@ -6733,7 +6762,7 @@ msgid "Restart"
 msgstr "Reiniciar"
 
 #: scripts/auth.js.php:223 scripts/competicion.js.php:475
-#: scripts/pruebas.js.php:137
+#: scripts/pruebas.js.php:144
 msgid "Back"
 msgstr "Volver"
 
@@ -6795,7 +6824,7 @@ msgstr "No se ha indicado ninguna federacion"
 #: scripts/equipos.js.php:236 scripts/guias.js.php:54 scripts/guias.js.php:77
 #: scripts/guias.js.php:162 scripts/guias.js.php:166 scripts/jueces.js.php:114
 #: scripts/jueces.js.php:118 scripts/perros.js.php:102
-#: scripts/pruebas.js.php:173 scripts/sesiones.js.php:96
+#: scripts/pruebas.js.php:180 scripts/sesiones.js.php:96
 #: scripts/sesiones.js.php:100 scripts/sesiones.js.php:124
 #: scripts/tandas.js.php:116 scripts/tandas.js.php:120
 #: scripts/usuarios.js.php:102 scripts/usuarios.js.php:106
@@ -6922,11 +6951,11 @@ msgid "Data on current round stored"
 msgstr "Datos de la manga guardados"
 
 #: scripts/competicion.js.php:474 scripts/competicion.js.php:480
-#: scripts/pruebas.js.php:136
+#: scripts/pruebas.js.php:143
 msgid "Continue"
 msgstr "Continuar"
 
-#: scripts/competicion.js.php:477 scripts/pruebas.js.php:265
+#: scripts/competicion.js.php:477 scripts/pruebas.js.php:272
 msgid "Missing data"
 msgstr "Faltan datos"
 
@@ -7154,7 +7183,7 @@ msgstr "Imprimiendo lista de equipos. Por favor, espere"
 #: scripts/printer.js.php:134 scripts/printer.js.php:159
 #: scripts/printer.js.php:197 scripts/printer.js.php:239
 #: scripts/printer.js.php:529 scripts/printer.js.php:606
-#: scripts/printer.js.php:645 scripts/pruebas.js.php:208
+#: scripts/printer.js.php:645 scripts/pruebas.js.php:215
 msgid "There was a problem generating your report, please try again."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
@@ -7219,8 +7248,8 @@ msgstr "Debe seleccionar un equipo v&aacute;lido"
 #: scripts/equipos.js.php:363 scripts/inscripciones.js.php:43
 #: scripts/inscripciones.js.php:84 scripts/inscripciones.js.php:163
 #: scripts/inscripciones.js.php:305 scripts/inscripciones.js.php:353
-#: scripts/pruebas.js.php:363 scripts/pruebas.js.php:398
-#: scripts/pruebas.js.php:427 scripts/results_and_scores.js.php:116
+#: scripts/pruebas.js.php:370 scripts/pruebas.js.php:405
+#: scripts/pruebas.js.php:434 scripts/results_and_scores.js.php:116
 msgid "No selection"
 msgstr "No seleccionado"
 
@@ -7229,7 +7258,7 @@ msgid "There is no marked dog to change team for"
 msgstr "No ha seleccionado ning&uacute;n perro para cambiar de equipo"
 
 #: scripts/equipos.js.php:369 scripts/inscripciones.js.php:167
-#: scripts/pruebas.js.php:367 scripts/results_and_scores.js.php:112
+#: scripts/pruebas.js.php:374 scripts/results_and_scores.js.php:112
 msgid "No permission"
 msgstr "Permisos insuficientes"
 
@@ -7491,8 +7520,8 @@ msgstr "Inscribir selecci&oacute;n"
 msgid "Cloning inscriptions from selected journey into "
 msgstr "Clonando las inscripciones de la jornada seleccionada en"
 
-#: scripts/inscripciones.js.php:305 scripts/pruebas.js.php:398
-#: scripts/pruebas.js.php:427
+#: scripts/inscripciones.js.php:305 scripts/pruebas.js.php:405
+#: scripts/pruebas.js.php:434
 msgid "There is no journey selected"
 msgstr "No se ha seleccionado ninguna jornada"
 
@@ -7669,7 +7698,7 @@ msgstr "Actualizar lista de perros con datos obtenidos de un fichero Excel"
 #: scripts/printer.js.php:346 scripts/printer.js.php:364
 #: scripts/printer.js.php:528 scripts/printer.js.php:566
 #: scripts/printer.js.php:605 scripts/printer.js.php:644
-#: scripts/pruebas.js.php:207
+#: scripts/pruebas.js.php:214
 msgid "We are preparing your report, please wait"
 msgstr "Preparando el informe, por favor, espere"
 
@@ -7757,8 +7786,8 @@ msgstr ""
 msgid "Nueva Prueba"
 msgstr "Nueva Prueba"
 
-#: scripts/pruebas.js.php:90 scripts/pruebas.js.php:173
-#: scripts/pruebas.js.php:196 scripts/pruebas.js.php:253
+#: scripts/pruebas.js.php:90 scripts/pruebas.js.php:180
+#: scripts/pruebas.js.php:203 scripts/pruebas.js.php:260
 msgid "There is no contest selected"
 msgstr "No hay ninguna prueba seleccionada"
 
@@ -7766,19 +7795,27 @@ msgstr "No hay ninguna prueba seleccionada"
 msgid "Modify contest data"
 msgstr "Modificar datos de la prueba"
 
-#: scripts/pruebas.js.php:139
+#: scripts/pruebas.js.php:131
+msgid "Data error"
+msgstr "Error de datos"
+
+#: scripts/pruebas.js.php:131
+msgid "Invalid inscription period"
+msgstr "Periodo de inscripci&oacute;n inv&aacute;lido"
+
+#: scripts/pruebas.js.php:146
 msgid "License notice"
 msgstr "Aviso sobre la licencia"
 
-#: scripts/pruebas.js.php:140
+#: scripts/pruebas.js.php:147
 msgid "Organizer club"
 msgstr "El club organizador"
 
-#: scripts/pruebas.js.php:142
+#: scripts/pruebas.js.php:149
 msgid "does not match with licenser club information"
 msgstr "no coincide con el club indicado en la licencia"
 
-#: scripts/pruebas.js.php:144
+#: scripts/pruebas.js.php:151
 msgid ""
 "This is a copyright violation, as you are only allowed to create contests "
 "for your club"
@@ -7786,19 +7823,19 @@ msgstr ""
 "Esto constituye una violaci&oacute;n de la licencia: solo se pueden crear "
 "pruebas para el club indicado en &eacute;sta"
 
-#: scripts/pruebas.js.php:146
+#: scripts/pruebas.js.php:153
 msgid "Future application versions may enforce copyright issues"
 msgstr ""
 "Actualizaciones futuras de la aplicaci&oacute;n pueden forzar los t&eacute;"
 "rminos del copyright"
 
-#: scripts/pruebas.js.php:148
+#: scripts/pruebas.js.php:155
 msgid "Some features may be disabled. Continue at your own risk"
 msgstr ""
 "Algunas funcionalidades pueden haber sido desactivadas. Continue bajo su "
 "responsabilidad"
 
-#: scripts/pruebas.js.php:178
+#: scripts/pruebas.js.php:185
 msgid ""
 "<p>By deleting this contest <b>youll loose</b> every associated data and "
 "scores"
@@ -7806,115 +7843,111 @@ msgstr ""
 "<p>Si borra la prueba <b>se perder&aacute;n</b> todas las inscripciones, "
 "equipos y resultados asociados"
 
-#: scripts/pruebas.js.php:179
+#: scripts/pruebas.js.php:186
 msgid "Do you really want to delete this contest"
 msgstr "Realmente desea borrar esta prueba"
 
-#: scripts/pruebas.js.php:196
+#: scripts/pruebas.js.php:203
 msgid "Export error"
 msgstr "Error al exportar"
 
-#: scripts/pruebas.js.php:216 scripts/results_and_scores.js.php:30
+#: scripts/pruebas.js.php:223 scripts/results_and_scores.js.php:30
 msgid "Change Email"
 msgstr "Cambiar e-mail"
 
-#: scripts/pruebas.js.php:217
+#: scripts/pruebas.js.php:224
 msgid "Enter new email for club"
 msgstr "Nueva direcci&oacute;n de correo para el club"
 
-#: scripts/pruebas.js.php:253
+#: scripts/pruebas.js.php:260
 msgid "Mailer error"
 msgstr "Error de envio"
 
-#: scripts/pruebas.js.php:266
+#: scripts/pruebas.js.php:273
 msgid "Contest has poster and/or tryptich undefined"
 msgstr "La prueba no tiene p&oacute;ster o tr&iacute;ptico definido"
 
-#: scripts/pruebas.js.php:266
+#: scripts/pruebas.js.php:273
 msgid "Continue anyway?"
 msgstr "Continuar ¿seguro?"
 
-#: scripts/pruebas.js.php:270 scripts/pruebas.js.php:276
+#: scripts/pruebas.js.php:277 scripts/pruebas.js.php:283
 msgid "Email contest info to clubs"
 msgstr "Enviar informaci&oacute;n a los clubes"
 
-#: scripts/pruebas.js.php:286
+#: scripts/pruebas.js.php:293
 msgid "Mark every club as pending to receive mail"
 msgstr "Marcar todos los clubes como pendientes de recibir correo"
 
-#: scripts/pruebas.js.php:286
+#: scripts/pruebas.js.php:293
 msgid "Sure"
 msgstr "¿Seguro?"
 
-#: scripts/pruebas.js.php:325 scripts/pruebas.js.php:331
+#: scripts/pruebas.js.php:332 scripts/pruebas.js.php:338
 msgid "Skipping"
 msgstr "Omitiendo"
 
-#: scripts/pruebas.js.php:325
+#: scripts/pruebas.js.php:332
 msgid "Already sent"
 msgstr "Ya enviado"
 
-#: scripts/pruebas.js.php:331
+#: scripts/pruebas.js.php:338
 msgid "No mail declared"
 msgstr "Sin correo definido"
 
-#: scripts/pruebas.js.php:335 scripts/pruebas.js.php:450
+#: scripts/pruebas.js.php:342 scripts/pruebas.js.php:457
 msgid "Processing"
 msgstr "Procesando"
 
-#: scripts/pruebas.js.php:363
+#: scripts/pruebas.js.php:370
 msgid "There is no selected clubs to send mail to"
 msgstr "No se ha seleccionado ning&uacute;n club al que enviar correo"
 
-#: scripts/pruebas.js.php:367 scripts/results_and_scores.js.php:112
+#: scripts/pruebas.js.php:374 scripts/results_and_scores.js.php:112
 msgid "Current user has not enought permissions to send mail"
 msgstr "El usuario actual no tiene suficientes permisos para enviar correo"
 
-#: scripts/pruebas.js.php:402 scripts/pruebas.js.php:440
+#: scripts/pruebas.js.php:409 scripts/pruebas.js.php:447
 msgid "Invalid selection"
 msgstr "Selecci&oacute;n inv&aacute;lida"
 
-#: scripts/pruebas.js.php:402
+#: scripts/pruebas.js.php:409
 msgid "Cannot edit a journey stated as closed"
 msgstr "No se puede modificar una jornada marcada como cerrada"
 
-#: scripts/pruebas.js.php:406
+#: scripts/pruebas.js.php:413
 msgid "Modify journey data"
 msgstr "Editar datos de de la jornada"
 
-#: scripts/pruebas.js.php:419
+#: scripts/pruebas.js.php:426
 msgid "Setting a journey as closed"
 msgstr "Marcando la jornada como cerrada"
 
-#: scripts/pruebas.js.php:420
+#: scripts/pruebas.js.php:427
 msgid "Youll be no longer able to edit,delete or modify,"
 msgstr "No ser&aacute; posible editar o borrar datos de esta"
 
-#: scripts/pruebas.js.php:421
+#: scripts/pruebas.js.php:428
 msgid "inscriptions or scores"
 msgstr "inscripciones o resultados"
 
-#: scripts/pruebas.js.php:434
-msgid "Warning"
-msgstr "Aviso"
-
-#: scripts/pruebas.js.php:435
+#: scripts/pruebas.js.php:442
 msgid "You are about to re-open a closed journey"
 msgstr "Ha solicitado re-abrir una jornada ya cerrada"
 
-#: scripts/pruebas.js.php:436
+#: scripts/pruebas.js.php:443
 msgid "This is a very dangerous operation "
 msgstr "Esta es una operaci&oacute;n muy peligrosa"
 
-#: scripts/pruebas.js.php:437
+#: scripts/pruebas.js.php:444
 msgid "May generate scores and result data inconsistencies"
 msgstr "Puede originar inconsistencias en resultados y clasificaciones"
 
-#: scripts/pruebas.js.php:440
+#: scripts/pruebas.js.php:447
 msgid "Cannot close an already closed journey"
 msgstr "No se puede cerrar una jornada ya cerrada"
 
-#: scripts/pruebas.js.php:610
+#: scripts/pruebas.js.php:617
 msgid ""
 "KO, Games (WAO), Individual (Open), or team rounds must be declared in a "
 "separate journey"
@@ -7922,7 +7955,7 @@ msgstr ""
 "Las rondas KO, Juegos (WAO), Individual (Open) o Equipos deben ser "
 "declaradas en una jornada separada"
 
-#: scripts/pruebas.js.php:616
+#: scripts/pruebas.js.php:623
 msgid ""
 "You cannot add additional rounds when KO, Games (WAO), Individual (Open) or "
 "team rounds are already declared in a journey"
@@ -8063,19 +8096,19 @@ msgstr "Contrase&ntilde;a cambiada con &eacute;xito"
 msgid "Root"
 msgstr "Root"
 
-#: server/auth/AuthManager.php:240
+#: server/auth/AuthManager.php:241
 msgid "Expired"
 msgstr "Expirada"
 
-#: server/auth/AuthManager.php:241
+#: server/auth/AuthManager.php:242
 msgid "Cancelled"
 msgstr "Cancelada"
 
-#: server/auth/AuthManager.php:540
+#: server/auth/AuthManager.php:541
 msgid "Insufficient credentials"
 msgstr "Permisos insuficientes"
 
-#: server/auth/AuthManager.php:540
+#: server/auth/AuthManager.php:541
 msgid "Required level is"
 msgstr "El nivel requerido es"
 
@@ -8539,6 +8572,8 @@ msgstr "M.B."
 #: server/modules/competiciones/Puntuable_CPC_2018.php:146
 #: server/modules/competiciones/Puntuable_RSCE_2017.php:106
 #: server/modules/competiciones/Puntuable_RSCE_2017.php:119
+#: server/modules/competiciones/Puntuable_RSCE_2018.php:109
+#: server/modules/competiciones/Puntuable_RSCE_2018.php:122
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:88
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:92
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:113
@@ -9162,11 +9197,11 @@ msgstr "Copia licenciada para el club"
 msgid "Data Entry"
 msgstr "Entrada de datos"
 
-#: server/tools.php:616
+#: server/tools.php:631
 msgid "Current journey is closed. cannot modify"
 msgstr "La jornada actual est&aacute; cerrada. No se puede modificar"
 
-#: server/tools.php:668
+#: server/tools.php:683
 msgid "Physical"
 msgstr "F&iacute;sica"
 

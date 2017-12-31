@@ -432,6 +432,15 @@ function askForUpgrade(msg,name,release){
 }
 
 function synchronizeDatabase() {
+    // check if configuration allows share data
+    if (parseInt(ac_config.search_updatedb)===0) {
+        $.messager.alert(
+            '<?php _e("Notice");?>',
+            '<?php _e("You need to enable sharing data in configuration menu"); ?>',
+            "info"
+        );
+        return;
+    }
     // check if license allows it
     // check for user consent
     // fire up progress bar
@@ -456,7 +465,7 @@ function synchronizeDatabase() {
     });
     // start monitoring progress
 
-    alert("New data has been uploaded<br/> but DB Synchronization is not (yet) available");
+    alert("New data has been uploaded, but DB Synchronization is not (yet) available");
 }
 
 function checkForUpgrades() {
