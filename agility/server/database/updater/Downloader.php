@@ -27,24 +27,54 @@ require_once (__DIR__."/../../auth/Config.php");
 class Downloader {
     protected $myDBObject;
     protected $myConfig;
+    protected $myLogger;
+    protected $timestamp;
+    protected $serial;
 
-    function __construct() {
+    function __construct($timestamp,$serial) {
         $this->myDBObject=new DBObject("Downloader");
         $this->myConfig=Config::getInstance();
+        $this->myLogger=new Logger("DatabaseDownloader",$this->myConfig->getEnv("debug_level"));
+        $this->timestamp=$timestamp;
+        $this->serial=$serial;
     }
 
     /**
      * retrieve from perroguiaclub every item newer than timestamp
-     * @param $timestamp
      */
-    function getUpdatedEntries($timestamp) {
+    function getUpdatedEntries() {
         // retrieve updated elements from database
         $res=$this->myDBObject->__select(
             "*",
             "PerroGuiaClub",
-            "(Licencia != '') AND ( LastModified > '{$timestamp}')"
+            "(Licencia != '') AND ( LastModified > '{$this->timestamp}')"
         );
         if (!$res) throw new Exception ("Downloader::getUpdatedEntries(): {$this->myDBObject->errormsg}");
         return $res;
+    }
+
+    /**
+     * Store retrieved data into temporary file to be parsed later
+     * @param {array} $data
+     */
+    function saveRetrievedData($data) {
+        if ($data==="") throw new Exception ("Downloader::saveRetrievedData(): no data received from client");
+        $obj=json_decode($data);
+        if($obj->total==0) return ""; // no data, nothing to save
+
+        // los ficheros se guardan en la carpeta logs/updateRequests/serial-timestamp
+        // si el fichero ya existe se ignora la peticion pues ya tiene los datos salvados
+        //   esto en principio no deberia dar problemas cuando se usa la misma licencia desde dos
+        //   ordenadores... pues no coincidira el timestamp, o bien uno sera el backup del otro
+        $dir=__DIR__."/../../../../logs/updateRequests";
+        @mkdir($dir);
+        // convert "Y-m-d G:i:s" to "Ymd_Gi"
+        $d=date("Ymd_gi",strtotime($this->timestamp));
+        $fname="req-{$this->serial}-{$d}.json";
+        if (!file_exists("{$dir}/{$fname}")) {
+            $this->myLogger->trace("Downloader: storing data into file: {$dir}/{$fname}");
+            file_put_contents("{$dir}/{$fname}",json_encode($obj->rows));
+        }
+        return "";
     }
 }

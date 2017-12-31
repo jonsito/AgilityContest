@@ -29,17 +29,23 @@ try {
     $result=null;
     $operation=http_request("Operation","s","");
     $timestamp=http_request("timestamp","s",date('Y-m-d H:i:s'));
+    // need to do a more elaborated way of hanlde this...
+    $serial=http_request("Serial","s","");
+    if ($serial==="") throw new Exception("updateRequest.php: invalid serial number");
+
     switch($operation) {
         case "updateRequest": // this is to be executed on client app
             $ul=new Uploader();
             // send / receive changes from server
-            $res=$ul->doRequest();
+            $res=$ul->doRequest($serial);
             // PENDING: import changes from server into local database
             $result="";
             break;
         case "updateResponse": // this is to be executed on server app
-            $dl=new Downloader();
-            $result=$dl->getUpdatedEntries($timestamp);
+            $data= http_request("Data","s","",false); // data is json encoded. do not "sqlfy"
+            $dl=new Downloader($timestamp,$serial);
+            $result=$dl->saveRetrievedData($data);
+            $result=$dl->getUpdatedEntries();
             break;
         default:
             throw new Exception("updateRequest.php: invalid operation '{$operation}' ");

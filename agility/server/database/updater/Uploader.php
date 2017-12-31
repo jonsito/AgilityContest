@@ -63,26 +63,28 @@ class Uploader {
      * and receive answer
      * @param $data
      */
-    function sendJSONRequest($data) {
-        // $url = "https://www.agilitycontest.es/agility/server/updater/updateResponse.php";
-        $url = "https://localhost/agility/server/database/updater/updateRequest.php";
-        $testmode= (strpos($url,"localhost")===FALSE)?true:false; // do not verify cert on localhost
+    function sendJSONRequest($data,$serial) {
+        // $server="localhost";
+        $server="www.agilitycontest.es";
+        $checkcert= ($server==="localhost")?false:true; // do not verify cert on localhost
         $args=array(
             "Operation" => "updateResponse",
+            "Serial" => $serial,
             "timestamp" => $data['timestamp']
         );
-        $url .= '?'. http_build_query($args);
+        $url = "http://{$server}/agility/server/database/updater/updateRequest.php?". http_build_query($args);
         // PENDING: add license info and some sec/auth issues
-        $content = json_encode($data);
+        $postdata=array(
+            'Data' => json_encode($data)
+        );
 
         // prepare and execute json request
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json"));
         curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $testmode); // set to false when using "localhost" url
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $postdata);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $checkcert); // set to false when using "localhost" url
 
         // retrieve response and check status
         $json_response = curl_exec($curl);
@@ -125,13 +127,13 @@ class Uploader {
         if (!$res) throw new Exception ("Updater::updateTimeSTamp(): {$this->myDBObject->conn->error}");
     }
 
-    function doRequest() {
+    function doRequest($serial) {
         // notice that on fail Exception will be thrown in inner routines
         $ts=$this->getTimeStamp();
         $data=$this->getUpdatedEntries($ts);
-        $this->myLogger->trace("Data sent to send to server: ".json_encode($data));
-        $res=$this->sendJSONRequest($data);
-        $this->myLogger->trace("Data received from server: ".json_encode($res));
+        // $this->myLogger->trace("Data sent to send to server: ".json_encode($data));
+        $res=$this->sendJSONRequest($data,$serial);
+        // $this->myLogger->trace("Data received from server: ".json_encode($res));
         $this->updateTimeStamp();
         return $res;
     }

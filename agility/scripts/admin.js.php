@@ -440,11 +440,12 @@ function synchronizeDatabase() {
         url:"/agility/server/database/updater/updateRequest.php",
         dataType:'json',
         data: {
-            Operation: 'updateRequest'
+            Operation: 'updateRequest',
+            Serial: ac_regInfo.Serial
         },
         success: function(data) {
             if (typeof(data.errorMsg)!=="undefined") {
-                $.messager.alert('<?php _e("Check for Upgrades"); ?>',data.errorMsg,"error");
+                $.messager.alert('<?php _e("Sync database"); ?>:',data.errorMsg,"error");
                 return;
             }
             if (data.success) {
@@ -455,7 +456,7 @@ function synchronizeDatabase() {
     });
     // start monitoring progress
 
-    alert("DB Synchronization is not (yet) available");
+    alert("New data has been uploaded<br/> but DB Synchronization is not (yet) available");
 }
 
 function checkForUpgrades() {
