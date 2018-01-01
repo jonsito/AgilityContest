@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2017-12-31 10:08+0100\n"
-"PO-Revision-Date: 2017-12-31 10:09+0100\n"
+"POT-Creation-Date: 2018-01-01 11:14+0100\n"
+"PO-Revision-Date: 2018-01-01 11:16+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -2025,8 +2025,8 @@ msgstr "M&eacute;todo de autenticaci&oacute;n"
 
 #: console/dialogs/dlg_configuracion.inc:458
 #: console/dialogs/dlg_sesiones.inc:35 console/dialogs/dlg_sesiones.inc:161
-#: console/frm_logout.php:31 console/index.php:191 scripts/auth.js.php:86
-#: scripts/auth.js.php:125 tablet/index.php:149 tablet/index.php:382
+#: console/frm_logout.php:31 console/index.php:191 scripts/auth.js.php:89
+#: scripts/auth.js.php:128 tablet/index.php:149 tablet/index.php:382
 msgid "User"
 msgstr "Usuario"
 
@@ -6693,11 +6693,11 @@ msgstr "Nueva Versi&oacute;n"
 msgid "Last Release"
 msgstr "Nueva revisi&oacute;n"
 
-#: scripts/auth.js.php:34 scripts/auth.js.php:126
+#: scripts/auth.js.php:34 scripts/auth.js.php:129
 msgid "Init session"
 msgstr "Iniciar Sesi&oacute;n"
 
-#: scripts/auth.js.php:37 scripts/auth.js.php:88
+#: scripts/auth.js.php:37 scripts/auth.js.php:91
 msgid "End session"
 msgstr "Finalizar Sesi&oacute;n"
 
@@ -6733,56 +6733,60 @@ msgstr "Copia de seguridad autom&aacute;tica desactivada"
 msgid "New version available"
 msgstr "Nueva versi&oacute;n disponible"
 
-#: scripts/auth.js.php:86
+#: scripts/auth.js.php:87
+msgid "new/updated entries from server Database"
+msgstr "entradas nuevas/actualizadas en base de datos maestra"
+
+#: scripts/auth.js.php:89
 msgid "session login success"
 msgstr "sesi&oacute;n iniciada correctamente"
 
-#: scripts/auth.js.php:125
+#: scripts/auth.js.php:128
 msgid "Session has been closed by user"
 msgstr "El usuario ha finalizado la sesi&oacute;n"
 
-#: scripts/auth.js.php:162
+#: scripts/auth.js.php:165
 msgid "No user specified"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:170
+#: scripts/auth.js.php:173
 msgid "Current user has no <em>admin</em> privileges"
 msgstr "El usuario actual no tiene privilegios de administrador"
 
-#: scripts/auth.js.php:180
+#: scripts/auth.js.php:183
 msgid "No user provided"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:180
+#: scripts/auth.js.php:183
 msgid "Starting session read-only (guest)"
 msgstr "Iniciando sesi&oacute;n en modo solo consulta (invitado)"
 
-#: scripts/auth.js.php:222
+#: scripts/auth.js.php:225
 msgid "Restart"
 msgstr "Reiniciar"
 
-#: scripts/auth.js.php:223 scripts/competicion.js.php:475
+#: scripts/auth.js.php:226 scripts/competicion.js.php:475
 #: scripts/pruebas.js.php:144
 msgid "Back"
 msgstr "Volver"
 
-#: scripts/auth.js.php:226
+#: scripts/auth.js.php:229
 msgid "Licensing"
 msgstr "Licencia"
 
-#: scripts/auth.js.php:227
+#: scripts/auth.js.php:230
 msgid "Licensing data successfully loaded"
 msgstr "Datos de la licencia actualizados correctamente"
 
-#: scripts/auth.js.php:228
+#: scripts/auth.js.php:231
 msgid "Restart app to make changes to take effect"
 msgstr "Reinicie la aplicaci&oacute;n para activar los cambios"
 
-#: scripts/auth.js.php:281
+#: scripts/auth.js.php:284
 msgid "User level"
 msgstr "Nivel de usuario"
 
-#: scripts/auth.js.php:282
+#: scripts/auth.js.php:285
 msgid ""
 "Current user has not enought level to make changes <br/>Read-only access "
 "enabled"

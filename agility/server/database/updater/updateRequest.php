@@ -35,17 +35,21 @@ try {
 
     switch($operation) {
         case "updateRequest": // this is to be executed on client app
-            $ul=new Uploader();
+            $ul=new Uploader("UserRequestedUpdateDB");
             // send / receive changes from server
-            $res=$ul->doRequest($serial);
+            $res=$ul->doRequestForUpdates($serial);
             // PENDING: import changes from server into local database
             $result="";
             break;
         case "updateResponse": // this is to be executed on server app
             $data= http_request("Data","s","",false); // data is json encoded. do not "sqlfy"
             $dl=new Downloader($timestamp,$serial);
-            $result=$dl->saveRetrievedData($data);
-            $result=$dl->getUpdatedEntries();
+            $result=$dl->saveRetrievedData($data); // store new data from client to further revision
+            $result=$dl->getUpdatedEntries(); // retrieve new data from server
+            break;
+        case "checkResponse": // this is to be executed on server app
+            $dl=new Downloader($timestamp,$serial);
+            $result=$dl->checkForUpdatedEntries(); // return number of new available entries
             break;
         default:
             throw new Exception("updateRequest.php: invalid operation '{$operation}' ");

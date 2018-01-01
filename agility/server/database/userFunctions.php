@@ -24,6 +24,7 @@ require_once (__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Usuarios.php");
 require_once (__DIR__."/classes/Admin.php");
+require_once (__DIR__."/updater/Uploader.php");
 
 $response="";
 try {
@@ -48,12 +49,23 @@ try {
 		case "enumerate": $result=$users->enumerate(); break; // list with where
 		case "login":
 		    $result = $am->login($user,$pass,$sid);
+            // if configured to do, search for updates at login success
 		    $result['NewVersion']="0.0.0-19700101_0000";
-		    // if configured to do, search for updates at login success
-		    if ($config->getEnv("search_updates")!=0) {
+		    if (intval($config->getEnv("search_updates"))!==0) {
                 $adm=new Admin("CheckUpdatesAtLogin",$am,"");
                 $v = $adm->checkForUpgrades(false);
                 $result['NewVersion'] = "{$v['version_name']}-{$v['version_date']}";
+            }
+            // if configured to do search for new database entries in master server
+            $result['NewEntries']=0;
+            if (intval($config->getEnv("search_updatedb"))!==0) {
+                // if not admin throw exception, but allow to continue
+                try{
+                    $am->access(PERMS_ADMIN);
+                    $up=new Uploader("CheckUpdateDBAtLogin");
+                    $res= $up->doCheckForUpdates($result['Serial']);
+                    $result['NewEntries'] = $res['rows'][0]['NewEntries'];
+                } catch (Exception $e) { do_log("CheckUpdateDBAtLogin: ".$e->getMessage()); }
             }
             break;
 		case "pwcheck": $result=$am->checkPassword($user,$pass); break; // just check pass, dont create session

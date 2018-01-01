@@ -54,6 +54,20 @@ class Downloader {
     }
 
     /**
+     * retrieve number of new entries in master server database
+     */
+    function checkForUpdatedEntries() {
+        // retrieve updated elements from database
+        $res=$this->myDBObject->__select(
+            "count(*) AS NewEntries",
+            "PerroGuiaClub",
+            "(Licencia != '') AND ( LastModified > '{$this->timestamp}')"
+        );
+        if (!$res) throw new Exception ("Downloader::checkForUpdatedEntries(): {$this->myDBObject->errormsg}");
+        return $res;
+    }
+
+    /**
      * Store retrieved data into temporary file to be parsed later
      * @param {array} $data
      */

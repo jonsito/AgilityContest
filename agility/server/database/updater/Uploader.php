@@ -35,15 +35,16 @@ class Uploader {
     protected $myConfig;
     protected $myLogger;
 
-    function __construct() {
-        $this->myDBObject=new DBObject("Uploader");
+    function __construct($name="DatabaseUploader") {
+        $this->myDBObject=new DBObject($name);
         $this->myConfig=Config::getInstance();
-        $this->myLogger=new Logger("DatabaseUploader",$this->myConfig->getEnv("debug_level"));
+        $this->myLogger=new Logger($name,$this->myConfig->getEnv("debug_level"));
     }
 
     /**
      * retrieve from perroguiaclub every item newer than timestamp
      * @param $timestamp
+     * @throws Exception
      */
     function getUpdatedEntries($timestamp) {
         // retrieve updated elements from database
@@ -62,13 +63,14 @@ class Uploader {
      * Send data to server as a json post request
      * and receive answer
      * @param $data
+     * @param $serial
+     * @throws Exception
      */
     function sendJSONRequest($data,$serial) {
-        // $server="localhost";
-        $server="www.agilitycontest.es";
+        $server=$this->myConfig->getEnv("master_server");
         $checkcert= ($server==="localhost")?false:true; // do not verify cert on localhost
         $args=array(
-            "Operation" => "updateResponse",
+            "Operation" => $data['Operation'],
             "Serial" => $serial,
             "timestamp" => $data['timestamp']
         );
@@ -101,6 +103,7 @@ class Uploader {
 
     /**
      * retrieve date of last update
+     * @throws Exception
      */
     function getTimeStamp () {
         $current_version=$this->myConfig->getEnv("version_date");
@@ -116,6 +119,7 @@ class Uploader {
     /**
      * Update timestamp mark to notice date of last database update
      * We will use "updateversion" table to store time of last update
+     * @throws Exception
      */
     function updateTimeStamp() {
         // get version
@@ -127,7 +131,13 @@ class Uploader {
         if (!$res) throw new Exception ("Updater::updateTimeSTamp(): {$this->myDBObject->conn->error}");
     }
 
-    function doRequest($serial) {
+    /**
+     * Send new data to server and receive updates when available
+     * @param {string} $serial license serial number
+     * @return mixed
+     * @throws Exception
+     */
+    function doRequestForUpdates($serial) {
         // notice that on fail Exception will be thrown in inner routines
         $ts=$this->getTimeStamp();
         $data=$this->getUpdatedEntries($ts);
@@ -135,6 +145,24 @@ class Uploader {
         $res=$this->sendJSONRequest($data,$serial);
         // $this->myLogger->trace("Data received from server: ".json_encode($res));
         $this->updateTimeStamp();
+        return $res;
+    }
+
+    /**
+     * @param {string} $serial license serial number
+     * @return mixed
+     * @throws Exception
+     */
+    function doCheckForUpdates($serial) {
+        $ts=$this->getTimeStamp();
+        $data=array(
+            "Operation" => 'checkResponse',
+            "Serial"    => $serial,
+            "timestamp" => $ts,
+            "total"     =>  0,
+            "rows"      => array()
+        );
+        $res=$this->sendJSONRequest($data,$serial);
         return $res;
     }
 }

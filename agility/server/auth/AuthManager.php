@@ -128,7 +128,7 @@ class AuthManager {
         $this->levelStr=array( _('Root'),_('Admin'),_('Operator'),_('Assistant'),_('Guest'),_('None') );
 		/* try to retrieve session token */
 		$hdrs=getAllHeaders();
-		$this->myLogger->trace("headers are: ".json_encode($hdrs));
+		// $this->myLogger->trace("headers are: ".json_encode($hdrs));
 		if (!array_key_exists("X-Ac-Sessionkey",$hdrs)) { // look for X-Ac-Sessionkey header
 			$this->myLogger->info("No sessionKey found in request");
 			// no key found: assume anonymous login
