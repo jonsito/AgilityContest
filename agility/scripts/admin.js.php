@@ -432,7 +432,40 @@ function askForUpgrade(msg,name,release){
 }
 
 function synchronizeDatabase() {
-    alert("DB Synchronization is not (yet) available");
+    // check if configuration allows share data
+    if (parseInt(ac_config.search_updatedb)===0) {
+        $.messager.alert(
+            '<?php _e("Notice");?>',
+            '<?php _e("You need to enable sharing data in configuration menu"); ?>',
+            "info"
+        );
+        return;
+    }
+    // check if license allows it
+    // check for user consent
+    // fire up progress bar
+    // call server
+    $.ajax({
+        url:"/agility/server/database/updater/updateRequest.php",
+        dataType:'json',
+        data: {
+            Operation: 'updateRequest',
+            Serial: ac_regInfo.Serial
+        },
+        success: function(data) {
+            if (typeof(data.errorMsg)!=="undefined") {
+                $.messager.alert('<?php _e("Sync database"); ?>:',data.errorMsg,"error");
+                return;
+            }
+            if (data.success) {
+                msg = '<p><?php _e("Database is synced with server"); ?></p>';
+                $.messager.alert("<?php _e('Done');?>",msg,"info");
+            }
+        }
+    });
+    // start monitoring progress
+
+    alert("New data has been uploaded, but DB Synchronization is not (yet) available");
 }
 
 function checkForUpgrades() {

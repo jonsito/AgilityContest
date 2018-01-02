@@ -124,6 +124,13 @@ function savePrueba() {
     var frm = $('#pruebas-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
 
+    // check inscription period
+    var ifrom=$('#pruebas-OpeningReg').datebox('getValue');
+    var ito=$('#pruebas-ClosingReg').datebox('getValue');
+    if ( ifrom>ito) {
+        $.messager.alert('<?php _e("Data error"); ?>','<?php _e("Invalid inscription period"); ?>',"error");
+        return;
+    }
     // on new contests, check license data and warn user when club does not match ID
     if ( $('#pruebas-Operation').val()==='insert' ){
         var ser=parseInt(ac_regInfo.Serial);

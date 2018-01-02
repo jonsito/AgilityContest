@@ -391,11 +391,13 @@ class DogReader {
             // database has priority
             if ($ignorewhitespaces!=0) return $dbdata;
             if ($dbdata=="") return $filedata; // no dbdata, try to use excel
+            if ($dbdata=="-") return $filedata; // unknown dbdata, try to use excel
             return $dbdata;
         } else {
             // excel file has priority
             if ($ignorewhitespaces!=0) return $filedata;
             if ($filedata=="") return $dbdata; // no file data, try to use dbdata
+            if ($filedata=="-") return $dbdata; // unknown file data, try to use dbdata
             return $filedata;
         }
     }

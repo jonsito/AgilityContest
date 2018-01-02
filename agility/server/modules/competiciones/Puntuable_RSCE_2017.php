@@ -7,7 +7,7 @@
  *
  * En grado 2 y 3 Se obtienen puntos por cada excelente a cero con velocidad superior a:
  *
- * GII: Agility 3.5m/s Jumping 3.8m/s
+ * GII: Agility 3.6m/s Jumping 3.8m/s
  * GIII: Agility 4.1m/s Jumping 4.5m/s
  * Además los perros que hagan el recorrido a cero con una velocidad superior a 5.1(agility) / 5.5(Jumping)
  * obtendran un punto extra
@@ -19,7 +19,7 @@ class Puntuable_RSCE_2017 extends Competitions {
 
    protected $puntos;
 
-    function __construct($name="Prueba puntuable temporada 2017") {
+    function __construct($name="Puntuable temporada 2017") {
         parent::__construct($name);
         $this->federationID=0;
         $this->competitionID=0;
@@ -85,7 +85,7 @@ class Puntuable_RSCE_2017 extends Competitions {
         if ($tipo==4) $flag=true; // agility G1 segunda manga
         if ($tipo==5) $flag=true; // agility G2
         if ($tipo==6) $flag=true; // agility G3
-        if ($tipo==10) $flag=true;// jumping G3
+        if ($tipo==10) $flag=true;// jumping G2
         if ($tipo==11) $flag=true;// jumping G3
         if (!$flag) return parent::evalPartialCalification($m,$perro,$puestocat);
 
@@ -141,7 +141,10 @@ class Puntuable_RSCE_2017 extends Competitions {
         if ($tipo==6) $flag=true; // agility G3
         if ($tipo==10) $flag=true;// jumping G3
         if ($tipo==11) $flag=true;// jumping G3
-        if (!$flag) return parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
+        if (!$flag) {
+            parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
+            return;
+        }
 
         $grad=$perro['Grado']; // cogemos la categoria
         if ($grad==="P.A.") {

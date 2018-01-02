@@ -146,6 +146,12 @@ $config =Config::getInstance();
                 	data-options="iconCls:'icon-flag'" style="float:right"><?php _e('New Club'); ?></a>
             </div>
             <div class="fitem">
+                <label for="pruebas-OpeningReg" style="width:120px;text-align:left"><?php _e('Inscriptions Period'); ?>:</label>
+                <select id="pruebas-OpeningReg" name="OpeningReg"  style="text-align:right"></select>
+                <label for="pruebas-ClosingReg" style="width:20px;text-align:center"><?php _e('to'); ?>:</label>
+                <select id="pruebas-ClosingReg" name="ClosingReg"  style="text-align:right"></select>
+            </div>
+            <div class="fitem">
                 <label for="pruebas-Ubicacion"><?php _e('Event location'); ?></label>
                 <input id="pruebas-Ubicacion" name="Ubicacion" type="text" style="width:250px"/>
             </div>
@@ -352,6 +358,7 @@ $config =Config::getInstance();
             $('#pruebas-Club').combogrid('grid').datagrid('load', {'Operation':'enumerate','Federation': newvalue } );
         }
     });
+
     $('#pruebas-Club').combogrid({
 		panelWidth: 350,
 		panelHeight: 200,
@@ -375,4 +382,61 @@ $config =Config::getInstance();
 		selectOnNavigation: false,
         onBeforeLoad: function(params) { params.Federation=$('#pruebas-Federation').combogrid('getValue'); return true; }
     });
+
+    // fechas
+    $('#pruebas-OpeningReg').datebox({
+        width:100,
+        required: true,
+        formatter: function(date) {
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            var d = date.getDate();
+            return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+        },
+        parser:  function (s) {
+            if (!s) return new Date();
+            var ss = (s.split('-'));
+            var y = parseInt(ss[0],10);
+            var m = parseInt(ss[1],10);
+            var d = parseInt(ss[2],10);
+            if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
+                return new Date(y,m-1,d);
+            } else {
+                return new Date();
+            }
+        }
+    });
+    $('#pruebas-OpeningReg').datebox('calendar').calendar({ firstDay:1 });
+    $('#pruebas-OpeningReg').datebox('options').keyHandler.query = function(q) {
+        if (q.indexOf('-') >= 0) { q = replaceAll('-', '/',q);	}
+        $(this).datebox('setValue', q);
+    };
+
+    $('#pruebas-ClosingReg').datebox({
+        width:100,
+        required: true,
+        formatter: function(date) {
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            var d = date.getDate();
+            return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+        },
+        parser:  function (s) {
+            if (!s) return new Date();
+            var ss = (s.split('-'));
+            var y = parseInt(ss[0],10);
+            var m = parseInt(ss[1],10);
+            var d = parseInt(ss[2],10);
+            if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
+                return new Date(y,m-1,d);
+            } else {
+                return new Date();
+            }
+        }
+    });
+    $('#pruebas-ClosingReg').datebox('calendar').calendar({ firstDay:1 });
+    $('#pruebas-ClosingReg').datebox('options').keyHandler.query = function(q) {
+        if (q.indexOf('-') >= 0) { q = replaceAll('-', '/',q);	}
+        $(this).datebox('setValue', q);
+    };
     </script>
