@@ -45,6 +45,7 @@ class Uploader {
      * retrieve from perroguiaclub every item newer than timestamp
      * @param $timestamp
      * @throws Exception
+     * @return {array} requested data
      */
     function getUpdatedEntries($timestamp) {
         // retrieve updated elements from database
@@ -62,9 +63,10 @@ class Uploader {
     /**
      * Send data to server as a json post request
      * and receive answer
-     * @param $data
-     * @param $serial
+     * @param {array} $data
+     * @param {string} $serial
      * @throws Exception
+     * @return {mixed} server response
      */
     function sendJSONRequest($data,$serial) {
         $server=$this->myConfig->getEnv("master_server");
@@ -104,6 +106,7 @@ class Uploader {
     /**
      * retrieve date of last update
      * @throws Exception
+     * @return {string} timestamp of last update
      */
     function getTimeStamp () {
         $current_version=$this->myConfig->getEnv("version_date");
