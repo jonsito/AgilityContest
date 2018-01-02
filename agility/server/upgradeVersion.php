@@ -371,6 +371,98 @@ class Updater {
         return 0;
     }
 
+    /**
+     * Creacion de las tablas de importacion de datos desde servidor
+     * Realmente son las tablas de perros, guias, clubes y jueces,
+     * pero sin dependencias y sin id de las relaciones
+     * El contenido se borra (DELETE FROM ) cada vez que se va a realizar una importación
+     * Adicionalmente, los datos nunca se modifican, solo se insertan
+     *
+     * Las ponemos aquí aunque deberian estar en el fichero database/updater/Updater.php
+     * porque necesitamos permisos de "root" en la base de datos para crearlas
+     */
+    function createMergeTables() {
+        $tables = array (
+        "Dogs"=>"CREATE TABLE IF NOT EXISTS `MergeDogs` (
+                `ID` int(4)   NOT NULL AUTO_INCREMENT,
+                `Federation`  tinyint(1)   NOT NULL DEFAULT 0,
+                `Nombre`      varchar(255) NOT NULL ,
+                `NombreLargo` varchar(255) NOT NULL DEFAULT '',
+                `Genero`      varchar(16)  NOT NULL DEFAULT '-',
+                `Raza`        varchar(255) NOT NULL DEFAULT '',
+                `Chip`        varchar(255) NOT NULL DEFAULT '',
+                `Licencia`    varchar(255) NOT NULL DEFAULT '',
+                `LOE_RRC`     varchar(255) NOT NULL DEFAULT '',
+                `Categoria`   varchar(1)   NOT NULL DEFAULT '-',
+                `Grado`       varchar(16)  NOT NULL DEFAULT '-',
+                `Guia`        int(4)       NOT NULL DEFAULT 1,
+                `NombreGuia`  varchar(255) NOT NULL DEFAULT '',
+                `LastModified` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+            ",
+        "Handlers"=> "CREATE TABLE IF NOT EXISTS `MergeHandlers` (
+                `ID`          int(4)        NOT NULL AUTO_INCREMENT,
+                `Nombre`      varchar(255)  NOT NULL,
+                `Telefono`    varchar(16)   NOT NULL DEFAULT '',
+                `Email`       varchar(255)  NOT NULL DEFAULT '',
+                `Club`        int(4)        NOT NULL DEFAULT 1,
+                `NombreClub`  varchar(255)  NOT NULL DEFAULT '',
+                `Federation`  tinyint(1)    NOT NULL DEFAULT 0,
+                `Observaciones` varchar(255) NOT NULL DEFAULT '',
+                `Categoria`   varchar(16)   NOT NULL DEFAULT 'A',
+                `LastModified` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+            ",
+        "Clubs"=> " CREATE TABLE IF NOT EXISTS `MergeClubes` (
+                `ID`          int(4) NOT NULL AUTO_INCREMENT,
+                `Nombre`      varchar(255) NOT NULL ,
+                `NombreLargo` varchar(255) NOT NULL DEFAULT '\"\"',
+                `Direccion1`  varchar(255) NOT NULL DEFAULT '',
+                `Direccion2`  varchar(255) NOT NULL DEFAULT '',
+                `Provincia`   varchar(32)  NOT NULL DEFAULT '-- Sin asignar --',
+                `Pais`        varchar(32)  NOT NULL DEFAULT 'España',
+                `Contacto1`   varchar(255) NOT NULL DEFAULT '',
+                `Contacto2`   varchar(255) NOT NULL DEFAULT '',
+                `Contacto3`   varchar(255) NOT NULL DEFAULT '',
+                `GPS`         varchar(255) NOT NULL DEFAULT '',
+                `Web`         varchar(255) NOT NULL DEFAULT '',
+                `Email`       varchar(255) NOT NULL DEFAULT '',
+                `Facebook`    varchar(255) NOT NULL DEFAULT '',
+                `Google`      varchar(255) NOT NULL DEFAULT '',
+                `Twitter`     varchar(255) NOT NULL DEFAULT '',
+                `Logo`        varchar(255) NOT NULL DEFAULT 'agilitycontest.png',
+                `Federations` int(4)       NOT NULL DEFAULT 1,
+                `Observaciones` varchar(255) NOT NULL DEFAULT '',
+                `Baja`        tinyint(1)   NOT NULL DEFAULT 0,
+                `LastModified` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=692 DEFAULT CHARSET=utf8;
+            ",
+        "Judges"=>"CREATE TABLE IF NOT EXISTS `MergeJueces` (
+                `ID`          int(4) NOT NULL AUTO_INCREMENT,
+                `Nombre`      varchar(255) NOT NULL,
+                `Direccion1`  varchar(255) NOT NULL DEFAULT '',
+                `Direccion2`  varchar(255) NOT NULL DEFAULT '',
+                `Pais`        varchar(32)  NOT NULL DEFAULT 'España',
+                `Telefono`    varchar(32)  NOT NULL DEFAULT '',
+                `Internacional` tinyint(1) NOT NULL DEFAULT 0,
+                `Practicas`   tinyint(1)   NOT NULL DEFAULT 0,
+                `Email`       varchar(255) NOT NULL DEFAULT '',
+                `Federations` int(4)       NOT NULL DEFAULT 1,
+                `Observaciones` varchar(255) NOT NULL DEFAULT '',
+                `LastModified` timestamp   NOT NULL DEFAULT current_timestamp(),
+                PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+            "
+        );
+        foreach($tables as $key => $sql) {
+            $res=$this->conn->query($sql);
+            if (!$res) throw new Exception("upgrade::createMergeTable({$key}): ".$this->conn->error);
+        }
+    }
+
     // tabla de entrenamientos
     // definimos hasta cuatro rings por pais, indicando en cada ring
     // la categoria y el tiempo en segundos
@@ -608,6 +700,7 @@ try {
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
+    $upg->createMergeTables();
     $upg->populateTeamMembers();
     $upg->addNewGradeTypes();
     $upg->addNewMangaTypes();

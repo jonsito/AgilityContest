@@ -91,6 +91,7 @@ class DBObject {
 	 * @param string $order ORDER BY clause (optional)
      * @param string $limit LIMIT offset,rows clause (optional)
      * @param string $group GROUP BY clause (optional)
+     * @return {array} result (total,rows)
 	 */
 	function __select($select,$from,$where,$order="",$limit="",$group="") {
 		// if $limit is not null, perform a first count query
