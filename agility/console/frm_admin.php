@@ -39,3 +39,14 @@ $config =Config::getInstance();
     	<?php require_once("dialogs/dlg_tools.inc")?>
    	</div>
  </div>
+
+<script type="text/javascript">
+    $('#admin-tab').tabs({
+        onSelect: function(title,index) {
+            // when open tools tab, if configured check for db updates
+            if (title!=="<?php _e('Tools'); ?>") return;
+            if (parseInt(ac_config.search_updatedb)===0) { $('#tools-syncdbLbl').html(""); return }
+            checkForDatabaseUpdates();
+        }
+    });
+</script>

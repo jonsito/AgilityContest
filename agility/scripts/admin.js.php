@@ -431,6 +431,35 @@ function askForUpgrade(msg,name,release){
     }).window('resize',{width:480});
 }
 
+function checkForDatabaseUpdates() {
+    // check if configuration allows share data
+    if (parseInt(ac_config.search_updatedb)===0) {
+        $('#tools-syncdbLbl').html("");
+        return;
+    }
+    // call server
+    $.ajax({
+        url:"/agility/server/database/updater/updateRequest.php",
+        dataType:'json',
+        data: {
+            Operation: 'checkForUpdates',
+            Serial: ac_regInfo.Serial
+        },
+        success: function(data) {
+            if (typeof(data.errorMsg)!=="undefined") {
+                $.messager.alert('<?php _e("Error"); ?>','<?php _e("Check for DB Updates");?>: '+data.errorMsg,"error");
+                return;
+            }
+            if (data.success) {
+                var msg='<?php _e("No Database updates available");?>';
+                if (parseInt(data.NewEntries)!==0) msg='<?php _e("New entries available in database");?>: '+data.NewEntries;
+                $('#tools-syncdbLbl').html(msg);
+            }
+        }
+    });
+}
+
+
 function synchronizeDatabase() {
     // check if configuration allows share data
     if (parseInt(ac_config.search_updatedb)===0) {

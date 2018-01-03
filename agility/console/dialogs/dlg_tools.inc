@@ -32,6 +32,7 @@
         <span style="display:inline-block;width:350px"><?php _e('Synchronize database with server'); ?></span>
         <a id="tools-syncdbBtn" href="#" class="easyui-linkbutton" style="width:85px"
            data-options="iconCls:'icon-updown'" onclick="synchronizeDatabase()"><?php _e('Sync')?></a>
+        &nbsp;<span id="tools-syncdbLbl"></span>
     </p>
     <p>
         <span style="display:inline-block;width:350px"><?php _e('Debug and log trace file'); ?></span>

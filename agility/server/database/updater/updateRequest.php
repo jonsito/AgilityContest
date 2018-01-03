@@ -34,12 +34,16 @@ try {
     if ($serial==="") throw new Exception("updateRequest.php: invalid serial number");
 
     switch($operation) {
+        case "checkForUpdates": // this is to be executed in client
+            $ul=new Uploader("checkForUpdates");
+            // send / receive changes from server
+            $res=$ul->doCheckForUpdates($serial);
+            $result=array("success"=>true,"NewEntries"=>$res['rows'][0]['NewEntries']);
+            break;
         case "updateRequest": // this is to be executed on client app
             $ul=new Uploader("UserRequestedUpdateDB");
-            // send / receive changes from server
             $res=$ul->doRequestForUpdates($serial);
-            // PENDING: import changes from server into local database
-            $result="";
+            $result=""; // PENDING: handle received data from server
             break;
         case "updateResponse": // this is to be executed on server app
             $data= http_request("Data","s","",false); // data is json encoded. do not "sqlfy"
