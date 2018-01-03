@@ -51,36 +51,41 @@ class Uploader {
         $result=array();
         // retrieve updated dogs from database
         $res=$this->myDBObject->__select(
-          "*,Guias.ServerID as GuiasServerID",
+          "Perros.*,Guias.ServerID as GuiasServerID",
           "Perros,Guias",
-          "(Perros.Guia=Guia.ID) AND (Licencia != '') AND ( LastModified > '{$timestamp}')"
+          "(Perros.Guia=Guias.ID) AND (Licencia != '') AND ( Perros.LastModified > '{$timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Perros): {$this->myDBObject->conn->error}");
         $result['Perros']=$res['rows'];
+
         // retrieve updated handlers from database
         $res=$this->myDBObject->__select(
-            "*,Clubes.ServerID as ClubesServerID",
+            "Guias.*,Clubes.ServerID as ClubesServerID",
             "Guias,Clubes",
-            "(Guias.Clubes=Clubes.ID) AND ( LastModified > '{$timestamp}')"
+            "(Guias.Club=Clubes.ID) AND ( Guias.LastModified > '{$timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Guias): {$this->myDBObject->conn->error}");
         $result['Guias']=$res['rows'];
+
         // retrieve updated Clubs from database
         $res=$this->myDBObject->__select(
-            "*",
+            "Clubes.*",
             "Clubes",
             "( LastModified > '{$timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Clubes): {$this->myDBObject->conn->error}");
         $result['Clubes']=$res['rows'];
+
         // retrieve updated Judges from database
         $res=$this->myDBObject->__select(
-            "*",
+            "Jueces.*",
             "Jueces",
             "( LastModified > '{$timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Jueces): {$this->myDBObject->conn->error}");
-        $result['Clubes']=$res['rows'];
+        $result['Jueces']=$res['rows'];
+        $result['total']=
+            max(count($result['Perros']),count($result['Guias']),count($result['Clubes']),count($result['Jueces']));
         // add timestamp and "Operation" to request data
         $result['timestamp']=$timestamp;
         $result['Operation']="updateResponse";

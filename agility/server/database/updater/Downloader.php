@@ -47,39 +47,44 @@ class Downloader {
 
         // retrieve updated dogs from database
         $res=$this->myDBObject->__select(
-            "*,Guias.ServerID AS GuiaServerID",
+            "Perros.*,Guias.ServerID AS GuiasServerID",
             "Perros,Guias",
-            "(Perros.Guia=Guia.ID) AND (Licencia!='') AND (ServerID != 0) AND ( LastModified > '{$this->timestamp}')"
+            "(Perros.Guia=Guias.ID) AND (Licencia!='') AND (Perros.ServerID != 0) AND ( Perros.LastModified > '{$this->timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Perros): {$this->myDBObject->conn->error}");
         $result['Perros']=$res['rows'];
+
         // retrieve updated handlers from database
         $res=$this->myDBObject->__select(
-            "*,Clubes.ServerID as ClubesServerID",
-            "Guias",
-            "(Guias.Clubes=Clubes.ID) AND (ServerID != 0) AND ( LastModified > '{$this->timestamp}')"
+            "Clubes.*,Clubes.ServerID as ClubesServerID",
+            "Guias,Clubes",
+            "(Guias.Club=Clubes.ID) AND (Guias.ServerID != 0) AND ( Guias.LastModified > '{$this->timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Guias): {$this->myDBObject->conn->error}");
         $result['Guias']=$res['rows'];
+
         // retrieve updated Clubs from database
         $res=$this->myDBObject->__select(
-            "*",
+            "Clubes.*",
             "Clubes",
             "(ServerID != 0) AND ( LastModified > '{$this->timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Clubes): {$this->myDBObject->conn->error}");
         $result['Clubes']=$res['rows'];
+
         // retrieve updated Judges from database
         $res=$this->myDBObject->__select(
-            "*",
+            "Jueces.*",
             "Jueces",
             "(ServerID != 0) AND ( LastModified > '{$this->timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Jueces): {$this->myDBObject->conn->error}");
-        $result['Clubes']=$res['rows'];
+        $result['Jueces']=$res['rows'];
+
         // add timestamp and "Operation" to request data
         $result['timestamp']=$this->timestamp;
         $result['Operation']="updateResponse";
+        $result['total']=max(count($result['Perros']),count($result['Guias']),count($result['Clubes']),count($result['Jueces']));
         return $result;
     }
 
@@ -108,18 +113,21 @@ class Downloader {
         $obj=json_decode($data);
         if($obj->total==0) return ""; // no data, nothing to save
 
-        // los ficheros se guardan en la carpeta logs/updateRequests/serial-timestamp
-        // si el fichero ya existe se ignora la peticion pues ya tiene los datos salvados
-        //   esto en principio no deberia dar problemas cuando se usa la misma licencia desde dos
-        //   ordenadores... pues no coincidira el timestamp, o bien uno sera el backup del otro
+        // prepare store dir and timestamp format
         $dir=__DIR__."/../../../../logs/updateRequests";
         @mkdir($dir);
-        // convert "Y-m-d G:i:s" to "Ymd_Gi"
-        $d=date("Ymd_gi",strtotime($this->timestamp));
-        $fname="req-{$this->serial}-{$d}.json";
-        if (!file_exists("{$dir}/{$fname}")) {
-            $this->myLogger->trace("Downloader: storing data into file: {$dir}/{$fname}");
-            file_put_contents("{$dir}/{$fname}",json_encode($obj->rows));
+        $d=date("Ymd_gi",strtotime($this->timestamp)); // convert "Y-m-d G:i:s" to "Ymd_Gi"
+        foreach (array('Perros','Guias','Clubes','Jueces') as $item) {
+            if (count($obj->$item)==0) continue;
+            // los ficheros se guardan en la carpeta logs/updateRequests/serial-timestamp
+            // si el fichero ya existe se ignora la peticion pues ya tiene los datos salvados
+            //   esto en principio no deberia dar problemas cuando se usa la misma licencia desde dos
+            //   ordenadores... pues no coincidira el timestamp, o bien uno sera el backup del otro
+            $fname="{$item}-{$this->serial}-{$d}.json";
+            if (!file_exists("{$dir}/{$fname}")) {
+                $this->myLogger->trace("Downloader: storing data into file: {$dir}/{$fname}");
+                file_put_contents("{$dir}/{$fname}",json_encode($obj->$item));
+            }
         }
         return "";
     }

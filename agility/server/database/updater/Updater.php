@@ -45,6 +45,7 @@ class Updater {
             "Dogs"=>"CREATE TABLE IF NOT EXISTS `MergePerros` (
                 `ID` int(4)   NOT NULL AUTO_INCREMENT,
                 `ServerID` int(4)   NOT NULL DEFAULT 0,
+                `GuiasServerID` int(4)   NOT NULL DEFAULT 0,
                 `Federation`  tinyint(1)   NOT NULL DEFAULT 0,
                 `Nombre`      varchar(255) NOT NULL ,
                 `NombreLargo` varchar(255) NOT NULL DEFAULT '',
@@ -64,6 +65,7 @@ class Updater {
             "Handlers"=> "CREATE TABLE IF NOT EXISTS `MergeGuias` (
                 `ID`          int(4)        NOT NULL AUTO_INCREMENT,
                 `ServerID`    int(4)   NOT NULL DEFAULT 0,
+                `ClubesServerID`    int(4)   NOT NULL DEFAULT 0,
                 `Nombre`      varchar(255)  NOT NULL,
                 `Telefono`    varchar(16)   NOT NULL DEFAULT '',
                 `Email`       varchar(255)  NOT NULL DEFAULT '',
