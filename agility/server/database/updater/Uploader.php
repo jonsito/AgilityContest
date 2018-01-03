@@ -48,16 +48,43 @@ class Uploader {
      * @return {array} requested data
      */
     function getUpdatedEntries($timestamp) {
-        // retrieve updated elements from database
+        $result=array();
+        // retrieve updated dogs from database
         $res=$this->myDBObject->__select(
-          "*",
-          "PerroGuiaClub",
-          "(Licencia != '') AND ( LastModified > '{$timestamp}')"
+          "*,Guias.ServerID as GuiasServerID",
+          "Perros,Guias",
+          "(Perros.Guia=Guia.ID) AND (Licencia != '') AND ( LastModified > '{$timestamp}')"
         );
-        if (!$res) throw new Exception ("Updater::getUpdatedEntries(): {$this->myDBObject->conn->error}");
-        $res['timestamp']=$timestamp; // add timestamp to request data
-        $res['Operation']="updateResponse";
-        return $res;
+        if (!$res) throw new Exception ("Updater::getUpdatedEntries(Perros): {$this->myDBObject->conn->error}");
+        $result['Perros']=$res['rows'];
+        // retrieve updated handlers from database
+        $res=$this->myDBObject->__select(
+            "*,Clubes.ServerID as ClubesServerID",
+            "Guias,Clubes",
+            "(Guias.Clubes=Clubes.ID) AND ( LastModified > '{$timestamp}')"
+        );
+        if (!$res) throw new Exception ("Updater::getUpdatedEntries(Guias): {$this->myDBObject->conn->error}");
+        $result['Guias']=$res['rows'];
+        // retrieve updated Clubs from database
+        $res=$this->myDBObject->__select(
+            "*",
+            "Clubes",
+            "( LastModified > '{$timestamp}')"
+        );
+        if (!$res) throw new Exception ("Updater::getUpdatedEntries(Clubes): {$this->myDBObject->conn->error}");
+        $result['Clubes']=$res['rows'];
+        // retrieve updated Judges from database
+        $res=$this->myDBObject->__select(
+            "*",
+            "Jueces",
+            "( LastModified > '{$timestamp}')"
+        );
+        if (!$res) throw new Exception ("Updater::getUpdatedEntries(Jueces): {$this->myDBObject->conn->error}");
+        $result['Clubes']=$res['rows'];
+        // add timestamp and "Operation" to request data
+        $result['timestamp']=$timestamp;
+        $result['Operation']="updateResponse";
+        return $result;
     }
 
     /**

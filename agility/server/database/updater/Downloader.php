@@ -43,18 +43,50 @@ class Downloader {
      * retrieve from perroguiaclub every item newer than timestamp
      */
     function getUpdatedEntries() {
-        // retrieve updated elements from database
+        $result=array();
+
+        // retrieve updated dogs from database
+        $res=$this->myDBObject->__select(
+            "*,Guias.ServerID AS GuiaServerID",
+            "Perros,Guias",
+            "(Perros.Guia=Guia.ID) AND (Licencia!='') AND (ServerID != 0) AND ( LastModified > '{$this->timestamp}')"
+        );
+        if (!$res) throw new Exception ("Updater::getUpdatedEntries(Perros): {$this->myDBObject->conn->error}");
+        $result['Perros']=$res['rows'];
+        // retrieve updated handlers from database
+        $res=$this->myDBObject->__select(
+            "*,Clubes.ServerID as ClubesServerID",
+            "Guias",
+            "(Guias.Clubes=Clubes.ID) AND (ServerID != 0) AND ( LastModified > '{$this->timestamp}')"
+        );
+        if (!$res) throw new Exception ("Updater::getUpdatedEntries(Guias): {$this->myDBObject->conn->error}");
+        $result['Guias']=$res['rows'];
+        // retrieve updated Clubs from database
         $res=$this->myDBObject->__select(
             "*",
-            "PerroGuiaClub",
-            "(Licencia != '') AND ( LastModified > '{$this->timestamp}')"
+            "Clubes",
+            "(ServerID != 0) AND ( LastModified > '{$this->timestamp}')"
         );
-        if (!$res) throw new Exception ("Downloader::getUpdatedEntries(): {$this->myDBObject->errormsg}");
-        return $res;
+        if (!$res) throw new Exception ("Updater::getUpdatedEntries(Clubes): {$this->myDBObject->conn->error}");
+        $result['Clubes']=$res['rows'];
+        // retrieve updated Judges from database
+        $res=$this->myDBObject->__select(
+            "*",
+            "Jueces",
+            "(ServerID != 0) AND ( LastModified > '{$this->timestamp}')"
+        );
+        if (!$res) throw new Exception ("Updater::getUpdatedEntries(Jueces): {$this->myDBObject->conn->error}");
+        $result['Clubes']=$res['rows'];
+        // add timestamp and "Operation" to request data
+        $result['timestamp']=$this->timestamp;
+        $result['Operation']="updateResponse";
+        return $result;
     }
 
     /**
      * retrieve number of new entries in master server database
+     * notice that this returns an orientative value, as changes may come from 4 different tables
+     * @return { array } (total, rows) with select() response
      */
     function checkForUpdatedEntries() {
         // retrieve updated elements from database
