@@ -293,8 +293,10 @@ $poster="/agility/images/agilityawc2016.png";
     <a href="http://www.agilitywc2016.com">
         <img src="/agility/images/agilityawc2016.png" alt="logo_agilityawc2016" style="max-width:60%;padding:5px 20px"/>
     </a>
+    <!-- Live Session is no longer active in 2018 :-)
     <div style="padding:5px 20px;font-weight: bold; font-size:1.2vw;">
         <?php
+    /*
         echon(_('Live session now: '));
         // evaluamos datos de la sesion actual
         $p=$ptree['Current']->Pru;
@@ -319,9 +321,10 @@ $poster="/agility/images/agilityawc2016.png";
                 }
             }
         }
+    */
         ?>
     </div>
-
+    -->
     <div style="padding:5px 20px;font-weight: bold; font-size:1.2vw;">
         <h2><?php _e('Important notice'); ?>:</h2>
         <p>
@@ -329,10 +332,10 @@ $poster="/agility/images/agilityawc2016.png";
         <br/>&nbsp;<br/>
             <?php _e("For official (PDF) scores and results, please look at");?> <a href="http://agilitywc2016.com/competition-2"><?php _e('AWC-FCI 2016 web server');?></a>
         <br/>&nbsp;
-<!--
+
         <br/>
             <?php _e("To access on line (HTML) data, go to ");?> <a href="http://agilitycontest.es/agility/index2.php?Prueba=22"><?php _e('Online data page');?></a>
--->
+
         </p>
 
     </div>
