@@ -31,6 +31,16 @@ require_once(__DIR__."/../../database/classes/DBObject.php");
  */
 class Updater {
 
+    protected $myLogger;
+    protected $myConfig;
+    protected $myDBObject;
+
+    function __construct($name) {
+        $this->myDBObject=new DBObject($name);
+        $this->myConfig=Config::getInstance();
+        $this->myLogger=new Logger($name,$this->myConfig->getEnv("debug_level"));
+    }
+
     /**
      * Creacion de las tablas de importacion de datos desde servidor
      * Realmente son las tablas de perros, guias, clubes y jueces,
@@ -77,49 +87,6 @@ class Updater {
                 `LastModified` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY (`ID`)
             ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-            ",
-            "Clubs"=> " CREATE TABLE IF NOT EXISTS `MergeClubes` (
-                `ID`          int(4) NOT NULL AUTO_INCREMENT,
-                `ServerID`    int(4)   NOT NULL DEFAULT 0,
-                `Nombre`      varchar(255) NOT NULL ,
-                `NombreLargo` varchar(255) NOT NULL DEFAULT '\"\"',
-                `Direccion1`  varchar(255) NOT NULL DEFAULT '',
-                `Direccion2`  varchar(255) NOT NULL DEFAULT '',
-                `Provincia`   varchar(32)  NOT NULL DEFAULT '-- Sin asignar --',
-                `Pais`        varchar(32)  NOT NULL DEFAULT 'España',
-                `Contacto1`   varchar(255) NOT NULL DEFAULT '',
-                `Contacto2`   varchar(255) NOT NULL DEFAULT '',
-                `Contacto3`   varchar(255) NOT NULL DEFAULT '',
-                `GPS`         varchar(255) NOT NULL DEFAULT '',
-                `Web`         varchar(255) NOT NULL DEFAULT '',
-                `Email`       varchar(255) NOT NULL DEFAULT '',
-                `Facebook`    varchar(255) NOT NULL DEFAULT '',
-                `Google`      varchar(255) NOT NULL DEFAULT '',
-                `Twitter`     varchar(255) NOT NULL DEFAULT '',
-                `Logo`        varchar(255) NOT NULL DEFAULT 'agilitycontest.png',
-                `Federations` int(4)       NOT NULL DEFAULT 1,
-                `Observaciones` varchar(255) NOT NULL DEFAULT '',
-                `Baja`        tinyint(1)   NOT NULL DEFAULT 0,
-                `LastModified` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                PRIMARY KEY (`ID`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=692 DEFAULT CHARSET=utf8;
-            ",
-            "Judges"=>"CREATE TABLE IF NOT EXISTS `MergeJueces` (
-                `ID`          int(4) NOT NULL AUTO_INCREMENT,
-                `ServerID`    int(4)   NOT NULL DEFAULT 0,
-                `Nombre`      varchar(255) NOT NULL,
-                `Direccion1`  varchar(255) NOT NULL DEFAULT '',
-                `Direccion2`  varchar(255) NOT NULL DEFAULT '',
-                `Pais`        varchar(32)  NOT NULL DEFAULT 'España',
-                `Telefono`    varchar(32)  NOT NULL DEFAULT '',
-                `Internacional` tinyint(1) NOT NULL DEFAULT 0,
-                `Practicas`   tinyint(1)   NOT NULL DEFAULT 0,
-                `Email`       varchar(255) NOT NULL DEFAULT '',
-                `Federations` int(4)       NOT NULL DEFAULT 1,
-                `Observaciones` varchar(255) NOT NULL DEFAULT '',
-                `LastModified` timestamp   NOT NULL DEFAULT current_timestamp(),
-                PRIMARY KEY (`ID`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
             "
         );
         $conn=DBConnection::getRootConnection(); // need root connection for "create table"
@@ -131,4 +98,104 @@ class Updater {
         }
     }
 
+    private function setForUpdate($data,$key,$quote) {
+        if ($quote) { // text fields. quote and set if not empty
+            if ($data[$key]=="") return "";
+            $q=$this->myDBObject->conn->real_escape_string($data[$key]);
+            return ($data[$key]=="")?"":"SET {$key}='{$q}' ,";
+        } else { // integer fields are allways set
+            return "SET {$key}={$data[$key]},";
+        }
+    }
+
+    private function setForInsert($data,$key,$quote) {
+        if ($quote) { // text fields. quote and set if not empty
+            if ($data[$key]=="") return "''";
+            $q=$this->myDBObject->conn->real_escape_string($data[$key]);
+            return "'{$q}'";
+        } else { // integer fields are allways set
+            return "{$data[$key]}";
+        }
+    }
+
+    function handleJueces($data) {
+        foreach ($data as $juez) {
+            // extraemos datos
+            $sid= $this->setForUpdate($juez,"ServerID",false);
+            $nombre= $this->setForUpdate($juez,"Nombre",true);
+            $dir1= $this->setForUpdate($juez,"Direccion1",true);
+            $dir2= $this->setForUpdate($juez,"Direccion2",true);
+            $pais= $this->setForUpdate($juez,"Pais",true);
+            $tel= $this->setForUpdate($juez,"Telefono",true);
+            $intl= $this->setForUpdate($juez,"Internacional",false);
+            $pract= $this->setForUpdate($juez,"Practicas",false);
+            $email= $this->setForUpdate($juez,"Email",true);
+            $feds= $this->setForUpdate($juez,"Federations",false);
+            $comments= $this->setForUpdate($juez,"Observaciones",true);
+
+            // fase 1: si existe el ServerID se asigna "a saco"
+            $str="UPDATE Jueces {$nombre} {$dir1} {$dir2} {$pais} {$tel} {$intl} {$pract} {$email} {$feds} {$comments} ".
+                "WHERE ServerID={$sid}";
+            $res=$this->myDBObject->query($str);
+            if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
+            if ($this->myDBObject->conn->affected_rows!=0) continue; // next juez
+
+            // fase 2: si no existe el Server ID se busca por nombre (exacto)
+            $str="UPDATE Jueces {$sid} {$dir1} {$dir2} {$pais} {$tel} {$intl} {$pract} {$email} {$feds} {$comments} ".
+                "WHERE Nombre={$nombre}";
+            $res=$this->myDBObject->query($str);
+            if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
+            if ($this->myDBObject->conn->affected_rows!=0) continue; // next juez
+
+            // fase 3: si no existe el nombre, se crea la entrada
+
+            $sid= $this->setForInsert($juez,"ServerID",false);
+            $nombre= $this->setForInsert($juez,"Nombre",true);
+            $dir1= $this->setForInsert($juez,"Direccion1",true);
+            $dir2= $this->setForInsert($juez,"Direccion2",true);
+            $pais= $this->setForInsert($juez,"Pais",true);
+            $tel= $this->setForInsert($juez,"Telefono",true);
+            $intl= $this->setForInsert($juez,"Internacional",false);
+            $pract= $this->setForInsert($juez,"Practicas",false);
+            $email= $this->setForInsert($juez,"Email",true);
+            $feds= $this->setForInsert($juez,"Federations",false);
+            $comments= $this->setForInsert($juez,"Observaciones",true);
+            $str="INSERT INTO Jueces ".
+                "( ServerID,Nombre,Direccion1,Direccion2,Pais,Telefono,Internacional,Practicas,Email,Federations,Observaciones )".
+                "VALUES ({$sid},{$nombre},{$dir1},{$dir2},{$pais},{$tel},{$intl},{$pract},{$email},{$feds},{$comments})";
+            $res=$this->myDBObject->query($str);
+            if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
+        }
+    }
+
+    function handleClubes($data) {
+        foreach ($data as $club) {
+            // escapamos los textos
+            $sid= $this->setForUpdate($club,"ServerID",false);
+            $nombre= $this->setForUpdate($club,"Nombre",true);
+            $nlargo= $this->setForUpdate($club,"NombreLargo",true);
+            $dir1= $this->setForUpdate($club,"Direccion1",true);
+            $dir2= $this->setForUpdate($club,"Direccion2",true);
+            $prov= $this->setForUpdate($club,"Provincia",true);
+            $pais= $this->setForUpdate($club,"Pais",true);
+            $c1= $this->setForUpdate($club,"Contacto1",true);
+            $c2= $this->setForUpdate($club,"Contacto2",true);
+            $c3= $this->setForUpdate($club,"Contacto3",true);
+            $gps= $this->setForUpdate($club,"GPS",true);
+            $web= $this->setForUpdate($club,"Web",true);
+            $mail= $this->setForUpdate($club,"Email",true);
+            $face= $this->setForUpdate($club,"Facebook",true);
+            $gogl= $this->setForUpdate($club,"Google",true);
+            $twit= $this->setForUpdate($club,"Twitter",true);
+            $logo= $this->setForUpdate($club,"Logo",true);
+            $feds= $this->setForUpdate($club,"Federations",false);
+            $comments= $this->setForUpdate($club,"Observaciones",true);
+            $baja= $this->setForUpdate($club,"Baja",false);
+
+            // fase 1: buscar por ServerID
+            // fase 2: buscar por Nombre (exacto)
+            // PENDING: buscar el nombre "mas parecido", y obtener el ID
+            // fase 3: si no se encuentra se crea. Ajustar el logo
+        }
+    }
 }
