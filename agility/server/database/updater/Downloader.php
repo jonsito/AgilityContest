@@ -56,7 +56,7 @@ class Downloader {
 
         // retrieve updated handlers from database
         $res=$this->myDBObject->__select(
-            "Clubes.*,Clubes.ServerID as ClubesServerID",
+            "Guias.*,Clubes.ServerID as ClubesServerID",
             "Guias,Clubes",
             "(Guias.Club=Clubes.ID) AND (Guias.ServerID != 0) AND ( Guias.LastModified > '{$this->timestamp}')"
         );

@@ -41,63 +41,6 @@ class Updater {
         $this->myLogger=new Logger($name,$this->myConfig->getEnv("debug_level"));
     }
 
-    /**
-     * Creacion de las tablas de importacion de datos desde servidor
-     * Realmente son las tablas de perros, guias, clubes y jueces,
-     * pero sin dependencias y sin id de las relaciones
-     * El contenido se borra (DELETE FROM ) cada vez que se va a realizar una importación
-     * Adicionalmente, los datos nunca se modifican, solo se insertan
-     *
-     * @throws Exception on error
-     */
-    function createMergeTables() {
-        $tables = array (
-            "Dogs"=>"CREATE TABLE IF NOT EXISTS `MergePerros` (
-                `ID` int(4)   NOT NULL AUTO_INCREMENT,
-                `ServerID` int(4)   NOT NULL DEFAULT 0,
-                `GuiasServerID` int(4)   NOT NULL DEFAULT 0,
-                `Federation`  tinyint(1)   NOT NULL DEFAULT 0,
-                `Nombre`      varchar(255) NOT NULL ,
-                `NombreLargo` varchar(255) NOT NULL DEFAULT '',
-                `Genero`      varchar(16)  NOT NULL DEFAULT '-',
-                `Raza`        varchar(255) NOT NULL DEFAULT '',
-                `Chip`        varchar(255) NOT NULL DEFAULT '',
-                `Licencia`    varchar(255) NOT NULL DEFAULT '',
-                `LOE_RRC`     varchar(255) NOT NULL DEFAULT '',
-                `Categoria`   varchar(1)   NOT NULL DEFAULT '-',
-                `Grado`       varchar(16)  NOT NULL DEFAULT '-',
-                `Guia`        int(4)       NOT NULL DEFAULT 1,
-                `NombreGuia`  varchar(255) NOT NULL DEFAULT '',
-                `LastModified` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                PRIMARY KEY (`ID`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-            ",
-            "Handlers"=> "CREATE TABLE IF NOT EXISTS `MergeGuias` (
-                `ID`          int(4)        NOT NULL AUTO_INCREMENT,
-                `ServerID`    int(4)   NOT NULL DEFAULT 0,
-                `ClubesServerID`    int(4)   NOT NULL DEFAULT 0,
-                `Nombre`      varchar(255)  NOT NULL,
-                `Telefono`    varchar(16)   NOT NULL DEFAULT '',
-                `Email`       varchar(255)  NOT NULL DEFAULT '',
-                `Club`        int(4)        NOT NULL DEFAULT 1,
-                `NombreClub`  varchar(255)  NOT NULL DEFAULT '',
-                `Federation`  tinyint(1)    NOT NULL DEFAULT 0,
-                `Observaciones` varchar(255) NOT NULL DEFAULT '',
-                `Categoria`   varchar(16)   NOT NULL DEFAULT 'A',
-                `LastModified` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                PRIMARY KEY (`ID`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-            "
-        );
-        $conn=DBConnection::getRootConnection(); // need root connection for "create table"
-        if (!$conn)
-            throw new Exception("upgrade::createMergeTable(getConnection): ".$this->conn->error);
-        foreach($tables as $key => $sql) {
-            $res=$conn->query($sql);
-            if (!$res) throw new Exception("upgrade::createMergeTable({$key}): ".$conn->error);
-        }
-    }
-
     private function setForUpdate($data,$key,$quote) {
         if ($quote) { // text fields. quote and set if not empty
             if ($data[$key]=="") return "";
@@ -135,14 +78,14 @@ class Updater {
 
             // fase 1: si existe el ServerID se asigna "a saco"
             $str="UPDATE Jueces {$nombre} {$dir1} {$dir2} {$pais} {$tel} {$intl} {$pract} {$email} {$feds} {$comments} ".
-                "WHERE ServerID={$sid}";
+                "WHERE ServerID={$juez['ServerID']}";
             $res=$this->myDBObject->query($str);
             if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
             if ($this->myDBObject->conn->affected_rows!=0) continue; // next juez
 
-            // fase 2: si no existe el Server ID se busca por nombre (exacto)
+            // fase 2: si no existe el Server ID se busca por nombre (exacto) entre los que no tienen serial id definido
             $str="UPDATE Jueces {$sid} {$dir1} {$dir2} {$pais} {$tel} {$intl} {$pract} {$email} {$feds} {$comments} ".
-                "WHERE Nombre={$nombre}";
+                "WHERE Nombre={$nombre} AND (ServerID=0)";
             $res=$this->myDBObject->query($str);
             if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
             if ($this->myDBObject->conn->affected_rows!=0) continue; // next juez
@@ -164,8 +107,47 @@ class Updater {
                 "( ServerID,Nombre,Direccion1,Direccion2,Pais,Telefono,Internacional,Practicas,Email,Federations,Observaciones )".
                 "VALUES ({$sid},{$nombre},{$dir1},{$dir2},{$pais},{$tel},{$intl},{$pract},{$email},{$feds},{$comments})";
             $res=$this->myDBObject->query($str);
-            if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
+            if (!$res) $this->myLogger->error($this->myDBObject->conn->error);
         }
+    }
+
+    /**
+     * find club with serial id=0 and nearest name than provided one
+     * @param {string} Club name to search
+     * @param int ServerID
+     * @return {array} found club data or null if not found
+     */
+    function searchClub($search,$serverid=0) {
+        $search=strtolower(trim($search));
+        $search=str_replace("agility","",$search);
+        $search=str_replace("club","",$search);
+        // phase 1: search for server id
+        if ($serverid!==0) {
+            $res=$this->myDBObject->__select("*","Clubes","(ServerID={$serverid})");
+            if ($res && $res['total']!=0 ) return $res['rows'][0];
+        }
+        // phase 2:
+        // if server id not found search by name on whose clubs without server id
+        // handle null club
+        if ($search==="") $search="-- sin asignar --"; // remind lowercase!
+        // remove extra chars to properly make club string likeness evaluation
+        $search=preg_replace("/[^A-Za-z0-9 ]/", '', $search);
+        $res=$this->myDBObject->__select("*","Clubes","(ServerID=0)");
+        $better=array(0,array('ID'=>0,'Nombre'=>'') ); // percentage, data
+        for ($idx=0; $idx<$res['total']; $idx++) {
+            $club=$res['rows'][$idx];
+            $dclub=strtolower($club['Nombre']);
+            $dclub=str_replace("agility","",$dclub);
+            $dclub=str_replace("club","",$dclub);
+            $dclub=preg_replace("/[^A-Za-z0-9 ]/", '', $dclub);
+            if ($dclub==='') continue; // skip blank. should not occur
+            similar_text ( $search ,$dclub, $p );
+            if ($p==100) return $club; // found. no need to continue search
+            if (bccomp($p,$better[0])<=0) continue; // el nuevo "se parece menos", skip
+            $better[0]=$p; $better[1]=$res['rows'][$idx]; // el nuevo "se parece mas", almacena
+        }
+        if ($better[0]<90) return null; // assume "not found" if similarity is less than 90%
+        return $better[1];
     }
 
     function handleClubes($data) {
@@ -193,9 +175,168 @@ class Updater {
             $baja= $this->setForUpdate($club,"Baja",false);
 
             // fase 1: buscar por ServerID
-            // fase 2: buscar por Nombre (exacto)
-            // PENDING: buscar el nombre "mas parecido", y obtener el ID
+            $str="UPDATE Clubes ".
+                "{$nombre} {$nlargo} {$dir1} {$dir2} {$prov} {$pais} {$c1} {$c2} {$c3} ".
+                "{$gps} {$web} {$mail} {$face} {$gogl} {$twit} {$logo} {$feds} {$comments} {$baja}".
+                "WHERE ServerID={$club['ServerID']}";
+            $res=$this->myDBObject->query($str);
+            if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
+            if ($this->myDBObject->conn->affected_rows!=0) continue; // next club
+
+            // fase 2: buscar por Nombre entre los clubes que no tengan serial id
+            // buscamos el ID del club que mas se parece
+            $found=$this->searchClub($club['Nombre']);
+            if ($found !== null) {
+                $str="UPDATE Clubes ".
+                    "{$sid} {$nombre} {$nlargo} {$dir1} {$dir2} {$prov} {$pais} {$c1} {$c2} {$c3} ".
+                    "{$gps} {$web} {$mail} {$face} {$gogl} {$twit} {$logo} {$feds} {$comments} {$baja}".
+                    "WHERE ID={$found['ID']}";
+                $res=$this->myDBObject->query($str);
+                if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
+                if ($this->myDBObject->conn->affected_rows != 0) continue; //should allways occurs, but....
+            }
+
+            // arriving here means no serial id match nor club name match
             // fase 3: si no se encuentra se crea. Ajustar el logo
+
+            // escapamos los textos
+            $sid= $this->setForInsert($club,"ServerID",false);
+            $nombre= $this->setForInsert($club,"Nombre",true);
+            $nlargo= $this->setForInsert($club,"NombreLargo",true);
+            $dir1= $this->setForInsert($club,"Direccion1",true);
+            $dir2= $this->setForInsert($club,"Direccion2",true);
+            $prov= $this->setForInsert($club,"Provincia",true);
+            $pais= $this->setForInsert($club,"Pais",true);
+            $c1= $this->setForInsert($club,"Contacto1",true);
+            $c2= $this->setForInsert($club,"Contacto2",true);
+            $c3= $this->setForInsert($club,"Contacto3",true);
+            $gps= $this->setForInsert($club,"GPS",true);
+            $web= $this->setForInsert($club,"Web",true);
+            $mail= $this->setForInsert($club,"Email",true);
+            $face= $this->setForInsert($club,"Facebook",true);
+            $gogl= $this->setForInsert($club,"Google",true);
+            $twit= $this->setForInsert($club,"Twitter",true);
+            $logo= $this->setForInsert($club,"Logo",true);
+            $feds= $this->setForInsert($club,"Federations",false);
+            $comments= $this->setForInsert($club,"Observaciones",true);
+            $baja= $this->setForInsert($club,"Baja",false);
+
+            $str="INSERT INTO Clubes (".
+                "ServerID,Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,".
+                "GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja".
+                ") VALUES (".
+                "{$sid},{$nombre},{$nlargo},{$dir1},{$dir2},{$prov},{$pais},{$c1},{$c2},{$c3},".
+                "{$gps},{$web},{$mail},{$face},{$gogl},{$twit},{$logo},{$feds},{$comments},{$baja}".
+                ")";
+
+            $res=$this->myDBObject->query($str);
+            if (!$res) $this->myLogger->error($this->myDBObject->conn->error);
+        }
+    }
+
+    function handleGuias($data) {
+        foreach($data as $guia) {
+            // buscamos el club al que corresponde el serverid dado
+            $found=$this->searchClub($guia['NombreClub'],$guia['ClubesServerID']);
+            if (!$found) $guia['Club']=1; // Club not found, use ID:1 -> '-- Sin asignar --';
+
+            // preparamos el update por
+            $sid= $this->setForUpdate($guia,"ServerID",false);
+            $nombre= $this->setForUpdate($guia,"Nombre",true);
+            $tel= $this->setForUpdate($guia,"Telefono",true);
+            $mail= $this->setForUpdate($guia,"Email",true);
+            $club= $this->setForUpdate($found,"ID",false); // get ClubID from found club object
+            $fed= $this->setForUpdate($guia,"Federation",false);
+            $comments= $this->setForUpdate($guia,"Observaciones",true);
+            $cat= $this->setForUpdate($guia,"Categoria",true);
+
+            // fase 1: buscar por ServerID
+            $str="UPDATE Guias ".
+                "{$nombre} {$tel} {$mail} {$club} {$fed} {$comments} {$cat} ".
+                "WHERE ServerID={$guia['ServerID']}";
+            $res=$this->myDBObject->query($str);
+            if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
+            if ($this->myDBObject->conn->affected_rows!=0) continue; // next club
+
+            // fase 2: buscar por nombre/federacion/club
+            // en este caso buscamos coincidencia exacta, pues la posibilidad de nombres repetidos es alta
+            $name=$this->setForInsert($guia,"Nombre",true);
+            $str="UPDATE Guias ".
+                "{$sid} {$nombre} {$tel} {$mail} {$club} {$fed} {$comments} {$cat} ".
+                "WHERE (Nombre={$name}) AND (Federation={$guia['Federation']}) AND (Club={$found['ID']})";
+            $res=$this->myDBObject->query($str);
+            if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
+            if ($this->myDBObject->conn->affected_rows!=0) continue; // next club
+
+            // si llegamos hasta aquí, cortamos por lo sano y hacemos un insert
+            $sid= $this->setForInsert($guia,"ServerID",false);
+            $nombre= $this->setForInsert($guia,"Nombre",true);
+            $tel= $this->setForInsert($guia,"Telefono",true);
+            $mail= $this->setForInsert($guia,"Email",true);
+            $club= $this->setForInsert($found,"ID",false); // get ClubID from found club object
+            $fed= $this->setForInsert($guia,"Federation",false);
+            $comments= $this->setForInsert($guia,"Observaciones",true);
+            $cat= $this->setForInsert($guia,"Categoria",true);
+
+            $str="INSERT INTO Guias ".
+                "( ServerID,Nombre,Telefono,Email,Club,Federation,Observaciones,Categoria ".
+                ") VALUES (".
+                "{$sid},{$nombre},{$tel},{$mail},{$club},{$fed},{$comments},{$cat} ".
+                ")";
+            $res=$this->myDBObject->query($str);
+            if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
+            if ($this->myDBObject->conn->affected_rows!=0) continue; // next club
+        }
+    }
+
+    private function searchGuia($nombre,$fed,$serverid) {
+        // phase 1: search for server id
+        if ($serverid!==0) {
+            $res=$this->myDBObject->__select("*","Guias","(ServerID={$serverid})");
+            if ($res && $res['total']!=0 ) return $res['rows'][0];
+        }
+        if ($nombre==="") {
+            $res=$this->myDBObject->__select("*","Guias","(ID=1)"); // "-- Sin asignar --"
+            if ($res && $res['total']!=0 ) return $res['rows'][0];
+        }
+        // phase 2:
+        // if server id not found search by name on whose handlers without server id
+        $name=$this->myDBObject->real_escape_string($nombre);
+        $res=$this->myDBObject->__select("*","Guias","(Nombre='{$name}' AND (Federation=$fed)");
+        if (!$res) return null;
+        if ($res['total']==0) return null;
+        if ($res['total']==1) return $res['rows'][0];
+        // arriving here means several handlers without server id and same name on same federation.
+        // Just a duplicate handler or two handlers with same name and different club ? What can i do here ?
+        return null; // PENDING: what to do now ? AnyWay to discriminate by club
+    }
+
+    function handlePerros($data) {
+        /*
+            "Dogs"=>"CREATE TABLE IF NOT EXISTS `MergePerros` (
+                `ID` int(4)   NOT NULL AUTO_INCREMENT,
+                `ServerID` int(4)   NOT NULL DEFAULT 0,
+                `GuiasServerID` int(4)   NOT NULL DEFAULT 0,
+                `Federation`  tinyint(1)   NOT NULL DEFAULT 0,
+                `Nombre`      varchar(255) NOT NULL ,
+                `NombreLargo` varchar(255) NOT NULL DEFAULT '',
+                `Genero`      varchar(16)  NOT NULL DEFAULT '-',
+                `Raza`        varchar(255) NOT NULL DEFAULT '',
+                `Chip`        varchar(255) NOT NULL DEFAULT '',
+                `Licencia`    varchar(255) NOT NULL DEFAULT '',
+                `LOE_RRC`     varchar(255) NOT NULL DEFAULT '',
+                `Categoria`   varchar(1)   NOT NULL DEFAULT '-',
+                `Grado`       varchar(16)  NOT NULL DEFAULT '-',
+                `Guia`        int(4)       NOT NULL DEFAULT 1,
+                `NombreGuia`  varchar(255) NOT NULL DEFAULT '',
+                `LastModified` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+            ",
+         */
+        foreach ($data as $perro) {
+            // obtenemos el guia local a partir de los datos del servidor ( Nombre, GuiaServerID )
+
         }
     }
 }
