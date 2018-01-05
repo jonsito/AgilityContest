@@ -62,12 +62,13 @@ class Downloader {
         $a=array();
         foreach ($res['rows'] as $perro) array_push($a,$perro['ServerID']);
         $list=implode(",",$a);
+        $qlist=($list==="")?"": " ( Guias.ServerID IN ({$list}) ) OR "; // handler references in dog list
         $res=$this->myDBObject->__select(
             "Guias.*,Clubes.ServerID as ClubesServerID",
             "Guias,Clubes",
-            "(Guias.Club=Clubes.ID) AND (". // table join
-                    "( (Guias.ServerID IN ({$list}) ) OR ". // handler references in dog list
-                    "( (Guias.ServerID != 0) AND ( Guias.LastModified > '{$this->timestamp}') )". // updated handlers
+            "(Guias.Club=Clubes.ID) AND ( ". // table join
+                    $qlist
+                    ."( (Guias.ServerID != 0) AND ( Guias.LastModified > '{$this->timestamp}') )". // updated handlers
             ")"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Guias): {$this->myDBObject->conn->error}");
@@ -80,11 +81,11 @@ class Downloader {
         $a=array();
         foreach ($res['rows'] as $guia) array_push($a,$guia['ServerID']);
         $list=implode(",",$a);
+        $qlist=($list==="")?"": "( Clubes.ServerID IN ($list) ) OR "; // clubs references in handler list
         $res=$this->myDBObject->__select(
             "Clubes.*",
             "Clubes",
-            "(Clubes.ServerID IN ($list)) OR ". // clubs references in handler list
-                  "( (Clubes.ServerID != 0) AND ( LastModified > '{$this->timestamp}') )" // updated clubs
+            "{$qlist} ( (Clubes.ServerID != 0) AND ( LastModified > '{$this->timestamp}') )" // updated clubs
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Clubes): {$this->myDBObject->conn->error}");
         $result['Clubes']=$res['rows'];

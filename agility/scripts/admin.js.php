@@ -443,7 +443,8 @@ function checkForDatabaseUpdates() {
         dataType:'json',
         data: {
             Operation: 'checkForUpdates',
-            Serial: ac_regInfo.Serial
+            Serial: ac_regInfo.Serial,
+            Suffix: "" // no suffix needed here, but arg do
         },
         success: function(data) {
             if (typeof(data.errorMsg)!=="undefined") {
@@ -470,16 +471,17 @@ function synchronizeDatabase() {
         );
         return;
     }
-    // check if license allows it
-    // check for user consent
-    // fire up progress bar
+    // check if license and user allows it
+    if (!checkForAdmin()) return;
     // call server
+    var suffix=getRandomString(8); // random string to handle progress
     $.ajax({
         url:"/agility/server/database/updater/updateRequest.php",
         dataType:'json',
         data: {
             Operation: 'updateRequest',
-            Serial: ac_regInfo.Serial
+            Serial: ac_regInfo.Serial,
+            Suffix: suffix
         },
         success: function(data) {
             if (typeof(data.errorMsg)!=="undefined") {
@@ -492,9 +494,31 @@ function synchronizeDatabase() {
             }
         }
     });
-    // start monitoring progress
 
-    alert("New data has been uploaded, but DB Synchronization is not (yet) available");
+    // fire up progress bar
+    // en paralelo arrancamos una tarea para leer el progreso de la operacion
+    function getProgress(){
+        $.ajax({
+            url:"/agility/server/database/updater/updateRequest.php",
+            dataType:'json',
+            data: {
+                Operation: 'progress',
+                Serial: ac_regInfo.Serial,
+                Suffix: suffix
+            },
+            success: function(data) {
+                var value=data.progress;
+                if(value!=="Done"){
+                    var bar=$.messager.progress('bar');
+                    bar.progressbar('setValue', value);  // set new progress value
+                    setTimeout(getProgress,2000);
+                } else {
+                    $.messager.progress('close');
+                }
+            }
+        });
+    }
+    setTimeout(getProgress,2000);
 }
 
 function checkForUpgrades() {

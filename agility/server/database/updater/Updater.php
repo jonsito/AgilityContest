@@ -243,8 +243,8 @@ class Updater {
             // preparamos el update por
             $sid= $this->setForUpdate($guia,"ServerID",false);
             $nombre= $this->setForUpdate($guia,"Nombre",true);
-            $tel= $this->setForUpdate($guia,"Telefono",true);
-            $mail= $this->setForUpdate($guia,"Email",true);
+            $tel= $this->setForUpdate($guia,"Telefono",true);   // PENDING: do not transfer to "anyone"
+            $mail= $this->setForUpdate($guia,"Email",true);     // PENDING: do not transfer to "anyone"
             $club= $this->setForUpdate($found,"ID",false); // get ClubID from found club object
             $fed= $this->setForUpdate($guia,"Federation",false);
             $comments= $this->setForUpdate($guia,"Observaciones",true);
@@ -271,8 +271,8 @@ class Updater {
             // si llegamos hasta aquí, cortamos por lo sano y hacemos un insert
             $sid= $this->setForInsert($guia,"ServerID",false);
             $nombre= $this->setForInsert($guia,"Nombre",true);
-            $tel= $this->setForInsert($guia,"Telefono",true);
-            $mail= $this->setForInsert($guia,"Email",true);
+            $tel= $this->setForInsert($guia,"Telefono",true); // PENDING: do not transfer to "anyone"
+            $mail= $this->setForInsert($guia,"Email",true);   // PENDING: do not transfer to "anyone"
             $club= $this->setForInsert($found,"ID",false); // get ClubID from found club object
             $fed= $this->setForInsert($guia,"Federation",false);
             $comments= $this->setForInsert($guia,"Observaciones",true);
@@ -316,28 +316,6 @@ class Updater {
     }
 
     function handlePerros($data) {
-        /*
-            "Dogs"=>"CREATE TABLE IF NOT EXISTS `MergePerros` (
-                `ID` int(4)   NOT NULL AUTO_INCREMENT,
-                `ServerID` int(4)   NOT NULL DEFAULT 0,
-                `GuiasServerID` int(4)   NOT NULL DEFAULT 0,
-                `Federation`  tinyint(1)   NOT NULL DEFAULT 0,
-                `Nombre`      varchar(255) NOT NULL ,
-                `NombreLargo` varchar(255) NOT NULL DEFAULT '',
-                `Genero`      varchar(16)  NOT NULL DEFAULT '-',
-                `Raza`        varchar(255) NOT NULL DEFAULT '',
-                `Chip`        varchar(255) NOT NULL DEFAULT '',
-                `Licencia`    varchar(255) NOT NULL DEFAULT '',
-                `LOE_RRC`     varchar(255) NOT NULL DEFAULT '',
-                `Categoria`   varchar(1)   NOT NULL DEFAULT '-',
-                `Grado`       varchar(16)  NOT NULL DEFAULT '-',
-                `Guia`        int(4)       NOT NULL DEFAULT 1,
-                `NombreGuia`  varchar(255) NOT NULL DEFAULT '',
-                `LastModified` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                PRIMARY KEY (`ID`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-            ",
-         */
         foreach ($data as $perro) {
             // obtenemos el guia local a partir de los datos del servidor ( Nombre, GuiaServerID )
             $found=$this->searchGuia($perro['NombreGuia'],$perro['Federation'],$perro['GuiasServerID']);
@@ -349,9 +327,9 @@ class Updater {
             $lname= $this->setForUpdate($perro,"NombreLargo",true);
             $gender= $this->setForUpdate($perro,"Genero",true);
             $breed= $this->setForUpdate($perro,"Raza",true);
-            $chip= $this->setForUpdate($perro,"Chip",true);
+            $chip= $this->setForUpdate($perro,"Chip",true); // PENDING: do not transfer to "anyone"
             $lic= $this->setForUpdate($perro,"Licencia",true);
-            $loe= $this->setForUpdate($perro,"LOE_RRC",true);
+            $loe= $this->setForUpdate($perro,"LOE_RRC",true); // PENDING: do not transfer to "anyone"
             $cat= $this->setForUpdate($perro,"Categoria",true);
             $grad= $this->setForUpdate($perro,"Grado",true);
             $handler= $this->setForUpdate($found,"ID",false); // use found handler to extract Handler ID
@@ -382,9 +360,9 @@ class Updater {
             $lname= $this->setForInsert($perro,"NombreLargo",true);
             $gender= $this->setForInsert($perro,"Genero",true);
             $breed= $this->setForInsert($perro,"Raza",true);
-            $chip= $this->setForInsert($perro,"Chip",true);
+            $chip= $this->setForInsert($perro,"Chip",true); // PENDING: do not transfer to "anyone"
             // $lic= $this->setForInsert($perro,"Licencia",true); // already done above
-            $loe= $this->setForInsert($perro,"LOE_RRC",true);
+            $loe= $this->setForInsert($perro,"LOE_RRC",true); // PENDING: do not transfer to "anyone"
             $cat= $this->setForInsert($perro,"Categoria",true);
             $grad= $this->setForInsert($perro,"Grado",true);
             $handler= $this->setForInsert($found,"ID",false);

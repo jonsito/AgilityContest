@@ -20,38 +20,57 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+define("SYNCDIR",__DIR__."/../../../../logs/updateRequests");
+
 require_once(__DIR__."/../../logging.php");
 require_once(__DIR__."/../../tools.php");
+require_once(__DIR__."/../../auth/AuthManager.php");
 require_once(__DIR__."/Uploader.php");
 require_once(__DIR__."/Downloader.php");
 
 try {
     $result=null;
     $operation=http_request("Operation","s","");
+    $suffix=http_request("Suffix","s","");
     $timestamp=http_request("timestamp","s",date('Y-m-d H:i:s'));
     // need to do a more elaborated way of hanlde this...
     $serial=http_request("Serial","s","");
     if ($serial==="") throw new Exception("updateRequest.php: invalid serial number");
-
     switch($operation) {
+        case "progress":
+            if (!is_dir(SYNCDIR)) @mkdir(SYNCDIR);
+            $progressfile=SYNCDIR."/dbsync_{$suffix}.log";
+            $result= array( 'progress' => "Waiting for progress info..."); // default when file doesn't exist yet
+            if (file_exists($progressfile)) {
+                // retrieve last line of progress file
+                $lines=file($progressfile,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+                $result=array( 'progress' => strval($lines[count($lines)-1]) );
+            }
+            break;
         case "checkForUpdates": // this is to be executed in client
-            $ul=new Uploader("checkForUpdates");
+            $am= new AuthManager("adminFunctions");
+            $am->access(PERMS_ADMIN); // throw exception if not admin
+            $ul=new Uploader("checkForUpdates",$suffix);
             // send / receive changes from server
             $res=$ul->doCheckForUpdates($serial);
             $result=array("success"=>true,"NewEntries"=>$res['rows'][0]['NewEntries']);
             break;
         case "updateRequest": // this is to be executed on client app
-            $ul=new Uploader("UserRequestedUpdateDB");
+            $am= new AuthManager("adminFunctions");
+            $am->access(PERMS_ADMIN); // throw exception if not admin
+            $ul=new Uploader("UserRequestedUpdateDB",$suffix);
             $res=$ul->doRequestForUpdates($serial);
             $result=""; // PENDING: handle received data from server
             break;
         case "updateResponse": // this is to be executed on server app
+            // PENDING: check serial key and perms has no sense here. however some protection is required
             $data= http_request("Data","s","",false); // data is json encoded. do not "sqlfy"
             $dl=new Downloader($timestamp,$serial);
             $result=$dl->saveRetrievedData($data); // store new data from client to further revision
             $result=$dl->getUpdatedEntries(); // retrieve new data from server
             break;
         case "checkResponse": // this is to be executed on server app
+            // PENDING: check serial key and perms has no sense here. however some protection is required
             $dl=new Downloader($timestamp,$serial);
             $result=$dl->checkForUpdatedEntries(); // return number of new available entries
             break;

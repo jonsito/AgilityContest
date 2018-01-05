@@ -23,6 +23,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once (__DIR__."/../../logging.php");
 require_once (__DIR__."/../../auth/Config.php");
 require_once (__DIR__."/../classes/DBObject.php");
+require_once (__DIR__."/Updater.php");
 
 /**
  * Class Uploader
@@ -34,11 +35,22 @@ class Uploader {
     protected $myDBObject;
     protected $myConfig;
     protected $myLogger;
+    protected $progressFile;
 
-    function __construct($name="DatabaseUploader") {
+    function __construct($name="DatabaseUploader",$suffix="") {
         $this->myDBObject=new DBObject($name);
         $this->myConfig=Config::getInstance();
         $this->myLogger=new Logger($name,$this->myConfig->getEnv("debug_level"));
+        if (!defined("SYNCDIR") ) define("SYNCDIR",__DIR__."/../../../../logs/updateRequests");
+        if (!is_dir(SYNCDIR)) @mkdir(SYNCDIR);
+        $this->progressFile=SYNCDIR."/dbsync_{$suffix}.log";
+    }
+
+    protected function reportProgress($str) {
+        $f=fopen($this->progressFile,"a"); // open for append-only
+        if (!$f) { $this->myLogger->error("fopen() cannot open file: ".$this->progressFile); return;}
+        fwrite($f,"$str\n");
+        fclose($f);
     }
 
     /**
@@ -161,7 +173,6 @@ class Uploader {
         $current_version=$this->myConfig->getEnv("version_date");
         $timestamp=date('Y-m-d H:i:s');
         $sql="UPDATE VersionHistory SET Updated='{$timestamp}' WHERE  Version='{$current_version}'";
-
         $res=$this->myDBObject->query($sql);
         if (!$res) throw new Exception ("Updater::updateTimeSTamp(): {$this->myDBObject->conn->error}");
     }
@@ -173,13 +184,27 @@ class Uploader {
      * @throws Exception
      */
     function doRequestForUpdates($serial) {
+        $this->reportProgress(_("Get timestamp of last update"));
         // notice that on fail Exception will be thrown in inner routines
         $ts=$this->getTimeStamp();
+        $this->reportProgress(_("Reading local database changes"));
         $data=$this->getUpdatedEntries($ts);
         // $this->myLogger->trace("Data sent to send to server: ".json_encode($data));
+        $this->reportProgress(_("Looking for remote database changes"));
         $res=$this->sendJSONRequest($data,$serial);
         // $this->myLogger->trace("Data received from server: ".json_encode($res));
+        $upd=new Updater("Updater_$serial");
+        $this->reportProgress(_("Updating local database").": "._("Judges"));
+        $upd->handleJueces($data['Jueces']);
+        $this->reportProgress(_("Updating local database").": "._("Clubs"));
+        $upd->handleClubes($data['Clubes']);
+        $this->reportProgress(_("Updating local database").": "._("Handlers"));
+        $upd->handleGuias($data['Guias']);
+        $this->reportProgress(_("Updating local database").": "._("Dogs"));
+        $upd->handlePerros($data['Perros']);
+        $this->reportProgress(_("Setting new update timestamp"));
         $this->updateTimeStamp();
+        $this->reportProgress("Done");
         return $res;
     }
 
