@@ -81,14 +81,14 @@ class Updater {
                 "WHERE ServerID={$juez['ServerID']}";
             $res=$this->myDBObject->query($str);
             if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
-            if ($this->myDBObject->conn->affected_rows!=0) continue; // next juez
+            if ($this->myDBObject->matched_rows()!=0) continue; // next juez
 
             // fase 2: si no existe el Server ID se busca por nombre (exacto) entre los que no tienen serial id definido
             $str="UPDATE Jueces {$sid} {$dir1} {$dir2} {$pais} {$tel} {$intl} {$pract} {$email} {$feds} {$comments} ".
                 "WHERE Nombre={$nombre} AND (ServerID=0)";
             $res=$this->myDBObject->query($str);
             if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
-            if ($this->myDBObject->conn->affected_rows!=0) continue; // next juez
+            if ($this->myDBObject->matched_rows()!=0) continue; // next juez
 
             // fase 3: si no existe el nombre, se crea la entrada
 
@@ -181,7 +181,7 @@ class Updater {
                 "WHERE ServerID={$club['ServerID']}";
             $res=$this->myDBObject->query($str);
             if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
-            if ($this->myDBObject->conn->affected_rows!=0) continue; // next club
+            if ($this->myDBObject->matched_rows()!=0) continue; // next club
 
             // fase 2: buscar por Nombre entre los clubes que no tengan serial id
             // buscamos el ID del club que mas se parece
@@ -193,7 +193,7 @@ class Updater {
                     "WHERE ID={$found['ID']}";
                 $res=$this->myDBObject->query($str);
                 if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
-                if ($this->myDBObject->conn->affected_rows != 0) continue; //should allways occurs, but....
+                if ($this->myDBObject->matched_rows() != 0) continue; //should allways occurs, but....
             }
 
             // arriving here means no serial id match nor club name match
@@ -256,7 +256,7 @@ class Updater {
                 "WHERE ServerID={$guia['ServerID']}";
             $res=$this->myDBObject->query($str);
             if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
-            if ($this->myDBObject->conn->affected_rows!=0) continue; // next club
+            if ($this->myDBObject->matched_rows()!=0) continue; // next club
 
             // fase 2: buscar por nombre/federacion/club
             // en este caso buscamos coincidencia exacta, pues la posibilidad de nombres repetidos es alta
@@ -266,7 +266,7 @@ class Updater {
                 "WHERE (Nombre={$name}) AND (Federation={$guia['Federation']}) AND (Club={$found['ID']})";
             $res=$this->myDBObject->query($str);
             if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
-            if ($this->myDBObject->conn->affected_rows!=0) continue; // next club
+            if ($this->myDBObject->matched_rows()!=0) continue; // next club
 
             // si llegamos hasta aquí, cortamos por lo sano y hacemos un insert
             $sid= $this->setForInsert($guia,"ServerID",false);
@@ -285,7 +285,7 @@ class Updater {
                 ")";
             $res=$this->myDBObject->query($str);
             if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
-            if ($this->myDBObject->conn->affected_rows!=0) continue; // next club
+            if ($this->myDBObject->matched_rows()!=0) continue; // next club
         }
     }
 
@@ -295,6 +295,10 @@ class Updater {
             $res=$this->myDBObject->__select("*","Guias","(ServerID={$serverid})");
             if ($res && $res['total']!=0 ) return $res['rows'][0];
         }
+        // notice that execution should not arrive here:
+        // server sends any handler and (in turn) club related info, including ServerID, so
+        // data should already exist.
+        // anyway, let the code here "for yes the flies" :-)
         if ($nombre==="") {
             $res=$this->myDBObject->__select("*","Guias","(ID=1)"); // "-- Sin asignar --"
             if ($res && $res['total']!=0 ) return $res['rows'][0];
@@ -336,7 +340,63 @@ class Updater {
          */
         foreach ($data as $perro) {
             // obtenemos el guia local a partir de los datos del servidor ( Nombre, GuiaServerID )
+            $found=$this->searchGuia($perro['NombreGuia'],$perro['Federation'],$perro['GuiasServerID']);
+            if (!$found) $perro['Guia']=1; // Handler not found, use ID:1 -> '-- Sin asignar --';
+            // escape every strings in received data
+            $sid= $this->setForUpdate($perro,"ServerID",false);
+            $fed= $this->setForUpdate($perro,"Federation",false);
+            $name= $this->setForUpdate($perro,"Nombre",true);
+            $lname= $this->setForUpdate($perro,"NombreLargo",true);
+            $gender= $this->setForUpdate($perro,"Genero",true);
+            $breed= $this->setForUpdate($perro,"Raza",true);
+            $chip= $this->setForUpdate($perro,"Chip",true);
+            $lic= $this->setForUpdate($perro,"Licencia",true);
+            $loe= $this->setForUpdate($perro,"LOE_RRC",true);
+            $cat= $this->setForUpdate($perro,"Categoria",true);
+            $grad= $this->setForUpdate($perro,"Grado",true);
+            $handler= $this->setForUpdate($found,"ID",false); // use found handler to extract Handler ID
 
+            // fase 1: buscar por ServerID
+            $str="UPDATE Perros ".
+                "{$name} {$lname} {$gender} {$breed} {$chip} {$lic} {$loe} {$cat} {$grad} {$handler} {$fed}".
+                "WHERE ServerID={$perro['ServerID']}";
+            $res=$this->myDBObject->query($str);
+            if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
+            if ($this->myDBObject->matched_rows()!=0) continue; // next dog
+
+            // fase 2: buscar por nombre/licencia/guia
+            // en este caso buscamos coincidencia exacta, pues existe el tema de las licencias multiples
+            // PENDING: preveer la posibilidad de cambio de licencia en perros que todavía no tienen serverid
+            $lic=$this->setForInsert($perro,"Nombre",true);
+            $name=$this->setForInsert($perro,"Licencia",true);
+            $str="UPDATE Guias ".
+                "${sid} {$lname} {$gender} {$breed} {$chip} {$loe} {$cat} {$grad} {$fed}".
+                "WHERE (Nombre={$name}) AND (Licencia={$lic}) AND (Guia={$found['ID']})";
+            $res=$this->myDBObject->query($str);
+            if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
+            if ($this->myDBObject->matched_rows()!=0) continue; // next dog
+
+            $sid= $this->setForInsert($perro,"ServerID",false);
+            $fed= $this->setForInsert($perro,"Federation",false);
+            // $name= $this->setForInsert($perro,"Nombre",true); // already done above
+            $lname= $this->setForInsert($perro,"NombreLargo",true);
+            $gender= $this->setForInsert($perro,"Genero",true);
+            $breed= $this->setForInsert($perro,"Raza",true);
+            $chip= $this->setForInsert($perro,"Chip",true);
+            // $lic= $this->setForInsert($perro,"Licencia",true); // already done above
+            $loe= $this->setForInsert($perro,"LOE_RRC",true);
+            $cat= $this->setForInsert($perro,"Categoria",true);
+            $grad= $this->setForInsert($perro,"Grado",true);
+            $handler= $this->setForInsert($found,"ID",false);
+
+            $str="INSERT INTO Perros ".
+                "( ServerID,Federation,Nombre,NombreLargo,Genero,Raza,Chip,Licencia,LOE_RRC,Categoria,Grado,Guia".
+                ") VALUES (".
+                "{$sid},{$fed},{$name},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler} ".
+                ")";
+            $res=$this->myDBObject->query($str);
+            if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); continue; }
+            if ($this->myDBObject->matched_rows()!=0) continue; // next dog
         }
     }
 }

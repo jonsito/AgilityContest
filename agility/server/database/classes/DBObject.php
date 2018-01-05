@@ -126,7 +126,15 @@ class DBObject {
 		$rs->free();
 		return $result;
 	}
-	
+
+	// mysql has "affected_rows" variable, but sometimes need "matched_rows"
+    // to take care on update success, but no real change in row
+    // from: https://stackoverflow.com/questions/5289475/get-number-of-rows-matched-by-update-query-with-php-mysqli
+	function matched_rows() {
+        preg_match_all('!\d+!', $this->conn->info, $m);
+        return $m[0][0];
+    }
+
 	/**
 	 * Perform a query that returns first (and unique) element
 	 * as an Object
