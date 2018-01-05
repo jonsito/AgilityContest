@@ -194,14 +194,26 @@ class Uploader {
         $res=$this->sendJSONRequest($data,$serial);
         // $this->myLogger->trace("Data received from server: ".json_encode($res));
         $upd=new Updater("Updater_$serial");
-        $this->reportProgress(_("Updating local database").": "._("Judges"));
-        $upd->handleJueces($data['Jueces']);
-        $this->reportProgress(_("Updating local database").": "._("Clubs"));
-        $upd->handleClubes($data['Clubes']);
-        $this->reportProgress(_("Updating local database").": "._("Handlers"));
-        $upd->handleGuias($data['Guias']);
-        $this->reportProgress(_("Updating local database").": "._("Dogs"));
-        $upd->handlePerros($data['Perros']);
+        // actualizamos jueces
+        foreach($data['Jueces'] as $juez) {
+            $this->reportProgress(_("Updating")." "._("Judge").": ".$juez['Nombre']);
+            $upd->handleJuez($juez);
+        }
+        // actualizamos clubes
+        foreach($data['Clubes'] as $club) {
+            $this->reportProgress(_("Updating")." "._("Club").": ".$club['Nombre']);
+            $upd->handleClub($club);
+        }
+        // actualizamos guias
+        foreach($data['Guias'] as $guia) {
+            $this->reportProgress(_("Updating")." "._("Handler").": ".$guia['Nombre']);
+            $upd->handleGuia($guia);
+        }
+        // actualizamos perros
+        foreach($data['Perros'] as $perro) {
+            $this->reportProgress(_("Updating")." "._("Dog").": ".$perro['Nombre']);
+            $upd->handlePerro($perro);
+        }
         $this->reportProgress(_("Setting new update timestamp"));
         $this->updateTimeStamp();
         $this->reportProgress("Done");
