@@ -49,25 +49,42 @@ class Downloader {
         $res=$this->myDBObject->__select(
             "Perros.*,Guias.ServerID AS GuiasServerID",
             "Perros,Guias",
-            "(Perros.Guia=Guias.ID) AND (Licencia!='') AND (Perros.ServerID != 0) AND ( Perros.LastModified > '{$this->timestamp}')"
+            "(Perros.Guia=Guias.ID) AND ". // table join
+                  "(Licencia != '') AND (Perros.ServerID != 0) AND ( Perros.LastModified > '{$this->timestamp}')" // changes
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Perros): {$this->myDBObject->conn->error}");
         $result['Perros']=$res['rows'];
 
         // retrieve updated handlers from database
+        // hay que recuperar:
+        // los guias que hayan cambiado
+        // los guias referenciados en la lista de perros
+        $a=array();
+        foreach ($res['rows'] as $perro) array_push($a,$perro['ServerID']);
+        $list=implode(",",$a);
         $res=$this->myDBObject->__select(
             "Guias.*,Clubes.ServerID as ClubesServerID",
             "Guias,Clubes",
-            "(Guias.Club=Clubes.ID) AND (Guias.ServerID != 0) AND ( Guias.LastModified > '{$this->timestamp}')"
+            "(Guias.Club=Clubes.ID) AND (". // table join
+                    "( (Guias.ServerID IN ({$list}) ) OR ". // handler references in dog list
+                    "( (Guias.ServerID != 0) AND ( Guias.LastModified > '{$this->timestamp}') )". // updated handlers
+            ")"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Guias): {$this->myDBObject->conn->error}");
         $result['Guias']=$res['rows'];
 
         // retrieve updated Clubs from database
+        // hay que recuperar:
+        // los clubes que hayan cambiado
+        // los clubes referenciados en la lista de guias
+        $a=array();
+        foreach ($res['rows'] as $guia) array_push($a,$guia['ServerID']);
+        $list=implode(",",$a);
         $res=$this->myDBObject->__select(
             "Clubes.*",
             "Clubes",
-            "(ServerID != 0) AND ( LastModified > '{$this->timestamp}')"
+            "(Clubes.ServerID IN ($list)) OR ". // clubs references in handler list
+                  "( (Clubes.ServerID != 0) AND ( LastModified > '{$this->timestamp}') )" // updated clubs
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Clubes): {$this->myDBObject->conn->error}");
         $result['Clubes']=$res['rows'];
