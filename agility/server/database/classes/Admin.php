@@ -425,22 +425,28 @@ class Admin extends DBObject {
         array_map('unlink',glob("{$this->restore_dir}update.log"));
 
 		// ficheros excel importados
-        $this->myLogger->trace("Clearing update related tmp files");
+        $this->myLogger->trace("Clearing excel import related tmp files");
         array_map('unlink',glob("{$this->restore_dir}import*.xlsx"));
         array_map('unlink',glob("{$this->restore_dir}import*.log"));
         array_map('unlink',glob("{$this->restore_dir}import*.json"));
 
+        // ficheros excel importados
+        $this->myLogger->trace("Clearing database sync related tmp files");
+        if (!is_dir("{$this->restore_dir}updateRequest")) @mkdir("{$this->restore_dir}updateRequest");
+        array_map('unlink',glob("{$this->restore_dir}updateRequest/dbsync*.log"));
+        array_map('unlink',glob("{$this->restore_dir}updateRequest/*.json"));
+
         // restore operations log
-        $this->myLogger->trace("Clearing update related tmp files");
+        $this->myLogger->trace("Clearing restore related tmp files");
         array_map('unlink',glob("{$this->restore_dir}restor*.log"));
 
         // remove results mail directories
-        $this->myLogger->trace("Clearing update related tmp files");
+        $this->myLogger->trace("Clearing mail results related tmp files");
         array_map('unlink',glob("{$this->restore_dir}results_*/*.*"));
         array_map('rmdir',glob("{$this->restore_dir}results_*"));
 
         // remove inscriptions mail directories
-        $this->myLogger->trace("Clearing update related tmp files");
+        $this->myLogger->trace("Clearing mail inscriptions related tmp files");
         array_map('unlink',glob("{$this->restore_dir}mail_*/*.*"));
         array_map('rmdir',glob("{$this->restore_dir}mail_*"));
 
