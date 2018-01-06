@@ -47,7 +47,7 @@ class Downloader {
 
         // retrieve updated dogs from database
         $res=$this->myDBObject->__select(
-            "Perros.*,Guias.ServerID AS GuiasServerID",
+            "Perros.*,Guias.Nombre AS NombreGuia,Guias.ServerID AS GuiasServerID",
             "Perros,Guias",
             "(Perros.Guia=Guias.ID) AND ". // table join
                   "(Licencia != '') AND (Perros.ServerID != 0) AND ( Perros.LastModified > '{$this->timestamp}')" // changes
@@ -64,7 +64,7 @@ class Downloader {
         $list=implode(",",$a);
         $qlist=($list==="")?"": " ( Guias.ServerID IN ({$list}) ) OR "; // handler references in dog list
         $res=$this->myDBObject->__select(
-            "Guias.*,Clubes.ServerID as ClubesServerID",
+            "Guias.*,Clubes.Nombre AS NombreClub,Clubes.ServerID as ClubesServerID",
             "Guias,Clubes",
             "(Guias.Club=Clubes.ID) AND ( ". // table join
                     $qlist

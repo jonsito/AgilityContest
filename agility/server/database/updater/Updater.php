@@ -78,6 +78,7 @@ class Updater {
         // fase 1: si existe el ServerID se asigna "a saco"
         $str="UPDATE Jueces SET {$nombre},{$dir1},{$dir2},{$pais},{$tel},{$intl},{$pract},{$email},{$feds},{$comments} ".
             "WHERE ServerID={$juez['ServerID']}";
+        $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); return; }
         if ($this->myDBObject->matched_rows()!=0) return; // next juez
@@ -85,6 +86,7 @@ class Updater {
         // fase 2: si no existe el Server ID se busca por nombre (exacto) entre los que no tienen serial id definido
         $str="UPDATE Jueces SET {$sid},{$dir1},{$dir2},{$pais},{$tel},{$intl},{$pract},{$email},{$feds},{$comments} ".
             "WHERE Nombre={$nombre} AND (ServerID=0)";
+        $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); return; }
         if ($this->myDBObject->matched_rows()!=0) return; // next juez
@@ -182,6 +184,7 @@ class Updater {
             "{$nombre},{$nlargo},{$dir1},{$dir2},{$prov},{$pais},{$c1},{$c2},{$c3},".
             "{$gps},{$web},{$mail},{$face},{$gogl},{$twit},{$logo},{$feds},{$comments},{$baja} ".
             "WHERE ServerID={$club['ServerID']}";
+        $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); return; }
         if ($this->myDBObject->matched_rows()!=0) return; // next club
@@ -194,6 +197,7 @@ class Updater {
                 "{$sid},{$nombre},{$nlargo},{$dir1},{$dir2},{$prov},{$pais},{$c1},{$c2},{$c3},".
                 "{$gps},{$web},{$mail},{$face},{$gogl},{$twit},{$logo},{$feds},{$comments},{$baja} ".
                 "WHERE ID={$found['ID']}";
+            $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
             $res=$this->myDBObject->query($str);
             if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); return; }
             if ($this->myDBObject->matched_rows() != 0) return; //should allways occurs, but....
@@ -255,6 +259,7 @@ class Updater {
         $str="UPDATE Guias SET ".
             "{$nombre},{$tel},{$mail},{$club},{$fed},{$comments},{$cat} ".
             "WHERE ServerID={$guia['ServerID']}";
+        $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); return; }
         if ($this->myDBObject->matched_rows()!=0) return; // next club
@@ -265,6 +270,7 @@ class Updater {
         $str="UPDATE Guias SET ".
             "{$sid},{$nombre},{$tel},{$mail},{$club},{$fed},{$comments},{$cat} ".
             "WHERE (Nombre={$name}) AND (Federation={$guia['Federation']}) AND (Club={$found['ID']})";
+        $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); return; }
         if ($this->myDBObject->matched_rows()!=0) return; // next club
@@ -336,6 +342,7 @@ class Updater {
         $str="UPDATE Perros SET ".
             "{$name},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$fed} ".
             "WHERE ServerID={$perro['ServerID']}";
+        $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); return; }
         if ($this->myDBObject->matched_rows()!=0) return; // next dog
@@ -348,6 +355,7 @@ class Updater {
         $str="UPDATE Guias SET ".
             "${sid},{$lname},{$gender},{$breed},{$chip},{$loe},{$cat},{$grad},{$fed}".
             "WHERE (Nombre={$name}) AND (Licencia={$lic}) AND (Guia={$found['ID']})";
+        $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); return; }
         if ($this->myDBObject->matched_rows()!=0) return; // next dog
