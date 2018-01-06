@@ -478,6 +478,13 @@ function synchronizeDatabase() {
     }
     // call server
     var suffix=getRandomString(8); // random string to handle progress
+    $.messager.progress({
+        width:400,
+        title: '<?php _e("Synchronize DB");?>',
+        msg: '<?php _e("Updating database with new server data");?>',
+        interval: 0 // do not auto refresh
+    });
+    $.messager.progress('bar').progressbar({text: '{value}' }); // remove '%' sign at progress var
     $.ajax({
         url:"/agility/server/database/updater/updateRequest.php",
         dataType:'json',
@@ -494,7 +501,12 @@ function synchronizeDatabase() {
             if (data.success) {
                 msg = '<p><?php _e("Database is synced with server"); ?></p>';
                 $.messager.alert("<?php _e('Done');?>",msg,"info");
+                checkForDatabaseUpdates();
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.progress('close');
+            $.messager.alert("<?php _e('Error');?>","<?php _e('Error');?>: "+textStatus + " "+ errorThrown,'error' );
         }
     });
 

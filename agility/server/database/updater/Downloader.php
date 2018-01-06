@@ -60,7 +60,7 @@ class Downloader {
         // los guias que hayan cambiado
         // los guias referenciados en la lista de perros
         $a=array();
-        foreach ($res['rows'] as $perro) array_push($a,$perro['ServerID']);
+        foreach ($res['rows'] as $perro) array_push($a,$perro['GuiasServerID']);
         $list=implode(",",$a);
         $qlist=($list==="")?"": " ( Guias.ServerID IN ({$list}) ) OR "; // handler references in dog list
         $res=$this->myDBObject->__select(
@@ -79,7 +79,7 @@ class Downloader {
         // los clubes que hayan cambiado
         // los clubes referenciados en la lista de guias
         $a=array();
-        foreach ($res['rows'] as $guia) array_push($a,$guia['ServerID']);
+        foreach ($res['rows'] as $guia) array_push($a,$guia['ClubesServerID']);
         $list=implode(",",$a);
         $qlist=($list==="")?"": "( Clubes.ServerID IN ($list) ) OR "; // clubs references in handler list
         $res=$this->myDBObject->__select(

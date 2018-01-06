@@ -51,6 +51,7 @@ class Uploader {
         if (!$f) { $this->myLogger->error("fopen() cannot open file: ".$this->progressFile); return;}
         fwrite($f,"$str\n");
         fclose($f);
+        // sleep(3); /* unset to debug */
     }
 
     /**
