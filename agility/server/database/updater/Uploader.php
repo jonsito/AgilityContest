@@ -196,22 +196,22 @@ class Uploader {
         // $this->myLogger->trace("Data received from server: ".json_encode($res));
         $upd=new Updater("Updater_$serial");
         // actualizamos jueces
-        foreach($data['Jueces'] as $juez) {
+        foreach($res['Jueces'] as $juez) {
             $this->reportProgress(_("Updating")." "._("Judge").": ".$juez['Nombre']);
             $upd->handleJuez($juez);
         }
         // actualizamos clubes
-        foreach($data['Clubes'] as $club) {
+        foreach($res['Clubes'] as $club) {
             $this->reportProgress(_("Updating")." "._("Club").": ".$club['Nombre']);
             $upd->handleClub($club);
         }
         // actualizamos guias
-        foreach($data['Guias'] as $guia) {
+        foreach($res['Guias'] as $guia) {
             $this->reportProgress(_("Updating")." "._("Handler").": ".$guia['Nombre']);
             $upd->handleGuia($guia);
         }
         // actualizamos perros
-        foreach($data['Perros'] as $perro) {
+        foreach($res['Perros'] as $perro) {
             $this->reportProgress(_("Updating")." "._("Dog").": ".$perro['Nombre']);
             $upd->handlePerro($perro);
         }

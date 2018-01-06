@@ -41,13 +41,14 @@ class Updater {
         $this->myLogger=new Logger($name,$this->myConfig->getEnv("debug_level"));
     }
 
-    private function setForUpdate($data,$key,$quote) {
+    private function setForUpdate($data,$key,$quote,$realkey="") {
+        if ($realkey==="") $realkey=$key;
         if ($quote) { // text fields. quote and set if not empty
             if ($data[$key]=="") return "";
             $q=$this->myDBObject->conn->real_escape_string($data[$key]);
-            return ($data[$key]=="")?"":" {$key}='{$q}' ";
+            return ($data[$key]=="")?"":" {$realkey}='{$q}' ";
         } else { // integer fields are allways set
-            return " {$key}={$data[$key]} ";
+            return " {$realkey}={$data[$key]} ";
         }
     }
 
@@ -250,7 +251,7 @@ class Updater {
         $nombre= $this->setForUpdate($guia,"Nombre",true);
         $tel= $this->setForUpdate($guia,"Telefono",true);   // PENDING: do not transfer to "anyone"
         $mail= $this->setForUpdate($guia,"Email",true);     // PENDING: do not transfer to "anyone"
-        $club= $this->setForUpdate($found,"ID",false); // get ClubID from found club object
+        $club= $this->setForUpdate($found,"ID",false,"Club"); // get ClubID from found club object
         $fed= $this->setForUpdate($guia,"Federation",false);
         $comments= $this->setForUpdate($guia,"Observaciones",true);
         $cat= $this->setForUpdate($guia,"Categoria",true);
@@ -336,7 +337,7 @@ class Updater {
         $loe= $this->setForUpdate($perro,"LOE_RRC",true); // PENDING: do not transfer to "anyone"
         $cat= $this->setForUpdate($perro,"Categoria",true);
         $grad= $this->setForUpdate($perro,"Grado",true);
-        $handler= $this->setForUpdate($found,"ID",false); // use found handler to extract Handler ID
+        $handler= $this->setForUpdate($found,"ID",false,"Guia"); // use found handler to extract Handler ID
 
             // fase 1: buscar por ServerID
         $str="UPDATE Perros SET ".
