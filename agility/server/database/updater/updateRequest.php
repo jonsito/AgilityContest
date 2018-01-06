@@ -35,7 +35,7 @@ try {
     $timestamp=http_request("timestamp","s",date('Y-m-d H:i:s'));
     // need to do a more elaborated way of hanlde this...
     $serial=http_request("Serial","s","");
-    if ($serial==="") throw new Exception("updateRequest.php: invalid serial number");
+    if (($serial==="") || (!is_numeric($serial))) throw new Exception("updateRequest.php: invalid serial number");
     switch($operation) {
         case "progress":
             if (!is_dir(SYNCDIR)) @mkdir(SYNCDIR);
@@ -49,6 +49,7 @@ try {
             break;
         case "checkForUpdates": // this is to be executed in client
             $am= new AuthManager("adminFunctions");
+            if ($am->isDefaultLicense()) throw new Exception("updateRequest: Invalid License");
             $am->access(PERMS_ADMIN); // throw exception if not admin
             $ul=new Uploader("checkForUpdates",$suffix);
             // send / receive changes from server
@@ -57,6 +58,7 @@ try {
             break;
         case "updateRequest": // this is to be executed on client app
             $am= new AuthManager("adminFunctions");
+            if ($am->isDefaultLicense()) throw new Exception("updateRequest: Invalid License");
             $am->access(PERMS_ADMIN); // throw exception if not admin
             $ul=new Uploader("UserRequestedUpdateDB",$suffix);
             $res=$ul->doRequestForUpdates($serial);

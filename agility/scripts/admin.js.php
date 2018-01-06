@@ -432,11 +432,11 @@ function askForUpgrade(msg,name,release){
 }
 
 function checkForDatabaseUpdates() {
+    $('#tools-syncdbLbl').html("");
     // check if configuration allows share data
-    if (parseInt(ac_config.search_updatedb)===0) {
-        $('#tools-syncdbLbl').html("");
-        return;
-    }
+    if (ac_regInfo.Serial==="00000000") return; // no license
+    if (parseInt(ac_config.search_updatedb)===0) return; // no allowed in config
+    if (!checkForAdmin()) return; // not admin user
     // call server
     $.ajax({
         url:"/agility/server/database/updater/updateRequest.php",
@@ -463,16 +463,19 @@ function checkForDatabaseUpdates() {
 
 function synchronizeDatabase() {
     // check if configuration allows share data
-    if (parseInt(ac_config.search_updatedb)===0) {
-        $.messager.alert(
-            '<?php _e("Notice");?>',
-            '<?php _e("You need to enable sharing data in configuration menu"); ?>',
-            "info"
-        );
+    var msg="";
+    if (parseInt(ac_config.search_updatedb)===0)
+        msg= '<?php _e("You need to enable sharing data in configuration menu"); ?>';
+    // check for valid license
+    if (ac_regInfo.Serial==="00000000")
+        msg= '<?php _e("This app is not registered. Please use a valid license"); ?>';
+    // check for valid user
+    if (!checkForAdmin())
+        msg= '<?php _e("This operation requires admin privileges"); ?>';
+    if (msg!=="") {
+        $.messager.alert('<?php _e("Notice");?>',msg,"info");
         return;
     }
-    // check if license and user allows it
-    if (!checkForAdmin()) return;
     // call server
     var suffix=getRandomString(8); // random string to handle progress
     $.ajax({

@@ -59,7 +59,7 @@ try {
             // if configured to do search for new database entries in master server
             $result['NewEntries']=0;
             if (intval($config->getEnv("search_updatedb"))!==0) {
-                // if not admin throw exception, but allow to continue
+                // if not admin or license serial is zero, throw exception, but allow to continue
                 try{
                     $am->access(PERMS_ADMIN);
                     $up=new Uploader("CheckUpdateDBAtLogin");

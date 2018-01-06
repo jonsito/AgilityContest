@@ -255,7 +255,17 @@ class AuthManager {
 		$data["ENABLE_TRAINING"]	= ( $p & 512 ); // permite gestion de sesiones de entrenamiento
 		return $data;
 	}
-	
+
+	function isDefaultLicense(){
+        // singleton retrieve registration data
+        if ($this->registrationInfo===null) {
+            $this->registrationInfo=$this->checkRegistrationInfo();
+        }
+        if ($this->registrationInfo===null) return false;
+        // raw registration info comes in lowercase
+        return ($this->registrationInfo['serial']==="00000000")?true:false;
+	}
+
 	function registerApp() {
 		$this->myLogger->enter();
 		// extraemos los datos de registro
