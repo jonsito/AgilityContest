@@ -75,8 +75,10 @@ class Clubes extends DBObject {
 		$this->myLogger->debug("Nombre: $nombre Direccion1: $direccion1 Contacto1: $contacto1 Observaciones: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
+        if (!$res) return $this->error($stmt->error);
+        // if running on master server set ServerID as insert_id
+        $this->setServerID("Clubes",$stmt->insert_id);
 		$stmt->close();
-		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return ""; // return ok
 	}

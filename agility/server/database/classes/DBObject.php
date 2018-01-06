@@ -81,7 +81,25 @@ class DBObject {
 		while ($row= $rs->fetch_array(MYSQLI_ASSOC)) array_push($res,$row);
 		return $res;
 	}
-	
+
+    /**
+     * if running in master server, set ServerID as ID on last insert
+     * @param {string} $table to insert into
+     * @param {integer} $id ID of affected row
+     */
+	function setServerID($table,$id) {
+	    // if not in master server do nothing
+        $server=$this->myConfig['server_name'];
+        $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
+        if ($server!==$myself) return;
+        // on server, every insert in Jueces,Clubes, Perros and Guias
+        // should set their server id to be same as their ID
+        $sql="UPDATE {$table} SET ServerID={$id} WHERE (ID={$id})";
+        $rs=$this->query($sql);
+        if (!$rs) return $this->error($this->conn->error);
+        $rs->free();
+        return "";
+    }
 
 	/**
 	 * Generic function for handle select() on child classes

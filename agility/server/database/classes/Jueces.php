@@ -55,12 +55,12 @@ class Jueces extends DBObject {
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('ssssisissi',$nombre,$direccion1,$direccion2,$telefono,$internacional,$pais,$practicas,$email,$observaciones,$feds);
 		if (!$res) return $this->error($this->conn->error);
-
-		
-		$this->myLogger->debug("Nombre: $nombre Dir1: $direccion1 Dir2: $direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
+		// $this->myLogger->debug("Nombre: $nombre Dir1: $direccion1 Dir2: $direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
+		// if running on master server set ServerID as insert_id
+        $this->setServerID("Jueces",$stmt->insert_id);
 		$stmt->close();
 		$this->myLogger->leave();
 		return ""; 

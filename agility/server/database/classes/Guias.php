@@ -51,7 +51,9 @@ class Guias extends DBObject {
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) return $this->error($stmt->error); 
+		if (!$res) return $this->error($stmt->error);
+        // if running on master server set ServerID as insert_id
+        $this->setServerID("Guias",$stmt->insert_id);
 		$stmt->close();
 		$this->myLogger->leave();
 		return "";
