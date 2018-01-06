@@ -170,6 +170,13 @@ class Updater {
         $comments= $this->setForUpdate($club,"Observaciones",true);
         $baja= $this->setForUpdate($club,"Baja",false);
 
+        // nos aseguramos de que el logo exista.
+        // si no existe, copiamos el default:
+        $logodir=__DIR__."/../../../images/logos";
+        if (!file_exists("{$logodir}/{$logo}")) {
+            @copy("{$logodir}/agilitycontest.png", "{$logodir}/{$logo}");
+        }
+
         // fase 1: buscar por ServerID
         $str="UPDATE Clubes SET ".
             "{$nombre},{$nlargo},{$dir1},{$dir2},{$prov},{$pais},{$c1},{$c2},{$c3},".
