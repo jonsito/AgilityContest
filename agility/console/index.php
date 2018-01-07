@@ -4,6 +4,8 @@ header("Access-Control-Allow-Origin: https//{$_SERVER['SERVER_ADDR']}/agility",f
 header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",false);
 require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
+require_once(__DIR__ . "/../server/auth/CertManager.php");
+
 if (!isset($config) ) $config=Config::getInstance();
 /* check for navigator */
 
@@ -23,8 +25,18 @@ if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
 if( ! function_exists('password_verify')) {
     die("Invalid environment: You should have php-5.5.X or higher version installed");
 }
+
+// access to console is forbidden in restricted mode unless master server with valid certificate
 if ( intval($config->getEnv('restricted'))!=0) {
-    die("Access other than public directory is not allowed");
+    // if not in master server drop connection
+    $server=$config->getEnv('server_name');
+    $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
+    if ($server!==$myself) die("Access other than public directory is not allowed");
+    // in master server access to console is controlled by mean of SSL certificates
+    $cm=new CertManager();
+    if (!$cm->hasValidCert()) die("Public access to master console is not allowed");
+    // ok, valid certificate, so check ACL
+    if (!$cm->checkCertACL()) die("You are not allowed to access into master console");
 }
 ?>
 

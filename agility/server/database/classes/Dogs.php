@@ -60,7 +60,7 @@ class Dogs extends DBObject {
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error);
         // if running on master server set ServerID as insert_id
-        $this->setServerID("Perros",$stmt->insert_id);
+        if ($licencia!=="") $this->setServerID("Perros",$stmt->insert_id);
 		$stmt->close();
 		$this->myLogger->leave();
 		return "";
@@ -118,6 +118,9 @@ class Dogs extends DBObject {
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error); 
 		$stmt->close();
+		// PENDING: study if this is really neccesary:
+        // no sense in client, and in server is done "by hand"
+		// if (!is_null($licencia)) $this->setServerID("Perros",$id);
 		// update data on inscripciones
 		$res=$this->updateInscripciones($id);
 		$this->myLogger->leave();
