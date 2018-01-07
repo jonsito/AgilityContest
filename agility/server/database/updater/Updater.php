@@ -351,9 +351,9 @@ class Updater {
         // fase 2: buscar por nombre/licencia/guia
         // en este caso buscamos coincidencia exacta, pues existe el tema de las licencias multiples
         // PENDING: preveer la posibilidad de cambio de licencia en perros que todavía no tienen serverid
-        $lic=$this->setForInsert($perro,"Nombre",true);
-        $name=$this->setForInsert($perro,"Licencia",true);
-        $str="UPDATE Guias SET ".
+        $lic=$this->setForInsert($perro,"Licencia",true);
+        $name=$this->setForInsert($perro,"Nombre",true);
+        $str="UPDATE Perros SET ".
             "${sid},{$lname},{$gender},{$breed},{$chip},{$loe},{$cat},{$grad},{$fed}".
             "WHERE (Nombre={$name}) AND (Licencia={$lic}) AND (Guia={$found['ID']})";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
