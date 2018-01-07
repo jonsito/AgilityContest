@@ -43,13 +43,14 @@ class CertManager {
 
     // compara el serial number del certificado recibido con
     // la lista de certificados autorizados a acceder a la consola maestra
+    // cada linea tiene el formato: SERIALNUMBERINUPPERCASE - Nombre del usuario
     public function checkCertACL() {
         $acl="/etc/AgilityContest/certs.allow";
         if (!file_exists($acl)) return false;
-        $a=file($acl);
+        $a=file($acl,FILE_IGNORE_NEW_LINES);
         $ser=$_SERVER['SSL_CLIENT_M_SERIAL'];
         foreach($a as $sn) {
-            if ($ser===$sn) return true;
+            if ($ser===substr($sn,0,32)) return true;
         }
         return false;
     }

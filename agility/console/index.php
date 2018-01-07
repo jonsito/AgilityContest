@@ -29,7 +29,7 @@ if( ! function_exists('password_verify')) {
 // access to console is forbidden in restricted mode unless master server with valid certificate
 if ( intval($config->getEnv('restricted'))!=0) {
     // if not in master server drop connection
-    $server=$config->getEnv('server_name');
+    $server=$config->getEnv('master_server');
     $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
     if ($server!==$myself) die("Access other than public directory is not allowed");
     // in master server access to console is controlled by mean of SSL certificates
