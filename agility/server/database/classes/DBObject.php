@@ -97,7 +97,6 @@ class DBObject {
         $sql="UPDATE {$table} SET ServerID={$id} WHERE (ID={$id})";
         $rs=$this->query($sql);
         if (!$rs) return $this->error($this->conn->error);
-        $rs->free();
         return "";
     }
 
