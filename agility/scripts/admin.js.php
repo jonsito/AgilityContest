@@ -503,6 +503,7 @@ function synchronizeDatabase() {
                 $.messager.alert("<?php _e('Done');?>",msg,"info");
                 checkForDatabaseUpdates();
             }
+            $.messager.progress('close');
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.progress('close');

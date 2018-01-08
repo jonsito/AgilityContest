@@ -267,10 +267,12 @@ class Updater {
 
         // fase 2: buscar por nombre/federacion/club
         // en este caso buscamos coincidencia exacta, pues la posibilidad de nombres repetidos es alta
+        // NOTA: si hay dos guias con el mismo nombre y ninguno tiene ServerID asignado,
+        // se va a producir un error en la actualización, pues va a afectar a los dos
         $name=$this->setForInsert($guia,"Nombre",true);
         $str="UPDATE Guias SET ".
             "{$sid},{$nombre},{$tel},{$mail},{$club},{$fed},{$comments},{$cat} ".
-            "WHERE (Nombre={$name}) AND (Federation={$guia['Federation']}) AND (Club={$found['ID']})";
+            "WHERE (Nombre={$name}) AND (Federation={$guia['Federation']}) AND (ServerID=0)";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); return; }
@@ -349,13 +351,13 @@ class Updater {
         if ($this->myDBObject->matched_rows()!=0) return; // next dog
 
         // fase 2: buscar por nombre/licencia/guia
-        // en este caso buscamos coincidencia exacta, pues existe el tema de las licencias multiples
+        // en este caso buscamos coincidencia exacta nombre/licencia, pues existe el tema de las licencias multiples
         // PENDING: preveer la posibilidad de cambio de licencia en perros que todavía no tienen serverid
         $lic=$this->setForInsert($perro,"Licencia",true);
         $name=$this->setForInsert($perro,"Nombre",true);
         $str="UPDATE Perros SET ".
             "${sid},{$lname},{$gender},{$breed},{$chip},{$loe},{$cat},{$grad},{$fed}".
-            "WHERE (Nombre={$name}) AND (Licencia={$lic}) AND (Guia={$found['ID']})";
+            "WHERE (Nombre={$name}) AND (Licencia={$lic}) AND (ServerID=0)";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); return; }
