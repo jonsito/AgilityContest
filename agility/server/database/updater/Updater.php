@@ -357,7 +357,7 @@ class Updater {
         $name=$this->setForInsert($perro,"Nombre",true);
         $str="UPDATE Perros SET ".
             "${sid},{$lname},{$gender},{$breed},{$chip},{$loe},{$cat},{$grad},{$fed}".
-            "WHERE (Nombre={$name}) AND (Licencia={$lic}) AND (ServerID=0)";
+            "WHERE (Nombre={$name}) AND (ServerID=0) AND ( (Licencia={$lic}) OR (Guia={$found['ID']}) )";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); return; }
