@@ -353,11 +353,11 @@ class Updater {
         // fase 2: buscar por nombre/licencia/guia
         // en este caso buscamos coincidencia exacta nombre/licencia, pues existe el tema de las licencias multiples
         // PENDING: preveer la posibilidad de cambio de licencia en perros que todavía no tienen serverid
-        $lic=$this->setForInsert($perro,"Licencia",true);
+        $nlic=$this->setForInsert($perro,"Licencia",true);
         $name=$this->setForInsert($perro,"Nombre",true);
         $str="UPDATE Perros SET ".
-            "${sid},{$lname},{$gender},{$breed},{$chip},{$loe},{$cat},{$grad},{$fed}".
-            "WHERE (Nombre={$name}) AND (ServerID=0) AND ( (Licencia={$lic}) OR (Guia={$found['ID']}) )";
+            "${sid},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$fed}".
+            "WHERE (Nombre={$name}) AND (ServerID=0) AND ( (Licencia={$nlic}) OR (Guia={$found['ID']}) )";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); return; }
@@ -370,7 +370,7 @@ class Updater {
         $gender= $this->setForInsert($perro,"Genero",true);
         $breed= $this->setForInsert($perro,"Raza",true);
         $chip= $this->setForInsert($perro,"Chip",true); // PENDING: do not transfer to "anyone"
-        // $lic= $this->setForInsert($perro,"Licencia",true); // already done above
+        $lic= $this->setForInsert($perro,"Licencia",true); // already done above
         $loe= $this->setForInsert($perro,"LOE_RRC",true); // PENDING: do not transfer to "anyone"
         $cat= $this->setForInsert($perro,"Categoria",true);
         $grad= $this->setForInsert($perro,"Grado",true);

@@ -89,7 +89,7 @@ class DBObject {
      */
 	function setServerID($table,$id) {
 	    // if not in master server do nothing
-        $server=$this->myConfig['server_name'];
+        $server=$this->myConfig-getEnv('master_server');
         $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
         if ($server!==$myself) return;
         // on server, every insert in Jueces,Clubes, Perros and Guias
