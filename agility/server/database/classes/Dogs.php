@@ -120,7 +120,7 @@ class Dogs extends DBObject {
 		$stmt->close();
 		// PENDING: study if this is really neccesary:
         // no sense in client, and in server is done "by hand"
-		// if (!is_null($licencia)) $this->setServerID("Perros",$id);
+		if (!is_null($licencia)) $this->setServerID("Perros",$id);
 		// update data on inscripciones
 		$res=$this->updateInscripciones($id);
 		$this->myLogger->leave();
