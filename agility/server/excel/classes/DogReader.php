@@ -489,6 +489,7 @@ class DogReader {
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetHandler(): blindInsertGuia '$a' error:".$this->myDBObject->conn->error;
         $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
+        $this->myDBObject->setServerID("Guias",$id); // on server add ServerID
         $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '$a') AND (ClubID=$c)";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
@@ -582,8 +583,9 @@ class DogReader {
             " VALUES ( '$nombre','$nlargo','$loe',$h,'$c','$g','$raza','$chip','$lic','$s',$f)";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
-        $id=$this->myDBObject->conn->insert_id;
         // retrieve insertID and update temporary table.
+        $id=$this->myDBObject->conn->insert_id;
+        $this->myDBObject->setServerID("Perros",$id); // on master server also set ServerID
         // Notice that some items may alread be set, so a bit redundant ( just only really need insert id )
         $str="UPDATE $t SET DogID=$id, Nombre='$nombre',LOE_RRC='$loe',Raza='$raza',Chip='$chip',Licencia='$lic',NombreLargo='$nlargo' ".
             "WHERE (Nombre = '$a') AND (HandlerID=$h)";
@@ -651,6 +653,7 @@ class DogReader {
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEntry(): Insert Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
+            $this->myDBObject->setServerID("Guias",$id); // on master server set ServerID
             $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '{$obj->NombreGuia}') AND (ClubID=$c)";
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEnrty(): Temporary table update Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error; // invalid update; mark error
@@ -678,6 +681,7 @@ class DogReader {
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEntry(): InsertDog '$nombre' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID
+            $this->myDBObject->setServerID("Perros",$id); // on master server set ServerID
             // and update temporary table with processed data and add insertid.
             // Leave as is unchanged fields
             $str="UPDATE $t SET DogID=$id, Nombre='$nombre',Licencia='$lic',Raza='$raza',NombreLargo='$nlargo' ".
