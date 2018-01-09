@@ -83,6 +83,20 @@ class DBObject {
 	}
 
     /**
+     * if running in master server, set ServerID as ID when required
+     * @param {string} $table to insert into
+     * @param {integer} $id ID of affected row
+     */
+	function fixServerID($table){
+        // if not in master server do nothing
+        $server=$this->myConfig->getEnv('master_server');
+        $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
+        if ($server!==$myself) return;
+        if ($table=="Perros") $where=" AND ( (Licencia IS NULL) OR (Licencia='') ";
+        $str="UPDATE {$table} SET ServerID=ID WHERE (ServerID=0) {$where}";
+    }
+
+    /**
      * if running in master server, set ServerID as ID on last insert
      * @param {string} $table to insert into
      * @param {integer} $id ID of affected row

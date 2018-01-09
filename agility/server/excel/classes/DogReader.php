@@ -585,7 +585,7 @@ class DogReader {
         if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
         // retrieve insertID and update temporary table.
         $id=$this->myDBObject->conn->insert_id;
-        $this->myDBObject->setServerID("Perros",$id); // on master server also set ServerID
+        if ($lic!=="") $this->myDBObject->setServerID("Perros",$id); // on master server also set ServerID
         // Notice that some items may alread be set, so a bit redundant ( just only really need insert id )
         $str="UPDATE $t SET DogID=$id, Nombre='$nombre',LOE_RRC='$loe',Raza='$raza',Chip='$chip',Licencia='$lic',NombreLargo='$nlargo' ".
             "WHERE (Nombre = '$a') AND (HandlerID=$h)";
@@ -681,7 +681,7 @@ class DogReader {
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEntry(): InsertDog '$nombre' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID
-            $this->myDBObject->setServerID("Perros",$id); // on master server set ServerID
+            if ($lic!=="") $this->myDBObject->setServerID("Perros",$id); // on master server set ServerID
             // and update temporary table with processed data and add insertid.
             // Leave as is unchanged fields
             $str="UPDATE $t SET DogID=$id, Nombre='$nombre',Licencia='$lic',Raza='$raza',NombreLargo='$nlargo' ".
@@ -840,6 +840,7 @@ class DogReader {
             $res=$this->myDBObject->query($str);
             if (!$res) return "beginImport(clubes): update error:".$this->myDBObject->conn->error;
         }
+        $this->myDBObject->fixServerID("Clubes");
 
         // import handler data
         $this->saveStatus("Importing resulting handlers data");
@@ -848,6 +849,7 @@ class DogReader {
             ", Guias.Club = $t.ClubID ";
         $res=$this->myDBObject->query($str);
         if (!$res) return "beginImport(handlers): update error:".$this->myDBObject->conn->error;
+        $this->myDBObject->fixServerID("Guias");
 
         // import dog data
         $this->saveStatus("Importing resulting dogs data");
@@ -865,6 +867,10 @@ class DogReader {
             ", Perros.Guia = $t.HandlerID ";
         $res=$this->myDBObject->query($str);
         if (!$res) return "{$this->name} beginImport(): update error:".$this->myDBObject->conn->error;
+        // finalmente, si estamos en el master server se ajusta el server id
+        // en aquellos perros que tienen licencia pero serverID=0
+        $this->myDBObject->fixServerID("Perros");
+
         $this->myLogger->leave();
         return array( 'operation'=>'import','success'=>'close');
     }
