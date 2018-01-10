@@ -282,24 +282,24 @@ class PrintClasificacion extends PrintCommon {
 		
 		// fomateamos datos
 		$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
-		$penal=number_format($row['Penalizacion'],$this->timeResolution);
-		$tiempo=number_format($row['Tiempo'],$this->timeResolution);
+		$penal=number_format2($row['Penalizacion'],$this->timeResolution);
+		$tiempo=number_format2($row['Tiempo'],$this->timeResolution);
 		$factor=1;
 		if ($this->manga1!==null) {
-            $v1= ($row['P1']>=200)?"-":number_format($row['V1'],2);
-            $t1= ($row['P1']>=200)?"-":number_format($row['T1'],$this->timeResolution);
-            $p1=number_format($row['P1'],$this->timeResolution);
+            $v1= ($row['P1']>=200)?"-":number_format2($row['V1'],2);
+            $t1= ($row['P1']>=200)?"-":number_format2($row['T1'],$this->timeResolution);
+            $p1=number_format2($row['P1'],$this->timeResolution);
         } else { $v1="";$t1="";$p1=""; }
         if ($this->manga2!==null) {
-            $v2= ($row['P2']>=200)?"-":number_format($row['V2'],2);
-            $t2= ($row['P2']>=200)?"-":number_format($row['T2'],$this->timeResolution);
-            $p2=number_format($row['P2'],$this->timeResolution);
+            $v2= ($row['P2']>=200)?"-":number_format2($row['V2'],2);
+            $t2= ($row['P2']>=200)?"-":number_format2($row['T2'],$this->timeResolution);
+            $p2=number_format2($row['P2'],$this->timeResolution);
         } else { $v2="";$t2="";$p2=""; }
         if ($this->manga3!==null) {
 		    $factor=0.75;
-            $v3= ($row['P3']>=200)?"-":number_format($row['V3'],2);
-            $t3= ($row['P3']>=200)?"-":number_format($row['T3'],$this->timeResolution);
-            $p3=number_format($row['P3'],$this->timeResolution);
+            $v3= ($row['P3']>=200)?"-":number_format2($row['V3'],2);
+            $t3= ($row['P3']>=200)?"-":number_format2($row['T3'],$this->timeResolution);
+            $p3=number_format2($row['P3'],$this->timeResolution);
         } else { $v3="";$t3="";$p3=""; }
 		
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)

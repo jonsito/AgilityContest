@@ -69,6 +69,17 @@ function disable_gzip() {
 }
 // disable_gzip();
 
+/**
+ * Translate a number with arbitrary precission to fixed point decimal
+ * @param {float} $number number to translate
+ * @param {int} $prec number of decimals
+ * @return {string} resulting number
+ */
+function number_format2($number,$prec) {
+    // return number_format($number,$prec); // round
+    return bcdiv(strval($number),"1",$prec); // trunc
+}
+
 // convert a #rrggbb string to an array($r,$g,$b)
 function hex2rgb($hex) {
    $hex = str_replace("#", "", $hex);

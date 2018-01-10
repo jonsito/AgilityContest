@@ -290,13 +290,13 @@ class PrintClasificacionTeam extends PrintCommon {
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			// fomateamos datos
 			$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
-			$penal=number_format($row['Penalizacion'],$this->timeResolution);
-			$v1= ($row['P1']>=200)?"-":number_format($row['V1'],1);
-			$t1= ($row['P1']>=200)?"-":number_format($row['T1'],$this->timeResolution);
-			$p1=number_format($row['P1'],$this->timeResolution);
-			$v2= ($row['P2']>=200)?"-":number_format($row['V2'],1);
-			$t2= ($row['P2']>=200)?"-":number_format($row['T2'],$this->timeResolution);
-			$p2=number_format($row['P2'],$this->timeResolution);
+			$penal=number_format2($row['Penalizacion'],$this->timeResolution);
+			$v1= ($row['P1']>=200)?"-":number_format2($row['V1'],1);
+			$t1= ($row['P1']>=200)?"-":number_format2($row['T1'],$this->timeResolution);
+			$p1=number_format2($row['P1'],$this->timeResolution);
+			$v2= ($row['P2']>=200)?"-":number_format2($row['V2'],1);
+			$t2= ($row['P2']>=200)?"-":number_format2($row['T2'],$this->timeResolution);
+			$p2=number_format2($row['P2'],$this->timeResolution);
 
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 
@@ -343,8 +343,8 @@ class PrintClasificacionTeam extends PrintCommon {
 			}
 			// global
             $this->SetTextColor(0);
-			$this->Cell(9,4,number_format($row['Tiempo'],$this->timeResolution),'L',0,'C',true);	// Tiempo
-			$this->Cell(9,4,number_format($penal,$this->timeResolution),0,0,'C',true);	// Penalizacion
+			$this->Cell(9,4,number_format2($row['Tiempo'],$this->timeResolution),'L',0,'C',true);	// Tiempo
+			$this->Cell(9,4,number_format2($penal,$this->timeResolution),0,0,'C',true);	// Penalizacion
 			$this->Cell(9,4,$row['Calificacion'],0,0,'C',true);	// Calificacion
 			$this->SetFont($this->getFontName(),'B',8); // mark "puesto" in bold typeface
 			$this->Cell(7,4,$puesto,'R',0,'C',true);	// Puesto
@@ -356,23 +356,23 @@ class PrintClasificacionTeam extends PrintCommon {
                 $this->SetFont($this->getFontName(),'BI',8); // default font
                 $this->Cell(21,4,_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)),"L",0,'L',true);	// nombre manga 1
                 $this->SetFont($this->getFontName(),'',8); // default font
-                $this->Cell(12,4,number_format($team['T1'],$this->timeResolution),0,0,'R',true);	// tiempo manga 1
-                $this->Cell(12,4,number_format($team['P1'],$this->timeResolution),'R',0,'R',true);	// penalizacion manga 1
+                $this->Cell(12,4,number_format2($team['T1'],$this->timeResolution),0,0,'R',true);	// tiempo manga 1
+                $this->Cell(12,4,number_format2($team['P1'],$this->timeResolution),'R',0,'R',true);	// penalizacion manga 1
                 break;
             case 1: // manga 2
                 $this->SetFont($this->getFontName(),'BI',8); // default font
                 $this->Cell(21,4,_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)),"L",0,'L',true);	// nombre manga 2
                 $this->SetFont($this->getFontName(),'',8); // default font
-                $this->Cell(12,4,number_format($team['T2'],$this->timeResolution),0,0,'R',true);	// tiempo manga 2
+                $this->Cell(12,4,number_format2($team['T2'],$this->timeResolution),0,0,'R',true);	// tiempo manga 2
                 $this->SetFont($this->getFontName(),'',8); // default font
-                $this->Cell(12,4,number_format($team['P2'],$this->timeResolution),'R',0,'R',true);	// penalizacion manga 2
+                $this->Cell(12,4,number_format2($team['P2'],$this->timeResolution),'R',0,'R',true);	// penalizacion manga 2
                 break;
             case 2: // global
                 $this->SetFont($this->getFontName(),'BI',8); // default font
                 $this->Cell(21,4,_("Final"),'LB',0,'L',true);
                 $this->SetFont($this->getFontName(),'B',8); // default font
-                $this->Cell(12,4,number_format($team['Tiempo'],$this->timeResolution),'B',0,'R',true);	// tiempo final
-                $this->Cell(12,4,number_format($team['Penalizacion'],$this->timeResolution),'RB',0,'R',true);	// penalizacion final
+                $this->Cell(12,4,number_format2($team['Tiempo'],$this->timeResolution),'B',0,'R',true);	// tiempo final
+                $this->Cell(12,4,number_format2($team['Penalizacion'],$this->timeResolution),'RB',0,'R',true);	// penalizacion final
                 break;
             case 3: // puntos (si se requieren )
                 if (!array_key_exists('Puntos',$team) || $team['Puntos']==0) break;

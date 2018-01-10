@@ -130,7 +130,7 @@ class PrintResultadosGames extends PrintCommon {
         array_push($data,$row['PRecorrido']);
         array_push($data,$row['PTiempo']);
         array_push($data,$row['Penalizacion']);
-        array_push($data,number_format($row['Tiempo'],$this->timeResolution));
+        array_push($data,number_format2($row['Tiempo'],$this->timeResolution));
         array_push($data,$row['Calificacion']);
         array_push($data,"".$row['Puesto']."º");
         $this->ac_row($count,8);

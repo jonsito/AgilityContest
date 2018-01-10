@@ -205,9 +205,9 @@ class PrintResultadosByEquipos3 extends PrintCommon {
                 // $this->myLogger->trace("imprimiendo datos del perro {$row['Perro']} - {$row['Nombre']}");
                 // properly format special fields
                 $puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
-                $veloc= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],1);
-                $tiempo= ($row['Penalizacion']>=200)?"-":number_format($row['Tiempo'],$this->timeResolution);
-                $penal=number_format($row['Penalizacion'],$this->timeResolution);
+                $veloc= ($row['Penalizacion']>=200)?"-":number_format2($row['Velocidad'],1);
+                $tiempo= ($row['Penalizacion']>=200)?"-":number_format2($row['Tiempo'],$this->timeResolution);
+                $penal=number_format2($row['Penalizacion'],$this->timeResolution);
 
                 // print row data
                 $this->SetFont($this->getFontName(),'',8); // set data font size
@@ -235,11 +235,11 @@ class PrintResultadosByEquipos3 extends PrintCommon {
                 $this->ac_header(2,8);
                 // en las dos primeras filas imprimimos informacion de resultados del equipo
                 if ($n==0) {
-                    $tg=number_format($equipo['Tiempo'],$this->timeResolution);
+                    $tg=number_format2($equipo['Tiempo'],$this->timeResolution);
                     $this->Cell($this->pos[14],5,_("Time").": $tg",	'LBR',	0,		$this->align[14],	true);
                 }
                 if ($n==1) {
-                    $pg=number_format($equipo['Penalizacion'],$this->timeResolution);
+                    $pg=number_format2($equipo['Penalizacion'],$this->timeResolution);
                     $this->Cell($this->pos[14],5,_("Penaliz").".: $pg",	'LBR',	0,		$this->align[14],	true);
                 }
                 // si la clasificacion va por puntos, se incluye tambien

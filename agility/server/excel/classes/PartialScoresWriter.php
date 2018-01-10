@@ -115,9 +115,9 @@ class PartialScoresWriter extends XLSX_Writer {
 		foreach($this->resultados['rows'] as $row) {
 		    // preformat specific fields
             $row['Puesto']= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}";
-            $row['Velocidad']= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],2);
-            $row['Tiempo']= ($row['Penalizacion']>=200)?"0":number_format($row['Tiempo'],$this->timeResolution);
-            $row['Penalizacion']=number_format($row['Penalizacion'],$this->timeResolution);
+            $row['Velocidad']= ($row['Penalizacion']>=200)?"-":number_format2($row['Velocidad'],2);
+            $row['Tiempo']= ($row['Penalizacion']>=200)?"0":number_format2($row['Tiempo'],$this->timeResolution);
+            $row['Penalizacion']=number_format2($row['Penalizacion'],$this->timeResolution);
             $row['Faltas']=$row['Faltas']+$row['Tocados'];
             // extract relevant information from database received dog
 			$line=array();

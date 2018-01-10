@@ -203,12 +203,12 @@ class Resultados extends DBObject {
             $result['trs']=ceil($result['trs']);
 		    $result['trm']=ceil($result['trm']);
         }  else { // si no, ajustamos a dos decimales
-            $result['trs']=number_format($result['trs'],2);
-            $result['trm']=number_format($result['trm'],2);
+            $result['trs']=number_format2($result['trs'],2);
+            $result['trm']=number_format2($result['trm'],2);
         }
 		if (! array_key_exists('vel',$result) ) {
 			// Finalmente, si no nos la han dado, evaluamos la velocidad de la ronda con dos decimales
-			$result['vel']= ($result['trs']==0)?0:/*'&asymp;'.*/number_format($result['dist']/$result['trs'],2);
+			$result['vel']= ($result['trs']==0)?0:/*'&asymp;'.*/number_format2($result['dist']/$result['trs'],2);
 		}
 		// esto es todo amigos
 		return $result;

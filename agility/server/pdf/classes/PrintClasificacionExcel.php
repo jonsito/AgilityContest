@@ -188,13 +188,13 @@ class PrintClasificacionExcel {
 		
 		// fomateamos datos
 		$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}";
-		$penal=number_format($row['Penalizacion'],$this->timeResolution);
-		$v1= ($row['P1']>=200)?"-":number_format($row['V1'],2);
-		$t1= ($row['P1']>=200)?"-":number_format($row['T1'],$this->timeResolution);
-		$p1=number_format($row['P1'],$this->timeResolution);
-		$v2= ($row['P2']>=200)?"-":number_format($row['V2'],2);
-		$t2= ($row['P2']>=200)?"-":number_format($row['T2'],$this->timeResolution);
-		$p2=number_format($row['P2'],$this->timeResolution);
+		$penal=number_format2($row['Penalizacion'],$this->timeResolution);
+		$v1= ($row['P1']>=200)?"-":number_format2($row['V1'],2);
+		$t1= ($row['P1']>=200)?"-":number_format2($row['T1'],$this->timeResolution);
+		$p1=number_format2($row['P1'],$this->timeResolution);
+		$v2= ($row['P2']>=200)?"-":number_format2($row['V2'],2);
+		$t2= ($row['P2']>=200)?"-":number_format2($row['T2'],$this->timeResolution);
+		$p2=number_format2($row['P2'],$this->timeResolution);
 
 		$this->xlsNumber($base,0,$row['Dorsal']);
 		$this->xlsLabel($base,1,iconv( "UTF-8", "ISO-8859-1",$row['Nombre']));
@@ -219,7 +219,7 @@ class PrintClasificacionExcel {
 		$this->xlsLabel($base,20,$row['C2']);
         $this->xlsLabel($base,21,$row['Pt2']);
         $this->xlsLabel($base,22,$row['St2']);
-		$this->xlsNumber($base,23,number_format($row['Tiempo'],$this->timeResolution));
+		$this->xlsNumber($base,23,number_format2($row['Tiempo'],$this->timeResolution));
 		$this->xlsNumber($base,24,$penal);
 		$this->xlsLabel($base,25,$row['Calificacion']);
 		$this->xlsLabel($base,26,$puesto);

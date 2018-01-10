@@ -218,8 +218,8 @@ class PrintResultadosByEquipos4 extends PrintCommon {
         $this->Cell(15,7,$team['Tocados'],0,0,'R',false);
         $this->Cell(15,7,$team['Eliminados'],0,0,'R',false);
         $this->Cell(15,7,$team['NoPresentados'],0,0,'R',false);
-        $this->Cell(25,7,number_format($team['Tiempo'],$this->timeResolution),0,0,'R',false);
-        $this->Cell(26,7,number_format($team['Penalizacion'],$this->timeResolution),0,0,'R',false);
+        $this->Cell(25,7,number_format2($team['Tiempo'],$this->timeResolution),0,0,'R',false);
+        $this->Cell(26,7,number_format2($team['Penalizacion'],$this->timeResolution),0,0,'R',false);
 	}
 	
 	// Tabla coloreada

@@ -163,9 +163,9 @@ class PrintResultadosKO extends PrintCommon {
             }
 			// properly format special fields
 			$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}";
-			$veloc= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],2);
-			$tiempo= ($row['Penalizacion']>=200)?"-":number_format($row['Tiempo'],$this->timeResolution);
-			$penal=number_format($row['Penalizacion'],$this->timeResolution);
+			$veloc= ($row['Penalizacion']>=200)?"-":number_format2($row['Velocidad'],2);
+			$tiempo= ($row['Penalizacion']>=200)?"-":number_format2($row['Tiempo'],$this->timeResolution);
+			$penal=number_format2($row['Penalizacion'],$this->timeResolution);
 
 			$this->ac_row($rowcount,7);
 			// print row data

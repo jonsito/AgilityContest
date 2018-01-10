@@ -163,11 +163,11 @@ class PrintEtiquetas_PDF extends PrintCommon {
         $this->SetFont($this->getFontName(),'',9); // font size for results data
 		//Calif1 (134,y,25,8) right
 		$this->SetXY($left+124,$y1);
-		$v=($row['V1']==0)?"":number_format($row['V1'],2)."m/s - ";
+		$v=($row['V1']==0)?"":number_format2($row['V1'],2)."m/s - ";
 		$this->Cell(24,7,$v.$row['C1'],'LB',0,'C',false);
 		//Calif2 (134,y+8,25,9) right
 		$this->SetXY($left+124,$y8);
-        $v=($row['V2']==0)?"":number_format($row['V2'],2)."m/s - ";
+        $v=($row['V2']==0)?"":number_format2($row['V2'],2)."m/s - ";
 		$this->Cell(24,8,$v.$row['C2'],'L',0,'C',false);
 		
 		//Puesto1 (159,y,15,8) center
