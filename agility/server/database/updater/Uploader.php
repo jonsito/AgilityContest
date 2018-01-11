@@ -161,6 +161,15 @@ class Uploader {
             "Version='{$current_version}'"
         );
         if (!$res) throw new Exception ("Updater::getTimeSTamp(): {$this->myDBObject->conn->error}");
+        if ($res['total']==0) {
+            // esto ocurre cuando se cambia a mano la base de datos
+            $this->myLogger->warn("VersionHistory not properly updated");
+            $timestamp=date('Y-m-d H:i:s');
+            $str="UPDATE VersionHistory SET Updated='{$timestamp}' WHERE Version='{$current_version}'";
+            $res=$this->myDBObject->query($str);
+            if (!$res) $this->myLogger->error("Cannot properly set VersionHistory");
+            return 0; // no data to retrieve
+        }
         return $res['rows'][0]['Updated'];
     }
 
