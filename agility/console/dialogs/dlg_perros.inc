@@ -217,7 +217,12 @@ $config =Config::getInstance();
 		columns: [[
 		    {field:'ID', hidden:true},
 			{field:'Nombre',title:'<?php _e('Handler name'); ?>',width:80,align:'right'},
-		    {field:'Club', hidden:true},
+            {field:'Club', hidden:true},
+            {field:'Email', hidden:true},
+            {field:'Categoria', hidden:true},
+            {field:'Federation', hidden:true},
+            {field:'Telefono', hidden:true},
+            {field:'Observaciones', hidden:true},
 			{field:'NombreClub',title:'<?php _e('Club'); ?>',width:40,align:'right'}
 		]],
 		multiple: false,

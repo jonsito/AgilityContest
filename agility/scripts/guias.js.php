@@ -134,7 +134,16 @@ function editGuia(dg){
 }
 
 function editGuiaFromPerros(){ // editar guia desde el dialogo de edicion de perros
-    var r=$('#perros-Guia').combogrid('grid').datagrid('getSelected');
+    // convert a jquery form to a (json) object
+    function formToObject(form){
+        var array = form.serializeArray();
+        var json = {};
+        jQuery.each(array, function() { json[this.name] = this.value || '';  });
+        return json;
+    }
+
+    var dg=$('#perros-Guia').combogrid('grid');
+    var r=dg.datagrid('getSelected');
     if (!r) return; // no handler selected, cannot edit :-)
     $('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('Modify handler data'); ?>'+' - '+fedName(workingData.federation));
     // add extra required parameters to dialog
@@ -144,14 +153,19 @@ function editGuiaFromPerros(){ // editar guia desde el dialogo de edicion de per
 
     // on accept, display correct data in modify dog data
     $('#guias-okBtn').one('click',function(){
+        // locate datagrid index for data being edited
+        var idx = dg.datagrid('getRowIndex',dg.datagrid('getSelected'));
+        // retrieve new club name
         var cname=$('#guias-Club').combogrid('grid').datagrid('getSelected');
         if (!cname) return;
-        var gid=$('#guias-ID').val();
-        var gname=$('#guias-Nombre').val();
-        var clid=cname.ID;
-        var clname=cname.Nombre;
-        $("#perros-Guia").combogrid('setValue',{ID:gid,Nombre:gname,Club:clid,NombreClub:clname});
-        $('#perros-Club').textbox('setValue',clname);
+        var r=formToObject($('#guias-form'));
+        r.NombreClub=cname.Nombre; // add additional field not present in form
+        // update datagrid entry at idx with new values
+        dg.datagrid('updateRow',{index:idx,row:r});
+        // tell combogrid to search and display guiaID (stored at datagrid position idx)
+        $('#perros-Guia').combogrid('setValue',r.ID);
+        // finally fix club name on textbox
+        $('#perros-Club').textbox('setValue',cname.Nombre);
     });
 }
 

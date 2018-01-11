@@ -173,7 +173,7 @@ class Guias extends DBObject {
 		$where="(Guias.Club=Clubes.ID)";
 		if ($q!=="") $where="(Guias.Club=Clubes.ID) AND ( ( Guias.Nombre LIKE '%$q%' ) OR ( Clubes.Nombre LIKE '%$q%' ) )";
 		$result=$this->__select(
-				/* SELECT */ "Guias.ID AS ID, Guias.Federation AS Federation, Guias.Nombre AS Nombre, Guias.Club AS Club,Clubes.Nombre AS NombreClub",
+				/* SELECT */ "Guias.*,Clubes.Nombre AS NombreClub",
 				/* FROM */ "Guias,Clubes",
 				/* WHERE */ "$fed AND $where",
 				/* ORDER BY */ "Nombre ASC, NombreClub ASC",
