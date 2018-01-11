@@ -196,7 +196,7 @@ class Sesiones extends DBObject {
 	function update($id,$data) {
 		$this->myLogger->enter();
 		if ($id==0) return $this->error("Invalid Session ID:$id");
-		$now=date('Y-m-d G:i:s');
+		$now=date('Y-m-d H:i:s');
 		$evtflags=0;
 		$sql="UPDATE Sesiones SET LastModified='$now'";
 		if (isset($data['Nombre']))		$sql .=", Nombre='{$data['Nombre']}' ";

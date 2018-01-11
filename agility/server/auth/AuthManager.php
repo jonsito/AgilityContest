@@ -379,7 +379,7 @@ class AuthManager {
 				// required for event manager
 				'Type'		=>  'init', /* ¿perhaps evtType should be 'login'¿ */
 				'Source' 	=> 	http_request("Source","s","AuthManager"),
-				'TimeStamp' => 	time() /* date('Y-m-d G:i:s') */
+				'TimeStamp' => 	time() /* date('Y-m-d H:i:s') */
 
 		);
 		// if "nosession" is requested, just check password, do not create any session

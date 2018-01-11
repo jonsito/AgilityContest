@@ -111,7 +111,7 @@ class PublicWeb
                 $res['rows'][]=array(
                     'LastEvent'=>"1",
                     'Message' => "0:5:msg:"._("Web notification system started"),
-                    'TimeStamp' => date('Y/m/d G:i:s')
+                    'TimeStamp' => date('Y/m/d H:i:s')
                 );
                 return $res;
             }
