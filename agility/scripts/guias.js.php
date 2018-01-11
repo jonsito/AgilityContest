@@ -146,8 +146,12 @@ function editGuiaFromPerros(){ // editar guia desde el dialogo de edicion de per
     $('#guias-okBtn').one('click',function(){
         var cname=$('#guias-Club').combogrid('grid').datagrid('getSelected');
         if (!cname) return;
-        $("#perros-Guia").combogrid('grid').datagrid('reload',{Operation:'enumerate',Federation:workingData.federation});
-        $('#perros-Club').textbox('setValue',cname.Nombre);
+        var gid=$('#guias-ID').val();
+        var gname=$('#guias-Nombre').val();
+        var clid=cname.ID;
+        var clname=cname.Nombre;
+        $("#perros-Guia").combogrid('setValue',{ID:gid,Nombre:gname,Club:clid,NombreClub:clname});
+        $('#perros-Club').textbox('setValue',clname);
     });
 }
 
