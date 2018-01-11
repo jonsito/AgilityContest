@@ -134,7 +134,7 @@ class Downloader {
         // prepare store dir and timestamp format
         $dir=__DIR__."/../../../../logs/updateRequests";
         @mkdir($dir);
-        $d=date("Ymd_gi",strtotime($this->timestamp)); // convert "Y-m-d G:i:s" to "Ymd_Gi"
+        $d=date("Ymd_Hi",strtotime($this->timestamp)); // convert "Y-m-d H:i:s" to "Ymd_Hi"
         foreach (array('Perros','Guias','Clubes','Jueces') as $item) {
             if (count($obj->$item)==0) continue;
             // los ficheros se guardan en la carpeta logs/updateRequests/serial-timestamp
