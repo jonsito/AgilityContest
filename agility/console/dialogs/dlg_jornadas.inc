@@ -124,13 +124,13 @@ $config =Config::getInstance();
             <div class="fitem">
                 <label for="jornadas-SlaveOf_List" style="width:150px" ><?php _e('Subordinate of'); ?></label>
                 <input id="jornadas-SlaveOf" name="SlaveOf" type="hidden" value="0"/>
-                <input id="jornadas-SlaveOf_List" name="SlaveOf_List" value="0" style="width:165px"/>
+                <input id="jornadas-SlaveOf_List" name="SlaveOf_List" value="0" />
             </div>
 
             <div class="fitem">
                 <label for="jornadas-Tipo_Competicion_List" style="width:150px" ><?php _e('Competition Mode'); ?></label>
                 <input id="jornadas-Tipo_Competicion" name="Tipo_Competicion" type="hidden" value="0"/>
-                <input id="jornadas-Tipo_Competicion_List" name="Tipo_Competicion_List" value="0" style="width:165px"/>
+                <input id="jornadas-Tipo_Competicion_List" name="Tipo_Competicion_List" value="0" />
             </div>
         </form>
             
@@ -147,7 +147,7 @@ $config =Config::getInstance();
 <script type="text/javascript">
     // datos del formulario de nuevo/edit jornada
     $('#jornadas-dialog').dialog({
-        width:375,
+        width:390,
         height:'auto',
         top:50,
         modal:true,
@@ -361,6 +361,8 @@ $config =Config::getInstance();
 
     $('#jornadas-SlaveOf_List').combobox({
         panelHeight: 'auto',
+        width:180,
+        panelWidth: 275,
         valueField:'ID',
         textField:'Nombre',
         method: 'get',
@@ -386,7 +388,8 @@ $config =Config::getInstance();
 
     $('#jornadas-Tipo_Competicion_List').combobox({
         panelHeight: 'auto',
-        panelWidth: 300,
+        width:180,
+        panelWidth: 275,
         valueField:'ID',
         textField:'Nombre',
         method: 'get',
