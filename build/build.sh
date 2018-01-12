@@ -61,10 +61,11 @@ echo "Adding AgilityContest config file ..."
 cp ${CONF_DIR}/AgilityContest_xampp.conf ${BUILD_DIR}/xampp/apache/conf/extra
 sed -i "s:/AgilityContest-master:/AgilityContest:g" ${BUILD_DIR}/xampp/apache/conf/extra/AgilityContest_xampp.conf
 
-# enable OpenSSL support into php
+# enable OpenSSL and Locale support into php
 echo "Setting up php/php.ini ..."
 cp ${BUILD_DIR}/xampp/php/php.ini  ${BUILD_DIR}/xampp/php/php.ini.orig
 sed -i "s/;extension=php_openssl.dll/extension=php_openssl.dll/g" ${BUILD_DIR}/xampp/php/php.ini
+sed -i "s/;extension=php_intl.dll/extension=php_intl.dll/g" ${BUILD_DIR}/xampp/php/php.ini
 
 # fix options for mysql
 # notice that in 5.6.20 cannot simply add options at the end, so must provide our own
