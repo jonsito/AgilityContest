@@ -93,7 +93,7 @@ function delGuiaFromClub(dg,club) {
 
 function reload_guiasDatagrid() {
 	var w=$('#guias-datagrid-search').val();
-	if (strpos(w,"Buscar")) w='';
+	if (strpos(w,"<?php _e('-- Search --'); ?>")!==false) w='';
 	$('#guias-datagrid').datagrid('load',{ Operation: 'select', where: w, Federation: workingData.federation });
 }
 
@@ -105,11 +105,11 @@ function reload_guiasDatagrid() {
 function newGuia(def,onAccept){
 	$('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('New handler'); ?>'+' - '+fedName(workingData.federation));
 	$('#guias-form').form('clear');
-	if (!strpos(def,"Buscar")) $('#guias-Nombre').val(def.capitalize());
+	if (strpos(def,"<?php _e('-- Search --');?>")===false) $('#guias-Nombre').textbox('setValue',def.capitalize());
 	$('#guias-Operation').val('insert');
 	$('#guias-Parent').val('');
-	if (onAccept!==undefined)
-		$('#guias-okBtn').one('click',onAccept);
+	// if defined, add event manager
+	if (onAccept!==undefined) $('#guias-okBtn').one('click',onAccept);
 }
 
 /**

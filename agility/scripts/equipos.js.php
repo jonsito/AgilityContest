@@ -186,7 +186,7 @@ function openTeamWindow(pruebaID) {
 function newTeam(dg,def,onAccept){
 	$('#team_edit_dialog').dialog('open').dialog('setTitle','A&ntilde;adir nuevo equipo');
 	$('#team_edit_dialog-form').form('clear');
-	if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def.capitalize());// fill team Name
+	if (strpos(def,"<?php _e('-- Search --'); ?>")===false) $('#team_edit_dialog-Nombre').textbox('setValue',def.capitalize());// fill team Name
 	$('#team_edit_dialog-Operation').val('insert');
 	$('#team_edit_dialog-Prueba').val(workingData.prueba);
 	$('#team_edit_dialog-Jornada').val(workingData.jornada);

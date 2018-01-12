@@ -50,7 +50,7 @@ function newPrueba(dg,def,onAccept){
     pc.combogrid('setValue',ac_regInfo.clubInfo.ID);
     pc.combogrid('setText',ac_regInfo.clubInfo.Nombre);
     $('#pruebas-Federation').combogrid('readonly',false);
-	if (!strpos(def,"Buscar")) $('#pruebas-Nombre').val(def.capitalize());// fill prueba Name
+	if (strpos(def,"<?php _e('-- Search --'); ?>")===false) $('#pruebas-Nombre').textbox('setValue',def.capitalize());// fill prueba Name
 	$('#pruebas-Operation').val('insert');
 	if (onAccept!==undefined)$('#pruebas-okBtn').one('click',onAccept);
 }

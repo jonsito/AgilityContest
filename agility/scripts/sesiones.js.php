@@ -32,7 +32,7 @@ $config =Config::getInstance();
 function newSession(dg,def,onAccept){
 	$('#sesiones-dialog').dialog('open').dialog('setTitle','<?php _e('New session'); ?>'); // open dialog
 	$('#sesiones-form').form('clear');// clear old data (if any)
-	if (!strpos(def,"Buscar")) $('#sesiones-Nombre').val(def);// fill session Name
+	if (strpos(def,"<?php _e('-- Search --'); ?>")===false) $('#sesiones-Nombre').textbox('setValue',def);// fill session Name
 	$('#sesiones-Operation').val('insert');// set up operation
 	$('#sesiones-Operador').val(1);// set default user id for new session
 	$('#sesiones-Login').val('-- Sin asignar --');// set up default user name for new session

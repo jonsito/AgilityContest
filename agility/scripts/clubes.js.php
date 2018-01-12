@@ -120,7 +120,7 @@ function newClub(dg,def,onAccept){
 	$('#clubes-dialog').dialog('open').dialog('setTitle',"<?php _e('New club'); ?>");
 	$('#clubes-form').form('clear');
 	// si el nombre del club contiene "Buscar" ignoramos
-	if (!strpos(def,"Buscar")) $('#clubes-Nombre').val(def.capitalize());
+	if (strpos(def,"<?php _e('-- Search --'); ?>")===false) $('#clubes-Nombre').textbox('setValue',def.capitalize());
 	$('#clubes-Operation').val('insert');
 	// select ID=1 to get default logo
 	var nombre="/agility/server/database/clubFunctions.php?Operation=getlogo&ID=1&Federation="+workingData.Federation;

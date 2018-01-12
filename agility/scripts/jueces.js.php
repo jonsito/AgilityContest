@@ -41,7 +41,7 @@ function juecesBaja(val,row,idx) { return ( parseInt(val)==0)?" ":"&#x26D4;"; }
 function newJuez(dg,def,onAccept){
 	$('#jueces-dialog').dialog('open').dialog('setTitle','<?php _e('New judge'); ?>'); // open dialog
 	$('#jueces-form').form('clear');// clear old data (if any)
-	if (!strpos(def,"Buscar")) $('#jueces-Nombre').val(def.capitalize());// fill juez Name
+	if (strpos(def,"<?php _e('-- Search --'); ?>")===false) $('#jueces-Nombre').textbox('setValue',def.capitalize());// fill juez Name
 	$('#jueces-Operation').val('insert');// set up operation
 	if (onAccept!==undefined) $('#jueces-okBtn').one('click',onAccept);
 }

@@ -25,7 +25,7 @@ $config =Config::getInstance();
 
 function reload_perrosDatagrid(dg) {
 	var w=$(dg+'-search').val();
-	if (strpos(w,"Buscar",0)) w='';
+	if (strpos(w,"<?php _e('-- Search --'); ?>",0)!==false) w='';
 	// $(dg).datagrid('load',{Operation:'select', where: w, Federation: workingData.federation });
     $(dg).datagrid('reload');
 }
@@ -38,7 +38,7 @@ function reload_perrosDatagrid(dg) {
 function newDog(dg,def){
     $('#perros-form').form('clear'); // start with an empty form
 	$('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('New dog'); ?>'+' - '+fedName(workingData.federation));
-	if (!strpos(def,"Buscar")) $('#perros-Nombre').val(def.capitalize());
+	if (strpos(def,"<?php _e('-- Search --'); ?>")===false) $('#perros-Nombre').textbox('setValue',def.capitalize());
 	$('#perros-Operation').val('insert');
 	$('#perros-warning').css('visibility','hidden');
 	$('#perros-okBtn').one('click',function() {reload_perrosDatagrid(dg);});

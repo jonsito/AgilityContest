@@ -44,7 +44,7 @@ function formatPermissions(val,row,idx) {
 function newUser(dg,def,onAccept){
 	$('#usuarios-dialog').dialog('open').dialog('setTitle','<?php _e('New user'); ?>'); // open dialog
 	$('#usuarios-form').form('clear');// clear old data (if any)
-	if (!strpos(def,"Buscar")) $('#usuarios-Nombre').val(def);// fill user Name
+	if (strpos(def,"<?php _e('-- Search --'); ?>")===false) $('#usuarios-Nombre').textbox('setValue',def.capitalize());// fill user Name
 	$('#usuarios-Operation').val('insert');// set up operation
 	if (onAccept!==undefined) $('#usuarios-okBtn').one('click',onAccept);
 	$('#usuarios-passwdBtn').linkbutton('disable');

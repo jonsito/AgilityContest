@@ -1059,7 +1059,7 @@ function reloadWithSearch(dg,op,clear) {
     }
 	var w=$(dg+'-search').val();
     var fed=workingData.federation;
-	if (strpos(w,"<?php _e('-- Search --'); ?>",0)) w='';
+	if (strpos(w,"<?php _e('-- Search --'); ?>",0)!==false) w='';
 	if (clear==true) w='';
     $(dg).datagrid(
     	'load',
