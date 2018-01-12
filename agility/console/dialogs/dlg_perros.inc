@@ -86,7 +86,7 @@ $config =Config::getInstance();
                    data-options="iconCls:'icon-users'" style="float:right"><?php _e('New handler'); ?></a>
             </div>
             <div class="fitem">
-                <label for="perros-Guia"><?php _e('Club'); ?>:</label>
+                <label for="perros-Club"><?php _e('Club'); ?>:</label>
                 <input id="perros-Club" name="Club" style="width:225px"/>
                 <a id="perros-editGuiaBtn" href="#" class="easyui-linkbutton"
                    data-options="iconCls:'icon-edit'" style="float:right"><?php _e('Edit handler'); ?></a>
@@ -115,11 +115,13 @@ $config =Config::getInstance();
     $('#perros-form').form({
     	onLoadSuccess: function(data) {
             var pg=$('#perros-Guia');
+            var pc=$('#perros-Club');
     	    $('#perros-Operation').val('update'); // mark "update" operation
     	    // stupid combogrid that doesn't display right data after form load
     	    pg.combogrid('clear');
     	    pg.combogrid('setValue',data.Guia);
-    	    pg.combogrid('setText',data.NombreGuia);
+            pg.combogrid('setText',data.NombreGuia);
+            pc.textbox('setValue',data.NombreClub);
     	    $('#perros-Genero').combobox('setValue',data.Genero);
     	}
 	});
@@ -161,12 +163,8 @@ $config =Config::getInstance();
     $('#perros-LOE_RRC').textbox();
     $('#perros-Licencia').textbox();
     $('#perros-Genero').combobox();
+    $('#perros-Club').textbox({ required:false, readonly:true, disabled:true });
 
-    $('#perros-Club').textbox({
-        required:false,
-        readonly:true,
-        disabled:true
-    });
     $('#perros-Grados_Perro').combobox({
 		panelHeight: 'auto',
     	valueField:'Grado',
