@@ -400,7 +400,10 @@ $config =Config::getInstance();
             $('#jornadas-Tipo_Competicion').val(newval);
         },
         onLoadSuccess: function() {
-            $(this).combobox('select',$('#jornadas-Tipo_Competicion').val())
+            // force user to select rignt competition type
+            if ($('#jornadas-Nombre').textbox('getValue')!=="-- Sin asignar --")
+                $(this).combobox('select',$('#jornadas-Tipo_Competicion').val());
+            else $(this).combobox('clear');
         },
         onBeforeLoad:function(param) {
             param.Operation='competitions';
