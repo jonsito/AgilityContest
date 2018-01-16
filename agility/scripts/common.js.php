@@ -43,6 +43,18 @@ if (typeof String.prototype.capitalize != 'function') {
 }
 
 /**
+ * As Date.parse(string) is implementation dependend, create own YYYY-mm-dd parser
+ * https://stackoverflow.com/questions/2587345/why-does-date-parse-give-incorrect-results
+ * @param {string} input YYYY-mm-dd date format string
+ */
+function parseDate(input) {
+    var parts = input.split('-');
+    // new Date(year, month [, day [, hours[, minutes[, seconds[, ms]]]]])
+    var d= new Date(parts[0], parts[1]-1, parts[2]); // Note: months are 0-based
+    return d.getTime();
+}
+
+/**
  * Returns a random string of length 'len'
  * from: http://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
  * @param {number} len resulting string length

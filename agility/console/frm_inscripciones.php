@@ -30,7 +30,7 @@ $config =Config::getInstance();
 		<div id="selprueba-Content" data-options="region:'north',border:'true'">
 			<form id="selprueba-Prueba">
         		<div class="fitem">
-					<label for="Search"><?php _e('Select contest');?>:</label>
+					<label for="selprueba-Search"><?php _e('Select contest');?>:</label>
             		<select id="selprueba-Search" name="Search" style="width:200px"></select>
         		</div>
 			</form>
@@ -86,7 +86,7 @@ $('#selprueba-Search').combogrid({
 	singleSelect: true,
 	selectOnNavigation: false,
 	onLoadSuccess: function(data) {
-		if (workingData.prueba!=0) $('#selprueba-Search').combogrid('setValue',workingData.prueba);
+		if (parseInt(workingData.prueba)!==0) $('#selprueba-Search').combogrid('setValue',workingData.prueba);
 	}
 });
 
@@ -102,9 +102,10 @@ function acceptSelectPrueba() {
 	} else {
 	    // comprobamos el periodo de inscripcion
         // si fuera de plazo avisamos, pero dejamos continuar
+        // recuerda que en mysql los dates son en formato "YYYY-mm-dd"
         var current=Date.now();
-        var rfrom=Date.parse(p.OpeningReg); // abre a las 00:00 del primer dia
-        var rto=86400000+Date.parse(p.ClosingReg); // cierra a las 23:59 del ultimo dia
+        var rfrom=parseDate(p.OpeningReg); // abre a las 00:00 del primer dia
+        var rto=86400000+parseDate(p.ClosingReg); // cierra a las 23:59 del ultimo dia
         if ( (rfrom>current) || (rto<current)) {
             $.messager.alert({
                 title: '<?php _e("Warning");?>',
