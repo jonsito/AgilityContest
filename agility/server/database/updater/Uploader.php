@@ -64,7 +64,7 @@ class Uploader {
         $result=array();
         // retrieve updated dogs from database
         $res=$this->myDBObject->__select(
-          "Perros.*,Guias.ServerID as GuiasServerID",
+          "Perros.*,Guias.Nombre as NombreGuia,Guias.ServerID as GuiasServerID",
           "Perros,Guias",
           "(Perros.Guia=Guias.ID) AND (Licencia != '') AND ( Perros.LastModified > '{$timestamp}')"
         );
@@ -73,7 +73,7 @@ class Uploader {
 
         // retrieve updated handlers from database
         $res=$this->myDBObject->__select(
-            "Guias.*,Clubes.ServerID as ClubesServerID",
+            "Guias.*,Clubes.Nombre AS NombreClub, Clubes.ServerID as ClubesServerID",
             "Guias,Clubes",
             "(Guias.Club=Clubes.ID) AND ( Guias.LastModified > '{$timestamp}')"
         );
