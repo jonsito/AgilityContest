@@ -16,8 +16,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <?php
-require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/auth/CertManager.php");
 $config =Config::getInstance();
 
 // access to console is forbidden in restricted mode unless master server with valid certificate
@@ -35,11 +36,10 @@ if ( intval($config->getEnv('restricted'))!=0) {
         if ( $cm->hasValidCert()) {
             // ok, valid certificate, so check ACL
             if ($cm->checkCertACL()) {
-                $cm_user=$cm->getCertDN();
+                $cm_user=$cm->getCertCN();
                 $cm_password="CERTIFICATE";
             }
         }
-
     }
 }
 ?>
@@ -87,22 +87,24 @@ if ( intval($config->getEnv('restricted'))!=0) {
 
 $('#login-Password').textbox({
     required:true,
+    value:'<?php echo $cm_password;?>',
     validType:'length[1,255]',
     iconCls:'icon-lock'
 }).textbox('textbox').bind('keypress', function (evt) {
     //on Enter key on passwd field click on accept
-    if (evt.keyCode != 13) return true;
+    if (evt.keyCode !== 13) return true;
     $('#login-okBtn').click();
     return false;
 });
 
 $('#login-Username').textbox({
     required:true,
+    value:'<?php echo $cm_user;?>',
     validType:'length[1,255]',
     iconCls:'icon-man'
 }).textbox('textbox').bind('keypress', function (evt) {
 // on Enter key on login field focus on password
-    if (evt.keyCode != 13) return true;
+    if (evt.keyCode !== 13) return true;
     $('#login-Password').textbox('textbox').focus();
     return false;
 });
@@ -119,8 +121,6 @@ $('#login-window').window({
 	shadow:true,
 	modal:true,
 	onBeforeOpen: function () {
-		$('#login-Usuario').textbox('setValue','<?php echo $cm_user;?>');
-		$('#login-Password').textbox('setValue','<?php echo $cm_password;?>');
 		$('#login-Federation').val(workingData.federation);
 		return true;
 	}
