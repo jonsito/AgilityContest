@@ -54,4 +54,8 @@ class CertManager {
         }
         return false;
     }
+
+    public function getCertDN() {
+        return $_SERVER['SSL_CLIENT_S_DN'];
+    }
 }

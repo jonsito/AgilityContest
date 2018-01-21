@@ -19,6 +19,29 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
+
+// access to console is forbidden in restricted mode unless master server with valid certificate
+// when in server, restricted mode, valid certificate and Allowed in ACL,
+// use certificate name as login, and "Certificate" as password
+$cm_user="";
+$cm_password="";
+if ( intval($config->getEnv('restricted'))!=0) {
+    // if not in master server drop connection
+    $server=$config->getEnv('master_server');
+    $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
+    if ($server===$myself) {
+        // in master server access to console is controlled by mean of SSL certificates
+        $cm=new CertManager();
+        if ( $cm->hasValidCert()) {
+            // ok, valid certificate, so check ACL
+            if ($cm->checkCertACL()) {
+                $cm_user=$cm->getCertDN();
+                $cm_password="CERTIFICATE";
+            }
+        }
+
+    }
+}
 ?>
 
 <img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle" />
@@ -96,8 +119,8 @@ $('#login-window').window({
 	shadow:true,
 	modal:true,
 	onBeforeOpen: function () {
-		$('#login-Usuario').textbox('setValue','');
-		$('#login-Password').textbox('setValue','');
+		$('#login-Usuario').textbox('setValue','<?php echo $cm_user;?>');
+		$('#login-Password').textbox('setValue','<?php echo $cm_password;?>');
 		$('#login-Federation').val(workingData.federation);
 		return true;
 	}
