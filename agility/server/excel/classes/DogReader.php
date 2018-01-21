@@ -646,7 +646,7 @@ class DogReader {
             // this is an error: clubs cannot be created on the fly, as need extra parameters
             return "CreateEntry(): cannot automagically create new club {$obj->Nombre}";
         } else if ($options['Object']=="Guia") {
-            $nombre=$obj->NombreGuia;
+            $nombre=$this->myDBObject->conn->real_escape_string($obj->NombreGuia);
             $c=$obj->ClubID;
             if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($obj->NombreGuia);
             $str="INSERT INTO Guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";

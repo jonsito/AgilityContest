@@ -55,7 +55,8 @@ class OrdenSalidaReader extends DogReader {
         // PENDING: future implementation will take care on "Order" value.
         // in the meanwhile, just set orden to be just excel rows order
         $inscList= array(
-            'Order'=>     array (  -17,-1, "i", "Orden",    " `Orden` int(4) NOT NULL DEFAULT 0, ")
+            'Order'=>     array (  -17,-1, "i", "Orden",    " `Orden` int(4) NOT NULL DEFAULT 0, "),
+            'Dorsal'=>    array (  -18, 1, "i", "Dorsal",    " `Dorsal` int(4) NOT NULL DEFAULT 0, ")
         );
         foreach ($inscList as $key => $data) $this->fieldList[$key]=$data;
         // fix fields according contest type
@@ -76,20 +77,20 @@ class OrdenSalidaReader extends DogReader {
     /*
      * In results import, no need to handle Team,Club/Country nor handler: they must be already declared
      * in inscriptions.
-     * So we need to find dog ID in round results table by mean of search for license and name
+     * So we need to find dog ID in round results table by mean of search for dorsal and name
+     * 2018-01-21: changed License search to Dorsal, to avoid unambiguities, as dorsal is allways unique
      *
-     * Notice that license may be empty or refer to several dogs.
      * When cannot decide dogID return instructions to call user for proper action ( create, select,or ignore )
      * PENDING: create should not be an option, but is returned by
      */
     protected function findAndSetEntry($item) {
         $this->myLogger->enter();
-        if ( ($item['Licencia']==="") && ($item['Nombre']==="") && ($item['NombreLargo']==="") ){
+        if ( ($item['Dorsal']==0) && ($item['Nombre']==="") && ($item['NombreLargo']==="") ){
             // no way to assign result to anyone: remove from temporary table
             $this->myLogger->notice("findAndSetEntry(): no data to parse row: ".json_encode($item));
             return $this->removeTmpEntry($item); // returns null
         }
-        $l=$this->myDBObject->conn->real_escape_string($item['Licencia']);
+        $d=intval($item['Dorsal']);
         $n=$this->myDBObject->conn->real_escape_string($item['Nombre']);
         $nl=$this->myDBObject->conn->real_escape_string($item['NombreLargo']);
         if (! category_match($item['Categoria'],$this->myOptions['Mode'])) {
@@ -98,15 +99,15 @@ class OrdenSalidaReader extends DogReader {
             return $this->removeTmpEntry($item); // returns null
         }
         $this->saveStatus("Analyzing result entry '$n'");
-        $lic= ($l==="")?" 1": " (Licencia='{$l}')"; // en rsce a veces no hay licencia
+        $dorsal= ($d===0)?" 1": " (Dorsal='{$d}')"; // por si acaso el dorsal esta en blanco, pero no deberia
         $ldog= ($nl==="")?" 0": " (NombreLargo='{$nl}')"; // siempre existiran nombre o nombrelargo
         $dog= ($n==="")?" 0":" (Nombre='{$n}')";
         $search=$this->myDBObject->__select("*",
             "Resultados",
-            "(Manga={$this->manga['ID']}) {$this->sqlcats} AND {$lic} AND ( {$dog} OR {$ldog} )",
+            "(Manga={$this->manga['ID']}) {$this->sqlcats} AND {$dorsal} AND ( {$dog} OR {$ldog} )",
             "",
             "");
-        if ( !is_array($search) ) return "findAndSeResult(): Invalid search term: '{$l} - {$n}' "; // invalid search. mark error
+        if ( !is_array($search) ) return "findAndSeResult(): Invalid search term: '{$d} - {$n}' "; // invalid search. mark error
         // if blind mode and cannot decide, just ignore and remove entry from tmptable
         $this->myLogger->trace("Blind: {$this->myOptions['Blind']} Search {$n} results:".json_encode($search));
         if ( ($search['total']!==1) && ($this->myOptions['Blind']!=0)) return $this->removeTmpEntry($item); // returns null
@@ -117,7 +118,7 @@ class OrdenSalidaReader extends DogReader {
         $dogID=$search['rows'][0]['Perro'];
         $str="UPDATE ".TABLE_NAME." SET DogID={$dogID} WHERE ID={$item['ID']}";
         $res=$this->myDBObject->query($str);
-        if (!$res) return "findAndSetEntry(): update tmptable '{$l} - {$item['Nombre']}' error:".$this->myDBObject->conn->error;
+        if (!$res) return "findAndSetEntry(): update tmptable '{$d} - {$item['Nombre']}' error:".$this->myDBObject->conn->error;
 
         // return true to notify caller item found. proceed with next
         $this->myLogger->leave();
