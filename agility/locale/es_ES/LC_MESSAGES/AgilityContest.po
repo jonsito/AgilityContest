@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2018-01-08 11:17+0100\n"
-"PO-Revision-Date: 2018-01-08 11:34+0100\n"
+"POT-Creation-Date: 2018-01-22 15:05+0100\n"
+"PO-Revision-Date: 2018-01-22 15:06+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -147,7 +147,7 @@ msgstr "Dorsal"
 #: console/dialogs/import_results.inc.php:88 console/frm_perros.php:136
 #: scripts/competicion.js.php:1395 scripts/import.js.php:158
 #: scripts/import.js.php:171 scripts/import.js.php:185
-#: scripts/printer.js.php:406 server/database/updater/Uploader.php:215
+#: scripts/printer.js.php:406 server/database/updater/Uploader.php:224
 msgid "Dog"
 msgstr "Perro"
 
@@ -177,7 +177,7 @@ msgstr "Perro"
 #: scripts/import.js.php:118 scripts/import.js.php:130
 #: scripts/import.js.php:143 scripts/printer.js.php:406
 #: scripts/results_and_scores.js.php:255 scripts/results_and_scores.js.php:327
-#: server/database/updater/Uploader.php:210
+#: server/database/updater/Uploader.php:219
 #: server/pdf/classes/PrintClasificacion.php:223
 #: server/pdf/classes/PrintClasificacionExcel.php:162
 #: server/pdf/classes/PrintClasificacionGames.php:84
@@ -216,7 +216,7 @@ msgstr "Gu&iacute;a"
 #: console/dialogs/dlg_entrenamientos.inc:182 console/dialogs/dlg_guias.inc:52
 #: console/dialogs/dlg_newInscripcion.inc:159
 #: console/dialogs/dlg_ordensalida.inc:233 console/dialogs/dlg_perros.inc:89
-#: console/dialogs/dlg_perros.inc:221 console/dialogs/dlg_pruebas.inc:143
+#: console/dialogs/dlg_perros.inc:224 console/dialogs/dlg_pruebas.inc:143
 #: console/dialogs/dlg_remotecontrol.inc:413
 #: console/dialogs/dlg_selectJornada.inc:85 console/dialogs/dlg_usuarios.inc:75
 #: console/dialogs/dlg_usuarios.inc:248
@@ -237,7 +237,7 @@ msgstr "Gu&iacute;a"
 #: scripts/datagrid_formatters.js.php:168 scripts/import.js.php:77
 #: scripts/import.js.php:90 scripts/import.js.php:103
 #: scripts/results_and_scores.js.php:256
-#: server/database/updater/Uploader.php:205
+#: server/database/updater/Uploader.php:214
 #: server/excel/classes/XLSXWriter.php:114 server/modules/Federations.php:407
 #: server/pdf/classes/PrintClasificacionExcel.php:99
 #: server/pdf/classes/PrintClasificacionExcel.php:163
@@ -364,11 +364,11 @@ msgstr "Eliminado"
 #: console/dialogs/dlg_competicion_games.inc:317
 #: console/dialogs/dlg_configuracion.inc:761
 #: console/dialogs/dlg_selectJornada.inc:158 scripts/admin.js.php:38
-#: scripts/admin.js.php:57 scripts/admin.js.php:82 scripts/admin.js.php:403
-#: scripts/admin.js.php:451 scripts/admin.js.php:509 scripts/common.js.php:377
-#: scripts/common.js.php:402 scripts/common.js.php:449
-#: scripts/common.js.php:684 scripts/common.js.php:696
-#: scripts/common.js.php:708 scripts/common.js.php:723
+#: scripts/admin.js.php:57 scripts/admin.js.php:82 scripts/admin.js.php:414
+#: scripts/admin.js.php:462 scripts/admin.js.php:521 scripts/common.js.php:389
+#: scripts/common.js.php:414 scripts/common.js.php:461
+#: scripts/common.js.php:696 scripts/common.js.php:708
+#: scripts/common.js.php:720 scripts/common.js.php:735
 #: scripts/competicion.js.php:403 scripts/competicion.js.php:431
 #: scripts/competicion.js.php:562 scripts/competicion.js.php:569
 #: scripts/competicion.js.php:581 scripts/competicion.js.php:684
@@ -379,8 +379,8 @@ msgstr "Eliminado"
 #: scripts/competicion.js.php:1498 scripts/entrenamientos.js.php:84
 #: scripts/entrenamientos.js.php:179 scripts/equipos.js.php:70
 #: scripts/equipos.js.php:123 scripts/equipos.js.php:352
-#: scripts/guias.js.php:87 scripts/guias.js.php:176 scripts/guias.js.php:199
-#: scripts/guias.js.php:227 scripts/guias.js.php:257 scripts/import.js.php:512
+#: scripts/guias.js.php:87 scripts/guias.js.php:194 scripts/guias.js.php:217
+#: scripts/guias.js.php:245 scripts/guias.js.php:275 scripts/import.js.php:512
 #: scripts/inscripciones.js.php:68 scripts/inscripciones.js.php:192
 #: scripts/inscripciones.js.php:225 scripts/inscripciones.js.php:259
 #: scripts/inscripciones.js.php:290 scripts/inscripciones.js.php:377
@@ -403,8 +403,7 @@ msgstr "Error"
 
 #: chrono/chrono.inc.php:102 console/dialogs/dlg_competicion.inc:46
 #: console/dialogs/dlg_competicion_games.inc:244
-#: console/dialogs/dlg_entrenamientos.inc:104 console/dialogs/dlg_tools.inc:19
-#: console/dialogs/dlg_tools.inc:40
+#: console/dialogs/dlg_entrenamientos.inc:104 console/dialogs/dlg_tools.inc:47
 msgid "Reset"
 msgstr "Reset"
 
@@ -526,7 +525,8 @@ msgstr "Dors"
 #: console/dialogs/dlg_remotecontrol.inc:524
 #: console/dialogs/dlg_remotecontrol.inc:595
 #: console/dialogs/dlg_selectJornada.inc:83 console/dialogs/dlg_sesiones.inc:28
-#: console/dialogs/dlg_sesiones.inc:158 console/dialogs/dlg_usuarios.inc:55
+#: console/dialogs/dlg_sesiones.inc:158 console/dialogs/dlg_tools.inc:77
+#: console/dialogs/dlg_usuarios.inc:55
 #: console/dialogs/import_handlers.inc.php:89
 #: console/frm_clasificaciones2.php:176
 #: console/frm_clasificaciones_equipos.php:184 console/frm_clubes.php:99
@@ -535,7 +535,7 @@ msgstr "Dors"
 #: console/frm_equipos.php:252 console/frm_equipos.php:326
 #: console/frm_guias.php:92 console/frm_guias.php:151
 #: console/frm_inscripciones.php:76 console/frm_inscripciones2.php:270
-#: console/frm_jueces.php:87 console/frm_login.php:123
+#: console/frm_jueces.php:87 console/frm_login.php:146
 #: console/frm_paises.php:82 console/frm_paises.php:140
 #: console/frm_paises.php:225 console/frm_perros.php:178
 #: console/frm_pruebas.php:159 console/frm_registration.php:54 index.php:190
@@ -727,7 +727,7 @@ msgstr "Ring"
 #: console/dialogs/dlg_editInscripcion.inc:98
 #: console/dialogs/dlg_ordentandas.inc:79
 #: console/dialogs/dlg_selectJornada.inc:42 console/frm_equipos.php:88
-#: console/frm_inscripciones.php:41 console/frm_login.php:57
+#: console/frm_inscripciones.php:41 console/frm_login.php:80
 #: console/frm_logout.php:35 console/frm_myAdmin.php:63
 #: livestream/index.php:219 tablet/tablet_main.php:58 videowall/index.php:263
 msgid "Accept"
@@ -802,7 +802,7 @@ msgstr "Buscar"
 #: console/dialogs/dlg_competicion_games.inc:401
 #: console/dialogs/dlg_newInscripcion.inc:46
 #: console/dialogs/dlg_pruebas.inc:112 console/dialogs/dlg_sesiones.inc:106
-#: console/dialogs/dlg_tools.inc:24 console/dialogs/dlg_usuarios.inc:129
+#: console/dialogs/dlg_tools.inc:31 console/dialogs/dlg_usuarios.inc:129
 #: console/dialogs/import_clubes.inc.php:35
 #: console/dialogs/import_handlers.inc.php:35
 #: console/dialogs/import_ordensalida.inc.php:34
@@ -861,7 +861,7 @@ msgstr "Reasignar"
 #: console/dialogs/dlg_selectJornada.inc:44 console/dialogs/dlg_sesiones.inc:70
 #: console/dialogs/dlg_usuarios.inc:47 console/dialogs/dlg_usuarios.inc:95
 #: console/frm_equipos.php:90 console/frm_inscripciones.php:43
-#: console/frm_inscripciones2.php:48 console/frm_login.php:59
+#: console/frm_inscripciones2.php:48 console/frm_login.php:82
 #: console/frm_logout.php:37 console/frm_myAdmin.php:65
 #: console/frm_perros.php:34 console/frm_perros.php:48
 #: lib/templates/scores_mail.inc.php:89 tablet/tablet_main.php:59
@@ -877,9 +877,9 @@ msgstr "Limpiar formulario"
 #: console/dialogs/dlg_competicion_games.inc:608
 #: console/dialogs/dlg_competicion_games.inc:610
 #: console/dialogs/dlg_entrenamientos.inc:294 console/dialogs/dlg_guias.inc:86
-#: console/dialogs/dlg_jornadas.inc:410 console/dialogs/dlg_jueces.inc:120
+#: console/dialogs/dlg_jornadas.inc:416 console/dialogs/dlg_jueces.inc:120
 #: console/dialogs/dlg_ordensalida.inc:296
-#: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:128
+#: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:130
 #: console/dialogs/dlg_printer.inc:107 console/dialogs/dlg_pruebas.inc:210
 #: console/dialogs/dlg_pruebas.inc:212
 #: console/dialogs/dlg_resultados_equipos.inc:109
@@ -1258,7 +1258,7 @@ msgstr "Editar"
 #: console/dialogs/dlg_competicion_games.inc:486
 #: console/dialogs/dlg_configuracion.inc:717 scripts/admin.js.php:60
 #: scripts/clubes.js.php:226 scripts/competicion.js.php:1029
-#: scripts/guias.js.php:80 scripts/guias.js.php:169 scripts/jueces.js.php:121
+#: scripts/guias.js.php:80 scripts/guias.js.php:187 scripts/jueces.js.php:121
 #: scripts/perros.js.php:105 scripts/perros.js.php:206
 #: scripts/pruebas.js.php:183 scripts/pruebas.js.php:292
 #: scripts/sesiones.js.php:103 scripts/sesiones.js.php:127
@@ -1273,7 +1273,7 @@ msgstr "Borrar los datos de resultados del participante"
 
 #: console/dialogs/dlg_competicion.inc:223
 #: console/dialogs/dlg_competicion_games.inc:486 scripts/admin.js.php:60
-#: scripts/guias.js.php:80 scripts/guias.js.php:169 scripts/jueces.js.php:121
+#: scripts/guias.js.php:80 scripts/guias.js.php:187 scripts/jueces.js.php:121
 #: scripts/perros.js.php:105 scripts/perros.js.php:206
 #: scripts/sesiones.js.php:103 scripts/sesiones.js.php:127
 #: scripts/tandas.js.php:123 scripts/usuarios.js.php:109
@@ -2030,7 +2030,7 @@ msgstr "Usuario"
 
 #: console/dialogs/dlg_configuracion.inc:461
 #: console/dialogs/dlg_usuarios.inc:58 console/dialogs/dlg_usuarios.inc:122
-#: console/frm_login.php:44 console/frm_myAdmin.php:54 tablet/index.php:154
+#: console/frm_login.php:67 console/frm_myAdmin.php:54 tablet/index.php:154
 msgid "Password"
 msgstr "Contrase&ntilde;a"
 
@@ -2737,7 +2737,7 @@ msgstr "3 conjunta"
 msgid "4 combined"
 msgstr "4 conjunta"
 
-#: console/dialogs/dlg_jornadas.inc:409
+#: console/dialogs/dlg_jornadas.inc:415
 msgid "Register journey into database"
 msgstr "Registrar datos de la jornada en la base de datos"
 
@@ -2768,10 +2768,13 @@ msgstr "Registrar informaci&oacute;n del juez en la base de datos"
 #: console/frm_guias.php:42 console/frm_inscripciones2.php:109
 #: console/frm_jueces.php:42 console/frm_paises.php:35
 #: console/frm_perros.php:75 console/frm_pruebas.php:42
-#: scripts/common.js.php:1040 scripts/common.js.php:1041
-#: scripts/common.js.php:1062 scripts/common.js.php:1074
-#: scripts/equipos.js.php:28 scripts/inscripciones.js.php:485
-#: server/tools.php:311
+#: scripts/clubes.js.php:123 scripts/common.js.php:1052
+#: scripts/common.js.php:1053 scripts/common.js.php:1074
+#: scripts/common.js.php:1086 scripts/equipos.js.php:28
+#: scripts/equipos.js.php:189 scripts/guias.js.php:96 scripts/guias.js.php:108
+#: scripts/inscripciones.js.php:485 scripts/jueces.js.php:44
+#: scripts/perros.js.php:28 scripts/perros.js.php:41 scripts/pruebas.js.php:53
+#: scripts/sesiones.js.php:35 scripts/usuarios.js.php:47 server/tools.php:322
 msgid "-- Search --"
 msgstr "-- Buscar --"
 
@@ -2790,7 +2793,7 @@ msgstr "Inscribir"
 
 #: console/dialogs/dlg_newInscripcion.inc:96
 #: console/dialogs/dlg_remotecontrol.inc:268 console/frm_equipos.php:56
-#: scripts/admin.js.php:503 scripts/results_and_scores.js.php:151
+#: scripts/admin.js.php:514 scripts/results_and_scores.js.php:151
 msgid "Done"
 msgstr "Hecho"
 
@@ -3075,7 +3078,7 @@ msgstr "Editar gu&iacute;a"
 
 #: console/dialogs/dlg_perros.inc:96 console/frm_competicion2.php:156
 #: console/frm_inscripciones2.php:207 console/frm_myAdmin.php:31
-#: console/index.php:210 scripts/admin.js.php:476 scripts/competicion.js.php:75
+#: console/index.php:210 scripts/admin.js.php:487 scripts/competicion.js.php:75
 #: scripts/inscripciones.js.php:89 scripts/pruebas.js.php:184
 #: scripts/pruebas.js.php:424 server/pdf/classes/PrintOrdenTandas.php:77
 msgid "Notice"
@@ -3094,19 +3097,19 @@ msgstr ""
 msgid "where dog have been inscribed"
 msgstr "en las que el perro se haya inscrito"
 
-#: console/dialogs/dlg_perros.inc:127
+#: console/dialogs/dlg_perros.inc:129
 msgid "Register dog information. Update database"
 msgstr "Registrar informaci&oacute;n del perro en la base de datos"
 
-#: console/dialogs/dlg_perros.inc:129
+#: console/dialogs/dlg_perros.inc:131
 msgid "Register a new handler"
 msgstr "Registrar un nuevo gu&iacute;a"
 
-#: console/dialogs/dlg_perros.inc:130
+#: console/dialogs/dlg_perros.inc:132
 msgid "Edit current handler"
 msgstr "Editar gu&iacute;a actual"
 
-#: console/dialogs/dlg_perros.inc:219 console/frm_perros.php:187
+#: console/dialogs/dlg_perros.inc:217 console/frm_perros.php:187
 msgid "Handler name"
 msgstr "Nombre del gu&iacute;a"
 
@@ -3114,8 +3117,8 @@ msgstr "Nombre del gu&iacute;a"
 msgid "New plugin"
 msgstr "Nuevo m&oacute;dulo"
 
-#: console/dialogs/dlg_plugins.inc:11 console/dialogs/dlg_tools.inc:29
-#: scripts/admin.js.php:397
+#: console/dialogs/dlg_plugins.inc:11 console/dialogs/dlg_tools.inc:36
+#: scripts/admin.js.php:408
 msgid "Upgrade"
 msgstr "Actualizar"
 
@@ -3128,8 +3131,8 @@ msgid "Loading competitions module list"
 msgstr "Actualizando lista de m&oacute;dulos de competici&oacute;n"
 
 #: console/dialogs/dlg_plugins.inc:52 console/dialogs/dlg_pruebas.inc:135
-#: console/frm_login.php:48 console/frm_pruebas.php:102
-#: server/excel/classes/XLSXWriter.php:72
+#: console/dialogs/dlg_tools.inc:25 console/frm_login.php:71
+#: console/frm_pruebas.php:102 server/excel/classes/XLSXWriter.php:72
 #: server/excel/classes/XLSXWriter.php:114
 msgid "Federation"
 msgstr "Federaci&oacute;n"
@@ -3139,7 +3142,8 @@ msgid "Email"
 msgstr "Correo Electr&oacute;nico"
 
 #: console/dialogs/dlg_plugins.inc:54 console/dialogs/dlg_pruebas.inc:350
-#: console/frm_login.php:121 console/frm_perros.php:134
+#: console/dialogs/dlg_tools.inc:75 console/frm_login.php:144
+#: console/frm_perros.php:134
 msgid "ID"
 msgstr "ID"
 
@@ -3444,7 +3448,7 @@ msgstr "Sesi&oacute;n de entrenamientos"
 #: livestream/vwls_ordensalida.php:62 public/pb_ordensalida.php:42
 #: public/pb_ordensalida.php:51 public/pbmenu_ordensalida.php:42
 #: scripts/competicion.js.php:1178 scripts/sesiones.js.php:158
-#: scripts/sesiones.js.php:171 server/excel/classes/OrdenSalidaReader.php:64
+#: scripts/sesiones.js.php:171 server/excel/classes/OrdenSalidaReader.php:65
 #: server/excel/classes/OrdenSalidaWriter.php:112
 #: server/excel/classes/OrdenSalidaWriter.php:145
 #: server/excel/classes/OrdenSalidaWriter.php:192
@@ -3925,66 +3929,88 @@ msgid "Restore database backup"
 msgstr "Restaurar base de datos"
 
 #: console/dialogs/dlg_tools.inc:17
+msgid "Update database fom Internet"
+msgstr "Actualizar BBDD desde internet"
+
+#: console/dialogs/dlg_tools.inc:19
+msgid "Download"
+msgstr "Descargar"
+
+#: console/dialogs/dlg_tools.inc:22
 msgid "Erase database contents"
 msgstr "Borrar base de datos"
 
-#: console/dialogs/dlg_tools.inc:22
+#: console/dialogs/dlg_tools.inc:24
+msgid "Erase"
+msgstr "Borrar"
+
+#: console/dialogs/dlg_tools.inc:29
 msgid "Delete stored contests"
 msgstr "Borrar pruebas almacenadas"
 
-#: console/dialogs/dlg_tools.inc:27
+#: console/dialogs/dlg_tools.inc:34
 msgid "Search for updates"
 msgstr "Buscar actualizaciones"
 
-#: console/dialogs/dlg_tools.inc:32
+#: console/dialogs/dlg_tools.inc:39
 msgid "Synchronize database with server"
 msgstr "Sincronizar base de datos con el servidor"
 
-#: console/dialogs/dlg_tools.inc:34
+#: console/dialogs/dlg_tools.inc:41
 msgid "Sync"
 msgstr "Sync"
 
-#: console/dialogs/dlg_tools.inc:38
+#: console/dialogs/dlg_tools.inc:45
 msgid "Debug and log trace file"
 msgstr "Fichero de depuraci&oacute;n y registro (log) de ejecuci&oacute;n"
 
-#: console/dialogs/dlg_tools.inc:42
+#: console/dialogs/dlg_tools.inc:49
 msgid "View"
 msgstr "Vista"
 
-#: console/dialogs/dlg_tools.inc:45
+#: console/dialogs/dlg_tools.inc:52
 msgid "Clear temporary directory"
 msgstr "Limpiar carpeta de ficheros temporales"
 
-#: console/dialogs/dlg_tools.inc:47
+#: console/dialogs/dlg_tools.inc:54
 msgid "Trash"
 msgstr "Papelera"
 
-#: console/dialogs/dlg_tools.inc:53
+#: console/dialogs/dlg_tools.inc:83
+msgid "All federations"
+msgstr "Todas las federaciones"
+
+#: console/dialogs/dlg_tools.inc:89
 msgid "Create and download a database backup copy"
 msgstr "Generar y descargar una copia de seguridad de la base de datos"
 
-#: console/dialogs/dlg_tools.inc:54
+#: console/dialogs/dlg_tools.inc:90
 msgid "Restore database contents from previous backup"
 msgstr "Restaurar la base de datos desde un backup previo"
 
-#: console/dialogs/dlg_tools.inc:55
-msgid "Factory reset. Clear EVERY content on database"
-msgstr "Reset de f&aacute;brica. Borrar TODO el contenido de la base de datos"
+#: console/dialogs/dlg_tools.inc:91
+msgid "Download and install latest database update from internet"
+msgstr ""
+"Descargar e instalar la &uacute;ltima actualizaci&oacute;n de la BBDD desde "
+"internet"
 
-#: console/dialogs/dlg_tools.inc:56
-msgid "Clear contests from database"
-msgstr "Borrar las pruebas registradas en la base de datos"
+#: console/dialogs/dlg_tools.inc:92
+msgid "Clear EVERY database content for selected federation"
+msgstr "Borrar TODOS los datos de la BBDD de la federaci&oacute;n seleccionada"
 
-#: console/dialogs/dlg_tools.inc:56
+#: console/dialogs/dlg_tools.inc:93
+msgid "Clear all contests from database"
+msgstr "Borrar todas las pruebas de la base de datos"
+
+#: console/dialogs/dlg_tools.inc:93
 msgid "leaving only dogs/handlers/judges/clubs information"
 msgstr "dejando solo datos sobre perros, gu&iacute;as, clubes y jueces"
 
-#: console/dialogs/dlg_tools.inc:57
+#: console/dialogs/dlg_tools.inc:94
 msgid "Search and install AgilityContest updates"
 msgstr "Buscar e instalar actualizaciones de AgilityContest"
 
-#: console/dialogs/dlg_tools.inc:58
+#: console/dialogs/dlg_tools.inc:95
 msgid ""
 "Synchronize current database content with<br/>stored data from "
 "AgilityContest server"
@@ -3992,15 +4018,15 @@ msgstr ""
 "Sincronizar el contenido de la base de datos local<br/>con los datos "
 "almacenados en el servidor AgilityContest"
 
-#: console/dialogs/dlg_tools.inc:59
+#: console/dialogs/dlg_tools.inc:96
 msgid "Clear debugging and trace file"
 msgstr "Borrar fichero de errores y registro (log) de ejecuci&oacute;n"
 
-#: console/dialogs/dlg_tools.inc:60
+#: console/dialogs/dlg_tools.inc:97
 msgid "Download debug and trace file"
 msgstr "Descargar fichero de errores y trazas de ejecuci&oacute;n"
 
-#: console/dialogs/dlg_tools.inc:61
+#: console/dialogs/dlg_tools.inc:98
 msgid "Remove every unneeded files from temporary directory"
 msgstr ""
 "Borrar todos los ficheros que ya no son necesarios de la carpeta temporal"
@@ -4195,7 +4221,7 @@ msgstr "Ignorar entrada. No importar este resultado a la base de datos"
 #: lib/templates/final_rounds_data.inc.php:12
 #: lib/templates/parcial_round_data.inc.php:14
 #: lib/templates/parcial_round_data.inc.php:15
-#: server/database/updater/Uploader.php:200
+#: server/database/updater/Uploader.php:209
 #: server/excel/classes/ClasificacionesWriter.php:86
 #: server/pdf/classes/PrintClasificacion.php:106
 #: server/pdf/classes/PrintClasificacion.php:130
@@ -5069,15 +5095,15 @@ msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
 msgid "You should select a valid contest"
 msgstr "Debe seleccionar una prueba v&aacute;lida"
 
-#: console/frm_inscripciones.php:110 scripts/pruebas.js.php:441
+#: console/frm_inscripciones.php:111 scripts/pruebas.js.php:441
 msgid "Warning"
 msgstr "Aviso"
 
-#: console/frm_inscripciones.php:111
+#: console/frm_inscripciones.php:112
 msgid "Out inscription period for this contest"
 msgstr "Fuera del periodo de inscripciones"
 
-#: console/frm_inscripciones.php:120
+#: console/frm_inscripciones.php:121
 msgid "Inscriptions - Registering form"
 msgstr "Inscripciones - Formulario de registro"
 
@@ -5274,29 +5300,29 @@ msgstr "Borrar casilla de b&uacute;squeda. Actualizar datos"
 msgid "Look for judges matching search criteria"
 msgstr "Buscar jueces que coincidan con el criterio de b&uacute;squeda"
 
-#: console/frm_login.php:32
+#: console/frm_login.php:55
 msgid "Some operations require a valid user to be logged in"
 msgstr ""
 "Algunas operaciones requieren iniciar sesi&oacute;n indicando un usuario"
 
-#: console/frm_login.php:33
+#: console/frm_login.php:56
 msgid "If no user is entered, youll be logged as \"guest\""
 msgstr ""
 "Si no se indica usuario se iniciar&aacute; sesi&oacute;n como \"invitado\""
 
-#: console/frm_login.php:40
+#: console/frm_login.php:63
 msgid "User name"
 msgstr "Nombre de usuario"
 
-#: console/frm_login.php:89 console/index.php:202
+#: console/frm_login.php:114 console/index.php:202
 msgid "Session init"
 msgstr "Inicio de sesi&oacute;n"
 
-#: console/frm_login.php:130
+#: console/frm_login.php:153
 msgid "Start session with provided user privileges"
 msgstr "Iniciar sesi&oacute;n con el usuario indicado"
 
-#: console/frm_login.php:131
+#: console/frm_login.php:154
 msgid "Start session as <em>guest</em> user. Close window"
 msgstr "Iniciar sesi&oacute;n como invitado. Cerrar ventana"
 
@@ -5682,7 +5708,7 @@ msgstr "Iniciar Sesi&oacute;n"
 msgid "DATABASE"
 msgstr "BASE DE DATOS"
 
-#: console/index.php:349 scripts/common.js.php:765
+#: console/index.php:349 scripts/common.js.php:777
 msgid "Clubs"
 msgstr "Clubes"
 
@@ -6513,12 +6539,12 @@ msgstr "Copia de seguridad autom&aacute;tica realizada"
 msgid "Must provide a valid directory in Agiltiycontest server"
 msgstr "Debe indicar una carpeta v&aacute;lida del servidor"
 
-#: scripts/admin.js.php:239 scripts/admin.js.php:318 scripts/admin.js.php:339
-#: scripts/admin.js.php:358
+#: scripts/admin.js.php:242 scripts/admin.js.php:328 scripts/admin.js.php:350
+#: scripts/admin.js.php:369
 msgid "<strong>Notice:</strong><br/>"
 msgstr "<strong>Aviso:</strong><br/>"
 
-#: scripts/admin.js.php:240
+#: scripts/admin.js.php:243
 msgid ""
 "This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>. "
 "before trying restore<br/>"
@@ -6526,58 +6552,62 @@ msgstr ""
 "Esta operaci&oacute;n <strong>BORRARA <em>TODOS</em> LOS DATOS </"
 "strong>antes de restaurar <br/>"
 
-#: scripts/admin.js.php:241 scripts/admin.js.php:322 scripts/admin.js.php:365
+#: scripts/admin.js.php:244 scripts/admin.js.php:332 scripts/admin.js.php:376
 msgid "Be aware of making a backup copy before continue<br/><br/>"
 msgstr "Asegurese de hacer una copia de seguridad antes de seguir<br/><br/>"
 
-#: scripts/admin.js.php:242 scripts/admin.js.php:323 scripts/admin.js.php:342
+#: scripts/admin.js.php:245 scripts/admin.js.php:333 scripts/admin.js.php:353
 msgid "To continue enter administrator password and press <em>Accept</em>"
 msgstr ""
 "Para proceder, introduzca la contrase&ntilde;a del usuario administrador y "
 "pulse <em>Aceptar</em>"
 
-#: scripts/admin.js.php:245
-msgid "You should specify an <em>.sql</em> file with a previous backup"
-msgstr "Debe especificar un fichero <em>.sql</em> con un backup anterior"
-
-#: scripts/admin.js.php:248
+#: scripts/admin.js.php:246
 msgid "DataBase restore"
 msgstr "Restaurar base de datos"
 
-#: scripts/admin.js.php:258
+#: scripts/admin.js.php:250
+msgid "You should specify an <em>.sql</em> file with a previous backup"
+msgstr "Debe especificar un fichero <em>.sql</em> con un backup anterior"
+
+#: scripts/admin.js.php:254
+msgid "DataBase update"
+msgstr "Actualizar Base de Datos"
+
+#: scripts/admin.js.php:268
 msgid "Restoreing database"
 msgstr "Recuperando base de datos"
 
-#: scripts/admin.js.php:274
+#: scripts/admin.js.php:284
 msgid "Database Restore Error"
 msgstr "Error en recuperacion de base de datos"
 
-#: scripts/admin.js.php:277
+#: scripts/admin.js.php:287
 msgid "Restore Database"
 msgstr "Restaurar base de datos"
 
-#: scripts/admin.js.php:278
+#: scripts/admin.js.php:288
 msgid "Database restore success<br />Press Accept to re-init application"
 msgstr ""
 "Recuperaci&oacute;n de base de datos completa<br /> pulse Aceptar para "
 "reiniciar aplicaci&oacute;n"
 
-#: scripts/admin.js.php:319
+#: scripts/admin.js.php:329
 msgid ""
-"This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>.<br/>"
+"This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA on selected "
+"federation</strong>.<br/>"
 msgstr ""
-"Esta operaci&oacute;n <strong>BORRARRA <em>TODOS</em> LOS DATOS</strong>.<br/"
-">"
+"Esta operaci&oacute;n<strong>BORRAR&Aacute; <em>TODOS</em> LOS DATOS de la "
+"federaci&oacute;n seleccionada</strong>.<br/>"
 
-#: scripts/admin.js.php:320
+#: scripts/admin.js.php:330
 msgid ""
-"Including contests, inscriptions, scores, judges, dogs, handlers and "
-"clubs<br/>"
+"Including contests, inscriptions, scores, judges, dogs and handlers<br/>"
 msgstr ""
-"Incluyendo pruebas, inscripciones, resultados, jueces, perros, gu&iacute;s y "
-"clubes<br/>"
+"Incluyendo pruebas, inscripciones, puntuaciones, jueces, perros y gu&iacute;"
+"as<br/>"
 
-#: scripts/admin.js.php:321
+#: scripts/admin.js.php:331
 msgid ""
 "This is intended to be used ONLY as a previous step from importing new data "
 "from Excel file<br/> "
@@ -6585,54 +6615,50 @@ msgstr ""
 "SOLO debe ser usada como paso previo a una importaci&oacute;n de datos desde "
 "un fichero Excel<br/>"
 
-#: scripts/admin.js.php:325
-msgid "Factory Reset"
-msgstr "Reset de f&aacute;brica"
+#: scripts/admin.js.php:335 scripts/admin.js.php:342
+msgid "Reset Federation"
+msgstr "Limpiar federaci&oacute;n"
 
-#: scripts/admin.js.php:329
-msgid "Database Reset Error"
-msgstr "Error en borrado de base de datos"
+#: scripts/admin.js.php:340
+msgid "Database Reset Federation Error"
+msgstr "BBDD error en borrado de datos de federaci&oacute;n"
 
-#: scripts/admin.js.php:331
-msgid "Reset Database"
-msgstr "Borrar base de datos"
-
-#: scripts/admin.js.php:331
+#: scripts/admin.js.php:342
 msgid "Data base cleared<br />Please reinit application"
 msgstr ""
 "Base de datos vac&iacute;a<br />Por favor, reinicie la aplicaci&oacute;n"
 
-#: scripts/admin.js.php:340
+#: scripts/admin.js.php:351
 msgid "This operation WILL ERASE every contests,"
 msgstr "Esta operaci&oacute;n BORRARA todas las pruebas,"
 
-#: scripts/admin.js.php:341
+#: scripts/admin.js.php:352
 msgid "inscriptions and scores from data base<br/><br/>"
 msgstr "inscripciones y resultados de la base de datos<br/><br/>"
 
-#: scripts/admin.js.php:344 scripts/admin.js.php:350
+#: scripts/admin.js.php:355 scripts/admin.js.php:361
 msgid "Erase contests"
 msgstr "Borrar pruebas"
 
-#: scripts/admin.js.php:348
+#: scripts/admin.js.php:359
 msgid "Contests clear Error"
 msgstr "Error en borrado de pruebas"
 
-#: scripts/admin.js.php:350
+#: scripts/admin.js.php:361
 msgid "Every contests have been erased<br />Please, reinit application"
 msgstr ""
 "Todas las pruebas han sido borradas<br />Por favor, reinicie la "
 "aplicaci&oacute;n"
 
-#: scripts/admin.js.php:360 scripts/admin.js.php:369
+#: scripts/admin.js.php:371 scripts/admin.js.php:380
 msgid "Update AgilityContest"
 msgstr "Actualizar AgilityContest"
 
-#: scripts/admin.js.php:361
+#: scripts/admin.js.php:372
 msgid "Auto-Update is not allowed for unregistered installs"
 msgstr "No se permite actualizar una versi&oacute;n sin licencia registrada"
 
-#: scripts/admin.js.php:366
+#: scripts/admin.js.php:377
 msgid ""
 "To proceed with AgilityContest update, enter administrator password and "
 "press <em>Accept</em>"
@@ -6640,86 +6666,86 @@ msgstr ""
 "Para proceder con la actualizaci&oacute;n, introduzca la contrase&ntilde;a "
 "del usuario administrador y pulse <em>Aceptar</em>"
 
-#: scripts/admin.js.php:378
+#: scripts/admin.js.php:389
 msgid "Downloading"
 msgstr "Descargando"
 
-#: scripts/admin.js.php:379
+#: scripts/admin.js.php:390
 msgid "Downloading new version into server"
 msgstr "Descargando actualizaci&oacute;n en el servidor"
 
-#: scripts/admin.js.php:394
+#: scripts/admin.js.php:405
 msgid "Download update failed"
 msgstr "Descarga de actualizaci&oacute;n fallida"
 
-#: scripts/admin.js.php:397
+#: scripts/admin.js.php:408
 msgid "Download complete. Press Acccept to start upgrade"
 msgstr "Descarga completada. Pulse Aceptar para iniciar actualizaci&oacute;n"
 
-#: scripts/admin.js.php:451
+#: scripts/admin.js.php:462
 msgid "Check for DB Updates"
 msgstr "Comprobar actualizaciones de la BBDD"
 
-#: scripts/admin.js.php:455
+#: scripts/admin.js.php:466
 msgid "No Database updates available"
 msgstr "No hay actualizaciones de la BBDD"
 
-#: scripts/admin.js.php:456
+#: scripts/admin.js.php:467
 msgid "New entries available in database"
 msgstr "Nuevas entradas disponibles en la BBDD"
 
-#: scripts/admin.js.php:468
+#: scripts/admin.js.php:479
 msgid "You need to enable sharing data in configuration menu"
 msgstr ""
 "Necesita habilitar compartir datos en el men&uacute; de configuraci&oacute;n"
 
-#: scripts/admin.js.php:471
+#: scripts/admin.js.php:482
 msgid "This app is not registered. Please use a valid license"
 msgstr ""
 "La aplicaci&oacute;n no est&aacute; registrada. Por favor, use una licencia "
 "v&aacute;lida"
 
-#: scripts/admin.js.php:474
+#: scripts/admin.js.php:485
 msgid "This operation requires admin privileges"
 msgstr "Esta operaci&oacute;n requiere permisos de administrador"
 
-#: scripts/admin.js.php:483
+#: scripts/admin.js.php:494
 msgid "Synchronize DB"
 msgstr "Sincronizar BBDD"
 
-#: scripts/admin.js.php:484
+#: scripts/admin.js.php:495
 msgid "Updating database with new server data"
 msgstr "Actualizando BBDD con los datos del servidor"
 
-#: scripts/admin.js.php:498
+#: scripts/admin.js.php:509
 msgid "Sync database"
 msgstr "Sincronizar base de datos"
 
-#: scripts/admin.js.php:502
+#: scripts/admin.js.php:513
 msgid "Database is synced with server"
 msgstr "La base de datos est&aacute; sincronizada con el servidor"
 
-#: scripts/admin.js.php:540
+#: scripts/admin.js.php:552
 msgid "Current Version"
 msgstr "Versi&oacute;n actual"
 
-#: scripts/admin.js.php:540
+#: scripts/admin.js.php:552
 msgid "Current Release"
 msgstr "Revisi&oacute;n actual"
 
-#: scripts/admin.js.php:549
+#: scripts/admin.js.php:561
 msgid "Check for Upgrades"
 msgstr "Buscar actualizaciones"
 
-#: scripts/admin.js.php:553
+#: scripts/admin.js.php:565
 msgid "<p>AgilityContest is up to date</p>"
 msgstr "<p>AgilityContest est&aacute; actualizado</p>"
 
-#: scripts/admin.js.php:556
+#: scripts/admin.js.php:568
 msgid "Last Version"
 msgstr "Nueva Versi&oacute;n"
 
-#: scripts/admin.js.php:556
+#: scripts/admin.js.php:568
 msgid "Last Release"
 msgstr "Nueva revisi&oacute;n"
 
@@ -6856,7 +6882,7 @@ msgstr "No se ha indicado ninguna federacion"
 #: scripts/clubes.js.php:214 scripts/clubes.js.php:218
 #: scripts/clubes.js.php:223 scripts/equipos.js.php:232
 #: scripts/equipos.js.php:236 scripts/guias.js.php:54 scripts/guias.js.php:77
-#: scripts/guias.js.php:162 scripts/guias.js.php:166 scripts/jueces.js.php:114
+#: scripts/guias.js.php:180 scripts/guias.js.php:184 scripts/jueces.js.php:114
 #: scripts/jueces.js.php:118 scripts/perros.js.php:102
 #: scripts/pruebas.js.php:180 scripts/sesiones.js.php:96
 #: scripts/sesiones.js.php:100 scripts/sesiones.js.php:124
@@ -6881,36 +6907,36 @@ msgstr "Borrar club"
 msgid "from database. Sure?"
 msgstr "de la base de datos. ¿Seguro?"
 
-#: scripts/common.js.php:377
+#: scripts/common.js.php:389
 msgid "loadConfiguration(): cannot retrieve configuration from server"
 msgstr ""
 "loadConfiguration(); no puedo recuperar la configuraci&oacute;n desde el "
 "servidor"
 
-#: scripts/common.js.php:402
+#: scripts/common.js.php:414
 msgid "getLicenseInfo(): cannot retrieve License info from server"
 msgstr "getLicenseInfo() no se puede leer la informaci&oacute;n de registro"
 
-#: scripts/common.js.php:426
+#: scripts/common.js.php:438
 msgid "getLicensedClubInfo(): cannot retrieve License info from server"
 msgstr ""
 "getLicensedClubInfo(): no puedo leer la informacion de licencia del servidor"
 
-#: scripts/common.js.php:449
+#: scripts/common.js.php:461
 msgid "getFederationsInfo(): cannot retrieve federations info from server"
 msgstr ""
 "getFederationsInfo() no se puede obtener la lista de federaciones del "
 "servidor"
 
-#: scripts/common.js.php:471
+#: scripts/common.js.php:483
 msgid "Clubs Database Management"
 msgstr "Gesti&oacute;n de datos de Clubes"
 
-#: scripts/common.js.php:472
+#: scripts/common.js.php:484
 msgid "Countries Database Info"
 msgstr "Informaci&oacute;n de pa&iacute;ses en la BBDD"
 
-#: scripts/common.js.php:762
+#: scripts/common.js.php:774
 msgid "Countries"
 msgstr "Pa&iacute;ses"
 
@@ -7311,7 +7337,7 @@ msgid "Assign/Register a handler"
 msgstr "Asignar/Registrar un gu&iacute;a"
 
 #: scripts/guias.js.php:54 scripts/guias.js.php:77 scripts/guias.js.php:123
-#: scripts/guias.js.php:162
+#: scripts/guias.js.php:180
 msgid "There is no handler selected"
 msgstr "No se ha seleccionado ningun gu&iacute;a"
 
@@ -7327,17 +7353,17 @@ msgstr "Borrar asignaci&oacute;n del gu&iacute;a"
 msgid "to club"
 msgstr "al club"
 
-#: scripts/guias.js.php:126 scripts/guias.js.php:139
+#: scripts/guias.js.php:126 scripts/guias.js.php:148
 msgid "Modify handler data"
 msgstr "Editar datos del gu&iacute;a"
 
-#: scripts/guias.js.php:166 scripts/jueces.js.php:118 scripts/modules.js.php:44
+#: scripts/guias.js.php:184 scripts/jueces.js.php:118 scripts/modules.js.php:44
 #: scripts/sesiones.js.php:100 scripts/tandas.js.php:120
 #: scripts/usuarios.js.php:106 scripts/usuarios.js.php:125
 msgid "This entry cannot be deleted"
 msgstr "Esta entrada no se puede borrar"
 
-#: scripts/guias.js.php:169
+#: scripts/guias.js.php:187
 msgid "Delete data on handler"
 msgstr "Borrar datos del gu&iacute;a"
 
@@ -8441,26 +8467,26 @@ msgstr "Junior 2"
 msgid "Jr. 2"
 msgstr "Jr. 2"
 
-#: server/database/updater/Uploader.php:188
+#: server/database/updater/Uploader.php:197
 msgid "Get timestamp of last update"
 msgstr "Obtener fecha de la ultima actualizacion"
 
-#: server/database/updater/Uploader.php:191
+#: server/database/updater/Uploader.php:200
 msgid "Reading local database changes"
 msgstr "Leyendo cambios de la BBDD local"
 
-#: server/database/updater/Uploader.php:194
+#: server/database/updater/Uploader.php:203
 msgid "Looking for remote database changes"
 msgstr "Buscando cambios en BBDD remota"
 
-#: server/database/updater/Uploader.php:200
-#: server/database/updater/Uploader.php:205
-#: server/database/updater/Uploader.php:210
-#: server/database/updater/Uploader.php:215
+#: server/database/updater/Uploader.php:209
+#: server/database/updater/Uploader.php:214
+#: server/database/updater/Uploader.php:219
+#: server/database/updater/Uploader.php:224
 msgid "Updating"
 msgstr "Actualizando"
 
-#: server/database/updater/Uploader.php:218
+#: server/database/updater/Uploader.php:227
 msgid "Setting new update timestamp"
 msgstr "Ajustando marca de tiempo de la actualizacion"
 
@@ -8488,7 +8514,7 @@ msgstr "Pagado"
 msgid "Pay"
 msgstr "Pagado"
 
-#: server/excel/classes/OrdenSalidaReader.php:64
+#: server/excel/classes/OrdenSalidaReader.php:65
 msgid "StartingOrder"
 msgstr "Orden de salida"
 
@@ -9254,11 +9280,11 @@ msgstr "Copia licenciada para el club"
 msgid "Data Entry"
 msgstr "Entrada de datos"
 
-#: server/tools.php:631
+#: server/tools.php:642
 msgid "Current journey is closed. cannot modify"
 msgstr "La jornada actual est&aacute; cerrada. No se puede modificar"
 
-#: server/tools.php:683
+#: server/tools.php:694
 msgid "Physical"
 msgstr "F&iacute;sica"
 
@@ -9402,6 +9428,36 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "Factory Reset"
+#~ msgstr "Reset de f&aacute;brica"
+
+#~ msgid "Database Reset Error"
+#~ msgstr "Error en borrado de base de datos"
+
+#~ msgid "Reset Database"
+#~ msgstr "Borrar base de datos"
+
+#~ msgid "Factory reset. Clear EVERY content on database"
+#~ msgstr ""
+#~ "Reset de f&aacute;brica. Borrar TODO el contenido de la base de datos"
+
+#~ msgid "Clear contests from database"
+#~ msgstr "Borrar las pruebas registradas en la base de datos"
+
+#~ msgid ""
+#~ "This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>."
+#~ "<br/>"
+#~ msgstr ""
+#~ "Esta operaci&oacute;n <strong>BORRARRA <em>TODOS</em> LOS DATOS</strong>."
+#~ "<br/>"
+
+#~ msgid ""
+#~ "Including contests, inscriptions, scores, judges, dogs, handlers and "
+#~ "clubs<br/>"
+#~ msgstr ""
+#~ "Incluyendo pruebas, inscripciones, resultados, jueces, perros, gu&iacute;"
+#~ "s y clubes<br/>"
 
 #~ msgid "Live session now: "
 #~ msgstr "En directo ahora"

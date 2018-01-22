@@ -117,10 +117,6 @@ function clearTempDir(){
     });
 }
 
-function downloadDatabase () {
-
-}
-
 function backupDatabase(){
     $.fileDownload(
         '/agility/server/adminFunctions.php',
@@ -240,17 +236,26 @@ function read_restoreFile(input) {
     }
 }
 
-function restoreDatabase(){
+// fromClient: true: use file from filebox; false: download backup from remote server
+function restoreDatabase(fromClient){
+    if (!checkForAdmin()) return;
     var l1='<?php _e("<strong>Notice:</strong><br/>"); ?>';
     var l2='<?php _e("This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>. before trying restore<br/>"); ?>';
     var l3='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
     var l4='<?php _e("To continue enter administrator password and press <em>Accept</em>"); ?>';
-    if (!checkForAdmin()) return;
-    if ($('#tools-restoreFile').val()=="") {
-        $.messager.alert("Restore",'<?php _e("You should specify an <em>.sql</em> file with a previous backup"); ?>',"error");
-        return false;
+    var title='<?php _e('DataBase restore'); ?>';
+    if (fromClient) {
+        // use file selected from user
+        if ($('#tools-restoreFile').val()=="") {
+            $.messager.alert("Restore",'<?php _e("You should specify an <em>.sql</em> file with a previous backup"); ?>',"error");
+            return false;
+        }
+    } else {
+        title='<?php _e('DataBase update'); ?>';
+        // download and install database from master server
+        $('#tools-restoreData').val("remoteDownload");
     }
-    $.messager.password('<?php _e('DataBase restore'); ?>',l1+l2+l3+l4 , function(pass){
+    $.messager.password(title,l1+l2+l3+l4 , function(pass){
         if (pass){
             // comprobamos si el password es correcto
             checkPassword(ac_authInfo.Login,pass,function(data) {
@@ -327,14 +332,14 @@ function clearDatabase(){
     var l3='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
     var l4='<?php _e("To continue enter administrator password and press <em>Accept</em>"); ?>';
     if (!checkForAdmin()) return;
-    $.messager.password('<?php _e('Factory Reset'); ?>',l1+l2+l3+l4 , function(pass){
+    $.messager.password('<?php _e('Reset Federation'); ?>',l1+l2+l3+l4 , function(pass){
         if (pass){
             var fed=$('#tools-Federation').combogrid('getValue');
             performClearDatabase('reset',fed,pass,function(data){
                 if (data.errorMsg){
-                    $.messager.show({ width:300, height:150, title:'<?php _e( 'Database Reset Error'); ?>', msg: data.errorMsg });
+                    $.messager.show({ width:300, height:150, title:'<?php _e( 'Database Reset Federation Error'); ?>', msg: data.errorMsg });
                 } else {
-                    $.messager.alert('<?php _e("Reset Database"); ?>','<?php _e("Data base cleared<br />Please reinit application"); ?>',"info");
+                    $.messager.alert('<?php _e("Reset Federation"); ?>','<?php _e("Data base cleared<br />Please reinit application"); ?>',"info");
                 }
             });
         }

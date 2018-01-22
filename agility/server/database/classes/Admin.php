@@ -328,6 +328,11 @@ class Admin extends DBObject {
 		// extraemos los datos de registro
 		$data=http_request("Data","s",null);
 		if (!$data) return array("errorMsg" => "restoreDB(): No restoration data received");
+		if ($data==="remoteDownload") {
+		    $res=retrieveFileFromURL("http://www.agilitycontest.es/downloads/agility.sql");
+		    if ($res===FALSE) return array("errorMsg" => "downloadDatabase(): cannot download file from server");
+		    return $res;
+        }
 		if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
 			return array("errorMsg" => "restoreDatabase(): Invalid received data format");
 		}
@@ -389,6 +394,8 @@ class Admin extends DBObject {
 			throw new Exception("Cannot perform upgrade process: database::dbConnect()");
 		// phase 1: retrieve file from http request
         $data=$this->retrieveDBFile();
+        if (is_array($data))
+            throw new Exception($data['errorMsg']);
         // phase 2: verify received file
 		if (strpos(substr($data,0,25),"-- AgilityContest")===FALSE)
 			throw new Exception("Install file is not an AgilityContest database file");
