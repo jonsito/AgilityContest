@@ -182,6 +182,9 @@
 .icon-abc{
          background:url('icons/abc.png') no-repeat center center;
 }
+.icon-earth{
+         background:url('icons/earth.png') no-repeat center center;
+}
 /* end added icons */
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;

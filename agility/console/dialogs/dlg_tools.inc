@@ -13,10 +13,17 @@
 		<input type="file" class="icon_button icon-search" id="tools-restoreFile" name="restoreFile" accept="application/sql" required="required" onchange="read_restoreFile(this)">
 		<input id="tools-restoreData" type="hidden" name="restoreData" value="">
 	</p>
+    <p>
+        <span style="display:inline-block;width:350px"><?php _e('Update database fom Internet'); ?></span>
+        <a id="tools-resInternetBtn" href="#" class="easyui-linkbutton" style="width:85px"
+           data-options="iconCls:'icon-earth'" onclick="downloadDatabase()"><?php _e('Download'); ?></a>
+    </p>
 	<p> 
 		<span style="display:inline-block;width:350px"><?php _e('Erase database contents'); ?></span>
     	<a id="tools-resetBtn" href="#" class="easyui-linkbutton" style="width:85px"
-	   		data-options="iconCls:'icon-on'" onclick="clearDatabase()"><?php _e('Reset'); ?></a>
+	   		data-options="iconCls:'icon-on'" onclick="clearDatabase()"><?php _e('Erase'); ?></a>
+        <label for="tools-Federation"><?php _e('Federation'); ?>:</label>
+        <select id="tools-Federation" name="Federation" style="width:200px"></select>
 	</p>
 	<p>
 		<span style="display:inline-block;width:350px"><?php _e('Delete stored contests'); ?></span>
@@ -49,11 +56,41 @@
 </div>
 
 <script type="text/javascript">
+    $('#tools-Federation').combogrid({
+        width:275,
+        panelWidth: 300,
+        panelHeight: 150,
+        idField: 'ID',
+        textField: 'LongName',
+        url: '/agility/server/modules/moduleFunctions.php?Operation=enumerate',
+        method: 'get',
+        mode: 'remote',
+        required: true,
+        multiple: false,
+        fitColumns: true,
+        singleSelect: true,
+        editable: false,  // to disable tablet keyboard popup
+        selectOnNavigation: true, // let use cursor keys to interactive select
+        columns: [[
+            {field:'ID',  title:'<?php _e('ID'); ?>',width:'20',align:'left'},
+            {field:'Name',hidden:true},
+            {field:'LongName',        title:'<?php _e('Name'); ?>',width:'250',align:'right'}
+        ]],
+        onLoadSuccess: function(data) {
+            var dg=$('#tools-Federation').combogrid('grid');
+            dg.datagrid('insertRow',{
+               index:0,
+               row: { ID:-1, Name:'all', LongName:'<?php _e('All federations'); ?>'}
+            });
+            dg.datagrid('selectRow',0);
+        }
+    });
 
 addTooltip($('#tools-backupBtn').linkbutton(),'<?php _e("Create and download a database backup copy"); ?>');
 addTooltip($('#tools-restoreBtn').linkbutton(),'<?php _e("Restore database contents from previous backup"); ?>');
-addTooltip($('#tools-resetBtn').linkbutton(),'<?php _e("Factory reset. Clear EVERY content on database"); ?>');
-addTooltip($('#tools-eraseBtn').linkbutton(),'<?php _e("Clear contests from database"); ?>'+"<br />"+'<?php _e("leaving only dogs/handlers/judges/clubs information"); ?>');
+addTooltip($('#tools-resInternetBtn').linkbutton(),'<?php _e("Download and install latest database update from internet"); ?>');
+addTooltip($('#tools-resetBtn').linkbutton(),'<?php _e("Clear EVERY database content for selected federation"); ?>');
+addTooltip($('#tools-eraseBtn').linkbutton(),'<?php _e("Clear all contests from database"); ?>'+"<br />"+'<?php _e("leaving only dogs/handlers/judges/clubs information"); ?>');
 addTooltip($('#tools-upgradeBtn').linkbutton(),'<?php _e("Search and install AgilityContest updates"); ?>');
 addTooltip($('#tools-syncdbBtn').linkbutton(),'<?php _e("Synchronize current database content with<br/>stored data from AgilityContest server"); ?>');
 addTooltip($('#tools-logResetBtn').linkbutton(),'<?php _e("Clear debugging and trace file"); ?>');

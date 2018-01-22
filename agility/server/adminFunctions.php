@@ -33,6 +33,7 @@ try {
 	$operation=http_request("Operation","s","");
     $perms=http_request("Perms","i",PERMS_NONE);
     $mode=http_request("Mode","i",-1); // default for autobackup is do not handle user config, just backup
+	$fed=http_request("Federation","i",-1); // default for erase is "All federations"
     $suffix=http_request("Suffix","s","");
     $version=http_request("Version","s","");
     $directory=http_request("Directory","s",""); // where to store user backup or null to use defaults
@@ -67,9 +68,9 @@ try {
 		case "restore":
 			$am->access(PERMS_ADMIN); $result=$adm->restore(); break;
 		case "reset":
-			$am->access(PERMS_ADMIN); $result=$adm->clearDatabase(); break;
+			$am->access(PERMS_ADMIN); $result=$adm->clearDatabase($fed); break;
 		case "clear":
-			$am->access(PERMS_ADMIN); $result=$adm->clearContests(); break;
+			$am->access(PERMS_ADMIN); $result=$adm->clearContests(-1); break;
         case "upgrade":
             $am->access(PERMS_ADMIN); $result=$adm->checkForUpgrades(); break;
         case "download":

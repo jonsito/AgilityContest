@@ -117,6 +117,10 @@ function clearTempDir(){
     });
 }
 
+function downloadDatabase () {
+
+}
+
 function backupDatabase(){
     $.fileDownload(
         '/agility/server/adminFunctions.php',
@@ -202,7 +206,7 @@ function trigger_autoBackup(minutes) {
 
 }
 
-function performClearDatabase(oper,pass,callback) {
+function performClearDatabase(oper,fed,pass,callback) {
     // comprobamos si el password es correcto
     checkPassword(ac_authInfo.Login,pass,function(data) {
         if (data.errorMsg) { // error
@@ -214,7 +218,8 @@ function performClearDatabase(oper,pass,callback) {
                 url:"/agility/server/adminFunctions.php",
                 dataType:'json',
                 data: {
-                    Operation: oper
+                    Operation: oper,
+                    Federation: fed
                 },
                 success: function(res) { callback(res); },
                 error: function(XMLHttpRequest,textStatus,errorThrown) {
@@ -316,15 +321,16 @@ function restoreDatabase(){
 
 function clearDatabase(){
     var l1='<?php _e("<strong>Notice:</strong><br/>"); ?>';
-    var l2='<?php _e("This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>.<br/>"); ?>'+
-        '<?php _e("Including contests, inscriptions, scores, judges, dogs, handlers and clubs<br/>"); ?>' +
+    var l2='<?php _e("This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA on selected federation</strong>.<br/>"); ?>'+
+        '<?php _e("Including contests, inscriptions, scores, judges, dogs and handlers<br/>"); ?>' +
         '<?php _e("This is intended to be used ONLY as a previous step from importing new data from Excel file<br/> "); ?>';
     var l3='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
     var l4='<?php _e("To continue enter administrator password and press <em>Accept</em>"); ?>';
     if (!checkForAdmin()) return;
     $.messager.password('<?php _e('Factory Reset'); ?>',l1+l2+l3+l4 , function(pass){
         if (pass){
-            performClearDatabase('reset',pass,function(data){
+            var fed=$('#tools-Federation').combogrid('getValue');
+            performClearDatabase('reset',fed,pass,function(data){
                 if (data.errorMsg){
                     $.messager.show({ width:300, height:150, title:'<?php _e( 'Database Reset Error'); ?>', msg: data.errorMsg });
                 } else {
@@ -343,7 +349,7 @@ function removePruebas(){
     if (!checkForAdmin()) return;
     $.messager.password('<?php _e('Erase contests'); ?>',l1+l2+l3+l4, function(pass){
         if (pass){
-            performClearDatabase('clear',pass,function(data){
+            performClearDatabase('clear',-1,pass,function(data){
                 if (data.errorMsg){
                     $.messager.show({ width:300, height:150, title: '<?php _e('Contests clear Error'); ?>', msg: data.errorMsg });
                 } else {

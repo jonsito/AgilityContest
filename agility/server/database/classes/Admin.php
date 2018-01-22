@@ -400,22 +400,40 @@ class Admin extends DBObject {
         DBConnection::closeConnection($rconn);
 		return "";
 	}
-	
-	public function clearDatabase() {
-		// drop pruebas
-        $this->clearContests();
-        // delete data
-        $this->query("DELETE FROM Jueces WHERE ID>1");
-        $this->query("DELETE FROM Perros WHERE ID>1");
-        $this->query("DELETE FROM Guias WHERE ID>1");
-        $this->query("DELETE FROM Clubes WHERE ID>1 AND Federations < 512"); // do not delete countries!!
-        // do not delete users nor sessions
-        $this->query("DELETE FROM Eventos");
-		return "";
-	}
 
-	public function clearContests($fireException=true) {
-        return $this->query("DELETE FROM Pruebas WHERE ID>1");
+    public function clearContests($fed=-1) {
+        $fed=intval($fed); // for yes the flies
+        $f=($fed===-1)?"":" AND (RSCE={$fed})";
+        // this will recursively delete teams, journeys, rounds, results, and so
+        return $this->query("DELETE FROM Pruebas WHERE (ID>1) {$f}");
+    }
+
+	public function clearDatabase($fed=-1) {
+        $fed=intval($fed); // for yes the flies...
+        $f=($fed===-1)?"":" AND (Federation={$fed})";
+		// drop pruebas
+        $this->clearContests($fed);
+        // do not delete users nor sessions
+
+        // delete dogs and handlers on selected federation
+        $this->query("DELETE FROM Perros WHERE (ID>1) {$f}");
+        $this->query("DELETE FROM Guias WHERE (ID>1) {$f}");
+
+        // judges and clubes need to evaluate federation mask;
+        // do not delete clubes for international contests, !cause they are just countries!
+        if ($fed===-1) { // delete all data regardless federation
+            $this->query("DELETE FROM Clubes WHERE (ID>1) AND (Federations < 512)"); // do not delete countries!!
+            $this->query("DELETE FROM Jueces WHERE (ID>1)");
+            $this->query("DELETE FROM Eventos");
+        } else {
+            $fmask=1<<$fed; // get federation mask
+            // remove every judges related only to provided federation
+            $this->query("DELETE FROM Jueces WHERE (ID>1) AND (Federations={$fmask})");
+            // delete all clubes registered _only_ on requested federation
+            if ($f<512) $this->query("DELETE FROM Clubes WHERE (ID>1) AND (Federations={$fmask})");
+            // pending: also remove related logos (when no shared)
+        }
+		return "";
 	}
 
 	public function clearTemporaryDirectory() {
