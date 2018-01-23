@@ -40,6 +40,10 @@ class Updater {
     protected $conn;
     protected $myDBObject;
 
+    /**
+     * Updater constructor.
+     * @throws Exception if cannot create root connection with database
+     */
     function __construct() {
         // extract version info from configuration file
         $this->config=Config::getInstance();
@@ -146,6 +150,11 @@ class Updater {
         return true;
     }
 
+    /**
+     * Check database version against program version
+     * @return bool true if need to handle database structure updates
+     * @throws Exception on sql query failures
+     */
     function updateVersionHistory() {
         $this->myLogger->enter();
         // make sure database provides version history table
@@ -300,7 +309,10 @@ class Updater {
         return 0;
     }
 
-    // add country list if not exist
+    /**
+     * add country list if not exist
+     * @throws Exception on sql query failure
+     */
     function addCountries() {
         $this->myLogger->enter();
         $country="";
@@ -347,6 +359,11 @@ class Updater {
         if (file_exists($f)) unlink($f);
     }
 
+    /**
+     * replace all instances of manga data from integer to float if required
+     * @return int when done
+     * @throws Exception on sql query failure
+     */
     function setTRStoFloat() {
         $this->myLogger->enter();
         $cmds= array(
@@ -371,9 +388,57 @@ class Updater {
         return 0;
     }
 
-    // tabla de entrenamientos
-    // definimos hasta cuatro rings por pais, indicando en cada ring
-    // la categoria y el tiempo en segundos
+    /**
+     * tabla de gestion de puntos de liga
+     * Necesitamos como clave unica la tupla Jornada,Perro,Grado
+     * La categoria se supone que no cambia en la vida del perro, pero el grado si
+     * En cada entrada guardamos los puntos y estrellas de cada manga
+     * El valor de estos depende de cada competicion
+     * No hace falta indicar ni prueba ni federacion: estan implicitos en la jornada
+     */
+    function createLeagueTable() {
+        $this->myLogger->enter();
+        $str="
+        CREATE TABLE IF NOT EXISTS `Ligas` (
+          `Jornada` int(4) NOT NULL,
+          `Grado`   varchar(16) NOT NULL,
+          `Perro`   int(4) NOT NULL,
+          `P1`      int(4) NOT NULL DEFAULT 0,
+          `P2`      int(4) NOT NULL DEFAULT 0,
+          `P3`      int(4) NOT NULL DEFAULT 0,
+          `P4`      int(4) NOT NULL DEFAULT 0,
+          `P5`      int(4) NOT NULL DEFAULT 0,
+          `P6`      int(4) NOT NULL DEFAULT 0,
+          `P7`      int(4) NOT NULL DEFAULT 0,
+          `P8`      int(4) NOT NULL DEFAULT 0,
+          `E1`      int(4) NOT NULL DEFAULT 0,
+          `E2`      int(4) NOT NULL DEFAULT 0,
+          `E3`      int(4) NOT NULL DEFAULT 0,
+          `E4`      int(4) NOT NULL DEFAULT 0,
+          `E5`      int(4) NOT NULL DEFAULT 0,
+          `E6`      int(4) NOT NULL DEFAULT 0,
+          `E7`      int(4) NOT NULL DEFAULT 0,
+          `E8`      int(4) NOT NULL DEFAULT 0,
+          PRIMARY KEY (`Jornada`,`Grado`,`Perro`),
+          KEY `Ligas_Jornada` (`Jornada`),
+          KEY `Ligas_Grado` (`Grado`),
+          KEY `Ligas_Perro` (`Perro`),
+          CONSTRAINT `Ligas_ibfk1` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+          CONSTRAINT `Ligas_ibfk2` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE, 
+          CONSTRAINT `Ligas_ibfk3` FOREIGN KEY (`Perro`) REFERENCES `Perros` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE 
+        ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+        ";
+        $res=$this->conn->query($str);
+        if (!$res) throw new Exception("upgrade::createLeagueTable(): ".$this->conn->error);
+        $this->myLogger->leave();
+    }
+
+    /**
+     * tabla de entrenamientos
+     * definimos hasta cuatro rings por pais, indicando en cada ring
+     * la categoria y el tiempo en segundos
+     * @throws Exception
+     */
     function createTrainingTable() {
         $this->myLogger->enter();
         $str="
@@ -406,6 +471,7 @@ class Updater {
         ";
         $res=$this->conn->query($str);
         if (!$res) throw new Exception("upgrade::createTrainingTable(): ".$this->conn->error);
+        $this->myLogger->leave();
     }
 
     /**
@@ -613,6 +679,7 @@ try {
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
+    $upg->createLeagueTable();
     $upg->populateTeamMembers();
     $upg->addNewGradeTypes();
     $upg->addNewMangaTypes();
