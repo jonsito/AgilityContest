@@ -41,13 +41,13 @@ class Ligas extends DBObject {
         $timeout=ini_get('max_execution_time');
 
         // create prepared statement
-        $sql="INSERT INTO Ligas (Jornada,Grado,Perro,Pt1,Pt2,Pt3,Pt4,Pt5,Pt6,Pt7,Pt8,St1,St2,St3,St4,St5,St6,St7,St8)".
-            " VALUES (?,?,?,  ?,?,?,?,?,?,?,?, ?,?,?,?,?,?,?,?)".
+        $sql="INSERT INTO Ligas (Jornada,Grado,Perro,Pt1,Pt2,Pt3,Pt4,Pt5,Pt6,Pt7,Pt8,St1,St2,St3,St4,St5,St6,St7,St8,Puntos)".
+            " VALUES (?,?,?,  ?,?,?,?,?,?,?,?, ?,?,?,?,?,?,?,?, ?)".
             " ON DUPLICATE KEY UPDATE ".
             " Pt1=VALUES(Pt1), Pt2=VALUES(Pt2), Pt3=VALUES(Pt3), Pt4=VALUES(Pt4), ".
             " Pt5=VALUES(Pt5), Pt6=VALUES(Pt6), Pt7=VALUES(Pt7), Pt8=VALUES(Pt8), ".
             " St1=VALUES(St1), St2=VALUES(St2), St3=VALUES(St3), St4=VALUES(Pt4), ".
-            " St5=VALUES(St5), St6=VALUES(St6), St7=VALUES(St7), St8=VALUES(Pt8) ";
+            " St5=VALUES(St5), St6=VALUES(St6), St7=VALUES(St7), St8=VALUES(Pt8), Puntos=VALUES(Puntos)";
         $stmt=$this->conn->prepare($sql);
         if (!$stmt) return $this->error($this->conn->error);
 
@@ -72,17 +72,19 @@ class Ligas extends DBObject {
                 $data['Jornada']=$this->jornadaObj->ID;
                 $data['Grado']=$item['Grado'];
                 $data['Perro']=$item['Perro'];
+                $data['Puntos']=array_key_exists("Puntos",$item)?$item["Puntos"]:0;
                 $this->myLogger->trace("LIGAS: Jornada:{$data['Jornada']},Grado:{$data['Grado']},Perro:{$data['Perro']}");
                 for ($n=1;$n<9;$n++) {
                     $data["Pt{$n}"]= array_key_exists("Pt{$n}",$item)?$item["Pt{$n}"]:0;
                     $data["St{$n}"]= array_key_exists("St{$n}",$item)?$item["St{$n}"]:0;
                 }
-                $res=$stmt->bind_param("isiiiiiiiiiiiiiiiii",
+                $res=$stmt->bind_param("isiiiiiiiiiiiiiiiiii",
                     $data['Jornada'],$data['Grado'],$data['Perro'],
                     $data['Pt1'],$data['Pt2'],$data['Pt3'],$data['Pt4'],
                     $data['Pt5'],$data['Pt6'],$data['Pt7'],$data['Pt8'],
                     $data['St1'],$data['St2'],$data['St3'],$data['St4'],
-                    $data['St5'],$data['St6'],$data['St7'],$data['St8']
+                    $data['St5'],$data['St6'],$data['St7'],$data['St8'],
+                    $data['Puntos']
                     );
                 if (!$res) return $this->error($stmt->error);
                 $res=$stmt->execute();
@@ -111,9 +113,11 @@ class Ligas extends DBObject {
             "",
             "Perro"
         );
+        // PENDING: add extra entries for Selectivas RSCE
+
         $res2= $this->__select( // for RFEC
             "PerroGuiaClub.Nombre AS Perro, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
-                "SUM(Pt1) + SUM(Pt2) AS Puntos", // pending: add global points to league table
+                "SUM(Pt1) + SUM(Pt2) + SUM(Puntos) AS Puntuacion", // pending: add global points to league table
             "Ligas,PerroGuiaClub",
             "PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
             "Puntos ASC",

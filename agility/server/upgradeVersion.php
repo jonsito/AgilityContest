@@ -419,6 +419,7 @@ class Updater {
           `St6`      int(4) NOT NULL DEFAULT 0,
           `St7`      int(4) NOT NULL DEFAULT 0,
           `St8`      int(4) NOT NULL DEFAULT 0,
+          `Puntos`      int(4) NOT NULL DEFAULT 0,
           PRIMARY KEY (`Jornada`,`Grado`,`Perro`),
           KEY `Ligas_Jornada` (`Jornada`),
           KEY `Ligas_Grado` (`Grado`),
