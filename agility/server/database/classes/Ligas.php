@@ -22,7 +22,7 @@ require_once("Clasificaciones.php");
 class Ligas extends DBObject {
 
     protected $jornadaObj; // object
-    // protected $pruebaObj; // object
+    protected $pruebaObj; // object
 
     /**
      * Ligas constructor.
@@ -91,5 +91,35 @@ class Ligas extends DBObject {
         }
         $stmt->close();
         return "";
+    }
+
+    /**
+     * Retrieve short form ( global sums ) for all stored results
+     * @param {string} $grado
+     */
+    function getShortData($grado) {
+        if ($this->pruebaObj==null)
+            $this->pruebaObj= $this->__getObject("Pruebas", $this->jornadaObj->Prueba);
+        $fed=$this->pruebaObj->RSCE;
+        // PENDING: make this federation dependent
+        $res=$this->__select( // for rsce
+            "PerroGuiaClub.Nombre AS Perro, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
+                "SUM(Pt1) AS P_Agility, SUM(Pt2) aS P_Jumping, SUM(St1) AS PV_Agility, SUM(St2) AS PV_Jumping",
+            "Ligas,PerroGuiaClub",
+            "PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
+            "Licencia ASC",
+            "",
+            "Perro"
+        );
+        $res2= $this->__select( // for RFEC
+            "PerroGuiaClub.Nombre AS Perro, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
+                "SUM(Pt1) + SUM(Pt2) AS Puntos", // pending: add global points to league table
+            "Ligas,PerroGuiaClub",
+            "PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
+            "Puntos ASC",
+            "",
+            "Perro"
+
+        );
     }
 }
