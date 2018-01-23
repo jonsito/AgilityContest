@@ -48,11 +48,11 @@ class Pruebas extends DBObject {
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('sissssiii',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$rsce,$selectiva,$cerrada);
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 		
 		// retrieve PruebaID on newly create prueba
 		$pruebaid=$this->conn->insert_id;
@@ -115,11 +115,11 @@ class Pruebas extends DBObject {
 		    'sissssiiissi',
             $nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$rsce,$selectiva,$cerrada,$openingreg,$closingreg,$id
         );
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 		$this->myLogger->leave();
 		$stmt->close();
 		return "";

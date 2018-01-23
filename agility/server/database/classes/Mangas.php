@@ -296,12 +296,12 @@ class Mangas extends DBObject {
 			$trs_t_tipo,	$trs_t_factor,	$trs_t_unit,	$trm_t_tipo,	$trm_t_factor,	$trm_t_unit,// TRS y TRM Small
 			$juez1, 		$juez2, 		$observaciones
 		);
-		if (!$res) return $this->error($this->conn->error); 
+		if (!$res) return $this->error($stmt->error);
 
 		// ejecutamos el query
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) return $this->error($this->conn->error); 
+		if (!$res) return $this->error($stmt->error);
 		$stmt->close();
 		
 		// actualizamos el campo "Recorrido" de las Mangas gemelas

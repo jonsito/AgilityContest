@@ -110,11 +110,11 @@ class Jornadas extends DBObject {
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('isssiiiiiiiiiiiiiisii',
 				$prueba,$nombre,$fecha,$hora,$slaveof,$tipo_competicion,$grado1,$grado2,$grado3,$junior,$senior,$open,$equipos3,$equipos4,$preagility,$ko,$games,$especial,$observaciones,$cerrada,$id);
-		if (!$res) return $this->error($this->conn->error); 
+		if (!$res) return $this->error($stmt->error);
 
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) return $this->error($this->conn->error); 
+		if (!$res) return $this->error($stmt->error);
 		$stmt->close();
 		if (!$cerrada) {
 			$mangas =new Mangas("jornadaFunctions",$id);

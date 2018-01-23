@@ -46,12 +46,12 @@ class Usuarios extends DBObject {
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('ssssii',$login,$gecos,$phone,$email,$club,$perms);
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 		$stmt->close();
 		$this->myLogger->leave();
 		return ""; 
@@ -81,11 +81,11 @@ class Usuarios extends DBObject {
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('ssssii',$login,$gecos,$phone,$email,$club,$perms);
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 		$stmt->close();
 		$this->myLogger->leave();
 		return "";

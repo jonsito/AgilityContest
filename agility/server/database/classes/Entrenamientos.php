@@ -133,7 +133,7 @@ class Entrenamientos extends DBObject {
         if (!$stmt) return $this->error($this->conn->error);
         $this->myLogger->trace("SQL: before bind");
         $res=$stmt->bind_param('iissssiiiiisi',$idx,$clb,$fecha,$firma,$vet,$ent,$dur,$l,$m,$s,$t,$obs,$st);
-        if (!$res) return $this->error($this->conn->error);
+        if (!$res) return $this->error($stmt->error);
         foreach($clubes as $elem) {
             $idx=$elem['Orden'];
             $clb=$elem['Club'];

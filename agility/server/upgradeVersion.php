@@ -332,7 +332,7 @@ class Updater {
         $stmt=$this->conn->prepare($str);
         if (!$stmt) throw new Exception("upgrade::addCountries(prepare) ".$this->conn->error);
         $res=$stmt->bind_param('ssss',$name,$lcountry,$country,$logo);
-        if (!$res) throw new Exception("upgrade::addCountries(bind) ".$this->conn->error);
+        if (!$res) throw new Exception("upgrade::addCountries(bind) ".$stmt->error);
         foreach(Country::$countryList as $key => $val) {
             $country=$key;
             $lcountry=$val;
@@ -403,22 +403,22 @@ class Updater {
           `Jornada` int(4) NOT NULL,
           `Grado`   varchar(16) NOT NULL,
           `Perro`   int(4) NOT NULL,
-          `P1`      int(4) NOT NULL DEFAULT 0,
-          `P2`      int(4) NOT NULL DEFAULT 0,
-          `P3`      int(4) NOT NULL DEFAULT 0,
-          `P4`      int(4) NOT NULL DEFAULT 0,
-          `P5`      int(4) NOT NULL DEFAULT 0,
-          `P6`      int(4) NOT NULL DEFAULT 0,
-          `P7`      int(4) NOT NULL DEFAULT 0,
-          `P8`      int(4) NOT NULL DEFAULT 0,
-          `E1`      int(4) NOT NULL DEFAULT 0,
-          `E2`      int(4) NOT NULL DEFAULT 0,
-          `E3`      int(4) NOT NULL DEFAULT 0,
-          `E4`      int(4) NOT NULL DEFAULT 0,
-          `E5`      int(4) NOT NULL DEFAULT 0,
-          `E6`      int(4) NOT NULL DEFAULT 0,
-          `E7`      int(4) NOT NULL DEFAULT 0,
-          `E8`      int(4) NOT NULL DEFAULT 0,
+          `Pt1`      int(4) NOT NULL DEFAULT 0,
+          `Pt2`      int(4) NOT NULL DEFAULT 0,
+          `Pt3`      int(4) NOT NULL DEFAULT 0,
+          `Pt4`      int(4) NOT NULL DEFAULT 0,
+          `Pt5`      int(4) NOT NULL DEFAULT 0,
+          `Pt6`      int(4) NOT NULL DEFAULT 0,
+          `Pt7`      int(4) NOT NULL DEFAULT 0,
+          `Pt8`      int(4) NOT NULL DEFAULT 0,
+          `St1`      int(4) NOT NULL DEFAULT 0,
+          `St2`      int(4) NOT NULL DEFAULT 0,
+          `St3`      int(4) NOT NULL DEFAULT 0,
+          `St4`      int(4) NOT NULL DEFAULT 0,
+          `St5`      int(4) NOT NULL DEFAULT 0,
+          `St6`      int(4) NOT NULL DEFAULT 0,
+          `St7`      int(4) NOT NULL DEFAULT 0,
+          `St8`      int(4) NOT NULL DEFAULT 0,
           PRIMARY KEY (`Jornada`,`Grado`,`Perro`),
           KEY `Ligas_Jornada` (`Jornada`),
           KEY `Ligas_Grado` (`Grado`),

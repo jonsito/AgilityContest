@@ -144,7 +144,7 @@ class Sesiones extends DBObject {
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('ssiiiiis',$nombre,$comentario,$prueba,$jornada,$manga,$tanda,$operador,$sessionkey);
-		if (!$res) return $this->error($this->conn->error);	
+		if (!$res) return $this->error($stmt->error);
 
 		
 		// invocamos la orden SQL y devolvemos el resultado

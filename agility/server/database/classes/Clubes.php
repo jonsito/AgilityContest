@@ -69,7 +69,7 @@ class Clubes extends DBObject {
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('sssssssssssissssi',$nombre,$direccion1,$direccion2,$provincia,$pais,$contacto1,$contacto2,$contacto3,$gps,
 				$web,$email,$federations,$facebook,$google,$twitter,$observaciones,$baja);
-		if (!$res)  return $this->error($this->conn->error);
+		if (!$res)  return $this->error($stmt->error);
 		
 
 		$this->myLogger->debug("Nombre: $nombre Direccion1: $direccion1 Contacto1: $contacto1 Observaciones: $observaciones");

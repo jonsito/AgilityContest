@@ -53,7 +53,7 @@ class Dogs extends DBObject {
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('sssssssissi',$nombre,$raza,$chip,$loe_rrc,$licencia,$categoria,$grado,$guia,$nombrelargo,$genero,$federation);
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 		
 		$this->myLogger->info("Nombre:$nombre Raza:$raza LOE:$loe_rrc Categoria:$categoria Grado:$grado Guia:$guia Federation:$federation");
 		// invocamos la orden SQL y devolvemos el resultado
@@ -111,7 +111,7 @@ class Dogs extends DBObject {
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('sssssssissi',$nombre,$raza,$chip,$loe_rrc,$licencia,$categoria,$grado,$guia,$nombrelargo,$genero,$idperro);
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 
 		$this->myLogger->info("\nUPDATE dogs: ID: $id Nombre: $nombre Raza: $raza Licencia: $licencia LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado
