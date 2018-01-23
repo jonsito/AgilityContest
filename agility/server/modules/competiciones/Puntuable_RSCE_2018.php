@@ -28,8 +28,8 @@ class Puntuable_RSCE_2018 extends Competitions {
         $this->puntos=array(
             // en la temporada 2018 desaparecen los puntos dobles
             /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS    pts  stars */
-            array("GII",    "Pv",  4.0,    3.8,   3.8,   4.2,    4.0,    4.0,   1,  1 ),
-            array("GIII",   "Pv",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   1,  1 )
+            array("GII",    "Pv",  4.0,    3.8,   3.8,   4.2,    4.0,    4.0,   0,  1 ),
+            array("GIII",   "Pv",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   0,  1 )
         );
     }
 
@@ -99,6 +99,7 @@ class Puntuable_RSCE_2018 extends Competitions {
         }
         if ($perro['Grado']==="GI") {
             parent::evalPartialCalification($m,$perro,$puestocat);
+            $perro['Estrellas']=0;
             if($perro['Penalizacion']==0) $perro['Puntos']=1;
             return;
         }

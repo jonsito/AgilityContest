@@ -33,10 +33,8 @@ class Ligas extends DBObject {
     function __construct($file,$jornadaid) {
         parent::__construct($file);
         if ($jornadaid <= 0) throw new Exception("Ligas::construct() negative or null journey ID");
-        $this->jornadaObj = $this->myDBObject->__getObject("Jornadas", $jornadaid);
+        $this->jornadaObj = $this->__getObject("Jornadas", $jornadaid);
         if (!$this->jornadaObj) throw new Exception("Ligas::construct() Journey ID: {$jornadaid} not found");
-        // $this->pruebaObj = $this->myDBObject->__getObject("Pruebas", $this->jornadaObj->Prueba);
-        // if (!$this->pruebaObj) throw new Exception("Ligas::construct() Prueba ID: {$this->jornadaObj->Prueba} not found" );
     }
 
     function update() {
@@ -69,16 +67,17 @@ class Ligas extends DBObject {
             // and evaluate clasificacion
             $clasificaciones=$cobj->clasificacionFinal($s['Rondas'],$mangas,$s['Mode']);
             // iterate on every item
-            foreach ($clasificaciones as $item) {
+            foreach ($clasificaciones['rows'] as $item) {
                 $data=array();
                 $data['Jornada']=$this->jornadaObj->ID;
                 $data['Grado']=$item['Grado'];
                 $data['Perro']=$item['Perro'];
+                $this->myLogger->trace("LIGAS: Jornada:{$data['Jornada']},Grado:{$data['Grado']},Perro:{$data['Perro']}");
                 for ($n=1;$n<9;$n++) {
                     $data["Pt{$n}"]= array_key_exists("Pt{$n}",$item)?$item["Pt{$n}"]:0;
                     $data["St{$n}"]= array_key_exists("St{$n}",$item)?$item["St{$n}"]:0;
                 }
-                $res=$stmt->bind_param("iiiiiiiiiiiiiiiiiii",
+                $res=$stmt->bind_param("isiiiiiiiiiiiiiiiii",
                     $data['Jornada'],$data['Grado'],$data['Perro'],
                     $data['Pt1'],$data['Pt2'],$data['Pt3'],$data['Pt4'],
                     $data['Pt5'],$data['Pt6'],$data['Pt7'],$data['Pt8'],

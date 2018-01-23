@@ -25,10 +25,10 @@ class Puntuable_RSCE_2017 extends Competitions {
         $this->competitionID=0;
         $this->puntos=array(
             /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS    pts  stars */
-            array("GII",    "Pv",  3.8,    3.6,   3.6,   4.0,    3.8,    3.8,   1,  1 ),
-            array("GII",    "2P",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3,   2,  2 ), // need to confirm stars value
-            array("GIII",   "Pv",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   1,  1 ),
-            array("GIII",   "2P",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3,   2,  2 ),
+            array("GII",    "Pv",  3.8,    3.6,   3.6,   4.0,    3.8,    3.8,   0,  1 ),
+            array("GII",    "2P",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3,   0,  2 ), // need to confirm stars value
+            array("GIII",   "Pv",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   0,  1 ),
+            array("GIII",   "2P",  5.3,    5.1,   5.1,   5.5,    5.3,    5.3,   0,  2 ),
         );
     }
 
@@ -96,6 +96,7 @@ class Puntuable_RSCE_2017 extends Competitions {
         }
         if ($perro['Grado']==="GI") {
             parent::evalPartialCalification($m,$perro,$puestocat);
+            $perro['Estrellas']=0;
             if($perro['Penalizacion']==0) $perro['Puntos']=1;
             return;
         }

@@ -21,6 +21,7 @@ require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Jornadas.php");
+require_once(__DIR__."/classes/Ligas.php");
 require_once(__DIR__."/classes/Admin.php");
 	
 	/***************** programa principal **************/
