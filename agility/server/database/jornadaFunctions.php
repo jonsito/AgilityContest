@@ -40,10 +40,14 @@ require_once(__DIR__."/classes/Admin.php");
 			// there is no need of "insert" method: every prueba has 8 "hard-linked" jornadas
 			case "delete": $am->access(PERMS_OPERATOR); $result=$jornadas->delete($jornadaid); break;
 			case "close":
-			    $am->access(PERMS_OPERATOR);
+			    $am->access(PERMS_OPERATOR); // check permission. fire exception on denied
                 $adm= new Admin("jornadaFunctions",$am,"");
                 $adm->autobackup(0,""); // make a backup before open/close
-			    $result=$jornadas->close($jornadaid,$mode);
+			    $result=$jornadas->close($jornadaid,$mode); // open/close journey according mode
+			    if ($mode!==0) { // on close jornada update Ligas contents
+			        $l=new Ligas("CloseJourney",$jornadaid);
+			        $l->update();
+			    }
 			    break;
 			case "update": $am->access(PERMS_OPERATOR); $result=$jornadas->update($jornadaid,$am); break;
             case "select": $result=$jornadas->selectByPrueba(); break;
