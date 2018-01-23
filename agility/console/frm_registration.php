@@ -1,7 +1,7 @@
 <!-- 
 frm_about.php
 
-Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms 
 of the GNU General Public License as published by the Free Software Foundation; 
@@ -30,7 +30,7 @@ $config =Config::getInstance();
 			<strong><?php _e('Version'); ?>: </strong><span id="reg_version">version</span> - <span id="reg_date">date</span>
 		</dt>
 		<dt>
-			<strong>AgilityContest</strong> <?php _e('is Copyright &copy; 2013-2017 by'); ?> <em> Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
+			<strong>AgilityContest</strong> <?php _e('is Copyright &copy; 2013-2018 by'); ?> <em> Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
 		</dt>
 		<dd>
 		<?php _e('Source code is available at'); ?> <a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />

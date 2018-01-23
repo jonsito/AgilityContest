@@ -4233,7 +4233,7 @@ msgstr "Vel"
 
 #: console/frm_about.php:32
 msgid " is CopyRight &copy; 2013-2015 from "
-msgstr " é Copyright &copy; 2013-2017 de "
+msgstr " é Copyright &copy; 2013-2018 de "
 
 #: console/frm_about.php:35
 msgid "Source code available at"
@@ -5244,8 +5244,8 @@ msgid "Update journey list for this contest"
 msgstr "Atualizar a lista de jornadas desta prova"
 
 #: console/frm_registration.php:33
-msgid "is Copyright &copy; 2013-2017 by"
-msgstr "é Copyright &copy; 2013-2017 por"
+msgid "is Copyright &copy; 2013-2018 by"
+msgstr "é Copyright &copy; 2013-2018 por"
 
 #: console/frm_registration.php:36
 msgid "Source code is available at"

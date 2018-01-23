@@ -33,7 +33,7 @@ with internet in mind. OnLine Realtime results, Live Streaming, OnScreenDisplay,
 tablet assistance on the rings, Electronic chronometer API, and so many other features.
 Enjoy!
 
-AgilityContest is Copyright  2013-2017 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+AgilityContest is Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 Inscrito en el Registro Territorial de la Propiedad Intelectual de Madrid. Exp: 09-RTPI-09439.4/2014
 
 AgilityContest Logo is based on an original work from Britta Schweikl 
