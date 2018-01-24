@@ -45,10 +45,9 @@ require_once(__DIR__."/classes/Admin.php");
                 $adm= new Admin("jornadaFunctions",$am,"");
                 $adm->autobackup(0,""); // make a backup before open/close
 			    $result=$jornadas->close($jornadaid,$mode); // open/close journey according mode
-			    if ($mode!==0) { // on close jornada update Ligas contents
-			        $l=new Ligas("CloseJourney",$jornadaid);
-			        $l->update();
-			    }
+                // handle leagues
+                $l=new Ligas("CloseJourney",$jornadaid);
+                $l->update($mode); // add or delete points to league according open/close journey
 			    break;
 			case "update": $am->access(PERMS_OPERATOR); $result=$jornadas->update($jornadaid,$am); break;
             case "select": $result=$jornadas->selectByPrueba(); break;

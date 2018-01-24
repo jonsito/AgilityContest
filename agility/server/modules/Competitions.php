@@ -360,6 +360,25 @@ class Competitions {
         return $compobj->getClasificacionesObject($file,$pruebaobj,$jornadaobj,$perro);
     }
 
+    /**
+     * @param {string} $file
+     * @param {object} $jornada Jornada object
+     * @return Ligas
+     * @throws Exception on invalid jornada id
+     */
+    protected function getLigasObject($file,$jornada) {
+        return new Ligas($file,$jornada);
+    }
+
+    public static function getLigasInstance($file="Ligas",$jornada) {
+        $dbobj=new DBObject($file);
+        $jornadaobj=$dbobj->__getObject("Jornadas",$jornada);
+        $pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
+        // retrieve OrdenSalida handler from competition module
+        $compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
+        return $compobj->getLigasObject($file,$jornadaobj);
+    }
+
     /**************************************** static functions comes here *************************************/
 
     /**

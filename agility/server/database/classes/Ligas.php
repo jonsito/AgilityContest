@@ -27,27 +27,53 @@ class Ligas extends DBObject {
     /**
      * Ligas constructor.
      * @param $file object name used for debbugging
-     * @param $jornadaid Jornada ID
+     * @param {integer|object} $jornadaid Jornada ID or object
      * @throws Exception on invalid or not found jornada
      */
-    function __construct($file,$jornadaid) {
+    function __construct($file,$jornada) {
         parent::__construct($file);
-        if ($jornadaid <= 0) throw new Exception("Ligas::construct() negative or null journey ID");
-        $this->jornadaObj = $this->__getObject("Jornadas", $jornadaid);
-        if (!$this->jornadaObj) throw new Exception("Ligas::construct() Journey ID: {$jornadaid} not found");
+        $this->jornadaObj=$jornada;
+        if (!is_object($jornada)){
+            if ($jornada <= 0) throw new Exception("Ligas::construct() negative or null journey ID");
+            $this->jornadaObj = $this->__getObject("Jornadas", $jornada);
+            if (!$this->jornadaObj) throw new Exception("Ligas::construct() Journey ID: {$jornada} not found");
+        }
     }
 
-    function update() {
+    function update($mode){ return ($mode)===0?$this->delete():$this->insert();    }
+
+    /**
+     * delete current journey's data from league table
+     * @return null|string
+     */
+    function delete(){
+        $sql="DELETE FROM Ligas WHERE Jornada={$this->jornadaObj->ID}";
+        $res=$this->query($sql);
+        if (!$res) return $this->error($this->conn->error);
+        return "";
+    }
+
+    /**
+     * insert points stars and extras on current journey into league table
+     * @return null|string
+     */
+    function insert() {
         $timeout=ini_get('max_execution_time');
 
         // create prepared statement
-        $sql="INSERT INTO Ligas (Jornada,Grado,Perro,Pt1,Pt2,Pt3,Pt4,Pt5,Pt6,Pt7,Pt8,St1,St2,St3,St4,St5,St6,St7,St8,Puntos)".
-            " VALUES (?,?,?,  ?,?,?,?,?,?,?,?, ?,?,?,?,?,?,?,?, ?)".
+        $sql="INSERT INTO Ligas (".
+            "Jornada,Grado,Perro,".
+            "Pt1,Pt2,Pt3,Pt4,Pt5,Pt6,Pt7,Pt8,St1,St2,St3,St4,St5,St6,St7,St8,Xt1,Xt2,Xt3,Xt4,Xt5,Xt6,Xt7,Xt8,".
+            "Puntos,Estrellas,Extras)".
+            " VALUES (?,?,?,  ?,?,?,?,?,?,?,?, ?,?,?,?,?,?,?,?, ?,?,?,?,?,?,?,?, ?,?,?)".
             " ON DUPLICATE KEY UPDATE ".
             " Pt1=VALUES(Pt1), Pt2=VALUES(Pt2), Pt3=VALUES(Pt3), Pt4=VALUES(Pt4), ".
             " Pt5=VALUES(Pt5), Pt6=VALUES(Pt6), Pt7=VALUES(Pt7), Pt8=VALUES(Pt8), ".
-            " St1=VALUES(St1), St2=VALUES(St2), St3=VALUES(St3), St4=VALUES(Pt4), ".
-            " St5=VALUES(St5), St6=VALUES(St6), St7=VALUES(St7), St8=VALUES(Pt8), Puntos=VALUES(Puntos)";
+            " St1=VALUES(St1), St2=VALUES(St2), St3=VALUES(St3), St4=VALUES(St4), ".
+            " St5=VALUES(St5), St6=VALUES(St6), St7=VALUES(St7), St8=VALUES(St8), ".
+            " Xt1=VALUES(Xt1), Xt2=VALUES(Xt2), Xt3=VALUES(Xt3), Xt4=VALUES(Xt4), ".
+            " Xt5=VALUES(Xt5), Xt6=VALUES(Xt6), Xt7=VALUES(Xt7), Xt8=VALUES(Xt8), ".
+            "Puntos=VALUES(Puntos),Estrellas=VALUES(Estrellas),Extras=VALUES(Extras)";
         $stmt=$this->conn->prepare($sql);
         if (!$stmt) return $this->error($this->conn->error);
 
@@ -73,18 +99,23 @@ class Ligas extends DBObject {
                 $data['Grado']=$item['Grado'];
                 $data['Perro']=$item['Perro'];
                 $data['Puntos']=array_key_exists("Puntos",$item)?$item["Puntos"]:0;
+                $data['Estrellas']=array_key_exists("Estrellas",$item)?$item["Estrellas"]:0;
+                $data['Extras']=array_key_exists("Extras",$item)?$item["Extras"]:0;
                 $this->myLogger->trace("LIGAS: Jornada:{$data['Jornada']},Grado:{$data['Grado']},Perro:{$data['Perro']}");
                 for ($n=1;$n<9;$n++) {
                     $data["Pt{$n}"]= array_key_exists("Pt{$n}",$item)?$item["Pt{$n}"]:0;
                     $data["St{$n}"]= array_key_exists("St{$n}",$item)?$item["St{$n}"]:0;
+                    $data["Xt{$n}"]= array_key_exists("Xt{$n}",$item)?$item["Xt{$n}"]:0;
                 }
-                $res=$stmt->bind_param("isiiiiiiiiiiiiiiiiii",
+                $res=$stmt->bind_param("isiiiiiiiiiiiiiiiiiiiiiiiiiiii",
                     $data['Jornada'],$data['Grado'],$data['Perro'],
                     $data['Pt1'],$data['Pt2'],$data['Pt3'],$data['Pt4'],
                     $data['Pt5'],$data['Pt6'],$data['Pt7'],$data['Pt8'],
                     $data['St1'],$data['St2'],$data['St3'],$data['St4'],
                     $data['St5'],$data['St6'],$data['St7'],$data['St8'],
-                    $data['Puntos']
+                    $data['Xt1'],$data['Xt2'],$data['Xt3'],$data['Xt4'],
+                    $data['Xt5'],$data['Xt6'],$data['Xt7'],$data['Xt8'],
+                    $data['Puntos'],$data['Estrellas'],$data['Extras']
                     );
                 if (!$res) return $this->error($stmt->error);
                 $res=$stmt->execute();
@@ -97,25 +128,14 @@ class Ligas extends DBObject {
 
     /**
      * Retrieve short form ( global sums ) for all stored results
+     * may be overriden for special handling
      * @param {string} $grado
      */
     function getShortData($grado) {
         if ($this->pruebaObj==null)
             $this->pruebaObj= $this->__getObject("Pruebas", $this->jornadaObj->Prueba);
         $fed=$this->pruebaObj->RSCE;
-        // PENDING: make this federation dependent
-        $res=$this->__select( // for rsce
-            "PerroGuiaClub.Nombre AS Perro, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
-                "SUM(Pt1) AS P_Agility, SUM(Pt2) aS P_Jumping, SUM(St1) AS PV_Agility, SUM(St2) AS PV_Jumping",
-            "Ligas,PerroGuiaClub",
-            "PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
-            "Licencia ASC",
-            "",
-            "Perro"
-        );
-        // PENDING: add extra entries for Selectivas RSCE
-
-        $res2= $this->__select( // for RFEC
+        $res= $this->__select( // default implementation: just show points sumatory
             "PerroGuiaClub.Nombre AS Perro, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
                 "SUM(Pt1) + SUM(Pt2) + SUM(Puntos) AS Puntuacion", // pending: add global points to league table
             "Ligas,PerroGuiaClub",

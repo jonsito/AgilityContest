@@ -34,6 +34,7 @@ class EuropeanOpen_Team_Final extends Competitions {
      * @param {object} $jornada
      * @param {object} $manga
      * @return {Resultados} instance of requested Resultados object
+     * @throws Exception on invalid prueba/jornada/manga
      */
     protected function getResultadosObject($file,$prueba,$jornada,$manga) {
         return new Resultados_EO_Team_Final($file,$prueba,$jornada,$manga);

@@ -178,4 +178,17 @@ class Puntuable_RSCE_2018 extends Competitions {
         if ($perro['P2']==0) $p2=mb_substr($perro['C2'],-2,2);
         $perro['Calificacion']="$p1 / $p2";
     }
+
+    /**
+     * Retrieve handler for manage Ligas functions.
+     * Default is use standard Ligas, but may be overriden ( eg wao. Rounds )
+     * @param {string} $file
+     * @param {object} $jornada
+     * @return {Ligas} instance of requested Ligas object
+     * @throws Exception on invalid prueba/jornada/manga
+     */
+    protected function getLigasObject($file,$jornada) {
+        return new Ligas_RSCE_2018($file,$jornada->ID);
+    }
+
 }
