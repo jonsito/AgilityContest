@@ -33,7 +33,7 @@ class Liga_RSCE_2018 extends Ligas {
      */
     function getShortData($fed,$grado) {
         $g3="";
-        if ($grado==="GI") return parent::getShortData($grado); // no Pv nor Pa, just sum points
+        if ($grado==="GI") return parent::getShortData($fed,$grado); // no Pv nor Pa, just sum points
         if ($grado==="GII") $g3=", SUM(Xt1) AS PA_Agility, SUM(Xt2) AS PA_Jumping"; // promotion to GIII points
         $res=$this->__select( // for rsce
             "PerroGuiaClub.Nombre AS Perro, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
@@ -47,4 +47,8 @@ class Liga_RSCE_2018 extends Ligas {
         return $res;
     }
 
+    function getLongData($perro) {
+        // PENDING: write
+        return array('total'=>0,'rows'=>array());
+    }
 }

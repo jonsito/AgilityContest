@@ -15,6 +15,8 @@
  * Para la clasificacion para el C.E. Se exigen seis excelentes a cero en cada manga,
  * en los que al menos 3 de ellos tienen que tener puntos
  */
+require_once(__DIR__."/lib/ligas/Liga_RSCE_2018.php");
+
 class Puntuable_RSCE_2018 extends Competitions {
 
    protected $puntos;
@@ -188,7 +190,7 @@ class Puntuable_RSCE_2018 extends Competitions {
      * @throws Exception on invalid prueba/jornada/manga
      */
     protected function getLigasObject($file) {
-        return new Ligas_RSCE_2018($file);
+        return new Liga_RSCE_2018($file);
     }
 
 }

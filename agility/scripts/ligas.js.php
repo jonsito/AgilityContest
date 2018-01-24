@@ -22,12 +22,12 @@ $config =Config::getInstance();
 ?>
 
 function loadLeagueData(grado,callback) {
+    var mode=0; // PENDING rework
     $.ajax({
         url: '/agility/server/database/ligaFunctions.php',
         data: {
-            Operation: 'getData',
+            Operation: (mode==0)?'shortData':'longData',
             Grado:  grado,
-            Mode:   0, // 0:short, 1:long
             Perro:  0, // in long mode show results by perro
             Federation: workingData.datosFederation.ID
         },

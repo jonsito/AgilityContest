@@ -45,15 +45,23 @@ $config =Config::getInstance();
         tools: '#stats-tools'
     });
     // download and create datagrid for Grade 1
+    loadLeagueData("GI",function(data){
+        $('#stats-g1-datagrid').datagrid('loadData',data);
+    });
     // download and create datagrid for Grade 2
-    var g=parseInt(workingData.datosFederation.Grades);
-    if (g===2) {
+    loadLeagueData("GII",function(data){
+        $('#stats-g2-datagrid').datagrid('loadData',data);
+    });
+    var ngrados=parseInt(workingData.datosFederation.Grades);
+    if (ngrados===2) {
         // no grade 3: hide tab
         $('#stats-tab').tabs('close',"<?php _e('Grade'); ?> 3");
     } else {
         // download and create datagrid for Grade 3
+        loadLeagueData("GIII",function(data){
+            $('#stats-g3-datagrid').datagrid('loadData',data);
+        });
     }
-
     // tooltips
     addTooltip($('#stats-printBtn'),'<?php _e("Generate PDF or Excel file wiht League data"); ?>');
 </script>

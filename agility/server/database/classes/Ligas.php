@@ -137,4 +137,9 @@ class Ligas extends DBObject {
         );
         return $res;
     }
+
+    function getLongData($perro) {
+        // PENDING: write
+        return array('total'=>0,'rows'=>array());
+    }
 }

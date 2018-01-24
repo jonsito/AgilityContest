@@ -363,11 +363,10 @@ class Competitions {
 
     /**
      * @param {string} $file
-     * @param {object} $jornada Jornada object
      * @return Ligas
      * @throws Exception on invalid jornada id
      */
-    protected function getLigasObject($file,$federation) {
+    protected function getLigasObject($file) {
         return new Ligas($file);
     }
 
@@ -415,7 +414,7 @@ class Competitions {
             $comp=new $name;
             if (!$comp) continue; // cannot instantiate class. should report error
             if ($comp->federationID!=$fed) continue;
-            if ($comp->federationDefault!=0) continue;
+            if ($comp->federationDefault==0) continue; // not default
             // notice that prueba nor jornada nor selective variables are initialized
             return $comp; // found competition
         }
