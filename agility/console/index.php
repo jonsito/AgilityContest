@@ -411,9 +411,9 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
         </a>
     </li>
 	<li><a href="javascript:loadContents(
-	        '/agility/console/frm_estadisticas.php',
-	        '<?php _e('Statistics');?>'
-	    );"><?php _e('Statistics'); ?>
+	        '/agility/console/frm_ligas.php',
+	        '<?php _e('League Results for selected federation');?>'
+	    );"><?php _e('League Results'); ?>
         </a>
     </li>
 	</ul>

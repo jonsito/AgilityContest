@@ -46,12 +46,19 @@ class Liga_RSCE_2018 extends Ligas {
         );
         // add datagrid header
         $res['header']= array(
-            array('field' => 'Licencia',    'title'=>_('License'),  'width' => 10, 'align' => 'right'),
+            array('field' => 'Licencia',    'title'=>_('License'),  'width' => 15, 'align' => 'right'),
             array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'left'),
             array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 40, 'align' => 'right'),
             array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 30, 'align' => 'right'),
-            array('field' => 'Puntuacion',  'title'=>_('Points'),   'width' => 5,  'align' => 'center')
+            array('field' => 'P_Agility',  'title'=>_('Pt<br/>Agilty'),    'width' => 10,  'align' => 'center'),
+            array('field' => 'P_Jumping',  'title'=>_('Pt<br/>Jumping'),   'width' => 10,  'align' => 'center'),
+            array('field' => 'PV_Agility',  'title'=>_('Pv<br/>Agility'),  'width' => 10,  'align' => 'center'),
+            array('field' => 'PV_Jumping',  'title'=>_('Pv<br/>Jumping'),  'width' => 10,  'align' => 'center')
         );
+        if ($grado==="GII") {
+            array_push($res['header'],array('field' => 'PA_Agility',  'title'=>_('Pa<br/>Agility'),  'width' => 10,  'align' => 'center'));
+            array_push($res['header'],array('field' => 'PA_Jumping',  'title'=>_('Pa<br/>Jumping'),  'width' => 10,  'align' => 'center'));
+        }
         return $res;
     }
 
