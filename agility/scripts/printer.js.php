@@ -682,3 +682,11 @@ function clasificaciones_doPrint() {
 	}
 	return false; //this is critical to stop the click event which will trigger a normal file download!
 }
+
+/**
+ * presenta el menu de impresión de datos de ligas de competicion Excel/PDF
+ * @param panel panel seleccionado indicando el grado
+ */
+function printLeague(panel) {
+    alert("Not yet available");
+}
