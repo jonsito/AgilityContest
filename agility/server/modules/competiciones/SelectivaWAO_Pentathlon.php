@@ -81,6 +81,7 @@ class SelectivaWAO_Pentathlon extends Competitions {
         // datos para la exportacion de parciales en excel
         $perro['Puntos'] = 0;
         $perro['Estrellas']= 0;
+        $perro['Extras']= 0;
         $ptiempo=$perro['Penalizacion']-$perro['Tiempo'];
         if ($perro['Penalizacion']>=400)  { // pending
             $perro['Penalizacion']=400.0;

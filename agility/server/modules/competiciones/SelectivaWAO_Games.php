@@ -66,6 +66,7 @@ class SelectivaWAO_Games extends Competitions {
         $eliminado=intval($perro['Eliminado']);
         $nopresentado=intval($perro['NoPresentado']);
         $perro['Estrellas'] = 0; // not used in games
+        $perro['Extras'] = 0; // not used in games
         if (($eliminado!=00) || ($nopresentado!==0)) {
             $perro['PTiempo']=0;
             $perro['PRecorrido']=0;

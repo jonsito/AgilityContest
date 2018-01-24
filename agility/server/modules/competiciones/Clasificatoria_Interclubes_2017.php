@@ -48,8 +48,9 @@ class Clasificatoria_Interclubes_2017 extends Competitions {    /*
             }
         }
 
-        $perro['Estrellas']=0;
         $perro['Puntos']=0;
+        $perro['Estrellas']=0;
+        $perro['Extras']=0;
         /* los perros pendientes, no presentados o eliminados se contabilizan, pero tienen cero puntos */
         if ($perro['Penalizacion']>=400)  {
             $perro['Penalizacion']=400.0;

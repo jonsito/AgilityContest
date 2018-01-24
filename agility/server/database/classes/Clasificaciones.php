@@ -127,6 +127,8 @@ class Clasificaciones extends DBObject {
                         'Penalizacion' => 0,
                         'Calificacion' => '',
                         'Puntos' => 0,
+                        'Estrellas' => 0,
+                        'Extras' => 0,
                         'Puesto' => 0,
                         'Pcat' => 0
                     );
@@ -143,6 +145,7 @@ class Clasificaciones extends DBObject {
                         $participante["C{$j}"]=0;
                         $participante["Pt{$j}"]=0; // points
                         $participante["St{$j}"]=0; // stars
+                        $participante["Xt{$j}"]=0; // extras
                         $participante["Out{$j}"]=0;
                         $participante["Puesto{$j}"]=0;
                         $participante["Pcat{$j}"]=0;
@@ -164,11 +167,14 @@ class Clasificaciones extends DBObject {
                 $final[$dogID]["C{$j}"] = $item['CShort'];
                 $final[$dogID]["Pt{$j}"] = $item['Puntos'];
                 $final[$dogID]["St{$j}"] = $item['Estrellas'];
+                $final[$dogID]["Xt{$j}"] = $item['Extras'];
                 $final[$dogID]["Out{$j}"]=0;
                 $final[$dogID]["Puesto{$j}"] = $item['Puesto'];
                 $final[$dogID]["Pcat{$j}"] = $item['Pcat'];
                 $final[$dogID]["Tiempo"] += $final[$dogID]["T{$j}"];
                 $final[$dogID]["Puntos"] += $final[$dogID]["Pt{$j}"];
+                $final[$dogID]["Estrellas"] += $final[$dogID]["St{$j}"];
+                $final[$dogID]["Extras"] += $final[$dogID]["Xt{$j}"];
                 $final[$dogID]['Penalizacion'] = $final[$dogID]['Penalizacion'] - 400 + $final[$dogID]["P{$j}"];
                 // do_log("round:{$mangas[$i]->ID} inserted Participante:{$dogID}: ".json_encode($participante));
             }

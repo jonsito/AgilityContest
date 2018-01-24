@@ -66,6 +66,7 @@ class Liga_UCA extends Competitions {
             $perro['Puntos'] = 5;
         }
         $perro['Estrellas']= 0;
+        $perro['Extras']= 0;
     }
 
 

@@ -97,6 +97,7 @@ class Puntuable_RSCE_2017 extends Competitions {
         if ($perro['Grado']==="GI") {
             parent::evalPartialCalification($m,$perro,$puestocat);
             $perro['Estrellas']=0;
+            $perro['Extras']=0;
             if($perro['Penalizacion']==0) $perro['Puntos']=1;
             return;
         }
@@ -108,6 +109,7 @@ class Puntuable_RSCE_2017 extends Competitions {
         $perro['CShort'] = "Ex P.";
         $perro['Puntos'] = 1;
         $perro['Estrellas'] = 0;
+        $perro['Extras'] = 0;
         foreach ( $this->puntos as $item) {
             if ($perro['Grado']!==$item[0]) continue;
             // comprobamos si estamos en agility o en jumping (1:agility,2:jumping,3:third round and so )

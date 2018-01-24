@@ -149,6 +149,7 @@ class Selectiva_awc_RSCE extends Puntuable_RSCE_2017 {
         // de momento ponemos lo ponemos... luego ya veremos
         $perro['Puntos']=($puesto>1)?0:1;
         $perro['Estrellas']=0;
+        $perro['Extras']=0;
         if ($puesto>1) return;
         foreach ( $this->puntos as $item) {
             if ($perro['Grado']!==$item[0]) continue;

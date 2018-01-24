@@ -47,8 +47,8 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
 		for ($i=0;$i<8;$i++) $mangas[$i]=$this->__getObject("Mangas",$idmangas[$i]);
 		$resultados=array($c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
         $final=array(); // puesto,dorsal, nombre, licencia,categoria,grado, nombreguia, nombreclub,
-                // F1,R1,T1,V1,P1,C1,Pt1,St1,F2,R2,T2,V2,P2,C2,Pt2,St2,
-                // Tiempo, Penalizacion,Calificacion,Puntos,Estrellas
+                // F1,R1,T1,V1,P1,C1,Pt1,St1,F2,R2,T2,V2,P2,C2,Pt2,St2,Xt1,Xt2
+                // Tiempo, Penalizacion,Calificacion,Puntos,Estrellas,Extras
         // procesamos cada una de las 8 posibles mangas
         for ($i=0;$i<8;$i++) {
             if($resultados[$i]===null) continue; // no info for round $i
@@ -80,7 +80,8 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
                         'Penalizacion' => 0,
                         'Calificacion' => '',
                         'Puntos' => 0,
-                        'Estrellas' => 0,
+                        'Estrellas' => 0, // not used, but pslm
+                        'Extras' => 0, // not used, but pslm
                         'Puesto' => 0,
                         'Pcat' => 0
                     );
@@ -97,6 +98,7 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
                         $participante["C{$j}"]=0;
                         $participante["Pt{$j}"]=0; // points
                         $participante["St{$j}"]=0; // stars
+                        $participante["Xt{$j}"]=0; // extras
                         $participante["Out{$j}"]=0;
                         $participante["Puesto{$j}"]=0;
                         $participante["Pcat{$j}"]=0;
@@ -119,11 +121,14 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
                 $final[$dogID]["C{$j}"] = $item['CShort'];
                 $final[$dogID]["Pt{$j}"] = $item['Puntos'];
                 $final[$dogID]["St{$j}"] = $item['Estrellas'];
+                $final[$dogID]["Xt{$j}"] = $item['Extras'];
                 $final[$dogID]["Out{$j}"]=0;
                 $final[$dogID]["Puesto{$j}"] = $item['Puesto'];
                 $final[$dogID]["Pcat{$j}"] = $item['Pcat'];
                 $final[$dogID]["Tiempo"] += $final[$dogID]["T{$j}"];
                 $final[$dogID]["Puntos"] += $final[$dogID]["Pt{$j}"];
+                $final[$dogID]["Estrellas"] += $final[$dogID]["St{$j}"];
+                $final[$dogID]["Extras"] += $final[$dogID]["Xt{$j}"];
                 $final[$dogID]['Penalizacion'] = $final[$dogID]['Penalizacion'] - 400 + $final[$dogID]["P{$j}"];
                 // do_log("round:{$mangas[$i]->ID} inserted Participante:{$dogID}: ".json_encode($participante));
             }

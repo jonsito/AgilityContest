@@ -64,8 +64,8 @@ class PartialScoresWriter extends XLSX_Writer {
             $this->fields = array('Licencia', 'Categoria', 'Grado', 'Nombre', 'NombreLargo', 'Raza', 'NombreGuia', 'NombreEquipo','NombreClub', 'Faltas', 'Rehuses', 'Eliminado', 'NoPresentado', 'Velocidad', 'Tiempo', 'Penalizacion', 'Calificacion', 'Puntos', 'Estrellas');
             $this->cols = array('License', 'Category', 'Grade', 'Name', 'LongName', 'Breed', 'Handler', 'Team','Club', 'Faults', 'Refusals',  'Eliminated', 'NotPresent', 'Speed', 'Time', 'Penalization', 'Calification', 'Points', 'Stars');
         } else {
-            $this->fields = array('Licencia', 'Categoria', 'Grado', 'Nombre', 'NombreLargo', 'Raza', 'NombreGuia', 'NombreClub', 'Faltas', 'Rehuses', 'Eliminado', 'NoPresentado', 'Velocidad', 'Tiempo', 'Penalizacion', 'Calificacion', 'Puntos', 'Estrellas');
-            $this->cols = array('License', 'Category', 'Grade', 'Name', 'LongName', 'Breed', 'Handler', 'Club', 'Faults', 'Refusals',  'Eliminated', 'NotPresent', 'Speed', 'Time', 'Penalization', 'Calification', 'Points', 'Stars');
+            $this->fields = array('Licencia', 'Categoria', 'Grado', 'Nombre', 'NombreLargo', 'Raza', 'NombreGuia', 'NombreClub', 'Faltas', 'Rehuses', 'Eliminado', 'NoPresentado', 'Velocidad', 'Tiempo', 'Penalizacion', 'Calificacion', 'Puntos', 'Estrellas','Extras');
+            $this->cols = array('License', 'Category', 'Grade', 'Name', 'LongName', 'Breed', 'Handler', 'Club', 'Faults', 'Refusals',  'Eliminated', 'NotPresent', 'Speed', 'Time', 'Penalization', 'Calification', 'Points', 'Stars','Extras');
         }
     }
 

@@ -159,6 +159,7 @@ class Competitions {
         // datos para la exportacion de parciales en excel
         $perro['Puntos'] = 0;
         $perro['Estrellas']= 0;
+        $perro['Extras']= 0;
         if ($perro['Penalizacion']>=400)  { // pending
             $perro['Penalizacion']=400.0;
             $perro['Calificacion'] = "-";

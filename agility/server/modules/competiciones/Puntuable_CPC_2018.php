@@ -149,6 +149,7 @@ class Puntuable_CPC_2018 extends Competitions {
         // datos para la exportacion de parciales en excel
         $perro['Puntos'] = $pt1;
         $perro['Estrellas']= 0;
+        $perro['Extras']= 0;
     }
 
     /**

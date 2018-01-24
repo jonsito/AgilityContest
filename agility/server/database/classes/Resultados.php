@@ -703,6 +703,7 @@ class Resultados extends DBObject {
 		for ($idx=0;$idx<$size;$idx++ ){
             $table[$idx]['Puntos'] = 0; // to be re-evaluated later
             $table[$idx]['Estrellas'] = 0; // to be re-evaluated later
+            $table[$idx]['Extras'] = 0; // to be re-evaluated later
             // evaluate penalization
 			$comp->evalPartialPenalization($table[$idx],$tdata);
 			// evaluamos velocidad 

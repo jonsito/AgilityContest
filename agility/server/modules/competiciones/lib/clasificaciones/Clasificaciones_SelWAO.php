@@ -163,6 +163,8 @@ class Clasificaciones_SelWAO extends Clasificaciones {
                         'Penalizacion' => 0,
                         'Calificacion' => '',
                         'Puntos' => 0,
+                        'Estrellas' => 0,
+                        'Extras' => 0,
                         'Puesto' => 0,
                         'Pcat' => 0
                     );
@@ -179,6 +181,7 @@ class Clasificaciones_SelWAO extends Clasificaciones {
                         $participante["C{$j}"]=0; // no se usa
                         $participante["Pt{$j}"]=0; // points -  no se usa en games
                         $participante["St{$j}"]=0; // stars - no se usa en games
+                        $participante["Xt{$j}"]=0; // extra points - no se usa en games
                         $participante["Out{$j}"]=0;
                         $participante["Puesto{$j}"]=0;
                         $participante["Pcat{$j}"]=0;
@@ -200,11 +203,14 @@ class Clasificaciones_SelWAO extends Clasificaciones {
                 $final[$dogID]["C{$j}"] = $item['CShort']; // no se usa en games
                 $final[$dogID]["Pt{$j}"] = $item['Puntos']; // no se usa en games
                 $final[$dogID]["St{$j}"] = $item['Estrellas']; // no se usa en games
+                $final[$dogID]["Xt{$j}"] = $item['Extras']; // no se usa en games
                 $final[$dogID]["Out{$j}"]=0;
                 $final[$dogID]["Puesto{$j}"] = $item['Puesto'];
                 $final[$dogID]["Pcat{$j}"] = $item['Pcat'];
                 $final[$dogID]["Tiempo"] += $final[$dogID]["T{$j}"];
                 $final[$dogID]["Puntos"] += $final[$dogID]["Pt{$j}"];
+                $final[$dogID]["Estrellas"] += $final[$dogID]["St{$j}"];
+                $final[$dogID]["Extras"] += $final[$dogID]["Xt{$j}"];
                 $final[$dogID]['Penalizacion'] += $final[$dogID]["P{$j}"];
                 // do_log("round:{$mangas[$i]->ID} inserted Participante:{$dogID}: ".json_encode($participante));
             }

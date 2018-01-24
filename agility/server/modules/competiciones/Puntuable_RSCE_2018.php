@@ -23,13 +23,15 @@ class Puntuable_RSCE_2018 extends Competitions {
         parent::__construct($name);
         $this->federationID=0;
         $this->competitionID=10;
-        $this->moduleVersion="1.0.0";
-        $this->moduleRevision="20171229_1553";
+        $this->moduleVersion="1.0.2";
+        $this->moduleRevision="20180124_0955";
         $this->puntos=array(
             // en la temporada 2018 desaparecen los puntos dobles
-            /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS    pts  stars */
-            array("GII",    "Pv",  4.0,    3.8,   3.8,   4.2,    4.0,    4.0,   0,  1 ),
-            array("GIII",   "Pv",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   0,  1 )
+            // se anyade un campo extra para los puntos de ascenso a grado 3
+            /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS    pts  stars  extras(g3) */
+            array("GII",    "Pv",  4.0,    3.8,   3.8,   4.2,    4.0,    4.0,   0,  1,      0 ),
+            array("GII",    "Pa",  4.5,    4.2,   4.2,   4.7,    4.5,    4.5,   0,  1,      1 ),
+            array("GIII",   "Pv",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   0,  1,      0 )
         );
     }
 
@@ -100,6 +102,7 @@ class Puntuable_RSCE_2018 extends Competitions {
         if ($perro['Grado']==="GI") {
             parent::evalPartialCalification($m,$perro,$puestocat);
             $perro['Estrellas']=0;
+            $perro['Extras']=0;
             if($perro['Penalizacion']==0) $perro['Puntos']=1;
             return;
         }
@@ -111,6 +114,7 @@ class Puntuable_RSCE_2018 extends Competitions {
         $perro['CShort'] = "Ex P.";
         $perro['Puntos'] = 1;
         $perro['Estrellas'] = 0;
+        $perro['Extras'] = 0;
         foreach ( $this->puntos as $item) {
             if ($perro['Grado']!==$item[0]) continue;
             // comprobamos si estamos en agility o en jumping (1:agility,2:jumping,3:third round and so )
@@ -124,6 +128,7 @@ class Puntuable_RSCE_2018 extends Competitions {
                 $perro['CShort'] = "Ex ".$item[1];
                 $perro['Puntos'] = $item[8];
                 $perro['Estrellas'] = $item[9];
+                $perro['Extras'] = $item[10];
             }
         }
     }

@@ -105,6 +105,7 @@ class Selectiva_PastorBelga extends Competitions {
         }
         $perro['Puntos']=$pt1;
         $perro['Estrellas']=0;
+        $perro['Extras']=0;
     }
 
     /**
