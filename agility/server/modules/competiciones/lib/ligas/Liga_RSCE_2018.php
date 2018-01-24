@@ -27,10 +27,11 @@ class Liga_RSCE_2018 extends Ligas {
     /**
      * Retrieve short form ( global sums ) for all stored results
      * may be overriden for special handling
+     * @param {integer} $fed federation id
      * @param {string} $grado
+     * @return {array} result in easyui-datagrid response format
      */
-    function getShortData($grado) {
-        $fed=0; // better if being evaluated, but as temp trick use known and hardwired value
+    function getShortData($fed,$grado) {
         $g3="";
         if ($grado==="GI") return parent::getShortData($grado); // no Pv nor Pa, just sum points
         if ($grado==="GII") $g3=", SUM(Xt1) AS PA_Agility, SUM(Xt2) AS PA_Jumping"; // promotion to GIII points

@@ -21,33 +21,26 @@ require_once("Clasificaciones.php");
 
 class Ligas extends DBObject {
 
-    protected $jornadaObj; // object
-    protected $pruebaObj; // object
-
     /**
      * Ligas constructor.
      * @param $file object name used for debbugging
-     * @param {integer|object} $jornadaid Jornada ID or object
+     * @param {integer} $federation id
      * @throws Exception on invalid or not found jornada
      */
-    function __construct($file,$jornada) {
+    function __construct($file) {
         parent::__construct($file);
-        $this->jornadaObj=$jornada;
-        if (!is_object($jornada)){
-            if ($jornada <= 0) throw new Exception("Ligas::construct() negative or null journey ID");
-            $this->jornadaObj = $this->__getObject("Jornadas", $jornada);
-            if (!$this->jornadaObj) throw new Exception("Ligas::construct() Journey ID: {$jornada} not found");
-        }
     }
 
-    function update($mode){ return ($mode)===0?$this->delete():$this->insert();    }
+    function update($jornada,$mode){
+        return ($mode)===0? $this->delete($jornada) : $this->insert($jornada);
+    }
 
     /**
      * delete current journey's data from league table
      * @return null|string
      */
-    function delete(){
-        $sql="DELETE FROM Ligas WHERE Jornada={$this->jornadaObj->ID}";
+    function delete($jornada){
+        $sql="DELETE FROM Ligas WHERE Jornada={$jornada}";
         $res=$this->query($sql);
         if (!$res) return $this->error($this->conn->error);
         return "";
@@ -57,7 +50,7 @@ class Ligas extends DBObject {
      * insert points stars and extras on current journey into league table
      * @return null|string
      */
-    function insert() {
+    function insert($jornada) {
         $timeout=ini_get('max_execution_time');
 
         // create prepared statement
@@ -78,9 +71,9 @@ class Ligas extends DBObject {
         if (!$stmt) return $this->error($this->conn->error);
 
         // create a Clasification object
-        $cobj = Competitions::getClasificacionesInstance("League::Update()", $this->jornadaObj->ID);
+        $cobj = Competitions::getClasificacionesInstance("League::Update()", $jornada);
         // retrieve all rounds for current journey.
-        $rondas=Jornadas::enumerateRondasByJornada($this->jornadaObj->ID)['rows'];
+        $rondas=Jornadas::enumerateRondasByJornada($jornada)['rows'];
         foreach ($rondas as $s) {
             set_time_limit($timeout);
             $tipo=intval($s['Tipo1']);
@@ -95,7 +88,7 @@ class Ligas extends DBObject {
             // iterate on every item
             foreach ($clasificaciones['rows'] as $item) {
                 $data=array();
-                $data['Jornada']=$this->jornadaObj->ID;
+                $data['Jornada']=$jornada;
                 $data['Grado']=$item['Grado'];
                 $data['Perro']=$item['Perro'];
                 $data['Puntos']=array_key_exists("Puntos",$item)?$item["Puntos"]:0;
@@ -129,12 +122,10 @@ class Ligas extends DBObject {
     /**
      * Retrieve short form ( global sums ) for all stored results
      * may be overriden for special handling
+     * @param {integer} $fed federation ID
      * @param {string} $grado
      */
-    function getShortData($grado) {
-        if ($this->pruebaObj==null)
-            $this->pruebaObj= $this->__getObject("Pruebas", $this->jornadaObj->Prueba);
-        $fed=$this->pruebaObj->RSCE;
+    function getShortData($fed,$grado) {
         $res= $this->__select( // default implementation: just show points sumatory
             "PerroGuiaClub.Nombre AS Perro, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
                 "SUM(Pt1) + SUM(Pt2) + SUM(Puntos) AS Puntuacion", // pending: add global points to league table
@@ -143,7 +134,7 @@ class Ligas extends DBObject {
             "Puntos ASC",
             "",
             "Perro"
-
         );
+        return $res;
     }
 }

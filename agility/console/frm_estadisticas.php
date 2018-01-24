@@ -44,8 +44,16 @@ $config =Config::getInstance();
         heignt: 550,
         tools: '#stats-tools'
     });
+    // download and create datagrid for Grade 1
+    // download and create datagrid for Grade 2
     var g=parseInt(workingData.datosFederation.Grades);
-    if (g===2) $('#stats-tab').tabs('close',"<?php _e('Grade'); ?> 3");
+    if (g===2) {
+        // no grade 3: hide tab
+        $('#stats-tab').tabs('close',"<?php _e('Grade'); ?> 3");
+    } else {
+        // download and create datagrid for Grade 3
+    }
 
+    // tooltips
     addTooltip($('#stats-printBtn'),'<?php _e("Generate PDF or Excel file wiht League data"); ?>');
 </script>

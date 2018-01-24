@@ -44,6 +44,7 @@ class Competitions {
 
         // each pair $federationID:$competitionID must be unique
         protected $federationID=0;
+        protected $federationDefault=0;
         protected $competitionID=0;
         protected $competitionName="Standard";
         protected $selectiva=0; // historic flag from Prueba table
@@ -366,17 +367,13 @@ class Competitions {
      * @return Ligas
      * @throws Exception on invalid jornada id
      */
-    protected function getLigasObject($file,$jornada) {
-        return new Ligas($file,$jornada);
+    protected function getLigasObject($file,$federation) {
+        return new Ligas($file);
     }
 
-    public static function getLigasInstance($file="Ligas",$jornada) {
-        $dbobj=new DBObject($file);
-        $jornadaobj=$dbobj->__getObject("Jornadas",$jornada);
-        $pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
-        // retrieve OrdenSalida handler from competition module
-        $compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
-        return $compobj->getLigasObject($file,$jornadaobj);
+    public static function getLigasInstance($file="Ligas",$federation) {
+        $compobj=Competitions::getDefaultCompetition($federation);
+        return $compobj->getLigasObject($file);
     }
 
     /**************************************** static functions comes here *************************************/
@@ -403,6 +400,28 @@ class Competitions {
         // arriving here means requested federation not found
         if ($fed>=0) return $competitionList; // combobox getCompetitionList($fed)
         return array("total"=> count($competitionList), "rows"=>$competitionList);
+    }
+
+    /**
+     * retrieve default competition module for provided federation
+     * @param $fed
+     */
+    static function getDefaultCompetition($fed) {
+        // analize sub-directories looking for classes matching federation and journey ID
+        // Notice that module class name must match file name
+        foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
+            $name=str_replace(".php","",basename($filename));
+            require_once($filename);
+            $comp=new $name;
+            if (!$comp) continue; // cannot instantiate class. should report error
+            if ($comp->federationID!=$fed) continue;
+            if ($comp->federationDefault!=0) continue;
+            // notice that prueba nor jornada nor selective variables are initialized
+            return $comp; // found competition
+        }
+        // arriving here means requested federation not found: warn and return default
+        do_log("Cannot find default competition module for federation:$fed Using defaults");
+        return new Competitions("Default for Fed:$fed");
     }
 
     /**

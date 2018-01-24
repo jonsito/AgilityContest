@@ -79,6 +79,7 @@ if (($poster==null) || ($poster=="")) $poster="/agility/default_poster.png";
     <script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
     <script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
     <script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
+    <script src="/agility/scripts/ligas.js.php" type="text/javascript" charset="utf-8" > </script>
     <script src="/agility/public/public.js.php" type="text/javascript" charset="utf-8" > </script>
 
     <script type="text/javascript" charset="utf-8">

@@ -91,6 +91,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/printer.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/import.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/ligas.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript">
 
