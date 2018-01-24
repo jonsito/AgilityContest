@@ -127,13 +127,21 @@ class Ligas extends DBObject {
      */
     function getShortData($fed,$grado) {
         $res= $this->__select( // default implementation: just show points sumatory
-            "PerroGuiaClub.Nombre AS Perro, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
+            "PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
                 "SUM(Pt1) + SUM(Pt2) + SUM(Puntos) AS Puntuacion", // pending: add global points to league table
             "Ligas,PerroGuiaClub",
             "PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
             "Puntos ASC",
             "",
             "Perro"
+        );
+        // add datagrid header
+        $res['header']= array(
+            array('field' => 'Licencia',    'title'=>_('License'),  'width' => 10, 'align' => 'right'),
+            array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'left'),
+            array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 40, 'align' => 'right'),
+            array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 30, 'align' => 'right'),
+            array('field' => 'Puntuacion',  'title'=>_('Points'),   'width' => 5,  'align' => 'center')
         );
         return $res;
     }

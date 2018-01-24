@@ -23,13 +23,19 @@ $config =Config::getInstance();
 
 <div id="stats-tab" style="padding:5px">
     <div title="<?php _e('Grade'); ?> 1" data-options="iconCls:'icon-huella'" style="padding:5px;border:solid 1px #000000">
-        <table id="stats-g1-datagrid>"></table>
+        <div style="width:100%;height:500px">
+            <table id="stats-g1-datagrid" class="easyui-datagrid" data-options="fit:true;fitcolumns:true"></table>
+        </div>
     </div>
     <div title="<?php _e('Grade'); ?> 2" data-options="iconCls:'icon-dog'" style="padding:5px;border:solid 1px #000000">
-        <table id="stats-g2-datagrid>"></table>
+        <div style="width:100%;height:500px">
+            <table id="stats-g2-datagrid" class="easyui-datagrid" data-options="fit:true;fitcolumns:true"></table>
+        </div>
     </div>
     <div title="<?php _e('Grade'); ?> 3" data-options="iconCls:'icon-order'" style="padding:5px;border:solid 1px #000000">
-        <table id="stats-g3-datagrid>"></table>
+        <div style="width:100%;height:500px">
+            <table id="stats-g3-datagrid" class="easyui-datagrid" data-options="fit:true;fitcolumns:true"></table>
+        </div>
     </div>
 </div>
 <div id="stats-tools">
@@ -46,11 +52,15 @@ $config =Config::getInstance();
     });
     // download and create datagrid for Grade 1
     loadLeagueData("GI",function(data){
-        $('#stats-g1-datagrid').datagrid('loadData',data);
+        var dg=$('#stats-g1-datagrid');
+        dg.datagrid('options').columns = data.header;
+        dg.datagrid('loadData',data.rows);
     });
     // download and create datagrid for Grade 2
     loadLeagueData("GII",function(data){
-        $('#stats-g2-datagrid').datagrid('loadData',data);
+        var dg=$('#stats-g2-datagrid');
+        dg.datagrid('options').columns = data.header;
+        dg.datagrid('loadData',data.rows);
     });
     var ngrados=parseInt(workingData.datosFederation.Grades);
     if (ngrados===2) {
@@ -59,7 +69,9 @@ $config =Config::getInstance();
     } else {
         // download and create datagrid for Grade 3
         loadLeagueData("GIII",function(data){
-            $('#stats-g3-datagrid').datagrid('loadData',data);
+            var dg=$('#stats-g3-datagrid');
+            dg.datagrid('options').columns = data.header;
+            dg.datagrid('loadData',data.rows);
         });
     }
     // tooltips

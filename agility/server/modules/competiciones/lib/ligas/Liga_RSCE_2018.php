@@ -36,13 +36,21 @@ class Liga_RSCE_2018 extends Ligas {
         if ($grado==="GI") return parent::getShortData($fed,$grado); // no Pv nor Pa, just sum points
         if ($grado==="GII") $g3=", SUM(Xt1) AS PA_Agility, SUM(Xt2) AS PA_Jumping"; // promotion to GIII points
         $res=$this->__select( // for rsce
-            "PerroGuiaClub.Nombre AS Perro, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
+            "PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
             "SUM(Pt1) AS P_Agility, SUM(Pt2) aS P_Jumping, SUM(St1) AS PV_Agility, SUM(St2) AS PV_Jumping {$g3}",
             "Ligas,PerroGuiaClub",
             "PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
             "Licencia ASC",
             "",
             "Perro"
+        );
+        // add datagrid header
+        $res['header']= array(
+            array('field' => 'Licencia',    'title'=>_('License'),  'width' => 10, 'align' => 'right'),
+            array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'left'),
+            array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 40, 'align' => 'right'),
+            array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 30, 'align' => 'right'),
+            array('field' => 'Puntuacion',  'title'=>_('Points'),   'width' => 5,  'align' => 'center')
         );
         return $res;
     }
