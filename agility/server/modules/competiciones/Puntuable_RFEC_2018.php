@@ -179,26 +179,31 @@ class Puntuable_RFEC_2018 extends Competitions {
         $grad = $perro['Grado']; // cogemos el grado
         $cat = $perro['Categoria']; // cogemos la categoria
 
-        // si no grado II no se puntua
+        // calificaciones por defecto
+        if ( ($resultados[0]==null) || ($resultados[1]==null)) {
+            $perro['Calificacion']= " ";
+        } else { // se coge la peor calificacion
+            $perro['Calificacion'] = $perro['C1'];
+            if ($perro['P1'] < $perro['P2']) $perro['Calificacion'] = $perro['C2'];
+        }
+        $perro['Puntos']=0;
+        $perro['Estrellas']=0;
+        $perro['Extras']=0;
+
+        // en grado 1 y Junior contabilizamos excelentes(Puntos) y ceros(estrellas)
+        // NO se calculan puntos de clasificacion
         if ($grad !== "GII") {
-            if ( ($resultados[0]==null) || ($resultados[1]==null)) {
-                $perro['Calificacion']= " ";
-            } else { // se coge la peor calificacion
-                $perro['Calificacion'] = $perro['C1'];
-                if ($perro['P1'] < $perro['P2']) $perro['Calificacion'] = $perro['C2'];
+            foreach (array(1,2,3) as $m){
+                if ($resultados[$m]==null) continue;
+                if ($perro["P{$m}"]<6) $perro['Puntos']++;
+                if ($perro["P{$m}"]==0) $perro['Estrellas']++;
             }
             return;
         }
 
-        // los "extranjeros no puntuan
+        // los "extranjeros no puntuan, perro corren turno
         if (!$this->isInLeague($perro)) {
             $this->pfoffset[$cat]++; // properly handle puestocat offset
-            if ( ($resultados[0]==null) || ($resultados[1]==null)) {
-                $perro['Calificacion']= " ";
-            } else { // se coge la peor calificacion
-                $perro['Calificacion'] = $perro['C1'];
-                if ($perro['P1'] < $perro['P2']) $perro['Calificacion'] = $perro['C2'];
-            }
             return;
         }
 
@@ -226,6 +231,7 @@ class Puntuable_RFEC_2018 extends Competitions {
         // si eliminado o no clasificado en alguna manga no puntua
         if ( ($perro['P1']>=26.0) || ($perro['P2']>=26.0) ) {
             $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
+            $perro['Puntos']=intval($pt1)+intval($pt2)+intval($pfin);
             return;
         }
         // evaluamos puesto real una vez eliminados los "extranjeros"
@@ -234,5 +240,6 @@ class Puntuable_RFEC_2018 extends Competitions {
         if ($puesto<11) $pfin=$ptsglobal[$puesto-1];
         // y asignamos la calificacion final
         $perro['Calificacion']="$pt1 - $pt2 - $pfin";
+        $perro['Puntos']=intval($pt1)+intval($pt2)+intval($pfin);
     }
 }

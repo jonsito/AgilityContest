@@ -23,11 +23,12 @@ require_once(__DIR__."/lib/ligas/Liga_FMC_2018.php");
 class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
 
     function __construct() {
-        parent::__construct("Prueba puntuable Liga RFEC Madrid - 2018");
+        parent::__construct("Prueba puntuable Liga FMC - 2018");
         $this->federationID=1;
+        $this->federationDefault=1;
         $this->competitionID=2;
-        $this->moduleVersion="1.1.0";
-        $this->moduleRevision="20170930_1427";
+        $this->moduleVersion="1.2.0";
+        $this->moduleRevision="20180125_1113";
     }
 
     function getModuleInfo($contact = null)  {
@@ -121,19 +122,22 @@ class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
     public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat){
         $grad = $perro['Grado']; // cogemos el grado
         $cat = $perro['Categoria']; // cogemos la categoria
-
-        // si no grado II no se puntua
+        if ( ($resultados[0]==null) || ($resultados[1]==null)) {
+            $perro['Calificacion']= " ";
+        } else { // se coge la peor calificacion
+            $perro['Calificacion'] = $perro['C1'];
+            if ($perro['P1'] < $perro['P2']) $perro['Calificacion'] = $perro['C2'];
+        }
+        $perro['Puntos']=0;
+        $perro['Estrellas']=0;
+        $perro['Extras']=0;
+        // si no grado II utiliza los sistemas de calificacion de la RFEC
         if ($grad !== "GII") {
-            if ( ($resultados[0]==null) || ($resultados[1]==null)) {
-                $perro['Calificacion']= " ";
-            } else { // se coge la peor calificacion
-                $perro['Calificacion'] = $perro['C1'];
-                if ($perro['P1'] < $perro['P2']) $perro['Calificacion'] = $perro['C2'];
-            }
+            parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
         }
 
-        // los "extranjeros no puntuan
+        // los "extranjeros" no puntuan
         if (!$this->isInLeague($perro)) {
             $this->pfoffset[$cat]++; // properly handle puestocat offset
             if ( ($resultados[0]==null) || ($resultados[1]==null)) {
@@ -164,6 +168,7 @@ class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
         // Temporada 2018 no puntuan en conjunta si tienen alguna manga con mas de 15.99
         if ( ($perro['P1']>=16.0) || ($perro['P2']>=16.0) ) {
             $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
+            $perro['Puntos']=intval($pt1)+intval($pt2)+intval($pfin);
             return;
         }
         // evaluamos puesto real una vez eliminados los "extranjeros"
@@ -172,6 +177,7 @@ class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
         if ($puesto<11) $pfin=$ptsglobal[$puesto-1];
         // y asignamos la calificacion final
         $perro['Calificacion']="$pt1 - $pt2 - $pfin";
+        $perro['Puntos']=intval($pt1)+intval($pt2)+intval($pfin);
     }
 
     /**

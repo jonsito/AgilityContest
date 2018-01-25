@@ -23,6 +23,7 @@ class Ligas extends DBObject {
 
     // used to analyze only valid competitions modules on a given federation
     protected $validCompetitions;
+    protected $federation;
 
     /**
      * Ligas constructor.
@@ -31,6 +32,7 @@ class Ligas extends DBObject {
      */
     function __construct($file) {
         parent::__construct($file);
+        $this->federation=null; // to be intialized later
         $this->validCompetitions=array();
     }
 

@@ -21,6 +21,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 require_once (__DIR__."/../../../../database/classes/Ligas.php");
+require_once (__DIR__."/../../../Federations.php");
 
 class Liga_FMC_2018 extends Ligas {
 
@@ -31,8 +32,9 @@ class Liga_FMC_2018 extends Ligas {
      */
     function __construct($file) {
         parent::__construct($file);
-        // valid competition types are puntuables 2018 and selectivas 2019
-        $this->validCompetitions=array(10,11,12);
+        // valid competition types are Puntuables FMC Madrid 2018
+        $this->validCompetitions=array(2);
+
     }
 
     /**
@@ -43,8 +45,10 @@ class Liga_FMC_2018 extends Ligas {
      * @return {array} result in easyui-datagrid response format
      */
     function getShortData($fed,$grado) {
-        $g3="";
-        if ($grado==="GI") return parent::getShortData($fed,$grado); // no Pv nor Pa, just sum points
+        if ($this->federation==null) {
+            $this->federation=Federations::getFederation($fed);
+        }
+        $cats=$this->federation->get('ListaCategorias');
         $jor="";
         $filter="";
         // filter only valid league modules
@@ -55,10 +59,10 @@ class Liga_FMC_2018 extends Ligas {
         }
 
         // compose select field query
-        $select="PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Categoria, PerroGuiaClub.Licencia, ".
+        $select="PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Categoria AS Categoria, PerroGuiaClub.Licencia, ".
                 "PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub, ";
         if ($grado==="GI") {
-                    $select .= "SUM(Puntos) AS Puntos, SUM(Estrellas) AS Excelentes";
+                    $select .= "SUM(Puntos) AS Puntos, SUM(Estrellas) AS Ceros";
         }
         if ($grado==="GII") {
             $select .= "SUM(Puntos) AS Puntos";
@@ -72,12 +76,15 @@ class Liga_FMC_2018 extends Ligas {
             "",
             "Perro"
         );
+        // rewrite categoria, as cannot pass "formatCategoria" formatter as function ( passed as string :-( )
+        foreach ($res['rows'] as &$row) $row['Categoria']=$cats[$row['Categoria']];
+
         // add datagrid header common data
         $res['header']= array(
-            array('field' => 'Licencia',    'title'=>_('License'),  'width' => 15, 'align' => 'right'),
-            array('field' => 'Categoria',   'title'=>_('Category'), 'width' => 5, 'align' => 'center'),
+            array('field' => 'Licencia',    'title'=>_('License'),  'width' => 28, 'align' => 'left'),
+            array('field' => 'Categoria',   'title'=>_('Category'), 'width' => 12, 'align' => 'center'),
             array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'left'),
-            array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 40, 'align' => 'right'),
+            array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 35, 'align' => 'right'),
             array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 30, 'align' => 'right')
         );
         if ($grado==="GI") { // extra headers for Promotion
