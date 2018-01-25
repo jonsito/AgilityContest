@@ -21,14 +21,17 @@ require_once("Clasificaciones.php");
 
 class Ligas extends DBObject {
 
+    // used to analyze only valid competitions modules on a given federation
+    protected $validCompetitions;
+
     /**
      * Ligas constructor.
      * @param $file object name used for debbugging
-     * @param {integer} $federation id
      * @throws Exception on invalid or not found jornada
      */
     function __construct($file) {
         parent::__construct($file);
+        $this->validCompetitions=array();
     }
 
     function update($jornada,$mode){
@@ -126,11 +129,15 @@ class Ligas extends DBObject {
      * @param {string} $grado
      */
     function getShortData($fed,$grado) {
+        // filter only valid league modules
+        if (count($this->validCompetitions)!==0) {
+            $filter=" Ligas.Jornada IN ( ".implode(",",$this->validCompetitions).") AND ";
+        }
         $res= $this->__select( // default implementation: just show points sumatory
             "PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
                 "SUM(Pt1) + SUM(Pt2) + SUM(Puntos) AS Puntuacion", // pending: add global points to league table
             "Ligas,PerroGuiaClub",
-            "PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
+            "{$filter} PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
             "Puntos ASC",
             "",
             "Perro"

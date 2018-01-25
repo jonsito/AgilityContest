@@ -25,6 +25,16 @@ require_once (__DIR__."/../../../../database/classes/Ligas.php");
 class Liga_RSCE_2018 extends Ligas {
 
     /**
+     * Ligas constructor.
+     * @param $file object name used for debbugging
+     * @throws Exception on invalid or not found jornada
+     */
+    function __construct($file) {
+        parent::__construct($file);
+        $this->validCompetitions=array(10,11,12);
+    }
+
+    /**
      * Retrieve short form ( global sums ) for all stored results
      * may be overriden for special handling
      * @param {integer} $fed federation id
