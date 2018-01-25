@@ -471,7 +471,7 @@ function closeJornadaFromPrueba(datagridID,event) {
                     );
     	    	}
     		});
-    w.window('resize',{width:400,height:150}).window('center');
+    w.window('resize',{width:400,height:175}).window('center');
     return false;
 }
 

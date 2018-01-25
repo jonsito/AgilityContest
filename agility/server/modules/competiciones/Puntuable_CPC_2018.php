@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/../../database/classes/DBObject.php");
 /*
-Liga_RFEC.php
+Puntuable_CPC_2018.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 

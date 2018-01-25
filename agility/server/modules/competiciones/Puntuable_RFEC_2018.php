@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/../../database/classes/DBObject.php");
 /*
-Liga_RFEC.php
+Puntuable_RFEC_2018.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-class Liga_RFEC extends Competitions {
+class Puntuable_RFEC_2018 extends Competitions {
 
     public static $leagueZones=array(
         "Castilla - La Mancha"  =>  0,
@@ -52,7 +52,7 @@ class Liga_RFEC extends Competitions {
         parent::__construct($name);
         $this->federationID=1;
         $this->competitionID=0;
-        $this->myDBObject=new DBObject("Prueba untuable Liga RFEC");
+        $this->myDBObject=new DBObject("Prueba puntuable Liga RFEC");
     }
 
     /**
@@ -68,11 +68,11 @@ class Liga_RFEC extends Competitions {
                 do_log("Cannot locate comunidad for organizer club: {$this->prueba->Club}");
                 return false;
             }
-            if (!array_key_exists($res->Comunidad,Liga_RFEC::$leagueZones)) {
+            if (!array_key_exists($res->Comunidad,Puntuable_RFEC_2018::$leagueZones)) {
                 do_log("Cannot locate league zone for organizer comunidad: {$res->Comunidad}");
                 return false;
             }
-            $this->leagueZone=Liga_RFEC::$leagueZones[$res->Comunidad];
+            $this->leagueZone=Puntuable_RFEC_2018::$leagueZones[$res->Comunidad];
         }
         // retrieve club zone and test for matching with competition zone
         if(!array_key_exists($perro['NombreClub'],$this->zonesByClub)) {
@@ -86,12 +86,12 @@ class Liga_RFEC extends Competitions {
                 do_log("Cannot locate comunidad for club: {$perro['NombreClub']}");
                 return false;
             }
-            if (!array_key_exists($res->Comunidad,Liga_RFEC::$leagueZones)) {
+            if (!array_key_exists($res->Comunidad,Puntuable_RFEC_2018::$leagueZones)) {
                 do_log("Cannot locate league zone for club: {$perro['NombreClub']}");
                 return false;
             }
             // store zone for this club in cache
-            $this->zonesByClub[$perro['NombreClub']]=Liga_RFEC::$leagueZones[$res->Comunidad];
+            $this->zonesByClub[$perro['NombreClub']]=Puntuable_RFEC_2018::$leagueZones[$res->Comunidad];
         }
         // return zone matching test result
         return ($this->zonesByClub[$perro['NombreClub']]===$this->leagueZone);

@@ -129,14 +129,18 @@ class Ligas extends DBObject {
      * @param {string} $grado
      */
     function getShortData($fed,$grado) {
+        $jor="";
+        $filter="";
         // filter only valid league modules
         if (count($this->validCompetitions)!==0) {
-            $filter=" Ligas.Jornada IN ( ".implode(",",$this->validCompetitions).") AND ";
+            $lista=implode(",",$this->validCompetitions);
+            $jor="Jornadas,";
+            $filter=" ( Jornadas.Tipo_Competicion IN ( {$lista} ) ) AND Ligas.Jornada=Jornadas.ID AND ";
         }
         $res= $this->__select( // default implementation: just show points sumatory
             "PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
                 "SUM(Pt1) + SUM(Pt2) + SUM(Puntos) AS Puntuacion", // pending: add global points to league table
-            "Ligas,PerroGuiaClub",
+            "{$jor} Ligas, PerroGuiaClub",
             "{$filter} PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
             "Puntos ASC",
             "",

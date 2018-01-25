@@ -5,7 +5,7 @@
  * Date: 24/01/18
  * Time: 10:36
 
-Liga_RSCE_2018.php
+Liga_FMC_2018.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -22,7 +22,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  */
 require_once (__DIR__."/../../../../database/classes/Ligas.php");
 
-class Liga_RSCE_2018 extends Ligas {
+class Liga_FMC_2018 extends Ligas {
 
     /**
      * Ligas constructor.
@@ -53,30 +53,39 @@ class Liga_RSCE_2018 extends Ligas {
             $jor="Jornadas,";
             $filter=" ( Jornadas.Tipo_Competicion IN ( {$lista} ) ) AND Ligas.Jornada=Jornadas.ID AND ";
         }
-        if ($grado==="GII") $g3=", SUM(Xt1) AS PA_Agility, SUM(Xt2) AS PA_Jumping"; // promotion to GIII points
+
+        // compose select field query
+        $select="PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Categoria, PerroGuiaClub.Licencia, ".
+                "PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub, ";
+        if ($grado==="GI") {
+                    $select .= "SUM(Puntos) AS Puntos, SUM(Estrellas) AS Excelentes";
+        }
+        if ($grado==="GII") {
+            $select .= "SUM(Puntos) AS Puntos";
+        }
+        // perform select
         $res=$this->__select( // for rsce
-            "PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
-            "SUM(Pt1) AS P_Agility, SUM(Pt2) aS P_Jumping, SUM(St1) AS PV_Agility, SUM(St2) AS PV_Jumping {$g3}",
+            $select,
             "{$jor} Ligas, PerroGuiaClub",
             "{$filter} PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
-            "Licencia ASC",
+            "Categoria ASC, Puntos DESC",
             "",
             "Perro"
         );
-        // add datagrid header
+        // add datagrid header common data
         $res['header']= array(
             array('field' => 'Licencia',    'title'=>_('License'),  'width' => 15, 'align' => 'right'),
+            array('field' => 'Categoria',   'title'=>_('Category'), 'width' => 5, 'align' => 'center'),
             array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'left'),
             array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 40, 'align' => 'right'),
-            array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 30, 'align' => 'right'),
-            array('field' => 'P_Agility',  'title'=>_('Pt<br/>Agilty'),    'width' => 10,  'align' => 'center'),
-            array('field' => 'P_Jumping',  'title'=>_('Pt<br/>Jumping'),   'width' => 10,  'align' => 'center'),
-            array('field' => 'PV_Agility',  'title'=>_('Pv<br/>Agility'),  'width' => 10,  'align' => 'center'),
-            array('field' => 'PV_Jumping',  'title'=>_('Pv<br/>Jumping'),  'width' => 10,  'align' => 'center')
+            array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 30, 'align' => 'right')
         );
-        if ($grado==="GII") {
-            array_push($res['header'],array('field' => 'PA_Agility',  'title'=>_('Pa<br/>Agility'),  'width' => 10,  'align' => 'center'));
-            array_push($res['header'],array('field' => 'PA_Jumping',  'title'=>_('Pa<br/>Jumping'),  'width' => 10,  'align' => 'center'));
+        if ($grado==="GI") { // extra headers for Promotion
+            array_push($res['header'],array('field' => 'Puntos',  'title'=>_('Exc'),  'width' => 10, 'align' => 'center'));
+            array_push($res['header'],array('field' => 'Ceros',  'title'=>_('Zeroes'),  'width' => 10, 'align' => 'center'));
+        }
+        if ($grado==="GII") { // extra headers for Competition
+            array_push($res['header'],array('field' => 'Puntos',  'title'=>_('Points'),  'width' => 10,  'align' => 'center'));
         }
         return $res;
     }

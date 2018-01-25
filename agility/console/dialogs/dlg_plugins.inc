@@ -18,7 +18,7 @@
 	<span style="float:right;padding:5px">
    		<a id="plugins-reloadBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-reload'"
-		   onclick="  $('#usuarios-datagrid').datagrid('load');"
+		   onclick="  $('#plugins-datagrid').datagrid('load');"
 		><?php _e('Refresh'); ?></a>
    	</span>
 </div>

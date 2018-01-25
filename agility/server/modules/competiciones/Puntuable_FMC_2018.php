@@ -1,8 +1,8 @@
 <?php
-require_once(__DIR__ . "/Liga_RFEC.php");
+require_once(__DIR__ . "/Puntuable_RFEC_2018.php");
 
 /*
-Liga_RFEC.php
+Puntuable_FMC_2018.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -18,7 +18,9 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-class Liga_RFEC_Madrid extends Liga_RFEC {
+require_once(__DIR__."/lib/ligas/Liga_FMC_2018.php");
+
+class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
 
     function __construct() {
         parent::__construct("Prueba puntuable Liga RFEC Madrid - 2018");
@@ -170,5 +172,16 @@ class Liga_RFEC_Madrid extends Liga_RFEC {
         if ($puesto<11) $pfin=$ptsglobal[$puesto-1];
         // y asignamos la calificacion final
         $perro['Calificacion']="$pt1 - $pt2 - $pfin";
+    }
+
+    /**
+     * Retrieve handler for manage Ligas functions.
+     * Default is use standard Ligas, but may be overriden ( eg wao. Rounds )
+     * @param {string} $file
+     * @return {Ligas} instance of requested Ligas object
+     * @throws Exception on invalid prueba/jornada/manga
+     */
+    protected function getLigasObject($file) {
+        return new Liga_FMC_2018($file);
     }
 }
