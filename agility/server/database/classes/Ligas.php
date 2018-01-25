@@ -154,7 +154,7 @@ class Ligas extends DBObject {
             array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'left'),
             array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 40, 'align' => 'right'),
             array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 30, 'align' => 'right'),
-            array('field' => 'Puntuacion',  'title'=>_('Points'),   'width' => 5,  'align' => 'center')
+            array('field' => 'Puntuacion',  'title'=>_('Zeroes'),   'width' => 5,  'align' => 'center')
         );
         return $res;
     }

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2018-01-22 15:05+0100\n"
-"PO-Revision-Date: 2018-01-22 15:06+0100\n"
+"POT-Creation-Date: 2018-01-25 12:34+0100\n"
+"PO-Revision-Date: 2018-01-25 12:38+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -177,7 +177,10 @@ msgstr "Perro"
 #: scripts/import.js.php:118 scripts/import.js.php:130
 #: scripts/import.js.php:143 scripts/printer.js.php:406
 #: scripts/results_and_scores.js.php:255 scripts/results_and_scores.js.php:327
+#: server/database/classes/Ligas.php:155
 #: server/database/updater/Uploader.php:219
+#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:87
+#: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:70
 #: server/pdf/classes/PrintClasificacion.php:223
 #: server/pdf/classes/PrintClasificacionExcel.php:162
 #: server/pdf/classes/PrintClasificacionGames.php:84
@@ -226,7 +229,7 @@ msgstr "Gu&iacute;a"
 #: console/dialogs/import_results.inc.php:92 console/frm_equipos.php:129
 #: console/frm_equipos.php:257 console/frm_guias.php:95
 #: console/frm_inscripciones.php:78 console/frm_inscripciones2.php:275
-#: console/frm_perros.php:142 console/frm_registration.php:62 index.php:192
+#: console/frm_perros.php:142 console/frm_registration.php:62 index.php:193
 #: lib/templates/entrenamientos.inc.php:17 lib/templates/final_games.inc.php:28
 #: lib/templates/final_individual.inc.php:22
 #: lib/templates/final_last_individual.inc.php:35
@@ -236,9 +239,11 @@ msgstr "Gu&iacute;a"
 #: livestream/vwls_osdvideo.php:92 scripts/competicion.js.php:1395
 #: scripts/datagrid_formatters.js.php:168 scripts/import.js.php:77
 #: scripts/import.js.php:90 scripts/import.js.php:103
-#: scripts/results_and_scores.js.php:256
+#: scripts/results_and_scores.js.php:256 server/database/classes/Ligas.php:156
 #: server/database/updater/Uploader.php:214
 #: server/excel/classes/XLSXWriter.php:114 server/modules/Federations.php:407
+#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:88
+#: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:71
 #: server/pdf/classes/PrintClasificacionExcel.php:99
 #: server/pdf/classes/PrintClasificacionExcel.php:163
 #: server/pdf/classes/PrintEntrenamientos.php:58
@@ -259,6 +264,7 @@ msgstr "Club"
 #: console/frm_clasificaciones_equipos.php:81 console/frm_clubes.php:177
 #: console/frm_guias.php:93 livestream/vwls_osdvideo.php:93
 #: server/excel/classes/OrdenSalidaWriter.php:206
+#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:85
 #: server/pdf/classes/PrintClasificacionExcel.php:160
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:128
@@ -278,10 +284,12 @@ msgstr "Categor&iacute;a"
 #: console/dialogs/import_perros.inc.php:95
 #: console/dialogs/import_results.inc.php:90 console/frm_clubes.php:267
 #: console/frm_equipos.php:255 console/frm_guias.php:154
-#: console/frm_inscripciones2.php:273 console/frm_paises.php:229
-#: console/frm_perros.php:140 console/frm_perros.php:185
-#: livestream/vwls_osdvideo.php:94 public/pb_inscripciones.php:107
-#: public/pb_inscripciones_equipos.php:156 public/pbmenu_inscripciones.php:107
+#: console/frm_inscripciones2.php:273 console/frm_ligas.php:25
+#: console/frm_ligas.php:30 console/frm_ligas.php:35 console/frm_ligas.php:74
+#: console/frm_paises.php:229 console/frm_perros.php:140
+#: console/frm_perros.php:185 livestream/vwls_osdvideo.php:94
+#: public/pb_inscripciones.php:107 public/pb_inscripciones_equipos.php:156
+#: public/pbmenu_inscripciones.php:107
 #: public/pbmenu_inscripciones_equipos.php:151
 #: server/pdf/classes/PrintClasificacionExcel.php:161
 #: server/pdf/classes/PrintInscripciones.php:126
@@ -339,14 +347,14 @@ msgstr "Falta"
 msgid "Refusal"
 msgstr "Reh&uacute;se"
 
-#: chrono/chrono.inc.php:98 server/modules/Competitions.php:174
-#: server/modules/competiciones/Liga_RFEC.php:142
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:83
+#: chrono/chrono.inc.php:98 server/modules/Competitions.php:176
 #: server/modules/competiciones/Liga_UCA.php:41
 #: server/modules/competiciones/Puntuable_CPC_2018.php:126
+#: server/modules/competiciones/Puntuable_FMC_2018.php:86
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:142
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:72
-#: server/modules/competiciones/SelectivaWAO_Games.php:91
-#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:97
+#: server/modules/competiciones/SelectivaWAO_Games.php:92
+#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:98
 #: server/modules/competiciones/Selectiva_PastorBelga.php:83
 #: server/modules/competiciones/lib/resultados/Resultados_KO.php:112
 #: server/modules/competiciones/lib/resultados/Resultados_KO.php:120
@@ -466,14 +474,14 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 #: chrono/chrono.js.php:133 chrono/chrono.js.php:214 chrono/chrono.js.php:282
 #: chrono/chrono.js.php:383 console/dialogs/dlg_competicion.inc:138
 #: livestream/livestream.js.php:261 scripts/datagrid_formatters.js.php:188
-#: server/modules/Competitions.php:175
-#: server/modules/competiciones/Liga_RFEC.php:143
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:84
+#: server/modules/Competitions.php:177
 #: server/modules/competiciones/Liga_UCA.php:42
 #: server/modules/competiciones/Puntuable_CPC_2018.php:127
+#: server/modules/competiciones/Puntuable_FMC_2018.php:87
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:143
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:73
-#: server/modules/competiciones/SelectivaWAO_Games.php:92
-#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:98
+#: server/modules/competiciones/SelectivaWAO_Games.php:93
+#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:99
 #: server/modules/competiciones/Selectiva_PastorBelga.php:84
 #: server/pdf/classes/PrintEntradaDeDatos.php:400
 #: server/pdf/classes/PrintResultadosByEquipos4.php:209
@@ -538,8 +546,8 @@ msgstr "Dors"
 #: console/frm_jueces.php:87 console/frm_login.php:146
 #: console/frm_paises.php:82 console/frm_paises.php:140
 #: console/frm_paises.php:225 console/frm_perros.php:178
-#: console/frm_pruebas.php:159 console/frm_registration.php:54 index.php:190
-#: index.php:223 lib/templates/final_games.inc.php:21
+#: console/frm_pruebas.php:159 console/frm_registration.php:54 index.php:191
+#: index.php:224 lib/templates/final_games.inc.php:21
 #: lib/templates/final_individual.inc.php:18
 #: lib/templates/final_last_individual.inc.php:28
 #: lib/templates/final_last_teams.inc.php:28
@@ -553,8 +561,11 @@ msgstr "Dors"
 #: public/pbmenu_inscripciones.php:103
 #: public/pbmenu_inscripciones_equipos.php:147
 #: scripts/results_and_scores.js.php:250 scripts/results_and_scores.js.php:322
+#: server/database/classes/Ligas.php:154
 #: server/excel/classes/XLSXWriter.php:114
 #: server/excel/classes/XLSXWriter.php:134
+#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:86
+#: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:69
 #: server/pdf/classes/PrintClasificacion.php:209
 #: server/pdf/classes/PrintClasificacion.php:211
 #: server/pdf/classes/PrintClasificacion.php:215
@@ -757,7 +768,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/frm_equipos.php:176 console/frm_equipos.php:259
 #: console/frm_equipos.php:328 console/frm_guias.php:98
 #: console/frm_inscripciones2.php:73 console/frm_paises.php:143
-#: console/frm_pruebas.php:101 console/frm_pruebas.php:159 index.php:223
+#: console/frm_pruebas.php:101 console/frm_pruebas.php:159 index.php:224
 #: lib/templates/orden_salida.inc.php:35 livestream/index.php:278
 #: public/pb_inscripciones.php:112 public/pb_inscripciones_equipos.php:102
 #: public/pb_inscripciones_equipos.php:161 public/pb_programa.php:102
@@ -1219,14 +1230,14 @@ msgstr "Tiempo"
 
 #: console/dialogs/dlg_competicion.inc:139
 #: console/dialogs/dlg_competicion_games.inc:387
-#: scripts/datagrid_formatters.js.php:189 server/modules/Competitions.php:170
-#: server/modules/competiciones/Liga_RFEC.php:138
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:79
+#: scripts/datagrid_formatters.js.php:189 server/modules/Competitions.php:172
 #: server/modules/competiciones/Liga_UCA.php:37
 #: server/modules/competiciones/Puntuable_CPC_2018.php:122
+#: server/modules/competiciones/Puntuable_FMC_2018.php:82
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:138
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:68
-#: server/modules/competiciones/SelectivaWAO_Games.php:95
-#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:93
+#: server/modules/competiciones/SelectivaWAO_Games.php:96
+#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:94
 #: server/modules/competiciones/Selectiva_PastorBelga.php:79
 #: server/pdf/classes/PrintEntradaDeDatos.php:401
 #: server/pdf/classes/PrintResultadosByEquipos4.php:210
@@ -1358,7 +1369,9 @@ msgstr "Total"
 #: console/dialogs/dlg_competicion_games.inc:205
 #: console/dialogs/dlg_competicion_games.inc:207
 #: lib/templates/final_games.inc.php:42 lib/templates/final_games.inc.php:49
-#: lib/templates/final_games.inc.php:54 server/modules/Competitions.php:20
+#: lib/templates/final_games.inc.php:54 server/database/classes/Ligas.php:157
+#: server/modules/Competitions.php:20
+#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:95
 #: server/pdf/classes/PrintClasificacionExcel.php:170
 #: server/pdf/classes/PrintClasificacionExcel.php:178
 #: server/pdf/classes/PrintClasificacionGames.php:123
@@ -1401,7 +1414,7 @@ msgstr "Buscar un participante por dorsal"
 msgid "Validate data. Store into row being editing"
 msgstr "Validar datos. Almacenarlos en la celda en edición"
 
-#: console/dialogs/dlg_configuracion.inc:32 index.php:143
+#: console/dialogs/dlg_configuracion.inc:32 index.php:144
 #: livestream/vwls_finales.php:63 livestream/vwls_finales.php:171
 #: livestream/vwls_finales.php:185 livestream/vwls_parciales.php:62
 #: livestream/vwls_parciales.php:127 livestream/vwls_parciales.php:144
@@ -1432,7 +1445,7 @@ msgstr "Alerta de proximidad en el orden de salida"
 #: console/dialogs/dlg_entrenamientos.inc:201
 #: console/dialogs/dlg_entrenamientos.inc:207
 #: console/dialogs/dlg_entrenamientos.inc:213
-#: console/dialogs/dlg_entrenamientos.inc:219 console/index.php:366
+#: console/dialogs/dlg_entrenamientos.inc:219 console/index.php:367
 #: public/pb_programa.php:101 public/pbmenu_programa.php:105
 #: server/excel/classes/DogsWriter.php:69
 msgid "Dogs"
@@ -2023,7 +2036,7 @@ msgstr "M&eacute;todo de autenticaci&oacute;n"
 
 #: console/dialogs/dlg_configuracion.inc:458
 #: console/dialogs/dlg_sesiones.inc:35 console/dialogs/dlg_sesiones.inc:161
-#: console/frm_logout.php:31 console/index.php:203 scripts/auth.js.php:89
+#: console/frm_logout.php:31 console/index.php:204 scripts/auth.js.php:89
 #: scripts/auth.js.php:128 tablet/index.php:149 tablet/index.php:382
 msgid "User"
 msgstr "Usuario"
@@ -2371,6 +2384,9 @@ msgstr "Datos de la inscripci&oacute;n"
 #: console/dialogs/dlg_ordensalida.inc:230 console/frm_clubes.php:271
 #: console/frm_guias.php:158 console/frm_paises.php:232
 #: console/frm_perros.php:138 lib/templates/orden_salida.inc.php:26
+#: server/database/classes/Ligas.php:153
+#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:84
+#: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:68
 #: server/pdf/classes/PrintClasificacionExcel.php:159
 #: server/pdf/classes/PrintEntradaDeDatos.php:376
 #: server/pdf/classes/PrintEntradaDeDatos.php:462
@@ -2521,7 +2537,8 @@ msgstr "Importar/Exportar"
 #: console/dialogs/dlg_resultados_ko.inc:56
 #: console/frm_clasificaciones2.php:140
 #: console/frm_clasificaciones_equipos.php:149 console/frm_equipos.php:46
-#: console/frm_inscripciones2.php:124 console/frm_perros.php:84
+#: console/frm_inscripciones2.php:124 console/frm_ligas.php:44
+#: console/frm_perros.php:84
 msgid "Print"
 msgstr "Imprimir"
 
@@ -2681,7 +2698,7 @@ msgid "Teams"
 msgstr "Equipos"
 
 #: console/dialogs/dlg_jornadas.inc:108 server/database/classes/poedit.php:33
-#: server/modules/Competitions.php:108 server/modules/Federations.php:304
+#: server/modules/Competitions.php:109 server/modules/Federations.php:304
 #: server/modules/federaciones/rfec/config.php:263
 msgid "K.O. Round"
 msgstr "Ronda K.O."
@@ -3021,7 +3038,7 @@ msgid "Session - Ring"
 msgstr "Sesi&oacute;n - Ring"
 
 #: console/dialogs/dlg_ordentandas.inc:67
-#: console/dialogs/dlg_ordentandas.inc:136 index2.php:332
+#: console/dialogs/dlg_ordentandas.inc:136 index2.php:333
 #: public/pb_programa.php:97 public/pbmenu_programa.php:101
 #: scripts/competicion.js.php:1171
 msgid "Timetable"
@@ -3078,7 +3095,7 @@ msgstr "Editar gu&iacute;a"
 
 #: console/dialogs/dlg_perros.inc:96 console/frm_competicion2.php:156
 #: console/frm_inscripciones2.php:207 console/frm_myAdmin.php:31
-#: console/index.php:210 scripts/admin.js.php:487 scripts/competicion.js.php:75
+#: console/index.php:211 scripts/admin.js.php:487 scripts/competicion.js.php:75
 #: scripts/inscripciones.js.php:89 scripts/pruebas.js.php:184
 #: scripts/pruebas.js.php:424 server/pdf/classes/PrintOrdenTandas.php:77
 msgid "Notice"
@@ -3433,7 +3450,7 @@ msgstr "Video-Marcadores"
 
 #: console/dialogs/dlg_remotecontrol.inc:54
 #: console/dialogs/dlg_remotecontrol.inc:64
-#: console/dialogs/dlg_remotecontrol.inc:147 index.php:154 index2.php:322
+#: console/dialogs/dlg_remotecontrol.inc:147 index.php:155 index2.php:323
 #: livestream/index.php:200 livestream/vwls_entrenamientos.php:63
 #: public/pb_entrenamientos.php:36 public/pbmenu_entrenamientos.php:38
 #: scripts/sesiones.js.php:162 scripts/sesiones.js.php:172
@@ -3444,7 +3461,7 @@ msgstr "Sesi&oacute;n de entrenamientos"
 
 #: console/dialogs/dlg_remotecontrol.inc:55
 #: console/dialogs/dlg_remotecontrol.inc:148 console/frm_competicion2.php:95
-#: index.php:155 index2.php:334 livestream/index.php:201
+#: index.php:156 index2.php:335 livestream/index.php:201
 #: livestream/vwls_ordensalida.php:62 public/pb_ordensalida.php:42
 #: public/pb_ordensalida.php:51 public/pbmenu_ordensalida.php:42
 #: scripts/competicion.js.php:1178 scripts/sesiones.js.php:158
@@ -3461,7 +3478,7 @@ msgstr "Orden de salida"
 
 #: console/dialogs/dlg_remotecontrol.inc:56
 #: console/dialogs/dlg_remotecontrol.inc:60
-#: console/dialogs/dlg_remotecontrol.inc:150 index.php:156 index2.php:361
+#: console/dialogs/dlg_remotecontrol.inc:150 index.php:157 index2.php:362
 #: livestream/index.php:203 livestream/vwls_parciales.php:65
 #: public/pb_parciales.php:38 public/pb_parciales.php:44
 #: public/pb_parciales.php:54 public/pb_parciales_equipos.php:38
@@ -3478,7 +3495,7 @@ msgstr "Clasificaci&oacute;n parcial"
 
 #: console/dialogs/dlg_remotecontrol.inc:57
 #: console/dialogs/dlg_remotecontrol.inc:61
-#: console/dialogs/dlg_remotecontrol.inc:151 index.php:157 index2.php:364
+#: console/dialogs/dlg_remotecontrol.inc:151 index.php:158 index2.php:365
 #: lib/templates/final_games.inc.php:13
 #: lib/templates/final_individual.inc.php:12
 #: lib/templates/final_last_individual.inc.php:14
@@ -3695,7 +3712,7 @@ msgstr "Descripci&oacute;n"
 
 #: console/dialogs/dlg_remotecontrol.inc:414
 #: console/dialogs/dlg_selectJornada.inc:86 console/frm_inscripciones.php:79
-#: index.php:193 tablet/index.php:268
+#: index.php:194 tablet/index.php:268
 msgid "Fed"
 msgstr "Fed"
 
@@ -4373,7 +4390,7 @@ msgstr "Plantillas"
 
 #: console/dialogs/infomanga.php:332 console/frm_clasificaciones.php:51
 #: console/frm_clasificaciones2.php:123
-#: console/frm_clasificaciones_equipos.php:132 console/index.php:409
+#: console/frm_clasificaciones_equipos.php:132 console/index.php:410
 #: server/excel/classes/ClasificacionesWriter.php:234
 #: server/pdf/classes/PrintClasificacion.php:201
 #: server/pdf/classes/PrintClasificacionExcel.php:154
@@ -4478,7 +4495,7 @@ msgstr ""
 msgid "Round"
 msgstr "Manga"
 
-#: console/dialogs/inforesultados.inc:36 console/index.php:374
+#: console/dialogs/inforesultados.inc:36 console/index.php:375
 #: server/excel/classes/PartialScoresWriter.php:85
 msgid "Judges"
 msgstr "Jueces"
@@ -4587,7 +4604,7 @@ msgstr "Esta nota de CopyRight debe ser inclu&iacute;da en toda copia"
 msgid "Registered in"
 msgstr "Inscrito en"
 
-#: console/frm_about.php:71 console/index.php:443
+#: console/frm_about.php:71 console/index.php:444
 msgid "About AgilityContest"
 msgstr "Acerca de AgilityContest"
 
@@ -4627,7 +4644,7 @@ msgid "Organizing Club"
 msgstr "Club anfitri&oacute;n"
 
 #: console/frm_clasificaciones2.php:46
-#: console/frm_clasificaciones_equipos.php:45 index.php:147
+#: console/frm_clasificaciones_equipos.php:45 index.php:148
 #: scripts/equipos.js.php:73 scripts/equipos.js.php:126
 #: server/excel/classes/OrdenSalidaWriter.php:122
 #: server/excel/classes/PartialScoresWriter.php:83
@@ -5300,6 +5317,10 @@ msgstr "Borrar casilla de b&uacute;squeda. Actualizar datos"
 msgid "Look for judges matching search criteria"
 msgstr "Buscar jueces que coincidan con el criterio de b&uacute;squeda"
 
+#: console/frm_ligas.php:87
+msgid "Generate PDF or Excel file wiht League data"
+msgstr "Crear fichero PDF/Excel con los resultados de la liga"
+
 #: console/frm_login.php:55
 msgid "Some operations require a valid user to be logged in"
 msgstr ""
@@ -5314,7 +5335,7 @@ msgstr ""
 msgid "User name"
 msgstr "Nombre de usuario"
 
-#: console/frm_login.php:114 console/index.php:202
+#: console/frm_login.php:114 console/index.php:203
 msgid "Session init"
 msgstr "Inicio de sesi&oacute;n"
 
@@ -5378,7 +5399,7 @@ msgstr ""
 msgid "Admin user"
 msgstr "Usuario administrador"
 
-#: console/frm_myAdmin.php:84 console/index.php:429
+#: console/frm_myAdmin.php:84 console/index.php:430
 msgid "Direct DB Access"
 msgstr "Acceso directo a BBDD"
 
@@ -5680,138 +5701,141 @@ msgstr "Selecciona fichero de licencia a importar"
 msgid "Import license file into application"
 msgstr "Importar fichero de licencia en la aplicaci&oacute;n"
 
-#: console/index.php:204
+#: console/index.php:205
 msgid "On"
 msgstr "En"
 
-#: console/index.php:204
+#: console/index.php:205
 msgid "Session ID"
 msgstr "ID de sesi&oacute;n"
 
-#: console/index.php:205
+#: console/index.php:206
 msgid "From"
 msgstr "Desde"
 
-#: console/index.php:228
+#: console/index.php:229
 msgid "Console"
 msgstr "Consola"
 
-#: console/index.php:335
+#: console/index.php:336
 msgid "Operations Menu"
 msgstr "Men&uacute; de operaciones"
 
-#: console/index.php:341
+#: console/index.php:342
 msgid "Init Session"
 msgstr "Iniciar Sesi&oacute;n"
 
-#: console/index.php:345
+#: console/index.php:346
 msgid "DATABASE"
 msgstr "BASE DE DATOS"
 
-#: console/index.php:349 scripts/common.js.php:777
+#: console/index.php:350 scripts/common.js.php:777
 msgid "Clubs"
 msgstr "Clubes"
 
-#: console/index.php:355
+#: console/index.php:356
 msgid "Handlers Database Management"
 msgstr "Gesti&oacute;n de datos de Gu&iacute;as"
 
-#: console/index.php:357
+#: console/index.php:358
 msgid "Handlers"
 msgstr "Gu&iacute;as"
 
-#: console/index.php:363
+#: console/index.php:364
 msgid "Dogs Database Management"
 msgstr "Gesti&oacute;n de datos de Perros"
 
-#: console/index.php:372
+#: console/index.php:373
 msgid "Judges Database Management"
 msgstr "Gesti&oacute;n de datos de Jueces"
 
-#: console/index.php:379
+#: console/index.php:380
 msgid "CONTESTS"
 msgstr "PRUEBAS"
 
-#: console/index.php:384
+#: console/index.php:385
 msgid "Create and Edit Contests"
 msgstr "Creaci&oacute;n y Edici&oacute;n de Pruebas"
 
-#: console/index.php:386
+#: console/index.php:387
 msgid "Create Contests"
 msgstr "Creaci&oacute;n de pruebas"
 
-#: console/index.php:391
+#: console/index.php:392
 msgid "Inscriptions - Contest selection"
 msgstr "Inscripciones registradas en el equipo"
 
-#: console/index.php:393
+#: console/index.php:394
 msgid "Handle Inscriptions"
 msgstr "Gesti&oacute;n de Inscripciones"
 
-#: console/index.php:398
+#: console/index.php:399
 msgid "Competition - Contest and Journey selection"
 msgstr "Competici&oacute;n - Selecci&oacute;n de Prueba y Jornada"
 
-#: console/index.php:399
+#: console/index.php:400
 msgid "Running Contests"
 msgstr "Desarrollo de la prueba"
 
-#: console/index.php:404
+#: console/index.php:405
 msgid "REPORTS"
 msgstr "CLASIFICACIONES"
 
-#: console/index.php:408
+#: console/index.php:409
 msgid "Scores - Contest and Journey selection"
 msgstr "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
 
-#: console/index.php:414 console/index.php:415 scripts/inscripciones.js.php:467
-#: server/pdf/classes/PrintInscripciones.php:258
-msgid "Statistics"
-msgstr "Estad&iacute;sticas"
+#: console/index.php:415
+msgid "League Results for selected federation"
+msgstr "Resultados de liga para la federaci&oacute;n activa"
 
-#: console/index.php:420
+#: console/index.php:416
+msgid "League Results"
+msgstr "Resultados de Liga"
+
+#: console/index.php:421
 msgid "TOOLS"
 msgstr "HERRAMIENTAS"
 
-#: console/index.php:424 console/index.php:426
+#: console/index.php:425 console/index.php:427
 msgid "Configuration"
 msgstr "Administraci&oacute;n"
 
-#: console/index.php:432
+#: console/index.php:433
 msgid "DOCUMENTATION"
 msgstr "DOCUMENTACION"
 
-#: console/index.php:434
+#: console/index.php:435
 msgid "OnLine Manual"
 msgstr "Manual en L&iacute;nea"
 
-#: console/index.php:437 console/index.php:438
+#: console/index.php:438 console/index.php:439
 msgid "License information"
 msgstr "Informaci&oacute;n de registro"
 
-#: console/index.php:444
+#: console/index.php:445
 msgid "About"
 msgstr "Acerca de"
 
-#: index.php:139
+#: index.php:140
 msgid "Select contest, journey and view"
 msgstr "Selecciona la prueba, jornada y vista"
 
-#: index.php:151 livestream/index.php:198 videowall/index.php:233
+#: index.php:152 livestream/index.php:198 videowall/index.php:233
 msgid "Select View"
 msgstr "Selecciona vista"
 
-#: index.php:153 public/pb_inscripciones.php:35
+#: index.php:154 public/pb_inscripciones.php:35
 #: public/pb_inscripciones_equipos.php:35 public/pbmenu_inscripciones.php:38
 #: public/pbmenu_inscripciones_equipos.php:38
 msgid "Inscription list"
 msgstr "Listado de inscritos"
 
-#: index.php:158
+#: index.php:159
 msgid "Journey activities timetable"
 msgstr "Programa de la jornada"
 
-#: index.php:255
+#: index.php:256
 msgid "You should select contest, journey and view to continue"
 msgstr "Debe seleccionar prueba, jornada y vista para continuar"
 
@@ -5819,47 +5843,47 @@ msgstr "Debe seleccionar prueba, jornada y vista para continuar"
 msgid "Web access"
 msgstr "Acceso internet"
 
-#: index2.php:286
+#: index2.php:287
 msgid "Online information"
 msgstr "Informaci&oacute;n en l&iacute;nea"
 
-#: index2.php:333 server/excel/classes/InscripcionesWriter.php:109
+#: index2.php:334 server/excel/classes/InscripcionesWriter.php:109
 msgid "Inscriptions"
 msgstr "Inscripciones"
 
-#: index2.php:377
+#: index2.php:378
 msgid "Options and Messages"
 msgstr "Ajustes y Notificaciones"
 
-#: index2.php:382
+#: index2.php:383
 msgid "Activate notifications"
 msgstr "Activar Notificaciones"
 
-#: index2.php:392
+#: index2.php:393
 msgid "Display received messages since session start"
 msgstr "Mostrar mensajes recibidos desde el inicio de sesi&oacute;n"
 
-#: index2.php:393
+#: index2.php:394
 msgid "Display"
 msgstr "Mostrar"
 
-#: index2.php:397
+#: index2.php:398
 msgid "Dorsal to track info "
 msgstr "Dorsal al que hacer seguimiento"
 
-#: index2.php:402
+#: index2.php:403
 msgid "Personalize notifications"
 msgstr "Ajustes de notificaciones"
 
-#: index2.php:403
+#: index2.php:404
 msgid "Setup"
 msgstr "Ajuste"
 
-#: index2.php:434
+#: index2.php:435
 msgid "Dorsal to track info. Set to zero if no dorsal selected"
 msgstr "Dorsal al que seguir. Poner a cero si no se selecciona ninguno"
 
-#: index2.php:435
+#: index2.php:436
 msgid "Not available yet"
 msgstr "No disponible todav&iacute;a"
 
@@ -7650,6 +7674,11 @@ msgstr "Cat&aacute;logo"
 msgid "Current selection/order"
 msgstr "Selecci&oacute;n actual"
 
+#: scripts/inscripciones.js.php:467
+#: server/pdf/classes/PrintInscripciones.php:258
+msgid "Statistics"
+msgstr "Estad&iacute;sticas"
+
 #: scripts/inscripciones.js.php:468
 msgid "Competition ID Cards"
 msgstr "Dorsales Identificativos"
@@ -8556,14 +8585,14 @@ msgstr "Estrellas"
 msgid "KC_ID"
 msgstr "LOE_RRC"
 
-#: server/modules/Competitions.php:169
-#: server/modules/competiciones/Liga_RFEC.php:137
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:78
+#: server/modules/Competitions.php:171
 #: server/modules/competiciones/Liga_UCA.php:36
 #: server/modules/competiciones/Puntuable_CPC_2018.php:121
+#: server/modules/competiciones/Puntuable_FMC_2018.php:81
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:137
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:67
-#: server/modules/competiciones/SelectivaWAO_Games.php:94
-#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:92
+#: server/modules/competiciones/SelectivaWAO_Games.php:95
+#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:93
 #: server/modules/competiciones/Selectiva_PastorBelga.php:78
 #: server/pdf/classes/PrintEntradaDeDatos.php:223
 #: server/pdf/classes/PrintEntradaDeDatos.php:325
@@ -8573,130 +8602,137 @@ msgstr "LOE_RRC"
 msgid "Not Present"
 msgstr "No Presentado"
 
-#: server/modules/Competitions.php:178
-#: server/modules/competiciones/Liga_RFEC.php:146
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:87
+#: server/modules/Competitions.php:180
 #: server/modules/competiciones/Liga_UCA.php:45
 #: server/modules/competiciones/Puntuable_CPC_2018.php:130
+#: server/modules/competiciones/Puntuable_FMC_2018.php:90
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:146
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:76
-#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:101
+#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:102
 #: server/modules/competiciones/Selectiva_PastorBelga.php:87
 msgid "Not Clasified"
 msgstr "No Clasificado"
 
-#: server/modules/Competitions.php:179
-#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:90
-#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:113
-#: server/modules/competiciones/Liga_RFEC.php:147
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:88
+#: server/modules/Competitions.php:181
+#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:91
+#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:114
 #: server/modules/competiciones/Liga_UCA.php:46
 #: server/modules/competiciones/Puntuable_CPC_2018.php:131
+#: server/modules/competiciones/Puntuable_FMC_2018.php:91
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:147
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:77
-#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:102
+#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:103
 #: server/modules/competiciones/Selectiva_PastorBelga.php:88
 #: videowall/videowall.js.php:405
 msgid "N.C."
 msgstr "N.C."
 
-#: server/modules/Competitions.php:182 server/modules/Competitions.php:183
-#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:93
-#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:116
-#: server/modules/competiciones/Liga_RFEC.php:150
-#: server/modules/competiciones/Liga_RFEC.php:151
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:91
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:92
+#: server/modules/Competitions.php:184 server/modules/Competitions.php:185
+#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:94
+#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:117
 #: server/modules/competiciones/Liga_UCA.php:49
 #: server/modules/competiciones/Liga_UCA.php:50
 #: server/modules/competiciones/Puntuable_CPC_2018.php:134
 #: server/modules/competiciones/Puntuable_CPC_2018.php:135
+#: server/modules/competiciones/Puntuable_FMC_2018.php:94
+#: server/modules/competiciones/Puntuable_FMC_2018.php:95
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:150
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:151
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:80
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:81
-#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:105
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:106
+#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:107
 #: server/modules/competiciones/Selectiva_PastorBelga.php:91
 #: server/modules/competiciones/Selectiva_PastorBelga.php:92
 #: videowall/videowall.js.php:404
 msgid "Good"
 msgstr "Bien"
 
-#: server/modules/Competitions.php:186
-#: server/modules/competiciones/Liga_RFEC.php:154
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:95
+#: server/modules/Competitions.php:188
 #: server/modules/competiciones/Liga_UCA.php:54
 #: server/modules/competiciones/Puntuable_CPC_2018.php:138
+#: server/modules/competiciones/Puntuable_FMC_2018.php:98
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:154
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:84
-#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:109
+#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:110
 msgid "Very good"
 msgstr "Muy bien"
 
-#: server/modules/Competitions.php:187
-#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:96
-#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:119
-#: server/modules/competiciones/Liga_RFEC.php:155
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:96
+#: server/modules/Competitions.php:189
+#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:97
+#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:120
 #: server/modules/competiciones/Liga_UCA.php:55
 #: server/modules/competiciones/Puntuable_CPC_2018.php:139
+#: server/modules/competiciones/Puntuable_FMC_2018.php:99
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:155
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:85
-#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:110
+#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:111
 #: server/modules/competiciones/Selectiva_PastorBelga.php:95
 #: server/modules/competiciones/Selectiva_PastorBelga.php:96
 #: videowall/videowall.js.php:403
 msgid "V.G."
 msgstr "M.B."
 
-#: server/modules/Competitions.php:190
-#: server/modules/competiciones/Liga_RFEC.php:158
-#: server/modules/competiciones/Liga_RFEC.php:162
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:99
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:103
+#: server/modules/Competitions.php:192
 #: server/modules/competiciones/Liga_UCA.php:59
 #: server/modules/competiciones/Liga_UCA.php:64
 #: server/modules/competiciones/Puntuable_CPC_2018.php:142
 #: server/modules/competiciones/Puntuable_CPC_2018.php:146
-#: server/modules/competiciones/Puntuable_RSCE_2017.php:106
-#: server/modules/competiciones/Puntuable_RSCE_2017.php:119
-#: server/modules/competiciones/Puntuable_RSCE_2018.php:109
-#: server/modules/competiciones/Puntuable_RSCE_2018.php:122
+#: server/modules/competiciones/Puntuable_FMC_2018.php:102
+#: server/modules/competiciones/Puntuable_FMC_2018.php:106
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:158
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:162
+#: server/modules/competiciones/Puntuable_RSCE_2017.php:108
+#: server/modules/competiciones/Puntuable_RSCE_2017.php:122
+#: server/modules/competiciones/Puntuable_RSCE_2018.php:116
+#: server/modules/competiciones/Puntuable_RSCE_2018.php:130
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:88
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:92
-#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:113
-#: server/modules/competiciones/Selectiva_awc_RSCE.php:141
-#: server/modules/competiciones/Selectiva_awc_RSCE.php:145
-#: server/modules/competiciones/Selectiva_eo_RSCE.php:144
-#: server/modules/competiciones/Selectiva_eo_RSCE.php:148
+#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:114
+#: server/modules/competiciones/Selectiva_awc_2018.php:141
+#: server/modules/competiciones/Selectiva_awc_2018.php:145
+#: server/modules/competiciones/Selectiva_awc_2019.php:143
+#: server/modules/competiciones/Selectiva_awc_2019.php:147
+#: server/modules/competiciones/Selectiva_eo_2018.php:144
+#: server/modules/competiciones/Selectiva_eo_2018.php:148
+#: server/modules/competiciones/Selectiva_eo_2019.php:146
+#: server/modules/competiciones/Selectiva_eo_2019.php:150
 msgid "Excellent"
 msgstr "Excelente"
 
-#: server/modules/Competitions.php:191 server/modules/Competitions.php:195
-#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:99
-#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:102
-#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:122
-#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:125
-#: server/modules/competiciones/Liga_RFEC.php:159
-#: server/modules/competiciones/Liga_RFEC.php:163
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:100
-#: server/modules/competiciones/Liga_RFEC_Madrid.php:104
+#: server/modules/Competitions.php:193 server/modules/Competitions.php:197
+#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:100
+#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:103
+#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:123
+#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:126
 #: server/modules/competiciones/Liga_UCA.php:60
 #: server/modules/competiciones/Liga_UCA.php:65
 #: server/modules/competiciones/Puntuable_CPC_2018.php:143
 #: server/modules/competiciones/Puntuable_CPC_2018.php:147
+#: server/modules/competiciones/Puntuable_FMC_2018.php:103
+#: server/modules/competiciones/Puntuable_FMC_2018.php:107
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:159
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:163
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:87
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:88
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:91
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:89
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:93
-#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:114
+#: server/modules/competiciones/SelectivaWAO_Pentathlon.php:115
 #: server/modules/competiciones/Selectiva_PastorBelga.php:99
 #: server/modules/competiciones/Selectiva_PastorBelga.php:100
 #: server/modules/competiciones/Selectiva_PastorBelga.php:103
 #: server/modules/competiciones/Selectiva_PastorBelga.php:104
-#: server/modules/competiciones/Selectiva_awc_RSCE.php:142
-#: server/modules/competiciones/Selectiva_eo_RSCE.php:145
+#: server/modules/competiciones/Selectiva_awc_2018.php:142
+#: server/modules/competiciones/Selectiva_awc_2019.php:144
+#: server/modules/competiciones/Selectiva_eo_2018.php:145
+#: server/modules/competiciones/Selectiva_eo_2019.php:147
+#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:91
 #: videowall/videowall.js.php:402
 msgid "Exc"
 msgstr "Exc"
 
-#: server/modules/Competitions.php:194
+#: server/modules/Competitions.php:196
 msgid "Excellent (0)"
 msgstr "Excelente (0)"
 
@@ -8756,18 +8792,18 @@ msgstr "Eq. 2mejores"
 msgid "Teams 2"
 msgstr "Equipos 2"
 
-#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:62
-#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:85
+#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:63
+#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:86
 msgid "Not Present - 0"
 msgstr "No Presentado - 0"
 
-#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:68
-#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:91
+#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:69
+#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:92
 msgid "Eliminated - 0"
 msgstr "Eliminado - 0"
 
-#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:87
-#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:110
+#: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:88
+#: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:111
 msgid "Elim."
 msgstr "Elim."
 
@@ -8776,10 +8812,40 @@ msgstr "Elim."
 msgid "Ex P"
 msgstr "Ex P"
 
-#: server/modules/competiciones/Selectiva_awc_RSCE.php:146
-#: server/modules/competiciones/Selectiva_eo_RSCE.php:149
+#: server/modules/competiciones/Selectiva_awc_2018.php:146
+#: server/modules/competiciones/Selectiva_awc_2019.php:148
+#: server/modules/competiciones/Selectiva_eo_2018.php:149
+#: server/modules/competiciones/Selectiva_eo_2019.php:151
 msgid "ExP"
 msgstr "Ex P"
+
+#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:92
+msgid "Zeroes"
+msgstr "Ceros"
+
+#: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:72
+msgid "Pt<br/>Agilty"
+msgstr "Puntos<br/>Agilty"
+
+#: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:73
+msgid "Pt<br/>Jumping"
+msgstr "Puntos<br/>Jumping"
+
+#: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:74
+msgid "Pv<br/>Agility"
+msgstr "P. Veloc<br/>Agility"
+
+#: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:75
+msgid "Pv<br/>Jumping"
+msgstr "P. Veloc<br/>Jumping"
+
+#: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:78
+msgid "Pa<br/>Agility"
+msgstr "Ascenso G3<br/>Agility"
+
+#: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:79
+msgid "Pa<br/>Jumping"
+msgstr "Ascenso G3<br/>Jumping"
 
 #: server/modules/competiciones/lib/ordensalida/OrdenSalida_KO.php:187
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
