@@ -60,7 +60,6 @@ $am=new AuthManager("Public");
      iconCls:'forbidden',
      closed: <?php echo $am->allowed(ENABLE_LEAGUES)?'true':'false'?>
     });
-
     $('#ligas-tab').tabs({
         width: 'auto',
         heignt: 550,
@@ -68,6 +67,9 @@ $am=new AuthManager("Public");
     });
     // download and create datagrid for Grade 1
     loadLeagueData("GI",function(data){
+        var tab = $('#ligas-tab').tabs('getTab', 0);
+        var newTitle=workingData.datosFederation.ListaGrados['GI'];
+        $('#ligas-tab').tabs('update', { tab: tab, options: { title: newTitle } });
         $('#ligas-g1-datagrid').datagrid({
             fit:true,
             fitColumns:true,
@@ -77,6 +79,9 @@ $am=new AuthManager("Public");
     });
     // download and create datagrid for Grade 2
     loadLeagueData("GII",function(data){
+        var tab = $('#ligas-tab').tabs('getTab', 1);
+        var newTitle=workingData.datosFederation.ListaGrados['GII'];
+        $('#ligas-tab').tabs('update', { tab: tab, options: { title: newTitle } });
         $('#ligas-g2-datagrid').datagrid({
             fit:true,
             fitColumns:true,
@@ -89,6 +94,9 @@ $am=new AuthManager("Public");
         // no grade 3: hide tab
         $('#ligas-tab').tabs('close',"<?php _e('Grade'); ?> 3");
     } else {
+        var tab = $('#ligas-tab').tabs('getTab', 2);
+        var newTitle=workingData.datosFederation.ListaGrados['GIII'];
+        $('#ligas-tab').tabs('update', { tab: tab, options: { title: newTitle } });
         // download and create datagrid for Grade 3
         loadLeagueData("GIII",function(data){
             $('#ligas-g3-datagrid').datagrid({

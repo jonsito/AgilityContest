@@ -157,7 +157,7 @@ class Ligas extends DBObject {
         // add datagrid header
         $res['header']= array(
             array('field' => 'Licencia',    'title'=>_('License'),  'width' => 10, 'align' => 'right'),
-            array('field' => 'Categoria',   'title'=>_('License'),  'width' => 10, 'align' => 'right'),
+            array('field' => 'Categoria',   'title'=>_('Category'),  'width' => 10, 'align' => 'right'),
             array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'center'),
             array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 40, 'align' => 'right'),
             array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 30, 'align' => 'right'),
