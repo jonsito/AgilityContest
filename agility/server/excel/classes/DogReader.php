@@ -217,7 +217,7 @@ class DogReader {
         foreach ($this->fieldList as $key => $val) {
             if ( ($val[0]<0) || ($val[1]==0)) continue; // field not provided or to be evaluated by importer
             $str1 .= "{$val[3]}, "; // add field name
-            $item=$row[$val[0]];
+            $item=(array_key_exists($val[0],$row))? $row[$val[0]]:""; // trick to avoid empty fields at the end of row
             if ($key==='Grade') $item=parseGrade($item);
             if ($key==='Category') $item=parseCategory($item);
             if ($key==='Gender') $item=parseGender($item);
