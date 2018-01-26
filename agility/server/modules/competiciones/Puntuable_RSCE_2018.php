@@ -49,13 +49,13 @@ class Puntuable_RSCE_2018 extends Competitions {
         if (!in_array($tipo,array(5,6,10,11))) return parent::presetTRSData($tipo);
         $manga=array();
         $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
-        $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=15;$manga['TRS_L_Unit']='%'; // best dog + 15 %
+        $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=25;$manga['TRS_L_Unit']='%'; // best dog + 25 %
         $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;$manga['TRM_L_Unit']='%'; // trs + 50 %
-        $manga['TRS_M_Tipo']=1;$manga['TRS_M_Factor']=15;$manga['TRS_M_Unit']='%';
+        $manga['TRS_M_Tipo']=1;$manga['TRS_M_Factor']=25;$manga['TRS_M_Unit']='%';
         $manga['TRM_M_Tipo']=1;$manga['TRM_M_Factor']=50;$manga['TRM_M_Unit']='%';
-        $manga['TRS_S_Tipo']=1;$manga['TRS_S_Factor']=15;$manga['TRS_S_Unit']='%';
+        $manga['TRS_S_Tipo']=1;$manga['TRS_S_Factor']=25;$manga['TRS_S_Unit']='%';
         $manga['TRM_S_Tipo']=1;$manga['TRM_S_Factor']=50;$manga['TRM_S_Unit']='%';
-        $manga['TRS_T_Tipo']=1;$manga['TRS_T_Factor']=15;$manga['TRS_T_Unit']='%'; // not used but required
+        $manga['TRS_T_Tipo']=1;$manga['TRS_T_Factor']=25;$manga['TRS_T_Unit']='%'; // not used but required
         $manga['TRM_T_Tipo']=1;$manga['TRM_T_Factor']=50;$manga['TRM_T_Unit']='%';
         return $manga;
     }
