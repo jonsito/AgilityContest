@@ -188,7 +188,7 @@ $config =Config::getInstance();
 		<div title="<?php _e('VideoWall'); ?>" style="padding:10px">
 			<h3><?php _e('Video wall configurable parameters'); ?></h3>
 			<label for="vw_polltime"><?php _e('AutoScroll period (seg.)'); ?></label>
-			<input id="vw_polltime" name="vw_polltime" type="text" size="2" value="5" class="easyui-textbox"/><br />
+			<input id="vw_polltime" name="vw_polltime" type="text" size="2" value="5"/><br />
 
 			<label for="vw_hdrbg1"><?php _e('Background color for main header'); ?></label>
 			<input id="vw_hdrbg1" name="vw_hdrbg1" type="color" value="#0000ff"/>
@@ -218,13 +218,13 @@ $config =Config::getInstance();
 			<h3><?php _e('Alternate (simplified) Video wall configurable parameters'); ?></h3>
 			
 			<label for="vws_polltime"><?php _e('Sponsors rotation period (seg.)'); ?></label>
-			<input id="vws_polltime" name="vws_polltime" type="text" size="2" value="5" class="easyui-textbox"/><br />
+			<input id="vws_polltime" name="vws_polltime" type="text" size="2" value="5"/><br />
 
 			<label for="vws_uselogo"><?php _e('Use special logo instead of standard header');?></label>
 			<input type="hidden" name="vws_uselogo" value="0"/> <!-- trick for checkboxes -->
 			<input type="checkbox" name="vws_uselogo" id="vws_uselogo" value="1"/><br />
 			<label for="vws_logourl"><?php _e('URL for logo image to be used');?></label>
-			<input type="text" id="vws_logourl" name="vws_logourl" size="50" maxlength="90" class="easyui-textbox"/><br />
+			<input type="text" id="vws_logourl" name="vws_logourl" size="50" maxlength="90"/><br />
 
 			<label for="vws_uselogo"><?php _e('Enable animated images into screen');?></label>
 			<input type="hidden" name="vws_animation" value="0"/> <!-- trick for checkboxes -->
@@ -240,9 +240,9 @@ $config =Config::getInstance();
 				<option value="Helvetica Neue LT Std 67 Bold Condensed">Helvetica Neue LT Std 67 Bold Condensed</option>
 				<option value="Stint Ultra Condensed Regular">Stint Ultra Condensed Regular</option>
 				<option value="Steelfish Regular" selected="selected">Steelfish Regular</option>
-			</select>
+			</select><br/>
 			<label for="vws_fontsize"><?php _e('Default font size (vw units) '); ?></label>
-			<input id="vws_fontsize" name="vws_fontsize" type="number" size="2" min="0.5" max="5.0" step="0.1" value="1.8"/>
+			<input id="vws_fontsize" name="vws_fontsize" type="number" size="2" min="0.5" max="5.0" step="0.1" value="1.8" style="width:50px"/>
 			<br />
 			
 			<label for="vws_hdrbg1"><?php _e('Background color for main header'); ?></label>
@@ -307,7 +307,7 @@ $config =Config::getInstance();
 			<input id="ls_tobefirst" name="ls_tobefirst" type="checkbox" value="1"/><br />
 
 			<label for="ls_alpha"><?php _e('Transparency level for OnScreenDisplay'); ?></label>
-			<input id="ls_alpha" name="ls_alpha" type="text" size="3" value="0.5" class="easyui-textbox"/> (0.0-1.0)<br />
+			<input id="ls_alpha" name="ls_alpha" type="text" size="3" value="0.5"/> (0.0-1.0)<br />
 
 			<label for="ls_evtdelay"><?php _e('Delay for LiveStream event parsing'); ?></label>
 			<input id="ls_evtdelay" name="ls_evtdelay" type="number" style="width:40px;" value="1.0" min="0" max="5" step="0.1"/> (<?php _e('sec');?>)<br />
@@ -373,11 +373,11 @@ $config =Config::getInstance();
 
             <label><?php _e('Label sheet format (# labels/sheet)'); ?></label>
             <label for="pdf_labelheight16" style="width:130px;">
-                <input type="radio" id="pdf_labelheight16" name="pdf_labelheight" value="17" checked="checked" onclick="$('#pdf_topmargin').val('10.0');"/>
+                <input type="radio" id="pdf_labelheight16" name="pdf_labelheight" value="17" checked="checked" onclick="$('#pdf_topmargin').textbox('setValue','10.0');"/>
                 145x17 (16)
             </label>
             <label for="pdf_labelheight13" style="width:130px;">
-                <input type="radio" id="pdf_labelheight13" name="pdf_labelheight" value="20" onclick="$('#pdf_topmargin').val('15.0');"/>
+                <input type="radio" id="pdf_labelheight13" name="pdf_labelheight" value="20" onclick="$('#pdf_topmargin').textbox('setValue','15.0');"/>
                 147x20 (13)
             </label>
             <br />
@@ -386,9 +386,9 @@ $config =Config::getInstance();
             <input id="pdf_skipnpel" name="pdf_skipnpel" type="checkbox" value="1"/><br />
 
 			<label for="pdf_topmargin"><?php _e('Label sheet upper margin (mmts)'); ?></label>
-			<input id="pdf_topmargin" name="pdf_topmargin" type="text" size="4" value="10.0" class="easyui-textbox"/><br />
+			<input id="pdf_topmargin" name="pdf_topmargin" type="text" size="4" value="10.0"/><br />
 			<label for="pdf_leftmargin"><?php _e('Label sheet right margin (mmts)'); ?></label>
-			<input id="pdf_leftmargin" name="pdf_leftmargin" type="text" size="4" value="10.0" class="easyui-textbox"/><br />
+			<input id="pdf_leftmargin" name="pdf_leftmargin" type="text" size="4" value="10.0"/><br />
 		</div>
 		
 		<div title="<?php _e('Internet'); ?>" style="padding:10px">
@@ -433,10 +433,10 @@ $config =Config::getInstance();
 		<div title="<?php _e('E-mail'); ?>" style="padding:10px">
             <h3><?php _e('Options for sending electronic mail related functions'); ?></h3>
             <label for="email_address"><?php _e('Email address'); ?> (<?php _e('From license info'); ?>)</label>
-            <input id="email_address" name="email_address" type="text" readonly="readonly" disabled="disabled" size="25" value="agilityContest@agilitycontest.es" class="easyui-textbox"/>
+            <input id="email_address" name="email_address" type="text" readonly="readonly" disabled="disabled" size="25" value="agilityContest@agilitycontest.es"/>
             <br/>
             <label for="email_server"><?php _e('SMTP Server'); ?></label>
-            <input id="email_server" name="email_server" type="text" size="20" value="" class="easyui-textbox"/>
+            <input id="email_server" name="email_server" type="text" size="20" value=""/>
             <br/>
             <label for="email_port"><?php _e('Port'); ?></label>
             <select id="email_port" name="email_port" class="easyui-combobox" data-options="panelHeight:'auto'">
@@ -456,16 +456,16 @@ $config =Config::getInstance();
             <input id="email_auth" name="email_auth" value="PLAIN"/> <!-- redefined bellow -->
             <br/>
             <label for="email_user"><?php _e('User'); ?></label>
-            <input id="email_user" name="email_user" type="text" size="20" value="" class="easyui-textbox"/>
+            <input id="email_user" name="email_user" type="text" size="20" value="""/>
             <br/>
             <label for="email_pass"><?php _e('Password'); ?></label>
-            <input id="email_pass" name="email_pass" size="20" type="password" value="" class="easyui-textbox"/>
+            <input id="email_pass" name="email_pass" size="20" type="password" value=""/>
             <br/>
             <label for="email_realm"><?php _e('NTLM auth realm'); ?></label>
-            <input id="email_realm" name="email_realm" type="text" size="20" value="" class="easyui-textbox"/>
+            <input id="email_realm" name="email_realm" type="text" size="20" value=""/>
             <br/>
             <label for="email_workstation"><?php _e('NTLM auth workstation'); ?></label>
-            <input id="email_workstation" name="email_workstation" size="20" type="password" value="" class="easyui-textbox"/>
+            <input id="email_workstation" name="email_workstation" size="20" type="password" value=""/>
             <br/>&nbsp;<br/>
             <a id="email-checkBtn" href="#" class="easyui-linkbutton"
                data-options="iconCls:'icon-mail'" onclick="emailCheck();"><?php _e('Check'); ?></a>
@@ -496,7 +496,7 @@ $config =Config::getInstance();
             <input type="checkbox" name="register_events" id="register_events" value="1"/><br />
 
 			<label for="event_printer"><?php _e('Printer device name to write tablet reports'); ?></label>
-			<input id="event_printer" name="event_printer" type="text" class="easyui-textbox" size="10" value=""/> <?php _e('Paper size'); ?>:
+			<input id="event_printer" name="event_printer" type="text" size="10" value=""/> <?php _e('Paper size'); ?>:
 			<label for="wide_printer58" style="width:70px;">
 				<input type="radio" id="wide_printer58" name="wide_printer" value="0" checked="checked"/> 58mm
 			</label>
@@ -542,8 +542,7 @@ $config =Config::getInstance();
             <input  type="number" min="0" max="50" step="2"id="backup_period" name="backup_period" style="width:75px;"/> <?php _e('minutes');?><br/>
 
             <label for="backup_dir"><?php _e('Folder to store user-defined backup'); ?></label>
-            <input id="backup_dir" name="backup_dir" type="text" size="20" value="" class="easyui-textbox"/>
-                (<?php _e('must exist in server');?>)
+            <input id="backup_dir" name="backup_dir" type="text" size="20" value="""/>(<?php _e('must exist in server');?>)
             <a id="backup-checkBtn" href="#" class="easyui-linkbutton"
                data-options="iconCls:'icon-db_backup'" onclick="backupCheck();"><?php _e('Check'); ?></a>
             <br/>
@@ -553,7 +552,7 @@ $config =Config::getInstance();
 		<div title="<?php _e('System'); ?>" style="padding:10px">
 			<h3><?php _e('Additional server information'); ?></h3>
 			<label for="ip_address"><?php _e('IP address(es)'); ?></label>
-			<input id="ip_address" name="ip_address" type="text" class="easyui-textbox" readonly="readonly" size="45"
+			<input id="ip_address" name="ip_address" type="text" readonly="readonly" size="45"
 				   value="<?php $a=new networkInterfaces(); echo implode(", ",$a->get_interfaces());?>" />
 			<br />
 			<h3><?php _e('Save and Restore configuration'); ?></h3>
@@ -585,9 +584,23 @@ $config =Config::getInstance();
 </div>
 
 <script type="text/javascript">
-
+    // declare textboxes
+    $('#vw_polltime').textbox();
+    $('#vws_polltime').textbox();
+    $('#vws_logourl').textbox();
+    $('#ls_alpha').textbox();
+    $('#pdf_topmargin').textbox();
+    $('#pdf_leftmargin').textbox();
     // retrieve email sender address from registration info.
-    $('#email_address').val(ac_regInfo.Email); // uneditable
+    $('#email_address').textbox().textbox('setValue',ac_regInfo.Email); // uneditable
+    $('#email_server').textbox();
+    $('#email_user').textbox();
+    $('#email_pass').textbox();
+    $('#email_realm').textbox();
+    $('#email_workstation').textbox();
+    $('#ip_address').textbox();
+    $('#event_printer').textbox();
+    $('#backup_dir').textbox();
 
 	$('#config_lang').combobox({
         panelHeight:'auto',
@@ -684,6 +697,7 @@ $config =Config::getInstance();
             }
         });
     }
+
 	function printerCheck() {
 		$('#config-Operation').val('printerCheck');
 		var frm = $('#config-form');
