@@ -18,10 +18,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php
 require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
+require_once(__DIR__ . "/../server/auth/AuthManager.php");
 $config =Config::getInstance();
+$am=new AuthManager("Public");
 ?>
 
-<div id="ligas-tab" style="padding:5px">
+<div id="ligas-notallowed">
+    <p><strong><?php _e('Current license permissions<br/> do not allow league scoring operations');?></strong></p>
+    <img src="/agility/images/sad_dog.png" alt="triste"/>
+</div>
+
+<div id="ligas-tab" style="padding:5px;display:<?php echo $am->allowed(ENABLE_LEAGUES)?'inherit':'none';?>">
     <div title="<?php _e('Grade'); ?> 1" data-options="iconCls:'icon-huella'" style="padding:5px;border:solid 1px #000000">
         <div style="width:100%;height:500px">
             <table id="ligas-g1-datagrid"></table>
@@ -45,6 +52,15 @@ $config =Config::getInstance();
 </div>
 
 <script type="text/javascript">
+
+    $('#ligas-notallowed').dialog({
+     width:400,
+     height:275,
+     title:'<?php _e('Not allowed');?>',
+     iconCls:'forbidden',
+     closed: <?php echo $am->allowed(ENABLE_LEAGUES)?'true':'false'?>
+    });
+
     $('#ligas-tab').tabs({
         width: 'auto',
         heignt: 550,

@@ -85,7 +85,8 @@ $config =Config::getInstance();
 			<input type="checkbox" disabled="disabled" value="64" name="ENABLE_CHRONO"/><?php _e("Chronometer connection");?><br />
 			<input type="checkbox" disabled="disabled" value="128" name="ENABLE_ULIMIT"/><?php _e("Unlimited inscriptions in a contest");?><br />
 			<input type="checkbox" disabled="disabled" value="256" name="ENABLE_LIVESTREAM"/><?php _e("LiveStream OnScreenDisplay signal");?><br />
-			<input type="checkbox" disabled="disabled" value="512" name="ENABLE_TRAINING"/><?php _e("Trainning sessions handling");?><br />
+            <input type="checkbox" disabled="disabled" value="512" name="ENABLE_TRAINING"/><?php _e("Trainning sessions handling");?><br />
+            <input type="checkbox" disabled="disabled" value="1024" name="ENABLE_LEAGUES"/><?php _e("Federation leagues scoring");?><br />
 		</td>
 	</tr></table>
 	</form>&nbsp;
