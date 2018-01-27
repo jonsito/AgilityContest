@@ -145,7 +145,7 @@ class Ligas extends DBObject {
         }
         $res= $this->__select( // default implementation: just show points sumatory
             "PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Licencia, PerroGuiaClub.Categoria, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
-                "SUM(Pt1) + SUM(Pt2) + SUM(Puntos) AS Puntuacion", // pending: add global points to league table
+                "SUM(Pt1) + SUM(Pt2) AS Puntuacion", // pending: add global points to league table
             "{$jor} Ligas, PerroGuiaClub",
             "{$filter} PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
             "Categoria ASC, Puntos ASC",
