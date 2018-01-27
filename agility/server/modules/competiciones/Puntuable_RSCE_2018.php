@@ -75,7 +75,7 @@ class Puntuable_RSCE_2018 extends Competitions {
         $this->prueba->Selectiva = 0; // not really required, just to be sure
         // en grado 3 el trs lo marca el perro mas rapido + 15% sin redondeo
         $roundUp=true;
-        if (($manga->Tipo==6) || ($manga->Tipo==11)) $roundUp=false;
+        // if (($manga->Tipo==6) || ($manga->Tipo==11)) $roundUp=false;
         return $data;
     }
 
