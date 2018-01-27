@@ -120,7 +120,7 @@ class ClasificacionesWriter extends XLSX_Writer {
 		$rondas=Jornadas::enumerateRondasByJornada($jornada['ID'])['rows'];
 
 		// obtenemos los datos "personales" de los perros de la jornada
-		$lista=$insc->inscritosByJornada($jornada['ID'],false)['rows'];
+		$lista=$insc->inscritosByJornada($jornada['ID'],false,false)['rows'];
 		$eq=new Equipos("excel_printInscripciones",$this->prueba['ID'],$jornada['ID']);
 		$inscritos=array();
 		foreach($lista as $perro) {
@@ -187,7 +187,7 @@ class ClasificacionesWriter extends XLSX_Writer {
 			$row[]=$pdata['Licencia'];
 			$row[]=$pdata['LOE_RRC'];
 			$row[]=$pdata['Categoria'];
-			$row[]=$pdata['Grado'];
+			$row[]=$perro['Grado']; // use grade info from result, cause inscription data may change (closed journeys)
 			$row[]=$pdata['NombreGuia'];
 			$row[]=$pdata['NombreClub'];
 			$row[]=$pdata['Pais'];
@@ -213,6 +213,7 @@ class ClasificacionesWriter extends XLSX_Writer {
 			$this->myWriter->addRow($row);
 		}
         // por ultimo metemos las inscripciones que no tienen resultado asociado
+        // pending: ordenar los no inscritos por categoria y grado
         foreach($inscritos as $pdata) {
             if(array_key_exists('Done',$pdata)) continue; // already done
             $row=array();
