@@ -552,8 +552,7 @@ $config =Config::getInstance();
 		<div title="<?php _e('System'); ?>" style="padding:10px">
 			<h3><?php _e('Additional server information'); ?></h3>
 			<label for="ip_address"><?php _e('IP address(es)'); ?></label>
-			<input id="ip_address" name="ip_address" type="text" readonly="readonly" size="45"
-				   value="<?php $a=new networkInterfaces(); echo implode(", ",$a->get_interfaces());?>" />
+			<input id="ip_address" name="ip_address" type="text" readonly="readonly" disabled="disabled" size="50"/>
 			<br />
 			<h3><?php _e('Save and Restore configuration'); ?></h3>
 			<label for="config_backup"><?php _e('Download configuration to file'); ?></label>
@@ -598,7 +597,7 @@ $config =Config::getInstance();
     $('#email_pass').textbox();
     $('#email_realm').textbox();
     $('#email_workstation').textbox();
-    $('#ip_address').textbox();
+    $('#ip_address').textbox().textbox('setValue','<?php $a=new networkInterfaces(); echo implode(", ",$a->get_interfaces());?>');
     $('#event_printer').textbox();
     $('#backup_dir').textbox();
 
