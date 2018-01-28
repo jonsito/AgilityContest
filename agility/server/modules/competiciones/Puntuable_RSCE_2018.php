@@ -33,7 +33,7 @@ class Puntuable_RSCE_2018 extends Competitions {
             // se anyade un campo extra para los puntos de ascenso a grado 3
             /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS    pts  stars  extras(g3) */
             array("GII",    "Pv",  4.0,    3.8,   3.8,   4.2,    4.0,    4.0,   0,  1,      0 ),
-            array("GII",    "Pa",  4.5,    4.2,   4.2,   4.7,    4.5,    4.5,   0,  1,      1 ),
+            array("GII",    "Pa",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   0,  1,      1 ), // same as g3
             array("GIII",   "Pv",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   0,  1,      0 )
         );
     }
