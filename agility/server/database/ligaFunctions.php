@@ -30,8 +30,10 @@ try {
     $grado=http_request("Grado","s","GI");
     $perro=http_request("Perro","i",0);
 	if ($operation===null) throw new Exception("Call to pruebaFunctions without 'Operation' requested");
-	// obtenemos instancia del gestor de ligas adecuado a la federacion
+	// verificamos permisos de acceso
     $am->access(PERMS_GUEST);
+    $am->permissions(ENABLE_LEAGUES);
+    // obtenemos instancia del gestor de ligas adecuado a la federacion
     $l=Competitions::getLigasInstance("ligaFunctions",$federation);
 	switch ($operation) {
         case "shortData":

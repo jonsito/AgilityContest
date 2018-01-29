@@ -691,15 +691,15 @@ class networkInterfaces {
 			case 'WINNT': $ipRes = shell_exec('ipconfig');
 				$ipPattern = '/IPv4[^:]+: ([\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3})/';
 				// does not work: its i18 dependend, has some upper/lowercase issues and requires "/all" parameter
-                $macPattern = '/'._('Physical').'[^:]+: ([a-fA-F0-9]{2}-){5}[a-fA-F0-9]{2}/';
+                // $macPattern = '/'._('Physical').'[^:]+: ([a-fA-F0-9]{2}-){5}[a-fA-F0-9]{2}/';
 				break;
-			case 'LINUX': $ipRes = shell_exec('ifconfig');
+			case 'LINUX': $ipRes = shell_exec('/sbin/ifconfig');
 				$ipPattern = '/inet ([\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3})/';
-				$macPattern = '/ether ([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}/';
+				// $macPattern = '/ether ([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}/';
 				break;
             case 'DARWIN': $ipRes = shell_exec('ifconfig'); // TODO: check correctness
                 $ipPattern = '/inet ([\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3})/';
-                $macPattern = '/ether ([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}/';
+                // $macPattern = '/ether ([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}/';
                 break;
 			default     : break;
 		}

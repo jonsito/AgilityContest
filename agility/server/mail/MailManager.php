@@ -475,6 +475,8 @@ class MailManager {
                         break;
                     case 1: case 2: // pre-agility
                         if ($this->myData['SendPreAgility']==0) continue;
+                        // si la jornada no tiene preAgility, no lo intentes parsear
+                        if ( ($this->jornadaObj->PreAgility==0) && ($this->jornadaObj->PreAgility2==0)) continue;
                         // no break
                     default: // individual
                         $clasificaciones=$cobj->clasificacionFinal($s['Rondas'],$mangas,$s['Mode']);

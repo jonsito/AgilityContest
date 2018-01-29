@@ -43,6 +43,10 @@ class Liga_RSCE_2018 extends Ligas {
      * @return {array} result in easyui-datagrid response format
      */
     function getShortData($fed,$grado) {
+        if ($this->federation==null) {
+            $this->federation=Federations::getFederation($fed);
+        }
+        $cats=$this->federation->get('ListaCategorias');
         $g3="";
         if ($grado==="GI") return parent::getShortData($fed,$grado); // no Pv nor Pa, just sum points
         $jor="";
@@ -55,18 +59,21 @@ class Liga_RSCE_2018 extends Ligas {
         }
         if ($grado==="GII") $g3=", SUM(Xt1) AS PA_Agility, SUM(Xt2) AS PA_Jumping"; // promotion to GIII points
         $res=$this->__select( // for rsce
-            "PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
+            "PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Categoria, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
             "SUM(Pt1) AS P_Agility, SUM(Pt2) aS P_Jumping, SUM(St1) AS PV_Agility, SUM(St2) AS PV_Jumping {$g3}",
             "{$jor} Ligas, PerroGuiaClub",
             "{$filter} PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
-            "Licencia ASC",
+            "Categoria ASC, Licencia ASC",
             "",
             "Perro"
         );
+        // rewrite categoria, as cannot pass "formatCategoria" formatter as function ( passed as string :-( )
+        foreach ($res['rows'] as &$row) $row['Categoria']=$cats[$row['Categoria']];
         // add datagrid header
         $res['header']= array(
             array('field' => 'Licencia',    'title'=>_('License'),  'width' => 15, 'align' => 'right'),
-            array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'left'),
+            array('field' => 'Categoria',    'title'=>_('Category'),  'width' => 15, 'align' => 'right'),
+            array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'center'),
             array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 40, 'align' => 'right'),
             array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 30, 'align' => 'right'),
             array('field' => 'P_Agility',  'title'=>_('Pt<br/>Agilty'),    'width' => 10,  'align' => 'center'),

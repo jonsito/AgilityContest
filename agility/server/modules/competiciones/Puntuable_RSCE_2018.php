@@ -33,7 +33,7 @@ class Puntuable_RSCE_2018 extends Competitions {
             // se anyade un campo extra para los puntos de ascenso a grado 3
             /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS    pts  stars  extras(g3) */
             array("GII",    "Pv",  4.0,    3.8,   3.8,   4.2,    4.0,    4.0,   0,  1,      0 ),
-            array("GII",    "Pa",  4.5,    4.2,   4.2,   4.7,    4.5,    4.5,   0,  1,      1 ),
+            array("GII",    "Pa",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   0,  1,      1 ), // same as g3
             array("GIII",   "Pv",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   0,  1,      0 )
         );
     }
@@ -47,16 +47,17 @@ class Puntuable_RSCE_2018 extends Competitions {
     public function presetTRSData($tipo) {
         // when not grade 2 or 3,use parent default
         if (!in_array($tipo,array(5,6,10,11))) return parent::presetTRSData($tipo);
+        $factor=(in_array($tipo,array(5,10)))?25:15; // Grado 2:25%; grado 3: 15%
         $manga=array();
         $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
-        $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=15;$manga['TRS_L_Unit']='%'; // best dog + 15 %
-        $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;$manga['TRM_L_Unit']='%'; // trs + 50 %
-        $manga['TRS_M_Tipo']=1;$manga['TRS_M_Factor']=15;$manga['TRS_M_Unit']='%';
-        $manga['TRM_M_Tipo']=1;$manga['TRM_M_Factor']=50;$manga['TRM_M_Unit']='%';
-        $manga['TRS_S_Tipo']=1;$manga['TRS_S_Factor']=15;$manga['TRS_S_Unit']='%';
-        $manga['TRM_S_Tipo']=1;$manga['TRM_S_Factor']=50;$manga['TRM_S_Unit']='%';
-        $manga['TRS_T_Tipo']=1;$manga['TRS_T_Factor']=15;$manga['TRS_T_Unit']='%'; // not used but required
-        $manga['TRM_T_Tipo']=1;$manga['TRM_T_Factor']=50;$manga['TRM_T_Unit']='%';
+        $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=$factor;  $manga['TRS_L_Unit']='%'; // best dog + 25 %
+        $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;       $manga['TRM_L_Unit']='%'; // trs + 50 %
+        $manga['TRS_M_Tipo']=1;$manga['TRS_M_Factor']=$factor;  $manga['TRS_M_Unit']='%';
+        $manga['TRM_M_Tipo']=1;$manga['TRM_M_Factor']=50;       $manga['TRM_M_Unit']='%';
+        $manga['TRS_S_Tipo']=1;$manga['TRS_S_Factor']=$factor;  $manga['TRS_S_Unit']='%';
+        $manga['TRM_S_Tipo']=1;$manga['TRM_S_Factor']=50;       $manga['TRM_S_Unit']='%';
+        $manga['TRS_T_Tipo']=1;$manga['TRS_T_Factor']=$factor;  $manga['TRS_T_Unit']='%'; // not used but required
+        $manga['TRM_T_Tipo']=1;$manga['TRM_T_Factor']=50;       $manga['TRM_T_Unit']='%';
         return $manga;
     }
 
@@ -74,7 +75,7 @@ class Puntuable_RSCE_2018 extends Competitions {
         $this->prueba->Selectiva = 0; // not really required, just to be sure
         // en grado 3 el trs lo marca el perro mas rapido + 15% sin redondeo
         $roundUp=true;
-        if (($manga->Tipo==6) || ($manga->Tipo==11)) $roundUp=false;
+        // if (($manga->Tipo==6) || ($manga->Tipo==11)) $roundUp=false;
         return $data;
     }
 

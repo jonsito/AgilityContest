@@ -36,7 +36,7 @@ try {
 	$id=http_request("ID","i",0);
 	$user=http_request("Username","s",null);
 	$pass=http_request("Password","s",null);
-	$sid=http_request("Session","i",0);
+	$sid=http_request("Session","i",0); // ring
 	$sk=http_request("SessionKey","s","");
 	if ($operation===null) throw new Exception("Call to userFunctions without 'Operation' requested");
 	switch ($operation) {

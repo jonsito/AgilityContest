@@ -83,7 +83,7 @@ class Liga_FMC_2018 extends Ligas {
         $res['header']= array(
             array('field' => 'Licencia',    'title'=>_('License'),  'width' => 28, 'align' => 'left'),
             array('field' => 'Categoria',   'title'=>_('Category'), 'width' => 12, 'align' => 'center'),
-            array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'left'),
+            array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'center'),
             array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 35, 'align' => 'right'),
             array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 30, 'align' => 'right')
         );

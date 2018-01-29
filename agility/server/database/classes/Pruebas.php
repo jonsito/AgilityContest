@@ -40,14 +40,20 @@ class Pruebas extends DBObject {
         $rsce =	http_request("RSCE","i",0);
         $selectiva =	http_request("Selectiva","i",0);
         $cerrada =	http_request("Cerrada","i",0);
+        // should be declared, but if not assume defaults
+        $openingreg= http_request("OpeningReg","s",date("Y-m-d"));
+        $closingreg= http_request("ClosingReg","s",date("Y-m-d",strtotime($openingreg)+86400));
         $this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
 
 		// componemos un prepared statement
-		$sql ="INSERT INTO Pruebas (Nombre,Club,Ubicacion,Triptico,Cartel,Observaciones,RSCE,Selectiva,Cerrada)
-			   VALUES(?,?,?,?,?,?,?,?,?)";
+		$sql ="INSERT INTO Pruebas (Nombre,Club,Ubicacion,Triptico,Cartel,Observaciones,RSCE,Selectiva,Cerrada,OpeningReg,ClosingReg)
+			   VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sissssiii',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$rsce,$selectiva,$cerrada);
+		$res=$stmt->bind_param(
+		    'sissssiiiss',
+            $nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$rsce,$selectiva,$cerrada,$openingreg,$closingreg
+        );
 		if (!$res) return $this->error($stmt->error);
 		
 		// invocamos la orden SQL y devolvemos el resultado

@@ -120,7 +120,7 @@ class ClasificacionesWriter extends XLSX_Writer {
 		$rondas=Jornadas::enumerateRondasByJornada($jornada['ID'])['rows'];
 
 		// obtenemos los datos "personales" de los perros de la jornada
-		$lista=$insc->inscritosByJornada($jornada['ID'],false)['rows'];
+		$lista=$insc->inscritosByJornada($jornada['ID'],false,false)['rows'];
 		$eq=new Equipos("excel_printInscripciones",$this->prueba['ID'],$jornada['ID']);
 		$inscritos=array();
 		foreach($lista as $perro) {
@@ -145,19 +145,25 @@ class ClasificacionesWriter extends XLSX_Writer {
 			return ($a['Puesto']>$b['Puesto'])?1:-1;
 		});
 
-		// componemos la cabecera en funcion de las mangas de la jornada
-        // para ello vamos a coger el primer perro, y vamos a ver los campos que tiene en la clasificacion
-        // si no hay perros no hay resultados :-)
-        $primero=$results[0];
+		// componemos la cabecera de la hoja excel
+        // primero los datos comunes
         $this->cols=array(
             'Dorsal',
             'Name','LongName','Gender','Breed','Chip','License','KC id','Category','Grade','Handler','Club','Country', // datos del perro
             'Team','Heat','Comments'); // datos de la inscripcion en la jornada
-        for ($n=1;$n<9;$n++) {
-            if (!array_key_exists('F'.$n,$primero) ) continue;
-            $this->cols =array_merge($this->cols,array('F'.$n,'R'.$n,'E'.$n,'N'.$n,'Tiempo'.$n,'Penal'.$n));
+        // luego los datos que dependen de las mangas de la jornada
+        // para ello vamos a coger el primer perro, y vamos a ver los campos que tiene en la clasificacion
+        // si no hay perros no hay resultados en esta jornada !!!
+        if (count($results)==0) {
+            $this->myLogger->trace("No results for Prueba:{$this->prueba['ID']} Jornada:{$jornada['ID']} ");
+        } else {
+            $primero=$results[0];
+            for ($n=1;$n<9;$n++) {
+                if (!array_key_exists('F'.$n,$primero) ) continue;
+                $this->cols =array_merge($this->cols,array('F'.$n,'R'.$n,'E'.$n,'N'.$n,'Tiempo'.$n,'Penal'.$n));
+            }
+            $this->cols=array_merge($this->cols,array('Time','Penalizacion','Calification' ));
         }
-        $this->cols=array_merge($this->cols,array('Time','Penalizacion','Calification' ));
         // write table header
         $this->writeTableHeader();
 
@@ -181,7 +187,7 @@ class ClasificacionesWriter extends XLSX_Writer {
 			$row[]=$pdata['Licencia'];
 			$row[]=$pdata['LOE_RRC'];
 			$row[]=$pdata['Categoria'];
-			$row[]=$pdata['Grado'];
+			$row[]=$perro['Grado']; // use grade info from result, cause inscription data may change (closed journeys)
 			$row[]=$pdata['NombreGuia'];
 			$row[]=$pdata['NombreClub'];
 			$row[]=$pdata['Pais'];
@@ -199,14 +205,15 @@ class ClasificacionesWriter extends XLSX_Writer {
                 $row[]=$perro['T'.$n]; // manga $n: tiempo
                 $row[]=$perro['P'.$n]; // manga $n: penalizacion
             }
-			$row[]=$perro['Tiempo'];
-			$row[]=$perro['Penalizacion'];
-			$row[]=$perro['Calificacion'];
+			if (array_key_exists('Tiempo',$perro)) $row[]=$perro['Tiempo'];
+            if (array_key_exists('Penalizacion',$perro)) $row[]=$perro['Penalizacion'];
+            if (array_key_exists('Calificacion',$perro)) $row[]=$perro['Calificacion'];
 
 			// !!finaly!! add perro to excel table
 			$this->myWriter->addRow($row);
 		}
         // por ultimo metemos las inscripciones que no tienen resultado asociado
+        // pending: ordenar los no inscritos por categoria y grado
         foreach($inscritos as $pdata) {
             if(array_key_exists('Done',$pdata)) continue; // already done
             $row=array();

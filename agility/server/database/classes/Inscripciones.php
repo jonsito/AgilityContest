@@ -471,9 +471,10 @@ class Inscripciones extends DBObject {
 	/**
 	 * retrieve all inscriptions of stored prueba and jornada
 	 * @param {int} $jornadaID ID de jornada
-	 * @param {boolean} $pagination: use http_request to retrieve page and rows (true) or disable it(false)
+     * @param {boolean} $pagination: use http_request to retrieve page and rows (true) or disable it(false)
+     * @param {boolean} $byclub: use club as main sorting criteria
 	 */
-	function inscritosByJornada($jornadaID,$pagination=true) {
+	function inscritosByJornada($jornadaID,$pagination=true,$byclub=true) {
 		$this->myLogger->enter();
 		$pruebaid=$this->pruebaID;
 		// Cogemos la lista de jornadas abiertas de esta prueba
@@ -499,6 +500,7 @@ class Inscripciones extends DBObject {
 				$limit=$offset.",".$rows;
 			};
 		}
+		$byclubstr=($byclub)? "NombreClub ASC,":"";
 		// obtenemos la lista de perros inscritos con sus datos
         $result=$this->__select(
 			/* SELECT */"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Inscripciones.Perro AS Perro, Raza,
@@ -507,7 +509,7 @@ class Inscripciones extends DBObject {
 			/* FROM */	"Inscripciones,PerroGuiaClub",
 			/* WHERE */ "( Inscripciones.Perro = PerroGuiaClub.ID) AND
 				( Inscripciones.Prueba=$pruebaid ) AND ( ( Inscripciones.Jornadas&$mask ) != 0 ) ",
-			/* ORDER BY */ "NombreClub ASC, Categoria ASC , Grado ASC, Nombre ASC, Celo ASC",
+			/* ORDER BY */ "{$byclubstr} Categoria ASC , Grado ASC, Nombre ASC, Celo ASC",
 			/* LIMIT */ $limit
 		);
 

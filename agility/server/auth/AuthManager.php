@@ -42,6 +42,7 @@ define ("ENABLE_CHRONO",64);    // permite gestion desde cronometro
 define ("ENABLE_ULIMIT",128);   // permite numero de inscripciones ilimitadas
 define ("ENABLE_LIVESTREAM",256);// permite funciones de live-streaming y chroma-key
 define ("ENABLE_TRAINING",512); // permite gestion de sesiones de entrenamiento
+define ("ENABLE_LEAGUES",1024); // permite gestion de ligas de competicion
 
 // datos de registro
 define('AC_BLACKLIST_FILE' , __DIR__."/blacklist.info");
@@ -61,6 +62,7 @@ class AuthManager {
 	protected $registrationInfo=null;
 	protected $blackList=null;
 	protected $levelStr;
+	protected $master_server=false;
 
 	// due to a bug in php-5.5 (solved in php-5.6 )
 	// we cannot concatenate strings in class properties
@@ -121,11 +123,22 @@ class AuthManager {
 		return implode("",$data);
 	}
 
+    /**
+     * AuthManager constructor.
+     * @param {string} $file name for logger
+     * @throws Exception on failed to identify session key
+     */
 	function __construct($file) {
 		$config=Config::getInstance();
 		$this->myLogger=new Logger($file,$config->getEnv("debug_level"));
 		$this->mySessionMgr=new Sesiones("AuthManager");
         $this->levelStr=array( _('Root'),_('Admin'),_('Operator'),_('Assistant'),_('Guest'),_('None') );
+
+        // check if running in master server
+        $server=$config->getEnv('master_server');
+        $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
+        $this->master_server=($server===$myself)?true:false;
+
 		/* try to retrieve session token */
 		$hdrs=getAllHeaders();
 		// $this->myLogger->trace("headers are: ".json_encode($hdrs));
@@ -151,10 +164,15 @@ class AuthManager {
 	 * @throws Exception on invalid session key
 	 */
 	function getUserByKey($sk) {
-		$obj=$this->mySessionMgr->__selectObject("*","Sesiones,Usuarios","(Usuarios.ID=Sesiones.Operador) AND ( SessionKey='$sk')");
+	    $obj=$this->mySessionMgr->__selectObject(
+			"*",
+			"Sesiones,Usuarios",
+			"(Usuarios.ID=Sesiones.Operador) AND ( SessionKey='$sk')"
+		);
 		if (!$obj) throw new Exception ("Invalid session key: '$sk'");
 		$userid=intval($obj->Operador);
 		$this->myLogger->info("SessionKey:'$sk' belongs to userid:'$userid'");
+		// notice that in master server session key is assigned to user id 1 (-- Sin asignar --)
 	/*	
 		// if token expired throw exception 
 		// TODO: write
@@ -252,7 +270,8 @@ class AuthManager {
 		$data["ENABLE_CHRONO"]		= ( $p & 64 );  // permite gestion desde cronometro
 		$data["ENABLE_ULIMIT"]		= ( $p & 128 ); // permite numero de inscripciones ilimitadas
 		$data["ENABLE_LIVESTREAM"]	= ( $p & 256 ); // permite funciones de live-streaming y chroma-key
-		$data["ENABLE_TRAINING"]	= ( $p & 512 ); // permite gestion de sesiones de entrenamiento
+        $data["ENABLE_TRAINING"]	= ( $p & 512 ); // permite gestion de sesiones de entrenamiento
+        $data["ENABLE_LEAGUES"]		= ( $p &1024 ); // permite gestion de ligas de competicion
 		return $data;
 	}
 
@@ -326,17 +345,33 @@ class AuthManager {
 		return $better[1];
 	}
 
-	/**
-	 * Authenticate user.
-	 * On Login success create session and if needed send login event
-	 * @param {string} $login user name
-	 * @param {string} $password user password
+    /**
+     * Authenticate user from database
+     * On Login success create session and if needed send login event
+     * @param {string} $login user name
+     * @param {string} $password user password
      * @param {integer} $sid requested session id to join to
      * @param {boolean} $nossesion true: emit session event
-	 * @throws Exception if something goes wrong
-	 * @return {array} errorMessage or result data
+     * @throws Exception if something goes wrong
+     * @return {array} errorMessage or result data
+     */
+    function login($login,$password,$sid=0,$nosession=false) {
+        if ($this->master_server)
+            return $this->certLogin($login, $password, $sid, $nosession);
+        else return $this->dbLogin($login, $password, $sid, $nosession);
+    }
+
+	/*
+	 * Authenticate user from certificates
 	 */
-	function login($login,$password,$sid=0,$nosession=false) {
+	private function certLogin($login,$password,$sid,$nosession) {
+	    return $this->dbLogin($login,$password,$sid,$nosession);
+    }
+
+    /*
+     * Authenticate user from database
+     */
+    private function dbLogin($login,$password,$sid,$nosession) {
 		/* access database to check user credentials */
 		$this->myLogger->enter();
 		$obj=$this->mySessionMgr->__selectObject("*","Usuarios","(Login='$login')");
@@ -353,6 +388,7 @@ class AuthManager {
 				throw new Exception("Login: invalid password for account '$login'");
 		}
 		/* Arriving here means login success */
+
 		// get & store permission level
 		$this->level=$obj->Perms;
 		//create a random session key
@@ -470,9 +506,11 @@ class AuthManager {
 	 * closes current session
 	 */
 	function logout() {
-		// remove console sessions for this user
-		$str="DELETE FROM Sesiones WHERE ( Nombre='Console' ) AND ( Operador={$this->operador} )";
-		$this->mySessionMgr->query($str);
+	    if (!$this->master_server) {
+            // remove console sessions for this user
+            $str="DELETE FROM Sesiones WHERE ( Nombre='Console' ) AND ( Operador={$this->operador} )";
+            $this->mySessionMgr->query($str);
+        }
 		// clear session key  on named sessions
 		$str="UPDATE Sesiones 
 			SET SessionKey=NULL, Operador=1, Prueba=0, Jornada=0, Manga=0, Tanda=0 
