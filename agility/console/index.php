@@ -105,12 +105,16 @@ var ac_clientOpts = {
 };
 
 function initialize() {
+    // expand/collapse menu on mouse enter/exit
     var mm=$('#mymenu');
-	// expand/collapse menu on mouse enter/exit
 	setHeader("");
 	mm.mouseenter(function(){$('#mymenu').panel('expand');});
 	mm.mouseleave(function(){$('#mymenu').panel('collapse');});
-	
+
+    // set up main top title
+    if (checkForServer()) {
+        $('#console_top_title').html("Agility Contest (Server)")
+    }
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
 	  beforeSend: function(jqXHR,settings) {
@@ -320,7 +324,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <!-- CABECERA -->
 <div id="myheader">
-	<p> <a href="/agility/console/index.php">Agility Contest</a> </p>
+	<p> <a href="/agility/console/index.php"><span id="console_top_title">Agility Contest</span></a> </p>
 	<span id="Header_Operation"></span>
 </div>
 
