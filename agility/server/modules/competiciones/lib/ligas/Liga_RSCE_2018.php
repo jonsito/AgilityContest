@@ -90,8 +90,4 @@ class Liga_RSCE_2018 extends Ligas {
         return $res;
     }
 
-    function getLongData($perro) {
-        // PENDING: write
-        return array('total'=>0,'rows'=>array());
-    }
 }

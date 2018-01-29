@@ -98,8 +98,4 @@ class Liga_FMC_2018 extends Ligas {
         return $res;
     }
 
-    function getLongData($perro) {
-        // PENDING: write
-        return array('total'=>0,'rows'=>array());
-    }
 }

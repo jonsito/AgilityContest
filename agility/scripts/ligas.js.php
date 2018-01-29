@@ -28,7 +28,7 @@ $config =Config::getInstance();
  * @param grado: grado to call. Notice that same dog may exists in several grades
  * @param callback: what to do with response
  */
-function loadLeagueData(perro,grado,callback) {
+function ligas_loadLeagueData(perro,grado,callback) {
     $.ajax({
         url: '/agility/server/database/ligaFunctions.php',
         data: {
@@ -49,4 +49,15 @@ function loadLeagueData(perro,grado,callback) {
             alert("Load league data error: "+textStatus + " "+ errorThrown );
         }
     });
+}
+
+function ligas_showDogResults(data) {
+    $('#ligas-perro-datagrid').datagrid({
+        fit:true,
+        fitColumns:true,
+        columns: [data.header],
+        data: data.rows
+        // pending: on double click show califications pdf
+    });
+    $('#ligas-perro-dialog').dialog('open');
 }

@@ -23,6 +23,10 @@ $config =Config::getInstance();
 $am=new AuthManager("Public");
 ?>
 
+<div id="ligas-perro-dialog">
+    <table id="ligas-perro-datagrid"></table>
+</div>
+
 <div id="ligas-notallowed">
     <p><strong><?php _e('Current license permissions<br/> do not allow league scoring operations');?></strong></p>
     <img src="/agility/images/sad_dog.png" alt="triste"/>
@@ -53,6 +57,15 @@ $am=new AuthManager("Public");
 
 <script type="text/javascript">
 
+    $('#ligas-perro-dialog').dialog({
+        width:800,
+        height:600,
+        title:"<?php _e('League results for dog');?>",
+        iconCls:'icon-dog',
+        closed: true,
+        modal:true
+    });
+
     $('#ligas-notallowed').dialog({
      width:400,
      height:275,
@@ -60,13 +73,14 @@ $am=new AuthManager("Public");
      iconCls:'forbidden',
      closed: <?php echo $am->allowed(ENABLE_LEAGUES)?'true':'false'?>
     });
+
     $('#ligas-tab').tabs({
         width: 'auto',
         heignt: 550,
         tools: '#ligas-tools'
     });
     // download and create datagrid for Grade 1
-    loadLeagueData(0,"GI",function(data){
+    ligas_loadLeagueData(0,"GI",function(data){
         var tab = $('#ligas-tab').tabs('getTab', 0);
         var newTitle=workingData.datosFederation.ListaGrados['GI'];
         $('#ligas-tab').tabs('update', { tab: tab, options: { title: newTitle } });
@@ -74,11 +88,16 @@ $am=new AuthManager("Public");
             fit:true,
             fitColumns:true,
             columns: [data.header],
-            data: data.rows
+            data: data.rows,
+            onDblClickRow: function(index,row) {
+                ligas_loadLeagueData(row.Perro,"GI",function(data){
+                   ligas_showDogResults(data);
+                });
+            }
         });
     });
     // download and create datagrid for Grade 2
-    loadLeagueData(0,"GII",function(data){
+    ligas_loadLeagueData(0,"GII",function(data){
         var tab = $('#ligas-tab').tabs('getTab', 1);
         var newTitle=workingData.datosFederation.ListaGrados['GII'];
         $('#ligas-tab').tabs('update', { tab: tab, options: { title: newTitle } });
@@ -86,7 +105,12 @@ $am=new AuthManager("Public");
             fit:true,
             fitColumns:true,
             columns: [data.header],
-            data: data.rows
+            data: data.rows,
+            onDblClickRow: function(index,row) {
+                ligas_loadLeagueData(row.Perro,"GII",function(data){
+                    ligas_showDogResults(data);
+                });
+            }
         });
     });
     var ngrados=parseInt(workingData.datosFederation.Grades);
@@ -98,12 +122,17 @@ $am=new AuthManager("Public");
         var newTitle=workingData.datosFederation.ListaGrados['GIII'];
         $('#ligas-tab').tabs('update', { tab: tab, options: { title: newTitle } });
         // download and create datagrid for Grade 3
-        loadLeagueData(0,"GIII",function(data){
+        ligas_loadLeagueData(0,"GIII",function(data){
             $('#ligas-g3-datagrid').datagrid({
                 fit:true,
                 fitColumns:true,
                 columns: [data.header],
-                data: data.rows
+                data: data.rows,
+                onDblClickRow: function(index,row) {
+                    ligas_loadLeagueData(row.Perro,"GIII",function(data){
+                        ligas_showDogResults(data);
+                    });
+                }
             });
         });
     }

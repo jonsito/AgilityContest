@@ -174,8 +174,45 @@ class Ligas extends DBObject {
         return $res;
     }
 
-    function getLongData($perro) {
-        // PENDING: write
-        return array('total'=>0,'rows'=>array());
+    function getLongData($perro,$federation,$grado) {
+        if ($this->federation==null) {
+            $this->federation=Federations::getFederation($federation);
+        }
+        $cats=$this->federation->get('ListaCategorias');
+        $jor="";
+        $filter="";
+        // filter only valid league modules
+        if (count($this->validCompetitions)!==0) {
+            $lista=implode(",",$this->validCompetitions);
+            $jor="Jornadas,";
+            $filter=" ( Jornadas.Tipo_Competicion IN ( {$lista} ) ) AND Ligas.Jornada=Jornadas.ID AND ";
+        }
+        // fase 2:datos de la liga
+        $res= $this->__select(
+          "Pruebas.ID AS PruebaID, Pruebas.Nombre AS Prueba, Jornadas.ID AS JornadaID, Jornadas.Nombre AS Jornada, ".
+                "Ligas.C1, Ligas.C2, Ligas.C3, Ligas.C4, Ligas.C5, Ligas.C6, Ligas.C7, Ligas.C8 ",
+          "Pruebas,Jornadas,Ligas",
+          "Pruebas.ID=Jornadas.Prueba AND Jornadas.ID=Ligas.Jornada AND Ligas.Perro={$perro} and Ligas.Grado='{$grado}'",
+          "Jornadas.Fecha",
+          "",
+          ""
+        );
+        // fase 2 add dog and grade data
+        $res['dog']=$this->__getObject("PerroGuiaClub",$perro);
+        $res['grado']=$grado;
+        // add datagrid header
+        $res['header']= array(
+            array('field' => 'Prueba',    'title'=>_('Contest'),  'width' => 40, 'align' => 'right'),
+            array('field' => 'Jornada',   'title'=>_('Journey'), 'width' => 20, 'align' => 'right'),
+            array('field' => 'C1',        'title'=>_('Round')." 1",  'width' => 10, 'align' => 'center'),
+            array('field' => 'C2',        'title'=>_('Round')." 2",  'width' => 10, 'align' => 'center'),
+            array('field' => 'C3',        'title'=>_('Round')." 3",  'width' => 10, 'align' => 'center'),
+            array('field' => 'C4',        'title'=>_('Round')." 4",  'width' => 10, 'align' => 'center'),
+            array('field' => 'C5',        'title'=>_('Round')." 5",  'width' => 10, 'align' => 'center'),
+            array('field' => 'C6',        'title'=>_('Round')." 6",  'width' => 10, 'align' => 'center'),
+            array('field' => 'C7',        'title'=>_('Round')." 7",  'width' => 10, 'align' => 'center'),
+            array('field' => 'C8',        'title'=>_('Round')." 8",  'width' => 10, 'align' => 'center')
+        );
+        return $res;
     }
 }

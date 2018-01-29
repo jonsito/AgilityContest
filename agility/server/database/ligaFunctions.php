@@ -40,7 +40,8 @@ try {
             $result=$l->getShortData($federation,$grado);
             break;
         case "longData":
-            $result=$l->getLongData($perro);
+            // need grado cause dog may change
+            $result=$l->getLongData($perro,$federation,$grado);
             break;
 		default: throw new Exception("ligaFunctions:: invalid operation: $operation provided");
 	}
