@@ -46,7 +46,7 @@ try {
 		default: throw new Exception("ligaFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) 
-		throw new Exception($pruebas->errormsg);
+		throw new Exception($result->errorMsg);
 	if ($result==="") 
 		echo json_encode(array('success'=>true,'insert_id'=>$pruebas->conn->insert_id,'affected_rows'=>$pruebas->conn->affected_rows));
 	else echo json_encode($result);

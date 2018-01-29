@@ -58,9 +58,9 @@ $am=new AuthManager("Public");
 <script type="text/javascript">
 
     $('#ligas-perro-dialog').dialog({
-        width:800,
-        height:600,
-        title:"<?php _e('League results for dog');?>",
+        width:640,
+        height:300,
+        title:"<?php _e('League results for selected dog');?>",
         iconCls:'icon-dog',
         closed: true,
         modal:true

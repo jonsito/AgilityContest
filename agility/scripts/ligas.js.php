@@ -55,6 +55,7 @@ function ligas_showDogResults(data) {
     $('#ligas-perro-datagrid').datagrid({
         fit:true,
         fitColumns:true,
+        singleSelect:true,
         columns: [data.header],
         data: data.rows
         // pending: on double click show califications pdf

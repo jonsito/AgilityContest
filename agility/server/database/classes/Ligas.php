@@ -178,21 +178,18 @@ class Ligas extends DBObject {
         if ($this->federation==null) {
             $this->federation=Federations::getFederation($federation);
         }
-        $cats=$this->federation->get('ListaCategorias');
-        $jor="";
         $filter="";
         // filter only valid league modules
         if (count($this->validCompetitions)!==0) {
             $lista=implode(",",$this->validCompetitions);
-            $jor="Jornadas,";
-            $filter=" ( Jornadas.Tipo_Competicion IN ( {$lista} ) ) AND Ligas.Jornada=Jornadas.ID AND ";
+            $filter=" ( Jornadas.Tipo_Competicion IN ( {$lista} ) ) AND ";
         }
         // fase 2:datos de la liga
         $res= $this->__select(
           "Pruebas.ID AS PruebaID, Pruebas.Nombre AS Prueba, Jornadas.ID AS JornadaID, Jornadas.Nombre AS Jornada, ".
                 "Ligas.C1, Ligas.C2, Ligas.C3, Ligas.C4, Ligas.C5, Ligas.C6, Ligas.C7, Ligas.C8 ",
           "Pruebas,Jornadas,Ligas",
-          "Pruebas.ID=Jornadas.Prueba AND Jornadas.ID=Ligas.Jornada AND Ligas.Perro={$perro} and Ligas.Grado='{$grado}'",
+          "{$filter} Pruebas.ID=Jornadas.Prueba AND Jornadas.ID=Ligas.Jornada AND Ligas.Perro={$perro} and Ligas.Grado='{$grado}'",
           "Jornadas.Fecha",
           "",
           ""
