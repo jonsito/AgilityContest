@@ -25,6 +25,17 @@ $config =Config::getInstance();
 * Admin related functions from dlg_tools.inc
 */
 
+
+// cannot access localhost client name, so use this trick to detect if running on master server
+function checkForServer() {
+    <?php
+    // when running in server disable server related buttons
+    $server=$config->getEnv('master_server');
+    $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
+    echo ($server===$myself)?"return true;":"return false;";
+    ?>
+}
+
 function checkForAdmin() {
     if (parseInt(ac_authInfo.Perms)>1) {
         $.messager.alert('<?php _e("Invalid user"); ?>','<?php _e("Current user"); ?>'+" '"+ac_authInfo.Login+"' "+'<?php _e("has not enought privileges"); ?>',"error");
@@ -239,6 +250,7 @@ function read_restoreFile(input) {
 // fromClient: true: use file from filebox; false: download backup from remote server
 function restoreDatabase(fromClient){
     if (!checkForAdmin()) return;
+    if (checkForServer)
     var l1='<?php _e("<strong>Notice:</strong><br/>"); ?>';
     var l2='<?php _e("This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>. before trying restore<br/>"); ?>';
     var l3='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';

@@ -96,13 +96,12 @@ addTooltip($('#tools-syncdbBtn').linkbutton(),'<?php _e("Synchronize current dat
 addTooltip($('#tools-logResetBtn').linkbutton(),'<?php _e("Clear debugging and trace file"); ?>');
 addTooltip($('#tools-logViewBtn').linkbutton(),'<?php _e("Download debug and trace file"); ?>');
 addTooltip($('#tools-emptyTrashBtn').linkbutton(),'<?php _e("Remove every unneeded files from temporary directory"); ?>');
-<?php
-        // when running in server disable server related buttons
-    $server=$config->getEnv('master_server');
-    $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
-    if ($server===$myself) {
-?>
+
+// disable some buttons when running in server
+if (checkForServer()) {
+    $('#tools-restoreBtn').linkbutton('disable'); // disable restore from app. use mysqldump'ed files to force reindexes
     $('#tools-resInternetBtn').linkbutton('disable'); // disable restore from internet
     $('#tools-syncdbBtn').linkbutton('disable'); // disable download database updates
-<?php } ?>
+}
+
 </script>
