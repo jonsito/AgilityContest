@@ -150,8 +150,9 @@ class Ligas extends DBObject {
             $filter=" ( Jornadas.Tipo_Competicion IN ( {$lista} ) ) AND Ligas.Jornada=Jornadas.ID AND ";
         }
         $res= $this->__select( // default implementation: just show points sumatory
-            "PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Licencia, PerroGuiaClub.Categoria, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
-                "SUM(Pt1) + SUM(Pt2) AS Puntuacion", // pending: add global points to league table
+            "PerroGuiaClub.ID AS Perro,PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Licencia, ".
+                    "PerroGuiaClub.Categoria, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
+                    "SUM(Pt1) + SUM(Pt2) AS Puntuacion", // pending: add global points to league table
             "{$jor} Ligas, PerroGuiaClub",
             "{$filter} PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
             "Categoria ASC, Puntos ASC",
@@ -162,6 +163,7 @@ class Ligas extends DBObject {
         foreach ($res['rows'] as &$row) $row['Categoria']=$cats[$row['Categoria']];
         // add datagrid header
         $res['header']= array(
+            array('field' => 'Perro',    'hidden'=>'true'),
             array('field' => 'Licencia',    'title'=>_('License'),  'width' => 10, 'align' => 'right'),
             array('field' => 'Categoria',   'title'=>_('Category'), 'width' => 10, 'align' => 'right'),
             array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'center'),

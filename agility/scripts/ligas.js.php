@@ -21,14 +21,20 @@ require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 ?>
 
-function loadLeagueData(grado,callback) {
-    var mode=0; // PENDING rework
+/**
+ * Call server to retrieve dog league results
+ *
+ * @param perro 0: to get global data; dogID to get per-dog data
+ * @param grado: grado to call. Notice that same dog may exists in several grades
+ * @param callback: what to do with response
+ */
+function loadLeagueData(perro,grado,callback) {
     $.ajax({
         url: '/agility/server/database/ligaFunctions.php',
         data: {
-            Operation: (mode==0)?'shortData':'longData',
+            Operation: (perro===0)?'shortData':'longData',
             Grado:  grado,
-            Perro:  0, // in long mode show results by perro
+            Perro:  perro, // in long mode show results by perro
             Federation: workingData.datosFederation.ID
         },
         dataType: 'json',

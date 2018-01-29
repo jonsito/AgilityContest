@@ -66,7 +66,7 @@ $am=new AuthManager("Public");
         tools: '#ligas-tools'
     });
     // download and create datagrid for Grade 1
-    loadLeagueData("GI",function(data){
+    loadLeagueData(0,"GI",function(data){
         var tab = $('#ligas-tab').tabs('getTab', 0);
         var newTitle=workingData.datosFederation.ListaGrados['GI'];
         $('#ligas-tab').tabs('update', { tab: tab, options: { title: newTitle } });
@@ -78,7 +78,7 @@ $am=new AuthManager("Public");
         });
     });
     // download and create datagrid for Grade 2
-    loadLeagueData("GII",function(data){
+    loadLeagueData(0,"GII",function(data){
         var tab = $('#ligas-tab').tabs('getTab', 1);
         var newTitle=workingData.datosFederation.ListaGrados['GII'];
         $('#ligas-tab').tabs('update', { tab: tab, options: { title: newTitle } });
@@ -98,7 +98,7 @@ $am=new AuthManager("Public");
         var newTitle=workingData.datosFederation.ListaGrados['GIII'];
         $('#ligas-tab').tabs('update', { tab: tab, options: { title: newTitle } });
         // download and create datagrid for Grade 3
-        loadLeagueData("GIII",function(data){
+        loadLeagueData(0,"GIII",function(data){
             $('#ligas-g3-datagrid').datagrid({
                 fit:true,
                 fitColumns:true,

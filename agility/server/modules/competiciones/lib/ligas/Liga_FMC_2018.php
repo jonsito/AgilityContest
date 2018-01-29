@@ -59,8 +59,8 @@ class Liga_FMC_2018 extends Ligas {
         }
 
         // compose select field query
-        $select="PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Categoria AS Categoria, PerroGuiaClub.Licencia, ".
-                "PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub, ";
+        $select="PerroGuiaClub.ID AS Perro, PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Categoria AS Categoria, ".
+                "PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub, ";
         if ($grado==="GI") {
                     $select .= "SUM(Puntos) AS Puntos, SUM(Estrellas) AS Ceros";
         }
@@ -81,6 +81,7 @@ class Liga_FMC_2018 extends Ligas {
 
         // add datagrid header common data
         $res['header']= array(
+            array('field' => 'Perro',    'hidden'=>'true'),
             array('field' => 'Licencia',    'title'=>_('License'),  'width' => 28, 'align' => 'left'),
             array('field' => 'Categoria',   'title'=>_('Category'), 'width' => 12, 'align' => 'center'),
             array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'center'),

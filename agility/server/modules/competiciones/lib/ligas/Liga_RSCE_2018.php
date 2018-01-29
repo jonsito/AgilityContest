@@ -59,8 +59,9 @@ class Liga_RSCE_2018 extends Ligas {
         }
         if ($grado==="GII") $g3=", SUM(Xt1) AS PA_Agility, SUM(Xt2) AS PA_Jumping"; // promotion to GIII points
         $res=$this->__select( // for rsce
-            "PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Categoria, PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
-            "SUM(Pt1) AS P_Agility, SUM(Pt2) aS P_Jumping, SUM(St1) AS PV_Agility, SUM(St2) AS PV_Jumping {$g3}",
+            "PerroGuiaClub.ID AS Perro, PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Categoria, ".
+                    "PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
+                    "SUM(Pt1) AS P_Agility, SUM(Pt2) aS P_Jumping, SUM(St1) AS PV_Agility, SUM(St2) AS PV_Jumping {$g3}",
             "{$jor} Ligas, PerroGuiaClub",
             "{$filter} PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
             "Categoria ASC, Licencia ASC",
@@ -71,6 +72,7 @@ class Liga_RSCE_2018 extends Ligas {
         foreach ($res['rows'] as &$row) $row['Categoria']=$cats[$row['Categoria']];
         // add datagrid header
         $res['header']= array(
+            array('field' => 'Perro',    'hidden'=>'true'),
             array('field' => 'Licencia',    'title'=>_('License'),  'width' => 15, 'align' => 'right'),
             array('field' => 'Categoria',    'title'=>_('Category'),  'width' => 15, 'align' => 'right'),
             array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'center'),
