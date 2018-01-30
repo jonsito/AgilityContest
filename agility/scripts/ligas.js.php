@@ -60,5 +60,6 @@ function ligas_showDogResults(data) {
         data: data.rows
         // pending: on double click show califications pdf
     });
+    $('#ligas-perro-datos').form('load',data.dog);
     $('#ligas-perro-dialog').dialog('open');
 }

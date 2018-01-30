@@ -216,7 +216,7 @@ class PrintClasificacion extends PrintCommon {
             $this->Cell(($wide)?30:15,7,_('Lic'),0,0,'C',true);	// licencia
         }
 		if ($this->hasGrades) {
-			$this->Cell(10,7,_('Cat/Gr'),0,0,'C',true);	// categoria/grado
+			$this->Cell(10,7,_('Cat/Grad'),0,0,'C',true);	// categoria/grado
 		} else {
 			$this->Cell(10,7,_('Cat'),0,0,'C',true);	// categoria (jornadas Open / KO )
 		}

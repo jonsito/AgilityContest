@@ -690,3 +690,7 @@ function clasificaciones_doPrint() {
 function printLeague(panel) {
     alert("Not yet available");
 }
+
+function printLeagueByDog() {
+    alert("Not yet available");
+}
