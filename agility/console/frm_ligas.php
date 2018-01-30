@@ -129,6 +129,7 @@ $am=new AuthManager("Ligas");
         $('#ligas-g1-datagrid').datagrid({
             fit:true,
             fitColumns:true,
+            singleSelect:true,
             columns: [data.header],
             data: data.rows,
             onDblClickRow: function(index,row) {
@@ -147,6 +148,7 @@ $am=new AuthManager("Ligas");
         $('#ligas-g2-datagrid').datagrid({
             fit:true,
             fitColumns:true,
+            singleSelect:true,
             columns: [data.header],
             data: data.rows,
             onDblClickRow: function(index,row) {
@@ -172,6 +174,7 @@ $am=new AuthManager("Ligas");
                 fitColumns:true,
                 columns: [data.header],
                 data: data.rows,
+                singleSelect:true,
                 onDblClickRow: function(index,row) {
                     $('#ligas-g3-datagrid').datagrid('selectRow',index);
                     ligas_loadLeagueData(row.Perro,"GIII",function(data){

@@ -112,7 +112,7 @@ class Liga_FMC_2018 extends Ligas {
         } else {
             array_push($res['header'],array('field' => 'C1','title'=>_('Agility'),'width' => 10, 'align' => 'center'));
             array_push($res['header'],array('field' => 'C2','title'=>_('Jumping'),'width' => 10, 'align' => 'center'));
-            array_push($res['header'],array('field' => 'Clasificacion','title'=>_('Jumping'),'width' => 10, 'align' => 'center'));
+            array_push($res['header'],array('field' => 'Calificacion','title'=>_('Final'),'width' => 10, 'align' => 'center'));
 
         }
         return $res;

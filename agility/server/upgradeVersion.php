@@ -438,7 +438,7 @@ class Updater {
           `Puntos`   int(4) NOT NULL DEFAULT 0,
           `Estrellas` int(4) NOT NULL DEFAULT 0,
           `Extras`   int(4) NOT NULL DEFAULT 0,
-          `Clasificacion` varchar(16) NOT NULL DEFAULT '',
+          `Calificacion` varchar(16) NOT NULL DEFAULT '',
           PRIMARY KEY (`Jornada`,`Grado`,`Perro`),
           KEY `Ligas_Jornada` (`Jornada`),
           KEY `Ligas_Grado` (`Grado`),
