@@ -36,9 +36,9 @@ function checkForServer() {
     ?>
 }
 
-function checkForAdmin() {
+function checkForAdmin(showmsg) {
     if (parseInt(ac_authInfo.Perms)>1) {
-        $.messager.alert('<?php _e("Invalid user"); ?>','<?php _e("Current user"); ?>'+" '"+ac_authInfo.Login+"' "+'<?php _e("has not enought privileges"); ?>',"error");
+        if (showmsg) $.messager.alert('<?php _e("Invalid user"); ?>','<?php _e("Current user"); ?>'+" '"+ac_authInfo.Login+"' "+'<?php _e("has not enought privileges"); ?>',"error");
         return false;
     }
     return true;
@@ -249,7 +249,7 @@ function read_restoreFile(input) {
 
 // fromClient: true: use file from filebox; false: download backup from remote server
 function restoreDatabase(fromClient){
-    if (!checkForAdmin()) return;
+    if (!checkForAdmin(true)) return;
     if (checkForServer)
     var l1='<?php _e("<strong>Notice:</strong><br/>"); ?>';
     var l2='<?php _e("This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>. before trying restore<br/>"); ?>';
@@ -343,7 +343,7 @@ function clearDatabase(){
         '<?php _e("This is intended to be used ONLY as a previous step from importing new data from Excel file<br/> "); ?>';
     var l3='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
     var l4='<?php _e("To continue enter administrator password and press <em>Accept</em>"); ?>';
-    if (!checkForAdmin()) return;
+    if (!checkForAdmin(true)) return;
     $.messager.password('<?php _e('Reset Federation'); ?>',l1+l2+l3+l4 , function(pass){
         if (pass){
             var fed=$('#tools-Federation').combogrid('getValue');
@@ -363,7 +363,7 @@ function removePruebas(){
     var l2='<?php _e("This operation WILL ERASE every contests,"); ?>';
     var l3='<?php _e("inscriptions and scores from data base<br/><br/>"); ?>';
     var l4='<?php _e("To continue enter administrator password and press <em>Accept</em>"); ?>';
-    if (!checkForAdmin()) return;
+    if (!checkForAdmin(true)) return;
     $.messager.password('<?php _e('Erase contests'); ?>',l1+l2+l3+l4, function(pass){
         if (pass){
             performClearDatabase('clear',-1,pass,function(data){
@@ -388,7 +388,7 @@ function askForUpgrade(msg,name,release){
     var l2='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
     var l3='<?php _e("To proceed with AgilityContest update, enter administrator password and press <em>Accept</em>"); ?>';
     var suffix=getRandomString(8);
-    if (!checkForAdmin()) return;
+    if (!checkForAdmin(true)) return;
     $.messager.password('<?php _e('Update AgilityContest'); ?>',msg+l1+l2+l3 , function(pass) {
         if (pass) {
             // comprobamos si el password es correcto
@@ -459,7 +459,7 @@ function checkForDatabaseUpdates() {
     // check if configuration allows share data
     if (ac_regInfo.Serial==="00000000") return; // no license
     if (parseInt(ac_config.search_updatedb)===0) return; // no allowed in config
-    if (!checkForAdmin()) return; // not admin user
+    if (!checkForAdmin(true)) return; // not admin user
     // call server
     $.ajax({
         url:"/agility/server/database/updater/updateRequest.php",
@@ -484,7 +484,7 @@ function checkForDatabaseUpdates() {
 }
 
 
-function synchronizeDatabase() {
+function synchronizeDatabase(warnifnotallowed) {
     // check if configuration allows share data
     var msg="";
     if (parseInt(ac_config.search_updatedb)===0)
@@ -493,10 +493,10 @@ function synchronizeDatabase() {
     if (ac_regInfo.Serial==="00000000")
         msg= '<?php _e("This app is not registered. Please use a valid license"); ?>';
     // check for valid user
-    if (!checkForAdmin())
+    if (!checkForAdmin(false))
         msg= '<?php _e("This operation requires admin privileges"); ?>';
     if (msg!=="") {
-        $.messager.alert('<?php _e("Notice");?>',msg,"info");
+        if (warnifnotallowed) $.messager.alert('<?php _e("Notice");?>',msg,"info");
         return;
     }
     // call server

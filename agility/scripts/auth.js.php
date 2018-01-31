@@ -43,6 +43,30 @@ function showMyAdminWindow() {
 	loadContents('/agility/console/frm_myAdmin.php','<?php _e('Direct database access');?>');
 }
 
+function askForUpdateDB() {
+    if (ac_regInfo.Serial==="00000000") return; // unregistered cannot share data
+    if (!checkForAdmin(true)) return; // check for valid admin user
+    var str1='<?php _e("Do you want to enable remote database updates?");?>';
+    var str2='<?php _e('Before accept, please read legal terms and conditions');?>';
+    var str3='<a target="lopd" href="http://www.agilitycontest.es/lopd.html"><?php _e(" at this link");?></a>';
+    var str4='<input type="checkbox" id="askForUpdateDBChk" value="0"> ';
+    var str5='<label for="askForUpdate"><?php _e("Do not show this message again");?>';
+    $.messager.confirm({
+        title:  '<?php _e("Enable sharing");?>',
+        msg:    str1+'<br/>'+str2+str3+'<br/>&nbsp;<br/>'+str4+str5,
+        width:  500,
+        fn: function(r){
+                var st=$('#askForUpdateDBChk').prop('checked');
+                if (r || ( !r && st)) {
+                    ac_config.search_updatedb=(r)?"1":"0";
+                    // call server to update ac_config.search_updatedb
+                    return true;
+                }
+                return true;
+            }
+    });
+}
+
 function acceptLogin() {
 	var user= $('#login-Username').val();
 	var pass=$('#login-Password').val();
@@ -88,8 +112,14 @@ function acceptLogin() {
                 }
        			str =str+'<br /><br />'+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';
        			var w=$.messager.alert("Login",str,"info",function(){
+                    // change menu message to logout
 					$('#login_menu-text').html('<?php _e("End session");?>'+": <br />"+data.Login);
+                    // initialize auth info
 					initAuthInfo(data);
+                    // if not configured ( value<0 ) ask user to enable autosync database
+                    var up=parseInt(ac_config.search_updatedb);
+                    if (up<0) setTimeout(function() { askForUpdateDB();},5000 );
+                    if (up>0) setTimeout(function() { synchronizeDatabase(false)},2000);
 				});
                 w.window('resize',{width:400,height:'auto'}).window('center');
 
@@ -98,6 +128,7 @@ function acceptLogin() {
                 // if configured, trigger autobackup every "n" minutes
                 var bp=parseInt(ac_config.backup_period);
                 if (bp!=0) ac_config.backup_timeoutHandler=setTimeout(function() {trigger_autoBackup(bp);},60*bp*1000);
+
                 // fire up console event manager
                 ac_config.event_handler=console_eventManager;
                 var ce=parseInt(ac_config.console_events);

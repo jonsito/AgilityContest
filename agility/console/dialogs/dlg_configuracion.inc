@@ -816,8 +816,9 @@ $config =Config::getInstance();
 
 	function warn_updatedb(box) {
         if (! box.checked) return;
-        $.messager.confirm("Legal",
-            '<?php _e('Please read and accept legal <a target="lopd" href="http://www.agilitycontest.es/lopd.html">terms and conditions</a> on data sharing');?>',
+        $.messager.confirm(
+            '<?php _e("Legal notice");?>',
+            '<?php _e('Before accept, please read and accept legal <a target="lopd" href="http://www.agilitycontest.es/lopd.html">terms and conditions</a> on data sharing');?>',
             function(r){
                 if (r) return true;
                 // user cancelled operation: clear checkbox
