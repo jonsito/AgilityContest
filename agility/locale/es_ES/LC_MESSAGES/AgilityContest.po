@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2018-01-30 11:43+0100\n"
-"PO-Revision-Date: 2018-01-30 11:45+0100\n"
+"POT-Creation-Date: 2018-01-31 11:53+0100\n"
+"PO-Revision-Date: 2018-01-31 11:56+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -178,7 +178,7 @@ msgstr "Perro"
 #: scripts/import.js.php:118 scripts/import.js.php:130
 #: scripts/import.js.php:143 scripts/printer.js.php:406
 #: scripts/results_and_scores.js.php:255 scripts/results_and_scores.js.php:327
-#: server/database/classes/Ligas.php:170
+#: server/database/classes/Ligas.php:174
 #: server/database/updater/Uploader.php:219
 #: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:88
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:79
@@ -241,7 +241,7 @@ msgstr "Gu&iacute;a"
 #: livestream/vwls_osdvideo.php:92 scripts/competicion.js.php:1395
 #: scripts/datagrid_formatters.js.php:168 scripts/import.js.php:77
 #: scripts/import.js.php:90 scripts/import.js.php:103
-#: scripts/results_and_scores.js.php:256 server/database/classes/Ligas.php:171
+#: scripts/results_and_scores.js.php:256 server/database/classes/Ligas.php:175
 #: server/database/updater/Uploader.php:214
 #: server/excel/classes/XLSXWriter.php:114 server/modules/Federations.php:407
 #: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:89
@@ -265,7 +265,7 @@ msgstr "Club"
 #: console/frm_clasificaciones2.php:78
 #: console/frm_clasificaciones_equipos.php:81 console/frm_clubes.php:177
 #: console/frm_guias.php:93 livestream/vwls_osdvideo.php:93
-#: server/database/classes/Ligas.php:168
+#: server/database/classes/Ligas.php:172
 #: server/excel/classes/OrdenSalidaWriter.php:206
 #: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:86
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:77
@@ -289,7 +289,7 @@ msgstr "Categor&iacute;a"
 #: console/dialogs/import_results.inc.php:90 console/frm_clubes.php:267
 #: console/frm_equipos.php:255 console/frm_guias.php:154
 #: console/frm_inscripciones2.php:273 console/frm_ligas.php:65
-#: console/frm_ligas.php:70 console/frm_ligas.php:75 console/frm_ligas.php:163
+#: console/frm_ligas.php:70 console/frm_ligas.php:75 console/frm_ligas.php:165
 #: console/frm_paises.php:229 console/frm_perros.php:140
 #: console/frm_perros.php:185 livestream/vwls_osdvideo.php:94
 #: public/pb_inscripciones.php:107 public/pb_inscripciones_equipos.php:156
@@ -565,7 +565,7 @@ msgstr "Dors"
 #: public/pbmenu_inscripciones.php:103
 #: public/pbmenu_inscripciones_equipos.php:147
 #: scripts/results_and_scores.js.php:250 scripts/results_and_scores.js.php:322
-#: server/database/classes/Ligas.php:169
+#: server/database/classes/Ligas.php:173
 #: server/excel/classes/XLSXWriter.php:114
 #: server/excel/classes/XLSXWriter.php:134
 #: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:87
@@ -1422,7 +1422,7 @@ msgstr "Validar datos. Almacenarlos en la celda en edición"
 #: livestream/vwls_finales.php:185 livestream/vwls_parciales.php:62
 #: livestream/vwls_parciales.php:127 livestream/vwls_parciales.php:144
 #: public/pb_finales.php:137 public/pbmenu_finales.php:78
-#: server/database/classes/Ligas.php:202
+#: server/database/classes/Ligas.php:206
 #: server/excel/classes/PartialScoresWriter.php:82
 #: server/excel/classes/XLSXWriter.php:64
 #: server/excel/classes/XLSXWriter.php:118
@@ -2042,8 +2042,8 @@ msgstr "M&eacute;todo de autenticaci&oacute;n"
 
 #: console/dialogs/dlg_configuracion.inc:458
 #: console/dialogs/dlg_sesiones.inc:35 console/dialogs/dlg_sesiones.inc:161
-#: console/frm_logout.php:31 console/index.php:208 scripts/auth.js.php:89
-#: scripts/auth.js.php:128 tablet/index.php:149 tablet/index.php:382
+#: console/frm_logout.php:31 console/index.php:208 scripts/auth.js.php:130
+#: scripts/auth.js.php:176 tablet/index.php:149 tablet/index.php:382
 msgid "User"
 msgstr "Usuario"
 
@@ -2370,13 +2370,17 @@ msgid "Configuration file successfully restored"
 msgstr "Configuraci&oacute;n restaurada correctamente"
 
 #: console/dialogs/dlg_configuracion.inc:820
+msgid "Legal notice"
+msgstr "Aviso legal"
+
+#: console/dialogs/dlg_configuracion.inc:821
 msgid ""
-"Please read and accept legal <a target=\"lopd\" href=\"http://www."
-"agilitycontest.es/lopd.html\">terms and conditions</a> on data sharing"
+"Before accept, please read and accept legal <a target=\"lopd\" href=\"http://"
+"www.agilitycontest.es/lopd.html\">terms and conditions</a> on data sharing"
 msgstr ""
-"Por favor: lea y acepte los <a target=\"lopd\" href=\"http://www."
-"agilitycontest.es/lopd.html\">t&eacute;rminos y condiciones legales</a> "
-"sobre la compartici&oacute;n de datos"
+"Antes de activar, por favor, lea y acepte las <a target=\"lopd\" href="
+"\"http://www.agilitycontest.es/lopd.html\"> condiciones legales</a> para "
+"compartir datos"
 
 #: console/dialogs/dlg_editInscripcion.inc:36 console/dialogs/dlg_perros.inc:26
 msgid "Dog information"
@@ -2390,7 +2394,7 @@ msgstr "Datos de la inscripci&oacute;n"
 #: console/dialogs/dlg_ordensalida.inc:230 console/frm_clubes.php:271
 #: console/frm_guias.php:158 console/frm_paises.php:232
 #: console/frm_perros.php:138 lib/templates/orden_salida.inc.php:26
-#: server/database/classes/Ligas.php:167
+#: server/database/classes/Ligas.php:171
 #: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:85
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:76
 #: server/pdf/classes/PrintClasificacionExcel.php:159
@@ -2816,7 +2820,8 @@ msgstr "Inscribir"
 
 #: console/dialogs/dlg_newInscripcion.inc:96
 #: console/dialogs/dlg_remotecontrol.inc:268 console/frm_equipos.php:56
-#: scripts/admin.js.php:526 scripts/results_and_scores.js.php:151
+#: scripts/admin.js.php:526 scripts/auth.js.php:73
+#: scripts/results_and_scores.js.php:151
 msgid "Done"
 msgstr "Hecho"
 
@@ -4487,11 +4492,11 @@ msgstr ""
 #: lib/templates/final_teams.inc.php:11 lib/templates/final_teams.inc.php:12
 #: livestream/vwls_finales.php:89 livestream/vwls_finales.php:90
 #: livestream/vwls_osdvideo.php:56 public/pb_parciales.php:55
-#: public/pb_parciales_equipos.php:55 server/database/classes/Ligas.php:204
-#: server/database/classes/Ligas.php:205 server/database/classes/Ligas.php:206
-#: server/database/classes/Ligas.php:207 server/database/classes/Ligas.php:208
+#: public/pb_parciales_equipos.php:55 server/database/classes/Ligas.php:208
 #: server/database/classes/Ligas.php:209 server/database/classes/Ligas.php:210
-#: server/database/classes/Ligas.php:211
+#: server/database/classes/Ligas.php:211 server/database/classes/Ligas.php:212
+#: server/database/classes/Ligas.php:213 server/database/classes/Ligas.php:214
+#: server/database/classes/Ligas.php:215
 #: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/OrdenSalidaWriter.php:126
 #: server/excel/classes/PartialScoresWriter.php:84
@@ -4656,7 +4661,7 @@ msgstr "Club anfitri&oacute;n"
 #: console/frm_clasificaciones2.php:46
 #: console/frm_clasificaciones_equipos.php:45 index.php:148
 #: scripts/equipos.js.php:73 scripts/equipos.js.php:126
-#: server/database/classes/Ligas.php:203
+#: server/database/classes/Ligas.php:207
 #: server/excel/classes/OrdenSalidaWriter.php:122
 #: server/excel/classes/PartialScoresWriter.php:83
 #: server/excel/classes/XLSXWriter.php:66
@@ -5348,11 +5353,11 @@ msgstr "Resultados de competici&oacute;n para el perro seleccionado"
 msgid "Not allowed"
 msgstr "No permitido"
 
-#: console/frm_ligas.php:187
+#: console/frm_ligas.php:190
 msgid "Generate PDF or Excel file with League data"
 msgstr "Crear fichero PDF o Excel con los datos de la liga"
 
-#: console/frm_ligas.php:188
+#: console/frm_ligas.php:191
 msgid "Generate PDF or Excel file with dog League data"
 msgstr "Crear fichero PDF o Exel con los resultados del perro en la liga"
 
@@ -6812,11 +6817,11 @@ msgstr "Nueva Versi&oacute;n"
 msgid "Last Release"
 msgstr "Nueva revisi&oacute;n"
 
-#: scripts/auth.js.php:34 scripts/auth.js.php:129
+#: scripts/auth.js.php:34 scripts/auth.js.php:177
 msgid "Init session"
 msgstr "Iniciar Sesi&oacute;n"
 
-#: scripts/auth.js.php:37 scripts/auth.js.php:91
+#: scripts/auth.js.php:37 scripts/auth.js.php:133
 msgid "End session"
 msgstr "Finalizar Sesi&oacute;n"
 
@@ -6824,88 +6829,113 @@ msgstr "Finalizar Sesi&oacute;n"
 msgid "Direct database access"
 msgstr "Acceso directo a Base de Datos"
 
+#: scripts/auth.js.php:49
+msgid "Do you want to enable remote database updates?"
+msgstr "¿Quiere activar la actualizaci&oacute;n remota de la Base de datos?"
+
 #: scripts/auth.js.php:50
+msgid "Before accept, please read legal terms and conditions"
+msgstr ""
+"Antes de aceptar, por favor lea los t&eacute;rminos y condiciones legales"
+
+#: scripts/auth.js.php:51
+msgid " at this link"
+msgstr "en este enlace"
+
+#: scripts/auth.js.php:53
+msgid "Do not show this message again"
+msgstr "No volver a mostrar de nuevo este mensaje"
+
+#: scripts/auth.js.php:55
+msgid "Enable sharing"
+msgstr "Activar compartir"
+
+#: scripts/auth.js.php:73
+msgid "Configuration saved"
+msgstr "Configuraci&oacute;n guardada"
+
+#: scripts/auth.js.php:91
 msgid "There is no user chosen"
 msgstr "No ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:72
+#: scripts/auth.js.php:113
 msgid "License registered by"
 msgstr "Licencia registrada por"
 
-#: scripts/auth.js.php:73
+#: scripts/auth.js.php:114
 msgid "For use at club"
 msgstr "Para el club"
 
-#: scripts/auth.js.php:75
+#: scripts/auth.js.php:116
 msgid "License expired"
 msgstr "La licencia ha caducado"
 
-#: scripts/auth.js.php:78
+#: scripts/auth.js.php:119
 msgid "License cancelled"
 msgstr "Licencia anulada"
 
-#: scripts/auth.js.php:81
+#: scripts/auth.js.php:122
 msgid "Automatic backup is disabled"
 msgstr "Copia de seguridad autom&aacute;tica desactivada"
 
-#: scripts/auth.js.php:84
+#: scripts/auth.js.php:125
 msgid "New version available"
 msgstr "Nueva versi&oacute;n disponible"
 
-#: scripts/auth.js.php:87
+#: scripts/auth.js.php:128
 msgid "new/updated entries from server Database"
 msgstr "entradas nuevas/actualizadas en base de datos maestra"
 
-#: scripts/auth.js.php:89
+#: scripts/auth.js.php:130
 msgid "session login success"
 msgstr "sesi&oacute;n iniciada correctamente"
 
-#: scripts/auth.js.php:128
+#: scripts/auth.js.php:176
 msgid "Session has been closed by user"
 msgstr "El usuario ha finalizado la sesi&oacute;n"
 
-#: scripts/auth.js.php:165
+#: scripts/auth.js.php:213
 msgid "No user specified"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:173
+#: scripts/auth.js.php:221
 msgid "Current user has no <em>admin</em> privileges"
 msgstr "El usuario actual no tiene privilegios de administrador"
 
-#: scripts/auth.js.php:183
+#: scripts/auth.js.php:231
 msgid "No user provided"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:183
+#: scripts/auth.js.php:231
 msgid "Starting session read-only (guest)"
 msgstr "Iniciando sesi&oacute;n en modo solo consulta (invitado)"
 
-#: scripts/auth.js.php:225
+#: scripts/auth.js.php:273
 msgid "Restart"
 msgstr "Reiniciar"
 
-#: scripts/auth.js.php:226 scripts/competicion.js.php:475
+#: scripts/auth.js.php:274 scripts/competicion.js.php:475
 #: scripts/pruebas.js.php:144
 msgid "Back"
 msgstr "Volver"
 
-#: scripts/auth.js.php:229
+#: scripts/auth.js.php:277
 msgid "Licensing"
 msgstr "Licencia"
 
-#: scripts/auth.js.php:230
+#: scripts/auth.js.php:278
 msgid "Licensing data successfully loaded"
 msgstr "Datos de la licencia actualizados correctamente"
 
-#: scripts/auth.js.php:231
+#: scripts/auth.js.php:279
 msgid "Restart app to make changes to take effect"
 msgstr "Reinicie la aplicaci&oacute;n para activar los cambios"
 
-#: scripts/auth.js.php:284
+#: scripts/auth.js.php:332
 msgid "User level"
 msgstr "Nivel de usuario"
 
-#: scripts/auth.js.php:285
+#: scripts/auth.js.php:333
 msgid ""
 "Current user has not enought level to make changes <br/>Read-only access "
 "enabled"
@@ -8240,10 +8270,17 @@ msgstr "El nivel requerido es"
 msgid "Independent Journey"
 msgstr "Jornada independiente"
 
-#: server/database/classes/Ligas.php:172
+#: server/database/classes/Ligas.php:176
 #: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:93
 msgid "Zeroes"
 msgstr "Ceros"
+
+#: server/database/classes/Ligas.php:216
+#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:115
+#: server/pdf/classes/PrintClasificacionTeam.php:372
+#: videowall/vws_final_equipos.php:55 videowall/vws_final_individual.php:56
+msgid "Final"
+msgstr "Final"
 
 #: server/database/classes/Sesiones.php:377
 msgid "Use session default"
@@ -9139,11 +9176,6 @@ msgstr "Cl. individual"
 msgid "Scr. Teams"
 msgstr "Cl Equipos"
 
-#: server/pdf/classes/PrintClasificacionTeam.php:372
-#: videowall/vws_final_equipos.php:55 videowall/vws_final_individual.php:56
-msgid "Final"
-msgstr "Final"
-
 #: server/pdf/classes/PrintEntradaDeDatos.php:206
 #: server/pdf/classes/PrintEntradaDeDatos.php:308
 #: server/pdf/classes/PrintEntradaDeDatos.php:393
@@ -9531,6 +9563,14 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid ""
+#~ "Please read and accept legal <a target=\"lopd\" href=\"http://www."
+#~ "agilitycontest.es/lopd.html\">terms and conditions</a> on data sharing"
+#~ msgstr ""
+#~ "Por favor: lea y acepte los <a target=\"lopd\" href=\"http://www."
+#~ "agilitycontest.es/lopd.html\">t&eacute;rminos y condiciones legales</a> "
+#~ "sobre la compartici&oacute;n de datos"
 
 #~ msgid "Cat/Gr"
 #~ msgstr "Cat./Grado"

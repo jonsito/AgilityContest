@@ -91,6 +91,18 @@ try {
 			$ev=new Eventos("RestoreConfig",1,$am);
 			$ev->reconfigure();
 			break;
+		case "setEnv":
+            $am->access(PERMS_ADMIN);
+            $key=http_request("Key","s","");
+            $value=http_request("Value","s","");
+            $result="";
+            if ($key!=="") {
+            	$config->setEnv($key,$value);
+                $result=$config->saveConfig();
+                $ev=new Eventos("SetEnv: {$key}",1,$am);
+                $ev->reconfigure();
+            }
+            break;
 		case "saveConfig": 
 			$am->access(PERMS_ADMIN);
 			$result=$config->saveConfig();

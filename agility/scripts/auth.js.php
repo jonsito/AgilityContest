@@ -60,6 +60,23 @@ function askForUpdateDB() {
                 if (r || ( !r && st)) {
                     ac_config.search_updatedb=(r)?"1":"0";
                     // call server to update ac_config.search_updatedb
+                    $.ajax({
+                        type:'GET',
+                        url:"/agility/server/adminFunctions.php",
+                        dataType:'json',
+                        data: {
+                            Operation: 'setEnv',
+                            Key: "search_updatedb",
+                            Value: ac_config.search_updatedb
+                        },
+                        success: function(res) {
+                            $.messager.alert({ width:300, height:'auto', title: '<?php _e('Done'); ?>', msg: '<?php _e('Configuration saved');?>' });
+                        },
+                        error: function(XMLHttpRequest,textStatus,errorThrown) {
+                            $.messager.alert("Error: "+oper,"Error: "+textStatus + " "+ errorThrown,'error' );
+                        }
+                    });
+
                     return true;
                 }
                 return true;
@@ -118,8 +135,8 @@ function acceptLogin() {
 					initAuthInfo(data);
                     // if not configured ( value<0 ) ask user to enable autosync database
                     var up=parseInt(ac_config.search_updatedb);
-                    if (up<0) setTimeout(function() { askForUpdateDB();},5000 );
-                    if (up>0) setTimeout(function() { synchronizeDatabase(false)},2000);
+                    if (up<0) setTimeout(function() { askForUpdateDB();},500 );
+                    if (up>0) setTimeout(function() { synchronizeDatabase(false)},500);
 				});
                 w.window('resize',{width:400,height:'auto'}).window('center');
 
