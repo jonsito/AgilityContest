@@ -36,6 +36,7 @@ try {
     // need to do a more elaborated way of hanlde this...
     $serial=http_request("Serial","s","");
     if (($serial==="") || (!is_numeric($serial))) throw new Exception("updateRequest.php: invalid serial number");
+    $ul=null;
     switch($operation) {
         case "progress":
             if (!is_dir(SYNCDIR)) @mkdir(SYNCDIR);
@@ -85,5 +86,6 @@ try {
     else echo json_encode($result); // json encode response and return it
 } catch (Exception $e) {
     do_log($e->getMessage());
+    if($ul) $ul->reportProgress("Failed");
     echo json_encode(array('errorMsg'=>$e->getMessage()));
 }

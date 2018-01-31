@@ -46,7 +46,7 @@ class Uploader {
         $this->progressFile=SYNCDIR."/dbsync_{$suffix}.log";
     }
 
-    protected function reportProgress($str) {
+    public function reportProgress($str) {
         $f=fopen($this->progressFile,"a"); // open for append-only
         if (!$f) { $this->myLogger->error("fopen() cannot open file: ".$this->progressFile); return;}
         fwrite($f,"$str\n");
@@ -95,7 +95,9 @@ class Uploader {
             "Jueces",
             "( LastModified > '{$timestamp}')"
         );
-        if (!$res) throw new Exception ("Updater::getUpdatedEntries(Jueces): {$this->myDBObject->conn->error}");
+        if (!$res) {
+            throw new Exception ("Updater::getUpdatedEntries(Jueces): {$this->myDBObject->conn->error}");
+        }
         $result['Jueces']=$res['rows'];
         $result['total']=
             max(count($result['Perros']),count($result['Guias']),count($result['Clubes']),count($result['Jueces']));
@@ -160,7 +162,9 @@ class Uploader {
             "VersionHistory",
             "Version='{$current_version}'"
         );
-        if (!$res) throw new Exception ("Updater::getTimeSTamp(): {$this->myDBObject->conn->error}");
+        if (!$res) {
+            throw new Exception ("Updater::getTimeSTamp(): {$this->myDBObject->conn->error}");
+        }
         if ($res['total']==0) {
             // esto ocurre cuando se cambia a mano la base de datos
             $this->myLogger->warn("VersionHistory not properly updated");
@@ -184,7 +188,9 @@ class Uploader {
         $timestamp=date('Y-m-d H:i:s');
         $sql="UPDATE VersionHistory SET Updated='{$timestamp}' WHERE  Version='{$current_version}'";
         $res=$this->myDBObject->query($sql);
-        if (!$res) throw new Exception ("Updater::updateTimeSTamp(): {$this->myDBObject->conn->error}");
+        if (!$res) {
+            throw new Exception ("Updater::updateTimeSTamp(): {$this->myDBObject->conn->error}");
+        }
     }
 
     /**

@@ -547,7 +547,7 @@ function synchronizeDatabase(warnifnotallowed) {
             },
             success: function(data) {
                 var value=data.progress;
-                if(value!=="Done"){
+                if( (value!=="Done") && (value!=="Failed") ) {
                     var bar=$.messager.progress('bar');
                     bar.progressbar('setValue', value);  // set new progress value
                     setTimeout(getProgress,2000);

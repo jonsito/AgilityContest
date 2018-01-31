@@ -53,7 +53,7 @@ function askForUpdateDB() {
     var str5='<label for="askForUpdate"><?php _e("Do not show this message again");?>';
     $.messager.confirm({
         title:  '<?php _e("Enable sharing");?>',
-        msg:    str1+'<br/>'+str2+str3+'<br/>&nbsp;<br/>'+str4+str5,
+        msg:    str1+'<br/>'+str2+" "+str3+'<br/>&nbsp;<br/>'+str4+" "+str5,
         width:  500,
         fn: function(r){
                 var st=$('#askForUpdateDBChk').prop('checked');
