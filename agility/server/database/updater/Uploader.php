@@ -139,9 +139,8 @@ class Uploader {
 
         // retrieve response and check status
         $json_response = curl_exec($curl);
-        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        if ( $status != 200 ) { // notice 201, not 200
-            throw new Exception("updater::SendJSONRequest() call to URL $url failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
+        if ( curl_error($curl) ) {
+            throw new Exception("updater::SendJSONRequest() call to URL $url failed: " . curl_error($curl) );
         }
         // close curl stream
         curl_close($curl);

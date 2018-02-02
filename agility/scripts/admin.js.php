@@ -530,7 +530,13 @@ function synchronizeDatabase(warnifnotallowed) {
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.progress('close');
-            $.messager.alert("<?php _e('Error');?>","<?php _e('Error');?>: "+textStatus + " "+ errorThrown,'error' );
+            // connection error: show an slide message error at bottom of the screen
+            $.messager.show({
+                title:"<?php _e('Error');?>",
+                msg: "<?php _e('Error');?>: "+textStatus + " "+ errorThrown,
+                timeout: 5000,
+                showType: 'slide'
+            });
         }
     });
 
