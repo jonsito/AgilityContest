@@ -138,7 +138,7 @@ class Uploader {
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $checkcert); // set to false when using "localhost" url
 
         // retrieve response and check status
-        $json_response = curl_exec($curl);
+        $json_response = @curl_exec($curl); // supress stdout warning
         if ( curl_error($curl) ) {
             throw new Exception("updater::SendJSONRequest() call to URL $url failed: " . curl_error($curl) );
         }

@@ -471,7 +471,13 @@ function checkForDatabaseUpdates() {
         },
         success: function(data) {
             if (typeof(data.errorMsg)!=="undefined") {
-                $.messager.alert('<?php _e("Error"); ?>','<?php _e("Check for DB Updates");?>: '+data.errorMsg,"error");
+                $.messager.show({
+                    title:'<?php _e("Error"); ?>',
+                    msg:'<?php _e("Check for DB Updates");?>: '+data.errorMsg,
+                    showType: 'slide',
+                    timeout: 5000,
+                    height:200
+                });
                 return;
             }
             if (data.success) {
@@ -518,7 +524,13 @@ function synchronizeDatabase(warnifnotallowed) {
         },
         success: function(data) {
             if (typeof(data.errorMsg)!=="undefined") {
-                $.messager.alert('<?php _e("Sync database"); ?>:',data.errorMsg,"error");
+                $.messager.show({
+                    title:'<?php _e("Error"); ?>',
+                    msg:'<?php _e("Synchronize DB");?>: '+data.errorMsg,
+                    showType: 'slide',
+                    timeout: 5000,
+                    height:200
+                });
                 return;
             }
             if (data.success) {
@@ -535,7 +547,8 @@ function synchronizeDatabase(warnifnotallowed) {
                 title:"<?php _e('Error');?>",
                 msg: "<?php _e('Error');?>: "+textStatus + " "+ errorThrown,
                 timeout: 5000,
-                showType: 'slide'
+                showType: 'slide',
+                height:200
             });
         }
     });
