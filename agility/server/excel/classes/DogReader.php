@@ -74,8 +74,8 @@ class DogReader {
         // club related data
         // in international contests user can provide ISO country name either in "Club" or in "Country" field
         'ClubID' =>     array (  -13,  0, "i", "ClubID",    " `ClubID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
-        'Club' =>       array (  -14,  1, "s", "NombreClub"," `NombreClub` varchar(255) NOT NULL,"),  // Club's Name. required
-        'Country' =>    array (  -15, -1, "s", "Pais",      " `Pais` varchar(255) NOT NULL,")  // Country. optional
+        'Club' =>       array (  -14,  1, "s", "NombreClub"," `NombreClub` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',"),  // Club's Name. required
+        'Country' =>    array (  -15, -1, "s", "Pais",      " `Pais` varchar(255) NOT NULL DEFAULT '-- Sin asignar --', ")  // Country. optional
     );
 
     public function __construct($name,$options) {
@@ -347,7 +347,7 @@ class DogReader {
                 // check that every required field is present
                 $this->validateHeader($row); // throw exception on fail
                 // create temporary table in database to store and analyze Excel data
-                if ($droptable) $this->dropTable();
+                if ($droptable===true) $this->dropTable();
                 $this->createTemporaryTable(); // throw exception when an import is already running
                 $hasHeader=true; // on next iteration start store into temporary table
             } else {

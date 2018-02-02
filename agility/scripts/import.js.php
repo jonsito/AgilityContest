@@ -199,7 +199,7 @@ function resultNotFound(search) {
 
     var msg1="<p><?php _e('Entry');?> '";
     var msg2="': <?php _e('Not found in inscriptions for this round');?> <br/>";
-    var msg3=" <?php _e('Please select existing one, or ignore entry');?></p>";
+    var msg3=" <?php _e('Please create or select existing one, or ignore entry');?></p>";
     var msg=hdr+msg1+search.Nombre+msg2+msg3;
     $("#importResult-Text").html(msg);
     $("#importResult-ResultID").val(search.ID);

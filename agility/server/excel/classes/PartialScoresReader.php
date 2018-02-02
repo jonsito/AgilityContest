@@ -64,9 +64,6 @@ class PartialScoresReader extends DogReader {
             // los campos penalizacion, calificacion, puntos, y estrellas se calculan en runtime, no se importan
         );
         foreach ($inscList as $key => $data) $this->fieldList[$key]=$data;
-        // fix fields according contest type
-        $fedobj=Federations::getFederation($this->federation);
-        if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=0; $this->fieldList['Country'][1]=1; } // country/club
         // on games rounds, make games required
         if (isMangaGames($this->manga['Tipo'])) $this->fieldList['Games'][1]=1;
         $this->validPageNames=array("Results");

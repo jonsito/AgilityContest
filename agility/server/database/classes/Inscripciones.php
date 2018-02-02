@@ -59,6 +59,30 @@ class Inscripciones extends DBObject {
         return ""; // return ok
     }
 
+    /**
+     * Create new inscription or add to an existing inscription provided dog into selected journey
+     * @param $idperro
+     * @param $idjornada
+     * @return string
+     */
+    function insertIntoJourney($idperro,$idjornada) {
+        if (($idperro<=0) || ($idjornada<=0))
+            return $this->error("insertIntoJourney() invalid dog:{$idperro} or jornada:{$idjornada} ID");
+        // retrieve journey info and mask
+        $jobj=$this->__getObject("Jornadas",$idjornada);
+        if (!$jobj) return $this->error("insertIntoJourney() non-existent jornada:{$idjornada}");
+        $mask=1<<( intval($jobj->Numero) - 1 );
+        // check if dog is already inscribed
+        $iobj=$this->__selectObject("*","Inscripciones","( Prueba={$this->pruebaID} ) AND ( Perro={$idperro} )");
+        if (!$iobj) { // not yet inscribed: insert()
+            $this->realInsert($idperro,$this->pruebaID,$mask,0,0,'');
+        } else {  // already inscribed: fix journey mask and update()
+            $jornadas= $iobj->Jornadas | $mask;
+            $this->real_update($jornadas,0,'',0,$iobj->ID);
+        }
+	    return "";
+    }
+
 	function realInsert($idperro,$prueba,$jornadas,$pagado,$celo,$observaciones) {
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("Invalid IDPerro ID");
@@ -190,9 +214,11 @@ class Inscripciones extends DBObject {
 	}
 	
 	/**
-	 * retrieve all dogs that has no inscitpion on this prueba
+	 * retrieve all dogs that has no inscription on this contest
+     * if journey is provided use journey id instead of contest id for seach
+     * @param  {integer} $jornada Jornada ID or zero if not specified
 	 */
-	function noinscritos() {
+	function noinscritos($jornada=0) {
 		$this->myLogger->enter();
 		
 		$id = $this->pruebaID;
@@ -221,10 +247,12 @@ class Inscripciones extends DBObject {
 			http_request("order","s",""),
 			"NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"
 		);
+		$inner="SELECT Perro FROM Inscripciones WHERE (Prueba=$id)";
+		if (intval($jornada)!==0) $inner="SELECT DISTINCT Perro FROM Resultados WHERE (Jornada=$jornada)";
 		$result= $this->__select(
 			/* SELECT */	"*",
 			/* FROM */		"PerroGuiaClub",
-			/* WHERE */		"( Federation = $fed ) AND ID NOT IN ( SELECT Perro FROM Inscripciones WHERE (Prueba=$id) ) $extra ",
+			/* WHERE */		"( Federation = $fed ) AND ID NOT IN ( {$inner} ) $extra ",
 			/* ORDER BY */	$order,
 			/* LIMIT */		$limit
 		);
