@@ -19,7 +19,7 @@ int launchAndWait (char *cmd, char *args) {
     ZeroMemory(&StartupInfo, sizeof(StartupInfo));
     StartupInfo.cb = sizeof StartupInfo ; //Only compulsory field
 
-    if(CreateProcess(cmd, args, NULL,NULL,FALSE,CREATE_NO_WINDOW,NULL, NULL,&StartupInfo,&ProcessInfo))  {
+    if(CreateProcess(cmd, args, NULL,NULL,FALSE,0 /*CREATE_NO_WINDOW*/,NULL, NULL,&StartupInfo,&ProcessInfo))  {
         WaitForSingleObject(ProcessInfo.hProcess,INFINITE);
         CloseHandle(ProcessInfo.hThread);
         CloseHandle(ProcessInfo.hProcess);
@@ -30,15 +30,8 @@ int launchAndWait (char *cmd, char *args) {
     return 0;
 }
 
-int launchAndForget ( char *cmd, char *args) {
-    PROCESS_INFORMATION ProcessInfo; //This is what we get as an [out] parameter
-
-    STARTUPINFO StartupInfo; //This is an [in] parameter
-
-    ZeroMemory(&StartupInfo, sizeof(StartupInfo));
-    StartupInfo.cb = sizeof StartupInfo ; //Only compulsory field
-
-    if(! CreateProcess(cmd, args, NULL,NULL,FALSE,CREATE_NO_WINDOW,NULL, NULL,&StartupInfo,&ProcessInfo))  {
+int launchAndForget ( char *cmd, char *args,PROCESS_INFORMATION *ProcessInfo,STARTUPINFO *StartupInfo) {
+    if(! CreateProcess(cmd, args, NULL,NULL,FALSE,0 /*CREATE_NO_WINDOW*/,NULL, NULL,StartupInfo,ProcessInfo))  {
         MessageBox (NULL, args,"failed", MB_OK | MB_ICONINFORMATION);
     }
     return 0;
@@ -52,6 +45,20 @@ int first_install() {
 }
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, int nShowCmd) {
+
+    STARTUPINFO mysqld_si;
+    PROCESS_INFORMATION mysqld_pi;
+    ZeroMemory( &mysqld_si, sizeof(mysqld_si) );
+    mysqld_si.cb = sizeof(mysqld_si);
+    ZeroMemory( &mysqld_pi, sizeof(mysqld_pi) );
+
+    STARTUPINFO apache_si;
+    PROCESS_INFORMATION apache_pi;
+    ZeroMemory( &apache_si, sizeof(apache_si) );
+    apache_si.cb = sizeof(apache_si);
+    ZeroMemory( &apache_pi, sizeof(apache_pi) );
+
+    CONST HANDLE handlers[] = { mysqld_pi.hProcess,apache_pi.hProcess };
 
     // @echo off
     char *msg="Hello World!";
@@ -126,7 +133,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     char *mysqldargs=calloc(256+strlen(wd),sizeof(char));
     sprintf(mysqld,"%s\\mysql\\bin\\mysqld.exe",wd);
     sprintf(mysqldargs,"%s\\mysql\\bin\\mysqld.exe --defaults-file=mysql\\bin\\my.ini --standalone --console >nul",wd);
-    launchAndForget(mysqld,mysqldargs);
+    launchAndForget(mysqld,mysqldargs,&mysqld_pi,&mysqld_si);
     sleep(7);
 
     // rem start apache web server
@@ -139,7 +146,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     char *apacheargs=calloc(256+strlen(wd),sizeof(char));
     sprintf(apache,"%s\\apache\\bin\\httpd.exe",wd);
     sprintf(apacheargs,"%s\\apache\\bin\\httpdd.exe >nul",wd);
-    launchAndForget(apache,apacheargs);
+    launchAndForget(apache,apacheargs,&apache_pi,&apache_si);
     sleep(7);
 
     /* create database and basic data on first install */
@@ -183,8 +190,6 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     :browser_start
     rem echo Opening AgilityContest console...
     start /MAX "AgilityContest" https://localhost/agility/console
-    :wait_for_end
-    exit
     */
     char *browser="start /MAX \"AgilityContest\" https://localhost/agility/console";
     if (first_install() ) {
@@ -195,6 +200,10 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     unlink("..\\logs\\install.sql");
     unlink("..\\logs\\first_install.sql");
     system(browser);
+
+    // :wait_for_end
+    // exit
+    WaitForMultipleObjects ( 2,handlers,1,INFINITE);
     return 0;
 }
 
