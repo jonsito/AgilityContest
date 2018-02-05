@@ -12,6 +12,7 @@
 #include <windows.h>
 #include <tchar.h>
 #include <commctrl.h>
+#include <locale.h>
 
 FILE *logFile;
 extern HINSTANCE g_hinst;
@@ -30,7 +31,7 @@ char **split (char *str) {
     return res;
 }
 
-int doLog(char *function, char *msg) {
+void doLog(char *function, char *msg) {
     fputs(function,logFile);
     fputs(": ",logFile);
     fputs(msg,logFile);
@@ -90,7 +91,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             INITCOMMONCONTROLSEX icce = { sizeof(INITCOMMONCONTROLSEX), ICC_PROGRESS_CLASS };
             InitCommonControlsEx(&icce);
             //Create the inner label
-            HWND hwndLabel = CreateWindow(
+            CreateWindow(
             	"STATIC", "AgilityContest is starting. Please wait", WS_CHILD | WS_VISIBLE, 70, 10, 350, 20,
             	hWnd, (HMENU)1, NULL, NULL
             	);
@@ -141,12 +142,14 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     // settings.bat sets default language. So just parse and setenv
     FILE *f=fopen(".\\settings.bat","r");
     if (f) {
+        // trick translate "SET LANG=es_ES to" "es-ES" for using setlocale()
         char *str=calloc(32,sizeof(char));
         fgets(str,31,f);
+        for (char* p=str;*p;p++) { if (*p=='_') *p='-'; }
         fclose(f);
-        env=1+strchr(str,' ');
-        putenv(env);
-        doLog("puttenv",env);
+        env=1+strchr(str,'=');
+        setlocale(LC_ALL,env);
+        doLog("setlocale",env);
     }
 
     // cd /d %~dp0\xampp
@@ -179,7 +182,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     // main window
     HWND hwndParent=CreateWindow(wc.lpszClassName,"Starting",WS_OVERLAPPEDWINDOW|WS_VISIBLE,100,100,450,100,0,0,hInstance,NULL);
     MSG  msg;
-    for(int n=0; n<10;n++) {
+    for(int n=0; n<5;n++) { // dirty trick, but works just enought to handle initial windowOpenEvent (no more interaction)
         if (PeekMessage(&msg, hwndParent, 0, 0,PM_REMOVE)!=0) {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
@@ -241,7 +244,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     char *mysqld=calloc(32+strlen(wd),sizeof(char));
     char *mysqldargs=calloc(256+strlen(wd),sizeof(char));
     sprintf(mysqld,"%s\\mysql\\bin\\mysqld.exe",wd);
-    sprintf(mysqldargs,"--defaults-file=mysql\\bin\\my.ini --standalone --console",wd);
+    sprintf(mysqldargs,"--defaults-file=mysql\\bin\\my.ini --standalone --console");
     launchAndForget(mysqld,mysqldargs,&mysqld_pi,&mysqld_si);
     SendMessage(hwndProgress,PBM_SETPOS,60,0);
     // system("start \"\" /B mysql\\bin\\mysqld --defaults-file=mysql\\bin\\my.ini --standalone --console >nul");
@@ -256,7 +259,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     char *apache=calloc(32+strlen(wd),sizeof(char));
     char *apacheargs=calloc(256+strlen(wd),sizeof(char));
     sprintf(apache,"%s\\apache\\bin\\httpd.exe",wd);
-    sprintf(apacheargs,"",wd);
+    sprintf(apacheargs," ");
     launchAndForget(apache,apacheargs,&apache_pi,&apache_si);
     SendMessage(hwndProgress,PBM_SETPOS,70,0);
     // system("start \"\" /B apache\\bin\\httpd.exe");
