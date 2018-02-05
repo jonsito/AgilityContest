@@ -131,12 +131,13 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     apache_si.cb = sizeof(apache_si);
     ZeroMemory( &apache_pi, sizeof(apache_pi) );
 
+/*  // removed because depends on external libraries that may not exist
     INITCOMMONCONTROLSEX icc;
     // Initialise common controls.
     icc.dwSize = sizeof(icc);
     icc.dwICC = ICC_WIN95_CLASSES;
     InitCommonControlsEx(&icc);
-
+*/
     CONST HANDLE handlers[] = { mysqld_pi.hProcess,apache_pi.hProcess };
 
     logFile=fopen(".\\logs\\startup.log","w");
