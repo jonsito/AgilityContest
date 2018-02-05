@@ -136,20 +136,23 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     logFile=fopen(".\\logs\\startup.log","w");
 
     // @echo off
-    char *env="Hello World!\n";
-    doLog("init",env);
+    char *set_lang="Hello World!\n";
+    doLog("init",set_lang);
     // call settings.bat
     // settings.bat sets default language. So just parse and setenv
     FILE *f=fopen(".\\settings.bat","r");
     if (f) {
         // trick translate "SET LANG=es_ES to" "es-ES" for using setlocale()
-        char *str=calloc(32,sizeof(char));
-        fgets(str,31,f);
-        for (char* p=str;*p;p++) { if (*p=='_') *p='-'; }
+        set_lang=calloc(32,sizeof(char));
+        char *tmp=calloc(32,sizeof(char));
+        fgets(set_lang,31,f);
         fclose(f);
-        env=1+strchr(str,'=');
-        setlocale(LC_ALL,env);
-        doLog("setlocale",env);
+        char *eol=strchr(set_lang,'\n');
+        if (eol) *eol='\0'; // remove newline at end of string
+        strncpy(tmp,set_lang,32);
+        for (char* p=tmp;*p;p++) { if (*p=='_') *p='-'; } // translate es_ES to es-ES
+        char *locale=1+strchr(tmp,'=');
+        doLog("setlocale",locale);
     }
 
     // cd /d %~dp0\xampp
@@ -309,9 +312,11 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     rem echo Opening AgilityContest console...
     start /MAX "AgilityContest" https://localhost/agility/console
     */
-    char *browser="start /MAX \"AgilityContest\" https://localhost/agility/console";
+    char *browser=calloc(256,sizeof(char));
     if (first_install() ) {
-        browser="start /MAX \"AgilityContest\" https://localhost/agility/console/index.php?installdb=1";
+        sprintf(browser,"%s && start /MAX \"AgilityContest\" https://localhost/agility/console/index.php?installdb=1",set_lang);
+    } else {
+        sprintf(browser,"%s && start /MAX \"AgilityContest\" https://localhost/agility/console",set_lang);
     }
     // del ..\logs\install.sql
     // del ..\logs\first_install
