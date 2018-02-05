@@ -1,6 +1,8 @@
 #include "resources.h"
 
+#if 0
 CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "AgilityContest.exe.manifest"
+#endif
 
 IDI_ICON_128 ICON "agilitycontest.ico"
 
