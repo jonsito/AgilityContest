@@ -11,8 +11,11 @@
 #include <unistd.h>
 #include <windows.h>
 #include <tchar.h>
+#include <commctrl.h>
 
 FILE *logFile;
+extern HINSTANCE g_hinst;
+HWND hwndProgress;
 
 char **split (char *str) {
     char **res= calloc(32,sizeof(char *));
@@ -36,16 +39,7 @@ int doLog(char *function, char *msg) {
 
 /**
 CreateProcess(
-    name
-    cmdline
-    process attributes
-    thread attributes
-    inherit handlers
-    creation flags
-    environment
-    workingdir
-    startup info
-    process info
+    name,cmdline,processAttributes,threadAttributes,inheritHandlers,creationFlags,environment,workingdir,startupInfo,processInfo
 */
 int launchAndWait (char *cmd, char *args) {
     doLog("launchAndWait cmd",cmd);
@@ -88,6 +82,40 @@ int first_install() {
     return (status==0)?1:0; // true on success
 }
 
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+    switch(message) {
+        case WM_CREATE: {
+            //Initialize progress controls
+            INITCOMMONCONTROLSEX icce = { sizeof(INITCOMMONCONTROLSEX), ICC_PROGRESS_CLASS };
+            InitCommonControlsEx(&icce);
+            //Create the inner label
+            HWND hwndLabel = CreateWindow(
+            	"STATIC", "AgilityContest is starting. Please wait", WS_CHILD | WS_VISIBLE, 70, 10, 350, 20,
+            	hWnd, (HMENU)1, NULL, NULL
+            	);
+            //Create the progress control
+            hwndProgress = CreateWindow(
+            	PROGRESS_CLASS,NULL,WS_CHILD|WS_VISIBLE|PBS_SMOOTH, 10,10,50,20,
+            	hWnd, (HMENU)2, NULL, NULL
+            	);
+            //Set the progress bar range and initial position
+            SendMessage(hwndProgress,PBM_SETRANGE32,0,100);
+            SendMessage(hwndProgress,PBM_SETPOS,0,0);
+            break;
+        }
+    	case WM_CLOSE:
+			DestroyWindow (hWnd);
+			break;
+		case WM_DESTROY:
+			PostQuitMessage (0);
+			break;
+    }
+    return DefWindowProc(hWnd, message, wParam, lParam);
+}
+
+//---------------------------------------------------------------------------
+
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, int nShowCmd) {
 
     STARTUPINFO mysqld_si;
@@ -107,8 +135,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     logFile=fopen(".\\logs\\startup.log","w");
 
     // @echo off
-    char *msg="Hello World!\n";
-    doLog("init",msg);
+    char *env="Hello World!\n";
+    doLog("init",env);
     // call settings.bat
     // settings.bat sets default language. So just parse and setenv
     FILE *f=fopen(".\\settings.bat","r");
@@ -116,9 +144,9 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
         char *str=calloc(32,sizeof(char));
         fgets(str,31,f);
         fclose(f);
-        msg=1+strchr(str,' ');
-        putenv(msg);
-        doLog("setenv",msg);
+        env=1+strchr(str,' ');
+        putenv(env);
+        doLog("puttenv",env);
     }
 
     // cd /d %~dp0\xampp
@@ -131,30 +159,61 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     doLog("chdir",wd);
 
     // presenta mensaje de arranque...
-    char *cmd="start \"\" /B mshta \"javascript:var sh=new ActiveXObject( 'WScript.Shell' ); sh.Popup( 'AgilityContest is starting. Please wait', 20, 'Working...', 64 );close()\"";
-    system(cmd);
+    // char *cmd="start \"\" /B mshta \"javascript:var sh=new ActiveXObject( 'WScript.Shell' ); sh.Popup( 'AgilityContest is starting. Please wait', 20, 'Working...', 64 );close()\"";
+    // system(cmd);
+    WNDCLASSEX wc; /* A properties struct of our window */
+
+    /* zero out the struct and set the stuff we want to modify */
+    memset(&wc,0,sizeof(wc));
+    wc.cbSize = sizeof(WNDCLASSEX);
+    wc.lpfnWndProc = WndProc; /* This is where we will send messages to */
+    wc.hInstance = hInstance;
+    wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+
+    /* White, COLOR_WINDOW is just a #define for a system color, try Ctrl+Clicking it */
+    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
+    wc.lpszClassName = "WindowClass";
+    wc.hIcon = LoadIcon(NULL, IDI_APPLICATION); /* Load a standard icon */
+    wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION); /* use the name "A" to use the project icon */
+    RegisterClassEx(&wc);
+    // main window
+    HWND hwndParent=CreateWindow(wc.lpszClassName,"Starting",WS_OVERLAPPEDWINDOW|WS_VISIBLE,100,100,450,100,0,0,hInstance,NULL);
+    MSG  msg;
+    for(int n=0; n<10;n++) {
+        if (PeekMessage(&msg, hwndParent, 0, 0,PM_REMOVE)!=0) {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        } else {
+            sleep(1);
+        }
+    }
 
     // rem notice that this may require admin privileges
     // rem for windows 8 and 10 disable w3svc service
     // rem also configure firewall to allow http https and mysql
-
     // net stop W3SVC
-    cmd="C:\\Windows\\system32\\net.exe";
+    char *cmd="C:\\Windows\\system32\\net.exe";
     char *args="C:\\Windows\\system32\\net.exe stop W3SVC";
     launchAndWait(cmd,args);
+    SendMessage(hwndProgress,PBM_SETPOS,10,0);
+
     // netsh advfirewall firewall add rule name=\"MySQL Server\" action=allow protocol=TCP dir=in localport=3306
     cmd="C:\\Windows\\system32\\netsh.exe";
     args="C:\\Windows\\system32\\netsh.exe advfirewall firewall add rule name=\"MySQL Server\" action=allow protocol=TCP dir=in localport=3306";
     launchAndWait(cmd,args);
+
+    SendMessage(hwndProgress,PBM_SETPOS,20,0);
     // netsh advfirewall firewall add rule name=\"Apache HTTP Server\" action=allow protocol=TCP dir=in localport=80
     cmd="C:\\Windows\\system32\\netsh.exe";
     args="C:\\Windows\\system32\\netsh.exe advfirewall firewall add rule name=\"Apache HTTP Server\" action=allow protocol=TCP dir=in localport=80";
     launchAndWait(cmd,args);
+    SendMessage(hwndProgress,PBM_SETPOS,30,0);
 
     // netsh advfirewall firewall add rule name=\"Apache HTTPs Server\" action=allow protocol=TCP dir=in localport=443
     cmd="C:\\Windows\\system32\\netsh.exe";
     args="C:\\Windows\\system32\\netsh.exe advfirewall firewall add rule name=\"Apache HTTPs Server\" action=allow protocol=TCP dir=in localport=443";
     launchAndWait(cmd,args);
+    SendMessage(hwndProgress,PBM_SETPOS,40,0);
 
     /* on first install set properly php environment (paths, configs and so ) */
     if ( first_install() ) {
@@ -169,6 +228,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
         sprintf(php,"%s\\php\\php.exe",wd);
         sprintf(phpargs,"%s\\php\\php.exe -n -d output_buffering=0 -q install\\install.php usb >nul",wd);
         launchAndWait(php,phpargs);
+        SendMessage(hwndProgress,PBM_SETPOS,50,0);
     }
 
     // rem start mysql database server
@@ -183,6 +243,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     sprintf(mysqld,"%s\\mysql\\bin\\mysqld.exe",wd);
     sprintf(mysqldargs,"--defaults-file=mysql\\bin\\my.ini --standalone --console",wd);
     launchAndForget(mysqld,mysqldargs,&mysqld_pi,&mysqld_si);
+    SendMessage(hwndProgress,PBM_SETPOS,60,0);
     // system("start \"\" /B mysql\\bin\\mysqld --defaults-file=mysql\\bin\\my.ini --standalone --console >nul");
     sleep(7);
 
@@ -197,6 +258,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     sprintf(apache,"%s\\apache\\bin\\httpd.exe",wd);
     sprintf(apacheargs,"",wd);
     launchAndForget(apache,apacheargs,&apache_pi,&apache_si);
+    SendMessage(hwndProgress,PBM_SETPOS,70,0);
     // system("start \"\" /B apache\\bin\\httpd.exe");
     sleep(7);
 
@@ -229,6 +291,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
         sprintf(mysql,"%s\\mysql\\bin\\mysql.exe",wd);
         sprintf(mysqlargs,"%s\\mysql\\bin\\mysql.exe -u root < ..\\logs\\install.sql",wd);
         launchAndWait(mysql,mysqlargs);
+
+        SendMessage(hwndProgress,PBM_SETPOS,80,0);
     }
 
     /*
@@ -252,6 +316,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     // unlink("..\\logs\\first_install.sql");
     doLog("system",browser);
     system(browser);
+    SendMessage(hwndProgress,PBM_SETPOS,90,0);
 
     // :wait_for_end
     // exit
