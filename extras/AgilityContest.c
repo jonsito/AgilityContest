@@ -10,8 +10,46 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <windows.h>
+#include <tchar.h>
 
+FILE *logFile;
+
+char **split (char *str) {
+    char **res= calloc(32,sizeof(char *));
+    int i = 1;
+    char* hit = str;
+    while((hit = strchr(hit, ',')) != NULL) { //Find next delimiter
+        //In-place replacement of the delimiter
+        *hit++ = '\0';
+        //Next substring starts right after the hit
+        res[i++] = hit;
+    }
+    return res;
+}
+
+int doLog(char *function, char *msg) {
+    fputs(function,logFile);
+    fputs(": ",logFile);
+    fputs(msg,logFile);
+    fputs("\n",logFile);
+}
+
+/**
+CreateProcess(
+    name
+    cmdline
+    process attributes
+    thread attributes
+    inherit handlers
+    creation flags
+    environment
+    workingdir
+    startup info
+    process info
+*/
 int launchAndWait (char *cmd, char *args) {
+    doLog("launchAndWait cmd",cmd);
+    doLog("launchAndWait args",args);
     PROCESS_INFORMATION ProcessInfo; //This is what we get as an [out] parameter
 
     STARTUPINFO StartupInfo; //This is an [in] parameter
@@ -19,7 +57,7 @@ int launchAndWait (char *cmd, char *args) {
     ZeroMemory(&StartupInfo, sizeof(StartupInfo));
     StartupInfo.cb = sizeof StartupInfo ; //Only compulsory field
 
-    if(CreateProcess(cmd, args, NULL,NULL,FALSE,0 /*CREATE_NO_WINDOW*/,NULL, NULL,&StartupInfo,&ProcessInfo))  {
+    if(CreateProcess(cmd, TEXT(args), NULL,NULL,FALSE,CREATE_NO_WINDOW,NULL, NULL,&StartupInfo,&ProcessInfo))  {
         WaitForSingleObject(ProcessInfo.hProcess,INFINITE);
         CloseHandle(ProcessInfo.hThread);
         CloseHandle(ProcessInfo.hProcess);
@@ -31,8 +69,13 @@ int launchAndWait (char *cmd, char *args) {
 }
 
 int launchAndForget ( char *cmd, char *args,PROCESS_INFORMATION *ProcessInfo,STARTUPINFO *StartupInfo) {
-    if(! CreateProcess(cmd, args, NULL,NULL,FALSE,0 /*CREATE_NO_WINDOW*/,NULL, NULL,StartupInfo,ProcessInfo))  {
+    doLog("launchAndForget cmd",cmd);
+    doLog("launchAndForget args",args);
+    if(! CreateProcess(cmd, TEXT(args), NULL,NULL,FALSE,CREATE_NO_WINDOW,NULL, NULL,StartupInfo,ProcessInfo))  {
         MessageBox (NULL, args,"failed", MB_OK | MB_ICONINFORMATION);
+    } else {
+        CloseHandle(ProcessInfo->hThread);
+        CloseHandle(ProcessInfo->hProcess);
     }
     return 0;
 }
@@ -41,6 +84,7 @@ int first_install() {
     struct stat buffer;
     int         status;
     status = stat("..\\logs\\first_install",&buffer);
+    doLog("first_install",(status==0)?"true":"false");
     return (status==0)?1:0; // true on success
 }
 
@@ -60,8 +104,11 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
 
     CONST HANDLE handlers[] = { mysqld_pi.hProcess,apache_pi.hProcess };
 
+    logFile=fopen(".\\logs\\startup.log","w");
+
     // @echo off
-    char *msg="Hello World!";
+    char *msg="Hello World!\n";
+    doLog("init",msg);
     // call settings.bat
     // settings.bat sets default language. So just parse and setenv
     FILE *f=fopen(".\\settings.bat","r");
@@ -71,6 +118,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
         fclose(f);
         msg=1+strchr(str,' ');
         putenv(msg);
+        doLog("setenv",msg);
     }
 
     // cd /d %~dp0\xampp
@@ -80,6 +128,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     getcwd(wd,255);
     strncat(wd,"\\xampp",250);
     chdir(wd);
+    doLog("chdir",wd);
 
     // presenta mensaje de arranque...
     char *cmd="start \"\" /B mshta \"javascript:var sh=new ActiveXObject( 'WScript.Shell' ); sh.Popup( 'AgilityContest is starting. Please wait', 20, 'Working...', 64 );close()\"";
@@ -91,20 +140,20 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
 
     // net stop W3SVC
     cmd="C:\\Windows\\system32\\net.exe";
-    char *args="net stop W3SVC";
+    char *args="C:\\Windows\\system32\\net.exe stop W3SVC";
     launchAndWait(cmd,args);
     // netsh advfirewall firewall add rule name=\"MySQL Server\" action=allow protocol=TCP dir=in localport=3306
     cmd="C:\\Windows\\system32\\netsh.exe";
-    args="netsh advfirewall firewall add rule name=\"MySQL Server\" action=allow protocol=TCP dir=in localport=3306";
+    args="C:\\Windows\\system32\\netsh.exe advfirewall firewall add rule name=\"MySQL Server\" action=allow protocol=TCP dir=in localport=3306";
     launchAndWait(cmd,args);
     // netsh advfirewall firewall add rule name=\"Apache HTTP Server\" action=allow protocol=TCP dir=in localport=80
     cmd="C:\\Windows\\system32\\netsh.exe";
-    args="netsh advfirewall firewall add rule name=\"Apache HTTP Server\" action=allow protocol=TCP dir=in localport=80";
+    args="C:\\Windows\\system32\\netsh.exe advfirewall firewall add rule name=\"Apache HTTP Server\" action=allow protocol=TCP dir=in localport=80";
     launchAndWait(cmd,args);
 
     // netsh advfirewall firewall add rule name=\"Apache HTTPs Server\" action=allow protocol=TCP dir=in localport=443
     cmd="C:\\Windows\\system32\\netsh.exe";
-    args="netsh advfirewall firewall add rule name=\"Apache HTTPs Server\" action=allow protocol=TCP dir=in localport=443";
+    args="C:\\Windows\\system32\\netsh.exe advfirewall firewall add rule name=\"Apache HTTPs Server\" action=allow protocol=TCP dir=in localport=443";
     launchAndWait(cmd,args);
 
     /* on first install set properly php environment (paths, configs and so ) */
@@ -132,8 +181,9 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     char *mysqld=calloc(32+strlen(wd),sizeof(char));
     char *mysqldargs=calloc(256+strlen(wd),sizeof(char));
     sprintf(mysqld,"%s\\mysql\\bin\\mysqld.exe",wd);
-    sprintf(mysqldargs,"%s\\mysql\\bin\\mysqld.exe --defaults-file=mysql\\bin\\my.ini --standalone --console >nul",wd);
+    sprintf(mysqldargs,"--defaults-file=mysql\\bin\\my.ini --standalone --console",wd);
     launchAndForget(mysqld,mysqldargs,&mysqld_pi,&mysqld_si);
+    // system("start \"\" /B mysql\\bin\\mysqld --defaults-file=mysql\\bin\\my.ini --standalone --console >nul");
     sleep(7);
 
     // rem start apache web server
@@ -145,8 +195,9 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     char *apache=calloc(32+strlen(wd),sizeof(char));
     char *apacheargs=calloc(256+strlen(wd),sizeof(char));
     sprintf(apache,"%s\\apache\\bin\\httpd.exe",wd);
-    sprintf(apacheargs,"%s\\apache\\bin\\httpdd.exe >nul",wd);
+    sprintf(apacheargs,"",wd);
     launchAndForget(apache,apacheargs,&apache_pi,&apache_si);
+    // system("start \"\" /B apache\\bin\\httpd.exe");
     sleep(7);
 
     /* create database and basic data on first install */
@@ -197,12 +248,15 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     }
     // del ..\logs\install.sql
     // del ..\logs\first_install
-    unlink("..\\logs\\install.sql");
-    unlink("..\\logs\\first_install.sql");
+    // unlink("..\\logs\\install.sql");
+    // unlink("..\\logs\\first_install.sql");
+    doLog("system",browser);
     system(browser);
 
     // :wait_for_end
     // exit
+    doLog("wait","");
+    fclose (logFile);
     WaitForMultipleObjects ( 2,handlers,1,INFINITE);
     return 0;
 }
