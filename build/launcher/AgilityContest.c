@@ -131,6 +131,12 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     apache_si.cb = sizeof(apache_si);
     ZeroMemory( &apache_pi, sizeof(apache_pi) );
 
+    INITCOMMONCONTROLSEX icc;
+    // Initialise common controls.
+    icc.dwSize = sizeof(icc);
+    icc.dwICC = ICC_WIN95_CLASSES;
+    InitCommonControlsEx(&icc);
+
     CONST HANDLE handlers[] = { mysqld_pi.hProcess,apache_pi.hProcess };
 
     logFile=fopen(".\\logs\\startup.log","w");
@@ -320,8 +326,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     }
     // del ..\logs\install.sql
     // del ..\logs\first_install
-    // unlink("..\\logs\\install.sql");
-    // unlink("..\\logs\\first_install.sql");
+    unlink("..\\logs\\install.sql");
+    unlink("..\\logs\\first_install.sql");
     doLog("system",browser);
     system(browser);
     SendMessage(hwndProgress,PBM_SETPOS,90,0);

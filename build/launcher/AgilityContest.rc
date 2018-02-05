@@ -1,4 +1,8 @@
-AppIcon ICON "agilitycontest.ico"
+#include "resources.h"
+
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "AgilityContest.exe.manifest"
+
+IDI_ICON_128 ICON "agilitycontest.ico"
 
 VS_VERSION_INFO VERSIONINFO
     FILEVERSION     1,0,0,0
