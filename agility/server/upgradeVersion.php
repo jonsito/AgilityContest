@@ -30,7 +30,8 @@ require_once(__DIR__."/database/classes/DBObject.php");
 require_once(__DIR__."/i18n/Country.php");
 
 define("MINVER","20150522_2300");
-define ('INSTALL_LOG',__DIR__."/../../logs/install.log");
+define('INSTALL_LOG',__DIR__."/../../logs/install.log");
+define('FIRST_INSTALL',__DIR__."/../../logs/first_install");
 
 class Updater {
     protected $config;
@@ -660,6 +661,7 @@ try {
     // as backup does not preserve procedures, always need to recreate
     $upg->updatePerroGuiaClub();
     $needToUpdate=$upg->updateVersionHistory();
+    @unlink(FIRST_INSTALL);
     if ($needToUpdate===false) return; // database already updated. so just return
     // software version changed. make sure that database is upgraded
     // $upg->addCountries();

@@ -19,6 +19,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
 BASE_DIR=/home/jantonio/work/agility/phpstorm/AgilityContest
+EXE_DIR=/home/jantonio/work/agility/phpstorm/AgilityContest/build/launcher
 BUILD_DIR=/home/jantonio/work/agility/build
 EXTRA_DIR=/home/jantonio/work/agility/extra-pkgs
 CONF_DIR=${BASE_DIR}/extras
@@ -39,6 +40,10 @@ if [ ! -f ${EXTRA_DIR}/${XAMPP} ]; then
         exit 1
     fi
 fi
+
+# compile AgilityContest.exe
+echo "Compiling launcher..."
+( cd ${EXE_DIR}; make clean; make install )
 
 # unzip xampp to build directory
 echo "Extracting xampp ... "

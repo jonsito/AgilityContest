@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
-    <assemblyidentity version="1.0.0.0" processorArchitecture="X86" name="AgilityContest" type="win32"></assemblyidentity>
     <description>A Web App to handle dog Agility Contests</description>
+    <assemblyIdentity
+        version="1.0.0.0"
+        processorArchitecture="X86"
+        name="AgilityContest"
+        type="win32"/>
     <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
         <application>
             <!-- Supports Windows 7 / Server 2008 R2 -->

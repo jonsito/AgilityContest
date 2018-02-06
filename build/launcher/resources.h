@@ -5,13 +5,12 @@
 extern "C" {
 #endif
 
-#define IDI_ICON_128  101
+#define AC_PROGRAM_ICON  101
+#define AC_PROGRAM_INFO  1
+#define AC_MANIFEST 1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */
 
 #ifdef    __cplusplus
 }
 #endif
 
 #endif    /* RESOURCE_H */
-
-#define CREATEPROCESS_MANIFEST_RESOURCE_ID 1 /*Defined manifest file*/
-#define RT_MANIFEST  24

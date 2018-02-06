@@ -148,7 +148,7 @@ SetShellVarContext all
     CreateDirectory "$SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO"
     CreateShortCut "$SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO\AgilityContest.lnk" \
                     "$INSTDIR\AgilityContest.exe" "" \
-                    "$INSTDIR\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
+                    "$INSTDIR\extras\AgilityContest.ico" 0 SW_SHOWNORMAL
 
 ;Datos del registr de Windows
     WriteRegStr HKLM \
@@ -165,8 +165,8 @@ SetShellVarContext all
 
 ; permisos de escritura en determinados directorios
 	SetShellVarContext all
-	; Access control for log directory
-    AccessControl::GrantOnFile "$INSTDIR\logs" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
+    ; logs\first_install file is removed by admin, make sure that std perms works
+    AccessControl::GrantOnFile "$INSTDIR\logs" "(S-1-5-11)" "FullAccess"
 	; Access control for image logos
     AccessControl::GrantOnFile "$INSTDIR\agility\images\logos" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
 	; Access control for configuration files
@@ -180,7 +180,7 @@ Section "Desktop Shortcut" desk
 	SetShellVarContext all
     CreateShortcut "$DESKTOP\AgilityContest.lnk" \
                        "$INSTDIR\AgilityContest.exe" "" \
-                       "$INSTDIR\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
+                       "$INSTDIR\extras\AgilityContest.ico" 0 SW_SHOWNORMAL
 SectionEnd
 
 Section "Initial language: Spanish" esp

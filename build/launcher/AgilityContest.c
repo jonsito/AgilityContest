@@ -9,27 +9,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <windows.h>
 #include <tchar.h>
 #include <commctrl.h>
 #include <locale.h>
 
-FILE *logFile;
+FILE *logFile=NULL;
+FILE *firstInstall=NULL;
+
 extern HINSTANCE g_hinst;
 HWND hwndProgress;
-
-char **split (char *str) {
-    char **res= calloc(32,sizeof(char *));
-    int i = 1;
-    char* hit = str;
-    while((hit = strchr(hit, ',')) != NULL) { //Find next delimiter
-        //In-place replacement of the delimiter
-        *hit++ = '\0';
-        //Next substring starts right after the hit
-        res[i++] = hit;
-    }
-    return res;
-}
 
 void doLog(char *function, char *msg) {
     fputs(function,logFile);
@@ -75,15 +65,6 @@ int launchAndForget ( char *cmd, char *args,PROCESS_INFORMATION *ProcessInfo,STA
     return 0;
 }
 
-int first_install() {
-    struct stat buffer;
-    int         status;
-    status = stat("..\\logs\\first_install",&buffer);
-    doLog("first_install",(status==0)?"true":"false");
-    return (status==0)?1:0; // true on success
-}
-
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch(message) {
         case WM_CREATE: {
@@ -115,6 +96,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
+void checkForMessages(HWND hwnd) {
+    MSG  msg;
+    // check for window messages
+    for(int n=0; n<5;n++) { // dirty trick, but works just enought to handle initial windowOpenEvent (no more interaction)
+        if (PeekMessage(&msg, hwnd, 0, 0,PM_REMOVE)!=0) {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        } else {
+            sleep(1);
+        }
+    }
+}
+
 //---------------------------------------------------------------------------
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, int nShowCmd) {
@@ -140,11 +134,15 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
 */
     CONST HANDLE handlers[] = { mysqld_pi.hProcess,apache_pi.hProcess };
 
-    logFile=fopen(".\\logs\\startup.log","w");
-
     // @echo off
+    logFile=fopen(".\\logs\\startup.log","w");
     char *set_lang="Hello World!\n";
     doLog("init",set_lang);
+    // check for first installation
+    // firstInstall=fopen(".\\logs\\first_install","r");
+    firstInstall=fopen(".\\logs\\first_install","r");
+    if (!firstInstall) doLog("firstInstall",strerror(errno));
+
     // call settings.bat
     // settings.bat sets default language. So just parse and setenv
     FILE *f=fopen(".\\settings.bat","r");
@@ -191,15 +189,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     RegisterClassEx(&wc);
     // main window
     HWND hwndParent=CreateWindow(wc.lpszClassName,"Starting",WS_OVERLAPPEDWINDOW|WS_VISIBLE,100,100,450,100,0,0,hInstance,NULL);
-    MSG  msg;
-    for(int n=0; n<5;n++) { // dirty trick, but works just enought to handle initial windowOpenEvent (no more interaction)
-        if (PeekMessage(&msg, hwndParent, 0, 0,PM_REMOVE)!=0) {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        } else {
-            sleep(1);
-        }
-    }
+
+    checkForMessages(hwndParent);
 
     // rem notice that this may require admin privileges
     // rem for windows 8 and 10 disable w3svc service
@@ -229,7 +220,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     SendMessage(hwndProgress,PBM_SETPOS,40,0);
 
     /* on first install set properly php environment (paths, configs and so ) */
-    if ( first_install() ) {
+    if ( firstInstall ) {
         // rem if required prepare portable xampp to properly setup directories
         // if not exist ..\logs\first_install GOTO mysql_start
         // rem echo Configuring first boot of XAMPP
@@ -242,6 +233,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
         sprintf(phpargs,"%s\\php\\php.exe -n -d output_buffering=0 -q install\\install.php usb >nul",wd);
         launchAndWait(php,phpargs);
         SendMessage(hwndProgress,PBM_SETPOS,50,0);
+        checkForMessages(hwndParent);
     }
 
     // rem start mysql database server
@@ -258,7 +250,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     launchAndForget(mysqld,mysqldargs,&mysqld_pi,&mysqld_si);
     SendMessage(hwndProgress,PBM_SETPOS,60,0);
     // system("start \"\" /B mysql\\bin\\mysqld --defaults-file=mysql\\bin\\my.ini --standalone --console >nul");
-    sleep(7);
+    checkForMessages(hwndParent);
 
     // rem start apache web server
     // :apache_start
@@ -273,11 +265,11 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     launchAndForget(apache,apacheargs,&apache_pi,&apache_si);
     SendMessage(hwndProgress,PBM_SETPOS,70,0);
     // system("start \"\" /B apache\\bin\\httpd.exe");
-    sleep(7);
+    checkForMessages(hwndParent);
 
     /* create database and basic data on first install */
     // if not exist ..\logs\first_install GOTO browser_start
-    if ( first_install() ) {
+    if ( firstInstall ) {
         // rem echo Creating AgilityContest Databases. Please wait
         //timeout /t 5
         char *buff=calloc(1024,sizeof(char));
@@ -302,10 +294,11 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
         char *mysql=calloc(32+strlen(wd),sizeof(char));
         char *mysqlargs=calloc(256+strlen(wd),sizeof(char));
         sprintf(mysql,"%s\\mysql\\bin\\mysql.exe",wd);
-        sprintf(mysqlargs,"%s\\mysql\\bin\\mysql.exe -u root < ..\\logs\\install.sql",wd);
+        sprintf(mysqlargs,"%s\\mysql\\bin\\mysql.exe -u root -e \"source ..\\logs\\install.sql\"",wd);
         launchAndWait(mysql,mysqlargs);
 
         SendMessage(hwndProgress,PBM_SETPOS,80,0);
+        checkForMessages(hwndParent);
     }
 
     /*
@@ -320,15 +313,19 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     start /MAX "AgilityContest" https://localhost/agility/console
     */
     char *browser=calloc(256,sizeof(char));
-    if (first_install() ) {
+    if (firstInstall ) {
         sprintf(browser,"%s && start /MAX \"AgilityContest\" https://localhost/agility/console/index.php?installdb=1",set_lang);
     } else {
         sprintf(browser,"%s && start /MAX \"AgilityContest\" https://localhost/agility/console",set_lang);
     }
+
     // del ..\logs\install.sql
     // del ..\logs\first_install
-    unlink("..\\logs\\install.sql");
-    unlink("..\\logs\\first_install.sql");
+    int res=unlink("..\\logs\\install.sql");
+    if (res<0) doLog("unlink install.sql",strerror(errno));
+    res= unlink("..\\logs\\first_install");
+    if (res<0) doLog("unlink first_install",strerror(errno));
+
     doLog("system",browser);
     system(browser);
     SendMessage(hwndProgress,PBM_SETPOS,90,0);
@@ -337,6 +334,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     // exit
     doLog("wait","");
     fclose (logFile);
+    checkForMessages(hwndParent);
     WaitForMultipleObjects ( 2,handlers,1,INFINITE);
     return 0;
 }
