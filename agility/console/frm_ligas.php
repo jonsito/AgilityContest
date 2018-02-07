@@ -28,6 +28,7 @@ $am=new AuthManager("Ligas");
         <div  style="height:55px;"
               data-options="region:'north',split:true">
             <form id="ligas-perro-datos">
+                <input type="hidden" id="ligas-perro-Perro" value=""/>
                 <label for="ligas-perro-Licencia"><?php _e('Lic');?>:</label>
                 <input id="ligas-perro-Licencia" type="text" name="Licencia"/>
                 <label for="ligas-perro-Categoria"><?php _e('Cat/Grad');?>:</label>
@@ -82,7 +83,7 @@ $am=new AuthManager("Ligas");
 <div id="ligas-tools">
     <a id="ligas-printBtn" href="#" class="easyui-linkbutton"
        data-options="iconCls:'icon-print'"
-       onclick="printLeague($('#ligas-tab').tabs('getSelected'));"><?php _e('Print'); ?></a>
+       onclick="printLeague();"><?php _e('Print'); ?></a>
 </div>
 
 <script type="text/javascript">

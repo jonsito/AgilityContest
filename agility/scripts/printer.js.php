@@ -685,12 +685,48 @@ function clasificaciones_doPrint() {
 
 /**
  * presenta el menu de impresión de datos de ligas de competicion Excel/PDF
- * @param panel panel seleccionado indicando el grado
  */
-function printLeague(panel) {
-    alert("Not yet available");
+function printLeague() {
+
+    // PENDING: add pdf/excel selector
+
+    var tt=$('#ligas-tab');
+    var tab=tt.tabs('getSelected');
+    var index=tt.tabs('getTabIndex',tab);
+    $.fileDownload(
+        '/agility/server/pdf/print_ligas.php',
+        {
+            httpMethod: 'GET',
+            data: {
+                Operation: 'shortData',
+                Grado:  (index==0)?"GI":(index==1)?"GII":"GIII",
+                Perro:  0, // in long mode show results by perro
+                Federation: workingData.datosFederation.ID
+            },
+            preparingMessageHtml:'(pdf) <?php _e("We are preparing your report, please wait"); ?> ...',
+            failMessageHtml: '(pdf) <?php _e("There was a problem generating your report, please contact the author."); ?>'
+        }
+    );
+    return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
 function printLeagueByDog() {
-    alert("Not yet available");
+
+    // PENDING: add pdf/excel selector
+
+    $.fileDownload(
+        '/agility/server/pdf/print_ligas.php',
+        {
+            httpMethod: 'GET',
+            data: {
+                Operation: 'longData',
+                Perro:  $('#ligas-perro-Perro').val(), // hidden input field,
+                Grado:  $('#ligas-perro-Grado').textbox('getValue'), // textbox
+                Federation: workingData.datosFederation.ID
+            },
+            preparingMessageHtml:'(pdf) <?php _e("We are preparing your report, please wait"); ?> ...',
+            failMessageHtml: '(pdf) <?php _e("There was a problem generating your report, please contact the author."); ?>'
+        }
+    );
+    return false; //this is critical to stop the click event which will trigger a normal file download!
 }

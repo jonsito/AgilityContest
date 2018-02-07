@@ -43,7 +43,7 @@ fi
 
 # compile AgilityContest.exe
 echo "Compiling launcher..."
-( cd ${EXE_DIR}; make clean; make install )
+( cd ${EXE_DIR}; make clean; make install; make clean )
 
 # unzip xampp to build directory
 echo "Extracting xampp ... "
