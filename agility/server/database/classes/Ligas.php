@@ -190,10 +190,11 @@ class Ligas extends DBObject {
         }
         // fase 2:datos de la liga
         $res= $this->__select(
-          "Pruebas.ID AS PruebaID, Pruebas.Nombre AS Prueba, Jornadas.ID AS JornadaID, Jornadas.Nombre AS Jornada, ".
+          "Pruebas.ID AS PruebaID, Pruebas.Nombre AS Prueba, ".
+                "Jornadas.ID AS JornadaID, Jornadas.Nombre AS Jornada, Clubes.Nombre as NombreClub, ".
                 "Ligas.C1, Ligas.C2, Ligas.C3, Ligas.C4, Ligas.C5, Ligas.C6, Ligas.C7, Ligas.C8, Ligas.Calificacion ",
-          "Pruebas,Jornadas,Ligas",
-          "{$filter} Pruebas.ID=Jornadas.Prueba AND Jornadas.ID=Ligas.Jornada AND Ligas.Perro={$perro} and Ligas.Grado='{$grado}'",
+          "Pruebas,Jornadas,Ligas,Clubes",
+          "{$filter} Clubes.ID=Pruebas.Club AND Pruebas.ID=Jornadas.Prueba AND Jornadas.ID=Ligas.Jornada AND Ligas.Perro={$perro} and Ligas.Grado='{$grado}'",
           "Jornadas.Fecha",
           "",
           ""
@@ -203,8 +204,9 @@ class Ligas extends DBObject {
         $res['grado']=$grado;
         // add datagrid header
         $res['header']= array(
-            array('field' => 'Prueba',    'title'=>_('Contest'),  'width' => 40, 'align' => 'right'),
-            array('field' => 'Jornada',   'title'=>_('Journey'), 'width' => 20, 'align' => 'right'),
+            array('field' => 'Prueba',    'title'=>_('Contest'),  'width' => 40, 'align' => 'left'),
+            array('field' => 'NombreClub','title'=>_('Club'),     'width' => 30, 'align' => 'right'),
+            array('field' => 'Jornada',   'title'=>_('Journey'),  'width' => 20, 'align' => 'right'),
             array('field' => 'C1',        'title'=>_('Round')." 1",  'width' => 10, 'align' => 'center'),
             array('field' => 'C2',        'title'=>_('Round')." 2",  'width' => 10, 'align' => 'center'),
             array('field' => 'C3',        'title'=>_('Round')." 3",  'width' => 10, 'align' => 'center'),

@@ -720,7 +720,7 @@ function printLeagueByDog() {
             httpMethod: 'GET',
             data: {
                 Operation: 'longData',
-                Perro:  $('#ligas-perro-Perro').val(), // hidden input field,
+                Perro:  $('#ligas-perro-ID').val(), // hidden input field,
                 Grado:  $('#ligas-perro-Grado').textbox('getValue'), // textbox
                 Federation: workingData.datosFederation.ID
             },

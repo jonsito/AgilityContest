@@ -28,7 +28,7 @@ $am=new AuthManager("Ligas");
         <div  style="height:55px;"
               data-options="region:'north',split:true">
             <form id="ligas-perro-datos">
-                <input type="hidden" id="ligas-perro-Perro" value=""/>
+                <input type="hidden" id="ligas-perro-ID" name="ID" value=""/>
                 <label for="ligas-perro-Licencia"><?php _e('Lic');?>:</label>
                 <input id="ligas-perro-Licencia" type="text" name="Licencia"/>
                 <label for="ligas-perro-Categoria"><?php _e('Cat/Grad');?>:</label>

@@ -25,7 +25,7 @@ require_once(__DIR__."/../../tools.php");
 require_once(__DIR__."/../../logging.php");
 require_once(__DIR__."/../print_common.php");
 
-class PrintListaPerros extends PrintCommon {
+class PrintLigas extends PrintCommon {
 
     protected $lista=null; // {array} listado de resultados
     protected $header=null; // {array} campos de la tabla de resultados
@@ -52,9 +52,10 @@ class PrintListaPerros extends PrintCommon {
         $size=0;
         foreach($result['header'] as $item) {
             if(array_key_exists("hidden",$item)) continue; // skip hidden fields
-            $size+=intval($item['width']);
+            $size += intval($item['width']);
+            $this->myLogger->trace("column:{$item['title']} width:{$item['width']} size:{$size}");
         }
-        $this->scale=195/($size==0)?1:$size; // if no items avoid divide by zero
+        $this->scale=($size===0)?195:195/$size; // if no items avoid divide by zero
 		$this->set_FileName(($this->perro==null)?"Resultados_Liga.pdf":"Resultados_Perro.pdf");
 	}
 	
@@ -71,13 +72,15 @@ class PrintListaPerros extends PrintCommon {
 	
 	function writeTableHeader() {
 		$this->myLogger->enter();
-		$this->ac_header(1,10);
+		$this->ac_header(1,9);
 		$this->setXY(10,37.5);
 		foreach($this->header as $field) {
             if(array_key_exists("hidden",$field)) continue; // skip hidden fields
             $size=$field['width']*$this->scale;
-            $align=($field['align']==="left")?"L":($field['align']==="center")?"C":"R";
-            $this->Cell($size,8,$field['tittle'],'LTRB',0,$align,true);
+            $align="L";
+            if ($field['align']==="center") $align="C";
+            if ($field['align']==="right") $align="R";
+            $this->Cell($size,6,$field['title'],'LTRB',0,$align,true);
         }
 		$this->Ln();
 		$this->myLogger->leave();
@@ -95,11 +98,13 @@ class PrintListaPerros extends PrintCommon {
 			}
             $this->ac_row($rowcount,8.5);
             $this->setX(10);
-            foreach($this->header as $field) {
-                if(array_key_exists("hidden",$field)) continue; // skip hidden fields
-                $size=$field['width']*$this->scale;
-                $align=($field['align']==="left")?"L":($field['align']==="center")?"C":"R";
-                $this->Cell($size,8,$item['field'],'LTRB',0,$align,true);
+            foreach($this->header as $column) {
+                if(array_key_exists("hidden",$column)) continue; // skip hidden fields
+                $size=$column['width']*$this->scale;
+                $align="L";
+                if ($column['align']==="center") $align="C";
+                if ($column['align']==="right") $align="R";
+                $this->Cell($size,5,$item[$column['field']],'LTRB',0,$align,true);
             }
             $this->Ln();
 			$rowcount++;
