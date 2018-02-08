@@ -176,8 +176,15 @@ class Updater {
         $this->last_version = ($res)? $res['Version'] : MINVER;
         $this->myLogger->trace("current: {$this->current_version} last_stored: {$this->last_version}");
         if (strcmp($this->current_version,$this->last_version) > 0 ) {
+            // set "updated" to be the same date of version: yyyymmmdd_hhmm
+            $year=substr($this->last_version,0,4);
+            $month=substr($this->last_version,4,2);
+            $day=substr($this->last_version,6,2);
+            $hour=substr($this->last_version,9,2);
+            $min=substr($this->last_version,11,2);
+            $curdate="{$year}-{$month}-{$day} {$hour}:{$min}:00";
             // on version change update history table
-            $str="INSERT INTO VersionHistory (Version) VALUES ('{$this->current_version}') ";
+            $str="INSERT INTO VersionHistory (Version,Updated) VALUES ('{$this->current_version}','{$curdate}') ";
             $res=$this->conn->query($str);
             if (!$res) throw new Exception ("upgrade::updateHistoryTable(): ".$this->conn->error);
             $this->myLogger->leave();
