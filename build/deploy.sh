@@ -6,12 +6,18 @@ BASEDIR=`dirname $0`/..
 INSTDIR=${1:-/var/www/html/AgilityContest}
 WEBDIR=${INSTDIR}/..
 
-# for UBUNTU
-#OWNER=root
-#GROUP=www-data
-# for Fedora/RedHat (sudo to proper user before running)
-OWNER=jantonio
-GROUP=apache
+case `grep -e '^ID=' /etc/os-release` in
+    'ID=ubuntu' )
+        # for UBUNTU
+        OWNER=root
+        GROUP=www-data
+        ;;
+    'ID=fedora' )
+        # for Fedora/RedHat (sudo to proper user before running)
+        OWNER=jantonio
+        GROUP=apache
+        ;;
+esac
 
 # some checks
 echo -n "Check..."
