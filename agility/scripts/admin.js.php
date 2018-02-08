@@ -458,7 +458,7 @@ function checkForDatabaseUpdates() {
     $('#tools-syncdbLbl').html("");
     // check if configuration allows share data
     if (ac_regInfo.Serial==="00000000") return; // no license
-    if (parseInt(ac_config.search_updatedb)===0) return; // no allowed in config
+    if (parseInt(ac_config.search_updatedb)<=0) return; // no allowed in config
     if (!checkForAdmin(true)) return; // not admin user
     // call server
     $.ajax({
@@ -493,7 +493,7 @@ function checkForDatabaseUpdates() {
 function synchronizeDatabase(warnifnotallowed) {
     // check if configuration allows share data
     var msg="";
-    if (parseInt(ac_config.search_updatedb)===0)
+    if (parseInt(ac_config.search_updatedb)<=0)
         msg= '<?php _e("You need to enable sharing data in configuration menu"); ?>';
     // check for valid license
     if (ac_regInfo.Serial==="00000000")

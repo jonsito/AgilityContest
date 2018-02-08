@@ -45,7 +45,7 @@ $config =Config::getInstance();
         onSelect: function(title,index) {
             // when open tools tab, if configured check for db updates
             if (title!=="<?php _e('Tools'); ?>") return;
-            if (parseInt(ac_config.search_updatedb)===0) { $('#tools-syncdbLbl').html(""); return }
+            if (parseInt(ac_config.search_updatedb)<=0) { $('#tools-syncdbLbl').html(""); return }
             checkForDatabaseUpdates();
         }
     });
