@@ -85,16 +85,22 @@ class PrintLigas extends PrintCommon {
 		$this->Ln();
 		$this->myLogger->leave();
 	}
-	
+
+	function writeDogData() {
+        $this->Ln(20); // PENDING: write
+    }
+
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
 		$rowcount=0;
 		foreach($this->lista as $item) {
+            $nrows=($rowcount<=43)?43:47; // number of rows per page
 			// $this->cell(width,height,text,border,start,align,fill)
-			if (($rowcount%47)==0) {
+			if (($rowcount%$nrows)==0) {
 				$this->AddPage();
 				$this->writeTableHeader();
+				if ($rowcount==0) $this->writeDogData();
 			}
             $this->ac_row($rowcount,8.5);
             $this->setX(10);
