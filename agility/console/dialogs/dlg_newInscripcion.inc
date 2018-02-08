@@ -168,7 +168,8 @@ $('#new_inscripcion-datagrid').datagrid({
 	pageSize: 25,
 	onDblClickRow: function(idx,row) {insertInscripcion('#new_inscripcion-datagrid'); },
 	onLoadSuccess: function(data) {
-	    if (data.total===1) $('#new_inscripcion-datagrid').datagrid('selectRow',0);
+	    // remove due to extra inscriptions problems
+	    // if (data.total===1) $('#new_inscripcion-datagrid').datagrid('selectRow',0);
 	    return true;
     }
 });
