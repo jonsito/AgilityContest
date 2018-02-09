@@ -469,7 +469,8 @@ class DogReader {
             $id=$search['rows'][$index]['ID']; // id del guia en la base de datos
             $nombre= $this->myDBObject->conn->real_escape_string($search['rows'][$index]['Nombre']); // nombre del guia (DB)
             // handle name according excelname rules
-            $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$item['NombreGuia'];
+            $exname=$this->myDBObject->conn->real_escape_string($item['NombreGuia']);
+            $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$exname;
             if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
 
             // fix handler's name in temporary table according importing rules
@@ -535,7 +536,9 @@ class DogReader {
             // rework data according translate rules
 
             // handle name according excelname rules
-            $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$item['Nombre'];
+
+            $exname=$this->myDBObject->conn->real_escape_string($item['Nombre']);
+            $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$exname;
             if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
             // remaining  data are handler according import rules
             $nlargo=$this->import_mixData($nlargo,$aa); // $aa already set at start of method
