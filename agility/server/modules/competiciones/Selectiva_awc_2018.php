@@ -190,7 +190,7 @@ class Selectiva_awc_2018 extends Puntuable_RSCE_2017 {
             return;
         }
         // arriving here means grado III
-        if ($this-selectiva==0){ // need to be marked as selectiva to properly evaluate TRS in GIII
+        if ($this->selectiva==0){ // need to be marked as selectiva to properly evaluate TRS in GIII
             parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
         }
