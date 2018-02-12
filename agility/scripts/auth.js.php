@@ -124,7 +124,7 @@ function acceptLogin() {
 				if (data.NewVersion>vers) {
 				    str = str+'<br /><?php _e("New version available");?>: '+data.NewVersion;
                 }
-                if (parseInt(data.NewEntries)!=0) {
+                if ( (parseInt(ac_config.search_updatedb)>0) && (parseInt(data.NewEntries)!=0) ){
                     str = str+'<br />'+data.NewEntries+' <?php _e("new/updated entries from server Database");?>';
                 }
        			str =str+'<br /><br />'+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';

@@ -37,6 +37,7 @@ class Selectiva_eo_2018 extends Selectiva_awc_2018 {
         $this->countries=array(); // array ( nombreclub => pais
         $this->federationID=0;
         $this->competitionID=6;
+        $this->selectiva=1;
     }
 
     /**
@@ -115,7 +116,7 @@ class Selectiva_eo_2018 extends Selectiva_awc_2018 {
             return;
         }
         // arriving here means grado III
-        if ($this->prueba->Selectiva==0) { // need to be marked as selectiva to properly evaluate TRS in GIII
+        if ($this->selectiva==0) { // need to be marked as selectiva to properly evaluate TRS in GIII
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
@@ -195,7 +196,7 @@ class Selectiva_eo_2018 extends Selectiva_awc_2018 {
             return;
         }
         // arriving here means grado III
-        if ($this->prueba->Selectiva==0){ // need to be marked as selectiva to properly evaluate TRS in GIII
+        if ($this->selectiva==0){ // need to be marked as selectiva to properly evaluate TRS in GIII
             parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
         }

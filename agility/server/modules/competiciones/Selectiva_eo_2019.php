@@ -39,6 +39,7 @@ class Selectiva_eo_2019 extends Selectiva_awc_2019 {
         $this->competitionID=12;
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20180125_0931";
+        $this->selectiva=1;
     }
 
     /**
@@ -117,7 +118,7 @@ class Selectiva_eo_2019 extends Selectiva_awc_2019 {
             return;
         }
         // arriving here means grado III
-        if ($this->prueba->Selectiva==0) { // need to be marked as selectiva to properly evaluate TRS in GIII
+        if ($this->selectiva==0) { // need to be marked as selectiva to properly evaluate TRS in GIII
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
@@ -197,7 +198,7 @@ class Selectiva_eo_2019 extends Selectiva_awc_2019 {
             return;
         }
         // arriving here means grado III
-        if ($this->prueba->Selectiva==0){ // need to be marked as selectiva to properly evaluate TRS in GIII
+        if ($this->selectiva==0){ // need to be marked as selectiva to properly evaluate TRS in GIII
             parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
         }

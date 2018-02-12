@@ -432,7 +432,7 @@ class Competitions {
     static function getCompetition($prueba,$jornada) {
         $fed=intval($prueba->RSCE);
         $type=intval($jornada->Tipo_Competicion);
-        $sel=intval($prueba->Selectiva);
+        // $sel=intval($prueba->Selectiva); set in each module when required
         // analize sub-directories looking for classes matching federation and journey ID
         // Notice that module class name must match file name
         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
@@ -442,8 +442,9 @@ class Competitions {
             if (!$comp) continue; // cannot instantiate class. should report error
             if ($comp->federationID!=$fed) continue;
             if ($comp->competitionID!=$type) continue;
-            // competition found: assign selective flag and return
-            $comp->selectiva=$sel;
+            // competition found: set flag and return
+            // notice that $comp->selectiva is set on each module when required
+            // $comp->selectiva=$sel;
             $comp->prueba=$prueba;
             $comp->jornada=$jornada;
             return $comp;

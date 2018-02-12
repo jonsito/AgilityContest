@@ -25,6 +25,7 @@ class Selectiva_awc_2018 extends Puntuable_RSCE_2017 {
         parent::__construct($name);
         $this->federationID=0;
         $this->competitionID=1;
+        $this->selectiva=1;
     }
 
     /**
@@ -112,7 +113,7 @@ class Selectiva_awc_2018 extends Puntuable_RSCE_2017 {
             return;
         }
         // arriving here means grado III
-        if ($this->prueba->Selectiva==0) { // need to be marked as selectiva to properly evaluate TRS in GIII
+        if ($this->selectiva==0) {
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
@@ -189,7 +190,7 @@ class Selectiva_awc_2018 extends Puntuable_RSCE_2017 {
             return;
         }
         // arriving here means grado III
-        if ($this->prueba->Selectiva==0){ // need to be marked as selectiva to properly evaluate TRS in GIII
+        if ($this-selectiva==0){ // need to be marked as selectiva to properly evaluate TRS in GIII
             parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
         }

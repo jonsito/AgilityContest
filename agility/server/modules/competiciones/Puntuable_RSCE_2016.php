@@ -59,7 +59,7 @@ class Puntuable_RSCE_2016 extends Competitions {
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
-        if (intval($this->prueba->Selectiva)==0) {
+        if (intval($this->selectiva)==0) {
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
@@ -136,7 +136,7 @@ class Puntuable_RSCE_2016 extends Competitions {
             return; // ignore other extrange grades
         }
         // arriving here means grado III
-        if ($this->prueba->Selectiva==0){
+        if ($this->selectiva==0){
             $perro['Calificacion']="";
             if ( ($perro['P1']<6.0) && ($perro['P2']<6.0) ) $perro['Calificacion']= 'P. Equipos';
             if ($perro['Penalizacion']==0.0) $perro['Calificacion']= 'Punto';
