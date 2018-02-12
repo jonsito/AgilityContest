@@ -166,9 +166,15 @@ class Puntuable_RSCE_2018 extends Competitions {
         }
         if ($grad==="GI") { // en grado uno se puntua por cada manga
             $pts=0;
-            if ($perro['P1']==0.0) $pts++;
-            if ($perro['P2']==0.0) $pts++;
             $perro['Calificacion'] = "";
+            if ($perro['P1']==0.0) { // comprobamos si realmente hay datos del recorrido ( "pending" )
+                $perro['Calificacion']= "- No data -";
+                if ($perro['T1']!=0.0) $pts++;
+            }
+            if ($perro['P2']==0.0) { // comprobamos si realmente hay datos del recorrido ( "pending" )
+                $perro['Calificacion']= "- No data -";
+                if ($perro['T2']!=0.0) $pts++;
+            }
             if ($pts==1) $perro['Calificacion'] = "1 Punto";
             if ($pts==2) $perro['Calificacion'] = "2 Puntos";
             return;
