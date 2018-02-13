@@ -110,24 +110,14 @@ class XLSX_Writer {
         $name=$this->normalizeSheetName($prueba['Nombre']);
         $ppage->setName($name);
 
-        // cabecera de la tabla
-        $prbHdr=array("",_utf('Name'),_utf('Club'),_utf('Federation'),_utf('Selective'),_utf('Comments'));
-        $this->myWriter->addRowWithStyle($prbHdr, $this->rowHeaderStyle);
         // componemos informacion de la prueba
-        $row=array();
-        $row[]=_utf('Contest').':';
-        $row[]= $prueba['Nombre'];
-        // extract club info
+        $this->myWriter->addRow(array(_utf('Contest'),$prueba['Nombre'])); // prueba
         $clbObj= new Clubes("common_writer");
         $club=$clbObj->selectByID($prueba['Club']);
-        $row[]=$club['Nombre'];
-        // extract federation info
-        $row[]=$this->federation->get('Name');
-        // add extra parameters
-        $row[]=$prueba['Selectiva'];
-        $row[]=$prueba['Observaciones'];
-        // and print Prueba data
-        $this->myWriter->addRow($row);
+        $this->myWriter->addRow(array(_utf('Club'),$club['Nombre'])); // club
+        $this->myWriter->addRow(array(_utf('Federation'),$this->federation->get('Name'))); // federacion
+        $this->myWriter->addRow(array(_utf('Selective'),$prueba['Selectiva'])); // selectiva
+        $this->myWriter->addRow(array(_utf('Comments'),$prueba['Observaciones'])); // comentarios
 
         // anyadimos ahora informacion de las jornadas
         $this->myWriter->addRow(array(""));
