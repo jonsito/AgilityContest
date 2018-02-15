@@ -75,9 +75,10 @@ class Updater {
         $email= $this->setForUpdate($juez,"Email",true);
         $feds= $this->setForUpdate($juez,"Federations",false);
         $comments= $this->setForUpdate($juez,"Observaciones",true);
+        $lastm= $this->setForUpdate($juez,"LastModified",true);
 
         // fase 1: si existe el ServerID se asigna "a saco"
-        $str="UPDATE Jueces SET {$nombre},{$dir1},{$dir2},{$pais},{$tel},{$intl},{$pract},{$email},{$feds},{$comments} ".
+        $str="UPDATE Jueces SET {$nombre},{$dir1},{$dir2},{$pais},{$tel},{$intl},{$pract},{$email},{$feds},{$comments},{$lastm} ".
             "WHERE ServerID={$juez['ServerID']}";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
@@ -85,7 +86,7 @@ class Updater {
         if ($this->myDBObject->matched_rows()!=0) return; // next juez
 
         // fase 2: si no existe el Server ID se busca por nombre (exacto) entre los que no tienen serial id definido
-        $str="UPDATE Jueces SET {$sid},{$dir1},{$dir2},{$pais},{$tel},{$intl},{$pract},{$email},{$feds},{$comments} ".
+        $str="UPDATE Jueces SET {$sid},{$dir1},{$dir2},{$pais},{$tel},{$intl},{$pract},{$email},{$feds},{$comments},{$lastm} ".
             "WHERE Nombre={$nombre} AND (ServerID=0)";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
@@ -104,9 +105,10 @@ class Updater {
         $email= $this->setForInsert($juez,"Email",true);
         $feds= $this->setForInsert($juez,"Federations",false);
         $comments= $this->setForInsert($juez,"Observaciones",true);
+        $lastm= $this->setForInsert($juez,"LastModified",true);
         $str="INSERT INTO Jueces ".
-            "( ServerID,Nombre,Direccion1,Direccion2,Pais,Telefono,Internacional,Practicas,Email,Federations,Observaciones )".
-            "VALUES ({$sid},{$nombre},{$dir1},{$dir2},{$pais},{$tel},{$intl},{$pract},{$email},{$feds},{$comments})";
+            "( ServerID,Nombre,Direccion1,Direccion2,Pais,Telefono,Internacional,Practicas,Email,Federations,Observaciones,LastModified )".
+            "VALUES ({$sid},{$nombre},{$dir1},{$dir2},{$pais},{$tel},{$intl},{$pract},{$email},{$feds},{$comments},{$lastm})";
         $res=$this->myDBObject->query($str);
         if (!$res) $this->myLogger->error($this->myDBObject->conn->error);
     }
@@ -172,6 +174,7 @@ class Updater {
         $feds= $this->setForUpdate($club,"Federations",false);
         $comments= $this->setForUpdate($club,"Observaciones",true);
         $baja= $this->setForUpdate($club,"Baja",false);
+        $lastm= $this->setForUpdate($club,"LastModified",true);
 
         // nos aseguramos de que el logo exista.
         // si no existe, copiamos el default:
@@ -183,7 +186,7 @@ class Updater {
         // fase 1: buscar por ServerID
         $str="UPDATE Clubes SET ".
             "{$nombre},{$nlargo},{$dir1},{$dir2},{$prov},{$pais},{$c1},{$c2},{$c3},".
-            "{$gps},{$web},{$mail},{$face},{$gogl},{$twit},{$logo},{$feds},{$comments},{$baja} ".
+            "{$gps},{$web},{$mail},{$face},{$gogl},{$twit},{$logo},{$feds},{$comments},{$baja},{$lastm} ".
             "WHERE ServerID={$club['ServerID']}";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
@@ -196,7 +199,7 @@ class Updater {
         if ($found !== null) {
             $str="UPDATE Clubes SET ".
                 "{$sid},{$nombre},{$nlargo},{$dir1},{$dir2},{$prov},{$pais},{$c1},{$c2},{$c3},".
-                "{$gps},{$web},{$mail},{$face},{$gogl},{$twit},{$logo},{$feds},{$comments},{$baja} ".
+                "{$gps},{$web},{$mail},{$face},{$gogl},{$twit},{$logo},{$feds},{$comments},{$baja},{$lastm} ".
                 "WHERE ID={$found['ID']}";
             $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
             $res=$this->myDBObject->query($str);
@@ -227,14 +230,15 @@ class Updater {
         $logo= $this->setForInsert($club,"Logo",true);
         $feds= $this->setForInsert($club,"Federations",false);
         $comments= $this->setForInsert($club,"Observaciones",true);
+        $lastm= $this->setForInsert($club,"LastModified",true);
         $baja= $this->setForInsert($club,"Baja",false);
 
         $str="INSERT INTO Clubes (".
             "ServerID,Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,".
-            "GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja".
+            "GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja,LastModified".
             ") VALUES (".
             "{$sid},{$nombre},{$nlargo},{$dir1},{$dir2},{$prov},{$pais},{$c1},{$c2},{$c3},".
-            "{$gps},{$web},{$mail},{$face},{$gogl},{$twit},{$logo},{$feds},{$comments},{$baja}".
+            "{$gps},{$web},{$mail},{$face},{$gogl},{$twit},{$logo},{$feds},{$comments},{$baja},{$lastm}".
             ")";
 
         $res=$this->myDBObject->query($str);
@@ -255,10 +259,11 @@ class Updater {
         $fed= $this->setForUpdate($guia,"Federation",false);
         $comments= $this->setForUpdate($guia,"Observaciones",true);
         $cat= $this->setForUpdate($guia,"Categoria",true);
+        $lastm= $this->setForUpdate($guia,"LastModified",true);
 
         // fase 1: buscar por ServerID
         $str="UPDATE Guias SET ".
-            "{$nombre},{$tel},{$mail},{$club},{$fed},{$comments},{$cat} ".
+            "{$nombre},{$tel},{$mail},{$club},{$fed},{$comments},{$cat},{$lastm} ".
             "WHERE ServerID={$guia['ServerID']}";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
@@ -271,7 +276,7 @@ class Updater {
         // se va a producir un error en la actualización, pues va a afectar a los dos
         $name=$this->setForInsert($guia,"Nombre",true);
         $str="UPDATE Guias SET ".
-            "{$sid},{$nombre},{$tel},{$mail},{$club},{$fed},{$comments},{$cat} ".
+            "{$sid},{$nombre},{$tel},{$mail},{$club},{$fed},{$comments},{$cat},{$lastm} ".
             "WHERE (Nombre={$name}) AND (Federation={$guia['Federation']}) AND (ServerID=0)";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
@@ -287,11 +292,12 @@ class Updater {
         $fed= $this->setForInsert($guia,"Federation",false);
         $comments= $this->setForInsert($guia,"Observaciones",true);
         $cat= $this->setForInsert($guia,"Categoria",true);
+        $lastm= $this->setForInsert($guia,"LastModified",true);
 
         $str="INSERT INTO Guias ".
-            "( ServerID,Nombre,Telefono,Email,Club,Federation,Observaciones,Categoria ".
+            "( ServerID,Nombre,Telefono,Email,Club,Federation,Observaciones,Categoria,LastModified ".
             ") VALUES (".
-            "{$sid},{$nombre},{$tel},{$mail},{$club},{$fed},{$comments},{$cat} ".
+            "{$sid},{$nombre},{$tel},{$mail},{$club},{$fed},{$comments},{$cat},{$lastm} ".
             ")";
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); }
@@ -340,10 +346,11 @@ class Updater {
         $cat= $this->setForUpdate($perro,"Categoria",true);
         $grad= $this->setForUpdate($perro,"Grado",true);
         $handler= $this->setForUpdate($found,"ID",false,"Guia"); // use found handler to extract Handler ID
+        $lastm= $this->setForUpdate($perro,"LastModified",true);
 
             // fase 1: buscar por ServerID
         $str="UPDATE Perros SET ".
-            "{$name},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$fed} ".
+            "{$name},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$fed},{$lastm} ".
             "WHERE ServerID={$perro['ServerID']}";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
@@ -356,7 +363,7 @@ class Updater {
         $nlic=$this->setForInsert($perro,"Licencia",true);
         $name=$this->setForInsert($perro,"Nombre",true);
         $str="UPDATE Perros SET ".
-            "${sid},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$fed}".
+            "${sid},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$fed},{$lastm}".
             "WHERE (Nombre={$name}) AND (ServerID=0) AND ( (Licencia={$nlic}) OR (Guia={$found['ID']}) )";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
@@ -375,11 +382,12 @@ class Updater {
         $cat= $this->setForInsert($perro,"Categoria",true);
         $grad= $this->setForInsert($perro,"Grado",true);
         $handler= $this->setForInsert($found,"ID",false);
+        $lastm= $this->setForInsert($perro,"LastModified",true);
 
         $str="INSERT INTO Perros ".
-            "( ServerID,Federation,Nombre,NombreLargo,Genero,Raza,Chip,Licencia,LOE_RRC,Categoria,Grado,Guia".
+            "( ServerID,Federation,Nombre,NombreLargo,Genero,Raza,Chip,Licencia,LOE_RRC,Categoria,Grado,Guia,LastModified".
             ") VALUES (".
-            "{$sid},{$fed},{$name},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler} ".
+            "{$sid},{$fed},{$name},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$lastm} ".
             ")";
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); }
