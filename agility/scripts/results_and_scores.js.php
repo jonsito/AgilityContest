@@ -153,7 +153,7 @@ function perform_emailScores() {
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.progress('close');
-            alert("Send scores by mail error: "+textStatus + " "+ errorThrown );
+            alert("Send scores by mail error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
         }
     });
 }

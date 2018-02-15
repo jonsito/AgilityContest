@@ -233,7 +233,7 @@ function pb_lookForMessages(callback) {
             if (typeof (callback)!=="undefined") callback();
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
-            alert("pb_lookForMessages() error: "+textStatus + " "+ errorThrown );
+            alert("pb_lookForMessages() error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
         }
     });
 

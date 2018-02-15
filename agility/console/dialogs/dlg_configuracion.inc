@@ -658,7 +658,9 @@ $config =Config::getInstance();
 	            }
 	        },
             error: function(XMLHttpRequest,textStatus,errorThrown) {
-                $.messager.alert("Save configuration to file error","Error: "+textStatus + " "+ errorThrown,'error' );
+                $.messager.alert("Save configuration to file error",
+                    "Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,
+                    'error' );
             }
 	    });
 	}
@@ -692,7 +694,7 @@ $config =Config::getInstance();
                 }
             },
             error: function(XMLHttpRequest,textStatus,errorThrown) {
-                $.messager.alert("Mailer check error","Error: "+textStatus + " "+ errorThrown,'error' );
+                $.messager.alert("Mailer check error","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
             }
         });
     }
@@ -795,7 +797,7 @@ $config =Config::getInstance();
 				loadConfiguration(function(config) { $('#config-form').form('load',config);	});
 			},
 			error: function(XMLHttpRequest,textStatus,errorThrown) {
-				$.messager.alert("Restore configuration from file error","Error: "+textStatus + " "+ errorThrown,'error' );
+				$.messager.alert("Restore configuration from file error","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
 			}
 		});
 	}

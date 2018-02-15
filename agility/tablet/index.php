@@ -418,7 +418,7 @@ function tablet_acceptSelectJornada() {
         	} // if no ajax error
     	}, // success function
         error: function(XMLHttpRequest,textStatus,errorThrown) {
-            alert("tablet_acceptSelectJornada() error: "+textStatus + " "+ errorThrown );
+            alert("tablet_acceptSelectJornada() error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
         }
 	}); // ajax call
 }

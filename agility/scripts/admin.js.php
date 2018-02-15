@@ -81,7 +81,7 @@ function resetLogFile(){
                     $.messager.alert({ width:300, height:150, title: '<?php _e('Log Cleared'); ?>', msg: '<?php _e('Debug and trace log file successfully cleared');?>' });
                 },
                 error: function(XMLHttpRequest,textStatus,errorThrown) {
-                    $.messager.alert("Error: "+oper,"Error: "+textStatus + " "+ errorThrown,'error' );
+                    $.messager.alert("Error: "+oper,"Error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,'error' );
                 }
             });
         }
@@ -119,7 +119,7 @@ function clearTempDir(){
                     });
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    $.messager.alert("Error","ClearTempDir() Error: " + textStatus + " " + errorThrown, 'error');
+                    $.messager.alert("Error","ClearTempDir() Error: " + XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " " + errorThrown, 'error');
                 }
             });
         },
@@ -183,7 +183,7 @@ function autoBackupDatabase(mode,dir) {
                 });
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $.messager.show({title:"Error",msg:"AutoBakup() Error: " + textStatus + " " + errorThrown,timeout:3000});
+                $.messager.show({title:"Error",msg:"AutoBakup() Error: " + XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " " + errorThrown,timeout:3000});
             }
         });
     },0);
@@ -230,7 +230,7 @@ function performClearDatabase(oper,fed,pass,callback) {
                 },
                 success: function(res) { callback(res); },
                 error: function(XMLHttpRequest,textStatus,errorThrown) {
-                    $.messager.alert("Error: "+oper,"Error: "+textStatus + " "+ errorThrown,'error' );
+                    $.messager.alert("Error: "+oper,"Error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,'error' );
                 }
             });
         }
@@ -305,7 +305,9 @@ function restoreDatabase(fromClient){
                             $.messager.progress('close');
                         },
                         error: function(XMLHttpRequest,textStatus,errorThrown) {
-                            $.messager.alert("DBRestore Error","Error: "+textStatus + " "+ errorThrown,'error' );
+                            $.messager.alert("DBRestore Error",
+                                    "Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,
+                                    "error");
                             $.messager.progress('close');
                         }
                     });
@@ -423,7 +425,7 @@ function askForUpgrade(msg,name,release){
                     },
                     error: function(XMLHttpRequest,textStatus,errorThrown) {
                         $.messager.progress('close');
-                        $.messager.alert("<?php _e('Error');?>","<?php _e('Error');?>: "+textStatus + " "+ errorThrown,'error' );
+                        $.messager.alert("<?php _e('Error');?>","<?php _e('Error');?>: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,'error' );
                     }
                 });
 
@@ -545,7 +547,7 @@ function synchronizeDatabase(warnifnotallowed) {
             // connection error: show an slide message error at bottom of the screen
             $.messager.show({
                 title:"<?php _e('Error');?>",
-                msg: "<?php _e('Error');?>: "+textStatus + " "+ errorThrown,
+                msg: "<?php _e('Error');?>: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,
                 timeout: 5000,
                 showType: 'slide',
                 height:200

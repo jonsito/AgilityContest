@@ -46,7 +46,7 @@ function ligas_loadLeagueData(perro,grado,callback) {
             callback(result);
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
-            alert("Load league data error: "+textStatus + " "+ errorThrown );
+            alert("Load league data error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
         }
     });
 }

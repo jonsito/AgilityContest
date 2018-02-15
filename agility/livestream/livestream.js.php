@@ -243,7 +243,7 @@ function vwls_showData(data) {
 					else $.messager.show({title:"error",msg:res.errorMsg,timeout:5000,showType:'slide'});
 				},
 				error: function(XMLHttpRequest,textStatus,errorThrown) {
-					$.messager.show({title:"error",msg:textStatus + " " + errorThrown,timeout:5000,showType:'slide'});
+					$.messager.show({title:"vwls_showData() error",msg:""+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " " + errorThrown,timeout:5000,showType:'slide'});
 				}
 			})
 		}

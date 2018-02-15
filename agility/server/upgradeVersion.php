@@ -211,7 +211,13 @@ class Updater {
         if (strcmp($this->current_version,$this->last_version) > 0 ) {
 
             // eval time of last DB update. Should include judges data, but enought for now
-            $str="SELECT MAX(PerroGuiaClub.LastModified) AS Updated FROM PerroGuiaClub";
+            // $str="SELECT MAX(PerroGuiaClub.LastModified) AS Updated FROM PerroGuiaClub";
+            $str= "SELECT MAX(last) AS Updated FROM ( ". // this is the right way to do :-)
+                        "      SELECT MAX(LastModified) AS last FROM Perros ".
+                        "UNION SELECT MAX(LastModified) AS last FROM Guias ".
+                        "UNION SELECT MAX(LastModified) AS last FROM Clubes ".
+                        "UNION SELECT MAX(LastModified) AS last FROM Jueces) AS m";
+
             $rs=$this->conn->query($str);
             if (!$rs) throw new Exception ("upgrade::getLastDbUpdate(): ".$this->conn->error);
             $res = $rs->fetch_array(MYSQLI_ASSOC);

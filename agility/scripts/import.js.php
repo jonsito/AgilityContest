@@ -324,7 +324,7 @@ function excel_importSendTask(params) {
             ac_import.count++;
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
-            $.messager.alert("Import from Excel error","Error: "+textStatus + " "+ errorThrown,'error' );
+            $.messager.alert("Import from Excel error","Error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,'error' );
             dlg.dialog('close');
         }
     });

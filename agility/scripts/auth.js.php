@@ -73,7 +73,7 @@ function askForUpdateDB() {
                             $.messager.alert({ width:300, height:'auto', title: '<?php _e('Done'); ?>', msg: '<?php _e('Configuration saved');?>' });
                         },
                         error: function(XMLHttpRequest,textStatus,errorThrown) {
-                            $.messager.alert("Error: "+oper,"Error: "+textStatus + " "+ errorThrown,'error' );
+                            $.messager.alert("Error: "+oper,"Error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,'error' );
                         }
                     });
 
@@ -312,7 +312,7 @@ function check_permissions(perms, callback) {
 		dataType: 'json',
 		success: function(data){ callback( data); },
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("check_permissions() error: "+textStatus + " "+ errorThrown );
+			alert("check_permissions() error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
 		}
 	});
 }
@@ -357,7 +357,7 @@ function check_access(perms,callback) {
         },
         success: function(res) { callback(res); },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
-            $.messager.alert("Restricted","Error: "+textStatus + " "+ errorThrown,'error' );
+            $.messager.alert("Restricted","Error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,'error' );
         }
     });
 }

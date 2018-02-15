@@ -377,7 +377,7 @@ echo '
                         txarea.putCursorAtEnd();
                     },
                     error: function(XMLHttpRequest,textStatus,errorThrown) {
-                        alert("fireUpdater() Error: "+textStatus + " "+ errorThrown );
+                        alert("fireUpdater Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown);
                     }
                 });
             }

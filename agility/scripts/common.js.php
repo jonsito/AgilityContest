@@ -391,7 +391,7 @@ function loadConfiguration(callback) {
 			}
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("loadConfiguration() XMLHttpRequest error: "+textStatus + " "+ errorThrown );
+			alert("loadConfiguration() XMLHttpRequest Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown, );
 		}
 	});
 }
@@ -416,7 +416,7 @@ function getLicenseInfo() {
 			}
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("getLicenseInfo() error: "+textStatus + " "+ errorThrown );
+			alert("getLicenseInfo() error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
 		}
 	});
 }
@@ -440,7 +440,7 @@ function getLicensedClubInfo() {
             }
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
-            alert("getLicensedClubInfo() error: "+textStatus + " "+ errorThrown );
+            alert("getLicensedClubInfo() error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
         }
     });
 }
@@ -463,7 +463,7 @@ function getFederationInfo() {
 			}
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("getFederationInfo() error: "+textStatus + " "+ errorThrown );
+			alert("getFederationInfo() error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
 		}
 	});
 }

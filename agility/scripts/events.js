@@ -150,7 +150,7 @@ function startEventMgr() {
 			}
 		},
 		error: function (XMLHttpRequest,textStatus,errorThrown) {
-			alert("startEventMgr() error: "+textStatus + " "+ errorThrown );
+			alert("startEventMgr() error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
 			setTimeout(function(){ startEventMgr(); },5000 );
 		}
 	});

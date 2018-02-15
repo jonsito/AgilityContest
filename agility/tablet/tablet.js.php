@@ -86,7 +86,7 @@ function tablet_putEvent(type,data){
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.show({
                 title:'putEvent',
-                msg:'tablet::putEvent( '+type+' ) error: '+textStatus + ' '+ errorThrown,
+                msg:'tablet::putEvent( '+type+' ) error: '+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + ' '+ errorThrown,
                 timeout:500,
                 showType:'slide'
             });
@@ -654,7 +654,7 @@ function tablet_gotoDorsal(tanda,dgname,dorsal) {
 			setDataEntryEnabled(true);
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("tablet_gotoDorsal() error: "+textStatus + " "+ errorThrown );
+			alert("tablet_gotoDorsal() error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
 		}
 	});
 }
