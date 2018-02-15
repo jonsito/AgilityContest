@@ -220,6 +220,17 @@ function toASCII($string) {
 	return $string;
 }
 
+// converts "YYYYmmdd_hhmm" to "YYYY-mm-dd hh:mm:00"
+function toLongDateString($str) {
+    // set "updated" to be the same date of version: yyyymmmdd_hhmm
+    $year=substr($str,0,4);
+    $month=substr($str,4,2);
+    $day=substr($str,6,2);
+    $hour=substr($str,9,2);
+    $min=substr($str,11,2);
+    return "{$year}-{$month}-{$day} {$hour}:{$min}:00";
+}
+
 /**
  * Try to obtain dog gender with provided data
  * @param {string} $gender user provided gender
@@ -283,7 +294,7 @@ function parseGrade($grad) {
 	if (strpos($grad,'2')!==false) return 'GII';
     if (strpos($grad,'1')!==false) return 'GI';
     if (strpos($grad,'pro')!==false) return 'GI'; // promocion
-    if (strpos($grad,'com')!==false) return 'GiI'; // competicion
+    if (strpos($grad,'com')!==false) return 'GII'; // competicion
 	return '-';
 }
 

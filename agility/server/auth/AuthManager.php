@@ -281,7 +281,7 @@ class AuthManager {
             $this->registrationInfo=$this->checkRegistrationInfo();
         }
         if ($this->registrationInfo===null) return false;
-        // raw registration info comes in lowercase
+        // raw registration info comes in lowercase.
         return ($this->registrationInfo['serial']==="00000000")?true:false;
 	}
 

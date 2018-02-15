@@ -41,6 +41,12 @@ class Updater {
     protected $conn;
     protected $myDBObject;
 
+    // used to store backup version info to handle remote updates
+    protected $bckVersion="3.7.3";
+    protected $bckRevision="20180212_1024";
+    protected $bckLicense="00000000";
+    protected $bckDate="20180215_0944";
+
     /**
      * Updater constructor.
      * @throws Exception if cannot create root connection with database
@@ -86,10 +92,24 @@ class Updater {
         $fp=fopen(__DIR__."/../../extras/agility.sql", "r");
         if (!$fp) return "Cannot load database file to be installed";
 
-        // phase 2: verify received file
+        // phase 2: verify received file to be a proper AgilityContest backup and extract header info
         $str=fgets($fp);
-        if (strpos(substr($str,0,25),"-- AgilityContest")===FALSE)
+        // first line is copyright info
+        $num=sscanf($str,
+            "-- AgilityContest Version: %s Revision: %s License: %s\n",
+            $this->bckVersion, $this->bckRevision, $this->bckLicense);
+        if ($num<2) {
+            fclose($fp);
             return "Provided install file is not an AgilityContest backup file";
+        }
+        if ($num===3) { // newer backup files includes license number and creation date
+            $str=fgets($fp);
+            sscanf("$str","-- AgilityContest Backup Date: %s\n",$this->bckDate);
+        } else {
+            //older db backups lacks on third field
+            $this->bckLicense="00000000";
+            $this->bckDate=date("Ymd_Hi");
+        }
 
         // phase 3: delete all tables and structures from database
         $this->conn->query('SET foreign_key_checks = 0');
@@ -141,6 +161,15 @@ class Updater {
             }
         }
         fclose($fp);
+
+        // phase 5 update VersionHistory: set current sw version entry with restored backup creation date
+        $bckd=toLongDateString($this->bckDate);
+        $swver=$this->config->getEnv("version_date");
+        $str="INSERT INTO VersionHistory (Version,Updated) VALUES ('{$swver}','{$bckd}') ".
+            "ON DUPLICATE KEY UPDATE UPDATE Updated='{$bckd}'";
+        $this->conn->query($str);
+
+        // cleanup
         $this->install_log("Install Database Done<br/>");
         $this->myLogger->info("Database install success");
         return "";
@@ -152,7 +181,9 @@ class Updater {
     }
 
     /**
-     * Check database version against program version
+     * Check database stored sw version agains real current sw version
+     * If not matches add new sw version entry with latest updated db date
+     *
      * @return bool true if need to handle database structure updates
      * @throws Exception on sql query failures
      */
@@ -167,23 +198,27 @@ class Updater {
         $res=$this->conn->query($cv);
         if (!$res) throw new Exception ("upgrade::createHistoryTable(): ".$this->conn->error);
 
-        // Retrieve current database version from history table
+        // Retrieve last software version and last db update date from database
         $str="SELECT * FROM VersionHistory ORDER BY Version DESC LIMIT 1;";
         $rs=$this->conn->query($str);
         if (!$rs) throw new Exception ("upgrade::getVersionHistory(): ".$this->conn->error);
         $res = $rs->fetch_array(MYSQLI_ASSOC);
         $rs->free();
-        $this->last_version = ($res)? $res['Version'] : MINVER;
-        $this->myLogger->trace("current: {$this->current_version} last_stored: {$this->last_version}");
+        $this->last_version = ($res)? $res['Version'] : MINVER; // get last db stored sw version
+        $this->myLogger->trace("SW Version: current: {$this->current_version} database: {$this->last_version}");
+
+        // check if current sw version is greater than installed db says (if so, return true)
         if (strcmp($this->current_version,$this->last_version) > 0 ) {
-            // set "updated" to be the same date of version: yyyymmmdd_hhmm
-            $year=substr($this->last_version,0,4);
-            $month=substr($this->last_version,4,2);
-            $day=substr($this->last_version,6,2);
-            $hour=substr($this->last_version,9,2);
-            $min=substr($this->last_version,11,2);
-            $curdate="{$year}-{$month}-{$day} {$hour}:{$min}:00";
-            // on version change update history table
+
+            // eval time of last DB update. Should include judges data, but enought for now
+            $str="SELECT MAX(PerroGuiaClub.LastModified) AS Updated FROM PerroGuiaClub";
+            $rs=$this->conn->query($str);
+            if (!$rs) throw new Exception ("upgrade::getLastDbUpdate(): ".$this->conn->error);
+            $res = $rs->fetch_array(MYSQLI_ASSOC);
+            $rs->free();
+            $curdate = ($res)? $res['Updated'] : toLongDateString($this->last_version);
+
+            // add new sw version entry into table with (newswver,lastdbupdate) values
             $str="INSERT INTO VersionHistory (Version,Updated) VALUES ('{$this->current_version}','{$curdate}') ";
             $res=$this->conn->query($str);
             if (!$res) throw new Exception ("upgrade::updateHistoryTable(): ".$this->conn->error);
@@ -191,7 +226,7 @@ class Updater {
             return true; // new release: mark database to be updated
         }
         $this->myLogger->leave();
-        // same version than installed. No need to update database
+        // same version than installed. No need to add new SW version to db history
         return false;
     }
 

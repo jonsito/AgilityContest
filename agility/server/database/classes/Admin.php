@@ -39,6 +39,11 @@ class Admin extends DBObject {
 	private $dbuser;
 	private $dbpass;
 	public $logfile;
+	// used to store backup version info to handle remote updates
+	protected $bckVersion="3.7.3";
+	protected $bckRevision="20180212_1024";
+	protected $bckLicense="00000000";
+	protected $bckDate="20180215_0944";
 
     /**
      * Admin constructor.
@@ -186,10 +191,13 @@ class Admin extends DBObject {
         $input = popen($cmd1, 'r');
         if ($input===FALSE) return "adminFunctions::AutoBackup('popen 1') failed";
 
-        // insert AgilityContest Tag Info at begining of backup file
+        // insert AgilityContest Info at begining of backup file
+        $bckdate=date("Ymd_Hi");
         $ver=$this->myConfig->getEnv("version_name");
         $rev=$this->myConfig->getEnv("version_date");
-        @fwrite($resource, "-- AgilityContest Version: $ver Revision: $rev\n");
+        $lic=$this->myAuth->getRegistrationInfo()['Serial'];
+        @fwrite($resource, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
+        @fwrite($resource, "-- AgilityContest Backup Date: {$bckdate}\n");
 
         // now send to client database backup
         while(!feof($input)) {
@@ -275,7 +283,8 @@ class Admin extends DBObject {
         $resource=fopen("php://output","w");
         if ($resource===FALSE) { $this->errorMsg="adminFunctions::backup():popen() failed"; return null;}
         // prepare html response header
-		$fname="$dbname-".date("Ymd_Hi").".sql";
+        $bckdate=date("Ymd_Hi");
+		$fname="$dbname-{$bckdate}.sql";
 		header('Set-Cookie: fileDownload=true; path=/');
 		header('Cache-Control: max-age=60, must-revalidate');
 		header('Content-Type: text/plain; charset=utf-8');
@@ -283,7 +292,9 @@ class Admin extends DBObject {
 		// insert AgilityContest Info at begining of backup file
         $ver=$this->myConfig->getEnv("version_name");
         $rev=$this->myConfig->getEnv("version_date");
-        @fwrite($resource, "-- AgilityContest Version: $ver Revision: $rev\n");
+        $lic=$this->myAuth->getRegistrationInfo()['Serial'];
+        @fwrite($resource, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
+        @fwrite($resource, "-- AgilityContest Backup Date: {$bckdate}\n");
         // now send to client database backup
 		while(!feof($input)) {
 			$line = fgets($input);
@@ -358,6 +369,15 @@ class Admin extends DBObject {
         $trigger=false;
         // Read entire file into an array
         $lines = explode("\n",$data); // remember use double quote
+        // first line is copyright info
+        $num=sscanf($lines[0],
+            "-- AgilityContest Version: %s Revision: %s License: %s",
+            $this->bckVersion, $this->bckRevision, $this->bckLicense);
+        if ($num!==3) $this->bckLicense="00000000"; //older db backups lacks on third field
+        // second line is backup file creation date
+        $num=sscanf("$lines[1]","-- AgilityContest Backup Date: %s",$this->bckDate);
+        if ($num===0) $this->bckDate=date("Ymd_Hi"); // older db backups lacks on backup creation date
+        // prepare restore process
 		$numlines=count($lines);
 		$timeout=ini_get('max_execution_time');
         // Loop through each line
@@ -403,7 +423,13 @@ class Admin extends DBObject {
         $this->dropAllTables($rconn);
         // phase 4: parse sql file and populate tables into database
         $this->readIntoDB($rconn,$data);
-        // phase 5 final tests
+        // phase 5 update VersionHistory: set current sw version entry with restored backup creation date
+        $bckd=toLongDateString($this->bckDate);
+        $swver=$this->myConfig->getEnv("version_date");
+        $str="INSERT INTO VersionHistory (Version,Updated) VALUES ('{$swver}','{$bckd}') ".
+            "ON DUPLICATE KEY UPDATE UPDATE Updated='{$bckd}'";
+        $rconn->query($str);
+        // finally close db connection and return
         DBConnection::closeConnection($rconn);
 		return "";
 	}
