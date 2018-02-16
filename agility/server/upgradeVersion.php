@@ -679,8 +679,8 @@ class Updater {
     function updateDefaultJuezClub() {
         $this->myLogger->enter();
         $cmds= array(
-            "UPDATE Clubes SET Federations=31 WHERE ID=1",
-            "UPDATE Jueces SET Federations=31 WHERE ID=1",
+            "UPDATE Clubes SET Federations=31, LastModified=LastModified WHERE ID=1",
+            "UPDATE Jueces SET Federations=31, LastModified=LastModified WHERE ID=1",
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
