@@ -305,9 +305,9 @@ class Updater {
     function updatePerroGuiaClub() {
         $this->myLogger->enter();
         $cmds=array(
-            "DROP TABLE IF EXISTS `perroguiaclub`;",
-            "DROP VIEW IF EXISTS `perroguiaclub`;",
-            "CREATE VIEW `perroguiaclub` AS
+            "DROP TABLE IF EXISTS `PerroCuiaClub`;",
+            "DROP VIEW IF EXISTS `PerroGuiaClub`;",
+            "CREATE VIEW `PerroGuiaClub` AS
                 SELECT `perros`.`ID` AS `ID`,
                 `perros`.`Federation` AS `Federation`,
                 `perros`.`Nombre` AS `Nombre`,
@@ -652,10 +652,14 @@ class Updater {
     function fixLOERRC2017() {
         $this->myLogger->enter();
         $cmds= array(
-            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like '0%')",
-            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'A%')",
-            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'B%')",
-            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia) WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'C%')"
+            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia), LastModified=LastModified ".
+                " WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like '0%')",
+            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia), LastModified=LastModified ".
+                " WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'A%')",
+            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia), LastModified=LastModified ".
+                " WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'B%')",
+            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia), LastModified=LastModifed ".
+                " WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'C%')"
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
