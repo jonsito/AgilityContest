@@ -133,10 +133,12 @@ function acceptLogin() {
 					$('#login_menu-text').html('<?php _e("End session");?>'+": <br />"+data.Login);
                     // initialize auth info
 					initAuthInfo(data);
-                    // if not configured ( value<0 ) ask user to enable autosync database
-                    var up=parseInt(ac_config.search_updatedb);
-                    if (up<0) setTimeout(function() { askForUpdateDB();},500 );
-                    if (up>0) setTimeout(function() { synchronizeDatabase(false)},500);
+					if (checkForAdmin(false)) { // do not handle syncdb unless admin login
+                        // if not configured ( value<0 ) ask user to enable autosync database
+                        var up=parseInt(ac_config.search_updatedb);
+                        if (up<0) setTimeout(function() { askForUpdateDB();},500 );
+                        if (up>0) setTimeout(function() { synchronizeDatabase(false)},500);
+                    }
 				});
                 w.window('resize',{width:400,height:'auto'}).window('center');
 
