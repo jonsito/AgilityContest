@@ -16,7 +16,7 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program;
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
-class Selectiva_awc_2018 extends Puntuable_RSCE_2017 {
+class Selectiva_awc_2018 extends Puntuable_RSCE_2018 {
 
     protected $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
     protected $pfoffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
@@ -24,7 +24,9 @@ class Selectiva_awc_2018 extends Puntuable_RSCE_2017 {
     function __construct($name="Selectiva AWC 2018") {
         parent::__construct($name);
         $this->federationID=0;
-        $this->competitionID=1;
+        $this->competitionID=11;
+        $this->moduleVersion="1.0.0";
+        $this->moduleRevision="20180125_0931";
         $this->selectiva=1;
     }
 
@@ -190,7 +192,7 @@ class Selectiva_awc_2018 extends Puntuable_RSCE_2017 {
             return;
         }
         // arriving here means grado III
-        if ($this->selectiva==0){ // need to be marked as selectiva to properly evaluate TRS in GIII
+        if ($this->selectiva==0){
             parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
         }

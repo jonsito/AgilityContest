@@ -36,7 +36,9 @@ class Selectiva_eo_2018 extends Selectiva_awc_2018 {
         $this->myDBObject=new DBObject("EuropeanOpen::construct");
         $this->countries=array(); // array ( nombreclub => pais
         $this->federationID=0;
-        $this->competitionID=6;
+        $this->competitionID=12;
+        $this->moduleVersion="1.0.0";
+        $this->moduleRevision="20180125_0931";
         $this->selectiva=1;
     }
 

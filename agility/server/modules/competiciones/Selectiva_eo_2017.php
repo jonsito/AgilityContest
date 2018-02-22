@@ -1,7 +1,7 @@
 <?php
 
 /*
-Selectiva_eo_2019.php
+Selectiva_eo_2017.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -16,7 +16,7 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program;
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
-class Selectiva_eo_2019 extends Selectiva_awc_2019 {
+class Selectiva_eo_2017 extends Selectiva_awc_2017 {
 
     protected $myDBObject;
     protected $countries;
@@ -32,13 +32,11 @@ class Selectiva_eo_2019 extends Selectiva_awc_2019 {
      */
 
     function __construct() {
-        parent::__construct("Selectiva European Open 2019");
+        parent::__construct("Selectiva European Open 2017");
         $this->myDBObject=new DBObject("EuropeanOpen::construct");
         $this->countries=array(); // array ( nombreclub => pais
         $this->federationID=0;
-        $this->competitionID=12;
-        $this->moduleVersion="1.0.0";
-        $this->moduleRevision="20180125_0931";
+        $this->competitionID=6;
         $this->selectiva=1;
     }
 
