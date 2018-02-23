@@ -305,7 +305,7 @@ class Updater {
     function updatePerroGuiaClub() {
         $this->myLogger->enter();
         $cmds=array(
-            "DROP TABLE IF EXISTS `PerroCuiaClub`;",
+            "DROP TABLE IF EXISTS `PerroGuiaClub`;",
             "DROP VIEW IF EXISTS `PerroGuiaClub`;",
             "CREATE VIEW `PerroGuiaClub` AS
                 SELECT `perros`.`ID` AS `ID`,
@@ -710,7 +710,7 @@ try {
     }
     // process database to make it compliant with sofwtare version
     $upg->removeUpdateMark();
-    // as backup does not preserve procedures, always need to recreate
+    // as backup does not preserve views and procedures, always need to recreate
     $upg->updatePerroGuiaClub();
     $needToUpdate=$upg->updateVersionHistory();
     @unlink(FIRST_INSTALL);
