@@ -148,6 +148,7 @@ var eventHandler= {
     'crono_error':  null, // fallo en los sensores de paso
     'crono_dat':    null, // datos desde crono electronico
     'crono_ready':    null, // chrono ready and listening
+    'user':   null, // user defined event
     'aceptar':	function(event){ // operador pulsa aceptar
         vw_updateWorkingData(event,function(e,d){
             updateParciales(d.Ronda.Mode,d);

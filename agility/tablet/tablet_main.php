@@ -46,6 +46,10 @@ $config =Config::getInstance();
                         <input id="tdialog-Tanda" name="Tanda" type="hidden"> <!-- Tanda name -->
                         <input id="tdialog-Observacioens" name="Observaciones" type="hidden">
                         <input id="tdialog-Operation" name="Operation" type="hidden" value="update">
+                        <input id="tdialog-User0Btn" type="button" value="<?php _e('Fn');?> 1" onclick="tablet_userfn(0);" class="tablet_button tb_fnkey">
+                        <input id="tdialog-User1Btn" type="button" value="<?php _e('Fn');?> 2" onclick="tablet_userfn(1);" class="tablet_button tb_fnkey">
+                        <input id="tdialog-User2Btn" type="button" value="<?php _e('Fn');?> 3" onclick="tablet_userfn(2);" class="tablet_button tb_fnkey">
+                        <input id="tdialog-User3Btn" type="button" value="<?php _e('Fn');?> 4" onclick="tablet_userfn(3);" class="tablet_button tb_fnkey">
                         <input id="tdialog-FaltaUpBtn" type="button" value="<?php _e('Fault');?>" onclick="tablet_up('#tdialog-Faltas',true);" class="tablet_button tb_falta">
                         <input id="tdialog-FaltaDownBtn" type="button" value="<?php _e('Fault');?> -" onclick="tablet_down('#tdialog-Faltas',true);">
                         <input id="tdialog-RehuseUpBtn" type="button" value="<?php _e('Refusal');?>" onclick="tablet_up('#tdialog-Rehuses',true)" class="tablet_button tb_rehuse">
@@ -365,8 +369,8 @@ $config =Config::getInstance();
         onLoadSuccess: function() {
             var el=parseInt($('#tdialog-Eliminado').val());
             var np=parseInt($('#tdialog-NoPresentado').val());
-            $('#tdialog-EliminadoStr').val((el==0)?"":"EL");
-            $('#tdialog-NoPresentadoStr').val((np==0)?"":"NP");
+            $('#tdialog-EliminadoStr').val((el===0)?"":"EL");
+            $('#tdialog-NoPresentadoStr').val((np===0)?"":"NP");
             tablet_putEvent('llamada',
                     { // setup initial data for event,
                         'TimeStamp'     : Math.floor(Date.now()/1000),
@@ -443,19 +447,23 @@ $config =Config::getInstance();
     // layout
     var dg= {'cols':210, 'rows':145}; // declare base datagrid as A5 sheet
     doLayout(dg,"#tdialog-fieldset",        0,      0,      210,    145 );
-    doLayout(dg,"#tdialog-FaltaUpBtn",		5,		5,		30,		75	);
-    doLayout(dg,"#tdialog-FaltaDownBtn",	39,		5,		15,		20	);
-    doLayout(dg,"#tdialog-RehuseUpBtn",		171,	5,		30,		75	);
-    doLayout(dg,"#tdialog-RehuseDownBtn",	151,	5,		15,		20	);
-    doLayout(dg,"#tdialog-TocadoUpBtn",		57,		5,      22,		20	);
-    doLayout(dg,"#tdialog-TocadoDownBtn",	82,		5,      15,		20	);
+    doLayout(dg,"#tdialog-FaltaUpBtn",		5,		18,		30,		62	);
+    doLayout(dg,"#tdialog-FaltaDownBtn",	5,		5,		30,		10	);
+    doLayout(dg,"#tdialog-RehuseUpBtn",		171,	18,		30,		62	);
+    doLayout(dg,"#tdialog-RehuseDownBtn",	171,	5,		30,		10	);
+    doLayout(dg,"#tdialog-TocadoUpBtn",		40,		5,      22,		20	);
+    doLayout(dg,"#tdialog-TocadoDownBtn",	65,		5,      15,		20	);
+    doLayout(dg,"#tdialog-User0Btn",	    83,		5,      16,		9	);
+    doLayout(dg,"#tdialog-User1Btn",	    100,	5,      16,		9	);
+    doLayout(dg,"#tdialog-User2Btn",	    83,		16,     16,		9	);
+    doLayout(dg,"#tdialog-User3Btn",	    100,	16,     16,		9	);
     doLayout(dg,"#tdialog-SalidaBtn",		163,	87,		17,		22	);
     doLayout(dg,"#tdialog-ResetBtn",		144,    87,	    17,		22	);
     doLayout(dg,"#tdialog-StartStopBtn",	182,	87,		19,		22	);
     doLayout(dg,"#tdialog-AcceptBtn",		171,	115,	30,		25	);
     doLayout(dg,"#tdialog-CancelBtn",		147,	115,	18,		25	);
-    doLayout(dg,"#tdialog-NoPresentadoBtn",	100,    5,		22,		20	);
-    doLayout(dg,"#tdialog-EliminadoBtn",	125,	5,		22,		20	);
+    doLayout(dg,"#tdialog-NoPresentadoBtn",	119,    5,		22,		20	);
+    doLayout(dg,"#tdialog-EliminadoBtn",	144,	5,		22,		20	);
     doLayout(dg,"#tdialog-Next",	        5,	    87, 	70,		53	);
     doLayout(dg,"#tdialog-1",				80,		80,		20,		15	);
     doLayout(dg,"#tdialog-2",				100,	80,		20,		15	);
@@ -497,6 +505,6 @@ $config =Config::getInstance();
     doLayout(dg,"#tdialog-EliminadoStr",	150,	60,		10,		15	);
     doLayout(dg,"#tdialog-InfoLbl",		    42,		30,		121,	5   );
     doLayout(dg,"#tdialog-NumberLbl",	    42,		38,		9,	    15  );
-    doLayout(dg,"#tdialog-Rectangulo",		40,		28,		125,	51  );
+    doLayout(dg,"#tdialog-Rectangulo",		40,		28,		126,	51  );
 
 </script>

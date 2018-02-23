@@ -90,6 +90,7 @@ var eventHandler= {
     'crono_error':  null, // fallo en los sensores de paso
     'crono_dat':  null, // datos desde crono
     'crono_ready':  null, // datos desde crono
+    'user':  null, // user defined event
     'aceptar':	null, // operador pulsa aceptar
     'cancelar': null, // operador pulsa cancelar
     'camera':	null, // change video source

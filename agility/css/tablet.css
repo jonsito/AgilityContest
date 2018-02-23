@@ -58,6 +58,10 @@ input.tablet_info {
 	font-weight: bold;
 	font-style: italic;
 }
+.tb_fnkey {
+	border: 3px solid black;
+	font-size: 2.50vw;
+}
 
 .tb_falta {
 	background: #a0a0a0 url(/agility/images/falta.png) no-repeat center;

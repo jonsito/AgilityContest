@@ -600,8 +600,10 @@ function chrono_eventManager(id,evt) {
 			c_reconocimiento.stop();
 		}
 		return;
-	case 'crono_ready': // el crono avisa de conectado/escuchando
-		return;
+    case 'crono_ready': // el crono avisa de conectado/escuchando
+        return;
+    case 'user': // evento generado por el usuario
+        return;
 	case 'cancelar': // operador pulsa cancelar en tablet
 		c_clearData(event);
 		return;

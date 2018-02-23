@@ -112,6 +112,7 @@ $('#ordensalida-datagrid').datagrid({
 		'crono_error':  null, // fallo en los sensores de paso
         'crono_dat':    null, // datos desde crono electronico
         'crono_ready':    null, // chrono ready and listening
+        'user':    null, // user defined event
         'aceptar':	null, // operador pulsa aceptar
         'cancelar': null, // operador pulsa cancelar
         'camera':	null, // change video source

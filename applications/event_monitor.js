@@ -168,6 +168,9 @@ var eventHandler= {
 		if (val===1) console.log("    Sensor status: Failed");
 		else console.log("    Sensor status: OK");
 	},
+	'user': function(event,time) { // funcion definida por el usuario
+        console.log(event['Type'] + " - User defined function number "+event.Value);
+	},
 	'aceptar':	function(event,time){ // operador pulsa aceptar
 		console.log(event['Type'] + " - Assistant console operator accepts competitor result");
 	},

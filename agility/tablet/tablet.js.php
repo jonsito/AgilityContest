@@ -427,6 +427,12 @@ function tablet_startstop() {
 	return false;
 }
 
+function tablet_userfn(val) {
+    tablet_putEvent('user',{ 'Value' : val });
+    doBeep();
+    return false;
+}
+
 function tablet_salida() { // 15 seconds countdown
 	var time = Date.now() - startDate;
 	var ssb=getStartStopMode();
@@ -721,6 +727,11 @@ function bindKeysToTablet() {
 			case 46:	/* numpad supr */	tablet_del(); break;
 			case 190:    /* dot */
 			case 110:	/* numpad dot */	tablet_dot(); break;
+			// teclas de funcion para user defined events
+            case 112:   /* F1 */        tablet_userfn(0);break;
+            case 113:   /* F2 */        tablet_userfn(1);break;
+            case 114:   /* F3 */        tablet_userfn(2);break;
+            case 115:   /* F4 */        tablet_userfn(3);break;
 			// entrada de datos desde tablet
 			case 70: // 'F' -> falta
 			case 32: // ' ' -> space also works as fault
@@ -879,6 +890,8 @@ function tablet_eventManager(id,evt) {
 			});
 		},0);
 		return;
+    case 'user': // user defined event
+        return;
 	case 'cancelar': // operador pulsa cancelar
         autoBackupDatabase(1,"");
 		return;

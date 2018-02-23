@@ -458,7 +458,9 @@ def eventParser():
 				continue
 			if type == 'info':				# value: message
 				continue
-			if type == 'crono_ready':		# to be written
+			if type == 'crono_ready':		# crono becomes ready
+            	continue
+			if type == 'user':		        # user defined event. Value=number
             	continue
 			# eventos de cambio de camara para gestion de Live Stream
 			# el campo "data" contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }

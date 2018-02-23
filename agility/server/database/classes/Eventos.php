@@ -72,7 +72,8 @@ class Eventos extends DBObject {
         // el campo data contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
 		21	=> 'camera',		// cambio de fuente de streaming
 		22	=> 'reconfig',		// se ha cambiado la configuracion en el servidor
-        24  => 'command'      // control remoto del videomarcador
+        24  => 'command',      // control remoto del videomarcador
+        25  => 'user'           // evento de usuario generado desde el tablet ( normalmente usado para obs-studio )
 	);
 	
 	protected $sessionID;
@@ -167,7 +168,8 @@ class Eventos extends DBObject {
 			case 'datos':			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 			case 'aceptar':		// grabar datos finales
 			case 'cancelar':		// restaurar datos originales
-				break;
+            case 'user':        // evento definido por el usuario
+                break;
 			// eventos de cambio de camara para videomarcadores
 			// el campo data contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
 			case 'camera':		// cambio de fuente de streaming

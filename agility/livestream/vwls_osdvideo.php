@@ -382,7 +382,8 @@ var eventHandler= {
 		vwls_updateChronoData(event);
 	},
 	'crono_error':  null, // fallo en los sensores de paso
-	'crono_ready':  null, // estado del crono
+    'crono_ready':  null, // estado del crono
+    'user':  null, // user defined event
 	'aceptar':	function(event,time){ // operador pulsa aceptar
 		myCounter.stop(); // not really needed, but...
 	},

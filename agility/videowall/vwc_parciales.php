@@ -373,6 +373,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         'crono_error': null, // fallo en los sensores de paso
         'crono_ready':    null, // chrono ready and listening
+        'user':    null, // user defined event
         'aceptar': function (event,time) { // operador pulsa aceptar
             myCounter.stop();
             vw_updateWorkingData(event,function(e,d){

@@ -174,6 +174,7 @@ events
         },
         'crono_error': null, // fallo en los sensores de paso
         'crono_ready':    null, // chrono ready and listening
+        'user':    null, // user defined event
         'aceptar': function (event,time) { // operador pulsa aceptar
             vwsCounter.stop();
             vw_updateWorkingData(event,function(e,d){

@@ -255,6 +255,10 @@ var eventHandler= {
 		if (val===1) console.log("    Sensor status: Failed");
 		else console.log("    Sensor status: OK");
 	},
+    'user':  function(event,time) { // user defined event
+        var val=parseInt(event.Value);
+        console.log(event['Type'] + " - User defined event: "+val);
+    },
 	'aceptar':	function(event,time){ // operador pulsa aceptar
 		console.log(event['Type'] + " - Assistant console operator accepts competitor result");
         console.log("Stored competitor data:");
