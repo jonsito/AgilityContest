@@ -270,7 +270,13 @@ class Dogs extends DBObject {
         $rows=http_request("rows","i",50);
         $fed="1";
         if ($this->federation >=0) $fed="( Federation = {$this->federation} )";
-        $dups= "Licencia IN (SELECT Licencia FROM PerroGuiaClub GROUP BY Licencia HAVING COUNT('Licencia') > 1)";
+        // where field in select is too slow. use this trick to speedup
+        // https://stackoverflow.com/questions/6135376/mysql-select-where-field-in-subquery-extremely-slow-why
+        $dups= " Licencia IN (".
+                    "SELECT * FROM (".
+                        " SELECT Licencia FROM PerroGuiaClub GROUP BY Licencia HAVING COUNT(*) > 1".
+                    ") AS Subquery ".
+                ") ";
         $where = "1";
         $limit = "";
         if ($page!=0 && $rows!=0 ) {
@@ -281,7 +287,7 @@ class Dogs extends DBObject {
         $result=$this->__select(
         /* SELECT */ "*",
             /* FROM */ "PerroGuiaClub",
-            /* WHERE */ "$fed AND $dups AND $where",
+            /* WHERE */ "$fed AND $where AND $dups",
             /* ORDER BY */ $sort,
             /* LIMIT */ $limit
         );
