@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="competicion-dialog" class="editable-datagrid" style="width:900px;height:450px;padding:5px">
+<div id="competicion-dialog" class="editable-datagrid" style="width:900px;height:500px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="competicion-datagrid"></table>
 </div>
