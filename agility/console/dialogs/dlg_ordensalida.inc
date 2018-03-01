@@ -34,7 +34,7 @@ $config =Config::getInstance();
 </div>
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="ordensalida-dialog" style="width:925px;height:450px;padding:5px">
+<div id="ordensalida-dialog" style="width:925px;height:500px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="ordensalida-datagrid" style="padding:5px"></table>
 </div>

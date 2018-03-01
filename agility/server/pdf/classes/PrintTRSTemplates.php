@@ -92,16 +92,16 @@ class PrintTRSTemplates extends PrintCommon {
         $count=0;
         $this->SetXY(10,20);
         $this->cell(7,5,"",0,0,'C',false);
-        for ($n=111;$n<=210;$n+=3) {
+        for ($n=131;$n<=230;$n+=3) {
             $this->ac_header(2,10);
             $this->cell(8,5,strval($n),'RB',0,'C',true);
         }
         $this->Ln();
         // rows
-        for($vel=22;$vel<56;$vel++) {
+        for($vel=26;$vel<60;$vel++) {
             $this->ac_header(2,10);
             $this->cell(7,5,strval($vel/10.0),'RB',0,'C',true);
-            for ($n=111;$n<=210;$n+=3) {
+            for ($n=131;$n<=230;$n+=3) {
                 // trace reference lines if needed
                 $this->ac_row($count,9);
                 $this->cell(8,5,strval(ceil((10*$n)/$vel)),'RB',0,'C',true);

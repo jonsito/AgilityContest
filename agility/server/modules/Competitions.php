@@ -138,8 +138,8 @@ class Competitions {
                 $perro['Penalizacion']=	100.0;
                 $perro['Eliminado']= 1;
             }
-            else if ($tiempo>=$trs) { // Superado TRS
-                $perro['PTiempo']		=	$tiempo 		-	$trs;
+            else if ($tiempo>$trs) { // Superado TRS
+                $perro['PTiempo']		=	(1000.0*$tiempo - 1000.0*$trs) / 1000.0;
                 $perro['Penalizacion']=	floatval($perro['PRecorrido'])	+	$perro['PTiempo'];
             }
             else { // Por debajo del TRS
