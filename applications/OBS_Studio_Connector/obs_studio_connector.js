@@ -29,6 +29,37 @@ const http = require('http');
 const OBSWebSocket = require('obs-websocket-js');
 const obs = new OBSWebSocket();
 
+// Video sources
+var videoSources = {
+    ChromaKey : {
+        name: 'ChromaKey'
+    },
+    Panoramica: {
+        name: 'Panoramica'
+    },
+    Salida: {
+        name: 'Salida'
+    },
+    Pasarela: {
+        name: 'Pasarela'
+    }
+};
+
+var scenes = [
+    'Principal',
+    'Salida',
+    'Listados'
+];
+
+
+function obs_setCurrentScene(scene) {
+    obs.setCurrentScene({'scene-name':scene});
+}
+
+function obs_setSourceRender (source,visibility) {
+    obs.setSceneItemProperties({scene:'Principal',item:{name:source,visible:visibility}});
+}
+
 var ac_config = {
 	// OBS Studio parameters
 	obshost: 'localhost:4444',
@@ -78,7 +109,8 @@ function obs_handlePendingEvent(event) {
         console.log("    Time         : "+ event.Tim);
         ac_config.running=false;
         // OBS: switch to Scene 1
-        obs.setCurrentScene({'scene-name':'Salida'});
+        obs_setCurrentScene('Principal');
+        obs_setSourceRender('Pasarela',false);
     }
 
     switch(event['Type']) {
@@ -160,9 +192,10 @@ var eventHandler= {
         ac_config.cronomanual=parseInt(event.Value);
         ac_config.running=true;
 
-        // OBS: switch to Scene 1 and hide logo
-        obs.setCurrentScene({'scene-name':'Camara central'});
-        obs.setSourceRender({'source':'Logo','render':false,'scene-name':'Camara central'});
+        // OBS: Show start main scene scene
+        obs_setCurrentScene('Principal');
+        obs_setSourceRender('Pasarela',false);
+
 	},
 	'stop': function(event,time){      // stop crono manual
 		console.log(event['Type'] + " - Manual chrono stopped");
@@ -170,10 +203,8 @@ var eventHandler= {
         console.log("    Time:  "+(parseInt(event.Value)-ac_config.cronomanual).toString()+" msecs");
         ac_config.running=false;
 
-        // OBS: Show logo on camera central
-        obs.setSourceRender({'source':'Logo','render':true,'scene-name':'Camara central'});
-        // OBS: and switch to next competitor if pending
-        obs_handlePendingEvent(event);
+        // OBS: Show start scene after 2 second to allow show timer
+        setTimeout(function(){obs_setCurrentScene('Salida')},2000);
 	},
 	// nada que hacer aqui: el crono automatico se procesa en el tablet
 	'crono_start':  function(event,time){ // arranque crono automatico
@@ -182,8 +213,9 @@ var eventHandler= {
         ac_config.cronoauto=parseInt(event.Value);
         ac_config.running=true;
 
-        // OBS: switch to Scene 1
-		obs.setCurrentScene({'scene-name':'Camara central'});
+        // OBS: switch to Main. Just to be sure in case of user forgets to play
+		obs_setCurrentScene('Principal');
+        obs_setSourceRender('Pasarela',false);
 	},
 	'crono_restart': function(event,time){	// paso de tiempo manual a automatico
 		console.log(event['Type'] + " - Manual-to-Electronic chrono transition");
@@ -203,8 +235,9 @@ var eventHandler= {
         console.log("    Time:  "+(parseInt(event.Value)-ac_config.cronoauto).toString()+" msecs");
         ac_config.running=false;
 
-        // OBS: Show logo on camera central
-        obs.setSourceRender({'source':'Logo','render':true,'scene-name':'Camara central'});
+        // OBS: Show start scene after 2 second to allow show timer
+        setTimeout(function(){obs_setCurrentScene('Salida')},2000);
+
         // OBS: and switch to next competitor if pending
         obs_handlePendingEvent(event);
 	},
@@ -258,6 +291,21 @@ var eventHandler= {
     'user':  function(event,time) { // user defined event
         var val=parseInt(event.Value);
         console.log(event['Type'] + " - User defined event: "+val);
+        switch(val) {
+            case 0: // F1
+                obs_setCurrentScene('Salida');
+                break;
+            case 1: // F2
+                obs_setCurrentScene('Principal');
+                obs_setSourceRender('Pasarela',false);
+                break;
+            case 2: // F3 --> show pasarela
+                obs_setSourceRender('Pasarela',true);
+                break;
+            case 3: // F4 -->hide pasarela
+                obs_setSourceRender('Pasarela',false);
+                break;
+        }
     },
 	'aceptar':	function(event,time){ // operador pulsa aceptar
 		console.log(event['Type'] + " - Assistant console operator accepts competitor result");
@@ -442,15 +490,21 @@ function waitForEvents(evtID,timestamp){
 		setTimeout(function(){ waitForEvents(evtID,timestamp);},5000); // retry in 5 seconds
 	}
 
-    var req = http.request(options,function(res){
-        res.setEncoding('utf8');
-        res.on('data', handleSuccess);
-        res.on('end', function() { /* empty */  });
+    var request = http.request(options);
+    request.on('response', function (response) {
+        var body = '';
+        response.on('data', function (chunk) {
+            body += chunk;
+        });
+        response.on('end', function () {
+            handleSuccess(body);
+        });
     });
-    req.on('error',handleError);
+    request.on('error',handleError);
+
     // write data to request body
-    req.write(postData);
-    req.end();
+    request.write(postData);
+    request.end();
 }
 
 /**
