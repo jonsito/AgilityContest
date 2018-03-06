@@ -436,6 +436,8 @@ class Admin extends DBObject {
         $rconn->query($str);
         // finally close db connection and return
         DBConnection::closeConnection($rconn);
+        // mark system to do not auto-backup on next login
+        @touch($this->restore_dir."/do_not_backup");
 		return "";
 	}
 
