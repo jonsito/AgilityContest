@@ -173,6 +173,7 @@ function autoBackupDatabase(mode,dir) {
                 ac_config.dogs_before_backup=0;
                 ac_config.time_of_last_backup=Math.floor(new Date().getTime() / 1000);
                 console.log('autobackup done at '+ac_config.time_of_last_backup);
+                if (res.do_not_backup) return; // do not show message when "do_not_backup" mark found
                 // and inform user on backup done
                 $.messager.show({
                     width: 300,

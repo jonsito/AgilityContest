@@ -156,6 +156,11 @@ class Admin extends DBObject {
         $dbhost=$this->dbhost;
         $dbuser=$this->dbuser;
         $dbpass=$this->dbpass;
+        $dnb=$this->restore_dir."/do_not_backup";
+        if (file_exists($dnb)) { // if first_install mark exists do not autobackup at login
+            @unlink($dnb);
+            return array('do_not_backup'=>true);
+        }
         set_time_limit(0); // some windozes are too slow dumping databases
 		// for linux
         $cmd="mysqldump"; // unix

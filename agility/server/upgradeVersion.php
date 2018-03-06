@@ -32,6 +32,7 @@ require_once(__DIR__."/i18n/Country.php");
 define("MINVER","20150522_2300");
 define('INSTALL_LOG',__DIR__."/../../logs/install.log");
 define('FIRST_INSTALL',__DIR__."/../../logs/first_install");
+define('DO_NOT_BACKUP',__DIR__."/../../logs/do_not_backup");
 
 class Updater {
     protected $config;
@@ -707,6 +708,7 @@ try {
         }
         $upg->install_log('<script type="text/javascript">alert("Database installation OK");</script>');
         ob_implicit_flush(false);
+        @touch(DO_NOT_BACKUP); // mark installDB=1 to disable autobackup at first login
     }
     // process database to make it compliant with sofwtare version
     $upg->removeUpdateMark();
