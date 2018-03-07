@@ -38,7 +38,7 @@ class Updater {
     protected $config;
     public $current_version;
     public $last_version;
-    protected $myLogger;
+    public $myLogger;
     protected $conn;
     protected $myDBObject;
 
@@ -220,17 +220,23 @@ class Updater {
                         "UNION SELECT MAX(LastModified) AS last FROM Jueces) AS m";
 
             $rs=$this->conn->query($str);
-            if (!$rs) throw new Exception ("upgrade::getLastDbUpdate(): ".$this->conn->error);
-            $res = $rs->fetch_array(MYSQLI_ASSOC);
-            $rs->free();
-            $curdate = ($res)? $res['Updated'] : toLongDateString($this->last_version);
-
+            $retflag=false;
+            if ($rs){
+                $res = $rs->fetch_array(MYSQLI_ASSOC);
+                $rs->free();
+                $curdate = ($res)? $res['Updated'] : toLongDateString($this->last_version);
+                $this->myLogger->trace("Last database update was on: {$curdate}");
+            } else { // when no LastModified fields exists mark to update database structure
+                $this->myLogger->trace("Database too old: {$this->last_version}");
+                $curdate = toLongDateString($this->last_version);
+                $retflag=true;
+            }
             // add new sw version entry into table with (newswver,lastdbupdate) values
             $str="INSERT INTO VersionHistory (Version,Updated) VALUES ('{$this->current_version}','{$curdate}') ";
             $res=$this->conn->query($str);
             if (!$res) throw new Exception ("upgrade::updateHistoryTable(): ".$this->conn->error);
             $this->myLogger->leave();
-            return true; // new release: mark database to be updated
+            return $retflag; // new release: mark database to be updated
         }
         $this->myLogger->leave();
         // same version than installed. No need to add new SW version to db history
@@ -712,12 +718,16 @@ try {
     }
     // process database to make it compliant with sofwtare version
     $upg->removeUpdateMark();
-    // as backup does not preserve views and procedures, always need to recreate
-    $upg->updatePerroGuiaClub();
     $needToUpdate=$upg->updateVersionHistory();
     @unlink(FIRST_INSTALL);
-    if ($needToUpdate===false) return; // database already updated. so just return
+    if ($needToUpdate===false) { // database already updated
+        $upg->myLogger->info("Database version is equal or greater than installed sw version");
+        // as backup does not preserve views and procedures, always need to recreate
+        $upg->updatePerroGuiaClub();
+        return;
+    }
     // software version changed. make sure that database is upgraded
+    $upg->myLogger->info("Database version is lower than installed sw version. Updating DB structure");
     // $upg->addCountries();
     $upg->addColumnUnlessExists("Mangas", "Orden_Equipos", "TEXT");
     $upg->addColumnUnlessExists("Resultados", "TIntermedio", "double", "0.0");
@@ -742,7 +752,12 @@ try {
     $upg->addColumnUnlessExists("Clubes", "ServerID", "int(4)", "0");
     $upg->addColumnUnlessExists("Jueces", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
     $upg->addColumnUnlessExists("Jueces", "ServerID", "int(4)", "0");
+
+    // as backup does not preserve views and procedures, always need to recreate
+    $upg->updatePerroGuiaClub();
+    // Pre-Agility2 is no longer used, just use Pre-Agility field
     $upg->updatePreAgility();
+
     // $upg->updateInscripciones(); not needed and to many time wasted
 
     // for server edition, include inscription dates
