@@ -25,6 +25,7 @@ require_once(__DIR__."/../../logging.php");
 require_once(__DIR__."/../../tools.php");
 require_once(__DIR__."/../../auth/Config.php");
 require_once(__DIR__."/../../auth/AuthManager.php");
+require_once(__DIR__ . "/../../auth/SimpleCrypt.php");
 require_once(__DIR__."/DBObject.php");
 require_once(__DIR__."/../../printer/RawPrinter.php");
 
@@ -51,6 +52,7 @@ class Admin extends DBObject {
      * @param {string} $file name of module to be registered in logs
      * @param {object} $am Auth Manager to be used
      * @param {string} $suffix suffix to be added to progress information file
+     * @throws Exception
      */
 	function __construct($file,$am,$suffix="") {
         parent::__construct($file);
@@ -72,14 +74,12 @@ class Admin extends DBObject {
      * FROM: https://gist.github.com/lavoiesl/9a08e399fc9832d12794
      * @param {resource} $stream where to write to default backup ( file or php://output )
      * @param {string} $line parsed line
-     * @param {string} base64 encoded encryption key
      * @throws Exception on mysqldump syntax error
      */
-	private function process_line($stream,$line,$key) {
+	private function process_line($stream,$line) {
 		$length = strlen($line);
 		$pos = strpos($line, ' VALUES ') + 8;
-		$str=substr($line, 0, $pos);
-        @fwrite($stream, ($key==="")? $str : ac_encrypt($str,$key));
+        @fwrite($stream, substr($line, 0, $pos));
 		$parenthesis = false;
 		$quote = false;
 		$escape = false;
@@ -120,7 +120,7 @@ class Admin extends DBObject {
 					$escape = false;
 					break;
 			}
-            @fwrite($stream, ($key==="")? $line[$i] : ac_encrypt($line[$i],$key));
+            @fwrite($stream, $line[$i]);
 		}
 	}
 
@@ -186,10 +186,15 @@ class Admin extends DBObject {
         $oldname="{$this->restore_dir}/{$dbname}_backup_old.sql";
         $fname="{$this->restore_dir}/{$dbname}_backup.sql";
         @rename($fname,$oldname); // @ to ignore errors in case of
-        $resource=@fopen($fname,"w");
-        @flock($resource,LOCK_EX);
-        if (!$resource) {
-            $this->myLogger->error("Cannot fopen system backup file {$fname}");
+        $outfile=@fopen($fname,"w");
+        $memfile=@fopen('php://memory','r+');
+        @flock($outfile,LOCK_EX);
+        if (!$memfile) {
+            $this->myLogger->error("Cannot fopen temporary php://memory file {$fname}");
+            return "adminFunctions::AutoBackup('fopen') failed";
+        }
+        if (!$outfile){
+            $this->myLogger->error("Cannot fopen backup file {$fname}");
             return "adminFunctions::AutoBackup('fopen') failed";
         }
 
@@ -204,17 +209,17 @@ class Admin extends DBObject {
         $ver=$this->myConfig->getEnv("version_name");
         $rev=$this->myConfig->getEnv("version_date");
         $lic=$this->myAuth->getRegistrationInfo()['Serial'];
-        $key= ""; // base64_encode(openssl_random_pseudo_bytes(32)); // encryption key
-        @fwrite($resource, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
-        @fwrite($resource, "-- AgilityContest Backup Date: {$bckdate} Key: {$key}\n");
+        $key= random_password(32); // encryption key
+        @fwrite($outfile, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
+        @fwrite($outfile, "-- AgilityContest Backup Date: {$bckdate} Key: {$key}\n");
 
         // now send to client database backup
         while(!feof($input)) {
             $line = fgets($input);
             if (substr($line, 0, 6) === 'INSERT') {
-                $this->process_line($resource,$line,$key);
+                $this->process_line($memfile,$line);
             } else {
-                @fwrite($resource, ($key==="")? $line : ac_encrypt($line,$key));
+                @fwrite($memfile, $line);
             }
         }
         pclose($input);
@@ -229,13 +234,17 @@ class Admin extends DBObject {
         while(!feof($input)) {
             $line = fgets($input);
             if (substr($line, 0, 6) === 'INSERT') {
-                $this->process_line($resource,$line,$key);
+                $this->process_line($memfile,$line);
             } else {
-                @fwrite($resource, ($key==="")? $line : ac_encrypt($line,$key));
+                @fwrite($memfile, $line);
             }
         }
         pclose($input);
-        fclose($resource);
+        rewind($memfile);
+        $data=stream_get_contents($memfile);
+        if ($key!=="") $data=DBCrypt::encrypt($data, $key, false);
+        @fwrite($outfile, $data);
+        fclose($outfile);
 
         // prepare user-requested backup file (if any)
         $tname="";
@@ -289,8 +298,11 @@ class Admin extends DBObject {
 		$input = popen($cmd1, 'r');
 		if ($input===FALSE) { $this->errorMsg="adminFunctions::backup():popen() failed"; return null;}
         // open stdout as file handler
-        $resource=fopen("php://output","w");
-        if ($resource===FALSE) { $this->errorMsg="adminFunctions::backup():popen() failed"; return null;}
+        $outfile=fopen("php://output","w");
+        if ($outfile===FALSE) { $this->errorMsg="adminFunctions::backup():fopen(stdout) failed"; return null;}
+        $memfile=@fopen('php://memory','r+');
+        if ($memfile===FALSE) { $this->errorMsg="adminFunctions::backup():fopen(memory) failed"; return null;}
+
         // prepare html response header
         $bckdate=date("Ymd_Hi");
 		$fname="$dbname-{$bckdate}.sql";
@@ -302,16 +314,17 @@ class Admin extends DBObject {
         $ver=$this->myConfig->getEnv("version_name");
         $rev=$this->myConfig->getEnv("version_date");
         $lic=$this->myAuth->getRegistrationInfo()['Serial'];
-        $key= ""; //  base64_encode(openssl_random_pseudo_bytes(32)); // encryption key
-        @fwrite($resource, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
-        @fwrite($resource, "-- AgilityContest Backup Date: {$bckdate} Key: {$key}\n");
+        $key= random_password(32); // encryption key
+        @fwrite($outfile, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
+        @fwrite($outfile, "-- AgilityContest Backup Date: {$bckdate} Key: {$key}\n");
+
         // now send to client database backup
 		while(!feof($input)) {
 			$line = fgets($input);
 			if (substr($line, 0, 6) === 'INSERT') {
-				$this->process_line($resource,$line,$key);
+				$this->process_line($memfile,$line);
 			} else {
-                @fwrite($resource, ($key==="")? $line : ac_encrypt($line,$key));
+                @fwrite($memfile, $line);
 			}
 		}
 		pclose($input);
@@ -326,13 +339,17 @@ class Admin extends DBObject {
         while(!feof($input)) {
             $line = fgets($input);
             if (substr($line, 0, 6) === 'INSERT') {
-                $this->process_line($resource,$line,$key);
+                $this->process_line($memfile,$line);
             } else {
-                @fwrite($resource, ($key==="")? $line : ac_encrypt($line,$key));
+                @fwrite($memfile, $line);
             }
         }
         pclose($input);
-        fclose($resource);
+        rewind($memfile);
+        $data=stream_get_contents($memfile);
+        if ($key!=="") $data=DBCrypt::encrypt($data, $key, false);
+        @fwrite($outfile, $data);
+        fclose($memfile);
 		return "ok";
 	}	
 
