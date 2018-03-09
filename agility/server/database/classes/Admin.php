@@ -39,6 +39,7 @@ class Admin extends DBObject {
 	private $dbuser;
 	private $dbpass;
 	public $logfile;
+
 	// used to store backup version info to handle remote updates
 	protected $bckVersion="3.7.3";
 	protected $bckRevision="20180212_1024";
@@ -71,12 +72,14 @@ class Admin extends DBObject {
      * FROM: https://gist.github.com/lavoiesl/9a08e399fc9832d12794
      * @param {resource} $stream where to write to default backup ( file or php://output )
      * @param {string} $line parsed line
+     * @param {string} base64 encoded encryption key
      * @throws Exception on mysqldump syntax error
      */
-	private function process_line($stream,$line) {
+	private function process_line($stream,$line,$key) {
 		$length = strlen($line);
 		$pos = strpos($line, ' VALUES ') + 8;
-        @fwrite($stream, substr($line, 0, $pos));
+		$str=substr($line, 0, $pos);
+        @fwrite($stream, ($key==="")? $str : ac_encrypt($str,$key));
 		$parenthesis = false;
 		$quote = false;
 		$escape = false;
@@ -117,7 +120,7 @@ class Admin extends DBObject {
 					$escape = false;
 					break;
 			}
-            @fwrite($stream, $line[$i]);
+            @fwrite($stream, ($key==="")? $line[$i] : ac_encrypt($line[$i],$key));
 		}
 	}
 
@@ -201,16 +204,17 @@ class Admin extends DBObject {
         $ver=$this->myConfig->getEnv("version_name");
         $rev=$this->myConfig->getEnv("version_date");
         $lic=$this->myAuth->getRegistrationInfo()['Serial'];
+        $key= ""; // base64_encode(openssl_random_pseudo_bytes(32)); // encryption key
         @fwrite($resource, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
-        @fwrite($resource, "-- AgilityContest Backup Date: {$bckdate}\n");
+        @fwrite($resource, "-- AgilityContest Backup Date: {$bckdate} Key: {$key}\n");
 
         // now send to client database backup
         while(!feof($input)) {
             $line = fgets($input);
             if (substr($line, 0, 6) === 'INSERT') {
-                $this->process_line($resource,$line);
+                $this->process_line($resource,$line,$key);
             } else {
-                @fwrite($resource, $line);
+                @fwrite($resource, ($key==="")? $line : ac_encrypt($line,$key));
             }
         }
         pclose($input);
@@ -225,9 +229,9 @@ class Admin extends DBObject {
         while(!feof($input)) {
             $line = fgets($input);
             if (substr($line, 0, 6) === 'INSERT') {
-                $this->process_line($resource,$line);
+                $this->process_line($resource,$line,$key);
             } else {
-                @fwrite($resource, $line);
+                @fwrite($resource, ($key==="")? $line : ac_encrypt($line,$key));
             }
         }
         pclose($input);
@@ -298,15 +302,16 @@ class Admin extends DBObject {
         $ver=$this->myConfig->getEnv("version_name");
         $rev=$this->myConfig->getEnv("version_date");
         $lic=$this->myAuth->getRegistrationInfo()['Serial'];
+        $key= ""; //  base64_encode(openssl_random_pseudo_bytes(32)); // encryption key
         @fwrite($resource, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
-        @fwrite($resource, "-- AgilityContest Backup Date: {$bckdate}\n");
+        @fwrite($resource, "-- AgilityContest Backup Date: {$bckdate} Key: {$key}\n");
         // now send to client database backup
 		while(!feof($input)) {
 			$line = fgets($input);
 			if (substr($line, 0, 6) === 'INSERT') {
-				$this->process_line($resource,$line);
+				$this->process_line($resource,$line,$key);
 			} else {
-				@fwrite($resource, $line);
+                @fwrite($resource, ($key==="")? $line : ac_encrypt($line,$key));
 			}
 		}
 		pclose($input);
@@ -321,9 +326,9 @@ class Admin extends DBObject {
         while(!feof($input)) {
             $line = fgets($input);
             if (substr($line, 0, 6) === 'INSERT') {
-                $this->process_line($resource,$line);
+                $this->process_line($resource,$line,$key);
             } else {
-                fwrite($resource, $line);
+                @fwrite($resource, ($key==="")? $line : ac_encrypt($line,$key));
             }
         }
         pclose($input);
