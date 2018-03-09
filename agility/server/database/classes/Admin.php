@@ -209,7 +209,9 @@ class Admin extends DBObject {
         $ver=$this->myConfig->getEnv("version_name");
         $rev=$this->myConfig->getEnv("version_date");
         $lic=$this->myAuth->getRegistrationInfo()['Serial'];
-        $key= random_password(32); // encryption key
+        // generate encryption key when configured to do
+        $key= "";
+        if (intval($this->myConfig->getEnv("encrypt_database"))!==0) $key= random_password(32);
         @fwrite($outfile, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
         @fwrite($outfile, "-- AgilityContest Backup Date: {$bckdate} Key: {$key}\n");
 
@@ -242,7 +244,7 @@ class Admin extends DBObject {
         pclose($input);
         rewind($memfile);
         $data=stream_get_contents($memfile);
-        if ($key!=="") $data=DBCrypt::encrypt($data, $key, false);
+        if ($key!=="") $data=SimpleCrypt::encrypt($data, $key, false);
         @fwrite($outfile, $data);
         fclose($outfile);
 
@@ -314,7 +316,10 @@ class Admin extends DBObject {
         $ver=$this->myConfig->getEnv("version_name");
         $rev=$this->myConfig->getEnv("version_date");
         $lic=$this->myAuth->getRegistrationInfo()['Serial'];
-        $key= random_password(32); // encryption key
+        // generate encryption key when configured to do
+        $key= "";
+        if (intval($this->myConfig->getEnv("encrypt_database"))!==0) $key= random_password(32);
+
         @fwrite($outfile, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
         @fwrite($outfile, "-- AgilityContest Backup Date: {$bckdate} Key: {$key}\n");
 
@@ -347,7 +352,7 @@ class Admin extends DBObject {
         pclose($input);
         rewind($memfile);
         $data=stream_get_contents($memfile);
-        if ($key!=="") $data=DBCrypt::encrypt($data, $key, false);
+        if ($key!=="") $data=SimpleCrypt::encrypt($data, $key, false);
         @fwrite($outfile, $data);
         fclose($memfile);
 		return "ok";
@@ -394,16 +399,31 @@ class Admin extends DBObject {
         // Temporary variable, used to store current query
         $templine = '';
         $trigger=false;
-        // Read entire file into an array
-        $lines = explode("\n",$data); // remember use double quote
-        // first line is copyright info
-        $num=sscanf($lines[0],
+        $key="";
+        // retrieve file information from header
+        $newline=strpos($data,PHP_EOL);
+        // first line is copyright and license info
+        $line=substr($data,0,$newline);
+        $num=sscanf($line,
             "-- AgilityContest Version: %s Revision: %s License: %s",
             $this->bckVersion, $this->bckRevision, $this->bckLicense);
-        if ($num!==3) $this->bckLicense="00000000"; //older db backups lacks on third field
-        // second line is backup file creation date
-        $num=sscanf("$lines[1]","-- AgilityContest Backup Date: %s",$this->bckDate);
-        if ($num===0) $this->bckDate=date("Ymd_Hi"); // older db backups lacks on backup creation date
+        if ($num===3) {
+            $data=substr($data,$newline+1); // advance to newline
+            $newline=strpos($data,PHP_EOL);
+            // second line is backup file creation date
+            $line=substr($data,0,$newline);
+            $num=sscanf("$line","-- AgilityContest Backup Date: %s Key: %s",$this->bckDate,$key);
+            if ($num==1) $key="";
+        } else {
+            $this->bckLicense="00000000"; //older db backups lacks on third field
+            $this->bckDate=date("Ymd_Hi"); // older db backups lacks on backup creation date
+        }
+        // now comes backup data.
+        $data=substr($data,$newline+1); // advance to newline
+        // if encryption key found in header, decrypt file
+        if ($key!=="") $data=SimpleCrypt::decrypt($data,$key);
+        // Read entire file into an array
+        $lines = explode("\n",$data); // remember use double quote
         // prepare restore process
 		$numlines=count($lines);
 		$timeout=ini_get('max_execution_time');
@@ -445,7 +465,7 @@ class Admin extends DBObject {
             throw new Exception($data['errorMsg']);
         // phase 2: verify received file
 		if (strpos(substr($data,0,25),"-- AgilityContest")===FALSE)
-			throw new Exception("Install file is not an AgilityContest database file");
+			throw new Exception("Provided file is not an AgilityContest database file");
         // phase 3: delete all tables and structures from database
         $this->dropAllTables($rconn);
         // phase 4: parse sql file and populate tables into database
