@@ -528,6 +528,10 @@ $config =Config::getInstance();
 
             <h3><?php _e('Auto backup options'); ?></h3>
 
+            <label for="encrypt_database"><?php _e('Encrypt data on backup generation'); ?></label>
+            <input type="hidden" name="encrypt_database" value="0"/> <!-- trick for checkboxes -->
+            <input type="checkbox" name="encrypt_database" id="encrypt_database" value="1"/><br />
+
             <label for="backup_disabled"><?php _e('Disable auto-backup'); ?> </label>
             <input type="hidden" name="backup_disabled" value="0"/> <!-- trick for checkboxes -->
             <span  style="width:90px;display:inline-block;">
