@@ -67,8 +67,8 @@ var ac_config = {
 
 	// AgilityContest connection parameters
 	ring: 1,
-    // hostname: '0.0.0.0', // set to '0.0.0.0' to let the app find server by itself
-	hostname: 'localhost',
+     hostname: '0.0.0.0', // set to '0.0.0.0' to let the app find server by itself
+	// hostname: 'localhost',
 	sessionID: 0, // will be evaluated from ac server response
 
 	// variables to store start timestamp mark

@@ -26,6 +26,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/tools.php");
 require_once(__DIR__."/logging.php");
 require_once(__DIR__."/auth/Config.php");
+require_once(__DIR__."/auth/SimpleCrypt.php");
 require_once(__DIR__."/database/classes/DBObject.php");
 require_once(__DIR__."/i18n/Country.php");
 
@@ -90,7 +91,8 @@ class Updater {
     function installDB() {
 
         // phase 1: retrieve database file from "extras" directory
-        $fp=fopen(__DIR__."/../../extras/agility.sql", "r");
+        $filename=__DIR__."/../../extras/agility.sql";
+        $fp=fopen($filename, "r");
         if (!$fp) return "Cannot load database file to be installed";
 
         // phase 2: verify received file to be a proper AgilityContest backup and extract header info
@@ -103,14 +105,24 @@ class Updater {
             fclose($fp);
             return "Provided install file is not an AgilityContest backup file";
         }
-        if ($num===3) { // newer backup files includes license number and creation date
+        $key="";
+        if ($num===3) { // newer backup files includes license number, creation date and optionaly encryption key
             $str=fgets($fp);
-            sscanf("$str","-- AgilityContest Backup Date: %s\n",$this->bckDate);
+            $num=sscanf("$str","-- AgilityContest Backup Date: %s Key: %s\n",$this->bckDate,$key);
+            if ($num==1) $key=""; // no decrypting key on intermediate (3.7.3) backup format
         } else {
             //older db backups lacks on third field
             $this->bckLicense="00000000";
             $this->bckDate=date("Ymd_Hi");
+            $key="";
         }
+        // rest of file is database backup
+        $data=fread($fp,filesize($filename));
+        fclose($fp); // no longer needed
+        // if encryption key found in header, decrypt file
+        if ($key!=="") $data=SimpleCrypt::decrypt($data,$key);
+        // Read entire file into an array
+        $lines = explode("\n",$data); // remember use double quote
 
         // phase 3: delete all tables and structures from database
         $this->conn->query('SET foreign_key_checks = 0');
@@ -131,7 +143,8 @@ class Updater {
         $timeout=ini_get('max_execution_time');
         // Loop through each line
         $need_ack=false; // to handle printing of OK/Error in log
-        while ( ($str=fgets($fp))!==false ) {
+
+        foreach ($lines as $idx => $str) {
             // avoid php to be killed on very slow systems
             set_time_limit($timeout);
             $line=trim($str); // remove spaces and newlines
@@ -161,7 +174,6 @@ class Updater {
                 $templine = '';
             }
         }
-        fclose($fp);
 
         // phase 5 update VersionHistory: set current sw version entry with restored backup creation date
         $bckd=toLongDateString($this->bckDate);
