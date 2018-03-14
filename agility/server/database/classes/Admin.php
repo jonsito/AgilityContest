@@ -302,9 +302,10 @@ class Admin extends DBObject {
         $ver=$this->myConfig->getEnv("version_name");
         $rev=$this->myConfig->getEnv("version_date");
         $lic=$this->myAuth->getRegistrationInfo()['Serial'];
-        $key= ""; //  base64_encode(openssl_random_pseudo_bytes(32)); // encryption key
+        $key= ""; // base64_encode(substr("{$lic}{$rev}{$bckdate}",-32)); // encryption key
+        $keystr= hash("md5",$key,false);
         @fwrite($resource, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
-        @fwrite($resource, "-- AgilityContest Backup Date: {$bckdate} Key: {$key}\n");
+        @fwrite($resource, "-- AgilityContest Backup Date: {$bckdate} Key: {$keystr}\n");
         // now send to client database backup
 		while(!feof($input)) {
 			$line = fgets($input);
