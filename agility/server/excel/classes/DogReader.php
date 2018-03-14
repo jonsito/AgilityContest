@@ -173,11 +173,23 @@ class DogReader {
                 }
             }
         }
+        /*
         // fill fieldList default values with declared one in excelVars
         foreach ($this->fieldList as $key =>&$val) {
-            if (! array_key_exists($key,$this->excelVars)) continue;
-            preg_replace("'.*'","'{$this->excelVars[$key]}'",$val[4]);
+            $newval="";
+            // try to match field with anty stored excel variables to perform global substitution
+            if (array_key_exists($key,$this->excelVars)) $newval=$this->excelVars[$key];
+            if (array_key_exists(_utf($key),$this->excelVars)) $newval=$this->excelVars[_utf($key)];
+            if (array_key_exists($val[3],$this->excelVars)) $newval=$this->excelVars[$val[3]];
+            if (array_key_exists(_utf($val[3]),$this->excelVars)) $newval=$this->excelVars[_utf($val[3])];
+            // if replacement default value found, handle it
+            if ($newval!=="") {
+                $this->myLogger->trace("Using user defined default value '{$newval}' in field '{$val[4]}'");
+                $val[4]=preg_replace("/DEFAULT '.*'/","DEFAULT '{$newval}'",$val[4]);
+                $val[2]=0; // mark field as not required
+            }
         }
+        */
         // now check for required but not declared fields
         foreach ($this->fieldList as $key =>$val) {
             if ( ($val[0]<0) && ($val[1]>0) ){
@@ -192,6 +204,7 @@ class DogReader {
     protected function createTemporaryTable() {
         $this->myLogger->enter();
         $this->saveStatus("Creating temporary table...");
+        $this->myLogger->trace("field list: \n".json_encode($this->fieldList));
         // To create database we need root DB access
         $rconn=DBConnection::getRootConnection();
         if ($rconn->connect_error)
@@ -346,9 +359,21 @@ class DogReader {
             // notice cannot use switch inside foreach, as break breaks loop
             if($nitems===0) continue; // empty row: skip
             if($nitems===1) continue; // just label: skip
-            if($nitems===2) { $this->excelVars[$row[0]]=$row[1]; continue; } // single value variable
-            if($nitems===3) { $this->excelVars[$row[0]]=array($row[1],$row[2]); continue; } // double value variable
-            if($nitems===4) { $this->excelVars[$row[0]]=array($row[1],$row[2],$row[3]); continue; } // triple value variable
+            if($nitems===2) { // single value variable
+                $this->excelVars[$row[0]]=$row[1];
+                $this->myLogger->trace("Adding Excel Variable: {$row[0]} => {$row[1]}");
+                continue;
+            }
+            if($nitems===3) { // double value variable
+                $this->excelVars[$row[0]]=array($row[1],$row[2]);
+                $this->myLogger->trace("Adding Excel Variable: {$row[0]} => [ {$row[1]} , {$row[2]} ]");
+                continue;
+            }
+            if($nitems===4) { // triple value variable
+                $this->excelVars[$row[0]]=array($row[1],$row[2],$row[3]);
+                $this->myLogger->trace("Adding Excel Variable: {$row[0]} => [ {$row[1]} , {$row[2]} , {$row[3]} ]");
+                continue;
+            }
             if (!$hasHeader) { // first full-filled row contains header
                 // validate header and create table
                 $this->myLogger->trace("parsing header: ".json_encode($row));

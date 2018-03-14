@@ -58,7 +58,7 @@ class InscriptionReader extends DogReader {
         $res=$this->myDBObject->__select("*","Jornadas","(Prueba={$options['Prueba']})","","");
         if (!$res) throw new Exception("InscriptionReader::construct(): cannot retrieve list of journeys for prueba: {$options['Prueba']}");
         $this->jornadas=$res['rows'];
-        $index=-21;
+        $index=-23; // notice negative index, as stored in fieldList ( to be _decremented_ )
         foreach ($this->jornadas as $jornada) {
             $name=$jornada['Nombre'];
             if ($name==="-- Sin asignar --") continue;
@@ -66,6 +66,7 @@ class InscriptionReader extends DogReader {
             $name=$this->myDBObject->conn->real_escape_string($name); // escape to avoid SQL injection
             $key="Jornada:".$jornada['Numero'];
             $this->fieldList[$key]= array( $index,1,"s",$name," `$name` varchar(255) NOT NULL DEFAULT '', ");
+            $this->myLogger->trace("Adding journey {$key} => ".json_encode($this->fieldList[$key]));
             $index--;
         }
         $this->validPageNames=array("Inscriptions");
