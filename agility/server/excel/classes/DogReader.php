@@ -173,10 +173,17 @@ class DogReader {
                 }
             }
         }
+        // fill fieldList default values with declared one in excelVars
+        foreach ($this->fieldList as $key =>&$val) {
+            if (! array_key_exists($key,$this->excelVars)) continue;
+            preg_replace("'.*'","'{$this->excelVars[$key]}'",$val[4]);
+        }
         // now check for required but not declared fields
         foreach ($this->fieldList as $key =>$val) {
-            if ( ($val[0]<0) && ($val[1]>0) )
-                throw new Exception ("{$this->name}::required field '$key' => ".json_encode($val)." not found in Excel header");
+            if ( ($val[0]<0) && ($val[1]>0) ){
+                if (!array_key_exists($key,$this->excelVars))
+                    throw new Exception ("{$this->name}::required field '$key' => ".json_encode($val)." not found in Excel header");
+            }
         }
         $this->myLogger->leave();
         return 0;
@@ -341,6 +348,7 @@ class DogReader {
             if($nitems===1) continue; // just label: skip
             if($nitems===2) { $this->excelVars[$row[0]]=$row[1]; continue; } // single value variable
             if($nitems===3) { $this->excelVars[$row[0]]=array($row[1],$row[2]); continue; } // double value variable
+            if($nitems===4) { $this->excelVars[$row[0]]=array($row[1],$row[2],$row[3]); continue; } // triple value variable
             if (!$hasHeader) { // first full-filled row contains header
                 // validate header and create table
                 $this->myLogger->trace("parsing header: ".json_encode($row));
