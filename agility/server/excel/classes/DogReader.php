@@ -157,6 +157,7 @@ class DogReader {
         $this->myLogger->enter();
         $this->saveStatus("Validating header...");
         // search required fields in header and store index when found
+
         foreach ($this->fieldList as $field =>&$data) {
             $toSearch=$field;
             if (strpos($field,"Jornada")!==FALSE ) $toSearch=$data[3]; // already converted and stripped
@@ -169,11 +170,11 @@ class DogReader {
                 // Try to take care on special chars and i18n issues
                 if ( ($name==$toSearch) || ($name==_($toSearch)) || ($name==_utf($toSearch)) || ($name==$data[3]) ) {
                     $this->myLogger->trace("Found key $name at index $index");
-                    $data[0]=$index; break;
+                    $data[0]=$index;
                 }
             }
         }
-        /*
+
         // fill fieldList default values with declared one in excelVars
         foreach ($this->fieldList as $key =>&$val) {
             $newval="";
@@ -183,20 +184,25 @@ class DogReader {
             if (array_key_exists($val[3],$this->excelVars)) $newval=$this->excelVars[$val[3]];
             if (array_key_exists(_utf($val[3]),$this->excelVars)) $newval=$this->excelVars[_utf($val[3])];
             // if replacement default value found, handle it
+            $newval=$this->myDBObject->conn->real_escape_string(trim($newval));
             if ($newval!=="") {
                 $this->myLogger->trace("Using user defined default value '{$newval}' in field '{$val[4]}'");
                 $val[4]=preg_replace("/DEFAULT '.*'/","DEFAULT '{$newval}'",$val[4]);
-                $val[2]=0; // mark field as not required
+                $val[1]=-1; // mark field as not required
             }
         }
-        */
+
+        $this->myLogger->trace("field list 3: \n".json_encode($this->fieldList));
         // now check for required but not declared fields
-        foreach ($this->fieldList as $key =>$val) {
+        foreach ($this->fieldList as $key =>&$val) {
+            $this->myLogger->trace("Key: {$key} Value: ".json_encode($val));
             if ( ($val[0]<0) && ($val[1]>0) ){
                 if (!array_key_exists($key,$this->excelVars))
                     throw new Exception ("{$this->name}::required field '$key' => ".json_encode($val)." not found in Excel header");
             }
+            $this->myLogger->trace("Key: {$key} Value: ".json_encode($val));
         }
+        $this->myLogger->trace("field list 4: \n".json_encode($this->fieldList));
         $this->myLogger->leave();
         return 0;
     }
@@ -204,7 +210,6 @@ class DogReader {
     protected function createTemporaryTable() {
         $this->myLogger->enter();
         $this->saveStatus("Creating temporary table...");
-        $this->myLogger->trace("field list: \n".json_encode($this->fieldList));
         // To create database we need root DB access
         $rconn=DBConnection::getRootConnection();
         if ($rconn->connect_error)
