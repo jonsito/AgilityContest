@@ -105,10 +105,10 @@ class Updater {
             fclose($fp);
             return "Provided install file is not an AgilityContest backup file";
         }
-        $key="";
+        $keystr="";
         if ($num===3) { // newer backup files includes license number, creation date and optionaly encryption key
             $str=fgets($fp);
-            $num=sscanf("$str","-- AgilityContest Backup Date: %s Key: %s\n",$this->bckDate,$key);
+            $num=sscanf("$str","-- AgilityContest Backup Date: %s Hash: %s\n",$this->bckDate,$keystr);
             if ($num==1) $key=""; // no decrypting key on intermediate (3.7.3) backup format
         } else {
             //older db backups lacks on third field
@@ -120,7 +120,13 @@ class Updater {
         $data=fread($fp,filesize($filename));
         fclose($fp); // no longer needed
         // if encryption key found in header, decrypt file
-        if ($key!=="") $data=SimpleCrypt::decrypt($data,$key);
+        if ($keystr!=="") {
+            // encryption key
+            $key= base64_encode(substr("{$this->bckLicense}{$this->bckRevision}{$this->bckDate}",-32));
+            // check key hash
+            if ($keystr!== hash("md5",$key,false))return ("Restore failed: Key hash does not match");
+            $data=SimpleCrypt::decrypt($data,$key);
+        }
         // Read entire file into an array
         $lines = explode("\n",$data); // remember use double quote
 

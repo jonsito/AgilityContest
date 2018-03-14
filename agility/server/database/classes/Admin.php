@@ -211,9 +211,13 @@ class Admin extends DBObject {
         $lic=$this->myAuth->getRegistrationInfo()['Serial'];
         // generate encryption key when configured to do
         $key= "";
+        if (intval($this->myConfig->getEnv("encrypt_database"))!==0) {
+            $key= base64_encode(substr("{$lic}{$rev}{$bckdate}",-32)); // encryption key
+        }
+        $keystr= hash("md5",$key,false);
         if (intval($this->myConfig->getEnv("encrypt_database"))!==0) $key= random_password(32);
         @fwrite($outfile, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
-        @fwrite($outfile, "-- AgilityContest Backup Date: {$bckdate} Key: {$key}\n");
+        @fwrite($outfile, "-- AgilityContest Backup Date: {$bckdate} Hash: {$keystr}\n");
 
         // now send to client database backup
         while(!feof($input)) {
@@ -318,10 +322,12 @@ class Admin extends DBObject {
         $lic=$this->myAuth->getRegistrationInfo()['Serial'];
         // generate encryption key when configured to do
         $key= "";
-        if (intval($this->myConfig->getEnv("encrypt_database"))!==0) $key= random_password(32);
-
+        if (intval($this->myConfig->getEnv("encrypt_database"))!==0) {
+            $key= base64_encode(substr("{$lic}{$rev}{$bckdate}",-32)); // encryption key
+        }
+        $keystr= hash("md5",$key,false);
         @fwrite($outfile, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
-        @fwrite($outfile, "-- AgilityContest Backup Date: {$bckdate} Key: {$key}\n");
+        @fwrite($outfile, "-- AgilityContest Backup Date: {$bckdate} Hash: {$keystr}\n");
 
         // now send to client database backup
 		while(!feof($input)) {
@@ -395,11 +401,18 @@ class Admin extends DBObject {
         $conn->query('SET foreign_key_checks = 1');
     }
 
+    /**
+     * Extract backup contents and store into database
+     * @param $conn  Database connection
+     * @param $data backup conents
+     * @return string "" on success, else errormsg
+     * @throws Exception unrecoverable error
+     */
     private function readIntoDB($conn,$data) {
         // Temporary variable, used to store current query
         $templine = '';
         $trigger=false;
-        $key="";
+        $keystr="";
         // retrieve file information from header
         $newline=strpos($data,PHP_EOL);
         // first line is copyright and license info
@@ -412,7 +425,7 @@ class Admin extends DBObject {
             $newline=strpos($data,PHP_EOL);
             // second line is backup file creation date
             $line=substr($data,0,$newline);
-            $num=sscanf("$line","-- AgilityContest Backup Date: %s Key: %s",$this->bckDate,$key);
+            $num=sscanf("$line","-- AgilityContest Backup Date: %s Hash: %s",$this->bckDate,$keystr);
             if ($num==1) $key="";
         } else {
             $this->bckLicense="00000000"; //older db backups lacks on third field
@@ -421,7 +434,14 @@ class Admin extends DBObject {
         // now comes backup data.
         $data=substr($data,$newline+1); // advance to newline
         // if encryption key found in header, decrypt file
-        if ($key!=="") $data=SimpleCrypt::decrypt($data,$key);
+        if ($keystr!=="") {
+            // encryption key
+            $key= base64_encode(substr("{$this->bckLicense}{$this->bckRevision}{$this->bckDate}",-32));
+            // check key hash
+            if ($keystr!== hash("md5",$key,false))
+                throw new Exception("Restore failed: Key hash does not match");
+            $data=SimpleCrypt::decrypt($data,$key);
+        }
         // Read entire file into an array
         $lines = explode("\n",$data); // remember use double quote
         // prepare restore process
