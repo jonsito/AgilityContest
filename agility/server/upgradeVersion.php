@@ -109,12 +109,12 @@ class Updater {
         if ($num===3) { // newer backup files includes license number, creation date and optionaly encryption key
             $str=fgets($fp);
             $num=sscanf("$str","-- AgilityContest Backup Date: %s Hash: %s\n",$this->bckDate,$keystr);
-            if ($num==1) $key=""; // no decrypting key on intermediate (3.7.3) backup format
+            if ($num==1) $keystr=""; // no decrypting key on intermediate (3.7.3) backup format
         } else {
             //older db backups lacks on third field
             $this->bckLicense="00000000";
             $this->bckDate=date("Ymd_Hi");
-            $key="";
+            $keystr="";
         }
         // rest of file is database backup
         $data=fread($fp,filesize($filename));

@@ -210,11 +210,11 @@ class Admin extends DBObject {
         $rev=$this->myConfig->getEnv("version_date");
         $lic=$this->myAuth->getRegistrationInfo()['Serial'];
         // generate encryption key when configured to do
-        $key= "";
+        $key= ""; $keystr="";
         if (intval($this->myConfig->getEnv("encrypt_database"))!==0) {
             $key= base64_encode(substr("{$lic}{$rev}{$bckdate}",-32)); // encryption key
+            $keystr= hash("md5",$key,false);
         }
-        $keystr= hash("md5",$key,false);
         if (intval($this->myConfig->getEnv("encrypt_database"))!==0) $key= random_password(32);
         @fwrite($outfile, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
         @fwrite($outfile, "-- AgilityContest Backup Date: {$bckdate} Hash: {$keystr}\n");
@@ -321,11 +321,11 @@ class Admin extends DBObject {
         $rev=$this->myConfig->getEnv("version_date");
         $lic=$this->myAuth->getRegistrationInfo()['Serial'];
         // generate encryption key when configured to do
-        $key= "";
+        $key= ""; $keystr="";
         if (intval($this->myConfig->getEnv("encrypt_database"))!==0) {
             $key= base64_encode(substr("{$lic}{$rev}{$bckdate}",-32)); // encryption key
+            $keystr= hash("md5",$key,false);
         }
-        $keystr= hash("md5",$key,false);
         @fwrite($outfile, "-- AgilityContest Version: {$ver} Revision: {$rev} License: {$lic}\n");
         @fwrite($outfile, "-- AgilityContest Backup Date: {$bckdate} Hash: {$keystr}\n");
 
@@ -426,10 +426,11 @@ class Admin extends DBObject {
             // second line is backup file creation date
             $line=substr($data,0,$newline);
             $num=sscanf("$line","-- AgilityContest Backup Date: %s Hash: %s",$this->bckDate,$keystr);
-            if ($num==1) $key="";
+            if ($num==1) $keystr="";
         } else {
             $this->bckLicense="00000000"; //older db backups lacks on third field
             $this->bckDate=date("Ymd_Hi"); // older db backups lacks on backup creation date
+            $keystr="";
         }
         // now comes backup data.
         $data=substr($data,$newline+1); // advance to newline
