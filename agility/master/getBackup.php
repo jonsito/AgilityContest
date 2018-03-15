@@ -25,7 +25,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  */
 
 // NOTICE: this macro only works on server as this scripts is intended to run on it
-define("AC_BACKUP_FILE","/var/www/html/AgilityContest/downloads/agility.sql");
+define("AC_BACKUP_FILE","/var/www/html/downloads/agility.sql");
 
 function sendBackup() {
     // $f=date("Ymd_Hi");
