@@ -378,7 +378,10 @@ class Admin extends DBObject {
 		$data=http_request("Data","s",null);
 		if (!$data) return array("errorMsg" => "restoreDB(): No restoration data received");
 		if ($data==="remoteDownload") {
-		    $res=retrieveFileFromURL("http://www.agilitycontest.es/downloads/agility.sql");
+            $rev=$this->myConfig->getEnv("version_date");
+            $lic=$this->myAuth->getRegistrationInfo()['Serial'];
+            $url="http://www.agilitycontest.es/agility/master/getBackup.php?Revision={$rev}&License={$lic}";
+		    $res=retrieveFileFromURL($url);
 		    if ($res===FALSE) return array("errorMsg" => "downloadDatabase(): cannot download file from server");
 		    return $res;
         }
