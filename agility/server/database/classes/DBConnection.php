@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+require_once (__DIR__."/../../auth/Config.php");
 /**
  * DB connection handler
  * This class should only be used from DBConnection objects
@@ -47,9 +48,12 @@ class DBConnection {
     }
 
     public static function getRootConnection() {
-        $u=base64_decode("YWdpbGl0eV9hZG1pbg==");
-        $p=base64_decode("YWRtaW5AY2FjaG9ycmVyYQ==");
-        return self::getConnection("localhost","agility",$u,$p);
+        $myConfig=Config::getInstance();
+        $h=$myConfig->getEnv("database_host");
+        $n=$myConfig->getEnv("database_name");
+        $u=base64_decode($myConfig->getEnv("database_ruser"));
+        $p=base64_decode($myConfig->getEnv("database_rpass"));
+        return self::getConnection($h,$n,$u,$p);
     }
 	
 	public static function closeConnection($conn) {
