@@ -32,7 +32,7 @@ use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;
 
 define ('IMPORT_DIR', __DIR__."/../../../../logs/");
-define ('TABLE_NAME',"ImportData"); // name of temporary table to store excel file data into
+define ('TABLE_NAME',"importdata"); // name of temporary table to store excel file data into
 
 /**
  * Class DogReader

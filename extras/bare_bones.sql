@@ -851,7 +851,7 @@ DROP TABLE IF EXISTS `versionhistory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `versionhistory` (
-  `Version` varchar(16) NOT NULL DEFAULT '{MINVER}',
+  `Version` varchar(16) NOT NULL DEFAULT '20150522_2300',
   `Updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

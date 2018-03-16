@@ -81,7 +81,7 @@ unix2dos ${BUILD_DIR}/xampp/mysql/my.ini
 
 # ok. time to add AgilityContest files
 echo "Copying AgilityContest files ..."
-(cd ${BASE_DIR}; tar cfBp - agility extras logs AgilityContest.exe settings_*.bat COPYING README.md Contributors) |\
+(cd ${BASE_DIR}; tar cfBp - agility applications extras logs AgilityContest.exe settings_*.bat COPYING README.md Contributors) |\
     ( cd ${BUILD_DIR}; tar xfBp - )
 touch ${BUILD_DIR}/logs/first_install
 unix2dos ${BUILD_DIR}/settings_es.bat
@@ -118,7 +118,8 @@ chmod +x osx_install.command
 mkdir -p .background
 cp agility/images/AgilityContest.png .background
 cp -r COPYING License.txt agility logs extras docs AgilityContest-master
-zip -r AgilityContest-master.zip AgilityContest-master
+# do not include build and web dir in destination zipfile
+zip -r AgilityContest-master.zip AgilityContest-master/{agility,applications,extras,logs}
 FILES="osx_install.command COPYING License.txt AgilityContest-master.zip"
 mkisofs -A AgilityContest \
     -P jonsito@gmail.com \

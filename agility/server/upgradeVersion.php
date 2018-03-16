@@ -210,7 +210,7 @@ class Updater {
         $this->myLogger->enter();
         // make sure database provides version history table
         $cv="CREATE TABLE IF NOT EXISTS `VersionHistory` (
-          `Version` varchar(16) NOT NULL DEFAULT '{MINVER}',
+          `Version` varchar(16) NOT NULL DEFAULT '".MINVER."',
           `Updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
           PRIMARY KEY (`Version`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
