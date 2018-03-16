@@ -214,8 +214,10 @@ Class Config {
 		'version_date'		=> array(	's',	true,	"20150101_0000"),
 		'database_name'		=> array(	's',	true,	"name"),
 		'database_host'		=> array(	's',	true,	"host"),
-		'database_user'		=> array(	's',	true,	"user"),
-		'database_pass'		=> array(	's',	true,	"pass"),
+        'database_user'		=> array(	's',	true,	"user"),
+        'database_pass'		=> array(	's',	true,	"pass"),
+        'database_ruser'	=> array(	's',	true,	"user"),
+        'database_rpass'	=> array(	's',	true,	"pass"),
 		'program_name'		=> array(	's',	true,	"Agilitycontest"),
 		'author'			=> array(	's',	true,	"Juan Antonio Martinez"),
 		'email'				=> array(	's',	true,	"juansgaviota@gmail.com"),
@@ -532,8 +534,10 @@ Class Config {
 		$data=$this->config; // php copy by value, not by reference
 		unset($data["database_name"]);
 		unset($data["database_host"]);
-		unset($data["database_user"]);
-		unset($data["database_pass"]);
+        unset($data["database_user"]);
+        unset($data["database_pass"]);
+        unset($data["database_ruser"]);
+        unset($data["database_rpass"]);
         unset($data["restricted"]);
         unset($data["master_server"]);
 		return $data;
