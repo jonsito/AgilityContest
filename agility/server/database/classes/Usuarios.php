@@ -98,9 +98,8 @@ class Usuarios extends DBObject {
 	 */
 	function delete($id) {
 		$this->myLogger->enter();
-		if ($id<=1) return $this->error("Invalid User ID"); // cannot delete if user<=default 
-		$str="DELETE FROM Usuarios WHERE ( ID=$id )";
-		$res= $this->query($str);
+		if ($id<=1) return $this->error("Invalid User ID"); // cannot delete if user<=default
+		$res= $this->__delete("Usuarios","( ID={$id} )");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";

@@ -227,9 +227,8 @@ class Sesiones extends DBObject {
 	 */
 	function delete($id) {
 		$this->myLogger->enter();
-		if ($id<=1) return $this->error("Invalid Session ID"); // cannot delete if juez<=default 
-		$str="DELETE FROM Sesiones WHERE ( ID=$id )";
-		$res= $this->query($str);
+		if ($id<=1) return $this->error("Invalid Session ID"); // cannot delete if juez<=default
+		$res= $this->__delete("Sesiones","( ID={$id} )");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -243,8 +242,7 @@ class Sesiones extends DBObject {
 	function reset($id) {
 		$this->myLogger->enter();
 		if ($id<0) return $this->error("Invalid Session ID ");
-		$str="DELETE FROM Eventos WHERE ( Session=$id )";
-		$res= $this->query($str);
+		$res= $this->__delete("Eventos","( Session={$id} )");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";

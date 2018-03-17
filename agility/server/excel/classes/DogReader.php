@@ -841,18 +841,15 @@ class DogReader {
             return "IgnoreEntry(): Temporary table RowID:{$options['ExcelID']} not found  error:".$this->myDBObject->conn->error;
         }
         if ($options['Object']=="Club") {
-            $str="DELETE FROM $t WHERE NombreClub = '{$club}'";
-            $res=$this->myDBObject->query($str);
+            $res=$this->myDBObject->__delete($t,"NombreClub = '{$club}'");
             if (!$res) return "IgnoreEntry(): Ignore Club '{$obj->NombreClub}' error:".$this->myDBObject->conn->error;
         }
         else if ($options['Object']=="Guia") {
-            $str="DELETE FROM $t WHERE NombreGuia = '{$guia}'";
-            $res=$this->myDBObject->query($str);
+            $res=$this->myDBObject->__delete($t,"NombreGuia = '{$guia}'");
             if (!$res) return "IgnoreEntry(): Ignore Handler '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error;
         }
         else if ($options['Object']=="Perro") {
-            $str="DELETE FROM $t WHERE Nombre = '{$perro}'";
-            $res=$this->myDBObject->query($str);
+            $res=$this->myDBObject->__delete($t,"Nombre = '{$perro}'");
             if (!$res) return "IgnoreEntry(): Ignore Dog '{$obj->Nombre}' error:".$this->myDBObject->conn->error;
         }
         else {

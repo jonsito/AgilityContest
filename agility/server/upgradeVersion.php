@@ -330,8 +330,8 @@ class Updater {
     function updatePerroGuiaClub() {
         $this->myLogger->enter();
         $cmds=array(
-            "DROP TABLE IF EXISTS `PerroGuiaClub`;",
-            "DROP VIEW IF EXISTS `PerroGuiaClub`;",
+            "DROP TABLE IF EXISTS `perroguiaclub`;",
+            "DROP VIEW IF EXISTS `perroguiaclub`;",
             "CREATE VIEW `PerroGuiaClub` AS
                 SELECT `perros`.`ID` AS `ID`,
                 `perros`.`Federation` AS `Federation`,

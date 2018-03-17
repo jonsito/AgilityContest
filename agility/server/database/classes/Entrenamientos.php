@@ -41,8 +41,7 @@ class Entrenamientos extends DBObject {
      */
     function clear() {
         $this->myLogger->enter();
-        $str="DELETE FROM Entrenamientos WHERE (Prueba={$this->pruebaID}) ";
-        $res= $this->query($str);
+        $res= $this->__delete("Entrenamientos","(Prueba={$this->pruebaID})");
         if (!$res) return $this->error("Cannot remove training session entries for contest id: {$this->pruebaID}");
         $this->myLogger->leave();
         return "";

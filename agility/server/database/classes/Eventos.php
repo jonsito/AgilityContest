@@ -113,7 +113,7 @@ class Eventos extends DBObject {
 		$onInit=false;
 		// si el evento es "init" y el flag reset_events está a 1 borramos el historico de eventos antes de reinsertar
         if ( ( intval($this->myConfig->getEnv("reset_events")) == 1 ) && ( ($data['Type']==='init') )) {
-            $rs= $this->query("DELETE FROM Eventos WHERE (Session=$sid)");
+            $rs= $this->__delete("Eventos","(Session={$sid})");
             if (!$rs) return $this->error($this->conn->error);
 			$onInit=true;
         }

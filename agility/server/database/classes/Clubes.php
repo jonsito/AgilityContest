@@ -161,7 +161,7 @@ class Clubes extends DBObject {
 		$res= $this->query("UPDATE Guias SET Club=1  WHERE (Club=$id)");
 		if (!$res) return $this->error($this->conn->error);
 		// fase 2: borrar el club de la BBDD
-		$res= $this->query("DELETE FROM Clubes WHERE (ID=$id)");
+		$res= $this->__delete("Clubes","(ID={$id})");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";

@@ -425,8 +425,7 @@ class AuthManager {
 		// create/join to a session
 		if ($sid<=0) { //  if session id is not defined, create a new session
 			// remove all other console sessions from same user
-			$str="DELETE FROM Sesiones WHERE ( Nombre='Console' ) AND ( Operador={$obj->ID} )";
-			$this->mySessionMgr->query($str);
+			$this->mySessionMgr->__delete("Sesiones","( Nombre='Console' ) AND ( Operador={$obj->ID} )");
 			// insert new session
 			$data['Nombre']="Console";
 			$data['Comentario']=$obj->Login." - ".$obj->Gecos;
@@ -507,9 +506,8 @@ class AuthManager {
 	 */
 	function logout() {
 	    if (!$this->master_server) {
-            // remove console sessions for this user
-            $str="DELETE FROM Sesiones WHERE ( Nombre='Console' ) AND ( Operador={$this->operador} )";
-            $this->mySessionMgr->query($str);
+            // remove console sessions for this
+            $this->mySessionMgr->__delete("Sesiones","( Nombre='Console' ) AND ( Operador={$this->operador} )");
         }
 		// clear session key  on named sessions
 		$str="UPDATE Sesiones 
