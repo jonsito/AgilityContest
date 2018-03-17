@@ -89,7 +89,7 @@ class OrdenSalida extends DBObject {
 			$this->myLogger->error($this->errormsg);
 			return $this->errormsg;
 		}
-		$sql = "UPDATE Mangas SET Orden_Salida = '$orden' WHERE ( ID={$this->manga->ID} )";
+		$sql = "UPDATE mangas SET Orden_Salida = '$orden' WHERE ( ID={$this->manga->ID} )";
 		$rs = $this->query ($sql);
 		// do not call $rs->free() as no resultset returned
 		if (!$rs) return $this->error($this->conn->error);
@@ -122,7 +122,7 @@ class OrdenSalida extends DBObject {
             // return $this->errormsg;
             $orden=$this->getOrdenEquipos(); // use default order for backward compatibility
         }
-        $sql = "UPDATE Mangas SET Orden_Equipos = '$orden' WHERE ( ID={$this->manga->ID} )";
+        $sql = "UPDATE mangas SET Orden_Equipos = '$orden' WHERE ( ID={$this->manga->ID} )";
         $rs = $this->query ($sql);
         // do not call $rs->free() as no resultset returned
         if (!$rs) return $this->error($this->conn->error);
@@ -226,7 +226,7 @@ class OrdenSalida extends DBObject {
      */
     function getTeams() {
         // obtenemos los equipos de la manga y reindexamos segun el ID
-        $eq=$this->__select("*","Equipos","(Jornada={$this->jornada->ID})","","");
+        $eq=$this->__select("*","equipos","(Jornada={$this->jornada->ID})","","");
         if (!is_array($eq)) return $this->error($this->conn->error);
         $equipos=array();
         foreach($eq['rows'] as $equipo) { $equipos[$equipo['ID']]=$equipo; }
@@ -254,11 +254,11 @@ class OrdenSalida extends DBObject {
     function getDataByTeam($team) {
         $this->myLogger->enter();
         // obtenemos datos del equipo
-        $eqdata= $this->__selectAsArray("*","Equipos","(ID=$team) AND (Jornada={$this->jornada->ID})");
+        $eqdata= $this->__selectAsArray("*","equipos","(ID=$team) AND (Jornada={$this->jornada->ID})");
         if (!is_array($eqdata)) return $this->error($this->conn->error);
 
         // obtenemos los perros de la manga/equipo
-        $rs= $this->__select("*","Resultados","(Manga={$this->manga->ID}) AND (Equipo=$team)","","");
+        $rs= $this->__select("*","resultados","(Manga={$this->manga->ID}) AND (Equipo=$team)","","");
         if(!is_array($rs)) return $this->error($this->conn->error);
         // recreamos el array de perros anyadiendo el ID del perro como clave, así como el nombre del equipo
         $p1=array();
@@ -315,7 +315,7 @@ class OrdenSalida extends DBObject {
 	function  splitPerrosByMode($lista,$mode,$reverse,$range) {
 
 		// cogemos todos los perros de la manga e indexamos en función del perroID
-		$res=$this->__select("*","Resultados","Manga={$this->manga->ID}","","");
+		$res=$this->__select("*","resultados","Manga={$this->manga->ID}","","");
 		$listaperros=array();
 		foreach ($res['rows'] as $perro)  $listaperros[$perro['Perro']]=$perro;
 		// split de los datos originales
@@ -371,7 +371,7 @@ class OrdenSalida extends DBObject {
 	 */
 	function splitEquiposByMode($lista,$mode,$reverse=false) {
 		// buscamos los equipos de la jornada y lo reindexamos en funcion del ID
-		$res=$this->__select("*","Equipos","Jornada={$this->jornada->ID}","","");
+		$res=$this->__select("*","equipos","Jornada={$this->jornada->ID}","","");
 		$listaequipos=array();
 		foreach($res['rows'] as $equipo) $listaequipos[$equipo['ID']]=$equipo;
 		// cogemos el orden del equipo
@@ -420,13 +420,13 @@ class OrdenSalida extends DBObject {
 		$this->myLogger->enter();
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
 		if (!$rs) $rs= $this->__select(
-			"Resultados.*,Equipos.Nombre AS NombreEquipo,
-			PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS LogoClub,
-			PerroGuiaClub.Pais,PerroGuiaClub.Genero,PerroGuiaClub.LOE_RRC AS LOE_RRC,
+			"resultados.*,equipos.Nombre AS NombreEquipo,
+			perroguiaclub.NombreLargo AS NombreLargo,perroguiaclub.LogoClub AS LogoClub,
+			perroguiaclub.Pais,perroguiaclub.Genero,perroguiaclub.LOE_RRC AS LOE_RRC,
 			 1 AS PerrosPorGuia",
-			"Resultados,Equipos,PerroGuiaClub,Inscripciones",
-			"(Inscripciones.Prueba={$this->prueba->ID}) AND (Inscripciones.Perro=Resultados.Perro) AND
-			(Manga={$this->manga->ID}) AND (Resultados.Equipo=Equipos.ID) AND (Resultados.Perro=PerroGuiaClub.ID)",
+			"resultados,equipos,perroguiaclub,inscripciones",
+			"(inscripciones.Prueba={$this->prueba->ID}) AND (inscripciones.Perro=resultados.Perro) AND
+			(Manga={$this->manga->ID}) AND (resultados.Equipo=equipos.ID) AND (resultados.Perro=perroguiaclub.ID)",
 			"",
 			""
 		);
@@ -489,8 +489,8 @@ class OrdenSalida extends DBObject {
 			$cats=implode(',',Tandas::getTandasByTipoManga($this->manga->Tipo)); // tipos de tanda asociados a la manga
             $res=$this->__select(
             	"Categoria",
-				"Tandas",
-				"(Tandas.Jornada={$this->jornada->ID}) AND (Tandas.Tipo IN ($cats)) ",
+				 "tandas",
+				"(tandas.Jornada={$this->jornada->ID}) AND (tandas.Tipo IN ($cats)) ",
                 "Orden ASC"
 			);
 
@@ -655,7 +655,7 @@ class OrdenSalida extends DBObject {
 		$mask=1<<($this->jornada->Numero - 1 );
 		$data=$this->__select(
 			"*",
-			"Inscripciones",
+			"inscripciones",
 			"(Prueba={$this->prueba->ID}) AND ( ( Jornadas & {$mask} ) != 0 )",
 			"Dorsal ASC"
 		)['rows'];
@@ -813,9 +813,9 @@ class OrdenSalida extends DBObject {
             if ($perro=="BEGIN") continue;
             if ($perro=="END") continue;
             echo "Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} Manga:{$this->manga->ID} Dorsal: $dorsal Perro:$perro\n";
-            $str1="UPDATE Inscripciones SET DORSAL=$dorsal WHERE (Prueba={$this->prueba->ID}) AND (Perro=$perro)";
+            $str1="UPDATE inscripciones SET DORSAL=$dorsal WHERE (Prueba={$this->prueba->ID}) AND (Perro=$perro)";
             $this->query($str1);
-            $str2="UPDATE Resultados SET DORSAL=$dorsal WHERE (Jornada={$this->jornada->ID}) AND (Perro=$perro)";
+            $str2="UPDATE resultados SET DORSAL=$dorsal WHERE (Jornada={$this->jornada->ID}) AND (Perro=$perro)";
             $this->query($str2);
             $dorsal++;
         }

@@ -40,7 +40,7 @@ class Guias extends DBObject {
         $categoria= http_request('Categoria',"s","A",false); // default adult
 
 		// componemos un prepared statement
-		$sql ="INSERT INTO Guias (Nombre,Telefono,Email,Club,Observaciones,Categoria,Federation)
+		$sql ="INSERT INTO guias (Nombre,Telefono,Email,Club,Observaciones,Categoria,Federation)
 			   VALUES(?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
@@ -62,9 +62,9 @@ class Guias extends DBObject {
 	function updateInscripciones($id) {
 		// miramos las pruebas en las que el perro esta inscrito
 		$res=$this->__select(
-		/* SELECT */"Inscripciones.*",
-			/* FROM */	"Inscripciones,Pruebas,PerroGuiaClub",
-			/* WHERE */	"(Pruebas.ID=Inscripciones.Prueba) AND (Pruebas.Cerrada=0) AND (Inscripciones.Perro=PerroGuiaClub.ID) AND (Guia=$id)",
+		/* SELECT */"inscripciones.*",
+			/* FROM */	"inscripciones,pruebas,perroguiaclub",
+			/* WHERE */	"(pruebas.ID=Inscripciones.Prueba) AND (pruebas.Cerrada=0) AND (Inscripciones.Perro=perroguiaclub.ID) AND (Guia=$id)",
 			/* ORDER BY */	"",
 			/* LIMIT*/	""
 		);
@@ -91,7 +91,7 @@ class Guias extends DBObject {
         $this->myLogger->info("ID: $id Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 
 		// componemos un prepared statement
-		$sql ="UPDATE Guias SET Nombre=? , Telefono=? , Email=? , Club=? , Observaciones=?, Categoria=? WHERE ( ID=? )";
+		$sql ="UPDATE guias SET Nombre=? , Telefono=? , Email=? , Club=? , Observaciones=?, Categoria=? WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('sssissi',$nombre,$telefono,$email,$club,$observaciones,$categoria,$guiaid);
@@ -111,7 +111,7 @@ class Guias extends DBObject {
 		$this->myLogger->enter();
 		if ($id<=1) return $this->error("Invalid Guia ID:$id provided"); // cannot delete ID=1
 		// fase 1: desasignamos los perros de este guia (los asignamos al guia id=1)
-		$res= $this->query("UPDATE Perros SET GUIA=1 WHERE ( Guia=$id )");
+		$res= $this->query("UPDATE perros SET Guia=1 WHERE ( Guia=$id )");
 		if (!$res) return $this->error($this->conn->error); 
 		// fase 2: borramos el guia de la base de datos
 		$res= $this->__delete("Guias","(ID={$id})");
@@ -128,7 +128,7 @@ class Guias extends DBObject {
 	function orphan($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Guia ID"); 
-		$res= $this->query("UPDATE Guias SET Club=1 WHERE ( ID=$id )");
+		$res= $this->query("UPDATE guias SET Club=1 WHERE ( ID=$id )");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -151,11 +151,11 @@ class Guias extends DBObject {
 		}
 		$fed="1";
 		if ($this->federation >=0) $fed="( Federation = {$this->federation} )";
-		$where = "(Guias.Club=Clubes.ID)";
-		if ($search!=='') $where="(Guias.Club=Clubes.ID) AND ( (Guias.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') ) ";
+		$where = "(guias.Club=clubes.ID)";
+		if ($search!=='') $where="(guias.Club=clubes.ID) AND ( (guias.Nombre LIKE '%$search%') OR ( clubes.Nombre LIKE '%$search%') ) ";
 		$result=$this->__select(
-				/* SELECT */ "Guias.ID, Guias.Federation, Guias.Nombre, Telefono, Categoria, Guias.Email, Club, Clubes.Nombre AS NombreClub, Guias.Observaciones",
-				/* FROM */ "Guias,Clubes",
+				/* SELECT */ "guias.ID, guias.Federation, guias.Nombre, Telefono, Categoria, guias.Email, Club, clubes.Nombre AS NombreClub, guias.Observaciones",
+				/* FROM */ "Gguias,clubes",
 				/* WHERE */ "$fed AND $where",
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
@@ -170,11 +170,11 @@ class Guias extends DBObject {
 		$q=http_request("q","s","");
 		$fed="1";
 		if ($this->federation >=0) $fed="( Federation = {$this->federation} )";
-		$where="(Guias.Club=Clubes.ID)";
-		if ($q!=="") $where="(Guias.Club=Clubes.ID) AND ( ( Guias.Nombre LIKE '%$q%' ) OR ( Clubes.Nombre LIKE '%$q%' ) )";
+		$where="(guias.Club=clubes.ID)";
+		if ($q!=="") $where="(guias.Club=clubes.ID) AND ( ( guias.Nombre LIKE '%$q%' ) OR ( clubes.Nombre LIKE '%$q%' ) )";
 		$result=$this->__select(
-				/* SELECT */ "Guias.*,Clubes.Nombre AS NombreClub",
-				/* FROM */ "Guias,Clubes",
+				/* SELECT */ "guias.*,clubes.Nombre AS NombreClub",
+				/* FROM */ "guias,clubes",
 				/* WHERE */ "$fed AND $where",
 				/* ORDER BY */ "Nombre ASC, NombreClub ASC",
 				/* LIMIT */ ""
@@ -195,7 +195,7 @@ class Guias extends DBObject {
 		if ($club<=0) return $this->error("Invalid Club ID provided");
 		$result=$this->__select(
 				/* SELECT */ "*",
-				/* FROM */ "Guias",
+				/* FROM */ "guias",
 				/* WHERE */ "$fed AND ( Club=$club )",
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""
@@ -212,7 +212,7 @@ class Guias extends DBObject {
 	function selectByID($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Provided Handler ID");
-		$obj=$this->__getObject("Guias",$id);
+		$obj=$this->__getObject("guias",$id);
 		if (!is_object($obj))	return $this->error("No handler found with ID=$id");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed

@@ -262,15 +262,15 @@ class Tandas extends DBObject {
 			$this->errormsg="$file::construct() invalid jornada:$jornada ID";
 			throw new Exception($this->errormsg);
 		}
-		$this->prueba=$this->__getObject("Pruebas",$prueba);
-		$this->jornada=$this->__getObject("Jornadas",$jornada);
+		$this->prueba=$this->__getObject("pruebas",$prueba);
+		$this->jornada=$this->__getObject("jornadas",$jornada);
 		if ($this->jornada->Prueba!=$prueba) {
 			$this->errormsg="$file::construct() jornada:$jornada is not owned by prueba:$prueba";
 			throw new Exception($this->errormsg);
 		}
-		$s=$this->__select("*","Sesiones","","","");
+		$s=$this->__select("*","sesiones","","","");
 		$this->sesiones=$s['rows'];
-		$m=$this->__select("*","Mangas","(Jornada=$jornada)","","");
+		$m=$this->__select("*","mangas","(Jornada=$jornada)","","");
 		$this->mangas=$m['rows'];
 		$this->federation=Federations::getFederation($this->prueba->RSCE);
 	}
@@ -299,13 +299,13 @@ class Tandas extends DBObject {
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		// locate latest order in manga
-		$obj=$this->__selectObject("MAX(Orden) AS Last","Tandas","(Prueba=$p) AND (Jornada=$j)");
+		$obj=$this->__selectObject("MAX(Orden) AS Last","tandas","(Prueba=$p) AND (Jornada=$j)");
 		$o=($obj!==null)?1+intval($obj->Last):1; // evaluate latest in order
 		$s=$data['Sesion'];
 		$n=$data['Nombre'];
 		$h=$data['Horario'];
 		$c=$data['Comentario'];
-		$str="INSERT INTO Tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Horario,Comentario) VALUES (0,$p,$j,$s,$o,'$n','$h','$c')";
+		$str="INSERT INTO tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Horario,Comentario) VALUES (0,$p,$j,$s,$o,'$n','$h','$c')";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// obtenemos el ID del registro insertado
@@ -313,7 +313,7 @@ class Tandas extends DBObject {
 		$to=$data['InsertID'];
 		if ($to==0) {
 			// buscamos el id del programa con menor orden
-			$str="SELECT ID From Tandas ORDER BY Orden ASC LIMIT 0,1";
+			$str="SELECT ID From tandas ORDER BY Orden ASC LIMIT 0,1";
 			$rs=$this->query($str);
 			if (!$rs) return $this->error($this->conn->error);
 			$obj=$rs->fetch_object();
@@ -339,11 +339,11 @@ class Tandas extends DBObject {
 		$n=$data['Nombre'];
 		$h=$data['Horario'];
 		$c=$data['Comentario'];
-        $str= "UPDATE Tandas SET Sesion=$s, Horario='$h', Comentario='$c' WHERE (ID=$id)";
+        $str= "UPDATE tandas SET Sesion=$s, Horario='$h', Comentario='$c' WHERE (ID=$id)";
         $rs=$this->query($str);
         if (!$rs) return $this->error($this->conn->error);
         // if tipo!=0 cannot change name
-        $str= "UPDATE Tandas SET Nombre='$n' WHERE (ID=$id) AND (Tipo=0)";
+        $str= "UPDATE tandas SET Nombre='$n' WHERE (ID=$id) AND (Tipo=0)";
         $rs=$this->query($str);
         if (!$rs) return $this->error($this->conn->error);
 		return "";
@@ -353,7 +353,7 @@ class Tandas extends DBObject {
         assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// only remove those tandas with "Tipo"=0
 		// for remaining tipos, removeFromList must be issued
-		$rs=$this->__delete("Tandas","(ID={$id}) AND (Tipo=0)");
+		$rs=$this->__delete("tandas","(ID={$id}) AND (Tipo=0)");
 		if (!$rs) return $this->error($this->conn->error);
 		return ""; // mark success
 	}
@@ -362,13 +362,13 @@ class Tandas extends DBObject {
         assertClosedJourney($this->jornada); // throw exception on closed journeys
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
-		$rs=$this->__delete("Tandas","(Prueba={$p}) AND (Jornada={$j}) AND (Tipo={$tipo})");
+		$rs=$this->__delete("tandas","(Prueba={$p}) AND (Jornada={$j}) AND (Tipo={$tipo})");
 		if (!$rs) return $this->error($this->conn->error);
 		return ""; // mark success
 	}
 	
 	function select($id){
-		return $this->__getArray("Tandas",$id);
+		return $this->__getArray("tandas",$id);
 	}
 	
 	/**
@@ -385,8 +385,8 @@ class Tandas extends DBObject {
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		// get from/to Tanda's ID
-		$f=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (ID=$from)");
-		$t=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (ID=$to)");
+		$f=$this->__selectObject("*","tandas","(Prueba=$p) AND (Jornada=$j) AND (ID=$from)");
+		$t=$this->__selectObject("*","tandas","(Prueba=$p) AND (Jornada=$j) AND (ID=$to)");
 		if(!$f || !$t) {
 			$this->myLogger->error("Error: no ID for tanda's order '$from' and/or '$to' on prueba:$p jornada:$j");
 			return $this->errormsg;
@@ -394,10 +394,10 @@ class Tandas extends DBObject {
 		$torder=$t->Orden;
 		$neworder=($where)?$torder+1/*after*/:$torder/*before*/;
 		$comp=($where)?">"/*after*/:">="/*before*/;
-		$str="UPDATE Tandas SET Orden=Orden+1 WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( Orden $comp $torder )";
+		$str="UPDATE tandas SET Orden=Orden+1 WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( Orden $comp $torder )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
-		$str="UPDATE Tandas SET Orden=$neworder WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( ID = $from )";
+		$str="UPDATE tandas SET Orden=$neworder WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( ID = $from )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		return "";
@@ -415,8 +415,8 @@ class Tandas extends DBObject {
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		// get from/to Tanda's ID
-		$f=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (ID=$from)");
-		$t=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (ID=$to)");
+		$f=$this->__selectObject("*","tandas","(Prueba=$p) AND (Jornada=$j) AND (ID=$from)");
+		$t=$this->__selectObject("*","tandas","(Prueba=$p) AND (Jornada=$j) AND (ID=$to)");
 		if(!$f || !$t) {
 			$this->myLogger->error("Error: no ID for tanda's order '$from' and/or '$to' on prueba:$p jornada:$j");
 			return $this->errormsg;
@@ -425,10 +425,10 @@ class Tandas extends DBObject {
 		$torden=$t->Orden;
 		// perform swap update. 
 		// TODO: make it inside a transaction
-		$str="UPDATE Tandas SET Orden=$torden WHERE (ID=$from)";
+		$str="UPDATE tandas SET Orden=$torden WHERE (ID=$from)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
-		$str="UPDATE Tandas SET Orden=$forden WHERE (ID=$to)";
+		$str="UPDATE tandas SET Orden=$forden WHERE (ID=$to)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
@@ -460,7 +460,7 @@ class Tandas extends DBObject {
 		// Ask dadabase to retrieve list of Tandas
 		$res= $this->__select(
 				/* SELECT */	"*",
-				/* FROM */		"Tandas",
+				/* FROM */		"tandas",
 				/* WHERE */		"(Prueba=$p) AND (Jornada=$j) $ses",
 				/* ORDER BY */	"Orden ASC",
 				/* LIMIT */		""
@@ -486,7 +486,7 @@ class Tandas extends DBObject {
 
                 // and finally add number of participants
                 $str="( Prueba={$this->prueba->ID} ) AND ( Jornada={$this->jornada->ID} ) AND (Manga={$res['rows'][$key]['Manga']})";
-                $result=$this->__select("*","Resultados",$str,"","");
+                $result=$this->__select("*","resultados",$str,"","");
                 if (!is_array($result)) {
                     $this->myLogger->error($result); return $result;
                 }
@@ -665,21 +665,21 @@ class Tandas extends DBObject {
 			$p=$this->prueba->ID;
 			$j=$this->jornada->ID;
 			// locate latest order in manga
-			$obj=$this->__selectObject("MAX(Orden) AS Last","Tandas","(Prueba=$p) AND (Jornada=$j)");
+			$obj=$this->__selectObject("MAX(Orden) AS Last","tandas","(Prueba=$p) AND (Jornada=$j)");
 			$last=1;
 			if ($obj!==null) $last=1+intval($obj->Last); // evaluate latest in order
 			// check for already inserted into Tandas
-			$obj=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)");
+			$obj=$this->__selectObject("*","tandas","(Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)");
 			if ($obj===null) { // insert into list at end.
                 $n=Tandas::getNombreByTipo($tipo,$fed); // use fed module to retrieve tanda name
                 $c=Tandas::getCategoriaByTipo($tipo);
                 $g=Tandas::getGradoByTipo($tipo);
-				$str="INSERT INTO Tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Categoria,Grado) 
+				$str="INSERT INTO tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Categoria,Grado) 
 					VALUES ($tipo,$p,$j,2,$last,'$n','$c','$g')"; // Default session is 2->Ring 1
 				$rs=$this->query($str);
 				if (!$rs) return $this->error($this->conn->error); 
 			} else { // move to the end of the list
-				$str="UPDATE Tandas SET Orden=$last WHERE (Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)";
+				$str="UPDATE tandas SET Orden=$last WHERE (Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)";
 				$rs=$this->query($str);
 				if (!$rs) return $this->error($this->conn->error); 
 			}
@@ -791,7 +791,7 @@ class Tandas extends DBObject {
 	function removeJornada(){
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
-		$rs=$this->__delete("Tandas","(Prueba={$p}) AND (Jornada={$j})");
+		$rs=$this->__delete("tandas","(Prueba={$p}) AND (Jornada={$j})");
 		if (!$rs) return $this->error($this->conn->error);
 		return ""; // mark success
 	}

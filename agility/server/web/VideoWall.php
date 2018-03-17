@@ -54,7 +54,7 @@ class VideoWall {
         $tandaid=0;
 		if ($sessionid!=0) {
             // obtenemos los datos desde la sesion abierta en el tablet
-			$this->session=$this->myDBObject->__getArray("Sesiones",$sessionid);
+			$this->session=$this->myDBObject->__getArray("sesiones",$sessionid);
 			$this->sessionid=$sessionid;
             $pruebaid=$this->session['Prueba'];
             $jornadaid=$this->session['Jornada'];
@@ -67,16 +67,16 @@ class VideoWall {
 			$this->sessionid=0;
 			$this->mode=$mode;
 		}
-        $this->prueba=$this->myDBObject->__getArray("Pruebas",$pruebaid);
+        $this->prueba=$this->myDBObject->__getArray("pruebas",$pruebaid);
         $this->prueba['LogoClub']=$this->myDBObject->__getArray("Clubes",intval($this->prueba['Club']))['Logo'];
-        $this->jornada=$this->myDBObject->__getArray("Jornadas",$jornadaid);
+        $this->jornada=$this->myDBObject->__getArray("jornadas",$jornadaid);
         if ($mangaid!=0) {
-            $this->manga=$this->myDBObject->__getArray("Mangas",$mangaid);
+            $this->manga=$this->myDBObject->__getArray("mangas",$mangaid);
             $this->manga['Manga']=$mangaid; // manga['ID'] contains extra info and should not be used
             $this->mangaid=$mangaid;
         }
         if ($tandaid!=0) {
-            $this->tanda=$this->myDBObject->__getArray("Tandas",$tandaid);
+            $this->tanda=$this->myDBObject->__getArray("tandas",$tandaid);
             $this->tanda['IsAgility']=Tandas::isAgility($this->tanda['Tipo']);
             $this->tandatype=$this->tanda['Tipo'];
         }
@@ -101,7 +101,7 @@ class VideoWall {
                 if ($this->ronda!=null) break;
             }
         }
-        $this->club= $this->myDBObject->__getArray("Clubes",$this->prueba['Club']);
+        $this->club= $this->myDBObject->__getArray("clubes",$this->prueba['Club']);
         if ($this->manga!=null) { // elimina parentesis del nombre
             $fed=Federations::getFederation( intval($this->prueba['RSCE']) );
             $str=_(Mangas::getTipoManga($this->manga['Tipo'],1,$fed));
@@ -145,7 +145,7 @@ class VideoWall {
             }
             if ( $this->isTeam() && ($lastTeam!==$participante['Equipo']) ){
                 $lastTeam=$participante['Equipo'];
-                $team=$this->myDBObject->__getObject("Equipos",$lastTeam);
+                $team=$this->myDBObject->__getObject("equipos",$lastTeam);
                 // orden 0 means new team
                 $item=array("Orden" => 0,"Logo" => "empty.png","Dorsal"=>"&nbsp","Licencia" => "Equipo:","Nombre" => $team->Nombre,
                     "Raza","Categoria" => "&nbsp","Grado" => "&nbsp;","NombreGuia" => "&nbsp;","NombreClub" => "&nbsp;","Celo" => 0 );
@@ -290,7 +290,7 @@ class VideoWall {
             "current" => array_slice($result,-($found+1),1),
             "after" => array_slice($result,-($found+1+$after),$after),
             // extra round results for current dog (if any)
-            "results" =>$this->myDBObject->__select("*","Resultados","(Perro=$perro) AND (Jornada={$this->jornada['ID']})","","")['rows']
+            "results" =>$this->myDBObject->__select("*","resultados","(Perro=$perro) AND (Jornada={$this->jornada['ID']})","","")['rows']
         );
         echo json_encode($res);
         return 0;

@@ -69,7 +69,7 @@ class InscripcionesWriter extends XLSX_Writer {
 		// fix excel file name to match club
         $suffix="";
         if ( $this->club > 0) {
-            $club=$p->__selectObject("Nombre","Clubes","ID={$this->club}");
+            $club=$p->__selectObject("Nombre","clubes","ID={$this->club}");
             $name=$club->Nombre;
             $name = str_replace('\\', '', $name);
             $name = str_replace('/', '', $name);
@@ -119,7 +119,7 @@ class InscripcionesWriter extends XLSX_Writer {
         } else { // retrieve dog list from provided club
             $res=$insc->__select(
                 "*",
-                "PerroGuiaClub",
+                "perroguiaclub",
                 "(Club={$this->club}) && (Federation={$this->prueba['RSCE']})",
                 "Categoria ASC, Grado ASC, Nombre ASC",
                 "");

@@ -64,7 +64,7 @@ class PrintClasificacionGames extends PrintCommon {
 		$dbobj=new DBObject("print_clasificacion_games");
 		$this->resultados=$results['rows'];
 		for($n=0;$n<8;$n++){
-		    $this->mangas[$n]=($mangas[$n]!=0)?$dbobj->__getObject("Mangas",$mangas[$n]):null;
+		    $this->mangas[$n]=($mangas[$n]!=0)?$dbobj->__getObject("mangas",$mangas[$n]):null;
 		    $this->trs_data[$n]=null;
 		    $k="trs".strval($n+1);
 		    if (array_key_exists($k,$results))  $this->trs_data[$n]=$results[$k];

@@ -54,7 +54,7 @@ class Equipos extends DBObject {
             $p=$this->pruebaID;
             $j=$this->jornadaID;
             // obtenemos los equipos de esta jornada
-            $res= $this->__select("*","Equipos","( Prueba = $p ) AND ( Jornada = $j )","","");
+            $res= $this->__select("*","equipos","( Prueba = $p ) AND ( Jornada = $j )","","");
             if (!is_array($res)) {
                 $this->myLogger->error("{$this->file}::getTeamsByJornada() cannot get team data for prueba:$p jornada:$j");
             }
@@ -67,7 +67,7 @@ class Equipos extends DBObject {
         if ($this->defaultTeam==null) {
             $prueba=$this->pruebaID;
             $jornada=$this->jornadaID;
-            $this->defaultTeam=$this->__selectAsArray("*","Equipos","( Prueba=$prueba ) AND ( Jornada=$jornada ) AND (DefaultTeam=1)");
+            $this->defaultTeam=$this->__selectAsArray("*","equipos","( Prueba=$prueba ) AND ( Jornada=$jornada ) AND (DefaultTeam=1)");
         }
         return $this->defaultTeam;
 	}
@@ -87,7 +87,7 @@ class Equipos extends DBObject {
         $this->myLogger->info("Prueba:$prueba Jornada:$jornada Nombre:'$nombre' Observaciones:'$observaciones'");
 
         // look for duplicate team
-        $res= $this->__selectObject( "*", "Equipos", "( Prueba=$prueba) AND ( Jornada=$jornada ) AND (nombre='$nombre')"  );
+        $res= $this->__selectObject( "*", "equipos", "( Prueba=$prueba) AND ( Jornada=$jornada ) AND (nombre='$nombre')"  );
         if($res!==null){ // already created, try to update
             if (!is_object($res)) return $res; // error in trying locate team
             $this->myLogger->notice("El Equipo '$nombre' '$categorias' ya esta inscrito en la prueba:$prueba jornada:$jornada");
@@ -108,7 +108,7 @@ class Equipos extends DBObject {
 		$stmt->close();
 
         // list of mangas for this jornada
-        $mng=$this->__select("*","Mangas","(Jornada=$jornada)","","");
+        $mng=$this->__select("*","mangas","(Jornada=$jornada)","","");
         foreach($mng['rows'] as $manga) {
             $this->myLogger->trace("Insertando al equipo $insert_id en Orden_Equipos jornada:$jornada manga:{$manga['ID']}");
             $osobj=Competitions::getOrdenSalidaInstance("Equipos::insert",$manga['ID']);
@@ -153,7 +153,7 @@ class Equipos extends DBObject {
 		if ($id<0) return $this->error("Equipos::delete():Invalid Equipo ID:$id provided");
 
 		// fase 1: buscamos datos del equipo a borrar
-		$team=$this->__getArray("Equipos",$id);
+		$team=$this->__getArray("equipos",$id);
 		if (!is_array($team)){
 			return $this->error("Equipos::delete(): No encuentro el equipo $id en la lista de equipos de esta jornada");
 		}
@@ -165,11 +165,11 @@ class Equipos extends DBObject {
 
 		// fase 3: reasignamos los perros al equipo por defecto
         $dteam=$this->getDefaultTeam()['ID'];
-        $res=$this->query("UPDATE Resultados SET Equipo=$dteam WHERE (Equipo=$id)");
+        $res=$this->query("UPDATE resultados SET Equipo=$dteam WHERE (Equipo=$id)");
         if (!$res) return $this->error($this->conn->error);
 
         // fase 4: borramos el equipo del orden de salida de equipos de la manga
-        $mng=$this->__select("*","Mangas","(Jornada=$jornada)","",""); // list of mangas for this jornada
+        $mng=$this->__select("*","mangas","(Jornada=$jornada)","",""); // list of mangas for this jornada
         foreach($mng['rows'] as $manga) {
             $this->myLogger->trace("Eliminando el equipo:$id de Orden_Equipos jornada:$jornada manga:{$manga['ID']}");
             $osobj=Competitions::getOrdenSalidaInstance("Equipos::remove",$manga['ID']);
@@ -178,7 +178,7 @@ class Equipos extends DBObject {
         }
 
         // fase 5: finalmente borramos el equipo antiguo de la base de datos
-        $res= $this->__delete("Equipos","(ID={$id})");
+        $res= $this->__delete("equipos","(ID={$id})");
         if (!$res) return $this->error($this->conn->error);
 
 		$this->myLogger->leave();
@@ -204,26 +204,26 @@ class Equipos extends DBObject {
 			$limit="".$offset.",".$rows;
 		}
 		$hideDefault=http_request("HideDefault","i",0);
-        $hdef = ($hideDefault==0)?"":" AND (Equipos.DefaultTeam!=1)";
+        $hdef = ($hideDefault==0)?"":" AND (equipos.DefaultTeam!=1)";
         $extra= "";
-		$where = "(Equipos.Prueba={$this->pruebaID}) AND (Equipos.Jornada={$this->jornadaID})";
-		if ($search!=='') $extra=" AND ( (Equipos.Nombre LIKE '%$search%') OR ( Equipos.Observaciones LIKE '%$search%') ) ";
+		$where = "(equipos.Prueba={$this->pruebaID}) AND (equipos.Jornada={$this->jornadaID})";
+		if ($search!=='') $extra=" AND ( (equipos.Nombre LIKE '%$search%') OR ( equipos.Observaciones LIKE '%$search%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "* , 'null.png' as LogoTeam",
-				/* FROM */ "Equipos",
+				/* FROM */ "equipos",
 				/* WHERE */ $where.$extra.$hdef,
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
         // arriving here if no rows, use "where" to find first team that contains named dog/handler/dorsal/license
         if ( ($result['total']==0) && ($search!=='') ){
-            $dorsal=is_numeric($search)?" OR (Resultados.Dorsal=$search)":"";
-            $extra=" AND (Resultados.Jornada={$this->jornadaID}) AND (Equipos.ID=Resultados.Equipo) ".
-                "AND ( (Resultados.Nombre LIKE '%$search%') OR (Resultados.NombreGuia LIKE '%$search%') ".
-                " $dorsal OR ( Resultados.Licencia='$search') )";
+            $dorsal=is_numeric($search)?" OR (resultados.Dorsal=$search)":"";
+            $extra=" AND (resultados.Jornada={$this->jornadaID}) AND (equipos.ID=resultados.Equipo) ".
+                "AND ( (resultados.Nombre LIKE '%$search%') OR (resultados.NombreGuia LIKE '%$search%') ".
+                " $dorsal OR ( resultados.Licencia='$search') )";
             $result=$this->__select(
-                /* SELECT */ " DISTINCT Equipos.*,'null.png' as LogoTeam",
-                /* FROM */ "Resultados,Equipos",
+                /* SELECT */ " DISTINCT equipos.*,'null.png' as LogoTeam",
+                /* FROM */ "resultados,equipos",
                 /* WHERE */ $where.$extra.$hdef,
                 /* ORDER BY */ $sort,
                 /* LIMIT */ 1 // only get first result. Remeber that may be 1 to 8 rounds result matching
@@ -250,12 +250,12 @@ class Equipos extends DBObject {
 		// evaluate search string
 		$q=http_request("q","s","");
         $hideDefault=http_request("HideDefault","i",0);
-        $hdef = ($hideDefault==0)?"":" AND (Equipos.DefaultTeam!=1)";
-		$where = "(Equipos.Prueba={$this->pruebaID}) AND (Equipos.Jornada={$this->jornadaID})";
-		if ($q!=="") $where=$where." AND ( ( Equipos.Nombre LIKE '%$q%' ) OR ( Equipos.Observaciones LIKE '%$q%' ) )";
+        $hdef = ($hideDefault==0)?"":" AND (equipos.DefaultTeam!=1)";
+		$where = "(equipos.Prueba={$this->pruebaID}) AND (equipos.Jornada={$this->jornadaID})";
+		if ($q!=="") $where=$where." AND ( ( equipos.Nombre LIKE '%$q%' ) OR ( equipos.Observaciones LIKE '%$q%' ) )";
 		$result=$this->__select(
 				/* SELECT */ "*",
-				/* FROM */ "Equipos",
+				/* FROM */ "equipos",
 				/* WHERE */ $where.$hdef,
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""
@@ -272,7 +272,7 @@ class Equipos extends DBObject {
 	function selectByID($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Provided Equipo ID");
-		$data=$this->__getObject("Equipos",$id);
+		$data=$this->__getObject("equipos",$id);
 		if (!is_object($data))	return $this->error("No Equipo found with ID=$id");
 		$data= json_decode(json_encode($data), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
@@ -297,7 +297,7 @@ class Equipos extends DBObject {
             $idteam = $this->getDefaultTeam()['ID'];
         }
         // vemos si el equipo pertenece a la jornada. obtenemos datos del equipo solicitado
-        $newteam = $this->__getArray("Equipos", $idteam);
+        $newteam = $this->__getArray("equipos", $idteam);
         if (!$newteam) return $this->error("No encuentro datos del equipo:$idteam");
         if ($newteam['Jornada'] != $this->jornadaID) return $this->error("Elquipo:$idteam no pertenece a la jornada {$this->jornadaID}");
         // actualizamos la lista de miembros borrando el perro del equipo anterior (si existiera)
@@ -306,12 +306,12 @@ class Equipos extends DBObject {
         if (!$res) return $this->error("Error removing team member $idperro from old team:" . $this->conn->error);
         // si el nuevo equipo no es el default, insertamos en lista de miembros
         if ($newteam['DefaultTeam'] == 0) {
-            $sql = "UPDATE Equipos SET Miembros=REPLACE(Miembros,',END',',$idperro,END') WHERE ID=$idteam";
+            $sql = "UPDATE equipos SET Miembros=REPLACE(Miembros,',END',',$idperro,END') WHERE ID=$idteam";
             $res = $this->query($sql);
             if (!$res) return $this->error("Error adding team member $idperro to new team:" . $this->conn->error);
         }
         // finalmente asignamos el perro en la tabla de resultados
-        $res=$this->query("UPDATE Resultados SET Equipo=$idteam WHERE (Perro=$idperro) AND (Jornada={$this->jornadaID})");
+        $res=$this->query("UPDATE resultados SET Equipo=$idteam WHERE (Perro=$idperro) AND (Jornada={$this->jornadaID})");
         if (!$res) return $this->error($this->conn->error);
 
 		return ""; // success
@@ -326,10 +326,10 @@ class Equipos extends DBObject {
 	function getTeamByPerro($idperro) {
 		$jornada=$this->jornadaID;
         $team=$this->__selectAsArray(
-            "DISTINCT Equipos.*",
-            "Equipos,Resultados",
-            "(Resultados.Jornada=$jornada) AND (Resultados.Perro=$idperro) AND
-             (Resultados.Jornada=Equipos.Jornada) AND (Resultados.Equipo=Equipos.ID)");
+            "DISTINCT equipos.*",
+            "equipos,resultados",
+            "(resultados.Jornada=$jornada) AND (resultados.Perro=$idperro) AND
+             (resultados.Jornada=equipos.Jornada) AND (resultados.Equipo=equipos.ID)");
 		if (is_array($team)) return $team; 
 		// $this->myLogger->info("El perro $idperro no figura en ningun equipo de la jornada {$this->jornadaID}");
 		return $this->getDefaultTeam();
@@ -339,27 +339,27 @@ class Equipos extends DBObject {
     function getPerrosByTeam($team) {
         $this->myLogger->enter();
         // obtenemos los datos del equipo
-        $teamobj=$this->__getObject("Equipos",$team);
+        $teamobj=$this->__getObject("equipos",$team);
         if (!is_object($teamobj))
             return $this->error("No puedo obtener datos del equipo con ID: $team");
         // vemos el numero de la jornada asociada
-        $jornadaobj=$this->__getObject("Jornadas",$teamobj->Jornada);
+        $jornadaobj=$this->__getObject("jornadas",$teamobj->Jornada);
         if (!is_object($jornadaobj))
             return $this->error("No puedo obtener datos de la jornada: {$teamobj->Jornada} asociada al equipo: $team");
         // extraemos la lista de inscritos
         $tname=escapeString($teamobj->Nombre);
         $lista=$this->__select(
-        /*select*/ "DISTINCT Resultados.Prueba,Resultados.Jornada, Resultados.Dorsal, Resultados.Perro,
-                            Resultados.Nombre, Resultados.Raza, Resultados.Licencia, Resultados.Categoria, Resultados.Grado,
-                            Resultados.Celo,Resultados.NombreGuia,Resultados.NombreClub, Resultados.Equipo,
-                            PerroGuiaClub.Club AS Club, PerroGuiaClub.Guia AS Guia, PerroGuiaClub.LogoClub AS LogoClub, 
-                            PerroGuiaClub.NombreLargo AS NombreLargo, PerroGuiaClub.Chip AS Chip, 
-                            Inscripciones.Observaciones AS Observaciones,
+        /*select*/ "DISTINCT resultados.Prueba,resultados.Jornada, resultados.Dorsal, resultados.Perro,
+                            resultados.Nombre, resultados.Raza, resultados.Licencia, resultados.Categoria, resultados.Grado,
+                            resultados.Celo,resultados.NombreGuia,resultados.NombreClub, resultados.Equipo,
+                            perroguiaclub.Club AS Club, perroguiaclub.Guia AS Guia, perroguiaclub.LogoClub AS LogoClub, 
+                            perroguiaclub.NombreLargo AS NombreLargo, perroguiaclub.Chip AS Chip, 
+                            inscripciones.Observaciones AS Observaciones,
                             '$tname' AS NombreEquipo",
-            /* from */	"Resultados,PerroGuiaClub,Inscripciones",
-            /* where */ "( PerroGuiaClub.ID = Resultados.Perro)	AND ( Resultados.Jornada={$teamobj->Jornada} ) 
-            	        AND ( Inscripciones.Prueba=Resultados.Prueba ) AND (Inscripciones.Perro=Resultados.Perro)
-                        AND ( Resultados.Equipo=$team )",
+            /* from */	"resultados,perroguiaclub,inscripciones",
+            /* where */ "( perroguiaclub.ID = resultados.Perro)	AND ( resultados.Jornada={$teamobj->Jornada} ) 
+            	        AND ( inscripciones.Prueba=resultados.Prueba ) AND (inscripciones.Perro=resultados.Perro)
+                        AND ( resultados.Equipo=$team )",
             /* order */ "NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC",
             /* limit */ ""
         );
@@ -373,7 +373,7 @@ class Equipos extends DBObject {
     function verify() {
         $this->myLogger->enter();
         // comprobamos que la jornada sea correcta
-        $j=$this->__getObject("Jornadas",$this->jornadaID);
+        $j=$this->__getObject("jornadas",$this->jornadaID);
         $max=4;
         $min=0;
 		switch(intval($j->Equipos3)) {
@@ -397,9 +397,9 @@ class Equipos extends DBObject {
         $res['less']=array();
         // extraemos la cuenta de equipos y componentes por equipos
         $list=$this->__select(
-            /*select */ "Equipos.*,Resultados.Equipo, CONVERT(count(*)/2,UNSIGNED) AS Numero",
-            /* FROM */ "Equipos,Resultados",
-            /* WHERE */ "(Equipos.ID=Resultados.Equipo) AND (Equipos.JORNADA={$this->jornadaID})",
+            /*select */ "equipos.*,resultados.Equipo, CONVERT(count(*)/2,UNSIGNED) AS Numero",
+            /* FROM */ "equipos,resultados",
+            /* WHERE */ "(equipos.ID=resultados.Equipo) AND (equipos.JORNADA={$this->jornadaID})",
             /* ORDER */ "",
             /* LIMIT */ "",
             /* GROUP */ "Equipo"

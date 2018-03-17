@@ -42,7 +42,7 @@ class Usuarios extends DBObject {
 
 		$this->myLogger->debug("Login: '$login' Gecos: '$gecos' Phone: '$phone' Email: '$email' Club: '$club' Perms: $perms");
 		// componemos un prepared statement
-		$sql ="INSERT INTO Usuarios (Login,Password,Gecos,Phone,Email,Club,Perms) VALUES(?,'--UNDEF--',?,?,?,?,?)";
+		$sql ="INSERT INTO usuarios (Login,Password,Gecos,Phone,Email,Club,Perms) VALUES(?,'--UNDEF--',?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('ssssii',$login,$gecos,$phone,$email,$club,$perms);
@@ -77,7 +77,7 @@ class Usuarios extends DBObject {
 		$this->myLogger->debug("Login: '$login' Gecos: '$gecos' Phone: '$phone' Email: '$email' Club: '$club' Perms: $perms");
 
 		// componemos un prepared statement
-		$sql ="UPDATE Usuarios SET Login=? , Gecos=? , Phone=? , Email=? , Club=?, Perms=? WHERE ( ID=$id )";
+		$sql ="UPDATE usuarios SET Login=? , Gecos=? , Phone=? , Email=? , Club=?, Perms=? WHERE ( ID=$id )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('ssssii',$login,$gecos,$phone,$email,$club,$perms);
@@ -99,7 +99,7 @@ class Usuarios extends DBObject {
 	function delete($id) {
 		$this->myLogger->enter();
 		if ($id<=1) return $this->error("Invalid User ID"); // cannot delete if user<=default
-		$res= $this->__delete("Usuarios","( ID={$id} )");
+		$res= $this->__delete("usuarios","( ID={$id} )");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -115,7 +115,7 @@ class Usuarios extends DBObject {
 		if ($id<=0) return $this->error("Invalid User ID"); // User ID must be positive greater than 0 
 
 		// make query
-		$obj=$this->__getObject("Usuarios",$id);
+		$obj=$this->__getObject("usuarios",$id);
 		if (!is_object($obj))	return $this->error("No user found with provided ID=$id");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
@@ -141,11 +141,11 @@ class Usuarios extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		$where = "(Login != 'root') AND (Clubes.ID=Usuarios.Club)"; // hide root user to app. Add club name
+		$where = "(Login != 'root') AND (clubes.ID=usuarios.Club)"; // hide root user to app. Add club name
 		if ($search!=='') $where=" AND ( (Login LIKE '%$search%') OR ( Gecos LIKE '%$search%' ) OR ( Email LIKE '%$search%') ) ";
 		$result=$this->__select(
-				/* SELECT */ "Usuarios.*,Clubes.Nombre AS NombreClub",
-				/* FROM */ "Usuarios,Clubes",
+				/* SELECT */ "usuarios.*,clubes.Nombre AS NombreClub",
+				/* FROM */ "usuarios,clubes",
 				/* WHERE */ $where,
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
@@ -158,11 +158,11 @@ class Usuarios extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
-		$where="(Clubes.ID=Usuarios.Club)";
+		$where="(clubes.ID=usuarios.Club)";
 		if ($q!=="") $where="AND (Login LIKE '%".$q."%')";
 		$result=$this->__select(
-				/* SELECT */ "Usuarios.*,Clubes.Nombre as NombreClub",
-				/* FROM */ "Usuarios.Clubes",
+				/* SELECT */ "usuarios.*,clubes.Nombre as NombreClub",
+				/* FROM */ "usuarios,clubes",
 				/* WHERE */ $where,
 				/* ORDER BY */ "Login ASC",
 				/* LIMIT */ ""

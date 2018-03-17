@@ -93,7 +93,7 @@ class DBObject {
         $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
         if ($server!==$myself) return;
         $where="";
-        if ($table=="Perros") $where=" AND ( (Licencia IS NULL) OR (Licencia='') ";
+        if ($table=="perros") $where=" AND ( (Licencia IS NULL) OR (Licencia='') ";
         $sql="UPDATE {$table} SET ServerID=ID WHERE (ServerID=0) {$where}";
         $rs=$this->query($sql);
         if (!$rs) return $this->error($this->conn->error);

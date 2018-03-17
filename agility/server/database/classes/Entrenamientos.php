@@ -28,7 +28,7 @@ class Entrenamientos extends DBObject {
 	function __construct($name,$prueba) {
 		parent::__construct($name);
         if ($prueba<=0) throw new Exception('$name: Invalid pruebaID:$prueba');
-        $this->prueba=$this->__getObject("Pruebas",$prueba);
+        $this->prueba=$this->__getObject("pruebas",$prueba);
         if (!$this->prueba) throw new Exception('$name: Prueba with ID:$prueba not found in database');
         $this->pruebaID=$prueba;
         $this->fedObj=Federations::getFederation(intval($this->prueba->RSCE));
@@ -41,7 +41,7 @@ class Entrenamientos extends DBObject {
      */
     function clear() {
         $this->myLogger->enter();
-        $res= $this->__delete("Entrenamientos","(Prueba={$this->pruebaID})");
+        $res= $this->__delete("entrenamientos","(Prueba={$this->pruebaID})");
         if (!$res) return $this->error("Cannot remove training session entries for contest id: {$this->pruebaID}");
         $this->myLogger->leave();
         return "";
@@ -59,9 +59,9 @@ class Entrenamientos extends DBObject {
         $this->myLogger->enter();
         // cogemos todos los perros inscritos en una prueba y los agrupamos por clubes y categoria
         $res=$this->__select(
-            /* SELECT */    "COUNT(PerroGuiaClub.ID) AS Numero, Categoria, Club,NombreClub",
-            /* FROM */      "Inscripciones,PerroGuiaClub",
-            /* WHERE */     "(Inscripciones.Prueba={$this->pruebaID}) AND (Inscripciones.Perro=PerroGuiaClub.ID)",
+            /* SELECT */    "COUNT(perroguiaclub.ID) AS Numero, Categoria, Club,NombreClub",
+            /* FROM */      "inscripciones,perroguiaclub",
+            /* WHERE */     "(inscripciones.Prueba={$this->pruebaID}) AND (inscripciones.Perro=perroguiaclub.ID)",
             /* ORDER */     "Club ASC, Categoria ASC",
             /* LIMIT */     "",
             /* GROUP BY */  "Club,Categoria"
@@ -215,7 +215,7 @@ class Entrenamientos extends DBObject {
 		if ($id<=0) return $this->error("Invalid Entry ID"); // Trainning entry ID must be positive greater than 0
 
 		// make query
-		$obj=$this->__getObject("Entrenamientos",$id);
+		$obj=$this->__getObject("entrenamientos",$id);
 		if (!is_object($obj))	return $this->error("No Training session found with provided ID=$id");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
@@ -241,11 +241,11 @@ class Entrenamientos extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		$where = "(Prueba={$this->pruebaID}) AND (Entrenamientos.Club = Clubes.ID) ";
-		if ($search!=='') $where= $where . " AND ( (Clubes.Nombre LIKE '%$search%') OR ( Clubes.Pais LIKE '%$search%' ) ) ";
+		$where = "(Prueba={$this->pruebaID}) AND (entrenamientos.Club = clubes.ID) ";
+		if ($search!=='') $where= $where . " AND ( (clubes.Nombre LIKE '%$search%') OR ( clubes.Pais LIKE '%$search%' ) ) ";
 		$result=$this->__select(
-				/* SELECT */ "Entrenamientos.*, Clubes.Nombre as NombreClub, Clubes.Logo as LogoClub",
-				/* FROM */ "Entrenamientos,Clubes",
+				/* SELECT */ "entrenamientos.*, clubes.Nombre as NombreClub, clubes.Logo as LogoClub",
+				/* FROM */ "entrenamientos,clubes",
 				/* WHERE */ $where,
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
@@ -258,11 +258,11 @@ class Entrenamientos extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search criteria for query
         $q=http_request("q","s",null);
-		$where="(Prueba={$this->pruebaID}) AND (Entrenamientos.Club = Clubes.ID) ";
-        if ($q!=="") $where=$where . " AND ( (Clubes.Nombre LIKE '%$q%') OR ( Clubes.Pais LIKE '%$q%' ) ) ";
+		$where="(Prueba={$this->pruebaID}) AND (entrenamientos.Club = clubes.ID) ";
+        if ($q!=="") $where=$where . " AND ( (clubes.Nombre LIKE '%$q%') OR ( clubes.Pais LIKE '%$q%' ) ) ";
 		$result=$this->__select(
-				/* SELECT */ "Entrenamientos.*, Clubes.Nombre as NombreClub, Clubes.Logo as LogoClub",
-				/* FROM */ "Entrenamientos,Clubes",
+				/* SELECT */ "entrenamientos.*, clubes.Nombre as NombreClub, clubes.Logo as LogoClub",
+				/* FROM */ "entrenamientos,clubes",
 				/* WHERE */ $where,
 				/* ORDER BY */ "Orden ASC",
 				/* LIMIT */ ""
@@ -310,9 +310,9 @@ class Entrenamientos extends DBObject {
         // evaluate search criteria for query
         $where=
         $result=$this->__select(
-        /* SELECT */ "Entrenamientos.*, Clubes.Nombre as NombreClub, Clubes.Logo as LogoClub",
-            /* FROM */ "Entrenamientos,Clubes",
-            /* WHERE */ "(Prueba={$this->pruebaID}) AND (Entrenamientos.Club = Clubes.ID)",
+        /* SELECT */ "entrenamientos.*, clubes.Nombre as NombreClub, clubes.Logo as LogoClub",
+            /* FROM */ "entrenamientos,clubes",
+            /* WHERE */ "(Prueba={$this->pruebaID}) AND (entrenamientos.Club = clubes.ID)",
             /* ORDER BY */ "Orden ASC",
             /* LIMIT */ "$start,$size"
         );
@@ -339,8 +339,8 @@ class Entrenamientos extends DBObject {
         if (($from<0)|| ($to<0)) return $this->error("{$this->file}::DragAndDrop()Invalid parameters From:$from or To:$to received");
 
         // get from/to trainning session ID
-        $f=$this->__selectObject("*","Entrenamientos","(Prueba={$this->pruebaID}) AND (ID=$from)");
-        $t=$this->__selectObject("*","Entrenamientos","(Prueba={$this->pruebaID}) AND (ID=$to)");
+        $f=$this->__selectObject("*","entrenamientos","(Prueba={$this->pruebaID}) AND (ID=$from)");
+        $t=$this->__selectObject("*","entrenamientos","(Prueba={$this->pruebaID}) AND (ID=$to)");
         if(!$f || !$t) {
             $this->myLogger->error("Error: no ID for Trainning sesion '$from' and/or '$to' on prueba:{$this->pruebaID}");
             return $this->errormsg;
@@ -348,10 +348,10 @@ class Entrenamientos extends DBObject {
         $torder=$t->Orden;
         $neworder=($where)?$torder+1/*after*/:$torder/*before*/;
         $comp=($where)?">"/*after*/:">="/*before*/;
-        $str="UPDATE Entrenamientos SET Orden=Orden+1 WHERE ( Prueba = {$this->pruebaID} ) AND ( Orden $comp $torder )";
+        $str="UPDATE entrenamientos SET Orden=Orden+1 WHERE ( Prueba = {$this->pruebaID} ) AND ( Orden $comp $torder )";
         $rs=$this->query($str);
         if (!$rs) return $this->error($this->conn->error);
-        $str="UPDATE Entrenamientos SET Orden=$neworder WHERE ( Prueba = {$this->pruebaID} ) AND ( ID = $from )";
+        $str="UPDATE entrenamientos SET Orden=$neworder WHERE ( Prueba = {$this->pruebaID} ) AND ( ID = $from )";
         $rs=$this->query($str);
         if (!$rs) return $this->error($this->conn->error);
         return "";

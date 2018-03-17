@@ -70,7 +70,7 @@ class PrintEquiposByJornada extends PrintCommon {
 
         // Datos de los participantes (indexados por ID de perro)
         $m=new DBObject("print_teamsByJornada");
-        $r=$m->__select("*","Resultados","(Jornada=$jornada)","","");
+        $r=$m->__select("*","resultados","(Jornada=$jornada)","","");
         $this->perros=array();
         foreach($r['rows'] as $item) {
             $this->perros[intval($item['Perro'])]=$item;

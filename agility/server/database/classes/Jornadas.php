@@ -41,7 +41,7 @@ class Jornadas extends DBObject {
 			throw new Exception($this->errormsg);
 		}
         $this->prueba= ($prueba==0)?1:$prueba; // make sure there is a valid contest ID
-		$this->pruebaobj=$this->__getObject("Pruebas",$this->prueba);
+		$this->pruebaobj=$this->__getObject("pruebas",$this->prueba);
 		$this->myLogger->trace("Prueba: ".json_encode($this->pruebaobj));
 		$this->federation=Federations::getFederation($this->pruebaobj->RSCE);
         $this->myLogger->trace("Federation: ".json_encode($this->federation));
@@ -102,7 +102,7 @@ class Jornadas extends DBObject {
             return $this->error("Jornada::update() Current license does not allow Team journeys");
         }
 		// componemos un prepared statement
-		$sql ="UPDATE Jornadas
+		$sql ="UPDATE jornadas
 				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, SlaveOf=?, Tipo_Competicion=?,Grado1=?, Grado2=?, Grado3=?, Junior=?,
 					Senior=?, Open=?, Equipos3=?, Equipos4=?, PreAgility=?, KO=?, Games=?,Especial=?, Observaciones=?, Cerrada=?
 				WHERE ( ID=? );";
@@ -145,10 +145,10 @@ class Jornadas extends DBObject {
 		$tnd=new Tandas("jornadas::delete()",$this->prueba,$jornadaid);
 		$tnd->removeJornada();
 		// Borramos equipos de esta prueba/jornada
-		$res=$this->__delete("Equipos","( Jornada = $jornadaid )");
+		$res=$this->__delete("equipos","( Jornada = $jornadaid )");
 		if (!$res) return $this->error($this->conn->error);
 		// y borramos la propia jornada
-		$res= $this->__delete("Jornadas","( ID = $jornadaid )");
+		$res= $this->__delete("jornadas","( ID = $jornadaid )");
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";
@@ -164,7 +164,7 @@ class Jornadas extends DBObject {
 		$this->myLogger->enter();
 		if ($jornadaid<=0) return $this->error("Invalid Jornada ID");
 		// marcamos la jornada con ID=$jornadaid como cerrada
-		$res= $this->query("UPDATE Jornadas SET Cerrada=$closeflag WHERE ( ID=$jornadaid ) ;");
+		$res= $this->query("UPDATE jornadas SET Cerrada=$closeflag WHERE ( ID=$jornadaid ) ;");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -194,7 +194,7 @@ class Jornadas extends DBObject {
 		if ($id<=0) return $this->error("Invalid Jornada ID");
 		
 		// make query
-		$obj=$this->__getObject("Jornadas",$id);
+		$obj=$this->__getObject("jornadas",$id);
 		if (!is_object($obj))	return $this->error("No Jornada found with ID=$id");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$this->myLogger->leave();
@@ -210,7 +210,7 @@ class Jornadas extends DBObject {
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "*",
-				/* FROM */ "Jornadas",
+				/* FROM */ "jornadas",
 				/* WHERE */ "( Prueba = ".$this->prueba." )",
 				/* ORDER BY */ "Numero ASC",
 				/* LIMIT */ ""
@@ -228,7 +228,7 @@ class Jornadas extends DBObject {
         // retrieve result from parent __select() call
         $items= $this->__select(
         /* SELECT */ "*",
-            /* FROM */ "Jornadas",
+            /* FROM */ "jornadas",
             /* WHERE */ "( Prueba = ".$this->prueba." )" ,
             /* ORDER BY */ "Numero ASC",
             /* LIMIT */ ""
@@ -269,7 +269,7 @@ class Jornadas extends DBObject {
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "*",
-				/* FROM */ "Jornadas",
+				/* FROM */ "jornadas",
 				/* WHERE */ $where,
 				/* ORDER BY */ "Numero ASC",
 				/* LIMIT */ ""
@@ -300,7 +300,7 @@ class Jornadas extends DBObject {
 	 */
 	private function fetchJuez($id) {
 		if (! array_key_exists("$id",$this->jueces)) {
-			$obj=$this->__getObject("Jueces",$id);
+			$obj=$this->__getObject("jueces",$id);
 			$this->jueces["$id"]=$obj->Nombre;
 		}
 		return $this->jueces["$id"];
@@ -313,7 +313,7 @@ class Jornadas extends DBObject {
      */
     function checkAccess($am,$id,$perms=0) {
         if ($id<=0) return $this->error("Jornada::checkAccess(): invalid Jornada ID");
-        $j=$this->__getObject("Jornadas",$id);
+        $j=$this->__getObject("jornadas",$id);
         if (intval($perms)!=0) $res=$am->allowed($perms); // check against user provided check access
         // else check against jornada-dependent access permissions
         else if (intval($j->Equipos3)!=0) $res=$am->allowed(ENABLE_TEAMS);
@@ -345,9 +345,9 @@ class Jornadas extends DBObject {
 			return $result;
 		}
 		// obtenemos informacion de la jornada y de las mangas de esta jornada
-		$row=$this->__getObject("Jornadas",$jornadaid);
+		$row=$this->__getObject("jornadas",$jornadaid);
 		if (!is_object($row)) return $this->error("No Jornadas with ID=$jornadaid");
-		$mangas=$this->__select("*","Mangas","Jornada=$jornadaid","","");
+		$mangas=$this->__select("*","mangas","Jornada=$jornadaid","","");
 		if (!is_array($mangas)) return $this->error("No Mangas with Jornada ID=$jornadaid");
 		// retrieve result into an array
 		$data=array();
@@ -771,9 +771,9 @@ class Jornadas extends DBObject {
 		}
 		$dbobj=new DBObject("enumerateMangasByJornada");
 		$dbobj->myLogger->enter();
-		$jornada=$dbobj->__getArray("Jornadas",$jornadaid);
+		$jornada=$dbobj->__getArray("jornadas",$jornadaid);
 		$prueba=$dbobj->__getArray("pruebas",$jornada['Prueba']);
-		$mangas=$dbobj->__select("*","Mangas","(Jornada=$jornadaid)","","")['rows'];
+		$mangas=$dbobj->__select("*","mangas","(Jornada=$jornadaid)","","")['rows'];
         $fed=Federations::getFederation( intval($prueba['RSCE']) );
 		$heights=intval($fed->get('Heights'));
 		$rows=array();
@@ -915,9 +915,9 @@ class Jornadas extends DBObject {
 		}
 		$dbobj=new DBObject("enumerateRondasByJornada");
 		$dbobj->myLogger->enter();
-		$jornada=$dbobj->__getArray("Jornadas",$jornadaid);
+		$jornada=$dbobj->__getArray("jornadas",$jornadaid);
 		$prueba=$dbobj->__getArray("pruebas",$jornada['Prueba']);
-		$mangas=$dbobj->__select("*","Mangas","(Jornada=$jornadaid)","TIPO ASC","")['rows'];
+		$mangas=$dbobj->__select("*","mangas","(Jornada=$jornadaid)","TIPO ASC","")['rows'];
 		$data=array();
 		if ($jornada['PreAgility']==2) { // pre-Agility 2 mangas
 			/* Pre-Agility siempre tiene recorrido comun para todas las categorias */
@@ -1004,7 +1004,7 @@ class Jornadas extends DBObject {
 	static function hasGrades($jobj) {
 		if (is_numeric($jobj)) {
 		    $obj=new DBObject("hasGrades");
-		    $jobj=$obj->__selectObject("*","Jornadas","ID=$jobj");
+		    $jobj=$obj->__selectObject("*","jornadas","ID=$jobj");
 		}
 		$flag=true;
 		if (is_object($jobj)) {

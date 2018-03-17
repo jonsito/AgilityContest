@@ -32,7 +32,7 @@ class Provincias extends DBObject {
 		$ctry = ($c!=="")? "AND Pais = '$c' " : "";
 		$result = $this->__select(
 			/* SELECT */ "*",
-			/* FROM */	"Provincias",
+			/* FROM */	"provincias",
 			/* WHERE */	"($prov $ctry) OR ( Codigo=0 )",
 			/* ORDER */ "Provincia ASC",
 			/* LIMIT */ ""

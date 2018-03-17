@@ -61,7 +61,7 @@ class PrintEntradaDeDatosKO extends PrintCommon {
         //    throw new Exception($this->errormsg);
         // }
         // guardamos info de la manga
-        $this->manga=$this->myDBObject->__getObject("Mangas",$data['manga']);
+        $this->manga=$this->myDBObject->__getObject("mangas",$data['manga']);
         $this->validcats=$data['cats'];
         $this->fillData=($data['fill']==0)?false:true;
         $this->rango= (preg_match('/^\d+-\d+$/',$data['rango']))? $data['rango'] : "1-99999";

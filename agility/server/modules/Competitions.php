@@ -286,9 +286,9 @@ class Competitions {
      */
     public static function getOrdenSalidaInstance($file="OrdenSalida",$manga) {
         $dbobj=new DBObject($file);
-        $mangaobj=$dbobj->__getObject("Mangas",$manga);
-        $jornadaobj=$dbobj->__getObject("Jornadas",$mangaobj->Jornada);
-        $pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
+        $mangaobj=$dbobj->__getObject("mangas",$manga);
+        $jornadaobj=$dbobj->__getObject("jornadas",$mangaobj->Jornada);
+        $pruebaobj=$dbobj->__getObject("pruebas",$jornadaobj->Prueba);
         // retrieve OrdenSalida handler from competition module
         $compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
         return $compobj->getOrdenSalidaObject($file,$pruebaobj,$jornadaobj,$mangaobj);
@@ -322,9 +322,9 @@ class Competitions {
      */
     public static function getResultadosInstance($file="Resultados",$manga) {
         $dbobj=new DBObject($file);
-        $mangaobj=$dbobj->__getObject("Mangas",$manga);
-        $jornadaobj=$dbobj->__getObject("Jornadas",$mangaobj->Jornada);
-        $pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
+        $mangaobj=$dbobj->__getObject("mangas",$manga);
+        $jornadaobj=$dbobj->__getObject("jornadas",$mangaobj->Jornada);
+        $pruebaobj=$dbobj->__getObject("pruebas",$jornadaobj->Prueba);
         // retrieve OrdenSalida handler from competition module
         $compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
         return $compobj->getResultadosObject($file,$pruebaobj,$jornadaobj,$mangaobj);
@@ -354,8 +354,8 @@ class Competitions {
      */
     public static function getClasificacionesInstance($file="Clasificaciones",$jornada,$perro=0) {
         $dbobj=new DBObject($file);
-        $jornadaobj=$dbobj->__getObject("Jornadas",$jornada);
-        $pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
+        $jornadaobj=$dbobj->__getObject("jornadas",$jornada);
+        $pruebaobj=$dbobj->__getObject("pruebas",$jornadaobj->Prueba);
         // retrieve OrdenSalida handler from competition module
         $compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
         return $compobj->getClasificacionesObject($file,$pruebaobj,$jornadaobj,$perro);

@@ -67,8 +67,8 @@ class Puntuable_CPC_2018 extends Competitions {
         // PENDING los perros mestizos no puntuan
 
         // como los datos del perro vienen de la tabla resultado, el DogID se obtiene del campo 'Perro'
-        $str="SELECT Pais from PerroGuiaClub WHERE ID={$perro['Perro']}";
-        $obj=$this->myDBObject->__selectObject("*","PerroGuiaClub","ID={$perro['Perro']}");
+        $str="SELECT Pais from perroguiaclub WHERE ID={$perro['Perro']}";
+        $obj=$this->myDBObject->__selectObject("*","perroguiaclub","ID={$perro['Perro']}");
         // si el perro no es de un club portugues se retorna false; else true
         return ($obj->Pais==="POR");
     }

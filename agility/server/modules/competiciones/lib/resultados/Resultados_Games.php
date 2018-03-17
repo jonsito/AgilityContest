@@ -55,19 +55,19 @@ class Resultados_Games extends Resultados {
 
         // FASE 0: en funcion del tipo de recorrido y modo pedido
         // ajustamos el criterio de busqueda de la tabla de resultados
-        $where="(Manga=$idmanga) AND (Pendiente=0) AND (PerroGuiaClub.ID=Resultados.Perro) ";
+        $where="(Manga=$idmanga) AND (Pendiente=0) AND (perroguiaclub.ID=resultados.Perro) ";
         $cat="";
-        if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"Resultados."); // notice the ending dot '.'
+        if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"resultados."); // notice the ending dot '.'
         if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
         // FASE 1: recogemos resultados ordenados por precorrido y tiempo
         // como en este caso se puntua de mas puntos a menos, vamos a poner eliminado y no presentado
         // como numeros negativos :-)
         $res=$this->__select(
-            "Resultados.Dorsal,Resultados.Perro,Resultados.Nombre,NombreLargo,Resultados.Raza,Equipo,Resultados.Licencia,Resultados.Categoria,Resultados.Grado,
-				    Resultados.NombreGuia,Resultados.NombreClub,PerroGuiaClub.LOE_RRC,PerroGuiaClub.CatGuia,
-				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,Resultados.Celo, Resultados.Games,
+            "resultados.Dorsal,resultados.Perro,resultados.Nombre,NombreLargo,resultados.Raza,Equipo,resultados.Licencia,resultados.Categoria,resultados.Grado,
+				    resultados.NombreGuia,resultados.NombreClub,perroguiaclub.LOE_RRC,perroguiaclub.CatGuia,
+				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,resultados.Celo, resultados.Games,
 					0 AS PRecorrido, 0 AS PTiempo, Faltas+Tocados AS Penalizacion, '' AS Calificacion, 0 AS Velocidad",
-            "Resultados,PerroGuiaClub",
+            "resultados,perroguiaclub",
             "$where $cat",
             " Penalizacion DESC, Tiempo ASC",
             "");

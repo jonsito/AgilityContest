@@ -52,9 +52,9 @@ class MailManager {
         $this->myDBObj=new DBOBject("MailManager::Enumerate");
         $this->pruebaObj=null;
         if ($this->myData['Prueba']!=0)
-            $this->pruebaObj=$this->myDBObj->__selectObject("*","Pruebas","ID={$this->myData['Prueba']}");
+            $this->pruebaObj=$this->myDBObj->__selectObject("*","pruebas","ID={$this->myData['Prueba']}");
         if ($this->myData['Jornada']!=0)
-            $this->jornadaObj=$this->myDBObj->__selectObject("*","Jornadas","ID={$this->myData['Jornada']}");
+            $this->jornadaObj=$this->myDBObj->__selectObject("*","jornadas","ID={$this->myData['Jornada']}");
     }
 
     /**
@@ -192,7 +192,7 @@ class MailManager {
         if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
         $result=$this->myDBObj->__select(
         /* SELECT */ "ID,Nombre,Provincia,Pais,Federations,Email",
-        /* FROM */ "Clubes",
+        /* FROM */ "clubes",
         /* WHERE */ "$fedstr AND (Baja=0) AND (ID>1) AND $where", // do not include default and outofbussines clubs in listing
         /* ORDER BY */ "Nombre ASC",
         /* LIMIT */ ""
@@ -216,7 +216,7 @@ class MailManager {
         // evaluate search query string
         $q=$this->myData["q"];
         // evaluate judge list by parsing rounds in journey
-        $jueces=$this->myDBObj->__select("Juez1,Juez2","Mangas","Jornada={$this->myData['Jornada']}");
+        $jueces=$this->myDBObj->__select("Juez1,Juez2","mangas","Jornada={$this->myData['Jornada']}");
         $list=array();
         foreach ($jueces['rows'] as $item) { $list[]=$item['Juez1']; $list[]=$item['Juez2']; }
         $data=array_unique($list,SORT_NUMERIC); // elimina duplicados
@@ -225,7 +225,7 @@ class MailManager {
         if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
         $result=$this->myDBObj->__select(
         /* SELECT */ "*",
-            /* FROM */ "Jueces",
+            /* FROM */ "jueces",
             /* WHERE */ "(ID>1) AND (ID IN ($list) ) AND $where", // do not include default juez in listing
             /* ORDER BY */ "Nombre ASC",
             /* LIMIT */ ""
@@ -248,7 +248,7 @@ class MailManager {
      * @return string empty on success; null on error
      */
     public function clearSent() {
-        $str="UPDATE Pruebas SET MailList='BEGIN,END' WHERE ID={$this->pruebaObj->ID}";
+        $str="UPDATE pruebas SET MailList='BEGIN,END' WHERE ID={$this->pruebaObj->ID}";
         $res=$this->myDBObj->query($str);
         if (!$res) {
             $error=$this->myDBObj->conn->error;
@@ -271,11 +271,11 @@ class MailManager {
         if (!filter_var($this->myData['Email'],FILTER_VALIDATE_EMAIL))
             throw new Exception ("updateClubMail() provided data `{$this->myData['Email']}` is not a valid email address");
         // perform update email in database
-        $str="UPDATE Clubes SET Email='{$this->myData['Email']}' WHERE ID=$cid";
+        $str="UPDATE clubes SET Email='{$this->myData['Email']}' WHERE ID=$cid";
         $res=$this->myDBObj->query($str);
         if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
         // as email changed, remove sent mark if any
-        $str="UPDATE Pruebas SET MailList= REPLACE( MailList , ',$cid,' , ',' ) WHERE ID={$this->pruebaObj->ID}";
+        $str="UPDATE pruebas SET MailList= REPLACE( MailList , ',$cid,' , ',' ) WHERE ID={$this->pruebaObj->ID}";
         $res=$this->myDBObj->query($str);
         if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
         return "";
@@ -290,7 +290,7 @@ class MailManager {
             throw new Exception("updateJuezMail(): Invalid Juez ID {$this->myData['Juez']}");
         if (!filter_var($this->myData['Email'],FILTER_VALIDATE_EMAIL))
             throw new Exception ("updateJuezbMail() provided data `{$this->myData['Email']}` is not a valid email address");
-        $str="UPDATE Jueces SET Email='{$this->myData['Email']}' WHERE ID={$this->myData['Juez']}";
+        $str="UPDATE jueces SET Email='{$this->myData['Email']}' WHERE ID={$this->myData['Juez']}";
         $res=$this->myDBObj->query($str);
         if (!$res) return $this->myDBObj->error($this->myDBObj->conn->error);
         return "";
@@ -393,7 +393,7 @@ class MailManager {
         }
         // if send mail gets ok, mark club sent in prueba
         $res=list_insert($this->myData['Club'],$this->pruebaObj->MailList);
-        $str="UPDATE Pruebas SET MailList='{$res}' WHERE ID={$this->pruebaObj->ID}";
+        $str="UPDATE pruebas SET MailList='{$res}' WHERE ID={$this->pruebaObj->ID}";
         $this->myDBObj->query($str);
         $this->pruebaObj->MailList=$res;
         $this->myLogger->leave();

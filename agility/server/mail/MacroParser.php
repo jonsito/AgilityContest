@@ -30,9 +30,9 @@ class MacroParser {
     function __construct($prueba) {
         $prueba=intval($prueba);
         $myDBObject=new DBObject("MacroParser");
-        $this->myPrueba=$myDBObject->__selectAsArray("Pruebas.*,Clubes.Nombre as NombreClub","Pruebas,Clubes","(Pruebas.ID=$prueba) AND (Pruebas.Club=Clubes.ID)");
+        $this->myPrueba=$myDBObject->__selectAsArray("pruebas.*,clubes.Nombre as NombreClub","pruebas,clubes","(pruebas.ID=$prueba) AND (pruebas.Club=clubes.ID)");
         $this->myJornadas=array();
-        $res=$myDBObject->__select("*","Jornadas","Prueba=$prueba");
+        $res=$myDBObject->__select("*","jornadas","Prueba=$prueba");
         if(!$res) $res=array('total' =>0,'rows'=>array());
         foreach ($res['rows'] as $jornada) array_push($this->myJornadas,$jornada);
         do_log("Prueba: ".json_encode($this->myPrueba));

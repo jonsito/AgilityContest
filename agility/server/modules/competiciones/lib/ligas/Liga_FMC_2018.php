@@ -54,13 +54,13 @@ class Liga_FMC_2018 extends Ligas {
         // filter only valid league modules
         if (count($this->validCompetitions)!==0) {
             $lista=implode(",",$this->validCompetitions);
-            $jor="Jornadas,";
-            $filter=" ( Jornadas.Tipo_Competicion IN ( {$lista} ) ) AND Ligas.Jornada=Jornadas.ID AND ";
+            $jor="jornadas,";
+            $filter=" ( jornadas.Tipo_Competicion IN ( {$lista} ) ) AND ligas.Jornada=jornadas.ID AND ";
         }
 
         // compose select field query
-        $select="PerroGuiaClub.ID AS Perro, PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Categoria AS Categoria, ".
-                "PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub, ";
+        $select="perroguiaclub.ID AS Perro, perroguiaclub.Nombre AS Nombre, perroguiaclub.Categoria AS Categoria, ".
+                "perroguiaclub.Licencia, perroguiaclub.NombreGuia, perroguiaclub.NombreClub, ";
         if ($grado==="GI") {
                     $select .= "SUM(Puntos) AS Puntos, SUM(Estrellas) AS Ceros";
         }
@@ -70,8 +70,8 @@ class Liga_FMC_2018 extends Ligas {
         // perform select
         $res=$this->__select( // for rsce
             $select,
-            "{$jor} Ligas, PerroGuiaClub",
-            "{$filter} PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
+            "{$jor} ligas, perroguiaclub",
+            "{$filter} perroguiaclub.Federation={$fed} AND ligas.Perro=perroguiaclub.ID AND ligas.Grado='{$grado}'",
             "Categoria ASC, Puntos DESC",
             "",
             "Perro"

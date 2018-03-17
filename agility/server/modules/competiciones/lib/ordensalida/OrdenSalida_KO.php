@@ -52,7 +52,7 @@ class OrdenSalida_KO extends OrdenSalida {
 	function __construct($file,$prueba=null,$jornada=null,$manga=null) {
 		parent::__construct("{$file} (K.O.)",$prueba,$jornada,$manga);
         // guardamos las mangas de la jornada.
-        $res=$this->__select("*","Mangas","Jornada={$this->jornada->ID}","Tipo ASC");
+        $res=$this->__select("*","mangas","Jornada={$this->jornada->ID}","Tipo ASC");
         if (!$res) throw new Exception ("No rounds found for KO Journey {$this->jornada->ID}");
         // Debe retornar un array de ocho entradas ordenadas por tipo
         if ($res['total']!=8) throw new Exception ("KO Journey {$this->jornada->ID} must have 8 rounds");
@@ -95,14 +95,14 @@ class OrdenSalida_KO extends OrdenSalida {
 	function getData($teamView=false,$catmode=8,$rs=null,$range="0-99999") {
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
 		if (!$rs) $rs= $this->__select(
-			"Resultados.*,Equipos.Nombre AS NombreEquipo,
-			PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS LogoClub,
-			PerroGuiaClub.Pais,PerroGuiaClub.Genero,PerroGuiaClub.LOE_RRC AS LOE_RRC,
-			Inscripciones.Observaciones AS Observaciones, 1 AS PerrosPorGuia",
-			"Resultados,Equipos,PerroGuiaClub,Inscripciones",
+			"resultados.*,equipos.Nombre AS NombreEquipo,
+			perroguiaclub.NombreLargo AS NombreLargo,perroguiaclub.LogoClub AS LogoClub,
+			perroguiaclub.Pais,perroguiaclub.Genero,perroguiaclub.LOE_RRC AS LOE_RRC,
+			inscripciones.Observaciones AS Observaciones, 1 AS PerrosPorGuia",
+			"resultados,equipos,perroguiaclub,inscripciones",
 			// solo se cogen los perros clasificados para dicha ronda, esto es con campo Games!=0
-			"(Resultados.Games!=0) && (Inscripciones.Prueba={$this->prueba->ID}) AND (Inscripciones.Perro=Resultados.Perro) AND
-			(Manga={$this->manga->ID}) AND (Resultados.Equipo=Equipos.ID) AND (Resultados.Perro=PerroGuiaClub.ID)",
+			"(resultados.Games!=0) && (inscripciones.Prueba={$this->prueba->ID}) AND (inscripciones.Perro=resultados.Perro) AND
+			(Manga={$this->manga->ID}) AND (resultados.Equipo=equipos.ID) AND (resultados.Perro=perroguiaclub.ID)",
 			"",
 			""
 		);
@@ -155,8 +155,8 @@ class OrdenSalida_KO extends OrdenSalida {
         $this->myLogger->trace("Cats:'$cats' tipomanga:{$this->manga->Tipo} ");
         $res=$this->__select(
             "Categoria",
-            "Tandas",
-            "(Tandas.Jornada={$this->jornada->ID}) AND (Tandas.Tipo IN ($cats)) ","
+            "tandas",
+            "(tandas.Jornada={$this->jornada->ID}) AND (tandas.Tipo IN ($cats)) ","
 				Orden ASC"
         );
         // ordenamos segun el orden de categorias establecido en las tandas
@@ -219,10 +219,10 @@ class OrdenSalida_KO extends OrdenSalida {
 		if ($this->manga->ID==$this->mangas[0]['ID']) {
 
             // marcamos todos los perros de la jornada con Games=0 excepto la segunda que se pone a 1
-            $sql="UPDATE Resultados SET Games=0 WHERE Jornada = {$this->manga->Jornada}";
+            $sql="UPDATE resultados SET Games=0 WHERE Jornada = {$this->manga->Jornada}";
             $res=$this->query($sql);
             if (!$res) $this->myLogger->error($this->conn->error);
-            $sql="UPDATE Resultados SET Games=1 WHERE Manga = {$this->mangas[1]['ID']}";
+            $sql="UPDATE resultados SET Games=1 WHERE Manga = {$this->mangas[1]['ID']}";
             $res=$this->query($sql);
             if (!$res) $this->myLogger->error($this->conn->error);
 
@@ -306,7 +306,7 @@ class OrdenSalida_KO extends OrdenSalida {
             // get sorted results
             $res=$this->__select(
                 "*",
-                "Resultados,GREATEST(400*Pendiente,200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido",
+                "resultados,GREATEST(400*Pendiente,200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido",
                 "Manga={$pmanga->ID} AND Games=1", // excluir los que no participan en la manga
                 "PRecorrido ASC, Tiempo ASC",
                 ""

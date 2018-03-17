@@ -128,7 +128,7 @@ class Clasificaciones_SelWAO extends Clasificaciones {
         $tj= intval($this->jornada->Tipo_Competicion);
         if ($tj!==3) return parent::evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
         $mangas=array();
-        for ($i=0;$i<8;$i++) $mangas[$i]=$this->__getObject("Mangas",$idmangas[$i]);
+        for ($i=0;$i<8;$i++) $mangas[$i]=$this->__getObject("mangas",$idmangas[$i]);
         $resultados=array($c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
         $final=array(); // puesto,dorsal, nombre, licencia,categoria,grado, nombreguia, nombreclub,
         // F1,R1,T1,V1,P1,C1,F2,R2,T2,V2,P2,C2, [....] Penalizacion,Calificacion

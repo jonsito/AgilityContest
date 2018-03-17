@@ -54,16 +54,16 @@ class Liga_RSCE_2018 extends Ligas {
         // filter only valid league modules
         if (count($this->validCompetitions)!==0) {
             $lista=implode(",",$this->validCompetitions);
-            $jor="Jornadas,";
-            $filter=" ( Jornadas.Tipo_Competicion IN ( {$lista} ) ) AND Ligas.Jornada=Jornadas.ID AND ";
+            $jor="jornadas,";
+            $filter=" ( jornadas.Tipo_Competicion IN ( {$lista} ) ) AND ligas.Jornada=jornadas.ID AND ";
         }
         if ($grado==="GII") $g3=", SUM(Xt1) AS PA_Agility, SUM(Xt2) AS PA_Jumping"; // promotion to GIII points
         $res=$this->__select( // for rsce
-            "PerroGuiaClub.ID AS Perro, PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Categoria, ".
-                    "PerroGuiaClub.Licencia, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
+            "perroguiaclub.ID AS Perro, perroguiaclub.Nombre AS Nombre, perroguiaclub.Categoria, ".
+                    "perroguiaclub.Licencia, perroguiaclub.NombreGuia, perroguiaclub.NombreClub,".
                     "SUM(Pt1) AS P_Agility, SUM(Pt2) aS P_Jumping, SUM(St1) AS PV_Agility, SUM(St2) AS PV_Jumping {$g3}",
-            "{$jor} Ligas, PerroGuiaClub",
-            "{$filter} PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
+            "{$jor} ligas, perroguiaclub",
+            "{$filter} perroguiaclub.Federation={$fed} AND ligas.Perro=perroguiaclub.ID AND ligas.Grado='{$grado}'",
             "Categoria ASC, Licencia ASC",
             "",
             "Perro"

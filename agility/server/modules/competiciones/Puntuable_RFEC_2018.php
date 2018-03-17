@@ -63,7 +63,7 @@ class Puntuable_RFEC_2018 extends Competitions {
         // on first dog, evaluate competition zone for organizer club
         if ($this->leagueZone<0) { // first call, zone not yet evaluated
             $res=$this->myDBObject->__selectObject("Comunidad",
-                "Clubes,Provincias"," (Clubes.ID={$this->prueba->Club}) AND (Clubes.Provincia=Provincias.Provincia)");
+                "clubes,provincias"," (clubes.ID={$this->prueba->Club}) AND (clubes.Provincia=provincias.Provincia)");
             if (!$res) {
                 do_log("Cannot locate comunidad for organizer club: {$this->prueba->Club}");
                 return false;
@@ -79,8 +79,8 @@ class Puntuable_RFEC_2018 extends Competitions {
             // club not yet in cache: parse it
             // As club name changes doesn't propagate to table "Resultados" cannot use NombreClub to search provincia
             $res=$this->myDBObject->__selectObject("Comunidad",
-                "PerroGuiaClub,Provincias",
-                " (PerroGuiaClub.ID LIKE '%{$perro['Perro']}%') AND (PerroGuiaClub.Provincia=Provincias.Provincia)"
+                "perroguiaclub,Provincias",
+                " (perroguiaclub.ID LIKE '%{$perro['Perro']}%') AND (perroguiaclub.Provincia=Provincias.Provincia)"
             );
             if (!$res) {
                 do_log("Cannot locate comunidad for club: {$perro['NombreClub']}");

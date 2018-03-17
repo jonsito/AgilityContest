@@ -45,7 +45,7 @@ class Ligas extends DBObject {
      * @return null|string
      */
     function delete($jornada){
-        $res=$this->__delete("Ligas","Jornada={$jornada}");
+        $res=$this->__delete("ligas","Jornada={$jornada}");
         if (!$res) return $this->error($this->conn->error);
         return "";
     }
@@ -149,15 +149,15 @@ class Ligas extends DBObject {
         // filter only valid league modules
         if (count($this->validCompetitions)!==0) {
             $lista=implode(",",$this->validCompetitions);
-            $jor="Jornadas,";
-            $filter=" ( Jornadas.Tipo_Competicion IN ( {$lista} ) ) AND Ligas.Jornada=Jornadas.ID AND ";
+            $jor="jornadas,";
+            $filter=" ( jornadas.Tipo_Competicion IN ( {$lista} ) ) AND ligas.Jornada=jornadas.ID AND ";
         }
         $res= $this->__select( // default implementation: just show points sumatory
-            "PerroGuiaClub.ID AS Perro,PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.Licencia, ".
-                    "PerroGuiaClub.Categoria, PerroGuiaClub.NombreGuia, PerroGuiaClub.NombreClub,".
+            "perroguiaclub.ID AS Perro,perroguiaclub.Nombre AS Nombre, perroguiaclub.Licencia, ".
+                    "perroguiaclub.Categoria, perroguiaclub.NombreGuia, perroguiaclub.NombreClub,".
                     "SUM(Pt1) + SUM(Pt2) AS Puntuacion", // pending: add global points to league table
-            "{$jor} Ligas, PerroGuiaClub",
-            "{$filter} PerroGuiaClub.Federation={$fed} AND Ligas.Perro=PerroGuiaClub.ID AND Ligas.Grado='{$grado}'",
+            "{$jor} ligas, perroguiaclub",
+            "{$filter} perroguiaclub.Federation={$fed} AND ligas.Perro=perroguiaclub.ID AND ligas.Grado='{$grado}'",
             "Categoria ASC, Puntos ASC",
             "",
             "Perro"
@@ -185,21 +185,21 @@ class Ligas extends DBObject {
         // filter only valid league modules
         if (count($this->validCompetitions)!==0) {
             $lista=implode(",",$this->validCompetitions);
-            $filter=" ( Jornadas.Tipo_Competicion IN ( {$lista} ) ) AND ";
+            $filter=" ( jornadas.Tipo_Competicion IN ( {$lista} ) ) AND ";
         }
         // fase 2:datos de la liga
         $res= $this->__select(
-          "Pruebas.ID AS PruebaID, Pruebas.Nombre AS Prueba, ".
-                "Jornadas.ID AS JornadaID, Jornadas.Nombre AS Jornada, Clubes.Nombre as NombreClub, ".
-                "Ligas.C1, Ligas.C2, Ligas.C3, Ligas.C4, Ligas.C5, Ligas.C6, Ligas.C7, Ligas.C8, Ligas.Calificacion ",
-          "Pruebas,Jornadas,Ligas,Clubes",
-          "{$filter} Clubes.ID=Pruebas.Club AND Pruebas.ID=Jornadas.Prueba AND Jornadas.ID=Ligas.Jornada AND Ligas.Perro={$perro} and Ligas.Grado='{$grado}'",
-          "Jornadas.Fecha",
+          "pruebas.ID AS PruebaID, pruebas.Nombre AS Prueba, ".
+                "jornadas.ID AS JornadaID, jornadas.Nombre AS Jornada, clubes.Nombre as NombreClub, ".
+                "ligas.C1, ligas.C2, ligas.C3, ligas.C4, ligas.C5, ligas.C6, ligas.C7, ligas.C8, ligas.Calificacion ",
+          "pruebas,jornadas,ligas,clubes",
+          "{$filter} clubes.ID=pruebas.Club AND pruebas.ID=jornadas.Prueba AND jornadas.ID=ligas.Jornada AND ligas.Perro={$perro} and ligas.Grado='{$grado}'",
+          "jornadas.Fecha",
           "",
           ""
         );
         // fase 2 add dog and grade data
-        $res['dog']=$this->__getObject("PerroGuiaClub",$perro);
+        $res['dog']=$this->__getObject("perroguiaclub",$perro);
         $res['grado']=$grado;
         // add datagrid header
         $res['header']= array(

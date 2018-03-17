@@ -64,9 +64,9 @@ class Selectiva_eo_2018 extends Selectiva_awc_2018 {
 
         // fase 1: cogemos todos los resultados de standard grado III de la manga padre
         $res=$this->myDBObject->__select(
-            /* SELECT */ "Perro, Mangas.Tipo AS Tipo, GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,Tiempo",
-            /* FROM */   "Resultados,Mangas",
-            /* WHERE */  "(Resultados.Manga=Mangas.ID) AND (Pendiente=0) AND (Resultados.Jornada=$parent) AND (Resultados.Grado='GIII') $cat",
+            /* SELECT */ "Perro, mangas.Tipo AS Tipo, GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,Tiempo",
+            /* FROM */   "resultados,mangas",
+            /* WHERE */  "(resultados.Manga=mangas.ID) AND (Pendiente=0) AND (resultados.Jornada=$parent) AND (resultados.Grado='GIII') $cat",
             /* ORDER BY */" PRecorrido ASC, Tiempo ASC",
             /* LIMIT */  ""
         );
@@ -89,7 +89,7 @@ class Selectiva_eo_2018 extends Selectiva_awc_2018 {
         // create and handle an club->country array cache
         if (!array_key_exists($club,$this->countries)) {
             $c=$this->myDBObject->conn->real_escape_string($club);
-            $str="SELECT Pais FROM Clubes WHERE ( Nombre = '$c' )";
+            $str="SELECT Pais FROM clubes WHERE ( Nombre = '$c' )";
             $res=$this->myDBObject->query($str);
             if (!$res) {
                 $this->myDBObject->error($this->myDBObject->conn->error);

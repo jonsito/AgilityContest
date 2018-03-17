@@ -114,7 +114,7 @@ class PrintOrdenTandas extends PrintCommon {
 			$this->Cell(25,7,$row['NombreSesion'],'LBR',0,'R',true);
 			if ($row['Tipo']!=0) {
 				$str="( Prueba={$row['Prueba']} ) AND ( Jornada={$row['Jornada']} ) AND (Manga={$row['Manga']})";
-				$result=$this->myDBObject->__select("*","Resultados",$str,"","");
+				$result=$this->myDBObject->__select("*","resultados",$str,"","");
 				if (!is_array($result)) {
 				$this->myLogger->error($result); return $result; }
 				// comparamos categoria y grado

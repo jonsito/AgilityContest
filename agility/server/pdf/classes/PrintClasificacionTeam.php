@@ -71,11 +71,11 @@ class PrintClasificacionTeam extends PrintCommon {
         $this->trs1=null;
         $this->trs2=null;
         if ($mangas[0]!=0) {
-            $this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
+            $this->manga1=$dbobj->__getObject("mangas",$mangas[0]);
             $this->trs1=$results['trs1'];
         }
         if ($mangas[1]!=0) {
-            $this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
+            $this->manga2=$dbobj->__getObject("mangas",$mangas[1]);
             $this->trs2=$results['trs2'];
         }
         $this->categoria=$this->getModeString(intval($mode));

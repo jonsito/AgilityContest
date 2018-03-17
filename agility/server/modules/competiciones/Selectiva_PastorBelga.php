@@ -222,10 +222,10 @@ class Selectiva_PastorBelga extends Competitions {
         // fase 1: cogemos todos los resultados de standard grado II y III de la manga padre
         // como no hay pastores belga mini o midi, no hace falta checkar la categoria :-), so $mode is not used
         $res=$myDBObject->__select(
-            /* SELECT */ "Perro, Mangas.Tipo AS Tipo, GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,Tiempo",
-            /* FROM */   "Resultados,Mangas",
-            /* WHERE */  "(Resultados.Manga=Mangas.ID) AND (Pendiente=0) AND (Resultados.Jornada=$parent)".
-                            "AND (Categoria='L') AND ( (Resultados.Grado='GII') OR (Resultados.Grado='GIII') )",
+            /* SELECT */ "Perro, mangas.Tipo AS Tipo, GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,Tiempo",
+            /* FROM */   "resultados,mangas",
+            /* WHERE */  "(resultados.Manga=mangas.ID) AND (Pendiente=0) AND (resultados.Jornada=$parent)".
+                            "AND (Categoria='L') AND ( (resultados.Grado='GII') OR (resultados.Grado='GIII') )",
             /* ORDER BY */" PRecorrido ASC, Tiempo ASC",
             /* LIMIT */  ""
         );

@@ -43,12 +43,12 @@ class OrdenSalida_EO_Final extends OrdenSalida {
 	    if ($this->mangas==null) {
             // guardamos las mangas de la jornada. Debe retornar un array de ocho entradas
             $res=$this->__select(
-            	"Mangas.*",
-				"Mangas,Jornadas",
-				"Mangas.Jornada=Jornadas.ID ".
-						" AND Jornadas.Prueba={$this->prueba->ID}".
-						" AND Jornadas.Tipo_Competicion=4",
-				"Mangas.ID ASC");
+            	"mangas.*",
+				"mangas,jornadas",
+				"mangas.Jornada=jornadas.ID ".
+						" AND jornadas.Prueba={$this->prueba->ID}".
+						" AND jornadas.Tipo_Competicion=4",
+				"mangas.ID ASC");
             if (!$res) {
                 $this->myLogger->error("No EO Ind. Qualification Rounds found on prueba {$this->prueba->ID}");
                 return null;

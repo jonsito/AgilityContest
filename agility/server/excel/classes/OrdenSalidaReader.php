@@ -40,10 +40,10 @@ class OrdenSalidaReader extends DogReader {
 
     public function __construct($name,$options) {
         $this->myDBObject = new DBObject($name);
-        $this->prueba=$this->myDBObject->__selectAsArray("*","Pruebas","ID={$options['Prueba']}");
-        $this->jornada=$this->myDBObject->__selectAsArray("*","Jornada","ID={$options['Jornada']}");
-        $this->manga=$this->myDBObject->__selectAsArray("*","Mangas","ID={$options['Manga']}");
-        $this->equipos=$this->myDBObject->__selectAsArray("*","Equipos","Jornada={$options['Jornada']}");
+        $this->prueba=$this->myDBObject->__selectAsArray("*","pruebas","ID={$options['Prueba']}");
+        $this->jornada=$this->myDBObject->__selectAsArray("*","jornada","ID={$options['Jornada']}");
+        $this->manga=$this->myDBObject->__selectAsArray("*","mangas","ID={$options['Manga']}");
+        $this->equipos=$this->myDBObject->__selectAsArray("*","equipos","Jornada={$options['Jornada']}");
         if (!is_array($this->manga))
             throw new Exception("{$name}::construct(): invalid Manga ID: {$options['Manga']}");
         if (intval($this->jornada['Cerrada'])!==0) // do not allow import in closed journeys
@@ -102,8 +102,8 @@ class OrdenSalidaReader extends DogReader {
         $ldog= ($nl==="")?" 0": " (NombreLargo='{$nl}')"; // siempre existiran nombre o nombrelargo
         $dog= ($n==="")?" 0":" (Nombre='{$n}')";
         $search=$this->myDBObject->__select("*",
-            "Resultados",
-            "(Manga={$this->manga['ID']}) {$this->sqlcats} AND {$dorsal} AND ( {$dog} OR {$ldog} )",
+            "resultados",
+            "(manga={$this->manga['ID']}) {$this->sqlcats} AND {$dorsal} AND ( {$dog} OR {$ldog} )",
             "",
             "");
         if ( !is_array($search) ) return "findAndSeResult(): Invalid search term: '{$d} - {$n}' "; // invalid search. mark error
@@ -199,7 +199,7 @@ class OrdenSalidaReader extends DogReader {
             else $this->myLogger->error("SetOrdenSalida: dog {$perro} is not present in Orden:{$this->manga['Orden_Salida']}");
         }
         // finally update ordensalida
-        $str="UPDATE Mangas SET Orden_Salida='{$ordensalida}' WHERE ID={$this->manga['ID']}";
+        $str="UPDATE mangas SET Orden_Salida='{$ordensalida}' WHERE ID={$this->manga['ID']}";
         $res=$this->myDBObject->query($str);
         if (!$res) return "beginImport(): update OrdenSalida error:".$this->myDBObject->conn->error;
         // that's all folks

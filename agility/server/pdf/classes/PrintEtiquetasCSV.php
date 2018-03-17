@@ -53,11 +53,11 @@ class PrintEtiquetasCSV  {
 		$this->myLogger= new Logger("print_etiquetas_csv");
 		$this->config=Config::getInstance();
 		$dbobj=new DBObject("print_etiquetas_pdf");
-		$this->prueba=$dbobj->__getObject("Pruebas",$prueba);
-		$this->club=$dbobj->__getObject("Clubes",$this->prueba->Club);
-		$this->jornada=$dbobj->__getObject("Jornadas",$jornada);
-		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
-		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
+		$this->prueba=$dbobj->__getObject("pruebas",$prueba);
+		$this->club=$dbobj->__getObject("clubes",$this->prueba->Club);
+		$this->jornada=$dbobj->__getObject("jornadas",$jornada);
+		$this->manga1=$dbobj->__getObject("mangas",$mangas[0]);
+		$this->manga2=$dbobj->__getObject("mangas",$mangas[1]);
 		$this->resultados=$resultados;
         $this->federation=Federations::getFederation( intval($this->prueba->RSCE) );
 		// evaluage logo info

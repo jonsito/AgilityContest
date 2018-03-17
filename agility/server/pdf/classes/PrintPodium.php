@@ -50,9 +50,9 @@ class PrintPodium extends PrintCommon {
 	function __construct($prueba,$jornada,$mangas,$results) {
 		parent::__construct('Landscape',"print_podium",$prueba,$jornada);
 		$dbobj=new DBObject("print_clasificacion");
-        $this->manga1=($mangas[0]!=0)?$dbobj->__getObject("Mangas",$mangas[0]):null;
-        $this->manga2=($mangas[1]!=0)?$dbobj->__getObject("Mangas",$mangas[1]):null;
-        $this->manga3=($mangas[2]!=0)?$dbobj->__getObject("Mangas",$mangas[2]):null;
+        $this->manga1=($mangas[0]!=0)?$dbobj->__getObject("mangas",$mangas[0]):null;
+        $this->manga2=($mangas[1]!=0)?$dbobj->__getObject("mangas",$mangas[1]):null;
+        $this->manga3=($mangas[2]!=0)?$dbobj->__getObject("mangas",$mangas[2]):null;
 		$this->resultados=$results;
 		$this->hasGrades=Jornadas::hasGrades($this->jornada);
 

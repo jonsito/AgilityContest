@@ -46,8 +46,8 @@ try {
 	
 	// buscamos los recorridos asociados a la manga
 	$dbobj=new DBObject("print_podium_equipos");
-	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
-	$prb=$dbobj->__getObject("Pruebas",$prueba);
+	$mng=$dbobj->__getObject("mangas",$mangas[0]);
+	$prb=$dbobj->__getObject("pruebas",$prueba);
 	$c= Competitions::getClasificacionesInstance("print_podium_pdf",$jornada);
 	$result=array();
 	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));

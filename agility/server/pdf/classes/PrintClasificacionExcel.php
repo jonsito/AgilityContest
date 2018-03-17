@@ -52,12 +52,12 @@ class PrintClasificacionExcel {
 	function __construct($prueba,$jornada,$mangas) {
 		$this->myLogger	= new Logger("PrintExcel");
 		$this->dbobj	= new DBObject("print_clasificacion_excel");
-		$this->prueba	= $this->dbobj->__getObject("Pruebas",$prueba);
-		$this->club		= $this->dbobj->__getObject("Clubes",$this->prueba->Club); // club organizador
-		$this->jornada	= $this->dbobj->__getObject("Jornadas",$jornada);
-        $this->manga1=($mangas[0]!=0)?$this->dbobj->__getObject("Mangas",$mangas[0]):null;
-        $this->manga2=($mangas[1]!=0)?$this->dbobj->__getObject("Mangas",$mangas[1]):null;
-        $this->manga3=($mangas[2]!=0)?$this->dbobj->__getObject("Mangas",$mangas[2]):null;
+		$this->prueba	= $this->dbobj->__getObject("pruebas",$prueba);
+		$this->club		= $this->dbobj->__getObject("clubes",$this->prueba->Club); // club organizador
+		$this->jornada	= $this->dbobj->__getObject("jornadas",$jornada);
+        $this->manga1=($mangas[0]!=0)?$this->dbobj->__getObject("mangas",$mangas[0]):null;
+        $this->manga2=($mangas[1]!=0)?$this->dbobj->__getObject("mangas",$mangas[1]):null;
+        $this->manga3=($mangas[2]!=0)?$this->dbobj->__getObject("mangas",$mangas[2]):null;
 		$this->myConfig = Config::getInstance();
 		// evaluate number of decimals to show when printing timestamps
 		$this->timeResolution=($this->myConfig->getEnv('crono_milliseconds')=="0")?2:3;

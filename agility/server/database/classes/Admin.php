@@ -511,7 +511,7 @@ class Admin extends DBObject {
         $fed=intval($fed); // for yes the flies
         $f=($fed===-1)?"":" AND (RSCE={$fed})";
         // this will recursively delete teams, journeys, rounds, results, and so
-        return $this->__delete("Pruebas","(ID>1) {$f}");
+        return $this->__delete("pruebas","(ID>1) {$f}");
     }
 
 	public function clearDatabase($fed=-1) {
@@ -522,21 +522,21 @@ class Admin extends DBObject {
         // do not delete users nor sessions
 
         // delete dogs and handlers on selected federation
-        $this->__delete("Perros","(ID>1) {$f}");
-        $this->__delete("Guias","(ID>1) {$f}");
+        $this->__delete("perros","(ID>1) {$f}");
+        $this->__delete("guias","(ID>1) {$f}");
 
         // judges and clubes need to evaluate federation mask;
         // do not delete clubes for international contests, !cause they are just countries!
         if ($fed===-1) { // delete all data regardless federation
-            $this->__delete("Clubes","(ID>1) AND (Federations < 512)"); // do not delete countries!!
-            $this->__delete("Jueces","(ID>1)");
-            $this->__delete("Eventos");
+            $this->__delete("clubes","(ID>1) AND (Federations < 512)"); // do not delete countries!!
+            $this->__delete("jueces","(ID>1)");
+            $this->__delete("eventos");
         } else {
             $fmask=1<<$fed; // get federation mask
             // remove every judges related only to provided federation
-            $this->__delete("Jueces","(ID>1) AND (Federations={$fmask})");
+            $this->__delete("jueces","(ID>1) AND (Federations={$fmask})");
             // delete all clubes registered _only_ on requested federation
-            if ($f<512) $this->__delete("Clubes","(ID>1) AND (Federations={$fmask})");
+            if ($f<512) $this->__delete("clubes","(ID>1) AND (Federations={$fmask})");
             // pending: also remove related logos (when no shared)
         }
 		return "";

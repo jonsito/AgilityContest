@@ -62,14 +62,14 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
             throw new Exception($this->errormsg);
         }
         // guardamos info de la manga
-        $this->manga=$this->myDBObject->__getObject("Mangas",$data['manga']);
+        $this->manga=$this->myDBObject->__getObject("mangas",$data['manga']);
         // Datos del orden de salida de equipos
         $m = Competitions::getOrdenSalidaInstance("ordenSalidaEquipos4",$data['manga']);
         $teams= $m->getTeams();
         $this->equipos=$teams['rows'];
         // anyadimos el array de perros del equipo
         foreach($this->equipos as &$equipo) {$equipo['Perros']=array();}
-        $r= $this->myDBObject->__select("*","Resultados","(Manga={$data['manga']})","","");
+        $r= $this->myDBObject->__select("*","resultados","(Manga={$data['manga']})","","");
         foreach($r['rows'] as $perro) {
             foreach($this->equipos as &$equipo) {
                 if ($perro['Equipo']==$equipo['ID']) {

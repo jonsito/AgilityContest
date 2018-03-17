@@ -113,7 +113,7 @@ class Eventos extends DBObject {
 		$onInit=false;
 		// si el evento es "init" y el flag reset_events está a 1 borramos el historico de eventos antes de reinsertar
         if ( ( intval($this->myConfig->getEnv("reset_events")) == 1 ) && ( ($data['Type']==='init') )) {
-            $rs= $this->__delete("Eventos","(Session={$sid})");
+            $rs= $this->__delete("eventos","(Session={$sid})");
             if (!$rs) return $this->error($this->conn->error);
 			$onInit=true;
         }
@@ -338,7 +338,7 @@ class Eventos extends DBObject {
 		// perform query
 		$result=$this->__select(
 				/* SELECT */ "*",
-				/* FROM */ "Eventos",
+				/* FROM */ "eventos",
 				/* WHERE */ "$ses ( ID > {$data['ID']} ) $extra",
 				/* ORDER BY */ "ID",
 				/* LIMIT */ ""
@@ -378,7 +378,7 @@ class Eventos extends DBObject {
 
 		$result=$this->__select(
 				/* SELECT */ "*",
-				/* FROM */ "Eventos",
+				/* FROM */ "eventos",
 				/* WHERE */ "( Type = 'init' ) $str",
 				/* ORDER BY */ "ID DESC",
 				/* LIMIT */ "0,1"

@@ -146,9 +146,9 @@ class Mangas extends DBObject {
 			$this->errormsg="Manga::Construct invalid jornada ID";
 			throw new Exception($this->errormsg);
 		}
-		$this->jornadaObj=$this->__selectObject("*","Jornadas","(ID=$jornada)" );
-		$this->pruebaObj=$this->__selectObject("*","Pruebas","(ID={$this->jornadaObj->Prueba})");
-        $this->defaultTeamObj=$this->__selectObject("*","Equipos","(Jornada=$jornada) AND (DefaultTeam=1)");
+		$this->jornadaObj=$this->__selectObject("*","jornadas","(ID=$jornada)" );
+		$this->pruebaObj=$this->__selectObject("*","pruebas","(ID={$this->jornadaObj->Prueba})");
+        $this->defaultTeamObj=$this->__selectObject("*","equipos","(Jornada=$jornada) AND (DefaultTeam=1)");
 	}
 	
 	/**
@@ -161,13 +161,13 @@ class Mangas extends DBObject {
 		$this->myLogger->enter();
 		$j=$this->jornadaObj->ID;
 		// truco para cambiar al vuelo las mangas por equipos entre modalidades x-mejores y x-conjunta
-        if ($tipo==8) $this->query("UPDATE Mangas set Tipo=8 WHERE (Jornada=$j) AND (Tipo=9)");
-        if ($tipo==9) $this->query("UPDATE Mangas set Tipo=9 WHERE (Jornada=$j) AND (Tipo=8)");
-        if ($tipo==13) $this->query("UPDATE Mangas set Tipo=13 WHERE (Jornada=$j) AND (Tipo=14)");
-        if ($tipo==14) $this->query("UPDATE Mangas set Tipo=14 WHERE (Jornada=$j) AND (Tipo=13)");
+        if ($tipo==8) $this->query("UPDATE mangas set Tipo=8 WHERE (Jornada=$j) AND (Tipo=9)");
+        if ($tipo==9) $this->query("UPDATE mangas set Tipo=9 WHERE (Jornada=$j) AND (Tipo=8)");
+        if ($tipo==13) $this->query("UPDATE mangas set Tipo=13 WHERE (Jornada=$j) AND (Tipo=14)");
+        if ($tipo==14) $this->query("UPDATE mangas set Tipo=14 WHERE (Jornada=$j) AND (Tipo=13)");
 		$mangaid=0;
 		// si la manga existe no hacer nada; si no existe crear manga
-        $res=$this->__select("*","Mangas","( Jornada=$j ) AND  ( Tipo=$tipo ) AND ( Grado='$grado' )");
+        $res=$this->__select("*","mangas","( Jornada=$j ) AND  ( Tipo=$tipo ) AND ( Grado='$grado' )");
 		if(!$res) return $this->error("Cannot get info on Mangas for Jornada:$j");
 		if ($res['total']>0){
 			$this->myLogger->info("Jornada:$j Manga:$tipo already exists");
@@ -176,7 +176,7 @@ class Mangas extends DBObject {
             // buscamos el equipo por defecto de la jornada y lo insertamos
             $team=$this->defaultTeamObj->ID;
 			$observaciones = http_request("Observaciones","s","");
-			$str="INSERT INTO Mangas ( Jornada,Tipo,Grado,Observaciones,Orden_Salida,Orden_Equipos ) VALUES ( $j,$tipo,'$grado','$observaciones','BEGIN,END','BEGIN,$team,END' )";
+			$str="INSERT INTO mangas ( Jornada,Tipo,Grado,Observaciones,Orden_Salida,Orden_Equipos ) VALUES ( $j,$tipo,'$grado','$observaciones','BEGIN,END','BEGIN,$team,END' )";
 			$rs=$this->query($str);
 			if (!$rs) return $this->error($this->conn->error);
 			$mangaid=$this->conn->insert_id;
@@ -189,7 +189,7 @@ class Mangas extends DBObject {
             $this->myLogger->leave();
             return "";
         }
-        $str="UPDATE Mangas
+        $str="UPDATE mangas
 				SET Recorrido={$cdata['Recorrido']},
 				TRS_L_Tipo={$cdata['TRS_L_Tipo']},     TRS_M_Tipo={$cdata['TRS_M_Tipo']},     TRS_S_Tipo={$cdata['TRS_S_Tipo']},     TRS_T_Tipo={$cdata['TRS_T_Tipo']},
 				TRS_L_Factor={$cdata['TRS_L_Factor']}, TRS_M_Factor={$cdata['TRS_M_Factor']}, TRS_S_Factor={$cdata['TRS_S_Factor']}, TRS_T_Factor={$cdata['TRS_T_Factor']},
@@ -273,7 +273,7 @@ class Mangas extends DBObject {
 		$observaciones = http_request("Observaciones","s",null,false);
 
 		// preparamos la query SQL
-		$sql= "UPDATE Mangas SET
+		$sql= "UPDATE mangas SET
  			Recorrido=? ,
 			Dist_L=? , Obst_L=? , Dist_M=? , Obst_M=? , Dist_S=? , Obst_S=? , Dist_T=? , Obst_T=? ,
 			TRS_L_Tipo=? , TRS_L_Factor=? , TRS_L_Unit=? , TRM_L_Tipo=? , TRM_L_Factor=? , TRM_L_Unit=? ,
@@ -306,7 +306,7 @@ class Mangas extends DBObject {
 		
 		// actualizamos el campo "Recorrido" de las Mangas gemelas
 		$tipogemelo=Mangas::$manga_hermana[$tipo];
-		$sql="UPDATE Mangas SET Recorrido=$recorrido WHERE ( Jornada={$this->jornadaObj->ID} ) AND (Tipo=$tipogemelo)";
+		$sql="UPDATE mangas SET Recorrido=$recorrido WHERE ( Jornada={$this->jornadaObj->ID} ) AND (Tipo=$tipogemelo)";
 		$res=$this->query($sql);
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
@@ -317,7 +317,7 @@ class Mangas extends DBObject {
 	    assertClosedJourney($this->jornadaObj); // throw exception on closed journeys
 		$juez1 = http_request("Juez1","i",1);
 		$juez2 = http_request("Juez2","i",1);
-		$sql="UPDATE Mangas SET Juez1=$juez1, Juez2=$juez2 WHERE ( Jornada={$this->jornadaObj->ID} )";
+		$sql="UPDATE mangas SET Juez1=$juez1, Juez2=$juez2 WHERE ( Jornada={$this->jornadaObj->ID} )";
 		$res=$this->query($sql);
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
@@ -335,7 +335,7 @@ class Mangas extends DBObject {
 		    return $this->error("Invalid value for 'Tipo': {$tipo}");
         }
 		// si la manga existe, borrarla; si no existe, no hacer nada
-		$rs=$this->__delete("Mangas","( Jornada = {$this->jornadaObj->ID} ) AND  ( Tipo = $tipo )");
+		$rs=$this->__delete("mangas","( Jornada = {$this->jornadaObj->ID} ) AND  ( Tipo = $tipo )");
 		if (!$rs) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";
@@ -345,7 +345,7 @@ class Mangas extends DBObject {
 		$this->myLogger->enter();
 		if ( ($id<=0) ) return $this->error("Invalid Manga ID: $id"); 
 		// si la manga existe, borrarla; si no existe, no hacer nada
-		$rs=$this->__delete("Mangas","( Jornada = {$this->jornadaObj->ID} ) AND  ( ID = $id )");
+		$rs=$this->__delete("mangas","( Jornada = {$this->jornadaObj->ID} ) AND  ( ID = $id )");
 		if (!$rs) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";
@@ -361,7 +361,7 @@ class Mangas extends DBObject {
 		if ($id<=0) return $this->error("Invalid Manga ID");
         $fed=Federations::getFederation( intval($this->pruebaObj->RSCE) );
 		// second query to retrieve $rows starting at $offset
-		$result=$this->__getObject("Mangas",$id);
+		$result=$this->__getObject("mangas",$id);
 		$result->Manga=$id;
 		$result->Jornada=$this->jornadaObj->ID;
 		$result->Nombre=_(Mangas::getTipoManga($result->Tipo,1,$fed));
@@ -379,7 +379,7 @@ class Mangas extends DBObject {
         $fed=Federations::getFederation( intval($this->pruebaObj->RSCE) );
 		$result=$this->__select(
 			/* SELECT */"ID,Tipo,Recorrido,Grado",
-			/* FROM */ "Mangas",
+			/* FROM */ "mangas",
 			/* WHERE */ "(Jornada = {$this->jornadaObj->ID} )",
 			/* ORDER */ "ID ASC", // se asume que las mangas se crean por orden agility/jumping
 			/* LIMIT */ ""
@@ -401,7 +401,7 @@ class Mangas extends DBObject {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Manga ID");
 		// second query to retrieve $rows starting at $offset
-		$result=$this->__getObject("Mangas",$id);
+		$result=$this->__getObject("mangas",$id);
 		if (!is_object($result)) return $this->error("Cannot locate Manga with ID=$id");
 		$tipo=Mangas::$manga_hermana[$result->Tipo];
 		if ($tipo==0) {
@@ -409,7 +409,7 @@ class Mangas extends DBObject {
 			return array($result,null); 
 		}
 		// Obtenemos __Todas__ las mangas de esta jornada que tienen el tipo buscado ninguna, una o hasta 8(k.O.)
-		$result2=$this->__select("*","Mangas","( Jornada={$this->jornadaObj->ID} ) AND ( Tipo=$tipo)","","");
+		$result2=$this->__select("*","mangas","( Jornada={$this->jornadaObj->ID} ) AND ( Tipo=$tipo)","","");
 		if (!is_array($result2)) {
 			// inconsistency error muy serio 
 			return $this->error("Falta la manga hermana de tipo:$tipo para manga:$id de tipo:{$result->Tipo}");
@@ -433,16 +433,16 @@ class Mangas extends DBObject {
 	function getSubordinates($manga) {
         $res=array();
         // fase 0: buscamos datos de la manga solicitada
-        $mng=$this->__getArray("Mangas",$manga);
+        $mng=$this->__getArray("mangas",$manga);
         if ( !is_array($mng) || ($mng['Jornada']!=$this->jornadaObj->ID) ) {
             $this->myLogger->error("Invalid manga ID: $manga");
             return array("total"=>0, "rows"=>$res);
         }
         // fase 1: obtenemos la lista de mangas de las jornadas subordinadas
         $mngs=$this->__select(
-            "Mangas.*",
-            "Mangas,Jornadas",
-            "Mangas.Jornada=Jornadas.ID and Jornadas.SlaveOf={$this->jornadaObj->ID}",
+            "mangas.*",
+            "mangas,jornadas",
+            "mangas.Jornada=jornadas.ID and jornadas.SlaveOf={$this->jornadaObj->ID}",
             "",
             "");
         // fase 2: de la lista anterior cogemos las mangas compatibles

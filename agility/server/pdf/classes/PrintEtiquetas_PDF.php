@@ -50,10 +50,10 @@ class PrintEtiquetas_PDF extends PrintCommon {
 	function __construct($prueba,$jornada,$mangas) {
 		parent::__construct('Portrait',"print_etiquetasPDF",$prueba,$jornada);
 		$dbobj=new DBObject("print_etiquetas_pdf");
-        $this->manga1=($mangas[0]!=0)?$dbobj->__getObject("Mangas",$mangas[0]):null;
-        $this->manga2=($mangas[1]!=0)?$dbobj->__getObject("Mangas",$mangas[1]):null;
-        $this->juez1=$dbobj->__selectAsArray("*",'Jueces',"ID={$this->manga1->Juez1}");
-        $this->juez2=$dbobj->__selectAsArray("*",'Jueces',"ID={$this->manga2->Juez1}");
+        $this->manga1=($mangas[0]!=0)?$dbobj->__getObject("mangas",$mangas[0]):null;
+        $this->manga2=($mangas[1]!=0)?$dbobj->__getObject("mangas",$mangas[1]):null;
+        $this->juez1=$dbobj->__selectAsArray("*",'jueces',"ID={$this->manga1->Juez1}");
+        $this->juez2=$dbobj->__selectAsArray("*",'jueces',"ID={$this->manga2->Juez1}");
         $this->myLogger->trace("Juez 1: ".json_encode($this->juez1));
         // add version date and license serial to every label
         $ser= substr( $this->regInfo['Serial'],4,4);

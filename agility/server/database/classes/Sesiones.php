@@ -105,15 +105,15 @@ class Sesiones extends DBObject {
 		}
 		// if hidden==0 hide console related sessions
         $ringstr=" AND 1";
-        if ($ring) $ringstr=" AND (Sesiones.ID > 1)";
+        if ($ring) $ringstr=" AND (sesiones.ID > 1)";
         $searchstr=" AND 1";
         if ($search!=="") $searchstr = "AND (Nombre LIKE '%$search%')  AND ( ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
         $hiddenstr=" AND 1";
         if ($data['Hidden']==0 ) $hiddenstr = "AND (Nombre != 'Console')";
 		$result=$this->__select(
-				/* SELECT */ "Sesiones.ID AS ID,Nombre,Comentario,Operador,Prueba,Jornada,Manga,Tanda,Login,Background,LiveStream,LiveStream2,LiveStream3",
-				/* FROM */ "Sesiones,Usuarios",
-				/* WHERE */ "( Sesiones.Operador = Usuarios.ID ) $hiddenstr $searchstr $ringstr",
+				/* SELECT */ "sesiones.ID AS ID,Nombre,Comentario,Operador,Prueba,Jornada,Manga,Tanda,Login,Background,LiveStream,LiveStream2,LiveStream3",
+				/* FROM */ "sesiones,usuarios",
+				/* WHERE */ "( sesiones.Operador = usuarios.ID ) $hiddenstr $searchstr $ringstr",
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
@@ -139,7 +139,7 @@ class Sesiones extends DBObject {
         $sessionkey=array_key_exists('SessionKey',$data)?$data['SessionKey']:null;
 
 		// componemos un prepared statement
-		$sql ="INSERT INTO Sesiones (Nombre,Comentario,Prueba,Jornada,Manga,Tanda,Operador,SessionKey)
+		$sql ="INSERT INTO sesiones (Nombre,Comentario,Prueba,Jornada,Manga,Tanda,Operador,SessionKey)
 			   VALUES(?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
@@ -158,7 +158,7 @@ class Sesiones extends DBObject {
     // send events on change camera data
     private function sendCameraEvents($id,$flags) {
         // retrieve session data
-        $sdata=$this->__getObject("Sesiones",$id);
+        $sdata=$this->__getObject("sesiones",$id);
         if (!$sdata) {
             $this->myLogger->error("sendCameraEvents: invalid session id:$id");
             return;
@@ -198,7 +198,7 @@ class Sesiones extends DBObject {
 		if ($id==0) return $this->error("Invalid Session ID:$id");
 		$now=date('Y-m-d H:i:s');
 		$evtflags=0;
-		$sql="UPDATE Sesiones SET LastModified='$now'";
+		$sql="UPDATE sesiones SET LastModified='$now'";
 		if (isset($data['Nombre']))		$sql .=", Nombre='{$data['Nombre']}' ";
 		if (isset($data['Comentario']))	$sql .=", Comentario='{$data['Comentario']}' ";
 		if (isset($data['Prueba']))		$sql .=", Prueba={$data['Prueba']} ";
@@ -228,7 +228,7 @@ class Sesiones extends DBObject {
 	function delete($id) {
 		$this->myLogger->enter();
 		if ($id<=1) return $this->error("Invalid Session ID"); // cannot delete if juez<=default
-		$res= $this->__delete("Sesiones","( ID={$id} )");
+		$res= $this->__delete("sesiones","( ID={$id} )");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -242,7 +242,7 @@ class Sesiones extends DBObject {
 	function reset($id) {
 		$this->myLogger->enter();
 		if ($id<0) return $this->error("Invalid Session ID ");
-		$res= $this->__delete("Eventos","( Session={$id} )");
+		$res= $this->__delete("eventos","( Session={$id} )");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -258,7 +258,7 @@ class Sesiones extends DBObject {
 		if ($id<=0) return $this->error("Invalid Session ID:$id"); // session ID must be positive greater than 0 
 
 		// make query
-		$obj=$this->__getObject("Sesiones",$id);
+		$obj=$this->__getObject("sesiones",$id);
 		if (!is_object($obj))	return $this->error("No Session found with provided ID=$id");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
@@ -275,7 +275,7 @@ class Sesiones extends DBObject {
 		$this->myLogger->enter();
 		if ($nombre==="") return $this->error("Invalid Session Name"); // session name should not be empty
 		// make query
-		$obj=$this->__selectObject("*","Sesiones","Nombre=$nombre");
+		$obj=$this->__selectObject("*","sesiones","Nombre=$nombre");
 		if (!is_object($obj))	return $this->error("No Session found with provided name='$nombre'");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
@@ -294,7 +294,7 @@ class Sesiones extends DBObject {
 		if ($q!=="") $where="(Nombre LIKE '%".$q."%' )";
 		$result=$this->__select(
 				/* SELECT */ "*",
-				/* FROM */ "Sesiones",
+				/* FROM */ "sesiones",
 				/* WHERE */ $where,
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""
@@ -434,7 +434,7 @@ class Sesiones extends DBObject {
             default:
                 return $this->error("don't know how to handle video format {$item['Type']}" );
         }
-        $str="UPDATE Sesiones SET Background='{$img}',LiveStream='{$mp4}',LiveStream2='{$ogv}',LiveStream3='{$webm}' WHERE ID={$sessid}";
+        $str="UPDATE sesiones SET Background='{$img}',LiveStream='{$mp4}',LiveStream2='{$ogv}',LiveStream3='{$webm}' WHERE ID={$sessid}";
         $res=$this->query($str);
         if(!$res) return $this->conn->error;
         $this->myLogger->leave();

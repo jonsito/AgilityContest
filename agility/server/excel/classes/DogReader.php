@@ -458,8 +458,8 @@ class DogReader {
         }
         // our database stores countries as clubs for international contest, so we can now make normal query for club search
         // remember that "Blind" mode looks for exact match
-        if ($this->myOptions['Blind']==0) $search=$this->myDBObject->__select("*","Clubes","( Nombre LIKE '%$a%') OR (NombreLargo LIKE '%$a%')","","");
-        else                     $search=$this->myDBObject->__select("*","Clubes","( Nombre = '$a') OR (NombreLargo = '$a')","","");
+        if ($this->myOptions['Blind']==0) $search=$this->myDBObject->__select("*","clubes","( Nombre LIKE '%$a%') OR (NombreLargo LIKE '%$a%')","","");
+        else                     $search=$this->myDBObject->__select("*","clubes","( Nombre = '$a') OR (NombreLargo = '$a')","","");
         if ( !is_array($search) ) return "findAndSetClub(): Invalid search term: '$a'"; // invalid search. mark error
 
         // to create clubs additional info is needed, so cannot auto-create in blind mode
@@ -489,8 +489,8 @@ class DogReader {
         $this->saveStatus("Analyzing handler '$a'");
         $f=$this->federation;
         if ($this->myOptions['Blind']==0)
-                $search=$this->myDBObject->__select("*","Guias","( Nombre LIKE '%$a%' ) AND ( Federation = $f ) ","","");
-        else    $search=$this->myDBObject->__select("*","Guias","( Nombre = '$a' ) AND ( Federation = $f ) ","","");
+                $search=$this->myDBObject->__select("*","guias","( Nombre LIKE '%$a%' ) AND ( Federation = $f ) ","","");
+        else    $search=$this->myDBObject->__select("*","guias","( Nombre = '$a' ) AND ( Federation = $f ) ","","");
         if ( !is_array($search) ) return "findAndSetHandler(): Invalid search term: '$a'"; // invalid search. mark error
         // parse found entries looking for match
 
@@ -524,7 +524,7 @@ class DogReader {
         // so blindly create new item with data from excel
         $nombre=$a;
         if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($a);
-        $str="INSERT INTO Guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";
+        $str="INSERT INTO guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetHandler(): blindInsertGuia '$a' error:".$this->myDBObject->conn->error;
         $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
@@ -550,8 +550,8 @@ class DogReader {
         $this->saveStatus("Analyzing dog '$a'");
         $f=$this->federation;
         if ($this->myOptions['Blind']==0)
-             $search=$this->myDBObject->__select("*","Perros","(( Nombre LIKE '%$a%') OR ( NombreLargo LIKE '%$a%')) AND ( Federation = $f ) ","","");
-        else $search=$this->myDBObject->__select("*","Perros","(( Nombre = '$a') OR ( NombreLargo = '$a')) AND ( Federation = $f ) ","","");
+             $search=$this->myDBObject->__select("*","perros","(( Nombre LIKE '%$a%') OR ( NombreLargo LIKE '%$a%')) AND ( Federation = $f ) ","","");
+        else $search=$this->myDBObject->__select("*","perros","(( Nombre = '$a') OR ( NombreLargo = '$a')) AND ( Federation = $f ) ","","");
         if ( !is_array($search) ) return "findAndSetDog(): Invalid search term: '$a'"; // invalid search. mark error
 
         // parse found entries looking for match
@@ -626,7 +626,7 @@ class DogReader {
         if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
         // retrieve insertID and update temporary table.
         $id=$this->myDBObject->conn->insert_id;
-        if ($lic!=="") $this->myDBObject->setServerID("Perros",$id); // on master server also set ServerID
+        if ($lic!=="") $this->myDBObject->setServerID("perros",$id); // on master server also set ServerID
         // Notice that some items may alread be set, so a bit redundant ( just only really need insert id )
         $str="UPDATE $t SET DogID=$id, Nombre='$nombre',LOE_RRC='$loe',Raza='$raza',Chip='$chip',Licencia='$lic',NombreLargo='$nlargo' ".
             "WHERE (Nombre = '$a') AND (HandlerID=$h)";
@@ -690,7 +690,7 @@ class DogReader {
             $nombre=$this->myDBObject->conn->real_escape_string($obj->NombreGuia);
             $c=$obj->ClubID;
             if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($obj->NombreGuia);
-            $str="INSERT INTO Guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";
+            $str="INSERT INTO guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEntry(): Insert Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
@@ -722,7 +722,7 @@ class DogReader {
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEntry(): InsertDog '$nombre' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID
-            if ($lic!=="") $this->myDBObject->setServerID("Perros",$id); // on master server set ServerID
+            if ($lic!=="") $this->myDBObject->setServerID("perros",$id); // on master server set ServerID
             // and update temporary table with processed data and add insertid.
             // Leave as is unchanged fields
             $str="UPDATE $t SET DogID=$id, Nombre='$nombre',Licencia='$lic',Raza='$raza',NombreLargo='$nlargo' ".
@@ -751,7 +751,7 @@ class DogReader {
         // delete every entry with matching name
         if ($options['Object']=="Club") {
             // obtenemos nombre del club tal y como figura en la base de datos
-            $dbobj=$this->myDBObject->__selectObject("*","Clubes","ID={$options['DatabaseID']}");
+            $dbobj=$this->myDBObject->__selectObject("*","clubes","ID={$options['DatabaseID']}");
             // actualizamos nombre del club y club ID en todas las entradas de la tabla temporal
             // en que aparezca. para ello tenemos que hacer un update por nombre
             $dbname=$this->myDBObject->conn->real_escape_string($dbobj->Nombre);
@@ -762,7 +762,7 @@ class DogReader {
         }
         else if ($options['Object']=="Guia") {
             // obtenemos nombre del guia tal y como figura en la base de datos
-            $dbobj=$this->myDBObject->__selectObject("*","Guias","ID={$options['DatabaseID']}");
+            $dbobj=$this->myDBObject->__selectObject("*","guias","ID={$options['DatabaseID']}");
             // ajustamos el id y el nombre del guia en la tabla excel
             $dbname=$this->myDBObject->conn->real_escape_string($dbobj->Nombre);
             $name=$this->myDBObject->conn->real_escape_string($obj->NombreGuia);
@@ -776,13 +776,13 @@ class DogReader {
             $res=$this->myDBObject->query($str);
             if (!$res) return "UpdateEntry(): update handler '$name' Set Name/ID error:".$this->myDBObject->conn->error;
             // ajustamos nombre del guia y el club en la base de datos
-            $str="UPDATE Guias SET Nombre='{$n}' , Club={$obj->ClubID} WHERE (ID={$dbobj->ID})";
+            $str="UPDATE guias SET Nombre='{$n}' , Club={$obj->ClubID} WHERE (ID={$dbobj->ID})";
             $res=$this->myDBObject->query($str);
             if (!$res) return "UpdateEntry(): update handler '$name' Set Club error:".$this->myDBObject->conn->error;
         }
         else if ($options['Object']=="Perro") {
             // obtenemos nombre del perro tal y como figura en la base de datos
-            $dbobj=$this->myDBObject->__selectObject("*","Perros","ID={$options['DatabaseID']}");
+            $dbobj=$this->myDBObject->__selectObject("*","perros","ID={$options['DatabaseID']}");
 
             // escapamos todos los textos para evitar problemas con las operaciones de la base de datos
             $tnombre=$this->myDBObject->conn->real_escape_string($obj->Nombre); // nombre del perro en tabla temporal
@@ -873,41 +873,41 @@ class DogReader {
         if ($this->myOptions['Blind']==0) { // do not update clubs in blind mode
             // import clubes data
             $this->saveStatus("Importing resulting clubs data");
-            $str="UPDATE Clubes INNER JOIN $t ON ( $t.ClubID = Clubes.ID ) ".
-                "SET Clubes.Nombre = $t.NombreClub ";
+            $str="UPDATE clubes INNER JOIN $t ON ( $t.ClubID = clubes.ID ) ".
+                "SET clubes.Nombre = $t.NombreClub ";
             $res=$this->myDBObject->query($str);
             if (!$res) return "beginImport(clubes): update error:".$this->myDBObject->conn->error;
         }
-        $this->myDBObject->fixServerID("Clubes");
+        $this->myDBObject->fixServerID("clubes");
 
         // import handler data
         $this->saveStatus("Importing resulting handlers data");
-        $str="UPDATE Guias INNER JOIN $t ON ($t.HandlerID = Guias.ID) ".
-            "SET Guias.Nombre = $t.NombreGuia ".
-            ", Guias.Club = $t.ClubID ";
+        $str="UPDATE guias INNER JOIN $t ON ($t.HandlerID = guias.ID) ".
+            "SET guias.Nombre = $t.NombreGuia ".
+            ", guias.Club = $t.ClubID ";
         $res=$this->myDBObject->query($str);
         if (!$res) return "beginImport(handlers): update error:".$this->myDBObject->conn->error;
         $this->myDBObject->fixServerID("Guias");
 
         // import dog data
         $this->saveStatus("Importing resulting dogs data");
-        // $str="UPDATE Perros INNER JOIN $t ON ($t.DogID = Perros.ID) AND ($t.HandlerID = Perros.Guia) ".
-        $str="UPDATE Perros INNER JOIN $t ON ($t.DogID = Perros.ID) ".
-            "SET Perros.Nombre = $t.Nombre ".
-            ", Perros.NombreLargo = $t.NombreLargo ".
-            ", Perros.Raza = $t.Raza ".
-            ", Perros.Chip = $t.Chip ".
-            ", Perros.Genero = $t.Genero ".
-            ", Perros.LOE_RRC = $t.LOE_RRC ".
-            ", Perros.Licencia = $t.Licencia ".
-            ", Perros.Categoria = $t.Categoria ".
-            ", Perros.Grado = $t.Grado ".
-            ", Perros.Guia = $t.HandlerID ";
+        // $str="UPDATE perros INNER JOIN $t ON ($t.DogID = Perros.ID) AND ($t.HandlerID = Perros.Guia) ".
+        $str="UPDATE perros INNER JOIN $t ON ($t.DogID = perros.ID) ".
+            "SET perros.Nombre = $t.Nombre ".
+            ", perros.NombreLargo = $t.NombreLargo ".
+            ", perros.Raza = $t.Raza ".
+            ", perros.Chip = $t.Chip ".
+            ", perros.Genero = $t.Genero ".
+            ", perros.LOE_RRC = $t.LOE_RRC ".
+            ", perros.Licencia = $t.Licencia ".
+            ", perros.Categoria = $t.Categoria ".
+            ", perros.Grado = $t.Grado ".
+            ", perros.Guia = $t.HandlerID ";
         $res=$this->myDBObject->query($str);
         if (!$res) return "{$this->name} beginImport(): update error:".$this->myDBObject->conn->error;
         // finalmente, si estamos en el master server se ajusta el server id
         // en aquellos perros que tienen licencia pero serverID=0
-        $this->myDBObject->fixServerID("Perros");
+        $this->myDBObject->fixServerID("perros");
 
         $this->myLogger->leave();
         return array( 'operation'=>'import','success'=>'close');

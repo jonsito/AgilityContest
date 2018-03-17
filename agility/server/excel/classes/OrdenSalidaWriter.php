@@ -52,8 +52,8 @@ class OrdenSalidaWriter extends XLSX_Writer {
             throw new Exception($this->errormsg);
         }
         $myDBObject= new DBObject("excel_ordenDeSalida");
-        $this->prueba= $myDBObject->__getArray("Pruebas",$prueba);
-        $this->jornada= $myDBObject->__getArray("Jornadas",$jornada);
+        $this->prueba= $myDBObject->__getArray("pruebas",$prueba);
+        $this->jornada= $myDBObject->__getArray("jornadas",$jornada);
         $this->federation=Federations::getFederation(intval($this->prueba['RSCE']));
         $p=json_decode (json_encode ($this->prueba));
         $j=json_decode (json_encode ($this->jornada));

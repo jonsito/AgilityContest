@@ -50,8 +50,8 @@ class PartialScoresWriter extends XLSX_Writer {
         parent::__construct("partial_scores.xlsx");
         setcookie('fileDownload', 'true', time() + 30, "/"); // tell browser to hide "downloading" message box
         $this->myDBObject = new DBObject("partial_scores.xlsx");
-        $this->prueba = $this->myDBObject->__getObject("Pruebas", $idprueba);
-        $this->jornada = $this->myDBObject->__getObject("Jornadas", $idjornada);
+        $this->prueba = $this->myDBObject->__getObject("pruebas", $idprueba);
+        $this->jornada = $this->myDBObject->__getObject("jornadas", $idjornada);
         $this->manga = $manga;
         $this->resultados = $resultados;
         $this->mode = $mode;
@@ -74,8 +74,8 @@ class PartialScoresWriter extends XLSX_Writer {
         // evaluate needed data from parameters
         $federation=Federations::getFederation(intval($this->prueba->RSCE));
         $modestr=$federation->get('IndexedModes')[intval($this->mode)];
-        $juez1=$this->myDBObject->__getObject("Jueces",$this->manga->Juez1);
-        $juez2=$this->myDBObject->__getObject("Jueces",$this->manga->Juez2);
+        $juez1=$this->myDBObject->__getObject("jueces",$this->manga->Juez1);
+        $juez2=$this->myDBObject->__getObject("jueces",$this->manga->Juez2);
         $j1=($juez1->Nombre==="-- Sin asignar --")?"":$juez1->Nombre;
         $j2=($juez2->Nombre==="-- Sin asignar --")?"":$juez2->Nombre;
         // dump excel rows

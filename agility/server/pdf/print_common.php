@@ -213,7 +213,7 @@ class PrintCommon extends FPDF {
 		$this->prueba=null;
 		$this->federation=Federations::getFederation(0); // defaults to RSCE
 		if ($prueba!=0) {
-			$this->prueba=$this->myDBObject->__getObject("Pruebas",$prueba);
+			$this->prueba=$this->myDBObject->__getObject("pruebas",$prueba);
 			$this->federation=Federations::getFederation(intval($this->prueba->RSCE));
 		}
 		$this->strClub=($this->federation->isInternational())?_('Country'):_('Club');
@@ -221,11 +221,11 @@ class PrintCommon extends FPDF {
 		// $this->myLogger->trace("Federation is: ".json_decode($this->federation));
 		$this->club=null;
 		if ($prueba!=0){
-			$this->club=$this->myDBObject->__getObject("Clubes",$this->prueba->Club); // club organizador
+			$this->club=$this->myDBObject->__getObject("clubes",$this->prueba->Club); // club organizador
 		}
 		$this->jornada=null;
 		if ($jornada!=0) {
-			$this->jornada=$this->myDBObject->__getObject("Jornadas",$jornada);
+			$this->jornada=$this->myDBObject->__getObject("jornadas",$jornada);
 			$this->useLongNames=Competitions::getCompetition($this->prueba,$this->jornada)->useLongNames();
 		}
 		// on international contests, use logos from federation
@@ -282,7 +282,7 @@ class PrintCommon extends FPDF {
      * @return {string} name of desired logo
      */
     function getLogoName($id) {
-        $row=$this->myDBObject->__selectObject("Logo","Perros,Guias,Clubes","(Perros.Guia=Guias.ID ) AND (Guias.Club=Clubes.ID) AND (Perros.ID=$id)");
+        $row=$this->myDBObject->__selectObject("Logo","perros,guias,clubes","(perros.Guia=guias.ID ) AND (guias.Club=clubes.ID) AND (perros.ID=$id)");
         if (!$row) {
 			$this->myLogger->error("getLogoName(): no associated guia/club for Dog ID: $id");
 			return getIconPath($this->federation->get('Name'),$this->icon);

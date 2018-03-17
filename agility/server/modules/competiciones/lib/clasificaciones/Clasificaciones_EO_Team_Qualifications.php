@@ -44,7 +44,7 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
 	function evalFinal($idmangas,$c1,$c2=null,$c3=null,$c4=null,$c5=null,$c6=null,$c7=null,$c8=null) {
 		$this->myLogger->enter();
 		$mangas=array();
-		for ($i=0;$i<8;$i++) $mangas[$i]=$this->__getObject("Mangas",$idmangas[$i]);
+		for ($i=0;$i<8;$i++) $mangas[$i]=$this->__getObject("mangas",$idmangas[$i]);
 		$resultados=array($c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
         $final=array(); // puesto,dorsal, nombre, licencia,categoria,grado, nombreguia, nombreclub,
                 // F1,R1,T1,V1,P1,C1,Pt1,St1,F2,R2,T2,V2,P2,C2,Pt2,St2,Xt1,Xt2

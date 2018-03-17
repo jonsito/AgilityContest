@@ -39,7 +39,7 @@ class csvHandler extends DBObject {
         parent::__construct("csvHandler");
         $this->myAuthManager = $am;
         if ($p<=0) throw new Exception("csvHandler: invalid Prueba ID:$p");
-        $this->prueba=$this->__getObject("Pruebas",$p);
+        $this->prueba=$this->__getObject("pruebas",$p);
         if ($this->prueba === null) throw new Exception("csvHandler: cannot retrieve data for prueba ID:$p");
         // retrieve rest of parameters
         $this->sep = http_request("Separator", "s", ','); // retrieve separator - or use default comma if not

@@ -44,13 +44,13 @@ class PublicWeb
         // obtenemos los datos desde las variables recibidas por http
         $this->session = null;
         $this->sessionid = 0;
-        $this->prueba = $this->myDBObject->__getArray("Pruebas", $pruebaid);
-        $this->jornada = $this->myDBObject->__getArray("Jornadas", $jornadaid);
+        $this->prueba = $this->myDBObject->__getArray("pruebas", $pruebaid);
+        $this->jornada = $this->myDBObject->__getArray("jornadas", $jornadaid);
         $this->manga = null;
         $this->mangaid = $mangaid;
-        if ($mangaid != 0) $this->manga = $this->myDBObject->__getArray("Mangas", $mangaid);
+        if ($mangaid != 0) $this->manga = $this->myDBObject->__getArray("mangas", $mangaid);
         $this->mode = $mode;
-        $this->club = $this->myDBObject->__getArray("Clubes", $this->prueba['Club']);
+        $this->club = $this->myDBObject->__getArray("clubes", $this->prueba['Club']);
         $this->myLogger->info("prueba:{$this->prueba['ID']} jornada:{$this->jornada['ID']} manga:{$this->mangaid} mode:$mode");
     }
 
@@ -70,7 +70,7 @@ class PublicWeb
         // retrieve contest data
         $result['Prueba']=$this->prueba;
         // retrieve journeys for this contest
-        $result['Jornadas']=$this->myDBObject->__select("*","Jornadas","(Prueba={$this->prueba['ID']}) AND (Nombre != '-- Sin asignar --') ","","" )['rows'];
+        $result['Jornadas']=$this->myDBObject->__select("*","jornadas","(Prueba={$this->prueba['ID']}) AND (Nombre != '-- Sin asignar --') ","","" )['rows'];
         foreach($result['Jornadas'] as &$jornada) {
             // retrieve rounds for each series
             $jornada['Mangas']=Jornadas::enumerateMangasByJornada($jornada['ID'])['rows'];
@@ -83,7 +83,7 @@ class PublicWeb
         // obtenemos finalmente la sesion activa
         $res=$this->myDBObject->__select(
             /* select */    "*",
-            /* from */      "Eventos",
+            /* from */      "eventos",
             /* where */     "(Type='open') AND (Data LIKE '%\"Pru\":{$this->prueba['ID']},%')",
             /* order by */  "ID DESC",
             /* limit */     "",
@@ -99,7 +99,7 @@ class PublicWeb
     function getEvents($last) {
         $data=$this->myDBObject->__select(
             "*",
-            "Eventos",
+            "eventos",
             "( Session=1 ) AND (Type='command') AND (Data LIKE '%\"Pru\":{$this->prueba['ID']},%') AND (ID>{$last})",
             "ID ASC"
         );

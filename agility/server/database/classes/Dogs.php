@@ -60,7 +60,7 @@ class Dogs extends DBObject {
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error);
         // if running on master server set ServerID as insert_id
-        if ($licencia!=="") $this->setServerID("Perros",$stmt->insert_id);
+        if ($licencia!=="") $this->setServerID("perros",$stmt->insert_id);
 		$stmt->close();
 		$this->myLogger->leave();
 		return "";
@@ -70,9 +70,9 @@ class Dogs extends DBObject {
 	function updateInscripciones($id) {
 		// miramos las pruebas en las que el perro esta inscrito
 		$res=$this->__select(
-			/* SELECT */"Inscripciones.*",
-			/* FROM */	"Inscripciones,Pruebas",
-			/* WHERE */	"(Pruebas.ID=Inscripciones.Prueba) AND (Pruebas.Cerrada=0) AND (Perro=$id)",
+			/* SELECT */"inscripciones.*",
+			/* FROM */	"inscripciones,pruebas",
+			/* WHERE */	"(pruebas.ID=inscripciones.Prueba) AND (pruebas.Cerrada=0) AND (Perro=$id)",
 			/* ORDER BY */	"",
 			/* LIMIT*/	""
 		);
@@ -106,7 +106,7 @@ class Dogs extends DBObject {
         $idperro =	$id;
         $licencia=normalize_license($licencia);
 		// componemos un prepared statement
-		$sql ="UPDATE Perros SET Nombre=? , Raza=? , Chip=?, LOE_RRC=? , Licencia=? , Categoria=? , Grado=? , Guia=?, NombreLargo=?, Genero=?
+		$sql ="UPDATE perros SET Nombre=? , Raza=? , Chip=?, LOE_RRC=? , Licencia=? , Categoria=? , Grado=? , Guia=?, NombreLargo=?, Genero=?
 		       WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
@@ -120,7 +120,7 @@ class Dogs extends DBObject {
 		$stmt->close();
 		// PENDING: study if this is really neccesary:
         // no sense in client, and in server is done "by hand"
-		if (!is_null($licencia)) $this->setServerID("Perros",$id);
+		if (!is_null($licencia)) $this->setServerID("perros",$id);
 		// update data on inscripciones
 		$res=$this->updateInscripciones($id);
 		$this->myLogger->leave();
@@ -135,7 +135,7 @@ class Dogs extends DBObject {
 	function delete($idperro) {
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("Invalid Dog ID:$idperro"); 
-		$rs= $this->__delete("Perros","(ID=$idperro)");
+		$rs= $this->__delete("perros","(ID=$idperro)");
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -150,7 +150,7 @@ class Dogs extends DBObject {
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("Invalid Dog ID:$idperro"); 
 		// assign to default Guia ID=1
-		$rs= $this->query("UPDATE Perros SET Guia=1 WHERE (ID=$idperro)");
+		$rs= $this->query("UPDATE perros SET Guia=1 WHERE (ID=$idperro)");
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -169,22 +169,22 @@ class Dogs extends DBObject {
         // en teoria, inscripciones y resultados se actualizan mediante foreign key (Perros.ID), pero
         // por siacaso lo hacemos a mano
 	    // update inscripciones
-        $res=$this->query("UPDATE Inscripciones SET Perro=$toID WHERE ( Perro=$fromID )");
+        $res=$this->query("UPDATE inscripciones SET Perro=$toID WHERE ( Perro=$fromID )");
         if (!$res) return $this->error($this->conn->error);
 	    // update resultados
-        $res=$this->query("UPDATE Resultados SET Perro=$toID WHERE ( Perro=$fromID )");
+        $res=$this->query("UPDATE resultados SET Perro=$toID WHERE ( Perro=$fromID )");
         if (!$res) return $this->error($this->conn->error);
 
         // en estas tablas, hay que actualizar las listas del tipo ',FromID,' a ',ToID,'
         // update starting orders
-        $res=$this->query("UPDATE Mangas SET Orden_Salida=REPLACE(Orden_Salida,',$fromID,',',$toID,') where (Orden_Salida like '%,$fromID,%')");
+        $res=$this->query("UPDATE mangas SET Orden_Salida=REPLACE(Orden_Salida,',$fromID,',',$toID,') where (Orden_Salida like '%,$fromID,%')");
         if (!$res) return $this->error($this->conn->error);
         // update team member lists
-        $res=$this->query("UPDATE Equipos SET Miembros=REPLACE(Miembros,',$fromID,',',$toID,') WHERE (Miembros LIKE '%,$fromID,%')");
+        $res=$this->query("UPDATE equipos SET Miembros=REPLACE(Miembros,',$fromID,',',$toID,') WHERE (Miembros LIKE '%,$fromID,%')");
         if (!$res) return $this->error($this->conn->error);
 
         // and finally remove "from" dog
-        $rs= $this->__delete("Perros","(ID=$fromID)");
+        $rs= $this->__delete("perros","(ID=$fromID)");
         if (!$rs) return $this->error($this->conn->error);
         $this->myLogger->leave();
         return "";
@@ -217,7 +217,7 @@ class Dogs extends DBObject {
 		if ($search!=="") $where="( (Nombre LIKE '%$search%') OR ( NombreLargo LIKE '%$search%')OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') OR ( NombreClub LIKE '%$search%') )";
 		$result=$this->__select(
 				/* SELECT */ "*",
-				/* FROM */ "PerroGuiaClub",
+				/* FROM */ "perroguiaclub",
 				/* WHERE */ "$fed AND $where",
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
@@ -240,7 +240,7 @@ class Dogs extends DBObject {
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "*",
-				/* FROM */ "PerroGuiaClub",
+				/* FROM */ "perroguiaclub",
 				/* WHERE */ "$fed AND $where",
 				/* ORDER BY */ "Club ASC, Guia ASC, Nombre ASC",
 				/* LIMIT */ ""
@@ -274,7 +274,7 @@ class Dogs extends DBObject {
         // https://stackoverflow.com/questions/6135376/mysql-select-where-field-in-subquery-extremely-slow-why
         $dups= " Licencia IN (".
                     "SELECT * FROM (".
-                        " SELECT Licencia FROM PerroGuiaClub GROUP BY Licencia HAVING COUNT(*) > 1".
+                        " SELECT Licencia FROM perroguiaclub GROUP BY Licencia HAVING COUNT(*) > 1".
                     ") AS Subquery ".
                 ") ";
         $where = "1";
@@ -286,7 +286,7 @@ class Dogs extends DBObject {
         if ($search!=="") $where="( (Nombre LIKE '%$search%') OR ( NombreLargo LIKE '%$search%' ) OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') OR ( NombreClub LIKE '%$search%') )";
         $result=$this->__select(
         /* SELECT */ "*",
-            /* FROM */ "PerroGuiaClub",
+            /* FROM */ "perroguiaclub",
             /* WHERE */ "$fed AND $where AND $dups",
             /* ORDER BY */ $sort,
             /* LIMIT */ $limit
@@ -307,7 +307,7 @@ class Dogs extends DBObject {
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "*",
-				/* FROM */ "PerroGuiaClub",
+				/* FROM */ "perroguiaclub",
 				/* WHERE */ "$fed ( Guia = $idguia )",
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""
@@ -327,7 +327,7 @@ class Dogs extends DBObject {
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("Invalid Perro ID:$idperro");
 		// make query
-		$obj=$this->__getObject("PerroGuiaClub",$idperro);
+		$obj=$this->__getObject("perroguiaclub",$idperro);
 		if (!is_object($obj))	return $this->error("No Dog found with ID=$idperro");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
@@ -335,7 +335,7 @@ class Dogs extends DBObject {
 		// in videowall/livestream, add results data for journey
 		$jornada=http_request("Jornada","i",0);
 		if ($jornada==0) return $data; // no need to add competition data
-		$res=$this->__select("*","Resultados","(Perro=$idperro) AND (Jornada=$jornada)");
+		$res=$this->__select("*","resultados","(Perro=$idperro) AND (Jornada=$jornada)");
 		$data["results"]=$res['rows'];
 		return $data;
 	}

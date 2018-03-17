@@ -28,7 +28,7 @@ require_once (__DIR__."/Updater.php");
 /**
  * Class Uploader
  *
- * Used to send to server any PerroGuiaClub database change since last update date
+ * Used to send to server any perroguiaclub database change since last update date
  */
 class Uploader {
 
@@ -64,26 +64,26 @@ class Uploader {
         $result=array();
         // retrieve updated dogs from database
         $res=$this->myDBObject->__select(
-          "Perros.*,Guias.Nombre as NombreGuia,Guias.ServerID as GuiasServerID",
-          "Perros,Guias",
-          "(Perros.Guia=Guias.ID) AND (Licencia != '') AND ( Perros.LastModified > '{$timestamp}')"
+          "perros.*,guias.Nombre as NombreGuia,guias.ServerID as GuiasServerID",
+          "perros,guias",
+          "(perros.Guia=guias.ID) AND (Licencia != '') AND ( perros.LastModified > '{$timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Perros): {$this->myDBObject->conn->error}");
         $result['Perros']=$res['rows'];
 
         // retrieve updated handlers from database
         $res=$this->myDBObject->__select(
-            "Guias.*,Clubes.Nombre AS NombreClub, Clubes.ServerID as ClubesServerID",
-            "Guias,Clubes",
-            "(Guias.Club=Clubes.ID) AND ( Guias.LastModified > '{$timestamp}')"
+            "guias.*,clubes.Nombre AS NombreClub, clubes.ServerID as ClubesServerID",
+            "guias,clubes",
+            "(guias.Club=clubes.ID) AND ( guias.LastModified > '{$timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Guias): {$this->myDBObject->conn->error}");
         $result['Guias']=$res['rows'];
 
         // retrieve updated Clubs from database
         $res=$this->myDBObject->__select(
-            "Clubes.*",
-            "Clubes",
+            "clubes.*",
+            "clubes",
             "( LastModified > '{$timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Clubes): {$this->myDBObject->conn->error}");
@@ -91,8 +91,8 @@ class Uploader {
 
         // retrieve updated Judges from database
         $res=$this->myDBObject->__select(
-            "Jueces.*",
-            "Jueces",
+            "jueces.*",
+            "jueces",
             "( LastModified > '{$timestamp}')"
         );
         if (!$res) {

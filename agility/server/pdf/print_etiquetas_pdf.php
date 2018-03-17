@@ -52,8 +52,8 @@ try {
 	
 	// buscamos los recorridos asociados a la mangas
 	$dbobj=new DBObject("print_etiquetas_csv");
-	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
-	$prb=$dbobj->__getObject("Pruebas",$prueba);
+	$mng=$dbobj->__getObject("mangas",$mangas[0]);
+	$prb=$dbobj->__getObject("pruebas",$prueba);
 	$c= Competitions::getClasificacionesInstance("print_etiquetas_pdf",$jornada);
 	
 	// obtenemos la clasificacion de la tanda seleccionada

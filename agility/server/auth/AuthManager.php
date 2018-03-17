@@ -166,8 +166,8 @@ class AuthManager {
 	function getUserByKey($sk) {
 	    $obj=$this->mySessionMgr->__selectObject(
 			"*",
-			"Sesiones,Usuarios",
-			"(Usuarios.ID=Sesiones.Operador) AND ( SessionKey='$sk')"
+			"sesiones,usuarios",
+			"(usuarios.ID=sesiones.Operador) AND ( SessionKey='$sk')"
 		);
 		if (!$obj) throw new Exception ("Invalid session key: '$sk'");
 		$userid=intval($obj->Operador);
@@ -329,7 +329,7 @@ class AuthManager {
 		// remove extra chars to properly make club string likeness evaluation
         $lclub=preg_replace("/[^A-Za-z0-9 ]/", '', $lclub);
 		$dbobj=new DBObject("Auth::searchClub");
-		$res=$dbobj->__select("*","Clubes","1");
+		$res=$dbobj->__select("*","clubes","1");
 		$better=array(0,array('ID'=>0,'Nombre'=>'') ); // percentage, data
 		for ($idx=0; $idx<$res['total']; $idx++) {
 			$club=$res['rows'][$idx];
@@ -374,7 +374,7 @@ class AuthManager {
     private function dbLogin($login,$password,$sid,$nosession) {
 		/* access database to check user credentials */
 		$this->myLogger->enter();
-		$obj=$this->mySessionMgr->__selectObject("*","Usuarios","(Login='$login')");
+		$obj=$this->mySessionMgr->__selectObject("*","usuarios","(Login='$login')");
 		if (!$obj) throw new Exception("Login: Unknown user: '$login'");
 		$pw=$obj->Password;
 		if (strstr('--UNDEF--',$pw)!==FALSE)
@@ -425,7 +425,7 @@ class AuthManager {
 		// create/join to a session
 		if ($sid<=0) { //  if session id is not defined, create a new session
 			// remove all other console sessions from same user
-			$this->mySessionMgr->__delete("Sesiones","( Nombre='Console' ) AND ( Operador={$obj->ID} )");
+			$this->mySessionMgr->__delete("sesiones","( Nombre='Console' ) AND ( Operador={$obj->ID} )");
 			// insert new session
 			$data['Nombre']="Console";
 			$data['Comentario']=$obj->Login." - ".$obj->Gecos;
@@ -496,7 +496,7 @@ class AuthManager {
 			die("<p>Invalid Serial license number. Please contact your dealer</p>");
 		}
 		$p=base64_encode(password_hash("admin",PASSWORD_DEFAULT));
-		$str="UPDATE Usuarios SET Login='admin', Password='$p' ,Perms=1 WHERE (ID=3)"; //1:nobody 2:root 3:admin
+		$str="UPDATE usuarios SET Login='admin', Password='$p' ,Perms=1 WHERE (ID=3)"; //1:nobody 2:root 3:admin
 		$this->mySessionMgr->query($str);
 		return "";
 	}
@@ -507,10 +507,10 @@ class AuthManager {
 	function logout() {
 	    if (!$this->master_server) {
             // remove console sessions for this
-            $this->mySessionMgr->__delete("Sesiones","( Nombre='Console' ) AND ( Operador={$this->operador} )");
+            $this->mySessionMgr->__delete("sesiones","( Nombre='Console' ) AND ( Operador={$this->operador} )");
         }
 		// clear session key  on named sessions
-		$str="UPDATE Sesiones 
+		$str="UPDATE sesiones 
 			SET SessionKey=NULL, Operador=1, Prueba=0, Jornada=0, Manga=0, Tanda=0 
 			WHERE ( SessionKey='{$this->mySessionKey}' )";
 		$this->mySessionMgr->query($str);
@@ -537,7 +537,7 @@ class AuthManager {
 			case 2:	// comprobamos el user id
 				if ($id!=$u->Operador) throw new Exception("User can only change their own password");
 				// comprobamos que la contrasenya antigua es correcta
-				$obj=$this->mySessionMgr->__selectObject("*","Usuarios","(ID=$id)");
+				$obj=$this->mySessionMgr->__selectObject("*","usuarios","(ID=$id)");
 				if (!$obj) throw new Exception("SetPassword: Unknown userID: '$id'");
 				$pw=$obj->Password;
 				if (strstr('--LOCK--',$pw)!==FALSE)
@@ -557,7 +557,7 @@ class AuthManager {
 				if ($p1!==$p2) throw new Exception("Las contrase&ntilde;as no coinciden");
 				// and store it for requested user
 				$p=base64_encode(password_hash($p1,PASSWORD_DEFAULT));
-				$str="UPDATE Usuarios SET Password='$p' WHERE (ID=$id)";
+				$str="UPDATE usuarios SET Password='$p' WHERE (ID=$id)";
 				$res=$this->mySessionMgr->query($str);
 				if ($res===FALSE) return $this->mySessionMgr->conn->error;
                 $this->myLogger->leave();

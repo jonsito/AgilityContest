@@ -46,7 +46,7 @@ class Pruebas extends DBObject {
         $this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
 
 		// componemos un prepared statement
-		$sql ="INSERT INTO Pruebas (Nombre,Club,Ubicacion,Triptico,Cartel,Observaciones,RSCE,Selectiva,Cerrada,OpeningReg,ClosingReg)
+		$sql ="INSERT INTO pruebas (Nombre,Club,Ubicacion,Triptico,Cartel,Observaciones,RSCE,Selectiva,Cerrada,OpeningReg,ClosingReg)
 			   VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
@@ -81,7 +81,7 @@ class Pruebas extends DBObject {
             // retrieve ID of inserted default team and insert into newly created jornada
             // stupid loop, I know, but needed to preserve foreign keys integrity
             $teamid=$this->conn->insert_id;
-            $str="UPDATE Jornadas SET Default_Team=$teamid WHERE (ID=$jornadaid)";
+            $str="UPDATE jornadas SET Default_Team=$teamid WHERE (ID=$jornadaid)";
 			$res=$this->query($str);
 			if (!$res) return $this->error($this->conn->error);
 		}
@@ -111,7 +111,7 @@ class Pruebas extends DBObject {
         $this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
 
 		// componemos un prepared statement
-		$sql ="UPDATE Pruebas
+		$sql ="UPDATE pruebas
 				SET Nombre=? , Club=? , Ubicacion=? , Triptico=? , Cartel=?, 
 				Observaciones=?, RSCE=?, Selectiva=?, Cerrada=?, OpeningReg=?, ClosingReg=?
 				WHERE ( ID=? )";
@@ -141,19 +141,19 @@ class Pruebas extends DBObject {
 		// pruebaID==1 is default prueba, so avoid deletion
 		if ($id<=1) return $this->error("pruebas::delete() Invalid Prueba ID:{$id}");
 		// Borramos resultados asociados a esta prueba
-		$res=$this->__delete("Resultado","( Prueba={$id})");
+		$res=$this->__delete("resultados","( Prueba={$id})");
 		if (!$res) return $this->error($this->conn->error);
 		// Borramos inscripciones de esta prueba
-		$res=$this->__delete("Inscripciones","( Prueba={$id})");
+		$res=$this->__delete("inscripciones","( Prueba={$id})");
 		if (!$res) return $this->error($this->conn->error);
 		// Borramos las jornadas (y mangas) de esta prueba
 		$j=new Jornadas("Pruebas.php",$id);
 		$j->deleteByPrueba();
 		// Borramos tambien las tandas de las jornadas de esta prueba
-		$res=$this->__delete("Tandas","( Prueba={$id})");
+		$res=$this->__delete("tandas","( Prueba={$id})");
 		if (!$res) return $this->error($this->conn->error);
 		// finalmente intentamos eliminar la prueba
-		$res= $this->__delete("Pruebas","(ID={$id})");
+		$res= $this->__delete("pruebas","(ID={$id})");
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";
@@ -181,21 +181,21 @@ class Pruebas extends DBObject {
 			$limit="".$offset.",".$rows;
 		}
 		if ( ($search!=="") && ($closed==0) )
-			$where="( (Pruebas.Club=Clubes.ID) && ( Pruebas.Cerrada=0 ) && 	( (Pruebas.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) ) ";
+			$where="( (pruebas.Club=clubes.ID) && ( pruebas.Cerrada=0 ) && 	( (pruebas.Nombre LIKE '%$search%') OR ( clubes.Nombre LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) ) ";
 		if ( ($search!=="") && ($closed!=0) )
-			$where="( (Pruebas.Club=Clubes.ID) && ( (Pruebas.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) )";
+			$where="( (pruebas.Club=clubes.ID) && ( (pruebas.Nombre LIKE '%$search%') OR ( clubes.Nombre LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) )";
 		if ( ($search==="") && ($closed==0) )
-			$where="( (Pruebas.Club=Clubes.ID) && ( Pruebas.Cerrada=0 ) )";
+			$where="( (pruebas.Club=clubes.ID) && ( pruebas.Cerrada=0 ) )";
 		if ( ($search==="") && ($closed!=0) )
-			$where="(Pruebas.Club=Clubes.ID)";
+			$where="(pruebas.Club=clubes.ID)";
 
 		// execute query to retrieve $rows starting at $offset
 		$result=$this->__select(
-				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub, Clubes.Logo AS LogoClub,
-							Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel,
-							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva, Pruebas.OpeningReg AS OpeningReg, Pruebas.ClosingReg AS ClosingReg,
-							Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
-				/* FROM */ "Pruebas,Clubes",
+				/* SELECT */ "pruebas.ID AS ID, pruebas.Nombre AS Nombre, pruebas.Club AS Club,clubes.Nombre AS NombreClub, clubes.Logo AS LogoClub,
+							pruebas.Ubicacion AS Ubicacion,pruebas.Triptico AS Triptico, pruebas.Cartel AS Cartel,
+							pruebas.RSCE AS RSCE, pruebas.Selectiva AS Selectiva, pruebas.OpeningReg AS OpeningReg, pruebas.ClosingReg AS ClosingReg,
+							pruebas.Cerrada AS Cerrada, pruebas.Observaciones AS Observaciones",
+				/* FROM */ "pruebas,clubes",
 				/* WHERE */ $where,
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
@@ -214,20 +214,21 @@ class Pruebas extends DBObject {
         // retrieve number of inscriptions for this contest
         if ($am==null) $am=new AuthManager("Pruebas::enumerate");
         $limit=$am->getUserLimit();
-        $inscritos=$this->__select("Prueba, count(*) AS Inscritos","Inscripciones","1 GROUP BY Prueba","","");
+        $inscritos=$this->__select("Prueba, count(*) AS Inscritos","inscripciones","1 GROUP BY Prueba","","");
 
 		// evaluate search criteria for query
 		$q=http_request("q","s","");
-		$where= "(Pruebas.Club=Clubes.ID) AND ( Pruebas.Cerrada=0 ) ";
-		if($q!=="") $where="$where AND ( (Pruebas.Nombre LIKE '%$q%' ) OR (Clubes.Nombre LIKE '%$q%') OR (Pruebas.Observaciones LIKE '%$q%') )";
+		$where= "(pruebas.Club=clubes.ID) AND ( pruebas.Cerrada=0 ) ";
+		if($q!=="") $where="$where AND ( (pruebas.Nombre LIKE '%$q%' ) OR (clubes.Nombre LIKE '%$q%') OR (pruebas.Observaciones LIKE '%$q%') )";
 		// retrieve result from parent __select() call
 		$result= $this->__select(
-				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub, Clubes.Logo AS LogoClub,
-							Pruebas.Ubicacion AS Ubicacion, Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
-							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva, Pruebas.Cerrada AS Cerrada,
-							Pruebas.OpeningReg AS OpeningReg, Pruebas.ClosingReg AS ClosingReg,
-							Pruebas.Observaciones AS Observaciones, $limit as UserLimit",
-				/* FROM */ "Pruebas,Clubes",
+				/* SELECT */ "pruebas.ID AS ID, pruebas.Nombre AS Nombre, pruebas.Club AS Club,
+				            clubes.Nombre AS NombreClub, clubes.Logo AS LogoClub,
+							pruebas.Ubicacion AS Ubicacion, pruebas.Triptico AS Triptico, pruebas.Cartel AS Cartel, 
+							pruebas.RSCE AS RSCE, pruebas.Selectiva AS Selectiva, pruebas.Cerrada AS Cerrada,
+							pruebas.OpeningReg AS OpeningReg, pruebas.ClosingReg AS ClosingReg,
+							pruebas.Observaciones AS Observaciones, $limit as UserLimit",
+				/* FROM */ "pruebas,clubes",
 				/* WHERE */ $where,
 				/* ORDER BY */ "ID DESC",
 				/* LIMIT */ ""
@@ -253,12 +254,12 @@ class Pruebas extends DBObject {
 
 		// make query
 		$data= $this->__selectAsArray(
-				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub, Clubes.Logo AS LogoClub,
-					Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel,
-					Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva, Pruebas.OpeningReg AS OpeningReg, Pruebas.ClosingReg AS ClosingReg,
-					Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
-				/* FROM */ "Pruebas,Clubes",
-				/* WHERE */ "( Clubes.ID=Pruebas.Club) && ( Pruebas.ID=$id )"
+				/* SELECT */ "pruebas.ID AS ID, pruebas.Nombre AS Nombre, pruebas.Club AS Club,clubes.Nombre AS NombreClub, clubes.Logo AS LogoClub,
+					pruebas.Ubicacion AS Ubicacion,pruebas.Triptico AS Triptico, pruebas.Cartel AS Cartel,
+					pruebas.RSCE AS RSCE, pruebas.Selectiva AS Selectiva, pruebas.OpeningReg AS OpeningReg, pruebas.ClosingReg AS ClosingReg,
+					pruebas.Cerrada AS Cerrada, pruebas.Observaciones AS Observaciones",
+				/* FROM */ "pruebas,clubes",
+				/* WHERE */ "( clubes.ID=pruebas.Club) && ( pruebas.ID=$id )"
 		);
 		if (!is_array($data))	return $this->error("No Prueba found with ID=$id");
 		// fix logo path To be done at client side if required

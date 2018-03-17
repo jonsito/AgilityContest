@@ -37,7 +37,7 @@ class EntrenamientosReader extends DogReader {
 
     public function __construct($name,$options) {
         $this->myDBObject = new DBObject($name);
-        $this->prueba=$this->myDBObject->__selectAsArray("*","Pruebas","ID={$options['Prueba']}");
+        $this->prueba=$this->myDBObject->__selectAsArray("*","pruebas","ID={$options['Prueba']}");
         if (!is_array($this->prueba))
             throw new Exception("{$name}::construct(): invalid Prueba ID: {$options['Prueba']}");
         parent::__construct($name,$options);
@@ -195,8 +195,8 @@ class EntrenamientosReader extends DogReader {
     private function howManyDogs($team){
         $list=$this->myDBObject->__select(
         /*select*/    "count(*) AS Numero,Categoria",
-        /* from */    "Inscripciones,PerroGuiaClub",
-        /* where */   "( Prueba={$this->prueba['ID']} ) AND (Inscripciones.Perro=PerroGuiaClub.ID) AND (Club=$team)",
+        /* from */    "inscripciones,perroguiaclub",
+        /* where */   "( Prueba={$this->prueba['ID']} ) AND (inscripciones.Perro=perroguiaclub.ID) AND (Club=$team)",
         /* order by*/ "Categoria ASC",
         /* limit */   "",
         /* group by*/"Categoria"
@@ -234,7 +234,7 @@ class EntrenamientosReader extends DogReader {
     function beginImport() {
         $this->myLogger->enter();
         // borramos datos de la tabla de entrenamientos de la prueba
-        $this->myDBObject->__delete("Entrenamientos","( Prueba={$this->prueba['ID']})");
+        $this->myDBObject->__delete("entrenamientos","( Prueba={$this->prueba['ID']})");
         $entries=$this->myDBObject->__select("*",TABLE_NAME,"","")['rows'];
         $orden=1;
 

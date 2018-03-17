@@ -69,7 +69,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
             throw new Exception($this->errormsg);
         }
         // guardamos info de la manga
-        $this->manga=$this->myDBObject->__getObject("Mangas",$data['manga']);
+        $this->manga=$this->myDBObject->__getObject("mangas",$data['manga']);
         // Datos del orden de salida de equipos
         $m = Competitions::getOrdenSalidaInstance("entradaDeDatosEquipos4",$data['manga']);
         $teams= $m->getTeams();

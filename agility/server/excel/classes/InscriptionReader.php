@@ -38,7 +38,7 @@ class InscriptionReader extends DogReader {
     public function __construct($name,$options) {
         $pay=_('Pay'); // stupid poedit
         $this->myDBObject = new DBObject($name);
-        $this->prueba=$this->myDBObject->__selectAsArray("*","Pruebas","ID={$options['Prueba']}");
+        $this->prueba=$this->myDBObject->__selectAsArray("*","pruebas","ID={$options['Prueba']}");
         if (!is_array($this->prueba))
             throw new Exception("{$name}::construct(): invalid Prueba ID: {$options['Prueba']}");
         parent::__construct($name,$options);
@@ -55,7 +55,7 @@ class InscriptionReader extends DogReader {
         foreach ($inscList as $key => $data) $this->fieldList[$key]=$data;
 
         // add as columns for contest journeys
-        $res=$this->myDBObject->__select("*","Jornadas","(Prueba={$options['Prueba']})","","");
+        $res=$this->myDBObject->__select("*","jornadas","(Prueba={$options['Prueba']})","","");
         if (!$res) throw new Exception("InscriptionReader::construct(): cannot retrieve list of journeys for prueba: {$options['Prueba']}");
         $this->jornadas=$res['rows'];
         $index=-23; // notice negative index, as stored in fieldList ( to be _decremented_ )

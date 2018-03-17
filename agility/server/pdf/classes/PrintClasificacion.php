@@ -57,9 +57,9 @@ class PrintClasificacion extends PrintCommon {
 		parent::__construct('Landscape',"print_clasificacion",$prueba,$jornada);
 		$dbobj=new DBObject("print_clasificacion");
 		$this->resultados=$results['rows'];
-        $this->manga1=($mangas[0]!=0)?$dbobj->__getObject("Mangas",$mangas[0]):null;
-        $this->manga2=($mangas[1]!=0)?$dbobj->__getObject("Mangas",$mangas[1]):null;
-        $this->manga3=($mangas[2]!=0)?$dbobj->__getObject("Mangas",$mangas[2]):null;
+        $this->manga1=($mangas[0]!=0)?$dbobj->__getObject("mangas",$mangas[0]):null;
+        $this->manga2=($mangas[1]!=0)?$dbobj->__getObject("mangas",$mangas[1]):null;
+        $this->manga3=($mangas[2]!=0)?$dbobj->__getObject("mangas",$mangas[2]):null;
         $this->trs1=($mangas[0]!=0)?$results['trs1']:null;
         $this->trs2=($mangas[1]!=0)?$results['trs2']:null;
         $this->trs3=($mangas[2]!=0)?$results['trs3']:null;

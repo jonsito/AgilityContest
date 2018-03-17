@@ -590,7 +590,7 @@ public static $countryList = array(
         foreach( Country::$coi_list as $coi => $country) {
             foreach (Country::$countryList as $iso => $pais) {
                 if ($country!==$pais) continue;
-                echo "UPDATE Clubes SET Pais='$coi' WHERE Pais='$iso';\n";
+                echo "UPDATE clubes SET Pais='$coi' WHERE Pais='$iso';\n";
                 break;
             }
         }

@@ -49,7 +49,7 @@ class Jueces extends DBObject {
         $observaciones=	http_request("Observaciones","s","",false);
         $feds=	        http_request("Federations","i",1); // defaults to FedID:1 (RSCE)
 		// componemos un prepared statement
-		$sql ="INSERT INTO Jueces (Nombre,Direccion1,Direccion2,Telefono,Internacional,Pais,Practicas,Email,Observaciones,Federations)
+		$sql ="INSERT INTO jueces (Nombre,Direccion1,Direccion2,Telefono,Internacional,Pais,Practicas,Email,Observaciones,Federations)
 			   VALUES(?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
@@ -60,7 +60,7 @@ class Jueces extends DBObject {
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error);
 		// if running on master server set ServerID as insert_id
-        $this->setServerID("Jueces",$stmt->insert_id);
+        $this->setServerID("jueces",$stmt->insert_id);
 		$stmt->close();
 		$this->myLogger->leave();
 		return ""; 
@@ -89,7 +89,7 @@ class Jueces extends DBObject {
         $this->myLogger->debug("ID: $id Nombre: $nombre Dir1: $direccion1 Dir2: $direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
 
 		// componemos un prepared statement
-		$sql ="UPDATE Jueces SET Nombre=? , Direccion1=? , Direccion2=? , Telefono=? , Internacional=? , Pais=?, Practicas=? , Email=? , Observaciones=?, Federations=?
+		$sql ="UPDATE jueces SET Nombre=? , Direccion1=? , Direccion2=? , Telefono=? , Internacional=? , Pais=?, Practicas=? , Email=? , Observaciones=?, Federations=?
 		       WHERE ( ID=$id )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
@@ -112,7 +112,7 @@ class Jueces extends DBObject {
 	 */
 	function delete($id) {
 		if ($id<=1) return $this->error("Invalid Juez ID"); // cannot delete if juez<=default
-		$res= $this->__delete("Jueces","( ID={$id} )");
+		$res= $this->__delete("jueces","( ID={$id} )");
 		if (!$res) return $this->error($this->conn->error);
 		return "";
 	}	
@@ -126,7 +126,7 @@ class Jueces extends DBObject {
 		if ($id<=0) return $this->error("Invalid Juez ID"); // Juez ID must be positive greater than 0 
 
 		// make query
-		$obj=$this->__getObject("Jueces",$id);
+		$obj=$this->__getObject("jueces",$id);
 		if (!is_object($obj))	return $this->error("No Juez found with provided ID=$id");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
@@ -161,7 +161,7 @@ class Jueces extends DBObject {
 		if ($search!=='') $where="( (Nombre LIKE '%{$search}%') OR ( Email LIKE '%{$search}%') OR (Pais LIKE '%{$search}%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "*",
-				/* FROM */ "Jueces",
+				/* FROM */ "jueces",
 				/* WHERE */ "$fedstr AND $where",
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
@@ -192,7 +192,7 @@ class Jueces extends DBObject {
 		if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
 		$result=$this->__select(
 				/* SELECT */ "*",
-				/* FROM */ "Jueces",
+				/* FROM */ "jueces",
 				/* WHERE */ "$where AND $fedstr",
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""

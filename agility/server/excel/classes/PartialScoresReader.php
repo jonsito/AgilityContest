@@ -40,10 +40,10 @@ class PartialScoresReader extends DogReader {
 
     public function __construct($name,$options) {
         $this->myDBObject = new DBObject($name);
-        $this->prueba=$this->myDBObject->__selectAsArray("*","Pruebas","ID={$options['Prueba']}");
-        $this->jornada=$this->myDBObject->__selectAsArray("*","Jornada","ID={$options['Jornada']}");
-        $this->manga=$this->myDBObject->__selectAsArray("*","Mangas","ID={$options['Manga']}");
-        $this->equipos=$this->myDBObject->__selectAsArray("*","Equipos","Jornada={$options['Jornada']}");
+        $this->prueba=$this->myDBObject->__selectAsArray("*","pruebas","ID={$options['Prueba']}");
+        $this->jornada=$this->myDBObject->__selectAsArray("*","jornada","ID={$options['Jornada']}");
+        $this->manga=$this->myDBObject->__selectAsArray("*","mangas","ID={$options['Manga']}");
+        $this->equipos=$this->myDBObject->__selectAsArray("*","equipos","Jornada={$options['Jornada']}");
         if (!is_array($this->manga)) // realmente prueba no es necesaria, pero por consistencia se pone
             throw new Exception("{$name}::construct(): invalid Manga ID: {$options['Manga']}");
         if (intval($this->jornada['Cerrada'])!==0) // do not allow import in closed journeys
@@ -67,7 +67,7 @@ class PartialScoresReader extends DogReader {
         // on games rounds, make games required
         if (isMangaGames($this->manga['Tipo'])) $this->fieldList['Games'][1]=1;
         $this->validPageNames=array("Results");
-        $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']),"Resultados.");
+        $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']),"resultados.");
     }
 
     private function removeTmpEntry($item) {
@@ -107,13 +107,13 @@ class PartialScoresReader extends DogReader {
             return $this->removeTmpEntry($item); // returns null
         }
         $this->saveStatus("Analyzing result entry '$n'");
-        $lic= ($l==="")?" 1": " (Resultados.Licencia='{$l}')"; // en rsce a veces no hay licencia
-        $ldog= ($nl==="")?" 0": " (Perros.NombreLargo='{$nl}')"; // siempre existiran nombre o nombrelargo
-        $dog= ($n==="")?" 0":" (Resultados.Nombre='{$n}')";
+        $lic= ($l==="")?" 1": " (resultados.Licencia='{$l}')"; // en rsce a veces no hay licencia
+        $ldog= ($nl==="")?" 0": " (perros.NombreLargo='{$nl}')"; // siempre existiran nombre o nombrelargo
+        $dog= ($n==="")?" 0":" (resultados.Nombre='{$n}')";
         $search=$this->myDBObject->__select(
-            "Resultados.*,Perros.NombreLargo",
-            "Resultados,Perros",
-            "(Manga={$this->manga['ID']}) AND (Resultados.Perro=Perros.ID) {$this->sqlcats} AND {$lic} AND ( {$dog} OR {$ldog} )",
+            "resultados.*,perros.NombreLargo",
+            "resultados,perros",
+            "(Manga={$this->manga['ID']}) AND (resultados.Perro=perros.ID) {$this->sqlcats} AND {$lic} AND ( {$dog} OR {$ldog} )",
             "",
             "");
         if ( !is_array($search) ) return "findAndSeResult(): Invalid search term: '{$l} - {$n}' "; // invalid search. mark error
@@ -132,7 +132,7 @@ class PartialScoresReader extends DogReader {
         $e=", Eliminado={$item['Eliminado']}";
         $n=", NoPresentado={$item['NoPresentado']}";
         $tim=", Tiempo={$item['Tiempo']}";
-        $str="UPDATE Resultados SET {$f} {$t} {$r} {$g} {$e} {$n} {$tim} , Pendiente=0  ".
+        $str="UPDATE resultados SET {$f} {$t} {$r} {$g} {$e} {$n} {$tim} , Pendiente=0  ".
             "WHERE Manga={$this->manga['ID']} AND Perro={$dogID}";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetResult(): update result '{$l} - {$item['Nombre']}' error:".$this->myDBObject->conn->error;
@@ -242,7 +242,7 @@ class PartialScoresReader extends DogReader {
             return array( 'operation'=>'import','success'=>'close');
         }
         $vars= $this->loadExcelVars();
-        $str="UPDATE Mangas SET";
+        $str="UPDATE mangas SET";
         foreach ($vars as $key => $value) {
             if ( ($key==='Dist') || ($key===_('Dist')) ) {
                 $value=intval($value);

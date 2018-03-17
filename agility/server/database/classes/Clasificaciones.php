@@ -92,7 +92,7 @@ class Clasificaciones extends DBObject {
 	function evalFinal($idmangas,$c1,$c2=null,$c3=null,$c4=null,$c5=null,$c6=null,$c7=null,$c8=null) {
 		$this->myLogger->enter();
 		$mangas=array();
-		for ($i=0;$i<8;$i++) $mangas[$i]=$this->__getObject("Mangas",$idmangas[$i]);
+		for ($i=0;$i<8;$i++) $mangas[$i]=$this->__getObject("mangas",$idmangas[$i]);
 		$resultados=array($c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
         $final=array(); // puesto,dorsal, nombre, licencia,categoria,grado, nombreguia, nombreclub,
                         // F1,R1,T1,V1,P1,C1,F2,R2,T2,V2,P2,C2, [....] Penalizacion,Calificacion
@@ -444,8 +444,8 @@ class Clasificaciones extends DBObject {
 	 */
 	function evalPenalizacionFinal($idmangas,$c1,$c2) {
 		$this->myLogger->enter();
-		$m1=$this->__getObject("Mangas",$idmangas[0]);
-		$m2=$this->__getObject("Mangas",$idmangas[1]);
+		$m1=$this->__getObject("mangas",$idmangas[0]);
+		$m2=$this->__getObject("mangas",$idmangas[1]);
 		$final=array(); // puesto,dorsal, nombre, licencia,LOE_RRC,categoria,grado, nombreguia, nombreclub,
 		// F1,R1,T1,V1,P1,C1,F2,R2,T2,V2,P2,C2, Penalizacion,Calificacion
 		// Procesamos la primera manga y generamos una segunda manga "fake"
@@ -521,7 +521,7 @@ class Clasificaciones extends DBObject {
 
 	function getName($mangas,$mode) {
 	    $fed=Federations::getFederation(intval($this->prueba->RSCE));
-	    $mng=$this->__getObject("Mangas",intval($mangas[0]));
+	    $mng=$this->__getObject("mangas",intval($mangas[0]));
 	    $grad=$fed->getTipoManga($mng->Tipo,4);
 	    $cat=$fed->get('IndexedModes')[intval($mode)];
 	    $res=str_replace(" ","_","{$grad}_{$cat}");

@@ -89,8 +89,8 @@ class Resultados extends DBObject {
         $this->djornada=$jornada;
         $this->IDJornada=$jornada->ID;
 		// add additional info to manga
-        $manga->NombreJuez1=$this->__getObject("Jueces",$manga->Juez1)->Nombre;
-        $manga->NombreJuez2=$this->__getObject("Jueces",$manga->Juez2)->Nombre;
+        $manga->NombreJuez1=$this->__getObject("jueces",$manga->Juez1)->Nombre;
+        $manga->NombreJuez2=$this->__getObject("jueces",$manga->Juez2)->Nombre;
         $manga->TipoManga=_(Mangas::getTipoManga($manga->Tipo,1,$this->getFederation()));
 		$this->dmanga=$manga;
         $this->IDManga=$manga->ID;
@@ -284,7 +284,7 @@ class Resultados extends DBObject {
         if ($mode!=8) $cats=sqlFilterCategoryByMode($mode,"");
         $result=$this->__select(
         /* SELECT */ "*",
-            /* FROM */ "Resultados",
+            /* FROM */ "resultados",
             /* WHERE */ "( Manga={$this->IDManga} ) {$cats} AND {$where}",
             /* ORDER BY */ "Nombre ASC",
             /* LIMIT */ ""
@@ -301,7 +301,7 @@ class Resultados extends DBObject {
 		$idmanga=$this->IDManga;
 		if ($this->isCerrada())
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
-		$str="UPDATE Resultados
+		$str="UPDATE resultados
 				SET Faltas=0, Tocados=0, Rehuses=0, Eliminado=0, NoPresentado=0, Tiempo=0, TIntermedio=0, Observaciones='', Pendiente=1
 				WHERE ( Manga=$idmanga) $where";
 		$rs=$this->query($str);
@@ -335,7 +335,7 @@ class Resultados extends DBObject {
 			return $this->error("La manga:{$this->IDManga} de tipo:$tipo1 no tiene hermana asociada");
 		}
 		// Obtenemos __Todas__ las mangas de esta jornada que tienen el tipo buscado ninguna, una o hasta 8(k.O.)
-		$result2=$this->__select("*","Mangas","( Jornada={$this->getDatosJornada()->ID} ) AND ( Tipo=$tipo2)","","");
+		$result2=$this->__select("*","mangas","( Jornada={$this->getDatosJornada()->ID} ) AND ( Tipo=$tipo2)","","");
 		if (!is_array($result2)) { // inconsistency error muy serio
 			return $this->error("Falta la manga hermana de tipo:$tipo2 para manga:{$this->IDmanga} de tipo:$tipo1");
 		}
@@ -355,9 +355,9 @@ class Resultados extends DBObject {
 		// para intercambiar las mangas y debido a que mysql realiza comprobaciones de integridad en cada registro
 		// al hacer un update multiple, es preciso desactivar la primary key, y luego volverla  a activar
 		$rconn=DBConnection::getRootConnection();
-		$rconn->query("ALTER Table `Resultados` DROP PRIMARY KEY");
+		$rconn->query("ALTER Table `resultados` DROP PRIMARY KEY");
         // ejecutamos el query
-        $str="UPDATE Resultados SET Manga =
+        $str="UPDATE resultados SET Manga =
                 CASE 
                     WHEN Manga={$this->IDManga} THEN {$manga2['ID']} 
                     WHEN Manga={$manga2['ID']} THEN {$this->IDManga} 
@@ -366,7 +366,7 @@ class Resultados extends DBObject {
 		$res=$this->query($str);
         if (!$res) return $this->error($this->conn->error);
 		// restauramos claves primarias
-		$rconn->query("ALTER Table `Resultados` ADD PRIMARY KEY (`Manga`,`Perro`)");
+		$rconn->query("ALTER Table `resultados` ADD PRIMARY KEY (`Manga`,`Perro`)");
 		DBConnection::closeConnection($rconn);
         // also reset every related rounds on subordinate journeys in a recursive way
         $mobj= new Mangas("Resultados::swap()",$this->IDJornada);
@@ -391,7 +391,7 @@ class Resultados extends DBObject {
 		$this->myLogger->enter();
 		$idmanga=$this->IDManga;
 		if ($idperro<=0) return $this->error("No Perro ID specified");
-		$row=$this->__selectAsArray("*", "Resultados", "(Perro=$idperro) AND (Manga=$idmanga)");
+		$row=$this->__selectAsArray("*", "resultados", "(Perro=$idperro) AND (Manga=$idmanga)");
 		if(!is_array($row)) 
 			return $this->error("No Results for Perro:$idperro on Manga:$idmanga");
 		$this->myLogger->leave();
@@ -468,7 +468,7 @@ class Resultados extends DBObject {
             }
 		}
 		// efectuamos el update, marcando "pendiente" como false
-		$sql="UPDATE Resultados 
+		$sql="UPDATE resultados 
 			SET $entrada $comienzo 
 				Faltas=$faltas , Rehuses=$rehuses , Tocados=$tocados , $games
 				NoPresentado=$nopresentado , Eliminado=$eliminado , 
@@ -529,7 +529,7 @@ class Resultados extends DBObject {
 		//  evaluamos mejores tiempos intermedios y totales
 		$best=$this->__select(
 			/* SELECT */ "min(TIntermedio) AS BestIntermedio, min(Tiempo) AS BestFinal",
-			/* FROM */  "Resultados",
+			/* FROM */  "resultados",
 			/* WHERE */ "(Tiempo>0) AND $where $cat",
 			/* ORDER */ "",
 			/* LIMIT */ ""
@@ -670,18 +670,18 @@ class Resultados extends DBObject {
 		
 		// FASE 0: en funcion del tipo de recorrido y modo pedido
 		// ajustamos el criterio de busqueda de la tabla de resultados
-		$where="(Manga=$idmanga) AND (Pendiente=0) AND (PerroGuiaClub.ID=Resultados.Perro) ";
+		$where="(Manga=$idmanga) AND (Pendiente=0) AND (perroguiaclub.ID=resultados.Perro) ";
 		$cat="";
-		if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"Resultados."); // notice the ending dot '.'
+		if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"resultados."); // notice the ending dot '.'
         if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
-				"Resultados.Dorsal,Resultados.Perro,Resultados.Nombre,NombreLargo,Resultados.Raza,Equipo,Resultados.Licencia,Resultados.Categoria,Resultados.Grado,
-				    Resultados.NombreGuia,Resultados.NombreClub,PerroGuiaClub.LOE_RRC,PerroGuiaClub.CatGuia,
-				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,Resultados.Celo, Resultados.Games,
+				"resultados.Dorsal,resultados.Perro,resultados.Nombre,NombreLargo,resultados.Raza,Equipo,resultados.Licencia,resultados.Categoria,resultados.Grado,
+				    resultados.NombreGuia,resultados.NombreClub,perroguiaclub.LOE_RRC,perroguiaclub.CatGuia,
+				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,resultados.Celo, resultados.Games,
 					GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,
-					0 AS PTiempo, 0 AS Penalizacion, '' AS Calificacion, 0 AS Velocidad, Resultados.Observaciones",
-				"Resultados,PerroGuiaClub",
+					0 AS PTiempo, 0 AS Penalizacion, '' AS Calificacion, 0 AS Velocidad, resultados.Observaciones",
+				"resultados,perroguiaclub",
 				"$where $cat",
 				" PRecorrido ASC, Tiempo ASC", 
 				"");
@@ -866,9 +866,9 @@ class Resultados extends DBObject {
      */
     public static function getInstance($file="Resultados",$manga) {
         $dbobj=new DBObject($file);
-        $mangaobj=$dbobj->__getObject("Mangas",$manga);
-        $jornadaobj=$dbobj->__getObject("Jornadas",$mangaobj->Jornada);
-        $pruebaobj=$dbobj->__getObject("Pruebas",$jornadaobj->Prueba);
+        $mangaobj=$dbobj->__getObject("mangas",$manga);
+        $jornadaobj=$dbobj->__getObject("jornadas",$mangaobj->Jornada);
+        $pruebaobj=$dbobj->__getObject("pruebas",$jornadaobj->Prueba);
         // retrieve OrdenSalida handler from competition module
         $compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
         return $compobj->getResultadosInstance($file,$pruebaobj,$jornadaobj,$mangaobj);

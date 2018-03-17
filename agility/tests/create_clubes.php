@@ -282,7 +282,7 @@ public static $countryList = array(
 }
 // federations 5 to 9 are reserved for international contests
 $fed=0b1111100000;
-echo "INSERT INTO CLUBES(Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja) VALUES \n";
+echo "INSERT INTO clubes(Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja) VALUES \n";
 foreach(CountryList::$countryList as $key => $pais) {
     $p=str_replace("'","\'",$pais);
     echo "('$p','','','','-- Sin asignar --','$key','','','','','','','','','','../../server/i18n/$key.png',$fed,'',0),\n";

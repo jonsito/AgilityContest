@@ -184,7 +184,7 @@ class Updater {
         // phase 5 update VersionHistory: set current sw version entry with restored backup creation date
         $bckd=toLongDateString($this->bckDate);
         $swver=$this->config->getEnv("version_date");
-        $str="INSERT INTO VersionHistory (Version,Updated) VALUES ('{$swver}','{$bckd}') ".
+        $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$swver}','{$bckd}') ".
             "ON DUPLICATE KEY UPDATE UPDATE Updated='{$bckd}'";
         $this->conn->query($str);
 
@@ -230,12 +230,12 @@ class Updater {
         if (strcmp($this->current_version,$this->last_version) > 0 ) {
 
             // eval time of last DB update. Should include judges data, but enought for now
-            // $str="SELECT MAX(PerroGuiaClub.LastModified) AS Updated FROM PerroGuiaClub";
+            // $str="SELECT MAX(perroguiaclub.LastModified) AS Updated FROM perroguiaclub";
             $str= "SELECT MAX(last) AS Updated FROM ( ". // this is the right way to do :-)
-                        "      SELECT MAX(LastModified) AS last FROM Perros ".
-                        "UNION SELECT MAX(LastModified) AS last FROM Guias ".
-                        "UNION SELECT MAX(LastModified) AS last FROM Clubes ".
-                        "UNION SELECT MAX(LastModified) AS last FROM Jueces) AS m";
+                        "      SELECT MAX(LastModified) AS last FROM perros ".
+                        "UNION SELECT MAX(LastModified) AS last FROM guias ".
+                        "UNION SELECT MAX(LastModified) AS last FROM clubes ".
+                        "UNION SELECT MAX(LastModified) AS last FROM jueces) AS m";
 
             $rs=$this->conn->query($str);
             $retflag=false;
@@ -250,7 +250,7 @@ class Updater {
                 $retflag=true;
             }
             // add new sw version entry into table with (newswver,lastdbupdate) values
-            $str="INSERT INTO VersionHistory (Version,Updated) VALUES ('{$this->current_version}','{$curdate}') ";
+            $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$this->current_version}','{$curdate}') ";
             $res=$this->conn->query($str);
             if (!$res) throw new Exception ("upgrade::updateHistoryTable(): ".$this->conn->error);
             $this->myLogger->leave();
@@ -332,7 +332,7 @@ class Updater {
         $cmds=array(
             "DROP TABLE IF EXISTS `perroguiaclub`;",
             "DROP VIEW IF EXISTS `perroguiaclub`;",
-            "CREATE VIEW `PerroGuiaClub` AS
+            "CREATE VIEW `perroguiaclub` AS
                 SELECT `perros`.`ID` AS `ID`,
                 `perros`.`Federation` AS `Federation`,
                 `perros`.`Nombre` AS `Nombre`,
@@ -354,7 +354,7 @@ class Updater {
                 `clubes`.`Provincia` AS `Provincia`,
                 `clubes`.`Pais` AS `Pais`,
                 `clubes`.`Logo` AS `LogoClub`,
-                GREATEST(`Perros`.`LastModified`,`Guias`.`LastModified`,`Clubes`.`LastModified`) AS `LastModified`
+                GREATEST(`perros`.`LastModified`,`guias`.`LastModified`,`clubes`.`LastModified`) AS `LastModified`
                 FROM ((((`perros` join `guias`) join `clubes`) join `grados_perro`) join `categorias_perro`)
                 WHERE (
                     (`perros`.`Guia` = `guias`.`ID`)
@@ -372,12 +372,12 @@ class Updater {
     function updateInscripciones() {
         $this->myLogger->enter();
         $cmds=array(
-            "ALTER TABLE `Inscripciones` DROP FOREIGN KEY `Inscripciones_ibfk_1`;",
-            "ALTER TABLE `Inscripciones` ADD CONSTRAINT `Inscripciones_ibfk_1`
-                FOREIGN KEY (`Perro`) REFERENCES `Perros` (`ID`) ON UPDATE CASCADE;",
-            "ALTER TABLE `Inscripciones` DROP FOREIGN KEY `Inscripciones_ibfk_2`;",
-            "ALTER TABLE `Inscripciones` ADD CONSTRAINT `Inscripciones_ibfk_2`
-                FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;"
+            "ALTER TABLE `inscripciones` DROP FOREIGN KEY `Inscripciones_ibfk_1`;",
+            "ALTER TABLE `inscripciones` ADD CONSTRAINT `Inscripciones_ibfk_1`
+                FOREIGN KEY (`Perro`) REFERENCES `perros` (`ID`) ON UPDATE CASCADE;",
+            "ALTER TABLE `inscripciones` DROP FOREIGN KEY `Inscripciones_ibfk_2`;",
+            "ALTER TABLE `inscripciones` ADD CONSTRAINT `Inscripciones_ibfk_2`
+                FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;"
         );
         foreach ($cmds as $query) { $this->conn->query($query); }
         return 0;
@@ -394,13 +394,13 @@ class Updater {
         $name="";
         $logo="";
         // check if countries are already added
-        $str="SELECT count(*) AS Cuenta FROM Clubes WHERE Federations >=512;";
+        $str="SELECT count(*) AS Cuenta FROM clubes WHERE Federations >=512;";
         $rs=$this->conn->query($str);
         if (!$rs) throw new Exception ("upgrade::addCountries(select): ".$this->conn->error);
         $item=$rs->fetch_row();
         if ($item[0]!=0) return; // already done
         // federation ID 9 is reserved for coutry list. Do not use
-        $str="INSERT INTO CLUBES(Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja)
+        $str="INSERT INTO clubes(Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja)
               VALUES (?,?,'','','-- Sin asignar --',?,'','','','','','','','','',?,512,'',0)";
         // prepare "prepared statement"
         $stmt=$this->conn->prepare($str);
@@ -419,8 +419,8 @@ class Updater {
     function upgradeTeams() {
         $this->myLogger->enter();
         $cmds= array(
-            "UPDATE `Jornadas` SET `Equipos3`=3 WHERE (`Equipos3`=1);",
-            "UPDATE `Jornadas` SET `Equipos4`=4 WHERE (`Equipos4`=1);"
+            "UPDATE `jornadas` SET `Equipos3`=3 WHERE (`Equipos3`=1);",
+            "UPDATE `jornadas` SET `Equipos4`=4 WHERE (`Equipos4`=1);"
         );
         foreach ($cmds as $query) { $this->conn->query($query); }
         return 0;
@@ -517,9 +517,9 @@ class Updater {
           KEY `Ligas_Jornada` (`Jornada`),
           KEY `Ligas_Grado` (`Grado`),
           KEY `Ligas_Perro` (`Perro`),
-          CONSTRAINT `Ligas_ibfk1` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-          CONSTRAINT `Ligas_ibfk2` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE, 
-          CONSTRAINT `Ligas_ibfk3` FOREIGN KEY (`Perro`) REFERENCES `Perros` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE 
+          CONSTRAINT `Ligas_ibfk1` FOREIGN KEY (`Jornada`) REFERENCES `jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+          CONSTRAINT `Ligas_ibfk2` FOREIGN KEY (`Grado`) REFERENCES `grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE, 
+          CONSTRAINT `Ligas_ibfk3` FOREIGN KEY (`Perro`) REFERENCES `perros` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE 
         ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
         ";
         $res=$this->conn->query($str);
@@ -559,8 +559,8 @@ class Updater {
           PRIMARY KEY (`ID`),
           KEY `Entrenamientos_Prueba` (`Prueba`),
           KEY `Entrenamientos_Club` (`Club`),
-          CONSTRAINT `Entrenamientos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-          CONSTRAINT `Entrenamientos_ibfk_2` FOREIGN KEY (`Club`) REFERENCES `Clubes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE 
+          CONSTRAINT `Entrenamientos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+          CONSTRAINT `Entrenamientos_ibfk_2` FOREIGN KEY (`Club`) REFERENCES `clubes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE 
         ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
         ";
         $res=$this->conn->query($str);
@@ -578,13 +578,13 @@ class Updater {
      */
     function populateTeamMembers() {
         $this->myLogger->enter();
-        $teams=$this->myDBObject->__select("*","Equipos","(Miembros='BEGIN,END') AND (DefaultTeam=0)","","");
+        $teams=$this->myDBObject->__select("*","equipos","(Miembros='BEGIN,END') AND (DefaultTeam=0)","","");
         foreach ($teams['rows'] as $team) {
             $j=$team['Jornada'];
             $t=$team['ID'];
             $res=$this->myDBObject->__select(
                 /*SELECT */ "GROUP_CONCAT(DISTINCT Perro SEPARATOR ',') AS Lista",
-                /* FROM */  "Resultados",
+                /* FROM */  "resultados",
                 /* WHERE */ "(Jornada=$j) AND (equipo=$t)",
                 "","","" // ORDER, LIMIT, GROUP BY
             );
@@ -592,7 +592,7 @@ class Updater {
             $data=$res['rows'][0]['Lista'];
             if ( is_null($data) || (trim($data)==="") ) continue;
             $lista="BEGIN,$data,END";
-            $str="UPDATE Equipos SET Miembros='$lista' WHERE ID=$t";
+            $str="UPDATE equipos SET Miembros='$lista' WHERE ID=$t";
             $this->myDBObject->query($str);
         }
     }
@@ -604,25 +604,25 @@ class Updater {
     function addNewMangaTypes() {
         $this->myLogger->enter();
         $cmds= array(
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(17,'Agility Grado 1 Manga 3','GI')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(18,'K.O. Round 2','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(19,'K.O. Round 3','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(20,'K.O. Round 4','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(21,'K.O. Round 5','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(22,'K.O. Round 6','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(23,'K.O. Round 7','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(24,'K.O. Round 8','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(25,'Agility A','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(26,'Agility B','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(27,'Jumping A','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(28,'Jumping B','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(29,'Snooker','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(30,'Gumbler','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(31,'SpeedStakes','-')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(32,'Junior 1','Jr')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(33,'Junior 2','Jr')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(34,'Senior 1','Sr')",
-            "INSERT IGNORE INTO Tipo_Manga (ID,Descripcion,Grado) VALUES(35,'Senior 2','Sr')"
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(17,'Agility Grado 1 Manga 3','GI')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(18,'K.O. Round 2','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(19,'K.O. Round 3','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(20,'K.O. Round 4','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(21,'K.O. Round 5','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(22,'K.O. Round 6','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(23,'K.O. Round 7','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(24,'K.O. Round 8','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(25,'Agility A','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(26,'Agility B','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(27,'Jumping A','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(28,'Jumping B','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(29,'Snooker','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(30,'Gumbler','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(31,'SpeedStakes','-')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(32,'Junior 1','Jr')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(33,'Junior 2','Jr')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(34,'Senior 1','Sr')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(35,'Senior 2','Sr')"
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
@@ -637,7 +637,7 @@ class Updater {
         $cmds= array(
             // new usage is PreAgility: 0:none 1:single_round 2:double_round
             // leave PreAgility2 unchanged to maintain backward compatibility, but next thing is to remove
-            "UPDATE Jornadas SET PreAgility=2 WHERE PreAgility2=1"
+            "UPDATE jornadas SET PreAgility=2 WHERE PreAgility2=1"
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
@@ -652,20 +652,20 @@ class Updater {
         $cmds= array(
             // temporary hack for Junior and Senior grades
             // this sucks: Jr and Sr are handler categories, not dog ones, but...
-            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('Jr','Junior')",
-            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('Sr','Senior')",
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('Jr','Junior')",
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('Sr','Senior')",
             // new model for module based competitions and federations
             // use numeric strings to allow easy int-to-string conversion
-            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('0','Grade 0')", // old Pre-Agility
-            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('1','Grade 1')", // old Grade 1
-            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('2','Grade 2')", // old Grade 2
-            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('3','Grade 3')", // old Grade 3
-            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('4','Grade 4')",
-            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('5','Grade 5')",
-            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('6','Grade 6')",
-            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('7','Grade 7')",
-            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('8','Grade 8')",
-            "INSERT IGNORE INTO Grados_Perro (Grado,Comentarios) VALUES('9','Grade 9')",
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('0','Grade 0')", // old Pre-Agility
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('1','Grade 1')", // old Grade 1
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('2','Grade 2')", // old Grade 2
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('3','Grade 3')", // old Grade 3
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('4','Grade 4')",
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('5','Grade 5')",
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('6','Grade 6')",
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('7','Grade 7')",
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('8','Grade 8')",
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('9','Grade 9')",
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
@@ -677,13 +677,13 @@ class Updater {
     function fixLOERRC2017() {
         $this->myLogger->enter();
         $cmds= array(
-            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia), LastModified=LastModified ".
+            "UPDATE perros SET LOE_RRC=concat('AC_',Licencia), LastModified=LastModified ".
                 " WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like '0%')",
-            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia), LastModified=LastModified ".
+            "UPDATE perros SET LOE_RRC=concat('AC_',Licencia), LastModified=LastModified ".
                 " WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'A%')",
-            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia), LastModified=LastModified ".
+            "UPDATE perros SET LOE_RRC=concat('AC_',Licencia), LastModified=LastModified ".
                 " WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'B%')",
-            "UPDATE Perros SET LOE_RRC=concat('AC_',Licencia), LastModified=LastModifed ".
+            "UPDATE perros SET LOE_RRC=concat('AC_',Licencia), LastModified=LastModifed ".
                 " WHERE (Federation=0) AND (LOE_RRC='') AND (Licencia like 'C%')"
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
@@ -694,7 +694,7 @@ class Updater {
         $this->myLogger->enter();
         $this->addColumnUnlessExists("Pruebas", "MailList", "TEXT"); // text column cannot have default values
         $cmds= array(
-            "UPDATE Pruebas SET MailList='BEGIN,END' WHERE MailList IS NULL"
+            "UPDATE pruebas SET MailList='BEGIN,END' WHERE MailList IS NULL"
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
@@ -704,8 +704,8 @@ class Updater {
     function updateDefaultJuezClub() {
         $this->myLogger->enter();
         $cmds= array(
-            "UPDATE Clubes SET Federations=31, LastModified=LastModified WHERE ID=1",
-            "UPDATE Jueces SET Federations=31, LastModified=LastModified WHERE ID=1",
+            "UPDATE clubes SET Federations=31, LastModified=LastModified WHERE ID=1",
+            "UPDATE jueces SET Federations=31, LastModified=LastModified WHERE ID=1",
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
@@ -747,29 +747,29 @@ try {
     // software version changed. make sure that database is upgraded
     $upg->myLogger->info("Database version is lower than installed sw version. Updating DB structure");
     // $upg->addCountries();
-    $upg->addColumnUnlessExists("Mangas", "Orden_Equipos", "TEXT");
-    $upg->addColumnUnlessExists("Resultados", "TIntermedio", "double", "0.0");
-    $upg->addColumnUnlessExists("Resultados", "Games", "int(4)", "0");
-    $upg->addColumnUnlessExists("Perros", "NombreLargo", "varchar(255)");
-    $upg->addColumnUnlessExists("Perros", "Chip", "varchar(255)", "");
-    $upg->addColumnUnlessExists("Perros", "Genero", "varchar(16)", "-"); // -,M,F
-    $upg->addColumnUnlessExists("Guias", "Categoria", "varchar(16)","A");// -,I,J,A,S,V,P
-    $upg->addColumnUnlessExists("Provincias", "Pais", "varchar(2)", "ES");
-    $upg->dropColumnIfExists("Jornadas", "Orden_Tandas");
-    $upg->addColumnUnlessExists("Jornadas", "Games", "int(4)", "0");
-    $upg->addColumnUnlessExists("Jornadas", "Junior", "tinyint(1)", "0");
-    $upg->addColumnUnlessExists("Jornadas", "Senior", "tinyint(1)", "0");
-    $upg->addColumnUnlessExists("Jornadas", "Tipo_Competicion", "int(4)", "0");
+    $upg->addColumnUnlessExists("mangas", "Orden_Equipos", "TEXT");
+    $upg->addColumnUnlessExists("resultados", "TIntermedio", "double", "0.0");
+    $upg->addColumnUnlessExists("resultados", "Games", "int(4)", "0");
+    $upg->addColumnUnlessExists("perros", "NombreLargo", "varchar(255)");
+    $upg->addColumnUnlessExists("perros", "Chip", "varchar(255)", "");
+    $upg->addColumnUnlessExists("perros", "Genero", "varchar(16)", "-"); // -,M,F
+    $upg->addColumnUnlessExists("guias", "Categoria", "varchar(16)","A");// -,I,J,A,S,V,P
+    $upg->addColumnUnlessExists("provincias", "Pais", "varchar(2)", "ES");
+    $upg->dropColumnIfExists("jornadas", "Orden_Tandas");
+    $upg->addColumnUnlessExists("jornadas", "Games", "int(4)", "0");
+    $upg->addColumnUnlessExists("jornadas", "Junior", "tinyint(1)", "0");
+    $upg->addColumnUnlessExists("jornadas", "Senior", "tinyint(1)", "0");
+    $upg->addColumnUnlessExists("jornadas", "Tipo_Competicion", "int(4)", "0");
 
     // on server edition need to track modification time and unique id set on server
-    $upg->addColumnUnlessExists("Perros", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-    $upg->addColumnUnlessExists("Perros", "ServerID", "int(4)", "0");
-    $upg->addColumnUnlessExists("Guias", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-    $upg->addColumnUnlessExists("Guias", "ServerID", "int(4)", "0");
-    $upg->addColumnUnlessExists("Clubes", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-    $upg->addColumnUnlessExists("Clubes", "ServerID", "int(4)", "0");
-    $upg->addColumnUnlessExists("Jueces", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-    $upg->addColumnUnlessExists("Jueces", "ServerID", "int(4)", "0");
+    $upg->addColumnUnlessExists("perros", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    $upg->addColumnUnlessExists("perros", "ServerID", "int(4)", "0");
+    $upg->addColumnUnlessExists("guias", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    $upg->addColumnUnlessExists("guias", "ServerID", "int(4)", "0");
+    $upg->addColumnUnlessExists("clubes", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    $upg->addColumnUnlessExists("clubes", "ServerID", "int(4)", "0");
+    $upg->addColumnUnlessExists("jueces", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    $upg->addColumnUnlessExists("jueces", "ServerID", "int(4)", "0");
 
     // as backup does not preserve views and procedures, always need to recreate
     $upg->updatePerroGuiaClub();
@@ -783,8 +783,8 @@ try {
     // mariadb does, but not used in ubuntu nor xampp :-(
     $fdate=date("Y-m-d");
     $tdate=date("Y-m-d",time()+604800); // time + 1 week
-    $upg->addColumnUnlessExists("Pruebas","OpeningReg", "date", $fdate);
-    $upg->addColumnUnlessExists("Pruebas","ClosingReg", "date", $tdate);
+    $upg->addColumnUnlessExists("pruebas","OpeningReg", "date", $fdate);
+    $upg->addColumnUnlessExists("pruebas","ClosingReg", "date", $tdate);
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
@@ -793,7 +793,7 @@ try {
     $upg->addNewGradeTypes();
     $upg->addNewMangaTypes();
     $upg->fixLOERRC2017();
-    $upg->addColumnUnlessExists("Usuarios", "Club", "int(4)", "1");
+    $upg->addColumnUnlessExists("usuarios", "Club", "int(4)", "1");
     $upg->addMailList();
     $upg->updateDefaultJuezClub();
 } catch (Exception $e) {

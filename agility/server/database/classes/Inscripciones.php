@@ -69,11 +69,11 @@ class Inscripciones extends DBObject {
         if (($idperro<=0) || ($idjornada<=0))
             return $this->error("insertIntoJourney() invalid dog:{$idperro} or jornada:{$idjornada} ID");
         // retrieve journey info and mask
-        $jobj=$this->__getObject("Jornadas",$idjornada);
+        $jobj=$this->__getObject("jornadas",$idjornada);
         if (!$jobj) return $this->error("insertIntoJourney() non-existent jornada:{$idjornada}");
         $mask=1<<( intval($jobj->Numero) - 1 );
         // check if dog is already inscribed
-        $iobj=$this->__selectObject("*","Inscripciones","( Prueba={$this->pruebaID} ) AND ( Perro={$idperro} )");
+        $iobj=$this->__selectObject("*","inscripciones","( Prueba={$this->pruebaID} ) AND ( Perro={$idperro} )");
         if (!$iobj) { // not yet inscribed: insert()
             $this->realInsert($idperro,$this->pruebaID,$mask,0,0,'');
         } else {  // already inscribed: fix journey mask and update()
@@ -88,7 +88,7 @@ class Inscripciones extends DBObject {
 		if ($idperro<=0) return $this->error("Invalid IDPerro ID");
 		$res= $this->__selectObject(
 			/* SELECT */ "*",
-			/* FROM */ "Inscripciones",
+			/* FROM */ "inscripciones",
 			/* WHERE */ "( Prueba=".$this->pruebaID.") AND ( Perro=$idperro )"
 		);
 		if($res!==null){ // already inscribed, try to update
@@ -99,7 +99,7 @@ class Inscripciones extends DBObject {
         }
 
 		// ok, ya tenemos lo necesario. Vamos a inscribirle... pero solo en las jornadas abiertas
-		$str= "INSERT INTO Inscripciones (Prueba,Perro,Celo,Observaciones,Jornadas,Pagado)
+		$str= "INSERT INTO inscripciones (Prueba,Perro,Celo,Observaciones,Jornadas,Pagado)
 			VALUES ($prueba,$idperro,$celo,'$observaciones',$jornadas,$pagado)";
 		$res=$this->query($str);
 		$this->insertid=$this->conn->insert_id;
@@ -107,8 +107,8 @@ class Inscripciones extends DBObject {
 		// vamos a evaluar el Dorsal. Se supone que hay un trigger que ya lo hace,
 		// pero se ha debido perder por el camino en alguna actualizacion
         // so get last dorsal, increase and update.... but only if trigger does not work
-		$obj=$this->__selectObject("1 + Max(Dorsal) AS LastDorsal","Inscripciones","(Prueba=$prueba)");
-		$str="UPDATE Inscripciones SET Dorsal={$obj->LastDorsal} WHERE (Prueba=$prueba) AND (Perro=$idperro) AND (Dorsal=0)";
+		$obj=$this->__selectObject("1 + Max(Dorsal) AS LastDorsal","inscripciones","(Prueba=$prueba)");
+		$str="UPDATE inscripciones SET Dorsal={$obj->LastDorsal} WHERE (Prueba=$prueba) AND (Perro=$idperro) AND (Dorsal=0)";
 		$res=$this->query($str);
 		if (!$res) return $this->error($this->conn->error);
 
@@ -130,7 +130,7 @@ class Inscripciones extends DBObject {
         $p=$this->pruebaID;
         if ($idperro<=0) return $this->error("Invalid IDPerro ID");
         // cogemos los datos actuales
-        $res=$this->__selectObject("*","Inscripciones","(Perro=$idperro) AND (Prueba=$p)");
+        $res=$this->__selectObject("*","inscripciones","(Perro=$idperro) AND (Prueba=$p)");
         if (!is_object($res))
             return $this->error("El perro cond ID:$idperro no figura inscrito en la prueba:$p");
         $celo=http_request("Celo","i",$res->Celo);
@@ -143,7 +143,7 @@ class Inscripciones extends DBObject {
 	function real_update($jornadas,$celo,$observaciones,$pagado,$inscriptionID) {
 		$this->myLogger->enter();
 		// actualizamos bbdd
-		$str="UPDATE Inscripciones 
+		$str="UPDATE inscripciones 
 			SET Celo=$celo, Observaciones='$observaciones', Jornadas=$jornadas, Pagado=$pagado
 			WHERE ( ID=$inscriptionID)";
 		
@@ -168,17 +168,17 @@ class Inscripciones extends DBObject {
 		$p=$this->pruebaID;
 		if ($idperro<=0) return $this->error("Invalid Perro ID");
 		// fase 0: obtenemos el ID de la inscripcion
-		$res=$this->__selectAsArray("ID", "Inscripciones", "(Perro=$idperro) AND (Prueba=$p)");
-		if (!is_array($res)) return $this->error("Inscripciones::delete(): El perro con id:$idperro no esta inscrito en la prueba:$p");
+		$res=$this->__selectAsArray("ID", "inscripciones", "(Perro=$idperro) AND (Prueba=$p)");
+		if (!is_array($res)) return $this->error("inscripciones::delete(): El perro con id:$idperro no esta inscrito en la prueba:$p");
 		$i=$res['ID'];
 		// fase 1: actualizamos la DB para indicar que el perro no esta inscrito en ninguna jornada
-		$sql="UPDATE Inscripciones SET Jornadas = 0  WHERE (ID={$i})";
+		$sql="UPDATE inscripciones SET Jornadas = 0  WHERE (ID={$i})";
 		$res=$this->query($sql);
 		if (!$res) return $this->error($this->conn->error);
 		// fase 2: eliminamos informacion del perro en los ordenes de salida y tabla de resultados
 		procesaInscripcion($p, $i);
 		// fase 3: finalmente eliminamos el perro de la tabla de inscripciones
-		$res=$this->__delete("Inscripciones","(ID={$i})");
+		$res=$this->__delete("inscripciones","(ID={$i})");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -193,7 +193,7 @@ class Inscripciones extends DBObject {
 		$prueba=$this->pruebaID;
 		$res=$this->__selectAsArray(
 				/* SELECT */ "*", 
-				/* FROM */   "Inscripciones",
+				/* FROM */   "inscripciones",
 				/* WHERE */  "( Prueba=$prueba ) AND ( Perro=$idperro )");
 		$this->myLogger->leave();
 		return $res;
@@ -205,7 +205,7 @@ class Inscripciones extends DBObject {
 	 */
 	function selectByID($id) {
 		$this->myLogger->enter();
-		$obj=$this->__getObject("Inscripciones",$id);
+		$obj=$this->__getObject("inscripciones",$id);
 		if (!is_object($obj))	return $this->error("No Inscripcion found with ID=$id");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$this->myLogger->leave();
@@ -223,12 +223,12 @@ class Inscripciones extends DBObject {
 		$id = $this->pruebaID;
 		$fed =  http_request("Federation","i",0);
 		$search =  http_request("where","s","");
-		$extra = "AND (PerroGuiaClub.Grado<>'Baja') AND (PerroGuiaClub.Grado<>'Ret.') " ;
+		$extra = "AND (perroguiaclub.Grado<>'Baja') AND (perroguiaclub.Grado<>'Ret.') " ;
 		$extra .= "AND ( Guia>1 ) AND (Club>1) "; // exclude dogs wihtout handler or handlers w/o club
 		if ($search!=='') {
-		    $extra .= " AND ( (PerroGuiaClub.Nombre LIKE '%$search%') ";
+		    $extra .= " AND ( (perroguiaclub.Nombre LIKE '%$search%') ";
 		    $extra .= " OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) ";
-		    $extra .= " OR ( PerroGuiaClub.NombreLargo LIKE '%$search%') OR ( PerroGuiaClub.Licencia LIKE '%$search%') ) ";
+		    $extra .= " OR ( perroguiaclub.NombreLargo LIKE '%$search%') OR ( perroguiaclub.Licencia LIKE '%$search%') ) ";
         }
 
 		$page=http_request("page","i",0);
@@ -247,11 +247,11 @@ class Inscripciones extends DBObject {
 			http_request("order","s",""),
 			"NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"
 		);
-		$inner="SELECT Perro FROM Inscripciones WHERE (Prueba=$id)";
-		if (intval($jornada)!==0) $inner="SELECT DISTINCT Perro FROM Resultados WHERE (Jornada=$jornada)";
+		$inner="SELECT Perro FROM inscripciones WHERE (Prueba=$id)";
+		if (intval($jornada)!==0) $inner="SELECT DISTINCT Perro FROM resultados WHERE (Jornada=$jornada)";
 		$result= $this->__select(
 			/* SELECT */	"*",
-			/* FROM */		"PerroGuiaClub",
+			/* FROM */		"perroguiaclub",
 			/* WHERE */		"( Federation = $fed ) AND ID NOT IN ( {$inner} ) $extra ",
 			/* ORDER BY */	$order,
 			/* LIMIT */		$limit
@@ -270,13 +270,13 @@ class Inscripciones extends DBObject {
 		// evaluate offset and row count for query
 		$id = $this->pruebaID;
 		// FASE 1: obtener lista de perros inscritos con sus datos
-		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal , 
-				Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre, NombreLargo,
+		$str="SELECT inscripciones.ID AS ID, inscripciones.Prueba AS Prueba, Dorsal , 
+				inscripciones.Perro AS Perro , perroguiaclub.Nombre AS Nombre, NombreLargo,
 				Genero, Raza,Chip, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
-				NombreGuia, NombreClub, Pais,Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
-			FROM Inscripciones,PerroGuiaClub
-			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) 
-				AND ( Inscripciones.Prueba=$id )
+				NombreGuia, NombreClub, Pais,inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
+			FROM inscripciones,perroguiaclub
+			WHERE ( inscripciones.Perro = perroguiaclub.ID) 
+				AND ( inscripciones.Prueba=$id )
 			ORDER BY Dorsal ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -305,7 +305,7 @@ class Inscripciones extends DBObject {
 	 * Tell how many dogs have inscription in this contest
 	 */
 	function howMany() {
-		return $this->__selectObject("count(*) AS Inscritos","Inscripciones","(Prueba={$this->pruebaID})");
+		return $this->__selectObject("count(*) AS Inscritos","inscripciones","(Prueba={$this->pruebaID})");
 	}
 	
 	/**
@@ -320,7 +320,7 @@ class Inscripciones extends DBObject {
 		$search =  ($useHttp)?http_request("where","s",""):"";
 		// $extra= a single ')' or name search criterion
 		$extra = '';
-		if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%') 
+		if ($search!=='') $extra=" AND ( (perroguiaclub.Nombre LIKE '%$search%') 
 				OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) ) ";
 		$page=($useHttp)?http_request("page","i",1):0;
 		$rows=($useHttp)?http_request("rows","i",50):0;
@@ -339,9 +339,9 @@ class Inscripciones extends DBObject {
 		}
 		// FASE 0: cuenta el numero total de inscritos
 		$str="SELECT count(*)
-		FROM Inscripciones,PerroGuiaClub
-		WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) 
-			AND ( Inscripciones.Prueba=$id ) $extra";
+		FROM inscripciones,perroguiaclub
+		WHERE ( inscripciones.Perro = perroguiaclub.ID) 
+			AND ( inscripciones.Prueba=$id ) $extra";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$row=$rs->fetch_array();
@@ -353,11 +353,11 @@ class Inscripciones extends DBObject {
 			return $result;
 		}
 		// FASE 1: obtener lista de perros inscritos con sus datos
-		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal, Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
+		$str="SELECT inscripciones.ID AS ID, inscripciones.Prueba AS Prueba, Dorsal, inscripciones.Perro AS Perro , perroguiaclub.Nombre AS Nombre,
 				NombreLargo, Genero, Raza, Chip, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
-				NombreGuia, NombreClub, Pais, Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
-			FROM Inscripciones,PerroGuiaClub
-			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Inscripciones.Prueba=$id ) $extra 
+				NombreGuia, NombreClub, Pais, inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
+			FROM inscripciones,perroguiaclub
+			WHERE ( inscripciones.Perro = perroguiaclub.ID) AND ( inscripciones.Prueba=$id ) $extra 
 		ORDER BY $order $limit"; 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -387,11 +387,11 @@ class Inscripciones extends DBObject {
 	function inscritosByTeam($team) {
 		$this->myLogger->enter();
 		// obtenemos los datos del equipo
-		$teamobj=$this->__getObject("Equipos",$team);
+		$teamobj=$this->__getObject("equipos",$team);
 		if (!is_object($teamobj))
 			return $this->error("No puedo obtener datos del equipo con ID: $team");
 		// vemos el numero de la jornada asociada
-		$jornadaobj=$this->__getObject("Jornadas",$teamobj->Jornada);
+		$jornadaobj=$this->__getObject("jornadas",$teamobj->Jornada);
 		if (!is_object($jornadaobj))
 			return $this->error("No puedo obtener datos de la jornada: {$teamobj->Jornada} asociada al equipo: $team");
         $order=getOrderString(
@@ -402,17 +402,19 @@ class Inscripciones extends DBObject {
 		// extraemos la lista de inscritos
         $tname=escapeString($teamobj->Nombre);
 		$lista=$this->__select(
-                /*select*/ "DISTINCT Resultados.Prueba,Resultados.Jornada, Resultados.Dorsal, Resultados.Perro,
-                            Resultados.Nombre, PerroGuiaClub.NombreLargo, PerroGuiaClub.Genero, Resultados.Raza, Resultados.Licencia, Resultados.Categoria, Resultados.Grado,
-                            Resultados.Celo,Resultados.NombreGuia,Resultados.NombreClub, Resultados.Equipo,
-                            PerroGuiaClub.Club AS Club, PerroGuiaClub.Chip AS Chip, PerroGuiaClub.Guia AS Guia,PerroGuiaClub.LogoClub AS LogoClub,
-                            Inscripciones.Observaciones AS Observaciones,
+                /*select*/ "DISTINCT resultados.Prueba,resultados.Jornada, resultados.Dorsal, resultados.Perro,
+                            resultados.Nombre, perroguiaclub.NombreLargo, perroguiaclub.Genero, resultados.Raza, 
+                            resultados.Licencia, resultados.Categoria, resultados.Grado,
+                            resultados.Celo,resultados.NombreGuia,resultados.NombreClub, resultados.Equipo,
+                            perroguiaclub.Club AS Club, perroguiaclub.Chip AS Chip, 
+                            perroguiaclub.Guia AS Guia,perroguiaclub.LogoClub AS LogoClub,
+                            inscripciones.Observaciones AS Observaciones,
                             '$tname' AS NombreEquipo",
-				/* from */	"Resultados,PerroGuiaClub,Inscripciones",
-				/* where */ "( PerroGuiaClub.ID = Resultados.Perro)	
-				            AND ( Resultados.Jornada={$teamobj->Jornada} ) 
-				            AND ( Resultados.Equipo=$team )
-				            AND ( Inscripciones.Prueba=Resultados.Prueba ) AND (Inscripciones.Perro=Resultados.Perro)",
+				/* from */	"resultados,perroguiaclub,inscripciones",
+				/* where */ "( perroguiaclub.ID = resultados.Perro)	
+				            AND ( resultados.jornada={$teamobj->Jornada} ) 
+				            AND ( resultados.Equipo=$team )
+				            AND ( inscripciones.Prueba=resultados.Prueba ) AND (inscripciones.Perro=resultados.Perro)",
 				/* order */ $order,
 				/* limit */ ""
 			);
@@ -431,14 +433,14 @@ class Inscripciones extends DBObject {
 		$this->myLogger->leave();
 		$cmds= array(
 			// preserve old dorsal if exists
-			"UPDATE Inscripciones SET Dorsal=0 WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal={$newdorsal} )",
-			"UPDATE Resultados SET Dorsal=0 WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal={$newdorsal} )",
+			"UPDATE inscripciones SET Dorsal=0 WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal={$newdorsal} )",
+			"UPDATE resultados SET Dorsal=0 WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal={$newdorsal} )",
 			// set new dorsal
-			"UPDATE Inscripciones SET Dorsal=$newdorsal WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal={$curdorsal} )",
-			"UPDATE Resultados SET Dorsal=$newdorsal WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal={$curdorsal} )",
+			"UPDATE inscripciones SET Dorsal=$newdorsal WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal={$curdorsal} )",
+			"UPDATE resultados SET Dorsal=$newdorsal WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal={$curdorsal} )",
 			// swap old dorsal
-			"UPDATE Inscripciones SET Dorsal=$curdorsal WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal=0 )",
-			"UPDATE Resultados SET Dorsal=$curdorsal WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal=0 )"
+			"UPDATE inscripciones SET Dorsal=$curdorsal WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal=0 )",
+			"UPDATE resultados SET Dorsal=$curdorsal WHERE ( Prueba={$this->pruebaID} )  AND ( Dorsal=0 )"
 		);
 		foreach ($cmds as $query) { $this->conn->query($query); }
 		return "";
@@ -453,8 +455,8 @@ class Inscripciones extends DBObject {
 		// ordenamos los perros por club, categoria grado
 		$inscritos=$this->__select(
 				"Perro,Nombre,NombreClub,Categoria,Grado",
-				"Inscripciones,PerroGuiaClub",
-				"(Inscripciones.Prueba={$this->pruebaID}) AND (Inscripciones.Perro=PerroGuiaClub.ID)", 
+				"inscripciones,perroguiaclub",
+				"(inscripciones.Prueba={$this->pruebaID}) AND (inscripciones.Perro=perroguiaclub.ID)",
 				"NombreClub ASC,Categoria ASC, Grado ASC, Nombre ASC",
 				"");
 		if (!is_array($inscritos))
@@ -466,8 +468,8 @@ class Inscripciones extends DBObject {
         $len=count($inscritos['rows']);
 
 		//usaremos prepared statements para acelerar
-		$str1="UPDATE Inscripciones SET Dorsal=? WHERE (Prueba={$this->pruebaID}) AND (Perro=?)";
-		$str2="UPDATE Resultados SET DORSAL=? WHERE (Prueba={$this->pruebaID}) AND (Perro=?)";
+		$str1="UPDATE inscripciones SET Dorsal=? WHERE (Prueba={$this->pruebaID}) AND (Perro=?)";
+		$str2="UPDATE resultados SET DORSAL=? WHERE (Prueba={$this->pruebaID}) AND (Perro=?)";
 			
 		$stmt1=$this->conn->prepare($str1);
 		if (!$stmt1) return $this->error($this->conn->error);
@@ -531,12 +533,12 @@ class Inscripciones extends DBObject {
 		$byclubstr=($byclub)? "NombreClub ASC,":"";
 		// obtenemos la lista de perros inscritos con sus datos
         $result=$this->__select(
-			/* SELECT */"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Inscripciones.Perro AS Perro, Raza,
-				Dorsal, PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.NombreLargo AS NombreLargo,  Genero, Raza, Chip, Licencia, LOE_RRC, Categoria, Grado, Celo, Guia, Club, Pais, LogoClub,
-				NombreGuia, NombreClub,	Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
-			/* FROM */	"Inscripciones,PerroGuiaClub",
-			/* WHERE */ "( Inscripciones.Perro = PerroGuiaClub.ID) AND
-				( Inscripciones.Prueba=$pruebaid ) AND ( ( Inscripciones.Jornadas&$mask ) != 0 ) ",
+			/* SELECT */"inscripciones.ID AS ID, inscripciones.Prueba AS Prueba, inscripciones.Perro AS Perro, Raza,
+				Dorsal, perroguiaclub.Nombre AS Nombre, perroguiaclub.NombreLargo AS NombreLargo,  Genero, Raza, Chip, Licencia, LOE_RRC, Categoria, Grado, Celo, Guia, Club, Pais, LogoClub,
+				NombreGuia, NombreClub,	inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
+			/* FROM */	"inscripciones,perroguiaclub",
+			/* WHERE */ "( inscripciones.Perro = perroguiaclub.ID) AND
+				( inscripciones.Prueba=$pruebaid ) AND ( ( inscripciones.Jornadas&$mask ) != 0 ) ",
 			/* ORDER BY */ "{$byclubstr} Categoria ASC , Grado ASC, Nombre ASC, Celo ASC",
 			/* LIMIT */ $limit
 		);
@@ -556,20 +558,20 @@ class Inscripciones extends DBObject {
 	    $this->myLogger->enter();
 	    if ($jornada<=0) throw new Exception("clearInscripciones: Invalid JornadaID");
         // borramos sesiones asociadas
-        $this->__delete("Sesiones","Jornada={$jornada}");
+        $this->__delete("sesiones","Jornada={$jornada}");
 	    // borramos resultados
-        $this->__delete("Resultados","Jornada={$jornada}");
+        $this->__delete("resultados","Jornada={$jornada}");
         // borramos ordensalida y ordenequipos de las mangas
-        $jobj=$this->__getObject("Jornadas",$jornada);
-        $this->query("UPDATE Mangas SET Orden_Salida='BEGIN,END',Orden_Equipos='BEGIN,{$jobj->Default_Team},END' WHERE Jornada=$jornada");
+        $jobj=$this->__getObject("jornadas",$jornada);
+        $this->query("UPDATE mangas SET Orden_Salida='BEGIN,END',Orden_Equipos='BEGIN,{$jobj->Default_Team},END' WHERE Jornada=$jornada");
         // Borramos equipos. No borrar equipo por defecto, solo limpiar la lista de miembros
-        $this->__delete("Equipos","(Jornada={$jornada}) AND (DefaultTeam=0)");
-        $this->query("UPDATE Equipos SET Miembros='BEGIN,END' WHERE (Jornada=$jornada) AND (DefaultTeam=1)");
+        $this->__delete("equipos","(Jornada={$jornada}) AND (DefaultTeam=0)");
+        $this->query("UPDATE equipos SET Miembros='BEGIN,END' WHERE (Jornada=$jornada) AND (DefaultTeam=1)");
         // la jornada no se borra. Hay que obtener su numero de orden
-        $jobj=$this->__getObject("Jornadas",$jornada);
+        $jobj=$this->__getObject("jornadas",$jornada);
         // y usarlo como mascara en las inscripciones
         $numero=1<<(intval($jobj->Numero)-1); // mascara de inscripciones
-        $this->query("UPDATE Inscripciones SET Jornadas=(Jornadas & ~$numero) WHERE Prueba={$this->pruebaID}");
+        $this->query("UPDATE inscripciones SET Jornadas=(Jornadas & ~$numero) WHERE Prueba={$this->pruebaID}");
         $this->myLogger->leave();
         return "";
     }
@@ -585,8 +587,8 @@ class Inscripciones extends DBObject {
         $this->myLogger->enter();
         // esto es un clonado, por lo que hay que borrar las inscripciones anteriores
         $this->clearInscripciones($jornada);
-        $fobj=$this->__getArray("Jornadas",$from);
-        $tobj=$this->__getArray("Jornadas",$jornada);
+        $fobj=$this->__getArray("jornadas",$from);
+        $tobj=$this->__getArray("jornadas",$jornada);
         if (!$fobj) throw new Exception("updateInscripciones: Invalid JornadaID:{$from} to clone from");
         if (!$tobj) throw new Exception("updateInscripciones: Invalid JornadaID:{$jornada} to clone into");
         $timeout=ini_get('max_execution_time');
@@ -595,7 +597,7 @@ class Inscripciones extends DBObject {
 
         // actualizamos tabla de inscripciones
         // esto es sencillo: basta con actualizar la mascar de inscripciones
-        $sql="UPDATE Inscripciones SET Jornadas=(Jornadas|{$tmask}) ".
+        $sql="UPDATE inscripciones SET Jornadas=(Jornadas|{$tmask}) ".
                     "WHERE (Prueba={$this->pruebaID}) AND ((Jornadas & {$fmask}) != 0)";
         $res=$this->query($sql);
         if (!$res) $this->myLogger->error($this->conn->error);
@@ -604,13 +606,13 @@ class Inscripciones extends DBObject {
         // el orden debe coincidir; si no tenemos un problema muy serio....
         $inscripciones=$this->__select(
             "*",
-            "Inscripciones",
+            "inscripciones",
             "Prueba={$this->pruebaID}",
             "Perro ASC");
         $perros=$this->__select(
             "*",
-            "PerroGuiaClub",
-            "ID IN (SELECT Perro AS ID FROM Inscripciones WHERE Prueba={$this->pruebaID}) ",
+            "perroguiaclub",
+            "ID IN (SELECT Perro AS ID FROM inscripciones WHERE Prueba={$this->pruebaID}) ",
             "ID ASC");
         // procesamos la inscripcion de los perros seleccionados
         for($n=0;$n<$inscripciones['total']; $n++) {
@@ -626,18 +628,18 @@ class Inscripciones extends DBObject {
 
         // ahora clonamos los equipos. Recuerda que se ha hecho un clearInscripciones primero, por lo que
         // se parte de una tabla "en blanco"
-        $equipos=$this->__select("*","Equipos","Jornada={$from}");
+        $equipos=$this->__select("*","equipos","Jornada={$from}");
         $ordenEquipos="BEGIN,";
         foreach($equipos['rows'] as $equipo) {
             $members=getInnerString($equipo['Miembros'],'BEGIN,',',END');
             // si se trata del equipo por defecto no se inserta: ya viene pre-definido
             if ($equipo['DefaultTeam']!=0) {
                 // obtener el id del equipo por defecto de la nueva jornada
-                $defteam=$this->__selectAsArray("*","Equipos","Jornada={$jornada} AND DefaultTeam=1");
+                $defteam=$this->__selectAsArray("*","equipos","Jornada={$jornada} AND DefaultTeam=1");
                 $teamID=$defteam['ID'];
             } else {
                 // insertamos nuevo equipo en la lista de equipos
-                $sql="INSERT INTO Equipos (Prueba,Jornada,Nombre,Observaciones,Miembros,DefaultTeam)
+                $sql="INSERT INTO equipos (Prueba,Jornada,Nombre,Observaciones,Miembros,DefaultTeam)
 				      VALUES ({$fobj['Prueba']},{$jornada},'{$equipo['Nombre']}','{$equipo['Observaciones']}','BEGIN,END',0 )";
                 $res=$this->query($sql);
                 if (!$res) $this->myLogger->error($this->conn->error);
@@ -645,13 +647,13 @@ class Inscripciones extends DBObject {
             }
             $ordenEquipos.="${teamID},";
             // actualiza los miembros del equipo
-            $sql="UPDATE Equipos SET Miembros='{$equipo['Miembros']}' WHERE ID={$teamID}";
+            $sql="UPDATE equipos SET Miembros='{$equipo['Miembros']}' WHERE ID={$teamID}";
             $res=$this->query($sql);
             if (!$res) $this->myLogger->error($this->conn->error);
             // ahora actualizamos el campo equipo de los resultados de la jornada
             // en que el ID del perro esta en la lista de miembros
             if ($members!="") { // skip empty team lists
-                $sql="UPDATE Resultados SET Equipo={$teamID} WHERE Jornada={$jornada} AND Perro IN ($members)";
+                $sql="UPDATE resultados SET Equipo={$teamID} WHERE Jornada={$jornada} AND Perro IN ($members)";
                 $res=$this->query($sql);
             }
             if (!$res) $this->myLogger->error($this->conn->error);
@@ -661,7 +663,7 @@ class Inscripciones extends DBObject {
         // Como clonar el orden de equipos de cada manga es complicado, ( ya que las dos jornadas no tienen por qué
         // tener las mismas mangas, vamos a poner el mismo orden para todas las mangas de la nueva jornada
         $ordenEquipos.="END";
-        $sql="UPDATE Mangas SET Orden_Equipos='{$ordenEquipos}' WHERE Jornada={$jornada}";
+        $sql="UPDATE mangas SET Orden_Equipos='{$ordenEquipos}' WHERE Jornada={$jornada}";
         $res=$this->query($sql);
         if (!$res) $this->myLogger->error($this->conn->error);
 
@@ -686,20 +688,20 @@ class Inscripciones extends DBObject {
      */
     function populateInscripciones($jornada) {
         $this->myLogger->enter();
-        $tobj=$this->__getArray("Jornadas",$jornada);
+        $tobj=$this->__getArray("jornadas",$jornada);
         if (!$tobj) throw new Exception("updateInscripciones: Invalid JornadaID to clone into");
         $timeout=ini_get('max_execution_time');
         $tmask=1<<(($tobj['Numero'])-1);
         // actualizamos tabla de inscripciones
-        $res=$this->query("UPDATE Inscripciones SET Jornadas=(Jornadas|$tmask) WHERE Prueba={$this->pruebaID}");
+        $res=$this->query("UPDATE inscripciones SET Jornadas=(Jornadas|$tmask) WHERE Prueba={$this->pruebaID}");
         if (!$res) $this->myLogger->error($this->conn->error);
         // obtenemos la lista de inscripciones y de perros
         // el orden debe coincidir; si no tenemos un problema muy serio....
-        $inscripciones=$this->__select("*","Inscripciones","Prueba={$this->pruebaID}","Perro ASC");
+        $inscripciones=$this->__select("*","inscripciones","Prueba={$this->pruebaID}","Perro ASC");
         $perros=$this->__select(
             "*",
-            "PerroGuiaClub",
-            "ID IN (SELECT Perro AS ID FROM Inscripciones WHERE Prueba={$this->pruebaID}) ",
+            "perroguiaclub",
+            "ID IN (SELECT Perro AS ID FROM inscripciones WHERE Prueba={$this->pruebaID}) ",
             "ID ASC");
         for($n=0;$n<$inscripciones['total']; $n++) {
             set_time_limit($timeout);

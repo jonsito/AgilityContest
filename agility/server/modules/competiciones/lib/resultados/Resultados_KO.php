@@ -47,7 +47,7 @@ class Resultados_KO extends Resultados {
         // por lo que hay que reajustar el campo games de todos los participantes a 1(primera manga) o cero(resto de mangas)
         $firstround=($this->getDatosManga()->Tipo==15)?1:0;
         $mid=$this->getDatosManga()->ID;
-        $str="UPDATE Resultados SET Games={$firstround} WHERE Manga={$mid}";
+        $str="UPDATE resultados SET Games={$firstround} WHERE Manga={$mid}";
         $res=$this->query($str);
         if (!$res)$this->myLogger->error("insertByData(KO): ".$this->conn->error);
         return "";
@@ -65,7 +65,7 @@ class Resultados_KO extends Resultados {
         // por lo que hay que reajustar el campo games de todos los participantes a 1(primera manga) o cero(resto de mangas)
         $firstround=($this->getDatosManga()->Tipo==15)?1:0;
         $mid=$this->getDatosManga()->ID;
-        $str="UPDATE Resultados SET Games={$firstround} WHERE Manga={$mid}";
+        $str="UPDATE resultados SET Games={$firstround} WHERE Manga={$mid}";
         $res=$this->query($str);
         if (!$res)$this->myLogger->error("insertByData(KO): ".$this->conn->error);
         return "";

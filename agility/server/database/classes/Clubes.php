@@ -62,7 +62,7 @@ class Clubes extends DBObject {
         // no permitimos insert/update cuando el club no se asigna a ninguna federacion
         if ($federations==0) return $this->error("Clubes::insert(): Federations field cannot be empty");
 		// componemos un prepared statement
-		$sql ="INSERT INTO Clubes (Nombre,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,
+		$sql ="INSERT INTO clubes (Nombre,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,
 				Web,Email,Federations,Facebook,Google,Twitter,Observaciones,Baja)
 			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
@@ -86,9 +86,9 @@ class Clubes extends DBObject {
 	function updateInscripciones($id) {
 		// miramos las pruebas en las que el perro esta inscrito
 		$res=$this->__select(
-		/* SELECT */"Inscripciones.*",
-			/* FROM */	"Inscripciones,Pruebas,PerroGuiaClub",
-			/* WHERE */	"(Pruebas.ID=Inscripciones.Prueba) AND (Pruebas.Cerrada=0) AND (Inscripciones.Perro=PerroGuiaClub.ID) AND (Club=$id)",
+		/* SELECT */"inscripciones.*",
+			/* FROM */	"inscripciones,pruebas,perroguiaclub",
+			/* WHERE */	"(pruebas.ID=inscripciones.Prueba) AND (pruebas.Cerrada=0) AND (inscripciones.Perro=perroguiaclub.ID) AND (Club=$id)",
 			/* ORDER BY */	"",
 			/* LIMIT*/	""
 		);
@@ -131,7 +131,7 @@ class Clubes extends DBObject {
         // no permitimos insert/update cuando el club no se asigna a ninguna federacion
         if ($federations==0) return $this->error("Clubes::update(): Federations field cannot be empty");
 		// componemos un prepared statement
-		$sql ="UPDATE Clubes
+		$sql ="UPDATE clubes
 				SET Nombre=? , Direccion1=? , Direccion2=? , Provincia=? , Pais=?,
 				Contacto1=? , Contacto2=? , Contacto3=? , GPS=? , Web=? ,
 				Email=? , Federations=?, Facebook=? , Google=? , Twitter=? , Observaciones=? , Baja=?
@@ -158,10 +158,10 @@ class Clubes extends DBObject {
 		// cannot delete default club id or null club id
 		if ($id<=1)  return $this->error("No club or invalid Club ID '$id' provided");
 		// fase 1: desasignar guias del club (assign to default club with ID=1)
-		$res= $this->query("UPDATE Guias SET Club=1  WHERE (Club=$id)");
+		$res= $this->query("UPDATE guias SET Club=1  WHERE (Club=$id)");
 		if (!$res) return $this->error($this->conn->error);
 		// fase 2: borrar el club de la BBDD
-		$res= $this->__delete("Clubes","(ID={$id})");
+		$res= $this->__delete("clubes","(ID={$id})");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -199,7 +199,7 @@ class Clubes extends DBObject {
 		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR (Provincia LIKE '%$search%') OR (Pais LIKE '%$search%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "*, Logo AS LogoClub",
-				/* FROM */ "Clubes",
+				/* FROM */ "clubes",
 				/* WHERE */ "$fedstr AND $where",
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
@@ -218,7 +218,7 @@ class Clubes extends DBObject {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Club ID:$id");
 		// make query
-		$obj=$this->__getObject("Clubes",$id);
+		$obj=$this->__getObject("clubes",$id);
 		if (!is_object($obj))	return $this->error("No Club found with ID=$id");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
@@ -247,7 +247,7 @@ class Clubes extends DBObject {
 		if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
 		$result=$this->__select(
 				/* SELECT */ "ID,Nombre,Provincia,Pais,Federations,Email",
-				/* FROM */ "Clubes",
+				/* FROM */ "clubes",
 				/* WHERE */ "$fedstr AND $where",
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""
@@ -265,7 +265,7 @@ class Clubes extends DBObject {
 	function getLogo($id) {
 		$this->myLogger->enter();
 		if ($id==0) $id=1; // on insert, select default logo
-		$row=$this->__selectObject("Logo","Clubes","ID=$id");
+		$row=$this->__selectObject("Logo","clubes","ID=$id");
 		if (!$row) return $this->error($this->conn->error);
 		$name=$row->Logo;
 		$fname=getIconPath($this->curFederation->get('Name'),$name);
@@ -288,7 +288,7 @@ class Clubes extends DBObject {
 	function getLogoByPerro($id) {
 		$this->myLogger->enter();
 		if ($id==0) $id=1; // on insert, select default logo
-		$row=$this->__selectObject("Logo","Perros,Guias,Clubes","(Perros.Guia=Guias.ID ) AND (Guias.Club=Clubes.ID) AND (Perros.ID=$id)");
+		$row=$this->__selectObject("Logo","perros,guias,clubes","(perros.Guia=guias.ID ) AND (guias.Club=clubes.ID) AND (perros.ID=$id)");
 		if (!$row) return $this->error($this->conn->error);
 		$name=$row->Logo;
 		$fname=getIconPath($this->curFederation->get('Name'),$name);
@@ -311,7 +311,7 @@ class Clubes extends DBObject {
 	function getLogoByGuia($id) {
 		$this->myLogger->enter();
 		if ($id==0) $id=1; // on insert, select default logo
-		$row=$this->__selectObject("Logo","Guias,Clubes","(Guias.Club=Clubes.ID) AND (Guias.ID=$id)");
+		$row=$this->__selectObject("Logo","guias,clubes","(guias.club=clubes.ID) AND (guias.ID=$id)");
 		if (!$row) return $this->error($this->conn->error);
 		$name=$row->Logo;
 		$fname=getIconPath($this->curFederation->get('Name'),$name);
@@ -356,7 +356,7 @@ class Clubes extends DBObject {
 		imagecopyresampled($newImage, $img, 0, 0, 0, 0, 150, 150, imagesx($img), imagesy($img));
 		
 		// 3- obtenemos el nombre del logo actual
-		$row=$this->__selectObject("Nombre,Logo","Clubes","ID=$id");
+		$row=$this->__selectObject("Nombre,Logo","clubes","ID=$id");
 		if (!$row) return $this->error($this->conn->error);
 		$logo=$row->Logo;
 		$name=$row->Nombre;
@@ -373,7 +373,7 @@ class Clubes extends DBObject {
 			$logo = preg_replace('!['.preg_quote('-').'\s]+!u', '_', $logo);
 			$logo="$logo.png";
 			
-			$sql="UPDATE Clubes SET Logo='$logo' WHERE (ID=$id)";
+			$sql="UPDATE clubes SET Logo='$logo' WHERE (ID=$id)";
 			$res=$this->query($sql);
 			if (!$res) return $this->error($this->conn->error);
 		}
@@ -415,7 +415,7 @@ class Clubes extends DBObject {
         // else ask database and fill cache
         switch($key) {
             case "Perros": // $id= Dog ID
-                $data= $this->__selectAsArray("*","PerroGuiaClub","(PerroGuiaClub.ID=$id)");
+                $data= $this->__selectAsArray("*","perroguiaclub","(perroguiaclub.ID=$id)");
                 $logo=$data['LogoClub'];
                 $this->logoCache['Perros'][$id] = $logo;
                 $this->logoCache['Guias'][$data['Guia']] =  $logo;
@@ -424,23 +424,23 @@ class Clubes extends DBObject {
                 break;
             case "Guias"; // $id: Guia ID
                 $data= $this->__selectAsArray(
-                    "Clubes.ID as Club, Clubes.Nombre AS NombreClub, Clubes.Logo as Logo",
-                    "Guias,Clubes",
-                    " (Guias.ID=$id) AND (Guias.Club=Clubes.ID) ");
+                    "clubes.ID as Club, clubes.Nombre AS NombreClub, clubes.Logo as Logo",
+                    "guias,clubes",
+                    " (guias.ID=$id) AND (guias.Club=clubes.ID) ");
                 $logo=$data['Logo'];
                 $this->logoCache['Guias'][$id] = $logo;
                 $this->logoCache['NombreClub'][$data['NombreClub']] = $logo;
                 $this->logoCache['Clubes'][$data['Club']] = $logo;
                 break;
             case "Clubes": // provided Club ID
-                $data= $this->__selectAsArray("*","Clubes"," (ID=$id) ");
+                $data= $this->__selectAsArray("*","clubes"," (ID=$id) ");
                 $logo=$data['Logo'];
                 $this->logoCache['NombreClub'][$data['Nombre']] = $logo;
                 $this->logoCache['Clubes'][$id] = $logo;
                 break;
             case "NombreClub": // Provided Club Name
                 $nombre=escapeString($id); //escape to avoid sql errors
-                $data= $this->__selectAsArray("*","Clubes"," (Nombre='$nombre') ");
+                $data= $this->__selectAsArray("*","clubes"," (Nombre='$nombre') ");
                 $logo=$data['Logo'];
                 $this->logoCache['NombreClub'][$id] =$logo;
                 $this->logoCache['Clubes'][$data['ID']] = $logo;
