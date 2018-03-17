@@ -145,10 +145,10 @@ class Jornadas extends DBObject {
 		$tnd=new Tandas("jornadas::delete()",$this->prueba,$jornadaid);
 		$tnd->removeJornada();
 		// Borramos equipos de esta prueba/jornada
-		$res=$this->query("DELETE FROM Equipos WHERE ( Jornada = $jornadaid );");
+		$res=$this->__delete("Equipos","( Jornada = $jornadaid )");
 		if (!$res) return $this->error($this->conn->error);
 		// y borramos la propia jornada
-		$res= $this->query("DELETE FROM Jornadas WHERE ( ID = $jornadaid );");
+		$res= $this->__delete("Jornadas","( ID = $jornadaid )");
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";

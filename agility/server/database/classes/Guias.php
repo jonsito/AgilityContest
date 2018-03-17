@@ -114,7 +114,7 @@ class Guias extends DBObject {
 		$res= $this->query("UPDATE Perros SET GUIA=1 WHERE ( Guia=$id )");
 		if (!$res) return $this->error($this->conn->error); 
 		// fase 2: borramos el guia de la base de datos
-		$res= $this->query("DELETE FROM Guias WHERE (ID=$id)");
+		$res= $this->__delete("Guias","(ID={$id})");
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";

@@ -73,8 +73,7 @@ class PartialScoresReader extends DogReader {
     private function removeTmpEntry($item) {
         $id=(is_array($item))?$item['ID']:intval($item);
         // remove entry from temporary table
-        $str="DELETE FROM ".TABLE_NAME." WHERE ID={$id}";
-        $this->myDBObject->query($str);
+        $this->myDBObject->__delete(TABLE_NAME,"ID={$id}");
         return null;
     }
 

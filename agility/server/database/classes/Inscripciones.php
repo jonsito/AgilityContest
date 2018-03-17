@@ -172,14 +172,13 @@ class Inscripciones extends DBObject {
 		if (!is_array($res)) return $this->error("Inscripciones::delete(): El perro con id:$idperro no esta inscrito en la prueba:$p");
 		$i=$res['ID'];
 		// fase 1: actualizamos la DB para indicar que el perro no esta inscrito en ninguna jornada
-		$sql="UPDATE Inscripciones SET Jornadas = 0  WHERE (ID=$i)";
+		$sql="UPDATE Inscripciones SET Jornadas = 0  WHERE (ID={$i})";
 		$res=$this->query($sql);
 		if (!$res) return $this->error($this->conn->error);
 		// fase 2: eliminamos informacion del perro en los ordenes de salida y tabla de resultados
 		procesaInscripcion($p, $i);
 		// fase 3: finalmente eliminamos el perro de la tabla de inscripciones
-		$sql="DELETE FROM Inscripciones WHERE (ID=$i)";
-		$res=$this->query($sql);
+		$res=$this->__delete("Inscripciones","(ID={$i})");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -557,14 +556,14 @@ class Inscripciones extends DBObject {
 	    $this->myLogger->enter();
 	    if ($jornada<=0) throw new Exception("clearInscripciones: Invalid JornadaID");
         // borramos sesiones asociadas
-        $this->query("DELETE FROM Sesiones WHERE Jornada=$jornada");
+        $this->__delete("Sesiones","Jornada={$jornada}");
 	    // borramos resultados
-        $this->query("DELETE FROM Resultados WHERE Jornada=$jornada");
+        $this->__delete("Resultados","Jornada={$jornada}");
         // borramos ordensalida y ordenequipos de las mangas
         $jobj=$this->__getObject("Jornadas",$jornada);
         $this->query("UPDATE Mangas SET Orden_Salida='BEGIN,END',Orden_Equipos='BEGIN,{$jobj->Default_Team},END' WHERE Jornada=$jornada");
         // Borramos equipos. No borrar equipo por defecto, solo limpiar la lista de miembros
-        $this->query("DELETE FROM Equipos WHERE (Jornada=$jornada) AND (DefaultTeam=0)");
+        $this->__delete("Equipos","(Jornada={$jornada}) AND (DefaultTeam=0)");
         $this->query("UPDATE Equipos SET Miembros='BEGIN,END' WHERE (Jornada=$jornada) AND (DefaultTeam=1)");
         // la jornada no se borra. Hay que obtener su numero de orden
         $jobj=$this->__getObject("Jornadas",$jornada);

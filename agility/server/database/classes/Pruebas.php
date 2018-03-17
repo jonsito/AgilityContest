@@ -139,21 +139,21 @@ class Pruebas extends DBObject {
 	function delete($id) {
 		$this->myLogger->enter();
 		// pruebaID==1 is default prueba, so avoid deletion
-		if ($id<=1) return $this->error("pruebas::delete() Invalid Prueba ID:$id");
+		if ($id<=1) return $this->error("pruebas::delete() Invalid Prueba ID:{$id}");
 		// Borramos resultados asociados a esta prueba
-		$res=$this->query("DELETE FROM Resultados WHERE ( Prueba=$id)");
+		$res=$this->__delete("Resultado","( Prueba={$id})");
 		if (!$res) return $this->error($this->conn->error);
 		// Borramos inscripciones de esta prueba
-		$res=$this->query("DELETE FROM Inscripciones WHERE ( Prueba=$id)");
+		$res=$this->__delete("Inscripciones","( Prueba={$id})");
 		if (!$res) return $this->error($this->conn->error);
 		// Borramos las jornadas (y mangas) de esta prueba
 		$j=new Jornadas("Pruebas.php",$id);
 		$j->deleteByPrueba();
 		// Borramos tambien las tandas de las jornadas de esta prueba
-		$res=$this->query("DELETE FROM Tandas WHERE ( Prueba=$id)");
+		$res=$this->__delete("Tandas","( Prueba={$id})");
 		if (!$res) return $this->error($this->conn->error);
 		// finalmente intentamos eliminar la prueba
-		$res= $this->query("DELETE FROM Pruebas WHERE (ID=$id)");
+		$res= $this->__delete("Pruebas","(ID={$id})");
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";

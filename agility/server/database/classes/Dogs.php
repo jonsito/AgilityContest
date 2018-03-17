@@ -135,7 +135,7 @@ class Dogs extends DBObject {
 	function delete($idperro) {
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("Invalid Dog ID:$idperro"); 
-		$rs= $this->query("DELETE FROM Perros WHERE (ID=$idperro)");
+		$rs= $this->__delete("Perros","(ID=$idperro)");
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -180,11 +180,11 @@ class Dogs extends DBObject {
         $res=$this->query("UPDATE Mangas SET Orden_Salida=REPLACE(Orden_Salida,',$fromID,',',$toID,') where (Orden_Salida like '%,$fromID,%')");
         if (!$res) return $this->error($this->conn->error);
         // update team member lists
-        $res=$this->query("UPDATE Equipos SET Miembros=REPLACE(Miembros,',$fromID,',',$toID,') where (Miembros like '%,$fromID,%')");
+        $res=$this->query("UPDATE Equipos SET Miembros=REPLACE(Miembros,',$fromID,',',$toID,') WHERE (Miembros LIKE '%,$fromID,%')");
         if (!$res) return $this->error($this->conn->error);
 
         // and finally remove "from" dog
-        $rs= $this->query("DELETE FROM Perros WHERE (ID=$fromID)");
+        $rs= $this->__delete("Perros","(ID=$fromID)");
         if (!$rs) return $this->error($this->conn->error);
         $this->myLogger->leave();
         return "";

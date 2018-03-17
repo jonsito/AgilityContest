@@ -209,7 +209,7 @@ class Updater {
     function updateVersionHistory() {
         $this->myLogger->enter();
         // make sure database provides version history table
-        $cv="CREATE TABLE IF NOT EXISTS `VersionHistory` (
+        $cv="CREATE TABLE IF NOT EXISTS `versionhistory` (
           `Version` varchar(16) NOT NULL DEFAULT '".MINVER."',
           `Updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
           PRIMARY KEY (`Version`)
@@ -473,7 +473,7 @@ class Updater {
     function createLeagueTable() {
         $this->myLogger->enter();
         $str="
-        CREATE TABLE IF NOT EXISTS `Ligas` (
+        CREATE TABLE IF NOT EXISTS `ligas` (
           `Jornada` int(4) NOT NULL,
           `Grado`   varchar(16) NOT NULL,
           `Perro`   int(4) NOT NULL,
@@ -536,7 +536,7 @@ class Updater {
     function createTrainingTable() {
         $this->myLogger->enter();
         $str="
-        CREATE TABLE IF NOT EXISTS `Entrenamientos` (
+        CREATE TABLE IF NOT EXISTS `entrenamientos` (
           `ID` int(4) NOT NULL AUTO_INCREMENT,
           `Prueba`  int(4) NOT NULL DEFAULT 1,
           `Orden`   int(4) NOT NULL DEFAULT 0,

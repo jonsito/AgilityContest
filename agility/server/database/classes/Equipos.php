@@ -178,7 +178,7 @@ class Equipos extends DBObject {
         }
 
         // fase 5: finalmente borramos el equipo antiguo de la base de datos
-        $res= $this->query("DELETE FROM Equipos WHERE (ID=$id)");
+        $res= $this->__delete("Equipos","(ID={$id})");
         if (!$res) return $this->error($this->conn->error);
 
 		$this->myLogger->leave();

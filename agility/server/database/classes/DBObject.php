@@ -118,6 +118,18 @@ class DBObject {
         return "";
     }
 
+    /**
+     * Generic function to handle delete from child classes
+     * @param string $from table to delete from
+     * @param string $where where clause
+     */
+    function __delete($from,$where="") {
+	    $str="DELETE FROM {$from} WHERE {$where}";
+	    if ($where==="") $str="DELETE FROM {$from}";
+	    $res=$this->query($str);
+	    return $res;
+    }
+
 	/**
 	 * Generic function for handle select() on child classes
 	 * @param string $sel SELECT clause (required)
@@ -138,7 +150,6 @@ class DBObject {
 		$result["total"]=0;
 		if ($limit!=="") {
 			$str= "SELECT count(*) FROM $from $where $group";
-			$this->myLogger->query($str);
 			$rs=$this->query($str);
 			if (!$rs) return $this->error($this->conn->error);
 			$row=$rs->fetch_array();

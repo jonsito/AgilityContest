@@ -45,8 +45,7 @@ class Ligas extends DBObject {
      * @return null|string
      */
     function delete($jornada){
-        $sql="DELETE FROM Ligas WHERE Jornada={$jornada}";
-        $res=$this->query($sql);
+        $res=$this->__delete("Ligas","Jornada={$jornada}");
         if (!$res) return $this->error($this->conn->error);
         return "";
     }

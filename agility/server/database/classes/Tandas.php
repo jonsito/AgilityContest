@@ -353,8 +353,7 @@ class Tandas extends DBObject {
         assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// only remove those tandas with "Tipo"=0
 		// for remaining tipos, removeFromList must be issued
-		$str="DELETE FROM Tandas WHERE (ID=$id) AND (Tipo=0)";
-		$rs=$this->query($str);
+		$rs=$this->__delete("Tandas","(ID={$id}) AND (Tipo=0)");
 		if (!$rs) return $this->error($this->conn->error);
 		return ""; // mark success
 	}
@@ -363,8 +362,7 @@ class Tandas extends DBObject {
         assertClosedJourney($this->jornada); // throw exception on closed journeys
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
-		$str="DELETE FROM Tandas WHERE (Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)";
-		$rs=$this->query($str);
+		$rs=$this->__delete("Tandas","(Prueba={$p}) AND (Jornada={$j}) AND (Tipo={$tipo})");
 		if (!$rs) return $this->error($this->conn->error);
 		return ""; // mark success
 	}
@@ -793,8 +791,7 @@ class Tandas extends DBObject {
 	function removeJornada(){
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
-		$str="DELETE FROM Tandas WHERE (Prueba=$p) AND (Jornada=$j)";
-		$rs=$this->query($str);
+		$rs=$this->__delete("Tandas","(Prueba={$p}) AND (Jornada={$j})");
 		if (!$rs) return $this->error($this->conn->error);
 		return ""; // mark success
 	}

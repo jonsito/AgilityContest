@@ -111,9 +111,8 @@ class Jueces extends DBObject {
 	 * @return "" on success ; otherwise null
 	 */
 	function delete($id) {
-		if ($id<=1) return $this->error("Invalid Juez ID"); // cannot delete if juez<=default 
-		$str="DELETE FROM Jueces WHERE ( ID=$id )";
-		$res= $this->query($str);
+		if ($id<=1) return $this->error("Invalid Juez ID"); // cannot delete if juez<=default
+		$res= $this->__delete("Jueces","( ID={$id} )");
 		if (!$res) return $this->error($this->conn->error);
 		return "";
 	}	

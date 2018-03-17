@@ -234,8 +234,7 @@ class EntrenamientosReader extends DogReader {
     function beginImport() {
         $this->myLogger->enter();
         // borramos datos de la tabla de entrenamientos de la prueba
-        $str="DELETE FROM Entrenamientos WHERE ( Prueba={$this->prueba['ID']})";
-        $this->myDBObject->query($str);
+        $this->myDBObject->__delete("Entrenamientos","( Prueba={$this->prueba['ID']})");
         $entries=$this->myDBObject->__select("*",TABLE_NAME,"","")['rows'];
         $orden=1;
 

@@ -335,8 +335,7 @@ class Mangas extends DBObject {
 		    return $this->error("Invalid value for 'Tipo': {$tipo}");
         }
 		// si la manga existe, borrarla; si no existe, no hacer nada
-		$str="DELETE FROM Mangas WHERE ( Jornada = {$this->jornadaObj->ID} ) AND  ( Tipo = $tipo )";
-		$rs=$this->query($str);
+		$rs=$this->__delete("Mangas","( Jornada = {$this->jornadaObj->ID} ) AND  ( Tipo = $tipo )");
 		if (!$rs) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";
@@ -346,8 +345,7 @@ class Mangas extends DBObject {
 		$this->myLogger->enter();
 		if ( ($id<=0) ) return $this->error("Invalid Manga ID: $id"); 
 		// si la manga existe, borrarla; si no existe, no hacer nada
-		$str="DELETE FROM Mangas WHERE ( Jornada = {$this->jornadaObj->ID} ) AND  ( ID = $id )";
-		$rs=$this->query($str);
+		$rs=$this->__delete("Mangas","( Jornada = {$this->jornadaObj->ID} ) AND  ( ID = $id )");
 		if (!$rs) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";
