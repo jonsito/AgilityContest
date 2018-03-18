@@ -53,7 +53,7 @@ class Guias extends DBObject {
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error);
         // if running on master server set ServerID as insert_id
-        $this->setServerID("Guias",$stmt->insert_id);
+        $this->setServerID("guias",$stmt->insert_id);
 		$stmt->close();
 		$this->myLogger->leave();
 		return "";
@@ -114,7 +114,7 @@ class Guias extends DBObject {
 		$res= $this->query("UPDATE perros SET Guia=1 WHERE ( Guia=$id )");
 		if (!$res) return $this->error($this->conn->error); 
 		// fase 2: borramos el guia de la base de datos
-		$res= $this->__delete("Guias","(ID={$id})");
+		$res= $this->__delete("guias","(ID={$id})");
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";

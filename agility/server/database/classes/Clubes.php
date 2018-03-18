@@ -77,7 +77,7 @@ class Clubes extends DBObject {
 		$res=$stmt->execute();
         if (!$res) return $this->error($stmt->error);
         // if running on master server set ServerID as insert_id
-        $this->setServerID("Clubes",$stmt->insert_id);
+        $this->setServerID("clubes",$stmt->insert_id);
 		$stmt->close();
 		$this->myLogger->leave();
 		return ""; // return ok

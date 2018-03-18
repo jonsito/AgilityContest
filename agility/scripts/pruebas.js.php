@@ -435,7 +435,7 @@ function closeJornadaFromPrueba(datagridID,event) {
     	return false; // no hay ninguna jornada seleccionada. retornar
     }
     if (row.Cerrada==true) { // controla si se quiere reabrir una prueba ya cerrada
-        if (event && event.ctrlKey) {
+        if (event && ( event.ctrlKey || event.metaKey) ) {
             event.preventDefault(); // do not propagate key events up
             mode=0;
             title='<?php _e("Warning"); ?>';

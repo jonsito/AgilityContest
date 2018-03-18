@@ -818,7 +818,7 @@ function competicionKeyEventHandler(evt) {
             selectRow(dg,false); 
             return false;
         case 13:	/* Enter */  
-        	if (evt.ctrlKey) { displayRowData(dg); return false; }
+        	if (evt.ctrlKey || evt.metaKey) { displayRowData(dg); return false; }
             if (! searchbox.is(':focus') ) { editRow(dg); return false; }
             return true; // to allow parsing searchByDorsal textbox
         case 27:	/* Esc */

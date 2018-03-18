@@ -125,7 +125,7 @@ class Updater {
         $search=str_replace("club","",$search);
         // phase 1: search for server id
         if ($serverid!==0) {
-            $res=$this->myDBObject->__select("*","Clubes","(ServerID={$serverid})");
+            $res=$this->myDBObject->__select("*","clubes","(ServerID={$serverid})");
             if ($res && $res['total']!=0 ) return $res['rows'][0];
         }
         // phase 2:
@@ -134,7 +134,7 @@ class Updater {
         if ($search==="") $search="-- sin asignar --"; // remind lowercase!
         // remove extra chars to properly make club string likeness evaluation
         $search=preg_replace("/[^A-Za-z0-9 ]/", '', $search);
-        $res=$this->myDBObject->__select("*","Clubes","(ServerID=0)");
+        $res=$this->myDBObject->__select("*","clubes","(ServerID=0)");
         $better=array(0,array('ID'=>0,'Nombre'=>'') ); // percentage, data
         for ($idx=0; $idx<$res['total']; $idx++) {
             $club=$res['rows'][$idx];
@@ -306,7 +306,7 @@ class Updater {
     private function searchGuia($nombre,$fed,$serverid) {
         // phase 1: search for server id
         if ($serverid!==0) {
-            $res=$this->myDBObject->__select("*","Guias","(ServerID={$serverid})");
+            $res=$this->myDBObject->__select("*","guias","(ServerID={$serverid})");
             if ($res && $res['total']!=0 ) return $res['rows'][0];
         }
         // notice that execution should not arrive here:
@@ -314,13 +314,13 @@ class Updater {
         // data should already exist.
         // anyway, let the code here "for yes the flies" :-)
         if ($nombre==="") {
-            $res=$this->myDBObject->__select("*","Guias","(ID=1)"); // "-- Sin asignar --"
+            $res=$this->myDBObject->__select("*","guias","(ID=1)"); // "-- Sin asignar --"
             if ($res && $res['total']!=0 ) return $res['rows'][0];
         }
         // phase 2:
         // if server id not found search by name on whose handlers without server id
         $name=$this->myDBObject->real_escape_string($nombre);
-        $res=$this->myDBObject->__select("*","Guias","(Nombre='{$name}' AND (Federation=$fed)");
+        $res=$this->myDBObject->__select("*","guias","(Nombre='{$name}' AND (Federation=$fed)");
         if (!$res) return null;
         if ($res['total']==0) return null;
         if ($res['total']==1) return $res['rows'][0];
@@ -349,7 +349,7 @@ class Updater {
         $lastm= $this->setForUpdate($perro,"LastModified",true);
 
             // fase 1: buscar por ServerID
-        $str="UPDATE Perros SET ".
+        $str="UPDATE perros SET ".
             "{$name},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$fed},{$lastm} ".
             "WHERE ServerID={$perro['ServerID']}";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
@@ -362,7 +362,7 @@ class Updater {
         // PENDING: preveer la posibilidad de cambio de licencia en perros que todavía no tienen serverid
         $nlic=$this->setForInsert($perro,"Licencia",true);
         $name=$this->setForInsert($perro,"Nombre",true);
-        $str="UPDATE Perros SET ".
+        $str="UPDATE perros SET ".
             "${sid},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$fed},{$lastm}".
             "WHERE (Nombre={$name}) AND (ServerID=0) AND ( (Licencia={$nlic}) OR (Guia={$found['ID']}) )";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
@@ -384,7 +384,7 @@ class Updater {
         $handler= $this->setForInsert($found,"ID",false);
         $lastm= $this->setForInsert($perro,"LastModified",true);
 
-        $str="INSERT INTO Perros ".
+        $str="INSERT INTO perros ".
             "( ServerID,Federation,Nombre,NombreLargo,Genero,Raza,Chip,Licencia,LOE_RRC,Categoria,Grado,Guia,LastModified".
             ") VALUES (".
             "{$sid},{$fed},{$name},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$lastm} ".

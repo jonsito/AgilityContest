@@ -528,7 +528,7 @@ class DogReader {
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetHandler(): blindInsertGuia '$a' error:".$this->myDBObject->conn->error;
         $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
-        $this->myDBObject->setServerID("Guias",$id); // on server add ServerID
+        $this->myDBObject->setServerID("guias",$id); // on server add ServerID
         $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '$a') AND (ClubID=$c)";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
@@ -694,7 +694,7 @@ class DogReader {
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEntry(): Insert Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
-            $this->myDBObject->setServerID("Guias",$id); // on master server set ServerID
+            $this->myDBObject->setServerID("guias",$id); // on master server set ServerID
             $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '{$obj->NombreGuia}') AND (ClubID=$c)";
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEnrty(): Temporary table update Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error; // invalid update; mark error
@@ -887,7 +887,7 @@ class DogReader {
             ", guias.Club = $t.ClubID ";
         $res=$this->myDBObject->query($str);
         if (!$res) return "beginImport(handlers): update error:".$this->myDBObject->conn->error;
-        $this->myDBObject->fixServerID("Guias");
+        $this->myDBObject->fixServerID("guias");
 
         // import dog data
         $this->saveStatus("Importing resulting dogs data");

@@ -48,7 +48,7 @@ class Dogs extends DBObject {
         $federation=$this->federation;
         $licencia=normalize_license($licencia);
 		// componemos un prepared statement (para evitar sql injection)
-		$sql ="INSERT INTO Perros (Nombre,Raza,Chip,LOE_RRC,Licencia,Categoria,Grado,Guia,NombreLargo,Genero,Federation)
+		$sql ="INSERT INTO perros (Nombre,Raza,Chip,LOE_RRC,Licencia,Categoria,Grado,Guia,NombreLargo,Genero,Federation)
 			   VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);

@@ -1,4 +1,4 @@
-INSERT INTO Clubes(ID,Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja) VALUES
+INSERT INTO clubes(ID,Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja) VALUES
 (2,'L\'Almozara','','Camino de Pinseque, 147-A','50190 Garrapinillos (Zaragoza)','-- Sin Asignar --','ES',' + 34 637 54 15 86','','','','','','','','','almozara.png',1,'',0),
 (3,'Afghanistan','','','','-- Sin asignar --','AF','','','','','','','','','','../../server/i18n/AF.png',1,'',0),
 (4,'Albania','','','','-- Sin asignar --','AL','','','','','','','','','','../../server/i18n/AL.png',1,'',0),
