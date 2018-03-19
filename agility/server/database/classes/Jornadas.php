@@ -936,9 +936,20 @@ class Jornadas extends DBObject {
             Jornadas::__compose($data, $prueba, $jornada, 16, $m1, $m2);
         }
 		if ($jornada['Grado1']!=0) {  // Jornadas::tiporonda=3 (0:no G1 1:2rounds 2:1round 3:3rounds )
-			$m1 = Jornadas::__searchManga(3, $mangas); // Agility 1 Grado I
-            $m2=($jornada['Grado1']==1)?Jornadas::__searchManga(4, $mangas):null; // Agility 2 Grado I
-            $m3=($jornada['Grado1']==3)?Jornadas::__searchManga(17, $mangas):null; // Agility 3 Grado I
+            $a=intval($jornada['Grado1']);
+            $m1=null; $m2=null; $m3=null;
+            switch($a){
+                case 3: // 3 rounds
+                    $m3 = Jornadas::__searchManga(17, $mangas); // Agility 3 Grado I
+                    // no break
+                case 1: // 2 rounds  (notice value "1" due to historical reasons
+                    $m2 = Jornadas::__searchManga(4, $mangas); // Agility 2 Grado I
+                    // no break
+                case 2: // 1 round
+                    $m1 = Jornadas::__searchManga(3, $mangas); // Agility 1 Grado I
+                    break;
+                default: $dbobj->myLogger->error("Invalid value '{$a}' for Grado 1 field");
+            }
 			Jornadas::__compose($data, $prueba, $jornada, 3, $m1, $m2, $m3);
 		}
 		if ($jornada['Grado2']!=0) {  // Jornadas::tiporonda=4

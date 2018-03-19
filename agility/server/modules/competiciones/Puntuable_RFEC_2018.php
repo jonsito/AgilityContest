@@ -194,7 +194,7 @@ class Puntuable_RFEC_2018 extends Competitions {
         // NO se calculan puntos de clasificacion
         if ($grad !== "GII") {
             foreach (array(1,2,3) as $m){
-                if ($resultados[$m]==null) continue;
+                if ($resultados[intval($m) - 1 ]==null) continue;
                 if ( ($perro["T{$m}"]!=0) && ($perro["P{$m}"]<6) ) $perro['Puntos']++;
                 if ( ($perro["T{$m}"]!=0) && ($perro["P{$m}"]==0) ) $perro['Estrellas']++;
             }

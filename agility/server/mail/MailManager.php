@@ -462,6 +462,7 @@ class MailManager {
             // clasificacion final
             $cobj=Competitions::getClasificacionesInstance("EmailClasificaciones",$this->jornadaObj->ID);
             foreach($j['Series'] as $s) {
+                // $this->myLogger->trace("SERIE: ".json_encode($s));
                 $mangas=array(
                     intval($s['Manga1']), intval($s['Manga2']), intval($s['Manga3']), intval($s['Manga4']),
                     intval($s['Manga5']), intval($s['Manga6']), intval($s['Manga7']), intval($s['Manga8'])
