@@ -146,10 +146,13 @@ class Sesiones extends DBObject {
 		$res=$stmt->bind_param('ssiiiiis',$nombre,$comentario,$prueba,$jornada,$manga,$tanda,$operador,$sessionkey);
 		if (!$res) return $this->error($stmt->error);
 
-		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) return $this->error($stmt->error);
+		if (!$res) {
+		    $err=$stmt->error;
+		    $this->myLogger->trace("Sesiones:insert() error: {$err}");
+		    return $this->error($err);
+        }
 		$stmt->close();
 		$this->myLogger->leave();
 		return ""; 
