@@ -218,7 +218,7 @@ class Updater {
         if (!$res) throw new Exception ("upgrade::createHistoryTable(): ".$this->conn->error);
 
         // Retrieve last software version and last db update date from database
-        $str="SELECT * FROM VersionHistory ORDER BY Version DESC LIMIT 1;";
+        $str="SELECT * FROM versionhistory ORDER BY Version DESC LIMIT 1;";
         $rs=$this->conn->query($str);
         if (!$rs) throw new Exception ("upgrade::getVersionHistory(): ".$this->conn->error);
         $res = $rs->fetch_array(MYSQLI_ASSOC);
@@ -692,7 +692,7 @@ class Updater {
 
     function addMailList() {
         $this->myLogger->enter();
-        $this->addColumnUnlessExists("Pruebas", "MailList", "TEXT"); // text column cannot have default values
+        $this->addColumnUnlessExists("pruebas", "MailList", "TEXT"); // text column cannot have default values
         $cmds= array(
             "UPDATE pruebas SET MailList='BEGIN,END' WHERE MailList IS NULL"
         );

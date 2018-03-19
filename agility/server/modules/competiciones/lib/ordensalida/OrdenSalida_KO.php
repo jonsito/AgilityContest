@@ -236,10 +236,10 @@ class OrdenSalida_KO extends OrdenSalida {
             if ($number==$powerof2) {
                 // si el numero de participantes es potencia de dos, la primera manga ya esta lista;
                 // ajustamos el valor de games a 1 en primera manga y a cero en todas las demas
-                $sql="UPDATE Resultados SET Games=0 WHERE Jornada = {$this->manga->Jornada}";
+                $sql="UPDATE resultados SET Games=0 WHERE Jornada = {$this->manga->Jornada}";
                 $res=$this->query($sql);
                 if (!$res) $this->myLogger->error($this->conn->error);
-                $sql="UPDATE Resultados SET Games=1 WHERE Manga = {$this->manga->ID}";
+                $sql="UPDATE resultados SET Games=1 WHERE Manga = {$this->manga->ID}";
                 $res=$this->query($sql);
                 if (!$res) $this->myLogger->error($this->conn->error);
             } else {
@@ -259,7 +259,7 @@ class OrdenSalida_KO extends OrdenSalida {
 					));
 				}
 				// ejecutamos todos los comandos de una tacada
-				$str= "UPDATE Resultados SET Games=? WHERE (Perro=?) AND Manga=?";
+				$str= "UPDATE resultados SET Games=? WHERE (Perro=?) AND Manga=?";
 				$stmt= $this->conn->prepare($str);
 				$res=$stmt->bind_param("iii",$games,$perro,$manga);
                 if (!$res) $this->myLogger->error($stmt->error);
@@ -314,7 +314,7 @@ class OrdenSalida_KO extends OrdenSalida {
             // cogemos la mitad superior de los resultados y ponemos Games=1 en la manga actual
             // lo hacemos mediante un prepared statement para optimizar llamadas
             $perro=0;
-            $str="UPDATE Resultados SET Games=1 WHERE Perro=? AND Manga={$this->manga->ID}";
+            $str="UPDATE resultados SET Games=1 WHERE Perro=? AND Manga={$this->manga->ID}";
             $stmt= $this->conn->prepare($str);
             if (! $stmt->bind_param("i",$perro)) $this->myLogger->error($stmt->error);
             for($n=0;$n<$res['total']/2; $n++) {
@@ -339,7 +339,7 @@ class OrdenSalida_KO extends OrdenSalida {
 
             // generate a prepared statement to set Games on current round
             $winner=0;
-            $str="UPDATE Resultados SET Games=1 WHERE Perro=? AND Manga={$this->manga->ID}";
+            $str="UPDATE resultados SET Games=1 WHERE Perro=? AND Manga={$this->manga->ID}";
             $stmt= $this->conn->prepare($str);
             if (! $stmt->bind_param("i",$winner)) $this->myLogger->error($stmt->error);
 

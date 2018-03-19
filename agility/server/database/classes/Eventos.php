@@ -207,7 +207,7 @@ class Eventos extends DBObject {
         $evtdata=json_encode($data);
 
 		// prepare statement
-		$sql = "INSERT INTO Eventos ( TimeStamp,Session, Source, Type, Data ) VALUES (?,$sid,?,?,?)";
+		$sql = "INSERT INTO eventos ( TimeStamp,Session, Source, Type, Data ) VALUES (?,$sid,?,?,?)";
         $this->myLogger->trace("Events::insert() Source:$source Type:$type TimeStamp:$timestamp Data:$evtdata");
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);

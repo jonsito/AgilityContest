@@ -64,7 +64,7 @@ class Guias extends DBObject {
 		$res=$this->__select(
 		/* SELECT */"inscripciones.*",
 			/* FROM */	"inscripciones,pruebas,perroguiaclub",
-			/* WHERE */	"(pruebas.ID=Inscripciones.Prueba) AND (pruebas.Cerrada=0) AND (Inscripciones.Perro=perroguiaclub.ID) AND (Guia=$id)",
+			/* WHERE */	"(pruebas.ID=inscripciones.Prueba) AND (pruebas.Cerrada=0) AND (inscripciones.Perro=perroguiaclub.ID) AND (Guia=$id)",
 			/* ORDER BY */	"",
 			/* LIMIT*/	""
 		);

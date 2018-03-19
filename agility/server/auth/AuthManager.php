@@ -178,7 +178,7 @@ class AuthManager {
 		// TODO: write
 		// $lastModified=$obj->LastModified;
 		// else retrieve permission level
-		$obj=$this->mySessionMgr->__getObject("Usuarios",$userid);
+		$obj=$this->mySessionMgr->__getObject("usuarios",$userid);
 		if (!$obj) throw new Exception("Provided SessionKey:'$sk' gives invalid User ID: '$userid'");
 	*/
 		return $obj;

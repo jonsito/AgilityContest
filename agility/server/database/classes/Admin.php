@@ -497,7 +497,7 @@ class Admin extends DBObject {
         // phase 5 update VersionHistory: set current sw version entry with restored backup creation date
         $bckd=toLongDateString($this->bckDate);
         $swver=$this->myConfig->getEnv("version_date");
-        $str="INSERT INTO VersionHistory (Version,Updated) VALUES ('{$swver}','{$bckd}') ".
+        $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$swver}','{$bckd}') ".
             "ON DUPLICATE KEY UPDATE UPDATE Updated='{$bckd}'";
         $rconn->query($str);
         // finally close db connection and return

@@ -59,7 +59,7 @@ class Ligas extends DBObject {
         $timeout=ini_get('max_execution_time');
 
         // create prepared statement
-        $sql="INSERT INTO Ligas (".
+        $sql="INSERT INTO ligas (".
             "Jornada,Grado,Perro,".
             "Pt1,Pt2,Pt3,Pt4,Pt5,Pt6,Pt7,Pt8,St1,St2,St3,St4,St5,St6,St7,St8,".
             "Xt1,Xt2,Xt3,Xt4,Xt5,Xt6,Xt7,Xt8,C1,C2,C3,C4,C5,C6,C7,C8,".

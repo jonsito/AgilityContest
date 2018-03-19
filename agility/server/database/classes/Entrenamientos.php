@@ -124,7 +124,7 @@ class Entrenamientos extends DBObject {
         $this->clear();
         // to speedup, use prepared statements
         // componemos un prepared statement (para evitar sql injection)
-        $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Comienzo,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,Observaciones,Estado)
+        $sql ="INSERT INTO entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Comienzo,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,Observaciones,Estado)
 			   VALUES({$this->pruebaID},?,?,?,?,?,?,?,'{$large}',?,'{$medium}',?,'{$small}',?,'{$toy}',?,?,?)";
         $this->myLogger->trace("SQL: $sql");
         $this->myLogger->trace("SQL: before prepare");
@@ -182,7 +182,7 @@ class Entrenamientos extends DBObject {
         $v3=$data['Value3'];
         $v4=$data['Value4'];
         $obs=$data['Observaciones'];
-        $sql ="INSERT INTO Entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Comienzo,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,Observaciones,Estado)
+        $sql ="INSERT INTO entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Comienzo,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,Observaciones,Estado)
 			   VALUES($p,$o,$c,'$d','$f','$v','$s',$t,'$k1',$v1,'$k2',$v2,'$k3',$v3,'$k4',$v4,'$obs',-1)";
         $res=$this->query($sql);
         if (!$res) return $this->conn->error;

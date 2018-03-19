@@ -79,8 +79,8 @@ class Puntuable_RFEC_2018 extends Competitions {
             // club not yet in cache: parse it
             // As club name changes doesn't propagate to table "Resultados" cannot use NombreClub to search provincia
             $res=$this->myDBObject->__selectObject("Comunidad",
-                "perroguiaclub,Provincias",
-                " (perroguiaclub.ID LIKE '%{$perro['Perro']}%') AND (perroguiaclub.Provincia=Provincias.Provincia)"
+                "perroguiaclub,provincias",
+                " (perroguiaclub.ID LIKE '%{$perro['Perro']}%') AND (perroguiaclub.Provincia=provincias.Provincia)"
             );
             if (!$res) {
                 do_log("Cannot locate comunidad for club: {$perro['NombreClub']}");
