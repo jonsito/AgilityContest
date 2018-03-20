@@ -26,8 +26,9 @@ $config =Config::getInstance();
 if( ! function_exists('password_verify')) {
     die("Invalid environment: You should have php-5.5.X or higher version installed");
 }
-if ( intval($config->getEnv('restricted'))!=0) {
-    die("Access other than public directory is not allowed");
+$runmode=intval($config->getEnv('running_mode'));
+if ( ($runmode & AC_RUNMODE_EVTSOURCE) === 0 ) {
+    die("This AgilityContest install mode does not allow videowall operations");
 }
 $am=new AuthManager("VideoWall");
 if (!$am->allowed(ENABLE_VIDEOWALL)) {

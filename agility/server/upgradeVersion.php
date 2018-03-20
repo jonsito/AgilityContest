@@ -195,8 +195,7 @@ class Updater {
     }
 
     function slaveMode() {
-        if (intval($this->config->getEnv("restricted"))==0) return false;
-        return true;
+        return (intval($this->config->getEnv('running_mode'))===AC_RUNMODE_SLAVE)? true:false;
     }
 
     /**
@@ -713,7 +712,7 @@ class Updater {
 }
 
 $upg=new Updater();
-if ($upg->slaveMode()==true) return; // restricted mode. do not try to update database anyway
+if ($upg->slaveMode()==true) return; // slave server mode. do not try to update database anyway
 // allow only localhost access
 $white_list= array ("localhost","127.0.0.1","::1",$_SERVER['SERVER_ADDR'],"138.4.4.108");
 if (!in_array($_SERVER['REMOTE_ADDR'],$white_list))  return; // upgrade is restricted to console

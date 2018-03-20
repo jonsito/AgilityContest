@@ -35,7 +35,8 @@ if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
 if( ! function_exists('password_verify')) {
     die("Invalid environment: You should have php-5.5.X or higher version installed");
 }
-if ( intval($config->getEnv('restricted'))!=0) {
+$runmode=intval($config->getEnv('running_mode'));
+if ( $runmode === AC_RUNMODE_SLAVE ) { // in slave mode restrict access to public directory
     die("Access other than public directory is not allowed");
 }
 ?>

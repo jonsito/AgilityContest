@@ -360,7 +360,9 @@ class Eventos extends DBObject {
 	function connect($data) {
         // $this->myLogger->enter();
 
-        if (intval($this->myConfig->getEnv('restricted'))!=0) { // in slave config do not allow "connect" operations
+        // in non-standalone nor shared installs do not allow "connect" operations
+        $runmode=intval($this->myConfig->getEnv('running_mode'));
+        if ( ( $runmode & AC_RUNMODE_EVTSOURCE) === 0 ) {
             header('HTTP/1.0 403 Forbidden');
             die("You cannot use this server as event source");
         }

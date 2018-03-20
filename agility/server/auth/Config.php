@@ -21,6 +21,13 @@ define('AC_CONFIG_FILE',__DIR__."/config.ini"); // user definable configuration
 define('AC_SYSTEM_FILE',__DIR__."/system.ini"); // system configuration.
 define('AC_BATCH_FILE',__DIR__."/../../../settings.bat"); // to store lang info in windoze
 
+/** running modes */
+define('AC_RUNMODE_STANDALONE',1);	// normal (pc/mac/linux) client installation
+define('AC_RUNMODE_SHARED',2);		// shared (webhost) client install
+define('AC_RUNMODE_SLAVE',4);			// slave (replicated) database server mode
+define('AC_RUNMODE_MASTER',8);		// master server installation
+define('AC_RUNMODE_EVTSOURCE', AC_RUNMODE_STANDALONE | AC_RUNMODE_SHARED ); // can be used as event source
+
 /** Internacionalizacion. Idiomas **/
 define('AC_LANG','es_ES');
 define('AC_ACCEPT_LANG','0');
@@ -209,7 +216,7 @@ Class Config {
 
 		// variables del sistema.
 		// just declared, no neccesarily real value
-		'restricted'		=> array(	'i',	true,	0),
+		'running_mode'		=> array(	's',	true,	AC_RUNMODE_STANDALONE),
 		'version_name'		=> array(	's',	true,	"0.0.0"),
 		'version_date'		=> array(	's',	true,	"20150101_0000"),
 		'database_name'		=> array(	's',	true,	"name"),
@@ -223,6 +230,7 @@ Class Config {
 		'email'				=> array(	's',	true,	"juansgaviota@gmail.com"),
         'license'			=> array(	's',	true,	"GPL"),
         'master_server'		=> array(	's',	true,	"www.agilitycontest.es"),
+
 		// entorno grafico
 		'easyui_theme'		=> array(	's',	false,	AC_EASYUI_THEME),
 		'easyui_bgcolor'	=> array(	'c',	false,	AC_EASYUI_BGCOLOR),
@@ -532,14 +540,14 @@ Class Config {
 	public function loadConfig() {
 		// skip system.ini data
 		$data=$this->config; // php copy by value, not by reference
-		unset($data["database_name"]);
-		unset($data["database_host"]);
-        unset($data["database_user"]);
-        unset($data["database_pass"]);
-        unset($data["database_ruser"]);
-        unset($data["database_rpass"]);
-        unset($data["restricted"]);
-        unset($data["master_server"]);
+		unset($data['database_name']);
+		unset($data['database_host']);
+        unset($data['database_user']);
+        unset($data['database_pass']);
+        unset($data['database_ruser']);
+        unset($data['database_rpass']);
+        unset($data['running_mode']);
+        unset($data['master_server']);
 		return $data;
 	}
 	

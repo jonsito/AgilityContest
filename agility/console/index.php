@@ -25,12 +25,17 @@ if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
 if( ! function_exists('password_verify')) {
     die("Invalid environment: You should have php-5.5.X or higher version installed");
 }
-
-// access to console is forbidden in restricted mode unless master server with valid certificate
-if ( intval($config->getEnv('restricted'))!=0) {
+$runmode=intval($config->getEnv('running_mode'));
+// access to console is forbidden in slave mode
+if ( $runmode === AC_RUNMODE_SLAVE) {
+    die("Slave mode install: Access other than public directory is not allowed");
+}
+// access to console is forbidden in master mode unless master server with valid certificate
+if ( $runmode === AC_RUNMODE_MASTER) {
     // if not in master server drop connection
     $server=$config->getEnv('master_server');
     $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
+    // PENDING: master mode, but not in master server really means configuration error
     if ($server!==$myself) die("Access other than public directory is not allowed");
     // in master server access to console is controlled by mean of SSL certificates
     $cm=new CertManager();

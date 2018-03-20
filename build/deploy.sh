@@ -56,10 +56,12 @@ echo -n "Restore config..."
     mv ${INSTDIR}.old/logs/updateRequests ${INSTDIR}/logs
 chmod g+w ${INSTDIR}/logs/updateRequests
 
-# restore restricted mode from system.ini
+# restore restricted mode and master_server info from system.ini
 if [ -f ${INSTDIR}.old/agility/server/auth/system.ini ]; then
-	sed -i '/restricted/d' ${INSTDIR}/agility/server/auth/system.ini
-	grep 'restricted' ${INSTDIR}.old/agility/server/auth/system.ini >> ${INSTDIR}/agility/server/auth/system.ini
+	sed -i '/running_mode/d' ${INSTDIR}/agility/server/auth/system.ini
+	grep 'running_mode' ${INSTDIR}.old/agility/server/auth/system.ini >> ${INSTDIR}/agility/server/auth/system.ini
+	sed -i '/master_server/d' ${INSTDIR}/agility/server/auth/system.ini
+	grep 'master_server' ${INSTDIR}.old/agility/server/auth/system.ini >> ${INSTDIR}/agility/server/auth/system.ini
 fi
 echo "Done."
 

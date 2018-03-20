@@ -25,7 +25,7 @@ $config =Config::getInstance();
 if( ! function_exists('password_verify')) {
     die("Invalid environment: You should have php-5.5.X or higher version installed");
 }
-if ( intval($config->getEnv('restricted'))!=0) {
+if ( intval($config->getEnv('running_mode')) === AC_RUNMODE_SLAVE ) {
     die("Access other than public directory is not allowed");
 }
 $am=new AuthManager("Chrono");

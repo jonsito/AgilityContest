@@ -21,13 +21,13 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/CertManager.php");
 $config =Config::getInstance();
 
-// access to console is forbidden in restricted mode unless master server with valid certificate
-// when in server, restricted mode, valid certificate and Allowed in ACL,
+// access to console in master server mode is forbidden unless master server with valid certificate
+// when in server mode running in master server host,  valid certificates and associated perms are stored in ACL file
 // use certificate name as login, and "Certificate" as password
 $cm_user="";
 $cm_password="";
-if ( intval($config->getEnv('restricted'))!=0) {
-    // if not in master server drop connection
+if ( intval($config->getEnv('running_mode')) === AC_RUNMODE_MASTER ) {
+    // if not in master server do not try to fill username and password with certificate values
     $server=$config->getEnv('master_server');
     $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
     if ($server===$myself) {
