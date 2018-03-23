@@ -66,7 +66,7 @@ class Pruebas extends DBObject {
 		
 		// create eight journeys per contest
 		for ($n=1;$n<9;$n++) {
-			$sql ="INSERT INTO Jornadas (Prueba,Numero,Nombre,Fecha,Hora)
+			$sql ="INSERT INTO jornadas (Prueba,Numero,Nombre,Fecha,Hora)
 			VALUES ($pruebaid,$n,'-- Sin asignar --','2013-01-01','00:00:00')";
 			$res=$this->query($sql);
 			if (!$res) return $this->error($this->conn->error);
@@ -74,7 +74,7 @@ class Pruebas extends DBObject {
 			$jornadaid=$this->conn->insert_id;
 			// create default team for each journey
             // notice that "Miembros" is no longer used, just set not null for db integrity
-			$str="INSERT INTO Equipos (Prueba,Jornada,Nombre,Observaciones,Miembros,DefaultTeam)
+			$str="INSERT INTO equipos (Prueba,Jornada,Nombre,Observaciones,Miembros,DefaultTeam)
 				VALUES ($pruebaid,$jornadaid,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid JORNADA $jornadaid - Default Team','BEGIN,END',1 )";
 			$res=$this->query($str);
 			if (!$res) return $this->error($this->conn->error);

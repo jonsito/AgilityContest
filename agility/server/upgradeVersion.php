@@ -185,7 +185,7 @@ class Updater {
         $bckd=toLongDateString($this->bckDate);
         $swver=$this->config->getEnv("version_date");
         $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$swver}','{$bckd}') ".
-            "ON DUPLICATE KEY UPDATE UPDATE Updated='{$bckd}'";
+            "ON DUPLICATE KEY UPDATE Updated='{$bckd}'";
         $this->conn->query($str);
 
         // cleanup

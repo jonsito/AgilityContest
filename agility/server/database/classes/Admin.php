@@ -498,7 +498,7 @@ class Admin extends DBObject {
         $bckd=toLongDateString($this->bckDate);
         $swver=$this->myConfig->getEnv("version_date");
         $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$swver}','{$bckd}') ".
-            "ON DUPLICATE KEY UPDATE UPDATE Updated='{$bckd}'";
+            "ON DUPLICATE KEY UPDATE Updated='{$bckd}'";
         $rconn->query($str);
         // finally close db connection and return
         DBConnection::closeConnection($rconn);

@@ -620,7 +620,7 @@ class DogReader {
             $raza= toUpperCaseWords($raza);
             $nlargo= toUpperCaseWords($nlargo);
         }
-        $str="INSERT INTO Perros (Nombre,NombreLargo,LOE_RRC,Guia,Categoria,Grado,Raza,Chip,Licencia,Genero,Federation)".
+        $str="INSERT INTO perros (Nombre,NombreLargo,LOE_RRC,Guia,Categoria,Grado,Raza,Chip,Licencia,Genero,Federation)".
             " VALUES ( '$nombre','$nlargo','$loe',$h,'$c','$g','$raza','$chip','$lic','$s',$f)";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetDog(): blindInsertDog '$a' error:".$this->myDBObject->conn->error;
@@ -717,7 +717,7 @@ class DogReader {
                 $nlargo= toUpperCaseWords($nlargo);
                 $lic= strtoupper($lic);
             }
-            $str="INSERT INTO Perros (Nombre,NombreLargo,LOE_RRC,Guia,Categoria,Grado,Raza,Licencia,Chip,Genero,Federation)".
+            $str="INSERT INTO perros (Nombre,NombreLargo,LOE_RRC,Guia,Categoria,Grado,Raza,Licencia,Chip,Genero,Federation)".
                 " VALUES ( '$nombre','$nlargo','$loe',$h,'$c','$g','$raza','$lic','$chip','$s',$f)";
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEntry(): InsertDog '$nombre' error:".$this->myDBObject->conn->error;

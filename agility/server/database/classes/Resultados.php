@@ -244,7 +244,7 @@ class Resultados extends DBObject {
 			return $this->error("Manga $manga comes from closed Jornada:".$this->IDJornada);
 		// If row pkey(manga,perro) exists, just update; else insert
         // remember Primary key: (manga,perro)
-		$sql="INSERT INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Raza,Nombre,Licencia,Categoria,Grado,Celo,NombreGuia,NombreClub)
+		$sql="INSERT INTO resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Raza,Nombre,Licencia,Categoria,Grado,Celo,NombreGuia,NombreClub)
                 VALUES ($prueba,$jornada,$manga,$equipo,$dorsal,$perro,'$raza','$nombre','$licencia','$categoria','$grado',$celo,'$guia','$club')
                 ON DUPLICATE KEY UPDATE Equipo=$equipo, Dorsal=$dorsal, Raza='$raza', Nombre='$nombre', Licencia='$licencia', Categoria='$categoria',
                                         Grado='$grado', Celo=$celo, NombreGuia='$guia', NombreClub='$club' ";
