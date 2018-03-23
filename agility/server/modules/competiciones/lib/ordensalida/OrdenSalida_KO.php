@@ -279,7 +279,7 @@ class OrdenSalida_KO extends OrdenSalida {
 		// En esta jornada solo puede haber mangas KO, y que el tipo de manga esta ordenado por rondas
 		// por lo que esta query es suficiente
 		$orden=$this->getOrden();
-		$sql="UPDATE Mangas SET Orden_Salida = '{$orden}' WHERE Jornada={$this->manga->Jornada} AND Tipo>{$this->manga->Tipo}";
+		$sql="UPDATE mangas SET Orden_Salida = '{$orden}' WHERE Jornada={$this->manga->Jornada} AND Tipo>{$this->manga->Tipo}";
         $res=$this->query($sql);
         if (!$res) $this->myLogger->error($this->conn->error);
         // that's all

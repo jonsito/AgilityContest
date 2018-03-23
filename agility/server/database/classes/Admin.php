@@ -230,8 +230,8 @@ class Admin extends DBObject {
         }
         pclose($input);
         // phase 2: dump data. Exclude ImportData and (if configured to) Eventos table contents
-        $noexport="--ignore-table=agility.ImportData";
-        if (intval($this->myConfig->getEnv("full_backup"))==0) $noexport .= " --ignore-table=agility.Eventos";
+        $noexport="--ignore-table=agility.importdata";
+        if (intval($this->myConfig->getEnv("full_backup"))==0) $noexport .= " --ignore-table=agility.eventos";
 
         $cmd2 = "$cmd --opt --no-create-info --single-transaction --routines --triggers $noexport -h $dbhost -u$dbuser -p$dbpass $dbname";
         $this->myLogger->info("Ejecutando comando: '$cmd2'");
@@ -340,8 +340,8 @@ class Admin extends DBObject {
 		}
 		pclose($input);
 		// phase 2: dump data. Exclude ImportData and (if configured to) Eventos table contents
-        $noexport="--ignore-table=agility.ImportData";
-		if (intval($this->myConfig->getEnv("full_backup"))==0) $noexport .= " --ignore-table=agility.Eventos";
+        $noexport="--ignore-table=agility.importdata";
+		if (intval($this->myConfig->getEnv("full_backup"))==0) $noexport .= " --ignore-table=agility.eventos";
 
         $cmd2 = "$cmd --opt --no-create-info --single-transaction --routines --triggers $noexport -h $dbhost -u$dbuser -p$dbpass $dbname";
         $this->myLogger->info("Ejecutando comando: '$cmd2'");

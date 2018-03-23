@@ -440,18 +440,18 @@ class Updater {
     function setTRStoFloat() {
         $this->myLogger->enter();
         $cmds= array(
-            "ALTER TABLE `Mangas` MODIFY `TRS_L_Factor` float(5);",
-            "ALTER TABLE `Mangas` MODIFY `TRM_L_Factor` float(5) NOT NULL DEFAULT '50.0';",
-            "ALTER TABLE `Mangas` MODIFY `TRS_M_Factor` float(5);",
-            "ALTER TABLE `Mangas` MODIFY `TRM_M_Factor` float(5) NOT NULL DEFAULT '50.0';",
-            "ALTER TABLE `Mangas` MODIFY `TRS_S_Factor` float(5);",
-            "ALTER TABLE `Mangas` MODIFY `TRM_S_Factor` float(5) NOT NULL DEFAULT '50.0';",
-            "ALTER TABLE `Mangas` MODIFY `TRS_T_Factor` float(5);",
-            "ALTER TABLE `Mangas` MODIFY `TRM_T_Factor` float(5) NOT NULL DEFAULT '50.0';"
+            "ALTER TABLE `mangas` MODIFY `TRS_L_Factor` float(5);",
+            "ALTER TABLE `mangas` MODIFY `TRM_L_Factor` float(5) NOT NULL DEFAULT '50.0';",
+            "ALTER TABLE `mangas` MODIFY `TRS_M_Factor` float(5);",
+            "ALTER TABLE `mangas` MODIFY `TRM_M_Factor` float(5) NOT NULL DEFAULT '50.0';",
+            "ALTER TABLE `mangas` MODIFY `TRS_S_Factor` float(5);",
+            "ALTER TABLE `mangas` MODIFY `TRM_S_Factor` float(5) NOT NULL DEFAULT '50.0';",
+            "ALTER TABLE `mangas` MODIFY `TRS_T_Factor` float(5);",
+            "ALTER TABLE `mangas` MODIFY `TRM_T_Factor` float(5) NOT NULL DEFAULT '50.0';"
         );
         // comprobamos si es necesario hacerlo
         $str= "SELECT Column_Default FROM information_schema.COLUMNS ".
-            "WHERE table_schema='agility' AND table_name='Mangas' AND column_name='TRM_L_Factor'";
+            "WHERE table_schema='agility' AND table_name='mangas' AND column_name='TRM_L_Factor'";
         $rs=$this->conn->query($str);
         if (!$rs) throw new Exception ("upgrade::setTRStoFloat(): ".$this->conn->error);
         $res = $rs->fetch_array(MYSQLI_ASSOC);
@@ -517,7 +517,7 @@ class Updater {
           KEY `Ligas_Grado` (`Grado`),
           KEY `Ligas_Perro` (`Perro`),
           CONSTRAINT `Ligas_ibfk1` FOREIGN KEY (`Jornada`) REFERENCES `jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-          CONSTRAINT `Ligas_ibfk2` FOREIGN KEY (`Grado`) REFERENCES `grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE, 
+          CONSTRAINT `Ligas_ibfk2` FOREIGN KEY (`Grado`) REFERENCES `grados_perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE, 
           CONSTRAINT `Ligas_ibfk3` FOREIGN KEY (`Perro`) REFERENCES `perros` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE 
         ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
         ";
