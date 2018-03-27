@@ -128,7 +128,7 @@ class Updater {
             $data=SimpleCrypt::decrypt($data,$key);
         }
         // Read entire file into an array
-        $lines = explode("\n",$data); // remember use double quote
+        $lines = explode("\n",$data);
 
         // phase 3: delete all tables and structures from database
         $this->conn->query('SET foreign_key_checks = 0');
@@ -155,7 +155,7 @@ class Updater {
             set_time_limit($timeout);
             $line=trim($str); // remove spaces and newlines
             // Skip it if it's a comment
-            if (substr($line, 0, 2) == '--' || trim($line) == '') continue;
+            if (substr($line, 0, 2) === '--' || trim($line) === '') continue;
             // properly handle "DELIMITER ;;" command
             if ($line==="DELIMITER ;;") { $trigger=true; continue; }
             else if ($line==="DELIMITER ;") { $trigger=false; }

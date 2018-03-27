@@ -412,12 +412,9 @@ class Admin extends DBObject {
      * @throws Exception unrecoverable error
      */
     private function readIntoDB($conn,$data) {
-        // Temporary variable, used to store current query
-        $templine = '';
-        $trigger=false;
         $keystr="";
         // retrieve file information from header
-        $newline=strpos($data,PHP_EOL);
+        $newline=strpos($data,"\n");
         // first line is copyright and license info
         $line=substr($data,0,$newline);
         $num=sscanf($line,
@@ -425,7 +422,7 @@ class Admin extends DBObject {
             $this->bckVersion, $this->bckRevision, $this->bckLicense);
         if ($num===3) {
             $data=substr($data,$newline+1); // advance to newline
-            $newline=strpos($data,PHP_EOL);
+            $newline=strpos($data,"\n");
             // second line is backup file creation date
             $line=substr($data,0,$newline);
             $num=sscanf("$line","-- AgilityContest Backup Date: %s Hash: %s",$this->bckDate,$keystr);
@@ -447,24 +444,32 @@ class Admin extends DBObject {
             $data=SimpleCrypt::decrypt($data,$key);
         }
         // Read entire file into an array
-        $lines = explode("\n",$data); // remember use double quote
+        $lines = explode("\n",$data);
+        for ($n=0;$n<30;$n++) $this->myLogger->trace("Line {$n}: {$lines[$n]}");
         // prepare restore process
 		$numlines=count($lines);
+        // Temporary variable, used to store current query
+        $templine = '';
+        $trigger=false;
 		$timeout=ini_get('max_execution_time');
         // Loop through each line
-        foreach ($lines as $idx => $line) {
+        foreach ($lines as $idx => $str) {
+            // avoid php to be killed on very slow systems
+            set_time_limit($timeout);
+            $line=trim($str);
             // Skip it if it's a comment
-            if (substr($line, 0, 2) == '--' || trim($line) == '') continue;
+            if (substr($line, 0, 2) === '--' || trim($line) === '') continue;
             // properly handle "DELIMITER ;;" command
-            if (trim($line)=="DELIMITER ;;") { $trigger=true; continue; }
-            else if (trim($line)=="DELIMITER ;") { $trigger=false; }
+            if ($line==="DELIMITER ;;") { $trigger=true; continue; }
+            else if ($line==="DELIMITER ;") { $trigger=false; }
             else $templine .= $line;    // Add this line to the current segment
             if ($trigger) continue;
+            // log every create/insert
+            if (strpos($line,"CREATE")===0) { $this->myLogger->trace("$line "); }
+            if (strpos($line,"INSERT")===0) { $this->myLogger->trace("$line "); }
             // If it has a semicolon at the end, it's the end of the query
             if (substr(trim($line), -1, 1) == ';') {
 				$this->handleSession(intval((100*$idx)/$numlines) );
-				// avoid php to be killed on very slow systems
-				set_time_limit($timeout);
                 // Perform the query
                 if (! $conn->query($templine) ){
 					$this->myLogger->error('Error performing query \'<strong>' . $templine . '\': ' . $conn->error . '<br />');
