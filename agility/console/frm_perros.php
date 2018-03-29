@@ -175,18 +175,18 @@ $config =Config::getInstance();
             columns: [[
                 { field:'ID',   hidden:true },
                 { field:'Federation', hidden:true },
-            	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: '<?php _e('Name'); ?>', formatter:formatBold },
-				{ field:'NombreLargo', hidden:true },
+            	{ field:'Nombre',   width:18, sortable:true,  align: 'left', title: '<?php _e('Name'); ?>', formatter:formatBold },
+				{ field:'NombreLargo', width:35, sortable:true,  align: 'left', title: '<?php _e('Pedigree'); ?>', formatter:formatBold },
             	{ field:'Raza',     width:25,                align: 'right', title: '<?php _e('Breed'); ?>' },
 				{ field:'Genero', 	width:10, sortable:true, align: 'center', title: '<?php _e('Gender'); ?>.' },
-            	{ field:'LOE_RRC',  width:20, sortable:true, align: 'right', title: '<?php _e('KC id'); ?>' },
-            	{ field:'Licencia', width:15, sortable:true, align: 'right', title: '<?php _e('Lic'); ?>.' },
-            	{ field:'Categoria',width:10,                 align:'center', title: '<?php _e('Cat'); ?>.',formatter:formatCategoria },
-            	{ field:'Grado',    width:10,                 align:'center', title: '<?php _e('Grade'); ?>', formatter:formatGrado },
+            	{ field:'LOE_RRC',  width:16, sortable:true, align: 'right', title: '<?php _e('KC id'); ?>' },
+            	{ field:'Licencia', width:10, sortable:true, align: 'right', title: '<?php _e('Lic'); ?>.' },
+            	{ field:'Categoria',width:8,                 align:'center', title: '<?php _e('Cat'); ?>.',formatter:formatCategoria },
+            	{ field:'Grado',    width:8,                 align:'center', title: '<?php _e('Grade'); ?>', formatter:formatGrado },
             	{ field:'Guia',   hidden:true },
-                { field:'NombreGuia',     width:45, sortable:true, title: '<?php _e('Handler name'); ?>'},
+                { field:'NombreGuia',     width:40, sortable:true, title: '<?php _e('Handler name'); ?>'},
             	{ field:'Club',   hidden:true },
-                { field:'NombreClub',     width:30, sortable:true, title: '<?php _e('Club name'); ?>'}
+                { field:'NombreClub',     width:25, sortable:true, title: '<?php _e('Club name'); ?>'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
