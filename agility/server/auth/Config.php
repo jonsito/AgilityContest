@@ -196,7 +196,7 @@ Class Config {
         'event_printer'		=> array(	's',	false,	AC_EVENT_PRINTER),
         'full_backup'		=> array(	'i',	false,	AC_FULL_BACKUP),
         'search_updates' 	=> array(	'b',	false,	AC_SEARCH_UPDATES),
-        'search_updatedb' 	=> array(	'b',	false,	AC_SEARCH_UPDATEDB),
+        'search_updatedb' 	=> array(	'i',	false,	AC_SEARCH_UPDATEDB),
 		'wide_printer'		=> array(	'b',	false,	AC_WIDE_PRINTER),
 		// Internacionalizacion
 		'lang'				=> array(	's',	false,	AC_LANG),

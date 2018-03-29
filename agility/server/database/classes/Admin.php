@@ -507,8 +507,15 @@ class Admin extends DBObject {
         $rconn->query($str);
         // finally close db connection and return
         DBConnection::closeConnection($rconn);
-        // mark system to do not auto-backup on next login
+        // mark system to do not auto-backup on next login,
         @touch($this->restore_dir."/do_not_backup");
+        // after restore too many diffs may exist against master server database
+        // and need to leave restored database "as is"
+        // so mark system to do not sync from server after restore
+        if (intval($this->myConfig->getEnv('search_updatedb'))>0) { // if zero leave untouched
+            $this->myConfig->setEnv('search_updatedb',-1); // if 1, reset to ask (-1)
+            $this->myConfig->saveConfig();
+        }
 		return "";
 	}
 

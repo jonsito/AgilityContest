@@ -199,6 +199,7 @@ class Uploader {
      * @throws Exception
      */
     function doRequestForUpdates($serial) {
+        $timeout=ini_get('max_execution_time');
         $this->reportProgress(_("Get timestamp of last update"));
         // notice that on fail Exception will be thrown in inner routines
         $ts=$this->getTimeStamp();
@@ -210,21 +211,25 @@ class Uploader {
         // $this->myLogger->trace("Data received from server: ".json_encode($res));
         $upd=new Updater("Updater_$serial");
         // actualizamos jueces
+        set_time_limit($timeout);
         foreach($res['Jueces'] as $juez) {
             $this->reportProgress(_("Updating")." "._("Judge").": ".$juez['Nombre']);
             $upd->handleJuez($juez);
         }
         // actualizamos clubes
+        set_time_limit($timeout);
         foreach($res['Clubes'] as $club) {
             $this->reportProgress(_("Updating")." "._("Club").": ".$club['Nombre']);
             $upd->handleClub($club);
         }
         // actualizamos guias
+        set_time_limit($timeout);
         foreach($res['Guias'] as $guia) {
             $this->reportProgress(_("Updating")." "._("Handler").": ".$guia['Nombre']);
             $upd->handleGuia($guia);
         }
         // actualizamos perros
+        set_time_limit($timeout);
         foreach($res['Perros'] as $perro) {
             $this->reportProgress(_("Updating")." "._("Dog").": ".$perro['Nombre']);
             $upd->handlePerro($perro);
