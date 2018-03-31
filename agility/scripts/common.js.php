@@ -193,6 +193,20 @@ function isTeam(tipomanga) {
     }
 }
 
+function modeToCats(mode) {
+    switch (parseInt(mode)) {
+        case 0: return "L";
+        case 1: return "M";
+        case 2: return "S";
+        case 3: return "MS";
+        case 4: return "LMS";
+        case 5: return "T";
+        case 6: return "LM";
+        case 7: return "ST";
+        case 8: return "LMST";
+        default: return "-";
+    }
+}
 /**
  * check if provided jornada has grades in their rounds
  * @param {object} jornada Journey data

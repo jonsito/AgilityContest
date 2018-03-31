@@ -46,7 +46,6 @@ try {
         'title'     => http_request("Title","s",_("Data Entry")),
 		'empty'		=> http_request("EmptyPage","i",0), // just template, no data. used for games
 	);
-
 	// Consultamos la base de datos
 	// Datos de la manga y su manga hermana
 	$m = new Mangas("printEntradaDeDatos",$data['jornada']);
