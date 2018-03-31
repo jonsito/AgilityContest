@@ -155,7 +155,7 @@ class Guias extends DBObject {
 		if ($search!=='') $where="(guias.Club=clubes.ID) AND ( (guias.Nombre LIKE '%$search%') OR ( clubes.Nombre LIKE '%$search%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "guias.ID, guias.Federation, guias.Nombre, Telefono, Categoria, guias.Email, Club, clubes.Nombre AS NombreClub, guias.Observaciones",
-				/* FROM */ "Gguias,clubes",
+				/* FROM */ "guias,clubes",
 				/* WHERE */ "$fed AND $where",
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
