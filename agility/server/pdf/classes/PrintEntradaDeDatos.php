@@ -61,8 +61,12 @@ class PrintEntradaDeDatos extends PrintCommon {
 	 */
     function __construct($data) {
 		parent::__construct('Portrait',"print_entradaDeDatos",$data['prueba'],$data['jornada'],$data['comentarios']);
-		if ( ($data['prueba']<=0) || ($data['jornada']<=0) || ($data['mangas']===null) || ($data['orden']===null) ) {
-			$this->errormsg="printEntradaDeDatos: either prueba/jornada/ manga/orden data are invalid";
+		$this->errormsg="";
+		if ( ($data['prueba']<=0) )$this->errormsg .=" invalid prueba id";
+		if ($data['jornada']<=0) $this->errormsg .=" invalid jornada id";
+		if ($data['mangas']===null) $this->errormsg .=" no data for mangaid id {$data['manga']}";
+		if ($data['orden']===null) $this->errormsg .=" no data for ordensalida id {$data['manga']}";
+		if ($this->errormsg!=="") {
 			throw new Exception($this->errormsg);
 		}
 		$this->manga=$data['mangas'][0];

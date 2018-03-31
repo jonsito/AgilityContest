@@ -51,13 +51,13 @@ try {
 	// Datos de la manga y su manga hermana
 	$m = new Mangas("printEntradaDeDatos",$data['jornada']);
 	$data['mangas']= $m->getHermanas($data['manga']);
-	// Datos del orden de salida
-    do_log("Data contents is: ".json_encode($data));
 	$data['orden']=null;
 	if (intval($data['empty'])===0) {
         $o = Competitions::getOrdenSalidaInstance("printEntradaDeDatos",$data['manga']);
         $data['orden']= $o->getData()['rows'];
 	}
+    // Datos del orden de salida e informacion de mangas
+    do_log("Data contents is: ".json_encode($data));
 	// Creamos generador de documento
 	// para ello vemos el tipo de manga
 	$mng=$m->selectByID($data['manga']);
