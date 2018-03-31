@@ -503,7 +503,7 @@ class Resultados extends DBObject {
 		// comprobamos si hay perros pendientes de salir
 		$res= $this->__select(
 			/* SELECT */	"*",
-			/* FROM */		"Resultados",
+			/* FROM */		"resultados",
 			/* WHERE */		"$where $cat",
 			/* ORDER BY */	"Nombre ASC",
 			/* LIMIT */		""

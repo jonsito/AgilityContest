@@ -367,13 +367,13 @@ function print_parcial(mode) {
                     );
                     break;
                 case 2: // filled normal rounds 10 dogs/page
-                    print_asistente(10, "-", true,"1-99999","",t,false); // do not handle 'mode', just print all
+                    print_asistente(10, "-", true,"1-99999","",false); // do not handle 'mode', just print all
                     break;
                 case 3: // filled normal rounds 15 dogs/page
-                    print_asistente(15, "-", true,"1-99999","",t,false);
+                    print_asistente(15, "-", true,"1-99999","",false);
                     break;
                 case 4: // filled ko assistant sheets
-                    print_asistente(16, "-", true,"1-99999","",t,false);
+                    print_asistente(16, "-", true,"1-99999","",false);
                     break;
                 // PENDING: add filled sheet for snooker/gambler
             }

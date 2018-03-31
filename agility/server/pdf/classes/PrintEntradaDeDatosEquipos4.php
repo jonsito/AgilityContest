@@ -76,7 +76,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         $this->equipos=$teams['rows'];
         // anyadimos el array de perros del equipo
         foreach($this->equipos as &$equipo) {$equipo['Perros']=array();}
-        $r= $this->myDBObject->__select("*","Resultados","(Manga={$data['manga']})","","");
+        $r= $this->myDBObject->__select("*","resultados","(Manga={$data['manga']})","","");
         foreach($r['rows'] as $perro) {
             foreach($this->equipos as &$equipo) {
                 if ($perro['Equipo']==$equipo['ID']) {
