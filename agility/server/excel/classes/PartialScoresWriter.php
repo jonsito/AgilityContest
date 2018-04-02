@@ -84,9 +84,9 @@ class PartialScoresWriter extends XLSX_Writer {
 	    $row=array(_("Round"),_(Mangas::getTipoManga($this->manga->Tipo,1,$federation)),$modestr); $this->myWriter->addRow($row);
 	    $row=array(_("Judges"),$j1,$j2); $this->myWriter->addRow($row);
         $row=array(_('Dist'),$this->resultados['trs']['dist']." mts"); $this->myWriter->addRow($row);
-        $row=array(_('Obst'),$this->resultados['trs']['obst']." mts"); $this->myWriter->addRow($row);
-        $row=array(_("SCT"),$this->resultados['trs']['trs']." mts"); $this->myWriter->addRow($row);
-        $row=array(_("MCT"),$this->resultados['trs']['trm']." mts"); $this->myWriter->addRow($row);
+        $row=array(_('Obst'),$this->resultados['trs']['obst']." obs"); $this->myWriter->addRow($row);
+        $row=array(_("SCT"),$this->resultados['trs']['trs']." seg"); $this->myWriter->addRow($row);
+        $row=array(_("MCT"),$this->resultados['trs']['trm']." seg"); $this->myWriter->addRow($row);
         $row=array(_("Spd"),$this->resultados['trs']['vel']." m/s"); $this->myWriter->addRow($row);
         $this->myWriter->addRow(array());
     }

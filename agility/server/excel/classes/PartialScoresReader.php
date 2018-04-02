@@ -245,12 +245,12 @@ class PartialScoresReader extends DogReader {
         $str="UPDATE mangas SET";
         foreach ($vars as $key => $value) {
             if ( ($key==='Dist') || ($key===_('Dist')) ) {
-                $value=intval($value);
+                $value=intval($value); // trick: notice that "XX mts" is evaluated as XX
                 foreach($items as $cat){ $str .= " Dist_{$cat}={$value}, "; }
             } else if ( ($key==='Obst') || ($key===_('Obst')) ) {
                 $value=intval($value);
                 foreach($items as $cat){ $str .= " Obst_{$cat}={$value}, "; }
-            } else if ( ($key==='SCT') || ($key===_('SCT')) ) {
+            } else if ( ($key==='SCT') || ($key===_('SCT')) ) { // force trs and trm to be as fixed value (seconds)
                 $value=floatval($value);
                 foreach($items as $cat) $str .= " TRS_{$cat}_Tipo=0, TRS_{$cat}_Factor={$value}, TRS_{$cat}_Unit='s', ";
             } else if ( ($key==='MCT') || ($key===_('MCT')) ) {
