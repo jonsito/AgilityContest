@@ -102,9 +102,10 @@ class Liga_FMC_2018 extends Ligas {
         $res=parent::getLongData($perro,$federation,$grado);
         // rewrite fields array
         $res['header']= array(
-            array('field' => 'Prueba',    'title'=>_('Contest'), 'width' => 40, 'align' => 'left'),
-            array('field' => 'NombreClub','title'=>_('Club'),    'width' => 30, 'align' => 'right'),
-            array('field' => 'Jornada',   'title'=>_('Journey'), 'width' => 20, 'align' => 'right')
+            array('field' => 'Fecha',     'title'=>_('Date'),    'width' => 20, 'align' => 'right'),
+            array('field' => 'Prueba',    'title'=>_('Contest'), 'width' => 35, 'align' => 'left'),
+            array('field' => 'Jornada',   'title'=>_('Journey'), 'width' => 20, 'align' => 'right'),
+            array('field' => 'NombreClub','title'=>_('Club'),    'width' => 30, 'align' => 'right')
         );
         if ($grado==="GI") {
             array_push($res['header'],array('field' => 'C1','title'=>_('Agility')." 1",'width' => 10, 'align' => 'center'));

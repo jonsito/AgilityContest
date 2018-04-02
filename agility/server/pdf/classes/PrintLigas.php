@@ -71,10 +71,29 @@ class PrintLigas extends PrintCommon {
 		$this->print_commonFooter();
 	}
 	
-	function writeTableHeader() {
+	function writeTableHeader($rowcount) {
 		$this->myLogger->enter();
-		$this->ac_header(1,9);
 		$this->setXY(10,40.0);
+		if ( ($rowcount==0) && ($this->perro!==null) ) {
+            $this->ac_header(2,9);
+            $this->Cell("195","5",_("Dog Information"),'',0,"L",true);
+            $this->Ln();
+            $this->Cell("20","5",_("Name").": ",'',0,"R",true);
+            $n="{$this->perro->Nombre} - {$this->perro->NombreLargo}";
+            $this->Cell("175","5",$n,'',0,"L",false);
+            $this->Ln();
+            $g=$this->federation->getGrade($this->perro->Grado);
+            $c=$this->federation->getCategory($this->perro->Categoria);
+            $this->Cell("20","5",_("License").": ",'',0,"R",true);
+            $n="{$this->perro->Licencia} - {$c} / {$g}";
+            $this->Cell("175","5",$n,'',0,"L",false);
+            $this->Ln();
+            $this->Cell("20","5",_("Handler").": ",'',0,"R",true);
+            $n="{$this->perro->NombreGuia} - {$this->perro->NombreClub}";
+            $this->Cell("175","5",$n,'',0,"L",false);
+            $this->Ln(6);
+        }
+        $this->ac_header(1,8);
 		foreach($this->header as $field) {
             if(array_key_exists("hidden",$field)) continue; // skip hidden fields
             $size=$field['width']*$this->scale;
@@ -86,12 +105,6 @@ class PrintLigas extends PrintCommon {
 		$this->Ln();
 		$this->myLogger->leave();
 	}
-
-	function writeDogData() {
-        if ($this->perro == null ) return;
-        // else use
-        $this->Ln(20); // PENDING: write
-    }
 
     /**
      * print table data
@@ -107,8 +120,7 @@ class PrintLigas extends PrintCommon {
 			// $this->cell(width,height,text,border,start,align,fill)
 			if (($rowcount%$nrows)==0) {
 				$this->AddPage();
-				$this->writeTableHeader();
-				if ($rowcount==0) $this->writeDogData();
+				$this->writeTableHeader( $rowcount );
 			}
             $this->ac_row($rowcount,7.5);
             $this->setX(10);

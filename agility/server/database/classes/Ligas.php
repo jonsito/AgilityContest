@@ -191,7 +191,7 @@ class Ligas extends DBObject {
         }
         // fase 2:datos de la liga
         $res= $this->__select(
-          "pruebas.ID AS PruebaID, pruebas.Nombre AS Prueba, ".
+          "pruebas.ID AS PruebaID, pruebas.Nombre AS Prueba, jornadas.Fecha AS Fecha, ".
                 "jornadas.ID AS JornadaID, jornadas.Nombre AS Jornada, clubes.Nombre as NombreClub, ".
                 "ligas.C1, ligas.C2, ligas.C3, ligas.C4, ligas.C5, ligas.C6, ligas.C7, ligas.C8, ligas.Calificacion ",
           "pruebas,jornadas,ligas,clubes",

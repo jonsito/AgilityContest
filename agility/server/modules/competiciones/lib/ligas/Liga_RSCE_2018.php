@@ -74,20 +74,20 @@ class Liga_RSCE_2018 extends Ligas {
         // add datagrid header
         $res['header']= array(
             array('field' => 'Perro',    'hidden'=>'true'),
-            array('field' => 'Licencia',    'title'=>_('License'),  'width' => 10, 'align' => 'right'),
-            array('field' => 'Categoria',    'title'=>_('Category'),  'width' => 10, 'align' => 'left'),
+            array('field' => 'Licencia',    'title'=>_('Lic'),  'width' => 11, 'align' => 'center'),
+            array('field' => 'Categoria',    'title'=>_('Cat'),  'width' => 11, 'align' => 'center'),
             array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 15, 'align' => 'left'),
             array('field' => 'NombreLargo', 'title'=>_('Pedigree'), 'width' => 25, 'align' => 'left'),
-            array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 35, 'align' => 'right'),
+            array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 33, 'align' => 'right'),
             array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 25, 'align' => 'right'),
-            array('field' => 'P_Agility',  'title'=>_('Pt<br/>Agilty'),    'width' => 10,  'align' => 'center'),
-            array('field' => 'P_Jumping',  'title'=>_('Pt<br/>Jumping'),   'width' => 10,  'align' => 'center'),
-            array('field' => 'PV_Agility',  'title'=>_('Pv<br/>Agility'),  'width' => 10,  'align' => 'center'),
-            array('field' => 'PV_Jumping',  'title'=>_('Pv<br/>Jumping'),  'width' => 10,  'align' => 'center')
+            array('field' => 'P_Agility',  'title'=>_('Pt Ag'),    'width' => 10,  'align' => 'center'),
+            array('field' => 'P_Jumping',  'title'=>_('Pt Jp'),   'width' => 10,  'align' => 'center'),
+            array('field' => 'PV_Agility',  'title'=>_('Pv Ag'),  'width' => 10,  'align' => 'center'),
+            array('field' => 'PV_Jumping',  'title'=>_('Pv Jp'),  'width' => 10,  'align' => 'center')
         );
         if ($grado==="GII") {
-            array_push($res['header'],array('field' => 'PA_Agility',  'title'=>_('Pa<br/>Agility'),  'width' => 10,  'align' => 'center'));
-            array_push($res['header'],array('field' => 'PA_Jumping',  'title'=>_('Pa<br/>Jumping'),  'width' => 10,  'align' => 'center'));
+            array_push($res['header'],array('field' => 'PA_Agility',  'title'=>_('Pa Ag'),  'width' => 10,  'align' => 'center'));
+            array_push($res['header'],array('field' => 'PA_Jumping',  'title'=>_('Pa Jp'),  'width' => 10,  'align' => 'center'));
         }
         return $res;
     }
@@ -97,9 +97,10 @@ class Liga_RSCE_2018 extends Ligas {
         $res=parent::getLongData($perro,$federation,$grado);
         // rewrite fields array
         $res['header']= array(
-            array('field' => 'Prueba',    'title'=>_('Contest'), 'width' => 40, 'align' => 'left'),
-            array('field' => 'NombreClub','title'=>_('Club'),    'width' => 30, 'align' => 'right'),
-            array('field' => 'Jornada',   'title'=>_('Journey'), 'width' => 20, 'align' => 'right')
+            array('field' => 'Fecha',     'title'=>_('Date'),    'width' => 20, 'align' => 'right'),
+            array('field' => 'Prueba',    'title'=>_('Contest'), 'width' => 35, 'align' => 'left'),
+            array('field' => 'Jornada',   'title'=>_('Journey'), 'width' => 20, 'align' => 'right'),
+            array('field' => 'NombreClub','title'=>_('Club'),    'width' => 30, 'align' => 'right')
         );
         if ($grado==="GI") {
             array_push($res['header'],array('field' => 'C1','title'=>_('Agility')." 1",'width' => 10, 'align' => 'center'));
