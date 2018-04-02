@@ -153,7 +153,8 @@ class Ligas extends DBObject {
             $filter=" ( jornadas.Tipo_Competicion IN ( {$lista} ) ) AND ligas.Jornada=jornadas.ID AND ";
         }
         $res= $this->__select( // default implementation: just show points sumatory
-            "perroguiaclub.ID AS Perro,perroguiaclub.Nombre AS Nombre, perroguiaclub.Licencia, ".
+            "perroguiaclub.ID AS Perro,perroguiaclub.Nombre AS Nombre, ".
+                    "perroguiaclub.NombreLargo AS NombreLargo, perroguiaclub.Licencia, ".
                     "perroguiaclub.Categoria, perroguiaclub.NombreGuia, perroguiaclub.NombreClub,".
                     "SUM(Pt1) + SUM(Pt2) AS Puntuacion", // pending: add global points to league table
             "{$jor} ligas, perroguiaclub",
@@ -167,11 +168,12 @@ class Ligas extends DBObject {
         // add datagrid header
         $res['header']= array(
             array('field' => 'Perro',    'hidden'=>'true'),
-            array('field' => 'Licencia',    'title'=>_('License'),  'width' => 10, 'align' => 'right'),
-            array('field' => 'Categoria',   'title'=>_('Category'), 'width' => 10, 'align' => 'right'),
-            array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'center'),
-            array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 40, 'align' => 'right'),
-            array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 30, 'align' => 'right'),
+            array('field' => 'Licencia',    'title'=>_('License'),  'width' => 7, 'align' => 'right'),
+            array('field' => 'Categoria',   'title'=>_('Category'), 'width' => 8, 'align' => 'left'),
+            array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 15, 'align' => 'left'),
+            array('field' => 'NombreLargo', 'title'=>_('Pedigree'), 'width' => 30, 'align' => 'left'),
+            array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 35, 'align' => 'right'),
+            array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 20, 'align' => 'right'),
             array('field' => 'Puntuacion',  'title'=>_('Zeroes'),   'width' => 5,  'align' => 'center')
         );
         return $res;

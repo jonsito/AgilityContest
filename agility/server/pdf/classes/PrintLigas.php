@@ -45,6 +45,7 @@ class PrintLigas extends PrintCommon {
         if (array_key_exists("dog",$result)) $this->perro=$result['dog'];
         $this->lista=$result['rows'];
         $this->header=$result['header'];
+        $this->perro= array_key_exists('dog',$result)?$result['dog']:null;
         // rework federation handling as parent got it from senseless prueba ID
         $this->federation=Federations::getFederation(intval($federation));
 		$this->icon=getIconPath($this->federation->get('Name'),"agilitycontest.png");
@@ -73,7 +74,7 @@ class PrintLigas extends PrintCommon {
 	function writeTableHeader() {
 		$this->myLogger->enter();
 		$this->ac_header(1,9);
-		$this->setXY(10,37.5);
+		$this->setXY(10,40.0);
 		foreach($this->header as $field) {
             if(array_key_exists("hidden",$field)) continue; // skip hidden fields
             $size=$field['width']*$this->scale;
@@ -87,22 +88,29 @@ class PrintLigas extends PrintCommon {
 	}
 
 	function writeDogData() {
+        if ($this->perro == null ) return;
+        // else use
         $this->Ln(20); // PENDING: write
     }
 
-	// Tabla coloreada
+    /**
+     * print table data
+     * @param $perro dog id
+     * @return string
+     */
 	function composeTable() {
 		$this->myLogger->enter();
 		$rowcount=0;
 		foreach($this->lista as $item) {
-            $nrows=($rowcount<=43)?43:47; // number of rows per page
+		    $nrows=47;
+		    if($this->perro!==null) $nrows=($rowcount<=43)?43:47; // number of rows per page
 			// $this->cell(width,height,text,border,start,align,fill)
 			if (($rowcount%$nrows)==0) {
 				$this->AddPage();
 				$this->writeTableHeader();
 				if ($rowcount==0) $this->writeDogData();
 			}
-            $this->ac_row($rowcount,8.5);
+            $this->ac_row($rowcount,7.5);
             $this->setX(10);
             foreach($this->header as $column) {
                 if(array_key_exists("hidden",$column)) continue; // skip hidden fields

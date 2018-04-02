@@ -59,7 +59,8 @@ class Liga_RSCE_2018 extends Ligas {
         }
         if ($grado==="GII") $g3=", SUM(Xt1) AS PA_Agility, SUM(Xt2) AS PA_Jumping"; // promotion to GIII points
         $res=$this->__select( // for rsce
-            "perroguiaclub.ID AS Perro, perroguiaclub.Nombre AS Nombre, perroguiaclub.Categoria, ".
+            "perroguiaclub.ID AS Perro, perroguiaclub.Nombre AS Nombre, ".
+                    "perroguiaclub.NombreLargo, perroguiaclub.Categoria, ".
                     "perroguiaclub.Licencia, perroguiaclub.NombreGuia, perroguiaclub.NombreClub,".
                     "SUM(Pt1) AS P_Agility, SUM(Pt2) aS P_Jumping, SUM(St1) AS PV_Agility, SUM(St2) AS PV_Jumping {$g3}",
             "{$jor} ligas, perroguiaclub",
@@ -73,11 +74,12 @@ class Liga_RSCE_2018 extends Ligas {
         // add datagrid header
         $res['header']= array(
             array('field' => 'Perro',    'hidden'=>'true'),
-            array('field' => 'Licencia',    'title'=>_('License'),  'width' => 15, 'align' => 'right'),
-            array('field' => 'Categoria',    'title'=>_('Category'),  'width' => 15, 'align' => 'right'),
-            array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 20, 'align' => 'center'),
-            array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 40, 'align' => 'right'),
-            array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 30, 'align' => 'right'),
+            array('field' => 'Licencia',    'title'=>_('License'),  'width' => 10, 'align' => 'right'),
+            array('field' => 'Categoria',    'title'=>_('Category'),  'width' => 10, 'align' => 'left'),
+            array('field' => 'Nombre',      'title'=>_('Name'),     'width' => 15, 'align' => 'left'),
+            array('field' => 'NombreLargo', 'title'=>_('Pedigree'), 'width' => 25, 'align' => 'left'),
+            array('field' => 'NombreGuia',  'title'=>_('Handler'),  'width' => 35, 'align' => 'right'),
+            array('field' => 'NombreClub',  'title'=>_('Club'),     'width' => 25, 'align' => 'right'),
             array('field' => 'P_Agility',  'title'=>_('Pt<br/>Agilty'),    'width' => 10,  'align' => 'center'),
             array('field' => 'P_Jumping',  'title'=>_('Pt<br/>Jumping'),   'width' => 10,  'align' => 'center'),
             array('field' => 'PV_Agility',  'title'=>_('Pv<br/>Agility'),  'width' => 10,  'align' => 'center'),
