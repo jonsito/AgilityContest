@@ -262,6 +262,7 @@ class Updater {
 
     function dropColumnIfExists($table,$field) {
         $this->myLogger->enter();
+        $dbname=$this->config->getEnv('database_name');
         $drop = "DROP PROCEDURE IF EXISTS DropColumnIfExists;";
         $create = "
         CREATE PROCEDURE DropColumnIfExists()
@@ -270,10 +271,10 @@ class Updater {
                     SELECT * FROM information_schema.COLUMNS
                     WHERE column_name='$field'
                         AND table_name='$table'
-                        AND table_schema='agility'
+                        AND table_schema='$dbname'
                     )
                 THEN
-                    ALTER TABLE `agility`.`$table` DROP COLUMN `$field`;
+                    ALTER TABLE `$dbname`.`$table` DROP COLUMN `$field`;
                 END IF;
             END;
         ";
@@ -286,6 +287,7 @@ class Updater {
 
     function addColumnUnlessExists($table,$field,$data,$def=null) {
         $this->myLogger->enter();
+        $dbname=$this->config->getEnv('database_name');
         $str="";
         if (!is_null($def)) {
             // check for enclose default into single quotes
@@ -307,10 +309,10 @@ class Updater {
                     SELECT * FROM information_schema.COLUMNS
                     WHERE column_name='$field'
                         AND table_name='$table'
-                        AND table_schema='agility'
+                        AND table_schema='$dbname'
                     )
                 THEN
-                    ALTER TABLE `agility`.`$table` ADD COLUMN `$field` $data $str;
+                    ALTER TABLE `$dbname`.`$table` ADD COLUMN `$field` $data $str;
                 END IF;
             END;
         ";
@@ -439,6 +441,7 @@ class Updater {
      */
     function setTRStoFloat() {
         $this->myLogger->enter();
+        $dbname=$this->config->getEnv('database_name');
         $cmds= array(
             "ALTER TABLE `mangas` MODIFY `TRS_L_Factor` float(5);",
             "ALTER TABLE `mangas` MODIFY `TRM_L_Factor` float(5) NOT NULL DEFAULT '50.0';",
@@ -451,7 +454,7 @@ class Updater {
         );
         // comprobamos si es necesario hacerlo
         $str= "SELECT Column_Default FROM information_schema.COLUMNS ".
-            "WHERE table_schema='agility' AND table_name='mangas' AND column_name='TRM_L_Factor'";
+            "WHERE table_schema='$dbname' AND table_name='mangas' AND column_name='TRM_L_Factor'";
         $rs=$this->conn->query($str);
         if (!$rs) throw new Exception ("upgrade::setTRStoFloat(): ".$this->conn->error);
         $res = $rs->fetch_array(MYSQLI_ASSOC);
