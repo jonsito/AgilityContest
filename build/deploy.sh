@@ -5,6 +5,7 @@
 BASEDIR=`dirname $0`/..
 INSTDIR=${1:-/var/www/html/AgilityContest}
 WEBDIR=${INSTDIR}/..
+SYSTEMINI="agility/server/auth/system.ini"
 
 case `grep -e '^ID=' /etc/os-release` in
     'ID=ubuntu' )
@@ -20,21 +21,42 @@ case `grep -e '^ID=' /etc/os-release` in
 esac
 
 # some checks
-echo -n "Check..."
-[ -d ${INSTDIR} ] || ( echo "${INSTDIR} does not exist. Exiting." ; exit 1 )
-[ "${USER}" = "${OWNER}" ] || ( echo "Must be executed as ${OWNER}. Exiting"; exit 1 )
-[ -d ${BASEDIR}/.git -a -d ${BASEDIR}/agility ] || ( echo "${BASEDIR} is not an AgilityContest git directory. Exiting"; exit 1 )
+echo -n "Checking ..."
+# check for installer to have needed permissions
+if [ "${USER}" != "${OWNER}" ]; then
+    echo "Must be executed as ${OWNER}. Exiting"
+    exit 1
+fi
+# make sure that directory to clone from is valid
+if [ ! -d ${BASEDIR}/.git -o ! -d ${BASEDIR}/agility ]; then
+    echo "${BASEDIR} is not an AgilityContest git directory. Exiting";
+    exit 2
+fi
+# check for destination directory
+if [ ! -d ${INSTDIR} ]; then
+    echo -n "Directory ${INSTDIR} does not exist. Create? Y/[n]: "
+    read a
+    case "$a" in
+    [YySs]* )
+        mkdir -p ${INSTDIR}
+        ;;
+    * )
+        echo "AgilityContest installation aborted"
+        exit 3
+        ;;
+    esac
+fi
 echo "Done."
 
 # rotate last install
 echo -n "Backup..."
 rm -rf ${INSTDIR}.old
-mv ${INSTDIR} ${INSTDIR}.old
+[ -d ${INSTDIR} ] && mv ${INSTDIR} ${INSTDIR}.old
 mkdir ${INSTDIR}
 echo "Done."
 
 # copy files
-echo -n "Copying..."
+echo -n "Copying files..."
 ( cd ${BASEDIR}; tar cfBp - * ) | ( cd ${INSTDIR}; tar xfBp - )
 echo "Done."
 
@@ -46,6 +68,7 @@ echo "Done."
 
 # files to preserve (backup and restore)
 echo -n "Restore config..."
+mkdir -p ${INSTDIR}/logs/updateRequests
 [ -f ${INSTDIR}.old/agility/images/supporters/supporters.csv ] && \
     cp ${INSTDIR}.old/agility/images/supporters/supporters.csv ${INSTDIR}/agility/images/supporters
 [ -f ${INSTDIR}.old/agility/server/auth/config.ini ] && \
@@ -54,14 +77,20 @@ echo -n "Restore config..."
     cp ${INSTDIR}.old/agility/server/auth/registration.info ${INSTDIR}/agility/server/auth
 [ -d ${INSTDIR}.old/logs/updateRequests ] && \
     mv ${INSTDIR}.old/logs/updateRequests ${INSTDIR}/logs
-chmod g+w ${INSTDIR}/logs/updateRequests
+chmod -R g+w ${INSTDIR}/logs/updateRequests
 
-# restore restricted mode and master_server info from system.ini
-if [ -f ${INSTDIR}.old/agility/server/auth/system.ini ]; then
-	sed -i '/running_mode/d' ${INSTDIR}/agility/server/auth/system.ini
-	grep 'running_mode' ${INSTDIR}.old/agility/server/auth/system.ini >> ${INSTDIR}/agility/server/auth/system.ini
-	sed -i '/master_server/d' ${INSTDIR}/agility/server/auth/system.ini
-	grep 'master_server' ${INSTDIR}.old/agility/server/auth/system.ini >> ${INSTDIR}/agility/server/auth/system.ini
+# restore system.ini and update version and revision info
+if [ -f ${INSTDIR}.old/${SYSTEMINI} ]; then
+    #copia el viejo system.ini, manteniendo el backup en ${instdir}.old
+    cp ${INSTDIR}.old/${SYSTEMINI} ${INSTDIR}/${SYSTEMINI}.old
+    # reemplaza nueva version_name en el viejo system.ini
+	sed -i '/version_name/d' ${INSTDIR}/${SYSTEMINI}.old
+	grep 'version_name' ${INSTDIR}/${SYSTEMINI} >> ${INSTDIR}/${SYSTEMINI}.old
+	# reemplaza nueva version_date en el viejo system.ini
+	sed -i '/version_date/d' ${INSTDIR}/${SYSTEMINI}.old
+	grep 'version_date' ${INSTDIR}/${SYSTEMINI} >> ${INSTDIR}/${SYSTEMINI}.old
+	# convierte el viejo system.ini en el nuevo
+	mv ${INSTDIR}/${SYSTEMINI}.old ${INSTDIR}/${SYSTEMINI}
 fi
 echo "Done."
 
@@ -73,9 +102,18 @@ sudo chown -R ${OWNER}:${GROUP} ${INSTDIR}
 sudo chmod g+s ${INSTDIR}/logs ${INSTDIR}/agility/images/logos ${INSTDIR}/agility/server/auth
 
 #finally move web contents to their proper location
-echo "Installing web files...."
-(cd ${INSTDIR}/web; tar cfBp - *) | (cd ${WEBDIR}; tar xfBp -)
-echo "Done."
+echo -n "Install web files? Y\[n]: "
+read a
+case "$a" in
+    [YySs]* )
+        echo "Installing web files...."
+        (cd ${INSTDIR}/web; tar cfBp - *) | (cd ${WEBDIR}; tar xfBp -)
+        echo "Done."
+    ;;
+    * )
+        echo "Skip install web files...."
+    ;;
+esac
 
 echo "That's all folks"
 exit 0
