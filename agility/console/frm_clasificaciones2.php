@@ -158,7 +158,7 @@ $('#resultados-info-ronda').combogrid({
 	panelHeight: 100,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/jornadaFunctions.php',
+	url: '../server/database/jornadaFunctions.php',
 	method: 'get',
 	mode: 'remote',
 	required: true,

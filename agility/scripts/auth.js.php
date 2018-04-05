@@ -95,7 +95,7 @@ function acceptLogin() {
 	setFederation($('#login-Federation').combogrid('getValue'));
 	$.ajax({
 		type: 'POST',
-  		url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
+  		url: '../server/database/userFunctions.php',
    		dataType: 'jsonp',
    		data: {
    			Operation: 'login',
@@ -195,7 +195,8 @@ function acceptLogout() {
 function checkPassword(user,pass,callback) {
 	$.ajax({
 		type: 'POST',
-		url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
+        // url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
+        url: '../server/database/userFunctions.php',
 		dataType: 'jsonp',
 		data: {
 			Operation: 'pwcheck',

@@ -12,15 +12,17 @@ if (!isset($config) ) $config=Config::getInstance();
 if (!in_array(get_browser_name(),array('Firefox','Chrome','Safari'))) {
     die("Invalid browser: you should use either Firefox, Chrome or Safari. Otherwise correct behaviour is not guaranteed");
 }
+
 /* check for properly installed xampp */
 if( ! function_exists('openssl_get_publickey')) {
 	die("Invalid configuration: please uncomment line 'module=php_openssl.dll' in file '\\xampp\\php\\php.ini'");
 }
-/* Check operating system against requested protocol */
-if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
-	// en windows/android hay que usar https para que las cosas funcionen
-	if (!is_https()) die("You MUST use https protocol to access this application");
+
+/* Check for https protocol. Previous versions allowed http in linux. This is no longer true*/
+if (!is_https()) {
+    die("You MUST use https protocol to access this application");
 }
+
 /* check for properly installed xampp */
 if( ! function_exists('password_verify')) {
     die("Invalid environment: You should have php-5.5.X or higher version installed");
@@ -59,44 +61,44 @@ if ( $runmode === AC_RUNMODE_MASTER) {
 		GNU General Public License as published by the Free Software Foundation; either version 2 of the License, 
 		or (at your option) any later version." />
 <title>AgilityContest (Console)</title>
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/public_css.php" />
-<link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
-<script src="/agility/lib/jquery-2.2.4.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/locale/easyui-lang-<?php echo substr($config->getEnv('lang'),0,2);?>.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/nicEdit/nicEdit.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/admin.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/import.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/clubes.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/guias.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/perros.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/jueces.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/usuarios.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/sesiones.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/modules.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/entrenamientos.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/tandas.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/equipos.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/pruebas.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/inscripciones.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/printer.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/import.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/ligas.js.php" type="text/javascript" charset="utf-8" > </script>
+<link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
+<link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/datagrid.css" />
+<link rel="stylesheet" type="text/css" href="../css/public_css.php" />
+<link rel="stylesheet" type="text/css" href="../css/videowall_css.php" />
+<script src="../lib/jquery-2.2.4.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/locale/easyui-lang-<?php echo substr($config->getEnv('lang'),0,2);?>.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/nicEdit/nicEdit.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/admin.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/import.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/events.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/clubes.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/guias.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/perros.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/jueces.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/usuarios.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/sesiones.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/modules.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/entrenamientos.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/tandas.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/equipos.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/pruebas.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/inscripciones.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/printer.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/import.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/ligas.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript">
 
@@ -139,7 +141,7 @@ function initialize() {
 	// initialize session data
 	initAuthInfo();
 	// load login page
-	loadContents("/agility/console/frm_login.php","");
+	loadContents("../console/frm_login.php","");
 	var upgdiv=$('#upgradeVersion');
 	if (typeof (ac_installdb) !== "undefined") {
         upgdiv.css('display','none'); // hide install log
@@ -323,21 +325,22 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
             ?>
         <script type="text/javascript">
             var ac_installdb=true;
-            history.replaceState('data to be passed', 'AgilityContest Console', '/agility/console');
+            // make sure to remove "?installdb=1" from history and navigation var
+            history.replaceState('data to be passed', 'AgilityContest Console', '.');
         </script>
 	</p>
 </div>
 
 <!-- CABECERA -->
 <div id="myheader">
-	<p> <a href="/agility/console/index.php"><span id="console_top_title">Agility Contest</span></a> </p>
+	<p> <a href="../console/index.php"><span id="console_top_title">Agility Contest</span></a> </p>
 	<span id="Header_Operation"></span>
 </div>
 
 <!-- LOGO -->
 <div id="mylogo">
-	<p><img id="logo_AgilityContest" src="/agility/images/AgilityContest.png" alt="AgilityContest" width="200" height="160"/></p>
-	<p><img id="logo_Federation" src="/agility/images/logos/rsce.png" alt="Federation" width="200" height="160"/></p>
+	<p><img id="logo_AgilityContest" src="../images/AgilityContest.png" alt="AgilityContest" width="200" height="160"/></p>
+	<p><img id="logo_Federation" src="../images/logos/rsce.png" alt="Federation" width="200" height="160"/></p>
 </div>
 
 <!-- MENU LATERAL -->
@@ -362,7 +365,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
     </li>
 	<li><a href="javascript:check_softLevel(access_level.PERMS_OPERATOR,function(){
 	        loadContents(
-	            '/agility/console/frm_guias.php',
+	            '../console/frm_guias.php',
 	            '<?php _e('Handlers Database Management');?>'
 	        );
 	    });"><?php _e('Handlers'); ?>
@@ -370,7 +373,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
     </li>
 	<li><a href="javascript:check_softLevel(access_level.PERMS_OPERATOR,function(){
 	        loadContents(
-	            '/agility/console/frm_perros.php',
+	            '../console/frm_perros.php',
 	            '<?php _e('Dogs Database Management');?>',
 	            {'e':'#perros-excel-dialog','p':'#perros-dialog'}
 	        );
@@ -379,7 +382,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
     </li>
 	<li><a href="javascript:check_softLevel(access_level.PERMS_OPERATOR,function(){
 	        loadContents(
-	            '/agility/console/frm_jueces.php',
+	            '../console/frm_jueces.php',
 	            '<?php _e('Judges Database Management');?>'
 	        );
 	    });"><?php _e('Judges'); ?>
@@ -391,21 +394,21 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 	<ul>
 	<li><a href="javascript:check_softLevel(access_level.PERMS_OPERATOR,function(){
 	        loadContents(
-	            '/agility/console/frm_pruebas.php',
+	            '../console/frm_pruebas.php',
 	            '<?php _e('Create and Edit Contests');?>'
 	        );
 	    });"><?php _e('Create Contests'); ?>
         </a>
     </li>
 	<li><a href="javascript:loadContents(
-	        '/agility/console/frm_inscripciones.php',
+	        '../console/frm_inscripciones.php',
 	        '<?php _e('Inscriptions - Contest selection');?>',
 	        {'s':'#selprueba-window'}
 	    );"><?php _e('Handle Inscriptions'); ?>
         </a>
     </li>
 	<li><a href="javascript:loadContents(
-	        '/agility/console/frm_competicion.php',
+	        '../console/frm_competicion.php',
 	        '<?php _e('Competition - Contest and Journey selection');?>'
 	    );"><?php _e('Running Contests'); ?>
         </a>
@@ -415,13 +418,13 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <li><?php _e('REPORTS'); ?>
 	<ul>
 	<li><a href="javascript:loadContents(
-	        '/agility/console/frm_clasificaciones.php',
+	        '../console/frm_clasificaciones.php',
 	        '<?php _e('Scores - Contest and Journey selection');?>'
 	        );"><?php _e('Scores'); ?>
         </a>
     </li>
 	<li><a href="javascript:loadContents(
-	        '/agility/console/frm_ligas.php',
+	        '../console/frm_ligas.php',
 	        '<?php _e('League Results for selected federation');?>'
 	    );"><?php _e('League Results'); ?>
         </a>
@@ -431,7 +434,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <li><?php _e('TOOLS'); ?>
 	<ul>
 	<li><a href="javascript:loadContents(
-	        '/agility/console/frm_admin.php',
+	        '../console/frm_admin.php',
 	        '<?php _e('Configuration');?>',
 	        {e:'#remote-dialog'}
 	    )"><?php _e('Configuration'); ?>
@@ -442,15 +445,15 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 </li>
 <li><?php _e('DOCUMENTATION'); ?>
 	<ul>
-	<li> <a target="documentacion" href="/agility/console/manual.html"><?php _e('OnLine Manual'); ?></a></li>
+	<li> <a target="documentacion" href="../console/manual.html"><?php _e('OnLine Manual'); ?></a></li>
 	<li> <a href="javascript:loadContents(
-	        '/agility/console/frm_registration.php',
+	        '../console/frm_registration.php',
 	        '<?php _e('License information');?>'
 	    )"><?php _e('License information'); ?>
         </a>
     </li>
 	<li> <a href="javascript:loadContents(
-	        '/agility/console/frm_about.php',
+	        '../console/frm_about.php',
 	        '<?php _e('About AgilityContest');?>...'
 	    )"><?php _e('About'); ?>...
         </a>

@@ -80,7 +80,7 @@ $config =Config::getInstance();
 			expansible: false,
 			collapsed: false,
 			title: '<?php _e('Clubs data management'); ?>' + ' - ' + fedName(workingData.federation),
-			url: '/agility/server/database/clubFunctions.php',
+			url: '../server/database/clubFunctions.php',
 			queryParams: { Operation: 'select', Federation: workingData.federation },
 			loadMsg: '<?php _e('Updating Clubs list'); ?>'+' ...',
 			method: 'get',
@@ -164,7 +164,7 @@ $config =Config::getInstance();
         	    // height: 'auto',
         		title: '<?php _e('Handlers belonging to club'); ?>'+' '+club.Nombre+ ' - '+fedName(workingData.federation),
         	    loadMsg: '<?php _e('Loading handlers list'); ?>' +' ....',
-        		url: '/agility/server/database/guiaFunctions.php',
+        		url: '../server/database/guiaFunctions.php',
         		queryParams: { 
             		Operation:'getbyclub',
             		Club: club.ID, 
@@ -256,7 +256,7 @@ $config =Config::getInstance();
         	    // height: 'auto',
         	    loadMsg: '<?php _e('Loading list of dogs'); ?>',
         		title: '<?php _e('Registered dogs belonging to'); ?>'+' '+guia.Nombre+' - '+fedName(workingData.federation),
-        		url: '/agility/server/database/dogFunctions.php',
+        		url: '../server/database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID, Federation: workingData.federation },
         		method: 'get',
         	    columns: [[

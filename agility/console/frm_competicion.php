@@ -30,7 +30,7 @@ $('#seljornada-window').window({
 	onClose: function(){
         // when no jornada selected load main menu
         if (parseInt(workingData.jornada)===0) {
-            loadContents("/agility/console/frm_main.php",'');
+            loadContents("../console/frm_main.php",'');
             return;
         }
 	    loadCompetitionWindow();

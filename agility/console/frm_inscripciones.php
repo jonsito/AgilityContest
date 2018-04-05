@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- background image -->
-<img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle"/>
+<img class="mainpage" src="../server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle"/>
 
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
 <div id="selprueba-window" style="position:relative;width:400px;height:auto;padding:20px 20px">
@@ -66,7 +66,7 @@ $('#selprueba-Search').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/pruebaFunctions.php?Operation=enumerate',
+	url: '../server/database/pruebaFunctions.php?Operation=enumerate',
 	method: 'get',
 	mode: 'remote',
 	required: true,
@@ -93,7 +93,7 @@ $('#selprueba-Search').combogrid({
 function acceptSelectPrueba() {
 	// si no hay ninguna prueba valida seleccionada aborta
 	var title="";
-	var page="/agility/console/frm_main.php";
+	var page="../console/frm_main.php";
 	var p=$('#selprueba-Search').combogrid('grid').datagrid('getSelected');
 	if (p==null) {
 		// indica error
@@ -117,7 +117,7 @@ function acceptSelectPrueba() {
         console.log("current:"+current+" from:"+rfrom+" to:"+rto);
 		setPrueba(p);
 		setFederation(p.RSCE);
-		page="/agility/console/frm_inscripciones2.php";
+		page="../console/frm_inscripciones2.php";
 		title='<?php _e("Inscriptions - Registering form");?>';
 	}
 	$('#selprueba-window').window('close');
@@ -132,7 +132,7 @@ function acceptSelectPrueba() {
 
 function cancelSelectPrueba() {
 	var title="";
-	var page="/agility/console/frm_main.php";
+	var page="../console/frm_main.php";
 	$('#selprueba-window').window('close');
 	loadContents(page,title);
 }

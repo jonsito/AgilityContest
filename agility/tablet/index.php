@@ -15,8 +15,8 @@
  You should have received a copy of the GNU General Public License along with this program;
  if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-header("Access-Control-Allow-Origin: https//{$_SERVER['SERVER_ADDR']}/agility",false);
-header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",false);
+// let the browser make https ajax calls from http
+header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}",false);
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 $config =Config::getInstance();
@@ -26,11 +26,11 @@ if( ! function_exists('openssl_get_publickey')) {
 	die("Invalid configuration: please uncomment line 'module=php_openssl.dll' in file '\\xampp\\php\\php.ini'");
 }
 
-/* Check operating system against requested protocol */
-if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
-    // en windows/android hay que usar https para que las cosas funcionen
-    if (!is_https()) die("You MUST use https protocol to access this application");
+/* Check for https protocol. Previous versions allowed http in linux. This is no longer true*/
+if (!is_https()) {
+    die("You MUST use https protocol to access this application");
 }
+
 /* check for properly installed xampp */
 if( ! function_exists('password_verify')) {
     die("Invalid environment: You should have php-5.5.X or higher version installed");
@@ -56,31 +56,31 @@ if ( $runmode === AC_RUNMODE_SLAVE ) { // in slave mode restrict access to publi
 <!-- try to disable zoom in tablet on double click -->
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no' name='viewport' />
 <title>AgilityContest (Tablet)</title>
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/tablet.css" />
-<script src="/agility/lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
-<script src="/agility/lib/jquery-easyui-1.4.2/locale/easyui-lang-<?php echo substr($config->getEnv('lang'),0,2);?>.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
+<link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
+<link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/datagrid.css" />
+<link rel="stylesheet" type="text/css" href="../css/tablet.css" />
+<script src="../lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
+<script src="../lib/jquery-easyui-1.4.2/locale/easyui-lang-<?php echo substr($config->getEnv('lang'),0,2);?>.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
 <?php if (toBoolean($config->getEnv('tablet_chrono'))) { ?>
-<script src="/agility/lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
 <?php } ?>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/admin.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/tablet/tablet.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/admin.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/events.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../tablet/tablet.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript" charset="utf-8">
 
@@ -216,7 +216,7 @@ $('#seltablet-Sesion').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/sessionFunctions.php',
+	url: '../server/database/sessionFunctions.php',
 	method: 'get',
 	mode: 'remote',
 	required: true,
@@ -252,7 +252,7 @@ $('#seltablet-Prueba').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/pruebaFunctions.php?Operation=enumerate',
+	url: '../server/database/pruebaFunctions.php?Operation=enumerate',
 	method: 'get',
 	mode: 'remote',
 	required: true,
@@ -277,7 +277,7 @@ $('#seltablet-Prueba').combogrid({
 		var j=$('#seltablet-Jornada');
 		if (p===null) return; // no selection
         if (parseInt(p.Inscritos) > parseInt(p.UserLimit)) {
-            var message='<img src="/agility/images/sad_dog.png" width="100" alt="sad dog" style="float:right;"/>'+
+            var message='<img src="../images/sad_dog.png" width="100" alt="sad dog" style="float:right;"/>'+
                 '<p style="font-weight:bold;"><?php _e('Current license permissions'); ?><br/> ' +
 				'<?php _e('does not allow handling of contests'); ?></br><?php _e('with more than'); ?> '+p.UserLimit+' <?php _e('inscriptions'); ?></p>';
             $.messager.alert({
@@ -301,7 +301,7 @@ $('#seltablet-Jornada').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/jornadaFunctions.php',
+	url: '../server/database/jornadaFunctions.php',
 	method: 'get',
 	mode: 'remote',
 	required: true,
@@ -368,7 +368,8 @@ function tablet_acceptSelectJornada() {
 	};
 	$.ajax({
 		type: 'POST',
-  		url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
+        // url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
+        url: '../server/database/userFunctions.php',
    		dataType: 'jsonp',
    		data: parameters,
    		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -392,20 +393,20 @@ function tablet_acceptSelectJornada() {
 						workingData.nombreJornada=j.Nombre;
                         workingData.datosJornada=j;
                         // jornadas "normales", equipos3 e Individual-Open comparten el mismo fichero
-        	    		var page="/agility/tablet/tablet_main.php";
+        	    		var page="../tablet/tablet_main.php";
         	    		if (parseInt(workingData.datosJornada.Equipos4)>1) {
-        	    			page="/agility/tablet/tablet_main.php"; // parche temporal
+        	    			page="../tablet/tablet_main.php"; // parche temporal
         	    		}
         	    		if (parseInt(workingData.datosJornada.KO)===1) {
         	    		    $.messager.alert("Not available yet","Tablet layout for KO rounds is not yet available<br/>Usin std one","info");
-                            // page="/agility/tablet/tablet_main_ko.php";
-                            page="/agility/tablet/tablet_main.php";
+                            // page="../tablet/tablet_main_ko.php";
+                            page="../tablet/tablet_main.php";
         	    		}
                         // load requested page
         	    		$('#tablet_contenido').load(	
         	    				page,
         	    				function(response,status,xhr){
-        	    					if (status==='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
+        	    					if (status==='error') $('#tablet_contenido').load('../frm_notavailable.php');
         	        	    		// start event manager
         	        	    		startEventMgr();
 									setDataEntryEnabled(false);

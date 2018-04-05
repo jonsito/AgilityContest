@@ -21,7 +21,7 @@ require_once(__DIR__ . "/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
-<img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="700" height="480" align="middle" />
+<img class="mainpage" src="../server/getRandomImage.php" alt="wallpaper" width="700" height="480" align="middle" />
 
 <!-- FORMULARIO DE introduccion de usuario y contrasenya -->
 <div id="myAdmin-window" style="position:relative;width:750px;height:auto;padding:10px 10px">

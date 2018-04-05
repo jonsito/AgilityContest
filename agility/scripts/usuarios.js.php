@@ -153,7 +153,7 @@ function savePassword() {
     $.ajax({
         type: 'GET',
     	// get server host name to compose https request
-        url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
+        url: '../server/database/userFunctions.php',
         data: {
         	Operation: 'password',
         	ID: 			id,
