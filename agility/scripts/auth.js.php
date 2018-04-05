@@ -31,16 +31,16 @@ $config =Config::getInstance();
 function showLoginWindow() {
 	if (typeof(ac_authInfo.SessionKey)==="undefined" || (ac_authInfo.SessionKey==null) ) {
 		$('#login-window').remove();
-		loadContents('/agility/console/frm_login.php','<?php _e('Init session');?>');
+		loadContents('../console/frm_login.php','<?php _e('Init session');?>');
 	} else {
 		$('#logout-window').remove();
-		loadContents('/agility/console/frm_logout.php','<?php _e('End session');?>');
+		loadContents('../console/frm_logout.php','<?php _e('End session');?>');
 	}
 }
 
 function showMyAdminWindow() {
 	$('#myAdmin-window').remove();
-	loadContents('/agility/console/frm_myAdmin.php','<?php _e('Direct database access');?>');
+	loadContents('../console/frm_myAdmin.php','<?php _e('Direct database access');?>');
 }
 
 function askForUpdateDB() {
@@ -163,7 +163,7 @@ function acceptLogout() {
 	var user=ac_authInfo.Login;
 	$.ajax({
 		type: 'POST',
-   		url: '/agility/server/database/userFunctions.php',
+   		url: '../server/database/userFunctions.php',
    		dataType: 'json',
    		data: {
    			Operation: 'logout',
@@ -195,7 +195,6 @@ function acceptLogout() {
 function checkPassword(user,pass,callback) {
 	$.ajax({
 		type: 'POST',
-        // url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
         url: '../server/database/userFunctions.php',
 		dataType: 'jsonp',
 		data: {

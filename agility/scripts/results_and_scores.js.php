@@ -33,7 +33,7 @@ function scores_emailEditJuez(index,row) {
             if (!r) return false;
             $.ajax({
                 type: 'GET',
-                url: '/agility/server/mailFunctions.php',
+                url: '../server/mailFunctions.php',
                 data: {
                     Prueba: workingData.prueba,
                     Federation: workingData.federation,
@@ -81,7 +81,7 @@ function emailClasificaciones(teams) {
  */
 function perform_downloadZip() {
     $.fileDownload(
-        "/agility/server/mailFunctions.php",
+        "../server/mailFunctions.php",
         {
             httpMethod: 'GET',
             data: {
@@ -125,7 +125,7 @@ function perform_emailScores() {
         cache: false,
         timeout: 30000, // 20 segundos
         type: 'POST',
-        url: "/agility/server/mailFunctions.php",
+        url: "../server/mailFunctions.php",
         dataType: 'json',
 
         data: {
@@ -369,7 +369,7 @@ function consoleReloadParcial(val,fill) {
     // una peticion ajax, para obtener a la vez los datos tecnicos de la manga
     $.ajax({
         type:'GET',
-        url:"/agility/server/database/resultadosFunctions.php",
+        url:"../server/database/resultadosFunctions.php",
         dataType:'json',
         data: {
             Operation:	(isJornadaEquipos(null))?'getResultadosIndividualyEquipos':'getResultadosIndividual',
@@ -433,7 +433,7 @@ function updateParciales(mode,row) {
     // y de los jueces
     $.ajax({
         type:'GET',
-        url:"/agility/server/database/resultadosFunctions.php",
+        url:"../server/database/resultadosFunctions.php",
         dataType:'json',
         data: {
             Operation:	(isJornadaEquipos(null))?'getResultadosIndividualyEquipos':'getResultadosIndividual',
@@ -481,7 +481,7 @@ function updateFinales(perro,ronda,callback) {
     // do not call doResults cause expected json data
     $.ajax({
         type:'GET',
-        url:"/agility/server/database/clasificacionesFunctions.php",
+        url:"../server/database/clasificacionesFunctions.php",
         dataType:'json',
         data: {
             Operation: (isJornadaEquipos(null))?'clasificacionEquipos':'clasificacionIndividual',

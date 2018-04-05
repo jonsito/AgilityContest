@@ -98,7 +98,7 @@ function parseEvent(data) {
 
 		$.ajax({
 			type: "GET",
-			url: "/agility/server/database/eventFunctions.php",
+			url: "../server/database/eventFunctions.php",
 			data: {
 				'Operation' : 'getEvents',
 				'ID'		: evtID,
@@ -125,7 +125,7 @@ function startEventMgr() {
     var sname=ac_clientOpts.BaseName+":"+ac_clientOpts.Ring+":"+ac_clientOpts.View+":"+ac_clientOpts.Mode+":"+ac_clientOpts.SessionName;
 	$.ajax({
 		type: "GET",
-		url: "/agility/server/database/eventFunctions.php",
+		url: "../server/database/eventFunctions.php",
 		data: {
 			'Operation' : 'connect',
 			'Session'	: workingData.sesion,

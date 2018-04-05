@@ -100,7 +100,7 @@ define('AC_LS_TOBEFIRST',1); // enable evaluate time to get first place ( comput
 /** personalizacion del videowall simplificado **/
 define('AC_VWS_POLLTIME',5);
 define('AC_VWS_USELOGO',5);
-define('AC_VWS_LOGOURL',"/agility/images/agilityawc2016.png");
+define('AC_VWS_LOGOURL',"../images/agilityawc2016.png");
 define('AC_VWS_ANIMATION',1);
 define('AC_VWS_FONT','futura_condensedbold');
 define('AC_VWS_FONTSIZE','2.5');
@@ -230,6 +230,7 @@ Class Config {
 		'email'				=> array(	's',	true,	"juansgaviota@gmail.com"),
         'license'			=> array(	's',	true,	"GPL"),
         'master_server'		=> array(	's',	true,	"www.agilitycontest.es"),
+        'master_baseurl'	=> array(	's',	true,	"agility"),
 
 		// entorno grafico
 		'easyui_theme'		=> array(	's',	false,	AC_EASYUI_THEME),
@@ -548,6 +549,7 @@ Class Config {
         unset($data['database_rpass']);
         unset($data['running_mode']);
         unset($data['master_server']);
+        unset($data['master_baseurl']);
 		return $data;
 	}
 	

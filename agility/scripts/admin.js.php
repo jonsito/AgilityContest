@@ -427,7 +427,7 @@ function askForUpgrade(msg,name,release){
                             return false;
                         }
                         $.messager.confirm("<?php _e('Upgrade');?>","<?php _e('Download complete. Press Acccept to start upgrade');?>",function(r){
-                            if (r) window.location='/agility/upgrade.php?sessionkey='+ac_authInfo.SessionKey;
+                            if (r) window.location='../upgrade.php?sessionkey='+ac_authInfo.SessionKey;
                         });
                     },
                     error: function(XMLHttpRequest,textStatus,errorThrown) {
@@ -471,7 +471,7 @@ function checkForDatabaseUpdates() {
     if (!checkForAdmin(true)) return; // not admin user
     // call server
     $.ajax({
-        url:"/agility/server/database/updater/updateRequest.php",
+        url:"../server/database/updater/updateRequest.php",
         dataType:'json',
         data: {
             Operation: 'checkForUpdates',
@@ -524,7 +524,7 @@ function synchronizeDatabase(warnifnotallowed) {
     });
     $.messager.progress('bar').progressbar({text: '{value}' }); // remove '%' sign at progress var
     $.ajax({
-        url:"/agility/server/database/updater/updateRequest.php",
+        url:"../server/database/updater/updateRequest.php",
         dataType:'json',
         data: {
             Operation: 'updateRequest',
@@ -566,7 +566,7 @@ function synchronizeDatabase(warnifnotallowed) {
     // en paralelo arrancamos una tarea para leer el progreso de la operacion
     function getProgress(){
         $.ajax({
-            url:"/agility/server/database/updater/updateRequest.php",
+            url:"../server/database/updater/updateRequest.php",
             dataType:'json',
             data: {
                 Operation: 'progress',

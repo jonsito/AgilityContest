@@ -36,14 +36,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <?php if ($combined==1) { ?>
             <!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
             <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted"
-                   loop="loop" poster="/agility/server/getRandomImage.php" style="width=100%;height:auto">
+                   loop="loop" poster="../server/getRandomImage.php" style="width=100%;height:auto">
                 <!-- http://guest:@192.168.122.168/videostream.cgi -->
                 <source id="vwls_videomp4" src="" type='video/mp4'/>
                 <source id="vwls_videoogv" src="" type='video/ogg'/>
                 <source id="vwls_videowebm" src="" type='video/webm'/>
             </video>
         <?php } else { ?>
-            <img src="/agility/server/getChromaKeyImage.php" style="z-index:-1;" />
+            <img src="../server/getChromaKeyImage.php" style="z-index:-1;" />
         <?php } ?>
 
         <div data-options="region:'east',split:false,border:false" style="width:5%;background-color:transparent;"></div>
@@ -54,7 +54,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <div id="vw_ordensalida-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader"
                       style="height:75px;font-size:1.0em;" >
                     <span style="float:left;background:rgba(255,255,255,0.5);">
-                        <img id="vw_header-logo" src="/agility/images/logos/agilitycontest.png" width="50"/>
+                        <img id="vw_header-logo" src="../images/logos/agilitycontest.png" width="50"/>
                     </span>
                     <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Header'); ?></span>
 

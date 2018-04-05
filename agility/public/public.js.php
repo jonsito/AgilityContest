@@ -48,7 +48,7 @@ function pb_getHeaderInfo(showJourney) {
             }
             $('#pb_header-infocabecera').html(str);
             // on international competitions, use federation Organizer logo
-            var logo='/agility/images/logos/'+data.Club.Logo;
+            var logo='../images/logos/'+data.Club.Logo;
             if ( (data.Club.logo==="") || isInternational(data.Prueba.RSCE)) {
                 logo=ac_fedInfo[data.Prueba.RSCE].OrganizerLogo
             }
@@ -62,7 +62,7 @@ function pb_setFooterInfo() {
     var logo2=ac_fedInfo[workingData.federation].ParentLogo;
     var url=ac_fedInfo[workingData.federation].WebURL;
     var url2=ac_fedInfo[workingData.federation].ParentWebURL;
-    $('#pb_footer-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
+    $('#pb_footer-footerData').load("../public/pb_footer.php",{},function(response,status,xhr){
         $('#pb_footer-logoFederation').attr('src',logo);
         $('#pb_footer-urlFederation').attr('href',url);
         $('#pb_footer-logoFederation2').attr('src',logo2);
@@ -148,7 +148,7 @@ function pb_setTrainingLayout(dg) {
 
 function send_Notification(msg){
     if ( !('serviceWorker' in navigator) ) { // si no tenemos service worker pero si notificaciones
-        return new Notification(msg,{icon: "/agility/images/logos/agilitycontest.png"});
+        return new Notification(msg,{icon: "../images/logos/agilitycontest.png"});
     }
     // si tenemos service worker enviamos mensaje con el texto a presentar
     return new Promise(function(resolve, reject){
@@ -285,7 +285,7 @@ function pbmenu_enableSystemNotifications() {
     // register service worker in client
     if('serviceWorker' in navigator){
         // Register service worker
-        navigator.serviceWorker.register('/agility/service-worker.js').then(function(reg){
+        navigator.serviceWorker.register('../service-worker.js').then(function(reg){
             console.log("SW registration succeeded. Scope is "+reg.scope);
         }).catch(function(err){
             alert("SW registration failed with error "+err);

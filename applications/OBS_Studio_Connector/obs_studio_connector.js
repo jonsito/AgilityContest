@@ -28,7 +28,7 @@ const querystring = require('querystring');
 const http = require('http');
 const OBSWebSocket = require('obs-websocket-js');
 const obs = new OBSWebSocket();
-
+const baseurl = "agility";
 // Video sources
 var videoSources = {
     ChromaKey : {
@@ -374,7 +374,7 @@ function event_parser(id,event) {
  * @return true on success; otherwise false
  */
 function connectServer(hostaddr,ring){
-    var url="http://"+hostaddr+"/agility/server/database/sessionFunctions.php?Operation=selectring";
+    var url="http://"+hostaddr+"/"+baseurl+"/server/database/sessionFunctions.php?Operation=selectring";
     var request = require('sync-request');
     try {
         var res = request('GET', url, {
@@ -463,7 +463,7 @@ function waitForEvents(evtID,timestamp){
         protocol: 'http:',
         hostname: ac_config.hostname,
         port: 80,
-        path: '/agility/server/database/eventFunctions.php',
+        path: '../server/database/eventFunctions.php',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -524,7 +524,7 @@ function startEventMgr() {
         protocol: 'http:',
         hostname: ac_config.hostname,
         port: 80,
-        path: '/agility/server/database/eventFunctions.php',
+        path: '../server/database/eventFunctions.php',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

@@ -106,7 +106,7 @@ $config =Config::getInstance();
         onBeforeOpen: function (){
             this.area=new nicEditor({
                 fullPanel : true,
-                iconsPath:'/agility/lib/nicEdit/nicEditorIcons.gif'
+                iconsPath:'../lib/nicEdit/nicEditorIcons.gif'
             }).panelInstance('scores_email-Contents');
             return true;
         },

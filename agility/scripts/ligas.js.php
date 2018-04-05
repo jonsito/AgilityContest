@@ -30,7 +30,7 @@ $config =Config::getInstance();
  */
 function ligas_loadLeagueData(perro,grado,callback) {
     $.ajax({
-        url: '/agility/server/database/ligaFunctions.php',
+        url: '../server/database/ligaFunctions.php',
         data: {
             Operation: (perro===0)?'shortData':'longData',
             Grado:  grado,

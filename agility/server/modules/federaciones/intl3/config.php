@@ -9,9 +9,9 @@ class INTL3 extends Federations {
             'Name'  => 'Intl-3',
             'LongName' => 'International Contest - 3 heights',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'        => '/agility/server/modules/federaciones/intl3/fciawc2016.png',
-            'Logo'        => '/agility/server/modules/federaciones/intl3/rsce.png',
-            'ParentLogo'  => '/agility/server/modules/federaciones/intl3/fci.png',
+            'OrganizerLogo'        => '../server/modules/federaciones/intl3/fciawc2016.png',
+            'Logo'        => '../server/modules/federaciones/intl3/rsce.png',
+            'ParentLogo'  => '../server/modules/federaciones/intl3/fci.png',
             'WebURL' => 'http://www.fci.org',
             'ParentWebURL' => 'http://www.fci.org',
             'Email' => 'info@fci.be',

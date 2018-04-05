@@ -114,7 +114,7 @@ function c_updateHeader() {
 		logo=ac_fedInfo[workingData.federation].Logo;
 		$('#chrono_LogoClub').attr('src',logo);
 	} else { // en pruebas "nacionales" se pone el logo del club organizador
-		$('#chrono_LogoClub').attr('src',"/agility/images/logos/"+logo);
+		$('#chrono_LogoClub').attr('src',"../images/logos/"+logo);
 	}
 	$('#chrono_PruebaLbl').html( pru + ' - ' + jor + ' - ' + mng );
 	$('#chrono_Club').html(club);
@@ -145,7 +145,7 @@ function c_updateDataFromChrono(data) {
 }
 
 function c_clearData(event) {
-	$('#chrono_Logo').attr("src","/agility/images/logos/agilitycontest.png");
+	$('#chrono_Logo').attr("src","../images/logos/agilitycontest.png");
 	$('#chrono_Dorsal').html("<?php _e('Dors');?>: " );
 	$('#chrono_Nombre').html("<?php _e('Name');?>: ");
 	$('#chrono_NombreGuia').html("<?php _e('Hndlr');?>: ");
@@ -239,7 +239,7 @@ function c_showData(data) {
 			cache: false,
 			dataType: 'json',
 			success: function(res){
-				$('#chrono_Logo').attr("src","/agility/images/logos/"+res['LogoClub']);
+				$('#chrono_Logo').attr("src","../images/logos/"+res['LogoClub']);
 				$('#chrono_Dorsal').html("<?php _e('Dors');?>: "+dorsal );
 				$('#chrono_Nombre').html(res["Nombre"]);
 				$('#chrono_Perro').html(res["ID"]);

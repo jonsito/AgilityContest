@@ -64,7 +64,7 @@ function newPrueba(dg,def,onAccept){
 function hasInscripciones(id,callback) {
     $.ajax({
         type: 'GET',
-        url: '/agility/server/database/inscripcionFunctions.php',
+        url: '../server/database/inscripcionFunctions.php',
         data: { Operation: 'howmany', Prueba: id },
         dataType: 'json',
         // beforeSend: function(jqXHR,settings){ return frm.form('validate'); },
@@ -104,7 +104,7 @@ function savePrueba() {
     function real_save() {
         $.ajax({
             type: 'GET',
-            url: '/agility/server/database/pruebaFunctions.php',
+            url: '../server/database/pruebaFunctions.php',
             data: frm.serialize(),
             dataType: 'json',
             // beforeSend: function(jqXHR,settings){ return frm.form('validate'); },
@@ -185,7 +185,7 @@ function deletePrueba(dg){
     		'<?php _e("<p>By deleting this contest <b>youll loose</b> every associated data and scores"); ?>' +
     		"</p><p><?php _e('Do you really want to delete this contest'); ?>?</p>",function(r){
         if (r){
-            $.get('/agility/server/database/pruebaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+            $.get('../server/database/pruebaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
                     $(dg).datagrid('unselectAll').datagrid('reload');    // reload the prueba data
                 } else {
@@ -198,7 +198,7 @@ function deletePrueba(dg){
 
 function exportPrueba(dg) {
     var row = $(dg).datagrid('getSelected');
-    var url='/agility/server/excel/excelWriterFunctions.php';
+    var url='../server/excel/excelWriterFunctions.php';
     if (!row) {
         $.messager.alert('<?php _e("Export error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
         return; // no way to know which prueba is selected
@@ -226,7 +226,7 @@ function pruebas_emailEditClub(index,row) {
             if (!r) return false;
             $.ajax({
                 type: 'GET',
-                url: '/agility/server/mailFunctions.php',
+                url: '../server/mailFunctions.php',
                 data: {
                     Prueba: workingData.prueba,
                     Federation: workingData.federation,
@@ -294,7 +294,7 @@ function prueba_clearSentMark() {
             function(r){
             if (!r) return false;
             $.get(
-                '/agility/server/mailFunctions.php',
+                '../server/mailFunctions.php',
                 {Operation:'clearsent',Prueba:workingData.prueba,Federation:workingData.federation},
                 function(result){
                     if (result.success){
@@ -345,7 +345,7 @@ function perform_emailPrueba() {
             cache: false,
             timeout: 30000, // 20 segundos
             type:'POST',
-            url:"/agility/server/mailFunctions.php",
+            url:"../server/mailFunctions.php",
             dataType:'json',
             data: {
                 Prueba: workingData.prueba,
@@ -380,7 +380,7 @@ function perform_emailPrueba() {
         cache: false,
         timeout: 30000, // 20 segundos
         type:'POST',
-        url:"/agility/server/mailFunctions.php",
+        url:"../server/mailFunctions.php",
         dataType:'json',
         data: {
             Prueba: workingData.prueba,
@@ -456,7 +456,7 @@ function closeJornadaFromPrueba(datagridID,event) {
     	    	if(r) {
                     $.messager.progress({title:'',text:'<?php _e("Processing");?>...'});
     	            $.get(
-    	                '/agility/server/database/jornadaFunctions.php',
+    	                '../server/database/jornadaFunctions.php',
                         {Operation:'close',ID:row.ID,Mode:mode},
                         function(result){
     	                    $.messager.progress('close');
@@ -521,7 +521,7 @@ function saveJornada(){
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',
-        url: '/agility/server/database/jornadaFunctions.php',
+        url: '../server/database/jornadaFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {

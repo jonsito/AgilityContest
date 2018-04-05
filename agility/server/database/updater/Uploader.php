@@ -117,13 +117,14 @@ class Uploader {
      */
     function sendJSONRequest($data,$serial) {
         $server=$this->myConfig->getEnv("master_server");
+        $baseurl=$this->myConfig->getEnv("master_baseurl");
         $checkcert= ($server==="localhost")?false:true; // do not verify cert on localhost
         $args=array(
             "Operation" => $data['Operation'],
             "Serial" => $serial,
             "timestamp" => $data['timestamp']
         );
-        $url = "http://{$server}/agility/server/database/updater/updateRequest.php?". http_build_query($args);
+        $url = "http://{$server}/{$baseurl}/server/database/updater/updateRequest.php?". http_build_query($args);
         // PENDING: add license info and some sec/auth issues
         $postdata=array(
             'Data' => json_encode($data)

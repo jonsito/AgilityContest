@@ -32,7 +32,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<div id="chrono_common" style="font-size:2.0em;display:inline-block;width:100%">
 			<!-- logotipo del club organizador -->
 			<span id="chrono_Club" style="display:none" ></span>
-			<img id="chrono_LogoClub" alt="Logo" src="/agility/images/logos/agilitycontest.png" width="80" height="80" class="chrono_logo"/>
+			<img id="chrono_LogoClub" alt="Logo" src="../images/logos/agilitycontest.png" width="80" height="80" class="chrono_logo"/>
 			<!-- Recuadros de decoracion -->
 			<span class="chrono_fondo chrono_flogo" id="chrono_LogoClubBg">&nbsp;</span>
 			<span class="chrono_fondo chrono_fheader" id="chrono_PruebaBg">&nbsp;</span>
@@ -63,7 +63,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span class="chrono_flags" id="chrono_Reconocimiento"></span>
 			<span class="chrono_tiempo" id="chrono_Tiempo">00.00</span>
 			<!-- Informacion del participante -->
-			<img id="chrono_Logo" alt="Logo" src="/agility/images/logos/agilitycontest.png" width="80" height="80" class="chrono_logo"/>
+			<img id="chrono_Logo" alt="Logo" src="../images/logos/agilitycontest.png" width="80" height="80" class="chrono_logo"/>
 			<span class="chrono_info" id="chrono_Dorsal"><?php _e('Dorsal');?></span>
 			<span class="chrono_info" id="chrono_Nombre"><?php _e('Dog');?></span>
 			<span class="chrono_info" id="chrono_NombreGuia"><?php _e('Handler');?></span>

@@ -90,7 +90,7 @@ function saveJuez(){
     $('#jueces-Federations').val(fed);
     $.ajax({
         type: 'GET',
-        url: '/agility/server/database/juezFunctions.php',
+        url: '../server/database/juezFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -120,7 +120,7 @@ function deleteJuez(dg){
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete data on judge'); ?>'+':'+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
-        $.get('/agility/server/database/juezFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('../server/database/juezFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
                 $(dg).datagrid('unselectAll').datagrid('reload');    // reload the juez data
             } else {

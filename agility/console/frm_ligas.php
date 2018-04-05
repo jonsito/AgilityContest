@@ -59,7 +59,7 @@ $am=new AuthManager("Ligas");
 
 <div id="ligas-notallowed">
     <p><strong><?php _e('Current license permissions<br/> do not allow league scoring operations');?></strong></p>
-    <img src="/agility/images/sad_dog.png" alt="triste"/>
+    <img src="../images/sad_dog.png" alt="triste"/>
 </div>
 
 <div id="ligas-tab" style="padding:5px;display:<?php echo $am->allowed(ENABLE_LEAGUES)?'inherit':'none';?>">

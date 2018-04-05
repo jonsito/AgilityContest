@@ -34,7 +34,7 @@ var vwsCounter = new Countdown({
 });
 
 function vws_animation(img) { // happy, excused
-    var image="/agility/videowall/"+img+"dog.gif";
+    var image="../videowall/"+img+"dog.gif";
     $.messager.show({
         msg:'<img src="'+image+'" height="100%"/>',
         showType:'fade',
@@ -53,7 +53,7 @@ function vws_animation(img) { // happy, excused
 function vws_trainingPopulate(idx) {
     $.ajax({
         type: 'POST',
-        url: '/agility/server/database/trainingFunctions.php',
+        url: '../server/database/trainingFunctions.php',
         dataType: 'json',
         data: {
             Operation: 'window',
@@ -349,7 +349,7 @@ function vwsp_updateHeader(mode,data) {
 function vws_setFinalIndividualOrTeamView(data) {
     var team=isJornadaEquipos(data.Jornada);
     // cargamos la pagina adecuada en funcion del tipo de evento
-    var page='/agility/videowall/'+((team==true)?'vws_final_equipos.php':'vws_final_individual.php');
+    var page='../videowall/'+((team==true)?'vws_final_equipos.php':'vws_final_individual.php');
     $('#vws-window').window('refresh',page);
 }
 
@@ -360,7 +360,7 @@ function vws_setFinalIndividualOrTeamView(data) {
 function vws_setPartialIndividualOrTeamView(data) {
     var team=isJornadaEquipos(data.Jornada);
     // cargamos la pagina adecuada en funcion del tipo de evento
-    var page='/agility/videowall/'+((team==true)?'vws_parcial_equipos.php':'vws_parcial_individual.php');
+    var page='../videowall/'+((team==true)?'vws_parcial_equipos.php':'vws_parcial_individual.php');
     $('#vws-window').window('refresh',page);
 }
 
@@ -417,7 +417,7 @@ function vws_updateLlamada(evt,data,callback) {
     $.ajax( {
         type: "GET",
         dataType: 'json',
-        url: "/agility/server/web/videowallFunctions.php",
+        url: "../server/web/videowallFunctions.php",
         data: {
             Operation: (team)?'teamwindow':'window',
             Before: 2,
@@ -494,7 +494,7 @@ function vws_updateFinales(perro,data) {
     // buscamos clasificaciones
     $.ajax({
         type: 'GET',
-        url: "/agility/server/database/clasificacionesFunctions.php",
+        url: "../server/database/clasificacionesFunctions.php",
         dataType: 'json',
         data: {
             Operation: (team) ? 'clasificacionEquipos' : 'clasificacionIndividual',
@@ -605,7 +605,7 @@ function vws_updateParciales(data) {
     // buscamos resultados parciales de la manga
     $.ajax({
             type:'GET',
-            url:"/agility/server/database/resultadosFunctions.php",
+            url:"../server/database/resultadosFunctions.php",
             dataType:'json',
             data: {
             Operation:	(isJornadaEquipos(null))?'getResultadosIndividualyEquipos':'getResultadosIndividual',

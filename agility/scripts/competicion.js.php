@@ -32,7 +32,7 @@ $config =Config::getInstance();
 function loadCompetitionWindow() {
     // default values for titles, page-to-load and need-to-close dialogs
     var extra="";
-    var page="/agility/console/frm_competicion2.php?tipo=std";
+    var page="../console/frm_competicion2.php?tipo=std";
     var dialogs={
         'e':'#entrenamientos-dialog',
         't':'#ordentandas-dialog',
@@ -44,27 +44,27 @@ function loadCompetitionWindow() {
         'os':'#ordensalida-excel-dialog'
     };
     if (parseInt(workingData.datosJornada.Equipos3)!==0) {
-        page="/agility/console/frm_competicion2.php?tipo=eq3";
+        page="../console/frm_competicion2.php?tipo=eq3";
         extra=" ( <?php _e('Teams 3');?> )";
         // use default dialogs
     }
     if (parseInt(workingData.datosJornada.Equipos4)!==0) {
-        page="/agility/console/frm_competicion2.php?tipo=eq4";
+        page="../console/frm_competicion2.php?tipo=eq4";
         extra=" ( <?php _e('Teams 4');?> )";
         // use default dialogs
     }
     if (parseInt(workingData.datosJornada.Open)!==0) {
         // an Individual - Open Contest is like a normal with no Grades but only categories
-        page="/agility/console/frm_competicion2.php?tipo=open";
+        page="../console/frm_competicion2.php?tipo=open";
         extra=" ( <?php _e('Individual');?> )";
     }
     if (parseInt(workingData.datosJornada.KO)!==0) {
-        page="/agility/console/frm_competicion2.php?tipo=ko";
+        page="../console/frm_competicion2.php?tipo=ko";
         extra=" ( <?php _e('K.O. Rounds');?> )";
     }
     if (parseInt(workingData.datosJornada.Games)!==0) { // number shows how many rounds for series
         var t=parseInt(workingData.datosJornada.Tipo_Competicion);
-        page="/agility/console/frm_competicion2.php?tipo=games&mode="+t;
+        page="../console/frm_competicion2.php?tipo=games&mode="+t;
         if (t===1) extra=" ( <?php _e('WAO / Penthatlon');?> )";
         if (t===2) extra=" ( <?php _e('WAO / Biathlon');?> )";
         if (t===3) extra=" ( <?php _e('WAO / Games');?> )";
@@ -506,10 +506,10 @@ function reload_manga(id) {
 }
 
 function open_clasificaciones() {
-    var page="/agility/console/frm_clasificaciones2.php";
-    if (isJornadaEquipos(null)) page="/agility/console/frm_clasificaciones_equipos.php";
-    if (parseInt(workingData.datosJornada.Open)!==0) page="/agility/console/frm_clasificaciones2.php";
-    if (parseInt(workingData.datosJornada.KO)!==0) page="/agility/console/resultados_ko.php";
+    var page="../console/frm_clasificaciones2.php";
+    if (isJornadaEquipos(null)) page="../console/frm_clasificaciones_equipos.php";
+    if (parseInt(workingData.datosJornada.Open)!==0) page="../console/frm_clasificaciones2.php";
+    if (parseInt(workingData.datosJornada.KO)!==0) page="../console/resultados_ko.php";
     $('#competicion_info').panel('close');
     loadContents(page,'<?php _e('Results & Scores');?>');
     return false;
@@ -1373,11 +1373,11 @@ function resultados_doSelectRonda(row) {
     } else {
         var page="";
         if ( (parseInt(workingData.datosJornada.Games)!==0) && parseInt(workingData.datosCompeticion.ModuleID)===3) {
-            page="/agility/lib/templates/final_games.inc.php";
+            page="../lib/templates/final_games.inc.php";
         } else {
             var nmangas=0;
             for(n=8;n>0;n--) if (row['Manga'+n]!=0) {nmangas=n; break } // numero de mangas
-            page="/agility/lib/templates/final_individual.inc.php?NumMangas="+nmangas;
+            page="../lib/templates/final_individual.inc.php?NumMangas="+nmangas;
         }
         $('#resultados-data').load(page,
             function() {

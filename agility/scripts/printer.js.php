@@ -503,7 +503,7 @@ function print_commonDesarrollo(def,cb) {
 function clasificaciones_printPodium() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='../server/pdf/print_podium.php';
-    if (isJornadaEquipos()) url='/agility/server/pdf/print_podium_equipos.php';
+    if (isJornadaEquipos()) url='../server/pdf/print_podium_equipos.php';
 	if (ronda==null) {
     	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");
     	return false; // no way to know which ronda is selected
@@ -539,7 +539,7 @@ function clasificaciones_printCanina() {
 	
 	// Server-side excel generation
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
-	var url='/agility/server/pdf/print_clasificacion_excel.php';
+	var url='../server/pdf/print_clasificacion_excel.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	if (ronda==null) {
     	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");
@@ -579,8 +579,8 @@ function clasificaciones_printCanina() {
  */
 function clasificaciones_printEtiquetas(flag,start,list) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
-	var url='/agility/server/pdf/print_etiquetas_csv.php';
-	if (flag!=0) url='/agility/server/pdf/print_etiquetas_pdf.php';
+	var url='../server/pdf/print_etiquetas_csv.php';
+	if (flag!=0) url='../server/pdf/print_etiquetas_pdf.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	var strt=parseInt(start)-1;
 	if (ronda==null) {
@@ -615,9 +615,9 @@ function clasificaciones_printEtiquetas(flag,start,list) {
  */
 function clasificaciones_printClasificacion() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
-	var url='/agility/server/pdf/print_clasificacion.php';
-    if (isJornadaEqMejores()) url='/agility/server/pdf/print_clasificacion_equipos.php';
-    if (isJornadaEqConjunta()) url='/agility/server/pdf/print_clasificacion_equipos.php';
+	var url='../server/pdf/print_clasificacion.php';
+    if (isJornadaEqMejores()) url='../server/pdf/print_clasificacion_equipos.php';
+    if (isJornadaEqConjunta()) url='../server/pdf/print_clasificacion_equipos.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	if (ronda==null) {
         $.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");
@@ -694,7 +694,7 @@ function printLeague() {
     var tab=tt.tabs('getSelected');
     var index=tt.tabs('getTabIndex',tab);
     $.fileDownload(
-        '/agility/server/pdf/print_ligas.php',
+        '../server/pdf/print_ligas.php',
         {
             httpMethod: 'GET',
             data: {
@@ -715,7 +715,7 @@ function printLeagueByDog() {
     // PENDING: add pdf/excel selector
 
     $.fileDownload(
-        '/agility/server/pdf/print_ligas.php',
+        '../server/pdf/print_ligas.php',
         {
             httpMethod: 'GET',
             data: {

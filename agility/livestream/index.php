@@ -58,28 +58,28 @@ try {
 		GNU General Public License as published by the Free Software Foundation; either version 2 of the License, 
 		or (at your option) any later version." />
 <title>AgilityContest (LiveStream)</title>
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/livestream_css.php" />
-<link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
-<script src="/agility/lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" ></script>
-<script src="/agility/lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/livestream/livestream.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/videowall/videowall.js.php" type="text/javascript" charset="utf-8" > </script>
+<link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
+<link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/datagrid.css" />
+<link rel="stylesheet" type="text/css" href="../css/livestream_css.php" />
+<link rel="stylesheet" type="text/css" href="../css/videowall_css.php" />
+<script src="../lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" ></script>
+<script src="../lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/events.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../livestream/livestream.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../videowall/videowall.js.php" type="text/javascript" charset="utf-8" > </script>
 
 
     <style>
@@ -268,7 +268,7 @@ $('#selvw-Session').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/sessionFunctions.php',
+	url: '../server/database/sessionFunctions.php',
 	method: 'get',
 	mode: 'remote',
 	required: true,
@@ -320,28 +320,28 @@ function ls_accept() {
 	workingData.nombreSesion=s.Nombre;
 	initWorkingData(s.ID,livestream_eventManager);
 
-	var page="'/agility/console/frm_notavailable.php";
+	var page="'../console/frm_notavailable.php";
 	var title="LiveStream : " + ac_clientOpts.SessionName + " ";
 	var n=parseInt($('#selvw-Vista').combobox('getValue'));
 	switch (n) {
 		case 0: // Starting order
-			page = "/agility/livestream/vwls_ordensalida.php?combined="+ac_config.vw_combined;
+			page = "../livestream/vwls_ordensalida.php?combined="+ac_config.vw_combined;
 			title +="( Overlay - "+combinedstr+" )";
 			break;
 		case 1: // On Screen Display
-			page = "/agility/livestream/vwls_osdvideo.php?combined="+ac_config.vw_combined;
+			page = "../livestream/vwls_osdvideo.php?combined="+ac_config.vw_combined;
 			title +="( OSD info - "+combinedstr+" )";
 			break;
 		case 2: // Resultados Parciales
-			page = "/agility/livestream/vwls_parciales.php?combined="+ac_config.vw_combined;
+			page = "../livestream/vwls_parciales.php?combined="+ac_config.vw_combined;
 			title +="( Starting order - "+combinedstr+" )";
 			break;
 		case 3: // Resultados finales
-			page = "/agility/livestream/vwls_finales.php?combined="+ac_config.vw_combined;
+			page = "../livestream/vwls_finales.php?combined="+ac_config.vw_combined;
 			title +="( Overlay - "+combinedstr+" )";
 			break;
 		case 4: // sesion de entrenamientos
-			page = "/agility/livestream/vwls_entrenamientos.php?combined="+ac_config.vw_combined;
+			page = "../livestream/vwls_entrenamientos.php?combined="+ac_config.vw_combined;
 			title +="( Overlay - "+combinedstr+" )";
 			break;
 	}
@@ -351,7 +351,7 @@ function ls_accept() {
 			function(response,status,xhr){
 				document.title=title;
 				if (status==='error') {
-					$('#vw_contenido').load('/agility/console/frm_notavailable.php');
+					$('#vw_contenido').load('../console/frm_notavailable.php');
 					return;
 				}
 				if (ac_config.vw_combined===0) return; // do not embedd video, just declare chroma key

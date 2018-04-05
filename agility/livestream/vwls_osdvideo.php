@@ -38,14 +38,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php if ($combined==1) { ?>
 		<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
             <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted"
-                   loop="loop" poster="/agility/server/getRandomImage.php" style="width=100%;height:auto">
+                   loop="loop" poster="../server/getRandomImage.php" style="width=100%;height:auto">
                 <!-- http://guest:@192.168.122.168/videostream.cgi -->
                 <source id="vwls_videomp4" src="" type='video/mp4'/>
                 <source id="vwls_videoogv" src="" type='video/ogg'/>
                 <source id="vwls_videowebm" src="" type='video/webm'/>
             </video>
 <?php } else { ?>
-		<img src="/agility/server/getChromaKeyImage.php" style="z-index:-1;" />
+		<img src="../server/getChromaKeyImage.php" style="z-index:-1;" />
 <?php } ?>
 		<div id="osd_common" style="display:inline-block;width:100%;">
 
@@ -85,7 +85,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<!-- call to ring order number (first:1) -->
 				<span class="vwls_label vwls_dorsal" id="vwls_Numero"><?php _e('Number'); ?></span>
 				<!-- logogipo -->
-				<img id="vwls_Logo" alt="Logo" src="/agility/images/logos/agilitycontest.png" width="70" height="70" class="vwls_logo"/>
+				<img id="vwls_Logo" alt="Logo" src="../images/logos/agilitycontest.png" width="70" height="70" class="vwls_logo"/>
 				<span class="vwls_label" id="vwls_Dorsal"><?php _e('Dorsal'); ?></span>
 				<span class="vwls_label" id="vwls_Nombre"><?php _e('Name'); ?></span>
 				<span class="vwls_label" id="vwls_NombreGuia"><?php _e('Handler'); ?></span>

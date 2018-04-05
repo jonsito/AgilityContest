@@ -64,60 +64,60 @@ input.tablet_info {
 }
 
 .tb_falta {
-	background: #a0a0a0 url(/agility/images/falta.png) no-repeat center;
+	background: #a0a0a0 url(../images/falta.png) no-repeat center;
 	background-size: contain;
 }
 
 .tb_rehuse {
-	background: #a0a0a0 url(/agility/images/rehuse.png) no-repeat center;
+	background: #a0a0a0 url(../images/rehuse.png) no-repeat center;
 	background-size: contain;
 	font-size: 2.80vw;
 }
 
 .tb_tocado {
-	background: #a0a0a0 url(/agility/images/tocado.png) no-repeat center;
+	background: #a0a0a0 url(../images/tocado.png) no-repeat center;
 	background-size: contain;
 	font-size: 2.80vw;
 }
 
 .tb_eliminado {
-	background: #ff0000 url(/agility/images/eliminado.png) no-repeat center;
+	background: #ff0000 url(../images/eliminado.png) no-repeat center;
 	background-size: contain;
 	font-size: 1.8vw;
 }
 
 .tb_nopresentado {
-	background: #a0a000 url(/agility/images/nopresentado.png) no-repeat center;
+	background: #a0a000 url(../images/nopresentado.png) no-repeat center;
 	background-size: contain;
 	font-size: 1.6vw;
 }
 
 .tb_salida {
-	background: #8080f0 url(/agility/images/silbato.png) no-repeat center;
+	background: #8080f0 url(../images/silbato.png) no-repeat center;
 	background-size: contain;
 	font-size: 2.0vw;
 }
 
 .tb_reset {
-	background: #0000ff url(/agility/images/reset.png) no-repeat center;
+	background: #0000ff url(../images/reset.png) no-repeat center;
 	background-size: contain;
 	font-size: 2.0vw;
 }
 
 .tb_crono {
-	background: #00a0a0 url(/agility/images/crono.png) no-repeat center;
+	background: #00a0a0 url(../images/crono.png) no-repeat center;
 	background-size: contain;
 	font-size: 1.75vw;
 }
 
 .tb_accept {
-	background: #00a000 url(/agility/images/dog_accept.png) no-repeat center;
+	background: #00a000 url(../images/dog_accept.png) no-repeat center;
 	background-size: contain;
 	font-size: 2.0vw;
 }
 
 .tb_cancel {
-	background: #f0a0a0 url(/agility/images/dog_cancel.png) no-repeat center;
+	background: #f0a0a0 url(../images/dog_cancel.png) no-repeat center;
 	background-size: contain;
 	font-size: 1.6vw;
 }

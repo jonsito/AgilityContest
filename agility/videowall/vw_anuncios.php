@@ -31,7 +31,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="vw_anuncios-window">
         <video id="vw_video" autoplay="autoplay" preload="auto" muted="muted"
-               loop="loop" poster="/agility/server/getRandomImage.php" style="width=100%;height:auto">
+               loop="loop" poster="../server/getRandomImage.php" style="width=100%;height:auto">
             <!-- http://guest:@192.168.122.168/videostream.cgi -->
             <source id="vw_videomp4" src="" type='video/mp4'/>
             <source id="vw_videoogv" src="" type='video/ogg'/>

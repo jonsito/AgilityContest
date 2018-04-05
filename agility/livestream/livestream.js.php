@@ -198,7 +198,7 @@ function vwls_showData(data) {
 		var perro=res['Nombre']; // may contain "Test dog"
 		if (perro!=="<?php _e('Test dog');?>") perro= useLongNames()? perro+" - "+res['NombreLargo'] : perro;
 		$('#vwls_Nombre').html(perro.substr(0,40)); // limit length to avoid overflow assigned space
-		$('#vwls_Logo').attr("src","/agility/images/logos/getLogo.php?Federation="+res['Federation']+"&Logo="+res['LogoClub']);
+		$('#vwls_Logo').attr("src","../images/logos/getLogo.php?Federation="+res['Federation']+"&Logo="+res['LogoClub']);
 		$('#vwls_NombreGuia').html(res["NombreGuia"]);
 		$('#vwls_Cat').html(res["Categoria"]);
 		$('#vwls_Categoria').html(toLongCategoria(res["Categoria"],res['Federation']));
@@ -229,7 +229,7 @@ function vwls_showData(data) {
 			// Busca datos adicionales
 			$.ajax({
 				type: "GET",
-				url: "/agility/server/database/dogFunctions.php",
+				url: "../server/database/dogFunctions.php",
 				data: {
 					'Operation' : 'getbyidperro',
 					'ID'	: data['Perro'],
@@ -273,7 +273,7 @@ function vwls_displayToBeFirst(perro) {
     if (workingData.nombreRonda==="") return; // no info on round yet. cannot evaluate
 	$.ajax({
 		type: 'GET',
-		url: "/agility/server/database/clasificacionesFunctions.php",
+		url: "../server/database/clasificacionesFunctions.php",
 		dataType: 'json',
 		data: {
 			Operation: 'clasificacionIndividual',
@@ -333,7 +333,7 @@ function vwls_displayPuesto(flag,time) {
 
 function livestream_switchConsole(event) {
     var data=event['Value'].split(':');// ring : view : mode
-    var url="/agility/livestream/index.php?Ring="+data[0]+"&View="+data[1]+"&Mode="+data[2]+"&Timeout=2&SessionName="+ac_clientOpts.SessionName;
+    var url="../livestream/index.php?Ring="+data[0]+"&View="+data[1]+"&Mode="+data[2]+"&Timeout=2&SessionName="+ac_clientOpts.SessionName;
     window.location.replace(url);
 }
 

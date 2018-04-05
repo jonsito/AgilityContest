@@ -60,7 +60,7 @@ function saveInscripcion(close) {
     if (!frm.form('validate')) return;
     $.ajax({
         type: 'GET',
-        url: '/agility/server/database/inscripcionFunctions.php',
+        url: '../server/database/inscripcionFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -95,7 +95,7 @@ function deleteInscripcion() {
 				if (r){
 					$.get(
 						// URL
-						'/agility/server/database/inscripcionFunctions.php',
+						'../server/database/inscripcionFunctions.php',
 						// arguments
 						{ 
 							Operation:'delete',
@@ -140,7 +140,7 @@ function insertInscripcion(dg) {
 			cache: false,
 			timeout: 20000, // 20 segundos
 			type:'GET',
-			url:"/agility/server/database/inscripcionFunctions.php",
+			url:"../server/database/inscripcionFunctions.php",
 			dataType:'json',
 			data: {
 				Prueba: workingData.prueba,
@@ -181,7 +181,7 @@ function reorderInscripciones(idprueba) {
         cache: false,
         timeout: 60000, // 60 segundos
 		type:'GET',
-		url:"/agility/server/database/inscripcionFunctions.php",
+		url:"../server/database/inscripcionFunctions.php",
 		dataType:'json',
 		data: {
 			Prueba: idprueba,
@@ -213,7 +213,7 @@ function clearJourneyInscriptions(current){
         cache: false,
         timeout: 60000, // 60 segundos
         type:'GET',
-        url:"/agility/server/database/inscripcionFunctions.php",
+        url:"../server/database/inscripcionFunctions.php",
         dataType:'json',
         data: {
             Prueba: row.Prueba,
@@ -247,7 +247,7 @@ function inscribeAllIntoJourney(current){
         cache: false,
         timeout: 60000, // 60 segundos
         type:'GET',
-        url:"/agility/server/database/inscripcionFunctions.php",
+        url:"../server/database/inscripcionFunctions.php",
         dataType:'json',
         data: {
             Prueba: row.Prueba,
@@ -277,7 +277,7 @@ function inscribeSelectedIntoJourney(current){
             cache: false,
             timeout: 60000, // 60 segundos
             type:'GET',
-            url:"/agility/server/database/inscripcionFunctions.php",
+            url:"../server/database/inscripcionFunctions.php",
             dataType:'json',
             data: {
                 Prueba: row.Prueba,
@@ -322,7 +322,7 @@ function inscribeSelectedIntoJourney(current){
             // update journey info
             $.ajax({
                 type: 'GET',
-                url: '/agility/server/database/jornadaFunctions.php',
+                url: '../server/database/jornadaFunctions.php',
                 data: journey,
                 dataType: 'json',
                 success: function (result) {
@@ -363,7 +363,7 @@ function setDorsal() {
 				cache: false,
 				timeout: 60000, // 60 segundos
 				type:'GET',
-				url:"/agility/server/database/inscripcionFunctions.php",
+				url:"../server/database/inscripcionFunctions.php",
 				dataType:'json',
 				data: {
 					Prueba: row.Prueba,
@@ -418,7 +418,7 @@ function importExportInscripciones() {
             if (opt==2) club=0;
             if (opt!=3) { // export
                 $.fileDownload(
-                    '/agility/server/excel/excelWriterFunctions.php',
+                    '../server/excel/excelWriterFunctions.php',
                     {
                         httpMethod: 'GET',
                         data: {	'Operation':'Inscripciones','Prueba': workingData.prueba, 'Club': club },
@@ -443,7 +443,7 @@ function importExportInscripciones() {
 		valueField:'ID',
 		textField:'Nombre',
 		mode:'remote',
-		url:'/agility/server/database/clubFunctions.php',
+		url:'../server/database/clubFunctions.php',
 		queryParams: {
 			Operation:	'enumerate',
 			Combo:	1,
@@ -488,7 +488,7 @@ function printInscripciones() {
 			var sort= dg.datagrid('options').sortName;
 			if ( (sort==null) || (sort=="" )) { order=""; sort=""; }
 			$.fileDownload(
-				'/agility/server/pdf/print_inscritosByPrueba.php',
+				'../server/pdf/print_inscritosByPrueba.php',
 					{
 						httpMethod: 'GET',
 						data: {

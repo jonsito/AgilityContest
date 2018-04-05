@@ -154,7 +154,7 @@ img.mainpage{
 
 .search_textfield {
 	width: 100px;
-	background: url(/agility/lib/jquery-easyui-1.4.2/themes/icons/search.png) no-repeat scroll 2px 2px;
+	background: url(../lib/jquery-easyui-1.4.2/themes/icons/search.png) no-repeat scroll 2px 2px;
 	padding-left:20px;
 }
 

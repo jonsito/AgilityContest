@@ -135,7 +135,7 @@ $('#new_inscripcion-dialog').dialog({
 // datagrid de inscripcion de participantes
 $('#new_inscripcion-datagrid').datagrid({
     fit:true,
-	url: '/agility/server/database/inscripcionFunctions.php',
+	url: '../server/database/inscripcionFunctions.php',
 	queryParams: {
 		Operation: 'noinscritos',
 		Prueba: workingData.prueba,

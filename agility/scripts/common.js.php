@@ -463,7 +463,7 @@ var ac_fedInfo={};
 function getFederationInfo() {
 	$.ajax({
 		type: "GET",
-		url: '/agility/server/modules/moduleFunctions.php',
+		url: '../server/modules/moduleFunctions.php',
 		data: {	'Operation' : 'list' },
 		async: true,
 		cache: false,
@@ -495,8 +495,8 @@ function getOrdenSalidaCategorias() {
 
 function loadCountryOrClub() {
 	var intl = parseInt(ac_fedInfo[workingData.federation].International);
-	if (intl==0) loadContents('/agility/console/frm_clubes.php','<?php _e('Clubs Database Management');?>');
-	else		loadContents('/agility/console/frm_paises.php','<?php _e('Countries Database Info');?>');
+	if (intl==0) loadContents('../console/frm_clubes.php','<?php _e('Clubs Database Management');?>');
+	else		loadContents('../console/frm_paises.php','<?php _e('Countries Database Info');?>');
 }
 
 /**
@@ -704,7 +704,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 	// obtenemos datos de la manga
 	$.ajax({
 		type: 'GET',
-		url: "/agility/server/database/mangaFunctions.php",
+		url: "../server/database/mangaFunctions.php",
 		dataType: 'json',
 		data: {Operation: 'getbyid', Jornada: jornada, Manga: manga},
 		success: function (data) {
@@ -716,7 +716,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 		// obtenemos datos de la jornada
 		$.ajax({
 			type: 'GET',
-			url: "/agility/server/database/jornadaFunctions.php",
+			url: "../server/database/jornadaFunctions.php",
 			dataType: 'json',
 			data: {Operation: 'getbyid', Prueba: prueba, ID: jornada},
 			success: function (data) {
@@ -728,7 +728,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 			// obtenemos datos de los equipos de la jornada
 			$.ajax({
 				type: 'GET',
-				url: "/agility/server/database/equiposFunctions.php",
+				url: "../server/database/equiposFunctions.php",
 				dataType: 'json',
 				data: {Operation: 'enumerate', Prueba: prueba, Jornada: jornada},
 				success: function (teams) {
@@ -743,7 +743,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 				// obtenemos datos de la prueba
 				$.ajax({
 					type: 'GET',
-					url: "/agility/server/database/pruebaFunctions.php",
+					url: "../server/database/pruebaFunctions.php",
 					dataType: 'json',
 					data: {Operation: 'getbyid', ID: prueba},
 					success: function (prueba) {
@@ -822,7 +822,7 @@ function setJornada(data) {
 	workingData.nombreJornada=data.Nombre;
 	workingData.datosJornada=data;
     $.ajax({
-        url:"/agility/server/modules/moduleFunctions.php",
+        url:"../server/modules/moduleFunctions.php",
         dataType:'json',
         data: {
             Operation: 'moduleinfo',
@@ -898,7 +898,7 @@ function initWorkingData(id,evtmgr) {
 	if (typeof(workingData.datosSesion)==="undefined") workingData.datosSesion= {}; // running ring session
 	if (typeof(id)!=="undefined") {
 		$.ajax({
-			url: '/agility/server/database/sessionFunctions.php',
+			url: '../server/database/sessionFunctions.php',
 			data: { Operation: 'getByID', ID: id },
 			dataType: 'json',
 	        async: false, // this may generate a warning in js interpreter; ignore it

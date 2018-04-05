@@ -33,14 +33,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <form id="vws_hdr_form">
         <?php if ($config->getEnv("vws_uselogo")!=0) {
             // logotipo alargado del evento
-            echo '<input type="hidden" id="vws_hdr_logoprueba" name="LogoPrueba" value="/agility/images/agilityawc2016.png"/>';
-            echo '<img src="/agility/images/agilityawc2016.png" class="vws_imgpadding"  id="vws_hdr_logo" alt="Logo"/>';
+            echo '<input type="hidden" id="vws_hdr_logoprueba" name="LogoPrueba" value="../images/agilityawc2016.png"/>';
+            echo '<img src="../images/agilityawc2016.png" class="vws_imgpadding"  id="vws_hdr_logo" alt="Logo"/>';
             echo '<input type="hidden"      id="vws_hdr_prueba"     name="Prueba" value="Prueba"/>';
             echo '<input type="hidden"      id="vws_hdr_jornada"     name="Jornada" value="Jornada"/>';
         } else {
             // logotipo del organizador. prueba y jornada en texto
-            echo '<input type="hidden" id="vws_hdr_logoprueba" name="LogoPrueba" value="/agility/images/logos/agilitycontest.png"/>';
-            echo '<img src="/agility/images/logos/agilitycontest.png" class="vws_imgpadding" id="vws_hdr_logo" alt="Logo"/>';
+            echo '<input type="hidden" id="vws_hdr_logoprueba" name="LogoPrueba" value="../images/logos/agilitycontest.png"/>';
+            echo '<img src="../images/logos/agilitycontest.png" class="vws_imgpadding" id="vws_hdr_logo" alt="Logo"/>';
             // nombre de la prueba y jornada
             echo '<input type="text"      id="vws_hdr_prueba"     name="Prueba" value="Prueba Equipos"/>';
             echo '<input type="text"      id="vws_hdr_jornada"     name="Jornada" value="Jornada Equipos"/>';
@@ -60,7 +60,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<form id="vws_call_'.$n.'" class="vws_css_call_'.($n%2).' vws_entry">';
     echo '<input type="text" id="vws_call_Orden_'.$n.'" name="Orden" value="Orden '.$n.'"/>';
     echo '<input type="hidden" id="vws_call_LogoTeam_'.$n.'"      name="LogoTeam" value="Logo '.$n.'"/>';
-    echo '<img class="vws_css_call_'.($n%2).' vws_imgpadding"  src="/agility/images/logos/agilitycontest.png" id="vws_call_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
+    echo '<img class="vws_css_call_'.($n%2).' vws_imgpadding"  src="../images/logos/agilitycontest.png" id="vws_call_Logo_'.$n.'" name="Logo" alt="Logo '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Equipo_'.$n.'"      name="Equipo" value="Equipo '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Categoria_'.$n.'"  name="Categoria" value="Cat '.$n.'"/>';
     echo '<input type="hidden"    id="vws_call_Grado_'.$n.'"      name="Grado" value="Grad '.$n.'"/>';
@@ -73,7 +73,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php for($n=0;$n<7;$n++) {
     echo '<form id="vws_results_'.$n.'" class="vws_css_results_'.($n%2).' vws_entry">';
     echo '<input type="hidden" id="vws_results_LogoTeam_'.$n.'"      name="LogoTeam" value="Logo '.$n.'"/>';
-    echo '<img class="vws_css_results_'.($n%2).' vws_imgpadding"  alt="Logo '.$n.'"  id="vws_results_Logo_'.$n.'" name="Logo" src="/agility/images/logos/agilitycontest.png"  />';
+    echo '<img class="vws_css_results_'.($n%2).' vws_imgpadding"  alt="Logo '.$n.'"  id="vws_results_Logo_'.$n.'" name="Logo" src="../images/logos/agilitycontest.png"  />';
     echo '<input type="hidden"    id="vws_results_Categorias_'.$n.'"  name="Categorias" value="Cat '.$n.'"/>';
     echo '<input type="hidden"    id="vws_results_Equipo_'.$n.'"     name="ID" value="Equipo '.$n.'"/>';
     echo '<input type="text"      class="left" id="vws_results_NombreEquipo_'.$n.'" name="Nombre" value="Equipo '.$n.'"/>';
@@ -100,7 +100,7 @@ for($n=0;$n<4;$n++) {
     echo '<form id= "vws_current_'.$n.'" class="vws_css_current_'.($n%2).' vws_entry">';
     if ($n==0) {
         echo '<input type="text" class="vws_css_current_'.($n%2).'" id="vws_current_Orden_'.$n.'" name="Orden" value="Orden '.$n.'"/>';
-        echo '<img class="vws_css_current_'.($n%2).' vws_imgpadding"  src="/agility/images/logos/getLogo.php?Federation=1&Logo=ES.png" id="vws_current_Logo_'.$n.'" name="Logo" alt="Logo"/>';
+        echo '<img class="vws_css_current_'.($n%2).' vws_imgpadding"  src="../images/logos/getLogo.php?Federation=1&Logo=ES.png" id="vws_current_Logo_'.$n.'" name="Logo" alt="Logo"/>';
         echo '<input type="hidden"    id= "vws_current_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
         echo '<span id="vws_current_Spare_'.$n.'">&nbsp;</span>';
     } else if ($n==1) {
@@ -149,7 +149,7 @@ for($n=0;$n<4;$n++) {
 
     echo '<input type="text"      id="vws_before_Orden_'.$n.'"      name="Orden" value="Orden '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_LogoTeam_'.$n.'"    name="LogoTeam" value="Logo '.$n.'"/>';
-    echo '<img class="vws_css_results_'.($n%2).' vws_imgpadding"  alt="Logo '.$n.'"  id="vws_before_Logo_'.$n.'"       name="Logo" src="/agility/images/logos/agilitycontest.png"  />';
+    echo '<img class="vws_css_results_'.($n%2).' vws_imgpadding"  alt="Logo '.$n.'"  id="vws_before_Logo_'.$n.'"       name="Logo" src="../images/logos/agilitycontest.png"  />';
     echo '<input type="hidden"    id="vws_before_Categorias_'.$n.'"  name="Categorias" value="Cat '.$n.'"/>';
     echo '<input type="hidden"    id="vws_before_Equipo_'.$n.'"     name="ID" value="Equipo '.$n.'"/>';
     echo '<input type="text"      class="left" id="vws_before_NombreEquipo_'.$n.'" name="Nombre" value="Equipo '.$n.'"/>';

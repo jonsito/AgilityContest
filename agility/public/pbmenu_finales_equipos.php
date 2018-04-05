@@ -33,10 +33,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     <div id="pb_finales-layout" style="width:100%">
         <div id="pb_finales-Cabecera" style="height:20%;" class="pb_floatingheader" data-options="region:'north',split:false,collapsed:false">
             <a id="pb_back-link" class="easyui-linkbutton" onClick="pbmenu_expandMenu(true);" href="#" style="float:left">
-                <img id="pb_back-logo" src="/agility/images/backtomenu.png" width="40" />
+                <img id="pb_back-logo" src="../images/backtomenu.png" width="40" />
             </a>&nbsp;
             <a id="pb_header-link" class="easyui-linkbutton" onClick="updateFinales(0,workingData.datosRonda);" href="#" style="float:left">
-                <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="40" />
+                <img id="pb_header-logo" src="../images/logos/agilitycontest.png" width="40" />
             </a>
             <span style="float:left;padding:5px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
             <span style="float:right" id="pb_header-texto">

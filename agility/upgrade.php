@@ -323,11 +323,11 @@ echo '
                 padding:20px;
                 overflow:auto;
                 border:none;
-                background:#eee url(/agility/images/AgilityContest.png) no-repeat right scroll;
+                background:#eee url(images/AgilityContest.png) no-repeat right scroll;
                 background-size:50% 100%;
             }
         </style>
-        <script src="/agility/lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
+        <script src="lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
         <script type="text/javascript" charset="utf-8">
             jQuery.fn.putCursorAtEnd = function() {
                 return this.each(function() {
@@ -355,7 +355,7 @@ echo '
                 txarea.blur();
                 $.ajax({
                     type:"GET",
-                    url:"/agility/upgrade.php",
+                    url:"upgrade.php",
                     dataType:"json",
                     data: {
                         Operation:	"progress"
@@ -388,7 +388,8 @@ echo '
             }
 
             function restart() {
-                document.location.href="https://localhost/agility/console";
+                // document.location.href="https://localhost/agility/console/index.php";
+                document.location.href="index.php";
             }
 
         </script>
@@ -396,7 +397,7 @@ echo '
     <body onload="start();">
         <h2>Updating AgilityContest...</h2>
         <h3>New version: '.$up->getVersionName().' - '.$up->getVersionDate().' </h3>
-        <form id="updater" name="updater" action="/agility/console">
+        <form id="updater" name="updater" action="console/index.php">
             <label for="progress">Progress status:</label><br/>
             <textarea id="progress" form="updater" name="progress" cols="80" rows="40" readonly="readonly"></textarea><br/>
             <span id="doneBtn" style="display:none;">

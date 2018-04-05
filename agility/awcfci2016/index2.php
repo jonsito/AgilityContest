@@ -47,7 +47,7 @@ if ($requestedCategoria=="") $requestedCategoria=http_request('Categoria',"s","L
 $requestedOrden=http_request('S',"s",""); // (emtpy):competion -  "Start":starting order
 $pb=new PublicWeb($pruebaID);
 $ptree=$pb->publicweb_deploy();
-$poster="/agility/images/agilityawc2016.png";
+$poster="../images/agilityawc2016.png";
 ?>
 
 <!DOCTYPE html>
@@ -68,12 +68,12 @@ $poster="/agility/images/agilityawc2016.png";
     <!-- try to disable zoom in tablet on double click -->
     <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=0.5, user-scalable=yes"/>
 
-    <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
-    <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
-    <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
-    <link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
-    <link rel="stylesheet" type="text/css" href="/agility/css/public_css.php" />
+    <link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/datagrid.css" />
+    <link rel="stylesheet" type="text/css" href="../css/videowall_css.php" />
+    <link rel="stylesheet" type="text/css" href="../css/public_css.php" />
 
     <style type="text/css">
         html, body {
@@ -82,7 +82,7 @@ $poster="/agility/images/agilityawc2016.png";
             height: 100%;
         }
         #poster_panel {
-            /* background: #000000 url("/agility/awcfci2016/spainbg.png") no-repeat bottom left;*/
+            /* background: #000000 url("../awcfci2016/spainbg.png") no-repeat bottom left;*/
             background: <?php echo $config->getEnv('pb_hdrbg1');?>;
             background-size: 100% 100%;
             width: 100%;
@@ -90,7 +90,7 @@ $poster="/agility/images/agilityawc2016.png";
             min-height:100%;
         }
         #menu_panel {
-            /* background: #000000 url("/agility/awcfci2016/spainbg.png") no-repeat bottom left;*/
+            /* background: #000000 url("../awcfci2016/spainbg.png") no-repeat bottom left;*/
             background: <?php echo $config->getEnv('pb_hdrbg1');?>;
             background-size: 100% 100%;
             width: 100%;
@@ -120,20 +120,20 @@ $poster="/agility/images/agilityawc2016.png";
         }
     </style>
 
-    <script src="/agility/lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
-    <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/public/public.js.php" type="text/javascript" charset="utf-8" > </script>
+    <script src="../lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="../lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
+    <script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="../lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="../lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="../scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="../scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
+    <script src="../scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
+    <script src="../scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
+    <script src="../scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
+    <script src="../scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
+    <script src="../public/public.js.php" type="text/javascript" charset="utf-8" > </script>
 
     <script type="text/javascript" charset="utf-8">
 
@@ -194,9 +194,9 @@ $poster="/agility/images/agilityawc2016.png";
         
         function pbmenu_loadInscriptions(prueba,jornada) {
             pbmenu_getAndSet(prueba,jornada);
-            var page="/agility/public/pbmenu_inscripciones.php";
-            if (isJornadaEqMejores() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
-            if (isJornadaEqConjunta() ) page="/agility/public/pbmenu_inscripciones_equipos.php";
+            var page="../public/pbmenu_inscripciones.php";
+            if (isJornadaEqMejores() ) page="../public/pbmenu_inscripciones_equipos.php";
+            if (isJornadaEqConjunta() ) page="../public/pbmenu_inscripciones_equipos.php";
             pb_config.Timeout="readyToRun";
             $('#pb_layout').layout('panel','east').panel('refresh',page);
         }
@@ -205,7 +205,7 @@ $poster="/agility/images/agilityawc2016.png";
             var p=<?php echo json_encode($ptree['Prueba']); ?>;
             setPrueba(p);
             pb_config.Timeout="readyToRun";
-            $('#public-contenido').panel('refresh',"/agility/public/pbmenu_entrenamientos.php");
+            $('#public-contenido').panel('refresh',"../public/pbmenu_entrenamientos.php");
         }
 
         function pbmenu_loadTimeTable(prueba,jornada) {
@@ -218,7 +218,7 @@ $poster="/agility/images/agilityawc2016.png";
                 break;
             }
             pb_config.Timeout="readyToRun";
-            $('#public-contenido').panel('refresh',"/agility/public/pbmenu_programa.php");
+            $('#public-contenido').panel('refresh',"../public/pbmenu_programa.php");
         }
 
         function pbmenu_loadStartingOrder(prueba,jornada,tanda) {
@@ -231,7 +231,7 @@ $poster="/agility/images/agilityawc2016.png";
                 break;
             }
             pb_config.Timeout="readyToRun";
-            $('#public-contenido').panel('refresh',"/agility/public/pbmenu_ordensalida.php");
+            $('#public-contenido').panel('refresh',"../public/pbmenu_ordensalida.php");
         }
 
         function pbmenu_loadPartialScores(prueba,jornada,manga,mode) {
@@ -245,16 +245,16 @@ $poster="/agility/images/agilityawc2016.png";
                 break;
             }
             pb_config.Timeout="readyToRun";
-            var page="/agility/public/pbmenu_parciales.php";
-            if (isJornadaEquipos(null) ) page="/agility/public/pbmenu_parciales_equipos.php";
+            var page="../public/pbmenu_parciales.php";
+            if (isJornadaEquipos(null) ) page="../public/pbmenu_parciales_equipos.php";
             $('#public-contenido').panel('refresh',page);
         }
 
         function pbmenu_loadFinalScores(prueba,jornada,serie) {
             pbmenu_getAndSet(prueba,jornada);
             workingData.datosRonda=workingData.datosJornada.Series[serie];
-            var page="/agility/public/pbmenu_finales.php";
-            if (isJornadaEquipos(null) ) page="/agility/public/pbmenu_finales_equipos.php";
+            var page="../public/pbmenu_finales.php";
+            if (isJornadaEquipos(null) ) page="../public/pbmenu_finales_equipos.php";
             pb_config.Timeout="readyToRun";
             $('#public-contenido').panel('refresh',page);
         }

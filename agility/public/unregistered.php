@@ -4,7 +4,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 <div id="access_denied-window" style="position:relative;width:550px;height:200px;padding:10px">
-    <span style="float:left"><img src="/agility/images/sad_dog.png" alt="triste"/></span><h1>Acceso denegado</h1>
+    <span style="float:left"><img src="../images/sad_dog.png" alt="triste"/></span><h1>Acceso denegado</h1>
     <p>
         <?php _e('Current license does not allow public (internet) access operations');?>
     </p><p>

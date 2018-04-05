@@ -370,7 +370,7 @@ class Sesiones extends DBObject {
     }
 
     /**
-     * Retrieve list of videos stored in BASE/agility/videos.
+     * Retrieve list of videos stored in BASE/videos.
      * Notice that indexes is disabled in httpd.conf, so need to manually parse and return this directory
      */
     function playlist() {

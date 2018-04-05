@@ -92,7 +92,7 @@ function saveTanda(dg){
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',
-        url: '/agility/server/database/tandasFunctions.php',
+        url: '../server/database/tandasFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -122,7 +122,7 @@ function deleteTanda(dg){
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Remove activity'); ?>'+' '+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
-        $.get('/agility/server/database/tandasFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('../server/database/tandasFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
                 reloadOrdenTandas();
             } else {

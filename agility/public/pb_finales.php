@@ -46,7 +46,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 }
             ">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="updateFinales(0);" href="#" style="float:left">
-                <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="40" />
+                <img id="pb_header-logo" src="../images/logos/agilitycontest.png" width="40" />
             </a>
             <span style="float:left;padding:5px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
             <span style="float:right" id="pb_header-texto">

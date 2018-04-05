@@ -34,7 +34,7 @@
 		collapsed: false,
 		title: '<?php _e('Current installed modules'); ?>',
 		// datos de la conexion ajax
-		url: '/agility/server/modules/moduleFunctions.php?Operation=competitions',
+		url: '../server/modules/moduleFunctions.php?Operation=competitions',
 		loadMsg: '<?php _e('Loading competitions module list'); ?>',
 		method: 'get',
 		toolbar: '#plugins-datagrid-toolbar',

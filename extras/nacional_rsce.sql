@@ -7448,8 +7448,8 @@ CREATE TABLE `sesiones` (
 LOCK TABLES `sesiones` WRITE;
 /*!40000 ALTER TABLE `sesiones` DISABLE KEYS */;
 INSERT INTO `sesiones` VALUES 
-(1,'-- Sin asignar --','Actividades fuera de ring',5,'qIHDXyhc54AZkfWT',2,9,1,153,'','/agility/videos/sample_video.mp4',NULL,NULL,'2015-05-13 12:07:44'),
-(2,'Ring 1','Ring 1 / Ring de Honor',5,'JVYba0svX8wUrgNy',12,90,64,1368,'http://192.168.122.168/videostream.cgi','/agility/videos/sample_video.mp4','','','2015-06-11 09:04:03'),
+(1,'-- Sin asignar --','Actividades fuera de ring',5,'qIHDXyhc54AZkfWT',2,9,1,153,'','../videos/sample_video.mp4',NULL,NULL,'2015-05-13 12:07:44'),
+(2,'Ring 1','Ring 1 / Ring de Honor',5,'JVYba0svX8wUrgNy',12,90,64,1368,'http://192.168.122.168/videostream.cgi','../videos/sample_video.mp4','','','2015-06-11 09:04:03'),
 (3,'Ring 2','Mangas a realizar en el segundo ring',5,'RfACb3MEl5ieNkgr',13,97,0,0,'',NULL,NULL,NULL,'2015-06-05 16:38:46'),
 (4,'Ring 3','Mangas a realizar en el tercer ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (5,'Ring 4','Mangas a realizar en el cuarto ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),

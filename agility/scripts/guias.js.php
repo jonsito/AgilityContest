@@ -79,7 +79,7 @@ function delGuiaFromClub(dg,club) {
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e("Delete assignation for handler"); ?>'+" '"+row.Nombre+"' "+'<?php _e("to club"); ?>'+" '"+club.Nombre+"' "+'<?php _e("Sure?"); ?>'+"'",function(r){
         if (r){
-            $.get('/agility/server/database/guiaFunctions.php',{'Operation':'orphan','ID':row.ID},function(result){
+            $.get('../server/database/guiaFunctions.php',{'Operation':'orphan','ID':row.ID},function(result){
                 if (result.success){
                 	$(dg).datagrid('unselectAll').datagrid('reload');
                 } else {
@@ -186,7 +186,7 @@ function deleteGuia(dg){
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete data on handler'); ?>'+': '+ row.Nombre+'\n'+'<?php _e('Sure?'); ?>',function(r){
     	if (!r) return;
-    	$.get('/agility/server/database/guiaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+    	$.get('../server/database/guiaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
     		if (result.success){
     			$(dg).datagrid('reload');    // reload the guia data
     		} else {
@@ -209,7 +209,7 @@ function assignGuia(){
     if (! frm.form('validate')) return;
     $.ajax({
         type: 'GET',
-        url: '/agility/server/database/guiaFunctions.php',
+        url: '../server/database/guiaFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -237,7 +237,7 @@ function saveChGuia(){
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',
-        url: '/agility/server/database/guiaFunctions.php',
+        url: '../server/database/guiaFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -267,7 +267,7 @@ function saveGuia(){
     
 	$.ajax({
         type: 'GET',
-        url: '/agility/server/database/guiaFunctions.php',
+        url: '../server/database/guiaFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {

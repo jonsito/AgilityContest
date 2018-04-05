@@ -46,7 +46,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 }
                 ">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="updateParciales(/*empty*/);" href="#" style="float:left">
-                <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
+                <img id="pb_header-logo" src="../images/logos/agilitycontest.png" width="50" />
             </a>
             <span id="header-combinadaFlag" style="display:none">false</span> <!--indicador de combinada-->
             <span style="float:left;padding:10px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>

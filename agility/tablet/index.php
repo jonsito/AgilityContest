@@ -368,7 +368,6 @@ function tablet_acceptSelectJornada() {
 	};
 	$.ajax({
 		type: 'POST',
-        // url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
         url: '../server/database/userFunctions.php',
    		dataType: 'jsonp',
    		data: parameters,

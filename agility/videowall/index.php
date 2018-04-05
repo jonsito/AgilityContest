@@ -50,30 +50,30 @@ if (!$am->allowed(ENABLE_VIDEOWALL)) {
 		GNU General Public License as published by the Free Software Foundation; either version 2 of the License, 
 		or (at your option) any later version." />
 <title>AgilityContest (VideoWall)</title>
-<link rel="stylesheet" type="text/css" href="/agility/fonts/fonts.css" />
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
-<link rel="stylesheet" type="text/css" href="/agility/css/public_css.php" />
-<script src="/agility/lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" ></script>
-<script src="/agility/lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/videowall/videowall.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/videowall/vws.js.php" type="text/javascript" charset="utf-8" > </script>
+<link rel="stylesheet" type="text/css" href="../fonts/fonts.css" />
+<link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
+<link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/datagrid.css" />
+<link rel="stylesheet" type="text/css" href="../css/videowall_css.php" />
+<link rel="stylesheet" type="text/css" href="../css/public_css.php" />
+<script src="../lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" ></script>
+<script src="../lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/results_and_scores.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/events.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../videowall/videowall.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../videowall/vws.js.php" type="text/javascript" charset="utf-8" > </script>
 
     <style>
 
@@ -308,7 +308,7 @@ $('#selvw-Session').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/sessionFunctions.php',
+	url: '../server/database/sessionFunctions.php',
 	method: 'get',
     queryParams: {'Operation':'selectring','Hidden':0 },
 	mode: 'remote',
@@ -360,11 +360,11 @@ function vw_accept() {
 	initWorkingData(s.ID,videowall_eventManager);
 	ac_config.vwc_simplified=0;
 	ac_config.vw_combined=0;
-	var page="/agility/console/frm_notavailable.php";
+	var page="../console/frm_notavailable.php";
 	var n=parseInt($('#selvw-Vista').combobox('getValue'));
 	switch (n){
 	case 0: // Ordenes de Salida
-		page="/agility/videowall/vw_ordensalida.php";
+		page="../videowall/vw_ordensalida.php";
         ac_config.vw_combined=0;
         ac_config.vwc_simplified=0;
 		break;
@@ -375,7 +375,7 @@ function vw_accept() {
 				page=null;
 				return;
 			}
-			page="/agility/videowall/vw_entrenamientos.php";
+			page="../videowall/vw_entrenamientos.php";
 			ac_config.vw_combined=0;
 			ac_config.vwc_simplified=0;
 			$('#selvw-dialog').dialog('close');
@@ -383,7 +383,7 @@ function vw_accept() {
 				page,
 				function(response,status,xhr){
 					if (status==='error') {
-					    $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+					    $('#vw_contenido').load('../console/frm_notavailable.php');
 					    return false;
                     }
 				}
@@ -391,7 +391,7 @@ function vw_accept() {
 		});
 		return; // use return instead of break to avoid executin load twice
 	case 2: // Resultados Parciales
-		page="/agility/videowall/vw_parciales.php";
+		page="../videowall/vw_parciales.php";
         ac_config.vw_combined=0;
         ac_config.vwc_simplified=0;
 		break;
@@ -401,12 +401,12 @@ function vw_accept() {
 		ac_config.vwc_simplified=1;
 		break;
 	case 4: // Clasificacion final
-		page="/agility/videowall/vw_finales.php";
+		page="../videowall/vw_finales.php";
         ac_config.vw_combined=0;
         ac_config.vwc_simplified=0;
 		break;
     case 5: // videos promocionales
-        page="/agility/videowall/vw_anuncios.php";
+        page="../videowall/vw_anuncios.php";
         ac_config.vw_combined=1; // allow mix video background and foreground data
         ac_config.vwc_simplified=0;
         break;
@@ -417,7 +417,7 @@ function vw_accept() {
 				page=null;
 				return false;
 			}
-			page="/agility/videowall/vws_entrenamientos.php";
+			page="../videowall/vws_entrenamientos.php";
 			ac_config.vw_combined=0;
 			ac_config.vwc_simplified=0;
 			$('#selvw-dialog').dialog('close');
@@ -425,7 +425,7 @@ function vw_accept() {
 				page,
 				function(response,status,xhr){
 					if (status=='error') {
-					    $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+					    $('#vw_contenido').load('../console/frm_notavailable.php');
 					    return false;
                     }
 				}
@@ -433,12 +433,12 @@ function vw_accept() {
 		});
 		return; // use return instead of break to avoid executin load twice
 	case 7: // pantalla combinada ( Resultados parciales )
-		page="/agility/videowall/vwc_parciales.php";
+		page="../videowall/vwc_parciales.php";
         ac_config.vw_combined=1;
         ac_config.vwc_simplified=0;
 		break;
 	case 8: // pantalla comobinada ( Clasificacion final )
-		page="/agility/videowall/vwc_finales.php";
+		page="../videowall/vwc_finales.php";
 		ac_config.vw_combined=1;
         ac_config.vwc_simplified=0;
 		break;
@@ -458,7 +458,7 @@ function vw_accept() {
 			page,
 			function(response,status,xhr){
 				if (status==='error') {
-				    $('#vw_contenido').load('/agility/console/frm_notavailable.php');
+				    $('#vw_contenido').load('../console/frm_notavailable.php');
                     return false;
                 }
 			}

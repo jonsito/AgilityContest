@@ -285,7 +285,7 @@ function excel_importSendTask(params) {
     var dlg=$(ac_import_table[ac_import.type][0]);
     $.ajax({
         type:'POST', // use post to send file
-        url:"/agility/server/excel/excelReaderFunctions.php",
+        url:"../server/excel/excelReaderFunctions.php",
         dataType:'json',
         data: {
             Operation    :   params.Operation,

@@ -47,23 +47,23 @@ if (!$am->allowed(ENABLE_CHRONO)) {
 		GNU General Public License as published by the Free Software Foundation; either version 2 of the License, 
 		or (at your option) any later version." />
 <title>AgilityContest (Chrono)</title>
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/chrono_css.php" />
-<script src="/agility/lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/chrono/chrono.js.php" type="text/javascript" charset="utf-8" > </script>
+<link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
+<link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/datagrid.css" />
+<link rel="stylesheet" type="text/css" href="../css/chrono_css.php" />
+<script src="../lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/events.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../chrono/chrono.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript" charset="utf-8">
 
@@ -208,12 +208,12 @@ function chrono_accept() {
 	}
 	// store selected data into global structure
 	initWorkingData(sid,chrono_eventManager);
-	var page='/agility/chrono/chrono.inc.php';
+	var page='../chrono/chrono.inc.php';
 	$('#chrono-dialog').dialog('close');
 	$('#chrono-contenido').load(	
 			page,
 			function(response,status,xhr){
-				if (status=='error') $('#chrono-contenido').load('/agility/console/frm_notavailable.php');
+				if (status=='error') $('#chrono-contenido').load('../console/frm_notavailable.php');
 			}
 		);
 }
