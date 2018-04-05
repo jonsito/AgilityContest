@@ -371,7 +371,7 @@ $config =Config::getInstance();
 <?php    if ( ! $am->allowed(ENABLE_SPECIAL)) { ?>
         disabled: true,
 <?php    } ?>
-        url:'/agility/server/database/jornadaFunctions.php',
+        url:'../server/database/jornadaFunctions.php',
         onChange:function(newval,oldval) {
             $('#jornadas-SlaveOf').val(newval);
         },
@@ -395,7 +395,7 @@ $config =Config::getInstance();
         method: 'get',
         mode: 'remote',
         required: true,
-        url:'/agility/server/modules/moduleFunctions.php',
+        url:'../server/modules/moduleFunctions.php',
         onChange:function(newval,oldval) {
             $('#jornadas-Tipo_Competicion').val(newval);
         },

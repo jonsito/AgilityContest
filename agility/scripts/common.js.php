@@ -370,7 +370,7 @@ var ac_config={};
 function loadConfiguration(callback) {
 	$.ajax({
 		type: "GET",
-		url: "/agility/server/adminFunctions.php",
+		url: "../server/adminFunctions.php",
 		data: {
 			'Operation' : 'loadConfig'
 		},
@@ -414,7 +414,7 @@ var ac_regInfo={'clubInfo':{'ID':0,'Nombre':''}};
 function getLicenseInfo() {
 	$.ajax({
 		type: "GET",
-		url: "/agility/server/adminFunctions.php",
+		url: "../server/adminFunctions.php",
 		data: {
 			'Operation' : 'reginfo'
 		},
@@ -438,7 +438,7 @@ function getLicenseInfo() {
 function getLicensedClubInfo() {
     $.ajax({
         type: "GET",
-        url: "/agility/server/adminFunctions.php",
+        url: "../server/adminFunctions.php",
         data: {
             'Operation' : 'searchClub'
         },

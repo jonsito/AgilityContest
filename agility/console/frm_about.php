@@ -21,7 +21,7 @@ $config =Config::getInstance();
 ?>
 
 <div id="dlg_about" class="easyui-window" style="width:750px;padding:10px">
-	<img src="/agility/images/AgilityContest.png" 
+	<img src="../images/AgilityContest.png"
 		width="150" height="100" alt="AgilityContest Logo" 
 		style="border:1px solid #000000;margin:10px;float:right;padding:5px">
 	<dl>
@@ -34,7 +34,7 @@ $config =Config::getInstance();
 		<dd>
 		<?php _e('Source code available at'); ?> <a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />
 		<?php _e('Copy, modify and re-distribution is granted under terms of'); ?>
-		<a target="license" href="/agility/License"> <?php _e('GNU General Public License version 2'); ?></a>
+		<a target="license" href="../License"> <?php _e('GNU General Public License version 2'); ?></a>
 		</dd>
 		<dt>&nbsp;</dt>
 		<dt>
@@ -80,7 +80,7 @@ $config =Config::getInstance();
                 $('#about_version').html(ac_config.version_name);
                 $('#about_date').html(ac_config.version_date);
             },  
-            onClose: function() {loadContents('/agility/console/frm_main.php','');
+            onClose: function() {loadContents('../console/frm_main.php','');
             }
         })
 </script>

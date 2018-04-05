@@ -96,7 +96,7 @@ $('#pb_enumerateMangas').combogrid({
     idField: 'ID',
     textField: 'Nombre',
     method: 'get',
-    url: '/agility/server/database/tandasFunctions.php',
+    url: '../server/database/tandasFunctions.php',
     queryParams: {
         Operation: 'getTandas',
         Prueba: workingData.prueba,

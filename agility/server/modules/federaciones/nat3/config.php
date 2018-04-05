@@ -9,9 +9,9 @@ class NAT3 extends Federations {
             'Name'  => 'Nat-3',
             'LongName' => 'Competiciones nacionales - 3 alturas',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'        => '/agility/server/modules/federaciones/nat3/pirineos_dog_festival.png',
-            'Logo'        => '/agility/server/modules/federaciones/nat3/almozara.png',
-            'ParentLogo'  => '/agility/server/modules/federaciones/nat3/almozara.png',
+            'OrganizerLogo'        => '../server/modules/federaciones/nat3/pirineos_dog_festival.png',
+            'Logo'        => '../server/modules/federaciones/nat3/almozara.png',
+            'ParentLogo'  => '../server/modules/federaciones/nat3/almozara.png',
             'WebURL' => 'http://www.pirineosdogfestival.org',
             'ParentWebURL' => 'http://www.clubagilitylalmozara.com/',
             'Email' => 'info@pirineosdogfestival.com',

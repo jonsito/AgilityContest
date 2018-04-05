@@ -111,7 +111,7 @@ $config =Config::getInstance();
     		idField: 'ID',
             delay: 500,
     		textField: 'Nombre',
-    		url: '/agility/server/database/guiaFunctions.php',
+    		url: '../server/database/guiaFunctions.php',
             queryParams: { Operation:'enumerate', Federation: workingData.federation },
     		method: 'get',
     		mode: 'remote',
@@ -128,7 +128,7 @@ $config =Config::getInstance();
     		onSelect: function(index,row) {
     			var id=row.ID;
     			if (id<=0) return;
-    	        $('#chguias-form').form('load','/agility/server/database/guiaFunctions.php?Operation=getbyid&ID='+id); // load form with json retrieved data
+    	        $('#chguias-form').form('load','../server/database/guiaFunctions.php?Operation=getbyid&ID='+id); // load form with json retrieved data
     			$('#chguias-Club').val($('#chguias-newClub').val()); // restore "Club" field
     		}
     	});
@@ -139,7 +139,7 @@ $config =Config::getInstance();
             method: 'get',
             mode: 'remote',
             required: true,
-            url:'/agility/server/database/guiaFunctions.php',
+            url:'../server/database/guiaFunctions.php',
             queryParams: {
                 Operation:'categorias',
                 Federation: workingData.federation

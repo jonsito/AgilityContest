@@ -84,7 +84,7 @@ $('#enumerateParciales').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/jornadaFunctions.php',
+	url: '../server/database/jornadaFunctions.php',
 	method: 'get',
 	required: true,
 	multiple: false,

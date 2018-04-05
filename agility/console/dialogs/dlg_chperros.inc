@@ -137,8 +137,8 @@ $config =Config::getInstance();
     	buttons: '#chperros-dlg-buttons',
         iconCls: 'icon-dog'/*,
         onBeforeOpen: function() { 
-            var grads="/agility/server/database/dogFunctions.php?Operation=grados&Federation="+workingData.federation;
-            var cats="/agility/server/database/dogFunctions.php?Operation=categorias&Federation="+workingData.federation;
+            var grads="../server/database/dogFunctions.php?Operation=grados&Federation="+workingData.federation;
+            var cats="../server/database/dogFunctions.php?Operation=categorias&Federation="+workingData.federation;
             $('#chperros-Grados_Perro').combobox('reload',grads);
     		$('#chperros-Categorias_Perro').combobox('reload',cats);
         }
@@ -154,7 +154,7 @@ $config =Config::getInstance();
 		idField: 'ID',
         delay: 500,
 		textField: 'Nombre',
-		url: '/agility/server/database/dogFunctions.php',
+		url: '../server/database/dogFunctions.php',
 		queryParams: { Operation:'enumerate', Federation: workingData.federation },
 		method: 'get',
 		mode: 'remote',
@@ -174,7 +174,7 @@ $config =Config::getInstance();
 		onSelect: function(index,row) {
 			var idperro=row.ID;
 			if (!idperro) return;
-	        $('#chperros-form').form('load','/agility/server/database/dogFunctions.php?Operation=getbyidperro&ID='+idperro); // load form with json retrieved data
+	        $('#chperros-form').form('load','../server/database/dogFunctions.php?Operation=getbyidperro&ID='+idperro); // load form with json retrieved data
 		}
 	});
     $('#chperros-Nombre').textbox({
@@ -195,7 +195,7 @@ $config =Config::getInstance();
     	method: 'get',
     	mode: 'remote',
 		required: true,
-        url:'/agility/server/database/dogFunctions.php',
+        url:'../server/database/dogFunctions.php',
         queryParams: {
         Operation:'grados',
             Federation: workingData.federation
@@ -219,7 +219,7 @@ $config =Config::getInstance();
 		method: 'get',
 		mode: 'remote',
 		required: true,
-        url:'/agility/server/database/dogFunctions.php',
+        url:'../server/database/dogFunctions.php',
         queryParams: {
         Operation:'categorias',
             Federation: workingData.federation

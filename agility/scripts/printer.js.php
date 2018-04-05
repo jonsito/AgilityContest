@@ -32,8 +32,8 @@ $config =Config::getInstance();
  * Imprime el listado de los perros registrados en el orden especificado por #perros-datagrid
  */
 function print_listaPerros(mode) {
-    var url='/agility/server/pdf/print_listaPerros.php';
-    if (mode==="excel") url='/agility/server/excel/excelWriterFunctions.php';
+    var url='../server/pdf/print_listaPerros.php';
+    if (mode==="excel") url='../server/excel/excelWriterFunctions.php';
     var options=$('#perros-datagrid').datagrid('options');
     $.fileDownload(
         url,
@@ -62,7 +62,7 @@ function print_listaPerros(mode) {
  */
 function print_ordenTandas(comments) {
     $.fileDownload(
-        '/agility/server/pdf/print_ordenTandas.php',
+        '../server/pdf/print_ordenTandas.php',
         {
             httpMethod: 'GET',
             data: {
@@ -82,8 +82,8 @@ function print_ordenTandas(comments) {
  * @param {string} mode "pdf" "excel" "csv"
  */
 function print_entrenamientos(mode) {
-	var url='/agility/server/pdf/print_entrenamientos.php';
-	if (mode==="excel") url='/agility/server/excel/excelWriterFunctions.php';
+	var url='../server/pdf/print_entrenamientos.php';
+	if (mode==="excel") url='../server/excel/excelWriterFunctions.php';
 	$.fileDownload(
 		url,
 		{
@@ -111,8 +111,8 @@ function print_entrenamientos(mode) {
  * @returns {Boolean}
  */
 function print_ordenSalida(cats,excel,rango,comentarios) {
-    var url='/agility/server/pdf/print_ordenDeSalida.php';
-	if (excel) url='/agility/server/excel/excelWriterFunctions.php';
+    var url='../server/pdf/print_ordenDeSalida.php';
+	if (excel) url='../server/excel/excelWriterFunctions.php';
     $.fileDownload(
         url,
         {
@@ -146,7 +146,7 @@ function print_ordenSalida(cats,excel,rango,comentarios) {
  */
 function print_trsTemplates(mode) {
     $.fileDownload(
-        '/agility/server/pdf/print_trsTemplates.php',
+        '../server/pdf/print_trsTemplates.php',
         {
             httpMethod: 'GET',
             data: {
@@ -176,7 +176,7 @@ function print_trsTemplates(mode) {
 
 function print_asistente(pagemode,cats,fill,rango,comentarios,empty) {
     $.fileDownload(
-        '/agility/server/pdf/print_entradaDeDatos.php',
+        '../server/pdf/print_entradaDeDatos.php',
         {
             httpMethod: 'GET',
             data: {
@@ -222,7 +222,7 @@ function print_asistenteGames(cats,fill,rango,comentarios,cabecera,empty) {
 function print_asistenteEquipos(cats,fill,rango,comentarios,cabecera) {
     if (typeof(cabecera)==="undefined") cabecera='<?php _("Data entry");?>';
     $.fileDownload(
-        '/agility/server/pdf/print_entradaDeDatosEquipos4.php',
+        '../server/pdf/print_entradaDeDatosEquipos4.php',
         {
             httpMethod: 'GET',
             data: {
@@ -258,7 +258,7 @@ function importExportParcial(recorrido) {
             switch(parseInt(r)){
                 case 0:
                     $.fileDownload(
-                        '/agility/server/excel/excelWriterFunctions.php',
+                        '../server/excel/excelWriterFunctions.php',
                         {
                             httpMethod: 'GET',
                             data: {
@@ -324,13 +324,13 @@ function print_parcial(mode) {
             switch (parseInt(r)) {
                 case 0: // create pdf
                     // generic, ko, games
-                    var url = '/agility/server/pdf/print_resultadosByManga.php';
+                    var url = '../server/pdf/print_resultadosByManga.php';
                     // team best
                     if (parseInt(workingData.datosJornada.Equipos3) != 0)
-                        url = '/agility/server/pdf/print_resultadosByEquipos.php';
+                        url = '../server/pdf/print_resultadosByEquipos.php';
                     // team combined
                     if (parseInt(workingData.datosJornada.Equipos4) != 0)
-                        url = '/agility/server/pdf/print_resultadosByEquipos4.php';
+                        url = '../server/pdf/print_resultadosByEquipos4.php';
                     $.fileDownload(
                         url,
                         {
@@ -350,7 +350,7 @@ function print_parcial(mode) {
                     break;
                 case 1: // create excel file
                     $.fileDownload(
-                        '/agility/server/excel/excelWriterFunctions.php',
+                        '../server/excel/excelWriterFunctions.php',
                         {
                             httpMethod: 'GET',
                             data: {
@@ -394,7 +394,7 @@ function checkAndPrintParcial(recorrido) {
 	var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,value);
 	$.ajax({
 		type:'GET',
-		url:"/agility/server/database/resultadosFunctions.php",
+		url:"../server/database/resultadosFunctions.php",
 		dataType:'json',
 		data: {	Operation:'getPendientes', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, Mode: mode },
 		success: function(data) {
@@ -502,7 +502,7 @@ function print_commonDesarrollo(def,cb) {
  */
 function clasificaciones_printPodium() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
-	var url='/agility/server/pdf/print_podium.php';
+	var url='../server/pdf/print_podium.php';
     if (isJornadaEquipos()) url='/agility/server/pdf/print_podium_equipos.php';
 	if (ronda==null) {
     	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");

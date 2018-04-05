@@ -77,7 +77,7 @@ $config =Config::getInstance();
             expansible: false,
         	collapsed: false,        	
         	title: '<?php _e('Contest data handling'); ?>',
-        	url: '/agility/server/database/pruebaFunctions.php?Operation=select',
+        	url: '../server/database/pruebaFunctions.php?Operation=select',
         	loadMsg: '<?php _e('Updating contest list'); ?> ...',
         	method: 'get',
             toolbar: '#pruebas-toolbar',
@@ -143,7 +143,7 @@ $config =Config::getInstance();
 			workingData.datosPrueba=prueba;
             $(datagridID).datagrid({
         		title: '<?php _e("Journeys on this contest"); ?>'+" '"+prueba.Nombre+"'",
-        		url: '/agility/server/database/jornadaFunctions.php',
+        		url: '../server/database/jornadaFunctions.php',
         		queryParams: { Operation: 'select', Prueba: prueba.ID },
         		method: 'get',
        		    pagination: false,

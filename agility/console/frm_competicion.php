@@ -39,4 +39,4 @@ $('#seljornada-window').window({
 
 </script>
 
-<img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle"/>
+<img class="mainpage" src="../server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle"/>

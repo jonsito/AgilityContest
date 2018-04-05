@@ -71,7 +71,7 @@ $('#pb_inscripciones-panel').panel({
 // datos de la tabla de equipos
 $('#pb_inscripciones_eq3-datagrid').datagrid({
     fit: true,
-    url: '/agility/server/database/equiposFunctions.php',
+    url: '../server/database/equiposFunctions.php',
     queryParams: {
         Operation:'select',
         Prueba:workingData.prueba,
@@ -127,7 +127,7 @@ function showInscripcionesByTeam(index,team){
         fitColumns: true,
         singleSelect: true,
         loadMsg: '<?php _e('Updating inscriptions');?> ...',
-        url: '/agility/server/database/inscripcionFunctions.php',
+        url: '../server/database/inscripcionFunctions.php',
         queryParams: { Operation: 'inscritosbyteam', Prueba:workingData.prueba, Jornada:workingData.jornada, Equipo: team.ID },
         method: 'get',
         autorowheight:true,

@@ -124,7 +124,7 @@ $('#ordensalida-selection').combobox({
         {value:'excel',text:"<?php _e('Import from Excel'); ?>",icon:"table.png"}
     ],
     formatter: function(row) { // add an icon to each combobox option
-        var imgfile="/agility/lib/jquery-easyui-1.4.2/themes/icons/"+row.icon;
+        var imgfile="../lib/jquery-easyui-1.4.2/themes/icons/"+row.icon;
         return '<img class="item-img" src="'+imgfile+'"/>&nbsp;<span class="item-text">'+row.text+'</span>';
     }
 });

@@ -322,7 +322,7 @@ class Jornadas extends DBObject {
         else if (intval($j->Games)!=0) $res=$am->allowed(ENABLE_SPECIAL); // mangas multiples/games
         else $res=true;
         if (!$res) {
-            $this->errormsg='<img src="/agility/images/sad_dog.png" width="75" alt="sad dog" style="float:right;"/>
+            $this->errormsg='<img src="../images/sad_dog.png" width="75" alt="sad dog" style="float:right;"/>
                     <p style="font-weight:bold;">Requested feature is disabled due to current license registration permissions</p>';
             return null;
         }

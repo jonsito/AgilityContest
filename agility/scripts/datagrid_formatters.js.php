@@ -293,7 +293,7 @@ function formatLogo(val,row,idx) {
     // TODO: no idea why idx:0 has no logo declared
     if (typeof(val)==='undefined') val="empty.png";
     var fed=workingData.federation;
-    return'<img src="/agility/images/logos/getLogo.php?Fed='+fed+'&Logo='+val+'" width="30" height="30" alt="'+val+'"/>\n';
+    return'<img src="../images/logos/getLogo.php?Fed='+fed+'&Logo='+val+'" width="30" height="30" alt="'+val+'"/>\n';
 }
 
 /**
@@ -316,7 +316,7 @@ function formatTeamLogos(val,row,idx) {
     var str="";
     var fed=workingData.federation;
     for (n=0;n<logos.length;n++) {
-        str +='<img src="/agility/images/logos/getLogo.php?Fed='+fed+'&Logo='+logos[n]+'" width="30" height="30" alt="'+logos[n]+'"/>\n';
+        str +='<img src="../images/logos/getLogo.php?Fed='+fed+'&Logo='+logos[n]+'" width="30" height="30" alt="'+logos[n]+'"/>\n';
     }
     return str;
 }
@@ -344,7 +344,7 @@ function formatTeamResults( name,value , rows ) {
     var mindogs=getMinDogsByTeam();
     function addLogo(logo) {
         if (logos.indexOf(logo)>=0) return;
-        logos = logos + '&nbsp;<img height="40px" src="/agility/images/logos/'+ logo + '"/>';
+        logos = logos + '&nbsp;<img height="40px" src="../images/logos/'+ logo + '"/>';
     }
     for (var n=0;n<mindogs;n++) {
         if ( typeof(rows[n])==='undefined') {
@@ -376,7 +376,7 @@ function formatTeamClasificaciones(dgname,value,rows) {
     }
     function addLogo(logo) {
         if (logos.indexOf(logo)>=0) return;
-        logos = logos + '&nbsp;<img height="40px" src="/agility/images/logos/'+ logo + '"/>';
+        logos = logos + '&nbsp;<img height="40px" src="../images/logos/'+ logo + '"/>';
     }
     // cogemos y ordenamos los datos de cada manga
     var manga1={ time:0.0, penal:0.0, perros:[] };

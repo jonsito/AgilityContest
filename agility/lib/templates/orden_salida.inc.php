@@ -45,7 +45,7 @@ $config =Config::getInstance();
         fit: false,
         height: 'auto',
         method: 'get',
-        url: '/agility/server/database/tandasFunctions.php',
+        url: '../server/database/tandasFunctions.php',
         queryParams: { // to be overriden. just to avoid call error
             Operation: 'getDataByTanda',
             Prueba: 1,

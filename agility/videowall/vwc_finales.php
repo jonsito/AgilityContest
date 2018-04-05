@@ -38,7 +38,7 @@ Pantalla de de visualizacion combinada llamada/parciales
     <div id="vwcf-layout">
         <div data-options="region:'north'" class="vwc_top" style="height:10%;padding:5px"> <!-- CABECERA -->
             <div style="display:inline-block;width=100%;padding:0px" class="vwc_header">
-                <img  id="vwc_header-logo" src="/agility/images/logos/agilitycontest.png"/>
+                <img  id="vwc_header-logo" src="../images/logos/agilitycontest.png"/>
                 <span id="vwc_header-infoprueba"><?php _e('Contest'); ?></span>
                 <span id="vwc_header-infojornada"><?php _e('Journey'); ?></span>
                 <span id="header-combinadaFlag" style="display:none">true</span> <!--indicador de combinada-->
@@ -77,7 +77,7 @@ Pantalla de de visualizacion combinada llamada/parciales
                         <!-- Informacion del participante -->
                         <span class="vwc_dlabel" id="vwls_Numero"><?php _e('Num'); ?></span>
                         <span style="display:none" id="vwls_Perro">0</span>
-                        <img class="vwc_logo" id="vwls_Logo" alt="Logo" src="/agility/images/logos/agilitycontest.png"/>
+                        <img class="vwc_logo" id="vwls_Logo" alt="Logo" src="../images/logos/agilitycontest.png"/>
                         <span class="vwc_label" id="vwls_Dorsal"><?php _e('Dorsal'); ?></span>
                         <span class="vwc_label" id="vwls_Nombre"><?php _e('Name'); ?></span>
                         <span class="vwc_label" id="vwls_NombreGuia"><?php _e('Handler'); ?></span>

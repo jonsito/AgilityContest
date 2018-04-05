@@ -78,7 +78,7 @@ $config =Config::getInstance();
 		idField: 'Perro',
         delay: 500,
 		textField: 'Nombre',
-		url: '/agility/server/database/resultadosFunctions.php',
+		url: '../server/database/resultadosFunctions.php',
 		queryParams: { Operation:'enumerate' },
 		method: 'get',
 		mode: 'remote',

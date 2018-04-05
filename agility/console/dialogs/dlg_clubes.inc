@@ -154,7 +154,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	addTooltip($('#clubes-Logo'),'<?php _e("Press on image to change club logo"); ?>');
 
         // load default image on club dialog
-        $('#clubes-Logo').attr('src',"/agility/server/database/clubFunctions.php?Operation=getlogo&Nombre=rsce&Federation="+workingData.federation);
+        $('#clubes-Logo').attr('src',"../server/database/clubFunctions.php?Operation=getlogo&Nombre=rsce&Federation="+workingData.federation);
 
         // despliegue del selector de paises
         $('#clubes-Pais').combogrid({
@@ -162,7 +162,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             panelHeight: 200,
             idField: 'ID',
             textField: 'Country',
-            url: '/agility/server/database/clubFunctions.php',
+            url: '../server/database/clubFunctions.php',
             queryParams: {
                 Operation: 'countries'
             },
@@ -187,7 +187,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			panelHeight: 200,
 			idField: 'Provincia',
 			textField: 'Provincia',
-			url: '/agility/server/database/enumerate_Provincias.php',
+			url: '../server/database/enumerate_Provincias.php',
             queryParams:{
                 Operation: 'select',
                 Country: "ESP"

@@ -40,13 +40,13 @@ if ($file) {
         <tr><td colspan="3">&nbsp;</td></tr>
         <tr>
             <td style="text-align:center">
-                <a id="url_g0" target="sponsor" href=""> <img id="img_g0" src="/agility/images/logos/null.png" alt="" height="40"/> </a>
+                <a id="url_g0" target="sponsor" href=""> <img id="img_g0" src="../images/logos/null.png" alt="" height="40"/> </a>
             </td>
             <td style="text-align:center">
-                <a id="url_g1" target="sponsor" href=""> <img id="img_g1" src="/agility/images/logos/null.png" alt="" height="40"/> </a>
+                <a id="url_g1" target="sponsor" href=""> <img id="img_g1" src="../images/logos/null.png" alt="" height="40"/> </a>
             </td>
             <td style="text-align:center">
-                <a id="url_g2" target="sponsor" href=""> <img id="img_g2" src="/agility/images/logos/null.png" alt="" height="40"/> </a>
+                <a id="url_g2" target="sponsor" href=""> <img id="img_g2" src="../images/logos/null.png" alt="" height="40"/> </a>
             </td>
         </tr>
         <!-- ignore bronze sponsors -->
@@ -67,9 +67,9 @@ if ($file) {
             url_g1.attr('href',urls_g[(1+i)%urls_g.length]);
             url_g2.attr('href',urls_g[(2+i)%urls_g.length]);
             // set up images and alternate names
-            img_g0.attr('src', "/agility/images/supporters/"+logos_g[(0+i)%logos_g.length]).attr('alt',sponsors_g[(0+i)%sponsors_g.length]);
-            img_g1.attr('src', "/agility/images/supporters/"+logos_g[(1+i)%logos_g.length]).attr('alt',sponsors_g[(1+i)%sponsors_g.length]);
-            img_g2.attr('src', "/agility/images/supporters/"+logos_g[(2+i)%logos_g.length]).attr('alt',sponsors_g[(2+i)%sponsors_g.length]);
+            img_g0.attr('src', "../images/supporters/"+logos_g[(0+i)%logos_g.length]).attr('alt',sponsors_g[(0+i)%sponsors_g.length]);
+            img_g1.attr('src', "../images/supporters/"+logos_g[(1+i)%logos_g.length]).attr('alt',sponsors_g[(1+i)%sponsors_g.length]);
+            img_g2.attr('src', "../images/supporters/"+logos_g[(2+i)%logos_g.length]).attr('alt',sponsors_g[(2+i)%sponsors_g.length]);
             i++; // next iteration
         }
         setInterval(rotate_sponsors, 5000);

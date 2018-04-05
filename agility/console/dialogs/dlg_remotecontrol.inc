@@ -115,7 +115,7 @@ $am=new AuthManager("Chrono");
                 </div>
                 <div style="display:<?php echo $am->allowed(ENABLE_VIDEOWALL)?'none':'inherit';?>">
                     <p><?php _e('Current license permissions does not allow videowall operations');?></p>
-                    <img src="/agility/images/sad_dog.png" alt="triste"/>
+                    <img src="../images/sad_dog.png" alt="triste"/>
                 </div>
             </div>
             <div title="<?php _e('Live Streaming windows');?>" data-options="iconCls:'icon-live'">
@@ -180,7 +180,7 @@ $am=new AuthManager("Chrono");
 
                 <div style="display:<?php echo $am->allowed(ENABLE_LIVESTREAM)?'none':'inherit';?>">
                     <p><?php _e('Current license permissions does not allow live stream operations');?></p>
-                    <img src="/agility/images/sad_dog.png" alt="triste"/>
+                    <img src="../images/sad_dog.png" alt="triste"/>
                 </div>
             </div>
             <div title="<?php _e('Chronometer displays');?>" data-options="iconCls:'icon-clock'">
@@ -212,7 +212,7 @@ $am=new AuthManager("Chrono");
                 </div>
                 <div style="display:<?php echo $am->allowed(ENABLE_CHRONO)?'none':'inherit';?>">
                     <p><?php _e('Current license permissions does not allow chronometer operations');?></p>
-                    <img src="/agility/images/sad_dog.png" alt="triste"/>
+                    <img src="../images/sad_dog.png" alt="triste"/>
                 </div>
             </div>
 
@@ -251,7 +251,7 @@ $am=new AuthManager("Chrono");
                 </div>
                 <div style="display:<?php echo $am->allowed(ENABLE_PUBLIC)?'none':'inherit';?>">
                     <p><?php _e('Current license permissions does not allow internet public access');?></p>
-                    <img src="/agility/images/sad_dog.png" alt="triste"/>
+                    <img src="../images/sad_dog.png" alt="triste"/>
                 </div>
             </div>
         </div>
@@ -303,7 +303,7 @@ $am=new AuthManager("Chrono");
             expansible: false,
             collapsed: false,
             // datos de la conexion ajax
-            url: '/agility/server/database/sessionFunctions.php',
+            url: '../server/database/sessionFunctions.php',
             queryParams: { Operation:'getClients',SessionType:'videowall' },
             loadMsg: '<?php _e('Updating videowall session list'); ?>',
             method: 'get',
@@ -339,7 +339,7 @@ $am=new AuthManager("Chrono");
             panelHeight: 'auto',
             idField: 'ID',
             textField: 'Name',
-            url: '/agility/server/database/sessionFunctions.php',
+            url: '../server/database/sessionFunctions.php',
             queryParams: { Operation:'playlist' },
             method: 'get',
             mode: 'remote',
@@ -366,7 +366,7 @@ $am=new AuthManager("Chrono");
             panelHeight: 'auto',
             idField: 'ID',
             textField: 'Nombre',
-            url: '/agility/server/database/sessionFunctions.php',
+            url: '../server/database/sessionFunctions.php',
             queryParams: { Operation:'selectring', Hidden:0},
             method: 'get',
             mode: 'remote',
@@ -401,7 +401,7 @@ $am=new AuthManager("Chrono");
             panelHeight: 125,
             idField: 'ID',
             textField: 'Nombre',
-            url: '/agility/server/database/pruebaFunctions.php?Operation=enumerate',
+            url: '../server/database/pruebaFunctions.php?Operation=enumerate',
             method: 'get',
             mode: 'remote',
             required: true,
@@ -439,7 +439,7 @@ $am=new AuthManager("Chrono");
             expansible: false,
             collapsed: false,
             // datos de la conexion ajax
-            url: '/agility/server/database/sessionFunctions.php',
+            url: '../server/database/sessionFunctions.php',
             queryParams: { Operation:'getClients',SessionType:'livestream' },
             loadMsg: '<?php _e('Updating videowall session list'); ?>',
             method: 'get',
@@ -509,7 +509,7 @@ $am=new AuthManager("Chrono");
             panelHeight: 'auto',
             idField: 'ID',
             textField: 'Nombre',
-            url: '/agility/server/database/sessionFunctions.php',
+            url: '../server/database/sessionFunctions.php',
             queryParams: { Operation:'selectring', Hidden:0},
             method: 'get',
             mode: 'remote',
@@ -541,7 +541,7 @@ $am=new AuthManager("Chrono");
             expansible: false,
             collapsed: false,
             // datos de la conexion ajax
-            url: '/agility/server/database/sessionFunctions.php',
+            url: '../server/database/sessionFunctions.php',
             queryParams: { Operation:'getClients',SessionType:'chrono' },
             loadMsg: '<?php _e('Updating videowall session list'); ?>',
             method: 'get',
@@ -580,7 +580,7 @@ $am=new AuthManager("Chrono");
             panelHeight: 'auto',
             idField: 'ID',
             textField: 'Nombre',
-            url: '/agility/server/database/sessionFunctions.php',
+            url: '../server/database/sessionFunctions.php',
             queryParams: { Operation:'selectring', Hidden:0},
             method: 'get',
             mode: 'remote',

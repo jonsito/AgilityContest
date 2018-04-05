@@ -5,7 +5,7 @@ $config =Config::getInstance();
 ?>
 
 <div id="access_denied-window" style="position:relative;width:520px;height:200px;padding:10px">
-    <span style="float:left"><img src="/agility/images/sad_dog.png" alt="triste"/></span><h1>Acceso denegado</h1>
+    <span style="float:left"><img src="../images/sad_dog.png" alt="triste"/></span><h1>Acceso denegado</h1>
     <p>
         <?php _e('Current license does not allow handling of videowall operations');?>
     </p><p>

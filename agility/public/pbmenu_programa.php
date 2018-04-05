@@ -80,7 +80,7 @@ $('#pb_programa-datagrid').datagrid({
     collapsed: false,
     // propiedades del datagrid
     method: 'get',
-    url: '/agility/server/database/tandasFunctions.php',
+    url: '../server/database/tandasFunctions.php',
     queryParams: {
         Operation: 'getTandas',
         Prueba: workingData.prueba,

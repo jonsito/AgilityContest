@@ -102,7 +102,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             panelHeight: 'auto',
             idField: 'ID',
             textField: 'Country',
-            url: '/agility/server/database/juezFunctions.php?Operation=countries',
+            url: '../server/database/juezFunctions.php?Operation=countries',
             method: 'get',
             mode: 'remote',
             required: true,

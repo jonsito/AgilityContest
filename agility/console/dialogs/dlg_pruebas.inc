@@ -233,7 +233,7 @@ $config =Config::getInstance();
         onBeforeOpen: function (){
             this.area=new nicEditor({
                 fullPanel : true,
-                iconsPath:'/agility/lib/nicEdit/nicEditorIcons.gif'
+                iconsPath:'../lib/nicEdit/nicEditorIcons.gif'
             }).panelInstance('pruebas_email-Contents');
             return true;
         },
@@ -271,7 +271,7 @@ $config =Config::getInstance();
         fitcolumns: true,
         idField: 'ID',
         textField: 'Nombre',
-        url: '/agility/server/mailFunctions.php',
+        url: '../server/mailFunctions.php',
         queryParams: {
             'Operation': 'enumerate',
             'Prueba': workingData.prueba,
@@ -337,7 +337,7 @@ $config =Config::getInstance();
         panelHeight: 150,
         idField: 'ID',
         textField: 'LongName',
-        url: '/agility/server/modules/moduleFunctions.php?Operation=enumerate',
+        url: '../server/modules/moduleFunctions.php?Operation=enumerate',
         method: 'get',
         mode: 'remote',
         required: true,
@@ -364,7 +364,7 @@ $config =Config::getInstance();
 		panelHeight: 200,
 		idField: 'ID',
 		textField: 'Nombre',
-		url: '/agility/server/database/clubFunctions.php',
+		url: '../server/database/clubFunctions.php',
         queryParams: {
             'Operation': 'enumerate',
             'Federation': $('#pruebas-Federation').combogrid('getValue')

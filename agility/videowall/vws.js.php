@@ -81,7 +81,7 @@ function vws_trainingPopulate(idx) {
                     $('#vw_training_Duracion_'+n).val((item['Orden']==0)?"-":formatMinSecs(dr,item,n));
                     // handle of ring 1
                     if (item['Key1']==="") { // no data
-                        $("#vw_training_Logo1_"+i).attr('src','/agility/images/logos/null.png');
+                        $("#vw_training_Logo1_"+i).attr('src','../images/logos/null.png');
                         $("#vw_training_NombreClub1_"+i).val("");
                         $("#vw_training_Key1_"+i).val("");
                         $("#vw_training_Duracion1_"+i).html("");
@@ -89,7 +89,7 @@ function vws_trainingPopulate(idx) {
                     } else { // populate with data
                         kv=item['Key1']+" - "+item['Value1'];
                         extra=(n==0)?"":(" - "+item['Key1']);
-                        $("#vw_training_Logo1_"+i).attr('src','/agility/images/logos/'+item['LogoClub']);
+                        $("#vw_training_Logo1_"+i).attr('src','../images/logos/'+item['LogoClub']);
                         $("#vw_training_NombreClub1_"+i).val(item['NombreClub']+extra);
                         $("#vw_training_Key1_"+i).val(kv);
                         if (n==0) {
@@ -99,7 +99,7 @@ function vws_trainingPopulate(idx) {
                     }
                     // handle of ring 2
                     if (item['Key2']==="") { // no data
-                        $("#vw_training_Logo2_"+i).attr('src','/agility/images/logos/null.png');
+                        $("#vw_training_Logo2_"+i).attr('src','../images/logos/null.png');
                         $("#vw_training_NombreClub2_"+i).val("");
                         $("#vw_training_Key2_"+i).val("");
                         $("#vw_training_Duracion2_"+i).html("");
@@ -107,7 +107,7 @@ function vws_trainingPopulate(idx) {
                     } else { // populate with data
                         kv=item['Key2']+" - "+item['Value2'];
                         extra=(n==0)?"":(" - "+item['Key2']);
-                        $("#vw_training_Logo2_"+i).attr('src','/agility/images/logos/'+item['LogoClub']);
+                        $("#vw_training_Logo2_"+i).attr('src','../images/logos/'+item['LogoClub']);
                         $("#vw_training_NombreClub2_"+i).val(item['NombreClub']+extra);
                         $("#vw_training_Key2_"+i).val(kv);
                         if (n==0) {
@@ -117,7 +117,7 @@ function vws_trainingPopulate(idx) {
                     }
                     // handle of ring 3
                     if (item['Key3']==="") { // no data
-                        $("#vw_training_Logo3_"+i).attr('src','/agility/images/logos/null.png');
+                        $("#vw_training_Logo3_"+i).attr('src','../images/logos/null.png');
                         $("#vw_training_NombreClub3_"+i).val("");
                         $("#vw_training_Key2_"+i).val("");
                         $("#vw_training_Duracion3_"+i).html("");
@@ -125,7 +125,7 @@ function vws_trainingPopulate(idx) {
                     } else { // populate with data
                         kv=item['Key3']+" - "+item['Value3'];
                         extra=(n==0)?"":(" - "+item['Key3']);
-                        $("#vw_training_Logo3_"+i).attr('src','/agility/images/logos/'+item['LogoClub']);
+                        $("#vw_training_Logo3_"+i).attr('src','../images/logos/'+item['LogoClub']);
                         $("#vw_training_NombreClub3_"+i).val(item['NombreClub']+extra);
                         $("#vw_training_Key3_"+i).val(kv);
                         if (n==0) {
@@ -293,9 +293,9 @@ function vws_selectAgilityOrJumping(agility) {
 function vwsf_updateHeader(mode,data) {
     mode=mode.toLowerCase();
     if (mode.indexOf("prueba")>=0) {
-        var imgurl="/agility/images/logos/agilitycontest.png";
+        var imgurl="../images/logos/agilitycontest.png";
         if (parseInt(ac_config.vws_uselogo)) imgurl=ac_config.vws_logourl;
-        else imgurl="/agility/images/logos/"+workingData.datosPrueba.LogoClub;
+        else imgurl="../images/logos/"+workingData.datosPrueba.LogoClub;
         $('#vws_hdr_logoprueba').val(imgurl);
         $('#vws_hdr_logo').attr('src',imgurl);
         $('#vws_hdr_prueba').val(workingData.datosPrueba.Nombre);
@@ -324,9 +324,9 @@ function vwsf_updateHeader(mode,data) {
 function vwsp_updateHeader(mode,data) {
     mode=mode.toLowerCase();
     if (mode.indexOf("prueba")>=0) {
-        var imgurl="/agility/images/logos/agilitycontest.png";
+        var imgurl="../images/logos/agilitycontest.png";
         if (parseInt(ac_config.vws_uselogo)) imgurl=ac_config.vws_logourl;
-        else imgurl="/agility/images/logos/"+workingData.datosPrueba.LogoClub;
+        else imgurl="../images/logos/"+workingData.datosPrueba.LogoClub;
         $('#vws_hdr_logoprueba').val(imgurl);
         $('#vws_hdr_logo').attr('src',imgurl);
         $('#vws_hdr_prueba').val(workingData.datosPrueba.Nombre);
@@ -431,7 +431,7 @@ function vws_updateLlamada(evt,data,callback) {
             for(var n=0;n<nitems;n++) {
                 logo=dat['after'][n][(team)?'LogoTeam':'LogoClub'];
                 $('#vws_call_'+n).form('load',dat['after'][n]);
-                $('#vws_call_Logo_'+n).attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
+                $('#vws_call_Logo_'+n).attr('src','../images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             }
             // fill "current" columns
             if(team) {
@@ -458,7 +458,7 @@ function vws_updateLlamada(evt,data,callback) {
                     }
                 }
                 // set team icon. on test dog use AC logo
-                $('#vws_current_Logo_0').attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
+                $('#vws_current_Logo_0').attr('src','../images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             } else { /* individual */
                 if (evt['Nombre']==="<?php _e('Test dog');?>") {
                     logo="agilitycontest.png";
@@ -469,13 +469,13 @@ function vws_updateLlamada(evt,data,callback) {
                 $('#vws_current').form('load',dat['current'][0]);
                 vws_displayData("",true);
                 workingData.vws_currentRow="";
-                $('#vws_current_Logo').attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
+                $('#vws_current_Logo').attr('src','../images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             }
             // fill "before" ( but will be revisited on updateResults )
             for(n=0;n<2;n++) {
                 logo=dat['before'][n][(team)?'LogoTeam':'LogoClub'];
                 $('#vws_before_'+n).form('load',dat['before'][n]);
-                $('#vws_before_Logo_'+n).attr('src','/agility/images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
+                $('#vws_before_Logo_'+n).attr('src','../images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             }
             if (typeof(callback)==="function") callback(parseInt(evt['Dog']),data);
         }
@@ -538,7 +538,7 @@ function vws_updateFinales(perro,data) {
                     data['Tiempo']=toFixedT(data['Tiempo'],ac_config.numdecs);
                     data['Penalizacion']=toFixedT(data['Penalizacion'],ac_config.numdecs);
                     $('#vws_results_' + n).form('load', data);
-                    $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
+                    $('#vws_results_Logo_' + n).attr('src', '../images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
                 }
                 // fill if required 'before' table data
                 for (var i = 0; i < 2; i++) {
@@ -550,13 +550,13 @@ function vws_updateFinales(perro,data) {
             // si size < nitems, completamos con datos vacios
             for (;n<nitems;n++) {
                 $('#vws_results_' + n).form('load', vws_getEmptyResults(/*final*/true,team));
-                $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/null.png');
+                $('#vws_results_Logo_' + n).attr('src', '../images/logos/null.png');
             }
             // limpiamos datos vacios en tabla "before"
             for (i = 0; i < 2; i++) {
                 if ($('#vws_before_Orden_' + i).val() !== '') continue;
                 $('#vws_before_' + i).form('load', vws_getEmptyResults(/*final*/true,team));
-                $('#vws_before_Logo_' + i).attr('src', '/agility/images/logos/null.png');
+                $('#vws_before_Logo_' + i).attr('src', '../images/logos/null.png');
             }
 
             // ahora indicamos puesto y/o toBeFirst en el(los) campo(s) current,
@@ -643,7 +643,7 @@ function vws_updateParciales(data) {
                     data['Penalizacion']=toFixedT(data['Penalizacion'],ac_config.numdecs);
                     // fill forms
                     $('#vws_results_' + n).form('load', data);
-                    $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
+                    $('#vws_results_Logo_' + n).attr('src', '../images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
                     $('#vws_results_FaltasTocados_' + n).html(parseInt(items[n]['Faltas'])+parseInt(items[n]['Tocados']));
                 }
                 // fill if found 'before' table data
@@ -658,14 +658,14 @@ function vws_updateParciales(data) {
             for (;n<nitems;n++) {
                 $('#vws_results_' + n).form('load', vws_getEmptyResults(/*final*/false,team));
                 $('#vws_results_FaltasTocados_' + n).html('');
-                $('#vws_results_Logo_' + n).attr('src', '/agility/images/logos/null.png');
+                $('#vws_results_Logo_' + n).attr('src', '../images/logos/null.png');
             }
             // limpia los campos "before que no hayan sido utilizados
             for (i = 0; i < 2; i++) {
                 if ($('#vws_before_Orden_' + i).val() !== '') continue;
                 $('#vws_before_' + i).form('load', vws_getEmptyResults(/*final*/false,team));
                 $('#vws_before_FaltasTocados_' + i).html('');
-                $('#vws_before_Logo_' + i).attr('src', '/agility/images/logos/null.png');
+                $('#vws_before_Logo_' + i).attr('src', '../images/logos/null.png');
             }
             // ahora indicamos puesto en el(los) campo(s) current, utilizando los datos de perros individuales
             for (n = 0; n < individual.length; n++) {

@@ -22,10 +22,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="vw_footer">
     <span style="float:left">
         <a id="vw_footer-urlFederation" target="fed" href="" style="border:0 none;">
-            <img id="vw_footer-logoFederation" src="/agility/images/logos/agilitycontest.png" alt="" width="40"/>
+            <img id="vw_footer-logoFederation" src="../images/logos/agilitycontest.png" alt="" width="40"/>
         </a>
         <a id="vw_footer-urlFederation2" target="fed2" href="">
-            <img id="vw_footer-logoFederation2" src="/agility/images/logos/agilitycontest.png" alt="" width="40"/>
+            <img id="vw_footer-logoFederation2" src="../images/logos/agilitycontest.png" alt="" width="40"/>
         </a>
         <span style="display:inline-block;padding:12px;font-size:0.6vw;font-style:oblique">
             AgilityContest-<?php echo $config->getEnv('version_name'); ?> <br/>&copy; 2013-2018 JAMC
@@ -48,7 +48,7 @@ if ($file) {
         if ($cat=="silver") $height=20;
         if ($cat=="bronze") continue;
         echo '<a  target="'.$datos[0].'" href="'.$datos[2].'">';
-        echo '<img id="vw_footer-'.$datos[0].'" src="/agility/images/supporters/'.$datos[1].'" alt="'.$cat." ".$datos[0].'" height="'.$height.'"/>';
+        echo '<img id="vw_footer-'.$datos[0].'" src="../images/supporters/'.$datos[1].'" alt="'.$cat." ".$datos[0].'" height="'.$height.'"/>';
         echo '</a>';
         if (($odd==false) && ($height==20)) { echo "<br/>"; $odd=true; }
         else { echo "</td><td>"; $odd=false;}
@@ -59,7 +59,7 @@ if ($file) {
 ?>
         <!-- El logo de y URL de la aplicación siempre esta presente :-) -->
         <a target="acontest" href="https://www.github.com/jonsito/AgilityContest">
-            <img id="vw_footer-logoAgilityContest" src="/agility/images/supporters/agilitycontest.png" alt="agilitycontest" height="40"/>
+            <img id="vw_footer-logoAgilityContest" src="../images/supporters/agilitycontest.png" alt="agilitycontest" height="40"/>
         </a>
     </td></tr></table>
     </span>

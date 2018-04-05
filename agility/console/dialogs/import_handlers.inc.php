@@ -80,7 +80,7 @@ $config =Config::getInstance();
     		idField: 'ID',
             delay: 500,
     		textField: 'Nombre',
-    		url: '/agility/server/database/guiaFunctions.php',
+    		url: '../server/database/guiaFunctions.php',
             queryParams: { Operation:'enumerate' },
     		method: 'get',
     		mode: 'remote',
@@ -102,7 +102,7 @@ $config =Config::getInstance();
     		onSelect: function(index,row) {
     			var id=row.ID;
     			if (id<=0) return;
-    	        $('#importGuia-form').form('load','/agility/server/database/guiaFunctions.php?Operation=getbyid&ID='+id); // load form with json retrieved data
+    	        $('#importGuia-form').form('load','../server/database/guiaFunctions.php?Operation=getbyid&ID='+id); // load form with json retrieved data
     			$('#importGuia-Club').val($('#importGuia-newClub').val()); // restore "Club" field
     		}
     	});

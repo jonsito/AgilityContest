@@ -50,7 +50,7 @@ function viewLogFile(){
         return;
     }
     $.fileDownload(
-        '/agility/server/adminFunctions.php',
+        '../server/adminFunctions.php',
         {
             httpMethod: 'GET',
             data: {
@@ -72,7 +72,7 @@ function resetLogFile(){
         if (r){
             $.ajax({
                 type:'GET',
-                url:"/agility/server/adminFunctions.php",
+                url:"../server/adminFunctions.php",
                 dataType:'json',
                 data: {
                     Operation: 'resetlog'
@@ -102,7 +102,7 @@ function clearTempDir(){
             if (!r) return false;
             $.ajax({
                 type: 'GET',
-                url: "/agility/server/adminFunctions.php",
+                url: "../server/adminFunctions.php",
                 dataType: 'json',
                 data: {
                     Operation: 'cleartmpdir'
@@ -130,7 +130,7 @@ function clearTempDir(){
 
 function backupDatabase(){
     $.fileDownload(
-        '/agility/server/adminFunctions.php',
+        '../server/adminFunctions.php',
         {
             httpMethod: 'GET',
             data: {
@@ -156,7 +156,7 @@ function autoBackupDatabase(mode,dir) {
     setTimeout(function(){
         $.ajax({
             type: 'GET',
-            url: "/agility/server/adminFunctions.php",
+            url: "../server/adminFunctions.php",
             dataType: 'json',
             data: {
                 Operation: 'autobackup',
@@ -223,7 +223,7 @@ function performClearDatabase(oper,fed,pass,callback) {
             // si password correcto invocamos la operacion
             $.ajax({
                 type:'GET',
-                url:"/agility/server/adminFunctions.php",
+                url:"../server/adminFunctions.php",
                 dataType:'json',
                 data: {
                     Operation: oper,
@@ -290,7 +290,7 @@ function restoreDatabase(fromClient){
                     // si password correcto invocamos la operacion
                     $.ajax({
                         type:'POST', // use post to send file
-                        url:"/agility/server/adminFunctions.php",
+                        url:"../server/adminFunctions.php",
                         dataType:'json',
                         data: {
                             Operation: 'restore',
@@ -321,7 +321,7 @@ function restoreDatabase(fromClient){
                     // en paralelo arrancamos una tarea para leer el progreso de la operacion
                     function getProgress(){
                         $.ajax({
-                            url:"/agility/server/adminFunctions.php",
+                            url:"../server/adminFunctions.php",
                             dataType:'json',
                             data: {
                                 Operation: 'progress',
@@ -413,7 +413,7 @@ function askForUpgrade(msg,name,release){
                 });
                 $.messager.progress('bar').progressbar({text: '{value}' }); // remove '%' sign at progress var
                 $.ajax({
-                    url:"/agility/server/adminFunctions.php",
+                    url:"../server/adminFunctions.php",
                     dataType:'json',
                     data: {
                         Operation: 'download',
@@ -439,7 +439,7 @@ function askForUpgrade(msg,name,release){
                 // en paralelo arrancamos una tarea para leer el progreso de la operacion
                 function getProgress(){
                     $.ajax({
-                        url:"/agility/server/adminFunctions.php",
+                        url:"../server/adminFunctions.php",
                         dataType:'json',
                         data: {
                             Operation: 'progress',
@@ -591,7 +591,7 @@ function synchronizeDatabase(warnifnotallowed) {
 function checkForUpgrades() {
     var msg="<p>"+'<?php _e("Current Version"); ?>'+": "+ac_config.version_name+"<br />"+'<?php _e("Current Release"); ?>'+": "+ac_config.version_date+"</p>";
     $.ajax({
-        url:"/agility/server/adminFunctions.php",
+        url:"../server/adminFunctions.php",
         dataType:'json',
         data: {
             Operation: 'upgrade'

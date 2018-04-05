@@ -159,7 +159,7 @@ $('#chrono-Session').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/sessionFunctions.php',
+	url: '../server/database/sessionFunctions.php',
 	method: 'get',
 	mode: 'remote',
 	required: true,

@@ -44,7 +44,7 @@ function chrono_putEvent(type,dat){
 	// send "update" event to every session listeners
 	$.ajax({
 		type:'GET',
-		url:"/agility/server/database/eventFunctions.php",
+		url:"../server/database/eventFunctions.php",
 		dataType:'json',
 		data: $.extend({},obj,dat),
 		success: function(data) {
@@ -229,7 +229,7 @@ function c_showData(data) {
 		// if datos del participante han cambiado actualiza
 		$.ajax({
 			type: "GET",
-			url: "/agility/server/database/dogFunctions.php",
+			url: "../server/database/dogFunctions.php",
 			data: {
 				'Operation' : 'getbyidperro',
 				'Federation': workingData.federation,

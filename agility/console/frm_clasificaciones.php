@@ -28,18 +28,18 @@ require_once(__DIR__."/dialogs/dlg_selectJornada.inc");
 
 $('#seljornada-window').window({
 	onClose: function () {
-		var page="/agility/console/frm_main.php";
+		var page="../console/frm_main.php";
 		// no jornada selected load main menu
 		if (parseInt(workingData.jornada)===0) {
 			loadContents(page,"");
 			return;
 		}
-		page="/agility/console/frm_clasificaciones2.php";
-		if (isJornadaEquipos(null)) page="/agility/console/frm_clasificaciones_equipos.php";
-		if (parseInt(workingData.datosJornada.Open)!==0) page="/agility/console/frm_clasificaciones2.php";
-        if (parseInt(workingData.datosJornada.KO)!==0) page="/agility/console/frm_clasificaciones2.php?Mode=KO";
+		page="../console/frm_clasificaciones2.php";
+		if (isJornadaEquipos(null)) page="../console/frm_clasificaciones_equipos.php";
+		if (parseInt(workingData.datosJornada.Open)!==0) page="../console/frm_clasificaciones2.php";
+        if (parseInt(workingData.datosJornada.KO)!==0) page="../console/frm_clasificaciones2.php?Mode=KO";
         if (parseInt(workingData.datosJornada.Games)!==0) {
-            page="/agility/console/frm_clasificaciones2.php";
+            page="../console/frm_clasificaciones2.php";
             if (workingData.datosCompeticion.ModuleID) page =page+"?Mode=Games"
         }
 		loadContents(page,'<?php _e('Results & Scores');?>');
@@ -48,4 +48,4 @@ $('#seljornada-window').window({
 
 </script>
 
-<img class="mainpage" src="/agility/images/wallpapers/clasificaciones.jpg" alt="<?php _e('Scores'); ?>" width="640" height="480" align="middle"/>
+<img class="mainpage" src="../images/wallpapers/clasificaciones.jpg" alt="<?php _e('Scores'); ?>" width="640" height="480" align="middle"/>

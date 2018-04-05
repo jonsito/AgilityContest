@@ -61,7 +61,7 @@ function vw_updateWorkingData(evt,callback) {
     $.ajax( {
         type: "GET",
         dataType: 'json',
-        url: "/agility/server/web/videowallFunctions.php",
+        url: "../server/web/videowallFunctions.php",
         data: {
             Operation: 'infodata',
             Prueba: evt.Prueba,
@@ -121,7 +121,7 @@ function vw_updateHeaderAndFooter(evt,data,showJourney) {
     $('#vw_header-infoprueba').html(infoprueba);
     $('#vw_header-ring').html(data.Sesion.Nombre);
 	// on international competitions, use federation Organizer logo
-	var logo='/agility/images/logos/'+data.Club.Logo; // dont use "LogoClub" as direct translation from db
+	var logo='../images/logos/'+data.Club.Logo; // dont use "LogoClub" as direct translation from db
 	if ( (data.Club.Logo==="") || isInternational(data.Prueba.RSCE)) {
 		logo=ac_fedInfo[data.Prueba.RSCE].OrganizerLogo
 	}
@@ -137,7 +137,7 @@ function vw_updateHeaderAndFooter(evt,data,showJourney) {
 	var logo2=ac_fedInfo[workingData.federation].ParentLogo;
 	var url=ac_fedInfo[workingData.federation].WebURL;
 	var url2=ac_fedInfo[workingData.federation].ParentWebURL;
-	$('#vw_footer-footerData').load("/agility/videowall/vw_footer.php",{},function(response,status,xhr){
+	$('#vw_footer-footerData').load("../videowall/vw_footer.php",{},function(response,status,xhr){
 		$('#vw_footer-logoFederation').attr('src',logo);
 		$('#vw_footer-urlFederation').attr('href',url);
 		$('#vw_footer-logoFederation2').attr('src',logo2);
@@ -163,7 +163,7 @@ function vwc_updateHeaderAndFooter(evt,data) {
 		logo=ac_fedInfo[fed].OrganizerLogo; // remember that absolute path is provided here
 		$('#vwc_header-logo').attr('src',logo);
 	} else {
-		$('#vwc_header-logo').attr('src','/agility/images/logos/getLogo.php?Fed='+fed+'&Logo='+logo);
+		$('#vwc_header-logo').attr('src','../images/logos/getLogo.php?Fed='+fed+'&Logo='+logo);
 	}
 
 	// on "init just initialize contest, logo and footer: no round yet
@@ -186,7 +186,7 @@ function vwc_updateHeaderAndFooter(evt,data) {
 
 	// update footer
 	var fname=(ac_config.vw_combined==0)?"vw_footer.php":"vwc_footer.php";
-	$('#vw_footer-footerData').load("/agility/videowall/"+fname,{},function(response,status,xhr){
+	$('#vw_footer-footerData').load("../videowall/"+fname,{},function(response,status,xhr){
 		if (ac_config.vwc_simplified==0) {
 			$('#vw_footer-logoFederation').attr('src',ac_fedInfo[workingData.federation].Logo);
 			$('#vw_footer-urlFederation').attr('href',ac_fedInfo[workingData.federation].WebURL);
@@ -428,7 +428,7 @@ function vwcp_updateLlamada(evt,data) {
 	$.ajax( {
 		type: "GET",
 		dataType: 'json',
-		url: "/agility/server/web/videowallFunctions.php",
+		url: "../server/web/videowallFunctions.php",
 		data: {
 			Operation: 'window',
 			Before: 3,
@@ -443,7 +443,7 @@ function vwcp_updateLlamada(evt,data) {
 			// rellenamos ventana de datos del perro en pista
 			$("#vwls_Numero").html(current['Orden']);
 
-			$("#vwls_Logo").attr('src','/agility/images/logos/'+current['LogoClub']);
+			$("#vwls_Logo").attr('src','../images/logos/'+current['LogoClub']);
 			$("#vwls_Perro").html(current['Perro']);
 			$("#vwls_Categoria").html(current['Categoria']);
 			$("#vwls_Grado").html(current['Grado']);
@@ -503,7 +503,7 @@ function vwcf_updateLlamada(evt,data) {
 	$.ajax( {
 		type: "GET",
 		dataType: 'json',
-		url: "/agility/server/web/videowallFunctions.php",
+		url: "../server/web/videowallFunctions.php",
 		data: {
 			Operation: 'window',
 			Before: (ac_config.vwc_simplified==0)?4:2,
@@ -550,7 +550,7 @@ function vwcf_updateLlamada(evt,data) {
 			// rellenamos ventana de datos del perro en pista
 			var current=dat['current'][0];
 			$("#vwls_Numero").html(current['Orden']);
-			$("#vwls_Logo").attr('src', '/agility/images/logos/' + current['LogoClub']);
+			$("#vwls_Logo").attr('src', '../images/logos/' + current['LogoClub']);
 			$("#vwls_Perro").html(current['Perro']);
 			$("#vwls_Categoria").html(current['Categoria']);
 			$("#vwls_Grado").html(current['Grado']);
@@ -640,7 +640,7 @@ function videowall_eventManager(id,evt) {
 
 function videowall_switchConsole(event) {
     var data=event['Value'].split(':');// ring : view : mode
-    var url="/agility/videowall/index.php?Ring="+data[0]+"&View="+data[1]+"&Mode="+data[2]+"&Timeout=2&SessionName="+ac_clientOpts.SessionName;
+    var url="../videowall/index.php?Ring="+data[0]+"&View="+data[1]+"&Mode="+data[2]+"&Timeout=2&SessionName="+ac_clientOpts.SessionName;
     window.location.replace(url);
 }
 

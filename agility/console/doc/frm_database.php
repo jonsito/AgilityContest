@@ -1,1 +1,1 @@
-<img src="/agility/images/database.png" alt="database.png"/>
+<img src="../images/database.png" alt="database.png"/>

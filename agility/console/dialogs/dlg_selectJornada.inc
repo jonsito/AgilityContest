@@ -69,7 +69,7 @@ $('#seljornada-Prueba').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/pruebaFunctions.php?Operation=enumerate',
+	url: '../server/database/pruebaFunctions.php?Operation=enumerate',
 	method: 'get',
 	mode: 'remote',
 	required: true,
@@ -109,7 +109,7 @@ $('#seljornada-Jornada').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/jornadaFunctions.php',
+	url: '../server/database/jornadaFunctions.php',
 	method: 'get',
 	mode: 'remote',
 	required: true,
@@ -159,7 +159,7 @@ function acceptSelectJornada() {
 		return;
 	}
     if (parseInt(p.Inscritos) > parseInt(p.UserLimit)) {
-        var message='<img src="/agility/images/sad_dog.png" width="100" alt="sad dog" style="float:right;"/>'+
+        var message='<img src="../images/sad_dog.png" width="100" alt="sad dog" style="float:right;"/>'+
             '<p style="font-weight:bold;"><?php _e('Current license permissions'); ?><br />"' +
 			' <?php _e('forbids handling of contests</br> with more than'); ?> '+p.UserLimit+' <?php _e('inscriptions'); ?></p>';
         $.messager.alert({

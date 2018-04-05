@@ -63,7 +63,7 @@ if ($file) {
             <td style="width:57px" align="center">
                 <!-- El logo de y URL de la aplicación siempre esta presente :-) -->
                 <a target="sponsor" href="https://www.github.com/jonsito/AgilityContest">
-                    <img id="vw_footer-logoAgilityContest" src="/agility/images/supporters/agilitycontest.png" alt="agilitycontest" height="50"/>
+                    <img id="vw_footer-logoAgilityContest" src="../images/supporters/agilitycontest.png" alt="agilitycontest" height="50"/>
                 </a>
             </td>
         </tr>
@@ -98,14 +98,14 @@ if ($file) {
             url_s3.attr('href',urls_s[(3+i)%urls_s.length]);
             url_s4.attr('href',urls_s[(4+i)%urls_s.length]);
             // set up images and alternate names
-            img_g0.attr('src', "/agility/images/supporters/"+logos_g[(0+i)%logos_g.length]).attr('alt',sponsors_g[(0+i)%sponsors_g.length]);
-            img_g1.attr('src', "/agility/images/supporters/"+logos_g[(1+i)%logos_g.length]).attr('alt',sponsors_g[(1+i)%sponsors_g.length]);
-            img_g2.attr('src', "/agility/images/supporters/"+logos_g[(2+i)%logos_g.length]).attr('alt',sponsors_g[(2+i)%sponsors_g.length]);
-            img_s0.attr('src', "/agility/images/supporters/"+logos_s[(0+i)%logos_s.length]).attr('alt',sponsors_s[(0+i)%sponsors_s.length]);
-            img_s1.attr('src', "/agility/images/supporters/"+logos_s[(1+i)%logos_s.length]).attr('alt',sponsors_s[(1+i)%sponsors_s.length]);
-            img_s2.attr('src', "/agility/images/supporters/"+logos_s[(2+i)%logos_s.length]).attr('alt',sponsors_s[(2+i)%sponsors_s.length]);
-            img_s3.attr('src', "/agility/images/supporters/"+logos_s[(3+i)%logos_s.length]).attr('alt',sponsors_s[(3+i)%sponsors_s.length]);
-            img_s4.attr('src', "/agility/images/supporters/"+logos_s[(4+i)%logos_s.length]).attr('alt',sponsors_s[(4+i)%sponsors_s.length]);
+            img_g0.attr('src', "../images/supporters/"+logos_g[(0+i)%logos_g.length]).attr('alt',sponsors_g[(0+i)%sponsors_g.length]);
+            img_g1.attr('src', "../images/supporters/"+logos_g[(1+i)%logos_g.length]).attr('alt',sponsors_g[(1+i)%sponsors_g.length]);
+            img_g2.attr('src', "../images/supporters/"+logos_g[(2+i)%logos_g.length]).attr('alt',sponsors_g[(2+i)%sponsors_g.length]);
+            img_s0.attr('src', "../images/supporters/"+logos_s[(0+i)%logos_s.length]).attr('alt',sponsors_s[(0+i)%sponsors_s.length]);
+            img_s1.attr('src', "../images/supporters/"+logos_s[(1+i)%logos_s.length]).attr('alt',sponsors_s[(1+i)%sponsors_s.length]);
+            img_s2.attr('src', "../images/supporters/"+logos_s[(2+i)%logos_s.length]).attr('alt',sponsors_s[(2+i)%sponsors_s.length]);
+            img_s3.attr('src', "../images/supporters/"+logos_s[(3+i)%logos_s.length]).attr('alt',sponsors_s[(3+i)%sponsors_s.length]);
+            img_s4.attr('src', "../images/supporters/"+logos_s[(4+i)%logos_s.length]).attr('alt',sponsors_s[(4+i)%sponsors_s.length]);
             i++; // next iteration
         }
         setInterval(rotate_sponsors, 5000);

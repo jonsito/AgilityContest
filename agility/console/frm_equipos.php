@@ -156,7 +156,7 @@ $('#team_datagrid-dialog').dialog({
 // datos de la tabla de equipos
 $('#team_datagrid').datagrid({
 	fit: true,
-	url: '/agility/server/database/equiposFunctions.php',
+	url: '../server/database/equiposFunctions.php',
 	queryParams: { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''	},
 	loadMsg: '<?php _e('Updating team list');?> ...',
     footer: '#team_datagrid-buttons',
@@ -226,7 +226,7 @@ function showInscripcionesByTeam(index,team){
 		fitColumns: true,
 		singleSelect: false,
 		loadMsg: '<?php _e('Reading inscription list');?>...',
-		url: '/agility/server/database/inscripcionFunctions.php',
+		url: '../server/database/inscripcionFunctions.php',
 		queryParams: {
 		    Operation: 'inscritosbyteam',
             Prueba:workingData.prueba,
@@ -312,7 +312,7 @@ $('#selteam-Equipo').combogrid({
 	panelHeight: 200,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/equiposFunctions.php',
+	url: '../server/database/equiposFunctions.php',
 	queryParams: { Operation:'enumerate', Prueba:workingData.prueba, Jornada:workingData.jornada },
 	loadMsg: '<?php _e('Updating team list');?>...',
 	method: 'get',

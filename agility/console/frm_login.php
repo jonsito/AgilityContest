@@ -44,7 +44,7 @@ if ( intval($config->getEnv('running_mode')) === AC_RUNMODE_MASTER ) {
 }
 ?>
 
-<img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle" />
+<img class="mainpage" src="../server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle" />
 
 <!-- FORMULARIO DE introduccion de usuario y contrasenya -->
 <div id="login-window" class="easyui-window" style="position:relative;width:500px;height:auto;padding:20px 20px">
@@ -131,7 +131,7 @@ $('#login-Federation').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'LongName',
-	url: '/agility/server/modules/moduleFunctions.php?Operation=enumerate',
+	url: '../server/modules/moduleFunctions.php?Operation=enumerate',
 	method: 'get',
 	mode: 'remote',
 	required: true,

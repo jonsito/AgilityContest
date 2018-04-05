@@ -416,22 +416,22 @@ class Sesiones extends DBObject {
             case 'mjpeg':
             case 'jpeg':
             case 'gif':
-                $img="/agility/videos/{$item['Name']}.{$item['Type']}";
+                $img="../videos/{$item['Name']}.{$item['Type']}";
                 break;
             // video mp4
             case 'mp4':
             // case 'avi':
             // case 'h264':
-                $mp4="/agility/videos/{$item['Name']}.{$item['Type']}";
+                $mp4="../videos/{$item['Name']}.{$item['Type']}";
                 break;
             // video webm
             case 'webm':
-                $webm="/agility/videos/{$item['Name']}.{$item['Type']}";
+                $webm="../videos/{$item['Name']}.{$item['Type']}";
                 break;
             // video ogv
             case 'ogv':
             case 'ogg': // audio, but still may work
-                $ogv="/agility/videos/{$item['Name']}.{$item['Type']}";
+                $ogv="../videos/{$item['Name']}.{$item['Type']}";
                 break;
             // default
             default:

@@ -30,7 +30,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="vw_entrenamientos-window">
 	<div id="vw_entrenamientos-layout" style="width:100%">
 		<div id="vw_entrenamientos-Cabecera" data-options="region:'north',split:false" style="height:100px" class="vw_floatingheader">
-            <img id="vw_header-logo" src="/agility/images/logos/agilitycontest.png" style="float:left;width:75px" />
+            <img id="vw_header-logo" src="../images/logos/agilitycontest.png" style="float:left;width:75px" />
 		    <span style="float:left;padding:10px;" id="vw_header-infoprueba"><?php _e('Header'); ?></span>
 			<div style="float:right;padding:10px;text-align:right;">
                 <span id="vw_header-texto"><?php _e('Training session'); ?></span>
@@ -57,7 +57,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="vw_training_LogoClub_<?php echo $entry;?>" name="LogoClub" type="hidden" value="Logo <?php echo $entry;?>"/>
                 <!-- datos del ring 1 -->
                     <img class="vws_css_results_<?php echo($entry%2);?> vws_imgpadding"
-                         src="/agility/images/logos/agilitycontest.png"
+                         src="../images/logos/agilitycontest.png"
                          id="vw_training_Logo1_<?php echo $entry;?>"
                          alt="Logo <?php echo $entry;?>"/>
                     <input id="vw_training_NombreClub1_<?php echo $entry;?>" name="NombreClub1" type="text" value="Club1"/>
@@ -66,7 +66,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     <input id="vw_training_Value1_<?php echo $entry;?>" name="Value1" type="hidden" value="Value1"/>
                 <!-- datos del ring 2 -->
                     <img class="vws_css_results_<?php echo($entry%2);?> vws_imgpadding"
-                         src="/agility/images/logos/agilitycontest.png"
+                         src="../images/logos/agilitycontest.png"
                          id="vw_training_Logo2_<?php echo $entry;?>"
                          alt="Logo <?php echo $entry;?>"/>
                     <input id="vw_training_NombreClub2_<?php echo $entry;?>" name="NombreClub2" type="text" value="Club2"/>
@@ -75,7 +75,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     <input id="vw_training_Value2_<?php echo $entry;?>" name="Value2" type="hidden"/>
                 <!-- datos del ring 3 -->
                     <img class="vws_css_results_<?php echo($entry%2);?> vws_imgpadding"
-                         src="/agility/images/logos/agilitycontest.png"
+                         src="../images/logos/agilitycontest.png"
                          id="vw_training_Logo3_<?php echo $entry;?>"
                          alt="Logo <?php echo $entry;?>"/>
                     <input id="vw_training_NombreClub3_<?php echo $entry;?>" name="NombreClub3" type="text" value="Club3"/>
@@ -86,7 +86,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <!--
                     <input id="vw_training_LogoClub4_<?php echo $entry;?>" name="LogoClub4" type="hidden" value="Logo4"/>
                     <img class="vws_css_results_<?php echo($entry%2);?> vws_imgpadding"
-                         src="/agility/images/logos/agilitycontest.png"
+                         src="../images/logos/agilitycontest.png"
                          id="vw_training_Logo4_<?php echo $entry;?>"
                          alt="Logo <?php echo $entry;?>"/>
                     <input id="vw_training_NombreClub4_<?php echo $entry;?>" name="NombreClub4" type="text" value="Club4"/>

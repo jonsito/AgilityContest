@@ -161,7 +161,7 @@ $('#entrenamientos-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: '/agility/server/database/trainingFunctions.php',
+	url: '../server/database/trainingFunctions.php',
     queryParams: {
         Operation: 'select',
         Prueba: workingData.prueba

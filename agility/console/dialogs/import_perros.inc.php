@@ -82,7 +82,7 @@ $config =Config::getInstance();
 		idField: 'ID',
         delay: 500,
 		textField: 'Nombre',
-		url: '/agility/server/database/dogFunctions.php',
+		url: '../server/database/dogFunctions.php',
 		queryParams: { Operation:'enumerate' },
 		method: 'get',
 		mode: 'remote',

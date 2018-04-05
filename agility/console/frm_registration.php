@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <div id="dlg_register" style="width:700px;padding:10px">
-	<img src="/agility/images/AgilityContest.png" 
+	<img src="../images/AgilityContest.png"
 		width="150" height="100" alt="AgilityContest Logo" 
 		style="border:1px solid #000000;margin:10px;float:right;padding:5px">
 	<dl>
@@ -35,7 +35,7 @@ $config =Config::getInstance();
 		<dd>
 		<?php _e('Source code is available at'); ?> <a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />
 		<?php _e('You can use, copy, modify and re-distribute under terms of'); ?>
-		<a target="license" href="/agility/License"><?php _e('GNU General Public License'); ?></a>
+		<a target="license" href="../License"><?php _e('GNU General Public License'); ?></a>
 		</dd>
 	</dl>
 	<p>
@@ -141,9 +141,9 @@ $config =Config::getInstance();
         onOpen: function() {
             $('#reg_version').html(ac_config.version_name);
             $('#reg_date').html(ac_config.version_date);
-            $('#registration_data').form('load','/agility/server/adminFunctions.php?Operation=reginfo');
+            $('#registration_data').form('load','../server/adminFunctions.php?Operation=reginfo');
         },
-        onClose: function() {loadContents('/agility/console/frm_main.php','',{'registration':'#dlg_register'});
+        onClose: function() {loadContents('../console/frm_main.php','',{'registration':'#dlg_register'});
         }
     });
 

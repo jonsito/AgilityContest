@@ -31,7 +31,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="vw_standby-window" style="background:#000;color:#fff">
     <div id="img" style="width:100px;height:100px;position:fixed">
-        <img src="/agility/images/AgilityContest.png" alt="logo" style="width:96px;height:96px;padding:2px;">
+        <img src="../images/AgilityContest.png" alt="logo" style="width:96px;height:96px;padding:2px;">
     </div>
 </div> <!-- vw_standby-window -->
 

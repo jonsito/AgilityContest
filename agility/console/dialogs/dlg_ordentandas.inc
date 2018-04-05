@@ -112,7 +112,7 @@ $('#ordentandas-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: '/agility/server/database/tandasFunctions.php',
+	url: '../server/database/tandasFunctions.php',
     queryParams: {
         Operation: 'getTandas',
         Prueba: workingData.prueba,
@@ -155,7 +155,7 @@ $('#ordentandas_nt-Sesion').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/sessionFunctions.php',
+	url: '../server/database/sessionFunctions.php',
 	method: 'get',
 	mode: 'remote',
 	required: true,

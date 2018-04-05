@@ -395,7 +395,7 @@ function dmanga_shareJuez() {
     var frm = $('#competicion-formdatosmanga');
     $.ajax({
         type: 'GET',
-        url: '/agility/server/database/mangaFunctions.php',
+        url: '../server/database/mangaFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -423,7 +423,7 @@ function save_manga(id) {
         var frm = $('#competicion-formdatosmanga');
         $.ajax({
             type: 'GET',
-            url: '/agility/server/database/mangaFunctions.php',
+            url: '../server/database/mangaFunctions.php',
             data: frm.serialize(),
             dataType: 'json',
             success: function (result) {
@@ -498,7 +498,7 @@ function save_manga(id) {
  */
 function reload_manga(id) {
 	// ventana de datos
-	var url='/agility/server/database/mangaFunctions.php?Operation=getbyid&Jornada='+workingData.jornada+"&Manga="+id;
+	var url='../server/database/mangaFunctions.php?Operation=getbyid&Jornada='+workingData.jornada+"&Manga="+id;
     // update judge list to prevent federation change
     $('#dmanga-Juez1').combogrid('load',{'Operation':'Enumerate','Federation':workingData.federation});
     $('#dmanga-Juez2').combogrid('load',{'Operation':'Enumerate','Federation':workingData.federation});
@@ -670,7 +670,7 @@ function resetCompeticion() {
         if (!r) return;
         $.ajax({
             type:'GET',
-            url:"/agility/server/database/resultadosFunctions.php",
+            url:"../server/database/resultadosFunctions.php",
             dataType:'json',
             data: {
                 Prueba: workingData.prueba,
@@ -705,7 +705,7 @@ function swapMangas() {
         $.messager.progress({text:"<?php _e('Working');?>..."});
         $.ajax({
             type:'GET',
-            url:"/agility/server/database/resultadosFunctions.php",
+            url:"../server/database/resultadosFunctions.php",
             dataType:'json',
             data: {
                 Prueba: workingData.prueba,
@@ -864,7 +864,7 @@ function __getPuesto(datos,callback,final) {
         $.messager.alert('<?php _e('Error'); ?>','<?php _e('Internal error: invalid Federation/Course/Category combination'); ?>','error');
         return false;
     }
-    var url=(final)?"/agility/server/database/clasificacionesFunctions.php":"/agility/server/database/resultadosFunctions.php";
+    var url=(final)?"../server/database/clasificacionesFunctions.php":"../server/database/resultadosFunctions.php";
     var param= {
         Operation:	'getPuesto',
         Prueba:		workingData.prueba,
@@ -969,7 +969,7 @@ function saveCompeticionData(idx,data) {
         // send "update" event to every session listeners
         $.ajax({
             type:'GET',
-            url:"/agility/server/database/eventFunctions.php",
+            url:"../server/database/eventFunctions.php",
             dataType:'json',
             data: $.extend({},obj,data)
         });
@@ -977,7 +977,7 @@ function saveCompeticionData(idx,data) {
 
 	$.ajax({
 		type:'GET',
-		url:"/agility/server/database/resultadosFunctions.php",
+		url:"../server/database/resultadosFunctions.php",
 		dataType:'json',
 		data: {
 			Operation:	'update',
@@ -1030,7 +1030,7 @@ function evalOrdenSalida(oper) {
 			if (!r) return;
 			$.ajax({
 				type:'GET',
-				url:"/agility/server/database/ordenSalidaFunctions.php",
+				url:"../server/database/ordenSalidaFunctions.php",
 				dataType:'json',
 				data: {
 					Prueba: workingData.prueba,
@@ -1060,7 +1060,7 @@ function evalOrdenSalida(oper) {
     } else { // 'reverse', 'clone', 'results', 'alpha','dorsal'
 		$.ajax({
 			type:'GET',
-			url:"/agility/server/database/ordenSalidaFunctions.php",
+			url:"../server/database/ordenSalidaFunctions.php",
 			dataType:'json',
 			data: {
 				Prueba: workingData.prueba,
@@ -1089,7 +1089,7 @@ function dragAndDropOrdenSalida(from,to,where,whenDone) {
 	if (workingData.manga==0) return;
 	$.ajax({
 		type:'GET',
-		url:"/agility/server/database/ordenSalidaFunctions.php",
+		url:"../server/database/ordenSalidaFunctions.php",
 		dataType:'json',
 		data: {	
 			Operation: 'dnd',
@@ -1114,7 +1114,7 @@ function dragAndDropOrdenTandas(from,to,where) {
 	if (workingData.jornada==0) return;
 	$.ajax({
 		type:'GET',
-		url:"/agility/server/database/tandasFunctions.php",
+		url:"../server/database/tandasFunctions.php",
 		dataType:'json',
 		data: {	
 			Operation: 'dnd', 
@@ -1225,7 +1225,7 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
     if (mode<0) return; // invalid mode. do not parse
 	$.ajax({
 		type:'GET',
-		url:"/agility/server/database/resultadosFunctions.php",
+		url:"../server/database/resultadosFunctions.php",
 		dataType:'json',
 		data: {	Operation:'getResultadosIndividual', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:idmanga, Mode: mode },
 		success: function(dat) {
@@ -1265,7 +1265,7 @@ function resultados_doSelectRonda(row) {
         mode=$('#resultados-selectCategoria').combobox('getValue');
         $.ajax({
             type:'GET',
-            url:"/agility/server/database/clasificacionesFunctions.php",
+            url:"../server/database/clasificacionesFunctions.php",
             dataType:'json',
             data: {
                 Operation: (isJornadaEquipos(null))?'clasificacionEquipos':'clasificacionIndividual',
@@ -1417,7 +1417,7 @@ function verifyClasificaciones() {
 	// verificamos manga 1
 	$.ajax({
 		type:'GET',
-		url:"/agility/server/database/resultadosFunctions.php",
+		url:"../server/database/resultadosFunctions.php",
 		dataType:'json',
 		data: {	
 			Operation:	'getPendientes', 
@@ -1441,7 +1441,7 @@ function verifyClasificaciones() {
 			// verificamos manga 2
 			$.ajax({
 				type:'GET',
-				url:"/agility/server/database/resultadosFunctions.php",
+				url:"../server/database/resultadosFunctions.php",
 				dataType:'json',
 				data: {	
 					Operation:	'getPendientes', 
@@ -1465,7 +1465,7 @@ function verifyClasificaciones() {
                     // verificamos manga 3
                     $.ajax({
                         type: 'GET',
-                        url: "/agility/server/database/resultadosFunctions.php",
+                        url: "../server/database/resultadosFunctions.php",
                         dataType: 'json',
                         data: {
                             Operation: 'getPendientes',
@@ -1503,7 +1503,7 @@ function reloadClasificaciones() {
 	// calculamos y recargamos tabla de clasificaciones
 	$.ajax({
 		type:'GET',
-		url:"/agility/server/database/clasificacionesFunctions.php",
+		url:"../server/database/clasificacionesFunctions.php",
 		dataType:'json',
 		data: {
             Operation: (isJornadaEquipos(null))?'clasificacionEquipos':'clasificacionIndividual',

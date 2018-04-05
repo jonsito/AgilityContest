@@ -62,7 +62,7 @@ function askForUpdateDB() {
                     // call server to update ac_config.search_updatedb
                     $.ajax({
                         type:'GET',
-                        url:"/agility/server/adminFunctions.php",
+                        url:"../server/adminFunctions.php",
                         dataType:'json',
                         data: {
                             Operation: 'setEnv',
@@ -260,7 +260,7 @@ function read_regFile(input) {
 function send_regFile() {
     $.ajax({
   		type: 'POST',
-    	url: '/agility/server/adminFunctions.php',
+    	url: '../server/adminFunctions.php',
     	dataType: 'json',
     	data: {
     		Operation: 'register',
@@ -305,7 +305,7 @@ Same as above, but use ajax call to retrieve real permissions from server
 function check_permissions(perms, callback) {
 	$.ajax({
 		type: "GET",
-		url: '/agility/server/adminFunctions.php',
+		url: '../server/adminFunctions.php',
 		data: {
 			'Operation' : 'permissions',
 			'Perms':perms
@@ -350,7 +350,7 @@ al servidor
 function check_access(perms,callback) {
     $.ajax({
         type:'GET',
-        url:"/agility/server/adminFunctions.php",
+        url:"../server/adminFunctions.php",
         dataType:'json',
         data: {
             Operation:	'userlevel',
