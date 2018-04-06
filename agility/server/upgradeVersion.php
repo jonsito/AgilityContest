@@ -249,7 +249,8 @@ class Updater {
                 $retflag=true;
             }
             // add new sw version entry into table with (newswver,lastdbupdate) values
-            $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$this->current_version}','{$curdate}') ";
+            $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$this->current_version}','{$curdate}') ".
+                "ON DUPLICATE KEY UPDATE Updated='{$curdate}'";
             $res=$this->conn->query($str);
             if (!$res) throw new Exception ("upgrade::updateHistoryTable(): ".$this->conn->error);
             $this->myLogger->leave();

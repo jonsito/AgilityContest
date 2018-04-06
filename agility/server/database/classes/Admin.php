@@ -429,7 +429,7 @@ class Admin extends DBObject {
             if ($num==1) $keystr="";
         } else {
             $this->bckLicense="00000000"; //older db backups lacks on third field
-            $this->bckDate=date("Ymd_Hi"); // older db backups lacks on backup creation date
+            $this->bckDate=$this->bckRevision; // older db backups lacks on backup creation date
             $keystr="";
         }
         // now comes backup data.
@@ -445,7 +445,6 @@ class Admin extends DBObject {
         }
         // Read entire file into an array
         $lines = explode("\n",$data);
-        for ($n=0;$n<30;$n++) $this->myLogger->trace("Line {$n}: {$lines[$n]}");
         // prepare restore process
 		$numlines=count($lines);
         // Temporary variable, used to store current query
@@ -501,9 +500,9 @@ class Admin extends DBObject {
         $this->readIntoDB($rconn,$data);
         // phase 5 update VersionHistory: set current sw version entry with restored backup creation date
         $bckd=toLongDateString($this->bckDate);
-        $swver=$this->myConfig->getEnv("version_date");
-        $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$swver}','{$bckd}') ".
+        $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$this->bckRevision}','{$bckd}') ".
             "ON DUPLICATE KEY UPDATE Updated='{$bckd}'";
+        $this->myLogger->trace($str);
         $rconn->query($str);
         // finally close db connection and return
         DBConnection::closeConnection($rconn);
