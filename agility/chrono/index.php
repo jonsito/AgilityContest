@@ -21,6 +21,9 @@ header("Pragma: no-cache");
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
+if (!file_exists(__DIR__."/../server/auth/system.ini")) {
+    die("Missing system configuration file. Please properly configure and install application");
+}
 $config =Config::getInstance();
 if( ! function_exists('password_verify')) {
     die("Invalid environment: You should have php-5.5.X or higher version installed");

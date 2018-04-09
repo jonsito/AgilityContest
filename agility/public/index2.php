@@ -20,6 +20,10 @@ header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}",false);
 require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
 require_once(__DIR__ . "/../server/auth/AuthManager.php");
+
+if (!file_exists(__DIR__."/../server/auth/system.ini")) {
+    die("Missing system configuration file. Please properly configure and install application");
+}
 if(!isset($config)) $config =Config::getInstance();
 
 /* check for properly installed xampp */

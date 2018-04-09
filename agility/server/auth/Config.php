@@ -422,6 +422,7 @@ Class Config {
 	}
 
 	private function readAC_configFile($file) {
+		if (!file_exists($file)) return array();
 		$data=parse_ini_file($file,false); // use false to don't handle subsections
 		foreach ($data as $key => $val) {
 			// transcode special fields
