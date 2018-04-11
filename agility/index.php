@@ -75,8 +75,36 @@
         }
 
         function check_db() {
-
+            $.ajax({
+                type: "POST",
+                url: 'server/webhostingFunctions.php',
+                data: {
+                    'Operation' : 'checkdbroot',
+                    'Server': $('#install_host').textbox('getText'),
+                    'Database': $('#install_dbname').textbox('getText'),
+                    'User': $('#install_dbuser').textbox('getText'),
+                    'Password': $('#install_dbpass').textbox('getText')
+                },
+                async: true,
+                cache: false,
+                dataType: 'json',
+                success: function(data){
+                    if ( data.errorMsg ) {
+                        $.messager.alert('<?php _e("Error"); ?>',"checkDataBase(): " + strval(data.errorMsg),"error");
+                        $('#install_dbpass_match').html('<span style="color:red"><?php _e('Failed');?>!</span>');
+                    } else {
+                        $('#install_dbpass_match').html('<span style="color:green"><?php _e('Succeed');?>!</span>');
+                        $('#install_data').css('display','inherit');
+                    }
+                },
+                error: function(XMLHttpRequest,textStatus,errorThrown) {
+                    var msg= "check Database access error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown ;
+                    $.messager.alert('<?php _e("Error"); ?>',"checkDataBase(): " + msg,"error");
+                    $('#install_dbpass_match').html('<span style="color:red"><?php _e('Failed');?>!</span>');
+                }
+            });
         }
+
     </script>
 </head>
 <body style="margin:0;padding:0" onload="initialize();">
@@ -84,40 +112,50 @@
 <div id="install-window" class="easyui-window" style="width:800px;height:600px;padding:10px 20px" data-options="fit:false">
 
     <form id="install_form" name="install_form" class="easyui-form">
-    <img src="images/AgilityContest.png"
-         width="150" height="100" alt="AgilityContest Logo"
-         style="border:1px solid #000000;margin:10px;float:right;padding:5px">
-    <dl>
-        <dt>
-            <strong><?php _e('Version'); ?>: </strong><span id="reg_version">version</span> - <span id="reg_date">date</span>
-        </dt>
-        <dt>
-            <strong>AgilityContest</strong> <?php _e('is Copyright &copy; 2013-2018 by'); ?> <em> Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
-        </dt>
-        <dd>
-            <?php _e('Source code is available at'); ?> <a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />
-            <?php _e('You can use, copy, modify and re-distribute under terms of'); ?>
-            <a target="license" href="License"><?php _e('GNU General Public License'); ?></a>
-        </dd>
-    </dl>
-    <p>
-        <?php _e('Registered at'); ?> 'Registro Territorial de la Propiedad Intelectual de Madrid'. <em>Expediente: 09-RTPI-09439.4/2014</em>
-    </p>
+    <div id="install_header">
+
+        <img src="images/AgilityContest.png"
+             width="150" height="100" alt="AgilityContest Logo"
+             style="border:1px solid #000000;margin:10px;float:right;padding:5px">
+        <dl>
+            <dt>
+                <strong><?php _e('Version'); ?>: </strong><span id="reg_version">version</span> - <span id="reg_date">date</span>
+            </dt>
+            <dt>
+                <strong>AgilityContest</strong> <?php _e('is Copyright &copy; 2013-2018 by'); ?> <em> Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
+            </dt>
+            <dd>
+                <?php _e('Source code is available at'); ?> <a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />
+                <?php _e('You can use, copy, modify and re-distribute under terms of'); ?>
+                <a target="license" href="License"><?php _e('GNU General Public License'); ?></a>
+            </dd>
+        </dl>
+        <p>
+            <?php _e('Registered at'); ?> 'Registro Territorial de la Propiedad Intelectual de Madrid'. <em>Expediente: 09-RTPI-09439.4/2014</em>
+        </p>
+    </div>
+
     <hr />
 
-    <h3><?php _e("Server and Database information");?> </h3>
+    <div id="database_data">
+        <h3><?php _e("Server and Database information");?> </h3>
         <div class="fitem">
-            <label for="install_host" style="width:250px;margin-top:5px"><?php _e("Server Name");?>: </label>
+            <label for="install_host" style="width:250px;margin-top:5px"><?php _e("Server name");?>: </label>
             <input type="text" class="easyui-textbox" id="install_host" name="install_host">
             <br/>
         </div>
         <div class="fitem">
-            <label for="install_dbname" style="width:250px;margin-top:5px"><?php _e("Database Name");?>: </label>
+            <label for="install_dbname" style="width:250px;margin-top:5px"><?php _e("Database name");?>: </label>
             <input type="text" class="easyui-textbox" id="install_dbname" name="install_dbname">
             <br/>
         </div>
         <div class="fitem">
-            <label for="install_dbpass" style="width:250px;margin-top:5px"><?php _e("Database root password");?>: </label>
+            <label for="install_dbuser" style="width:250px;margin-top:5px"><?php _e("Database admin user");?>: </label>
+            <input type="text" class="easyui-textbox" id="install_dbuser" name="install_dbuser">
+            <br/>
+        </div>
+        <div class="fitem">
+            <label for="install_dbpass" style="width:250px;margin-top:5px"><?php _e("Database admin password");?>: </label>
             <input type="password" class="easyui-textbox" id="install_dbpass" name="install_dbpass">
             <br/>
         </div>
@@ -125,14 +163,18 @@
             <label for="install_dbcheck" style="width:250px;margin-top:5px"><?php _e("Check database connection");?>: </label>
             <a id="install_dbcheck" href="#" class="easyui-linkbutton"
                data-options="iconCls:'icon-help'" onclick="check_db()"><?php _e('Check'); ?></a>
+            <span id="install_dbpass_match">&nbsp;</span>
         </div>
+    </div>
+
     <hr/>
 
-    <h3><?php _e("AgilityContest default users:");?> </h3>
+    <div id="install_data" style="display:none">
+        <h3><?php _e("AgilityContest default users:");?> </h3>
         <div class="fitem">
             <label for="install_admin" style="width:250px;margin-top:5px"><?php _e("Enter password for 'admin' user");?>: </label>
             <input type="password" class="easyui-textbox" id="install_admin" name="install_admin">
-            <span id="install_admin_strength">&nbsp;hola</span>
+            <span id="install_admin_strength">&nbsp;</span>
             <br/>
         </div>
         <div class="fitem">
@@ -165,9 +207,9 @@
             <span id="install_assistant2_match">&nbsp;</span>
             <br/>&nbsp;<br/>
         </div>
-    <hr/>
+        <hr/>
 
-    <h3><?php _e("Licensing and registration");?> </h3>
+        <h3><?php _e("Licensing and registration");?> </h3>
         <div class="fitem">
             <label for="install_accept" style="width:300px;margin-top:5px"><?php _e("I've read, understand and accept License terms");?>: </label>
             <input type="checkbox" class="easyui-checkbox" id="install_accept" name="install_accept">
@@ -183,15 +225,18 @@
 			<a id="install-okButton" href="#" class="easyui-linkbutton"
                data-options="iconCls:'icon-ok'"
                onclick="$('#dlg_register').window('close');"><?php _e('Aceptar'); ?></a>
+            <br/>&nbsp;<br/>
 	    </span>
-        <br/>
+    </div>
     </form>
 </div>
 <script type="text/javascript">
-    $('#install_host').textbox({required:true,value:'www.server.domain',validType:'length[1,255]'});
-    $('#install_dbname').textbox({required:true,value:'dbname',validType:'length[1,255]'});
-    $('#install_dbpass').textbox({required:true,value:'dbpassword',validType:'length[1,255]',iconCls:'icon-lock'});
+    $('#install_host').textbox({width:300,required:true,value:'www.server.domain',validType:'length[1,255]'});
+    $('#install_dbname').textbox({width:300,required:true,value:'dbname',validType:'length[1,255]'});
+    $('#install_dbuser').textbox({width:300,required:true,value:'dbuser',validType:'length[1,255]',iconCls:'icon-man'});
+    $('#install_dbpass').textbox({width:300,required:true,value:'dbpassword',validType:'length[1,255]',iconCls:'icon-lock'});
     $('#install_admin').textbox({
+        width:300,
         required:true,
         value:'admin',
         validType:'length[6,32]',
@@ -204,6 +249,7 @@
         })
     });
     $('#install_admin2').textbox({
+        width:300,
         required:true,
         value:'admin',
         iconCls:'icon-lock',
@@ -216,6 +262,7 @@
         })
     });
     $('#install_operator').textbox({
+        width:300,
         required:true,
         value:'operator',
         validType:'length[6,32]',
@@ -228,6 +275,7 @@
         })
     });
     $('#install_operator2').textbox({
+        width:300,
         required:true,
         value:'operator',
         iconCls:'icon-lock',
@@ -240,6 +288,7 @@
         })
     });
     $('#install_assistant').textbox({
+        width:300,
         required:true,
         value:'assistant',
         validType:'length[6,32]',
@@ -252,6 +301,7 @@
         })
     });
     $('#install_assistant2').textbox({
+        width:300,
         required:true,
         value:'assistant',
         iconCls:'icon-lock',
