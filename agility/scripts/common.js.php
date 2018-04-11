@@ -175,6 +175,50 @@ function toHMS(time) {
 }
 
 /**
+ * evvaluate password strength and set target bg color acording it
+ * @param {string} pwd password to check
+ * @param {jquery object} target html target id to work with or null
+ */
+function passwordStrength(pwd,target) {
+    var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+    var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+    var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+    if (pwd.length==0) {
+        target.html('Type Password');
+        return -2;
+    } else if (false == enoughRegex.test(pwd)) {
+        target.html('More Characters');
+        return -1;
+    } else if (strongRegex.test(pwd)) {
+        target.html('<span style="color:green"><?php _e('Strong');?>!</span>');
+        return 0;
+    } else if (mediumRegex.test(pwd)) {
+        target.html('<span style="color:orange"><?php _e('Medium');?>!</span>');
+        return 1;
+    } else {
+        target.html('<span style="color:red"><?php _e('Weak');?>!</span>');
+        return 2;
+    }
+}
+
+/**
+ * check if passwords match
+ * @param {string} p1
+ * @param {string} p2
+ * @param {jquery element} target
+ * @returns {boolean}
+ */
+function passwordMatch(p1,p2,target) {
+    if (p1===p2) {
+        target.html('<span style="color:green"><?php _e("Match");?>!</span>');
+        return true;
+    } else {
+        target.html('<span style="color:red"><?php _e("Missmatch");?>!</span>');
+        return false;
+    }
+}
+
+/**
  * returns Categoria's long string according provided categoria and fereration
  * @param {string} cat Categoria
  * @param {int} fed Federation, as indexed in nombreCategorias

@@ -132,31 +132,37 @@
         <div class="fitem">
             <label for="install_admin" style="width:250px;margin-top:5px"><?php _e("Enter password for 'admin' user");?>: </label>
             <input type="password" class="easyui-textbox" id="install_admin" name="install_admin">
+            <span id="install_admin_strength">&nbsp;hola</span>
             <br/>
         </div>
         <div class="fitem">
             <label for="install_admin2" style="width:250px;margin-top:5px"><?php _e("Enter password (again) for 'admin'");?>: </label>
             <input type="password" class="easyui-textbox" id="install_admin2" name="install_admin2">
+            <span id="install_admin2_match">&nbsp;</span>
             <br/>&nbsp;<br/>
         </div>
         <div class="fitem">
             <label for="install_operator" style="width:250px;margin-top:5px"><?php _e("Enter password for 'operator' user");?>: </label>
             <input type="password" class="easyui-textbox" id="install_operator" name="install_operator">
+            <span id="install_operator_strength">&nbsp;</span>
             <br/>
         </div>
         <div class="fitem">
             <label for="install_operator2" style="width:250px;margin-top:5px"><?php _e("Enter password (again) for 'operator'");?>: </label>
             <input type="password" class="easyui-textbox" id="install_operator2" name="install_operator2">
+            <span id="install_operator2_match">&nbsp;</span>
             <br/>&nbsp;<br/>
         </div>
         <div class="fitem">
             <label for="install_assistant" style="width:250px;margin-top:5px"><?php _e("Enter password for 'assistant' user");?>: </label>
             <input type="password" class="easyui-textbox" id="install_assistant" name="install_assistant">
+            <span id="install_assistant_strength">&nbsp;</span>
             <br/>
         </div>
         <div class="fitem">
             <label for="install_assistant2" style="width:250px;margin-top:5px"><?php _e("Enter password (again) for 'assistant'");?>: </label>
             <input type="password" class="easyui-textbox" id="install_assistant2" name="install_assistant2">
+            <span id="install_assistant2_match">&nbsp;</span>
             <br/>&nbsp;<br/>
         </div>
     <hr/>
@@ -185,12 +191,78 @@
     $('#install_host').textbox({required:true,value:'www.server.domain',validType:'length[1,255]'});
     $('#install_dbname').textbox({required:true,value:'dbname',validType:'length[1,255]'});
     $('#install_dbpass').textbox({required:true,value:'dbpassword',validType:'length[1,255]',iconCls:'icon-lock'});
-    $('#install_admin').textbox({required:true,value:'admin',validType:'length[1,255]',iconCls:'icon-lock'});
-    $('#install_admin2').textbox({required:true,value:'admin',validType:'length[1,255]',iconCls:'icon-lock'});
-    $('#install_operator').textbox({required:true,value:'operator',validType:'length[1,255]',iconCls:'icon-lock'});
-    $('#install_operator2').textbox({required:true,value:'operator',validType:'length[1,255]',iconCls:'icon-lock'});
-    $('#install_assistant').textbox({required:true,value:'assistant',validType:'length[1,255]',iconCls:'icon-lock'});
-    $('#install_assistant2').textbox({required:true,value:'assistant',validType:'length[1,255]',iconCls:'icon-lock'});
+    $('#install_admin').textbox({
+        required:true,
+        value:'admin',
+        validType:'length[6,32]',
+        iconCls:'icon-lock',
+        inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
+            keyup:function(e){
+                var t = $(e.data.target).textbox('getText');
+                passwordStrength(t,$('#install_admin_strength'));
+            }
+        })
+    });
+    $('#install_admin2').textbox({
+        required:true,
+        value:'admin',
+        iconCls:'icon-lock',
+        inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
+            keyup:function(e){
+                var p1 = $('#install_admin').textbox('getText');
+                var p2 = $(e.data.target).textbox('getText');
+                passwordMatch(p1,p2,$('#install_admin2_match'));
+            }
+        })
+    });
+    $('#install_operator').textbox({
+        required:true,
+        value:'operator',
+        validType:'length[6,32]',
+        iconCls:'icon-lock',
+        inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
+            keyup:function(e){
+                var t = $(e.data.target).textbox('getText');
+                passwordStrength(t,$('#install_operator_strength'));
+            }
+        })
+    });
+    $('#install_operator2').textbox({
+        required:true,
+        value:'operator',
+        iconCls:'icon-lock',
+        inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
+            keyup:function(e){
+                var p1 = $('#install_operator').textbox('getText');
+                var p2 = $(e.data.target).textbox('getText');
+                passwordMatch(p1,p2,$('#install_operator2_match'));
+            }
+        })
+    });
+    $('#install_assistant').textbox({
+        required:true,
+        value:'assistant',
+        validType:'length[6,32]',
+        iconCls:'icon-lock',
+        inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
+            keyup:function(e){
+                var t = $(e.data.target).textbox('getText');
+                passwordStrength(t,$('#install_assistant_strength'));
+            }
+        })
+    });
+    $('#install_assistant2').textbox({
+        required:true,
+        value:'assistant',
+        iconCls:'icon-lock',
+        inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
+            keyup:function(e){
+                var p1 = $('#install_assistant').textbox('getText');
+                var p2 = $(e.data.target).textbox('getText');
+                passwordMatch(p1,p2,$('#install_assistant2_match'));
+            }
+        })
+    });
     var fb=$('#install_license');
     fb.filebox({
         accept:  ".info",
