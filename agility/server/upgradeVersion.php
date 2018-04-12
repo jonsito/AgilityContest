@@ -713,6 +713,19 @@ class Updater {
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
     }
+
+    /**
+     *change passwors after database update
+     *@param {string} $user login
+     *@param {string} $pw user password ( clear text )
+     */
+    function setupPassword($user,$pw) {
+        if ($pw=="") return 0;
+        $p=base64_encode(password_hash($pw,PASSWORD_DEFAULT));
+        $str="UPDATE usuarios SET Password='{$p}' WHERE Login='{$user}'";
+        $this->myDBObject->query($str);
+        return 0;
+    }
 }
 
 $upg=new Updater();
@@ -736,6 +749,10 @@ try {
         $upg->install_log('<script type="text/javascript">alert("Database installation OK");</script>');
         ob_implicit_flush(false);
         @touch(DO_NOT_BACKUP); // mark installDB=1 to disable autobackup at first login
+        // after install db check for need to change admin , operator and assistant passwords
+        $upg->setupPassword("admin", http_request("admin","s",""));
+        $upg->setupPassword("operator", http_request("operator","s",""));
+        $upg->setupPassword("assisstant",http_request("assistant","s",""));
     }
     // process database to make it compliant with sofwtare version
     $upg->removeUpdateMark();
