@@ -121,6 +121,9 @@ function acceptLogin() {
 				if(parseInt(ac_config.backup_disabled)!==0) {
 				    str = str+'<br/><strong><span class="blink">'+'<?php _e("Automatic backup is disabled");?>'+'</span></strong>';
                 }
+                if (data.LastLogin !== "") {
+                    str = str+'<br /><?php _e("Last login");?>: '+ data.LastLogin;
+                }
 				if (data.NewVersion>vers) {
 				    str = str+'<br /><?php _e("New version available");?>: '+data.NewVersion;
                 }

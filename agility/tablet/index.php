@@ -381,11 +381,15 @@ function tablet_acceptSelectJornada() {
         		$.messager.alert("Error",data.errorMsg,"error"); 
         		initAuthInfo(); // initialize to null
         	} else {
+    		    var ll="";
+    		    if (data.LastLogin!=="") {
+    		        ll = "<?php _e('Last login');?>:<br/>"+data.LastLogin;
+                }
                 // close dialog
                 $('#seltablet-dialog').dialog('close');
         		$.messager.alert(
         	    	"<?php _e('User');?>: "+data.Login,
-        	    	'<?php _e("Session successfully started");?>',
+        	    	'<?php _e("Session successfully started");?><br/>'+ll,
         	    	"info",
         	    	function() {
         	    	   	initAuthInfo(data);

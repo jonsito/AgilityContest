@@ -47,8 +47,17 @@ try {
 		case "selectbyid": $result=$users->selectByID($id); break;
 		case "select": $result=$users->select(); break; // list with order, index, count and where
 		case "enumerate": $result=$users->enumerate(); break; // list with where
+        case "lastLogin": $result=$am->lastLogin($user); break; // check sessions for last login
 		case "login":
+            $ll = $am->lastLogin($user); // evaluate last login _before_ new login to retrieve LastModified field
 		    $result = $am->login($user,$pass,$sid);
+		    // fix lastLogin value
+            $result['LastLogin']= "";
+            if ($ll['total']!=0) {
+                $t=$ll['rows'][0]['LastModified'];
+                $w=$ll['rows'][0]['Nombre'];
+                $result['LastLogin']=" {$t} "._('on')." {$w}";
+            }
             // if configured to do, search for updates at login success
 		    $result['NewVersion']="0.0.0-19700101_0000";
 		    if (intval($config->getEnv("search_updates"))!==0) {

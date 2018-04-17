@@ -345,6 +345,17 @@ class AuthManager {
 		return $better[1];
 	}
 
+	function lastLogin($key) {
+		$str="usuarios.Login='{$key}'";
+		if (is_integer($key)) $str="usuarios.ID={$key}";
+		return $this->mySessionMgr->__select(
+			"sesiones.*",
+			"sesiones,usuarios",
+			"( sesiones.Operador=usuarios.ID ) AND ({$str})",
+			"sesiones.LastModified DESC",
+			"1"
+		);
+	}
     /**
      * Authenticate user from database
      * On Login success create session and if needed send login event
