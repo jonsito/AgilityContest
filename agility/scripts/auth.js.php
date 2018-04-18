@@ -108,6 +108,7 @@ function acceptLogin() {
        			$.messager.alert("Error",data.errorMsg,"error");
        			initAuthInfo();
        		} else {// success:
+       		    var wwidth=450;
                 var vers=ac_config.version_name+"-"+ac_config.version_date;
        			var str="AgilityContest version: "+vers+"<br />";
        			str =str+'<?php _e("License registered by");?>'+": "+data.User+"<br />";
@@ -129,6 +130,11 @@ function acceptLogin() {
                 }
                 if ( (parseInt(ac_config.search_updatedb)>0) && (parseInt(data.NewEntries)!=0) ){
                     str = str+'<br />'+data.NewEntries+' <?php _e("new/updated entries from server Database");?>';
+                    if (data.NewEntries!=0) {
+                        wwidth=550;
+                        str = str + '<span style="display:inline-block;width:50px">&nbsp</span>';
+                        str = str + '<input type="checkbox" id="login_updatedb" value="1"><?php _e("Update");?></input>';
+                    }
                 }
        			str =str+'<br /><br />'+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';
        			var w=$.messager.alert("Login",str,"info",function(){
@@ -139,11 +145,15 @@ function acceptLogin() {
 					if (checkForAdmin(false)) { // do not handle syncdb unless admin login
                         // if not configured ( value<0 ) ask user to enable autosync database
                         var up=parseInt(ac_config.search_updatedb);
-                        if (up<0) setTimeout(function() { askForUpdateDB();},500 );
-                        if (up>0) setTimeout(function() { synchronizeDatabase(false)},500);
+                        if (up<0) {
+                            setTimeout(function() { askForUpdateDB();},500 );
+                        }
+                        if ( (up>0) && ( $('#login_updatedb').prop('checked') == true) ) {
+                            setTimeout(function() { synchronizeDatabase(false)},500);
+                        }
                     }
 				});
-                w.window('resize',{width:400,height:'auto'}).window('center');
+                w.window('resize',{width:wwidth,height:'auto'}).window('center');
 
                 // force backup on login success
                 autoBackupDatabase(0,"");
