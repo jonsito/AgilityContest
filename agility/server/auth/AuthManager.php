@@ -206,7 +206,6 @@ class AuthManager {
         $pub_key="-----BEGIN PUBLIC KEY-----\n" . $this->getPK() . "-----END PUBLIC KEY-----\n";
         if (md5($pub_key)!="ff430f62f2e112d176110b704b256542") return null ;
 		$bl=$this->getBL();
-		if (md5($bl)!="ef0af62a7007469811fb2237b87e3479") return null;
         $key=openssl_get_publickey($pub_key);
         if (!$key) { /* echo "Cannot get public key";*/	return null; }
         $res=openssl_public_decrypt(base64_decode($bl),$decrypted,$key);
