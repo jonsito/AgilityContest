@@ -21,7 +21,7 @@ require_once(__DIR__."/../server/tools.php");
 
 //***** tareas a realizar en primer arranque para instalaciones en un web hosting ************************
 
-function wh_read_registrationFile() {
+function wh_read_registrationFile(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
@@ -94,6 +94,9 @@ function wh_checkAndInstall() {
             type: "POST",
             url: 'server/webhostingFunctions.php',
             data: {
+                // no need to base64 encode pass: we are using post over ssl
+                // also do not hass pw at client side. it's prone to security failure point
+                // https://stackoverflow.com/questions/9397268/passing-base64-encoded-username-and-password-through-a-https-ssl-connection-fo
                 'Operation' : 'install',
                 'Server': $('#install_host').textbox('getText'),
                 'Database': $('#install_dbname').textbox('getText'),

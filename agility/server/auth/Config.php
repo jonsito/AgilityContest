@@ -217,14 +217,14 @@ Class Config {
 		// variables del sistema.
 		// just declared, no neccesarily real value
 		'running_mode'		=> array(	's',	true,	AC_RUNMODE_STANDALONE),
-		'version_name'		=> array(	's',	true,	"0.0.0"),
-		'version_date'		=> array(	's',	true,	"20150101_0000"),
-		'database_name'		=> array(	's',	true,	"name"),
-		'database_host'		=> array(	's',	true,	"host"),
-        'database_user'		=> array(	's',	true,	"user"),
-        'database_pass'		=> array(	's',	true,	"pass"),
-        'database_ruser'	=> array(	's',	true,	"user"),
-        'database_rpass'	=> array(	's',	true,	"pass"),
+		'version_name'		=> array(	's',	true,	"3.8.0"),
+		'version_date'		=> array(	's',	true,	"201804019_1515"),
+		'database_name'		=> array(	's',	true,	"dbname"),
+		'database_host'		=> array(	's',	true,	"dbhost"),
+        'database_user'		=> array(	's',	true,	"dbuser"),
+        'database_pass'		=> array(	's',	true,	"dbpass"),
+        'database_ruser'	=> array(	's',	true,	"dbuuser"),
+        'database_rpass'	=> array(	's',	true,	"dbrpass"),
 		'program_name'		=> array(	's',	true,	"Agilitycontest"),
 		'author'			=> array(	's',	true,	"Juan Antonio Martinez"),
 		'email'				=> array(	's',	true,	"juansgaviota@gmail.com"),
@@ -432,6 +432,38 @@ Class Config {
 		return $data;
 	}
 
+    /**
+	 * this function is called on webhost install process
+	 * to create system.ini file
+     * @param {array} $data Data to be stored
+     */
+	function writeAC_systemFile($data) {
+		$res= array (
+            'running_mode'		=> AC_RUNMODE_SHARED, // web host install
+            'version_name'		=> $this->getEnv('version_name'),
+            'version_date'		=> $this->getEnv('version_date'),
+            'program_name'		=> $this->getEnv('program_name'),
+            'author'			=> $this->getEnv('author'),
+            'email'				=> $this->getEnv('email'),
+            'license'			=> $this->getEnv('license'),
+            'master_server'		=> $this->getEnv('master_server'),
+            'master_baseurl'	=> $this->getEnv('master_baseurl'),
+            'database_name'		=> $data['dbname'],
+            'database_host'		=> $data['dbhost'],
+            'database_user'		=> base64_encode($data['dbuser']),  // agility_admin
+            'database_pass'		=> base64_encode($data['dbpass']),  // random, runtime generated OTP password
+            'database_ruser'	=> base64_encode($data['dbruser']), // agility_operator
+            'database_rpass'	=> base64_encode($data['dbrpass']), // random, runtime generated OTP password
+		);
+        return $this->write_ini_file($data,AC_SYSTEM_FILE,false);
+	}
+
+    /**
+     * Update config.ini file with provided data
+     * @param {array} $data data to be stored
+     * @param {string} $file config.ini file
+     * @return bool|int number of bytes written or false on failure
+     */
 	private function writeAC_configFile($data,$file) {
 		// encode special fields before store
 		foreach ($data as $key => $val) {

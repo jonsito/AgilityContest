@@ -279,7 +279,7 @@
         buttonAlign: 'left',
         buttonIcon: 'icon-search',
         onChange: function(newfile,oldfile) {
-            read_regFile(fb.next().find('.textbox-value')[0]); // locate real input text
+            wh_read_registrationFile(fb.next().find('.textbox-value')[0]); // locate real input text
         }
     });
     fb.next().find('.textbox-value').attr('accept', '.info');
