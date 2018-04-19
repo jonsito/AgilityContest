@@ -26,10 +26,14 @@ try {
 		throw new Exception( "AgilityContest is already installed");
     $operation = http_request("Operation","s","");
 	$data=array(
-        'server' => http_request("Server","s",""),
-        'dbname' => http_request("Database","s",""),
-        'dbuser' => http_request("User","s",""),
-        'dbpass' => http_request("Password","s","")
+        'server' 	=> http_request("Server","s",""),
+        'dbname' 	=> http_request("Database","s",""),
+        'dbuser' 	=> http_request("User","s",""),
+        'dbpass' 	=> http_request("Password","s",""),
+        'admin'		=> http_request("Admin","s",""),
+        'operator'	=> http_request("Operator","s",""),
+        'assistant'	=> http_request("Assistant","s",""),
+        'license'	=> http_request("License","s",""),
 	);
 	$result=null;
 	switch ($operation) {

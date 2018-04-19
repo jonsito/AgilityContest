@@ -63,53 +63,12 @@
     <script src="lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
     <script src="lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
     <script src="scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
-    <script type="text/javascript">
-
-        function initialize() {
-
-        }
-
-
-        function read_regFile() {
-
-        }
-
-        function check_db() {
-            $.ajax({
-                type: "POST",
-                url: 'server/webhostingFunctions.php',
-                data: {
-                    'Operation' : 'checkdbroot',
-                    'Server': $('#install_host').textbox('getText'),
-                    'Database': $('#install_dbname').textbox('getText'),
-                    'User': $('#install_dbuser').textbox('getText'),
-                    'Password': $('#install_dbpass').textbox('getText')
-                },
-                async: true,
-                cache: false,
-                dataType: 'json',
-                success: function(data){
-                    if ( data.errorMsg ) {
-                        $.messager.alert('<?php _e("Error"); ?>',"checkDataBase(): " + strval(data.errorMsg),"error");
-                        $('#install_dbpass_match').html('<span style="color:red"><?php _e('Failed');?>!</span>');
-                    } else {
-                        $('#install_dbpass_match').html('<span style="color:green"><?php _e('Succeed');?>!</span>');
-                        $('#install_data').css('display','inherit');
-                    }
-                },
-                error: function(XMLHttpRequest,textStatus,errorThrown) {
-                    var msg= "check Database access error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown ;
-                    $.messager.alert('<?php _e("Error"); ?>',"checkDataBase(): " + msg,"error");
-                    $('#install_dbpass_match').html('<span style="color:red"><?php _e('Failed');?>!</span>');
-                }
-            });
-        }
-
-    </script>
+    <script src="scripts/webhost.js.php" type="text/javascript" charset="utf-8" > </script>
 </head>
-<body style="margin:0;padding:0" onload="initialize();">
+
+<body style="margin:0;padding:0">
 <h2>AgilityContest WebHost install</h2>
-<div id="install-window" class="easyui-window" style="width:800px;height:600px;padding:10px 20px" data-options="fit:false">
+<div id="install-window" class="easyui-window" style="width:800px;height:500px;padding:10px 20px" data-options="fit:false">
 
     <form id="install_form" name="install_form" class="easyui-form">
     <div id="install_header">
@@ -162,7 +121,7 @@
         <div class="fitem">
             <label for="install_dbcheck" style="width:250px;margin-top:5px"><?php _e("Check database connection");?>: </label>
             <a id="install_dbcheck" href="#" class="easyui-linkbutton"
-               data-options="iconCls:'icon-help'" onclick="check_db()"><?php _e('Check'); ?></a>
+               data-options="iconCls:'icon-help'" onclick="wh_check_dbAccess(null)"><?php _e('Check'); ?></a>
             <span id="install_dbpass_match">&nbsp;</span>
         </div>
     </div>
@@ -217,14 +176,14 @@
         </div>
         <div class="fitem">
             <label for="install_license" style="width:250px;margin-top:5px"><?php _e("Enter registration license file");?>: </label>
-            <input name="install_license" id="install_license" style="width:350px;" onchange="read_regFile(this)"/>
+            <input name="install_license" id="install_license" style="width:350px;" onchange="wh_read_registrationFile(this)"/>
             <input id="install_regdata" type="hidden" name="Data" value="">
         </div>
 
         <span style="float:right">
 			<a id="install-okButton" href="#" class="easyui-linkbutton"
                data-options="iconCls:'icon-ok'"
-               onclick="$('#dlg_register').window('close');"><?php _e('Aceptar'); ?></a>
+               onclick="wh_checkAndInstall();"><?php _e('Aceptar'); ?></a>
             <br/>&nbsp;<br/>
 	    </span>
     </div>
@@ -331,13 +290,9 @@
         minimizable:false,
         maximizable:false,
         resizable:false,
-        closable:true,
+        closable:false, // do not allow close: use "Accept" button
         modal:true,
-        iconCls: 'icon-dog',
-        onOpen: function() {
-        },
-        onClose: function() {
-        }
+        iconCls: 'icon-dog'
     });
 
     addTooltip($('#install_dbcheck').linkbutton(),'<?php _e("Check server/database conectivity"); ?>');
