@@ -449,7 +449,7 @@ function loadConfiguration(callback) {
 			}
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("loadConfiguration() XMLHttpRequest Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown, );
+			alert("loadConfiguration() XMLHttpRequest Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown );
 		}
 	});
 }
