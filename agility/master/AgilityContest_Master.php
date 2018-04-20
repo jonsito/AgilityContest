@@ -28,7 +28,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 define("AC_BACKUP_FILE","/var/www/html/downloads/agility.sql");
 
 class AgilityContest_Master {
-    public static function sendBackup() {
+    protected $license;
+    protected $version;
+    protected $client;
+
+    function _construct($license,$version) {
+        $this->license=$license;
+        $this->version=$version;
+        $this->client=$_SERVER['REMOTE_ADDR'];
+    }
+
+    public function sendBackup() {
         // $f=date("Ymd_Hi");
         $fd=fopen(AC_BACKUP_FILE,"r");
         if (!$fd) {
@@ -48,6 +58,14 @@ class AgilityContest_Master {
             }
             fclose ($fd);
         }
+    }
+
+    public function track($operation,$result="Success") {
+
+    }
+
+    public function licenseViolation() {
+
     }
 }
 

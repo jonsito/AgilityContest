@@ -49,6 +49,8 @@ $operation=http_request("Operation","s","");
 $ver=http_request("Revision","s","");
 $lic=http_request("License","s","");
 
+$msg=http_request("Message","s","");
+
 // if no license nor version is provided, abort
 if ($ver==="") die("AgilityContest client revision info is not provided");
 if ($lic==="") die("AgilityContest client license number is not provided");
@@ -56,8 +58,13 @@ if (intval($lic)===0) die("AgilityContest client has no registered license");
 // PENDING: check for blacklisted licenses :-)
 
 // PENDING: generate log
-
+$acm=new AgilityContest_Master($lic,$ver);
 switch ($operation) {
-    case 'getbackup': AgilityContest_Master::sendBackup(); break;
+    case 'getbackup':
+        $acm->sendBackup();
+        break;
+    case 'licenseviolation':
+        $acm->licenseViolation();
+        break;
 }
 ?>
