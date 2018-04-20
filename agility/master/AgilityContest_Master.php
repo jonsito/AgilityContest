@@ -32,7 +32,7 @@ class AgilityContest_Master {
     protected $version;
     protected $client;
 
-    function _construct($license,$version) {
+    function __construct($license,$version) {
         $this->license=$license;
         $this->version=$version;
         $this->client=$_SERVER['REMOTE_ADDR'];
@@ -65,6 +65,10 @@ class AgilityContest_Master {
     }
 
     public function licenseViolation() {
+
+    }
+
+    public function checkBlackList() {
 
     }
 }
