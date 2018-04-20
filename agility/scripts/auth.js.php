@@ -87,12 +87,18 @@ function askForUpdateDB() {
 function acceptLogin() {
 	var user= $('#login-Username').val();
 	var pass=$('#login-Password').val();
+	var fed=$('#login-Federation').combogrid('getValue');
 	if (!user || !user.length) {
 		$.messager.alert("Invalid data",'<?php _e("There is no user chosen");?>',"error");
 		return;
 	}
 	// set federation
-	setFederation($('#login-Federation').combogrid('getValue'));
+    if (parseInt(fed)<0) {
+        $.messager.alert("Invalid data",'<?php _e("There is no chosen federation");?>',"error");
+        return;
+    }
+	setFederation(fed);
+	if (valu)
 	$.ajax({
 		type: 'POST',
   		url: '../server/database/userFunctions.php',

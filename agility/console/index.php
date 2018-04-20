@@ -342,7 +342,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <!-- LOGO -->
 <div id="mylogo">
 	<p><img id="logo_AgilityContest" src="../images/AgilityContest.png" alt="AgilityContest" width="200" height="160"/></p>
-	<p><img id="logo_Federation" src="../images/logos/rsce.png" alt="Federation" width="200" height="160"/></p>
+	<p><img id="logo_Federation" src="../images/logos/null.png" alt="Federation" width="200" height="160"/></p>
 </div>
 
 <!-- MENU LATERAL -->

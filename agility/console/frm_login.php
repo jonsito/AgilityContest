@@ -147,10 +147,14 @@ $('#login-Federation').combogrid({
 		{field:'Logo',hidden:true},
 		{field:'ParentLogo',hidden:true}
 	]],
-	onChange:function(value){ setFederation(value); }
+    onLoadSuccess: function(data) {
+	    var cg= $('#login-Federation');
+        cg.combogrid('setValue',-1);
+        cg.combogrid('setText','-- <?php _e("Select Federation");?> --');
+    },
+	onChange:function(value){ if (parseInt(value)>=0) setFederation(value); }
 });
 
 addTooltip($('#login-okBtn').linkbutton(),'<?php _e("Start session with provided user privileges"); ?>');
 addTooltip($('#login-cancelBtn').linkbutton(),'<?php _e("Start session as <em>guest</em> user. Close window"); ?>');
-
 </script>
