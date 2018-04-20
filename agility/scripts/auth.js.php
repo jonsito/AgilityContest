@@ -98,7 +98,6 @@ function acceptLogin() {
         return;
     }
 	setFederation(fed);
-	if (valu)
 	$.ajax({
 		type: 'POST',
   		url: '../server/database/userFunctions.php',

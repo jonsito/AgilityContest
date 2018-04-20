@@ -1,10 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: jantonio
- * Date: 15/03/18
- * Time: 11:05
- * file: getBackup.php
+* Created by PhpStorm.
+* User: jantonio
+* Date: 20/04/18
+* Time: 11:05
+* file: masterFunctions.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -18,42 +18,17 @@ See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with this program;
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
+*/
 
 /*
- * a little tool to verify client credentials and on success download latest backup
- */
-
-// NOTICE: this macro only works on server as this scripts is intended to run on it
-define("AC_BACKUP_FILE","/var/www/html/downloads/agility.sql");
-
-function sendBackup() {
-    // $f=date("Ymd_Hi");
-    $fd=fopen(AC_BACKUP_FILE,"r");
-    if (!$fd) {
-        setcookie('fileDownload','false',time()+30,"/");
-        header("Cache-Control", "no-cache, no-store, must-revalidate");
-    } else {
-        $fsize = filesize(AC_BACKUP_FILE);
-        // notice false: do not show any dialog, just download
-        setcookie('fileDownload','false',time()+30,"/");
-        header("Content-type: text/plain");
-        header("Content-Disposition: attachment; filename=agility.sql");
-        header("Content-length: $fsize");
-        header("Cache-control: private"); //use this to open files directly
-        while(!feof($fd)) {
-            $buffer = fread($fd, 2048);
-            echo $buffer;
-        }
-        fclose ($fd);
-    }
-}
+* Entry point for AgilityContest Master functions
+*/
 
 ini_set('zlib.output_compression', 0);
-header("Access-Control-Allow-Origin: https//{$_SERVER['SERVER_ADDR']}/agility",false);
 header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",false);
 require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
+require_once(__DIR__ . "/../master/AgilityContest_Master.php");
 if (!isset($config) ) $config=Config::getInstance();
 
 /* check for properly installed xampp */
@@ -70,6 +45,7 @@ if( ! function_exists('password_verify')) {
     die("Invalid environment: php-5.5.X or higher version installed is required");
 }
 
+$operation=http_request("Operation","s","");
 $ver=http_request("Revision","s","");
 $lic=http_request("License","s","");
 
@@ -80,5 +56,8 @@ if (intval($lic)===0) die("AgilityContest client has no registered license");
 // PENDING: check for blacklisted licenses :-)
 
 // PENDING: generate log
-sendBackup();
+
+switch ($operation) {
+    case 'getbackup': AgilityContest_Master::sendBackup(); break;
+}
 ?>
