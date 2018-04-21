@@ -175,7 +175,24 @@ $config =Config::getInstance();
 			var idperro=row.ID;
 			if (!idperro) return;
 	        $('#chperros-form').form('load','../server/database/dogFunctions.php?Operation=getbyidperro&ID='+idperro); // load form with json retrieved data
-		}
+		},
+        loader: function(param,onsuccess,onerror){
+            var opts = $('#chperros-Search').combogrid('options');
+            if (!opts.url){return false}
+            if (typeof (param.q) !== "undefined") {
+                var q = param.q || '';
+                if (q.length < 3){return false;}
+            }
+            $.ajax({
+                type: opts.method,
+                url: opts.url,
+                data: param,
+                dataType: 'json',
+                success: function(data){ onsuccess(data); },
+                error: function(){ onerror.apply(this, arguments); }
+            });
+
+        }
 	});
     $('#chperros-Nombre').textbox({
         required: true,
