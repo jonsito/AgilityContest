@@ -102,6 +102,8 @@ $('#ordentandas-dialog').dialog({
 });
 
 $('#ordentandas_nt-Nombre').textbox({ required:true, validType:'length[1,255]' } );
+$('#ordentandas_nt-Horario').textbox();
+$('#ordentandas_nt-Comentario').textbox();
 
 $('#ordentandas-datagrid').datagrid({
 	// propiedades del panel asociado
