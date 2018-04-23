@@ -229,6 +229,23 @@ $config =Config::getInstance();
         onChange: function (newval,oldval) {
 		    var r=$('#perros-Guia').combogrid('grid').datagrid('getSelected');
             if (r) $('#perros-Club').textbox('setValue',r.NombreClub);
+        },
+        loader: function(param,onsuccess,onerror){
+            var opts = $('#perros-Guia').combogrid('options');
+            if (!opts.url){return false}
+            if (typeof (param.q) !== "undefined") {
+                var q = param.q || '';
+                if (q.length < 3){return false;}
+            }
+            $.ajax({
+                type: opts.method,
+                url: opts.url,
+                data: param,
+                dataType: 'json',
+                success: function(data){ onsuccess(data); },
+                error: function(){ onerror.apply(this, arguments); }
+            });
+
         }
     });
     </script>
