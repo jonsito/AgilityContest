@@ -47,7 +47,7 @@ $config =Config::getInstance();
 	</span>
 </div>
 
-<div id="ordentandas_newtanda-dialog" style="width:475px;height:auto;padding:10px 20px">
+<div id="ordentandas_newtanda-dialog" style="width:500px;height:auto;padding:10px 20px">
 	<form id="ordentandas_newtanda-form">
 	            <div class="fitem">
                 <label for="ordentandas_nt-Nombre"><?php _e('Name'); ?>:</label>
@@ -69,7 +69,7 @@ $config =Config::getInstance();
             </div>
             <div class="fitem">
                 <label for="ordentandas_nt-Comentario"><?php _e('Comments'); ?></label>
-                <input id="ordentandas_nt-Comentario" name="Comentario" type="text" style="width:300px"/>
+                <input id="ordentandas_nt-Comentario" name="Comentario" type="text" style="width:275px"/>
             </div>
 	</form>
 </div>
