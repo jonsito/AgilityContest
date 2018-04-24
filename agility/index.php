@@ -38,6 +38,8 @@
     }
 
     require_once(__DIR__."/server/tools.php");
+    require_once(__DIR__."/server/auth/Config.php");
+    $myconf=Config::getInstance(); // just to load i18n settings. Notice that system.ini does not  exist yet
 
 ?>
 <!DOCTYPE html>
@@ -99,28 +101,28 @@
     <div id="database_data">
         <h3><?php _e("Server and Database information");?> </h3>
         <div class="fitem">
-            <label for="install_host" style="width:250px;margin-top:5px"><?php _e("Server name");?>: </label>
+            <label for="install_host" style="width:275px;margin-top:5px"><?php _e("Server name");?>: </label>
             <input type="text" class="easyui-textbox" id="install_host" name="install_host">
             <br/>
         </div>
         <div class="fitem">
-            <label for="install_dbname" style="width:250px;margin-top:5px"><?php _e("Database name");?>: </label>
+            <label for="install_dbname" style="width:275px;margin-top:5px"><?php _e("Database name");?>: </label>
             <input type="text" class="easyui-textbox" id="install_dbname" name="install_dbname">
             <br/>
         </div>
         <div class="fitem">
-            <label for="install_dbuser" style="width:250px;margin-top:5px"><?php _e("Database admin user");?>: </label>
+            <label for="install_dbuser" style="width:275px;margin-top:5px"><?php _e("Database admin user");?>: </label>
             <input type="text" class="easyui-textbox" id="install_dbuser" name="install_dbuser">
             <br/>
         </div>
         <div class="fitem">
-            <label for="install_dbpass" style="width:250px;margin-top:5px"><?php _e("Database admin password");?>: </label>
+            <label for="install_dbpass" style="width:275px;margin-top:5px"><?php _e("Database admin password");?>: </label>
             <input type="password" class="easyui-textbox" id="install_dbpass" name="install_dbpass">
             <br/>
         </div>
         <div class="fitem">
-            <label for="install_dbcheck" style="width:250px;margin-top:5px"><?php _e("Check database connection");?>: </label>
-            <a id="install_dbcheck" href="#" class="easyui-linkbutton"
+            <label for="install-dbCheck" style="width:275px;margin-top:5px"><?php _e("Check database connection");?>: </label>
+            <a id="install-dbCheck" href="#" class="easyui-linkbutton"
                data-options="iconCls:'icon-help'" onclick="wh_check_dbAccess(null)"><?php _e('Check'); ?></a>
             <span id="install_dbpass_match">&nbsp;</span>
         </div>
@@ -131,37 +133,37 @@
     <div id="install_data" style="display:none">
         <h3><?php _e("AgilityContest default users:");?> </h3>
         <div class="fitem">
-            <label for="install_admin" style="width:250px;margin-top:5px"><?php _e("Enter password for 'admin' user");?>: </label>
+            <label for="install_admin" style="width:275px;margin-top:5px"><?php _e("Enter password for 'admin' user");?>: </label>
             <input type="password" class="easyui-textbox" id="install_admin" name="install_admin">
             <span id="install_admin_strength">&nbsp;</span>
             <br/>
         </div>
         <div class="fitem">
-            <label for="install_admin2" style="width:250px;margin-top:5px"><?php _e("Enter password (again) for 'admin'");?>: </label>
+            <label for="install_admin2" style="width:275px;margin-top:5px"><?php _e("Enter password (again) for 'admin'");?>: </label>
             <input type="password" class="easyui-textbox" id="install_admin2" name="install_admin2">
             <span id="install_admin2_match">&nbsp;</span>
             <br/>&nbsp;<br/>
         </div>
         <div class="fitem">
-            <label for="install_operator" style="width:250px;margin-top:5px"><?php _e("Enter password for 'operator' user");?>: </label>
+            <label for="install_operator" style="width:275px;margin-top:5px"><?php _e("Enter password for 'operator' user");?>: </label>
             <input type="password" class="easyui-textbox" id="install_operator" name="install_operator">
             <span id="install_operator_strength">&nbsp;</span>
             <br/>
         </div>
         <div class="fitem">
-            <label for="install_operator2" style="width:250px;margin-top:5px"><?php _e("Enter password (again) for 'operator'");?>: </label>
+            <label for="install_operator2" style="width:275px;margin-top:5px"><?php _e("Enter password (again) for 'operator'");?>: </label>
             <input type="password" class="easyui-textbox" id="install_operator2" name="install_operator2">
             <span id="install_operator2_match">&nbsp;</span>
             <br/>&nbsp;<br/>
         </div>
         <div class="fitem">
-            <label for="install_assistant" style="width:250px;margin-top:5px"><?php _e("Enter password for 'assistant' user");?>: </label>
+            <label for="install_assistant" style="width:275px;margin-top:5px"><?php _e("Enter password for 'assistant' user");?>: </label>
             <input type="password" class="easyui-textbox" id="install_assistant" name="install_assistant">
             <span id="install_assistant_strength">&nbsp;</span>
             <br/>
         </div>
         <div class="fitem">
-            <label for="install_assistant2" style="width:250px;margin-top:5px"><?php _e("Enter password (again) for 'assistant'");?>: </label>
+            <label for="install_assistant2" style="width:275px;margin-top:5px"><?php _e("Enter password (again) for 'assistant'");?>: </label>
             <input type="password" class="easyui-textbox" id="install_assistant2" name="install_assistant2">
             <span id="install_assistant2_match">&nbsp;</span>
             <br/>&nbsp;<br/>
@@ -170,12 +172,12 @@
 
         <h3><?php _e("Licensing and registration");?> </h3>
         <div class="fitem">
-            <label for="install_accept" style="width:300px;margin-top:5px"><?php _e("I've read, understand and accept License terms");?>: </label>
+            <label for="install_accept" style="width:350px;margin-top:5px"><?php _e("I've read, understand and accept License terms");?>: </label>
             <input type="checkbox" class="easyui-checkbox" id="install_accept" name="install_accept">
             <br/>
         </div>
         <div class="fitem">
-            <label for="install_license" style="width:250px;margin-top:5px"><?php _e("Enter registration license file");?>: </label>
+            <label for="install_license" style="width:275px;margin-top:5px"><?php _e("Enter registration license file");?>: </label>
             <input name="install_license" id="install_license" style="width:350px;" onchange="wh_read_registrationFile(this)"/>
             <input id="install_regdata" type="hidden" name="Data" value="">
         </div>
@@ -295,7 +297,8 @@
         iconCls: 'icon-dog'
     });
 
-    addTooltip($('#install_dbcheck').linkbutton(),'<?php _e("Check server/database conectivity"); ?>');
+    addTooltip($('#install-dbCheck').linkbutton(),'<?php _e("Check server/database conectivity"); ?>');
+    addTooltip($('#install-okButton').linkbutton(),'<?php _e("Accept System Parameters. Start install"); ?>');
 
 </script>
 </body>
