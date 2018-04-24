@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2018-04-24 14:06+0200\n"
-"PO-Revision-Date: 2018-04-24 14:22+0200\n"
+"POT-Creation-Date: 2018-04-24 22:55+0200\n"
+"PO-Revision-Date: 2018-04-24 23:00+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -2074,7 +2074,7 @@ msgstr "Servidor de autenticaci&oacute;n NTLM"
 #: console/dialogs/dlg_configuracion.inc:507
 #: console/dialogs/dlg_configuracion.inc:551
 #: console/dialogs/dlg_configuracion.inc:719
-#: console/dialogs/dlg_ordensalida.inc:70 index.php:124
+#: console/dialogs/dlg_ordensalida.inc:70 index.php:126
 msgid "Check"
 msgstr "Verificar"
 
@@ -3193,7 +3193,7 @@ msgid "ID"
 msgstr "ID"
 
 #: console/dialogs/dlg_plugins.inc:55 console/frm_about.php:29
-#: console/frm_registration.php:30 index.php:81
+#: console/frm_registration.php:30 index.php:83
 msgid "Version"
 msgstr "Versi&oacute;n"
 
@@ -3341,7 +3341,7 @@ msgstr "Forzar re-envio si ya se ha enviado el correo"
 #: console/dialogs/import_ordensalida.inc.php:53
 #: console/dialogs/import_perros.inc.php:56
 #: console/dialogs/import_results.inc.php:53 console/frm_registration.php:123
-#: index.php:278
+#: index.php:280
 msgid "Select"
 msgstr "Seleccionar"
 
@@ -5676,25 +5676,25 @@ msgstr "Cerrar jornada. Marcar esta jornada como no-modificable"
 msgid "Update journey list for this contest"
 msgstr "Actualizar la lista de jornadas de esta prueba"
 
-#: console/frm_registration.php:33 index.php:84
+#: console/frm_registration.php:33 index.php:86
 msgid "is Copyright &copy; 2013-2018 by"
 msgstr "es Copyright &copy; 2013-2018 de"
 
-#: console/frm_registration.php:36 index.php:87
+#: console/frm_registration.php:36 index.php:89
 msgid "Source code is available at"
 msgstr "El c&oacute;digo fuente disponible en"
 
-#: console/frm_registration.php:37 index.php:88
+#: console/frm_registration.php:37 index.php:90
 msgid "You can use, copy, modify and re-distribute under terms of"
 msgstr ""
 "Se permite la copia, modificaci&oacute;n y re-distribuci&oacute;n bajo los "
 "t&eacute;rminos de"
 
-#: console/frm_registration.php:38 index.php:89
+#: console/frm_registration.php:38 index.php:91
 msgid "GNU General Public License"
 msgstr "Licencia General P&uacute;blica de GNU versi&oacute;n 2"
 
-#: console/frm_registration.php:42 index.php:93
+#: console/frm_registration.php:42 index.php:95
 msgid "Registered at"
 msgstr "Inscrito en el"
 
@@ -5890,81 +5890,85 @@ msgstr "Informaci&oacute;n de registro"
 msgid "About"
 msgstr "Acerca de"
 
-#: index.php:100
+#: index.php:102
 msgid "Server and Database information"
 msgstr "Informaci&oacute;n del servidor y la BBDD"
 
-#: index.php:102
+#: index.php:104
 msgid "Server name"
 msgstr "Nombre del Servidor"
 
-#: index.php:107
+#: index.php:109
 msgid "Database name"
 msgstr "Nombre de la BBDD"
 
-#: index.php:112
+#: index.php:114
 msgid "Database admin user"
 msgstr "Usuario admin de la BBDD"
 
-#: index.php:117
+#: index.php:119
 msgid "Database admin password"
 msgstr "Contrase&ntilde;a del administrador de la BBDD"
 
-#: index.php:122
+#: index.php:124
 msgid "Check database connection"
 msgstr "Comprobad conexi&oacute;n con la BBDD"
 
-#: index.php:132
+#: index.php:134
 msgid "AgilityContest default users:"
 msgstr "Usuarios pre-definidos de AgilityContest"
 
-#: index.php:134
+#: index.php:136
 msgid "Enter password for 'admin' user"
 msgstr "Contrase&ntilde;a para usuario &quot;admin&quot;"
 
-#: index.php:140
+#: index.php:142
 msgid "Enter password (again) for 'admin'"
 msgstr "Contrase&ntilde;a (otra vez) de &quot;admin&quot;"
 
-#: index.php:146
+#: index.php:148
 msgid "Enter password for 'operator' user"
 msgstr "Contrase&ntilde;a para usuario &quot;operator&quot;"
 
-#: index.php:152
+#: index.php:154
 msgid "Enter password (again) for 'operator'"
 msgstr "Contrase&ntilde;a (otra vez) de &quot;operator&quot;"
 
-#: index.php:158
+#: index.php:160
 msgid "Enter password for 'assistant' user"
 msgstr "Contrase&ntilde;a para usuario &quot;assistant&quot;"
 
-#: index.php:164
+#: index.php:166
 msgid "Enter password (again) for 'assistant'"
 msgstr "Contrase&ntilde;a (otra vez) de &quot;assistant&quot;"
 
-#: index.php:171
+#: index.php:173
 msgid "Licensing and registration"
 msgstr "Registro y licencia de la aplicaci&oacute;n"
 
-#: index.php:173
+#: index.php:175
 msgid "I've read, understand and accept License terms"
 msgstr "He le&iacute;do, comprendo y acepto los t&eacute;rminos de la licencia"
 
-#: index.php:178
+#: index.php:180
 msgid "Enter registration license file"
 msgstr "Indique fichero de licencia"
 
-#: index.php:186
+#: index.php:188
 msgid "Aceptar"
 msgstr "Aceptar"
 
-#: index.php:288
+#: index.php:290
 msgid "AgilityContest setup"
 msgstr "Configuraci&oacute;n de AgilityContest"
 
-#: index.php:298
+#: index.php:300
 msgid "Check server/database conectivity"
 msgstr "Comprobar conexi&oacute;n con el servidor y la BBDD"
+
+#: index.php:301
+msgid "Accept System Parameters. Start install"
+msgstr "Aceptar par&aacute;metros del sistema. Comenzar la instalaci&oacute;n"
 
 #: lib/templates/entrenamientos.inc.php:45
 msgid "Updating training session order"
@@ -7122,7 +7126,7 @@ msgstr "Fuerte"
 #: server/modules/federaciones/intl4/config.php:73
 #: server/modules/federaciones/nat3/config.php:74
 msgid "Medium"
-msgstr "Medium"
+msgstr "Mediana"
 
 #: scripts/common.js.php:199
 msgid "Weak"

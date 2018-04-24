@@ -172,7 +172,7 @@
 
         <h3><?php _e("Licensing and registration");?> </h3>
         <div class="fitem">
-            <label for="install_accept" style="width:350px;margin-top:5px"><?php _e("I've read, understand and accept License terms");?>: </label>
+            <label for="install_accept" style="width:400px;margin-top:5px"><?php _e("I've read, understand and accept License terms");?>: </label>
             <input type="checkbox" class="easyui-checkbox" id="install_accept" name="install_accept">
             <br/>
         </div>
