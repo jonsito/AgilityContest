@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2018-04-24 22:55+0200\n"
-"PO-Revision-Date: 2018-04-24 23:00+0200\n"
+"POT-Creation-Date: 2018-04-30 11:59+0200\n"
+"PO-Revision-Date: 2018-04-30 12:00+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -270,7 +270,7 @@ msgstr "Club"
 #: console/frm_clasificaciones_equipos.php:81 console/frm_clubes.php:177
 #: console/frm_guias.php:93 livestream/vwls_osdvideo.php:93
 #: server/database/classes/Ligas.php:172
-#: server/excel/classes/OrdenSalidaWriter.php:206
+#: server/excel/classes/OrdenSalidaWriter.php:209
 #: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:86
 #: server/pdf/classes/PrintClasificacionExcel.php:160
 #: server/pdf/classes/PrintEquiposByJornada.php:80
@@ -316,8 +316,8 @@ msgstr "Grado"
 #: livestream/vwls_osdvideo.php:95 public/pb_inscripciones.php:111
 #: public/pb_inscripciones_equipos.php:160 public/pbmenu_inscripciones.php:111
 #: public/pbmenu_inscripciones_equipos.php:155
-#: server/excel/classes/OrdenSalidaWriter.php:177
-#: server/excel/classes/OrdenSalidaWriter.php:234
+#: server/excel/classes/OrdenSalidaWriter.php:180
+#: server/excel/classes/OrdenSalidaWriter.php:237
 #: server/pdf/classes/PrintEntradaDeDatos.php:188
 #: server/pdf/classes/PrintEntradaDeDatos.php:290
 #: server/pdf/classes/PrintEntradaDeDatos.php:383
@@ -397,9 +397,9 @@ msgstr "Eliminado"
 #: scripts/equipos.js.php:352 scripts/guias.js.php:87 scripts/guias.js.php:194
 #: scripts/guias.js.php:217 scripts/guias.js.php:245 scripts/guias.js.php:275
 #: scripts/import.js.php:512 scripts/inscripciones.js.php:68
-#: scripts/inscripciones.js.php:192 scripts/inscripciones.js.php:225
-#: scripts/inscripciones.js.php:259 scripts/inscripciones.js.php:290
-#: scripts/inscripciones.js.php:377 scripts/jueces.js.php:98
+#: scripts/inscripciones.js.php:197 scripts/inscripciones.js.php:233
+#: scripts/inscripciones.js.php:267 scripts/inscripciones.js.php:298
+#: scripts/inscripciones.js.php:385 scripts/jueces.js.php:98
 #: scripts/perros.js.php:183 scripts/perros.js.php:203
 #: scripts/perros.js.php:212 scripts/perros.js.php:264
 #: scripts/perros.js.php:291 scripts/printer.js.php:450
@@ -683,8 +683,8 @@ msgstr "Grd"
 #: public/pb_inscripciones_equipos.php:100
 #: public/pbmenu_inscripciones_equipos.php:95
 #: server/database/classes/OrdenSalida.php:529
-#: server/excel/classes/OrdenSalidaWriter.php:155
-#: server/excel/classes/OrdenSalidaWriter.php:213 tablet/tablet_main.php:292
+#: server/excel/classes/OrdenSalidaWriter.php:158
+#: server/excel/classes/OrdenSalidaWriter.php:216 tablet/tablet_main.php:292
 #: videowall/vwc_finales.php:218 videowall/vwc_parciales.php:230
 msgid "Team"
 msgstr "Equipo"
@@ -2576,7 +2576,7 @@ msgstr "Actualizando sesi&oacute;n de entrenamientos de la prueba"
 #: console/frm_inscripciones2.php:174 console/frm_pruebas.php:160
 #: lib/templates/entrenamientos.inc.php:18
 #: server/excel/classes/EntrenamientosWriter.php:54
-#: server/excel/classes/OrdenSalidaWriter.php:118
+#: server/excel/classes/OrdenSalidaWriter.php:121
 #: server/excel/classes/XLSXWriter.php:124
 #: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:105
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:100
@@ -2814,7 +2814,7 @@ msgstr "Registrar informaci&oacute;n del juez en la base de datos"
 #: scripts/common.js.php:1112 scripts/common.js.php:1133
 #: scripts/common.js.php:1145 scripts/equipos.js.php:28
 #: scripts/equipos.js.php:189 scripts/guias.js.php:96 scripts/guias.js.php:108
-#: scripts/inscripciones.js.php:485 scripts/jueces.js.php:44
+#: scripts/inscripciones.js.php:493 scripts/jueces.js.php:44
 #: scripts/perros.js.php:28 scripts/perros.js.php:41 scripts/pruebas.js.php:53
 #: scripts/sesiones.js.php:35 scripts/usuarios.js.php:47 server/tools.php:336
 msgid "-- Search --"
@@ -2924,7 +2924,7 @@ msgstr "A&ntilde;adir un nuevo perro en la base de datos"
 msgid "Method"
 msgstr "M&eacute;todo"
 
-#: console/dialogs/dlg_ordensalida.inc:55 scripts/inscripciones.js.php:179
+#: console/dialogs/dlg_ordensalida.inc:55 scripts/inscripciones.js.php:184
 msgid "Sort"
 msgstr "Ordenar"
 
@@ -3496,9 +3496,9 @@ msgstr "Sesi&oacute;n de entrenamientos"
 #: public/pb_ordensalida.php:51 public/pbmenu_ordensalida.php:42
 #: scripts/competicion.js.php:1178 scripts/sesiones.js.php:158
 #: scripts/sesiones.js.php:171 server/excel/classes/OrdenSalidaReader.php:65
-#: server/excel/classes/OrdenSalidaWriter.php:112
-#: server/excel/classes/OrdenSalidaWriter.php:145
-#: server/excel/classes/OrdenSalidaWriter.php:192
+#: server/excel/classes/OrdenSalidaWriter.php:115
+#: server/excel/classes/OrdenSalidaWriter.php:148
+#: server/excel/classes/OrdenSalidaWriter.php:195
 #: server/pdf/classes/PrintOrdenSalida.php:111
 #: server/pdf/classes/PrintOrdenSalidaEquipos4.php:94
 #: server/pdf/classes/PrintOrdenSalidaKO.php:104 videowall/index.php:243
@@ -4518,7 +4518,7 @@ msgstr ""
 #: server/database/classes/Ligas.php:216 server/database/classes/Ligas.php:217
 #: server/database/classes/Ligas.php:218
 #: server/excel/classes/ClasificacionesWriter.php:86
-#: server/excel/classes/OrdenSalidaWriter.php:126
+#: server/excel/classes/OrdenSalidaWriter.php:129
 #: server/excel/classes/PartialScoresWriter.php:84
 #: server/pdf/classes/PrintClasificacion.php:83
 #: server/pdf/classes/PrintClasificacionExcel.php:125
@@ -4682,7 +4682,7 @@ msgstr "Club anfitri&oacute;n"
 #: console/frm_clasificaciones_equipos.php:45 public/index.php:151
 #: scripts/equipos.js.php:73 scripts/equipos.js.php:126
 #: server/database/classes/Ligas.php:210
-#: server/excel/classes/OrdenSalidaWriter.php:122
+#: server/excel/classes/OrdenSalidaWriter.php:125
 #: server/excel/classes/PartialScoresWriter.php:83
 #: server/excel/classes/XLSXWriter.php:66
 #: server/excel/classes/XLSXWriter.php:129
@@ -5170,8 +5170,8 @@ msgstr "Lista de jornadas de esta prueba"
 msgid "Inscription list on this contest"
 msgstr "Inscripciones registradas en la prueba"
 
-#: console/frm_inscripciones2.php:108 scripts/inscripciones.js.php:357
-#: scripts/inscripciones.js.php:361
+#: console/frm_inscripciones2.php:108 scripts/inscripciones.js.php:365
+#: scripts/inscripciones.js.php:369
 msgid "Set dorsal"
 msgstr "Ajustar dorsal"
 
@@ -7364,7 +7364,7 @@ msgid "Every changes done till now will be lost<br />Continue?"
 msgstr "Se perder&aacute;n todos los ajustes hechos hasta ahora<br/>Continuar?"
 
 #: scripts/competicion.js.php:1054 scripts/entrenamientos.js.php:149
-#: scripts/inscripciones.js.php:432 scripts/perros.js.php:325
+#: scripts/inscripciones.js.php:440 scripts/perros.js.php:325
 #: scripts/printer.js.php:280
 msgid "Current license has no Excel import function enabled"
 msgstr "La licencia actual no permite la importaci&oacute;n de ficheros Excel"
@@ -7540,7 +7540,7 @@ msgstr "Debe seleccionar un equipo v&aacute;lido"
 
 #: scripts/equipos.js.php:363 scripts/inscripciones.js.php:43
 #: scripts/inscripciones.js.php:84 scripts/inscripciones.js.php:163
-#: scripts/inscripciones.js.php:305 scripts/inscripciones.js.php:353
+#: scripts/inscripciones.js.php:313 scripts/inscripciones.js.php:361
 #: scripts/pruebas.js.php:370 scripts/pruebas.js.php:405
 #: scripts/pruebas.js.php:434 scripts/results_and_scores.js.php:116
 msgid "No selection"
@@ -7745,7 +7745,7 @@ msgid "New inscriptions"
 msgstr "Nuevas inscripciones"
 
 #: scripts/inscripciones.js.php:43 scripts/inscripciones.js.php:84
-#: scripts/inscripciones.js.php:353
+#: scripts/inscripciones.js.php:361
 msgid "There is no inscription(s) selected"
 msgstr "No hay ninguna inscripci&oacute;n seleccionada"
 
@@ -7776,139 +7776,147 @@ msgid "Current user has not enought permissions to handle inscriptions"
 msgstr ""
 "El usuario actual no tiene suficientes permisos para manejar inscripciones"
 
-#: scripts/inscripciones.js.php:179
+#: scripts/inscripciones.js.php:180
+msgid "Reorder dorsals"
+msgstr "Reordenar dorsales"
+
+#: scripts/inscripciones.js.php:181
+msgid "Current dorsal numbers will be lost<br />Continue"
+msgstr "Se perder&aacute; la numeraci&oacute;n actual<br />Continuar"
+
+#: scripts/inscripciones.js.php:184
 msgid "Re-ordering Dorsals"
 msgstr "Reasignar dorsales"
 
-#: scripts/inscripciones.js.php:208 scripts/inscripciones.js.php:242
-#: scripts/inscripciones.js.php:309 scripts/inscripciones.js.php:314
+#: scripts/inscripciones.js.php:216 scripts/inscripciones.js.php:250
+#: scripts/inscripciones.js.php:317 scripts/inscripciones.js.php:322
 msgid "Undeclared"
 msgstr "No declarado"
 
-#: scripts/inscripciones.js.php:208
+#: scripts/inscripciones.js.php:216
 msgid "Selected journey to clear is empty"
 msgstr "La jornada seleccionada para borrar est&aacute; vac&iacute;a"
 
-#: scripts/inscripciones.js.php:211
+#: scripts/inscripciones.js.php:219
 msgid "Clear inscriptions"
 msgstr "Borrar inscripciones"
 
-#: scripts/inscripciones.js.php:211
+#: scripts/inscripciones.js.php:219
 msgid "Clearing inscriptions in journey"
 msgstr "Borrando las inscripciones de la jornada"
 
-#: scripts/inscripciones.js.php:242
+#: scripts/inscripciones.js.php:250
 msgid "Must declare this journey first"
 msgstr "Debe declarar la jornada primero"
 
-#: scripts/inscripciones.js.php:245
+#: scripts/inscripciones.js.php:253
 msgid "Inscribe all"
 msgstr "Inscribir todos"
 
-#: scripts/inscripciones.js.php:245
+#: scripts/inscripciones.js.php:253
 msgid "Inscribe all dogs into journey"
 msgstr "Inscribir todos los perros de la prueba en la jornada"
 
-#: scripts/inscripciones.js.php:275
+#: scripts/inscripciones.js.php:283
 msgid "Inscribe selection"
 msgstr "Inscribir selecci&oacute;n"
 
-#: scripts/inscripciones.js.php:275
+#: scripts/inscripciones.js.php:283
 msgid "Cloning inscriptions from selected journey into "
 msgstr "Clonando las inscripciones de la jornada seleccionada en "
 
-#: scripts/inscripciones.js.php:305 scripts/pruebas.js.php:405
+#: scripts/inscripciones.js.php:313 scripts/pruebas.js.php:405
 #: scripts/pruebas.js.php:434
 msgid "There is no journey selected"
 msgstr "No se ha seleccionado ninguna jornada"
 
-#: scripts/inscripciones.js.php:309
+#: scripts/inscripciones.js.php:317
 msgid "Selected journey to clone has no data"
 msgstr "La jornada seleccionada para clonar no est&aacute; definida"
 
-#: scripts/inscripciones.js.php:314
+#: scripts/inscripciones.js.php:322
 msgid "Selected journey to clone into is not defined. Create?"
 msgstr "La jornada seleccionada para clonar no est&aacute; definida. ¿Crearla?"
 
-#: scripts/inscripciones.js.php:358
+#: scripts/inscripciones.js.php:366
 msgid ""
 "Please type new dorsal<br />If already assigned, <br/>dorsals will be swapped"
 msgstr ""
 "Indique nuevo dorsal<br /> Si el dorsal ya esta asignado<br /> se "
 "intercambiaran los dorsales"
 
-#: scripts/inscripciones.js.php:361
+#: scripts/inscripciones.js.php:369
 msgid "Setting new dorsal..."
 msgstr "Ajustando nuevo dorsal..."
 
-#: scripts/inscripciones.js.php:405
+#: scripts/inscripciones.js.php:413
 msgid "Generate empty excel inscription template"
 msgstr "Crear plantilla de datos Excel vac&iacute;a"
 
-#: scripts/inscripciones.js.php:406
+#: scripts/inscripciones.js.php:414
 msgid "Generate inscription template for club"
 msgstr "Generar plantilla de inscripciones para el club"
 
-#: scripts/inscripciones.js.php:407
+#: scripts/inscripciones.js.php:415
 msgid "Export current inscriptions to Excel file"
 msgstr "Exportar inscripciones a fichero Excel"
 
-#: scripts/inscripciones.js.php:408
+#: scripts/inscripciones.js.php:416
 msgid "Import inscriptions from Excel file"
 msgstr "Importar inscripciones desde fichero Excel"
 
-#: scripts/inscripciones.js.php:411
+#: scripts/inscripciones.js.php:419
 msgid "Excel import/export"
 msgstr "Importar/exportar .xlsx"
 
-#: scripts/inscripciones.js.php:412
+#: scripts/inscripciones.js.php:420
 msgid "Choose from available operations"
 msgstr "Selecciona una de las operaciones disponibles"
 
-#: scripts/inscripciones.js.php:425
+#: scripts/inscripciones.js.php:433
 msgid "Creating Excel file. Please wait"
 msgstr "Generando fichero Excel. Por favor, espere"
 
-#: scripts/inscripciones.js.php:426 scripts/inscripciones.js.php:505
+#: scripts/inscripciones.js.php:434 scripts/inscripciones.js.php:513
 msgid "There was a problem generating your report, please try again"
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
 "nuevo"
 
-#: scripts/inscripciones.js.php:464
+#: scripts/inscripciones.js.php:472
 msgid "Simple listing"
 msgstr "Listado simple"
 
-#: scripts/inscripciones.js.php:465
+#: scripts/inscripciones.js.php:473
 msgid "Catalog"
 msgstr "Cat&aacute;logo"
 
-#: scripts/inscripciones.js.php:466
+#: scripts/inscripciones.js.php:474
 msgid "Current selection/order"
 msgstr "Selecci&oacute;n actual"
 
-#: scripts/inscripciones.js.php:467
+#: scripts/inscripciones.js.php:475
 #: server/pdf/classes/PrintInscripciones.php:258
 msgid "Statistics"
 msgstr "Estad&iacute;sticas"
 
-#: scripts/inscripciones.js.php:468
+#: scripts/inscripciones.js.php:476
 msgid "Competition ID Cards"
 msgstr "Dorsales Identificativos"
 
-#: scripts/inscripciones.js.php:475
+#: scripts/inscripciones.js.php:483
 msgid "Inscriptions for journey"
 msgstr "Inscritos en la jornada"
 
-#: scripts/inscripciones.js.php:479
+#: scripts/inscripciones.js.php:487
 msgid "Select form"
 msgstr "Selecciona formulario"
 
-#: scripts/inscripciones.js.php:480
+#: scripts/inscripciones.js.php:488
 msgid "Select type of document to be generated"
 msgstr "Selecciona el tipo de documento a generar"
 
-#: scripts/inscripciones.js.php:504
+#: scripts/inscripciones.js.php:512
 msgid "Printing inscriptions. Please wait"
 msgstr "Imprimiendo inscripciones. Por favor, espere"
 
