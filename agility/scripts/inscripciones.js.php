@@ -176,31 +176,39 @@ function insertInscripcion(dg) {
  * @param idprueba ID de la prueba
  */
 function reorderInscripciones(idprueba) {
-    $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Re-ordering Dorsals");?>'});
-	$.ajax({
-        cache: false,
-        timeout: 60000, // 60 segundos
-		type:'GET',
-		url:"../server/database/inscripcionFunctions.php",
-		dataType:'json',
-		data: {
-			Prueba: idprueba,
-			Operation: 'reorder'
-		},
-		success: function(data) {
-			if(data.errorMsg) {
-				$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: data.errorMsg });
-			} else {
-				$('#inscripciones-datagrid').datagrid('reload');
-			}
-            $.messager.progress('close');
-        },
-		error:function(jqXHR, textStatus, errorThrown) {
-            // console.log(textStatus, errorThrown);
-			$.messager.progress('close');
-		}
-	});
+    $.messager.confirm(
+        '<?php _e("Reorder dorsals"); ?>',
+        '<?php _e("Current dorsal numbers will be lost<br />Continue"); ?>?',
+        function (r) {
+            if (!r) return false;
+            $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Re-ordering Dorsals");?>'});
+            $.ajax({
+                cache: false,
+                timeout: 60000, // 60 segundos
+                type:'GET',
+                url:"../server/database/inscripcionFunctions.php",
+                dataType:'json',
+                data: {
+                    Prueba: idprueba,
+                    Operation: 'reorder'
+                },
+                success: function(data) {
+                    if(data.errorMsg) {
+                        $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: data.errorMsg });
+                    } else {
+                        $('#inscripciones-datagrid').datagrid('reload');
+                    }
+                    $.messager.progress('close');
+                },
+                error:function(jqXHR, textStatus, errorThrown) {
+                    // console.log(textStatus, errorThrown);
+                    $.messager.progress('close');
+                }
+            });
+        }
+    );
 }
+
 
 function clearJourneyInscriptions(current){
     var row=$('#inscripciones-jornadas').datagrid('getData')['rows'][current];
