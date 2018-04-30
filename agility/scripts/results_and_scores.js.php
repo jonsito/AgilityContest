@@ -58,6 +58,10 @@ function scores_emailEditJuez(index,row) {
         width: 350
     });
     m.find('.messager-input').val(row.Email); // set default value for prompt
+    m.find('.messager-input').bind('keypress', function(e) { // accept "Enter" as "OK" button
+            if(e.keyCode==13) $('body div.messager-body>div.messager-button').children('a.l-btn:first-child').click();
+        }
+    );
     return false;
 }
 

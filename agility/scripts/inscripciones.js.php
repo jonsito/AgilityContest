@@ -361,7 +361,7 @@ function setDorsal() {
 		$.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no inscription(s) selected"); ?>',"warning");
 		return; // no hay ninguna inscripcion seleccionada. retornar
 	}
-	$.messager.prompt(
+	var m=$.messager.prompt(
 		'<?php _e("Set dorsal"); ?>',
 		'<?php _e("Please type new dorsal<br />If already assigned, <br/>dorsals will be swapped"); ?>',
 		function(r) {
@@ -395,6 +395,10 @@ function setDorsal() {
 			});
 		}
 	);
+    m.find('.messager-input').bind('keypress', function(e) { // accept "Enter" as "OK" button
+            if(e.keyCode==13) $('body div.messager-body>div.messager-button').children('a.l-btn:first-child').click();
+        }
+    );
 }
 /**
  * Comprueba si un participante se puede o no inscribir en una jornada
