@@ -60,12 +60,15 @@ class OrdenSalidaWriter extends XLSX_Writer {
         $this->useLongNames=Competitions::getCompetition($p,$j)->useLongNames();
         $this->validcats=$categorias;
         // set up fields according international or national contests
-        if ($this->useLongNames) {
+        if ($this->federation->isInternational()) {
             $this->header = array( 'Order','Dorsal','Name','LongName','Gender','Breed','Category','Grade','Handler','Country','Heat','Comments','LOE_RRC','NumDogs');
             $this->fields = array( 'Orden','Dorsal','Nombre','NombreLargo','Genero','Raza','Categoria','Grado','NombreGuia','Pais','Celo','Observaciones','LOE_RRC','PerrosPorGuia');
+        } else if ($this->useLongNames) {
+            $this->header   = array( 'Order','Dorsal','Name','LongName','Gender','Breed','License','Category','Grade','Handler','Club','Country','Heat','Coments','LOE_RRC','NumDogs');
+            $this->fields = array( 'Orden','Dorsal','Nombre','NombreLargo','Genero','Raza','Licencia','Categoria','Grado','NombreGuia','NombreClub','Pais','Celo','Observaciones','LOE_RRC',"PerrosPorGuia");
         } else {
-            $this->header   = array( 'Order','Dorsal','Name','Gender','Breed','License','Category','Grade','Handler','Club','Country','Heat','Coments','LOE_RRC','NumDogs');
-            $this->fields = array( 'Orden','Dorsal','Nombre','Genero','Raza','Licencia','Categoria','Grado','NombreGuia','NombreClub','Pais','Celo','Observaciones','LOE_RRC',"PerrosPorGuia");
+             $this->header   = array( 'Order','Dorsal','Name','Gender','Breed','License','Category','Grade','Handler','Club','Country','Heat','Coments','LOE_RRC','NumDogs');
+             $this->fields = array( 'Orden','Dorsal','Nombre','Genero','Raza','Licencia','Categoria','Grado','NombreGuia','NombreClub','Pais','Celo','Observaciones','LOE_RRC',"PerrosPorGuia");
         }
         if (intval($this->myConfig->getEnv("pdf_grades"))==0) { // if not grades, remove it from output
             array_splice($this->header,7,1);
