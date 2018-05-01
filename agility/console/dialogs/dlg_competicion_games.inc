@@ -45,12 +45,12 @@ $config =Config::getInstance();
             <!-- datos de la secuencia de apertura -->
             <tr><th colspan="6"><br/><?php _e('Opening Sequence');?></th></tr>
             <tr>
-                <td><img src="../images/getNumberedBall.php?Number=1&Color=F00&Background=FFF" alt="red" width="40"/></td>
-                <td><img src="../images/getNumberedBall.php?Number=%20&Color=FFF&Background=888" alt="white" width="40"/></td>
-                <td><img src="../images/getNumberedBall.php?Number=1&Color=F00&Background=FFF" alt="red" width="40"/></td>
-                <td><img src="../images/getNumberedBall.php?Number=%20&Color=FFF&Background=888" alt="white" width="40"/></td>
-                <td><img src="../images/getNumberedBall.php?Number=1&Color=F00&Background=FFF" alt="red" width="40"/></td>
-                <td><img src="../images/getNumberedBall.php?Number=%20&Color=FFF&Background=888" alt="white" width="40"/></td>
+                <td><img src="../ajax/images/getNumberedBall.php?Number=1&Color=F00&Background=FFF" alt="red" width="40"/></td>
+                <td><img src="../ajax/images/getNumberedBall.php?Number=%20&Color=FFF&Background=888" alt="white" width="40"/></td>
+                <td><img src="../ajax/images/getNumberedBall.php?Number=1&Color=F00&Background=FFF" alt="red" width="40"/></td>
+                <td><img src="../ajax/images/getNumberedBall.php?Number=%20&Color=FFF&Background=888" alt="white" width="40"/></td>
+                <td><img src="../ajax/images/getNumberedBall.php?Number=1&Color=F00&Background=FFF" alt="red" width="40"/></td>
+                <td><img src="../ajax/images/getNumberedBall.php?Number=%20&Color=FFF&Background=888" alt="white" width="40"/></td>
             </tr>
             <tr>
                 <td align="center"><input type="checkbox" id="cds-Red1" value="1"/></td>
@@ -63,12 +63,12 @@ $config =Config::getInstance();
             <!-- datos de la secuencia de cierre -->
             <tr><th colspan="6"><br/><?php _e('Closing Sequence');?></th></tr>
             <tr>
-                <td><img src="../images/getNumberedBall.php?Number=2&Color=FF0&Background=FFF" alt="yellow" width="40"/></td>
-                <td><img src="../images/getNumberedBall.php?Number=3&Color=0F0&Background=888" alt="green" width="40"/></td>
-                <td><img src="../images/getNumberedBall.php?Number=4&Color=841&Background=FFF" alt="brown" width="40"/></td>
-                <td><img src="../images/getNumberedBall.php?Number=5&Color=00F&Background=888" alt="blue" width="40"/></td>
-                <td><img src="../images/getNumberedBall.php?Number=6&Color=F19&Background=FFF" alt="pink" width="40"/></td>
-                <td><img src="../images/getNumberedBall.php?Number=7&Color=000&Background=888" alt="black" width="40"/></td>
+                <td><img src="../ajax/images/getNumberedBall.php?Number=2&Color=FF0&Background=FFF" alt="yellow" width="40"/></td>
+                <td><img src="../ajax/images/getNumberedBall.php?Number=3&Color=0F0&Background=888" alt="green" width="40"/></td>
+                <td><img src="../ajax/images/getNumberedBall.php?Number=4&Color=841&Background=FFF" alt="brown" width="40"/></td>
+                <td><img src="../ajax/images/getNumberedBall.php?Number=5&Color=00F&Background=888" alt="blue" width="40"/></td>
+                <td><img src="../ajax/images/getNumberedBall.php?Number=6&Color=F19&Background=FFF" alt="pink" width="40"/></td>
+                <td><img src="../ajax/images/getNumberedBall.php?Number=7&Color=000&Background=888" alt="black" width="40"/></td>
             </tr>
             <tr>
                 <td align="center"><input type="checkbox" id="cds-Yellow" value="2"/></td>
@@ -129,7 +129,7 @@ $config =Config::getInstance();
                 array("6",2,"FF0"),array("7",2,"FF0"),array("8",2,"FF0"),array("9",2,"FF0"),array("10",2,"FF0"),array("11",2,"FF0")
             );
             for($n=0;$n<count($a1);$n++){
-                echo '<td style="width:60px;" align="center"><img src="../images/getNumberedBall.php?Number='.$a1[$n][0].'&Color='.$a1[$n][2].'&Background=888" alt="img'.$n.'" width="40"/></td>';
+                echo '<td style="width:60px;" align="center"><img src="../ajax/images/getNumberedBall.php?Number='.$a1[$n][0].'&Color='.$a1[$n][2].'&Background=888" alt="img'.$n.'" width="40"/></td>';
             }
             echo "</tr><tr>";
             for($n=0;$n<count($a1);$n++){
@@ -150,7 +150,7 @@ $config =Config::getInstance();
                 array("17",1,"F00"),array("18",1,"F00"),array("19",1,"F00"),array("20",1,"F00"),array("21",1,"F00")
             );
             for($n=0;$n<count($a2);$n++){
-                echo '<td style="width:60px;" align="center"><img src="../images/getNumberedBall.php?Number='.$a2[$n][0].'&Color='.$a2[$n][2].'&Background=888" alt="img'.$n.'" width="40"/></td>';
+                echo '<td style="width:60px;" align="center"><img src="../ajax/images/getNumberedBall.php?Number='.$a2[$n][0].'&Color='.$a2[$n][2].'&Background=888" alt="img'.$n.'" width="40"/></td>';
             }
             echo "</tr><tr>";
             for($n=0;$n<count($a2);$n++){
@@ -177,7 +177,7 @@ $config =Config::getInstance();
             );
             for($n=0;$n<count($a3);$n++){
                 if ($a3[$n][0]==="") echo '<td style="width:55px;text-align:right;">'.$a3[$n][1].':</td>';
-                else echo '<td style="width:55px;" align="center"><img src="../images/getNumberedBall.php?Number='.$a3[$n][0].'&Color='.$a3[$n][2].'&Background=888" alt="img'.$n.'" width="40"/></td>';
+                else echo '<td style="width:55px;" align="center"><img src="../ajax/images/getNumberedBall.php?Number='.$a3[$n][0].'&Color='.$a3[$n][2].'&Background=888" alt="img'.$n.'" width="40"/></td>';
             }
             echo '<th colspan="2" rowspan="3" align="right">'._('Total').':<br/>&nbsp;<br/>'._('Time').':</th>';
             echo '<th colspan="2" rowspan="3" align="left"><input type="text" style="width:40px" id="cdg-Score" value="0" readonly="readonly"/>&nbsp;'._('Points').'<br/>&nbsp;<br/><input id="cdg-Time" name="cdg-Time" data-options="width:50,min:0,precision:3">'._('Seg').'.</th>';

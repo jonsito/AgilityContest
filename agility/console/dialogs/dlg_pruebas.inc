@@ -271,7 +271,7 @@ $config =Config::getInstance();
         fitcolumns: true,
         idField: 'ID',
         textField: 'Nombre',
-        url: '../server/mailFunctions.php',
+        url: '../ajax/mailFunctions.php',
         queryParams: {
             'Operation': 'enumerate',
             'Prueba': workingData.prueba,
@@ -337,7 +337,8 @@ $config =Config::getInstance();
         panelHeight: 150,
         idField: 'ID',
         textField: 'LongName',
-        url: '../server/modules/moduleFunctions.php?Operation=enumerate',
+        url: '../ajax/modules/moduleFunctions.php',
+        queryParams: { 'Operation' : 'enumerate' },
         method: 'get',
         mode: 'remote',
         required: true,

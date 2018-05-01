@@ -395,7 +395,7 @@ $config =Config::getInstance();
         method: 'get',
         mode: 'remote',
         required: true,
-        url:'../server/modules/moduleFunctions.php',
+        url:'../ajax/modules/moduleFunctions.php',
         onChange:function(newval,oldval) {
             $('#jornadas-Tipo_Competicion').val(newval);
         },

@@ -20,19 +20,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * genera fichero excel de perros seleccionada desde el menu de la base de datos en el orden especificado en la pantalla
  */
 
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
 
-require_once(__DIR__.'/../database/classes/Mangas.php');
-require_once(__DIR__.'/../database/classes/OrdenSalida.php');
-require_once(__DIR__.'/../database/classes/Resultados.php');
+require_once(__DIR__ . '/../../server/database/classes/Mangas.php');
+require_once(__DIR__ . '/../../server/database/classes/OrdenSalida.php');
+require_once(__DIR__ . '/../../server/database/classes/Resultados.php');
 
-require_once(__DIR__.'/classes/OrdenSalidaWriter.php');
-require_once(__DIR__."/classes/EntrenamientosWriter.php");
-require_once(__DIR__."/classes/InscripcionesWriter.php");
-require_once(__DIR__."/classes/DogsWriter.php");
-require_once(__DIR__."/classes/ClasificacionesWriter.php");
-require_once(__DIR__."/classes/PartialScoresWriter.php");
+require_once(__DIR__ . '/../../server/excel/classes/OrdenSalidaWriter.php');
+require_once(__DIR__ . "/../../server/excel/classes/EntrenamientosWriter.php");
+require_once(__DIR__ . "/../../server/excel/classes/InscripcionesWriter.php");
+require_once(__DIR__ . "/../../server/excel/classes/DogsWriter.php");
+require_once(__DIR__ . "/../../server/excel/classes/ClasificacionesWriter.php");
+require_once(__DIR__ . "/../../server/excel/classes/PartialScoresWriter.php");
 
 // Obtenemos parametros de la peticion
 $club=http_request("Club","i",0); // -1:empty template 0:inscriptions x:club template

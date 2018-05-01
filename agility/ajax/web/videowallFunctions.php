@@ -16,9 +16,9 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-require_once(__DIR__ . "/../logging.php");
-require_once(__DIR__ . "/../auth/Config.php");
-require_once(__DIR__ . "/VideoWall.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+require_once(__DIR__ . "/../../server/web/VideoWall.php");
 
 $sesion = http_request("Session","i",0);
 $operacion = http_request("Operation","s",null);

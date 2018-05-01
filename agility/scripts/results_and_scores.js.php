@@ -33,7 +33,7 @@ function scores_emailEditJuez(index,row) {
             if (!r) return false;
             $.ajax({
                 type: 'GET',
-                url: '../server/mailFunctions.php',
+                url: '../ajax/mailFunctions.php',
                 data: {
                     Prueba: workingData.prueba,
                     Federation: workingData.federation,
@@ -85,7 +85,7 @@ function emailClasificaciones(teams) {
  */
 function perform_downloadZip() {
     $.fileDownload(
-        "../server/mailFunctions.php",
+        "../ajax/mailFunctions.php",
         {
             httpMethod: 'GET',
             data: {
@@ -129,7 +129,7 @@ function perform_emailScores() {
         cache: false,
         timeout: 30000, // 20 segundos
         type: 'POST',
-        url: "../server/mailFunctions.php",
+        url: "../ajax/mailFunctions.php",
         dataType: 'json',
 
         data: {

@@ -19,7 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /**
  * tool to retrieve an image from server by providing federation and canonical name
  */
-require_once(__DIR__."/../../server/tools.php");
+require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/modules/Federations.php");
 
 $fed=http_request("Fed","i" ,http_request("Federation","i",0) );

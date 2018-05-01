@@ -133,7 +133,7 @@ $config =Config::getInstance();
             $('#scores_email-SendToFederation').prop('checked',false);
             // retrieve default email address to contact federation
             $.ajax({
-                url:"../server/modules/moduleFunctions.php",
+                url:"../ajax/modules/moduleFunctions.php",
                 dataType:'json',
                 data: {
                     Operation: 'moduleinfo',
@@ -176,7 +176,7 @@ $config =Config::getInstance();
         fitcolumns: true,
         idField: 'ID',
         textField: 'Nombre',
-        url: '../server/mailFunctions.php',
+        url: '../ajax/mailFunctions.php',
         queryParams: {
             'Operation': 'enumerateJueces',
             'Prueba': workingData.prueba,

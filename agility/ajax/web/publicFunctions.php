@@ -16,8 +16,8 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-require_once(__DIR__ . "/../tools.php");
-require_once(__DIR__ . "/PublicWeb.php");
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/web/PublicWeb.php");
 
 $operacion = http_request("Operation","s",null);
 $lastEvent = http_request("LastEvent","i",0);

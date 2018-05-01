@@ -293,7 +293,7 @@ function formatLogo(val,row,idx) {
     // TODO: no idea why idx:0 has no logo declared
     if (typeof(val)==='undefined') val="empty.png";
     var fed=workingData.federation;
-    return'<img src="../images/logos/getLogo.php?Fed='+fed+'&Logo='+val+'" width="30" height="30" alt="'+val+'"/>\n';
+    return '<img src="../ajax/images/getLogo.php?Fed='+fed+'&Logo='+val+'" width="30" height="30" alt="'+val+'"/>\n';
 }
 
 /**
@@ -316,7 +316,7 @@ function formatTeamLogos(val,row,idx) {
     var str="";
     var fed=workingData.federation;
     for (n=0;n<logos.length;n++) {
-        str +='<img src="../images/logos/getLogo.php?Fed='+fed+'&Logo='+logos[n]+'" width="30" height="30" alt="'+logos[n]+'"/>\n';
+        str +='<img src="../ajax/images/getLogo.php?Fed='+fed+'&Logo='+logos[n]+'" width="30" height="30" alt="'+logos[n]+'"/>\n';
     }
     return str;
 }

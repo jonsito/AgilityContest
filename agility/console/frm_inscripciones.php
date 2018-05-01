@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- background image -->
-<img class="mainpage" src="../server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle"/>
+<img class="mainpage" src="../ajax/images/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle"/>
 
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
 <div id="selprueba-window" style="position:relative;width:400px;height:auto;padding:20px 20px">

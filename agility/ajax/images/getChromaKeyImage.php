@@ -1,6 +1,6 @@
 <?php
 /*
-getRandomImage.php
+getChromaKeyImageImage.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -14,13 +14,13 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-require_once(__DIR__ . "/../server/tools.php");
-require_once(__DIR__ . "/../server/auth/Config.php");
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 /*
  * Take chroma key color value and compose a 640x480 image
 */
-$imagesDir=__DIR__."/../images/wallpapers/";
+$imagesDir= __DIR__ . "/../images/wallpapers/";
 $images=$images = glob($imagesDir . '*.{jpg,jpeg}', GLOB_BRACE);
 $image=$images[rand(0, count($images) - 1)];
 header('Content-type: image/png');

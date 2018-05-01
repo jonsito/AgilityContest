@@ -137,7 +137,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     echo '<form id= "vws_current" class="vws_css_current_0 vws_entry">';
     echo '<input type="text" id= "vws_current_Orden" name="Orden" value="Orden"/>';
     echo '<input type="hidden" id= "vws_current_LogoClub"      name="LogoClub" value="Logo"/>';
-    echo '<img class="vws_css_current_'.($n%2).' vws_imgpadding" src="../images/logos/getLogo.php?Federation=1&Logo=ES.png" id= "vws_current_Logo" name="Logo" alt="Logo"/>';
+    echo '<img class="vws_css_current_'.($n%2).' vws_imgpadding" src="../ajax/images/getLogo.php?Federation=1&Logo=ES.png" id= "vws_current_Logo" name="Logo" alt="Logo"/>';
     echo '<input type="hidden"    id= "vws_current_Perro"      name="Perro" value="Perro"/>';
     echo '<input type="hidden"    id= "vws_current_Categoria"  name="Categoria" value="Cat"/>';
     echo '<input type="hidden"    id= "vws_current_Grado"      name="Grado" value="Grad"/>';

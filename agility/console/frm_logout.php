@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE finalizacion de sesion -->
-<img class="mainpage" src="../server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle" />
+<img class="mainpage" src="../ajax/images/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle" />
 
 <div id="logout-window" class="easyui-window" style="position:relative;width:500px;height:150px;padding:20px 20px">
 	<div id="selprueba-Layout" class="easyui-layout" data-options="fit:true'">

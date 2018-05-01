@@ -32,7 +32,7 @@ function pb_getHeaderInfo(showJourney) {
     $.ajax( {
         type: "GET",
         dataType: 'json',
-        url: "../server/web/publicFunctions.php",
+        url: "../ajax/web/publicFunctions.php",
         data: {
             Operation: 'infodata',
             Prueba: workingData.prueba,
@@ -179,7 +179,7 @@ function pb_lookForMessages(callback) {
     $.ajax( {
         type: "GET",
         dataType: 'json',
-        url: "../server/web/publicFunctions.php",
+        url: "../ajax/web/publicFunctions.php",
         data: {
             Operation: 'getEvents',
             Prueba: pb_config.PruebaID,

@@ -34,7 +34,7 @@ function wh_read_registrationFile(input) {
 function wh_check_dbAccess(callback) {
     $.ajax({
         type: "POST",
-        url: 'server/webhostingFunctions.php',
+        url: 'ajax/webhostingFunctions.php',
         data: {
             'Operation' : 'checkdbroot',
             'Server': $('#install_host').textbox('getText'),
@@ -92,7 +92,7 @@ function wh_checkAndInstall() {
         // so now comes system call to create database and register license
         $.ajax({
             type: "POST",
-            url: 'server/webhostingFunctions.php',
+            url: 'ajax/webhostingFunctions.php',
             data: {
                 // no need to base64 encode pass: we are using post over ssl
                 // also do not hass pw at client side. it's prone to security failure point

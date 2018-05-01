@@ -226,7 +226,7 @@ function pruebas_emailEditClub(index,row) {
             if (!r) return false;
             $.ajax({
                 type: 'GET',
-                url: '../server/mailFunctions.php',
+                url: '../ajax/mailFunctions.php',
                 data: {
                     Prueba: workingData.prueba,
                     Federation: workingData.federation,
@@ -298,7 +298,7 @@ function prueba_clearSentMark() {
             function(r){
             if (!r) return false;
             $.get(
-                '../server/mailFunctions.php',
+                '../ajax/mailFunctions.php',
                 {Operation:'clearsent',Prueba:workingData.prueba,Federation:workingData.federation},
                 function(result){
                     if (result.success){
@@ -349,7 +349,7 @@ function perform_emailPrueba() {
             cache: false,
             timeout: 30000, // 20 segundos
             type:'POST',
-            url:"../server/mailFunctions.php",
+            url:"../ajax/mailFunctions.php",
             dataType:'json',
             data: {
                 Prueba: workingData.prueba,
@@ -384,7 +384,7 @@ function perform_emailPrueba() {
         cache: false,
         timeout: 30000, // 20 segundos
         type:'POST',
-        url:"../server/mailFunctions.php",
+        url:"../ajax/mailFunctions.php",
         dataType:'json',
         data: {
             Prueba: workingData.prueba,

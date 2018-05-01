@@ -21,18 +21,18 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../auth/Config.php");
-require_once(__DIR__."/../auth/AuthManager.php");
-require_once(__DIR__."/../modules/Federations.php");
-require_once(__DIR__."/../database/classes/DBObject.php");
-require_once(__DIR__.'/Spout/Autoloader/autoload.php');
-require_once(__DIR__.'/classes/DogReader.php');
-require_once(__DIR__.'/classes/InscriptionReader.php');
-require_once(__DIR__.'/classes/EntrenamientosReader.php');
-require_once(__DIR__.'/classes/PartialScoresReader.php');
-require_once(__DIR__.'/classes/OrdenSalidaReader.php');
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+require_once(__DIR__ . "/../../server/auth/AuthManager.php");
+require_once(__DIR__ . "/../../server/modules/Federations.php");
+require_once(__DIR__ . "/../../server/database/classes/DBObject.php");
+require_once(__DIR__ . '/../../server/excel/Spout/Autoloader/autoload.php');
+require_once(__DIR__ . '/../../server/excel/classes/DogReader.php');
+require_once(__DIR__ . '/../../server/excel/classes/InscriptionReader.php');
+require_once(__DIR__ . '/../../server/excel/classes/EntrenamientosReader.php');
+require_once(__DIR__ . '/../../server/excel/classes/PartialScoresReader.php');
+require_once(__DIR__ . '/../../server/excel/classes/OrdenSalidaReader.php');
 
 $options=array();
 $options['Suffix']=http_request("Suffix","s","");

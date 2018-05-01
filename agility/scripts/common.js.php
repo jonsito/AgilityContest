@@ -414,7 +414,7 @@ var ac_config={};
 function loadConfiguration(callback) {
 	$.ajax({
 		type: "GET",
-		url: "../server/adminFunctions.php",
+		url: "../ajax/adminFunctions.php",
 		data: {
 			'Operation' : 'loadConfig'
 		},
@@ -458,7 +458,7 @@ var ac_regInfo={'clubInfo':{'ID':0,'Nombre':''}};
 function getLicenseInfo() {
 	$.ajax({
 		type: "GET",
-		url: "../server/adminFunctions.php",
+		url: "../ajax/adminFunctions.php",
 		data: {
 			'Operation' : 'reginfo'
 		},
@@ -482,7 +482,7 @@ function getLicenseInfo() {
 function getLicensedClubInfo() {
     $.ajax({
         type: "GET",
-        url: "../server/adminFunctions.php",
+        url: "../ajax/adminFunctions.php",
         data: {
             'Operation' : 'searchClub'
         },
@@ -507,7 +507,7 @@ var ac_fedInfo={};
 function getFederationInfo() {
 	$.ajax({
 		type: "GET",
-		url: '../server/modules/moduleFunctions.php',
+		url: '../ajax/modules/moduleFunctions.php',
 		data: {	'Operation' : 'list' },
 		async: true,
 		cache: false,
@@ -866,7 +866,7 @@ function setJornada(data) {
 	workingData.nombreJornada=data.Nombre;
 	workingData.datosJornada=data;
     $.ajax({
-        url:"../server/modules/moduleFunctions.php",
+        url:"../ajax/modules/moduleFunctions.php",
         dataType:'json',
         data: {
             Operation: 'moduleinfo',

@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License along with thi
 /*
 * gets a random image from wallpapers directory and sent to client
 */
-$imagesDir=__DIR__."/../images/wallpapers/";
+$imagesDir= __DIR__ . "/../../images/wallpapers/";
 $images=$images = glob($imagesDir . '*.{jpg,jpeg}', GLOB_BRACE);
 $image=$images[rand(0, count($images) - 1)];
 header('Content-type: image/jpg');

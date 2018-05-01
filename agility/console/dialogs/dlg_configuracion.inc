@@ -64,23 +64,23 @@ $config =Config::getInstance();
                 <tr>
                     <td rowspan="2" style="width:300px;"><?php _e('Gambler additional points'); ?></td>
                     <td style="width:55px;">&nbsp;
-                        <img src="../images/getNumberedBall.php?Number=A&Color=0F0&Background=888" alt="green" width="30"/>
+                        <img src="../ajax/images/getNumberedBall.php?Number=A&Color=0F0&Background=888" alt="green" width="30"/>
                     </td>
                     <td style="width:55px;">&nbsp;
-                        <img src="../images/getNumberedBall.php?Number=B&Color=841&Background=FFF" alt="brown" width="30"/>
+                        <img src="../ajax/images/getNumberedBall.php?Number=B&Color=841&Background=FFF" alt="brown" width="30"/>
                     </td>
                     <td style="width:55px;">&nbsp;
-                        <img src="../images/getNumberedBall.php?Number=C&Color=00F&Background=888" alt="blue" width="30"/>
+                        <img src="../ajax/images/getNumberedBall.php?Number=C&Color=00F&Background=888" alt="blue" width="30"/>
                     </td>
                     <td style="width:55px;">&nbsp;
-                        <img src="../images/getNumberedBall.php?Number=D&Color=F19&Background=FFF" alt="pink" width="30"/>
+                        <img src="../ajax/images/getNumberedBall.php?Number=D&Color=F19&Background=FFF" alt="pink" width="30"/>
                     </td>
                     <td style="width:55px;">&nbsp;
-                        <img src="../images/getNumberedBall.php?Number=E&Color=000&Background=888" alt="black" width="30"/>
+                        <img src="../ajax/images/getNumberedBall.php?Number=E&Color=000&Background=888" alt="black" width="30"/>
                     </td>
                     <td style="width:60px;text-align:right;" rowspan="2"><?php _e('Bonus points');?></td>
                     <td style="width:55px;">&nbsp;
-                        <img src="../images/getNumberedBall.php?Number=X&Color=F00&Background=FFF" alt="red" width="30"/>
+                        <img src="../ajax/images/getNumberedBall.php?Number=X&Color=F00&Background=FFF" alt="red" width="30"/>
                     </td>
                 </tr>
                 <tr>
@@ -607,7 +607,7 @@ $config =Config::getInstance();
 
 	$('#config_lang').combobox({
         panelHeight:'auto',
-        url:'../server/adminFunctions.php?Operation=getAvailableLanguages',
+        url:'../ajax/adminFunctions.php?Operation=getAvailableLanguages',
         valueField:'ID',
         textField:'Name'
     });
@@ -646,7 +646,7 @@ $config =Config::getInstance();
 		$('#config-Operation').val('saveConfig');
 	    $.ajax({
 	        type: 'GET',
-	        url: '../server/adminFunctions.php',
+	        url: '../ajax/adminFunctions.php',
 	        data: $('#config-form').serialize(),
 	        dataType: 'json',
 	        success: function (result) {
@@ -681,7 +681,7 @@ $config =Config::getInstance();
         $('#config-Operation').val('check');
         $.ajax({
             type: 'GET',
-            url: '../server/mailFunctions.php',
+            url: '../ajax/mailFunctions.php',
             data: $('#config-form').serialize(),
             dataType: 'json',
             success: function (result) {
@@ -708,7 +708,7 @@ $config =Config::getInstance();
 		var frm = $('#config-form');
 		$.ajax({
 			type: 'GET',
-			url: '../server/adminFunctions.php',
+			url: '../ajax/adminFunctions.php',
 			data: frm.serialize(),
 			dataType: 'json',
 			success: function (result) {
@@ -735,7 +735,7 @@ $config =Config::getInstance();
 	function defaultConfig() {
 		$.messager.confirm('<?php _e("Confirm"); ?>','<?php _e("Restore factory default values. Sure?"); ?>',function(r){
 			if (r) {
-				$('#config-form').form('load','../server/adminFunctions.php?Operation=defaultConfig');
+				$('#config-form').form('load','../ajax/adminFunctions.php?Operation=defaultConfig');
 				$.messager.alert('<?php _e("Factory reset"); ?>',
 					'<?php _e("Restored default configuration options"); ?>'+" <br />"+
 					'<?php _e("You should close session and reload page"); ?> '+
@@ -758,7 +758,7 @@ $config =Config::getInstance();
 	 */
 	function backupConfig() {
 		$.fileDownload(
-			'../server/adminFunctions.php',
+			'../ajax/adminFunctions.php',
 			{
 				httpMethod: 'GET',
 				data: {
@@ -782,7 +782,7 @@ $config =Config::getInstance();
 		}
 		$.ajax({
 			type:'POST', // use post to send file
-			url:"../server/adminFunctions.php",
+			url:"../ajax/adminFunctions.php",
 			dataType:'json',
 			data: { Operation: 'restoreConfig', Data: data },
 			contentType: 'application/x-www-form-urlencoded;charset=UTF-8',

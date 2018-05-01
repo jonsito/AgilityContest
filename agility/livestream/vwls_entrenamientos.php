@@ -37,14 +37,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <?php if ($combined==1) { ?>
             <!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
             <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted"
-                   loop="loop" poster="../server/getRandomImage.php" style="width=100%;height:auto">
+                   loop="loop" poster="../ajax/images/getRandomImage.php" style="width=100%;height:auto">
                 <!-- http://guest:@192.168.122.168/videostream.cgi -->
                 <source id="vwls_videomp4" src="" type='video/mp4'/>
                 <source id="vwls_videoogv" src="" type='video/ogg'/>
                 <source id="vwls_videowebm" src="" type='video/webm'/>
             </video>
         <?php } else { ?>
-            <img src="../server/getChromaKeyImage.php" style="z-index:-1;" />
+            <img src="../ajax/images/getChromaKeyImage.php" style="z-index:-1;" />
         <?php } ?>
 
         <div data-options="region:'east',split:false,border:false" style="width:5%;background-color:transparent;"></div>

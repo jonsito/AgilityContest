@@ -141,7 +141,7 @@ $config =Config::getInstance();
         onOpen: function() {
             $('#reg_version').html(ac_config.version_name);
             $('#reg_date').html(ac_config.version_date);
-            $('#registration_data').form('load','../server/adminFunctions.php?Operation=reginfo');
+            $('#registration_data').form('load','../ajax/adminFunctions.php?Operation=reginfo');
         },
         onClose: function() {loadContents('../console/frm_main.php','',{'registration':'#dlg_register'});
         }

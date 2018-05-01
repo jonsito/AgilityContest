@@ -99,7 +99,7 @@ for($n=0;$n<4;$n++) {
     echo '<form id= "vws_current_'.$n.'" class="vws_css_current_'.($n%2).' vws_entry">';
     if ($n==0) {
         echo '<input type="text" class="vws_css_current_'.($n%2).'" id="vws_current_Orden_'.$n.'" name="Orden" value="Orden '.$n.'"/>';
-        echo '<img class="vws_css_current_'.($n%2).' vws_imgpadding"  src="../images/logos/getLogo.php?Federation=1&Logo=ES.png" id="vws_current_Logo_'.$n.'" name="Logo" alt="Logo"/>';
+        echo '<img class="vws_css_current_'.($n%2).' vws_imgpadding"  src="../ajax/images/getLogo.php?Federation=1&Logo=ES.png" id="vws_current_Logo_'.$n.'" name="Logo" alt="Logo"/>';
         echo '<input type="hidden"    id= "vws_current_NombreEquipo_'.$n.'" name="NombreEquipo" value="Equipo '.$n.'"/>';
         echo '<span id="vws_current_Spare_'.$n.'">&nbsp;</span>';
     } else if ($n==1) {

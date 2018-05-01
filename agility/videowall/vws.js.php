@@ -417,7 +417,7 @@ function vws_updateLlamada(evt,data,callback) {
     $.ajax( {
         type: "GET",
         dataType: 'json',
-        url: "../server/web/videowallFunctions.php",
+        url: "../ajax/web/videowallFunctions.php",
         data: {
             Operation: (team)?'teamwindow':'window',
             Before: 2,
@@ -431,7 +431,7 @@ function vws_updateLlamada(evt,data,callback) {
             for(var n=0;n<nitems;n++) {
                 logo=dat['after'][n][(team)?'LogoTeam':'LogoClub'];
                 $('#vws_call_'+n).form('load',dat['after'][n]);
-                $('#vws_call_Logo_'+n).attr('src','../images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
+                $('#vws_call_Logo_'+n).attr('src','../ajax/images/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             }
             // fill "current" columns
             if(team) {
@@ -458,7 +458,7 @@ function vws_updateLlamada(evt,data,callback) {
                     }
                 }
                 // set team icon. on test dog use AC logo
-                $('#vws_current_Logo_0').attr('src','../images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
+                $('#vws_current_Logo_0').attr('src','../ajax/images/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             } else { /* individual */
                 if (evt['Nombre']==="<?php _e('Test dog');?>") {
                     logo="agilitycontest.png";
@@ -469,13 +469,13 @@ function vws_updateLlamada(evt,data,callback) {
                 $('#vws_current').form('load',dat['current'][0]);
                 vws_displayData("",true);
                 workingData.vws_currentRow="";
-                $('#vws_current_Logo').attr('src','../images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
+                $('#vws_current_Logo').attr('src','../ajax/images/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             }
             // fill "before" ( but will be revisited on updateResults )
             for(n=0;n<2;n++) {
                 logo=dat['before'][n][(team)?'LogoTeam':'LogoClub'];
                 $('#vws_before_'+n).form('load',dat['before'][n]);
-                $('#vws_before_Logo_'+n).attr('src','../images/logos/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
+                $('#vws_before_Logo_'+n).attr('src','../ajax/images/getLogo.php?Logo='+logo+'&Federation='+workingData.federation);
             }
             if (typeof(callback)==="function") callback(parseInt(evt['Dog']),data);
         }
@@ -538,7 +538,7 @@ function vws_updateFinales(perro,data) {
                     data['Tiempo']=toFixedT(data['Tiempo'],ac_config.numdecs);
                     data['Penalizacion']=toFixedT(data['Penalizacion'],ac_config.numdecs);
                     $('#vws_results_' + n).form('load', data);
-                    $('#vws_results_Logo_' + n).attr('src', '../images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
+                    $('#vws_results_Logo_' + n).attr('src', '../ajax/images/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
                 }
                 // fill if required 'before' table data
                 for (var i = 0; i < 2; i++) {
@@ -643,7 +643,7 @@ function vws_updateParciales(data) {
                     data['Penalizacion']=toFixedT(data['Penalizacion'],ac_config.numdecs);
                     // fill forms
                     $('#vws_results_' + n).form('load', data);
-                    $('#vws_results_Logo_' + n).attr('src', '../images/logos/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
+                    $('#vws_results_Logo_' + n).attr('src', '../ajax/images/getLogo.php?Logo=' + logo + '&Federation=' + workingData.federation);
                     $('#vws_results_FaltasTocados_' + n).html(parseInt(items[n]['Faltas'])+parseInt(items[n]['Tocados']));
                 }
                 // fill if found 'before' table data

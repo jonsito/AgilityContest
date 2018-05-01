@@ -61,7 +61,7 @@ function vw_updateWorkingData(evt,callback) {
     $.ajax( {
         type: "GET",
         dataType: 'json',
-        url: "../server/web/videowallFunctions.php",
+        url: "../ajax/web/videowallFunctions.php",
         data: {
             Operation: 'infodata',
             Prueba: evt.Prueba,
@@ -163,7 +163,7 @@ function vwc_updateHeaderAndFooter(evt,data) {
 		logo=ac_fedInfo[fed].OrganizerLogo; // remember that absolute path is provided here
 		$('#vwc_header-logo').attr('src',logo);
 	} else {
-		$('#vwc_header-logo').attr('src','../images/logos/getLogo.php?Fed='+fed+'&Logo='+logo);
+		$('#vwc_header-logo').attr('src','../ajax/images/getLogo.php?Fed='+fed+'&Logo='+logo);
 	}
 
 	// on "init just initialize contest, logo and footer: no round yet
@@ -428,7 +428,7 @@ function vwcp_updateLlamada(evt,data) {
 	$.ajax( {
 		type: "GET",
 		dataType: 'json',
-		url: "../server/web/videowallFunctions.php",
+		url: "../ajax/web/videowallFunctions.php",
 		data: {
 			Operation: 'window',
 			Before: 3,
@@ -503,7 +503,7 @@ function vwcf_updateLlamada(evt,data) {
 	$.ajax( {
 		type: "GET",
 		dataType: 'json',
-		url: "../server/web/videowallFunctions.php",
+		url: "../ajax/web/videowallFunctions.php",
 		data: {
 			Operation: 'window',
 			Before: (ac_config.vwc_simplified==0)?4:2,

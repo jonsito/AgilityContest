@@ -16,13 +16,13 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program;
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
-require_once(__DIR__."/logging.php");
-require_once(__DIR__."/tools.php");
-require_once(__DIR__."/database/classes/DBConnection.php");
+require_once(__DIR__ . "/../server/logging.php");
+require_once(__DIR__ . "/../server/tools.php");
+require_once(__DIR__ . "/../server/database/classes/DBConnection.php");
 
 $response="";
 try {
-	if (file_exists(__DIR__."/auth/system.ini"))
+	if (file_exists(__DIR__ . "/auth/system.ini"))
 		throw new Exception( "AgilityContest is already installed");
     $operation = http_request("Operation","s","");
 	$data=array(

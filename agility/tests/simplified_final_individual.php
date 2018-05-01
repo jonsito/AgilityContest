@@ -252,7 +252,7 @@ if(!isset($config)) $config =Config::getInstance();
                     </td>
                     <td>
                         <input type="hidden" name="Logo" value="Spain"/>
-                        <img src="../images/logos/getLogo.php?Federation=1&Logo=ES.png" alt="Spain" style="width:6vw;"/>
+                        <img src="../ajax/images/getLogo.php?Federation=1&Logo=ES.png" alt="Spain" style="width:6vw;"/>
                     </td>
                     <td style="text-align:center;">
                         <input type="text" name="Dorsal" readonly="readonly" size="3" value="127"/>
