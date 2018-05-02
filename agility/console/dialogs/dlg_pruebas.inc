@@ -365,7 +365,7 @@ $config =Config::getInstance();
 		panelHeight: 200,
 		idField: 'ID',
 		textField: 'Nombre',
-		url: '../server/database/clubFunctions.php',
+		url: '../ajax/database/clubFunctions.php',
         queryParams: {
             'Operation': 'enumerate',
             'Federation': $('#pruebas-Federation').combogrid('getValue')

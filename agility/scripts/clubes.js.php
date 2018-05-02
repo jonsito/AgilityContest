@@ -87,7 +87,7 @@ function saveLogo() {
     canvas.getContext("2d").drawImage(img[0], 0,0,w,h);
     $.ajax({
   		type: 'POST',
-    	url: '../server/database/clubFunctions.php',
+    	url: '../ajax/database/clubFunctions.php',
     	dataType: 'text',
     	data: {
     		Operation: 'setlogo',
@@ -123,7 +123,7 @@ function newClub(dg,def,onAccept){
 	if (strpos(def,"<?php _e('-- Search --'); ?>")===false) $('#clubes-Nombre').textbox('setValue',def.capitalize());
 	$('#clubes-Operation').val('insert');
 	// select ID=1 to get default logo
-	var nombre="../server/database/clubFunctions.php?Operation=getlogo&ID=1&Federation="+workingData.Federation;
+	var nombre="../ajax/database/clubFunctions.php?Operation=getlogo&ID=1&Federation="+workingData.Federation;
     $('#clubes-Logo').attr("src",nombre);
     // add onAccept related function if any
 	if (onAccept!==undefined)
@@ -148,7 +148,7 @@ function editClub(dg){
     row.Operation='update';
     // use date.getTime to bypass cache
     var time=new Date().getTime();
-	var nombre="../server/database/clubFunctions.php?Operation=getlogo&ID="+row.ID+"&Federation="+workingData.federation+"&time="+time;
+	var nombre="../ajax/database/clubFunctions.php?Operation=getlogo&ID="+row.ID+"&Federation="+workingData.federation+"&time="+time;
     $('#clubes-Logo').attr("src",nombre);
     $('#clubes-dialog').dialog('open').dialog('setTitle','<?php _e('Modify club data'); ?>');
     $('#clubes-form').form('load',row);
@@ -186,7 +186,7 @@ function saveClub(){
     $('#clubes-Federations').val(fed);
     $.ajax({
         type: 'GET',
-        url: '../server/database/clubFunctions.php',
+        url: '../ajax/database/clubFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -225,7 +225,7 @@ function deleteClub(dg){
     }
     $.messager.confirm('<?php _e('Confirm'); ?>',"<?php _e('Clear club');?>"+' "'+row.Nombre+'" <?php _e('from database. Sure?');?>',function(r){
         if (!r) return;
-        $.get('../server/database/clubFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('../ajax/database/clubFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
                 $(dg).datagrid('unselectAll').datagrid('reload');    // reload the provided datagrid
             } else {

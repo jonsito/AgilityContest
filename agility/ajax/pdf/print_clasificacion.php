@@ -22,11 +22,11 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un CSV con los datos para las etiquetas
  */
 
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__.'/../modules/Competitions.php');
-require_once(__DIR__.'/classes/PrintClasificacion.php');
-require_once(__DIR__.'/classes/PrintClasificacionGames.php');
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . '/../../server/modules/Competitions.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintClasificacion.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintClasificacionGames.php');
 
 try {
 	$result=null;

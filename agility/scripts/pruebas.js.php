@@ -64,7 +64,7 @@ function newPrueba(dg,def,onAccept){
 function hasInscripciones(id,callback) {
     $.ajax({
         type: 'GET',
-        url: '../server/database/inscripcionFunctions.php',
+        url: '../ajax/database/inscripcionFunctions.php',
         data: { Operation: 'howmany', Prueba: id },
         dataType: 'json',
         // beforeSend: function(jqXHR,settings){ return frm.form('validate'); },
@@ -104,7 +104,7 @@ function savePrueba() {
     function real_save() {
         $.ajax({
             type: 'GET',
-            url: '../server/database/pruebaFunctions.php',
+            url: '../ajax/database/pruebaFunctions.php',
             data: frm.serialize(),
             dataType: 'json',
             // beforeSend: function(jqXHR,settings){ return frm.form('validate'); },
@@ -185,7 +185,7 @@ function deletePrueba(dg){
     		'<?php _e("<p>By deleting this contest <b>youll loose</b> every associated data and scores"); ?>' +
     		"</p><p><?php _e('Do you really want to delete this contest'); ?>?</p>",function(r){
         if (r){
-            $.get('../server/database/pruebaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+            $.get('../ajax/database/pruebaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
                     $(dg).datagrid('unselectAll').datagrid('reload');    // reload the prueba data
                 } else {
@@ -198,7 +198,7 @@ function deletePrueba(dg){
 
 function exportPrueba(dg) {
     var row = $(dg).datagrid('getSelected');
-    var url='../server/excel/excelWriterFunctions.php';
+    var url='../ajax/excel/excelWriterFunctions.php';
     if (!row) {
         $.messager.alert('<?php _e("Export error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
         return; // no way to know which prueba is selected
@@ -460,7 +460,7 @@ function closeJornadaFromPrueba(datagridID,event) {
     	    	if(r) {
                     $.messager.progress({title:'',text:'<?php _e("Processing");?>...'});
     	            $.get(
-    	                '../server/database/jornadaFunctions.php',
+    	                '../ajax/database/jornadaFunctions.php',
                         {Operation:'close',ID:row.ID,Mode:mode},
                         function(result){
     	                    $.messager.progress('close');
@@ -525,7 +525,7 @@ function saveJornada(){
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',
-        url: '../server/database/jornadaFunctions.php',
+        url: '../ajax/database/jornadaFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {

@@ -1,6 +1,6 @@
 <?php
 /*
-print_entrenamientos.php
+print_resultadosByManga.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -16,31 +16,37 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
 header('Set-Cookie: fileDownload=true; path=/');
 // mandatory 'header' to be the first element to be echoed to stdout
 
 /**
- * genera un pdf con la tabla y horarios de entrenamiento
-*/
+ * genera un pdf con los participantes ordenados segun los resultados de la manga
+ */
 
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__."/../auth/AuthManager.php");
-require_once(__DIR__.'/classes/PrintEntrenamientos.php');
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . '/../../server/modules/Competitions.php');
+require_once(__DIR__ . '/../../server/database/classes/Mangas.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintResultadosByEquipos3.php');
 
 // Consultamos la base de datos
 try {
-    // comprobamos si la licencia tiene permisos para imprimir la ronda de entrenamientos
-    $am= new AuthManager("print_entrenamientos");
-    if ($am->allowed(ENABLE_TRAINING)==0) throw new Exception("Current License does not allow Training session handling");
-	$prueba=http_request("Prueba","i",0);
-	// 	Creamos generador de documento
-	$pdf = new PrintEntrenamientos($prueba);
+	$idprueba=http_request("Prueba","i",0);
+	$idjornada=http_request("Jornada","i",0);
+	$idmanga=http_request("Manga","i",0);
+	$mode=http_request("Mode","i",0);
+    $title=http_request("Title","s",_("Round scores")." ("._("Teams").")");
+	
+	$mngobj= new Mangas("printResultadosByManga",$idjornada);
+	$manga=$mngobj->selectByID($idmanga);
+	$resobj= Competitions::getResultadosInstance("printResultadosByManga",$idmanga);
+
+	// Creamos generador de documento
+	$pdf = new PrintResultadosByEquipos3($idprueba,$idjornada,$manga,$resobj,$mode,$title);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
-	die ("Error accessing database: ".$e->getMessage());
-};
+    die ("Error accessing database: ".$e->getMessage());
+}
 ?>

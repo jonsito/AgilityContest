@@ -1,6 +1,6 @@
 <?php
 /*
-print_entradaDeDatos.php
+PrintEntradaDeDatos.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 

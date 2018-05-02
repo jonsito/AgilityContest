@@ -430,7 +430,7 @@ function importExportInscripciones() {
             if (opt==2) club=0;
             if (opt!=3) { // export
                 $.fileDownload(
-                    '../server/excel/excelWriterFunctions.php',
+                    '../ajax/excel/excelWriterFunctions.php',
                     {
                         httpMethod: 'GET',
                         data: {	'Operation':'Inscripciones','Prueba': workingData.prueba, 'Club': club },
@@ -500,7 +500,7 @@ function printInscripciones() {
 			var sort= dg.datagrid('options').sortName;
 			if ( (sort==null) || (sort=="" )) { order=""; sort=""; }
 			$.fileDownload(
-				'../server/pdf/print_inscritosByPrueba.php',
+				'../ajax/pdf/print_inscritosByPrueba.php',
 					{
 						httpMethod: 'GET',
 						data: {

@@ -150,7 +150,7 @@ $('#inscripciones-excel-dialog').dialog( {
 	}
 } );
 
-$('#inscripciones-pruebas').form('load','../server/database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
+$('#inscripciones-pruebas').form('load','../ajax/database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
 $('#inscripciones-jornadas').datagrid({
 	// propiedades del panel asociado
 	fit: true,
@@ -163,7 +163,8 @@ $('#inscripciones-jornadas').datagrid({
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
-	url: '../server/database/jornadaFunctions.php?Operation=select&Prueba='+workingData.prueba,
+	url: '../ajax/database/jornadaFunctions.php,
+    queryParams: { Operation: 'select', Prueba: workingData.prueba },
 	method: 'get',
 	loadMsg: '<?php _e('Updating journeys data');?>'+'...',
     columns:[[
@@ -252,7 +253,8 @@ $('#inscripciones-datagrid').datagrid({
     multiSort: true,
     remoteSort: true,
 	idField: 'ID',
-	url: '../server/database/inscripcionFunctions.php?Operation=inscritos&Prueba='+workingData.prueba,
+	url: '../ajax/database/inscripcionFunctions.php,
+    queryParams: { Operation: 'inscritos', Prueba: workingData.prueba },
 	method: 'get',
 	loadMsg: '<?php _e('Updating inscriptions data');?>'+'....',
     toolbar: '#inscripciones-toolbar',

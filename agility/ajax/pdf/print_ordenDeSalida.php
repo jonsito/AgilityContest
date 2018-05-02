@@ -1,6 +1,6 @@
 <?php
 /*
-print_ordenTandas.php
+print_ordenDeSalida.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -21,35 +21,33 @@ header('Set-Cookie: fileDownload=true; path=/');
 // mandatory 'header' to be the first element to be echoed to stdout
 
 /**
- * genera un pdf con diversas plantillas
+ * genera un pdf ordenado por club, categoria y nombre con una pagina por cada jornada
 */
 
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__.'/classes/PrintTRSTemplates.php');
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . '/../../server/pdf/classes/PrintOrdenSalida.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintOrdenSalidaEquipos4.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintOrdenSalidaKO.php');
 
 // Consultamos la base de datos
 try {
-	$prueba=http_request("Prueba","i",0);
-    $jornada=http_request("Jornada","i",0);
-    $mode=http_request("Mode","i",0);
+    $data= array(
+        'prueba' =>     http_request("Prueba","i",0),
+        'jornada' =>    http_request("Jornada","i",0),
+        'manga' =>      http_request("Manga","i",0),
+        'categorias' => http_request("Categorias","s","-"),
+        'rango' =>      http_request("Rango","s","1-99999"),
+        'comentarios' =>http_request("Comentarios","s","-"),
+        'equipos4' =>   http_request("EqConjunta","i",0),
+        'ko' =>         http_request("JornadaKO","i",0)
+    );
 	// 	Creamos generador de documento
-	$pdf = new PrintTRSTemplates($prueba,$jornada,$mode);
+    $pdf = new PrintOrdenSalida($data);
+    if($data['equipos4']!=0) $pdf= new PrintOrdenSalidaEquipos4($data);
+    if($data['ko']!=0)      $pdf= new PrintOrdenSalidaKO($data);
 	$pdf->AliasNbPages();
-    switch ($mode) {
-        case 0:
-            $pdf->set_FileName("TablaTRS_DistanciaVelocidad.pdf");
-            $pdf->composeTable(); // tabla de trs versus distancia/velocidad
-            break;
-        case 1:
-            $pdf->set_FileName("Formulario_MangasTRS.pdf");
-            $pdf->printFormulario(); // hoja para apuntar trs de cada manga
-            break;
-        case 2:
-            $pdf->set_FileName("Hoja_Asistente_vacia.pdf");
-            $pdf->printDataForm(); // plantilla de asistente de pista vacia
-            break;
-    }
+	$pdf->composeTable();
 	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());

@@ -16,7 +16,6 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
 header('Set-Cookie: fileDownload=true; path=/');
 // mandatory 'header' to be the first element to be echoed to stdout
 
@@ -24,9 +23,9 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf con la secuencia ordenada de tandas de la jornada y los participantes de cada tanda
 */
 
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__.'/classes/PrintOrdenTandas.php');
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . '/../../server/pdf/classes/PrintOrdenTandas.php');
 
 // Consultamos la base de datos
 try {

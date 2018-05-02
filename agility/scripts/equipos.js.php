@@ -58,12 +58,12 @@ function checkTeams(datagrid) {
     // ni equipos con mas o menos perros de lo debido
     $.ajax({
         type:'GET',
-        url:"../server/database/equiposFunctions.php",
+        url:"../ajax/database/equiposFunctions.php",
         dataType:'json',
         data: {
-        Operation:	'verify',
-        Prueba:	workingData.prueba,
-        Jornada:workingData.jornada
+            Operation:	'verify',
+            Prueba:	workingData.prueba,
+            Jornada:workingData.jornada
         },
         success: function(data) {
             if (data.errorMsg) {
@@ -91,7 +91,7 @@ function checkTeams(datagrid) {
 */
 function realPrintTeams() {
     $.fileDownload(
-        '../server/pdf/print_equiposByJornada.php',
+        '../ajax/pdf/print_equiposByJornada.php',
         {
             httpMethod: 'GET',
             data: { Prueba: workingData.prueba, Jornada: workingData.jornada },
@@ -110,7 +110,7 @@ function printTeams(datagrid) {
     // primero verificamos la lista de equipos
     $.ajax({
         type:'GET',
-        url:"../server/database/equiposFunctions.php",
+        url:"../ajax/database/equiposFunctions.php",
         dataType:'json',
         data: {
         Operation:	'verify',
@@ -240,7 +240,7 @@ function deleteTeam(dg){
 			"<p><?php _e('This operation will remove selected team from journey');?><br />"+
 			"<p><?php _e('Do you really want to delete team');?> '"+row.Nombre+"' <?php _e('from this journey');?>?</p>",function(r){
         if (r){
-            $.get('../server/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba,Jornada:row.Jornada},function(result){
+            $.get('../ajax/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba,Jornada:row.Jornada},function(result){
                 if (result.success){
                     $(dg).datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});    // reload the prueba data 
                     $('#selteam-Equipo').combogrid('grid').datagrid('unselectAll').datagrid('load'); // update assignment combogrid list
@@ -273,7 +273,7 @@ function saveTeam() {
     }
     $.ajax({
         type: 'GET',
-        url: '../server/database/equiposFunctions.php',
+        url: '../ajax/database/equiposFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -329,7 +329,7 @@ function changeTeam() {
             cache: false,
             timeout: 20000, // 20 segundos
             type:'GET',
-            url: '../server/database/equiposFunctions.php',
+            url: '../ajax/database/equiposFunctions.php',
             dataType:'json',
             data: frm.serialize(),
             success: function(result) {
@@ -399,7 +399,7 @@ function dragAndDropOrdenEquipos(from,to,where,whenDone) {
     if (workingData.manga==0) return;
     $.ajax({
         type:'GET',
-        url:"../server/database/ordenSalidaFunctions.php",
+        url:"../ajax/database/ordenSalidaFunctions.php",
         dataType:'json',
         data: {
             Operation: 'dndTeams',

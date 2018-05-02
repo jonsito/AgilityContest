@@ -72,7 +72,7 @@ $config =Config::getInstance();
             expansible: false,
             collapsed: false,
             title: '<?php _e('Handlers data management');?>'+' - '+fedName(workingData.federation),
-            url: '../server/database/guiaFunctions.php',
+            url: '../ajax/database/guiaFunctions.php',
             queryParams: { Operation:'select', Federation: workingData.federation },
             loadMsg: '<?php _e('Updating handlers list');?>'+'...',
             method: 'get',
@@ -142,7 +142,7 @@ $config =Config::getInstance();
         	    fitColumns: true,
         	    singleSelect: true,
 				loadMsg: '<?php _e('Updating dogs list');?>',
-        		url: '../server/database/dogFunctions.php',
+        		url: '../ajax/database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID, Federation: workingData.federation },
         		method: 'get',
         	    columns: [[

@@ -15,16 +15,16 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-const EVTCMD_NULL=0; // nothing; just ping
-const EVTCMD_SWITCH_SCREEN=1; // switch videowall mode
-const EVTCMD_SETFONTFAMILY=2;
-const EVTCMD_NOTUSED3=3; // switch font family ) simplified videowalls )
-const EVTCMD_SETFONTSIZE=4;
-const EVTCMD_OSDSETALPHA=5; // increase/decrease OSD transparency level
-const EVTCMD_OSDSETDELAY=6; // set response time to events ( to sync livestream OSD )
-const EVTCMD_NOTUSED7=7;
-const EVTCMD_MESSAGE=8; // prompt a message dialog on top of screen
-const EVTCMD_ENABLEOSD=9; // enable / disable OnScreenDisplay
+var EVTCMD_NULL=0; // nothing; just ping
+var EVTCMD_SWITCH_SCREEN=1; // switch videowall mode
+var EVTCMD_SETFONTFAMILY=2;
+var EVTCMD_NOTUSED3=3; // switch font family ) simplified videowalls )
+var EVTCMD_SETFONTSIZE=4;
+var EVTCMD_OSDSETALPHA=5; // increase/decrease OSD transparency level
+var EVTCMD_OSDSETDELAY=6; // set response time to events ( to sync livestream OSD )
+var EVTCMD_NOTUSED7=7;
+var EVTCMD_MESSAGE=8; // prompt a message dialog on top of screen
+var EVTCMD_ENABLEOSD=9; // enable / disable OnScreenDisplay
 
 function parseEvent(data) {
 	// var response= eval('(' + data + ')' );
@@ -98,7 +98,7 @@ function parseEvent(data) {
 
 		$.ajax({
 			type: "GET",
-			url: "../server/database/eventFunctions.php",
+			url: "../ajax/database/eventFunctions.php",
 			data: {
 				'Operation' : 'getEvents',
 				'ID'		: evtID,
@@ -125,7 +125,7 @@ function startEventMgr() {
     var sname=ac_clientOpts.BaseName+":"+ac_clientOpts.Ring+":"+ac_clientOpts.View+":"+ac_clientOpts.Mode+":"+ac_clientOpts.SessionName;
 	$.ajax({
 		type: "GET",
-		url: "../server/database/eventFunctions.php",
+		url: "../ajax/database/eventFunctions.php",
 		data: {
 			'Operation' : 'connect',
 			'Session'	: workingData.sesion,

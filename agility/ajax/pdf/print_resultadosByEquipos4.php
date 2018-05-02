@@ -16,7 +16,6 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
 header('Set-Cookie: fileDownload=true; path=/');
 // mandatory 'header' to be the first element to be echoed to stdout
 
@@ -24,30 +23,31 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf ordenado con los participantes en jornada de prueba por equipos
 */
 
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__."/classes/PrintEntradaDeDatosEquipos4.php");
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . '/../../server/modules/Competitions.php');
+require_once(__DIR__ . '/../../server/database/classes/Mangas.php');
+require_once(__DIR__ . "/../../server/pdf/classes/PrintResultadosByEquipos4.php");
 
+
+// Consultamos la base de datos
 try {
-    // cogemos los datos de la llamada a la funcion
-    $data=array(
-        'prueba' 	=> http_request("Prueba","i",0),
-        'jornada' 	=> http_request("Jornada","i",0),
-        'manga' 	=> http_request("Manga","i",0),
-        'numrows'	=> http_request("Mode","i",0), // numero de perros por hoja 1/5/15
-        'cats' 		=> http_request("Categorias","s","-"),
-        'fill' 		=> http_request("FillData","i",0), // tell if print entered data in sheets
-        'rango' 	=> http_request("Rango","s","1-99999"),
-        'comentarios' => http_request("Comentarios","s","-"),
-        'title'     => http_request("Title","s",_("Data Entry"))
-    );
+	$idprueba=http_request("Prueba","i",0);
+	$idjornada=http_request("Jornada","i",0);
+    $idmanga=http_request("Manga","i",0);
+    $mode=http_request("Mode","i",0);
+    $title=http_request("Title","s",_("Round scores")." ("._("Teams").")");
+
+    $mngobj= new Mangas("printResultadosByManga",$idjornada);
+    $manga=$mngobj->selectByID($idmanga);
+    $resobj= Competitions::getResultadosInstance("printResultadosByManga",$idmanga);
+
     // 	Creamos generador de documento
-    $pdf=new PrintEntradaDeDatosEquipos4($data);
+    $pdf=new PrintResultadosByEquipos4($idprueba,$idjornada,$manga,$resobj,$mode,$title);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-    $pdf->Output($pdf->get_FileName(),"D"); // "D" web client (download) "F" file save
+	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
-	die ("Error accessing database: ".$e->getMessage());
+    die ("Error accessing database: ".$e->getMessage());
 };
 ?>
-

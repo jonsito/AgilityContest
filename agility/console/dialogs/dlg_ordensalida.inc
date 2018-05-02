@@ -150,7 +150,7 @@ $('#ordensalida-rango').textbox({
 $('#ordeneq3-datagrid').datagrid({
     // propiedades del panel asociado
     fit: true,
-    url: '../server/database/ordenSalidaFunctions.php',
+    url: '../ajax/database/ordenSalidaFunctions.php',
     queryParams: { Operation:'getTeams', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, where:''	},
     loadMsg: '<?php _e('Updating teams starting order');?> ...',
     method: 'get',
@@ -206,7 +206,7 @@ $('#ordensalida-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: '../server/database/ordenSalidaFunctions.php',
+	url: '../ajax/database/ordenSalidaFunctions.php',
     queryParams: {
         Operation: 'getData',
         Prueba: workingData.prueba,

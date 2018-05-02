@@ -83,7 +83,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             delay: 500,
             idField: 'ID',
             textField: 'Nombre',
-            url: '../server/database/clubFunctions.php',
+            url: '../ajax/database/clubFunctions.php',
             queryParams: { Operation:'enumerate' },
             method: 'get',
             mode: 'remote',

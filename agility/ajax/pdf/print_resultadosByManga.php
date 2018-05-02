@@ -23,11 +23,13 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf con los participantes ordenados segun los resultados de la manga
  */
 
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__.'/../modules/Competitions.php');
-require_once(__DIR__.'/../database/classes/Mangas.php');
-require_once(__DIR__.'/classes/PrintResultadosByEquipos3.php');
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . '/../../server/modules/Competitions.php');
+require_once(__DIR__ . '/../../server/database/classes/Mangas.php');
+require_once(__DIR__ . "/../../server/pdf/classes/PrintResultadosByManga.php");
+require_once(__DIR__ . "/../../server/pdf/classes/PrintResultadosKO.php");
+require_once(__DIR__ . "/../../server/pdf/classes/PrintResultadosGames.php");
 
 // Consultamos la base de datos
 try {
@@ -35,18 +37,25 @@ try {
 	$idjornada=http_request("Jornada","i",0);
 	$idmanga=http_request("Manga","i",0);
 	$mode=http_request("Mode","i",0);
-    $title=http_request("Title","s",_("Round scores")." ("._("Teams").")");
+    $title=http_request("Title","s",_("Partial scores"));
 	
 	$mngobj= new Mangas("printResultadosByManga",$idjornada);
 	$manga=$mngobj->selectByID($idmanga);
 	$resobj= Competitions::getResultadosInstance("printResultadosByManga",$idmanga);
+	$resultados=$resobj->getResultadosIndividual($mode); // throw exception if pending dogs
 
 	// Creamos generador de documento
-	$pdf = new PrintResultadosByEquipos3($idprueba,$idjornada,$manga,$resobj,$mode,$title);
+    if ( isMangaKO($manga->Tipo)) {
+        $pdf = new PrintResultadosKO($idprueba,$idjornada,$manga,$resultados);
+    } else if ( isMangaGames($manga->Tipo) ) { // snooker, gambler
+        $pdf = new PrintResultadosGames($idprueba,$idjornada,$manga,$resultados,$mode);
+    } else {
+        $pdf = new PrintResultadosByManga($idprueba,$idjornada,$manga,$resultados,$mode,$title);
+    }
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
-    die ("Error accessing database: ".$e->getMessage());
+	die($e->getMessage());
 }
 ?>

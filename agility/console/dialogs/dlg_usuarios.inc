@@ -167,7 +167,7 @@ $config =Config::getInstance();
             panelHeight: 200,
             idField: 'ID',
             textField: 'Nombre',
-            url: '../server/database/clubFunctions.php',
+            url: '../ajax/database/clubFunctions.php',
             queryParams: {Operation:'enumerate',Federation:workingData.federation},
             method: 'get',
             mode: 'remote',
@@ -226,7 +226,7 @@ $config =Config::getInstance();
             collapsed: false,
             title: '<?php _e('User data management'); ?>',
             // datos de la conexion ajax
-            url: '../server/database/userFunctions.php?Operation=select',
+            url: '../ajax/database/userFunctions.php?Operation=select',
             loadMsg: '<?php _e('Updating users list'); ?>',
             method: 'get',
             toolbar: '#usuarios-toolbar',

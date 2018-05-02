@@ -24,11 +24,11 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf ordenado por club, categoria y nombre con una pagina por cada jornada
 */
 
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__.'/../database/classes/Jornadas.php');
-require_once(__DIR__.'/../database/classes/Inscripciones.php');
-require_once(__DIR__."/classes/PrintInscripciones.php");
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . '/../../server/database/classes/Jornadas.php');
+require_once(__DIR__ . '/../../server/database/classes/Inscripciones.php');
+require_once(__DIR__ . "/../../server/pdf/classes/PrintInscripciones.php");
 
 // Consultamos la base de datos
 try {

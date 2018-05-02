@@ -1,6 +1,6 @@
 <?php
 /*
-print_clasificacion_excel.php
+PrintClasificacionExcel.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -50,7 +50,7 @@ class PrintClasificacionExcel {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas) {
-		$this->myLogger	= new Logger("PrintExcel");
+		$this->myLogger	= new Logger("PrintClasificacionExcel");
 		$this->dbobj	= new DBObject("print_clasificacion_excel");
 		$this->prueba	= $this->dbobj->__getObject("pruebas",$prueba);
 		$this->club		= $this->dbobj->__getObject("clubes",$this->prueba->Club); // club organizador

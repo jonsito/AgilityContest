@@ -1,6 +1,6 @@
 <?php
 /*
-print_etiquetas_csv.php
+print_podium.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -15,8 +15,6 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
-
-
 header('Set-Cookie: fileDownload=true; path=/');
 // mandatory 'header' to be the first element to be echoed to stdout
 
@@ -24,14 +22,11 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un CSV con los datos para las etiquetas
  */
 
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__."/../auth/Config.php");
-require_once(__DIR__.'/../modules/Federations.php');
-require_once(__DIR__.'/../modules/Competitions.php');
-require_once(__DIR__.'/../database/classes/DBObject.php');
-require_once(__DIR__.'/classes/PrintEtiquetasCSV.php');
-
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . "/../../server/modules/Federations.php");
+require_once(__DIR__ . '/../../server/modules/Competitions.php');
+require_once(__DIR__ . '/../../server/database/classes/DBObject.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintClasificacionTeam.php');
 
 try {
 	$result=null;
@@ -48,64 +43,53 @@ try {
 	$mangas[6]=http_request("Manga7","i",0);
 	$mangas[7]=http_request("Manga8","i",0);
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
-	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
-
-	header("Content-type: text/plain");
-	header("Content-Disposition: attachment; filename=printEtiquetas.csv");	
 	
-	// buscamos los recorridos asociados a la mangas
-	$dbobj=new DBObject("print_etiquetas_csv");
+	// buscamos los recorridos asociados a la manga
+	$dbobj=new DBObject("print_podium_equipos");
 	$mng=$dbobj->__getObject("mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("pruebas",$prueba);
-	$c= Competitions::getClasificacionesInstance("print_etiquetas_csv",$jornada);
+	$c= Competitions::getClasificacionesInstance("print_podium_pdf",$jornada);
 	$result=array();
 	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
 	switch($mng->Recorrido) {
 		case 0: // recorridos separados large medium small
-			$r=$c->clasificacionFinal($rondas,$mangas,0);
-			$result[0]=$r['rows'];
-			$r=$c->clasificacionFinal($rondas,$mangas,1);
-			$result[1]=$r['rows'];
-			$r=$c->clasificacionFinal($rondas,$mangas,2);
-			$result[2]=$r['rows'];
+            $result[0]=$c->clasificacionFinalEquipos($rondas,$mangas,0);
+            $result[1]=$c->clasificacionFinalEquipos($rondas,$mangas,1);
+            $result[2]=$c->clasificacionFinalEquipos($rondas,$mangas,2);
 			if ($heights!=3) {
-				$r=$c->clasificacionFinal($rondas,$mangas,5);
-				$result[5]=$r['rows'];
+                $result[5]=$c->clasificacionFinalEquipos($rondas,$mangas,5);
 			}
 			break;
 		case 1: // large / medium+small
 			if ($heights==3) {
-				$r=$c->clasificacionFinal($rondas,$mangas,0);
-				$result[0]=$r['rows'];
-				$r=$c->clasificacionFinal($rondas,$mangas,3);
-				$result[3]=$r['rows'];
+				$result[0]=$c->clasificacionFinalEquipos($rondas,$mangas,0);
+				$result[3]=$c->clasificacionFinalEquipos($rondas,$mangas,3);
 			} else {
-				$r=$c->clasificacionFinal($rondas,$mangas,6);
-				$result[6]=$r['rows'];
-				$r=$c->clasificacionFinal($rondas,$mangas,7);
-				$result[7]=$r['rows'];
+                $result[6]=$c->clasificacionFinalEquipos($rondas,$mangas,6);
+                $result[7]=$c->clasificacionFinalEquipos($rondas,$mangas,7);
 			}
 			break;
 		case 2: // recorrido conjunto large+medium+small
 			if ($heights==3) {
-				$r=$c->clasificacionFinal($rondas,$mangas,4);
-				$result[4]=$r['rows'];
+                $result[4]=$c->clasificacionFinalEquipos($rondas,$mangas,4);
 			} else {
-				$r=$c->clasificacionFinal($rondas,$mangas,8);
-				$result[8]=$r['rows'];
+                $result[8]=$c->clasificacionFinalEquipos($rondas,$mangas,8);
 			}
 			break;
 	}
-	$first=true;
-	foreach ($result as $res) {
-		$csv =new PrintEtiquetasCSV($prueba,$jornada,$mangas,$res);
-		echo $csv->composeTable($first);
-		$first=false;
-	}
-
+	
+	// Creamos generador de documento
+	$pdf = new PrintClasificacionTeam($prueba,$jornada);
+	$pdf->set_FileName("Podium_Teams.pdf");
+	$pdf->AliasNbPages();
+	foreach($result as $mode =>$clasif) {
+	    if(count($clasif['individual'])==0) continue; // skip categories with no teams
+	    $pdf->pct_setParameters($mangas,$clasif,$mode,_("Podium")." "._("Teams"));
+        $pdf->composeTable(3);
+    }
+	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());
 }
-
 ?>

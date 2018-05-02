@@ -22,12 +22,12 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf con las hojas del asistente de pista
 */
 
-require_once(__DIR__."/../tools.php");
-require_once (__DIR__."/../logging.php");
-require_once(__DIR__.'/../modules/Competitions.php');
-require_once(__DIR__.'/classes/PrintEntradaDeDatos.php');
-require_once(__DIR__.'/classes/PrintEntradaDeDatosGames.php');
-require_once(__DIR__.'/classes/PrintEntradaDeDatosKO.php');
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . '/../../server/modules/Competitions.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintEntradaDeDatos.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintEntradaDeDatosGames.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintEntradaDeDatosKO.php');
 
 try {
 	// extraemos los datos de la llamada

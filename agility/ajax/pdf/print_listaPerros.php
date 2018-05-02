@@ -1,6 +1,6 @@
 <?php
 /*
-print_equiposByJornada.php
+print_listaPerros.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -21,24 +21,23 @@ header('Set-Cookie: fileDownload=true; path=/');
 // mandatory 'header' to be the first element to be echoed to stdout
 
 /**
- * genera un pdf con los participantes en jornada de prueba por equipos
+ * genera un pdf lista de perros seleccionada desde el menu de la base de datos en el orden especificado en la pantalla
 */
 
-require_once(__DIR__."/fpdf.php");
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__."/classes/PrintEquiposByJornada.php");
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . "/../../server/pdf/classes/PrintListaPerros.php");
 
 // Consultamos la base de datos
 try {
-	$prueba=http_request("Prueba","i",0);
-	$jornada=http_request("Jornada","i",0);
 	// 	Creamos generador de documento
-	$pdf = new PrintEquiposByJornada($prueba,$jornada);
+	$fed=http_request("Federation","i",0);
+	$pdf = new PrintListaPerros($fed);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-    $pdf->Output($pdf->get_FileName(),"D"); // "D" web download; "F" file save
+	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
+    return 0;
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());
-};
+}
 ?>

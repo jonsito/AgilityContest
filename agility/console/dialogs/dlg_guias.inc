@@ -121,7 +121,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             method: 'get',
             mode: 'remote',
             required: true,
-            url:'../server/database/guiaFunctions.php',
+            url:'../ajax/database/guiaFunctions.php',
             queryParams: {
                 Operation:'categorias',
                 Federation: workingData.federation
@@ -132,7 +132,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			panelHeight: 200,
 			idField: 'ID',
 			textField: 'Nombre',
-			url: '../server/database/clubFunctions.php',
+			url: '../ajax/database/clubFunctions.php',
 	    	queryParams: {Operation:'enumerate',Federation:workingData.federation},
 			method: 'get',
 			mode: 'remote',

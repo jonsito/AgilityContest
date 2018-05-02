@@ -68,7 +68,7 @@ $config =Config::getInstance();
         	collapsed: false,
         	title: '<?php _e('Judge database handling'); ?>',
         	// datos de la conexion ajax
-        	url: '../server/database/juezFunctions.php',
+        	url: '../ajax/database/juezFunctions.php',
     		queryParams: { Operation: 'select' },
         	loadMsg: '<?php _e('Updating judge list'); ?> ...',
         	method: 'get',

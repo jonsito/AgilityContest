@@ -161,7 +161,7 @@ $('#entrenamientos-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: '../server/database/trainingFunctions.php',
+	url: '../ajax/database/trainingFunctions.php',
     queryParams: {
         Operation: 'select',
         Prueba: workingData.prueba

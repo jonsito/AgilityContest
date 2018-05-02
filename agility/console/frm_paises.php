@@ -61,7 +61,7 @@ $config =Config::getInstance();
 			expansible: false,
 			collapsed: false,
 			title: '<?php _e('Country database'); ?>' + ' - ' + fedName(workingData.federation),
-			url: '../server/database/clubFunctions.php',
+			url: '../ajax/database/clubFunctions.php',
 			queryParams: { Operation: 'select', Federation: workingData.federation },
 			loadMsg: '<?php _e('Updating Country list'); ?>'+' ...',
 			method: 'get',
@@ -128,7 +128,7 @@ $config =Config::getInstance();
         	    // height: 'auto',
         		title: '<?php _e('Handlers from country'); ?>'+' '+country.Nombre+ ' - '+fedName(workingData.federation),
         	    loadMsg: '<?php _e('Loading handlers list'); ?>' +' ....',
-        		url: '../server/database/guiaFunctions.php',
+        		url: '../ajax/database/guiaFunctions.php',
         		queryParams: { 
             		Operation:'getbyclub', // remember that clubes and countries share same DDBB table
             		Club: country.ID,
@@ -217,7 +217,7 @@ $config =Config::getInstance();
         	    // height: 'auto',
         	    loadMsg: '<?php _e('Loading list of dogs'); ?>',
         		title: '<?php _e('Registered dogs belonging to'); ?>'+' '+guia.Nombre+' - '+fedName(workingData.federation),
-        		url: '../server/database/dogFunctions.php',
+        		url: '../ajax/database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID, Federation: workingData.federation },
         		method: 'get',
         	    columns: [[

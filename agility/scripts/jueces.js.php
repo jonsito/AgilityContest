@@ -90,7 +90,7 @@ function saveJuez(){
     $('#jueces-Federations').val(fed);
     $.ajax({
         type: 'GET',
-        url: '../server/database/juezFunctions.php',
+        url: '../ajax/database/juezFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {

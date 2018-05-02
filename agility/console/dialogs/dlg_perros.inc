@@ -171,7 +171,7 @@ $config =Config::getInstance();
     	textField:'Comentarios',
     	method: 'get',
     	mode: 'remote',
-    	url:'../server/database/dogFunctions.php',
+    	url:'../ajax/database/dogFunctions.php',
         queryParams: {
             Operation:'grados',
             Federation: workingData.federation
@@ -195,7 +195,7 @@ $config =Config::getInstance();
 		textField:'Observaciones',
 		method: 'get',
 		mode: 'remote',
-		url:'../server/database/dogFunctions.php',
+		url:'../ajax/database/dogFunctions.php',
         queryParams: {
             Operation:'categorias',
             Federation: workingData.federation
@@ -207,7 +207,7 @@ $config =Config::getInstance();
 		panelHeight: 200,
 		idField: 'ID',
 		textField: 'Nombre',
-		url: '../server/database/guiaFunctions.php',
+		url: '../ajax/database/guiaFunctions.php',
     	queryParams: {Operation:'enumerate',Federation:workingData.federation},
 		method: 'get',
 		mode: 'remote',

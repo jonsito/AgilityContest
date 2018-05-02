@@ -1,6 +1,6 @@
 <?php
 /*
-print_podium.php
+print_clasificacion_excel.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -15,18 +15,20 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+
+
+
 header('Set-Cookie: fileDownload=true; path=/');
 // mandatory 'header' to be the first element to be echoed to stdout
 
 /**
- * genera un CSV con los datos para las etiquetas
+ * genera un fichero excel con los datos de la clasificacion de la ronda
  */
 
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__."/../modules/Federations.php");
-require_once(__DIR__.'/../modules/Competitions.php');
-require_once(__DIR__.'/../database/classes/DBObject.php');
-require_once(__DIR__.'/classes/PrintPodium.php');
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . '/../../server/modules/Competitions.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintClasificacionExcel.php');
 
 try {
 	$result=null;
@@ -44,55 +46,66 @@ try {
 	$mangas[7]=http_request("Manga8","i",0);
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
 	
-	// buscamos los recorridos asociados a la manga
-	$dbobj=new DBObject("print_podium_individual");
-	$mng=$dbobj->__getObject("mangas",$mangas[0]);
-	$prb=$dbobj->__getObject("pruebas",$prueba);
-	$c= Competitions::getClasificacionesInstance("print_podium_pdf",$jornada);
+	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
+	$c= Competitions::getClasificacionesInstance("print_etiquetas_pdf",$jornada);
+	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
+
+	// Creamos generador de documento
+	header("Pragma: public");
+	header("Expires: 0");
+	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+	header("Content-Type: application/force-download");
+	header("Content-Type: application/octet-stream");
+	header("Content-Type: application/download");
+	header("Content-Disposition: attachment;filename=clasificacion.xls");
+	header("Content-Transfer-Encoding: binary ");
+	
+	$excel=new PrintClasificacionExcel($prueba,$jornada,$mangas);
+	$excel->xlsBOF();
+	$base=$excel->write_PageHeader($prueba,$jornada,$mangas);
+	
+	// buscamos los recorridos asociados a la mangas
+	$c= Competitions::getClasificacionesInstance("print_clasificacion_excel",$jornada);
+	
 	$result=array();
-	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
-	switch($mng->Recorrido) {
-		case 0: // recorridos separados large medium small
+	$heights=intval(Federations::getFederation( intval($excel->prueba->RSCE) )->get('Heights'));
+	switch($excel->manga1->Recorrido) {
+		case 0: // recorridos separados large medium small tiny
 			$r=$c->clasificacionFinal($rondas,$mangas,0);
-			$result[0]=$r['rows'];
+			$base = $excel->composeTable($mangas,$r,0,$base+1);
 			$r=$c->clasificacionFinal($rondas,$mangas,1);
-			$result[1]=$r['rows'];
+			$base = $excel->composeTable($mangas,$r,1,$base+1);
 			$r=$c->clasificacionFinal($rondas,$mangas,2);
-			$result[2]=$r['rows'];
+			$base = $excel->composeTable($mangas,$r,2,$base+1);
 			if ($heights!=3) {
 				$r=$c->clasificacionFinal($rondas,$mangas,5);
-				$result[5]=$r['rows'];
+				$base = $excel->composeTable($mangas,$r,5,$base+1);
 			}
 			break;
-		case 1: // large / medium+small
+		case 1: // large / medium+small (3heignts) ---- L+M / S+T (4heights)
 			if ($heights==3) {
 				$r=$c->clasificacionFinal($rondas,$mangas,0);
-				$result[0]=$r['rows'];
+				$base = $excel->composeTable($mangas,$r,0,$base+1);
 				$r=$c->clasificacionFinal($rondas,$mangas,3);
-				$result[3]=$r['rows'];
+				$base = $excel->composeTable($mangas,$r,3,$base+1);
 			} else {
 				$r=$c->clasificacionFinal($rondas,$mangas,6);
-				$result[6]=$r['rows'];
+				$base = $excel->composeTable($mangas,$r,6,$base+1);
 				$r=$c->clasificacionFinal($rondas,$mangas,7);
-				$result[7]=$r['rows'];
+				$base = $excel->composeTable($mangas,$r,7,$base+1);
 			}
 			break;
-		case 2: // recorrido conjunto large+medium+small
+		case 2: // recorrido conjunto large+medium+small+tiny
 			if ($heights==3) {
 				$r=$c->clasificacionFinal($rondas,$mangas,4);
-				$result[4]=$r['rows'];
+				$base = $excel->composeTable($mangas,$r,4,$base+1);
 			} else {
 				$r=$c->clasificacionFinal($rondas,$mangas,8);
-				$result[8]=$r['rows'];
+				$base = $excel->composeTable($mangas,$r,8,$base+1);
 			}
 			break;
 	}
-	
-	// Creamos generador de documento
-	$pdf = new PrintPodium($prueba,$jornada,$mangas,$result);
-	$pdf->AliasNbPages();
-	$pdf->composeTable();
-	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
+	$excel->xlsEOF();
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());

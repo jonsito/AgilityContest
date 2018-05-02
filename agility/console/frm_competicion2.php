@@ -117,7 +117,7 @@ $('#competicion_info').panel({
 $('#competicion_infolayout').layout();
 
 $('#competicion-listamangas').datagrid({
-	url: '../server/database/mangaFunctions.php',
+	url: '../ajax/database/mangaFunctions.php',
     queryParams: { Operation: 'enumerate', Jornada: workingData.jornada },
 	fit: true,
 	method: 'get',

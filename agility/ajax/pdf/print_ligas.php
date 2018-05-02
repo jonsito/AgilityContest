@@ -24,24 +24,23 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf lista de perros seleccionada desde el menu de la base de datos en el orden especificado en la pantalla
 */
 
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__."/../auth/AuthManager.php");
-require_once(__DIR__."/../modules/Competitions.php");
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . "/../../server/auth/AuthManager.php");
+require_once(__DIR__ . "/../../server/modules/Competitions.php");
 
-require_once(__DIR__."/classes/PrintLigas.php");
+require_once(__DIR__ . "/../../server/pdf/classes/PrintLigas.php");
 
 // obtenemos datos de la peticion
 $result=null;
-$am= new AuthManager("ligaFunctions");
-$operation=http_request("Operation","s",null);
+$operation=http_request("Operation","s","");
 $federation=http_request("Federation","i",0);
 $grado=http_request("Grado","s","GI");
 $perro=http_request("Perro","i",0);
 // Consultamos la base de datos
 try {
-
-    if ($operation===null) throw new Exception("Call to printLigas without 'Operation' requested");
+    $am= new AuthManager("ligaFunctions");
+    if ($operation==="") throw new Exception("Call to printLigas without 'Operation' requested");
     // verificamos permisos de acceso
     $am->access(PERMS_GUEST);
     $am->permissions(ENABLE_LEAGUES);

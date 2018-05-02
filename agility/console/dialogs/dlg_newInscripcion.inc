@@ -135,7 +135,7 @@ $('#new_inscripcion-dialog').dialog({
 // datagrid de inscripcion de participantes
 $('#new_inscripcion-datagrid').datagrid({
     fit:true,
-	url: '../server/database/inscripcionFunctions.php',
+	url: '../ajax/database/inscripcionFunctions.php',
 	queryParams: {
 		Operation: 'noinscritos',
 		Prueba: workingData.prueba,

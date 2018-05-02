@@ -395,7 +395,7 @@ function dmanga_shareJuez() {
     var frm = $('#competicion-formdatosmanga');
     $.ajax({
         type: 'GET',
-        url: '../server/database/mangaFunctions.php',
+        url: '../ajax/database/mangaFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -423,7 +423,7 @@ function save_manga(id) {
         var frm = $('#competicion-formdatosmanga');
         $.ajax({
             type: 'GET',
-            url: '../server/database/mangaFunctions.php',
+            url: '../ajax/database/mangaFunctions.php',
             data: frm.serialize(),
             dataType: 'json',
             success: function (result) {
@@ -498,7 +498,7 @@ function save_manga(id) {
  */
 function reload_manga(id) {
 	// ventana de datos
-	var url='../server/database/mangaFunctions.php?Operation=getbyid&Jornada='+workingData.jornada+"&Manga="+id;
+	var url='../ajax/database/mangaFunctions.php?Operation=getbyid&Jornada='+workingData.jornada+"&Manga="+id;
     // update judge list to prevent federation change
     $('#dmanga-Juez1').combogrid('load',{'Operation':'Enumerate','Federation':workingData.federation});
     $('#dmanga-Juez2').combogrid('load',{'Operation':'Enumerate','Federation':workingData.federation});
@@ -670,7 +670,7 @@ function resetCompeticion() {
         if (!r) return;
         $.ajax({
             type:'GET',
-            url:"../server/database/resultadosFunctions.php",
+            url:"../ajax/database/resultadosFunctions.php",
             dataType:'json',
             data: {
                 Prueba: workingData.prueba,

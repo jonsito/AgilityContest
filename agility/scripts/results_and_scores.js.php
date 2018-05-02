@@ -373,7 +373,7 @@ function consoleReloadParcial(val,fill) {
     // una peticion ajax, para obtener a la vez los datos tecnicos de la manga
     $.ajax({
         type:'GET',
-        url:"../server/database/resultadosFunctions.php",
+        url:"../ajax/database/resultadosFunctions.php",
         dataType:'json',
         data: {
             Operation:	(isJornadaEquipos(null))?'getResultadosIndividualyEquipos':'getResultadosIndividual',
@@ -437,7 +437,7 @@ function updateParciales(mode,row) {
     // y de los jueces
     $.ajax({
         type:'GET',
-        url:"../server/database/resultadosFunctions.php",
+        url:"../ajax/database/resultadosFunctions.php",
         dataType:'json',
         data: {
             Operation:	(isJornadaEquipos(null))?'getResultadosIndividualyEquipos':'getResultadosIndividual',
@@ -485,7 +485,7 @@ function updateFinales(perro,ronda,callback) {
     // do not call doResults cause expected json data
     $.ajax({
         type:'GET',
-        url:"../server/database/clasificacionesFunctions.php",
+        url:"../ajax/database/clasificacionesFunctions.php",
         dataType:'json',
         data: {
             Operation: (isJornadaEquipos(null))?'clasificacionEquipos':'clasificacionIndividual',

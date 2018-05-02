@@ -1,6 +1,6 @@
 <?php
 /*
-print_ordenDeSalida.php
+print_equiposByJornada.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -16,39 +16,27 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
 header('Set-Cookie: fileDownload=true; path=/');
 // mandatory 'header' to be the first element to be echoed to stdout
 
 /**
- * genera un pdf ordenado por club, categoria y nombre con una pagina por cada jornada
+ * genera un pdf con los participantes en jornada de prueba por equipos
 */
 
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__.'/classes/PrintOrdenSalida.php');
-require_once(__DIR__.'/classes/PrintOrdenSalidaEquipos4.php');
-require_once(__DIR__.'/classes/PrintOrdenSalidaKO.php');
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . "/../../server/pdf/fpdf.php");
+require_once(__DIR__ . "/../../server/pdf/classes/PrintEquiposByJornada.php");
 
 // Consultamos la base de datos
 try {
-    $data= array(
-        'prueba' =>     http_request("Prueba","i",0),
-        'jornada' =>    http_request("Jornada","i",0),
-        'manga' =>      http_request("Manga","i",0),
-        'categorias' => http_request("Categorias","s","-"),
-        'rango' =>      http_request("Rango","s","1-99999"),
-        'comentarios' =>http_request("Comentarios","s","-"),
-        'equipos4' =>   http_request("EqConjunta","i",0),
-        'ko' =>         http_request("JornadaKO","i",0)
-    );
+	$prueba=http_request("Prueba","i",0);
+	$jornada=http_request("Jornada","i",0);
 	// 	Creamos generador de documento
-    $pdf = new PrintOrdenSalida($data);
-    if($data['equipos4']!=0) $pdf= new PrintOrdenSalidaEquipos4($data);
-    if($data['ko']!=0)      $pdf= new PrintOrdenSalidaKO($data);
+	$pdf = new PrintEquiposByJornada($prueba,$jornada);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
+    $pdf->Output($pdf->get_FileName(),"D"); // "D" web download; "F" file save
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());
 };

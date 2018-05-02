@@ -393,7 +393,7 @@ $('#dmanga_Juez1').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '../server/database/juezFunctions.php',
+	url: '../ajax/database/juezFunctions.php',
 	queryParams: {
 		Operation: 'enumerate',
 		Federation: workingData.federation
@@ -418,7 +418,7 @@ $('#dmanga_Juez2').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '../server/database/juezFunctions.php',
+	url: '../ajax/database/juezFunctions.php',
 	queryParams: {
 		Operation: 'enumerate',
 		Federation: workingData.federation

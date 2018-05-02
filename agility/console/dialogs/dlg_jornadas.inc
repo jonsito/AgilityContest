@@ -371,7 +371,7 @@ $config =Config::getInstance();
 <?php    if ( ! $am->allowed(ENABLE_SPECIAL)) { ?>
         disabled: true,
 <?php    } ?>
-        url:'../server/database/jornadaFunctions.php',
+        url:'../ajax/database/jornadaFunctions.php',
         onChange:function(newval,oldval) {
             $('#jornadas-SlaveOf').val(newval);
         },
