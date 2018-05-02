@@ -72,7 +72,7 @@ function saveSession(){
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',
-        url: '../server/database/sessionFunctions.php',
+        url: '../ajax/database/sessionFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -102,7 +102,7 @@ function deleteSession(dg){
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete session'); ?>'+':'+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
-        $.get('../server/database/sessionFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('../ajax/database/sessionFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
                 $(dg).datagrid('unselectAll').datagrid('reload');    // reload the session data
             } else {
@@ -126,7 +126,7 @@ function resetSession(dg) {
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete event history on session'); ?>'+':'+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
-        $.get('../server/database/sessionFunctions.php',{Operation:'reset',ID:row.ID},function(result){
+        $.get('../ajax/database/sessionFunctions.php',{Operation:'reset',ID:row.ID},function(result){
             if (result.success){
                 $(dg).datagrid('reload');    // reload the session data
             } else {
@@ -240,7 +240,7 @@ function remote_putEvent(data){
     // send "update" event to every session listeners
     $.ajax({
         type:'GET',
-        url:"../server/database/eventFunctions.php",
+        url:"../ajax/database/eventFunctions.php",
         dataType:'json',
         data: $.extend({},obj,data)
     });

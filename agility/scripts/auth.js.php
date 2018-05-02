@@ -100,7 +100,7 @@ function acceptLogin() {
 	setFederation(fed);
 	$.ajax({
 		type: 'POST',
-  		url: '../server/database/userFunctions.php',
+  		url: '../ajax/database/userFunctions.php',
    		dataType: 'jsonp',
    		data: {
    			Operation: 'login',
@@ -181,7 +181,7 @@ function acceptLogout() {
 	var user=ac_authInfo.Login;
 	$.ajax({
 		type: 'POST',
-   		url: '../server/database/userFunctions.php',
+   		url: '../ajax/database/userFunctions.php',
    		dataType: 'json',
    		data: {
    			Operation: 'logout',
@@ -213,7 +213,7 @@ function acceptLogout() {
 function checkPassword(user,pass,callback) {
 	$.ajax({
 		type: 'POST',
-        url: '../server/database/userFunctions.php',
+        url: '../ajax/database/userFunctions.php',
 		dataType: 'jsonp',
 		data: {
 			Operation: 'pwcheck',

@@ -137,8 +137,8 @@ $config =Config::getInstance();
     	buttons: '#chperros-dlg-buttons',
         iconCls: 'icon-dog'/*,
         onBeforeOpen: function() { 
-            var grads="../server/database/dogFunctions.php?Operation=grados&Federation="+workingData.federation;
-            var cats="../server/database/dogFunctions.php?Operation=categorias&Federation="+workingData.federation;
+            var grads="../ajax/database/dogFunctions.php?Operation=grados&Federation="+workingData.federation;
+            var cats="../ajax/database/dogFunctions.php?Operation=categorias&Federation="+workingData.federation;
             $('#chperros-Grados_Perro').combobox('reload',grads);
     		$('#chperros-Categorias_Perro').combobox('reload',cats);
         }
@@ -154,7 +154,7 @@ $config =Config::getInstance();
 		idField: 'ID',
         delay: 500,
 		textField: 'Nombre',
-		url: '../server/database/dogFunctions.php',
+		url: '../ajax/database/dogFunctions.php',
 		queryParams: { Operation:'enumerate', Federation: workingData.federation },
 		method: 'get',
 		mode: 'remote',
@@ -174,7 +174,7 @@ $config =Config::getInstance();
 		onSelect: function(index,row) {
 			var idperro=row.ID;
 			if (!idperro) return;
-	        $('#chperros-form').form('load','../server/database/dogFunctions.php?Operation=getbyidperro&ID='+idperro); // load form with json retrieved data
+	        $('#chperros-form').form('load','../ajax/database/dogFunctions.php?Operation=getbyidperro&ID='+idperro); // load form with json retrieved data
 		},
         loader: function(param,onsuccess,onerror){
             var opts = $('#chperros-Search').combogrid('options');
@@ -207,16 +207,13 @@ $config =Config::getInstance();
 
     $('#chperros-Grados_Perro').combobox({
 		panelHeight: 'auto',
-    	valueField:'Grado',
-    	textField:'Comentarios',
+    	valueField: 'Grado',
+    	textField: 'Comentarios',
     	method: 'get',
     	mode: 'remote',
 		required: true,
-        url:'../server/database/dogFunctions.php',
-        queryParams: {
-        Operation:'grados',
-            Federation: workingData.federation
-        },
+        url: '../ajax/database/dogFunctions.php',
+        queryParams: { Operation: 'grados', Federation: workingData.federation },
     	// TODO: this should work. study why doesn't
 		onLoadSuccess: function(data){
 			for(var i=0; i<data.length; i++){
@@ -231,15 +228,12 @@ $config =Config::getInstance();
     });
     $('#chperros-Categorias_Perro').combobox({
 		panelHeight: 'auto',
-		valueField:'Categoria',
-		textField:'Observaciones',
+		valueField: 'Categoria',
+		textField: 'Observaciones',
 		method: 'get',
 		mode: 'remote',
 		required: true,
-        url:'../server/database/dogFunctions.php',
-        queryParams: {
-        Operation:'categorias',
-            Federation: workingData.federation
-        }
+        url:'../ajax/database/dogFunctions.php',
+        queryParams: { Operation:'categorias', Federation: workingData.federation }
     });
     </script>

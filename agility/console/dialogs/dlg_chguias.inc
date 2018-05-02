@@ -139,7 +139,7 @@ $config =Config::getInstance();
             method: 'get',
             mode: 'remote',
             required: true,
-            url:'../ajax/database/guiaFunctions.php',
+            url: '../ajax/database/guiaFunctions.php',
             queryParams: {
                 Operation:'categorias',
                 Federation: workingData.federation

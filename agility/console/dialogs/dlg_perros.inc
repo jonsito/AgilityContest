@@ -167,11 +167,11 @@ $config =Config::getInstance();
 
     $('#perros-Grados_Perro').combobox({
 		panelHeight: 'auto',
-    	valueField:'Grado',
-    	textField:'Comentarios',
+    	valueField: 'Grado',
+    	textField: 'Comentarios',
     	method: 'get',
     	mode: 'remote',
-    	url:'../ajax/database/dogFunctions.php',
+    	url: '../ajax/database/dogFunctions.php',
         queryParams: {
             Operation:'grados',
             Federation: workingData.federation
@@ -191,11 +191,11 @@ $config =Config::getInstance();
 
     $('#perros-Categorias_Perro').combobox({
 		panelHeight: 'auto',
-		valueField:'Categoria',
-		textField:'Observaciones',
+		valueField: 'Categoria',
+		textField: 'Observaciones',
 		method: 'get',
 		mode: 'remote',
-		url:'../ajax/database/dogFunctions.php',
+		url: '../ajax/database/dogFunctions.php',
         queryParams: {
             Operation:'categorias',
             Federation: workingData.federation

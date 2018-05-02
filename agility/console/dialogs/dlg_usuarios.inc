@@ -226,7 +226,8 @@ $config =Config::getInstance();
             collapsed: false,
             title: '<?php _e('User data management'); ?>',
             // datos de la conexion ajax
-            url: '../ajax/database/userFunctions.php?Operation=select',
+            url: '../ajax/database/userFunctions.php',
+            queryParams: { Operation: 'select' },
             loadMsg: '<?php _e('Updating users list'); ?>',
             method: 'get',
             toolbar: '#usuarios-toolbar',

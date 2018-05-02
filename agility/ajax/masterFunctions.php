@@ -28,7 +28,7 @@ ini_set('zlib.output_compression', 0);
 header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",false);
 require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
-require_once(__DIR__ . "/../master/AgilityContest_Master.php");
+require_once(__DIR__ . "/../server/master/AgilityContest_Master.php");
 if (!isset($config) ) $config=Config::getInstance();
 
 /* check for properly installed xampp */

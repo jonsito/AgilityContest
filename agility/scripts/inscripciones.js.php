@@ -60,7 +60,7 @@ function saveInscripcion(close) {
     if (!frm.form('validate')) return;
     $.ajax({
         type: 'GET',
-        url: '../server/database/inscripcionFunctions.php',
+        url: '../ajax/database/inscripcionFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -95,7 +95,7 @@ function deleteInscripcion() {
 				if (r){
 					$.get(
 						// URL
-						'../server/database/inscripcionFunctions.php',
+						'../ajax/database/inscripcionFunctions.php',
 						// arguments
 						{ 
 							Operation:'delete',
@@ -140,7 +140,7 @@ function insertInscripcion(dg) {
 			cache: false,
 			timeout: 20000, // 20 segundos
 			type:'GET',
-			url:"../server/database/inscripcionFunctions.php",
+			url:"../ajax/database/inscripcionFunctions.php",
 			dataType:'json',
 			data: {
 				Prueba: workingData.prueba,
@@ -186,7 +186,7 @@ function reorderInscripciones(idprueba) {
                 cache: false,
                 timeout: 60000, // 60 segundos
                 type:'GET',
-                url:"../server/database/inscripcionFunctions.php",
+                url:"../ajax/database/inscripcionFunctions.php",
                 dataType:'json',
                 data: {
                     Prueba: idprueba,
@@ -221,7 +221,7 @@ function clearJourneyInscriptions(current){
         cache: false,
         timeout: 60000, // 60 segundos
         type:'GET',
-        url:"../server/database/inscripcionFunctions.php",
+        url:"../ajax/database/inscripcionFunctions.php",
         dataType:'json',
         data: {
             Prueba: row.Prueba,
@@ -255,7 +255,7 @@ function inscribeAllIntoJourney(current){
         cache: false,
         timeout: 60000, // 60 segundos
         type:'GET',
-        url:"../server/database/inscripcionFunctions.php",
+        url:"../ajax/database/inscripcionFunctions.php",
         dataType:'json',
         data: {
             Prueba: row.Prueba,
@@ -285,7 +285,7 @@ function inscribeSelectedIntoJourney(current){
             cache: false,
             timeout: 60000, // 60 segundos
             type:'GET',
-            url:"../server/database/inscripcionFunctions.php",
+            url:"../ajax/database/inscripcionFunctions.php",
             dataType:'json',
             data: {
                 Prueba: row.Prueba,
@@ -330,7 +330,7 @@ function inscribeSelectedIntoJourney(current){
             // update journey info
             $.ajax({
                 type: 'GET',
-                url: '../server/database/jornadaFunctions.php',
+                url: '../ajax/database/jornadaFunctions.php',
                 data: journey,
                 dataType: 'json',
                 success: function (result) {
@@ -371,7 +371,7 @@ function setDorsal() {
 				cache: false,
 				timeout: 60000, // 60 segundos
 				type:'GET',
-				url:"../server/database/inscripcionFunctions.php",
+				url:"../ajax/database/inscripcionFunctions.php",
 				dataType:'json',
 				data: {
 					Prueba: row.Prueba,
@@ -455,7 +455,7 @@ function importExportInscripciones() {
 		valueField:'ID',
 		textField:'Nombre',
 		mode:'remote',
-		url:'../server/database/clubFunctions.php',
+		url:'../ajax/database/clubFunctions.php',
 		queryParams: {
 			Operation:	'enumerate',
 			Combo:	1,

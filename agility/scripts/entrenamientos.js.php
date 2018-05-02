@@ -73,7 +73,7 @@ function editEntrenamiento(dg){
 function resetEntrenamientos(dg) {
     $.ajax({
         type: 'GET',
-        url: '../server/database/trainingFunctions.php',
+        url: '../ajax/database/trainingFunctions.php',
         data: {
             Operation:'populate',
             Prueba: workingData.prueba
@@ -165,7 +165,7 @@ function dragAndDropEntrenamientos(from,to,where) {
     if (workingData.jornada==0) return;
     $.ajax({
         type:'GET',
-        url:"../server/database/trainingFunctions.php",
+        url:"../ajax/database/trainingFunctions.php",
         dataType:'json',
         data: {
             Operation: 'dnd',

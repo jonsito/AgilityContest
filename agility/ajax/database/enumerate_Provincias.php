@@ -1,7 +1,7 @@
 <?php
 
 /*
-enumerateProvincias.php
+enumerate_Provincias.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -17,30 +17,10 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/database/classes/Provincias.php");
 
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/classes/DBObject.php");
-
-class Provincias extends DBObject {
-
-	function select() {
-		// evaluate offset and row count for query
-		$q=http_request("q","s","");
-		$c=http_request("Country","s","");
-		$prov = ($q!=="")? "Provincia LIKE '%$q%'" : "1";
-		$ctry = ($c!=="")? "AND Pais = '$c' " : "";
-		$result = $this->__select(
-			/* SELECT */ "*",
-			/* FROM */	"provincias",
-			/* WHERE */	"($prov $ctry) OR ( Codigo=0 )",
-			/* ORDER */ "Provincia ASC",
-			/* LIMIT */ ""
-		);
-		return $result;
-	}
-}
-	
 try {
 	$result=null;
 	$provincias= new Provincias("provincias");

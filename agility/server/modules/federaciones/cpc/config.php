@@ -9,9 +9,9 @@ class CPC extends Federations {
             'Name'  => 'CPC',
             'LongName' => 'Clube Português de Canicultura',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => '../server/modules/federaciones/cpc/cpc.png',
-            'Logo'     => '../server/modules/federaciones/cpc/cpc.png',
-            'ParentLogo'   => '../server/modules/federaciones/cpc/fci.png',
+            'OrganizerLogo'     => '../ajax/images/getLogo.php?Federation=4&Logo=cpc.png',
+            'Logo'     => '../ajax/images/getLogo.php?Federation=4&Logo=cpc.png',
+            'ParentLogo'   => '../ajax/images/getLogo.php?Federation=4&Logo=fci.png',
             'WebURL' => 'http://www.cpc.pt/',
             'ParentWebURL' => 'http://www.fci.org/',
             'Email' => 'info@cpc.pt',

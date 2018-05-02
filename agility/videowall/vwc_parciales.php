@@ -202,7 +202,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         collapsed: false,
         // propiedades del datagrid
         // method: 'get',
-        // url: '../server/database/resultadosFunctions.php',
+        // url: '../ajax/database/resultadosFunctions.php',
         // queryParams: {
         //    Prueba: workingData.prueba,
         //    Jornada: workingData.jornada,

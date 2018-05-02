@@ -141,7 +141,8 @@ $config =Config::getInstance();
             collapsed: false,
             title: '<?php _e('Session (ring) data management'); ?>',
             // datos de la conexion ajax
-            url: '../ajax/database/sessionFunctions.php?Operation=select',
+            url: '../ajax/database/sessionFunctions.php',
+            queryParams: { Operation: 'select' },
             loadMsg: '<?php _e('Updating session list'); ?>',
             method: 'get',
             toolbar: '#sesiones-toolbar',

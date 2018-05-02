@@ -413,11 +413,9 @@ function beep() {
 var ac_config={};
 function loadConfiguration(callback) {
 	$.ajax({
-		type: "GET",
-		url: "../ajax/adminFunctions.php",
-		data: {
-			'Operation' : 'loadConfig'
-		},
+		type: 'GET',
+		url: '../ajax/adminFunctions.php',
+		data: { Operation : 'loadConfig' },
 		async: true,
 		cache: false,
 		dataType: 'json',
@@ -748,7 +746,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 	// obtenemos datos de la manga
 	$.ajax({
 		type: 'GET',
-		url: "../server/database/mangaFunctions.php",
+		url: "../ajax/database/mangaFunctions.php",
 		dataType: 'json',
 		data: {Operation: 'getbyid', Jornada: jornada, Manga: manga},
 		success: function (data) {
@@ -760,7 +758,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 		// obtenemos datos de la jornada
 		$.ajax({
 			type: 'GET',
-			url: "../server/database/jornadaFunctions.php",
+			url: '../ajax/database/jornadaFunctions.php',
 			dataType: 'json',
 			data: {Operation: 'getbyid', Prueba: prueba, ID: jornada},
 			success: function (data) {
@@ -772,7 +770,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 			// obtenemos datos de los equipos de la jornada
 			$.ajax({
 				type: 'GET',
-				url: "../server/database/equiposFunctions.php",
+				url: "../ajax/database/equiposFunctions.php",
 				dataType: 'json',
 				data: {Operation: 'enumerate', Prueba: prueba, Jornada: jornada},
 				success: function (teams) {
@@ -787,7 +785,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 				// obtenemos datos de la prueba
 				$.ajax({
 					type: 'GET',
-					url: "../server/database/pruebaFunctions.php",
+					url: "../ajax/database/pruebaFunctions.php",
 					dataType: 'json',
 					data: {Operation: 'getbyid', ID: prueba},
 					success: function (prueba) {
@@ -942,7 +940,7 @@ function initWorkingData(id,evtmgr) {
 	if (typeof(workingData.datosSesion)==="undefined") workingData.datosSesion= {}; // running ring session
 	if (typeof(id)!=="undefined") {
 		$.ajax({
-			url: '../server/database/sessionFunctions.php',
+			url: '../ajax/database/sessionFunctions.php',
 			data: { Operation: 'getByID', ID: id },
 			dataType: 'json',
 	        async: false, // this may generate a warning in js interpreter; ignore it

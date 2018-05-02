@@ -68,7 +68,7 @@ function editDog(dg){
  */
 function editInscribedDog(){
 	var id=$('#edit_inscripcion-Perro').val();
-	$('#perros-form').form('load','../server/database/dogFunctions.php?Operation=getbyidperro&ID='+id);
+	$('#perros-form').form('load','../ajax/database/dogFunctions.php?Operation=getbyidperro&ID='+id);
     $('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('Modify data on dog to be inscribed'); ?>'+' - '+fedName(workingData.federation));
     // add extra required data to form dialog
 	$('#perros-warning').css('visibility','visible');
@@ -77,7 +77,7 @@ function editInscribedDog(){
 		saveInscripcion(false);
 		// and refill dog changes with new data
 		$.ajax({
-			url: '../server/database/dogFunctions.php',
+			url: '../ajax/database/dogFunctions.php',
 			data: { Operation: 'getbyidperro', ID: id },
 			dataType: 'json',
 			success: function(data) {
@@ -104,7 +104,7 @@ function deleteDog(dg){
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete dog'); ?>'+': "'+ row.Nombre+'" '+'<?php _e('from database'); ?>'+'.\n'+'<?php _e('Sure?'); ?>',function(r){
        	if (!r) return;
-        $.get('../server/database/dogFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('../ajax/database/dogFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
                 $(dg).datagrid('unselectAll').datagrid('reload');    // reload the dog data. PENDING: what about using reloadPerrosDatagrid()?
             } else { // show error message
@@ -136,7 +136,7 @@ function joinDog(action) {
         }
         $.ajax({
             type: 'GET',
-            url: '../server/database/dogFunctions.php',
+            url: '../ajax/database/dogFunctions.php',
             data: {Operation:'join',From:row.ID,To:torow.ID},
             dataType: 'json',
             success: function (result) {
@@ -205,7 +205,7 @@ function delPerroFromGuia(dgstr,guia) {
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e("Delete assignment from dog"); ?>'+" '"+row.Nombre+"' '+'<?php _e('to handler');?>'+' '"+guia.Nombre+"' "+'<?php _e('Sure?');?>',function(r){
         if (r){
-            $.get('../server/database/dogFunctions.php',{Operation:'orphan',ID:row.ID},function(result){
+            $.get('../ajax/database/dogFunctions.php',{Operation:'orphan',ID:row.ID},function(result){
                 if (result.success){
                 	dg.datagrid('reload');
                 } else {
@@ -228,7 +228,7 @@ function assignDog() {
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',
-        url: '../server/database/dogFunctions.php',
+        url: '../ajax/database/dogFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -256,7 +256,7 @@ function saveChDog(){
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',
-        url: '../server/database/dogFunctions.php',
+        url: '../ajax/database/dogFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
@@ -283,7 +283,7 @@ function saveDog(){
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',
-        url: '../server/database/dogFunctions.php',
+        url: '../ajax/database/dogFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {

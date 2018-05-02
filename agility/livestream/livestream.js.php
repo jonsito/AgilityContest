@@ -229,7 +229,7 @@ function vwls_showData(data) {
 			// Busca datos adicionales
 			$.ajax({
 				type: "GET",
-				url: "../ajax/database/dogFunctions.php",
+				url: '../ajax/database/dogFunctions.php',
 				data: {
 					'Operation' : 'getbyidperro',
 					'ID'	: data['Perro'],
@@ -273,7 +273,7 @@ function vwls_displayToBeFirst(perro) {
     if (workingData.nombreRonda==="") return; // no info on round yet. cannot evaluate
 	$.ajax({
 		type: 'GET',
-		url: "../ajax/database/clasificacionesFunctions.php",
+		url: '../ajax/database/clasificacionesFunctions.php',
 		dataType: 'json',
 		data: {
 			Operation: 'clasificacionIndividual',

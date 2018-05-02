@@ -9,9 +9,9 @@ class RFEC extends Federations {
             'Name'  => 'RFEC',
             'LongName' => 'Real Federacion Española de Caza',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => '../server/modules/federaciones/rfec/rfec.png',
-            'Logo'     => '../server/modules/federaciones/rfec/rfec.png',
-            'ParentLogo'   => '../server/modules/federaciones/rfec/csd.png',
+            'OrganizerLogo'     => '../ajax/images/getLogo.php?Federation=1&Logo=rfec.png',
+            'Logo'     => '../ajax/images/getLogo.php?Federation=1&Logo=rfec.png',
+            'ParentLogo'   => '../ajax/images/getLogo.php?Federation=1&Logo=csd.png',
             'WebURL' => 'http://www.fecaza.com/',
             'ParentWebURL' => 'http://www.csd.gob.es/',
             'Email' => 'yvonneagility@fecaza.com',

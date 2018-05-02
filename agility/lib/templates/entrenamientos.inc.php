@@ -36,7 +36,7 @@ $config =Config::getInstance();
         fit: false, // on fake container, do not try to fit
         height: 'auto',
         method: 'get',
-        url: '../server/database/trainingFunctions.php',
+        url: '../ajax/database/trainingFunctions.php',
         queryParams: {
             Operation: 'select',
             Prueba: workingData.prueba, // when used from direct access

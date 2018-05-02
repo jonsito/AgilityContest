@@ -53,7 +53,7 @@ function vws_animation(img) { // happy, excused
 function vws_trainingPopulate(idx) {
     $.ajax({
         type: 'POST',
-        url: '../server/database/trainingFunctions.php',
+        url: '../ajax/database/trainingFunctions.php',
         dataType: 'json',
         data: {
             Operation: 'window',
@@ -494,7 +494,7 @@ function vws_updateFinales(perro,data) {
     // buscamos clasificaciones
     $.ajax({
         type: 'GET',
-        url: "../server/database/clasificacionesFunctions.php",
+        url: "../ajax/database/clasificacionesFunctions.php",
         dataType: 'json',
         data: {
             Operation: (team) ? 'clasificacionEquipos' : 'clasificacionIndividual',
@@ -605,7 +605,7 @@ function vws_updateParciales(data) {
     // buscamos resultados parciales de la manga
     $.ajax({
             type:'GET',
-            url:"../server/database/resultadosFunctions.php",
+            url:"../ajax/database/resultadosFunctions.php",
             dataType:'json',
             data: {
             Operation:	(isJornadaEquipos(null))?'getResultadosIndividualyEquipos':'getResultadosIndividual',

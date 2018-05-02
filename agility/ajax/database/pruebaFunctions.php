@@ -17,10 +17,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 
-require_once(__DIR__."/../logging.php");
-require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/../auth/AuthManager.php");
-require_once(__DIR__."/classes/Pruebas.php");
+require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/AuthManager.php");
+require_once(__DIR__ . "/../../server/database/classes/Pruebas.php");
 
 try {
 	$result=null;

@@ -124,7 +124,7 @@ class Uploader {
             "Serial" => $serial,
             "timestamp" => $data['timestamp']
         );
-        $url = "http://{$server}/{$baseurl}/server/database/updater/updateRequest.php?". http_build_query($args);
+        $url = "http://{$server}/{$baseurl}/ajax/updateRequest.php?". http_build_query($args);
         // PENDING: add license info and some sec/auth issues
         $postdata=array(
             'Data' => json_encode($data)

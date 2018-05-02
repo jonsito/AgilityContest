@@ -4,7 +4,7 @@
  * Date: 9/08/15
  * Time: 12:07
  *
- * csvFunctions.php
+ * CSVHandler.php
  *
  * Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
  *
@@ -25,7 +25,7 @@ require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/DBObject.php");
 
-class csvHandler extends DBObject {
+class CSVHandler extends DBObject {
     protected $headers=null;
     protected $myAuthManager;
     protected $prueba; // prueba object
@@ -119,26 +119,4 @@ class csvHandler extends DBObject {
     }
 }
 
-$response="";
-try {
-    $result=null;
-    $am= new AuthManager("importFunctions");
-    $operation=http_request("Operation","s","");
-    $prueba=http_request("Prueba","i",0);
-    if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
-    $handler=new csvHandler($am,$prueba);
-    switch ($operation) {
-        case "import": $am->access(PERMS_OPERATOR); $result=$handler->importCSV(); break;
-        case "export": $am->access(PERMS_OPERATOR); $result=$handler->exportCSV(); break;
-        default:
-            throw new Exception("importFunctions:: invalid operation: '$operation' provided");
-    }
-    if ($result===null)	throw new Exception($adm->errormsg); // error
-    if ($result==="ok") return; // don't generate any aditional response
-    if ($result==="") $result= array('success'=>true); // success
-    echo json_encode($result);
-} catch (Exception $e) {
-    do_log($e->getMessage());
-    echo json_encode(array('errorMsg'=>$e->getMessage()));
-}
 ?>

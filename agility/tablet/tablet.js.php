@@ -79,7 +79,7 @@ function tablet_putEvent(type,data){
 	// send "update" event to every session listeners
 	$.ajax({
 		type:'GET',
-		url:"../server/database/eventFunctions.php",
+		url:"../ajax/database/eventFunctions.php",
 		dataType:'json',
 		data: $.extend({},obj,data),
         // on system errors ( connection lost, timeouts, or so ) display an alarm
@@ -121,7 +121,7 @@ function tablet_updateSession(row) {
 	$('#tdialog-InfoLbl').html(workingData.datosPrueba.Nombre + ' - ' + workingData.datosJornada.Nombre + ' - ' + row.Nombre);
 	$.ajax({
 		type:	'GET',
-		url:	"../server/database/sessionFunctions.php",
+		url:	"../ajax/database/sessionFunctions.php",
 		// dataType:'json',
 		data:	data,
 		success: function() {
@@ -156,7 +156,7 @@ function tablet_updateResultados(pendiente) {
 	var frm = $('#tdialog-form');
 	$.ajax({
 		type: 'GET',
-		url: '../server/database/resultadosFunctions.php',
+		url: '../ajax/database/resultadosFunctions.php',
 		data: frm.serialize(),
 		dataType: 'json',
 		success: function (result) {
@@ -479,7 +479,7 @@ function tablet_cancel() {
 	row.Operation='update';
 	$.ajax({
 		type:'GET',
-		url:"../server/database/resultadosFunctions.php",
+		url:"../ajax/database/resultadosFunctions.php",
 		dataType:'json',
 		data: row,
 		success: function () {
@@ -631,7 +631,7 @@ function tablet_gotoDorsal(tanda,dgname,dorsal) {
     doBeep();
 	$.ajax({
 		type:	'GET',
-		url:	"../server/database/tandasFunctions.php",
+		url:	"../ajax/database/tandasFunctions.php",
 		dataType:'json',
 		data: {
 			Operation: 'getDataByDorsal',

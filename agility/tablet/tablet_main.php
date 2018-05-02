@@ -183,7 +183,7 @@ $config =Config::getInstance();
         collapsed: false,
         // propiedades del datagrid
         method: 'get',
-        url: '../server/database/tandasFunctions.php',
+        url: '../ajax/database/tandasFunctions.php',
         queryParams: {
             Operation: 'getTandas',
             Prueba: workingData.prueba,
@@ -258,7 +258,7 @@ $config =Config::getInstance();
         var mySelf=$(mySelfstr);
         mySelf.datagrid({
             method: 'get',
-            url: '../server/database/tandasFunctions.php',
+            url: '../ajax/database/tandasFunctions.php',
             queryParams: {
                 Operation: 'getDataByTanda',
                 Prueba: row.Prueba,

@@ -669,9 +669,9 @@ function resetCompeticion() {
     var w=$.messager.confirm('<?php _e("Erase results");?>', msg, function(r){
         if (!r) return;
         $.ajax({
-            type:'GET',
-            url:"../ajax/database/resultadosFunctions.php",
-            dataType:'json',
+            type: 'GET',
+            url: '../ajax/database/resultadosFunctions.php',
+            dataType: 'json',
             data: {
                 Prueba: workingData.prueba,
                 Jornada: workingData.jornada,
@@ -705,7 +705,7 @@ function swapMangas() {
         $.messager.progress({text:"<?php _e('Working');?>..."});
         $.ajax({
             type:'GET',
-            url:"../server/database/resultadosFunctions.php",
+            url: '../ajax/database/resultadosFunctions.php',
             dataType:'json',
             data: {
                 Prueba: workingData.prueba,
@@ -864,7 +864,7 @@ function __getPuesto(datos,callback,final) {
         $.messager.alert('<?php _e('Error'); ?>','<?php _e('Internal error: invalid Federation/Course/Category combination'); ?>','error');
         return false;
     }
-    var url=(final)?"../server/database/clasificacionesFunctions.php":"../server/database/resultadosFunctions.php";
+    var url=(final)? '../ajax/database/clasificacionesFunctions.php' : '../ajax/database/resultadosFunctions.php';
     var param= {
         Operation:	'getPuesto',
         Prueba:		workingData.prueba,
@@ -968,17 +968,17 @@ function saveCompeticionData(idx,data) {
         };
         // send "update" event to every session listeners
         $.ajax({
-            type:'GET',
-            url:"../server/database/eventFunctions.php",
-            dataType:'json',
+            type: 'GET',
+            url: '../ajax/database/eventFunctions.php',
+            dataType: 'json',
             data: $.extend({},obj,data)
         });
     }
 
 	$.ajax({
-		type:'GET',
-		url:"../server/database/resultadosFunctions.php",
-		dataType:'json',
+		type: 'GET',
+		url: '../ajax/database/resultadosFunctions.php',
+		dataType: 'json',
 		data: {
 			Operation:	'update',
 			Prueba:		workingData.prueba,
@@ -1029,9 +1029,9 @@ function evalOrdenSalida(oper) {
 		$.messager.confirm('<?php _e('Confirm'); ?>', '<?php _e('Every changes done till now will be lost<br />Continue?'); ?>', function(r){
 			if (!r) return;
 			$.ajax({
-				type:'GET',
-				url:"../server/database/ordenSalidaFunctions.php",
-				dataType:'json',
+				type: 'GET',
+				url: '../ajax/database/ordenSalidaFunctions.php',
+				dataType: 'json',
 				data: {
 					Prueba: workingData.prueba,
 					Jornada: workingData.jornada,
@@ -1059,9 +1059,9 @@ function evalOrdenSalida(oper) {
         });
     } else { // 'reverse', 'clone', 'results', 'alpha','dorsal'
 		$.ajax({
-			type:'GET',
-			url:"../server/database/ordenSalidaFunctions.php",
-			dataType:'json',
+			type: 'GET',
+			url: '../ajax/database/ordenSalidaFunctions.php',
+			dataType: 'json',
 			data: {
 				Prueba: workingData.prueba,
 				Jornada: workingData.jornada,
@@ -1088,9 +1088,9 @@ function dragAndDropOrdenSalida(from,to,where,whenDone) {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
 	$.ajax({
-		type:'GET',
-		url:"../server/database/ordenSalidaFunctions.php",
-		dataType:'json',
+		type: 'GET',
+		url: '../ajax/database/ordenSalidaFunctions.php',
+		dataType: 'json',
 		data: {	
 			Operation: 'dnd',
             Prueba: workingData.prueba,
@@ -1113,9 +1113,9 @@ function dragAndDropOrdenTandas(from,to,where) {
 	if (workingData.prueba==0) return;
 	if (workingData.jornada==0) return;
 	$.ajax({
-		type:'GET',
-		url:"../server/database/tandasFunctions.php",
-		dataType:'json',
+		type: 'GET',
+		url: '../ajax/database/tandasFunctions.php',
+		dataType: 'json',
 		data: {	
 			Operation: 'dnd', 
 			Prueba: workingData.prueba, 
@@ -1224,9 +1224,9 @@ function competicionDialog(name) {
 function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
     if (mode<0) return; // invalid mode. do not parse
 	$.ajax({
-		type:'GET',
-		url:"../server/database/resultadosFunctions.php",
-		dataType:'json',
+		type: 'GET',
+		url: '../ajax/database/resultadosFunctions.php',
+		dataType: 'json',
 		data: {	Operation:'getResultadosIndividual', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:idmanga, Mode: mode },
 		success: function(dat) {
 			var suffix='L';
@@ -1264,11 +1264,11 @@ function resultados_doSelectRonda(row) {
         // ajax response
         mode=$('#resultados-selectCategoria').combobox('getValue');
         $.ajax({
-            type:'GET',
-            url:"../server/database/clasificacionesFunctions.php",
-            dataType:'json',
+            type: 'GET',
+            url: '../ajax/database/clasificacionesFunctions.php',
+            dataType: 'json',
             data: {
-                Operation: (isJornadaEquipos(null))?'clasificacionEquipos':'clasificacionIndividual',
+                Operation: (isJornadaEquipos(null))? 'clasificacionEquipos' : 'clasificacionIndividual',
                 Prueba:workingData.prueba,
                 Jornada:workingData.jornada,
                 Federation:fed,
@@ -1416,9 +1416,9 @@ function verifyClasificaciones() {
 	}
 	// verificamos manga 1
 	$.ajax({
-		type:'GET',
-		url:"../server/database/resultadosFunctions.php",
-		dataType:'json',
+		type: 'GET',
+		url: '../ajax/database/resultadosFunctions.php',
+		dataType: 'json',
 		data: {	
 			Operation:	'getPendientes', 
 			Prueba:	workingData.prueba, 
@@ -1440,9 +1440,9 @@ function verifyClasificaciones() {
 			}
 			// verificamos manga 2
 			$.ajax({
-				type:'GET',
-				url:"../server/database/resultadosFunctions.php",
-				dataType:'json',
+				type: 'GET',
+				url: '../ajax/database/resultadosFunctions.php',
+				dataType: 'json',
 				data: {	
 					Operation:	'getPendientes', 
 					Prueba:	workingData.prueba, 
@@ -1465,7 +1465,7 @@ function verifyClasificaciones() {
                     // verificamos manga 3
                     $.ajax({
                         type: 'GET',
-                        url: "../server/database/resultadosFunctions.php",
+                        url: '../ajax/database/resultadosFunctions.php',
                         dataType: 'json',
                         data: {
                             Operation: 'getPendientes',
@@ -1502,11 +1502,11 @@ function reloadClasificaciones() {
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	// calculamos y recargamos tabla de clasificaciones
 	$.ajax({
-		type:'GET',
-		url:"../server/database/clasificacionesFunctions.php",
-		dataType:'json',
+		type: 'GET',
+		url: '../ajax/database/clasificacionesFunctions.php',
+		dataType: 'json',
 		data: {
-            Operation: (isJornadaEquipos(null))?'clasificacionEquipos':'clasificacionIndividual',
+            Operation: (isJornadaEquipos(null))? 'clasificacionEquipos' : 'clasificacionIndividual',
 			Prueba:workingData.prueba,
 			Jornada:workingData.jornada,
 			Manga1:ronda.Manga1,

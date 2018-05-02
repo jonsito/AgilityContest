@@ -607,7 +607,8 @@ $config =Config::getInstance();
 
 	$('#config_lang').combobox({
         panelHeight:'auto',
-        url:'../ajax/adminFunctions.php?Operation=getAvailableLanguages',
+        url: '../ajax/adminFunctions.php',
+        queryParams: { Operation: 'getAvailableLanguages' },
         valueField:'ID',
         textField:'Name'
     });
@@ -781,9 +782,9 @@ $config =Config::getInstance();
 			return false;
 		}
 		$.ajax({
-			type:'POST', // use post to send file
-			url:"../ajax/adminFunctions.php",
-			dataType:'json',
+			type: 'POST', // use post to send file
+			url: '../ajax/adminFunctions.php',
+			dataType: 'json',
 			data: { Operation: 'restoreConfig', Data: data },
 			contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
 			success: function(res) {

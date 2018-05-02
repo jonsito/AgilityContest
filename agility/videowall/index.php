@@ -312,7 +312,7 @@ $('#selvw-Session').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '../server/database/sessionFunctions.php',
+	url: '../ajax/database/sessionFunctions.php',
 	method: 'get',
     queryParams: {'Operation':'selectring','Hidden':0 },
 	mode: 'remote',

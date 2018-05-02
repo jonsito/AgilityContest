@@ -87,11 +87,11 @@ BTN_Inter=	22	# BCM25		- Button_8 //	Intermediate Chrono
 # ================================================================
 # Request to server are made by sending json request to:
 #
-# http://ip.addr.of.server/base_url/server/database/eventFunctions.php
+# http://ip.addr.of.server/base_url/ajax/database/eventFunctions.php
 #
 # Parameter list
 # Operation=chronoEvent
-# Type= one of : ( from server/database/Eventos.php )
+# Type= one of : ( from ajax/database/Eventos.php )
 #		'crono_start'	// Arranque Crono electronico
 #		'crono_int'		// Tiempo intermedio Crono electronico
 #		'crono_stop'	// Parada Crono electronico
@@ -108,7 +108,7 @@ BTN_Inter=	22	# BCM25		- Button_8 //	Intermediate Chrono
 #
 # example
 # ?Operation=chronoEvent&Type=crono_rec&TimeStamp=150936&Source=chrono_2&Session=2&Value=150936
-# data = json.load( urllib.urlopen('https://ip.addr.of.server/base_url/server/database/eventFunctions.php') + arguments, verify=False )
+# data = json.load( urllib.urlopen('https://ip.addr.of.server/base_url/ajax/database/eventFunctions.php') + arguments, verify=False )
 
 ##### Some constants
 SESSION_NAME = "Chrono_2"	# should be generated from evaluated session ID
@@ -148,7 +148,7 @@ def json_request(type,value):
 	# compose json request
 	args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(math.floor(millis()/1000))+"&Source=" +SESSION_NAME
 	args = args + "&Session=" + session_id + "&Value="+value
-	url="https://"+server+"/"+baseurl+"/server/database/eventFunctions.php"
+	url="https://"+server+"/"+baseurl+"/ajax/database/eventFunctions.php"
 	# debug( "JSON Request: " + url + "" + args)
 	response = requests.get(url+args, verify=False)	# send request . It is safe to ignore response
 
@@ -179,7 +179,7 @@ def lookForServer():
 		try:
 			# Some stupid routers, instead of 404 in nonexistent pager requests for basic authentication
 			# so take care on it by providing a fake auth, so the router fails and return 401 error
-			url= "../server/database/sessionFunctions.php"
+			url= "../ajax/database/sessionFunctions.php"
 			args= "?Operation=selectring"
 			response = requests.get("https://" + ip + url + args, verify=False, timeout=0.5, auth=('AgilityContest','AgilityContest'))
 			# if response failed, try next IP address
@@ -349,7 +349,7 @@ def eventParser():
 	while True:
 		try:
 			args = "?Operation=connect&Session="+session_id
-			response = requests.get("https://" + server + "/" + baseurl + "/server/database/eventFunctions.php"+args, verify=False)
+			response = requests.get("https://" + server + "/" + baseurl + "/ajax/database/eventFunctions.php"+args, verify=False)
 		except requests.exceptions.RequestException as ex:
 			debug ( "Connect() error:" + str(ex) )
 			time.sleep(5) # wait 5 seconds and try again
@@ -372,7 +372,7 @@ def eventParser():
 	while True:
 		try:
 			args="?Operation=getEvents&Session=" + session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)
-			response = requests.get("https://" + server + "/" + baseurl + "/server/database/eventFunctions.php"+args, verify=False )
+			response = requests.get("https://" + server + "/" + baseurl + "/ajax/database/eventFunctions.php"+args, verify=False )
 		except requests.exceptions.RequestException as ex:
 			debug ( "getEvents() error:" + str(ex) )
 			time.sleep(5) # wait 5 seconds and try again

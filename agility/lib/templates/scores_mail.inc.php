@@ -133,8 +133,8 @@ $config =Config::getInstance();
             $('#scores_email-SendToFederation').prop('checked',false);
             // retrieve default email address to contact federation
             $.ajax({
-                url:"../ajax/modules/moduleFunctions.php",
-                dataType:'json',
+                url: '../ajax/modules/moduleFunctions.php',
+                dataType: 'json',
                 data: {
                     Operation: 'moduleinfo',
                     Federation: workingData.federation,

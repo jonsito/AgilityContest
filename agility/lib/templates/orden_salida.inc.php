@@ -45,7 +45,7 @@ $config =Config::getInstance();
         fit: false,
         height: 'auto',
         method: 'get',
-        url: '../server/database/tandasFunctions.php',
+        url: '../ajax/database/tandasFunctions.php',
         queryParams: { // to be overriden. just to avoid call error
             Operation: 'getDataByTanda',
             Prueba: 1,
