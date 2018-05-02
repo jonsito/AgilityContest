@@ -7,11 +7,12 @@ class RFEC extends Federations {
         $this->config= array_merge ($this->config, array(
             'ID'    => 1,
             'Name'  => 'RFEC',
+            'ClassName' => get_class($this),
             'LongName' => 'Real Federacion Española de Caza',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => '../ajax/images/getLogo.php?Federation=1&Logo=rfec.png',
-            'Logo'     => '../ajax/images/getLogo.php?Federation=1&Logo=rfec.png',
-            'ParentLogo'   => '../ajax/images/getLogo.php?Federation=1&Logo=csd.png',
+            'OrganizerLogo'     => 'rfec.png',
+            'Logo'     => 'rfec.png',
+            'ParentLogo'   => 'csd.png',
             'WebURL' => 'http://www.fecaza.com/',
             'ParentWebURL' => 'http://www.csd.gob.es/',
             'Email' => 'yvonneagility@fecaza.com',

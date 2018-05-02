@@ -7,11 +7,12 @@ class INTL3 extends Federations {
         $this->config= array_merge ($this->config, array(
             'ID'    => 9,
             'Name'  => 'Intl-3',
+            'ClassName' => get_class($this),
             'LongName' => 'International Contest - 3 heights',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'        => '../ajax/images/getLogo.php?Federation=9&Logo=fciawc2016.png',
-            'Logo'        => '../ajax/images/getLogo.php?Federation=9&Logo=rsce.png',
-            'ParentLogo'  => '../ajax/images/getLogo.php?Federation=9&Logo=fci.png',
+            'OrganizerLogo'        => 'fciawc2016.png',
+            'Logo'        => 'rsce.png',
+            'ParentLogo'  => 'fci.png',
             'WebURL' => 'http://www.fci.org',
             'ParentWebURL' => 'http://www.fci.org',
             'Email' => 'info@fci.be',

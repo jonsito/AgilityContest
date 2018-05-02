@@ -7,11 +7,12 @@ class INTL4 extends Federations {
         $this->config= array_merge ($this->config, array(
             'ID'    => 8,
             'Name'  => 'Intl-4',
+            'ClassName' => get_class($this),
             'LongName' => 'International Contest - 4 heights',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => '../ajax/images/getLogo.php?Federation=8&Logo=wao.png',
-            'Logo'     => '../ajax/images/getLogo.php?Federation=8&Logo=wao.png',
-            'ParentLogo'   => '../ajax/images/getLogo.php?Federation=8&Logo=wao.png',
+            'OrganizerLogo'     => 'wao.png',
+            'Logo'     => 'wao.png',
+            'ParentLogo'   => 'wao.png',
             'WebURL' => 'http://www.worldagilityopen.com/',
             'ParentWebURL' => 'http://www.worldagilityopen.com/',
             'Email' => 'info@worldagilityopen.com',

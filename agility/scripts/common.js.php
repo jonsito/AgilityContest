@@ -826,11 +826,11 @@ function setFederation(f) {
 	workingData.federation= fed.ID;
 	workingData.datosFederation=fed;
 	// set background logo and menu entries according intl condition
-	if (parseInt(fed.International)!=0) {
-		$('#logo_Federation').prop('src',fed.ParentLogo);
+	if (parseInt(fed.International)!==0) {
+		$('#logo_Federation').prop('src','../ajax/images/getLogo.php?Federation='+fed.ID+'&Logo='+fed.ParentLogo);
 		$('#menu-clubes').html("<?php _e('Countries'); ?>");
 	} else {
-		$('#logo_Federation').prop('src',fed.Logo);
+		$('#logo_Federation').prop('src','../ajax/images/getLogo.php?Federation='+fed.ID+'&Logo='+fed.Logo);
 		$('#menu-clubes').html("<?php _e('Clubs'); ?>");
 	}
 }

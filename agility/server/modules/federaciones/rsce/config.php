@@ -7,11 +7,12 @@ class RSCE extends Federations {
         $this->config= array_merge ($this->config, array(
             'ID'    => 0,
             'Name'  => 'RSCE',
+            'ClassName' => get_class($this),
             'LongName' => 'Real Sociedad Canina de España',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => '../ajax/images/getLogo.php?Federation=0&Logo=rsce.png',
-            'Logo'     => '../ajax/images/getLogo.php?Federation=0&Logo=rsce.png',
-            'ParentLogo'   => '../ajax/images/getLogo.php?Federation=0&Logo=fci.png',
+            'OrganizerLogo'     => 'rsce.png',
+            'Logo'     => 'rsce.png',
+            'ParentLogo'   => 'fci.png',
             'WebURL' => 'http://www.rsce.es/',
             'ParentWebURL' => 'http://www.fci.org/',
             'Email' => 'agility@rsce.es',

@@ -558,9 +558,10 @@ function getIconPath($fedname,$name) {
 	);
 	if (array_key_exists("$fedname - $name",$iconPathTable)) return $iconPathTable["$fedname - $name"];
 	foreach ($iconpath as $path) {
-		if (!file_exists("$path/$name")) continue;
-		$iconPathTable["$fedname - $name"]="$path/$name";
-		return "$path/$name";
+	    do_log("check path {$path}/{$name}");
+		if (!file_exists("{$path}/{$name}")) continue;
+		$iconPathTable["$fedname - $name"]="{$path}/{$name}";
+		return "{$path}/{$name}";
 	}
 	// arriving here means not found. Use enterprise logo :-)
 	return __DIR__."/../images/logos/agilitycontest.png";

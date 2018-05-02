@@ -241,6 +241,7 @@ class PrintCommon extends FPDF {
 		if ($this->jornada && $this->jornada->KO!=0) {
             $this->icon2=getIconPath($fedName,"agilitycontest.png");
 		}
+		$this->myLogger->trace("ParentLogo is {$this->icon2}");
 		// handle registration info related to PDF generation
         $this->authManager=new AuthManager("print_common");
         $this->regInfo=$this->authManager->getRegistrationInfo();

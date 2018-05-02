@@ -7,11 +7,12 @@ class CPC extends Federations {
         $this->config= array_merge ($this->config, array(
             'ID'    => 4,
             'Name'  => 'CPC',
+            'ClassName' => get_class($this),
             'LongName' => 'Clube Português de Canicultura',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => '../ajax/images/getLogo.php?Federation=4&Logo=cpc.png',
-            'Logo'     => '../ajax/images/getLogo.php?Federation=4&Logo=cpc.png',
-            'ParentLogo'   => '../ajax/images/getLogo.php?Federation=4&Logo=fci.png',
+            'OrganizerLogo'     => 'cpc.png',
+            'Logo'          => 'cpc.png',
+            'ParentLogo'   => 'fci.png',
             'WebURL' => 'http://www.cpc.pt/',
             'ParentWebURL' => 'http://www.fci.org/',
             'Email' => 'info@cpc.pt',

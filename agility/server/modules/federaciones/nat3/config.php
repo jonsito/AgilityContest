@@ -7,11 +7,12 @@ class NAT3 extends Federations {
         $this->config= array_merge ($this->config, array(
             'ID'    => 3,
             'Name'  => 'Nat-3',
+            'ClassName' => get_class($this),
             'LongName' => 'Competiciones nacionales - 3 alturas',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'        => '../ajax/images/getLogo.php?Federation=3&Logo=pirineos_dog_festival.png',
-            'Logo'        => '../ajax/images/getLogo.php?Federation=3&Logo=almozara.png',
-            'ParentLogo'  => '../ajax/images/getLogo.php?Federation=3&Logo=almozara.png',
+            'OrganizerLogo'        => 'pirineos_dog_festival.png',
+            'Logo'        => 'almozara.png',
+            'ParentLogo'  => 'almozara.png',
             'WebURL' => 'http://www.pirineosdogfestival.org',
             'ParentWebURL' => 'http://www.clubagilitylalmozara.com/',
             'Email' => 'info@pirineosdogfestival.com',

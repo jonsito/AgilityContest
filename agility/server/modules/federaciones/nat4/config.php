@@ -6,12 +6,13 @@ class NAT4 extends Federations {
         // combine global data with specific data for this federation
         $this->config= array_merge ($this->config, array(
             'ID'    => 2,
+            'ClassName' => get_class($this),
             'Name'  => 'Nat-4',
             'LongName' => 'Competiciones nacionales - 4 alturas',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => '../ajax/images/getLogo.php?Federation=2&Logo=wao.png',
-            'Logo'     => '../ajax/images/getLogo.php?Federation=2&Logo=wao.png',
-            'ParentLogo'   => '../ajax/images/getLogo.php?Federation=2&Logo=wao.png',
+            'OrganizerLogo'     => 'wao.png',
+            'Logo'     => 'wao.png',
+            'ParentLogo'   => 'wao.png',
             'WebURL' => 'http://formadog.com/club-agilty/selectiva%20wao%202017.html',
             'ParentWebURL' => 'http://www.worldagilityopen.com/',
             'Email' => '',
