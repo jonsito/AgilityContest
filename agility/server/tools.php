@@ -76,8 +76,8 @@ function disable_gzip() {
  * @return {string} resulting number
  */
 function number_format2($number,$prec) {
-    // return number_format($number,$prec); // round
-    return bcdiv(strval($number),"1",$prec); // trunc
+    // return round($number,$prec,PHP_ROUND_HALF_UP); // round
+    return round($number,$prec,PHP_ROUND_HALF_DOWN); // trunc
 }
 
 // convert a #rrggbb string to an array($r,$g,$b)
