@@ -46,7 +46,7 @@ define ("ENABLE_LEAGUES",1024); // permite gestion de ligas de competicion
 
 // datos de registro
 define('AC_BLACKLIST_FILE' , __DIR__."/blacklist.info");
-define('AC_BLACKLIST_URL' , "https://www.agilitycontest.es/agility/master/blacklist.info");
+define('AC_BLACKLIST_URL' , "https://www.agilitycontest.es/agility/server/auth/blacklist.info");
 define('AC_REGINFO_FILE' , __DIR__."/registration.info");
 define('AC_REGINFO_FILE_BACKUP' , __DIR__."/registration.info.old");
 define('AC_REGINFO_FILE_DEFAULT' , __DIR__."/registration.info.default");
