@@ -84,7 +84,7 @@ $('#enumerateParciales').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '../server/database/jornadaFunctions.php',
+	url: '../ajax/database/jornadaFunctions.php',
 	method: 'get',
 	required: true,
 	multiple: false,
@@ -153,3 +153,4 @@ if (pb_config.Timeout!==null) clearTimeout(pb_config.Timeout);
 pb_updateParcialesEquipos();
 	
 </script>
+
