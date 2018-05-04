@@ -73,11 +73,11 @@ function parseEvent(data) {
 					case 'init':
 						// no break
 					case 'open':
-						ac_config.event_handler(lastID,row.Data);
+						if (ac_config.event_handler ) ac_config.event_handler(lastID,row.Data);
 						break;
 					default:
 						// on first call ignore any event other than init or open
-						if (! fcall) ac_config.event_handler(lastID,row.Data);
+						if (! fcall && ac_config.event_handler) ac_config.event_handler(lastID,row.Data);
 						break;
 				}
 			}
