@@ -233,7 +233,7 @@ $config =Config::getInstance();
 		method: 'get',
 		mode: 'remote',
 		required: true,
-        url:'../ajax/database/dogFunctions.php',
+        url: '../ajax/database/dogFunctions.php',
         queryParams: { Operation:'categorias', Federation: workingData.federation }
     });
     </script>
