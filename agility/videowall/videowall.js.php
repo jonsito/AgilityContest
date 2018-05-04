@@ -133,14 +133,17 @@ function vw_updateHeaderAndFooter(evt,data,showJourney) {
     $('#vwls_Manga').html(infomanga);
 
     // update footer
-	logo=ac_fedInfo[workingData.federation].Logo;
+	var fed=ac_fedInfo[workingData.federation].ID
+	var logo=ac_fedInfo[workingData.federation].Logo;
+	var logourl="../ajax/images/getLogo.php?Federation="+fed+"&Logo="+logo;
 	var logo2=ac_fedInfo[workingData.federation].ParentLogo;
+	var logo2url="../ajax/images/getLogo.php?Federation="+fed+"&Logo="+logo2;
 	var url=ac_fedInfo[workingData.federation].WebURL;
 	var url2=ac_fedInfo[workingData.federation].ParentWebURL;
 	$('#vw_footer-footerData').load("../videowall/vw_footer.php",{},function(response,status,xhr){
-		$('#vw_footer-logoFederation').attr('src',logo);
+		$('#vw_footer-logoFederation').attr('src',logourl);
 		$('#vw_footer-urlFederation').attr('href',url);
-		$('#vw_footer-logoFederation2').attr('src',logo2);
+		$('#vw_footer-logoFederation2').attr('src',logo2url);
 		$('#vw_footer-urlFederation2').attr('href',url2);
 	});
 }
@@ -188,9 +191,14 @@ function vwc_updateHeaderAndFooter(evt,data) {
 	var fname=(ac_config.vw_combined==0)?"vw_footer.php":"vwc_footer.php";
 	$('#vw_footer-footerData').load("../videowall/"+fname,{},function(response,status,xhr){
 		if (ac_config.vwc_simplified==0) {
-			$('#vw_footer-logoFederation').attr('src',ac_fedInfo[workingData.federation].Logo);
+			var fed=ac_fedInfo[workingData.federation].ID
+			var logo=ac_fedInfo[workingData.federation].Logo;
+			var logourl="../ajax/images/getLogo.php?Federation="+fed+"&Logo="+logo;
+			var logo2=ac_fedInfo[workingData.federation].ParentLogo;
+			var logo2url="../ajax/images/getLogo.php?Federation="+fed+"&Logo="+logo2;
+			$('#vw_footer-logoFederation').attr('src',logourl);
 			$('#vw_footer-urlFederation').attr('href',ac_fedInfo[workingData.federation].WebURL);
-			$('#vw_footer-logoFederation2').attr('src',ac_fedInfo[workingData.federation].ParentLogo);
+			$('#vw_footer-logoFederation2').attr('src',logo2url);
 			$('#vw_footer-urlFederation2').attr('href',ac_fedInfo[workingData.federation].ParentWebURL);
 		}
 	});

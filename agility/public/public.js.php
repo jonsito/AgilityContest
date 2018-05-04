@@ -58,14 +58,17 @@ function pb_getHeaderInfo(showJourney) {
 }
 
 function pb_setFooterInfo() {
+    var fed=ac_fedInfo[workingData.federation].ID
     var logo=ac_fedInfo[workingData.federation].Logo;
+    var logourl="../ajax/images/getLogo.php?Federation="+fed+"&Logo="+logo;
     var logo2=ac_fedInfo[workingData.federation].ParentLogo;
+    var logo2url="../ajax/images/getLogo.php?Federation="+fed+"&Logo="+logo2;
     var url=ac_fedInfo[workingData.federation].WebURL;
     var url2=ac_fedInfo[workingData.federation].ParentWebURL;
     $('#pb_footer-footerData').load("../public/pb_footer.php",{},function(response,status,xhr){
-        $('#pb_footer-logoFederation').attr('src',logo);
+        $('#pb_footer-logoFederation').attr('src',logourl);
         $('#pb_footer-urlFederation').attr('href',url);
-        $('#pb_footer-logoFederation2').attr('src',logo2);
+        $('#pb_footer-logoFederation2').attr('src',logo2url);
         $('#pb_footer-urlFederation2').attr('href',url2);
     });
 }
