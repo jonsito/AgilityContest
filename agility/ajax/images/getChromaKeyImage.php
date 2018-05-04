@@ -20,9 +20,6 @@ $config =Config::getInstance();
 /*
  * Take chroma key color value and compose a 640x480 image
 */
-$imagesDir= __DIR__ . "/../images/wallpapers/";
-$images=$images = glob($imagesDir . '*.{jpg,jpeg}', GLOB_BRACE);
-$image=$images[rand(0, count($images) - 1)];
 header('Content-type: image/png');
 $im = @imagecreate(1920, 1080) or die("Cannot Initialize new GD image stream");
 $rgb=hex2rgb($config->getEnv('ls_chromakey'));

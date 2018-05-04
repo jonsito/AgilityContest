@@ -428,7 +428,7 @@ function vw_accept() {
 			$('#vw_contenido').load(
 				page,
 				function(response,status,xhr){
-					if (status=='error') {
+					if (status==='error') {
 					    $('#vw_contenido').load('../console/frm_notavailable.php');
 					    return false;
                     }
