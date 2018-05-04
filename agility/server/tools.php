@@ -558,7 +558,6 @@ function getIconPath($fedname,$name) {
 	);
 	if (array_key_exists("$fedname - $name",$iconPathTable)) return $iconPathTable["$fedname - $name"];
 	foreach ($iconpath as $path) {
-	    do_log("check path {$path}/{$name}");
 		if (!file_exists("{$path}/{$name}")) continue;
 		$iconPathTable["$fedname - $name"]="{$path}/{$name}";
 		return "{$path}/{$name}";
