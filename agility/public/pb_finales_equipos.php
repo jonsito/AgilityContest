@@ -82,7 +82,7 @@ $('#enumerateFinales').combogrid({
 	panelHeight: 150,
 	idField: 'Nombre',
 	textField: 'Nombre',
-	url: '../server/database/jornadaFunctions.php',
+	url: '../ajax/database/jornadaFunctions.php',
 	method: 'get',
 	required: true,
 	multiple: false,

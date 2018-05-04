@@ -71,7 +71,7 @@ $('#pb_inscripciones-panel').panel({
 // datos de la tabla de equipos
 $('#pb_inscripciones_eq3-datagrid').datagrid({
     fit: true,
-    url: '../server/database/equiposFunctions.php',
+    url: '../ajax/database/equiposFunctions.php',
     queryParams: {
         Operation:'select',
         Prueba:workingData.prueba,
@@ -127,7 +127,7 @@ function showInscripcionesByTeam(index,team){
         fitColumns: true,
         singleSelect: true,
         loadMsg: '<?php _e('Updating inscriptions');?> ...',
-        url: '../server/database/inscripcionFunctions.php',
+        url: '../ajax/database/inscripcionFunctions.php',
         queryParams: { Operation: 'inscritosbyteam', Prueba:workingData.prueba, Jornada:workingData.jornada, Equipo: team.ID },
         method: 'get',
         autorowheight:true,

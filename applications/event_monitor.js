@@ -257,7 +257,7 @@ function findServer(ring) {
      */
 	function connectServer(hostaddr){
 		var base='agility'; // to be edited
-		var url="http://"+hostaddr+"/"+base+"/server/database/sessionFunctions.php?Operation=selectring";
+		var url="http://"+hostaddr+"/"+base+"/ajax/database/sessionFunctions.php?Operation=selectring";
 		var request = require('sync-request');
 		try {
 			var res = request('GET', url, {
@@ -318,7 +318,7 @@ function waitForEvents(evtID,timestamp){
         protocol: 'http:',
         hostname: workingData.hostname,
         port: 80,
-        path: '../server/database/eventFunctions.php',
+        path: '../ajax/database/eventFunctions.php',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -373,7 +373,7 @@ function startEventMgr() {
         protocol: 'http:',
         hostname: workingData.hostname,
         port: 80,
-        path: '../server/database/eventFunctions.php',
+        path: '../ajax/database/eventFunctions.php',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

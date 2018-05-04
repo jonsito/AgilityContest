@@ -78,7 +78,7 @@ $('#pb_inscripciones-datagrid').datagrid({
     fitColumns: true,
     singleSelect: true,
     loadMsg: '<?php _e('Updating inscriptions');?> ...',
-    url: '../server/database/inscripcionFunctions.php',
+    url: '../ajax/database/inscripcionFunctions.php',
     queryParams: {
         Operation: 'inscritosbyjornada',
         Prueba:workingData.prueba,

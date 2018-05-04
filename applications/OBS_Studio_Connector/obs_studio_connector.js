@@ -374,7 +374,7 @@ function event_parser(id,event) {
  * @return true on success; otherwise false
  */
 function connectServer(hostaddr,ring){
-    var url="http://"+hostaddr+"/"+baseurl+"/server/database/sessionFunctions.php?Operation=selectring";
+    var url="http://"+hostaddr+"/"+baseurl+"/ajax/database/sessionFunctions.php?Operation=selectring";
     var request = require('sync-request');
     try {
         var res = request('GET', url, {
@@ -463,7 +463,7 @@ function waitForEvents(evtID,timestamp){
         protocol: 'http:',
         hostname: ac_config.hostname,
         port: 80,
-        path: '../server/database/eventFunctions.php',
+        path: '../ajax/database/eventFunctions.php',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -524,7 +524,7 @@ function startEventMgr() {
         protocol: 'http:',
         hostname: ac_config.hostname,
         port: 80,
-        path: '../server/database/eventFunctions.php',
+        path: '../ajax/database/eventFunctions.php',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
