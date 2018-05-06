@@ -35,7 +35,7 @@ class MacroParser {
         $res=$myDBObject->__select("*","jornadas","Prueba=$prueba");
         if(!$res) $res=array('total' =>0,'rows'=>array());
         foreach ($res['rows'] as $jornada) array_push($this->myJornadas,$jornada);
-        do_log("Prueba: ".json_encode($this->myPrueba));
+        // do_log("Prueba: ".json_encode($this->myPrueba));
         // create function array
         $this->templatelist = array(
             "__CONTEST__" => function($p,$j,$key,$str) { return str_replace($key,$p['Nombre'],$str);},

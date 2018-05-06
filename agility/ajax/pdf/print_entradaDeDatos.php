@@ -56,7 +56,7 @@ try {
         $data['orden']= $o->getData()['rows'];
 	}
     // Datos del orden de salida e informacion de mangas
-    do_log("Data contents is: ".json_encode($data));
+    // do_log("Data contents is: ".json_encode($data));
 	// Creamos generador de documento
 	// para ello vemos el tipo de manga
 	$mng=$m->selectByID($data['manga']);
