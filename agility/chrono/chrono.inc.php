@@ -6,7 +6,7 @@ require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
-$am = new AuthManager("Chrono");
+$am = AuthManager::getInstance("Chrono");
 if ( ! $am->allowed(ENABLE_CHRONO)) { include_once("unregistered.html"); return 0;}
 $linfo=$am->getRegistrationInfo();
 ?>

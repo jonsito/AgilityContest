@@ -39,7 +39,7 @@ $grado=http_request("Grado","s","GI");
 $perro=http_request("Perro","i",0);
 // Consultamos la base de datos
 try {
-    $am= new AuthManager("ligaFunctions");
+    $am= AuthManager::getInstance("ligaFunctions");
     if ($operation==="") throw new Exception("Call to printLigas without 'Operation' requested");
     // verificamos permisos de acceso
     $am->access(PERMS_GUEST);

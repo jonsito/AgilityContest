@@ -64,6 +64,7 @@ function borraPerroDeJornada($inscripcion,$jornada) {
  * @param {object} $inscripcion Datos de la inscripcion
  * @param {object} $jornada Datos de la jornada
  * @param {array} $perro Datos del perro
+ * @throws Exception
  */
 function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 	$myConfig=Config::getInstance();
@@ -140,7 +141,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 		// Verificamos el orden de salida de la manga	
 		$os=Competitions::getOrdenSalidaInstance("inscribePerroEnJornada",$manga['ID']);
 		if ($inscribir==false) {
-			$myLogger->info("Eliminando Perro:$idperro Grado:$g del orden de salida de la manga $mid grado:$mgrado");
+			$myLogger->info("Borrando Perro:$idperro Grado:$g del orden de salida de la manga $mid grado:$mgrado");
 			$os->removeFromList($idperro);
 		} else {
 			$myLogger->info("Insertando Perro:$idperro Grado:$g en el orden de salida de la manga $mid grado:$mgrado");
@@ -150,13 +151,13 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 		// verificamos la tabla de resultados de esta manga
 		$rs=Competitions::getResultadosInstance("inscribePerroEnJornada::Resultados",$mid);
 		if ($inscribir==false) {
-			$myLogger->info("Borrando Perro:$idperro Grado:$g de Resultados manga:$mid");
+			$myLogger->info("Borrando Perro:$idperro Grado:$g de Resultados manga:$mid grado:$mgrado");
 			// borramos entrada del perro en la tabla de resultados de la manga
 			$rs->delete($idperro);
 		} else {
             $eqobj =new Equipos("inscribePerroEnJornada",$p,$j);
 			// nos aseguramos de que existe una entrada 
-			$myLogger->info("Insertando Perro:$idperro Grado:$g en Resultados manga:$mid");
+			$myLogger->info("Insertando Perro:$idperro Grado:$g en Resultados manga:$mid grado:$mgrado");
 			// en la tabla de resultados de esta manga para este perro
 			$res = $rs->insertByData($perro, $inscripcion,$eqobj->getTeamByPerro($idperro));
 			if ($res!=="") {
@@ -180,11 +181,11 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 function procesaInscripcion($p,$i) {
 	$myConfig=Config::getInstance();
 	$myLogger=new Logger("procesaInscripcion",$myConfig->getEnv("debug_level"));
-	$am= new AuthManager("procesaInscripcion");
 	// si la prueba o la inscripcion son nulas genera error
 	try {
 		if ($p<=0) throw new Exception("ID de prueba invalida: $p");
 		if ($i<=0) throw new Exception("ID de inscripcion invalida");
+        $am= AuthManager::getInstance("procesaInscripcion"); // may throw exception
 		$am->access(PERMS_OPERATOR); // grant access or throw exception
 		
 		// buscamos las jornadas de que consta la Prueba

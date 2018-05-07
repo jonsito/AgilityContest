@@ -25,7 +25,7 @@ require_once(__DIR__ . "/../../server/database/classes/Pruebas.php");
 try {
 	$result=null;
 	$pruebas= new Pruebas("pruebaFunctions");
-	$am= new AuthManager("pruebaFunctions");
+	$am= AuthManager::getInstance("pruebaFunctions");
 	$operation=http_request("Operation","s",null);
 	if ($operation===null) throw new Exception("Call to pruebaFunctions without 'Operation' requested");
 	$pruebaID=http_request("ID","i",0);

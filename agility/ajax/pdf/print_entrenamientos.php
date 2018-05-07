@@ -31,7 +31,7 @@ require_once(__DIR__ . '/../../server/pdf/classes/PrintEntrenamientos.php');
 // Consultamos la base de datos
 try {
     // comprobamos si la licencia tiene permisos para imprimir la ronda de entrenamientos
-    $am= new AuthManager("print_entrenamientos");
+    $am= AuthManager::getInstance("print_entrenamientos");
     if ($am->allowed(ENABLE_TRAINING)==0) throw new Exception("Current License does not allow Training session handling");
 	$prueba=http_request("Prueba","i",0);
 	// 	Creamos generador de documento

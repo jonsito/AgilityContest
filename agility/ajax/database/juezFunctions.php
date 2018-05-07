@@ -26,7 +26,7 @@ require_once(__DIR__ . "/../../server/database/classes/Jueces.php");
 
 try {
 	$result=null;
-	$am= new AuthManager("juezFunctions");
+	$am= AuthManager::getInstance("juezFunctions");
 	$operation=http_request("Operation","s",null);
     $federation=http_request("Federation","i",-1); // -1 defaults to all federations
 	$idjuez=http_request("ID","i",0);

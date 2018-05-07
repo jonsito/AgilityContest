@@ -24,7 +24,7 @@ require_once(__DIR__ . "/../../server/modules/Competitions.php");
 
 try {
 	$result=null;
-	$am= new AuthManager("ligaFunctions");
+	$am= AuthManager::getInstance("ligaFunctions");
 	$operation=http_request("Operation","s",null);
     $federation=http_request("Federation","i",0);
     $grado=http_request("Grado","s","GI");

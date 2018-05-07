@@ -34,7 +34,7 @@ $runmode=intval($config->getEnv('running_mode'));
 if ( ($runmode & AC_RUNMODE_EVTSOURCE) === 0 ) {
     die("This AgilityContest install mode does not allow videowall operations");
 }
-$am=new AuthManager("VideoWall");
+$am=AuthManager::getInstance("VideoWall");
 if (!$am->allowed(ENABLE_VIDEOWALL)) {
 	die("Current license has no permissions to handle videowall related functions");
 }

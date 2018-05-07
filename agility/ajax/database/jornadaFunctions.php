@@ -29,7 +29,7 @@ require_once(__DIR__ . "/../../server/database/classes/Admin.php");
 	try {
 		$result=null;
 		$jornadas= new Jornadas("jornadaFunctions",http_request("Prueba","i",0));
-		$am= new AuthManager("jornadaFunctions");
+		$am= AuthManager::getInstance("jornadaFunctions");
 		$operation=http_request("Operation","s",null);
         $jornadaid=http_request("ID","i",0);
         $perms=http_request("Perms","i",0);

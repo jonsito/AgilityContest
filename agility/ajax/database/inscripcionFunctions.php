@@ -25,7 +25,7 @@ require_once(__DIR__ . "/../../server/database/classes/Inscripciones.php");
 	try {
 		$result=null;
 		$inscripciones= new Inscripciones("inscripcionFunctions",http_request("Prueba","i",0));
-		$am= new AuthManager("inscripcionesFunctions");
+		$am= AuthManager::getInstance("inscripcionesFunctions");
 		$operation=http_request("Operation","s",null);
 		$perro=http_request("Perro","i",0);
         $equipo=http_request("Equipo","i",0);

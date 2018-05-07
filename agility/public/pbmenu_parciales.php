@@ -6,7 +6,7 @@ require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
-$am = new AuthManager("Public::parciales");
+$am = AuthManager::getInstance("Public::parciales");
 if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.php"); return 0;}
 ?>
 

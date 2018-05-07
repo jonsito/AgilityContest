@@ -35,7 +35,7 @@ if ( ($runmode & AC_RUNMODE_EVTSOURCE) === 0 ) {
     die("This AgilityContest install mode does not allow livestream operations");
 }
 try {
-    $am=new AuthManager("LiveStream");
+    $am=AuthManager::getInstance("LiveStream");
     if (!$am->allowed(ENABLE_LIVESTREAM)) {
         die("Current license has no permissions to handle livestream related functions");
     }

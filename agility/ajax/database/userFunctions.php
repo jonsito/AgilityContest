@@ -31,7 +31,7 @@ try {
 	$result=null;
     $config=Config::getInstance();
 	$users= new Usuarios("userFunctions");
-	$am= new AuthManager("userFunctions");
+	$am= AuthManager::getInstance("userFunctions");
 	$operation=http_request("Operation","s",null);
 	$id=http_request("ID","i",0);
 	$user=http_request("Username","s",null);

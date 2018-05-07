@@ -7,7 +7,7 @@ require_once(__DIR__ . "/../server/auth/Config.php");
 require_once(__DIR__ . "/../server/auth/AuthManager.php");
 
 $config =Config::getInstance();
-$am = new AuthManager("Videowall::livestream");
+$am = AuthManager::getInstance("Videowall::livestream");
 if ( ! $am->allowed(ENABLE_LIVESTREAM)) { include_once("unregistered.php"); return 0;}
 $combined=http_request("combined","i",0);
 $custom_layout=json_encode(json_decode(file_get_contents(__DIR__."/osd_layout.json")));

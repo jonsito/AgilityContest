@@ -27,7 +27,7 @@ $file="ordenSalidaFunctions";
 
 try {
 	$result=null;
-	$am= new AuthManager($file);
+	$am= AuthManager::getInstance($file);
 	// retrieve variables
 	$operation=http_request("Operation","s",null);
 	if ($operation===null) 

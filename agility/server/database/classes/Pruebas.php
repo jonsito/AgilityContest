@@ -212,7 +212,7 @@ class Pruebas extends DBObject {
 	function enumerate($am=null) {
 		$this->myLogger->enter();
         // retrieve number of inscriptions for this contest
-        if ($am==null) $am=new AuthManager("Pruebas::enumerate");
+        if ($am==null) $am=AuthManager::getInstance("Pruebas::enumerate");
         $limit=$am->getUserLimit();
         $inscritos=$this->__select("Prueba, count(*) AS Inscritos","inscripciones","1 GROUP BY Prueba","","");
 

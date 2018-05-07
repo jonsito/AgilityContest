@@ -23,7 +23,7 @@ require_once(__DIR__ . "/../server/mail/MailManager.php");
 
 try {
     $result=null;
-    $am= new AuthManager("mailFunctions");
+    $am= AuthManager::getInstance("mailFunctions");
     $operation=http_request("Operation","s",null);
     $data=array(
         // datos para operacion de enumerate

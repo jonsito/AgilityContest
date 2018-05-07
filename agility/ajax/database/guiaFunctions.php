@@ -25,7 +25,7 @@ require_once(__DIR__ . "/../../server/database/classes/Guias.php");
 	try {
 		$result=null;
 		$guias= new Guias("guiaFunctions");
-		$am= new AuthManager("guiaFunctions");
+		$am= AuthManager::getInstance("guiaFunctions");
 		$operation=http_request("Operation","s",null);
 		$guiaid=http_request("ID","i",0);
 		$clubid=http_request("Club","i",0);

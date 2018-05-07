@@ -63,6 +63,7 @@ class AuthManager {
 	protected $blackList=null;
 	protected $levelStr;
 	protected $master_server=false;
+	protected $file;
 
 	// due to a bug in php-5.5 (solved in php-5.6 )
 	// we cannot concatenate strings in class properties
@@ -130,7 +131,8 @@ class AuthManager {
      * @param {string} $file name for logger
      * @throws Exception on failed to identify session key
      */
-	function __construct($file) {
+	function __construct($file="AuthManager") {
+	    $this->file=$file;
 		$config=Config::getInstance();
 		$this->myLogger=new Logger($file,$config->getEnv("debug_level"));
 		$this->mySessionMgr=new Sesiones("AuthManager");
@@ -158,7 +160,20 @@ class AuthManager {
 		$this->mySessionKey=$sk;
 		$this->operador=$obj->ID;
 	}
-	
+
+    protected static $instance;
+
+    /**
+	 * @param {string} $name entry name for php execution ( given name provides first entry point )
+     * @return static
+	 * @throws Exception
+     */
+    final public static function getInstance($name) {
+        return isset(static::$instance)
+            ? static::$instance
+            : static::$instance = new static($name);
+    }
+
 	/**
 	 * Localiza al usuario que tiene la SessionKey indicada
 	 * @param {string} $sk SessionKey
@@ -173,7 +188,7 @@ class AuthManager {
 		);
 		if (!$obj) throw new Exception ("Invalid session key: '$sk'");
 		$userid=intval($obj->Operador);
-		$this->myLogger->info("SessionKey:'$sk' belongs to userid:'$userid'");
+		$this->myLogger->info("file:'{$this->file}' SessionKey:'$sk' belongs to userid:'$userid'");
 		// notice that in master server session key is assigned to user id 1 (-- Sin asignar --)
 	/*	
 		// if token expired throw exception 

@@ -25,7 +25,7 @@ require_once(__DIR__ . "/../../server/database/classes/Entrenamientos.php");
 $response="";
 try {
 	$result=null;
-	$am= new AuthManager("trainingFunctions");
+	$am= AuthManager::getInstance("trainingFunctions");
 	$operation=http_request("Operation","s",null);
     $id=http_request("ID","i",0);
     $size=http_request("Size","i",10);

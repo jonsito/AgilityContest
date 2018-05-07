@@ -25,7 +25,7 @@ require_once(__DIR__ . "/../../server/database/classes/Eventos.php");
 
 try {
 	$result=null;
-	$am= new AuthManager("eventsFunctions");
+	$am= AuthManager::getInstance("eventsFunctions");
 	$operation=http_request("Operation","s",null);
 	$data=array (
 			// common data for senders and receivers

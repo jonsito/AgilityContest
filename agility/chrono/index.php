@@ -31,7 +31,7 @@ if( ! function_exists('password_verify')) {
 if ( intval($config->getEnv('running_mode')) === AC_RUNMODE_SLAVE ) {
     die("Access other than public directory is not allowed");
 }
-$am=new AuthManager("Chrono");
+$am=AuthManager::getInstance("Chrono");
 if (!$am->allowed(ENABLE_CHRONO)) {
 	die("Current license has no permissions to handle chronometer related functions");
 }

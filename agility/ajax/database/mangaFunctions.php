@@ -40,7 +40,7 @@ try {
 	}
 	if ($operation===null) throw new Exception("Call to mangaFunctions without 'Operation' requested");
 	$mangas= new Mangas("mangaFunctions",$jornada);
-	$am= new AuthManager("mangaFunctions");
+	$am= AuthManager::getInstance("mangaFunctions");
 	switch ($operation) {
 		// no direct "insert", as created/destroyed from jornadaFunctions
 		case "update": $am->access(PERMS_OPERATOR); $result=$mangas->update($manga); break;

@@ -28,7 +28,7 @@ require_once(__DIR__."/../../server/database/CSVHandler.php");
 $response="";
 try {
     $result=null;
-    $am= new AuthManager("importFunctions");
+    $am= AuthManager::getInstance("importFunctions");
     $operation=http_request("Operation","s","");
     $prueba=http_request("Prueba","i",0);
     if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");

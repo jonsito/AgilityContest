@@ -86,7 +86,7 @@ class XLSX_Writer {
         );
 
         // informacion de licencia
-        $am=new AuthManager($this->myFile);
+        $am=AuthManager::getInstance($this->myFile);
         $ainfo=$am->getRegistrationInfo();
         $this->myWriter->addRows(
           [

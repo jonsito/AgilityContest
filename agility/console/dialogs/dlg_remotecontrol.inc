@@ -20,7 +20,7 @@ require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/auth/Config.php");
 require_once(__DIR__ . "/../../server/auth/AuthManager.php");
 $config =Config::getInstance();
-$am=new AuthManager("Chrono");
+$am=AuthManager::getInstance("Chrono");
 ?>
     <!-- ventana de control remoto para los cronos/videomarcadores/livestream definidos en una o varias sesiones -->
     <div id="remote-dialog" style="width:750px;height:400px;padding:5px;">

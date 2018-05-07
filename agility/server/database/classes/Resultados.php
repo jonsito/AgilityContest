@@ -265,7 +265,7 @@ class Resultados extends DBObject {
 		if ($idperro<=0) return $this->error("No Perro ID specified");
 		if ($this->isCerrada()) 
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
-		$rs=$this->__delete("Resultados","( Perro={$idperro} ) AND ( Manga={$idmanga})");
+		$rs=$this->__delete("resultados","( Perro={$idperro} ) AND ( Manga={$idmanga})");
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";

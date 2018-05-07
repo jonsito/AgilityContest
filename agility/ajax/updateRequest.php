@@ -49,7 +49,7 @@ try {
             }
             break;
         case "checkForUpdates": // this is to be executed in client
-            $am= new AuthManager("adminFunctions");
+            $am= AuthManager::getInstance("adminFunctions");
             if ($am->isDefaultLicense()) throw new Exception("updateRequest: Invalid License");
             $am->access(PERMS_ADMIN); // throw exception if not admin
             $ul=new Uploader("checkForUpdates",$suffix);
@@ -58,7 +58,7 @@ try {
             $result=array("success"=>true,"NewEntries"=>$res['rows'][0]['NewEntries']);
             break;
         case "updateRequest": // this is to be executed on client app
-            $am= new AuthManager("adminFunctions");
+            $am= AuthManager::getInstance("adminFunctions");
             if ($am->isDefaultLicense()) throw new Exception("updateRequest: Invalid License");
             $am->access(PERMS_ADMIN); // throw exception if not admin
             $ul=new Uploader("UserRequestedUpdateDB",$suffix);

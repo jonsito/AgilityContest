@@ -43,7 +43,7 @@ try {
     $data["Hidden"]=http_request("Hidden","i",0);
 	
 	if ($operation===null) throw new Exception("Call to sessionFunctions without 'Operation' requested");
-    $am= new AuthManager("sessionFunctions");
+    $am= AuthManager::getInstance("sessionFunctions");
 	$sesion= $am->getSessionManager();
 	switch ($operation) {
         case "select": $result=$sesion->select($data,false); break;

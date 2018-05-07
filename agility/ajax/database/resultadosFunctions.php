@@ -39,7 +39,7 @@ try {
 
 	// get aut manager and resultados instance
 	$resultados= Competitions::getResultadosInstance("resultadosFunctions",$mangaID);
-	$am= new AuthManager("resultadosFunctions");
+	$am= AuthManager::getInstance("resultadosFunctions");
 
 	// invoke proper operation
 	switch ($operation) {

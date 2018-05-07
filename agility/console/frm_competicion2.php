@@ -19,7 +19,7 @@ require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
-$am = new AuthManager("Competicion");
+$am = AuthManager::getInstance("Competicion");
 require_once("dialogs/dlg_printer.inc");
 require_once("dialogs/dlg_entrenamientos.inc");
 require_once("dialogs/dlg_ordentandas.inc");

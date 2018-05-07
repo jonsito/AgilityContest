@@ -25,7 +25,7 @@ require_once(__DIR__ . "/../../server/database/classes/Dogs.php");
 
 try {
 	$result=null;
-	$am= new AuthManager("dogFunctions");
+	$am= AuthManager::getInstance("dogFunctions");
 	$operation=http_request("Operation","s",null);
 	$idperro=http_request("ID","i",0);
 	$idguia=http_request("Guia","i",0);

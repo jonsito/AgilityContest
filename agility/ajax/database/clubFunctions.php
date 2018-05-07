@@ -31,7 +31,7 @@ require_once(__DIR__ . "/../../server/database/classes/Clubes.php");
 		if ($operation===null)
 			throw new Exception("Call to clubFunctions without 'Operation' requested");
 		$clubes= new Clubes("clubFunctions",$federation);
-		$am= new AuthManager("clubFunctions");
+		$am= AuthManager::getInstance("clubFunctions");
 		switch ($operation) {
 			case "insert": $am->access(PERMS_OPERATOR); $result=$clubes->insert(); break;
 			case "update": $am->access(PERMS_OPERATOR); $result=$clubes->update($idclub); break;

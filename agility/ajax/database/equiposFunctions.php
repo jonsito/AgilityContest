@@ -33,7 +33,7 @@ $w = http_request("Where","i",0);
 try {
 	$result=null;
 	$equipos= new Equipos("equiposFunctions",$prueba,$jornada);
-	$am= new AuthManager("equiposFunctions");
+	$am= AuthManager::getInstance("equiposFunctions");
 	if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");
 	switch ($operation) {
 		case "insert": $am->access(PERMS_OPERATOR); $result=$equipos->insert(); break; // nuevo equipo

@@ -50,7 +50,7 @@ try {
 		echo json_encode( array( 'progress' => strval($lines[count($lines)-1]) ) );
 		return;
 	}
-	$am= new AuthManager("adminFunctions");
+	$am= AuthManager::getInstance("adminFunctions");
     $adm= new Admin("adminFunctions",$am,$suffix);
 	switch ($operation) {
 		case "searchClub":
