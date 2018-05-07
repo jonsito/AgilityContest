@@ -22,6 +22,7 @@ class RFEC extends Federations {
             'International' => 0,
             'WideLicense' => true, // some federations need extra print space to show license ID
             'RoundsG1' => 3,
+            'ReverseLMST' => true, // default order is TSML instead of LMST
             'Recorridos' => array(_('Common course'),"Clases 60+50 / 40+30",_("Separate courses")),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',

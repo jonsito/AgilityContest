@@ -442,15 +442,30 @@ class Tandas extends DBObject {
 	function swapLMST() {
         $p=$this->prueba->ID;
         $j=$this->jornada->ID;
-	    $l="(3,6,9,12,15,18,23,26,29,32,38,56,95,99)";
-	    $m="(4,7,10,13,16,19,24,27,30,33,39,57,96,100)";
-	    $s="()";
-	    $t="()";
-        $str1="UPDATE tandas SET Orden=Orden+3 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$l})";
-        $str2="UPDATE tandas SET Orden=Orden-3 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$t})";
-        $str3="UPDATE tandas SET Orden=Orden+1 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$m})";
-        $str4="UPDATE tandas SET Orden=Orden-1 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$s})";
+	    $l="( 3,  6,   9, 12, 15, 18, 23, 26, 29, 32, 38, 56, 95,  99 )";
+	    $m="( 4,  7,  10, 13, 16, 19, 24, 27, 30, 33, 39, 57, 96, 100 )";
+	    $s="( 5,  8,  11, 14, 17, 20, 25, 28, 31, 34, 40, 58, 97, 101 )";
+	    $t="( 41, 42, 43, 44, 45, 46, 49, 50, 51, 52, 55, 59, 98, 102 )";
+	    $cmds=array(
+	        // swap large and toy
+            "UPDATE tandas SET Orden=Orden+3 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$l})",
+            "UPDATE tandas SET Orden=Orden-3 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$t})",
+            // swap small and medium
+            "UPDATE tandas SET Orden=Orden+1 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$m})",
+            "UPDATE tandas SET Orden=Orden-1 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$s})"
+        );
+        $this->query("START TRANSACTION");
+	    foreach ($cmds as $cmd) {
+	        $res=$this->query($cmd);
+	        if (!$res) {
+	            $this->myLogger->error($this->conn->error);
+                $this->query("ROLLBACK");
+	            return;
+            }
+        }
+        $this->query("COMMIT");
     }
+
 	/**
 	 * Obtiene el programa de la jornada
 	 * @param {integer} $s session id.
@@ -798,6 +813,10 @@ class Tandas extends DBObject {
         $this->insert_remove($f,31,($j->Games != 0)?true:false);			// SpeedStakes
         // manga especial
 		$this->insert_remove($f,16,($j->Especial != 0)?true:false);		// Manga especial
+
+        // finally, if requested reverse LMST to TSML
+        if ($f->get('ReverseLMST')===true) $this->swapLMST();
+
 		$this->myLogger->leave();
 	}
 	
