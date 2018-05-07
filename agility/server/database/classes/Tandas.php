@@ -435,6 +435,22 @@ class Tandas extends DBObject {
 		return ""; // mark success
 	}
 
+    /**
+     * In RFEC categories order is TSML instead of LMST.
+     * This is a dirty hack to reverse categories order
+     */
+	function swapLMST() {
+        $p=$this->prueba->ID;
+        $j=$this->jornada->ID;
+	    $l="(3,6,9,12,15,18,23,26,29,32,38,56,95,99)";
+	    $m="(4,7,10,13,16,19,24,27,30,33,39,57,96,100)";
+	    $s="()";
+	    $t="()";
+        $str1="UPDATE tandas SET Orden=Orden+3 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$l})";
+        $str2="UPDATE tandas SET Orden=Orden-3 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$t})";
+        $str3="UPDATE tandas SET Orden=Orden+1 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$m})";
+        $str4="UPDATE tandas SET Orden=Orden-1 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$s})";
+    }
 	/**
 	 * Obtiene el programa de la jornada
 	 * @param {integer} $s session id.
@@ -683,7 +699,7 @@ class Tandas extends DBObject {
 				$rs=$this->query($str);
 				if (!$rs) return $this->error($this->conn->error); 
 			}
-		}
+		} /* foreach $tandas as $item */
 		return ""; // success
 	}
 	

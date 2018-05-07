@@ -47,7 +47,7 @@ class PrintEntrenamientos extends PrintCommon {
             $this->errormsg="printTandas: invalid prueba id:$prueba";
             throw new Exception($this->errormsg);
         }
-		parent::__construct('Portrait',"print_ordenTandas",$prueba);
+		parent::__construct('Portrait',"print_Entrenamientos",$prueba);
 
         // Datos del orden de entrenamientos
 		$eobj = new Entrenamientos("PrintEntrenamientos",$prueba);
