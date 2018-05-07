@@ -1171,7 +1171,7 @@ function addSimpleKeyHandler(datagrid,dialog,onEnter){
 		var t = $(datagrid);
 	    switch(e.keyCode){
 	    case 27:    /* Esc */
-            if (dialog!==null) $(dialog).window('close'); return false;
+            if (dialog!=="") $(dialog).window('close'); return false;
 	    case 38:	/* Up */
             selectRow(t,true); return false;
 	    case 40:    /* Down */
@@ -1285,7 +1285,7 @@ function addKeyHandler(dgid,dialog,insertfn,updatefn,deletefn) {
             // if (e.shiftkey) return false; // shift+Tab
             return false;
 		case 27:	/* Esc */
-            if (dialog!==null) $(dialog).window('close');
+            if (dialog!=="") $(dialog).window('close');
 			return false;
         case 16:	/* Shift */
         case 17:	/* Ctrl */

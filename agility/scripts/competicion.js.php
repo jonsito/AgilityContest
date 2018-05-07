@@ -1384,7 +1384,7 @@ function resultados_doSelectRonda(row) {
                 // anyadimos toolbar y keyhandler al datagrid de clasificaciones
                 // $('#finales_individual-datagrid').datagrid({toolbar: '#resultados-toolbar'});
                 $('#resultados-toolbar').css('display','inline-block');
-                addSimpleKeyHandler('#finales_individual-datagrid',null);
+                addSimpleKeyHandler('#finales_individual-datagrid',"");
                 populate_clasificacion();
             });
     }

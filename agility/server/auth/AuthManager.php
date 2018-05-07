@@ -123,6 +123,8 @@ class AuthManager {
 		return implode("",$data);
 	}
 
+	public function getSessionManager() { return $this->mySessionMgr; }
+
     /**
      * AuthManager constructor.
      * @param {string} $file name for logger
@@ -380,6 +382,7 @@ class AuthManager {
 
     /*
      * Authenticate user from database
+     *@throws Exception
      */
     private function dbLogin($login,$password,$sid,$nosession) {
 		/* access database to check user credentials */

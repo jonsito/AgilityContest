@@ -18,8 +18,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php
 require_once(__DIR__."/../../server/auth/Config.php");
 require_once(__DIR__."/../../server/tools.php");
-require_once(__DIR__."/../../server/auth/AuthManager.php");
-$am = new AuthManager("Chrono");
 $config =Config::getInstance();
 ?>
 
@@ -250,11 +248,11 @@ $config =Config::getInstance();
             	$('#jornadas-MangasEquipos').combobox('disable');
             }
 
-            <?php    if ( ! $am->allowed(ENABLE_TEAMS)) { ?>
-            // si la licencia no tiene permisos para jornadas por equipos, desactivamos la opcion
-            $('#jornadas-EquiposChk').prop('disabled',true);
-            $('#jornadas-MangasEquipos').combobox('disable');
-            <?php    } ?>
+            if ( (parseInt(ac_regInfo.Options,2) & access_perms.ENABLE_TEAMS) === 0 ){
+                // si la licencia no tiene permisos para jornadas por equipos, desactivamos la opcion
+                $('#jornadas-EquiposChk').prop('disabled',true);
+                $('#jornadas-MangasEquipos').combobox('disable');
+            }
 
             // el resto de mangas son "normales" ( estan siempre presentes )
             $('#jornadas-Equipos3').prop('checked',(parseInt(data.Equipos3) !== 0));
@@ -264,11 +262,11 @@ $config =Config::getInstance();
             $('#jornadas-KO').prop('checked',(parseInt(data.KO) === 1));
             $('#jornadas-Games').prop('checked',(parseInt(data.Games) === 1));
 
-            <?php    if ( ! $am->allowed(ENABLE_KO)) { ?>
-            // si la licencia no tiene permisos para jornadas KO o Games, desactivamos la opcion
-            $('#jornadas-Games').prop('disabled',true);
-            $('#jornadas-KO').prop('disabled',true);
-            <?php    } ?>
+            if ( (parseInt(ac_regInfo.Options,2) & access_perms.ENABLE_KO) === 0 ){
+                // si la licencia no tiene permisos para jornadas KO o Games, desactivamos la opcion
+                $('#jornadas-Games').prop('disabled',true);
+                $('#jornadas-KO').prop('disabled',true);
+            }
 
             $('#jornadas-Especial').prop('checked',(parseInt(data.Especial) === 1));
         	$('#jornadas-Observaciones').textbox( (parseInt(data.Especial)===0)?'disable':'enable');
@@ -368,9 +366,7 @@ $config =Config::getInstance();
         method: 'get',
         mode: 'remote',
         required: true,
-<?php    if ( ! $am->allowed(ENABLE_SPECIAL)) { ?>
-        disabled: true,
-<?php    } ?>
+        disabled: ( (parseInt(ac_regInfo.Options,2) & access_perms.ENABLE_SPECIAL) === 0 )?true:false,
         url:'../ajax/database/jornadaFunctions.php',
         onChange:function(newval,oldval) {
             $('#jornadas-SlaveOf').val(newval);
