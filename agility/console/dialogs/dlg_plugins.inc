@@ -59,7 +59,7 @@
 		// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
 		rowStyler:myRowStyler
 	});
-	addKeyHandler('#plugins-datagrid',null,newPlugin,updatePlugin,deletePlugin);
+	addKeyHandler('#plugins-datagrid',"",newPlugin,updatePlugin,deletePlugin);
 	addTooltip($('#plugins-newBtn').linkbutton(),'<?php _e("Search and install new competition modules"); ?>');
 	addTooltip($('#plugins-editBtn').linkbutton(),'<?php _e("Update selected competition module"); ?>');
 	addTooltip($('#plugins-delBtn').linkbutton(),'<?php _e("Delete selected competition module"); ?>');

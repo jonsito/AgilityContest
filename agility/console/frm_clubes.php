@@ -141,7 +141,7 @@ $config =Config::getInstance();
 	});
 
 		// key handler
-       	addKeyHandler('#clubes-datagrid',null,newClub,editClub,deleteClub);
+       	addKeyHandler('#clubes-datagrid',"",newClub,editClub,deleteClub);
 		// tooltips
 		addTooltip($('#clubes-newBtn').linkbutton(),'<?php _e("Create a new club <br/>and insert into database"); ?>');
 		addTooltip($('#clubes-editBtn').linkbutton(),'<?php _e("Edit data on selected club"); ?>');

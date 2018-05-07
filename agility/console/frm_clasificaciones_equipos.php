@@ -218,5 +218,5 @@ addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in labels s
 addTooltip($('#r_prlistLbl'),'<?php _e("Comma separated list of dorsals to be printed"); ?>');
 // amyadimos toolbar y keyhandler al datagrid de clasificaciones
 $('#finales_equipos-datagrid').datagrid({toolbar: '#resultados-toolbar'});
-addSimpleKeyHandler('#finales_equipos-datagrid',null);
+addSimpleKeyHandler('#finales_equipos-datagrid',"");
 </script>

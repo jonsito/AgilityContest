@@ -127,7 +127,7 @@ $config =Config::getInstance();
         }); // end of pruebas-datagrid
         
 		// key handler
-       	addKeyHandler('#pruebas-datagrid',null,newPrueba,editPrueba,deletePrueba);
+       	addKeyHandler('#pruebas-datagrid',"",newPrueba,editPrueba,deletePrueba);
 		// tooltips
 		addTooltip($('#pruebas-newBtn').linkbutton(),'<?php _e("Declare a new contest and include into database"); ?>');
 		addTooltip($('#pruebas-editBtn').linkbutton(),'<?php _e("Edit information on selected contest"); ?>');
@@ -218,7 +218,7 @@ $config =Config::getInstance();
     		$(datagridID).datagrid('buildToolbar',toolbar);
     		
 			// tooltips de los sub-formularios
-			addSimpleKeyHandler(datagridID,null,editJornadaFromPrueba);
+			addSimpleKeyHandler(datagridID,"",editJornadaFromPrueba);
 			addTooltip($('#jornadasbyprueba-editBtn'+prueba.ID).linkbutton(),'<?php _e("Edit data on selected journey"); ?>');
 			addTooltip($('#jornadasbyprueba-closeBtn'+prueba.ID).linkbutton(),'<?php _e("Close journey. Store data as inmutable"); ?>');
 			addTooltip($('#jornadasbyprueba-reloadBtn'+prueba.ID).linkbutton(),'<?php _e("Update journey list for this contest"); ?>');

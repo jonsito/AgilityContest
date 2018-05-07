@@ -174,7 +174,7 @@ $config =Config::getInstance();
         });
 
         // key handler ( notify "null" dialog cause we dont want to close tabs on escape :-)
-        addKeyHandler('#sesiones-datagrid',null,newSession,editSession,deleteSession);
+        addKeyHandler('#sesiones-datagrid',"",newSession,editSession,deleteSession);
 
         // tooltips de la tabla de sesiones
         addTooltip($('#sesiones-newBtn').linkbutton(),'<?php _e("Add a new session (ring)<br/>into data base"); ?>');

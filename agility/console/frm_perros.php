@@ -197,7 +197,7 @@ $config =Config::getInstance();
         });
 		
 		// key handler
-       	addKeyHandler('#perros-datagrid',null,newDog,editDog,deleteDog);
+       	addKeyHandler('#perros-datagrid',"",newDog,editDog,deleteDog);
 		// tooltips
 		addTooltip($('#perros-newBtn').linkbutton(),'<?php _e("Declare new dog <br/>into database"); ?>');
 		addTooltip($('#perros-editBtn').linkbutton(),'<?php _e("Modify data on selected dog"); ?>');

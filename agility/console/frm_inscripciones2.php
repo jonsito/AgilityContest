@@ -21,6 +21,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 -->
 
 <?php
+require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/dialogs/dlg_perros.inc");
 require_once(__DIR__."/dialogs/dlg_guias.inc");
 require_once(__DIR__."/dialogs/dlg_clubes.inc");
@@ -29,8 +31,6 @@ require_once(__DIR__."/dialogs/dlg_equipos.inc");
 require_once(__DIR__."/frm_equipos.php");
 require_once(__DIR__."/dialogs/dlg_newInscripcion.inc");
 require_once(__DIR__."/dialogs/dlg_editInscripcion.inc");
-require_once(__DIR__."/../server/auth/Config.php");
-require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 ?>
 <div  style="width:100%;height:550px">
@@ -223,9 +223,9 @@ function createMenuJornadas(){
         align:'right',
         onClick: function(item){
             var current=menuJornadas.menu('options').current;
-            if (item.name=='clear') clearJourneyInscriptions(current);
-            if (item.name=='all')   inscribeAllIntoJourney(current);
-            if (item.name=='journey') inscribeSelectedIntoJourney(current);
+            if (item.name==='clear') clearJourneyInscriptions(current);
+            if (item.name==='all')   inscribeAllIntoJourney(current);
+            if (item.name==='journey') inscribeSelectedIntoJourney(current);
         }
     });
     menuJornadas.menu('appendItem',{name:'clear', text: "<?php _e('Clear all inscriptions on this journey')?>",iconCls:'icon-cut' });
@@ -310,8 +310,8 @@ $('#inscripciones-datagrid').datagrid({
 $('#inscripciones-readonly').css('display',check_softLevel(access_level.PERMS_OPERATOR,null)?'none':'inline-block');
 
 // key handler
-addSimpleKeyHandler('#inscripciones-jornadas',null,editJornadaFromPrueba);
-addKeyHandler('#inscripciones-datagrid',null,newInscripcion,editInscripcion,deleteInscripcion);
+addSimpleKeyHandler('#inscripciones-jornadas',"",editJornadaFromPrueba);
+addKeyHandler('#inscripciones-datagrid',"",newInscripcion,editInscripcion,deleteInscripcion);
 
 // tooltips
 addTooltip($('#inscripciones-newBtn').linkbutton(),'<?php _e("Register new inscriptions");?>');

@@ -109,7 +109,7 @@ $config =Config::getInstance();
 	});
 
 		// key handler
-       	addKeyHandler('#countries-datagrid',null,null,null,null);
+       	addKeyHandler('#countries-datagrid',"",null,null,null);
 		addTooltip($('#countries-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update table"); ?>');
 		addTooltip($('#countries-datagrid-search'),'<?php _e("Look for countries matching search criteria"); ?>');
         

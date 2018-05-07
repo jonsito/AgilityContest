@@ -258,7 +258,7 @@ $config =Config::getInstance();
         });
 
         // key handler ( notify "null" dialog cause we dont want to close tabs on escape :-)
-        addKeyHandler('#usuarios-datagrid',null,newUser,editUser,deleteUser);
+        addKeyHandler('#usuarios-datagrid',"",newUser,editUser,deleteUser);
 
         // tooltips para los botones de gestion de usuarios
         addTooltip($('#usuarios-newBtn').linkbutton(),'<?php _e("Create and insert new user<br/> into database"); ?>');

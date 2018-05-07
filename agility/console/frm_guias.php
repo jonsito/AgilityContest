@@ -121,7 +121,7 @@ $config =Config::getInstance();
     });
 
 		// key handler
-       	addKeyHandler('#guias-datagrid',null,newGuia,editGuia,deleteGuia);
+       	addKeyHandler('#guias-datagrid',"",newGuia,editGuia,deleteGuia);
 		// tooltips
 		addTooltip($('#guias-newBtn').linkbutton(),'<?php _e("Insert a new handler<br/>into DataBase");?>');
 		addTooltip($('#guias-editBtn').linkbutton(),'<?php _e("Edit data on selected handler");?>');
