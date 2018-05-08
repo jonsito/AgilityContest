@@ -50,9 +50,10 @@ DNS.1 = localhost
 __EOF
 
 # finally create certificate
-openssl x509 -req -sha256 -extfile v3_ext.data -days 3650 -in server.csr -signkey server.key -out server.crt
+openssl x509 -req -sha256 -extfile v3_ext.data -days 730 -in server.csr -signkey server.key -out server.crt
 
 ##### cleanup
-rm -f server.csr csr.data v3_ext.data server.pass.key
+# preserve server.{csr,crt,key}
+rm -f csr.data v3_ext.data server.pass.key
 
 #that's all folks
