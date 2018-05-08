@@ -1,5 +1,6 @@
 #!/bin/sh
 BASE=`dirname $0`
+HTCONF=/Applications/XAMPP/etc
 HTDOCS=/Applications/XAMPP/htdocs
 BASEDIR=$HTDOCS/AgilityContest-master
 CONFDIR=$HTDOCS/AgilityContest-master/agility/server/auth
@@ -44,10 +45,32 @@ sed -i -e '/\[mysqld\]/a lower_case_table_names = 1' /Applications/XAMPP/xamppfi
 echo ""
 
 echo "Adding AgilityContest apache configuration file... "
-cp $EXTRAS/AgilityContest_osx.conf /Applications/XAMPP/etc/extra
-sed -i -e '/.*AgilityContest.*/d' /Applications/XAMPP/etc/httpd.conf
-echo 'Include "/Applications/XAMPP/etc/extra/AgilityContest_osx.conf"' >> /Applications/XAMPP/etc/httpd.conf
+cp $EXTRAS/AgilityContest_osx.conf ${HTCONF}/extra
+sed -i -e '/.*AgilityContest.*/d' ${HTCONF}/httpd.conf
+echo 'Include "/Applications/XAMPP/etc/extra/AgilityContest_osx.conf"' >> ${HTCONF}/httpd.conf
 echo ""
+
+# create and install certificates
+if [ -f ${BASE}/create_certificate.sh ]; then
+    echo -n "Create and Install X509 SSL Certificate S/[n]?"
+    read a
+    case $a in
+        [SsYy]* )
+            # create certificate and key
+            bash ${BASE}/create_certificate.sh /tmp/ssl
+            # backup and copy certificate
+            mv -f ${HTCONF}/ssl.crt/server.crt ${HTCONF}/ssl.crt/server.crt.orig
+            cp /tmp/ssl/server.crt ${HTCONF}/ssl.crt/server.crt
+            # backup and copy key file
+            mv -f ${HTCONF}/ssl.key/server.key ${HTCONF}/ssl.key/server.key.orig
+            cp /tmp/ssl/server.key ${HTCONF}/ssl.key/server.key
+            # cleanup
+            rm -rf /tmp/ssl
+        ;;
+    esac
+else
+    echo "Certificate creation script not found. Using default certificates"
+fi
 
 echo "Fixing permissions... "
 cd $HTDOCS
@@ -70,13 +93,13 @@ SOURCE /Applications/XAMPP/htdocs/AgilityContest-master/extras/users.sql;
 _EOF
 echo ""
 
-echo "Restoring license and configuration data"
+echo "Restoreing license and configuration data"
 [ -f /tmp/registration.info ] && cp /tmp/registration.info $CONFIG/registration.info
 [ -f /tmp/config.ini ] && cp /tmp/config.ini $CONFIG/config.ini
 echo ""
 
-echo "Instalacion completada"
-echo "Arrancar la aplicación S/[n]?"
+echo "Instalation completed"
+echo "Start AgilityContest Y/[n]?"
 read a
 case $a in
     [SsYy]* )

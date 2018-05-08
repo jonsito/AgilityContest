@@ -120,7 +120,7 @@ cp agility/images/AgilityContest.png .background
 cp -r COPYING License.txt agility logs extras docs AgilityContest-master
 # do not include build and web dir in destination zipfile
 zip -r AgilityContest-master.zip AgilityContest-master/{agility,applications,extras,logs}
-FILES="osx_install.command COPYING License.txt AgilityContest-master.zip"
+FILES="osx_install.command create_certificate.command COPYING License.txt AgilityContest-master.zip"
 mkisofs -A AgilityContest \
     -P jonsito@gmail.com \
     -V ${VERSION}_${DATE} \
