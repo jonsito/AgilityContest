@@ -236,6 +236,8 @@ function newInscripcion_onOpenSuccess() {
 	addTooltip($('#new_inscripcion-datagrid-search').linkbutton(),'<?php _e("Search available competitors"); ?>'+"<br />"+'<?php _e("matching search criteria"); ?>');
 }
 
+// KeyHandler para navegar por los "inscribibles"
+addSimpleKeyHandler('#new_inscripcion-datagrid','');
 // tooltips de los sub-formularios
 addTooltip($('#new_inscripcion-okBtn').linkbutton(),'<?php _e("Inscribe selected dog(s) into contest"); ?>');
 addTooltip($('#new_inscripcion-doneBtn').linkbutton(),'<?php _e("Close window"); ?>'+"<br />"+'<?php _e("Return to inscription handling form"); ?>');
