@@ -439,8 +439,10 @@ class Admin extends DBObject {
             // encryption key
             $key= base64_encode(substr("{$this->bckLicense}{$this->bckRevision}{$this->bckDate}",-32));
             // check key hash
-            if ($keystr!== hash("md5",$key,false))
+            if ($keystr!== hash("md5",$key,false)) {
+                $this->handleSession("Done");
                 throw new Exception("Restore failed: Key hash does not match");
+            }
             $data=SimpleCrypt::decrypt($data,$key);
         }
         // Read entire file into an array
@@ -482,18 +484,30 @@ class Admin extends DBObject {
         return "";
     }
 
+    /**
+     * Restore database main process.
+     * Download file, check, install db and update version history
+     * @return string "" emtpy on success, else error
+     * @throws Exception
+     */
 	public function restore() {
         // we need root database access to re-create tables
         $rconn=DBConnection::getRootConnection();
-        if ($rconn->connect_error)
-			throw new Exception("Cannot perform upgrade process: database::dbConnect()");
+        if ($rconn->connect_error) {
+            $this->handleSession("Done");
+            throw new Exception("Cannot perform upgrade process: database::dbConnect()");
+        }
 		// phase 1: retrieve file from http request
         $data=$this->retrieveDBFile();
-        if (is_array($data))
+        if (is_array($data)){
+            $this->handleSession("Done");
             throw new Exception($data['errorMsg']);
+        }
         // phase 2: verify received file
-		if (strpos(substr($data,0,25),"-- AgilityContest")===FALSE)
-			throw new Exception("Provided file is not an AgilityContest database file");
+		if (strpos(substr($data,0,25),"-- AgilityContest")===FALSE) {
+            $this->handleSession("Done");
+            throw new Exception("Provided file is not an AgilityContest database file");
+        }
         // phase 3: delete all tables and structures from database
         $this->dropAllTables($rconn);
         // phase 4: parse sql file and populate tables into database
