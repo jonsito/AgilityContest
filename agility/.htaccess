@@ -1,0 +1,9 @@
+# block access to "server" directory
+RewriteEngine On
+RedirectMatch 403 ^/server/?$
+
+# block direct access to critical files
+<FilesMatch "\.(htaccess|ini|info|log)$">
+ Order Allow,Deny
+ Deny from all
+</FilesMatch>
