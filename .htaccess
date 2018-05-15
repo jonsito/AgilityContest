@@ -1,0 +1,5 @@
+AddDefaultCharset UTF-8
+Options All -Indexes
+RewriteEngine On
+RewriteRule ^agility/server/?$ agility/ajax/ [301,L]
+
