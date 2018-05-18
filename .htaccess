@@ -3,5 +3,25 @@
 AddDefaultCharset UTF-8
 Options All -Indexes
 
-# pending: redirigir carpeta raiz de la instalacion a carpeta "agility"
 
+# block direct access to critical files
+<FilesMatch "\.(htaccess|ini|info|log)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# pending: redirigir carpeta raiz de la instalacion a carpeta "agility"
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # block access to "*/server/*" and web directory
+    RewriteRule ^(applications|server|build|extras|logs|web)/?$ - [F,L]
+
+    # Redirect http to https:
+    RewriteCond %{HTTPS} off
+    RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Redirect base to base/agility, unless already specified
+    RewriteCond %{REQUEST_URI} !^/agility/
+    RewriteRule ^(.*)$ /AgilityContest/agility/$1 [R=301,L]
+</IfModule>

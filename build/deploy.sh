@@ -57,7 +57,7 @@ echo "Done."
 
 # copy files
 echo -n "Copying files..."
-( cd ${BASEDIR}; tar cfBp - * ) | ( cd ${INSTDIR}; tar xfBp - )
+( cd ${BASEDIR}; tar cfBp - * .htaccess ) | ( cd ${INSTDIR}; tar xfBp - )
 echo "Done."
 
 # directories to preserve ( copy from backup )
