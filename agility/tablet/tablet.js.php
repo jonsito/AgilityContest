@@ -735,17 +735,17 @@ function bindKeysToTablet() {
 			// entrada de datos desde tablet
 			case 70: // 'F' -> falta
 			case 32: // ' ' -> space also works as fault
-				if (e.ctrlKey) tablet_down('#tdialog-Faltas',true);
+				if (e.ctrlKey || e.metaKey) tablet_down('#tdialog-Faltas',true);
 				else 	tablet_up('#tdialog-Faltas',true);
 				break;
 			case 82: // 'R' -> rehuse
 			case 225: // 'AltGr' -> also works as refusal
-				if (e.ctrlKey) tablet_down('#tdialog-Rehuses',true);
+				if (e.ctrlKey || e.metaKey) tablet_down('#tdialog-Rehuses',true);
 				else 	tablet_up('#tdialog-Rehuses',true);
 				break;
 			case 84: // 'T' -> tocado
 			// case 18: // 'Alt' -> also works as "touch"
-				if (e.ctrlKey) tablet_down('#tdialog-Tocados',true);
+				if (e.ctrlKey || e.metaKey) tablet_down('#tdialog-Tocados',true);
 				else 	tablet_up('#tdialog-Tocados',true);
 				break;
 			case 69:	tablet_elim(true); break; // 'E' -> eliminado

@@ -346,7 +346,7 @@ function bindKeysToChrono() {
     // parse keypress event on every  button
 	$(document).keydown(function(e) {
 		var val=0;
-		var inc=(e.ctrlKey)?-1:1; // take care on control key
+		var inc=(e.ctrlKey || e.metaKey)?-1:1; // take care on control key
 		switch(e.which) {
 			// reconocimiento de pista
 			case 55: // '7' -> comienzo del reconocimiento

@@ -202,7 +202,7 @@ function vws_keyBindings(inScoreMode) {
     // capture <space> key to switch OSD on/off
     $(document).keydown(function(e) {
         var keycode=e.which;
-        var ctrl=e.ctrlKey;
+        var ctrl=e.ctrlKey || e.metaKey;
         e.preventDefault();
         var delta=0;
         if (keycode == 38) delta=0.1; //  key up

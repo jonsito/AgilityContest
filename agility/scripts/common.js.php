@@ -1177,7 +1177,7 @@ function addSimpleKeyHandler(datagrid,dialog,onEnter){
 	    case 40:    /* Down */
             selectRow(t,false); return false;
 	    case 13:	/* Enter */
-            if (e.ctrlKey) {
+            if (e.ctrlKey || e.metaKey) {
                 displayRowData(t);
                 return false;
             }
@@ -1274,7 +1274,7 @@ function addKeyHandler(dgid,dialog,insertfn,updatefn,deletefn) {
         switch(e.keyCode){
         case 38:	/* Up */	 selectRow(t,true); return false;
         case 40:    /* Down */	 selectRow(t,false); return false;
-        case 13:	/* Enter */	 if (e.ctrlKey) displayRowData(t); else if(updatefn) updatefn(dgid); return false;
+        case 13:	/* Enter */	 if (e.ctrlKey|| e.metaKey) displayRowData(t); else if(updatefn) updatefn(dgid); return false;
         case 45:	/* Insert */ if(insertfn) insertfn(dgid,$(dgid+'-search').val()); return false;
         case 46:	/* Supr */	 if(deletefn) deletefn(dgid); return false;
         case 33:	/* Re Pag */ selectPage(t,-1); return false;
