@@ -24,7 +24,7 @@ BUILD_DIR=/home/jantonio/work/agility/build
 EXTRA_DIR=/home/jantonio/work/agility/extra-pkgs
 CONF_DIR=${BASE_DIR}/extras
 NSIS=${BASE_DIR}/build/AgilityContest.nsi
-XAMPP=xampp-portable-win32-5.6.24-1-VC11.zip
+XAMPP=xampp-portable-win32-5.6.36-0-VC11.zip
 DROPBOX=${HOME}/Dropbox/Public/AgilityContest
 
 # make sure that build dir exists and is clean
@@ -34,7 +34,7 @@ rm -rf ${BUILD_DIR}/*
 #retrieve xampp from server if not exists
 if [ ! -f ${EXTRA_DIR}/${XAMPP} ]; then
     echo "Download xampp from server ..."
-    (cd ${EXTRA_DIR}; wget http://sourceforge.net/projects/xampp/files/XAMPP%20Windows/5.6.24/${XAMPP} )
+    (cd ${EXTRA_DIR}; wget --no-check-certificate http://sourceforge.net/projects/xampp/files/XAMPP%20Windows/5.6.36/${XAMPP} )
     if [ $? -ne 0 ]; then
         echo "Cannot download xampp. Aborting"
         exit 1
@@ -120,11 +120,11 @@ VERSION=`echo ${VERSION} |sed -e 's/"//g'`
 DATE=`echo ${DATE} |sed -e 's/"//g'`
 mkdir -p ${BUILD_DIR}/AgilityContest-master
 cd ${BUILD_DIR}
-cp extras/osx_install.command .
-chmod +x osx_install.command
+cp extras/{osx_install.command,create_certificate.command} .
+chmod +x *.command
 mkdir -p .background
 cp agility/images/AgilityContest.png .background
-cp -r COPYING License.txt agility logs extras docs AgilityContest-master
+cp -r COPYING License.txt agility logs applications extras docs AgilityContest-master
 # do not include build and web dir in destination zipfile
 zip -r AgilityContest-master.zip AgilityContest-master/{agility,applications,extras,logs}
 FILES="osx_install.command create_certificate.command COPYING License.txt AgilityContest-master.zip"
@@ -156,5 +156,5 @@ sed -i "s/__MACFILE__/${dsum}/g" AgilityContest-${VERSION}-${DATE}_md5check.html
 #mv AgilityContest-${VERSION}-${DATE}.* ${DROPBOX}
 
 # cleanups
-rm -rf AgilityContest-master AgilityContest-master.zip osx_install.command .background
+rm -rf AgilityContest-master AgilityContest-master.zip *.command .background
 echo "That's all folks!"
