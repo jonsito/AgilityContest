@@ -157,6 +157,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
         strncpy(tmp,set_lang,32);
         for (char* p=tmp;*p;p++) { if (*p=='_') *p='-'; } // translate es_ES to es-ES
         char *locale=1+strchr(tmp,'=');
+        setlocale(LC_ALL, locale);
         doLog("setlocale",locale);
     }
 

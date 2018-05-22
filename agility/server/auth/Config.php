@@ -436,6 +436,7 @@ Class Config {
 	 * this function is called on webhost install process
 	 * to create system.ini file
      * @param {array} $data Data to be stored
+	 * @return {bool|int} result status of write operation
      */
 	function writeAC_systemFile($data) {
 		$res= array (
@@ -450,12 +451,12 @@ Class Config {
             'master_baseurl'	=> $this->getEnv('master_baseurl'),
             'database_name'		=> $data['dbname'],
             'database_host'		=> $data['dbhost'],
-            'database_user'		=> base64_encode($data['dbuser']),  // agility_admin
+            'database_user'		=> base64_encode($data['dbuser']),  // usually "agility_admin"
             'database_pass'		=> base64_encode($data['dbpass']),  // random, runtime generated OTP password
-            'database_ruser'	=> base64_encode($data['dbruser']), // agility_operator
+            'database_ruser'	=> base64_encode($data['dbruser']), // usually "agility_operator"
             'database_rpass'	=> base64_encode($data['dbrpass']), // random, runtime generated OTP password
 		);
-        return $this->write_ini_file($data,AC_SYSTEM_FILE,false);
+        return $this->write_ini_file($res,AC_SYSTEM_FILE,false);
 	}
 
     /**
@@ -504,9 +505,9 @@ Class Config {
         if (!array_key_exists($locale,$locale_list)) $locale=$this->config['lang'];
 		$locales=$locale_list[$locale];
 		$sel=setlocale(LC_ALL, $locales);
-		putenv("LC_ALL=$sel");
-		// setlocale(LC_ALL, $locale);
-		// putenv("LC_ALL=$locale");
+		putenv("LC_ALL={$sel}");
+        putenv("LANG={$sel}");
+        putenv("LANGUAGE={$sel}");
         setlocale(LC_NUMERIC, ($windows)?'eng':'en_US'); // Fix for float number with incorrect decimal separator.
         $domain="AgilityContest";
 		bindtextdomain($domain, __DIR__."/../../locale");
@@ -525,6 +526,12 @@ Class Config {
 	}
 	
 	/* from PHP documentation on parse_ini_file(); */
+    /**
+     * @param {array} $assoc_arr
+     * @param {string} $path
+     * @param {bool} $has_sections
+     * @return bool|int
+     */
 	private function write_ini_file($assoc_arr, $path, $has_sections=FALSE) {
 		$content = "";
 		if ($has_sections) {
