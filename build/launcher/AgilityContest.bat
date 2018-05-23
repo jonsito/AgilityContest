@@ -1,4 +1,5 @@
 @echo off
+rem "setting.bat" is renamed to "lang.ini" on version 3.8.X
 call settings.bat
 cd /d %~dp0\xampp
 rem echo AgilityContest Launch Script

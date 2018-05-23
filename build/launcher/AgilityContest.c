@@ -143,9 +143,9 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     firstInstall=fopen(".\\logs\\first_install","r");
     if (!firstInstall) doLog("firstInstall",strerror(errno));
 
-    // call settings.bat
-    // settings.bat sets default language. So just parse and setenv
-    FILE *f=fopen(".\\settings.bat","r");
+    // read lang.ini ( formerly settings.bat )
+    // lang.ini sets default language. So just parse and setenv
+    FILE *f=fopen(".\\lang.ini","r");
     if (f) {
         // trick translate "SET LANG=es_ES to" "es-ES" for using setlocale()
         set_lang=calloc(32,sizeof(char));

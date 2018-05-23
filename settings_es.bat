@@ -1,1 +1,0 @@
-SET LANG=es_ES

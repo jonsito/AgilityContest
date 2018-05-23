@@ -185,27 +185,37 @@ SectionEnd
 
 Section "Initial language: Spanish" esp
     SetOutPath $INSTDIR
-    File /oname=settings.bat settings_es.bat
+    FileOpen $0 "lang.ini"
+    FileWrite $0 "SET LANG=es_ES"
+    FileClose $0
 SectionEnd
 
 Section /o "Initial language: English" eng
     SetOutPath $INSTDIR
-    File /oname=settings.bat settings_en.bat
+    FileOpen $0 "lang.ini"
+    FileWrite $0 "SET LANG=en_US"
+    FileClose $0
 SectionEnd
 
 Section /o "Initial language: German" ger
     SetOutPath $INSTDIR
-    File /oname=settings.bat settings_de.bat
+    FileOpen $0 "lang.ini"
+    FileWrite $0 "SET LANG=de_DE"
+    FileClose $0
 SectionEnd
 
 Section /o "Initial language: Hungarian" hun
     SetOutPath $INSTDIR
-    File /oname=settings.bat settings_hu.bat
+    FileOpen $0 "lang.ini"
+    FileWrite $0 "SET LANG=hu_HU"
+    FileClose $0
 SectionEnd
 
 Section /o "Initial language: Portuguese" prt
     SetOutPath $INSTDIR
-    File /oname=settings.bat settings_pt.bat
+    FileOpen $0 "lang.ini"
+    FileWrite $0 "SET LANG=pt_PT"
+    FileClose $0
 SectionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;
