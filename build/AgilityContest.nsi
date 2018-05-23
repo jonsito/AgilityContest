@@ -184,36 +184,31 @@ Section "Desktop Shortcut" desk
 SectionEnd
 
 Section "Initial language: Spanish" esp
-    SetOutPath $INSTDIR
-    FileOpen $0 "lang.ini"
+    FileOpen $0 "$INSTDIR\lang.ini" w
     FileWrite $0 "SET LANG=es_ES"
     FileClose $0
 SectionEnd
 
 Section /o "Initial language: English" eng
-    SetOutPath $INSTDIR
-    FileOpen $0 "lang.ini"
+    FileOpen $0 "$INSTDIR\lang.ini" w
     FileWrite $0 "SET LANG=en_US"
     FileClose $0
 SectionEnd
 
 Section /o "Initial language: German" ger
-    SetOutPath $INSTDIR
-    FileOpen $0 "lang.ini"
+    FileOpen $0 "$INSTDIR\lang.ini" w
     FileWrite $0 "SET LANG=de_DE"
     FileClose $0
 SectionEnd
 
 Section /o "Initial language: Hungarian" hun
-    SetOutPath $INSTDIR
-    FileOpen $0 "lang.ini"
+    FileOpen $0 "$INSTDIR\lang.ini" w
     FileWrite $0 "SET LANG=hu_HU"
     FileClose $0
 SectionEnd
 
 Section /o "Initial language: Portuguese" prt
-    SetOutPath $INSTDIR
-    FileOpen $0 "lang.ini"
+    FileOpen $0 "$INSTDIR\lang.ini" w
     FileWrite $0 "SET LANG=pt_PT"
     FileClose $0
 SectionEnd
