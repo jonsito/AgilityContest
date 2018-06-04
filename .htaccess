@@ -13,6 +13,11 @@ Options All -Indexes
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # to maintain compatibility with 3.7.3 server requests
+    # need to rewrite "server/database/updater" to "ajax"
+    RewriteCond %{REQUEST_URI} /updateRequest.php
+    RewriteRule ^(.*)$ /AgilityContest/agility/ajax/updateRequest.php [R=301,L]
+
     # block access to "*/server/*" and web directory
     RewriteCond %{REQUEST_URI} /(applications|server|build|extras|logs|web)/
     RewriteRule ^(.*) - [F,L]
