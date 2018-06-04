@@ -73,7 +73,8 @@ try {
                     $am->access(PERMS_ADMIN);
                     $up=new Uploader("CheckUpdateDBAtLogin");
                     $res= $up->doCheckForUpdates($result['Serial']);
-                    $result['NewEntries'] = $res['rows'][0]['NewEntries'];
+                    // trap server response fail and set new entries to 0 on error
+                    $result['NewEntries'] = ($res['errorMsg'] )? 0 : $res['rows'][0]['NewEntries'];
                 } catch (Exception $e) { do_log("CheckUpdateDBAtLogin: ".$e->getMessage()); }
             }
             break;

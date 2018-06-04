@@ -214,27 +214,38 @@ class Uploader {
         // actualizamos jueces
         set_time_limit($timeout);
         if (is_array($res)) {
-            foreach($res['Jueces'] as $juez) {
-                $this->reportProgress(_("Updating")." "._("Judge").": ".$juez['Nombre']);
-                $upd->handleJuez($juez);
+            // notice that on error an array is returned, but not meaningfull data
+            if (is_array($res['Jueces'])) {
+                // update judges
+                set_time_limit($timeout);
+                foreach($res['Jueces'] as $juez) {
+                    $this->reportProgress(_("Updating")." "._("Judge").": ".$juez['Nombre']);
+                    $upd->handleJuez($juez);
+                }
             }
-            // actualizamos clubes
-            set_time_limit($timeout);
-            foreach($res['Clubes'] as $club) {
-                $this->reportProgress(_("Updating")." "._("Club").": ".$club['Nombre']);
-                $upd->handleClub($club);
+            if (is_array($res['Clubes'])) {
+                // actualizamos clubes
+                set_time_limit($timeout);
+                foreach($res['Clubes'] as $club) {
+                    $this->reportProgress(_("Updating")." "._("Club").": ".$club['Nombre']);
+                    $upd->handleClub($club);
+                }
             }
-            // actualizamos guias
-            set_time_limit($timeout);
-            foreach($res['Guias'] as $guia) {
-                $this->reportProgress(_("Updating")." "._("Handler").": ".$guia['Nombre']);
-                $upd->handleGuia($guia);
+            if (is_array($res['Guias'])) {
+                // actualizamos guias
+                set_time_limit($timeout);
+                foreach($res['Guias'] as $guia) {
+                    $this->reportProgress(_("Updating")." "._("Handler").": ".$guia['Nombre']);
+                    $upd->handleGuia($guia);
+                }
             }
-            // actualizamos perros
-            set_time_limit($timeout);
-            foreach($res['Perros'] as $perro) {
-                $this->reportProgress(_("Updating")." "._("Dog").": ".$perro['Nombre']);
-                $upd->handlePerro($perro);
+            if (is_array($res['Perros'])) {
+                // actualizamos perros
+                set_time_limit($timeout);
+                foreach($res['Perros'] as $perro) {
+                    $this->reportProgress(_("Updating")." "._("Dog").": ".$perro['Nombre']);
+                    $upd->handlePerro($perro);
+                }
             }
             $this->reportProgress(_("Setting new update timestamp"));
             $this->updateTimeStamp();

@@ -55,7 +55,13 @@ try {
             $ul=new Uploader("checkForUpdates",$suffix);
             // send / receive changes from server
             $res=$ul->doCheckForUpdates($serial);
-            $result=array("success"=>true,"NewEntries"=>$res['rows'][0]['NewEntries']);
+            if ($res['errorMsg']) {
+                // if fail to contact server, do not abort, just set new entries to 0
+                // this is done to retain compatibility with 3.7.3 server structure
+                $result=array("success"=>true,"NewEntries"=>0);
+            } else {
+                $result=array("success"=>true,"NewEntries"=>$res['rows'][0]['NewEntries']);
+            }
             break;
         case "updateRequest": // this is to be executed on client app
             $am= AuthManager::getInstance("adminFunctions");
