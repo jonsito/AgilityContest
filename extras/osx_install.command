@@ -2,9 +2,9 @@
 BASE=`dirname $0`
 HTCONF=/Applications/XAMPP/etc
 HTDOCS=/Applications/XAMPP/htdocs
-BASEDIR=$HTDOCS/AgilityContest-master
-CONFDIR=$HTDOCS/AgilityContest-master/agility/server/auth
-EXTRAS=$HTDOCS/AgilityContest-master/extras
+BASEDIR=$HTDOCS/AgilityContest
+CONFDIR=$HTDOCS/AgilityContest/agility/server/auth
+EXTRAS=$HTDOCS/AgilityContest/extras
 
 # request root permissions before continue install
 if [ "$USER" != "root" ]; then
@@ -19,8 +19,10 @@ if [ ! -d /Applications/XAMPP ]; then
     exit 1
 fi
 
-echo "Prepare..."
+echo "Prepare ..."
+# download from github or (prefered) use zip from .dmg diskfile
 # curl https://codeload.github.com/jonsito/AgilityContest/zip/master -o /tmp/AgilityContest-master.zip
+cp $BASE/AgilityContest-master.zip /tmp/AgilityContest-master.zip
 rm -f /tmp/registration.info
 rm -f /tmp/config.ini
 echo ""
@@ -36,7 +38,8 @@ rm -rf $BASEDIR.old
 
 # and unzip files
 cd $HTDOCS;
-unzip -q $BASE/AgilityContest-master.zip
+unzip -q /tmp/AgilityContest-master.zip
+mv ${HTDOCS}/AgilityContest-master ${HTDOCS}/AgilityContest
 echo ""
 
 echo "Configuring MySQL... "
@@ -44,10 +47,17 @@ sed -i -e '/.*lower_case_table_names.*/d' /Applications/XAMPP/xamppfiles/etc/my.
 sed -i -e '/\[mysqld\]/a lower_case_table_names = 1' /Applications/XAMPP/xamppfiles/etc/my.cnf
 echo ""
 
+# add and edit AgilityContest_apache2.conf
 echo "Adding AgilityContest apache configuration file... "
-cp $EXTRAS/AgilityContest_osx.conf ${HTCONF}/extra
+cp $EXTRAS/AgilityContest_apache2.conf ${HTCONF}/extra
+sed -i -e "s|__HTTP_BASEDIR__|${HTDOCS}|g" -e "s|__AC_BASENAME__|AgilityContest|g" ${HTCONF}/extra/AgilityContest_apache2.conf
+
+# edit ${HTDOCS}/AgilityContest/.htaccess
+sed -i -e "s:|__HTTP_BASEDIR__|${HTDOCS}|g" -e "s|__AC_BASENAME__|AgilityContest|g" ${HTDOCS}/AgilityContest/.htaccess
+
+# Tell httpd.conf to include AgilityContest config file
 sed -i -e '/.*AgilityContest.*/d' ${HTCONF}/httpd.conf
-echo 'Include "/Applications/XAMPP/etc/extra/AgilityContest_osx.conf"' >> ${HTCONF}/httpd.conf
+echo 'Include "/Applications/XAMPP/etc/extra/AgilityContest_apache2.conf"' >> ${HTCONF}/httpd.conf
 echo ""
 
 # create and install certificates
@@ -74,9 +84,9 @@ fi
 
 echo "Fixing permissions... "
 cd $HTDOCS
-chown -R daemon AgilityContest-master
-chgrp -R daemon AgilityContest-master
-xattr -dr com.apple.quarantine AgilityContest-master
+chown -R daemon AgilityContest
+chgrp -R daemon AgilityContest
+xattr -dr com.apple.quarantine AgilityContest
 echo ""
 
 echo "Starting MySQL database server"
@@ -88,8 +98,8 @@ cat <<_EOF | /Applications/XAMPP/bin/mysql -u root
 DROP DATABASE IF EXISTS agility;
 CREATE DATABASE agility;
 USE agility;
-SOURCE /Applications/XAMPP/htdocs/AgilityContest-master/extras/agility.sql;
-SOURCE /Applications/XAMPP/htdocs/AgilityContest-master/extras/users.sql;
+SOURCE /Applications/XAMPP/htdocs/AgilityContest/extras/agility.sql;
+SOURCE /Applications/XAMPP/htdocs/AgilityContest/extras/users.sql;
 _EOF
 echo ""
 

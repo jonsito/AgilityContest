@@ -57,7 +57,7 @@ cat <<__EOF >>${BUILD_DIR}/xampp/apache/conf/httpd.conf
 <IfModule mpm_winnt_module>
     ThreadStackSize 8388608
 </IfModule>
-Include "conf/extra/AgilityContest_xampp.conf"
+Include "conf/extra/AgilityContest_apache2.conf"
 __EOF
 unix2dos ${BUILD_DIR}/xampp/apache/conf/httpd.conf
 
@@ -70,8 +70,8 @@ rm -rf /tmp/ssl_crt
 
 # add AC config file and remove "/" to use relative paths
 echo "Adding AgilityContest config file ..."
-cp ${CONF_DIR}/AgilityContest_xampp.conf ${BUILD_DIR}/xampp/apache/conf/extra
-sed -i "s:/AgilityContest-master:/AgilityContest:g" ${BUILD_DIR}/xampp/apache/conf/extra/AgilityContest_xampp.conf
+cp ${CONF_DIR}/AgilityContest_apache2.conf ${BUILD_DIR}/xampp/apache/conf/extra
+sed -i -e "s|__HTTP_BASEDIR__|C:/|g" -e "s|__AC_BASENAME__|AgilityContest|g" ${BUILD_DIR}/xampp/apache/conf/extra/AgilityContest_apache2.conf
 
 # enable OpenSSL and Locale support into php
 echo "Setting up php/php.ini ..."
@@ -88,9 +88,11 @@ unix2dos ${BUILD_DIR}/xampp/mysql/my.ini
 
 # ok. time to add AgilityContest files
 echo "Copying AgilityContest files ..."
-(cd ${BASE_DIR}; tar cfBp - agility applications extras logs AgilityContest.exe COPYING README.md Contributors) |\
+(cd ${BASE_DIR}; tar cfBp - .htaccess index.html agility applications extras logs AgilityContest.exe COPYING README.md Contributors) |\
     ( cd ${BUILD_DIR}; tar xfBp - )
+# set first install mark and properly edit .htaccess
 touch ${BUILD_DIR}/logs/first_install
+sed -i -e "s|__HTTP_BASEDIR__|C:/|g" -e "s|__AC_BASENAME__|AgilityContest|g" ${BUILD_DIR}/.htaccess
 
 # create directory for docs (some day...)
 mkdir -p ${BUILD_DIR}/docs
@@ -117,11 +119,15 @@ VERSION=`echo ${VERSION} |sed -e 's/"//g'`
 DATE=`echo ${DATE} |sed -e 's/"//g'`
 mkdir -p ${BUILD_DIR}/AgilityContest-master
 cd ${BUILD_DIR}
+# add build installer and certificate script
 cp extras/{osx_install.command,create_certificate.command} .
 chmod +x *.command
+# add .dmg background image
 mkdir -p .background
 cp agility/images/AgilityContest.png .background
 cp -r COPYING License.txt agility logs applications extras docs AgilityContest-master
+# restore original .htaccess
+cp ${BASEDIR}/.htaccess AgilityContest-master
 # do not include build and web dir in destination zipfile
 zip -r AgilityContest-master.zip AgilityContest-master/{agility,applications,extras,logs}
 FILES="osx_install.command create_certificate.command COPYING License.txt AgilityContest-master.zip"
@@ -153,5 +159,5 @@ sed -i "s/__MACFILE__/${dsum}/g" AgilityContest-${VERSION}-${DATE}_md5check.html
 #mv AgilityContest-${VERSION}-${DATE}.* ${DROPBOX}
 
 # cleanups
-rm -rf AgilityContest-master AgilityContest-master.zip *.command .background
+rm -rf AgilityContest AgilityContest.zip *.command .background
 echo "That's all folks!"

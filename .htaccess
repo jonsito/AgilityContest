@@ -1,17 +1,39 @@
 # presuponemos que en el fichero de configuracion httpd.conf tenemos
 # AllowOverride All
 AddDefaultCharset UTF-8
-Options All -Indexes
+Options -Indexes +SymLinksIfOwnerMatch +Includes +ExecCGI
+DirectoryIndex index.php index.html
 
-# block direct access to critical files
-<FilesMatch "\.(htaccess|ini|info|log)$">
-    Order Allow,Deny
-    Deny from all
-</FilesMatch>
+# control de acceso. En principio se deja entrar desde cualquier IP
+# en www.agilitycontest.es hay que meter filtros de bots y similares
+<IfModule authz_core_module>
+		# Apache 2.4
+		Require all granted
+</IfModule>
+# obsoleto, pero se deja por compatibilidad
+<IfModule !authz_core_module>
+		# Apache 2.2
+		Order allow,deny
+		Allow from all
+</IfModule>
 
-# pending: redirigir carpeta raiz de la instalacion a carpeta "agility"
-<IfModule mod_rewrite.c>
+# Configuracion de php5
+<IfModule php5_module>
+		AddType application/x-httpd-php .php
+		php_flag magic_quotes_gpc Off
+		php_flag track_vars On
+		php_flag register_globals Off
+		php_admin_flag allow_url_fopen Off
+		php_value include_path .
+</IfModule>
+
+# reglas de re-escritura y control de acceso a la aplicacion
+<IfModule rewrite_module>
     RewriteEngine On
+
+    # Redirect http to https:
+    RewriteCond %{HTTPS} off
+    RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # to maintain compatibility with 3.7.3 server requests
     # need to rewrite "server/database/updater" to "ajax"
@@ -19,14 +41,14 @@ Options All -Indexes
     RewriteRule ^(.*)$ /ajax/updateRequest.php [R=301,L]
 
     # block access to "*/server/*" and web directory
-    RewriteCond %{REQUEST_URI} /(applications|server|build|extras|logs|web)/
+    RewriteCond %{REQUEST_URI} /(applications|server|build|extras|logs|web|xampp)/
     RewriteRule ^(.*) - [F,L]
 
-    # Redirect http to https:
-    RewriteCond %{HTTPS} off
-    RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # block access to critical files:
+    RewriteCond %{REQUEST_URI} \.(htaccess|ini|info|log|conf|sql)$
+    RewriteRule (.*)$ - [F,L]
 
     # Redirect base to base/agility, unless already specified
-    RewriteCond %{REQUEST_URI} !^/AgilityContest\/agility/
-    RewriteRule ^(.*)$ /AgilityContest/agility/$1 [R=301,L]
+    RewriteCond %{REQUEST_URI} !^/__AC_BASENAME__\/agility/
+    RewriteRule ^(.*)$ /__AC_BASENAME__/agility/$1 [R=301,L]
 </IfModule>
