@@ -5,6 +5,7 @@
 BASEDIR=`dirname $0`/..
 INSTDIR=${1:-/var/www/html/AgilityContest}
 WEBDIR=`dirname ${INSTDIR}`
+BASENAME=`basename ${INSTDIR}`
 SYSTEMINI="agility/server/auth/system.ini"
 HTACCESS=${INSTDIR}/.htaccess
 
@@ -63,19 +64,19 @@ echo "Done."
 
 # personalize apache related files ( httpd.conf , .htaccess )
 echo -n "Personalize apache files... "
-sed -i -e "s:__HTTP_BASEDIR__:${WEBDIR}:g" -e "s:__AC_BASENAME__:AgilityContest:g" ${HTACCESS}
+sed -i -e "s:__HTTP_BASEDIR__:${WEBDIR}:g" -e "s:__AC_BASENAME__:${BASENAME}:g" ${HTACCESS}
 case `grep -e '^ID=' /etc/os-release` in
     'ID=ubuntu' )
         CONF=/etc/apache2/conf-available/AgilityContest_apache2.conf
         cp ${BASEDIR}/extras/AgilityContest_apache2.conf ${CONF}
-        sed -i -e "s:__HTTP_BASEDIR__:${WEBDIR}:g" -e "s:__AC_BASENAME__:AgilityContest:g" ${CONF}
+        sed -i -e "s:__HTTP_BASEDIR__:${WEBDIR}:g" -e "s:__AC_BASENAME__:${BASENAME}:g" ${CONF}
         a2enconf AgilityContest_apache2
         service apache2 reload
         ;;
     'ID=fedora' )
         CONF=/etc/httpd/conf.d/AgilityContest_apache2.conf
         cp ${BASEDIR}/extras/AgilityContest_apache2.conf ${CONF}
-        sed -i -e "s:__HTTP_BASEDIR__:${WEBDIR}:g" -e "s:__AC_BASENAME__:AgilityContest:g" ${CONF}
+        sed -i -e "s:__HTTP_BASEDIR__:${WEBDIR}:g" -e "s:__AC_BASENAME__:${BASENAME}:g" ${CONF}
         systemctl restart httpd
         ;;
 esac

@@ -47,7 +47,7 @@ echo "Compiling launcher..."
 
 # unzip xampp to build directory
 echo "Extracting xampp ... "
-( cd ${BUILD_DIR}; unzip ${EXTRA_DIR}/${XAMPP} )
+( cd ${BUILD_DIR}; unzip -q ${EXTRA_DIR}/${XAMPP} )
 
 # personalize xampp files
 # notice that relocation will be done at nsi install time with "setup_xampp.bat"
@@ -127,11 +127,11 @@ mkdir -p .background
 cp agility/images/AgilityContest.png .background
 cp -r COPYING License.txt agility logs applications extras docs AgilityContest-master
 # restore original .htaccess
-cp ${BASEDIR}/.htaccess AgilityContest-master
+cp ${BASE_DIR}/.htaccess AgilityContest-master
 # do not include build and web dir in destination zipfile
-zip -r AgilityContest-master.zip AgilityContest-master/{agility,applications,extras,logs}
+zip -q -r AgilityContest-master.zip AgilityContest-master/{agility,applications,extras,logs}
 FILES="osx_install.command create_certificate.command COPYING License.txt AgilityContest-master.zip"
-mkisofs -A AgilityContest \
+mkisofs -quiet -A AgilityContest \
     -P jonsito@gmail.com \
     -V ${VERSION}_${DATE} \
     -J -r -o AgilityContest-${VERSION}-${DATE}.dmg \
