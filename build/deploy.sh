@@ -4,8 +4,9 @@
 # clone from http://github.com/jonsito/AgilityContest.git
 BASEDIR=`dirname $0`/..
 INSTDIR=${1:-/var/www/html/AgilityContest}
-WEBDIR=${INSTDIR}/..
+WEBDIR=`dirname ${INSTDIR}`
 SYSTEMINI="agility/server/auth/system.ini"
+HTACCESS=${INSTDIR}/.htaccess
 
 case `grep -e '^ID=' /etc/os-release` in
     'ID=ubuntu' )
@@ -59,6 +60,26 @@ echo "Done."
 echo -n "Copying files..."
 ( cd ${BASEDIR}; tar cfBp - * .htaccess ) | ( cd ${INSTDIR}; tar xfBp - )
 echo "Done."
+
+# personalize apache related files ( httpd.conf , .htaccess )
+echo -n "Personalize apache files... "
+sed -i -e "s:__HTTP_BASEDIR__:${WEBDIR}:g" -e "s:__AC_BASENAME__:AgilityContest:g" ${HTACCESS}
+case `grep -e '^ID=' /etc/os-release` in
+    'ID=ubuntu' )
+        CONF=/etc/apache2/conf-available/AgilityContest_apache2.conf
+        cp ${BASEDIR}/extras/AgilityContest_apache2.conf ${CONF}
+        sed -i -e "s:__HTTP_BASEDIR__:${WEBDIR}:g" -e "s:__AC_BASENAME__:AgilityContest:g" ${CONF}
+        a2enconf AgilityContest_apache2
+        service apache2 reload
+        ;;
+    'ID=fedora' )
+        CONF=/etc/httpd/conf.d/AgilityContest_apache2.conf
+        cp ${BASEDIR}/extras/AgilityContest_apache2.conf ${CONF}
+        sed -i -e "s:__HTTP_BASEDIR__:${WEBDIR}:g" -e "s:__AC_BASENAME__:AgilityContest:g" ${CONF}
+        systemctl restart httpd
+        ;;
+esac
+echo "Done"
 
 # directories to preserve ( copy from backup )
 echo "Preserve directories..."
