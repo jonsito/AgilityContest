@@ -23,7 +23,7 @@ DirectoryIndex index.php index.html
 		php_flag magic_quotes_gpc Off
 		php_flag track_vars On
 		php_flag register_globals Off
-		php_admin_flag allow_url_fopen Off
+		# php_admin_flag allow_url_fopen Off
 		php_value include_path .
 </IfModule>
 
