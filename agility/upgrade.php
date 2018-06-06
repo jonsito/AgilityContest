@@ -17,9 +17,9 @@ upgrade.php
  */
 
 // Github redirects links, and make curl fail.. so use real ones
-// define ('UPDATE_INFO','https://github.com/jonsito/AgilityContest/raw/master/agility/server/auth/system.ini');
+// define ('UPDATE_INFO','https://github.com/jonsito/AgilityContest/raw/master/config/system.ini');
 // define ('UPDATE_FILE','https://github.com/jonsito/AgilityContest/archive/master.zip');
-define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/agility/server/auth/system.ini');
+define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/config/system.ini');
 define ('UPDATE_FILE','https://codeload.github.com/jonsito/AgilityContest/zip/master');
 define ('TEMP_FILE', __DIR__."/../logs/AgilityContest-");
 define ('LOG_FILE', __DIR__."/../logs/update.log");
@@ -62,7 +62,7 @@ function retrieveFileFromURL($url) {
         $timeout = 5;
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
-        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/server/auth/cacert.pem");
+        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/../config/cacert.pem");
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
         $data = curl_exec($ch);
         if ($data===FALSE) { echo "curl_exec() failed:".curl_error($ch)."<br/>"; return FALSE; }
@@ -124,7 +124,7 @@ Class AgilityContestUpdater {
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_ENCODING, "");
-        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/server/auth/cacert.pem");
+        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/../config/cacert.pem");
         set_time_limit(350);
         $res=curl_exec($ch);
         curl_close($ch);
@@ -145,8 +145,8 @@ Class AgilityContestUpdater {
         $this->logProgress("Version date: {$this->version_date}");
         $this->temp_file=TEMP_FILE . $this->version_date . ".zip";
         $this->user_files = array (
-            "config.ini" => __DIR__."/server/auth/config.ini",
-            "registration.info" => __DIR__."/server/auth/registration.info",
+            "config.ini" => __DIR__."/../config/config.ini",
+            "registration.info" => __DIR__."/../config/registration.info",
             "supporters.csv" => __DIR__."/images/supporters/supporters.csv"
         );
     }

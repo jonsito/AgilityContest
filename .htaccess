@@ -41,14 +41,14 @@ DirectoryIndex index.php index.html
     RewriteRule ^(.*)$ /ajax/updateRequest.php [R=301,L]
 
     # block access to "*/server/*" and web directory
-    RewriteCond %{REQUEST_URI} /(applications|server|build|extras|logs|web|xampp)/
+    RewriteCond %{REQUEST_URI} /(config|applications|server|build|extras|logs|web|xampp)/
     RewriteRule ^(.*) - [F,L]
 
     # block access to critical files:
-    RewriteCond %{REQUEST_URI} \.(htaccess|ini|info|log|conf|sql)$
+    RewriteCond %{REQUEST_URI} \.(htaccess|ini|info|log|conf|sql|pem)$
     RewriteRule (.*)$ - [F,L]
 
     # Redirect base to base/agility, unless already specified
-    RewriteCond %{REQUEST_URI} !^/__AC_BASENAME__\/agility/
-    RewriteRule ^(.*)$ /__AC_BASENAME__/agility/$1 [R=301,L]
+    RewriteCond %{REQUEST_URI} !^/__AC_WEBNAME__\/agility/
+    RewriteRule ^(.*)$ /__AC_WEBNAME__/agility/$1 [R=301,L]
 </IfModule>

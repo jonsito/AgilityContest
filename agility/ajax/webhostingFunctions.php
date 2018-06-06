@@ -22,7 +22,7 @@ require_once(__DIR__ . "/../server/database/classes/DBConnection.php");
 
 $response="";
 try {
-	if (file_exists(__DIR__ . "/auth/system.ini"))
+	if (file_exists(__DIR__ . "/../../config/system.ini"))
 		throw new Exception( "AgilityContest is already installed");
     $operation = http_request("Operation","s","");
 	$data=array(

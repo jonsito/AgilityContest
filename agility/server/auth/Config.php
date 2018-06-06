@@ -17,8 +17,8 @@
  */
 
 /** default values **/
-define('AC_CONFIG_FILE',__DIR__."/config.ini"); // user definable configuration
-define('AC_SYSTEM_FILE',__DIR__."/system.ini"); // system configuration.
+define('AC_CONFIG_FILE', __DIR__ . "/../../../config/config.ini"); // user definable configuration
+define('AC_SYSTEM_FILE', __DIR__ . "/../../../config/system.ini"); // system configuration.
 define('AC_BATCH_FILE',__DIR__."/../../../settings.bat"); // to store lang info in windoze
 
 /** running modes */

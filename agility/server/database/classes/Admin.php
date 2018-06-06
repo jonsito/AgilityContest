@@ -18,8 +18,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 // Github redirects links, and make curl fail.. so use real ones
-// define ('UPDATE_INFO','https://github.com/jonsito/AgilityContest/raw/master/agility/server/auth/system.ini');
-define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/agility/server/auth/system.ini');
+// define ('UPDATE_INFO','https://github.com/jonsito/AgilityContest/raw/master/config/system.ini');
+define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/config/system.ini');
 
 require_once(__DIR__."/../../logging.php");
 require_once(__DIR__."/../../tools.php");
@@ -647,7 +647,7 @@ class Admin extends DBObject {
         $ch = curl_init(str_replace(" ","%20",$source)); //Here is the file we are downloading, replace spaces with %20
 		curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // not really needed but...
         curl_setopt($ch, CURLOPT_TIMEOUT, 300); // 5 minutes should be enougth for wellknownforslowness github
-        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/../../auth/cacert.pem");
+        curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . "/../../../../config/cacert.pem");
         curl_setopt($ch, CURLOPT_FILE, $fp); // write curl response to file
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // to allow redirect
         curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4); // try to fix some slowness issues in windozes

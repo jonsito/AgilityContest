@@ -24,7 +24,7 @@
      * If system.ini file already exits act like normal (public) entry point
      * else re-create according web host info and user preferences
      */
-    if (file_exists(__DIR__."/server/auth/system.ini")) {
+    if (file_exists(__DIR__ . "/../config/system.ini")) {
         // just a simple redirector to public/index.php
         // from: https://stackoverflow.com/questions/15110355/how-to-safely-get-full-url-of-parent-directory-of-current-php-page
         $url  = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';

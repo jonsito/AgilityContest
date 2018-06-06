@@ -26,7 +26,6 @@ Tener instalados y funcionando
  root# setsebool -P httpd_can_network_connect_db on
  root# chcon -Rv --type=httpd_user_rw_content_t ${BASE}/agility/images/logos
  root# chcon -Rv --type=httpd_user_rw_content_t ${BASE}/logs
- root# chcon -v --type=httpd_user_rw_content_t ${BASE}/agility/server/auth/config.ini
 
 2b- Configuracion de MySQL
   Debido a problemas de compatibilidad con windows es necesario ajustar la variable 'lower_case_table_names' al

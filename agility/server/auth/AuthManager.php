@@ -45,11 +45,11 @@ define ("ENABLE_TRAINING",512); // permite gestion de sesiones de entrenamiento
 define ("ENABLE_LEAGUES",1024); // permite gestion de ligas de competicion
 
 // datos de registro
-define('AC_BLACKLIST_FILE' , __DIR__."/blacklist.info");
-define('AC_BLACKLIST_URL' , "https://www.agilitycontest.es/agility/server/auth/blacklist.info");
-define('AC_REGINFO_FILE' , __DIR__."/registration.info");
-define('AC_REGINFO_FILE_BACKUP' , __DIR__."/registration.info.old");
-define('AC_REGINFO_FILE_DEFAULT' , __DIR__."/registration.info.default");
+define('AC_BLACKLIST_FILE' , __DIR__ . "/blacklist.info");
+define('AC_BLACKLIST_URL' , "https://www.agilitycontest.es/agility/config/blacklist.info");
+define('AC_REGINFO_FILE' , __DIR__ . "/../../../config/registration.info");
+define('AC_REGINFO_FILE_BACKUP' , __DIR__ . "/../../../config/registration.info.old");
+define('AC_REGINFO_FILE_DEFAULT' , __DIR__ . "/../../../config/registration.info.default");
 
 class AuthManager {
 	

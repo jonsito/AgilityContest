@@ -3,7 +3,8 @@ BASE=`dirname $0`
 HTCONF=/Applications/XAMPP/etc
 HTDOCS=/Applications/XAMPP/htdocs
 BASEDIR=$HTDOCS/AgilityContest
-CONFDIR=$HTDOCS/AgilityContest/agility/server/auth
+CONFDIR_37=$HTDOCS/AgilityContest/server/auth
+CONFDIR=$HTDOCS/AgilityContest/config
 EXTRAS=$HTDOCS/AgilityContest/extras
 
 # request root permissions before continue install
@@ -28,6 +29,14 @@ rm -f /tmp/config.ini
 echo ""
 
 echo "Unziping into $BASEDIR ... "
+
+# hack to preserve files data from versions <= 3.7
+mkdir -p $CONFDIR
+[ -f $CONFDIR_37/registration.info -a ! -f $CONFDIR/registration.info ] && \
+    cp -f $CONFDIR_37/registration.info $CONFDIR/registration.info
+[ -f $CONFDIR_37/config.ini -a ! -f $CONFDIR/config.ini ] && \
+    cp -f $CONFDIR_37/config.ini $CONFDIR/config.ini
+
 # make a backup copy of configuration and license
 [ -f $CONFDIR/registration.info ] && cp $CONFDIR/registration.info /tmp
 [ -f $CONFDIR/config.ini ] && cp $CONFDIR/config.ini /tmp
@@ -50,10 +59,16 @@ echo ""
 # add and edit AgilityContest_apache2.conf
 echo "Adding AgilityContest apache configuration file... "
 cp $EXTRAS/AgilityContest_apache2.conf ${HTCONF}/extra
-sed -i -e "s|__HTTP_BASEDIR__|${HTDOCS}|g" -e "s|__AC_BASENAME__|AgilityContest|g" ${HTCONF}/extra/AgilityContest_apache2.conf
+sed -i -e "s|__HTTP_BASEDIR__|${HTDOCS}|g" \
+    -e "s|__AC_BASENAME__|AgilityContest|g" \
+    -e "s|__AC_WEBNAME__|agility|g" \
+    ${HTCONF}/extra/AgilityContest_apache2.conf
 
 # edit ${HTDOCS}/AgilityContest/.htaccess
-sed -i -e "s:|__HTTP_BASEDIR__|${HTDOCS}|g" -e "s|__AC_BASENAME__|AgilityContest|g" ${HTDOCS}/AgilityContest/.htaccess
+sed -i -e "s:|__HTTP_BASEDIR__|${HTDOCS}|g" \
+    -e "s|__AC_BASENAME__|AgilityContest|g" \
+    -e "s|__AC_WEBNAME__|agility|g" \
+    ${HTDOCS}/AgilityContest/.htaccess
 
 # Tell httpd.conf to include AgilityContest config file
 sed -i -e '/.*AgilityContest.*/d' ${HTCONF}/httpd.conf
@@ -104,8 +119,8 @@ _EOF
 echo ""
 
 echo "Restoreing license and configuration data"
-[ -f /tmp/registration.info ] && cp /tmp/registration.info $CONFIG/registration.info
-[ -f /tmp/config.ini ] && cp /tmp/config.ini $CONFIG/config.ini
+[ -f /tmp/registration.info ] && cp -f /tmp/registration.info $CONFIG/registration.info
+[ -f /tmp/config.ini ] && cp -f /tmp/config.ini $CONFIG/config.ini
 echo ""
 
 echo "Instalation completed"

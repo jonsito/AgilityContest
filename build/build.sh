@@ -71,7 +71,10 @@ rm -rf /tmp/ssl_crt
 # add AC config file and remove "/" to use relative paths
 echo "Adding AgilityContest config file ..."
 cp ${CONF_DIR}/AgilityContest_apache2.conf ${BUILD_DIR}/xampp/apache/conf/extra
-sed -i -e "s|__HTTP_BASEDIR__|C:/|g" -e "s|__AC_BASENAME__|AgilityContest|g" ${BUILD_DIR}/xampp/apache/conf/extra/AgilityContest_apache2.conf
+sed -i -e "s|__HTTP_BASEDIR__|C:/|g" \
+    -e "s|__AC_BASENAME__|AgilityContest|g" \
+    -e "s|__AC_WEBNAME__|agility|g" \
+    ${BUILD_DIR}/xampp/apache/conf/extra/AgilityContest_apache2.conf
 
 # enable OpenSSL and Locale support into php
 echo "Setting up php/php.ini ..."
@@ -92,7 +95,10 @@ echo "Copying AgilityContest files ..."
     ( cd ${BUILD_DIR}; tar xfBp - )
 # set first install mark and properly edit .htaccess
 touch ${BUILD_DIR}/logs/first_install
-sed -i -e "s|__HTTP_BASEDIR__|C:/|g" -e "s|__AC_BASENAME__|AgilityContest|g" ${BUILD_DIR}/.htaccess
+sed -i -e "s|__HTTP_BASEDIR__|C:/|g" \
+    -e "s|__AC_BASENAME__|AgilityContest|g" \
+    -e "s|__AC_WEBNAME__|agility|g" \
+    ${BUILD_DIR}/.htaccess
 
 # create directory for docs (some day...)
 mkdir -p ${BUILD_DIR}/docs
@@ -106,8 +112,8 @@ fi
 
 # invoke makensis
 echo "Prepare and execute makensis..."
-VERSION=`grep version_name ${BUILD_DIR}/agility/server/auth/system.ini | sed -e 's/^.*= "/"/g'`
-DATE=`grep version_date ${BUILD_DIR}/agility/server/auth/system.ini | sed -e 's/^.*= "/"/g'`
+VERSION=`grep version_name ${BUILD_DIR}/config/system.ini | sed -e 's/^.*= "/"/g'`
+DATE=`grep version_date ${BUILD_DIR}/config/system.ini | sed -e 's/^.*= "/"/g'`
 sed -e "s/__VERSION__/${VERSION}/g" -e "s/__TIMESTAMP__/${DATE}/g" ${NSIS} > ${BUILD_DIR}/AgilityContest.nsi
 cp ${BASE_DIR}/build/{installer.bmp,License.txt,wellcome.bmp} ${BUILD_DIR}
 (cd ${BUILD_DIR}; makensis AgilityContest.nsi )
