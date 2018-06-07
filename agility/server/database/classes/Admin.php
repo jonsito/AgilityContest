@@ -18,7 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 // Github redirects links, and make curl fail.. so use real ones
-// define ('UPDATE_INFO','https://github.com/jonsito/AgilityContest/raw/master/config/system.ini');
+// define ('cd w','https://github.com/jonsito/AgilityContest/raw/master/config/system.ini');
 define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/config/system.ini');
 
 require_once(__DIR__."/../../logging.php");
@@ -31,10 +31,7 @@ require_once(__DIR__."/../../printer/RawPrinter.php");
 
 class Admin extends DBObject {
 	protected $restore_dir;
-	protected $myConfig;
     protected $myAuth;
-	protected $file;
-	public $errormsg;
 	private $dbname;
 	private $dbhost;
 	private $dbuser;
@@ -58,8 +55,6 @@ class Admin extends DBObject {
         parent::__construct($file);
         $this->restore_dir=__DIR__."/../../../../logs/";
 		// connect database
-		$this->file=$file;
-		$this->myConfig=Config::getInstance();
         $this->myAuth=$am;
         $this->logfile=$this->restore_dir."restore_{$suffix}.log";
 

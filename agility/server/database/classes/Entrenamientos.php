@@ -22,7 +22,6 @@ class Entrenamientos extends DBObject {
 
     protected $pruebaID;
     protected $prueba;
-    protected $myConfig;
     protected $fedObj;
 
 	function __construct($name,$prueba) {

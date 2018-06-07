@@ -79,7 +79,6 @@ class Eventos extends DBObject {
 	protected $sessionID;
 	protected $sessionFile;
 	protected $myAuth;
-	protected $myConfig;
 	
 	/**
 	 * Constructor
