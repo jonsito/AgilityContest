@@ -17,9 +17,9 @@ upgrade.php
  */
 
 // Github redirects links, and make curl fail.. so use real ones
-// define ('UPDATE_INFO','https://github.com/jonsito/AgilityContest/raw/master/config/system.ini');
+// define ('UPDATE_INFO','https://github.com/jonsito/AgilityContest/raw/master/ChangeLog');
+define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/ChangeLog');
 // define ('UPDATE_FILE','https://github.com/jonsito/AgilityContest/archive/master.zip');
-define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/config/system.ini');
 define ('UPDATE_FILE','https://codeload.github.com/jonsito/AgilityContest/zip/master');
 define ('TEMP_FILE', __DIR__."/../logs/AgilityContest-");
 define ('LOG_FILE', __DIR__."/../logs/update.log");
@@ -45,7 +45,8 @@ function logTrace($str) {
  * Try to get a file from url
  * Depending on config try several methods
  *
- * @param $url file URL to retrieve
+ * @param {string} $url file URL to retrieve
+ * @return {mixed}
  */
 function retrieveFileFromURL($url) {
     // if enabled, use standard file_get_contents
@@ -104,10 +105,9 @@ Class AgilityContestUpdater {
      * sites where allow_url_fopen is disabled in php.ini
      *
      * @param $url
-     * @return {array} readed data
+     * @return {mixed} readed data
      */
     private function file_get($url) {
-        $timeout = 300;
         set_time_limit(350);
         $res=retrieveFileFromURL($url);
         if ($res!==FALSE) return $res;
@@ -134,6 +134,9 @@ Class AgilityContestUpdater {
 
     public function __construct() {
         $info = $this->file_get(UPDATE_INFO);
+        /*
+        // pre 3.8.0 version use system.ini to retrieve version
+        if (!is_string($info) ) $info='version_name = "0.0.0"\nversion_date = "19700101_0000"\n';
         $info = str_replace("\r\n", "\n", $info);
         $info = str_replace(" ", "", $info);
         $data = explode("\n",$info);
@@ -141,11 +144,20 @@ Class AgilityContestUpdater {
             if (strpos($line,"version_name=")===0) $this->version_name = trim(substr($line,13),'"');
             if (strpos($line,"version_date=")===0) $this->version_date = trim(substr($line,13),'"');
         }
+        */
+        /* post 3.7.3 uses first line of ChangeLog (Version X.Y.Z YYYYMMDD_HHMM) to extract version and date */
+
+        if (!is_string($info) ) $info="Version 0.0.0 19700101_0000\n";
+        $data=explode(trim(strtok($info,"\n"))," ");
+        $this->version_name=$data[1];
+        $this->version_date=$data[2];
+
         $this->logProgress("Version name: {$this->version_name}");
         $this->logProgress("Version date: {$this->version_date}");
         $this->temp_file=TEMP_FILE . $this->version_date . ".zip";
         $this->user_files = array (
             "config.ini" => __DIR__."/../config/config.ini",
+            "system.ini" => __DIR__."/../config/system.ini", // > 3.8.X also need to preserve system.ini for db info
             "registration.info" => __DIR__."/../config/registration.info",
             "supporters.csv" => __DIR__."/images/supporters/supporters.csv"
         );
@@ -365,8 +377,8 @@ echo '
                         for(var n=0 ; n<data.length; n++) {
                             var a=data[n].trim();
                             if (a!=="") txarea.val(txarea.val()+"\\n"+a);
-                            if (a.indexOf("DONE")==0) done=true;
-                            if (a.indexOf("FATAL")==0) done=true;
+                            if (a.indexOf("DONE")===0) done=true;
+                            if (a.indexOf("FATAL")===0) done=true;
                         }
                         if (!done) {
                             setTimeout(fireUpdater,500); // call myself in 0.5 second

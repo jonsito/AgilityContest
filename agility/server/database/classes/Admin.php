@@ -18,8 +18,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 // Github redirects links, and make curl fail.. so use real ones
-// define ('cd w','https://github.com/jonsito/AgilityContest/raw/master/config/system.ini');
-define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/config/system.ini');
+// define ('cd w','https://github.com/jonsito/AgilityContest/raw/master/ChangeLog');
+define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/ChangeLog');
 
 require_once(__DIR__."/../../logging.php");
 require_once(__DIR__."/../../tools.php");
@@ -598,10 +598,16 @@ class Admin extends DBObject {
         array_map('unlink',glob("{$this->restore_dir}agility-*.sql"));
 	}
 
+    /**
+     * @param bool $fireException fire exception on failure to retrieve data
+     * @return array version and date info
+     * @throws Exception on fail
+     */
 	public function checkForUpgrades($fireException=true) {
         $info=retrieveFileFromURL(UPDATE_INFO);
+        /* pre 3.8.0 uses system.ini
         if ( ($info===null) || ($info===FALSE) || (!is_string($info)) ) {
-            if ($fireException)  throw new Exception("checkForUpgrade(): cannot retrieve version info from internet");
+            if ($fireException)  throw new Exception("checkForUpgrade(): cannot retrieve version info from github system.ini");
             $info="version_name = \"0.0.0\"\nversion_date = \"19700101_0000\"\n"; // escape quotes to get newlines into string
         }
 
@@ -612,6 +618,17 @@ class Admin extends DBObject {
             if (strpos($line,"version_name=")===0) $version_name = trim(substr($line,13),'"');
             if (strpos($line,"version_date=")===0) $version_date = trim(substr($line,13),'"');
         }
+        */
+        /* post 3.7.3 uses ChangeLog to retrieve version and date info */
+        if (!is_string($info) ) {
+            if ($fireException)
+                throw new Exception("checkForUpgrade(): cannot retrieve version info from github ChangeLog");
+            $info="Version 0.0.0 19700101_0000\n";
+        }
+        $data=explode(trim(strtok($info,"\n"))," ");
+        $version_name=$data[1];
+        $version_date=$data[2];
+
         $res=array(
             'version_name' => $version_name,
             'version_date' => $version_date

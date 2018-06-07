@@ -1,3 +1,39 @@
+Version 3.8.0 20180519_2222
+    - Nueva estructura de directorios para permitir uso en webhosting
+      * apache2.conf no es necesario salvo para declarar un aliasdir
+      * my.cnf y php.ini no necesitan ya modificaciones
+      * fichero .htaccess para control de acceso
+      * bloqueo de ficheros y carpetas para que no puedan ser accedidos desde web
+      * carpeta para ficheros de configuracion fuera del acceso web
+      * Script de first install para web hosting ( unzip + open en navegador )
+    - Orden de salida preconfigurado TSML para pruebas de caza
+    - Corregido problema de importación de bases de datos pre 3.7.3
+    - Actualizacion a xampp 5.6.36
+    - Generacion de certificados autofirmados compatibles con nuevos Chrome y Safari
+    - Detección y corrección de errores con el servidor
+    - Corrección del VersionHistory para mejor control de actualizaciones desde servidor
+    - Antes de autoupdatedb pregunta al usuario
+    - Detecta si "usePreferredBrowserLanguage" esta soportado
+    - Eliminacion de ficheros .bat de seleccion de idioma en instalador windows
+    - Soporte de tecla "Meta" en mac
+    - Uso de funciones nativas php para gestion de redondeo
+    - Reemplazo del logo federativo por el de agilitycontest al crear un club
+    - Combos: no comenzar filtrado hasta que hay al menos tres caracteres
+    - Aviso antes de reordenar dorsales
+    - No pre-seleccionar RSCE en dialogo de login
+    - Diversas mejoras en gestion de licencias bloqueadas
+    - Posibilidad de usar bases de datos alternativas a "agility"
+    - Revertir auto-update flag tras backup
+    - Conversion de base de datos a "lowercase", para evitar modificar de mycnf.ini
+    - Diversas optimizaciones en acceso a BBDD __delete()
+    - Excel: manejo de variables de pagina (pe: inscripciones::club/pais)
+    - BBDD: manejo de bases de datos cifradas por defecto
+    - Buscar actualizaciones de la aplicación en el Changelog
+    - Actualizacion de diversos PDF
+    - Excel import: permitir wildcard "-" en categoria/grado/genero para preservar valor actual
+Version 3.7.3 20180315_0934
+    - Temporada 2018
+    ( historico perdido, es hora de retomarlo, para poder usarlo como control de actualizaciones )
 Version 3.0.2 10-Jan-2017
     - Nueva arquitectura de modulos, para permitir nuevas modalidades de competición
     - Gestión de rondas de hasta 8 mangas
