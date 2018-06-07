@@ -44,7 +44,8 @@ class DBObject {
 		$u=base64_decode($this->myConfig->getEnv("database_user"));
 		$p=base64_decode($this->myConfig->getEnv("database_pass"));
 		$l=$this->myConfig->getEnv("debug_level");
-		$this->myLogger= new Logger($file,$l);
+        $this->myLogger= new Logger($file,$l);
+        // $this->myLogger->trace("host:$h db:$n user:$u pass:$p");
 		$this->conn=DBConnection::getConnection($h,$n,$u,$p);
 		if (!$this->conn) {
 			$this->errormsg="$file::construct() cannot contact database";
