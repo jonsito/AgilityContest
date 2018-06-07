@@ -9,17 +9,20 @@ WEBDIR=`dirname ${INSTDIR}`
 BASENAME=`basename ${INSTDIR}`
 SYSTEMINI="config/system.ini"
 HTACCESS=${INSTDIR}/.htaccess
+HTTPD_CONF="AgilityContest_${WEBNAME}.conf"
 
 case `grep -e '^ID=' /etc/os-release` in
     'ID=ubuntu' )
         # for UBUNTU
         OWNER=root
         GROUP=www-data
+        CONF=/etc/apache2/conf-available/${HTTPD_CONF}
         ;;
     'ID=fedora' )
         # for Fedora/RedHat (sudo to proper user before running)
         OWNER=jantonio
         GROUP=apache
+        CONF=/etc/httpd/conf.d/${HTTPD_CONF}
         ;;
 esac
 
@@ -30,22 +33,38 @@ if [ "${USER}" != "${OWNER}" ]; then
     echo "Must be executed as ${OWNER}. Exiting"
     exit 1
 fi
+
 # make sure that directory to clone from is valid
 if [ ! -d ${BASEDIR}/.git -o ! -d ${BASEDIR}/agility ]; then
     echo "${BASEDIR} is not an AgilityContest git directory. Exiting";
     exit 2
 fi
-# check for destination directory
-if [ ! -d ${INSTDIR} ]; then
-    echo -n "Directory ${INSTDIR} does not exist. Create? Y/[n]: "
-    read a
+
+# check for existing httpd.conf
+if [ -f ${CONF} ]; then
+    read -p  "${WEBNAME} is an already defined httpd.conf alias. Overwrite? Y/[n]: " a
     case "$a" in
     [YySs]* )
         mkdir -p ${INSTDIR}
         ;;
     * )
-        echo "AgilityContest installation aborted"
+        echo "AgilityContest installation aborted: ${CONF} already exists"
         exit 3
+        ;;
+    esac
+    exit 2
+fi
+
+# check for destination directory
+if [ ! -d ${INSTDIR} ]; then
+    read -p "Directory ${INSTDIR} does not exist. Create? Y/[n]: " a
+    case "$a" in
+    [YySs]* )
+        mkdir -p ${INSTDIR}
+        ;;
+    * )
+        echo "AgilityContest installation aborted: user requested do not create ${INSTDIR}"
+        exit 4
         ;;
     esac
 fi
@@ -71,8 +90,7 @@ sed -i -e "s:__HTTP_BASEDIR__:${WEBDIR}:g" \
     ${HTACCESS}
 case `grep -e '^ID=' /etc/os-release` in
     'ID=ubuntu' )
-        CONF=/etc/apache2/conf-available/AgilityContest_apache2.conf
-        cp ${BASEDIR}/extras/AgilityContest_apache2.conf ${CONF}
+        cp -f ${BASEDIR}/extras/AgilityContest_apache2.conf ${CONF}
         sed -i -e "s:__HTTP_BASEDIR__:${WEBDIR}:g" \
             -e "s:__AC_BASENAME__:${BASENAME}:g" \
             -e "s:__AC_WEBNAME__:${WEBNAME}:g" \
@@ -81,8 +99,7 @@ case `grep -e '^ID=' /etc/os-release` in
         service apache2 reload
         ;;
     'ID=fedora' )
-        CONF=/etc/httpd/conf.d/AgilityContest_apache2.conf
-        cp ${BASEDIR}/extras/AgilityContest_apache2.conf ${CONF}
+        cp -f ${BASEDIR}/extras/AgilityContest_apache2.conf ${CONF}
         sed -i -e "s:__HTTP_BASEDIR__:${WEBDIR}:g" \
             -e "s:__AC_BASENAME__:${BASENAME}:g" \
             -e "s:__AC_WEBNAME__:${WEBNAME}:g" \
