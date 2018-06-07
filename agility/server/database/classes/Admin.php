@@ -625,7 +625,9 @@ class Admin extends DBObject {
                 throw new Exception("checkForUpgrade(): cannot retrieve version info from github ChangeLog");
             $info="Version 0.0.0 19700101_0000\n";
         }
-        $data=explode(trim(strtok($info,"\n"))," ");
+        $firstline=trim(strtok($info,"\n"));
+        $this->myLogger->trace("ChangeLog: {$firstline}");
+        $data=explode(" ", $firstline);
         $version_name=$data[1];
         $version_date=$data[2];
 

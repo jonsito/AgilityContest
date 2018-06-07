@@ -148,7 +148,7 @@ Class AgilityContestUpdater {
         /* post 3.7.3 uses first line of ChangeLog (Version X.Y.Z YYYYMMDD_HHMM) to extract version and date */
 
         if (!is_string($info) ) $info="Version 0.0.0 19700101_0000\n";
-        $data=explode(trim(strtok($info,"\n"))," ");
+        $data=explode(" ",trim(strtok($info,"\n")));
         $this->version_name=$data[1];
         $this->version_date=$data[2];
 

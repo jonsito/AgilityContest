@@ -144,7 +144,7 @@ echo "Setting perms..."
 find ${INSTDIR} -type d -exec chmod 775 {} \;
 find ${INSTDIR} -type f -exec chmod 664 {} \;
 sudo chown -R ${OWNER}:${GROUP} ${INSTDIR}
-sudo chmod g+s ${INSTDIR}/logs ${INSTDIR}/agility/images/logos ${INSTDIR}/agility/server/auth
+sudo chmod g+s ${INSTDIR}/logs ${INSTDIR}/agility/images/logos ${INSTDIR}/config
 
 #finally move web contents to their proper location
 echo -n "Install web files? Y\[n]: "
