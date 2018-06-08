@@ -36,10 +36,13 @@ mkdir -p $CONFDIR
     cp -f $CONFDIR_37/registration.info $CONFDIR/registration.info
 [ -f $CONFDIR_37/config.ini -a ! -f $CONFDIR/config.ini ] && \
     cp -f $CONFDIR_37/config.ini $CONFDIR/config.ini
+[ -f $CONFDIR_37/system.ini -a ! -f $CONFDIR/system.ini ] && \
+    cp -f $CONFDIR_37/system.ini $CONFDIR/system.ini
 
 # make a backup copy of configuration and license
 [ -f $CONFDIR/registration.info ] && cp $CONFDIR/registration.info /tmp
 [ -f $CONFDIR/config.ini ] && cp $CONFDIR/config.ini /tmp
+[ -f $CONFDIR/system.ini ] && cp $CONFDIR/system.ini /tmp
 
 # create a backup of old application
 rm -rf $BASEDIR.old
@@ -121,6 +124,7 @@ echo ""
 echo "Restoreing license and configuration data"
 [ -f /tmp/registration.info ] && cp -f /tmp/registration.info $CONFIG/registration.info
 [ -f /tmp/config.ini ] && cp -f /tmp/config.ini $CONFIG/config.ini
+[ -f /tmp/system.ini ] && cp -f /tmp/system.ini $CONFIG/system.ini
 echo ""
 
 echo "Instalation completed"

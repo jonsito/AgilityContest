@@ -122,16 +122,19 @@ mkdir -p ${INSTDIR}.old/config
 mkdir -p ${INSTDIR}/config
 [ -f ${INSTDIR}.old/agility/images/supporters/supporters.csv ] && \
     cp ${INSTDIR}.old/agility/images/supporters/supporters.csv ${INSTDIR}/agility/images/supporters
+
 # backward compatibility with pre-3.8 versions
-[ -f ${INSTDIR}.old/agility/server/auth/config.ini ] && \
+[ -f ${INSTDIR}.old/agility/server/auth/config.ini -a ! -f ${INSTDIR}.old/config/config.ini ] && \
     cp ${INSTDIR}.old/agility/server/auth/config.ini ${INSTDIR}/config
-[ -f ${INSTDIR}.old/agility/server/auth/registration.info ] && \
+[ -f ${INSTDIR}.old/agility/server/auth/registration.info -a ! -f ${INSTDIR}.old/config/registration.info ] && \
     cp ${INSTDIR}.old/agility/server/auth/registration.info ${INSTDIR}/config
+
 # new location for configuration files.
 [ -f ${INSTDIR}.old/config/config.ini ] && \
     cp ${INSTDIR}.old/config/config.ini ${INSTDIR}/config
 [ -f ${INSTDIR}.old/config/registration.info ] && \
     cp ${INSTDIR}.old/config/registration.info ${INSTDIR}/config
+
 # pending update requests
 [ -d ${INSTDIR}.old/logs/updateRequests ] && \
     mv ${INSTDIR}.old/logs/updateRequests ${INSTDIR}/logs
