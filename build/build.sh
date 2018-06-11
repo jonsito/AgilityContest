@@ -91,7 +91,7 @@ unix2dos ${BUILD_DIR}/xampp/mysql/my.ini
 
 # ok. time to add AgilityContest files
 echo "Copying AgilityContest files ..."
-(cd ${BASE_DIR}; tar cfBp - .htaccess index.html agility applications extras logs AgilityContest.exe COPYING README.md Contributors) |\
+(cd ${BASE_DIR}; tar cfBp - .htaccess index.html agility applications extras logs config AgilityContest.exe COPYING README.md Contributors) |\
     ( cd ${BUILD_DIR}; tar xfBp - )
 # set first install mark and properly edit .htaccess
 touch ${BUILD_DIR}/logs/first_install
