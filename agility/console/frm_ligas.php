@@ -48,7 +48,7 @@ $am=AuthManager::getInstance("Ligas");
         </div>
         <div data-options="region:'south',split:false" style="height:35px;">
             <span style=float:right;padding:5px;">
-            <a id="ligas-perro-printBtn" href="#" onclick="printLeagueByDog();"><?php _e('Print'); ?></a>
+            <a id="ligas-perro-printBtn" href="#" onclick="printLeagueByDog();" download="PrintLeagueByDog"><?php _e('Print'); ?></a>
             </span>
         </div>
     </div>
@@ -82,8 +82,9 @@ $am=AuthManager::getInstance("Ligas");
 
 <div id="ligas-tools">
     <a id="ligas-printBtn" href="#" class="easyui-linkbutton"
-       data-options="iconCls:'icon-print'"
-       onclick="printLeague();"><?php _e('Print'); ?></a>
+        data-options="iconCls:'icon-print'"
+        onclick="printLeague();"
+        download="PrintLeague"><?php _e('Print'); ?></a>
 </div>
 
 <script type="text/javascript">
