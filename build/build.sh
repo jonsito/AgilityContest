@@ -131,17 +131,18 @@ chmod +x *.command
 # add .dmg background image
 mkdir -p .background
 cp agility/images/AgilityContest.png .background
-cp -r COPYING License.txt agility logs applications extras docs AgilityContest-master
+cp -r COPYING License.txt agility config logs applications extras docs AgilityContest-master
 # restore original .htaccess
 cp ${BASE_DIR}/.htaccess AgilityContest-master
 # do not include build and web dir in destination zipfile
-zip -q -r AgilityContest-master.zip AgilityContest-master/{agility,applications,extras,logs}
+zip -q -r AgilityContest-master.zip AgilityContest-master/{agility,applications,extras,logs,config,COPYING,index.html,.htaccess}
 FILES="osx_install.command create_certificate.command COPYING License.txt AgilityContest-master.zip"
 mkisofs -quiet -A AgilityContest \
     -P jonsito@gmail.com \
     -V ${VERSION}_${DATE} \
     -J -r -o AgilityContest-${VERSION}-${DATE}.dmg \
-    -graft-points /.background/=.background ${FILES}
+    -graft-points /.background/=.background \
+    ${FILES}
 
 # prepare zip file
 mv AgilityContest-master.zip AgilityContest-${VERSION}-${DATE}.zip

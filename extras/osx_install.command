@@ -26,7 +26,6 @@ echo "Prepare ..."
 cp $BASE/AgilityContest-master.zip /tmp/AgilityContest-master.zip
 rm -f /tmp/registration.info
 rm -f /tmp/config.ini
-echo ""
 
 echo "Unziping into $BASEDIR ... "
 
@@ -52,40 +51,34 @@ rm -rf $BASEDIR.old
 cd $HTDOCS;
 unzip -q /tmp/AgilityContest-master.zip
 mv ${HTDOCS}/AgilityContest-master ${HTDOCS}/AgilityContest
-echo ""
 
-echo "Configuring MySQL... "
-sed -i -e '/.*lower_case_table_names.*/d' /Applications/XAMPP/xamppfiles/etc/my.cnf
-sed -i -e '/\[mysqld\]/a lower_case_table_names = 1' /Applications/XAMPP/xamppfiles/etc/my.cnf
-echo ""
+# no longer needed in 3.8 and up, as already using lowercase table names
+#echo "Configuring MySQL... "
+#sed -i -e '/.*lower_case_table_names.*/d' /Applications/XAMPP/xamppfiles/etc/my.cnf
+#sed -i -e '/\[mysqld\]/a lower_case_table_names = 1' /Applications/XAMPP/xamppfiles/etc/my.cnf
 
 # add and edit AgilityContest_apache2.conf
 echo "Adding AgilityContest apache configuration file... "
 cp $EXTRAS/AgilityContest_apache2.conf ${HTCONF}/extra
-sed -i -e "s|__HTTP_BASEDIR__|${HTDOCS}|g" \
-    -e "s|__AC_BASENAME__|AgilityContest|g" \
-    -e "s|__AC_WEBNAME__|agility|g" \
-    ${HTCONF}/extra/AgilityContest_apache2.conf
+sed -i '' -e "s|__HTTP_BASEDIR__|${HTDOCS}|g" -e "s|__AC_BASENAME__|AgilityContest|g" -e "s|__AC_WEBNAME__|agility|g" ${HTCONF}/extra/AgilityContest_apache2.conf
 
 # edit ${HTDOCS}/AgilityContest/.htaccess
-sed -i -e "s:|__HTTP_BASEDIR__|${HTDOCS}|g" \
-    -e "s|__AC_BASENAME__|AgilityContest|g" \
-    -e "s|__AC_WEBNAME__|agility|g" \
-    ${HTDOCS}/AgilityContest/.htaccess
+echo "Personalize .htaccess for Agilitycontest directory... "
+sed -i '' -e "s|__HTTP_BASEDIR__|${HTDOCS}|g" -e "s|__AC_BASENAME__|AgilityContest|g" -e "s|__AC_WEBNAME__|agility|g" ${HTDOCS}/AgilityContest/.htaccess
 
 # Tell httpd.conf to include AgilityContest config file
-sed -i -e '/.*AgilityContest.*/d' ${HTCONF}/httpd.conf
+echo "Add AgilityContest conf file to apache includes... "
+sed -i '' -e '/.*AgilityContest.*/d' ${HTCONF}/httpd.conf
 echo 'Include "/Applications/XAMPP/etc/extra/AgilityContest_apache2.conf"' >> ${HTCONF}/httpd.conf
-echo ""
 
 # create and install certificates
-if [ -f ${BASE}/create_certificate.sh ]; then
-    echo -n "Create and Install X509 SSL Certificate S/[n]?"
+if [ -f ${BASE}/create_certificate.command ]; then
+    /bin/echo -n "Create and Install X509 SSL Certificate Y/[n]?"
     read a
     case $a in
         [SsYy]* )
             # create certificate and key
-            bash ${BASE}/create_certificate.sh /tmp/ssl
+            bash ${BASE}/create_certificate.command /tmp/ssl
             # backup and copy certificate
             mv -f ${HTCONF}/ssl.crt/server.crt ${HTCONF}/ssl.crt/server.crt.orig
             cp /tmp/ssl/server.crt ${HTCONF}/ssl.crt/server.crt
@@ -105,11 +98,9 @@ cd $HTDOCS
 chown -R daemon AgilityContest
 chgrp -R daemon AgilityContest
 xattr -dr com.apple.quarantine AgilityContest
-echo ""
 
 echo "Starting MySQL database server"
 /Applications/XAMPP/bin/mysql.server restart
-echo ""
 
 echo "Creating and populating AgilityContest database"
 cat <<_EOF | /Applications/XAMPP/bin/mysql -u root
@@ -119,16 +110,14 @@ USE agility;
 SOURCE /Applications/XAMPP/htdocs/AgilityContest/extras/agility.sql;
 SOURCE /Applications/XAMPP/htdocs/AgilityContest/extras/users.sql;
 _EOF
-echo ""
 
 echo "Restoreing license and configuration data"
 [ -f /tmp/registration.info ] && cp -f /tmp/registration.info $CONFIG/registration.info
 [ -f /tmp/config.ini ] && cp -f /tmp/config.ini $CONFIG/config.ini
 [ -f /tmp/system.ini ] && cp -f /tmp/system.ini $CONFIG/system.ini
-echo ""
 
 echo "Instalation completed"
-echo "Start AgilityContest Y/[n]?"
+/bin/echo -n "Start AgilityContest Y/[n]?"
 read a
 case $a in
     [SsYy]* )
