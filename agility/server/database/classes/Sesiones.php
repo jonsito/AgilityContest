@@ -69,6 +69,7 @@ class Sesiones extends DBObject {
         parent::__construct($file);
         // prepare custom session handler
         $handler = new FileSessionHandler();
+        $this->myLogger->trace("new Sessiones({$file})");
         session_set_save_handler(
             array($handler, 'open'),
             array($handler, 'close'),

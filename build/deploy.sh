@@ -52,7 +52,6 @@ if [ -f ${CONF} ]; then
         exit 3
         ;;
     esac
-    exit 2
 fi
 
 # check for destination directory

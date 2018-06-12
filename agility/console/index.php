@@ -297,7 +297,13 @@ var eventHandler= {
 body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
 
 /***** Datos de la cabecera ******/
-#mylogo { position: fixed; top: 0; right: 10px; }
+#mylogo {
+    position: fixed;
+    top: 0;
+    right: 10px;
+    background: <?php echo $config->getEnv('easyui_bgcolor'); ?>;
+}
+
 #myheader {	position: fixed; top: 10px; left: 10px; }
 #myheader p { 
 	color: <?php echo $config->getEnv('easyui_hdrcolor'); ?>; 
@@ -468,7 +474,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 	
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 <div id="mycontent">
-	<div id="contenido" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false"></div>
+	<div id="contenido" class="easyui-panel" style="background:transparent" data-options="width:'100%',fit:true,border:false"></div>
 </div>
 
 <!-- Entrada para insertar dialogos de importacion de ficheros desde excel -->

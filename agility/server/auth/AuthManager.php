@@ -1,6 +1,6 @@
 <?php
 /*
- AccessControl.php
+ AuthManager.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -372,6 +372,7 @@ class AuthManager {
 			"1"
 		);
 	}
+
     /**
      * Authenticate user from database
      * On Login success create session and if needed send login event

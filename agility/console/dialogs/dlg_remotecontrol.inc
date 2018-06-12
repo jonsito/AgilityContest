@@ -19,7 +19,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/auth/Config.php");
 require_once(__DIR__ . "/../../server/auth/AuthManager.php");
-$config =Config::getInstance();
 $am=AuthManager::getInstance("Chrono");
 ?>
     <!-- ventana de control remoto para los cronos/videomarcadores/livestream definidos en una o varias sesiones -->
@@ -115,7 +114,7 @@ $am=AuthManager::getInstance("Chrono");
                 </div>
                 <div style="display:<?php echo $am->allowed(ENABLE_VIDEOWALL)?'none':'inherit';?>">
                     <p><?php _e('Current license permissions does not allow videowall operations');?></p>
-                    <img src="../images/sad_dog.png" alt="triste"/>
+                    <img src="../../images/sad_dog.png" alt="triste"/>
                 </div>
             </div>
             <div title="<?php _e('Live Streaming windows');?>" data-options="iconCls:'icon-live'">
