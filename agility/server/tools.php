@@ -511,6 +511,7 @@ function retrieveFileFromURL($url) {
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . "/../../config/cacert.pem");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // tell curl to allow redirects up to 5 jumps
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
         curl_setopt($ch, CURLOPT_URL, $url);
         $data = curl_exec($ch);
