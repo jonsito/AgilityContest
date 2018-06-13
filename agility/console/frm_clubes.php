@@ -150,8 +150,9 @@ $config =Config::getInstance();
 		addTooltip($('#clubes-editBtn').linkbutton(),'<?php _e("Edit data on selected club"); ?>');
 		addTooltip($('#clubes-delBtn').linkbutton(),'<?php _e("Remove club from database"); ?>');
 		addTooltip($('#clubes-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update table"); ?>');
-		addTooltip($('#clubes-datagrid-search'),'<?php _e("Look for clubes matching search criteria"); ?>');
-        
+        addTooltip($('#clubes-datagrid-search'),'<?php _e("Look for clubes matching search criteria"); ?>');
+        addTooltip($('#clubes-printBtn'),'<?php _e("Generate listing with current selection"); ?>');
+
     	
         function showGuiasByClub(index,club){
         	// - sub tabla de guias inscritos en un club

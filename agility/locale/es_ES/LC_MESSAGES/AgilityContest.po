@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2018-06-13 18:45+0200\n"
-"PO-Revision-Date: 2018-06-13 18:46+0200\n"
+"POT-Creation-Date: 2018-06-13 18:53+0200\n"
+"PO-Revision-Date: 2018-06-13 18:54+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -342,7 +342,7 @@ msgstr "Club"
 #: console/dialogs/dlg_perros.inc:69 console/dialogs/dlg_usuarios.inc:79
 #: console/dialogs/dlg_usuarios.inc:250 console/dialogs/infomanga.php:78
 #: console/frm_clasificaciones2.php:78
-#: console/frm_clasificaciones_equipos.php:81 console/frm_clubes.php:180
+#: console/frm_clasificaciones_equipos.php:81 console/frm_clubes.php:181
 #: console/frm_guias.php:93 livestream/vwls_osdvideo.php:93
 #: server/database/classes/Ligas.php:172
 #: server/excel/classes/OrdenSalidaWriter.php:209
@@ -364,7 +364,7 @@ msgstr "Categor&iacute;a"
 #: console/dialogs/dlg_newInscripcion.inc:157 console/dialogs/dlg_perros.inc:76
 #: console/dialogs/import_ordensalida.inc.php:90
 #: console/dialogs/import_perros.inc.php:95
-#: console/dialogs/import_results.inc.php:90 console/frm_clubes.php:270
+#: console/dialogs/import_results.inc.php:90 console/frm_clubes.php:271
 #: console/frm_equipos.php:255 console/frm_guias.php:154
 #: console/frm_inscripciones2.php:275 console/frm_ligas.php:66
 #: console/frm_ligas.php:71 console/frm_ligas.php:76 console/frm_ligas.php:167
@@ -624,7 +624,7 @@ msgstr "Dors"
 #: console/dialogs/import_handlers.inc.php:89
 #: console/frm_clasificaciones2.php:176
 #: console/frm_clasificaciones_equipos.php:184 console/frm_clubes.php:102
-#: console/frm_clubes.php:179 console/frm_clubes.php:267
+#: console/frm_clubes.php:180 console/frm_clubes.php:268
 #: console/frm_equipos.php:124 console/frm_equipos.php:174
 #: console/frm_equipos.php:252 console/frm_equipos.php:326
 #: console/frm_guias.php:92 console/frm_guias.php:151
@@ -851,7 +851,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/dialogs/dlg_ordentandas.inc:172 console/dialogs/dlg_pruebas.inc:167
 #: console/dialogs/dlg_selectJornada.inc:88 console/dialogs/dlg_sesiones.inc:41
 #: console/dialogs/infomanga.php:321 console/frm_clasificaciones2.php:58
-#: console/frm_clasificaciones_equipos.php:57 console/frm_clubes.php:183
+#: console/frm_clasificaciones_equipos.php:57 console/frm_clubes.php:184
 #: console/frm_equipos.php:176 console/frm_equipos.php:259
 #: console/frm_equipos.php:328 console/frm_guias.php:98
 #: console/frm_inscripciones2.php:73 console/frm_paises.php:143
@@ -917,14 +917,14 @@ msgstr "Limpiar"
 #: console/dialogs/dlg_chguias.inc:47 console/dialogs/dlg_clubes.inc:110
 #: console/dialogs/dlg_guias.inc:37 console/dialogs/dlg_jueces.inc:52
 #: console/dialogs/dlg_pruebas.inc:287 console/dialogs/dlg_usuarios.inc:71
-#: console/frm_clubes.php:182 console/frm_jueces.php:100
+#: console/frm_clubes.php:183 console/frm_jueces.php:100
 #: console/frm_paises.php:142 lib/templates/scores_mail.inc.php:193
 msgid "Electronic mail"
 msgstr "Correo electr&oacute;nico"
 
 #: console/dialogs/dlg_chguias.inc:51 console/dialogs/dlg_guias.inc:41
 #: console/dialogs/dlg_jueces.inc:48 console/dialogs/dlg_usuarios.inc:67
-#: console/dialogs/dlg_usuarios.inc:246 console/frm_clubes.php:181
+#: console/dialogs/dlg_usuarios.inc:246 console/frm_clubes.php:182
 #: console/frm_jueces.php:91 console/frm_paises.php:141
 msgid "Telephone"
 msgstr "Tel&eacute;fono"
@@ -1010,7 +1010,7 @@ msgid "Pedigree Name"
 msgstr "Nombre largo"
 
 #: console/dialogs/dlg_chperros.inc:51 console/dialogs/dlg_perros.inc:40
-#: console/frm_clubes.php:272 console/frm_guias.php:156
+#: console/frm_clubes.php:273 console/frm_guias.php:156
 #: console/frm_perros.php:137 console/frm_perros.php:181
 #: server/pdf/classes/PrintOrdenSalida.php:74
 #: server/pdf/classes/PrintOrdenSalidaKO.php:74
@@ -1026,7 +1026,7 @@ msgid "Female"
 msgstr "Hembra"
 
 #: console/dialogs/dlg_chperros.inc:64 console/dialogs/dlg_perros.inc:53
-#: console/frm_clubes.php:271 console/frm_guias.php:155
+#: console/frm_clubes.php:272 console/frm_guias.php:155
 #: console/frm_paises.php:230 console/frm_perros.php:180
 #: lib/templates/orden_salida.inc.php:27 public/pb_inscripciones.php:105
 #: public/pb_inscripciones_equipos.php:154 public/pbmenu_inscripciones.php:105
@@ -1076,8 +1076,8 @@ msgstr "Reasignar el perro seleccionado al gu&iacute;a"
 #: console/dialogs/dlg_resultados_equipos.inc:54
 #: console/dialogs/dlg_resultados_games.inc:54
 #: console/dialogs/dlg_resultados_individual.inc:55
-#: console/dialogs/dlg_resultados_ko.inc:54 console/frm_clubes.php:232
-#: console/frm_clubes.php:311 console/frm_guias.php:195
+#: console/dialogs/dlg_resultados_ko.inc:54 console/frm_clubes.php:233
+#: console/frm_clubes.php:312 console/frm_guias.php:195
 #: console/frm_paises.php:190 console/frm_paises.php:269
 #: console/frm_pruebas.php:212 scripts/auth.js.php:141
 msgid "Update"
@@ -2479,7 +2479,7 @@ msgid "Inscription data"
 msgstr "Datos de la inscripci&oacute;n"
 
 #: console/dialogs/dlg_editInscripcion.inc:40
-#: console/dialogs/dlg_ordensalida.inc:230 console/frm_clubes.php:274
+#: console/dialogs/dlg_ordensalida.inc:230 console/frm_clubes.php:275
 #: console/frm_guias.php:158 console/frm_paises.php:232
 #: console/frm_perros.php:138 lib/templates/orden_salida.inc.php:26
 #: server/database/classes/Ligas.php:171
@@ -3179,7 +3179,7 @@ msgstr "Guardar actividad en la base de datos"
 msgid "New handler"
 msgstr "Nuevo Gu&iacute;a"
 
-#: console/dialogs/dlg_perros.inc:92 console/frm_clubes.php:222
+#: console/dialogs/dlg_perros.inc:92 console/frm_clubes.php:223
 #: console/frm_guias.php:38 console/frm_paises.php:180
 msgid "Edit handler"
 msgstr "Editar gu&iacute;a"
@@ -4886,83 +4886,87 @@ msgstr "Borrar casilla de b&uacute;squeda. Actualizar datos"
 msgid "Look for clubes matching search criteria"
 msgstr "Buscar clubes que coincidan con el criterio de b&uacute;squeda"
 
-#: console/frm_clubes.php:168
+#: console/frm_clubes.php:154
+msgid "Generate listing with current selection"
+msgstr "Crear listado de clubes con la selecci&oacute;n actual"
+
+#: console/frm_clubes.php:169
 msgid "Handlers belonging to club"
 msgstr "Gu&iacute;as pertenecientes al club"
 
-#: console/frm_clubes.php:169 console/frm_paises.php:130
+#: console/frm_clubes.php:170 console/frm_paises.php:130
 msgid "Loading handlers list"
 msgstr "Cargando lista de gu&iacute;as"
 
-#: console/frm_clubes.php:217 console/frm_paises.php:175
+#: console/frm_clubes.php:218 console/frm_paises.php:175
 msgid "Join handler"
 msgstr "Asociar Gu&iacute;a"
 
-#: console/frm_clubes.php:227 console/frm_paises.php:185
+#: console/frm_clubes.php:228 console/frm_paises.php:185
 msgid "Dettach handler"
 msgstr "Desasignar gu&iacute;a"
 
-#: console/frm_clubes.php:240
+#: console/frm_clubes.php:241
 msgid "Create/Assign handler to club"
 msgstr "Crear/Asignar gu&iacute;a al club"
 
-#: console/frm_clubes.php:241
+#: console/frm_clubes.php:242
 msgid "Edit data on handler belonging club"
 msgstr "Editar datos del gu&iacute;a asociado al club"
 
-#: console/frm_clubes.php:242
+#: console/frm_clubes.php:243
 msgid "Unassign selected handler from club"
 msgstr "Desasignar el gu&iacute;a selecionado del club"
 
-#: console/frm_clubes.php:243
+#: console/frm_clubes.php:244
 msgid "Update handlers list on club"
 msgstr "Actualizar lista de gu&iacute;as del club"
 
-#: console/frm_clubes.php:260 console/frm_paises.php:218
+#: console/frm_clubes.php:261 console/frm_paises.php:218
 msgid "Loading list of dogs"
 msgstr "Cargando lista de perros"
 
-#: console/frm_clubes.php:261 console/frm_paises.php:219
+#: console/frm_clubes.php:262 console/frm_paises.php:219
 msgid "Registered dogs belonging to"
 msgstr "Lista de perros asignados a"
 
-#: console/frm_clubes.php:269 console/frm_paises.php:228
+#: console/frm_clubes.php:270 console/frm_paises.php:228
 msgid "Cat."
 msgstr "Cat."
 
-#: console/frm_clubes.php:273 console/frm_guias.php:157
+#: console/frm_clubes.php:274 console/frm_guias.php:157
 #: console/frm_paises.php:231 console/frm_perros.php:182
 msgid "KC id"
 msgstr "LOE/RRC"
 
-#: console/frm_clubes.php:296 console/frm_guias.php:180
+#: console/frm_clubes.php:297 console/frm_guias.php:180
 #: console/frm_paises.php:254
 msgid "Assign dog"
 msgstr "Asignar perro"
 
-#: console/frm_clubes.php:301 console/frm_guias.php:185
+#: console/frm_clubes.php:302 console/frm_guias.php:185
 #: console/frm_paises.php:259 console/frm_perros.php:65
 msgid "Edit dog"
 msgstr "Editar perro"
 
-#: console/frm_clubes.php:306 console/frm_guias.php:190
+#: console/frm_clubes.php:307 console/frm_guias.php:190
 #: console/frm_paises.php:264
 msgid "Dettach dog"
 msgstr "Desasignar perro"
 
-#: console/frm_clubes.php:322 console/frm_paises.php:280
+#: console/frm_clubes.php:323 console/frm_paises.php:280
 msgid "Declare/Assign a dog to"
 msgstr "Crear/Asignar perro a"
 
-#: console/frm_clubes.php:323 console/frm_paises.php:281
+#: console/frm_clubes.php:324 console/frm_paises.php:281
 msgid "Edit data on dog belonging to"
 msgstr "Editar datos del perro perteneciente a"
 
-#: console/frm_clubes.php:324 console/frm_paises.php:282
+#: console/frm_clubes.php:325 console/frm_paises.php:282
 msgid "Unassign selected dog from handler"
 msgstr "Desasignar perro seleccionado del gu&iacute;a"
 
-#: console/frm_clubes.php:325 console/frm_paises.php:283
+#: console/frm_clubes.php:326 console/frm_paises.php:283
 msgid "Update list of dogs belonging to"
 msgstr "Actualizar lista de perros asignados a"
 
@@ -8041,8 +8045,6 @@ msgid "Generate PDF document"
 msgstr "Generar documento PDF solicitado"
 
 #: scripts/printer.js.php:67
-#, fuzzy
-#| msgid "Export to Excel"
 msgid "Export to Excel file"
 msgstr "Exportar en formato Excel"
 
