@@ -39,11 +39,14 @@ $config =Config::getInstance();
    			onclick="deleteClub('#clubes-datagrid')"><?php _e('Delete Club'); ?></a>
    		<input id="clubes-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
 			   onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
+   		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-brush'"
+           onClick="reloadWithSearch('#clubes-datagrid','select',true);"><?php _e('Clear'); ?></a>
    	</span>
    	<span style="float:right;padding:5px">
-   		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"
-   		data-options="iconCls:'icon-brush'"
-   		onClick="reloadWithSearch('#clubes-datagrid','select',true);"><?php _e('Clear'); ?></a>
+   		<a id="clubes-printBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-print'"
+           onclick="print_listaClubes('')"><?php _e('Print'); ?></a>
    	</span>
 </div>   
 

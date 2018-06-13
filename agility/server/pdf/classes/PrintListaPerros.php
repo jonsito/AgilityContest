@@ -96,7 +96,7 @@ class PrintListaPerros extends PrintCommon {
 
 		$rowcount=0;
 		foreach($this->lista as $perro) {
-			$this->myLogger->trace("perro: ".$perro['Nombre']);
+			// $this->myLogger->trace("perro: ".$perro['Nombre']);
 			// $this->cell(width,height,text,border,start,align,fill)
 			if (($rowcount%47)==0) {
 				$this->AddPage();

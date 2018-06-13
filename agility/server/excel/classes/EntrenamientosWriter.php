@@ -45,7 +45,7 @@ class EntrenamientosWriter extends XLSX_Writer {
         $d=new Entrenamientos("excel_Entrenamientos",$prueba);
         $res=$d->select();
         if (!is_array($res)){
-			$errormsg="print_listaPerros: select() failed";
+			$errormsg="excel_Entrenamientos: select() failed";
 			throw new Exception($errormsg);
 		}
 		$this->fedID=$fed;

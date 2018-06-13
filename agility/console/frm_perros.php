@@ -74,6 +74,13 @@ $config =Config::getInstance();
            onclick="reloadWithSearch('#perros-datagrid','duplicates',true);"><?php _e('Duplicates'); ?></a>
    		<input id="perros-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
 			   onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
+   		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-brush'"
+           onclick="
+   	        	// clear selection and reload table
+				reloadWithSearch('#perros-datagrid','select',true);
+   	            "
+        ><?php _e('Clear'); ?></a>
    	</span>
    	<span style="float:right;padding:5px">
    		<a id="perros-excelBtn" href="#" class="easyui-linkbutton"
@@ -82,13 +89,6 @@ $config =Config::getInstance();
    		<a id="perros-printBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-print'"
 		   onclick="print_listaPerros('pdf')"><?php _e('Print'); ?></a>
-   		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-brush'"
-   			onclick="
-   	        	// clear selection and reload table
-				reloadWithSearch('#perros-datagrid','select',true);
-   	            "
-   		><?php _e('Clear'); ?></a>
    	</span>
 </div>
     

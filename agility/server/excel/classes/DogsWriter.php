@@ -45,7 +45,7 @@ class DogsWriter extends XLSX_Writer {
         $d=new Dogs("excel_listaPerros",$this->fedID);
         $res=$d->select();
         if (!is_array($res)){
-			$this->errormsg="print_listaPerros: select() failed";
+			$this->errormsg="excel_listaPerros: select() failed";
 			throw new Exception($this->errormsg);
 		}
         $this->lista=$res['rows'];

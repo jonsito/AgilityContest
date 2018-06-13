@@ -29,10 +29,59 @@ $config =Config::getInstance();
 /************************** listado de perros */
 
 /**
+ * Imprime el listado de los clubes indicados en #clubes-datagrid
+ *@param {string} mode "" (ask), "pdf", "excel"
+ */
+function print_listaClubes(mode) {
+
+    function do_print(mode) {
+        var url='../ajax/pdf/print_listados_db.php';
+        if (mode==="excel") url='../ajax/excel/excelWriterFunctions.php';
+        var options=$('#clubes-datagrid').datagrid('options');
+        $.fileDownload(
+            url,
+            {
+                httpMethod: 'GET',
+                data: {
+                    Operation: 'Clubes',
+                    Federation: workingData.federation, // not used in clubes, but required for excelWriter
+                    where:$('#clubes-datagrid-search').val(),
+                    sort: options.sortName,
+                    order: options.sortOrder,
+                    page: 0,
+                    rows: 0
+                },
+                preparingMessageHtml: '(club list) <?php _e("We are preparing your report, please wait"); ?> ...',
+                failMessageHtml: '(club list) <?php _e("There was a problem generating your report, please try again."); ?>'
+            }
+        );
+    }
+
+    if (mode==="pdf") { do_print("pdf"); return false; }
+    if (mode==="excel") { do_print("excel"); return false; }
+    $.messager.radio(
+        '<?php _e("Print"); ?>',
+        '<?php _e("Create club listing from current selection"); ?>:<br/>',
+        {
+            0:'*<?php _e("Generate PDF document"); ?>',
+            1:'<?php _e("Export to Excel file"); ?>'
+        },
+        function(r) {
+            if (!r) return false;
+            switch (parseInt(r)) {
+                case 0: do_print("pdf"); break;
+                case 1: do_print("excel"); break;
+            }
+        }
+    );
+    return false;
+}
+
+/**
  * Imprime el listado de los perros registrados en el orden especificado por #perros-datagrid
  */
 function print_listaPerros(mode) {
-    var url='../ajax/pdf/print_listaPerros.php';
+    var url='../ajax/pdf/print_listados_db.php';
     if (mode==="excel") url='../ajax/excel/excelWriterFunctions.php';
     var options=$('#perros-datagrid').datagrid('options');
     $.fileDownload(

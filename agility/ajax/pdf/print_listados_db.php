@@ -1,6 +1,6 @@
 <?php
 /*
-print_listaPerros.php
+print_listados_db.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -27,17 +27,22 @@ header('Set-Cookie: fileDownload=true; path=/');
 require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/logging.php");
 require_once(__DIR__ . "/../../server/pdf/classes/PrintListaPerros.php");
+require_once(__DIR__ . "/../../server/pdf/classes/PrintListaClubes.php");
 
 // Consultamos la base de datos
 try {
+    $pdf=null;
 	// 	Creamos generador de documento
-	$fed=http_request("Federation","i",0);
-	$pdf = new PrintListaPerros($fed);
+    $fed=http_request("Federation","i",0);
+    $oper=http_request("Operation","s",""); // Dogs, Handlers, Clubes, Judges
+    if ($oper==='Dogs') $pdf = new PrintListaPerros($fed);
+    if ($oper==='Clubes') $pdf = new PrintListaClubes();
+    if ($pdf==null) throw new Exception("print_listados_db: unsupported (yet) listing");
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
     return 0;
 } catch (Exception $e) {
-	die ("Error accessing database: ".$e->getMessage());
+	die ("Error printing dog list: ".$e->getMessage());
 }
 ?>

@@ -46,7 +46,7 @@ class Clubes extends DBObject {
         $direccion1 = http_request('Direccion1',"s",null,false);
         $direccion2 = http_request('Direccion2',"s",null,false);
         $provincia	= http_request('Provincia',"s",null,false);
-        $pais	    = http_request('Pais',"s",'ES');
+        $pais	    = http_request('Pais',"s",'ESP');
         $contacto1	= http_request('Contacto1',"s",null,false);
         $contacto2	= http_request('Contacto2',"s",null,false);
         $contacto3	= http_request('Contacto3',"s",null,false);
