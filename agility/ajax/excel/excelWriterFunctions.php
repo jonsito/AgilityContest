@@ -31,6 +31,7 @@ require_once(__DIR__ . '/../../server/excel/classes/OrdenSalidaWriter.php');
 require_once(__DIR__ . "/../../server/excel/classes/EntrenamientosWriter.php");
 require_once(__DIR__ . "/../../server/excel/classes/InscripcionesWriter.php");
 require_once(__DIR__ . "/../../server/excel/classes/DogsWriter.php");
+require_once(__DIR__ . "/../../server/excel/classes/ClubesWriter.php");
 require_once(__DIR__ . "/../../server/excel/classes/ClasificacionesWriter.php");
 require_once(__DIR__ . "/../../server/excel/classes/PartialScoresWriter.php");
 
@@ -69,6 +70,9 @@ try {
             break;
         case "Dogs":
             $excel = new DogsWriter($federation);
+            break;
+        case "Clubes":
+            $excel = new ClubesWriter($federation);
             break;
         case "TrainingTable":
             $excel = new EntrenamientosWriter($prueba,$federation);

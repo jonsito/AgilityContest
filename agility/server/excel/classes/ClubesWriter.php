@@ -1,6 +1,6 @@
 <?php
 /*
-excel_DogsWriter.php
+excel_ClubesWriter.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -22,35 +22,43 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__ . "/../../tools.php");
 require_once(__DIR__ . "/../../logging.php");
-require_once(__DIR__ . '/../../database/classes/Dogs.php');
+require_once(__DIR__ . '/../../database/classes/Clubes.php');
 require_once(__DIR__ . "/XLSXWriter.php");
 
-class DogsWriter extends XLSX_Writer {
+class ClubesWriter extends XLSX_Writer {
 
 	protected $lista; // listado de perros
-    protected $fedID;
-
-    protected $cols = array( 'Name','LongName','Gender','Breed','Chip','License','KC id','Category','Grade','Handler','Club','Province','Country');
-    protected $fields = array( 'Nombre','NombreLargo','Genero','Raza','Chip','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Provincia','Pais');
-
-	/**
+    protected $cols    = array( 'Name',  'Address 1','Address 2','Province','Country',
+                                'Contact 1','Contact 2','Contact 3',
+                                'GPS','Email','Web page','Facebook','Twitter',
+                                'RSCE','RFEC','CPC','Intl 4','Intl 3','Out' );
+    protected $fields = array( 'Nombre','Direccion1','Direccion2','Provincia','Pais',
+                                'Contacto1','Contacto2','Contacto3',
+                                'GPS','Email','Web','Facebook','Twitter',
+                                'RSCE','RFEC','CPC','Intl4', 'Intl3', 'Out');
+    /**
 	 * Constructor
      * @param {integer} $fed Federation ID
 	 * @throws Exception
 	 */
 	function __construct($fed) {
-		parent::__construct("doglist.xlsx");
+		parent::__construct("clublist.xlsx");
 		setcookie('fileDownload','true',time()+30,"/"); // tell browser to hide "downloading" message box
         $this->fedID=$fed;
-        $d=new Dogs("excel_listaPerros",$this->fedID);
+        $d=new Clubes("excel_listaClubes");
         $res=$d->select();
         if (!is_array($res)){
-			$this->errormsg="excel_listaPerros: select() failed";
-			throw new Exception($this->errormsg);
+			$errormsg="excel_listaClubes: select() failed";
+			throw new Exception($errormsg);
 		}
         $this->lista=$res['rows'];
 	}
 
+    /**
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
+     */
 	private function writeTableHeader() {
 		// internationalize header texts
 		for($n=0;$n<count($this->cols);$n++) {
@@ -63,17 +71,25 @@ class DogsWriter extends XLSX_Writer {
 	function composeTable() {
 		$this->myLogger->enter();
         // create inrormational page
-        $this->createInfoPage(_utf("Dog Listing"),intval($this->fedID));
+        $this->createInfoPage(_utf("Club Listing"));
 		// Create data page
-		$dogspage=$this->myWriter->addNewSheetAndMakeItCurrent();
-		$dogspage->setName(_("Dogs"));
+		$clubspage=$this->myWriter->addNewSheetAndMakeItCurrent();
+		$clubspage->setName(_("Clubs"));
 		// write header
 		$this->writeTableHeader();
         // populate table
-		foreach($this->lista as $perro) {
-			$row=array();
+		foreach($this->lista as $club) {
+		    if ($club['ID']<=1) continue; // skip default club
+            // extract federation info
+            $club['RSCE']= (( $club['Federations']& 0x0001) == 0 )? "":"X";
+            $club['RFEC']= (( $club['Federations']& 0x0002) == 0 )? "":"X";
+            $club['CPC']=  (( $club['Federations']& 0x0010) == 0 )? "":"X";
+            $club['Intl4']=(( $club['Federations']& 0x0100) == 0 )? "":"X";
+            $club['Intl3']=(( $club['Federations']& 0x0200) == 0 )? "":"X";
+            $club['Out']=( $club['Baja'] == 0 )? "":"X";
+ 			$row=array();
 			// extract relevant information from database received dog
-			for($n=0;$n<count($this->fields);$n++) array_push($row,$perro[$this->fields[$n]]);
+			for($n=0;$n<count($this->fields);$n++) array_push($row,$club[$this->fields[$n]]);
 			$this->myWriter->addRow($row);
 		}
 		$this->myLogger->leave();
