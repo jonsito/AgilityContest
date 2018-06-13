@@ -90,6 +90,7 @@ class PrintListaClubes extends PrintCommon {
 		$this->myLogger->enter();
 
 		$rowcount=0;
+        $fedName=$this->federation->get('Name');
 		foreach($this->lista as $club) {
 		    if ($club['ID']==1) continue;
 		    // we print three (3) lines for club, to provide enought space for full info
@@ -125,6 +126,14 @@ class PrintListaClubes extends PrintCommon {
                 $this->Cell($this->pos[$n],4,$data,'LBR',0,$this->align[$n],true);
             }
             $this->Ln(4);
+            // evaluate logo and paint logo
+            $icon=getIconPath($fedName,"agilitycontest.png"); // default
+            if ( $club['Logo']!=="") {
+                $icon = $icon = getIconPath($fedName, $club['Logo']); // get logo
+            } else {
+                $this->myLogger->error("print_listaClubes() club:{$club['ID']} {$club['Nombre']} no logo declared");
+            }
+            $this->Image($icon,11,$this->GetY()-9,8,8);
 			$rowcount+=3;
 		}
 		$this->myLogger->leave();
