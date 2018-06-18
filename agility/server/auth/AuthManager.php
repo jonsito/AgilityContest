@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once (__DIR__."/../logging.php");
 require_once (__DIR__."/../tools.php");
 require_once (__DIR__."/Config.php");
+require_once (__DIR__."/CertManager.php");
 require_once (__DIR__."/../database/classes/DBObject.php");
 require_once (__DIR__."/../database/classes/Sesiones.php");
 require_once (__DIR__."/../database/classes/Eventos.php");
@@ -389,10 +390,23 @@ class AuthManager {
         else return $this->dbLogin($login, $password, $sid, $nosession);
     }
 
-	/*
-	 * Authenticate user from certificates
-	 */
-	private function certLogin($login,$password,$sid,$nosession) {
+    /**
+     * Authenticate user from certificates
+     * On Login success create session and if needed send login event
+     * @param {string} $login user name
+     * @param {string} $password user password
+     * @param {integer} $sid requested session id to join to
+     * @param {boolean} $nossesion true: emit session event
+     * @throws Exception if something goes wrong
+     * @return {array} errorMessage or result data
+     */
+    private function certLogin($login,$password,$sid,$nosession) {
+        $cm=new CertManager();
+        if (!$cm->hasValidCert())
+        	throw new Exception( _("A valid Digital Certificate is required") );
+        // ok, valid certificate, so check ACL
+        if (!$cm->checkCertACL())
+        	throw new Exception(_("Your provided certificate is not in access control list"));
 	    return $this->dbLogin($login,$password,$sid,$nosession);
     }
 
