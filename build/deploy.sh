@@ -94,7 +94,7 @@ case `grep -e '^ID=' /etc/os-release` in
             -e "s:__AC_BASENAME__:${BASENAME}:g" \
             -e "s:__AC_WEBNAME__:${WEBNAME}:g" \
             ${CONF}
-        a2enconf AgilityContest_apache2
+        a2enconf AgilityContest_${WEBNAME}
         service apache2 reload
         ;;
     'ID=fedora' )
