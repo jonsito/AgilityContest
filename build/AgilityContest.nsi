@@ -132,11 +132,13 @@ SetOutPath $INSTDIR
 
 ;Incluimos todos los ficheros que componen nuestra aplicacion
 File AgilityContest.exe
+File .htaccess
 File License.txt
 File COPYING
 FILE README.md
 FILE Contributors
 File /r agility
+File /r config
 File /r docs
 FILE /r extras
 FILE /r logs

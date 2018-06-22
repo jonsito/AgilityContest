@@ -24,7 +24,7 @@ BUILD_DIR=/home/jantonio/work/agility/build
 EXTRA_DIR=/home/jantonio/work/agility/extra-pkgs
 CONF_DIR=${BASE_DIR}/extras
 NSIS=${BASE_DIR}/build/AgilityContest.nsi
-XAMPP=xampp-portable-win32-5.6.36-0-VC11.zip
+XAMPP=xampp-portable-win32-7.2.6-0-VC15.zip
 DROPBOX=${HOME}/Dropbox/Public/AgilityContest
 
 # make sure that build dir exists and is clean
@@ -34,7 +34,7 @@ rm -rf ${BUILD_DIR}/*
 #retrieve xampp from server if not exists
 if [ ! -f ${EXTRA_DIR}/${XAMPP} ]; then
     echo "Download xampp from server ..."
-    (cd ${EXTRA_DIR}; wget --no-check-certificate http://sourceforge.net/projects/xampp/files/XAMPP%20Windows/5.6.36/${XAMPP} )
+    (cd ${EXTRA_DIR}; wget --no-check-certificate http://sourceforge.net/projects/xampp/files/XAMPP%20Windows/7.2.6/${XAMPP} )
     if [ $? -ne 0 ]; then
         echo "Cannot download xampp. Aborting"
         exit 1
@@ -62,7 +62,8 @@ __EOF
 unix2dos ${BUILD_DIR}/xampp/apache/conf/httpd.conf
 
 # create certificates
-/bin/bash ${CONF_DIR}/create_certificate.command /tmp/ssl_crt
+echo "Creating new Certificate ..."
+/bin/bash ${CONF_DIR}/create_certificate.command /tmp/ssl_crt >/dev/null 2>&1
 cp /tmp/ssl_crt/server.csr ${BUILD_DIR}/xampp/apache/conf/ssl.csr/server.csr
 cp /tmp/ssl_crt/server.crt ${BUILD_DIR}/xampp/apache/conf/ssl.crt/server.crt
 cp /tmp/ssl_crt/server.key ${BUILD_DIR}/xampp/apache/conf/ssl.key/server.key
@@ -71,7 +72,7 @@ rm -rf /tmp/ssl_crt
 # add AC config file and remove "/" to use relative paths
 echo "Adding AgilityContest config file ..."
 cp ${CONF_DIR}/AgilityContest_apache2.conf ${BUILD_DIR}/xampp/apache/conf/extra
-sed -i -e "s|__HTTP_BASEDIR__|C:/|g" \
+sed -i -e "s|__HTTP_BASEDIR__|C:|g" \
     -e "s|__AC_BASENAME__|AgilityContest|g" \
     -e "s|__AC_WEBNAME__|agility|g" \
     ${BUILD_DIR}/xampp/apache/conf/extra/AgilityContest_apache2.conf

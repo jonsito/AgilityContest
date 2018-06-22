@@ -20,8 +20,9 @@ header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}",false);
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 
-if (!file_exists(__DIR__ . "/../../config/system.ini")) {
-    die("Missing system configuration file. Please properly configure and install application");
+define("SYSTEM_INI",__DIR__ . "/../../config/system.ini");
+if (!file_exists(SYSTEM_INI)) {
+    die("Missing system configuration file: ".SYSTEM_INI." . Please properly configure and install application");
 }
 $config =Config::getInstance();
 
