@@ -28,6 +28,18 @@ $.extend({
     //  see directly below for possible 'options'
     fileDownload: function (fileUrl, options) {
 
+        function showMessageHtml (msg) {
+            return $.messager.show({
+                title: 'Processing..',
+                msg:msg,
+                showType:'show',
+                height:'auto',
+                width: 8*msg.length,
+                timeout: 8000, // wait up to 8secs and then make sure that message dissappears
+                style:{ right:'', bottom:'' }
+            });
+        }
+
         //provide some reasonable defaults to any unspecified options below
         var settings = $.extend({
 
@@ -152,7 +164,10 @@ $.extend({
             //the stock android browser straight up doesn't support file downloads initiated by non GET requests: http://code.google.com/p/android/issues/detail?id=1780
 
             if ($().dialog) {
-                $("<div>").html(settings.androidPostUnsupportedMessageHtml).dialog(settings.dialogOptions);
+                // for jquery UI
+                // $("<div>").html(settings.androidPostUnsupportedMessageHtml).dialog(settings.dialogOptions);
+                // for jquery EasyUI
+                showMessageHtml(settings.androidPostUnsupportedMessageHtml);
             } else {
                 alert(settings.androidPostUnsupportedMessageHtml);
             }
@@ -168,13 +183,12 @@ $.extend({
 
                 //wire up a jquery dialog to display the preparing message if specified
                 if (settings.preparingMessageHtml) {
-
-                    $preparingDialog = $("<div>").html(settings.preparingMessageHtml).dialog(settings.dialogOptions);
-
+                    // for jQuery UI
+                    // $preparingDialog = $("<div>").html(settings.preparingMessageHtml).dialog(settings.dialogOptions);
+                    // for easyUI
+                    $preparingDialog = showMessageHtml(settings.preparingMessageHtml);
                 } else if (settings.prepareCallback) {
-
                     settings.prepareCallback(url);
-
                 }
 
             },
@@ -198,7 +212,10 @@ $.extend({
                 }
                 //wire up a jquery dialog to display the fail message if specified
                 if (settings.failMessageHtml) {
-                    $("<div>").html(settings.failMessageHtml).dialog(settings.dialogOptions);
+                    // for jquery UI
+                    // $("<div>").html(settings.failMessageHtml).dialog(settings.dialogOptions);
+                    // for jquery EasyUI
+                    showMessageHtml(settings.failMessageHtml);
                 }
 
                 settings.failCallback(responseHtml, url);

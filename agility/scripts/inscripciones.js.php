@@ -470,6 +470,35 @@ function importExportInscripciones() {
  * @returns {Boolean} true on success, otherwise false
  */
 function printInscripciones() {
+
+    function do_print(r) {
+        var where= $('#inscripciones-datagrid-search').val();
+        if (where==="<?php _e('-- Search --');?>") where="";
+        var dg=$('#inscripciones-datagrid');
+        var order= dg.datagrid('options').sortOrder;
+        var sort= dg.datagrid('options').sortName;
+        if ( (sort==null) || (sort=="" )) { order=""; sort=""; }
+        $.fileDownload(
+            '../ajax/pdf/print_inscritosByPrueba.php',
+            {
+                httpMethod: 'GET',
+                data: {
+                    Prueba: workingData.prueba,
+                    Jornada: jornada,
+                    Mode: parseInt(r),
+                    page: 0,
+                    rows: 0,
+                    where: where,
+                    sort: sort,
+                    order: order
+                },
+                preparingMessageHtml: '<?php _e("Printing inscriptions. Please wait"); ?> ...',
+                failMessageHtml: '<?php _e("There was a problem generating your report, please try again"); ?>.'
+            }
+        );
+        return false;
+    }
+
 	// en el caso de que haya alguna jornada seleccionada.
 	// anyadir al menu la posibilidad de imprimir solo los inscritos en dicha jornada
 	var options= {
@@ -492,31 +521,8 @@ function printInscripciones() {
 		'<?php _e('Select type of document to be generated'); ?>:',
 		options,
 		function(r){
-			if (!r) return;
-			var where= $('#inscripciones-datagrid-search').val();
-            if (where==="<?php _e('-- Search --');?>") where="";
-			var dg=$('#inscripciones-datagrid');
-			var order= dg.datagrid('options').sortOrder;
-			var sort= dg.datagrid('options').sortName;
-			if ( (sort==null) || (sort=="" )) { order=""; sort=""; }
-			$.fileDownload(
-				'../ajax/pdf/print_inscritosByPrueba.php',
-					{
-						httpMethod: 'GET',
-						data: {
-                            Prueba: workingData.prueba,
-                            Jornada: jornada,
-                            Mode: parseInt(r),
-                            page: 0,
-                            rows: 0,
-                            where: where,
-                            sort: sort,
-                            order: order
-                        },
-						preparingMessageHtml: '<?php _e("Printing inscriptions. Please wait"); ?> ...',
-						failMessageHtml: '<?php _e("There was a problem generating your report, please try again"); ?>.'
-					}
-			);
+			if (r) { setTimeout(do_print(r),0); }
+			return false ;
 		}
 	).window('resize',{width:(jornada==0)?250:350});
 	return false; //this is critical to stop the click event which will trigger a normal file download!
