@@ -134,7 +134,7 @@ function vw_updateHeaderAndFooter(evt,data,showJourney) {
 
     // update footer
 	var fed=ac_fedInfo[workingData.federation].ID
-	var logo=ac_fedInfo[workingData.federation].Logo;
+	logo=ac_fedInfo[workingData.federation].Logo;
 	var logourl="../ajax/images/getLogo.php?Federation="+fed+"&Logo="+logo;
 	var logo2=ac_fedInfo[workingData.federation].ParentLogo;
 	var logo2url="../ajax/images/getLogo.php?Federation="+fed+"&Logo="+logo2;

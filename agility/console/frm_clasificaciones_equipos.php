@@ -67,7 +67,8 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 		</div> <!-- Layout: center -->
 
 		<!-- PANEL INFERIOR: CLASIFICACIONES -->
-		<div id="resultados-data" class="scores_table" data-options="region:'south',split:true,collapsed:false,collapsible:false" style="height:70%;"">
+		<div id="resultados-data" class="scores_table"
+             data-options="region:'south',split:true,collapsed:false,collapsible:false" style="height:70%;">
 			<!-- tabla con las clasificaciones -->
 			<?php include(__DIR__ . "/../lib/templates/final_teams.inc.php"); ?>
 		</div>

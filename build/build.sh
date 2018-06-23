@@ -154,9 +154,9 @@ rm -f AgilityContest-${VERSION}-${DATE}.md5sums
 zsum=`md5sum AgilityContest-${VERSION}-${DATE}.zip`
 esum=`md5sum AgilityContest-${VERSION}-${DATE}.exe`
 dsum=`md5sum AgilityContest-${VERSION}-${DATE}.dmg`
-echo $zsum >> AgilityContest-${VERSION}-${DATE}.md5sums
-echo $esum >> AgilityContest-${VERSION}-${DATE}.md5sums
-echo $dsum >> AgilityContest-${VERSION}-${DATE}.md5sums
+echo ${zsum} >> AgilityContest-${VERSION}-${DATE}.md5sums
+echo ${esum} >> AgilityContest-${VERSION}-${DATE}.md5sums
+echo ${dsum} >> AgilityContest-${VERSION}-${DATE}.md5sums
 cp ${BASE_DIR}/applications/Eval_md5sum.html AgilityContest-${VERSION}-${DATE}_md5check.html
 sed -i "s/__VERSION__/${VERSION}-${DATE}/g" AgilityContest-${VERSION}-${DATE}_md5check.html
 sed -i "s/__ZIPFILE__/${zsum}/g" AgilityContest-${VERSION}-${DATE}_md5check.html

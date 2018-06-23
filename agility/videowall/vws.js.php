@@ -563,11 +563,12 @@ function vws_updateFinales(perro,data) {
             // utilizando los datos de perros individuales
             // reindexamos "individual" segun el id de perro
             var dogsByID={};
+            var curdog=0;
             for (n=0;n<individual.length;n++) dogsByID[parseInt(individual[n]['Perro'])]=individual[n];
             var evalToBeFirst=(typeof(dat.current)!=="undefined");
             if (team) {
                 for (i=0;i<4;i++) {
-                    var curdog=parseInt($('#vws_current_Perro_' + i).val());
+                    curdog=parseInt($('#vws_current_Perro_' + i).val());
                     if (typeof (dogsByID[curdog])!=="undefined")
                          $('#vws_current_Puesto_'+i).val(dogsByID[curdog]['Puesto']);
                     else $('#vws_current_Puesto_'+i).val(0);
@@ -579,7 +580,7 @@ function vws_updateFinales(perro,data) {
                     vws_displayData("_"+i,false,dat.current['toBeFirst']);
                 }
             } else { // individual. solo hay una columna que chequear
-                var curdog=parseInt($('#vws_current_Perro').val());
+                curdog=parseInt($('#vws_current_Perro').val());
                 if (typeof (dogsByID[curdog])!=="undefined")
                     $('#vws_current_Puesto').val(dogsByID[curdog]['Puesto']);
                 else $('#vws_current_Puesto').val(0);

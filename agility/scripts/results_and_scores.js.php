@@ -423,7 +423,7 @@ function consoleReloadParcial(val,fill) {
 function updateParciales(mode,row) {
     // si no nos pasan parametro, leemos el valor del combogrid
     if (typeof (mode) === "undefined") {
-        var row=$('#enumerateParciales').combogrid('grid').datagrid('getSelected');
+        row=$('#enumerateParciales').combogrid('grid').datagrid('getSelected');
         if (!row) return;
         setManga(row);
         mode=row.Mode;
@@ -527,18 +527,18 @@ function updateFinales(perro,ronda,callback) {
                 $('#finales-Velocidad2').text(dat['trs2'].vel);
             }
             // clasificaciones
-
+            var dg=null;
             if ( isJornadaEquipos(null) ) {
                 $('#finales_equipos_roundname_m1').html(ronda.NombreManga1);
                 $('#finales_equipos_roundname_m2').html(ronda.NombreManga2);
-                var dg=$('#finales_equipos-datagrid');
+                dg=$('#finales_equipos-datagrid');
                 workingData.individual=dat.individual;
                 dg.datagrid('options').expandCount = 0;
                 dg.datagrid('loadData',dat.equipos);
             } else {
                 $('#finales_individual_roundname_m1').html(ronda.NombreManga1);
                 $('#finales_individual_roundname_m2').html(ronda.NombreManga2);
-                var dg=$('#finales_individual-datagrid');
+                dg=$('#finales_individual-datagrid');
                 workingData.individual=dat.rows;
                 dg.datagrid('loadData',dat.rows);
             }

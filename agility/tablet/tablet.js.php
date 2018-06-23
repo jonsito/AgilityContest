@@ -326,6 +326,7 @@ function tablet_elim(sendEvent) {
  * @param data
  */
 function tablet_updateChronoData(data) {
+    var str="";
 	var f=parseInt(data['Faltas']);
 	var r=parseInt(data['Rehuses']);
 	var t=parseInt(data['Tocados']);
@@ -336,14 +337,14 @@ function tablet_updateChronoData(data) {
 	if (r>=0) $('#tdialog-Rehuses').val(''+r);
 	// if (data["Tiempo"]!=-1) $('#chrono_Tiempo').html(data["Tiempo"]);
 	if(e>=0) {
-		var str=(data['Eliminado']==0)?"":"EL";
+		str=(data['Eliminado']==0)?"":"EL";
 		$('#tdialog-Eliminado').val(e);
 		$('#tdialog-EliminadoStr').val(str);
 		$('#tdialog-NoPresentado').val(0);
 		$('#tdialog-NoPresentadoStr').val("");
 	}
 	if (n>=0) {
-		var str=(data['NoPresentado']==0)?"":"NP";
+		str=(data['NoPresentado']==0)?"":"NP";
 		$('#tdialog-NoPresentado').val(n);
 		$('#tdialog-NoPresentadoStr').val(str);
 		$('#tdialog-Eliminado').val(0);
