@@ -380,8 +380,8 @@ var $maxStrLenRead;
 			$this->skip(2);
 			$fsType = $this->read_ushort();
 			if ($fsType == 0x0002 || ($fsType & 0x0300) != 0) {
+                $this->restrictedUse = true;
 				die('ERROR - Font file '.$this->filename.' cannot be embedded due to copyright restrictions.');
-				$this->restrictedUse = true;
 			}
 			$this->skip(20);
 			$sF = $this->read_short();

@@ -8,7 +8,7 @@ require_once(__DIR__ . "/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = AuthManager::getInstance("Videowall::entrenamientos");
 if ( ! $am->allowed(ENABLE_LIVESTREAM)) { include_once("unregistered.php"); return 0;}
-if ( ! $am->allowed(ENABLE_TRAINING)) { include_once("trainingnotallowed.php"); return 0;}
+if ( ! $am->allowed(ENABLE_TRAINING)) { include_once("../public/trainingnotallowed.php"); return 0;}
 $combined=http_request("combined","i",0);
 ?>
 <!--

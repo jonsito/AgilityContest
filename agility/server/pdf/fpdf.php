@@ -501,11 +501,12 @@ function AddFont($family, $style='', $file='', $uni=false)
 		$originalsize = 0;
 		$ttfstat = stat($ttffilename);
 		if (file_exists($unifilename.'.mtx.php')) {
-			include($unifilename.'.mtx.php');
+			include("{$unifilename}.mtx.php");
 		}
 		if (!isset($type) ||  !isset($name) || $originalsize != $ttfstat['size']) {
 			$ttffile = $ttffilename;
-			require_once($this->_getfontpath().'unifont/ttfonts.php');
+			$ttffontpath=$this->_getfontpath();
+			require_once("{$ttffontpath}/unifont/ttfonts.php");
 			$ttf = new TTFontFile();
 			$ttf->getMetrics($ttffile);
 			$cw = $ttf->charWidths;
@@ -1360,7 +1361,7 @@ function _endpage()
 function _loadfont($font)
 {
 	// Load a font definition file from the font directory
-	include($this->fontpath.$font);
+	include("{$this->fontpath}{$font}");
 	$a = get_defined_vars();
 	if(!isset($a['name']))
 		$this->Error('Could not include font definition file');
@@ -1982,7 +1983,7 @@ function _putfonts()
 
 function _putTTfontwidths(&$font, $maxUni) {
 	if (file_exists($font['unifilename'].'.cw127.php')) {
-		include($font['unifilename'].'.cw127.php') ;
+		include("{$font['unifilename']}.cw127.php") ;
 		$startcid = 128;
 	}
 	else {

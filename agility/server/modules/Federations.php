@@ -438,7 +438,7 @@ class Federations {
         // Notice that module class name should be the same as uppercase'd module directory name
         foreach( glob(__DIR__.'/federaciones/*',GLOB_ONLYDIR) as $federation) {
             $name=strtoupper( basename($federation));
-            require_once($federation."/config.php");
+            require_once("{$federation}/config.php");
             $fed=new $name;
             if (!$fed) continue;
             if ($fed->get('ID')==$id) return $fed; // use == instead of === to handle int/string
@@ -456,7 +456,7 @@ class Federations {
         $fedList=array();
         foreach( glob(__DIR__.'/federaciones/*',GLOB_ONLYDIR) as $federation) {
             $name=strtoupper( basename($federation));
-            require_once($federation."/config.php");
+            require_once("{$federation}/config.php");
             $fed=new $name;
             if (!$fed) continue;
             $id=$fed->get('ID');
