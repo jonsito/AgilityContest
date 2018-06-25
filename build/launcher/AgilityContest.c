@@ -325,8 +325,10 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     int res=unlink("..\\logs\\install.sql");
     if (res<0) doLog("unlink install.sql",strerror(errno));
     if (firstInstall) fclose(firstInstall);
-    res= unlink("..\\logs\\first_install");
-    if (res<0) doLog("unlink first_install",strerror(errno)); // may fail if not in first install, but log anyway
+
+    // do not delete first install mark. Let php code do the job
+    // res= unlink("..\\logs\\first_install");
+    // if (res<0) doLog("unlink first_install",strerror(errno)); // may fail if not in first install, but log anyway
 
     doLog("system",browser);
     system(browser);
