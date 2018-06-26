@@ -41,9 +41,12 @@ if [ ! -f ${EXTRA_DIR}/${XAMPP} ]; then
     fi
 fi
 
+# extract version and revision number from Changelog
+read Version AC_VERSION AC_REVISION <<< $( head -1 ${BASE_DIR}/ChangeLog )
+
 # compile AgilityContest.exe
 echo "Compiling launcher..."
-( cd ${EXE_DIR}; make clean; make install; make clean )
+( cd ${EXE_DIR}; make clean; make AC_VERSION=${AC_VERSION} install; make clean )
 
 # unzip xampp to build directory
 echo "Extracting xampp ... "
@@ -111,19 +114,20 @@ if [ -d ${DROPBOX} ]; then
     cp ${BASE_DIR}/README* ${BUILD_DIR}/docs
 fi
 
+# fix version and revision number in system.ini
+sed -i '/version_name/d' ${BUILD_DIR}/config/system.ini
+sed -i '/version_date/d' ${BUILD_DIR}/config/system.ini
+echo "version_name = \"${AC_VERSION}\"" >>${BUILD_DIR}/config/system.ini
+echo "version_date = \"${AC_REVISION}\"" >>${BUILD_DIR}/config/system.ini
+
 # invoke makensis
 echo "Prepare and execute makensis..."
-VERSION=`grep version_name ${BUILD_DIR}/config/system.ini | sed -e 's/^.*= "/"/g'`
-DATE=`grep version_date ${BUILD_DIR}/config/system.ini | sed -e 's/^.*= "/"/g'`
-sed -e "s/__VERSION__/${VERSION}/g" -e "s/__TIMESTAMP__/${DATE}/g" ${NSIS} > ${BUILD_DIR}/AgilityContest.nsi
+sed -e "s/__VERSION__/${AC_VERSION}/g" -e "s/__TIMESTAMP__/${AC_REVISION}/g" ${NSIS} > ${BUILD_DIR}/AgilityContest.nsi
 cp ${BASE_DIR}/build/{installer.bmp,License.txt,wellcome.bmp} ${BUILD_DIR}
 (cd ${BUILD_DIR}; makensis AgilityContest.nsi )
 
 # prepare dmg image for MAC-OSX
 echo "Creating disk image for Mac-OSX"
-#strip quotes in version
-VERSION=`echo ${VERSION} |sed -e 's/"//g'`
-DATE=`echo ${DATE} |sed -e 's/"//g'`
 mkdir -p ${BUILD_DIR}/AgilityContest-master
 cd ${BUILD_DIR}
 # add build installer and certificate script
@@ -140,31 +144,31 @@ zip -q -r AgilityContest-master.zip AgilityContest-master/{agility,applications,
 FILES="osx_install.command create_certificate.command COPYING License.txt AgilityContest-master.zip"
 mkisofs -quiet -A AgilityContest \
     -P jonsito@gmail.com \
-    -V ${VERSION}_${DATE} \
-    -J -r -o AgilityContest-${VERSION}-${DATE}.dmg \
+    -V ${AC_VERSION}_${AC_REVISION} \
+    -J -r -o AgilityContest-${AV_VERSION}-${AC_REVISION}.dmg \
     -graft-points /.background/=.background \
     ${FILES}
 
 # prepare zip file
-mv AgilityContest-master.zip AgilityContest-${VERSION}-${DATE}.zip
+mv AgilityContest-master.zip AgilityContest-${AC_VERSION}-${AC_REVISION}.zip
 
 # create md5 sum file and html page
 
-rm -f AgilityContest-${VERSION}-${DATE}.md5sums
-zsum=`md5sum AgilityContest-${VERSION}-${DATE}.zip`
-esum=`md5sum AgilityContest-${VERSION}-${DATE}.exe`
-dsum=`md5sum AgilityContest-${VERSION}-${DATE}.dmg`
-echo ${zsum} >> AgilityContest-${VERSION}-${DATE}.md5sums
-echo ${esum} >> AgilityContest-${VERSION}-${DATE}.md5sums
-echo ${dsum} >> AgilityContest-${VERSION}-${DATE}.md5sums
-cp ${BASE_DIR}/applications/Eval_md5sum.html AgilityContest-${VERSION}-${DATE}_md5check.html
-sed -i "s/__VERSION__/${VERSION}-${DATE}/g" AgilityContest-${VERSION}-${DATE}_md5check.html
-sed -i "s/__ZIPFILE__/${zsum}/g" AgilityContest-${VERSION}-${DATE}_md5check.html
-sed -i "s/__WINFILE__/${esum}/g" AgilityContest-${VERSION}-${DATE}_md5check.html
-sed -i "s/__MACFILE__/${dsum}/g" AgilityContest-${VERSION}-${DATE}_md5check.html
+rm -f AgilityContest-${AC_VERSION}-${AC_REVISION}.md5sums
+zsum=`md5sum AgilityContest-${AC_VERSION}-${AC_REVISION}.zip`
+esum=`md5sum AgilityContest-${AC_VERSION}-${AC_REVISION}.exe`
+dsum=`md5sum AgilityContest-${AC_VERSION}-${AC_REVISION}.dmg`
+echo ${zsum} >> AgilityContest-${AC_VERSION}-${AC_REVISION}.md5sums
+echo ${esum} >> AgilityContest-${AC_VERSION}-${AC_REVISION}.md5sums
+echo ${dsum} >> AgilityContest-${AC_VERSION}-${AC_REVISION}.md5sums
+cp ${BASE_DIR}/applications/Eval_md5sum.html AgilityContest-${AC_VERSION}-${AC_REVISION}_md5check.html
+sed -i "s/__VERSION__/${AC_VERSION}-${AC_REVISION}/g" AgilityContest-${AC_VERSION}-${AC_REVISION}_md5check.html
+sed -i "s/__ZIPFILE__/${zsum}/g" AgilityContest-${AC_VERSION}-${AC_REVISION}_md5check.html
+sed -i "s/__WINFILE__/${esum}/g" AgilityContest-${AC_VERSION}-${AC_REVISION}_md5check.html
+sed -i "s/__MACFILE__/${dsum}/g" AgilityContest-${AC_VERSION}-${AC_REVISION}_md5check.html
 
 # move generated files to dropbox
-#mv AgilityContest-${VERSION}-${DATE}.* ${DROPBOX}
+#mv AgilityContest-${AC_VERSION}-${AC_REVISION}.* ${DROPBOX}
 
 # cleanups
 rm -rf AgilityContest AgilityContest.zip *.command .background

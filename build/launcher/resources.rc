@@ -7,7 +7,7 @@ AC_PROGRAM_ICON ICON "agilitycontest.ico"
 
 AC_PROGRAM_INFO VERSIONINFO
     FILEVERSION     1,0,0,0
-    PRODUCTVERSION  3,7,3,0
+    PRODUCTVERSION  AC_PRODUCT_VERSION_COMMA
     FILEFLAGSMASK 0x3fL
     FILEOS 0x40004L
     FILETYPE 0x1L
@@ -26,7 +26,7 @@ AC_PROGRAM_INFO VERSIONINFO
                 VALUE "LegalTrademarks2",   "All Rights Reserved"
                 VALUE "OriginalFilename",   "AgilityContest.exe"
                 VALUE "ProductName",        "AgilityContest"
-                VALUE "ProductVersion",     "3.7.3.0"
+                VALUE "ProductVersion",     AC_PRODUCT_VERSION_DOT
             END
         END
         BLOCK "VarFileInfo"

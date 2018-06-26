@@ -44,8 +44,8 @@ class Updater {
     protected $myDBObject;
 
     // used to store backup version info to handle remote updates
-    protected $bckVersion="3.7.3";
-    protected $bckRevision="20180212_1024";
+    protected $bckVersion="0.0.0";
+    protected $bckRevision="00000000_0000";
     protected $bckLicense="00000000";
     protected $bckDate="20180215_0944";
 
@@ -57,6 +57,8 @@ class Updater {
         // extract version info from configuration file
         $this->config=Config::getInstance();
         $this->myLogger=new Logger("autoUpgrade",$this->config->getEnv("debug_level"));
+        $this->bckVersion=$this->myConfig->getEnv('version_name'); // extracted from sql file. defaults to current
+        $this->bckRevision=$this->myConfig->getEnv('version_date'); // extracted from sql file. defaults to current
         $this->current_version=$this->config->getEnv("version_date");
 
         // connect database with proper permissions
@@ -780,6 +782,7 @@ try {
     $upg->addColumnUnlessExists("perros", "NombreLargo", "varchar(255)");
     $upg->addColumnUnlessExists("perros", "Chip", "varchar(255)", "");
     $upg->addColumnUnlessExists("perros", "Genero", "varchar(16)", "-"); // -,M,F
+    $upg->addColumnUnlessExists("perros", "Baja", "tinyint(1)", "0"); // 1:baja 0:activo
     $upg->addColumnUnlessExists("guias", "Categoria", "varchar(16)","A");// -,I,J,A,S,V,P
     $upg->addColumnUnlessExists("provincias", "Pais", "varchar(2)", "ES");
     $upg->dropColumnIfExists("jornadas", "Orden_Tandas");

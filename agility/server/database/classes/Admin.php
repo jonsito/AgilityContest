@@ -21,8 +21,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 // define ('cd w','https://github.com/jonsito/AgilityContest/raw/master/ChangeLog');
 define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/ChangeLog');
 
-require_once(__DIR__."/../../logging.php");
 require_once(__DIR__."/../../tools.php");
+require_once(__DIR__."/../../logging.php");
 require_once(__DIR__."/../../auth/Config.php");
 require_once(__DIR__."/../../auth/AuthManager.php");
 require_once(__DIR__ . "/../../auth/SimpleCrypt.php");
@@ -39,8 +39,8 @@ class Admin extends DBObject {
 	public $logfile;
 
 	// used to store backup version info to handle remote updates
-	protected $bckVersion="3.7.3";
-	protected $bckRevision="20180212_1024";
+	protected $bckVersion="0.0.0"; // version
+	protected $bckRevision="0000000_0000"; //revision
 	protected $bckLicense="00000000";
 	protected $bckDate="20180215_0944";
 
@@ -57,7 +57,8 @@ class Admin extends DBObject {
 		// connect database
         $this->myAuth=$am;
         $this->logfile=$this->restore_dir."restore_{$suffix}.log";
-
+        $this->bckVersion=$this->myConfig->getEnv('version_name'); // extracted from sql file. defaults to current
+        $this->bckRevision=$this->myConfig->getEnv('version_date'); // extracted from sql file. defaults to current
 		$this->dbname=$this->myConfig->getEnv('database_name');
 		$this->dbhost=$this->myConfig->getEnv('database_host');
 		$this->dbuser=base64_decode($this->myConfig->getEnv('database_user'));

@@ -1,3 +1,8 @@
+Version 3.8.0 20180626_1100
+    - Request confirmation on user selected installdb
+    - Add "Baja" to dog fields
+    - rewrite installers and builders for latest XAMPP versions
+    - fixes for newer browsers and xampp servers
 Version 3.8.0 20180519_2222
     - Nueva estructura de directorios para permitir uso en webhosting
       * apache2.conf no es necesario salvo para declarar un aliasdir

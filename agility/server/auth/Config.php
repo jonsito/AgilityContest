@@ -215,15 +215,15 @@ Class Config {
         'training_grace'	=> array(	'i',	false,	AC_TRAINING_GRACE),
 
 		// variables del sistema.
-		// just declared, no neccesarily real value
+		// here comes default values. real ones should be extracted from system.ini file
 		'running_mode'		=> array(	's',	true,	AC_RUNMODE_STANDALONE),
-		'version_name'		=> array(	's',	true,	"3.8.0"),
-		'version_date'		=> array(	's',	true,	"201804019_1515"),
+		'version_name'		=> array(	's',	true,	"0.0.0"),
+ 		'version_date'		=> array(	's',	true,	"00000000_0000"),
 		'database_name'		=> array(	's',	true,	"dbname"),
 		'database_host'		=> array(	's',	true,	"dbhost"),
         'database_user'		=> array(	's',	true,	"dbuser"),
         'database_pass'		=> array(	's',	true,	"dbpass"),
-        'database_ruser'	=> array(	's',	true,	"dbuuser"),
+        'database_ruser'	=> array(	's',	true,	"dbruser"),
         'database_rpass'	=> array(	's',	true,	"dbrpass"),
 		'program_name'		=> array(	's',	true,	"Agilitycontest"),
 		'author'			=> array(	's',	true,	"Juan Antonio Martinez"),
