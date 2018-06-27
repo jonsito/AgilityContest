@@ -41,7 +41,7 @@ DirectoryIndex index.php index.html
     RewriteRule ^(.*)$ /ajax/updateRequest.php [R=301,L]
 
     # block access to "*/server/*" and web directory
-    RewriteCond %{REQUEST_URI} /(config|applications|server|build|extras|logs|web|xampp)/
+    RewriteCond %{REQUEST_URI} /(config|applications|server|build|extras|logs|xampp)/
     RewriteRule ^(.*) - [F,L]
 
     # block access to critical files:

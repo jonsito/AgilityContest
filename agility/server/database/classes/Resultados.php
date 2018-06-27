@@ -565,7 +565,7 @@ class Resultados extends DBObject {
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
 			"Perro,	GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido, Tiempo, 0 AS PTiempo, 0 AS Penalizacion",
-			"Resultados",
+			"resultados",
 			"$where $cat",
 			" PRecorrido ASC, Tiempo ASC",
 			"");
