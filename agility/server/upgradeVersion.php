@@ -36,7 +36,7 @@ define('FIRST_INSTALL',__DIR__."/../../logs/first_install");
 define('DO_NOT_BACKUP',__DIR__."/../../logs/do_not_backup");
 
 class Updater {
-    protected $config;
+    protected $myConfig;
     public $current_version;
     public $last_version;
     public $myLogger;
@@ -55,11 +55,11 @@ class Updater {
      */
     function __construct() {
         // extract version info from configuration file
-        $this->config=Config::getInstance();
-        $this->myLogger=new Logger("autoUpgrade",$this->config->getEnv("debug_level"));
+        $this->myConfig=Config::getInstance();
+        $this->myLogger=new Logger("autoUpgrade",$this->myConfig->getEnv("debug_level"));
         $this->bckVersion=$this->myConfig->getEnv('version_name'); // extracted from sql file. defaults to current
         $this->bckRevision=$this->myConfig->getEnv('version_date'); // extracted from sql file. defaults to current
-        $this->current_version=$this->config->getEnv("version_date");
+        $this->current_version=$this->myConfig->getEnv("version_date");
 
         // connect database with proper permissions
         $this->conn = DBConnection::getRootConnection();
@@ -185,7 +185,7 @@ class Updater {
 
         // phase 5 update VersionHistory: set current sw version entry with restored backup creation date
         $bckd=toLongDateString($this->bckDate);
-        $swver=$this->config->getEnv("version_date");
+        $swver=$this->myConfig->getEnv("version_date");
         $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$swver}','{$bckd}') ".
             "ON DUPLICATE KEY UPDATE Updated='{$bckd}'";
         $this->conn->query($str);
@@ -197,7 +197,7 @@ class Updater {
     }
 
     function slaveMode() {
-        return (intval($this->config->getEnv('running_mode'))===AC_RUNMODE_SLAVE)? true:false;
+        return (intval($this->myConfig->getEnv('running_mode'))===AC_RUNMODE_SLAVE)? true:false;
     }
 
     /**
@@ -265,7 +265,7 @@ class Updater {
 
     function dropColumnIfExists($table,$field) {
         $this->myLogger->enter();
-        $dbname=$this->config->getEnv('database_name');
+        $dbname=$this->myConfig->getEnv('database_name');
         $drop = "DROP PROCEDURE IF EXISTS DropColumnIfExists;";
         $create = "
         CREATE PROCEDURE DropColumnIfExists()
@@ -290,7 +290,7 @@ class Updater {
 
     function addColumnUnlessExists($table,$field,$data,$def=null) {
         $this->myLogger->enter();
-        $dbname=$this->config->getEnv('database_name');
+        $dbname=$this->myConfig->getEnv('database_name');
         $str="";
         if (!is_null($def)) {
             // check for enclose default into single quotes
@@ -444,7 +444,7 @@ class Updater {
      */
     function setTRStoFloat() {
         $this->myLogger->enter();
-        $dbname=$this->config->getEnv('database_name');
+        $dbname=$this->myConfig->getEnv('database_name');
         $cmds= array(
             "ALTER TABLE `mangas` MODIFY `TRS_L_Factor` float(5);",
             "ALTER TABLE `mangas` MODIFY `TRM_L_Factor` float(5) NOT NULL DEFAULT '50.0';",

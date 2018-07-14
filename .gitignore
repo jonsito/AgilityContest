@@ -1,5 +1,3 @@
+AgilityContest.exe
+.gitignore
 .idea/
-.idea/workspace.xml
-.idea/deployment.xml
-**/.idea/workspace.xml
-**/.idea/deployment.xml
