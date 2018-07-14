@@ -96,7 +96,7 @@ class Equipos extends DBObject {
 
 		// componemos un prepared statement
         // Miembros is no longer used. just set not null for DB integrity
-		$sql ="INSERT INTO Equipos (Prueba,Jornada,Categorias,Nombre,Observaciones,DefaultTeam,Miembros)
+		$sql ="INSERT INTO equipos (Prueba,Jornada,Categorias,Nombre,Observaciones,DefaultTeam,Miembros)
 					VALUES($prueba,$jornada,?,?,?,0,'BEGIN,END')";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
@@ -133,7 +133,7 @@ class Equipos extends DBObject {
         $this->myLogger->trace("Team:$id Prueba:{$this->pruebaID} Jornada:{$this->jornadaID} Nombre:'$n' Observ:'$o' Categ:'$c'");
 
 		// componemos un prepared statement. Do not mofify any field that not matches current pruebaID
-		$sql ="UPDATE Equipos SET Nombre=? , Observaciones=?, Categorias=? WHERE ( ID=$id )";
+		$sql ="UPDATE equipos SET Nombre=? , Observaciones=?, Categorias=? WHERE ( ID=$id )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('sss',$n,$o,$c);
@@ -301,7 +301,7 @@ class Equipos extends DBObject {
         if (!$newteam) return $this->error("No encuentro datos del equipo:$idteam");
         if ($newteam['Jornada'] != $this->jornadaID) return $this->error("Elquipo:$idteam no pertenece a la jornada {$this->jornadaID}");
         // actualizamos la lista de miembros borrando el perro del equipo anterior (si existiera)
-        $sql = "UPDATE Equipos SET Miembros=REPLACE(Miembros,',$idperro,',',') WHERE Jornada={$this->jornadaID}";
+        $sql = "UPDATE equipos SET Miembros=REPLACE(Miembros,',$idperro,',',') WHERE Jornada={$this->jornadaID}";
         $res = $this->query($sql);
         if (!$res) return $this->error("Error removing team member $idperro from old team:" . $this->conn->error);
         // si el nuevo equipo no es el default, insertamos en lista de miembros
