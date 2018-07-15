@@ -1528,26 +1528,27 @@ function reloadClasificaciones() {
                 $('#finales_equipos_roundname_m2').text(ronda.NombreManga2);
                 workingData.individual=dat.individual;
                 $('#finales_equipos-datagrid').datagrid('loadData',dat.equipos);
-            }
-            if (isJornadaGames()){
-                // en games las mangas dependen del tipo de competicion
-                switch (workingData.datosCompeticion.ModuleID) {
-                    case 1: mangas=[1,2,3,4,5]; break; // penthatlon
-                    case 2: mangas=[1,2,3,4]; break;// biathlon
-                    case 3: mangas=[1,2]; break;// games
-                    default: // should not happen. default to "standard" round
-                        console.log("invalid module ID: "+workingData.datosCompeticion.ModuleID+" on Games journey");
-                        break;
+            } else {
+                if (isJornadaGames()){
+                    // en games las mangas dependen del tipo de competicion
+                    switch (workingData.datosCompeticion.ModuleID) {
+                        case 1: mangas=[1,2,3,4,5]; break; // penthatlon
+                        case 2: mangas=[1,2,3,4]; break;// biathlon
+                        case 3: mangas=[1,2]; break;// games
+                        default: // should not happen. default to "standard" round
+                            console.log("invalid module ID: "+workingData.datosCompeticion.ModuleID+" on Games journey");
+                            break;
+                    }
                 }
+                // now iterate on valid rounds to compose final scores
+                mangas.forEach(function(value,index,source){
+                    if (ronda['Manga'+value]<=0) return;
+                    $('#finales_individual_roundname_m'+value).text(ronda['NombreManga'+value]);
+                });
+                // and populate table
+                workingData.individual=dat.rows;
+                $('#finales_individual-datagrid').datagrid('loadData',dat.rows)
             }
-            // now iterate on valid rounds to compose final scores
-            mangas.forEach(function(value,index,source){
-                if (ronda['Manga'+value]<=0) return;
-                $('#finales_individual_roundname_m'+value).text(ronda['NombreManga'+value]);
-            });
-            // and populate table
-            workingData.individual=dat.rows;
-            $('#finales_individual-datagrid').datagrid('loadData',dat.rows)
 		}
 	});
 }

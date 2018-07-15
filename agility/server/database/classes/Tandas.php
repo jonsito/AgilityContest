@@ -285,7 +285,12 @@ class Tandas extends DBObject {
 		$data['Nombre']=http_request("Nombre","s","-- Sin nombre --");
 		$data['Sesion']=http_request("Sesion","i",2); // defaults to Ring 1
 		$data['Horario']=http_request("Horario","s","");
-		$data['Comentario']=http_request("Comentario","s","");
+        $data['Comentario']=http_request("Comentario","s","");
+        // type 0 (user defined ) has no category nor grade declared
+        if ($data['Tipo']==0) {
+            $data['Categoria']=http_request("Categoria","s","-");
+            $data['Grado']=http_request("Grado","s","-");
+        }
 		return $data;
 	}
 	
@@ -304,8 +309,11 @@ class Tandas extends DBObject {
 		$s=$data['Sesion'];
 		$n=$data['Nombre'];
 		$h=$data['Horario'];
-		$c=$data['Comentario'];
-		$str="INSERT INTO tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Horario,Comentario) VALUES (0,$p,$j,$s,$o,'$n','$h','$c')";
+        $c=$data['Comentario'];
+        $ct=$data['Categoria'];
+        $g=$data['Grado'];
+		$str="INSERT INTO tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Horario,Categoria,Grado,Comentario) ".
+            "VALUES (0,$p,$j,$s,$o,'{$n}','{$h}','{$ct}','{$g}','{$c}')";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// obtenemos el ID del registro insertado
