@@ -83,6 +83,24 @@ class Inscripciones extends DBObject {
 	    return "";
     }
 
+    function deleteFromJourney($idperro,$idjornada) {
+        if (($idperro<=0) || ($idjornada<=0))
+            return $this->error("deleteFromJourney(): invalid dog:{$idperro} or jornada:{$idjornada} ID");
+        // retrieve journey info and mask
+        $jobj=$this->__getObject("jornadas",$idjornada);
+        if (!$jobj) return $this->error("deleteFromJourney(): non-existent jornada:{$idjornada}");
+        $mask=1<<( intval($jobj->Numero) - 1 );
+        // check if dog is already inscribed
+        $iobj=$this->__selectObject("*","inscripciones","( Prueba={$this->pruebaID} ) AND ( Perro={$idperro} )");
+        if (! $iobj) {
+            // not inscribed: notice error and return
+            $this->myLogger->warn("deleteFromJourney(): Dog {$idperro} is not inscribed in Prueba {$this->pruebaID}");
+            return "";
+        }
+        $jornadas= $iobj->Jornadas & ~$mask;
+        $this->real_update($jornadas,$iobj->Celo,$iobj->Observaciones,$iobj->Pagado,$iobj->ID);
+    }
+
 	function realInsert($idperro,$prueba,$jornadas,$pagado,$celo,$observaciones) {
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("Invalid IDPerro ID");

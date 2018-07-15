@@ -283,8 +283,20 @@ class Equipos extends DBObject {
     /**
      * Un subscribe all team members from current journey
      * @param $idteam ID del equipo
+     * @throws Exception on invalid prueba or jornada ID
      */
 	function unsubscribeMembers($idteam) {
+	    // retrieve all dogs from this team
+        $res= $this->__select(
+            "DISTINCT Perro",
+            "resultados",
+            "Equipo={$idteam}"
+        );
+        $inscripciones=new Inscripciones("uninscribeTeamMember",$this->pruebaID);
+        foreach ($res['rows'] as $item) {
+            $perro=$item['Perro'];
+            $inscripciones->deleteFromJourney($perro,$this->jornadaID);
+        }
         return ""; // success
     }
 
