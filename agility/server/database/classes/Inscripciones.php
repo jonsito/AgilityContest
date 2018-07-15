@@ -98,7 +98,7 @@ class Inscripciones extends DBObject {
             return "";
         }
         $jornadas= $iobj->Jornadas & ~$mask;
-        $this->real_update($jornadas,$iobj->Celo,$iobj->Observaciones,$iobj->Pagado,$iobj->ID);
+        return $this->real_update($jornadas,$iobj->Celo,$iobj->Observaciones,$iobj->Pagado,$iobj->ID);
     }
 
 	function realInsert($idperro,$prueba,$jornadas,$pagado,$celo,$observaciones) {

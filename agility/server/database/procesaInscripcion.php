@@ -57,6 +57,21 @@ function borraPerroDeJornada($inscripcion,$jornada) {
 		$rs=Competitions::getResultadosInstance("borraPerroDeJornada",$manga['ID']);
 		$rs->delete($perro);
 	}
+	// eliminamos al perro del orden de equipos
+    $teamlist=$mobj->__select( // buscamos el equipo en el que esta inscrito
+        "ID,Miembros",
+        "equipos",
+        "( Jornada = {$j} ) AND ( Miembros LIKE '%,{$perro},%' )"
+    );
+    // realmente solo debería devolver un resultado (o ninguno si esta en el equipo por defecto)
+    foreach ($teamlist['rows'] as $team) {
+        // lo borramos de la lista de miembros
+        $nuevalista=list_remove($perro,$team['Miembros']);
+        // actualizamos el equipo
+        $str="UPDATE equipos SET Miembros='{$nuevalista}' WHERE ID={$team['ID']}";
+        $mobj->query($str);
+    }
+    return "";
 }
 
 /**
