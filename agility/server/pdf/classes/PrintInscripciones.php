@@ -352,104 +352,104 @@ class PrintEstadisticas extends PrintCommon {
 
 		// Pintamos la cabecera de la tabla
         $this->SetFont($this->getFontName(),'B',9);
-        $this->cell(35,7,'','LRB',0,'L',true);
-        $this->cell(30,7,$this->federation->getCategory('L'),'TRB',0,'C',true);
-        $this->cell(30,7,$this->federation->getCategory('M'),'TRB',0,'C',true);
-        $this->cell(30,7,$this->federation->getCategory('S'),'TRB',0,'C',true);
+        $this->cell(35,6,'','LRB',0,'L',true);
+        $this->cell(30,6,$this->federation->getCategory('L'),'TRB',0,'C',true);
+        $this->cell(30,6,$this->federation->getCategory('M'),'TRB',0,'C',true);
+        $this->cell(30,6,$this->federation->getCategory('S'),'TRB',0,'C',true);
         if ($alturas==4)
-            $this->cell(30,7,$this->federation->getCategory('T'),'TRB',0,'C',true);
-        $this->cell(30,7,'Total','TRB',0,'C',true);
-        $this->Ln(7);
+            $this->cell(30,6,$this->federation->getCategory('T'),'TRB',0,'C',true);
+        $this->cell(30,6,'Total','TRB',0,'C',true);
+        $this->Ln(6);
 
 		// Pre Agility
         $this->ac_header(2,9); // pre-agility
-        $this->cell(35,7,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
+        $this->cell(35,6,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
         $this->ac_row(0,9);
-        $this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
-        $this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
-        $this->cell(30,7,$data[$name]['P.A.']['S'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['P.A.']['L'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['P.A.']['M'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['P.A.']['S'],'RB',0,'C',true);
         if ($alturas==4)
-        	$this->cell(30,7,$data[$name]['P.A.']['T'],'RB',0,'C',true);
-        $this->cell(30,7,$data[$name]['P.A.']['C'],'RB',0,'C',true);
-        $this->Ln(7);
+        	$this->cell(30,6,$data[$name]['P.A.']['T'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['P.A.']['C'],'RB',0,'C',true);
+        $this->Ln(6);
 
         // grado 1
         $this->ac_header(2,9);
-        $this->cell(35,7,$this->federation->getGrade('GI'),'LRB',0,'L',true);
+        $this->cell(35,6,$this->federation->getGrade('GI'),'LRB',0,'L',true);
         $this->ac_row(1,9);
-        $this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
-        $this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
-        $this->cell(30,7,$data[$name]['GI']['S'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['GI']['L'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['GI']['M'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['GI']['S'],'RB',0,'C',true);
         if ($alturas==4)
-        	$this->cell(30,7,$data[$name]['GI']['T'],'RB',0,'C',true);
-        $this->cell(30,7,$data[$name]['GI']['C'],'RB',0,'C',true);
-        $this->Ln(7);
+        	$this->cell(30,6,$data[$name]['GI']['T'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['GI']['C'],'RB',0,'C',true);
+        $this->Ln(6);
 
         // grado II
         $this->ac_header(2,9);
-        $this->cell(35,7,$this->federation->getGrade('GII'),'LRB',0,'L',true);
+        $this->cell(35,6,$this->federation->getGrade('GII'),'LRB',0,'L',true);
         $this->ac_row(2,9);
-        $this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
-        $this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
-        $this->cell(30,7,$data[$name]['GII']['S'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['GII']['L'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['GII']['M'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['GII']['S'],'RB',0,'C',true);
         if ($alturas==4)
-        	$this->cell(30,7,$data[$name]['GII']['T'],'RB',0,'C',true);
-        $this->cell(30,7,$data[$name]['GII']['C'],'RB',0,'C',true);
-        $this->Ln(7);
+        	$this->cell(30,6,$data[$name]['GII']['T'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['GII']['C'],'RB',0,'C',true);
+        $this->Ln(6);
 
 
         if ($this->federation->hasGrade3()) {
             $this->ac_header(2,9); // grado III
-            $this->cell(35,7,$this->federation->getGrade('GIII'),'LRB',0,'L',true);
+            $this->cell(35,6,$this->federation->getGrade('GIII'),'LRB',0,'L',true);
             $this->ac_row(3,9);
-            $this->cell(30,7,$data[$name]['GIII']['L'],'RB',0,'C',true);
-            $this->cell(30,7,$data[$name]['GIII']['M'],'RB',0,'C',true);
-            $this->cell(30,7,$data[$name]['GIII']['S'],'RB',0,'C',true);
+            $this->cell(30,6,$data[$name]['GIII']['L'],'RB',0,'C',true);
+            $this->cell(30,6,$data[$name]['GIII']['M'],'RB',0,'C',true);
+            $this->cell(30,6,$data[$name]['GIII']['S'],'RB',0,'C',true);
             if ($alturas==4)
-            	$this->cell(30,7,$data[$name]['GIII']['T'],'RB',0,'C',true);
-            $this->cell(30,7,$data[$name]['GIII']['C'],'RB',0,'C',true);
-            $this->Ln(7);
+            	$this->cell(30,6,$data[$name]['GIII']['T'],'RB',0,'C',true);
+            $this->cell(30,6,$data[$name]['GIII']['C'],'RB',0,'C',true);
+            $this->Ln(6);
 		}
 
         // Junior
 		if ($this->federation->hasJunior()) {
             $this->ac_header(2,9);
-            $this->cell(35,7,$this->federation->getGrade('Jr'),'LRB',0,'L',true);
+            $this->cell(35,6,$this->federation->getGrade('Jr'),'LRB',0,'L',true);
             $this->ac_row(0,9);
-            $this->cell(30,7,$data[$name]['Jr']['L'],'RB',0,'C',true);
-            $this->cell(30,7,$data[$name]['Jr']['M'],'RB',0,'C',true);
-            $this->cell(30,7,$data[$name]['Jr']['S'],'RB',0,'C',true);
+            $this->cell(30,6,$data[$name]['Jr']['L'],'RB',0,'C',true);
+            $this->cell(30,6,$data[$name]['Jr']['M'],'RB',0,'C',true);
+            $this->cell(30,6,$data[$name]['Jr']['S'],'RB',0,'C',true);
             if($alturas==4)
-            	$this->cell(30,7,$data[$name]['Jr']['T'],'RB',0,'C',true);
-            $this->cell(30,7,$data[$name]['Jr']['C'],'RB',0,'C',true);
-            $this->Ln(7);
+            	$this->cell(30,6,$data[$name]['Jr']['T'],'RB',0,'C',true);
+            $this->cell(30,6,$data[$name]['Jr']['C'],'RB',0,'C',true);
+            $this->Ln(6);
         }
 
         // Senior
 		if ($this->federation->hasSenior()) {
             $this->ac_header(2,9);
-            $this->cell(35,7,$this->federation->getGrade('Sr'),'LRB',0,'L',true);
+            $this->cell(35,6,$this->federation->getGrade('Sr'),'LRB',0,'L',true);
             $this->ac_row(0,9);
-            $this->cell(30,7,$data[$name]['Sr']['L'],'RB',0,'C',true);
-            $this->cell(30,7,$data[$name]['Sr']['M'],'RB',0,'C',true);
-            $this->cell(30,7,$data[$name]['Sr']['S'],'RB',0,'C',true);
+            $this->cell(30,6,$data[$name]['Sr']['L'],'RB',0,'C',true);
+            $this->cell(30,6,$data[$name]['Sr']['M'],'RB',0,'C',true);
+            $this->cell(30,6,$data[$name]['Sr']['S'],'RB',0,'C',true);
             if($alturas==4)
-                $this->cell(30,7,$data[$name]['Sr']['T'],'RB',0,'C',true);
-            $this->cell(30,7,$data[$name]['Sr']['C'],'RB',0,'C',true);
-            $this->Ln(7);
+                $this->cell(30,6,$data[$name]['Sr']['T'],'RB',0,'C',true);
+            $this->cell(30,6,$data[$name]['Sr']['C'],'RB',0,'C',true);
+            $this->Ln(6);
 		}
 
         // Total
         $this->ac_header(2,9);
-        $this->cell(35,7,_('Total'),'LRB',0,'L',true);
+        $this->cell(35,6,_('Total'),'LRB',0,'L',true);
         $this->ac_row(4,9);
-        $this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
-        $this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
-        $this->cell(30,7,$data[$name]['G']['S'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['G']['L'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['G']['M'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['G']['S'],'RB',0,'C',true);
         if ($alturas==4)
-        	$this->cell(30,7,$data[$name]['G']['T'],'RB',0,'C',true);
-        $this->cell(30,7,$data[$name]['G']['C'],'RB',0,'C',true);
-        $this->Ln(10);
+        	$this->cell(30,6,$data[$name]['G']['T'],'RB',0,'C',true);
+        $this->cell(30,6,$data[$name]['G']['C'],'RB',0,'C',true);
+        $this->Ln(8);
 	}
 
 	/**
@@ -461,25 +461,25 @@ class PrintEstadisticas extends PrintCommon {
 
 		$this->SetFont($this->getFontName(),'B',9);
 		// $this->cell( width, height, data, borders, where, align, fill)
-		$this->cell(30,7,'','LRB',0,'L',true);
-		$this->cell(30,7,$this->federation->getCategory('L'),'TRB',0,'C',true);
-		$this->cell(30,7,$this->federation->getCategory('M'),'TRB',0,'C',true);
-		$this->cell(30,7,$this->federation->getCategory('S'),'TRB',0,'C',true);
+		$this->cell(30,6,'','LRB',0,'L',true);
+		$this->cell(30,6,$this->federation->getCategory('L'),'TRB',0,'C',true);
+		$this->cell(30,6,$this->federation->getCategory('M'),'TRB',0,'C',true);
+		$this->cell(30,6,$this->federation->getCategory('S'),'TRB',0,'C',true);
 		if ($alturas==4)
-			$this->cell(30,7,$this->federation->getCategory('T'),'TRB',0,'C',true);
-		$this->cell(30,7,_('Total'),'TRB',0,'C',true);
-		$this->Ln(7);
+			$this->cell(30,6,$this->federation->getCategory('T'),'TRB',0,'C',true);
+		$this->cell(30,6,_('Total'),'TRB',0,'C',true);
+		$this->Ln(6);
 
 		$this->ac_header(0,9); // Special round==total
-		$this->cell(30,7,$flag,'LRB',0,'L',true);
+		$this->cell(30,6,$flag,'LRB',0,'L',true);
 		$this->ac_row(0,9);
-		$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
-		$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
-		$this->cell(30,7,$data[$name]['G']['S'],'RB',0,'C',true);
+		$this->cell(30,6,$data[$name]['G']['L'],'RB',0,'C',true);
+		$this->cell(30,6,$data[$name]['G']['M'],'RB',0,'C',true);
+		$this->cell(30,6,$data[$name]['G']['S'],'RB',0,'C',true);
 		if ($alturas==4)
-			$this->cell(30,7,$data[$name]['G']['T'],'RB',0,'C',true);
-		$this->cell(30,7,$data[$name]['G']['C'],'RB',0,'C',true);
-		$this->Ln(10);
+			$this->cell(30,6,$data[$name]['G']['T'],'RB',0,'C',true);
+		$this->cell(30,6,$data[$name]['G']['C'],'RB',0,'C',true);
+		$this->Ln(8);
 	}
 
 	function composeTable() {
@@ -524,7 +524,10 @@ class PrintEstadisticas extends PrintCommon {
                 $this->printTableDataSpecial($est,$name,$alturas,$flag);
                 $count++;
 			}
-			if ($count>8) $this->AddPage();
+			if ($count>8) {
+            	$count=0;
+            	$this->AddPage();
+            }
 		}
 	}
 }
