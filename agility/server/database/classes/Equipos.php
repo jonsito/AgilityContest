@@ -280,6 +280,14 @@ class Equipos extends DBObject {
 		return $data;
 	}
 
+    /**
+     * Un subscribe all team members from current journey
+     * @param $idteam ID del equipo
+     */
+	function unsubscribeMembers($idteam) {
+        return ""; // success
+    }
+
 	/**
 	 * Inscribe a un perro en el equipo indicado.
 	 * Si no se indica, lo inscribe en el equipo por defecto

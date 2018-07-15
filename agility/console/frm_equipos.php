@@ -36,16 +36,18 @@ $config =Config::getInstance();
    			onclick="editTeam('#team_datagrid')"><?php _e('Edit'); ?></a>
    		<a id="team_datagrid-delBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-trash'"
    			onclick="deleteTeam('#team_datagrid')"><?php _e('Delete'); ?></a>
+        <a id="team_datagrid-delMembersBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-users'"
+            onclick="deleteTeamMembers('#team_datagrid')"><?php _e('Un-inscribe'); ?></a>
    		<input id="team_datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
 			   onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
+   		<a id="team_datagrid-reloadBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-brush'"
+           onclick="reloadWithSearch('#team_datagrid','select',true);"><?php _e('Clear'); ?></a>
    	</span>
    	<span style="float:right;padding:5px">
 		<a id="team_datagrid-checkBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help'"
 			onclick="checkTeams('#team_datagrid')"><?php _e('Verify');?></a>
 		<a id="team_datagrid-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
 			onclick="printTeams('#team_datagrid')"><?php _e('Print');?></a>
-   		<a id="team_datagrid-reloadBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-brush'"
-   			onclick="reloadWithSearch('#team_datagrid','select',true);"><?php _e('Clear'); ?></a>
    	</span>
 </div>
 
@@ -208,6 +210,7 @@ addTooltip($('#team_datagrid-search'),'<?php _e("Show teams matching search crit
 addTooltip($('#team_datagrid-newBtn').linkbutton(),'<?php _e("Declare a new team on this contest");?>');
 addTooltip($('#team_datagrid-editBtn').linkbutton(),'<?php _e("Edit data on selected team");?>');
 addTooltip($('#team_datagrid-delBtn').linkbutton(),'<?php _e("Remove team on this contest");?>');
+addTooltip($('#team_datagrid-delMembersBtn').linkbutton(),'<?php _e("Un-inscribe members of selected team from current journey");?>');
 addTooltip($('#team_datagrid-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update team list");?>');
 addTooltip($('#team_datagrid-checkBtn').linkbutton(),"<?php _e('Verify teams. Enumerate found problems');?>");
 addTooltip($('#team_datagrid-printBtn').linkbutton(),"<?php _e('Print team list on this journey');?>"+' <br />'+"<?php _e('and their team members');?>");

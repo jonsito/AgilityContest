@@ -253,6 +253,48 @@ function deleteTeam(dg){
 }
 
 /**
+ * Un inscribe team members from current journey
+ * ( to easy delete non qualified team members in final team rounds )
+ * @param {string} dg datagrid ID de donde se obtiene el teamID y la pruebaID
+ */
+function deleteTeamMembers(dg) {
+    var row = $(dg).datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no team selected"); ?>',"info");
+        return; // no way to know which prueba is selected
+    }
+    $.messager.confirm('Confirm',
+        "<p><?php _e('This operation will un-inscribe members of selected team from current journey');?><br />"+
+        "<p><?php _e('Do you really want to un-inscribe them');?> ?</p>",function(r){
+            if (r){
+                $.get(
+                    '../ajax/database/equiposFunctions.php',
+                    {
+                        Operation:'unsubscribe',
+                        ID:row.ID,
+                        Prueba:row.Prueba,
+                        Jornada:row.Jornada
+                    },
+                    function(result){
+                        if (result.success){
+                            $(dg).datagrid('load',{
+                                Operation:'select',
+                                Prueba:workingData.prueba,
+                                Jornada:workingData.jornada,
+                                where:''
+                            });    // reload the prueba data
+                            $('#selteam-Equipo').combogrid('grid').datagrid('unselectAll').datagrid('load'); // update assignment combogrid list
+                        } else {
+                            $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
+                        }
+                    },
+                    'json'
+                );
+            }
+        }).window('resize',{width:500});
+}
+
+/**
  * Save Team being edited, as result of doneBtn.onClick()
  * On success refresh every related datagrids
  */

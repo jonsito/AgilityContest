@@ -39,6 +39,7 @@ try {
 		case "insert": $am->access(PERMS_OPERATOR); $result=$equipos->insert(); break; // nuevo equipo
 		case "update": $am->access(PERMS_OPERATOR); $result=$equipos->update($equipo); break; // editar equipo
 		case "delete": $am->access(PERMS_OPERATOR); $result=$equipos->delete($equipo); break; // borrar equipo
+        case "unsubscribe": $am->access(PERMS_OPERATOR); $result=$equipos->unsubscribeMembers($equipo); break; // desinscribir miembros
 		case "update_team": $am->access("PERMS_OPERATOR"); $result=$equipos->updateTeam($perro,$equipo); break; // reasignar equipo
         case "select": $result=$equipos->select(); break; // listado ordenado/bloques/busqueda
         case "verify": $result=$equipos->verify(); break; // comprobar perros de cada equipo
