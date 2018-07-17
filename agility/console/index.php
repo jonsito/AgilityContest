@@ -115,6 +115,7 @@ var ac_clientOpts = {
 };
 
 function initialize() {
+    $('.window').css('background-color','rgba(0,0,0,255,1)');
     // expand/collapse menu on mouse enter/exit
     var mm=$('#mymenu');
 	setHeader("");
@@ -295,7 +296,10 @@ var eventHandler= {
 <style>
 /* Common CSS tags for Agility Contest */
 
-body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
+body {
+    font-size: 100%;
+    background: <?php echo $config->getEnv('easyui_bgcolor'); ?>;
+}
 
 /***** Datos de la cabecera ******/
 #mylogo {
@@ -475,7 +479,8 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 	
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 <div id="mycontent">
-	<div id="contenido" class="easyui-panel" style="background:transparent" data-options="width:'100%',fit:true,border:false"></div>
+	<div id="contenido" class="easyui-panel" style="background: transparent"
+         data-options="width:'100%',fit:true,border:false"></div>
 </div>
 
 <!-- Entrada para insertar dialogos de importacion de ficheros desde excel -->

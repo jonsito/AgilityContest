@@ -69,6 +69,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	left: 25px;
 	width: 1024px;
 	height: 640px;
+	background: transparent;
 }
 
 img.mainpage{

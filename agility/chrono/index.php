@@ -142,7 +142,7 @@ $('#chrono-dialog').dialog({
 	maximizable: false,
 	closable: true,
 	closed: false,
-	shadow: true,
+	shadow: false,
 	modal: true,
 	buttons: '#chrono-Buttons'
 });

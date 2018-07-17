@@ -88,7 +88,7 @@ $('#myAdmin-window').window({
 	maximizable:false,
 	closable:true,
 	closed:false,
-	shadow:true,
+	shadow:false,
 	modal:true,
 	onBeforeOpen: function () {
 		$('#myAdmin-Usuario').val('');

@@ -49,7 +49,8 @@ if ( intval($config->getEnv('running_mode')) === AC_RUNMODE_MASTER ) {
 <img class="mainpage" src="../ajax/images/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle" />
 
 <!-- FORMULARIO DE introduccion de usuario y contrasenya -->
-<div id="login-window" class="easyui-window" style="position:relative;width:500px;height:auto;padding:20px 20px">
+<div id="login-window" class="easyui-window"
+     style=";position:relative;width:500px;height:auto;padding:20px 20px">
 <!-- panel de login -->
 	<div id="login-Layout" class="easyui-layout" data-options="fit:true'">
 	<div style="padding:5px;" data-options="region:'north',border:'false'">
@@ -120,7 +121,7 @@ $('#login-window').window({
 	maximizable:false,
 	closable:true,
 	closed:false,
-	shadow:true,
+	shadow:false,
 	modal:true,
 	onBeforeOpen: function () {
 		$('#login-Federation').val(workingData.federation);

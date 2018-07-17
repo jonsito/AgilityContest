@@ -142,7 +142,7 @@ function myRowStyler2(idx,row) { return pbRowStyler2(idx,row); }
 
 <div id="public-dialog" style="width:400px;height:200px;padding:10px" class="easyui-dialog"
 	data-options="title: '<?php _e("Select contest, journey and view");?>',iconCls: 'icon-list',buttons: '#public-Buttons',collapsible:false, minimizable:false,
-		maximizable:false, closable:true, closed:false, shadow:true, modal:true">
+		maximizable:false, closable:true, closed:false, shadow:false, modal:true">
 	<form id="public-form">       		
     	<div class="fitem">
        		<label for="public-Prueba"><?php _e('Contest'); ?>:</label>

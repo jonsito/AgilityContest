@@ -54,7 +54,7 @@ $('#selprueba-window').window({
 	maximizable: false,
 	closable: true,
 	closed: true,
-	shadow: true,
+	shadow: false,
 	modal: true
 }).window('open');
 

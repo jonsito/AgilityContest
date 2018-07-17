@@ -49,7 +49,7 @@ $('#logout-window').window({
 	maximizable:false,
 	closable:true,
 	closed:false,
-	shadow:true,
+	shadow:false,
 	modal:true,
 	onBeforeOpen:function() {
 		$('#logout-Username').html(ac_authInfo.Login);

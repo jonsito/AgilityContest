@@ -364,7 +364,7 @@
 		zIndex: 9000,
 		draggable: true,
 		resizable: true,
-		shadow: true,
+		shadow: false,
 		modal: false,
 		inline: false,	// true to stay inside its parent, false to go on top of all elements
 		
