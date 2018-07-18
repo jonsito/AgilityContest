@@ -23,6 +23,32 @@ require_once("Eventos.php");
 // Default php session handler uses different files for each connection.
 // this is a hack from php docs to share session file
 class FileSessionHandler {
+
+    protected static $inst = null;
+
+    /**
+     * Call this method to get singleton
+     *
+     * @return FileSessionHandler
+     */
+    public static function getInstance() {
+
+        if (! self::$inst instanceof FileSessionHandler ) {
+            self::$inst = new FileSessionhandler();
+            session_set_save_handler(
+                array(self::$inst, 'open'),
+                array(self::$inst, 'close'),
+                array(self::$inst, 'read'),
+                array(self::$inst, 'write'),
+                array(self::$inst, 'destroy'),
+                array(self::$inst, 'gc')
+            );
+        }
+        return self::$inst;
+    }
+
+    private function __construct() {}
+
     private $savePath;
 
     function open($savePath, $sessionName)  {
@@ -64,20 +90,9 @@ class FileSessionHandler {
 }
 
 class Sesiones extends DBObject {
-
     function __construct($file) {
         parent::__construct($file);
-        // prepare custom session handler
-        $handler = new FileSessionHandler();
         $this->myLogger->trace("new Sessiones({$file})");
-        session_set_save_handler(
-            array($handler, 'open'),
-            array($handler, 'close'),
-            array($handler, 'read'),
-            array($handler, 'write'),
-            array($handler, 'destroy'),
-            array($handler, 'gc')
-        );
     }
 
     /**
@@ -313,6 +328,8 @@ class Sesiones extends DBObject {
      * @return array{rows,total}
      */
 	function getClients($type="") {
+        // prepare custom session handler
+        FileSessionHandler::getInstance();
         $res=array();
         $timestamp=time();
         register_shutdown_function('session_write_close');
@@ -344,6 +361,8 @@ class Sesiones extends DBObject {
             $this->myLogger->error("Sesiones::testAndSet() null SessionName provided");
             return "";
         }
+        // prepare custom session handler
+        FileSessionHandler::getInstance();
         $timestamp=time();
         $found=false;
         $e=explode(":",$name);

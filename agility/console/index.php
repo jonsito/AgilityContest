@@ -1,6 +1,5 @@
 <?php
 ini_set('zlib.output_compression', 0);
-header("Access-Control-Allow-Origin: ../",false);
 require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
 require_once(__DIR__ . "/../server/auth/CertManager.php");
