@@ -391,12 +391,14 @@ function consoleReloadParcial(val,fill) {
                 case 2: case 7: suffix='S'; break;
                 case 5: suffix='T'; break;
             }
-            $('#rm_DIST_'+suffix).val(dat['trs'].dist);
-            $('#rm_OBST_'+suffix).val(dat['trs'].obst);
-            $('#rm_TRS_'+suffix).val(dat['trs'].trs);
-            $('#rm_TRM_'+suffix).val(dat['trs'].trm);
+            $('#rm_DIST_'+suffix).textbox('setValue',dat['trs'].dist);
+            $('#rm_DIST_'+suffix).textbox('textbox').css('background',(dat['trs'].dist==0)?'#ffcccc':'white');
+            $('#rm_OBST_'+suffix).textbox('setValue',dat['trs'].obst);
+            $('#rm_TRS_'+suffix).textbox('setValue',dat['trs'].trs);
+            $('#rm_TRS_'+suffix).textbox('textbox').css('background',(dat['trs'].trs==0)?'#ffcccc':'white');
+            $('#rm_TRM_'+suffix).textbox('setValue',dat['trs'].trm);
             var vel=(''+dat['trs'].vel).replace('&asymp;','\u2248');
-            $('#rm_VEL_'+suffix).val(vel);
+            $('#rm_VEL_'+suffix).textbox('setValue',vel);
 
             // actualizar datagrid
             if (!fill) return;
