@@ -1250,9 +1250,11 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 			}
 			$('#dm'+idxmanga+'_Nombre').textbox('setValue',dat['manga'].TipoManga);
 			$('#dm'+idxmanga+'_Lbl_'+suffix).html(ac_fedInfo[workingData.federation].IndexedModes[mode]);
-			$('#dm'+idxmanga+'_DIST_'+suffix).textbox('setValue',dat['trs'].dist);
+            $('#dm'+idxmanga+'_DIST_'+suffix).textbox('setValue',dat['trs'].dist);
+            $('#dm'+idxmanga+'_DIST_'+suffix).textbox('textbox').css('background',(dat['trs'].dist==0)?'#ffcccc':'white');
 			$('#dm'+idxmanga+'_OBST_'+suffix).textbox('setValue',dat['trs'].obst);
-			$('#dm'+idxmanga+'_TRS_'+suffix).textbox('setValue',dat['trs'].trs);
+            $('#dm'+idxmanga+'_TRS_'+suffix).textbox('setValue',dat['trs'].trs);
+            $('#dm'+idxmanga+'_TRS_'+suffix).textbox('textbox').css('background',(dat['trs'].trs==0)?'#ffcccc':'white');
 			$('#dm'+idxmanga+'_TRM_'+suffix).textbox('setValue',dat['trs'].trm);
             var vel=(''+dat['trs'].vel).replace('&asymp;','\u2248');
 			$('#dm'+idxmanga+'_VEL_'+suffix).textbox('setValue',vel);
