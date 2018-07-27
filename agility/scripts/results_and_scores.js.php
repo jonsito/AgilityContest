@@ -22,6 +22,15 @@ $config =Config::getInstance();
 ?>
 
 /**
+ * check for distance, SCT or judge undefined
+ * @param {object} manga datos de la manga
+ * @param {number} mode modo del recorrido 0..8 L,M,S,MS,LMS,T,LM,ST,LMST
+ */
+function checkInfoManga(manga,mode) {
+
+}
+
+/**
  * Funciones relacionadas presentacion de resultados y clasificaciones
  */
 
