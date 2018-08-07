@@ -410,7 +410,10 @@ $('#dmanga_Juez1').combogrid({
     ]],
 	multiple: false,
 	fitColumns: true,
-	selectOnNavigation: false
+	selectOnNavigation: false,
+    onChange: function(newval,oldval) {
+	    $('#dmanga_Juez1').combogrid('textbox').css('background',(newval<2)?'#ffcccc':'white');
+    }
 });
 
 $('#dmanga_Juez2').combogrid({

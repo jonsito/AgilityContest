@@ -289,6 +289,14 @@ function dmanga_evalTimeSpeed() {
  * repaint manga information acording federation and course mode
  */
 function dmanga_setRecorridos() {
+
+    function setDistObstBg(dist,obst,cat) {
+        //setting css of unexistent element id throws javascript exception
+        if ( (cat==="T") && (ac_fedInfo[workingData.federation].Heights==3) ) return;
+        $('#dmanga_Dist'+cat).textbox('textbox').css('background',(dist==0)?'#ffcccc':'white');
+        $('#dmanga_Obst'+cat).textbox('textbox').css('background',(obst==0)?'#ffcccc':'white');
+    }
+
     var fed=workingData.federation;
     var rec=$("input[name='Recorrido']:checked").val();
     if (typeof (ac_fedInfo[fed]) === "undefined") {
@@ -309,6 +317,7 @@ function dmanga_setRecorridos() {
     var trm_factor=$('#dmanga_TRM_L_Factor').textbox('getValue'); //0:seconds 1:percentage
     var dist=$('#dmanga_DistL').textbox('getValue');
     var obst=$('#dmanga_ObstL').textbox('getValue');
+    setDistObstBg(dist,obst,'L');
     $('#dmanga_LargeRow').css('display','table-row');
     $('#dmanga_LargeLbl').html(data.L);
 
@@ -336,6 +345,7 @@ function dmanga_setRecorridos() {
         $('#dmanga_TRM_M_Tipo').combobox('setValue',trm_tipo);
         $('#dmanga_TRM_M_Factor').textbox('setValue',trm_factor);
     }
+    setDistObstBg(dist,obst,'M');
 
     // third row (small )
     if (data.S!=="") {
@@ -361,6 +371,7 @@ function dmanga_setRecorridos() {
         $('#dmanga_TRM_S_Tipo').combobox('setValue',trm_tipo);
         $('#dmanga_TRM_S_Factor').textbox('setValue',trm_factor);
     }
+    setDistObstBg(dist,obst,'S');
 
     // fourth row (tiny )
     if (data.T!=="") {
@@ -385,6 +396,7 @@ function dmanga_setRecorridos() {
         $('#dmanga_TRM_T_Tipo').combobox('setValue',trm_tipo);
         $('#dmanga_TRM_T_Factor').textbox('setValue',trm_factor);
     }
+    setDistObstBg(dist,obst,'T');
     dmanga_evalTimeSpeed(); // reevaluate time/speed readonly input box
 }
 
@@ -1238,9 +1250,11 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 			}
 			$('#dm'+idxmanga+'_Nombre').textbox('setValue',dat['manga'].TipoManga);
 			$('#dm'+idxmanga+'_Lbl_'+suffix).html(ac_fedInfo[workingData.federation].IndexedModes[mode]);
-			$('#dm'+idxmanga+'_DIST_'+suffix).textbox('setValue',dat['trs'].dist);
+            $('#dm'+idxmanga+'_DIST_'+suffix).textbox('setValue',dat['trs'].dist);
+            $('#dm'+idxmanga+'_DIST_'+suffix).textbox('textbox').css('background',(dat['trs'].dist==0)?'#ffcccc':'white');
 			$('#dm'+idxmanga+'_OBST_'+suffix).textbox('setValue',dat['trs'].obst);
-			$('#dm'+idxmanga+'_TRS_'+suffix).textbox('setValue',dat['trs'].trs);
+            $('#dm'+idxmanga+'_TRS_'+suffix).textbox('setValue',dat['trs'].trs);
+            $('#dm'+idxmanga+'_TRS_'+suffix).textbox('textbox').css('background',(dat['trs'].trs==0)?'#ffcccc':'white');
 			$('#dm'+idxmanga+'_TRM_'+suffix).textbox('setValue',dat['trs'].trm);
             var vel=(''+dat['trs'].vel).replace('&asymp;','\u2248');
 			$('#dm'+idxmanga+'_VEL_'+suffix).textbox('setValue',vel);
