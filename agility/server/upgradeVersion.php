@@ -215,8 +215,8 @@ class Updater {
           `Updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
           PRIMARY KEY (`Version`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
-        $res=$this->conn->query($cv);
-        if (!$res) throw new Exception ("upgrade::createHistoryTable(): ".$this->conn->error);
+        $rs=$this->conn->query($cv);
+        if (!$rs) throw new Exception ("upgrade::createHistoryTable(): ".$this->conn->error);
 
         // Retrieve last software version and last db update date from database
         $str="SELECT * FROM versionhistory ORDER BY Version DESC LIMIT 1;";
@@ -224,43 +224,40 @@ class Updater {
         if (!$rs) throw new Exception ("upgrade::getVersionHistory(): ".$this->conn->error);
         $res = $rs->fetch_array(MYSQLI_ASSOC);
         $rs->free();
+        // on empty history table or error $res gets null
         $this->last_version = ($res)? $res['Version'] : MINVER; // get last db stored sw version
+
+        // evaluate needToUpdateMark according software vs database version
         $this->myLogger->trace("SW Version: current: {$this->current_version} database: {$this->last_version}");
+        $retflag= (strcmp($this->current_version,$this->last_version) > 0 )?true:false;
 
-        // check if current sw version is greater than installed db says (if so, return true)
-        if (strcmp($this->current_version,$this->last_version) > 0 ) {
+        // retrieve date of last database modification
+        $str= "SELECT MAX(last) AS Updated FROM ( ". // this is the right way to do :-)
+            "      SELECT MAX(LastModified) AS last FROM perros ".
+            "UNION SELECT MAX(LastModified) AS last FROM guias ".
+            "UNION SELECT MAX(LastModified) AS last FROM clubes ".
+            "UNION SELECT MAX(LastModified) AS last FROM jueces) AS m";
 
-            // eval time of last DB update. Should include judges data, but enought for now
-            // $str="SELECT MAX(perroguiaclub.LastModified) AS Updated FROM perroguiaclub";
-            $str= "SELECT MAX(last) AS Updated FROM ( ". // this is the right way to do :-)
-                        "      SELECT MAX(LastModified) AS last FROM perros ".
-                        "UNION SELECT MAX(LastModified) AS last FROM guias ".
-                        "UNION SELECT MAX(LastModified) AS last FROM clubes ".
-                        "UNION SELECT MAX(LastModified) AS last FROM jueces) AS m";
-
-            $rs=$this->conn->query($str);
-            $retflag=false;
-            if ($rs){
-                $res = $rs->fetch_array(MYSQLI_ASSOC);
-                $rs->free();
-                $curdate = ($res)? $res['Updated'] : toLongDateString($this->last_version);
-                $this->myLogger->trace("Last database update was on: {$curdate}");
-            } else { // when no LastModified fields exists mark to update database structure
-                $this->myLogger->trace("Database too old: {$this->last_version}");
-                $curdate = toLongDateString($this->last_version);
-                $retflag=true;
-            }
-            // add new sw version entry into table with (newswver,lastdbupdate) values
-            $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$this->current_version}','{$curdate}') ".
-                "ON DUPLICATE KEY UPDATE Updated='{$curdate}'";
-            $res=$this->conn->query($str);
-            if (!$res) throw new Exception ("upgrade::updateHistoryTable(): ".$this->conn->error);
-            $this->myLogger->leave();
-            return $retflag; // new release: mark database to be updated
+        $rs=$this->conn->query($str);
+        if ($rs){
+            $res = $rs->fetch_array(MYSQLI_ASSOC);
+            $rs->free();
+            $curdate = ($res)? $res['Updated'] : toLongDateString($this->last_version);
+            $this->myLogger->trace("Last database contents update was on: {$curdate}");
+        } else { // when no LastModified fields exists mark to update database structure
+            $this->myLogger->trace("Database too old: {$this->last_version}");
+            $curdate = toLongDateString($this->last_version);
+            $retflag=true;
         }
+        // add new sw version entry into table with (newswver,lastdbupdate) values
+        $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$this->current_version}','{$curdate}') ".
+            "ON DUPLICATE KEY UPDATE Updated='{$curdate}'";
+        $res=$this->conn->query($str);
+        if (!$res) throw new Exception ("upgrade::updateHistoryTable(): ".$this->conn->error);
+
+        // return with evaluated needToUpdateMark
         $this->myLogger->leave();
-        // same version than installed. No need to add new SW version to db history
-        return false;
+        return $retflag;
     }
 
     function dropColumnIfExists($table,$field) {
@@ -465,6 +462,30 @@ class Updater {
         // not done: change every TRS/TRM field to float
         foreach ($cmds as $query) { $this->conn->query($query); }
         return 0;
+    }
+
+    /**
+    * this function adds additional user info required to operate in server mode
+    * password, email, capabilities and so
+    * Due to RGPD, this table should not be exported when requesting updates from server
+    */
+    function createUserInfoTable () {
+        $this->myLogger->enter();
+        $str="
+        CREATE TABLE IF NOT EXISTS `user_info` (
+          `ID` int(4) NOT NULL AUTO_INCREMENT,
+          `ServerID`  int(4) NOT NULL,
+          `Password`  varchar(255) NOT NULL DEFAULT '',
+          `Capabilities`  varchar(255) NOT NULL DEFAULT '',
+          `Email` varchar(255) NOT NULL DEFAULT '',
+          `Phone` varchar(16) NOT NULL DEFAULT '',
+          PRIMARY KEY (`ID`),
+          KEY `user_info_serverid` (`ServerID`)
+        ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+        ";
+        $res=$this->conn->query($str);
+        if (!$res) throw new Exception("upgrade::createUserInfoTable(): ".$this->conn->error);
+        $this->myLogger->leave();
     }
 
     /**
@@ -792,6 +813,8 @@ try {
     $upg->addColumnUnlessExists("jornadas", "Tipo_Competicion", "int(4)", "0");
 
     // on server edition need to track modification time and unique id set on server
+    // additionally add password and capabilities to handlers
+    // notice that these fields shouldn't be exported to clients from server
     $upg->addColumnUnlessExists("perros", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
     $upg->addColumnUnlessExists("perros", "ServerID", "int(4)", "0");
     $upg->addColumnUnlessExists("guias", "LastModified", "timestamp", "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
@@ -818,6 +841,7 @@ try {
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
+    $upg->createUserInfoTable();
     $upg->createLeagueTable();
     $upg->populateTeamMembers();
     $upg->addNewGradeTypes();

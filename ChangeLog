@@ -1,3 +1,6 @@
+Version 3.8.0 20180807_1139
+    - New table "user_info" to handle users in server mode
+    - Fix upgradeVersion.php, to properly update database on sw update
 Version 3.8.0 20180626_1100
     - Request confirmation on user selected installdb
     - Add "Baja" to dog fields
