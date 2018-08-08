@@ -70,6 +70,8 @@ function editInscribedDog(){
 	var id=$('#edit_inscripcion-Perro').val();
 	$('#perros-form').form('load','../ajax/database/dogFunctions.php?Operation=getbyidperro&ID='+id);
     $('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('Modify data on dog to be inscribed'); ?>'+' - '+fedName(workingData.federation));
+    // cannot mark as retired an inscribed dog, so hide form label and entry
+    $("#perros-Baja").css('display','none');
     // add extra required data to form dialog
 	$('#perros-warning').css('visibility','visible');
 	$('#perros-okBtn').one('click',function() {

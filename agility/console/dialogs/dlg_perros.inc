@@ -78,9 +78,11 @@ $config =Config::getInstance();
                 		name="Grado" 
                 		class="easyui-combobox" 
                 		style="width:155px"></select>
-                <label for="perros-Baja_Perro>" style="width:165px;text-align:right"><?php _e('Retired'); ?></label>
-                <input type="hidden" name="Baja" value="0"/> <!-- dirty trick to make sure data is sent on ajax call -->
-                <input id="perros-Baja_Perro" name="Baja" class="easyui-checkbox" type="checkbox" value="1" />
+                <span id="perros-Baja">
+                    <label for="perros-Baja_Perro>" style="width:165px;text-align:right"><?php _e('Retired'); ?></label>
+                    <input type="hidden" name="Baja" value="0"/> <!-- dirty trick to make sure data is sent on ajax call -->
+                    <input id="perros-Baja_Perro" name="Baja" class="easyui-checkbox" type="checkbox" value="1" />
+                </span>
             </div>
             <div><br/></div>
             <div class="fitem">
