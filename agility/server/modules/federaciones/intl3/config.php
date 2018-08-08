@@ -27,13 +27,11 @@ class INTL3 extends Federations {
                 '-' => '-',
                 'Jr' => 'Jr.',
                 'Sr' => 'Sr.',
-                'Baja' => 'Out',
                 'GI' => 'A1',
                 'GII'=> 'A2',
                 'GIII' => 'A3',
                 'P.A.' => 'A0',
-                'P.B.' => 'T.d.', // "Test dog"
-                'Ret.' => 'Ret.'
+                'P.B.' => 'T.d.' // "Test dog"
             ),
             'ListaGrados'    => array (
                 '-' => 'Individual',
@@ -43,9 +41,7 @@ class INTL3 extends Federations {
                 'GII'=> 'Grade II',
                 'GIII' => 'Grade III',
                 'P.A.' => 'Pre-Agility',
-                'P.B.' => 'Test dog',
-                'Baja' => 'Temporary out',
-                'Ret.' => 'Retired',
+                'P.B.' => 'Test dog'
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',

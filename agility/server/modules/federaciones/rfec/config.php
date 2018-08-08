@@ -26,15 +26,13 @@ class RFEC extends Federations {
             'Recorridos' => array(_('Common course'),"Clases 60+50 / 40+30",_("Separate courses")),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
-                'Baja' => 'Baja',
                 'Jr' => 'Junr',
                 //'Sr' => 'Sr.',
                 'GI' => 'Prom',
                 'GII'=> 'Comp',
                 // 'GIII' => 'G3',
                 'P.A.' => 'Inic',
-                'P.B.' => 'P.B.', // "perro en blanco"
-                'Ret.' => 'Ret.'
+                'P.B.' => 'P.B.' // "perro en blanco"
             ),
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
@@ -44,9 +42,7 @@ class RFEC extends Federations {
                 'GII'=> 'Competicion (G2)',
                 // 'GIII' => '(G3) no disponible',
                 'P.A.' => 'Iniciacion (G0)',
-                'P.B.' => 'Perro en Blanco',
-                'Baja' => 'Baja temporal ',
-                'Ret.' => 'Retirado'
+                'P.B.' => 'Perro en Blanco'
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',

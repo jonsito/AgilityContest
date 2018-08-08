@@ -24,15 +24,13 @@ class CPC extends Federations {
             'Recorridos' => array(_('Common course'),_('Standard / Midi + Mini'),_('Separate courses')),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
-                'Baja' => 'Out',
                 'Jr' => 'Jr.',
                 'Sr' => 'Sr.',
                 'GI' => 'GI',
                 'GII'=> 'GII',
                 'GIII' => 'GIII',
                 'P.A.' => 'P.A.',
-                'P.B.' => 'P.B.', // "perro en blanco"
-                'Ret.' => 'Ret.'
+                'P.B.' => 'P.B.' // "perro en blanco"
             ),
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
@@ -42,9 +40,7 @@ class CPC extends Federations {
                 'GII'=> 'Grau II',
                 'GIII' => 'Grau III',
                 'P.A.' => 'Pre-Agility',
-                'P.B.' => 'Cao branco',
-                'Baja' => 'Baja temporal',
-                'Ret.' => 'Retirado',
+                'P.B.' => 'Cao branco'
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',

@@ -25,15 +25,13 @@ class NAT3 extends Federations {
             'Recorridos' => array(_("Common course"),_("Large / Med + Small"),_("Separate courses")),
             'ListaGradosShort' => array(
                 '-' => '-',
-                'Baja' => 'Out',
                 // 'Jr' => 'Jr.',
                 // 'Sr' => 'Sr.',
                 'GI' => 'G1',
                 'GII'=> 'G2',
                 'GIII' => 'G3',
                 'P.A.' => 'P.A.',
-                'P.B.' => 'P.B.', // "Test dog"
-                'Ret.' => 'Ret.'
+                'P.B.' => 'P.B.' // "Test dog"
             ),
             'ListaGrados'    => array (
                 '-' => 'Individual',
@@ -43,9 +41,7 @@ class NAT3 extends Federations {
                 'GII'=> 'Grado II',
                 'GIII' => 'Grado III',
                 'P.A.' => 'Pre-Agility',
-                'P.B.' => 'Perro en Blanco',
-                'Baja' => 'Baja temporal',
-                'Ret.' => 'Retirado',
+                'P.B.' => 'Perro en Blanco'
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',

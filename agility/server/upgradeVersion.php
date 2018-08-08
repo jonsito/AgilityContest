@@ -346,6 +346,7 @@ class Updater {
                 `perros`.`Categoria` AS `Categoria`,
                 `categorias_perro`.`Observaciones` AS `NombreCategoria`,
                 `perros`.`Grado` AS `Grado`,
+                `perros`.`Baja` AS `Baja`,
                 `grados_perro`.`Comentarios` AS `NombreGrado`,
                 `perros`.`Guia` AS `Guia`,
                 `guias`.`Nombre` AS `NombreGuia`,

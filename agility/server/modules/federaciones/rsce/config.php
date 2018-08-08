@@ -25,15 +25,13 @@ class RSCE extends Federations {
             'Recorridos' => array(_('Common course'),_('Standard / Midi + Mini'),_('Separate courses')),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
-                'Baja' => 'Out',
                 // 'Jr' => 'Jr.',
                 // 'Sr' => 'Sr.',
                 'GI' => 'GI',
                 'GII'=> 'GII',
                 'GIII' => 'GIII',
                 'P.A.' => 'P.A.',
-                'P.B.' => 'P.B.', // "perro en blanco"
-                'Ret.' => 'Ret.'
+                'P.B.' => 'P.B.' // "perro en blanco"
             ),
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
@@ -43,9 +41,7 @@ class RSCE extends Federations {
                 'GII'=> 'Grado II',
                 'GIII' => 'Grado III',
                 'P.A.' => 'Pre-Agility',
-                'P.B.' => 'Perro en Blanco',
-                'Baja' => 'Baja temporal',
-                'Ret.' => 'Retirado',
+                'P.B.' => 'Perro en Blanco'
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',

@@ -25,27 +25,23 @@ class NAT4 extends Federations {
             'Recorridos' => array(_('Common course'),"60 + 50 / 40 + 30",_("Separate courses")),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
-                'Baja' => 'Baja',
                 // 'Jr' => 'Jr.',
                 // 'Sr' => 'Sr.',
                 'GI' => 'G1',
                 'GII'=> 'G2',
                 // 'GIII' => 'G3',
                 'P.A.' => 'G0',
-                'P.B.' => 'P.B.', // "perro en blanco"
-                'Ret.' => 'Ret.'
+                'P.B.' => 'P.B.' // "perro en blanco"
             ),
             'ListaGrados'    => array (
                 '-' => ' ',
-                'Baja' => 'Baja temporal',
                 // 'Jr' => 'Junior',
                 // 'Sr' => 'Senior',
                 'GI' => 'Grado 1',
                 'GII'=> 'Grado 2',
                 // 'GIII' => 'G3 no disponible',
                 'P.A.' => 'Grado 0',
-                'P.B.' => 'Perro en Blanco',
-                'Ret.' => 'Retirado',
+                'P.B.' => 'Perro en Blanco'
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',

@@ -241,7 +241,7 @@ class Inscripciones extends DBObject {
 		$id = $this->pruebaID;
 		$fed =  http_request("Federation","i",0);
 		$search =  http_request("where","s","");
-		$extra = "AND (perroguiaclub.Grado<>'Baja') AND (perroguiaclub.Grado<>'Ret.') " ;
+		$extra = "AND (perroguiaclub.Baja=0) AND (perroguiaclub.Grado<>'Baja') AND (perroguiaclub.Grado<>'Ret.') " ;
 		$extra .= "AND ( Guia>1 ) AND (Club>1) "; // exclude dogs wihtout handler or handlers w/o club
 		if ($search!=='') {
 		    $extra .= " AND ( (perroguiaclub.Nombre LIKE '%$search%') ";

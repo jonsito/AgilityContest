@@ -51,14 +51,11 @@ class Federations {
                 '-' => 'Sin especificar',
                 'Jr' => 'Jr.',
                 'Sr' => 'Sr.',
-                'Baja' => 'Out',
                 'GI' => 'GI',
                 'GII' => 'GII',
                 'GIII' => 'GIII',
                 'P.A.' => 'P.A.',
-                'P.B.' => 'P.B',
-                'Ret.' => 'Ret.'
-
+                'P.B.' => 'P.B'
             ),
             'ListaGrados' => array(
                 '-' => 'Sin especificar',
@@ -68,9 +65,7 @@ class Federations {
                 'GII' => 'Grade II',
                 'GIII' => 'Grade III',
                 'P.A.' => 'Pre-Agility',
-                'P.B.' => 'Test dog',
-                'Baja' => 'Temporary out',
-                'Ret.' => 'Retired'
+                'P.B.' => 'Test dog'
             ),
             'ListaCategoriasShort' => array(
                 '-' => '-',
