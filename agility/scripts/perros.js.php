@@ -40,7 +40,7 @@ function newDog(dg,def){
 	$('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('New dog'); ?>'+' - '+fedName(workingData.federation));
 	if (strpos(def,"<?php _e('-- Search --'); ?>")===false) $('#perros-Nombre').textbox('setValue',def.capitalize());
 	$('#perros-Operation').val('insert');
-    $("#perros-Baja").css('display','inherit'); // make sure "retired" option is visible
+    $("#perros-Baja").css('display','inline'); // make sure "retired" option is visible
 	$('#perros-warning').css('visibility','hidden');
 	$('#perros-okBtn').one('click',function() {reload_perrosDatagrid(dg);});
 }
@@ -60,7 +60,7 @@ function editDog(dg){
     // add extra required data to form dialog
     row.Operation='update';
     $('#perros-form').form('load',row);// load form with row data
-    $("#perros-Baja").css('display','inherit'); // make sure "retired" option is visible
+    $("#perros-Baja").css('display','inline'); // make sure "retired" option is visible
 	$('#perros-warning').css('visibility','visible');
 	$('#perros-okBtn').one('click',function() {reload_perrosDatagrid(dg);});
 }
