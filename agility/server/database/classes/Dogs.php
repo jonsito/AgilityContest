@@ -42,17 +42,18 @@ class Dogs extends DBObject {
         $licencia = http_request("Licencia","s",null,false);
         $categoria= http_request("Categoria","s",null,false);
         $grado =	http_request("Grado","s",null,false);
+        $baja =	    http_request("Baja","i",0);
         $guia =		http_request("Guia","i",0);
 		$nombrelargo= http_request("NombreLargo","s","",false);
 		$genero= http_request("Genero","s","",false);
         $federation=$this->federation;
         $licencia=normalize_license($licencia);
 		// componemos un prepared statement (para evitar sql injection)
-		$sql ="INSERT INTO perros (Nombre,Raza,Chip,LOE_RRC,Licencia,Categoria,Grado,Guia,NombreLargo,Genero,Federation)
-			   VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+		$sql ="INSERT INTO perros (Nombre,Raza,Chip,LOE_RRC,Licencia,Categoria,Grado,Baja,Guia,NombreLargo,Genero,Federation)
+			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sssssssissi',$nombre,$raza,$chip,$loe_rrc,$licencia,$categoria,$grado,$guia,$nombrelargo,$genero,$federation);
+		$res=$stmt->bind_param('sssssssiissi',$nombre,$raza,$chip,$loe_rrc,$licencia,$categoria,$grado,$baja,$guia,$nombrelargo,$genero,$federation);
 		if (!$res) return $this->error($stmt->error);
 		
 		$this->myLogger->info("Nombre:$nombre Raza:$raza LOE:$loe_rrc Categoria:$categoria Grado:$grado Guia:$guia Federation:$federation");
@@ -100,17 +101,18 @@ class Dogs extends DBObject {
         $licencia = http_request("Licencia","s",null,false);
         $categoria= http_request("Categoria","s",null,false);
         $grado =	http_request("Grado","s",null,false);
+        $baja =		http_request("Baja","i",0);
         $guia =		http_request("Guia","i",0);
 		$nombrelargo= http_request("NombreLargo","s","",false);
 		$genero= http_request("Genero","s","",false);
         $idperro =	$id;
         $licencia=normalize_license($licencia);
 		// componemos un prepared statement
-		$sql ="UPDATE perros SET Nombre=? , Raza=? , Chip=?, LOE_RRC=? , Licencia=? , Categoria=? , Grado=? , Guia=?, NombreLargo=?, Genero=?
+		$sql ="UPDATE perros SET Nombre=? , Raza=? , Chip=?, LOE_RRC=? , Licencia=? , Categoria=? , Grado=? , Baja=?, Guia=?, NombreLargo=?, Genero=?
 		       WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sssssssissi',$nombre,$raza,$chip,$loe_rrc,$licencia,$categoria,$grado,$guia,$nombrelargo,$genero,$idperro);
+		$res=$stmt->bind_param('sssssssiissi',$nombre,$raza,$chip,$loe_rrc,$licencia,$categoria,$grado,$baja,$guia,$nombrelargo,$genero,$idperro);
 		if (!$res) return $this->error($stmt->error);
 
 		$this->myLogger->info("\nUPDATE dogs: ID: $id Nombre: $nombre Raza: $raza Licencia: $licencia LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
