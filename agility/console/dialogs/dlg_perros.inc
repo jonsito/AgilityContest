@@ -78,7 +78,11 @@ $config =Config::getInstance();
                 		name="Grado" 
                 		class="easyui-combobox" 
                 		style="width:155px"></select>
+                <label for="perros-Baja_Perro>" style="width:165px;text-align:right"><?php _e('Retired'); ?></label>
+                <input type="hidden" name="Baja" value="0"/> <!-- dirty trick to make sure data is sent on ajax call -->
+                <input id="perros-Baja_Perro" name="Baja" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
+            <div><br/></div>
             <div class="fitem">
                 <label for="perros-Guia"><?php _e('Handler'); ?>:</label>
                 <select id="perros-Guia" name="Guia" style="width:225px" class="easyui-combogrid"></select>
@@ -93,6 +97,7 @@ $config =Config::getInstance();
             </div>
         </form>
         <span id="perros-warning">
+        <br/>
         <em><?php _e('Notice'); ?>:</em><br/>
 			<?php _e('Changes on Grade or Category for a dog'); ?><br/>
 			<?php _e('will affect to every non closed contest and journeys'); ?><br/>

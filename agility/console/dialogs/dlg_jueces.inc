@@ -119,6 +119,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         // - botones
 		addTooltip($('#jueces-okBtn').linkbutton(),'<?php _e("Register judge information into database"); ?>');
 		addTooltip($('#jueces-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
+
         // campos del formulario
         $('#jueces-dialog').dialog({
             width:450,
