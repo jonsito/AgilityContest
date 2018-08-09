@@ -27,7 +27,7 @@ function reload_perrosDatagrid(dg) {
 	var w=$(dg+'-search').val();
 	if (strpos(w,"<?php _e('-- Search --'); ?>",0)!==false) w='';
 	// $(dg).datagrid('load',{Operation:'select', where: w, Federation: workingData.federation });
-    $(dg).datagrid('reload');
+    setTimeout(function() { $(dg).datagrid('reload'); },500);
 }
 
 /**

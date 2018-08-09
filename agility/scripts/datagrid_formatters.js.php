@@ -121,6 +121,10 @@ function pbRowStyler2(idx,row) {
 
 /* formatters generales */
 
+function formatBoldDog(val,row,idx) {
+    var retired=(row.Baja!=0)?';color:red':'';
+    return '<span style="font-weight:bold'+retired+'">'+val+'</span>';
+}
 function formatBold(val,row,idx) { return '<span style="font-weight:bold">'+val+'</span>'; }
 function formatBoldBig(val,row,idx) { return '<span style="font-weight:bold;font-size:1.5em;">'+val+'</span>'; }
 function formatBorder(val,row,idx) { return 'border-left: 1px solid #000;'; }

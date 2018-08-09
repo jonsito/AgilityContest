@@ -175,7 +175,7 @@ $config =Config::getInstance();
             columns: [[
                 { field:'ID',   hidden:true },
                 { field:'Federation', hidden:true },
-            	{ field:'Nombre',   width:18, sortable:true,  align: 'left', title: '<?php _e('Name'); ?>', formatter:formatBold },
+            	{ field:'Nombre',   width:18, sortable:true,  align: 'left', title: '<?php _e('Name'); ?>', formatter:formatBoldDog },
 				{ field:'NombreLargo', width:35, sortable:true,  align: 'left', title: '<?php _e('Pedigree'); ?>', formatter:formatBold },
             	{ field:'Raza',     width:25,                align: 'right', title: '<?php _e('Breed'); ?>' },
 				{ field:'Genero', 	width:10, sortable:true, align: 'center', title: '<?php _e('Gender'); ?>.' },
@@ -183,7 +183,8 @@ $config =Config::getInstance();
             	{ field:'Licencia', width:10, sortable:true, align: 'right', title: '<?php _e('Lic'); ?>.' },
             	{ field:'Categoria',width:8,                 align:'center', title: '<?php _e('Cat'); ?>.',formatter:formatCategoria },
             	{ field:'Grado',    width:8,                 align:'center', title: '<?php _e('Grade'); ?>', formatter:formatGrado },
-            	{ field:'Guia',   hidden:true },
+                { field:'Baja',   hidden:true },
+                { field:'Guia',   hidden:true },
                 { field:'NombreGuia',     width:40, sortable:true, title: '<?php _e('Handler name'); ?>'},
             	{ field:'Club',   hidden:true },
                 { field:'NombreClub',     width:25, sortable:true, title: '<?php _e('Club name'); ?>'}

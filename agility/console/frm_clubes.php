@@ -265,8 +265,9 @@ $config =Config::getInstance();
         		method: 'get',
         	    columns: [[
             	    { field:'ID',		width:15, sortable:true,	title: 'ID' },
-            		{ field:'Nombre',	width:30, sortable:true,	title: '<?php _e('Name'); ?>',formatter:formatBold },
-					{ field:'NombreLargo',hidden:true},
+            		{ field:'Nombre',	width:30, sortable:true,	title: '<?php _e('Name'); ?>',formatter:formatBoldDog },
+                    { field:'NombreLargo',hidden:true},
+                    { field:'Baja',hidden:true},
             		{ field:'Categoria',width:15, sortable:false,	title: '<?php _e('Cat.'); ?>' ,formatter:formatCategoria},
             		{ field:'Grado',	width:15, sortable:false,   title: '<?php _e('Grade'); ?>', formatter:formatGrado },
             		{ field:'Raza',		width:25, sortable:false,   title: '<?php _e('Breed'); ?>' },
