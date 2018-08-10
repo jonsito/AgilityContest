@@ -34,14 +34,14 @@ if ( intval($config->getEnv('running_mode')) === AC_RUNMODE_MASTER ) {
         // in master server access to console is controlled by mean of SSL certificates
         $cm=new CertManager();
         $res= $cm->hasValidCert();
-        if ($res !== "" ) {
+        if ($res == "" ) {
             // ok, valid certificate, so check ACL
             if ($cm->checkCertACL()) {
                 $cm_user=$cm->getCertCN();
                 $cm_password="CERTIFICATE";
             }
         } else {
-            die( _("An authorized Digital Certificate is required") . "<br/>Error msg: $res");
+            die( _("An authorized Digital Certificate is required") . "<br/>&nbsp;br/>Error msg: $res");
         }
     }
 }

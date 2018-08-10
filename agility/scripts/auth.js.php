@@ -110,7 +110,7 @@ function acceptLogin() {
    		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
    		success: function(data) {
        		if (data.errorMsg) { // error
-       			$.messager.alert("Error",data.errorMsg,"error");
+                $.messager.alert({width:350, height:'auto', title:'<?php _e('Error'); ?>',msg: data.errorMsg,icon:'error' });
        			initAuthInfo();
        		} else {// success:
        		    var wwidth=450;
