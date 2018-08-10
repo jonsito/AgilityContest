@@ -402,8 +402,9 @@ class AuthManager {
      */
     private function certLogin($login,$password,$sid,$nosession) {
         $cm=new CertManager();
-        if (!$cm->hasValidCert())
-        	throw new Exception( _("A valid Digital Certificate is required") );
+        $res=$cm->hasValidCert();
+        if ($res !== "")
+        	throw new Exception( _("A valid Digital Certificate is required") ."<br/> ErrorMsg: $res" );
         // ok, valid certificate, so check ACL
         if (!$cm->checkCertACL())
         	throw new Exception(_("Your provided certificate is not in access control list"));

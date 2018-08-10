@@ -34,6 +34,7 @@ $runmode=intval($config->getEnv('running_mode'));
 if ( $runmode === AC_RUNMODE_SLAVE) {
     die("Slave mode install: Access other than public directory is not allowed");
 }
+
 // access to console is forbidden in master mode unless master server with valid certificate
 if ( $runmode === AC_RUNMODE_MASTER) {
     // if not in master server drop connection
@@ -43,7 +44,7 @@ if ( $runmode === AC_RUNMODE_MASTER) {
     if ($server!==$myself) die("Access other than public directory is not allowed");
     // in master server access to console is controlled by mean of SSL certificates
     $cm=new CertManager();
-    if (!$cm->hasValidCert()) die("Public access to master console is not allowed");
+    if ("" !== $cm->hasValidCert()) die("Public access to master console is not allowed");
     // ok, valid certificate, so check ACL
     if (!$cm->checkCertACL()) die("You are not allowed to access into master console");
 }

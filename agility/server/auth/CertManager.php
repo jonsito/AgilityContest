@@ -24,21 +24,16 @@ class CertManager {
 
     /**
      * Determines if the browser provided a valid SSL client certificate
-     * @return boolean True if the client cert is there and is valid
+     * @return string empty on success; error message on cert validation failure
      */
     public function hasValidCert() {
-        if (!isset($_SERVER['SSL_CLIENT_M_SERIAL'])
-            || !isset($_SERVER['SSL_CLIENT_V_END'])
-            || !isset($_SERVER['SSL_CLIENT_VERIFY'])
-            || $_SERVER['SSL_CLIENT_VERIFY'] !== 'SUCCESS'
-            || !isset($_SERVER['SSL_CLIENT_I_DN'])
-        ) {
-            return false;
-        }
-        if ($_SERVER['SSL_CLIENT_V_REMAIN'] <= 0) {
-            return false;
-        }
-        return true;
+        if (!isset($_SERVER['SSL_CLIENT_M_SERIAL'])) return 'SSL_CLIENT_M_SERIAL not set';
+        if (!isset($_SERVER['SSL_CLIENT_V_END'])) return 'SSL_CLIENT_V_END not set';
+        if (!isset($_SERVER['SSL_CLIENT_VERIFY'])) return 'SSL_CLIENT_VERIFY not set';
+        if ($_SERVER['SSL_CLIENT_VERIFY'] !== 'SUCCESS') return 'VERIFY Failed';
+        if (!isset($_SERVER['SSL_CLIENT_I_DN'])) return 'SSL_CLIENT_I_DN not set';
+        if ($_SERVER['SSL_CLIENT_V_REMAIN'] <= 0) return 'SSL_CLIENT_V_REMAIN fail';
+        return "";
     }
 
     // compara el serial number del certificado recibido con
