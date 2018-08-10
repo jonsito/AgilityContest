@@ -41,7 +41,7 @@ if ( intval($config->getEnv('running_mode')) === AC_RUNMODE_MASTER ) {
                 $cm_password="CERTIFICATE";
             }
         } else {
-            die( _("An authorized Digital Certificate is required") . "<br/>&nbsp;br/>Error msg: $res");
+            die( _("An authorized Digital Certificate is required") . "<br/>&nbsp;<br/>Error msg: $res");
         }
     }
 }
