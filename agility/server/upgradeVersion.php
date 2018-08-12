@@ -766,7 +766,7 @@ try {
         if ( ! @file_exists(FIRST_INSTALL)) {
             // on manual request first install force user consent by mean of F5 (reload page)
             @touch(FIRST_INSTALL);
-            $upg->install_log('<script type="text/javascript">alert("Please, reload page or press F5 to confirm re-install");</script>');
+            $upg->install_log('<script type="text/javascript">confirmInstallDB();</script>');
             $upg->install_log("Confirmation required<br/>&nbsp;</p></div></body></html>");
             die("Reinstall request must be confirmed by user");
         }

@@ -291,7 +291,16 @@ var eventHandler= {
     'reconfig':	function(event) { loadConfiguration(); }, // reload configuration from server
     'info':	null // click on user defined tandas
 };
-	
+
+function confirmInstallDB() {
+    var r = confirm('<?php _e("Please, confirm that you want to reinstall database from scratch");?> ');
+    if (r === true) {
+        document.location.href = 'index.php?installdb=1';
+    } else {
+        document.location.href = 'index.php';
+    }
+}
+
 </script>
 <style>
 /* Common CSS tags for Agility Contest */
