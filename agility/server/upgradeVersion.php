@@ -183,11 +183,17 @@ class Updater {
             }
         }
 
-        // phase 5 update VersionHistory: set current sw version entry with restored backup creation date
-        $bckd=toLongDateString($this->bckDate);
-        $swver=$this->myConfig->getEnv("version_date");
-        $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$swver}','{$bckd}') ".
-            "ON DUPLICATE KEY UPDATE Updated='{$bckd}'";
+        // phase 5 update VersionHistory: set Updated field of latest stored swversion row with backup date
+        // IMPORTANT:
+        // Version: latest version running on this database
+        // Updated: lastModified timestamp usage for this database.
+        // Version is to handle database upgrades to new version. DO NOT change on restore/install to assure db sructure upgrade
+        // Updated is to handle database entries updates from server. DO update on restore/install to avoid server pull
+
+        $bckd=toLongDateString($this->bckDate); // retrieve database backup date
+        // trick to update only newest version record
+        // https://stackoverflow.com/questions/12242466/update-row-with-max-value-of-field
+        $str= "UPDATE versionhistory SET Updated='{$bckd}' ORDER BY Version DESC LIMIT 1";
         $this->conn->query($str);
 
         // cleanup

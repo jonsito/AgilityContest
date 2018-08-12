@@ -508,10 +508,16 @@ class Admin extends DBObject {
         $this->dropAllTables($rconn);
         // phase 4: parse sql file and populate tables into database
         $this->readIntoDB($rconn,$data);
+
         // phase 5 update VersionHistory: set current sw version entry with restored backup creation date
-        $bckd=toLongDateString($this->bckDate);
-        $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$this->bckRevision}','{$bckd}') ".
-            "ON DUPLICATE KEY UPDATE Updated='{$bckd}'";
+        $bckd=toLongDateString($this->bckDate); // retrieve database backup date
+        // trick to update only newest version record
+        // https://stackoverflow.com/questions/12242466/update-row-with-max-value-of-field
+        $str= "UPDATE versionhistory SET Updated='{$bckd}' ORDER BY Version DESC LIMIT 1";
+
+        // errata on 3.7.3: this didn't update properly database on sw version change, so use above
+        //$str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$this->bckRevision}','{$bckd}') ON DUPLICATE KEY UPDATE Updated='{$bckd}'";
+
         $this->myLogger->trace($str);
         $rconn->query($str);
         // finally close db connection and return
