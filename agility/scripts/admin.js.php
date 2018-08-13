@@ -248,8 +248,12 @@ function read_restoreFile(input) {
     }
 }
 
+function restoreDatabase(fromClient) {
+    $('#tools-uploader').fileUploader('upload');
+}
+
 // fromClient: true: use file from filebox; false: download backup from remote server
-function restoreDatabase(fromClient){
+function restoreDatabase_old(fromClient){
     if (!checkForAdmin(true)) return;
     if (!fromClient) { // requested restore from server
         if (checkForServer()) return;  // cannot remote download when running in server
@@ -318,6 +322,7 @@ function restoreDatabase(fromClient){
                             $.messager.progress('close');
                         }
                     });
+
                     // en paralelo arrancamos una tarea para leer el progreso de la operacion
                     function getProgress(){
                         $.ajax({

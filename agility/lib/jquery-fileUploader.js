@@ -106,7 +106,7 @@
     }
 
 
-    $.fn.fileUpload = function( args ){
+    $.fn.fileUploader = function( args ){
         if ( methods[args]){
             // vemos si lo hemos invocado con un metodo como parametro
             return methods[ args ].apply( this, Array.prototype.slice.call( arguments, 1 ));

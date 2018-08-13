@@ -79,6 +79,7 @@ if ( $runmode === AC_RUNMODE_MASTER) {
 <script src="../scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="../lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="../lib/jquery-fileUploader.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../lib/nicEdit/nicEdit.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="../scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
