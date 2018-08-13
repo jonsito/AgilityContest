@@ -20,6 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 // Github redirects links, and make curl fail.. so use real ones
 // define ('cd w','https://github.com/jonsito/AgilityContest/raw/master/ChangeLog');
 define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/ChangeLog');
+define('UPLOAD_DIR',__DIR__."/../../../../logs/uploads");
 
 require_once(__DIR__."/../../tools.php");
 require_once(__DIR__."/../../logging.php");
@@ -373,20 +374,31 @@ class Admin extends DBObject {
 		// extraemos los datos de registro
 		$data=http_request("Data","s",null);
 		if (!$data) return array("errorMsg" => "restoreDB(): No restoration data received");
+		// data may contain
+        // case 1: string "remoteDownload" -> retrieve database from master server
 		if ($data==="remoteDownload") {
             $rev=$this->myConfig->getEnv("version_date");
             $lic=$this->myAuth->getRegistrationInfo()['Serial'];
             $url="http://www.agilitycontest.es/agility/ajax/masterFunctions.php?Operation=getbackup&Revision={$rev}&License={$lic}";
 		    $res=retrieveFileFromURL($url);
 		    if ($res===FALSE) return array("errorMsg" => "downloadDatabase(): cannot download file from server");
-		    return $res;
         }
-		if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
-			return array("errorMsg" => "restoreDatabase(): Invalid received data format");
+        // case 2: base64 encoded string with data to be downloaded
+        // server configuration restrict POST size to about 6Mb, so this procedure may fail with big uploads
+		else if (preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
+            // $type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
+            $res= base64_decode( $matches[2] ); // decodes received data
 		}
-		// $type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
-		$this->myLogger->leave();
-		return base64_decode( $matches[2] ); // decodes received data
+		// case 3: filename uploaded by mean of FileUploader.php library
+		else {
+            // check if file exists; read into memory and unlink
+		    $filename=UPLOAD_DIR."/{$data}";
+		    if (!file_exists($filename)) return array("errorMsg" => "restoreDatabase(): Invalid data requested");
+		    $res=file_get_contents($filename);
+		    @unlink($filename);
+        }
+        $this->myLogger->leave();
+		return $res;
 	}
 
 	private function dropAllTables($conn) {

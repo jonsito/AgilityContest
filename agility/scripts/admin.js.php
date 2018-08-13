@@ -282,48 +282,46 @@ function restoreDatabase_old(fromClient){
         if (pass){
             // comprobamos si el password es correcto
             checkPassword(ac_authInfo.Login,pass,function(data) {
-                if (data.errorMsg) { // error
+                if (data.errorMsg) {
+                    // error  en comprobación de password
                     $.messager.alert("Error",data.errorMsg,"error");
-                } else { // success:
-                    var suffix=getRandomString(8);
-                    $.messager.progress({
-                        title: 'Restore',
-                        msg: '<?php _e('Restoreing database'); ?>',
-                        interval: 0
-                    });
+                } else {
                     // si password correcto invocamos la operacion
-                    $.ajax({
-                        type:'POST', // use post to send file
-                        url:"../ajax/adminFunctions.php",
-                        dataType:'json',
-                        data: {
-                            Operation: 'restore',
-                            Data: $('#tools-restoreData').val(),
-                            Suffix: suffix
-                        },
-                        contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
-                        success: function(data) {
-                            if (data.errorMsg){
-                                $.messager.show({ width:300, height:150, title: '<?php _e('Database Restore Error'); ?>', msg: data.errorMsg });
-                            } else {
-                                $.messager.alert(
-                                    '<?php _e("Restore Database"); ?>',
-                                    '<?php _e("Database restore success<br />Press Accept to re-init application"); ?>',
-                                    "info",
-                                    function(){window.location.reload();} // reload application main page
-                                ).window('resize',{width:350});
-                            }
-                            $.messager.progress('close');
-                        },
-                        error: function(XMLHttpRequest,textStatus,errorThrown) {
-                            $.messager.alert("DBRestore Error",
+                    var suffix=getRandomString(8);
+
+                    function doRestore() {
+                        $.ajax({
+                            type:'POST', // use post to send file
+                            url:"../ajax/adminFunctions.php",
+                            dataType:'json',
+                            data: {
+                                Operation: 'restore',
+                                Data: $('#tools-restoreData').val(),
+                                Suffix: suffix
+                            },
+                            contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+                            success: function(data) {
+                                if (data.errorMsg){
+                                    $.messager.show({ width:300, height:150, title: '<?php _e('Database Restore Error'); ?>', msg: data.errorMsg });
+                                } else {
+                                    $.messager.alert(
+                                        '<?php _e("Restore Database"); ?>',
+                                        '<?php _e("Database restore success<br />Press Accept to re-init application"); ?>',
+                                        "info",
+                                        function(){window.location.reload();} // reload application main page
+                                    ).window('resize',{width:350});
+                                }
+                                $.messager.progress('close');
+                            },
+                            error: function(XMLHttpRequest,textStatus,errorThrown) {
+                                $.messager.alert("DBRestore Error",
                                     "Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,
                                     "error");
-                            $.messager.progress('close');
-                        }
-                    });
+                                $.messager.progress('close');
+                            }
+                        });
+                    }
 
-                    // en paralelo arrancamos una tarea para leer el progreso de la operacion
                     function getProgress(){
                         $.ajax({
                             url:"../ajax/adminFunctions.php",
@@ -343,6 +341,17 @@ function restoreDatabase_old(fromClient){
                             }
                         });
                     }
+
+                    // creamos una progress bar
+                    $.messager.progress({
+                        title: 'Restore',
+                        msg: '<?php _e('Restoreing database'); ?>',
+                        interval: 0
+                    });
+
+                    // arrancamos el proceso de restore
+                    doRestore();
+                    // en paralelo arrancamos una tarea para leer el progreso de la operacion
                     setTimeout(getProgress,200);
                 }
             });
