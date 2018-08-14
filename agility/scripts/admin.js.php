@@ -238,22 +238,8 @@ function performClearDatabase(oper,fed,pass,callback) {
     });
 }
 
-function read_restoreFile(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#tools-restoreData').val(e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-function restoreDatabase(fromClient) {
-    $('#tools-uploader').fileUploader('upload');
-}
-
 // fromClient: true: use file from filebox; false: download backup from remote server
-function restoreDatabase_old(fromClient){
+function restoreDatabase(fromClient){
     if (!checkForAdmin(true)) return;
     if (!fromClient) { // requested restore from server
         if (checkForServer()) return;  // cannot remote download when running in server
@@ -296,7 +282,8 @@ function restoreDatabase_old(fromClient){
                             dataType:'json',
                             data: {
                                 Operation: 'restore',
-                                Data: $('#tools-restoreData').val(),
+                                // Data: $('#tools-restoreData').val(),
+                                Data: (fromClient)? $('#tools-restoreFile').val():"remoteDownload" ,
                                 Suffix: suffix
                             },
                             contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -322,6 +309,11 @@ function restoreDatabase_old(fromClient){
                         });
                     }
 
+                    function setProgressValue(value) {
+                        var bar = $.messager.progress('bar');  // get the progressbar object
+                        bar.progressbar('setValue',value);  // set new progress value
+                    }
+
                     function getProgress(){
                         $.ajax({
                             url:"../ajax/adminFunctions.php",
@@ -332,8 +324,7 @@ function restoreDatabase_old(fromClient){
                             },
                             success: function(data) {
                                 if(data.progress!=="Done"){
-                                    var bar = $.messager.progress('bar');  // get the progressbar object
-                                    bar.progressbar('setValue', data.progress);  // set new progress value
+                                    setProgressValue(data.progress);
                                     setTimeout(getProgress,200);
                                 } else {
                                     $.messager.progress('close');
@@ -349,10 +340,34 @@ function restoreDatabase_old(fromClient){
                         interval: 0
                     });
 
-                    // arrancamos el proceso de restore
-                    doRestore();
-                    // en paralelo arrancamos una tarea para leer el progreso de la operacion
-                    setTimeout(getProgress,200);
+                    if (fromClient) {
+                        // upload local database file
+                        // incicializamos el uploader
+                        $('#tools-uploader').fileUploader( {
+                            selector: '#tools-restoreFile', // ID of "file" input field
+                            button: null, // ID of submit button
+                            progress: setProgressValue, // ID or function to send upload progress info to
+                            onSuccess: function() {
+                                doRestore();
+                                setTimeout(getProgress,200);
+                            }, // callback function to invoke on success
+                            onError: function (msg) { // callback function to invoke on error
+                                alert("error "+msg);
+                                $.messager.progress('close');
+                            },
+                            onCancel: function() { // callback function to invoke on cancel
+                                alert("cancel");
+                                $.messager.progress('close');
+                            }
+                        });
+
+                        // arrancamos el proceso de restore
+                        $('#tools-uploader').fileUploader('upload');
+                    } else {
+                        // download database from master server
+                        doRestore();
+                        setTimeout(getProgress,200);
+                    }
                 }
             });
         }

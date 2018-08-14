@@ -392,8 +392,10 @@ class Admin extends DBObject {
 		// case 3: filename uploaded by mean of FileUploader.php library
 		else {
             // check if file exists; read into memory and unlink
-		    $filename=UPLOAD_DIR."/{$data}";
-		    if (!file_exists($filename)) return array("errorMsg" => "restoreDatabase(): Invalid data requested");
+            $pinfo=pathinfo(str_replace( "\\", '/', $data ));
+		    $filename=UPLOAD_DIR."/{$pinfo['basename']}";
+		    $this->myLogger->trace("filename is {$filename}");
+		    if (!file_exists($filename)) return array("errorMsg" => "restoreDatabase(): Invalid data requested: '{$filename}'");
 		    $res=file_get_contents($filename);
 		    @unlink($filename);
         }

@@ -24,6 +24,9 @@
         init: function(options) {
             $.extend(config,options);
         },
+        options: function() {
+            return config;
+        },
         upload: function() {
             reader = new FileReader();
             file = document.querySelector( config.selector ).files[0];
