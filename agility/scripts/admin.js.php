@@ -261,8 +261,6 @@ function restoreDatabase(fromClient){
         }
     } else {
         title='<?php _e('DataBase update'); ?>';
-        // download and install database from master server
-        $('#tools-restoreData').val("remoteDownload");
     }
     $.messager.password(title,l1+l2+l3+l4 , function(pass){
         if (pass){
@@ -271,6 +269,7 @@ function restoreDatabase(fromClient){
                 if (data.errorMsg) {
                     // error  en comprobación de password
                     $.messager.alert("Error",data.errorMsg,"error");
+                    return false;
                 } else {
                     // si password correcto invocamos la operacion
                     var suffix=getRandomString(8);
@@ -282,7 +281,6 @@ function restoreDatabase(fromClient){
                             dataType:'json',
                             data: {
                                 Operation: 'restore',
-                                // Data: $('#tools-restoreData').val(),
                                 Data: (fromClient)? $('#tools-restoreFile').val():"remoteDownload" ,
                                 Suffix: suffix
                             },
@@ -368,6 +366,7 @@ function restoreDatabase(fromClient){
                         doRestore();
                         setTimeout(getProgress,200);
                     }
+                    return false;
                 }
             });
         }

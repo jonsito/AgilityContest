@@ -53,9 +53,9 @@ class File_Uploader {
         $file_data     = $this->decode_chunk( $this->myData['data'] );
         if ( false === $file_data )
             return "Error on upload chunk {$this->myData['chunk']} of file '{$this->myData['file']}'";
-        // append received data to uploading file
+        // append received data to uploading file. On first chunk, create file instead of append
         $this->myLogger->trace("upload file {$this->myData['file']} chunk {$this->myData['chunk']}");
-        file_put_contents( $file_path, $file_data, FILE_APPEND );
+        @file_put_contents( $file_path, $file_data, ($this->myData['chunk']==0)?0:FILE_APPEND );
         // mark return ok
         return "";
     }

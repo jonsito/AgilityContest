@@ -38,18 +38,22 @@
     };
 
     function log_progress(msg) {
+        console.log(msg);
         if ( config.progress===null) return false;
         if ( config.progress==="") return false;
+
+        // if progress is function, fire it
         if ( typeof (config.progress) === 'function') {
             setTimeout(function() {config.progress(msg)},0);
         }
+        // else use as elementID and set msg to be inner data
         else $(config.progress).html(msg);
         return true;
     }
 
     function cancel_upload() {
         log_progress( 'Upload Cancelled!' );
-        if (typeof (config.onCancel() === "function") ) {
+        if (typeof (config.onCancel) === "function" ) {
             setTimeout( function() {config.onCancel(); },0);
         }
     }
@@ -83,9 +87,10 @@
                     if (data.errorMsg) {
                         // server side error received. notify user
                         log_progress( 'Upload Error: ' + data.errorMsg );
-                        if (typeof (config.onError() === "function") ) {
+                        if (typeof (config.onError) === "function" ) {
                             setTimeout( function() {config.onError(data.errorMsg); },0);
                         }
+                        return false;
                     }
                     if ( next_slice < file.size ) {
                         var size_done = start + slice_size;
@@ -97,8 +102,8 @@
                     } else {
                         // Update upload progress
                         log_progress( 'Upload Complete!' );
-                        if (typeof (config.onSuccess() === "function") ) {
-                            setTimeout( function() {config.onSuccess(); },0);
+                        if (typeof (config.onSuccess) === "function" ) {
+                            setTimeout( config.onSuccess ,0);
                         }
                     }
                 }
@@ -116,8 +121,8 @@
         } else if ( (typeof args === 'object' ) || (!args) ) {
             // init con argumentos de configuracion
             methods.init.apply( this, arguments );
+            // on each found element declared as fileUploader trigger upload on fire button when declared
             return this.each(function(){
-                // on each found element trigger upload on fire button when declared
                 if ( (config.button!==null) && (config.button!=="") ) {
                     $(config.button).on('click',methods.upload);
                 }
