@@ -164,7 +164,7 @@ function formatTrainingCell4(val,row,idx) { return row.Key4+" - "+val; }
 
 function formatDogName(val,row,idx) { // long name limited to 20 characters
     if (typeof(val)==="undefined") return ""; // to prevent initial empty rows
-    if (!useLongNames()) return formatBoldBig(val,row,idx);
+    if (!useLongNames()) return formatBoldBig(val.substr(0,16),row,idx); // cut on 16 chars to avoid loosing datagrid rendering
     return formatBold(row.Nombre+" - <br/>"+row.NombreLargo.substr(0,20),row,idx);
 }
 
