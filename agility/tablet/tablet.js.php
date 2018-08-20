@@ -726,7 +726,8 @@ function bindKeysToTablet() {
 			case 105:	/* numpad 9 */	tablet_add(9); break;
 			case 8:		/* del */
 			case 46:	/* numpad supr */	tablet_del(); break;
-			case 190:    /* dot */
+            case 188:   /* comma */
+            case 190:   /* dot */
 			case 110:	/* numpad dot */	tablet_dot(); break;
 			// teclas de funcion para user defined events
             case 112:   /* F1 */        tablet_userfn(0);break;
