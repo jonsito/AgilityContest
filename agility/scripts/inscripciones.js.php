@@ -47,6 +47,7 @@ function newInscripcion(dg,def,onAccept) {
  * @param obj changed checkbox
  */
 function changeInscription(idx,prueba,perro,jindex,obj) {
+    var ji=1+parseInt(jindex);
     $.ajax({
         type: 'GET',
         url: '../ajax/database/inscripcionFunctions.php',
@@ -54,7 +55,7 @@ function changeInscription(idx,prueba,perro,jindex,obj) {
             Operation: (obj.checked)?"insertIntoJourney":"deleteFromJourney",
             Prueba: prueba,
             Perro: perro,
-            Jornada: jindex // notice index, no real Jornada ID
+            Jornada: ji // notice index, no real Jornada ID
         },
         dataType: 'json',
         success: function (result) {
@@ -62,7 +63,7 @@ function changeInscription(idx,prueba,perro,jindex,obj) {
                 $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
                 obj.checked=!obj.checked; // revert change ( beware on recursive onChange events )
             } else {
-                var j="J"+(parseInt(jindex)+1);
+                var j="J"+ji;
                 // on save done refresh related datagrid index data
                 $('#inscripciones-datagrid').datagrid('getRows')[idx][j]=obj.checked;
             }

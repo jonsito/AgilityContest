@@ -62,7 +62,8 @@ class Inscripciones extends DBObject {
     /**
      * Create new inscription or add to an existing inscription provided dog into selected journey
      * @param $idperro
-     * @param $idjornada
+     * @param $idjornada or journeyNumber (1..8)
+     * @param $jmode: 0:JornadaID 1:JourneyNumber
      * @return string
      */
     function insertIntoJourney($idperro,$idjornada,$jmode=0) {
@@ -70,7 +71,7 @@ class Inscripciones extends DBObject {
             return $this->error("deleteFromJourney(): invalid dog:{$idperro} or jornada:{$idjornada} ID");
 
         if ($jmode!==0) { // need to eval jornada ID from prueba and jornada index
-            $num=$idjornada+1;
+            $num=$idjornada;
             $jobj=$this->__selectObject("*","jornadas","Prueba={$this->pruebaID} AND Numero={$num}");
             if (!$jobj) return $this->error("insertIntoJourney() Cannot locate Journey for Prueba ($this->pruebaID} and index:{$idjornada}");
         } else {
@@ -90,12 +91,19 @@ class Inscripciones extends DBObject {
 	    return "";
     }
 
+    /**
+     * Remove dog from existing inscription providing dog and selected journey
+     * @param $idperro
+     * @param $idjornada or journeyNumber (1..8)
+     * @param $jmode: 0:JornadaID 1:JourneyNumber
+     * @return string
+     */
     function deleteFromJourney($idperro,$idjornada,$jmode=0) {
         if (($idperro<=0) || ($idjornada<=0))
             return $this->error("deleteFromJourney(): invalid dog:{$idperro} or jornada:{$idjornada} ID");
 
         if ($jmode!==0) { // need to eval jornada ID from prueba and jornada index
-            $num=$idjornada+1;
+            $num=$idjornada;
             $jobj=$this->__selectObject("*","jornadas","Prueba={$this->pruebaID} AND Numero={$num}");
             if (!$jobj) return $this->error("insertIntoJourney() Cannot locate Journey for Prueba ($this->pruebaID} and index:{$idjornada}");
         } else {
