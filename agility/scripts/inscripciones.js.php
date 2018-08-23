@@ -544,8 +544,9 @@ function printInscripciones() {
 	var options= {
 	    0:'<?php _e('Simple listing'); ?>',
         1:'<?php _e('Catalog'); ?>',
-        4:'<?php _e('Current selection/order'); ?>',
         2:'<?php _e('Statistics'); ?>',
+        4:'<?php _e('Current selection/order'); ?>',
+        6:'<?php _e('Handlers with more than one dog'); ?>',
         5:'<?php _e('Competition ID Cards'); ?>'
 	};
 	// buscamos la jornada seleccionada
@@ -564,6 +565,6 @@ function printInscripciones() {
 			if (r) { setTimeout(do_print(r),0); }
 			return false ;
 		}
-	).window('resize',{width:(jornada==0)?250:350});
+	).window('resize',{width:(jornada==0)?300:350});
 	return false; //this is critical to stop the click event which will trigger a normal file download!
 }

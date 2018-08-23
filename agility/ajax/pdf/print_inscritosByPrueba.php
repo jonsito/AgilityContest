@@ -58,12 +58,16 @@ try {
 			break;
         case 4: // imprimir segun el listado que aparece en pantalla
 			$inscritos=$inscripciones->inscritos(true);
-        	$pdf=new PrintInscritos($pruebaid,$inscritos,$jornadas,true);
+        	$pdf=new PrintInscritos($pruebaid,$inscritos,$jornadas,_("Competitors list (personalized)"));
         	break;
         case 5: // imprimir seleccion de pantalla en modo tarjeta de visita
             $inscritos=$inscripciones->inscritos(true);
             $pdf=new PrintTarjetasDeVisita($pruebaid,$inscritos,$jornadas);
         	break;
+		case 6: // buscar e imprimir guias con mas de un perro
+            $inscritos=$inscripciones->enumerateDups();
+            $pdf=new PrintInscritos($pruebaid,$inscritos,$jornadas,_('Handlers with more than one dog'));
+            break;
 		default: throw new Exception ("Inscripciones::print() Invalid print mode selected $mode");
 	}
 	$pdf->AliasNbPages();

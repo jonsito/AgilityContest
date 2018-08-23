@@ -305,7 +305,7 @@ class Inscripciones extends DBObject {
 	 * retrieve all inscriptions in stored prueba
 	 * no search, no order, no limit, just retrieve all in 'Dorsal ASC' order
 	 */
-	function enumerate() {
+	function enumerate($order="Dorsal") {
 		$this->myLogger->enter();
 		// evaluate offset and row count for query
 		$id = $this->pruebaID;
@@ -317,7 +317,7 @@ class Inscripciones extends DBObject {
 			FROM inscripciones,perroguiaclub
 			WHERE ( inscripciones.Perro = perroguiaclub.ID) 
 				AND ( inscripciones.Prueba=$id )
-			ORDER BY Dorsal ASC";
+			ORDER BY {$order} ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 	
@@ -340,7 +340,28 @@ class Inscripciones extends DBObject {
 		return $result;
 	
 	}
-	
+
+	function enumerateDups() {
+	    $this->myLogger->enter();
+	    // obtenemos la lista total de inscritos
+        $from=$this->enumerate("NombreClub ASC, NombreGuia ASC, Categoria ASC, Grado ")['rows'];
+        // elaboramos la tabla de guias y veces que aparecen
+        $guias=array();
+        foreach ($from as $item) {
+            if (!array_key_exists($item['Guia'],$guias)) $guias[$item['Guia']]=0;
+            $guias[$item['Guia']]++;
+        }
+        // re-escribimos la lista de inscritos omitiendo los que no tienen guia duplicado
+        $dups=array();
+        foreach ($from as $item) {
+            if ($guias[$item['Guia']]>1) array_push($dups,$item);
+        }
+        // componemos resultado
+        $result=array('total'=>count($dups),'rows'=>$dups);
+        $this->myLogger->leave();
+        return $result;
+    }
+
 	/**
 	 * Tell how many dogs have inscription in this contest
 	 */
