@@ -537,6 +537,7 @@ function saveJornada(){
                 // notice that some of these items may fail if dialog is not deployed. just ignore
                 $('#jornadas-datagrid-'+id).datagrid('reload',{ Prueba:id , Operation:'select' }); // reload the prueba data
                 $('#inscripciones-jornadas').datagrid('reload');    // reload the prueba data
+                $('#inscripciones-datagrid').datagrid('reload');    // reload the inscriptions to enable checkboxes on new journey
             }
         }
     });

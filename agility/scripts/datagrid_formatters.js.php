@@ -172,6 +172,22 @@ function clubOrCountry() {
     return isInternational(workingData.federation)? "<?php _e('Country');?>":"<?php _e('Club');?>";
 }
 
+/* formatters para datagrid de inscripciones */
+function formatJourneyInscription(journey,val,row,idx) {
+    if ( typeof (val) === "undefined" ) return ""; // not yet loaded datagrid
+    if ( $('#inscripciones-jornadas').datagrid('getRows')[journey].Nombre === "-- Sin asignar --") return "";
+    var checked=(val==0)?'':'checked="checked"';
+    return '<input type="checkbox" value="1" '+checked+'>';
+}
+function formatJ1(val,row,idx) { return formatJourneyInscription(0,val,row,idx); }
+function formatJ2(val,row,idx) { return formatJourneyInscription(1,val,row,idx); }
+function formatJ3(val,row,idx) { return formatJourneyInscription(2,val,row,idx); }
+function formatJ4(val,row,idx) { return formatJourneyInscription(3,val,row,idx); }
+function formatJ5(val,row,idx) { return formatJourneyInscription(4,val,row,idx); }
+function formatJ6(val,row,idx) { return formatJourneyInscription(5,val,row,idx); }
+function formatJ7(val,row,idx) { return formatJourneyInscription(6,val,row,idx); }
+function formatJ8(val,row,idx) { return formatJourneyInscription(7,val,row,idx); }
+
 /* formatters para datagrid de resultados */
 function formatFaltasTocados(val,row,idx) { return parseInt(row.Faltas)+parseInt(row.Tocados); }
 function formatPuesto(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }

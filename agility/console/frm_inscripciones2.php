@@ -276,14 +276,14 @@ $('#inscripciones-datagrid').datagrid({
     	{ field:'NombreGuia',	width:27, sortable:true, align: 'right',	title: '<?php _e('Handler');?>' },
     	{ field:'NombreClub',	width:15, sortable:true, align: 'right',	title: '<?php _e('Club');?>' },
     	{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	 title: '<?php _e('Heat');?>' },
-        { field:'J1',		width:2, align:'center', formatter: formatOk,	 title: 'J1'},
-        { field:'J2',		width:2, align:'center', formatter: formatOk,	 title: 'J2'},
-        { field:'J3',		width:2, align:'center', formatter: formatOk,	 title: 'J3'},
-        { field:'J4',		width:2, align:'center', formatter: formatOk,	 title: 'J4'},
-        { field:'J5',		width:2, align:'center', formatter: formatOk,	 title: 'J5'},
-        { field:'J6',		width:2, align:'center', formatter: formatOk,	 title: 'J6'},
-        { field:'J7',		width:2, align:'center', formatter: formatOk,	 title: 'J7'},
-        { field:'J8',		width:2, align:'center', formatter: formatOk,	 title: 'J8'}
+        { field:'J1',		width:2, align:'center', formatter: formatJ1,	 title: 'J1'},
+        { field:'J2',		width:2, align:'center', formatter: formatJ2,	 title: 'J2'},
+        { field:'J3',		width:2, align:'center', formatter: formatJ3,	 title: 'J3'},
+        { field:'J4',		width:2, align:'center', formatter: formatJ4,	 title: 'J4'},
+        { field:'J5',		width:2, align:'center', formatter: formatJ5,	 title: 'J5'},
+        { field:'J6',		width:2, align:'center', formatter: formatJ6,	 title: 'J6'},
+        { field:'J7',		width:2, align:'center', formatter: formatJ7,	 title: 'J7'},
+        { field:'J8',		width:2, align:'center', formatter: formatJ8,	 title: 'J8'}
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,
