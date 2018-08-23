@@ -35,6 +35,41 @@ function newInscripcion(dg,def,onAccept) {
 	if (onAccept!==undefined)$('#new_inscripcion-okBtn').one('click',onAccept);
 }
 
+/**
+ * On-the-fly change inscription on a journey
+ *
+ * Call server to perform a simple (un)inscription on a given journey for a dog
+ * On success refresh affected datagrid row
+ * @param idx inscription datagrid index
+ * @param prueba Prueba ID
+ * @param perro Dog ID
+ * @param jindex Journey index (0..7)
+ * @param obj changed checkbox
+ */
+function changeInscription(idx,prueba,perro,jindex,obj) {
+    $.ajax({
+        type: 'GET',
+        url: '../ajax/database/inscripcionFunctions.php',
+        data: {
+            Operation: (obj.checked)?"insertIntoJourney":"deleteFromJourney",
+            Prueba: prueba,
+            Perro: perro,
+            Jornada: jindex // notice index, no real Jornada ID
+        },
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){
+                $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
+                obj.checked=!obj.checked; // revert change ( beware on recursive onChange events )
+            } else {
+                var j="J"+(parseInt(jindex)+1);
+                // on save done refresh related datagrid index data
+                $('#inscripciones-datagrid').datagrid('getRows')[idx][j]=obj.checked;
+            }
+        }
+    });
+}
+
 function editInscripcion() {
 	if ($('#inscripciones-datagrid-search').is(":focus")) return; // on enter key in search input ignore
 	// obtenemos datos de la inscripcion seleccionada

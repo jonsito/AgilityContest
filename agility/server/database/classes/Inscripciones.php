@@ -65,12 +65,19 @@ class Inscripciones extends DBObject {
      * @param $idjornada
      * @return string
      */
-    function insertIntoJourney($idperro,$idjornada) {
+    function insertIntoJourney($idperro,$idjornada,$jmode=0) {
         if (($idperro<=0) || ($idjornada<=0))
-            return $this->error("insertIntoJourney() invalid dog:{$idperro} or jornada:{$idjornada} ID");
-        // retrieve journey info and mask
-        $jobj=$this->__getObject("jornadas",$idjornada);
-        if (!$jobj) return $this->error("insertIntoJourney() non-existent jornada:{$idjornada}");
+            return $this->error("deleteFromJourney(): invalid dog:{$idperro} or jornada:{$idjornada} ID");
+
+        if ($jmode!==0) { // need to eval jornada ID from prueba and jornada index
+            $num=$idjornada+1;
+            $jobj=$this->__selectObject("*","jornadas","Prueba={$this->pruebaID} AND Numero={$num}");
+            if (!$jobj) return $this->error("insertIntoJourney() Cannot locate Journey for Prueba ($this->pruebaID} and index:{$idjornada}");
+        } else {
+            // retrieve journey info and mask
+            $jobj=$this->__getObject("jornadas",$idjornada);
+            if (!$jobj) return $this->error("deleteFromJourney(): non-existent jornada:{$idjornada}");
+        }
         $mask=1<<( intval($jobj->Numero) - 1 );
         // check if dog is already inscribed
         $iobj=$this->__selectObject("*","inscripciones","( Prueba={$this->pruebaID} ) AND ( Perro={$idperro} )");
@@ -78,17 +85,24 @@ class Inscripciones extends DBObject {
             $this->realInsert($idperro,$this->pruebaID,$mask,0,0,'');
         } else {  // already inscribed: fix journey mask and update()
             $jornadas= $iobj->Jornadas | $mask;
-            $this->real_update($jornadas,0,'',0,$iobj->ID);
+            $this->real_update($jornadas,$iobj->Celo,$iobj->Observaciones,$iobj->Pagado,$iobj->ID);
         }
 	    return "";
     }
 
-    function deleteFromJourney($idperro,$idjornada) {
+    function deleteFromJourney($idperro,$idjornada,$jmode=0) {
         if (($idperro<=0) || ($idjornada<=0))
             return $this->error("deleteFromJourney(): invalid dog:{$idperro} or jornada:{$idjornada} ID");
-        // retrieve journey info and mask
-        $jobj=$this->__getObject("jornadas",$idjornada);
-        if (!$jobj) return $this->error("deleteFromJourney(): non-existent jornada:{$idjornada}");
+
+        if ($jmode!==0) { // need to eval jornada ID from prueba and jornada index
+            $num=$idjornada+1;
+            $jobj=$this->__selectObject("*","jornadas","Prueba={$this->pruebaID} AND Numero={$num}");
+            if (!$jobj) return $this->error("insertIntoJourney() Cannot locate Journey for Prueba ($this->pruebaID} and index:{$idjornada}");
+        } else {
+            // retrieve journey info and mask
+            $jobj=$this->__getObject("jornadas",$idjornada);
+            if (!$jobj) return $this->error("deleteFromJourney(): non-existent jornada:{$idjornada}");
+        }
         $mask=1<<( intval($jobj->Numero) - 1 );
         // check if dog is already inscribed
         $iobj=$this->__selectObject("*","inscripciones","( Prueba={$this->pruebaID} ) AND ( Perro={$idperro} )");

@@ -177,7 +177,8 @@ function formatJourneyInscription(journey,val,row,idx) {
     if ( typeof (val) === "undefined" ) return ""; // not yet loaded datagrid
     if ( $('#inscripciones-jornadas').datagrid('getRows')[journey].Nombre === "-- Sin asignar --") return "";
     var checked=(val==0)?'':'checked="checked"';
-    return '<input type="checkbox" value="1" '+checked+'>';
+    var fn="changeInscription("+idx+","+row.Prueba+","+row.Perro+","+journey+",this);"
+    return '<input type="checkbox" value="1" '+checked+' onchange="'+fn+'">';
 }
 function formatJ1(val,row,idx) { return formatJourneyInscription(0,val,row,idx); }
 function formatJ2(val,row,idx) { return formatJourneyInscription(1,val,row,idx); }

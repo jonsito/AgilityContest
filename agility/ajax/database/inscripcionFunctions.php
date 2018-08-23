@@ -36,7 +36,8 @@ require_once(__DIR__ . "/../../server/database/classes/Inscripciones.php");
 		if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");
 		switch ($operation) {
 			case "insert": $am->access(PERMS_OPERATOR); $result=$inscripciones->insert($perro); break; // nueva inscripcion
-            case "addToJornada": $am->access(PERMS_OPERATOR); $result=$inscripciones->insertIntoJourney($perro,$jornada); break; // nueva inscripcion
+            case "insertIntoJourney": $am->access(PERMS_OPERATOR); $result=$inscripciones->insertIntoJourney($perro,$jornada,1); break;
+            case "deleteFromJourney": $am->access(PERMS_OPERATOR); $result=$inscripciones->deleteFromJourney($perro,$jornada,1); break;
 			case "update": $am->access(PERMS_OPERATOR); $result=$inscripciones->update($perro); break; // editar inscripcion ya existente
 			case "delete": $am->access(PERMS_OPERATOR); $result=$inscripciones->delete($perro); break; // borrar inscripcion
 			case "noinscritos": $result=$inscripciones->noinscritos($jornada); break; // journey can be zero
