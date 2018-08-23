@@ -48,6 +48,7 @@ function newInscripcion(dg,def,onAccept) {
  */
 function changeInscription(idx,prueba,perro,jindex,obj) {
     var ji=1+parseInt(jindex);
+    $.messager.progress({height:75, text:'<?php _e("Updating inscription");?>'});
     $.ajax({
         type: 'GET',
         url: '../ajax/database/inscripcionFunctions.php',
@@ -67,6 +68,9 @@ function changeInscription(idx,prueba,perro,jindex,obj) {
                 // on save done refresh related datagrid index data
                 $('#inscripciones-datagrid').datagrid('getRows')[idx][j]=obj.checked;
             }
+        },
+        complete: function () {
+            $.messager.progress('close');
         }
     });
 }
