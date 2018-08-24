@@ -585,17 +585,21 @@ function ordensalida_reorder() {
         } else {
             var item=data[index]; // cogemos el item correspondiente
             // miramos la nueva posicion del perro y ajustamos limites
-            var orden= parseInt(item['Orden']);
+            var current=parseInt(item['Current']);
+            var orden= parseInt($('#reorder-item'+index).val());
             if (orden < 1 ) orden=1;
             if (orden > os.length) orden=os.length;
+            var where=(current<orden)?1:0; // drop after:1 or before:0 destination dog
             // si no hay cambios no hacemos nada y miramos siguiente entrada
-            if ( parseInt(item['Current']) === orden ){
+            if ( current === orden ){
                 setTimeout(do_loop,0); // no move: go to next item
-            } else {
+                return false;
+            }
+            else {
                 // vemos el perro que hay en el sitio a donde queremos mover
                 var to=os[orden-1]['Perro'];
                 // and move dog
-                dragAndDropOrdenSalida(item.Perro,to,0,do_loop);
+                dragAndDropOrdenSalida(item.Perro,to,where,do_loop);
             }
         }
         return false;

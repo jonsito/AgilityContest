@@ -174,7 +174,7 @@ function clubOrCountry() {
 
 /* formatter para el orden de salida de la ventana de reordenacion */
 function formatReorder(val,row,idx) {
-    return '<input type="text" class="easyui-textbox" name="item'+idx+'" value="'+val+'" maxlength="4"/>';
+    return '<input type="text" style="width:35px;" id="reorder-item'+idx+'" value="'+val+'" maxlength="4"/>';
 }
 
 /* formatters para datagrid de inscripciones */
