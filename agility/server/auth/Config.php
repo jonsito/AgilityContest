@@ -118,6 +118,7 @@ define('AC_VWS_LINECOLOR','#ffffff');
 
 /** generacion de PDF's **/
 define('AC_PDF_SKIPNPEL', "0"); // skip print label when not present or eliminated
+define('AC_PDF_SKIPPA', "1"); // skip print dorsal labels for pre-agility competitors (default)
 define('AC_PDF_TOPMARGIN', 10.0); // margen superior etiquetas
 define('AC_PDF_LEFTMARGIN', 10.0); // margen izquierdo etiquetas
 define('AC_PDF_LABELHEIGHT', 17.0); // Altura de las pegatinas mmts
@@ -293,6 +294,7 @@ Class Config {
 		'vws_linecolor'		=> array(	'c',	false,	AC_VWS_LINECOLOR),
 		// generacion de PDF's
         'pdf_skipnpel'		=> array(	'i',	false,	AC_PDF_SKIPNPEL),
+        'pdf_skippa'		=> array(	'i',	false,	AC_PDF_SKIPPA),
         'pdf_topmargin'		=> array(	'i',	false,	AC_PDF_TOPMARGIN),
 		'pdf_leftmargin'	=> array(	'i',	false,	AC_PDF_LEFTMARGIN),
 		'pdf_labelheight'	=> array(	'i',	false,	AC_PDF_LABELHEIGHT),

@@ -992,6 +992,8 @@ class PrintTarjetasDeVisita extends PrintCommon{
     	$rowcount=0;
     	$this->AddPage();
     	foreach($this->inscritos as $item) {
+    	    // when configured to do, skip printing of pre-agility dorsals
+    	    if ( ($item['Grado']==="P.A.") && (intval($this->config->getEnv('pdf_skippa')) )===1) continue;
             if ( $rowcount>9) { $this->AddPage(); $rowcount=0; }
             $dx=(($rowcount%2)==0)?0:85+10;
             $this->printCard(10+$dx,10+55*intval($rowcount/2),$item);
