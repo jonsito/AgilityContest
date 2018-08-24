@@ -566,6 +566,38 @@ function reloadAndCheck() {
 	proximityAlert();
 }
 
+/**
+ * Check that destination starting order is valid
+ * @param {integer} current original starting point
+ * @param {object} obj input_text that contains destination point
+ * @returns {boolean} true if valid, else false
+ */
+function reorder_check(current,obj) {
+    var c=parseInt(current);
+    var n=parseInt(obj.value);
+    var rows=$('#ordensalida-datagrid').datagrid('getRows');
+    var src=rows[c-1];
+    var dst=rows[n-1];
+    if ((n<1) || (n>rows.length)) {
+        $.messager.alert("Error","<?php _e('New position is out of range');?>","error");
+        obj.value=current; // restore old value
+        return false;
+    }
+    var from=":"+src.Equipo+":"+src.Categoria+":"+src.Celo+":";
+    var to=":"+dst.Equipo+":"+dst.Categoria+":"+dst.Celo+":";
+    if (isJornadaEqConjunta()) {
+        // en jornadas por equipos conjunta, no hay que tener en cuenta ni categoria ni celo
+        from=":"+src.Equipo+":";
+        to=":"+dst.Equipo+":";
+    }
+    if (from !== to) {
+        $.messager.alert("Error","<?php _e('New position is invalid:<br/>Team, category or heat missmatch');?>","warning");
+        obj.value=current; // restore old value
+        return false;
+    }
+    return true;
+}
+
 function ordensalida_reorder() {
 
     // cogemos el datagrid del orden de salida
