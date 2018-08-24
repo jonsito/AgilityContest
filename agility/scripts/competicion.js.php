@@ -566,8 +566,34 @@ function reloadAndCheck() {
 	proximityAlert();
 }
 
+function copyPasteOrdenSalida(index,row) {
+    var dg=$('#ordensalida-datagrid');
+    var data=[];
+    // buscamos todos los perros que comparten guia con el perro seleccionado
+    if (parseInt(row['PerrosPorGuia'])===1){
+        row['Current']=1+index; // add current order to data
+        row['Orden']=1+index; // add space for new order to data
+        data.push(row);
+    } else {
+        var nguia=row['NombreGuia'];
+        var rows=dg.datagrid('getRows');
+        for (var n=0; n<rows.length;n++) {
+            var item=rows[n];
+            item['Current']=1+n; // add current order to data
+            item['Orden']=1+n; // add space for new order to data
+            if ( (item['PerrosPorGuia']==1) || (item['NombreGuia']!==nguia) ) continue;
+            // add dog to list of dogs to be edited
+            data.push(item);
+        }
+    }
+    // ok. ya tenemos la lista de perros cuyo orden hay que modificar.
+    // ahora cogemos y visualizamos el datagrid, cargando los datos que tenemos
+    $('#ordensalida-reorder-datagrid').datagrid('loadData',data);
+    $('#ordensalida-reorder-dialog').dialog('open');
+}
+
 // data {Index:idx Row:row } or null
-function copyPasteOrdenSalida(data) {
+function copyPasteOrdenSalida2(data) {
     var dg=$('#ordensalida-datagrid');
     var row=dg.datagrid('getSelected');
     if (!row) {

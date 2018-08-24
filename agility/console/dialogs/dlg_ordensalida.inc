@@ -24,7 +24,6 @@ $config =Config::getInstance();
 <div id="ordensalida-excel-dialog" style="width:640px;height:auto;padding:10px; display=none;">
     <?php require_once(__DIR__."/../../lib/templates/import_ordensalida_dialog.inc.php"); ?>
 </div>
-
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE IMPORTACION -->
 <div id="ordensalida-excel-buttons">
     <a id="ordensalida-excel-okBtn" href="#" class="easyui-linkbutton"
@@ -33,18 +32,30 @@ $config =Config::getInstance();
        data-options="iconCls: 'icon-cancel'" onclick="$('#ordensalida-excel-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
 </div>
 
-<!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="ordensalida-dialog" style="width:925px;height:500px;padding:5px">
-	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
-	<table id="ordensalida-datagrid" style="padding:5px"></table>
-</div>
-
 <!--  dialogo de ajuste manual del orden de equipos en competiciones modalidad eq3 -->
 <div id="ordeneq3-dialog" style="width:700px;height:300px;padding:5px">
     <!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
     <table id="ordeneq3-datagrid" style="padding:5px"></table>
 </div>
 
+<!-- Dialogo del ajuste de orden de salida de los perros seleccionados -->
+<div id="ordensalida-reorder-dialog" style="width:640px;height:200px;padding:5px">
+    <!-- tabla de reajuste de orden de salida -->
+    <table id="ordensalida-reorder-datagrid" style="padding:5px"></table>
+</div>
+<!-- botones de aceptar/cancelar del ajuste del orden de salida de perros seleccionados -->
+<div id="ordensalida-reorder-buttons">
+    <a id="ordensalida-reorder-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-ok'" onclick="ordensalida_reorder()"><?php _e('Reorder'); ?></a>
+    <a id="ordensalida-reorder-cancelBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-cancel'" onclick="$('#ordensalida-reorder-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+</div>
+
+<!--  dialogo de orden de salida e introduccion de datos de una competicion -->
+<div id="ordensalida-dialog" style="width:925px;height:500px;padding:5px">
+    <!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
+    <table id="ordensalida-datagrid" style="padding:5px"></table>
+</div>
 <!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 <div id="ordensalida-toolbar" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
@@ -64,8 +75,6 @@ $config =Config::getInstance();
         </span>
    	</span>
    	<span style="float:right;padding:5px">
-	   	<a id="ordensalida-pasteBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-redo'" onclick="copyPasteOrdenSalida()"><?php _e('Move'); ?></a>
 	   	<a id="ordensalida-checkBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-help'" onclick="reloadAndCheck()"><?php _e('Check'); ?></a>
    		<!-- estos elementos deben estar alineados a la derecha -->
@@ -77,6 +86,45 @@ $config =Config::getInstance();
 </div>
 
 <script type="text/javascript">
+$('#ordensalida-reorder-dialog').dialog({
+    title:' <?php _e('Reorder selected dog(s)'); ?>',
+    closed:true,
+    modal:true,
+    buttons:'#ordensalida-reorder-buttons',
+    iconCls:'icon-order'
+});
+
+$('#ordensalida-reorder-datagrid').datagrid({
+    // propiedades del panel asociado
+    fit: true,
+    border: false,
+    closable: false,
+    collapsible: false,
+    collapsed: false,
+    // propiedades del datagrid
+    method: '', // no method: local load
+    url: '', // mo url: local load
+    queryParams: {}, // no params: local load
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    singleSelect: true,
+    // toolbar: '#ordensalida-toolbar',
+    columns:[[
+        { field:'Perro',		hidden:true },
+        { field:'Equipo',		hidden:true },
+        { field:'Current',		hidden:true },
+        { field:'Orden',	    width:15, sortable:false,	align:'right',  title: '<?php _e('Order'); ?>',formatter:formatReorder },
+        { field:'Dorsal',		width:15, sortable:false,	align:'center',  title: '<?php _e('Dorsal'); ?>'},
+        { field:'Nombre',		width:25, sortable:false,	align:'left',  title: '<?php _e('Name'); ?>',formatter:formatBold},
+        { field:'Licencia',		hidden: true },
+        { field:'Categoria',	width:10, sortable:false,   align:'center', title: '<?php _e('Cat'); ?>.' ,formatter:formatCategoria},
+        { field:'NombreGuia',	width:50, sortable:false,   align:'right', title: '<?php _e('Handler'); ?>' },
+        { field:'NombreClub',	width:30, sortable:false,   align:'right', title: '<?php _e('Club'); ?>' },
+        { field:'Celo',		    hidden:true }
+    ]]
+
+});
 
 $('#ordensalida-excel-dialog').dialog( {
     title:' <?php _e('Import starting order for this round from Excel file'); ?>',
@@ -264,7 +312,8 @@ $('#ordensalida-datagrid').datagrid({
         $('#ordensalida-pasteBtn').linkbutton('disable');
     },
     onDblClickRow: function(index,row) {
-        copyPasteOrdenSalida({'Row':row,'Index':index});
+        // copyPasteOrdenSalida2({'Row':row,'Index':index});
+        copyPasteOrdenSalida(index,row);
     },
     onDragEnter: function(dst,src) {
         var from=":"+src.Equipo+":"+src.Categoria+":"+src.Celo+":";
@@ -286,7 +335,6 @@ addSimpleKeyHandler('#ordensalida-datagrid','#ordensalida-dialog');
 
 // botones
 addTooltip($('#ordensalida-sortBtn').linkbutton(),'<?php _e("Re-evaluate starting order according sort method"); ?>');
-addTooltip($('#ordensalida-pasteBtn').linkbutton(),'<?php _e("Move entry before selected possition"); ?>');
 addTooltip($('#ordensalida-checkBtn').linkbutton(),'<?php _e("Look for <em>proximity alerts</em>"); ?>'+" <br/>"+'<?php _e("with dogs belonging same handler"); ?>');
 addTooltip($('#ordensalida-eqBtn').linkbutton(),'<?php _e("Manual setting of teams starting order"); ?>');
 addTooltip($('#ordensalida-printBtn').linkbutton(),'<?php _e("Print starting order"); ?>');
@@ -294,5 +342,7 @@ addTooltip($('#ordensalida-reloadBtn').linkbutton(),'<?php _e("Reload starting o
 addTooltip($('#ordensalida-categoria').combobox('textbox'),'<?php _e("Select categories to work with"); ?>');
 addTooltip($('#ordensalida-excel-okBtn').linkbutton(),'<?php _e("Import round result data from selected Excel file"); ?>');
 addTooltip($('#ordensalida-excel-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
+addTooltip($('#ordensalida-reorder-okBtn').linkbutton(),'<?php _e("Move dogs to new provided starting order"); ?>');
+addTooltip($('#ordensalida-reorder-cancelBtn').linkbutton(),'<?php _e("Cancel re-ordering. Close window"); ?>');
 
 </script>

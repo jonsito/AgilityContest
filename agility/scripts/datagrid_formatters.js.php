@@ -172,6 +172,11 @@ function clubOrCountry() {
     return isInternational(workingData.federation)? "<?php _e('Country');?>":"<?php _e('Club');?>";
 }
 
+/* formatter para el orden de salida de la ventana de reordenacion */
+function formatReorder(val,row,idx) {
+    return '<input type="text" class="easyui-textbox" name="item'+idx+'" value="'+val+'" maxlength="4"/>';
+}
+
 /* formatters para datagrid de inscripciones */
 function formatJourneyInscription(journey,val,row,idx) {
     if ( typeof (val) === "undefined" ) return ""; // not yet loaded datagrid
