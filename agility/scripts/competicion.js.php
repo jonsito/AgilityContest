@@ -566,7 +566,47 @@ function reloadAndCheck() {
 	proximityAlert();
 }
 
-function copyPasteOrdenSalida(index,row) {
+function ordensalida_reorder() {
+
+    // cogemos el datagrid del orden de salida
+    var os=$('#ordensalida-datagrid').datagrid('getRows');
+
+    // call this function on every iteration to avoid concurrency problems
+    function do_loop() {
+        var dg=$('#ordensalida-reorder-datagrid');
+        var index=dg.datagrid('options').loopcount;
+        dg.datagrid('options').loopcount++; // incrementamos contador de bucle
+
+        var data=dg.datagrid('getRows');
+        if( index>=data.length) {
+            // at end of process: close window and reload ordensalida
+            $('#ordensalida-reorder-dialog').dialog('close');
+            reloadOrdenSalida();
+        } else {
+            var item=data[index]; // cogemos el item correspondiente
+            // miramos la nueva posicion del perro y ajustamos limites
+            var orden= parseInt(item['Orden']);
+            if (orden < 1 ) orden=1;
+            if (orden > os.length) orden=os.length;
+            // si no hay cambios no hacemos nada y miramos siguiente entrada
+            if ( parseInt(item['Current']) === orden ){
+                setTimeout(do_loop,0); // no move: go to next item
+            } else {
+                // vemos el perro que hay en el sitio a donde queremos mover
+                var to=os[orden-1]['Perro'];
+                // and move dog
+                dragAndDropOrdenSalida(item.Perro,to,0,do_loop);
+            }
+        }
+        return false;
+    }
+
+    // start reorder iteration
+    $('#ordensalida-reorder-datagrid').datagrid('options').loopcount=0;
+    setTimeout(do_loop,0);
+}
+
+function selectDogsToReorder(index,row) {
     var dg=$('#ordensalida-datagrid');
     var data=[];
     // buscamos todos los perros que comparten guia con el perro seleccionado
@@ -1141,7 +1181,7 @@ function dragAndDropOrdenSalida(from,to,where,whenDone) {
         if (result.errorMsg){
             $.messager.show({title:"Error",msg:result.errorMsg,timeout:5000,showType:'slide'})
         }
-		whenDone();
+		if (typeof(whenDone)==="function") whenDone();
 	});
 }
 

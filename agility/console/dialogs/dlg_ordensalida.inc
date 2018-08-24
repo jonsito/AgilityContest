@@ -40,8 +40,8 @@ $config =Config::getInstance();
 
 <!-- Dialogo del ajuste de orden de salida de los perros seleccionados -->
 <div id="ordensalida-reorder-dialog" style="width:640px;height:200px;padding:5px">
-    <!-- tabla de reajuste de orden de salida -->
-    <table id="ordensalida-reorder-datagrid" style="padding:5px"></table>
+        <!-- tabla de reajuste de orden de salida -->
+        <table id="ordensalida-reorder-datagrid" style="padding:5px"></table>
 </div>
 <!-- botones de aceptar/cancelar del ajuste del orden de salida de perros seleccionados -->
 <div id="ordensalida-reorder-buttons">
@@ -95,6 +95,7 @@ $('#ordensalida-reorder-dialog').dialog({
 });
 
 $('#ordensalida-reorder-datagrid').datagrid({
+    loopcount: 0, // added by me
     // propiedades del panel asociado
     fit: true,
     border: false,
@@ -313,7 +314,7 @@ $('#ordensalida-datagrid').datagrid({
     },
     onDblClickRow: function(index,row) {
         // copyPasteOrdenSalida2({'Row':row,'Index':index});
-        copyPasteOrdenSalida(index,row);
+        selectDogsToReorder(index,row);
     },
     onDragEnter: function(dst,src) {
         var from=":"+src.Equipo+":"+src.Categoria+":"+src.Celo+":";
