@@ -28,9 +28,7 @@ $cm_user="";
 $cm_password="";
 if ( intval($config->getEnv('running_mode')) === AC_RUNMODE_MASTER ) {
     // if not in master server do not try to fill username and password with certificate values
-    $server=$config->getEnv('master_server');
-    $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
-    if ($server===$myself) {
+    if (inMasterServer($config)) {
         // in master server access to console is controlled by mean of SSL certificates
         $cm=new CertManager();
         $res= $cm->hasValidCert();

@@ -25,14 +25,12 @@ $config =Config::getInstance();
 * Admin related functions from dlg_tools.inc
 */
 
-
 // cannot access localhost client name, so use this trick to detect if running on master server
 function checkForServer() {
     <?php
     // when running in server disable server related buttons
-    $server=$config->getEnv('master_server');
-    $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
-    echo ($server===$myself)?"return true;":"return false;";
+    $ip=gethostbyname($config->getEnv('master_server'));
+    echo ($_SERVER['SERVER_ADDR']===$ip)?"return true;":"return false;";
     ?>
 }
 

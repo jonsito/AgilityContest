@@ -139,10 +139,7 @@ class AuthManager {
 		$this->mySessionMgr=new Sesiones("AuthManager");
         $this->levelStr=array( _('Root'),_('Admin'),_('Operator'),_('Assistant'),_('Guest'),_('None') );
 
-        // check if running in master server
-        $server=$config->getEnv('master_server');
-        $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
-        $this->master_server=($server===$myself)?true:false;
+		$this->master_server= inMasterServer($this->config);
 
 		/* try to retrieve session token */
 		$hdrs=getAllHeaders();
@@ -385,7 +382,7 @@ class AuthManager {
      * @return {array} errorMessage or result data
      */
     function login($login,$password,$sid=0,$nosession=false) {
-        if ($this->master_server)
+        if ($this->master_server===true)
             return $this->certLogin($login, $password, $sid, $nosession);
         else return $this->dbLogin($login, $password, $sid, $nosession);
     }
@@ -549,7 +546,7 @@ class AuthManager {
 	 * closes current session
 	 */
 	function logout() {
-	    if (!$this->master_server) {
+	    if ($this->master_server===false) {
             // remove console sessions for this
             $this->mySessionMgr->__delete("sesiones","( Nombre='Console' ) AND ( Operador={$this->operador} )");
         }

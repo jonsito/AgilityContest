@@ -90,9 +90,7 @@ class DBObject {
      */
 	function fixServerID($table){
         // if not in master server do nothing
-        $server=$this->myConfig->getEnv('master_server');
-        $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
-        if ($server!==$myself) return;
+        if (!inMasterServer($this->myConfig)) return "";
         $where="";
         if ($table=="perros") $where=" AND ( (Licencia IS NULL) OR (Licencia='') ";
         $sql="UPDATE {$table} SET ServerID=ID WHERE (ServerID=0) {$where}";
@@ -108,9 +106,7 @@ class DBObject {
      */
 	function setServerID($table,$id) {
 	    // if not in master server do nothing
-        $server=$this->myConfig->getEnv('master_server');
-        $myself=gethostbyaddr($_SERVER['SERVER_ADDR']);
-        if ($server!==$myself) return;
+        if (!inMasterServer($this->myConfig)) return "";
         // on server, every insert in Jueces,Clubes, Perros and Guias
         // should set their server id to be same as their ID
         $sql="UPDATE {$table} SET ServerID={$id} WHERE (ID={$id})";

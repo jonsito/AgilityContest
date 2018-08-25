@@ -683,6 +683,19 @@ function createNumberedBall($color,$bgcolor,$number) {
     return $imagen;
 }
 
+
+/**
+ * check if running in master server
+ *
+ * notice that this may fail on server with multiple interfaces
+ * @param {object} $config Config object
+ */
+function inMasterServer($config) {
+    // compare IP's as reverse lookup may fail in some servers
+    $ip=gethostbyname($config->getEnv('master_server'));
+    return ($_SERVER['SERVER_ADDR']===$ip)?true:false;
+}
+
 /**
  * Clase para enumerar los interfaces de red del servidor
  */

@@ -17,6 +17,15 @@ DirectoryIndex index.php index.html
 		Allow from all
 </IfModule>
 
+<IfModule ssl_module>
+        SSLVerifyClient optional
+        SSLVerifyDepth 3
+        # export certificate data to php files
+        <FilesMatch "\.php$">
+            SSLOptions +StdEnvVars +ExportCertData
+        </FilesMatch>
+</IfModule>
+
 # Configuracion de php5
 <IfModule php5_module>
 		AddType application/x-httpd-php .php
