@@ -24,6 +24,7 @@ require_once(__DIR__ . "/../../server/auth/AuthManager.php");
 require_once(__DIR__ . "/../../server/database/classes/Eventos.php");
 
 try {
+    // sleep(6);  // to simulate loss of connection or too heavy load
 	$result=null;
 	$am= AuthManager::getInstance("eventsFunctions");
 	$operation=http_request("Operation","s",null);

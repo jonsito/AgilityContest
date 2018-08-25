@@ -87,9 +87,16 @@ function parseEvent(data) {
             }
 		}
 
-		function handleError(data,status,jqXHR) {
-			// register error
-			console.log(status);
+		function handleError(XMLHttpRequest,textStatus,errorThrown) {
+			// register and show error
+			var msg= 'waitForEvent( '+type+' ) error: '+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + ' '+ errorThrown;
+	        console.log(msg);
+            $.messager.show({
+                title: 'Error',
+                msg: msg,
+                timeout: 1000,
+                showType: 'slide'
+            });
 			// and if event handler is still alive fire up again with extra delay
             if (ac_config.event_handler!==null){ // retry in 5 seconds
                 ac_config.backup_timeoutHandler = setTimeout(function(){ waitForEvents(evtID,timestamp,fcall);},5000);

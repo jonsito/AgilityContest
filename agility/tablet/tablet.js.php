@@ -81,15 +81,26 @@ function tablet_putEvent(type,data){
 		type:'GET',
 		url:"../ajax/database/eventFunctions.php",
 		dataType:'json',
+        timeout: 5000, // response should arrive in this time. more delay usually means connection problem
 		data: $.extend({},obj,data),
         // on system errors ( connection lost, timeouts, or so ) display an alarm
         error: function(XMLHttpRequest,textStatus,errorThrown) {
-            $.messager.show({
-                title:'putEvent',
-                msg:'tablet::putEvent( '+type+' ) error: '+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + ' '+ errorThrown,
-                timeout:500,
-                showType:'slide'
-            });
+		    if (errorThrown.indexOf("imeout")>=0) {
+		        $.messager.show({
+                    title: "Timeout",
+                    msg: '<?php _e("No server response");?><br/><?php _e("Please, check connection");?>',
+                    timeout: 1500,
+                    showType: 'slide',
+                    style:{ right:'', bottom:'' }
+                });
+            } else {
+                $.messager.show({
+                    title:'putEvent',
+                    msg:'tablet::putEvent( '+type+' ) error: '+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + ' '+ errorThrown,
+                    timeout:500,
+                    showType:'slide'
+                });
+            }
         }
 	});
 }
