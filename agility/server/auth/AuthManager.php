@@ -138,8 +138,7 @@ class AuthManager {
 		$this->myLogger=new Logger($file,$config->getEnv("debug_level"));
 		$this->mySessionMgr=new Sesiones("AuthManager");
         $this->levelStr=array( _('Root'),_('Admin'),_('Operator'),_('Assistant'),_('Guest'),_('None') );
-
-		$this->master_server= inMasterServer($this->config);
+		$this->master_server= inMasterServer($config);
 
 		/* try to retrieve session token */
 		$hdrs=getAllHeaders();
