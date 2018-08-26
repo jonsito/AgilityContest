@@ -41,13 +41,14 @@ class CertManager {
     // cada linea tiene el formato: SERIALNUMBERINUPPERCASE - Nombre del usuario
     public function checkCertACL() {
         $acl="/etc/AgilityContest/certs.allow";
-        if (!file_exists($acl)) return false;
+        if (!file_exists($acl)) return "";
         $a=file($acl,FILE_IGNORE_NEW_LINES);
         $ser=$_SERVER['SSL_CLIENT_M_SERIAL'];
         foreach($a as $sn) {
-            if ($ser===substr($sn,0,32)) return true;
+            // on matched serial number, return assigned login
+            if ($ser===substr($sn,0,32)) return trim(explode(':',$ser)[1]);
         }
-        return false;
+        return "";
     }
 
     public function getCertCN() {

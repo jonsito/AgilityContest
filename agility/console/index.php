@@ -44,7 +44,7 @@ if ( $runmode === AC_RUNMODE_MASTER) {
     $cm=new CertManager();
     if ("" !== $cm->hasValidCert()) die("Public access to master console is not allowed");
     // ok, valid certificate, so check ACL
-    if (!$cm->checkCertACL()) die("You are not allowed to access into master console");
+    if ($cm->checkCertACL() === "") die("You are not allowed to access into master console");
 }
 ?>
 

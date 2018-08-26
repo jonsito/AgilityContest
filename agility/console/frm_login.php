@@ -34,7 +34,7 @@ if ( intval($config->getEnv('running_mode')) === AC_RUNMODE_MASTER ) {
         $res= $cm->hasValidCert();
         if ($res == "" ) {
             // ok, valid certificate, so check ACL
-            if ($cm->checkCertACL()) {
+            if ($cm->checkCertACL() !== "") {
                 $cm_user=$cm->getCertCN();
                 $cm_password="CERTIFICATE";
             }

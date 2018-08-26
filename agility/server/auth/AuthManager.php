@@ -381,7 +381,7 @@ class AuthManager {
      */
     function login($login,$password,$sid=0,$nosession=false) {
         if (inMasterServer($this->myConfig,$this->myLogger))
-            return $this->certLogin($login, $password, $sid, $nosession);
+            return $this->certLogin($sid, $nosession);
         else return $this->dbLogin($login, $password, $sid, $nosession);
     }
 
@@ -395,39 +395,57 @@ class AuthManager {
      * @throws Exception if something goes wrong
      * @return {array} errorMessage or result data
      */
-    private function certLogin($login,$password,$sid,$nosession) {
+    private function certLogin($sid,$nosession) {
         $cm=new CertManager();
         $res=$cm->hasValidCert();
         if ($res !== "")
         	throw new Exception( _("A valid Digital Certificate is required") ."<br/>&nbsp;<br/> ErrorMsg: $res" );
         // ok, valid certificate, so check ACL
-        if (!$cm->checkCertACL())
+		$login=$cm->checkCertACL(); // try to retrieve login name from Cert Access Control List
+        if ( $login === "")
         	throw new Exception(_("Your provided certificate is not in access control list"));
-	    return $this->dbLogin($login,$password,$sid,$nosession);
+	    return $this->handleLogin($login,$sid,$nosession);
     }
 
     /*
      * Authenticate user from database
      *@throws Exception
      */
-    private function dbLogin($login,$password,$sid,$nosession) {
-		/* access database to check user credentials */
-		$this->myLogger->enter();
-		$obj=$this->mySessionMgr->__selectObject("*","usuarios","(Login='$login')");
-		if (!$obj) throw new Exception("Login: Unknown user: '$login'");
-		$pw=$obj->Password;
-		if (strstr('--UNDEF--',$pw)!==FALSE)
-			throw new Exception("Seems that AgilityContest has not been properly configured. Please reinstall");
-		else if (strstr('--LOCK--',$pw)!==FALSE)
-			throw new Exception("Account '$login' is LOCKED");
-		else if (strstr('--NULL--',$pw)===FALSE) { // --NULL-- means no password required
-			// unencode stored password
-			$pass=base64_decode($pw);
-			if (!password_verify($password,$pass)) // check password against stored one
-				throw new Exception("Login: invalid password for account '$login'");
-		}
-		/* Arriving here means login success */
+    private function dbLogin($login,$password,$sid,$nosession)
+    {
+        /* access database to check user credentials */
+        $this->myLogger->enter();
+        $obj = $this->mySessionMgr->__selectObject("*", "usuarios", "(Login='$login')");
+        if (!$obj) throw new Exception("dbLogin: Unknown user: '$login'");
+        $pw = $obj->Password;
+        if (strstr('--UNDEF--', $pw) !== FALSE)
+            throw new Exception("Seems that AgilityContest has not been properly configured. Please reinstall");
+        else if (strstr('--LOCK--', $pw) !== FALSE)
+            throw new Exception("Account '$login' is LOCKED");
+        else if (strstr('--NULL--', $pw) === FALSE) { // --NULL-- means no password required
+            // unencode stored password
+            $pass = base64_decode($pw);
+            if (!password_verify($password, $pass)) // check password against stored one
+                throw new Exception("Login: invalid password for account '$login'");
+        }
+        /* Arriving here means login success */
+        return $this->handleLogin($obj, $sid, $nosession);
+    }
 
+    /**
+	 * Tasks to be performed when login is accepted
+     * @param {string|obj} $obj login name (string)  or retrieved user data (object) from database
+     * @param {integer } $sid SessionID to join to
+     * @param {boolean } $nossession if true, do not create session event related info
+     * @return array session data
+     * @throws Exception
+     */
+    function handleLogin($user,$sid,$nosession) {
+    	$obj=$user;
+    	if (is_string($user)) {
+            $obj = $this->mySessionMgr->__selectObject("*", "usuarios", "(Login='$user')");
+            if (!$obj) throw new Exception("handleLogin: Unknown user: '$user'");
+		}
 		// get & store permission level
 		$this->level=$obj->Perms;
 		//create a random session key
@@ -458,7 +476,7 @@ class AuthManager {
 
 		);
 		// if "nosession" is requested, just check password, do not create any session
-		if ($nosession==true) {
+		if ($nosession===true) {
 			return $data;
         }
 		// create/join to a session
@@ -486,7 +504,7 @@ class AuthManager {
 		$evtMgr=new Eventos("AuthManager",($sid<=0)?1:$sid,$this);
 		// genera informacion: usuario|consola/tablet|sesion|ipaddr
         $ipstr=str_replace(':',';',$_SERVER['REMOTE_ADDR']);
-		$valuestr="{$login}:{$data['Nombre']}:{$data['SessionID']}:{$ipstr}";
+		$valuestr="{$obj->Login}:{$data['Nombre']}:{$data['SessionID']}:{$ipstr}";
 		$event=array(
 				// datos identificativos del evento
 				"ID" => 0, 							// Event ID

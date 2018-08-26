@@ -694,7 +694,7 @@ function createNumberedBall($color,$bgcolor,$number) {
 function inMasterServer($config,$logger=null) {
     // compare IP's as reverse lookup may fail in some servers
     $ip=gethostbyname($config->getEnv('master_server'));
-    if ($logger!==null){
+    if ($logger){
         $logger->trace("master_server: {$ip} server_addr {$_SERVER['SERVER_ADDR']} ");
 	}
     return ($_SERVER['SERVER_ADDR']===$ip)?true:false;
