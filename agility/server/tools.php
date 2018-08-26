@@ -689,10 +689,14 @@ function createNumberedBall($color,$bgcolor,$number) {
  *
  * notice that this may fail on server with multiple interfaces
  * @param {object} $config Config object
+ * @param {object} $logger Logger object
  */
-function inMasterServer($config) {
+function inMasterServer($config,$logger=null) {
     // compare IP's as reverse lookup may fail in some servers
     $ip=gethostbyname($config->getEnv('master_server'));
+    if ($logger!==null){
+        $logger->trace("master_server: {$ip} server_addr {$_SERVER['SERVER_ADDR']} ");
+	}
     return ($_SERVER['SERVER_ADDR']===$ip)?true:false;
 }
 

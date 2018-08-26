@@ -55,6 +55,7 @@ define('AC_REGINFO_FILE_DEFAULT' , __DIR__ . "/../../../config/registration.info
 class AuthManager {
 	
 	protected $myLogger;
+	protected $myConfig;
 	protected $mySessionKey=null;
 	protected $level=PERMS_NONE;
 	protected $operador=0;
@@ -63,7 +64,6 @@ class AuthManager {
 	protected $registrationInfo=null;
 	protected $blackList=null;
 	protected $levelStr;
-	protected $master_server=false;
 	protected $file;
 
 	// due to a bug in php-5.5 (solved in php-5.6 )
@@ -134,11 +134,10 @@ class AuthManager {
      */
 	function __construct($file="AuthManager") {
 	    $this->file=$file;
-		$config=Config::getInstance();
-		$this->myLogger=new Logger($file,$config->getEnv("debug_level"));
+		$this->myConfig=Config::getInstance();
+		$this->myLogger=new Logger($file,$this->myConfig->getEnv("debug_level"));
 		$this->mySessionMgr=new Sesiones("AuthManager");
         $this->levelStr=array( _('Root'),_('Admin'),_('Operator'),_('Assistant'),_('Guest'),_('None') );
-		$this->master_server= inMasterServer($config);
 
 		/* try to retrieve session token */
 		$hdrs=getAllHeaders();
@@ -381,7 +380,7 @@ class AuthManager {
      * @return {array} errorMessage or result data
      */
     function login($login,$password,$sid=0,$nosession=false) {
-        if ($this->master_server===true)
+        if (inMasterServer($this->myConfig,$this->myLogger))
             return $this->certLogin($login, $password, $sid, $nosession);
         else return $this->dbLogin($login, $password, $sid, $nosession);
     }
@@ -545,7 +544,7 @@ class AuthManager {
 	 * closes current session
 	 */
 	function logout() {
-	    if ($this->master_server===false) {
+	    if (!inMasterServer($this->myConfig,$this->myLogger)) {
             // remove console sessions for this
             $this->mySessionMgr->__delete("sesiones","( Nombre='Console' ) AND ( Operador={$this->operador} )");
         }

@@ -29,8 +29,7 @@ $config =Config::getInstance();
 function checkForServer() {
     <?php
     // when running in server disable server related buttons
-    $ip=gethostbyname($config->getEnv('master_server'));
-    echo ($_SERVER['SERVER_ADDR']===$ip)?"return true;":"return false;";
+    echo (inMasterServer($config))?"return true;":"return false;";
     ?>
 }
 
