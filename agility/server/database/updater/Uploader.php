@@ -124,7 +124,7 @@ class Uploader {
             "Serial" => $serial,
             "timestamp" => $data['timestamp']
         );
-        $url = "http://{$server}/{$baseurl}/ajax/updateRequest.php?". http_build_query($args);
+        $url = "https://{$server}/{$baseurl}/ajax/updateRequest.php?". http_build_query($args);
         // PENDING: add license info and some sec/auth issues
         $postdata=array(
             'Data' => json_encode($data)
@@ -135,6 +135,7 @@ class Uploader {
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true); // allow server redirection
         curl_setopt($curl, CURLOPT_POSTFIELDS, $postdata);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $checkcert); // set to false when using "localhost" url
 
@@ -145,8 +146,8 @@ class Uploader {
         }
         // close curl stream
         curl_close($curl);
-
-        // and return retrieved data
+        $this->myLogger->trace("Uploader::sendJSONRequest() returns {$json_response}");
+        // and return retrieved data in object format
         return json_decode($json_response, true);
     }
 
@@ -166,13 +167,16 @@ class Uploader {
             throw new Exception ("Updater::getTimeSTamp(): {$this->myDBObject->conn->error}");
         }
         if ($res['total']==0) {
-            // esto ocurre cuando se cambia a mano la base de datos
-            $this->myLogger->warn("VersionHistory not properly updated");
+            // no deberia ocurrir: significa que se ha cambiado a mano la base de datos
+            // y por algun motivo upgradeVersion.php no ha actualizado el version history
+            $this->myLogger->warn("updater::getTimeStamp(): VersionHistory not properly updated");
             $timestamp=date('Y-m-d H:i:s');
-            $str="UPDATE versionhistory SET Updated='{$timestamp}' WHERE Version='{$current_version}'";
+            $str="INSERT INTO versionhistory (Version,Updated) VALUES ('{$current_version}','{$timestamp}')";
             $res=$this->myDBObject->query($str);
-            if (!$res) $this->myLogger->error("Cannot properly set VersionHistory");
-            return 0; // no data to retrieve
+            if (!$res) {
+                throw new Exception("updater::getTimeStamp(): Cannot properly set VersionHistory");
+            }
+            return $timestamp; // no data should be returned as "updated just now"
         }
         return $res['rows'][0]['Updated'];
     }
@@ -214,8 +218,14 @@ class Uploader {
         // actualizamos jueces
         set_time_limit($timeout);
         if (is_array($res)) {
-            // notice that on error an array is returned, but not meaningfull data
-            if (is_array($res['Jueces'])) {
+            // notice that on error an array is returned, but not meaningfull data. Just log trace
+            if (array_key_exists('errorMsg',$res)){
+                $this->myLogger->error($res['errorMsg']);
+                $this->reportProgress("Error");
+                $this->reportProgress("Done");
+                return $res;
+            }
+            if (array_key_exists('Jueces',$res)){
                 // update judges
                 set_time_limit($timeout);
                 foreach($res['Jueces'] as $juez) {
@@ -223,7 +233,7 @@ class Uploader {
                     $upd->handleJuez($juez);
                 }
             }
-            if (is_array($res['Clubes'])) {
+            if (array_key_exists('Clubes',$res)){
                 // actualizamos clubes
                 set_time_limit($timeout);
                 foreach($res['Clubes'] as $club) {
@@ -231,7 +241,7 @@ class Uploader {
                     $upd->handleClub($club);
                 }
             }
-            if (is_array($res['Guias'])) {
+            if (array_key_exists('Guias',$res)){
                 // actualizamos guias
                 set_time_limit($timeout);
                 foreach($res['Guias'] as $guia) {
@@ -239,7 +249,7 @@ class Uploader {
                     $upd->handleGuia($guia);
                 }
             }
-            if (is_array($res['Perros'])) {
+            if (array_key_exists('Perros',$res)){
                 // actualizamos perros
                 set_time_limit($timeout);
                 foreach($res['Perros'] as $perro) {

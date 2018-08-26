@@ -55,8 +55,9 @@ try {
             $ul=new Uploader("checkForUpdates",$suffix);
             // send / receive changes from server
             $res=$ul->doCheckForUpdates($serial);
-            if ($res['errorMsg']) {
+            if (array_key_exists('errorMsg',$res)) {
                 // if fail to contact server, do not abort, just set new entries to 0
+                do_log($res['errorMsg']);
                 // this is done to retain compatibility with 3.7.3 server structure
                 $result=array("success"=>true,"NewEntries"=>0);
             } else {

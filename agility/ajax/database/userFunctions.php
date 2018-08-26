@@ -74,7 +74,11 @@ try {
                     $up=new Uploader("CheckUpdateDBAtLogin");
                     $res= $up->doCheckForUpdates($result['Serial']);
                     // trap server response fail and set new entries to 0 on error
-                    $result['NewEntries'] = ($res['errorMsg'] )? 0 : $res['rows'][0]['NewEntries'];
+                    if (array_key_exists('errorMsg',$res)){
+                        $result['NewEntries']=0;
+                        throw new Exception("CheckUpdateDBAtLogin(): {$res['errorMsg']}");
+                    }
+                    $result['NewEntries'] = $res['rows'][0]['NewEntries'];
                 } catch (Exception $e) { do_log("CheckUpdateDBAtLogin: ".$e->getMessage()); }
             }
             break;

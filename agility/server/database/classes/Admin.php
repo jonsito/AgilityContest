@@ -379,7 +379,7 @@ class Admin extends DBObject {
 		if ($data==="remoteDownload") {
             $rev=$this->myConfig->getEnv("version_date");
             $lic=$this->myAuth->getRegistrationInfo()['Serial'];
-            $url="http://www.agilitycontest.es/agility/ajax/masterFunctions.php?Operation=getbackup&Revision={$rev}&License={$lic}";
+            $url="https://www.agilitycontest.es/agility/ajax/masterFunctions.php?Operation=getbackup&Revision={$rev}&License={$lic}";
 		    $res=retrieveFileFromURL($url);
 		    if ($res===FALSE) return array("errorMsg" => "downloadDatabase(): cannot download file from server");
         }
