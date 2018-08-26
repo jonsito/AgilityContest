@@ -46,7 +46,7 @@ class CertManager {
         $ser=$_SERVER['SSL_CLIENT_M_SERIAL'];
         foreach($a as $sn) {
             // on matched serial number, return assigned login
-            if ($ser===substr($sn,0,32)) return trim(explode(':',$ser)[1]);
+            if ($ser===substr($sn,0,32)) return trim(explode(':',$sn)[1]);
         }
         return "";
     }
