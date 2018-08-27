@@ -146,6 +146,7 @@ class Uploader {
         }
         // close curl stream
         curl_close($curl);
+        $this->myLogger->trace("Uploader::sendJSONRequest()    sent {$postdata['Data']}");
         $this->myLogger->trace("Uploader::sendJSONRequest() returns {$json_response}");
         // and return retrieved data in object format
         return json_decode($json_response, true);

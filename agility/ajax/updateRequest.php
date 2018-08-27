@@ -73,6 +73,7 @@ try {
             $result=""; // PENDING: handle received data from server
             break;
         case "updateResponse": // this is to be executed on server app
+            do_log("Post data is ".json_encode($HTTP_POST_VARS));
             // PENDING: check serial key and perms has no sense here. however some protection is required
             $data= http_request("Data","s","",false); // data is json encoded. do not "sqlfy"
             $dl=new Downloader($timestamp,$serial);
