@@ -107,13 +107,20 @@ class AuthManager {
             'timestamp' => date("Ymd_Hi"),
             'Data' => array()
         );
-        $payload = json_encode($data);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $payload); //attach encoded JSON string to the POST fields
+        $payload = http_build_query($data);
+        curl_setopt($curl,CURLOPT_POST,true);
+        // curl_setopt($curl,CURLOPT_CUSTOMREQUEST,"POST");
+        // curl_setopt($curl, CURLOPT_HTTPHEADER,
+        //    array(
+        //        'Content-Type: application/json',
+        //        'Content-Length: ' . strlen($payload)
+        //    )
+        // );
+        curl_setopt($curl,CURLOPT_POSTFIELDS, $payload); //attach encoded JSON string to the POST fields
         //set the content type to application/json
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);  //return response instead of outputting
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true); // allow server redirection
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true); // verify peer https
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); // verify peer https
 
         $this->myLogger->trace("AuthManager::RetrieveBlackListFromServer() sent {$payload}");
         $json_response = @curl_exec($curl); // supress stdout warning

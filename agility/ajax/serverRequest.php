@@ -31,7 +31,7 @@ require_once(__DIR__ . "/../server/database/updater/Downloader.php");
 $ul=null;
 try {
     $result=null;
-    do_log("Post data is ".json_encode($_POST));
+    do_log("Received args are ".json_encode($_POST));
     $operation=http_request("Operation","s","");
     $suffix=http_request("Suffix","s","");
     $timestamp=http_request("timestamp","s",date('Y-m-d H:i:s'));
