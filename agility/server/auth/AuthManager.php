@@ -97,6 +97,7 @@ class AuthManager {
 	}
 
 	private function retrieveBlackListFromServer() {
+        $this->myLogger->enter();
         $server=$this->myConfig->getEnv("master_server");
         $baseurl=$this->myConfig->getEnv("master_baseurl");
         $url = "https://{$server}/{$baseurl}/ajax/serverRequest.php";
@@ -115,7 +116,8 @@ class AuthManager {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // verify peer https
         $result = curl_exec($ch); //execute the POST request
         curl_close($ch); //close cURL resource
-		return $result;
+        $this->myLogger->leave();
+		return json_decode($result)['data'];
 	}
 
 	/*
@@ -123,6 +125,7 @@ class AuthManager {
 	 * If file not found or older than 7 days try to retrieve from master server
 	 */
 	private function getBL() {
+	    $this->myLogger->enter();
 		$need_to_load=false;
 		if (!file_exists(AC_BLACKLIST_FILE)) { // if bl file not found try to get
             $need_to_load=true;
@@ -142,6 +145,7 @@ class AuthManager {
 		// ok. now handle current file
 		if (!file_exists(AC_BLACKLIST_FILE)) return ""; // no bl file nor can download. Fatal error
 		$data=file(AC_BLACKLIST_FILE,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $this->myLogger->leave();
 		if ($data===FALSE) return ""; // no data readed: fatal error
 		return implode("",$data);
 	}

@@ -28,6 +28,7 @@ require_once(__DIR__ . "/../server/auth/AuthManager.php");
 require_once(__DIR__ . "/../server/database/updater/Uploader.php");
 require_once(__DIR__ . "/../server/database/updater/Downloader.php");
 
+$ul=null;
 try {
     $result=null;
     do_log("Post data is ".json_encode($_POST));
@@ -37,7 +38,6 @@ try {
     // need to do a more elaborated way of hanlde this...
     $serial=http_request("Serial","s","");
     if (($serial==="") || (!is_numeric($serial))) throw new Exception("serverRequest.php: invalid serial number");
-    $ul=null;
     switch($operation) {
         case "progress":
             if (!is_dir(SYNCDIR)) @mkdir(SYNCDIR);
