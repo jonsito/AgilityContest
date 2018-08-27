@@ -62,6 +62,7 @@ class Uploader {
      */
     function getUpdatedEntries($timestamp) {
         $result=array();
+        $data=array();
         // retrieve updated dogs from database
         $res=$this->myDBObject->__select(
           "perros.*,guias.Nombre as NombreGuia,guias.ServerID as GuiasServerID",
@@ -69,7 +70,7 @@ class Uploader {
           "(perros.Guia=guias.ID) AND (Licencia != '') AND ( perros.LastModified > '{$timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Perros): {$this->myDBObject->conn->error}");
-        $result['Perros']=$res['rows'];
+        $data['Perros']=$res['rows'];
 
         // retrieve updated handlers from database
         $res=$this->myDBObject->__select(
@@ -78,7 +79,7 @@ class Uploader {
             "(guias.Club=clubes.ID) AND ( guias.LastModified > '{$timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Guias): {$this->myDBObject->conn->error}");
-        $result['Guias']=$res['rows'];
+        $data['Guias']=$res['rows'];
 
         // retrieve updated Clubs from database
         $res=$this->myDBObject->__select(
@@ -87,7 +88,7 @@ class Uploader {
             "( LastModified > '{$timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Clubes): {$this->myDBObject->conn->error}");
-        $result['Clubes']=$res['rows'];
+        $data['Clubes']=$res['rows'];
 
         // retrieve updated Judges from database
         $res=$this->myDBObject->__select(
@@ -98,10 +99,11 @@ class Uploader {
         if (!$res) {
             throw new Exception ("Updater::getUpdatedEntries(Jueces): {$this->myDBObject->conn->error}");
         }
-        $result['Jueces']=$res['rows'];
+        $data['Jueces']=$res['rows'];
         $result['total']=
-            max(count($result['Perros']),count($result['Guias']),count($result['Clubes']),count($result['Jueces']));
+            max( count($data['Perros']), count($data['Guias']), count($data['Clubes']), count($data['Jueces']) );
         // add timestamp and "Operation" to request data
+        $result['Data']=$data;
         $result['timestamp']=$timestamp;
         $result['Operation']="updateResponse";
         return $result;
@@ -119,15 +121,13 @@ class Uploader {
         $server=$this->myConfig->getEnv("master_server");
         $baseurl=$this->myConfig->getEnv("master_baseurl");
         $checkcert= ($server==="localhost")?false:true; // do not verify cert on localhost
-        $args=array(
-            "Operation" => $data['Operation'],
-            "Serial" => $serial,
-            "timestamp" => $data['timestamp']
-        );
-        $url = "https://{$server}/{$baseurl}/ajax/updateRequest.php?". http_build_query($args);
+        $url = "https://{$server}/{$baseurl}/ajax/updateRequest.php?";
         // PENDING: add license info and some sec/auth issues
         $postdata=array(
-            'Data' => json_encode($data)
+            "Operation" => $data['Operation'],
+            "Serial" => $serial,
+            "timestamp" => $data['timestamp'],
+            'Data' => json_encode($data['Data'])
         );
 
         // prepare and execute json request
@@ -146,7 +146,7 @@ class Uploader {
         }
         // close curl stream
         curl_close($curl);
-        $this->myLogger->trace("Uploader::sendJSONRequest()    sent {$postdata['Data']}");
+        $this->myLogger->trace("Uploader::sendJSONRequest()    sent ".json_encode($postdata));
         $this->myLogger->trace("Uploader::sendJSONRequest() returns {$json_response}");
         // and return retrieved data in object format
         return json_decode($json_response, true);
@@ -279,7 +279,8 @@ class Uploader {
             "Serial"    => $serial,
             "timestamp" => $ts,
             "total"     =>  0,
-            "rows"      => array()
+            "rows"      => array(),
+            "Data"      => array()
         );
         $res=$this->sendJSONRequest($data,$serial);
         return $res;
