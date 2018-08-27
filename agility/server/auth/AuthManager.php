@@ -46,7 +46,7 @@ define ("ENABLE_TRAINING",512); // permite gestion de sesiones de entrenamiento
 define ("ENABLE_LEAGUES",1024); // permite gestion de ligas de competicion
 
 // datos de registro
-define('AC_BLACKLIST_FILE' , __DIR__ . "/blacklist.info");
+define('AC_BLACKLIST_FILE' , __DIR__ . "/../../../config/blacklist.info");
 define('AC_REGINFO_FILE' , __DIR__ . "/../../../config/registration.info");
 define('AC_REGINFO_FILE_BACKUP' , __DIR__ . "/../../../config/registration.info.old");
 define('AC_REGINFO_FILE_DEFAULT' , __DIR__ . "/../../../config/registration.info.default");
@@ -97,27 +97,35 @@ class AuthManager {
 	}
 
 	private function retrieveBlackListFromServer() {
-        $this->myLogger->enter();
         $server=$this->myConfig->getEnv("master_server");
         $baseurl=$this->myConfig->getEnv("master_baseurl");
         $url = "https://{$server}/{$baseurl}/ajax/serverRequest.php";
-        $ch = curl_init($url);//setup request to send json via POST
+        $curl = curl_init($url);//setup request to send json via POST
         $data = array(
         	'Operation'=> 'retrieveBlackList',
             'Serial' => $this->registrationInfo['serial'],
-            'timestamp' => date("Ymd_Hi")
+            'timestamp' => date("Ymd_Hi"),
+            'Data' => array()
         );
         $payload = json_encode($data);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload); //attach encoded JSON string to the POST fields
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $payload); //attach encoded JSON string to the POST fields
         //set the content type to application/json
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  //return response instead of outputting
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // allow server redirection
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // verify peer https
-        $result = curl_exec($ch); //execute the POST request
-        curl_close($ch); //close cURL resource
-        $this->myLogger->leave();
-		return json_decode($result)['data'];
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);  //return response instead of outputting
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true); // allow server redirection
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true); // verify peer https
+
+        $this->myLogger->trace("AuthManager::RetrieveBlackListFromServer() sent {$payload}");
+        $json_response = @curl_exec($curl); // supress stdout warning
+        if ( curl_error($curl) ) {
+            $this->myLogger->error("AuthManager::RetrieveBlackListFromServer() call to URL $url failed: " . curl_error($curl) );
+            return null;
+        }
+        // close curl stream
+        curl_close($curl);
+        $this->myLogger->trace("AuthManager::RetrieveBlackListFromServer() received {$json_response}");
+        $res=json_decode($json_response);
+        return $res->data;
 	}
 
 	/*
@@ -125,19 +133,22 @@ class AuthManager {
 	 * If file not found or older than 7 days try to retrieve from master server
 	 */
 	private function getBL() {
-	    $this->myLogger->enter();
-		$need_to_load=false;
 		if (!file_exists(AC_BLACKLIST_FILE)) { // if bl file not found try to get
-            $need_to_load=true;
+            $need_to_load=1;
         } else if (filesize(AC_BLACKLIST_FILE)==0){ // file exists, but empty
-            $need_to_load=true;
+            $need_to_load=1;
 		} else {  // if bl file older than 1 week try to download
             $now=time();
             $mtime=filemtime(AC_BLACKLIST_FILE);
-            if  ( ($now - $mtime) > 60*60*24*7 ) $need_to_load=true;
+            if  ( ($now - $mtime) > 60*60*24*7 ) {
+                $need_to_load=1;
+            } else {
+                $need_to_load=0;
+            }
         }
 		// try to download bl file from master server
-		if ($need_to_load) {
+        $this->myLogger->trace("getBL: need to load: " . $need_to_load);
+		if ($need_to_load == 1) {
 			$res=$this->retrieveBlackListFromServer();
             if ($res) @file_put_contents(AC_BLACKLIST_FILE,$res,LOCK_EX);
             else $this->myLogger->error("Cannot download blacklist file from server");
@@ -145,7 +156,6 @@ class AuthManager {
 		// ok. now handle current file
 		if (!file_exists(AC_BLACKLIST_FILE)) return ""; // no bl file nor can download. Fatal error
 		$data=file(AC_BLACKLIST_FILE,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        $this->myLogger->leave();
 		if ($data===FALSE) return ""; // no data readed: fatal error
 		return implode("",$data);
 	}
