@@ -100,27 +100,19 @@ class AuthManager {
         $server=$this->myConfig->getEnv("master_server");
         $baseurl=$this->myConfig->getEnv("master_baseurl");
         $url = "https://{$server}/{$baseurl}/ajax/serverRequest.php";
-        $curl = curl_init($url);//setup request to send json via POST
         $data = array(
         	'Operation'=> 'retrieveBlackList',
             'Serial' => $this->registrationInfo['serial'],
             'timestamp' => date("Ymd_Hi"),
             'Data' => array()
         );
-        $payload = http_build_query($data);
-        curl_setopt($curl,CURLOPT_POST,true);
-        // curl_setopt($curl,CURLOPT_CUSTOMREQUEST,"POST");
-        // curl_setopt($curl, CURLOPT_HTTPHEADER,
-        //    array(
-        //        'Content-Type: application/json',
-        //        'Content-Length: ' . strlen($payload)
-        //    )
-        // );
-        curl_setopt($curl,CURLOPT_POSTFIELDS, $payload); //attach encoded JSON string to the POST fields
+        $payload = json_encode($data);
+        $curl = curl_init($url);//setup request to send json via POST
+        curl_setopt($curl, CURLOPT_URL, $url."?".http_build_query($data));
         //set the content type to application/json
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);  //return response instead of outputting
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true); // allow server redirection
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); // verify peer https
+        curl_setopt($curl,CURLOPT_RETURNTRANSFER, 1);  //return response instead of outputting
+        curl_setopt($curl,CURLOPT_FOLLOWLOCATION, 1); // allow server redirection
+        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, 0); // verify peer https
 
         $this->myLogger->trace("AuthManager::RetrieveBlackListFromServer() sent {$payload}");
         $json_response = @curl_exec($curl); // supress stdout warning

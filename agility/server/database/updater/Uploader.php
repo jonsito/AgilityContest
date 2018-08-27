@@ -123,18 +123,18 @@ class Uploader {
         $checkcert= ($server==="localhost")?false:true; // do not verify cert on localhost
         $url = "https://{$server}/{$baseurl}/ajax/serverRequest.php";
         // PENDING: add license info and some sec/auth issues
-        $pdata=array(
+        $hdata=array(
             "Operation" => $data['Operation'],
             "Serial" => $serial,
-            "timestamp" => $data['timestamp'],
-            'Data' => $data['Data']
+            "timestamp" => $data['timestamp']
         );
+        $pdata=array('Data' => json_encode($data['Data']));
         // prepare and execute json request
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true); // allow server redirection
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($pdata));
+        $curl = curl_init($url."?".http_build_query($hdata) );
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1); // allow server redirection
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $pdata );
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $checkcert); // set to false when using "localhost" url
 
         // retrieve response and check status
