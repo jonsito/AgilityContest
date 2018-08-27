@@ -47,7 +47,7 @@ DirectoryIndex index.php index.html
     # to maintain compatibility with 3.7.3 server requests
     # need to rewrite "server/database/updater" to "ajax"
     RewriteCond %{REQUEST_URI} /server/database/updater/updateRequest.php
-    RewriteRule ^(.*)$ /ajax/serverRequest.php [R=301,L]
+    RewriteRule ^(.*)$ /ajax/serverRequest.php [R=307,L]
 
     # block access to "*/server/*" and web directory
     RewriteCond %{REQUEST_URI} /(config|applications|server|build|extras|logs|xampp)/
@@ -59,5 +59,5 @@ DirectoryIndex index.php index.html
 
     # Redirect base to base/agility, unless already specified
     RewriteCond %{REQUEST_URI} !^/__AC_WEBNAME__\/agility/
-    RewriteRule ^(.*)$ /__AC_WEBNAME__/agility/$1 [R=301,L]
+    RewriteRule ^(.*)$ /__AC_WEBNAME__/agility/$1 [R=307,L]
 </IfModule>
