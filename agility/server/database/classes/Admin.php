@@ -595,11 +595,11 @@ class Admin extends DBObject {
         array_map('unlink',glob("{$this->restore_dir}import*.log"));
         array_map('unlink',glob("{$this->restore_dir}import*.json"));
 
-        // ficheros excel importados
+        // actualizaciones de la base de datos
         $this->myLogger->trace("Clearing database sync related tmp files");
-        if (!is_dir("{$this->restore_dir}updateRequest")) @mkdir("{$this->restore_dir}updateRequest");
-        array_map('unlink',glob("{$this->restore_dir}updateRequest/dbsync*.log"));
-        array_map('unlink',glob("{$this->restore_dir}updateRequest/*.json"));
+        if (!is_dir("{$this->restore_dir}updateRequests")) @mkdir("{$this->restore_dir}updateRequests");
+        array_map('unlink',glob("{$this->restore_dir}updateRequests/dbsync*.log"));
+        array_map('unlink',glob("{$this->restore_dir}updateRequests/*.json"));
 
         // restore operations log
         $this->myLogger->trace("Clearing restore related tmp files");

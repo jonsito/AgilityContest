@@ -31,6 +31,12 @@ class Downloader {
     protected $timestamp;
     protected $serial;
 
+    /**
+     * Downloader constructor.
+     * @param {string} $timestamp time stamp mark provided by requester in date("Ymd_Hi") format
+     * @param {string} $serial license serial numbar
+     * @throws Exception on database connection error
+     */
     function __construct($timestamp,$serial) {
         $this->myDBObject=new DBObject("Downloader");
         $this->myConfig=Config::getInstance();
@@ -125,6 +131,7 @@ class Downloader {
     /**
      * Store retrieved data into temporary file to be parsed later
      * @param {array} $data
+     * @throws Exception when no data received from client
      */
     function saveRetrievedData($data) {
         if ($data==="") throw new Exception ("Downloader::saveRetrievedData(): no data received from client");
@@ -148,5 +155,28 @@ class Downloader {
             }
         }
         return "";
+    }
+
+    /**
+     * Retrieve black list file from configuration directory
+     * This routine is necessary as .htaccess block any direct access to config directory
+     * @return array
+     * @throws Exception
+     */
+    function retrieveBlackList() {
+        $blfile=__DIR__."/../../../../config/blacklist.info";
+        if (!file_exists($blfile)) {
+            $msg="Downloader: retrieveBlacList({$blfile}): file not found ";
+            $this->myLogger->error($msg);
+            throw new Exception ($msg);
+        }
+        // retrieve file contents, (base64 encoded) and return json message
+        $data=file_get_contents($blfile);
+        if (!$data) {
+            $msg="Downloader: retrieveBlacList({$blfile}): file read error";
+            $this->myLogger->error($msg);
+            throw new Exception ($msg);
+        }
+        return array( "success"=>true, "data"=>$data );
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * updateRequest.php
+ * serverRequest.php
  * Created by PhpStorm.
  * User: jantonio
  * Date: 28/12/17
@@ -36,7 +36,7 @@ try {
     $timestamp=http_request("timestamp","s",date('Y-m-d H:i:s'));
     // need to do a more elaborated way of hanlde this...
     $serial=http_request("Serial","s","");
-    if (($serial==="") || (!is_numeric($serial))) throw new Exception("updateRequest.php: invalid serial number");
+    if (($serial==="") || (!is_numeric($serial))) throw new Exception("serverRequest.php: invalid serial number");
     $ul=null;
     switch($operation) {
         case "progress":
@@ -85,11 +85,17 @@ try {
             $dl=new Downloader($timestamp,$serial);
             $result=$dl->checkForUpdatedEntries(); // return number of new available entries
             break;
+        case "retrieveBlackList": // this is to be executed on master server
+            // retrieve black list from server.
+            // as config dir is restricted, cannot download by url. need an ajax call
+            $dl=new Downloader($timestamp,$serial);
+            $result=$dl->retrieveBlackList(); // read an return blacklist file
+            break;
         default:
-            throw new Exception("updateRequest.php: invalid operation '{$operation}' ");
+            throw new Exception("serverRequest.php: invalid operation '{$operation}' ");
     }
     // these two results should never happen, anyway for compatibility take care on them
-    if ($result===null) throw new Exception("updateRequest: unspecified error");
+    if ($result===null) throw new Exception("serverRequest: unspecified error");
     if ($result==="") echo json_encode(array('success'=>true));
     else echo json_encode($result); // json encode response and return it
 } catch (Exception $e) {

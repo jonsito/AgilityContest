@@ -121,32 +121,30 @@ class Uploader {
         $server=$this->myConfig->getEnv("master_server");
         $baseurl=$this->myConfig->getEnv("master_baseurl");
         $checkcert= ($server==="localhost")?false:true; // do not verify cert on localhost
-        $url = "https://{$server}/{$baseurl}/ajax/updateRequest.php?";
+        $url = "https://{$server}/{$baseurl}/ajax/serverRequest.php";
         // PENDING: add license info and some sec/auth issues
-        $postdata=array(
+        $pdata=array(
             "Operation" => $data['Operation'],
             "Serial" => $serial,
             "timestamp" => $data['timestamp'],
-            'Data' => json_encode($data['Data'])
+            'Data' => $data['Data']
         );
-
         // prepare and execute json request
         $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true); // allow server redirection
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $postdata);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($pdata));
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $checkcert); // set to false when using "localhost" url
 
         // retrieve response and check status
+        $this->myLogger->trace("Uploader::sendJSONRequest() sending ".json_encode($pdata));
         $json_response = @curl_exec($curl); // supress stdout warning
         if ( curl_error($curl) ) {
             throw new Exception("updater::SendJSONRequest() call to URL $url failed: " . curl_error($curl) );
         }
         // close curl stream
         curl_close($curl);
-        $this->myLogger->trace("Uploader::sendJSONRequest()    sent ".json_encode($postdata));
         $this->myLogger->trace("Uploader::sendJSONRequest() returns {$json_response}");
         // and return retrieved data in object format
         return json_decode($json_response, true);

@@ -74,6 +74,10 @@ try {
                     $up=new Uploader("CheckUpdateDBAtLogin");
                     $res= $up->doCheckForUpdates($result['Serial']);
                     // trap server response fail and set new entries to 0 on error
+                    if (!$res) {
+                        $result['NewEntries']=0;
+                        throw new Exception("CheckUpdateDBAtLogin(): server call failed");
+                    }
                     if (array_key_exists('errorMsg',$res)){
                         $result['NewEntries']=0;
                         throw new Exception("CheckUpdateDBAtLogin(): {$res['errorMsg']}");

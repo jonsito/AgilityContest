@@ -47,7 +47,6 @@ define ("ENABLE_LEAGUES",1024); // permite gestion de ligas de competicion
 
 // datos de registro
 define('AC_BLACKLIST_FILE' , __DIR__ . "/blacklist.info");
-define('AC_BLACKLIST_URL' , "https://www.agilitycontest.es/agility/config/blacklist.info");
 define('AC_REGINFO_FILE' , __DIR__ . "/../../../config/registration.info");
 define('AC_REGINFO_FILE_BACKUP' , __DIR__ . "/../../../config/registration.info.old");
 define('AC_REGINFO_FILE_DEFAULT' , __DIR__ . "/../../../config/registration.info.default");
@@ -97,6 +96,28 @@ class AuthManager {
 		return $str;
 	}
 
+	private function retrieveBlackListFromServer() {
+        $server=$this->myConfig->getEnv("master_server");
+        $baseurl=$this->myConfig->getEnv("master_baseurl");
+        $url = "https://{$server}/{$baseurl}/ajax/serverRequest.php";
+        $ch = curl_init($url);//setup request to send json via POST
+        $data = array(
+        	'Operation'=> 'retrieveBlackList',
+            'Serial' => $this->registrationInfo['serial'],
+            'timestamp' => date("Ymd_Hi")
+        );
+        $payload = json_encode($data);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload); //attach encoded JSON string to the POST fields
+        //set the content type to application/json
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  //return response instead of outputting
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // allow server redirection
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // verify peer https
+        $result = curl_exec($ch); //execute the POST request
+        curl_close($ch); //close cURL resource
+		return $result;
+	}
+
 	/*
 	 * Read blacklist file contents
 	 * If file not found or older than 7 days try to retrieve from master server
@@ -114,8 +135,8 @@ class AuthManager {
         }
 		// try to download bl file from master server
 		if ($need_to_load) {
-            $res=retrieveFileFromURL(AC_BLACKLIST_URL);
-            if ($res!==FALSE) @file_put_contents(AC_BLACKLIST_FILE,$res,LOCK_EX);
+			$res=$this->retrieveBlackListFromServer();
+            if ($res) @file_put_contents(AC_BLACKLIST_FILE,$res,LOCK_EX);
             else $this->myLogger->error("Cannot download blacklist file from server");
 		}
 		// ok. now handle current file
