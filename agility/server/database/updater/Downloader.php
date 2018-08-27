@@ -116,6 +116,7 @@ class Downloader {
      * retrieve number of new entries in master server database
      * notice that this returns an orientative value, as changes may come from 4 different tables
      * @return { array } (total, rows) with select() response
+     * @throws Exception on database operation failure
      */
     function checkForUpdatedEntries() {
         // retrieve updated elements from database
@@ -136,7 +137,6 @@ class Downloader {
     function saveRetrievedData($data) {
         if ($data==="") throw new Exception ("Downloader::saveRetrievedData(): no data received from client");
         $obj=json_decode($data);
-        if($obj->total==0) return ""; // no data, nothing to save
 
         // prepare store dir and timestamp format
         $dir=__DIR__."/../../../../logs/updateRequests";
