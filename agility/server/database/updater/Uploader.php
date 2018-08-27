@@ -128,12 +128,13 @@ class Uploader {
             "Serial" => $serial,
             "timestamp" => $data['timestamp']
         );
-        $pdata=array('Data' => json_encode($data['Data']));
+        $pdata=array('Data' => $data['Data']);
         // prepare and execute json request
         $curl = curl_init($url."?".http_build_query($hdata) );
         curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1); // allow server redirection
+        curl_setopt($curl, CURLOPT_POSTREDIR, 1); // do not change from post to get on "301 redirect"
         curl_setopt($curl, CURLOPT_POSTFIELDS, $pdata );
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $checkcert); // set to false when using "localhost" url
 

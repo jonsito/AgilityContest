@@ -31,7 +31,7 @@ require_once(__DIR__ . "/../server/database/updater/Downloader.php");
 $ul=null;
 try {
     $result=null;
-    do_log("Received args are ".json_encode($_REQUEST));
+    do_log("GET args are ".json_encode($_REQUEST));
     $operation=http_request("Operation","s","");
     $suffix=http_request("Suffix","s","");
     $timestamp=http_request("timestamp","s",date('Y-m-d H:i:s'));
@@ -77,7 +77,7 @@ try {
             // PENDING: check serial key and perms has no sense here. however some protection is required
             $data= http_request("Data","s","",false); // data is json encoded. do not "sqlfy"
             $dl=new Downloader($timestamp,$serial);
-            $result=$dl->saveRetrievedData(json_decode($data)); // store new data from client to further revision
+            $result=$dl->saveRetrievedData($data); // store new data from client to further revision
             $result=$dl->getUpdatedEntries(); // retrieve new data from server
             break;
         case "checkResponse": // this is to be executed on server app
