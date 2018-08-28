@@ -142,14 +142,14 @@ class Uploader {
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $checkcert); // set to false when using "localhost" url
 
         // retrieve response and check status
-        $this->myLogger->trace("Uploader::sendJSONRequest() sending ".json_encode($pdata));
+        // $this->myLogger->trace("Uploader::sendJSONRequest() sending ".json_encode($pdata));
         $json_response = @curl_exec($curl); // supress stdout warning
         if ( curl_error($curl) ) {
             throw new Exception("updater::SendJSONRequest() call to URL $url failed: " . curl_error($curl) );
         }
         // close curl stream
         curl_close($curl);
-        $this->myLogger->trace("Uploader::sendJSONRequest() returns {$json_response}");
+        // $this->myLogger->trace("Uploader::sendJSONRequest() returns {$json_response}");
         // and return retrieved data in object format
         return json_decode($json_response, true);
     }
