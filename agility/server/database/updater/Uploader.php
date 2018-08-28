@@ -123,14 +123,17 @@ class Uploader {
         $checkcert= ($server==="localhost")?false:true; // do not verify cert on localhost
         $url = "https://{$server}/{$baseurl}/ajax/serverRequest.php";
         // PENDING: add license info and some sec/auth issues
-        $hdata=array(
+        // $hdata=array(
+        // );
+        $pdata=array(
             "Operation" => $data['Operation'],
             "Serial" => $serial,
-            "timestamp" => $data['timestamp']
+            "timestamp" => $data['timestamp'],
+            'Data' => $data['Data']
         );
-        $pdata=array('Data' => $data['Data']);
         // prepare and execute json request
-        $curl = curl_init($url."?".http_build_query($hdata) );
+        //$curl = curl_init($url."?".http_build_query($hdata) );
+        $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1); // allow server redirection
