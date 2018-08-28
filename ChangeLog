@@ -1,4 +1,7 @@
-Version 3.8.0 20180807_1139
+Version 3.8.0 20180830_1200
+    - Tablet: detect loss of connection
+    - Fixes in videowall dog names
+    - Better approaches for handlers with more than one dog
     - New table "user_info" to handle users in server mode
     - Fix upgradeVersion.php, to properly update database on sw update
 Version 3.8.0 20180626_1100
