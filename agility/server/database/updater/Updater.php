@@ -345,12 +345,13 @@ class Updater {
         $loe= $this->setForUpdate($perro,"LOE_RRC",true); // PENDING: do not transfer to "anyone"
         $cat= $this->setForUpdate($perro,"Categoria",true);
         $grad= $this->setForUpdate($perro,"Grado",true);
+        $baja= $this->setForUpdate($perro,"Baja",false);
         $handler= $this->setForUpdate($found,"ID",false,"Guia"); // use found handler to extract Handler ID
         $lastm= $this->setForUpdate($perro,"LastModified",true);
 
             // fase 1: buscar por ServerID
         $str="UPDATE perros SET ".
-            "{$name},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$fed},{$lastm} ".
+            "{$name},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$baja},{$handler},{$fed},{$lastm} ".
             "WHERE ServerID={$perro['ServerID']}";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
@@ -363,7 +364,7 @@ class Updater {
         $nlic=$this->setForInsert($perro,"Licencia",true);
         $name=$this->setForInsert($perro,"Nombre",true);
         $str="UPDATE perros SET ".
-            "${sid},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$fed},{$lastm}".
+            "${sid},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$baja},{$handler},{$fed},{$lastm}".
             "WHERE (Nombre={$name}) AND (ServerID=0) AND ( (Licencia={$nlic}) OR (Guia={$found['ID']}) )";
         $str=preg_replace('/,,+/',',',$str); // remove extra commas on non used parameters
         $res=$this->myDBObject->query($str);
@@ -381,13 +382,14 @@ class Updater {
         $loe= $this->setForInsert($perro,"LOE_RRC",true); // PENDING: do not transfer to "anyone"
         $cat= $this->setForInsert($perro,"Categoria",true);
         $grad= $this->setForInsert($perro,"Grado",true);
+        $baja= $this->setForInsert($found,"Baja",false);
         $handler= $this->setForInsert($found,"ID",false);
         $lastm= $this->setForInsert($perro,"LastModified",true);
 
         $str="INSERT INTO perros ".
-            "( ServerID,Federation,Nombre,NombreLargo,Genero,Raza,Chip,Licencia,LOE_RRC,Categoria,Grado,Guia,LastModified".
+            "( ServerID,Federation,Nombre,NombreLargo,Genero,Raza,Chip,Licencia,LOE_RRC,Categoria,Grado,Baja,Guia,LastModified".
             ") VALUES (".
-            "{$sid},{$fed},{$name},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$handler},{$lastm} ".
+            "{$sid},{$fed},{$name},{$lname},{$gender},{$breed},{$chip},{$lic},{$loe},{$cat},{$grad},{$baja},{$handler},{$lastm} ".
             ")";
         $res=$this->myDBObject->query($str);
         if (!$res) { $this->myLogger->error($this->myDBObject->conn->error); }
