@@ -145,7 +145,7 @@ FILES="osx_install.command create_certificate.command COPYING License.txt Agilit
 mkisofs -quiet -A AgilityContest \
     -P jonsito@gmail.com \
     -V ${AC_VERSION}_${AC_REVISION} \
-    -J -r -o AgilityContest-${AV_VERSION}-${AC_REVISION}.dmg \
+    -J -r -o AgilityContest-${AC_VERSION}-${AC_REVISION}.dmg \
     -graft-points /.background/=.background \
     ${FILES}
 
