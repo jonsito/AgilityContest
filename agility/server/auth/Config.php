@@ -358,11 +358,20 @@ Class Config {
 
     function getAvailableLanguages() {
         $result=array();
-        $dirs=array_filter(glob(__DIR__."/../../locale/*"), 'is_dir');
-        foreach ($dirs as $dir) {
-            $lang=basename($dir);
-            $result[]= array('ID'=>$lang,'Name'=>locale_get_display_language($lang));
-        }
+        if (function_exists("locale_get_display_language")) {
+            $dirs=array_filter(glob(__DIR__."/../../locale/*"), 'is_dir');
+            foreach ($dirs as $dir) {
+                $lang=basename($dir);
+                $result[]= array('ID'=>$lang,'Name'=>locale_get_display_language($lang));
+            }
+		} else {
+        	// when no translation table available in system use hardwired one
+            $result[] = array('ID'=>'es_ES','Name'=>'Spanish');
+            $result[] = array('ID'=>'de_DE','Name'=>'German');
+            $result[] = array('ID'=>'en_US','Name'=>'English');
+            $result[] = array('ID'=>'pt_PT','Name'=>'Portuguesse');
+            $result[] = array('ID'=>'hu_HU','Name'=>'Hungarian');
+		}
         return $result;
     }
 
