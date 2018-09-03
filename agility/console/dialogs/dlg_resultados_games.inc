@@ -88,7 +88,11 @@ $config =Config::getInstance();
         resizable:		true,
         iconCls:		'icon-endflag',
         closed:			true,
-        modal:			true
+        modal:			true,
+        onBeforeOpen: function () {
+            prepareCompetitionDialogs("resultadosmanga");
+            return true;
+        }
     });
 
     $('#parciales_individual-datagrid').datagrid({

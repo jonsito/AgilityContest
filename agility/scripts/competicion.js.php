@@ -25,6 +25,55 @@ $config =Config::getInstance();
  * Funciones relacionadas con la ventana de competicion
  */
 
+function prepareCompetitionDialogs(dlgname) {
+    // declaramos botones comunes a todos los dialogos de la competicion
+    // para poder saltar de un dialogo a otro sin tener que cerrar primero
+
+    var btns= [
+        {
+            text:   '<?php _e("Training");?>',
+            iconCls:'icon-tools',
+            handler:function(){
+                competicionDialog("entrenamientos");
+            },
+            disabled: ( dlgname.indexOf("entrenamientos")===0)
+        },
+        {
+            text: '<?php _e("Planning");?>',
+            iconCls: 'icon-updown',
+            handler: function () {
+                competicionDialog("ordentandas");
+            },
+            disabled: ( dlgname.indexOf("ordentandas")===0)
+        },
+        {
+            text:   '<?php _e("Starting order");?>',
+            iconCls:'icon-order',
+            handler:function(){
+                competicionDialog("ordensalida");
+            },
+            disabled: ( dlgname.indexOf("ordensalida")===0)
+        },
+        {
+            text:   '<?php _e("Data entry");?>',
+            iconCls:'icon-table',
+            handler:function(){
+                competicionDialog("competicion");
+            },
+            disabled: ( dlgname.indexOf("competicion")===0)
+        },
+        {
+            text:   '<?php _e("Round results");?>',
+            iconCls:'icon-updown',
+            handler:function(){
+                competicionDialog("resultadosmanga");
+            },
+            disabled: ( dlgname.indexOf("resultados")===0) // notice different name ( for games, ko and so )
+        }
+    ];
+    $('#'+dlgname+'-dialog').dialog({buttons: btns});
+}
+
 /**
  * Apertura de la ventana de competicion. Se invoca desde el menu de desarrollo de jornadas
  * o desde la ventana de clasificaciones
@@ -1266,6 +1315,8 @@ function competicionDialog(name) {
     $('#ordentandas-dialog').dialog('close');
     $('#ordensalida-dialog').dialog('close');
     $('#competicion-dialog').dialog('close');
+    $('#competicion-snooker-dialog').dialog('close');
+    $('#competicion-gambler-dialog').dialog('close');
     $('#resultadosmanga-dialog').dialog('close');
     if (name==='entrenamientos') {
         check_permissions(access_perms.ENABLE_TRAINING,function(res) {

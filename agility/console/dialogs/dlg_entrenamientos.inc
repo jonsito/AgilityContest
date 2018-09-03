@@ -144,7 +144,11 @@ $('#entrenamientos-dialog').dialog({
 	resizable:true,
 	iconCls:'icon-updown',
 	closed:true,
-	modal:true
+	modal:true,
+    onBeforeOpen: function () {
+	    prepareCompetitionDialogs("entrenamientos");
+        return true;
+    }
 });
 
 $('#entrenamientos-Nombre').textbox({ required:true, validType:'length[1,255]' } );

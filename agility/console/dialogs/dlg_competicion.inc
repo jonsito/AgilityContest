@@ -70,7 +70,11 @@ $('#competicion-dialog').dialog({
 		// do not allow close on editing active
 		$.messager.alert('<?php _e('Error'); ?>','<?php _e('Please cancel or save changes before closing window'); ?>','error');
 		return false;
-	}
+	},
+    onBeforeOpen: function () {
+        prepareCompetitionDialogs("competicion");
+        return true;
+    }
 });
 
 $('#competicion-categoria').combobox({

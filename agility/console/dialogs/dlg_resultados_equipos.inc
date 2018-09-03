@@ -82,14 +82,18 @@ $config =Config::getInstance();
     } );
 
     $('#resultadosmanga-dialog').dialog({
-	collapsible:	false,
-	minimizable:	false,
-	maximizable:	false,
-	resizable:		true,
-	iconCls:		'icon-endflag',
-	closed:			true,
-	modal:			true
-});
+	    collapsible:	false,
+	    minimizable:	false,
+	    maximizable:	false,
+	    resizable:		true,
+	    iconCls:		'icon-endflag',
+	    closed:			true,
+	    modal:			true,
+        onBeforeOpen: function () {
+            prepareCompetitionDialogs("resultadosmanga");
+            return true;
+        }
+    } );
 
 $('#parciales_equipos-datagrid').datagrid({
 	toolbar:'#resultadosmanga-toolbar',

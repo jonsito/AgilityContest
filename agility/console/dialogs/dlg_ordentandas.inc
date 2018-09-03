@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!--  dialogo de orden de tandas e introduccion de datos de una competicion -->
-<div id="ordentandas-dialog" style="width:700px;height:450px;padding:5px">
+<div id="ordentandas-dialog" style="width:800px;height:500px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="ordentandas-datagrid" style="padding:5px"></table>
 </div>
@@ -98,7 +98,11 @@ $('#ordentandas-dialog').dialog({
 	resizable:true,
 	iconCls:'icon-updown',
 	closed:true,
-	modal:true
+	modal:true,
+    onBeforeOpen: function () {
+        prepareCompetitionDialogs("ordentandas");
+        return true;
+    }
 });
 
 $('#ordentandas_nt-Nombre').textbox({ required:true, validType:'length[1,255]' } );

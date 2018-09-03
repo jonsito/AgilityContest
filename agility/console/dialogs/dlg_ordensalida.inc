@@ -242,7 +242,11 @@ $('#ordensalida-dialog').dialog({
 	resizable:		true,
 	iconCls:		'icon-order',
 	closed:			true,
-	modal:			true
+	modal:			true,
+    onBeforeOpen: function () {
+        prepareCompetitionDialogs("ordensalida");
+        return true;
+    }
 });
 
 $('#ordensalida-datagrid').datagrid({

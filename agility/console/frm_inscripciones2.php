@@ -108,6 +108,12 @@ $config =Config::getInstance();
 		   onclick="setDorsal()"><?php _e('Set dorsal'); ?></a>
    		<input id="inscripciones-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
 			   onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
+   		<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-brush'"
+           onclick="
+   	        	// clear selection and reload table
+				reloadWithSearch('#inscripciones-datagrid','inscritos',true);
+   	       " ><?php _e('Clear'); ?></a>
 		<span id="inscripciones-readonly" class="blink" style="color:red">Read Only</span>
    	</span>
    	<span style="float:right;padding:5px"> 	<!-- estos elementos deben estar alineados a la derecha -->
@@ -122,12 +128,6 @@ $config =Config::getInstance();
     		onclick="openTeamWindow(workingData.prueba)"><?php _e('Teams'); ?></a>
     	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton"
     		data-options="iconCls:'icon-print'" onclick="printInscripciones();"><?php _e('Print'); ?></a>
-   		<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-brush'"
-   			onclick="
-   	        	// clear selection and reload table
-				reloadWithSearch('#inscripciones-datagrid','inscritos',true);
-   	       " ><?php _e('Clear'); ?></a>
    	</span>
 </div>
 

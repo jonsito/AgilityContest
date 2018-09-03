@@ -22,8 +22,8 @@ $config =Config::getInstance();
 ?>
 
 <!-- dialogo de entrada de datos para snooker -->
-<div id="competicion-dialog-snooker" style="width:360px;padding:5px">
-    <form id="competicion-dialog-snooker-header">
+<div id="competicion-snooker-dialog" style="width:360px;padding:5px">
+    <form id="competicion-snooker-dialog-header">
         <input type="hidden" id="cds-Index"/>
         <table>
             <!-- datos del perro y guia -->
@@ -40,7 +40,7 @@ $config =Config::getInstance();
             </tr>
         </table>
     </form>
-    <form id="competicion-dialog-snooker-form">
+    <form id="competicion-snooker-dialog-form">
         <table>
             <!-- datos de la secuencia de apertura -->
             <tr><th colspan="6"><br/><?php _e('Opening Sequence');?></th></tr>
@@ -90,16 +90,16 @@ $config =Config::getInstance();
 </div>
 
 <!-- botones del dialogo de snooker-->
-<div id="competicion-dialog-snooker-Buttons" data-options="border:false" style="text-align:right;padding:5px 0 0;">
+<div id="competicion-snooker-dialog-Buttons" data-options="border:false" style="text-align:right;padding:5px 0 0;">
     <a id="cds-okBtn" href="#" class="easyui-linkbutton"
        data-options="iconCls: 'icon-db_backup'" onclick="saveSnooker()"><?php _e('Accept'); ?></a>
     <a id="cds-cancelBtn" href="#" class="easyui-linkbutton"
-       data-options="iconCls: 'icon-cancel'" onclick="$('#competicion-dialog-snooker').dialog('close');"><?php _e('Cancel'); ?></a>
+       data-options="iconCls: 'icon-cancel'" onclick="$('#competicion-snooker-dialog').dialog('close');"><?php _e('Cancel'); ?></a>
 </div>
 
 <!-- dialogo de entrada de datos para gambler -->
-<div id="competicion-dialog-gambler" style="width:640px;padding:5px">
-    <form id="competicion-dialog-gambler-header">
+<div id="competicion-gambler-dialog" style="width:640px;padding:5px">
+    <form id="competicion-gambler-dialog-header">
         <input type="hidden" id="cdg-Index"/>
         <table>
             <!-- datos del perro y guia -->
@@ -116,7 +116,7 @@ $config =Config::getInstance();
             </tr>
         </table>
     </form>
-    <form id="competicion-dialog-gambler-form">
+    <form id="competicion-gambler-dialog-form">
         <table>
             <!-- datos de la secuencia de apertura -->
             <tr><th colspan="11"><br/><?php _e('Opening Sequence');?></th></tr>
@@ -212,11 +212,11 @@ $config =Config::getInstance();
 </div>
 
 <!-- botones del dialogo de gambler-->
-<div id="competicion-dialog-gambler-Buttons" data-options="border:false" style="text-align:right;padding:5px 0 0;">
+<div id="competicion-gambler-dialog-Buttons" data-options="border:false" style="text-align:right;padding:5px 0 0;">
     <a id="cdg-okBtn" href="#" class="easyui-linkbutton"
        data-options="iconCls: 'icon-db_backup'" onclick="saveGambler()"><?php _e('Accept'); ?></a>
     <a id="cdg-cancelBtn" href="#" class="easyui-linkbutton"
-       data-options="iconCls: 'icon-cancel'" onclick="$('#competicion-dialog-gambler').dialog('close');"><?php _e('Cancel'); ?></a>
+       data-options="iconCls: 'icon-cancel'" onclick="$('#competicion-gambler-dialog').dialog('close');"><?php _e('Cancel'); ?></a>
 </div>
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
@@ -249,7 +249,7 @@ $config =Config::getInstance();
 
 <script type="text/javascript">
 
-    $('#competicion-dialog-snooker').dialog({
+    $('#competicion-snooker-dialog').dialog({
         icon: 'edit',
         title: "Snooker",
         collapsible:false,
@@ -260,14 +260,15 @@ $config =Config::getInstance();
         closed:true,
         closable:false,
         modal:true,
-        buttons:'#competicion-dialog-snooker-Buttons',
+        buttons:'#competicion-snooker-dialog-Buttons',
         onBeforeOpen: function() {
-            $('#competicion-dialog-snooker-form').form('reset');
+            prepareCompetitionDialogs("competicion-snooker");
+            $('#competicion-snooker-dialog-form').form('reset');
             return true;
         }
     });
 
-    $('#competicion-dialog-gambler').dialog({
+    $('#competicion-gambler-dialog').dialog({
         icon: 'edit',
         title: "Gambler",
         collapsible:false,
@@ -278,9 +279,10 @@ $config =Config::getInstance();
         closed:true,
         closable:false,
         modal:true,
-        buttons:'#competicion-dialog-gambler-Buttons',
+        buttons:'#competicion-gambler-dialog-Buttons',
         onBeforeOpen: function() {
-            $('#competicion-dialog-gambler-form').form('reset');
+            prepareCompetitionDialogs("competicion-gambler");
+            $('#competicion-gambler-dialog-form').form('reset');
             return true;
         }
     });
@@ -527,14 +529,14 @@ function showAssistantSheet(target) {
         $('#cds-Dog').textbox('setText',data.Nombre);
         $('#cds-Handler').textbox('setText',data.NombreGuia);
         $('#cds-Index').val(idx);
-        $('#competicion-dialog-snooker').dialog('open');
+        $('#competicion-snooker-dialog').dialog('open');
     }
     if (parseInt(workingData.datosManga.Tipo)===30) { // gambler
         $('#cdg-Dog').textbox('setText',data.Nombre);
         $('#cdg-Handler').textbox('setText',data.NombreGuia);
         $('#cdg-Index').val(idx);
         $('#cdg-Score').val(0);
-        $('#competicion-dialog-gambler').dialog('open');
+        $('#competicion-gambler-dialog').dialog('open');
     }
 }
 
@@ -561,7 +563,7 @@ function saveGambler() {
     ed=dg.datagrid('getEditor',{index:idx,field:'Tiempo'});
     $(ed.target).numberbox('setValue',$('#cdg-Time').numberbox('getValue'));
     // finally close gambler dialog
-    $('#competicion-dialog-gambler').dialog('close');
+    $('#competicion-gambler-dialog').dialog('close');
 }
 
 function saveSnooker() {
@@ -592,7 +594,7 @@ function saveSnooker() {
     $(ed.target).numberbox('setValue',$('#cds-Time').numberbox('getValue'));
 
     // finally close snooker dialog
-    $('#competicion-dialog-snooker').dialog('close');
+    $('#competicion-snooker-dialog').dialog('close');
 }
 
     //- botones del panel de entrada de datos
