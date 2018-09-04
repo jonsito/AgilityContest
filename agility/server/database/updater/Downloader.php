@@ -124,17 +124,18 @@ class Downloader {
      */
     function checkForUpdatedEntries() {
         if (strcmp($this->revision, "20180830_1200")<=0) {
-            // do not notify updates when client sw version is older than 3.8.1
-            return array("success"=>true,"NewEntries"=>0);
+            return array( 'total' => 0,'rows' => array(array('NewEntries' =>0 )));
+        } else {
+            // retrieve updated elements from database
+            $res=$this->myDBObject->__select(
+                "count(*) AS NewEntries",
+                "perroguiaclub",
+                "(Licencia != '') AND ( LastModified > '{$this->timestamp}')"
+            );
+            if (!$res) throw new Exception ("Downloader::checkForUpdatedEntries(): {$this->myDBObject->errormsg}");
+            return $res;
         }
-        // retrieve updated elements from database
-        $res=$this->myDBObject->__select(
-            "count(*) AS NewEntries",
-            "perroguiaclub",
-            "(Licencia != '') AND ( LastModified > '{$this->timestamp}')"
-        );
-        if (!$res) throw new Exception ("Downloader::checkForUpdatedEntries(): {$this->myDBObject->errormsg}");
-        return $res;
+
     }
 
     /**
