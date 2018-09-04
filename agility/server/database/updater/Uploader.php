@@ -126,7 +126,8 @@ class Uploader {
         $hdata=array(
             "Operation" => $data['Operation'],
             "Serial" => $serial,
-            "timestamp" => $data['timestamp']
+            "timestamp" => $data['timestamp'],
+            "Revision" => $this->myConfig->getEnv('version_date')
         );
         $pdata=array(
             'Data' => json_encode($data['Data'])

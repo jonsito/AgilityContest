@@ -30,25 +30,29 @@ class Downloader {
     protected $myLogger;
     protected $timestamp;
     protected $serial;
+    protected $revision;
 
     /**
      * Downloader constructor.
      * @param {string} $timestamp time stamp mark provided by requester in date("Ymd_Hi") format
      * @param {string} $serial license serial numbar
+     * @param {string} $revision software revision number ( to disable upgrades in older versions )
      * @throws Exception on database connection error
      */
-    function __construct($timestamp,$serial) {
+    function __construct($timestamp,$serial,$revision) {
         $this->myDBObject=new DBObject("Downloader");
         $this->myConfig=Config::getInstance();
         $this->myLogger=new Logger("DatabaseDownloader",$this->myConfig->getEnv("debug_level"));
         $this->timestamp=$timestamp;
-        $this->serial=$serial;
+        $this->serial=$serial; // store license serial number
+        $this->revision=$revision; // store client running sw revision
     }
 
     /**
      * retrieve from perroguiaclub every item newer than timestamp
      */
     function getUpdatedEntries() {
+        $canUpgrade=strcmp($this->revision, "20180830_1200"); // 1 if newer version
         $result=array();
 
         // retrieve updated dogs from database
@@ -59,7 +63,7 @@ class Downloader {
                   "(Licencia != '') AND (perros.ServerID != 0) AND ( perros.LastModified > '{$this->timestamp}')" // changes
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Perros): {$this->myDBObject->conn->error}");
-        $result['Perros']=$res['rows'];
+        $result['Perros']=($canUpgrade>0)?$res['rows']:array();
 
         // retrieve updated handlers from database
         // hay que recuperar:
@@ -78,7 +82,7 @@ class Downloader {
             ")"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Guias): {$this->myDBObject->conn->error}");
-        $result['Guias']=$res['rows'];
+        $result['Guias']=($canUpgrade>0)?$res['rows']:array();
 
         // retrieve updated Clubs from database
         // hay que recuperar:
@@ -94,7 +98,7 @@ class Downloader {
             "{$qlist} ( (clubes.ServerID != 0) AND ( LastModified > '{$this->timestamp}') )" // updated clubs
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Clubes): {$this->myDBObject->conn->error}");
-        $result['Clubes']=$res['rows'];
+        $result['Clubes']=($canUpgrade>0)?$res['rows']:array();
 
         // retrieve updated Judges from database
         $res=$this->myDBObject->__select(
@@ -103,7 +107,7 @@ class Downloader {
             "(ServerID != 0) AND ( LastModified > '{$this->timestamp}')"
         );
         if (!$res) throw new Exception ("Updater::getUpdatedEntries(Jueces): {$this->myDBObject->conn->error}");
-        $result['Jueces']=$res['rows'];
+        $result['Jueces']=($canUpgrade>0)?$res['rows']:array();
 
         // add timestamp and "Operation" to request data
         $result['timestamp']=$this->timestamp;
@@ -119,6 +123,10 @@ class Downloader {
      * @throws Exception on database operation failure
      */
     function checkForUpdatedEntries() {
+        if (strcmp($this->revision, "20180830_1200")<=0) {
+            // do not notify updates when client sw version is older than 3.8.1
+            return array("success"=>true,"NewEntries"=>0);
+        }
         // retrieve updated elements from database
         $res=$this->myDBObject->__select(
             "count(*) AS NewEntries",

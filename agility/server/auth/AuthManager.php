@@ -104,6 +104,7 @@ class AuthManager {
         	'Operation'=> 'retrieveBlackList',
             'Serial' => $this->registrationInfo['serial'],
             'timestamp' => date("Ymd_Hi"),
+            'Revision' => $this->myConfig->getEnv("version_date"),
             'Data' => array()
         );
         $payload = json_encode($data);

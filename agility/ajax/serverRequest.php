@@ -35,6 +35,7 @@ try {
     $operation=http_request("Operation","s","");
     $suffix=http_request("Suffix","s","");
     $timestamp=http_request("timestamp","s",date('Y-m-d H:i:s'));
+    $revision=http_request("Revision","s","20180830_1200");
     // need to do a more elaborated way of hanlde this...
     $serial=http_request("Serial","s","");
     if (($serial==="") || (!is_numeric($serial))) throw new Exception("serverRequest.php: invalid serial number");
@@ -76,19 +77,19 @@ try {
         case "updateResponse": // this is to be executed on server app
             // PENDING: check serial key and perms has no sense here. however some protection is required
             $data= http_request("Data","s","",false); // data is json encoded. do not "sqlfy"
-            $dl=new Downloader($timestamp,$serial);
+            $dl=new Downloader($timestamp,$serial,$revision);
             $result=$dl->saveRetrievedData($data); // store new data from client to further revision
             $result=$dl->getUpdatedEntries(); // retrieve new data from server
             break;
         case "checkResponse": // this is to be executed on server app
             // PENDING: check serial key and perms has no sense here. however some protection is required
-            $dl=new Downloader($timestamp,$serial);
+            $dl=new Downloader($timestamp,$serial,$revision);
             $result=$dl->checkForUpdatedEntries(); // return number of new available entries
             break;
         case "retrieveBlackList": // this is to be executed on master server
             // retrieve black list from server.
             // as config dir is restricted, cannot download by url. need an ajax call
-            $dl=new Downloader($timestamp,$serial);
+            $dl=new Downloader($timestamp,$serial,$revision);
             $result=$dl->retrieveBlackList(); // read an return blacklist file
             break;
         default:
