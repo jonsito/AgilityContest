@@ -126,20 +126,22 @@ class Downloader {
      * @throws Exception on database operation failure
      */
     function checkForUpdatedEntries() {
-        if (strcmp($this->revision, "20180830_1200")<=0) {
-            $this->myLogger->notice("Client has older sw version {$this->revision}. Do not update DB");
+
+        // when client is an old sw version, do not inform on upgrades
+        $canUpgrade=strcmp($this->revision, "20180830_1200"); // 1 if newer version
+        if ( $canUpgrade <=0) {
+            $this->myLogger->notice("Client has older sw version: {$this->revision}. Do not update DB");
             return array( 'total' => 0,'rows' => array(array('NewEntries' =>0 )));
-        } else {
-            // retrieve updated elements from database
-            $res=$this->myDBObject->__select(
-                "count(*) AS NewEntries",
-                "perroguiaclub",
-                "(Licencia != '') AND ( LastModified > '{$this->timestamp}')"
-            );
-            if (!$res) throw new Exception ("Downloader::checkForUpdatedEntries(): {$this->myDBObject->errormsg}");
-            return $res;
         }
 
+        // retrieve updated elements from database
+        $res=$this->myDBObject->__select(
+            "count(*) AS NewEntries",
+            "perroguiaclub",
+            "(Licencia != '') AND ( LastModified > '{$this->timestamp}')"
+        );
+        if (!$res) throw new Exception ("Downloader::checkForUpdatedEntries(): {$this->myDBObject->errormsg}");
+        return $res;
     }
 
     /**
