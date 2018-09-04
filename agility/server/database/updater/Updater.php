@@ -382,7 +382,7 @@ class Updater {
         $loe= $this->setForInsert($perro,"LOE_RRC",true); // PENDING: do not transfer to "anyone"
         $cat= $this->setForInsert($perro,"Categoria",true);
         $grad= $this->setForInsert($perro,"Grado",true);
-        $baja= $this->setForInsert($found,"Baja",false);
+        $baja= $this->setForInsert($perro,"Baja",false);
         $handler= $this->setForInsert($found,"ID",false);
         $lastm= $this->setForInsert($perro,"LastModified",true);
 

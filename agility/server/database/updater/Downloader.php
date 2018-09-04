@@ -128,6 +128,7 @@ class Downloader {
     function checkForUpdatedEntries() {
 
         // when client is an old sw version, do not inform on upgrades
+
         $canUpgrade=strcmp($this->revision, "20180830_1200"); // 1 if newer version
         if ( $canUpgrade <=0) {
             $this->myLogger->notice("Client has older sw version: {$this->revision}. Do not update DB");
