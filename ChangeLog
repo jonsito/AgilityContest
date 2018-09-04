@@ -1,3 +1,8 @@
+Version 3.8.1 20180904_1400
+    - Fix handling of black lists
+    - Server: return 0 Db updates when version is less than 3.8.1
+    - Inscripciones: fix buttons layout
+    - Competición: add buttons to direct jump to another dialog
 Version 3.8.0 20180830_1200
     - Tablet: detect loss of connection
     - Fixes in videowall dog names
