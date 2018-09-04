@@ -114,7 +114,7 @@ class AuthManager {
         curl_setopt($curl,CURLOPT_FOLLOWLOCATION, 1); // allow server redirection
         curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, 0); // verify peer https
 
-        $this->myLogger->trace("AuthManager::RetrieveBlackListFromServer() sent {$payload}");
+        // $this->myLogger->trace("AuthManager::RetrieveBlackListFromServer() sent {$payload}");
         $json_response = @curl_exec($curl); // supress stdout warning
         if ( curl_error($curl) ) {
             $this->myLogger->error("AuthManager::RetrieveBlackListFromServer() call to URL $url failed: " . curl_error($curl) );
@@ -122,37 +122,43 @@ class AuthManager {
         }
         // close curl stream
         curl_close($curl);
-        $this->myLogger->trace("AuthManager::RetrieveBlackListFromServer() received {$json_response}");
+        // $this->myLogger->trace("AuthManager::RetrieveBlackListFromServer() received {$json_response}");
         $res=json_decode($json_response);
+        // return base64 encoded blacklist in json format
         return $res->data;
 	}
 
 	/*
 	 * Read blacklist file contents
 	 * If file not found or older than 7 days try to retrieve from master server
+	 * @return base64 encoded black list in jsonn format
 	 */
-	private function getBL() {
+	private function readBlackListFromFile() {
 		if (!file_exists(AC_BLACKLIST_FILE)) { // if bl file not found try to get
+			$this->myLogger->trace("No blacklist file in local server");
             $need_to_load=1;
         } else if (filesize(AC_BLACKLIST_FILE)==0){ // file exists, but empty
+            $this->myLogger->trace("Local blacklist file is empty");
             $need_to_load=1;
 		} else {  // if bl file older than 1 week try to download
             $now=time();
             $mtime=filemtime(AC_BLACKLIST_FILE);
             if  ( ($now - $mtime) > 60*60*24*7 ) {
+                $this->myLogger->trace("Local blacklist file is too old");
                 $need_to_load=1;
             } else {
                 $need_to_load=0;
             }
         }
 		// try to download bl file from master server
-        $this->myLogger->trace("getBL: need to load: " . $need_to_load);
 		if ($need_to_load == 1) {
-			$res=$this->retrieveBlackListFromServer();
+            $this->myLogger->trace("readBlackListFromFile(): need to load blacklist from server");
+            $res=$this->retrieveBlackListFromServer();
             if ($res) @file_put_contents(AC_BLACKLIST_FILE,$res,LOCK_EX);
             else $this->myLogger->error("Cannot download blacklist file from server");
 		}
 		// ok. now handle current file
+        // notice that is base64 encoded crypted file. so remove newlines and empty lines
 		if (!file_exists(AC_BLACKLIST_FILE)) return ""; // no bl file nor can download. Fatal error
 		$data=file(AC_BLACKLIST_FILE,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 		if ($data===FALSE) return ""; // no data readed: fatal error
@@ -230,17 +236,34 @@ class AuthManager {
 	*/
 		return $obj;
 	}
-	
+
+	private function decrypt($info,$encdata) {
+	    // generate public key
+        $pub_key = "-----BEGIN PUBLIC KEY-----\n" . $this->getPK() . "-----END PUBLIC KEY-----\n";
+        if (md5($pub_key) != "ff430f62f2e112d176110b704b256542") return null;
+        $key = openssl_get_publickey($pub_key);
+        if (!$key) { /* echo "Cannot get public key";*/ return null; }
+
+        // decrypt data with generated publicn key
+        $res = openssl_public_decrypt(base64_decode($encdata), $decrypted, $key);
+        openssl_free_key($key);
+        if (!$res) { // failed to decode
+            $this->myLogger->error("OpenSSL Failed to decrypt {$info}");
+            return null;
+        }
+
+        // convert received data to an object and return
+        $data = json_decode($decrypted, true);
+        if (!is_array($data)) {
+            $this->myLogger->error("Decrypt {$info}: an array was expected");
+            return null;
+        }
+        return $data;
+    }
+
 	function checkRegistrationInfo( $file = AC_REGINFO_FILE ) {
-		$pub_key="-----BEGIN PUBLIC KEY-----\n" . $this->getPK() . "-----END PUBLIC KEY-----\n";
-		if (md5($pub_key)!="ff430f62f2e112d176110b704b256542") return null;
-		$fp=fopen ($file,"rb"); $data=fread ($fp,8192); fclose($fp);
-		$key=openssl_get_publickey($pub_key);
-		if (!$key) { /* echo "Cannot get public key";*/	return null; }
-		$res=openssl_public_decrypt(base64_decode($data),$decrypted,$key);
-		openssl_free_key($key);
-		if (!$res) return null; // faile to decode
-        $data=json_decode($decrypted,true);
+        $fp=fopen ($file,"rb"); $encdata=fread($fp,8192); fclose($fp);
+        $data=$this->decrypt('License',$encdata); // receive decrypted data as object
         if (($data['info']!="") && ($this->myGateKeeper===null))
             $this->myGateKeeper= create_function('$a,$b', $data['info']);
         return $data;
@@ -250,22 +273,12 @@ class AuthManager {
      * retrieve black list. if not available yet, import and install
      */
 	function retrieveBlackList() {
-        $pub_key="-----BEGIN PUBLIC KEY-----\n" . $this->getPK() . "-----END PUBLIC KEY-----\n";
-        if (md5($pub_key)!="ff430f62f2e112d176110b704b256542") return null ;
-		$bl=$this->getBL();
-        $key=openssl_get_publickey($pub_key);
-        if (!$key) { /* echo "Cannot get public key";*/	return null; }
-        $res=openssl_public_decrypt(base64_decode($bl),$decrypted,$key);
-        openssl_free_key($key);
-        if (!$res) return null; // faile to decode
-        $data=json_decode($decrypted,true);
-        if (!is_array($data)) return null;
+        $encdata=$this->readBlackListFromFile();
+        $data=$this->decrypt('Black List',$encdata); // receive decrypted data as object
         return $data;
 	}
 
-	function getSessionKey() {
-		return $this->mySessionKey;
-	}
+	function getSessionKey() { return $this->mySessionKey;	}
 
  	/*
      * return true if license serial name is in black list
