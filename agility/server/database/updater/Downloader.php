@@ -53,6 +53,9 @@ class Downloader {
      */
     function getUpdatedEntries() {
         $canUpgrade=strcmp($this->revision, "20180830_1200"); // 1 if newer version
+        if ( $canUpgrade <=0) {
+            $this->myLogger->notice("Client has older sw version: {$this->revision}. Do not update DB");
+        }
         $result=array();
 
         // retrieve updated dogs from database
@@ -124,6 +127,7 @@ class Downloader {
      */
     function checkForUpdatedEntries() {
         if (strcmp($this->revision, "20180830_1200")<=0) {
+            $this->myLogger->notice("Client has older sw version {$this->revision}. Do not update DB");
             return array( 'total' => 0,'rows' => array(array('NewEntries' =>0 )));
         } else {
             // retrieve updated elements from database
