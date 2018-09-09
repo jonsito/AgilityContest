@@ -28,6 +28,23 @@ class Pruebas extends DBObject {
 		parent::__construct("Pruebas");
 	}
 
+	/**
+     * search for duplicate name in pruebas
+     * ( this should be solved marking Prueba(Nombre) unique not null, but to maintain compatibility
+     *@param {string} $name New Prueba Name
+     *@param {$id} 0 on create, PruebaID on update
+     *@return 0: no duplicates else number of dups
+     */
+	function checkForDuplicates($name,$id) {
+	    $where=($id===0)?"":" AND (ID!={$id})";
+	    $res=$this->__selectObject(
+	        /* select */ "count(*) AS Items",
+            /* from */   "pruebas",
+            /* where */  "Nombre='{$name}' {$where}"
+        );
+	    return $res->Items;
+    }
+
 	function insert() {
 		$this->myLogger->enter();
         // iniciamos los valores, chequeando su existencia
@@ -44,7 +61,9 @@ class Pruebas extends DBObject {
         $openingreg= http_request("OpeningReg","s",date("Y-m-d"));
         $closingreg= http_request("ClosingReg","s",date("Y-m-d",strtotime($openingreg)+86400));
         $this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
-
+        // make sure that no existing entry with same name
+        $dups=$this->checkForDuplicates($nombre,0);
+        if ($dups!=0) return $this->error(_("There is already a contest with provided name"));
 		// componemos un prepared statement
 		$sql ="INSERT INTO pruebas (Nombre,Club,Ubicacion,Triptico,Cartel,Observaciones,RSCE,Selectiva,Cerrada,OpeningReg,ClosingReg)
 			   VALUES(?,?,?,?,?,?,?,?,?,?,?)";
@@ -109,6 +128,10 @@ class Pruebas extends DBObject {
         $openingreg= http_request("OpeningReg","s",date("Y-m-d"));
         $closingreg= http_request("ClosingReg","s",date("Y-m-d",strtotime($openingreg)+86400));
         $this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
+
+        // make sure that no existing entry with same name
+        $dups=$this->checkForDuplicates($nombre,$pruebaid);
+        if ($dups!=0) return $this->error(_("There is already a contest with provided name"));
 
 		// componemos un prepared statement
 		$sql ="UPDATE pruebas

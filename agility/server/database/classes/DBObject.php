@@ -179,7 +179,7 @@ class DBObject {
     }
 
 	/**
-	 * Perform a query that returns first (and unique) element
+	 * Perform a query that returns first (should be the unique) element
 	 * as an Object
 	 * @param {string} $select SELECT clause (required)
 	 * @param {string} $from FROM clause (required)
