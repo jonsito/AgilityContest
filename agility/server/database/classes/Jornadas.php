@@ -47,7 +47,23 @@ class Jornadas extends DBObject {
         $this->myLogger->trace("Federation: ".json_encode($this->federation));
 		$this->jueces=array( "1" => "-- Sin asignar --");
 	}
-	
+
+    /**
+     * Search for duplicate name in jornadas
+     * This should be solved marking jornadas(Prueba,Nombre) unique not null, but to maintain compatibility
+     *@param {string} $name New Jornada Name
+     *@param {$id} Jornada ID being updated
+     *@return 0: no duplicates else number of dups
+     */
+    function checkForDuplicates($name,$id) {
+        $res=$this->__selectObject(
+        /* select */ "count(*) AS Items",
+            /* from */   "jornadas",
+            /* where */  "(Prueba={$this->prueba}) AND (Nombre!='-- Sin asignar --') AND (Nombre='{$name}') AND (ID!={$id})"
+        );
+        return $res->Items;
+    }
+
 	/*****
 	 * No insert required: a set of 8 journeys are created on each every new prueba 
 	 * update, delete, select (by) functions
@@ -67,6 +83,11 @@ class Jornadas extends DBObject {
         // iniciamos los valores, chequeando su existencia
         $prueba = $this->prueba;
         $nombre = http_request("Nombre","s",null,false); // Name or comment for jornada
+
+        // make sure that no existing entry with same name
+        $dups=$this->checkForDuplicates($nombre,$jornadaid);
+        if ($dups!=0) return $this->error(_("There is already a journey with provided name"));
+
         $fecha = str_replace("/","-",http_request("Fecha","s","",false)); // mysql requires format YYYY-MM-DD
         $hora = http_request("Hora","s","",false);
         $grado1 = http_request("Grado1","i",0);
