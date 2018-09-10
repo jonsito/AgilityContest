@@ -165,19 +165,22 @@ class Mangas extends DBObject {
         if ($tipo==9) $this->query("UPDATE mangas set Tipo=9 WHERE (Jornada=$j) AND (Tipo=8)");
         if ($tipo==13) $this->query("UPDATE mangas set Tipo=13 WHERE (Jornada=$j) AND (Tipo=14)");
         if ($tipo==14) $this->query("UPDATE mangas set Tipo=14 WHERE (Jornada=$j) AND (Tipo=13)");
-		$mangaid=0;
+
 		// si la manga existe no hacer nada; si no existe crear manga
+        $sem=enterCriticalRegion(1);
         $res=$this->__select("*","mangas","( Jornada=$j ) AND  ( Tipo=$tipo ) AND ( Grado='$grado' )");
 		if(!$res) return $this->error("Cannot get info on Mangas for Jornada:$j");
 		if ($res['total']>0){
 			$this->myLogger->info("Jornada:$j Manga:$tipo already exists");
 			$mangaid=$res['rows'][0]['ID'];  // should exist only one. so take id from it
+            leaveCriticalRegion($sem);
 		} else {
             // buscamos el equipo por defecto de la jornada y lo insertamos
             $team=$this->defaultTeamObj->ID;
 			$observaciones = http_request("Observaciones","s","");
 			$str="INSERT INTO mangas ( Jornada,Tipo,Grado,Observaciones,Orden_Salida,Orden_Equipos ) VALUES ( $j,$tipo,'$grado','$observaciones','BEGIN,END','BEGIN,$team,END' )";
 			$rs=$this->query($str);
+            leaveCriticalRegion($sem);
 			if (!$rs) return $this->error($this->conn->error);
 			$mangaid=$this->conn->insert_id;
 		}

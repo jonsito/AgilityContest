@@ -57,6 +57,50 @@ if( ! function_exists('_utf')) {
 	}
 }
 
+/* semaphores does not exist in windozes so create */
+if (!function_exists('sem_get')) {
+    function sem_get($key) {
+        return fopen(__DIR__ ."/../../logs/semaphore_{$key}.sem", 'w+');
+    }
+    function sem_acquire($sem_id) {
+        return flock($sem_id, LOCK_EX | LOCK_NB);
+    }
+    function sem_release($sem_id) {
+        return flock($sem_id, LOCK_UN);
+    }
+	function sem_remove($sem_id) {
+        $meta_data = stream_get_meta_data($sem_id);
+        $filename = $meta_data["uri"];
+        fclose($sem_id);
+        unlink($filename);
+	}
+}
+
+/* poor's man implementation of ftok for windozes, required for semaphores */
+if( !function_exists('ftok') ) {
+    function ftok ($filePath, $projectId) {
+        $fileStats = stat($filePath);
+        if (!$fileStats) {
+            return -1;
+        }
+
+        return sprintf('%u',
+            ($fileStats['ino'] & 0xffff) | (($fileStats['dev'] & 0xff) << 16) | ((ord($projectId) & 0xff) << 24)
+        );
+    }
+}
+
+function enterCriticalRegion($key) {
+	$sem=sem_get($key);
+	// this
+	sem_acquire($sem);
+	return $sem;
+}
+
+function leaveCriticalRegion($sem) {
+	sem_release($sem);
+}
+
 /* add a new line in echo sentence */
 function echon($str) { echo $str . "\n"; }
 

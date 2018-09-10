@@ -186,6 +186,8 @@ $('#competicion-listamangas').datagrid({
         autoBackupDatabase(1,"");
     }
 });
+// to allow inspect data
+addSimpleKeyHandler('#competicion-listamangas',"");
 
 //tooltips
 addTooltip($('#competicion-entrenamientosBtn').linkbutton(),"<?php _e('View/Edit Training session timetable for the contest')?>");
