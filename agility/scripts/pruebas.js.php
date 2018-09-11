@@ -102,6 +102,7 @@ function editPrueba(dg){
 function savePrueba() {
 
     function real_save() {
+        $('#pruebas-okBtn').linkbutton('disable');
         $.ajax({
             type: 'GET',
             url: '../ajax/database/pruebaFunctions.php',
@@ -115,6 +116,12 @@ function savePrueba() {
                     $('#pruebas-dialog').dialog('close');        // close the dialog
                     $('#pruebas-datagrid').datagrid('reload');    // reload the prueba data
                 }
+            },
+            error: function(XMLHttpRequest,textStatus,errorThrown) {
+                $.messager.alert("Save Prueba","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+            },
+            complete: function(result) {
+                $('#pruebas-okBtn').linkbutton('enable');
             }
         });
     }
@@ -523,6 +530,7 @@ function saveJornada(){
     
     var frm = $('#jornadas-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    $('#jornadas-okBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',
         url: '../ajax/database/jornadaFunctions.php',
@@ -539,6 +547,12 @@ function saveJornada(){
                 $('#inscripciones-jornadas').datagrid('reload');    // reload the prueba data
                 $('#inscripciones-datagrid').datagrid('reload');    // reload the inscriptions to enable checkboxes on new journey
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save Jornada","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#jornadas-okBtn').linkbutton('enable');
         }
     });
 }

@@ -84,9 +84,10 @@ class Pruebas extends DBObject {
 		$stmt->close();
 		
 		// create eight journeys per contest
+        $today=date("Y-m-d");
 		for ($n=1;$n<9;$n++) {
 			$sql ="INSERT INTO jornadas (Prueba,Numero,Nombre,Fecha,Hora)
-			VALUES ($pruebaid,$n,'-- Sin asignar --','2013-01-01','00:00:00')";
+			VALUES ($pruebaid,$n,'-- Sin asignar --','{$today}','08:30:00')";
 			$res=$this->query($sql);
 			if (!$res) return $this->error($this->conn->error);
 			// retrieve ID of inserted jornada
