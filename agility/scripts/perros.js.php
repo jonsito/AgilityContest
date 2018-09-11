@@ -285,6 +285,8 @@ function saveDog(){
     var frm = $('#perros-form');
     $('#perros-Federation').val(workingData.federation);
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+
+    $('#perros-okBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',
         url: '../ajax/database/dogFunctions.php',
@@ -300,6 +302,12 @@ function saveDog(){
     	        // close the dialog
                 $('#perros-dialog').dialog('close'); 
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save Dog","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#perros-okBtn').linkbutton('enable');
         }
     });
 }

@@ -266,7 +266,8 @@ function saveGuia(){
     $('#guias-Federation').val(workingData.federation);
     var frm = $('#guias-form');
     if (!frm.form('validate')) return;
-    
+
+    $('#guias-okBtn').linkbutton('disable');
 	$.ajax({
         type: 'GET',
         url: '../ajax/database/guiaFunctions.php',
@@ -281,6 +282,12 @@ function saveGuia(){
             	if(result.insert_id && (oper==="insert") ) $('#guias-ID').val(result.insert_id);
                 $('#guias-dialog').dialog('close');        // close the dialog
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save Guia","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#guiias-okBtn').linkbutton('enable');
         }
     });
 }

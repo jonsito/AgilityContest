@@ -184,6 +184,8 @@ function saveClub(){
         return; // do not allow editing country information
     }
     $('#clubes-Federations').val(fed);
+
+    $('#clubes-okBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',
         url: '../ajax/database/clubFunctions.php',
@@ -199,6 +201,12 @@ function saveClub(){
                 $('#clubes-dialog').dialog('close');        // close the dialog
                 $('#clubes-datagrid').datagrid('reload');    // reload the clubes data
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save Club","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#clubes-okBtn').linkbutton('enable');
         }
     });
 }

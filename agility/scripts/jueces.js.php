@@ -88,6 +88,8 @@ function saveJuez(){
     if ( $('#jueces-Nat3').is(':checked') ) fed |=8;
     if ( $('#jueces-CPC').is(':checked') ) fed |=16;
     $('#jueces-Federations').val(fed);
+    // disable ok button during ajax transaction to avoid register twice
+    $('#jueces-okBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',
         url: '../ajax/database/juezFunctions.php',
@@ -100,6 +102,12 @@ function saveJuez(){
                 $('#jueces-dialog').dialog('close');        // close the dialog
                 $('#jueces-datagrid').datagrid('reload');    // reload the juez data
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save Juez","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#jueces-okBtn').linkbutton('enable');
         }
     });
 }
