@@ -76,6 +76,8 @@ function editUser(dg){
 function saveUser(){
     var frm = $('#usuarios-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+
+    $('#usuarios-okBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',
         url: '../ajax/database/userFunctions.php',
@@ -88,6 +90,12 @@ function saveUser(){
                 $('#usuarios-dialog').dialog('close');        // close the dialog
                 $('#usuarios-datagrid').datagrid('reload');    // reload the user data
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save User","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#usuarios-okBtn').linkbutton('enable');
         }
     });
 }

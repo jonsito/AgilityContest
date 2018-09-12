@@ -209,6 +209,10 @@ function assignGuia(){
     $('#chguias-Federation').val(workingData.federation);
     var frm = $('#chguias-form');
     if (! frm.form('validate')) return;
+
+    // do not allow re-clicking
+    $('#chguias-okBtn').linkbutton('disable');
+    $('#chguias-newBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',
         url: '../ajax/database/guiaFunctions.php',
@@ -224,6 +228,13 @@ function assignGuia(){
                 $('#chguias-Search').combogrid('clear');  // clear search field
                 $('#chguias-dialog').dialog('close');        // close the dialog
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Assign Guia","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#chguias-okBtn').linkbutton('enable');
+            $('#chguias-newBtn').linkbutton('enable');
         }
     });
 }
@@ -237,6 +248,9 @@ function saveChGuia(){
     $('#chguias-Operation').val('insert');
     $('#chguias-Federation').val(workingData.federation);
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+
+    $('#chguias-okBtn').linkbutton('disable');
+    $('#chguias-newBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',
         url: '../ajax/database/guiaFunctions.php',
@@ -253,6 +267,13 @@ function saveChGuia(){
             	$('#chguias-Search').combogrid('clear');  // clear search field
                 $('#chguias-dialog').dialog('close');    // close the dialog
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save ChGuia","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#chguias-okBtn').linkbutton('enable');
+            $('#chguias-newBtn').linkbutton('enable');
         }
     });
 }
@@ -287,7 +308,7 @@ function saveGuia(){
             $.messager.alert("Save Guia","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
         },
         complete: function(result) {
-            $('#guiias-okBtn').linkbutton('enable');
+            $('#guias-okBtn').linkbutton('enable');
         }
     });
 }

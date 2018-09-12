@@ -90,6 +90,8 @@ function reloadOrdenTandas() {
 function saveTanda(dg){
     var frm = $('#ordentandas_newtanda-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+
+    $('#ordentandas-okBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',
         url: '../ajax/database/tandasFunctions.php',
@@ -102,6 +104,12 @@ function saveTanda(dg){
                 $('#ordentandas_newtanda-dialog').dialog('close');
                 reloadOrdenTandas();
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save Tanda","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#ordentandas-okBtn').linkbutton('enable');
         }
     });
 }

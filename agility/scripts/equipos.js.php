@@ -313,6 +313,7 @@ function saveTeam() {
         $.messager.alert("Error",'<?php _e("This team has no assigned categories");?>',"error");
         return false;
     }
+    $('#team_edit_dialog-okBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',
         url: '../ajax/database/equiposFunctions.php',
@@ -326,6 +327,12 @@ function saveTeam() {
                 $('#team_edit_dialog').dialog('close');
                 $('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save Team","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#team_edit_dialog-okBtn').linkbutton('enable');
         }
     });
     return false;
