@@ -1188,30 +1188,7 @@ function evalOrdenSalida(oper) {
 	if (workingData.prueba==0) return;
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
-	if (oper==='random') {
-		$.messager.confirm('<?php _e('Confirm'); ?>', '<?php _e('Every changes done till now will be lost<br />Continue?'); ?>', function(r){
-			if (!r) return;
-			$.ajax({
-				type: 'GET',
-				url: '../ajax/database/ordenSalidaFunctions.php',
-				dataType: 'json',
-				data: {
-					Prueba: workingData.prueba,
-					Jornada: workingData.jornada,
-					Manga: workingData.manga,
-                    Categorias: $('#ordensalida-categoria').combobox('getValue'),
-					Operation: 'setOrder',
-                    SortMethod: oper,
-                    Range: $('#ordensalida-rango').textbox('getValue')
-				}
-			}).done( function(result) {
-			    if (result.errorMsg){
-			        $.messager.show({title:"Error",msg:result.errorMsg,timeout:5000,showType:'slide'})
-                }
-				reloadOrdenSalida();
-			});
-		});
-	} else if (oper==="excel") {
+    if (oper==="excel") {
         check_permissions(access_perms.ENABLE_IMPORT, function (res) {
             if (res.errorMsg) {
                 $.messager.alert('License error','<?php _e("Current license has no Excel import function enabled"); ?>', "error");
@@ -1220,26 +1197,34 @@ function evalOrdenSalida(oper) {
             }
             return false; // prevent default fireup of event trigger
         });
-    } else { // 'reverse', 'clone', 'results', 'alpha','dorsal'
-		$.ajax({
-			type: 'GET',
-			url: '../ajax/database/ordenSalidaFunctions.php',
-			dataType: 'json',
-			data: {
-				Prueba: workingData.prueba,
-				Jornada: workingData.jornada,
-				Manga: workingData.manga,
-                Categorias: $('#ordensalida-categoria').combobox('getValue'),
-				Operation: 'setOrder',
-                SortMethod: oper,
-                Range: $('#ordensalida-rango').textbox('getValue')
-			}
-		}).done( function(result) {
-            if (result.errorMsg){
-                $.messager.show({title:"Error",msg:result.errorMsg,timeout:5000,showType:'slide'})
+    } else { // 'random', 'reverse', 'clone', 'results', 'alpha','dorsal'
+        $.messager.confirm('<?php _e('Confirm'); ?>', '<?php _e('Every changes done till now will be lost<br />Continue?'); ?>', function(r){
+            if (!r){
+                $('#ordensalida-selection').combobox('setValue','none');
+                return false;
             }
-			reloadOrdenSalida();
-		});
+            $('#ordensalida-selection').combobox('disable');
+		    $.ajax({
+			    type: 'GET',
+			    url: '../ajax/database/ordenSalidaFunctions.php',
+			    dataType: 'json',
+			    data: {
+    				Prueba: workingData.prueba,
+    				Jornada: workingData.jornada,
+    				Manga: workingData.manga,
+                    Categorias: $('#ordensalida-categoria').combobox('getValue'),
+    				Operation: 'setOrder',
+                    SortMethod: oper,
+                    Range: $('#ordensalida-rango').textbox('getValue')
+	    		}
+    		}).done( function(result) {
+                if (result.errorMsg){
+                    $.messager.show({title:"Error",msg:result.errorMsg,timeout:5000,showType:'slide'})
+                }
+	    		reloadOrdenSalida();
+                $('#ordensalida-selection').combobox('setValue','none').combobox('enable');
+		    });
+        });
 	}
 }
 

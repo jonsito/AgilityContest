@@ -530,6 +530,7 @@ function saveJornada(){
     
     var frm = $('#jornadas-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+
     $('#jornadas-okBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',

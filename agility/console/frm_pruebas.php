@@ -44,6 +44,12 @@ $config =Config::getInstance();
    	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox"
    	    	data-options="iconCls:'icon-search'" 
    	    	onclick="doSearchPrueba()"/><?php _e('Incl. closed'); ?>
+        <a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-brush'"
+           onclick="
+        		// clear selection and reload table
+				reloadWithSearch('#pruebas-datagrid','select',true);
+			"><?php _e('Clear'); ?></a>
    	</span>
    	<span style="float:right;padding:5px">
    		<a id="pruebas-emailBtn" href="#" class="easyui-linkbutton"
@@ -52,12 +58,6 @@ $config =Config::getInstance();
    		<a id="pruebas-exportBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-db_backup'"
 		   onclick="exportPrueba('#pruebas-datagrid')"><?php _e('Export'); ?></a>
-   		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-brush'"
-   	    	onclick="
-        		// clear selection and reload table
-				reloadWithSearch('#pruebas-datagrid','select',true);
-			"><?php _e('Clear'); ?></a>
    	</span>
 </div>
     

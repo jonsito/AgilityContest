@@ -56,14 +56,17 @@ $config =Config::getInstance();
     <!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
     <table id="ordensalida-datagrid" style="padding:5px"></table>
 </div>
+
 <!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 <div id="ordensalida-toolbar" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
-        <label for="ordensalida-selection"><?php _e("Method");?></label>
+        <label for="ordensalida-selection"><?php _e("Ordering method");?>:</label>
         <input id="ordensalida-selection"/>
+        <!--
 	   	<a id="ordensalida-sortBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-db_restore'"
            onclick="evalOrdenSalida($('#ordensalida-selection').combobox('getValue'))"><?php _e('Sort'); ?></a>
+        -->
         <a id="ordensalida-eqBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-huella'" onclick="$('#ordeneq3-dialog').dialog('open');"><?php _e('Teams'); ?></a>
         <label for="ordensalida-categoria"><?php _e('Cat');?></label>
@@ -73,13 +76,13 @@ $config =Config::getInstance();
             <label for="ordensalida-rango"><?php _e('Range');?></label>
             <input id="ordensalida-rango" style="width:80px" value="0-99999"/>
         </span>
+   		<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-reload'" onclick="reloadOrdenSalida();"><?php _e('Refresh'); ?></a>
    	</span>
    	<span style="float:right;padding:5px">
+   		<!-- estos elementos deben estar alineados a la derecha -->
 	   	<a id="ordensalida-checkBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-help'" onclick="reloadAndCheck()"><?php _e('Check'); ?></a>
-   		<!-- estos elementos deben estar alineados a la derecha -->
-   		<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-reload'" onclick="reloadOrdenSalida();"><?php _e('Refresh'); ?></a>
    		<a id="ordensalida-printBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(1,'#ordensalida-categoria');"><?php _e('Print'); ?></a>
 	</span>
@@ -164,8 +167,9 @@ $('#ordensalida-selection').combobox({
     label: 'Perform Action:',
     labelPosition: 'top',
     data: [
+        {value:'none',text:"<?php _e('--- Select ---'); ?>",icon:"question.png",selected:true},
         {value:'random',text:"<?php _e('Random order'); ?>",icon:"dice.png"},
-        {value:'results',text:"<?php _e('Reverse results'); ?>",icon:"endflag.png",selected:true},
+        {value:'results',text:"<?php _e('Reverse results'); ?>",icon:"endflag.png"},
         {value:'clone',text:"<?php _e('Same order'); ?>",icon:"downdown.png"},
         {value:'reverse',text:"<?php _e('Reverse order'); ?>",icon:"updown.png"},
         {value:'alpha',text:"<?php _e('Alphabetical (handlers)'); ?>",icon:"abc.png"},
@@ -175,6 +179,11 @@ $('#ordensalida-selection').combobox({
     formatter: function(row) { // add an icon to each combobox option
         var imgfile="../lib/jquery-easyui-1.4.2/themes/icons/"+row.icon;
         return '<img class="item-img" src="'+imgfile+'"/>&nbsp;<span class="item-text">'+row.text+'</span>';
+    },
+    onChange: function (nuevo,viejo) {
+        // evalOrdenSalida($('#ordensalida-selection').combobox('getValue'));
+        if (nuevo==="none") return false;
+        evalOrdenSalida(nuevo);
     }
 });
 

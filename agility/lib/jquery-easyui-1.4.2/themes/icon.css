@@ -185,7 +185,11 @@
 .icon-earth{
          background:url('icons/earth.png') no-repeat center center;
 }
+.icon-question{
+         background:url('icons/question.png') no-repeat center center;
+}
 /* end added icons */
+
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;
 }
