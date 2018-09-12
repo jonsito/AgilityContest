@@ -88,6 +88,7 @@ function saveJuez(){
     if ( $('#jueces-Nat3').is(':checked') ) fed |=8;
     if ( $('#jueces-CPC').is(':checked') ) fed |=16;
     $('#jueces-Federations').val(fed);
+
     // disable ok button during ajax transaction to avoid register twice
     $('#jueces-okBtn').linkbutton('disable');
     $.ajax({

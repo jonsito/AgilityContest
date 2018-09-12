@@ -185,6 +185,7 @@ function saveClub(){
     }
     $('#clubes-Federations').val(fed);
 
+    // disable button in ajax call to avoid recall twice
     $('#clubes-okBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',

@@ -258,6 +258,8 @@ function saveChDog(){
     $('#chperros-Operation').val('insert');
     $('#chperros-Federation').val(workingData.federation);
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+
+    $('#chperros-okBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',
         url: '../ajax/database/dogFunctions.php',
@@ -274,6 +276,12 @@ function saveChDog(){
             	$('#chperros-Search').combogrid('clear');  // clear search field
                 $('#chperros-dialog').dialog('close');    // close the dialog
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save ChPerros","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#chperros-okBtn').linkbutton('enable');
         }
     });
 }
@@ -311,7 +319,6 @@ function saveDog(){
         }
     });
 }
-
 
 /**
  * Pregunta al usuario si quiere importar o exportar a excel la lista de perros

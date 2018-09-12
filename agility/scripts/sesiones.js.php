@@ -70,6 +70,9 @@ function editSession(dg){
 function saveSession(){
     var frm = $('#sesiones-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+
+    // disable button in ajax call to avoid recall twice
+    $('#sesiones-okBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',
         url: '../ajax/database/sessionFunctions.php',
@@ -82,6 +85,12 @@ function saveSession(){
                 $('#sesiones-dialog').dialog('close');        // close the dialog
                 $('#sesiones-datagrid').datagrid('reload');    // reload the session data
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save Sesion","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#sesiones-okBtn').linkbutton('enable');
         }
     });
 }

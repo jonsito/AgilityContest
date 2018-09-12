@@ -98,6 +98,9 @@ function saveInscripcion(close) {
 	$('#edit_inscripcion-Celo').val( $('#edit_inscripcion-Celo2').is(':checked')?'1':'0');
     var frm = $('#edit_inscripcion-form');
     if (!frm.form('validate')) return;
+
+    // disable button in ajax call to avoid recall twice
+    $('#edit_inscripcion-okBtn').linkbutton('disable');
     $.ajax({
         type: 'GET',
         url: '../ajax/database/inscripcionFunctions.php',
@@ -111,6 +114,12 @@ function saveInscripcion(close) {
                 $('#inscripciones-datagrid').datagrid('reload');
             	if (close)  $('#edit_inscripcion-dialog').dialog('close');
             }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save Inscripcion","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(result) {
+            $('#edit_inscripcion-okBtn').linkbutton('enable');
         }
     });
 }
@@ -168,6 +177,7 @@ function insertInscripcion(dg) {
 	function handleInscription(rows,index,size) {
 		if (index>=size){
             // recursive call finished, clean, close and refresh
+            $('#new_inscripcion-okBtn').linkbutton('enable');
             pwindow.window('close');
             $(dg).datagrid('clearSelections');
             reloadWithSearch('#new_inscripcion-datagrid','noinscritos');
@@ -192,6 +202,10 @@ function insertInscripcion(dg) {
 			},
 			success: function(result) {
                 handleInscription(rows,index+1,size);
+            },
+            error: function(XMLHttpRequest,textStatus,errorThrown) {
+                $.messager.alert("Save Club","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+                $('#new_inscripcion-okBtn').linkbutton('enable'); // enable button and do not continue inscription chain
             }
 		});
 	}
@@ -208,6 +222,9 @@ function insertInscripcion(dg) {
     	return; // no tiene permiso para realizar inscripciones. retornar
 	}
 	pwindow.window('open');
+
+    // disable button in ajax call to avoid recall twice
+    $('#new_inscripcion-okBtn').linkbutton('disable');
 	handleInscription(selectedRows,0,size);
 }
 
