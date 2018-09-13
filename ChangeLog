@@ -1,8 +1,11 @@
-Version 3.8.1 20180904_1400
+Version 3.8.1 20180913_1040
     - Fix handling of black lists
     - Server: return 0 Db updates when version is less than 3.8.1
     - Inscripciones: fix buttons layout
     - Competición: add buttons to direct jump to another dialog
+    - "Accept" buttons: disable while working to avoid concurrency issues
+    - Rework starting order combo and button to ease use
+    - Uniformize "Reorder" button position
 Version 3.8.0 20180830_1200
     - Tablet: detect loss of connection
     - Fixes in videowall dog names
