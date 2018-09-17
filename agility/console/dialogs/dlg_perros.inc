@@ -152,7 +152,12 @@ $config =Config::getInstance();
         modal:true,
         closed:true,
         buttons:'#perros-dlg-buttons',
-        iconCls: 'icon-dog'
+        iconCls: 'icon-dog',
+        onBeforeOpen: function() {
+            // reload on expand combo
+            $('#perros-Guia').combogrid('grid').datagrid('reload');
+            return true;
+        }
     }).dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
     	if (e.keyCode === 27){
     	    $('#perros-dialog').dialog('close');
@@ -232,6 +237,10 @@ $config =Config::getInstance();
 		multiple: false,
 		fitColumns: true,
 		selectOnNavigation: false,
+        onBeforeLoad: function(param) {
+            // do not try to load if dialog is closed
+            return ! $('#perros-dialog').dialog('options').closed;
+        },
         onChange: function (newval,oldval) {
 		    var r=$('#perros-Guia').combogrid('grid').datagrid('getSelected');
             if (r) $('#perros-Club').textbox('setValue',r.NombreClub);

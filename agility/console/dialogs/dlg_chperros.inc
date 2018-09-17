@@ -113,6 +113,24 @@ $config =Config::getInstance();
     
     <script type="text/javascript">
 
+    $('#chperros-dialog').dialog({
+        width:550,
+        height:'auto',
+        closed: true,
+        buttons: '#chperros-dlg-buttons',
+        iconCls: 'icon-dog'/*,
+        onBeforeOpen: function() {
+            var grads="../ajax/database/dogFunctions.php?Operation=grados&Federation="+workingData.federation;
+            var cats="../ajax/database/dogFunctions.php?Operation=categorias&Federation="+workingData.federation;
+            $('#chperros-Grados_Perro').combobox('reload',grads);
+    		$('#chperros-Categorias_Perro').combobox('reload',cats);
+         }
+        */
+    }).dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+        if (e.keyCode === 27){ $('#chperros-dialog').dialog('close');
+        }
+    });
+
     // datos del formulario de nuevo/edit perros
     // - declaracion del formulario
     $('#chperros-form').form({
@@ -130,25 +148,7 @@ $config =Config::getInstance();
         $('#chperros-form').form('reset'); // restore to initial values
         $('#chperros-Genero').combobox('setValue','-');
     });
-    
-    // campos del formulario
-    $('#chperros-dialog').dialog({
-        width:550,
-        height:'auto',
-    	closed: true,
-    	buttons: '#chperros-dlg-buttons',
-        iconCls: 'icon-dog'/*,
-        onBeforeOpen: function() { 
-            var grads="../ajax/database/dogFunctions.php?Operation=grados&Federation="+workingData.federation;
-            var cats="../ajax/database/dogFunctions.php?Operation=categorias&Federation="+workingData.federation;
-            $('#chperros-Grados_Perro').combobox('reload',grads);
-    		$('#chperros-Categorias_Perro').combobox('reload',cats);
-        }
-        */
-    }).dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
-    	    if (e.keyCode === 27){ $('#chperros-dialog').dialog('close');
-    	}
-    });
+
 
     $('#chperros-Search').combogrid({
 		panelWidth: 350,
@@ -178,6 +178,10 @@ $config =Config::getInstance();
 			if (!idperro) return;
 	        $('#chperros-form').form('load','../ajax/database/dogFunctions.php?Operation=getbyidperro&ID='+idperro); // load form with json retrieved data
 		},
+        onBeforeLoad: function(param) {
+		    // do not try to load if dialog is closed
+            return ! $('#chperros-dialog').dialog('options').closed;
+        },
         loader: function(param,onsuccess,onerror){
             var opts = $('#chperros-Search').combogrid('options');
             if (!opts.url){return false}
@@ -228,6 +232,7 @@ $config =Config::getInstance();
 			}
 		}
     });
+
     $('#chperros-Categorias_Perro').combobox({
 		panelHeight: 'auto',
 		valueField: 'Categoria',

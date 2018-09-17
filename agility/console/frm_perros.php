@@ -144,7 +144,11 @@ $config =Config::getInstance();
 		multiple: false,
 		fitColumns: true,
 		singleSelect: true,
-		selectOnNavigation: false
+		selectOnNavigation: false,
+        onBeforeLoad: function(param) {
+            // do not try to load if dialog is closed
+            return ! $('#perros-join-dialog').dialog('options').closed;
+        }
 	});
 
         // datos de la tabla de perros

@@ -97,7 +97,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	closed:true,
             modal:true,
         	buttons:'#guias-dlg-buttons',
-        	iconCls:'icon-users'
+        	iconCls:'icon-users',
+            onBeforeOpen: function() {
+                // reload on expand combo
+                $('#guias-Club').combogrid('grid').datagrid('reload');
+                return true;
+            }
         });
         // campos del formulario
         $('#guias-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
@@ -144,6 +149,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			]],
 			multiple: false,
 			fitColumns: true,
-			selectOnNavigation: false
+			selectOnNavigation: false,
+            onBeforeLoad: function(param) {
+                // do not try to load if dialog is closed
+                return ! $('#guias-dialog').dialog('options').closed;
+            }
         });
 </script>

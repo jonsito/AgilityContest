@@ -81,6 +81,18 @@ $config =Config::getInstance();
    	</div>
    	
     <script type="text/javascript">
+
+        // datos de la ventana
+        $('#chguias-dialog').dialog( {
+            width:550,
+            height:'auto',
+            closed: true,
+            buttons: '#chguias-dlg-buttons',
+            iconCls: 'icon-users'
+        }).dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+            if (e.keyCode == 27){ $('#chguias-dialog').dialog('close');	}
+        });
+
         // datos del formulario de nuevo/edit guia
         // - declaracion del formulario
         $('#chguias-form').form();
@@ -125,6 +137,10 @@ $config =Config::getInstance();
     		fitColumns: true,
     		singleSelect: true,
     		selectOnNavigation: false ,
+            onBeforeLoad: function(param) {
+                // do not try to load if dialog is closed
+                return ! $('#chguias-dialog').dialog('options').closed;
+            },
     		onSelect: function(index,row) {
     			var id=row.ID;
     			if (id<=0) return;
@@ -132,6 +148,7 @@ $config =Config::getInstance();
     			$('#chguias-Club').val($('#chguias-newClub').val()); // restore "Club" field
     		}
     	});
+
         $('#chguias-Categoria').combobox({
             panelHeight: 'auto',
             valueField:'Categoria',
@@ -146,14 +163,4 @@ $config =Config::getInstance();
             }
         });
 
-        // datos de la ventana
-        $('#chguias-dialog').dialog( {
-            width:550,
-            height:'auto',
-            closed: true,
-            buttons: '#chguias-dlg-buttons',
-            iconCls: 'icon-users'
-    	}).dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
-    		if (e.keyCode == 27){ $('#chguias-dialog').dialog('close');	}
-    	});
 </script>
