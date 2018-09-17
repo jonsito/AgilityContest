@@ -1,119 +1,83 @@
-Iniciar sesion en un terminal como usuario "root"
- bash$ sudo bash
+INSTRUCCIONES PARA INSTALACION Y DESPLIEGUE DE AGILITYCONTEST
+EN UN SISTEMA UBUNTU
 
-# Instalar apache2
- root# apt-get install apache2
+============== Descarga de la aplicacion =======================
+Se escoge una carpeta donde descargar la aplicación desde github
+
+bash$  cd ${WORKDIR}
+bash$  git clone https://github.com/jonsito/AgilityContest
+
+============== Instalacion de la base de datos ====================
+
+# Iniciar sesion en un terminal como usuario "root"
+ bash$ sudo bash
 
 # Instalar mysql
  root# apt-get install mysql-server mysql-client
  root# mysql_install_db
  root# /usr/bin/mysql_secure_installation
 
+# Instalar la base de datos de AgilityContest
+ root# mysql -u root -p
+
+ mysql> drop database if exists agility;
+ mysql> create database agility;
+ mysql> use agility;
+ mysql> source ${WORKDIR}/AgilityContest/extras/agility.sql
+ mysql> source ${WORKDIR}/AgilityContest/extras/users.sql
+ mysql> quit
+
+ # Reiniciar mysql
+ root# service mysql restart
+
+================ Instalación de servidor web ==============
+
+# Instalar apache2
+ root# apt-get install apache2
+
 # Instalar php
  root# apt-get install libapache2-mod-php5 php5 php5-mcrypt
- root# apt-get install php5-common php5-curl php5-json php5-readline libapache2-mod-php5 php5-cgi php5-cli php5-gd php5-odbc php5-mysqlnd 
+ root# apt-get install php5-common php5-curl php5-json php5-readline libapache2-mod-php5 php5-cgi php5-cli php5-gd php5-odbc php5-mysqlnd
 
-# Ajustar dir.conf para que busque primero index.php
- root# apt-get install vim-gnome
- root# vi /etc/apache2/mods-enabled/dir.conf
-
-# Instalar phpMyAdmin
+# Instalar phpMyAdmin (opcional)
  root# apt-get install phpmyadmin
 
-# Instalar soporte de SSL para apache
- root# apt-get install libapache2-mod-gnutls
-
-# Crear certificado y editar configuracion segun las instrucciones de:
-# https://www.liberiangeek.net/2014/10/enable-self-signed-ssl-certificates-apache2-ubuntu-14-04
+Creamos un certificado para la aplicación y lo instalamos en apache
+ root# bash -c ${WORKDIR}/AgilityContest/extras/create_certificate.command
  root# mkdir -p /etc/apache2/ssl
- root# openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/server.key -out /etc/apache2/ssl/server.crt
-
-You are about to be asked to enter information that will be incorporated
-into your certificate request.
-What you are about to enter is what is called a Distinguished Name or a DN.
-There are quite a few fields but you can leave some blank
-For some fields there will be a default value,
-If you enter '.', the field will be left blank.
------
-Country Name (2 letter code) [AU]:ES
-State or Province Name (full name) [Some-State]:Spain
-Locality Name (eg, city) []:Madrid
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:AgilityContest
-Organizational Unit Name (eg, section) []:Software
-Common Name (e.g. server FQDN or YOUR name) []:virt-ubuntu1404
-Email Address []:webmaster@virt-ubuntu1404
+ root# mv /tmp/server.* /etc/apache2/ssl
 
 #editamos configuracion de ssl
  root# vi /etc/apache2/sites-available/default-ssl.conf
 [.....]
-ServerName virt-ubuntu1404
+ServerName localhost
 SSLEngine on
 SSLCertificateFile /etc/apache2/ssl/server.crt
 SSLCertificateKeyFile /etc/apache2/ssl/server.key
 [.....]
 
+# Activamos soporte SSL en el servidor
  root# a2enmod ssl
- root# a2dismod gnutls
- root# 2ensite default-ssl
-
-# editar mysql.cnf para compatibilidad de base de datos con Windows
- root# vi /etc/mysql/my.cnf
-[.....]
-[mysqld]
-... (anyadir al final de la seccion)
-lower_case_table_names = 1
-
-[mysqldump]
-[.....]
+ root# a2ensite default-ssl
 
 # Desactivar apparmor
  root#service apparmor stop
  root# update-rc.d -f apparmor remove
  root# apt-get remove apparmor apparmor-utils
 
-# Reiniciar mysql
- root# service mysql restart
+================ Despliegue de la aplicación en el servidor web ========
 
-# Descargar AgilityContest
- root# cd /var/www/html
- root# wget https://github.com/jonsito/AgilityContest/archive/master.zip
- root# unzip master.zip
- root# chown -R root.www-data AgilityContest-master
-
-# configurar Apache para que acceda al programa
- root# cp AgilityContest-master/extras/linux_httpd.conf /etc/apache2/conf-available/AgilityContest.conf
- root# vi /etc/apache2/conf-available/AgilityContest.conf
- [......]
-# Agility Contest Debug configuration for Linux Machines
-#
-# install this file into /etc/apache2/conf.d/
-# on Ubuntu systems install into /etc/apache2/conf-available
-
-Alias /agility /var/www/html/AgilityContest-master/agility
-
-<Directory /var/www/html/AgilityContest-master/agility>
-	Options FollowSymLinks Includes ExecCGI
- [......]
-
- root# a2enconf AgilityContest.conf
+# ejecutar el script de despliegue
+ root# bash ${WORKDIR}/AgilityContest/build/deploy.sh /var/www/html/AgilityContest agility
 
 # Reiniciar apache y terminar la sesion root
  root# service apache2 reload
  root# exit
  
-# comprobar que se accede a la pagina web
- bash$ firefox https://localhost/agility
+# comprobar que se accede a la web de la aplicación
+ bash$ firefox https://localhost/agility/console
+
 (Aceptar certificado de forma permantente)
-
-# Instalar la base de datos
- bas$ mysql -u root -p
-
- mysql> drop database if exists agility;
- mysql> create database agility;
- mysql> use agility;
- mysql> source /var/www/html/AgilityContest-master/extras/agility.sql
- mysql> source /var/www/html/AgilityContest-master/extras/users.sql
- mysql> quit
 
 # comprobar que desde el navegador se puede iniciar la sesion con usuario y contraseña en la aplicación.
 # !Esto es todo, amigos!
