@@ -14,8 +14,12 @@ bash$  git clone https://github.com/jonsito/AgilityContest
 
 # Instalar mysql
  root# apt-get install mysql-server mysql-client
+
+ ( para versiones antiguas de mysql )
  root# mysql_install_db
  root# /usr/bin/mysql_secure_installation
+ ( para versiones de mysql iguales o superiores a 5.7.6 )
+ root# mysqld --initialize
 
 # Instalar la base de datos de AgilityContest
  root# mysql -u root -p
