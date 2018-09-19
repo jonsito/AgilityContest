@@ -155,7 +155,7 @@ $config =Config::getInstance();
         iconCls: 'icon-dog',
         onBeforeOpen: function() {
             // reload on expand combo
-            $('#perros-Guia').combogrid('grid').datagrid('reload');
+            $('#perros-Guia').combogrid('grid').datagrid('load');
             return true;
         }
     }).dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){

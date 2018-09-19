@@ -316,7 +316,12 @@ $config =Config::getInstance();
         width:500,
         height:'auto',
         closed:true,
-        buttons:'#pruebas-dlg-buttons'
+        buttons:'#pruebas-dlg-buttons',
+        onBeforeOpen: function() {
+            // reload on expand combo
+            $('#pruebas-Club').combogrid('grid').datagrid('load');
+            return true;
+        }
     });
     $('#pruebas-Nombre').textbox({
         required: true,
@@ -381,7 +386,11 @@ $config =Config::getInstance();
 		multiple: false,
 		fitColumns: true,
 		selectOnNavigation: false,
-        onBeforeLoad: function(params) { params.Federation=$('#pruebas-Federation').combogrid('getValue'); return true; }
+        onBeforeLoad: function(params) {
+		    params.Federation=$('#pruebas-Federation').combogrid('getValue');
+            // do not try to load if dialog is closed
+            return ! $('#pruebas-dialog').dialog('options').closed;
+        }
     });
 
     // fechas

@@ -158,7 +158,12 @@ $('#competicion-datagrid').datagrid({
       	}	
     ]],
     rowStyler:competicionRowStyler,
-    onBeforeLoad: function(param) { return (workingData.manga > 0); }, // do not load if no manga selected
+    onBeforeLoad: function(param) {
+        // do not try to load if dialog is closed
+        if ( $('#competicion-dialog').dialog('options').closed ) return false;
+        // do not load if no manga selected
+        return (parseInt(workingData.manga) > 0);
+    },
 	onLoadSuccess:function(){
 		// mark no row is being edited
 		$(this).datagrid('options').editIndex=-1;

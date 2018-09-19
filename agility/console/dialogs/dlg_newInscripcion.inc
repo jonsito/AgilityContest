@@ -166,6 +166,9 @@ $('#new_inscripcion-datagrid').datagrid({
 	multiSort: true,
 	remoteSort: true,
 	pageSize: 25,
+    onBeforeLoad: function (params) {
+	    return ! $('#new_inscripcion-dialog').dialog('options').closed;
+    },
 	onDblClickRow: function(idx,row) {insertInscripcion('#new_inscripcion-datagrid'); },
 	onLoadSuccess: function(data) {
 	    // remove due to extra inscriptions problems
@@ -176,6 +179,8 @@ $('#new_inscripcion-datagrid').datagrid({
 
 // setup form on windows open
 function newInscripcion_onOpenSuccess() {
+    // fill no inscritos datagrid
+    $('#new_inscripcion-datagrid').datagrid('reload');
     // retrieve info on jornadas
 	var jornadas = $('#inscripciones-jornadas').datagrid('getData')['rows'];
 
