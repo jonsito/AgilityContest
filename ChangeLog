@@ -1,3 +1,6 @@
+Version 3.8.1 20180919_1212
+    - Optimize speed by block loading not-yet-needed combos and datagrids
+    - rewrite README for ubuntu install
 Version 3.8.1 20180913_1040
     - Fix handling of black lists
     - Server: return 0 Db updates when version is less than 3.8.1
