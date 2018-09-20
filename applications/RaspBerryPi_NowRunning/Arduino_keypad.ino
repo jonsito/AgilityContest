@@ -1,58 +1,67 @@
-/*
-  Keyboard Message test
 
-  For the Arduino Leonardo and Micro.
+/*  Keypadtest.pde
+ *
+ *  Demonstrate the simplest use of the  keypad library.
+ *
+ *  The first step is to connect your keypad to the
+ *  Arduino  using the pin numbers listed below in
+ *  rowPins[] and colPins[]. If you want to use different
+ *  pins then  you  can  change  the  numbers below to
+ *  match your setup.
+ *
+ */
+#include <Keyboard.h>
+#include <Keypad.h>
 
-  Sends a text string when a button is pressed.
+const byte ROWS = 4; // Four rows
+const byte COLS = 3; // Three columns
+// Define the Keymap
+char keys[ROWS][COLS] = {
+  {'1','2','3'},
+  {'4','5','6'},
+  {'7','8','9'},
+  {'#','0','*'}
+};
+// Don't use pin 13 (led)
+// Connect keypad ROW0, ROW1, ROW2 and ROW3 to these Arduino pins.
+byte rowPins[ROWS] = { 12,5,7,10 };
+// Connect keypad COL0, COL1 and COL2 to these Arduino pins.
+byte colPins[COLS] = { 11,4,9 }; 
+int ledState;
 
-  The circuit:
-  - pushbutton attached from pin 4 to +5V
-  - 10 kilohm resistor attached from pin 4 to ground
+// Create the Keypad
+Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
-  created 24 Oct 2011
-  modified 27 Mar 2012
-  by Tom Igoe
-  modified 11 Nov 2013
-  by Scott Fitzgerald
+#define ledpin 13
 
-  This example code is in the public domain.
-
-  http://www.arduino.cc/en/Tutorial/KeyboardMessage
-*/
-
-#include "Keyboard.h"
-
-const int buttonPin = 4;          // input pin for pushbutton
-int previousButtonState = HIGH;   // for checking the state of a pushButton
-int counter = 0;                  // button push counter
-
-void setup() {
-  // initialize digital pin LED_BUILTIN as an output.
-  pinMode(LED_BUILTIN, OUTPUT);
-  // make the pushButton pin an input:
-  pinMode(buttonPin, INPUT_PULLUP);
-  // initialize control over the keyboard:
-  Keyboard.begin();
+void setup()
+{
+  int ledState=HIGH;
+  pinMode(ledpin,OUTPUT);
+  digitalWrite(ledpin, ledState);
 }
 
-void loop() {
-  // read the pushbutton:
-  int buttonState = digitalRead(buttonPin);
-  int ledState=LOW;
-  // if the button state has changed,
-  if ((buttonState != previousButtonState)
-      // and it's currently pressed:
-      && (buttonState == HIGH)) {
-        // increment the button counter
-        counter++;
-        // type out a message
-        Keyboard.print("You pressed the button ");
-        Keyboard.print(counter);
-        Kyboard.println(" times.");
-        // change led status
-        ledState=((counter%2)==0)?LOW:HIGH;
-        digitalWrite(LED_BUILTIN, ledState);
+void loop()
+{
+  char key = kpd.getKey();
+  if(key)  // Check for a valid key.
+  {
+    switch (key)
+    {
+      case '*':
+        ledState=LOW;
+        digitalWrite(ledpin, ledState);
+        break;
+      case '#':
+        ledState=HIGH;
+        digitalWrite(ledpin, ledState);
+        break;
+      default:
+        digitalWrite(ledpin, (ledState==LOW)?HIGH:LOW);
+        delay(100);
+        Keyboard.write(key);
+        digitalWrite(ledpin,ledState);
+    }
   }
-  // save the current button state for comparison next time:
-  previousButtonState = buttonState;
 }
+
