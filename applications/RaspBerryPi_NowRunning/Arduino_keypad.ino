@@ -20,7 +20,7 @@ char keys[ROWS][COLS] = {
   {'1','2','3'},
   {'4','5','6'},
   {'7','8','9'},
-  {'#','0','*'}
+  {'*','0','#'}
 };
 // Don't use pin 13 (led)
 // Connect keypad ROW0, ROW1, ROW2 and ROW3 to these Arduino pins.
@@ -49,19 +49,20 @@ void loop()
     switch (key)
     {
       case '*':
+        key='\b';
         ledState=LOW;
         digitalWrite(ledpin, ledState);
         break;
       case '#':
+        key='\n';
         ledState=HIGH;
         digitalWrite(ledpin, ledState);
         break;
       default:
         digitalWrite(ledpin, (ledState==LOW)?HIGH:LOW);
         delay(100);
-        Keyboard.write(key);
         digitalWrite(ledpin,ledState);
     }
+    Keyboard.write(key);
   }
 }
-
