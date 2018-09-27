@@ -1203,8 +1203,7 @@ function Output($name='', $dest='')
 	}
 	switch($dest)
 	{
-		case 'I':
-			// Send to standard output
+		case 'I': // Send to standard output
 			$this->_checkoutput();
 			if(PHP_SAPI!='cli')
 			{
@@ -1216,31 +1215,29 @@ function Output($name='', $dest='')
 			}
 			echo $this->buffer;
 			break;
-		case 'D':
-			// Download file
+		case 'D': // Download file
 			$this->_checkoutput();
-			// this is to force download
-            // header('Content-Type: application/x-download');
+			// try to force browser to direct open on new window without download
+            header('Content-Type: application/x-download');
+            // header('Content-Type: application/pdf');
+            header('Content-Disposition: inline; filename="' . $name . '"');
             // header('Content-Disposition: attachment; filename="'.$name.'"');
-
-			// this is to let the browser decide what to do
-            header('Content-Type: application/pdf');
-            header('Content-Disposition: inline; filename="'.$name.'"');
-
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . strlen($this->buffer));
+            header('Accept-Ranges: bytes');
 			header('Cache-Control: private, max-age=0, must-revalidate');
 			header('Pragma: public');
+            ini_set('zlib.output_compression','0');
 			echo $this->buffer;
 			break;
-		case 'F':
-			// Save to local file
+		case 'F': // Save to local file
 			$f = fopen($name,'wb');
 			if(!$f)
 				$this->Error('Unable to create output file: '.$name);
 			fwrite($f,$this->buffer,strlen($this->buffer));
 			fclose($f);
 			break;
-		case 'S':
-			// Return as a string
+		case 'S': // Return as a string
 			return $this->buffer;
 		default:
 			$this->Error('Incorrect output destination: '.$dest);
