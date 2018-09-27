@@ -1219,8 +1219,14 @@ function Output($name='', $dest='')
 		case 'D':
 			// Download file
 			$this->_checkoutput();
-			header('Content-Type: application/x-download');
-			header('Content-Disposition: attachment; filename="'.$name.'"');
+			// this is to force download
+            // header('Content-Type: application/x-download');
+            // header('Content-Disposition: attachment; filename="'.$name.'"');
+
+			// this is to let the browser decide what to do
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: inline; filename="'.$name.'"');
+
 			header('Cache-Control: private, max-age=0, must-revalidate');
 			header('Pragma: public');
 			echo $this->buffer;
