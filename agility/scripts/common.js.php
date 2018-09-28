@@ -1137,7 +1137,7 @@ function reloadWithSearch(dg,op,clear) {
     	    where: w,
     	    Federation: fed,
             Prueba: workingData.prueba,
-            Jornada: workingData.jornada
+            Jornada: (op==='noinscritos')?0:workingData.jornada
     	} 
     );
     if (clear==true) $(dg+'-search').val('<?php _e('-- Search --'); ?>');
