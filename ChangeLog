@@ -1,3 +1,6 @@
+Version 3.8.1 20180928_1800
+    - Update database
+    - Let generated PDF's open in a new browser window (some browsers only)
 Version 3.8.1 20180919_1212
     - Optimize speed by block loading not-yet-needed combos and datagrids
     - rewrite README for ubuntu install
