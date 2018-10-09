@@ -28,7 +28,6 @@ $config =Config::getInstance();
 function prepareCompetitionDialogs(dlgname) {
     // declaramos botones comunes a todos los dialogos de la competicion
     // para poder saltar de un dialogo a otro sin tener que cerrar primero
-
     var btns= [
         {
             text:   '<?php _e("Training");?>',
@@ -64,7 +63,7 @@ function prepareCompetitionDialogs(dlgname) {
         },
         {
             text:   '<?php _e("Round results");?>',
-            iconCls:'icon-updown',
+            iconCls:'icon-endflag',
             handler:function(){
                 competicionDialog("resultadosmanga");
             },
@@ -1296,13 +1295,20 @@ function competicionDialog(name) {
     	return; // no hay ninguna manga seleccionada. retornar
     }
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada;
-    $('#entrenamientos-dialog').dialog('close');
-    $('#ordentandas-dialog').dialog('close');
-    $('#ordensalida-dialog').dialog('close');
-    $('#competicion-dialog').dialog('close');
-    $('#competicion-snooker-dialog').dialog('close');
-    $('#competicion-gambler-dialog').dialog('close');
-    $('#resultadosmanga-dialog').dialog('close');
+    var etdlg=$('#entrenamientos-dialog');
+    var otdlg=$('#ordentandas-dialog');
+    var osdlg=$('#ordensalida-dialog');
+    var cpdlg=$('#competicion-dialog');
+    var cpsdlg=$('#competicion-snooker-dialog');
+    var cpgdlg=$('#competicion-gambler-dialog');
+    var rsdlg=$('#resultadosmanga-dialog');
+    if (etdlg && ! etdlg.dialog('options').closed ) etdlg.dialog('close');
+    if (otdlg && ! otdlg.dialog('options').closed ) otdlg.dialog('close');
+    if (osdlg && ! osdlg.dialog('options').closed ) osdlg.dialog('close');
+    if (cpdlg && ! cpdlg.dialog('options').closed ) cpdlg.dialog('close');
+    cpsdlg.dialog('close'); // may not be declared (yet) as easyui dialog PENDING
+    cpgdlg.dialog('close'); // may not be declared (yet) as easyui dialog PENDING
+    if (rsdlg && ! rsdlg.dialog('options').closed ) rsdlg.dialog('close');
     if (name==='entrenamientos') {
         check_permissions(access_perms.ENABLE_TRAINING,function(res) {
             if (res.errorMsg) {
