@@ -241,7 +241,7 @@ function showFinalScoresByTeam(parent,idx,row) {
         var competitor=workingData.individual[n];
         if (competitor['Equipo']!=row.ID) continue;
         datos.push(competitor);
-        if (datos.length>=maxdogs) break; // to speedup parsing data
+        // if (datos.length>=maxdogs) break; // to speedup parsing data
     }
     // deploy datagrid
     $(mySelf).datagrid({

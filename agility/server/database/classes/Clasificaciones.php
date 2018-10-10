@@ -308,9 +308,10 @@ class Clasificaciones extends DBObject {
      * @param {array} $r2 datos de la manga 2
      * @param {array} $c clasificacion final (individual)
      * @param {integer} $mindogs perros que contabilizan
+     * @param {integer} $maxdogs perros que contabilizan
      * @param {integer} $mode modo de la prueba
      */
-	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$mode) {
+	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$maxdogs,$mode) {
 
         // indexamos las clasificaciones por id de perro
         $indexedc=array();
@@ -346,6 +347,17 @@ class Clasificaciones extends DBObject {
             $indexedc[$resultado['Perro']]['Out1']=0; // marcar para imprimir en negro
             if ($teams[$eq]['C1']>=$mindogs) {
                 $indexedc[$resultado['Perro']]['Out1']=1; // marcar para imprimir en gris
+
+                if ($teams[$eq]['C1']>=$maxdogs) { // si hay mas de maxdogs
+                    // y el perro no esta marcado como "no presentado"
+                    if ($resultado['Penalizacion']<200) {
+                        // equipo descalificado
+                        $teams[$eq]['T1']=0;
+                        $teams[$eq]['P1']=400*$mindogs;
+                        $teams[$eq]['Tiempo']=0;
+                        $teams[$eq]['Penalizacion']+=400*$mindogs;
+                    }
+                }
                 continue;
             }
             // llegando aqui hay que calcular los puntos de equipo, y si tienen tiempo valido
@@ -355,9 +367,9 @@ class Clasificaciones extends DBObject {
             $teams[$eq]['P1']+=$resultado['Penalizacion'];
             $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
             $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
-            // en el caso de que algun perro dentro de mindogs se haya eliminado, se marca
+            // en el caso de que algun perro dentro de mindogs sea no presentado, se marca
             // pues hay que tenerlo en cuenta para evaluar el tiempo del equipo
-            if ( (intval($resultado['Eliminado'])!==0) || (intval($resultado['NoPresentado'])!==0) ) {
+            if ( (intval($resultado['NoPresentado'])!==0) ) {
                 $teams[$eq]['Outs1']++;
             }
 			// cogemos como logo del equipo el logo del primer perro que encontremos de dicho equipo
@@ -371,10 +383,21 @@ class Clasificaciones extends DBObject {
                 continue;
             }
             // si ya hemos registrado "mindogs" en el equipo, los siguientes perros del equipo no puntuan
+            // anyadimos una marca "Out2" para que salgan en gris en el listado
             $indexedc[$resultado['Perro']]['Out2']=0; // marcar para imprimir en negro
             // anyadimos una marca "Out2" para que salgan en gris en el listado
             if ($teams[$eq]['C2']>=$mindogs) {
                 $indexedc[$resultado['Perro']]['Out2']=1; // marcar para imprimir en gris
+                if ($teams[$eq]['C2']>=$maxdogs) { // si hay mas de maxdogs
+                    // y el perro no esta marcado como "no presentado"
+                    if ($resultado['Penalizacion']<200) {
+                        // equipo descalificado
+                        $teams[$eq]['T2']=0;
+                        $teams[$eq]['P2']=400*$mindogs;
+                        $teams[$eq]['Tiempo']=0;
+                        $teams[$eq]['Penalizacion']+=400*$mindogs;
+                    }
+                }
                 continue;
             }
             // llegando aqui hay que calcular los puntos de equipo, y si tienen tiempo valido
@@ -384,9 +407,9 @@ class Clasificaciones extends DBObject {
             $teams[$eq]['P2']+=$resultado['Penalizacion'];
             $teams[$eq]['Tiempo']+=$resultado['Tiempo'];
             $teams[$eq]['Penalizacion']+=$resultado['Penalizacion'];
-            // en el caso de que algun perro dentro de mindogs se haya eliminado, se marca
+            // en el caso de que algun perro dentro de mindogs sea no presentado se marca
             // pues hay que tenerlo en cuenta para evaluar el tiempo del equipo
-            if ( (intval($resultado['Eliminado'])!==0) || (intval($resultado['NoPresentado'])!==0) ) {
+            if ( (intval($resultado['NoPresentado'])!==0) ) {
                 $teams[$eq]['Outs2']++;
             }
 			// cogemos como logo del equipo el logo del primer perro que encontremos de dicho equipo
@@ -581,7 +604,7 @@ class Clasificaciones extends DBObject {
         $result['trs1']=$res['trs2'];
         $result['trs2']=$res['trs1'];
         $result['jueces']=$res['jueces'];
-        $result['equipos']=$this->evalFinalEquipos($c1,$c2,$result['individual'],$mindogs,$mode);
+        $result['equipos']=$this->evalFinalEquipos($c1,$c2,$result['individual'],$mindogs,$maxdogs,$mode);
         $result['total']=count($result['equipos']);
         if (array_key_exists('current',$res)) $result['current']=$res['current'];
         return $result;

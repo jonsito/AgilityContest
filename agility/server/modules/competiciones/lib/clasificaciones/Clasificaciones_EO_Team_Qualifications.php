@@ -202,9 +202,10 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
      * @param {array} $r2 datos de la manga 2
      * @param {array} $c clasificacion final (individual)
      * @param {integer} $mindogs perros que contabilizan
+     * @param {integer} $maxdogs perros que contabilizan
      * @param {integer} $mode modo de la prueba
      */
-	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$mode) {
+	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$maxdogs,$mode) {
         // Datos de equipos de la jornada
         $eobj=new Equipos("evalFinalEquipos",$this->prueba->ID,$this->jornada->ID);
         $tbj=$eobj->getTeamsByJornada();

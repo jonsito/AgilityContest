@@ -181,7 +181,7 @@ class PrintClasificacionTeam extends PrintCommon {
 		$this->print_commonFooter();
 	}
 
-    function printTeamInformation($teamcount,$numrows,$team) {
+    function printTeamInformation($teamcount,$team) {
         // evaluate logos
         $logos=array('null.png','null.png','null.png','null.png');
         if ($team['Nombre']==="-- Sin asignar --") {
@@ -194,8 +194,6 @@ class PrintClasificacionTeam extends PrintCommon {
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
-        $offset=($this->PageNo()==1)?60:( strstr($this->headerTitle,_("Podium"))!==FALSE )?60:40;
-        $this->SetXY(10,$offset+33*($teamcount%$numrows));
         $this->ac_header(1,18);
 		$this->Cell(15,8,strval(1+$teamcount)." -",'LT',0,'C',true); // imprime puesto del equipo
 		$x=$this->getX();
@@ -349,7 +347,7 @@ class PrintClasificacionTeam extends PrintCommon {
 			$this->SetFont($this->getFontName(),'B',8); // mark "puesto" in bold typeface
 			$this->Cell(7,4,$puesto,'R',0,'C',true);	// Puesto
 		}
-        // equipos
+        // datos de la global por equipos
         $this->ac_header(2,8);
         switch($idx){
             case 0: // manga 1
@@ -383,12 +381,12 @@ class PrintClasificacionTeam extends PrintCommon {
                 $this->Cell(12,4,$team['Puntos'],'RB',0,'R',true);	// penalizacion final
                 break;
         }
-		$this->Ln();
+		$this->Ln(4);
 	}
 
     /**
      * Imprime la tabla de clasificaciones hasta un maximo de $limit entradas
-     * @param int $limit. 0:any; else print number of rows
+     * @param int $limit. 0:any; else print number teams ( used in podium )
      */
     function composeTable($limit=0) {
         $this->myLogger->enter();
@@ -398,23 +396,27 @@ class PrintClasificacionTeam extends PrintCommon {
 
         // Datos
         $teamcount=0;
-
+        $this->AddPage();
+        $this->SetXY(10,60);
         foreach($this->equipos as $equipo) {
             if ( ($limit!=0) && ($teamcount>=$limit) ) break;
-            $numrows=4; // no space for 5 teams/page
-            // $numrows=($this->PageNo()==1)?4:4;
+            $numdogs=count($equipo['Perros']);
+            $this->myLogger->trace("Equipo: {$equipo['Nombre']} numdogs: {$numdogs}");
             // si el equipo no tiene participantes es que la categoria no es válida: skip
-            if (count($equipo['Perros'])==0) continue;
-            // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-            if( ($teamcount%$numrows) == 0 ) { // assume 40mmts/team)
+            if ($numdogs==0) continue;
+            $size=2/*newline*/+8/*teaminfo*/+8/*header*/+4*$numdogs;
+            // si no nos va a caber el equipo, saltamos pagina
+            $y=$this->GetY();
+
+            if ($y+$size>200) {
                 $this->AddPage();
+                $this->SetXY(10,40);
             }
-            // evaluate puesto del equipo
             // $this->myLogger->trace("imprimiendo datos del equipo {$equipo['ID']} - {$equipo['Nombre']}");
-            $this->printTeamInformation($teamcount,$numrows,$equipo);
-            $this->writeTableHeader();
-            // print team header/data
-            for ($n=0;$n<4;$n++) { // allways use 4 cells regardless mindogs
+            $this->printTeamInformation($teamcount,$equipo);
+            $this->writeTableHeader(); // print team header/data
+            $count=max(4,count($equipo['Perros']));
+            for ($n=0;$n<$count;$n++) { // allways use at least 4 cells
                 // con independencia de los perros del equipo imprimiremos siempre 4 columnas
                 $row=$this->defaultPerro;
                 if (array_key_exists($n,$equipo['Perros'])) $row=$equipo['Perros'][$n];
@@ -423,6 +425,7 @@ class PrintClasificacionTeam extends PrintCommon {
                 $this->writeCell($n,$row,$equipo);
             }
             $teamcount++;
+            $this->Ln(2); // extra space between teams
         }
         $this->myLogger->leave();
     }

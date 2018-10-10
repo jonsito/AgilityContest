@@ -801,19 +801,31 @@ class Resultados extends DBObject {
             $equipo=&$equipos[$teamid];
             array_push($equipo['Resultados'],$result);
             // suma el tiempo y penalizaciones de los tres/cuatro primeros
-            if (count($equipo['Resultados'])<=$mindogs) {
+            $numdogs=count($equipo['Resultados']);
+            if ($numdogs<=$mindogs) {
+                // apunta resultado
                 $equipo['Tiempo']+=floatval($result['Tiempo']);
                 $equipo['Penalizacion']+=floatval($result['Penalizacion']);
                 if ($result['Penalizacion']>=100) $equipo['Eliminados']++;
+            }
+            if($numdogs>$maxdogs) {
+                if ($result['Penalizacion']<200) {
+                    // mas resultados de lo permitido: equipo eliminado
+                    $this->myLogger->info("Team {$equipo['Nombre']} excess Dogs:{$numdogs}. Disqualified");
+                    $equipo['Tiempo']=0.0;
+                    $equipo['Penalizacion']=400*$mindogs; // todos no presentados, por listos
+                    $equipo['Eliminados']=$mindogs;
+                }
             }
         }
 
         // rastrea los equipos con menos de $mindogs participantes y marca los que faltan
         // no presentados
         $teams=array();
-        $this->myLogger->trace("Hola");
         foreach($equipos as &$equipo) {
-            switch(count($equipo['Resultados'])){
+            $numdogs=count($equipo['Resultados']);
+            $this->myLogger->trace("Checking NumDogs {$equipo['Nombre']} : {$numdogs}");
+            switch($numdogs){
                 case 0: continue; // ignore team
 					break;
                 case 1: $equipo['Penalizacion']+=400.0; // required team member undeclared
@@ -822,7 +834,10 @@ class Resultados extends DBObject {
                 // no break;
                 case 3: if ($mindogs==4) $equipo['Penalizacion']+=400.0; // required team member undeclared
                 // no break;
-                case 4:
+                default:
+                    if($numdogs>$maxdogs) {
+                        $this->myLogger->warn("Equipo {$equipo['ID']} : '{$equipo['Nombre']}' con exceso de participantes:".count($equipo['Resultados']));
+                    }
                     $t4m=intval($this->myConfig->getEnv('team4_mode'));
                     $this->myLogger->trace("team4 mode is: $t4m");
                     // in team4 check what to do in Team4mode when a team member is eliminated
@@ -839,10 +854,6 @@ class Resultados extends DBObject {
                         }
                     }
                     array_push($teams,$equipo); // add team to result to remove unused/empty teams
-                    break;
-                default:
-                    $myLogger=new Logger("Resultados::getTreamResults()");
-                    $myLogger->error("Equipo {$equipo['ID']} : '{$equipo['Nombre']}' con exceso de participantes:".count($equipo['Resultados']));
                     break;
             }
         }
