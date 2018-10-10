@@ -120,7 +120,7 @@ class PrintClasificacionTeam extends PrintCommon {
         $this->Ln(6);
         $this->Cell(80,6,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
         $this->Ln(6);
-        $ronda=$this->getGradoString(intval($this->manga1->Tipo)); // todas las mangas comparten grado
+        $ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
         $this->Cell(80,6,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
 
         // ahora los datos de cada manga individual

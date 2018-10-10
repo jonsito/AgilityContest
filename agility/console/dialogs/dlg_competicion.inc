@@ -64,7 +64,7 @@ $('#competicion-dialog').dialog({
 		if (editIndex<0) {
 			// disable autoupdate if any
 			$('#competicion-autoUpdateBtn').prop('checked',false);
-			autoUpdateCompeticion();
+			setTimeout(function() {autoUpdateCompeticion()},0);
 			return true;
 		}
 		// do not allow close on editing active
