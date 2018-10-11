@@ -348,7 +348,7 @@ class Clasificaciones extends DBObject {
             if ($teams[$eq]['C1']>=$mindogs) {
                 $indexedc[$resultado['Perro']]['Out1']=1; // marcar para imprimir en gris
                 $teams[$eq]['C1']++;
-                if ($teams[$eq]['C1']>=$maxdogs) { // si hay mas de maxdogs
+                if ($teams[$eq]['C1']>$maxdogs) { // si hay mas de maxdogs
                     // y el perro no esta marcado como "no presentado"
                     if ($resultado['Penalizacion']<200) {
                         // equipo descalificado
@@ -389,7 +389,7 @@ class Clasificaciones extends DBObject {
             if ($teams[$eq]['C2']>=$mindogs) {
                 $indexedc[$resultado['Perro']]['Out2']=1; // marcar para imprimir en gris
                 $teams[$eq]['C2']++;
-                if ($teams[$eq]['C2']>=$maxdogs) { // si hay mas de maxdogs
+                if ($teams[$eq]['C2']>$maxdogs) { // si hay mas de maxdogs
                     // y el perro no esta marcado como "no presentado"
                     if ($resultado['Penalizacion']<200) {
                         // equipo descalificado
