@@ -359,6 +359,8 @@ addTooltip($('#ordensalida-eqBtn').linkbutton(),'<?php _e("Manual setting of tea
 addTooltip($('#ordensalida-printBtn').linkbutton(),'<?php _e("Print starting order"); ?>');
 addTooltip($('#ordensalida-reloadBtn').linkbutton(),'<?php _e("Reload starting order. Update window"); ?>');
 addTooltip($('#ordensalida-categoria').combobox('textbox'),'<?php _e("Select categories to work with"); ?>');
+addTooltip($('#ordensalida-selection').combobox('textbox'),'<?php _e("Select sorting order"); ?>');
+addTooltip($('#ordensalida-rango').textbox('textbox'),'<?php _e("Select dorsal range to apply sort process"); ?>');
 addTooltip($('#ordensalida-excel-okBtn').linkbutton(),'<?php _e("Import round result data from selected Excel file"); ?>');
 addTooltip($('#ordensalida-excel-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 addTooltip($('#ordensalida-reorder-okBtn').linkbutton(),'<?php _e("Move dogs to new provided starting order"); ?>');
