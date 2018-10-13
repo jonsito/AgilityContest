@@ -509,10 +509,14 @@ class MailManager {
                     // miramos si es una prueba por equipos
                     // PENDING: de momento no vamos a generar excel para parciales por equipos
                     case 8: case 13:
-                        $pdf=new PrintResultadosByEquipos3($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resobj,$m['Mode']);
+                        $pdf=new PrintResultadosByEquipos3(
+                            $this->myData['Prueba'],$this->myData['Jornada'],$manga,$resobj,$m['Mode'],_('Partial Scores')
+                        );
                         break;
                     case 9: case 14:
-                        $pdf=new PrintResultadosByEquipos4($this->myData['Prueba'],$this->myData['Jornada'],$manga,$resobj,$m['Mode']);
+                        $pdf=new PrintResultadosByEquipos4(
+                            $this->myData['Prueba'],$this->myData['Jornada'],$manga,$resobj,$m['Mode'],_('Partial Scores')
+                        );
                         break;
                     case 1: case 2: // pre-agility
                         if ($this->myData['SendPreAgility']==0) continue;
