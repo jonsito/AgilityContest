@@ -106,6 +106,11 @@ class Puntuable_RFEC_2018 extends Competitions {
     public function evalPartialCalification($m,&$perro,$puestocat) {
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
+
+        $tipo=$m->Tipo;
+        if (($tipo==8) || ($tipo==9) || ($tipo==13)|| ($tipo==14)) { // equipos
+            return parent::evalPartialCalification($m,$perro,$puestocat);
+        }
         if ($grad!=="GII") { // solo se puntua en grado II
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;
