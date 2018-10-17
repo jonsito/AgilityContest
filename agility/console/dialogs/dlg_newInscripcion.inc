@@ -93,7 +93,7 @@ $config =Config::getInstance();
 		<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-ok'" onclick="insertInscripcion('#new_inscripcion-datagrid')"><?php _e('Inscribe'); ?></a>
    		<a id="new_inscripcion-doneBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-cancel'" onclick="$('#new_inscripcion-dialog').dialog('close')"><?php _e('Done'); ?></a>
+   			data-options="iconCls:'icon-cancel'" onclick="$('#new_inscripcion-dialog').dialog('close')"><?php _e('Done.'); ?></a>
    	</span>
 </div>
 

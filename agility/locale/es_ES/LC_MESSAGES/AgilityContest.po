@@ -2923,7 +2923,7 @@ msgstr "Inscribir"
 #: console/dialogs/dlg_remotecontrol.inc:267 console/frm_equipos.php:58
 #: scripts/admin.js.php:572 scripts/auth.js.php:73
 #: scripts/results_and_scores.js.php:164 scripts/webhost.js.php:120
-msgid "Done"
+msgid "Done."
 msgstr "Hecho"
 
 #: console/dialogs/dlg_newInscripcion.inc:102

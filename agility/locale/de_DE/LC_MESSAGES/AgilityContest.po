@@ -1605,7 +1605,7 @@ msgid "Delete"
 msgstr "Löschen"
 
 #: console/frm_equipos.php:55 console/dialogs/dlg_newInscripcion.inc:95
-msgid "Done"
+msgid "Done."
 msgstr "Fertig"
 
 #: console/frm_equipos.php:100 console/frm_inscripciones.php:43

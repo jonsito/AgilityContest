@@ -1450,7 +1450,7 @@ msgid "Delete"
 msgstr "Törlés"
 
 #: console/frm_equipos.php:56 console/dialogs/dlg_newInscripcion.inc:96
-msgid "Done"
+msgid "Done."
 msgstr "Kész"
 
 #: console/frm_equipos.php:101 console/frm_inscripciones.php:43

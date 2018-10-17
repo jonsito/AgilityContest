@@ -70,7 +70,7 @@ function askForUpdateDB() {
                             Value: ac_config.search_updatedb
                         },
                         success: function(res) {
-                            $.messager.alert({ width:300, height:'auto', title: '<?php _e('Done'); ?>', msg: '<?php _e('Configuration saved');?>' });
+                            $.messager.alert({ width:300, height:'auto', title: '<?php _e('Done.'); ?>', msg: '<?php _e('Configuration saved');?>' });
                         },
                         error: function(XMLHttpRequest,textStatus,errorThrown) {
                             $.messager.alert("Error: "+oper,"Error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,'error' );

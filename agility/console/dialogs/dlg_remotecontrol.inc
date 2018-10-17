@@ -264,7 +264,7 @@ $am=AuthManager::getInstance("Chrono");
         </span>
         <span style="float:right;">
         <a id="remote-okBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-ok'" onclick=" $('#remote-dialog').dialog('close');"><?php _e('Done'); ?></a>
+           data-options="iconCls:'icon-ok'" onclick=" $('#remote-dialog').dialog('close');"><?php _e('Done.'); ?></a>
         </span>
     </div>
 

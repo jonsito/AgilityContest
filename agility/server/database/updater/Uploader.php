@@ -226,7 +226,7 @@ class Uploader {
             if (array_key_exists('errorMsg',$res)){
                 $this->myLogger->error($res['errorMsg']);
                 $this->reportProgress("Error");
-                $this->reportProgress("Done");
+                $this->reportProgress("Done.");
                 return $res;
             }
             if (array_key_exists('Jueces',$res)){
@@ -266,7 +266,7 @@ class Uploader {
         } else {
             $this->reportProgress(_("Could not receive updates from server. Abort"));
         }
-        $this->reportProgress("Done");
+        $this->reportProgress("Done.");
         return $res;
     }
 

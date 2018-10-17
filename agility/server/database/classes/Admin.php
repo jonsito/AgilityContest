@@ -450,7 +450,7 @@ class Admin extends DBObject {
             $key= base64_encode(substr("{$this->bckLicense}{$this->bckRevision}{$this->bckDate}",-32));
             // check key hash
             if ($keystr!== hash("md5",$key,false)) {
-                $this->handleSession("Done");
+                $this->handleSession("Done.");
                 throw new Exception("Restore failed: Key hash does not match");
             }
             $data=SimpleCrypt::decrypt($data,$key);
@@ -489,7 +489,7 @@ class Admin extends DBObject {
                 $templine = '';
             }
         }
-		$this->handleSession("Done");
+		$this->handleSession("Done.");
         $this->myLogger->info("database restore success");
         return "";
     }
@@ -504,18 +504,18 @@ class Admin extends DBObject {
         // we need root database access to re-create tables
         $rconn=DBConnection::getRootConnection();
         if ($rconn->connect_error) {
-            $this->handleSession("Done");
+            $this->handleSession("Done.");
             throw new Exception("Cannot perform upgrade process: database::dbConnect()");
         }
 		// phase 1: retrieve file from http request
         $data=$this->retrieveDBFile();
         if (is_array($data)){
-            $this->handleSession("Done");
+            $this->handleSession("Done.");
             throw new Exception($data['errorMsg']);
         }
         // phase 2: verify received file
 		if (strpos(substr($data,0,25),"-- AgilityContest")===FALSE) {
-            $this->handleSession("Done");
+            $this->handleSession("Done.");
             throw new Exception("Provided file is not an AgilityContest database file");
         }
         // phase 3: delete all tables and structures from database
@@ -676,7 +676,7 @@ class Admin extends DBObject {
 		if(!$fp) {
         	$errors= error_get_last();
         	$res="Create upgrade file error:{$errors['type']} {$errors['message']}";
-            $this->handleSession("Done");
+            $this->handleSession("Done.");
         	return $res;
     	}
         $ch = curl_init(str_replace(" ","%20",$source)); //Here is the file we are downloading, replace spaces with %20
@@ -691,7 +691,7 @@ class Admin extends DBObject {
         curl_setopt($ch, CURLOPT_BUFFERSIZE, (1024*1024*4)); // set buffer to 4Mb
         if ( curl_exec($ch) === false ) { // get curl response
             $res="Upgrade download error: ".curl_error($ch);
-            $this->handleSession("Done");
+            $this->handleSession("Done.");
             return $res;
 		}
         curl_close($ch);
@@ -710,7 +710,7 @@ class Admin extends DBObject {
         }
         $zip->close();
         $this->handleSession($res);
-        $this->handleSession("Done");
+        $this->handleSession("Done.");
         $this->myLogger->leave();
         return $res;
 	}

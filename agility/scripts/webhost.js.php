@@ -117,7 +117,7 @@ function wh_checkAndInstall() {
                 } else {
                     // show OK message
                     str="<?php _e("Initialization done. Press OK to start first launch"); ?>"
-                    $.messager.alert('<?php _e("Done"); ?>', str , "info");
+                    $.messager.alert('<?php _e("Done."); ?>', str , "info");
                     // close setup window
                     $('#install-window').window('close');
                     // and launch installdb initial page

@@ -31,7 +31,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 /**
  * Class RawPrinter
- * Used to translate "Done" event to raw printer if available and enabled
+ * Used to translate "Done." event to raw printer if available and enabled
  * So the user can obtain a raw non-modifiable copy of what's is being done from tablet
  */
 class RawPrinter {

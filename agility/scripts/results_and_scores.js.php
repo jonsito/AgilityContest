@@ -161,7 +161,7 @@ function perform_emailScores() {
             if (result.errorMsg) {
                 $.messager.alert({width:350, height:150, title:'<?php _e('Error'); ?>',msg: result.errorMsg,icon:'error' });
             } else {
-                $.messager.alert({width:300, height:150, title:'<?php _e('Done'); ?>',msg:'<?php _e('Mail successfully sent'); ?>' ,icon:'info' });
+                $.messager.alert({width:300, height:150, title:'<?php _e('Done.'); ?>',msg:'<?php _e('Mail successfully sent'); ?>' ,icon:'info' });
             }
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {

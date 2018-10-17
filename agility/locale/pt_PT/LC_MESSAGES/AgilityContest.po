@@ -2573,7 +2573,7 @@ msgstr "Inscrever"
 #: console/dialogs/dlg_newInscripcion.inc:96
 #: console/dialogs/dlg_remotecontrol.inc:268 console/frm_equipos.php:56
 #: scripts/results_and_scores.js.php:151
-msgid "Done"
+msgid "Done."
 msgstr "Feito"
 
 #: console/dialogs/dlg_newInscripcion.inc:102

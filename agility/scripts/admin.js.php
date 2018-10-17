@@ -318,7 +318,7 @@ function restoreDatabase(fromClient){
                                 Suffix: suffix
                             },
                             success: function(data) {
-                                if(data.progress!=="Done"){
+                                if(data.progress!=="Done."){
                                     setProgressValue(data.progress);
                                     setTimeout(getProgress,200);
                                 } else {
@@ -472,7 +472,7 @@ function askForUpgrade(msg,name,release){
                         },
                         success: function(data) {
                             var value=data.progress;
-                            if(value!=="Done"){
+                            if(value!=="Done."){
                                 var bar=$.messager.progress('bar');
                                 bar.progressbar('setValue', value);  // set new progress value
                                 setTimeout(getProgress,2000);
@@ -569,7 +569,7 @@ function synchronizeDatabase(warnifnotallowed) {
             }
             if (data.success) {
                 msg = '<p><?php _e("Database is synced with server"); ?></p>';
-                $.messager.alert("<?php _e('Done');?>",msg,"info");
+                $.messager.alert("<?php _e('Done.');?>",msg,"info");
                 checkForDatabaseUpdates();
             }
             $.messager.progress('close');
@@ -600,7 +600,7 @@ function synchronizeDatabase(warnifnotallowed) {
             },
             success: function(data) {
                 var value=data.progress;
-                if( (value!=="Done") && (value!=="Failed") ) {
+                if( (value!=="Done.") && (value!=="Failed") ) {
                     var bar=$.messager.progress('bar');
                     bar.progressbar('setValue', value);  // set new progress value
                     setTimeout(getProgress,2000);

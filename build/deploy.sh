@@ -106,7 +106,7 @@ case `grep -e '^ID=' /etc/os-release` in
         systemctl restart httpd
         ;;
 esac
-echo "Done"
+echo "Done."
 
 # directories to preserve ( copy from backup )
 echo "Preserve directories..."

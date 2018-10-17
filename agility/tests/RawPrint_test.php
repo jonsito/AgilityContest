@@ -17,5 +17,5 @@ $printer->text($data."\n");
 $printer->cut();
 $printer->close();
 
-echo "Done";
+echo "Done.";
 ?>

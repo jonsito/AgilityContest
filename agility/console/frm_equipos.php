@@ -55,7 +55,7 @@ $config =Config::getInstance();
 <div id="team_datagrid-buttons" style="width:100%;display:inline-block">
 	<span style="float:right;padding:5px">
    		<a id="team_datagrid-doneBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
-   			onclick="$('#team_datagrid-dialog').dialog('close')"><?php _e('Done'); ?></a>
+   			onclick="$('#team_datagrid-dialog').dialog('close')"><?php _e('Done.'); ?></a>
    	</span>
 </div>
  
