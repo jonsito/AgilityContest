@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2018-10-11 16:21+0200\n"
-"PO-Revision-Date: 2018-10-11 16:22+0200\n"
+"POT-Creation-Date: 2018-10-17 13:37+0200\n"
+"PO-Revision-Date: 2018-10-17 13:48+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -67,7 +67,7 @@ msgstr "Entrada de datos"
 msgid "Competitors list (personalized)"
 msgstr "Lista de participantes (personalizada)"
 
-#: ajax/pdf/print_inscritosByPrueba.php:69 scripts/inscripciones.js.php:566
+#: ajax/pdf/print_inscritosByPrueba.php:69 scripts/inscripciones.js.php:575
 msgid "Handlers with more than one dog"
 msgstr "Guías con más de un perro"
 
@@ -95,7 +95,7 @@ msgstr "Resultados de la manga"
 #: public/pbmenu_parciales.php:44 public/pbmenu_parciales_equipos.php:44
 #: scripts/printer.js.php:353 scripts/printer.js.php:367
 #: scripts/sesiones.js.php:169 scripts/sesiones.js.php:182
-#: scripts/sesiones.js.php:187 server/mail/MailManager.php:529
+#: scripts/sesiones.js.php:187 server/mail/MailManager.php:533
 #: videowall/index.php:244 videowall/index.php:248
 #: videowall/vw_parciales.php:43 videowall/vwc_parciales.php:51
 msgid "Partial scores"
@@ -443,7 +443,7 @@ msgstr "Reh&uacute;se"
 #: server/modules/competiciones/Liga_UCA.php:41
 #: server/modules/competiciones/Puntuable_CPC_2018.php:126
 #: server/modules/competiciones/Puntuable_FMC_2018.php:86
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:142
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:147
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:72
 #: server/modules/competiciones/SelectivaWAO_Games.php:92
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:98
@@ -482,10 +482,10 @@ msgstr "Eliminado"
 #: scripts/equipos.js.php:123 scripts/equipos.js.php:401
 #: scripts/guias.js.php:87 scripts/guias.js.php:196 scripts/guias.js.php:223
 #: scripts/guias.js.php:261 scripts/guias.js.php:299 scripts/import.js.php:512
-#: scripts/inscripciones.js.php:64 scripts/inscripciones.js.php:111
-#: scripts/inscripciones.js.php:254 scripts/inscripciones.js.php:290
-#: scripts/inscripciones.js.php:324 scripts/inscripciones.js.php:355
-#: scripts/inscripciones.js.php:442 scripts/jueces.js.php:101
+#: scripts/inscripciones.js.php:66 scripts/inscripciones.js.php:120
+#: scripts/inscripciones.js.php:263 scripts/inscripciones.js.php:299
+#: scripts/inscripciones.js.php:333 scripts/inscripciones.js.php:364
+#: scripts/inscripciones.js.php:451 scripts/jueces.js.php:101
 #: scripts/perros.js.php:187 scripts/perros.js.php:207
 #: scripts/perros.js.php:216 scripts/perros.js.php:270
 #: scripts/perros.js.php:305 scripts/printer.js.php:499
@@ -575,7 +575,7 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 #: server/modules/competiciones/Liga_UCA.php:42
 #: server/modules/competiciones/Puntuable_CPC_2018.php:127
 #: server/modules/competiciones/Puntuable_FMC_2018.php:87
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:143
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:148
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:73
 #: server/modules/competiciones/SelectivaWAO_Games.php:93
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:99
@@ -1340,7 +1340,7 @@ msgstr "Tiempo"
 #: server/modules/competiciones/Liga_UCA.php:37
 #: server/modules/competiciones/Puntuable_CPC_2018.php:122
 #: server/modules/competiciones/Puntuable_FMC_2018.php:82
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:138
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:143
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:68
 #: server/modules/competiciones/SelectivaWAO_Games.php:96
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:94
@@ -2460,7 +2460,7 @@ msgstr "Recuperada configuraci&oacute;n por defecto"
 
 #: console/dialogs/dlg_configuracion.inc:772
 msgid "Downloading configuration, please wait"
-msgstr "Descargando fichero de configuraci&oacute;n. Espere..."
+msgstr "Descargando fichero de configuraci&oacute;n. Espere"
 
 #: console/dialogs/dlg_configuracion.inc:773
 msgid "There was a problem in configuration download. Please try again"
@@ -2900,7 +2900,7 @@ msgstr "Registrar informaci&oacute;n del juez en la base de datos"
 #: scripts/common.js.php:1110 scripts/common.js.php:1131
 #: scripts/common.js.php:1143 scripts/equipos.js.php:28
 #: scripts/equipos.js.php:189 scripts/guias.js.php:96 scripts/guias.js.php:110
-#: scripts/inscripciones.js.php:533 scripts/jueces.js.php:44
+#: scripts/inscripciones.js.php:542 scripts/jueces.js.php:44
 #: scripts/perros.js.php:28 scripts/perros.js.php:41 scripts/pruebas.js.php:53
 #: scripts/sesiones.js.php:35 scripts/usuarios.js.php:47 server/tools.php:380
 msgid "-- Search --"
@@ -2924,13 +2924,13 @@ msgstr "Inscribir"
 #: scripts/admin.js.php:572 scripts/auth.js.php:73
 #: scripts/results_and_scores.js.php:164 scripts/webhost.js.php:120
 msgid "Done."
-msgstr "Hecho"
+msgstr "Hecho."
 
 #: console/dialogs/dlg_newInscripcion.inc:102
 msgid "Processing inscriptions"
 msgstr "Procesando inscripciones"
 
-#: console/dialogs/dlg_newInscripcion.inc:103 scripts/inscripciones.js.php:187
+#: console/dialogs/dlg_newInscripcion.inc:103 scripts/inscripciones.js.php:196
 msgid "Enrolling"
 msgstr "Inscribiendo a"
 
@@ -3014,7 +3014,7 @@ msgstr "Reordenar"
 msgid "Ordering method"
 msgstr "Ordenar por"
 
-#: console/dialogs/dlg_ordensalida.inc:68 scripts/inscripciones.js.php:241
+#: console/dialogs/dlg_ordensalida.inc:68 scripts/inscripciones.js.php:250
 msgid "Sort"
 msgstr "Ordenar"
 
@@ -3234,7 +3234,7 @@ msgstr "Editar gu&iacute;a"
 #: console/dialogs/dlg_perros.inc:102 console/frm_competicion2.php:156
 #: console/frm_inscripciones2.php:208 console/frm_myAdmin.php:31
 #: console/index.php:225 scripts/admin.js.php:248 scripts/admin.js.php:539
-#: scripts/competicion.js.php:123 scripts/inscripciones.js.php:138
+#: scripts/competicion.js.php:123 scripts/inscripciones.js.php:147
 #: scripts/pruebas.js.php:191 scripts/pruebas.js.php:435
 #: server/pdf/classes/PrintOrdenTandas.php:77
 msgid "Notice"
@@ -3247,7 +3247,7 @@ msgstr "Los cambios de grado o categor&iacute;a de un perro"
 #: console/dialogs/dlg_perros.inc:104
 msgid "will affect to every non closed contest and journeys"
 msgstr ""
-"Afectar&aacute;n a todas las pruebas y jornadas que no est&eacute;n cerradas"
+"afectar&aacute;n a todas las pruebas y jornadas que no est&eacute;n cerradas"
 
 #: console/dialogs/dlg_perros.inc:105
 msgid "where dog have been inscribed"
@@ -3642,6 +3642,7 @@ msgid "simplified"
 msgstr "simplificada"
 
 #: console/dialogs/dlg_remotecontrol.inc:64 scripts/sesiones.js.php:183
+#: server/mail/MailManager.php:513 server/mail/MailManager.php:518
 #: videowall/index.php:253
 msgid "Partial Scores"
 msgstr "Clasificaci&oacute;n parcial"
@@ -5249,8 +5250,8 @@ msgstr "Lista de jornadas de esta prueba"
 msgid "Inscription list on this contest"
 msgstr "Inscripciones registradas en la prueba"
 
-#: console/frm_inscripciones2.php:108 scripts/inscripciones.js.php:422
-#: scripts/inscripciones.js.php:426
+#: console/frm_inscripciones2.php:108 scripts/inscripciones.js.php:431
+#: scripts/inscripciones.js.php:435
 msgid "Set dorsal"
 msgstr "Ajustar dorsal"
 
@@ -6000,7 +6001,7 @@ msgstr "Comprobad conexi&oacute;n con la BBDD"
 
 #: index.php:134
 msgid "AgilityContest default users:"
-msgstr "Usuarios pre-definidos de AgilityContest"
+msgstr "Usuarios pre-definidos de AgilityContest:"
 
 #: index.php:136
 msgid "Enter password for 'admin' user"
@@ -7034,7 +7035,7 @@ msgstr ""
 
 #: scripts/auth.js.php:51
 msgid " at this link"
-msgstr "en este enlace"
+msgstr " en este enlace"
 
 #: scripts/auth.js.php:53
 msgid "Do not show this message again"
@@ -7453,7 +7454,7 @@ msgstr ""
 "inv&aacute;lida"
 
 #: scripts/competicion.js.php:1193 scripts/entrenamientos.js.php:149
-#: scripts/inscripciones.js.php:501 scripts/perros.js.php:344
+#: scripts/inscripciones.js.php:510 scripts/perros.js.php:344
 #: scripts/printer.js.php:329
 msgid "Current license has no Excel import function enabled"
 msgstr "La licencia actual no permite la importaci&oacute;n de ficheros Excel"
@@ -7643,9 +7644,9 @@ msgstr "Este equipo no tiene ninguna categor&iacute;a asignada"
 msgid "You must select a valid team"
 msgstr "Debe seleccionar un equipo v&aacute;lido"
 
-#: scripts/equipos.js.php:412 scripts/inscripciones.js.php:83
-#: scripts/inscripciones.js.php:133 scripts/inscripciones.js.php:217
-#: scripts/inscripciones.js.php:370 scripts/inscripciones.js.php:418
+#: scripts/equipos.js.php:412 scripts/inscripciones.js.php:92
+#: scripts/inscripciones.js.php:142 scripts/inscripciones.js.php:226
+#: scripts/inscripciones.js.php:379 scripts/inscripciones.js.php:427
 #: scripts/pruebas.js.php:381 scripts/pruebas.js.php:416
 #: scripts/pruebas.js.php:445 scripts/results_and_scores.js.php:129
 msgid "No selection"
@@ -7655,7 +7656,7 @@ msgstr "No seleccionado"
 msgid "There is no marked dog to change team for"
 msgstr "No ha seleccionado ning&uacute;n perro para cambiar de equipo"
 
-#: scripts/equipos.js.php:418 scripts/inscripciones.js.php:221
+#: scripts/equipos.js.php:418 scripts/inscripciones.js.php:230
 #: scripts/pruebas.js.php:385 scripts/results_and_scores.js.php:125
 msgid "No permission"
 msgstr "Permisos insuficientes"
@@ -7849,183 +7850,183 @@ msgstr "No se ha indicado fichero a importar"
 msgid "New inscriptions"
 msgstr "Nuevas inscripciones"
 
-#: scripts/inscripciones.js.php:51
+#: scripts/inscripciones.js.php:81
 msgid "Updating inscription"
 msgstr "Actualizando inscripci&oacute;n"
 
-#: scripts/inscripciones.js.php:83 scripts/inscripciones.js.php:133
-#: scripts/inscripciones.js.php:418
+#: scripts/inscripciones.js.php:92 scripts/inscripciones.js.php:142
+#: scripts/inscripciones.js.php:427
 msgid "There is no inscription(s) selected"
 msgstr "No hay ninguna inscripci&oacute;n seleccionada"
 
-#: scripts/inscripciones.js.php:139
+#: scripts/inscripciones.js.php:148
 msgid "If you delete this inscription"
 msgstr "Si borra esta inscripci&oacute;n"
 
-#: scripts/inscripciones.js.php:140
+#: scripts/inscripciones.js.php:149
 msgid "<b>youll loose</b> every related results and data on this contest"
 msgstr ""
 "<b>se perder&aacute;n</b> todos los datos y resultados del participante en "
 "esta prueba"
 
-#: scripts/inscripciones.js.php:141
+#: scripts/inscripciones.js.php:150
 msgid "afecting journeys not marked as <em>closed</em>"
 msgstr "de aquellas jornadas que no hayan sido marcadas como <em>cerradas</em>"
 
-#: scripts/inscripciones.js.php:142
+#: scripts/inscripciones.js.php:151
 msgid "Really want to delete selected inscription"
 msgstr "Realmente desea borrar la inscripci&oacute;n seleccionada"
 
-#: scripts/inscripciones.js.php:217
+#: scripts/inscripciones.js.php:226
 msgid "There is no marked dog to be inscribed"
 msgstr "No hay ning&uacute;n perro seleccionado para ser inscrito"
 
-#: scripts/inscripciones.js.php:221
+#: scripts/inscripciones.js.php:230
 msgid "Current user has not enought permissions to handle inscriptions"
 msgstr ""
 "El usuario actual no tiene suficientes permisos para manejar inscripciones"
 
-#: scripts/inscripciones.js.php:237
+#: scripts/inscripciones.js.php:246
 msgid "Reorder dorsals"
 msgstr "Reordenar dorsales"
 
-#: scripts/inscripciones.js.php:238
+#: scripts/inscripciones.js.php:247
 msgid "Current dorsal numbers will be lost<br />Continue"
 msgstr "Se perder&aacute; la numeraci&oacute;n actual<br />Continuar"
 
-#: scripts/inscripciones.js.php:241
+#: scripts/inscripciones.js.php:250
 msgid "Re-ordering Dorsals"
 msgstr "Reasignar dorsales"
 
-#: scripts/inscripciones.js.php:273 scripts/inscripciones.js.php:307
-#: scripts/inscripciones.js.php:374 scripts/inscripciones.js.php:379
+#: scripts/inscripciones.js.php:282 scripts/inscripciones.js.php:316
+#: scripts/inscripciones.js.php:383 scripts/inscripciones.js.php:388
 msgid "Undeclared"
 msgstr "No declarado"
 
-#: scripts/inscripciones.js.php:273
+#: scripts/inscripciones.js.php:282
 msgid "Selected journey to clear is empty"
 msgstr "La jornada seleccionada para borrar est&aacute; vac&iacute;a"
 
-#: scripts/inscripciones.js.php:276
+#: scripts/inscripciones.js.php:285
 msgid "Clear inscriptions"
 msgstr "Borrar inscripciones"
 
-#: scripts/inscripciones.js.php:276
+#: scripts/inscripciones.js.php:285
 msgid "Clearing inscriptions in journey"
 msgstr "Borrando las inscripciones de la jornada"
 
-#: scripts/inscripciones.js.php:307
+#: scripts/inscripciones.js.php:316
 msgid "Must declare this journey first"
 msgstr "Debe declarar la jornada primero"
 
-#: scripts/inscripciones.js.php:310
+#: scripts/inscripciones.js.php:319
 msgid "Inscribe all"
 msgstr "Inscribir todos"
 
-#: scripts/inscripciones.js.php:310
+#: scripts/inscripciones.js.php:319
 msgid "Inscribe all dogs into journey"
 msgstr "Inscribir todos los perros de la prueba en la jornada"
 
-#: scripts/inscripciones.js.php:340
+#: scripts/inscripciones.js.php:349
 msgid "Inscribe selection"
 msgstr "Inscribir selecci&oacute;n"
 
-#: scripts/inscripciones.js.php:340
+#: scripts/inscripciones.js.php:349
 msgid "Cloning inscriptions from selected journey into "
 msgstr "Clonando las inscripciones de la jornada seleccionada en "
 
-#: scripts/inscripciones.js.php:370 scripts/pruebas.js.php:416
+#: scripts/inscripciones.js.php:379 scripts/pruebas.js.php:416
 #: scripts/pruebas.js.php:445
 msgid "There is no journey selected"
 msgstr "No se ha seleccionado ninguna jornada"
 
-#: scripts/inscripciones.js.php:374
+#: scripts/inscripciones.js.php:383
 msgid "Selected journey to clone has no data"
 msgstr "La jornada seleccionada para clonar no est&aacute; definida"
 
-#: scripts/inscripciones.js.php:379
+#: scripts/inscripciones.js.php:388
 msgid "Selected journey to clone into is not defined. Create?"
 msgstr "La jornada seleccionada para clonar no est&aacute; definida. ¿Crearla?"
 
-#: scripts/inscripciones.js.php:423
+#: scripts/inscripciones.js.php:432
 msgid ""
 "Please type new dorsal<br />If already assigned, <br/>dorsals will be swapped"
 msgstr ""
 "Indique nuevo dorsal<br /> Si el dorsal ya esta asignado<br /> se "
 "intercambiaran los dorsales"
 
-#: scripts/inscripciones.js.php:426
+#: scripts/inscripciones.js.php:435
 msgid "Setting new dorsal..."
 msgstr "Ajustando nuevo dorsal..."
 
-#: scripts/inscripciones.js.php:474
+#: scripts/inscripciones.js.php:483
 msgid "Generate empty excel inscription template"
 msgstr "Crear plantilla de datos Excel vac&iacute;a"
 
-#: scripts/inscripciones.js.php:475
+#: scripts/inscripciones.js.php:484
 msgid "Generate inscription template for club"
 msgstr "Generar plantilla de inscripciones para el club"
 
-#: scripts/inscripciones.js.php:476
+#: scripts/inscripciones.js.php:485
 msgid "Export current inscriptions to Excel file"
 msgstr "Exportar inscripciones a fichero Excel"
 
-#: scripts/inscripciones.js.php:477
+#: scripts/inscripciones.js.php:486
 msgid "Import inscriptions from Excel file"
 msgstr "Importar inscripciones desde fichero Excel"
 
-#: scripts/inscripciones.js.php:480
+#: scripts/inscripciones.js.php:489
 msgid "Excel import/export"
 msgstr "Importar/exportar .xlsx"
 
-#: scripts/inscripciones.js.php:481
+#: scripts/inscripciones.js.php:490
 msgid "Choose from available operations"
 msgstr "Selecciona una de las operaciones disponibles"
 
-#: scripts/inscripciones.js.php:494
+#: scripts/inscripciones.js.php:503
 msgid "Creating Excel file. Please wait"
 msgstr "Generando fichero Excel. Por favor, espere"
 
-#: scripts/inscripciones.js.php:495 scripts/inscripciones.js.php:553
+#: scripts/inscripciones.js.php:504 scripts/inscripciones.js.php:562
 msgid "There was a problem generating your report, please try again"
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
 "nuevo"
 
-#: scripts/inscripciones.js.php:552
+#: scripts/inscripciones.js.php:561
 msgid "Printing inscriptions. Please wait"
 msgstr "Imprimiendo inscripciones. Por favor, espere"
 
-#: scripts/inscripciones.js.php:562
+#: scripts/inscripciones.js.php:571
 msgid "Simple listing"
 msgstr "Listado simple"
 
-#: scripts/inscripciones.js.php:563
+#: scripts/inscripciones.js.php:572
 msgid "Catalog"
 msgstr "Cat&aacute;logo"
 
-#: scripts/inscripciones.js.php:564
+#: scripts/inscripciones.js.php:573
 #: server/pdf/classes/PrintInscripciones.php:258
 msgid "Statistics"
 msgstr "Estad&iacute;sticas"
 
-#: scripts/inscripciones.js.php:565
+#: scripts/inscripciones.js.php:574
 msgid "Current selection/order"
 msgstr "Selecci&oacute;n actual"
 
-#: scripts/inscripciones.js.php:567
+#: scripts/inscripciones.js.php:576
 msgid "Competition ID Cards"
 msgstr "Dorsales Identificativos"
 
-#: scripts/inscripciones.js.php:574
+#: scripts/inscripciones.js.php:583
 msgid "Inscriptions for journey"
 msgstr "Inscritos en la jornada"
 
-#: scripts/inscripciones.js.php:578
+#: scripts/inscripciones.js.php:587
 msgid "Select form"
 msgstr "Selecciona formulario"
 
-#: scripts/inscripciones.js.php:579
+#: scripts/inscripciones.js.php:588
 msgid "Select type of document to be generated"
 msgstr "Selecciona el tipo de documento a generar"
 
@@ -8963,7 +8964,7 @@ msgid "Spd"
 msgstr "Vel"
 
 #: server/excel/classes/PartialScoresWriter.php:105
-#: server/mail/MailManager.php:624
+#: server/mail/MailManager.php:628
 #: server/pdf/classes/PrintResultadosByManga.php:78
 #: server/pdf/classes/PrintResultadosKO.php:71
 msgid "Results"
@@ -8977,11 +8978,11 @@ msgstr "Datos de la aplicaci&oacute;n"
 msgid "License Info"
 msgstr "Datos de Licencia"
 
-#: server/mail/MailManager.php:373 server/mail/MailManager.php:646
+#: server/mail/MailManager.php:373 server/mail/MailManager.php:650
 msgid "Email sent with"
 msgstr "Correo enviado con"
 
-#: server/mail/MailManager.php:377 server/mail/MailManager.php:650
+#: server/mail/MailManager.php:377 server/mail/MailManager.php:654
 msgid "Please enable HTML view in your email application"
 msgstr "Por favor habilite la visualizacion HTML en su app de correo"
 
@@ -8999,7 +9000,7 @@ msgstr "LOE_RRC"
 #: server/modules/competiciones/Liga_UCA.php:36
 #: server/modules/competiciones/Puntuable_CPC_2018.php:121
 #: server/modules/competiciones/Puntuable_FMC_2018.php:81
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:137
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:142
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:67
 #: server/modules/competiciones/SelectivaWAO_Games.php:95
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:93
@@ -9016,7 +9017,7 @@ msgstr "No Presentado"
 #: server/modules/competiciones/Liga_UCA.php:45
 #: server/modules/competiciones/Puntuable_CPC_2018.php:130
 #: server/modules/competiciones/Puntuable_FMC_2018.php:90
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:146
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:151
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:76
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:102
 #: server/modules/competiciones/Selectiva_PastorBelga.php:87
@@ -9029,7 +9030,7 @@ msgstr "No Clasificado"
 #: server/modules/competiciones/Liga_UCA.php:46
 #: server/modules/competiciones/Puntuable_CPC_2018.php:131
 #: server/modules/competiciones/Puntuable_FMC_2018.php:91
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:147
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:152
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:77
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:103
 #: server/modules/competiciones/Selectiva_PastorBelga.php:88
@@ -9046,8 +9047,8 @@ msgstr "N.C."
 #: server/modules/competiciones/Puntuable_CPC_2018.php:135
 #: server/modules/competiciones/Puntuable_FMC_2018.php:94
 #: server/modules/competiciones/Puntuable_FMC_2018.php:95
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:150
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:151
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:155
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:156
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:80
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:81
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:106
@@ -9062,7 +9063,7 @@ msgstr "Bien"
 #: server/modules/competiciones/Liga_UCA.php:54
 #: server/modules/competiciones/Puntuable_CPC_2018.php:138
 #: server/modules/competiciones/Puntuable_FMC_2018.php:98
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:154
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:159
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:84
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:110
 msgid "Very good"
@@ -9074,7 +9075,7 @@ msgstr "Muy bien"
 #: server/modules/competiciones/Liga_UCA.php:55
 #: server/modules/competiciones/Puntuable_CPC_2018.php:139
 #: server/modules/competiciones/Puntuable_FMC_2018.php:99
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:155
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:160
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:85
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:111
 #: server/modules/competiciones/Selectiva_PastorBelga.php:95
@@ -9090,8 +9091,8 @@ msgstr "M.B."
 #: server/modules/competiciones/Puntuable_CPC_2018.php:146
 #: server/modules/competiciones/Puntuable_FMC_2018.php:102
 #: server/modules/competiciones/Puntuable_FMC_2018.php:106
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:158
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:162
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:163
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:167
 #: server/modules/competiciones/Puntuable_RSCE_2017.php:108
 #: server/modules/competiciones/Puntuable_RSCE_2017.php:122
 #: server/modules/competiciones/Puntuable_RSCE_2018.php:117
@@ -9121,8 +9122,8 @@ msgstr "Excelente"
 #: server/modules/competiciones/Puntuable_CPC_2018.php:147
 #: server/modules/competiciones/Puntuable_FMC_2018.php:103
 #: server/modules/competiciones/Puntuable_FMC_2018.php:107
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:159
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:163
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:164
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:168
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:87
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:88
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:91
