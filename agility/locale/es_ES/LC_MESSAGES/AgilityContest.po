@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2018-10-17 13:37+0200\n"
-"PO-Revision-Date: 2018-10-17 13:48+0200\n"
+"POT-Creation-Date: 2018-10-17 13:53+0200\n"
+"PO-Revision-Date: 2018-10-17 13:54+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -8545,6 +8545,10 @@ msgstr "Debe indicar fichero de licencia"
 #: scripts/webhost.js.php:119
 msgid "Initialization done. Press OK to start first launch"
 msgstr "Inicialiaci&oacute;n completada. Pulse OK para primer arranque"
+
+#: server/ProgressHandler.php:26 server/ProgressHandler.php:58
+msgid "Waiting for progress info..."
+msgstr "Esperando informaci&oacute;n del proceso..."
 
 #: server/auth/AuthManager.php:181
 msgid "Root"

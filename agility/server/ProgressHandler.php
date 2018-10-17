@@ -23,7 +23,7 @@ class ProgressHandler {
         $this->progressfile=PROGRESS_DIR."/{$name}_{$suffix}.log";
         // if file does not exist create with default contents
         if (!file_exists($this->progressfile)) {
-            @file_put_contents($this->progressfile,"Waiting for progress info...");
+            @file_put_contents($this->progressfile,_("Waiting for progress info..."));
         }
     }
 
@@ -35,12 +35,16 @@ class ProgressHandler {
 
     function getData() {
         $lines=file($this->progressfile,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if (!$lines) {
+            return json_encode( array( 'operation'=>'progress','success'=>'fail', 'status' => "Error reading progress: {$this->progressfile}" ) );
+        }
         $result=strval($lines[count($lines)-1]);
-        if ( ("Done."===$result) && ($this->$this->closeOnDone===true) ) $this->closeHandler();
-        return array( 'progress' => $result );
+        if ( ("Done."===$result) && ($this->closeOnDone===true) ) $this->closeHandler();
+        return json_encode( array( 'operation'=>'progress','success'=>'ok', 'status' => $result ) );
     }
 
     public function putData($str,$reset=false){
+        $this->myLogger->trace("putData(): {$str}");
         $f=fopen($this->progressfile,($reset===true)?"w":"a"); // open for append-only
         if (!$f) {
             $this->myLogger->error("fopen() cannot open/create file: $this->progressfile");
@@ -55,6 +59,6 @@ class ProgressHandler {
     }
 
     function resetHandler() {
-        $this->putData("Waiting for progress info...",true); // force start new file
+        $this->putData(_("Waiting for progress info..."),true); // force start new file
     }
 }

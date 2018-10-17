@@ -23,6 +23,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__ . "/../../server/logging.php");
 require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/ProgressHandler.php");
 require_once(__DIR__ . "/../../server/auth/Config.php");
 require_once(__DIR__ . "/../../server/auth/AuthManager.php");
 require_once(__DIR__ . "/../../server/modules/Federations.php");
@@ -40,16 +41,10 @@ $op=http_request("Operation","s","");
 
 // do not process entire data to just retrieve progress info
 if ($op==='progress') {
+    // retrieve Progress Handler
+    $ph=ProgressHandler::getHandler("import",$options['Suffix']);
     // retrieve last line of progress file
-    $importFileName=IMPORT_DIR."import_{$options['Suffix']}.log";
-    if (!file_exists($importFileName)) {
-        echo json_encode( array( 'operation'=>'progress','success'=>'ok', 'status' => "Waiting for progress info..." ) );
-        return;
-    }
-    $lines=file($importFileName,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    if (!$lines)
-        echo json_encode( array( 'operation'=>'progress','success'=>'fail', 'status' => "Error reading progress file: $importFileName" ) );
-    else echo json_encode( array( 'operation'=>'progress','success'=>'ok', 'status' => strval($lines[count($lines)-1]) ) );
+    echo $ph->getData();
     return;
 }
 

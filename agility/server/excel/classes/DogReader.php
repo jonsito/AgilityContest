@@ -22,6 +22,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  */
 require_once(__DIR__ . "/../../logging.php");
 require_once(__DIR__ . "/../../tools.php");
+require_once(__DIR__ . "/../../ProgressHandler.php");
 require_once(__DIR__ . "/../../i18n/Country.php");
 require_once(__DIR__ . "/../../auth/Config.php");
 require_once(__DIR__ . "/../../auth/AuthManager.php");
@@ -102,15 +103,8 @@ class DogReader {
     }
 
     public function saveStatus($str,$reset=false){
-        $this->myLogger->trace("saveStatus(): $str");
-        $importFileName=IMPORT_DIR."import_{$this->myOptions['Suffix']}.log";
-        $f=fopen($importFileName,($reset)?"w":"a"); // open for append-only
-        if (!$f) {
-            $this->myLogger->error("fopen() cannot create file: $importFileName");
-            return;
-        }
-        fwrite($f,"$str\n");
-        fclose($f);
+        $ph=ProgressHandler::getHandler("import",$this->myOptions['Suffix']);
+        $ph->putData($str,$reset);
     }
 
     public function saveExcelVars() {
