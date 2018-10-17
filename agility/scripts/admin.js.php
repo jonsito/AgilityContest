@@ -315,6 +315,7 @@ function restoreDatabase(fromClient){
                             dataType:'json',
                             data: {
                                 Operation: 'progress',
+                                Mode: 0, // 0: restore - 1: upgrade
                                 Suffix: suffix
                             },
                             success: function(data) {
@@ -443,6 +444,7 @@ function askForUpgrade(msg,name,release){
                     data: {
                         Operation: 'download',
                         Version: release,
+                        Mode:1,
                         Suffix: suffix
                     },
                     success: function(data) {
@@ -468,10 +470,11 @@ function askForUpgrade(msg,name,release){
                         dataType:'json',
                         data: {
                             Operation: 'progress',
+                            Mode: 1, // 0:restore 1:upgrade
                             Suffix: suffix
                         },
                         success: function(data) {
-                            var value=data.progress;
+                            var value=data.status;
                             if(value!=="Done."){
                                 var bar=$.messager.progress('bar');
                                 bar.progressbar('setValue', value);  // set new progress value

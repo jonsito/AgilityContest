@@ -41,7 +41,7 @@ try {
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
 	if ($operation==="progress") {
 		// retrieve progress handler
-		$ph=ProgressHandler::getHandler("restore",$suffix);
+		$ph=ProgressHandler::getHandler( ($mode===0)?"restore":"upgrade",$suffix);
         // return last line of progress file
         echo $ph->getData();
         return;
@@ -62,7 +62,9 @@ try {
         case "autobackup":
         	/* $am->access(PERMS_ADMIN); */ $result=$adm->autobackup($mode,$directory);	break;
 		case "restore":
-			$am->access(PERMS_ADMIN); $result=$adm->restore(); break;
+			$am->access(PERMS_ADMIN);
+            $adm->setProgressHandler(0,$suffix); // 0:restore 1:upgrade
+            $result=$adm->restore(); break;
 		case "reset":
 			$am->access(PERMS_ADMIN); $result=$adm->clearDatabase($fed); break;
 		case "clear":
@@ -70,7 +72,10 @@ try {
         case "upgrade":
             $am->access(PERMS_ADMIN); $result=$adm->checkForUpgrades(); break;
         case "download":
-            $am->access(PERMS_ADMIN); $result=$adm->downloadUpgrades($version); break;
+            $am->access(PERMS_ADMIN);
+            $adm->setProgressHandler(1,$suffix); // 0:restore 1:upgrade
+            $result=$adm->downloadUpgrades($version);
+            break;
 		case "reginfo": 
 			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg="Cannot retrieve license information"; break;
 		case "register":

@@ -38,13 +38,13 @@ class Admin extends DBObject {
 	private $dbhost;
 	private $dbuser;
 	private $dbpass;
-	private $myProgressHandler;
 
 	// used to store backup version info to handle remote updates
 	protected $bckVersion="0.0.0"; // version
 	protected $bckRevision="0000000_0000"; //revision
 	protected $bckLicense="00000000";
 	protected $bckDate="20180215_0944";
+	protected $progressHandler=null;
 
     /**
      * Admin constructor.
@@ -53,12 +53,11 @@ class Admin extends DBObject {
      * @param {string} $suffix suffix to be added to progress information file
      * @throws Exception
      */
-	function __construct($file,$am,$suffix="") {
+	function __construct($file,$am) {
         parent::__construct($file);
         $this->restore_dir=__DIR__."/../../../../logs/";
 		// connect database
         $this->myAuth=$am;
-        $this->myProgressHandler=ProgressHandler::getHandler("restore",$suffix);
         $this->bckVersion=$this->myConfig->getEnv('version_name'); // extracted from sql file. defaults to current
         $this->bckRevision=$this->myConfig->getEnv('version_date'); // extracted from sql file. defaults to current
 		$this->dbname=$this->myConfig->getEnv('database_name');
@@ -66,6 +65,10 @@ class Admin extends DBObject {
 		$this->dbuser=base64_decode($this->myConfig->getEnv('database_user'));
 		$this->dbpass=base64_decode($this->myConfig->getEnv('database_pass'));
 	}
+
+	function setProgressHandler($mode,$suffix) {
+	    $this->progressHandler=ProgressHandler::getHandler( ($mode===0)?"restore":"upgrade",$suffix);
+    }
 
     /**
      * Parse mysql dump and pretty-print output
@@ -363,7 +366,11 @@ class Admin extends DBObject {
 	}	
 
 	private function handleSession($str) {
-        $this->myProgressHandler->putData($str,false);
+        if ($this->progressHandler===null) {
+            $this->myLogger->error("call to handleSession() without progressHandler()");
+            return;
+        }
+        $this->progressHandler->putData($str,false);
 	}
 
 	private function retrieveDBFile() {
