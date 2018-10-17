@@ -24,6 +24,7 @@ define('UPLOAD_DIR',__DIR__."/../../../../logs/uploads");
 
 require_once(__DIR__."/../../tools.php");
 require_once(__DIR__."/../../logging.php");
+require_once(__DIR__."/../../ProgressHandler.php");
 require_once(__DIR__."/../../auth/Config.php");
 require_once(__DIR__."/../../auth/AuthManager.php");
 require_once(__DIR__ . "/../../auth/SimpleCrypt.php");
@@ -37,7 +38,7 @@ class Admin extends DBObject {
 	private $dbhost;
 	private $dbuser;
 	private $dbpass;
-	public $logfile;
+	private $myProgressHandler;
 
 	// used to store backup version info to handle remote updates
 	protected $bckVersion="0.0.0"; // version
@@ -57,7 +58,7 @@ class Admin extends DBObject {
         $this->restore_dir=__DIR__."/../../../../logs/";
 		// connect database
         $this->myAuth=$am;
-        $this->logfile=$this->restore_dir."restore_{$suffix}.log";
+        $this->myProgressHandler=ProgressHandler::getHandler("restore",$suffix);
         $this->bckVersion=$this->myConfig->getEnv('version_name'); // extracted from sql file. defaults to current
         $this->bckRevision=$this->myConfig->getEnv('version_date'); // extracted from sql file. defaults to current
 		$this->dbname=$this->myConfig->getEnv('database_name');
@@ -362,10 +363,7 @@ class Admin extends DBObject {
 	}	
 
 	private function handleSession($str) {
-        $f=fopen($this->logfile,"a"); // open for append-only
-        if (!$f) { $this->myLogger->error("fopen() cannot create file: ".$this->logfile); return;}
-		fwrite($f,"$str\n");
-        fclose($f);
+        $this->myProgressHandler->putData($str,false);
 	}
 
 	private function retrieveDBFile() {
@@ -480,7 +478,7 @@ class Admin extends DBObject {
             if (strpos($line,"INSERT")===0) { $this->myLogger->trace("$line "); }
             // If it has a semicolon at the end, it's the end of the query
             if (substr(trim($line), -1, 1) == ';') {
-				$this->handleSession(intval((100*$idx)/$numlines) );
+				$this->handleSession("Completed: ".intval((100*$idx)/$numlines) );
                 // Perform the query
                 if (! $conn->query($templine) ){
 					$this->myLogger->error('Error performing query \'<strong>' . $templine . '\': ' . $conn->error . '<br />');

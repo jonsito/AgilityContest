@@ -318,8 +318,8 @@ function restoreDatabase(fromClient){
                                 Suffix: suffix
                             },
                             success: function(data) {
-                                if(data.progress!=="Done."){
-                                    setProgressValue(data.progress);
+                                if(data.status!=="Done."){
+                                    setProgressValue(data.status);
                                     setTimeout(getProgress,200);
                                 } else {
                                     $.messager.progress('close');
