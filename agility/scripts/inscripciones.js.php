@@ -47,34 +47,40 @@ function newInscripcion(dg,def,onAccept) {
  * @param obj changed checkbox
  */
 function changeInscription(idx,prueba,perro,jindex,obj) {
-    var ji=1+parseInt(jindex);
+
+    function do_call(idx,prueba,perro,jindex,obj) {
+        var ji=1+parseInt(jindex);
+        return new Promise(function(resolve,reject){
+            $.ajax({
+                type: 'GET',
+                url: '../ajax/database/inscripcionFunctions.php',
+                data: {
+                    Operation: (obj.checked)?"insertIntoJourney":"deleteFromJourney",
+                    Prueba: prueba,
+                    Perro: perro,
+                    Jornada: ji // notice index, no real Jornada ID
+                },
+                dataType: 'json',
+                success: function (result) {
+                    if (result.errorMsg){
+                        $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
+                        obj.checked=!obj.checked; // revert change ( beware on recursive onChange events )
+                    } else {
+                        var j="J"+ji;
+                        // on save done refresh related datagrid index data
+                        $('#inscripciones-datagrid').datagrid('getRows')[idx][j]=obj.checked;
+                    }
+                },
+                complete: function () {
+                    resolve();
+                }
+            });
+        });
+    }
+
     $.messager.progress({height:75, text:'<?php _e("Updating inscription");?>'});
-    // sometimes ajax returns before pb starts. So this is to make sure Pb closes
-    setTimeout(function(){$.messager.progress('close')},5000);
-    $.ajax({
-        type: 'GET',
-        url: '../ajax/database/inscripcionFunctions.php',
-        data: {
-            Operation: (obj.checked)?"insertIntoJourney":"deleteFromJourney",
-            Prueba: prueba,
-            Perro: perro,
-            Jornada: ji // notice index, no real Jornada ID
-        },
-        dataType: 'json',
-        success: function (result) {
-            if (result.errorMsg){
-                $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
-                obj.checked=!obj.checked; // revert change ( beware on recursive onChange events )
-            } else {
-                var j="J"+ji;
-                // on save done refresh related datagrid index data
-                $('#inscripciones-datagrid').datagrid('getRows')[idx][j]=obj.checked;
-            }
-        },
-        complete: function () {
-            // sometimes ajax returns before pb starts. So fireup close as timeout to make sure Pb closes
-            setTimeout(function(){$.messager.progress('close')},2000);
-        }
+    do_call(idx,prueba,perro,jindex,obj).then(function(){
+        $.messager.progress('close');
     });
 }
 
