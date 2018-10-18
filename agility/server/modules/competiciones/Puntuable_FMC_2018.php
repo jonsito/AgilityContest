@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-require_once(__DIR__."/lib/ligas/Liga_FMC_2018.php");
+require_once(__DIR__."/lib/ligas/Liga_RFEC_2018.php");
 
 class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
 
@@ -48,6 +48,12 @@ class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
     public function evalPartialCalification($m,&$perro,$puestocat) {
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
+
+        $tipo=$m->Tipo;
+        if (($tipo==8) || ($tipo==9) || ($tipo==13)|| ($tipo==14)) { // equipos
+            parent::evalPartialCalification($m,$perro,$puestocat);
+            return;
+        }
         $penal=floatval($perro['Penalizacion']);
         if ($grad!=="GII") { // solo se puntua en grado II
             Competitions::evalPartialCalification($m,$perro,$puestocat);
@@ -188,6 +194,6 @@ class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
      * @throws Exception on invalid prueba/jornada/manga
      */
     protected function getLigasObject($file) {
-        return new Liga_FMC_2018($file);
+        return new Liga_RFEC_2018($file);
     }
 }

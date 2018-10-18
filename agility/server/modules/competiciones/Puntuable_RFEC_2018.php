@@ -109,7 +109,8 @@ class Puntuable_RFEC_2018 extends Competitions {
 
         $tipo=$m->Tipo;
         if (($tipo==8) || ($tipo==9) || ($tipo==13)|| ($tipo==14)) { // equipos
-            return parent::evalPartialCalification($m,$perro,$puestocat);
+            parent::evalPartialCalification($m,$perro,$puestocat);
+            return;
         }
         if ($grad!=="GII") { // solo se puntua en grado II
             parent::evalPartialCalification($m,$perro,$puestocat);
@@ -231,6 +232,7 @@ class Puntuable_RFEC_2018 extends Competitions {
         // si falta alguna manga no puntua
         if ( ($resultados[0]===null) || ($resultados[1]===null)) {
             $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
+            // no need to evaluate points: just 0
             return;
         }
         // si eliminado o no clasificado en alguna manga no puntua

@@ -5,7 +5,7 @@
  * Date: 24/01/18
  * Time: 10:36
 
-Liga_FMC_2018.php
+Liga_RFEC_2018.php
 
 Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -23,7 +23,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once (__DIR__."/../../../../database/classes/Ligas.php");
 require_once (__DIR__."/../../../Federations.php");
 
-class Liga_FMC_2018 extends Ligas {
+class Liga_RFEC_2018 extends Ligas {
 
     /**
      * Ligas constructor.
