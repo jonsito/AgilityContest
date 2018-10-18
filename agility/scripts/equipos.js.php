@@ -258,39 +258,75 @@ function deleteTeam(dg){
  * @param {string} dg datagrid ID de donde se obtiene el teamID y la pruebaID
  */
 function deleteTeamMembers(dg) {
+
+    function getProgress(){
+        $.ajax({
+            url:"../ajax/database/equiposFunctions.php",
+            dataType:'json',
+            data: {
+                Operation: 'progress',
+                ID: row.ID,
+                Prueba: row.Prueba,
+                Jornada: row.Jornada,
+                Suffix: suffix
+            },
+            success: function(data) {
+                if(data.status!=="Done."){
+                    var bar = $.messager.progress('bar');  // get the progressbar object
+                    bar.progressbar('setValue',data.status);  // set new progress value
+                    setTimeout(getProgress,200);
+                } else {
+                    $.messager.progress('close');
+                }
+            }
+        });
+    }
+
+    function doAjaxCall(suffix) {
+        $.ajax({
+            type: 'GET',
+            url: '../ajax/database/equiposFunctions.php',
+            data: {
+                Operation: 'unsubscribe',
+                ID: row.ID,
+                Prueba: row.Prueba,
+                Jornada: row.Jornada,
+                Suffix: suffix
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.success) {
+                    $(dg).datagrid('load', {
+                        Operation: 'select',
+                        Prueba: workingData.prueba,
+                        Jornada: workingData.jornada,
+                        where: ''
+                    });    // reload the prueba data
+                    $('#selteam-Equipo').combogrid('grid').datagrid('unselectAll').datagrid('load'); // update assignment combogrid list
+                } else {
+                    $.messager.show({width: 300, height: 200, title: 'Error', msg: result.errorMsg});
+                }
+            }
+        });
+    }
+
+    var suffix= getRandomString(8);
     var row = $(dg).datagrid('getSelected');
     if (!row) {
         $.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no team selected"); ?>',"info");
-        return; // no way to know which prueba is selected
+        return false; // no way to know which prueba is selected
     }
     $.messager.confirm('Confirm',
         "<p><?php _e('This operation will un-inscribe members of selected team from current journey');?><br />"+
         "<p><?php _e('Do you really want to un-inscribe them');?> ?</p>",function(r){
-            if (r){
-                $.get(
-                    '../ajax/database/equiposFunctions.php',
-                    {
-                        Operation:'unsubscribe',
-                        ID:row.ID,
-                        Prueba:row.Prueba,
-                        Jornada:row.Jornada
-                    },
-                    function(result){
-                        if (result.success){
-                            $(dg).datagrid('load',{
-                                Operation:'select',
-                                Prueba:workingData.prueba,
-                                Jornada:workingData.jornada,
-                                where:''
-                            });    // reload the prueba data
-                            $('#selteam-Equipo').combogrid('grid').datagrid('unselectAll').datagrid('load'); // update assignment combogrid list
-                        } else {
-                            $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
-                        }
-                    },
-                    'json'
-                );
-            }
+            if (!r) return false;
+            $.messager.progress({ // creamos una progress bar
+                msg: "<?php _e('Processing')?>...",
+                title: '<?php _e('Uninscribe team member'); ?>',
+                interval: 0
+            });
+            doAjaxCall(suffix); // call ajax operation
+            setTimeout(getProgress,200); // start progress monitoring
         }).window('resize',{width:500});
 }
 

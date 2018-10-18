@@ -19,6 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/logging.php");
+require_once(__DIR__ . "/../../server/ProgressHandler.php");
 require_once(__DIR__ . "/../../server/auth/AuthManager.php");
 require_once(__DIR__ . "/../../server/database/classes/Equipos.php");
 
@@ -30,16 +31,22 @@ $equipo=http_request("ID","i",0); // used on update/delete
 $f = http_request("From","i",0);
 $t = http_request("To","i",0);
 $w = http_request("Where","i",0);
+$suffix= http_request("Suffix","s","");
 try {
 	$result=null;
 	$equipos= new Equipos("equiposFunctions",$prueba,$jornada);
 	$am= AuthManager::getInstance("equiposFunctions");
-	if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");
+	if ($operation===null) throw new Exception("Call to equiposFunctions without 'Operation' requested");
+
 	switch ($operation) {
+        case "progress": // report uninscribe progress information
+            $ph=ProgressHandler::getHandler( "equipos",$suffix);  // retrieve progress handler
+            echo $ph->getData(); // return last line of progress file ( already json-encoded )
+            return;
 		case "insert": $am->access(PERMS_OPERATOR); $result=$equipos->insert(); break; // nuevo equipo
 		case "update": $am->access(PERMS_OPERATOR); $result=$equipos->update($equipo); break; // editar equipo
 		case "delete": $am->access(PERMS_OPERATOR); $result=$equipos->delete($equipo); break; // borrar equipo
-        case "unsubscribe": $am->access(PERMS_OPERATOR); $result=$equipos->unsubscribeMembers($equipo); break; // desinscribir miembros
+        case "unsubscribe": $am->access(PERMS_OPERATOR); $result=$equipos->unsubscribeMembers($equipo,$suffix); break; // desinscribir miembros
 		case "update_team": $am->access("PERMS_OPERATOR"); $result=$equipos->updateTeam($perro,$equipo); break; // reasignar equipo
         case "select": $result=$equipos->select(); break; // listado ordenado/bloques/busqueda
         case "verify": $result=$equipos->verify(); break; // comprobar perros de cada equipo

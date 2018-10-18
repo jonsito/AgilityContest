@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2018-10-17 13:53+0200\n"
-"PO-Revision-Date: 2018-10-17 13:54+0200\n"
+"POT-Creation-Date: 2018-10-18 15:03+0200\n"
+"PO-Revision-Date: 2018-10-18 15:04+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -264,7 +264,7 @@ msgstr "Perro"
 #: scripts/results_and_scores.js.php:268 scripts/results_and_scores.js.php:340
 #: server/database/classes/Ligas.php:175
 #: server/database/updater/Uploader.php:252
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:88
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:88
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:81
 #: server/pdf/classes/PrintClasificacion.php:223
 #: server/pdf/classes/PrintClasificacionExcel.php:162
@@ -331,8 +331,8 @@ msgstr "Gu&iacute;a"
 #: server/database/classes/Ligas.php:209
 #: server/database/updater/Uploader.php:244
 #: server/excel/classes/XLSXWriter.php:117 server/modules/Federations.php:403
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:89
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:108
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:89
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:108
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:82
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:103
 #: server/pdf/classes/PrintClasificacionExcel.php:99
@@ -356,7 +356,7 @@ msgstr "Club"
 #: console/frm_guias.php:93 livestream/vwls_osdvideo.php:93
 #: server/database/classes/Ligas.php:172
 #: server/excel/classes/OrdenSalidaWriter.php:209
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:86
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:86
 #: server/pdf/classes/PrintClasificacionExcel.php:160
 #: server/pdf/classes/PrintEquiposByJornada.php:80
 #: server/pdf/classes/PrintInscripciones.php:128
@@ -442,8 +442,8 @@ msgstr "Reh&uacute;se"
 #: chrono/chrono.inc.php:98 server/modules/Competitions.php:176
 #: server/modules/competiciones/Liga_UCA.php:41
 #: server/modules/competiciones/Puntuable_CPC_2018.php:126
-#: server/modules/competiciones/Puntuable_FMC_2018.php:86
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:147
+#: server/modules/competiciones/Puntuable_FMC_2018.php:92
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:148
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:72
 #: server/modules/competiciones/SelectivaWAO_Games.php:92
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:98
@@ -464,9 +464,9 @@ msgstr "Eliminado"
 #: console/dialogs/dlg_competicion_games.inc:319
 #: console/dialogs/dlg_configuracion.inc:785
 #: console/dialogs/dlg_selectJornada.inc:159 scripts/admin.js.php:46
-#: scripts/admin.js.php:65 scripts/admin.js.php:90 scripts/admin.js.php:460
-#: scripts/admin.js.php:509 scripts/admin.js.php:562 scripts/admin.js.php:581
-#: scripts/admin.js.php:582 scripts/auth.js.php:113 scripts/common.js.php:446
+#: scripts/admin.js.php:65 scripts/admin.js.php:90 scripts/admin.js.php:462
+#: scripts/admin.js.php:512 scripts/admin.js.php:565 scripts/admin.js.php:584
+#: scripts/admin.js.php:585 scripts/auth.js.php:113 scripts/common.js.php:446
 #: scripts/common.js.php:471 scripts/common.js.php:518
 #: scripts/common.js.php:753 scripts/common.js.php:765
 #: scripts/common.js.php:777 scripts/common.js.php:792
@@ -479,7 +479,7 @@ msgstr "Eliminado"
 #: scripts/competicion.js.php:1474 scripts/competicion.js.php:1572
 #: scripts/competicion.js.php:1656 scripts/entrenamientos.js.php:84
 #: scripts/entrenamientos.js.php:179 scripts/equipos.js.php:70
-#: scripts/equipos.js.php:123 scripts/equipos.js.php:401
+#: scripts/equipos.js.php:123 scripts/equipos.js.php:437
 #: scripts/guias.js.php:87 scripts/guias.js.php:196 scripts/guias.js.php:223
 #: scripts/guias.js.php:261 scripts/guias.js.php:299 scripts/import.js.php:512
 #: scripts/inscripciones.js.php:66 scripts/inscripciones.js.php:120
@@ -574,8 +574,8 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 #: server/modules/Competitions.php:177
 #: server/modules/competiciones/Liga_UCA.php:42
 #: server/modules/competiciones/Puntuable_CPC_2018.php:127
-#: server/modules/competiciones/Puntuable_FMC_2018.php:87
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:148
+#: server/modules/competiciones/Puntuable_FMC_2018.php:93
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:149
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:73
 #: server/modules/competiciones/SelectivaWAO_Games.php:93
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:99
@@ -661,7 +661,7 @@ msgstr "Dors"
 #: scripts/results_and_scores.js.php:263 scripts/results_and_scores.js.php:335
 #: server/database/classes/Ligas.php:173
 #: server/excel/classes/XLSXWriter.php:124
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:87
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:87
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:79
 #: server/pdf/classes/PrintClasificacion.php:209
 #: server/pdf/classes/PrintClasificacion.php:211
@@ -785,7 +785,7 @@ msgstr "Equipo"
 #: console/frm_paises.php:81 scripts/datagrid_formatters.js.php:172
 #: scripts/datagrid_formatters.js.php:563
 #: scripts/datagrid_formatters.js.php:573
-#: server/excel/classes/DogReader.php:452 server/modules/Federations.php:403
+#: server/excel/classes/DogReader.php:446 server/modules/Federations.php:403
 #: server/pdf/classes/PrintEntrenamientos.php:59
 #: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:219
 msgid "Country"
@@ -1339,8 +1339,8 @@ msgstr "Tiempo"
 #: scripts/datagrid_formatters.js.php:216 server/modules/Competitions.php:172
 #: server/modules/competiciones/Liga_UCA.php:37
 #: server/modules/competiciones/Puntuable_CPC_2018.php:122
-#: server/modules/competiciones/Puntuable_FMC_2018.php:82
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:143
+#: server/modules/competiciones/Puntuable_FMC_2018.php:88
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:144
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:68
 #: server/modules/competiciones/SelectivaWAO_Games.php:96
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:94
@@ -1476,7 +1476,7 @@ msgstr "Total"
 #: console/dialogs/dlg_competicion_games.inc:207
 #: lib/templates/final_games.inc.php:42 lib/templates/final_games.inc.php:49
 #: lib/templates/final_games.inc.php:54 server/modules/Competitions.php:20
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:96
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:96
 #: server/pdf/classes/PrintClasificacionExcel.php:170
 #: server/pdf/classes/PrintClasificacionExcel.php:178
 #: server/pdf/classes/PrintClasificacionGames.php:123
@@ -1528,7 +1528,7 @@ msgstr "Validar datos. Almacenarlos en la celda en edición"
 #: server/excel/classes/PartialScoresWriter.php:82
 #: server/excel/classes/XLSXWriter.php:64
 #: server/excel/classes/XLSXWriter.php:114
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:106
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:106
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:101
 #: server/pdf/classes/PrintClasificacionExcel.php:97 tablet/index.php:170
 #: videowall/vw_finales.php:43 videowall/vw_finales.php:100
@@ -2505,7 +2505,7 @@ msgstr "Datos de la inscripci&oacute;n"
 #: console/frm_guias.php:159 console/frm_paises.php:232
 #: console/frm_perros.php:138 lib/templates/orden_salida.inc.php:26
 #: server/database/classes/Ligas.php:171
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:85
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:85
 #: server/pdf/classes/PrintClasificacionExcel.php:159
 #: server/pdf/classes/PrintEntradaDeDatos.php:380
 #: server/pdf/classes/PrintEntradaDeDatos.php:466
@@ -2676,7 +2676,7 @@ msgstr "Actualizando sesi&oacute;n de entrenamientos de la prueba"
 #: server/excel/classes/EntrenamientosWriter.php:54
 #: server/excel/classes/OrdenSalidaWriter.php:121
 #: server/excel/classes/XLSXWriter.php:124
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:105
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:105
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:100
 #: server/pdf/classes/PrintClasificacion.php:80
 #: server/pdf/classes/PrintClasificacionExcel.php:103
@@ -2921,7 +2921,7 @@ msgstr "Inscribir"
 
 #: console/dialogs/dlg_newInscripcion.inc:96
 #: console/dialogs/dlg_remotecontrol.inc:267 console/frm_equipos.php:58
-#: scripts/admin.js.php:572 scripts/auth.js.php:73
+#: scripts/admin.js.php:575 scripts/auth.js.php:73
 #: scripts/results_and_scores.js.php:164 scripts/webhost.js.php:120
 msgid "Done."
 msgstr "Hecho."
@@ -3233,7 +3233,7 @@ msgstr "Editar gu&iacute;a"
 
 #: console/dialogs/dlg_perros.inc:102 console/frm_competicion2.php:156
 #: console/frm_inscripciones2.php:208 console/frm_myAdmin.php:31
-#: console/index.php:225 scripts/admin.js.php:248 scripts/admin.js.php:539
+#: console/index.php:225 scripts/admin.js.php:248 scripts/admin.js.php:542
 #: scripts/competicion.js.php:123 scripts/inscripciones.js.php:147
 #: scripts/pruebas.js.php:191 scripts/pruebas.js.php:435
 #: server/pdf/classes/PrintOrdenTandas.php:77
@@ -3274,7 +3274,7 @@ msgid "New plugin"
 msgstr "Nuevo m&oacute;dulo"
 
 #: console/dialogs/dlg_plugins.inc:11 console/dialogs/dlg_tools.inc:38
-#: scripts/admin.js.php:454
+#: scripts/admin.js.php:456
 msgid "Upgrade"
 msgstr "Actualizar"
 
@@ -4759,7 +4759,7 @@ msgstr "Club anfitri&oacute;n"
 #: server/excel/classes/PartialScoresWriter.php:83
 #: server/excel/classes/XLSXWriter.php:66
 #: server/excel/classes/XLSXWriter.php:129
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:107
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:107
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:102
 #: server/pdf/classes/PrintClasificacion.php:78
 #: server/pdf/classes/PrintClasificacionExcel.php:101
@@ -5086,7 +5086,7 @@ msgstr "Des-Inscribir"
 msgid "Processing data"
 msgstr "Procesando"
 
-#: console/frm_equipos.php:100 scripts/equipos.js.php:374
+#: console/frm_equipos.php:100 scripts/equipos.js.php:410
 msgid "Setting team for"
 msgstr "Ajustando equipo para"
 
@@ -6815,11 +6815,11 @@ msgstr ""
 "Esta operaci&oacute;n <strong>BORRARA <em>TODOS</em> LOS DATOS </"
 "strong>antes de restaurar <br/>"
 
-#: scripts/admin.js.php:250 scripts/admin.js.php:378 scripts/admin.js.php:422
+#: scripts/admin.js.php:250 scripts/admin.js.php:379 scripts/admin.js.php:423
 msgid "Be aware of making a backup copy before continue<br/><br/>"
 msgstr "Asegurese de hacer una copia de seguridad antes de seguir<br/><br/>"
 
-#: scripts/admin.js.php:251 scripts/admin.js.php:379 scripts/admin.js.php:399
+#: scripts/admin.js.php:251 scripts/admin.js.php:380 scripts/admin.js.php:400
 msgid "To continue enter administrator password and press <em>Accept</em>"
 msgstr ""
 "Para proceder, introduzca la contrase&ntilde;a del usuario administrador y "
@@ -6851,15 +6851,15 @@ msgstr ""
 "Recuperaci&oacute;n de base de datos completa<br /> pulse Aceptar para "
 "reiniciar aplicaci&oacute;n"
 
-#: scripts/admin.js.php:334
+#: scripts/admin.js.php:335
 msgid "Restoreing database"
 msgstr "Recuperando base de datos"
 
-#: scripts/admin.js.php:374 scripts/admin.js.php:396 scripts/admin.js.php:415
+#: scripts/admin.js.php:375 scripts/admin.js.php:397 scripts/admin.js.php:416
 msgid "<strong>Notice:</strong><br/>"
 msgstr "<strong>Aviso:</strong><br/>"
 
-#: scripts/admin.js.php:375
+#: scripts/admin.js.php:376
 msgid ""
 "This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA on selected "
 "federation</strong>.<br/>"
@@ -6867,14 +6867,14 @@ msgstr ""
 "Esta operaci&oacute;n<strong>BORRAR&Aacute; <em>TODOS</em> LOS DATOS de la "
 "federaci&oacute;n seleccionada</strong>.<br/>"
 
-#: scripts/admin.js.php:376
+#: scripts/admin.js.php:377
 msgid ""
 "Including contests, inscriptions, scores, judges, dogs and handlers<br/>"
 msgstr ""
 "Incluyendo pruebas, inscripciones, puntuaciones, jueces, perros y gu&iacute;"
 "as<br/>"
 
-#: scripts/admin.js.php:377
+#: scripts/admin.js.php:378
 msgid ""
 "This is intended to be used ONLY as a previous step from importing new data "
 "from Excel file<br/> "
@@ -6882,50 +6882,50 @@ msgstr ""
 "SOLO debe ser usada como paso previo a una importaci&oacute;n de datos desde "
 "un fichero Excel<br/> "
 
-#: scripts/admin.js.php:381 scripts/admin.js.php:388
+#: scripts/admin.js.php:382 scripts/admin.js.php:389
 msgid "Reset Federation"
 msgstr "Limpiar federaci&oacute;n"
 
-#: scripts/admin.js.php:386
+#: scripts/admin.js.php:387
 msgid "Database Reset Federation Error"
 msgstr "BBDD error en borrado de datos de federaci&oacute;n"
 
-#: scripts/admin.js.php:388
+#: scripts/admin.js.php:389
 msgid "Data base cleared<br />Please reinit application"
 msgstr ""
 "Base de datos vac&iacute;a<br />Por favor, reinicie la aplicaci&oacute;n"
 
-#: scripts/admin.js.php:397
+#: scripts/admin.js.php:398
 msgid "This operation WILL ERASE every contests,"
 msgstr "Esta operaci&oacute;n BORRARA todas las pruebas,"
 
-#: scripts/admin.js.php:398
+#: scripts/admin.js.php:399
 msgid "inscriptions and scores from data base<br/><br/>"
 msgstr "inscripciones y resultados de la base de datos<br/><br/>"
 
-#: scripts/admin.js.php:401 scripts/admin.js.php:407
+#: scripts/admin.js.php:402 scripts/admin.js.php:408
 msgid "Erase contests"
 msgstr "Borrar pruebas"
 
-#: scripts/admin.js.php:405
+#: scripts/admin.js.php:406
 msgid "Contests clear Error"
 msgstr "Error en borrado de pruebas"
 
-#: scripts/admin.js.php:407
+#: scripts/admin.js.php:408
 msgid "Every contests have been erased<br />Please, reinit application"
 msgstr ""
 "Todas las pruebas han sido borradas<br />Por favor, reinicie la "
 "aplicaci&oacute;n"
 
-#: scripts/admin.js.php:417 scripts/admin.js.php:426
+#: scripts/admin.js.php:418 scripts/admin.js.php:427
 msgid "Update AgilityContest"
 msgstr "Actualizar AgilityContest"
 
-#: scripts/admin.js.php:418
+#: scripts/admin.js.php:419
 msgid "Auto-Update is not allowed for unregistered installs"
 msgstr "No se permite actualizar una versi&oacute;n sin licencia registrada"
 
-#: scripts/admin.js.php:423
+#: scripts/admin.js.php:424
 msgid ""
 "To proceed with AgilityContest update, enter administrator password and "
 "press <em>Accept</em>"
@@ -6933,82 +6933,82 @@ msgstr ""
 "Para proceder con la actualizaci&oacute;n, introduzca la contrase&ntilde;a "
 "del usuario administrador y pulse <em>Aceptar</em>"
 
-#: scripts/admin.js.php:435
+#: scripts/admin.js.php:436
 msgid "Downloading"
 msgstr "Descargando"
 
-#: scripts/admin.js.php:436
+#: scripts/admin.js.php:437
 msgid "Downloading new version into server"
 msgstr "Descargando actualizaci&oacute;n en el servidor"
 
-#: scripts/admin.js.php:451
+#: scripts/admin.js.php:453
 msgid "Download update failed"
 msgstr "Descarga de actualizaci&oacute;n fallida"
 
-#: scripts/admin.js.php:454
+#: scripts/admin.js.php:456
 msgid "Download complete. Press Acccept to start upgrade"
 msgstr "Descarga completada. Pulse Aceptar para iniciar actualizaci&oacute;n"
 
-#: scripts/admin.js.php:510
+#: scripts/admin.js.php:513
 msgid "Check for DB Updates"
 msgstr "Comprobar actualizaciones de la BBDD"
 
-#: scripts/admin.js.php:518
+#: scripts/admin.js.php:521
 msgid "No Database updates available"
 msgstr "No hay actualizaciones de la BBDD"
 
-#: scripts/admin.js.php:519
+#: scripts/admin.js.php:522
 msgid "New entries available in database"
 msgstr "Nuevas entradas disponibles en la BBDD"
 
-#: scripts/admin.js.php:531
+#: scripts/admin.js.php:534
 msgid "You need to enable sharing data in configuration menu"
 msgstr ""
 "Necesita habilitar compartir datos en el men&uacute; de configuraci&oacute;n"
 
-#: scripts/admin.js.php:534
+#: scripts/admin.js.php:537
 msgid "This app is not registered. Please use a valid license"
 msgstr ""
 "La aplicaci&oacute;n no est&aacute; registrada. Por favor, use una licencia "
 "v&aacute;lida"
 
-#: scripts/admin.js.php:537
+#: scripts/admin.js.php:540
 msgid "This operation requires admin privileges"
 msgstr "Esta operaci&oacute;n requiere permisos de administrador"
 
-#: scripts/admin.js.php:546 scripts/admin.js.php:563
+#: scripts/admin.js.php:549 scripts/admin.js.php:566
 msgid "Synchronize DB"
 msgstr "Sincronizar BBDD"
 
-#: scripts/admin.js.php:547
+#: scripts/admin.js.php:550
 msgid "Updating database with new server data"
 msgstr "Actualizando BBDD con los datos del servidor"
 
-#: scripts/admin.js.php:571
+#: scripts/admin.js.php:574
 msgid "Database is synced with server"
 msgstr "La base de datos est&aacute; sincronizada con el servidor"
 
-#: scripts/admin.js.php:617
+#: scripts/admin.js.php:620
 msgid "Current Version"
 msgstr "Versi&oacute;n actual"
 
-#: scripts/admin.js.php:617
+#: scripts/admin.js.php:620
 msgid "Current Release"
 msgstr "Revisi&oacute;n actual"
 
-#: scripts/admin.js.php:626
+#: scripts/admin.js.php:629
 msgid "Check for Upgrades"
 msgstr "Buscar actualizaciones"
 
-#: scripts/admin.js.php:630
+#: scripts/admin.js.php:633
 msgid "<p>AgilityContest is up to date</p>"
 msgstr "<p>AgilityContest est&aacute; actualizado</p>"
 
-#: scripts/admin.js.php:633
+#: scripts/admin.js.php:636
 msgid "Last Version"
 msgstr "Nueva Versi&oacute;n"
 
-#: scripts/admin.js.php:633
+#: scripts/admin.js.php:636
 msgid "Last Release"
 msgstr "Nueva revisi&oacute;n"
 
@@ -7177,7 +7177,7 @@ msgstr "No se ha indicado ninguna federacion"
 
 #: scripts/clubes.js.php:223 scripts/clubes.js.php:227
 #: scripts/clubes.js.php:232 scripts/equipos.js.php:232
-#: scripts/equipos.js.php:236 scripts/equipos.js.php:263
+#: scripts/equipos.js.php:236 scripts/equipos.js.php:316
 #: scripts/guias.js.php:54 scripts/guias.js.php:77 scripts/guias.js.php:182
 #: scripts/guias.js.php:186 scripts/jueces.js.php:123 scripts/jueces.js.php:127
 #: scripts/perros.js.php:106 scripts/pruebas.js.php:187
@@ -7598,7 +7598,7 @@ msgid "Current License has no permissions to handle Team Journeys"
 msgstr "La licencia actual no permite la gesti&oacute;n de pruebas por equipos"
 
 #: scripts/equipos.js.php:205 scripts/equipos.js.php:232
-#: scripts/equipos.js.php:263
+#: scripts/equipos.js.php:316
 msgid "There is no team selected"
 msgstr "No hay ning&uacute;n equipo seleccionado"
 
@@ -7626,25 +7626,34 @@ msgstr "Realmende desea borrar el equipo"
 msgid "from this journey"
 msgstr "de esta jornada"
 
-#: scripts/equipos.js.php:267
+#: scripts/equipos.js.php:320
 msgid ""
 "This operation will un-inscribe members of selected team from current journey"
 msgstr ""
 "Esta des-inscribira a toos los miembros del equipo seleccionado de la jornada"
 
-#: scripts/equipos.js.php:268
+#: scripts/equipos.js.php:321
 msgid "Do you really want to un-inscribe them"
 msgstr "Realmende desea des-inscribirlos"
 
-#: scripts/equipos.js.php:313
+#: scripts/equipos.js.php:324 scripts/pruebas.js.php:353
+#: scripts/pruebas.js.php:468
+msgid "Processing"
+msgstr "Procesando"
+
+#: scripts/equipos.js.php:325 server/database/classes/Equipos.php:299
+msgid "Uninscribe team member"
+msgstr "Des-inscribir miembro del equipo"
+
+#: scripts/equipos.js.php:349
 msgid "This team has no assigned categories"
 msgstr "Este equipo no tiene ninguna categor&iacute;a asignada"
 
-#: scripts/equipos.js.php:401
+#: scripts/equipos.js.php:437
 msgid "You must select a valid team"
 msgstr "Debe seleccionar un equipo v&aacute;lido"
 
-#: scripts/equipos.js.php:412 scripts/inscripciones.js.php:92
+#: scripts/equipos.js.php:448 scripts/inscripciones.js.php:92
 #: scripts/inscripciones.js.php:142 scripts/inscripciones.js.php:226
 #: scripts/inscripciones.js.php:379 scripts/inscripciones.js.php:427
 #: scripts/pruebas.js.php:381 scripts/pruebas.js.php:416
@@ -7652,16 +7661,16 @@ msgstr "Debe seleccionar un equipo v&aacute;lido"
 msgid "No selection"
 msgstr "No seleccionado"
 
-#: scripts/equipos.js.php:412
+#: scripts/equipos.js.php:448
 msgid "There is no marked dog to change team for"
 msgstr "No ha seleccionado ning&uacute;n perro para cambiar de equipo"
 
-#: scripts/equipos.js.php:418 scripts/inscripciones.js.php:230
+#: scripts/equipos.js.php:454 scripts/inscripciones.js.php:230
 #: scripts/pruebas.js.php:385 scripts/results_and_scores.js.php:125
 msgid "No permission"
 msgstr "Permisos insuficientes"
 
-#: scripts/equipos.js.php:418
+#: scripts/equipos.js.php:454
 msgid "Current user has not enought permissions to perform operation"
 msgstr ""
 "El usuario actual no tiene suficientes permisos para realizar la operacion "
@@ -8325,10 +8334,6 @@ msgstr "Ya enviado"
 msgid "No mail declared"
 msgstr "Sin correo definido"
 
-#: scripts/pruebas.js.php:353 scripts/pruebas.js.php:468
-msgid "Processing"
-msgstr "Procesando"
-
 #: scripts/pruebas.js.php:381
 msgid "There is no selected clubs to send mail to"
 msgstr "No se ha seleccionado ning&uacute;n club al que enviar correo"
@@ -8546,7 +8551,7 @@ msgstr "Debe indicar fichero de licencia"
 msgid "Initialization done. Press OK to start first launch"
 msgstr "Inicialiaci&oacute;n completada. Pulse OK para primer arranque"
 
-#: server/ProgressHandler.php:26 server/ProgressHandler.php:58
+#: server/ProgressHandler.php:26 server/ProgressHandler.php:64
 msgid "Waiting for progress info..."
 msgstr "Esperando informaci&oacute;n del proceso..."
 
@@ -8587,12 +8592,12 @@ msgid "Independent Journey"
 msgstr "Jornada independiente"
 
 #: server/database/classes/Ligas.php:177
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:93
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:93
 msgid "Zeroes"
 msgstr "Ceros"
 
 #: server/database/classes/Ligas.php:219
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:117
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:117
 #: server/pdf/classes/PrintClasificacionTeam.php:388
 #: videowall/vws_final_equipos.php:55 videowall/vws_final_individual.php:56
 msgid "Final"
@@ -8677,10 +8682,10 @@ msgid "Grade III"
 msgstr "Grado III"
 
 #: server/database/classes/poedit.php:25
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:111
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:112
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:113
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:115
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:111
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:112
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:113
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:115
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:106
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:107
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:109
@@ -8712,7 +8717,7 @@ msgid "Jumping GIII"
 msgstr "Jumping GIII"
 
 #: server/database/classes/poedit.php:30
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:116
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:116
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:110
 msgid "Jumping"
 msgstr "Jumping"
@@ -9003,8 +9008,8 @@ msgstr "LOE_RRC"
 #: server/modules/Competitions.php:171
 #: server/modules/competiciones/Liga_UCA.php:36
 #: server/modules/competiciones/Puntuable_CPC_2018.php:121
-#: server/modules/competiciones/Puntuable_FMC_2018.php:81
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:142
+#: server/modules/competiciones/Puntuable_FMC_2018.php:87
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:143
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:67
 #: server/modules/competiciones/SelectivaWAO_Games.php:95
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:93
@@ -9020,8 +9025,8 @@ msgstr "No Presentado"
 #: server/modules/Competitions.php:180
 #: server/modules/competiciones/Liga_UCA.php:45
 #: server/modules/competiciones/Puntuable_CPC_2018.php:130
-#: server/modules/competiciones/Puntuable_FMC_2018.php:90
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:151
+#: server/modules/competiciones/Puntuable_FMC_2018.php:96
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:152
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:76
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:102
 #: server/modules/competiciones/Selectiva_PastorBelga.php:87
@@ -9033,8 +9038,8 @@ msgstr "No Clasificado"
 #: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:114
 #: server/modules/competiciones/Liga_UCA.php:46
 #: server/modules/competiciones/Puntuable_CPC_2018.php:131
-#: server/modules/competiciones/Puntuable_FMC_2018.php:91
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:152
+#: server/modules/competiciones/Puntuable_FMC_2018.php:97
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:153
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:77
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:103
 #: server/modules/competiciones/Selectiva_PastorBelga.php:88
@@ -9049,10 +9054,10 @@ msgstr "N.C."
 #: server/modules/competiciones/Liga_UCA.php:50
 #: server/modules/competiciones/Puntuable_CPC_2018.php:134
 #: server/modules/competiciones/Puntuable_CPC_2018.php:135
-#: server/modules/competiciones/Puntuable_FMC_2018.php:94
-#: server/modules/competiciones/Puntuable_FMC_2018.php:95
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:155
+#: server/modules/competiciones/Puntuable_FMC_2018.php:100
+#: server/modules/competiciones/Puntuable_FMC_2018.php:101
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:156
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:157
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:80
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:81
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:106
@@ -9066,8 +9071,8 @@ msgstr "Bien"
 #: server/modules/Competitions.php:188
 #: server/modules/competiciones/Liga_UCA.php:54
 #: server/modules/competiciones/Puntuable_CPC_2018.php:138
-#: server/modules/competiciones/Puntuable_FMC_2018.php:98
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:159
+#: server/modules/competiciones/Puntuable_FMC_2018.php:104
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:160
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:84
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:110
 msgid "Very good"
@@ -9078,8 +9083,8 @@ msgstr "Muy bien"
 #: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:120
 #: server/modules/competiciones/Liga_UCA.php:55
 #: server/modules/competiciones/Puntuable_CPC_2018.php:139
-#: server/modules/competiciones/Puntuable_FMC_2018.php:99
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:160
+#: server/modules/competiciones/Puntuable_FMC_2018.php:105
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:161
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:85
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:111
 #: server/modules/competiciones/Selectiva_PastorBelga.php:95
@@ -9093,10 +9098,10 @@ msgstr "M.B."
 #: server/modules/competiciones/Liga_UCA.php:64
 #: server/modules/competiciones/Puntuable_CPC_2018.php:142
 #: server/modules/competiciones/Puntuable_CPC_2018.php:146
-#: server/modules/competiciones/Puntuable_FMC_2018.php:102
-#: server/modules/competiciones/Puntuable_FMC_2018.php:106
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:163
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:167
+#: server/modules/competiciones/Puntuable_FMC_2018.php:108
+#: server/modules/competiciones/Puntuable_FMC_2018.php:112
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:164
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:168
 #: server/modules/competiciones/Puntuable_RSCE_2017.php:108
 #: server/modules/competiciones/Puntuable_RSCE_2017.php:122
 #: server/modules/competiciones/Puntuable_RSCE_2018.php:117
@@ -9124,10 +9129,10 @@ msgstr "Excelente"
 #: server/modules/competiciones/Liga_UCA.php:65
 #: server/modules/competiciones/Puntuable_CPC_2018.php:143
 #: server/modules/competiciones/Puntuable_CPC_2018.php:147
-#: server/modules/competiciones/Puntuable_FMC_2018.php:103
-#: server/modules/competiciones/Puntuable_FMC_2018.php:107
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:164
-#: server/modules/competiciones/Puntuable_RFEC_2018.php:168
+#: server/modules/competiciones/Puntuable_FMC_2018.php:109
+#: server/modules/competiciones/Puntuable_FMC_2018.php:113
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:165
+#: server/modules/competiciones/Puntuable_RFEC_2018.php:169
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:87
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:88
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:91
@@ -9142,7 +9147,7 @@ msgstr "Excelente"
 #: server/modules/competiciones/Selectiva_awc_2018.php:145
 #: server/modules/competiciones/Selectiva_eo_2017.php:146
 #: server/modules/competiciones/Selectiva_eo_2018.php:148
-#: server/modules/competiciones/lib/ligas/Liga_FMC_2018.php:92
+#: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:92
 #: videowall/videowall.js.php:410
 msgid "Exc"
 msgstr "Exc"

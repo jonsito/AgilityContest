@@ -17,8 +17,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 
-require_once("DBObject.php");
-require_once("OrdenSalida.php");
+require_once(__DIR__."/DBObject.php");
+require_once(__DIR__."/OrdenSalida.php");
 
 class Equipos extends DBObject {
 
@@ -283,20 +283,24 @@ class Equipos extends DBObject {
     /**
      * Un subscribe all team members from current journey
      * @param $idteam ID del equipo
+     * @param $suffix: used for process progress information
      * @throws Exception on invalid prueba or jornada ID
      */
-	function unsubscribeMembers($idteam) {
+	function unsubscribeMembers($idteam,$suffix) {
+	    $ph=ProgressHandler::getHandler("equipos",$suffix);
 	    // retrieve all dogs from this team
         $res= $this->__select(
-            "DISTINCT Perro",
+            "DISTINCT Perro,Nombre",
             "resultados",
             "Equipo={$idteam}"
         );
         $inscripciones=new Inscripciones("uninscribeTeamMember",$this->pruebaID);
         foreach ($res['rows'] as $item) {
+            $ph->putData("% "._("Uninscribe team member").": {$item['Nombre']} ");
             $perro=$item['Perro'];
             $inscripciones->deleteFromJourney($perro,$this->jornadaID);
         }
+        $ph->putData("Done.");
         return ""; // success
     }
 

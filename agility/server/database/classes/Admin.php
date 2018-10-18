@@ -607,8 +607,14 @@ class Admin extends DBObject {
         array_map('unlink',glob("{$this->restore_dir}updateRequests/*.json"));
 
         // restore operations log
-        $this->myLogger->trace("Clearing restore related tmp files");
+        $this->myLogger->trace("Clearing progress info related tmp files");
         array_map('unlink',glob("{$this->restore_dir}restor*.log"));
+        array_map('unlink',glob("{$this->restore_dir}equipos*.log"));
+
+        // AgilityContest updates
+        $this->myLogger->trace("Clearing AgilityContest updates related tmp files");
+        array_map('unlink',glob("{$this->restore_dir}upgrade*.log"));
+        array_map('unlink',glob("{$this->restore_dir}AgilityContest*.zip"));
 
         // remove results mail directories
         $this->myLogger->trace("Clearing mail results related tmp files");
