@@ -90,11 +90,20 @@ function checkTeams(datagrid) {
 * imprime los equipos de la jornada y los miembros de cada equipo
 */
 function realPrintTeams() {
+    var options=$('#team_datagrid').datagrid('options');
+    var search=$('#team_datagrid-search').val();
+    if (search==="<?php _e('-- Search --')?>") search="";
     $.fileDownload(
         '../ajax/pdf/print_equiposByJornada.php',
         {
             httpMethod: 'GET',
-            data: { Prueba: workingData.prueba, Jornada: workingData.jornada },
+            data: {
+                Prueba: workingData.prueba,
+                Jornada: workingData.jornada,
+                sort: options.sortName,
+                order: options.sortOrder,
+                where: search
+            },
             preparingMessageHtml: '<?php _e("Printing team lists; please wait"); ?> ...',
             failMessageHtml: '<?php _e("There was a problem generating your report, please try again."); ?>'
         }

@@ -49,12 +49,22 @@ class Equipos extends DBObject {
 		}
 	}
 
-    function getTeamsByJornada(){
+	// $options is used in team inscription window to selech teams and order to be printed
+    function getTeamsByJornada($options=array('sort'=>"",'order'=>"",'where'=>"")){
+        //needed to properly handle multisort requests from datagrid
+        $sort=getOrderString($options['sort'],$options['order'],"Nombre ASC");
+        $extra="";
+        if ($options['where']!=='') $extra=" AND (equipos.Nombre LIKE '%{$options['where']}%')";
         if ($this->teamsByJornada==null) {
             $p=$this->pruebaID;
             $j=$this->jornadaID;
             // obtenemos los equipos de esta jornada
-            $res= $this->__select("*","equipos","( Prueba = $p ) AND ( Jornada = $j )","","");
+            $res= $this->__select(
+                "*",
+                "equipos",
+                "( Prueba = {$p} ) AND ( Jornada = {$j} ) {$extra}",
+                $sort,
+                "");
             if (!is_array($res)) {
                 $this->myLogger->error("{$this->file}::getTeamsByJornada() cannot get team data for prueba:$p jornada:$j");
             }

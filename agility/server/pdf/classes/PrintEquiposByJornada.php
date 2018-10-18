@@ -46,7 +46,7 @@ class PrintEquiposByJornada extends PrintCommon {
      * @param {integer} $manga Manga ID
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada) {
+	function __construct($prueba,$jornada,$options) {
 		parent::__construct('Portrait',"print_equiposByJornada",$prueba,$jornada);
 		if ( ($prueba<=0) || ($jornada<=0) ) {
 			$this->errormsg="print_teamsByJornada: either prueba or jornada data are invalid";
@@ -60,7 +60,7 @@ class PrintEquiposByJornada extends PrintCommon {
         }
 		// Datos de equipos de la jornada
         $m=new Equipos("print_teamsByJornada",$prueba,$jornada);
-        $teams=$m->getTeamsByJornada();
+        $teams=$m->getTeamsByJornada($options);
         // reindexamos por ID y anyadimos un campo extra "Perros" con los perros del equipo
         $this->equipos=array();
         foreach ($teams as &$equipo) {

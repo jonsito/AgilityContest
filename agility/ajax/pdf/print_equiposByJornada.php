@@ -32,8 +32,13 @@ require_once(__DIR__ . "/../../server/pdf/classes/PrintEquiposByJornada.php");
 try {
 	$prueba=http_request("Prueba","i",0);
 	$jornada=http_request("Jornada","i",0);
+	$options=array(
+	  'sort' => http_request("sort","s",""),
+	  'order' => http_request("order","s",""),
+	  'where' => http_request("where","s","")
+    );
 	// 	Creamos generador de documento
-	$pdf = new PrintEquiposByJornada($prueba,$jornada);
+	$pdf = new PrintEquiposByJornada($prueba,$jornada,$options);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
     $pdf->Output($pdf->get_FileName(),"D"); // "D" web download; "F" file save
