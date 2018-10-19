@@ -264,10 +264,11 @@ function reorderInscripciones(idprueba) {
                     } else {
                         $('#inscripciones-datagrid').datagrid('reload');
                     }
-                    $.messager.progress('close');
                 },
-                error:function(jqXHR, textStatus, errorThrown) {
-                    // console.log(textStatus, errorThrown);
+                error: function(XMLHttpRequest,textStatus,errorThrown) {
+                    $.messager.alert("Reorder insciptions","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+                },
+                complete:function() {
                     $.messager.progress('close');
                 }
             });
@@ -300,10 +301,11 @@ function clearJourneyInscriptions(current){
             } else {
                 $('#inscripciones-datagrid').datagrid('reload');
             }
-            $.messager.progress('close');
         },
-        error:function(jqXHR, textStatus, errorThrown) {
-            // console.log(textStatus, errorThrown);
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Clear Journey inscriptions","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function() {
             $.messager.progress('close');
         }
     });
@@ -334,12 +336,14 @@ function inscribeAllIntoJourney(current){
             } else {
                 $('#inscripciones-datagrid').datagrid('reload');
             }
-            $.messager.progress('close');
         },
-        error:function(jqXHR, textStatus, errorThrown) {
-            // console.log(textStatus, errorThrown);
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Inscribe all in journey","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function() {
             $.messager.progress('close');
         }
+
     });
     return false;
 }
@@ -365,10 +369,11 @@ function inscribeSelectedIntoJourney(current){
                 } else {
                     $('#inscripciones-datagrid').datagrid('reload');
                 }
-                $.messager.progress('close');
+            }
+            error: function(XMLHttpRequest,textStatus,errorThrown) {
+                $.messager.alert("Save Team","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
             },
-            error:function(jqXHR, textStatus, errorThrown) {
-                // console.log(textStatus, errorThrown);
+            complete: function() {
                 $.messager.progress('close');
             }
         });
@@ -452,12 +457,13 @@ function setDorsal() {
 					} else {
 						$('#inscripciones-datagrid').datagrid('reload');
 					}
-					$.messager.progress('close');
 				},
-				error:function(jqXHR, textStatus, errorThrown) {
-					// console.log(textStatus, errorThrown);
-					$.messager.progress('close');
-				}
+                error: function(XMLHttpRequest,textStatus,errorThrown) {
+                    $.messager.alert("Set Dorsal","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+                },
+                complete: function() {
+				    $.messager.progress('close');
+                }
 			});
 		}
 	);

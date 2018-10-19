@@ -293,12 +293,13 @@ function restoreDatabase(fromClient){
                                         function(){window.location.reload();} // reload application main page
                                     ).window('resize',{width:350});
                                 }
-                                $.messager.progress('close');
                             },
                             error: function(XMLHttpRequest,textStatus,errorThrown) {
                                 $.messager.alert("DBRestore Error",
                                     "Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,
                                     "error");
+                            },
+                            complete: function() {
                                 $.messager.progress('close');
                             }
                         });
@@ -322,9 +323,13 @@ function restoreDatabase(fromClient){
                                 if(data.status!=="Done."){
                                     setProgressValue(data.status);
                                     setTimeout(getProgress,200);
-                                } else {
-                                    $.messager.progress('close');
                                 }
+                            },
+                            error: function(XMLHttpRequest,textStatus,errorThrown) {
+                                $.messager.alert("RestoreDB progress","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+                            },
+                            complete: function() {
+                                $.messager.progress('close');
                             }
                         });
                     }
@@ -448,7 +453,6 @@ function askForUpgrade(msg,name,release){
                         Suffix: suffix
                     },
                     success: function(data) {
-                        $.messager.progress('close');
                         if (typeof(data.errorMsg)!=="undefined") {
                             $.messager.alert('<?php _e("Download update failed"); ?>',data.errorMsg,"error");
                             return false;
@@ -458,8 +462,10 @@ function askForUpgrade(msg,name,release){
                         });
                     },
                     error: function(XMLHttpRequest,textStatus,errorThrown) {
-                        $.messager.progress('close');
                         $.messager.alert("<?php _e('Error');?>","<?php _e('Error');?>: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,'error' );
+                    },
+                    complete: function() {
+                        $.messager.progress('close');
                     }
                 });
 
@@ -479,9 +485,13 @@ function askForUpgrade(msg,name,release){
                                 var bar=$.messager.progress('bar');
                                 bar.progressbar('setValue', value);  // set new progress value
                                 setTimeout(getProgress,2000);
-                            } else {
-                                $.messager.progress('close');
                             }
+                        },
+                        error: function(XMLHttpRequest,textStatus,errorThrown) {
+                            $.messager.alert("Download upgrade","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+                        },
+                        complete: function() {
+                            $.messager.progress('close');
                         }
                     });
                 }
@@ -575,10 +585,8 @@ function synchronizeDatabase(warnifnotallowed) {
                 $.messager.alert("<?php _e('Done.');?>",msg,"info");
                 checkForDatabaseUpdates();
             }
-            $.messager.progress('close');
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
-            $.messager.progress('close');
             // connection error: show an slide message error at bottom of the screen
             $.messager.show({
                 title:"<?php _e('Error');?>",
@@ -587,6 +595,9 @@ function synchronizeDatabase(warnifnotallowed) {
                 showType: 'slide',
                 height:200
             });
+        },
+        complete: function () {
+            $.messager.progress('close');
         }
     });
 
@@ -607,9 +618,13 @@ function synchronizeDatabase(warnifnotallowed) {
                     var bar=$.messager.progress('bar');
                     bar.progressbar('setValue', value);  // set new progress value
                     setTimeout(getProgress,2000);
-                } else {
-                    $.messager.progress('close');
                 }
+            },
+            error: function(XMLHttpRequest,textStatus,errorThrown) {
+                $.messager.alert("SyncDB progress","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+            },
+            complete: function() {
+                $.messager.progress('close');
             }
         });
     }

@@ -157,7 +157,6 @@ function perform_emailScores() {
             Contents: $('#scores_email-Contents').val()
         },
         success: function (result) {
-            $.messager.progress('close');
             if (result.errorMsg) {
                 $.messager.alert({width:350, height:150, title:'<?php _e('Error'); ?>',msg: result.errorMsg,icon:'error' });
             } else {
@@ -165,8 +164,10 @@ function perform_emailScores() {
             }
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Save Team","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function() {
             $.messager.progress('close');
-            alert("Send scores by mail error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
         }
     });
 }
