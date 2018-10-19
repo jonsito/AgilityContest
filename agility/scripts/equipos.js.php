@@ -284,13 +284,13 @@ function deleteTeamMembers(dg) {
                     var bar = $.messager.progress('bar');  // get the progressbar object
                     bar.progressbar('setValue',data.status);  // set new progress value
                     setTimeout(getProgress,200);
+                } else {
+                    $.messager.progress('close');
                 }
             },
             error: function(XMLHttpRequest,textStatus,errorThrown) {
-                $.messager.alert("Delete Team Members","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-            },
-            complete: function() {
                 $.messager.progress('close');
+                $.messager.alert("Delete Team Members","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
             }
         });
     }

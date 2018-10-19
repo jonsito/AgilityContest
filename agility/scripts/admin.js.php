@@ -323,13 +323,13 @@ function restoreDatabase(fromClient){
                                 if(data.status!=="Done."){
                                     setProgressValue(data.status);
                                     setTimeout(getProgress,200);
+                                } else {
+                                    $.messager.progress('close');
                                 }
                             },
                             error: function(XMLHttpRequest,textStatus,errorThrown) {
-                                $.messager.alert("RestoreDB progress","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-                            },
-                            complete: function() {
                                 $.messager.progress('close');
+                                $.messager.alert("RestoreDB progress","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
                             }
                         });
                     }
@@ -485,13 +485,13 @@ function askForUpgrade(msg,name,release){
                                 var bar=$.messager.progress('bar');
                                 bar.progressbar('setValue', value);  // set new progress value
                                 setTimeout(getProgress,2000);
+                            } else {
+                                $.messager.progress('close');
                             }
                         },
                         error: function(XMLHttpRequest,textStatus,errorThrown) {
-                            $.messager.alert("Download upgrade","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-                        },
-                        complete: function() {
                             $.messager.progress('close');
+                            $.messager.alert("Download upgrade","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
                         }
                     });
                 }
@@ -618,13 +618,13 @@ function synchronizeDatabase(warnifnotallowed) {
                     var bar=$.messager.progress('bar');
                     bar.progressbar('setValue', value);  // set new progress value
                     setTimeout(getProgress,2000);
+                } else {
+                    $.messager.progress('close');
                 }
             },
             error: function(XMLHttpRequest,textStatus,errorThrown) {
-                $.messager.alert("SyncDB progress","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-            },
-            complete: function() {
                 $.messager.progress('close');
+                $.messager.alert("SyncDB progress","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
             }
         });
     }

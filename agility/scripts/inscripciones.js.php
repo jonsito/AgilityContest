@@ -369,7 +369,7 @@ function inscribeSelectedIntoJourney(current){
                 } else {
                     $('#inscripciones-datagrid').datagrid('reload');
                 }
-            }
+            },
             error: function(XMLHttpRequest,textStatus,errorThrown) {
                 $.messager.alert("Save Team","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
             },

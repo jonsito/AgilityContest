@@ -305,8 +305,11 @@ class Equipos extends DBObject {
             "Equipo={$idteam}"
         );
         $inscripciones=new Inscripciones("uninscribeTeamMember",$this->pruebaID);
-        foreach ($res['rows'] as $item) {
-            $ph->putData("% "._("Uninscribe team member").": {$item['Nombre']} ");
+        $total=count($res['rows']);
+        for ($n=0;$n<$total;$n++) {
+            $item=$res['rows'][$n];
+            $pct=intval(100*($n/$total));
+            $ph->putData(_("Uninscribe")." {$item['Nombre']} - {$pct}");
             $perro=$item['Perro'];
             $inscripciones->deleteFromJourney($perro,$this->jornadaID);
         }
