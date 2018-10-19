@@ -312,7 +312,6 @@ class Clasificaciones extends DBObject {
      * @param {integer} $mode modo de la prueba
      */
 	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$maxdogs,$mode) {
-
         // indexamos las clasificaciones por id de perro
         $indexedc=array();
         foreach ($c as &$item) {

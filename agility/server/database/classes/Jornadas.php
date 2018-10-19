@@ -594,8 +594,8 @@ class Jornadas extends DBObject {
 		if ($row->Equipos4!=0) {
 			switch($row->Equipos4) {
 				case 1: /* 4 combined (compatibility mode)  */ $idx=8; break;
-				case 2: /* 2 combined	*/ $idx=12; break;
-				case 3: /* 3 combined  */ $idx=13; break;
+				case 2: /* 2 combined	*/ $idx=13; break;
+				case 3: /* 3 combined  */ $idx=14; break;
 				case 4: /* 4 combined  */ $idx=8; break;
 				default: $idx=8; break;
 			}
