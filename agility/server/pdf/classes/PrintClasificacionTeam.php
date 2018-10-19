@@ -64,7 +64,7 @@ class PrintClasificacionTeam extends PrintCommon {
         'Puesto' => '-'
     );
 
-    function pct_setParameters($mangas,$results,$mode,$title) {
+    public function pct_setParameters($mangas,$results,$mode,$title) {
         $dbobj=new DBObject("print_clasificacionEquipos");
         $this->manga1=null;
         $this->manga2=null;
@@ -108,6 +108,7 @@ class PrintClasificacionTeam extends PrintCommon {
 	function __construct($prueba,$jornada) {
 		parent::__construct('Landscape',"print_clasificacion_teams",$prueba,$jornada);
 	}
+
     function print_datosMangas() {
 
         // objeto para buscar jueces
@@ -120,7 +121,12 @@ class PrintClasificacionTeam extends PrintCommon {
         $this->Ln(6);
         $this->Cell(80,6,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
         $this->Ln(6);
-        $ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
+        // as some round can be null check both them to try to retrieve "Tipo"
+        if ($this->manga1!==null)
+            $ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
+        else if ($this->manga2!==null)
+            $ronda=_(Mangas::getTipoManga($this->manga2->Tipo,4,$this->federation)); // la misma que la manga 1
+        else $ronda= "(undefined)";
         $this->Cell(80,6,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
 
         // ahora los datos de cada manga individual

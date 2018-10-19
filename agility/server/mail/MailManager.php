@@ -472,7 +472,8 @@ class MailManager {
                 switch(intval($s['Tipo1'])) {
                     case 8: case 9: case 13: case 14: // prueba por equipos
                         $clasificaciones=$cobj->clasificacionFinalEquipos($s['Rondas'],$mangas,$s['Mode']);
-                        $pdf = new PrintClasificacionTeam($this->pruebaObj->ID,$this->jornadaObj->ID,$mangas,$clasificaciones,$s['Mode']);
+                        $pdf = new PrintClasificacionTeam($this->pruebaObj->ID,$this->jornadaObj->ID);
+                        $pdf->pct_setParameters($mangas,$clasificaciones,$s['Mode'],_("Final scores")." "._("Teams"));
                         break;
                     case 1: case 2: // pre-agility
                         if ($this->myData['SendPreAgility']==0) continue;
