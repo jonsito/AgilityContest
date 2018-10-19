@@ -95,7 +95,7 @@ class Puntuable_LigaNorte_2019 extends Puntuable_RFEC_2018 {
             return;
         }
         // si eliminado o no presentado en _ambas_ mangas, no puntua
-        if ( ($perro['P1']>=100.0) && ($perro['P2']>=100.0) ) {
+        if ( ($perro['P1']>=26.0) && ($perro['P2']>=26.0) ) {
             $perro['Calificacion']= "$pt1 - $pt2 - $pfin";
             $perro['Puntos']=intval($pt1)+intval($pt2)+intval($pfin);
             return;
