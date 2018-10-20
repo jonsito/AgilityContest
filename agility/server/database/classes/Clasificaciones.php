@@ -601,8 +601,8 @@ class Clasificaciones extends DBObject {
         $res= $this->evalFinal($idmangas,$c1,$c2);
         $result=array();
         $result['individual']=$res['rows'];
-        $result['trs1']=$res['trs2'];
-        $result['trs2']=$res['trs1'];
+        $result['trs1']=$res['trs1'];
+        $result['trs2']=$res['trs2'];
         $result['jueces']=$res['jueces'];
         $result['equipos']=$this->evalFinalEquipos($c1,$c2,$result['individual'],$mindogs,$maxdogs,$mode);
         $result['total']=count($result['equipos']);
