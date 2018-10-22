@@ -22,14 +22,16 @@ require_once(__DIR__."/lib/ligas/Liga_RFEC_2018.php");
 
 class Puntuable_LigaNorte_2019 extends Puntuable_RFEC_2018 {
 
-    function __construct() {
-        parent::__construct("Prueba puntuable Liga Norte - 2019");
+    function __construct($name="Puntuable Liga Norte") {
+        parent::__construct($name);
         $this->federationID=1;
         $this->federationDefault=1;
         $this->competitionID=3;
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20181018_1139";
     }
+
+    function useLongNames() { return false; }
 
     function getModuleInfo($contact = null)  {
         return parent::getModuleInfo("yvonneagility@fecaza.com");

@@ -4,7 +4,7 @@ Version 3.8.2 20181019_1730
     - Fix several related progressbar issues (implement Promises)
     - Allow wysiwyg printing ( sort/search ) on team inscription dialog
     - Update database with CE_RFEC_2018 data
-    - New modules: RFEC Open, RFEC LigaNorte, National 3-Heights, and National 4-Heights
+    - New modules: RFEC Open, RFEC LigaNorte, RFEC Liga Dos Castillas, National 3-Heights, and National 4-Heights
 Version 3.8.1 20180928_1800
     - Update database
     - Let generated PDF's open in a new browser window (some browsers only)

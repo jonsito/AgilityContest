@@ -48,7 +48,7 @@ class Puntuable_RFEC_2018 extends Competitions {
     protected $leagueZone=-1;
     protected $myDBObject;
 
-    function __construct($name="Prueba puntuable Liga RFEC") {
+    function __construct($name="Puntuable Liga RFEC (Nacional)") {
         parent::__construct($name);
         $this->federationID=1;
         $this->competitionID=0;

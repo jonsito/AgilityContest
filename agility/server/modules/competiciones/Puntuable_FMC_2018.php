@@ -23,7 +23,7 @@ require_once(__DIR__."/lib/ligas/Liga_RFEC_2018.php");
 class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
 
     function __construct() {
-        parent::__construct("Prueba puntuable Liga FMC - 2018");
+        parent::__construct("Puntuable Liga FMC");
         $this->federationID=1;
         $this->federationDefault=1;
         $this->competitionID=2;
