@@ -33,8 +33,11 @@ class Clasificatoria_Interclubes_2017 extends Competitions {    /*
      */
     public function evalPartialCalification($m,&$perro,$puestocat) {
 
+        // con cada perro vamos componiendo un array de datos parciales
+        // para poder evaluar los puntos de competicion
         $this->parciales[]=&$perro; // important: store by reference
         $size=count($this->parciales);
+
         // los puntos se asignan en funcion del puesto y el numero de perros
         // por consiguiente vamos a recorrer el array incrementando el contador de puntos
         // para saber los que hay que asignar
@@ -46,6 +49,8 @@ class Clasificatoria_Interclubes_2017 extends Competitions {    /*
                 $this->parciales[$n]['Puntos']++;
                 $this->parciales[$n]['CShort']=$this->parciales[$n]['Puntos'];
             }
+            $calif=preg_replace('/ - .*/',' - ',$this->parciales[$n]['Calificacion']);
+            $this->parciales[$n]['Calificacion']=$calif.$this->parciales[$n]['Puntos'];
         }
 
         $perro['Puntos']=0;
@@ -75,7 +80,7 @@ class Clasificatoria_Interclubes_2017 extends Competitions {    /*
 
         $perro['Puntos']=1;
         // en caso contrario, se queda como esta ( un punto )
-        if ($size>1) { // on first dog nothing to compare to :-)
+        if ($size>1) { // on first dog in array nothing to compare to :-)
             $lastperro=$this->parciales[$size-2];
             if ($perro['Penalizacion']==$lastperro['Penalizacion']) {
                 if (($perro['Tiempo']==$lastperro['Tiempo'])) $perro['Puntos']=$lastperro['Puntos'];

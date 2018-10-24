@@ -699,9 +699,11 @@ class Inscripciones extends DBObject {
                 $defteam=$this->__selectAsArray("*","equipos","Jornada={$jornada} AND DefaultTeam=1");
                 $teamID=$defteam['ID'];
             } else {
+                $nequipo=$this->conn->real_escape_string($equipo['Nombre']);
+                $obsequipo=$this->conn->real_escape_string($equipo['Observaciones']);
                 // insertamos nuevo equipo en la lista de equipos
                 $sql="INSERT INTO equipos (Prueba,Jornada,Nombre,Observaciones,Miembros,Categorias,DefaultTeam)
-				      VALUES ({$fobj['Prueba']},{$jornada},'{$equipo['Nombre']}','{$equipo['Observaciones']}','BEGIN,END','{$equipo['Categorias']}',0 )";
+				      VALUES ({$fobj['Prueba']},{$jornada},'{$nequipo}','{$obsequipo}','BEGIN,END','{$equipo['Categorias']}',0 )";
                 $res=$this->query($sql);
                 if (!$res) $this->myLogger->error($this->conn->error);
                 $teamID=$this->conn->insert_id;
