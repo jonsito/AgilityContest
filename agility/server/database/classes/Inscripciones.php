@@ -643,6 +643,7 @@ class Inscripciones extends DBObject {
      * @param {int} $from Jornada ID to clone inscriptions from
      * @param {int} $jornada Jornada ID to be cloned
      * @return string empty on success else error message
+     * @throws Exception when invalid data provided
      */
     function cloneInscripciones($from,$jornada) {
         $this->myLogger->enter();
@@ -689,46 +690,68 @@ class Inscripciones extends DBObject {
 
         // ahora clonamos los equipos. Recuerda que se ha hecho un clearInscripciones primero, por lo que
         // se parte de una tabla "en blanco"
-        $equipos=$this->__select("*","equipos","Jornada={$from}");
-        $ordenEquipos="BEGIN,";
-        foreach($equipos['rows'] as $equipo) {
-            $members=getInnerString($equipo['Miembros'],'BEGIN,',',END');
-            // si se trata del equipo por defecto no se inserta: ya viene pre-definido
-            if ($equipo['DefaultTeam']!=0) {
-                // obtener el id del equipo por defecto de la nueva jornada
-                $defteam=$this->__selectAsArray("*","equipos","Jornada={$jornada} AND DefaultTeam=1");
-                $teamID=$defteam['ID'];
-            } else {
-                $nequipo=$this->conn->real_escape_string($equipo['Nombre']);
-                $obsequipo=$this->conn->real_escape_string($equipo['Observaciones']);
-                // insertamos nuevo equipo en la lista de equipos
-                $sql="INSERT INTO equipos (Prueba,Jornada,Nombre,Observaciones,Miembros,Categorias,DefaultTeam)
+
+        // obtenemos el defaultTeam de la jornada nueva
+        // obtener el id del equipo por defecto de la nueva jornada
+        $defteam=$this->__selectAsArray("*","equipos","Jornada={$jornada} AND DefaultTeam=1");
+        // si la jornada destino no tiene pruebas por equipos,
+        // entonces NO clonamos los equipos de la jornada original
+        if (Jornadas::hasTeams($jornada)) {
+            // obtenemos la lista de equipos de la jornada antigua
+            $equipos=$this->__select("*","equipos","Jornada={$from}");
+            $ordenEquipos="BEGIN,";
+            // copiamos cada equipo de la antigua en la nueva, haciendo la traslación de ID's correspondiente
+            foreach($equipos['rows'] as $equipo) {
+                $members=getInnerString($equipo['Miembros'],'BEGIN,',',END');
+                // si se trata del equipo por defecto no se inserta: ya viene pre-definido
+                if ($equipo['DefaultTeam']!=0) {
+                    $teamID=$defteam['ID'];
+                } else {
+                    $nequipo=$this->conn->real_escape_string($equipo['Nombre']);
+                    $obsequipo=$this->conn->real_escape_string($equipo['Observaciones']);
+                    // insertamos nuevo equipo en la lista de equipos
+                    $sql="INSERT INTO equipos (Prueba,Jornada,Nombre,Observaciones,Miembros,Categorias,DefaultTeam)
 				      VALUES ({$fobj['Prueba']},{$jornada},'{$nequipo}','{$obsequipo}','BEGIN,END','{$equipo['Categorias']}',0 )";
+                    $res=$this->query($sql);
+                    if (!$res) $this->myLogger->error($this->conn->error);
+                    $teamID=$this->conn->insert_id;
+                }
+                // vamos componiendo el nuevo orden de equipos con los datos que acabamos de obtener
+                $ordenEquipos.="${teamID},";
+                // actualiza los miembros del equipo, clonandolos del original
+                $sql="UPDATE equipos SET Miembros='{$equipo['Miembros']}' WHERE ID={$teamID}";
                 $res=$this->query($sql);
                 if (!$res) $this->myLogger->error($this->conn->error);
-                $teamID=$this->conn->insert_id;
+                // ahora actualizamos el campo equipo de los resultados de la jornada
+                // en que el ID del perro esta en la lista de miembros
+                if ($members!="") { // skip empty team lists
+                    $sql="UPDATE resultados SET Equipo={$teamID} WHERE Jornada={$jornada} AND Perro IN ($members)";
+                    $res=$this->query($sql);
+                }
+                if (!$res) $this->myLogger->error($this->conn->error);
             }
-            $ordenEquipos.="${teamID},";
-            // actualiza los miembros del equipo
-            $sql="UPDATE equipos SET Miembros='{$equipo['Miembros']}' WHERE ID={$teamID}";
+
+            // finalmente ajustamos el orden del equipos que hemos evaluado
+            // Como clonar el orden de equipos de cada manga es complicado, ( ya que las dos jornadas no tienen por qué
+            // tener las mismas mangas, vamos a poner el mismo orden para todas las mangas de la nueva jornada
+            $ordenEquipos.="END";
+            $sql="UPDATE mangas SET Orden_Equipos='{$ordenEquipos}' WHERE Jornada={$jornada}";
             $res=$this->query($sql);
             if (!$res) $this->myLogger->error($this->conn->error);
-            // ahora actualizamos el campo equipo de los resultados de la jornada
-            // en que el ID del perro esta en la lista de miembros
-            if ($members!="") { // skip empty team lists
-                $sql="UPDATE resultados SET Equipo={$teamID} WHERE Jornada={$jornada} AND Perro IN ($members)";
-                $res=$this->query($sql);
-            }
+        } else {
+            // clone to a journey without team rounds
+
+            // results are by defaul assigned to default team; no need to update
+
+            // also no team members are needed for default team, just default "BEGIN,END"
+
+            // So just update mangas Orden_Equipos field.
+            // In this case there are no teams but default one, so it's easy :-)
+            $ordenEquipos="BEGIN,{$defteam['ID']},END";
+            $sql="UPDATE mangas SET Orden_Equipos='{$ordenEquipos}' WHERE Jornada={$jornada}";
+            $res=$this->query($sql);
             if (!$res) $this->myLogger->error($this->conn->error);
         }
-
-        // ajustamos el orden del equipos.
-        // Como clonar el orden de equipos de cada manga es complicado, ( ya que las dos jornadas no tienen por qué
-        // tener las mismas mangas, vamos a poner el mismo orden para todas las mangas de la nueva jornada
-        $ordenEquipos.="END";
-        $sql="UPDATE mangas SET Orden_Equipos='{$ordenEquipos}' WHERE Jornada={$jornada}";
-        $res=$this->query($sql);
-        if (!$res) $this->myLogger->error($this->conn->error);
 
         // las tandas no se clonan, (las tandas por defecto ya estan generadas )
         // como mucho caso habría que clonar el orden y anyadir las tandas definidas por el usuario

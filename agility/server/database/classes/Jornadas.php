@@ -1029,7 +1029,30 @@ class Jornadas extends DBObject {
 		return $result;
 	}
 
+    /**
+     * ask for team journey
+     * @param {mixed} $jobj JornadaID or JornadaObject as returned by _getObject() / _getArray()
+     * @return bool true or false
+     */
+	static function hasTeams($jobj) {
+        if (is_numeric($jobj)) {
+            $obj=new DBObject("hasTeams");
+            $jobj=$obj->__selectObject("*","jornadas","ID=$jobj");
+        }
+        $flag=false;
+        if (is_object($jobj)) {
+            if (intval($jobj->Equipos3)!=0) $flag=true;
+            if (intval($jobj->Equipos4)!=0) $flag=true;
+        }
+        if (is_array($jobj)) {
+            if (intval($jobj['Equipos3'])!=0) $flag=true;
+            if (intval($jobj['Equipos4'])!=0) $flag=true;
+        }
+        return $flag;
+    }
+
 	/**
+     * as for std (grade based) journey
 	 * @param {mixed} $jobj JornadaID or JornadaObject as returned by _getObject() / _getArray()
 	 * @return bool true or false
 	 */
