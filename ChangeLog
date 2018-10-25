@@ -1,3 +1,7 @@
+Version 3.8.2 20181025_1245
+    - Allow clone team journeys into normal ones
+    - Add support for printing individual scores for x-best team journeys ( by mean of clone and subordinate )
+    - Fix (again) progressbar freeze issues
 Version 3.8.2 20181019_1730
     - Let team contests work with more than 4 dogs for team
     - Fix zip generation for team contest
