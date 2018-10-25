@@ -379,10 +379,9 @@ function saveTeam() {
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save Team","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#team_edit_dialog-okBtn').linkbutton('enable');
         }
+    }).then(function(){
+        $('#team_edit_dialog-okBtn').linkbutton('enable');
     });
     return false;
 }

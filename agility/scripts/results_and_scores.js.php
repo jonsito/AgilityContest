@@ -165,10 +165,9 @@ function perform_emailScores() {
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save Team","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function() {
-            $.messager.progress('close');
         }
+    }).then(function(){
+        $.messager.progress('close');
     });
 }
 

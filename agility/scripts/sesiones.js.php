@@ -88,10 +88,9 @@ function saveSession(){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save Sesion","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#sesiones-okBtn').linkbutton('enable');
         }
+    }).then(function(){
+        $('#sesiones-okBtn').linkbutton('enable');
     });
 }
 

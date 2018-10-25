@@ -119,10 +119,9 @@ function savePrueba() {
             },
             error: function(XMLHttpRequest,textStatus,errorThrown) {
                 $.messager.alert("Save Prueba","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-            },
-            complete: function(result) {
-                $('#pruebas-okBtn').linkbutton('enable');
             }
+        }).then(function(){
+            $('#pruebas-okBtn').linkbutton('enable');
         });
     }
 
@@ -551,10 +550,9 @@ function saveJornada(){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save Jornada","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#jornadas-okBtn').linkbutton('enable');
         }
+    }).then(function(){
+        $('#jornadas-okBtn').linkbutton('enable');
     });
 }
 

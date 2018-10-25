@@ -107,10 +107,9 @@ function saveTanda(dg){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save Tanda","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#ordentandas-okBtn').linkbutton('enable');
         }
+    }).then(function(){
+        $('#ordentandas-okBtn').linkbutton('enable');
     });
 }
 

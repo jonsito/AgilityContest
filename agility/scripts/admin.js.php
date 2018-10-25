@@ -298,10 +298,9 @@ function restoreDatabase(fromClient){
                                 $.messager.alert("DBRestore Error",
                                     "Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,
                                     "error");
-                            },
-                            complete: function() {
-                                $.messager.progress('close');
                             }
+                        }).then(function(){
+                            $.messager.progress('close');
                         });
                     }
 
@@ -463,10 +462,9 @@ function askForUpgrade(msg,name,release){
                     },
                     error: function(XMLHttpRequest,textStatus,errorThrown) {
                         $.messager.alert("<?php _e('Error');?>","<?php _e('Error');?>: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,'error' );
-                    },
-                    complete: function() {
-                        $.messager.progress('close');
                     }
+                }).then(function(){
+                    $.messager.progress('close');
                 });
 
                 // en paralelo arrancamos una tarea para leer el progreso de la operacion

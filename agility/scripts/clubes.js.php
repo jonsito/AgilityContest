@@ -205,10 +205,9 @@ function saveClub(){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save Club","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#clubes-okBtn').linkbutton('enable');
         }
+    }).then(function(){
+        $('#clubes-okBtn').linkbutton('enable');
     });
 }
 

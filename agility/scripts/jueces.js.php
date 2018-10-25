@@ -106,10 +106,9 @@ function saveJuez(){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save Juez","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#jueces-okBtn').linkbutton('enable');
         }
+    }).done(function(){
+        $('#jueces-okBtn').linkbutton('enable');
     });
 }
 

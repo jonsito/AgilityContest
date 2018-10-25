@@ -48,38 +48,29 @@ function newInscripcion(dg,def,onAccept) {
  */
 function changeInscription(idx,prueba,perro,jindex,obj) {
 
-    function do_call(idx,prueba,perro,jindex,obj) {
-        var ji=1+parseInt(jindex);
-        return new Promise(function(resolve,reject){
-            $.ajax({
-                type: 'GET',
-                url: '../ajax/database/inscripcionFunctions.php',
-                data: {
-                    Operation: (obj.checked)?"insertIntoJourney":"deleteFromJourney",
-                    Prueba: prueba,
-                    Perro: perro,
-                    Jornada: ji // notice index, no real Jornada ID
-                },
-                dataType: 'json',
-                success: function (result) {
-                    if (result.errorMsg){
-                        $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
-                        obj.checked=!obj.checked; // revert change ( beware on recursive onChange events )
-                    } else {
-                        var j="J"+ji;
-                        // on save done refresh related datagrid index data
-                        $('#inscripciones-datagrid').datagrid('getRows')[idx][j]=obj.checked;
-                    }
-                },
-                complete: function () {
-                    resolve();
-                }
-            });
-        });
-    }
-
     $.messager.progress({height:75, text:'<?php _e("Updating inscription");?>'});
-    do_call(idx,prueba,perro,jindex,obj).then(function(){
+    var ji=1+parseInt(jindex);
+    $.ajax({
+        type: 'GET',
+        url: '../ajax/database/inscripcionFunctions.php',
+        data: {
+            Operation: (obj.checked)?"insertIntoJourney":"deleteFromJourney",
+            Prueba: prueba,
+            Perro: perro,
+            Jornada: ji // notice index, no real Jornada ID
+        },
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){
+                $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
+                obj.checked=!obj.checked; // revert change ( beware on recursive onChange events )
+            } else {
+                var j="J"+ji;
+                // on save done refresh related datagrid index data
+                $('#inscripciones-datagrid').datagrid('getRows')[idx][j]=obj.checked;
+            }
+        }
+    }).then(function(){ // jquery ajax are promises, so can use .then(resolve(),reject())
         $.messager.progress('close');
     });
 }
@@ -126,10 +117,9 @@ function saveInscripcion(close) {
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save Inscripcion","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#edit_inscripcion-okBtn').linkbutton('enable');
         }
+    }).then(function(){
+        $('#edit_inscripcion-okBtn').linkbutton('enable');
     });
 }
 
@@ -267,10 +257,9 @@ function reorderInscripciones(idprueba) {
                 },
                 error: function(XMLHttpRequest,textStatus,errorThrown) {
                     $.messager.alert("Reorder insciptions","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-                },
-                complete:function() {
-                    $.messager.progress('close');
                 }
+            }).then(function(){
+                $.messager.progress('close');
             });
         }
     );
@@ -304,10 +293,9 @@ function clearJourneyInscriptions(current){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Clear Journey inscriptions","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function() {
-            $.messager.progress('close');
         }
+    }).then(function(){
+        $.messager.progress('close');
     });
     return false;
 }
@@ -339,11 +327,9 @@ function inscribeAllIntoJourney(current){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Inscribe all in journey","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function() {
-            $.messager.progress('close');
         }
-
+    }).then(function(){
+        $.messager.progress('close');
     });
     return false;
 }
@@ -372,10 +358,9 @@ function inscribeSelectedIntoJourney(current){
             },
             error: function(XMLHttpRequest,textStatus,errorThrown) {
                 $.messager.alert("Save Team","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-            },
-            complete: function() {
-                $.messager.progress('close');
             }
+        }).then(function(){
+            $.messager.progress('close');
         });
     }
 
@@ -460,11 +445,10 @@ function setDorsal() {
 				},
                 error: function(XMLHttpRequest,textStatus,errorThrown) {
                     $.messager.alert("Set Dorsal","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-                },
-                complete: function() {
-				    $.messager.progress('close');
                 }
-			});
+			}).then(function(){
+                $.messager.progress('close');
+            });
 		}
 	);
     m.find('.messager-input').bind('keypress', function(e) { // accept "Enter" as "OK" button

@@ -279,10 +279,9 @@ function saveChDog(){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save ChPerros","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#chperros-okBtn').linkbutton('enable');
         }
+    }).then(function(){
+        $('#chperros-okBtn').linkbutton('enable');
     });
 }
 
@@ -313,10 +312,9 @@ function saveDog(){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save Dog","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#perros-okBtn').linkbutton('enable');
         }
+    }).then(function(){
+        $('#perros-okBtn').linkbutton('enable');
     });
 }
 

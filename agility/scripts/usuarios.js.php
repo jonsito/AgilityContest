@@ -93,10 +93,9 @@ function saveUser(){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save User","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#usuarios-okBtn').linkbutton('enable');
         }
+    }).then(function(){
+        $('#usuarios-okBtn').linkbutton('enable');
     });
 }
 

@@ -231,11 +231,10 @@ function assignGuia(){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Assign Guia","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#chguias-okBtn').linkbutton('enable');
-            $('#chguias-newBtn').linkbutton('enable');
         }
+    }).then(function(){
+        $('#chguias-okBtn').linkbutton('enable');
+        $('#chguias-newBtn').linkbutton('enable');
     });
 }
 
@@ -270,11 +269,10 @@ function saveChGuia(){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save ChGuia","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#chguias-okBtn').linkbutton('enable');
-            $('#chguias-newBtn').linkbutton('enable');
         }
+    }).then(function(){
+        $('#chguias-okBtn').linkbutton('enable');
+        $('#chguias-newBtn').linkbutton('enable');
     });
 }
 
@@ -306,9 +304,8 @@ function saveGuia(){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save Guia","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-        },
-        complete: function(result) {
-            $('#guias-okBtn').linkbutton('enable');
         }
+    }).then(function(){
+        $('#guias-okBtn').linkbutton('enable');
     });
 }
