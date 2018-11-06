@@ -618,7 +618,18 @@ class Resultados extends DBObject {
 		}
 		// FASE 4: re-ordenamos los datos en base a la puntuacion y calculamos campo "Puesto"
 		usort($table, function($a, $b) {
-			if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
+			if ( $a['Penalizacion'] == $b['Penalizacion'] )	{
+			    // para el caso de los eliminados, ponemos primero a los que se pasan de TRM
+                // el programa asigna PTiempo=0 a los eliminados "normales" y PTiempo=X a
+                // y PTiempo=XX a los
+                if ($a['Penalizacion']==100.0) {
+                    $pta=($a['PTiempo']==0)?150:$a['PTiempo'];
+                    $ptb=($b['PTiempo']==0)?150:$b['PTiempo'];
+                    return ($pta > $ptb)? 1:-1;
+                }
+                // para los demas casos comparamos tiempo
+			    return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
+            }
 			return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
 		});
 
@@ -722,7 +733,20 @@ class Resultados extends DBObject {
 		}
 		// FASE 4: re-ordenamos los datos en base a la puntuacion y calculamos campo "Puesto"
 		usort($table, function($a, $b) {
-			if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
+			if ( $a['Penalizacion'] == $b['Penalizacion'] )	{
+                // para el caso de los eliminados, ponemos primero a los que se pasan de TRM
+                // el programa asigna PTiempo=0 a los eliminados "normales" y PTiempo=X a
+                // y PTiempo=XX a los que se pasan de TRM. Nosotros le damos la vuelta asignando
+                // ptiempo=150 a los eliminados que no se pasan de trm (ptiempo=0)
+                if ($a['Penalizacion']==100.0) {
+                    $pta=($a['PTiempo']==0)?150:$a['PTiempo'];
+                    $ptb=($b['PTiempo']==0)?150:$b['PTiempo'];
+                    return ($pta > $ptb)? 1:-1;
+                }
+                // para los demas casos comparamos tiempo
+                return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
+
+            }
 			return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
 		});
 		

@@ -134,9 +134,9 @@ class Competitions {
         } else {
             // evaluamos penalizacion por tiempo y penalizacion final
             if ($tiempo>=$trm) { // Superado TRM: eliminado
-                $perro['PTiempo']=100.0;
+                $perro['PTiempo']   =(1000.0*$tiempo - 1000.0*$trs) / 1000.0;
                 $perro['Penalizacion']=	100.0;
-                $perro['Eliminado']= 1;
+                $perro['Eliminado'] = 1;
             }
             else if ($tiempo>$trs) { // Superado TRS
                 $perro['PTiempo']		=	(1000.0*$tiempo - 1000.0*$trs) / 1000.0;
