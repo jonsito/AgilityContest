@@ -11,8 +11,6 @@ import sys
 import NowRunning_Display
 import NowRunning_Network
 
-displayHandler = null
-
 def inputParser():
     global displayHandler
     while  True:
@@ -38,19 +36,24 @@ if __name__ == "__main__":
 
     try:
         # ask for ring
-
+        # askForRing()
+        ring=1
         # search network for connection
-
+        networkHandler = NowRunning_Network(ring)
         # init display handler
-        displayHandler = new NowRunning_Display(args.cascaded, args.block_orientation, args.rotate)
+        displayHandler = NowRunning_Display(args.cascaded, args.block_orientation, args.rotate)
         # start display threads
         w = threading.Thread(target = setStdMessage) # setting of main message
     	w.start()
-    	w = threading.Thread(target = displayLoop) # display message loop
+    	w = threading.Thread(target = displayHandler.displayLoop) # display message loop
         w.start()
         # start keyboard handler thread
         w = threading.Thread(target=inputParser)
     	w.start()
     	# network event threads
+        server=networkHandler.lookForServer()
+        if server != "0.0.0.0":
+            w = threading.Thread(target = NetworkHandler.eventParser) # display message loop
+            w.start()
     except KeyboardInterrupt:
         pass

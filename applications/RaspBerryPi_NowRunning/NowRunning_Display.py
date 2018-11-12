@@ -17,12 +17,10 @@ from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_
 
 class NowRunning_Display:
 
-    device = null
-
-    def setNowRunning(nr)
+    def setNowRunning(nr):
         self.nowRunning = nr
 
-    def setNextRunning()
+    def setNextRunning():
         self.nowRunning = self.nowRunning + 1
 
     def setData(r,m,c,g):
@@ -36,7 +34,7 @@ class NowRunning_Display:
 
     def setStdMessage():
         count = 0
-        while nowRunning != 0
+        while nowRunning != 0:
             msg = ""
             if ( count % 4 ) == 0:
                 msg = "Ring %s %s %s-%s " % ( self.ring , self.ronda , self.categoria , self.grado )
@@ -64,7 +62,7 @@ class NowRunning_Display:
                 print(msg)
                 show_message( device, msg, fill="white", font=proportional(CP437_FONT) )
                 continue
-            if stdMessage != ""
+            if stdMessage != "":
                 msg = self.stdMessage
                 self.stdMessage = ""
                 print(msg)
