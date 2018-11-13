@@ -59,8 +59,7 @@ class NowRunning_Network:
 	##### Some constants
 	SESSION_NAME = "NowRunning_2"	# should be generated from evaluated session ID
 	DEBUG=True
-	#ETH_DEVICE='eth0'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
-	ETH_DEVICE='enp4s2'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
+	ETH_DEVICE='eth0'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
 
 	def kitt(self,count):
 		return ( count + 1 ) % 8
@@ -260,8 +259,10 @@ class NowRunning_Network:
 				# Si llega hasta aqui tenemos un error desconocido. Notificar e ignorar
 				self.debug("Error: Unknown event type:"+type )
 
-	def __init__(self):
-		# some global variables
+	def __init__(self,interface):
+		#set up interface name
+		NowRunning_Network.ETH_DEVICE = interface
+		# some variables
 		self.server = "192.168.1.35"	# to be evaluated later by querying network
 		self.baseurl = "agility"		# standard /aglity base url. must be changed in nonstd installs
 		self.session_id = 2				# to be retrieved from server and evaluate provided ring

@@ -30,9 +30,11 @@ class NowRunning_Display:
     def setNextRunning(self):
         NowRunning_Display.nowRunning = NowRunning_Display.nowRunning + 1
 
-    def setData(self,r,m,c,g):
-        self.ring = r
-        self.ronda = m
+    def setRing(self,ring):
+        self.ring = ring
+
+    def setRoundInfo(self,r,c,g):
+        self.ronda = r
         self.categoria = c
         self.grado = g
 
@@ -59,7 +61,7 @@ class NowRunning_Display:
             serial = spi(port=0, device=0, gpio=noop())
             dev = max7219(serial, cascaded=n or 1, block_orientation=block_orientation, rotate=rotate or 0)
         else:
-            dev = pygame(width=32, height=8, rotate=rotate or 0, mode="RGB", transform="scale2x", scale=2)
+            dev = pygame(width=32, height=8, rotate=rotate or 0, mode="RGB", transform="scale2x", scale=2 )
             # show_message( device, "Hello, World", fill="white", font=proportional(CP437_FONT) )
         print("Created device "+NowRunning_Display.DISPLAY)
         return dev

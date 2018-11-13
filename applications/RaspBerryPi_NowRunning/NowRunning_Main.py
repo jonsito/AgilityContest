@@ -27,7 +27,8 @@ if __name__ == "__main__":
     global displayHandler
     parser = argparse.ArgumentParser(description='matrix_demo arguments',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-
+    parser.add_argument('--ring','-r', type=int, default=1, help='Ring to listen events from (1..4)')
+    parser.add_argument('--interface','-i', type=str, default='eth0',help='Network interface to look for server, or "none"')
     parser.add_argument('--cascaded', '-n', type=int, default=1, help='Number of cascaded MAX7219 LED matrices')
     parser.add_argument('--block-orientation', type=int, default=0, choices=[0, 90, -90], help='Corrects block orientation when wired vertically')
     parser.add_argument('--rotate', type=int, default=0, choices=[0, 1, 2, 3], help='Rotate display 0=0°, 1=90°, 2=180°, 3=270°')
@@ -37,11 +38,9 @@ if __name__ == "__main__":
     try:
         # init display handler
         displayHandler = NowRunning_Display.NowRunning_Display(args.cascaded, args.block_orientation, args.rotate)
-        # ask for ring
-        # askForRing()
-        ring=1
+        displayHandler.setRing(int(args.ring))
         # search network for connection
-        networkHandler = NowRunning_Network.NowRunning_Network()
+        networkHandler = NowRunning_Network.NowRunning_Network(args.interface)
         # start display threads
         w = threading.Thread(target = displayHandler.setStdMessage) # setting of main message
     	w.start()
@@ -51,7 +50,7 @@ if __name__ == "__main__":
         w = threading.Thread(target=inputParser)
     	w.start()
     	# network event threads
-        server=networkHandler.lookForServer(ring)
+        server=networkHandler.lookForServer(args.ring)
         if server != "0.0.0.0":
             w = threading.Thread(target = networkHandler.eventParser) # display message loop
             w.start()
