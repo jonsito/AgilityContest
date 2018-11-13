@@ -56,8 +56,9 @@ import math				 # to handle timestamps
 # data = json.load( urllib.urlopen('https://ip.addr.of.server/base_url/ajax/database/eventFunctions.php') + arguments, verify=False )
 
 class NowRunning_Network:
+
 	##### Some constants
-	SESSION_NAME = "NowRunning_2"	# should be generated from evaluated session ID
+	SESSION_NAME = "NowRunning_2"	# should be generated from ring
 	DEBUG=True
 	ETH_DEVICE='eth0'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
 
@@ -118,7 +119,8 @@ class NowRunning_Network:
 			self.session_id=0 # invalid sid
 			return "0.0.0.0"
 		# on received answer retrieve Session ID from requested ring
-		self.session_id = rings[ring];
+		self.ring=ring
+		self.session_id = rings[ring-1]
 		self.debug( "Ring: "+str(ring)+ " Session ID: "+str(self.session_id) )
 		# and finally setup server IP
 		return self.server
@@ -130,10 +132,20 @@ class NowRunning_Network:
 
 # Llamada a pista
 	def handle_llamada(self,data):
-		self.debug("Now running: ")
+		self.dspHandler.setNowRunning(int(data))
 
-	def handle_message(self,msg):
-		self.debug("Sending message: " +  msg)
+# comando desde consola
+	def handle_command(self,data):
+		if data['Oper'] != 8:
+			return
+		a=data['Value'].split(":") # Value = "duration:message"
+		self.dspHandler.setOobMessage(a[1],int(a[0]))
+
+# open manga
+	def handle_open(self,data):
+		self.dspHandler.setOobMessage(data,1)
+		self.dspHandler.setRoundInfo(data)
+		self.dspHandler.setNowRunning(1)
 
 # parar bucle de eventos
 	def stopEventParser():
@@ -142,13 +154,16 @@ class NowRunning_Network:
 # wait for network event messages
 # this method runs in a separate thread
 	def eventParser(self):
+		# evaluate SessionName to allow control from console
+		sname="videowall:%s:0:0:NowRunning_%d" % ( self.session_id,self.ring)
 		event_id=0 # event ID of last "open" call in current session
 		# call to "connect", to retrieve last event id and timeout
-		self.debug( "Connecting event manager on server ...")
 		while True:
 			try:
-				args = "?Operation=connect&Session="+self.session_id
-				response = requests.get("https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args, verify=False)
+				args = "?Operation=connect&Session="+self.session_id+"&SessionName="+sname
+				url="https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args
+				self.debug( "Connecting event manager on "+url)
+				response = requests.get(url, verify=False)
 			except requests.exceptions.RequestException as ex:
 				self.debug ( "Connect() error:" + str(ex) )
 				time.sleep(5) # wait 5 seconds and try again
@@ -186,18 +201,20 @@ class NowRunning_Network:
 			if data['total'] == "0":
 				time.sleep(5) # no data available. Sleep and retry
 				continue
+			timestamp = 0
 			if 'TimeStamp' in data:
-				timestamp=data['TimeStamp']
-			else:
-				self.debug ("ERROR: Reveived Event without Timestamp. ID:"+str(event_id)+" Type:"+type+ " Value:"+str(value))
+				timestamp = data['TimeStamp']
 			for i in data['rows']:
 				event_id=i['ID']
 				type=i['Type']
 				evtdata=json.loads(i['Data'])
 				value=0
+				numero=0
 				if 'Value' in evtdata:			# some events does not provide "Value" in data
-					value=evtdata['Value']
-				self.debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type+ " Value:"+str(value))
+					value = evtdata['Value']
+				if 'Numero' in evtdata:
+					numero = evtdata['Numero']
+				self.debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type+ " Value:"+str(value)+ " Numero:"+str(numero))
 				# Eventos generales
 				if type == 'null':				# null event: no action taken
 					continue
@@ -206,6 +223,9 @@ class NowRunning_Network:
 				if type == 'login':				# operador hace login en el sistema
 					continue
 				if type == 'open':				# operator selects tanda on tablet
+					self.handle_open(evtdata['NombreManga'])
+					continue
+				if type == 'close':				# operator exit from dog data entry on tablet
 					continue
 				# eventos de crono manual
 				if type == 'salida':			# juez da orden de salida ( crono 15 segundos )
@@ -235,7 +255,7 @@ class NowRunning_Network:
 					continue
 					# entrada de datos, dato siguiente, cancelar operacion
 				if type == 'llamada':			# operador abre panel de entrada de datos
-					self.handle_llamada(evtdata)
+					self.handle_llamada(evtdata['Numero'])
 					continue
 				if type == 'datos':				# actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 					continue
@@ -244,11 +264,13 @@ class NowRunning_Network:
 				if type == 'cancelar':			# restaurar datos originales
 					continue
 				if type == 'info':				# value: message
-					self.handle_message(evtdata)
 					continue
 				if type == 'crono_ready':		# crono becomes ready
 					continue
 				if type == 'user':				# user defined event. Value=number
+					continue
+				if type == 'command':		   # command from console Oper,Value= key:val
+					self.handle_command(evtdata)
 					continue
 				# eventos de cambio de camara para gestion de Live Stream
 				# el campo "data" contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
@@ -259,9 +281,11 @@ class NowRunning_Network:
 				# Si llega hasta aqui tenemos un error desconocido. Notificar e ignorar
 				self.debug("Error: Unknown event type:"+type )
 
-	def __init__(self,interface):
+	def __init__(self,interface,handler):
 		#set up interface name
 		NowRunning_Network.ETH_DEVICE = interface
+		# set up displayHandler
+		self.dspHandler = handler
 		# some variables
 		self.server = "192.168.1.35"	# to be evaluated later by querying network
 		self.baseurl = "agility"		# standard /aglity base url. must be changed in nonstd installs

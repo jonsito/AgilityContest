@@ -27,20 +27,21 @@ if __name__ == "__main__":
     global displayHandler
     parser = argparse.ArgumentParser(description='matrix_demo arguments',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('--display','-d',type=str,default='max7219',help='Display mode "pygame" or "max7219"')
     parser.add_argument('--ring','-r', type=int, default=1, help='Ring to listen events from (1..4)')
     parser.add_argument('--interface','-i', type=str, default='eth0',help='Network interface to look for server, or "none"')
-    parser.add_argument('--cascaded', '-n', type=int, default=1, help='Number of cascaded MAX7219 LED matrices')
-    parser.add_argument('--block-orientation', type=int, default=0, choices=[0, 90, -90], help='Corrects block orientation when wired vertically')
-    parser.add_argument('--rotate', type=int, default=0, choices=[0, 1, 2, 3], help='Rotate display 0=0°, 1=90°, 2=180°, 3=270°')
+    parser.add_argument('--cascaded', '-n', type=int, default=4, help='Number of cascaded MAX7219 LED matrices')
+    parser.add_argument('--block-orientation', type=int, default=-90, choices=[0, 90, -90], help='Corrects block orientation when wired vertically')
+    parser.add_argument('--rotate', type=int, default=2, choices=[0, 1, 2, 3], help='Rotate display 0=0°, 1=90°, 2=180°, 3=270°')
 
     args = parser.parse_args()
 
     try:
         # init display handler
-        displayHandler = NowRunning_Display.NowRunning_Display(args.cascaded, args.block_orientation, args.rotate)
+        displayHandler = NowRunning_Display.NowRunning_Display(args.display,args.cascaded, args.block_orientation, args.rotate)
         displayHandler.setRing(int(args.ring))
         # search network for connection
-        networkHandler = NowRunning_Network.NowRunning_Network(args.interface)
+        networkHandler = NowRunning_Network.NowRunning_Network(args.interface,displayHandler)
         # start display threads
         w = threading.Thread(target = displayHandler.setStdMessage) # setting of main message
     	w.start()

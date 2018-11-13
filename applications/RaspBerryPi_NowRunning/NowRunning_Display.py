@@ -17,12 +17,11 @@ from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_
 
 class NowRunning_Display:
 
-
-    DISPLAY = "pygame"
-    #DISPLAY = "max7219"
+    DISPLAY = None # "max7219" or "pygame"
     nowRunning = 1
     stdMessage = ""
     oobMessage = ""
+    oobDuration = 1
 
     def setNowRunning(self,nr):
         NowRunning_Display.nowRunning = nr
@@ -33,20 +32,19 @@ class NowRunning_Display:
     def setRing(self,ring):
         self.ring = ring
 
-    def setRoundInfo(self,r,c,g):
-        self.ronda = r
-        self.categoria = c
-        self.grado = g
+    def setRoundInfo(self,info):
+        self.ronda = info
 
-    def setOobMessage(self,msg):
+    def setOobMessage(self,msg,duration):
         NowRunning_Display.oobMessage = msg
+        NowRunning_Display.oobDuration = duration
 
     def setStdMessage(self):
         count = 0
         while NowRunning_Display.nowRunning != 0:
             msg = ""
             if ( count % 5 ) == 0:
-                msg = "Ring %s %s %s-%s" % ( self.ring , self.ronda , self.categoria , self.grado )
+                msg = "Ring %s %s" % ( self.ring , self.ronda)
             else:
                 msg = "Now running %03d" % ( NowRunning_Display.nowRunning )
             print("setStdMessage() "+msg)
@@ -59,7 +57,8 @@ class NowRunning_Display:
         # create matrix device
         if NowRunning_Display.DISPLAY == "max7219":
             serial = spi(port=0, device=0, gpio=noop())
-            dev = max7219(serial, cascaded=n or 1, block_orientation=block_orientation, rotate=rotate or 0)
+            # use default if not provided by method
+            dev = max7219(serial, cascaded=cascaded or 4, block_orientation=block_orientation or -90, rotate=rotate or 2)
         else:
             dev = pygame(width=32, height=8, rotate=rotate or 0, mode="RGB", transform="scale2x", scale=2 )
             # show_message( device, "Hello, World", fill="white", font=proportional(CP437_FONT) )
@@ -71,12 +70,13 @@ class NowRunning_Display:
             if NowRunning_Display.oobMessage != "":
                 msg = NowRunning_Display.oobMessage
                 NowRunning_Display.oobMessage = ""
-                show_message( self.device, msg, fill="white", font=proportional(CP437_FONT), scroll_delay=0.01 )
+                delay=NowRunning_Display.oobDuration * 0.01
+                show_message( self.device, msg, fill="white", font=proportional(CP437_FONT), scroll_delay=delay )
                 continue
             if NowRunning_Display.stdMessage != "":
                 msg = NowRunning_Display.stdMessage
                 NowRunning_Display.stdMessage = ""
-                show_message( self.device, msg, fill="white", font=proportional(LCD_FONT), scroll_delay=0.01 )
+                show_message( self.device, msg, fill="white", font=proportional(LCD_FONT), scroll_delay=0.02 )
                 continue
             # arriving here means just print dog running
             msg="%03d " % (NowRunning_Display.nowRunning)
@@ -85,14 +85,14 @@ class NowRunning_Display:
                 time.sleep(2)
                 continue
 
-    def __init__(self,cascaded,block_orientation,rotate):
+    def __init__(self,display,cascaded,block_orientation,rotate):
+        NowRunning_Display.DISPLAY = display
         NowRunning_Display.nowRunning = 1
         NowRunning_Display.stdMessage = ""
         NowRunning_Display.oobMessage = "Hello AgilityContest"
+        NowRunning_Display.oobDuration = 1
 
         self.ring = 1
-        self.ronda = "Agility"
-        self.categoria = "Std"
-        self.grado = "G2"
+        self.ronda = ""
 
         self.device= self.initDisplay(cascaded,block_orientation,rotate)

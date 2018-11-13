@@ -120,7 +120,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
         <p><?php _e('Select ring and display name (optional)');?></p>
     	<div class="fitem">
             <label for="chrono-SessionName"><?php _e('Display name');?>:</label>
-            <input type="text" id="chrono-SessionName" name="SessioName" value=""/>
+            <input type="text" id="chrono-SessionName" name="SessionName" value=""/>
        		<label for="chrono-Session"><?php _e('Ring');?>:</label>
        		<select id="chrono-Session" name="Session" style="width:200px"></select>
     	</div>
