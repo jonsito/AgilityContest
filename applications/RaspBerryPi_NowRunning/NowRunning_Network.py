@@ -59,44 +59,43 @@ class NowRunning_Network:
 	##### Some constants
 	SESSION_NAME = "NowRunning_2"	# should be generated from evaluated session ID
 	DEBUG=True
-	ETH_DEVICE='eth0'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
+	#ETH_DEVICE='eth0'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
+	ETH_DEVICE='enp4s2'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
 
-	def kitt(count):
+	def kitt(self,count):
 		return ( count + 1 ) % 8
 
-	def debug(str):
-		global DEBUG
-		if DEBUG==True:
+	def debug(self,str):
+		if NowRunning_Network.DEBUG==True:
 			print (str)
 		
 # perform json request to send event to server
-	def json_request(type,value):
+	def json_request(self,type,value):
 		# compose json request
-		args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(math.floor(millis()/1000))+"&Source=" +SESSION_NAME
+		args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(math.floor(millis()/1000))+"&Source=" + NowRunning_Network.SESSION_NAME
 		args = args + "&Session=" + self.session_id + "&Value="+value
 		url="https://"+self.server+"/"+self.baseurl+"/ajax/database/eventFunctions.php"
-		# debug( "JSON Request: " + url + "" + args)
+		# self.debug( "JSON Request: " + url + "" + args)
 		response = requests.get(url+args, verify=False)	# send request . It is safe to ignore response
 
 # scan local network to look for server
-	def lookForServer():
-		global ETH_DEVICE
+	def lookForServer(self,ring):
 		rings = ["2","3","4","5"] # array of session id's received from server To be re-evaluated later from server response
 		# look for IPv4 addresses on ETH_DEVICE [0]->use first IPv4 address found on this interface
-		netinfo=ni.ifaddresses(ETH_DEVICE)[ni.AF_INET][0]
+		netinfo=ni.ifaddresses(NowRunning_Network.ETH_DEVICE)[ni.AF_INET][0]
 		# iterate on every hosts on this network/netmask. Use strict=False to ignore ip address host bits
 		count=0
+		url= "/agility/ajax/database/sessionFunctions.php"
+		args= "?Operation=selectring" # operation to enumerate available ring sessions
 		for i in ipaddress.IPv4Network(netinfo['addr']+"/"+netinfo['netmask'],strict=False).hosts():
-			count = kitt(count)
+			count = self.kitt(count)
 			ip = str(i)
-			debug( "Looking for server at: " + ip)
+			self.debug( "Looking for server at: " + ip)
 			# time to look for server. To do this, we send an http request to retrieve available session rings, with
 			# their ID to be evaluated according our dip-switches
 			try:
 				# Some stupid routers, instead of 404 in nonexistent pager requests for basic authentication
 				# so take care on it by providing a fake auth, so the router fails and return 401 error
-				url= "../ajax/database/sessionFunctions.php"
-				args= "?Operation=selectring" # operation to enumerate available ring sessions
 				response = requests.get("https://" + ip + url + args, verify=False, timeout=0.5, auth=('AgilityContest','AgilityContest'))
 				# if response failed, try next IP address
 				if response.status_code != 200:
@@ -104,58 +103,60 @@ class NowRunning_Network:
 				# response ok. Extract json message (will throw an exception on fail)
 				data=response.json()
 				# arriving here means server found. store server IP
-				debug ("Found AgilityContest server at IP address: "+ip)
+				self.debug ("Found AgilityContest server at IP address: "+ip)
 				self.server = ip
 				# retrieve session id for each ring
 				for id in range (0,3):
 					rings[id]=data['rows'][id]['ID']
 				# clear leds and return
-				kitt(-1)
+				self.kitt(-1)
 				break
 			except requests.exceptions.RequestException as ex:
-				# debug ( "Http request error:" + str(ex) )
+				# self.debug ( "Http request error:" + str(ex) )
 				continue
 		else:
 			# arriving here means self.server not found
 			self.session_id=0 # invalid sid
 			return "0.0.0.0"
-		# on received answer retrieve Session ID from declared rings
-		# read ring information. Notice that pull-up makes default to be "11"
-		ring = 0x03 ^ ( ( GPIO.input(BTN_Sel1) << 1 ) | GPIO.input(BTN_Sel0) )
+		# on received answer retrieve Session ID from requested ring
 		self.session_id = rings[ring];
-		debug( "Ring: "+str(ring)+ " Session ID: "+str(self.session_id) )
+		self.debug( "Ring: "+str(ring)+ " Session ID: "+str(self.session_id) )
 		# and finally setup server IP
 		return self.server
 
 # Reconocimiento de pista / Fin de reconocimiento
-	def handle_rec(time):
-		debug("Reconocimiento de pista")
+	def handle_rec(self,time):
+		self.debug("Reconocimiento de pista")
 		# disparar un tempporizador que vaya descontando en el marcador
 
 # Llamada a pista
-	def handle_llamada(data):
-		debug("Now running: ")
+	def handle_llamada(self,data):
+		self.debug("Now running: ")
 
-	def handle_message(msg):
-		debug("Sending message: " +  msg)
+	def handle_message(self,msg):
+		self.debug("Sending message: " +  msg)
+
+# parar bucle de eventos
+	def stopEventParser():
+		self.loop = False
 
 # wait for network event messages
 # this method runs in a separate thread
-	def eventParser():
+	def eventParser(self):
 		event_id=0 # event ID of last "open" call in current session
 		# call to "connect", to retrieve last event id and timeout
-		debug( "Connecting event manager on server ...")
+		self.debug( "Connecting event manager on server ...")
 		while True:
 			try:
 				args = "?Operation=connect&Session="+self.session_id
 				response = requests.get("https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args, verify=False)
 			except requests.exceptions.RequestException as ex:
-				debug ( "Connect() error:" + str(ex) )
+				self.debug ( "Connect() error:" + str(ex) )
 				time.sleep(5) # wait 5 seconds and try again
 				continue
 			# if response failed, try next IP address
 			if response.status_code != 200:
-				debug("Invalid response. Try again")
+				self.debug("Invalid response. Try again")
 				time.sleep(5) # wait 5 seconds and retry
 				continue
 			# response ok: retrieve event ID of last "open" call
@@ -165,15 +166,16 @@ class NowRunning_Network:
 				continue
 			event_id = data['rows'][0]['ID']
 			break
+
 		# connect done, now, enter in an infinite "getEvents" request loop
-		debug( "Connected. Waiting for Server events ...")
+		self.debug( "Connected. Waiting for Server events ...")
 		timestamp=0
-		while True:
+		while self.loop:
 			try:
 				args="?Operation=getEvents&Session=" + self.session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)
 				response = requests.get("https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args, verify=False )
 			except requests.exceptions.RequestException as ex:
-				debug ( "getEvents() error:" + str(ex) )
+				self.debug ( "getEvents() error:" + str(ex) )
 				time.sleep(5) # wait 5 seconds and try again
 				continue
 			# if response failed, try next IP address
@@ -188,7 +190,7 @@ class NowRunning_Network:
 			if 'TimeStamp' in data:
 				timestamp=data['TimeStamp']
 			else:
-				debug ("ERROR: Reveived Event without Timestamp. ID:"+str(event_id)+" Type:"+type+ " Value:"+str(value))
+				self.debug ("ERROR: Reveived Event without Timestamp. ID:"+str(event_id)+" Type:"+type+ " Value:"+str(value))
 			for i in data['rows']:
 				event_id=i['ID']
 				type=i['Type']
@@ -196,7 +198,7 @@ class NowRunning_Network:
 				value=0
 				if 'Value' in evtdata:			# some events does not provide "Value" in data
 					value=evtdata['Value']
-				debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type+ " Value:"+str(value))
+				self.debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type+ " Value:"+str(value))
 				# Eventos generales
 				if type == 'null':				# null event: no action taken
 					continue
@@ -234,7 +236,7 @@ class NowRunning_Network:
 					continue
 					# entrada de datos, dato siguiente, cancelar operacion
 				if type == 'llamada':			# operador abre panel de entrada de datos
-				        self.handle_llamada(evtdata)
+					self.handle_llamada(evtdata)
 					continue
 				if type == 'datos':				# actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 					continue
@@ -256,13 +258,14 @@ class NowRunning_Network:
 				if type == 'reconfig':			# reconfiguracion del servidor
 					continue
 				# Si llega hasta aqui tenemos un error desconocido. Notificar e ignorar
-				debug("Error: Unknown event type:"+type )
+				self.debug("Error: Unknown event type:"+type )
 
-	def __init__(self,ring):
+	def __init__(self):
 		# some global variables
 		self.server = "192.168.1.35"	# to be evaluated later by querying network
 		self.baseurl = "agility"		# standard /aglity base url. must be changed in nonstd installs
-		self.session_id = ring			# to be retrieved from server and evaluate according GPIO Sel[10] Switches
+		self.session_id = 2				# to be retrieved from server and evaluate provided ring
+		self.loop = True
 		# do not throw exception on check certifcate
 		requests.packages.urllib3.disable_warnings()
 

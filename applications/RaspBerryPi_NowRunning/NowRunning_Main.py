@@ -20,7 +20,7 @@ def inputParser():
         else:
             print ("received '"+data+"'")
             displayHandler.setNowRunning(int(data))
-        if nowRunning == 0:
+        if data == "0\n":
             break
 
 if __name__ == "__main__":
@@ -35,15 +35,15 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     try:
+        # init display handler
+        displayHandler = NowRunning_Display.NowRunning_Display(args.cascaded, args.block_orientation, args.rotate)
         # ask for ring
         # askForRing()
         ring=1
         # search network for connection
-        networkHandler = NowRunning_Network(ring)
-        # init display handler
-        displayHandler = NowRunning_Display(args.cascaded, args.block_orientation, args.rotate)
+        networkHandler = NowRunning_Network.NowRunning_Network()
         # start display threads
-        w = threading.Thread(target = setStdMessage) # setting of main message
+        w = threading.Thread(target = displayHandler.setStdMessage) # setting of main message
     	w.start()
     	w = threading.Thread(target = displayHandler.displayLoop) # display message loop
         w.start()
@@ -51,9 +51,11 @@ if __name__ == "__main__":
         w = threading.Thread(target=inputParser)
     	w.start()
     	# network event threads
-        server=networkHandler.lookForServer()
+        server=networkHandler.lookForServer(ring)
         if server != "0.0.0.0":
-            w = threading.Thread(target = NetworkHandler.eventParser) # display message loop
+            w = threading.Thread(target = networkHandler.eventParser) # display message loop
             w.start()
     except KeyboardInterrupt:
+        displayHandler.setNowRunning(0)
+        networkHandler.stopEventParser()
         pass
