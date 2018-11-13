@@ -43,13 +43,13 @@ class NowRunning_Display:
         count = 0
         while NowRunning_Display.nowRunning != 0:
             msg = ""
-            if ( count % 4 ) == 0:
-                msg = "Ring %s %s %s-%s " % ( self.ring , self.ronda , self.categoria , self.grado )
+            if ( count % 5 ) == 0:
+                msg = "Ring %s %s %s-%s" % ( self.ring , self.ronda , self.categoria , self.grado )
             else:
-                msg = "Now running %03d " % ( NowRunning_Display.nowRunning )
-            print(msg)
+                msg = "Now running %03d" % ( NowRunning_Display.nowRunning )
+            print("setStdMessage() "+msg)
             NowRunning_Display.stdMessage = msg
-            time.sleep(5)
+            time.sleep(15)
             count = count + 1
 
     def initDisplay(self,cascaded,block_orientation,rotate):
@@ -69,26 +69,24 @@ class NowRunning_Display:
             if NowRunning_Display.oobMessage != "":
                 msg = NowRunning_Display.oobMessage
                 NowRunning_Display.oobMessage = ""
-                print(msg)
-                show_message( self.device, msg, fill="white", font=proportional(CP437_FONT) )
+                show_message( self.device, msg, fill="white", font=proportional(CP437_FONT), scroll_delay=0.01 )
                 continue
             if NowRunning_Display.stdMessage != "":
                 msg = NowRunning_Display.stdMessage
                 NowRunning_Display.stdMessage = ""
-                print(msg)
-                show_message( self.device, msg, fill="white", font=proportional(LCD_FONT) , scroll_delay=0.05 )
+                show_message( self.device, msg, fill="white", font=proportional(LCD_FONT), scroll_delay=0.01 )
                 continue
             # arriving here means just print dog running
+            msg="%03d " % (NowRunning_Display.nowRunning)
             with canvas(self.device) as draw:
-                text(draw, (5, 0), "%03d " % (NowRunning_Display.nowRunning), fill="white")
-                print(NowRunning_Display.nowRunning)
-                time.sleep(1)
+                text(draw, (5, 0), msg, fill="white")
+                time.sleep(2)
                 continue
 
     def __init__(self,cascaded,block_orientation,rotate):
         NowRunning_Display.nowRunning = 1
-        NowRunning_Display.oobMessage = ""
-        NowRunning_Display.stdMessage = "Hello AgilityContest"
+        NowRunning_Display.stdMessage = ""
+        NowRunning_Display.oobMessage = "Hello AgilityContest"
 
         self.ring = 1
         self.ronda = "Agility"
