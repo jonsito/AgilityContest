@@ -10,6 +10,7 @@ import sys
 
 import NowRunning_Display
 import NowRunning_Network
+import NowRunning_Options
 
 def inputParser():
     global displayHandler
@@ -17,6 +18,8 @@ def inputParser():
         data = sys.stdin.readline()
         if data == "\n":
             displayHandler.setNextRunning()
+        elif data == "000\n":
+            menuHandler.runMenu(displayHandler)
         else:
             print ("received '"+data+"'")
             displayHandler.setNowRunning(int(data))
@@ -25,6 +28,8 @@ def inputParser():
 
 if __name__ == "__main__":
     global displayHandler
+    global networkHandler
+    global menuHandler
     parser = argparse.ArgumentParser(description='matrix_demo arguments',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--display','-d',type=str,default='max7219',help='Display mode "pygame" or "max7219"')
@@ -47,6 +52,8 @@ if __name__ == "__main__":
     	w.start()
     	w = threading.Thread(target = displayHandler.displayLoop) # display message loop
         w.start()
+        # create menu handler
+        menuHandler = NowRunning_Options.NowRunning_Options()
         # start keyboard handler thread
         w = threading.Thread(target=inputParser)
     	w.start()
