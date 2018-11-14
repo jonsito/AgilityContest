@@ -95,14 +95,6 @@ class NowRunning_Display:
             msg= "%s%s" % (name,value)
             with canvas(self.device) as draw:
                 text(draw, (1, 0), msg, fill="white")
-            # frameSize=self.device.size
-            # image = Image.new('RGB', frameSize, 'white')
-            # font = ImageFont.truetype("TinyFont.ttf", 14, encoding="unic")
-            # draw = ImageDraw.Draw(image)
-            # draw.rectangle([(0,0), (frameSize[0],frameSize[1])], 'black', 'white')
-            # draw.text((1, 1), msg, fill='white', font=font)
-            # self.device.display(image)
-        # wait for painting
 
     #
     # Bucle infinito de gestion de mensajes
