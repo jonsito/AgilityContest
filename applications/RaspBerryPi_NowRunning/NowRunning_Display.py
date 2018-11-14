@@ -11,7 +11,7 @@ import sys
 import os.path
 
 #image handler
-from PIL import Image
+from PIL import Image, ImageFont, ImageDraw
 
 # devices
 from luma.led_matrix.device import max7219
@@ -32,10 +32,11 @@ class NowRunning_Display:
     oobDuration = 1
 
     # ajuste del menu
-    def setMenuState(self,key,value):
-        self.menuKey=key # if key==-1 menu is not active
+    def setMenuState(self,index,name,value,str):
+        self.menuIndex=index # if index==-1 menu is not active
+        self.menuName=name
         self.menuValue=value
-
+        self.menuValueStr=str
     #
     # Operacion normal
     def setNowRunning(self,nr):
@@ -65,10 +66,6 @@ class NowRunning_Display:
         else:
             dev = pygame(width=32, height=8, rotate=0, mode="RGB", transform="scale2x", scale=2 )
 
-        # prepara datos graficos para el menu
-        img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'menu.png'))
-        self.pixel_art =Image.open(img_path).convert(dev.mode)
-
         print("Created device "+NowRunning_Display.DISPLAY)
         return dev
 
@@ -89,31 +86,31 @@ class NowRunning_Display:
 
     #
     # presentacion del menu
-    def handleMenu(self,key,value):
-        if self.oldMenuKey != key:
-            self.oldMenuKey = key
-            # display menuKey
-            pos=(0,8*key)
-            w, h = self.pixel_art.size
-            virtual = viewport(self.device, width=w, height=h)
-            virtual.display(self.pixel_art)
-            virtual.set_position(pos)
-
-        # show menuValue
-        if self.oldMenuValue != value:
+    def handleMenu(self,index,name,value):
+        # On change repaint
+        if (self.oldMenuIndex != index) or (self.oldMenuName != name) or (self.oldMenuValue != value):
+            self.oldMenuIndex = index
+            self.oldMenuName = name
             self.oldMenuValue = value
+            msg= "%s%s" % (name,value)
             with canvas(self.device) as draw:
-                text(draw, (25, 0), value, fill="white")
+                text(draw, (1, 0), msg, fill="white")
+            # frameSize=self.device.size
+            # image = Image.new('RGB', frameSize, 'white')
+            # font = ImageFont.truetype("TinyFont.ttf", 14, encoding="unic")
+            # draw = ImageDraw.Draw(image)
+            # draw.rectangle([(0,0), (frameSize[0],frameSize[1])], 'black', 'white')
+            # draw.text((1, 1), msg, fill='white', font=font)
+            # self.device.display(image)
         # wait for painting
-        time.sleep(1)
 
     #
     # Bucle infinito de gestion de mensajes
     def displayLoop(self):
         while NowRunning_Display.nowRunning != 0:
             # si menu activo pasa a visualizacion de menu
-            if self.menuKey >0 :
-                self.handleMenu(self.menuKey,self.menuValue)
+            if self.menuIndex >= 0 :
+                self.handleMenu(self.menuIndex,self.menuName,self.menuValue)
                 continue
             # Los mensajes Out-Of-Band tienen precedencia absoluta
             if NowRunning_Display.oobMessage != "":
@@ -132,7 +129,7 @@ class NowRunning_Display:
             msg="%03d " % (NowRunning_Display.nowRunning)
             with canvas(self.device) as draw:
                 text(draw, (5, 0), msg, fill="white")
-                time.sleep(2)
+                #time.sleep(2)
                 continue
 
     #
@@ -149,8 +146,9 @@ class NowRunning_Display:
         self.setNowRunning(1)
 
         # informacion de menu ( key:-1 -> No menu activo)
-        self.setMenuState(-1," ")
-        self.oldMenuKey=-1
-        self.oldMenuValue=" "
+        self.setMenuState(-1," "," "," ")
+        self.oldMenuIndex= -1
+        self.oldMenuName = " "
+        self.oldMenuValue= " "
 
         self.device= self.initDisplay(cascaded,block_orientation,rotate)
