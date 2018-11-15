@@ -27,6 +27,7 @@ class NROptions:
         return
 
     def setBrillo(self): # menu index 5
+        self.dspHandler.setBrightness(int(self.menuEntries[5][self.menuItems[5]][0]))
         return
 
     def setupEthernet(self): # menu index 6

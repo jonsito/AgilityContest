@@ -54,6 +54,9 @@ class NRDisplay:
 		NRDisplay.oobMessage = msg
 		NRDisplay.oobDuration = duration
 
+	def setBrightness(self,value):
+		NRDisplay.device.contrast( int(value*255/9) )
+
 	#
 	# Inicializacion del display
 	def initDisplay(self,cascaded,block_orientation,rotate):
@@ -64,7 +67,8 @@ class NRDisplay:
 			dev = max7219(serial, cascaded=cascaded or 4, block_orientation=block_orientation or -90, rotate=rotate or 2)
 		else:
 			dev = pygame(width=32, height=8, rotate=0, mode="RGB", transform="scale2x", scale=2 )
-
+		# set default bright level
+		dev.contrast( int(5*255/9) )
 		print("Created device "+NRDisplay.DISPLAY)
 		return dev
 
@@ -82,18 +86,6 @@ class NRDisplay:
 			NRDisplay.stdMessage = msg
 			time.sleep(15)
 			count = count + 1
-
-	#
-	# presentacion del menu
-	def handleMenu(self,index,name,value):
-		# On change repaint
-		if (self.oldMenuIndex != index) or (self.oldMenuName != name) or (self.oldMenuValue != value):
-			self.oldMenuIndex = index
-			self.oldMenuName = name
-			self.oldMenuValue = value
-			msg= "%s%s" % (name,value)
-			with canvas(self.device) as draw:
-				text(draw, (1, 0), msg, fill="white")
 
 	#
 	# Bucle infinito de gestion de mensajes
@@ -127,10 +119,10 @@ class NRDisplay:
 				continue # do not repaint when not needed
 			oldmsg = msg
 			if len(msg) <= 4:
-				with canvas(self.device) as draw:
+				with canvas(NRDisplay.device) as draw:
 					text(draw, (sx, 0), msg, fill="white")
 			else:
-				show_message( self.device, msg, fill="white", font=font, scroll_delay=delay )
+				show_message( NRDisplay.device, msg, fill="white", font=font, scroll_delay=delay )
 
 	#
 	# Inicializacion de la clase
@@ -146,4 +138,4 @@ class NRDisplay:
 		self.setRoundInfo("")
 		self.setNowRunning(1)
 
-		self.device= self.initDisplay(cascaded,block_orientation,rotate)
+		NRDisplay.device= self.initDisplay(cascaded,block_orientation,rotate)
