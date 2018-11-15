@@ -110,7 +110,6 @@ class NRDisplay:
 				NRDisplay.oobMessage = ""
 				delay=NRDisplay.oobDuration * 0.01
 				font=font=proportional(CP437_FONT)
-				show_message( self.device, msg, fill="white", font=proportional(CP437_FONT), scroll_delay=delay )
 			# si hay mensajes "normales" pendientes, muestralos
 			elif NRDisplay.stdMessage != "":
 				msg = NRDisplay.stdMessage

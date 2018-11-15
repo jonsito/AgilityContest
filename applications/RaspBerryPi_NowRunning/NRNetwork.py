@@ -79,7 +79,7 @@ class NRNetwork:
 			# assumed a single IP on interface
 			msg=addrs[ni.AF_INET][0]['addr']
 			print ("IP Address is: "+msg)
-			self.dspHandler.setOobMessage(msg,1)
+			self.dspHandler.setOobMessage(msg,2)
 			return
 
 	def setEnabled(self,state):
@@ -206,9 +206,9 @@ class NRNetwork:
 		timestamp=0
 		while self.loop:
 			try:
-		        if NRNetwork.ENABLED == False:
-		            time.sleep(5) # do nothing during 5 seconds
-		            continue
+				if NRNetwork.ENABLED == False:
+					time.sleep(5) # do nothing during 5 seconds
+					continue
 				args="?Operation=getEvents&Session=" + self.session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)
 				response = requests.get("https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args, verify=False )
 			except requests.exceptions.RequestException as ex:
