@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#NowRunning_Network.py
+#NRNetwork.py
 #
 # Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 #
@@ -55,24 +55,43 @@ import math				 # to handle timestamps
 # ?Operation=chronoEvent&Type=crono_rec&TimeStamp=150936&Source=chrono_2&Session=2&Value=150936
 # data = json.load( urllib.urlopen('https://ip.addr.of.server/base_url/ajax/database/eventFunctions.php') + arguments, verify=False )
 
-class NowRunning_Network:
+class NRNetwork:
 
 	##### Some constants
 	SESSION_NAME = "NowRunning_2"	# should be generated from ring
 	DEBUG=True
 	ETH_DEVICE='eth0'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
+	ENABLED=True
 
 	def kitt(self,count):
 		return ( count + 1 ) % 8
 
 	def debug(self,str):
-		if NowRunning_Network.DEBUG==True:
+		if NRNetwork.DEBUG==True:
 			print (str)
-		
+
+# controls from Menu
+	def showIPAddress(self):
+		for iface in ni.interfaces():
+			if (iface != NRNetwork.ETH_DEVICE):
+				continue
+			addrs = ni.ifaddresses(iface)
+			# assumed a single IP on interface
+			msg=addrs[ni.AF_INET][0]['addr']
+			print ("IP Address is: "+msg)
+			self.dspHandler.setOobMessage(msg,1)
+			return
+
+	def setEnabled(self,state):
+		NRNetwork.ENABLED=state
+
+	def reconnect(self):
+		return
+
 # perform json request to send event to server
 	def json_request(self,type,value):
 		# compose json request
-		args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(math.floor(millis()/1000))+"&Source=" + NowRunning_Network.SESSION_NAME
+		args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(math.floor(millis()/1000))+"&Source=" + NRNetwork.SESSION_NAME
 		args = args + "&Session=" + self.session_id + "&Value="+value
 		url="https://"+self.server+"/"+self.baseurl+"/ajax/database/eventFunctions.php"
 		# self.debug( "JSON Request: " + url + "" + args)
@@ -82,7 +101,7 @@ class NowRunning_Network:
 	def lookForServer(self,ring):
 		rings = ["2","3","4","5"] # array of session id's received from server To be re-evaluated later from server response
 		# look for IPv4 addresses on ETH_DEVICE [0]->use first IPv4 address found on this interface
-		netinfo=ni.ifaddresses(NowRunning_Network.ETH_DEVICE)[ni.AF_INET][0]
+		netinfo=ni.ifaddresses(NRNetwork.ETH_DEVICE)[ni.AF_INET][0]
 		# iterate on every hosts on this network/netmask. Use strict=False to ignore ip address host bits
 		count=0
 		url= "/agility/ajax/database/sessionFunctions.php"
@@ -143,6 +162,7 @@ class NowRunning_Network:
 
 # open manga
 	def handle_open(self,data):
+		print("data is:'%s' " % (data))
 		self.dspHandler.setOobMessage(data,1)
 		self.dspHandler.setRoundInfo(data)
 		self.dspHandler.setNowRunning(1)
@@ -186,6 +206,9 @@ class NowRunning_Network:
 		timestamp=0
 		while self.loop:
 			try:
+		        if NRNetwork.ENABLED == False:
+		            time.sleep(5) # do nothing during 5 seconds
+		            continue
 				args="?Operation=getEvents&Session=" + self.session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)
 				response = requests.get("https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args, verify=False )
 			except requests.exceptions.RequestException as ex:
@@ -283,7 +306,7 @@ class NowRunning_Network:
 
 	def __init__(self,interface,handler):
 		#set up interface name
-		NowRunning_Network.ETH_DEVICE = interface
+		NRNetwork.ETH_DEVICE = interface
 		# set up displayHandler
 		self.dspHandler = handler
 		# some variables

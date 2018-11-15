@@ -3,8 +3,9 @@
 #
 # Utility classes to get a single character from standard input
 import getch
+import time
 
-class NowRunning_Options:
+class NROptions:
 
     def exitMenu(self): # menu index 0
         # PENDING: confirm exit menu
@@ -29,6 +30,18 @@ class NowRunning_Options:
         return
 
     def setupEthernet(self): # menu index 6
+        code=self.menuItems[6]
+        if code==0: # status
+            self.sendMenuMessage("")
+            self.netHandler.showIPAddress()
+            time.sleep(2)
+            self.sendMenuMessage()
+        if code==1: # start
+            self.netHandler.setEnabled(True)
+        if code==2: # stop
+            self.netHandler.setEnabled(False)
+        if code==3: # restart
+            self.netHandler.reconnect()
         return
 
     def restartApp(self): # menu index 7
@@ -43,7 +56,16 @@ class NowRunning_Options:
         self.menuIndex = 0
         self.menuItems = [ 0, 0, 0, 0, 0, 5, 0, 0 ]
         self.menuNames = [ '<<<','Rng','Mng','Cat','Grd','Bri','Red','Rst']
-        self.menuFunctions = [ self.exitMenu,self.setRing,self.setRoundInfo,self.setRoundInfo,self.setRoundInfo,self.setBrillo,self.setupEthernet,self.restartApp]
+        self.menuFunctions = [
+            self.exitMenu,
+            self.setRing,
+            self.setRoundInfo,
+            self.setRoundInfo,
+            self.setRoundInfo, # same function to be called on set round, category and grade
+            self.setBrillo,
+            self.setupEthernet,
+            self.restartApp
+        ]
         self.menuEntries = [
             [ [ ' ', 'Ignorar' ], [ '*', 'Salir' ] ],
             [ [ '1','Ring 1'],['2','Ring 2'],['3','Ring 3'], ['4','Ring 4'] ],
@@ -51,23 +73,25 @@ class NowRunning_Options:
             [ [ 'L','Large'],['M','Medium'],['S','Small'],['T','Toy'] ],
             [ [ '1','Grado 1'],['2','Grado 2'],['3','Grado 3'],['P','Pre-Agility'],['J','Junior'],['S','Senior'],['O','Open'] ],
             [ [ '1','1'],['2','2'],['3','3'], ['4','4'],['5','5'],['6','6'],['7','7'], ['8','8'],['9','9'] ],
-            [ [ '1','On'],['0','Off'],['?','Info'],['>','Reiniciar'] ],
+            [ [ '?','Info'],[ '^','On'],['v','Off'],['*','Reiniciar'] ],
             [ [ ' ','Ignorar'], [ '*', 'Reiniciar' ] ]
         ]
 
-    def runMenu(self,dspHandler):
+    def sendMenuMessage(self,msg="empty"):
+        if msg=="empty":
+            msg="%s%s" % ( self.menuNames[self.menuIndex], self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][0])
+        self.dspHandler.setMenuMessage(msg)
+
+    def runMenu(self,dspHandler,netHandler):
         import time
         self.endLoop = False
         self.dspHandler = dspHandler
+        self.netHandler = netHandler
 
-        dspHandler.setMenuState(
-                self.menuIndex,
-                self.menuNames[self.menuIndex],
-                self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][0],
-                self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][1] )
+        self.sendMenuMessage()
         while self.endLoop == False:
             c= getch.getch()
-            print ("getch() returns: "+c)
+            print ("getch() returns: '%c'" %(c))
             if c=='+' : # next entry inside item
                 size= len(self.menuEntries[self.menuIndex])
                 self.menuItems[self.menuIndex] = ( 1 + self.menuItems[self.menuIndex] ) % size
@@ -76,28 +100,27 @@ class NowRunning_Options:
                 self.menuItems[self.menuIndex] = self.menuItems[self.menuIndex] - 1
                 if self.menuItems[self.menuIndex] < 0:
                     self.menuItems[self.menuIndex] = size - 1
-            if c=='\n': # nex menu entry
+            if (c=='\n') or (c=='\r'): # next menu entry
                 size = len(self.menuItems)
                 self.menuIndex = (1+self.menuIndex) % size
+            if (c=='\b'): # backspace -> exit menu
+                self.endLoop=True
+                continue
             if c in ['1','2','3','4','5','6','7','8','9']: # numbers 1..9
                 size= len(self.menuEntries[self.menuIndex])
                 # buscamos el indice que coincide con el numero indicado
                 for i in range(size):
                     if self.menuEntries[self.menuIndex][i][0] == c:
                         self.menuItems[self.menuIndex] = i
-
+            #depuracion
             print ("menuIndex:%d entryName:%s entryValue:%s entryStr:%s" %(
                 self.menuIndex,
                 self.menuNames[self.menuIndex],
                 self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][0],
                 self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][1] ) )
             # ajustamos display
-            dspHandler.setMenuState(
-                self.menuIndex,
-                self.menuNames[self.menuIndex],
-                self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][0],
-                self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][1] )
+            self.sendMenuMessage()
             # invocamos la funcion a ejecutar
             self.menuFunctions[self.menuIndex]()
-        # exit to normal
-        dspHandler.setMenuState(-1," "," "," ")
+        # exit to normal display mode
+        dspHandler.setMenuMessage("")

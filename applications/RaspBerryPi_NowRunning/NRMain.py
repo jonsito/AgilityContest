@@ -8,18 +8,28 @@ import argparse
 import threading
 import sys
 
-import NowRunning_Display
-import NowRunning_Network
-import NowRunning_Options
+import NRDisplay
+import NRNetwork
+import NROptions
+
+def isInteger(val):
+    try:
+        int(val)
+        return True
+    except ValueError:
+        return False
 
 def inputParser():
     global displayHandler
+    global networkHandler
     while  True:
         data = sys.stdin.readline()
         if data == "\n":
             displayHandler.setNextRunning()
         elif data == "000\n":
-            menuHandler.runMenu(displayHandler)
+            menuHandler.runMenu(displayHandler,networkHandler)
+        elif isInteger(data) == False:
+            print ("Unrecongnized data entry: '%s'" % (data))
         else:
             print ("received '"+data+"'")
             displayHandler.setNowRunning(int(data))
@@ -43,17 +53,17 @@ if __name__ == "__main__":
 
     try:
         # init display handler
-        displayHandler = NowRunning_Display.NowRunning_Display(args.display,args.cascaded, args.block_orientation, args.rotate)
+        displayHandler = NRDisplay.NRDisplay(args.display,args.cascaded, args.block_orientation, args.rotate)
         displayHandler.setRing(int(args.ring))
         # search network for connection
-        networkHandler = NowRunning_Network.NowRunning_Network(args.interface,displayHandler)
+        networkHandler = NRNetwork.NRNetwork(args.interface,displayHandler)
         # start display threads
         w = threading.Thread(target = displayHandler.setStdMessage) # setting of main message
     	w.start()
     	w = threading.Thread(target = displayHandler.displayLoop) # display message loop
         w.start()
         # create menu handler
-        menuHandler = NowRunning_Options.NowRunning_Options()
+        menuHandler = NROptions.NROptions()
         # start keyboard handler thread
         w = threading.Thread(target=inputParser)
     	w.start()
