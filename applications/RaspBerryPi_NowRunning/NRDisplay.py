@@ -26,16 +26,21 @@ from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_
 class NRDisplay:
 
 	DISPLAY = None # "max7219" or "pygame"
-	nowRunning = 1
+	loop = True
+	nowRunning = 0
 	menuMessage = ""
 	stdMessage = ""
 	oobMessage = ""
 	oobDuration = 1
 
-	#
+	# finalize display threads
+	def stopDisplay(self):
+		NRDisplay.loop=False
+
 	# Operacion normal
 	def setNowRunning(self,nr):
-		NRDisplay.nowRunning = nr
+		if nr >= 0:
+			NRDisplay.nowRunning = nr
 
 	def setNextRunning(self):
 		NRDisplay.nowRunning = NRDisplay.nowRunning + 1
@@ -76,7 +81,7 @@ class NRDisplay:
 	# Thread de generacion de los mensajes a presentar
 	def setStdMessage(self):
 		count = 0
-		while NRDisplay.nowRunning != 0:
+		while NRDisplay.loop == True:
 			msg = ""
 			if ( count % 5 ) == 0:
 				msg = "Ring %s %s" % ( self.ring , self.ronda)
@@ -91,7 +96,7 @@ class NRDisplay:
 	# Bucle infinito de gestion de mensajes
 	def displayLoop(self):
 		oldmsg=""
-		while NRDisplay.nowRunning != 0:
+		while NRDisplay.loop == True:
 			# si menu activo pasa a visualizacion de menu
 			if NRDisplay.menuMessage != "" :
 				msg=NRDisplay.menuMessage
@@ -129,6 +134,7 @@ class NRDisplay:
 	def __init__(self,display,cascaded,block_orientation,rotate):
 		# initialize vars
 		NRDisplay.DISPLAY = display
+		NRDisplay.loop = True
 		NRDisplay.stdMessage = ""
 		self.setMenuMessage("")
 		self.setOobMessage( "Hello AgilityContest", 1)
@@ -136,6 +142,6 @@ class NRDisplay:
 		# informacion de ring y manga y perro en pista
 		self.setRing(1)
 		self.setRoundInfo("")
-		self.setNowRunning(1)
+		self.setNowRunning(0)
 
 		NRDisplay.device= self.initDisplay(cascaded,block_orientation,rotate)

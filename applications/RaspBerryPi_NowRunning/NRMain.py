@@ -22,10 +22,15 @@ def isInteger(val):
 def inputParser():
     global displayHandler
     global networkHandler
-    while  True:
+    loop = True
+    while loop==True:
         data = sys.stdin.readline()
         if data == "\n":
             displayHandler.setNextRunning()
+        elif data == "999\n":
+            networkHandler.stopNetwork()
+            displayHandler.stopDisplay()
+            loop = False
         elif data == "000\n":
             menuHandler.runMenu(displayHandler,networkHandler)
         elif isInteger(data) == False:
@@ -33,8 +38,6 @@ def inputParser():
         else:
             print ("received '"+data+"'")
             displayHandler.setNowRunning(int(data))
-        if data == "0\n":
-            break
 
 if __name__ == "__main__":
     global displayHandler
@@ -73,6 +76,6 @@ if __name__ == "__main__":
             w = threading.Thread(target = networkHandler.eventParser) # display message loop
             w.start()
     except KeyboardInterrupt:
-        displayHandler.setNowRunning(0)
-        networkHandler.stopEventParser()
+        networkHandler.stopNetwork()
+        displayHandler.stopDisplay()
         pass

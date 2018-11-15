@@ -15,7 +15,10 @@ class NROptions:
 
     def setRing(self): # menu index 1
         ring= int(self.menuEntries[1][self.menuItems[1]][0])
+        # send ring info to display handler
         self.dspHandler.setRing(ring)
+        # send ring info to network handler
+        self.netHandler.setRing(ring)
         return
 
     def setRoundInfo(self): # menu index 2,3 y 4
@@ -92,7 +95,6 @@ class NROptions:
         self.sendMenuMessage()
         while self.endLoop == False:
             c= getch.getch()
-            print ("getch() returns: '%c'" %(c))
             if c=='+' : # next entry inside item
                 size= len(self.menuEntries[self.menuIndex])
                 self.menuItems[self.menuIndex] = ( 1 + self.menuItems[self.menuIndex] ) % size
@@ -104,7 +106,7 @@ class NROptions:
             if (c=='\n') or (c=='\r'): # next menu entry
                 size = len(self.menuItems)
                 self.menuIndex = (1+self.menuIndex) % size
-            if (c=='\b'): # backspace -> exit menu
+            if (c=='\b') or (c=='\x7f'): # backspace or delete -> exit menu
                 self.endLoop=True
                 continue
             if c in ['1','2','3','4','5','6','7','8','9']: # numbers 1..9
@@ -119,9 +121,9 @@ class NROptions:
                 self.menuNames[self.menuIndex],
                 self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][0],
                 self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][1] ) )
-            # ajustamos display
+            # ajustamos display con datos del menu
             self.sendMenuMessage()
-            # invocamos la funcion a ejecutar
+            # invocamos la funcion a ejecutar en funcion de la seleccion
             self.menuFunctions[self.menuIndex]()
         # exit to normal display mode
-        dspHandler.setMenuMessage("")
+        self.sendMenuMessage("")
