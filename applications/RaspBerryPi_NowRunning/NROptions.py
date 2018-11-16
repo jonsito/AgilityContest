@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# -*- coding: utf-8 -*-
 #
 # Utility classes to get a single character from standard input
 import getch
@@ -8,10 +8,8 @@ import time
 class NROptions:
 
     def exitMenu(self): # menu index 0
-        # PENDING: confirm exit menu
-        if self.menuItems[0]==1:
-            self.menuItems[0]=0 # to avoid auto-exit on next "enter menu"
-            self.endLoop=True
+        self.endLoop=True
+        return
 
     def setRing(self): # menu index 1
         ring= int(self.menuEntries[1][self.menuItems[1]][0])
@@ -49,17 +47,21 @@ class NROptions:
         return
 
     def restartApp(self): # menu index 7
-        # PENDING: ask confirm reinit application ( and perform it :-) )
-        if self.menuItems[7]==1:
-            self.menuItems[7]=0 # to avoid auto-reset on next "enter menu"
-            self.endLoop=True
+        # PENDING confirm and implement
+        self.endLoop=True
+        return
+
+    def powerOff(self): # menu index 8
+        # PENDING confirm and implement
+        self.endLoop=True
         return
 
     def __init__(self):
         self.endLoop = False
         self.menuIndex = 0
-        self.menuItems = [ 0, 0, 0, 0, 0, 5, 0, 0 ]
-        self.menuNames = [ '<<<','Rng','Mng','Cat','Grd','Bri','Red','Rst']
+        self.menuItems = [ 0, 0, 0, 0, 0, 5, 0, 0, 0 ]
+        self.menuAutoExec = [ 0, 0, 0, 0, 0, 1, 0, 0, 0 ]
+        self.menuNames = [ '<<<','Rng','Mng','Cat','Grd','Bri','Net','Rst','Off']
         self.menuFunctions = [
             self.exitMenu,
             self.setRing,
@@ -68,17 +70,19 @@ class NROptions:
             self.setRoundInfo, # same function to be called on set round, category and grade
             self.setBrillo,
             self.setupEthernet,
-            self.restartApp
+            self.restartApp,
+            self.powerOff
         ]
         self.menuEntries = [
-            [ [ ' ', 'Ignorar' ], [ '*', 'Salir' ] ],
+            [ [ ' ', 'Volver' ]],
             [ [ '1','Ring 1'],['2','Ring 2'],['3','Ring 3'], ['4','Ring 4'] ],
             [ [ 'A','Agility'],['J','Jumping'],['S','Snooker'],['G','Gambler'],['K','K.O'],['T','TunnelCup'],[' ','Special' ] ],
             [ [ 'L','Large'],['M','Medium'],['S','Small'],['T','Toy'] ],
             [ [ '1','Grado 1'],['2','Grado 2'],['3','Grado 3'],['P','Pre-Agility'],['J','Junior'],['S','Senior'],['O','Open'] ],
             [ [ '1','1'],['2','2'],['3','3'], ['4','4'],['5','5'],['6','6'],['7','7'], ['8','8'],['9','9'] ],
-            [ [ '?','Info'],[ '^','On'],['v','Off'],['*','Reiniciar'] ],
-            [ [ ' ','Ignorar'], [ '*', 'Reiniciar' ] ]
+            [ [ '?','Info'],[ '\x18','On'],['\x19','Off'],['\x1a','Reinit'] ], # ^,v, and > arrows
+            [ [ ' ','Reset'] ],
+            [ [ ' ','Pwr Off' ] ]
         ]
 
     def sendMenuMessage(self,msg="empty"):
@@ -109,21 +113,25 @@ class NROptions:
             if (c=='\b') or (c=='\x7f'): # backspace or delete -> exit menu
                 self.endLoop=True
                 continue
+            if (c=='*'): # * activate selected option
+                # invocamos la funcion a ejecutar en funcion de la seleccion
+                self.menuFunctions[self.menuIndex]()
             if c in ['1','2','3','4','5','6','7','8','9']: # numbers 1..9
                 size= len(self.menuEntries[self.menuIndex])
                 # buscamos el indice que coincide con el numero indicado
                 for i in range(size):
-                    if self.menuEntries[self.menuIndex][i][0] == c:
+                    if unicode(self.menuEntries[self.menuIndex][i][0]) == c:
                         self.menuItems[self.menuIndex] = i
             #depuracion
-            print ("menuIndex:%d entryName:%s entryValue:%s entryStr:%s" %(
-                self.menuIndex,
-                self.menuNames[self.menuIndex],
-                self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][0],
-                self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][1] ) )
+            # print ("menuIndex:%d entryName:%s entryValue:%s entryStr:%s" %(
+            #    self.menuIndex,
+            #    self.menuNames[self.menuIndex],
+            #    self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][0],
+            #    self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][1] ) )
             # ajustamos display con datos del menu
             self.sendMenuMessage()
-            # invocamos la funcion a ejecutar en funcion de la seleccion
-            self.menuFunctions[self.menuIndex]()
+            # if marked as "autoexec", run associated method
+            if self.menuAutoExec[self.menuIndex] == 1:
+                self.menuFunctions[self.menuIndex]()
         # exit to normal display mode
         self.sendMenuMessage("")
