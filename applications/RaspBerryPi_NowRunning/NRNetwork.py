@@ -173,156 +173,177 @@ class NRNetwork:
 	def stopNetwork(self):
 		NRNetwork.loop = False
 
+	# send a "connect" request to retrieve last event id for current session
+	# return -1 on  error, else last event id
+	def openSession(self,current_ring):
+		try:
+			# evaluate SessionName to allow control from console
+			self.session_id=NRNetwork.rings[current_ring-1]
+			sname="videowall:%s:0:0:NowRunning_%d" % ( self.session_id,current_ring)
+			event_id=0 # event ID of last "open" call in current session
+			# prepare server "connect" call
+			args = "?Operation=connect&Session="+self.session_id+"&SessionName="+sname
+			url="https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args
+			self.debug( "Connecting event manager on "+url)
+			response = requests.get(url, verify=False, timeout=5, auth=('AgilityContest','AgilityContest'))
+		except requests.exceptions.RequestException as ex:
+			self.debug ( "Connect() error:" + str(ex) )
+			return -1
+
+		# if response failed, try next IP address
+		if response.status_code != 200:
+			self.debug("Connect: Invalid server response staus: "+str(response.status_code))
+			return -1
+
+		# response ok: retrieve event ID of last "open" call
+		data=response.json()
+		if data['total'] == "0":
+			self.debug("Connect: empty response from server")
+			return -1
+
+		# arriving here means everything ok. return event ID
+		return data['rows'][0]['ID']
+	# end def
+
+	# retrieve events newer than event id
+	def getEvents(self,event_id,timestamp):
+		try:
+			args="?Operation=getEvents&Session=" + self.session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)
+			response = requests.get("https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args,
+				verify=False, timeout=30, auth=('AgilityContest','AgilityContest') )
+		except requests.exceptions.RequestException as ex:
+			self.debug ( "getEvents() error:" + str(ex) )
+			return { 'total': 0, 'rows': [] }
+		if response.status_code != 200:
+			self.debug("getEvents() error: received status code:"+str(response_status_code))
+			return { 'total': 0, 'rows': [] }
+		return response.json()
+	#end def
+
+	def parseEvent(self,event,timestamp):
+		event_id=event['ID']
+		type=event['Type']
+		evtdata=json.loads(event['Data'])
+		value=0
+		numero=0
+		if 'Value' in evtdata:			# some events does not provide "Value" in data
+			value = evtdata['Value']
+		if 'Numero' in evtdata:
+			numero = evtdata['Numero']
+		self.debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type+ " Value:"+str(value)+ " Numero:"+str(numero))
+		# Eventos generales
+		if type == 'null':				# null event: no action taken
+			return
+		if type == 'init':				# operator starts tablet application
+			return
+		if type == 'login':				# operador hace login en el sistema
+			return
+		if type == 'open':				# operator selects tanda on tablet
+			self.handle_open(evtdata['NombreManga'])
+			return
+		if type == 'close':				# operator exit from dog data entry on tablet
+			return
+		# eventos de crono manual
+		if type == 'salida':			# juez da orden de salida ( crono 15 segundos )
+			return
+		if type == 'start':				# Crono manual - value: timestamp
+			return
+		if type == 'stop':				# Crono manual - value: timestamp
+			return
+		# en crono electronico los campos "Value" y "TimeStamp" contienen la marca de tiempo del sistema
+		# en el momento en que se capturo el evento
+		if type == 'crono_start':		# Arranque Crono electronico
+			return
+		if type == 'crono_int':			# Tiempo intermedio Crono electronico
+			return
+		if type == 'crono_stop':		# Parada Crono electronico
+			return
+		if type == 'crono_rec':			# Llamada a reconocimiento de pista
+			self.handle_rec(value)
+			return
+		if type == 'crono_dat':			# Envio de Falta/Rehuse/Eliminado desde el crono
+			return
+		if type == 'crono_restart':		# paso de crono manual a automatico (not supported here)
+			return
+		if type == 'crono_reset':		# puesta a cero del contador
+			return
+		if type == 'crono_error':		# error en alineamiento de sensores
+			return
+		# entrada de datos, dato siguiente, cancelar operacion
+		if type == 'llamada':			# operador abre panel de entrada de datos
+			self.handle_llamada(evtdata['Numero'])
+			return
+		if type == 'datos':				# actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+			return
+		if type == 'aceptar':			# grabar datos finales
+			return
+		if type == 'cancelar':			# restaurar datos originales
+			return
+		if type == 'info':				# value: message
+			return
+		if type == 'crono_ready':		# crono becomes ready
+			return
+		if type == 'user':				# user defined event. Value=number
+			return
+		if type == 'command':		   # command from console Oper,Value= key:val
+			self.handle_command(evtdata)
+			return
+		# eventos de cambio de camara para gestion de Live Stream
+		# el campo "data" contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
+		if type == 'camera':			# cambio de fuente de streaming
+			return
+		if type == 'reconfig':			# reconfiguracion del servidor
+			return
+		# Si llega hasta aqui tenemos un error desconocido. Notificar e ignorar
+		self.debug("Error: Unknown event type:"+type )
+		return
+	# parseEvent
+
 # wait for network event messages
 # this method runs in a separate thread
+
 	def eventParser(self):
+		current_ring = -1
+		timestamp = 0
 		while NRNetwork.loop == True:
-			# call to "connect", to retrieve last event id and timeout
-			while NRNetwork.loop == True:
-				if NRNetwork.ENABLED == False:
-					time.sleep(5) # do nothing during 5 seconds
-					continue
-				try:
-					# evaluate SessionName to allow control from console
-					self.session_id=NRNetwork.rings[NRNetwork.ring-1]
-					sname="videowall:%s:0:0:NowRunning_%d" % ( self.session_id,NRNetwork.ring)
-					event_id=0 # event ID of last "open" call in current session
-					# prepare server "connect" call
-					args = "?Operation=connect&Session="+self.session_id+"&SessionName="+sname
-					url="https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args
-					self.debug( "Connecting event manager on "+url)
-					response = requests.get(url, verify=False)
-				except requests.exceptions.RequestException as ex:
-					self.debug ( "Connect() error:" + str(ex) )
-					time.sleep(5) # wait 5 seconds and try again
-					continue
-				# if response failed, try next IP address
-				if response.status_code != 200:
-					self.debug("Invalid response. Try again")
-					time.sleep(5) # wait 5 seconds and retry
-					continue
-				# response ok: retrieve event ID of last "open" call
-				data=response.json()
-				if data['total'] == "0":
-					time.sleep(5) # no data available. Sleep and retry
-					continue
-				event_id = data['rows'][0]['ID']
-				break
-			# on stop thread requested dont try to continue
-			if NRNetwork.loop == False:
-				break
-
-			# connect done, now, enter in an infinite "getEvents" request loop
-			self.debug( "Connected. Waiting for Server events ...")
-			timestamp=0
-			while NRNetwork.loop == True:
-				try:
-					if NRNetwork.ENABLED == False:
-						time.sleep(5) # do nothing during 5 seconds
-						continue
-					args="?Operation=getEvents&Session=" + self.session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)
-					response = requests.get("https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args, verify=False )
-				except requests.exceptions.RequestException as ex:
-					self.debug ( "getEvents() error:" + str(ex) )
-					time.sleep(5) # wait 5 seconds and try again
-					continue
-				# if response failed, try next IP address
-				if response.status_code != 200:
-					time.sleep(5) # wait 5 seconds and retry
-					continue
-				# response ok: retrieve event ID of last "open" call
-				data=response.json()
-				if data['total'] == "0":
-					time.sleep(5) # no data available. Sleep and retry
-					continue
+			# on ring change (or first loop iteration) open session
+			if current_ring != NRNetwork.ring:
+				current_ring=NRNetwork.ring
 				timestamp = 0
-				if 'TimeStamp' in data:
-					timestamp = data['TimeStamp']
-				for i in data['rows']:
-					event_id=i['ID']
-					type=i['Type']
-					evtdata=json.loads(i['Data'])
-					value=0
-					numero=0
-					if 'Value' in evtdata:			# some events does not provide "Value" in data
-						value = evtdata['Value']
-					if 'Numero' in evtdata:
-						numero = evtdata['Numero']
-					self.debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type+ " Value:"+str(value)+ " Numero:"+str(numero))
-					# Eventos generales
-					if type == 'null':				# null event: no action taken
-						continue
-					if type == 'init':				# operator starts tablet application
-						continue
-					if type == 'login':				# operador hace login en el sistema
-						continue
-					if type == 'open':				# operator selects tanda on tablet
-						self.handle_open(evtdata['NombreManga'])
-						continue
-					if type == 'close':				# operator exit from dog data entry on tablet
-						continue
-					# eventos de crono manual
-					if type == 'salida':			# juez da orden de salida ( crono 15 segundos )
-						continue
-					if type == 'start':				# Crono manual - value: timestamp
-						continue
-					if type == 'stop':				# Crono manual - value: timestamp
-						continue
-					# en crono electronico los campos "Value" y "TimeStamp" contienen la marca de tiempo del sistema
-					# en el momento en que se capturo el evento
-					if type == 'crono_start':		# Arranque Crono electronico
-						continue
-					if type == 'crono_int':			# Tiempo intermedio Crono electronico
-						continue
-					if type == 'crono_stop':		# Parada Crono electronico
-						continue
-					if type == 'crono_rec':			# Llamada a reconocimiento de pista
-						self.handle_rec(value)
-						continue
-					if type == 'crono_dat':			# Envio de Falta/Rehuse/Eliminado desde el crono
-						continue
-					if type == 'crono_restart':		# paso de crono manual a automatico (not supported here)
-						continue
-					if type == 'crono_reset':		# puesta a cero del contador
-						continue
-					if type == 'crono_error':		# error en alineamiento de sensores
-						continue
-						# entrada de datos, dato siguiente, cancelar operacion
-					if type == 'llamada':			# operador abre panel de entrada de datos
-						self.handle_llamada(evtdata['Numero'])
-						continue
-					if type == 'datos':				# actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-						continue
-					if type == 'aceptar':			# grabar datos finales
-						continue
-					if type == 'cancelar':			# restaurar datos originales
-						continue
-					if type == 'info':				# value: message
-						continue
-					if type == 'crono_ready':		# crono becomes ready
-						continue
-					if type == 'user':				# user defined event. Value=number
-						continue
-					if type == 'command':		   # command from console Oper,Value= key:val
-						self.handle_command(evtdata)
-						continue
-					# eventos de cambio de camara para gestion de Live Stream
-					# el campo "data" contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
-					if type == 'camera':			# cambio de fuente de streaming
-						continue
-					if type == 'reconfig':			# reconfiguracion del servidor
-						continue
-					# Si llega hasta aqui tenemos un error desconocido. Notificar e ignorar
-					self.debug("Error: Unknown event type:"+type )
-				# for data in rows
+				# call "open" on current ring
+				self.debug("Trying to open session on ring:"+str(current_ring))
+				event_id=self.openSession(current_ring)
+				if event_id == -1:
+					# "connect" error
+					time.sleep(5)
+					current_ring = -1 # force retry "connect" again
+					continue
+				else:
+					# "connect" success
+					self.debug("Connection done. Start parsing event loop at event ID: "+str(event_id))
 
-				# No more events. Check for ring change
-				if self.session_id != NRNetwork.rings[NRNetwork.ring-1]:
-					self.session_id = NRNetwork.rings[NRNetwork.ring-1]
-					break
-			# getEvents from opened session loop
-		# eventParser global loop
-	# def eventParser
+			# If network is paused, do not retrieve events
+			if NRNetwork.ENABLED == False:
+				time.sleep(5)
+				continue;
+
+			# Open success and Network enabled: retrieve and parse events
+			data = self.getEvents(event_id,timestamp)
+			if int(data['total']) == 0:
+				time.sleep(5) # no data available. Sleep and retry
+				continue
+
+			# retrieve timestamp if provided
+			if 'TimeStamp' in data:
+				timestamp = data['TimeStamp']
+
+			# finally iterate over every received events
+			for event in data['rows']:
+				event_id=event['ID']
+				self.parseEvent(event,timestamp)
+
+		# while NRNetwork.loop == True
+	# eventParser thread
 
 	def __init__(self,interface,handler):
 		#set up interface name and status info

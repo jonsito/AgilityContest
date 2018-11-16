@@ -56,6 +56,9 @@ class NRDisplay:
 		NRDisplay.menuMessage=str
 
 	def setOobMessage(self,msg,duration):
+	    #make sure that oob message is longer than 4 characters
+	    while len(msg) <= 4:
+	        msg = " " + msg
 		NRDisplay.oobMessage = msg
 		NRDisplay.oobDuration = duration
 
