@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-#NRNetwork.py
+# -*- coding: utf-8 -*-
 #
-# Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+# Copyright  2018-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 #
 # This program is free software; you can redistribute it and/or modify it under the terms
 # of the GNU General Public License as published by the Free Software Foundation;
@@ -96,8 +96,7 @@ class NRNetwork:
 		return
 
 # scan local network to look for server
-	def lookForServer(self,ring):
-		print ("loop is "+str(NRNetwork.loop))
+	def lookForServer(self,ring,dspHandler):
 		# look for IPv4 addresses on ETH_DEVICE [0]->use first IPv4 address found on this interface
 		netinfo=ni.ifaddresses(NRNetwork.ETH_DEVICE)[ni.AF_INET][0]
 		# iterate on every hosts on this network/netmask. Use strict=False to ignore ip address host bits
@@ -134,15 +133,19 @@ class NRNetwork:
 			except requests.exceptions.RequestException as ex:
 				# self.debug ( "Http request error:" + str(ex) )
 				continue
+		# for arrived to the end without break, so perform "else clause" ( python rulez)
 		else:
 			# arriving here means self.server not found
 			self.session_id=0 # invalid sid
 			NRNetwork.ENABLED = False # mark do not try to handle events
+			dspHandler.setOobMessage("Console server not found",2)
 			return "0.0.0.0"
+		# for loop got break, so jump over else and arrive here
 		# on received answer retrieve Session ID from requested ring
 		NRNetwork.ring=ring
 		self.session_id=NRNetwork.rings[NRNetwork.ring-1]
 		self.debug( "Ring: "+str(ring)+ " Session ID: "+str(self.session_id) )
+		dspHandler.setOobMessage("Server found at IP: "+ip,2)
 		# and finally setup server IP
 		return self.server
 
@@ -179,10 +182,10 @@ class NRNetwork:
 		try:
 			# evaluate SessionName to allow control from console
 			self.session_id=NRNetwork.rings[current_ring-1]
-			sname="videowall:%s:0:0:NowRunning_%d" % ( self.session_id,current_ring)
+			self.session_name="videowall:%s:0:0:NowRunning_%d" % ( self.session_id,current_ring)
 			event_id=0 # event ID of last "open" call in current session
 			# prepare server "connect" call
-			args = "?Operation=connect&Session="+self.session_id+"&SessionName="+sname
+			args = "?Operation=connect&Session="+self.session_id+"&SessionName="+self.session_name
 			url="https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args
 			self.debug( "Connecting event manager on "+url)
 			response = requests.get(url, verify=False, timeout=5, auth=('AgilityContest','AgilityContest'))
@@ -208,8 +211,8 @@ class NRNetwork:
 	# retrieve events newer than event id
 	def getEvents(self,event_id,timestamp):
 		try:
-			args="?Operation=getEvents&Session=" + self.session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)
-			response = requests.get("https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args,
+		    args="?Operation=getEvents&Session=%s&ID=%s&TimeStamp=%s&SessionName=%s" % (str(self.session_id),str(event_id),str(timestamp),self.session_name)
+		    response = requests.get("https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args,
 				verify=False, timeout=30, auth=('AgilityContest','AgilityContest') )
 		except requests.exceptions.RequestException as ex:
 			self.debug ( "getEvents() error:" + str(ex) )

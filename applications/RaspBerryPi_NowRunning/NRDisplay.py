@@ -1,7 +1,19 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017-18 Richard Hull and contributors
-# See LICENSE.rst for details.
+#
+# Copyright  2018-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+#
+# This program is free software; you can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation;
+# either version 2 of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program;
+# if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
 
 #system
 import time
@@ -32,6 +44,7 @@ class NRDisplay:
 	stdMessage = ""
 	oobMessage = ""
 	oobDuration = 1
+	contrast=5
 
 	# finalize display threads
 	def stopDisplay(self):
@@ -56,14 +69,14 @@ class NRDisplay:
 		NRDisplay.menuMessage=str
 
 	def setOobMessage(self,msg,duration):
-	    #make sure that oob message is longer than 4 characters
-	    while len(msg) <= 4:
-	        msg = " " + msg
+		#make sure that oob message is longer than 4 characters
+		while len(msg) <= 4:
+			msg = " " + msg
 		NRDisplay.oobMessage = msg
 		NRDisplay.oobDuration = duration
 
 	def setBrightness(self,value):
-		NRDisplay.device.contrast( int(value*255/9) )
+		NRDisplay.contrast = value
 
 	#
 	# Inicializacion del display
@@ -77,6 +90,7 @@ class NRDisplay:
 			dev = pygame(width=32, height=8, rotate=0, mode="RGB", transform="scale2x", scale=2 )
 		# set default bright level
 		dev.contrast( int(5*255/9) )
+		dev.show()
 		print("Created device "+NRDisplay.DISPLAY)
 		return dev
 
@@ -99,7 +113,14 @@ class NRDisplay:
 	# Bucle infinito de gestion de mensajes
 	def displayLoop(self):
 		oldmsg=""
+		contrast=5
 		while NRDisplay.loop == True:
+			# si cambia el contraste, reajustamos
+			# lo tenemos que hacer desde este thread para evitar problemas de concurrencia
+			# en el servidor Xcb
+			if contrast != NRDisplay.contrast:
+				contrast = NRDisplay.contrast
+				NRDisplay.device.contrast( int(contrast*255/9) )
 			# si menu activo pasa a visualizacion de menu
 			if NRDisplay.menuMessage != "" :
 				msg=NRDisplay.menuMessage
@@ -131,6 +152,10 @@ class NRDisplay:
 					text(draw, (sx, 0), msg, fill="white")
 			else:
 				show_message( NRDisplay.device, msg, fill="white", font=font, scroll_delay=delay )
+		# while loop=True
+		NRDisplay.device.hide()
+	# end thread loop
+
 
 	#
 	# Inicializacion de la clase
@@ -139,6 +164,7 @@ class NRDisplay:
 		NRDisplay.DISPLAY = display
 		NRDisplay.loop = True
 		NRDisplay.stdMessage = ""
+		self.setBrightness(5)
 		self.setMenuMessage("")
 		self.setOobMessage( "Hello AgilityContest", 1)
 
