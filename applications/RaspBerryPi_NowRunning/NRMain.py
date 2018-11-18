@@ -40,19 +40,19 @@ def inputParser():
 		data = sys.stdin.readline()
 		if data == "\n":
 			displayHandler.setNextRunning()
-		elif data == "9999\n":
+		elif data == "*9\n":
 			networkHandler.stopNetwork()
 			displayHandler.stopDisplay()
 			loop = False
-		elif data == "9992\n":
+		elif data == "*0\n":
 		    print("Course walk countdown stop")
 		    displayHandler.setOobMessage("End of Course Walk",2)
 		    displayHandler.setCountDown(0)
-		elif data == "9991\n":
+		elif data == "*1\n":
 		    print("Course walk countdown start")
 		    displayHandler.setOobMessage("Starting Course Walk",2)
 		    displayHandler.setCountDown(menuHandler.getCountDown())
-		elif data == "9990\n":
+		elif data == "**\n":
 			print("Enter in menu")
 			menuHandler.runMenu(displayHandler,networkHandler)
 		elif isInteger(data) == False:
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 		formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 	parser.add_argument('--display','-d',type=str,default='max7219',help='Display mode "pygame" or "max7219"')
 	parser.add_argument('--ring','-r', type=int, default=1, help='Ring to listen events from (1..4)')
-	parser.add_argument('--interface','-i', type=str, default='eth0',help='Network interface to look for server, or "none"')
+	parser.add_argument('--interface','-i', type=str, default='',help='Use specific network interface to look for server')
 	parser.add_argument('--cascaded', '-n', type=int, default=4, help='Number of cascaded MAX7219 LED matrices')
 	parser.add_argument('--block-orientation', type=int, default=-90, choices=[0, 90, -90], help='Corrects block orientation when wired vertically')
 	parser.add_argument('--rotate', type=int, default=2, choices=[0, 1, 2, 3], help='Rotate display 0=0°, 1=90°, 2=180°, 3=270°')

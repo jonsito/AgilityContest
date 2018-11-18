@@ -95,15 +95,57 @@ class NRNetwork:
 	def reconnect(self):
 		return
 
-# scan local network to look for server
+	# get all interfaces
 	def lookForServer(self,ring,dspHandler):
-		# look for IPv4 addresses on ETH_DEVICE [0]->use first IPv4 address found on this interface
-		netinfo=ni.ifaddresses(NRNetwork.ETH_DEVICE)[ni.AF_INET][0]
+		# buscamos las interfaces del equipo
+		for ifname in ni.interfaces():
+			# si hemos especificado una en concreto, compara
+			if NRNetwork.ETH_DEVICE != "": # an interface has been specified
+				if ifname != NRNetwork.ETH_DEVICE: # doesn't match with current. skip
+					continue
+			print("Looking for server at interface "+ifname)
+			# buscamos las direcciones IPv4 que tiene esta pata de red
+			addresses = [i['addr'] for i in ni.ifaddresses(ifname).setdefault(ni.AF_INET, [{'addr':'No IP addr'}] )]
+			for addr in addresses:
+				if NRNetwork.loop==False:
+					break
+
+				mask="255.255.255.0" # default mask. no sense to use other in server lookup (except for loopback)
+				if addr=="No IP addr":
+					# this interface has no IPv4 address active
+					continue
+				if addr=="127.0.0.1":
+					mask="255.255.255.254" # no sense to iterate over loopback; just use address itself
+				ip=self.lookForServerAt(addr,mask,ring,dspHandler)
+				if ip=="0.0.0.0":
+					# no server found in this address. try next one
+					continue
+				else:
+					# on received answer retrieve Session ID from requested ring
+					self.server=ip
+					NRNetwork.ring=ring
+					self.session_id=NRNetwork.rings[NRNetwork.ring-1]
+					self.debug( "Ring: "+str(ring)+ " Session ID: "+str(self.session_id) )
+					dspHandler.setOobMessage("Server found at IP: "+ip,2)
+					# and finally setup server IP
+					return ip
+			# no server found in any address from this interface. try next
+
+		# arriving here means no server found
+		self.session_id=0 # invalid sid
+		NRNetwork.ENABLED = False # mark do not try to handle events
+		self.debug("Console server not found.")
+		dspHandler.setOobMessage("Console server not found",2)
+		return "0.0.0.0"
+	# def lookForServer
+
+# scan local network to look for server
+	def lookForServerAt(self,ipaddr,ipmask,ring,dspHandler,):
 		# iterate on every hosts on this network/netmask. Use strict=False to ignore ip address host bits
 		count=0
 		url= "/agility/ajax/database/sessionFunctions.php"
 		args= "?Operation=selectring" # operation to enumerate available ring sessions
-		for i in ipaddress.IPv4Network(netinfo['addr']+"/"+netinfo['netmask'],strict=False).hosts():
+		for i in ipaddress.IPv4Network(ipaddr+"/"+ipmask,strict=False).hosts():
 			# on "premature" program exit, just dont poll anymore
 			if NRNetwork.loop == False:
 				break
@@ -123,31 +165,18 @@ class NRNetwork:
 				data=response.json()
 				# arriving here means server found. store server IP
 				self.debug ("Found AgilityContest server at IP address: "+ip)
-				self.server = ip
 				# retrieve session id for each ring
 				for id in range (0,3):
 					NRNetwork.rings[id]=data['rows'][id]['ID']
 				# clear leds and return
 				self.kitt(-1)
-				break
+				return ip
 			except requests.exceptions.RequestException as ex:
 				# self.debug ( "Http request error:" + str(ex) )
 				continue
-		# for arrived to the end without break, so perform "else clause" ( python rulez)
-		else:
-			# arriving here means self.server not found
-			self.session_id=0 # invalid sid
-			NRNetwork.ENABLED = False # mark do not try to handle events
-			dspHandler.setOobMessage("Console server not found",2)
-			return "0.0.0.0"
-		# for loop got break, so jump over else and arrive here
-		# on received answer retrieve Session ID from requested ring
-		NRNetwork.ring=ring
-		self.session_id=NRNetwork.rings[NRNetwork.ring-1]
-		self.debug( "Ring: "+str(ring)+ " Session ID: "+str(self.session_id) )
-		dspHandler.setOobMessage("Server found at IP: "+ip,2)
-		# and finally setup server IP
-		return self.server
+		# arriving here means no server found
+		return "0.0.0.0"
+	# def lookForServerAt
 
 # Reconocimiento de pista / Fin de reconocimiento
 	def handle_rec(self,time):
