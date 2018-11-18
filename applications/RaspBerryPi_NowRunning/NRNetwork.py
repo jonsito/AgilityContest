@@ -153,10 +153,18 @@ class NRNetwork:
 	def handle_rec(self,time):
 		self.debug("Reconocimiento de pista")
 		# disparar un tempporizador que vaya descontando en el marcador
+		if time==0:
+			print("Course walk countdown stop")
+			self.dspHandler.setOobMessage("End of Course Walk",2)
+		else:
+			self.dspHandler.setOobMessage("Starting Course Walk",2)
+		self.dspHandler.setCountDown(time)
 
 # Llamada a pista
-	def handle_llamada(self,data):
-		self.dspHandler.setNowRunning(int(data))
+	def handle_llamada(self,numero,id):
+		if int(id)==0: # si perro en blanco marcamos perro numero "0"
+			numero='0'
+		self.dspHandler.setNowRunning(int(numero))
 
 # comando desde consola
 	def handle_command(self,data):
@@ -211,8 +219,8 @@ class NRNetwork:
 	# retrieve events newer than event id
 	def getEvents(self,event_id,timestamp):
 		try:
-		    args="?Operation=getEvents&Session=%s&ID=%s&TimeStamp=%s&SessionName=%s" % (str(self.session_id),str(event_id),str(timestamp),self.session_name)
-		    response = requests.get("https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args,
+			args="?Operation=getEvents&Session=%s&ID=%s&TimeStamp=%s&SessionName=%s" % (str(self.session_id),str(event_id),str(timestamp),self.session_name)
+			response = requests.get("https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args,
 				verify=False, timeout=30, auth=('AgilityContest','AgilityContest') )
 		except requests.exceptions.RequestException as ex:
 			self.debug ( "getEvents() error:" + str(ex) )
@@ -262,7 +270,7 @@ class NRNetwork:
 		if type == 'crono_stop':		# Parada Crono electronico
 			return
 		if type == 'crono_rec':			# Llamada a reconocimiento de pista
-			self.handle_rec(value)
+			self.handle_rec(evtdata['start'])
 			return
 		if type == 'crono_dat':			# Envio de Falta/Rehuse/Eliminado desde el crono
 			return
@@ -274,7 +282,7 @@ class NRNetwork:
 			return
 		# entrada de datos, dato siguiente, cancelar operacion
 		if type == 'llamada':			# operador abre panel de entrada de datos
-			self.handle_llamada(evtdata['Numero'])
+			self.handle_llamada(evtdata['Numero'],evtdata['Dog'])
 			return
 		if type == 'datos':				# actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 			return

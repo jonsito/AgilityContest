@@ -115,13 +115,16 @@ class NRDisplay:
 			msg = ""
 			if NRDisplay.countDown != 0:
 				msg = "Running course walk"
-			elif (count%5):
+			elif (count%5 == 0):
 				msg = "Ring %s %s" % ( self.ring , self.ronda)
 			else:
-				msg = "Now running %03d" % ( NRDisplay.nowRunning )
+			    if NRDisplay.nowRunning == 0:
+			        msg = "Runing test dog"
+			    else:
+				    msg = "Now running %03d" % ( NRDisplay.nowRunning )
 			print("setStdMessage() "+msg)
 			NRDisplay.stdMessage = msg
-			time.sleep(15)
+			time.sleep(10)
 			count = count + 1
 
 	#
