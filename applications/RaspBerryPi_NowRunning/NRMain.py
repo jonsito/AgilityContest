@@ -34,16 +34,25 @@ def isInteger(val):
 def inputParser():
 	global displayHandler
 	global networkHandler
+	global menuHandler
 	loop = True
 	while loop==True:
 		data = sys.stdin.readline()
 		if data == "\n":
 			displayHandler.setNextRunning()
-		elif data == "999\n":
+		elif data == "9999\n":
 			networkHandler.stopNetwork()
 			displayHandler.stopDisplay()
 			loop = False
-		elif data == "000\n":
+		elif data == "9992\n":
+		    print("Course walk countdown stop")
+		    displayHandler.setOobMessage("End of Course Walk",2)
+		    displayHandler.setCountDown(0)
+		elif data == "9991\n":
+		    print("Course walk countdown start")
+		    displayHandler.setOobMessage("Starting Course Walk",2)
+		    displayHandler.setCountDown(menuHandler.getCountDown())
+		elif data == "9990\n":
 			print("Enter in menu")
 			menuHandler.runMenu(displayHandler,networkHandler)
 		elif isInteger(data) == False:

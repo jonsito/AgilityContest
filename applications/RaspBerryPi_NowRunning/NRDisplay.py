@@ -45,6 +45,16 @@ class NRDisplay:
 	oobMessage = ""
 	oobDuration = 1
 	contrast=5
+	countDown=0
+	glitch=0
+
+	# set countDowntime for course walk
+	# value=seconds. 0 means stop
+	def setCountDown(self,value):
+		if value == 0:
+			NRDisplay.countDown = 0
+		else:
+			NRDisplay.countDown=time.time() + float(value)
 
 	# finalize display threads
 	def stopDisplay(self):
@@ -78,6 +88,9 @@ class NRDisplay:
 	def setBrightness(self,value):
 		NRDisplay.contrast = value
 
+	def setGlitch(self,value):
+		NRDisplay.glitch = int(value)
+
 	#
 	# Inicializacion del display
 	def initDisplay(self,cascaded,block_orientation,rotate):
@@ -100,7 +113,9 @@ class NRDisplay:
 		count = 0
 		while NRDisplay.loop == True:
 			msg = ""
-			if ( count % 5 ) == 0:
+			if NRDisplay.countDown != 0:
+				msg = "Running course walk"
+			elif (count%5):
 				msg = "Ring %s %s" % ( self.ring , self.ronda)
 			else:
 				msg = "Now running %03d" % ( NRDisplay.nowRunning )
@@ -115,6 +130,13 @@ class NRDisplay:
 		oldmsg=""
 		contrast=5
 		while NRDisplay.loop == True:
+			# si tenemos orden de glitch, jugamos con el contraste
+			if NRDisplay.glitch != 0:
+				NRDisplay.glitch = 0
+				NRDisplay.device.contrast( 0 )
+				time.sleep(0.5)
+				NRDisplay.device.contrast( int(contrast*255/9) )
+				continue
 			# si cambia el contraste, reajustamos
 			# lo tenemos que hacer desde este thread para evitar problemas de concurrencia
 			# en el servidor Xcb
@@ -137,6 +159,17 @@ class NRDisplay:
 				NRDisplay.stdMessage = ""
 				font=font=proportional(LCD_FONT)
 				delay=0.02
+			# si el temporizador está activo, mostramos tiempo restante
+			elif NRDisplay.countDown != 0:
+				remaining=NRDisplay.countDown - time.time()
+				if remaining <= 0.0:
+					NRDisplay.setOobMessage("End of course walk",2)
+					NRDisplay.countDown=0 # will erase "Fin" msg at next iteration
+				else:
+					min = int(remaining/60)
+					secs= int(remaining)%60
+					msg="%d:%02d" %(min,secs)
+					sx=1
 			# arriving here means just print dog running
 			else:
 				sx=5
@@ -144,7 +177,7 @@ class NRDisplay:
 
 			# time to display. check length for scroll or just show
 			if oldmsg == msg:
-				time.sleep(1)
+				time.sleep(0.5)
 				continue # do not repaint when not needed
 			oldmsg = msg
 			if len(msg) <= 4:
