@@ -28,7 +28,7 @@ import netifaces as ni		# to discover ip address/network/netmask
 import ipaddress			# to deal with IPv4 addresses
 import math				 # to handle timestamps
 import random
-import string          # random+string to compose a unique Name
+import string		  # random+string to compose a unique Name
 
 # AgilityContest chrono json request parameter definition
 # ================================================================
@@ -64,6 +64,8 @@ class NRNetwork:
 	DEBUG=True
 	ETH_DEVICE='eth0'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
 	ENABLED=True
+	loop=True
+	reconfigure=False
 	rings = ["2","3","4","5"] # array of session id's received from server To be re-evaluated later from server response
 
 	def kitt(self,count):
@@ -107,7 +109,8 @@ class NRNetwork:
 	def setEnabled(self,state):
 		NRNetwork.ENABLED=state
 
-	def reconnect(self):
+	def restartConnection(self):
+		NRNetwork.reconfigure=True
 		return
 
 	# get all interfaces
@@ -362,10 +365,22 @@ class NRNetwork:
 # wait for network event messages
 # this method runs in a separate thread
 
-	def eventParser(self):
+	def networkLoop(self):
 		current_ring = -1
 		timestamp = 0
 		while NRNetwork.loop == True:
+			# check for reconfigure command
+			if NRNetwork.reconfigure == True:
+				self.debug("Network re-configuration requested")
+				NRNetwork.reconfigure = False
+				current_ring = -1
+				timestamp = 0
+				server=self.lookForServer(NRNetwork.ring,self.dspHandler)
+				# server not found. wait 30 seconds before retrying
+				if server == "0.0.0.0":
+					time.sleep(30)
+					continue
+
 			# on ring change (or first loop iteration) open session
 			if current_ring != NRNetwork.ring:
 				current_ring=NRNetwork.ring
@@ -406,14 +421,16 @@ class NRNetwork:
 				self.parseEvent(event,timestamp)
 
 		# while NRNetwork.loop == True
-		self.debug("eventParser() exiting")
-	# eventParser thread
+		self.debug("networkThread() exiting")
+	# network thread
 
-	def __init__(self,interface,handler):
+	def __init__(self,interface,ring,handler):
 		#set up interface name and status info
 		NRNetwork.ETH_DEVICE = interface
+		NRNetwork.ring = ring
 		NRNetwork.ENABLED = True
 		NRNetwork.loop = True
+		NRNetwork.reconfigure = True
 
 		# create a random session name
 		rndstr="".join([random.choice(string.ascii_letters + string.digits) for n in range(8)])

@@ -82,7 +82,7 @@ if __name__ == "__main__":
 		displayHandler = NRDisplay.NRDisplay(args.display,args.cascaded, args.block_orientation, args.rotate)
 		displayHandler.setRing(int(args.ring))
 		# search network for connection
-		networkHandler = NRNetwork.NRNetwork(args.interface,displayHandler)
+		networkHandler = NRNetwork.NRNetwork(args.interface,args.ring,displayHandler)
 		# start display threads
 		w = threading.Thread(target = displayHandler.setStdMessage) # setting of main message
 		threads.append(w)
@@ -97,11 +97,10 @@ if __name__ == "__main__":
 		threads.append(w)
 		w.start()
 		# network event threads
-		server=networkHandler.lookForServer(args.ring,displayHandler)
-		if server != "0.0.0.0":
-			w = threading.Thread(target = networkHandler.eventParser) # display message loop
-			threads.append(w)
-			w.start()
+		w = threading.Thread(target = networkHandler.networkLoop) # network thread loop
+		threads.append(w)
+		w.start()
+		# wait for all threads to die
 		for x in threads:
 			x.join()
 	except KeyboardInterrupt:

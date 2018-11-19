@@ -65,7 +65,7 @@ class NROptions:
 		if code==2: # stop
 			self.netHandler.setEnabled(False)
 		if code==3: # restart
-			self.netHandler.reconnect()
+			self.netHandler.restartConnection()
 		return
 
 	def restartApp(self): # menu index 8
