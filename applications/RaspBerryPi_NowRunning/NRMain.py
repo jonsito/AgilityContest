@@ -45,13 +45,13 @@ def inputParser():
 			displayHandler.stopDisplay()
 			loop = False
 		elif data == "*0\n":
-		    print("Course walk countdown stop")
-		    displayHandler.setOobMessage("End of Course Walk",2)
-		    displayHandler.setCountDown(0)
+			print("Course walk countdown stop")
+			displayHandler.setOobMessage("End of Course Walk",2)
+			displayHandler.setCountDown(0)
 		elif data == "*1\n":
-		    print("Course walk countdown start")
-		    displayHandler.setOobMessage("Starting Course Walk",2)
-		    displayHandler.setCountDown(menuHandler.getCountDown())
+			print("Course walk countdown start")
+			displayHandler.setOobMessage("Starting Course Walk",2)
+			displayHandler.setCountDown(menuHandler.getCountDown())
 		elif data == "**\n":
 			print("Enter in menu")
 			menuHandler.runMenu(displayHandler,networkHandler)
@@ -77,6 +77,7 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 
 	try:
+		threads=[]
 		# init display handler
 		displayHandler = NRDisplay.NRDisplay(args.display,args.cascaded, args.block_orientation, args.rotate)
 		displayHandler.setRing(int(args.ring))
@@ -84,19 +85,25 @@ if __name__ == "__main__":
 		networkHandler = NRNetwork.NRNetwork(args.interface,displayHandler)
 		# start display threads
 		w = threading.Thread(target = displayHandler.setStdMessage) # setting of main message
+		threads.append(w)
 		w.start()
 		w = threading.Thread(target = displayHandler.displayLoop) # display message loop
+		threads.append(w)
 		w.start()
 		# create menu handler
 		menuHandler = NROptions.NROptions()
 		# start keyboard handler thread
 		w = threading.Thread(target=inputParser)
+		threads.append(w)
 		w.start()
 		# network event threads
 		server=networkHandler.lookForServer(args.ring,displayHandler)
 		if server != "0.0.0.0":
 			w = threading.Thread(target = networkHandler.eventParser) # display message loop
+			threads.append(w)
 			w.start()
+		for x in threads:
+			x.join()
 	except KeyboardInterrupt:
 		networkHandler.stopNetwork()
 		displayHandler.stopDisplay()

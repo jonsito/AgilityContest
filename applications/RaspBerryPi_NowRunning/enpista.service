@@ -1,0 +1,23 @@
+[Unit]
+Description=AgilityContest NowRunning service
+After=getty.service
+
+[Service]
+#let systemd do the "fork()" job
+Type=simple
+# https://www.freedesktop.org/software/systemd/man/systemd.exec.html
+ExecStart=/home/pi/AgilityContest/NowRunning/NowRunning.sh
+# Attach daemon to tty12 for user input
+StandardInput=tty
+TTYPath=/dev/tty12
+TTYReset=yes
+TTYVHangup=yes
+# https://www.freedesktop.org/software/systemd/man/systemd.service.html
+RemainAfterExit=false
+GuessMainPID=true
+Restart=always
+RestartSec=5s
+SuccessExitStatus=1
+
+[Install]
+WantedBy=multi-user.target

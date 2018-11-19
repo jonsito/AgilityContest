@@ -259,17 +259,23 @@ class NRNetwork:
 
 	# retrieve events newer than event id
 	def getEvents(self,event_id,timestamp):
+		ts=int(time.time())
 		try:
 			args="?Operation=getEvents&Session=%s&ID=%s&TimeStamp=%s&SessionName=%s" % (str(self.session_id),str(event_id),str(timestamp),self.session_name)
 			response = requests.get("https://" + self.server + "/" + self.baseurl + "/ajax/database/eventFunctions.php"+args,
 				verify=False, timeout=30, auth=('AgilityContest','AgilityContest') )
 		except requests.exceptions.RequestException as ex:
 			self.debug ( "getEvents() error:" + str(ex) )
-			return { 'total': 0, 'rows': [] }
+			return {"total":0 , "rows":[] , "TimeStamp": ts }
 		if response.status_code != 200:
 			self.debug("getEvents() error: received status code:"+str(response_status_code))
-			return { 'total': 0, 'rows': [] }
-		return response.json()
+			return {"total":0 , "rows":[] , "TimeStamp": ts }
+		try:
+			return response.json()
+		except ValueError:
+			self.debug("response.json thows exception")
+			return {"total":0 , "rows":[] , "TimeStamp": ts }
+
 	#end def
 
 	def parseEvent(self,event,timestamp):
@@ -382,9 +388,11 @@ class NRNetwork:
 			# Open success and Network enabled: retrieve and parse events
 			data = self.getEvents(event_id,timestamp)
 			if int(data['total']) == 0:
+				self.debug("getEvents returns no data")
 				time.sleep(5) # no data available. Sleep and retry
 				continue
 
+			self.debug("received"+str(data))
 			# retrieve timestamp if provided
 			if 'TimeStamp' in data:
 				timestamp = data['TimeStamp']
@@ -392,9 +400,11 @@ class NRNetwork:
 			# finally iterate over every received events
 			for event in data['rows']:
 				event_id=event['ID']
+				self.debug("parsing event ID"+str(event_id))
 				self.parseEvent(event,timestamp)
 
 		# while NRNetwork.loop == True
+		self.debug("eventParser() exiting")
 	# eventParser thread
 
 	def __init__(self,interface,handler):
