@@ -27,6 +27,8 @@ import time					# to get and process timestamps
 import netifaces as ni		# to discover ip address/network/netmask
 import ipaddress			# to deal with IPv4 addresses
 import math				 # to handle timestamps
+import random
+import string          # random+string to compose a unique Name
 
 # AgilityContest chrono json request parameter definition
 # ================================================================
@@ -58,7 +60,7 @@ import math				 # to handle timestamps
 class NRNetwork:
 
 	##### Some constants
-	SESSION_NAME = "NowRunning_2"	# should be generated from ring
+	SNAME = "NowRunning_2"	# default session name. should be generated from ring
 	DEBUG=True
 	ETH_DEVICE='eth0'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
 	ENABLED=True
@@ -231,7 +233,7 @@ class NRNetwork:
 		try:
 			# evaluate SessionName to allow control from console
 			self.session_id=NRNetwork.rings[current_ring-1]
-			self.session_name="videowall:%s:0:0:NowRunning_%d" % ( self.session_id,current_ring)
+			self.session_name="videowall:%s:0:0:%s@%d" % ( self.session_id,NRNetwork.SNAME,current_ring)
 			event_id=0 # event ID of last "open" call in current session
 			# prepare server "connect" call
 			args = "?Operation=connect&Session="+self.session_id+"&SessionName="+self.session_name
@@ -392,7 +394,7 @@ class NRNetwork:
 				time.sleep(5) # no data available. Sleep and retry
 				continue
 
-			self.debug("received"+str(data))
+			#self.debug("received"+str(data))
 			# retrieve timestamp if provided
 			if 'TimeStamp' in data:
 				timestamp = data['TimeStamp']
@@ -412,6 +414,10 @@ class NRNetwork:
 		NRNetwork.ETH_DEVICE = interface
 		NRNetwork.ENABLED = True
 		NRNetwork.loop = True
+
+		# create a random session name
+		rndstr="".join([random.choice(string.ascii_letters + string.digits) for n in range(8)])
+		NRNetwork.SNAME = "NowRunning_"+rndstr
 
 		# set up displayHandler
 		self.dspHandler = handler
