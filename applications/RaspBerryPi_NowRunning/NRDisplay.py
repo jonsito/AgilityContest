@@ -66,7 +66,13 @@ class NRDisplay:
 			NRDisplay.nowRunning = nr
 
 	def setNextRunning(self):
-		NRDisplay.nowRunning = NRDisplay.nowRunning + 1
+		NRDisplay.nowRunning = ( NRDisplay.nowRunning + 1 ) % 10000
+
+	def setPrevRunning(self):
+	    nr=NRDisplay.nowRunning -1
+	    if nr < 0:
+	        nr=9999
+	    NRDisplay.nowRunning = nr
 
 	def setRing(self,ring):
 		self.ring = ring

@@ -38,8 +38,10 @@ def inputParser():
 	loop = True
 	while loop==True:
 		data = sys.stdin.readline()
-		if data == "\n":
+		if (data == "\n") or (data == "+\n"):
 			displayHandler.setNextRunning()
+		elif data == "-\n":
+		    displayHandler.setPrevRunning()
 		elif data == "*9\n":
 			networkHandler.stopNetwork()
 			displayHandler.stopDisplay()
