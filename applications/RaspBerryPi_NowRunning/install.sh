@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 # script to install and configure AgilityContest NowRunning tool
-INSTALL_DIR=/home/pi/AgilityContest/nowRunning
+INSTALL_DIR=/home/pi/AgilityContest/NowRunning
 
 if [ "$USER" != "root" ]; then
     echo "This script must be run as user root"
     exit 1
 fi
 
+echo "Copying files..."
 # Copy files to destination directory
 if [ "$CWD" != "$INSTALL_DIR" ]; then
     mkdir -p ${INSTALL_DIR}
@@ -15,6 +16,7 @@ fi
 chmod +r ${INSTALL_DIR}/*.py
 chmod +x ${INSTALL_DIR}/NowRunning.sh
 
+echo "Installing required python modules..."
 # install pip3 required modules
 pip3 install luma.emulator luma.led_matrix
 pip3 install py-getch netifaces
@@ -23,6 +25,7 @@ pip3 install py-getch netifaces
 # configure Raspberry
 #
 
+echo "Configuring RaspBerryPi required settings..."
 # enable ssh
 raspi-config nonint do_ssh 0
 # Cannot allow auto login nor graphics mode, cause
@@ -33,6 +36,7 @@ raspi-config nonint do_spi 0
 # enable I2C
 raspi-config nonint do_i2c 0
 
+echo "Activating AC_NowRunning as systemd service..."
 # install systemd service
 cp enpista.service /lib/systemd/system/enpista.service
 systemctl daemon-reload
