@@ -111,20 +111,23 @@ class NRDisplay:
 	# Thread de generacion de los mensajes a presentar
 	def setStdMessage(self):
 		count = 0
+		delay=15
 		while NRDisplay.loop == True:
 			msg = ""
 			if NRDisplay.countDown != 0:
 				msg = "Running course walk"
+				delay = 20
 			elif (count%5 == 0):
 				msg = "Ring %s %s" % ( self.ring , self.ronda)
 			else:
-			    if NRDisplay.nowRunning == 0:
-			        msg = "Runing test dog"
-			    else:
-				    msg = "Now running %03d" % ( NRDisplay.nowRunning )
+				if NRDisplay.nowRunning == 0:
+					msg = "Runing test dog"
+					delay = 20
+				else:
+					msg = "Now running %03d" % ( NRDisplay.nowRunning )
 			print("setStdMessage() "+msg)
 			NRDisplay.stdMessage = msg
-			time.sleep(10)
+			time.sleep(delay)
 			count = count + 1
 
 	#

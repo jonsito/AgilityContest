@@ -77,17 +77,30 @@ class NRNetwork:
 		if NRNetwork.ring != ring:
 			NRNetwork.ring=ring
 
-
 	def showIPAddress(self):
-		for iface in ni.interfaces():
-			if (iface != NRNetwork.ETH_DEVICE):
-				continue
-			addrs = ni.ifaddresses(iface)
-			# assumed a single IP on interface
-			msg=addrs[ni.AF_INET][0]['addr']
-			print ("IP Address is: "+msg)
-			self.dspHandler.setOobMessage(msg,2)
-			return
+		msg = ""
+		for ifname in ni.interfaces():
+			# si hemos especificado una en concreto, compara
+			if NRNetwork.ETH_DEVICE != "": # an interface has been specified
+				if ifname != NRNetwork.ETH_DEVICE: # doesn't match with current. skip
+					continue
+			# buscamos las direcciones IPv4 que tiene esta pata de red
+			addresses = [i['addr'] for i in ni.ifaddresses(ifname).setdefault(ni.AF_INET, [{'addr':'No IP addr'}] )]
+			for addr in addresses:
+				if addr=="No IP addr": # this interface has no IPv4 address active. skip
+					continue
+				elif addr=="127.0.0.1": # loopbak. skip
+					continue
+				else:
+					msg = msg + " - " + addr
+			# foreach IP on each interface
+		# foreach interface
+		if msg=="": # no active IPv4 addresses found.
+			msg = "No network connection"
+		# finally send result to display
+		self.debug("IP Address is: "+msg)
+		self.dspHandler.setOobMessage(msg,3)
+		return
 
 	def setEnabled(self,state):
 		NRNetwork.ENABLED=state
@@ -103,7 +116,7 @@ class NRNetwork:
 			if NRNetwork.ETH_DEVICE != "": # an interface has been specified
 				if ifname != NRNetwork.ETH_DEVICE: # doesn't match with current. skip
 					continue
-			print("Looking for server at interface "+ifname)
+			self.debug("Looking for server at interface "+ifname)
 			# buscamos las direcciones IPv4 que tiene esta pata de red
 			addresses = [i['addr'] for i in ni.ifaddresses(ifname).setdefault(ni.AF_INET, [{'addr':'No IP addr'}] )]
 			for addr in addresses:
@@ -151,7 +164,6 @@ class NRNetwork:
 				break
 			count = self.kitt(count)
 			ip = str(i)
-			self.debug( "Looking for server at: " + ip)
 			# time to look for server. To do this, we send an http request to retrieve available session rings, with
 			# their ID to be evaluated according our dip-switches
 			try:
@@ -183,7 +195,7 @@ class NRNetwork:
 		self.debug("Reconocimiento de pista")
 		# disparar un tempporizador que vaya descontando en el marcador
 		if time==0:
-			print("Course walk countdown stop")
+			self.debug("Course walk countdown stop")
 			self.dspHandler.setOobMessage("End of Course Walk",2)
 		else:
 			self.dspHandler.setOobMessage("Starting Course Walk",2)
@@ -204,7 +216,7 @@ class NRNetwork:
 
 # open manga
 	def handle_open(self,data):
-		print("data is:'%s' " % (data))
+		self.debug("data is:'%s' " % (data))
 		self.dspHandler.setOobMessage(data,1)
 		self.dspHandler.setRoundInfo(data)
 		self.dspHandler.setNowRunning(1)
