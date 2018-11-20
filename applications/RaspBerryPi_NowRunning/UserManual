@@ -1,3 +1,0 @@
-sudo pip3 install --user luma.emulator luma.led_matrix
-sudo pip3 install --user netifaces py-getch
-
