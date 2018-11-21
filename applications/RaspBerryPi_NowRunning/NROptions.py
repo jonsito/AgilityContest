@@ -60,11 +60,16 @@ class NROptions:
 			self.netHandler.showIPAddress()
 			time.sleep(2)
 			self.sendMenuMessage()
-		if code==1: # start
+		if code==1: # server address
+			self.sendMenuMessage("")
+			self.netHandler.showServerAddress()
+			time.sleep(2)
+			self.sendMenuMessage()
+		if code==2: # start
 			self.netHandler.setEnabled(True)
-		if code==2: # stop
+		if code==3: # stop
 			self.netHandler.setEnabled(False)
-		if code==3: # restart
+		if code==4: # restart
 			self.netHandler.restartConnection()
 		return
 
@@ -94,7 +99,17 @@ class NROptions:
 		self.menuIndex = 0
 		self.menuItems = [ 0, 0, 0, 0, 0, 2, 5, 0, 0, 0 ]
 		self.menuAutoExec = [ 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 ]
-		self.menuNames = [ [' <<'],['Rng'],['Mng'],['Cat'],['Grd'],['Rec'],['Bri'],['Net'],['Inf'],['Sto','Rst','Off'] ]
+		self.menuNames = [
+		    [' <<'],
+		    ['Rng'],
+		    ['Mng'],
+		    ['Cat'],
+		    ['Grd'],
+		    ['Rec'],
+		    ['Bri'],
+		    ['IP ','Srv','Net','Net','Rec'],
+		    ['Inf'],
+		    ['Sto','Rst','Off'] ]
 		self.menuFunctions = [
 			self.exitMenu,
 			self.setRing,
@@ -115,7 +130,7 @@ class NROptions:
 			[ [ '1','Grado 1'],['2','Grado 2'],['3','Grado 3'],['P','Pre-Agility'],['J','Junior'],['S','Senior'],['O','Open'] ],
 			[ [ '0','Stop'],[ '6','6 min.'],['7','7 min.'],['8','8 min.'],['9','9 min'] ],
 			[ [ '1','1'],['2','2'],['3','3'], ['4','4'],['5','5'],['6','6'],['7','7'], ['8','8'],['9','9'] ],
-			[ [ '?','Ip Address'],[ '\x18','On'],['\x19','Off'],['\x1a','Reinit'] ], # ^,v, and > arrows
+			[ [ '?','Ip Address'],['?','Server Address'],[ '\x18','Network On'],['\x19','Network Off'],['\x1a','Reinit Network'] ], # ^,v, and > arrows
 			[ [ 'o','About'] ],
 			[ [ 'p','Exit'],[' ','Restart'],[' ','Pwr Off' ] ]
 		]
