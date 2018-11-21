@@ -81,6 +81,9 @@ class NROptions:
 
 	def powerOff(self): # menu index 9
 		code=self.menuItems[9] # 0:Stop 1:Restart 2:Halt
+		# set menuIndex and menuItems to zero
+		self.menuIndex=0
+		self.menuItems[0]=0
 		self.endLoop=True
 		self.returnCode = code+1
 		return
