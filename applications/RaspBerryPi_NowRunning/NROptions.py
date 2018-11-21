@@ -17,9 +17,9 @@
 #
 import getch
 import time
+import NRVersion
 
 class NROptions:
-
 
 	def exitMenu(self): # menu index 0
 		self.endLoop=True
@@ -68,14 +68,21 @@ class NROptions:
 			self.netHandler.restartConnection()
 		return
 
-	def restartApp(self): # menu index 8
-		# PENDING confirm and implement
-		self.endLoop=True
+	def miscFunctions(self): # menu index 8
+		code=self.menuItems[8]
+		if code==0: # About
+			msg=NRVersion.NRVersion().toString()
+			# turn menu off, send msg and back menu again
+			self.sendMenuMessage("")
+			self.dspHandler.setOobMessage(msg,1)
+			time.sleep(2)
+			self.sendMenuMessage()
 		return
 
 	def powerOff(self): # menu index 9
-		# PENDING confirm and implement
+		code=self.menuItems[9] # 0:Stop 1:Restart 2:Halt
 		self.endLoop=True
+		self.returnCode = code+1
 		return
 
 	def __init__(self):
@@ -84,7 +91,7 @@ class NROptions:
 		self.menuIndex = 0
 		self.menuItems = [ 0, 0, 0, 0, 0, 2, 5, 0, 0, 0 ]
 		self.menuAutoExec = [ 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 ]
-		self.menuNames = [ '<<<','Rng','Mng','Cat','Grd','Rec','Bri','Net','Rst','Off']
+		self.menuNames = [ [' <<'],['Rng'],['Mng'],['Cat'],['Grd'],['Rec'],['Bri'],['Net'],['Inf'],['Sto','Rst','Off'] ]
 		self.menuFunctions = [
 			self.exitMenu,
 			self.setRing,
@@ -94,25 +101,30 @@ class NROptions:
 			self.setCountDown, # course walk time
 			self.setBrillo, # LED Display brighness
 			self.setupEthernet,
-			self.restartApp,
+			self.miscFunctions,
 			self.powerOff
 		]
 		self.menuEntries = [
-			[ [ ' ', 'Volver' ]],
+			[ [ '<', 'Volver' ]],
 			[ [ '1','Ring 1'],['2','Ring 2'],['3','Ring 3'], ['4','Ring 4'] ],
 			[ [ 'A','Agility'],['J','Jumping'],['S','Snooker'],['G','Gambler'],['K','K.O'],['T','TunnelCup'],[' ','Special' ] ],
 			[ [ 'L','Large'],['M','Medium'],['S','Small'],['T','Toy'] ],
 			[ [ '1','Grado 1'],['2','Grado 2'],['3','Grado 3'],['P','Pre-Agility'],['J','Junior'],['S','Senior'],['O','Open'] ],
 			[ [ '0','Stop'],[ '6','6 min.'],['7','7 min.'],['8','8 min.'],['9','9 min'] ],
 			[ [ '1','1'],['2','2'],['3','3'], ['4','4'],['5','5'],['6','6'],['7','7'], ['8','8'],['9','9'] ],
-			[ [ '?','Info'],[ '\x18','On'],['\x19','Off'],['\x1a','Reinit'] ], # ^,v, and > arrows
-			[ [ ' ','Reset'] ],
-			[ [ ' ','Pwr Off' ] ]
+			[ [ '?','Ip Address'],[ '\x18','On'],['\x19','Off'],['\x1a','Reinit'] ], # ^,v, and > arrows
+			[ [ 'o','About'] ],
+			[ [ 'p','Exit'],[' ','Restart'],[' ','Pwr Off' ] ]
 		]
 
 	def sendMenuMessage(self,msg="empty"):
 		if msg=="empty":
-			msg="%s%s" % ( self.menuNames[self.menuIndex], self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][0])
+			# prefix
+			nidx=self.menuItems[self.menuIndex]%len(self.menuNames[self.menuIndex])
+			prefix=self.menuNames[self.menuIndex][nidx]
+			suffix= self.menuEntries[self.menuIndex][self.menuItems[self.menuIndex]][0]
+			# suffix
+			msg="%s%s" % (prefix,suffix)
 		self.dspHandler.setMenuMessage(msg)
 
 	def runMenu(self,dspHandler,netHandler):
@@ -120,6 +132,7 @@ class NROptions:
 		self.endLoop = False
 		self.dspHandler = dspHandler
 		self.netHandler = netHandler
+		self.returnCode = 0 # 0:normal, 1:stop 2:restart 3:shutdown
 
 		self.sendMenuMessage()
 		while self.endLoop == False:
@@ -162,3 +175,5 @@ class NROptions:
 				self.menuFunctions[self.menuIndex]()
 		# exit to normal display mode
 		self.sendMenuMessage("")
+		return self.returnCode
+	# end def

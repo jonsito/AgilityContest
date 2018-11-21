@@ -135,6 +135,9 @@ class NRDisplay:
 			NRDisplay.stdMessage = msg
 			time.sleep(delay)
 			count = count + 1
+		# while
+		print("setStdMessageThread() exiting")
+    # end def
 
 	#
 	# Bucle infinito de gestion de mensajes
@@ -199,6 +202,7 @@ class NRDisplay:
 				show_message( NRDisplay.device, msg, fill="white", font=font, scroll_delay=delay )
 		# while loop=True
 		NRDisplay.device.hide()
+		print("displayLoopThread() exiting")
 	# end thread loop
 
 

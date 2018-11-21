@@ -31,6 +31,31 @@ def isInteger(val):
 	except ValueError:
 		return False
 
+def restart(mode): # 0:exit 1:restart 2:shutdown
+	import getch
+	global displayHandler
+	global displayName
+	msgoob = [ 'Exit','Restart','Shut down']
+	msgs = [ 'Exiting...','Restarting...','Shutting down...']
+	displayHandler.setOobMessage("Confirm "+msgoob[mode]+" +/-?",1)
+	time.sleep(2)
+	displayHandler.setMenuMessage('+/-?')
+	# get confirm. clear prompt
+	c= getch.getch()
+	displayHandler.setMenuMessage('')
+	if c!='+':
+		return True # continue loop
+	displayHandler.setOobMessage(msgs[mode],1)
+	time.sleep(2)
+	# start closing threads
+	networkHandler.stopNetwork()
+	displayHandler.stopDisplay()
+	if displayName == "pygame":
+		# do not restart nor shutdown on pygame, just stop
+		return False
+	else:
+		sys.exit(mode)
+
 def inputParser():
 	global displayHandler
 	global networkHandler
@@ -41,11 +66,9 @@ def inputParser():
 		if (data == "\n") or (data == "+\n"):
 			displayHandler.setNextRunning()
 		elif data == "-\n":
-		    displayHandler.setPrevRunning()
+			displayHandler.setPrevRunning()
 		elif data == "*9\n":
-			networkHandler.stopNetwork()
-			displayHandler.stopDisplay()
-			loop = False
+			loop=restart(0)
 		elif data == "*0\n":
 			print("Course walk countdown stop")
 			displayHandler.setOobMessage("End of Course Walk",2)
@@ -56,14 +79,20 @@ def inputParser():
 			displayHandler.setCountDown(menuHandler.getCountDown())
 		elif data == "**\n":
 			print("Enter in menu")
-			menuHandler.runMenu(displayHandler,networkHandler)
+			res = menuHandler.runMenu(displayHandler,networkHandler)
+			if res > 0: # 1:stop 2:restart 3:shutdown
+				loop=restart(res-1) # 0:stop 1:restart 2:shuthdown
 		elif isInteger(data) == False:
 			print ("Unrecongnized data entry: '%s'" % (data))
 		else:
 			print ("received '"+data+"'")
 			displayHandler.setNowRunning(int(data))
+	# end def
+	print("inputLoopThread() exiting")
+# end def
 
 if __name__ == "__main__":
+	global displayName
 	global displayHandler
 	global networkHandler
 	global menuHandler
@@ -77,7 +106,7 @@ if __name__ == "__main__":
 	parser.add_argument('--rotate', type=int, default=2, choices=[0, 1, 2, 3], help='Rotate display 0=0°, 1=90°, 2=180°, 3=270°')
 
 	args = parser.parse_args()
-
+	displayName= args.display
 	try:
 		threads=[]
 		# init display handler
