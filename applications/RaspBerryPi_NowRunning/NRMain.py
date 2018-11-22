@@ -19,6 +19,7 @@ import time
 import argparse
 import threading
 import sys
+import os
 
 import NRDisplay
 import NRNetwork
@@ -54,7 +55,7 @@ def restart(mode): # 0:exit 1:restart 2:shutdown
 		# do not restart nor shutdown on pygame, just stop
 		return False
 	else:
-		sys.exit(mode)
+		os._exit(mode)
 
 def inputParser():
 	global displayHandler

@@ -79,7 +79,7 @@ class NROptions:
 			msg=NRVersion.NRVersion().toString()
 			# turn menu off, send msg and back menu again
 			self.sendMenuMessage("")
-			self.dspHandler.setOobMessage(msg,1)
+			self.dspHandler.setOobMessage(msg,2)
 			time.sleep(2)
 			self.sendMenuMessage()
 		return

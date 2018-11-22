@@ -107,7 +107,7 @@ class NRNetwork:
 		return
 
 	def showServerAddress(self):
-		msg="Server is not connected"
+		msg="Server not connected"
 		if self.server != "0.0.0.0":
 			msg="Server IP Addr: "+self.server
 		# finally send result to display
@@ -448,7 +448,7 @@ class NRNetwork:
 		self.dspHandler = handler
 
 		# some variables
-		self.server = "192.168.1.35"	# to be evaluated later by querying network
+		self.server = "0.0.0.0"	# to be evaluated later by querying network
 		self.baseurl = "agility"		# standard /aglity base url. must be changed in nonstd installs
 		self.session_id = 2				# to be retrieved from server and evaluate provided ring
 

@@ -5,9 +5,12 @@ chvt 12
 # force num-lock on
 setleds -D +num
 # execute app
+echo "Starting service..."
 /usr/bin/python3 /home/pi/AgilityContest/NowRunning/NRMain.py
 # evaluate exit code to decide what to do
-case $? in
+retcode=$?
+echo "Service exit with status: $retcode"
+case $retcode in
     0 ) # stop
         echo "Stopping service... "
         systemctl stop enpista
