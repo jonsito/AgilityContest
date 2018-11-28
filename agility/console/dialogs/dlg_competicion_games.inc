@@ -262,7 +262,7 @@ $config =Config::getInstance();
         modal:true,
         buttons:'#competicion-snooker-dialog-Buttons',
         onBeforeOpen: function() {
-            prepareCompetitionDialogs("competicion-snooker");
+            // no way to retrieve form data, so reset them
             $('#competicion-snooker-dialog-form').form('reset');
             return true;
         }
@@ -281,7 +281,7 @@ $config =Config::getInstance();
         modal:true,
         buttons:'#competicion-gambler-dialog-Buttons',
         onBeforeOpen: function() {
-            prepareCompetitionDialogs("competicion-gambler");
+            // no way to retrieve form data, so reset them
             $('#competicion-gambler-dialog-form').form('reset');
             return true;
         }
@@ -318,7 +318,11 @@ $('#competicion-dialog').dialog({
 		// do not allow close on editing active
 		$.messager.alert('<?php _e('Error'); ?>','<?php _e('Please cancel or save changes before closing window'); ?>','error');
 		return false;
-	}
+	},
+    onBeforeOpen: function() {
+        prepareCompetitionDialogs("competicion");
+        return true;
+    }
 });
 
 $('#competicion-categoria').combobox({
