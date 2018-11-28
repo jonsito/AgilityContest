@@ -1,3 +1,7 @@
+Version 3.8.2 20181128_1333
+    - Eliminated due "out of TRM" goes first
+    - Added new application: Raspberry_NowRunning (Su turno)
+    - Fix minor error in Snooker/Gambler data entry dialogs
 Version 3.8.2 20181025_1245
     - Allow clone team journeys into normal ones
     - Add support for printing individual scores for x-best team journeys ( by mean of clone and subordinate )
