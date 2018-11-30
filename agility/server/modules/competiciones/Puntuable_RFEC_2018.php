@@ -20,25 +20,25 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 class Puntuable_RFEC_2018 extends Competitions {
 
     public static $leagueZones=array(
-        "Castilla - La Mancha"  =>  0,
+        "Castilla - La Mancha"  =>  0, // Liga Dos Castillas
         "Comunitat Valenciana"  =>  1, // zona este
-        "Andalucía"             =>  2, // zona sur
-        "País Vasco"            =>  3, // zona norte
-        "Cantabria"             =>  3, // zona norte
-        "Asturias"              =>  3, // zona norte
-        "Castilla y León"       =>  0, // junto castilla la mancha
-        "Extremadura"           =>  2, // zona sur
+        "Andalucía"             =>  2, // Liga Sur
+        "País Vasco"            =>  3, // Liga Norte
+        "Cantabria"             =>  3, // Liga Norte
+        "Asturias"              =>  3, // Liga Norte
+        "Castilla y León"       =>  0, // Liga Dos Castillas
+        "Extremadura"           =>  2, // Liga Sur
         "Balears, Illes"        =>  5,
         "Cataluña"              =>  6,
-        "Ceuta"                 =>  2, // zona sur
+        "Ceuta"                 =>  2, // Liga Sur
         "Galicia"               =>  4,
         "Aragón"                =>  9,
         "Madrid, Comunidad de"  =>  7,
-        "Melilla"               =>  2, // zona sur
+        "Melilla"               =>  2, // Liga Sur
         "Murcia, Región de"     =>  1, // zona este
         "Navarra, Comunidad Foral de"  =>  8,
         "Canarias"              =>  10,
-        "Rioja, La"             =>  11
+        "Rioja, La"             =>  3 // temporalmente en Liga Norte
     );
 
     protected $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
