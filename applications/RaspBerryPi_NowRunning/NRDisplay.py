@@ -47,6 +47,11 @@ class NRDisplay:
 	contrast=5
 	countDown=0
 	glitch=0
+	clockMode=False
+
+	# enable/disable clock mode (true,false)
+	def setClockMode(self,value):
+		NRDisplay.clockMode=value
 
 	# set countDowntime for course walk
 	# value=seconds. 0 means stop
@@ -69,10 +74,10 @@ class NRDisplay:
 		NRDisplay.nowRunning = ( NRDisplay.nowRunning + 1 ) % 10000
 
 	def setPrevRunning(self):
-	    nr=NRDisplay.nowRunning -1
-	    if nr < 0:
-	        nr=9999
-	    NRDisplay.nowRunning = nr
+		nr=NRDisplay.nowRunning -1
+		if nr < 0:
+			nr=9999
+		NRDisplay.nowRunning = nr
 
 	def setRing(self,ring):
 		self.ring = ring
@@ -120,10 +125,12 @@ class NRDisplay:
 		delay=15
 		while NRDisplay.loop == True:
 			msg = ""
-			if NRDisplay.countDown != 0:
+			if NRDisplay.clockMode == True:
+				msg = ""
+			elif NRDisplay.countDown != 0:
 				msg = "Running course walk"
 				delay = 20
-			elif (count%5 == 0):
+			elif (count%5) == 0:
 				msg = "Ring %s %s" % ( self.ring , self.ronda)
 			else:
 				if NRDisplay.nowRunning == 0:
@@ -137,7 +144,7 @@ class NRDisplay:
 			count = count + 1
 		# while
 		print("setStdMessageThread() exiting")
-    # end def
+	# end def
 
 	#
 	# Bucle infinito de gestion de mensajes
@@ -178,28 +185,40 @@ class NRDisplay:
 			elif NRDisplay.countDown != 0:
 				remaining=NRDisplay.countDown - time.time()
 				if remaining <= 0.0:
-					NRDisplay.setOobMessage("End of course walk",2)
+					txt="End of Course Walk"
+					print(txt)
+					self.setOobMessage(txt,2)
 					NRDisplay.countDown=0 # will erase "Fin" msg at next iteration
 				else:
 					min = int(remaining/60)
 					secs= int(remaining)%60
 					msg="%d:%02d" %(min,secs)
 					sx=1
+			# si el reloj esta activo, presentamos la hora
+			elif NRDisplay.clockMode == True:
+				tm= time.localtime()
+				if tm.tm_sec%2 == 0:
+					msg = time.strftime("%H:%M",tm)
+				else:
+					msg = time.strftime("%H.%M",tm)
+				sx=0
 			# arriving here means just print dog running
 			else:
 				sx=5
 				msg="%03d" % (NRDisplay.nowRunning)
-
 			# time to display. check length for scroll or just show
 			if oldmsg == msg:
 				time.sleep(0.5)
 				continue # do not repaint when not needed
 			oldmsg = msg
-			if len(msg) <= 4:
-				with canvas(NRDisplay.device) as draw:
-					text(draw, (sx, 0), msg, fill="white")
-			else:
+			if len(msg) >5:
 				show_message( NRDisplay.device, msg, fill="white", font=font, scroll_delay=delay )
+			elif len(msg) == 5:
+				with canvas(NRDisplay.device) as draw:
+					text(draw, (sx, 0), msg, fill="white",font=proportional(CP437_FONT))
+			else:
+				with canvas(NRDisplay.device) as draw:
+					text(draw, (sx, 0), msg, fill="white",font=CP437_FONT)
 		# while loop=True
 		NRDisplay.device.hide()
 		print("displayLoopThread() exiting")
