@@ -25,49 +25,50 @@ class Mangas extends DBObject {
 	
 	/* copia de la estructura de la base de datos, para ahorrar consultas */
 	public static $tipo_manga= array(
-		0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo',  'IsAgility'),
-		1 =>	array( 1, 'Pre-Agility Round 1', 		'P.A.',	'PreAgility 1',	'Pre-Agility',  1),
-		2 => 	array( 2, 'Pre-Agility Round 2', 		'P.A.',	'PreAgility 2',	'Pre-Agility',  2),
-		3 =>	array( 3, 'Agility Grade I Round 1',	'GI',	'Agility-1 GI',	'Grade I',      1),
-		4 => 	array( 4, 'Agility Grade I Round 2',	'GI',	'Agility-2 GI',	'Grade I',      2),
-		5 =>	array( 5, 'Agility Grade II', 			'GII',	'Agility GII',	'Grade II',     1),
-		6 =>	array( 6, 'Agility Grade III', 			'GIII',	'Agility GIII',	'Grade III',    1),
-		7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual',   1), // Open
-		8 =>	array( 8, 'Agility Teams',			    '-',	'Ag. Teams',	'Teams',        1), // team best
-		9 =>	array( 9, 'Agility Teams'				,'-',	'Ag. Teams.',	'Teams',        1), // team combined
-		10 =>	array( 10,'Jumping Grade II',			'GII',	'Jumping GII',	'Grade II',     2),
-		11 =>	array( 11,'Jumping Grade III',			'GIII',	'Jumping GIII',	'Grade III',    2),
-		12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual',   2), // Open
-		13 =>	array( 13,'Jumping Teams'				,'-',   'Jmp Teams',	'Teams',        2), // team best
-		14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp Teams',	'Teams',        2), // team combined
-		15 =>	array( 15,'K.O. First round',			'-',	'K.O. Round 1',	'K.O. R1',      1),
-		16 =>	array( 16,'Special Round', 			    '-',	'Special Round','Individual',   1), // special round, no grades
-		17 => 	array( 17,'Agility Grade I Round 3',	'GI',	'Agility-3 GI',	'Grade I',      3), // on RFEC special G1 3rd round
+		0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo',  'IsAgility', 'Name'),
+		1 =>	array( 1, 'Pre-Agility Round 1', 		'P.A.',	'PreAgility 1',	'Pre-Agility',  1,          'Pa1'),
+		2 => 	array( 2, 'Pre-Agility Round 2', 		'P.A.',	'PreAgility 2',	'Pre-Agility',  2,          'Pa2'),
+		3 =>	array( 3, 'Agility Grade I Round 1',	'GI',	'Agility-1 GI',	'Grade I',      1,          'Ag1'),
+		4 => 	array( 4, 'Agility Grade I Round 2',	'GI',	'Agility-2 GI',	'Grade I',      2,          'Ag2'),
+		5 =>	array( 5, 'Agility Grade II', 			'GII',	'Agility GII',	'Grade II',     1,          'Ag'),
+		6 =>	array( 6, 'Agility Grade III', 			'GIII',	'Agility GIII',	'Grade III',    1,          'Ag'),
+		7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual',   1,          'Ag'), // Open
+		8 =>	array( 8, 'Agility Teams',			    '-',	'Ag. Teams',	'Teams',        1,          'Ag'), // team best
+		9 =>	array( 9, 'Agility Teams'				,'-',	'Ag. Teams.',	'Teams',        1,          'Ag'), // team combined
+		10 =>	array( 10,'Jumping Grade II',			'GII',	'Jumping GII',	'Grade II',     2,          'Jp'),
+		11 =>	array( 11,'Jumping Grade III',			'GIII',	'Jumping GIII',	'Grade III',    2,          'Jp'),
+		12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual',   2,          'Jp'), // Open
+		13 =>	array( 13,'Jumping Teams'				,'-',   'Jmp Teams',	'Teams',        2,          'Jp'), // team best
+		14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp Teams',	'Teams',        2,          'Jp'), // team combined
+		15 =>	array( 15,'K.O. First round',			'-',	'K.O. Round 1',	'K.O. R1',      1,          'KO1'),
+		16 =>	array( 16,'Special Round', 			    '-',	'Special Round','Individual',   1,          'Sp.'), // special round, no grades
+		17 => 	array( 17,'Agility Grade I Round 3',	'GI',	'Agility-3 GI',	'Grade I',      3,          'Ag3'), // on RFEC special G1 3rd round
         // mangas extra para K.O.
-        18 =>	array( 18,'K.O. Second round',			'-',	'K.O. Round 2',	'K.O. R2',      2),
-        19 =>	array( 19,'K.O. Third round',			'-',	'K.O. Round 3',	'K.O. R3',      3),
-        20 =>	array( 20,'K.O. Fourth round',			'-',	'K.O. Round 4',	'K.O. R4',      4),
-        21 =>	array( 21,'K.O. Fifth round',			'-',	'K.O. Round 5',	'K.O. R5',      5),
-        22 =>	array( 22,'K.O. Sixth round',			'-',	'K.O. Round 6',	'K.O. R6',      6),
-        23 =>	array( 23,'K.O. Seventh round',			'-',	'K.O. Round 7',	'K.O. R7',      7),
-        24 =>	array( 24,'K.O. Eight round',			'-',	'K.O. Round 8',	'K.O. R8',      8),
+        18 =>	array( 18,'K.O. Second round',			'-',	'K.O. Round 2',	'K.O. R2',      2,          'KO2'),
+        19 =>	array( 19,'K.O. Third round',			'-',	'K.O. Round 3',	'K.O. R3',      3,          'KO3'),
+        20 =>	array( 20,'K.O. Fourth round',			'-',	'K.O. Round 4',	'K.O. R4',      4,          'KO4'),
+        21 =>	array( 21,'K.O. Fifth round',			'-',	'K.O. Round 5',	'K.O. R5',      5,          'KO5'),
+        22 =>	array( 22,'K.O. Sixth round',			'-',	'K.O. Round 6',	'K.O. R6',      6,          'KO6'),
+        23 =>	array( 23,'K.O. Seventh round',			'-',	'K.O. Round 7',	'K.O. R7',      7,          'KO7'),
+        24 =>	array( 24,'K.O. Eight round',			'-',	'K.O. Round 8',	'K.O. R8',      8,          'KO8'),
         // mandas extras para wao
-        25 =>	array( 25,'Agility A',			        '-',	'Agility A',	'Ag. A',        1),
-        26 =>	array( 26,'Agility B',			        '-',	'Agility B',	'Ag. B',        3),
-        27 =>	array( 27,'Jumping A',			        '-',	'Jumping A',	'Jp. A',        2),
-        28 =>	array( 28,'Jumping B',			        '-',	'Jumping B',	'Jp. B',        4),
-        29 =>	array( 29,'Snooker',			        '-',	'Snooker',	    'Snkr',         5),
-        30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        6),
-        31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       7), // single round
+        25 =>	array( 25,'Agility A',			        '-',	'Agility A',	'Ag. A',        1,          'AgA'),
+        26 =>	array( 26,'Agility B',			        '-',	'Agility B',	'Ag. B',        3,          'AgB'),
+        27 =>	array( 27,'Jumping A',			        '-',	'Jumping A',	'Jp. A',        2,          'JpA'),
+        28 =>	array( 28,'Jumping B',			        '-',	'Jumping B',	'Jp. B',        4,          'JpB'),
+        29 =>	array( 29,'Snooker',			        '-',	'Snooker',	    'Snkr',         5,          'Snk'),
+        30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        6,          'Gmb'),
+        31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       7,          'Spd'), // single round
         // junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
         // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
-        32 =>	array( 32,'Junior Round 1',	            'Jr',	'Junior 1',	    'Jr. 1',        1),
-        33 => 	array( 33,'Junior Round 2',	            'Jr',	'Junior 2',	    'Jr. 2',        2),
-        34 =>	array( 34,'Senior Round 1',	            'Sr',	'Senior 1',	    'Sr. 1',        1),
-        35 => 	array( 35,'Senior Round 2',	            'Sr',	'Senior 2',	    'Sr. 2',        2),
+        32 =>	array( 32,'Junior Round 1',	            'Jr',	'Junior 1',	    'Jr. 1',        1,          'Jr1'),
+        33 => 	array( 33,'Junior Round 2',	            'Jr',	'Junior 2',	    'Jr. 2',        2,          'Jr2'),
+        34 =>	array( 34,'Senior Round 1',	            'Sr',	'Senior 1',	    'Sr. 1',        1,          'Sr1'),
+        35 => 	array( 35,'Senior Round 2',	            'Sr',	'Senior 2',	    'Sr. 2',        2,          'Sr2'),
 	);
 
 	public static function getTipoManga($tipo,$idx,$fed=null) {
+	    if ($idx==6) return Mangas::$tipo_manga[$tipo][6]; // direct access to round abbreviature (dirty, but works)
         if (!$fed) return Mangas::$tipo_manga[$tipo][$idx];
         return $fed->getTipoManga($tipo,$idx);
     }

@@ -74,9 +74,9 @@ class Resultados extends DBObject {
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
-     * @param {object} $prueba Prueba ID
-     * @param {object} $jornada Jornada ID
-     * @param {object} $manga Manga ID
+     * @param {object} $prueba Prueba
+     * @param {object} $jornada Jornada
+     * @param {object} $manga Manga
 	 * @throws Exception when
 	 * - cannot contact database
 	 * - invalid manga ID
@@ -424,6 +424,7 @@ class Resultados extends DBObject {
 	function real_update($idperro,$data) {
         $this->myLogger->enter();
         $idmanga = $this->IDManga;
+        $idjornada = $this->IDJornada;
         if ($idperro <= 0) return $this->error("No Perro ID specified");
         if ($this->isCerrada())
             return $this->error("Manga $idmanga comes from closed Jornada:" . $this->IDJornada);
@@ -476,6 +477,20 @@ class Resultados extends DBObject {
 			WHERE (Perro=$idperro) AND (Manga=$this->IDManga)";
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);
+
+		// si el perro esta marcado como no presentado y pendiente es cero, (le han llamado 3 veces, vamos)
+        // ponemos en las observaciones del resto de las mangas de la jornada
+        // que este perro no se ha presentado, para que se muestre en los listados
+        // ojo, que el campo pendiente se usa en las mangas KO para otra cosa, por lo que lo obviamos
+        if ($nopresentado==1 && $pendiente==0 && !isMangaKO($this->dmanga->Tipo)) {
+            $str=Mangas::getTipoManga($this->dmanga->Tipo,6,$this->getFederation()). " "._('Not Present');
+            $sql="UPDATE resultados
+                  SET Observaciones='{$str}' 
+                  WHERE (Perro={$idperro}) AND (Jornada=${idjornada}) AND (Pendiente=1)";
+        }
+        $rs=$this->query($sql);
+        if (!$rs) return $this->error($this->conn->error);
+
         // also propagate results in every rounds on subordinate journeys in a recursive way
         $mobj= new Mangas("Resultados::update()",$this->IDJornada);
         $lst=$mobj->getSubordinates($idmanga);

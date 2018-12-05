@@ -73,7 +73,7 @@ class PrintOrdenSalida extends PrintCommon {
          //                0            1       2         3        4           5           6           7              8          9
                 array(_('Order'),_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Gender'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
         //                  orden    dorsal  nombre    licencia raza Genero     guia club   celo   observaciones
-        $this->pos	=array(  12,      10,     25,        15,      22,    10,      40,   25,     10,    16);
+        $this->pos	=array(  12,      10,     25,        15,      22,    10,      38,   24,     9,    25);
         $this->align=array(  'R',    'R',    'L',        'C',     'R',   'C',     'R',  'R',    'C',   'R');
         // obtenemos los datos de equipos de la jornada indexados por el ID del equipo
 		$eq=new Equipos("print_ordenDeSalida",$data['prueba'],$data['jornada']);
