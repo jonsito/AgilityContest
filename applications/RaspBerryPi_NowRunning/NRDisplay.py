@@ -220,6 +220,7 @@ class NRDisplay:
 				with canvas(NRDisplay.device) as draw:
 					text(draw, (sx, 0), msg, fill="white",font=CP437_FONT)
 		# while loop=True
+		NRDisplay.device.clear()
 		NRDisplay.device.hide()
 		print("displayLoopThread() exiting")
 	# end thread loop
