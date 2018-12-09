@@ -108,8 +108,8 @@ class PartialScoresReader extends DogReader {
         }
         $this->saveStatus("Analyzing result entry '$n'");
         $lic= ($l==="")?" 1": " (resultados.Licencia='{$l}')"; // en rsce a veces no hay licencia
-        $ldog= ($nl==="")?" 0": " (perros.NombreLargo='{$nl}')"; // siempre existiran nombre o nombrelargo
-        $dog= ($n==="")?" 0":" (resultados.Nombre='{$n}')";
+        $ldog= ($nl==="")?" 0": " (perros.NombreLargo='{$nl}')"; // nombrelargo no esta en tabla "resultados"
+        $dog= ($n==="")?" 0":" (resultados.Nombre='{$n}')"; // debe existir nombre o nombrelargo en el excel
         $search=$this->myDBObject->__select(
             "resultados.*,perros.NombreLargo",
             "resultados,perros",

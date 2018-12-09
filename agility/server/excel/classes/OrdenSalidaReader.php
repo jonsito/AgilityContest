@@ -63,7 +63,7 @@ class OrdenSalidaReader extends DogReader {
         $fedobj=Federations::getFederation($this->federation);
         if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=0; $this->fieldList['Country'][1]=1; } // country/club
         $this->validPageNames=array("StartingOrder",_("StartingOrder"),"Starting order",_("Starting order"));
-        $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']),"");
+        $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']),"resultados.");
     }
 
     private function removeTmpEntry($item) {
@@ -98,15 +98,15 @@ class OrdenSalidaReader extends DogReader {
             return $this->removeTmpEntry($item); // returns null
         }
         $this->saveStatus("Analyzing result entry '$n'");
-        $dorsal= ($d===0)?" 1": " (Dorsal='{$d}')"; // por si acaso el dorsal esta en blanco, pero no deberia
-        $ldog= ($nl==="")?" 0": " (NombreLargo='{$nl}')"; // siempre existiran nombre o nombrelargo
-        $dog= ($n==="")?" 0":" (Nombre='{$n}')";
-        $search=$this->myDBObject->__select("*",
-            "resultados",
-            "(manga={$this->manga['ID']}) {$this->sqlcats} AND {$dorsal} AND ( {$dog} OR {$ldog} )",
+        $dorsal= ($d===0)?" 1": " (resultados.Dorsal='{$d}')"; // por si acaso el dorsal esta en blanco, pero no deberia
+        $ldog= ($nl==="")?" 0": " (perros.NombreLargo='{$nl}')"; // nombrelargo no existe en tabla "resultados"
+        $dog= ($n==="")?" 0":" (resultados.Nombre='{$n}')";
+        $search=$this->myDBObject->__select("resultados.*,perros.ID,perros.NombreLargo",
+            "resultados,perros",
+            "(resultados.Perro = perros.ID) AND (manga={$this->manga['ID']}) {$this->sqlcats} AND {$dorsal} AND ( {$dog} OR {$ldog} )",
             "",
             "");
-        if ( !is_array($search) ) return "findAndSeResult(): Invalid search term: '{$d} - {$n}' "; // invalid search. mark error
+        if ( !is_array($search) ) return "findAndSetOrdenSalida(): Invalid search term: '{$d} - {$n}' "; // invalid search. mark error
         // if blind mode and cannot decide, just ignore and remove entry from tmptable
         $this->myLogger->trace("Blind: {$this->myOptions['Blind']} Search {$n} results:".json_encode($search));
         if ( ($search['total']!==1) && ($this->myOptions['Blind']!=0)) return $this->removeTmpEntry($item); // returns null

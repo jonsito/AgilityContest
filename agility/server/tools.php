@@ -298,10 +298,10 @@ function parseGender($gender) {
  * @return {string} L,M,S,T,- detected category
  */
 function parseCategory($cat) {
-	static $l = array('l','large','standard','estandar','std','60','6');
-	static $m = array('m','medium','midi','mid','med','50','5');
-	static $s = array('s','small','mini','min','40','4');
-	static $t = array('t','enano','tiny','toy','30','3','20','2'); // include junior as toy
+	static $l = array('l','large','standard','estandar','std','600','60','6');
+	static $m = array('m','medium','midi','mid','med','500','50','5');
+	static $s = array('s','small','mini','min','400','40','4');
+	static $t = array('t','enano','tiny','toy','300','30','3','20','2'); // include junior as toy
 	if (is_null($cat)) return '-';
 	$cat=strtolower(trim(utf8_decode($cat)));
 	if ($cat==="") return '-';
