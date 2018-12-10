@@ -247,7 +247,7 @@ class DogReader {
                 if ( ($key==='Club') && ($item=="") ) $item=$row[$idx];;
             }
             switch ($val[2]) {
-                case "s": // string
+                case "s": // stringfa
                     $a=$this->myDBObject->conn->real_escape_string(trim($item));
                     $str2 .= " '{$a}', ";
                     break;

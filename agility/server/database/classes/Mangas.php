@@ -78,44 +78,44 @@ class Mangas extends DBObject {
 
 	/* tabla para obtener facilmente la manga complementaria a una manga dada */
 	public static $manga_hermana= array(
-		0,	/* 0,'','' */
-		2,	/* 1, 'Pre-Agility Manga 1', 'P.A.' */ // notice that in 1 manga mode there is no sister
-		1,	/* 2, 'Pre-Agility Manga 2', 'P.A.' */
-		4,	/* 3, 'Agility Grado I Manga 1', 'GI' */
-		3,	/* 4, 'Agility Grado I Manga 2', 'GI' */
-		10,	/* 5, 'Agility Grado II', 'GII' */
-		11,	/* 6, 'Agility Grado III', 'GIII' */
-		12,	/* 7, 'Agility Abierta', '-' */
-		13,	/* 8, 'Agility Equipos (3 mejores)', '-' */
-		14,	/* 9, 'Agility Equipos (Conjunta)', '-' */
-		5,	/* 10,'Jumping Grado II', 'GII' */
-		6,	/* 11,'Jumping Grado III', 'GIII' */
-		7,	/* 12,'Jumping Abierta', '-' */
-		8,	/* 13,'Jumping Equipos (3 mejores)', '-' */
-		9,	/* 14,'Jumping Equipos (Conjunta)', '-' */
-		0,	/* 15,'Ronda K.O.', '-' */
-		0,	/* 16,'Manga Especial', '-' */
-		3,	/* 17,'Agility Grado I Manga 3', 'GI' */
+		array(0),	    /* 0,'','' No manga declared of type 0 */
+        array(2,17),    /* 1, 'Pre-Agility Manga 1', 'P.A.' */ // notice that in 1 manga mode there is no sister
+        array(1,17),    /* 2, 'Pre-Agility Manga 2', 'P.A.' */
+        array(4),	    /* 3, 'Agility Grado I Manga 1', 'GI' */
+        array(3),	    /* 4, 'Agility Grado I Manga 2', 'GI' */
+        array(10),	    /* 5, 'Agility Grado II', 'GII' */
+        array(11),	    /* 6, 'Agility Grado III', 'GIII' */
+        array(12),	    /* 7, 'Agility Abierta', '-' */
+        array(13),	    /* 8, 'Agility Equipos (3 mejores)', '-' */
+        array(14),	    /* 9, 'Agility Equipos (Conjunta)', '-' */
+        array(5),	    /* 10,'Jumping Grado II', 'GII' */
+        array(6),	    /* 11,'Jumping Grado III', 'GIII' */
+        array(7),	    /* 12,'Jumping Abierta', '-' */
+        array(8),	    /* 13,'Jumping Equipos (3 mejores)', '-' */
+        array(9),	    /* 14,'Jumping Equipos (Conjunta)', '-' */
+        array(0),	    /* 15,'Ronda K.O.', '-' */
+        array(0),	    /* 16,'Manga Especial', '-' */
+        array(1,2),	    /* 17,'Agility Grado I Manga 3', 'GI' */
         /* mangas extra para K.O. */
-        0, /* 18 ,'K.O. Second round',	*/
-        0, /* 19 ,'K.O. Third round',*/
-        0, /* 20 ,'K.O. Fourth round',*/
-        0, /* 21 ,'K.O. Fifth round',*/
-        0, /* 22 ,'K.O. Sixth round',*/
-        0, /* 23 ,'K.O. Seventh round',*/
-        0, /* 24 ,'K.O. Eight round',*/
+        array(0),       /* 18 ,'K.O. Second round',	*/
+        array(0),       /* 19 ,'K.O. Third round',*/
+        array(0),       /* 20 ,'K.O. Fourth round',*/
+        array(0),       /* 21 ,'K.O. Fifth round',*/
+        array(0),       /* 22 ,'K.O. Sixth round',*/
+        array(0),       /* 23 ,'K.O. Seventh round',*/
+        array(0),       /* 24 ,'K.O. Eight round',*/
         /* mandas extras para wao */
-        27, /* 25 ,'Agility A',	*/
-        28, /* 26 ,'Agility B',	*/
-        25, /* 27 ,'Jumping A',	*/
-        26, /* 28 ,'Jumping B',	*/
-        30, /* 29 ,'Snooker',	*/
-        29, /* 30 ,'Gambler',	*/
-        0,  /* 31 ,'SpeedStakes',*/
-        33,	/* 32, 'Junior Manga 1', 'Jr' */
-        32,	/* 33, 'Junior Manga 2', 'Jr' */
-        35,	/* 34, 'Senior Manga 1', 'Sr' */
-        34,	/* 35, 'Senior Manga 2', 'Sr' */
+        array(27,26,28,31),/* 25 ,'Agility A',	*/
+        array(28,27,27,31),/* 26 ,'Agility B',	*/
+        array(25,26,28,31),/* 27 ,'Jumping A',	*/
+        array(26,25,27,31),/* 28 ,'Jumping B',	*/
+        array(30),      /* 29 ,'Snooker',	*/
+        array(29),      /* 30 ,'Gambler',	*/
+        array(25,26,27,28),/* 31 ,'SpeedStakes',*/
+        array(33),      /* 32, 'Junior Manga 1', 'Jr' */
+        array(32),      /* 33, 'Junior Manga 2', 'Jr' */
+        array(35),      /* 34, 'Senior Manga 1', 'Sr' */
+        array(34)       /* 35, 'Senior Manga 2', 'Sr' */
 	);
 	
 	public static $manga_modes= array (
@@ -309,8 +309,8 @@ class Mangas extends DBObject {
 		$stmt->close();
 		
 		// actualizamos el campo "Recorrido" de las Mangas gemelas
-		$tipogemelo=Mangas::$manga_hermana[$tipo];
-		$sql="UPDATE mangas SET Recorrido=$recorrido WHERE ( Jornada={$this->jornadaObj->ID} ) AND (Tipo=$tipogemelo)";
+		$tipos=implode(',' , Mangas::$manga_hermana[$tipo]);
+		$sql="UPDATE mangas SET Recorrido=$recorrido WHERE ( Jornada={$this->jornadaObj->ID} ) AND (Tipo IN ({$tipos}) )";
 		$res=$this->query($sql);
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
@@ -407,16 +407,23 @@ class Mangas extends DBObject {
 		// second query to retrieve $rows starting at $offset
 		$result=$this->__getObject("mangas",$id);
 		if (!is_object($result)) return $this->error("Cannot locate Manga with ID=$id");
-		$tipo=Mangas::$manga_hermana[$result->Tipo];
-		if ($tipo==0) {
-			$this->myLogger->info("La manga:$id de tipo:{$result->Tipo} no tiene hermana asociada");
+		$tipos=implode(',',Mangas::$manga_hermana[$result->Tipo]);
+		if ($tipos=="0") {
+			$this->myLogger->info("La manga:$id de tipo:{$result->Tipo} no tiene hermanas asociadas");
 			return array($result,null); 
 		}
 		// Obtenemos __Todas__ las mangas de esta jornada que tienen el tipo buscado ninguna, una o hasta 8(k.O.)
-		$result2=$this->__select("*","mangas","( Jornada={$this->jornadaObj->ID} ) AND ( Tipo=$tipo)","","");
+        // debemos conservar el orden indicado en manga_hermana
+        $order="FIND_IN_SET(Tipo,'{$tipos}')";
+		$result2=$this->__select(
+		    /*select*/"*",
+            /*from*/ "mangas",
+            /*where*/"( Jornada={$this->jornadaObj->ID} ) AND ( Tipo IN ({$tipos}) )",
+            /*order*/ $order,
+            /*limit*/"");
 		if (!is_array($result2)) {
 			// inconsistency error muy serio 
-			return $this->error("Falta la manga hermana de tipo:$tipo para manga:$id de tipo:{$result->Tipo}");
+			return $this->error("No encuentro mangas hermanas de manga:$id de tipo:{$result->Tipo}");
 		}
 		$hermanas=array();
 		array_push($hermanas,$result); // manga original as index 0

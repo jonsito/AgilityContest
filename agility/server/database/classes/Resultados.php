@@ -324,13 +324,15 @@ class Resultados extends DBObject {
 	 * Intercambia los resultados de la manga actual con la manga hermana
 	 * @param {integer} $id ID De manga origen
 	 * @param {string} $cat "-LMST" (una letra) que indica las categorias a las que afecta el swap
+     * @param {integer} $tipo tipomanga cuando el swap se puede hacer sobre mas de una manga
 	 * @return {string} "" in success else error string
 	 */
-	function swapMangas($cats) {
+	function swapMangas($cats,$tipo=0) {
 		$this->myLogger->enter();
         assertClosedJourney($this->getDatosJornada());
 		$tipo1=$this->getDatosManga()->Tipo;
-        $tipo2=Mangas::$manga_hermana[$tipo1];
+		$hermanas=Mangas::$manga_hermana[$tipo1]; // get array of compatible mangas
+        $tipo2=($tipo==0)? $tipo2=$hermanas[0]:$tipo; // when no type specified get first brother
 		if ($tipo2==0) {
 			return $this->error("La manga:{$this->IDManga} de tipo:$tipo1 no tiene hermana asociada");
 		}

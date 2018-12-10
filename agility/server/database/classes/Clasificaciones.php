@@ -741,7 +741,7 @@ class Clasificaciones extends DBObject {
 		$myManga=$perro['Manga'];
         // buscamos la manga hermana
         $mng=new Mangas("getPuestoFinal",$this->jornada->ID);
-        $hermanas=$mng->getHermanas($myManga);
+        $hermanas=$mng->getHermanas($myManga); // [0]:current [1]:counterpair [2]...[n]:rest of sisters
         $id1=intval($hermanas[0]->ID);
         $id2=0;
         $r1= Competitions::getResultadosInstance("Clasificaciones::getPuestoFinal",$id1);
