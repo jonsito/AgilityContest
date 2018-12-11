@@ -189,7 +189,6 @@ class DogReader {
         $this->myLogger->trace("field list 3: \n".json_encode($this->fieldList));
         // now check for required but not declared fields
         foreach ($this->fieldList as $key =>&$val) {
-            $this->myLogger->trace("Key: {$key} Value: ".json_encode($val));
             if ( ($val[0]<0) && ($val[1]>0) ){
                 if (!array_key_exists($key,$this->excelVars))
                     throw new Exception ("{$this->name}::required field '$key' => ".json_encode($val)." not found in Excel header");
@@ -246,8 +245,13 @@ class DogReader {
                 $idx=$this->fieldList['Country'][0];
                 if ( ($key==='Club') && ($item=="") ) $item=$row[$idx];;
             }
+            if ($item instanceof DateTime) $item=$item->format('U'); // stupid Spout bug
+            if (is_object($item)) {
+                $this->myLogger->error("Unexpected objet found at index: {$index}");
+                $this->myLogger->error("Row: ".json_encode($row));
+            }
             switch ($val[2]) {
-                case "s": // stringfa
+                case "s": // string
                     $a=$this->myDBObject->conn->real_escape_string(trim($item));
                     $str2 .= " '{$a}', ";
                     break;
