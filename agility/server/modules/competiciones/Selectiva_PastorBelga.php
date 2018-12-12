@@ -25,6 +25,7 @@ class Selectiva_PastorBelga extends Competitions {
         parent::__construct($name);
         $this->federationID=0;
         $this->competitionID=3;
+        $this->federationLogoAllowed=true;
     }
 
     function getModuleInfo($contact = null)  {

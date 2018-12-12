@@ -29,6 +29,7 @@ class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
         $this->competitionID=2;
         $this->moduleVersion="1.2.0";
         $this->moduleRevision="20180125_1113";
+        $this->federationLogoAllowed=true;
     }
 
     function getModuleInfo($contact = null)  {

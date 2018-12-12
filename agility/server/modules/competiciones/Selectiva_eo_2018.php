@@ -40,6 +40,7 @@ class Selectiva_eo_2018 extends Selectiva_awc_2018 {
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20180125_0931";
         $this->selectiva=1;
+        $this->federationLogoAllowed=true;
     }
 
     /**

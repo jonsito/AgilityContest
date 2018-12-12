@@ -26,6 +26,7 @@ class Selectiva_awc_2017 extends Puntuable_RSCE_2017 {
         $this->federationID=0;
         $this->competitionID=1;
         $this->selectiva=1;
+        $this->federationLogoAllowed=true;
     }
 
     /**

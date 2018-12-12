@@ -26,6 +26,7 @@ class Final_Interclubes_2017 extends Competitions {
         $this->federationID=0;
         $this->competitionID=9;
         $this->moduleRevision="20171109_1153";
+        $this->federationLogoAllowed=true;
     }
 
     function useLongNames() { return true; }

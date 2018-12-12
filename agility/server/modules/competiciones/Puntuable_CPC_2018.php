@@ -56,6 +56,7 @@ class Puntuable_CPC_2018 extends Competitions {
         $this->competitionID=0;
         $this->moduleRevision="20170930_1427";
         $this->myDBObject=new DBObject("Prueba puntuable CPC 2018");
+        $this->federationLogoAllowed=true;
     }
 
     /**

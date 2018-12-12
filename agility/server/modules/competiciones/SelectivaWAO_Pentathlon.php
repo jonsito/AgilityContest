@@ -12,6 +12,7 @@ class SelectivaWAO_Pentathlon extends Competitions {
         $this->competitionID=1;
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20170506_1929";
+        $this->federationLogoAllowed=true;
     }
 
     function useLongNames() { return true; }

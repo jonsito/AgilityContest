@@ -28,6 +28,7 @@ class Puntuable_RSCE_2018 extends Competitions {
         $this->competitionID=10;
         $this->moduleVersion="1.0.2";
         $this->moduleRevision="20180124_1443";
+        $this->federationLogoAllowed=true;
         $this->puntos=array(
             // en la temporada 2018 desaparecen los puntos dobles
             // se anyade un campo extra para los puntos de ascenso a grado 3

@@ -38,6 +38,7 @@ class Selectiva_eo_2017 extends Selectiva_awc_2017 {
         $this->federationID=0;
         $this->competitionID=6;
         $this->selectiva=1;
+        $this->federationLogoAllowed=true;
     }
 
     /**

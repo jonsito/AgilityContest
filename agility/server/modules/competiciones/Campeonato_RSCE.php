@@ -20,6 +20,7 @@ class Campeonato_RSCE extends Competitions {
         $this->competitionID=7;
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20170427_1840";
+        $this->federationLogoAllowed=true;
     }
 
     function useLongNames() { return true; }

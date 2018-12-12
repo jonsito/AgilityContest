@@ -53,6 +53,7 @@ class Puntuable_RFEC_2018 extends Competitions {
         $this->federationID=1;
         $this->competitionID=0;
         $this->myDBObject=new DBObject("Prueba puntuable Liga RFEC");
+        $this->federationLogoAllowed=true;
     }
 
     /**

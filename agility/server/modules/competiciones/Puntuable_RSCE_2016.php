@@ -11,6 +11,7 @@ class Puntuable_RSCE_2016 extends Competitions {
         parent::__construct("Puntuable temporada 2016");
         $this->federationID=0;
         $this->competitionID=5;
+        $this->federationLogoAllowed=true;
     }
 
     /**

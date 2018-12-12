@@ -50,6 +50,7 @@ class Competitions {
         protected $selectiva=0; // historic flag from Prueba table
         protected $prueba=null;
         protected $jornada=null;
+        protected $federationLogoAllowed=false; // RSCE rules: only allowed in authorized events
 
         /* protected */ function __construct($name) {
             $this->competitionName=$name;
@@ -97,6 +98,11 @@ class Competitions {
                 "ValidRounds" => bindec('1111111111111111')
             )
         );
+    }
+
+    // stupid rules from RSCE
+    public function isFederationLogoAllowed() {
+        return $this->federationLogoAllowed;
     }
 
     /**

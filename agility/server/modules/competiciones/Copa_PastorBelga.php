@@ -20,6 +20,7 @@ class Copa_PastorBelga extends Selectiva_PastorBelga  {
         parent::__construct("Copa del Pastor Belga");
         $this->federationID=0;
         $this->competitionID=4;
+        $this->federationLogoAllowed=true;
         // solo puntuan los 10 primeros, pero anyadimos campos extra por si hay empate en el decimo
         $this->ptsmanga=array("20","18","16","14","12", "10"," 8"," 6"," 4"," 2","0","0"); // puntos por manga y puesto
         $this->ptsglobal=array("20","18","16","14","12", "10"," 8"," 6"," 4"," 2","0","0"); // puntos conjunta

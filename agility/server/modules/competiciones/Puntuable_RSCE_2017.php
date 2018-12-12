@@ -23,6 +23,7 @@ class Puntuable_RSCE_2017 extends Competitions {
         parent::__construct($name);
         $this->federationID=0;
         $this->competitionID=0;
+        $this->federationLogoAllowed=true;
         $this->puntos=array(
             /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS    pts  stars */
             array("GII",    "Pv",  3.8,    3.6,   3.6,   4.0,    3.8,    3.8,   0,  1 ),

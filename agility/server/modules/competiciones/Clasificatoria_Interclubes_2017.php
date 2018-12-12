@@ -21,6 +21,7 @@ class Clasificatoria_Interclubes_2017 extends Competitions {    /*
         $this->federationID=0;
         $this->competitionID=2;
         $this->moduleRevision="20171109_1145";
+        $this->federationLogoAllowed=true;
     }
 
     function useLongNames() { return true; }

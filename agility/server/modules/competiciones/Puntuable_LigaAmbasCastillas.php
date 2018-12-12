@@ -14,6 +14,7 @@ class Puntuable_LigaAmbasCastillas extends Puntuable_LigaNorte_2019 {
         $this->competitionID=4;
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20181022_0905";
+        $this->federationLogoAllowed=true;
     }
 
 }

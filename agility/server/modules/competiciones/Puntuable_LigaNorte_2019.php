@@ -29,6 +29,7 @@ class Puntuable_LigaNorte_2019 extends Puntuable_RFEC_2018 {
         $this->competitionID=3;
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20181018_1139";
+        $this->federationLogoAllowed=true;
     }
 
     function useLongNames() { return false; }
