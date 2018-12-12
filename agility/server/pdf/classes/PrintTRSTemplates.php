@@ -48,18 +48,21 @@ class PrintTRSTemplates extends PrintCommon {
 			$this->errormsg="printTemplates: either prueba or jornada data are invalid";
 			throw new Exception($this->errormsg);
 		}
-		$this->mode=$m;
+		$this->mode=intval($m);
+		if ( in_array($this->mode,array(0,2) ) ) {
+            $this->icon2=getIconPath($this->federation->get('Name'),"null.png");
+        }
 	}
 	
 	// Cabecera de página
 	function Header() {
         switch ($this->mode){
-            case 0:
+            case 0: // tabla distancia-velocidad para calculo del trs
                 $this->ac_header(1,12);
                 $this->SetXY(10,10);
                 $this->Cell(100,7,_('SheetCalc to evaluate SCT and MCT'),'LTBR',0,'C',true); // cabecera muy simple :-)
                 break;
-            case 1:
+            case 1: // hoja para apuntar datos de trs/trm
                 $this->print_commonHeader(_("SCT / MCT data form"));
                 $this->ac_header(1,12);
                 // pintamos identificacion de la jornada
@@ -69,12 +72,12 @@ class PrintTRSTemplates extends PrintCommon {
                 $str  = _("Start time").": {$this->jornada->Hora}";
                 $this->Cell(90,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
                 break;
-            case 2:
+            case 2: // formulario vacio de entrada de datos
                 $this->print_commonHeader(_("Data entry"));
                 $this->ac_header(1,12);
                 // pintamos "identificacion de la manga"
-                $this->Cell(100,9,_("Journey")." - "._("Date").":",0,0,'L',false); // a un lado nombre y fecha de la jornada
-                $this->Cell(90,9,_("Category")." - "._("Grade").":",0,0,'L',false); // al otro lado tipo y categoria de la manga
+                $this->Cell(100,9,_("Journey").":                   "._("Date").":",0,0,'L',false); // a un lado nombre y fecha de la jornada
+                $this->Cell(90,9,_("Category").":                   "._("Grade").":",0,0,'L',false); // al otro lado tipo y categoria de la manga
                 $this->Ln(9);
                 break;
         }
@@ -92,7 +95,7 @@ class PrintTRSTemplates extends PrintCommon {
         $count=0;
         $this->SetXY(10,20);
         $this->cell(7,5,"",0,0,'C',false);
-        for ($n=131;$n<=230;$n+=3) {
+        for ($n=141;$n<=240;$n+=3) {
             $this->ac_header(2,10);
             $this->cell(8,5,strval($n),'RB',0,'C',true);
         }

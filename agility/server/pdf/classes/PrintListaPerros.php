@@ -55,7 +55,6 @@ class PrintListaPerros extends PrintCommon {
         $this->federation=Federations::getFederation(intval($federation));
 		$this->strClub=($this->federation->isInternational())?_('Country'):_('Club');
 		$this->icon=getIconPath($this->federation->get('Name'),"agilitycontest.png");
-        $this->icon2=getIconPath($this->federation->get('Name'),$this->federation->get('Logo'));
 		$this->cols[8]=$this->strClub; // use "country" or "club" according federation
 		if ($this->federation->get('WideLicense')==true) { // on wide license hide loe/rrc
 			$this->pos[3]+=$this->pos[4];

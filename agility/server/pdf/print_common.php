@@ -194,6 +194,47 @@ class PrintCommon extends FPDF {
 	}
 
 	/**
+	 * Set icons properly according competition
+	 * @param $fedobj Federation object
+	 * @param $jobj Jornada Object
+	 */
+	function handleLogos($fedobj,$jobj) {
+		$fedName=$fedobj->get('Name');
+
+		// phase 1: organizer logo
+
+		// default: federation organizer logo
+		$this->icon=getIconPath($fedName,$fedobj->get('OrganizerLogo'));
+		// si la prueba no es internacional se usa el logo del club
+		if ( (!$fedobj->isInternational())  && isset($this->club) ) {
+			$this->icon=getIconPath($fedName,$this->club->Logo);
+		}
+
+		// phase 2: federation logo
+
+		// default: federation logo
+		$this->icon2=getIconPath($fedName,$fedobj->get('Logo'));
+		if ($this->icon==$this->icon2) $this->icon2=getIconPath($fedName,$fedobj->get('ParentLogo'));
+		// on international contest, use parent logo
+		if ( $fedobj->isInternational())   {
+			$this->icon2=getIconPath($fedName,$this->federation->get('ParentLogo'));
+		}
+
+		// phase3 check agains specific journey and competition modality
+
+		// no journey -> no fedlogo
+		if (!$jobj) {
+			$this->icon2=getIconPath($fedName,"null.png");
+		}
+
+		// on KO events use AgilityContest Logo instead of federation logo
+		if ($jobj && $jobj->KO!=0) {
+			$this->icon2=getIconPath($fedName,"agilitycontest.png");
+		}
+
+	}
+
+	/**
 	 * Constructor de la superclase 
 	 * @param {string} orientacion 'landscape' o 'portrait'
      * @param {string} file name of caller to be used in traces
@@ -217,7 +258,6 @@ class PrintCommon extends FPDF {
 			$this->federation=Federations::getFederation(intval($this->prueba->RSCE));
 		}
 		$this->strClub=($this->federation->isInternational())?_('Country'):_('Club');
-        $fedName=$this->federation->get('Name');
 		// $this->myLogger->trace("Federation is: ".json_decode($this->federation));
 		$this->club=null;
 		if ($prueba!=0){
@@ -228,25 +268,14 @@ class PrintCommon extends FPDF {
 			$this->jornada=$this->myDBObject->__getObject("jornadas",$jornada);
 			$this->useLongNames=Competitions::getCompetition($this->prueba,$this->jornada)->useLongNames();
 		}
-		// on international contests, use logos from federation
-        $this->icon=getIconPath($fedName,$this->federation->get('OrganizerLogo'));
-        $this->icon2=getIconPath($fedName,$this->federation->get('ParentLogo'));
-		// on national events, use organizing club logo (if any )
-		if ( (!$this->federation->isInternational())  && isset($this->club) ) {
-            $this->icon=getIconPath($fedName,$this->club->Logo);
-            $this->icon2=getIconPath($fedName,$this->federation->get('Logo'));
-            if ($this->icon==$this->icon2) $this->icon2=getIconPath($fedName,$this->federation->get('ParentLogo'));
-        }
-        // on KO events use AgilityContest Logo instead of federation logo
-		if ($this->jornada && $this->jornada->KO!=0) {
-            $this->icon2=getIconPath($fedName,"agilitycontest.png");
-		}
-		$this->myLogger->trace("ParentLogo is {$this->icon2}");
+		$this->handleLogos($this->federation,$this->jornada);
 		// handle registration info related to PDF generation
         $this->authManager=AuthManager::getInstance("print_common");
         $this->regInfo=$this->authManager->getRegistrationInfo();
         if ( ($this->regInfo===null) || ($this->regInfo['Serial']==="00000000") ) {
-			$this->icon=getIconPath($fedName,"agilitycontest.png");;
+			$fedName=$this->federation->get('Name');
+			$this->icon=getIconPath($fedName,"agilitycontest.png");
+			$this->icon2=getIconPath($fedName,"null.png");
 		}
 		// evaluate number of decimals to show when printing timestamps
 		$this->timeResolution=($this->config->getEnv('crono_milliseconds')=="0")?2:3;
