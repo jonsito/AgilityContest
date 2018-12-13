@@ -90,6 +90,11 @@ if( !function_exists('ftok') ) {
     }
 }
 
+/* check for positive, negative or zero */
+function sign($n) {
+    return ($n>0) - ($n<0);
+}
+
 function enterCriticalRegion($key) {
 	$sem=sem_get($key);
 	// this

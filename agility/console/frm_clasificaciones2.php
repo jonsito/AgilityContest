@@ -119,7 +119,8 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 	<form style="padding:10px" id="resultados-printForm">
 	<input type="radio" name="r_prformat" value="0" onclick="r_selectOption(0);"/><?php _e('Podium'); ?> (PDF)<br />
 	<input type="radio" name="r_prformat" value="1" onclick="r_selectOption(1);"/><?php _e('Text export'); ?> (CSV)<br />
-	<input type="radio" name="r_prformat" value="3" onclick="r_selectOption(3);"/><?php _e('R.S.C.E. Report'); ?> (Excel)<br />
+        <input type="radio" name="r_prformat" value="3" onclick="r_selectOption(3);"/><?php _e('R.S.C.E. Report'); ?> (Excel)<br />
+        <input type="radio" name="r_prformat" value="6" onclick="r_selectOption(6);"/><?php _e('Contest Hall Of Fame'); ?> (PDF)<br />
 	<input type="radio" name="r_prformat" value="4" checked="checked" onclick="r_selectOption(4);"/><?php _e('Scores'); ?> (PDF)<br />
 	<span  style="display:inline-block;width:100%">
 		<span style="float:left">

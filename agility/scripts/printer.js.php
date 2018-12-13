@@ -658,6 +658,30 @@ function clasificaciones_printEtiquetas(flag,start,list) {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
+
+/**
+ * Imprime una tabla con los mejores perros del global de
+ * las jornadas de la prueba por categorias, grados, y conjuntas
+ * Se ignoran junior, senior y pre-agility
+ * @return false
+ */
+function clasificaciones_printHallOfFame() {
+    var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
+    var url='../ajax/pdf/print_hall_of_fame.php';
+    $.fileDownload(
+        url,
+        {
+            httpMethod: 'GET',
+            data: {
+                Prueba:workingData.prueba,
+            },
+            preparingMessageHtml: '(scores) <?php _e("We are preparing your report, please wait"); ?> ...',
+            failMessageHtml:'(scores) <?php _e("There was a problem generating your report, please try again."); ?>'
+        }
+    );
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
+
 /**
  * Imprime los resultados finales de la ronda seleccionada en formato pdf
  * @return false
@@ -724,7 +748,8 @@ function clasificaciones_doPrint() {
 	switch(parseInt(r)) {
 		case 0: clasificaciones_printPodium(); break;
 		case 1: clasificaciones_printEtiquetas(0,line,''); break; // csv
-		case 3: clasificaciones_printCanina(); break;
+        case 3: clasificaciones_printCanina(); break;
+        case 6: clasificaciones_printHallOfFame(); break;
 		case 4: clasificaciones_printClasificacion(); break;
 		case 5: clasificaciones_printEtiquetas(1,line,list); break;
 		case 2: clasificaciones_printEtiquetas(1,line,''); break;
