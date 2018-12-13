@@ -203,7 +203,7 @@ function insertInscripcion(dg) {
                 handleInscription(rows,index+1,size);
             },
             error: function(XMLHttpRequest,textStatus,errorThrown) {
-                $.messager.alert("Save Club","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+                $.messager.alert("Insert Inscription","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
                 $('#new_inscripcion-okBtn').linkbutton('enable'); // enable button and do not continue inscription chain
             }
 		});
