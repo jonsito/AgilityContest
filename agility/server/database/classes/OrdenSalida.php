@@ -310,9 +310,9 @@ class OrdenSalida extends DBObject {
 	 * @param {string} $lista lista original de la base de datos
      * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST
      * @param {boolean} $reverse On true return included dogs in reverse order
-	 * @return {array} 0:original 1:included 2:excluded
+	 * @return {array} 0:original 1:included 2:excluded 3:doglist
 	 */
-	function  splitPerrosByMode($lista,$mode,$reverse,$range) {
+	function splitPerrosByMode($lista,$mode,$reverse,$range) {
 
 		// cogemos todos los perros de la manga e indexamos en función del perroID
 		$res=$this->__select("*","resultados","Manga={$this->manga->ID}","","");
@@ -358,7 +358,7 @@ class OrdenSalida extends DBObject {
         $str0=implode(",",$listas[0]); // lista original
         $str1=implode(",",($reverse)?array_reverse($listas[1]):$listas[1]); // perros incluidos en lista nueva
         $str2=implode(",",$listas[2]); // perros excluidos de lista nueva
-		return array($str0,$str1,$str2);
+		return array($str0,$str1,$str2,$listaperros);
 	}
 
 	/**
@@ -396,7 +396,7 @@ class OrdenSalida extends DBObject {
         $str0=implode(",",$listas[0]);
         $str1=implode(",",($reverse)?array_reverse($listas[1]):$listas[1]);
         $str2=implode(",",$listas[2]);
-		return array($str0,$str1,$str2);
+		return array($str0,$str1,$str2,$listaequipos);
 	}
 
 	/**
@@ -572,6 +572,50 @@ class OrdenSalida extends DBObject {
 		return $ordensalida;
 	}
 
+	/**
+	 * Reordena el orden de salida de las categorias indicadas de una manga al azar,
+	 * pero agrupando los perros por clubes
+	 * El resultado es un orden aleatorio de clubes
+	 * @param	{int} $catmode categorias a las que tiene que afectar este cambio
+	 * @return {string} nuevo orden de salida
+	 */
+	function randomClubesOrder($catmode,$range) {
+		$this->myLogger->enter();
+		assertClosedJourney($this->jornada); // throw exception on closed journeys
+		// fase 1 aleatorizamos la manga
+		$orden=$this->getOrden();
+		// buscamos los perros de la categoria seleccionada
+		$listas=$this->splitPerrosByMode($orden,$catmode,false,$range);
+		$str1=$listas[2]; // perros que no se reordenan
+		// aleatorizamos perros a ordenar
+		$toorder=aleatorio(explode(",", $listas[1]));
+		// en listas[3] tenemos los datos de los perros indexados por id.
+		// buscamos el club de cada uno de los que estan en toorder y vamos componiendo el array
+		$ordered=array();
+		foreach($toorder as $dogid) {
+			$dogClub=$listas[3][$dogid]['NombreClub'];
+			$done=false;
+			for ($n=0;$n<count($ordered);$n++) {
+				$itemClub=$listas[3][$ordered[$n]]['NombreClub'];
+				if ($dogClub==$itemClub) { // same club: insert in array at this point
+					array_splice($ordered,$n,0,$dogid);
+					$done=true;
+					break;
+				}
+			}
+			// arriving here insert dog at end of array
+			if (!$done) array_push($ordered,$dogid);
+		}
+		// componemos la lista con el orden definitivo
+		$str2=implode(',',$ordered);
+		$ordensalida=$this->joinOrders($str1,$str2);
+		$this->setOrden($ordensalida);
+
+		// En este caso no tiene sentido aleatorizar los equipos: el paso anterior ya lo hace
+
+		$this->myLogger->leave();
+		return $ordensalida;
+	}
     /**
      * pone el mismo orden de salida que la manga hermana en las categorias solicitadas
      * @param	{int} $catmode categorias a las que tiene que afectar este cambio
@@ -791,7 +835,8 @@ class OrdenSalida extends DBObject {
      */
 	function setOrder($method,$catmode,$range) {
 		switch($method) {
-            case "random": return $this->randomOrder($catmode,$range); break;
+			case "random": return $this->randomOrder($catmode,$range); break;
+			case "rclubes": return $this->randomClubesOrder($catmode,$range); break;
             case "reverse": return $this->reverseOrder($catmode,$range); break;
             case "results": return $this->orderByResults($catmode,$range); break;
             case "clone": return $this->sameOrder($catmode,false,$range); break;

@@ -167,14 +167,15 @@ $('#ordensalida-selection').combobox({
     label: 'Perform Action:',
     labelPosition: 'top',
     data: [
-        {value:'none',text:"<?php _e('--- Select ---'); ?>",icon:"question.png",selected:true},
-        {value:'random',text:"<?php _e('Random order'); ?>",icon:"dice.png"},
+        {value:'none',   text:"<?php _e('--- Select ---'); ?>",icon:"question.png",selected:true},
+        {value:'random', text:"<?php _e('Random order'); ?>",icon:"dice.png"},
         {value:'results',text:"<?php _e('Reverse results'); ?>",icon:"endflag.png"},
-        {value:'clone',text:"<?php _e('Same order'); ?>",icon:"downdown.png"},
+        {value:'clone',  text:"<?php _e('Same order'); ?>",icon:"downdown.png"},
         {value:'reverse',text:"<?php _e('Reverse order'); ?>",icon:"updown.png"},
-        {value:'alpha',text:"<?php _e('Alphabetical (handlers)'); ?>",icon:"abc.png"},
-        {value:'dorsal',text:"<?php _e('Order by dorsal'); ?>",icon:"order.png"},
-        {value:'excel',text:"<?php _e('Import from Excel'); ?>",icon:"table.png"}
+        {value:'alpha',  text:"<?php _e('Alphabetical (handlers)'); ?>",icon:"abc.png"},
+        {value:'dorsal', text:"<?php _e('Order by dorsal'); ?>",icon:"order.png"},
+        {value:'rclubes',text:"<?php _e('Random (group by club)'); ?>",icon:"dice.png"},
+        {value:'excel',  text:"<?php _e('Import from Excel'); ?>",icon:"table.png"}
     ],
     formatter: function(row) { // add an icon to each combobox option
         var imgfile="../lib/jquery-easyui-1.4.2/themes/icons/"+row.icon;
