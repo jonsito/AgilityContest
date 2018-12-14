@@ -58,6 +58,9 @@ class PrintHallOfFame extends PrintCommon {
         $datos=array();
         foreach ($jornadas as $jornada) {
             if ($jornada['Nombre']==='-- Sin asignar --') continue; // skip empty journeys
+            if ($jornada['SlaveOf']!=0) continue; // skip subordinate journeys
+            if ($jornada['Equipos4']!=0) continue; // skip team4 journeys as time data cannot be evaluated
+            if ($jornada['KO']!=0) continue; // skip KO journeys cause cannot compute regularity
             $this->myLogger->trace("Collecting results from prueba:{$prueba} jornada:{$jornada['Nombre']}");
             // cogemos las inscripciones de la jornada
             // y las reindexamos por DogID
@@ -165,15 +168,61 @@ class PrintHallOfFame extends PrintCommon {
         $catstr=(count($cats)==1)?$this->federation->getCategory($cats[0]):"";
         $gradstr=(count($grads)==1)?$this->federation->getGrade($grads[0]):"";
         $hdrstr="{$catstr} {$gradstr}";
-        if ($hdrstr==" ") $hdrstr=_('Total');
+        if ($hdrstr==" ") $hdrstr=_('Simply The Bests');
         // get 3 best of requested cat/grad
         $items= $this->tresMejores($cats,$grads);
 
-        // paint header
-        $this->myLogger->trace("Tres mejores - {$hdrstr}");
-        // paint data
-        for ($n=0;$n<3;$n++) {
-            $this->myLogger->trace("{$n}- ".json_encode($items[$n]));
+        // REMINDER: $this->cell( width, height, data, borders, newline, align, fill)
+        // paint box
+        if ( ($x==0) && ($y==0)) {
+            $this->myLogger->trace($hdrstr);
+            // cabecera
+            $this->SetXY(12,40);
+            $this->ac_header(1,13);
+            $this->SetFont($this->getFontName(),'BI',13); // default font
+            $this->Cell(80,11,$hdrstr,'TBLR',0,'C',true);
+            $this->ac_row(1,11);
+            // tres mejores absolutos
+            for($n=0;$n<3;$n++) {
+                $this->myLogger->trace("Entry {$n}:".json_encode($items[$n]));
+                $penal=number_format2($items[$n]['Penal'],$this->timeResolution);
+                $tiempo=number_format2($items[$n]['Tiempo'],$this->timeResolution);
+                $this->SetXY(12,51+9*$n);
+                $this->SetFont($this->getFontName(),'B',10);
+                $this->Cell(15,9,$items[$n]['Nombre'],'L',0,'L',false);
+                $this->SetFont($this->getFontName(),'',10);
+                $this->Cell(25,9,$items[$n]['NombreGuia'],'C',0,'L',false);
+                $this->Cell(20,9,$items[$n]['NombreClub'],'R',0,'R',false);
+                $this->Cell(10,9,$tiempo,'R',0,'R',false);
+                $this->Cell(10,9,$penal,'R',0,'R',false);
+            }
+            // linea de cierre
+            $this->Line(12,78,92,78);
+        } else {
+            // cuadro para datos "normales"
+            $this->myLogger->trace($hdrstr);
+            // cabecera
+            $this->SetXY(30+65*$x,50+30*$y);
+            $this->ac_header(1,12);
+            $this->SetFont($this->getFontName(),'BI',11); // default font
+            $this->Cell(63,7,$hdrstr,'TBLR',0,'C',true);
+            $this->ac_row(1,10);
+            // tres mejores de la categoria/grado
+            for($n=0;$n<3;$n++) {
+                $this->myLogger->trace("Entry {$n}:".json_encode($items[$n]));
+                $penal=number_format2($items[$n]['Penal'],$this->timeResolution);
+                $tiempo=number_format2($items[$n]['Tiempo'],$this->timeResolution);
+                $this->SetXY(30+65*$x,50+30*$y+7*($n+1));
+                $this->SetFont($this->getFontName(),'B',7);
+                $this->Cell(11,7,$items[$n]['Nombre'],'L',0,'L',false);
+                $this->SetFont($this->getFontName(),'',7);
+                $this->Cell(20,7,$items[$n]['NombreGuia'],'C',0,'L',false);
+                $this->Cell(14,7,$items[$n]['NombreClub'],'R',0,'R',false);
+                $this->Cell(9,7,$tiempo,'R',0,'R',false);
+                $this->Cell(9,7,$penal,'R',0,'R',false);
+            }
+            // linea de cierre
+            $this->Line(30+65*$x,78+30*$y,93+65*$x,78+30*$y);
         }
     }
 
@@ -184,44 +233,45 @@ class PrintHallOfFame extends PrintCommon {
      */
 	function composeTable() {
 		$this->myLogger->enter();
+        $this->AddPage();
 		if ($this->federation->get('Heights')==3) {
-            $this->writeBlock(0,0,array('GI'),array('L'));
-            $this->writeBlock(0,1,array('GI'),array('M'));
-            $this->writeBlock(0,2,array('GI'),array('S'));
-            $this->writeBlock(0,3,array('GI'),array('L','M','S'));
-            $this->writeBlock(1,0,array('GII'),array('L'));
-            $this->writeBlock(1,1,array('GII'),array('M'));
-            $this->writeBlock(1,2,array('GII'),array('S'));
-            $this->writeBlock(1,3,array('GII'),array('L','M','S'));
-            $this->writeBlock(2,0,array('GIII'),array('L'));
-            $this->writeBlock(2,1,array('GIII'),array('M'));
-            $this->writeBlock(2,2,array('GIII'),array('S'));
-            $this->writeBlock(2,3,array('GIII'),array('L','M','S'));
-            $this->writeBlock(3,0,array('GI','GII','GIII'),array('L'));
-            $this->writeBlock(3,1,array('GI','GII','GIII'),array('M'));
-            $this->writeBlock(3,2,array('GI','GII','GIII'),array('S'));
-            $this->writeBlock(3,3,array('GI','GII','GIII'),array('L','M','S'));
+            $this->writeBlock(3,3,array('GI'),array('L'));
+            $this->writeBlock(3,2,array('GI'),array('M'));
+            $this->writeBlock(3,1,array('GI'),array('S'));
+            $this->writeBlock(3,0,array('GI'),array('L','M','S'));
+            $this->writeBlock(2,3,array('GII'),array('L'));
+            $this->writeBlock(2,2,array('GII'),array('M'));
+            $this->writeBlock(2,1,array('GII'),array('S'));
+            $this->writeBlock(2,0,array('GII'),array('L','M','S'));
+            $this->writeBlock(1,3,array('GIII'),array('L'));
+            $this->writeBlock(1,2,array('GIII'),array('M'));
+            $this->writeBlock(1,1,array('GIII'),array('S'));
+            $this->writeBlock(1,0,array('GIII'),array('L','M','S'));
+            $this->writeBlock(0,3,array('GI','GII','GIII'),array('L'));
+            $this->writeBlock(0,2,array('GI','GII','GIII'),array('M'));
+            $this->writeBlock(0,1,array('GI','GII','GIII'),array('S'));
+            $this->writeBlock(0,0,array('GI','GII','GIII'),array('L','M','S'));
         } else {
-            $this->writeBlock(0,0,array('Jr'),array('L'));
-            $this->writeBlock(0,1,array('Jr'),array('M'));
-            $this->writeBlock(0,2,array('Jr'),array('S'));
-            $this->writeBlock(0,3,array('Jr'),array('T'));
-            $this->writeBlock(0,4,array('Jr'),array('L','M','S','T'));
-            $this->writeBlock(1,0,array('GI'),array('L'));
-            $this->writeBlock(1,1,array('GI'),array('M'));
-            $this->writeBlock(1,2,array('GI'),array('S'));
-            $this->writeBlock(1,3,array('GI'),array('T'));
-            $this->writeBlock(1,4,array('GI'),array('L','M','S','T'));
-            $this->writeBlock(2,0,array('GII'),array('L'));
-            $this->writeBlock(2,1,array('GII'),array('M'));
-            $this->writeBlock(2,2,array('GII'),array('S'));
-            $this->writeBlock(2,3,array('GII'),array('T'));
-            $this->writeBlock(2,4,array('GII'),array('L','M','S','T'));
-            $this->writeBlock(3,0,array('Jr','GI','GII'),array('L'));
-            $this->writeBlock(3,1,array('Jr','GI','GII'),array('M'));
-            $this->writeBlock(3,2,array('Jr','GI','GII'),array('S'));
-            $this->writeBlock(3,3,array('Jr','GI','GII'),array('T'));
-            $this->writeBlock(3,4,array('Jr','GI','GII'),array('L','M','S','T'));
+            $this->writeBlock(3,4,array('Jr'),array('L'));
+            $this->writeBlock(3,3,array('Jr'),array('M'));
+            $this->writeBlock(3,2,array('Jr'),array('S'));
+            $this->writeBlock(3,1,array('Jr'),array('T'));
+            $this->writeBlock(3,0,array('Jr'),array('L','M','S','T'));
+            $this->writeBlock(2,4,array('GI'),array('L'));
+            $this->writeBlock(2,3,array('GI'),array('M'));
+            $this->writeBlock(2,2,array('GI'),array('S'));
+            $this->writeBlock(2,1,array('GI'),array('T'));
+            $this->writeBlock(2,0,array('GI'),array('L','M','S','T'));
+            $this->writeBlock(1,4,array('GII'),array('L'));
+            $this->writeBlock(1,3,array('GII'),array('M'));
+            $this->writeBlock(1,2,array('GII'),array('S'));
+            $this->writeBlock(1,1,array('GII'),array('T'));
+            $this->writeBlock(1,0,array('GII'),array('L','M','S','T'));
+            $this->writeBlock(0,4,array('Jr','GI','GII'),array('L'));
+            $this->writeBlock(0,3,array('Jr','GI','GII'),array('M'));
+            $this->writeBlock(0,2,array('Jr','GI','GII'),array('S'));
+            $this->writeBlock(0,1,array('Jr','GI','GII'),array('T'));
+            $this->writeBlock(0,0,array('Jr','GI','GII'),array('L','M','S','T'));
         }
 
 		$this->myLogger->leave();
