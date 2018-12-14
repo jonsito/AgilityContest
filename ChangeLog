@@ -1,3 +1,10 @@
+Version 3.8.3 20181214_1214
+    - Show "Not present" in starting order for second round
+    - Fix StartingOrder import bugfixes
+    - Fix Snooker/Gambler competition data dialogs
+    - New Module: Liga RFEC Aragon
+    - (First try) remove federation logos in non-homologated contests
+    - New feature: "Hall Of Fame" pdf with best dogs in the contest
 Version 3.8.2 20181128_1333
     - Eliminated due "out of TRM" goes first
     - Added new application: Raspberry_NowRunning (Su turno)
