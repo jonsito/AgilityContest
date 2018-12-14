@@ -190,7 +190,7 @@ class PrintHallOfFame extends PrintCommon {
                 $this->SetXY(12,51+9*$n);
                 $this->SetFont($this->getFontName(),'B',10);
                 $this->Cell(15,9,$items[$n]['Nombre'],'L',0,'L',false);
-                $this->SetFont($this->getFontName(),'',10);
+                $this->SetFont($this->getFontName(),'',9);
                 $this->Cell(25,9,$items[$n]['NombreGuia'],'C',0,'L',false);
                 $this->Cell(20,9,$items[$n]['NombreClub'],'R',0,'R',false);
                 $this->Cell(10,9,$tiempo,'R',0,'R',false);
