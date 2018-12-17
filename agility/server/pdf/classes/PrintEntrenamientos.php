@@ -64,6 +64,7 @@ class PrintEntrenamientos extends PrintCommon {
         $this->align    = array(    'C',        'C',    'L',        'L',    'C',      'C',         'C',      'R',         'C',            'C',             'C',             'C');
         // set file name as Entrenamientos_prueba
         $this->set_FileName("Entrenamientos.pdf");
+        $this->icon2=getIconPath($this->federation->get('Name'),"null.png");
 	}
 	
 	// Cabecera de página

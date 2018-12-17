@@ -65,6 +65,10 @@ class PrintClasificacion extends PrintCommon {
         $this->trs3=($mangas[2]!=0)?$results['trs3']:null;
 		$this->categoria=$this->getModeString(intval($mode));
 		$this->hasGrades=Jornadas::hasGrades($this->jornada);
+		// do not show fed icon in pre-agility, special, or ko
+		if (in_array($this->manga1->Tipo,array(0,1,2,15,16,18,19,20,21,22,23,24,))) {
+            $this->icon2=getIconPath($this->federation->get('Name'),"null.png");
+        }
 	}
 	
 	function print_datosMangas() {

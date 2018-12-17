@@ -73,6 +73,7 @@ class PrintEntradaDeDatosKO extends PrintCommon {
         $str=($cat=='-')?$grad:"{$grad}_{$cat}";
         $res=normalize_filename($str);
         $this->set_FileName("HojasAsistente_{$res}.pdf");
+        $this->icon2=getIconPath($this->federation->get('Name'),"null.png");
 	}
 
 	// Cabecera de página

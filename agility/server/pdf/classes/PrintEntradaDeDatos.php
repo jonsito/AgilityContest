@@ -84,6 +84,10 @@ class PrintEntradaDeDatos extends PrintCommon {
         $str=($cat=='-')?$grad:"{$grad}_{$cat}";
         $res=normalize_filename($str);
         $this->set_FileName("HojasAsistente_{$res}.pdf");
+		// do not show fed icon in pre-agility, special, or ko
+		if (in_array($this->manga->Tipo,array(0,1,2,15,16,18,19,20,21,22,23,24,))) {
+			$this->icon2=getIconPath($this->federation->get('Name'),"null.png");
+		}
 	}
 
 	// Cabecera de página

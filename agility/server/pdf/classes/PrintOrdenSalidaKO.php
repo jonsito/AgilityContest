@@ -83,6 +83,7 @@ class PrintOrdenSalidaKO extends PrintCommon {
         $this->rango= (preg_match('/^\d+-\d+$/',$data['rango']))? $data['rango'] : "1-99999";
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
+        $this->icon2=getIconPath($this->federation->get('Name'),"null.png"); // no fed logo in KO
         $cat=$this->validcats; // categorias del listado
         $str=($cat=='-')?$grad:"{$grad}_{$cat}";
         $res=normalize_filename($str);

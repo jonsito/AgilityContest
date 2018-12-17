@@ -43,6 +43,7 @@ class PrintHallOfFame extends PrintCommon {
 	function __construct($prueba) {
 		date_default_timezone_set('Europe/Madrid');
 		parent::__construct('Landscape',"print_liga",$prueba,0);
+        $this->icon2=getIconPath($this->federation->get('Name'),"null.png"); // no fed logo
 
 		// obtenemos la lista de jornadas de la prueba
         $j=new Jornadas("HallOfFame",$prueba);

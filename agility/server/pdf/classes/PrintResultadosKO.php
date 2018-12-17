@@ -64,6 +64,7 @@ class PrintResultadosKO extends PrintCommon {
 			array(_('Pair'),_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Pos'),_('Calification'));
         // set file name
         $this->set_FileName("ResultadosManga_KO.pdf");
+        $this->icon2=getIconPath($this->federation->get('Name'),"null.png");
 	}
 	
 	// Cabecera de página

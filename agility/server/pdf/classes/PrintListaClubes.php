@@ -55,7 +55,8 @@ class PrintListaClubes extends PrintCommon {
 
         // rework federation handling no sense in clubes, to properly generate page logos
         $this->federation=Federations::getFederation(0); // just to retrieve logos, not used
-		$this->icon=getIconPath($this->federation->get('Name'),"agilitycontest.png");
+        $this->icon=getIconPath($this->federation->get('Name'),"agilitycontest.png");
+        $this->icon2=getIconPath($this->federation->get('Name'),"null.png");
 		$this->set_FileName("Lista_Clubes.pdf");
 	}
 	

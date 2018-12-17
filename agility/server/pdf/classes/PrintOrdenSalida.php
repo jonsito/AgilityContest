@@ -97,6 +97,10 @@ class PrintOrdenSalida extends PrintCommon {
         if ($this->federation->get('WideLicense') || $this->federation->isInternational()) {
             $this->pos[9]+=$this->pos[3]; $this->pos[3]=0;
         }
+        // do not show fed icon in pre-agility, special, or ko
+        if (in_array($this->manga->Tipo,array(0,1,2,15,16,18,19,20,21,22,23,24,))) {
+            $this->icon2=getIconPath($this->federation->get('Name'),"null.png");
+        }
 	}
 
 	private function isTeam() {
