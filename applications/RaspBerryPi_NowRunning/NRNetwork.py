@@ -386,9 +386,10 @@ class NRNetwork:
 				server=self.lookForServer(NRNetwork.ring,self.dspHandler)
 				# server not found. wait 30 seconds before retrying
 				if server == "0.0.0.0":
-				    NRNetwork.reconfigure = True # Try to reconnect again
+					NRNetwork.reconfigure = True # Try to reconnect again
 					time.sleep(30)
 					continue
+				self.debug("Reconfigure(): Server found at: "+server)
 
 			# on ring change (or first loop iteration) open session
 			if current_ring != NRNetwork.ring:
