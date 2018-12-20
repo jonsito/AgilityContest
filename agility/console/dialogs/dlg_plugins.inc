@@ -52,7 +52,7 @@
 			{ field:'ModuleName',		width:35, sortable:true,title:'<?php _e('Name'); ?>' },
             { field:'FederationName',	width:10, sortable:true,title:'<?php _e('Federation'); ?>' },
             { field:'Email',	        width:25, sortable:true,title:'<?php _e('Email'); ?>' },
-            { field:'ModuleID',		    width:5,  sortable:true,title:'<?php _e('ID'); ?>'},
+            { field:'ModuleID',		    width:5,  sortable:true,title:'<?php _e('ID'); ?>',formatter:formatModuleID},
 			{ field:'ModuleVersion',	width:10, sortable:true,title:'<?php _e('Version'); ?>' },
 			{ field:'ModuleRevision',	width:20, sortable:true,title:'<?php _e('Revision'); ?>' }
 		]],

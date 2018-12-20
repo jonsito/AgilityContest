@@ -281,7 +281,10 @@ function formatFederation(val,row,idx) {
     if (typeof(ac_fedInfo[v])==="undefined") return val;
     return ac_fedInfo[v].Name;
 }
-
+function formatModuleID(val,row,idx) {
+    if (typeof(val)==='undefined') return "";
+    return ""+row.FederationID+" / "+val;
+}
 /* stylers para formateo de celdas especificas */
 function formatPreAgility(val,row,idx) {
     // notice that in 3.4+ PreAgility2 is no longer used
