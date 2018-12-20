@@ -92,7 +92,7 @@ class OrdenSalida_KO extends OrdenSalida {
 	 * @param {integer} catmode categorias a tener en cuenta en el listado que hay que presentar
 	 * @param {array(total,rows} rs lista de resultados a presentar. Se utiliza para reordenar resultados en funcion del orden de salida
 	 */
-	function getData($teamView=false,$catmode=8,$rs=null,$range="0-99999") {
+	function getData($teamView=false,$catmode=11,$rs=null,$range="0-99999") {
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
 		if (!$rs) $rs= $this->__select(
 			"resultados.*,equipos.Nombre AS NombreEquipo,
@@ -162,7 +162,7 @@ class OrdenSalida_KO extends OrdenSalida {
         // ordenamos segun el orden de categorias establecido en las tandas
         $p4=array();
         foreach ($res['rows'] as $item) {
-            if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-LMST";
+            if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-XLMST";
             // si la tanda tiene mas de una categoria, hacemos un split y separamos internamente
             $cats=str_split(($item['Categoria']));
             foreach($cats as $cat) {

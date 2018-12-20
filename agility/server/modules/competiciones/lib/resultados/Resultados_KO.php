@@ -73,7 +73,7 @@ class Resultados_KO extends Resultados {
 
     /**
      * Presenta una tabla ordenada segun los resultados de la manga
-     *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8 L+M+S+T
+     *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
      *@return {array} requested data or error
      */
     function getResultadosIndividual($mode) {
@@ -91,7 +91,7 @@ class Resultados_KO extends Resultados {
         // mientras que el KO va "por libre"
 
         $this->myLogger->enter();
-        $res=parent::getResultadosIndividual(8); // ignore categories, just group all
+        $res=parent::getResultadosIndividual(11); // ignore categories, just group all
 
         // le pasamos estos datos a OrdenSalida::getData()
         $osobj=Competitions::getOrdenSalidaInstance("Resultados KO",$this->getDatosManga()->ID);

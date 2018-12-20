@@ -640,7 +640,7 @@ function tempnam_sfx($path, $prefix="tmp_",$suffix="") {
  * @param {string} $to valid categories
  * return {boolean} true or false
  */
-function category_match($from,$to="-LMST") {
+function category_match($from,$to="-LMSTX") {
     if (is_numeric($to)) {
         switch (intval($to)) {
             case 0: $to='L'; break;
@@ -652,7 +652,10 @@ function category_match($from,$to="-LMST") {
             case 6: $to='LM'; break;
             case 7: $to='ST'; break;
             case 8: $to='LMST'; break;
-            default: $to='-LMST'; break;
+            case 9: $to='X'; break;
+            case 10: $to='XL'; break;
+            case 11: $to='XLMST'; break;
+            default: $to='-LMSTX'; break;
         }
     }
 	if (strpos($to,"-")!==false) return true; // "-" matches any
@@ -674,6 +677,9 @@ function sqlFilterCategoryByMode($mode,$prefix=""){
         case 6: /* L+M */       return "AND ( {$prefix}Categoria IN ('L','M') ) "; break;
         case 7: /* M+S */       return "AND ( {$prefix}Categoria IN ('S','T') ) "; break;
         case 8: /* L+M+S+T */   return "AND ( {$prefix}Categoria IN ('L','M','S','T') ) "; break;
+        case 9: /* XtraLarge */ return "AND ( {$prefix}Categoria='X' ) "; break;
+        case 10: /* XL + L */   return "AND ( {$prefix}Categoria IN ('X','L') ) "; break;
+        case 11: /* L+M+S+T */  return "AND ( {$prefix}Categoria IN ('X','L','M','S','T') ) "; break;
         default: return null;
     }
 }
@@ -689,6 +695,9 @@ function mode_match($cat,$mode) {
 		case 6: return category_match($cat,"LM");
 		case 7: return category_match($cat,"ST");
 		case 8: return category_match($cat,"LMST");
+        case 9: return category_match($cat,"X");
+        case 10: return category_match($cat,"XL");
+        case 11: return category_match($cat,"XLMST");
 	}
 	return false; // invalid mode
 }

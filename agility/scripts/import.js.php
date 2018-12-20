@@ -528,11 +528,12 @@ function resultadosmanga_excelImport() {
 }
 function ordensalida_excelImport() {
     switch ($('#ordensalida-categoria').combobox('getValue')) {
+        case 'X': ac_import.mode=9; break;
         case 'L': ac_import.mode=0; break;
         case 'M': ac_import.mode=1; break;
         case 'S': ac_import.mode=2; break;
         case 'T': ac_import.mode=5; break;
-        default : ac_import.mode=8; break;
+        default : ac_import.mode=11; break;
     }
     return real_excelImport('ordensalida','');
 }

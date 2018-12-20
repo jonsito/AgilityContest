@@ -45,7 +45,7 @@ class Federations {
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2, // on rfec may be 3
-            'ReverseLMST' => false, // default order is LMST
+            'ReverseXLMST' => false, // default order is XLMST
             'Recorridos' => array(_('Common course'), _('Standard / Midi + Mini'), _('Separate courses')),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
@@ -69,7 +69,7 @@ class Federations {
             ),
             'ListaCategoriasShort' => array(
                 '-' => '-',
-                // 'E' => 'Extra',
+                'X' => 'X-Large',
                 'L' => 'Large',
                 'M' => 'Medium',
                 'S' => 'Small',
@@ -77,11 +77,11 @@ class Federations {
             ),
             'ListaCategorias' => array(
                 '-' => 'Sin especificar',
-                // 'E' => 'Extra Large',
-                'L' => 'Large - Standard - 60',
-                'M' => 'Medium - Midi - 50',
-                'S' => 'Small - Mini - 40',
-                'T' => 'Tiny - Toy - 30'
+                'X' => 'Extra Large - 60',
+                'L' => 'Large - Standard - 50',
+                'M' => 'Medium - Midi - 40',
+                'S' => 'Small - Mini - 30',
+                'T' => 'Tiny - Toy - 20'
             ),
             'ListaCatGuias' => array(
                 '-' => 'Not specified',
@@ -97,10 +97,11 @@ class Federations {
                 array('L' => 'Large+Medium', 'M' => '', 'S' => 'Small+Tiny', 'T' => ''), // mixed courses
                 array('L' => 'Common course', 'M' => '', 'S' => '', 'T' => '') // common
             ),
-            'Modes' => array(array(/* separado */
-                0, 1, 2, -1), array(/* mixto */
-                0, 3, 3, -1), array(/* conjunto */
-                4, 4, 4, -1)),
+            'Modes' => array(
+                array(/* separado */ 0, 1, 2, -1),
+                array(/* mixto */    0, 3, 3, -1),
+                array(/* conjunto */ 4, 4, 4, -1)
+            ),
             'ModeStrings' => array( // text to be shown on each category
                 array(/* separado */
                     "Large", "Medium", "Small", "Invalid"),
@@ -110,7 +111,8 @@ class Federations {
                     "Common course", "Common course", "Common course", "Invalid")
             ),
             'IndexedModes' => array(
-                "Large", "Medium", "Small", "Medium+Small", "Common L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
+                "Large", "Medium", "Small", "Medium+Small", "Common L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T",
+                "Extra Large","Large + XL","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -122,7 +124,11 @@ class Federations {
                 "ST" => "Small/Tiny",
                 "MS" => "Medium/Small",
                 "LMS" => 'Common LMS',
-                "LMST", 'Common LMST'
+                "LMST", 'Common LMST',
+                "X" => "Extra Large",
+                "XL" => "X-Large/Large",
+                "XLMST" => "Common XLMST",
+                "-XLMST" => ''
             ),
             'NombreTandas' => array(
                 0 => '-- Sin especificar --',
@@ -330,7 +336,7 @@ class Federations {
 
     /**
      * Translate requested manga mode to federation dependent i18n'd Manga mode data
-     * @param {integer} $mode manga mode 0..8
+     * @param {integer} $mode manga mode 0..11
      * @param {integer} $idx tipo de resultado 0:largo 1:abreviado
      * @return {string} requested data
      */

@@ -50,7 +50,7 @@ class PrintOrdenSalidaKO extends PrintCommon {
      *      {integer} prueba ID
      *      {integer} jornada Jornada ID
      *      {integer} manga Manga ID
-     *      {string} categorias -LMST
+     *      {string} categorias -XLMST
      *      {string} rango [\d]-[\d]
      *      {string} comentarios
 	 * @throws Exception

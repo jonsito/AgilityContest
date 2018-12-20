@@ -22,7 +22,7 @@ class RFEC extends Federations {
             'International' => 0,
             'WideLicense' => true, // some federations need extra print space to show license ID
             'RoundsG1' => 3,
-            'ReverseLMST' => true, // default order is TSML instead of LMST
+            'ReverseXLMST' => true, // default order is TSML instead of LMST
             'Recorridos' => array(_('Common course'),"Clases 60+50 / 40+30",_("Separate courses")),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
@@ -81,7 +81,8 @@ class RFEC extends Federations {
                 array(/* conjunto */ "Recorrido comun", "Recorrido comun", "Recorrido comun", "Recorrido comun")
             ),
             'IndexedModes' => array (
-                "Clase 60", "Clase 50", "Clase 40", "Cl. 50+40", "Conjunta 60/50/40", "Clase 30", "Cl. 60+50", "Cl. 40+30", "Conjunta 60/50/40/30"
+                "Clase 60", "Clase 50", "Clase 40", "Cl. 50+40", "Conjunta 60/50/40", "Clase 30", "Cl. 60+50", "Cl. 40+30", "Conjunta 60/50/40/30",
+                "Extra Large","Large + XL","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -94,7 +95,10 @@ class RFEC extends Federations {
                 "MS"=>"Clase 50/40",
                 "LMS" => 'Conjunta 60/50/40',
                 "LMST" => 'Conjunta 60/50/40/30',
-                "-LMST" => ''
+                "X" => '', // invalid
+                "XL" => '', // invalid
+                "XLMST" => '', // invalid
+                "-XLMST" => ''
             ),
             'NombreTandas' => array(
                 0	=> '-- Sin especificar --',

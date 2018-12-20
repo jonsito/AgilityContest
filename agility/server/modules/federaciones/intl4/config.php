@@ -78,7 +78,8 @@ class INTL4 extends Federations {
                 array(/* conjunto */ _("Common course"), _("Common course"), _("Common course"), _("Common course"))
             ),
             'IndexedModes' => array (
-                "Large", "Medium", "Small", "Medium+Small", "Common L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
+                "Large", "Medium", "Small", "Medium+Small", "Common L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T",
+                "Extra Large","Large + XL","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -91,7 +92,10 @@ class INTL4 extends Federations {
                 "MS"=>"Medium/Small", // invalid
                 "LMS" => 'Common LMS',
                 "LMST" => 'Common LMST',
-                "-LMST" => ''
+                "X" => '',
+                "XL" => '',
+                "XLMST" => '',
+                "-XLMST" => ''
             )
         ));
     }

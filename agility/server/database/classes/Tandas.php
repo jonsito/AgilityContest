@@ -447,7 +447,7 @@ class Tandas extends DBObject {
      * In RFEC categories order is TSML instead of LMST.
      * This is a dirty hack to reverse categories order
      */
-	function swapLMST() {
+	function swapXLMST() {
         $p=$this->prueba->ID;
         $j=$this->jornada->ID;
 	    $l="( 3,  6,   9, 12, 15, 18, 23, 26, 29, 32, 38, 56, 95,  99 )";
@@ -823,7 +823,7 @@ class Tandas extends DBObject {
 		$this->insert_remove($f,16,($j->Especial != 0)?true:false);		// Manga especial
 
         // finally, if requested reverse LMST to TSML
-        if ($f->get('ReverseLMST')===true) $this->swapLMST();
+        if ($f->get('ReverseXLMST')===true) $this->swapXLMST();
 
 		$this->myLogger->leave();
 	}

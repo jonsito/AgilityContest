@@ -79,7 +79,8 @@ class CPC extends Federations {
                 array(/* conjunto */ "Conjunta", "Conjunta", "Conjunta", "Invalid")
             ),
             'IndexedModes' => array (
-                "Standard", "Midi", "Mini", "Midi+Mini", "Conjunta L/M/S", "Tiny", "Standard+Midi", "Mini+Tiny", "Conjunta L/M/S/T"
+                "Standard", "Midi", "Mini", "Midi+Mini", "Conjunta L/M/S", "Tiny", "Standard+Midi", "Mini+Tiny", "Conjunta L/M/S/T",
+                "Extra Large","Large + XL","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -92,7 +93,10 @@ class CPC extends Federations {
                 "MS"=>"Midi/Mini",
                 "LMS" => 'Conjunta LMS',
                 "LMST" => 'Conjunta LMST', // invalid
-                "-LMST" => '' // team4
+                "X" => 'ExtraLarge', // invalid
+                "XL" => 'XL/Large', // invalid
+                "XLMST" => 'Conjunta XLMST', //invalid
+                "-XLMST" => ''
             ),
             'NombreTandas' => array(
                 0	=> '-- Sin especificar --',

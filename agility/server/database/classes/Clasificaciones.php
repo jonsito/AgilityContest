@@ -327,7 +327,7 @@ class Clasificaciones extends DBObject {
 			$id=$equipo['ID'];
             if ($equipo['Nombre']==="-- Sin asignar --") continue;
             // comprobamos la categoria. si no coincide tiramos el equipo
-            $modes=array("L","M","S","MS","LMS","T","LM","ST","LMST");
+            $modes=array("L","M","S","MS","LMS","T","LM","ST","LMST","X","XL","XLMST");
             if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
             $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Puesto1'=>0,'Puesto2'=>0,'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0,'Outs1'=>0,'Outs2'=>0));
             $teams[$id]=$r;
@@ -557,7 +557,7 @@ class Clasificaciones extends DBObject {
 	 * Evalua las clasificaciones finales por equipos
 	 * @param {integer} $rondas bitfield Jornadas::$tipo_ronda
 	 * @param {array[{integer}]} $idmangas array con los ID's de las mangas a evaluar
-	 * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T
+	 * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
 	 *
 	 * Retorna varios arrays:
 	 * - datos de las mangas
@@ -614,7 +614,7 @@ class Clasificaciones extends DBObject {
 	 * Evalua las clasificaciones en funcion de los datos pedidos
 	 * @param {integer} $rondas bitfield Jornadas::$tipo_ronda
 	 * @param {array[{integer}]} $idmangas array con los ID's de las mangas a evaluar
-	 * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T
+	 * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
      * @return {array} final clasification data
 	 */
 	function clasificacionFinal($rondas,$idmangas,$mode) {
@@ -732,7 +732,7 @@ class Clasificaciones extends DBObject {
      * Esta funcion no tiene en cuenta pruebas por equipos ni ko. simplemente considera las dos primeras
      * mangas (o solo la primera, si no hay manga hermana
      *
-	 *@param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T
+	 *@param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
 	 *@param {array} $perro datos del perro (Perro,Faltas,Tocados,Rehuses,Eliminado,NoPresentado,Tiempo,IDManga)
 	 *@return {array} requested data or error
 	 */

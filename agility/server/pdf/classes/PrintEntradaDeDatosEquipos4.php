@@ -50,7 +50,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
      * {integer} prueba Prueba ID
      * {integer} jornada Jornada ID
      * {integer} manga Manga ID
-     * {string} cats categorias -LMST
+     * {string} cats categorias -XLMST
      * {string} rango [\d]-[\d]
      * {string} comentarios
 	 * @throws Exception

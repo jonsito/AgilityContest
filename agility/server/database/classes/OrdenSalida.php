@@ -308,7 +308,7 @@ class OrdenSalida extends DBObject {
 	 * manteniendo el orden.
 	 * Se utiliza para poder ajustar el orden de salida por categorias
 	 * @param {string} $lista lista original de la base de datos
-     * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST
+     * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST 9:X 10:XL 11:XLMST
      * @param {boolean} $reverse On true return included dogs in reverse order
 	 * @return {array} 0:original 1:included 2:excluded 3:doglist
 	 */
@@ -365,7 +365,7 @@ class OrdenSalida extends DBObject {
 	 * A partir de una lista de equipos separa estos en funcion de la categoria
 	 * en listas separadas
 	 * @param {string} $lista orden de equipos tal y como se almacena en agility::Mangas
-	 * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST
+	 * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST 9:X 10:XL 11:XLMST
      * @param {boolean} $reverse On true return included teams in reverse order
 	 * @return {array} 0:original 1:included 2:excluded
 	 */
@@ -416,7 +416,7 @@ class OrdenSalida extends DBObject {
 	 * @param {integer} catmode categorias a tener en cuenta en el listado que hay que presentar
 	 * @param {array} rs lista de resultados a presentar. Se utiliza para reordenar resultados en funcion del orden de salida
 	 */
-	function getData($teamView=false,$catmode=8,$rs=null,$range="0-99999") {
+	function getData($teamView=false,$catmode=11,$rs=null,$range="0-99999") {
 		$this->myLogger->enter();
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
 		if (!$rs) $rs= $this->__select(
@@ -497,7 +497,7 @@ class OrdenSalida extends DBObject {
             // ordenamos segun el orden de categorias establecido en las tandas
             $p5=array();
             foreach ($res['rows'] as $item) {
-            	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-LMST";
+            	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-XLMST";
             	// si la tanda tiene mas de una categoria, hacemos un split y separamos internamente
 				$cats=str_split(($item['Categoria']));
 				foreach($cats as $cat) {

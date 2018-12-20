@@ -30,9 +30,10 @@ try {
 	$operation=http_request("Operation","s",null);
 	$manga=http_request("Manga","i",0);
 	$cats= http_request("Categorias","s","-"); // sort everything LMST by default
-	$catmode=8;
+	$catmode=11;
 	switch ($cats) {
-		case "-": $catmode=8; break; // use 8 instead of 4 because this mode is already includede in 8
+		case "-": $catmode=11; break; // use 11 cause this mode includes 4 (LMS) and 8 (LMST)
+        case "X": $catmode=9; break;
 		case "L": $catmode=0; break;
 		case "M": $catmode=1; break;
 		case "S": $catmode=2; break;

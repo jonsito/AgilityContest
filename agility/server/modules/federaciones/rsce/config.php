@@ -80,7 +80,8 @@ class RSCE extends Federations {
                 array(/* conjunto */ "Conjunta", "Conjunta", "Conjunta", "Invalid")
             ),
             'IndexedModes' => array (
-                "Standard", "Midi", "Mini", "Midi+Mini", "Conjunta L/M/S", "Tiny", "Standard+Midi", "Mini+Tiny", "Conjunta L/M/S/T"
+                "Standard", "Midi", "Mini", "Midi+Mini", "Conjunta L/M/S", "Tiny", "Standard+Midi", "Mini+Tiny", "Conjunta L/M/S/T",
+                "Extra Large","Large + XL","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -93,7 +94,9 @@ class RSCE extends Federations {
                 "MS"=>"Midi/Mini",
                 "LMS" => 'Conjunta LMS',
                 "LMST" => 'Conjunta LMST', // invalid
-                "-LMST" => '' // team4
+                "X" => '',
+                "XL" => '',
+                "XLMST" => ''
             ),
             'NombreTandas' => array(
                 0	=> '-- Sin especificar --',

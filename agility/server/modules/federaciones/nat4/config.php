@@ -78,7 +78,8 @@ class NAT4 extends Federations {
                 array(/* conjunto */ _('60+50+40+30'), _('60+50+40+30'), _('60+50+40+30'),_('60+50+40+30'))
             ),
             'IndexedModes' => array (
-                "Cat. 600", "Cat. 500", "Cat 400", "Cat 500+400", "Conjunta 60+50+40", "Cat. 300", "Cat. 600+500", "Cat. 400+300", "Cat. 60+50+40+30"
+                "Cat. 600", "Cat. 500", "Cat 400", "Cat 500+400", "Conjunta 60+50+40", "Cat. 300", "Cat. 600+500", "Cat. 400+300", "Cat. 60+50+40+30",
+                "Extra Large","Large + XL","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -91,7 +92,10 @@ class NAT4 extends Federations {
                 "MS"=>"Cat. 50+40", // invalid
                 "LMS" => 'Conjunta 6+5+4', // invalid
                 "LMST" =>'Conjunta 6+5+4+3',
-                "-LMST"=> ''
+                "X" => "", // invalid
+                "XL" => "", // invalid
+                "XLMST" => "", // invalid
+                "-XLMST"=> ''
             )
         ));
     }

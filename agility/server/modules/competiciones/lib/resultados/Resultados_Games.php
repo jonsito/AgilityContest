@@ -46,7 +46,7 @@ class Resultados_Games extends Resultados {
 
     /**
      * Presenta una tabla ordenada segun los resultados de la manga
-     *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8 L+M+S+T
+     *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
      *@return {array} requested data or error
      */
     function getResultadosIndividual($mode) {
@@ -57,7 +57,7 @@ class Resultados_Games extends Resultados {
         // ajustamos el criterio de busqueda de la tabla de resultados
         $where="(Manga=$idmanga) AND (Pendiente=0) AND (perroguiaclub.ID=resultados.Perro) ";
         $cat="";
-        if ($mode!=8) $cat=sqlFilterCategoryByMode($mode,"resultados."); // notice the ending dot '.'
+        if ($mode!=11) $cat=sqlFilterCategoryByMode($mode,"resultados."); // notice the ending dot '.'
         if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
         // FASE 1: recogemos resultados ordenados por precorrido y tiempo
         // como en este caso se puntua de mas puntos a menos, vamos a poner eliminado y no presentado

@@ -79,8 +79,10 @@ class INTL3 extends Federations {
                 array(/* mixto */ "Large", "Medium+Small", "Medium+Small", "Invalid"),
                 array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid")
             ),
-            'IndexedModes' => array ( // modes 5 to 8 are invalid in this federation
-                "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
+            'IndexedModes' => array ( // modes 5 to 11 are invalid in this federation
+                "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S",
+                "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T",
+                "Extra Large","Large + XL","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -93,7 +95,10 @@ class INTL3 extends Federations {
                 "MS"=>"Medium/Small",
                 "LMS" => 'Common LMS',
                 "LMST" => 'Common LMST',
-                "-LMST" => ''
+                "X" => '', // invalid
+                "XL" => '', // invalid
+                "XLMST" => '', // invalid
+                "-XLMST" => ''
             )
         ));
     }

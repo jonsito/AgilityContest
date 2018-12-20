@@ -43,7 +43,8 @@ try {
 	$mangas[6]=http_request("Manga7","i",0);
 	$mangas[7]=http_request("Manga8","i",0);
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
-	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small 5:tiny 6:L+M 7:S+T 8:L+M+S+T
+    // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small 5:tiny 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
+	$mode=http_request("Mode","i","0");
 	$c= Competitions::getClasificacionesInstance("print_clasificacion_pdf",$jornada);
 	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
 	// Creamos generador de documento

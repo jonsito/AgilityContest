@@ -45,10 +45,11 @@ try {
     $cats= http_request("Categorias","s","-"); // sort everything LMST by default
     $range= http_request("Range","s","0-99999"); // select only dorsals in range
     $method= http_request("SortMethod","s","results");
-	$catmode=8;
+	$catmode=11;
 	switch ($cats) {
-		case "-": $catmode=8; break; // use 8 instead of 4 because this mode is already includede in 8
-		case "L": $catmode=0; break;
+		case "-": $catmode=11; break; // use 11 cause includes 4(LMS) and 8 (LMST)
+        case "X": $catmode=9; break;
+        case "L": $catmode=0; break;
 		case "M": $catmode=1; break;
 		case "S": $catmode=2; break;
 		case "T": $catmode=5; break;

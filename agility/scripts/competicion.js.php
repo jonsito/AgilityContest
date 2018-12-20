@@ -1375,7 +1375,7 @@ function competicionDialog(name) {
  * resultados: almacen de resultados (array[mode][manga]
  * idmanga: Manga ID
  * idxmanga: 1..2 manga index
- * mode: 0..8
+ * mode: 0..11
  */
 function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
     if (mode<0) return; // invalid mode. do not parse
@@ -1387,10 +1387,11 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 		success: function(dat) {
 			var suffix='L';
 			switch (mode) {
-			case 0: case 4: case 6: case 8: suffix='L'; break;
-			case 1: case 3: suffix='M'; break;
-			case 2: case 7: suffix='S'; break;
-			case 5: suffix='T'; break;
+			    case 0: case 4: case 6: case 8: suffix='L'; break; //L LMS LM LMST
+			    case 1: case 3: suffix='M'; break; // M MS
+			    case 2: case 7: suffix='S'; break; // S ST
+			    case 5: suffix='T'; break; // T
+                case 9: case 10: case 11: suffix='X'; break; // X XL XLMST
 			}
 			$('#dm'+idxmanga+'_Nombre').textbox('setValue',dat['manga'].TipoManga);
 			$('#dm'+idxmanga+'_Lbl_'+suffix).html(ac_fedInfo[workingData.federation].IndexedModes[mode]);

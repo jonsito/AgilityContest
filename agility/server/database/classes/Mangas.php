@@ -127,7 +127,10 @@ class Mangas extends DBObject {
 		5 => array('Tiny','T'),
 		6 => array('Large + Medium','LM'),
 		7 => array('Small + Tiny','ST'),
-		8 => array('Conjunta L+M+S+T','LMST')
+		8 => array('Conjunta L+M+S+T','LMST'),
+        9 => array('Extra','X'),
+        10 => array('Extra + Large','XL'),
+        11 => array('Conjunta X+L+M+S+T','XLMST')
 	);
 
     public static function getMangaMode($mode,$idx,$fed=null) {

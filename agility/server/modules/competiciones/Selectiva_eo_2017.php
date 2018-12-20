@@ -53,8 +53,8 @@ class Selectiva_eo_2017 extends Selectiva_awc_2017 {
     public function checkAndFixTRSData($manga,$data,$mode,&$roundUp) {
         // remember that prueba,jornada and manga are objects, so passed by reference
         $cat="";
-        // on mode=8 no need to check category in sql, so skip
-        if ($mode!==8) $cat=sqlFilterCategoryByMode($mode,"");
+        // on mode=11 no need to check category in sql, so skip
+        if ($mode!==11) $cat=sqlFilterCategoryByMode($mode,"");
         if ($cat==null) return $this->error("modo de recorrido desconocido:$mode");
         // fase 0: buscamos la jornada padre
         $this->prueba->Selectiva = 1; // not really required, just to be sure
