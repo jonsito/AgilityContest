@@ -756,6 +756,25 @@ class Updater {
         $this->myDBObject->query($str);
         return 0;
     }
+
+    function addExtraLargeCategory() {
+        $this->myLogger->enter();
+        // phase 1: replace category 'E' to 'X' in db. Not used anymore, but for coherency
+        $cmds= array(
+            "UPDATE categorias_perro SET Categoria='X' WHERE Categoria='E'",
+        );
+        foreach ($cmds as $query) { $this->myDBObject->query($query); }
+        // phase 2: add XLarge fields data into mangas table
+        $this->addColumnUnlessExists("mangas", "Dist_X", "int(4)", "0");
+        $this->addColumnUnlessExists("mangas", "Obst_X", "int(4)", "0");
+        $this->addColumnUnlessExists("mangas", "TRS_X_Tipo", "int(4)", "0");
+        $this->addColumnUnlessExists("mangas", "TRS_X_Factor", "double", "0.0");
+        $this->addColumnUnlessExists("mangas", "TRS_X_Unit", "varchar(1)", "s");
+        $this->addColumnUnlessExists("mangas", "TRM_X_Tipo", "int(4)", "1");
+        $this->addColumnUnlessExists("mangas", "TRM_X_Factor", "double", "50");
+        $this->addColumnUnlessExists("mangas", "TRM_X_Unit", "varchar(1)", "%");
+        return 0;
+    }
 }
 
 $upg=new Updater();
@@ -804,6 +823,7 @@ try {
     // software version changed. make sure that database is upgraded
     $upg->myLogger->info("Database version is lower than installed sw version. Updating DB structure");
     // $upg->addCountries();
+    $upg->addExtraLargeCategory();
     $upg->addColumnUnlessExists("mangas", "Orden_Equipos", "TEXT");
     $upg->addColumnUnlessExists("resultados", "TIntermedio", "double", "0.0");
     $upg->addColumnUnlessExists("resultados", "Games", "int(4)", "0");
