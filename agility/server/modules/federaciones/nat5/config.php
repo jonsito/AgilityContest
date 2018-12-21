@@ -22,7 +22,12 @@ class NAT5 extends Federations {
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2, // on rfec may be 3
-            'Recorridos' => array(_('Common course'),"X+L / M+S+T", _("Separate courses"), "X+L / M / S+T"),
+            'Recorridos' => array(
+                _('Common course'),
+                "X+L / M+S+T",
+                _("Separate courses"),
+                "X+L / M / S+T"
+            ),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 // 'Jr' => 'Jr.',
@@ -69,10 +74,10 @@ class NAT5 extends Federations {
                 // 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(
-                array('X' => _('Xlrg 60'), 'L' => _('Lrg 50'),  'M' => _('Med 40'),  'S' => _('Sml 30'), 'T' => _('Toy 20')), // separate courses
-                array('X' => _('60+50'),   'L' => '',           'M' => _('40+30+20'),'S' => '',          'T' => ''), // mixed (2 groups) courses
-                array('X' => _('6+5+4+3+2'),'L' => '',          'M' => '',          'S' => '',          'T' => ''), // common ( single height ) course
-                array('X' => _('60+50'),   'L' => '',           'M' => _('Med 40'),  'S' => _('30+20'),  'T' => '') // 3 group courses
+                array('L' => _('Lrg 50'), 'M' => _('Med 40'),  'S' => _('Sml 30'), 'T' => _('Toy 20'),'X' => _('Xlrg 60') ), // separate courses
+                array('L' => '',          'M' => _('40+30+20'),'S' => '',          'T' => '',       'X' => _('60+50')), // mixed (2 groups) courses
+                array('L' => '',          'M' => '',           'S' => '',          'T' => '',       'X' => _('6+5+4+3+2')), // common ( single height ) course
+                array('L' => '',          'M' => _('Med 40'),  'S' => _('30+20'),  'T' => '',       'X' => _('60+50'),   ) // 3 group courses
             ),
             'Modes' => array( /* modos con los que se trabaja en cada categoria */
                 //                        L   M   S   T   X
@@ -82,10 +87,11 @@ class NAT5 extends Federations {
                 array(/* 3: 3 grupos */  10,  1,  7,  7, 10 )
             ),
             'ModeStrings' => array( // text to be shown on each category
-                array(/* separado  */ _('Cat. 60'),    _('Cat. 50'),    _('Cat. 40'), _('Cat. 30'),    _('Cat. 20')),
-                array(/* 2 grupos */ _('Cat. 60+50'), _('Cat. 60+50'), _('Cat. 40+30+20'), _('Cat. 40+30+20'), _('Cat. 40+30+20')),
-                array(/* conjunto  */ _('60+50+40+30+20'), _('60+50+40+30+20'), _('60+50+40+30+20'), _('60+50+40+30+20'),_('60+50+40+30+20')),
-                array(/* 3 grupos */ _('Cat. 60+50'), _('Cat. 60+50'), _('Cat. 40'), _('Cat. 30+20'), _('Cat. 30+20'))
+                // category  L M S T X
+                array(/* separado  */_('Cat. 50'),    _('Cat. 40'), _('Cat. 30'),    _('Cat. 20'),_('Cat. 60') ),
+                array(/* 2 grupos */ _('Cat. 60+50'), _('Cat. 40+30+20'), _('Cat. 40+30+20'), _('Cat. 40+30+20'), _('Cat. 60+50') ),
+                array(/* conjunto  */_('60+50+40+30+20'), _('60+50+40+30+20'), _('60+50+40+30+20'),_('60+50+40+30+20'),_('60+50+40+30+20')),
+                array(/* 3 grupos */ _('Cat. 60+50'), _('Cat. 40'), _('Cat. 30+20'), _('Cat. 30+20'),_('Cat. 60+50'))
             ),
             'IndexedModes' => array (
                 /* 0 - L    */ "large 50",
@@ -105,19 +111,19 @@ class NAT5 extends Federations {
             // igual que el anterior, pero la busqueda es por letra, no por indice
             'IndexedModeStrings' => array(
                 "-" => "",
-                "L"=>"Cat. 600",
-                "M"=>"Cat. 500",
-                "S"=>"Cat. 400",
-                "T"=>"Cat. 300",
-                "LM"=>"Cat. 60+50",
-                "ST"=>"Cat. 40+30",
-                "MS"=>"Cat. 50+40", // invalid
-                "LMS" => 'Conjunta 6+5+4', // invalid
-                "LMST" =>'Conjunta 6+5+4+3',
-                "X" => "", // invalid
-                "XL" => "", // invalid
-                "MST" => "", // invalid in rsce
-                "XLMST" => "", // invalid
+                "L"=>"Cat. 50",
+                "M"=>"Cat. 40",
+                "S"=>"Cat. 30",
+                "T"=>"Cat. 20",
+                "LM"=>"Cat. 60+50", // // invalid in 5 heights
+                "ST"=>"Cat. 30+20", // 3 groups mode
+                "MS"=>"Cat. 40+30", // invalid in 5 heights
+                "LMS" => 'Conjunta 5+4+3', // invalid in 5 heights
+                "LMST" =>'Conjunta 5+4+3+2', // invalid in 5 heights
+                "X" => "Cat. 60",
+                "XL" => "Cat. 60+50", // 3 groups mode
+                "MST" => "Cat. 40+30+20", // 2 groups mode
+                "XLMST" => "", // common course
                 "-XLMST"=> ""
             )
         ));

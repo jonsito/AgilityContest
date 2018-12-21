@@ -23,7 +23,12 @@ class RFEC extends Federations {
             'WideLicense' => true, // some federations need extra print space to show license ID
             'RoundsG1' => 3,
             'ReverseXLMST' => true, // default order is TSMLX instead of XLMST
-            'Recorridos' => array(_('Common course'),"Clases 60+50 / 40+30",_("Separate courses")),
+            'Recorridos' => array(
+                _('Common course'),
+                "Clases 60+50 / 40+30", // 2 groups
+                _("Separate courses"),
+                ""
+            ),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Jr' => 'Junr',
@@ -70,19 +75,38 @@ class RFEC extends Federations {
                 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(
-                array('L' => _('Clase 60'),  'M' => _('Clase 50'), 'S' => _('Clase 40'),'T' => _('Clase 30')), // separate courses
-                array('L' => _('Cl. 60+50'),  'M' => '',          'S' => _('Cl. 40+30'), 'T' => ''), // mixed courses
-                array('L' => _('60+50+40+30'),     'M' => '',          'S' => '',              'T' => '') // common
+                array('L' => _('Clase 60'),   'M' => _('Clase 50'),'S' => _('Clase 40'), 'T' => _('Clase 30'),'X' => "Invalid"), // separate courses
+                array('L' => _('Cl. 60+50'),  'M' => '',           'S' => _('Cl. 40+30'),'T' => '',         'X' => "Invalid"), // 2 groups
+                array('L' => _('60+50+40+30'),'M' => '',           'S' => '',            'T' => '',         'X' => "Invalid"), // common
+                array('L' => "Invalid",       'M' => "Invalid",    'S' => "Invalid",     'T' => "Invalid",  'X' => "Invalid") // 3 groups
             ),
-            'Modes' => array(array(/* separado */ 0, 1, 2, 5 ), array(/* mixto */ 6, 6, 7, 7 ), array(/* conjunto */ 8, 8, 8, 8 )),
+            'Modes' => array(
+                // categorias        L  M  S  T  X
+                array(/* separado */ 0, 1, 2, 5,-1 ),
+                array(/* 2 grupos */ 6, 6, 7, 7,-1 ),
+                array(/* conjunto */ 8, 8, 8, 8,-1 ),
+                array(/* 3 grupos */-1,-1,-1,-1,-1 )
+            ),
             'ModeStrings' => array( // text to be shown on each category
-                array(/* separado */ "Clase 60", "Clase 50", "Clase 40", "Clase 30"),
-                array(/* mixto */ "Clase 60+50", "Clase 60+50", "Clase 40+30", "Clase 40+30"),
-                array(/* conjunto */ "Recorrido comun", "Recorrido comun", "Recorrido comun", "Recorrido comun")
+                array(/* separado */ "Clase 60",    "Clase 50",     "Clase 40",     "Clase 30",     "Invalid"),
+                array(/* 2 grupos */ "Clase 60+50", "Clase 60+50",  "Clase 40+30",  "Clase 40+30",  "Invalid"),
+                array(/* conjunto */ "Recorrido comun", "Recorrido comun", "Recorrido comun", "Recorrido comun","Invalid"),
+                array(/* 3 grupos */ "Invalid",     "Invalid",      "Invalid",      "Invalid",      "Invalid"),
             ),
             'IndexedModes' => array (
-                "Clase 60", "Clase 50", "Clase 40", "Cl. 50+40", "Conjunta 60/50/40", "Clase 30", "Cl. 60+50", "Cl. 40+30", "Conjunta 60/50/40/30",
-                "Extra Large","Large + XL","Common M/S/T","Common X/L/M/S/T"
+                "Clase 60",
+                "Clase 50",
+                "Clase 40",
+                "Cl. 50+40",
+                "Conjunta 60/50/40",
+                "Clase 30",
+                "Cl. 60+50",
+                "Cl. 40+30",
+                "Conjunta 60/50/40/30",
+                "Extra Large",
+                "Large + XL",
+                "Common M/S/T",
+                "Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
