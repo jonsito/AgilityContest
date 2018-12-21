@@ -308,7 +308,7 @@ class OrdenSalida extends DBObject {
 	 * manteniendo el orden.
 	 * Se utiliza para poder ajustar el orden de salida por categorias
 	 * @param {string} $lista lista original de la base de datos
-     * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST 9:X 10:XL 11:XLMST
+     * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST 9:X 10:XL 11:MST 12:XLMST
      * @param {boolean} $reverse On true return included dogs in reverse order
 	 * @return {array} 0:original 1:included 2:excluded 3:doglist
 	 */
@@ -365,7 +365,7 @@ class OrdenSalida extends DBObject {
 	 * A partir de una lista de equipos separa estos en funcion de la categoria
 	 * en listas separadas
 	 * @param {string} $lista orden de equipos tal y como se almacena en agility::Mangas
-	 * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST 9:X 10:XL 11:XLMST
+	 * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST 9:X 10:XL 11:MST 12:XLMST
      * @param {boolean} $reverse On true return included teams in reverse order
 	 * @return {array} 0:original 1:included 2:excluded
 	 */
@@ -725,8 +725,8 @@ class OrdenSalida extends DBObject {
 	 * Evalua los resultados de la manga from segun mode
 	 * y recalcula el orden de salida de la manga from
 	 * @param {object} $from manga donde buscar resultados
-	 * @param {integer} $mode categorias de la manga (L,M,S,MS,LMS,T,LM,ST,LMST)
-	 * @param {integer} $catmode categorias que hay que ordenar en la manga (L,M,S,T,LMST)
+	 * @param {integer} $mode categorias de la manga (L,M,S,MS,LMS,T,LM,ST,LMST,X,XL,MST,XLMST)
+	 * @param {integer} $catmode categorias que hay que ordenar en la manga (X,L,M,S,T,XLMST)
 	 */
 	protected function invierteResultados($from,$mode,$catmode,$range="0-99999") {
 

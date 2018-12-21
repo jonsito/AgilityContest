@@ -79,7 +79,7 @@ class INTL4 extends Federations {
             ),
             'IndexedModes' => array (
                 "Large", "Medium", "Small", "Medium+Small", "Common L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T",
-                "Extra Large","Large + XL","Common X/L/M/S/T"
+                "Extra Large","Large + XL","Medium+Small+Tiny","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -94,6 +94,7 @@ class INTL4 extends Federations {
                 "LMST" => 'Common LMST',
                 "X" => '',
                 "XL" => '',
+                "MST" => '',
                 "XLMST" => '',
                 "-XLMST" => ''
             )

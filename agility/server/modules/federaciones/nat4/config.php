@@ -79,7 +79,7 @@ class NAT4 extends Federations {
             ),
             'IndexedModes' => array (
                 "Cat. 600", "Cat. 500", "Cat 400", "Cat 500+400", "Conjunta 60+50+40", "Cat. 300", "Cat. 600+500", "Cat. 400+300", "Cat. 60+50+40+30",
-                "Extra Large","Large + XL","Common X/L/M/S/T"
+                "Extra Large","Large + XL","Medium+Small+Tiny","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -95,6 +95,7 @@ class NAT4 extends Federations {
                 "X" => "", // invalid
                 "XL" => "", // invalid
                 "XLMST" => "", // invalid
+                "MST" => "", // invalid on nat4
                 "-XLMST"=> ''
             )
         ));

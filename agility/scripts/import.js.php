@@ -522,7 +522,7 @@ function perros_excelImport() { return real_excelImport('perros',''); }
 function inscripciones_excelImport() { return real_excelImport('inscripciones',''); }
 function entrenamientos_excelImport() { return real_excelImport('entrenamientos','entrenamientos-'); }
 function resultadosmanga_excelImport() {
-    var val=$('input[name=rRecorrido]:checked').val(); // to tell server which categories to parse (LMST-)
+    var val=$('input[name=rRecorrido]:checked').val(); // to tell server which categories to parse (LMSTX-)
     ac_import.mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,parseInt(val));
     return real_excelImport('resultados','');
 }
@@ -533,7 +533,7 @@ function ordensalida_excelImport() {
         case 'M': ac_import.mode=1; break;
         case 'S': ac_import.mode=2; break;
         case 'T': ac_import.mode=5; break;
-        default : ac_import.mode=11; break;
+        default : ac_import.mode=12; break;
     }
     return real_excelImport('ordensalida','');
 }

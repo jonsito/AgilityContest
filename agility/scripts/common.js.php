@@ -248,6 +248,10 @@ function modeToCats(mode) {
         case 6: return "LM";
         case 7: return "ST";
         case 8: return "LMST";
+        case 9: return "X";
+        case 10: return "XL";
+        case 11: return "MST";
+        case 12: return "XLMST";
         default: return "-";
     }
 }

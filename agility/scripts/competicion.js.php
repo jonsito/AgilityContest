@@ -139,8 +139,8 @@ function loadCompetitionWindow() {
 /**
  * Obtiene el modo de visualizacion de una manga determinada en funcion de la prueba, tipo de recorrido y categorias
  * @param {int} fed federation ID
- * @param {int} recorrido 0:separado 1:mixto 2:conjunto
- * @param {int} categoria 0:L 1:M 2:S 3:T
+ * @param {int} recorrido 0:separado 1:dos grupos 2:conjunto 3: tres grupos (5 alturas)
+ * @param {int} categoria 0:L 1:M 2:S 3:T 4:X
  * @returns {int} requested mode. -1 if invalid request
  */
 function getMangaMode(fed,recorrido,categoria) {
@@ -155,13 +155,16 @@ function getMangaMode(fed,recorrido,categoria) {
         return -1;
     }
     switch(categoria) {
+        case 'XLMST':
+        case '-XLMST': return ac_fedInfo[f].Modes[3][4] // ExtraLarge mode when 5heights-CommonCourse
         case '-':
         case 'LMST':
-        case '-LMST':return ac_fedInfo[f].Modes[2][0]; // common for all categories; just use first mode (standard )
+        case '-LMST':return ac_fedInfo[f].Modes[2][0]; // common for all categories in 3/4 heights; just use first mode (standard )
         case 'L':return ac_fedInfo[f].Modes[rec][0];
         case 'M':return ac_fedInfo[f].Modes[rec][1];
         case 'S':return ac_fedInfo[f].Modes[rec][2];
         case 'T':return ac_fedInfo[f].Modes[rec][3];
+        case 'X':return ac_fedInfo[f].Modes[rec][4];
         // numerical index may also be requested
         default: return ac_fedInfo[f].Modes[rec][parseInt(categoria)];
     }
@@ -185,8 +188,8 @@ function getModeString(fed,mode) {
 /**
  * Obtiene el texto asociado al modo de visualizacion de una manga determinada en funcion de la prueba, tipo de recorrido y categorias
  * @param {int} fed federation ID
- * @param {int} recorrido 0:separado 1:mixto 2:conjunto
- * @param {int} categoria 0:L 1:M 2:S 3:T
+ * @param {int} recorrido 0:separado 1:dos grupos 2:conjunto 3:tres grupos
+ * @param {int} categoria 0:L 1:M 2:S 3:T 4:X
  * @returns {int} requested string. "Invalid" if invalid request
  */
 function getMangaModeString(fed,recorrido,categoria) {
@@ -201,12 +204,15 @@ function getMangaModeString(fed,recorrido,categoria) {
         return 'Undefined';
     }
     switch(categoria) {
+        case 'XLMST':
+        case '-XLMST':return ac_fedInfo[f].ModeStrings[rec][4]; // common for all categories in 5 heigh use X mode
         case '-':
-        case '-LMST':return ac_fedInfo[f].ModeStrings[rec][0]; // common for all categories; just use first mode (standard )
+        case '-LMST':return ac_fedInfo[f].ModeStrings[rec][0]; // common for all categories in 3/4 heights; use first mode (standard )
         case 'L':return ac_fedInfo[f].ModeStrings[rec][0];
         case 'M':return ac_fedInfo[f].ModeStrings[rec][1];
         case 'S':return ac_fedInfo[f].ModeStrings[rec][2];
         case 'T':return ac_fedInfo[f].ModeStrings[rec][3];
+        case 'X':return ac_fedInfo[f].ModeStrings[rec][4];
         // numerical index may also be requested
         default: return ac_fedInfo[f].ModeStrings[rec][parseInt(categoria)];
     }
@@ -1388,10 +1394,10 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 			var suffix='L';
 			switch (mode) {
 			    case 0: case 4: case 6: case 8: suffix='L'; break; //L LMS LM LMST
-			    case 1: case 3: suffix='M'; break; // M MS
+			    case 1: case 3: case 11: suffix='M'; break; // M MS MST
 			    case 2: case 7: suffix='S'; break; // S ST
 			    case 5: suffix='T'; break; // T
-                case 9: case 10: case 11: suffix='X'; break; // X XL XLMST
+                case 9: case 10: case 12: suffix='X'; break; // X XL XLMST
 			}
 			$('#dm'+idxmanga+'_Nombre').textbox('setValue',dat['manga'].TipoManga);
 			$('#dm'+idxmanga+'_Lbl_'+suffix).html(ac_fedInfo[workingData.federation].IndexedModes[mode]);

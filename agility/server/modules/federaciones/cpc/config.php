@@ -80,7 +80,7 @@ class CPC extends Federations {
             ),
             'IndexedModes' => array (
                 "Standard", "Midi", "Mini", "Midi+Mini", "Conjunta L/M/S", "Tiny", "Standard+Midi", "Mini+Tiny", "Conjunta L/M/S/T",
-                "Extra Large","Large + XL","Common X/L/M/S/T"
+                "Extra Large","Large + XL","Midi+Mini+Tiny","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -95,6 +95,7 @@ class CPC extends Federations {
                 "LMST" => 'Conjunta LMST', // invalid
                 "X" => 'ExtraLarge', // invalid
                 "XL" => 'XL/Large', // invalid
+                "MST" => 'Midi/Mini/Toy', // invalid for cpc
                 "XLMST" => 'Conjunta XLMST', //invalid
                 "-XLMST" => ''
             ),

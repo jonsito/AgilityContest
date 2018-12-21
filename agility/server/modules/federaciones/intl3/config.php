@@ -82,7 +82,7 @@ class INTL3 extends Federations {
             'IndexedModes' => array ( // modes 5 to 11 are invalid in this federation
                 "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S",
                 "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T",
-                "Extra Large","Large + XL","Common X/L/M/S/T"
+                "Extra Large","Large + XL","Medium+Small+Tiny","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -97,6 +97,7 @@ class INTL3 extends Federations {
                 "LMST" => 'Common LMST',
                 "X" => '', // invalid
                 "XL" => '', // invalid
+                "MST" => '', // invalid
                 "XLMST" => '', // invalid
                 "-XLMST" => ''
             )

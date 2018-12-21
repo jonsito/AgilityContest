@@ -44,7 +44,7 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
      * {integer} Prueba ID
      * {integer} $jornada Jormada ID
      * {integer} $manga Manga ID
-     * {string} categorias -LMST
+     * {string} categorias -XLMST
      * {string} rango [\d]-[\d]
      * {string} comentarios
      * @throws Exception

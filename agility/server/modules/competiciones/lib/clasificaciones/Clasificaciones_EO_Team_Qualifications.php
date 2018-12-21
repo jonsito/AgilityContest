@@ -215,7 +215,7 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
 			$id=$equipo['ID'];
             if ($equipo['Nombre']==="-- Sin asignar --") continue;
             // comprobamos la categoria. si no coincide tiramos el equipo
-            $modes=array("L","M","S","MS","LMS","T","LM","ST","LMST");
+            $modes=array("L","M","S","MS","LMS","T","LM","ST","LMST","X","XL","MST","XLMST");
             if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
             $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Puesto1'=>0,'Puesto2'=>0,
                 'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0,'Puntos'=>0,'Extra'=>0,'Best'=>0));

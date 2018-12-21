@@ -73,7 +73,10 @@ class RSCE extends Federations {
                 array('L' => _('Standard'), 'M' => _('Midi+Mini'),   'S' => '',         'T' => ''), // mixed courses
                 array('L' => _('Std+Midi+Mini'), 'M' => '',               'S' => '',         'T' => '') // common
             ),
-            'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3, -1), array(/* conjunto */ 4, 4, 4, -1 )),
+            'Modes' => array(
+                array(/* separado */ 0, 1, 2, -1),
+                array(/* mixto */ 0, 3, 3, -1),
+                array(/* conjunto */ 4, 4, 4, -1 )),
             'ModeStrings' => array( // text to be shown on each category
                 array(/* separado */ "Standard", "Midi", "Mini", "Invalid"),
                 array(/* mixto */ "Standard", "Midi+Mini", "Midi+Mini", "Invalid"),
@@ -81,7 +84,7 @@ class RSCE extends Federations {
             ),
             'IndexedModes' => array (
                 "Standard", "Midi", "Mini", "Midi+Mini", "Conjunta L/M/S", "Tiny", "Standard+Midi", "Mini+Tiny", "Conjunta L/M/S/T",
-                "Extra Large","Large + XL","Common X/L/M/S/T"
+                "Extra Large","Large + XL","Med+Small+Tiny","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -96,7 +99,9 @@ class RSCE extends Federations {
                 "LMST" => 'Conjunta LMST', // invalid
                 "X" => '',
                 "XL" => '',
-                "XLMST" => ''
+                "MST" => '',
+                "XLMST" => '',
+                "-XLMST"
             ),
             'NombreTandas' => array(
                 0	=> '-- Sin especificar --',

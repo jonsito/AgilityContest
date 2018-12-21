@@ -112,7 +112,7 @@ class Federations {
             ),
             'IndexedModes' => array(
                 "Large", "Medium", "Small", "Medium+Small", "Common L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T",
-                "Extra Large","Large + XL","Common X/L/M/S/T"
+                "Extra Large","Large + XL", "Medium+Small+Tiny","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -127,6 +127,7 @@ class Federations {
                 "LMST", 'Common LMST',
                 "X" => "Extra Large",
                 "XL" => "X-Large/Large",
+                "MST" => "Med/Small/Tiny",
                 "XLMST" => "Common XLMST",
                 "-XLMST" => ''
             ),
@@ -379,7 +380,7 @@ class Federations {
     public function getCategoryShort($key) { return $this->getI18nCatGrade($key,'ListaCategoriasShort');  }
 
     /**
-     * Reserve FedID 0..4 to national events; 5..9 to internationals
+     * check for international federation
      * @return bool
      */
     public function isInternational() { return ( intval($this->config['International']) !=0)?true:false; }
@@ -480,7 +481,6 @@ class Federations {
 
     /**
      * Parse federations and compose bitmap mask on every international feds
-     * @param $fed
      * @return int
      */
     static function getInternationalMask() {

@@ -80,7 +80,7 @@ class NAT3 extends Federations {
             ),
             'IndexedModes' => array ( // modes 5 to 11 are invalid in this federation
                 "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T",
-                "Extra Large","Large + XL","Common X/L/M/S/T"
+                "Extra Large","Large + XL","Med+Small+Tiny","Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -95,6 +95,7 @@ class NAT3 extends Federations {
                 "LMST" => 'Common LMST',
                 "X" => 'Extra L',
                 "XL" => 'Common XL',
+                "MST" => 'Med/Small/Tiny',
                 "XLMST" => 'Common XLMST',
                 "-XLMST" => ''
             )
