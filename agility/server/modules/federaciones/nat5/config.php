@@ -1,5 +1,5 @@
 <?php
-class NAT4 extends Federations {
+class NAT5 extends Federations {
 
     function __construct() {
         parent::__construct();
@@ -22,7 +22,7 @@ class NAT4 extends Federations {
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2, // on rfec may be 3
-            'Recorridos' => array(_('Common course'),"X+L / M+S+T", "X+L / M / S+T", _("Separate courses")),
+            'Recorridos' => array(_('Common course'),"X+L / M+S+T", _("Separate courses"), "X+L / M / S+T"),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 // 'Jr' => 'Jr.',
@@ -75,6 +75,7 @@ class NAT4 extends Federations {
                 array('X' => _('60+50'),   'L' => '',           'M' => _('Med 40'),  'S' => _('30+20'),  'T' => '') // 3 group courses
             ),
             'Modes' => array( /* modos con los que se trabaja en cada categoria */
+                //                        L   M   S   T   X
                 array(/* 0: separado */   0,  1,  2,  5,  9 ),
                 array(/* 1: 2 groups */  10, 11, 11, 11, 10 ),
                 array(/* 2: conjunto */  12, 12, 12, 12, 12 ),
@@ -99,7 +100,7 @@ class NAT4 extends Federations {
                 /* 9 - X    */ "Xtra large 60",
                 /*10 - XL   */ "X/L 60+50",
                 /*11 - MST  */ "M/S/T 40+30+20",
-                /*11 - XLMST*/ "X+L+M+S+T"
+                /*12 - XLMST*/ "X+L+M+S+T"
             ),
             // igual que el anterior, pero la busqueda es por letra, no por indice
             'IndexedModeStrings' => array(

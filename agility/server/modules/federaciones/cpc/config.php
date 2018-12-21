@@ -21,7 +21,7 @@ class CPC extends Federations {
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2, // on rfec may be 3
-            'Recorridos' => array(_('Common course'),_('Standard / Midi + Mini'),_('Separate courses')),
+            'Recorridos' => array(_('Common course'),_('Standard / Midi + Mini'),_('Separate courses'), /*invalid*/""),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Jr' => 'Jr.',
@@ -68,20 +68,39 @@ class CPC extends Federations {
                 // 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(
-                array('L' => _('Standard'), 'M' => _('Midi'),        'S' => _('Mini'),  'T' => ''), // separate courses
-                array('L' => _('Standard'), 'M' => _('Midi+Mini'),   'S' => '',         'T' => ''), // mixed courses
-                array('L' => _('Std+Midi+Mini'), 'M' => '',               'S' => '',         'T' => '') // common
+                array('L' => _('Standard'), 'M' => _('Midi'),        'S' => _('Mini'),  'T' => '', 'X' => ''), // separate courses
+                array('L' => _('Standard'), 'M' => _('Midi+Mini'),   'S' => '',         'T' => '', 'X' => ''), // 2 groups
+                array('L' => _('Std+Midi+Mini'), 'M' => '',          'S' => '',         'T' => '', 'X' => ''), // common
+                array('L' => '',            'M' => '',               'S' => '',         'T' => '', 'X' => '') // 3 groups
             ),
-            'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3, -1), array(/* conjunto */ 4, 4, 4, -1 )),
+            'Modes' => array(
+                array(/* separado */ 0, 1, 2,-1,-1),
+                array(/* 2 grupos */ 0, 3, 3,-1,-1),
+                array(/* conjunto */ 4, 4, 4,-1,-1),
+                array(/* 3 grupos */-1,-1,-1,-1,-1),
+            ),
             'ModeStrings' => array( // text to be shown on each category
-                array(/* separado */ "Standard", "Midi", "Mini", "Invalid"),
-                array(/* mixto */ "Standard", "Midi+Mini", "Midi+Mini", "Invalid"),
-                array(/* conjunto */ "Conjunta", "Conjunta", "Conjunta", "Invalid")
+                array(/* separado */ "Standard", "Midi", "Mini", "Invalid","Invalid"), // L, M, S, T, X
+                array(/* 2 grupos */ "Standard", "Midi+Mini", "Midi+Mini", "Invalid","Invalid"),
+                array(/* conjunto */ "Conjunta", "Conjunta", "Conjunta", "Invalid","Invalid"),
+                array(/* 3 grupos */ "Invalid", "Invalid", "Invalid", "Invalid","Invalid")
             ),
             'IndexedModes' => array (
-                "Standard", "Midi", "Mini", "Midi+Mini", "Conjunta L/M/S", "Tiny", "Standard+Midi", "Mini+Tiny", "Conjunta L/M/S/T",
-                "Extra Large","Large + XL","Midi+Mini+Tiny","Common X/L/M/S/T"
+                /* 0 */ "Standard",
+                /* 1 */ "Midi",
+                /* 2 */ "Mini",
+                /* 3 */ "Midi+Mini",
+                /* 4 */ "Conjunta L/M/S",
+                /* 5 */ "Tiny",
+                /* 6 */ "Standard+Midi",
+                /* 7 */  "Mini+Tiny",
+                /* 8 */ "Conjunta L/M/S/T",
+                /* 9 */ "Extra Large",
+                /*10 */ "Large + XL",
+                /*11 */ "Midi+Mini+Tiny",
+                /*12 */ "Common X/L/M/S/T"
             ),
+            // como indexedModes, pero con array asociativo
             'IndexedModeStrings' => array(
                 "-" => "",
                 "L"=>"Standard",

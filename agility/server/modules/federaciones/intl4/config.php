@@ -22,7 +22,7 @@ class INTL4 extends Federations {
             'International' => 1,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2,
-            'Recorridos' => array(_('Common course'),_('Standard + Medium / Small + Toy'),_("Separate courses")),
+            'Recorridos' => array(_('Common course'),_('Standard + Medium / Small + Toy'),_("Separate courses"),/*5heigths*/""),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Jr' => 'Jr.',
@@ -67,19 +67,38 @@ class INTL4 extends Federations {
                 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(
-                array('L' => _('Large'),         'M' => _('Medium'), 'S' => _('Small'),      'T' => _('Tiny')), // separate courses
-                array('L' => _('Large+Medium'),  'M' => '',          'S' => _('Small+Tiny'), 'T' => ''), // mixed courses
-                array('L' => _('Common course'), 'M' => '',          'S' => '',              'T' => '') // common
+                array('L' => _('Large'),         'M' => _('Medium'), 'S' => _('Small'),      'T' => _('Tiny'), 'X' =>''), // separate courses
+                array('L' => _('Large+Medium'),  'M' => '',          'S' => _('Small+Tiny'), 'T' => '', 'X' =>''), // 2group courses
+                array('L' => _('Common course'), 'M' => '',          'S' => '',              'T' => '', 'X' =>''), // common
+                array('L' => '',                 'M' => '',          'S' => '',              'T' => '', 'X' =>'')  // 3group courses
             ),
-            'Modes' => array(array(/* separado */ 0, 1, 2, 5 ), array(/* mixto */ 6, 6, 7, 7 ), array(/* conjunto */ 8, 8, 8, 8 )),
+            'Modes' => array(
+                // categoria:         L   M   S   T   X
+                array(/* separado */  0,  1,  2,  5, -1 ),
+                array(/* 2 grupos */  6,  6,  7,  7, -1 ),
+                array(/* conjunto */  8,  8,  8,  8, -1 ),
+                array(/* 3 groups */ -1, -1, -1, -1, -1 )
+            ),
             'ModeStrings' => array( // text to be shown on each category
-                array(/* separado */ "Large", "Medium", "Small", "Tiny"),
-                array(/* mixto */ "Large+Medium", "Large+Medium", "Small+Tiny", "Small+Tiny"),
-                array(/* conjunto */ _("Common course"), _("Common course"), _("Common course"), _("Common course"))
+                array(/* separado */ "Large",       "Medium",       "Small",        "Tiny",         "Invalid"),
+                array(/* 2 grupos */ "Large+Medium","Large+Medium", "Small+Tiny",   "Small+Tiny",   "Invalid"),
+                array(/* conjunto */ _("Common course"), _("Common course"), _("Common course"), _("Common course"),"Invalid"),
+                array(/* 3 grupos */ "Invalid",     "Invalid",      "Invalid",      "Invalid",      "Invalid"),
             ),
             'IndexedModes' => array (
-                "Large", "Medium", "Small", "Medium+Small", "Common L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T",
-                "Extra Large","Large + XL","Medium+Small+Tiny","Common X/L/M/S/T"
+                "Large",
+                "Medium",
+                "Small",
+                "Medium+Small",
+                "Common L/M/S",
+                "Tiny",
+                "Large+Medium",
+                "Small+Tiny",
+                "Common L/M/S/T",
+                "Extra Large",
+                "Large + XL",
+                "Medium+Small+Tiny",
+                "Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
@@ -100,6 +119,5 @@ class INTL4 extends Federations {
             )
         ));
     }
-
 }
 ?>
