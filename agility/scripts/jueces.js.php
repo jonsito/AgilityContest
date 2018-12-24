@@ -25,9 +25,10 @@ $config =Config::getInstance();
 
 function juecesRSCE(val,row,idx) { return ( (parseInt(row.Federations)&1)==0)?" ":"&#x2714;"; }
 function juecesRFEC(val,row,idx) { return ( (parseInt(row.Federations)&2)==0)?" ":"&#x2714;"; }
+function juecesNat3(val,row,idx)  { return ( (parseInt(row.Federations)&8)==0)?" ":"&#x2714;"; }
+function juecesNat4(val,row,idx)  { return ( (parseInt(row.Federations)&4)==0)?" ":"&#x2714;"; }
 function juecesCPC(val,row,idx) { return ( (parseInt(row.Federations)&16)==0)?" ":"&#x2714;"; }
-function juecesNat4(val,row,idx)  { return ( (parseInt(row.Federations)&8)==0)?" ":"&#x2714;"; }
-function juecesNat3(val,row,idx)  { return ( (parseInt(row.Federations)&4)==0)?" ":"&#x2714;"; }
+function juecesNat5(val,row,idx)  { return ( (parseInt(row.Federations)&32)==0)?" ":"&#x2714;"; }
 function juecesInternacional(val,row,idx)  { return ( parseInt(row.Internacional)==0)?" ":"&#x2714;"; }
 function juecesPracticas(val,row,idx)  { return ( parseInt(row.Practicas)==0)?" ":"&#x2714;"; }
 function juecesBaja(val,row,idx) { return ( parseInt(val)==0)?" ":"&#x26D4;"; }
@@ -69,6 +70,7 @@ function editJuez(dg){
     $('#jueces-Nat4').prop('checked',( (row.Federations & 4) != 0));
     $('#jueces-Nat3').prop('checked',( (row.Federations & 8) != 0));
     $('#jueces-CPC').prop('checked',( (row.Federations & 16) != 0));
+    $('#jueces-Nat5').prop('checked',( (row.Federations & 32) != 0));
 }
 
 /**
@@ -87,6 +89,7 @@ function saveJuez(){
     if ( $('#jueces-Nat4').is(':checked') ) fed |=4;
     if ( $('#jueces-Nat3').is(':checked') ) fed |=8;
     if ( $('#jueces-CPC').is(':checked') ) fed |=16;
+    if ( $('#jueces-Nat5').is(':checked') ) fed |=32;
     $('#jueces-Federations').val(fed);
 
     // disable ok button during ajax transaction to avoid register twice

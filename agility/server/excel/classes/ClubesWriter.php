@@ -84,6 +84,7 @@ class ClubesWriter extends XLSX_Writer {
             $club['RSCE']= (( $club['Federations']& 0x0001) == 0 )? "":"X";
             $club['RFEC']= (( $club['Federations']& 0x0002) == 0 )? "":"X";
             $club['CPC']=  (( $club['Federations']& 0x0010) == 0 )? "":"X";
+            $club['Nat5']= (( $club['Federations']& 0x0020) == 0 )? "":"X";
             $club['Intl4']=(( $club['Federations']& 0x0100) == 0 )? "":"X";
             $club['Intl3']=(( $club['Federations']& 0x0200) == 0 )? "":"X";
             $club['Out']=( $club['Baja'] == 0 )? "":"X";

@@ -303,7 +303,8 @@ function parseGender($gender) {
  * @return {string} L,M,S,T,- detected category
  */
 function parseCategory($cat) {
-	static $l = array('l','large','standard','estandar','std','600','60','6');
+    static $x = array('x','extra','xlarge','xl');
+    static $l = array('l','large','standard','estandar','std','600','60','6');
 	static $m = array('m','medium','midi','mid','med','500','50','5');
 	static $s = array('s','small','mini','min','400','40','4');
 	static $t = array('t','enano','tiny','toy','300','30','3','20','2'); // include junior as toy
@@ -311,7 +312,8 @@ function parseCategory($cat) {
 	$cat=strtolower(trim(utf8_decode($cat)));
 	if ($cat==="") return '-';
 	$cat = preg_replace('/\D+(\d+)/i','${1}',$cat); // try to resolve RFEC patterns
-	if (in_array($cat,$l)) return 'L';
+    if (in_array($cat,$x)) return 'X';
+    if (in_array($cat,$l)) return 'L';
 	if (in_array($cat,$m)) return 'M';
 	if (in_array($cat,$s)) return 'S';
 	if (in_array($cat,$t)) return 'T';

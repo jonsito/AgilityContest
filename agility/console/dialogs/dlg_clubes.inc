@@ -96,6 +96,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <input id="clubes-RFEC" type="checkbox" value="2" name="RFEC"/>
             <label for="clubes-CPC" style="text-align:right;width:40px;"><?php _e('CPC'); ?></label>
             <input id="clubes-CPC" type="checkbox" value="16" name="CPC"/>
+        </div>
+        <div class="fitem">
+            <label for="clubes-Nat5" style="text-align:right;width:160px;"><?php _e('Nat5'); ?></label>
+            <input id="clubes-Nat5" type="checkbox" value="32" name="Nat5"/>
             <label for="clubes-Nat4" style="text-align:right;width:40px;"><?php _e('Nat4'); ?></label>
             <input id="clubes-Nat4" type="checkbox" value="4" name="Nat4"/>
             <label for="clubes-Nat3" style="text-align:right;width:40px;"><?php _e('Nat3'); ?></label>

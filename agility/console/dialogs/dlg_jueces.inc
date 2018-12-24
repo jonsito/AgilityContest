@@ -64,8 +64,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	    RSCE <input id="jueces-RSCE" type="checkbox" value="1" name="RSCE"/>
         	    RFEC <input id="jueces-RFEC" type="checkbox" value="2" name="RFEC"/>
                 CPC<input id="jueces-CPC" type="checkbox" value="16" name="CPC"/>
-                Nat3<input id="jueces-Nat4" type="checkbox" value="8" name="Nat3"/>
+                Nat3<input id="jueces-Nat3" type="checkbox" value="8" name="Nat3"/>
                 Nat4<input id="jueces-Nat4" type="checkbox" value="4" name="Nat4"/>
+                Nat5<input id="jueces-Nat5" type="checkbox" value="32" name="Nat5"/>
         	    <input id="jueces-Federations" name="Federations" type="hidden"/>
         	</div>
             <div class="fitem">

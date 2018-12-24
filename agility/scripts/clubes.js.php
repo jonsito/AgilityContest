@@ -27,7 +27,8 @@ function clubes_Fed1(val,row,idx) { return clubes_FederationMark(row,1); } // RS
 function clubes_Fed2(val,row,idx) { return clubes_FederationMark(row,2); } // RFEC Federation module
 function clubes_Fed3(val,row,idx)  { return clubes_FederationMark(row,4); } // Nat4 Federation module
 function clubes_Fed4(val,row,idx)  { return clubes_FederationMark(row,8); } // Nat3 Federation module
-function clubes_Fed5(val,row,idx)  { return clubes_FederationMark(row,16); } // (not defined yet) Federation module
+function clubes_Fed5(val,row,idx)  { return clubes_FederationMark(row,16); } // Portuguese CPC
+function clubes_Fed6(val,row,idx)  { return clubes_FederationMark(row,32); } // Nat5 Federation module
 function clubesBaja(val,row,idx) { return ( parseInt(val)==0)?" ":"&#x26D4;"; }
 
 function country_styler(index,row) {
@@ -157,6 +158,8 @@ function editClub(dg){
     $('#clubes-RFEC').prop('checked',( (row.Federations & 2)!=0)?true:false);
     $('#clubes-Nat4').prop('checked',( (row.Federations & 4)!=0)?true:false);
     $('#clubes-Nat3').prop('checked',( (row.Federations & 8)!=0)?true:false);
+    $('#clubes-CPC').prop('checked',( (row.Federations & 16)!=0)?true:false);
+    $('#clubes-Nat5').prop('checked',( (row.Federations & 32)!=0)?true:false);
 }
 
 /**
@@ -178,6 +181,7 @@ function saveClub(){
     if ( $('#clubes-Nat4').is(':checked') ) fed |=4;
     if ( $('#clubes-Nat3').is(':checked') ) fed |=8;
     if ( $('#clubes-CPC').is(':checked') ) fed |=16;
+    if ( $('#clubes-Nat5').is(':checked') ) fed |=32;
     // do not allow empty federation list
     if (fed==0) {
         $.messager.alert("<?php _e('Save Error');?>:",'<?php _e("There is no Federation selected"); ?>',"error");
