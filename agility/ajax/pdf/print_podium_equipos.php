@@ -59,23 +59,40 @@ try {
 			if ($heights!=3) {
                 $result[5]=$c->clasificacionFinalEquipos($rondas,$mangas,5);
 			}
+            if ($heights==5) {
+                $result[9]=$c->clasificacionFinalEquipos($rondas,$mangas,9);
+            }
 			break;
-		case 1: // large / medium+small
+		case 1: // dos grupos (l+ms) (lm+st) (xl+mst)
 			if ($heights==3) {
 				$result[0]=$c->clasificacionFinalEquipos($rondas,$mangas,0);
 				$result[3]=$c->clasificacionFinalEquipos($rondas,$mangas,3);
-			} else {
+			}
+			if ($heights==4) {
                 $result[6]=$c->clasificacionFinalEquipos($rondas,$mangas,6);
                 $result[7]=$c->clasificacionFinalEquipos($rondas,$mangas,7);
 			}
+			if ($heights==5) {
+                $result[10]=$c->clasificacionFinalEquipos($rondas,$mangas,10);
+                $result[11]=$c->clasificacionFinalEquipos($rondas,$mangas,11);
+            }
 			break;
 		case 2: // recorrido conjunto large+medium+small
 			if ($heights==3) {
                 $result[4]=$c->clasificacionFinalEquipos($rondas,$mangas,4);
-			} else {
+			}
+			if ($heights==4) {
                 $result[8]=$c->clasificacionFinalEquipos($rondas,$mangas,8);
 			}
+			if ($heights==5) {
+                $result[12]=$c->clasificacionFinalEquipos($rondas,$mangas,12);
+            }
 			break;
+        case 3: // tres grupos (xl+m+st). Implica $heights==5
+            $result[10]=$c->clasificacionFinalEquipos($rondas,$mangas,10);
+            $result[1]=$c->clasificacionFinalEquipos($rondas,$mangas,1);
+            $result[7]=$c->clasificacionFinalEquipos($rondas,$mangas,7);
+            break;
 	}
 	
 	// Creamos generador de documento

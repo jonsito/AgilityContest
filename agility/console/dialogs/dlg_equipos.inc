@@ -72,9 +72,10 @@ $('#team_edit_dialog').dialog({
 	resizable:false,
 	buttons:'#team_dialog-buttons',
 	onBeforeOpen:function(){
-		// hide tiny button on 3-heights federations
+		// hide tiny and xlarge button on affected federations
 		var heights=howManyHeights(workingData.datosPrueba.RSCE);
-		$('#team_edit_dialog-tiny').css('display',(heights==3)?'none':'inline');
+        $('#team_edit_dialog-tiny').css('display',(heights!=3)?'inline':'none');
+        $('#team_edit_dialog-xlarge').css('display',(heights==5)?'inline':'none');
 	}
 });
 

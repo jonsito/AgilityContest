@@ -71,39 +71,63 @@ try {
 	$heights=intval(Federations::getFederation( intval($excel->prueba->RSCE) )->get('Heights'));
 	switch($excel->manga1->Recorrido) {
 		case 0: // recorridos separados large medium small tiny
-			$r=$c->clasificacionFinal($rondas,$mangas,0);
-			$base = $excel->composeTable($mangas,$r,0,$base+1);
-			$r=$c->clasificacionFinal($rondas,$mangas,1);
-			$base = $excel->composeTable($mangas,$r,1,$base+1);
-			$r=$c->clasificacionFinal($rondas,$mangas,2);
-			$base = $excel->composeTable($mangas,$r,2,$base+1);
-			if ($heights!=3) {
-				$r=$c->clasificacionFinal($rondas,$mangas,5);
-				$base = $excel->composeTable($mangas,$r,5,$base+1);
-			}
+			$l=$c->clasificacionFinal($rondas,$mangas,0);
+			$base = $excel->composeTable($mangas,$l,0,$base+1);
+			$m=$c->clasificacionFinal($rondas,$mangas,1);
+			$base = $excel->composeTable($mangas,$m,1,$base+1);
+			$s=$c->clasificacionFinal($rondas,$mangas,2);
+			$base = $excel->composeTable($mangas,$s,2,$base+1);
+            if ($heights!=3) {
+                $t=$c->clasificacionFinal($rondas,$mangas,5);
+                $base = $excel->composeTable($mangas,$t,5,$base+1);
+            }
+            if ($heights==5) {
+                $x=$c->clasificacionFinal($rondas,$mangas,9);
+                $base = $excel->composeTable($mangas,$x,9,$base+1);
+            }
 			break;
-		case 1: // large / medium+small (3heignts) ---- L+M / S+T (4heights)
+		case 1: // dos grupos (l+ms) (lm+st) (xl+mst)
 			if ($heights==3) {
-				$r=$c->clasificacionFinal($rondas,$mangas,0);
-				$base = $excel->composeTable($mangas,$r,0,$base+1);
-				$r=$c->clasificacionFinal($rondas,$mangas,3);
-				$base = $excel->composeTable($mangas,$r,3,$base+1);
-			} else {
-				$r=$c->clasificacionFinal($rondas,$mangas,6);
-				$base = $excel->composeTable($mangas,$r,6,$base+1);
-				$r=$c->clasificacionFinal($rondas,$mangas,7);
-				$base = $excel->composeTable($mangas,$r,7,$base+1);
+				$l=$c->clasificacionFinal($rondas,$mangas,0);
+				$base = $excel->composeTable($mangas,$l,0,$base+1);
+				$ms=$c->clasificacionFinal($rondas,$mangas,3);
+				$base = $excel->composeTable($mangas,$ms,3,$base+1);
 			}
+			if ($heights==4) {
+				$lm=$c->clasificacionFinal($rondas,$mangas,6);
+				$base = $excel->composeTable($mangas,$lm,6,$base+1);
+				$st=$c->clasificacionFinal($rondas,$mangas,7);
+				$base = $excel->composeTable($mangas,$st,7,$base+1);
+			}
+			if ($heights==5) {
+                $xl=$c->clasificacionFinal($rondas,$mangas,10);
+                $base = $excel->composeTable($mangas,$xl,10,$base+1);
+                $mst=$c->clasificacionFinal($rondas,$mangas,11);
+                $base = $excel->composeTable($mangas,$mst,11,$base+1);
+            }
 			break;
 		case 2: // recorrido conjunto large+medium+small+tiny
 			if ($heights==3) {
-				$r=$c->clasificacionFinal($rondas,$mangas,4);
-				$base = $excel->composeTable($mangas,$r,4,$base+1);
-			} else {
-				$r=$c->clasificacionFinal($rondas,$mangas,8);
-				$base = $excel->composeTable($mangas,$r,8,$base+1);
+				$lms=$c->clasificacionFinal($rondas,$mangas,4);
+				$base = $excel->composeTable($mangas,$lms,4,$base+1);
 			}
+			if ($heights==4) {
+				$lmst=$c->clasificacionFinal($rondas,$mangas,8);
+				$base = $excel->composeTable($mangas,$lmst,8,$base+1);
+			}
+			if ($heights==5) {
+                $xlmst=$c->clasificacionFinal($rondas,$mangas,12);
+                $base = $excel->composeTable($mangas,$xlmst,12,$base+1);
+            }
 			break;
+        case 3: // tres grupos. Implica $heights==5
+            $xl=$c->clasificacionFinal($rondas,$mangas,10);
+            $base = $excel->composeTable($mangas,$xl,10,$base+1);
+            $m=$c->clasificacionFinal($rondas,$mangas,1);
+            $base = $excel->composeTable($mangas,$m,1,$base+1);
+            $st=$c->clasificacionFinal($rondas,$mangas,7);
+            $base = $excel->composeTable($mangas,$st,7,$base+1);
+            break;
 	}
 	$excel->xlsEOF();
 } catch (Exception $e) {

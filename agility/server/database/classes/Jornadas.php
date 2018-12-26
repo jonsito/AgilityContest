@@ -816,33 +816,58 @@ class Jornadas extends DBObject {
 					array_push($rows,$m);
 					$s	=array_merge( array('ID'=>$mid.',2','Mode'=>2,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(2,0,$fed)),$item);
 					array_push($rows,$s);
-					if($heights==4) {
-						$t=array_merge( array('ID'=>$mid.',5','Mode'=>5,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(5,0,$fed)),$item);
-						array_push($rows,$t);
-					}
+                    if($heights==4) {
+                        $t=array_merge( array('ID'=>$mid.',5','Mode'=>5,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(5,0,$fed)),$item);
+                        array_push($rows,$t);
+                    }
+                    if($heights==5) {
+                        $x=array_merge( array('ID'=>$mid.',9','Mode'=>9,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(9,0,$fed)),$item);
+                        array_push($rows,$x);
+                        $t=array_merge( array('ID'=>$mid.',5','Mode'=>5,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(5,0,$fed)),$item);
+                        array_push($rows,$t);
+                    }
 					break;
-				case 1: // recorridos mixto
+				case 1: // 2 grupos (l+ms) (lm+st) (xl+mst)
 					if ($heights==3){
 						$l	=array_merge( array('ID'=>$mid.',0','Mode'=>0,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(0,0,$fed)),$item);
 						array_push($rows,$l);
 						$ms	=array_merge( array('ID'=>$mid.',3','Mode'=>3,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(3,0,$fed)),$item);
 						array_push($rows,$ms);
-					} else {
+					}
+					if ($heights==4) {
 						$lm	=array_merge( array('ID'=>$mid.',6','Mode'=>6,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(6,0,$fed)),$item);
 						array_push($rows,$lm);
 						$st	=array_merge( array('ID'=>$mid.',7','Mode'=>7,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(7,0,$fed)),$item);
 						array_push($rows,$st);
 					}
+					if ($heights==5) {
+                        $xl	=array_merge( array('ID'=>$mid.',10', 'Mode'=>10,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(10,0,$fed)),$item);
+                        array_push($rows,$xl);
+                        $mst	=array_merge( array('ID'=>$mid.',11','Mode'=>11,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(11,0,$fed)),$item);
+                        array_push($rows,$mst);
+                    }
 					break;
 				case 2: // recorridos conjuntos
 					if ($heights==3){
 						$lms =array_merge( array('ID'=>$mid.',4','Mode'=>4,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(4,0,$fed)),$item);
 						array_push($rows,$lms);
-					} else {
+					}
+					if ($heights==4){
 						$lmst=array_merge( array('ID'=>$mid.',8','Mode'=>8,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(8,0,$fed)),$item);
 						array_push($rows,$lmst);
 					}
+					if ($heights==5) {
+                        $xlmst=array_merge( array('ID'=>$mid.',12','Mode'=>12,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(12,0,$fed)),$item);
+                        array_push($rows,$xlmst);
+                    }
 					break;
+                case 3: // 3 grupos. implica $heights==5
+                    $xl	=array_merge( array('ID'=>$mid.',10', 'Mode'=>10,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(10,0,$fed)),$item);
+                    array_push($rows,$xl);
+                    $m	=array_merge( array('ID'=>$mid.',1','Mode'=>1,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(1,0,$fed)),$item);
+                    array_push($rows,$m);
+                    $st	=array_merge( array('ID'=>$mid.',7','Mode'=>7,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(7,0,$fed)),$item);
+                    array_push($rows,$st);
 			}
 		} /* foreach */
 		$result=array('total'=>count($rows),'rows'=>$rows);
@@ -899,29 +924,48 @@ class Jornadas extends DBObject {
 		$heights=intval(Federations::getFederation( intval($prueba['RSCE']) )->get('Heights'));
 		switch(intval($m1['Recorrido'])){ // should be the same than $m2['Recorrido']
 			case 0: // separado
+                // shared on all heights
 				array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],0,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // large
 				array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],1,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // medium
 				array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],2,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // small
-				if($heights==4) {
-					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],5,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // tiny
-				}
+                if($heights==4) {
+                    array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],5,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // tiny
+                }
+                if($heights==5) {
+                    array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],5,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // tiny
+                    array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],9,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // XtraLarge
+                }
 				break;
-			case 1: // mixto
-				if($heights==3) {
+			case 1: // dos grupos
+				if($heights==3) { // l+ms
 					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],0,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // large
 					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],3,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // m+s
-				} else {
+				}
+				if($heights==4) { // lm+st
 					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],6,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // l+m
 					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],7,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // s+t
 				}
+				if($heights==5) { // xl+mst
+                    array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],10,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // x+l
+                    array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],11,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // m+s+t
+                }
 				break;
 			case 2: // conjunto
 				if($heights==3) {
 					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],4,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // l+m+s
-				} else {
+				}
+				if ($heights==4) {
 					array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],8,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // l+m+s+t
 				}
+				if ($heights==5) {
+                    array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],12,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // x+l+m+s+t
+                }
 				break;
+            case 3: // 3 grupos ( implica $heights==5 )
+                array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],9,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // x+l
+                array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],1,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // m
+                array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],7,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // s+t
+                break;
 		}
 	}
 

@@ -53,39 +53,63 @@ try {
 	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
 	switch($mng->Recorrido) {
 		case 0: // recorridos separados large medium small
-			$r=$c->clasificacionFinal($rondas,$mangas,0);
-			$result[0]=$r['rows'];
-			$r=$c->clasificacionFinal($rondas,$mangas,1);
-			$result[1]=$r['rows'];
-			$r=$c->clasificacionFinal($rondas,$mangas,2);
-			$result[2]=$r['rows'];
-			if ($heights!=3) {
-				$r=$c->clasificacionFinal($rondas,$mangas,5);
-				$result[5]=$r['rows'];
-			}
+			$l=$c->clasificacionFinal($rondas,$mangas,0);
+			$result[0]=$l['rows'];
+			$m=$c->clasificacionFinal($rondas,$mangas,1);
+			$result[1]=$m['rows'];
+			$s=$c->clasificacionFinal($rondas,$mangas,2);
+			$result[2]=$s['rows'];
+            if ($heights!=3) {
+                $t=$c->clasificacionFinal($rondas,$mangas,5);
+                $result[5]=$t['rows'];
+            }
+            if ($heights==5) {
+                $x = $c->clasificacionFinal($rondas, $mangas, 9);
+                $result[9] = $x['rows'];
+            }
 			break;
-		case 1: // large / medium+small
+        case 1: // dos grupos: (l+ms) (lm+st) (xl+mst)
 			if ($heights==3) {
-				$r=$c->clasificacionFinal($rondas,$mangas,0);
-				$result[0]=$r['rows'];
-				$r=$c->clasificacionFinal($rondas,$mangas,3);
-				$result[3]=$r['rows'];
-			} else {
-				$r=$c->clasificacionFinal($rondas,$mangas,6);
-				$result[6]=$r['rows'];
-				$r=$c->clasificacionFinal($rondas,$mangas,7);
-				$result[7]=$r['rows'];
+				$l=$c->clasificacionFinal($rondas,$mangas,0);
+				$result[0]=$l['rows'];
+				$ms=$c->clasificacionFinal($rondas,$mangas,3);
+				$result[3]=$ms['rows'];
 			}
+			if ($heights==4) {
+				$lm=$c->clasificacionFinal($rondas,$mangas,6);
+				$result[6]=$lm['rows'];
+				$st=$c->clasificacionFinal($rondas,$mangas,7);
+				$result[7]=$st['rows'];
+			}
+			if ($heights==5) {
+                $xl=$c->clasificacionFinal($rondas,$mangas,10);
+                $result[10]=$xl['rows'];
+                $mst=$c->clasificacionFinal($rondas,$mangas,11);
+                $result[11]=$mst['rows'];
+            }
 			break;
 		case 2: // recorrido conjunto large+medium+small
 			if ($heights==3) {
-				$r=$c->clasificacionFinal($rondas,$mangas,4);
-				$result[4]=$r['rows'];
-			} else {
-				$r=$c->clasificacionFinal($rondas,$mangas,8);
-				$result[8]=$r['rows'];
+				$lms=$c->clasificacionFinal($rondas,$mangas,4);
+				$result[4]=$lms['rows'];
 			}
+			if ($heights==4){
+				$lmst=$c->clasificacionFinal($rondas,$mangas,8);
+				$result[8]=$lmst['rows'];
+			}
+			if ($heights==5) {
+                $xlmst=$c->clasificacionFinal($rondas,$mangas,12);
+                $result[12]=$xlmst['rows'];
+            }
 			break;
+        case 3: // tres grupos. implica $heights==5
+            $xl=$c->clasificacionFinal($rondas,$mangas,10);
+            $result[0]=$xl['rows'];
+            $m=$c->clasificacionFinal($rondas,$mangas,1);
+            $result[1]=$m['rows'];
+            $st=$c->clasificacionFinal($rondas,$mangas,7);
+            $result[2]=$st['rows'];
+            break;
 	}
 	
 	// Creamos generador de documento
