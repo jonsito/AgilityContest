@@ -62,23 +62,13 @@ $config =Config::getInstance();
 	// - tabla
 	$(function(){
 		var hp=isInternational(workingData.federation); // on international contests hide province
-		var fnames=[
-		    {'Title':'','Hidden':true},
-            {'Title':'','Hidden':true},
-            {'Title':'','Hidden':true},
-            {'Title':'','Hidden':true},
-            {'Title':'','Hidden':true},
-            {'Title':'','Hidden':true}
-            ];
-		for (var n=0; n<fnames.length;n++) {
-			if (typeof(ac_fedInfo[n])==='undefined') { // undefined federation; hide associated datagrid columnm
-				fnames[n].Title="";
-				fnames[n].Hidden=true;
-				fnames[n].Width=0;
-			} else {
+		var fnames=[];
+		for (var n=0; n<10;n++) {
+		    fnames[n]={'Title':'','Hidden':true,'Width':0};
+			if (typeof(ac_fedInfo[n])!=='undefined') { // on declared feds, fill with propper data
 				fnames[n].Title=ac_fedInfo[n].Name;  //change column name to proper federation name
 				fnames[n].Hidden=false;
-				fnames[n].Width=5;
+				fnames[n].Width=4;
 			}
 		}
 		$('#clubes-datagrid').datagrid({
@@ -118,12 +108,12 @@ $config =Config::getInstance();
 				{ field:'Web',			hidden:true},
                 { field:'Email',	    width:12, sortable:true,    title: '<?php _e('Email'); ?>' },
 				{ field:'Federations',	width:0, hidden:true},
-				{ field:'F1',			width:fnames[0].Width, align:'center', title:fnames[0].Title, hidden:fnames[0].Hidden, formatter:clubes_Fed1 },
-				{ field:'F2',			width:fnames[1].Width, align:'center', title:fnames[1].Title, hidden:fnames[1].Hidden, formatter:clubes_Fed2 },
-				{ field:'F3',			width:fnames[2].Width, align:'center', title:fnames[2].Title, hidden:fnames[2].Hidden, formatter:clubes_Fed3 },
-				{ field:'F4',			width:fnames[3].Width, align:'center', title:fnames[3].Title, hidden:fnames[3].Hidden, formatter:clubes_Fed4 },
-                { field:'F5',			width:fnames[4].Width, align:'center', title:fnames[4].Title, hidden:fnames[4].Hidden, formatter:clubes_Fed5 },
-                { field:'F5',			width:fnames[5].Width, align:'center', title:fnames[5].Title, hidden:fnames[5].Hidden, formatter:clubes_Fed6 },
+				{ field:'F1',/*RSCE*/   width:fnames[0].Width, align:'center', title:fnames[0].Title, hidden:fnames[0].Hidden, formatter:clubes_Fed1 },
+				{ field:'F2',/*RFEC*/   width:fnames[1].Width, align:'center', title:fnames[1].Title, hidden:fnames[1].Hidden, formatter:clubes_Fed2 },
+                { field:'F5',/*CPC */	width:fnames[4].Width, align:'center', title:fnames[4].Title, hidden:fnames[4].Hidden, formatter:clubes_Fed5 },
+                { field:'F6',/*Nat5*/	width:fnames[5].Width, align:'center', title:fnames[5].Title, hidden:fnames[5].Hidden, formatter:clubes_Fed6 },
+				{ field:'F3',/*Nat4*/	width:fnames[2].Width, align:'center', title:fnames[2].Title, hidden:fnames[2].Hidden, formatter:clubes_Fed3 },
+				{ field:'F4',/*Nat3*/	width:fnames[3].Width, align:'center', title:fnames[3].Title, hidden:fnames[3].Hidden, formatter:clubes_Fed4 },
 				// { field:'Logo',		width:2, sortable:true,    title: 'Logo club' }, // to be removed in a rewrite
 				// { field:'LogoClub',		width:2, sortable:true,    title: 'Logo club' },
 				//{ field:'Observaciones',width:2, sortable:true,    title: 'Observaciones' },

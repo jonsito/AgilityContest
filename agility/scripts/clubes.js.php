@@ -158,7 +158,7 @@ function editClub(dg){
     $('#clubes-RFEC').prop('checked',( (row.Federations & 2)!=0)?true:false);
     $('#clubes-Nat4').prop('checked',( (row.Federations & 4)!=0)?true:false);
     $('#clubes-Nat3').prop('checked',( (row.Federations & 8)!=0)?true:false);
-    $('#clubes-CPC').prop('checked',( (row.Federations & 16)!=0)?true:false);
+    $('#clubes-CPC').prop('checked', ( (row.Federations & 16)!=0)?true:false);
     $('#clubes-Nat5').prop('checked',( (row.Federations & 32)!=0)?true:false);
 }
 
@@ -180,7 +180,7 @@ function saveClub(){
     if ( $('#clubes-RFEC').is(':checked') ) fed |=2;
     if ( $('#clubes-Nat4').is(':checked') ) fed |=4;
     if ( $('#clubes-Nat3').is(':checked') ) fed |=8;
-    if ( $('#clubes-CPC').is(':checked') ) fed |=16;
+    if ( $('#clubes-CPC').is(':checked') )  fed |=16;
     if ( $('#clubes-Nat5').is(':checked') ) fed |=32;
     // do not allow empty federation list
     if (fed==0) {
