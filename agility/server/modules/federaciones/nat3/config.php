@@ -68,15 +68,17 @@ class NAT3 extends Federations {
                 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(
-                array('L' => _('Large'),         'M' => _('Medium'),         'S' => _('Small'), 'T' => ''), // separate courses
-                array('L' => _('Large'),         'M' => _('Medium+Small'),   'S' => '',         'T' => ''), // mixed courses
-                array('L' => _('Common course'), 'M' => '',                  'S' => '',         'T' => '') // common
+                array('L' => _('Large'),         'M' => _('Medium'),         'S' => _('Small'), 'T' => '', 'X' => ''), // separate courses
+                array('L' => _('Large'),         'M' => _('Medium+Small'),   'S' => '',         'T' => '', 'X' => ''), // 2 group courses
+                array('L' => _('Common course'), 'M' => '',                  'S' => '',         'T' => '', 'X' => ''), // common
+                array('L' => '',                 'M' => '',                  'S' => '',         'T' => '', 'X' => '') // 3 group courses
             ),
             'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3, -1), array(/* conjunto */ 4, 4, 4, -1 )),
             'ModeStrings' => array( // text to be shown on each category
-                array(/* separado */ "Large", "Medium", "Small", "Invalid"),
-                array(/* mixto */ "Large", "Medium+Small", "Medium+Small", "Invalid"),
-                array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid")
+                array(/* separado */ "Large", "Medium", "Small", "Invalid","Invalid"),
+                array(/* 2 grupos */ "Large", "Medium+Small", "Medium+Small", "Invalid","Invalid"),
+                array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid","Invalid"),
+                array(/* 3 grupos */ "Invalid", "Medium", "Small+Toy", "Invalid","XL+Large")
             ),
             'IndexedModes' => array ( // modes 5 to 11 are invalid in this federation
                 "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T",

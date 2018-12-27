@@ -75,10 +75,10 @@ class RFEC extends Federations {
                 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(
-                array('L' => _('Clase 60'),   'M' => _('Clase 50'),'S' => _('Clase 40'), 'T' => _('Clase 30'),'X' => "Invalid"), // separate courses
-                array('L' => _('Cl. 60+50'),  'M' => '',           'S' => _('Cl. 40+30'),'T' => '',         'X' => "Invalid"), // 2 groups
-                array('L' => _('60+50+40+30'),'M' => '',           'S' => '',            'T' => '',         'X' => "Invalid"), // common
-                array('L' => "Invalid",       'M' => "Invalid",    'S' => "Invalid",     'T' => "Invalid",  'X' => "Invalid") // 3 groups
+                array('L' => _('Clase 60'),   'M' => _('Clase 50'),'S' => _('Clase 40'), 'T' => _('Clase 30'),'X' => ""), // separate courses
+                array('L' => _('Cl. 60+50'),  'M' => '',           'S' => _('Cl. 40+30'),'T' => '',         'X' => ""), // 2 groups
+                array('L' => _('60+50+40+30'),'M' => '',           'S' => '',            'T' => '',         'X' => ""), // common
+                array('L' => "",              'M' => "",           'S' => "",            'T' => "",         'X' => "") // 3 groups
             ),
             'Modes' => array(
                 // categorias        L  M  S  T  X

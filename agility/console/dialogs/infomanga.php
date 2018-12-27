@@ -41,14 +41,14 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 		<tr> <!-- fila 0: datos de los jueces -->
 			<td colspan="4">
 				<label for="dmanga_Juez1"><span style="text-align:right"><?php _e('Judge'); ?> 1:</span></label>
-				<select id="dmanga_Juez1" name="Juez1" style="width:200px"></select>
+				<select id="dmanga_Juez1" name="Juez1" style="width:175px"></select>
 			</td>
 			<td colspan="4">
 				<label for="dmanga_Juez2"><span style="text-align:right"><?php _e('Judge'); ?> 2:</span></label>
-				<select id="dmanga_Juez2" name="Juez2" style="width:200px"></select>
+				<select id="dmanga_Juez2" name="Juez2" style="width:175px"></select>
 			</td>
 			<td>&nbsp;</td>
-			<td colspan="1">
+			<td colspan="2">
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-whistle'" 
 					id="dmanga_SameJuez" onclick="dmanga_shareJuez();"><?php _e('Replicate'); ?></a>
 			</td>
@@ -56,20 +56,27 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 		<tr>
 			<td colspan="10">&nbsp;</td>
 		</tr>
+
 		<tr> <!-- fila 1 tipos de recorrido -->
-			<td><?php _e('Courses'); ?>: </td>
-			<td colspan="3"> <!-- comun -->
+			<td colspan="1"><?php _e('Courses'); ?>: </td>
+			<td colspan="2"> <!-- comun -->
 				<input type="radio" id="dmanga_Recorrido_0" name="Recorrido" value="2" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_0"><?php echo $fed->getRecorrido(0); ?></label>
 			</td>
-			<td colspan="3"> <!-- mixto -->
+            <?php if (intval($fed->get('Heights'))==5) { ?>
+                <td colspan="2"> <!-- mixto 3 grupos (5 alturas) -->
+                    <input type="radio" id="dmanga_Recorrido_3" name="Recorrido" value="3" onClick="dmanga_setRecorridos();"/>
+                    <label for="dmanga_Recorrido_3"><?php echo $fed->getRecorrido(3);  ?></label>
+                </td>
+            <?php } ?>
+			<td colspan="2"> <!-- mixto 2 grupos -->
 				<input type="radio" id="dmanga_Recorrido_1" name="Recorrido" value="1" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_1"><?php echo $fed->getRecorrido(1); ?></label>
 			</td>
-			<td colspan="3"> <!-- recorridos separados -->
-				<input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="0" onClick="dmanga_setRecorridos();"/>
-				<label for="dmanga_Recorrido_2"><?php echo $fed->getRecorrido(2);  ?></label>
-			</td>
+            <td colspan="2"> <!-- recorridos separados -->
+                <input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="0" onClick="dmanga_setRecorridos();"/>
+                <label for="dmanga_Recorrido_2"><?php echo $fed->getRecorrido(2);  ?></label>
+            </td>
 		</tr>
 		<tr>
 			<td colspan="10">&nbsp;</td>
@@ -81,7 +88,68 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td colspan="4"><?php _e('Standard Course Time'); ?></td>
 			<td colspan="3"><?php _e('Maximum Course Time'); ?></td>
 		</tr>
-		<tr id="dmanga_LargeRow"> <!-- fila 3: recorrido comun datos standard -->
+
+        <!-- fila 3: recorrido comun datos eXtra Large -->
+        <tr id="dmanga_XLargeRow">
+            <td id="dmanga_XLargeLbl">X-Large</td>
+            <td>
+                <label for="dmanga_DistX"></label>
+                <input type="text" id="dmanga_DistX" name="Dist_X" size="4" value="0"/>
+            </td>
+            <td>
+                <label for="dmanga_ObstX"></label>
+                <input type="text" id="dmanga_ObstX" name="Obst_X" size="4" value="0"/>
+            </td>
+            <!-- datos para TRS X-Large -->
+            <td>
+                <label for="dmanga_TRS_X_Tipo"></label>
+                <select id="dmanga_TRS_X_Tipo" name="TRS_X_Tipo">
+                    <option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
+                    <option value="1"><?php _e('Best result');?> + </option>
+                    <option value="2"><?php _e('3 best average');?> + </option>
+                    <option value="6"><?php _e('Velocity');?> </option>
+                </select>
+            </td>
+            <td>
+                <label for="dmanga_TRS_X_Factor"></label>
+                <input type="text" id="dmanga_TRS_X_Factor" name="TRS_X_Factor" size="4" value="0"/>
+            </td>
+            <td>
+                <label for="dmanga_TRS_X_Unit"></label>
+                <select id="dmanga_TRS_X_Unit" name="TRS_X_Unit">
+                    <option value="s" selected="selected"><?php _e('Secs');?>.</option>
+                    <option value="%">%</option>
+                    <option value="m">m/s</option>
+                </select>
+            </td>
+            <td>
+                <input type="text" id="dmanga_TRS_X_TimeSpeed" name="TRS_X_TimeSpeed" readonly="readonly" disabled="disabled" size="5" value=""/>
+            </td>
+            <!-- datos para TRM X-Large -->
+            <td>
+                <label for="dmanga_TRM_X_Tipo"></label>
+                <select id="dmanga_TRM_X_Tipo" name="TRM_X_Tipo">
+                    <option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
+                    <option value="1"><?php _e('SCT');?> + </option>
+                    <option value="6"><?php _e('Velocity');?> </option>
+                </select>
+            </td>
+            <td>
+                <label for="dmanga_TRM_X_Factor"></label>
+                <input type="text" id="dmanga_TRM_X_Factor" name="TRM_X_Factor" size="4" value="0"/>
+            </td>
+            <td>
+                <label for="dmanga_TRM_X_Unit"></label>
+                <select id="dmanga_TRM_X_Unit" name="TRM_L_Unit" >
+                    <option value="s" selected="selected"><?php _e('Secs');?>.</option>
+                    <option value="%">%</option>
+                    <option value="m">m/s</option>
+                </select>
+            </td>
+        </tr>
+
+        <!-- fila 4: recorrido comun datos standard -->
+		<tr id="dmanga_LargeRow">
 			<td id="dmanga_LargeLbl">Large</td>
 			<td>
                 <label for="dmanga_DistL"></label>
@@ -98,6 +166,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
 				<option value="1"><?php _e('Best result');?> + </option>
 				<option value="2"><?php _e('3 best average');?> + </option>
+                <?php if (intval($fed->get('Heights'))==5) { ?>
+                    <option value="7"><?php _e('SCT XLarge');?> + </option>
+                <?php } ?>
 				<option value="6"><?php _e('Velocity');?> </option>
 				</select>
 			</td>
@@ -138,7 +209,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
 		</tr>
-		<tr id="dmanga_MediumRow"> <!-- fila 4: recorrido std / mini+midi datos midi -->
+
+        <!-- fila 5: recorrido std / mini+midi datos midi -->
+		<tr id="dmanga_MediumRow">
 			<td id="dmanga_MediumLbl">Medium</td>
 			<td>
                 <label for="dmanga_DistM"></label>
@@ -155,6 +228,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
 				<option value="1"><?php _e('Best result');?> + </option>
 				<option value="2"><?php _e('3 best average');?> + </option>
+                <?php if (intval($fed->get('Heights'))==5) { ?>
+                    <option value="7"><?php _e('SCT XLarge');?> + </option>
+                <?php } ?>
 				<option value="3"><?php _e('SCT Standard');?> + </option>
 				<option value="6"><?php _e('Velocity');?> </option>
 				</select>
@@ -196,7 +272,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>		
 		</tr>
-		<tr id="dmanga_SmallRow"> <!-- fila 5: recorrido std / mini / midi + datos mini -->
+
+        <!-- fila 6: recorrido std / mini / midi + datos mini -->
+		<tr id="dmanga_SmallRow">
 			<td id="dmanga_SmallLbl">Small</td>
 			<td>
                 <label for="dmanga_DistS"></label>
@@ -213,6 +291,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
 				<option value="1"><?php _e('Best result');?> + </option>
 				<option value="2"><?php _e('3 best average');?> + </option>
+                <?php if (intval($fed->get('Heights'))==5) { ?>
+                    <option value="7"><?php _e('SCT XLarge');?> + </option>
+                <?php } ?>
 				<option value="3"><?php _e('SCT Standard');?> + </option>
 				<option value="4"><?php _e('SCT Medium');?> + </option>
 				<option value="6"><?php _e('Velocity');?> </option>
@@ -255,8 +336,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
 		</tr>
-	<?php if (intval($fed->get('Heights'))==4) { ?>
-		<tr id="dmanga_TinyRow"> <!-- fila 6: recorrido std / mini / midi / tiny datos tiny -->
+
+        <!-- fila 7: recorrido std / mini / midi / tiny datos tiny -->
+		<tr id="dmanga_TinyRow">
 			<td id="dmanga_TinyLbl">Tiny</td>
 			<td>
                 <label for="dmanga_DistT"></label>
@@ -273,6 +355,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="0" selected="selected"><?php _e('Fixed SCT'); ?></option>
 				<option value="1"><?php _e('Best result'); ?> + </option>
 				<option value="2"><?php _e('3 best average'); ?> + </option>
+                <?php if (intval($fed->get('Heights'))==5) { ?>
+                    <option value="7"><?php _e('SCT XLarge');?> + </option>
+                <?php } ?>
 				<option value="3"><?php _e('SCT Standard'); ?> + </option>
                 <option value="4"><?php _e('SCT Medium'); ?> + </option>
                 <option value="5"><?php _e('SCT Small'); ?> + </option>
@@ -316,8 +401,9 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				</select>
 			</td>
 		</tr>
-	<?php } ?>
-		<tr> <!-- fila 7: observaciones -->
+
+        <!-- fila 8: observaciones -->
+		<tr>
 			<td colspan="2"><label for="dmanga_Observaciones"><?php _e('Comments'); ?></label></td>
 			<td colspan="8"><input type="text" id="dmanga_Observaciones" name="Observaciones" size="75" value=""/></td>
 		</tr>
@@ -356,32 +442,47 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 <script type="text/javascript">
 
     //stupid easyui that does not parse from markup
+    $('#dmanga_DistX').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_DistL').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_DistM').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_DistS').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_DistT').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
+    $('#dmanga_ObstX').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_ObstL').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_ObstM').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_ObstS').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_ObstT').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
+    $('#dmanga_TRS_X_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_X_Unit')}});
     $('#dmanga_TRS_L_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_L_Unit')}});
     $('#dmanga_TRS_M_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_M_Unit')}});
     $('#dmanga_TRS_S_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_S_Unit')}});
     $('#dmanga_TRS_T_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_T_Unit')}});
-    $('#dmanga_TRS_L_Factor').textbox(); $('#dmanga_TRS_M_Factor').textbox();
-    $('#dmanga_TRS_S_Factor').textbox(); $('#dmanga_TRS_T_Factor').textbox();
+    $('#dmanga_TRS_X_Factor').textbox();
+    $('#dmanga_TRS_L_Factor').textbox();
+    $('#dmanga_TRS_M_Factor').textbox();
+    $('#dmanga_TRS_S_Factor').textbox();
+    $('#dmanga_TRS_T_Factor').textbox();
+    $('#dmanga_TRS_X_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_X_Tipo')}});
     $('#dmanga_TRS_L_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_L_Tipo')}});
     $('#dmanga_TRS_M_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_M_Tipo')}});
     $('#dmanga_TRS_S_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_S_Tipo')}});
     $('#dmanga_TRS_T_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_T_Tipo')}});
-    $('#dmanga_TRS_L_TimeSpeed').textbox(); $('#dmanga_TRS_M_TimeSpeed').textbox();
-    $('#dmanga_TRS_S_TimeSpeed').textbox(); $('#dmanga_TRS_T_TimeSpeed').textbox();
+    $('#dmanga_TRS_X_TimeSpeed').textbox();
+    $('#dmanga_TRS_L_TimeSpeed').textbox();
+    $('#dmanga_TRS_M_TimeSpeed').textbox();
+    $('#dmanga_TRS_S_TimeSpeed').textbox();
+    $('#dmanga_TRS_T_TimeSpeed').textbox();
+    $('#dmanga_TRM_X_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_X_Unit')}});
     $('#dmanga_TRM_L_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_L_Unit')}});
     $('#dmanga_TRM_M_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_M_Unit')}});
     $('#dmanga_TRM_S_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_S_Unit')}});
     $('#dmanga_TRM_T_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_T_Unit')}});
-    $('#dmanga_TRM_L_Factor').textbox(); $('#dmanga_TRM_M_Factor').textbox();
-    $('#dmanga_TRM_S_Factor').textbox(); $('#dmanga_TRM_T_Factor').textbox();
+    $('#dmanga_TRM_X_Factor').textbox();
+    $('#dmanga_TRM_L_Factor').textbox();
+    $('#dmanga_TRM_M_Factor').textbox();
+    $('#dmanga_TRM_S_Factor').textbox();
+    $('#dmanga_TRM_T_Factor').textbox();
+    $('#dmanga_TRM_X_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_L_Tipo')}});
     $('#dmanga_TRM_L_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_L_Tipo')}});
     $('#dmanga_TRM_M_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_M_Tipo')}});
     $('#dmanga_TRM_S_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_S_Tipo')}});

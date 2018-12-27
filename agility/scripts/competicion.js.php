@@ -223,9 +223,33 @@ function getMangaModeString(fed,recorrido,categoria) {
  * Evaluate if possible and repaint timespeed readonly input box for each category
  */
 function dmanga_evalTimeSpeed() {
+    // fase 0: evaluamos datos de categoria ExtraLarge ( if any )
+    var d=parseInt($("#dmanga_DistX").textbox('getValue'));
+    var f=parseFloat($("#dmanga_TRS_X_Factor").textbox('getValue'));
+    var time_x=-1;
+    var speed_x=-1;
+    var tspeed_x="-";
+    if ( ac_fedInfo[workingData.federation].Heights>4 ) {
+        switch ($("#dmanga_TRS_X_Tipo").textbox('getValue')) {
+            case "0": // tipo fijo X segundos
+                time_x= f; speed_x= (f==0)? 0: d/time_x; tspeed_x = toFixedT(speed_x,2)+" m/s";
+                break;
+            case "1": // mejor tiempo + xxx
+            case "2": // media 3 mejores + xxx
+                // use defaults
+                break;
+            case "6": // velocidad X metros por segundo
+                speed_x= f;
+                time_x= (f==0)?0: d/speed_x;
+                tspeed_x = toFixedT(time_x,1)+" seg";
+                break;
+        }
+        $("#dmanga_TRS_X_TimeSpeed").textbox('setValue',tspeed_x);
+
+    }
     // fase 1: evaluamos datos de categoria Large
-    var d=parseInt($("#dmanga_DistL").textbox('getValue'));
-    var f=parseFloat($("#dmanga_TRS_L_Factor").textbox('getValue'));
+    d=parseInt($("#dmanga_DistL").textbox('getValue'));
+    f=parseFloat($("#dmanga_TRS_L_Factor").textbox('getValue'));
     var time_l=-1;
     var speed_l=-1;
     var tspeed_l="-";
@@ -238,8 +262,18 @@ function dmanga_evalTimeSpeed() {
             // use defaults
             break;
         case "6": // velocidad X metros por segundo
-            speed_l= f; time_l= (f==0)?0: d/speed_l; tspeed_l = toFixedT(time_l,1)+" seg";
+            speed_l= f;
+            time_l= (f==0)?0: d/speed_l;
+            tspeed_l = toFixedT(time_l,1)+" seg";
             break;
+        case "7": // tiempo XLarge + xxx
+            if ( tspeed_x != "-" ) {
+                time_l = ( 's' == u )? time_x+f :time_x * ((100.0+f)/100.0);
+                speed_l= (d==0)? 0: d/time_l;
+                tspeed_l= toFixedT(speed_l,2)+" m/s";
+            }
+            break;
+
     }
     $("#dmanga_TRS_L_TimeSpeed").textbox('setValue',tspeed_l);
 
@@ -260,11 +294,22 @@ function dmanga_evalTimeSpeed() {
             break;
         case "3": // tiempo estandard + xxx
             if ( tspeed_l != "-" ) {
-                time_m = ( 's' == u )? time_l+f :time_l * ((100.0+f)/100.0); speed_m= (d==0)? 0: d/time_m; tspeed_m= toFixedT(speed_m,2)+" m/s";
+                time_m = ( 's' == u )? time_l+f :time_l * ((100.0+f)/100.0);
+                speed_m= (d==0)? 0: d/time_m;
+                tspeed_m= toFixedT(speed_m,2)+" m/s";
+            }
+            break;
+        case "7": // tiempo XLarge + xxx
+            if ( tspeed_x != "-" ) {
+                time_m = ( 's' == u )? time_x+f :time_x * ((100.0+f)/100.0);
+                speed_m= (d==0)? 0: d/time_m;
+                tspeed_m= toFixedT(speed_m,2)+" m/s";
             }
             break;
         case "6": // velocidad X metros por segundo
-            speed_m= f; time_m= (f==0)?0: d/speed_m; tspeed_m = toFixedT(time_m,1)+" seg";
+            speed_m= f;
+            time_m= (f==0)?0: d/speed_m;
+            tspeed_m = toFixedT(time_m,1)+" seg";
             break;
     }
     $("#dmanga_TRS_M_TimeSpeed").textbox('setValue',tspeed_m);
@@ -286,16 +331,29 @@ function dmanga_evalTimeSpeed() {
             break;
         case "3": // tiempo estandard + xxx
             if ( tspeed_l != "-" ) {
-                time_s = ( 's' == u )? time_l+f :time_l * ((100.0+f)/100.0); speed_s= (d==0)? 0: d/time_m; tspeed_s= toFixedT(speed_m,2)+" m/s";
+                time_s = ( 's' == u )? time_l+f :time_l * ((100.0+f)/100.0);
+                speed_s= (d==0)? 0: d/time_m;
+                tspeed_s= toFixedT(speed_m,2)+" m/s";
             }
             break;
         case "4": // tiempo medium + xxx
             if (tspeed_m!="-") {
-                time_s = ( 's' == u )? time_m+f :time_m * ((100.0+f)/100.0); speed_s= (d==0)? 0: d/time_s; tspeed_s= toFixedT(speed_s,2)+" m/s";
+                time_s = ( 's' == u )? time_m+f :time_m * ((100.0+f)/100.0);
+                speed_s= (d==0)? 0: d/time_s;
+                tspeed_s= toFixedT(speed_s,2)+" m/s";
+            }
+            break;
+        case "7": // tiempo Xlarge + xxx
+            if (tspeed_x!="-") {
+                time_s = ( 's' == u )? time_x+f :time_x * ((100.0+f)/100.0);
+                speed_s= (d==0)? 0: d/time_s;
+                tspeed_s= toFixedT(speed_s,2)+" m/s";
             }
             break;
         case "6": // velocidad X metros por segundo
-            speed_s= f; time_s= (f==0)?0: d/speed_s; tspeed_s = toFixedT(time_s,1)+" seg";
+            speed_s= f;
+            time_s= (f==0)?0: d/speed_s;
+            tspeed_s = toFixedT(time_s,1)+" seg";
             break;
     }
     $("#dmanga_TRS_S_TimeSpeed").textbox('setValue',tspeed_s);
@@ -319,21 +377,36 @@ function dmanga_evalTimeSpeed() {
             break;
         case "3": // tiempo estandard + xxx
             if ( tspeed_l != "-" ) {
-                time_t = ( 's' == u )? time_l+f :time_l * ((100.0+f)/100.0); speed_t= (d==0)? 0: d/time_t; tspeed_t= toFixedT(speed_t,2)+" m/s";
+                time_t = ( 's' == u )? time_l+f :time_l * ((100.0+f)/100.0);
+                speed_t= (d==0)? 0: d/time_t;
+                tspeed_t= toFixedT(speed_t,2)+" m/s";
             }
             break;
         case "4": // tiempo medium + xxx
             if (tspeed_m!="-") {
-                time_t = ( 's' == u )? time_m+f :time_m * ((100.0+f)/100.0); speed_t= (d==0)? 0: d/time_t; tspeed_t= toFixedT(speed_t,2)+" m/s";
+                time_t = ( 's' == u )? time_m+f :time_m * ((100.0+f)/100.0);
+                speed_t= (d==0)? 0: d/time_t;
+                tspeed_t= toFixedT(speed_t,2)+" m/s";
             }
             break;
         case "5": // tiempo small + xxx
             if (tspeed_s!="-") {
-                time_t = ( 's' == u )? time_s+f :time_s * ((100.0+f)/100.0); speed_t= (d==0)? 0: d/time_t; tspeed_t= toFixedT(speed_t,2)+" m/s";
+                time_t = ( 's' == u )? time_s+f :time_s * ((100.0+f)/100.0);
+                speed_t= (d==0)? 0: d/time_t;
+                tspeed_t= toFixedT(speed_t,2)+" m/s";
+            }
+            break;
+        case "7": // tiempo xlarge + xxx
+            if (tspeed_x!="-") {
+                time_t = ( 's' == u )? time_x+f :time_x * ((100.0+f)/100.0);
+                speed_t= (d==0)? 0: d/time_t;
+                tspeed_t= toFixedT(speed_t,2)+" m/s";
             }
             break;
         case "6": // velocidad X metros por segundo
-            speed_t= f; time_t= (f==0)?0: d/speed_t; tspeed_t = toFixedT(time_t,1)+" seg";
+            speed_t= f;
+            time_t= (f==0)?0: d/speed_t;
+            tspeed_t = toFixedT(time_t,1)+" seg";
             break;
     }
     $("#dmanga_TRS_T_TimeSpeed").textbox('setValue',tspeed_t);
@@ -347,6 +420,7 @@ function dmanga_setRecorridos() {
     function setDistObstBg(dist,obst,cat) {
         //setting css of unexistent element id throws javascript exception
         if ( (cat==="T") && (ac_fedInfo[workingData.federation].Heights==3) ) return;
+        if ( (cat==="X") && (ac_fedInfo[workingData.federation].Heights!=5) ) return;
         $('#dmanga_Dist'+cat).textbox('textbox').css('background',(dist==0)?'#ffcccc':'white');
         $('#dmanga_Obst'+cat).textbox('textbox').css('background',(obst==0)?'#ffcccc':'white');
     }
@@ -361,25 +435,61 @@ function dmanga_setRecorridos() {
         $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid course mode'); ?>', title: 'Error'});
         return false;
     }
-    var data=ac_fedInfo[fed]['InfoManga'][rec];// {object{L,M,S,T} } data
-    var last=data.L;
 
-    // first row (large) allways to be shown
-    var trs_tipo=$('#dmanga_TRS_L_Tipo').combobox('getValue');     //0:fixed 1:best+ 2:mean+ 3:L+ 4:M+ 5:S+ 6:speed
-    var trs_factor=$('#dmanga_TRS_L_Factor').textbox('getValue'); //0:seconds 1:percentage
-    var trm_tipo=$('#dmanga_TRM_L_Tipo').combobox('getValue');     //0:fixed 1:trs+
-    var trm_factor=$('#dmanga_TRM_L_Factor').textbox('getValue'); //0:seconds 1:percentage
-    var dist=$('#dmanga_DistL').textbox('getValue');
-    var obst=$('#dmanga_ObstL').textbox('getValue');
+    // first row (EXtra-Large) allways use own values, but may be not shown
+    var data=ac_fedInfo[fed]['InfoManga'][rec];// {object{L,M,S,T,X} } data
+    var last=data.X;
+
+    // default values
+    var trs_tipo=0;     //0:fixed 1:best+ 2:mean+ 3:L+ 4:M+ 5:S+ 6:speed
+    var trs_factor=0; //0:seconds 1:percentage
+    var trm_tipo=0;     //0:fixed 1:trs+
+    var trm_factor=0; //0:seconds 1:percentage
+    var dist=0;
+    var obst=0;
+    if (data.X!=="") {
+        last=data.X;
+        trs_tipo=$('#dmanga_TRS_X_Tipo').combobox('getValue');     //0:fixed 1:best+ 2:mean+ 3:L+ 4:M+ 5:S+ 6:speed
+        trs_factor=$('#dmanga_TRS_X_Factor').textbox('getValue'); //0:seconds 1:percentage
+        trm_tipo=$('#dmanga_TRM_X_Tipo').combobox('getValue');     //0:fixed 1:trs+
+        trm_factor=$('#dmanga_TRM_X_Factor').textbox('getValue'); //0:seconds 1:percentage
+        dist=$('#dmanga_DistX').textbox('getValue');
+        obst=$('#dmanga_ObstX').textbox('getValue');
+    }
+    // set visibility according federation info
+    $('#dmanga_XLargeRow').css('display',(data.X!=="")?'table-row':'none');
+    $('#dmanga_XLargeLbl').html(last);
+    setDistObstBg(dist,obst,'X');
+
+    // second row ( Large )
+    if (data.L!=="") {
+        // use own data and make it visible
+        last=data.L;
+        dist=$('#dmanga_DistL').textbox('getValue');
+        obst=$('#dmanga_ObstL').textbox('getValue');
+        trs_tipo=$('#dmanga_TRS_L_Tipo').combobox('getValue');
+        trs_factor=$('#dmanga_TRS_L_Factor').textbox('getValue');
+        trm_tipo=$('#dmanga_TRM_L_Tipo').combobox('getValue');
+        trm_factor=$('#dmanga_TRM_L_Factor').textbox('getValue');
+        $('#dmanga_LargeRow').css('display','table-row');
+        $('#dmanga_LargeLbl').html(data.L);
+    } else {
+        // use parent data and hide
+        $('#dmanga_DistL').textbox('setValue',dist);
+        $('#dmanga_ObstL').textbox('setValue',obst);
+        $('#dmanga_LargeRow').css('display','none');
+        $('#dmanga_LargeLbl').html(last);
+        $('#dmanga_TRS_L_Tipo').combobox('setValue',trs_tipo);
+        $('#dmanga_TRS_L_Factor').textbox('setValue',trs_factor);
+        $('#dmanga_TRM_L_Tipo').combobox('setValue',trm_tipo);
+        $('#dmanga_TRM_L_Factor').textbox('setValue',trm_factor);
+    }
     setDistObstBg(dist,obst,'L');
-    $('#dmanga_LargeRow').css('display','table-row');
-    $('#dmanga_LargeLbl').html(data.L);
 
-    // second row ( medium )
+    // third row ( medium )
     if (data.M!=="") {
         // use own data and make it visible
-        tipo=4;
-        last=data.L;
+        last=data.M;
         dist=$('#dmanga_DistM').textbox('getValue');
         obst=$('#dmanga_ObstM').textbox('getValue');
         trs_tipo=$('#dmanga_TRS_M_Tipo').combobox('getValue');
@@ -401,10 +511,9 @@ function dmanga_setRecorridos() {
     }
     setDistObstBg(dist,obst,'M');
 
-    // third row (small )
+    // fourth row (small )
     if (data.S!=="") {
         // use own data and make it visible
-        tipo=5;
         last=data.S;
         dist=$('#dmanga_DistS').textbox('getValue');
         obst=$('#dmanga_ObstS').textbox('getValue');
@@ -427,7 +536,7 @@ function dmanga_setRecorridos() {
     }
     setDistObstBg(dist,obst,'S');
 
-    // fourth row (tiny )
+    // fifth row (tiny )
     if (data.T!=="") {
         // use own data and make it visible
         last=data.T;
@@ -523,11 +632,12 @@ function save_manga(id) {
 
     var missing=false;
     var rec=$("input:radio[name=Recorrido]:checked").val();
-    var data=ac_fedInfo[workingData.federation]['InfoManga'][rec];// {object{L,M,S,T} } data
+    var data=ac_fedInfo[workingData.federation]['InfoManga'][rec];// {object{L,M,S,T,X} } data
     $('#dmanga_Operation').val('update');
     $('#dmanga_Jornada').val(workingData.jornada);
     $('#dmanga_Manga').val(id);
 
+    if (data['X']!=='') check_dmanga('X');
     if (data['L']!=='') check_dmanga('L');
     if (data['M']!=='') check_dmanga('M');
     if (data['S']!=='') check_dmanga('S');
@@ -1080,6 +1190,7 @@ function setupResultadosWindow(recorrido) {
 	if (workingData.manga==0) return;
     if (typeof (ac_fedInfo[fed])==="undefined") return;
     // marcamos los botones de seleccion de categoria como desconectados
+    $('#resultadosmanga-XLargeBtn').prop('checked',false);
     $('#resultadosmanga-LargeBtn').prop('checked',false);
     $('#resultadosmanga-MediumBtn').prop('checked',false);
     $('#resultadosmanga-SmallBtn').prop('checked',false);
@@ -1090,11 +1201,13 @@ function setupResultadosWindow(recorrido) {
     // actualizamos la informacion del panel de informacion de trs/trm
     var infomanga=ac_fedInfo[fed].InfoManga[parseInt(recorrido)];
     // visibilidad
+    $('#resultadosmanga-XLargeRow').css('display',(infomanga['X']==="")?'none':'table-row');
     $('#resultadosmanga-LargeRow').css('display',(infomanga['L']==="")?'none':'table-row');
     $('#resultadosmanga-MediumRow').css('display',(infomanga['M']==="")?'none':'table-row');
     $('#resultadosmanga-SmallRow').css('display',(infomanga['S']==="")?'none':'table-row');
     $('#resultadosmanga-TinyRow').css('display',(infomanga['T']==="")?'none':'table-row');
     // textos
+    $('#resultadosmanga-XLargeLbl').html(infomanga['X']);
     $('#resultadosmanga-LargeLbl').html(infomanga['L']);
     $('#resultadosmanga-MediumLbl').html(infomanga['M']);
     $('#resultadosmanga-SmallLbl').html(infomanga['S']);
@@ -1367,10 +1480,11 @@ function competicionDialog(name) {
         // marcamos la primera opcion como seleccionada
         $('#resultadosmanga-LargeBtn').prop('checked','checked');
         // refrescamos datos de TRS y TRM
-        if (howManyHeights(workingData.datosPrueba.RSCE)==4) consoleReloadParcial(3,false);
-        consoleReloadParcial(2,false);
-        consoleReloadParcial(1,false);
-        consoleReloadParcial(0,true); // pintamos el datagrid con los datos de categoria "large"
+        if (howManyHeights(workingData.datosPrueba.RSCE)==5) consoleReloadParcial(4,false); // X
+        if (howManyHeights(workingData.datosPrueba.RSCE)>3) consoleReloadParcial(3,false); // T
+        consoleReloadParcial(2,false); // S
+        consoleReloadParcial(1,false); // M
+        consoleReloadParcial(0,true); // L pintamos el datagrid con los datos de categoria "large"
     }
 }
 
@@ -1492,7 +1606,7 @@ function resultados_doSelectRonda(row) {
     var rondas=[];
     var last=-1;
     var count=0;
-    for (var n=0; n<4; n++) {
+    for (var n=0; n<5; n++) { // L M S T X
         var mode=fedinfo.Modes[rec][n];
         if (mode < 0) continue;
         if (mode==last) continue;
@@ -1506,6 +1620,7 @@ function resultados_doSelectRonda(row) {
         if (row['Manga'+nmanga]<=0) {
             // la manga no existe: oculta informacion de dicha manga
             $('#datos_manga'+nmanga+'-InfoRow').css('display','none');
+            $('#datos_manga'+nmanga+'-XLargeRow').css('display','none');
             $('#datos_manga'+nmanga+'-LargeRow').css('display','none');
             $('#datos_manga'+nmanga+'-MediumRow').css('display','none');
             $('#datos_manga'+nmanga+'-SmallRow').css('display','none');
@@ -1514,6 +1629,7 @@ function resultados_doSelectRonda(row) {
         } else {
             // la manga existe: ajusta visibilidad de dicha manga
             $('#datos_manga'+nmanga+'-InfoRow').css('display','table-row');
+            $('#datos_manga'+nmanga+'-XLargeRow').css('display',(infomanga['X']==="")?'none':'table-row');
             $('#datos_manga'+nmanga+'-LargeRow').css('display',(infomanga['L']==="")?'none':'table-row');
             $('#datos_manga'+nmanga+'-MediumRow').css('display',(infomanga['M']==="")?'none':'table-row');
             $('#datos_manga'+nmanga+'-SmallRow').css('display',(infomanga['S']==="")?'none':'table-row');
@@ -1524,10 +1640,11 @@ function resultados_doSelectRonda(row) {
             $('#dm'+nmanga+'_Juez2').textbox('setValue',row['Juez'+nmanga+'2']);
             // datos evaluados de TRS y TRM de segunda manga
             // si fedinfo.Modes[rec][i] resultados_fillForm no hace nada
-            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][0]);
-            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][1]);
-            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][2]);
-            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][3]);
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][0]); // L
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][1]); // M
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][2]); // S
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][3]); // T
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][4]); // X
         }
     }
 

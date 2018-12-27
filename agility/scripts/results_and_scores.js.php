@@ -366,8 +366,8 @@ function showPartialScoresByTeam(parent,idx,row) {
 /**
  * Actualizacion de resultados parciales en consola
  * Actualiza los datos de TRS y TRM de la fila especificada
- * Si se le indica, rellena tambien el datagrid re resultados parciales
- * @param {int} val 0:L 1:M 2:S 3:T
+ * Si se le indica, rellena tambien el datagrid de resultados parciales
+ * @param {int} val 0:L 1:M 2:S 3:T 4:X
  * @param {boolean} fill true to fill resultados datagrid; else false
  */
 function consoleReloadParcial(val,fill) {
@@ -395,10 +395,11 @@ function consoleReloadParcial(val,fill) {
             // update TRS data
             var suffix='L';
             switch (mode) {
-                case 0: case 4: case 6: case 8: suffix='L'; break;
-                case 1: case 3: suffix='M'; break;
-                case 2: case 7: suffix='S'; break;
-                case 5: suffix='T'; break;
+                case 0: case 4: case 6: case 8: suffix='L'; break; // L LMS LMST
+                case 1: case 3: case 11: suffix='M'; break; // M MS MST
+                case 2: case 7: suffix='S'; break; // S ST
+                case 5: suffix='T'; break; // T
+                case 9: case 10: case 12: suffix='X'; break; // X XL XLMST
             }
             $('#rm_DIST_'+suffix).textbox('setValue',dat['trs'].dist);
             $('#rm_DIST_'+suffix).textbox('textbox').css('background',(dat['trs'].dist==0)?'#ffcccc':'white');

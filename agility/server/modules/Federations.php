@@ -93,22 +93,26 @@ class Federations {
                 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(
-                array('L' => 'Large', 'M' => 'Medium', 'S' => 'Small', 'T' => 'Tiny'), // separate courses
-                array('L' => 'Large+Medium', 'M' => '', 'S' => 'Small+Tiny', 'T' => ''), // mixed courses
-                array('L' => 'Common course', 'M' => '', 'S' => '', 'T' => '') // common
+                array('L' => 'Large', 'M' => 'Medium', 'S' => 'Small', 'T' => 'Tiny', 'X' => ''), // separate courses
+                array('L' => 'Large+Medium', 'M' => '', 'S' => 'Small+Tiny', 'T' => '', 'X' => ''), // 2 group courses
+                array('L' => 'Common course', 'M' => '', 'S' => '', 'T' => '', 'X' => ''), // common
+                array('L' => '', 'M' => 'Medium', 'S' => 'Small+Tiny', 'T' => '', 'X' => 'XL+Large') //3 group courses ( 5 heights )
             ),
             'Modes' => array(
-                array(/* separado */ 0, 1, 2, -1),
-                array(/* mixto */    0, 3, 3, -1),
-                array(/* conjunto */ 4, 4, 4, -1)
+                array(/* separado */ 0, 1, 2, -1, -1),
+                array(/* 2 grupos */ 0, 3, 3, -1, -1),
+                array(/* conjunto */ 4, 4, 4, -1, -1),
+                array(/* 3 grupos */-1,-1,-1, -1, -1),
             ),
             'ModeStrings' => array( // text to be shown on each category
                 array(/* separado */
-                    "Large", "Medium", "Small", "Invalid"),
-                array(/* mixto */
-                    "Large", "Medium+Small", "Medium+Small", "Invalid"),
+                    "Large", "Medium", "Small", "Invalid","Invalid"),
+                array(/* 2 grupos */
+                    "Large", "Medium+Small", "Medium+Small", "Invalid","Invalid"),
                 array(/* conjunto */
-                    "Common course", "Common course", "Common course", "Invalid")
+                    "Common course", "Common course", "Common course", "Invalid","Invalid"),
+                array(/* 3 grupos */
+                    "Invalid", "Medium", "Medium+Small", "Invalid","XL+Large"),
             ),
             'IndexedModes' => array(
                 "Large", "Medium", "Small", "Medium+Small", "Common L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T",

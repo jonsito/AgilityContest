@@ -17,7 +17,7 @@ class NAT5 extends Federations {
             'ParentWebURL' => 'http://www.agilitycontest.com/index.html',
             'Email' => '',
             'Heights' => 5,
-            'Grades' => 2,
+            'Grades' => 3,
             'Games' => 0,
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
